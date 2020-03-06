@@ -2,88 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08FA417BD7F
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Mar 2020 14:03:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52D0817BDE3
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Mar 2020 14:14:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8DD4215E5;
-	Fri,  6 Mar 2020 14:03:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DD4215E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF27D847;
+	Fri,  6 Mar 2020 14:13:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF27D847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583499833;
-	bh=8K5ZcukzeZNwTnekrmDzD1sny+S7qGyqpQLkIgaDlVI=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=dc25SHEvY+S4yUwoMQZv/iYBN56iZB+Tm+GE2UkzeXmzVGGRUYHiF8G6YstiSWFOE
-	 KCcd3PmMl6uPzhledbnSVD1HGbUGOD2jai5lko+WJHqFavSbwRCD7qt88OdESJ1XDE
-	 Df2+foTXaCgFcYgVS5es0PDKzuevTJ7DcsCqrIYA=
+	s=default; t=1583500450;
+	bh=10+fp27zx5x8gzvQjl3gWJvMtgiWIkAAXz+voV5b37s=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ERBm3Z7Z6i0UeV+wYnnEqwA/Fqm5N5vzkZxUwl3EkloNWuaVfSx6ZSUNyApmLnU5W
+	 ohrR9b5aSELznO7VSXkcImgemAOfyIvicGGBDc6U+8PRrajEFHCDyGtSM5E9s8+0nF
+	 XKlP929DvOrbaSm9VujnYJFwWem275xt4l3KrcRk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 81525F801F5;
-	Fri,  6 Mar 2020 14:02:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E18F9F8012D;
+	Fri,  6 Mar 2020 14:12:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5C00AF801ED; Fri,  6 Mar 2020 14:02:09 +0100 (CET)
+ id 4B0D7F801ED; Fri,  6 Mar 2020 14:12:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D8FB0F8012D
- for <alsa-devel@alsa-project.org>; Fri,  6 Mar 2020 14:02:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8FB0F8012D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="vHwDKD8W"
-Received: by mail-wm1-x342.google.com with SMTP id a132so2325403wme.1
- for <alsa-devel@alsa-project.org>; Fri, 06 Mar 2020 05:02:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=pUTUKe1ETsrKt03/K8XFrOHiuViiNejQfkx377kvHWs=;
- b=vHwDKD8WnVD4XGaGQWK1nRjEz3HT5MOG0IwqkPkUYSKJ3zNOik7vRThpI8QHYziLGM
- Y+vvyU5kcAjcJa5kMOyPCOTyH0ILFVZNJrb1w7Gbm7Ezvj9C+8X3PW/9Pn9shjowUfBU
- upHnpztrOipG2J3TgYnIfhi+9izI3Ss1XD+RskCSPuCIsLXV02X7ENKkmyJIBQfsj2MM
- QIS8I2i1HteFYou44w6VUzs6Hv9VGFz0lwoFJJPx6uPSoSI8Hk5416hkSHhuAQ0pvTHo
- ouAX++E6x74XgASA1tBqutLnxD9Tba3j2VDqQNF7sTtwePututbASVPiVkKzERIvU6L1
- Qbqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=pUTUKe1ETsrKt03/K8XFrOHiuViiNejQfkx377kvHWs=;
- b=Fjy8SikwIQXgvq71FOT/RwBUS8RmfIk0hgyLvtbgnqz8p+M147VDyuKC6nTOHDeu3j
- qNjbW4OIYcrY7NxqAGRiZBk70Gj8fc08dEUKxImm040R/qvLE6q4lRMhW7/8/3syRgWF
- 2PY4E/Ng1GSfgv9JxxI0voij0qTjU2PgaLEMwmEMTLzSOzg5T2M1lTls6ev4WZrW6qdE
- kYbvW5xJCrC9Kpx93CGIAPWCZDFLrohOwhjhRlgUkSn59yXgEi+ru8gkMfe2NNzaLA7P
- rZMx8K0ZBmANNfhufhkJ5+9HRezjkW9vGRKV902wjOOU4V3ccbnYSBkQo7cWNYcWjXs1
- hvOg==
-X-Gm-Message-State: ANhLgQ3tjq+3vQWx0y6R9NpeTcSw9RR43Z9FKG60VdwsSKK412GkI0/X
- 6m4031LteZK3UpHTP2OlW8/WSg==
-X-Google-Smtp-Source: ADFU+vuqmeh78SXaWsiXYy8hXlNrfLgWnmSHgXkI8A59hRejEmU+31cdoU6sL3oIm2qw7aI5XIZ2yA==
-X-Received: by 2002:a1c:41c3:: with SMTP id o186mr3876274wma.27.1583499721445; 
- Fri, 06 Mar 2020 05:02:01 -0800 (PST)
-Received: from srini-hackbox.lan
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.gmail.com with ESMTPSA id b5sm3128324wrn.22.2020.03.06.05.01.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Mar 2020 05:01:59 -0800 (PST)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org
-Subject: [PATCH] ASoC: qcom: lpass-cpu: support full duplex operation
-Date: Fri,  6 Mar 2020 13:01:47 +0000
-Message-Id: <20200306130147.27452-1-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 972B2F8012D
+ for <alsa-devel@alsa-project.org>; Fri,  6 Mar 2020 14:12:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 972B2F8012D
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4A6D131B;
+ Fri,  6 Mar 2020 05:12:16 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C28593F6CF;
+ Fri,  6 Mar 2020 05:12:15 -0800 (PST)
+Date: Fri, 6 Mar 2020 13:12:14 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [RFC PATCH 2/3] ASoC: Intel: bdw-rt5677: fix module load/unload
+ issues
+Message-ID: <20200306131214.GB4114@sirena.org.uk>
+References: <20200305130616.28658-3-pierre-louis.bossart@linux.intel.com>
+ <20200305133638.GE4046@sirena.org.uk>
+ <13857c7b-f7d2-9be2-c1e1-a577a774773e@linux.intel.com>
+ <20200305135908.GF4046@sirena.org.uk>
+ <c1419cb1-c1d6-897d-05a4-48e57a3e15db@linux.intel.com>
+ <20200305174324.GH4046@sirena.org.uk>
+ <7c52ff6f-76ef-7c55-65e6-9c0437bb983a@linux.intel.com>
+ <20200305183335.GK4046@sirena.org.uk>
+ <20200305191059.GL4046@sirena.org.uk>
+ <865dfd0f-38e1-2f27-5fd1-d6bcbd6d30a8@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- alsa-devel@alsa-project.org, Takahide Higuchi <takahidehiguchi@gmail.com>,
- linux-kernel@vger.kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="VrqPEDrXMn8OVzN4"
+Content-Disposition: inline
+In-Reply-To: <865dfd0f-38e1-2f27-5fd1-d6bcbd6d30a8@linux.intel.com>
+X-Cookie: fortune: No such file or directory
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,120 +81,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Takahide Higuchi <takahidehiguchi@gmail.com>
 
-This patch fixes a bug where playback on bidirectional I2S interface stops
-when we start recording on the same interface.
+--VrqPEDrXMn8OVzN4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-We use regmap_update_bits instead of regmap_write so that we will not clear
-SPKEN and SPKMODE bits when we start/stop recording.
+On Thu, Mar 05, 2020 at 03:48:42PM -0600, Pierre-Louis Bossart wrote:
 
-Signed-off-by: Takahide Higuchi <takahidehiguchi@gmail.com>
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- sound/soc/qcom/lpass-apq8016.c   |  2 ++
- sound/soc/qcom/lpass-cpu.c       | 24 ++++++++++++++++++------
- sound/soc/qcom/lpass-lpaif-reg.h |  2 +-
- 3 files changed, 21 insertions(+), 7 deletions(-)
+> I don't know how to move all the gpio handling in the codec driver, since
+> there are platform-dependent ACPI mappings.
 
-diff --git a/sound/soc/qcom/lpass-apq8016.c b/sound/soc/qcom/lpass-apq8016.c
-index 6575da549237..85079c697faa 100644
---- a/sound/soc/qcom/lpass-apq8016.c
-+++ b/sound/soc/qcom/lpass-apq8016.c
-@@ -121,6 +121,8 @@ static struct snd_soc_dai_driver apq8016_lpass_cpu_dai_driver[] = {
- 		},
- 		.probe	= &asoc_qcom_lpass_cpu_dai_probe,
- 		.ops    = &asoc_qcom_lpass_cpu_dai_ops,
-+		.symmetric_samplebits   = 1,
-+		.symmetric_rates        = 1,
- 	},
- };
- 
-diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-index dbce7e92baf3..dc8acb380b6f 100644
---- a/sound/soc/qcom/lpass-cpu.c
-+++ b/sound/soc/qcom/lpass-cpu.c
-@@ -72,6 +72,7 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
- 	snd_pcm_format_t format = params_format(params);
- 	unsigned int channels = params_channels(params);
- 	unsigned int rate = params_rate(params);
-+	unsigned int mask;
- 	unsigned int regval;
- 	int bitwidth, ret;
- 
-@@ -81,6 +82,9 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
- 		return bitwidth;
- 	}
- 
-+	mask   = LPAIF_I2SCTL_LOOPBACK_MASK |
-+			LPAIF_I2SCTL_WSSRC_MASK |
-+			LPAIF_I2SCTL_BITWIDTH_MASK;
- 	regval = LPAIF_I2SCTL_LOOPBACK_DISABLE |
- 			LPAIF_I2SCTL_WSSRC_INTERNAL;
- 
-@@ -100,6 +104,7 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
- 	}
- 
- 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+		mask   |= LPAIF_I2SCTL_SPKMODE_MASK | LPAIF_I2SCTL_SPKMONO_MASK;
- 		switch (channels) {
- 		case 1:
- 			regval |= LPAIF_I2SCTL_SPKMODE_SD0;
-@@ -127,6 +132,7 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
- 			return -EINVAL;
- 		}
- 	} else {
-+		mask   |= LPAIF_I2SCTL_MICMODE_MASK | LPAIF_I2SCTL_MICMONO_MASK;
- 		switch (channels) {
- 		case 1:
- 			regval |= LPAIF_I2SCTL_MICMODE_SD0;
-@@ -155,9 +161,9 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
- 		}
- 	}
- 
--	ret = regmap_write(drvdata->lpaif_map,
--			   LPAIF_I2SCTL_REG(drvdata->variant, dai->driver->id),
--			   regval);
-+	ret = regmap_update_bits(drvdata->lpaif_map,
-+			 LPAIF_I2SCTL_REG(drvdata->variant, dai->driver->id),
-+			 mask, regval);
- 	if (ret) {
- 		dev_err(dai->dev, "error writing to i2sctl reg: %d\n", ret);
- 		return ret;
-@@ -178,11 +184,17 @@ static int lpass_cpu_daiops_hw_free(struct snd_pcm_substream *substream,
- 		struct snd_soc_dai *dai)
- {
- 	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
-+	unsigned int mask;
- 	int ret;
- 
--	ret = regmap_write(drvdata->lpaif_map,
--			   LPAIF_I2SCTL_REG(drvdata->variant, dai->driver->id),
--			   0);
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		mask   = LPAIF_I2SCTL_SPKMODE_MASK;
-+	else
-+		mask   = LPAIF_I2SCTL_MICMODE_MASK;
-+
-+	ret = regmap_update_bits(drvdata->lpaif_map,
-+			 LPAIF_I2SCTL_REG(drvdata->variant, dai->driver->id),
-+			 mask, 0);
- 	if (ret)
- 		dev_err(dai->dev, "error writing to i2sctl reg: %d\n", ret);
- 
-diff --git a/sound/soc/qcom/lpass-lpaif-reg.h b/sound/soc/qcom/lpass-lpaif-reg.h
-index 3d74ae123e9d..7a2b9cf99976 100644
---- a/sound/soc/qcom/lpass-lpaif-reg.h
-+++ b/sound/soc/qcom/lpass-lpaif-reg.h
-@@ -56,7 +56,7 @@
- #define LPAIF_I2SCTL_MICMODE_6CH	(7 << LPAIF_I2SCTL_MICMODE_SHIFT)
- #define LPAIF_I2SCTL_MICMODE_8CH	(8 << LPAIF_I2SCTL_MICMODE_SHIFT)
- 
--#define LPAIF_I2SCTL_MIMONO_MASK	GENMASK(3, 3)
-+#define LPAIF_I2SCTL_MICMONO_MASK	GENMASK(3, 3)
- #define LPAIF_I2SCTL_MICMONO_SHIFT	3
- #define LPAIF_I2SCTL_MICMONO_STEREO	(0 << LPAIF_I2SCTL_MICMONO_SHIFT)
- #define LPAIF_I2SCTL_MICMONO_MONO	(1 << LPAIF_I2SCTL_MICMONO_SHIFT)
--- 
-2.21.0
+The idiomatic thing for ACPI is to have a DMI table in the driver that
+selects the behaviour needed on a given system.
 
+> I also tested a different solution (attached) based on your input where the
+> gpiod handing is performed in the machine driver probe, after the card
+> registration, and the gpiod_put() called from remove. This is simple enough
+> but there might be some issues left with the jack/input handling - not sure
+> why the logs for jacks are missing.
+
+> Does this clarify the issue and options?
+
+I think I preferred the original version - this does mechanically move
+things to the device model probe but not really in an idiomatic fashion
+(we're still requesting a GPIO for the CODEC from the machine driver) so
+I'm not sure it really helps.  The changelog is definitely a lot better
+though.
+
+--VrqPEDrXMn8OVzN4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5iTC0ACgkQJNaLcl1U
+h9Ca/wf/QORVfavfY/RxEiB9C4vD6sBRXY7+lgo6f/SvAXTxYnj+r278oQbSi4US
+qL1sN+mOfXRzxaG2Cjv8rXkuoArcvbAcjDoplsvmUA8Eq6RgQ+TZ4tnRhYekfIhu
+Mt5IEOgdsrbM3b7jggovN9gtiimlpF1QRXou4JNYy9Ps/Ao9d48zYJWFIH9yopob
+3OkNm4de91jVvg5Vmx6YG4SSyS2Ds8YRxSKoZwJoX9LiuW/l7OnKk8H1h0SjoAuT
+wlnJL8Ms1AfkEEdzikeyg5vGRuAyAuPI2Pu66yZSpRLhzizIrFuJ6L9EqKtkPH0a
+APgr+hWj1kW3hZYbqZJDWDNErqXoMw==
+=eInb
+-----END PGP SIGNATURE-----
+
+--VrqPEDrXMn8OVzN4--

@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C2BB17B391
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Mar 2020 02:11:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9A0717B392
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Mar 2020 02:12:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 661FE1668;
-	Fri,  6 Mar 2020 02:10:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 661FE1668
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E82A1661;
+	Fri,  6 Mar 2020 02:11:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E82A1661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583457109;
-	bh=5HHdm9XKZH5sb2VniKbvL+7WrA51ANKffYL/HZ8Wlso=;
+	s=default; t=1583457128;
+	bh=eXKdFZqw6VO/Sv3XyvjVCafaJPcZZDEjrKd1QCbN9dg=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ve41JVVINvSD4YBtnk8Bj090gD89IfpzZN65XU60+GmzDTCalxzWBLhlGFXVbKM57
-	 sWgPRifRoV41Sz1GQlF4dvsgZWVzQ7GH45L4AFDjBv1hY7452WIdKy1EIHUtCXCDUG
-	 PQUD98CQKBxKRq2U18xPmE3gTRGH9JWA4vrwpI24=
+	b=r4NOVRmn5vdtYngkRJS2AYTCLB447QYcKXXmAwUPedscaH8+ffKxYlW5e7R0WMH1W
+	 SaStrY/jT/ugqBUcvdFWMd1BZ37tn3vu0CaeyysJ0i5LjVYAiO245R++C8GOo9SlNu
+	 cZCZa2xTAJ+VlSi4og8L46gbUAwxmG0UvkVHM5Ok=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CDB07F80266;
-	Fri,  6 Mar 2020 02:09:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF840F8028D;
+	Fri,  6 Mar 2020 02:09:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E87DBF80279; Fri,  6 Mar 2020 02:09:52 +0100 (CET)
+ id 888ECF80126; Fri,  6 Mar 2020 02:09:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 81DBFF80266
- for <alsa-devel@alsa-project.org>; Fri,  6 Mar 2020 02:09:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81DBFF80266
-Date: 06 Mar 2020 10:09:44 +0900
-X-IronPort-AV: E=Sophos;i="5.70,520,1574089200"; d="scan'208";a="40908111"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 06 Mar 2020 10:09:44 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 3B9E2F80126
+ for <alsa-devel@alsa-project.org>; Fri,  6 Mar 2020 02:09:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B9E2F80126
+Date: 06 Mar 2020 10:09:49 +0900
+X-IronPort-AV: E=Sophos;i="5.70,520,1574089200"; d="scan'208";a="40908122"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 06 Mar 2020 10:09:49 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id D3BA9400C4CC;
- Fri,  6 Mar 2020 10:09:44 +0900 (JST)
-Message-ID: <87pndqp9uv.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id CC9B74118560;
+ Fri,  6 Mar 2020 10:09:49 +0900 (JST)
+Message-ID: <87o8tap9uq.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 resend 1/6] ASoC: soc-pcm: move dpcm_fe_dai_close()
+Subject: [PATCH v2 resend 2/6] ASoC: soc-pcm: add dpcm_fe_dai_cleanup()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87r1y6p9vt.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,74 +70,83 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-move dpcm_fe_dai_close() next to dpcm_fe_dai_open().
-This is prepare for dpcm_fe_dai_open() cleanup
+dpcm_fe_dai_close() and error case of dpcm_fe_dai_open()
+need to do same cleanup operation.
+To avoid duplicate code, this patch adds dpcm_fe_dai_cleanup()
+and use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/soc-pcm.c | 40 ++++++++++++++++++++--------------------
- 1 file changed, 20 insertions(+), 20 deletions(-)
+ sound/soc/soc-pcm.c | 30 ++++++++++++++++--------------
+ 1 file changed, 16 insertions(+), 14 deletions(-)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index e3a2c4f7757b..3686dda097e2 100644
+index 3686dda097e2..b405fb3a181b 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -2978,6 +2978,26 @@ int soc_dpcm_runtime_update(struct snd_soc_card *card)
- 	return ret;
- }
- 
-+static int dpcm_fe_dai_close(struct snd_pcm_substream *fe_substream)
-+{
-+	struct snd_soc_pcm_runtime *fe = fe_substream->private_data;
-+	struct snd_soc_dpcm *dpcm;
-+	int stream = fe_substream->stream, ret;
-+
-+	mutex_lock_nested(&fe->card->mutex, SND_SOC_CARD_CLASS_RUNTIME);
-+	ret = dpcm_fe_dai_shutdown(fe_substream);
-+
-+	/* mark FE's links ready to prune */
-+	for_each_dpcm_be(fe, stream, dpcm)
-+		dpcm->state = SND_SOC_DPCM_LINK_STATE_FREE;
-+
-+	dpcm_be_disconnect(fe, stream);
-+
-+	fe->dpcm[stream].runtime = NULL;
-+	mutex_unlock(&fe->card->mutex);
-+	return ret;
-+}
-+
- static int dpcm_fe_dai_open(struct snd_pcm_substream *fe_substream)
- {
- 	struct snd_soc_pcm_runtime *fe = fe_substream->private_data;
-@@ -3017,26 +3037,6 @@ static int dpcm_fe_dai_open(struct snd_pcm_substream *fe_substream)
+@@ -2978,14 +2978,11 @@ int soc_dpcm_runtime_update(struct snd_soc_card *card)
  	return ret;
  }
  
 -static int dpcm_fe_dai_close(struct snd_pcm_substream *fe_substream)
--{
--	struct snd_soc_pcm_runtime *fe = fe_substream->private_data;
--	struct snd_soc_dpcm *dpcm;
++static void dpcm_fe_dai_cleanup(struct snd_pcm_substream *fe_substream)
+ {
+ 	struct snd_soc_pcm_runtime *fe = fe_substream->private_data;
+ 	struct snd_soc_dpcm *dpcm;
 -	int stream = fe_substream->stream, ret;
 -
 -	mutex_lock_nested(&fe->card->mutex, SND_SOC_CARD_CLASS_RUNTIME);
 -	ret = dpcm_fe_dai_shutdown(fe_substream);
--
--	/* mark FE's links ready to prune */
--	for_each_dpcm_be(fe, stream, dpcm)
--		dpcm->state = SND_SOC_DPCM_LINK_STATE_FREE;
--
--	dpcm_be_disconnect(fe, stream);
--
--	fe->dpcm[stream].runtime = NULL;
--	mutex_unlock(&fe->card->mutex);
--	return ret;
--}
--
- /* create a new pcm */
- int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
++	int stream = fe_substream->stream;
+ 
+ 	/* mark FE's links ready to prune */
+ 	for_each_dpcm_be(fe, stream, dpcm)
+@@ -2994,6 +2991,18 @@ static int dpcm_fe_dai_close(struct snd_pcm_substream *fe_substream)
+ 	dpcm_be_disconnect(fe, stream);
+ 
+ 	fe->dpcm[stream].runtime = NULL;
++}
++
++static int dpcm_fe_dai_close(struct snd_pcm_substream *fe_substream)
++{
++	struct snd_soc_pcm_runtime *fe = fe_substream->private_data;
++	int ret;
++
++	mutex_lock_nested(&fe->card->mutex, SND_SOC_CARD_CLASS_RUNTIME);
++	ret = dpcm_fe_dai_shutdown(fe_substream);
++
++	dpcm_fe_dai_cleanup(fe_substream);
++
+ 	mutex_unlock(&fe->card->mutex);
+ 	return ret;
+ }
+@@ -3001,7 +3010,6 @@ static int dpcm_fe_dai_close(struct snd_pcm_substream *fe_substream)
+ static int dpcm_fe_dai_open(struct snd_pcm_substream *fe_substream)
  {
+ 	struct snd_soc_pcm_runtime *fe = fe_substream->private_data;
+-	struct snd_soc_dpcm *dpcm;
+ 	struct snd_soc_dapm_widget_list *list;
+ 	int ret;
+ 	int stream = fe_substream->stream;
+@@ -3021,14 +3029,8 @@ static int dpcm_fe_dai_open(struct snd_pcm_substream *fe_substream)
+ 	dpcm_process_paths(fe, stream, &list, 1);
+ 
+ 	ret = dpcm_fe_dai_startup(fe_substream);
+-	if (ret < 0) {
+-		/* clean up all links */
+-		for_each_dpcm_be(fe, stream, dpcm)
+-			dpcm->state = SND_SOC_DPCM_LINK_STATE_FREE;
+-
+-		dpcm_be_disconnect(fe, stream);
+-		fe->dpcm[stream].runtime = NULL;
+-	}
++	if (ret < 0)
++		dpcm_fe_dai_cleanup(fe_substream);
+ 
+ 	dpcm_clear_pending_state(fe, stream);
+ 	dpcm_path_put(&list);
 -- 
 2.17.1
 

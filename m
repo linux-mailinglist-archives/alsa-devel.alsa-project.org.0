@@ -2,78 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29C8A17DAFF
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Mar 2020 09:35:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C29717DCD5
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Mar 2020 10:59:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BF4D2166B;
-	Mon,  9 Mar 2020 09:34:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF4D2166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D08A7166B;
+	Mon,  9 Mar 2020 10:59:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D08A7166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583742944;
-	bh=dbXO+ej4Uhcd1JHgUFGVT17fk5aQPjb0VWs/V970WZU=;
-	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=oKpPCpsQ1id3yo2G/q9Iy1pZOEVrZ+vPF3UVdj3uLTTVKmrQBKvjTf614xNK+tnBI
-	 FxrCHo8tDkJfEyTuxnn9Nke90x8v6S/TzvCOWDGSZHP3euxN1qxq12OtdvjZOpFUvt
-	 TNEVr6hZZq+CypomFpuEIXbw0OdgOaMp0hr//Xts=
+	s=default; t=1583747998;
+	bh=5ruEOSPM//MwNb3Gl9QsRnRfckN29+CXwtqFZG9e9rA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=rQUxmeRJ3QhU7ugpQZdPWItz9bYiZBH3GUVzq8TqdovY/LPyXvo69bmedYeZ9qdPW
+	 gvj8JGNc8iFzzKuxxs4MlcuGsDAdeLlMVATdACYkVFb+kwLHsIWRIhCKGt3OlX2yKK
+	 yZ1N5AJpfDdaA8u0mGkzXbvvVv/P7RNa1lA6S8rM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B5ECF800B5;
-	Mon,  9 Mar 2020 09:34:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C662AF801F7;
+	Mon,  9 Mar 2020 10:58:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C2707F801EB; Mon,  9 Mar 2020 09:34:00 +0100 (CET)
+ id 560B0F801EB; Mon,  9 Mar 2020 10:58:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_DNSWL_BLOCKED, SPF_HELO_NONE, SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
- [IPv6:2607:f8b0:4864:20::1032])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E40AF800B5
- for <alsa-devel@alsa-project.org>; Mon,  9 Mar 2020 09:33:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E40AF800B5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=systemsoft-no.20150623.gappssmtp.com
- header.i=@systemsoft-no.20150623.gappssmtp.com header.b="cf+UX23g"
-Received: by mail-pj1-x1032.google.com with SMTP id 39so749258pjo.1
- for <alsa-devel@alsa-project.org>; Mon, 09 Mar 2020 01:33:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=systemsoft-no.20150623.gappssmtp.com; s=20150623;
- h=mime-version:from:date:message-id:subject:to;
- bh=U7K52r4w2xw4v6LDAjiaHbnqnXKh4Tb/rVOUgxRU2p8=;
- b=cf+UX23gYYP+v4kP1KZU0zjovFoZqe7uVUGUfl1oA/P8tmFC0bCKS4y3tOn/iLC87J
- 3GEv2n23VwSMYB4pT6Fp2reaUP2s2CPSvT99FmhGUq2KneFe+KROeVgAqI5lj7fcRnS0
- pY6MZZ8GS5x6/mbCJ8b1l9PVm0JIgnoWfqUeOdAAJ6L5sclrhZ4/sotw3fhOuZC61zxT
- xEgnEQF9SwdHXiK7znsGJrKj5pqLGgMQHNRPY38zcPHmfTOYuW6YvwMfqpq2t8ScdGea
- UoMTtHLNHhezHWxhYRks7hYh+nN09upaEZh7Bg24P9hNUq7dvGBMSVG9JQ4ZOG3cWuMn
- GmNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=U7K52r4w2xw4v6LDAjiaHbnqnXKh4Tb/rVOUgxRU2p8=;
- b=VcB2CWj/G5CwrPTKCWEppXvIqMb4YYo1Ijtchs8XucJUXj81eucDl1Sx9Prk80vJoJ
- tBKPIenEhKBYWKvAOwZ31ewR4u8/DuUV2xerb0cKz60/+y6PXJIOelbnSWIg58kEYRlO
- Ys4UF4JtVauB/nbSYaeAbuc0Z4QtzXYKspBsqq8tfcTGsWpCtLjRsrPEmcavpVva7MGA
- uinMSPTN+zUPaVEk1XRYOUqnC4dHlYnWCbjTrGt3OOydc4SKGXxfuFcFZx0TfhcQ+7v0
- Nnz2lfbcuydqJB77KOHJnt/zyuQQb+FbpsIwEPfpvNxBdyaSNYOJvUDw7PRlEmV7wzzn
- svJQ==
-X-Gm-Message-State: ANhLgQ1Csed2B7YlsIl5opZrNEdZ7sbWJL9oCUI/ab+GQCol49zoa0/R
- 2BgARWSpVdxMj7aE52VlmODA4N6I8nl+3x8+zPh/xgHK7VKDiA==
-X-Google-Smtp-Source: ADFU+vtZvoRAYIaO5cJHbDsPSunjFwA7d+a9tv/93R9z4j87OlQgPGtMvS7XzazktsuEdtDfCuxP2eaiF8YOrpU2ess=
-X-Received: by 2002:a17:902:a701:: with SMTP id
- w1mr13606027plq.165.1583742833552; 
- Mon, 09 Mar 2020 01:33:53 -0700 (PDT)
-MIME-Version: 1.0
-From: Rolf Peder Klemetsen <rpk@systemsoft.no>
-Date: Mon, 9 Mar 2020 09:33:42 +0100
-Message-ID: <CANbLSG9F7V0nu7ibyW78SNmoznKOQm=58bk2a7ZRoyEjubHvEA@mail.gmail.com>
-Subject: How to model 3xADAU1761 codec in TDM8 with 2xSAI in ALSA ?
-To: alsa-devel@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 135FBF80123
+ for <alsa-devel@alsa-project.org>; Mon,  9 Mar 2020 10:58:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 135FBF80123
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 3BA94AE4E;
+ Mon,  9 Mar 2020 09:58:08 +0000 (UTC)
+Date: Mon, 09 Mar 2020 10:58:06 +0100
+Message-ID: <s5h8sk9svdd.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Andrey Konovalov <andreyknvl@google.com>
+Subject: Re: BUG: soft lockup in sys_exit_group
+In-Reply-To: <CAAeHK+wkoYDtMifOAtiu6yRSGFHLvB1_W+UMg4kNLrt4VrqVDQ@mail.gmail.com>
+References: <000000000000033087059f8f8fa3@google.com>
+ <CAAeHK+wkoYDtMifOAtiu6yRSGFHLvB1_W+UMg4kNLrt4VrqVDQ@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, LKML <linux-kernel@vger.kernel.org>,
+ Pavel Machek <pavel@denx.de>, USB list <linux-usb@vger.kernel.org>,
+ syzkaller-bugs <syzkaller-bugs@googlegroups.com>,
+ Takashi Iwai <tiwai@suse.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ syzbot <syzbot+cce32521ee0a824c21f7@syzkaller.appspotmail.com>,
+ Allison Randal <allison@lohutok.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,189 +76,147 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello,
+On Mon, 02 Mar 2020 14:26:46 +0100,
+Andrey Konovalov wrote:
+> 
+> On Thu, Feb 27, 2020 at 3:30 PM syzbot
+> <syzbot+cce32521ee0a824c21f7@syzkaller.appspotmail.com> wrote:
+> >
+> > Hello,
+> >
+> > syzbot found the following crash on:
+> >
+> > HEAD commit:    d6ff8147 usb: gadget: add raw-gadget interface
+> > git tree:       https://github.com/google/kasan.git usb-fuzzer
+> > console output: https://syzkaller.appspot.com/x/log.txt?x=147a92c3e00000
+> > kernel config:  https://syzkaller.appspot.com/x/.config?x=90a3d9bed5648419
+> > dashboard link: https://syzkaller.appspot.com/bug?extid=cce32521ee0a824c21f7
+> > compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
+> > syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=147f1d09e00000
+> > C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17c88e45e00000
+> >
+> > IMPORTANT: if you fix the bug, please add the following tag to the commit:
+> > Reported-by: syzbot+cce32521ee0a824c21f7@syzkaller.appspotmail.com
+> >
+> > watchdog: BUG: soft lockup - CPU#0 stuck for 123s! [syz-executor413:1795]
+> > Modules linked in:
+> > irq event stamp: 35154
+> > hardirqs last  enabled at (35153): [<ffffffff810047c1>] trace_hardirqs_on_thunk+0x1a/0x1c arch/x86/entry/thunk_64.S:41
+> > hardirqs last disabled at (35154): [<ffffffff810047dd>] trace_hardirqs_off_thunk+0x1a/0x1c arch/x86/entry/thunk_64.S:42
+> > softirqs last  enabled at (33516): [<ffffffff85c00673>] __do_softirq+0x673/0x950 kernel/softirq.c:319
+> > softirqs last disabled at (33499): [<ffffffff811584b8>] invoke_softirq kernel/softirq.c:373 [inline]
+> > softirqs last disabled at (33499): [<ffffffff811584b8>] irq_exit+0x178/0x1a0 kernel/softirq.c:413
+> > CPU: 0 PID: 1795 Comm: syz-executor413 Not tainted 5.6.0-rc3-syzkaller #0
+> > Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+> > RIP: 0010:__read_once_size include/linux/compiler.h:199 [inline]
+> > RIP: 0010:check_kcov_mode kernel/kcov.c:155 [inline]
+> > RIP: 0010:write_comp_data+0x17/0x70 kernel/kcov.c:208
+> > Code: d0 76 07 48 89 34 d1 48 89 11 c3 0f 1f 84 00 00 00 00 00 65 4c 8b 04 25 00 0f 02 00 65 8b 05 78 b1 c2 7e a9 00 01 1f 00 75 51 <41> 8b 80 b0 12 00 00 83 f8 03 75 45 49 8b 80 b8 12 00 00 45 8b 80
+> > RSP: 0018:ffff8881cdf77a38 EFLAGS: 00000246 ORIG_RAX: ffffffffffffff13
+> > RAX: 0000000000000002 RBX: 0000000000000001 RCX: ffffffff8134f89f
+> > RDX: 0000000000000001 RSI: 0000000000000000 RDI: 0000000000000005
+> > RBP: ffff8881cdf77b08 R08: ffff8881ce40b100 R09: 0000000000000000
+> > R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
+> > R13: 0000000000000000 R14: ffff8881ce5839c0 R15: ffff8881db233dc0
+> > FS:  0000000000000000(0000) GS:ffff8881db200000(0000) knlGS:0000000000000000
+> > CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> > CR2: 00007fe6518f0000 CR3: 0000000007021000 CR4: 00000000001406f0
+> > DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+> > DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+> > Call Trace:
+> >  csd_lock_wait kernel/smp.c:109 [inline]
+> >  smp_call_function_single+0x2df/0x3a0 kernel/smp.c:311
+> >  smp_call_function_many_cond+0x25e/0x900 kernel/smp.c:439
+> >  flush_tlb_others arch/x86/include/asm/paravirt.h:68 [inline]
+> >  flush_tlb_mm_range+0x1e8/0x3e0 arch/x86/mm/tlb.c:798
+> >  tlb_flush arch/x86/include/asm/tlb.h:24 [inline]
+> >  tlb_flush_mmu_tlbonly include/asm-generic/tlb.h:424 [inline]
+> >  tlb_flush_mmu_tlbonly include/asm-generic/tlb.h:414 [inline]
+> >  tlb_flush_mmu+0x274/0x630 mm/mmu_gather.c:248
+> >  tlb_finish_mmu+0x93/0x420 mm/mmu_gather.c:328
+> >  exit_mmap+0x298/0x4d0 mm/mmap.c:3128
+> >  __mmput kernel/fork.c:1082 [inline]
+> >  mmput+0xce/0x3d0 kernel/fork.c:1103
+> >  exit_mm kernel/exit.c:485 [inline]
+> >  do_exit+0xaa0/0x2c50 kernel/exit.c:788
+> >  do_group_exit+0x125/0x340 kernel/exit.c:899
+> >  __do_sys_exit_group kernel/exit.c:910 [inline]
+> >  __se_sys_exit_group kernel/exit.c:908 [inline]
+> >  __x64_sys_exit_group+0x3a/0x50 kernel/exit.c:908
+> >  do_syscall_64+0xb6/0x5a0 arch/x86/entry/common.c:294
+> >  entry_SYSCALL_64_after_hwframe+0x49/0xbe
+> > RIP: 0033:0x4436c8
+> > Code: Bad RIP value.
+> > RSP: 002b:00007ffd45d85c48 EFLAGS: 00000246 ORIG_RAX: 00000000000000e7
+> > RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00000000004436c8
+> > RDX: 0000000000000000 RSI: 000000000000003c RDI: 0000000000000000
+> > RBP: 00000000004c3e28 R08: 00000000000000e7 R09: ffffffffffffffd0
+> > R10: 80603de77cf35948 R11: 0000000000000246 R12: 0000000000000001
+> > R13: 00000000006d7f20 R14: 0000000000000000 R15: 0000000000000000
+> > Sending NMI from CPU 0 to CPUs 1:
+> > NMI backtrace for cpu 1
+> > CPU: 1 PID: 0 Comm: swapper/1 Not tainted 5.6.0-rc3-syzkaller #0
+> > Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+> > RIP: 0010:line6_midibuf_read+0x486/0xa30 sound/usb/line6/midibuf.c:215
+> > Code: 08 48 01 c1 48 89 0c 24 e8 97 4f 85 fc 44 89 f6 89 df e8 7d 50 85 fc 44 39 f3 0f 8d b4 02 00 00 e8 7f 4f 85 fc 48 8b 74 24 18 <48> 63 d3 48 8b 3c 24 e8 fe d2 ad fc 01 5d 10 e8 66 4f 85 fc 31 ff
+> > RSP: 0018:ffff8881db3099e8 EFLAGS: 00000006
+> > RAX: ffff8881da213100 RBX: 0000000000000000 RCX: ffffffff84ba0d63
+> > RDX: 0000000000000100 RSI: ffff8881cdc8c81c RDI: 0000000000000004
+> > RBP: ffff8881d4e6b4a0 R08: ffff8881da213100 R09: ffffed103a9cd641
+> > R10: ffffed103a9cd640 R11: ffff8881d4e6b200 R12: 0000000000000001
+> > R13: 000000000000001c R14: 00000000000003e4 R15: 0000000000000001
+> > FS:  0000000000000000(0000) GS:ffff8881db300000(0000) knlGS:0000000000000000
+> > CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> > CR2: 00007fe6518f0000 CR3: 00000001cf791000 CR4: 00000000001406e0
+> > DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+> > DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+> > Call Trace:
+> >  <IRQ>
+> >  line6_data_received+0x318/0x520 sound/usb/line6/driver.c:305
+> >  __usb_hcd_giveback_urb+0x1f2/0x470 drivers/usb/core/hcd.c:1648
+> >  usb_hcd_giveback_urb+0x368/0x420 drivers/usb/core/hcd.c:1713
+> >  dummy_timer+0x1258/0x32ae drivers/usb/gadget/udc/dummy_hcd.c:1966
+> >  call_timer_fn+0x195/0x6f0 kernel/time/timer.c:1404
+> >  expire_timers kernel/time/timer.c:1449 [inline]
+> >  __run_timers kernel/time/timer.c:1773 [inline]
+> >  __run_timers kernel/time/timer.c:1740 [inline]
+> >  run_timer_softirq+0x5f9/0x1500 kernel/time/timer.c:1786
+> >  __do_softirq+0x21e/0x950 kernel/softirq.c:292
+> >  invoke_softirq kernel/softirq.c:373 [inline]
+> >  irq_exit+0x178/0x1a0 kernel/softirq.c:413
+> >  exiting_irq arch/x86/include/asm/apic.h:546 [inline]
+> >  smp_apic_timer_interrupt+0x141/0x540 arch/x86/kernel/apic/apic.c:1146
+> >  apic_timer_interrupt+0xf/0x20 arch/x86/entry/entry_64.S:829
+> >  </IRQ>
+> > RIP: 0010:default_idle+0x28/0x300 arch/x86/kernel/process.c:696
+> > Code: cc cc 41 56 41 55 65 44 8b 2d 94 c9 72 7a 41 54 55 53 0f 1f 44 00 00 e8 16 bb b5 fb e9 07 00 00 00 0f 00 2d 3a 5f 53 00 fb f4 <65> 44 8b 2d 70 c9 72 7a 0f 1f 44 00 00 5b 5d 41 5c 41 5d 41 5e c3
+> > RSP: 0018:ffff8881da22fda8 EFLAGS: 00000246 ORIG_RAX: ffffffffffffff13
+> > RAX: 0000000000000007 RBX: ffff8881da213100 RCX: 0000000000000000
+> > RDX: 0000000000000000 RSI: 0000000000000006 RDI: ffff8881da21394c
+> > RBP: ffffed103b442620 R08: ffff8881da213100 R09: 0000000000000000
+> > R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000001
+> > R13: 0000000000000001 R14: ffffffff87e60000 R15: 0000000000000000
+> >  cpuidle_idle_call kernel/sched/idle.c:154 [inline]
+> >  do_idle+0x3e0/0x500 kernel/sched/idle.c:269
+> >  cpu_startup_entry+0x14/0x20 kernel/sched/idle.c:361
+> >  start_secondary+0x2a4/0x390 arch/x86/kernel/smpboot.c:264
+> >  secondary_startup_64+0xb6/0xc0 arch/x86/kernel/head_64.S:242
+> >
+> >
+> > ---
+> > This bug is generated by a bot. It may contain errors.
+> > See https://goo.gl/tpsmEJ for more information about syzbot.
+> > syzbot engineers can be reached at syzkaller@googlegroups.com.
+> >
+> > syzbot will keep track of this bug report. See:
+> > https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+> > syzbot can test patches for this bug, for details see:
+> > https://goo.gl/tpsmEJ#testing-patches
+> 
+> +line6 maintainers
 
-I am working on bringup of a custom board that has three ADAU1761
-codecs, and a NXP LS1028A SoC. The codecs are supposed to be
-configured in TDM8 mode and share a common playback I2S bus connected
-to SAI4, and a common capture I2S bus connected to SAI3.
-What is the recommended way of modelling this setup in the Linux device tree ?
-
-So far I have tried the following:
-
-&i2c0 {
-    status = "okay";
-
-    i2c_codec1: adau1761@38 {
-        compatible = "adi,adau1761";
-        #sound-dai-cells=<0>;
-        reg = <0x38>;
-        tdm-offset = <0>;
-        clocks = <&adau1761_mclk>;
-        clock-names = "mclk";
-    };
-
-    i2c_codec2: adau1761@39 {
-        compatible = "adi,adau1761";
-        #sound-dai-cells=<0>;
-        reg = <0x39>;
-        tdm-offset = <16>;
-        clocks = <&adau1761_mclk>;
-        clock-names = "mclk";
-    };
-
-    i2c_codec3: adau1761@3a {
-        compatible = "adi,adau1761";
-        #sound-dai-cells=<0>;
-        reg = <0x3a>;
-        tdm-offset = <32>;
-        clocks = <&adau1761_mclk>;
-        clock-names = "mclk";
-    };
-};
-
-At first I attempted creating three simple-audio-card's. That
-attempted failed since sharing the same cpu (SAI3 and SAI4) failed
-with no ALSA device as a result.
-
-Then I attempted creating a single simple-audio-card with two
-dai-links (one for playback and one for capture), each containing
-three codec sub-nodes.
-That doesn't really work either. Can someone please point me in the
-right direction?
-Many of the parameters that I have put in the dts have no effect and
-are assumed not supported.
-
-
-Regards
-Rolf
-
-sound {
-        status = "okay";
-        model = "Super Sound System";
-        compatible = "simple-audio-card";
-        simple-audio-card,name = "sound";
-        simple-audio-card,format = "i2s";
-        simple-audio-card,bitclock-master = <&p_snd_codec_o1>;
-        simple-audio-card,frame-master = <&p_snd_codec_o1>;
-        simple-audio-card,widgets =
-            "Microphone", "Mic In",
-            "Headphone", "Headphone Out",
-            "Line", "Line In",
-            "Line", "Line Out";
-
-        simple-audio-card,routing =
-            "Line Out", "LOUT",
-            "Line Out", "ROUT",
-            "Headphone Out", "LHP",
-            "Headphone Out", "RHP",
-            "Mic In", "MICBIAS",
-            "LINN", "Mic In",
-            "RINN", "Mic In",
-            "LINP", "Mic In",
-            "RINP", "Mic In",
-            "LAUX", "Line In",
-            "RAUX", "Line In";
-
-        playback_link: simple-audio-card,dai-link@0 {
-            format = "i2s";
-            convert-channels = <8>;
-            bitclock-master = <&p_snd_codec_o1>;
-            frame-master = <&p_snd_codec_o1>;
-            name-prefix = "p";
-
-            snd_dai_playback: cpu@0 {
-
-                cpu-dai-name = "sai4_0";
-                sound-dai-name = "sai4_0";
-
-
-                sound-dai = <&sai4 0>;
-                dai-tdm-slot-num = <8>;
-                dai-tdm-slot-width = <16>;
-                dai-tdm-slot-tx-mask = <1 0 1 0 1 0 0 0>;
-                dai-tdm-slot-rx-mask = <0 0 0 0 0 0 0 0>;
-            };
-
-            p_snd_codec_o1: codec@0 {
-                sound-dai = <&i2c_codec1>;
-                frame-master;
-                bitclock-master;
-                clocks=<&adau1761_mclk>;
-                clock-frequency = <12288000>;
-                clock-names = "mclk";
-                name-prefix = "c1";
-                dai-tdm-slot-tx-mask = <1 0 0 0 0 0 0 0>;
-                dai-tdm-slot-rx-mask = <0 0 0 0 0 0 0 0>;
-            };
-
-            p_snd_codec_o2: codec@1 {
-                sound-dai = <&i2c_codec2>;
-                clocks=<&adau1761_mclk>;
-                clock-frequency = <12288000>;
-                clock-names = "mclk";
-                name-prefix = "c2";
-                dai-tdm-slot-tx-mask = <0 0 1 0 0 0 0 0>;
-                dai-tdm-slot-rx-mask = <0 0 0 0 0 0 0 0>;
-            };
-            p_snd_codec_o3: codec@2 {
-                sound-dai = <&i2c_codec3>;
-                clocks=<&adau1761_mclk>;
-                clock-frequency = <12288000>;
-                clock-names = "mclk";
-                name-prefix = "c3";
-                dai-tdm-slot-tx-mask = <0 0 0 0 1 0 0 0>;
-                dai-tdm-slot-rx-mask = <0 0 0 0 0 0 0 0>;
-            };
-
-
-        };
-
-        capture_link: simple-audio-card,dai-link@1 {
-            format = "i2s";
-            convert-channels = <8>;
-            bitclock-master = <&c_snd_codec_o1>;
-            frame-master = <&c_snd_codec_o1>;
-            name-prefix = "c";
-
-            snd_dai_capture: cpu@0 {
-                sound-dai = <&sai3>;
-                dai-tdm-slot-num = <8>;
-                dai-tdm-slot-width = <16>;
-                dai-tdm-slot-tx-mask = <0 0 0 0 0 0 0 0>;
-                dai-tdm-slot-rx-mask = <0 1 0 1 0 1 0 0>;
-            };
-
-            c_snd_codec_o1: codec@0 {
-                sound-dai = <&i2c_codec1>;
-                frame-master;
-                bitclock-master;
-                clocks=<&adau1761_mclk>;
-                clock-names = "mclk";
-                clock-frequency = <12288000>;
-                name-prefix = "c1";
-                dai-tdm-slot-tx-mask = <0 0 0 0 0 0 0 0>;
-                dai-tdm-slot-rx-mask = <0 1 0 0 0 0 0 0>;
-            };
-
-            c_snd_codec_o2: codec@1 {
-                sound-dai = <&i2c_codec2>;
-                clocks=<&adau1761_mclk>;
-                clock-names = "mclk";
-                clock-frequency = <12288000>;
-                name-prefix = "c2";
-                dai-tdm-slot-tx-mask = <0 0 0 0 0 0 0 0>;
-                dai-tdm-slot-rx-mask = <0 0 0 1 0 0 0 0>;
-            };
-            c_snd_codec_o3: codec@2 {
-                sound-dai = <&i2c_codec3>;
-                clocks=<&adau1761_mclk>;
-                clock-names = "mclk";
-                clock-frequency = <12288000>;
-                name-prefix = "c3";
-                dai-tdm-slot-tx-mask = <0 0 0 0 0 0 0 0>;
-                dai-tdm-slot-rx-mask = <0 0 0 0 0 1 0 0>;
-            };
+Thanks, I could reproduce the issue locally and spot out the problem.
+Will submit and merge the fix patch.
 
 
-        };
+Takashi

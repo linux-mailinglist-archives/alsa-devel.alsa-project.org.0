@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F59A17E56C
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Mar 2020 18:10:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05FEA17E56F
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Mar 2020 18:10:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 22F1516A0;
-	Mon,  9 Mar 2020 18:09:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22F1516A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9664B1686;
+	Mon,  9 Mar 2020 18:10:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9664B1686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583773830;
-	bh=HaSKI2Vgxi+edQlsSSU/92ycWEDMqhoRZj2hA/MNhGo=;
+	s=default; t=1583773857;
+	bh=yUVHn+GgOw1o7DN02o+9HUSgJ+pROcqEZ2PQMVQvnlo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CbLlNUaa2Fr/8FXaa/Ogcu2qP/7LvqyRgQMiLXY9/os2sCDC7RyQOH730GOb2is/x
-	 Q3hIrWCVgYghjovy5+XHCo/DcbB92SZjtjk8pNiisO74a+FajG8Qvme8/6vcQj2834
-	 UOO0XodJ9SIZvCXuFBqoaqGpC2jqdTMa2XJZTpb8=
+	b=nmbsIAmU5dedJwZonIKyP+83zv9d5pT+r0twhrYrAV0jAup0VanVYfNRcM93Z4y3K
+	 ldourln0QzUC6zAN4Hj6DfKv7Xmp+I7/gFw44aDi5OZSgDrXIJ7LtZGYNdPbWpuEXq
+	 mIhU8A+1CTus0c2IOQrhWAAE1BgUeNzWB0gzvXtQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7BEF0F800DA;
-	Mon,  9 Mar 2020 18:08:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0902F80292;
+	Mon,  9 Mar 2020 18:08:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AABECF8028C; Mon,  9 Mar 2020 18:08:05 +0100 (CET)
+ id C9F9DF8028C; Mon,  9 Mar 2020 18:08:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,24 +33,25 @@ X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CB932F801A3;
+ by alsa1.perex.cz (Postfix) with ESMTPS id CFC39F801EB;
  Mon,  9 Mar 2020 18:07:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB932F801A3
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFC39F801EB
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2020 10:07:54 -0700
+ 09 Mar 2020 10:07:56 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,534,1574150400"; d="scan'208";a="353408520"
+X-IronPort-AV: E=Sophos;i="5.70,534,1574150400"; d="scan'208";a="353408528"
 Received: from gliakhov-mobl2.ger.corp.intel.com (HELO
  ubuntu.ger.corp.intel.com) ([10.249.40.3])
- by fmsmga001.fm.intel.com with ESMTP; 09 Mar 2020 10:07:53 -0700
+ by fmsmga001.fm.intel.com with ESMTP; 09 Mar 2020 10:07:54 -0700
 From: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 1/3] ASoC: (cosmetic) simplify dpcm_prune_paths()
-Date: Mon,  9 Mar 2020 18:07:47 +0100
-Message-Id: <20200309170749.32313-2-guennadi.liakhovetski@linux.intel.com>
+Subject: [PATCH 2/3] ASoC: add function parameters to enable forced path
+ pruning
+Date: Mon,  9 Mar 2020 18:07:48 +0100
+Message-Id: <20200309170749.32313-3-guennadi.liakhovetski@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200309170749.32313-1-guennadi.liakhovetski@linux.intel.com>
 References: <20200309170749.32313-1-guennadi.liakhovetski@linux.intel.com>
@@ -74,98 +75,293 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Currently dpcm_prune_paths() has up to 4 nested condition and loop
-levels, which forces the code to use flags for flow control.
-Extracting widget status verification code from dpcm_prune_paths()
-into a separate function simplifies the code.
+This is a preparation for the host part of a virtualised VirtIO audio
+host-guest driver pair. It adds a "mode" parameter to
+soc_dpcm_runtime_update() to allow it to be used when stopping
+streaming in a virtual machine, which requires forced DPCM audio path
+pruning.
+
+For audio virtualisation the host side driver will be using the vhost
+API, i.e. it will run completely in the kernel. When a guest begins to
+stream audio, the vhost calls snd_soc_runtime_activate() and
+soc_dpcm_runtime_update() to activate an audio path and update audio
+routing. When streaming is stopped, the vhost driver calls
+soc_dpcm_runtime_update() and snd_soc_runtime_deactivate(). The latter
+doesn't work at the moment, because the DPCM doesn't recognise the
+path as inactive. We address this by adding a "mode" parameter to
+soc_dpcm_runtime_update(). If virtualisation isn't used, the current
+behaviour isn't affected.
 
 Signed-off-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 ---
- sound/soc/soc-pcm.c | 63 +++++++++++++++++++++++++++--------------------------
- 1 file changed, 32 insertions(+), 31 deletions(-)
+ include/sound/soc-dpcm.h | 28 ++++++++++++++++----
+ sound/soc/soc-compress.c |  2 +-
+ sound/soc/soc-dapm.c     |  8 +++---
+ sound/soc/soc-pcm.c      | 68 +++++++++++++++++++++++++++++++++---------------
+ 4 files changed, 75 insertions(+), 31 deletions(-)
 
+diff --git a/include/sound/soc-dpcm.h b/include/sound/soc-dpcm.h
+index 4022357..aa56118 100644
+--- a/include/sound/soc-dpcm.h
++++ b/include/sound/soc-dpcm.h
+@@ -61,6 +61,23 @@ enum snd_soc_dpcm_trigger {
+ 	SND_SOC_DPCM_TRIGGER_BESPOKE,
+ };
+ 
++/**
++ * enum snd_soc_dpcm_update_mode - mode for calling soc_dpcm_runtime_update()
++ *
++ * @SND_SOC_DPCM_UPDATE_FULL:		default mode, used for mux, mixer, and
++ *					volume widgets
++ * @SND_SOC_DPCM_UPDATE_NEW_ONLY:	a pipeline is starting. Skip checking
++ *					for old paths.
++ * @SND_SOC_DPCM_UPDATE_OLD_ONLY:	a pipeline is shutting down. Skip
++ *					checking for new paths, force old path
++ *					pruning.
++ */
++enum snd_soc_dpcm_update_mode {
++	SND_SOC_DPCM_UPDATE_FULL,
++	SND_SOC_DPCM_UPDATE_NEW_ONLY,
++	SND_SOC_DPCM_UPDATE_OLD_ONLY,
++};
++
+ /*
+  * Dynamic PCM link
+  * This links together a FE and BE DAI at runtime and stores the link
+@@ -133,7 +150,8 @@ struct snd_pcm_substream *
+ 	snd_soc_dpcm_get_substream(struct snd_soc_pcm_runtime *be, int stream);
+ 
+ /* internal use only */
+-int soc_dpcm_runtime_update(struct snd_soc_card *);
++int soc_dpcm_runtime_update(struct snd_soc_card *card,
++			    enum snd_soc_dpcm_update_mode mode);
+ 
+ #ifdef CONFIG_DEBUG_FS
+ void soc_dpcm_debugfs_add(struct snd_soc_pcm_runtime *rtd);
+@@ -143,11 +161,11 @@ static inline void soc_dpcm_debugfs_add(struct snd_soc_pcm_runtime *rtd)
+ }
+ #endif
+ 
+-int dpcm_path_get(struct snd_soc_pcm_runtime *fe,
+-	int stream, struct snd_soc_dapm_widget_list **list_);
++int dpcm_path_get(struct snd_soc_pcm_runtime *fe, int stream,
++	struct snd_soc_dapm_widget_list **list_);
+ void dpcm_path_put(struct snd_soc_dapm_widget_list **list);
+-int dpcm_process_paths(struct snd_soc_pcm_runtime *fe,
+-	int stream, struct snd_soc_dapm_widget_list **list, int new);
++int dpcm_process_paths(struct snd_soc_pcm_runtime *fe, int stream,
++	struct snd_soc_dapm_widget_list **list, bool new, bool force_prune);
+ int dpcm_be_dai_startup(struct snd_soc_pcm_runtime *fe, int stream);
+ int dpcm_be_dai_shutdown(struct snd_soc_pcm_runtime *fe, int stream);
+ void dpcm_be_disconnect(struct snd_soc_pcm_runtime *fe, int stream);
+diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
+index 50062eb..66d7e78 100644
+--- a/sound/soc/soc-compress.c
++++ b/sound/soc/soc-compress.c
+@@ -162,7 +162,7 @@ static int soc_compr_open_fe(struct snd_compr_stream *cstream)
+ 		dev_dbg(fe->dev, "Compress ASoC: %s no valid %s route\n",
+ 			fe->dai_link->name, stream ? "capture" : "playback");
+ 	/* calculate valid and active FE <-> BE dpcms */
+-	dpcm_process_paths(fe, stream, &list, 1);
++	dpcm_process_paths(fe, stream, &list, true, false);
+ 	fe->dpcm[stream].runtime = fe_substream->runtime;
+ 
+ 	fe->dpcm[stream].runtime_update = SND_SOC_DPCM_UPDATE_FE;
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index 09fa437..f496c53 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -2292,7 +2292,7 @@ int snd_soc_dapm_mux_update_power(struct snd_soc_dapm_context *dapm,
+ 	card->update = NULL;
+ 	mutex_unlock(&card->dapm_mutex);
+ 	if (ret > 0)
+-		soc_dpcm_runtime_update(card);
++		soc_dpcm_runtime_update(card, SND_SOC_DPCM_UPDATE_FULL);
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(snd_soc_dapm_mux_update_power);
+@@ -2357,7 +2357,7 @@ int snd_soc_dapm_mixer_update_power(struct snd_soc_dapm_context *dapm,
+ 	card->update = NULL;
+ 	mutex_unlock(&card->dapm_mutex);
+ 	if (ret > 0)
+-		soc_dpcm_runtime_update(card);
++		soc_dpcm_runtime_update(card, SND_SOC_DPCM_UPDATE_FULL);
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(snd_soc_dapm_mixer_update_power);
+@@ -3397,7 +3397,7 @@ int snd_soc_dapm_put_volsw(struct snd_kcontrol *kcontrol,
+ 	mutex_unlock(&card->dapm_mutex);
+ 
+ 	if (ret > 0)
+-		soc_dpcm_runtime_update(card);
++		soc_dpcm_runtime_update(card, SND_SOC_DPCM_UPDATE_FULL);
+ 
+ 	return change;
+ }
+@@ -3502,7 +3502,7 @@ int snd_soc_dapm_put_enum_double(struct snd_kcontrol *kcontrol,
+ 	mutex_unlock(&card->dapm_mutex);
+ 
+ 	if (ret > 0)
+-		soc_dpcm_runtime_update(card);
++		soc_dpcm_runtime_update(card, SND_SOC_DPCM_UPDATE_FULL);
+ 
+ 	return change;
+ }
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index e7915ada..8732cf1 100644
+index 8732cf1..5b3bc3f 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -1626,45 +1626,46 @@ void dpcm_path_put(struct snd_soc_dapm_widget_list **list)
- 	snd_soc_dapm_dai_free_widgets(list);
+@@ -1658,14 +1658,14 @@ static bool dpcm_be_is_active(struct snd_soc_dpcm *dpcm, int stream,
  }
  
--static int dpcm_prune_paths(struct snd_soc_pcm_runtime *fe, int stream,
+ static int dpcm_prune_paths(struct snd_soc_pcm_runtime *fe, int stream,
 -	struct snd_soc_dapm_widget_list **list_)
-+static bool dpcm_be_is_active(struct snd_soc_dpcm *dpcm, int stream,
-+			      struct snd_soc_dapm_widget_list *list)
++			    struct snd_soc_dapm_widget_list **list_, bool force)
  {
--	struct snd_soc_dpcm *dpcm;
--	struct snd_soc_dapm_widget_list *list = *list_;
- 	struct snd_soc_dapm_widget *widget;
- 	struct snd_soc_dai *dai;
--	int prune = 0;
--	int do_prune;
-+	unsigned int i;
+ 	struct snd_soc_dpcm *dpcm;
+ 	int prune = 0;
  
--	/* Destroy any old FE <--> BE connections */
--	for_each_dpcm_be(fe, stream, dpcm) {
--		unsigned int i;
-+	/* is there a valid CPU DAI widget for this BE */
-+	for_each_rtd_cpu_dai(dpcm->be, i, dai) {
-+		widget = snd_soc_dai_get_widget(dai, stream);
- 
--		/* is there a valid CPU DAI widget for this BE */
--		do_prune = 1;
--		for_each_rtd_cpu_dai(dpcm->be, i, dai) {
--			widget = snd_soc_dai_get_widget(dai, stream);
-+		/*
-+		 * The BE is pruned only if none of the cpu_dai
-+		 * widgets are in the active list.
-+		 */
-+		if (widget && widget_in_list(list, widget))
-+			return true;
-+	}
- 
--			/*
--			 * The BE is pruned only if none of the cpu_dai
--			 * widgets are in the active list.
--			 */
--			if (widget && widget_in_list(list, widget))
--				do_prune = 0;
--		}
--		if (!do_prune)
--			continue;
-+	/* is there a valid CODEC DAI widget for this BE */
-+	for_each_rtd_codec_dai(dpcm->be, i, dai) {
-+		widget = snd_soc_dai_get_widget(dai, stream);
- 
--		/* is there a valid CODEC DAI widget for this BE */
--		do_prune = 1;
--		for_each_rtd_codec_dai(dpcm->be, i, dai) {
--			widget = snd_soc_dai_get_widget(dai, stream);
-+		/* prune the BE if it's no longer in our active list */
-+		if (widget && widget_in_list(list, widget))
-+			return true;
-+	}
- 
--			/* prune the BE if it's no longer in our active list */
--			if (widget && widget_in_list(list, widget))
--				do_prune = 0;
--		}
--		if (!do_prune)
-+	return false;
-+}
-+
-+static int dpcm_prune_paths(struct snd_soc_pcm_runtime *fe, int stream,
-+	struct snd_soc_dapm_widget_list **list_)
-+{
-+	struct snd_soc_dpcm *dpcm;
-+	int prune = 0;
-+
-+	/* Destroy any old FE <--> BE connections */
-+	for_each_dpcm_be(fe, stream, dpcm) {
-+		if (dpcm_be_is_active(dpcm, stream, *list_))
+ 	/* Destroy any old FE <--> BE connections */
+ 	for_each_dpcm_be(fe, stream, dpcm) {
+-		if (dpcm_be_is_active(dpcm, stream, *list_))
++		if (!force && dpcm_be_is_active(dpcm, stream, *list_))
  			continue;
  
  		dev_dbg(fe->dev, "ASoC: pruning %s BE %s for %s\n",
+@@ -1740,12 +1740,13 @@ static int dpcm_add_paths(struct snd_soc_pcm_runtime *fe, int stream,
+  * FE substream.
+  */
+ int dpcm_process_paths(struct snd_soc_pcm_runtime *fe,
+-	int stream, struct snd_soc_dapm_widget_list **list, int new)
++		       int stream, struct snd_soc_dapm_widget_list **list,
++		       bool new, bool force_prune)
+ {
+ 	if (new)
+ 		return dpcm_add_paths(fe, stream, list);
+ 	else
+-		return dpcm_prune_paths(fe, stream, list);
++		return dpcm_prune_paths(fe, stream, list, force_prune);
+ }
+ 
+ void dpcm_clear_pending_state(struct snd_soc_pcm_runtime *fe, int stream)
+@@ -2770,11 +2771,13 @@ static int dpcm_fe_dai_prepare(struct snd_pcm_substream *substream)
+ 	return ret;
+ }
+ 
+-static int dpcm_run_update_shutdown(struct snd_soc_pcm_runtime *fe, int stream)
++static int dpcm_run_update_shutdown(struct snd_soc_pcm_runtime *fe, int stream,
++				    bool force)
+ {
+ 	struct snd_pcm_substream *substream =
+ 		snd_soc_dpcm_get_substream(fe, stream);
+ 	enum snd_soc_dpcm_trigger trigger = fe->dai_link->trigger[stream];
++	int event = force ? SND_SOC_DAPM_STREAM_STOP : SND_SOC_DAPM_STREAM_NOP;
+ 	int err;
+ 
+ 	dev_dbg(fe->dev, "ASoC: runtime %s close on FE %s\n",
+@@ -2806,7 +2809,7 @@ static int dpcm_run_update_shutdown(struct snd_soc_pcm_runtime *fe, int stream)
+ 		dev_err(fe->dev,"ASoC: shutdown FE failed %d\n", err);
+ 
+ 	/* run the stream event for each BE */
+-	dpcm_dapm_stream_event(fe, stream, SND_SOC_DAPM_STREAM_NOP);
++	dpcm_dapm_stream_event(fe, stream, event);
+ 
+ 	return 0;
+ }
+@@ -2899,7 +2902,8 @@ static int dpcm_run_update_startup(struct snd_soc_pcm_runtime *fe, int stream)
+ 	return ret;
+ }
+ 
+-static int soc_dpcm_fe_runtime_update(struct snd_soc_pcm_runtime *fe, int new)
++static int soc_dpcm_fe_runtime_update(struct snd_soc_pcm_runtime *fe, bool new,
++				      bool force_prune)
+ {
+ 	struct snd_soc_dapm_widget_list *list;
+ 	int stream;
+@@ -2945,13 +2949,14 @@ static int soc_dpcm_fe_runtime_update(struct snd_soc_pcm_runtime *fe, int new)
+ 		}
+ 
+ 		/* update any playback/capture paths */
+-		count = dpcm_process_paths(fe, stream, &list, new);
++		count = dpcm_process_paths(fe, stream, &list, new, force_prune);
+ 		if (count) {
+ 			dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_BE);
+ 			if (new)
+ 				ret = dpcm_run_update_startup(fe, stream);
+ 			else
+-				ret = dpcm_run_update_shutdown(fe, stream);
++				ret = dpcm_run_update_shutdown(fe, stream,
++							       force_prune);
+ 			if (ret < 0)
+ 				dev_err(fe->dev, "ASoC: failed to shutdown some BEs\n");
+ 			dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_NO);
+@@ -2969,25 +2974,46 @@ static int soc_dpcm_fe_runtime_update(struct snd_soc_pcm_runtime *fe, int new)
+ /* Called by DAPM mixer/mux changes to update audio routing between PCMs and
+  * any DAI links.
+  */
+-int soc_dpcm_runtime_update(struct snd_soc_card *card)
++int soc_dpcm_runtime_update(struct snd_soc_card *card,
++			    enum snd_soc_dpcm_update_mode mode)
+ {
+ 	struct snd_soc_pcm_runtime *fe;
+ 	int ret = 0;
+ 
+ 	mutex_lock_nested(&card->mutex, SND_SOC_CARD_CLASS_RUNTIME);
++
+ 	/* shutdown all old paths first */
+-	for_each_card_rtds(card, fe) {
+-		ret = soc_dpcm_fe_runtime_update(fe, 0);
+-		if (ret)
+-			goto out;
+-	}
++	if (mode != SND_SOC_DPCM_UPDATE_NEW_ONLY)
++		/*
++		 * This is entered if mode == FULL or OLD_ONLY. In both cases we
++		 * have to call soc_dpcm_fe_runtime_update() but only in the
++		 * OLD_ONLY case we have to set the "force" (last) parameter to
++		 * "true."
++		 */
++		for_each_card_rtds(card, fe) {
++			/*
++			 * check "old" paths (new = false), only force for
++			 * shutting down.
++			 */
++			ret = soc_dpcm_fe_runtime_update(fe, false,
++					mode == SND_SOC_DPCM_UPDATE_OLD_ONLY);
++			if (ret)
++				goto out;
++		}
+ 
+ 	/* bring new paths up */
+-	for_each_card_rtds(card, fe) {
+-		ret = soc_dpcm_fe_runtime_update(fe, 1);
+-		if (ret)
+-			goto out;
+-	}
++	if (mode != SND_SOC_DPCM_UPDATE_OLD_ONLY)
++		/*
++		 * This is entered if mode == FULL or NEW_ONLY. In both cases we
++		 * have to call soc_dpcm_fe_runtime_update() with the "force"
++		 * (last) parameter set to "false"
++		 */
++		for_each_card_rtds(card, fe) {
++			/* check "new" paths (new = true), no forcing */
++			ret = soc_dpcm_fe_runtime_update(fe, true, false);
++			if (ret)
++				goto out;
++		}
+ 
+ out:
+ 	mutex_unlock(&card->mutex);
+@@ -3042,7 +3068,7 @@ static int dpcm_fe_dai_open(struct snd_pcm_substream *fe_substream)
+ 	}
+ 
+ 	/* calculate valid and active FE <-> BE dpcms */
+-	dpcm_process_paths(fe, stream, &list, 1);
++	dpcm_process_paths(fe, stream, &list, true, false);
+ 
+ 	ret = dpcm_fe_dai_startup(fe_substream);
+ 	if (ret < 0)
 -- 
 1.9.3
 

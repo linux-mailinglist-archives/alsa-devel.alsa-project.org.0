@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D31E17D886
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Mar 2020 05:15:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E097E17D88B
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Mar 2020 05:16:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DCB99167B;
-	Mon,  9 Mar 2020 05:14:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCB99167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8256C1694;
+	Mon,  9 Mar 2020 05:15:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8256C1694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583727338;
-	bh=eoLlIb1bKN0s/9Z6q7eKsXQ1wqpsLph6iqzOiweUp4Q=;
+	s=default; t=1583727375;
+	bh=CjUiUBR6MGPMk7iKx3cgSWx2Zxa8D6ftdZvEB/dFUSs=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZXSNCPUSitkSPAlVesB+SMcpvzHOy35sSkUVMOY3UnZ6onaY5pwBfveHrdrEOkNhx
-	 OEXaondHDWIRDEdnPpxfRST6j8QUrADCZ0fNLu3gE5ZrHERucrAoWFWrfKXK8W106N
-	 27BY3Bg+owMLxYosfnyQTx9JWHW8XW+vKaXzD95I=
+	b=q/ETRGKmvI2PL6vwNQydXODtS8qFKmIXdpD88S7NB96DP7OCw1MAi7LswHZns8ado
+	 /yNAMrSeEUO7xZmMonChYx2jRAS/5NUEErafRC+uR2u8NbDUsAH7hbmOJIrTwsoTOp
+	 QiboZijGWYpx2SblDLvKBpx2uflFV5WdpwtiINIs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1062EF80268;
-	Mon,  9 Mar 2020 05:08:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CEE7F80334;
+	Mon,  9 Mar 2020 05:08:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ECA41F80323; Mon,  9 Mar 2020 05:08:12 +0100 (CET)
+ id 92085F80331; Mon,  9 Mar 2020 05:08:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 37034F8031A
- for <alsa-devel@alsa-project.org>; Mon,  9 Mar 2020 05:08:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37034F8031A
-Date: 09 Mar 2020 13:08:04 +0900
-X-IronPort-AV: E=Sophos;i="5.70,531,1574089200"; d="scan'208";a="41130209"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 09 Mar 2020 13:08:04 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id D1026F80322
+ for <alsa-devel@alsa-project.org>; Mon,  9 Mar 2020 05:08:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1026F80322
+Date: 09 Mar 2020 13:08:10 +0900
+X-IronPort-AV: E=Sophos;i="5.70,531,1574089200"; d="scan'208";a="41130219"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 09 Mar 2020 13:08:10 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id C6C514142F04;
- Mon,  9 Mar 2020 13:08:04 +0900 (JST)
-Message-ID: <87v9negogr.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 717FB4002C0A;
+ Mon,  9 Mar 2020 13:08:10 +0900 (JST)
+Message-ID: <87tv2ygogl.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 6/9] ASoC: soc: use for_each_rtd_codecs/cpus_dai() macro
+Subject: [PATCH 7/9] ASoC: soc.h: remove non plural form for_each_xxx macro
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <874kuyi33c.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,631 +70,36 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-This patch switch to use plural form macro.
-
-	- for_each_rtd_codec_dai()
-	+ for_each_rtd_codec_dais()
-
-	- for_each_rtd_codec_dai_rollback()
-	+ for_each_rtd_codec_dais_rollback()
-
-	- for_each_rtd_cpu_dai()
-	+ for_each_rtd_cpu_dais()
-
-	- for_each_rtd_cpu_dai_rollback()
-	+ for_each_rtd_cpu_dais_rollback()
-
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-core.c |  16 +++---
- sound/soc/soc-dapm.c |  10 ++--
- sound/soc/soc-pcm.c  | 124 +++++++++++++++++++++----------------------
- 3 files changed, 75 insertions(+), 75 deletions(-)
+ include/sound/soc.h | 14 --------------
+ 1 file changed, 14 deletions(-)
 
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index f2cfbf182f49..4e0f55555e37 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -547,7 +547,7 @@ int snd_soc_suspend(struct device *dev)
- 		if (rtd->dai_link->ignore_suspend)
- 			continue;
- 
--		for_each_rtd_codec_dai(rtd, i, dai) {
-+		for_each_rtd_codec_dais(rtd, i, dai) {
- 			if (dai->stream_active[playback])
- 				snd_soc_dai_digital_mute(dai, 1, playback);
- 		}
-@@ -689,7 +689,7 @@ static void soc_resume_deferred(struct work_struct *work)
- 		if (rtd->dai_link->ignore_suspend)
- 			continue;
- 
--		for_each_rtd_codec_dai(rtd, i, dai) {
-+		for_each_rtd_codec_dais(rtd, i, dai) {
- 			if (dai->stream_active[playback])
- 				snd_soc_dai_digital_mute(dai, 0, playback);
- 		}
-@@ -1321,10 +1321,10 @@ static void soc_remove_link_dais(struct snd_soc_card *card)
- 	for_each_comp_order(order) {
- 		for_each_card_rtds(card, rtd) {
- 			/* remove the CODEC DAI */
--			for_each_rtd_codec_dai(rtd, i, codec_dai)
-+			for_each_rtd_codec_dais(rtd, i, codec_dai)
- 				soc_remove_dai(codec_dai, order);
- 
--			for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+			for_each_rtd_cpu_dais(rtd, i, cpu_dai)
- 				soc_remove_dai(cpu_dai, order);
- 		}
- 	}
-@@ -1344,14 +1344,14 @@ static int soc_probe_link_dais(struct snd_soc_card *card)
- 				card->name, rtd->num, order);
- 
- 			/* probe the CPU DAI */
--			for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+			for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 				ret = soc_probe_dai(cpu_dai, order);
- 				if (ret)
- 					return ret;
- 			}
- 
- 			/* probe the CODEC DAI */
--			for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+			for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 				ret = soc_probe_dai(codec_dai, order);
- 				if (ret)
- 					return ret;
-@@ -1486,7 +1486,7 @@ int snd_soc_runtime_set_dai_fmt(struct snd_soc_pcm_runtime *rtd,
- 	unsigned int i;
- 	int ret;
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		ret = snd_soc_dai_set_fmt(codec_dai, dai_fmt);
- 		if (ret != 0 && ret != -ENOTSUPP) {
- 			dev_warn(codec_dai->dev,
-@@ -1514,7 +1514,7 @@ int snd_soc_runtime_set_dai_fmt(struct snd_soc_pcm_runtime *rtd,
- 		inv_dai_fmt |= SND_SOC_DAIFMT_CBM_CFM;
- 		break;
- 	}
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 		unsigned int fmt = dai_fmt;
- 
- 		if (cpu_dai->component->driver->non_legacy_dai_naming)
-diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index 09fa437fc33e..7374829c6675 100644
---- a/sound/soc/soc-dapm.c
-+++ b/sound/soc/soc-dapm.c
-@@ -2437,7 +2437,7 @@ static ssize_t dapm_widget_show(struct device *dev,
- 
- 	mutex_lock(&rtd->card->dapm_mutex);
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		struct snd_soc_component *cmpnt = codec_dai->component;
- 
- 		count += dapm_widget_show_component(cmpnt, buf + count);
-@@ -4362,11 +4362,11 @@ static void dapm_connect_dai_link_widgets(struct snd_soc_card *card,
- 	int i;
- 
- 	if (rtd->num_cpus == 1) {
--		for_each_rtd_codec_dai(rtd, i, codec_dai)
-+		for_each_rtd_codec_dais(rtd, i, codec_dai)
- 			dapm_add_valid_dai_widget(card, rtd, codec_dai,
- 						  rtd->cpu_dais[0]);
- 	} else if (rtd->num_codecs == rtd->num_cpus) {
--		for_each_rtd_codec_dai(rtd, i, codec_dai)
-+		for_each_rtd_codec_dais(rtd, i, codec_dai)
- 			dapm_add_valid_dai_widget(card, rtd, codec_dai,
- 						  rtd->cpu_dais[i]);
- 	} else {
-@@ -4437,9 +4437,9 @@ static void soc_dapm_stream_event(struct snd_soc_pcm_runtime *rtd, int stream,
- 	struct snd_soc_dai *cpu_dai;
- 	int i;
- 
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai)
- 		soc_dapm_dai_stream_event(cpu_dai, stream, event);
--	for_each_rtd_codec_dai(rtd, i, codec_dai)
-+	for_each_rtd_codec_dais(rtd, i, codec_dai)
- 		soc_dapm_dai_stream_event(codec_dai, stream, event);
- 
- 	dapm_power_widgets(rtd->card, event);
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index e7915adaaf0a..fbea005043de 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -265,17 +265,17 @@ static void snd_soc_runtime_action(struct snd_soc_pcm_runtime *rtd,
- 
- 	lockdep_assert_held(&rtd->card->pcm_mutex);
- 
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai)
- 		cpu_dai->stream_active[stream] += action;
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai)
-+	for_each_rtd_codec_dais(rtd, i, codec_dai)
- 		codec_dai->stream_active[stream] += action;
- 
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 		cpu_dai->active += action;
- 		cpu_dai->component->active += action;
- 	}
--	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		codec_dai->active += action;
- 		codec_dai->component->active += action;
- 	}
-@@ -455,14 +455,14 @@ static int soc_pcm_params_symmetry(struct snd_pcm_substream *substream,
- 	/* reject unmatched parameters when applying symmetry */
- 	symmetry = rtd->dai_link->symmetric_rates;
- 
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai)
- 		symmetry |= cpu_dai->driver->symmetric_rates;
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai)
-+	for_each_rtd_codec_dais(rtd, i, codec_dai)
- 		symmetry |= codec_dai->driver->symmetric_rates;
- 
- 	if (symmetry) {
--		for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+		for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 			if (cpu_dai->rate && cpu_dai->rate != rate) {
- 				dev_err(rtd->dev, "ASoC: unmatched rate symmetry: %d - %d\n",
- 					cpu_dai->rate, rate);
-@@ -473,14 +473,14 @@ static int soc_pcm_params_symmetry(struct snd_pcm_substream *substream,
- 
- 	symmetry = rtd->dai_link->symmetric_channels;
- 
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai)
- 		symmetry |= cpu_dai->driver->symmetric_channels;
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai)
-+	for_each_rtd_codec_dais(rtd, i, codec_dai)
- 		symmetry |= codec_dai->driver->symmetric_channels;
- 
- 	if (symmetry) {
--		for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+		for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 			if (cpu_dai->channels &&
- 			    cpu_dai->channels != channels) {
- 				dev_err(rtd->dev, "ASoC: unmatched channel symmetry: %d - %d\n",
-@@ -492,14 +492,14 @@ static int soc_pcm_params_symmetry(struct snd_pcm_substream *substream,
- 
- 	symmetry = rtd->dai_link->symmetric_samplebits;
- 
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai)
- 		symmetry |= cpu_dai->driver->symmetric_samplebits;
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai)
-+	for_each_rtd_codec_dais(rtd, i, codec_dai)
- 		symmetry |= codec_dai->driver->symmetric_samplebits;
- 
- 	if (symmetry) {
--		for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+		for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 			if (cpu_dai->sample_bits &&
- 			    cpu_dai->sample_bits != sample_bits) {
- 				dev_err(rtd->dev, "ASoC: unmatched sample bits symmetry: %d - %d\n",
-@@ -524,13 +524,13 @@ static bool soc_pcm_has_symmetry(struct snd_pcm_substream *substream)
- 		link->symmetric_channels ||
- 		link->symmetric_samplebits;
- 
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai)
- 		symmetry = symmetry ||
- 			cpu_dai->driver->symmetric_rates ||
- 			cpu_dai->driver->symmetric_channels ||
- 			cpu_dai->driver->symmetric_samplebits;
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai)
-+	for_each_rtd_codec_dais(rtd, i, codec_dai)
- 		symmetry = symmetry ||
- 			codec_dai->driver->symmetric_rates ||
- 			codec_dai->driver->symmetric_channels ||
-@@ -563,7 +563,7 @@ static void soc_pcm_apply_msb(struct snd_pcm_substream *substream)
- 	int i;
- 	unsigned int bits = 0, cpu_bits = 0;
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		pcm_codec = snd_soc_dai_get_pcm_stream(codec_dai, stream);
- 
- 		if (pcm_codec->sig_bits == 0) {
-@@ -573,7 +573,7 @@ static void soc_pcm_apply_msb(struct snd_pcm_substream *substream)
- 		bits = max(pcm_codec->sig_bits, bits);
- 	}
- 
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 		pcm_cpu = snd_soc_dai_get_pcm_stream(cpu_dai, stream);
- 
- 		if (pcm_cpu->sig_bits == 0) {
-@@ -612,7 +612,7 @@ int snd_soc_runtime_calc_hw(struct snd_soc_pcm_runtime *rtd,
- 	int i;
- 
- 	/* first calculate min/max only for CPUs in the DAI link */
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 
- 		/*
- 		 * Skip CPUs which don't support the current stream type.
-@@ -635,7 +635,7 @@ int snd_soc_runtime_calc_hw(struct snd_soc_pcm_runtime *rtd,
- 	}
- 
- 	/* second calculate min/max only for CODECs in the DAI link */
--	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 
- 		/*
- 		 * Skip CODECs which don't support the current stream type.
-@@ -780,10 +780,10 @@ static int soc_pcm_close(struct snd_pcm_substream *substream)
- 
- 	snd_soc_runtime_deactivate(rtd, substream->stream);
- 
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai)
- 		snd_soc_dai_shutdown(cpu_dai, substream);
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai)
-+	for_each_rtd_codec_dais(rtd, i, codec_dai)
- 		snd_soc_dai_shutdown(codec_dai, substream);
- 
- 	soc_rtd_shutdown(rtd, substream);
-@@ -842,7 +842,7 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
- 	}
- 
- 	/* startup the audio subsystem */
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 		ret = snd_soc_dai_startup(cpu_dai, substream);
- 		if (ret < 0) {
- 			dev_err(cpu_dai->dev, "ASoC: can't open interface %s: %d\n",
-@@ -851,7 +851,7 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
- 		}
- 	}
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		ret = snd_soc_dai_startup(codec_dai, substream);
- 		if (ret < 0) {
- 			dev_err(codec_dai->dev,
-@@ -903,7 +903,7 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
- 	soc_pcm_apply_msb(substream);
- 
- 	/* Symmetry only applies if we've already got an active stream. */
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 		if (cpu_dai->active) {
- 			ret = soc_pcm_apply_symmetry(substream, cpu_dai);
- 			if (ret != 0)
-@@ -911,7 +911,7 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
- 		}
- 	}
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		if (codec_dai->active) {
- 			ret = soc_pcm_apply_symmetry(substream, codec_dai);
- 			if (ret != 0)
-@@ -935,10 +935,10 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
- 	return 0;
- 
- config_err:
--	for_each_rtd_codec_dai(rtd, i, codec_dai)
-+	for_each_rtd_codec_dais(rtd, i, codec_dai)
- 		snd_soc_dai_shutdown(codec_dai, substream);
- cpu_dai_err:
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai)
- 		snd_soc_dai_shutdown(cpu_dai, substream);
- 
- 	soc_rtd_shutdown(rtd, substream);
-@@ -1000,7 +1000,7 @@ static int soc_pcm_prepare(struct snd_pcm_substream *substream)
- 		}
- 	}
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		ret = snd_soc_dai_prepare(codec_dai, substream);
- 		if (ret < 0) {
- 			dev_err(codec_dai->dev,
-@@ -1010,7 +1010,7 @@ static int soc_pcm_prepare(struct snd_pcm_substream *substream)
- 		}
- 	}
- 
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 		ret = snd_soc_dai_prepare(cpu_dai, substream);
- 		if (ret < 0) {
- 			dev_err(cpu_dai->dev,
-@@ -1029,10 +1029,10 @@ static int soc_pcm_prepare(struct snd_pcm_substream *substream)
- 	snd_soc_dapm_stream_event(rtd, substream->stream,
- 			SND_SOC_DAPM_STREAM_START);
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai)
-+	for_each_rtd_codec_dais(rtd, i, codec_dai)
- 		snd_soc_dai_digital_mute(codec_dai, 0,
- 					 substream->stream);
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai)
- 		snd_soc_dai_digital_mute(cpu_dai, 0, substream->stream);
- 
- out:
-@@ -1097,7 +1097,7 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
- 		goto out;
- 	}
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		struct snd_pcm_hw_params codec_params;
- 
- 		/*
-@@ -1144,7 +1144,7 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
- 		snd_soc_dapm_update_dai(substream, &codec_params, codec_dai);
- 	}
- 
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 		/*
- 		 * Skip CPUs which don't support the current stream
- 		 * type. See soc_pcm_init_runtime_hw() for more details
-@@ -1186,7 +1186,7 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
- 	i = rtd->num_cpus;
- 
- interface_err:
--	for_each_rtd_cpu_dai_rollback(rtd, i, cpu_dai) {
-+	for_each_rtd_cpu_dais_rollback(rtd, i, cpu_dai) {
- 		if (!snd_soc_dai_stream_valid(cpu_dai, substream->stream))
- 			continue;
- 
-@@ -1197,7 +1197,7 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
- 	i = rtd->num_codecs;
- 
- codec_err:
--	for_each_rtd_codec_dai_rollback(rtd, i, codec_dai) {
-+	for_each_rtd_codec_dais_rollback(rtd, i, codec_dai) {
- 		if (!snd_soc_dai_stream_valid(codec_dai, substream->stream))
- 			continue;
- 
-@@ -1224,7 +1224,7 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
- 	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
- 
- 	/* clear the corresponding DAIs parameters when going to be inactive */
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 		if (cpu_dai->active == 1) {
- 			cpu_dai->rate = 0;
- 			cpu_dai->channels = 0;
-@@ -1232,7 +1232,7 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
- 		}
- 	}
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		if (codec_dai->active == 1) {
- 			codec_dai->rate = 0;
- 			codec_dai->channels = 0;
-@@ -1241,7 +1241,7 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
- 	}
- 
- 	/* apply codec digital mute */
--	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		int active = codec_dai->stream_active[substream->stream];
- 
- 		if (active == 1)
-@@ -1249,7 +1249,7 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
- 						 substream->stream);
- 	}
- 
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 		int active = cpu_dai->stream_active[substream->stream];
- 
- 		if (active == 1)
-@@ -1264,14 +1264,14 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
- 	soc_pcm_components_hw_free(substream, NULL);
- 
- 	/* now free hw params for the DAIs  */
--	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		if (!snd_soc_dai_stream_valid(codec_dai, substream->stream))
- 			continue;
- 
- 		snd_soc_dai_hw_free(codec_dai, substream);
- 	}
- 
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 		if (!snd_soc_dai_stream_valid(cpu_dai, substream->stream))
- 			continue;
- 
-@@ -1300,13 +1300,13 @@ static int soc_pcm_trigger_start(struct snd_pcm_substream *substream, int cmd)
- 			return ret;
- 	}
- 
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 		ret = snd_soc_dai_trigger(cpu_dai, substream, cmd);
- 		if (ret < 0)
- 			return ret;
- 	}
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		ret = snd_soc_dai_trigger(codec_dai, substream, cmd);
- 		if (ret < 0)
- 			return ret;
-@@ -1323,13 +1323,13 @@ static int soc_pcm_trigger_stop(struct snd_pcm_substream *substream, int cmd)
- 	struct snd_soc_dai *codec_dai;
- 	int i, ret;
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		ret = snd_soc_dai_trigger(codec_dai, substream, cmd);
- 		if (ret < 0)
- 			return ret;
- 	}
- 
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 		ret = snd_soc_dai_trigger(cpu_dai, substream, cmd);
- 		if (ret < 0)
- 			return ret;
-@@ -1378,13 +1378,13 @@ static int soc_pcm_bespoke_trigger(struct snd_pcm_substream *substream,
- 	struct snd_soc_dai *codec_dai;
- 	int i, ret;
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		ret = snd_soc_dai_bespoke_trigger(codec_dai, substream, cmd);
- 		if (ret < 0)
- 			return ret;
- 	}
- 
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 		ret = snd_soc_dai_bespoke_trigger(cpu_dai, substream, cmd);
- 		if (ret < 0)
- 			return ret;
-@@ -1417,13 +1417,13 @@ static snd_pcm_uframes_t soc_pcm_pointer(struct snd_pcm_substream *substream)
- 	/* base delay if assigned in pointer callback */
- 	delay = runtime->delay;
- 
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 		cpu_delay = max(cpu_delay,
- 				snd_soc_dai_delay(cpu_dai, substream));
- 	}
- 	delay += cpu_delay;
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		codec_delay = max(codec_delay,
- 				  snd_soc_dai_delay(codec_dai, substream));
- 	}
-@@ -1544,7 +1544,7 @@ static struct snd_soc_pcm_runtime *dpcm_get_be(struct snd_soc_card *card,
- 		if (!be->dai_link->no_pcm)
- 			continue;
- 
--		for_each_rtd_cpu_dai(be, i, dai) {
-+		for_each_rtd_cpu_dais(be, i, dai) {
- 			w = snd_soc_dai_get_widget(dai, stream);
- 
- 			dev_dbg(card->dev, "ASoC: try BE : %s\n",
-@@ -1554,7 +1554,7 @@ static struct snd_soc_pcm_runtime *dpcm_get_be(struct snd_soc_card *card,
- 				return be;
- 		}
- 
--		for_each_rtd_codec_dai(be, i, dai) {
-+		for_each_rtd_codec_dais(be, i, dai) {
- 			w = snd_soc_dai_get_widget(dai, stream);
- 
- 			if (w == widget)
-@@ -1642,7 +1642,7 @@ static int dpcm_prune_paths(struct snd_soc_pcm_runtime *fe, int stream,
- 
- 		/* is there a valid CPU DAI widget for this BE */
- 		do_prune = 1;
--		for_each_rtd_cpu_dai(dpcm->be, i, dai) {
-+		for_each_rtd_cpu_dais(dpcm->be, i, dai) {
- 			widget = snd_soc_dai_get_widget(dai, stream);
- 
- 			/*
-@@ -1657,7 +1657,7 @@ static int dpcm_prune_paths(struct snd_soc_pcm_runtime *fe, int stream,
- 
- 		/* is there a valid CODEC DAI widget for this BE */
- 		do_prune = 1;
--		for_each_rtd_codec_dai(dpcm->be, i, dai) {
-+		for_each_rtd_codec_dais(dpcm->be, i, dai) {
- 			widget = snd_soc_dai_get_widget(dai, stream);
- 
- 			/* prune the BE if it's no longer in our active list */
-@@ -1910,7 +1910,7 @@ static void dpcm_runtime_merge_format(struct snd_pcm_substream *substream,
- 		struct snd_soc_pcm_stream *codec_stream;
- 		int i;
- 
--		for_each_rtd_codec_dai(be, i, dai) {
-+		for_each_rtd_codec_dais(be, i, dai) {
- 			/*
- 			 * Skip CODECs which don't support the current stream
- 			 * type. See soc_pcm_init_runtime_hw() for more details
-@@ -1948,7 +1948,7 @@ static void dpcm_runtime_merge_chan(struct snd_pcm_substream *substream,
- 		struct snd_soc_dai *dai;
- 		int i;
- 
--		for_each_rtd_cpu_dai(be, i, dai) {
-+		for_each_rtd_cpu_dais(be, i, dai) {
- 			/*
- 			 * Skip CPUs which don't support the current stream
- 			 * type. See soc_pcm_init_runtime_hw() for more details
-@@ -2003,7 +2003,7 @@ static void dpcm_runtime_merge_rate(struct snd_pcm_substream *substream,
- 		struct snd_soc_dai *dai;
- 		int i;
- 
--		for_each_rtd_cpu_dai(be, i, dai) {
-+		for_each_rtd_cpu_dais(be, i, dai) {
- 			/*
- 			 * Skip CPUs which don't support the current stream
- 			 * type. See soc_pcm_init_runtime_hw() for more details
-@@ -2020,7 +2020,7 @@ static void dpcm_runtime_merge_rate(struct snd_pcm_substream *substream,
- 						cpu_stream->rates);
- 		}
- 
--		for_each_rtd_codec_dai(be, i, dai) {
-+		for_each_rtd_codec_dais(be, i, dai) {
- 			/*
- 			 * Skip CODECs which don't support the current stream
- 			 * type. See soc_pcm_init_runtime_hw() for more details
-@@ -2046,7 +2046,7 @@ static void dpcm_set_fe_runtime(struct snd_pcm_substream *substream)
- 	struct snd_soc_dai *cpu_dai;
- 	int i;
- 
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 		/*
- 		 * Skip CPUs which don't support the current stream
- 		 * type. See soc_pcm_init_runtime_hw() for more details
-@@ -2102,7 +2102,7 @@ static int dpcm_apply_symmetry(struct snd_pcm_substream *fe_substream,
- 	if (soc_pcm_has_symmetry(fe_substream))
- 		fe_substream->runtime->hw.info |= SNDRV_PCM_INFO_JOINT_DUPLEX;
- 
--	for_each_rtd_cpu_dai (fe, i, fe_cpu_dai) {
-+	for_each_rtd_cpu_dais (fe, i, fe_cpu_dai) {
- 		/* Symmetry only applies if we've got an active stream. */
- 		if (fe_cpu_dai->active) {
- 			err = soc_pcm_apply_symmetry(fe_substream, fe_cpu_dai);
-@@ -2133,7 +2133,7 @@ static int dpcm_apply_symmetry(struct snd_pcm_substream *fe_substream,
- 			be_substream->runtime->hw.info |= SNDRV_PCM_INFO_JOINT_DUPLEX;
- 
- 		/* Symmetry only applies if we've got an active stream. */
--		for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+		for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
- 			if (cpu_dai->active) {
- 				err = soc_pcm_apply_symmetry(fe_substream,
- 							     cpu_dai);
-@@ -2142,7 +2142,7 @@ static int dpcm_apply_symmetry(struct snd_pcm_substream *fe_substream,
- 			}
- 		}
- 
--		for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+		for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 			if (codec_dai->active) {
- 				err = soc_pcm_apply_symmetry(fe_substream,
- 							     codec_dai);
-@@ -3075,7 +3075,7 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
- 		int cpu_playback = rtd->dai_link->params ?
- 			SNDRV_PCM_STREAM_CAPTURE : SNDRV_PCM_STREAM_PLAYBACK;
- 
--		for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+		for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 			if (rtd->num_cpus == 1) {
- 				cpu_dai = rtd->cpu_dais[0];
- 			} else if (rtd->num_cpus == rtd->num_codecs) {
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index 09bc45b8bf00..5e1b4ef1543c 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -1163,20 +1163,6 @@ struct snd_soc_pcm_runtime {
+ 	for ((i) = 0;							\
+ 	     ((i) < rtd->num_components) && ((component) = rtd->components[i]);\
+ 	     (i)++)
+-#define for_each_rtd_codec_dai(rtd, i, dai)\
+-	for ((i) = 0;						       \
+-	     ((i) < rtd->num_codecs) && ((dai) = rtd->codec_dais[i]); \
+-	     (i)++)
+-#define for_each_rtd_codec_dai_rollback(rtd, i, dai)		\
+-	for (; (--(i) >= 0) && ((dai) = rtd->codec_dais[i]);)
+-
+-#define for_each_rtd_cpu_dai(rtd, i, dai)\
+-	for ((i) = 0;						       \
+-	     ((i) < rtd->num_cpus) && ((dai) = rtd->cpu_dais[i]); \
+-	     (i)++)
+-#define for_each_rtd_cpu_dai_rollback(rtd, i, dai)		\
+-	for (; (--(i) >= 0) && ((dai) = rtd->cpu_dais[i]);)
+-
+ #define for_each_rtd_cpu_dais(rtd, i, dai)				\
+ 	for ((i) = 0;							\
+ 	     ((i) < rtd->num_cpus) && ((dai) = rtd->cpu_dais[i]);	\
 -- 
 2.17.1
 

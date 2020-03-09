@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D60317D882
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Mar 2020 05:13:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A4B017D884
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Mar 2020 05:14:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0DBA4167A;
-	Mon,  9 Mar 2020 05:13:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DBA4167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40AEC167B;
+	Mon,  9 Mar 2020 05:13:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40AEC167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583727239;
-	bh=aTWJ4L/JPuejPOhC1K+B44T+Vwtr/A2cmITDL2Zzu48=;
+	s=default; t=1583727271;
+	bh=2NN07mX8KjpNtKmVdADZzqX7SqNU9g5/kXGAseBA8uk=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WpX+MLmMCymcNbYHDtwo93Ma5KTgKl8X893b5jyugUqgLQbvYkmz2olEA8XOTCfmE
-	 vgHMYdl3MegIKZf1vSmQNGVASVmvaXEl5MAbv+W4rH+4ZxBYH19uXxu1oQnMXPF0AJ
-	 MFV3c0uZRSS/K9tSK441pUnTDonY8u1KTG5rsZAg=
+	b=sRuAGM5MNs/TtWV2KoxZSBTlJPXZzwDszicyc573boOvw0Krz57+hyJUAvEnJlBzb
+	 fyWHOo9dOXybRygjvKueKFkOZch3rRMGap5dEOcBAluvvIM01wul/xZadxNaLn2s2J
+	 ipgu8LT8T3RAQezUSaEpPLArXfgaweZ7jFczklI0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AE620F80308;
-	Mon,  9 Mar 2020 05:07:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8CC8F80316;
+	Mon,  9 Mar 2020 05:07:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9F064F80306; Mon,  9 Mar 2020 05:07:49 +0100 (CET)
+ id AE92DF80315; Mon,  9 Mar 2020 05:07:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id CAB30F802FB
- for <alsa-devel@alsa-project.org>; Mon,  9 Mar 2020 05:07:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CAB30F802FB
-Date: 09 Mar 2020 13:07:42 +0900
-X-IronPort-AV: E=Sophos;i="5.70,531,1574089200"; d="scan'208";a="41130179"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id B6F95F80290
+ for <alsa-devel@alsa-project.org>; Mon,  9 Mar 2020 05:07:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6F95F80290
+Date: 09 Mar 2020 13:07:48 +0900
+X-IronPort-AV: E=Sophos;i="5.70,531,1574089200"; d="scan'208";a="41345642"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 09 Mar 2020 13:07:42 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 09 Mar 2020 13:07:48 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 63F1A4142DF3;
- Mon,  9 Mar 2020 13:07:42 +0900 (JST)
-Message-ID: <87zhcqgohd.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 89248414191A;
+ Mon,  9 Mar 2020 13:07:48 +0900 (JST)
+Message-ID: <87y2sagoh7.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 3/9] ASoC: mediatek: use for_each_rtd_codecs/cpus_dai() macro
+Subject: [PATCH 4/9] ASoC: meson: use for_each_rtd_codecs/cpus_dai() macro
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <874kuyi33c.wl-kuninori.morimoto.gx@renesas.com>
@@ -86,73 +86,36 @@ This patch switch to use plural form macro.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c   | 2 +-
- sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c   | 2 +-
- sound/soc/mediatek/mt8173/mt8173-rt5650.c          | 2 +-
- sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c | 4 ++--
- 4 files changed, 5 insertions(+), 5 deletions(-)
+ sound/soc/meson/axg-card.c         | 2 +-
+ sound/soc/meson/meson-card-utils.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c
-index 2e1e61d8f127..5d82159f4f2e 100644
---- a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c
-+++ b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c
-@@ -47,7 +47,7 @@ static int mt8173_rt5650_rt5514_hw_params(struct snd_pcm_substream *substream,
+diff --git a/sound/soc/meson/axg-card.c b/sound/soc/meson/axg-card.c
+index 48651631bdcf..77a7d5f36ebf 100644
+--- a/sound/soc/meson/axg-card.c
++++ b/sound/soc/meson/axg-card.c
+@@ -60,7 +60,7 @@ static int axg_card_tdm_dai_init(struct snd_soc_pcm_runtime *rtd)
  	struct snd_soc_dai *codec_dai;
- 	int i, ret;
+ 	int ret, i;
  
 -	for_each_rtd_codec_dai(rtd, i, codec_dai) {
 +	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		/* pll from mclk 12.288M */
- 		ret = snd_soc_dai_set_pll(codec_dai, 0, 0, MCLK_FOR_CODECS,
- 					  params_rate(params) * 512);
-diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c
-index ebcc0b86286b..f65e3ebe38b8 100644
---- a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c
-+++ b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c
-@@ -51,7 +51,7 @@ static int mt8173_rt5650_rt5676_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_soc_dai *codec_dai;
- 	int i, ret;
+ 		ret = snd_soc_dai_set_tdm_slot(codec_dai,
+ 					       be->codec_masks[i].tx,
+ 					       be->codec_masks[i].rx,
+diff --git a/sound/soc/meson/meson-card-utils.c b/sound/soc/meson/meson-card-utils.c
+index a70d244ef88b..b5d3c9f56bac 100644
+--- a/sound/soc/meson/meson-card-utils.c
++++ b/sound/soc/meson/meson-card-utils.c
+@@ -23,7 +23,7 @@ int meson_card_i2s_set_sysclk(struct snd_pcm_substream *substream,
+ 
+ 	mclk = params_rate(params) * mclk_fs;
  
 -	for_each_rtd_codec_dai(rtd, i, codec_dai) {
 +	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		/* pll from mclk 12.288M */
- 		ret = snd_soc_dai_set_pll(codec_dai, 0, 0, MCLK_FOR_CODECS,
- 					  params_rate(params) * 512);
-diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650.c b/sound/soc/mediatek/mt8173/mt8173-rt5650.c
-index 849b050a54d1..bbc4ad749892 100644
---- a/sound/soc/mediatek/mt8173/mt8173-rt5650.c
-+++ b/sound/soc/mediatek/mt8173/mt8173-rt5650.c
-@@ -78,7 +78,7 @@ static int mt8173_rt5650_hw_params(struct snd_pcm_substream *substream,
- 		break;
- 	}
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		/* pll from mclk */
- 		ret = snd_soc_dai_set_pll(codec_dai, 0, 0, mclk_clock,
- 					  params_rate(params) * 512);
-diff --git a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
-index 4a5ef07e956b..c4e4f1f99dde 100644
---- a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
-+++ b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
-@@ -52,7 +52,7 @@ static int mt8183_da7219_i2s_hw_params(struct snd_pcm_substream *substream,
- 	if (ret < 0)
- 		dev_err(rtd->dev, "failed to set cpu dai sysclk\n");
- 
--	for_each_rtd_codec_dai(rtd, j, codec_dai) {
-+	for_each_rtd_codec_dais(rtd, j, codec_dai) {
- 
- 		if (!strcmp(codec_dai->component->name, "da7219.5-001a")) {
- 			ret = snd_soc_dai_set_sysclk(codec_dai,
-@@ -85,7 +85,7 @@ static int mt8183_da7219_hw_free(struct snd_pcm_substream *substream)
- 	struct snd_soc_dai *codec_dai;
- 	int ret = 0, j;
- 
--	for_each_rtd_codec_dai(rtd, j, codec_dai) {
-+	for_each_rtd_codec_dais(rtd, j, codec_dai) {
- 
- 		if (!strcmp(codec_dai->component->name, "da7219.5-001a")) {
- 			ret = snd_soc_dai_set_pll(codec_dai,
+ 		ret = snd_soc_dai_set_sysclk(codec_dai, 0, mclk,
+ 					     SND_SOC_CLOCK_IN);
+ 		if (ret && ret != -ENOTSUPP)
 -- 
 2.17.1
 

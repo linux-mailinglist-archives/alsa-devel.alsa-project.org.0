@@ -2,91 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A146917D532
-	for <lists+alsa-devel@lfdr.de>; Sun,  8 Mar 2020 18:19:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C5D217D871
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Mar 2020 05:07:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 308CD1672;
-	Sun,  8 Mar 2020 18:19:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 308CD1672
+	by alsa0.perex.cz (Postfix) with ESMTPS id EDD491677;
+	Mon,  9 Mar 2020 05:06:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDD491677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583687996;
-	bh=9mmOa8ltPWehoaksnl0v1oD8tW4ErbBOUrkQ8K7MR5s=;
-	h=To:From:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1583726842;
+	bh=3GEB68DoDX5TnhP1tr5XxhcESG74hpKKih+qZI6Nzfw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=kaJNRire1MtNcm62CbHf8hOYDIBZqqUj36+lqbHN0+ilwBjzgGnZ9EJ1x2+5urJH6
-	 RlbskT1/ZjyCDHOD9fM/J6Y/fcOLA7bhN9VAXF/odfy1qObMlMsKAnTVulX4DVCPri
-	 nB8d9lvU+eqzRaJzlxKV2jrKyANnorqDAgQtjF1M=
+	b=DvIGV8UziK6+SYnXD3h3V9Fcoh8k2dUa9E0cqMXcdQwCse9QQcJkI1z1JgaqCzUPt
+	 exGbT7tEVKXgZlqu8zuTGjc2dXfLGS5S/kzUxMx8NRP5hKqnZ0soedhvNaJu1Nm9DF
+	 cyHqaUOgnuMFcGIRHqv+A8UmBTW3/uB4Q3NGZGkU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E0BEAF80217;
-	Sun,  8 Mar 2020 18:18:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A419F80260;
+	Mon,  9 Mar 2020 05:05:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 62CBCF80123; Sun,  8 Mar 2020 18:18:11 +0100 (CET)
+ id 64B0AF80227; Mon,  9 Mar 2020 05:05:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, SPF_HELO_NONE, SPF_PASS,
- SURBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 47075F80123
- for <alsa-devel@alsa-project.org>; Sun,  8 Mar 2020 18:18:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47075F80123
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="mGbhwKOp"
-Received: by mail-wr1-x441.google.com with SMTP id r15so3123508wrx.6
- for <alsa-devel@alsa-project.org>; Sun, 08 Mar 2020 10:18:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=to:from:subject:message-id:date:user-agent:mime-version
- :content-language;
- bh=HGInJXKdVnfWJS68yXyIkQZArITn0CaK6RLEWgM+jr0=;
- b=mGbhwKOp2Z4114yS+oKJvi6Le7JNzJKUivm2+FFBc/i6+tlsusXL0vtk5zioTfH2Ik
- Jyrw4tejQcAmrAMn3+hHGMmygg/Xo/VgXj2mMUEDNfPQ/BusFRVx3iJzZjlPG1KTd0hA
- wnUPU+lRRfbVJG1E6hF7PB71ryOTQeo0n5ARKaDHmzqfPK3uNmYGcB+BcU2QrSyso6m7
- Jh+kIknMf/ENDXyX9Qy6mHIJQq7/2NuEiB8sakKhoE5QNITBi56KElaGGzbYmhFjoIHS
- GMYLhDmL3Z6NJX1UJCr6kwF/LvLJP+TQNYa0/j9S8nV43gnjOSTkbW+X2r6vi9hlNwiY
- X4JA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:to:from:subject:message-id:date:user-agent
- :mime-version:content-language;
- bh=HGInJXKdVnfWJS68yXyIkQZArITn0CaK6RLEWgM+jr0=;
- b=VWd8q1VUNAHyOqnE1rGCoLgViyNEwsaGLYanowhzPe4LR7jKphqGziJXltGvc5F4GY
- 2C5gTtv7MJCfWMNxgebzhramP9mdrS80LVD9WXM+dsyzmXgIVHt7mg1ZzqruzZZdgWVx
- 7kg9eooi8e7lAPM7bN+Uv2y6XbKDlZYOHdy3dtP1uIBLZTl71y6+Xu45Np/ncA7qzT0Q
- jjLyeDy3s5lli3Phir04duaO8VfSwH2mVtEqqL3M/R/dOre39gyZ3PCkj18lCB71WzJH
- JpxeTKJOOuv6AZ+hOyS/f5/Js47h7Zw3RdGuc1BJmdZfu5Excqb0sHXo6xvaX29f+tZ/
- aTUw==
-X-Gm-Message-State: ANhLgQ0+QQdkfiody1x18D511+iYqhlOHq097kQImay1xfTXyr2UJomf
- Kne55yXTnQx0k2Wl/2bLsn6ejhQV
-X-Google-Smtp-Source: ADFU+vsYOAyBgMlQU6NB+bQEgIRzT5u1lAVCEqE5ETyOSVAddm5eB2yQETcU+hVpFNtb9P7ELM+13A==
-X-Received: by 2002:a5d:4707:: with SMTP id y7mr16983749wrq.213.1583687886460; 
- Sun, 08 Mar 2020 10:18:06 -0700 (PDT)
-Received: from [10.10.10.102] (adijon-656-1-26-152.w90-13.abo.wanadoo.fr.
- [90.13.161.152])
- by smtp.gmail.com with ESMTPSA id t14sm26527867wrp.63.2020.03.08.10.18.05
- for <alsa-devel@alsa-project.org>
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 08 Mar 2020 10:18:05 -0700 (PDT)
-To: alsa-devel@alsa-project.org
-From: Olivier SCHMITT <sc.olivier@gmail.com>
-Subject: increase soundcard max number upper than 32, kernel ok, but alsa-lib
- and alsa-utils no.
-Message-ID: <28ea2dbb-e77e-2ec5-7546-299b81efceab@gmail.com>
-Date: Sun, 8 Mar 2020 18:18:04 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.1
-MIME-Version: 1.0
-Content-Language: fr
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+ by alsa1.perex.cz (Postfix) with ESMTPS id 56448F800DA
+ for <alsa-devel@alsa-project.org>; Mon,  9 Mar 2020 05:05:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56448F800DA
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 24AA52015B1;
+ Mon,  9 Mar 2020 05:05:27 +0100 (CET)
+Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
+ [165.114.16.14])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 1532620159B;
+ Mon,  9 Mar 2020 05:05:20 +0100 (CET)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id BA0544024E;
+ Mon,  9 Mar 2020 12:05:10 +0800 (SGT)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, broonie@kernel.org, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, robh+dt@kernel.org,
+ mark.rutland@arm.com, devicetree@vger.kernel.org
+Subject: [PATCH v5 0/7] ASoC: Add new module driver for new ASRC
+Date: Mon,  9 Mar 2020 11:58:27 +0800
+Message-Id: <cover.1583725533.git.shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,43 +72,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello dear Alsa dev team members,
+Add new module driver for new ASRC in i.MX8MN, several commits
+are added for new property fsl,asrc-format
 
-I try to increase alsa max number of cards in default 32 to 256 for use 
-more than 32 loopback sound card for signal processing.
+Shengjiu Wang (7):
+  ASoC: dt-bindings: fsl_asrc: Add new property fsl,asrc-format
+  ASoC: fsl-asoc-card: Support new property fsl,asrc-format
+  ASoC: fsl_asrc: Support new property fsl,asrc-format
+  ASoC: fsl_asrc: rename asrc_priv to asrc
+  ASoC: fsl_asrc: Move common definition to fsl_asrc_common
+  ASoC: dt-bindings: fsl_easrc: Add document for EASRC
+  ASoC: fsl_easrc: Add EASRC ASoC CPU DAI drivers
 
-I have compile my kernel and also déclare in 
-/etc/modprobe.d/alsa-base.conf more than id max value in default 31 i 
-get a 32 it seam to work:
+changes in v5
+- Add new property fsl,asrc-format, rather than change fsl,asrc-width
+  to fsl,asrc-formt.
+- code change for above change.
 
-ls /proc/asound/
-card10  card12  card14  card16  card18  card20  card22  card24 card26  
-card28  card30 *card32 *devices  lp1   lp11  lp13 lp15  lp17  lp19  lp20 
-*lp22 *lp4  lp6  lp8  modules  pcm timers
-card11  card13  card15  card17  card19  card21  card23  card25 card27  
-card29  card31  cards   lp0      lp10  lp12  lp14  lp16 lp18  lp2   
-lp21  lp3   lp5  lp7  lp9  oss      seq  version
+changes in v4
+- Add several commit for changing DT binding asrc-width to asrc-format
+- rename asrc_priv to asrc
 
-I have compile alsa-libs and alsa utils as:
+changes in v3
+- add new commit "ASoC: fsl_asrc: Change asrc_width to asrc_format"
+- modify binding doc to yaml format
+- remove fsl_easrc_dma.c, make fsl_asrc_dma.c useable for easrc.
 
-sudo mkdir /usr/src/alsa
-cd /usr/src/alsa
+changes in v2
+- change i.MX815 to i.MX8MN
+- Add changes in Kconfig and Makefile
 
-git clone git://git.alsa-project.org/alsa-lib.git alsa-lib
-cd /usr/src/alsa/alsa-lib
-./gitcompile --with-max-cards=256
-make install
+ .../devicetree/bindings/sound/fsl,asrc.txt    |    5 +
+ .../devicetree/bindings/sound/fsl,easrc.yaml  |  101 +
+ sound/soc/fsl/Kconfig                         |   11 +
+ sound/soc/fsl/Makefile                        |    2 +
+ sound/soc/fsl/fsl-asoc-card.c                 |   20 +-
+ sound/soc/fsl/fsl_asrc.c                      |  303 +--
+ sound/soc/fsl/fsl_asrc.h                      |   74 +-
+ sound/soc/fsl/fsl_asrc_common.h               |  105 +
+ sound/soc/fsl/fsl_asrc_dma.c                  |   54 +-
+ sound/soc/fsl/fsl_easrc.c                     | 2111 +++++++++++++++++
+ sound/soc/fsl/fsl_easrc.h                     |  651 +++++
+ 11 files changed, 3203 insertions(+), 234 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/fsl,easrc.yaml
+ create mode 100644 sound/soc/fsl/fsl_asrc_common.h
+ create mode 100644 sound/soc/fsl/fsl_easrc.c
+ create mode 100644 sound/soc/fsl/fsl_easrc.h
 
-git clone git://git.alsa-project.org/alsa-utils.git alsa-utils
-cd /usr/src/alsa/alsa-utils
-./gitcompile --with-max-cards=256
-make install
-
-but when i try to use aplay or speakertest with -D hw:32,0 i get:
-ALSA lib pcm_hw.c:1713:(_snd_pcm_hw_open) Invalid value for card
-Erreur d'ouverture à la lecture: -22,Invalid argument
-
-Maybe i have forgot something?
-
-Thanks in advance for reply :-)
+-- 
+2.21.0
 

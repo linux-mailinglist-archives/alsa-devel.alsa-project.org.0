@@ -2,50 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 364BA17E7B2
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Mar 2020 20:00:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2431017E828
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Mar 2020 20:20:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE9D916C1;
-	Mon,  9 Mar 2020 19:59:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE9D916C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9AB8316C5;
+	Mon,  9 Mar 2020 20:19:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AB8316C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583780443;
-	bh=hXddkkQ0OQ5pcIROy9mM3wANjqPWK9UZ/seaqNd7Bn0=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=EIpC+VRsRgJtPf4hngPiDuOX8cYxkgLe3c1hBD8uBqPSrptF3PJVeuwtMxW17a3Ag
-	 kYPqazBCuwVptny74uW95lgUjGHt6Fia6xutoX60vfp6fk/6fATvQa2uCHlO1mmzmE
-	 qu7KTwa6GPTHjX8qPggZcfPPeP4sKgK9IwNl0zj0=
+	s=default; t=1583781603;
+	bh=se/d+EDwhKOuLrL9ms7Er05T5E0qGIDXciOKBgVJz5c=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=SbRP0sWMNZSTi5sM0F5BDa/DZ+De2Aistbc66zmLm+tgXnv7lYy2qTqS+BkFznBU4
+	 lIFl55V8QzhOX0by4Xot345J6waU9E6Q+SxzCh1PnQNfRFF6N7wtKB/EYc1w/JsmBL
+	 cZZDT0tJRENl3KMmjxmQbSNHy/65dn1RrRs+MTSw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03FB3F800B5;
-	Mon,  9 Mar 2020 19:59:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A18EAF800DA;
+	Mon,  9 Mar 2020 20:18:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1EE82F800B5; Mon,  9 Mar 2020 19:59:00 +0100 (CET)
+ id B1529F801EB; Mon,  9 Mar 2020 20:18:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6CF35F800B5
- for <alsa-devel@alsa-project.org>; Mon,  9 Mar 2020 19:58:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CF35F800B5
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 86B85AE79
- for <alsa-devel@alsa-project.org>; Mon,  9 Mar 2020 18:58:56 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v2] ALSA: pcm: oss: Simplify plugin frame size calculations
-Date: Mon,  9 Mar 2020 19:58:55 +0100
-Message-Id: <20200309185855.15693-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.16.4
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 9EF7AF800DA
+ for <alsa-devel@alsa-project.org>; Mon,  9 Mar 2020 20:18:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EF7AF800DA
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 796B01FB;
+ Mon,  9 Mar 2020 12:18:15 -0700 (PDT)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EC4793F67D;
+ Mon,  9 Mar 2020 12:18:14 -0700 (PDT)
+Date: Mon, 9 Mar 2020 19:18:13 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Kevin Li <kevin-ke.li@broadcom.com>
+Subject: Re: [PATCH] ASoC: brcm: Add DSL/PON SoC audio driver
+Message-ID: <20200309191813.GA51173@sirena.org.uk>
+References: <20200306222705.13309-1-kevin-ke.li@broadcom.com>
+ <20200309123307.GE4101@sirena.org.uk>
+ <69138568e9c18afa57d5edba6be9887b@mail.gmail.com>
+ <20200309175205.GJ4101@sirena.org.uk>
+ <8113837129a1b41aee674c68258cd37f@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="G4iJoqBmSsgzjUCe"
+Content-Disposition: inline
+In-Reply-To: <8113837129a1b41aee674c68258cd37f@mail.gmail.com>
+X-Cookie: Beware of dog.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Scott Branden <sbranden@broadcom.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Ray Jui <rjui@broadcom.com>, Takashi Iwai <tiwai@suse.com>,
+ bcm-kernel-feedback-list@broadcom.com, Stephen Boyd <swboyd@chromium.org>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,162 +78,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Both snd_pcm_plug_client_size() and snd_pcm_plug_slave_size() do the
-almost same calculations of calling src_frames() and dst_frames() in
-the chain, but just to the different directions with each other.
 
-This patch simplifies those functions.  Now they return -EINVAL for
-the invalid direction, but practically seen, there is no functional
-changes at all.
+--G4iJoqBmSsgzjUCe
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/oss/pcm_plugin.c | 120 +++++++++++++++++++++-----------------------
- 1 file changed, 56 insertions(+), 64 deletions(-)
+On Mon, Mar 09, 2020 at 11:14:18AM -0700, Kevin Li wrote:
 
-diff --git a/sound/core/oss/pcm_plugin.c b/sound/core/oss/pcm_plugin.c
-index c9401832967c..58642fecd15c 100644
---- a/sound/core/oss/pcm_plugin.c
-+++ b/sound/core/oss/pcm_plugin.c
-@@ -196,82 +196,74 @@ int snd_pcm_plugin_free(struct snd_pcm_plugin *plugin)
- 	return 0;
- }
- 
--snd_pcm_sframes_t snd_pcm_plug_client_size(struct snd_pcm_substream *plug, snd_pcm_uframes_t drv_frames)
-+static snd_pcm_sframes_t calc_dst_frames(struct snd_pcm_substream *plug,
-+					 snd_pcm_sframes_t frames)
- {
--	struct snd_pcm_plugin *plugin, *plugin_prev, *plugin_next;
--	int stream;
-+	struct snd_pcm_plugin *plugin, *plugin_next;
- 
--	if (snd_BUG_ON(!plug))
--		return -ENXIO;
--	if (drv_frames == 0)
--		return 0;
--	stream = snd_pcm_plug_stream(plug);
--	if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
--		plugin = snd_pcm_plug_last(plug);
--		while (plugin && drv_frames > 0) {
--			if (drv_frames > plugin->buf_frames)
--				drv_frames = plugin->buf_frames;
--			plugin_prev = plugin->prev;
--			if (plugin->src_frames)
--				drv_frames = plugin->src_frames(plugin, drv_frames);
--			plugin = plugin_prev;
-+	plugin = snd_pcm_plug_first(plug);
-+	while (plugin && frames > 0) {
-+		plugin_next = plugin->next;
-+		if (plugin->dst_frames) {
-+			frames = plugin->dst_frames(plugin, frames);
-+			if (frames < 0)
-+				return frames;
- 		}
--	} else if (stream == SNDRV_PCM_STREAM_CAPTURE) {
--		plugin = snd_pcm_plug_first(plug);
--		while (plugin && drv_frames > 0) {
--			plugin_next = plugin->next;
--			if (plugin->dst_frames)
--				drv_frames = plugin->dst_frames(plugin, drv_frames);
--			if (drv_frames > plugin->buf_frames)
--				drv_frames = plugin->buf_frames;
--			plugin = plugin_next;
-+		if (frames > plugin->buf_frames)
-+			frames = plugin->buf_frames;
-+		plugin = plugin_next;
-+	}
-+	return frames;
-+}
-+
-+static snd_pcm_sframes_t calc_src_frames(struct snd_pcm_substream *plug,
-+					 snd_pcm_sframes_t frames)
-+{
-+	struct snd_pcm_plugin *plugin, *plugin_prev;
-+
-+	plugin = snd_pcm_plug_last(plug);
-+	while (plugin && frames > 0) {
-+		if (frames > plugin->buf_frames)
-+			frames = plugin->buf_frames;
-+		plugin_prev = plugin->prev;
-+		if (plugin->src_frames) {
-+			frames = plugin->src_frames(plugin, frames);
-+			if (frames < 0)
-+				return frames;
- 		}
--	} else
-+		plugin = plugin_prev;
-+	}
-+	return frames;
-+}
-+
-+snd_pcm_sframes_t snd_pcm_plug_client_size(struct snd_pcm_substream *plug, snd_pcm_uframes_t drv_frames)
-+{
-+	if (snd_BUG_ON(!plug))
-+		return -ENXIO;
-+	switch (snd_pcm_plug_stream(plug)) {
-+	case SNDRV_PCM_STREAM_PLAYBACK:
-+		return calc_src_frames(plug, drv_frames);
-+	case SNDRV_PCM_STREAM_CAPTURE:
-+		return calc_dst_frames(plug, drv_frames);
-+	default:
- 		snd_BUG();
--	return drv_frames;
-+		return -EINVAL;
-+	}
- }
- 
- snd_pcm_sframes_t snd_pcm_plug_slave_size(struct snd_pcm_substream *plug, snd_pcm_uframes_t clt_frames)
- {
--	struct snd_pcm_plugin *plugin, *plugin_prev, *plugin_next;
--	snd_pcm_sframes_t frames;
--	int stream;
--	
- 	if (snd_BUG_ON(!plug))
- 		return -ENXIO;
--	if (clt_frames == 0)
--		return 0;
--	frames = clt_frames;
--	stream = snd_pcm_plug_stream(plug);
--	if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
--		plugin = snd_pcm_plug_first(plug);
--		while (plugin && frames > 0) {
--			plugin_next = plugin->next;
--			if (plugin->dst_frames) {
--				frames = plugin->dst_frames(plugin, frames);
--				if (frames < 0)
--					return frames;
--			}
--			if (frames > plugin->buf_frames)
--				frames = plugin->buf_frames;
--			plugin = plugin_next;
--		}
--	} else if (stream == SNDRV_PCM_STREAM_CAPTURE) {
--		plugin = snd_pcm_plug_last(plug);
--		while (plugin) {
--			if (frames > plugin->buf_frames)
--				frames = plugin->buf_frames;
--			plugin_prev = plugin->prev;
--			if (plugin->src_frames) {
--				frames = plugin->src_frames(plugin, frames);
--				if (frames < 0)
--					return frames;
--			}
--			plugin = plugin_prev;
--		}
--	} else
-+	switch (snd_pcm_plug_stream(plug)) {
-+	case SNDRV_PCM_STREAM_PLAYBACK:
-+		return calc_dst_frames(plug, clt_frames);
-+	case SNDRV_PCM_STREAM_CAPTURE:
-+		return calc_src_frames(plug, clt_frames);
-+	default:
- 		snd_BUG();
--	return frames;
-+		return -EINVAL;
-+	}
- }
- 
- static int snd_pcm_plug_formats(const struct snd_mask *mask,
--- 
-2.16.4
+Please fix your mailer, it looks like you've included some text I wrote
+here:
 
+> I can't really parse what you're talking about here (perhaps some of that
+> context would have helped...) but it doesn't seem to be the clocking of
+> the I2S bus which would normally be what master and slave would be talking
+> about.
+
+but it's completely indistinguishable from the new text that you've
+added.
+
+> It is the clock setting of I2S bus master or slave.
+> If I am playing music only, I set TX as master. All others are slave.
+> If I am recording only. I set RX as master. All others are slave.
+> If I am playing and recording at same time, I set first coming stream as
+> master second coming stream as slave. If I shut down first stream before
+> second stream, then I will set the second stream as master, otherwise
+> there will be no clock/FS signal on the I2S bus to maintain the second
+> stream to its end.
+
+This is not how any of this is supposed to work, it's unlikely to work
+well with other devices.  If the device supports both master and slave
+operation then you should let the machine driver pick if the SoC or the
+CODEC is master via set_fmt(), randomly varying this at runtime is not
+going to be helpful.
+
+--G4iJoqBmSsgzjUCe
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5mlnQACgkQJNaLcl1U
+h9DJ4gf/W/+cBKoBjZFDxUg3x8GtQhsWd7Wv5h7M1lAX2b3JG3TYTn/9KTw8pw9t
+IqRQlZ5fYkIaqXjoH9c29EHV+7Oc1H7ipYTypjRpmai4D17oAixzgMg6JfsdczV0
+RpmZZbDWEYfaIHAC8mAetFWYs0JAd9VLDjRUVY0ineBnXdjCrsZBc4UQsg9vYj+h
+uV3z8auOgOz1dHgOk/FYdomT2aXtIJ3vxYQPzXK1Q19uhmlLcO3ELmk+I4opLVZH
+CnUx839AjYN+UOsa7z5I/z3RVndp/dtPIBF6TMTLrBJmgdU6QLCPBuVgLE4gdCQ2
+W4g38ZUD3DpNTiKgsPbhrXu/v7MxQg==
+=Ukbe
+-----END PGP SIGNATURE-----
+
+--G4iJoqBmSsgzjUCe--

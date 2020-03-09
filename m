@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2C8117D881
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Mar 2020 05:13:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D60317D882
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Mar 2020 05:13:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 916921679;
-	Mon,  9 Mar 2020 05:12:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 916921679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0DBA4167A;
+	Mon,  9 Mar 2020 05:13:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DBA4167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583727201;
-	bh=F0ErYyLDMXBnIdMR4Qk+STE+fQUyGbznpgcz7343mOk=;
+	s=default; t=1583727239;
+	bh=aTWJ4L/JPuejPOhC1K+B44T+Vwtr/A2cmITDL2Zzu48=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gSrSW7yJ517QU0cLv1qG6cenfxgHjT8GkgB/xmI95Do2jyTLeeTLnqWgo85AfbNN7
-	 4BHAKqscPfszqMWMLCv4kVA/Oi1xEZz0Xt22WKwBp5ApoqmWoe4qxqnUwCpIB0+rPp
-	 GJ/HgOBkTz26SSX9Yzq2mHPILSMcuXlPdGgie3Jk=
+	b=WpX+MLmMCymcNbYHDtwo93Ma5KTgKl8X893b5jyugUqgLQbvYkmz2olEA8XOTCfmE
+	 vgHMYdl3MegIKZf1vSmQNGVASVmvaXEl5MAbv+W4rH+4ZxBYH19uXxu1oQnMXPF0AJ
+	 MFV3c0uZRSS/K9tSK441pUnTDonY8u1KTG5rsZAg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89999F80304;
-	Mon,  9 Mar 2020 05:07:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AE620F80308;
+	Mon,  9 Mar 2020 05:07:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 36C21F80303; Mon,  9 Mar 2020 05:07:45 +0100 (CET)
+ id 9F064F80306; Mon,  9 Mar 2020 05:07:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 2D016F801F7
- for <alsa-devel@alsa-project.org>; Mon,  9 Mar 2020 05:07:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D016F801F7
-Date: 09 Mar 2020 13:07:35 +0900
-X-IronPort-AV: E=Sophos;i="5.70,531,1574089200"; d="scan'208";a="41345636"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 09 Mar 2020 13:07:35 +0900
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id CAB30F802FB
+ for <alsa-devel@alsa-project.org>; Mon,  9 Mar 2020 05:07:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CAB30F802FB
+Date: 09 Mar 2020 13:07:42 +0900
+X-IronPort-AV: E=Sophos;i="5.70,531,1574089200"; d="scan'208";a="41130179"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 09 Mar 2020 13:07:42 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id B114A4006DE6;
- Mon,  9 Mar 2020 13:07:35 +0900 (JST)
-Message-ID: <871rq2i320.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 63F1A4142DF3;
+ Mon,  9 Mar 2020 13:07:42 +0900 (JST)
+Message-ID: <87zhcqgohd.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 2/9] ASoC: Intel: use for_each_rtd_codecs/cpus_dai() macro
+Subject: [PATCH 3/9] ASoC: mediatek: use for_each_rtd_codecs/cpus_dai() macro
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <874kuyi33c.wl-kuninori.morimoto.gx@renesas.com>
@@ -86,73 +86,73 @@ This patch switch to use plural form macro.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/intel/boards/cml_rt1011_rt5682.c          | 2 +-
- sound/soc/intel/boards/kbl_da7219_max98927.c        | 4 ++--
- sound/soc/intel/boards/kbl_rt5663_max98927.c        | 2 +-
- sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c | 2 +-
+ sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c   | 2 +-
+ sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c   | 2 +-
+ sound/soc/mediatek/mt8173/mt8173-rt5650.c          | 2 +-
+ sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c | 4 ++--
  4 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/intel/boards/cml_rt1011_rt5682.c b/sound/soc/intel/boards/cml_rt1011_rt5682.c
-index 02aa18d24319..2a6e5b124099 100644
---- a/sound/soc/intel/boards/cml_rt1011_rt5682.c
-+++ b/sound/soc/intel/boards/cml_rt1011_rt5682.c
-@@ -164,7 +164,7 @@ static int cml_rt1011_hw_params(struct snd_pcm_substream *substream,
- 
- 	srate = params_rate(params);
+diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c
+index 2e1e61d8f127..5d82159f4f2e 100644
+--- a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c
++++ b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c
+@@ -47,7 +47,7 @@ static int mt8173_rt5650_rt5514_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_soc_dai *codec_dai;
+ 	int i, ret;
  
 -	for_each_rtd_codec_dai(rtd, i, codec_dai) {
 +	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 
- 		/* 100 Fs to drive 24 bit data */
- 		ret = snd_soc_dai_set_pll(codec_dai, 0, RT1011_PLL1_S_BCLK,
-diff --git a/sound/soc/intel/boards/kbl_da7219_max98927.c b/sound/soc/intel/boards/kbl_da7219_max98927.c
-index 88f69e3697d2..0ceb1748a262 100644
---- a/sound/soc/intel/boards/kbl_da7219_max98927.c
-+++ b/sound/soc/intel/boards/kbl_da7219_max98927.c
-@@ -179,7 +179,7 @@ static int kabylake_ssp0_hw_params(struct snd_pcm_substream *substream,
+ 		/* pll from mclk 12.288M */
+ 		ret = snd_soc_dai_set_pll(codec_dai, 0, 0, MCLK_FOR_CODECS,
+ 					  params_rate(params) * 512);
+diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c
+index ebcc0b86286b..f65e3ebe38b8 100644
+--- a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c
++++ b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c
+@@ -51,7 +51,7 @@ static int mt8173_rt5650_rt5676_hw_params(struct snd_pcm_substream *substream,
  	struct snd_soc_dai *codec_dai;
- 	int ret, j;
+ 	int i, ret;
  
--	for_each_rtd_codec_dai(runtime, j, codec_dai) {
-+	for_each_rtd_codec_dais(runtime, j, codec_dai) {
+-	for_each_rtd_codec_dai(rtd, i, codec_dai) {
++	for_each_rtd_codec_dais(rtd, i, codec_dai) {
+ 		/* pll from mclk 12.288M */
+ 		ret = snd_soc_dai_set_pll(codec_dai, 0, 0, MCLK_FOR_CODECS,
+ 					  params_rate(params) * 512);
+diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650.c b/sound/soc/mediatek/mt8173/mt8173-rt5650.c
+index 849b050a54d1..bbc4ad749892 100644
+--- a/sound/soc/mediatek/mt8173/mt8173-rt5650.c
++++ b/sound/soc/mediatek/mt8173/mt8173-rt5650.c
+@@ -78,7 +78,7 @@ static int mt8173_rt5650_hw_params(struct snd_pcm_substream *substream,
+ 		break;
+ 	}
  
- 		if (!strcmp(codec_dai->component->name, MAX98927_DEV0_NAME)) {
- 			ret = snd_soc_dai_set_tdm_slot(codec_dai, 0x30, 3, 8, 16);
-@@ -224,7 +224,7 @@ static int kabylake_ssp0_trigger(struct snd_pcm_substream *substream, int cmd)
- 	struct snd_soc_dai *codec_dai;
- 	int j, ret;
+-	for_each_rtd_codec_dai(rtd, i, codec_dai) {
++	for_each_rtd_codec_dais(rtd, i, codec_dai) {
+ 		/* pll from mclk */
+ 		ret = snd_soc_dai_set_pll(codec_dai, 0, 0, mclk_clock,
+ 					  params_rate(params) * 512);
+diff --git a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+index 4a5ef07e956b..c4e4f1f99dde 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
++++ b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+@@ -52,7 +52,7 @@ static int mt8183_da7219_i2s_hw_params(struct snd_pcm_substream *substream,
+ 	if (ret < 0)
+ 		dev_err(rtd->dev, "failed to set cpu dai sysclk\n");
  
 -	for_each_rtd_codec_dai(rtd, j, codec_dai) {
 +	for_each_rtd_codec_dais(rtd, j, codec_dai) {
- 		const char *name = codec_dai->component->name;
- 		struct snd_soc_component *component = codec_dai->component;
- 		struct snd_soc_dapm_context *dapm =
-diff --git a/sound/soc/intel/boards/kbl_rt5663_max98927.c b/sound/soc/intel/boards/kbl_rt5663_max98927.c
-index d8f2ff7139a9..f65feee1c166 100644
---- a/sound/soc/intel/boards/kbl_rt5663_max98927.c
-+++ b/sound/soc/intel/boards/kbl_rt5663_max98927.c
-@@ -472,7 +472,7 @@ static int kabylake_ssp0_hw_params(struct snd_pcm_substream *substream,
+ 
+ 		if (!strcmp(codec_dai->component->name, "da7219.5-001a")) {
+ 			ret = snd_soc_dai_set_sysclk(codec_dai,
+@@ -85,7 +85,7 @@ static int mt8183_da7219_hw_free(struct snd_pcm_substream *substream)
  	struct snd_soc_dai *codec_dai;
  	int ret = 0, j;
  
 -	for_each_rtd_codec_dai(rtd, j, codec_dai) {
 +	for_each_rtd_codec_dais(rtd, j, codec_dai) {
- 		if (!strcmp(codec_dai->component->name, MAXIM_DEV0_NAME)) {
- 			/*
- 			 * Use channel 4 and 5 for the first amp
-diff --git a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
-index 96c814f36458..341bb47311a6 100644
---- a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
-+++ b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
-@@ -399,7 +399,7 @@ static int kabylake_ssp0_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_soc_dai *codec_dai;
- 	int ret = 0, j;
  
--	for_each_rtd_codec_dai(rtd, j, codec_dai) {
-+	for_each_rtd_codec_dais(rtd, j, codec_dai) {
- 		if (!strcmp(codec_dai->component->name, RT5514_DEV_NAME)) {
- 			ret = snd_soc_dai_set_tdm_slot(codec_dai, 0xF, 0, 8, 16);
- 			if (ret < 0) {
+ 		if (!strcmp(codec_dai->component->name, "da7219.5-001a")) {
+ 			ret = snd_soc_dai_set_pll(codec_dai,
 -- 
 2.17.1
 

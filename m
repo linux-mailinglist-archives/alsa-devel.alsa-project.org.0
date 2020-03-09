@@ -2,65 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5685217E622
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Mar 2020 18:53:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C49EB17E623
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Mar 2020 18:54:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BBF5216AC;
-	Mon,  9 Mar 2020 18:53:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBF5216AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 61B1B1697;
+	Mon,  9 Mar 2020 18:53:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61B1B1697
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583776436;
-	bh=rhCco664qrQmoqD2GFkLT+u27MXwyZpSuWrcWe1m4dc=;
+	s=default; t=1583776482;
+	bh=8GAq+E0J/uJVZ33x5kaKoDW2TOuCQ6gNKc/C8fNKXno=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PdQB0+6z4bWeOv65ncq5lzwTk2H0SKsApzAgwnVyBOancJkvG55hnd8ujQ61vn24D
-	 nQfTiluGnd09iI5/JwgbZQUxjS561ni+OuoF8azt5gm3Ec3ymDcTpEz3D7PSiQJXs2
-	 O2x4X8vIHVbPC7E5oh5Oyw++MI6mgZ1TcNlfAKwI=
+	b=LDXmytLT2K1NhTIxsvqcmXDS1VqrLRHgXoLmVam1e4384emGm1bQn3WUWtmLAMpOE
+	 vPKtnm4SISQQIfC/yTnT1ETrM3/RrtV2+Ox2OUDdr90ojH7fttjQc/ppxVzEsuXjGM
+	 5pJl83TJaGsY6R745sbJ3lEiEwhJlUSLmaeBwJdo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7627F80123;
-	Mon,  9 Mar 2020 18:52:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E37C8F80227;
+	Mon,  9 Mar 2020 18:53:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 32EB8F801EB; Mon,  9 Mar 2020 18:52:13 +0100 (CET)
+ id 8A1FDF8021D; Mon,  9 Mar 2020 18:53:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 28A13F800DA
- for <alsa-devel@alsa-project.org>; Mon,  9 Mar 2020 18:52:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28A13F800DA
+ by alsa1.perex.cz (Postfix) with ESMTP id D5C7CF800DA
+ for <alsa-devel@alsa-project.org>; Mon,  9 Mar 2020 18:52:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5C7CF800DA
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A28C37FA;
- Mon,  9 Mar 2020 10:52:07 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A039A1FB;
+ Mon,  9 Mar 2020 10:52:56 -0700 (PDT)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 14E243F7C3;
- Mon,  9 Mar 2020 10:52:06 -0700 (PDT)
-Date: Mon, 9 Mar 2020 17:52:05 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 253403F67D;
+ Mon,  9 Mar 2020 10:52:55 -0700 (PDT)
+Date: Mon, 9 Mar 2020 17:52:54 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Kevin Li <kevin-ke.li@broadcom.com>
-Subject: Re: [PATCH] ASoC: brcm: Add DSL/PON SoC audio driver
-Message-ID: <20200309175205.GJ4101@sirena.org.uk>
-References: <20200306222705.13309-1-kevin-ke.li@broadcom.com>
- <20200309123307.GE4101@sirena.org.uk>
- <69138568e9c18afa57d5edba6be9887b@mail.gmail.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH 0/7] ASoC: Intel: Skylake: Fix HDaudio and Dmic
+Message-ID: <20200309175254.GK4101@sirena.org.uk>
+References: <20200305145314.32579-1-cezary.rojewski@intel.com>
+ <9d53337b-b02b-efd7-790e-c3db18562346@linux.intel.com>
+ <20200309113844.GA4101@sirena.org.uk>
+ <e50a52eb-ea7a-4528-cfdb-1dd9210b5779@intel.com>
+ <20200309165413.GH4101@sirena.org.uk>
+ <34fadb92-e9b5-08f6-a5b6-3db28842f88f@intel.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="fKov5AqTsvseSZ0Z"
+ protocol="application/pgp-signature"; boundary="PEfPc/DjvCj+JzNg"
 Content-Disposition: inline
-In-Reply-To: <69138568e9c18afa57d5edba6be9887b@mail.gmail.com>
+In-Reply-To: <34fadb92-e9b5-08f6-a5b6-3db28842f88f@intel.com>
 X-Cookie: Above all things, reverence yourself.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Scott Branden <sbranden@broadcom.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Ray Jui <rjui@broadcom.com>, Takashi Iwai <tiwai@suse.com>,
- bcm-kernel-feedback-list@broadcom.com, Stephen Boyd <swboyd@chromium.org>,
- linux-arm-kernel@lists.infradead.org
+Cc: vkoul@kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,42 +77,35 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---fKov5AqTsvseSZ0Z
+--PEfPc/DjvCj+JzNg
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Mon, Mar 09, 2020 at 10:33:30AM -0700, Kevin Li wrote:
-> Hi Mark,
+On Mon, Mar 09, 2020 at 06:48:35PM +0100, Cezary Rojewski wrote:
+> On 2020-03-09 17:54, Mark Brown wrote:
 
-Please don't top post, reply in line with needed context.  This allows
-readers to readily follow the flow of conversation and understand what
-you are talking about and also helps ensure that everything in the
-discussion is being addressed.
+> > I didn't actually look at the patches since by the time I went to look
+> > at them it was clear that there was going to be a new version.  Pierre
+> > was saying that they added new functionality which would generally not
+> > be suitable.
 
-> The SoC I2S block we currently have shares one clock and frame sync signal
-> for both playback and capture stream, plus playback and capture can only
-> have one master at a time. If we set playback and capture master at same
-> time, it will have jitter on clock and FS.
+> Ok, sure. Should the 'Fixes' be appended regardless or leave it as is?
 
-I can't really parse what you're talking about here (perhaps some of
-that context would have helped...) but it doesn't seem to be the
-clocking of the I2S bus which would normally be what master and slave
-would be talking about.  If it's something else perhaps the code needs
-to be clarified to make it clear that it's not talking about the bus.
+There's never any harm in adding them.
 
---fKov5AqTsvseSZ0Z
+--PEfPc/DjvCj+JzNg
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5mgkQACgkQJNaLcl1U
-h9A5Fgf/Urnfg3j5PZES06ywstEE7IyxgzPd7YpkYqxz2XToPpUnbB1SBhF0Lfxk
-xo/iCZDUkh8H259e98Hq1BEN/mB8UROBB4E23KAY/cYsoFYjU3ZQQtGL3InblMsO
-6fFx4mnUIX47TvK9S5oIsXpsS/+mrTx5GPmY9Xg/gBy32d15wnNFYtGP9mCGEgOi
-hRj/VQ2vuAbiHk0D3Qjd6GvUZMnvF88BMndqq8wtUMjnwPK5pfk3SD62n1dQkuov
-5MClefdJR/qwrpfLHjEzOzfSqrRceYcim8ccxQHmU/5qHgBm2xMTQFQeBjTLWIFs
-7Qdtn3SNwtwyrW55Xp9IrO2+zHwjJw==
-=VLrd
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5mgnUACgkQJNaLcl1U
+h9DjbAf9E7RR5tAMQuWPBqG+lSJbc13nSfmlilVPh35qBQPk7eUCqcnL0e5xftCD
+KjB/5g1z2oZ3SFbCMI7G9CGLkM/igLu8dnkG4Cb5rDNzoa7TTe4uG4S3/6IDOOXI
+koMrYe8SAJQUjEm/IA+VVmaU8CAKnuu3ZuYLIvT6wtqRm7ehpcqeeoZ8Z6g12vTk
+CHcj/atYiQK7nLD3bQUWerF1+Hji3QUBiNjhn/r4zc+xU6AMgRmbnf4+LDtzAoI/
+YyRhA9jt2Z3Kete5ERZNkzsmBMISC+FHEfTAc1CtPDsj+uPJuuLcmbpVjRPnOcGX
+dITiRqmiK0uQr27W1zQYUv/RX5QwQA==
+=b64f
 -----END PGP SIGNATURE-----
 
---fKov5AqTsvseSZ0Z--
+--PEfPc/DjvCj+JzNg--

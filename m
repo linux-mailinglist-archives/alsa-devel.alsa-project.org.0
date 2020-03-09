@@ -2,89 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7325517E5E2
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Mar 2020 18:39:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52EFB17E5E3
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Mar 2020 18:40:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C92EF1690;
-	Mon,  9 Mar 2020 18:39:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C92EF1690
+	by alsa0.perex.cz (Postfix) with ESMTPS id C25FD16A2;
+	Mon,  9 Mar 2020 18:39:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C25FD16A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583775592;
-	bh=+FJxFo9ltXndqrcPIqALfbu7BS+5PICJV8YS4N23L38=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=TCIUd2vPo3GP0KNN8EWBRjcNjZNIP2gSKKCktRXhFhs7KUjAmLAxyvJnaN+7Y9HLy
-	 7EEQ8u69ya3g/PYYf9p1kTKkiz6ypsj0tDshyZHcuAvd71wKsCKMDnELl8eTAiR/A3
-	 GGf8Ha6xl9hZlQ7aLQl48ubdMipnZfgeEx2939/8=
+	s=default; t=1583775637;
+	bh=x95hiN7AoVyeQYkeI9AS7l8A+EGs9LHurtxuD+nT4vU=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=qTOlGQeocxdoS2tOgubF+gckgISiQ2CFx9mNRwiTBBMKFBe8D5ODOaRb0D/lkg5/k
+	 ciYTqcySmafLZ+kqKl7x3eSm6xj59B2e3+LFiJI5aiaBNPfmFsx4q8YoGmXsEEO6Zf
+	 U7Vfa2WFi4sOeL8DUwP+xh7oKSwyPl2aT214TO44=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD8C0F801EB;
-	Mon,  9 Mar 2020 18:38:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44268F80260;
+	Mon,  9 Mar 2020 18:39:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EFED2F801EB; Mon,  9 Mar 2020 18:38:08 +0100 (CET)
+ id EC400F8028D; Mon,  9 Mar 2020 18:38:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 58ED7F80123
- for <alsa-devel@alsa-project.org>; Mon,  9 Mar 2020 18:38:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58ED7F80123
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="lS9XfaG7"
-Received: by mail-wr1-x441.google.com with SMTP id r15so7279009wrx.6
- for <alsa-devel@alsa-project.org>; Mon, 09 Mar 2020 10:38:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=lrRaa2oLGASoVUcKPYHBNJIYaKUXkZG1vLWKS/FETTM=;
- b=lS9XfaG7i9K70Uz52uiZGAJLSYBH0BwEbvNfFeQPbZAYCDFVg/xbQB9QBhNNzCmUyu
- DSQtXZF5lXClDT+BykDCQ2AGOlo462xlHcjCAYxutGzmYVVxvY818q8mgVTL0c3xe9jd
- nHq2G1WLeBJcFdqMJGKQoqGRS+nlOJRam4fIRajkKbQSsWSgEsQ3fDmFNr1jza1SUgXK
- 0jlAlAvCH3dDmuuOLqZ9nOw144R77rwiOEgB5X9fyhumtQT8mEqQwci9ICaPRF1IcE97
- j+No9luh0JXOFwjkH4uzLsGXk5GHgIcUbVZUmc9/uVIaPjq31qJzhZmQK0A8hB7wSBuB
- rz6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=lrRaa2oLGASoVUcKPYHBNJIYaKUXkZG1vLWKS/FETTM=;
- b=M279MhmVLZPVJPdFlea1eDKQGG1PDjI44xFZ5SbkTW0B/m75941piXNPAqAcUKzZKW
- hjJae+SVyq89XcT0btjle3o+F2cs37bjvtDvGVKSkxaOo/e8HTTUfsVI7NRq7d3iZGAI
- dNFJJjoiJMd1rqAcXUi5mCzqhio8jIW6MuqDB4eetGUcXPhcFdHdQnJBn0lSrNmostOY
- WzP8R1k9pHhz1CSLa2jsA27FI3Vf5AdbWKKm1M7fJt/De2ZCwGc6herm/UFC0SKlIMfq
- Pnba5jDfo2MvueLOTmduIxd/sVO7kT9css4n8ppFS8ETTaPZIok9iPqu0qVeXWAiTNls
- oVAg==
-X-Gm-Message-State: ANhLgQ2A+E62HMHY4x88y+Vgf/Cy9cec2BDOlAnTpa6VRtXxzXcVsqsy
- nan7ZyfJSVVN92CYekDSJl0lvw==
-X-Google-Smtp-Source: ADFU+vvLfd/MwARBYr7I+uIlvy/rGZiD/jQkUZifoVZVosaPYiFgIKPRqE2d04DkNXkKUpUoZ7WeAQ==
-X-Received: by 2002:a5d:514a:: with SMTP id u10mr2144282wrt.360.1583775485460; 
- Mon, 09 Mar 2020 10:38:05 -0700 (PDT)
-Received: from srini-hackbox.lan
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.gmail.com with ESMTPSA id w81sm321838wmg.19.2020.03.09.10.38.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Mar 2020 10:38:04 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: vkoul@kernel.org
-Subject: [RFC PATCH] soundwire: bus: Add flag to mark DPN_BlockCtrl1 as
- readonly
-Date: Mon,  9 Mar 2020 17:37:55 +0000
-Message-Id: <20200309173755.955-1-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3BFF0F80260
+ for <alsa-devel@alsa-project.org>; Mon,  9 Mar 2020 18:38:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BFF0F80260
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 09 Mar 2020 10:38:52 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,534,1574150400"; d="scan'208";a="231008955"
+Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.252.15.110])
+ ([10.252.15.110])
+ by orsmga007.jf.intel.com with ESMTP; 09 Mar 2020 10:38:50 -0700
+Subject: Re: [PATCH 4/7] ASoC: Intel: Skylake: Shield against no-NHLT
+ configurations
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+References: <20200305145314.32579-1-cezary.rojewski@intel.com>
+ <20200305145314.32579-5-cezary.rojewski@intel.com>
+ <7f74b049-4659-9656-4396-3c1b42d2e32c@linux.intel.com>
+ <2a380994-a723-ea25-7feb-6a650a3889e3@intel.com>
+ <d38dbb00-734f-7de9-ce0c-2ee06cec11d6@linux.intel.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+Message-ID: <740bc65e-afe9-cefe-4a31-d19cc9d83c56@intel.com>
+Date: Mon, 9 Mar 2020 18:38:48 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
+In-Reply-To: <d38dbb00-734f-7de9-ce0c-2ee06cec11d6@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org
+Cc: vkoul@kernel.org, broonie@kernel.org, tiwai@suse.com, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,85 +81,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-According to SoundWire Specification Version 1.2.
-"A Data Port number X (in the range 0-14) which supports only one
-value of WordLength may implement the WordLength field in the
-DPX_BlockCtrl1 Register as Read-Only, returning the fixed value of
-WordLength in response to reads."
+On 2020-03-09 18:01, Pierre-Louis Bossart wrote:
+> On 3/9/20 8:03 AM, Cezary Rojewski wrote:
+>> On 2020-03-06 22:03, Pierre-Louis Bossart wrote:
+>>>
+>>>
+>>>> -    intel_nhlt_free(skl->nhlt);
+>>>> +    if (skl->nhlt)
+>>>> +        intel_nhlt_free(skl->nhlt);
+>>>
+>>> we could alternatively move the test in intel_nhlt_free, which seems 
+>>> like a more robust thing to do?
+>>
+>> Depends. In general kernel-internal API trusts its caller and 
+>> appending 'ifs' everywhere would unnecessarily slow entire kernel 
+>> down. While intel_nhlt_free is called rarely, I'd still argue caller 
+>> should be sane about its invocation.
+>>
+>> 'if' in skl_probe could be avoided had the function's structure been 
+>> better. 'if' in skl_remove is just fine, though.
+>>
+>> Let's leave it as is.
+> 
+> it's also used in SOF:
+> 
+> sound/soc/sof/intel/hda.c:              intel_nhlt_free(nhlt);
+> 
+> that's why I suggested to factor the test so that both users don't need 
+> to add the if.
 
-As WSA881x interfaces in PDM mode making the only field "WordLength"
-in DPX_BlockCtrl1" fixed and read-only. Behaviour of writing to this
-register on WSA881x soundwire slave with Qualcomm Soundwire Controller
-is throwing up an error. Not sure how other controllers deal with
-writing to readonly registers, but this patch provides a way to avoid
-writes to DPN_BlockCtrl1 register by providing a ro_blockctrl1_reg
-flag in struct sdw_port_runtime.
+I understand, and my explanation still applies.
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
+SOF's intel_nhlt_free usage is great example actually. Caller is sane 
+about its doings as it should be. Internal API needs not to suffer from 
+callers irresponsibility.
 
-I will send patch for WSA881x to include this change once this patch
-is accepted.
+PCM does not call ::free() if ::open() fails, same as device-driver 
+model does not care about ::remove() if ::probe() fails.
 
- drivers/soundwire/bus.h    |  2 ++
- drivers/soundwire/stream.c | 17 ++++++++++-------
- 2 files changed, 12 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/soundwire/bus.h b/drivers/soundwire/bus.h
-index 204204a26db8..791e8d14093e 100644
---- a/drivers/soundwire/bus.h
-+++ b/drivers/soundwire/bus.h
-@@ -79,6 +79,7 @@ int sdw_find_col_index(int col);
-  * @num: Port number. For audio streams, valid port number ranges from
-  * [1,14]
-  * @ch_mask: Channel mask
-+ * @ro_blockctrl1_reg: Read Only flag for DPN_BlockCtrl1 register
-  * @transport_params: Transport parameters
-  * @port_params: Port parameters
-  * @port_node: List node for Master or Slave port_list
-@@ -89,6 +90,7 @@ int sdw_find_col_index(int col);
- struct sdw_port_runtime {
- 	int num;
- 	int ch_mask;
-+	bool ro_blockctrl1_reg;
- 	struct sdw_transport_params transport_params;
- 	struct sdw_port_params port_params;
- 	struct list_head port_node;
-diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-index 00348d1fc606..4491643aeb4a 100644
---- a/drivers/soundwire/stream.c
-+++ b/drivers/soundwire/stream.c
-@@ -167,13 +167,15 @@ static int sdw_program_slave_port_params(struct sdw_bus *bus,
- 		return ret;
- 	}
- 
--	/* Program DPN_BlockCtrl1 register */
--	ret = sdw_write(s_rt->slave, addr2, (p_params->bps - 1));
--	if (ret < 0) {
--		dev_err(&s_rt->slave->dev,
--			"DPN_BlockCtrl1 register write failed for port %d\n",
--			t_params->port_num);
--		return ret;
-+	if (!p_rt->ro_blockctrl1_reg) {
-+		/* Program DPN_BlockCtrl1 register */
-+		ret = sdw_write(s_rt->slave, addr2, (p_params->bps - 1));
-+		if (ret < 0) {
-+			dev_err(&s_rt->slave->dev,
-+				"DPN_BlockCtrl1 register write failed for port %d\n",
-+				t_params->port_num);
-+			return ret;
-+		}
- 	}
- 
- 	/* Program DPN_SampleCtrl1 register */
-@@ -1195,6 +1197,7 @@ static struct sdw_port_runtime
- 
- 	p_rt->ch_mask = port_config[port_index].ch_mask;
- 	p_rt->num = port_config[port_index].num;
-+	p_rt->ro_blockctrl1_reg = port_config[port_index].ro_blockctrl1_reg;
- 
- 	return p_rt;
- }
--- 
-2.21.0
-
+Czarek

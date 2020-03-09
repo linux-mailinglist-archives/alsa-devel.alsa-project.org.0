@@ -2,69 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61AAF17E71D
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Mar 2020 19:29:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6443817E78E
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Mar 2020 19:52:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE6D516B3;
-	Mon,  9 Mar 2020 19:28:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE6D516B3
+	by alsa0.perex.cz (Postfix) with ESMTPS id D546816A3;
+	Mon,  9 Mar 2020 19:51:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D546816A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583778581;
-	bh=rxG5b3eIad0d846kUppOMc5PJ6PUHgJkMOAwgd3Vsng=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1583779968;
+	bh=qTviI9DYYgkM5Cv9KFD2zUS/55c60SOehV5stZhPGcs=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=gLKD475+p06sNzy/7S17a+BxOOBaE3WWD/Tt2y7m2DOtuF9QnBFamlQ/lz3gNL1a4
-	 8xAAwLBYffAKEzbd//RgZiH9B2bnNYT4QbP5yUUdwTmUpvN2MNXVTaXQzsb8cz4e5+
-	 PrlfCD0eekWD7E7ioUxhLFITRgbqE22zRUvyWUNY=
+	b=sZttyj/3q2ePlPeje7Pi4iwfpqe8zOCP+RlUcfFNbaAZ2vtsUoAbNVCIF8MHpLSmj
+	 6ol7rPsenmW2hzk8ngshxo7Szh/0IaNdBZKxT3Jl0jiWdEOQxG5pR1Ugsfl6n/+21z
+	 ONwhYGrV6bHEjEiEgafdNey/hQx1pF13HxBoHBN0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CF6FAF800DA;
-	Mon,  9 Mar 2020 19:27:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D83D5F801F7;
+	Mon,  9 Mar 2020 19:51:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C5F4DF800DA; Mon,  9 Mar 2020 19:27:57 +0100 (CET)
+ id 0B76EF801EB; Mon,  9 Mar 2020 19:51:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.8 required=5.0 tests=DEAR_FRIEND,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
- HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from m13-46.163.com (m13-46.163.com [220.181.13.46])
- (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 31A06F800DA
- for <alsa-devel@alsa-project.org>; Mon,  9 Mar 2020 19:27:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31A06F800DA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=163.com header.i=@163.com
- header.b="ZsYw+5Qj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Date:From:Subject:MIME-Version:Message-ID; bh=o22jr
- HMilFbP8TG77tjWbKEHOTKHO2gFygpX2+QbYgI=; b=ZsYw+5Qj/IXAaYk1h7H+b
- bPthSdyCObUYyok8+sjIfN+7mZPi0tSceHKCNHwFUcv73/InfmmFWPadUbfNGXtJ
- exI7H5J0Pl/mWvIisNEKTCuF46KG/ckRbAHsdJy0CY1hGcg5ZAklyCk0uDKdvyI2
- 9c7J3iBRHpoJ3G7gyOwSro=
-Received: from yxj790222$163.com ( [114.246.35.31] ) by ajax-webmail-wmsvr46
- (Coremail) ; Tue, 10 Mar 2020 02:27:05 +0800 (CST)
-X-Originating-IP: [114.246.35.31]
-Date: Tue, 10 Mar 2020 02:27:05 +0800 (CST)
-From: =?GBK?B?08jP/r3c?= <yxj790222@163.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6C383F800DA
+ for <alsa-devel@alsa-project.org>; Mon,  9 Mar 2020 19:51:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C383F800DA
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id B774EB2AA
+ for <alsa-devel@alsa-project.org>; Mon,  9 Mar 2020 18:50:58 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: about alc880 no sound at ecs g420 and eapd coef
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version XT5.0.10 build 20190724(ac680a23)
- Copyright (c) 2002-2020 www.mailtech.cn 163com
-MIME-Version: 1.0
-Message-ID: <7d135836.4f5.170c08ceafd.Coremail.yxj790222@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: LsGowABntk15imZe3xM6Ag--.29539W
-X-CM-SenderInfo: 510mlmaqssjqqrwthudrp/xtbBDxnhvFPAK3GSYQAAsx
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
-Content-Type: text/plain; charset=GBK
-Content-Transfer-Encoding: base64
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Subject: [PATCH] ALSA: pcm: oss: Simplify plugin frame size calculations
+Date: Mon,  9 Mar 2020 19:50:57 +0100
+Message-Id: <20200309185057.13974-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.16.4
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,82 +61,162 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-ZGVhciBmcmllbmQsIEkgYW0gdXNpbmcgZWNzIGc0MjAgbGFwdG9wLCB1c2Ugb3B0aW9ucyBzbmQt
-aGRhLWludGVsIG1vZGVsPWdlbmVyaWMgdGhlIHNwZWFrZXIgYW5kIG1pYyBjb3JyZWN0bHksIDIg
-cG9wIHNvdW5kcyx3aGVuIHRoZSBrZXJuZWwgbG9hZChsZWZ0IGNoYW5uZWwpIGFuZCB0aGUgeDEx
-IGxvYWQocmlnaHQgY2hhbm5lbCksIGJ1dCB3aXRoIHN0YW5kYXJkIHdheSAgb25seSBvbmUgcG9w
-IHNvdW5kIHdoZW4ga2VybmVsIGxvYWQgYW5kIHNpbGVudCBhbHdheXMuIHRoZSBtaWMgaXMgb2su
-IEkgaGF2ZSBnb3QgIGRhdGFzaGVldCBvZiBhbGM4ODAgYW5kIHNlZSB0aGUgZWFwZCBmdW5jdGlv
-biwgYnV0IGluIHlvdXIgY29kZSBJIHNlZSB0aGlzIG5lZWQgY29lZiBwYXJhbWV0ZXIuIHNvIHdo
-YXQgc2hvdWxkIEkgd3JpdGUgdXNpbmcgdmVyYiB0byBvcGVuIGVhcGQ/dGhlIHBoeXNpY2FsIGNv
-bm5leGlvbiBpbiBzdW1tYXJ5OiBhbiBleHRlcm5lbCBhbXBsaWZpZXIgaW4gY2hhcmdlIG9mIGph
-Y2sgc2Vuc2UgdG8gbXV0ZSBzcGVha2VyLCBjb25uZWN0ZWQgd2l0aCB0aGUgMHgxNCBocCBvdXQs
-IDB4MTggbWljIGluLDB4MWMgY2QgaW4sIDB4MWUgc3BpZiBvdXQsMHgxZCBwY2JlZXAgaW4gLCBu
-byBqYWNrIHNlbnNlLiBlYXBkIHNoYXJlZCB3aXRoIHNwZGlmIGluLiBhbGwgYXJlIGNvcnJlY3Qg
-d2l0aCBkZWZhdWx0IG9mIGRhdGFzaGVldCdzIGRlc2NyaWJlLiBJIHVzZSB2ZXJiIHRvIGRlY3R0
-IGVhY2ggcGluIHdpZGdldCdzIGNhcGFiaWxpdHkgLCB0YWtlIDB4MTQgYXMgZXhhcGxlLCBubyBl
-YXBkIGNhcGFiaWxpdHkuVG8gc2V0IDB4MTQncyBlYXBkIHdpdGggaGRhLXZlcmIgL2Rldi9zbmQv
-aHdDMEQwIDB4NzBjIDB4MiwgZmFpbGVkIHRvIHJlYWQgaXQgYWdhaW4gYWx3YXMgMC4gYW5kIGJp
-b3MgYWxzbyByZXBvcnRlZCAweDE2LCBJIHRoaW5rIGl0IGlzIGJpb3MncyBidWcuIGlmIG5vdCBj
-aGFuZ2luZyBzb3VyY2UgY29kZSAsIHRvIHVzZSAiRWFybHkgUGF0Y2hpbmciIG1ldGhvZCB0byBk
-ZWFsIHdpdGggaXQgd2l0aG91dCBjaGFuZ2luZyBzb3VyY2UgY29kZSwgaXMgaXQgZmVhc2libGU/
-IGNvdWxkIHlvdSBnaXZlIG1lIHNvbWUgaWRlYT8gdGhhbmtzISEhIQoKCmRtZXNnOgoKWyAgICA4
-LjAwOTk0NF0gc25kX2hkYV9jb2RlY19yZWFsdGVrIGhkYXVkaW9DMEQwOiBhdXRvY29uZmlnIGZv
-ciBBTEM4ODA6IGxpbmVfb3V0cz0yICgweDE0LzB4MTYvMHgwLzB4MC8weDApIHR5cGU6aHAKWyAg
-ICA4LjAxNDAyM10gc25kX2hkYV9jb2RlY19yZWFsdGVrIGhkYXVkaW9DMEQwOiAgICBzcGVha2Vy
-X291dHM9MCAoMHgwLzB4MC8weDAvMHgwLzB4MCkKWyAgICA4LjAxNzk5OV0gc25kX2hkYV9jb2Rl
-Y19yZWFsdGVrIGhkYXVkaW9DMEQwOiAgICBocF9vdXRzPTAgKDB4MC8weDAvMHgwLzB4MC8weDAp
-ClsgICAgOC4wMjE2MjVdIHNuZF9oZGFfY29kZWNfcmVhbHRlayBoZGF1ZGlvQzBEMDogICAgbW9u
-bzogbW9ub19vdXQ9MHgwClsgICAgOC4wMjQyNTVdIHNuZF9oZGFfY29kZWNfcmVhbHRlayBoZGF1
-ZGlvQzBEMDogICAgZGlnLW91dD0weDFlLzB4MApbICAgIDguMDI2NzQxXSBzbmRfaGRhX2NvZGVj
-X3JlYWx0ZWsgaGRhdWRpb0MwRDA6ICAgIGlucHV0czoKWyAgICA4LjAzODQ2OF0gbWM6IExpbnV4
-IG1lZGlhIGludGVyZmFjZTogdjAuMTAKWyAgICA4LjA2NzUxNV0gc25kX2hkYV9jb2RlY19yZWFs
-dGVrIGhkYXVkaW9DMEQwOiAgICAgIE1pYz0weDE4ClsgICAgOC4wNzg5ODRdIHNuZF9oZGFfY29k
-ZWNfcmVhbHRlayBoZGF1ZGlvQzBEMDogICAgICBDRD0weDFjClsgICAgOC4yOTAzMDZdIGlucHV0
-OiBIREEgRGlnaXRhbCBQQ0JlZXAgYXMgL2RldmljZXMvcGNpMDAwMDowMC8wMDAwOjAwOjFiLjAv
-c291bmQvY2FyZDAvaW5wdXQxMwoKCgoKCk5vZGUgMHgwMiBbQXVkaW8gT3V0cHV0XSB3Y2FwcyAw
-eDQxMTogU3RlcmVvCiAgRGV2aWNlOiBuYW1lPSJBTEM4ODAgQW5hbG9nIiwgdHlwZT0iQXVkaW8i
-LCBkZXZpY2U9MAogIENvbnZlcnRlcjogc3RyZWFtPTUsIGNoYW5uZWw9MAogIFBDTToKICAgIHJh
-dGVzIFsweDU2MF06IDQ0MTAwIDQ4MDAwIDk2MDAwIDE5MjAwMAogICAgYml0cyBbMHhlXTogMTYg
-MjAgMjQKICAgIGZvcm1hdHMgWzB4MV06IFBDTQogIFBvd2VyOiBzZXR0aW5nPUQwLCBhY3R1YWw9
-RDAKTm9kZSAweDBjIFtBdWRpbyBNaXhlcl0gd2NhcHMgMHgyMDAxMGY6IFN0ZXJlbyBBbXAtSW4g
-QW1wLU91dAogIENvbnRyb2w6IG5hbWU9IkhlYWRwaG9uZSBQbGF5YmFjayBWb2x1bWUiLCBpbmRl
-eD0wLCBkZXZpY2U9MAogICAgQ29udHJvbEFtcDogY2hzPTMsIGRpcj0xLCBpZHg9MCwgb2ZzPTAK
-ICBBbXAtSW4gY2Fwczogb2ZzPTB4MDAsIG5zdGVwcz0weDAwLCBzdGVwc2l6ZT0weDAwLCBtdXRl
-PTEKICBBbXAtSW4gdmFsczogWzB4MDAgMHgwMF0gWzB4ODAgMHg4MF0KICBBbXAtT3V0IGNhcHM6
-IG9mcz0weDQwLCBuc3RlcHM9MHg0MCwgc3RlcHNpemU9MHgwMywgbXV0ZT0wCiAgQW1wLU91dCB2
-YWxzOiBbMHg0MCAweDQwXQogIENvbm5lY3Rpb246IDIKICAgICAweDAyIDB4MGIKTm9kZSAweDBi
-IFtBdWRpbyBNaXhlcl0gd2NhcHMgMHgyMDAxMGI6IFN0ZXJlbyBBbXAtSW4KICBDb250cm9sOiBu
-YW1lPSJNaWMgUGxheWJhY2sgVm9sdW1lIiwgaW5kZXg9MCwgZGV2aWNlPTAKICAgIENvbnRyb2xB
-bXA6IGNocz0zLCBkaXI9MSwgaWR4PTAsIG9mcz0wCiAgQ29udHJvbDogbmFtZT0iTWljIFBsYXli
-YWNrIFN3aXRjaCIsIGluZGV4PTAsIGRldmljZT0wCiAgICBDb250cm9sQW1wOiBjaHM9MywgZGly
-PTEsIGlkeD0wLCBvZnM9MAogIENvbnRyb2w6IG5hbWU9IkNEIFBsYXliYWNrIFZvbHVtZSIsIGlu
-ZGV4PTAsIGRldmljZT0wCiAgICBDb250cm9sQW1wOiBjaHM9MywgZGlyPTEsIGlkeD00LCBvZnM9
-MAogIENvbnRyb2w6IG5hbWU9IkNEIFBsYXliYWNrIFN3aXRjaCIsIGluZGV4PTAsIGRldmljZT0w
-CiAgICBDb250cm9sQW1wOiBjaHM9MywgZGlyPTEsIGlkeD00LCBvZnM9MAogIENvbnRyb2w6IG5h
-bWU9IkJlZXAgUGxheWJhY2sgVm9sdW1lIiwgaW5kZXg9MCwgZGV2aWNlPTAKICAgIENvbnRyb2xB
-bXA6IGNocz0zLCBkaXI9MSwgaWR4PTUsIG9mcz0wCiAgQ29udHJvbDogbmFtZT0iQmVlcCBQbGF5
-YmFjayBTd2l0Y2giLCBpbmRleD0wLCBkZXZpY2U9MAogICAgQ29udHJvbEFtcDogY2hzPTMsIGRp
-cj0xLCBpZHg9NSwgb2ZzPTAKICBBbXAtSW4gY2Fwczogb2ZzPTB4MjMsIG5zdGVwcz0weDQxLCBz
-dGVwc2l6ZT0weDAzLCBtdXRlPTEKICBBbXAtSW4gdmFsczogWzB4NDEgMHg0MV0gWzB4ODAgMHg4
-MF0gWzB4ODAgMHg4MF0gWzB4ODAgMHg4MF0gWzB4NDEgMHg0MV0gWzB4NDEgMHg0MV0gWzB4ODAg
-MHg4MF0gWzB4ODAgMHg4MF0KICBDb25uZWN0aW9uOiA4CiAgICAgMHgxOCAweDE5IDB4MWEgMHgx
-YiAweDFjIDB4MWQgMHgxNCAweDE1Ck5vZGUgMHgxNCBbUGluIENvbXBsZXhdIHdjYXBzIDB4NDAw
-MThkOiBTdGVyZW8gQW1wLU91dAogIENvbnRyb2w6IG5hbWU9IkhlYWRwaG9uZSBQbGF5YmFjayBT
-d2l0Y2giLCBpbmRleD0wLCBkZXZpY2U9MAogICAgQ29udHJvbEFtcDogY2hzPTMsIGRpcj0xLCBp
-ZHg9MCwgb2ZzPTAKICBBbXAtT3V0IGNhcHM6IG9mcz0weDAwLCBuc3RlcHM9MHgwMCwgc3RlcHNp
-emU9MHgwMCwgbXV0ZT0xCiAgQW1wLU91dCB2YWxzOiBbMHgwMCAweDAwXQogIFBpbmNhcCAweDAw
-MDAwMDNmOiBJTiBPVVQgSFAgRGV0ZWN0IFRyaWdnZXIgSW1wU2Vuc2UKICBQaW4gRGVmYXVsdCAw
-eDAxMjExMTEwOiBbSmFja10gSFAgT3V0IGF0IEV4dCBSZWFyCiAgICBDb25uID0gMS84LCBDb2xv
-ciA9IEJsYWNrCiAgICBEZWZBc3NvY2lhdGlvbiA9IDB4MSwgU2VxdWVuY2UgPSAweDAKICAgIE1p
-c2MgPSBOT19QUkVTRU5DRQogIFBpbi1jdGxzOiAweGMwOiBPVVQgSFAKICBVbnNvbGljaXRlZDog
-dGFnPTB4MDAsIGVuYWJsZWQ9MAogIENvbm5lY3Rpb246IDEKICAgICAweDBjCkNvZGVjOiAweDEw
-ZWMwODgwCkFkZHJlc3M6IDAKQUZHIEZ1bmN0aW9uIElkOiAweDEgKHVuc29sIDApClZlbmRvciBJ
-ZDogMHgxMGVjMDg4MApTdWJzeXN0ZW0gSWQ6IDB4MTAxOTEyMDUKUmV2aXNpb24gSWQ6IDB4MTAw
-ODAwCk5vIE1vZGVtIEZ1bmN0aW9uIEdyb3VwIGZvdW5kCkRlZmF1bHQgUENNOgogICAgcmF0ZXMg
-WzB4NTYwXTogNDQxMDAgNDgwMDAgOTYwMDAgMTkyMDAwCiAgICBiaXRzIFsweGVdOiAxNiAyMCAy
-NAogICAgZm9ybWF0cyBbMHgxXTogUENNCkRlZmF1bHQgQW1wLUluIGNhcHM6IE4vQQpEZWZhdWx0
-IEFtcC1PdXQgY2FwczogTi9BCkdQSU86IGlvPTIsIG89MCwgaT0wLCB1bnNvbGljaXRlZD0xLCB3
-YWtlPTAKICBJT1swXTogZW5hYmxlPTAsIGRpcj0wLCB3YWtlPTAsIHN0aWNreT0wLCBkYXRhPTAs
-IHVuc29sPTAKICBJT1sxXTogZW5hYmxlPTAsIGRpcj0wLCB3YWtlPTAsIHN0aWNreT0wLCBkYXRh
-PTAsIHVuc29sPTAKCgoK
+Both snd_pcm_plug_client_size() and snd_pcm_plug_slave_size() do the
+almost same calculations of calling src_frames() and dst_frames() in
+the chain, but just to the different directions with each other.
+
+This patch simplifies those functions.  Now they return -EINVAL for
+the invalid direction, but practically seen, there is no functional
+changes at all.
+
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/core/oss/pcm_plugin.c | 120 +++++++++++++++++++++-----------------------
+ 1 file changed, 56 insertions(+), 64 deletions(-)
+
+diff --git a/sound/core/oss/pcm_plugin.c b/sound/core/oss/pcm_plugin.c
+index c9401832967c..3978f6d99076 100644
+--- a/sound/core/oss/pcm_plugin.c
++++ b/sound/core/oss/pcm_plugin.c
+@@ -196,82 +196,74 @@ int snd_pcm_plugin_free(struct snd_pcm_plugin *plugin)
+ 	return 0;
+ }
+ 
+-snd_pcm_sframes_t snd_pcm_plug_client_size(struct snd_pcm_substream *plug, snd_pcm_uframes_t drv_frames)
++static snd_pcm_sframes_t calc_dst_frames(struct snd_pcm_substream *plug,
++					 snd_pcm_uframes_t frames)
+ {
+-	struct snd_pcm_plugin *plugin, *plugin_prev, *plugin_next;
+-	int stream;
++	struct snd_pcm_plugin *plugin, *plugin_next;
+ 
+-	if (snd_BUG_ON(!plug))
+-		return -ENXIO;
+-	if (drv_frames == 0)
+-		return 0;
+-	stream = snd_pcm_plug_stream(plug);
+-	if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
+-		plugin = snd_pcm_plug_last(plug);
+-		while (plugin && drv_frames > 0) {
+-			if (drv_frames > plugin->buf_frames)
+-				drv_frames = plugin->buf_frames;
+-			plugin_prev = plugin->prev;
+-			if (plugin->src_frames)
+-				drv_frames = plugin->src_frames(plugin, drv_frames);
+-			plugin = plugin_prev;
++	plugin = snd_pcm_plug_first(plug);
++	while (plugin && frames > 0) {
++		plugin_next = plugin->next;
++		if (plugin->dst_frames) {
++			frames = plugin->dst_frames(plugin, frames);
++			if (frames < 0)
++				return frames;
+ 		}
+-	} else if (stream == SNDRV_PCM_STREAM_CAPTURE) {
+-		plugin = snd_pcm_plug_first(plug);
+-		while (plugin && drv_frames > 0) {
+-			plugin_next = plugin->next;
+-			if (plugin->dst_frames)
+-				drv_frames = plugin->dst_frames(plugin, drv_frames);
+-			if (drv_frames > plugin->buf_frames)
+-				drv_frames = plugin->buf_frames;
+-			plugin = plugin_next;
++		if (frames > plugin->buf_frames)
++			frames = plugin->buf_frames;
++		plugin = plugin_next;
++	}
++	return frames;
++}
++
++static snd_pcm_sframes_t calc_src_frames(struct snd_pcm_substream *plug,
++					 snd_pcm_uframes_t frames)
++{
++	struct snd_pcm_plugin *plugin, *plugin_prev;
++
++	plugin = snd_pcm_plug_last(plug);
++	while (plugin) {
++		if (frames > plugin->buf_frames)
++			frames = plugin->buf_frames;
++		plugin_prev = plugin->prev;
++		if (plugin->src_frames) {
++			frames = plugin->src_frames(plugin, frames);
++			if (frames < 0)
++				return frames;
+ 		}
+-	} else
++		plugin = plugin_prev;
++	}
++	return frames;
++}
++
++snd_pcm_sframes_t snd_pcm_plug_client_size(struct snd_pcm_substream *plug, snd_pcm_uframes_t drv_frames)
++{
++	if (snd_BUG_ON(!plug))
++		return -ENXIO;
++	switch (snd_pcm_plug_stream(plug)) {
++	case SNDRV_PCM_STREAM_PLAYBACK:
++		return calc_src_frames(plug, drv_frames);
++	case SNDRV_PCM_STREAM_CAPTURE:
++		return calc_dst_frames(plug, drv_frames);
++	default:
+ 		snd_BUG();
+-	return drv_frames;
++		return -EINVAL;
++	}
+ }
+ 
+ snd_pcm_sframes_t snd_pcm_plug_slave_size(struct snd_pcm_substream *plug, snd_pcm_uframes_t clt_frames)
+ {
+-	struct snd_pcm_plugin *plugin, *plugin_prev, *plugin_next;
+-	snd_pcm_sframes_t frames;
+-	int stream;
+-	
+ 	if (snd_BUG_ON(!plug))
+ 		return -ENXIO;
+-	if (clt_frames == 0)
+-		return 0;
+-	frames = clt_frames;
+-	stream = snd_pcm_plug_stream(plug);
+-	if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
+-		plugin = snd_pcm_plug_first(plug);
+-		while (plugin && frames > 0) {
+-			plugin_next = plugin->next;
+-			if (plugin->dst_frames) {
+-				frames = plugin->dst_frames(plugin, frames);
+-				if (frames < 0)
+-					return frames;
+-			}
+-			if (frames > plugin->buf_frames)
+-				frames = plugin->buf_frames;
+-			plugin = plugin_next;
+-		}
+-	} else if (stream == SNDRV_PCM_STREAM_CAPTURE) {
+-		plugin = snd_pcm_plug_last(plug);
+-		while (plugin) {
+-			if (frames > plugin->buf_frames)
+-				frames = plugin->buf_frames;
+-			plugin_prev = plugin->prev;
+-			if (plugin->src_frames) {
+-				frames = plugin->src_frames(plugin, frames);
+-				if (frames < 0)
+-					return frames;
+-			}
+-			plugin = plugin_prev;
+-		}
+-	} else
++	switch (snd_pcm_plug_stream(plug)) {
++	case SNDRV_PCM_STREAM_PLAYBACK:
++		return calc_dst_frames(plug, clt_frames);
++	case SNDRV_PCM_STREAM_CAPTURE:
++		return calc_src_frames(plug, clt_frames);
++	default:
+ 		snd_BUG();
+-	return frames;
++		return -EINVAL;
++	}
+ }
+ 
+ static int snd_pcm_plug_formats(const struct snd_mask *mask,
+-- 
+2.16.4
+

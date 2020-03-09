@@ -2,60 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D62F17D874
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Mar 2020 05:08:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDDC817D876
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Mar 2020 05:09:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09AEC1661;
-	Mon,  9 Mar 2020 05:07:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09AEC1661
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A9EC1687;
+	Mon,  9 Mar 2020 05:08:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A9EC1687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583726904;
-	bh=rpTF4jEV0Boin4ghi4I4mBmFr4w419XBR6kaMzxzW/8=;
+	s=default; t=1583726943;
+	bh=dEVfQve92zmi35j8KeUZF/lutiiostVyh8JvOUePvH8=;
 	h=From:To:Subject:Date:In-Reply-To:References:In-Reply-To:
 	 References:Cc:List-Id:List-Unsubscribe:List-Archive:List-Post:
 	 List-Help:List-Subscribe:From;
-	b=KOsXBgLYCIqDYltZGrx2NaJmtL3ui/eDN12LnYdqvBZ8MF/ymhdH8CSJiUMOjW3JE
-	 kYGUvxFGdUe0RS+GrIFgayTiWsBpWLIxingswHksRy7zdBlsoAw2NXKpSndF8PmWBo
-	 eAI5ni0OCOdXc8AIeFsXJHL/WC1uzCK+N+u192os=
+	b=CLrYdygRxq1KA41MBrQcY6TlkB80rJ5s/iLiKsHVxV4Jc49n/c4S118CbUS/+y1zo
+	 saIcNAKA4mjyo48NCXSKPxvzeSgm/MG49q26KkcVBWKMuZf1ETBoGx6pqamie2Gg3a
+	 zRpb4l5E1VRc2ENm5kk9k47OBb3Ff7Ere2cHSfSY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E0457F8028D;
-	Mon,  9 Mar 2020 05:05:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 11B68F80292;
+	Mon,  9 Mar 2020 05:05:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 927AAF80227; Mon,  9 Mar 2020 05:05:39 +0100 (CET)
+ id BEB73F801EB; Mon,  9 Mar 2020 05:05:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48CEDF801EB
- for <alsa-devel@alsa-project.org>; Mon,  9 Mar 2020 05:05:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48CEDF801EB
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 0282E1A16FB;
- Mon,  9 Mar 2020 05:05:30 +0100 (CET)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 18166F80123
+ for <alsa-devel@alsa-project.org>; Mon,  9 Mar 2020 05:05:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18166F80123
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 5FF9B2015B4;
+ Mon,  9 Mar 2020 05:05:31 +0100 (CET)
 Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
  [165.114.16.14])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id E64F21A1738;
- Mon,  9 Mar 2020 05:05:22 +0100 (CET)
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 1A3492015BA;
+ Mon,  9 Mar 2020 05:05:24 +0100 (CET)
 Received: from localhost.localdomain (shlinux2.ap.freescale.net
  [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 52801402A5;
- Mon,  9 Mar 2020 12:05:14 +0800 (SGT)
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 79B95402D2;
+ Mon,  9 Mar 2020 12:05:15 +0800 (SGT)
 From: Shengjiu Wang <shengjiu.wang@nxp.com>
 To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
  festevam@gmail.com, broonie@kernel.org, alsa-devel@alsa-project.org,
  lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, robh+dt@kernel.org,
  mark.rutland@arm.com, devicetree@vger.kernel.org
-Subject: [PATCH v5 2/7] ASoC: fsl-asoc-card: Support new property fsl,
- asrc-format
-Date: Mon,  9 Mar 2020 11:58:29 +0800
-Message-Id: <266dccc836c11165ad91a301f24fe4f7ad2557be.1583725533.git.shengjiu.wang@nxp.com>
+Subject: [PATCH v5 3/7] ASoC: fsl_asrc: Support new property fsl,asrc-format
+Date: Mon,  9 Mar 2020 11:58:30 +0800
+Message-Id: <876279c3fe6934e04d8d03db2ed65ff84d38c94f.1583725533.git.shengjiu.wang@nxp.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <cover.1583725533.git.shengjiu.wang@nxp.com>
 References: <cover.1583725533.git.shengjiu.wang@nxp.com>
@@ -85,42 +84,153 @@ format through width.
 
 Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 ---
- sound/soc/fsl/fsl-asoc-card.c | 20 +++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
+ sound/soc/fsl/fsl_asrc.c     | 40 ++++++++++++++++++++++--------------
+ sound/soc/fsl/fsl_asrc.h     |  4 ++--
+ sound/soc/fsl/fsl_asrc_dma.c | 15 +++++++++++---
+ 3 files changed, 39 insertions(+), 20 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
-index 9ce55feaac22..32101b9a37b9 100644
---- a/sound/soc/fsl/fsl-asoc-card.c
-+++ b/sound/soc/fsl/fsl-asoc-card.c
-@@ -680,17 +680,19 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
- 			goto asrc_fail;
- 		}
+diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
+index 0dcebc24c312..11dfe3068b04 100644
+--- a/sound/soc/fsl/fsl_asrc.c
++++ b/sound/soc/fsl/fsl_asrc.c
+@@ -589,7 +589,6 @@ static int fsl_asrc_dai_hw_params(struct snd_pcm_substream *substream,
+ 	unsigned int channels = params_channels(params);
+ 	unsigned int rate = params_rate(params);
+ 	struct asrc_config config;
+-	snd_pcm_format_t format;
+ 	int ret;
  
--		ret = of_property_read_u32(asrc_np, "fsl,asrc-width", &width);
-+		ret = of_property_read_u32(asrc_np, "fsl,asrc-format", &priv->asrc_format);
- 		if (ret) {
--			dev_err(&pdev->dev, "failed to get output rate\n");
--			ret = -EINVAL;
--			goto asrc_fail;
--		}
-+			ret = of_property_read_u32(asrc_np, "fsl,asrc-width", &width);
-+			if (ret) {
-+				dev_err(&pdev->dev, "failed to get output width\n");
-+				return ret;
-+			}
+ 	ret = fsl_asrc_request_pair(channels, pair);
+@@ -600,11 +599,6 @@ static int fsl_asrc_dai_hw_params(struct snd_pcm_substream *substream,
  
--		if (width == 24)
--			priv->asrc_format = SNDRV_PCM_FORMAT_S24_LE;
--		else
--			priv->asrc_format = SNDRV_PCM_FORMAT_S16_LE;
-+			if (width == 24)
-+				priv->asrc_format = SNDRV_PCM_FORMAT_S24_LE;
-+			else
-+				priv->asrc_format = SNDRV_PCM_FORMAT_S16_LE;
+ 	pair->config = &config;
+ 
+-	if (asrc_priv->asrc_width == 16)
+-		format = SNDRV_PCM_FORMAT_S16_LE;
+-	else
+-		format = SNDRV_PCM_FORMAT_S24_LE;
+-
+ 	config.pair = pair->index;
+ 	config.channel_num = channels;
+ 	config.inclk = INCLK_NONE;
+@@ -612,11 +606,11 @@ static int fsl_asrc_dai_hw_params(struct snd_pcm_substream *substream,
+ 
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+ 		config.input_format   = params_format(params);
+-		config.output_format  = format;
++		config.output_format  = asrc_priv->asrc_format;
+ 		config.input_sample_rate  = rate;
+ 		config.output_sample_rate = asrc_priv->asrc_rate;
+ 	} else {
+-		config.input_format   = format;
++		config.input_format   = asrc_priv->asrc_format;
+ 		config.output_format  = params_format(params);
+ 		config.input_sample_rate  = asrc_priv->asrc_rate;
+ 		config.output_sample_rate = rate;
+@@ -946,6 +940,7 @@ static int fsl_asrc_probe(struct platform_device *pdev)
+ 	int irq, ret, i;
+ 	u32 map_idx;
+ 	char tmp[16];
++	u32 width;
+ 
+ 	asrc_priv = devm_kzalloc(&pdev->dev, sizeof(*asrc_priv), GFP_KERNEL);
+ 	if (!asrc_priv)
+@@ -1052,16 +1047,31 @@ static int fsl_asrc_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
+ 
+-	ret = of_property_read_u32(np, "fsl,asrc-width",
+-				   &asrc_priv->asrc_width);
++	ret = of_property_read_u32(np, "fsl,asrc-format", &asrc_priv->asrc_format);
+ 	if (ret) {
+-		dev_err(&pdev->dev, "failed to get output width\n");
+-		return ret;
++		ret = of_property_read_u32(np, "fsl,asrc-width", &width);
++		if (ret) {
++			dev_err(&pdev->dev, "failed to get output width\n");
++			return ret;
++		}
++
++		switch (width) {
++		case 16:
++			asrc->asrc_format = SNDRV_PCM_FORMAT_S16_LE;
++			break;
++		case 24:
++			asrc->asrc_format = SNDRV_PCM_FORMAT_S24_LE;
++			break;
++		default:
++			dev_warn(&pdev->dev, "unsupported width, switching to 24bit\n");
++			asrc->asrc_format = SNDRV_PCM_FORMAT_S24_LE;
++			break;
 +		}
  	}
  
- 	/* Finish card registering */
+-	if (asrc_priv->asrc_width != 16 && asrc_priv->asrc_width != 24) {
+-		dev_warn(&pdev->dev, "unsupported width, switching to 24bit\n");
+-		asrc_priv->asrc_width = 24;
++	if (!(FSL_ASRC_FORMATS & (1ULL << asrc->asrc_format))) {
++		dev_warn(&pdev->dev, "unsupported format, switching to S24_LE\n");
++		asrc->asrc_format = SNDRV_PCM_FORMAT_S24_LE;
+ 	}
+ 
+ 	platform_set_drvdata(pdev, asrc_priv);
+diff --git a/sound/soc/fsl/fsl_asrc.h b/sound/soc/fsl/fsl_asrc.h
+index 8a821132d9d0..4940fa0a7542 100644
+--- a/sound/soc/fsl/fsl_asrc.h
++++ b/sound/soc/fsl/fsl_asrc.h
+@@ -493,7 +493,7 @@ struct fsl_asrc_pair {
+  * @channel_avail: non-occupied channel numbers
+  * @clk_map: clock map for input/output clock
+  * @asrc_rate: default sample rate for ASoC Back-Ends
+- * @asrc_width: default sample width for ASoC Back-Ends
++ * @asrc_format: default sample format for ASoC Back-Ends
+  * @regcache_cfg: store register value of REG_ASRCFG
+  */
+ struct fsl_asrc {
+@@ -514,7 +514,7 @@ struct fsl_asrc {
+ 	unsigned char *clk_map[2];
+ 
+ 	int asrc_rate;
+-	int asrc_width;
++	snd_pcm_format_t asrc_format;
+ 
+ 	u32 regcache_cfg;
+ };
+diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
+index 44e5924be870..af6b583aa71e 100644
+--- a/sound/soc/fsl/fsl_asrc_dma.c
++++ b/sound/soc/fsl/fsl_asrc_dma.c
+@@ -146,7 +146,7 @@ static int fsl_asrc_dma_hw_params(struct snd_soc_component *component,
+ 	struct device *dev_be;
+ 	u8 dir = tx ? OUT : IN;
+ 	dma_cap_mask_t mask;
+-	int ret;
++	int ret, bits;
+ 
+ 	/* Fetch the Back-End dma_data from DPCM */
+ 	for_each_dpcm_be(rtd, stream, dpcm) {
+@@ -230,10 +230,19 @@ static int fsl_asrc_dma_hw_params(struct snd_soc_component *component,
+ 		return -EINVAL;
+ 	}
+ 
+-	if (asrc_priv->asrc_width == 16)
++	bits = snd_pcm_format_physical_width(asrc_priv->asrc_format);
++	if (bits < 8 || bits > 64)
++		return -EINVAL;
++	else if (bits == 8)
++		buswidth = DMA_SLAVE_BUSWIDTH_1_BYTE;
++	else if (bits == 16)
+ 		buswidth = DMA_SLAVE_BUSWIDTH_2_BYTES;
+-	else
++	else if (bits == 24)
++		buswidth = DMA_SLAVE_BUSWIDTH_3_BYTES;
++	else if (bits <= 32)
+ 		buswidth = DMA_SLAVE_BUSWIDTH_4_BYTES;
++	else
++		buswidth = DMA_SLAVE_BUSWIDTH_8_BYTES;
+ 
+ 	config_be.direction = DMA_DEV_TO_DEV;
+ 	config_be.src_addr_width = buswidth;
 -- 
 2.21.0
 

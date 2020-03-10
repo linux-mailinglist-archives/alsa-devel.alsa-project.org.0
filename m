@@ -2,54 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44153180621
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Mar 2020 19:22:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FD9918076D
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Mar 2020 19:52:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D939C1673;
-	Tue, 10 Mar 2020 19:21:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D939C1673
+	by alsa0.perex.cz (Postfix) with ESMTPS id DABBC1672;
+	Tue, 10 Mar 2020 19:51:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DABBC1672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583864524;
-	bh=jfOpWR8BMVQBqDwMqmT/maeOMeYmsNkPQCpMyMstRQM=;
-	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=mHBebhdl1CqM+t0mxFIdCDTN3rN1FOEIy3jK3SYOGDy1337l3Q3CqlEAkJFbzsqL3
-	 ZFMBlyQisQQcQX0dDg//eM+VpSGV8wOfV57/4CQiM0H7GN6f5u/8hya1OafU/7D/Y0
-	 k6MHaqCny38rRETHeuhozjR6+hv5KwptytgOwqCY=
+	s=default; t=1583866353;
+	bh=n+cyrf7lfGTbCHVUgVgAurLOC6uO4AK85qBrh6PLbJs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=EROB8dFt4/GOFVUeXH/O0+o+n/BPfqpyzwcYrn2hDdhZInBvvpWDGeKB8rQuS0qf1
+	 vzmBDS967hw/ZiYsO3nkqdsmuai3DICoQeWHJj9cTsY8hZMAHgh6ucpnrh/TWL2Ajm
+	 LqUfv9Ed1FO3ebaXzTXOf2Nh/y9/xxP+1Id8xSsU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5A90F8028C;
-	Tue, 10 Mar 2020 19:19:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA075F800DA;
+	Tue, 10 Mar 2020 19:50:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BEE74F8028B; Tue, 10 Mar 2020 19:19:28 +0100 (CET)
+ id 3EA26F80217; Tue, 10 Mar 2020 19:49:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 321F5F80260
- for <alsa-devel@alsa-project.org>; Tue, 10 Mar 2020 19:19:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 321F5F80260
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AF54630E;
- Tue, 10 Mar 2020 11:19:23 -0700 (PDT)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 33FF73F534;
- Tue, 10 Mar 2020 11:19:23 -0700 (PDT)
-Date: Tue, 10 Mar 2020 18:19:21 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Applied "ASoC: rt5682: fix unmet dependencies" to the asoc tree
-In-Reply-To: <20200310163509.14466-2-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20200310163509.14466-2-pierre-louis.bossart@linux.intel.com>
-X-Patchwork-Hint: ignore
-Cc: Oder Chiou <oder_chiou@realtek.com>, tiwai@suse.de,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- kbuild test robot <lkp@intel.com>
+Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
+ [209.85.210.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 739FFF800DA
+ for <alsa-devel@alsa-project.org>; Tue, 10 Mar 2020 19:48:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 739FFF800DA
+Received: by mail-ot1-f67.google.com with SMTP id b3so14247544otp.4
+ for <alsa-devel@alsa-project.org>; Tue, 10 Mar 2020 11:48:47 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=EzS4Ory16y/BLSb6no87Sernjs2m/cGxUWkwz4EtDSw=;
+ b=Qx6m6SY4Sq43EaGH+NMXHSSuUSchZcgNRwxaYxSkE9QaM/WD6FCf+hf7gytKgesr34
+ 12sllq8njfidUPAA+ogTXangroRGmpf03IXAXI7BHtaA+zdzNpiiez0wRVTpkwEVAT0I
+ tIbj8kK7X53m1TMgIoNmmu47fOB/3kKYX10NkLQsBDkES9o14lLgDUpoWuWtNMua7sIO
+ sUAUTrLRwvVscdOp13mrmXbZ6lvgXP1FlnWZEGjmwl0mGXnGT+q4muAMDCsceX2VFPmS
+ l0hUHtUSjtXc7Sp7dNL7Sa5bNcmO4xHKLZ104LXF2gUpLi849HxXT/npwLCCLygWhFP/
+ HLgQ==
+X-Gm-Message-State: ANhLgQ2C6ZyNxPuHM31JcUjDx4RSnvX0QnWjBhz0J7tdYnrRiEKKqnYu
+ 8sPDwXgmwqeH/98EqL/H+Q==
+X-Google-Smtp-Source: ADFU+vsMU183YY5TJ9IDWm2qf6EIOH/EKHLHafJAiNQIT7jZ1BNW3xQAYT9kBEXnBN09EB1NU0f2WQ==
+X-Received: by 2002:a9d:750d:: with SMTP id r13mr7271522otk.321.1583866126181; 
+ Tue, 10 Mar 2020 11:48:46 -0700 (PDT)
+Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id a73sm2633320oib.16.2020.03.10.11.48.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Mar 2020 11:48:45 -0700 (PDT)
+Received: (nullmailer pid 15229 invoked by uid 1000);
+ Tue, 10 Mar 2020 18:48:44 -0000
+Date: Tue, 10 Mar 2020 13:48:44 -0500
+From: Rob Herring <robh@kernel.org>
+To: Benjamin Gaignard <benjamin.gaignard@st.com>
+Subject: Re: [PATCH] dt-bindings: sound: Convert cirrus, cs42l51 to json-schema
+Message-ID: <20200310184844.GA15190@bogus>
+References: <20200228152706.29749-1-benjamin.gaignard@st.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200228152706.29749-1-benjamin.gaignard@st.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ olivier.moysan@st.com, Benjamin Gaignard <benjamin.gaignard@st.com>,
+ lgirdwood@gmail.com, robh+dt@kernel.org, linux-kernel@vger.kernel.org,
+ broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,73 +94,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+On Fri, 28 Feb 2020 16:27:06 +0100, Benjamin Gaignard wrote:
+> Convert cirrus,cs42l51 to yaml format.
+> 
+> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
+> ---
+>  .../devicetree/bindings/sound/cirrus,cs42l51.yaml  | 69 ++++++++++++++++++++++
+>  .../devicetree/bindings/sound/cs42l51.txt          | 33 -----------
+>  2 files changed, 69 insertions(+), 33 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/sound/cirrus,cs42l51.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/cs42l51.txt
+> 
 
-   ASoC: rt5682: fix unmet dependencies
-
-has been applied to the asoc tree at
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 5549ea64799784308cc03313a86dea3de56d48ce Mon Sep 17 00:00:00 2001
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Tue, 10 Mar 2020 11:35:07 -0500
-Subject: [PATCH] ASoC: rt5682: fix unmet dependencies
-
-The rt5682 code can be used in I2C or SoundWire mode. When I2C is not
-selected, we have the following issue:
-
-WARNING: unmet direct dependencies detected for SND_SOC_RT5682
-  Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] &&
-  I2C [=n]
-  Selected by [m]:
-  - SND_SOC_RT5682_SDW [=m] && SOUND [=m] && !UML && SND [=m] &&
-    SND_SOC [=m] && SOUNDWIRE [=m]
-
-Fix by adding SOUNDWIRE as a dependency.
-
-Fixes: 03f6fc6de9192f ('ASoC: rt5682: Add the soundwire support')
-Reported-by: kbuild test robot <lkp@intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: Oder Chiou <oder_chiou@realtek.com>
-Link: https://lore.kernel.org/r/20200310163509.14466-2-pierre-louis.bossart@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/codecs/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 6aee70ed43df..78be69e9b618 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -1135,7 +1135,7 @@ config SND_SOC_RT5677_SPI
- 
- config SND_SOC_RT5682
- 	tristate
--	depends on I2C
-+	depends on I2C || SOUNDWIRE
- 
- config SND_SOC_RT5682_SDW
- 	tristate "Realtek RT5682 Codec - SDW"
--- 
-2.20.1
-
+Reviewed-by: Rob Herring <robh@kernel.org>

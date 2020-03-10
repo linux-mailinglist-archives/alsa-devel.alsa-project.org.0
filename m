@@ -2,53 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83B76180615
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Mar 2020 19:21:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 679BB18061D
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Mar 2020 19:21:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DBBB61673;
-	Tue, 10 Mar 2020 19:20:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBBB61673
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0FCDF82E;
+	Tue, 10 Mar 2020 19:20:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FCDF82E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583864462;
-	bh=Y6aUNGtSOmGdhizdZ7bBqYenZuLn2oUesLGQJA+J64U=;
+	s=default; t=1583864508;
+	bh=ZjnPkYeZMBvNHVU26S0y5RASSi+rQ7ptj9Q/eltBmDM=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=USqUkC5LDbtloETv8ZmGyfbcoND0NjPuN6tVk7NSzuEIjEkLmTeTLg4iN259gmp8H
-	 77/0iHBk45aI+2I5DTIiUK6oRk0SVk0Lz1WqJvZptDxsy7BiXFeCkJ1ajpWFCPt++6
-	 S3T+3kyCB2Wvz96LQ0pQruHbmwcnz90Zcgoo+g/o=
+	b=GGaDGydcBwtzFy9MuVrSAuKLMjnuHAv+uw3Dx7ssqUhXBKMxAfSTMNPW6XT0u5W87
+	 1x1CkKKnAU3QLJvCbun3SsCj24VJKmpEGJhfdHUPOvE8Woq35L2PP5yrv6z9z7HY6T
+	 Hx1jHIgydmETBgyaQuTx0PdWRBrUxreLkJRfSHcY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EAE38F8020C;
-	Tue, 10 Mar 2020 19:19:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 147B9F80123;
+	Tue, 10 Mar 2020 19:19:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A73E8F80217; Tue, 10 Mar 2020 19:19:19 +0100 (CET)
+ id 882E9F80247; Tue, 10 Mar 2020 19:19:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id CA7FBF80123
- for <alsa-devel@alsa-project.org>; Tue, 10 Mar 2020 19:19:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA7FBF80123
+ by alsa1.perex.cz (Postfix) with ESMTP id 9BDAAF8021C
+ for <alsa-devel@alsa-project.org>; Tue, 10 Mar 2020 19:19:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BDAAF8021C
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 71AB430E;
- Tue, 10 Mar 2020 11:19:14 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0F30530E;
+ Tue, 10 Mar 2020 11:19:19 -0700 (PDT)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E5E243F534;
- Tue, 10 Mar 2020 11:19:13 -0700 (PDT)
-Date: Tue, 10 Mar 2020 18:19:12 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 88F573F534;
+ Tue, 10 Mar 2020 11:19:18 -0700 (PDT)
+Date: Tue, 10 Mar 2020 18:19:17 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Applied "ASoC: pcm: Fix (again) possible buffer overflow in dpcm
- state sysfs output" to the asoc tree
-In-Reply-To: <20200310163625.10838-1-tiwai@suse.de>
-Message-Id: <applied-20200310163625.10838-1-tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Applied "ASoC: rt5682-sdw: fix 'defined but not used' pm functions"
+ to the asoc tree
+In-Reply-To: <20200310163509.14466-4-pierre-louis.bossart@linux.intel.com>
+Message-Id: <applied-20200310163509.14466-4-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Cc: Oder Chiou <oder_chiou@realtek.com>, tiwai@suse.de,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ kbuild test robot <lkp@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,7 +68,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: pcm: Fix (again) possible buffer overflow in dpcm state sysfs output
+   ASoC: rt5682-sdw: fix 'defined but not used' pm functions
 
 has been applied to the asoc tree at
 
@@ -91,81 +93,57 @@ to this mail.
 Thanks,
 Mark
 
-From d0c9abb8339dfdb5c5fcdfab5aefcba578a4d50d Mon Sep 17 00:00:00 2001
-From: Takashi Iwai <tiwai@suse.de>
-Date: Tue, 10 Mar 2020 17:36:25 +0100
-Subject: [PATCH] ASoC: pcm: Fix (again) possible buffer overflow in dpcm state
- sysfs output
+From 724cc62f7a71e3a04112126806c62d9c639ab92c Mon Sep 17 00:00:00 2001
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Date: Tue, 10 Mar 2020 11:35:09 -0500
+Subject: [PATCH] ASoC: rt5682-sdw: fix 'defined but not used' pm functions
 
-This is re-applying the fix that went into 5.6 (commit 6c89ffea60aa)
-as the changes were wiped out after merging the other code
-refactoring.  Basically the same changes, just replacing the
-suspicious calls of snprintf() with scnprintf().
+Gcc reports the following warnings:
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://lore.kernel.org/r/20200310163625.10838-1-tiwai@suse.de
+sound/soc/codecs/rt5682-sdw.c:286:12: warning: 'rt5682_dev_resume'
+defined but not used [-Wunused-function]
+ static int rt5682_dev_resume(struct device *dev)
+            ^~~~~~~~~~~~~~~~~
+
+sound/soc/codecs/rt5682-sdw.c:273:12: warning: 'rt5682_dev_suspend'
+defined but not used [-Wunused-function]
+ static int rt5682_dev_suspend(struct device *dev)
+            ^~~~~~~~~~~~~~~~~~
+
+Fix by adding maybe_unused as done for other SoundWire codecs
+
+Fixes: 03f6fc6de9192f ('ASoC: rt5682: Add the soundwire support')
+Reported-by: kbuild test robot <lkp@intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Oder Chiou <oder_chiou@realtek.com>
+Link: https://lore.kernel.org/r/20200310163509.14466-4-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-pcm.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ sound/soc/codecs/rt5682-sdw.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index fbea005043de..733d7e8a0e55 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -66,16 +66,16 @@ static ssize_t dpcm_show_state(struct snd_soc_pcm_runtime *fe,
- 	unsigned long flags;
+diff --git a/sound/soc/codecs/rt5682-sdw.c b/sound/soc/codecs/rt5682-sdw.c
+index 1d6963dd6403..a2d1d3ae1e31 100644
+--- a/sound/soc/codecs/rt5682-sdw.c
++++ b/sound/soc/codecs/rt5682-sdw.c
+@@ -270,7 +270,7 @@ static const struct sdw_device_id rt5682_id[] = {
+ };
+ MODULE_DEVICE_TABLE(sdw, rt5682_id);
  
- 	/* FE state */
--	offset += snprintf(buf + offset, size - offset,
-+	offset += scnprintf(buf + offset, size - offset,
- 			   "[%s - %s]\n", fe->dai_link->name,
- 			   stream ? "Capture" : "Playback");
+-static int rt5682_dev_suspend(struct device *dev)
++static int __maybe_unused rt5682_dev_suspend(struct device *dev)
+ {
+ 	struct rt5682_priv *rt5682 = dev_get_drvdata(dev);
  
--	offset += snprintf(buf + offset, size - offset, "State: %s\n",
-+	offset += scnprintf(buf + offset, size - offset, "State: %s\n",
- 			   dpcm_state_string(fe->dpcm[stream].state));
+@@ -283,7 +283,7 @@ static int rt5682_dev_suspend(struct device *dev)
+ 	return 0;
+ }
  
- 	if ((fe->dpcm[stream].state >= SND_SOC_DPCM_STATE_HW_PARAMS) &&
- 	    (fe->dpcm[stream].state <= SND_SOC_DPCM_STATE_STOP))
--		offset += snprintf(buf + offset, size - offset,
-+		offset += scnprintf(buf + offset, size - offset,
- 				   "Hardware Params: "
- 				   "Format = %s, Channels = %d, Rate = %d\n",
- 				   snd_pcm_format_name(params_format(params)),
-@@ -83,10 +83,10 @@ static ssize_t dpcm_show_state(struct snd_soc_pcm_runtime *fe,
- 				   params_rate(params));
- 
- 	/* BEs state */
--	offset += snprintf(buf + offset, size - offset, "Backends:\n");
-+	offset += scnprintf(buf + offset, size - offset, "Backends:\n");
- 
- 	if (list_empty(&fe->dpcm[stream].be_clients)) {
--		offset += snprintf(buf + offset, size - offset,
-+		offset += scnprintf(buf + offset, size - offset,
- 				   " No active DSP links\n");
- 		goto out;
- 	}
-@@ -96,16 +96,16 @@ static ssize_t dpcm_show_state(struct snd_soc_pcm_runtime *fe,
- 		struct snd_soc_pcm_runtime *be = dpcm->be;
- 		params = &dpcm->hw_params;
- 
--		offset += snprintf(buf + offset, size - offset,
-+		offset += scnprintf(buf + offset, size - offset,
- 				   "- %s\n", be->dai_link->name);
- 
--		offset += snprintf(buf + offset, size - offset,
-+		offset += scnprintf(buf + offset, size - offset,
- 				   "   State: %s\n",
- 				   dpcm_state_string(be->dpcm[stream].state));
- 
- 		if ((be->dpcm[stream].state >= SND_SOC_DPCM_STATE_HW_PARAMS) &&
- 		    (be->dpcm[stream].state <= SND_SOC_DPCM_STATE_STOP))
--			offset += snprintf(buf + offset, size - offset,
-+			offset += scnprintf(buf + offset, size - offset,
- 					   "   Hardware Params: "
- 					   "Format = %s, Channels = %d, Rate = %d\n",
- 					   snd_pcm_format_name(params_format(params)),
+-static int rt5682_dev_resume(struct device *dev)
++static int __maybe_unused rt5682_dev_resume(struct device *dev)
+ {
+ 	struct sdw_slave *slave = dev_to_sdw_dev(dev);
+ 	struct rt5682_priv *rt5682 = dev_get_drvdata(dev);
 -- 
 2.20.1
 

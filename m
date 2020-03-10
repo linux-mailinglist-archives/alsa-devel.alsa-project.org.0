@@ -2,61 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14C1617F78E
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Mar 2020 13:39:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4AE417F85D
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Mar 2020 13:47:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9AFB01667;
-	Tue, 10 Mar 2020 13:38:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AFB01667
+	by alsa0.perex.cz (Postfix) with ESMTPS id 517061671;
+	Tue, 10 Mar 2020 13:46:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 517061671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583843942;
-	bh=X0sEz4payhG1fjvJGWD595RqJCzH8z0UfJdotIC16vk=;
+	s=default; t=1583844455;
+	bh=iLujCNUdbrM1560pSrYPMF/RbCGu2uxgMLVjzAqIGUo=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MjEIzKb5NPB9b7Xzn2lMKZ1YfcoMA7CJJY5yyJHtbnSumLf2h6kBggCbP77iopU+s
-	 5lHJlRSXCPdPKL8r6B4kZu+iwEir5WiA9Z27fM6d4zff051oJr/vB3F1tfxuVxJdc9
-	 oIRRfX/Y0lJmykVASgUXicANZwwTXRIGNBAwqVB8=
+	b=VsYUyT+rhV651vH0UEk0cmIgzCA9N+V27F1udYp3cqUMvNykXUJN1sYUS1LSYOVjB
+	 CgilTT77/yiLtbCk6zQMazNUiuWvJE/3RkAQIAbFsZxcE10k36Wa+zySyVtNSQ29SO
+	 L001kfx7u/DKlicfYAHiVnRW9bdJCPCU6G3lSYXE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B2612F8021C;
-	Tue, 10 Mar 2020 13:37:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6CA25F8021C;
+	Tue, 10 Mar 2020 13:45:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2F533F80217; Tue, 10 Mar 2020 13:37:19 +0100 (CET)
+ id 646EDF80217; Tue, 10 Mar 2020 13:45:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- PRX_BODY_30, SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 7C13DF800DA
- for <alsa-devel@alsa-project.org>; Tue, 10 Mar 2020 13:37:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C13DF800DA
+ by alsa1.perex.cz (Postfix) with ESMTP id A0393F80123;
+ Tue, 10 Mar 2020 13:45:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0393F80123
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 803B730E;
- Tue, 10 Mar 2020 05:37:13 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 99C1330E;
+ Tue, 10 Mar 2020 05:45:46 -0700 (PDT)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 01B533F67D;
- Tue, 10 Mar 2020 05:37:12 -0700 (PDT)
-Date: Tue, 10 Mar 2020 12:37:11 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1C3C93F6CF;
+ Tue, 10 Mar 2020 05:45:45 -0700 (PDT)
+Date: Tue, 10 Mar 2020 12:45:44 +0000
 From: Mark Brown <broonie@kernel.org>
-To: "Schulman, James" <James.Schulman@cirrus.com>
-Subject: Re: [PATCH] MAINTAINERS: Update Cirrus Logic codec driver maintainers
-Message-ID: <20200310123711.GA53842@sirena.org.uk>
-References: <alpine.DEB.2.21.2003061508150.32557@james-tower>
+To: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Subject: Re: [PATCH 2/3] ASoC: add function parameters to enable forced path
+ pruning
+Message-ID: <20200310124544.GE4106@sirena.org.uk>
+References: <20200309170749.32313-1-guennadi.liakhovetski@linux.intel.com>
+ <20200309170749.32313-3-guennadi.liakhovetski@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="jI8keyz6grp/JLjh"
+ protocol="application/pgp-signature"; boundary="maH1Gajj2nflutpK"
 Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.21.2003061508150.32557@james-tower>
-X-Cookie: To program is to be.
+In-Reply-To: <20200309170749.32313-3-guennadi.liakhovetski@linux.intel.com>
+X-Cookie: In space, no one can hear you fart.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "Austin,
- Brian" <Brian.Austin@cirrus.com>, "Handrigan,
- Paul" <Paul.Handrigan@cirrus.com>, "Rhodes, David" <David.Rhodes@cirrus.com>
+Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,35 +74,36 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---jI8keyz6grp/JLjh
+--maH1Gajj2nflutpK
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Mar 06, 2020 at 09:10:38PM +0000, Schulman, James wrote:
+On Mon, Mar 09, 2020 at 06:07:48PM +0100, Guennadi Liakhovetski wrote:
 
-> +++ b/MAINTAINERS
-> @@ -4021,8 +4021,8 @@ F:
-> Documentation/devicetree/bindings/sound/google,cros-ec-codec.txt
->    F:      sound/soc/codecs/cros_ec_codec.*
->=20
+> soc_dpcm_runtime_update() to activate an audio path and update audio
+> routing. When streaming is stopped, the vhost driver calls
+> soc_dpcm_runtime_update() and snd_soc_runtime_deactivate(). The latter
+> doesn't work at the moment, because the DPCM doesn't recognise the
+> path as inactive. We address this by adding a "mode" parameter to
+> soc_dpcm_runtime_update(). If virtualisation isn't used, the current
+> behaviour isn't affected.
 
-This e-mail is corrupted so the patch won't apply, you've got word
-wrapping issue.  Please check your mail configuration and resend :/
+So why doesn't DPCM recognize that the path is inactive and why is it
+better to do this than fix whatever the issue is there?
 
---jI8keyz6grp/JLjh
+--maH1Gajj2nflutpK
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5nifYACgkQJNaLcl1U
-h9CyfQf+N6jCxkozIrxQRp9J62BZBuHtmMBlJxq5zJM3EMcV1+OSqX3Zl3w1278Y
-/WWMQrn1GmBniHkX6nZ718YNYM4DCWzySi0ywTJCViMs8cLWloxwta/yTS7b3EBk
-9S269k3FwZ9BU14UYPqfdmF1W+BT8SauK9jwGd8hCFhzkQdxzktRaPZQx9RsjeAG
-HQO1K+HP17Qp1rJ/kO7kTUJ5QVzEu3BXY/EsfkCjpHAsoJbdcmmkyA1pOhyl+inl
-Sjpjqm6u9yv5VupxPOR1qfeZO+Q4ewkr/IhNNPe31Q412AYHXoSqstXzpbMQ3mX7
-xJoPQBhpfVcvMD1Q0OWt9iHd/t1r3A==
-=+uJv
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5ni/cACgkQJNaLcl1U
+h9AQrgf/Sc9Mk+Um1e7Mmw3pwn9VyqgmGzixwdmdBaCTgbae3Y4hXmlYfKvsAVb9
+ghOJ2BoudXaiAC7FKupTIPLbDPTZF2o1i86zsNo+Ee67EIp3mfeUppenO1mGyvCt
+0RiEc5XNZBbtGBE/Ux2C4tye+F6nbiI3nMNI/ckWDFoIUAV9+tUZ7lKWzFO1qShC
+e4m0yTV+SSo2K18wPt51Bit136WK5rFNw0+CZy9xiW0uwF4tNSIj8ZgCCmD2rj+V
+Jsq+VPRBD55SEaXfKPsSWRX29PlzXPCYvX7W+CR+S7K9Lp40QzbTi+SJfELdEXuH
+MF2p9fQ1mUC8v1cUT6rTJhqNsxzJvA==
+=4sjQ
 -----END PGP SIGNATURE-----
 
---jI8keyz6grp/JLjh--
+--maH1Gajj2nflutpK--

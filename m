@@ -2,64 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A25318048B
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Mar 2020 18:14:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9D841804A7
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Mar 2020 18:21:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2E66167F;
-	Tue, 10 Mar 2020 18:13:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2E66167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 81C37167D;
+	Tue, 10 Mar 2020 18:20:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81C37167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583860439;
-	bh=5falJ5S6VIlQn8yJKgHS9GTcVqcbbaH4FoFfVK8rRUI=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1583860880;
+	bh=7A8AB7nbUwmJqoCigu/5pKPKjfkrehh/y+AgzkWWe9M=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WsEszHfaTKc7IOtTanbkBSdFZe7AIv52tOsPn98p8Qk3RGnDEukjy1O+HQ6bwAXCz
-	 X1uJjPnM46lIhN6Ganeud3lPGnKkJfS+zQtea2z3jy7Woji9NNgE7TT0id321IAIGv
-	 OjOK4nKgJmO4tlHzMpYYmdi2NbkHc26Jrf8EKylA=
+	b=IMuCG9K5LCvQtwKTY39QjZq6qA4rgGOoyXAn+JxZLxteDcyne7bITwSSfQEqqyTUE
+	 c3TM4Ibaf/+jbZr0XevN3heKOhoMe0rjmlEsvoeaXevnrrVyIwO9KAGQTbdKROcuBQ
+	 Rv62newgMFxV75JnMOmf3ggzDEHwLFJRUze7+Qk4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4A8AF800DA;
-	Tue, 10 Mar 2020 18:12:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3A549F8020C;
+	Tue, 10 Mar 2020 18:19:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 13463F80217; Tue, 10 Mar 2020 18:12:17 +0100 (CET)
+ id EAC8CF80217; Tue, 10 Mar 2020 18:19:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8F326F800BC
- for <alsa-devel@alsa-project.org>; Tue, 10 Mar 2020 18:12:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F326F800BC
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2020 10:12:03 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,518,1574150400"; d="scan'208";a="321867275"
-Received: from djdickof-mobl.amr.corp.intel.com (HELO [10.252.192.103])
- ([10.252.192.103])
- by orsmga001.jf.intel.com with ESMTP; 10 Mar 2020 10:12:02 -0700
-Subject: Re: [PATCH] ASoC: Intel: boards: add stereo playback by woofer speaker
-To: mac.chiang@intel.com, alsa-devel@alsa-project.org
-References: <1583833125-7017-1-git-send-email-mac.chiang@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <daf627d0-ffe3-5e18-324d-4d115ec34952@linux.intel.com>
-Date: Tue, 10 Mar 2020 12:05:48 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 28C14F800BC
+ for <alsa-devel@alsa-project.org>; Tue, 10 Mar 2020 18:19:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28C14F800BC
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AE6131FB;
+ Tue, 10 Mar 2020 10:19:31 -0700 (PDT)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2CDB73F67D;
+ Tue, 10 Mar 2020 10:19:31 -0700 (PDT)
+Date: Tue, 10 Mar 2020 17:19:29 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 2/3] ASoC: rt5682: fix compilation issues without I2C
+Message-ID: <20200310171929.GM4106@sirena.org.uk>
+References: <20200310163509.14466-1-pierre-louis.bossart@linux.intel.com>
+ <20200310163509.14466-3-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <1583833125-7017-1-git-send-email-mac.chiang@intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: sathya.prakash.m.r@intel.com, naveen.m@intel.com, broonie@kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="7vLGWvOrvbSM0Ba8"
+Content-Disposition: inline
+In-Reply-To: <20200310163509.14466-3-pierre-louis.bossart@linux.intel.com>
+X-Cookie: In space, no one can hear you fart.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: tiwai@suse.de, Oder Chiou <oder_chiou@realtek.com>,
+ alsa-devel@alsa-project.org, kbuild test robot <lkp@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,207 +71,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mac,
 
-> +#define SOF_RT1011_SPEAKER_WL		BIT(0)
-> +#define SOF_RT1011_SPEAKER_WR		BIT(1)
-> +#define SOF_RT1011_SPEAKER_TL		BIT(2)
-> +#define SOF_RT1011_SPEAKER_TR		BIT(3)
-> +#define SPK_CH 4
+--7vLGWvOrvbSM0Ba8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-use a prefix maybe for consistency?
-It's also unclear why this is needed when you can have 2 or more 
-channels, and looking below
+On Tue, Mar 10, 2020 at 11:35:08AM -0500, Pierre-Louis Bossart wrote:
+> Exclude all I2C-related code from compilation to avoid compilation
+> errors and defined but not used warnings.
 
-> +
-> +/* Default: Woofer+Tweeter speakers  */
+I think it would be better to do this by factoring the bus code out into
+a separate file like we've done with I2C and SPI, it's neater than
+ifdefs and easier to get right going forwards.
 
-It's more like ALL devices have Woofers.
-Some devices don't have tweeters.
+--7vLGWvOrvbSM0Ba8
+Content-Type: application/pgp-signature; name="signature.asc"
 
-the WL and WR quirks are always on apparently.
+-----BEGIN PGP SIGNATURE-----
 
-> +static unsigned long sof_rt1011_quirk = SOF_RT1011_SPEAKER_WL | SOF_RT1011_SPEAKER_WR |
-> +					SOF_RT1011_SPEAKER_TL | SOF_RT1011_SPEAKER_TR;
-> +
-> +static int sof_rt1011_quirk_cb(const struct dmi_system_id *id)
-> +{
-> +	sof_rt1011_quirk = (unsigned long)id->driver_data;
-> +	return 1;
-> +}
-> +
-> +static const struct dmi_system_id sof_rt1011_quirk_table[] = {
-> +	{
-> +		.callback = sof_rt1011_quirk_cb,
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "Google"),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "Palkia"),
-> +	},
-> +		.driver_data = (void *)(SOF_RT1011_SPEAKER_WL |
-> +					SOF_RT1011_SPEAKER_WR),
-> +	},
-> +	{
-> +	}
-> +};
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5nzCAACgkQJNaLcl1U
+h9Ahdgf9GtEefAoubbmCuL4eVgPW9s249eRfX/e3BahOyTV3DbTZChfox+aIrs7l
+qa8VxXRM9SZDdU9jEZ4fV0wxZnuWNUxiRkjLDU7SrNWtLiJKLrWwnezRjUxpqnOx
+tCcJsMa8Xpu6xQ/flwrN6X6lhYeWiSecazW0SqKOgCE6yi/14scsqi2cyLCpXcS+
+Z7vbFWpznCY0e898Vq/2yC7UH1gYOnUDH7zeA1eBT3r7t3sf6SwCSpNJZm2+KrRB
+U5Z4rVm5BfJdGNohk4xlEEilLi6EZ99wVqYgAeyuvvyzUJUowipOcO2atW6qDYq3
+B4L72fu7iSwaei6Zpk3Un9wwarpiLQ==
+=6FvZ
+-----END PGP SIGNATURE-----
 
-> +static const struct snd_soc_dapm_widget cml_rt1011_tt_widgets[] = {
-> +	SND_SOC_DAPM_SPK("TL Ext Spk", NULL),
-> +	SND_SOC_DAPM_SPK("TR Ext Spk", NULL),
-> +};
-> +
->   static const struct snd_soc_dapm_route cml_rt1011_rt5682_map[] = {
->   	/*speaker*/
->   	{"TL Ext Spk", NULL, "TL SPO"},
-
-Something's not right, if I look at the code after applying this patch I 
-get:
-
-static const struct snd_soc_dapm_route cml_rt1011_rt5682_map[] = {
-	/*speaker*/
-	{"TL Ext Spk", NULL, "TL SPO"},
-	{"TR Ext Spk", NULL, "TR SPO"},
-
-That's duplicaged from [1]
-
-> @@ -82,6 +118,12 @@ static const struct snd_soc_dapm_route cml_rt1011_rt5682_map[] = {
->   	{"DMic", NULL, "SoC DMIC"},
->   };
->   
-> +static const struct snd_soc_dapm_route cml_rt1011_tt_map[] = {
-> +	/*TL/TR speaker*/
-> +	{"TL Ext Spk", NULL, "TL SPO" },
-> +	{"TR Ext Spk", NULL, "TR SPO" },
-> +};
-
-[1] we should remove the tweeeter maps in cml_rt1011_rt5682_map, no?
-
->   static int cml_rt5682_hw_params(struct snd_pcm_substream *substream,
->   				struct snd_pcm_hw_params *params)
->   {
-> @@ -192,31 +263,52 @@ static int cml_rt1011_hw_params(struct snd_pcm_substream *substream,
->   		 * The feedback is captured for each codec individually.
->   		 * Hence all 4 codecs use 1 Tx slot each for feedback.
->   		 */
-> -		if (!strcmp(codec_dai->component->name, "i2c-10EC1011:00")) {
-> -			ret = snd_soc_dai_set_tdm_slot(codec_dai,
-> -						       0x4, 0x1, 4, 24);
-> -			if (ret < 0)
-> -				break;
-> -		}
-> -		if (!strcmp(codec_dai->component->name, "i2c-10EC1011:02")) {
-> -			ret = snd_soc_dai_set_tdm_slot(codec_dai,
-> -						       0x1, 0x1, 4, 24);
-> -			if (ret < 0)
-> -				break;
-> -		}
-> -		/* TDM Rx slot 2 is used for Right Woofer & Tweeters pair */
-> -		if (!strcmp(codec_dai->component->name, "i2c-10EC1011:01")) {
-> -			ret = snd_soc_dai_set_tdm_slot(codec_dai,
-> -						       0x8, 0x2, 4, 24);
-> -			if (ret < 0)
-> -				break;
-> -		}
-> -		if (!strcmp(codec_dai->component->name, "i2c-10EC1011:03")) {
-> -			ret = snd_soc_dai_set_tdm_slot(codec_dai,
-> -						       0x2, 0x2, 4, 24);
-> -			if (ret < 0)
-> -				break;
-> +		if (sof_rt1011_quirk & (SOF_RT1011_SPEAKER_TL |
-> +					SOF_RT1011_SPEAKER_TR)) {
-> +			if (!strcmp(codec_dai->component->name, "i2c-10EC1011:00")) {
-> +				ret = snd_soc_dai_set_tdm_slot(codec_dai,
-> +							       0x4, 0x1, 4, 24);
-> +				if (ret < 0)
-> +					break;
-> +			}
-> +
-> +			if (!strcmp(codec_dai->component->name, "i2c-10EC1011:02")) {
-> +				ret = snd_soc_dai_set_tdm_slot(codec_dai,
-> +							       0x1, 0x1, 4, 24);
-> +				if (ret < 0)
-> +					break;
-> +			}
-> +
-> +			/* TDM Rx slot 2 is used for Right Woofer & Tweeters pair */
-> +			if (!strcmp(codec_dai->component->name, "i2c-10EC1011:01")) {
-> +				ret = snd_soc_dai_set_tdm_slot(codec_dai,
-> +							       0x8, 0x2, 4, 24);
-> +				if (ret < 0)
-> +					break;
-> +			}
-> +
-> +			if (!strcmp(codec_dai->component->name, "i2c-10EC1011:03")) {
-> +				ret = snd_soc_dai_set_tdm_slot(codec_dai,
-> +							       0x2, 0x2, 4, 24);
-> +				if (ret < 0)
-> +					break;
-> +			}
-> +		} else {
-> +			if (!strcmp(codec_dai->component->name, "i2c-10EC1011:00")) {
-> +				ret = snd_soc_dai_set_tdm_slot(codec_dai,
-> +							       0x4, 0x1, 4, 24);
-> +				if (ret < 0)
-> +					break;
-> +			}
-> +
-> +			if (!strcmp(codec_dai->component->name, "i2c-10EC1011:01")) {
-> +				ret = snd_soc_dai_set_tdm_slot(codec_dai,
-> +							       0x8, 0x2, 4, 24);
-> +				if (ret < 0)
-> +					break;
-> +			}
->   		}
-
-the if/else case can be simplified. The baseline is two woofers, so they 
-can be added unconditionally, and then you can add what's missing for 
-the tweeters. That way you have a consistent way of handling the TL/TR 
-quirk.
->   static int snd_cml_rt1011_probe(struct platform_device *pdev)
->   {
-> +	struct snd_soc_dai_link_component *rt1011_dais_components;
-> +	struct snd_soc_codec_conf *rt1011_dais_confs;
->   	struct card_private *ctx;
->   	struct snd_soc_acpi_mach *mach;
->   	const char *platform_name;
-> -	int ret;
-> +	int ret, i;
->   
->   	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_ATOMIC);
-
-D'oh! Did we again let this slip in?
-
-cml_rt1011_rt5682.c:    ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), 
-GFP_ATOMIC);
-sof_da7219_max98373.c:  ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), 
-GFP_ATOMIC);
-
-This should be fixed in a separate patch, we don't need th ATOMIC 
-attribute in any machine drivers - copy-paste!
-
->   	if (!ctx)
-> @@ -456,6 +541,59 @@ static int snd_cml_rt1011_probe(struct platform_device *pdev)
->   	snd_soc_card_cml.dev = &pdev->dev;
->   	platform_name = mach->mach_params.platform;
->   
-> +	dmi_check_system(sof_rt1011_quirk_table);
-> +
-> +	dev_info(&pdev->dev, "sof_rt1011_quirk = %lx\n", sof_rt1011_quirk);
-> +
-> +	if (sof_rt1011_quirk & (SOF_RT1011_SPEAKER_TL |
-> +				SOF_RT1011_SPEAKER_TR)) {
-> +		rt1011_dais_confs = devm_kzalloc(&pdev->dev,
-> +					sizeof(struct snd_soc_codec_conf) *
-> +					SPK_CH, GFP_KERNEL);
-> +
-> +		rt1011_dais_components = devm_kzalloc(&pdev->dev,
-> +					sizeof(struct snd_soc_dai_link_component) *
-> +					SPK_CH, GFP_KERNEL);
-> +
-> +		for (i = 0; i < SPK_CH; i++) {
-> +			rt1011_dais_confs[i].dlc.name = devm_kasprintf(&pdev->dev,
-> +								GFP_KERNEL,
-> +								"i2c-10EC1011:0%d",
-> +								i);
-
-Check for NULL and return -ENOMEM for all 3 devm_ calls above?
-
+--7vLGWvOrvbSM0Ba8--

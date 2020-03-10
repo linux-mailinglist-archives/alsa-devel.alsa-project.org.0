@@ -2,51 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 679BB18061D
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Mar 2020 19:21:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44153180621
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Mar 2020 19:22:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FCDF82E;
-	Tue, 10 Mar 2020 19:20:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FCDF82E
+	by alsa0.perex.cz (Postfix) with ESMTPS id D939C1673;
+	Tue, 10 Mar 2020 19:21:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D939C1673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583864508;
-	bh=ZjnPkYeZMBvNHVU26S0y5RASSi+rQ7ptj9Q/eltBmDM=;
+	s=default; t=1583864524;
+	bh=jfOpWR8BMVQBqDwMqmT/maeOMeYmsNkPQCpMyMstRQM=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=GGaDGydcBwtzFy9MuVrSAuKLMjnuHAv+uw3Dx7ssqUhXBKMxAfSTMNPW6XT0u5W87
-	 1x1CkKKnAU3QLJvCbun3SsCj24VJKmpEGJhfdHUPOvE8Woq35L2PP5yrv6z9z7HY6T
-	 Hx1jHIgydmETBgyaQuTx0PdWRBrUxreLkJRfSHcY=
+	b=mHBebhdl1CqM+t0mxFIdCDTN3rN1FOEIy3jK3SYOGDy1337l3Q3CqlEAkJFbzsqL3
+	 ZFMBlyQisQQcQX0dDg//eM+VpSGV8wOfV57/4CQiM0H7GN6f5u/8hya1OafU/7D/Y0
+	 k6MHaqCny38rRETHeuhozjR6+hv5KwptytgOwqCY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 147B9F80123;
-	Tue, 10 Mar 2020 19:19:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E5A90F8028C;
+	Tue, 10 Mar 2020 19:19:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 882E9F80247; Tue, 10 Mar 2020 19:19:23 +0100 (CET)
+ id BEE74F8028B; Tue, 10 Mar 2020 19:19:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 9BDAAF8021C
- for <alsa-devel@alsa-project.org>; Tue, 10 Mar 2020 19:19:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BDAAF8021C
+ by alsa1.perex.cz (Postfix) with ESMTP id 321F5F80260
+ for <alsa-devel@alsa-project.org>; Tue, 10 Mar 2020 19:19:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 321F5F80260
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0F30530E;
- Tue, 10 Mar 2020 11:19:19 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AF54630E;
+ Tue, 10 Mar 2020 11:19:23 -0700 (PDT)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 88F573F534;
- Tue, 10 Mar 2020 11:19:18 -0700 (PDT)
-Date: Tue, 10 Mar 2020 18:19:17 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 33FF73F534;
+ Tue, 10 Mar 2020 11:19:23 -0700 (PDT)
+Date: Tue, 10 Mar 2020 18:19:21 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Applied "ASoC: rt5682-sdw: fix 'defined but not used' pm functions"
- to the asoc tree
-In-Reply-To: <20200310163509.14466-4-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20200310163509.14466-4-pierre-louis.bossart@linux.intel.com>
+Subject: Applied "ASoC: rt5682: fix unmet dependencies" to the asoc tree
+In-Reply-To: <20200310163509.14466-2-pierre-louis.bossart@linux.intel.com>
+Message-Id: <applied-20200310163509.14466-2-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
 Cc: Oder Chiou <oder_chiou@realtek.com>, tiwai@suse.de,
  alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
@@ -68,7 +67,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt5682-sdw: fix 'defined but not used' pm functions
+   ASoC: rt5682: fix unmet dependencies
 
 has been applied to the asoc tree at
 
@@ -93,57 +92,46 @@ to this mail.
 Thanks,
 Mark
 
-From 724cc62f7a71e3a04112126806c62d9c639ab92c Mon Sep 17 00:00:00 2001
+From 5549ea64799784308cc03313a86dea3de56d48ce Mon Sep 17 00:00:00 2001
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Tue, 10 Mar 2020 11:35:09 -0500
-Subject: [PATCH] ASoC: rt5682-sdw: fix 'defined but not used' pm functions
+Date: Tue, 10 Mar 2020 11:35:07 -0500
+Subject: [PATCH] ASoC: rt5682: fix unmet dependencies
 
-Gcc reports the following warnings:
+The rt5682 code can be used in I2C or SoundWire mode. When I2C is not
+selected, we have the following issue:
 
-sound/soc/codecs/rt5682-sdw.c:286:12: warning: 'rt5682_dev_resume'
-defined but not used [-Wunused-function]
- static int rt5682_dev_resume(struct device *dev)
-            ^~~~~~~~~~~~~~~~~
+WARNING: unmet direct dependencies detected for SND_SOC_RT5682
+  Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] &&
+  I2C [=n]
+  Selected by [m]:
+  - SND_SOC_RT5682_SDW [=m] && SOUND [=m] && !UML && SND [=m] &&
+    SND_SOC [=m] && SOUNDWIRE [=m]
 
-sound/soc/codecs/rt5682-sdw.c:273:12: warning: 'rt5682_dev_suspend'
-defined but not used [-Wunused-function]
- static int rt5682_dev_suspend(struct device *dev)
-            ^~~~~~~~~~~~~~~~~~
-
-Fix by adding maybe_unused as done for other SoundWire codecs
+Fix by adding SOUNDWIRE as a dependency.
 
 Fixes: 03f6fc6de9192f ('ASoC: rt5682: Add the soundwire support')
 Reported-by: kbuild test robot <lkp@intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Cc: Oder Chiou <oder_chiou@realtek.com>
-Link: https://lore.kernel.org/r/20200310163509.14466-4-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20200310163509.14466-2-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt5682-sdw.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/codecs/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/rt5682-sdw.c b/sound/soc/codecs/rt5682-sdw.c
-index 1d6963dd6403..a2d1d3ae1e31 100644
---- a/sound/soc/codecs/rt5682-sdw.c
-+++ b/sound/soc/codecs/rt5682-sdw.c
-@@ -270,7 +270,7 @@ static const struct sdw_device_id rt5682_id[] = {
- };
- MODULE_DEVICE_TABLE(sdw, rt5682_id);
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index 6aee70ed43df..78be69e9b618 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -1135,7 +1135,7 @@ config SND_SOC_RT5677_SPI
  
--static int rt5682_dev_suspend(struct device *dev)
-+static int __maybe_unused rt5682_dev_suspend(struct device *dev)
- {
- 	struct rt5682_priv *rt5682 = dev_get_drvdata(dev);
+ config SND_SOC_RT5682
+ 	tristate
+-	depends on I2C
++	depends on I2C || SOUNDWIRE
  
-@@ -283,7 +283,7 @@ static int rt5682_dev_suspend(struct device *dev)
- 	return 0;
- }
- 
--static int rt5682_dev_resume(struct device *dev)
-+static int __maybe_unused rt5682_dev_resume(struct device *dev)
- {
- 	struct sdw_slave *slave = dev_to_sdw_dev(dev);
- 	struct rt5682_priv *rt5682 = dev_get_drvdata(dev);
+ config SND_SOC_RT5682_SDW
+ 	tristate "Realtek RT5682 Codec - SDW"
 -- 
 2.20.1
 

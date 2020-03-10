@@ -2,95 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E784917FFB6
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Mar 2020 15:03:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9932180347
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Mar 2020 17:30:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 747CE1669;
-	Tue, 10 Mar 2020 15:02:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 747CE1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D2FD1669;
+	Tue, 10 Mar 2020 17:29:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D2FD1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583848999;
-	bh=KYkDfpx/696TDrbh885sJllEq+R5Da/AAD0RVIxHPpM=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1583857805;
+	bh=bY0YlrXe+z0B33TzYbdnT6Y3nRnk/0wddKXDasYDUfY=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AzPtRf6tdgh0iXh+ZuVty+q/RN2STRTC7RhWPiWPy1Y/wFKeHzsoVwknIoS0jdGa6
-	 3ZruIa5WvACuqbrWLiG+jcMnziGIBDyQAoBga79vP6s1mbUHDnlk4zODqJR7IGU5WZ
-	 WbYny4MAiRPwUps3s2PAFYYJsSxGiouusPjACtyo=
+	b=Vzlh9Pk0Yg2kZtkpf0aFcyS+Swi826VcpYZ/HL4edhu+eZWQYhb+xcswtdXvPCz5S
+	 Z4LiiuTQI9DJV/7rt3FFqvQkE+zfmGoEgiyoo5/T3iVI9olTonorBzo56gxQZD6lM/
+	 7TJRR1UztUrZ/1l7Vw4fNBrX8HHXu6/4o+P5ZHIg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78305F8021C;
-	Tue, 10 Mar 2020 15:01:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3CE92F800DA;
+	Tue, 10 Mar 2020 17:28:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 69621F80217; Tue, 10 Mar 2020 15:01:35 +0100 (CET)
+ id A5BF7F80217; Tue, 10 Mar 2020 17:28:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D839DF80123
- for <alsa-devel@alsa-project.org>; Tue, 10 Mar 2020 15:01:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D839DF80123
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="Pg9j5KJ9"
-Received: by mail-wr1-x441.google.com with SMTP id v9so15992153wrf.10
- for <alsa-devel@alsa-project.org>; Tue, 10 Mar 2020 07:01:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=AnADibbBZNTbkXF8oP66EJ2LJrhavRvEH5BdYa4Z43I=;
- b=Pg9j5KJ9zBcxILALXyg3gWGW7/Stl3nDwqDBu50I4TaRt3m76JyHsQ33/vAbB8E4DS
- N2SVSJq3bfMIINej22L0ObEE9D9LOT7ZNOVxV/QW+oMokDluh7G9hVa2LZdTtbK3YmwQ
- 9vkoPwdSUFk4Zd5ENqC82QO9dpU3c/lWcUaZxzAmUl1crb4+IeC7Od0byO1kFeKaMMwm
- GC1TzchHvo2y7X6XRjlXvM8h7shcu2xmS4xB+5QQCTVMU457W3C8Zk/oYH+/QkO5D7U/
- dGz/XCd8UC82saEVqT9/blCgLTBUhqxfDqIizN6Z8bmny0ZTKiZx2YeJCnQLtxSRY714
- zI2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=AnADibbBZNTbkXF8oP66EJ2LJrhavRvEH5BdYa4Z43I=;
- b=UFFLGrPdhW26DYqjmSGSyHm5uvoP1rTEvOSAzRZ2khNxvNzbTfYaUjq4P7h8RMzamF
- +AlwdYMlj6rQpN4rmv67jj2gfnRMZ/kRa102+DGn9cYNI26FnRrFQwdc/ScShPfXCwrW
- c1MtrGNiSQS4qqqB6a/2Se5/8uIO8K94EwN6I0N8WFmVzwO3yHH6rpY317VhBPKJTgD+
- s1YMGJFiuWLqhk92JHHbHsjSHg4A5+xDLbbBKa+m+hLxilG0b5a0NRx44kuC+8GdLRIH
- VgyaFtZbURkcvelmFTwW3Vs5ihOrGFGysuyWbdhPPG9qVJtKKFu0p1l0aNILJ6KjKsYR
- ChBQ==
-X-Gm-Message-State: ANhLgQ3UJ+elgvAKGIbUHE6ZR3XcCaor1dp6C1EjmaE0wCtjlgBqR6TC
- XYcimnuoWpAE3CfF2o4xhBmV3Q==
-X-Google-Smtp-Source: ADFU+vtrFiSPgHeTnpNZFmkHKh2VMNUzxHfW2YQYEVtGmsqDarT61MtKoEjE1bMeApA7NHSvLPnpKg==
-X-Received: by 2002:a5d:4ac8:: with SMTP id y8mr27238694wrs.272.1583848890432; 
- Tue, 10 Mar 2020 07:01:30 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.googlemail.com with ESMTPSA id q7sm12887765wrd.54.2020.03.10.07.01.29
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 10 Mar 2020 07:01:29 -0700 (PDT)
-Subject: Re: [RFC PATCH] soundwire: bus: Add flag to mark DPN_BlockCtrl1 as
- readonly
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- vkoul@kernel.org
-References: <20200309173755.955-1-srinivas.kandagatla@linaro.org>
- <d94fca16-ed61-632a-6f8c-84e3a97869c7@linux.intel.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <92d3ae1b-bace-1d20-ef99-82f7e1a0a644@linaro.org>
-Date: Tue, 10 Mar 2020 14:01:28 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id E789BF800DA
+ for <alsa-devel@alsa-project.org>; Tue, 10 Mar 2020 17:28:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E789BF800DA
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8ADE21FB;
+ Tue, 10 Mar 2020 09:28:10 -0700 (PDT)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0FC453F67D;
+ Tue, 10 Mar 2020 09:28:09 -0700 (PDT)
+Date: Tue, 10 Mar 2020 16:28:08 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Kevin Li <kevin-ke.li@broadcom.com>
+Subject: Re: [PATCH] ASoC: brcm: Add DSL/PON SoC audio driver
+Message-ID: <20200310162808.GI4106@sirena.org.uk>
+References: <20200306222705.13309-1-kevin-ke.li@broadcom.com>
+ <20200309123307.GE4101@sirena.org.uk>
+ <69138568e9c18afa57d5edba6be9887b@mail.gmail.com>
+ <20200309175205.GJ4101@sirena.org.uk>
+ <8113837129a1b41aee674c68258cd37f@mail.gmail.com>
+ <20200309191813.GA51173@sirena.org.uk>
+ <1165b736-d0fc-1247-6f46-94a51d392532@broadcom.com>
 MIME-Version: 1.0
-In-Reply-To: <d94fca16-ed61-632a-6f8c-84e3a97869c7@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="WR+jf/RUebEcofwt"
+Content-Disposition: inline
+In-Reply-To: <1165b736-d0fc-1247-6f46-94a51d392532@broadcom.com>
+X-Cookie: In space, no one can hear you fart.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Scott Branden <sbranden@broadcom.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Ray Jui <rjui@broadcom.com>, Takashi Iwai <tiwai@suse.com>,
+ bcm-kernel-feedback-list@broadcom.com, Stephen Boyd <swboyd@chromium.org>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,13 +81,40 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--WR+jf/RUebEcofwt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 09/03/2020 18:05, Pierre-Louis Bossart wrote:
->  > My recommendation would be to add a DisCo property stating the
-> WordLength value can be used by the bus code but not written to the 
-> Slave device registers.
+On Tue, Mar 10, 2020 at 08:49:08AM -0700, Kevin Li wrote:
 
-Does something like "mipi-sdw-read-only-wordlength" as slave property, 
-make sense?
+> > This is not how any of this is supposed to work, it's unlikely to work
+> > well with other devices.  If the device supports both master and slave
+> > operation then you should let the machine driver pick if the SoC or the
+> > CODEC is master via set_fmt(), randomly varying this at runtime is not
+> > going to be helpful.
 
---srini
+> Maybe the name "master/slave" is confusing, these names come from internal
+> chip signals and do not represent the state of the i2s bus master. Our SoC
+> supports only master mode in the i2s bus. The Rx and Tx block each have an
+> independent bit to indicate if it is generating the clock for the i2s bus.
+> The i2s bus clocks need to be generated from either the Rx block or the Tx
+> block, but not both.
+
+Right, at the very least this needs to be better documented in the code.
+
+--WR+jf/RUebEcofwt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5nwBcACgkQJNaLcl1U
+h9A6pQf/bT2lCprxs3DA2/Vx/yM3Ff2ZDC3VmEzFcFoscpWNx2hOh9KohpTKb48l
+laXl5M87VISWnaTdNMb1uBh1FPljBqHfYdE8IlUbr9qU0i88TJ883m9YxTPQ5xv7
+Xt27ndFU/3gzEzDrpwKB/tbCCcYKoCwMIgPTs5eRNUzN+TY46HcgnxFFQ6ztGQ99
+lh/5tl7Bgchn3Vy0GgBJKj0LDxkZta0GAI8MMt5M4pMOBUFJSG9ULQfdyNhB1n8D
+ev0H3RU4FWKIfJx6CkWwwhnb/BrdZ+xPTF1kTYaGmkXeL7dJgjwJe6rfsSnDWbOU
+01yQDtxGqZZMUMHy7OA6TlHLpyd5UA==
+=Pkro
+-----END PGP SIGNATURE-----
+
+--WR+jf/RUebEcofwt--

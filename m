@@ -2,53 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C013A17FFA5
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Mar 2020 14:58:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E784917FFB6
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Mar 2020 15:03:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4FB831679;
-	Tue, 10 Mar 2020 14:57:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FB831679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 747CE1669;
+	Tue, 10 Mar 2020 15:02:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 747CE1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583848688;
-	bh=4ZGbZNifzNh9/ncRHM7Q4tOidCpYcrreWvqvQ4T7wMI=;
-	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=BzNMkgDsuS0mUb+DlsMBKkxh+iTuLIZdr19AHYRzpqYSQB13mt2HJ4ngtkPmn26YE
-	 ROyY6bXTMl24U5J3rWNrW7ruzQ56tGRW6gTI6GJV9iu/YlFPXB2e4cGq5/q0RlFw68
-	 h6RpTD45dJA+ysuODV5pkLUEsPpBPPrzrmEIRE+w=
+	s=default; t=1583848999;
+	bh=KYkDfpx/696TDrbh885sJllEq+R5Da/AAD0RVIxHPpM=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=AzPtRf6tdgh0iXh+ZuVty+q/RN2STRTC7RhWPiWPy1Y/wFKeHzsoVwknIoS0jdGa6
+	 3ZruIa5WvACuqbrWLiG+jcMnziGIBDyQAoBga79vP6s1mbUHDnlk4zODqJR7IGU5WZ
+	 WbYny4MAiRPwUps3s2PAFYYJsSxGiouusPjACtyo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B5743F802DD;
-	Tue, 10 Mar 2020 14:51:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78305F8021C;
+	Tue, 10 Mar 2020 15:01:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 16086F802E9; Tue, 10 Mar 2020 14:51:56 +0100 (CET)
+ id 69621F80217; Tue, 10 Mar 2020 15:01:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id CDEA8F802DD
- for <alsa-devel@alsa-project.org>; Tue, 10 Mar 2020 14:51:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDEA8F802DD
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2F0AD30E;
- Tue, 10 Mar 2020 06:51:52 -0700 (PDT)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A79D23F6CF;
- Tue, 10 Mar 2020 06:51:51 -0700 (PDT)
-Date: Tue, 10 Mar 2020 13:51:50 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Applied "ASoC: soc.h: add for_each_rtd_codecs/cpus_dai() macro" to
- the asoc tree
-In-Reply-To: <8736aii326.wl-kuninori.morimoto.gx@renesas.com>
-Message-Id: <applied-8736aii326.wl-kuninori.morimoto.gx@renesas.com>
-X-Patchwork-Hint: ignore
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D839DF80123
+ for <alsa-devel@alsa-project.org>; Tue, 10 Mar 2020 15:01:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D839DF80123
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="Pg9j5KJ9"
+Received: by mail-wr1-x441.google.com with SMTP id v9so15992153wrf.10
+ for <alsa-devel@alsa-project.org>; Tue, 10 Mar 2020 07:01:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=AnADibbBZNTbkXF8oP66EJ2LJrhavRvEH5BdYa4Z43I=;
+ b=Pg9j5KJ9zBcxILALXyg3gWGW7/Stl3nDwqDBu50I4TaRt3m76JyHsQ33/vAbB8E4DS
+ N2SVSJq3bfMIINej22L0ObEE9D9LOT7ZNOVxV/QW+oMokDluh7G9hVa2LZdTtbK3YmwQ
+ 9vkoPwdSUFk4Zd5ENqC82QO9dpU3c/lWcUaZxzAmUl1crb4+IeC7Od0byO1kFeKaMMwm
+ GC1TzchHvo2y7X6XRjlXvM8h7shcu2xmS4xB+5QQCTVMU457W3C8Zk/oYH+/QkO5D7U/
+ dGz/XCd8UC82saEVqT9/blCgLTBUhqxfDqIizN6Z8bmny0ZTKiZx2YeJCnQLtxSRY714
+ zI2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=AnADibbBZNTbkXF8oP66EJ2LJrhavRvEH5BdYa4Z43I=;
+ b=UFFLGrPdhW26DYqjmSGSyHm5uvoP1rTEvOSAzRZ2khNxvNzbTfYaUjq4P7h8RMzamF
+ +AlwdYMlj6rQpN4rmv67jj2gfnRMZ/kRa102+DGn9cYNI26FnRrFQwdc/ScShPfXCwrW
+ c1MtrGNiSQS4qqqB6a/2Se5/8uIO8K94EwN6I0N8WFmVzwO3yHH6rpY317VhBPKJTgD+
+ s1YMGJFiuWLqhk92JHHbHsjSHg4A5+xDLbbBKa+m+hLxilG0b5a0NRx44kuC+8GdLRIH
+ VgyaFtZbURkcvelmFTwW3Vs5ihOrGFGysuyWbdhPPG9qVJtKKFu0p1l0aNILJ6KjKsYR
+ ChBQ==
+X-Gm-Message-State: ANhLgQ3UJ+elgvAKGIbUHE6ZR3XcCaor1dp6C1EjmaE0wCtjlgBqR6TC
+ XYcimnuoWpAE3CfF2o4xhBmV3Q==
+X-Google-Smtp-Source: ADFU+vtrFiSPgHeTnpNZFmkHKh2VMNUzxHfW2YQYEVtGmsqDarT61MtKoEjE1bMeApA7NHSvLPnpKg==
+X-Received: by 2002:a5d:4ac8:: with SMTP id y8mr27238694wrs.272.1583848890432; 
+ Tue, 10 Mar 2020 07:01:30 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.googlemail.com with ESMTPSA id q7sm12887765wrd.54.2020.03.10.07.01.29
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 10 Mar 2020 07:01:29 -0700 (PDT)
+Subject: Re: [RFC PATCH] soundwire: bus: Add flag to mark DPN_BlockCtrl1 as
+ readonly
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ vkoul@kernel.org
+References: <20200309173755.955-1-srinivas.kandagatla@linaro.org>
+ <d94fca16-ed61-632a-6f8c-84e3a97869c7@linux.intel.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <92d3ae1b-bace-1d20-ef99-82f7e1a0a644@linaro.org>
+Date: Tue, 10 Mar 2020 14:01:28 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+MIME-Version: 1.0
+In-Reply-To: <d94fca16-ed61-632a-6f8c-84e3a97869c7@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,76 +106,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
 
-   ASoC: soc.h: add for_each_rtd_codecs/cpus_dai() macro
 
-has been applied to the asoc tree at
+On 09/03/2020 18:05, Pierre-Louis Bossart wrote:
+>  > My recommendation would be to add a DisCo property stating the
+> WordLength value can be used by the bus code but not written to the 
+> Slave device registers.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+Does something like "mipi-sdw-read-only-wordlength" as slave property, 
+make sense?
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 995cbc3ca1ab39fb5cf254181dcfba883c5d6d69 Mon Sep 17 00:00:00 2001
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Mon, 9 Mar 2020 13:07:29 +0900
-Subject: [PATCH] ASoC: soc.h: add for_each_rtd_codecs/cpus_dai() macro
-
-We are using plural form for for_each_xxx() macro.
-But, for_each_rtd_codec/cpu_dai() are out of this rule.
-This patch adds plural form macro.
-
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/8736aii326.wl-kuninori.morimoto.gx@renesas.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- include/sound/soc.h | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index 9543d9246ca4..09bc45b8bf00 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -1177,6 +1177,20 @@ struct snd_soc_pcm_runtime {
- #define for_each_rtd_cpu_dai_rollback(rtd, i, dai)		\
- 	for (; (--(i) >= 0) && ((dai) = rtd->cpu_dais[i]);)
- 
-+#define for_each_rtd_cpu_dais(rtd, i, dai)				\
-+	for ((i) = 0;							\
-+	     ((i) < rtd->num_cpus) && ((dai) = rtd->cpu_dais[i]);	\
-+	     (i)++)
-+#define for_each_rtd_cpu_dais_rollback(rtd, i, dai)		\
-+	for (; (--(i) >= 0) && ((dai) = rtd->cpu_dais[i]);)
-+#define for_each_rtd_codec_dais(rtd, i, dai)				\
-+	for ((i) = 0;							\
-+	     ((i) < rtd->num_codecs) && ((dai) = rtd->codec_dais[i]);	\
-+	     (i)++)
-+#define for_each_rtd_codec_dais_rollback(rtd, i, dai)		\
-+	for (; (--(i) >= 0) && ((dai) = rtd->codec_dais[i]);)
-+
-+
- void snd_soc_close_delayed_work(struct snd_soc_pcm_runtime *rtd);
- 
- /* mixer control */
--- 
-2.20.1
-
+--srini

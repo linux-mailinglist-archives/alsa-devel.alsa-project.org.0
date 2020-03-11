@@ -2,55 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3955818212F
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Mar 2020 19:49:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C391C182132
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Mar 2020 19:49:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BA93416A3;
-	Wed, 11 Mar 2020 19:48:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA93416A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6FA631670;
+	Wed, 11 Mar 2020 19:49:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FA631670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583952563;
-	bh=lNcIx9fwUbqptgX5/5f2rE0Qj9oWcmKq/O24/wm2hJ4=;
+	s=default; t=1583952598;
+	bh=W88C/JEnSA4p0JNEhlE0YBjBHECFp3c3wvS4kW13js4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=i6qn1VbBEFDL0o3WMsXzc3sL5snCcXMP8O8pIA3cDyyZh6e8A+EgtHXuC8WQMkMoy
-	 hQczZD+hQUbyDhzByjaddYwqEJgVpMr8FlGfxsWE8IFtYXoBZXOAO1jo8x2NEmezPi
-	 4n/UIpWvK07YscBysLJThbfsiIt+rH8aMHtADKy8=
+	b=vbYRmm+WNm6bM7FujIoonvdMzd7AH6TL3ZM7Q2XQFRX83NAz4C0GMVwRgqQ41KUsc
+	 yL/+UCWbwlJsoYFCW1VQLDnsCClPZNStvPNChDZ2T0xzLocw4ttF1G5d98T/MRrL/Z
+	 2HYwaR7aREkwBQpM8SjsQRD8RgL6SoNN/38y61Fg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B60A3F80303;
-	Wed, 11 Mar 2020 19:42:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C762EF80307;
+	Wed, 11 Mar 2020 19:42:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9A53CF802DC; Wed, 11 Mar 2020 19:42:04 +0100 (CET)
+ id 114FCF802E9; Wed, 11 Mar 2020 19:42:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AC705F802A9
- for <alsa-devel@alsa-project.org>; Wed, 11 Mar 2020 19:42:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC705F802A9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9EC45F802DD
+ for <alsa-devel@alsa-project.org>; Wed, 11 Mar 2020 19:42:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EC45F802DD
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2020 11:42:00 -0700
+ 11 Mar 2020 11:42:02 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,541,1574150400"; d="scan'208";a="441776290"
+X-IronPort-AV: E=Sophos;i="5.70,541,1574150400"; d="scan'208";a="441776304"
 Received: from fjan-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.251.25.157])
- by fmsmga005.fm.intel.com with ESMTP; 11 Mar 2020 11:41:58 -0700
+ by fmsmga005.fm.intel.com with ESMTP; 11 Mar 2020 11:42:00 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 10/16] soundwire: cadence: make SSP interval programmable
-Date: Wed, 11 Mar 2020 13:41:22 -0500
-Message-Id: <20200311184128.4212-11-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 11/16] soundwire: cadence: reorder MCP_CONFIG settings
+Date: Wed, 11 Mar 2020 13:41:23 -0500
+Message-Id: <20200311184128.4212-12-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200311184128.4212-1-pierre-louis.bossart@linux.intel.com>
 References: <20200311184128.4212-1-pierre-louis.bossart@linux.intel.com>
@@ -79,66 +79,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In multi-master mode, the IP will only accept SSP intervals with
-integer relationships between the frame rate and the gsync frequency.
-
-E.g for a 48kHz frame rate and 4 kHz gsync signal, the SSP interval
-can only be 1, 2, 3, 4, 6, 12.
-
-To simplify we only allow one SSP per gsync interval.
+Follow hardware programming flows and add placeholder comment for
+multi-master mode.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- drivers/soundwire/cadence_master.c | 7 ++++---
- drivers/soundwire/cadence_master.h | 3 +++
- 2 files changed, 7 insertions(+), 3 deletions(-)
+ drivers/soundwire/cadence_master.c | 26 ++++++++++++++------------
+ 1 file changed, 14 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
-index 91fe89a246ee..4a7e7329ff0d 100644
+index 4a7e7329ff0d..dd8c9b051037 100644
 --- a/drivers/soundwire/cadence_master.c
 +++ b/drivers/soundwire/cadence_master.c
-@@ -183,7 +183,6 @@ MODULE_PARM_DESC(cdns_mcp_int_mask, "Cadence MCP IntMask");
- #define CDNS_PDI_CONFIG_PORT			GENMASK(4, 0)
+@@ -1097,21 +1097,23 @@ int sdw_cdns_init(struct sdw_cdns *cdns)
+ 	/* Configure mcp config */
+ 	val = cdns_readl(cdns, CDNS_MCP_CONFIG);
  
- /* Driver defaults */
--#define CDNS_DEFAULT_SSP_INTERVAL		0x18
- #define CDNS_TX_TIMEOUT				2000
+-	/* Set Max cmd retry to 15 */
+-	val |= CDNS_MCP_CONFIG_MCMD_RETRY;
+-
+-	/* Set frame delay between PREQ and ping frame to 15 frames */
+-	val |= 0xF << SDW_REG_SHIFT(CDNS_MCP_CONFIG_MPREQ_DELAY);
+-
+-	/* Disable auto bus release */
+-	val &= ~CDNS_MCP_CONFIG_BUS_REL;
+-
+-	/* Disable sniffer mode */
+-	val &= ~CDNS_MCP_CONFIG_SNIFFER;
+-
+ 	/* Set cmd mode for Tx and Rx cmds */
+ 	val &= ~CDNS_MCP_CONFIG_CMD;
  
- #define CDNS_SCP_RX_FIFOLEVEL			0x2
-@@ -1048,6 +1047,7 @@ static void cdns_init_clock_ctrl(struct sdw_cdns *cdns)
- 	struct sdw_bus *bus = &cdns->bus;
- 	struct sdw_master_prop *prop = &bus->prop;
- 	u32 val;
-+	u32 ssp_interval;
- 	int divider;
- 
- 	/* Set clock divider */
-@@ -1067,8 +1067,9 @@ static void cdns_init_clock_ctrl(struct sdw_cdns *cdns)
- 	cdns_writel(cdns, CDNS_MCP_FRAME_SHAPE_INIT, val);
- 
- 	/* Set SSP interval to default value */
--	cdns_writel(cdns, CDNS_MCP_SSP_CTRL0, CDNS_DEFAULT_SSP_INTERVAL);
--	cdns_writel(cdns, CDNS_MCP_SSP_CTRL1, CDNS_DEFAULT_SSP_INTERVAL);
-+	ssp_interval = prop->default_frame_rate / SDW_CADENCE_GSYNC_HZ;
-+	cdns_writel(cdns, CDNS_MCP_SSP_CTRL0, ssp_interval);
-+	cdns_writel(cdns, CDNS_MCP_SSP_CTRL1, ssp_interval);
- }
- 
- /**
-diff --git a/drivers/soundwire/cadence_master.h b/drivers/soundwire/cadence_master.h
-index e8fa5c7e09f4..b410656f8194 100644
---- a/drivers/soundwire/cadence_master.h
-+++ b/drivers/soundwire/cadence_master.h
-@@ -5,6 +5,9 @@
- #ifndef __SDW_CADENCE_H
- #define __SDW_CADENCE_H
- 
-+#define SDW_CADENCE_GSYNC_KHZ		4 /* 4 kHz */
-+#define SDW_CADENCE_GSYNC_HZ		(SDW_CADENCE_GSYNC_KHZ * 1000)
++	/* Disable sniffer mode */
++	val &= ~CDNS_MCP_CONFIG_SNIFFER;
 +
- /**
-  * struct sdw_cdns_pdi: PDI (Physical Data Interface) instance
-  *
++	/* Disable auto bus release */
++	val &= ~CDNS_MCP_CONFIG_BUS_REL;
++
++	/* Multi-master support to be added here */
++
++	/* Set frame delay between PREQ and ping frame to 15 frames */
++	val |= 0xF << SDW_REG_SHIFT(CDNS_MCP_CONFIG_MPREQ_DELAY);
++
++	/* Set Max cmd retry to 15 */
++	val |= CDNS_MCP_CONFIG_MCMD_RETRY;
++
+ 	cdns_writel(cdns, CDNS_MCP_CONFIG, val);
+ 
+ 	/* commit changes */
 -- 
 2.20.1
 

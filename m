@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1132D180D4E
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Mar 2020 02:11:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62315180D51
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Mar 2020 02:12:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9956F1671;
-	Wed, 11 Mar 2020 02:10:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9956F1671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 06AF91667;
+	Wed, 11 Mar 2020 02:11:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06AF91667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583889108;
-	bh=5W+iK4QTS9I/eDVQOa3VRgKsJiXKvquQrwLk2Rg2Sco=;
+	s=default; t=1583889147;
+	bh=089YNU6fFy6LcD7BrPefmaFND4FSVLr/MTlasPsMvtM=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VSbqImxinevPzYBDprwdA8Z+LqIUgDcRzaCuZKFPozPDxIy9C35OwfTuFmxa5Tgqx
-	 qRjPy4a7Q27OABMmolsAwqkhuxARafm2nTSBf6ku1nStUgBrbPzUtqGz4e2O7Vrsxz
-	 5wzqTPjqm+wCWQbr1A1IcWqEBnfljZpdLdPB4cCc=
+	b=vh2oUEPW4PhE3dO9sADB7TzwpMNeHZ+0GhsRhZXmDUShqmbsKGVKSnaltH6yYLsd3
+	 cKTXh4v3ExaRoV07vnzlJZBxWmNJGyKEeHEwxXK7mjAvWmMTdURJfH6TIHSlNi6FrU
+	 moqq6mkhc9B9c/J756DLOtL+yJPpesNvI6WWplyQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0E9AF80246;
-	Wed, 11 Mar 2020 02:07:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BBCCFF802DD;
+	Wed, 11 Mar 2020 02:08:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7EE02F802C3; Wed, 11 Mar 2020 02:07:52 +0100 (CET)
+ id 40035F802DC; Wed, 11 Mar 2020 02:08:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 8AF36F80246
- for <alsa-devel@alsa-project.org>; Wed, 11 Mar 2020 02:07:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AF36F80246
-Date: 11 Mar 2020 10:07:46 +0900
-X-IronPort-AV: E=Sophos;i="5.70,538,1574089200"; d="scan'208";a="41323413"
+ by alsa1.perex.cz (Postfix) with ESMTP id 80136F802D2
+ for <alsa-devel@alsa-project.org>; Wed, 11 Mar 2020 02:07:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80136F802D2
+Date: 11 Mar 2020 10:07:56 +0900
+X-IronPort-AV: E=Sophos;i="5.70,538,1574089200"; d="scan'208";a="41323433"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 11 Mar 2020 10:07:46 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 11 Mar 2020 10:07:56 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 64C2D4135F4A;
- Wed, 11 Mar 2020 10:07:46 +0900 (JST)
-Message-ID: <87pndjvgv1.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 5DDF84135F4A;
+ Wed, 11 Mar 2020 10:07:56 +0900 (JST)
+Message-ID: <87o8t3vgur.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 6/7] ASoC: soc-pcm: Merge CPU/Codec MSB at soc_pcm_apply_msb()
+Subject: [PATCH 7/7] ASoC: soc-pcm: Merge CPU/Codec at soc_pcm_pointer()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87y2s7vgxb.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,62 +70,64 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-soc_pcm_apply_msb() is setting msb for both CPU/Codec,
-but we can merge these into one.
-This patch do it.
+soc_pcm_pointer() is getting eash DAI's delay via snd_soc_dai_delay(),
+but, it is adding CPU delay and Codec delay.
+We need is not "added delay", but "max delay" of CPU/Codec.
+This patch finds maximum delay from CPU/Codec.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 26 +++++++-------------------
- 1 file changed, 7 insertions(+), 19 deletions(-)
+ sound/soc/soc-pcm.c | 27 +++++++--------------------
+ 1 file changed, 7 insertions(+), 20 deletions(-)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index dae1821c78dc..c0f318699fe4 100644
+index c0f318699fe4..675de7c0eaa4 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -530,35 +530,23 @@ static void soc_pcm_set_msb(struct snd_pcm_substream *substream, int bits)
- static void soc_pcm_apply_msb(struct snd_pcm_substream *substream)
+@@ -1274,13 +1274,10 @@ static int soc_pcm_bespoke_trigger(struct snd_pcm_substream *substream,
+ static snd_pcm_uframes_t soc_pcm_pointer(struct snd_pcm_substream *substream)
  {
  	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 -	struct snd_soc_dai *cpu_dai;
 -	struct snd_soc_dai *codec_dai;
--	struct snd_soc_pcm_stream *pcm_codec, *pcm_cpu;
 +	struct snd_soc_dai *dai;
-+	struct snd_soc_pcm_stream *pcm;
- 	int stream = substream->stream;
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	snd_pcm_uframes_t offset = 0;
+-	snd_pcm_sframes_t delay = 0;
+-	snd_pcm_sframes_t codec_delay = 0;
+-	snd_pcm_sframes_t cpu_delay = 0;
++	snd_pcm_sframes_t add_delay = 0;
  	int i;
--	unsigned int bits = 0, cpu_bits = 0;
-+	unsigned int bits = 0;
  
--	for_each_rtd_codec_dais(rtd, i, codec_dai) {
--		pcm_codec = snd_soc_dai_get_pcm_stream(codec_dai, stream);
-+	for_each_rtd_dais(rtd, i, dai) {
-+		pcm = snd_soc_dai_get_pcm_stream(dai, stream);
+ 	/* clearing the previous total delay */
+@@ -1288,22 +1285,12 @@ static snd_pcm_uframes_t soc_pcm_pointer(struct snd_pcm_substream *substream)
  
--		if (pcm_codec->sig_bits == 0) {
-+		if (pcm->sig_bits == 0) {
- 			bits = 0;
- 			break;
- 		}
--		bits = max(pcm_codec->sig_bits, bits);
--	}
+ 	offset = snd_soc_pcm_component_pointer(substream);
+ 
+-	/* base delay if assigned in pointer callback */
+-	delay = runtime->delay;
 -
 -	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
--		pcm_cpu = snd_soc_dai_get_pcm_stream(cpu_dai, stream);
+-		cpu_delay = max(cpu_delay,
+-				snd_soc_dai_delay(cpu_dai, substream));
+-	}
+-	delay += cpu_delay;
 -
--		if (pcm_cpu->sig_bits == 0) {
--			cpu_bits = 0;
--			break;
--		}
--		cpu_bits = max(pcm_cpu->sig_bits, cpu_bits);
-+		bits = max(pcm->sig_bits, bits);
- 	}
+-	for_each_rtd_codec_dais(rtd, i, codec_dai) {
+-		codec_delay = max(codec_delay,
+-				  snd_soc_dai_delay(codec_dai, substream));
+-	}
+-	delay += codec_delay;
++	for_each_rtd_dais(rtd, i, dai)
++		add_delay = max(add_delay,
++				snd_soc_dai_delay(dai, substream));
  
- 	soc_pcm_set_msb(substream, bits);
--	soc_pcm_set_msb(substream, cpu_bits);
+-	runtime->delay = delay;
++	/* base delay if assigned in pointer callback */
++	runtime->delay += add_delay;
+ 
+ 	return offset;
  }
- 
- /**
 -- 
 2.17.1
 

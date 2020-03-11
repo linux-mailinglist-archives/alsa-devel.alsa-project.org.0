@@ -2,68 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33DFA180D99
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Mar 2020 02:37:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B31B0180DCC
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Mar 2020 02:53:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D3D4F1661;
-	Wed, 11 Mar 2020 02:36:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3D4F1661
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4CDD51662;
+	Wed, 11 Mar 2020 02:52:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CDD51662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583890668;
-	bh=3siIEQTnhr7Q+yDHBEbDwbI78RZR9a3zfrKjkw98NCs=;
+	s=default; t=1583891615;
+	bh=fjD0kxXlAtn6CQUGXFVJ+Y8ozWT2Mw7q5rY459BwVzw=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=S5rdmjeppQLZDNdw7J26Br2Es94ppioqGX6dLiKnce85vcUD1kFaLX3fp9KjXj1m2
-	 na/ATwyFCVG9Nr/ywQAYK2a0gy192Muy2q9WrDPaYwbWXg4M2D98kVJiX/i8EyuNwJ
-	 TCwOY5EGHTw9n7eFrW2SzpzEDllUmHku+oFjA4TM=
+	b=A6RJlhj3SP+iYyVgaEd9xVoVPtOHVACszjmy3t2WKwbWFqlFHi9YU4vpwe66pZSD4
+	 Sl7SS2BEobvZ7o4fLJtU5Akpd2mLWHQkq60Nnr+YE78zhfxXRbHaW1E5Ni5S0G5q2G
+	 xPwypHw3qzAdcvuaUfLKyPGgAik/VGfR9zuwXqEE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6C61F8021C;
-	Wed, 11 Mar 2020 02:36:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3FCA1F800DA;
+	Wed, 11 Mar 2020 02:51:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 292C7F80217; Wed, 11 Mar 2020 02:36:06 +0100 (CET)
+ id A0FB6F8020C; Wed, 11 Mar 2020 02:51:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C25B1F800BC
- for <alsa-devel@alsa-project.org>; Wed, 11 Mar 2020 02:36:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C25B1F800BC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 818E4F800BC
+ for <alsa-devel@alsa-project.org>; Wed, 11 Mar 2020 02:51:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 818E4F800BC
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2020 18:35:58 -0700
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 10 Mar 2020 18:51:44 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,539,1574150400"; d="scan'208";a="389112738"
+X-IronPort-AV: E=Sophos;i="5.70,539,1574150400"; d="scan'208";a="389115339"
 Received: from vssomaya-mobl1.amr.corp.intel.com (HELO [10.252.138.210])
  ([10.252.138.210])
- by orsmga004.jf.intel.com with ESMTP; 10 Mar 2020 18:35:57 -0700
-Subject: Re: [alsa-devel] [PATCH 3/6] ASoC: Intel: common: add match tables
- for ICL w/ SoundWire
-To: Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org
-References: <20200110222530.30303-1-pierre-louis.bossart@linux.intel.com>
- <20200110222530.30303-4-pierre-louis.bossart@linux.intel.com>
- <d5e15895-7d10-7255-692c-c5c89d3ae1be@perex.cz>
+ by orsmga004.jf.intel.com with ESMTP; 10 Mar 2020 18:51:44 -0700
+Subject: Re: [PATCH 0/7] ASoC: Merge CPU/Codec DAIs
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>
+References: <87y2s7vgxb.wl-kuninori.morimoto.gx@renesas.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <b49c010b-5b90-4ad6-58b8-9e43f9fc949f@linux.intel.com>
-Date: Tue, 10 Mar 2020 20:35:57 -0500
+Message-ID: <03ac5f70-9aa3-b909-c693-caaa0afd09c9@linux.intel.com>
+Date: Tue, 10 Mar 2020 20:51:43 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <d5e15895-7d10-7255-692c-c5c89d3ae1be@perex.cz>
+In-Reply-To: <87y2s7vgxb.wl-kuninori.morimoto.gx@renesas.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, broonie@kernel.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Content-Transfer-Encoding: 7bit
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,55 +76,77 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Morimoto-san,
 
-
-On 3/10/20 5:12 PM, Jaroslav Kysela wrote:
-> Dne 10. 01. 20 v 23:25 Pierre-Louis Bossart napsal(a):
->> From: Bard Liao <yung-chuan.liao@linux.intel.com>
->>
->> The two configurations are with the Realtek 3-in-1 board requiring all
->> 4 links to be enabled, or basic configuration with the on-board RT700
->> using link0.
->>
->> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
->> Signed-off-by: Pierre-Louis Bossart 
->> <pierre-louis.bossart@linux.intel.com>
+On 3/10/20 8:06 PM, Kuninori Morimoto wrote:
 > 
-> Hi,
+> Hi Mark
 > 
->    I just looking to this code and I miss the Kconfig selection for RT 
-> codecs in the SOF SDW driver. How we can enable this driver without 
-> selecting SND_SOC_ALL_CODECS ?
+> Current ALSA SoC has CPU/Codec categorized DAIs.
+> But it will be no longer good much for modern device.
 > 
->    I believe that those changes should be in sync with the machine 
-> description.
+> Currently, rtd has both CPU/Codec DAIs array.
+> 
+> 	rtd->cpu_dais   = [][][][][][][][][]
+> 	rtd->codec_dais = [][][][][][][][][]
+> 
+> This patch merges these, like below.
+> It still keeps rtd->cpu_dais, rtd->codec_dais
 
-Sorry Jaroslav, I don't fully understand your question.
+Sorry, but I perceive a contradiction here, or I am missing the bigger 
+picture.
 
-These tables are just used to
-a) select a firmware file
-b) select a topology file
-c) select a machine driver.
+Is the end-goal to remove the cpu_dais and codec_dais, and fold them as 
+non-descript 'dais'? This is what I understand by "it will be no longer 
+good much for modern device"
 
-The codec selections are not made in this module but handled by the 
-machine drivers in sound/soc/intel/boards/. It's the same mechanism as 
-for all other machine drivers.
+Or is this 'merge' a simple data handling change to avoid using two 
+"for" loops instead of one, and we are going to keep the distinction 
+between dais?
 
-One caveat is that the SOF parts and machine drivers for SoundWire have 
-not been provided upstream just yet, since they would not build without 
-patches in drivers/soundwire. GregKH mentioned the patches are 'sane' 
-and provided his Reviewed-by tag. Vinod Koul still has objections to our 
-proposals but has yet to make proposals that would work for Intel, so if 
-you need SoundWire support in the near-term you will need to have a 
-conversation with Vinod. The code is ready and fully-tested.
+more specifically I am concerned about the tons of code we have, e.g. a 
+random machine driver:
 
-If you want to look at the machine drivers for SOF+Realtek drivers, see
+	struct snd_soc_dai *codec_dai = rtd->codec_dai;
+	struct snd_soc_jack *jack;
+	int ret;
 
-https://github.com/thesofproject/linux/blob/topic/sof-dev/sound/soc/intel/boards/sdw_rt711_rt1308_rt715.c
+	/* Configure sysclk for codec */
+	ret = snd_soc_dai_set_sysclk(codec_dai, DA7219_CLKSRC_MCLK,
 
-and the Kconfig that selects the relevant codec drivers is here:
-
-https://github.com/thesofproject/linux/blob/d05959d5021cefbbd841773ee25f6c7387e6bfd9/sound/soc/intel/boards/Kconfig#L556
-
-Hope this helps
--Pierre
+If the rtd structure only has an array of dais, how would the codecs be 
+configured then?
+	
+> 
+> 	rtd->dais = [][][][][][][][][][][][][][][][][][]
+> 	            ^cpu_dais         ^codec_dais
+> 	            |--- num_cpus ---|--- num_codecs --|
+> 
+> After this merging, we can merge for_each_rtd_cpu/codec_dais().
+> 
+> -	for_each_rtd_cpu_dais() {
+> -		...
+> -	}
+> -	for_each_rtd_codec_dais() {
+> -		...
+> -	}
+> +	for_each_rtd_dais() {
+> +		...
+> +	}
+> 
+> 
+> Kuninori Morimoto (7):
+>    ASoC: soc-core: Merge CPU/Codec DAIs
+>    ASoC: soc-core: Merge for_each_rtd_cpu/codec_dais()
+>    ASoC: soc-dapm: Merge for_each_rtd_cpu/codec_dais()
+>    ASoC: soc-pcm: Merge for_each_rtd_cpu/codec_dais()
+>    ASoC: soc-core: Merge CPU/Codec for soc_dai_pcm_new()
+>    ASoC: soc-pcm: Merge CPU/Codec MSB at soc_pcm_apply_msb()
+>    ASoC: soc-pcm: Merge CPU/Codec at soc_pcm_pointer()
+> 
+>   include/sound/soc.h  |   7 +-
+>   sound/soc/soc-core.c |  66 +++-----
+>   sound/soc/soc-dapm.c |   9 +-
+>   sound/soc/soc-pcm.c  | 367 +++++++++++--------------------------------
+>   4 files changed, 123 insertions(+), 326 deletions(-)
+> 

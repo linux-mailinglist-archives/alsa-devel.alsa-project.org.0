@@ -2,55 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B87FB18212A
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Mar 2020 19:48:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECE3F18212B
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Mar 2020 19:48:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 60EC01674;
-	Wed, 11 Mar 2020 19:47:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60EC01674
+	by alsa0.perex.cz (Postfix) with ESMTPS id 939EE1680;
+	Wed, 11 Mar 2020 19:47:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 939EE1680
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583952498;
-	bh=UiVNMudkEH/n9Lu7zrmWpfRYhxPqsuXMm0ciPo/uZJI=;
+	s=default; t=1583952526;
+	bh=fFO8jPCbtUt/Y0HuF+0/M9IWqGmKGI5CmiATL8D76to=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NragAOzuSVYpvhtbBB0nqv5wgyvLvgjl7cRgQ59CfgUBwWfharIdK449YHirlpxmA
-	 OAcbb+dLt0aNhue44w0DQ/yAtvF7LeOtlIpv31fDbB7GuwTi0RpoCTTZmkNoF+5w5y
-	 FlAVymYr0CZu0s9htmusJTCnVmtu2+B2TOqtX/cI=
+	b=q5v7nLTiCAwwH6EgNN4Uiix5lCs+fx9VE6ZcoJ85F3q4oN9VqnT14o+XcS+0sA7Q3
+	 kAHy33PdODI6fnMzdnlgPtNAfVYegKfwPKjjjwBveXYv6qW/DaJQmrIgmwYt563Rlq
+	 UdXOxesFCVY3VuNYKzQ1zjOj75NI6FBT7iT+o6OY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2BBE8F802EC;
-	Wed, 11 Mar 2020 19:42:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 909ADF802F7;
+	Wed, 11 Mar 2020 19:42:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C3ADF802A1; Wed, 11 Mar 2020 19:42:00 +0100 (CET)
+ id 9511AF802C3; Wed, 11 Mar 2020 19:42:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5FA43F8028D
- for <alsa-devel@alsa-project.org>; Wed, 11 Mar 2020 19:41:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5FA43F8028D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7F1B0F80291
+ for <alsa-devel@alsa-project.org>; Wed, 11 Mar 2020 19:41:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F1B0F80291
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2020 11:41:56 -0700
+ 11 Mar 2020 11:41:58 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,541,1574150400"; d="scan'208";a="441776266"
+X-IronPort-AV: E=Sophos;i="5.70,541,1574150400"; d="scan'208";a="441776275"
 Received: from fjan-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.251.25.157])
- by fmsmga005.fm.intel.com with ESMTP; 11 Mar 2020 11:41:54 -0700
+ by fmsmga005.fm.intel.com with ESMTP; 11 Mar 2020 11:41:56 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 08/16] soundwire: cadence: merge routines to clear/set bits
-Date: Wed, 11 Mar 2020 13:41:20 -0500
-Message-Id: <20200311184128.4212-9-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 09/16] soundwire: cadence: move clock/SSP related inits to
+ dedicated function
+Date: Wed, 11 Mar 2020 13:41:21 -0500
+Message-Id: <20200311184128.4212-10-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200311184128.4212-1-pierre-louis.bossart@linux.intel.com>
 References: <20200311184128.4212-1-pierre-louis.bossart@linux.intel.com>
@@ -79,59 +80,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Use a single loop to wait for hardware to set/clear fields.
+This helps isolate code and align with recommended programming flows
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- drivers/soundwire/cadence_master.c | 28 ++++++++--------------------
- 1 file changed, 8 insertions(+), 20 deletions(-)
+ drivers/soundwire/cadence_master.c | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
-index a4ba57f44c1f..22ff66d38a4a 100644
+index 22ff66d38a4a..91fe89a246ee 100644
 --- a/drivers/soundwire/cadence_master.c
 +++ b/drivers/soundwire/cadence_master.c
-@@ -211,26 +211,6 @@ static inline void cdns_updatel(struct sdw_cdns *cdns,
- 	cdns_writel(cdns, offset, tmp);
+@@ -1043,11 +1043,7 @@ static u32 cdns_set_initial_frame_shape(int n_rows, int n_cols)
+ 	return val;
  }
  
--static int cdns_clear_bit(struct sdw_cdns *cdns, int offset, u32 value)
--{
--	int timeout = 10;
--	u32 reg_read;
--
--	writel(value, cdns->registers + offset);
--
--	/* Wait for bit to be self cleared */
--	do {
--		reg_read = readl(cdns->registers + offset);
--		if ((reg_read & value) == 0)
--			return 0;
--
--		timeout--;
--		usleep_range(50, 100);
--	} while (timeout != 0);
--
--	return -EAGAIN;
--}
--
- static int cdns_set_wait(struct sdw_cdns *cdns, int offset, u32 mask, u32 value)
+-/**
+- * sdw_cdns_init() - Cadence initialization
+- * @cdns: Cadence instance
+- */
+-int sdw_cdns_init(struct sdw_cdns *cdns)
++static void cdns_init_clock_ctrl(struct sdw_cdns *cdns)
  {
- 	int timeout = 10;
-@@ -249,6 +229,14 @@ static int cdns_set_wait(struct sdw_cdns *cdns, int offset, u32 mask, u32 value)
- 	return -ETIMEDOUT;
- }
- 
-+static int cdns_clear_bit(struct sdw_cdns *cdns, int offset, u32 value)
-+{
-+	writel(value, cdns->registers + offset);
-+
-+	/* Wait for bit to be self cleared */
-+	return cdns_set_wait(cdns, offset, value, 0);
+ 	struct sdw_bus *bus = &cdns->bus;
+ 	struct sdw_master_prop *prop = &bus->prop;
+@@ -1073,6 +1069,18 @@ int sdw_cdns_init(struct sdw_cdns *cdns)
+ 	/* Set SSP interval to default value */
+ 	cdns_writel(cdns, CDNS_MCP_SSP_CTRL0, CDNS_DEFAULT_SSP_INTERVAL);
+ 	cdns_writel(cdns, CDNS_MCP_SSP_CTRL1, CDNS_DEFAULT_SSP_INTERVAL);
 +}
 +
- /*
-  * all changes to the MCP_CONFIG, MCP_CONTROL, MCP_CMDCTRL and MCP_PHYCTRL
-  * need to be confirmed with a write to MCP_CONFIG_UPDATE
++/**
++ * sdw_cdns_init() - Cadence initialization
++ * @cdns: Cadence instance
++ */
++int sdw_cdns_init(struct sdw_cdns *cdns)
++{
++	u32 val;
++	int ret;
++
++	cdns_init_clock_ctrl(cdns);
+ 
+ 	/* reset msg_count to default value of FIFOLEVEL */
+ 	cdns->msg_count = cdns_readl(cdns, CDNS_MCP_FIFOLEVEL);
 -- 
 2.20.1
 

@@ -2,67 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30AF2181446
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Mar 2020 10:15:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1E541816E2
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Mar 2020 12:32:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AACA01657;
-	Wed, 11 Mar 2020 10:14:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AACA01657
+	by alsa0.perex.cz (Postfix) with ESMTPS id 44D6C1657;
+	Wed, 11 Mar 2020 12:31:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44D6C1657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583918109;
-	bh=0fnkPnhDbxhJeZj6iQ8n6x0QXTV8COoGnVil5LAOtrQ=;
+	s=default; t=1583926369;
+	bh=qmA1kkrXALFqyx4RS71+mwWOKBvmJq12cEouL5IqI90=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hGLa74l6/KR8nWpOadUbOTxpVVd0T7aISE14Avmtr1Sq2zbnWE4ffk9gHE42wbtcd
-	 MVpXwa0s4wNe9pg0JT1WlwE+akWWGvPLhLCrh5ApthoBE26Cy/fiQt3azGu3ALXbpT
-	 ALOo31iEBebIc3r3mFmSivFoeiFkYROitQhTwGds=
+	b=kE4+iwsd4lGvNFUSeZgtcof+HIx4xSIGwZbG/fvZYG1cTcU8bmZJ1vFA6UUlBOFIf
+	 KjsIQnnFaF8RZ9Etprh8xSL3WwDQYQD5lYE+OE2rdES8nCNejV+PVhDyUnDoMwNOhM
+	 5t2/FeO22B53jFI3y8uAEkPLGuucoxE5ReuXer5k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B948AF80141;
-	Wed, 11 Mar 2020 10:13:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 635B1F801A3;
+	Wed, 11 Mar 2020 12:31:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1DBD8F801EB; Wed, 11 Mar 2020 10:13:26 +0100 (CET)
+ id BA0ADF801EB; Wed, 11 Mar 2020 12:31:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E4403F80141
- for <alsa-devel@alsa-project.org>; Wed, 11 Mar 2020 10:13:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4403F80141
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2020 02:13:19 -0700
-X-IronPort-AV: E=Sophos;i="5.70,540,1574150400"; d="scan'208";a="236370847"
-Received: from mgorski-mobl.ger.corp.intel.com (HELO [10.237.139.158])
- ([10.237.139.158])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-SHA;
- 11 Mar 2020 02:13:18 -0700
-Subject: Re: [PATCH v2] topology: Add topology file for generic HDA DSP
- machine driver
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4ED67F800B5
+ for <alsa-devel@alsa-project.org>; Wed, 11 Mar 2020 12:31:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4ED67F800B5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="USusKr2+"
+Received: by mail-wm1-x343.google.com with SMTP id 11so1679169wmo.2
+ for <alsa-devel@alsa-project.org>; Wed, 11 Mar 2020 04:31:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=+qi8Gsy+phH8WfKkqtpOwo0DUN440dJfBPdiDNKzZv0=;
+ b=USusKr2+/LjqIljnqjUN7DohKHee85EjKx+StCQUGw7AqB1NylzxED+zXCPiFtcmu+
+ QsaYzsXP6As1w78W81uzKwVSIfx+BiJuxH0nmYRflHGoR4iim5IFwealghWlYXNSFPWC
+ AlUpFUsNRYrFg3g5899YGHoxrGl2xBzDZ9LqxfvmYhn3ai5PjbkCtqh9wzRCC6wjGbh0
+ ACBnkce2FcS6nb8vwgmUxGun68fmRwpBjQjeCBhqwSh0u5MkSAY9t34GLsIMJBLJsB0P
+ dq6GZpIRj/eSTPacBH+l4Co6EFwpgYAx9uVWbYn2DhgVmC4Lx2xmvZWDY2ZD3Hsb8g3Z
+ /B+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=+qi8Gsy+phH8WfKkqtpOwo0DUN440dJfBPdiDNKzZv0=;
+ b=F1NbPa7pIYGp8V+2D/TP5mNcifqW6akzqd0IKi5AcySH44Ixv+HoMmQBQcXYM1f9Z4
+ Gk1iZFP2KQTsv9u9Z3UyVPWldc/pMPFNYScGZetnzGSF0+WiDYBGBLKGvbQu9vfp7Dfg
+ IY6B9EnBCX91KAdoQr8euHD8B7oqAu0M9bd8tLsvOvvUATXqdWFTmwxe4BZ3bCh8wlb2
+ AG5qAqzH9mDtacy6bO1WrJxtMiA/u5sF7cknm59XhDu8dYcaahDwZG83cqBDw+QtdoA7
+ BZ/sWTx3N1fxkh0iv3Weu3xhTLXFgSJhqRixfORIPATJyZhRk5LVHa57TLLoBDjpmOU+
+ ZUXg==
+X-Gm-Message-State: ANhLgQ3pGxESUCGJX8fEcvzroNM9/ZFGtYKbrEhnshfZCSAxHIN4bJJk
+ Mj+aMWRS4U9XnLskQ16HyIPYJw==
+X-Google-Smtp-Source: ADFU+vu8yQwphkn83vEuD1GGYen9Zs60Do+28oOVyU/sJjeCMep301H0NxJVRU99RGuiKzeLl72aJQ==
+X-Received: by 2002:a05:600c:2283:: with SMTP id
+ 3mr3399437wmf.100.1583926260082; 
+ Wed, 11 Mar 2020 04:31:00 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.googlemail.com with ESMTPSA id f2sm10373193wrv.48.2020.03.11.04.30.58
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 11 Mar 2020 04:30:59 -0700 (PDT)
+Subject: Re: [RFC PATCH] soundwire: bus: Add flag to mark DPN_BlockCtrl1 as
+ readonly
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-References: <20200309120944.15240-1-mateusz.gorski@linux.intel.com>
- <0d2fb996-2668-e53b-ec91-18bf9e27df31@linux.intel.com>
-From: "Gorski, Mateusz" <mateusz.gorski@linux.intel.com>
-Message-ID: <7334e7b6-c4d3-aac3-46d2-b4fbcb0e3957@linux.intel.com>
-Date: Wed, 11 Mar 2020 10:13:11 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+ vkoul@kernel.org
+References: <20200309173755.955-1-srinivas.kandagatla@linaro.org>
+ <d94fca16-ed61-632a-6f8c-84e3a97869c7@linux.intel.com>
+ <92d3ae1b-bace-1d20-ef99-82f7e1a0a644@linaro.org>
+ <a2b24f84-0f9a-29ab-8748-dc5a26c05ffa@linux.intel.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <dec47c3a-08e9-e9a0-707c-2610cb10fe64@linaro.org>
+Date: Wed, 11 Mar 2020 11:30:58 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <0d2fb996-2668-e53b-ec91-18bf9e27df31@linux.intel.com>
+In-Reply-To: <a2b24f84-0f9a-29ab-8748-dc5a26c05ffa@linux.intel.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Content-Language: pl
-Cc: cezary.rojewski@intel.com, tiwai@suse.com
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,36 +109,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Thanks for the inputs
 
->> +SectionPCMCapabilities."DMIC-Capture" {
->> +    formats "S16_LE"
->> +    rates "48000"
->> +    channels_min "2"
->> +    channels_max "2"
->> +    sig_bits "16"
->> +}
->
-> NHLT reports 4 microphones on a number of devices, is there any 
-> specific reason to limit the capture to 2ch?
->
-> I believe the generic Hdaudio card now reports the number of channels 
-> to pulseaudio, so it's possible that PulseAudio would open a 4ch 
-> stream but be told sorry no can do by topology.
->
-> FWIW we ended-up selecting different topology files in SOF, depending 
-> on whether we had 0, 2 or 4 mics.
+On 10/03/2020 15:53, Pierre-Louis Bossart wrote:
+> Hi Srinivas,
+> 
+>>>  > My recommendation would be to add a DisCo property stating the
+>>> WordLength value can be used by the bus code but not written to the 
+>>> Slave device registers.
+>>
+>> Does something like "mipi-sdw-read-only-wordlength" as slave property, 
+>> make sense?
+> 
+> The properties can be handled at two levels.
+> 
+> First, you'd want to change include/linux/soundwire/sdw.h, and add a new 
+> field in
+> 
+> struct sdw_dpn_prop {
+>      u32 num;
+>      u32 max_word;
+>      u32 min_word;
+>      u32 num_words;
+>      u32 *words;
+> +       bool read_only_wordlength;
+> 
+> Once this is added, along with the code that bypasses the programming of 
+> DPn_BlockCtrl1, the implementation has two choices:
+> 
+> a) hard-code the field value in the codec driver.
 
+This totally works for me.
 
-This patch was prepared to address many issues regarding broken DMIC 
-configurations.
+> 
+> b) read the property from firmware with the DisCo helpers.
+> 
 
-You are right - there are different DMIC configurations on different 
-devices, but, since path multi-configuration feature is not upstreamed 
-in cAVS driver, we are not able to include all of these in one topology 
-file.
+I would defer adding this for now till there is a real users for this.
 
-This is a reference topology, and it was successfully validated on few 
-production laptops (including models on which DMIC capture was not 
-working).
+> There is no requirement that all properties be read from firmware, and 
+> if you look at existing code base sdw_slave_read_prop() is currently 
+> unused, each codec implements its own .read_prop() callback.
+> 
+> We really wanted to be pragmatic, and give the possibility to either 
+> override bad firmware or extend incomplete firmware to avoid coupling OS 
+> and firmware too much. If you foresee cases where this implementation 
+> might vary and firmware distribution is not a problem, then a property 
+> read would make sense.
+> 
+> Just once procedural reminder that all 'mipi-sdw' properties are handled 
+> by the MIPI software WG, so we'd need to have this property added in a 
+> formal MIPI document update.
+> 
+> I suggest you talk with Lior first on this.
 
+Sure, I will talk to him.
 
+> 
+> Hope this helps
+> -Pierre

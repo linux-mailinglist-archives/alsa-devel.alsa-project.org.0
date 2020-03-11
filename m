@@ -2,54 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9864818310D
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Mar 2020 14:17:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3630A183202
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Mar 2020 14:49:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3591D1702;
-	Thu, 12 Mar 2020 14:16:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3591D1702
+	by alsa0.perex.cz (Postfix) with ESMTPS id D60AA16FF;
+	Thu, 12 Mar 2020 14:49:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D60AA16FF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584019026;
-	bh=O3u33Z/i2lGBhCK8D4N+BtJBwEIB9Ku0dgN8i6x/a8Q=;
-	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=dBE4JKz3Pv/0OZm8RDDJ1nUscLfbcJ1zqV2ZdfOJyCq1VfpLPFZVCiErY53vwM20J
-	 6wRFnnaEywSIvya4uw3V1/sAoOzGFKPbsoDkLsagOhj+3blRpOcq/tDshIb+JwxvKM
-	 p3VZiTwcXC22lnP+prpFAzR5Twje3WxnMHEvCXzM=
+	s=default; t=1584020996;
+	bh=Ba2RTmG63JSuzrRR0md97qgyLek+/95Igj1Xxzo0KHk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=BTMKbpu+5YSMTsMn5rSFqj2NyjofOBIYV9ZHj4vFVVdJsi/WEBgOFLljWShcB+by0
+	 kQsHh8Z7XlWEX1V+PZrEtK/tcxoPTNSBd+luk60bOFVL1l++mPKPF+xp7s79IzFDuT
+	 eRQz1WlnUp9vkORHvt2iavgadwt/BFy5fKR07ScI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20226F802A8;
-	Thu, 12 Mar 2020 14:13:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79F0FF8023F;
+	Thu, 12 Mar 2020 14:48:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7E3FF802A0; Thu, 12 Mar 2020 14:13:11 +0100 (CET)
+ id 0EA49F801F7; Wed, 11 Mar 2020 18:43:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 0F73FF8028B
- for <alsa-devel@alsa-project.org>; Thu, 12 Mar 2020 14:13:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F73FF8028B
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CABEAFEC;
- Thu, 12 Mar 2020 06:13:07 -0700 (PDT)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4FA9B3F534;
- Thu, 12 Mar 2020 06:13:07 -0700 (PDT)
-Date: Thu, 12 Mar 2020 13:13:05 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Applied "ASoC: qdsp6: q6asm-dai: only enable dais from device tree"
- to the asoc tree
-In-Reply-To: <20200311180422.28363-2-srinivas.kandagatla@linaro.org>
-Message-Id: <applied-20200311180422.28363-2-srinivas.kandagatla@linaro.org>
-X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_PASS, URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id ACB85F800B5
+ for <alsa-devel@alsa-project.org>; Wed, 11 Mar 2020 18:43:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACB85F800B5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="IL8dp+f8"
+Received: by mail-wr1-x442.google.com with SMTP id r15so3771990wrx.6
+ for <alsa-devel@alsa-project.org>; Wed, 11 Mar 2020 10:43:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=1pJAR/sckcdLGJSwTx5sy+rsfwGpz9fPR5d1aK/vSAI=;
+ b=IL8dp+f8Ls3O4ZBKg0S7q07Ne+0KPwrBNYU44a8fqCPSWcItDMq7pjC/Pr4uqGqNmK
+ DHpK2vhTYvwwq0Lrf7gqR71/s3LT/NYqhabkqVpXujHAJfueU6HTfxAimK9nAYUlLRd7
+ lt3Gv4w90ahkiZKxkl7iR1T+1EJ076xesoMRWnNEAvwJEsgQzPHtq9PRL8W8ekuVzTf7
+ ioIU13aDkkHHPljPEklJFzPk4+p11P6iLhX8yW4vTwAqf94uLiO0QhJgwA/wvIMX4R4a
+ NYuws1oJ3ECaYpHh6LOWP8PdZ8f0hxSndx8shMo16QBEBlt9zWHv5E1zISbAf9wfK8VC
+ eliA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=1pJAR/sckcdLGJSwTx5sy+rsfwGpz9fPR5d1aK/vSAI=;
+ b=CqQFiba8MjUDDjtuZ3Umq3jtuX+stzIxM0NUkxJdN4x4LAmerkEmASwqlhvJrOiJ6M
+ jJRLSzHTPwQmJSlvN05aH5TzVkOwROW5aEZALQwIJXiSP9FLYU+t+YnI1KrrvMW3VW0Q
+ LWjoG3AMpROe3sJEQ0e4fBELsRC6jruem/kF2WFo/AE6rWJ79u98yF6Ltxr5TI67zcnA
+ upTG8JHTELc41c7xjP45TP209lxKyXtzpODHuP0UySKplYgn243D7MRnEuxi+LqJtpqx
+ LOKLu06q8iLjpTJQQYUHdvgx30Nh3AJJHK0Tx+QK5LKwFBHD/QCHx/9G8ANnb07MpMu/
+ +0ZA==
+X-Gm-Message-State: ANhLgQ2KjguMXDxDn7m9ciqagmq7eW0IQo3NeRcqfb/7gJXfygnHfcJx
+ 7VATMgGotcbrbDUBECVL6EI=
+X-Google-Smtp-Source: ADFU+vvKDdOtWWEdNwVAEQZQ9mrYzweIQAoDItXSKaFgMXGnDq8K7Z+Mo7oErH9P/yJc80PGZda9wA==
+X-Received: by 2002:a5d:6544:: with SMTP id z4mr5535066wrv.298.1583948610652; 
+ Wed, 11 Mar 2020 10:43:30 -0700 (PDT)
+Received: from debian.home (ip51ccf9cd.speed.planet.nl. [81.204.249.205])
+ by smtp.gmail.com with ESMTPSA id d1sm8933166wrw.52.2020.03.11.10.43.29
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 11 Mar 2020 10:43:29 -0700 (PDT)
+From: Johan Jonker <jbx6244@gmail.com>
+To: lgirdwood@gmail.com
+Subject: [PATCH v1 1/2] dt-bindings: sound: convert rockchip i2s bindings to
+ yaml
+Date: Wed, 11 Mar 2020 18:43:21 +0100
+Message-Id: <20200311174322.23813-1-jbx6244@gmail.com>
+X-Mailer: git-send-email 2.11.0
+X-Mailman-Approved-At: Thu, 12 Mar 2020 14:48:14 +0100
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, heiko@sntech.de,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+ linux-rockchip@lists.infradead.org, broonie@kernel.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,123 +97,185 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+Current dts files with 'i2s' nodes are manually verified.
+In order to automate this process rockchip-i2s.txt
+has to be converted to yaml.
 
-   ASoC: qdsp6: q6asm-dai: only enable dais from device tree
-
-has been applied to the asoc tree at
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 9b60441692d94effcd37a141035c6106a91ddf8c Mon Sep 17 00:00:00 2001
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Date: Wed, 11 Mar 2020 18:04:21 +0000
-Subject: [PATCH] ASoC: qdsp6: q6asm-dai: only enable dais from device tree
-
-Existing code enables all the playback and capture dais even
-if there is no device tree entry. This can lead to
-un-necessary dais in the system which will never be used.
-So honour whats specfied in device tree.
-
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Link: https://lore.kernel.org/r/20200311180422.28363-2-srinivas.kandagatla@linaro.org
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Johan Jonker <jbx6244@gmail.com>
 ---
- sound/soc/qcom/qdsp6/q6asm-dai.c | 30 +++++++++++++++++++++++-------
- 1 file changed, 23 insertions(+), 7 deletions(-)
+ .../devicetree/bindings/sound/rockchip-i2s.txt     |  49 ----------
+ .../devicetree/bindings/sound/rockchip-i2s.yaml    | 106 +++++++++++++++++++++
+ 2 files changed, 106 insertions(+), 49 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/rockchip-i2s.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/rockchip-i2s.yaml
 
-diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
-index c0d422d0ab94..8b48815ff918 100644
---- a/sound/soc/qcom/qdsp6/q6asm-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
-@@ -69,6 +69,8 @@ struct q6asm_dai_rtd {
- };
- 
- struct q6asm_dai_data {
-+	struct snd_soc_dai_driver *dais;
-+	int num_dais;
- 	long long int sid;
- };
- 
-@@ -889,7 +891,7 @@ static const struct snd_soc_component_driver q6asm_fe_dai_component = {
- 	.compr_ops	= &q6asm_dai_compr_ops,
- };
- 
--static struct snd_soc_dai_driver q6asm_fe_dais[] = {
-+static struct snd_soc_dai_driver q6asm_fe_dais_template[] = {
- 	Q6ASM_FEDAI_DRIVER(1),
- 	Q6ASM_FEDAI_DRIVER(2),
- 	Q6ASM_FEDAI_DRIVER(3),
-@@ -903,10 +905,22 @@ static struct snd_soc_dai_driver q6asm_fe_dais[] = {
- static int of_q6asm_parse_dai_data(struct device *dev,
- 				    struct q6asm_dai_data *pdata)
- {
--	static struct snd_soc_dai_driver *dai_drv;
-+	struct snd_soc_dai_driver *dai_drv;
- 	struct snd_soc_pcm_stream empty_stream;
- 	struct device_node *node;
--	int ret, id, dir;
-+	int ret, id, dir, idx = 0;
+diff --git a/Documentation/devicetree/bindings/sound/rockchip-i2s.txt b/Documentation/devicetree/bindings/sound/rockchip-i2s.txt
+deleted file mode 100644
+index 54aefab71..000000000
+--- a/Documentation/devicetree/bindings/sound/rockchip-i2s.txt
++++ /dev/null
+@@ -1,49 +0,0 @@
+-* Rockchip I2S controller
+-
+-The I2S bus (Inter-IC sound bus) is a serial link for digital
+-audio data transfer between devices in the system.
+-
+-Required properties:
+-
+-- compatible: should be one of the following:
+-   - "rockchip,rk3066-i2s": for rk3066
+-   - "rockchip,px30-i2s", "rockchip,rk3066-i2s": for px30
+-   - "rockchip,rk3036-i2s", "rockchip,rk3066-i2s": for rk3036
+-   - "rockchip,rk3188-i2s", "rockchip,rk3066-i2s": for rk3188
+-   - "rockchip,rk3228-i2s", "rockchip,rk3066-i2s": for rk3228
+-   - "rockchip,rk3288-i2s", "rockchip,rk3066-i2s": for rk3288
+-   - "rockchip,rk3328-i2s", "rockchip,rk3066-i2s": for rk3328
+-   - "rockchip,rk3366-i2s", "rockchip,rk3066-i2s": for rk3366
+-   - "rockchip,rk3368-i2s", "rockchip,rk3066-i2s": for rk3368
+-   - "rockchip,rk3399-i2s", "rockchip,rk3066-i2s": for rk3399
+-- reg: physical base address of the controller and length of memory mapped
+-  region.
+-- interrupts: should contain the I2S interrupt.
+-- dmas: DMA specifiers for tx and rx dma. See the DMA client binding,
+-	Documentation/devicetree/bindings/dma/dma.txt
+-- dma-names: should include "tx" and "rx".
+-- clocks: a list of phandle + clock-specifer pairs, one for each entry in clock-names.
+-- clock-names: should contain the following:
+-   - "i2s_hclk": clock for I2S BUS
+-   - "i2s_clk" : clock for I2S controller
+-- rockchip,playback-channels: max playback channels, if not set, 8 channels default.
+-- rockchip,capture-channels: max capture channels, if not set, 2 channels default.
+-
+-Required properties for controller which support multi channels
+-playback/capture:
+-
+-- rockchip,grf: the phandle of the syscon node for GRF register.
+-
+-Example for rk3288 I2S controller:
+-
+-i2s@ff890000 {
+-	compatible = "rockchip,rk3288-i2s", "rockchip,rk3066-i2s";
+-	reg = <0xff890000 0x10000>;
+-	interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
+-	dmas = <&pdma1 0>, <&pdma1 1>;
+-	dma-names = "tx", "rx";
+-	clock-names = "i2s_hclk", "i2s_clk";
+-	clocks = <&cru HCLK_I2S0>, <&cru SCLK_I2S0>;
+-	rockchip,playback-channels = <8>;
+-	rockchip,capture-channels = <2>;
+-};
+diff --git a/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml b/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml
+new file mode 100644
+index 000000000..eff06b4b5
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml
+@@ -0,0 +1,106 @@
++# SPDX-License-Identifier: GPL-2.0
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/rockchip-i2s.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
++title: Rockchip I2S controller
 +
-+	pdata->num_dais = of_get_child_count(dev->of_node);
-+	if (!pdata->num_dais) {
-+		dev_err(dev, "No dais found in DT\n");
-+		return -EINVAL;
-+	}
++description:
++  The I2S bus (Inter-IC sound bus) is a serial link for digital
++  audio data transfer between devices in the system.
 +
-+	pdata->dais = devm_kcalloc(dev, pdata->num_dais, sizeof(*dai_drv),
-+				   GFP_KERNEL);
-+	if (!pdata->dais)
-+		return -ENOMEM;
- 
- 	memset(&empty_stream, 0, sizeof(empty_stream));
- 
-@@ -917,7 +931,8 @@ static int of_q6asm_parse_dai_data(struct device *dev,
- 			continue;
- 		}
- 
--		dai_drv = &q6asm_fe_dais[id];
-+		dai_drv = &pdata->dais[idx++];
-+		*dai_drv = q6asm_fe_dais_template[id];
- 
- 		ret = of_property_read_u32(node, "direction", &dir);
- 		if (ret)
-@@ -955,11 +970,12 @@ static int q6asm_dai_probe(struct platform_device *pdev)
- 
- 	dev_set_drvdata(dev, pdata);
- 
--	of_q6asm_parse_dai_data(dev, pdata);
-+	rc = of_q6asm_parse_dai_data(dev, pdata);
-+	if (rc)
-+		return rc;
- 
- 	return devm_snd_soc_register_component(dev, &q6asm_fe_dai_component,
--					q6asm_fe_dais,
--					ARRAY_SIZE(q6asm_fe_dais));
-+					       pdata->dais, pdata->num_dais);
- }
- 
- static const struct of_device_id q6asm_dai_device_id[] = {
++maintainers:
++  - Heiko Stuebner <heiko@sntech.de>
++
++properties:
++  compatible:
++    oneOf:
++      - const: rockchip,rk3066-i2s
++      - items:
++          - enum:
++            - rockchip,px30-i2s
++            - rockchip,rk3036-i2s
++            - rockchip,rk3188-i2s
++            - rockchip,rk3228-i2s
++            - rockchip,rk3288-i2s
++            - rockchip,rk3328-i2s
++            - rockchip,rk3366-i2s
++            - rockchip,rk3368-i2s
++            - rockchip,rk3399-i2s
++          - const: rockchip,rk3066-i2s
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: clock for I2S controller
++      - description: clock for I2S BUS
++
++  clock-names:
++    items:
++      - const: i2s_clk
++      - const: i2s_hclk
++
++  dmas:
++    items:
++      - description: TX DMA Channel
++      - description: RX DMA Channel
++
++  dma-names:
++    items:
++      - const: tx
++      - const: rx
++
++  rockchip,capture-channels:
++    allOf:
++      - $ref: /schemas/types.yaml#/definitions/uint32
++    default: 2
++    description:
++      Max capture channels, if not set, 2 channels default.
++
++  rockchip,playback-channels:
++    allOf:
++      - $ref: /schemas/types.yaml#/definitions/uint32
++    default: 8
++    description:
++      Max playback channels, if not set, 8 channels default.
++
++  rockchip,grf:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      The phandle of the syscon node for the GRF register.
++      Required property for controllers which support multi channel
++      playback/capture.
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++  - dmas
++  - dma-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/rk3288-cru.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++    i2s@ff890000 {
++      compatible = "rockchip,rk3288-i2s", "rockchip,rk3066-i2s";
++      reg = <0xff890000 0x10000>;
++      interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
++      clocks = <&cru SCLK_I2S0>, <&cru HCLK_I2S0>;
++      clock-names = "i2s_clk", "i2s_hclk";
++      dmas = <&pdma1 0>, <&pdma1 1>;
++      dma-names = "tx", "rx";
++      rockchip,capture-channels = <2>;
++      rockchip,playback-channels = <8>;
++    };
 -- 
-2.20.1
+2.11.0
 

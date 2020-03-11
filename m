@@ -2,68 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F08C6181DA0
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Mar 2020 17:19:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E23D181DDB
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Mar 2020 17:30:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B9E11663;
-	Wed, 11 Mar 2020 17:18:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B9E11663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 00B021663;
+	Wed, 11 Mar 2020 17:29:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00B021663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583943571;
-	bh=/0EZdibW8/6Fqv7KGjl4A5TMVNUEQDfBMGCjKRV0ivk=;
+	s=default; t=1583944224;
+	bh=LVCNyU+TeLHgb0gqGaLtj1fE5luauhtwnxlfXdQ/Bc4=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ncNi/SwbCkbSL2XNmB2pDdh07l9gI9xw8tA01UYvOaqUhJnNxHcyFls6x3zbJQnnD
-	 E99md5zr+vswdVGVScSi6QHysFe9So1Yry0JTF1TJK7AY0Hk6KW3G8F74TXDPBOIQ3
-	 mhbYi++WKg7VkLNqcVH62ROOm8h2djY7G8FMNeCM=
+	b=q2jjgi+RFYFt7vaemje1M1f6nEOYKIQ7ruNVbZXAjxvc70dLApov36h8om5FIL5nv
+	 /qrWuSSHtlnkV4it0zxPt69PcOpAXek6uxWpxn434Yj2TrGG7J9BoIAzy3ArUERBcT
+	 0xj6qduTUBhKiMLehN0blP0SWY3P/ZVq+0Jm0euk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AEC2BF800B5;
-	Wed, 11 Mar 2020 17:17:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10B30F801F7;
+	Wed, 11 Mar 2020 17:28:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7CB15F801EB; Wed, 11 Mar 2020 17:17:47 +0100 (CET)
+ id 36E11F801EB; Wed, 11 Mar 2020 17:28:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id CFEFAF800BE;
- Wed, 11 Mar 2020 17:17:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFEFAF800BE
+ by alsa1.perex.cz (Postfix) with ESMTP id B967BF800BE
+ for <alsa-devel@alsa-project.org>; Wed, 11 Mar 2020 17:28:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B967BF800BE
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C365831B;
- Wed, 11 Mar 2020 09:17:41 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 74F8C31B;
+ Wed, 11 Mar 2020 09:28:32 -0700 (PDT)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4847E3F6CF;
- Wed, 11 Mar 2020 09:17:41 -0700 (PDT)
-Date: Wed, 11 Mar 2020 16:17:39 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EB3443F6CF;
+ Wed, 11 Mar 2020 09:28:31 -0700 (PDT)
+Date: Wed, 11 Mar 2020 16:28:30 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Subject: Re: [PATCH 2/3] ASoC: add function parameters to enable forced path
- pruning
-Message-ID: <20200311161739.GF5411@sirena.org.uk>
-References: <20200309170749.32313-1-guennadi.liakhovetski@linux.intel.com>
- <20200309170749.32313-3-guennadi.liakhovetski@linux.intel.com>
- <20200310124544.GE4106@sirena.org.uk>
- <20200311074126.GA4149@ubuntu>
- <20200311122531.GD5411@sirena.org.uk>
- <20200311123617.GA5347@ubuntu>
- <20200311124102.GE5411@sirena.org.uk>
- <20200311132658.GB5347@ubuntu>
+To: Olivier MOYSAN <olivier.moysan@st.com>
+Subject: Re: [PATCH v3] ASoC: dt-bindings: stm32: convert spdfirx to
+ json-schema
+Message-ID: <20200311162830.GG5411@sirena.org.uk>
+References: <20200117170352.16040-1-olivier.moysan@st.com>
+ <d792a2b8-3b59-f04e-c24d-06185d60c734@st.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="QXO0/MSS4VvK6f+D"
+ protocol="application/pgp-signature"; boundary="w/VI3ydZO+RcZ3Ux"
 Content-Disposition: inline
-In-Reply-To: <20200311132658.GB5347@ubuntu>
+In-Reply-To: <d792a2b8-3b59-f04e-c24d-06185d60c734@st.com>
 X-Cookie: I'm a Lisp variable -- bind me!
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- sound-open-firmware@alsa-project.org
+Cc: "mark.rutland@arm.com" <mark.rutland@arm.com>,
+ "robh@kernel.org" <robh@kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Alexandre TORGUE <alexandre.torgue@st.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,39 +82,41 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---QXO0/MSS4VvK6f+D
+--w/VI3ydZO+RcZ3Ux
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Mar 11, 2020 at 02:26:58PM +0100, Guennadi Liakhovetski wrote:
-> On Wed, Mar 11, 2020 at 12:41:02PM +0000, Mark Brown wrote:
+On Wed, Mar 11, 2020 at 03:37:01PM +0000, Olivier MOYSAN wrote:
+> Hi,
+> Kind reminder for this patch.
 
-> > I think you need to include this with your VirtIO series.
+Please don't send content free pings and please allow a reasonable time
+for review.  People get busy, go on holiday, attend conferences and so=20
+on so unless there is some reason for urgency (like critical bug fixes)
+please allow at least a couple of weeks for review.  If there have been
+review comments then people may be waiting for those to be addressed.
 
-> That was also my original intention, personally I also would find it diff=
-icult=20
-> to review this kind of work without context.
+Sending content free pings adds to the mail volume (if they are seen at
+all) which is often the problem and since they can't be reviewed
+directly if something has gone wrong you'll have to resend the patches
+anyway, so sending again is generally a better approach though there are
+some other maintainers who like them - if in doubt look at how patches
+for the subsystem are normally handled.
 
-> So, would you prefer me to drop this series completely and re-send it wit=
-h the=20
-> whole series or should I just drop #2 and resend #1 and #3?
-
-1 and 3 seemed fine, should be OK to send them separately.
-
---QXO0/MSS4VvK6f+D
+--w/VI3ydZO+RcZ3Ux
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5pDyMACgkQJNaLcl1U
-h9CrLQf/cvyxbWgRgKP/9e8w7jnrUjQVz97iR09CtssiwqrIAjAtPo1k3E5gdiCg
-by584uGsUv3ovnRkSFGQsD7WdrtdtqIOHBU9HcIDatBDAGkNRgJDpp+eNPhE4Qku
-/iCKU+yhI8bG17vYbUnbobzEudBpaMw7PanG4PsgKupuit/cIDpZaxnfXoIlTsiM
-+gvTtsvRsq0Pwd9f9DrXO6Z2OfOGpKkHbzO46tz7+ASa493YWAu4EpCKZDss6HS4
-rNsyjzNnFfpsHLimv3zR9PPVt8ddsdgrO1x/YV8OSIR6dMVp8luzrMOByXicy89U
-lUs4UdYm1S8ZH1enYYF9ASD+WFj3tA==
-=y1Ec
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5pEa0ACgkQJNaLcl1U
+h9DdKAf/RDfG02WXRCBnnFoaoVDDhiXfiLY3E3cosFMFo8a7Gmv/wb6FwPPevsyq
+MiA+WtsBBa8juOJ6PlmQ7IWC84GpUDFMpoeW7HkEMzGJ+CxF5su7kQCQfCG0XeR7
+xiTK0cF1l+zLaKcz2gkyO4P0pAu0eQbHF5MC9sEX7HsYd6qZd26GU4gpLOGqqZBN
+eMzdoSHCY8tJpZqbT0f9JnU5+el6wwfo8c3LPEmbzTBT6b6oCxc9fhXi8BIsTWsi
+64G1cgZIzc34qeX4JeAtb2lPBAKYd9Fm9bJOhGhf1XkIq8SOWlONePAb454reMOZ
+kiJO+xOE40GqCY82X5SD8I5A7DU4Og==
+=F+uO
 -----END PGP SIGNATURE-----
 
---QXO0/MSS4VvK6f+D--
+--w/VI3ydZO+RcZ3Ux--

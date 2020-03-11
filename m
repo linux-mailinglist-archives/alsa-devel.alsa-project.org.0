@@ -2,65 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E09FA181835
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Mar 2020 13:38:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61D19181857
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Mar 2020 13:42:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6027E1662;
-	Wed, 11 Mar 2020 13:37:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6027E1662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 078F91662;
+	Wed, 11 Mar 2020 13:42:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 078F91662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583930294;
-	bh=9qbFris02EO6y6gzN/rmPfNWU7F7Nen/GmOY3ia3I1w=;
+	s=default; t=1583930574;
+	bh=S/kcQ/GZMhu2dXDxRmJmkiV7klRbmlrtYOr1l+sVPT0=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rTfUSyxMN+FVHn4eFPkgNaDzrKyFEUMq9/dTEu9WUSk8ig3cLBCtStiSPF3R5a+01
-	 WMY0YnSSgy4vkOOU3UYC851XKrL2kft8XgwtNIto9q6DV62+dZkCzU56GPBHB+EfUc
-	 yMnHZC6gV4Bvoyu1/hvoCOUJu0nKXF+iCBH3bfKg=
+	b=KIwudk1FKNknc4bEjQq/UIo6ygY6w6xAUjQSzGKKLrHXWv0BwoS+NProKXGMuuOCW
+	 eCO+RLmjbOQHCX2lWW3jEwtXGvczK5TEDylopjhA57nqvV3i6/BYKx9xz+hrhndW+5
+	 Y/u9xVhCaDYgjI4qUdjRmR/3HR8jtBdFKC2IO8FI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66E4DF80141;
-	Wed, 11 Mar 2020 13:36:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61976F80141;
+	Wed, 11 Mar 2020 13:41:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E9F3BF801EB; Wed, 11 Mar 2020 13:36:29 +0100 (CET)
+ id 51EE4F801EB; Wed, 11 Mar 2020 13:41:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BD8B3F800BE;
- Wed, 11 Mar 2020 13:36:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD8B3F800BE
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2020 05:36:20 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,540,1574150400"; d="scan'208";a="289370390"
-Received: from gliakhov-mobl2.ger.corp.intel.com (HELO ubuntu) ([10.249.40.3])
- by FMSMGA003.fm.intel.com with ESMTP; 11 Mar 2020 05:36:19 -0700
-Date: Wed, 11 Mar 2020 13:36:17 +0100
-From: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id C7967F800BE;
+ Wed, 11 Mar 2020 13:41:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7967F800BE
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 82D057FA;
+ Wed, 11 Mar 2020 05:41:04 -0700 (PDT)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 07FF93F6CF;
+ Wed, 11 Mar 2020 05:41:03 -0700 (PDT)
+Date: Wed, 11 Mar 2020 12:41:02 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Subject: Re: [PATCH 2/3] ASoC: add function parameters to enable forced path
  pruning
-Message-ID: <20200311123617.GA5347@ubuntu>
+Message-ID: <20200311124102.GE5411@sirena.org.uk>
 References: <20200309170749.32313-1-guennadi.liakhovetski@linux.intel.com>
  <20200309170749.32313-3-guennadi.liakhovetski@linux.intel.com>
  <20200310124544.GE4106@sirena.org.uk>
  <20200311074126.GA4149@ubuntu>
  <20200311122531.GD5411@sirena.org.uk>
+ <20200311123617.GA5347@ubuntu>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="sfyO1m2EN8ZOtJL6"
 Content-Disposition: inline
-In-Reply-To: <20200311122531.GD5411@sirena.org.uk>
+In-Reply-To: <20200311123617.GA5347@ubuntu>
+X-Cookie: I'm a Lisp variable -- bind me!
 User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
  Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
@@ -80,38 +77,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mark,
 
-On Wed, Mar 11, 2020 at 12:25:31PM +0000, Mark Brown wrote:
-> On Wed, Mar 11, 2020 at 08:41:27AM +0100, Guennadi Liakhovetski wrote:
-> > On Tue, Mar 10, 2020 at 12:45:44PM +0000, Mark Brown wrote:
-> 
-> > > So why doesn't DPCM recognize that the path is inactive and why is it
-> > > better to do this than fix whatever the issue is there?
-> 
-> > Of course that would be better abd I'd much prefer that. Unfortunately I 
-> > haven't been able to find a single scenario in which those paths would be 
-> > exercised. As far as I understand path pruning should take place e.g. 
-> > when a mixer modifies audio routing and as a result disables a certain 
-> > pipeline, which is then pruned. If I could reproduce such a scenario I 
-> > would be able to first check whether it's working, then see exactly how 
-> > it is working and then see how best to add my use case to it. Since I 
-> > wasn't able to find such a scenario, my only option was to preserve 
-> > the current state and add my own path "on top." I'd be happy to try the 
-> > other path too, I just need a use case, that I can reproduce.
-> 
-> It's still not clear to me what the issue is here.  If something is
-> making a modification to the graph which needs a recheck or update I'd
-> expect that these things happen along with that modification.  I don't
-> understand what you're saying about not being able to reproduce
-> scenarios or adding things "on top".
+--sfyO1m2EN8ZOtJL6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I mean, that I don't have a test-case to test dpcm_prune_paths() without my 
-VirtIO support. That function currently exists in the kernel, but I don't 
-have a test-case to verify its work, to see it called and actually perform 
-the pruning. So I don't know how it is supposed to work. And because of 
-that I cannot fix my VirtIO use case to use that function properly, without 
-forcing it with an additional parameter.
+On Wed, Mar 11, 2020 at 01:36:17PM +0100, Guennadi Liakhovetski wrote:
+> On Wed, Mar 11, 2020 at 12:25:31PM +0000, Mark Brown wrote:
 
-Thanks
-Guennadi
+> > It's still not clear to me what the issue is here.  If something is
+> > making a modification to the graph which needs a recheck or update I'd
+> > expect that these things happen along with that modification.  I don't
+> > understand what you're saying about not being able to reproduce
+> > scenarios or adding things "on top".
+
+> VirtIO support. That function currently exists in the kernel, but I don't=
+=20
+> have a test-case to verify its work, to see it called and actually perfor=
+m=20
+> the pruning. So I don't know how it is supposed to work. And because of=
+=20
+> that I cannot fix my VirtIO use case to use that function properly, witho=
+ut=20
+> forcing it with an additional parameter.
+
+I think you need to include this with your VirtIO series.
+
+--sfyO1m2EN8ZOtJL6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5o3F0ACgkQJNaLcl1U
+h9CnaAf+MnDtWRotFnGqnmuFWD2Ny6OyqxGIWeTLm82mr4f2Zkz8hj0JT9LruzgD
+LJfHz+c7waiELWT2FVicEjr+WOv6GMPLP5yTC1KxUsIKeEOF4XsjWGVnkRaFwWkr
+NmoAPbSRZYQg+fK+ivnAs15WMM6fE0jR7+WzlZ4HL8gOe2ED5YRwfuXYVHbDMl7I
+9f+r3QPpxQkNR4kz8yBfs0Sm2NtXH+2ehWDjTt1OHPE3nczqHqMHXmlYbRlSXcD4
+rVfyTgjksCMmq2+KZS8ejXJKltbCi6dIDoBApwrt8gMUp44aEmTAjjz0bbRW/QIw
+wQ49X0Y3SQ3OAB7t1n9f7QK6unoPmA==
+=ZRGy
+-----END PGP SIGNATURE-----
+
+--sfyO1m2EN8ZOtJL6--

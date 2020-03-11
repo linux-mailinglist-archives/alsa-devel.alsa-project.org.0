@@ -2,71 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 503BC181CDF
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Mar 2020 16:51:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F08C6181DA0
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Mar 2020 17:19:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DAF6E950;
-	Wed, 11 Mar 2020 16:50:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAF6E950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8B9E11663;
+	Wed, 11 Mar 2020 17:18:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B9E11663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583941897;
-	bh=pEqFyQbO6vgGHM4v4KpRpNv6eZ952M6uHkPgYSVUcCc=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1583943571;
+	bh=/0EZdibW8/6Fqv7KGjl4A5TMVNUEQDfBMGCjKRV0ivk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MzHiCUyw++V0+DSBSLcfQtTvdhBUAHZJG1D3+7cRzfHs6JCO/zkZ08scwq3JsPPNr
-	 mOPXTk5kcbiVoAzjLVjDqtKbc8xesykO5gOFXBGpZa75Tv1am42sqU4E8XplQTOm0f
-	 wCRVZdKHUkhKP8nDTsnGz4F1TZUammbq8YDJLL1E=
+	b=ncNi/SwbCkbSL2XNmB2pDdh07l9gI9xw8tA01UYvOaqUhJnNxHcyFls6x3zbJQnnD
+	 E99md5zr+vswdVGVScSi6QHysFe9So1Yry0JTF1TJK7AY0Hk6KW3G8F74TXDPBOIQ3
+	 mhbYi++WKg7VkLNqcVH62ROOm8h2djY7G8FMNeCM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5DE5F800B5;
-	Wed, 11 Mar 2020 16:49:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AEC2BF800B5;
+	Wed, 11 Mar 2020 17:17:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A0B1AF801EB; Wed, 11 Mar 2020 16:49:53 +0100 (CET)
+ id 7CB15F801EB; Wed, 11 Mar 2020 17:17:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 38A2DF800B5
- for <alsa-devel@alsa-project.org>; Wed, 11 Mar 2020 16:49:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38A2DF800B5
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2020 08:49:45 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,541,1574150400"; d="scan'208";a="236320108"
-Received: from abazhenx-mobl1.ccr.corp.intel.com (HELO [10.252.25.1])
- ([10.252.25.1])
- by fmsmga008.fm.intel.com with ESMTP; 11 Mar 2020 08:49:43 -0700
-Subject: Re: [PATCH 0/7] ASoC: Intel: Skylake: Fix HDaudio and Dmic
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-References: <20200305145314.32579-1-cezary.rojewski@intel.com>
- <9d53337b-b02b-efd7-790e-c3db18562346@linux.intel.com>
- <20200309113844.GA4101@sirena.org.uk>
- <e50a52eb-ea7a-4528-cfdb-1dd9210b5779@intel.com>
- <20200309165413.GH4101@sirena.org.uk>
- <cbcdd4bd-6981-0dda-c8e9-bbe5c8128afc@linux.intel.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <2dc38392-760b-a5fc-fa00-98530729f2d3@intel.com>
-Date: Wed, 11 Mar 2020 16:49:41 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id CFEFAF800BE;
+ Wed, 11 Mar 2020 17:17:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFEFAF800BE
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C365831B;
+ Wed, 11 Mar 2020 09:17:41 -0700 (PDT)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4847E3F6CF;
+ Wed, 11 Mar 2020 09:17:41 -0700 (PDT)
+Date: Wed, 11 Mar 2020 16:17:39 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Subject: Re: [PATCH 2/3] ASoC: add function parameters to enable forced path
+ pruning
+Message-ID: <20200311161739.GF5411@sirena.org.uk>
+References: <20200309170749.32313-1-guennadi.liakhovetski@linux.intel.com>
+ <20200309170749.32313-3-guennadi.liakhovetski@linux.intel.com>
+ <20200310124544.GE4106@sirena.org.uk>
+ <20200311074126.GA4149@ubuntu>
+ <20200311122531.GD5411@sirena.org.uk>
+ <20200311123617.GA5347@ubuntu>
+ <20200311124102.GE5411@sirena.org.uk>
+ <20200311132658.GB5347@ubuntu>
 MIME-Version: 1.0
-In-Reply-To: <cbcdd4bd-6981-0dda-c8e9-bbe5c8128afc@linux.intel.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: lgirdwood@gmail.com, vkoul@kernel.org, alsa-devel@alsa-project.org,
- tiwai@suse.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="QXO0/MSS4VvK6f+D"
+Content-Disposition: inline
+In-Reply-To: <20200311132658.GB5347@ubuntu>
+X-Cookie: I'm a Lisp variable -- bind me!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,34 +79,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-03-10 17:03, Pierre-Louis Bossart wrote:
->> I didn't actually look at the patches since by the time I went to look
->> at them it was clear that there was going to be a new version.  Pierre
->> was saying that they added new functionality which would generally not
->> be suitable.
-> 
-> I am ok with the patches, as long as "[PATCH 5/7] ASoC: Intel: 
-> skl_hda_dsp: Enable Dmic configuration" is dropped as discussed.
-> 
-> I don't know if that requires a v2 or if Mark you can just drop this one 
-> patch?
-> 
-> So for all Patches except Patch5:
-> 
-> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> 
-> Thanks Cezary!
-> 
 
-Thanks for quick review and upstream!
+--QXO0/MSS4VvK6f+D
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-In fact, I wasn't even able to append missing 'Fixes' here and there.
-While indeed on 4.19 hdadsp machine driver does not exist so these 
-patches can count as "new feature", for some other kernels such as 5.4 
-that ain't a case.
+On Wed, Mar 11, 2020 at 02:26:58PM +0100, Guennadi Liakhovetski wrote:
+> On Wed, Mar 11, 2020 at 12:41:02PM +0000, Mark Brown wrote:
 
-Not very familiar with the cherry-pick mechanism for stable kernels, but 
-is it possible for patches that ain't flagged with 'Fixes' tag to get 
-backported? Having all of these at least on 5.4 is in my opinion desirable.
+> > I think you need to include this with your VirtIO series.
 
-Czarek
+> That was also my original intention, personally I also would find it diff=
+icult=20
+> to review this kind of work without context.
+
+> So, would you prefer me to drop this series completely and re-send it wit=
+h the=20
+> whole series or should I just drop #2 and resend #1 and #3?
+
+1 and 3 seemed fine, should be OK to send them separately.
+
+--QXO0/MSS4VvK6f+D
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5pDyMACgkQJNaLcl1U
+h9CrLQf/cvyxbWgRgKP/9e8w7jnrUjQVz97iR09CtssiwqrIAjAtPo1k3E5gdiCg
+by584uGsUv3ovnRkSFGQsD7WdrtdtqIOHBU9HcIDatBDAGkNRgJDpp+eNPhE4Qku
+/iCKU+yhI8bG17vYbUnbobzEudBpaMw7PanG4PsgKupuit/cIDpZaxnfXoIlTsiM
++gvTtsvRsq0Pwd9f9DrXO6Z2OfOGpKkHbzO46tz7+ASa493YWAu4EpCKZDss6HS4
+rNsyjzNnFfpsHLimv3zR9PPVt8ddsdgrO1x/YV8OSIR6dMVp8luzrMOByXicy89U
+lUs4UdYm1S8ZH1enYYF9ASD+WFj3tA==
+=y1Ec
+-----END PGP SIGNATURE-----
+
+--QXO0/MSS4VvK6f+D--

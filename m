@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CED11180D20
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Mar 2020 02:09:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5A15180D21
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Mar 2020 02:09:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7192382E;
-	Wed, 11 Mar 2020 02:08:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7192382E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6C9F3166D;
+	Wed, 11 Mar 2020 02:08:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C9F3166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583888942;
-	bh=JEv922kqkT0sU32VjvSU2fvQHC3EmLdBkNZgxrVrXWY=;
+	s=default; t=1583888964;
+	bh=ghQ+2aheD8tn/1hhbY08ZXow7bcPJze035S+RX62kgc=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Jj4gHj/n681q6AHrlcr3OwQfyqPffcYENUfdF3SuXwFxnVJqzJ7fiuAb18BbRvYyr
-	 wUdWaTpZrLoeKK6BLVXdob1gnEosDsB2ddXNgHqMGTxK4S8ToIQob1LIJJ//UAdYBJ
-	 /g5AmYDX+NJ0IyrWRVNJNSein8wAXtVHLg3A/AOA=
+	b=p2utWzKRMy9XslyprprH3SrJz0pQEBvggwpGy0lzkPXz8nHY7462n0W+t0n/k54dv
+	 h1Ito5AotmDKR9nyqbOo/SBg7vsxi4HwbbEPd8sg7RIUXAQ2w3TKo25zsYY708rRmS
+	 8cVnb4SrSlNrhf1komb+MTd8Jipg6PXQ4epDLH6s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49BECF8028E;
-	Wed, 11 Mar 2020 02:07:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19A29F80292;
+	Wed, 11 Mar 2020 02:07:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0BE4FF8028D; Wed, 11 Mar 2020 02:07:13 +0100 (CET)
+ id A5EEDF80291; Wed, 11 Mar 2020 02:07:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 37BCCF8028B
- for <alsa-devel@alsa-project.org>; Wed, 11 Mar 2020 02:07:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37BCCF8028B
-Date: 11 Mar 2020 10:07:07 +0900
-X-IronPort-AV: E=Sophos;i="5.70,538,1574089200"; d="scan'208";a="41323340"
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id CE439F8028C
+ for <alsa-devel@alsa-project.org>; Wed, 11 Mar 2020 02:07:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE439F8028C
+Date: 11 Mar 2020 10:07:14 +0900
+X-IronPort-AV: E=Sophos;i="5.70,538,1574089200"; d="scan'208";a="41538915"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 11 Mar 2020 10:07:07 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 11 Mar 2020 10:07:14 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 16E60400A0E9;
- Wed, 11 Mar 2020 10:07:07 +0900 (JST)
-Message-ID: <87wo7rvgw4.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 773B9400A0E9;
+ Wed, 11 Mar 2020 10:07:14 +0900 (JST)
+Message-ID: <87v9nbvgvx.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 1/7] ASoC: soc-core: Merge CPU/Codec DAIs
+Subject: [PATCH 2/7] ASoC: soc-core: Merge for_each_rtd_cpu/codec_dais()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87y2s7vgxb.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,105 +70,68 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-ALSA SoC is currently categorizing CPU/Codec DAIs,
-and it works well.
-
-But modern devices require more complex connections,
-for example Codec to Codec, etc, and future devices will
-enable to more complex connections.
-Because of these background, CPU/Codec DAIs categorizing is
-no longer good much to modern device.
-
-Currently, rtd has both CPU/Codec DAIs pointer.
-
-	rtd->cpu_dais   = [][][][][][][][][]
-	rtd->codec_dais = [][][][][][][][][]
-
-This patch merges these into DAIs pointer.
-
-	rtd->dais = [][][][][][][][][][][][][][][][][][]
-	            ^cpu_dais         ^codec_dais
-	            |--- num_cpus ---|--- num_codecs --|
-
-Then, we can merge for_each_rtd_cpu/codec_dais() from this patch.
-
--	for_each_rtd_cpu_dais() {
--		...
--	}
--	for_each_rtd_codec_dais() {
--		...
--	}
-+	for_each_rtd_dais() {
-+		...
-+	}
+Now we can use for_each_rtd_dais().
+Let's use it instead of for_each_rtd_cpu/codec_dais().
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc.h  |  7 ++++++-
- sound/soc/soc-core.c | 18 +++++++++---------
- 2 files changed, 15 insertions(+), 10 deletions(-)
+ sound/soc/soc-core.c | 25 +++++++------------------
+ 1 file changed, 7 insertions(+), 18 deletions(-)
 
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index 03054bf9cd37..efa12256bb33 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -1144,6 +1144,7 @@ struct snd_soc_pcm_runtime {
- 	struct snd_compr *compr;
- 	struct snd_soc_dai *codec_dai;
- 	struct snd_soc_dai *cpu_dai;
-+	struct snd_soc_dai **dais;
- 
- 	struct snd_soc_dai **codec_dais;
- 	unsigned int num_codecs;
-@@ -1183,7 +1184,11 @@ struct snd_soc_pcm_runtime {
- 	     (i)++)
- #define for_each_rtd_codec_dais_rollback(rtd, i, dai)		\
- 	for (; (--(i) >= 0) && ((dai) = rtd->codec_dais[i]);)
--
-+#define for_each_rtd_dais(rtd, i, dai)					\
-+	for ((i) = 0;							\
-+	     ((i) < (rtd)->num_cpus + (rtd)->num_codecs) &&		\
-+		     ((dai) = (rtd)->dais[i]);				\
-+	     (i)++)
- 
- void snd_soc_close_delayed_work(struct snd_soc_pcm_runtime *rtd);
- 
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 4e0f55555e37..511f6b0cb2e0 100644
+index 511f6b0cb2e0..333cbbd268b4 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -475,22 +475,22 @@ static struct snd_soc_pcm_runtime *soc_new_pcm_runtime(
- 	INIT_DELAYED_WORK(&rtd->delayed_work, close_delayed_work);
+@@ -1313,26 +1313,22 @@ static int soc_probe_dai(struct snd_soc_dai *dai, int order)
+ static void soc_remove_link_dais(struct snd_soc_card *card)
+ {
+ 	int i;
+-	struct snd_soc_dai *codec_dai;
+-	struct snd_soc_dai *cpu_dai;
++	struct snd_soc_dai *dai;
+ 	struct snd_soc_pcm_runtime *rtd;
+ 	int order;
  
- 	/*
--	 * for rtd->codec_dais
-+	 * for rtd->dais
- 	 */
--	rtd->codec_dais = devm_kcalloc(dev, dai_link->num_codecs,
-+	rtd->dais = devm_kcalloc(dev, dai_link->num_cpus + dai_link->num_codecs,
- 					sizeof(struct snd_soc_dai *),
- 					GFP_KERNEL);
--	if (!rtd->codec_dais)
-+	if (!rtd->dais)
- 		goto free_rtd;
+ 	for_each_comp_order(order) {
+ 		for_each_card_rtds(card, rtd) {
+-			/* remove the CODEC DAI */
+-			for_each_rtd_codec_dais(rtd, i, codec_dai)
+-				soc_remove_dai(codec_dai, order);
+-
+-			for_each_rtd_cpu_dais(rtd, i, cpu_dai)
+-				soc_remove_dai(cpu_dai, order);
++			/* remove DAIs */
++			for_each_rtd_dais(rtd, i, dai)
++				soc_remove_dai(dai, order);
+ 		}
+ 	}
+ }
  
- 	/*
--	 * for rtd->cpu_dais
-+	 * dais = [][][][][][][][][][][][][][][][][][]
-+	 *	  ^cpu_dais         ^codec_dais
-+	 *	  |--- num_cpus ---|--- num_codecs --|
- 	 */
--	rtd->cpu_dais = devm_kcalloc(dev, dai_link->num_cpus,
--				     sizeof(struct snd_soc_dai *),
--				     GFP_KERNEL);
--	if (!rtd->cpu_dais)
--		goto free_rtd;
-+	rtd->cpu_dais	= &rtd->dais[0];
-+	rtd->codec_dais	= &rtd->dais[dai_link->num_cpus];
-+
- 	/*
- 	 * rtd remaining settings
- 	 */
+ static int soc_probe_link_dais(struct snd_soc_card *card)
+ {
+-	struct snd_soc_dai *codec_dai, *cpu_dai;
++	struct snd_soc_dai *dai;
+ 	struct snd_soc_pcm_runtime *rtd;
+ 	int i, order, ret;
+ 
+@@ -1344,15 +1340,8 @@ static int soc_probe_link_dais(struct snd_soc_card *card)
+ 				card->name, rtd->num, order);
+ 
+ 			/* probe the CPU DAI */
+-			for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
+-				ret = soc_probe_dai(cpu_dai, order);
+-				if (ret)
+-					return ret;
+-			}
+-
+-			/* probe the CODEC DAI */
+-			for_each_rtd_codec_dais(rtd, i, codec_dai) {
+-				ret = soc_probe_dai(codec_dai, order);
++			for_each_rtd_dais(rtd, i, dai) {
++				ret = soc_probe_dai(dai, order);
+ 				if (ret)
+ 					return ret;
+ 			}
 -- 
 2.17.1
 

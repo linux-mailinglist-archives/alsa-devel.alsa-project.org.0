@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4732718213B
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Mar 2020 19:51:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C120918213C
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Mar 2020 19:51:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CDE2716B2;
-	Wed, 11 Mar 2020 19:50:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDE2716B2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 645AC83A;
+	Wed, 11 Mar 2020 19:50:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 645AC83A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583952661;
-	bh=e/sq9wROKi4pVpXjjVgtZrodP5o0WPu3g6Jv3EUZgj0=;
+	s=default; t=1583952693;
+	bh=i5rC1U4v/BLEesTh/PmJvpqK0cLPE7b/z/NnM7CK138=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EjA6y2oKa26FgARsYF/XAsvbPTRGoHd3ZGI9hyMfwl6tEdmaBULgurJqfnc+90iuR
-	 8tAhFPqC+dA2x2mo0hFue6G2kFh6rj+J+WQnm/O8pVKkHBLKb9qrUpq7NeSCB6AafA
-	 FXrNndz/CwT3qmrFP2MTfP8f9hEVI9vukScVXRRE=
-Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B09D4F80323;
-	Wed, 11 Mar 2020 19:42:32 +0100 (CET)
+	b=RZ0HBGN2Wm2MHCH25fnr01Bb5zRx4vH47Qgg5LibLVjlsYtWUkAEgKaFxj381eqAu
+	 wGDhxaLVrFb36iR2SkvObT/5kOU4qGaUyVAzJpOJADfZDrf+K000qUfkCajni2k0Zr
+	 1rQbbWR1H0KeLqkB0D/iF3+iFEvMd3BnIubd6Gcc=
+Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D09DF80328;
+	Wed, 11 Mar 2020 19:42:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1DDDCF802E9; Wed, 11 Mar 2020 19:42:12 +0100 (CET)
+ id 153F3F802E9; Wed, 11 Mar 2020 19:42:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,24 +33,24 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 214F8F802DD
- for <alsa-devel@alsa-project.org>; Wed, 11 Mar 2020 19:42:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 214F8F802DD
+ by alsa1.perex.cz (Postfix) with ESMTPS id D90DFF802E0
+ for <alsa-devel@alsa-project.org>; Wed, 11 Mar 2020 19:42:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D90DFF802E0
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2020 11:42:07 -0700
+ 11 Mar 2020 11:42:09 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,541,1574150400"; d="scan'208";a="441776328"
+X-IronPort-AV: E=Sophos;i="5.70,541,1574150400"; d="scan'208";a="441776339"
 Received: from fjan-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.251.25.157])
- by fmsmga005.fm.intel.com with ESMTP; 11 Mar 2020 11:42:04 -0700
+ by fmsmga005.fm.intel.com with ESMTP; 11 Mar 2020 11:42:07 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 13/16] soundwire: cadence: remove PREQ_DELAY assignment
-Date: Wed, 11 Mar 2020 13:41:25 -0500
-Message-Id: <20200311184128.4212-14-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 14/16] soundwire: cadence: remove automatic command retries
+Date: Wed, 11 Mar 2020 13:41:26 -0500
+Message-Id: <20200311184128.4212-15-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200311184128.4212-1-pierre-louis.bossart@linux.intel.com>
 References: <20200311184128.4212-1-pierre-louis.bossart@linux.intel.com>
@@ -79,8 +79,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The hardware default is 0x1F, and the existing code does an OR with 0xF.
-This is a no-op, remove.
+This is a good idea on paper, but it's not recommended at all when
+operating in multi-master mode. It's also not recommended when doing
+bank switches, since the retransmission would happen at the next SSP,
+and the command protocol is stuck in the mean time.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
@@ -88,19 +90,19 @@ Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
  1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
-index 7757c51b200d..a428c7935589 100644
+index a428c7935589..acafa6222171 100644
 --- a/drivers/soundwire/cadence_master.c
 +++ b/drivers/soundwire/cadence_master.c
-@@ -1107,8 +1107,7 @@ int sdw_cdns_init(struct sdw_cdns *cdns)
+@@ -1109,8 +1109,7 @@ int sdw_cdns_init(struct sdw_cdns *cdns)
  
- 	/* Multi-master support to be added here */
+ 	/* leave frame delay to hardware default of 0x1F */
  
--	/* Set frame delay between PREQ and ping frame to 15 frames */
--	val |= 0xF << SDW_REG_SHIFT(CDNS_MCP_CONFIG_MPREQ_DELAY);
-+	/* leave frame delay to hardware default of 0x1F */
+-	/* Set Max cmd retry to 15 */
+-	val |= CDNS_MCP_CONFIG_MCMD_RETRY;
++	/* leave command retry to hardware default of 0 */
  
- 	/* Set Max cmd retry to 15 */
- 	val |= CDNS_MCP_CONFIG_MCMD_RETRY;
+ 	cdns_writel(cdns, CDNS_MCP_CONFIG, val);
+ 
 -- 
 2.20.1
 

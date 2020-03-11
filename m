@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7A8E181143
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Mar 2020 07:58:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 916E7181149
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Mar 2020 07:59:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 463FD1663;
-	Wed, 11 Mar 2020 07:57:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 463FD1663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 30FAE1616;
+	Wed, 11 Mar 2020 07:58:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30FAE1616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583909909;
-	bh=Sct+kErT9qw9nCYZk9jXpuW9wtoffqHU5VSjQNC4bGI=;
+	s=default; t=1583909953;
+	bh=H7Qruhjkxz9FZwH3qveKAVUwpqFkgSFwPa8Zmgmwywg=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cxdZ/TGeXh6rpuCeiOT/DCOPbJTd/iyJ1q8uOxZyO3Q4tOcdmGD6KysQIm8dCeDqz
-	 rVxDQpqiOHyi/Mc/vwCfsehDWz5UAm/cGH+qbh9rG89YCnzLoegCvo++S9Pl2qi0ZD
-	 XsVUOniJENGyvz4BphoZPmakxxg0KGyZtwWi7IWw=
+	b=bzTROojyxGV/TFKN/9OP36rk29tjBiOEGel/kZoowggMHxTwMiY95sX2C8/0EMjr/
+	 7MLb1BKNm8Mw0dmMtdNQ4W880hNgSDFe3KaMqWZgrEG9wCtk+svqfge9qdkwxF/Sy8
+	 abcuM25zWy6nimJMEopqu1PsoeJGhtYf7cgq+CNM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 725D1F800B5;
-	Wed, 11 Mar 2020 07:56:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89649F80141;
+	Wed, 11 Mar 2020 07:56:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9D5DAF801EB; Wed, 11 Mar 2020 07:56:46 +0100 (CET)
+ id 81E79F80217; Wed, 11 Mar 2020 07:56:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -33,22 +33,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4AFA8F800B5
- for <alsa-devel@alsa-project.org>; Wed, 11 Mar 2020 07:56:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AFA8F800B5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E06CF801F7
+ for <alsa-devel@alsa-project.org>; Wed, 11 Mar 2020 07:56:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E06CF801F7
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 8C41FAE39;
- Wed, 11 Mar 2020 06:56:43 +0000 (UTC)
-Date: Wed, 11 Mar 2020 07:56:42 +0100
-Message-ID: <s5hmu8n9y6t.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 6D952AECE;
+ Wed, 11 Mar 2020 06:56:54 +0000 (UTC)
+Date: Wed, 11 Mar 2020 07:56:54 +0100
+Message-ID: <s5hlfo79y6h.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Jules Irenge <jbi.octave@gmail.com>
-Subject: Re: [PATCH 8/8] ALSA: firewire-tascam: Add missing annotation for
- tscm_hwdep_read_locked()
-In-Reply-To: <20200311010908.42366-9-jbi.octave@gmail.com>
+Subject: Re: [PATCH 7/8] ALSA: firewire-tascam: Add missing annotation for
+ tscm_hwdep_read_queue()
+In-Reply-To: <20200311010908.42366-8-jbi.octave@gmail.com>
 References: <0/8> <20200311010908.42366-1-jbi.octave@gmail.com>
- <20200311010908.42366-9-jbi.octave@gmail.com>
+ <20200311010908.42366-8-jbi.octave@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -75,14 +75,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 11 Mar 2020 02:09:08 +0100,
+On Wed, 11 Mar 2020 02:09:07 +0100,
 Jules Irenge wrote:
 > 
-> Sparse reports a warning at tscm_hwdep_read_locked()
+> Sparse reports a warning at tscm_hwdep_read_queue()
 > 
-> warning: context imbalance in tscm_hwdep_read_locked() - unexpected unlock
+> warning: context imbalance in tscm_hwdep_read_queue() - unexpected unlock
 > 
-> The root cause is the missing annotation at tscm_hwdep_read_locked()
+> The root cause is the missing annotation at tscm_hwdep_read_queue()
 > Add the missing __releases(&tscm->lock) annotation
 > 
 > Signed-off-by: Jules Irenge <jbi.octave@gmail.com>

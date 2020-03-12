@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A66B81839DE
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Mar 2020 20:53:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 038A11839D9
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Mar 2020 20:53:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 37CFB176A;
-	Thu, 12 Mar 2020 20:53:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37CFB176A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CCB01767;
+	Thu, 12 Mar 2020 20:52:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CCB01767
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584042830;
-	bh=eEwGmURSmSxCqSrnAr4E0ZJn3jbSB1T6kGlY7eg0+4E=;
+	s=default; t=1584042785;
+	bh=LVabuym36BsCnSfkXSyjS9wfCbfBnN2MUnPh30NVyrs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=c+PWz8iDv/7pR+NYBGvzZ4KLnkR5AgCJG0Sjyx9HV8JRuZiBOi1tkO3ZEIdgpH62m
-	 VB4Kw0ykMKoO2g/TXNMZgi+kgH6yuHJrT/W5BO/hn4J6XFNYc+PxpyPcg3rNoshHdB
-	 7PUqMoCH0O0dmQt67Kq8xifbbCO+eGtEmMZqqqHA=
+	b=m5yTQTxnLa61Oz8qAlZCC6qC1w9RQIEAJ3amhzmjjiZqddPRXBmf1YN66EbnZNEzB
+	 xY8efcnvDOnePTlVdnyTqiCPZi9vdDK42Tr+birs+Mnj4EZi2fEqwyAX3I4e/6eRVU
+	 +AYAKDs3oJPxMzj7tTnScAFYcmlibfNCb+iGKmq4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88606F802A8;
-	Thu, 12 Mar 2020 20:49:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77091F801D9;
+	Thu, 12 Mar 2020 20:49:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C7B4EF8029B; Thu, 12 Mar 2020 20:49:47 +0100 (CET)
+ id DF2EAF802A0; Thu, 12 Mar 2020 20:49:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,25 +33,25 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 38DCDF80273
+ by alsa1.perex.cz (Postfix) with ESMTPS id AAD8CF800BE
  for <alsa-devel@alsa-project.org>; Thu, 12 Mar 2020 20:49:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38DCDF80273
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAD8CF800BE
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 12 Mar 2020 12:49:20 -0700
+ 12 Mar 2020 12:49:21 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,545,1574150400"; d="scan'208";a="416058383"
+X-IronPort-AV: E=Sophos;i="5.70,545,1574150400"; d="scan'208";a="416058386"
 Received: from unknown (HELO pbossart-mobl3.amr.corp.intel.com)
  ([10.251.241.169])
- by orsmga005.jf.intel.com with ESMTP; 12 Mar 2020 12:49:19 -0700
+ by orsmga005.jf.intel.com with ESMTP; 12 Mar 2020 12:49:20 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 03/10] ASoC: Intel: sof_pcm512x: make HDMI optional for all
- platforms
-Date: Thu, 12 Mar 2020 14:48:52 -0500
-Message-Id: <20200312194859.4051-4-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH v2 04/10] ASoC: SOF: Intel: hda: remove
+ SND_SOC_SOF_HDA_COMMON_HDMI_CODEC
+Date: Thu, 12 Mar 2020 14:48:53 -0500
+Message-Id: <20200312194859.4051-5-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200312194859.4051-1-pierre-louis.bossart@linux.intel.com>
 References: <20200312194859.4051-1-pierre-louis.bossart@linux.intel.com>
@@ -77,131 +77,63 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-Make HDMI optional for APL and later platforms. If no HDMI codec
-is found on the HDA bus, the graphics side driver is missing or
-correct codec driver is not part of kernel build, codec_mask
-reflects this and HDMI is disabled. The DSP topology will still
-have the links for HDMI, so connect these to dummy codec to avoid
-failures in topology loading.
+To help user-space with HDMI codec driver transition, both
+a kernel module parameter and a kernel option were initially
+provided to configure default behaviour of SOF on Intel hardware
+with commit 139c7febad1a ("ASoC: SOF: Intel: add support for
+snd-hda-codec-hdmi").
 
-This change also fixes a kernel oops that was triggered if
-sof_pcm512x was used with SOF configured to use hdac-hdmi (can be
-done via "use_common_hdmi=0" or by selecting
-CONFIG_SND_SOC_SOF_HDA_COMMON_HDMI_CODEC=n). This is not a supported
-configuration.
+As hdac-hdmi is already now lagging in features compared to
+snd-hda-codec-hdmi, move ahead with the transition and remove
+the build option to select between the two, and instead default
+to snd-hda-codec-hdmi if it is enabled in kernel build.
+
+The old behaviour of using hdac-hdmi driver can still be forced
+via the kernel module parameter.
 
 Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_pcm512x.c | 38 +++++++++++++++++++++-------
- 1 file changed, 29 insertions(+), 9 deletions(-)
+ sound/soc/sof/intel/Kconfig | 11 -----------
+ sound/soc/sof/intel/hda.c   |  3 +--
+ 2 files changed, 1 insertion(+), 13 deletions(-)
 
-diff --git a/sound/soc/intel/boards/sof_pcm512x.c b/sound/soc/intel/boards/sof_pcm512x.c
-index 626153bd71e7..4ce707b6eb79 100644
---- a/sound/soc/intel/boards/sof_pcm512x.c
-+++ b/sound/soc/intel/boards/sof_pcm512x.c
-@@ -27,6 +27,8 @@
- #define SOF_PCM512X_SSP_CODEC(quirk)		((quirk) & GENMASK(3, 0))
- #define SOF_PCM512X_SSP_CODEC_MASK			(GENMASK(3, 0))
+diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
+index 3bc64dee7c39..c9a2bee4b55c 100644
+--- a/sound/soc/sof/intel/Kconfig
++++ b/sound/soc/sof/intel/Kconfig
+@@ -324,17 +324,6 @@ config SND_SOC_SOF_HDA_ALWAYS_ENABLE_DMI_L1
+ 	  Say Y if you want to enable DMI Link L1
+ 	  If unsure, select "N".
  
-+#define IDISP_CODEC_MASK	0x4
-+
- /* Default: SSP5 */
- static unsigned long sof_pcm512x_quirk = SOF_PCM512X_SSP_CODEC(5);
+-config SND_SOC_SOF_HDA_COMMON_HDMI_CODEC
+-	bool "SOF common HDA HDMI codec driver"
+-	depends on SND_SOC_SOF_HDA_LINK
+-	depends on SND_HDA_CODEC_HDMI
+-	default SND_HDA_CODEC_HDMI
+-	help
+-	  This adds support for HDMI audio by using the common HDA
+-	  HDMI/DisplayPort codec driver.
+-	  Say Y if you want to use the common codec driver with SOF.
+-	  If unsure select "Y".
+-
+ endif ## SND_SOC_SOF_HDA_COMMON
  
-@@ -40,6 +42,7 @@ struct sof_hdmi_pcm {
+ config SND_SOC_SOF_HDA_LINK_BASELINE
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 7ca887041a34..1de750a1dd19 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -54,8 +54,7 @@ static int hda_dmic_num = -1;
+ module_param_named(dmic_num, hda_dmic_num, int, 0444);
+ MODULE_PARM_DESC(dmic_num, "SOF HDA DMIC number");
  
- struct sof_card_private {
- 	struct list_head hdmi_pcm_list;
-+	bool idisp_codec;
- };
- 
- static int sof_pcm512x_quirk_cb(const struct dmi_system_id *id)
-@@ -136,6 +139,9 @@ static int sof_card_late_probe(struct snd_soc_card *card)
- 	if (list_empty(&ctx->hdmi_pcm_list))
- 		return -EINVAL;
- 
-+	if (!ctx->idisp_codec)
-+		return 0;
-+
- 	pcm = list_first_entry(&ctx->hdmi_pcm_list, struct sof_hdmi_pcm, head);
- 
- 	return hda_dsp_hdmi_build_controls(card, pcm->codec_dai->component);
-@@ -214,7 +220,8 @@ SND_SOC_DAILINK_DEF(dmic_component,
- static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 							  int ssp_codec,
- 							  int dmic_be_num,
--							  int hdmi_num)
-+							  int hdmi_num,
-+							  bool idisp_codec)
- {
- 	struct snd_soc_dai_link_component *idisp_components;
- 	struct snd_soc_dai_link_component *cpus;
-@@ -316,11 +323,19 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 		if (!links[id].cpus->dai_name)
- 			goto devm_err;
- 
--		idisp_components[i - 1].name = "ehdaudio0D2";
--		idisp_components[i - 1].dai_name = devm_kasprintf(dev,
--								  GFP_KERNEL,
--								  "intel-hdmi-hifi%d",
--								  i);
-+		/*
-+		 * topology cannot be loaded if codec is missing, so
-+		 * use the dummy codec if needed
-+		 */
-+		if (idisp_codec) {
-+			idisp_components[i - 1].name = "ehdaudio0D2";
-+			idisp_components[i - 1].dai_name =
-+				devm_kasprintf(dev, GFP_KERNEL,
-+					       "intel-hdmi-hifi%d", i);
-+		} else {
-+			idisp_components[i - 1].name = "snd-soc-dummy";
-+			idisp_components[i - 1].dai_name = "snd-soc-dummy-dai";
-+		}
- 		if (!idisp_components[i - 1].dai_name)
- 			goto devm_err;
- 
-@@ -341,8 +356,8 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 
- static int sof_audio_probe(struct platform_device *pdev)
- {
-+	struct snd_soc_acpi_mach *mach = pdev->dev.platform_data;
- 	struct snd_soc_dai_link *dai_links;
--	struct snd_soc_acpi_mach *mach;
- 	struct sof_card_private *ctx;
- 	int dmic_be_num, hdmi_num;
- 	int ret, ssp_codec;
-@@ -360,6 +375,11 @@ static int sof_audio_probe(struct platform_device *pdev)
- 	} else {
- 		dmic_be_num = 2;
- #if IS_ENABLED(CONFIG_SND_HDA_CODEC_HDMI)
-+		if (mach->mach_params.common_hdmi_codec_drv &&
-+		    (mach->mach_params.codec_mask & IDISP_CODEC_MASK))
-+			ctx->idisp_codec = true;
-+
-+		/* links are always present in topology */
- 		hdmi_num = 3;
+-static bool hda_codec_use_common_hdmi =
+-	IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_COMMON_HDMI_CODEC);
++static bool hda_codec_use_common_hdmi = IS_ENABLED(CONFIG_SND_HDA_CODEC_HDMI);
+ module_param_named(use_common_hdmi, hda_codec_use_common_hdmi, bool, 0444);
+ MODULE_PARM_DESC(use_common_hdmi, "SOF HDA use common HDMI codec driver");
  #endif
- 	}
-@@ -374,7 +394,8 @@ static int sof_audio_probe(struct platform_device *pdev)
- 	sof_audio_card_pcm512x.num_links = 1 + dmic_be_num + hdmi_num;
- 
- 	dai_links = sof_card_dai_links_create(&pdev->dev, ssp_codec,
--					      dmic_be_num, hdmi_num);
-+					      dmic_be_num, hdmi_num,
-+					      ctx->idisp_codec);
- 	if (!dai_links)
- 		return -ENOMEM;
- 
-@@ -383,7 +404,6 @@ static int sof_audio_probe(struct platform_device *pdev)
- 	INIT_LIST_HEAD(&ctx->hdmi_pcm_list);
- 
- 	sof_audio_card_pcm512x.dev = &pdev->dev;
--	mach = (&pdev->dev)->platform_data;
- 
- 	/* set platform name for each dailink */
- 	ret = snd_soc_fixup_dai_links_platform_name(&sof_audio_card_pcm512x,
 -- 
 2.20.1
 

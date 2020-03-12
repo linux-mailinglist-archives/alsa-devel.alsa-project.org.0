@@ -2,55 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9F371833CF
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Mar 2020 15:52:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B0531833D1
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Mar 2020 15:53:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7CA0E171C;
-	Thu, 12 Mar 2020 15:51:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CA0E171C
+	by alsa0.perex.cz (Postfix) with ESMTPS id C5AB2171F;
+	Thu, 12 Mar 2020 15:52:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5AB2171F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584024764;
-	bh=9gxDrU3SPuO5ifFKv4Zf1xO0dXSjsuJAAyjC4CUMwME=;
+	s=default; t=1584024801;
+	bh=eAfJnO6hxfpZTw7qG33hFE8tcGN/Qw8zM30RBCLEfM0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RqloMKflSzdej8KSO0Z1pY/s8Zyb54G0WrKUMLta8gBUFBgjTESZTFidJn9ZINBjE
-	 xK9axsXG5JqZJUDux8fVOJV8P1fr8DS1okoXmb19YxVIJ7aPwtL0PWtky0WLOOfNcR
-	 VCGk/vJPZxnKzyLZSfdfSavLlHg+0tAtRGGHkbuk=
+	b=vB7f0HuS1ZI8svK7sLBAv16n3zTGsbGGpSc7DJTSCAQfCe2ebnarWdNgGMmyZ+Jsh
+	 1BYejI0OYZUXZsiNvRr8taiU7AHCljDU2/gVRT5EThTFusKAni/RXAJfQHVLxUU3zY
+	 y03Bkt48V2p/Pe4rhDmNFAMtYQxepqy1VCOeWoC4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48C70F80340;
-	Thu, 12 Mar 2020 15:45:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15FD6F80351;
+	Thu, 12 Mar 2020 15:45:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 99C0CF80328; Thu, 12 Mar 2020 15:45:18 +0100 (CET)
+ id 82C49F80328; Thu, 12 Mar 2020 15:45:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7D562F802A8;
- Thu, 12 Mar 2020 15:45:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D562F802A8
+ by alsa1.perex.cz (Postfix) with ESMTPS id CCB55F80291;
+ Thu, 12 Mar 2020 15:45:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCB55F80291
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 12 Mar 2020 07:44:55 -0700
+ 12 Mar 2020 07:44:56 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,545,1574150400"; d="scan'208";a="443957771"
+X-IronPort-AV: E=Sophos;i="5.70,545,1574150400"; d="scan'208";a="443957801"
 Received: from gliakhov-mobl2.ger.corp.intel.com (HELO
  ubuntu.ger.corp.intel.com) ([10.249.40.3])
- by fmsmga006.fm.intel.com with ESMTP; 12 Mar 2020 07:44:53 -0700
+ by fmsmga006.fm.intel.com with ESMTP; 12 Mar 2020 07:44:55 -0700
 From: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 13/14] ASoC: SOF: VirtIO: free guest pipelines upon termination
-Date: Thu, 12 Mar 2020 15:44:28 +0100
-Message-Id: <20200312144429.17959-14-guennadi.liakhovetski@linux.intel.com>
+Subject: [PATCH 14/14] ASoC: SOF: VirtIO: enable simultaneous playback and
+ capture
+Date: Thu, 12 Mar 2020 15:44:29 +0100
+Message-Id: <20200312144429.17959-15-guennadi.liakhovetski@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200312144429.17959-1-guennadi.liakhovetski@linux.intel.com>
 References: <20200312144429.17959-1-guennadi.liakhovetski@linux.intel.com>
@@ -74,290 +75,111 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Currently the SOF driver switches off the DSP every time runtime or
-system-wide suspend is entered. After the DSP is turned off, next
-time it's turned on, the firmware and topology have to be re-sent to
-it.
-
-When a guest SOF instance restarts it sends its topology to the host,
-which then forwards it to the DSP. This is correct if the DSP was
-suspended during that time and lost the guest's topology. However, if
-the DSP stayed active during that entire time, sending duplicate
-components to it produces errors. To prevent this from happening this
-patch adds freeing of components during guest shut down.
+Dynamically allocate separate playback and capture buffers to enable
+simultaneous playback and capture.
 
 Signed-off-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 ---
- drivers/vhost/dsp.c        |   3 +
- include/sound/sof/virtio.h |   4 ++
- sound/soc/sof/vhost-be.c   | 155 +++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 162 insertions(+)
+ sound/soc/sof/virtio-fe.c | 53 +++++++++++++++++++++++++++++++++++++----------
+ 1 file changed, 42 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/vhost/dsp.c b/drivers/vhost/dsp.c
-index 205ae8c..33e849a 100644
---- a/drivers/vhost/dsp.c
-+++ b/drivers/vhost/dsp.c
-@@ -114,6 +114,9 @@ static void vhost_dsp_deactivate(struct vhost_dsp *dsp)
+diff --git a/sound/soc/sof/virtio-fe.c b/sound/soc/sof/virtio-fe.c
+index aa6da81..807562d 100644
+--- a/sound/soc/sof/virtio-fe.c
++++ b/sound/soc/sof/virtio-fe.c
+@@ -79,17 +79,13 @@ struct sof_vfe {
+ 	struct completion completion;
+ 	spinlock_t vq_lock;
  
- 		dsp->active = false;
+-	/* A shared capture / playback virtual queue data buffer */
+-	union {
+-		struct dsp_sof_data_req data_req;
+-		struct dsp_sof_data_resp data_resp;
+-	};
++	/* Pointers for virtual queue data buffers */
++	struct dsp_sof_data_req *playback_buf;
++	struct dsp_sof_data_resp *capture_buf;
  
-+		/* If a VM reboots dsp_sof_client_release() isn't called */
-+		dsp_sof_topology_purge(dsp->snd);
-+
- 		spin_lock_irqsave(&dsp->posn_lock, flags);
- 		list_for_each_entry_safe(buf, next, &dsp->posn_buf_list, list) {
- 			list_del(&buf->list);
-diff --git a/include/sound/sof/virtio.h b/include/sound/sof/virtio.h
-index fc98664..80e174e 100644
---- a/include/sound/sof/virtio.h
-+++ b/include/sound/sof/virtio.h
-@@ -147,6 +147,9 @@ struct dsp_sof_client {
- 	struct list_head pipe_conn;
- 	/* List of vhost instances on a DSP */
- 	struct list_head list;
-+	/* List of widgets to free for tear-down */
-+	struct list_head comp_list;
-+	struct list_head pipe_list;
- 
- 	/* Component ID range index in the bitmap */
- 	unsigned int id;
-@@ -177,6 +180,7 @@ int dsp_sof_stream_data(struct dsp_sof_client *client,
- int dsp_sof_ipc_fwd(struct dsp_sof_client *client, int vq_idx,
- 		    void *ipc_buf, void *reply_buf,
- 		    size_t count, size_t reply_sz);
-+void dsp_sof_topology_purge(struct dsp_sof_client *client);
- 
- /* The below functions are always referenced, they need dummy counterparts */
- int dsp_sof_update_guest_posn(struct snd_sof_dev *sdev,
-diff --git a/sound/soc/sof/vhost-be.c b/sound/soc/sof/vhost-be.c
-index e1dede9..c25512b 100644
---- a/sound/soc/sof/vhost-be.c
-+++ b/sound/soc/sof/vhost-be.c
-@@ -43,6 +43,18 @@ struct dsp_pipeline_connect {
- 	struct list_head list;
+ 	/* Headers, used as a playback response or capture request */
+-	union {
+-		u8 hdr_req[HDR_SIZE_REQ];
+-		u8 hdr_resp[HDR_SIZE_RESP];
+-	};
++	u8 hdr_req[HDR_SIZE_REQ];
++	u8 hdr_resp[HDR_SIZE_RESP];
  };
  
-+struct dsp_sof_comp_list {
-+	struct list_head list;
-+	uint32_t comp_id;
-+	enum sof_comp_type comp_type;
-+};
+ /* Firmware ready IPC. */
+@@ -422,7 +418,7 @@ static int sof_vfe_pcm_read_part(struct snd_sof_dev *sdev,
+ 				 void __user *buf, unsigned long chunk_size)
+ {
+ 	struct sof_vfe *vfe = sdev->pdata->vfe;
+-	struct dsp_sof_data_resp *data = &vfe->data_resp;
++	struct dsp_sof_data_resp *data = vfe->capture_buf;
+ 	struct scatterlist sg_out, sg_in, *sgs[] = {&sg_out, &sg_in};
+ 	struct dsp_sof_data_req *req = (struct dsp_sof_data_req *)vfe->hdr_req;
+ 	unsigned int len;
+@@ -480,7 +476,7 @@ static int sof_vfe_pcm_write_part(struct snd_sof_dev *sdev,
+ 				  void __user *buf, unsigned long chunk_size)
+ {
+ 	struct sof_vfe *vfe = sdev->pdata->vfe;
+-	struct dsp_sof_data_req *data = &vfe->data_req;
++	struct dsp_sof_data_req *data = vfe->playback_buf;
+ 	struct scatterlist sg_out, sg_in, *sgs[] = {&sg_out, &sg_in};
+ 	struct dsp_sof_data_resp *resp = (struct dsp_sof_data_resp *)vfe->hdr_resp;
+ 	unsigned int len;
+@@ -596,9 +592,43 @@ static int sof_vfe_pcm_open(struct snd_sof_dev *sdev,
+ static int sof_vfe_pcm_close(struct snd_sof_dev *sdev,
+ 			     struct snd_pcm_substream *substream)
+ {
++	struct sof_vfe *vfe = sdev->pdata->vfe;
 +
-+struct dsp_sof_pipe_list {
-+	struct list_head list;
-+	uint32_t comp_id;
-+	uint32_t pipe_id;
-+};
-+
- static const char dsp_pcm_name[] = "VHost PCM";
+ 	pm_runtime_mark_last_busy(sdev->dev);
+ 	pm_runtime_put_autosuspend(sdev->dev);
  
- /*
-@@ -446,6 +458,75 @@ static int dsp_sof_ipc_comp(struct dsp_sof_client *client,
- 		cdata->comp_id >= client->comp_id_end ? -EINVAL : 0;
- }
- 
-+void dsp_sof_topology_purge(struct dsp_sof_client *client)
-+{
-+	struct snd_sof_dev *sdev = client->sdev;
-+	struct sof_ipc_free fcomp = {
-+		.hdr = {
-+			.size = sizeof(fcomp),
-+		},
-+	};
-+	struct sof_ipc_reply reply;
-+	struct dsp_sof_comp_list *citem, *ctmp;
-+	struct dsp_sof_pipe_list *pitem, *ptmp;
-+	int ret;
-+
-+	pm_runtime_get_sync(sdev->dev);
-+
-+	/* First free all pipelines */
-+	list_for_each_entry_safe(pitem, ptmp, &client->pipe_list, list) {
-+		fcomp.id = pitem->comp_id;
-+		fcomp.hdr.cmd = SOF_IPC_GLB_TPLG_MSG |
-+			SOF_IPC_TPLG_PIPE_FREE;
-+
-+		dev_dbg(sdev->dev, "tplg: unload component ID: %d pipe %u\n",
-+			fcomp.id, pitem->pipe_id);
-+
-+		/* send IPC to the DSP */
-+		ret = sof_ipc_tx_message(sdev->ipc,
-+					 fcomp.hdr.cmd, &fcomp, sizeof(fcomp),
-+					 &reply, sizeof(reply));
-+		if (ret < 0)
-+			dev_err(sdev->dev, "error: %d unloading component %d\n",
-+				ret, fcomp.id);
-+
-+		list_del(&pitem->list);
-+		kfree(pitem);
++	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
++		kfree(vfe->playback_buf);
++		vfe->playback_buf = NULL;
++	} else {
++		kfree(vfe->capture_buf);
++		vfe->capture_buf = NULL;
 +	}
-+
-+	/* Then free all individual components */
-+	list_for_each_entry_safe(citem, ctmp, &client->comp_list, list) {
-+		fcomp.id = citem->comp_id;
-+		switch (citem->comp_type) {
-+		case SOF_COMP_BUFFER:
-+			fcomp.hdr.cmd = SOF_IPC_GLB_TPLG_MSG |
-+				SOF_IPC_TPLG_BUFFER_FREE;
-+			break;
-+		default:
-+			fcomp.hdr.cmd = SOF_IPC_GLB_TPLG_MSG |
-+				SOF_IPC_TPLG_COMP_FREE;
-+		}
-+
-+		dev_dbg(sdev->dev, "tplg: unload component ID: %d type %u\n",
-+			fcomp.id, citem->comp_type);
-+
-+		/* send IPC to the DSP */
-+		ret = sof_ipc_tx_message(sdev->ipc,
-+					 fcomp.hdr.cmd, &fcomp, sizeof(fcomp),
-+					 &reply, sizeof(reply));
-+		if (ret < 0)
-+			dev_err(sdev->dev, "error: %d unloading component %d\n",
-+				ret, fcomp.id);
-+
-+		list_del(&citem->list);
-+		kfree(citem);
-+	}
-+
-+	pm_runtime_mark_last_busy(sdev->dev);
-+	pm_runtime_put_autosuspend(sdev->dev);
-+}
-+EXPORT_SYMBOL_GPL(dsp_sof_topology_purge);
-+
- /* process PM IPC */
- static int dsp_sof_ipc_pm(struct dsp_sof_client *client, struct sof_ipc_cmd_hdr *hdr,
- 			  struct sof_vfe_ipc_power_resp *resp)
-@@ -526,6 +607,47 @@ int dsp_sof_add_conn(struct snd_sof_dev *sdev,
- 	return 0;
- }
- 
-+static int dsp_sof_tplg_comp_add(struct dsp_sof_client *client,
-+				 struct sof_ipc_comp *comp)
-+{
-+	struct dsp_sof_comp_list *citem = kmalloc(sizeof(*citem), GFP_KERNEL);
-+	if (!citem)
-+		return -ENOMEM;
-+
-+	citem->comp_id = comp->id;
-+	citem->comp_type = comp->type;
-+
-+	dev_dbg(client->sdev->dev, "%s(): adding %p ID %d type %x\n",
-+		__func__, citem, comp->id, comp->type);
-+	list_add_tail(&citem->list, &client->comp_list);
 +
 +	return 0;
 +}
 +
-+static int dsp_sof_tplg_pipe_add(struct dsp_sof_client *client,
-+				 struct sof_ipc_pipe_new *pipe)
++static int sof_vfe_pcm_hw_params(struct snd_sof_dev *sdev,
++				 struct snd_pcm_substream *substream,
++				 struct snd_pcm_hw_params *params,
++				 struct sof_ipc_stream_params *ipc_params)
 +{
-+	struct dsp_sof_pipe_list *pitem = kmalloc(sizeof(*pitem), GFP_KERNEL);
-+	if (!pitem)
-+		return -ENOMEM;
++	struct sof_vfe *vfe = sdev->pdata->vfe;
 +
-+	pitem->comp_id = pipe->comp_id;
-+	pitem->pipe_id = pipe->pipeline_id;
-+
-+	dev_dbg(client->sdev->dev, "%s(): adding %p ID %d pipe %x\n",
-+		__func__, pitem, pipe->comp_id, pipe->pipeline_id);
-+	list_add_tail(&pitem->list, &client->pipe_list);
-+
-+	return 0;
-+}
-+
-+static int dsp_sof_ipc_tplg_buf_new(struct dsp_sof_client *client,
-+			struct sof_ipc_cmd_hdr *hdr, struct sof_ipc_reply *rhdr)
-+{
-+	struct sof_ipc_comp *comp = container_of(hdr, struct sof_ipc_comp, hdr);
-+	return dsp_sof_tplg_comp_add(client, comp);
-+}
-+
- /* Handle some special cases of the "new component" IPC */
- static int dsp_sof_ipc_tplg_comp_new(struct dsp_sof_client *client, int vq_idx,
- 			struct sof_ipc_cmd_hdr *hdr, struct sof_ipc_reply *rhdr)
-@@ -535,6 +657,7 @@ static int dsp_sof_ipc_tplg_comp_new(struct dsp_sof_client *client, int vq_idx,
- 	struct snd_sof_pcm *spcm, *last;
- 	struct sof_ipc_comp_host *host;
- 	struct dsp_pipeline_connect *conn;
-+	int ret;
- 
- 	if (comp->id < client->comp_id_begin ||
- 	    comp->id >= client->comp_id_end)
-@@ -595,6 +718,10 @@ static int dsp_sof_ipc_tplg_comp_new(struct dsp_sof_client *client, int vq_idx,
- 		break;
- 	}
- 
-+	ret = dsp_sof_tplg_comp_add(client, comp);
-+	if (ret < 0)
-+		return ret;
++	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
++	    !vfe->playback_buf) {
++		vfe->playback_buf = kmalloc(sizeof(*vfe->playback_buf),
++					    GFP_KERNEL);
++		if (!vfe->playback_buf)
++			return -ENOMEM;
++	} else if (substream->stream == SNDRV_PCM_STREAM_CAPTURE &&
++		   !vfe->capture_buf) {
++		vfe->capture_buf = kmalloc(sizeof(*vfe->capture_buf),
++					   GFP_KERNEL);
++		if (!vfe->capture_buf)
++			return -ENOMEM;
++	}
 +
  	return 0;
  }
  
-@@ -606,6 +733,9 @@ static int dsp_sof_ipc_tplg_pipe_new(struct dsp_sof_client *client, int vq_idx,
- 						struct sof_ipc_pipe_new, hdr);
- 	struct snd_sof_dev *sdev = client->sdev;
- 	struct dsp_pipeline_connect *conn;
-+	int ret = dsp_sof_tplg_pipe_add(client, pipeline);
-+	if (ret < 0)
-+		return ret;
+@@ -629,6 +659,7 @@ struct snd_sof_dsp_ops snd_sof_vfe_ops = {
  
- 	list_for_each_entry(conn, &sdev->connector_list, list)
- 		if (pipeline->pipeline_id == conn->guest_pipeline_id) {
-@@ -723,6 +853,8 @@ static int dsp_sof_ipc_tplg(struct dsp_sof_client *client, int vq_idx,
- 	case SOF_IPC_TPLG_COMP_NEW:
- 		return dsp_sof_ipc_tplg_comp_new(client, vq_idx, hdr,
- 						 reply_buf);
-+	case SOF_IPC_TPLG_BUFFER_NEW:
-+		return dsp_sof_ipc_tplg_buf_new(client, hdr, reply_buf);
- 	case SOF_IPC_TPLG_PIPE_NEW:
- 		return dsp_sof_ipc_tplg_pipe_new(client, vq_idx, hdr);
- 	case SOF_IPC_TPLG_COMP_CONNECT:
-@@ -987,6 +1119,23 @@ int dsp_sof_set_tplg(struct dsp_sof_client *client,
- void dsp_sof_suspend(struct snd_sof_dev *sdev)
- {
- 	struct snd_sof_pcm *spcm, *next;
-+	struct dsp_sof_client *client;
-+
-+	/* Upon resume we'll rebuild lists */
-+	list_for_each_entry(client, &sdev->vbe_list, list) {
-+		struct dsp_sof_comp_list *citem, *ctmp;
-+		struct dsp_sof_pipe_list *pitem, *ptmp;
-+
-+		list_for_each_entry_safe(pitem, ptmp, &client->pipe_list, list) {
-+			list_del(&pitem->list);
-+			kfree(pitem);
-+		}
-+
-+		list_for_each_entry_safe(citem, ctmp, &client->comp_list, list) {
-+			list_del(&citem->list);
-+			kfree(citem);
-+		}
-+	}
+ 	.pcm_open	= sof_vfe_pcm_open,
+ 	.pcm_close	= sof_vfe_pcm_close,
++	.pcm_hw_params	= sof_vfe_pcm_hw_params,
  
- 	list_for_each_entry_safe(spcm, next, &sdev->pcm_list, list)
- 		if (!strcmp(dsp_pcm_name, spcm->pcm.pcm_name)) {
-@@ -1000,6 +1149,9 @@ void dsp_sof_suspend(struct snd_sof_dev *sdev)
- /* A VM instance has closed the miscdevice */
- void dsp_sof_client_release(struct dsp_sof_client *client)
- {
-+	/* If a VM crashes we don't get ioctl(VHOST_SET_RUNNING, 0) from QEMU */
-+	dsp_sof_topology_purge(client);
-+
- 	bitmap_release_region(client->sdev->vfe_mask, client->id, 0);
- 
- 	list_del(&client->list);
-@@ -1024,6 +1176,9 @@ struct dsp_sof_client *dsp_sof_client_add(struct snd_sof_dev *sdev,
- 		return NULL;
- 	}
- 
-+	INIT_LIST_HEAD(&client->pipe_list);
-+	INIT_LIST_HEAD(&client->comp_list);
-+
- 	client->sdev = sdev;
- 	client->id = id;
- 	client->vhost = dsp;
+ 	.run		= sof_vfe_run,
+ 	.block_read	= sof_vfe_block_read,
 -- 
 1.9.3
 

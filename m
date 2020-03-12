@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50B38183A5D
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Mar 2020 21:10:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F1C0183A5F
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Mar 2020 21:10:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E38B1176B;
-	Thu, 12 Mar 2020 21:09:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E38B1176B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E06971752;
+	Thu, 12 Mar 2020 21:09:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E06971752
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584043812;
-	bh=65/uCN4gEa2iC/laZU9ZKPhnDCaCsqGYm7cKXtNoeXo=;
+	s=default; t=1584043850;
+	bh=JWanmVboC7E7RoYUCrRlSzGwjfx+VMqLPo1vic6rUr0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Y4u1agFvEom+Wc4FcWNQhr4nsT936cCaPbWQeXZulkquswLHP9faCdz/zxHyxX6t7
-	 7RzE+75sd6l/J1pA8+mDHqsBi4NTDBajw2B+YecUtJgddE0vWWv4AGWRR2dcdXAdkk
-	 bxh57BbC8XTqYrNJ4nu2ck5utrJ303UJgefYvU6M=
+	b=Vuwc0Rt76bkIJfeZ1ppWmCSQZJKhnQ1AeG3qHzYHIVPB5JmjtDa7jT/hmsKGOkYd7
+	 3ziFEJeA7eQvlS/W3gT2eaR0XsJ021mNnuzaQJXtOiyC8kqQqo++NwUCG7w7DaTHhm
+	 ZRLiH93Gl9769CKP06XAKkKd04sc1ZiiJqm9tjyM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8ED31F80299;
-	Thu, 12 Mar 2020 21:06:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 88E17F802A8;
+	Thu, 12 Mar 2020 21:06:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A08CAF80273; Thu, 12 Mar 2020 21:06:44 +0100 (CET)
+ id C8A8FF801D9; Thu, 12 Mar 2020 21:06:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,32 +34,34 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1D44F801D9
- for <alsa-devel@alsa-project.org>; Thu, 12 Mar 2020 21:06:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1D44F801D9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 27369F8020C
+ for <alsa-devel@alsa-project.org>; Thu, 12 Mar 2020 21:06:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27369F8020C
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 12 Mar 2020 13:06:35 -0700
+ 12 Mar 2020 13:06:36 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,545,1574150400"; d="scan'208";a="444063056"
+X-IronPort-AV: E=Sophos;i="5.70,545,1574150400"; d="scan'208";a="444063064"
 Received: from unknown (HELO pbossart-mobl3.amr.corp.intel.com)
  ([10.251.241.169])
  by fmsmga006.fm.intel.com with ESMTP; 12 Mar 2020 13:06:35 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 3/6] ASoC: SOF: Remove SOF_IPC_EXT_DMA_BUFFER
-Date: Thu, 12 Mar 2020 15:06:19 -0500
-Message-Id: <20200312200622.24477-4-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 4/6] ASoC: SOF: Intel: hda: remove unnecessary ROM IPC filter
+ function
+Date: Thu, 12 Mar 2020 15:06:20 -0500
+Message-Id: <20200312200622.24477-5-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200312200622.24477-1-pierre-louis.bossart@linux.intel.com>
 References: <20200312200622.24477-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Karol Trzcinski <karolx.trzcinski@linux.intel.com>,
- broonie@kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>, tiwai@suse.de,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ broonie@kernel.org, Amery Song <chao.song@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,81 +77,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Karol Trzcinski <karolx.trzcinski@linux.intel.com>
+From: Amery Song <chao.song@intel.com>
 
-This enum code, and what's more important, related structures is
-unused in whole source code, so it shouldn't be kept.
+The HDA_DSP_IPC_PURGE_FW IPC from ROM is already handled in
+cl_dsp_init(), and as IPC IRQ is disabled at this stage, this
+IPC will be never received in the IRQ thread. The function
+hda_dsp_ipc_is_sof for filtering the ROM IPC can be removed
+safely.
 
-Signed-off-by: Karol Trzcinski <karolx.trzcinski@linux.intel.com>
+Signed-off-by: Amery Song <chao.song@intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Keyon <yang.jie@intel.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- include/sound/sof/info.h | 18 +-----------------
- sound/soc/sof/loader.c   |  3 ---
- sound/soc/sof/sof-priv.h |  1 -
- 3 files changed, 1 insertion(+), 21 deletions(-)
+ sound/soc/sof/intel/hda-ipc.c | 14 +++-----------
+ 1 file changed, 3 insertions(+), 11 deletions(-)
 
-diff --git a/include/sound/sof/info.h b/include/sound/sof/info.h
-index cc3b50b6ae52..438a11fcf272 100644
---- a/include/sound/sof/info.h
-+++ b/include/sound/sof/info.h
-@@ -28,7 +28,7 @@
+diff --git a/sound/soc/sof/intel/hda-ipc.c b/sound/soc/sof/intel/hda-ipc.c
+index 922052883b0a..a60528495551 100644
+--- a/sound/soc/sof/intel/hda-ipc.c
++++ b/sound/soc/sof/intel/hda-ipc.c
+@@ -125,12 +125,6 @@ void hda_dsp_ipc_get_reply(struct snd_sof_dev *sdev)
  
- /* extended data types that can be appended onto end of sof_ipc_fw_ready */
- enum sof_ipc_ext_data {
--	SOF_IPC_EXT_DMA_BUFFER		= 0,
-+	SOF_IPC_EXT_UNUSED		= 0,
- 	SOF_IPC_EXT_WINDOW		= 1,
- 	SOF_IPC_EXT_CC_INFO		= 2,
- };
-@@ -83,22 +83,6 @@ struct sof_ipc_ext_data_hdr {
- 	uint32_t type;		/**< SOF_IPC_EXT_ */
- } __packed;
+ }
  
--struct sof_ipc_dma_buffer_elem {
--	struct sof_ipc_hdr hdr;
--	uint32_t type;		/**< SOF_IPC_REGION_ */
--	uint32_t id;		/**< platform specific - used to map to host memory */
--	struct sof_ipc_host_buffer buffer;
--} __packed;
+-static bool hda_dsp_ipc_is_sof(uint32_t msg)
+-{
+-	return (msg & (HDA_DSP_IPC_PURGE_FW | 0xf << 9)) != msg ||
+-		(msg & HDA_DSP_IPC_PURGE_FW) != HDA_DSP_IPC_PURGE_FW;
+-}
 -
--/* extended data DMA buffers for IPC, trace and debug */
--struct sof_ipc_dma_buffer_data {
--	struct sof_ipc_ext_data_hdr ext_hdr;
--	uint32_t num_buffers;
--
--	/* host files in buffer[n].buffer */
--	struct sof_ipc_dma_buffer_elem buffer[];
--}  __packed;
--
- struct sof_ipc_window_elem {
- 	struct sof_ipc_hdr hdr;
- 	uint32_t type;		/**< SOF_IPC_REGION_ */
-diff --git a/sound/soc/sof/loader.c b/sound/soc/sof/loader.c
-index fc4ab51bacf4..67fc95ace42b 100644
---- a/sound/soc/sof/loader.c
-+++ b/sound/soc/sof/loader.c
-@@ -95,9 +95,6 @@ int snd_sof_fw_parse_ext_data(struct snd_sof_dev *sdev, u32 bar, u32 offset)
+ /* IPC handler thread */
+ irqreturn_t hda_dsp_ipc_irq_thread(int irq, void *context)
+ {
+@@ -176,11 +170,9 @@ irqreturn_t hda_dsp_ipc_irq_thread(int irq, void *context)
+ 		 */
+ 		spin_lock_irq(&sdev->ipc_lock);
  
- 		/* process structure data */
- 		switch (ext_hdr->type) {
--		case SOF_IPC_EXT_DMA_BUFFER:
--			ret = 0;
--			break;
- 		case SOF_IPC_EXT_WINDOW:
- 			ret = get_ext_windows(sdev, ext_hdr);
- 			break;
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index 5d16f668d16a..38dce54755a6 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -415,7 +415,6 @@ struct snd_sof_dev {
- 	u32 enabled_cores_mask; /* keep track of enabled cores */
+-		/* handle immediate reply from DSP core - ignore ROM messages */
+-		if (hda_dsp_ipc_is_sof(msg)) {
+-			hda_dsp_ipc_get_reply(sdev);
+-			snd_sof_ipc_reply(sdev, msg);
+-		}
++		/* handle immediate reply from DSP core */
++		hda_dsp_ipc_get_reply(sdev);
++		snd_sof_ipc_reply(sdev, msg);
  
- 	/* FW configuration */
--	struct sof_ipc_dma_buffer_data *info_buffer;
- 	struct sof_ipc_window *info_window;
- 
- 	/* IPC timeouts in ms */
+ 		/* wake up sleeper if we are loading code */
+ 		if (sdev->code_loading)	{
 -- 
 2.20.1
 

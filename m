@@ -2,56 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71C411836A2
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Mar 2020 17:54:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E7C81836C4
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Mar 2020 18:01:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1579F173A;
-	Thu, 12 Mar 2020 17:53:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1579F173A
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED3A4173C;
+	Thu, 12 Mar 2020 18:00:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED3A4173C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584032059;
-	bh=8NgqFcLoh0BxbM56rj/f9wx74WZzrJ/WT0KIO/7dVEc=;
-	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=epOXXyZZbIC88nD4gtE7KqbOpk+1nZDsOzWdrMko12PLDTrCW4UVB2AUUc/IGbxHO
-	 5OPeovJXITAC2DgsREuYgbqdY3nZprciLgUN27wQWxoN9/lL68l7HJLUFtZXTh0DWF
-	 sdRwsjRCVBI7ih0MT7/Z5LQV91GV5dvcDDwPlgbc=
+	s=default; t=1584032478;
+	bh=PRiQnZFTwMWhPThZMRl4E0CvnyXDVZyQwj5HtZxeF7g=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=I7yx0BhZxPhxBGwX5+7SoxbEAiwjjL9x4tbLoOQg52ySE7ju5DtQ7/K/CNVHn1mHa
+	 u9yo/1pYsOOfpkprBHY5BabqTSIcoZB+xc8eoIVr/za3CPyZ33lOwUwI2vAstvNBw6
+	 Gy8u7/1m3/XooPHylXPANF9nn0/NsoiHVBNivdus=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 290CBF80086;
-	Thu, 12 Mar 2020 17:52:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 091C6F8021C;
+	Thu, 12 Mar 2020 17:59:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 10274F8020C; Thu, 12 Mar 2020 17:52:36 +0100 (CET)
+ id A09C3F8020C; Thu, 12 Mar 2020 17:59:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.6 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- MIME_8BIT_HEADER, SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 015F4F8013E
- for <alsa-devel@alsa-project.org>; Thu, 12 Mar 2020 17:52:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 015F4F8013E
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 48C6430E;
- Thu, 12 Mar 2020 09:52:30 -0700 (PDT)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BF3973F6CF;
- Thu, 12 Mar 2020 09:52:29 -0700 (PDT)
-Date: Thu, 12 Mar 2020 16:52:28 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-Subject: Applied "ASoC: topology: Perform component check upfront" to the asoc
- tree
-In-Reply-To: <20200312122239.14489-1-amadeuszx.slawinski@linux.intel.com>
-Message-Id: <applied-20200312122239.14489-1-amadeuszx.slawinski@linux.intel.com>
-X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- =?utf-8?q?Amadeusz_S=C5=82awi=C5=84ski?= <amadeuszx.slawinski@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id AE660F8013E
+ for <alsa-devel@alsa-project.org>; Thu, 12 Mar 2020 17:59:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE660F8013E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="SEyYl1P1"
+Received: by mail-wr1-x442.google.com with SMTP id m9so8395666wro.12
+ for <alsa-devel@alsa-project.org>; Thu, 12 Mar 2020 09:59:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-language:content-transfer-encoding;
+ bh=nQC0QSzFNBjeDFgkasDXcXEkr8IK6cRuABug8n4HpyY=;
+ b=SEyYl1P17U723AAa+CbznLSA1uyOrnLUfVk1NNG23zxnCcAGG9rAtjiv3FevqOfdf/
+ u+/UQSk72yceMW65Ir5wjscdMBuxIoTu/zT1/k1q6JXUJoycBOLqqaFj/kGjqeYA7M14
+ D5/Qfq5zW/x8JkjiWQIIqxvj9mL52fZ82FKOj2Q+zR3Zq5Egw3ApSCb7JLMBp41Wwgyu
+ G8hSeY8oZBzc7qS7UECsz2QtI4oJEe/akxiNyk90adBToog6GAo/qxGNjrDp0weVWczl
+ RR4qVBmdowZm6gKlFJNNRVJXmQYAbiKF1kc2O2+WvebXV0VAXnzSS5/SyGPrLI7Dwm9J
+ nlmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=nQC0QSzFNBjeDFgkasDXcXEkr8IK6cRuABug8n4HpyY=;
+ b=R4U3R6rgHe8bXE/ReVs8DS+wSvO2WVKYEFpAkvYBvY9LZ9b7Qh91jOn2v5l1EXB2IH
+ Sg4z5PjnqHneX3DwuxUaCMa3d6mYbP4z8ogaCDA52Yjq6blDnjAtS9OOfTzlgP/ez5pK
+ hivjbIckl7v7yoWrI+xZcVSNxBjY0P2cZbX0E7gFbAS2kHk6n02ZFnS5icGPC1Y/x8XD
+ QMs5OGUDIW2JYJID2zab+96VUBAF9VNYl4xkUwUpi7+qCNpWa3un65yJsa+LV3+O/gdC
+ YN+KRD8VsesAySi5MkwhXPm+J7leo7huuysBHosEpeelOrkGNOLJOqtpAjcPlkFKlTkh
+ ekgQ==
+X-Gm-Message-State: ANhLgQ1lwrvdOdLjhQyCleOaii8SUA3dVBLbYgBNSQ+G8Lq17hXE5gfA
+ cCpIZc+6NYAzi08l/kpyjxjsMw==
+X-Google-Smtp-Source: ADFU+vtsjvk5wo4ek2GJmozMoUUD/QFXQN2Lb/I85PUHa/iiHKI/CHcnqR1KBbMsE0qJbK4lelEbSA==
+X-Received: by 2002:a5d:46cc:: with SMTP id g12mr11829040wrs.42.1584032369018; 
+ Thu, 12 Mar 2020 09:59:29 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.googlemail.com with ESMTPSA id 7sm1714719wmf.20.2020.03.12.09.59.27
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 12 Mar 2020 09:59:28 -0700 (PDT)
+Subject: Re: mmotm 2020-03-11-21-11 uploaded (sound/soc/codecs/wcd9335.c)
+To: Randy Dunlap <rdunlap@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>, broonie@kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, linux-next@vger.kernel.org, mhocko@suse.cz,
+ mm-commits@vger.kernel.org, sfr@canb.auug.org.au,
+ moderated for non-subscribers <alsa-devel@alsa-project.org>,
+ masahiroy@kernel.org
+References: <20200312041232.wBVu2sBcq%akpm@linux-foundation.org>
+ <c6c4e6fb-30f3-60a1-6bc0-25daa84d479d@infradead.org>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <a8343b1f-7e87-d34d-a71b-86d20a8a3aff@linaro.org>
+Date: Thu, 12 Mar 2020 16:59:27 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+MIME-Version: 1.0
+In-Reply-To: <c6c4e6fb-30f3-60a1-6bc0-25daa84d479d@infradead.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,159 +110,96 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+Adding+ Masahiro Yamada for more inputs w.r.t kconfig.
 
-   ASoC: topology: Perform component check upfront
 
-has been applied to the asoc tree at
+Kconfig side we have:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+config SND_SOC_ALL_CODECS
+         tristate "Build all ASoC CODEC drivers"
+         imply SND_SOC_WCD9335
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+config SND_SOC_WCD9335
+         tristate "WCD9335 Codec"
+         depends on SLIMBUS
+	...
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+The implied symbol SND_SOC_WCD9335 should be set based on direct 
+dependency, However in this case, direct dependency SLIMBUS=m where as 
+SND_SOC_WCD9335=y. I would have expected to be SND_SOC_WCD9335=m in this 
+case.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Is this a valid possible case or a bug in Kconfig?
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
 
 Thanks,
-Mark
+srini
 
-From c42464a4e67383d8daeeaa668ff875e399a38105 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-Date: Thu, 12 Mar 2020 08:22:39 -0400
-Subject: [PATCH] ASoC: topology: Perform component check upfront
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-Function soc_tplg_dbytes_create(), calls soc_tplg_init_kcontrol() to
-perform additional driver specific initialization. While
-soc_tplg_init_kcontrol() ensures that component is valid before invoking
-ops->control_load, there is no such check at the end of
-soc_tplg_dbytes_create() where list_add() is used.
-
-Also in quite a few places, there is reference of tplg->comp->dapm or
-tplg->comp->card, without any checks for tplg->comp.
-
-In consequence of the above this may lead to referencing NULL pointer.
-
-This allows for removal of now unnecessary checks.
-
-Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Link: https://lore.kernel.org/r/20200312122239.14489-1-amadeuszx.slawinski@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/soc-topology.c | 22 +++++++++++++---------
- 1 file changed, 13 insertions(+), 9 deletions(-)
-
-diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
-index 22c38df40d5a..c98766957c10 100644
---- a/sound/soc/soc-topology.c
-+++ b/sound/soc/soc-topology.c
-@@ -251,7 +251,7 @@ static int soc_tplg_vendor_load_(struct soc_tplg *tplg,
- {
- 	int ret = 0;
- 
--	if (tplg->comp && tplg->ops && tplg->ops->vendor_load)
-+	if (tplg->ops && tplg->ops->vendor_load)
- 		ret = tplg->ops->vendor_load(tplg->comp, tplg->index, hdr);
- 	else {
- 		dev_err(tplg->dev, "ASoC: no vendor load callback for ID %d\n",
-@@ -283,7 +283,7 @@ static int soc_tplg_vendor_load(struct soc_tplg *tplg,
- static int soc_tplg_widget_load(struct soc_tplg *tplg,
- 	struct snd_soc_dapm_widget *w, struct snd_soc_tplg_dapm_widget *tplg_w)
- {
--	if (tplg->comp && tplg->ops && tplg->ops->widget_load)
-+	if (tplg->ops && tplg->ops->widget_load)
- 		return tplg->ops->widget_load(tplg->comp, tplg->index, w,
- 			tplg_w);
- 
-@@ -295,7 +295,7 @@ static int soc_tplg_widget_load(struct soc_tplg *tplg,
- static int soc_tplg_widget_ready(struct soc_tplg *tplg,
- 	struct snd_soc_dapm_widget *w, struct snd_soc_tplg_dapm_widget *tplg_w)
- {
--	if (tplg->comp && tplg->ops && tplg->ops->widget_ready)
-+	if (tplg->ops && tplg->ops->widget_ready)
- 		return tplg->ops->widget_ready(tplg->comp, tplg->index, w,
- 			tplg_w);
- 
-@@ -307,7 +307,7 @@ static int soc_tplg_dai_load(struct soc_tplg *tplg,
- 	struct snd_soc_dai_driver *dai_drv,
- 	struct snd_soc_tplg_pcm *pcm, struct snd_soc_dai *dai)
- {
--	if (tplg->comp && tplg->ops && tplg->ops->dai_load)
-+	if (tplg->ops && tplg->ops->dai_load)
- 		return tplg->ops->dai_load(tplg->comp, tplg->index, dai_drv,
- 			pcm, dai);
- 
-@@ -318,7 +318,7 @@ static int soc_tplg_dai_load(struct soc_tplg *tplg,
- static int soc_tplg_dai_link_load(struct soc_tplg *tplg,
- 	struct snd_soc_dai_link *link, struct snd_soc_tplg_link_config *cfg)
- {
--	if (tplg->comp && tplg->ops && tplg->ops->link_load)
-+	if (tplg->ops && tplg->ops->link_load)
- 		return tplg->ops->link_load(tplg->comp, tplg->index, link, cfg);
- 
- 	return 0;
-@@ -327,7 +327,7 @@ static int soc_tplg_dai_link_load(struct soc_tplg *tplg,
- /* tell the component driver that all firmware has been loaded in this request */
- static void soc_tplg_complete(struct soc_tplg *tplg)
- {
--	if (tplg->comp && tplg->ops && tplg->ops->complete)
-+	if (tplg->ops && tplg->ops->complete)
- 		tplg->ops->complete(tplg->comp);
- }
- 
-@@ -684,7 +684,7 @@ EXPORT_SYMBOL_GPL(snd_soc_tplg_widget_bind_event);
- static int soc_tplg_init_kcontrol(struct soc_tplg *tplg,
- 	struct snd_kcontrol_new *k, struct snd_soc_tplg_ctl_hdr *hdr)
- {
--	if (tplg->comp && tplg->ops && tplg->ops->control_load)
-+	if (tplg->ops && tplg->ops->control_load)
- 		return tplg->ops->control_load(tplg->comp, tplg->index, k,
- 			hdr);
- 
-@@ -1174,7 +1174,7 @@ static int soc_tplg_kcontrol_elems_load(struct soc_tplg *tplg,
- static int soc_tplg_add_route(struct soc_tplg *tplg,
- 	struct snd_soc_dapm_route *route)
- {
--	if (tplg->comp && tplg->ops && tplg->ops->dapm_route_load)
-+	if (tplg->ops && tplg->ops->dapm_route_load)
- 		return tplg->ops->dapm_route_load(tplg->comp, tplg->index,
- 			route);
- 
-@@ -2563,7 +2563,7 @@ static int soc_tplg_manifest_load(struct soc_tplg *tplg,
- 	}
- 
- 	/* pass control to component driver for optional further init */
--	if (tplg->comp && tplg->ops && tplg->ops->manifest)
-+	if (tplg->ops && tplg->ops->manifest)
- 		ret = tplg->ops->manifest(tplg->comp, tplg->index, _manifest);
- 
- 	if (!abi_match)	/* free the duplicated one */
-@@ -2735,6 +2735,10 @@ int snd_soc_tplg_component_load(struct snd_soc_component *comp,
- 	struct soc_tplg tplg;
- 	int ret;
- 
-+	/* component needs to exist to keep and reference data while parsing */
-+	if (!comp)
-+		return -EINVAL;
-+
- 	/* setup parsing context */
- 	memset(&tplg, 0, sizeof(tplg));
- 	tplg.fw = fw;
--- 
-2.20.1
-
+On 12/03/2020 15:03, Randy Dunlap wrote:
+> On 3/11/20 9:12 PM, Andrew Morton wrote:
+>> The mm-of-the-moment snapshot 2020-03-11-21-11 has been uploaded to
+>>
+>>     http://www.ozlabs.org/~akpm/mmotm/
+>>
+>> mmotm-readme.txt says
+>>
+>> README for mm-of-the-moment:
+>>
+>> http://www.ozlabs.org/~akpm/mmotm/
+>>
+>> This is a snapshot of my -mm patch queue.  Uploaded at random hopefully
+>> more than once a week.
+>>
+>> You will need quilt to apply these patches to the latest Linus release (5.x
+>> or 5.x-rcY).  The series file is in broken-out.tar.gz and is duplicated in
+>> http://ozlabs.org/~akpm/mmotm/series
+>>
+>> The file broken-out.tar.gz contains two datestamp files: .DATE and
+>> .DATE-yyyy-mm-dd-hh-mm-ss.  Both contain the string yyyy-mm-dd-hh-mm-ss,
+>> followed by the base kernel version against which this patch series is to
+>> be applied.
+>>
+>> This tree is partially included in linux-next.  To see which patches are
+>> included in linux-next, consult the `series' file.  Only the patches
+>> within the #NEXT_PATCHES_START/#NEXT_PATCHES_END markers are included in
+>> linux-next.
+>>
+>>
+>> A full copy of the full kernel tree with the linux-next and mmotm patches
+>> already applied is available through git within an hour of the mmotm
+>> release.  Individual mmotm releases are tagged.  The master branch always
+>> points to the latest release, so it's constantly rebasing.
+>>
+>> 	https://github.com/hnaz/linux-mm
+>>
+>> The directory http://www.ozlabs.org/~akpm/mmots/ (mm-of-the-second)
+>> contains daily snapshots of the -mm tree.  It is updated more frequently
+>> than mmotm, and is untested.
+>>
+>> A git copy of this tree is also available at
+>>
+>> 	https://github.com/hnaz/linux-mm
+> 
+> 
+> on x86_64:
+> 
+> ld: sound/soc/codecs/wcd9335.o: in function `wcd9335_trigger':
+> wcd9335.c:(.text+0x451): undefined reference to `slim_stream_prepare'
+> ld: wcd9335.c:(.text+0x465): undefined reference to `slim_stream_enable'
+> ld: wcd9335.c:(.text+0x48f): undefined reference to `slim_stream_unprepare'
+> ld: wcd9335.c:(.text+0x4a3): undefined reference to `slim_stream_disable'
+> ld: sound/soc/codecs/wcd9335.o: in function `wcd9335_slim_status':
+> wcd9335.c:(.text+0x23df): undefined reference to `of_slim_get_device'
+> ld: wcd9335.c:(.text+0x2414): undefined reference to `slim_get_logical_addr'
+> ld: wcd9335.c:(.text+0x2427): undefined reference to `__regmap_init_slimbus'
+> ld: wcd9335.c:(.text+0x245f): undefined reference to `__regmap_init_slimbus'
+> ld: sound/soc/codecs/wcd9335.o: in function `wcd9335_hw_params':
+> wcd9335.c:(.text+0x3e05): undefined reference to `slim_stream_allocate'
+> ld: sound/soc/codecs/wcd9335.o: in function `wcd9335_slim_driver_init':
+> wcd9335.c:(.init.text+0x15): undefined reference to `__slim_driver_register'
+> ld: sound/soc/codecs/wcd9335.o: in function `wcd9335_slim_driver_exit':
+> wcd9335.c:(.exit.text+0x11): undefined reference to `slim_driver_unregister'
+> 
+> 
+> Full randconfig file is attached.
+> 

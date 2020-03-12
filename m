@@ -2,74 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 365D9182909
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Mar 2020 07:29:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E162182BA4
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Mar 2020 09:57:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD52316C7;
-	Thu, 12 Mar 2020 07:28:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD52316C7
+	by alsa0.perex.cz (Postfix) with ESMTPS id B9F4716CC;
+	Thu, 12 Mar 2020 09:56:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9F4716CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583994582;
-	bh=xefrU3xp5VyQEfQdYY+wYJ/j7bCg/2XJ27ZyuthqQF8=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1584003467;
+	bh=7uLHZCwr2uy8ELI0MtJo8bX0vwz17MKh1tX4ACPw7eY=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jbTnbuOYgfweUA1+gmq0oTz9HzGaB0BmatuL+CW0hMzc+y+lmvutI08p1q+MLyJMK
-	 F6RCYuAp5ATuJsAengl8cRCPYoPxwKspKY/cDIPL6MOS24p2gT/o08DAgzMwhSGxgq
-	 OC7TNoG4TmDvDnq/YgkHW9CLTqYjhlJsS2IZk9FM=
+	b=GXaILeZDO4L9hmRSah88MTH2vAW3WxvvIDWpPIQ9XXSwECQSqvGZwaD+5JLe/COA8
+	 5QWkS1I1+ItoUK3iUhv2dFGwLUQ9tvTtf5uWGE/f7jpaBSUJv9Ix8wK7iaMkL0Oc51
+	 6C7Qq7gFbHZpJafKr3EZ1u3DJycALaBEeOGI6hRg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 868E4F801D9;
-	Thu, 12 Mar 2020 07:28:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C21AEF80086;
+	Thu, 12 Mar 2020 09:56:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47C82F8020C; Thu, 12 Mar 2020 07:27:57 +0100 (CET)
+ id 9CD0DF8020C; Thu, 12 Mar 2020 09:56:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=KHOP_HELO_FCRDNS,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtprelay.hostedemail.com (smtprelay0163.hostedemail.com
- [216.40.44.163])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8D68DF80086
- for <alsa-devel@alsa-project.org>; Thu, 12 Mar 2020 07:27:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D68DF80086
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay08.hostedemail.com (Postfix) with ESMTP id 72080182CED5B;
- Thu, 12 Mar 2020 06:27:50 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-HE-Tag: point06_441a962f90223
-X-Filterd-Recvd-Size: 3157
-Received: from XPS-9350.home (unknown [47.151.143.254])
- (Authenticated sender: joe@perches.com)
- by omf14.hostedemail.com (Postfix) with ESMTPA;
- Thu, 12 Mar 2020 06:27:47 +0000 (UTC)
-Message-ID: <969ea500cfd66fa2fc32e8d1e9c6126710d16813.camel@perches.com>
-Subject: Re: [PATCH -next 013/491] INGENIC JZ47xx SoCs: Use fallthrough;
-From: Joe Perches <joe@perches.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Wed, 11 Mar 2020 23:26:04 -0700
-In-Reply-To: <20200311084052.3ca3c331@xps13>
-References: <cover.1583896344.git.joe@perches.com>
- <ad408ff8dc4e5fae0884312cb0aa618664e546e5.1583896348.git.joe@perches.com>
- <20200311084052.3ca3c331@xps13>
-Content-Type: text/plain; charset="ISO-8859-1"
-User-Agent: Evolution 3.34.1-2 
+ by alsa1.perex.cz (Postfix) with ESMTPS id 70C73F80086
+ for <alsa-devel@alsa-project.org>; Thu, 12 Mar 2020 09:56:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70C73F80086
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: eballetbo) with ESMTPSA id 47F8C29642E
+Subject: Re: [PATCH] ASoC: dt-bindings: google, cros-ec-codec: Fix dtc warnings
+ in example
+To: Rob Herring <robh@kernel.org>, Mark Brown <broonie@kernel.org>
+References: <20200311205841.2710-1-robh@kernel.org>
+From: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+Message-ID: <d6c612db-d4fd-e0e5-aff0-c3963322830c@collabora.com>
+Date: Thu, 12 Mar 2020 09:55:54 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
+In-Reply-To: <20200311205841.2710-1-robh@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: Ulf Hansson <ulf.hansson@linaro.org>, Vignesh Raghavendra <vigneshr@ti.com>,
- alsa-devel@alsa-project.org, David Airlie <airlied@linux.ie>,
- Richard Weinberger <richard@nod.at>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, linux-mmc@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, dri-devel@lists.freedesktop.org,
- Paul Cercueil <paul@crapouillou.net>, Harvey Hunt <harveyhuntnexus@gmail.com>,
- linux-mtd@lists.infradead.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Guenter Roeck <groeck@chromium.org>, Benson Leung <bleung@chromium.org>,
+ Cheng-Yi Chiang <cychiang@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,57 +72,89 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 2020-03-11 at 08:40 +0100, Miquel Raynal wrote:
-> Hi Joe,
+Hi Rob,
+
+On 11/3/20 21:58, Rob Herring wrote:
+> Extra dtc warnings (roughly what W=1 enables) are now enabled by default
+> when building the binding examples. These were fixed treewide in
+> 5.6-rc5, but the newly added google,cros-ec-codec schema adds some new
+> warnings:
 > 
-> Joe Perches <joe@perches.com> wrote on Tue, 10 Mar 2020 21:51:27 -0700:
+> Documentation/devicetree/bindings/sound/google,cros-ec-codec.example.dts:17.28-21.11:
+> Warning (unit_address_vs_reg): /example-0/reserved_mem: node has a reg or ranges property, but no unit name
+> Documentation/devicetree/bindings/sound/google,cros-ec-codec.example.dts:22.19-32.11:
+> Warning (unit_address_vs_reg): /example-0/cros-ec@0: node has a unit name, but no reg property
+> Documentation/devicetree/bindings/sound/google,cros-ec-codec.example.dts:26.37-31.15:
+> Warning (unit_address_vs_reg): /example-0/cros-ec@0/ec-codec: node has a reg or ranges property, but no unit name
 > 
-> > Convert the various uses of fallthrough comments to fallthrough;
-> > 
-> > Done via script
-> > Link: https://lore.kernel.org/lkml/b56602fcf79f849e733e7b521bb0e17895d390fa.1582230379.git.joe.com/
-> > 
-> > Signed-off-by: Joe Perches <joe@perches.com>
-> > ---
-> >  drivers/gpu/drm/ingenic/ingenic-drm.c           | 2 +-
-> >  drivers/mmc/host/jz4740_mmc.c                   | 6 ++----
-> >  drivers/mtd/nand/raw/ingenic/ingenic_nand_drv.c | 2 +-
-> >  drivers/mtd/nand/raw/ingenic/jz4725b_bch.c      | 4 ++--
-> >  drivers/mtd/nand/raw/ingenic/jz4780_bch.c       | 4 ++--
-> >  sound/soc/codecs/jz4770.c                       | 2 +-
-> >  6 files changed, 9 insertions(+), 11 deletions(-)
+> Fixing the above, then results in:
 > 
-> I like very much the new way to advertise for fallthrough statements,
-> but I am not willing to take any patch converting a single driver
-> anymore. I had too many from Gustavo when these comments had to be
-> inserted. I would really prefer a MTD-wide or a NAND-wide or at least a
-> raw-NAND-wide single patch (anything inside drivers/mtd/nand/raw/).
+> Documentation/devicetree/bindings/sound/google,cros-ec-codec.example.dts:26.13-23:
+> Warning (reg_format): /example-0/cros-ec@0:reg: property has invalid length (4 bytes) (#address-cells == 1, #size-cells == 1)
+> Documentation/devicetree/bindings/sound/google,cros-ec-codec.example.dts:27.37-32.15:
+> Warning (unit_address_vs_reg): /example-0/cros-ec@0/ec-codec: node has a reg or ranges property, but no unit name
+> 
+> Fixes: eadd54c75f1e ("dt-bindings: Convert the binding file google, cros-ec-codec.txt to yaml format.")
+> Cc: Cheng-Yi Chiang <cychiang@chromium.org>
+> Cc: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+> Cc: Guenter Roeck <groeck@chromium.org>
+> Cc: Liam Girdwood <lgirdwood@gmail.com>
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: Benson Leung <bleung@chromium.org>
+> Cc: alsa-devel@alsa-project.org
+> Signed-off-by: Rob Herring <robh@kernel.org>
 
-I understand completely.
+Just a minor nit, but the patch looks good to me, so:
 
-This set was done to generate patches by
-nominally maintained subsystems.
+Reviewed-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
 
-If you want something else:
 
-The easiest thing for you to do would be to
-run the cvt_fallthrough.pl script yourself.
+> ---
+>  .../bindings/sound/google,cros-ec-codec.yaml  | 27 +++++++++++--------
+>  1 file changed, 16 insertions(+), 11 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml b/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml
+> index 94a85d0cbf43..c84e656afb0a 100644
+> --- a/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml
+> +++ b/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml
+> @@ -44,19 +44,24 @@ additionalProperties: false
+>  
+>  examples:
+>    - |
+> -    reserved_mem: reserved_mem {
+> +    reserved_mem: reserved-mem@52800000 {
+>          compatible = "shared-dma-pool";
+> -        reg = <0 0x52800000 0 0x100000>;
+> +        reg = <0x52800000 0x100000>;
+>          no-map;
+>      };
+> -    cros-ec@0 {
+> -        compatible = "google,cros-ec-spi";
+> -        #address-cells = <2>;
+> -        #size-cells = <1>;
+> -        cros_ec_codec: ec-codec {
+> -            compatible = "google,cros-ec-codec";
+> -            #sound-dai-cells = <1>;
+> -            reg = <0x0 0x10500000 0x80000>;
+> -            memory-region = <&reserved_mem>;
+> +    spi {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +        cros-ec@0 {
+> +            compatible = "google,cros-ec-spi";
+> +            #address-cells = <2>;
+> +            #size-cells = <1>;
+> +            reg = <0>;
+> +            cros_ec_codec: ec-codec@10500000 {
 
-$ cvt_fallthrough.pl drivers/mtd/nand/raw/
+nit: shouldn't this be just codec@105500000 to match the class? However I am not
+sure codec is a class itself.
 
-That would produce:
-
-$ git diff --shortstat drivers/mtd/nand/raw
- 9 files changed, 18 insertions(+), 24 deletions(-)
-
-or
-
-$ cvt_fallthrough.pl drivers/mtd/
-
-which would produce:
-
-$ git diff --shortstat drivers/mtd/
- 22 files changed, 45 insertions(+), 60 deletions(-)
-
-cheers, Joe
-
+> +                compatible = "google,cros-ec-codec";
+> +                #sound-dai-cells = <1>;
+> +                reg = <0x0 0x10500000 0x80000>;
+> +                memory-region = <&reserved_mem>;
+> +            };
+>          };
+>      };
+> 

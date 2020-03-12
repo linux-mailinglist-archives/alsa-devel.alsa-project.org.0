@@ -2,99 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E7C81836C4
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Mar 2020 18:01:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9C2E1837A1
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Mar 2020 18:33:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ED3A4173C;
-	Thu, 12 Mar 2020 18:00:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED3A4173C
+	by alsa0.perex.cz (Postfix) with ESMTPS id F25861743;
+	Thu, 12 Mar 2020 18:32:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F25861743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584032478;
-	bh=PRiQnZFTwMWhPThZMRl4E0CvnyXDVZyQwj5HtZxeF7g=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=I7yx0BhZxPhxBGwX5+7SoxbEAiwjjL9x4tbLoOQg52ySE7ju5DtQ7/K/CNVHn1mHa
-	 u9yo/1pYsOOfpkprBHY5BabqTSIcoZB+xc8eoIVr/za3CPyZ33lOwUwI2vAstvNBw6
-	 Gy8u7/1m3/XooPHylXPANF9nn0/NsoiHVBNivdus=
+	s=default; t=1584034398;
+	bh=noWXEXMKMSJW2uL9Ug47yyGpOX6WbixlYT2VgHR0I3A=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=AYVgugrixv96GuzKIK4+ldvOC9vOfxgXyiDifNkGtb6hPdlWQ3Kkkq/YT+CaNLsL5
+	 Z4QE5fR9cOWBbgI2g6vqbL/f0/V6T5LQogb4YJv2VYT7y2/hhhS7Fblyx6/KUIAmsk
+	 bQePwVeh3QWRdCC1EW56AGp64ou2YPGXt4ZrQXfc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 091C6F8021C;
-	Thu, 12 Mar 2020 17:59:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 26E6AF80273;
+	Thu, 12 Mar 2020 18:30:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A09C3F8020C; Thu, 12 Mar 2020 17:59:34 +0100 (CET)
+ id C08B2F8023F; Thu, 12 Mar 2020 18:30:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_PASS, URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AE660F8013E
- for <alsa-devel@alsa-project.org>; Thu, 12 Mar 2020 17:59:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE660F8013E
+ by alsa1.perex.cz (Postfix) with ESMTPS id CD75FF800BE
+ for <alsa-devel@alsa-project.org>; Thu, 12 Mar 2020 18:30:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD75FF800BE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="SEyYl1P1"
-Received: by mail-wr1-x442.google.com with SMTP id m9so8395666wro.12
- for <alsa-devel@alsa-project.org>; Thu, 12 Mar 2020 09:59:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-language:content-transfer-encoding;
- bh=nQC0QSzFNBjeDFgkasDXcXEkr8IK6cRuABug8n4HpyY=;
- b=SEyYl1P17U723AAa+CbznLSA1uyOrnLUfVk1NNG23zxnCcAGG9rAtjiv3FevqOfdf/
- u+/UQSk72yceMW65Ir5wjscdMBuxIoTu/zT1/k1q6JXUJoycBOLqqaFj/kGjqeYA7M14
- D5/Qfq5zW/x8JkjiWQIIqxvj9mL52fZ82FKOj2Q+zR3Zq5Egw3ApSCb7JLMBp41Wwgyu
- G8hSeY8oZBzc7qS7UECsz2QtI4oJEe/akxiNyk90adBToog6GAo/qxGNjrDp0weVWczl
- RR4qVBmdowZm6gKlFJNNRVJXmQYAbiKF1kc2O2+WvebXV0VAXnzSS5/SyGPrLI7Dwm9J
- nlmQ==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="dqZ+cS/P"
+Received: by mail-wm1-x332.google.com with SMTP id a141so7285311wme.2
+ for <alsa-devel@alsa-project.org>; Thu, 12 Mar 2020 10:30:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=xSnW9A8X74vMXdw1AZNYRfnq/dFpU0Q61rYWfM27gUE=;
+ b=dqZ+cS/Prcg+PDSUIoMKAOEp40uZVlpGw5ZOWddF1Z+/e20AXbLSPQFzeZ7bd+Z4q+
+ 4uKT3g1n3TNaUsBmQNyL0iatlr3q3BMU+UCYm1losTAgpsFzjIVGBRlrLH+BCJ0lvz/D
+ oW1p+URZaH4dQIOw2PGC3Gmk6LxtBexxtvJAiuqjcQzmxkLbPJp/vSzX+rf0g4fA7rCg
+ XOKvY1oZc0waeoUcTIPSLdIwnf+ZvTUJTNkTK/XYTlFrO3wn2oKTzSPMSmQk1pZ3gUe2
+ mOwHloguKVYmhmfoshAzANf4zmtWL+5AxDuOC0NE8y/jFyi47KCYNQp0zTLsAnlChnyN
+ VWYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=nQC0QSzFNBjeDFgkasDXcXEkr8IK6cRuABug8n4HpyY=;
- b=R4U3R6rgHe8bXE/ReVs8DS+wSvO2WVKYEFpAkvYBvY9LZ9b7Qh91jOn2v5l1EXB2IH
- Sg4z5PjnqHneX3DwuxUaCMa3d6mYbP4z8ogaCDA52Yjq6blDnjAtS9OOfTzlgP/ez5pK
- hivjbIckl7v7yoWrI+xZcVSNxBjY0P2cZbX0E7gFbAS2kHk6n02ZFnS5icGPC1Y/x8XD
- QMs5OGUDIW2JYJID2zab+96VUBAF9VNYl4xkUwUpi7+qCNpWa3un65yJsa+LV3+O/gdC
- YN+KRD8VsesAySi5MkwhXPm+J7leo7huuysBHosEpeelOrkGNOLJOqtpAjcPlkFKlTkh
- ekgQ==
-X-Gm-Message-State: ANhLgQ1lwrvdOdLjhQyCleOaii8SUA3dVBLbYgBNSQ+G8Lq17hXE5gfA
- cCpIZc+6NYAzi08l/kpyjxjsMw==
-X-Google-Smtp-Source: ADFU+vtsjvk5wo4ek2GJmozMoUUD/QFXQN2Lb/I85PUHa/iiHKI/CHcnqR1KBbMsE0qJbK4lelEbSA==
-X-Received: by 2002:a5d:46cc:: with SMTP id g12mr11829040wrs.42.1584032369018; 
- Thu, 12 Mar 2020 09:59:29 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.googlemail.com with ESMTPSA id 7sm1714719wmf.20.2020.03.12.09.59.27
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=xSnW9A8X74vMXdw1AZNYRfnq/dFpU0Q61rYWfM27gUE=;
+ b=UgOB4DDpsHIvmYsoQENYjFEiw7MlwJ7vJDoAoZdxdcPZCZYJx1KR2SwM2xzDtLVgcb
+ cNUtkzSnHqBn8wPwT6zeJIyAXQ6GCVEpPW4szef410in/snlL/wlROpO5L/q4Vj9SwMh
+ 0XqpbRzN6g1VOcYLNQC2kaX7Nhme+Wq3AjzlbpjIdxj7ha+G2iyUNIrukrpEDKeRhRKo
+ j2djVHKeAe+8Z72CP7swwSLDkRQAfZNQwh1M+5R45xO3zaB90nIQ7fPo534hX2geHxlB
+ Xn5xaz0yjp2ULN5eAArHyLbXrMP2Xy1Y4zgfUvgvZEjvb99excnQdLVtdKU3qgxt4tgD
+ 1G/g==
+X-Gm-Message-State: ANhLgQ3VRcCVtXi69uwrFRGergfWCgzW/M1QZZkyLTsS0sw5Wptc9qYg
+ /b9d9+/y/KBblovPxWqB25E=
+X-Google-Smtp-Source: ADFU+vuVG0oUJL9NNxpSgAnmiNK0aLUEyjsbXdwHcCKQBXDbnFceiU248kw7koVVOEdnC7MW0sy9zQ==
+X-Received: by 2002:a1c:59c6:: with SMTP id n189mr5786802wmb.178.1584034245527; 
+ Thu, 12 Mar 2020 10:30:45 -0700 (PDT)
+Received: from debian.home (ip51ccf9cd.speed.planet.nl. [81.204.249.205])
+ by smtp.gmail.com with ESMTPSA id x24sm13170222wmc.36.2020.03.12.10.30.44
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 12 Mar 2020 09:59:28 -0700 (PDT)
-Subject: Re: mmotm 2020-03-11-21-11 uploaded (sound/soc/codecs/wcd9335.c)
-To: Randy Dunlap <rdunlap@infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>, broonie@kernel.org,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, linux-next@vger.kernel.org, mhocko@suse.cz,
- mm-commits@vger.kernel.org, sfr@canb.auug.org.au,
- moderated for non-subscribers <alsa-devel@alsa-project.org>,
- masahiroy@kernel.org
-References: <20200312041232.wBVu2sBcq%akpm@linux-foundation.org>
- <c6c4e6fb-30f3-60a1-6bc0-25daa84d479d@infradead.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <a8343b1f-7e87-d34d-a71b-86d20a8a3aff@linaro.org>
-Date: Thu, 12 Mar 2020 16:59:27 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <c6c4e6fb-30f3-60a1-6bc0-25daa84d479d@infradead.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ Thu, 12 Mar 2020 10:30:44 -0700 (PDT)
+From: Johan Jonker <jbx6244@gmail.com>
+To: lgirdwood@gmail.com
+Subject: [PATCH v1 1/2] dt-bindings: sound: convert rockchip spdif bindings to
+ yaml
+Date: Thu, 12 Mar 2020 18:30:36 +0100
+Message-Id: <20200312173037.21477-1-jbx6244@gmail.com>
+X-Mailer: git-send-email 2.11.0
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, heiko@sntech.de,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+ linux-rockchip@lists.infradead.org, broonie@kernel.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,96 +96,178 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Adding+ Masahiro Yamada for more inputs w.r.t kconfig.
+Current dts files with 'spdif' nodes are manually verified.
+In order to automate this process rockchip-spdif.txt
+has to be converted to yaml.
 
+Also rk3188.dtsi, rk3288.dtsi use an extra fallback string,
+so change this in the documentation.
 
-Kconfig side we have:
+Changed:
+"rockchip,rk3188-spdif", "rockchip,rk3066-spdif"
+"rockchip,rk3288-spdif", "rockchip,rk3066-spdif"
 
-config SND_SOC_ALL_CODECS
-         tristate "Build all ASoC CODEC drivers"
-         imply SND_SOC_WCD9335
+Signed-off-by: Johan Jonker <jbx6244@gmail.com>
+---
+ .../devicetree/bindings/sound/rockchip-spdif.txt   | 45 ----------
+ .../devicetree/bindings/sound/rockchip-spdif.yaml  | 96 ++++++++++++++++++++++
+ 2 files changed, 96 insertions(+), 45 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/rockchip-spdif.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/rockchip-spdif.yaml
 
-config SND_SOC_WCD9335
-         tristate "WCD9335 Codec"
-         depends on SLIMBUS
-	...
+diff --git a/Documentation/devicetree/bindings/sound/rockchip-spdif.txt b/Documentation/devicetree/bindings/sound/rockchip-spdif.txt
+deleted file mode 100644
+index ec20c1271..000000000
+--- a/Documentation/devicetree/bindings/sound/rockchip-spdif.txt
++++ /dev/null
+@@ -1,45 +0,0 @@
+-* Rockchip SPDIF transceiver
+-
+-The S/PDIF audio block is a stereo transceiver that allows the
+-processor to receive and transmit digital audio via an coaxial cable or
+-a fibre cable.
+-
+-Required properties:
+-
+-- compatible: should be one of the following:
+-   - "rockchip,rk3066-spdif"
+-   - "rockchip,rk3188-spdif"
+-   - "rockchip,rk3228-spdif"
+-   - "rockchip,rk3288-spdif"
+-   - "rockchip,rk3328-spdif"
+-   - "rockchip,rk3366-spdif"
+-   - "rockchip,rk3368-spdif"
+-   - "rockchip,rk3399-spdif"
+-- reg: physical base address of the controller and length of memory mapped
+-  region.
+-- interrupts: should contain the SPDIF interrupt.
+-- dmas: DMA specifiers for tx dma. See the DMA client binding,
+-  Documentation/devicetree/bindings/dma/dma.txt
+-- dma-names: should be "tx"
+-- clocks: a list of phandle + clock-specifier pairs, one for each entry
+-  in clock-names.
+-- clock-names: should contain following:
+-   - "hclk": clock for SPDIF controller
+-   - "mclk" : clock for SPDIF bus
+-
+-Required properties on RK3288:
+-  - rockchip,grf: the phandle of the syscon node for the general register
+-                   file (GRF)
+-
+-Example for the rk3188 SPDIF controller:
+-
+-spdif: spdif@1011e000 {
+-	compatible = "rockchip,rk3188-spdif", "rockchip,rk3066-spdif";
+-	reg = <0x1011e000 0x2000>;
+-	interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
+-	dmas = <&dmac1_s 8>;
+-	dma-names = "tx";
+-	clock-names = "hclk", "mclk";
+-	clocks = <&cru HCLK_SPDIF>, <&cru SCLK_SPDIF>;
+-	#sound-dai-cells = <0>;
+-};
+diff --git a/Documentation/devicetree/bindings/sound/rockchip-spdif.yaml b/Documentation/devicetree/bindings/sound/rockchip-spdif.yaml
+new file mode 100644
+index 000000000..45c6eea30
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/rockchip-spdif.yaml
+@@ -0,0 +1,96 @@
++# SPDX-License-Identifier: GPL-2.0
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/rockchip-spdif.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Rockchip SPDIF transceiver
++
++description:
++  The S/PDIF audio block is a stereo transceiver that allows the
++  processor to receive and transmit digital audio via a coaxial or
++  fibre cable.
++
++maintainers:
++  - Heiko Stuebner <heiko@sntech.de>
++
++properties:
++  compatible:
++    oneOf:
++      - const: rockchip,rk3066-spdif
++      - const: rockchip,rk3228-spdif
++      - const: rockchip,rk3328-spdif
++      - const: rockchip,rk3366-spdif
++      - const: rockchip,rk3368-spdif
++      - const: rockchip,rk3399-spdif
++      - items:
++          - enum:
++            - rockchip,rk3188-spdif
++            - rockchip,rk3288-spdif
++          - const: rockchip,rk3066-spdif
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: clock for SPDIF bus
++      - description: clock for SPDIF controller
++
++  clock-names:
++    items:
++      - const: mclk
++      - const: hclk
++
++  dmas:
++    items:
++      - description: TX DMA Channel
++
++  dma-names:
++    items:
++      - const: tx
++
++  rockchip,grf:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      The phandle of the syscon node for the GRF register.
++      Required property on RK3288.
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++  - dmas
++  - dma-names
++
++if:
++  properties:
++    compatible:
++      contains:
++        const: rockchip,rk3288-spdif
++
++then:
++  required:
++    - rockchip,grf
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/rk3188-cru-common.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++    spdif: spdif@1011e000 {
++      compatible = "rockchip,rk3188-spdif", "rockchip,rk3066-spdif";
++      reg = <0x1011e000 0x2000>;
++      interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
++      clocks = <&cru SCLK_SPDIF>, <&cru HCLK_SPDIF>;
++      clock-names = "mclk", "hclk";
++      dmas = <&dmac1_s 8>;
++      dma-names = "tx";
++    };
+-- 
+2.11.0
 
-The implied symbol SND_SOC_WCD9335 should be set based on direct 
-dependency, However in this case, direct dependency SLIMBUS=m where as 
-SND_SOC_WCD9335=y. I would have expected to be SND_SOC_WCD9335=m in this 
-case.
-
-Is this a valid possible case or a bug in Kconfig?
-
-
-Thanks,
-srini
-
-On 12/03/2020 15:03, Randy Dunlap wrote:
-> On 3/11/20 9:12 PM, Andrew Morton wrote:
->> The mm-of-the-moment snapshot 2020-03-11-21-11 has been uploaded to
->>
->>     http://www.ozlabs.org/~akpm/mmotm/
->>
->> mmotm-readme.txt says
->>
->> README for mm-of-the-moment:
->>
->> http://www.ozlabs.org/~akpm/mmotm/
->>
->> This is a snapshot of my -mm patch queue.  Uploaded at random hopefully
->> more than once a week.
->>
->> You will need quilt to apply these patches to the latest Linus release (5.x
->> or 5.x-rcY).  The series file is in broken-out.tar.gz and is duplicated in
->> http://ozlabs.org/~akpm/mmotm/series
->>
->> The file broken-out.tar.gz contains two datestamp files: .DATE and
->> .DATE-yyyy-mm-dd-hh-mm-ss.  Both contain the string yyyy-mm-dd-hh-mm-ss,
->> followed by the base kernel version against which this patch series is to
->> be applied.
->>
->> This tree is partially included in linux-next.  To see which patches are
->> included in linux-next, consult the `series' file.  Only the patches
->> within the #NEXT_PATCHES_START/#NEXT_PATCHES_END markers are included in
->> linux-next.
->>
->>
->> A full copy of the full kernel tree with the linux-next and mmotm patches
->> already applied is available through git within an hour of the mmotm
->> release.  Individual mmotm releases are tagged.  The master branch always
->> points to the latest release, so it's constantly rebasing.
->>
->> 	https://github.com/hnaz/linux-mm
->>
->> The directory http://www.ozlabs.org/~akpm/mmots/ (mm-of-the-second)
->> contains daily snapshots of the -mm tree.  It is updated more frequently
->> than mmotm, and is untested.
->>
->> A git copy of this tree is also available at
->>
->> 	https://github.com/hnaz/linux-mm
-> 
-> 
-> on x86_64:
-> 
-> ld: sound/soc/codecs/wcd9335.o: in function `wcd9335_trigger':
-> wcd9335.c:(.text+0x451): undefined reference to `slim_stream_prepare'
-> ld: wcd9335.c:(.text+0x465): undefined reference to `slim_stream_enable'
-> ld: wcd9335.c:(.text+0x48f): undefined reference to `slim_stream_unprepare'
-> ld: wcd9335.c:(.text+0x4a3): undefined reference to `slim_stream_disable'
-> ld: sound/soc/codecs/wcd9335.o: in function `wcd9335_slim_status':
-> wcd9335.c:(.text+0x23df): undefined reference to `of_slim_get_device'
-> ld: wcd9335.c:(.text+0x2414): undefined reference to `slim_get_logical_addr'
-> ld: wcd9335.c:(.text+0x2427): undefined reference to `__regmap_init_slimbus'
-> ld: wcd9335.c:(.text+0x245f): undefined reference to `__regmap_init_slimbus'
-> ld: sound/soc/codecs/wcd9335.o: in function `wcd9335_hw_params':
-> wcd9335.c:(.text+0x3e05): undefined reference to `slim_stream_allocate'
-> ld: sound/soc/codecs/wcd9335.o: in function `wcd9335_slim_driver_init':
-> wcd9335.c:(.init.text+0x15): undefined reference to `__slim_driver_register'
-> ld: sound/soc/codecs/wcd9335.o: in function `wcd9335_slim_driver_exit':
-> wcd9335.c:(.exit.text+0x11): undefined reference to `slim_driver_unregister'
-> 
-> 
-> Full randconfig file is attached.
-> 

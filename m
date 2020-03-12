@@ -2,64 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6803E183998
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Mar 2020 20:35:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A531183999
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Mar 2020 20:36:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD3EB1740;
-	Thu, 12 Mar 2020 20:35:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD3EB1740
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8703016F4;
+	Thu, 12 Mar 2020 20:35:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8703016F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584041750;
-	bh=0WUpJUOyqZHlDSBF7abuY5J23vQ+Ccws/uGPli0qGBY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=uT4umuakaFZOJmGhgyEHX6BXhGOoq+nk6OWHqhUHcbFqUXJyL3A246RIl1hi/5ZI/
-	 jZ/XRgqPO8QAS0QyBvCT1z/G+E8PKhw79fee4oghVAvjvPhhvymRoR/VHD5hki3hY0
-	 VC61SC1Fn52z3fGfpI6DO3A6/q4sLczPQrRJ096A=
+	s=default; t=1584041794;
+	bh=K+/N0/VgAU+ZY3LWWahohyL11peMO+LuAQHHIZPluFc=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=WUwr14FcdXOPDKPtG7GjBUkd0RC2rlUDAIrUmL4l4jh1FpynvClfr7s1teKWke58C
+	 TIZPmGcBh6z8WAH9CGuyRa8j9LVqsNE0rNH56TGlgpxEkF39Snv4mgV/1/sNdhUpHq
+	 QI8vNciOx5zi+87ZMvA/DctxZ71opFvQ9R1hleUc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 923E8F80086;
-	Thu, 12 Mar 2020 20:34:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E48B7F8026F;
+	Thu, 12 Mar 2020 20:34:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 388FEF8020C; Thu, 12 Mar 2020 20:34:07 +0100 (CET)
+ id C6E80F8021C; Thu, 12 Mar 2020 20:34:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8CC81F800BE
- for <alsa-devel@alsa-project.org>; Thu, 12 Mar 2020 20:34:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CC81F800BE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 35DBAF8021C
+ for <alsa-devel@alsa-project.org>; Thu, 12 Mar 2020 20:34:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35DBAF8021C
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 12 Mar 2020 12:33:59 -0700
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 12 Mar 2020 12:34:15 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,545,1574150400"; d="scan'208";a="243142313"
+X-IronPort-AV: E=Sophos;i="5.70,545,1574150400"; d="scan'208";a="243142472"
 Received: from unknown (HELO pbossart-mobl3.amr.corp.intel.com)
  ([10.251.241.169])
- by orsmga003.jf.intel.com with ESMTP; 12 Mar 2020 12:33:58 -0700
+ by orsmga003.jf.intel.com with ESMTP; 12 Mar 2020 12:34:13 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 00/10] ASoC: SOF: Intel: add SoundWire support
-Date: Thu, 12 Mar 2020 14:33:36 -0500
-Message-Id: <20200312193346.3264-1-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 01/10] ASoC: soc-acpi: expand description of _ADR-based devices
+Date: Thu, 12 Mar 2020 14:33:37 -0500
+Message-Id: <20200312193346.3264-2-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200312193346.3264-1-pierre-louis.bossart@linux.intel.com>
+References: <20200312193346.3264-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.de,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Hui Wang <hui.wang@canonical.com>, vkoul@kernel.org, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, tiwai@suse.de,
+ Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Mac Chiang <mac.chiang@intel.com>, srinivas.kandagatla@linaro.org,
+ jank@cadence.com, Amery Song <chao.song@intel.com>,
  Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
+ Pan Xiuli <xiuli.pan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Hui Wang <hui.wang@canonical.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>, slawomir.blauciak@intel.com,
+ broonie@kernel.org, Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Sathyanarayana Nujella <sathyanarayana.nujella@intel.com>,
+ Naveen Manohar <naveen.m@intel.com>, gregkh@linuxfoundation.org,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ vkoul@kernel.org, Sathya Prakash M R <sathya.prakash.m.r@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,53 +86,453 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patchset provides the support for SoundWire support on Intel
-CometLake, IcelLake and TigerLake RVP platforms and form-factor
-devices to be released 'soon'.
+For SoundWire, we need to know if endpoints needs to be 'aggregated'
+(MIPI parlance, meaning logically grouped), e.g. when two speaker
+amplifiers need to be handled as a single logical output.
 
-The bulk of the code is about detecting a valid SoundWire
-configuration from ACPI, and implementing the interfaces suggested in
-'[PATCH 0/8] soundwire: remove platform devices, add SOF interfaces'
-for interrupts, PCI wakes and clock-stop configurations.
+We don't necessarily have the information at the firmware (BIOS)
+level, so add a notion of endpoints and specify if a device/endpoint
+is part of a group, with a position.
 
-Since that SoundWire series is stuck with no resolution, the build
-support for SOF w/ SoundWire is not provided for now, and fall-back
-functions will be used. This code is tested on a daily basis in the
-SOF tree and is not expected to change. If audio maintainers will only
-accept functional code, which isn't unreasonable, I would kindly ask
-that they reach out to Vinod Koul.
+This may be expanded in future solutions, for now only provide a group
+and position information.
 
-Bard Liao (1):
-  ASoC: SOF: Intel: hda: merge IPC, stream and SoundWire interrupt
-    handlers
+Since we modify the header file, change all existing upstream tables
+as well to avoid breaking compilation/bisect.
 
-Pierre-Louis Bossart (7):
-  ASoC: soc-acpi: expand description of _ADR-based devices
-  ASoC: SOF: Intel: add SoundWire configuration interface
-  ASoC: SOF: IPC: dai-intel: move ALH declarations in header file
-  ASoC: SOF: Intel: hda: add SoundWire stream config/free callbacks
-  ASoC: SOF: Intel: hda: initial SoundWire machine driver autodetect
-  ASoC: SOF: Intel: hda: disable SoundWire interrupts on suspend
-  ASoC: SOF: Intel: hda: add parameter to control SoundWire clock stop
-    quirks
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ include/sound/soc-acpi.h                      | 39 ++++++--
+ .../intel/common/soc-acpi-intel-cml-match.c   | 87 +++++++++++++----
+ .../intel/common/soc-acpi-intel-icl-match.c   | 97 +++++++++++++++----
+ .../intel/common/soc-acpi-intel-tgl-match.c   | 49 ++++++++--
+ 4 files changed, 221 insertions(+), 51 deletions(-)
 
-Rander Wang (2):
-  ASoC: SOF: Intel: hda: add WAKEEN interrupt support for SoundWire
-  Asoc: SOF: Intel: hda: check SoundWire wakeen interrupt in irq thread
-
- include/sound/soc-acpi.h                      |  39 +-
- include/sound/sof/dai-intel.h                 |  18 +-
- .../intel/common/soc-acpi-intel-cml-match.c   |  87 +++-
- .../intel/common/soc-acpi-intel-icl-match.c   |  97 ++++-
- .../intel/common/soc-acpi-intel-tgl-match.c   |  49 ++-
- sound/soc/sof/intel/hda-dsp.c                 |   2 +
- sound/soc/sof/intel/hda-loader.c              |  31 ++
- sound/soc/sof/intel/hda.c                     | 399 ++++++++++++++++++
- sound/soc/sof/intel/hda.h                     |  66 +++
- 9 files changed, 728 insertions(+), 60 deletions(-)
-
-
-base-commit: 101247a3b86e1cc0e382b7e887a56176290fc957
+diff --git a/include/sound/soc-acpi.h b/include/sound/soc-acpi.h
+index a217a87cae86..392e953d561e 100644
+--- a/include/sound/soc-acpi.h
++++ b/include/sound/soc-acpi.h
+@@ -75,18 +75,45 @@ struct snd_soc_acpi_mach_params {
+ };
+ 
+ /**
+- * snd_soc_acpi_link_adr: ACPI-based list of _ADR, with a variable
+- * number of devices per link
+- *
++ * snd_soc_acpi_endpoint - endpoint descriptor
++ * @num: endpoint number (mandatory, unique per device)
++ * @aggregated: 0 (independent) or 1 (logically grouped)
++ * @group_position: zero-based order (only when @aggregated is 1)
++ * @group_id: platform-unique group identifier (only when @aggregrated is 1)
++ */
++struct snd_soc_acpi_endpoint {
++	u8 num;
++	u8 aggregated;
++	u8 group_position;
++	u8 group_id;
++};
++
++/**
++ * snd_soc_acpi_adr_device - descriptor for _ADR-enumerated device
++ * @adr: 64 bit ACPI _ADR value
++ * @num_endpoints: number of endpoints for this device
++ * @endpoints: array of endpoints
++ */
++struct snd_soc_acpi_adr_device {
++	const u64 adr;
++	const u8 num_endpoints;
++	const struct snd_soc_acpi_endpoint *endpoints;
++};
++
++/**
++ * snd_soc_acpi_link_adr - ACPI-based list of _ADR enumerated devices
+  * @mask: one bit set indicates the link this list applies to
+- * @num_adr: ARRAY_SIZE of adr
+- * @adr: array of _ADR (represented as u64).
++ * @num_adr: ARRAY_SIZE of devices
++ * @adr_d: array of devices
++ *
++ * The number of devices per link can be more than 1, e.g. in SoundWire
++ * multi-drop configurations.
+  */
+ 
+ struct snd_soc_acpi_link_adr {
+ 	const u32 mask;
+ 	const u32 num_adr;
+-	const u64 *adr;
++	const struct snd_soc_acpi_adr_device *adr_d;
+ };
+ 
+ /**
+diff --git a/sound/soc/intel/common/soc-acpi-intel-cml-match.c b/sound/soc/intel/common/soc-acpi-intel-cml-match.c
+index f55634c4c2e8..3525da79c68a 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-cml-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-cml-match.c
+@@ -59,42 +59,95 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_cml_machines[] = {
+ };
+ EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_cml_machines);
+ 
+-static const u64 rt711_0_adr[] = {
+-	0x000010025D071100
++static const struct snd_soc_acpi_endpoint single_endpoint = {
++	.num = 0,
++	.aggregated = 0,
++	.group_position = 0,
++	.group_id = 0,
+ };
+ 
+-static const u64 rt1308_1_adr[] = {
+-	0x000110025D130800
++static const struct snd_soc_acpi_endpoint spk_l_endpoint = {
++	.num = 0,
++	.aggregated = 1,
++	.group_position = 0,
++	.group_id = 1,
+ };
+ 
+-static const u64 rt1308_2_adr[] = {
+-	0x000210025D130800
++static const struct snd_soc_acpi_endpoint spk_r_endpoint = {
++	.num = 0,
++	.aggregated = 1,
++	.group_position = 1,
++	.group_id = 1,
+ };
+ 
+-static const u64 rt715_3_adr[] = {
+-	0x000310025D071500
++static const struct snd_soc_acpi_adr_device rt711_0_adr[] = {
++	{
++		.adr = 0x000010025D071100,
++		.num_endpoints = 1,
++		.endpoints = &single_endpoint,
++	}
++};
++
++static const struct snd_soc_acpi_adr_device rt1308_1_adr[] = {
++	{
++		.adr = 0x000110025D130800,
++		.num_endpoints = 1,
++		.endpoints = &single_endpoint,
++	}
++};
++
++static const struct snd_soc_acpi_adr_device rt1308_2_adr[] = {
++	{
++		.adr = 0x000210025D130800,
++		.num_endpoints = 1,
++		.endpoints = &single_endpoint,
++	}
++};
++
++static const struct snd_soc_acpi_adr_device rt1308_1_group1_adr[] = {
++	{
++		.adr = 0x000110025D130800,
++		.num_endpoints = 1,
++		.endpoints = &spk_l_endpoint,
++	}
++};
++
++static const struct snd_soc_acpi_adr_device rt1308_2_group1_adr[] = {
++	{
++		.adr = 0x000210025D130800,
++		.num_endpoints = 1,
++		.endpoints = &spk_r_endpoint,
++	}
++};
++
++static const struct snd_soc_acpi_adr_device rt715_3_adr[] = {
++	{
++		.adr = 0x000310025D071500,
++		.num_endpoints = 1,
++		.endpoints = &single_endpoint,
++	}
+ };
+ 
+ static const struct snd_soc_acpi_link_adr cml_3_in_1_default[] = {
+ 	{
+ 		.mask = BIT(0),
+ 		.num_adr = ARRAY_SIZE(rt711_0_adr),
+-		.adr = rt711_0_adr,
++		.adr_d = rt711_0_adr,
+ 	},
+ 	{
+ 		.mask = BIT(1),
+-		.num_adr = ARRAY_SIZE(rt1308_1_adr),
+-		.adr = rt1308_1_adr,
++		.num_adr = ARRAY_SIZE(rt1308_1_group1_adr),
++		.adr_d = rt1308_1_group1_adr,
+ 	},
+ 	{
+ 		.mask = BIT(2),
+-		.num_adr = ARRAY_SIZE(rt1308_2_adr),
+-		.adr = rt1308_2_adr,
++		.num_adr = ARRAY_SIZE(rt1308_2_group1_adr),
++		.adr_d = rt1308_2_group1_adr,
+ 	},
+ 	{
+ 		.mask = BIT(3),
+ 		.num_adr = ARRAY_SIZE(rt715_3_adr),
+-		.adr = rt715_3_adr,
++		.adr_d = rt715_3_adr,
+ 	},
+ 	{}
+ };
+@@ -103,17 +156,17 @@ static const struct snd_soc_acpi_link_adr cml_3_in_1_mono_amp[] = {
+ 	{
+ 		.mask = BIT(0),
+ 		.num_adr = ARRAY_SIZE(rt711_0_adr),
+-		.adr = rt711_0_adr,
++		.adr_d = rt711_0_adr,
+ 	},
+ 	{
+ 		.mask = BIT(1),
+ 		.num_adr = ARRAY_SIZE(rt1308_1_adr),
+-		.adr = rt1308_1_adr,
++		.adr_d = rt1308_1_adr,
+ 	},
+ 	{
+ 		.mask = BIT(3),
+ 		.num_adr = ARRAY_SIZE(rt715_3_adr),
+-		.adr = rt715_3_adr,
++		.adr_d = rt715_3_adr,
+ 	},
+ 	{}
+ };
+diff --git a/sound/soc/intel/common/soc-acpi-intel-icl-match.c b/sound/soc/intel/common/soc-acpi-intel-icl-match.c
+index 752733013d54..36e2d09cf58c 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-icl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-icl-match.c
+@@ -33,55 +33,112 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_icl_machines[] = {
+ };
+ EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_icl_machines);
+ 
+-static const u64 rt700_0_adr[] = {
+-	0x000010025D070000
++static const struct snd_soc_acpi_endpoint single_endpoint = {
++	.num = 0,
++	.aggregated = 0,
++	.group_position = 0,
++	.group_id = 0,
++};
++
++static const struct snd_soc_acpi_endpoint spk_l_endpoint = {
++	.num = 0,
++	.aggregated = 1,
++	.group_position = 0,
++	.group_id = 1,
++};
++
++static const struct snd_soc_acpi_endpoint spk_r_endpoint = {
++	.num = 0,
++	.aggregated = 1,
++	.group_position = 1,
++	.group_id = 1,
++};
++
++static const struct snd_soc_acpi_adr_device rt700_0_adr[] = {
++	{
++		.adr = 0x000010025D070000,
++		.num_endpoints = 1,
++		.endpoints = &single_endpoint,
++	}
+ };
+ 
+ static const struct snd_soc_acpi_link_adr icl_rvp[] = {
+ 	{
+ 		.mask = BIT(0),
+ 		.num_adr = ARRAY_SIZE(rt700_0_adr),
+-		.adr = rt700_0_adr,
++		.adr_d = rt700_0_adr,
+ 	},
+ 	{}
+ };
+ 
+-static const u64 rt711_0_adr[] = {
+-	0x000010025D071100
++static const struct snd_soc_acpi_adr_device rt711_0_adr[] = {
++	{
++		.adr = 0x000010025D071100,
++		.num_endpoints = 1,
++		.endpoints = &single_endpoint,
++	}
++};
++
++static const struct snd_soc_acpi_adr_device rt1308_1_adr[] = {
++	{
++		.adr = 0x000110025D130800,
++		.num_endpoints = 1,
++		.endpoints = &single_endpoint,
++	}
+ };
+ 
+-static const u64 rt1308_1_adr[] = {
+-	0x000110025D130800
++static const struct snd_soc_acpi_adr_device rt1308_2_adr[] = {
++	{
++		.adr = 0x000210025D130800,
++		.num_endpoints = 1,
++		.endpoints = &single_endpoint,
++	}
+ };
+ 
+-static const u64 rt1308_2_adr[] = {
+-	0x000210025D130800
++static const struct snd_soc_acpi_adr_device rt1308_1_group1_adr[] = {
++	{
++		.adr = 0x000110025D130800,
++		.num_endpoints = 1,
++		.endpoints = &spk_l_endpoint,
++	}
+ };
+ 
+-static const u64 rt715_3_adr[] = {
+-	0x000310025D071500
++static const struct snd_soc_acpi_adr_device rt1308_2_group1_adr[] = {
++	{
++		.adr = 0x000210025D130800,
++		.num_endpoints = 1,
++		.endpoints = &spk_r_endpoint,
++	}
++};
++
++static const struct snd_soc_acpi_adr_device rt715_3_adr[] = {
++	{
++		.adr = 0x000310025D071500,
++		.num_endpoints = 1,
++		.endpoints = &single_endpoint,
++	}
+ };
+ 
+ static const struct snd_soc_acpi_link_adr icl_3_in_1_default[] = {
+ 	{
+ 		.mask = BIT(0),
+ 		.num_adr = ARRAY_SIZE(rt711_0_adr),
+-		.adr = rt711_0_adr,
++		.adr_d = rt711_0_adr,
+ 	},
+ 	{
+ 		.mask = BIT(1),
+-		.num_adr = ARRAY_SIZE(rt1308_1_adr),
+-		.adr = rt1308_1_adr,
++		.num_adr = ARRAY_SIZE(rt1308_1_group1_adr),
++		.adr_d = rt1308_1_adr,
+ 	},
+ 	{
+ 		.mask = BIT(2),
+-		.num_adr = ARRAY_SIZE(rt1308_2_adr),
+-		.adr = rt1308_2_adr,
++		.num_adr = ARRAY_SIZE(rt1308_2_group1_adr),
++		.adr_d = rt1308_2_adr,
+ 	},
+ 	{
+ 		.mask = BIT(3),
+ 		.num_adr = ARRAY_SIZE(rt715_3_adr),
+-		.adr = rt715_3_adr,
++		.adr_d = rt715_3_adr,
+ 	},
+ 	{}
+ };
+@@ -90,17 +147,17 @@ static const struct snd_soc_acpi_link_adr icl_3_in_1_mono_amp[] = {
+ 	{
+ 		.mask = BIT(0),
+ 		.num_adr = ARRAY_SIZE(rt711_0_adr),
+-		.adr = rt711_0_adr,
++		.adr_d = rt711_0_adr,
+ 	},
+ 	{
+ 		.mask = BIT(1),
+ 		.num_adr = ARRAY_SIZE(rt1308_1_adr),
+-		.adr = rt1308_1_adr,
++		.adr_d = rt1308_1_adr,
+ 	},
+ 	{
+ 		.mask = BIT(3),
+ 		.num_adr = ARRAY_SIZE(rt715_3_adr),
+-		.adr = rt715_3_adr,
++		.adr_d = rt715_3_adr,
+ 	},
+ 	{}
+ };
+diff --git a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
+index 5984dd151f3e..885ef4f00385 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
+@@ -14,20 +14,53 @@ static struct snd_soc_acpi_codecs tgl_codecs = {
+ 	.codecs = {"MX98357A"}
+ };
+ 
+-static const u64 rt711_0_adr[] = {
+-	0x000010025D071100
++static const struct snd_soc_acpi_endpoint single_endpoint = {
++	.num = 0,
++	.aggregated = 0,
++	.group_position = 0,
++	.group_id = 0,
+ };
+ 
+-static const u64 rt1308_1_adr[] = {
+-	0x000120025D130800,
+-	0x000122025D130800
++static const struct snd_soc_acpi_endpoint spk_l_endpoint = {
++	.num = 0,
++	.aggregated = 1,
++	.group_position = 0,
++	.group_id = 1,
++};
++
++static const struct snd_soc_acpi_endpoint spk_r_endpoint = {
++	.num = 0,
++	.aggregated = 1,
++	.group_position = 1,
++	.group_id = 1,
++};
++
++static const struct snd_soc_acpi_adr_device rt711_0_adr[] = {
++	{
++		.adr = 0x000010025D071100,
++		.num_endpoints = 1,
++		.endpoints = &single_endpoint,
++	}
++};
++
++static const struct snd_soc_acpi_adr_device rt1308_1_adr[] = {
++	{
++		.adr = 0x000120025D130800,
++		.num_endpoints = 1,
++		.endpoints = &spk_l_endpoint,
++	},
++	{
++		.adr = 0x000122025D130800,
++		.num_endpoints = 1,
++		.endpoints = &spk_r_endpoint,
++	}
+ };
+ 
+ static const struct snd_soc_acpi_link_adr tgl_i2s_rt1308[] = {
+ 	{
+ 		.mask = BIT(0),
+ 		.num_adr = ARRAY_SIZE(rt711_0_adr),
+-		.adr = rt711_0_adr,
++		.adr_d = rt711_0_adr,
+ 	},
+ 	{}
+ };
+@@ -36,12 +69,12 @@ static const struct snd_soc_acpi_link_adr tgl_rvp[] = {
+ 	{
+ 		.mask = BIT(0),
+ 		.num_adr = ARRAY_SIZE(rt711_0_adr),
+-		.adr = rt711_0_adr,
++		.adr_d = rt711_0_adr,
+ 	},
+ 	{
+ 		.mask = BIT(1),
+ 		.num_adr = ARRAY_SIZE(rt1308_1_adr),
+-		.adr = rt1308_1_adr,
++		.adr_d = rt1308_1_adr,
+ 	},
+ 	{}
+ };
 -- 
 2.20.1
 

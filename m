@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01B1F182F6F
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Mar 2020 12:41:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8292E182F73
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Mar 2020 12:42:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7449716D6;
-	Thu, 12 Mar 2020 12:40:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7449716D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 265E016CD;
+	Thu, 12 Mar 2020 12:41:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 265E016CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584013294;
-	bh=swjb62LfFGeOU+yjGcAhq+98TranS2onxgJpN/sI+cg=;
+	s=default; t=1584013338;
+	bh=gmC2Yubk7gyDRMU/V6LDQFkJNGBfnyn5EnYZXE9nhZg=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=q63yd/Rc//UoiyQ65d8YXvX1FGfMUakg2iCESkFVfWgOz6FleJJvs0h1QkYtZh4AJ
-	 S8zItaXPZA+kG4pEnhfM2L0biIY7eFRX9c1IWertLy7cFQDGTgvy8FrhsWkt13v2/1
-	 hYg1D2hm/4btDpcCJEDLh7oYf4MwZQXMuZrMTC/0=
+	b=PRyga098bJ6WbgVG2Ek/5AULSX883knXgnyl8Ax1SIk0aie1Q89ZrNvWYyM3Uuuvf
+	 0e+wrWjxRYIXsId3L696pqFxwti+MPUGUb9cI5viE+cyDQdE4YLRCi2hRVlZUCQ13d
+	 vex6+XZ7er81CfN9Vb3moSwSjkjHiZPyYRDM5sGs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70277F800BE;
-	Thu, 12 Mar 2020 12:39:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1438EF8028C;
+	Thu, 12 Mar 2020 12:39:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6A598F8013E; Thu, 12 Mar 2020 12:39:50 +0100 (CET)
+ id 53834F8020C; Thu, 12 Mar 2020 12:39:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,33 +33,37 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1E48BF8013E
- for <alsa-devel@alsa-project.org>; Thu, 12 Mar 2020 12:39:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E48BF8013E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B2C8F800BE;
+ Thu, 12 Mar 2020 12:39:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B2C8F800BE
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 12 Mar 2020 04:39:42 -0700
+ 12 Mar 2020 04:39:44 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,544,1574150400"; d="scan'208";a="242995404"
+X-IronPort-AV: E=Sophos;i="5.70,544,1574150400"; d="scan'208";a="242995407"
 Received: from swaydand-mobl1.amr.corp.intel.com (HELO [10.255.230.33])
  ([10.255.230.33])
- by orsmga003.jf.intel.com with ESMTP; 12 Mar 2020 04:39:41 -0700
-Subject: Re: [PATCH] soundwire: stream: use sdw_write instead of update
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, vkoul@kernel.org
-References: <20200312100105.5293-1-srinivas.kandagatla@linaro.org>
+ by orsmga003.jf.intel.com with ESMTP; 12 Mar 2020 04:39:43 -0700
+Subject: Re: [PATCH v2 2/2] ASoC: export DPCM runtime update functions
+To: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ alsa-devel@alsa-project.org
+References: <20200312095214.15126-1-guennadi.liakhovetski@linux.intel.com>
+ <20200312095214.15126-3-guennadi.liakhovetski@linux.intel.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <b235b88a-acdc-cec4-0c00-2609c3774fa1@linux.intel.com>
-Date: Thu, 12 Mar 2020 05:45:32 -0500
+Message-ID: <55ea2704-121d-9940-3c84-169cc65016d9@linux.intel.com>
+Date: Thu, 12 Mar 2020 05:51:59 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <20200312100105.5293-1-srinivas.kandagatla@linaro.org>
+In-Reply-To: <20200312095214.15126-3-guennadi.liakhovetski@linux.intel.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,58 +81,116 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 3/12/20 5:01 AM, Srinivas Kandagatla wrote:
-> There is no point in using update for registers with write mask
-> as 0xFF, this adds unecessary traffic on the bus.
-> Just use sdw_write directly.
-
-well in theory you could have two streams share the same port, that's 
-allowed by the specification.
-
-But since it clearly documented as not supported
-
-	/*
-	 * Since bus doesn't support sharing a port across two streams,
-	 * it is safe to reset this register
-	 */
-
-this mask handing is indeed completely overkill.
-
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
+On 3/12/20 4:52 AM, Guennadi Liakhovetski wrote:
+> This makes DPCM runtime update functions available for external
+> calling. As an example, virtualised ASoC component drivers may need
+> to call these when managing shared DAPM routes that are used by more
+> than one driver (i.e. when host driver and guest drivers have a DAPM
+> path from guest PCM to host DAI where some parts are owned by host
+> driver and others by guest driver).
 > 
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> Signed-off-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+
+My understanding of Mark's feedback was to avoid exposing DPCM functions 
+to other subsystems, since there's a long-term desire to move to a 
+different domain-based handling instead of the existing FE/BE split.
+
 > ---
->   drivers/soundwire/stream.c | 9 ++++-----
->   1 file changed, 4 insertions(+), 5 deletions(-)
+>   include/sound/soc-dpcm.h | 4 ++--
+>   sound/soc/soc-dapm.c     | 8 ++++----
+>   sound/soc/soc-pcm.c      | 5 ++++-
+>   3 files changed, 10 insertions(+), 7 deletions(-)
 > 
-> diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-> index 00348d1fc606..1b43d03c79ea 100644
-> --- a/drivers/soundwire/stream.c
-> +++ b/drivers/soundwire/stream.c
-> @@ -313,9 +313,9 @@ static int sdw_enable_disable_slave_ports(struct sdw_bus *bus,
->   	 * it is safe to reset this register
->   	 */
->   	if (en)
-> -		ret = sdw_update(s_rt->slave, addr, 0xFF, p_rt->ch_mask);
-> +		ret = sdw_write(s_rt->slave, addr, p_rt->ch_mask);
->   	else
-> -		ret = sdw_update(s_rt->slave, addr, 0xFF, 0x0);
-> +		ret = sdw_write(s_rt->slave, addr, 0x0);
+> diff --git a/include/sound/soc-dpcm.h b/include/sound/soc-dpcm.h
+> index 4022357..0f6c50b 100644
+> --- a/include/sound/soc-dpcm.h
+> +++ b/include/sound/soc-dpcm.h
+> @@ -132,8 +132,8 @@ int snd_soc_dpcm_be_can_update(struct snd_soc_pcm_runtime *fe,
+>   struct snd_pcm_substream *
+>   	snd_soc_dpcm_get_substream(struct snd_soc_pcm_runtime *be, int stream);
 >   
->   	if (ret < 0)
->   		dev_err(&s_rt->slave->dev,
-> @@ -464,10 +464,9 @@ static int sdw_prep_deprep_slave_ports(struct sdw_bus *bus,
->   		addr = SDW_DPN_PREPARECTRL(p_rt->num);
+> -/* internal use only */
+> -int soc_dpcm_runtime_update(struct snd_soc_card *);
+> +/* update audio routing between PCMs and any DAI links */
+> +int snd_soc_dpcm_runtime_update(struct snd_soc_card *card);
 >   
->   		if (prep)
-> -			ret = sdw_update(s_rt->slave, addr,
-> -					 0xFF, p_rt->ch_mask);
-> +			ret = sdw_write(s_rt->slave, addr, p_rt->ch_mask);
->   		else
-> -			ret = sdw_update(s_rt->slave, addr, 0xFF, 0x0);
-> +			ret = sdw_write(s_rt->slave, addr, 0x0);
+>   #ifdef CONFIG_DEBUG_FS
+>   void soc_dpcm_debugfs_add(struct snd_soc_pcm_runtime *rtd);
+> diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+> index e00a465..d5eb52f 100644
+> --- a/sound/soc/soc-dapm.c
+> +++ b/sound/soc/soc-dapm.c
+> @@ -2291,7 +2291,7 @@ int snd_soc_dapm_mux_update_power(struct snd_soc_dapm_context *dapm,
+>   	card->update = NULL;
+>   	mutex_unlock(&card->dapm_mutex);
+>   	if (ret > 0)
+> -		soc_dpcm_runtime_update(card);
+> +		snd_soc_dpcm_runtime_update(card);
+>   	return ret;
+>   }
+>   EXPORT_SYMBOL_GPL(snd_soc_dapm_mux_update_power);
+> @@ -2356,7 +2356,7 @@ int snd_soc_dapm_mixer_update_power(struct snd_soc_dapm_context *dapm,
+>   	card->update = NULL;
+>   	mutex_unlock(&card->dapm_mutex);
+>   	if (ret > 0)
+> -		soc_dpcm_runtime_update(card);
+> +		snd_soc_dpcm_runtime_update(card);
+>   	return ret;
+>   }
+>   EXPORT_SYMBOL_GPL(snd_soc_dapm_mixer_update_power);
+> @@ -3396,7 +3396,7 @@ int snd_soc_dapm_put_volsw(struct snd_kcontrol *kcontrol,
+>   	mutex_unlock(&card->dapm_mutex);
 >   
->   		if (ret < 0) {
->   			dev_err(&s_rt->slave->dev,
+>   	if (ret > 0)
+> -		soc_dpcm_runtime_update(card);
+> +		snd_soc_dpcm_runtime_update(card);
+>   
+>   	return change;
+>   }
+> @@ -3501,7 +3501,7 @@ int snd_soc_dapm_put_enum_double(struct snd_kcontrol *kcontrol,
+>   	mutex_unlock(&card->dapm_mutex);
+>   
+>   	if (ret > 0)
+> -		soc_dpcm_runtime_update(card);
+> +		snd_soc_dpcm_runtime_update(card);
+>   
+>   	return change;
+>   }
+> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+> index bf4c5dc..2b915f4 100644
+> --- a/sound/soc/soc-pcm.c
+> +++ b/sound/soc/soc-pcm.c
+> @@ -295,6 +295,7 @@ void snd_soc_runtime_activate(struct snd_soc_pcm_runtime *rtd, int stream)
+>   {
+>   	snd_soc_runtime_action(rtd, stream, 1);
+>   }
+> +EXPORT_SYMBOL_GPL(snd_soc_runtime_activate);
+>   
+>   /**
+>    * snd_soc_runtime_deactivate() - Decrement active count for PCM runtime components
+> @@ -310,6 +311,7 @@ void snd_soc_runtime_deactivate(struct snd_soc_pcm_runtime *rtd, int stream)
+>   {
+>   	snd_soc_runtime_action(rtd, stream, -1);
+>   }
+> +EXPORT_SYMBOL_GPL(snd_soc_runtime_deactivate);
+>   
+>   /**
+>    * snd_soc_runtime_ignore_pmdown_time() - Check whether to ignore the power down delay
+> @@ -2969,7 +2971,7 @@ static int soc_dpcm_fe_runtime_update(struct snd_soc_pcm_runtime *fe, int new)
+>   /* Called by DAPM mixer/mux changes to update audio routing between PCMs and
+>    * any DAI links.
+>    */
+> -int soc_dpcm_runtime_update(struct snd_soc_card *card)
+> +int snd_soc_dpcm_runtime_update(struct snd_soc_card *card)
+>   {
+>   	struct snd_soc_pcm_runtime *fe;
+>   	int ret = 0;
+> @@ -2993,6 +2995,7 @@ int soc_dpcm_runtime_update(struct snd_soc_card *card)
+>   	mutex_unlock(&card->mutex);
+>   	return ret;
+>   }
+> +EXPORT_SYMBOL_GPL(snd_soc_dpcm_runtime_update);
+>   
+>   static void dpcm_fe_dai_cleanup(struct snd_pcm_substream *fe_substream)
+>   {
 > 

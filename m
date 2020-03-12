@@ -2,55 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D2611831FF
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Mar 2020 14:49:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58BDB183236
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Mar 2020 14:59:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2AE2B16F1;
-	Thu, 12 Mar 2020 14:48:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AE2B16F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id E25D816F1;
+	Thu, 12 Mar 2020 14:59:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E25D816F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584020958;
-	bh=7xyV5glIMZ+HaQOdkx9GECemgw2YAoAcnVNXJa4UHjY=;
-	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=YMOWingvwrojiVna3CZnFaIApAso3Lmv1YlL0N0zqDmPdnhDEQHzzLCHY27XxlKc+
-	 ITjjcgpikQvOR10RdPl/6+RlA+uwsgL3+2Nfj6vlwzptBGaOCehWlNfPKmHji0fS56
-	 5HVAcsSy31V65ZcO4uMPW/Hce+7hJdDqv5+TNbjM=
+	s=default; t=1584021592;
+	bh=dysdb4Mqgb5qdZSooO0za60yCJ0ozymgk9JgxhcVm38=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=KpzSYdqesMyouyDqOyBNQDfAJnxleuLD++Br93DoT/xsKm/qwtFEo6ianrTJjpmK2
+	 KWTPO7tPGarNb8Z+SBvXSjbX5acXTLwDXrIWYDgWVm45iTQ9PUNx3aXGvk7AEhLiUf
+	 7JnIiXOUZt8lMeq82droKJhhHbt6LsnGh5yZYgjw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E372F8028F;
-	Thu, 12 Mar 2020 14:46:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B27CF8021C;
+	Thu, 12 Mar 2020 14:58:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4D3FFF8028E; Thu, 12 Mar 2020 14:46:30 +0100 (CET)
+ id 797DBF8020C; Thu, 12 Mar 2020 14:58:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 616A3F801D9;
- Thu, 12 Mar 2020 14:46:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 616A3F801D9
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 570C930E;
- Thu, 12 Mar 2020 06:46:24 -0700 (PDT)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CED393F534;
- Thu, 12 Mar 2020 06:46:23 -0700 (PDT)
-Date: Thu, 12 Mar 2020 13:46:22 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Subject: Applied "ASoC: (cosmetic) simplify dpcm_prune_paths()" to the asoc
- tree
-In-Reply-To: <20200312095214.15126-2-guennadi.liakhovetski@linux.intel.com>
-Message-Id: <applied-20200312095214.15126-2-guennadi.liakhovetski@linux.intel.com>
-X-Patchwork-Hint: ignore
-Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, sound-open-firmware@alsa-project.org
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
+ [IPv6:2607:f8b0:4864:20::d44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 59081F80086
+ for <alsa-devel@alsa-project.org>; Thu, 12 Mar 2020 14:58:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59081F80086
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel-com.20150623.gappssmtp.com
+ header.i=@intel-com.20150623.gappssmtp.com header.b="CQ22swji"
+Received: by mail-io1-xd44.google.com with SMTP id q128so5750411iof.9
+ for <alsa-devel@alsa-project.org>; Thu, 12 Mar 2020 06:58:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=intel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Q5jWP/1noFwzObY4I4oTofdUqp0/aBf7noRWrJzokWw=;
+ b=CQ22swjiCopu7kqfLfnsrwhHAPSRfwKKCA6r4elFcV1FPK4WrNMHXrVMCCf2D4NZFD
+ 0IYw/mgKcl4tOAFqMJQz1vrsNdteWH3dC6JxmyacveLw7yeBuspIZstI1ms2bwO7tZ++
+ eDYZA4gV9gss+gE35AUmYFGboXEqWRhaiWKQyfuAgZmczwqEGPxuZcTg7xD5DBGV0kxv
+ qG0eQPJfq/3RJtGfsyV0OSqiozYrJKv6Lj8bZXn14zynI2g+FVka0y0Ar3whQgM3vxPf
+ pAPpcQ9MrA83L8s7CSDDAl8F5kpaFX3IqzwuAmEnuZX597mi8d8BSQcxld3gyLFQrcOy
+ kasw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Q5jWP/1noFwzObY4I4oTofdUqp0/aBf7noRWrJzokWw=;
+ b=HodbnP+vEjmREY9xlIgj87++xAwb23jaYCb4bxStRNj7CyMrHD5d3x3gvxP7YTYxYc
+ 9Lz9sQ1xsQzWyjMaHK2gxZ+FxRUv2nmktzLy40UcqYqi0l93JDDMV7C7eb38eoghh/rp
+ eLCSNGxgkcrYBLiASA1cjMx1uP1/uAa18bDLvJoFZ33qgo0/9mtbw2xNEok4Cb8nQ8+0
+ kYq45PwRXwiR2bdu0iFbjQudbDePgGJNQMnscsVWhiH37ncF2nhzzBipY+UlhHwM4Nx/
+ HQi+SEnecf7Y2QK17fdPIjpnz/0VBU44GuxI1naKM8r1so+Mo5MS7Yqx0xziCUmo7XZV
+ Jwmg==
+X-Gm-Message-State: ANhLgQ0xOLGNOv68Nd3zy0JKZ9QK7ultJzZvj48ljggLmG/OzlVEcEvX
+ POZkoMPX1T8gauVqQ7IZaFYAx8eLna0FGs4/47yzJw==
+X-Google-Smtp-Source: ADFU+vuJuUGRnEC3iVhGRSxroos2Ede9Dpwj56z+iJgPmm+9YKj7N4Outv5g/paeciUkpT4sh1lIb3Qq6pAc+vGaW/U=
+X-Received: by 2002:a6b:e806:: with SMTP id f6mr7929034ioh.52.1584021482487;
+ Thu, 12 Mar 2020 06:58:02 -0700 (PDT)
+MIME-Version: 1.0
+References: <20200312122239.14489-1-amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <20200312122239.14489-1-amadeuszx.slawinski@linux.intel.com>
+From: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
+Date: Thu, 12 Mar 2020 06:57:51 -0700
+Message-ID: <CAFQqKeUOQ5EU57SvEpzkSJ=khsRZ=E-WqarFoq2xpoycmhHqeA@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: topology: Perform component check upfront
+To: =?UTF-8?B?QW1hZGV1c3ogU8WCYXdpxYRza2k=?=
+ <amadeuszx.slawinski@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,132 +98,149 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+On Thu, Mar 12, 2020 at 3:14 AM Amadeusz S=C5=82awi=C5=84ski <
+amadeuszx.slawinski@linux.intel.com> wrote:
 
-   ASoC: (cosmetic) simplify dpcm_prune_paths()
+> Function soc_tplg_dbytes_create(), calls soc_tplg_init_kcontrol() to
+> perform additional driver specific initialization. While
+> soc_tplg_init_kcontrol() ensures that component is valid before invoking
+> ops->control_load, there is no such check at the end of
+> soc_tplg_dbytes_create() where list_add() is used.
+>
+> Also in quite a few places, there is reference of tplg->comp->dapm or
+> tplg->comp->card, without any checks for tplg->comp.
+>
+> In consequence of the above this may lead to referencing NULL pointer.
+>
+> This allows for removal of now unnecessary checks.
+>
+> Signed-off-by: Amadeusz S=C5=82awi=C5=84ski <amadeuszx.slawinski@linux.in=
+tel.com>
+> ---
+>  sound/soc/soc-topology.c | 22 +++++++++++++---------
+>  1 file changed, 13 insertions(+), 9 deletions(-)
+>
+> diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
+> index 575da6aba807..66958c57d884 100644
+> --- a/sound/soc/soc-topology.c
+> +++ b/sound/soc/soc-topology.c
+> @@ -251,7 +251,7 @@ static int soc_tplg_vendor_load_(struct soc_tplg *tpl=
+g,
+>  {
+>         int ret =3D 0;
+>
+> -       if (tplg->comp && tplg->ops && tplg->ops->vendor_load)
+> +       if (tplg->ops && tplg->ops->vendor_load)
+>                 ret =3D tplg->ops->vendor_load(tplg->comp, tplg->index, h=
+dr);
+>         else {
+>                 dev_err(tplg->dev, "ASoC: no vendor load callback for ID
+> %d\n",
+> @@ -283,7 +283,7 @@ static int soc_tplg_vendor_load(struct soc_tplg *tplg=
+,
+>  static int soc_tplg_widget_load(struct soc_tplg *tplg,
+>         struct snd_soc_dapm_widget *w, struct snd_soc_tplg_dapm_widget
+> *tplg_w)
+>  {
+> -       if (tplg->comp && tplg->ops && tplg->ops->widget_load)
+> +       if (tplg->ops && tplg->ops->widget_load)
+>                 return tplg->ops->widget_load(tplg->comp, tplg->index, w,
+>                         tplg_w);
+>
+> @@ -295,7 +295,7 @@ static int soc_tplg_widget_load(struct soc_tplg *tplg=
+,
+>  static int soc_tplg_widget_ready(struct soc_tplg *tplg,
+>         struct snd_soc_dapm_widget *w, struct snd_soc_tplg_dapm_widget
+> *tplg_w)
+>  {
+> -       if (tplg->comp && tplg->ops && tplg->ops->widget_ready)
+> +       if (tplg->ops && tplg->ops->widget_ready)
+>                 return tplg->ops->widget_ready(tplg->comp, tplg->index, w=
+,
+>                         tplg_w);
+>
+> @@ -307,7 +307,7 @@ static int soc_tplg_dai_load(struct soc_tplg *tplg,
+>         struct snd_soc_dai_driver *dai_drv,
+>         struct snd_soc_tplg_pcm *pcm, struct snd_soc_dai *dai)
+>  {
+> -       if (tplg->comp && tplg->ops && tplg->ops->dai_load)
+> +       if (tplg->ops && tplg->ops->dai_load)
+>                 return tplg->ops->dai_load(tplg->comp, tplg->index,
+> dai_drv,
+>                         pcm, dai);
+>
+> @@ -318,7 +318,7 @@ static int soc_tplg_dai_load(struct soc_tplg *tplg,
+>  static int soc_tplg_dai_link_load(struct soc_tplg *tplg,
+>         struct snd_soc_dai_link *link, struct snd_soc_tplg_link_config
+> *cfg)
+>  {
+> -       if (tplg->comp && tplg->ops && tplg->ops->link_load)
+> +       if (tplg->ops && tplg->ops->link_load)
+>                 return tplg->ops->link_load(tplg->comp, tplg->index, link=
+,
+> cfg);
+>
+>         return 0;
+> @@ -327,7 +327,7 @@ static int soc_tplg_dai_link_load(struct soc_tplg
+> *tplg,
+>  /* tell the component driver that all firmware has been loaded in this
+> request */
+>  static void soc_tplg_complete(struct soc_tplg *tplg)
+>  {
+> -       if (tplg->comp && tplg->ops && tplg->ops->complete)
+> +       if (tplg->ops && tplg->ops->complete)
+>                 tplg->ops->complete(tplg->comp);
+>  }
+>
+> @@ -684,7 +684,7 @@ EXPORT_SYMBOL_GPL(snd_soc_tplg_widget_bind_event);
+>  static int soc_tplg_init_kcontrol(struct soc_tplg *tplg,
+>         struct snd_kcontrol_new *k, struct snd_soc_tplg_ctl_hdr *hdr)
+>  {
+> -       if (tplg->comp && tplg->ops && tplg->ops->control_load)
+> +       if (tplg->ops && tplg->ops->control_load)
+>                 return tplg->ops->control_load(tplg->comp, tplg->index, k=
+,
+>                         hdr);
+>
+> @@ -1174,7 +1174,7 @@ static int soc_tplg_kcontrol_elems_load(struct
+> soc_tplg *tplg,
+>  static int soc_tplg_add_route(struct soc_tplg *tplg,
+>         struct snd_soc_dapm_route *route)
+>  {
+> -       if (tplg->comp && tplg->ops && tplg->ops->dapm_route_load)
+> +       if (tplg->ops && tplg->ops->dapm_route_load)
+>                 return tplg->ops->dapm_route_load(tplg->comp, tplg->index=
+,
+>                         route);
+>
+> @@ -2564,7 +2564,7 @@ static int soc_tplg_manifest_load(struct soc_tplg
+> *tplg,
+>         }
+>
+>         /* pass control to component driver for optional further init */
+> -       if (tplg->comp && tplg->ops && tplg->ops->manifest)
+> +       if (tplg->ops && tplg->ops->manifest)
+>                 ret =3D tplg->ops->manifest(tplg->comp, tplg->index,
+> _manifest);
+>
+>         if (!abi_match) /* free the duplicated one */
+> @@ -2736,6 +2736,10 @@ int snd_soc_tplg_component_load(struct
+> snd_soc_component *comp,
+>         struct soc_tplg tplg;
+>         int ret;
+>
+> +       /* component needs to exist to keep and reference data while
+> parsing */
+> +       if (!comp)
+> +               return -EINVAL;
+> +
 
-has been applied to the asoc tree at
+Amadeusz,
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+Thanks for this change. I agree that the checks for tplg->comp in the above
+functions should be removed but is the check here really necessary at all?
+snd_soc_tplg_component_load() is typically called when a component is
+probed. Can it ever be null at all if it is getting probed?
 
 Thanks,
-Mark
-
-From 8cce6569e417f557781fe7f3a84667e611c3a160 Mon Sep 17 00:00:00 2001
-From: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Date: Thu, 12 Mar 2020 10:52:13 +0100
-Subject: [PATCH] ASoC: (cosmetic) simplify dpcm_prune_paths()
-
-Currently dpcm_prune_paths() has up to 4 nested condition and loop
-levels, which forces the code to use flags for flow control.
-Extracting widget status verification code from dpcm_prune_paths()
-into a separate function simplifies the code.
-
-Signed-off-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Link: https://lore.kernel.org/r/20200312095214.15126-2-guennadi.liakhovetski@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/soc-pcm.c | 63 +++++++++++++++++++++++----------------------
- 1 file changed, 32 insertions(+), 31 deletions(-)
-
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 733d7e8a0e55..bf4c5dc903ce 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -1626,45 +1626,46 @@ void dpcm_path_put(struct snd_soc_dapm_widget_list **list)
- 	snd_soc_dapm_dai_free_widgets(list);
- }
- 
--static int dpcm_prune_paths(struct snd_soc_pcm_runtime *fe, int stream,
--	struct snd_soc_dapm_widget_list **list_)
-+static bool dpcm_be_is_active(struct snd_soc_dpcm *dpcm, int stream,
-+			      struct snd_soc_dapm_widget_list *list)
- {
--	struct snd_soc_dpcm *dpcm;
--	struct snd_soc_dapm_widget_list *list = *list_;
- 	struct snd_soc_dapm_widget *widget;
- 	struct snd_soc_dai *dai;
--	int prune = 0;
--	int do_prune;
-+	unsigned int i;
- 
--	/* Destroy any old FE <--> BE connections */
--	for_each_dpcm_be(fe, stream, dpcm) {
--		unsigned int i;
-+	/* is there a valid CPU DAI widget for this BE */
-+	for_each_rtd_cpu_dais(dpcm->be, i, dai) {
-+		widget = snd_soc_dai_get_widget(dai, stream);
- 
--		/* is there a valid CPU DAI widget for this BE */
--		do_prune = 1;
--		for_each_rtd_cpu_dais(dpcm->be, i, dai) {
--			widget = snd_soc_dai_get_widget(dai, stream);
-+		/*
-+		 * The BE is pruned only if none of the cpu_dai
-+		 * widgets are in the active list.
-+		 */
-+		if (widget && widget_in_list(list, widget))
-+			return true;
-+	}
- 
--			/*
--			 * The BE is pruned only if none of the cpu_dai
--			 * widgets are in the active list.
--			 */
--			if (widget && widget_in_list(list, widget))
--				do_prune = 0;
--		}
--		if (!do_prune)
--			continue;
-+	/* is there a valid CODEC DAI widget for this BE */
-+	for_each_rtd_codec_dais(dpcm->be, i, dai) {
-+		widget = snd_soc_dai_get_widget(dai, stream);
- 
--		/* is there a valid CODEC DAI widget for this BE */
--		do_prune = 1;
--		for_each_rtd_codec_dais(dpcm->be, i, dai) {
--			widget = snd_soc_dai_get_widget(dai, stream);
-+		/* prune the BE if it's no longer in our active list */
-+		if (widget && widget_in_list(list, widget))
-+			return true;
-+	}
- 
--			/* prune the BE if it's no longer in our active list */
--			if (widget && widget_in_list(list, widget))
--				do_prune = 0;
--		}
--		if (!do_prune)
-+	return false;
-+}
-+
-+static int dpcm_prune_paths(struct snd_soc_pcm_runtime *fe, int stream,
-+			    struct snd_soc_dapm_widget_list **list_)
-+{
-+	struct snd_soc_dpcm *dpcm;
-+	int prune = 0;
-+
-+	/* Destroy any old FE <--> BE connections */
-+	for_each_dpcm_be(fe, stream, dpcm) {
-+		if (dpcm_be_is_active(dpcm, stream, *list_))
- 			continue;
- 
- 		dev_dbg(fe->dev, "ASoC: pruning %s BE %s for %s\n",
--- 
-2.20.1
-
+Ranjani

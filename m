@@ -2,54 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 106E31830FC
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Mar 2020 14:14:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAFE4183102
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Mar 2020 14:15:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B4FC16EC;
-	Thu, 12 Mar 2020 14:13:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B4FC16EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 635F516F9;
+	Thu, 12 Mar 2020 14:14:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 635F516F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584018877;
-	bh=Q19RzE4raSm0pL7HXduR5Cd0zhjjliYs/iLQ5vH/Vhk=;
+	s=default; t=1584018921;
+	bh=9yH0Al04oXTfJ3SBXQl1a8CFW2EDOOtaec6cVwOWdaQ=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=grHw2d9/C3WvF1m/RMssmgPWkwMVmbIVs6BVClZY99VvYPkCA2wUQJ38NNddi+h5W
-	 +sUwQ53+yIeHuisL0UWcSKEJXPF4hZnBH4nfc3XUGvNX6Y/CrxqY8GK6YwpEQTYm/r
-	 z7kPXPX6wBgVtAVzccp6UTNF7MCjbDZ+f+aPThC0=
+	b=MSgvJLRNhxv5DKEYhrQ6ZugRgV3kMiMWmtle/SduPQ11uS+wy0ijHiTpMYaY6G0gD
+	 M10BLyDtXVKKJqClfiPYNIOsg0AC+WIqPuAAceQbdfw7r4HFgZn6D6eyE6aZs+t2x9
+	 Y0eJJToAjGSADxuox2l6dXrMJORg40bSmAyzVmo0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B19EF801D9;
-	Thu, 12 Mar 2020 14:12:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9EB9EF8023F;
+	Thu, 12 Mar 2020 14:13:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 06386F8020C; Thu, 12 Mar 2020 14:12:54 +0100 (CET)
+ id D48F4F80246; Thu, 12 Mar 2020 14:12:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 77BF6F80086
- for <alsa-devel@alsa-project.org>; Thu, 12 Mar 2020 14:12:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77BF6F80086
+ by alsa1.perex.cz (Postfix) with ESMTP id 5B0C1F8023F
+ for <alsa-devel@alsa-project.org>; Thu, 12 Mar 2020 14:12:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B0C1F8023F
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D7F7330E;
- Thu, 12 Mar 2020 06:12:49 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 666A630E;
+ Thu, 12 Mar 2020 06:12:54 -0700 (PDT)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5AE283F534;
- Thu, 12 Mar 2020 06:12:49 -0700 (PDT)
-Date: Thu, 12 Mar 2020 13:12:47 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E02673F534;
+ Thu, 12 Mar 2020 06:12:53 -0700 (PDT)
+Date: Thu, 12 Mar 2020 13:12:52 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Applied "ASoC: SOF: Intel: Fix stream cleanup on hw free" to the asoc
- tree
-In-Reply-To: 
-Message-Id: 
+To: James Schulman <james.schulman@cirrus.com>
+Subject: Applied "MAINTAINERS: Update Cirrus Logic codec driver maintainers"
+ to the asoc tree
+In-Reply-To: <20200310192751.24487-1-james.schulman@cirrus.com>
+Message-Id: <applied-20200310192751.24487-1-james.schulman@cirrus.com>
 X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
+ brian.austin@cirrus.com, paul.handrigan@cirrus.com, david.rhodes@cirrus.com,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,7 +68,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Intel: Fix stream cleanup on hw free
+   MAINTAINERS: Update Cirrus Logic codec driver maintainers
 
 has been applied to the asoc tree at
 
@@ -92,42 +93,37 @@ to this mail.
 Thanks,
 Mark
 
-From 16dcefc23eefda57ee705dcffba67f1bd42c01bc Mon Sep 17 00:00:00 2001
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Date: Thu, 12 Mar 2020 13:00:58 +0100
-Subject: [PATCH] ASoC: SOF: Intel: Fix stream cleanup on hw free
+From a5107b1a0993ff035dc8a1cf331da7bf961e4cbb Mon Sep 17 00:00:00 2001
+From: James Schulman <james.schulman@cirrus.com>
+Date: Tue, 10 Mar 2020 14:27:51 -0500
+Subject: [PATCH] MAINTAINERS: Update Cirrus Logic codec driver maintainers
 
-Field "substream" gets assigned during stream setup in
-hda_dsp_pcm_hw_params() but it is never cleared afterwards during
-cleanup procedure. Now, any non-pcm operation e.g.: compress can
-mistakenly make use of that pointer as it's bypassing all
-"if (s->substream)" checks.
+Brian & Paul are no longer active audio codec driver
+maintainers. Update list to reflect myself and David
+Rhodes as the active maintainers.
 
-Nulling the pointer during hw_free operation ensures no wild pointers
-are left behind.
-
-Fixes: cdae3b9a47aa ("ASoC: SOF: Intel: Add Intel specific HDA PCM operations")
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200312120058.15057-1-cezary.rojewski@intel.com
+Signed-off-by: James Schulman <james.schulman@cirrus.com>
+Link: https://lore.kernel.org/r/20200310192751.24487-1-james.schulman@cirrus.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/hda-stream.c | 2 ++
- 1 file changed, 2 insertions(+)
+ MAINTAINERS | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda-stream.c b/sound/soc/sof/intel/hda-stream.c
-index c0ab9bb2a797..d2234f802788 100644
---- a/sound/soc/sof/intel/hda-stream.c
-+++ b/sound/soc/sof/intel/hda-stream.c
-@@ -547,6 +547,8 @@ int hda_dsp_stream_hw_free(struct snd_sof_dev *sdev,
- 					SOF_HDA_REG_PP_PPCTL, mask, 0);
- 	spin_unlock_irq(&bus->reg_lock);
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3bb6895ba5b9..c6fc68b66434 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -3964,8 +3964,8 @@ F:	Documentation/devicetree/bindings/sound/google,cros-ec-codec.txt
+ F:	sound/soc/codecs/cros_ec_codec.*
  
-+	stream->substream = NULL;
-+
- 	return 0;
- }
- 
+ CIRRUS LOGIC AUDIO CODEC DRIVERS
+-M:	Brian Austin <brian.austin@cirrus.com>
+-M:	Paul Handrigan <Paul.Handrigan@cirrus.com>
++M:	James Schulman <james.schulman@cirrus.com>
++M:	David Rhodes <david.rhodes@cirrus.com>
+ L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
+ S:	Maintained
+ F:	sound/soc/codecs/cs*
 -- 
 2.20.1
 

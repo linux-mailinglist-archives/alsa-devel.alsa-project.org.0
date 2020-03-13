@@ -2,60 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 350C7184BD9
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Mar 2020 16:58:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11611184DA4
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Mar 2020 18:30:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B6A56181F;
-	Fri, 13 Mar 2020 16:57:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6A56181F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 586301835;
+	Fri, 13 Mar 2020 18:29:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 586301835
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584115079;
-	bh=Mwr5dozpbfthVrHw0goDWngpbxR0cEEQ2JLD3vy+P7U=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=TQ/x4Qu5j+Lxu0WKNywdjC1kSx+owQFYFxMh3ZP1Fq8/wortbxZsqa1GBR0vO4D5T
-	 aPo0c6e5lbJl60WZhHiV/ruzippYYbOIvIq1Z2S03Sa9ORmC7ah6W3uzwf/M7WSsZ7
-	 B8cVzYjTkibWrmaO+JsZeivH8r2MyfrQqvJoTrRo=
+	s=default; t=1584120603;
+	bh=u5wYuhNIdltXJXaGATbionXCcVGdwE18yWVTNON5bzI=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=a5OgEw7iSM9/yShbyjzQ6X4M/4aVHIgWU3xvHhwt3ez0Z/jhoWX9H2koHT07YGVHO
+	 TCdB3s/by/2hUvNYz9tc7f0eMZHFIopxdV3yxjPl8tuqQMGAuAIoMmxndy+lMjDeiD
+	 QGI+IXo7t393yFLcFViBlDRVDH4waOFXsm+O4d7Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B71A8F801F7;
-	Fri, 13 Mar 2020 16:56:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40F35F8013E;
+	Fri, 13 Mar 2020 18:28:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 50B9AF801EB; Fri, 13 Mar 2020 16:56:15 +0100 (CET)
+ id 41BE8F8013E; Fri, 13 Mar 2020 18:28:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6808BF80086
- for <alsa-devel@alsa-project.org>; Fri, 13 Mar 2020 16:56:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6808BF80086
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3E0DF8013E
+ for <alsa-devel@alsa-project.org>; Fri, 13 Mar 2020 18:28:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3E0DF8013E
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 13 Mar 2020 08:56:08 -0700
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 13 Mar 2020 10:28:04 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,549,1574150400"; d="scan'208";a="442462247"
-Received: from msbaldwi-mobl.amr.corp.intel.com (HELO
- yzhi-desktop.amr.corp.intel.com) ([10.251.4.79])
- by fmsmga005.fm.intel.com with ESMTP; 13 Mar 2020 08:56:06 -0700
-From: Yong Zhi <yong.zhi@intel.com>
-To: alsa-devel@alsa-project.org,
-	pierre-louis.bossart@linux.intel.com
-Subject: [PATCH] ASoC: max98357a: Add ACPI HID MAX98360A
-Date: Fri, 13 Mar 2020 10:55:26 -0500
-Message-Id: <1584114926-29287-1-git-send-email-yong.zhi@intel.com>
-X-Mailer: git-send-email 2.7.4
-Cc: tiwai@suse.de, liam.r.girdwood@linux.intel.com,
- Rajesh.Swaminathan@maximintegrated.com, broonie@kernel.org,
- sathyanarayana.nujella@intel.com, uday.m.bhat@intel.com,
- Yong Zhi <yong.zhi@intel.com>
+X-IronPort-AV: E=Sophos;i="5.70,549,1574150400"; d="scan'208";a="237017059"
+Received: from sblancoa-mobl.amr.corp.intel.com (HELO [10.251.232.239])
+ ([10.251.232.239])
+ by fmsmga008.fm.intel.com with ESMTP; 13 Mar 2020 10:28:03 -0700
+Subject: Re: [PATCH v2] topology: Add topology file for generic HDA DSP
+ machine driver
+To: "Gorski, Mateusz" <mateusz.gorski@linux.intel.com>,
+ alsa-devel@alsa-project.org
+References: <20200309120944.15240-1-mateusz.gorski@linux.intel.com>
+ <0d2fb996-2668-e53b-ec91-18bf9e27df31@linux.intel.com>
+ <7334e7b6-c4d3-aac3-46d2-b4fbcb0e3957@linux.intel.com>
+ <27e153ce-f94b-876a-32e7-66dd5842c07b@linux.intel.com>
+ <0efdc802-eb82-2137-19a1-9a7e71fa62d8@linux.intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <00bd3e15-b088-c185-4473-8d928da01b9c@linux.intel.com>
+Date: Fri, 13 Mar 2020 11:13:02 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
+MIME-Version: 1.0
+In-Reply-To: <0efdc802-eb82-2137-19a1-9a7e71fa62d8@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: cezary.rojewski@intel.com, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,26 +81,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Maxim MAX98360A audio amplifier is functionally identical to MAX98357A,
-add ACPI ID "MAX98360A" for driver reuse.
 
-Signed-off-by: Yong Zhi <yong.zhi@intel.com>
----
- sound/soc/codecs/max98357a.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/codecs/max98357a.c b/sound/soc/codecs/max98357a.c
-index 74f20114297c..a8bd793a7867 100644
---- a/sound/soc/codecs/max98357a.c
-+++ b/sound/soc/codecs/max98357a.c
-@@ -133,6 +133,7 @@ MODULE_DEVICE_TABLE(of, max98357a_device_id);
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id max98357a_acpi_match[] = {
- 	{ "MX98357A", 0 },
-+	{ "MX98360A", 0 },
- 	{},
- };
- MODULE_DEVICE_TABLE(acpi, max98357a_acpi_match);
--- 
-2.7.4
+
+>>> This is a reference topology, and it was successfully validated on 
+>>> few production laptops (including models on which DMIC capture was 
+>>> not working).
+
+The topology exposes a path that's not present in the hardware then?
+
+>> Sorry, I don't understand what's missing in the cAVS driver?
+>>
+>> All you need is to select a different topology based on the number of 
+>> DMICs detected.
+> 
+> 
+> We have a mechanism to choose the PCM configuration of given topology 
+> path via amixer control. That way we can include both 2ch and 4ch DMIC 
+> configurations in one topology file and simply change DMIC pipeline 
+> configuration on runtime.
+> 
+> Unfortunately this mechanism is not currently available on upstream.
+> 
+> As said before, this is a reference topology, if needed I can also 
+> upload modified version with 4ch DMIC path.
+
+I don't understand the concept of 'reference topology'. It's not like 
+anyone is going to modify this file, which is seriously cryptic, so it's 
+got to be a 'usable topology', turn-key really.
+
+You would need three files, with no dmic, with 2 dmic with 4 dmic and a 
+driver level code selection. Today the code loads the topology name 
+coming from NHLT or dfw_sst.bin, you'd need a more elaborate logic to 
+deal with the hardware variants and without requiring any fiddling, 
+rename or edits of topology files.
+
 

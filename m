@@ -2,70 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3F58184428
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Mar 2020 10:55:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E094818443E
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Mar 2020 11:01:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7C78B17B1;
-	Fri, 13 Mar 2020 10:54:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C78B17B1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 808D217B1;
+	Fri, 13 Mar 2020 11:00:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 808D217B1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584093346;
-	bh=z1iZVotNAOWCisMVcM+WLnU3UU7EMAgPrrJlT1osn1M=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=W2cOmUsNuvjI61rKlwon7TfF4xoQtjotkvg2eZ4aXGj7L5EllhUkPo/8CtvbXdG+l
-	 XhOttHDcA+yWrGbHPv1k7kAWXpKtSchu4mJWKx3kOm6enX+Nn+ItdiRijiSUssfCoK
-	 NntWBSj2JKrMCwHXKA0jtl2+li2poZK7LAV9Tkzg=
+	s=default; t=1584093687;
+	bh=QIQGlGlYba4F+A8X2gzQVv9DbBwsVHam1ML8fquw7ts=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=LUwBPKrlL6z+YGO111wk54EcyhkKez6KFyHic6/woq4588BrwVrTEyI834JwNXQ+I
+	 +YTaiNv7z6SNnJv7p0/lDYlKPtvg0DU4+rLGhSAPlPpz2MzUvpXmbNFXLEPLEv8Alk
+	 kYL3kdOVtjSR1qvI3PppzpEZ52l/6MbwAxTveBbQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A23EFF8013E;
-	Fri, 13 Mar 2020 10:54:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97B4FF8013E;
+	Fri, 13 Mar 2020 10:59:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CDA83F801EB; Fri, 13 Mar 2020 10:53:50 +0100 (CET)
+ id C2510F80086; Fri, 13 Mar 2020 10:59:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BE78CF8013E
- for <alsa-devel@alsa-project.org>; Fri, 13 Mar 2020 10:53:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE78CF8013E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HpYUZq4D"
-Received: from localhost.localdomain (unknown [171.76.107.175])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from www381.your-server.de (www381.your-server.de [78.46.137.84])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E4728206EB;
- Fri, 13 Mar 2020 09:53:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1584093213;
- bh=z1iZVotNAOWCisMVcM+WLnU3UU7EMAgPrrJlT1osn1M=;
- h=From:To:Cc:Subject:Date:From;
- b=HpYUZq4DtTwWWSKP5w6latBtv/mPcm79tQllGS4+pMB/b8/cdR6Qv8rXTvG0inb38
- aZBcR9uygN69iZajdGlWNwGMHpxFM2C7iqH8fem+M3qX6cucca40xbMVzTkdkC6Fw1
- tqOMRqwCKJ77zbdWk0QvTohXx/4oYlyP60AhJzWg=
-From: Vinod Koul <vkoul@kernel.org>
-To: Mark Brown <broonie@kernel.org>,
-	Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v2 0/9] ALSA: compress: Add wma, alac and ape support
-Date: Fri, 13 Mar 2020 15:23:09 +0530
-Message-Id: <20200313095318.1555163-1-vkoul@kernel.org>
-X-Mailer: git-send-email 2.24.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id E7661F80086
+ for <alsa-devel@alsa-project.org>; Fri, 13 Mar 2020 10:59:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7661F80086
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=metafoo.de header.i=@metafoo.de
+ header.b="JcICvkbW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=metafoo.de; 
+ s=default2002;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:To:Subject:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=LEoFcXfkO1Urb14iAKuMsZCHpDwvAc8QD9xP7ws/9Ow=; b=JcICvkbW85osvXIJKia0mPJ4Q6
+ vANH4V7W9LxsT504wUfte46U5xHnvYmoObbWAK8mXPuYjEFmSfIWcQC3ZCiyYE0OJJXyUD9TgU2GN
+ MSGjTe8FN+E7Au8/uF7lJyypvdndoZQU5ajDelUHs/KNwtdr9eYTFUYRr6VrxgjDM53nCIsKY4o/+
+ clf7r07q3WvWYXKSVlM2XkOOc+biu/RXKMfmC07hTBIrdWfiJR90265AGfF5UhuLzcTMMHVseLN1D
+ 4x73aO2D+//9xp60ODWDwoW+ed5+pguMHf4OWW/3rYbv4H7qsxOwIrQLjoAXCa1mNjmTHQOPU5Wd6
+ 4wCB/t4Q==;
+Received: from sslproxy02.your-server.de ([78.47.166.47])
+ by www381.your-server.de with esmtpsa (TLSv1.2:DHE-RSA-AES256-GCM-SHA384:256)
+ (Exim 4.89_1) (envelope-from <lars@metafoo.de>)
+ id 1jCh6E-0002y7-5x; Fri, 13 Mar 2020 10:59:26 +0100
+Received: from [93.104.108.183] (helo=[192.168.178.20])
+ by sslproxy02.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <lars@metafoo.de>)
+ id 1jCh6D-000LkB-UU; Fri, 13 Mar 2020 10:59:26 +0100
+Subject: Re: ASoc: soc_core.c stream direction from snd_soc_dai
+To: Matt Flax <flatmax@flatmax.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+References: <5598a2fc-9b49-ad5e-2265-fbc0593ead1b@flatmax.org>
+ <0d9a9459-9cd7-d384-b1ff-72860895ad13@linux.intel.com>
+ <73148789-58f7-2228-ae42-465cdafcff4c@flatmax.org>
+ <52e1a640-b46f-b494-2047-849c1999eb28@flatmax.org>
+From: Lars-Peter Clausen <lars@metafoo.de>
+Message-ID: <7607dd99-0d54-2bab-7407-836a42647f4c@metafoo.de>
+Date: Fri, 13 Mar 2020 10:59:25 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
+In-Reply-To: <52e1a640-b46f-b494-2047-849c1999eb28@flatmax.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
- linux-arm-msm@vger.kernel.org, Patrick Lai <plai@codeaurora.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- linux-kernel@vger.kernel.org
+Content-Language: en-US
+X-Authenticated-Sender: lars@metafoo.de
+X-Virus-Scanned: Clear (ClamAV 0.102.2/25749/Thu Mar 12 14:09:06 2020)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,39 +95,95 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This series adds more WMA profiles and WMA decoder parameters to UAPI and
-then support for these in qcom driver. It also adds FLAC and APE IDs and
-decoder parameters to UAPI and then support in qcom driver
+On 3/13/20 4:56 AM, Matt Flax wrote:
+>
+> On 13/3/20 10:19 am, Matt Flax wrote:
+>>
+>> On 13/3/20 9:55 am, Pierre-Louis Bossart wrote:
+>>>
+>>>
+>>> On 3/11/20 5:54 PM, Matt Flax wrote:
+>>>> Hi there,
+>>>>
+>>>> A large number of audio codecs allow different formats for playback 
+>>>> and capture. This becomes very useful when there are different 
+>>>> latencies between playback and capture hardware data lines. For 
+>>>> example digital isolation chips typically have a 1 bit delay in 
+>>>> propagation as the bit clock rate gets faster for higher sample 
+>>>> rates. By setting the capture and playback formats to differ by one 
+>>>> or two bit clock cycles, the delay problem is solved.
+>>>>
+>>>> There doesn't seem to be a simple way to detect stream direction in 
+>>>> the codec driver's set_fmt function.
+>>>>
+>>>> The snd_soc_runtime_set_dai_fmt function :
+>>>>
+>>>> https://github.com/torvalds/linux/blob/master/sound/soc/soc-core.c#L1480 
+>>>>
+>>>>
+>>>> calls the snd_soc_dai_set_fmt function :
+>>>>
+>>>> https://github.com/torvalds/linux/blob/master/sound/soc/soc-dai.c#L101
+>>>>
+>>>> which calls the set_fmt function :
+>>>>
+>>>> https://github.com/torvalds/linux/blob/master/include/sound/soc-dai.h#L189 
+>>>>
+>>>>
+>>>>
+>>>> The snd_soc_dai_ops set_fmt function is defined as :
+>>>>
+>>>>      int (*set_fmt)(struct snd_soc_dai *dai, unsigned int fmt);
+>>>>
+>>>>
+>>>> Is there a simple way to find the stream direction from a 
+>>>> snd_soc_dai ?
+>>>>
+>>>> If the stream direction can be detected then the playback and 
+>>>> capture formats can be set independently for the codec.
+>>>>
+>>>> It there a different way to set the playback and capture formats 
+>>>> for the codec independently at runtime, depending on the sample rate ?
+>>>
+>>> FWIW I remember a discussion in the past on how to deal with 
+>>> interfaces that may have different clocks sources for capture and 
+>>> playback (typically with the 6-pin version of I2S/TDM), and the 
+>>> answer was: use two dais, with one dealing with capture and the 
+>>> other with playback.
+>>>
+>>> I would bet this applies for the format as well. If you use a DAI 
+>>> that can do both directions, then indeed there's no obvious way to 
+>>> specify that formats or clock ownership could be different between 
+>>> the two directions.
+>>>
+>>> It would probably make sense anyway to have a representation with 
+>>> two dais, e.g. the codec capture dai receives data from somewhere 
+>>> and the codec playback dai forwards it to another destination.
+>>>
+>> I think I get it ...
+>>
+>> This approach would keep extra stream selective functionality out of 
+>> soc-dai.c. That is probably a good thing for the simplicity of the core.
+>>
+>> A machine driver could then call snd_soc_dai_set_fmt passing in the 
+>> correct codec_dai from the codec_dais array for the stream they want 
+>> to operate on.
+>>
+> In an example case, cs4271 ... how do we enforce symmetric rates ?
 
-This was tested on Dragon board RB3.
+You'd have to do this manually in your driver. The core itself does not 
+support synchronizing streams on different DAIs.
 
-Last, bump up the compressed version so that userspace can check for the
-support.
+You can do this by saving the rate when it is set on the first stream 
+and then apply a constraint to the second stream using 
+snd_pcm_hw_constraint_single() it the driver's startup() callback.
 
-Since the series touches compress uapi and asoc, it would make sense to go
-thru asoc tree with acks.
+Have a look at the uda134x.c or twl4030.c driver as an example.
 
-Changes in v2:
- - use bitflags for wma profiles
+But I think Pierre was mainly talking about the case where there are 
+separate clocks for each direction and the rates don't have to be the 
+same. I believe long term it might make sense to extend the core to 
+allow different formats for input and output direction on the same DAI.
 
-Vinod Koul (9):
-  ALSA: compress: add wma codec profiles
-  ALSA: compress: Add wma decoder params
-  ASoC: qcom: q6asm: pass codec profile to q6asm_open_write
-  ASoC: qcom: q6asm: add support to wma config
-  ASoC: qcom: q6asm-dai: add support to wma decoder
-  ALSA: compress: add alac & ape decoder params
-  ASoC: qcom: q6asm: add support for alac and ape configs
-  ASoC: qcom: q6asm-dai: add support for ALAC and APE decoders
-  ALSA: compress: bump the version
-
- include/uapi/sound/compress_offload.h |   2 +-
- include/uapi/sound/compress_params.h  |  37 +++-
- sound/soc/qcom/qdsp6/q6asm-dai.c      | 136 +++++++++++++-
- sound/soc/qcom/qdsp6/q6asm.c          | 243 +++++++++++++++++++++++++-
- sound/soc/qcom/qdsp6/q6asm.h          |  51 +++++-
- 5 files changed, 462 insertions(+), 7 deletions(-)
-
--- 
-2.24.1
+- Lars
 

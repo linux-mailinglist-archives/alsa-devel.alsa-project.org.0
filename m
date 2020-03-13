@@ -2,70 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11611184DA4
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Mar 2020 18:30:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DDC8184C37
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Mar 2020 17:19:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 586301835;
-	Fri, 13 Mar 2020 18:29:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 586301835
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9AD7F1828;
+	Fri, 13 Mar 2020 17:18:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AD7F1828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584120603;
-	bh=u5wYuhNIdltXJXaGATbionXCcVGdwE18yWVTNON5bzI=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=a5OgEw7iSM9/yShbyjzQ6X4M/4aVHIgWU3xvHhwt3ez0Z/jhoWX9H2koHT07YGVHO
-	 TCdB3s/by/2hUvNYz9tc7f0eMZHFIopxdV3yxjPl8tuqQMGAuAIoMmxndy+lMjDeiD
-	 QGI+IXo7t393yFLcFViBlDRVDH4waOFXsm+O4d7Q=
+	s=default; t=1584116343;
+	bh=M5DNWO8UN0jkySMEuOnbP0fSiq0UED9gtwCAuyR6k9s=;
+	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=aCSsNjHz+y/TWfBJI+iIvlXq+iWZXa582OWwCxBEDD0FMbSwpyVM6lc1esZ47IZs+
+	 fgw/fp0LHggqCup1qpVa0+zD5SKlnDKhK9msiFVNeLvzoGJKMt441oA02y4+ioBaog
+	 Ra/00A9rXMiG4uj/tLliqRaZl4+YNnGCXvR+jof4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40F35F8013E;
-	Fri, 13 Mar 2020 18:28:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8D48AF801EB;
+	Fri, 13 Mar 2020 17:17:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41BE8F8013E; Fri, 13 Mar 2020 18:28:15 +0100 (CET)
+ id E3EB7F80090; Fri, 13 Mar 2020 17:17:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D3E0DF8013E
- for <alsa-devel@alsa-project.org>; Fri, 13 Mar 2020 18:28:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3E0DF8013E
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 13 Mar 2020 10:28:04 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,549,1574150400"; d="scan'208";a="237017059"
-Received: from sblancoa-mobl.amr.corp.intel.com (HELO [10.251.232.239])
- ([10.251.232.239])
- by fmsmga008.fm.intel.com with ESMTP; 13 Mar 2020 10:28:03 -0700
-Subject: Re: [PATCH v2] topology: Add topology file for generic HDA DSP
- machine driver
-To: "Gorski, Mateusz" <mateusz.gorski@linux.intel.com>,
- alsa-devel@alsa-project.org
-References: <20200309120944.15240-1-mateusz.gorski@linux.intel.com>
- <0d2fb996-2668-e53b-ec91-18bf9e27df31@linux.intel.com>
- <7334e7b6-c4d3-aac3-46d2-b4fbcb0e3957@linux.intel.com>
- <27e153ce-f94b-876a-32e7-66dd5842c07b@linux.intel.com>
- <0efdc802-eb82-2137-19a1-9a7e71fa62d8@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <00bd3e15-b088-c185-4473-8d928da01b9c@linux.intel.com>
-Date: Fri, 13 Mar 2020 11:13:02 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
-MIME-Version: 1.0
-In-Reply-To: <0efdc802-eb82-2137-19a1-9a7e71fa62d8@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: cezary.rojewski@intel.com, tiwai@suse.com
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 60566F80090
+ for <alsa-devel@alsa-project.org>; Fri, 13 Mar 2020 17:17:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60566F80090
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 785A0FEC;
+ Fri, 13 Mar 2020 09:17:12 -0700 (PDT)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EE9D33F6CF;
+ Fri, 13 Mar 2020 09:17:11 -0700 (PDT)
+Date: Fri, 13 Mar 2020 16:17:10 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Oder Chiou <oder_chiou@realtek.com>
+Subject: Applied "ASoC: rt5682: Fine tune the HP performance in soundwire
+ mode" to the asoc tree
+In-Reply-To: <20200313023850.28875-1-oder_chiou@realtek.com>
+Message-Id: <applied-20200313023850.28875-1-oder_chiou@realtek.com>
+X-Patchwork-Hint: ignore
+Cc: jack.yu@realtek.com, alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ Mark Brown <broonie@kernel.org>, derek.fang@realtek.com, shumingf@realtek.com,
+ flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,39 +66,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The patch
 
+   ASoC: rt5682: Fine tune the HP performance in soundwire mode
 
+has been applied to the asoc tree at
 
->>> This is a reference topology, and it was successfully validated on 
->>> few production laptops (including models on which DMIC capture was 
->>> not working).
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
 
-The topology exposes a path that's not present in the hardware then?
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
 
->> Sorry, I don't understand what's missing in the cAVS driver?
->>
->> All you need is to select a different topology based on the number of 
->> DMICs detected.
-> 
-> 
-> We have a mechanism to choose the PCM configuration of given topology 
-> path via amixer control. That way we can include both 2ch and 4ch DMIC 
-> configurations in one topology file and simply change DMIC pipeline 
-> configuration on runtime.
-> 
-> Unfortunately this mechanism is not currently available on upstream.
-> 
-> As said before, this is a reference topology, if needed I can also 
-> upload modified version with 4ch DMIC path.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-I don't understand the concept of 'reference topology'. It's not like 
-anyone is going to modify this file, which is seriously cryptic, so it's 
-got to be a 'usable topology', turn-key really.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-You would need three files, with no dmic, with 2 dmic with 4 dmic and a 
-driver level code selection. Today the code loads the topology name 
-coming from NHLT or dfw_sst.bin, you'd need a more elaborate logic to 
-deal with the hardware variants and without requiring any fiddling, 
-rename or edits of topology files.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
+Thanks,
+Mark
+
+From a252d78cf772f86c2dcc40df8117d9461eed88d6 Mon Sep 17 00:00:00 2001
+From: Oder Chiou <oder_chiou@realtek.com>
+Date: Fri, 13 Mar 2020 10:38:49 +0800
+Subject: [PATCH] ASoC: rt5682: Fine tune the HP performance in soundwire mode
+
+The setting is sync with I2C/I2S mode.
+
+Signed-off-by: Oder Chiou <oder_chiou@realtek.com>
+Link: https://lore.kernel.org/r/20200313023850.28875-1-oder_chiou@realtek.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/codecs/rt5682.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
+index e1df2d076533..f4b8af128828 100644
+--- a/sound/soc/codecs/rt5682.c
++++ b/sound/soc/codecs/rt5682.c
+@@ -3462,6 +3462,8 @@ int rt5682_io_init(struct device *dev, struct sdw_slave *slave)
+ 			RT5682_HPA_CP_BIAS_CTRL_MASK, RT5682_HPA_CP_BIAS_3UA);
+ 	regmap_update_bits(rt5682->regmap, RT5682_CHARGE_PUMP_1,
+ 			RT5682_CP_CLK_HP_MASK, RT5682_CP_CLK_HP_300KHZ);
++	regmap_update_bits(rt5682->regmap, RT5682_HP_CHARGE_PUMP_1,
++			RT5682_PM_HP_MASK, RT5682_PM_HP_HV);
+ 
+ 	/* Soundwire */
+ 	regmap_write(rt5682->regmap, RT5682_PLL2_INTERNAL, 0xa266);
+-- 
+2.20.1
 

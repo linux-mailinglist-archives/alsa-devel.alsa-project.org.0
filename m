@@ -2,48 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C10C9184E6F
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Mar 2020 19:14:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 321B0184ED0
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Mar 2020 19:41:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 35BE61857;
-	Fri, 13 Mar 2020 19:13:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35BE61857
+	by alsa0.perex.cz (Postfix) with ESMTPS id B3B0B185D;
+	Fri, 13 Mar 2020 19:40:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3B0B185D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584123283;
-	bh=hfmdYh7nC4KEpyUKgbxyUdvCbPmd56o4WZU98eSiCcA=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1584124868;
+	bh=MUIqtlM88VBe5x2tzHrPx5WWByO10VfT47z1v80+PD0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=C/pJ2PRPhVr4n4ih7XWJ3CCa38iuxEuuxoups2rpW5/n1QbXhiAfSnuV27uB2Ng73
-	 lhzaieqncTeqEUcBKAXDd6hHMIeY40cGugxtil7aOofBoai157xC3cFK/HbHSUEmrZ
-	 b1UW4volgG2bQ6sOEyd0aLzHBUvqEyvs+s2Ll9kg=
+	b=gyEjLWRRKVgAWdQ6zCyWJwkF+ol8uhTP4ribsydK3iZFOzjC6w6/H4V1I7aoMl3oz
+	 NkWxlK3Kq8xP7mW8+Jipuxp7Y8JI6VSMdDshM6hPZQLbvIxx/8eCAWvLHNwEkGZLwk
+	 BOjRjrKda/oSz8YQgXuGFxx9pqk+ttcNZIQ8iZn0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E7CAF80086;
-	Fri, 13 Mar 2020 19:13:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9668FF801EB;
+	Fri, 13 Mar 2020 19:39:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E363CF801A3; Fri, 13 Mar 2020 19:12:59 +0100 (CET)
+ id A65CDF8013E; Fri, 13 Mar 2020 19:39:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id E6BCDF80086
- for <alsa-devel@alsa-project.org>; Fri, 13 Mar 2020 19:12:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6BCDF80086
+X-Spam-Level: 
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id CED77F80090;
+ Fri, 13 Mar 2020 19:39:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CED77F80090
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9FED131B;
+ Fri, 13 Mar 2020 11:39:12 -0700 (PDT)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1FBB03F534;
+ Fri, 13 Mar 2020 11:39:11 -0700 (PDT)
+Date: Fri, 13 Mar 2020 18:39:10 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Subject: Re: [PATCH 12/14] ASoC: SOF: VirtIO: check guest component IDs
+Message-ID: <20200313183910.GL5528@sirena.org.uk>
+References: <20200312144429.17959-1-guennadi.liakhovetski@linux.intel.com>
+ <20200312144429.17959-13-guennadi.liakhovetski@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1584123173741833925-webhooks-bot@alsa-project.org>
-References: <1584123173741833925-webhooks-bot@alsa-project.org>
-Subject: alsatplg (libasound.a) segmentation fault using AFL
-Message-Id: <20200313181259.E363CF801A3@alsa1.perex.cz>
-Date: Fri, 13 Mar 2020 19:12:59 +0100 (CET)
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="VBq/nvTu32OVLBUP"
+Content-Disposition: inline
+In-Reply-To: <20200312144429.17959-13-guennadi.liakhovetski@linux.intel.com>
+X-Cookie: This page intentionally left blank.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,97 +72,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #37 was opened from tysonite:
 
-I was playing around with [AFL](https://fuzzing-project.org/tutorial3.html) tonight on one of my pet projects. And after it found few crashes, I've decided to fuzz one of open-source projects. The `alsatplg` tool just looked simple enough to exercise it with fuzzing tool.
+--VBq/nvTu32OVLBUP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I made a simple Dockerfile that runs AFL on `alsatplg`:
-```
-FROM ubuntu:18.04
+On Thu, Mar 12, 2020 at 03:44:27PM +0100, Guennadi Liakhovetski wrote:
+> Each VirtIO SOF guest has a component ID range, assigned to it. Add a
+> check to make sure, that guests stay within their ranges.
 
-ENV LANG C.UTF-8
+Just squash this into the change introducing the code being fixed.
 
-RUN apt-get update && \
-    apt-get install -y apt-utils && \
-    apt-get install -y afl git build-essential m4 autoconf automake libtool
+--VBq/nvTu32OVLBUP
+Content-Type: application/pgp-signature; name="signature.asc"
 
-RUN cd /
+-----BEGIN PGP SIGNATURE-----
 
-RUN git clone https://github.com/alsa-project/alsa-lib.git
-RUN cd alsa-lib && \
-    	libtoolize --force --copy --automake && \
-    	aclocal && \
-    	autoheader && \
-   		automake --foreign --copy --add-missing && \
-    	autoconf && \
-    	export CFLAGS="-O2 -Wall -W -Wunused-const-variable=0 -pipe -g" && \
-    	export CC=afl-gcc && \
-    	./configure --disable-aload && \
-    	make && \
-    	make install \
-    && cd /
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5r000ACgkQJNaLcl1U
+h9DMCgf+IsIc7L/AQ6l0Ywx9ZyTkDKg3BxDEVNsahpHbqcVKu/iVyjrHZ6NpH67b
+TEMDy2nwKCLTzHbNmIOWDTqaLfnEaPJk+DN6sXBjANfrKF7M2xt24V7IQf0mCjPZ
+yhKq2Qe/uyg/c8GSoCtWLzlePw4Mt6T/5USc9shB58/ZzQCnGlKB2ECTdyLxc4UB
+vPwxYPyGoXXeCFWVmkoUSCc1aoLGrX7o7C306KMNkZ7vOarBiOehc1RpGgZclbUZ
+jrWlvLhwZu7q8W5eBeF/d8fdZfQT2wNSxjF+qxLb6t+EwQLAV/U6K5OGeoWTnSxp
+MGWsq1qTYim92DdvLkwsfy/Q3HRbaQ==
+=EfI9
+-----END PGP SIGNATURE-----
 
-RUN apt-get install -y gettext ncurses-base libncurses5 libncurses5-dev pkg-config
-RUN git clone https://github.com/alsa-project/alsa-utils.git
-RUN cd alsa-utils && \
-    	export CC=afl-gcc && \
-        ./gitcompile && \
-        make install && \
-    cd /
-
-RUN mkdir in
-
-#RUN cp alsa-utils/speaker-test/samples/Noise.wav in
-RUN echo "Hello" > in/input.txt
-
-CMD ["afl-fuzz", "-i", "in", "-o", "out", "alsatplg", "-c", "@@", "-o", "/output"]
-```
-
-After around 10-15 minutes running on my core i7 laptop, it generated a sequence of bytes that leads to crash. If you want to try it by yourself just run `docker build -t alsa/dev .` followed by `docker run alsa/dev`, and wait a bit. When crash happened, the input data can be copied from the container by running `docker cp <container_id>:/out .`.
-
-An example of input data that lead to SIGSEGV: 
-[id:000000,sig:11,src:000325,op:arith8,pos:48,val:-26.txt](https://github.com/alsa-project/alsa-lib/files/4330943/id.000000.sig.11.src.000325.op.arith8.pos.48.val.-26.txt)
-
-And stack trace based on it:
-```
-Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
-Core was generated by `alsatplg -c out/crashes/id:000000,sig:11,src:000325,op:arith8,pos:48,val:-26 -o'.
-Program terminated with signal SIGSEGV, Segmentation fault.
-#0  0x00007fcb65e05ca8 in snd_config_delete () from /usr/lib/x86_64-linux-gnu/libasound.so.2
-(gdb) bt
-#0  0x00007fcb65e05ca8 in snd_config_delete () from /usr/lib/x86_64-linux-gnu/libasound.so.2
-#1  0x00007fcb65e06479 in ?? () from /usr/lib/x86_64-linux-gnu/libasound.so.2
-#2  0x00007fcb65e064ba in ?? () from /usr/lib/x86_64-linux-gnu/libasound.so.2
-#3  0x00007fcb65e0661c in ?? () from /usr/lib/x86_64-linux-gnu/libasound.so.2
-#4  0x00007fcb65e818c4 in snd_tplg_build_file () from /usr/lib/x86_64-linux-gnu/libasound.so.2
-#5  0x00005587bce0ab6a in ?? ()
-#6  0x00007fcb65a07b97 in __libc_start_main (main=0x5587bce0aa10, argc=5, argv=0x7ffcfa707628, init=<optimized out>, fini=<optimized out>, rtld_fini=<optimized out>, 
-    stack_end=0x7ffcfa707618) at ../csu/libc-start.c:310
-#7  0x00005587bce0ac4a in ?? ()
-(gdb) bt full
-#0  0x00007fcb65e05ca8 in snd_config_delete () from /usr/lib/x86_64-linux-gnu/libasound.so.2
-No symbol table info available.
-#1  0x00007fcb65e06479 in ?? () from /usr/lib/x86_64-linux-gnu/libasound.so.2
-No symbol table info available.
-#2  0x00007fcb65e064ba in ?? () from /usr/lib/x86_64-linux-gnu/libasound.so.2
-No symbol table info available.
-#3  0x00007fcb65e0661c in ?? () from /usr/lib/x86_64-linux-gnu/libasound.so.2
-No symbol table info available.
-#4  0x00007fcb65e818c4 in snd_tplg_build_file () from /usr/lib/x86_64-linux-gnu/libasound.so.2
-No symbol table info available.
-#5  0x00005587bce0ab6a in ?? ()
-No symbol table info available.
-#6  0x00007fcb65a07b97 in __libc_start_main (main=0x5587bce0aa10, argc=5, argv=0x7ffcfa707628, init=<optimized out>, fini=<optimized out>, rtld_fini=<optimized out>, 
-    stack_end=0x7ffcfa707618) at ../csu/libc-start.c:310
-        self = <optimized out>
-        __self = <optimized out>
-        result = <optimized out>
-        unwind_buf = {cancel_jmp_buf = {{jmp_buf = {0, -5452963434713232627, 94041477786656, 140724510160416, 0, 0, -2259219850243519731, -2248813385476519155}, 
-              mask_was_saved = 0}}, priv = {pad = {0x0, 0x0, 0x7fcb660ee733 <_dl_init+259>, 0x7fcb660d6370}, data = {prev = 0x0, cleanup = 0x0, canceltype = 1712252723}}}
-        not_first_call = <optimized out>
-#7  0x00005587bce0ac4a in ?? ()
-No symbol table info available.
-```
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/37
-Repository URL: https://github.com/alsa-project/alsa-lib
+--VBq/nvTu32OVLBUP--

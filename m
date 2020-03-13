@@ -2,57 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 904F918458F
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Mar 2020 12:06:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 500ED1845C8
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Mar 2020 12:17:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F2D017D1;
-	Fri, 13 Mar 2020 12:05:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F2D017D1
+	by alsa0.perex.cz (Postfix) with ESMTPS id E5D9717DD;
+	Fri, 13 Mar 2020 12:16:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5D9717DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584097568;
-	bh=oqR+a4Zar014tDeUuvEknhmH6oFRqezKR5v08VvoJaU=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=n1eUC3yfWTlTmu8fks2q05RwNgDInfSAuYQPDpOdGogOMUuYrXRT6e83QBIljh0WV
-	 1VmYiVGBEwOyAmaQIhLciiQ2ML/k82ZxPkoPRMZ1Fsr8TKmukzWzDdxp180u7Jgrpo
-	 R9LvmCGR0E6iS9zR5qc498dSPFvC22v9+gVDMvnU=
+	s=default; t=1584098234;
+	bh=EI2XgnaoSzAqcLQzXNmOaHo5x+AxX8QMR5DKuf6vke8=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=UqL6P8iWvESQwjHL9go6IBIKxUmzwOH5rd0qJWFF+N47KtOf9CXWQnv5MfpnKUgL9
+	 xSx7Ab/hbw0UG/4pBH9eCzLDMzgTRlGKhr7uQrDnaw7aIH9hgzC2J8s1V6nUc+zBxh
+	 z2egE1oCA0brhVjCCAlFElGYCzPhvokBuQT/LCtQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3DFC4F80276;
-	Fri, 13 Mar 2020 12:03:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF281F801F7;
+	Fri, 13 Mar 2020 12:15:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AD73CF801F8; Fri, 13 Mar 2020 12:02:56 +0100 (CET)
+ id 4EA5CF801EB; Fri, 13 Mar 2020 12:15:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 149C8F801A3
- for <alsa-devel@alsa-project.org>; Fri, 13 Mar 2020 12:00:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 149C8F801A3
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 13 Mar 2020 04:00:06 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,548,1574150400"; d="scan'208";a="236926386"
-Received: from mgorski-all-series.igk.intel.com ([10.237.149.201])
- by fmsmga008.fm.intel.com with ESMTP; 13 Mar 2020 04:00:05 -0700
-From: Mateusz Gorski <mateusz.gorski@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v2] ucm2: hdadsp: add basic ucm config
-Date: Fri, 13 Mar 2020 12:00:18 +0100
-Message-Id: <20200313110018.5145-1-mateusz.gorski@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-Cc: cezary.rojewski@intel.com, Mateusz Gorski <mateusz.gorski@linux.intel.com>,
- tiwai@suse.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3429AF80090
+ for <alsa-devel@alsa-project.org>; Fri, 13 Mar 2020 12:15:00 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id ADF3BA0040;
+ Fri, 13 Mar 2020 12:14:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz ADF3BA0040
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1584098097; bh=jsrT0wsyRiY0rj19Gl7rejsF9KSnX7VrUj5sr/AyapU=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=w5TM5MykOVGGmX1SFcW1MRJU+yWDifyvdeocn87yiV0PSgMCDdQVY/Y6cM6MQwCrw
+ WVJn28MOf1xs1PBSsFdk/aXQsng8D57T3ro+RMLl/JtgzM2s0pHL+mhwE1l26A/pZ/
+ Zhhtt10iWxua6OBZngNuiLg955Xha7fWCqglgHs4=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Fri, 13 Mar 2020 12:14:53 +0100 (CET)
+Subject: Re: [PATCH] ucm2: hdadsp: add basic ucm config
+To: "Gorski, Mateusz" <mateusz.gorski@linux.intel.com>,
+ alsa-devel@alsa-project.org
+References: <20200306113031.713-1-mateusz.gorski@linux.intel.com>
+ <4e2e3345-81d0-c698-d589-d4db5faff288@perex.cz>
+ <8cd9195d-6104-88ed-22ed-c3151334ee76@linux.intel.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <1bd9d86c-e19f-183c-5355-5b7359c6e4c0@perex.cz>
+Date: Fri, 13 Mar 2020 12:14:53 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
+MIME-Version: 1.0
+In-Reply-To: <8cd9195d-6104-88ed-22ed-c3151334ee76@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: cezary.rojewski@intel.com, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,209 +83,79 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Basic UCM configuration for Intel Skylake SST HDA DSP generic machine
-driver enabling codec playback and capture on both HDA codec and DMIC 
-ports.
+Dne 13. 03. 20 v 11:59 Gorski, Mateusz napsal(a):
+> 
+>>> Basic UCM configuration for HDA DSP generic enabling codec playback and
+>>> capture on both HDA codec and DMIC ports.
+>>
+>> Could you describe for what Linux driver (source code) is this
+>> configuration?
+> 
+> 
+> This file is for Intel Skylake SST driver. Information added in v2.
 
-Signed-off-by: Mateusz Gorski <mateusz.gorski@linux.intel.com>
----
+Ok, do we have this code in the vanilla linux kernel? Which .c file? The 
+driver name 'hdadsp' looks suspicious. We usually have a delimiter in the 
+driver name (like sof-hda-dsp).
 
-Changes in v2:
-- addressed Jaroslav hints about v1 patch
-- added HiFi and Hdmi use cases
-- adjusted to ucm2 syntax
+>>> +ValueDefaults {
+>>> +    PlaybackChannels "2"
+>>> +    PlaybackPriority "1"
+>>> +    CaptureChannels "2"
+>>> +    CapturePriority "2"
+>>> +}
+>>
+>> Remove PlaybackChannel and Priority defaults. The priorities should be
+>> defined in the device section.
 
- ucm2/hdadsp/Hdmi1.conf  | 24 +++++++++++
- ucm2/hdadsp/Hdmi2.conf  | 24 +++++++++++
- ucm2/hdadsp/HiFi.conf   | 88 +++++++++++++++++++++++++++++++++++++++++
- ucm2/hdadsp/hdadsp.conf | 21 ++++++++++
- 4 files changed, 157 insertions(+)
- create mode 100644 ucm2/hdadsp/Hdmi1.conf
- create mode 100644 ucm2/hdadsp/Hdmi2.conf
- create mode 100644 ucm2/hdadsp/HiFi.conf
- create mode 100644 ucm2/hdadsp/hdadsp.conf
+I will check...
 
-diff --git a/ucm2/hdadsp/Hdmi1.conf b/ucm2/hdadsp/Hdmi1.conf
-new file mode 100644
-index 0000000..d402dab
---- /dev/null
-+++ b/ucm2/hdadsp/Hdmi1.conf
-@@ -0,0 +1,24 @@
-+# Usecase for device HDMI1/Display Port stereo playback on Intel cAVS platforms
-+# For Audio in HDA mode
-+
-+SectionDevice."HDMI1" {
-+        Comment "HDMI/Display Port 1 Stereo"
-+
-+        Value {
-+                PlaybackPriority 300
-+                PlaybackPCM "hw:${CardId},10"
-+                If.1 {
-+                        Condition {
-+                                Type ControlExists
-+                                Control "iface=CARD,name='HDMI/DP,pcm=17 Jack'"
-+                        }
-+                        True {
-+                                JackControl "HDMI/DP,pcm=17 Jack"
-+                        }
-+                        False {
-+                                JackControl "HDMI/DP, pcm=17 Jack"
-+                        }
-+                }
-+        }
-+}
-+
-diff --git a/ucm2/hdadsp/Hdmi2.conf b/ucm2/hdadsp/Hdmi2.conf
-new file mode 100644
-index 0000000..153bbe1
---- /dev/null
-+++ b/ucm2/hdadsp/Hdmi2.conf
-@@ -0,0 +1,24 @@
-+# Usecase for device HDMI2/Display Port stereo playback on Intel cAVS platforms
-+# For Audio in HDA mode
-+
-+SectionDevice."HDMI2" {
-+        Comment "HDMI/Display Port 2 Stereo"
-+
-+        Value {
-+                PlaybackPriority 400
-+                PlaybackPCM "hw:${CardId},11"
-+                If.1 {
-+                        Condition {
-+                                Type ControlExists
-+                                Control "iface=CARD,name='HDMI/DP,pcm=18 Jack'"
-+                        }
-+                        True {
-+                                JackControl "HDMI/DP,pcm=18 Jack"
-+                        }
-+                        False {
-+                                JackControl "HDMI/DP, pcm=18 Jack"
-+                        }
-+                }
-+        }
-+}
-+
-diff --git a/ucm2/hdadsp/HiFi.conf b/ucm2/hdadsp/HiFi.conf
-new file mode 100644
-index 0000000..fe025de
---- /dev/null
-+++ b/ucm2/hdadsp/HiFi.conf
-@@ -0,0 +1,88 @@
-+# Usecase for stereo playback Speaker and Headset, Recording on DMIC and Headset MIC.
-+# For Audio in HDA mode on Intel cAVS platforms
-+
-+SectionVerb {
-+
-+	EnableSequence [
-+		cset "name='mch_cap_out mo mch_cap_in mi Switch' 1"
-+	]
-+
-+	Value {
-+		TQ "HiFi"
-+	}
-+}
-+
-+SectionDevice."Headphones" {
-+	Comment "Headphones"
-+
-+	ConflictingDevice [
-+		"Speaker"
-+	]
-+
-+	EnableSequence [
-+		cset "name='Headphone Playback Switch' 1,1"
-+		cset "name='Speaker Playback Switch' 0,0"
-+	]
-+
-+	Value [
-+		PlaybackPriority 200
-+		PlaybackPCM "hw:${CardId},7"
-+		JackControl "Front Headphone Jack"
-+		JackHWMute "Speaker"
-+	]
-+}
-+
-+SectionDevice."Speaker" {
-+	Comment "Speaker"
-+
-+	ConflictingDevice [
-+		"Headphones"
-+	]
-+
-+	EnableSequence [
-+		cset "name='Headphone Playback Switch' 0,0"
-+		cset "name='Speaker Playback Switch' 1,1"
-+	]
-+
-+	Value {
-+		PlaybackPriority 100
-+		PlaybackPCM "hw:${CardId},7"
-+	}
-+}
-+
-+SectionDevice."Headset" {
-+	Comment "Headset Microphone"
-+
-+	ConflictingDevice [
-+		"Mic"
-+	]
-+
-+	EnableSequence [
-+		cset "name='media0_out mo codec0_in mi Switch' 1"
-+	]
-+
-+	Value {
-+		CapturePriority 200
-+		CapturePCM "hw:${CardId},7"
-+	}
-+}
-+
-+SectionDevice."Mic" {
-+	Comment "Digital Microphone"
-+
-+	ConflictingDevice [
-+		"Headset"
-+	]
-+
-+	EnableSequence [
-+		cset "name='mch_cap_out mo mch_cap_in mi Switch' 1"
-+	]
-+
-+	Value {
-+		CapturePriority 100
-+		CapturePCM "hw:${CardId},13"
-+	}
-+}
-+
-+<hdadsp/Hdmi1.conf>
-+<hdadsp/Hdmi2.conf>
-diff --git a/ucm2/hdadsp/hdadsp.conf b/ucm2/hdadsp/hdadsp.conf
-new file mode 100644
-index 0000000..a90299f
---- /dev/null
-+++ b/ucm2/hdadsp/hdadsp.conf
-@@ -0,0 +1,21 @@
-+# UCM for Intel CAVS platforms
-+# For Audio in HDA and DMIC mode
-+
-+Syntax 2
-+
-+SectionUseCase."HiFi" {
-+        File "HiFi.conf"
-+        Comment "Play HiFi quality Music"
-+}
-+
-+ValueDefaults {
-+        PlaybackChannels "2"
-+        CaptureChannels "2"
-+}
-+
-+SectionDefaults [
-+	cset "name='Master Playback Switch' 1"
-+        cset "name='codec0_out mo media0_in mi Switch' 1"
-+        cset "name='media0_out mo codec0_in mi Switch' 1"
-+	cset "name='mch_cap_out mo mch_cap_in mi Switch' 1"
-+]
+> 
+> 
+> Thanks, moved to device section in v2.
+> 
+> 
+>>> +
+>>> +SectionDefaults [
+>>> +    cdev "hw:hdadsp"
+>>
+>> It should be "hw:${CardId}" for ucm2.
+> 
+> 
+> Thanks, applied in v2.
+> 
+> 
+>>> +    cset "name='codec0_out mo media0_in mi Switch' 1"
+>>> +    cset "name='media0_out mo codec0_in mi Switch' 1"
+>>> +    cset "name='mch_cap_out mo mch_cap_in mi Switch' 1"
+>>> +]
+>>
+>> This file does not define any devices. Does pulseaudio work with this
+>> configuration?
+> 
+> 
+> Devices added in v2. Regarding pulseaudio - are there any guidelines on
+> how to test UCM files with it? These UCM files were writted mainly based
+> on existing ones for other cards. Of course basic tests were made.
+
+I wrote an ucm validator:
+
+https://github.com/alsa-project/alsa-tests/tree/master/python/ucm-validator
+
+Just type 'make' in the ucm-validator directory, the alsa-info.sh output 
+should be added to the configs subtree.
+
+The PA should be used latest from gitlab with the volume control and HDMI support.
+
+					Jaroslav
+
+> 
+> 
+> Thanks,
+> Mateusz
+> 
+
+
 -- 
-2.17.1
-
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

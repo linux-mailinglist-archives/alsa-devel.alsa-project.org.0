@@ -2,97 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBCFD18480C
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Mar 2020 14:27:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FF04184965
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Mar 2020 15:33:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5ABD91805;
-	Fri, 13 Mar 2020 14:26:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5ABD91805
+	by alsa0.perex.cz (Postfix) with ESMTPS id C07051813;
+	Fri, 13 Mar 2020 15:32:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C07051813
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584106027;
-	bh=kxaxTJVVKZVL7AmzQrIeUTzResAv1y6qY63DhKAUTAY=;
+	s=default; t=1584110019;
+	bh=x8GGQ1ulMYXe3kWEbWWEenVnUQikdkrRgnbGKRGISR4=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JTM7PCQYuzRxFmDZcdX3VPOa8txLm/ZLCUYoos8+sgKIpBIKcwYfy9if0334LH1b+
-	 Y1UoocG1KUAGLPx0DxB0DbnBxRNx7BlGoUeXKMKqmbjDFrIQC6RLP1n5dRFokr48x4
-	 RMcW+/Gv7cNORmf7P7xxZqBh8R7/Jxx2kANU6nf0=
+	b=nxY8eG3gyglRshDPwbvcxldojMpjl/0Ley4u5/9udDfHZmDXk/qXykSmXASsQvLw0
+	 Cq0GwzAbCjgNw1Igd5M7sRJ+Q3CEE4mqhLK29UY3+k2zeOviFfsVgWc9wGA8Mp0ogL
+	 t5fKB7/FcO+nziRqCCDNPZj8HTMBXC4Ue/MqBL8c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 079DAF80086;
-	Fri, 13 Mar 2020 14:25:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78E02F8013E;
+	Fri, 13 Mar 2020 15:31:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 24F43F801EB; Fri, 13 Mar 2020 14:25:20 +0100 (CET)
+ id B8674F80086; Fri, 13 Mar 2020 15:31:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 05F79F80086
- for <alsa-devel@alsa-project.org>; Fri, 13 Mar 2020 14:25:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05F79F80086
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="PS6US2pp"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 02DDOf69020396; Fri, 13 Mar 2020 08:25:09 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=1g+yEZHlt2Q04R5aWwm8MjJ2eg5k6k6BPi/8vA7zXSg=;
- b=PS6US2ppZ2WT6af52sTUusw3XSBtJzLVNDcBr9MiUIsjM1BmF5u9o49+rVS7eAdjwiX4
- wXt+3lMI6DhP7Eo9xxHrxSuDemwJt+3UR11ypVZT2Eg4OYohIsQjqRchaMGDUdWLrCna
- tnzorTH+2F1h9EaoDdUsXN3B3kKyzPJqAzadyn+57EMxnFlZ9TpWy8Zf/9pA18LNmPs6
- FJRJg7txWRu6JbbTr0u7Do10CeFd+/mlTSfauvsxlCUEUOn3pUH23eWeKaroT5SpcFux
- vYHuG+5gOXRmG+V80M0j8Fi4bwBczk5BNHzkDQ8DU1H9OI6iXvh9BuJwOTptHOMPWJB7 pQ== 
-Authentication-Results: ppops.net;
- spf=fail smtp.mailfrom=ckeepax@opensource.cirrus.com
-Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 2yqt8nsmtm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 13 Mar 2020 08:25:09 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Fri, 13 Mar
- 2020 13:25:07 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
- Frontend Transport; Fri, 13 Mar 2020 13:25:07 +0000
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id BB39F2AB;
- Fri, 13 Mar 2020 13:25:07 +0000 (UTC)
-Date: Fri, 13 Mar 2020 13:25:07 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH] ASoC: wm_adsp: Use scnprintf() for the limited buffer
- output
-Message-ID: <20200313132507.GL108283@ediswmail.ad.cirrus.com>
-References: <20200313130334.9028-1-tiwai@suse.de>
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id AD0D4F80086;
+ Fri, 13 Mar 2020 15:31:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD0D4F80086
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 71D3230E;
+ Fri, 13 Mar 2020 07:31:23 -0700 (PDT)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CC9693F67D;
+ Fri, 13 Mar 2020 07:31:22 -0700 (PDT)
+Date: Fri, 13 Mar 2020 14:31:21 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Subject: Re: [PATCH 00/14] ASoC: SOF DSP virtualisation
+Message-ID: <20200313143121.GI5528@sirena.org.uk>
+References: <20200312144429.17959-1-guennadi.liakhovetski@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ev7mvGV+3JQuI2Eo"
 Content-Disposition: inline
-In-Reply-To: <20200313130334.9028-1-tiwai@suse.de>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-SPF-Result: fail
-X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
- include:spf.protection.outlook.com
- ip4:5.172.152.52 -all
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- suspectscore=0
- malwarescore=0 mlxlogscore=788 priorityscore=1501 clxscore=1015
- phishscore=0 adultscore=0 mlxscore=0 impostorscore=0 bulkscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2003020000 definitions=main-2003130070
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+In-Reply-To: <20200312144429.17959-1-guennadi.liakhovetski@linux.intel.com>
+X-Cookie: This page intentionally left blank.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,19 +71,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Mar 13, 2020 at 02:03:34PM +0100, Takashi Iwai wrote:
-> snprintf() is a hard-to-use function, it's especially difficult to use
-> it for concatenating substrings in a buffer with a limited size.
-> Since snprintf() returns the would-be-output size, not the actual
-> size, the subsequent use of snprintf() may point to the incorrect
-> position.
-> 
-> Use scnprintf() instead for fixing such potential errors.
-> 
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> ---
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+--ev7mvGV+3JQuI2Eo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thanks,
-Charles
+On Thu, Mar 12, 2020 at 03:44:15PM +0100, Guennadi Liakhovetski wrote:
+> This patch series extends the SOF driver to add support for DSP
+> virtualisation to ASoC. It is built on top of VirtIO, contains a
+> guest driver and a vhost in-kernel guest driver. This version
+
+Is there a spec for this?
+
+--ev7mvGV+3JQuI2Eo
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5rmTgACgkQJNaLcl1U
+h9AFjQf9GAsVkvJADM4k1Rp2gmWANvzxSTw/QLf0L6rbACWr28/0B1WR8gT7OdLn
+XBvwCIbMe+vcPNaon22cp/mSowr5P8jJw9wIGAtiQDGqbD6czpagzz30WFuNaTPz
+vQsVuoPfB8lCRAkEpWyQZwh6VFB9FLDbjwVSdO3/yAU+Z0Mle5UdR/jP9isPUh+F
+y39jelF0OsCrxEBbEt8VC92ZJJGgDiEeKCbLZrzLjYCxhWJsR0KLdmFGPiyW/+zv
+CAe4MvvO6sGz0CuxlNnFeR+rti+yl4+F6AsKnnEofw+vDRN29lVZ6ZQR59rQHvG3
+CizUHPlF+p3yggBuZEAWnFhPppIdPw==
+=lJ/I
+-----END PGP SIGNATURE-----
+
+--ev7mvGV+3JQuI2Eo--

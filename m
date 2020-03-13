@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B41BF183F34
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Mar 2020 03:41:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3985183F31
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Mar 2020 03:40:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BE841792;
-	Fri, 13 Mar 2020 03:40:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BE841792
+	by alsa0.perex.cz (Postfix) with ESMTPS id 721CA178C;
+	Fri, 13 Mar 2020 03:40:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 721CA178C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584067298;
-	bh=uRcLlztbtD8o8LGR5qAsG3wlNcxdsTX6eXJLjt3AGZU=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=eLy3RfNtO8OzbC3FLUsDDmpxtmMAVpelHzmE7KSDuuiylkgt5rmc2oHVEhchSHmAk
-	 sjOxri2xFjitN7rrrwVstbEBVVGL62pzmrB0f+tQgP7HkOtjfHbVj/Qg3e0ZbfZx6p
-	 USfpHmEzqhkvDrkAQP7lQhMcbIcHaynHrDVEgAvo=
+	s=default; t=1584067254;
+	bh=5R5WjUPb0KkLfzt7oM06mQkeh17Zt2FCC82hAqyslXk=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=A0TGdPdqTeRqS7abVtTp0slN/1faBJIw4oWL+g9GNpp1tEU6jfEk1Tc/PXp6bfOpn
+	 oWpy6RGLajQM68SngaHTW+vFYb0gzsrXieaSnET5dpjkjreTn6KgkKHjWJTfMoZp9N
+	 gTJxJQAK51vRXWQs3JI4NB7qwWCvaTx6QatcRWKc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CACAEF80249;
-	Fri, 13 Mar 2020 03:39:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 722FCF801F7;
+	Fri, 13 Mar 2020 03:39:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 19AECF801F8; Fri, 13 Mar 2020 03:39:11 +0100 (CET)
+ id 45C38F80090; Fri, 13 Mar 2020 03:39:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -32,14 +33,14 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 86E6CF8013E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9B432F801A3
  for <alsa-devel@alsa-project.org>; Fri, 13 Mar 2020 03:39:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86E6CF8013E
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B432F801A3
 Authenticated-By: 
-X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID 02D2ctPi018582,
+X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID 02D2ctPk018582,
  This message is accepted by code: ctloc85258
 Received: from mail.realtek.com (RTEXMB06.realtek.com.tw[172.21.6.99])
- by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id 02D2ctPi018582
+ by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id 02D2ctPk018582
  (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT);
  Fri, 13 Mar 2020 10:38:55 +0800
 Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
@@ -49,14 +50,15 @@ Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
 Received: from localhost.localdomain (172.22.102.1) by RTEXMB01.realtek.com.tw
  (172.21.6.94) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1779.2; Fri, 13 Mar
- 2020 10:38:54 +0800
+ 2020 10:38:55 +0800
 From: Oder Chiou <oder_chiou@realtek.com>
 To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH 1/2] ASoC: rt5682: Fine tune the HP performance in soundwire
- mode
-Date: Fri, 13 Mar 2020 10:38:49 +0800
-Message-ID: <20200313023850.28875-1-oder_chiou@realtek.com>
+Subject: [PATCH 2/2] ASoC: rt5682: Revise the DAC1 volume setting
+Date: Fri, 13 Mar 2020 10:38:50 +0800
+Message-ID: <20200313023850.28875-2-oder_chiou@realtek.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200313023850.28875-1-oder_chiou@realtek.com>
+References: <20200313023850.28875-1-oder_chiou@realtek.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -81,26 +83,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The setting is sync with I2C/I2S mode.
+The max volume of the DAC1 Playback Volume is 0dB.
 
 Signed-off-by: Oder Chiou <oder_chiou@realtek.com>
 ---
- sound/soc/codecs/rt5682.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/soc/codecs/rt5682.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
-index e1df2d076533..f4b8af128828 100644
+index f4b8af128828..7ca02a5e52e9 100644
 --- a/sound/soc/codecs/rt5682.c
 +++ b/sound/soc/codecs/rt5682.c
-@@ -3462,6 +3462,8 @@ int rt5682_io_init(struct device *dev, struct sdw_slave *slave)
- 			RT5682_HPA_CP_BIAS_CTRL_MASK, RT5682_HPA_CP_BIAS_3UA);
- 	regmap_update_bits(rt5682->regmap, RT5682_CHARGE_PUMP_1,
- 			RT5682_CP_CLK_HP_MASK, RT5682_CP_CLK_HP_300KHZ);
-+	regmap_update_bits(rt5682->regmap, RT5682_HP_CHARGE_PUMP_1,
-+			RT5682_PM_HP_MASK, RT5682_PM_HP_HV);
+@@ -1166,7 +1166,7 @@ static void rt5682_jack_detect_handler(struct work_struct *work)
+ static const struct snd_kcontrol_new rt5682_snd_controls[] = {
+ 	/* DAC Digital Volume */
+ 	SOC_DOUBLE_TLV("DAC1 Playback Volume", RT5682_DAC1_DIG_VOL,
+-		RT5682_L_VOL_SFT + 1, RT5682_R_VOL_SFT + 1, 86, 0, dac_vol_tlv),
++		RT5682_L_VOL_SFT + 1, RT5682_R_VOL_SFT + 1, 87, 0, dac_vol_tlv),
  
- 	/* Soundwire */
- 	regmap_write(rt5682->regmap, RT5682_PLL2_INTERNAL, 0xa266);
+ 	/* IN Boost Volume */
+ 	SOC_SINGLE_TLV("CBJ Boost Volume", RT5682_CBJ_BST_CTRL,
 -- 
 2.25.1
 

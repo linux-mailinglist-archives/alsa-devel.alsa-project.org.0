@@ -2,61 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72E20183FE0
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Mar 2020 04:58:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2327E18401D
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Mar 2020 05:55:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BF911178F;
-	Fri, 13 Mar 2020 04:58:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF911178F
+	by alsa0.perex.cz (Postfix) with ESMTPS id A25531794;
+	Fri, 13 Mar 2020 05:54:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A25531794
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584071930;
-	bh=0wPNGmoEr8gU6kNRAYFbTtL0thyfZJAgEU+oc6PLqhk=;
-	h=Subject:From:To:References:Date:In-Reply-To:List-Id:
+	s=default; t=1584075334;
+	bh=wvz9uvyc21UQew4+JG8ovh/2BCTI/jwbb7swMievMpI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ad5+ztM/Zrh/G2JoU/60SIflOYtSdtidbTyY1s9DRZkQsQeeWwC66KE56tNo06LX3
-	 Ndd8iHt9wiT5zHLLzDiW91/FJZXPA5aRNnnn5oaJYOQiC5LGEMhihPjg09vQ07zuKO
-	 rwIcWA8U7cW5GCm8OJdGlm+G+2jTpaoyOcObHy5U=
+	b=S5tRjg2ism5uzMimGCxCFDFJO5ZVT9KFW+DcK+Fw3EYzXk/SUna8SdxhKfW9kpcf0
+	 3ayLvc0NwIXsRW7N3fOhu4F/NVmn+DRUXLVfldq0fL4lpdsKtCG4rRSeeNFkwcXgmF
+	 ou8SLZ0145UJ+g4rFHzN6SsEMTR1vi9XCoRtWbLo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C179DF801F7;
-	Fri, 13 Mar 2020 04:57:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F84BF80086;
+	Fri, 13 Mar 2020 05:53:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B4A0F801EB; Fri, 13 Mar 2020 04:57:04 +0100 (CET)
+ id B8107F801EB; Fri, 13 Mar 2020 05:53:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mx.flatmax.org (mx.flatmax.org [13.55.16.222])
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_SOFTFAIL,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from conssluserg-06.nifty.com (conssluserg-06.nifty.com
+ [210.131.2.91])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0F8ABF80086
- for <alsa-devel@alsa-project.org>; Fri, 13 Mar 2020 04:56:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F8ABF80086
-Received: from 41.68.233.220.static.exetel.com.au ([220.233.68.41]
- helo=[192.168.1.51])
- by mx.flatmax.org with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.89) (envelope-from <flatmax@flatmax.org>)
- id 1jCbRB-0005AE-1e; Fri, 13 Mar 2020 14:56:47 +1100
-Subject: Re: ASoc: soc_core.c stream direction from snd_soc_dai
-From: Matt Flax <flatmax@flatmax.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-References: <5598a2fc-9b49-ad5e-2265-fbc0593ead1b@flatmax.org>
- <0d9a9459-9cd7-d384-b1ff-72860895ad13@linux.intel.com>
- <73148789-58f7-2228-ae42-465cdafcff4c@flatmax.org>
-Message-ID: <52e1a640-b46f-b494-2047-849c1999eb28@flatmax.org>
-Date: Fri, 13 Mar 2020 14:56:40 +1100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 296B9F80086
+ for <alsa-devel@alsa-project.org>; Fri, 13 Mar 2020 05:53:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 296B9F80086
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=nifty.com header.i=@nifty.com
+ header.b="1qbYSOTg"
+Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com
+ [209.85.217.45]) (authenticated)
+ by conssluserg-06.nifty.com with ESMTP id 02D4rNS5006742
+ for <alsa-devel@alsa-project.org>; Fri, 13 Mar 2020 13:53:23 +0900
+DKIM-Filter: OpenDKIM Filter v2.10.3 conssluserg-06.nifty.com 02D4rNS5006742
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nifty.com;
+ s=dec2015msa; t=1584075204;
+ bh=w3Y1PyEPxiBVRuK/A0Q7y3Dyq4APs/2kQeU8OKCr8ZA=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=1qbYSOTgDX4Vgx5faAXlOdhiqgn8tPaNi0xwFJsuOFnT4BLAWTiK3CZJmA3YjgRfz
+ vyGTQpfSMRynbM6aqYEOjHc7CxQ+lbb8YufLNjhi4t38klppChvz9JP+V8XTbiIFUP
+ 5pTz+otNvR6HGM1QC37YTNKQ0vAUwB/kTXjWTu75106a+XtDrFiJKO4uf4FbXMLpNq
+ T41aOe2KIWiZZSSLRQR/DISiswtiCzk192xhd5v5aQX31dmV68iAvDZyvsuIO+nmt9
+ BZmKxJ2821C3miI56kSQC2LkBBtoe9ej/p+krgV340LKS//8zuAKesgotob+NafjtI
+ 2iEU6JlZvKTaA==
+X-Nifty-SrcIP: [209.85.217.45]
+Received: by mail-vs1-f45.google.com with SMTP id k26so5304084vso.5
+ for <alsa-devel@alsa-project.org>; Thu, 12 Mar 2020 21:53:23 -0700 (PDT)
+X-Gm-Message-State: ANhLgQ2k2ZjyXkLNzvzC4vWkj6jol9cINNFl1vmy2Qh1oL86rww8Rt5x
+ T+XFHlYAQHKByglNkZEItuVAb5ogfEw4Q/NP5tE=
+X-Google-Smtp-Source: ADFU+vuj8oh8CmqdPfS+e+blxWFNJKVra9+A1Sx+9bsoEaPEfI9I+52/E35yuOeItildQOuicmCENQ6ligLyO/1nQsQ=
+X-Received: by 2002:a67:33cb:: with SMTP id z194mr8322970vsz.155.1584075202592; 
+ Thu, 12 Mar 2020 21:53:22 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <73148789-58f7-2228-ae42-465cdafcff4c@flatmax.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+References: <20200312041232.wBVu2sBcq%akpm@linux-foundation.org>
+ <c6c4e6fb-30f3-60a1-6bc0-25daa84d479d@infradead.org>
+ <a8343b1f-7e87-d34d-a71b-86d20a8a3aff@linaro.org>
+In-Reply-To: <a8343b1f-7e87-d34d-a71b-86d20a8a3aff@linaro.org>
+From: Masahiro Yamada <masahiroy@kernel.org>
+Date: Fri, 13 Mar 2020 13:52:46 +0900
+X-Gmail-Original-Message-ID: <CAK7LNARaR9_GPE+uU9Fh73850dwJXKETyF4gJxats_hrhgwzAg@mail.gmail.com>
+Message-ID: <CAK7LNARaR9_GPE+uU9Fh73850dwJXKETyF4gJxats_hrhgwzAg@mail.gmail.com>
+Subject: Re: mmotm 2020-03-11-21-11 uploaded (sound/soc/codecs/wcd9335.c)
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
+ moderated for non-subscribers <alsa-devel@alsa-project.org>,
+ mm-commits@vger.kernel.org, Randy Dunlap <rdunlap@infradead.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, mhocko@suse.cz,
+ linux-mm@kvack.org, Mark Brown <broonie@kernel.org>,
+ Linux-Next Mailing List <linux-next@vger.kernel.org>,
+ Linux FS-devel Mailing List <linux-fsdevel@vger.kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,111 +98,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, Mar 13, 2020 at 1:59 AM Srinivas Kandagatla
+<srinivas.kandagatla@linaro.org> wrote:
+>
+> Adding+ Masahiro Yamada for more inputs w.r.t kconfig.
+>
+>
+> Kconfig side we have:
+>
+> config SND_SOC_ALL_CODECS
+>          tristate "Build all ASoC CODEC drivers"
+>          imply SND_SOC_WCD9335
+>
+> config SND_SOC_WCD9335
+>          tristate "WCD9335 Codec"
+>          depends on SLIMBUS
+>         ...
+>
+> The implied symbol SND_SOC_WCD9335 should be set based on direct
+> dependency, However in this case, direct dependency SLIMBUS=m where as
+> SND_SOC_WCD9335=y. I would have expected to be SND_SOC_WCD9335=m in this
+> case.
+>
+> Is this a valid possible case or a bug in Kconfig?
+>
 
-On 13/3/20 10:19 am, Matt Flax wrote:
->
-> On 13/3/20 9:55 am, Pierre-Louis Bossart wrote:
->>
->>
->> On 3/11/20 5:54 PM, Matt Flax wrote:
->>> Hi there,
->>>
->>> A large number of audio codecs allow different formats for playback 
->>> and capture. This becomes very useful when there are different 
->>> latencies between playback and capture hardware data lines. For 
->>> example digital isolation chips typically have a 1 bit delay in 
->>> propagation as the bit clock rate gets faster for higher sample 
->>> rates. By setting the capture and playback formats to differ by one 
->>> or two bit clock cycles, the delay problem is solved.
->>>
->>> There doesn't seem to be a simple way to detect stream direction in 
->>> the codec driver's set_fmt function.
->>>
->>> The snd_soc_runtime_set_dai_fmt function :
->>>
->>> https://github.com/torvalds/linux/blob/master/sound/soc/soc-core.c#L1480 
->>>
->>>
->>> calls the snd_soc_dai_set_fmt function :
->>>
->>> https://github.com/torvalds/linux/blob/master/sound/soc/soc-dai.c#L101
->>>
->>> which calls the set_fmt function :
->>>
->>> https://github.com/torvalds/linux/blob/master/include/sound/soc-dai.h#L189 
->>>
->>>
->>>
->>> The snd_soc_dai_ops set_fmt function is defined as :
->>>
->>>      int (*set_fmt)(struct snd_soc_dai *dai, unsigned int fmt);
->>>
->>>
->>> Is there a simple way to find the stream direction from a snd_soc_dai ?
->>>
->>> If the stream direction can be detected then the playback and 
->>> capture formats can be set independently for the codec.
->>>
->>> It there a different way to set the playback and capture formats for 
->>> the codec independently at runtime, depending on the sample rate ?
->>
->> FWIW I remember a discussion in the past on how to deal with 
->> interfaces that may have different clocks sources for capture and 
->> playback (typically with the 6-pin version of I2S/TDM), and the 
->> answer was: use two dais, with one dealing with capture and the other 
->> with playback.
->>
->> I would bet this applies for the format as well. If you use a DAI 
->> that can do both directions, then indeed there's no obvious way to 
->> specify that formats or clock ownership could be different between 
->> the two directions.
->>
->> It would probably make sense anyway to have a representation with two 
->> dais, e.g. the codec capture dai receives data from somewhere and the 
->> codec playback dai forwards it to another destination.
->>
-> I think I get it ...
->
-> This approach would keep extra stream selective functionality out of 
-> soc-dai.c. That is probably a good thing for the simplicity of the core.
->
-> A machine driver could then call snd_soc_dai_set_fmt passing in the 
-> correct codec_dai from the codec_dais array for the stream they want 
-> to operate on.
->
-In an example case, cs4271 ... how do we enforce symmetric rates ?
+The patch exist:
+https://patchwork.kernel.org/patch/11414795/
 
-static struct snd_soc_dai_driver cs4271_dai[] = {
-     {
-         .name = "cs4271-hifi-p",
-         .playback = {
-             .stream_name    = "Playback",
-             .channels_min    = 2,
-             .channels_max    = 2,
-             .rates        = CS4271_PCM_RATES,
-             .formats    = CS4271_PCM_FORMATS,
-         },
-         .ops = &cs4271_dai_ops,
-         .symmetric_rates = 1,
-     },
-     {
-         .name = "cs4271-hifi-c",
-         .capture = {
-             .stream_name    = "Capture",
-             .channels_min    = 2,
-             .channels_max    = 2,
-             .rates        = CS4271_PCM_RATES,
-             .formats    = CS4271_PCM_FORMATS,
-         },
-         .ops = &cs4271_dai_ops,
-         .symmetric_rates = 1,
-     }
-};
+
+However, this caused another problem, then
+got reverted in linux-next.
+
+It fixed it too, so hopefully
+this will be solved soon.
 
 
 
-> Matt
->
->
->> My 2 cents
->> -Pierre
+-- 
+Best Regards
+Masahiro Yamada

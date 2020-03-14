@@ -2,77 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B1BC18554D
-	for <lists+alsa-devel@lfdr.de>; Sat, 14 Mar 2020 10:54:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B5C8185616
+	for <lists+alsa-devel@lfdr.de>; Sat, 14 Mar 2020 18:28:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 043D1186F;
-	Sat, 14 Mar 2020 10:53:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 043D1186F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8AA3A1866;
+	Sat, 14 Mar 2020 18:27:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AA3A1866
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584179643;
-	bh=+pW3YzUyH0cg/KHykqp6AOMoambL+e3V8FJ78cxYe98=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1584206888;
+	bh=z3m56ygDeRjBcgIdmnPb7FnzhZIQeRLxyCbbddyayp8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=g8PEDNiPK5lqTGYrqrv0HIP2R+Bc74ZfkEsLH0XsoCih/WDKH0k0eGGRufNtvzqVC
-	 oS4L3I8f9KrwHZLWBEJQWWtMUXK47jWA3h1A1TRwxuQ7DHAOi6cN4EQXOEfw1id5q2
-	 USMstuxm0mTA7f9KPa7QEp9hCx7pxNepvNk/7c10=
+	b=kEWWJRLiyGs4rgeh9LSO1Jonr6OHOxgl/3pjIr6g03rczEL/aXffdoD6V7hTUGLEU
+	 pumdrUqECl2m2HkohUfXR8ESQdck7AUCT8pygStzDTa79hM90vzQK94+iWNSjCGHZD
+	 CraCx5bOJhbd2YcbZfhBH6VeqdnbQierHRjg9CO0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B448F8020C;
-	Sat, 14 Mar 2020 10:52:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 374A1F8013C;
+	Sat, 14 Mar 2020 18:26:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 164A4F801D9; Sat, 14 Mar 2020 10:52:21 +0100 (CET)
+ id CA7A7F801D9; Sat, 14 Mar 2020 18:26:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B43AEF80086
- for <alsa-devel@alsa-project.org>; Sat, 14 Mar 2020 10:52:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B43AEF80086
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="UI4gKwVb"
-Received: from localhost (unknown [122.167.115.156])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 21A8120753;
- Sat, 14 Mar 2020 09:52:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1584179537;
- bh=+pW3YzUyH0cg/KHykqp6AOMoambL+e3V8FJ78cxYe98=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=UI4gKwVbJiR+VoSLoyLynOf8+KRReIEuPsKxngmstltQhAlnUa/Ilta/1JSx1Y9TY
- ZFv+yJHLGutB2tkbph8fpenwAHqWFlGPf7GbxDzVsHgGStSQSgcG4VF3n4sw6MbG5n
- pDh07RrXWdCrpKcmXEyEFIJG/OL+zEunNP8WR1Ew=
-Date: Sat, 14 Mar 2020 15:22:06 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 05/16] soundwire: cadence: add clock_stop/restart routines
-Message-ID: <20200314095206.GR4885@vkoul-mobl>
-References: <20200311184128.4212-1-pierre-louis.bossart@linux.intel.com>
- <20200311184128.4212-6-pierre-louis.bossart@linux.intel.com>
- <20200313122156.GG4885@vkoul-mobl>
- <6d38a58a-a840-169a-1078-e10c278c11fd@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6d38a58a-a840-169a-1078-e10c278c11fd@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Hui Wang <hui.wang@canonical.com>, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
- Sanyog Kale <sanyog.r.kale@intel.com>, Rander Wang <rander.wang@intel.com>,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 85539F8013C
+ for <alsa-devel@alsa-project.org>; Sat, 14 Mar 2020 18:26:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85539F8013C
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 54DEDABF4;
+ Sat, 14 Mar 2020 17:26:21 +0000 (UTC)
+Date: Sat, 14 Mar 2020 18:26:20 +0100
+Message-ID: <s5h1rpu3l1f.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: crwulff@gmail.com
+Subject: Re: [PATCH Fix for Kingston HyperX Amp (0951:16d8) 0/2 (Try #2)]
+In-Reply-To: <20200314165449.4086-1-crwulff@gmail.com>
+References: <20200314165449.4086-1-crwulff@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,43 +68,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 13-03-20, 12:07, Pierre-Louis Bossart wrote:
+On Sat, 14 Mar 2020 17:54:47 +0100,
+crwulff@gmail.com wrote:
 > 
+> From: Chris Wulff <crwulff@gmail.com>
 > 
-> On 3/13/20 7:21 AM, Vinod Koul wrote:
-> > On 11-03-20, 13:41, Pierre-Louis Bossart wrote:
-> > 
-> > > @@ -225,12 +225,30 @@ static int cdns_clear_bit(struct sdw_cdns *cdns, int offset, u32 value)
-> > >   			return 0;
-> > >   		timeout--;
-> > > -		udelay(50);
-> > > +		usleep_range(50, 100);
-> > 
-> > this seems okay change, but unrelated to this patch
-> 
-> ok. It doesn't really matter anyway, this function is removed in Patch 8
+> This patch set is modified to use an inline function for the mixer control
+> interface lookup. The attempt at preventing modifications to a PCM that has
+> previously been registered has been changed to defer registration instead,
+> and has been split into a separate patch. This approach now works with pulseaudio.
 
-Ok pls drop from here.
+Thanks, it looks better now.
+I applied both patches with a slight modification of subject lines.
 
-> > > +int sdw_cdns_clock_stop(struct sdw_cdns *cdns, bool block_wake)
-> > > +{
-> > > +	bool slave_present = false;
-> > > +	struct sdw_slave *slave;
-> > > +	u32 status;
-> > > +	int ret;
-> > > +
-> > > +	/* Check suspend status */
-> > > +	status = cdns_readl(cdns, CDNS_MCP_STAT);
-> > > +	if (status & CDNS_MCP_STAT_CLK_STOP) {
-> > > +		dev_dbg(cdns->dev, "Clock is already stopped\n");
-> > > +		return 1;
-> > 
-> > return of 1..? Does that indicate success/fail..?
-> 
-> success. I guess it could be moved as 0.
 
-That would be better. We use 0 for success everywhere and -ve error
-codes.
-
--- 
-~Vinod
+Takashi

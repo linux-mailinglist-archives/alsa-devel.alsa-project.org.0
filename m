@@ -2,84 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26A55185B41
-	for <lists+alsa-devel@lfdr.de>; Sun, 15 Mar 2020 09:37:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92204185B43
+	for <lists+alsa-devel@lfdr.de>; Sun, 15 Mar 2020 09:38:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C64351868;
-	Sun, 15 Mar 2020 09:36:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C64351868
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3035E1867;
+	Sun, 15 Mar 2020 09:37:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3035E1867
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584261444;
-	bh=3laAiu2VvREGpgqAj0aiP30tmk5uzSErljtJ7WXKz0Y=;
+	s=default; t=1584261526;
+	bh=G0Plrdx2pxUwObjLuM2P5QifycNDaONJ4LHW53gpuq8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JRabx5xvXDDpIbbqnh3ZDMpTK72n7XP7Piyt2DuqvIER+3xsJCZJMnyKO0FAlYLzp
-	 h5apqtNKyihpoZxpGrWnwVYvx9u0xGG1JC6W5mob2+w/PNLNZFE30GIE27URQgiwrP
-	 77HT70eXx0yW3REzkbdLe0ybytaoGuwzcImS5JaU=
+	b=EDUra5Z8NHepBcb21R1bLKNfO98WuCj0BWkLwwHqerSJbmzj+k2vSWSaJXIolk2HK
+	 eSkbjNl+HIyLQZfBFPiL4l663zqJY+WJXR5763GLfpkwxmVzZztI2Yy978wsXhe9d/
+	 xJ33xpIbgVCCjMpQUPkgDqVb36ScLxjgo9r2ZiDk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E4477F8029B;
-	Sun, 15 Mar 2020 09:33:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79DC0F802C3;
+	Sun, 15 Mar 2020 09:33:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5749EF8021C; Sat, 14 Mar 2020 17:54:23 +0100 (CET)
+ id 30831F8023F; Sat, 14 Mar 2020 17:54:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
- [IPv6:2607:f8b0:4864:20::842])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
+ [IPv6:2607:f8b0:4864:20::744])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3E327F8013E;
- Sat, 14 Mar 2020 17:54:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E327F8013E
+ by alsa1.perex.cz (Postfix) with ESMTPS id CBA31F8013C;
+ Sat, 14 Mar 2020 17:54:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBA31F8013C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="nGwYLBk6"
-Received: by mail-qt1-x842.google.com with SMTP id g16so10468554qtp.9;
- Sat, 14 Mar 2020 09:54:18 -0700 (PDT)
+ header.b="gwdY18rQ"
+Received: by mail-qk1-x744.google.com with SMTP id p62so18519500qkb.0;
+ Sat, 14 Mar 2020 09:54:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=gG0n5v0DJ2CMFnKfmL4vCD/r91Sm0q8EkQU7ojDfwss=;
- b=nGwYLBk6vfcZCKwlcHbEE6NIYIZ5jsXy3c1noMDupnxVBFt/bm/fQ1aKpR66Thdpkc
- f+DZgmP3rUjYABL9ICOqVVCEKCnf4/9dTJH/eoOwDGYxMm7zlCWUaMX13+onlTVgaKrJ
- b1UA0VR3jrF0dPIp5HuNtVe6/MXRXfYNpNtV7+rJ20Ghd9lMajR0sS2kuE8/75F03RX6
- VcAWpKJeVdXjIGMHNLEIbN0zn3yCfE4LVVgHK04ZFf+YshQZNSrIYJFJw6AIPkfqFdaJ
- F+JhLmlFQnLVWVWu3sX8nvlPH1VB7eqbLZ+eVmyG1SyN1xivp9Asft0BFUqY2l4HO6lw
- zrTg==
+ bh=3FBcJuiSXp3NcoC9gmlN8BYbJ0DBoeWvz+ZRQ1q25aM=;
+ b=gwdY18rQbL7FzAXeXlK7Ytu1SP6Iyk481YZZpMaSZWvgghwDKIx1JeIcwGUK2u30sA
+ a0hWWx7qWWcMX7KcQYw+BbSgZP76rXHius5euKXjqbD3JVB82T7mmeogFvKMoIp+f4Fx
+ I9W6C0mcR1B5N1ntu4fWqBlDSX/iNVnElgE2lrcWq+GUH0cj8E7QsLEiWKDex3qTNYch
+ ElTCY6IPQ3+sUu+ZUJvClOcqSkwmD4EZQUDOcC/UbpXbdU0qjeJsQdAwb9DzbnUqVjvA
+ Nb/yWmZH8buqSBxYAdh4/WK1iletoMK9+2aVfibQXPk/CuWz9IZmTK1MAfqOs0x15iF4
+ 6N2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=gG0n5v0DJ2CMFnKfmL4vCD/r91Sm0q8EkQU7ojDfwss=;
- b=m/w9xs6LGjKFVDxoPHbCiMx3nnFmeVC87YYIhrG4O+QF3tVtichD0a+/R9eA2O7erT
- 3AycoM8JQA34iBt/KnBTRl47oK0NRxAGNoY7IlZ1v+PRHJ+ojHOEqjb5fpixRJ4/ZIn4
- ZMPkLc0Bbx7k701j6Rtn8V30d7I85wcgcqASE5ZaCmZQc2yYgt2mx0yqBi4mRwm9iUPX
- tQwseej7tuDp3jogel+3HzxRPkO6+xSg4qAI6ef9OThl/DObjf9Si1GYc/TJRNfu+S4Z
- iZ8kmK2TSLiyzTeLpklAki+iFi6X6TxTfhliCE//QuT5NEm7eGw3CLm+P5LLAZjzuBsQ
- PgRg==
-X-Gm-Message-State: ANhLgQ2O4RhGXx3YpE1856ODPouEHplgCGBfgmTKVPcJpm+ujKzx334v
- VHDt3BBWu+3XFWWNxDQUEpD5/NRm
-X-Google-Smtp-Source: ADFU+vs9bi9uMD45mkOqwbefkxqWYV8wE/gS83OngBQTL6ziJLd2gAodnUl4ckQqlYl/ErexoECVyw==
-X-Received: by 2002:ac8:534b:: with SMTP id d11mr10823086qto.101.1584204857022; 
- Sat, 14 Mar 2020 09:54:17 -0700 (PDT)
+ bh=3FBcJuiSXp3NcoC9gmlN8BYbJ0DBoeWvz+ZRQ1q25aM=;
+ b=QFw9NweDxvU4T5CS4sSrmpdXS5jjwBPr4enInQmsj7rQBTs+TrrtVlkb8zbhCOjYoR
+ zRB55vtH+E/HC4It1Rc1NoEJhQQqfO5AZMnVP5+OAdc/RlYhOrT9D/VM7ZU1ZyqbVtvo
+ 5ARM6qIZEKIIA1AAxSlB4IS7cimznOmaWaystvX/BXWC/cNEFp7M2PdJvfThl83lSNew
+ 4fC4DDLBg+7gyoWAB2ntIThJraKgguwME29kMcgIwpVT8/wc6JIlk03XfhCE4h64iwJ4
+ VYheaQl8efRgD6gbIsgwkG5Tf8v2QWGoonQfeTaitz8NlZ5W4ESnDxSdi15yhb+85NpF
+ nZbA==
+X-Gm-Message-State: ANhLgQ3ONtSVs0TVS7uHZNZxPK8+E7cJNGBuXwX1eNjTLTKKo0wKBYCl
+ tX/6XT9e7eEhsFCcBBwQHpk8/Uyd
+X-Google-Smtp-Source: ADFU+vtmeYLCBTr+v8bLT+LEsP+k0z04xs+BOzb9cmdnZ9o1CUzInt1Vvh4x0pEywPJcfJoMAJSdYQ==
+X-Received: by 2002:a37:ad15:: with SMTP id f21mr19205108qkm.84.1584204858041; 
+ Sat, 14 Mar 2020 09:54:18 -0700 (PDT)
 Received: from cybertron.pseudoangel.com
  (cpe-172-101-252-194.rochester.res.rr.com. [172.101.252.194])
- by smtp.gmail.com with ESMTPSA id q24sm7969363qtk.45.2020.03.14.09.54.16
+ by smtp.gmail.com with ESMTPSA id q24sm7969363qtk.45.2020.03.14.09.54.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 14 Mar 2020 09:54:16 -0700 (PDT)
+ Sat, 14 Mar 2020 09:54:17 -0700 (PDT)
 From: crwulff@gmail.com
 To: patch@alsa-project.org
-Subject: [PATCH Fix for Kingston HyperX Amp (0951:16d8) (Try #2) 1/2]
- snd-usb-audio: Fix mixer controls' USB interface
-Date: Sat, 14 Mar 2020 12:54:48 -0400
-Message-Id: <20200314165449.4086-2-crwulff@gmail.com>
+Subject: [PATCH Fix for Kingston HyperX Amp (0951:16d8) (Try #2) 2/2]
+ snd-usb-audio: Create a registration quirk
+Date: Sat, 14 Mar 2020 12:54:49 -0400
+Message-Id: <20200314165449.4086-3-crwulff@gmail.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200314165449.4086-1-crwulff@gmail.com>
 References: <20200314165449.4086-1-crwulff@gmail.com>
@@ -104,84 +104,72 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Chris Wulff <crwulff@gmail.com>
 
-Use the USB interface of the mixer that the control
-was created on instead of the default control interface.
+Create a quirk that allows special processing and/or
+skipping the call to snd_card_register.
 
-This fixes the Kingston HyperX AMP (0951:16d8) which has
-controls on two interfaces.
+For HyperX AMP, which uses two interfaces, but only has
+a capture stream in the second, this allows the capture
+stream to merge with the first PCM.
 
 Signed-off-by: Chris Wulff <crwulff@gmail.com>
 
-diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index 81b2db0edd5f..93d7f4601751 100644
---- a/sound/usb/mixer.c
-+++ b/sound/usb/mixer.c
-@@ -292,6 +292,11 @@ static int uac2_ctl_value_size(int val_type)
-  * retrieve a mixer value
-  */
+diff --git a/sound/usb/card.c b/sound/usb/card.c
+index 827fb0bc8b56..16bbe2a50fb7 100644
+--- a/sound/usb/card.c
++++ b/sound/usb/card.c
+@@ -662,10 +662,14 @@ static int usb_audio_probe(struct usb_interface *intf,
+ 			goto __error;
+ 	}
  
-+static inline int mixer_ctrl_intf(struct usb_mixer_interface *mixer)
-+{
-+	return get_iface_desc(mixer->hostif)->bInterfaceNumber;
-+}
+-	/* we are allowed to call snd_card_register() many times */
+-	err = snd_card_register(chip->card);
+-	if (err < 0)
+-		goto __error;
++	/* we are allowed to call snd_card_register() many times, but first
++	 * check to see if a device needs to skip it or do anything special
++	 */
++	if (snd_usb_registration_quirk(chip, ifnum) == 0) {
++		err = snd_card_register(chip->card);
++		if (err < 0)
++			goto __error;
++	}
+ 
+ 	if (quirk && quirk->shares_media_device) {
+ 		/* don't want to fail when snd_media_device_create() fails */
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 7f558f4b4520..c73da0721e30 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -1756,3 +1756,17 @@ void snd_usb_audioformat_attributes_quirk(struct snd_usb_audio *chip,
+ 		break;
+ 	}
+ }
 +
- static int get_ctl_value_v1(struct usb_mixer_elem_info *cval, int request,
- 			    int validx, int *value_ret)
- {
-@@ -306,7 +311,7 @@ static int get_ctl_value_v1(struct usb_mixer_elem_info *cval, int request,
- 		return -EIO;
++int snd_usb_registration_quirk(struct snd_usb_audio *chip,
++			       int iface)
++{
++	switch (chip->usb_id) {
++	case USB_ID(0x0951, 0x16d8): /* Kingston HyperX AMP */
++		/* Register only when we reach interface 2 so that streams can
++		 * merge correctly into PCMs from interface 0
++		 */
++		return (iface != 2);
++	}
++	/* Register as normal */
++	return 0;
++}
+diff --git a/sound/usb/quirks.h b/sound/usb/quirks.h
+index df0355843a4c..3afc01eabc7e 100644
+--- a/sound/usb/quirks.h
++++ b/sound/usb/quirks.h
+@@ -51,4 +51,7 @@ void snd_usb_audioformat_attributes_quirk(struct snd_usb_audio *chip,
+ 					  struct audioformat *fp,
+ 					  int stream);
  
- 	while (timeout-- > 0) {
--		idx = snd_usb_ctrl_intf(chip) | (cval->head.id << 8);
-+		idx = mixer_ctrl_intf(cval->head.mixer) | (cval->head.id << 8);
- 		err = snd_usb_ctl_msg(chip->dev, usb_rcvctrlpipe(chip->dev, 0), request,
- 				      USB_RECIP_INTERFACE | USB_TYPE_CLASS | USB_DIR_IN,
- 				      validx, idx, buf, val_len);
-@@ -354,7 +359,7 @@ static int get_ctl_value_v2(struct usb_mixer_elem_info *cval, int request,
- 	if (ret)
- 		goto error;
- 
--	idx = snd_usb_ctrl_intf(chip) | (cval->head.id << 8);
-+	idx = mixer_ctrl_intf(cval->head.mixer) | (cval->head.id << 8);
- 	ret = snd_usb_ctl_msg(chip->dev, usb_rcvctrlpipe(chip->dev, 0), bRequest,
- 			      USB_RECIP_INTERFACE | USB_TYPE_CLASS | USB_DIR_IN,
- 			      validx, idx, buf, size);
-@@ -479,7 +484,7 @@ int snd_usb_mixer_set_ctl_value(struct usb_mixer_elem_info *cval,
- 		return -EIO;
- 
- 	while (timeout-- > 0) {
--		idx = snd_usb_ctrl_intf(chip) | (cval->head.id << 8);
-+		idx = mixer_ctrl_intf(cval->head.mixer) | (cval->head.id << 8);
- 		err = snd_usb_ctl_msg(chip->dev,
- 				      usb_sndctrlpipe(chip->dev, 0), request,
- 				      USB_RECIP_INTERFACE | USB_TYPE_CLASS | USB_DIR_OUT,
-@@ -1203,7 +1208,7 @@ static int get_min_max_with_quirks(struct usb_mixer_elem_info *cval,
- 		    get_ctl_value(cval, UAC_GET_MIN, (cval->control << 8) | minchn, &cval->min) < 0) {
- 			usb_audio_err(cval->head.mixer->chip,
- 				      "%d:%d: cannot get min/max values for control %d (id %d)\n",
--				   cval->head.id, snd_usb_ctrl_intf(cval->head.mixer->chip),
-+				   cval->head.id, mixer_ctrl_intf(cval->head.mixer),
- 							       cval->control, cval->head.id);
- 			return -EINVAL;
- 		}
-@@ -1422,7 +1427,7 @@ static int mixer_ctl_connector_get(struct snd_kcontrol *kcontrol,
- 	if (ret)
- 		goto error;
- 
--	idx = snd_usb_ctrl_intf(chip) | (cval->head.id << 8);
-+	idx = mixer_ctrl_intf(cval->head.mixer) | (cval->head.id << 8);
- 	if (cval->head.mixer->protocol == UAC_VERSION_2) {
- 		struct uac2_connectors_ctl_blk uac2_conn;
- 
-@@ -3203,7 +3208,7 @@ static void snd_usb_mixer_proc_read(struct snd_info_entry *entry,
- 	list_for_each_entry(mixer, &chip->mixer_list, list) {
- 		snd_iprintf(buffer,
- 			"USB Mixer: usb_id=0x%08x, ctrlif=%i, ctlerr=%i\n",
--				chip->usb_id, snd_usb_ctrl_intf(chip),
-+				chip->usb_id, mixer_ctrl_intf(mixer),
- 				mixer->ignore_ctl_error);
- 		snd_iprintf(buffer, "Card: %s\n", chip->card->longname);
- 		for (unitid = 0; unitid < MAX_ID_ELEMS; unitid++) {
++int snd_usb_registration_quirk(struct snd_usb_audio *chip,
++			       int iface);
++
+ #endif /* __USBAUDIO_QUIRKS_H */
 -- 
 2.20.1
 

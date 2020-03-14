@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E30B5185546
-	for <lists+alsa-devel@lfdr.de>; Sat, 14 Mar 2020 10:39:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 354C018554B
+	for <lists+alsa-devel@lfdr.de>; Sat, 14 Mar 2020 10:51:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 652B61866;
-	Sat, 14 Mar 2020 10:38:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 652B61866
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA7771869;
+	Sat, 14 Mar 2020 10:50:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA7771869
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584178758;
-	bh=4qu5N3PqY5BgI9g8zu2PknjJuxF/zRwuO0rgOTzkgEM=;
+	s=default; t=1584179468;
+	bh=v/BIpono7KiN65njbhpyzD6YUHHqq6MPMBpfxTeCkxw=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Q13z4oF6a5W3d1lnBu8FRHpBYz6EVq9fxKCD7IWVzUvhys3fzq1dh9E5yje3ECjHB
-	 mIYDuhL7TvFubqD3LshFq0jK/YcaSWaNGj2m/aCnAKSwQQi9ig1a3IsZIS8G21Sisw
-	 FwIOD7bsP0v5SUByAqVRnObXjVPdTejn7S4KVLh0=
+	b=gOqhGH3BwheUrZOSl2dMOe0pvX03xBqq3087utIv7s5SqWNfEi/9j8xO1hme1BgKi
+	 z1F0MMIdwFatnRPmtGEup2yJAXavUkPzPHTx9DRVOkN1Qzn2I5BZX2Hsu2L4Isltrt
+	 iGcBiaSFSHLj9SPTIFilZOtU4LS0icNzM/ynPk04=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47A55F8013E;
-	Sat, 14 Mar 2020 10:37:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3AD1F8020C;
+	Sat, 14 Mar 2020 10:49:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AD062F801D9; Sat, 14 Mar 2020 10:37:34 +0100 (CET)
+ id 122DBF801D9; Sat, 14 Mar 2020 10:49:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,45 +34,51 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71846F80086
- for <alsa-devel@alsa-project.org>; Sat, 14 Mar 2020 10:37:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71846F80086
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1C288F80086
+ for <alsa-devel@alsa-project.org>; Sat, 14 Mar 2020 10:49:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C288F80086
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="XVk77Jz+"
+ header.b="r8IP+h2c"
 Received: from localhost (unknown [122.167.115.156])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 43A492074C;
- Sat, 14 Mar 2020 09:37:25 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id E14172067C;
+ Sat, 14 Mar 2020 09:49:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1584178648;
- bh=4qu5N3PqY5BgI9g8zu2PknjJuxF/zRwuO0rgOTzkgEM=;
+ s=default; t=1584179360;
+ bh=v/BIpono7KiN65njbhpyzD6YUHHqq6MPMBpfxTeCkxw=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=XVk77Jz+h13lPC03uUI7M20gd8OTeqM6qz/w7ZBx71f427ElJGFqIRlAnKwFKTHem
- ajJoyacTWPmbmvW8vm8k1LoIHRlJlDxoz9htVdhc5+UHWD1EEOsHAON8LYT6SbmwLl
- x4QCIV3TUAKHtmrhRjYDG5rJNjSmef/NzPWtA2q4=
-Date: Sat, 14 Mar 2020 15:07:17 +0530
+ b=r8IP+h2ck8IZ1vzFPOldGPkKumAuPBqQUUYbQ4MKsVi4+pQFaWq79msrSgW8AvoVG
+ /v8dLT2amXXi1mnLKJoLwScsvzpGZjmIPZidMhrz6G/UYJLkwJz3ENlCgGr/LVbzG1
+ vnIET1GKYX+GnUzO4PcKDM3kpzO3vZt6CipWP39g=
+Date: Sat, 14 Mar 2020 15:19:04 +0530
 From: Vinod Koul <vkoul@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH 3/6] ASoC: Intel: common: add match tables
- for ICL w/ SoundWire
-Message-ID: <20200314093717.GO4885@vkoul-mobl>
-References: <20200110222530.30303-1-pierre-louis.bossart@linux.intel.com>
- <20200110222530.30303-4-pierre-louis.bossart@linux.intel.com>
- <d5e15895-7d10-7255-692c-c5c89d3ae1be@perex.cz>
- <b49c010b-5b90-4ad6-58b8-9e43f9fc949f@linux.intel.com>
- <e8df8119-d88b-69b7-fd7a-890f1eb06dbf@perex.cz>
- <20200311090706.GJ4885@vkoul-mobl>
- <5195f1e1-45c9-7b24-2f78-212093976dba@linux.intel.com>
- <20200313114444.GC4885@vkoul-mobl>
- <cce7a018-bbe3-dfb2-076e-1f9c5e1d9185@linux.intel.com>
+Subject: Re: [PATCH 1/8] soundwire: bus_type: add master_device/driver support
+Message-ID: <20200314094904.GP4885@vkoul-mobl>
+References: <20200304095312.GT4148@vkoul-mobl>
+ <05dbe43c-abf8-9d5a-d808-35bf4defe4ba@linux.intel.com>
+ <20200305063646.GW4148@vkoul-mobl>
+ <eb30ac49-788f-b856-6fcf-84ae580eb3c8@linux.intel.com>
+ <20200306050115.GC4148@vkoul-mobl>
+ <4fabb135-6fbb-106f-44fd-8155ea716c00@linux.intel.com>
+ <20200311063645.GH4885@vkoul-mobl>
+ <0fafb567-10e5-a1ea-4a6d-b3c53afb215e@linux.intel.com>
+ <20200313115011.GD4885@vkoul-mobl>
+ <4cb16467-87d0-ef99-e471-9eafa9e669d2@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <cce7a018-bbe3-dfb2-076e-1f9c5e1d9185@linux.intel.com>
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+In-Reply-To: <4cb16467-87d0-ef99-e471-9eafa9e669d2@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Hui Wang <hui.wang@canonical.com>, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,21 +94,111 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 13-03-20, 11:28, Pierre-Louis Bossart wrote:
+On 13-03-20, 11:54, Pierre-Louis Bossart wrote:
 > 
-> > > The question was "any ETA to start merging Intel patches"...
+> > > > > the ASoC layer does require a driver with a 'name' for the components
+> > > > > registered with the master device. So if you don't have a driver for the
+> > > > > master device, the DAIs will be associated with the PCI device.
+> > > > > 
+> > > > > But the ASoC core does make pm_runtime calls on its own,
+> > > > > 
+> > > > > soc_pcm_open(struct snd_pcm_substream *substream)
+> > > > > {
+> > > > > ...
+> > > > > 	for_each_rtd_components(rtd, i, component)
+> > > > > 		pm_runtime_get_sync(component->dev);
+> > > > > 
+> > > > > and if the device that's associated with the DAI is the PCI device, then
+> > > > > that will not result in the relevant master IP being activated, only the PCI
+> > > > > device refcount will be increased - meaning there is no hook that would tell
+> > > > > the PCI layer to turn on a specific link.
+> > > > > 
+> > > > > What you are recommending would be an all-or-nothing solution with all links
+> > > > > on or all links off, which beats the purpose of having independent
+> > > > > link-level power management.
+> > > > 
+> > > > Why can't you use dai .startup callback for this?
+> > > > 
+> > > > The ASoC core will do pm_runtime calls that will ensure PCI device is
+> > > > up, DSP firmware downloaded and running.
+> > > > 
+> > > > You can use .startup() to turn on your link and .shutdown to turn off
+> > > > the link.
+> > > 
+> > > There are multiple dais per link, and multiple Slave per link, so we would
+> > > have to refcount and track active dais to understand when the link needs to
+> > > be turned on/off. It's a duplication of what the pm framework can do at the
+> > > device/link level, and will likely introduce race conditions.
+> > > 
+> > > Not to mention that we'd need to introduce workqueues to turn the link off
+> > > with a delay, with pm_runtime_put_autosuspend() does for free.
 > > 
-> > Ah, sorry I missed that part, but again that is for Pierre to answer. Am
-> > ready to merge if the series satisfies all the questions :)
+> > Yes sure, that seems to be the cost unfortunately. While it might feel I
+> > am blocking but the real block here is the hw design which gives you a
+> > monolith whereas it should have been different devices. If you have a
+> > 'device' for sdw or a standalone controller we would not be debating
+> > this..
 > 
-> The ball is in your court Vinod. I replied to all your suggestions and
-> showed they cannot possibly be implemented without functionality loss or
-> re-inventing pm_runtime.
+> The hardware is what it is. The ACPI spec is what it is.
+> 
+> I am just pragmatic and making platforms work with that's available *today*,
+> and I don't have time or interest in revisiting what might have been.
+> 
+> > > Linux is all about frameworks. For power management, we shall use the power
+> > > management framework, not reinvent it.
+> > 
+> > This reminds me, please talk to Mika and Rafael, they had similar
+> > problems with lpss etc and IIRC they were working on splices to solve
+> > this.. Its been some time (few years now) so maybe they have a
+> > solution..
+> 
+> We've been discussing this since October, I don't really have any appetite
+> for looking into new concepts when the existing framework just does what we
+> need.
 
-Sorry to disagree, I would not like to see Intel specific change in
-core. That is my only premise.
+yes they do but add an intrusive platform specific change into soundwire
+core, something I would not like to add.
 
-Would you have this issue if you had a standalone sdw controller(s) ?
+You should really be willing to talk to your colleagues to see if there
+is something you can reuse.
+
+> It's really down to your objection to the use of 'struct driver'... For ASoC
+> support we only need the .name and .pm_ops, so there's really no possible
+> path forward otherwise.
+
+It means that we cannot have a solution which is Intel specific into
+core. If you has a standalone controller you do not need this.
+
+> Like I said, we have 3 options
+
+Repeating the already discussed doesn't help. I have already told you the
+constraint to work is not to add Intel specific change into core.
+
+I have already said that expect the driver part I dont have objections
+to rest of this series and am ready to merge
+
+> a) stay with platform devices for now. You will need to have a conversation
+> with Greg on this.
+> 
+> b) use a minimal sdw_master_device with a minimal 'struct driver' use.
+> 
+> c) use a more elaborate solution suggested in this patchset and yes that
+> means the Qualcomm driver would need to change a bit.
+> 
+> Pick one or suggest something that is implementable. The first version of
+> the patches was provided in October, the last RFC was provided on January
+> 31, time's up. At the moment you are preventing ASoC integration from moving
+> forward.
+
+In opensource review we go back and forth and we debate and come to a
+common conclusion. Choosing a specific set of solutions and constraining
+yourself to pick one does not help.
+
+I have only _one_ constraint no platform specific change in core. If that
+is satisfied I will go with it. Sorry but this is non-negotiable for me.
+
+Ask yourself, do you need this intrusive core change if you had this
+exact same controller(s) but only as standalone one... 
 
 -- 
 ~Vinod

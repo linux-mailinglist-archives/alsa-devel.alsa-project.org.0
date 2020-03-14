@@ -2,82 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81674184F37
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Mar 2020 20:21:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7FBB185516
+	for <lists+alsa-devel@lfdr.de>; Sat, 14 Mar 2020 08:55:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A3561866;
-	Fri, 13 Mar 2020 20:20:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A3561866
+	by alsa0.perex.cz (Postfix) with ESMTPS id 00514185C;
+	Sat, 14 Mar 2020 08:54:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00514185C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584127285;
-	bh=u/YdNrWdkp2l2Y+ZcshY5dnTxoc3Q36CBOYuokFz5v8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1584172518;
+	bh=X+GAP/Cs332Ypu0oKX8q9ALFp6D0+wGzbZh5JV4dIT8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eonI566rd63Y7KRqMioMtXp3xIE9ungGurEuompTUxO4OFAokNmGmW9n4CEai0fvC
-	 YEVTRxC48ez3raC+q159xQB1rQs5m632fggs0nhTNzJGZ1S33E+pQYqMB+zPT1EMOU
-	 mEUWoxd/mn77L4Sq51a0judXKm+o0BiJvZcMPWx0=
+	b=JRa9IrAIZDn/1/rT+rXzEz2r26pAvVhaXqgumh+UNCsIRLbadSBnODSQKOirB9fOx
+	 wzwHAGD9rIQGIAznTYCV37LFIloh8jSjRihejLO6Oz0gfAoMXfFuU1uxvFydRJWCRz
+	 gd1uYStir/qHie0o9l9QvDDJRtvGAv5yD0Vtffuo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E79DFF8013E;
-	Fri, 13 Mar 2020 20:19:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2B182F8020C;
+	Sat, 14 Mar 2020 08:53:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 846B8F801EB; Fri, 13 Mar 2020 20:19:38 +0100 (CET)
+ id EDC10F801D9; Sat, 14 Mar 2020 08:53:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SORTED_RECIPS,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99E45F80086
- for <alsa-devel@alsa-project.org>; Fri, 13 Mar 2020 20:19:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99E45F80086
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="u+Kw50Oj"
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com
- [209.85.160.175])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B963020746
- for <alsa-devel@alsa-project.org>; Fri, 13 Mar 2020 19:19:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1584127172;
- bh=u/YdNrWdkp2l2Y+ZcshY5dnTxoc3Q36CBOYuokFz5v8=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=u+Kw50OjBbzrHYAElZpjew80DqhAXUFN1hhXU4vU2wOdVt9P/NVjtrQZvvT9p5Zxb
- veAw/oyz4V2n1HuuwuSFUsJ4mdNMKpwRfyRlEkUiBzo9sw5efnqpHqcGt/dxu3cF9o
- siomM+1AaZ7PYOoyNUKJrPfQx7TrpedbDUAn+hUw=
-Received: by mail-qt1-f175.google.com with SMTP id d22so8566330qtn.0
- for <alsa-devel@alsa-project.org>; Fri, 13 Mar 2020 12:19:32 -0700 (PDT)
-X-Gm-Message-State: ANhLgQ0nQyYKxwnK8wafqzwP02mQ4FuaPgTfbJG7RoErqZC7VaUb4kde
- kPUfVukwtv6DCXPE4XpuDoVRpULkJ9sTV2dGhg==
-X-Google-Smtp-Source: ADFU+vtzFniWDb7ap1vMQkeG/nhau8hPIsmJMnWM+RrFZ7uXGaIVa3RBdSZj2jLCJWmfgdvozj/TJtkIM+Qo4xGK3lk=
-X-Received: by 2002:ac8:554a:: with SMTP id o10mr14380809qtr.224.1584127171827; 
- Fri, 13 Mar 2020 12:19:31 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200313180543.20497-1-robh@kernel.org>
- <20200313185555.GM5528@sirena.org.uk>
-In-Reply-To: <20200313185555.GM5528@sirena.org.uk>
-From: Rob Herring <robh@kernel.org>
-Date: Fri, 13 Mar 2020 14:19:20 -0500
-X-Gmail-Original-Message-ID: <CAL_Jsq+pihBa4NCYQJrVnNiRgJzx_Q7f5zDTExud0y0tPXwWNw@mail.gmail.com>
-Message-ID: <CAL_Jsq+pihBa4NCYQJrVnNiRgJzx_Q7f5zDTExud0y0tPXwWNw@mail.gmail.com>
-Subject: Re: [PATCH v2] ASoC: dt-bindings: google,cros-ec-codec: Fix dtc
- warnings in example
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Guenter Roeck <groeck@chromium.org>, Benson Leung <bleung@chromium.org>,
- Cheng-Yi Chiang <cychiang@chromium.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 63956F80086
+ for <alsa-devel@alsa-project.org>; Sat, 14 Mar 2020 08:53:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63956F80086
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 11F81AD2D;
+ Sat, 14 Mar 2020 07:53:25 +0000 (UTC)
+Date: Sat, 14 Mar 2020 08:53:22 +0100
+Message-ID: <s5himj72wzx.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: syzbot <syzbot+8b0e78e390d1715b0f4e@syzkaller.appspotmail.com>
+Subject: Re: BUG: unable to handle kernel NULL pointer dereference in
+ corrupted (5)
+In-Reply-To: <000000000000f4b79505a0cad08b@google.com>
+References: <000000000000f4b79505a0cad08b@google.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, gregkh@linuxfoundation.org, tiwai@suse.com,
+ syzkaller-bugs@googlegroups.com, linux-kernel@vger.kernel.org,
+ rfontana@redhat.com, tglx@linutronix.de, allison@lohutok.net
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,20 +72,91 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Mar 13, 2020 at 1:55 PM Mark Brown <broonie@kernel.org> wrote:
->
-> On Fri, Mar 13, 2020 at 01:05:43PM -0500, Rob Herring wrote:
-> > Extra dtc warnings (roughly what W=1 enables) are now enabled by default
-> > when building the binding examples. These were fixed treewide in
-> > 5.6-rc5, but the newly added google,cros-ec-codec schema adds some new
-> > warnings:
->
-> v1 got applied, could you send an incremental diff please?
+On Sat, 14 Mar 2020 07:37:13 +0100,
+syzbot wrote:
+> 
+> Hello,
+> 
+> syzbot found the following crash on:
+> 
+> HEAD commit:    30bb5572 Merge tag 'ktest-v5.6' of git://git.kernel.org/pu..
+> git tree:       upstream
+> console output: https://syzkaller.appspot.com/x/log.txt?x=15d300b1e00000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=a5295e161cd85b82
+> dashboard link: https://syzkaller.appspot.com/bug?extid=8b0e78e390d1715b0f4e
+> compiler:       clang version 10.0.0 (https://github.com/llvm/llvm-project/ c2443155a0fb245c8f17f2c1c72b6ea391e86e81)
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11a57709e00000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13de9e91e00000
+> 
+> The bug was bisected to:
+> 
+> commit 271213ef4d0d3a3b80d4cf95c5f2bebb5643e666
+> Author: Takashi Iwai <tiwai@suse.de>
+> Date:   Tue Dec 10 06:34:50 2019 +0000
+> 
+>     ALSA: pcxhr: Support PCM sync_stop
 
-Indeed, missed that. While I wish Gmail could just learn to thread
-emails properly, it would help Gmail users a lot if you kept the
-$subject on your applied emails.
+This must be a false-positive.
+The config doesn't contain CONFIG_SND_PCXHR and this commit changes
+only sound/pci/pcxhr.c.
 
-I'll just worry about the node name again when and if we start checking that...
 
-Rob
+thanks,
+
+Takashi
+
+> 
+> bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=1566b08de00000
+> final crash:    https://syzkaller.appspot.com/x/report.txt?x=1766b08de00000
+> console output: https://syzkaller.appspot.com/x/log.txt?x=1366b08de00000
+> 
+> IMPORTANT: if you fix the bug, please add the following tag to the commit:
+> Reported-by: syzbot+8b0e78e390d1715b0f4e@syzkaller.appspotmail.com
+> Fixes: 271213ef4d0d ("ALSA: pcxhr: Support PCM sync_stop")
+> 
+> BUG: kernel NULL pointer dereference, address: 0000000000000086
+> #PF: supervisor instruction fetch in kernel mode
+> #PF: error_code(0x0010) - not-present page
+> PGD a27fa067 P4D a27fa067 PUD a2185067 PMD 0 
+> Oops: 0010 [#1] PREEMPT SMP KASAN
+> CPU: 1 PID: 9168 Comm: syz-executor418 Not tainted 5.6.0-rc5-syzkaller #0
+> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+> RIP: 0010:0x86
+> Code: Bad RIP value.
+> RSP: 0018:ffffc90002c9f998 EFLAGS: 00010086
+> RAX: ffffc90002c9f9c8 RBX: fffffe0000000000 RCX: ffff8880a31b6280
+> RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000000
+> RBP: 0000000000000ec0 R08: ffffffff839888d3 R09: ffffffff811c7d9a
+> R10: ffff8880a31b6280 R11: 0000000000000002 R12: dffffc0000000000
+> R13: fffffe0000000ec8 R14: ffffffff880016f0 R15: fffffe0000000ecb
+> FS:  0000000000981880(0000) GS:ffff8880ae900000(0000) knlGS:0000000000000000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: 000000000000005c CR3: 00000000986d2000 CR4: 00000000001426e0
+> Call Trace:
+> Modules linked in:
+> CR2: 0000000000000086
+> ---[ end trace 7c78bc94cfc0a37d ]---
+> RIP: 0010:0x86
+> Code: Bad RIP value.
+> RSP: 0018:ffffc90002c9f998 EFLAGS: 00010086
+> RAX: ffffc90002c9f9c8 RBX: fffffe0000000000 RCX: ffff8880a31b6280
+> RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000000
+> RBP: 0000000000000ec0 R08: ffffffff839888d3 R09: ffffffff811c7d9a
+> R10: ffff8880a31b6280 R11: 0000000000000002 R12: dffffc0000000000
+> R13: fffffe0000000ec8 R14: ffffffff880016f0 R15: fffffe0000000ecb
+> FS:  0000000000981880(0000) GS:ffff8880ae900000(0000) knlGS:0000000000000000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: 000000000000005c CR3: 00000000986d2000 CR4: 00000000001426e0
+> 
+> 
+> ---
+> This bug is generated by a bot. It may contain errors.
+> See https://goo.gl/tpsmEJ for more information about syzbot.
+> syzbot engineers can be reached at syzkaller@googlegroups.com.
+> 
+> syzbot will keep track of this bug report. See:
+> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+> For information about bisection process see: https://goo.gl/tpsmEJ#bisection
+> syzbot can test patches for this bug, for details see:
+> https://goo.gl/tpsmEJ#testing-patches
+> 

@@ -2,73 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55629185C3A
-	for <lists+alsa-devel@lfdr.de>; Sun, 15 Mar 2020 13:00:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE03E185FA6
+	for <lists+alsa-devel@lfdr.de>; Sun, 15 Mar 2020 21:01:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B7081871;
-	Sun, 15 Mar 2020 12:59:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B7081871
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C904187D;
+	Sun, 15 Mar 2020 21:01:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C904187D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584273606;
-	bh=MjFiTFoDnO8i211USixOAWnclqSyAHAvQPSHlZU5GQQ=;
-	h=Subject:From:To:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ZpDa6LQC8Gy5VAOFwrDUJY/bFIMfgye63V+wjcde2c83pPRuZpKiwl4tse7dEqZ3g
-	 dbaviuvYUFG0Nr+BCivPwgXXTNrFupECdPreat0nozKIW0KUcjdagDxb4BArvgCKfW
-	 XC+eWB5Zc4LH2A8/vjvN8wKKIJUEQlgByXW43Ay8=
+	s=default; t=1584302518;
+	bh=yAIznbE5XJi2UgPRWw7vpaLBPAOb9AL2eKciv1BYXXk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=vRg3mcKebNqRHzeWLh6Ufy0d+Gz3j/UM1eHdEHh7NV7314FP7isto1v1XbtccaIl0
+	 xsisUVk6sbPXqfBN9QyNaeq1OY96XGj05UO86ftW22Qx3qg2DD6dD+kBQRSnv9+qaM
+	 WtWA1VwhHch6kBNWF382UEK1Eq4tNom7olLAWtlw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 33758F8023E;
-	Sun, 15 Mar 2020 12:58:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1AF71F800CD;
+	Sun, 15 Mar 2020 21:00:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 230CAF8022B; Sun, 15 Mar 2020 12:58:22 +0100 (CET)
+ id BAD86F8013D; Sun, 15 Mar 2020 21:00:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from zeus.domdv.de (zeus.domdv.de [IPv6:2a02:2ad0:c00::11])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 77C71F800CD
- for <alsa-devel@alsa-project.org>; Sun, 15 Mar 2020 12:58:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77C71F800CD
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=domdv.de header.i=@domdv.de
- header.b="FPuhmfmG"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=domdv.de;
- s=dk3; h=Content-Transfer-Encoding:MIME-Version:Content-Type:Date:Cc:To:From
- :Subject:Message-ID:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=MjFiTFoDnO8i211USixOAWnclqSyAHAvQPSHlZU5GQQ=; b=FPuhmfmGET6ari3ojnZziOMTJd
- QfiibOWWC+AlZM6jOxKgpqNbfrAzwA9xfnoW4uPMVuSYLpZgIJ2VwSgt4MN2uVYHXhlW4YpveJtD+
- WDpV/OtfF8Bz3t4LU8c94nZTXVBn3zT49Gw16Dekd4n9X/GI8ZBTG6FAXCbQPwfMqW1A=;
-Received: from [fd06:8443:81a1:74b0::212] (port=1692 helo=castor.lan.domdv.de)
- by zeus.domdv.de with esmtpsa
- (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.92.3)
- (envelope-from <ast@domdv.de>)
- id 1jDRtK-0007gS-8R; Sun, 15 Mar 2020 12:57:14 +0100
-Received: from woody.lan.domdv.de ([10.1.9.28]
- helo=host028-server-9.lan.domdv.de)
- by castor.lan.domdv.de with esmtpsa (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- (Exim 4.92.3) (envelope-from <ast@domdv.de>)
- id 1jDRtK-0007oi-35; Sun, 15 Mar 2020 12:57:14 +0100
-Message-ID: <3b4a4e0f232b7afbaf0a843f63d0e538e3029bfd.camel@domdv.de>
-Subject: BUG: ALSA snd-virmidi: snd-virmidi is not MIDI 1.0 specification
- compliant
-From: Andreas Steinmetz <ast@domdv.de>
-To: alsa-devel@alsa-project.org
-Date: Sun, 15 Mar 2020 12:57:13 +0100
-Organization: D.O.M. Datenverarbeitung GmbH
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.30.5 
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1F4A1F8013D
+ for <alsa-devel@alsa-project.org>; Sun, 15 Mar 2020 21:00:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F4A1F8013D
+IronPort-SDR: OQ2n5S88T3zG+HbSjo+T8cYOmUeUsMCIqnTYdsvm6e6JTLwPIteL1gvI7n5bsxk8WXBUY/KZLc
+ lA9shOtRuP0A==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2020 13:00:00 -0700
+IronPort-SDR: dVRMO/zdODO8Q2S+WkUiaXJnDridycl7pNmALWr8qyZnl63JuysegLPC9/ug1eJdbSyQSzGJ5B
+ ykmz/CwYWxMA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,557,1574150400"; d="scan'208";a="267345524"
+Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.249.138.187])
+ ([10.249.138.187])
+ by fmsmga004.fm.intel.com with ESMTP; 15 Mar 2020 12:59:59 -0700
+Subject: Re: [PATCH v2 07/10] ASoC: Intel: (cosmetic) simplify structure
+ member access
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+References: <20200312194859.4051-1-pierre-louis.bossart@linux.intel.com>
+ <20200312194859.4051-8-pierre-louis.bossart@linux.intel.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+Message-ID: <6007244b-3f4e-6ea8-7747-8376da95b6ca@intel.com>
+Date: Sun, 15 Mar 2020 20:59:58 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
+In-Reply-To: <20200312194859.4051-8-pierre-louis.bossart@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: tiwai@suse.de
+Cc: tiwai@suse.de,
+ Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ alsa-devel@alsa-project.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,45 +83,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-snd-virmidi, as of kernel 5.4.23, does not adhere to the MIDI
-specification:
+On 2020-03-12 20:48, Pierre-Louis Bossart wrote:
+> From: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+> 
+> Fix a clumsy structure member dereference in all machine drivers.
+> 
 
-From MIDI 1.0 Detailed Specification, Document Version 4.2, Appendix A-
-1 (RUNNING STATUS), Page A-2:
+> diff --git a/sound/soc/intel/boards/bdw-rt5650.c b/sound/soc/intel/boards/bdw-rt5650.c
+> index 1a302436d450..058abf3eec50 100644
+> --- a/sound/soc/intel/boards/bdw-rt5650.c
+> +++ b/sound/soc/intel/boards/bdw-rt5650.c
+> @@ -298,7 +298,7 @@ static int bdw_rt5650_probe(struct platform_device *pdev)
+>   		return -ENOMEM;
+>   
+>   	/* override plaform name, if required */
+> -	mach = (&pdev->dev)->platform_data;
+> +	mach = pdev->dev.platform_data;
+>   	ret = snd_soc_fixup_dai_links_platform_name(&bdw_rt5650_card,
+>   						    mach->mach_params.platform);
+>   
 
-"3. Buffer is cleared when a System Exclusive or Common status message
-is received."
-
-snd-virmidi does not clear the running status in case of a SysEx
-message.
-
-How to test:
-
-Load snd-virmidi module and get the card number of the module.
-In the following 5 is assumed as the card number and device 1 is used.
-
-You need two shells, in shell 1 do:
-
-aconnect 'Virtual Raw MIDI 5-1':0 'Virtual Raw MIDI 5-1':0
-amidi -p hw:VirMIDI,1 -d
-
-Now, in shell 2 do:
-
-amidi -p hw:VirMIDI,1 -S '80 01 02 F0 01 F7 80 02 03'
-
-This sends a note off, followed by a SysEx, followed by another note
-off. The result in shell 1 is:
-
-80 01 02
-F0 01 F7
-02
-03
-
-So snd-virmidi did not clear the running status. The correct result
-would be:
-
-80 01 02
-F0 01 F7
-80 02 03
-
-
+hmm, how about native getter in device.h:
+	mach = dev_get_platdata(&pdev->dev);

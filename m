@@ -2,74 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 586CA185FA8
-	for <lists+alsa-devel@lfdr.de>; Sun, 15 Mar 2020 21:07:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FAA418634E
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Mar 2020 03:44:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B4019187E;
-	Sun, 15 Mar 2020 21:06:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4019187E
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE6C91885;
+	Mon, 16 Mar 2020 03:43:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE6C91885
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584302819;
-	bh=7orrgjujETggp+OERofJStzAcTRtMFusOqWDB767FOc=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1584326657;
+	bh=zfd67u+rmC+7o1QvaUow5GVSNreqIe3rocf3yS5pvKo=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Vgu2pSVBWfs9iVraRy2o1zs+6PQ4KsoCHwslWB9U60ef64fsuYjG++sL4up7LXlS2
-	 pC3EzcG0GOd0l5ApvHV0T/7ZW1RrW1FPa9q2zHj7fFzWaZCfTRh6UIRvHyk7dsiomW
-	 F4VuFKt/fMICnKF0g7Grb5KCGWq8aTZgui3M5Fnw=
+	b=sm3biCnHPghTSpDBawD6QYpA97ImbIO3DgMwbs1ARhl0Wyl+GbqZNALU1Av2jjQkG
+	 yQdCkFEwROvNPuelogmozAoDM7qzW8LUxzbpFOLZEX6SQOV5ztBN/TmhsK64w0Yb21
+	 lff/upphuDJDRdGGT78JRpM1YfhrocIVVHYHEPq4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96949F8013D;
-	Sun, 15 Mar 2020 21:05:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 629BAF801DB;
+	Mon, 16 Mar 2020 03:42:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C61B5F8022B; Sun, 15 Mar 2020 21:05:15 +0100 (CET)
+ id 9340AF80256; Mon, 16 Mar 2020 03:35:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6881FF8013D
- for <alsa-devel@alsa-project.org>; Sun, 15 Mar 2020 21:05:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6881FF8013D
-IronPort-SDR: 1bguplLPgwJJ7q/Mxz+gWA6Sy7SEYT3pq1ISd9pcyhNIb4loMuxwiAvLwF6/YvFWSQNT4BBGJJ
- 0Cl/Lvqk85Rw==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2020 13:05:06 -0700
-IronPort-SDR: snUymknbCVk7rEjEEizyXyuG9lVkHcMmdw4Jt8Fe+TDe/LXIZ1tuS2duUT2M792RYE2DzPyhuP
- TLXuE3/GxnCA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,557,1574150400"; d="scan'208";a="267346874"
-Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.249.138.187])
- ([10.249.138.187])
- by fmsmga004.fm.intel.com with ESMTP; 15 Mar 2020 13:05:04 -0700
-Subject: Re: [PATCH v2 05/10] ASoC: codecs: hdac_hdmi: (cosmetic) remove
- redundant variable initialisations
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-References: <20200312194859.4051-1-pierre-louis.bossart@linux.intel.com>
- <20200312194859.4051-6-pierre-louis.bossart@linux.intel.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <d4f6dd03-3580-3301-9a35-7226f893e316@intel.com>
-Date: Sun, 15 Mar 2020 21:05:04 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id D6CD2F80086
+ for <alsa-devel@alsa-project.org>; Mon, 16 Mar 2020 03:33:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6CD2F80086
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="15z2Hr4N"
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 28F8B20722;
+ Mon, 16 Mar 2020 02:33:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1584326011;
+ bh=zfd67u+rmC+7o1QvaUow5GVSNreqIe3rocf3yS5pvKo=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=15z2Hr4N62lgDadgu2e6hhFsEsBVengXHRV3veArs8MJzogYZAAdxI1NOUHxS9adh
+ 0Xx9A+ttRGdQNuCDWBnCZfhdYlkMr/yD8/d5EEuB/5vrVwOvcNWb3tEHNFmn7Fn4+v
+ tpPGmV1/xwKc1LKtDOlUDXzVR1KDIZ+2xXaD83CE=
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.5 09/41] ASoC: meson: g12a: add tohdmitx reset
+Date: Sun, 15 Mar 2020 22:32:47 -0400
+Message-Id: <20200316023319.749-9-sashal@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200316023319.749-1-sashal@kernel.org>
+References: <20200316023319.749-1-sashal@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20200312194859.4051-6-pierre-louis.bossart@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: tiwai@suse.de,
- Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- broonie@kernel.org
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Jerome Brunet <jbrunet@baylibre.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,36 +84,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-03-12 20:48, Pierre-Louis Bossart wrote:
-> From: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-> 
-> Remove several redundant variable initialisations.
-> 
-> Signed-off-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> ---
->   sound/soc/codecs/hdac_hdmi.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/sound/soc/codecs/hdac_hdmi.c b/sound/soc/codecs/hdac_hdmi.c
-> index e6558475e006..fba9b749839d 100644
-> --- a/sound/soc/codecs/hdac_hdmi.c
-> +++ b/sound/soc/codecs/hdac_hdmi.c
-> @@ -1998,11 +1998,11 @@ static struct hdac_hdmi_drv_data intel_drv_data  = {
->   
->   static int hdac_hdmi_dev_probe(struct hdac_device *hdev)
->   {
-> -	struct hdac_hdmi_priv *hdmi_priv = NULL;
-> +	struct hdac_hdmi_priv *hdmi_priv;
->   	struct snd_soc_dai_driver *hdmi_dais = NULL;
-> -	struct hdac_ext_link *hlink = NULL;
-> +	struct hdac_ext_link *hlink;
->   	int num_dais = 0;
-> -	int ret = 0;
-> +	int ret;
->   	struct hdac_driver *hdrv = drv_to_hdac_driver(hdev->dev.driver);
->   	const struct hda_device_id *hdac_id = hdac_get_device_id(hdev, hdrv);
->   
-> 
+From: Jerome Brunet <jbrunet@baylibre.com>
 
-Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
+[ Upstream commit 22946f37557e27697aabc8e4f62642bfe4a17fd8 ]
+
+Reset the g12a hdmi codec glue on probe. This ensure a sane startup state.
+
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+Link: https://lore.kernel.org/r/20200221121146.1498427-1-jbrunet@baylibre.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/meson/g12a-tohdmitx.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/sound/soc/meson/g12a-tohdmitx.c b/sound/soc/meson/g12a-tohdmitx.c
+index 9cfbd343a00c8..8a0db28a6a406 100644
+--- a/sound/soc/meson/g12a-tohdmitx.c
++++ b/sound/soc/meson/g12a-tohdmitx.c
+@@ -8,6 +8,7 @@
+ #include <linux/module.h>
+ #include <sound/pcm_params.h>
+ #include <linux/regmap.h>
++#include <linux/reset.h>
+ #include <sound/soc.h>
+ #include <sound/soc-dai.h>
+ 
+@@ -378,6 +379,11 @@ static int g12a_tohdmitx_probe(struct platform_device *pdev)
+ 	struct device *dev = &pdev->dev;
+ 	void __iomem *regs;
+ 	struct regmap *map;
++	int ret;
++
++	ret = device_reset(dev);
++	if (ret)
++		return ret;
+ 
+ 	regs = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(regs))
+-- 
+2.20.1
+

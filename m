@@ -2,88 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9068D186E5A
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Mar 2020 16:13:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA733186F64
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Mar 2020 16:54:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2EEE718B7;
-	Mon, 16 Mar 2020 16:12:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EEE718B7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BA6618C5;
+	Mon, 16 Mar 2020 16:53:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BA6618C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584371607;
-	bh=hZp5evE6CsvIneSZYSIXeYC4x156FjThRGveuQY1tYk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=OfL8JTcnVTIoXUdGTfwe2awooHr3lqs70Z1DniABCkgyjSAh6so3T01Minoeo+TyP
-	 0yB0lR3ETnwQ848gWR/+/uxlA3mGaZyTVCdxXtfGW4TTzBHRj2iVtY1IiNnKjz6q9n
-	 S/2iFUjIxK6wkwAObfmJkVVfuPmsMsyAajeXBujM=
+	s=default; t=1584374066;
+	bh=muw8/ZXGristQ7B08kI84PR6OYN0JNDDxwHbMqzof+s=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=tKaza0MbGpLT0NiG+vTYVXJxylbZkwgkjJ89yg42Yp5XaWkHDJX2szfJAHWDcg37a
+	 ofrZUI8ZfO7T+nuxUU11elUqjy+cc59fC4FBA772fDsIc5wygMfpeHbyyuHpBb0FKa
+	 R5T2JowHU0a+reSiYtZVDz4gHx0pV1mukD8o5Hy0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03BF3F8028B;
-	Mon, 16 Mar 2020 16:11:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5EE1CF8015B;
+	Mon, 16 Mar 2020 16:52:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A7CFF80248; Mon, 16 Mar 2020 16:11:24 +0100 (CET)
+ id 62D90F8015B; Mon, 16 Mar 2020 16:52:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6EA27F800D2
- for <alsa-devel@alsa-project.org>; Mon, 16 Mar 2020 16:11:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EA27F800D2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="l1jWliND"
-Received: by mail-wr1-x442.google.com with SMTP id s5so21741669wrg.3
- for <alsa-devel@alsa-project.org>; Mon, 16 Mar 2020 08:11:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=uMLkobIeM9DCkYCP5Y/MHr6L2BuJYzjWCEI6GI6xP84=;
- b=l1jWliNDgPxq9N9s7HgwP/YBv3zwSYsNS2CAOnN8TAfAGqm/CbNWBl828eQoD9dQp3
- DL27nsTNd0QBLJp+3wBm9uTsH593tulDiGCmrN4sWt+voD3enxJLMUsC0aDvk9rMR2rB
- U5PVx3oXWJTNPVNawqWuDSG8yeqEFpOrxP1pKSepO/KA8TNkjnAWVGUBte0E7JX6ldH9
- 3qO2Xxa+n8H8Yn1ui+6se0WSHVL4EW0//PvtpmpLZBYzVf9zRtHCurouZCxdZ98tBkDy
- 8IRpgXO6yak0zwFnXVNwXpRrNJak5+mSb18bW5W0aQcwCL/JfwpaF14mm7A5BUk6CLL3
- oyKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=uMLkobIeM9DCkYCP5Y/MHr6L2BuJYzjWCEI6GI6xP84=;
- b=Bzjg+dNTxE4U8AZwe3/Pnxp/86PjWXeu5j/YNt9p22BIeYpsLozwqrf0IaXr9gDPQB
- CjS7bn58PBSJe9egWOasVuETTJBpK02JtMu6dVkFYQBHRcPdtYRh0V579F/iRq9xpDAF
- ObHNE/QSNkviALMLOAszwP2nRDXCur4oasToapk9Ts+FlLen/C93eVbGrkLrZrHcUejN
- Urd0USnNKHn/ARU78GjKYNyekbPTOhnperUMNV5y4OsLPh8rL3MLnb0hOS7BUbMYj5Tn
- ZLfyW9ZhzIY9JxWUZbzyFMAH9NnRzqZxUKNi2wohXn+droNKb+1bwcOsgFKYzdZYXkPu
- Vr8g==
-X-Gm-Message-State: ANhLgQ0AVBZ1Ifj6TKn63qnHUSwpqyF+D2szwjXkcPHDVbYbznmaCjeh
- KgOQGKRaNgV50NCKUx1UT+GFFqzed4E=
-X-Google-Smtp-Source: ADFU+vvnSbRNrjh7UKOltQra2NXVuqL+ACmrLbkOHpSHUtXiWR8Zc936fH6eF5TIBGv8gmyyfa/0Og==
-X-Received: by 2002:adf:e550:: with SMTP id z16mr11337435wrm.394.1584371480434; 
- Mon, 16 Mar 2020 08:11:20 -0700 (PDT)
-Received: from srini-hackbox.lan
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.gmail.com with ESMTPSA id y69sm31530923wmd.46.2020.03.16.08.11.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Mar 2020 08:11:19 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org
-Subject: [PATCH] ASoC: soc-dai: return proper error for get_sdw_stream()
-Date: Mon, 16 Mar 2020 15:11:10 +0000
-Message-Id: <20200316151110.2580-1-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 48028F800D2
+ for <alsa-devel@alsa-project.org>; Mon, 16 Mar 2020 16:52:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48028F800D2
+IronPort-SDR: phRxoHFiOrbksVX6yCX9LW8+oAwXrN1h+cdUMDr3OQ8Xg5aHd1g59Bv0F2Z7Di2MuK7TWf6BN1
+ oo3FJUXkPcPQ==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2020 08:52:34 -0700
+IronPort-SDR: 9zyAWkN3nB4wjhOmEf4Pmw/yZT/SB1Nniyz6/VX2h1j7UqExbvfs+TP/uKG+b02wCSWlFjD6bV
+ MlEAeKpPPj5w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,561,1574150400"; d="scan'208";a="237986234"
+Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
+ by orsmga008.jf.intel.com with ESMTP; 16 Mar 2020 08:52:31 -0700
+Received: from andy by smile with local (Exim 4.93)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1jDs2b-00A6Y7-2Y; Mon, 16 Mar 2020 17:52:33 +0200
+Date: Mon, 16 Mar 2020 17:52:33 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Alexander Shishkin <alexander.shishkin@linux.intel.com>
+Subject: Re: [PATCH v3 0/9] x86: Easy way of detecting MS Surface 3
+Message-ID: <20200316155233.GS1922688@smile.fi.intel.com>
+References: <20200122112306.64598-1-andriy.shevchenko@linux.intel.com>
+ <871rps9uxd.fsf@ashishki-desk.ger.corp.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- vkoul@kernel.org, Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <871rps9uxd.fsf@ashishki-desk.ger.corp.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ x86@kernel.org, Jie Yang <yang.jie@linux.intel.com>,
+ linux-kernel@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Borislav Petkov <bp@alien8.de>,
+ "H. Peter Anvin" <hpa@zytor.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,39 +87,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-snd_soc_dai_get_sdw_stream() returns null if dai does not support
-this callback, this is no very useful for the caller to
-differentiate if this is an error or unsupported call for the dai.
+On Mon, Mar 16, 2020 at 05:33:02PM +0200, Alexander Shishkin wrote:
+> Andy Shevchenko <andriy.shevchenko@linux.intel.com> writes:
+> 
+> > While working on RTC regression, I noticed that we are using the same DMI check
+> > over and over in the drivers for MS Surface 3 platform. This series dedicated
+> > for making it easier in the same way how it's done for Apple machines.
+> 
+> [...]
+> 
+> >   x86/quirks: Introduce hpet_dev_print_force_hpet_address() helper
+> >   x86/quirks: Join string literals back
+> 
+> These two don't seem to be related to the Surface 3 cause of the rest of
+> the patchset, or am I missing something?
 
-return -ENOTSUPP in cases where this callback is not supported.
+No, they are not. I think it's suitable to have them in the bunch nevertheless.
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- include/sound/soc-dai.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
-index 7f70db149b81..78bac995db15 100644
---- a/include/sound/soc-dai.h
-+++ b/include/sound/soc-dai.h
-@@ -433,7 +433,7 @@ static inline int snd_soc_dai_set_sdw_stream(struct snd_soc_dai *dai,
-  * This routine only retrieves that was previously configured
-  * with snd_soc_dai_get_sdw_stream()
-  *
-- * Returns pointer to stream or NULL;
-+ * Returns pointer to stream or -ENOTSUPP if callback is not supported;
-  */
- static inline void *snd_soc_dai_get_sdw_stream(struct snd_soc_dai *dai,
- 					       int direction)
-@@ -441,7 +441,7 @@ static inline void *snd_soc_dai_get_sdw_stream(struct snd_soc_dai *dai,
- 	if (dai->driver->ops->get_sdw_stream)
- 		return dai->driver->ops->get_sdw_stream(dai, direction);
- 	else
--		return NULL;
-+		return ERR_PTR(-ENOTSUPP);
- }
- 
- #endif
 -- 
-2.21.0
+With Best Regards,
+Andy Shevchenko
+
 

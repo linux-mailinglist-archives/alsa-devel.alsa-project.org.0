@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEEAF186522
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Mar 2020 07:41:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEE6E186524
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Mar 2020 07:41:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 788CF1892;
-	Mon, 16 Mar 2020 07:40:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 788CF1892
+	by alsa0.perex.cz (Postfix) with ESMTPS id 913951897;
+	Mon, 16 Mar 2020 07:41:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 913951897
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584340883;
-	bh=HkHFy9aSE/wwB8Z3vzP6n8YzI+kS+bo/m9DDVI3sKjE=;
+	s=default; t=1584340910;
+	bh=aLf/Y9gjZ5JZ5iQng8xi8Vtp+J1ri5pmVSbLNIBj7B4=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kIm3x+IqTDcbry/X5L4OjZc641bXmbbOFgaxwbGNSU3GmTJ0fEfwnKCtEuPmDaGfb
-	 kqWCPXxuLEnUm/OJxNDAk21YBWZenvRkRwCtwgZru7nYic1WJmO0ajN0NrHqWQ5Wkf
-	 gcXG4XJRXCXzGJ7bYiIRU+NFNJ5ezMAbTIY2BLDQ=
+	b=AE2ua/yInlmFmqq7YAE/co79TdhThYgvbpKENLbr0a7tFdBtBDwS8hWfvxPu9BibO
+	 aDgGYILw7CU+jw0ShElS4d5f1v8pLP3kuKttkVgky3Wx3LWXb14R40+6XOqsbPaaq4
+	 Ac4Pb8fIdnN9nqgwXr8DfNM0y4vY5keb8wd1baeY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 35023F802BC;
-	Mon, 16 Mar 2020 07:37:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9954EF802C3;
+	Mon, 16 Mar 2020 07:37:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4EDADF8028F; Mon, 16 Mar 2020 07:37:26 +0100 (CET)
+ id 5E890F802A9; Mon, 16 Mar 2020 07:37:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 92625F8028C
- for <alsa-devel@alsa-project.org>; Mon, 16 Mar 2020 07:37:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92625F8028C
-Date: 16 Mar 2020 15:37:20 +0900
-X-IronPort-AV: E=Sophos;i="5.70,559,1574089200"; d="scan'208";a="41771277"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 16 Mar 2020 15:37:20 +0900
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 9F352F8029A
+ for <alsa-devel@alsa-project.org>; Mon, 16 Mar 2020 07:37:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F352F8029A
+Date: 16 Mar 2020 15:37:26 +0900
+X-IronPort-AV: E=Sophos;i="5.70,559,1574089200"; d="scan'208";a="41985626"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 16 Mar 2020 15:37:26 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 1EE8341AD594;
- Mon, 16 Mar 2020 15:37:20 +0900 (JST)
-Message-ID: <87r1xsolen.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 145404005E25;
+ Mon, 16 Mar 2020 15:37:26 +0900 (JST)
+Message-ID: <87pndcoleh.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 5/6] ASoC: soc-core: Merge CPU/Codec for soc_dai_pcm_new()
+Subject: [PATCH 6/6] ASoC: soc-pcm: Merge CPU/Codec MSB at soc_pcm_apply_msb()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87y2s0olg6.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,64 +70,62 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Now CPU/Codec DAIs are alias for dais.
-Thus, we can directly use for_each_rtd_dais() macro
-for soc_dai_pcm_new().
-This patch merge CPU/Codec for it.
+soc_pcm_apply_msb() is setting msb for both CPU/Codec,
+but we can merge these into one.
+This patch do it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-core.c | 23 +++++++++--------------
- 1 file changed, 9 insertions(+), 14 deletions(-)
+ sound/soc/soc-pcm.c | 26 +++++++-------------------
+ 1 file changed, 7 insertions(+), 19 deletions(-)
 
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 333cbbd268b4..38c2b0434f8f 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -1037,20 +1037,20 @@ int snd_soc_add_pcm_runtime(struct snd_soc_card *card,
- }
- EXPORT_SYMBOL_GPL(snd_soc_add_pcm_runtime);
- 
--static int soc_dai_pcm_new(struct snd_soc_dai **dais, int num_dais,
--			   struct snd_soc_pcm_runtime *rtd)
-+static int soc_dai_pcm_new(struct snd_soc_pcm_runtime *rtd)
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index e256d438ee68..aadf3349fb07 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -532,35 +532,23 @@ static void soc_pcm_set_msb(struct snd_pcm_substream *substream, int bits)
+ static void soc_pcm_apply_msb(struct snd_pcm_substream *substream)
  {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_dai *cpu_dai;
+-	struct snd_soc_dai *codec_dai;
+-	struct snd_soc_pcm_stream *pcm_codec, *pcm_cpu;
 +	struct snd_soc_dai *dai;
- 	int i, ret = 0;
++	struct snd_soc_pcm_stream *pcm;
+ 	int stream = substream->stream;
+ 	int i;
+-	unsigned int bits = 0, cpu_bits = 0;
++	unsigned int bits = 0;
  
--	for (i = 0; i < num_dais; ++i) {
--		struct snd_soc_dai_driver *drv = dais[i]->driver;
+-	for_each_rtd_codec_dais(rtd, i, codec_dai) {
+-		pcm_codec = snd_soc_dai_get_pcm_stream(codec_dai, stream);
 +	for_each_rtd_dais(rtd, i, dai) {
-+		struct snd_soc_dai_driver *drv = dai->driver;
++		pcm = snd_soc_dai_get_pcm_stream(dai, stream);
  
- 		if (drv->pcm_new)
--			ret = drv->pcm_new(rtd, dais[i]);
-+			ret = drv->pcm_new(rtd, dai);
- 		if (ret < 0) {
--			dev_err(dais[i]->dev,
-+			dev_err(dai->dev,
- 				"ASoC: Failed to bind %s with pcm device\n",
--				dais[i]->name);
-+				dai->name);
- 			return ret;
+-		if (pcm_codec->sig_bits == 0) {
++		if (pcm->sig_bits == 0) {
+ 			bits = 0;
+ 			break;
  		}
+-		bits = max(pcm_codec->sig_bits, bits);
+-	}
+-
+-	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
+-		pcm_cpu = snd_soc_dai_get_pcm_stream(cpu_dai, stream);
+-
+-		if (pcm_cpu->sig_bits == 0) {
+-			cpu_bits = 0;
+-			break;
+-		}
+-		cpu_bits = max(pcm_cpu->sig_bits, cpu_bits);
++		bits = max(pcm->sig_bits, bits);
  	}
-@@ -1121,13 +1121,8 @@ static int soc_init_pcm_runtime(struct snd_soc_card *card,
- 			dai_link->stream_name, ret);
- 		return ret;
- 	}
--	ret = soc_dai_pcm_new(rtd->cpu_dais,
--			      rtd->num_cpus, rtd);
--	if (ret < 0)
--		return ret;
--	ret = soc_dai_pcm_new(rtd->codec_dais,
--			      rtd->num_codecs, rtd);
--	return ret;
-+
-+	return soc_dai_pcm_new(rtd);
+ 
+ 	soc_pcm_set_msb(substream, bits);
+-	soc_pcm_set_msb(substream, cpu_bits);
  }
  
- static void soc_set_name_prefix(struct snd_soc_card *card,
+ /**
 -- 
 2.17.1
 

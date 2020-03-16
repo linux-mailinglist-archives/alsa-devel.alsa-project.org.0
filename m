@@ -2,62 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E07EA1864CB
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Mar 2020 06:56:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C19DF1864D6
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Mar 2020 06:57:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1441F1834;
-	Mon, 16 Mar 2020 06:55:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1441F1834
+	by alsa0.perex.cz (Postfix) with ESMTPS id 52F0B1678;
+	Mon, 16 Mar 2020 06:56:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52F0B1678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584338184;
-	bh=j4zj+tBODJfYrfNonkpjegi5R1FYwks2k4pA7ueinyw=;
+	s=default; t=1584338225;
+	bh=23HbfgLMRh5dkKkXQFdB0kpivgilCqlhv8XfacDg76g=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bOHmeRwkYQBP3G7ILhP6tZYWO8s3F3gWaHnKxN6VATULP1i6A0ZGLO/JT/TWyQ4C7
-	 pPOKeXxFXRIEz/MAuylA8HlTPfXd51dLztpW+6O9kNVto+pyhiWjli7+3OzW0jm31/
-	 TuKM2oGrjbIN1LHGzP3a9nAAtAwv3wOwEp9aPy1g=
+	b=PgDYfZD8KkMgoAVjOfvJ+BSDdkvxwAGq6VWYm/rqW4RMvFfL9gu5CwxDr9+IkdXTy
+	 keYN6Me1scoROK6g6lBXASuahdgBWjxNbMePooWKgvmrGEfPxlEt/+g9otnOQdlKYd
+	 LzHTAmyW17LNoZWFCNYt02Qk5jkV3pN/GGCncr2c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7AAA9F80292;
-	Mon, 16 Mar 2020 06:54:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 463A5F801F9;
+	Mon, 16 Mar 2020 06:54:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5C085F8028D; Mon, 16 Mar 2020 06:54:15 +0100 (CET)
+ id 006FCF801DB; Mon, 16 Mar 2020 06:54:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C576FF8028D
- for <alsa-devel@alsa-project.org>; Mon, 16 Mar 2020 06:54:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C576FF8028D
+ by alsa1.perex.cz (Postfix) with ESMTPS id A4753F800D2
+ for <alsa-devel@alsa-project.org>; Mon, 16 Mar 2020 06:54:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4753F800D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="YGA4n6mo"
+ header.b="GkCe/GuH"
 Received: from vkoul-mobl.Dlink (unknown [49.207.58.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 114192071C;
- Mon, 16 Mar 2020 05:53:59 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 3E34020663;
+ Mon, 16 Mar 2020 05:54:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1584338051;
- bh=j4zj+tBODJfYrfNonkpjegi5R1FYwks2k4pA7ueinyw=;
+ s=default; t=1584338086;
+ bh=23HbfgLMRh5dkKkXQFdB0kpivgilCqlhv8XfacDg76g=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YGA4n6mowncmkVF3HptBNYBfBRiakDInW3UexN7mLcvt4WdHv9QtTvJot+JcJWs9r
- nGR6fP7JOoR3yjn/IAzTwQh3ZsDd1XLG9RGdzUU6L7VmV/y/18y06rW+f+7pZBCwss
- +Lu0gw8EEnm446Tcaf72y1LjSA6UoQ0tgg9wnJc4=
+ b=GkCe/GuHwwkrmUImHquMywBY5A7qCzy7pF5339Gx2wZNoLWGlrMVj3G3oMCXOI46G
+ 30GKs/d+1Xk2EOdnEYSf/pLsCuUcBzMs9Wpi6o46TSp894mHMkH2Mle9Up6BR0wzsc
+ MCmZw9a/I0Zo0jIc0c2d1FbchC3HwGWCWLgzsd6E=
 From: Vinod Koul <vkoul@kernel.org>
 To: Mark Brown <broonie@kernel.org>,
 	Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v3 2/9] ALSA: compress: Add wma decoder params
-Date: Mon, 16 Mar 2020 11:22:14 +0530
-Message-Id: <20200316055221.1944464-3-vkoul@kernel.org>
+Subject: [PATCH v3 3/9] ASoC: qcom: q6asm: pass codec profile to
+ q6asm_open_write
+Date: Mon, 16 Mar 2020 11:22:15 +0530
+Message-Id: <20200316055221.1944464-4-vkoul@kernel.org>
 X-Mailer: git-send-email 2.24.1
 In-Reply-To: <20200316055221.1944464-1-vkoul@kernel.org>
 References: <20200316055221.1944464-1-vkoul@kernel.org>
@@ -84,40 +85,66 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Some WMA decoders like WMAv10 etc need some additional encoder option
-parameters, so add these as WMA decoder params.
+Codec profile is required to be passed for WMA codecs so that we know
+the codec profile present and tell DSP accordingly, so update this API
+to pass the codec profile as argument
 
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 Signed-off-by: Vinod Koul <vkoul@kernel.org>
 ---
- include/uapi/sound/compress_params.h | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ sound/soc/qcom/qdsp6/q6asm-dai.c | 4 ++--
+ sound/soc/qcom/qdsp6/q6asm.c     | 2 +-
+ sound/soc/qcom/qdsp6/q6asm.h     | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/include/uapi/sound/compress_params.h b/include/uapi/sound/compress_params.h
-index a47d9df0fd7b..bf6f7155e775 100644
---- a/include/uapi/sound/compress_params.h
-+++ b/include/uapi/sound/compress_params.h
-@@ -329,6 +329,13 @@ struct snd_dec_flac {
- 	__u16 reserved;
- } __attribute__((packed, aligned(4)));
+diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
+index c0d422d0ab94..8f245d03b6f5 100644
+--- a/sound/soc/qcom/qdsp6/q6asm-dai.c
++++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
+@@ -250,7 +250,7 @@ static int q6asm_dai_prepare(struct snd_soc_component *component,
  
-+struct snd_dec_wma {
-+	__u32 encoder_option;
-+	__u32 adv_encoder_option;
-+	__u32 adv_encoder_option2;
-+	__u32 reserved;
-+} __attribute__((packed, aligned(4)));
-+
- union snd_codec_options {
- 	struct snd_enc_wma wma;
- 	struct snd_enc_vorbis vorbis;
-@@ -336,6 +343,7 @@ union snd_codec_options {
- 	struct snd_enc_flac flac;
- 	struct snd_enc_generic generic;
- 	struct snd_dec_flac flac_d;
-+	struct snd_dec_wma wma_d;
- } __attribute__((packed, aligned(4)));
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+ 		ret = q6asm_open_write(prtd->audio_client, FORMAT_LINEAR_PCM,
+-				       prtd->bits_per_sample);
++				       0, prtd->bits_per_sample);
+ 	} else if (substream->stream == SNDRV_PCM_STREAM_CAPTURE) {
+ 		ret = q6asm_open_read(prtd->audio_client, FORMAT_LINEAR_PCM,
+ 				       prtd->bits_per_sample);
+@@ -652,7 +652,7 @@ static int q6asm_dai_compr_set_params(struct snd_compr_stream *stream,
+ 	prtd->bits_per_sample = 16;
+ 	if (dir == SND_COMPRESS_PLAYBACK) {
+ 		ret = q6asm_open_write(prtd->audio_client, params->codec.id,
+-					prtd->bits_per_sample);
++				params->codec.profile, prtd->bits_per_sample);
  
- /** struct snd_codec_desc - description of codec capabilities
+ 		if (ret < 0) {
+ 			dev_err(dev, "q6asm_open_write failed\n");
+diff --git a/sound/soc/qcom/qdsp6/q6asm.c b/sound/soc/qcom/qdsp6/q6asm.c
+index 36e0eab13a98..64eb7b6ba305 100644
+--- a/sound/soc/qcom/qdsp6/q6asm.c
++++ b/sound/soc/qcom/qdsp6/q6asm.c
+@@ -858,7 +858,7 @@ static int q6asm_ac_send_cmd_sync(struct audio_client *ac, struct apr_pkt *pkt)
+  * Return: Will be an negative value on error or zero on success
+  */
+ int q6asm_open_write(struct audio_client *ac, uint32_t format,
+-		     uint16_t bits_per_sample)
++		     u32 codec_profile, uint16_t bits_per_sample)
+ {
+ 	struct asm_stream_cmd_open_write_v3 *open;
+ 	struct apr_pkt *pkt;
+diff --git a/sound/soc/qcom/qdsp6/q6asm.h b/sound/soc/qcom/qdsp6/q6asm.h
+index 6764f55f7078..1cff7f68b95d 100644
+--- a/sound/soc/qcom/qdsp6/q6asm.h
++++ b/sound/soc/qcom/qdsp6/q6asm.h
+@@ -55,7 +55,7 @@ void q6asm_audio_client_free(struct audio_client *ac);
+ int q6asm_write_async(struct audio_client *ac, uint32_t len, uint32_t msw_ts,
+ 		       uint32_t lsw_ts, uint32_t flags);
+ int q6asm_open_write(struct audio_client *ac, uint32_t format,
+-		     uint16_t bits_per_sample);
++		     u32 codec_profile, uint16_t bits_per_sample);
+ 
+ int q6asm_open_read(struct audio_client *ac, uint32_t format,
+ 		     uint16_t bits_per_sample);
 -- 
 2.24.1
 

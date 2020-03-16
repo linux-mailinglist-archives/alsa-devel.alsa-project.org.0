@@ -2,52 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3760A18720D
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Mar 2020 19:14:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F219118732E
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Mar 2020 20:16:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BB1E418D7;
-	Mon, 16 Mar 2020 19:13:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB1E418D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D96517E2;
+	Mon, 16 Mar 2020 20:16:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D96517E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584382470;
-	bh=MzPkZvQwDQlG/3SyMUjDHZknRYvcROFYB2yCuGIg0NA=;
-	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=J5cEo8YOa+r6cXvQYCWXi2n5uXIrzgcifojSOBxpwUtdYnfgKmxogFbZXIUhCINRM
-	 9WaTzM/MV0gDhWhAMQsTLxoL4VImvRi9QgdWrgogAus7LA6H6BGBsrh7oHnufgyh6v
-	 64pyzB2sSQebRoP2k7DdPmK82dk3twfHfXt1aOVk=
+	s=default; t=1584386217;
+	bh=0v4ox8MhQNqUrGZoQuiHYuUcmjemgD2ghgliY7yKGGo=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=qTYlQoPBkfejANQBS+Dvvy+J7+RGz4T4m90nX4JL3HZYnxCtsPCdKsoQ7a5phpfop
+	 37QDgzEZCiSzJhyKzAMTrPInaB3DrX5zbTDTxBtBa8JKf0pGfNt9QMex/v1mn34XDS
+	 tl6GNtOaWd/61sfCZErZUB1HFh/Nyda7ckK3/2Pw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7343F802EC;
-	Mon, 16 Mar 2020 19:08:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5C9EFF80110;
+	Mon, 16 Mar 2020 20:15:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BEDC0F802EC; Mon, 16 Mar 2020 19:08:37 +0100 (CET)
+ id 98330F8015B; Mon, 16 Mar 2020 20:15:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id AB8C5F802EA
- for <alsa-devel@alsa-project.org>; Mon, 16 Mar 2020 19:08:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB8C5F802EA
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D3F511FB;
- Mon, 16 Mar 2020 11:08:33 -0700 (PDT)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 58EF83F67D;
- Mon, 16 Mar 2020 11:08:33 -0700 (PDT)
-Date: Mon, 16 Mar 2020 18:08:31 +0000
-From: Mark Brown <broonie@kernel.org>
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 18683F80058
+ for <alsa-devel@alsa-project.org>; Mon, 16 Mar 2020 20:15:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18683F80058
+IronPort-SDR: xVHtIeem4KZad05O1E7V4XRWRO9VBgY/awEaAPXSDcpriQEC5i/jiqayncX/2MxhKFwavMcij7
+ JSKqeDFMh+YQ==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2020 12:15:04 -0700
+IronPort-SDR: BkxMwYmGdmJL6bboIYVi1p4yGEi4lwtwLzcR/d0ngV74pLIjsdWFhK6pgUuMwbnjsirJR6lMqk
+ GT+celwN2SiQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,561,1574150400"; d="scan'208";a="267685306"
+Received: from saholmes-mobl.amr.corp.intel.com (HELO [10.255.32.131])
+ ([10.255.32.131])
+ by fmsmga004.fm.intel.com with ESMTP; 16 Mar 2020 12:15:02 -0700
+Subject: Re: [PATCH 1/8] soundwire: bus_type: add master_device/driver support
 To: Vinod Koul <vkoul@kernel.org>
-Subject: Applied "ALSA: compress: add wma codec profiles" to the asoc tree
-In-Reply-To: 
-Message-Id: 
-X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+References: <20200304095312.GT4148@vkoul-mobl>
+ <05dbe43c-abf8-9d5a-d808-35bf4defe4ba@linux.intel.com>
+ <20200305063646.GW4148@vkoul-mobl>
+ <eb30ac49-788f-b856-6fcf-84ae580eb3c8@linux.intel.com>
+ <20200306050115.GC4148@vkoul-mobl>
+ <4fabb135-6fbb-106f-44fd-8155ea716c00@linux.intel.com>
+ <20200311063645.GH4885@vkoul-mobl>
+ <0fafb567-10e5-a1ea-4a6d-b3c53afb215e@linux.intel.com>
+ <20200313115011.GD4885@vkoul-mobl>
+ <4cb16467-87d0-ef99-e471-9eafa9e669d2@linux.intel.com>
+ <20200314094904.GP4885@vkoul-mobl>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <3c32830c-cd12-867f-a763-7c3e385cb1e9@linux.intel.com>
+Date: Mon, 16 Mar 2020 14:15:02 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
+MIME-Version: 1.0
+In-Reply-To: <20200314094904.GP4885@vkoul-mobl>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Hui Wang <hui.wang@canonical.com>, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,63 +96,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
 
-   ALSA: compress: add wma codec profiles
 
-has been applied to the asoc tree at
+>> It's really down to your objection to the use of 'struct driver'... For ASoC
+>> support we only need the .name and .pm_ops, so there's really no possible
+>> path forward otherwise.
+> 
+> It means that we cannot have a solution which is Intel specific into
+> core. If you has a standalone controller you do not need this.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+A 'struct driver' is not Intel-specific, sorry.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+>> Like I said, we have 3 options
+> 
+> Repeating the already discussed doesn't help. I have already told you the
+> constraint to work is not to add Intel specific change into core.
+> 
+> I have already said that expect the driver part I dont have objections
+> to rest of this series and am ready to merge
+> 
+>> a) stay with platform devices for now. You will need to have a conversation
+>> with Greg on this.
+>>
+>> b) use a minimal sdw_master_device with a minimal 'struct driver' use.
+>>
+>> c) use a more elaborate solution suggested in this patchset and yes that
+>> means the Qualcomm driver would need to change a bit.
+>>
+>> Pick one or suggest something that is implementable. The first version of
+>> the patches was provided in October, the last RFC was provided on January
+>> 31, time's up. At the moment you are preventing ASoC integration from moving
+>> forward.
+> 
+> In opensource review we go back and forth and we debate and come to a
+> common conclusion. Choosing a specific set of solutions and constraining
+> yourself to pick one does not help.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+First off, the ask to move away from platform devices came from Greg. 
+Not me. All I did here was suggest solutions, one reviewed by Greg as 
+'sane' and 'nice work'. Greg essentially wrote the book on 
+devices/drivers so his review means I am not completely senile just yet.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+You pushed back with two proposals that don't account for power 
+management and the driver name required for ASoC. That was on top on 
+another suggestion to use platform devices that was shot down by Greg 
+himself with language I can't quote here.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+Please re-read my words: my ask was "Pick one or suggest something that 
+is implementable."
 
-Thanks,
-Mark
+You don't pick one and don't suggest anything implementable either, so 
+there's really not much I can do, can I? I don't have a solution without 
+a 'struct driver', and you don't want it.
 
-From 3bd7ac41d85527126c31f336a75cb2275a6a8898 Mon Sep 17 00:00:00 2001
-From: Vinod Koul <vkoul@kernel.org>
-Date: Mon, 16 Mar 2020 11:22:13 +0530
-Subject: [PATCH] ALSA: compress: add wma codec profiles
+The only short-term path forward I see is to ask Greg to agree to keep 
+the platform devices for now.
 
-Some codec profiles were missing for WMA, like WMA9/10 lossless and
-wma10 pro, so add these profiles
+> I have only _one_ constraint no platform specific change in core. If that
+> is satisfied I will go with it. Sorry but this is non-negotiable for me.
 
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
-Link: https://lore.kernel.org/r/20200316055221.1944464-2-vkoul@kernel.org
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- include/uapi/sound/compress_params.h | 3 +++
- 1 file changed, 3 insertions(+)
+How is a 'struct driver' platform specific?
 
-diff --git a/include/uapi/sound/compress_params.h b/include/uapi/sound/compress_params.h
-index 9c96fb0e4d90..a47d9df0fd7b 100644
---- a/include/uapi/sound/compress_params.h
-+++ b/include/uapi/sound/compress_params.h
-@@ -142,6 +142,9 @@
- #define SND_AUDIOPROFILE_WMA8                ((__u32) 0x00000002)
- #define SND_AUDIOPROFILE_WMA9                ((__u32) 0x00000004)
- #define SND_AUDIOPROFILE_WMA10               ((__u32) 0x00000008)
-+#define SND_AUDIOPROFILE_WMA9_PRO            ((__u32) 0x00000010)
-+#define SND_AUDIOPROFILE_WMA9_LOSSLESS       ((__u32) 0x00000020)
-+#define SND_AUDIOPROFILE_WMA10_LOSSLESS      ((__u32) 0x00000040)
- 
- #define SND_AUDIOMODE_WMA_LEVEL1             ((__u32) 0x00000001)
- #define SND_AUDIOMODE_WMA_LEVEL2             ((__u32) 0x00000002)
--- 
-2.20.1
+> Ask yourself, do you need this intrusive core change if you had this
+> exact same controller(s) but only as standalone one...
 
+That would really not change anything. There would be some sort of ID 
+(PCI or something else) for the controller and multiple masters below. 
+The ACPI/DisCo spec does not account for masters so they would have to 
+be created by hand.
+
+Again how is a 'struct driver' an 'intrusive change'?

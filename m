@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D213B1871FD
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Mar 2020 19:12:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CD5A187200
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Mar 2020 19:12:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6FBA318C5;
-	Mon, 16 Mar 2020 19:11:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FBA318C5
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA9721827;
+	Mon, 16 Mar 2020 19:11:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA9721827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584382331;
-	bh=3JIH9kJ8+OJAOJXkcIr7yf3bK4LqSqspyJ/pDMpsvjA=;
+	s=default; t=1584382369;
+	bh=cgg6EZNM0AXYIsGxddQ2pBTqF4pyv3rs4RSINabByHg=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=dx9KzXfjF2Y06lBQs8Uf03twQyk3730siuQToSJObKGoVMqLDyb/ox2vrHxtC1Zmm
-	 SOGnQRhvM7aUxwkB34/y0xq0OKqXTjwuv5eeqOsSRk5tfnMwoFI9vRYNcHTgo+lckQ
-	 PuCaYOJPRRwY+hhvtYHwumtte57eH6qSjMuL5eUQ=
+	b=fqlefgYgD2HhAsEY///+63hVPsuwLaGliNtVkU3icr6VIe1bQj+YDBSrBBagFJp92
+	 QccijUo48aY7S6YJSk8CQB+PCFveSNht8Ca2lQAAIuM9IpLjRLz+fSISwtOz6dztyf
+	 OowieUHuiqZ4fyURxajVU+wNcXv/smc2fN8RNEjg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0447CF802A8;
-	Mon, 16 Mar 2020 19:08:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23EA5F802BC;
+	Mon, 16 Mar 2020 19:08:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F2411F802A7; Mon, 16 Mar 2020 19:08:15 +0100 (CET)
+ id DB165F802BD; Mon, 16 Mar 2020 19:08:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS,
+X-Spam-Level: *
+X-Spam-Status: No, score=1.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 24788F802A1
- for <alsa-devel@alsa-project.org>; Mon, 16 Mar 2020 19:08:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24788F802A1
+ by alsa1.perex.cz (Postfix) with ESMTP id 96913F802A1
+ for <alsa-devel@alsa-project.org>; Mon, 16 Mar 2020 19:08:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96913F802A1
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C2F4D1FB;
- Mon, 16 Mar 2020 11:08:11 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 248F21FB;
+ Mon, 16 Mar 2020 11:08:16 -0700 (PDT)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 45DBF3F67D;
- Mon, 16 Mar 2020 11:08:11 -0700 (PDT)
-Date: Mon, 16 Mar 2020 18:08:09 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9CB803F67D;
+ Mon, 16 Mar 2020 11:08:15 -0700 (PDT)
+Date: Mon, 16 Mar 2020 18:08:14 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Vinod Koul <vkoul@kernel.org>
-Subject: Applied "ALSA: compress: add alac & ape decoder params" to the asoc
- tree
+Subject: Applied "ASoC: qcom: q6asm-dai: add support to wma decoder" to the
+ asoc tree
 In-Reply-To: 
 Message-Id: 
 X-Patchwork-Hint: ignore
@@ -66,7 +66,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ALSA: compress: add alac & ape decoder params
+   ASoC: qcom: q6asm-dai: add support to wma decoder
 
 has been applied to the asoc tree at
 
@@ -91,73 +91,121 @@ to this mail.
 Thanks,
 Mark
 
-From 0f546d6f0292fb624b4cf0cc70096ddb9ea070e6 Mon Sep 17 00:00:00 2001
+From 40519a1c02303ebdf09e07fe57a52c2d1d188b01 Mon Sep 17 00:00:00 2001
 From: Vinod Koul <vkoul@kernel.org>
-Date: Mon, 16 Mar 2020 11:22:18 +0530
-Subject: [PATCH] ALSA: compress: add alac & ape decoder params
+Date: Mon, 16 Mar 2020 11:22:17 +0530
+Subject: [PATCH] ASoC: qcom: q6asm-dai: add support to wma decoder
 
-Add ALAC (Apple Lossless Audio Codec) and APE (Monkey's Lossless Audio
-Codec) defines and parameters required to configure these.
+Qualcomm DSPs also supports the wma decoder, so add support for wma
+decoder and convert the snd_codec_params to qdsp format.
 
 Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 Reviewed-by: Takashi Iwai <tiwai@suse.de>
-Link: https://lore.kernel.org/r/20200316055221.1944464-7-vkoul@kernel.org
+Link: https://lore.kernel.org/r/20200316055221.1944464-6-vkoul@kernel.org
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/uapi/sound/compress_params.h | 26 +++++++++++++++++++++++++-
- 1 file changed, 25 insertions(+), 1 deletion(-)
+ sound/soc/qcom/qdsp6/q6asm-dai.c | 67 +++++++++++++++++++++++++++++++-
+ 1 file changed, 66 insertions(+), 1 deletion(-)
 
-diff --git a/include/uapi/sound/compress_params.h b/include/uapi/sound/compress_params.h
-index bf6f7155e775..79b14389ae41 100644
---- a/include/uapi/sound/compress_params.h
-+++ b/include/uapi/sound/compress_params.h
-@@ -75,7 +75,9 @@
- #define SND_AUDIOCODEC_G723_1                ((__u32) 0x0000000C)
- #define SND_AUDIOCODEC_G729                  ((__u32) 0x0000000D)
- #define SND_AUDIOCODEC_BESPOKE               ((__u32) 0x0000000E)
--#define SND_AUDIOCODEC_MAX                   SND_AUDIOCODEC_BESPOKE
-+#define SND_AUDIOCODEC_ALAC                  ((__u32) 0x0000000F)
-+#define SND_AUDIOCODEC_APE                   ((__u32) 0x00000010)
-+#define SND_AUDIOCODEC_MAX                   SND_AUDIOCODEC_APE
+diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
+index bc0e3f7cfd8e..fa685fe4a027 100644
+--- a/sound/soc/qcom/qdsp6/q6asm-dai.c
++++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
+@@ -629,10 +629,13 @@ static int q6asm_dai_compr_set_params(struct snd_compr_stream *stream,
+ 	int dir = stream->direction;
+ 	struct q6asm_dai_data *pdata;
+ 	struct q6asm_flac_cfg flac_cfg;
++	struct q6asm_wma_cfg wma_cfg;
++	unsigned int wma_v9 = 0;
+ 	struct device *dev = c->dev;
+ 	int ret;
+ 	union snd_codec_options *codec_options;
+ 	struct snd_dec_flac *flac;
++	struct snd_dec_wma *wma;
  
- /*
-  * Profile and modes are listed with bit masks. This allows for a
-@@ -336,6 +338,26 @@ struct snd_dec_wma {
- 	__u32 reserved;
- } __attribute__((packed, aligned(4)));
+ 	codec_options = &(prtd->codec_param.codec.options);
  
-+struct snd_dec_alac {
-+	__u32 frame_length;
-+	__u8 compatible_version;
-+	__u8 pb;
-+	__u8 mb;
-+	__u8 kb;
-+	__u32 max_run;
-+	__u32 max_frame_bytes;
-+} __attribute__((packed, aligned(4)));
+@@ -694,6 +697,67 @@ static int q6asm_dai_compr_set_params(struct snd_compr_stream *stream,
+ 			return -EIO;
+ 		}
+ 		break;
 +
-+struct snd_dec_ape {
-+	__u16 compatible_version;
-+	__u16 compression_level;
-+	__u32 format_flags;
-+	__u32 blocks_per_frame;
-+	__u32 final_frame_blocks;
-+	__u32 total_frames;
-+	__u32 seek_table_present;
-+} __attribute__((packed, aligned(4)));
++	case SND_AUDIOCODEC_WMA:
++		wma = &codec_options->wma_d;
 +
- union snd_codec_options {
- 	struct snd_enc_wma wma;
- 	struct snd_enc_vorbis vorbis;
-@@ -344,6 +366,8 @@ union snd_codec_options {
- 	struct snd_enc_generic generic;
- 	struct snd_dec_flac flac_d;
- 	struct snd_dec_wma wma_d;
-+	struct snd_dec_alac alac_d;
-+	struct snd_dec_ape ape_d;
- } __attribute__((packed, aligned(4)));
++		memset(&wma_cfg, 0x0, sizeof(struct q6asm_wma_cfg));
++
++		wma_cfg.sample_rate =  params->codec.sample_rate;
++		wma_cfg.num_channels = params->codec.ch_in;
++		wma_cfg.bytes_per_sec = params->codec.bit_rate / 8;
++		wma_cfg.block_align = params->codec.align;
++		wma_cfg.bits_per_sample = prtd->bits_per_sample;
++		wma_cfg.enc_options = wma->encoder_option;
++		wma_cfg.adv_enc_options = wma->adv_encoder_option;
++		wma_cfg.adv_enc_options2 = wma->adv_encoder_option2;
++
++		if (wma_cfg.num_channels == 1)
++			wma_cfg.channel_mask = 4; /* Mono Center */
++		else if (wma_cfg.num_channels == 2)
++			wma_cfg.channel_mask = 3; /* Stereo FL/FR */
++		else
++			return -EINVAL;
++
++		/* check the codec profile */
++		switch (params->codec.profile) {
++		case SND_AUDIOPROFILE_WMA9:
++			wma_cfg.fmtag = 0x161;
++			wma_v9 = 1;
++			break;
++
++		case SND_AUDIOPROFILE_WMA10:
++			wma_cfg.fmtag = 0x166;
++			break;
++
++		case SND_AUDIOPROFILE_WMA9_PRO:
++			wma_cfg.fmtag = 0x162;
++			break;
++
++		case SND_AUDIOPROFILE_WMA9_LOSSLESS:
++			wma_cfg.fmtag = 0x163;
++			break;
++
++		case SND_AUDIOPROFILE_WMA10_LOSSLESS:
++			wma_cfg.fmtag = 0x167;
++			break;
++
++		default:
++			dev_err(dev, "Unknown WMA profile:%x\n",
++				params->codec.profile);
++			return -EIO;
++		}
++
++		if (wma_v9)
++			ret = q6asm_stream_media_format_block_wma_v9(
++					prtd->audio_client, &wma_cfg);
++		else
++			ret = q6asm_stream_media_format_block_wma_v10(
++					prtd->audio_client, &wma_cfg);
++		if (ret < 0) {
++			dev_err(dev, "WMA9 CMD failed:%d\n", ret);
++			return -EIO;
++		}
+ 	default:
+ 		break;
+ 	}
+@@ -793,9 +857,10 @@ static int q6asm_dai_compr_get_caps(struct snd_compr_stream *stream,
+ 	caps->max_fragment_size = COMPR_PLAYBACK_MAX_FRAGMENT_SIZE;
+ 	caps->min_fragments = COMPR_PLAYBACK_MIN_NUM_FRAGMENTS;
+ 	caps->max_fragments = COMPR_PLAYBACK_MAX_NUM_FRAGMENTS;
+-	caps->num_codecs = 2;
++	caps->num_codecs = 3;
+ 	caps->codecs[0] = SND_AUDIOCODEC_MP3;
+ 	caps->codecs[1] = SND_AUDIOCODEC_FLAC;
++	caps->codecs[2] = SND_AUDIOCODEC_WMA;
  
- /** struct snd_codec_desc - description of codec capabilities
+ 	return 0;
+ }
 -- 
 2.20.1
 

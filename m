@@ -2,97 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E24D186BB5
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Mar 2020 14:03:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3427C186C23
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Mar 2020 14:34:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8C4F418C1;
-	Mon, 16 Mar 2020 14:02:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C4F418C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB9C018C4;
+	Mon, 16 Mar 2020 14:33:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB9C018C4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584363822;
-	bh=Yzwnzi3uaF8gj9/yCJvW9VM0AzQgFbUVHwgWexSTwuc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1584365646;
+	bh=ELF/lXoRsi2enGfhO9lOh6p+qdBwerbLhAA7JSNUzrc=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kl1hL5QAmaJoGcNiOKpgIW5of4MCDSnhsuhbajyJQKXnNf9yF1gGyciC/cumr/8y/
-	 MnqI7B2rr0MAjoWyI+Kp9PQnObVuU+Ev0i6S4z9odbmWGdWAV4yDHBxDJMB8UH3u9C
-	 3aNC4cAxd25ieB2xntNqaJEAXcJxXm0WNOVoAaoQ=
+	b=oIkE9ZJu5yW41cETni9H9dnWVMvN1KkCfT09DK6GJC1H7tEqchNXhH+lRUcWKoK5p
+	 khycRXZmtcNxF2sFsvu7uxMtPKHzpos4/mLI2iyK+fdldppDfXm+2n7iJLiSkdvxQv
+	 l61A9Qt5aOf9eGnDGR+QGX+RLGVcMcs5/MD9eeD0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D7F6F800CD;
-	Mon, 16 Mar 2020 14:02:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 729DDF80162;
+	Mon, 16 Mar 2020 14:32:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 621ABF8015B; Mon, 16 Mar 2020 14:01:58 +0100 (CET)
+ id 55CA8F8015B; Mon, 16 Mar 2020 14:32:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from zeus.domdv.de (zeus.domdv.de [IPv6:2a02:2ad0:c00::11])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 470DCF800D2;
- Mon, 16 Mar 2020 14:01:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 470DCF800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB4D3F800CD
+ for <alsa-devel@alsa-project.org>; Mon, 16 Mar 2020 14:32:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB4D3F800CD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="IgbPfftO"
-Received: by mail-wr1-x443.google.com with SMTP id 6so21101804wre.4;
- Mon, 16 Mar 2020 06:01:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=8lPqGQkzYXIZixlU4/SVfz2TE5wMXf/RCUgZUuhdULg=;
- b=IgbPfftONkRv6WPIreACR2bk+m/5ncOUmuYz1FvSoWv3IFdKPqesEQtF3AmjfufF3v
- KDUos8UEtbyvmGiS+cg/wZW122KWo6t3aEyEbZbOg80r5i9QxXQgIeFuGjEeuy4gpGms
- dWOw6VercaCWMVyoQNGqkBHFe/UcmN0Jdues4qJGMUXR1FtbnT04eOQ32HKU0a3zsHyg
- KsxUfEDHHsSQANoDRP55V6A508zSugh+ch0LAFVdXPjSeB4kH86f0BC+JCQEHPdlIhM1
- wl/k5D6tS4AslEHtrweKPBrYsJjykMZR6KyJnkiFqsGBMIMtDyoNHuNiC0jkSKshEXmi
- nJ1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=8lPqGQkzYXIZixlU4/SVfz2TE5wMXf/RCUgZUuhdULg=;
- b=NXPUdgudvQyprjKUkjxnPpXE1KvUs6Kizh8hshu7kSLmbqv41ty3mTQ3EpO76pwDdI
- RETLpKPI7IZ6jMZS1Id3xaLDDDZ56Oh9JyllNpVWYxBTVukeNJ8/2bcbe8asX7RbWqJ3
- PvmI8ITy91zBUhgMKK/HpGzgCPMNK51GK6nU3h1c20FaRnXbm4ovzwdd0Cw36gq/NIFs
- VOOxIDr81GD4x7FK6+sgDvrK9oyg87OE4/MfveQk9JtOFCaU8+3tBu54EKDx5rVc3l8/
- qaXlYRWjXgkT4UXLzltVr6Juuud+NmyinyfeQPtez1M9rhIh2PXkkEVX+0Ftw24WS60K
- G6aw==
-X-Gm-Message-State: ANhLgQ3qgzuxAO/jUCW6CvGTFV4tW/ZKf9aFXCLgpnVwUklV+z6n+qJC
- ZeiFJ4Ib/1Bof2f8TtjQbkxGmjfAcvZ5P/tMIGE=
-X-Google-Smtp-Source: ADFU+vv3todfLH0S9K1XiDE5C05k1QyRLPyjalBazFAliB47u26zAl+u/TDY/X5WKA04HAeVbCo967LdsqPd6PTKHdA=
-X-Received: by 2002:adf:de84:: with SMTP id w4mr36663540wrl.350.1584363712015; 
- Mon, 16 Mar 2020 06:01:52 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200306111353.12906-1-daniel.baluta@oss.nxp.com>
- <20200306111353.12906-2-daniel.baluta@oss.nxp.com>
- <20200312202306.GA18767@bogus>
-In-Reply-To: <20200312202306.GA18767@bogus>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Mon, 16 Mar 2020 15:01:40 +0200
-Message-ID: <CAEnQRZCLa+NAk=3M84MxjgOzYQdJXGY9S84dU6HO8GG64Lm_mQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: sound: Add FSL CPU DAI bindings
-To: Rob Herring <robh@kernel.org>
+ dkim=pass (1024-bit key) header.d=domdv.de header.i=@domdv.de
+ header.b="B1zP6j60"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=domdv.de;
+ s=dk3; h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:
+ In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=rbo5TeMTu8kqvV5VawYZAzHgcmjQtJzwppPdrPWyO9Q=; b=B1zP6j60FIYAwP1U1F5zMjb+EM
+ ubN9Gtt9gqDvNJvje8AZS19qbx6IAMWpXebOldjgfE54+tGVzW6kVYRYjVQTgdbEod19fW/rcPDnk
+ V1nc9RpL0Gtf+RYYL1rz0ywr2XnV7kJNN8aY9EmOhHumMBklWmlBn6nrscgSRvzym5tE=;
+Received: from [fd06:8443:81a1:74b0::212] (port=2856 helo=castor.lan.domdv.de)
+ by zeus.domdv.de with esmtpsa
+ (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.92.3)
+ (envelope-from <ast@domdv.de>)
+ id 1jDpps-0003HF-Kh; Mon, 16 Mar 2020 14:31:16 +0100
+Received: from woody.lan.domdv.de ([10.1.9.28]
+ helo=host028-server-9.lan.domdv.de)
+ by castor.lan.domdv.de with esmtpsa (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+ (Exim 4.92.3) (envelope-from <ast@domdv.de>)
+ id 1jDpps-0003LF-DM; Mon, 16 Mar 2020 14:31:16 +0100
+Message-ID: <4f3995a9c08c41bb0a5170e78941f47e6ac33d0f.camel@domdv.de>
+Subject: Re: [PATCH 1/3] ALSA USB MIDI: Fix port starvation
+From: Andreas Steinmetz <ast@domdv.de>
+To: Clemens Ladisch <clemens@ladisch.de>
+Date: Mon, 16 Mar 2020 14:31:15 +0100
+In-Reply-To: <36c09bfb-7d28-84c5-acba-9c74ad153a83@ladisch.de>
+References: <c9aed355adc93d5de0cc4c740d16d19e3e210f79.camel@domdv.de>
+ <36c09bfb-7d28-84c5-acba-9c74ad153a83@ladisch.de>
+Organization: D.O.M. Datenverarbeitung GmbH
 Content-Type: text/plain; charset="UTF-8"
-Cc: Daniel Baluta <daniel.baluta@nxp.com>,
- Devicetree List <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Xiubo Li <Xiubo.Lee@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- "S.j. Wang" <shengjiu.wang@nxp.com>, Daniel Baluta <daniel.baluta@oss.nxp.com>,
- Takashi Iwai <tiwai@suse.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@ti.com>, Mark Brown <broonie@kernel.org>,
- dl-linux-imx <linux-imx@nxp.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- sound-open-firmware@alsa-project.org
+User-Agent: Evolution 3.30.5 
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,171 +87,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks Rob for review. See my comments inline:
+On Mon, 2020-03-16 at 13:03 +0100, Clemens Ladisch wrote:
+> Andreas Steinmetz wrote:
+> > the snd_usbmidi_transmit_byte helper had to be converted to
+> > return output notification to allow for the 'repeat' shortcut.
+> 
+> Why not simply handle one MIDI byte per port in each iteration?  It
+> could be argued that single-byte MIDI commands are likely to be real-
+> time messages and deserve to go first.
+> 
 
-<snip>
+Actually the patch does exactly this. As soon as the helper signals
+that a message is complete the next port is processed. The "repeat"
+loop is just necessary to get a complete class compliant message for
+transfer as the helper processes one byte at a time.
+The range optimization is there to prevent O(2) performance cost if
+possible.
 
-> > +# SPDX-License-Identifier: GPL-2.0
->
-> Dual license new bindings please:
->
-> (GPL-2.0-only OR BSD-2-Clause)
+> > Current multi port MIDI interfaces do
+> > typically have 2^n output ports and 2^x as wMaxPacketSize where
+> > x>n.
+> 
+> The USB specification requires bulk endpoints to have a
+> wMaxPacketSize
+> value of 8/16/32/64 for full speed, or exactly 512 for high speed.
+> 
+> > For the patch to properly work the wMaxPacketSize of the device
+> > must be
+> > large enough to allow for at least one MIDI event per port in a
+> > URB.
+> 
+> There are devices that handle only the first four bytes of a received
+> packet (because Windows used to send only small packets), and one of
+> them, the ESI M4U, actually has more than one port.
+> 
 
-Ok, will do.
+Again no problem as the patch is designed to prefer quirks over user
+settings to prevent malfunctioning devices. Quirk processing and thus
+size restrictions are processed after user selection.
 
->
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/sound/fsl,dai.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Generic CPU FSL DAI driver for resource management
->
-> Bindings are for h/w devices, not drivers.
+> My original idea for that FIXME was to use round robin until the
+> packet
+> is filled (or all ports are empty), and to store the next port index
+> (where to start for the next packet) in the endpoint.  This would be
+> able to distribute the balancing over multiple packets.
+> 
 
-Indeed. I think I will change it to something like this.
+The problem with "round robin until the packet is filled" is that in
+case of a large wMaxPacketSize there's then a huge latency.
+I just got for further internal testing an USB3 8x8 interface that uses
+a wMaxPacketSize of 512.
+In such a case a port doing a sysex transfer will delay another port
+then sending a realtime message by a minimum of 123ms per queued URB.
+Make that 7 URBs and you have a sysex queue of 860ms until the realtime
+message can be transmitted.
+> 
+> Regards,
+> Clemens
+-- 
+Andreas Steinmetz
 
-title: 'FSL CPU DAI for resource management'
-
-The explanation are already in patch 2/2 of this series but let e
-explain again what I'm
-trying to do here and let me know if this makes sense to you.
-
-Digital Audio Interface device (DAI) are configured by the firmware
-running on the DSP. The only
-trouble we have is that we cannot easily handle 'resources' like:
-clocks, pinctrl, power domains from
-firmware.
-
-This is because our architecture is like this:
-
-M core [running System Controller Firmware]
-            |
-            |
-A core [Linux]<----> DSP core [SOF firmware]
-
-In theory, it is possible for DSP core to communicate with M core, but
-this needs a huge
-amount of work in order to make it work. We have this on our plans for
-the future,
-but we are now trying to do resource management from A core because
-the infrastructure is already in place.
-
-So, the curent driver introduced in this series acts like a Generic
-resource driver for DAI device. We can
-have multiple types of DAIs but most of them need the same types of
-resources (clocks, pinctrl, pm) sof
-for this reason I made it generic.
-
-
->
-> > +
-> > +maintainers:
-> > +  - Daniel Baluta <daniel.baluta@nxp.com>
-> > +
-> > +description: |
-> > +  On platforms with a DSP we need to split the resource handling between
-> > +  Application Processor (AP) and DSP. On platforms where the DSP doesn't
-> > +  have an easy access to resources, the AP will take care of
-> > +  configuring them. Resources handled by this generic driver are: clocks,
-> > +  power domains, pinctrl.
->
-> The DT should define a DSP node with resources that are part of the
-> DSP. What setup the AP has to do should be implied by the compatible
-> string and possibly what resources are described.
-
-We already have a DSP node: Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
-but I thought that the resources attached to DAIs are separated from
-the resources
-attached to the DSP device.
-
-In the great scheme of ALSA we usually have things like this:
-
-FE         <----->       BE
-
-In the SOF world FE are defined by topology framework. Back ends are
-defined by the machine driver:
-
-On the BE side we have:
-- codec  -> this is the specific code
-- platform -> this is the DSP
-- cpu -> this is our Generic DAI device
-
-Now, I'm wondering if we can get rid of cpu here and make platform
-node (dsp) take care of every
-resource (this looks not natural).
-
-Perhaps Mark, Liam or Pierre can help me with this.
-
-
->
-> Or maybe the audio portion of the DSP is a child node...
->
-> > +
-> > +properties:
-> > +  '#sound-dai-cells':
-> > +    const: 0
-> > +
-> > +  compatible:
-> > +    enum:
-> > +      - fsl,esai-dai
-> > +      - fsl,sai-dai
->
-> Not very specific. There's only 2 versions of the DSP and ways it is
-> integrated?
-
-As I said above this is not about the DSP, but about the Digital Audio
-Intraface. On i.MX
-NXP boards we have two types of DAIs: SAI and ESAI.
-
-<snip>
-
-> > +  pinctrl-0:
-> > +    description: Should specify pin control groups used for this controller.
-> > +
-> > +  pinctrl-names:
-> > +    const: default
->
-> pinctrl properties are implicitly allowed an don't have to be listed
-> here.
-
-Great.
-
->
-> > +
-> > +  power-domains:
-> > +    $ref: '/schemas/types.yaml#/definitions/phandle-array'
->
-> Don't need a type.
->
-> > +    description:
-> > +      List of phandles and PM domain specifiers, as defined by bindings of the
-> > +      PM domain provider.
->
-> Don't need to re-define common properties.
->
-> You do need to say how many power domains (maxItems: 1?).
-
-We support multiple power domains, so technically there is no upper
-limit. What should I put here in this case?
->
-> > +
-> > +  fsl,dai-index:
-> > +    $ref: '/schemas/types.yaml#/definitions/uint32'
-> > +    description: Physical DAI index, must match the index from topology file
->
-> Sorry, we don't do indexes in DT.
->
-> What's a topology file?
-
-Topology files are binary blobs that contain the description of an
-audio pipeline. They are built
-are written in a specific format and compiled with alsa-tplg tools in userspace.
-
-Then loaded via firmware interface inside the kernel.
-
-https://www.alsa-project.org/wiki/ALSA_topology
-
-
-thanks,
-Daniel.

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9978E1864CA
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Mar 2020 06:56:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E07EA1864CB
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Mar 2020 06:56:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 31A21187D;
-	Mon, 16 Mar 2020 06:55:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31A21187D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1441F1834;
+	Mon, 16 Mar 2020 06:55:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1441F1834
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584338164;
-	bh=lS+qwx9mm8I2t3RkiOHXznQAfI14rFMap31xJBPpUeA=;
+	s=default; t=1584338184;
+	bh=j4zj+tBODJfYrfNonkpjegi5R1FYwks2k4pA7ueinyw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E5AIzKegkW7RiDJbLHuLgs9edGxxMw46yHpe09tCZTaxkHW8ZvOLEuqutNyVKK8Fg
-	 bhxCNiOSrkn48a2iLbDQqm7ft3Vu4KKcxXhIESpZSPO6EFqR1+1Uop3tdIFI5v6PRk
-	 W9OlrUAKnHeLKpIdC5A3FwxNmgZ2qQGlW9XMR4iw=
+	b=bOHmeRwkYQBP3G7ILhP6tZYWO8s3F3gWaHnKxN6VATULP1i6A0ZGLO/JT/TWyQ4C7
+	 pPOKeXxFXRIEz/MAuylA8HlTPfXd51dLztpW+6O9kNVto+pyhiWjli7+3OzW0jm31/
+	 TuKM2oGrjbIN1LHGzP3a9nAAtAwv3wOwEp9aPy1g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D80DF8028E;
-	Mon, 16 Mar 2020 06:54:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7AAA9F80292;
+	Mon, 16 Mar 2020 06:54:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9DA05F8028D; Mon, 16 Mar 2020 06:54:03 +0100 (CET)
+ id 5C085F8028D; Mon, 16 Mar 2020 06:54:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,30 +34,30 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 058E5F80248
- for <alsa-devel@alsa-project.org>; Mon, 16 Mar 2020 06:54:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 058E5F80248
+ by alsa1.perex.cz (Postfix) with ESMTPS id C576FF8028D
+ for <alsa-devel@alsa-project.org>; Mon, 16 Mar 2020 06:54:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C576FF8028D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HDPfi1Yb"
+ header.b="YGA4n6mo"
 Received: from vkoul-mobl.Dlink (unknown [49.207.58.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0293A20679;
- Mon, 16 Mar 2020 05:53:26 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 114192071C;
+ Mon, 16 Mar 2020 05:53:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1584338039;
- bh=lS+qwx9mm8I2t3RkiOHXznQAfI14rFMap31xJBPpUeA=;
+ s=default; t=1584338051;
+ bh=j4zj+tBODJfYrfNonkpjegi5R1FYwks2k4pA7ueinyw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HDPfi1Ybg/eRCYs8Bqoeg3jdNYM+kD/gPF62hGWaB7wcg+OFwKii7ZYEaCl2gbWKe
- alerMxtOXyVeYXca82uMpQRTsXKapK+i0vOHftiOghOmgYA3Qae2m7bO3wq2PLPPxo
- ZqPjBPiBKV9k38wvwm5pUoiMPi5T5u9xgaMkLYcA=
+ b=YGA4n6mowncmkVF3HptBNYBfBRiakDInW3UexN7mLcvt4WdHv9QtTvJot+JcJWs9r
+ nGR6fP7JOoR3yjn/IAzTwQh3ZsDd1XLG9RGdzUU6L7VmV/y/18y06rW+f+7pZBCwss
+ +Lu0gw8EEnm446Tcaf72y1LjSA6UoQ0tgg9wnJc4=
 From: Vinod Koul <vkoul@kernel.org>
 To: Mark Brown <broonie@kernel.org>,
 	Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v3 1/9] ALSA: compress: add wma codec profiles
-Date: Mon, 16 Mar 2020 11:22:13 +0530
-Message-Id: <20200316055221.1944464-2-vkoul@kernel.org>
+Subject: [PATCH v3 2/9] ALSA: compress: Add wma decoder params
+Date: Mon, 16 Mar 2020 11:22:14 +0530
+Message-Id: <20200316055221.1944464-3-vkoul@kernel.org>
 X-Mailer: git-send-email 2.24.1
 In-Reply-To: <20200316055221.1944464-1-vkoul@kernel.org>
 References: <20200316055221.1944464-1-vkoul@kernel.org>
@@ -84,28 +84,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Some codec profiles were missing for WMA, like WMA9/10 lossless and
-wma10 pro, so add these profiles
+Some WMA decoders like WMAv10 etc need some additional encoder option
+parameters, so add these as WMA decoder params.
 
 Signed-off-by: Vinod Koul <vkoul@kernel.org>
 ---
- include/uapi/sound/compress_params.h | 3 +++
- 1 file changed, 3 insertions(+)
+ include/uapi/sound/compress_params.h | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/include/uapi/sound/compress_params.h b/include/uapi/sound/compress_params.h
-index 9c96fb0e4d90..a47d9df0fd7b 100644
+index a47d9df0fd7b..bf6f7155e775 100644
 --- a/include/uapi/sound/compress_params.h
 +++ b/include/uapi/sound/compress_params.h
-@@ -142,6 +142,9 @@
- #define SND_AUDIOPROFILE_WMA8                ((__u32) 0x00000002)
- #define SND_AUDIOPROFILE_WMA9                ((__u32) 0x00000004)
- #define SND_AUDIOPROFILE_WMA10               ((__u32) 0x00000008)
-+#define SND_AUDIOPROFILE_WMA9_PRO            ((__u32) 0x00000010)
-+#define SND_AUDIOPROFILE_WMA9_LOSSLESS       ((__u32) 0x00000020)
-+#define SND_AUDIOPROFILE_WMA10_LOSSLESS      ((__u32) 0x00000040)
+@@ -329,6 +329,13 @@ struct snd_dec_flac {
+ 	__u16 reserved;
+ } __attribute__((packed, aligned(4)));
  
- #define SND_AUDIOMODE_WMA_LEVEL1             ((__u32) 0x00000001)
- #define SND_AUDIOMODE_WMA_LEVEL2             ((__u32) 0x00000002)
++struct snd_dec_wma {
++	__u32 encoder_option;
++	__u32 adv_encoder_option;
++	__u32 adv_encoder_option2;
++	__u32 reserved;
++} __attribute__((packed, aligned(4)));
++
+ union snd_codec_options {
+ 	struct snd_enc_wma wma;
+ 	struct snd_enc_vorbis vorbis;
+@@ -336,6 +343,7 @@ union snd_codec_options {
+ 	struct snd_enc_flac flac;
+ 	struct snd_enc_generic generic;
+ 	struct snd_dec_flac flac_d;
++	struct snd_dec_wma wma_d;
+ } __attribute__((packed, aligned(4)));
+ 
+ /** struct snd_codec_desc - description of codec capabilities
 -- 
 2.24.1
 

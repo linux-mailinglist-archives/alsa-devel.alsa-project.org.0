@@ -2,60 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37C1C188279
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Mar 2020 12:49:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9945218829C
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Mar 2020 12:55:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AFD371835;
-	Tue, 17 Mar 2020 12:48:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AFD371835
+	by alsa0.perex.cz (Postfix) with ESMTPS id 36651186A;
+	Tue, 17 Mar 2020 12:54:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36651186A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584445745;
-	bh=/AuNKfHM3WRjAJxU2nbXNxfzwrwTmVwndGDqUiOXDOQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=XKpemL00dh+0lkGzRBQlkwd6D23IRiqK0plqzRpYg732g6eHpZq5pLOALmZo1VfOG
-	 0tLgGTa3OfDuUaWQCJdXCo2AI0XQC9dKrnoWl08mWh1IULRhtvem/ESuOXMwzKM69A
-	 HcKo+4GpKaED339JF5sQStIeYIcv4qRQG/YJdRe4=
+	s=default; t=1584446128;
+	bh=R3piO0Kx7BrISuOycIdzQpeM1DaSrZhkS3Ogz5Xz7Ng=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=TssaH55OXYstCzlednz4cYIUDyM2IfmkN4drrLpTjiiPKlsYUU/md7hPVvXhE8Dxd
+	 gvhuX5QTB/2+2yhzOGqV48yyIq+KIsfFrX7i7o5h/gDvY/W6/EHf9S3oCP4VM7biPr
+	 C6eWZ5/xXPigzgSkIXHEWuXfjA+04ZXlxNamwRq4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63D44F80058;
-	Tue, 17 Mar 2020 12:47:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2141CF80058;
+	Tue, 17 Mar 2020 12:53:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7A85CF8022B; Tue, 17 Mar 2020 12:45:57 +0100 (CET)
+ id EF9D5F8022B; Tue, 17 Mar 2020 12:53:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ADBC3F80058
- for <alsa-devel@alsa-project.org>; Tue, 17 Mar 2020 12:45:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADBC3F80058
-IronPort-SDR: kbw9HjrCUjWbds45nHL95cFt2FYEahnFWYOAS1l8IQlupcl1yCtiX+N365g0m6Sdsgpe+b2fUM
- x3f1DwVXiSjA==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2020 04:45:48 -0700
-IronPort-SDR: rkyaa6NNDksWzlgs6Lm8SU9IARjUra4+yW45yHzLwhINZeJkfL2Nd/4nXoMTxnBkoSACXgfQyB
- K/Km5JnyHf4g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,564,1574150400"; d="scan'208";a="443729573"
-Received: from mgorski-all-series.igk.intel.com ([10.237.149.201])
- by fmsmga005.fm.intel.com with ESMTP; 17 Mar 2020 04:45:47 -0700
-From: Mateusz Gorski <mateusz.gorski@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v3] ucm2: hdadsp: add basic ucm config
-Date: Tue, 17 Mar 2020 12:46:07 +0100
-Message-Id: <20200317114607.30746-1-mateusz.gorski@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-Cc: cezary.rojewski@intel.com, Mateusz Gorski <mateusz.gorski@linux.intel.com>,
- tiwai@suse.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id B74FCF800CD
+ for <alsa-devel@alsa-project.org>; Tue, 17 Mar 2020 12:53:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B74FCF800CD
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="xbfmhxsd"
+Received: by mail-wm1-x343.google.com with SMTP id 6so21108802wmi.5
+ for <alsa-devel@alsa-project.org>; Tue, 17 Mar 2020 04:53:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=J/c4hDezw2pJMAgIZidLGyuedzPxiW9b3D9y8b4Q62k=;
+ b=xbfmhxsdwy76E1h+JAWA7i6+WY9M6AVLfz0EC67dj0y1FQjWCs+3s0mfoYBeUGSXDG
+ G2gSLFUTBRPcJKpYXSfRdUtramN2e2E7LlF6NvulC4dLgxvGlaARHJZlX39NPgiDQeMr
+ SYxK95ovsqG3kHuzNsTAHXS7m2WCADVQAOW7Wo2lKO2oEqn4qqRqzIjIRFnqp2DxMjls
+ Tf6rmnCvecvhlD9z2QpMwQXfxmL1vrS8wRbFvYrTz+hcTXRKnDccsomFs9S/BGAh9173
+ zqAzMhDKzUXMt23c2SeOagCiy5ZE+edhfsPwifzuSZBWsUIE7BAdMacl0ljLBdk7mYwK
+ 3yYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=J/c4hDezw2pJMAgIZidLGyuedzPxiW9b3D9y8b4Q62k=;
+ b=cio57XYaozdL7gplTK6nXFulj87QixZM0ueLszxMmnjZm2ehJ89m9q2dcOatK6zXtW
+ s0hPi0KFhfYlfmeOI0L/95Tc0CmcLwKRUPVOYnEG/x4o/eI5b4h6hVgcXMbQAEvJiCCp
+ itstVtQshw28AIDNntFLbFlndP8PmCkTCbIxCrBgTg0UwZ5IklIZ8UKafLIaZTHoPAho
+ 98QZbLMe3j9PsAokpUGAEzJGLGOmSqAvVCoDBVLRtXOmTMkZl1tnGrGHbw8Vu9ohZE8R
+ 6Fn5nKZj+A0ssokKouST6ozR+AML7gNRxqKlfFCF5GaBZ3mdd4NErLQ9Nng2kJZAvtQ+
+ ssjA==
+X-Gm-Message-State: ANhLgQ3fz+0+J+JxndrOz7W90LhJdw4XyuVyGDO/70laEFPvOSxC6BnV
+ pQy5OwvFAZXTdTg/z3R55Vzfaj9Sveo=
+X-Google-Smtp-Source: ADFU+vurgldOqTe9OEVV89nGK9VasxRVg6EIC8mhyDRpvaUvg8jHL5WFxOjLyksahXRJPKOE3V8cLg==
+X-Received: by 2002:a7b:cc8a:: with SMTP id p10mr4999051wma.10.1584446011818; 
+ Tue, 17 Mar 2020 04:53:31 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.googlemail.com with ESMTPSA id w1sm3441167wmc.11.2020.03.17.04.53.30
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 17 Mar 2020 04:53:30 -0700 (PDT)
+Subject: Re: [PATCH] soundwire: stream: only change state if needed
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+References: <20200317105142.4998-1-pierre-louis.bossart@linux.intel.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <6bc8412a-f6d9-64d1-2218-ca98cfdb31c0@linaro.org>
+Date: Tue, 17 Mar 2020 11:53:29 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+MIME-Version: 1.0
+In-Reply-To: <20200317105142.4998-1-pierre-louis.bossart@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Hui Wang <hui.wang@canonical.com>, vkoul@kernel.org, broonie@kernel.org,
+ jank@cadence.com, slawomir.blauciak@intel.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,213 +111,107 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Basic UCM configuration for Intel Skylake SST with HDA DSP generic
-machine driver enabling codec playback and capture on both HDA codec
-and DMIC ports.
+Thanks Pierre for this patch,
 
-Signed-off-by: Mateusz Gorski <mateusz.gorski@linux.intel.com>
----
+On 17/03/2020 10:51, Pierre-Louis Bossart wrote:
+> In a multi-cpu DAI context, the stream routines may be called from
+> multiple DAI callbacks. Make sure the stream state only changes for
+> the first call, and don't return error messages if the target state is
+> already reached.
+> 
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> ---
+>   drivers/soundwire/stream.c | 19 +++++++++++++++++++
+>   1 file changed, 19 insertions(+)
+> 
 
-Changes in v3:
-- fixed error found by UCM Validator
-- added volume controls for Speaker and Headphones devices
-- removed ValueDefaults section since stereo is the default option
-  anyway
+This patch did not work for me as it is as wsa881x codec does prepare 
+and enable in one function, which breaks some of the assumptions in this 
+patch.
 
- ucm2/hdadsp/Hdmi1.conf  | 24 +++++++++++
- ucm2/hdadsp/Hdmi2.conf  | 24 +++++++++++
- ucm2/hdadsp/HiFi.conf   | 96 +++++++++++++++++++++++++++++++++++++++++
- ucm2/hdadsp/hdadsp.conf | 16 +++++++
- 4 files changed, 160 insertions(+)
- create mode 100644 ucm2/hdadsp/Hdmi1.conf
- create mode 100644 ucm2/hdadsp/Hdmi2.conf
- create mode 100644 ucm2/hdadsp/HiFi.conf
- create mode 100644 ucm2/hdadsp/hdadsp.conf
+However with below change I could get it working without moving stream 
+handling to machine driver.
 
-diff --git a/ucm2/hdadsp/Hdmi1.conf b/ucm2/hdadsp/Hdmi1.conf
-new file mode 100644
-index 0000000..d402dab
---- /dev/null
-+++ b/ucm2/hdadsp/Hdmi1.conf
-@@ -0,0 +1,24 @@
-+# Usecase for device HDMI1/Display Port stereo playback on Intel cAVS platforms
-+# For Audio in HDA mode
-+
-+SectionDevice."HDMI1" {
-+        Comment "HDMI/Display Port 1 Stereo"
-+
-+        Value {
-+                PlaybackPriority 300
-+                PlaybackPCM "hw:${CardId},10"
-+                If.1 {
-+                        Condition {
-+                                Type ControlExists
-+                                Control "iface=CARD,name='HDMI/DP,pcm=17 Jack'"
-+                        }
-+                        True {
-+                                JackControl "HDMI/DP,pcm=17 Jack"
-+                        }
-+                        False {
-+                                JackControl "HDMI/DP, pcm=17 Jack"
-+                        }
-+                }
-+        }
-+}
-+
-diff --git a/ucm2/hdadsp/Hdmi2.conf b/ucm2/hdadsp/Hdmi2.conf
-new file mode 100644
-index 0000000..153bbe1
---- /dev/null
-+++ b/ucm2/hdadsp/Hdmi2.conf
-@@ -0,0 +1,24 @@
-+# Usecase for device HDMI2/Display Port stereo playback on Intel cAVS platforms
-+# For Audio in HDA mode
-+
-+SectionDevice."HDMI2" {
-+        Comment "HDMI/Display Port 2 Stereo"
-+
-+        Value {
-+                PlaybackPriority 400
-+                PlaybackPCM "hw:${CardId},11"
-+                If.1 {
-+                        Condition {
-+                                Type ControlExists
-+                                Control "iface=CARD,name='HDMI/DP,pcm=18 Jack'"
-+                        }
-+                        True {
-+                                JackControl "HDMI/DP,pcm=18 Jack"
-+                        }
-+                        False {
-+                                JackControl "HDMI/DP, pcm=18 Jack"
-+                        }
-+                }
-+        }
-+}
-+
-diff --git a/ucm2/hdadsp/HiFi.conf b/ucm2/hdadsp/HiFi.conf
-new file mode 100644
-index 0000000..e90ba32
---- /dev/null
-+++ b/ucm2/hdadsp/HiFi.conf
-@@ -0,0 +1,96 @@
-+# Usecase for stereo playback Speaker and Headset, Recording on DMIC and Headset MIC.
-+# For Audio in HDA mode on Intel cAVS platforms
-+
-+SectionVerb {
-+
-+	EnableSequence [
-+		cset "name='mch_cap_out mo mch_cap_in mi Switch' 1"
-+	]
-+
-+	Value {
-+		TQ "HiFi"
-+	}
-+}
-+
-+SectionDevice."Headphones" {
-+	Comment "Headphones"
-+
-+	ConflictingDevice [
-+		"Speaker"
-+	]
-+
-+	EnableSequence [
-+		cset "name='Headphone Playback Switch' 1,1"
-+		cset "name='Speaker Playback Switch' 0,0"
-+	]
-+
-+	Value {
-+		PlaybackPriority 200
-+		PlaybackPCM "hw:${CardId},7"
-+		PlaybackMixerElem "Headphone"
-+		PlaybackMasterElem "Master"
-+		PlaybackVolume "Headphone Playback Volume"
-+		PlaybackSwitch "Headphone Playback Switch"
-+		JackControl "Front Headphone Jack"
-+		JackHWMute "Speaker"
-+	}
-+}
-+
-+SectionDevice."Speaker" {
-+	Comment "Speaker"
-+
-+	ConflictingDevice [
-+		"Headphones"
-+	]
-+
-+	EnableSequence [
-+		cset "name='Headphone Playback Switch' 0,0"
-+		cset "name='Speaker Playback Switch' 1,1"
-+	]
-+
-+	Value {
-+		PlaybackPriority 100
-+		PlaybackPCM "hw:${CardId},7"
-+		PlaybackMixerElem "Speaker"
-+		PlaybackMasterElem "Master"
-+		PlaybackVolume "Speaker Playback Volume"
-+		PlaybackSwitch "Speaker Playback Switch"
-+	}
-+}
-+
-+SectionDevice."Headset" {
-+	Comment "Headset Microphone"
-+
-+	ConflictingDevice [
-+		"Mic"
-+	]
-+
-+	EnableSequence [
-+		cset "name='media0_out mo codec0_in mi Switch' 1"
-+	]
-+
-+	Value {
-+		CapturePriority 200
-+		CapturePCM "hw:${CardId},7"
-+	}
-+}
-+
-+SectionDevice."Mic" {
-+	Comment "Digital Microphone"
-+
-+	ConflictingDevice [
-+		"Headset"
-+	]
-+
-+	EnableSequence [
-+		cset "name='mch_cap_out mo mch_cap_in mi Switch' 1"
-+	]
-+
-+	Value {
-+		CapturePriority 100
-+		CapturePCM "hw:${CardId},13"
-+	}
-+}
-+
-+<hdadsp/Hdmi1.conf>
-+<hdadsp/Hdmi2.conf>
-diff --git a/ucm2/hdadsp/hdadsp.conf b/ucm2/hdadsp/hdadsp.conf
-new file mode 100644
-index 0000000..48c07c8
---- /dev/null
-+++ b/ucm2/hdadsp/hdadsp.conf
-@@ -0,0 +1,16 @@
-+# UCM for Intel CAVS platforms
-+# For Audio in HDA and DMIC mode
-+
-+Syntax 2
-+
-+SectionUseCase."HiFi" {
-+        File "HiFi.conf"
-+        Comment "Play HiFi quality Music"
-+}
-+
-+SectionDefaults [
-+	cset "name='Master Playback Switch' 1"
-+	cset "name='codec0_out mo media0_in mi Switch' 1"
-+	cset "name='media0_out mo codec0_in mi Switch' 1"
-+	cset "name='mch_cap_out mo mch_cap_in mi Switch' 1"
-+]
--- 
-2.17.1
+---------------------------->cut<-------------------------------
+diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
+index be71af4671a4..4a94ea64c1c5 100644
+--- a/drivers/soundwire/stream.c
++++ b/drivers/soundwire/stream.c
+@@ -1574,7 +1574,8 @@ int sdw_prepare_stream(struct sdw_stream_runtime 
+*stream)
 
+         sdw_acquire_bus_lock(stream);
+
+-       if (stream->state == SDW_STREAM_PREPARED) {
++       if (stream->state == SDW_STREAM_PREPARED ||
++           stream->state == SDW_STREAM_ENABLED) {
+                 /* nothing to do */
+                 ret = 0;
+                 goto state_err;
+@@ -1754,7 +1755,8 @@ int sdw_disable_stream(struct sdw_stream_runtime 
+*stream)
+
+         sdw_acquire_bus_lock(stream);
+
+-       if (stream->state == SDW_STREAM_DISABLED) {
++       if (stream->state == SDW_STREAM_DISABLED ||
++           stream->state == SDW_STREAM_DEPREPARED) {
+                 /* nothing to do */
+                 ret = 0;
+                 goto state_err;
+---------------------------->cut<-------------------------------
+
+--srini
+
+> diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
+> index 1b43d03c79ea..3319121cd706 100644
+> --- a/drivers/soundwire/stream.c
+> +++ b/drivers/soundwire/stream.c
+> @@ -1572,6 +1572,7 @@ int sdw_prepare_stream(struct sdw_stream_runtime *stream)
+>   	sdw_acquire_bus_lock(stream);
+>   
+>   	if (stream->state == SDW_STREAM_PREPARED) {
+> +		/* nothing to do */
+>   		ret = 0;
+>   		goto state_err;
+>   	}
+> @@ -1661,6 +1662,12 @@ int sdw_enable_stream(struct sdw_stream_runtime *stream)
+>   
+>   	sdw_acquire_bus_lock(stream);
+>   
+> +	if (stream->state == SDW_STREAM_ENABLED) {
+> +		/* nothing to do */
+> +		ret = 0;
+> +		goto state_err;
+> +	}
+> +
+>   	if (stream->state != SDW_STREAM_PREPARED &&
+>   	    stream->state != SDW_STREAM_DISABLED) {
+>   		pr_err("%s: %s: inconsistent state state %d\n",
+> @@ -1744,6 +1751,12 @@ int sdw_disable_stream(struct sdw_stream_runtime *stream)
+>   
+>   	sdw_acquire_bus_lock(stream);
+>   
+> +	if (stream->state == SDW_STREAM_DISABLED) {
+> +		/* nothing to do */
+> +		ret = 0;
+> +		goto state_err;
+> +	}
+> +
+>   	if (stream->state != SDW_STREAM_ENABLED) {
+>   		pr_err("%s: %s: inconsistent state state %d\n",
+>   		       __func__, stream->name, stream->state);
+> @@ -1809,6 +1822,12 @@ int sdw_deprepare_stream(struct sdw_stream_runtime *stream)
+>   
+>   	sdw_acquire_bus_lock(stream);
+>   
+> +	if (stream->state == SDW_STREAM_DEPREPARED) {
+> +		/* nothing to do */
+> +		ret = 0;
+> +		goto state_err;
+> +	}
+> +
+>   	if (stream->state != SDW_STREAM_PREPARED &&
+>   	    stream->state != SDW_STREAM_DISABLED) {
+>   		pr_err("%s: %s: inconsistent state state %d\n",
+> 

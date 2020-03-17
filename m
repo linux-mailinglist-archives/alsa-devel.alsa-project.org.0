@@ -2,74 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0910188574
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Mar 2020 14:25:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D0AE188778
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Mar 2020 15:26:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 32EEA1835;
-	Tue, 17 Mar 2020 14:25:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32EEA1835
+	by alsa0.perex.cz (Postfix) with ESMTPS id A808017C7;
+	Tue, 17 Mar 2020 15:25:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A808017C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584451553;
-	bh=9VWuIaWdOdM0ZAwgu5IkhSCVpTVt5+1PiIssoQmF6jQ=;
+	s=default; t=1584455195;
+	bh=iD426G0RLGJQ22fAcksYLp3ChFMoKCl2eOgqz168qxs=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RBEjP30LENmZSGxecg5R8JwT01IapDZNN1veYABieUF+NKE06reFdGMFEIq1H+SBL
-	 3evm86UxZohT/5ppaY2ijHsQcFrRI9kWoO21e0YYQHtWzkFOjfFkcqSmG8lM3LxQLs
-	 22JI3BeNks+SdiBI2l2eDBMF8wh0RRToysIZYhPo=
+	b=DwYqJ2cLv4ODY/Opvjm1kqDXddnk6H1N6HmPjl6jLO34Vg7PKn58TbSfUXMTfv2hA
+	 S16uQ6PSNSmqbnumhcw76QESyqZ6FDaZAz5qiRO+KuMqtVBYYaZXoM5LzYpljN86Tr
+	 GxTS3IaK+T8IQmGjQrk7EigsEwuMUuzJ7TsfMTVQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 163B4F800CD;
-	Tue, 17 Mar 2020 14:24:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 65934F800CD;
+	Tue, 17 Mar 2020 15:24:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4B4D8F8022B; Tue, 17 Mar 2020 14:24:05 +0100 (CET)
+ id 8F74CF80232; Tue, 17 Mar 2020 15:24:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=PRX_BODY_76,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 60095F800CD
- for <alsa-devel@alsa-project.org>; Tue, 17 Mar 2020 14:23:58 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id C0FF1A003F;
- Tue, 17 Mar 2020 14:23:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz C0FF1A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1584451437; bh=vZjBKXah3+Gc9+mAJg+XY7h5N6lf2iEmp9JLC6lUDRA=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=Lsy/7uDYcg1fgDBkqR4KUtzjquns/yy/HDMAo3YRJYatyZM6OUP+ZE01hy3x7oIgp
- b0VtIFEt1VNc5bNI3MXKyjiugo3RdX6g3wc5T4tK8AWmDzD/CnbmKe6ilWlulHIjLw
- mQY15/zm5477Wgbn+nYtjUK+aLqXBm+gHg8tWv/A=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Tue, 17 Mar 2020 14:23:53 +0100 (CET)
-Subject: Re: [PATCH] ucm2: hdadsp: add basic ucm config
-To: "Gorski, Mateusz" <mateusz.gorski@linux.intel.com>,
- alsa-devel@alsa-project.org
-References: <20200306113031.713-1-mateusz.gorski@linux.intel.com>
- <4e2e3345-81d0-c698-d589-d4db5faff288@perex.cz>
- <8cd9195d-6104-88ed-22ed-c3151334ee76@linux.intel.com>
- <1bd9d86c-e19f-183c-5355-5b7359c6e4c0@perex.cz>
- <7a44ec22-ed38-5ddd-0f04-097b2befd796@linux.intel.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <9adc9d91-4227-9558-067f-40a9aa3fb561@perex.cz>
-Date: Tue, 17 Mar 2020 14:23:53 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 62724F800C0
+ for <alsa-devel@alsa-project.org>; Tue, 17 Mar 2020 15:24:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62724F800C0
+IronPort-SDR: SAlLuViVg46TWnqMuGjQx2wjSCLcYVvQvwLbvcTv1X0vW+gdYzt4SZeBaJn2c+KdswGPiVxnvv
+ 9GOHXPDkU+FQ==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Mar 2020 07:24:44 -0700
+IronPort-SDR: UrTN2MTmca/v3pbjuGA0H3ilsTaZGZgz+Bdujev27zl8CWimGerZj8JyH8A7mddwBkeUnD+D2G
+ rCTpBzshVP5Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,564,1574150400"; d="scan'208";a="244492157"
+Received: from dasabhi1-mobl.amr.corp.intel.com (HELO [10.255.35.148])
+ ([10.255.35.148])
+ by orsmga003.jf.intel.com with ESMTP; 17 Mar 2020 07:24:42 -0700
+Subject: Re: [PATCH 1/2] ASoC: qcom: sdm845: handle soundwire stream
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, broonie@kernel.org
+References: <20200317095351.15582-1-srinivas.kandagatla@linaro.org>
+ <20200317095351.15582-2-srinivas.kandagatla@linaro.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <8daeeb26-851b-8311-30f5-5d285ccbc255@linux.intel.com>
+Date: Tue, 17 Mar 2020 08:07:42 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <7a44ec22-ed38-5ddd-0f04-097b2befd796@linux.intel.com>
+In-Reply-To: <20200317095351.15582-2-srinivas.kandagatla@linaro.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: cezary.rojewski@intel.com, tiwai@suse.com
+Content-Transfer-Encoding: 7bit
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, vkoul@kernel.org,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,47 +81,104 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 17. 03. 20 v 12:45 Gorski, Mateusz napsal(a):
-> 
->>>>> Basic UCM configuration for HDA DSP generic enabling codec playback
->>>>> and
->>>>> capture on both HDA codec and DMIC ports.
->>>>
->>>> Could you describe for what Linux driver (source code) is this
->>>> configuration?
->>>
->>>
->>> This file is for Intel Skylake SST driver. Information added in v2.
->>
->> Ok, do we have this code in the vanilla linux kernel? Which .c file?
->> The driver name 'hdadsp' looks suspicious. We usually have a delimiter
->> in the driver name (like sof-hda-dsp).
-> 
-> 
-> Yes, it is a part of Skylake driver, "hdadsp" is the name of sound card
-> created on machine when using HDA generic machine driver. This machine
-> driver is made of 2 .c files:
-> 
->       - skl_hda_dsp_common.c
->       - skl_hda_dsp_generic.c
-> 
-> both are located in: sound/soc/intel/boards/
-> 
-> Example on production laptop:
-> 
-> test@test-Swift-SF515-51T:/proc/asound$ cat cards
->    0 [hdadsp         ]: hda-dsp - hda-dsp
->                         WL-SwiftSF515_51T-V1.02-Guinness_WL
 
-Ok, I see now. The 'hdadsp' is the user configurable card identification 
-(alias to the card number) not the driver name. The UCM should be in 'hda-dsp' 
-directory. If the UCM validator works for you, it should be corrected.
+> @@ -45,11 +48,20 @@ static int sdm845_slim_snd_hw_params(struct snd_pcm_substream *substream,
+>   	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+>   	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
+>   	struct snd_soc_dai *codec_dai;
+> +	struct sdm845_snd_data *pdata = snd_soc_card_get_drvdata(rtd->card);
+>   	u32 rx_ch[SLIM_MAX_RX_PORTS], tx_ch[SLIM_MAX_TX_PORTS];
+> +	struct sdw_stream_runtime *sruntime;
+>   	u32 rx_ch_cnt = 0, tx_ch_cnt = 0;
+>   	int ret = 0, i;
+>   
+>   	for_each_rtd_codec_dais(rtd, i, codec_dai) {
+> +		sruntime = snd_soc_dai_get_sdw_stream(codec_dai,
+> +						      substream->stream);
+> +		if (sruntime != ERR_PTR(-ENOTSUPP))
+> +			pdata->sruntime[cpu_dai->id] = sruntime;
+> +		else
+> +			pdata->sruntime[cpu_dai->id] = NULL;
+> +
 
-Could you point me to the alsa-info.sh output for this hardware?
+Can you explain this part?
+The get_sdw_stream() is supposed to return what was set by 
+set_sdw_stream(), so if it's not supported isn't this an error?
 
-			Thank you,
-				Jaroslav
+>   		ret = snd_soc_dai_get_channel_map(codec_dai,
+>   				&tx_ch_cnt, tx_ch, &rx_ch_cnt, rx_ch);
+>   
+> @@ -425,8 +437,65 @@ static void  sdm845_snd_shutdown(struct snd_pcm_substream *substream)
+>   	}
+>   }
+>   
+> +static int sdm845_snd_prepare(struct snd_pcm_substream *substream)
+> +{
+> +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+> +	struct sdm845_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
+> +	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
+> +	struct sdw_stream_runtime *sruntime = data->sruntime[cpu_dai->id];
+> +	int ret;
+> +
+> +	if (!sruntime)
+> +		return 0;
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+same here, isn't this an error?
+
+> +	if (data->stream_prepared[cpu_dai->id]) {
+> +		sdw_disable_stream(sruntime);
+> +		sdw_deprepare_stream(sruntime);
+> +		data->stream_prepared[cpu_dai->id] = false;
+> +	}
+> +
+> +	ret = sdw_prepare_stream(sruntime);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/**
+> +	 * NOTE: there is a strict hw requirement about the ordering of port
+> +	 * enables and actual WSA881x PA enable. PA enable should only happen
+> +	 * after soundwire ports are enabled if not DC on the line is
+> +	 * accumulated resulting in Click/Pop Noise
+> +	 * PA enable/mute are handled as part of codec DAPM and digital mute.
+> +	 */
+> +
+> +	ret = sdw_enable_stream(sruntime);
+> +	if (ret) {
+> +		sdw_deprepare_stream(sruntime);
+> +		return ret;
+> +	}
+> +	data->stream_prepared[cpu_dai->id] = true;
+> +
+> +	return ret;
+> +}
+> +
+> +static int sdm845_snd_hw_free(struct snd_pcm_substream *substream)
+> +{
+> +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+> +	struct sdm845_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
+> +	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
+> +	struct sdw_stream_runtime *sruntime = data->sruntime[cpu_dai->id];
+> +
+> +	if (sruntime && data->stream_prepared[cpu_dai->id]) {
+
+and here?
+
+Really wondering where the stream is actually allocated and set.
+
+> +		sdw_disable_stream(sruntime);
+> +		sdw_deprepare_stream(sruntime);
+> +		data->stream_prepared[cpu_dai->id] = false;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>   static const struct snd_soc_ops sdm845_be_ops = {
+>   	.hw_params = sdm845_snd_hw_params,
+> +	.hw_free = sdm845_snd_hw_free,
+> +	.prepare = sdm845_snd_prepare,
+>   	.startup = sdm845_snd_startup,
+>   	.shutdown = sdm845_snd_shutdown,
+>   };
+> 

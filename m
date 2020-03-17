@@ -2,69 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 870C518801D
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Mar 2020 12:07:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79617188282
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Mar 2020 12:49:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1292A183C;
-	Tue, 17 Mar 2020 12:06:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1292A183C
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF7991876;
+	Tue, 17 Mar 2020 12:48:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF7991876
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584443269;
-	bh=DiuLaOBXCsz7WvUJMGxKZzFNyQlB9CIP8l10XUfYL7c=;
+	s=default; t=1584445789;
+	bh=376n0G/hUq2W2UMj+xgT4FoH2GQDkz9hCdBaxXLV5fU=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GqUoeiUR/BcN9feNK+szDL740kNjG6hNYZ7udTJTs2uj3Ix1ll10Y/q3Nc7MderaT
-	 qjvzWzBuWbZiaZRNzYBUXBs3kGPcTA6sHL4MSVV8tcifpuJwhrP6fQpOTEJAIns7bR
-	 F5gVGXYM7d8jHmj+rqvi7dZEYnCuLh6h4L5r3amg=
+	b=EOWaiEme94oRyCgeOW2o1Yz2+iM4vlsPTQYb4jeUpGlEA8RYdcKfbP17SXCWzclPe
+	 JvKNwWPcfAI4Q+VtEbGnY/Mw4jEJZbXw8itCoYGky3smcTO5CaHr8v8M/omZbH1IHA
+	 HRW+GELndO/D8bxMVTvgl16y/EGF2/jf16tE2IfM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63C27F80232;
-	Tue, 17 Mar 2020 12:06:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 593EDF80256;
+	Tue, 17 Mar 2020 12:47:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 99294F8022B; Tue, 17 Mar 2020 12:05:28 +0100 (CET)
+ id 7F946F80232; Tue, 17 Mar 2020 12:46:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4799AF800C0
- for <alsa-devel@alsa-project.org>; Tue, 17 Mar 2020 12:05:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4799AF800C0
-IronPort-SDR: 3rOZfeZ1Zv6NVR2HjW4yeh2f+BPA8gpVNbEh703F/a5rVCdb/dbaaxTE+THow/MQqZESu1WB//
- e16dwCqc27EA==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9EACEF80058
+ for <alsa-devel@alsa-project.org>; Tue, 17 Mar 2020 12:46:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EACEF80058
+IronPort-SDR: K50TogvVVhwL0JgVpvipBHd1guU0vVZQgdAEXntZE6aNphRRLwrsHihoJCknWMo5x+xwTMCHUH
+ us4lPjpMBSEg==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2020 04:05:08 -0700
-IronPort-SDR: bgfHtvH1a3H3Nhd/LyCgZIcuiaeiG022Nl/oQcRTlKJ75NNSMvbr4tUmFx/gdWLdhOY2c9BbuN
- UXBPXBfwKGxg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,564,1574150400"; d="scan'208";a="290962544"
-Received: from dasabhi1-mobl.amr.corp.intel.com (HELO [10.255.35.148])
- ([10.255.35.148])
- by FMSMGA003.fm.intel.com with ESMTP; 17 Mar 2020 04:05:07 -0700
-Subject: Re: [PATCH 0/2] ASoC: sdm845: fix soundwire stream handling
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, broonie@kernel.org
-References: <20200317095351.15582-1-srinivas.kandagatla@linaro.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <a442a21e-47ce-f304-5bfb-06958d078a78@linux.intel.com>
-Date: Tue, 17 Mar 2020 06:05:06 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Mar 2020 04:46:03 -0700
+IronPort-SDR: 3xBIbw4HL+3Ka+aa9aOOL7v1BynGHTPQpVXXDqq07GIrzY7sfJ9+OeIhHlLOg3ns12ZLvO5FTt
+ gtr9SFMpYaUg==
+X-IronPort-AV: E=Sophos;i="5.70,564,1574150400"; d="scan'208";a="417517010"
+Received: from mgorski-mobl.ger.corp.intel.com (HELO [10.251.3.203])
+ ([10.251.3.203])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Mar 2020 04:46:02 -0700
+Subject: Re: [PATCH] ucm2: hdadsp: add basic ucm config
+To: Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org
+References: <20200306113031.713-1-mateusz.gorski@linux.intel.com>
+ <4e2e3345-81d0-c698-d589-d4db5faff288@perex.cz>
+ <8cd9195d-6104-88ed-22ed-c3151334ee76@linux.intel.com>
+ <1bd9d86c-e19f-183c-5355-5b7359c6e4c0@perex.cz>
+From: "Gorski, Mateusz" <mateusz.gorski@linux.intel.com>
+Message-ID: <7a44ec22-ed38-5ddd-0f04-097b2befd796@linux.intel.com>
+Date: Tue, 17 Mar 2020 12:45:59 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200317095351.15582-1-srinivas.kandagatla@linaro.org>
+In-Reply-To: <1bd9d86c-e19f-183c-5355-5b7359c6e4c0@perex.cz>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: vkoul@kernel.org, alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Language: pl
+Cc: cezary.rojewski@intel.com, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,48 +83,100 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Srinivas,
 
-On 3/17/20 4:53 AM, Srinivas Kandagatla wrote:
-> Recent addition of SoundWire stream state-machine checks in linux-next
-> have shown an existing issue with handling soundwire streams in codec drivers.
-> 
-> In general soundwire stream prepare/enable/disable can be called from either
-> codec/machine/controller driver. However calling it in codec driver means
-> that if multiple instances(Left/Right speakers) of the same codec is
-> connected to the same stream then it will endup calling stream
-> prepare/enable/disable more than once. This will mess up the stream
-> state-machine checks in the soundwire core.
-
-That's a known issue that we've fixed on the Intel side a  month or two 
-ago. Unfortunately the review cycle is so slow that you don't benefit 
-immediately from our fixes, what can I say.
-
-> Moving this stream handling to machine driver would fix this issue
-> and also allow board/platform specfic power sequencing.
-
-It's fine but that's unnecessary, and if you start having multiple 
-machine drivers with the same codecs you'll duplicate the stream 
-handling code.
-
-All you need to ensure in a multi-codec or multi-cpu dai case is that 
-the stream is allocated once, and yes that's typically done as part of 
-the dailink .startup callback.
-
-Then it's fine to call the stream prepare or enable multiple times from 
-the individual dai level, and only do the transition for the first call.
-
-See patch "soundwire: stream: only change state if needed" that I just 
-shared. We've used it both in 'TDM' mode with two codecs hanging off of 
-the same link and in 'aggregated' mode with two codecs on separate links.
+>>>> Basic UCM configuration for HDA DSP generic enabling codec playback 
+>>>> and
+>>>> capture on both HDA codec and DMIC ports.
+>>>
+>>> Could you describe for what Linux driver (source code) is this
+>>> configuration?
+>>
+>>
+>> This file is for Intel Skylake SST driver. Information added in v2.
+>
+> Ok, do we have this code in the vanilla linux kernel? Which .c file? 
+> The driver name 'hdadsp' looks suspicious. We usually have a delimiter 
+> in the driver name (like sof-hda-dsp).
 
 
-> Srinivas Kandagatla (2):
->    ASoC: qcom: sdm845: handle soundwire stream
->    ASoC: codecs: wsa881x: remove soundwire stream handling
-> 
->   sound/soc/codecs/wsa881x.c | 44 +-----------------------
->   sound/soc/qcom/Kconfig     |  2 +-
->   sound/soc/qcom/sdm845.c    | 69 ++++++++++++++++++++++++++++++++++++++
->   3 files changed, 71 insertions(+), 44 deletions(-)
-> 
+Yes, it is a part of Skylake driver, "hdadsp" is the name of sound card 
+created on machine when using HDA generic machine driver. This machine 
+driver is made of 2 .c files:
+
+     - skl_hda_dsp_common.c
+     - skl_hda_dsp_generic.c
+
+both are located in: sound/soc/intel/boards/
+
+Example on production laptop:
+
+test@test-Swift-SF515-51T:/proc/asound$ cat cards
+  0 [hdadsp         ]: hda-dsp - hda-dsp
+                       WL-SwiftSF515_51T-V1.02-Guinness_WL
+
+>
+>>>> +ValueDefaults {
+>>>> +    PlaybackChannels "2"
+>>>> +    PlaybackPriority "1"
+>>>> +    CaptureChannels "2"
+>>>> +    CapturePriority "2"
+>>>> +}
+>>>
+>>> Remove PlaybackChannel and Priority defaults. The priorities should be
+>>> defined in the device section.
+>
+> I will check...
+>
+>>
+>>
+>> Thanks, moved to device section in v2.
+>>
+>>
+>>>> +
+>>>> +SectionDefaults [
+>>>> +    cdev "hw:hdadsp"
+>>>
+>>> It should be "hw:${CardId}" for ucm2.
+>>
+>>
+>> Thanks, applied in v2.
+>>
+>>
+>>>> +    cset "name='codec0_out mo media0_in mi Switch' 1"
+>>>> +    cset "name='media0_out mo codec0_in mi Switch' 1"
+>>>> +    cset "name='mch_cap_out mo mch_cap_in mi Switch' 1"
+>>>> +]
+>>>
+>>> This file does not define any devices. Does pulseaudio work with this
+>>> configuration?
+>>
+>>
+>> Devices added in v2. Regarding pulseaudio - are there any guidelines on
+>> how to test UCM files with it? These UCM files were writted mainly based
+>> on existing ones for other cards. Of course basic tests were made.
+>
+> I wrote an ucm validator:
+>
+> https://github.com/alsa-project/alsa-tests/tree/master/python/ucm-validator 
+>
+>
+> Just type 'make' in the ucm-validator directory, the alsa-info.sh 
+> output should be added to the configs subtree.
+>
+> The PA should be used latest from gitlab with the volume control and 
+> HDMI support.
+>
+>                     Jaroslav
+
+
+Thanks, used the validator on PATCH v2, it pointed out one more thing to 
+be corrected. One thing that I've noticed - there are some problems when 
+validating "included" files, for example:
+
+<skylake-rt286/Hdmi1.conf>
+<skylake-rt286/Hdmi2.conf>
+
+raise "aconfig.AlsaConfigError: unable to load config" error
+
+Mateusz
+

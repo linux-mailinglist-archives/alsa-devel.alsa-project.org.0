@@ -2,78 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9046718896F
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Mar 2020 16:50:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4EA3188A73
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Mar 2020 17:37:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2608517D0;
-	Tue, 17 Mar 2020 16:49:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2608517D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5227417B9;
+	Tue, 17 Mar 2020 17:36:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5227417B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584460234;
-	bh=bMoa1c/JNWDjBIjnzmII5DXqip18Ndrbo/2dmqnH5tY=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ml6hCEd9Kd3qQ8Q0a+ZVgYk8+rBXuIPh906/IyDAlhLmQQm72Q9bbW/eYWxXJIhX8
-	 ICe0Mn+/Q2Ho4rSrJWo0E/G7R9Wpx5mTKTfcWHgxr4YzIwOD/u8ztnDL+zXNShMdJk
-	 YSEhuspSNKtx31JXRIYt2/BVrA1wIg+mruhOnAEA=
+	s=default; t=1584463068;
+	bh=aNIB5owoTnQKvhSDF0jMxGw2w3hSLWpNUHJxZC9gwv8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=cOncwXdNv314FfGQpLppQ/IyALi2hJ25D+yHLkPs9dyGOnBXFModWp5zws8Z2jSci
+	 ICbqt80D3/WVLLWOCs+pYAXEBiUDnUauo77nd60YygbAdI9Hlt0KqkfRbmE7X8oJu5
+	 HF+uxE8fGJREeNXVyvK9a36HXU+3yk4PfZz9F0uQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6F2EF80232;
-	Tue, 17 Mar 2020 16:48:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2896BF8022B;
+	Tue, 17 Mar 2020 17:36:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 79D22F8022B; Tue, 17 Mar 2020 16:48:46 +0100 (CET)
+ id 46EF5F8023E; Tue, 17 Mar 2020 17:34:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from zeus.domdv.de (zeus.domdv.de [IPv6:2a02:2ad0:c00::11])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE44FF800C0
- for <alsa-devel@alsa-project.org>; Tue, 17 Mar 2020 16:48:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE44FF800C0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=domdv.de header.i=@domdv.de
- header.b="IexEZklu"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=domdv.de;
- s=dk3; h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:
- In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=FBLdkxrDooRqoLcPEEFtrWtJ9/MQQj96jXFP8xrrNJo=; b=IexEZklu41nqwZjT2hUZCMr4vk
- TLJIPhkLkM5Lm3RTR2Rvrx3sYoy04nI0ODTpMDIfwZuKj6y4QBqJEh7ezh39Oe+vCt0Ag1viEtrKJ
- PrJD/D05uGuGgmPzK8MQVgQ6CUbwGA+R3KtMpG5ndIypgfSYeeJRjps6/k4Zo2+Q03KU=;
-Received: from [fd06:8443:81a1:74b0::212] (port=4984 helo=castor.lan.domdv.de)
- by zeus.domdv.de with esmtpsa
- (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.92.3)
- (envelope-from <ast@domdv.de>)
- id 1jEERO-0007rT-8f; Tue, 17 Mar 2020 16:47:38 +0100
-Received: from woody.lan.domdv.de ([10.1.9.28]
- helo=host028-server-9.lan.domdv.de)
- by castor.lan.domdv.de with esmtpsa (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- (Exim 4.92.3) (envelope-from <ast@domdv.de>)
- id 1jEERO-00085G-2z; Tue, 17 Mar 2020 16:47:38 +0100
-Message-ID: <0a66efeb806871d82bd750ff6219c516e48be66f.camel@domdv.de>
-Subject: Re: [PATCH 1/3] ALSA USB MIDI: Fix port starvation
-From: Andreas Steinmetz <ast@domdv.de>
-To: Clemens Ladisch <clemens@ladisch.de>
-Date: Tue, 17 Mar 2020 16:47:37 +0100
-In-Reply-To: <2c80b1eb-cf19-0882-5ec2-3f95cf253a51@ladisch.de>
-References: <c9aed355adc93d5de0cc4c740d16d19e3e210f79.camel@domdv.de>
- <36c09bfb-7d28-84c5-acba-9c74ad153a83@ladisch.de>
- <4f3995a9c08c41bb0a5170e78941f47e6ac33d0f.camel@domdv.de>
- <2c80b1eb-cf19-0882-5ec2-3f95cf253a51@ladisch.de>
-Organization: D.O.M. Datenverarbeitung GmbH
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.30.5 
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF34CF80217
+ for <alsa-devel@alsa-project.org>; Tue, 17 Mar 2020 17:34:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF34CF80217
+IronPort-SDR: oYCnWokhNna7v5X6WDYEIyQ4cVVEMN2LG/FxGE0cK+aShfdINYGKxCU8RlSGdIvpqPUsHVvCIK
+ oXziPZl9hxNw==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Mar 2020 09:34:05 -0700
+IronPort-SDR: 4byRzvWkpFm4nBr7uJvK8YG7cFS6Fkjvt6HHpH+7ajiLMcrRxD5yaKgQ0/KY6XmpLDRe7XxW5r
+ fY5iU6+JriFQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,565,1574150400"; d="scan'208";a="244533087"
+Received: from aavila-mobl1.amr.corp.intel.com (HELO
+ pbossart-mobl3.amr.corp.intel.com) ([10.255.36.39])
+ by orsmga003.jf.intel.com with ESMTP; 17 Mar 2020 09:34:02 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2 00/17] SoundWire: cadence: add clock stop and fix
+ programming sequences
+Date: Tue, 17 Mar 2020 11:33:12 -0500
+Message-Id: <20200317163329.25501-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org
+Content-Transfer-Encoding: 8bit
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.de,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Hui Wang <hui.wang@canonical.com>, vkoul@kernel.org, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,91 +80,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 2020-03-17 at 11:26 +0100, Clemens Ladisch wrote:
-> Andreas Steinmetz wrote:
-> > On Mon, 2020-03-16 at 13:03 +0100, Clemens Ladisch wrote:
-> > > Andreas Steinmetz wrote:
-> > > > the snd_usbmidi_transmit_byte helper had to be converted to
-> > > > return output notification to allow for the 'repeat' shortcut.
-> > > 
-> > > Why not simply handle one MIDI byte per port in each
-> > > iteration?  It
-> > > could be argued that single-byte MIDI commands are likely to be
-> > > real-
-> > > time messages and deserve to go first.
-> > 
-> > Actually the patch does exactly this. As soon as the helper signals
-> > that a message is complete the next port is processed. The "repeat"
-> > loop is just necessary to get a complete class compliant message
-> > for
-> > transfer as the helper processes one byte at a time.
-> 
-> Why is it necessary to immedately get a complete class-compliant
-> message?
-> 
+To make progress with SoundWire support, this patchset provides the
+missing support for clock stop modes, and revisits all Cadence Master
+register settings. The current code is for some reason not aligned
+with internal documentation and hardware recommended flows,
+specifically for multi-link operation.
 
-Maybe that's a misunderstanding caused by me using 'message' instead of
-'event'. We need a complete MIDI event (or up to 3 sysex bytes) to form
-the class compliant 4 byte USB event. That's what the 'repeat' shortcut
-is for. And after one such event is collected to the URB the code
-switches to the next port.
+Changes since v1:
+Removed log in is_clock_stop(), use the helper in the main
+clock_stop() and change return 1->return 0.
+Fixed squash issue in patch5 to remove irrelevant udelay() change
+Added Patch17 to clear FIFOs and avoid pop noise
 
-> > The range optimization is there to prevent O(2) performance cost if
-> > possible.
-> 
-> Do you mean O(n^2)?  For what n?
-> 
+Pierre-Louis Bossart (12):
+  soundwire: cadence: s/update_config/config_update
+  soundwire: cadence: handle error cases with CONFIG_UPDATE
+  soundwire: cadence: mask Slave interrupt before stopping clock
+  soundwire: cadence: merge routines to clear/set bits
+  soundwire: cadence: move clock/SSP related inits to dedicated function
+  soundwire: cadence: make SSP interval programmable
+  soundwire: cadence: reorder MCP_CONFIG settings
+  soundwire: cadence: enable NORMAL operation in cdns_init()
+  soundwire: cadence: remove PREQ_DELAY assignment
+  soundwire: cadence: remove automatic command retries
+  soundwire: cadence: commit changes in the exit_reset() sequence
+  soundwire: cadence: multi-link support
 
-What I do mean is that in case of only one port being active we would
-do 16 full outer iterations over all ports to collect 1 event. And we
-need to do this for all events of that port. Even if we use the hint
-from port->active as a shortcut its always the full set of iterations.
+Rander Wang (4):
+  soundwire: cadence: simplifiy cdns_init()
+  soundwire: cadence: add interface to check clock status
+  soundwire: cadence: add clock_stop/restart routines
+  soundwire: cadence: fix a io timeout issue in S3 test
 
-Memorizing the first and the last port of the previous loop and then
-restricting to this set makes a full 16 port run in the first iteration
-and then only the active port for all subsequent iterations.
+randerwang (1):
+  soundwire: cadence: clear FIFO to avoid pop noise issue on playback
+    start
 
-And yes, in the worst case of a 16x16 interface with ports 1 and 16
-being active we're back to processing 16 ports for every iteration - I
-do, however, see this scenario as being quite theoretical in practice.
+ drivers/soundwire/cadence_master.c | 282 ++++++++++++++++++++++++-----
+ drivers/soundwire/cadence_master.h |   9 +-
+ drivers/soundwire/intel.c          |   2 +-
+ 3 files changed, 249 insertions(+), 44 deletions(-)
 
-> > > My original idea for that FIXME was to use round robin until the
-> > > packet
-> > > is filled (or all ports are empty), and to store the next port
-> > > index
-> > > (where to start for the next packet) in the endpoint.  This would
-> > > be
-> > > able to distribute the balancing over multiple packets.
-> > 
-> > The problem with "round robin until the packet is filled" is that
-> > in
-> > case of a large wMaxPacketSize there's then a huge
-> > latency.
-> 
-> This mechanism does not require using the original packet size.
-> The point is that we should not restart with the first port in each
-> packet.
 
-I was thinking about that but in practice I do not know any class
-compliant interface that does have a number of outputs that is not
-equal to 2^n, i.e. 1, 2, 4, 8, 16.
-
-Then wMaxPacketSize is also always a 2^m value (16, 64, 512).
-
-With m>=n+2 (I don't believe that there is any class compliant
-interface for which this is not true) we can always start at the first
-port while doing fair scheduling (when a new URB is filled all ports
-get an equal change if they do have events pending).
-
-Implementing a restart based on the last packet scheduled for the very
-rare possibility of the above being not true just adds unnecessary
-complexity.
-
-> 
-> 
-> Regards,
-> Clemens
-Regards
+base-commit: 0b43fef979b4664d51a09dc7e0c430ebb2d18267
 -- 
-Andreas Steinmetz
+2.20.1
 

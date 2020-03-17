@@ -2,60 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E0F91877EB
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Mar 2020 03:54:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8C921877ED
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Mar 2020 03:56:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C3B3C1838;
-	Tue, 17 Mar 2020 03:53:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3B3C1838
+	by alsa0.perex.cz (Postfix) with ESMTPS id 42CA81832;
+	Tue, 17 Mar 2020 03:55:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 42CA81832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584413681;
-	bh=iNd9uDgh+A3yZZQaMiwl4+1m3bIcVQkPJxaHnOKKBkE=;
+	s=default; t=1584413771;
+	bh=ShpZCwLqf7N/7OcNNWMs/T9kA18v3weqC2NZb93Q9zg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Hjqm6rEDG53U1Ik0+6BPuRdC12AUdM4m8KZITn14pq0GR5Z2I0ilUJgzw5/onssOg
-	 wtJfrl9ixV5hPrYlD5G5/XirnGnvSN6TGr1O3lB3IKQOtzWOSyQ1eaernTTehCTmkG
-	 /GxFQX49lbCpOxOvZgCVRY+fiBBsPtVZUXnyeLq4=
+	b=iTrZeJBQrCE/wyU6q6bh29uejp+tC+uA5XTu6VdGikpjeDNQMSEdk1TMcibSgjV2j
+	 okx8H/U9WCI5F1XZDbjCjHpWaQI7hdqMgpbR1+BDXA7KypGtowsrTkBQIPkXwOh1Fx
+	 f2pNENAlYYwfmKWzwSe02dOrHbX4MB3KArL47dRI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E0F5F800C0;
-	Tue, 17 Mar 2020 03:53:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3051DF80292;
+	Tue, 17 Mar 2020 03:53:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5BDFFF80253; Tue, 17 Mar 2020 03:52:58 +0100 (CET)
+ id 20EABF80253; Tue, 17 Mar 2020 03:53:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A7051F80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id A992FF8022B
  for <alsa-devel@alsa-project.org>; Tue, 17 Mar 2020 03:52:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7051F80217
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A992FF8022B
 Authenticated-By: 
-X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID 02H2qiC4017677,
+X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID 02H2qiC3017677,
  This message is accepted by code: ctloc85258
 Received: from mail.realtek.com (RTEXMB06.realtek.com.tw[172.21.6.99])
- by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id 02H2qiC4017677
+ by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id 02H2qiC3017677
  (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT);
  Tue, 17 Mar 2020 10:52:45 +0800
 Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
  RTEXMB06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Tue, 17 Mar 2020 10:52:45 +0800
+ 15.1.1779.2; Tue, 17 Mar 2020 10:52:44 +0800
 Received: from localhost.localdomain (172.22.102.1) by RTEXMB01.realtek.com.tw
  (172.21.6.94) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1779.2; Tue, 17 Mar
  2020 10:52:44 +0800
 From: Oder Chiou <oder_chiou@realtek.com>
 To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH 2/3] ASoC: rt5682: Add a property for DMIC delay
-Date: Tue, 17 Mar 2020 10:52:39 +0800
-Message-ID: <20200317025240.10435-2-oder_chiou@realtek.com>
+Subject: [PATCH 3/3] ASoC: rt5682: Add the descriptions for the DMIC clock
+ rate and delay settings
+Date: Tue, 17 Mar 2020 10:52:40 +0800
+Message-ID: <20200317025240.10435-3-oder_chiou@realtek.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200317025240.10435-1-oder_chiou@realtek.com>
 References: <20200317025240.10435-1-oder_chiou@realtek.com>
@@ -83,60 +84,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch adds a property for DMIC delay to avoid pop noise and changes
-the default delay setting.
+The patch adds the descriptions for the DMIC clock rate and delay settings.
 
 Signed-off-by: Oder Chiou <oder_chiou@realtek.com>
 ---
- include/sound/rt5682.h    |  1 +
- sound/soc/codecs/rt5682.c | 12 +++++++++++-
- 2 files changed, 12 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/sound/rt5682.txt | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/include/sound/rt5682.h b/include/sound/rt5682.h
-index 96b268ac96bd..e1f790561ac1 100644
---- a/include/sound/rt5682.h
-+++ b/include/sound/rt5682.h
-@@ -39,6 +39,7 @@ struct rt5682_platform_data {
- 	enum rt5682_jd_src jd_src;
- 	unsigned int btndet_delay;
- 	unsigned int dmic_clk_rate;
-+	unsigned int dmic_delay;
+diff --git a/Documentation/devicetree/bindings/sound/rt5682.txt b/Documentation/devicetree/bindings/sound/rt5682.txt
+index ac98151d29e4..0fb8a37d9b55 100644
+--- a/Documentation/devicetree/bindings/sound/rt5682.txt
++++ b/Documentation/devicetree/bindings/sound/rt5682.txt
+@@ -38,6 +38,12 @@ Optional properties:
+ - clocks : phandle and clock specifier for codec MCLK.
+ - clock-names : Clock name string for 'clocks' attribute, should be "mclk".
  
- 	const char *dai_clk_names[RT5682_DAI_NUM_CLKS];
- };
-diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
-index 809dc91a89b4..711e6bfb4f81 100644
---- a/sound/soc/codecs/rt5682.c
-+++ b/sound/soc/codecs/rt5682.c
-@@ -1544,10 +1544,18 @@ static int rt5682_hp_event(struct snd_soc_dapm_widget *w,
- static int set_dmic_power(struct snd_soc_dapm_widget *w,
- 	struct snd_kcontrol *kcontrol, int event)
- {
-+	struct snd_soc_component *component =
-+		snd_soc_dapm_to_component(w->dapm);
-+	struct rt5682_priv *rt5682 = snd_soc_component_get_drvdata(component);
-+	unsigned int delay = 50;
++- realtek,dmic-clk-rate : Set the clock rate for the requirement of the
++  particular DMIC.
 +
-+	if (rt5682->pdata.dmic_delay)
-+		delay = rt5682->pdata.dmic_delay;
++- realtek,dmic-delay : Set the delay time for the requirement of the
++  particular DMIC.
 +
- 	switch (event) {
- 	case SND_SOC_DAPM_POST_PMU:
- 		/*Add delay to avoid pop noise*/
--		msleep(150);
-+		msleep(delay);
- 		break;
+ Pins on the device (for linking into audio routes) for RT5682:
  
- 	default:
-@@ -3236,6 +3244,8 @@ static int rt5682_parse_dt(struct rt5682_priv *rt5682, struct device *dev)
- 		&rt5682->pdata.btndet_delay);
- 	device_property_read_u32(dev, "realtek,dmic-clk-rate",
- 		&rt5682->pdata.dmic_clk_rate);
-+	device_property_read_u32(dev, "realtek,dmic-delay",
-+		&rt5682->pdata.dmic_delay);
- 
- 	rt5682->pdata.ldo1_en = of_get_named_gpio(dev->of_node,
- 		"realtek,ldo1-en-gpios", 0);
+   * DMIC L1
 -- 
 2.25.1
 

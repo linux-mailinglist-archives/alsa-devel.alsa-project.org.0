@@ -2,69 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EAD2187A92
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Mar 2020 08:36:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E3DC187B4E
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Mar 2020 09:30:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A925C185F;
-	Tue, 17 Mar 2020 08:35:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A925C185F
+	by alsa0.perex.cz (Postfix) with ESMTPS id C56B71847;
+	Tue, 17 Mar 2020 09:30:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C56B71847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584430559;
-	bh=dRREZVcJveF3g/lV40YwfS/xFGl8vpLfxtBRffJNJ4U=;
+	s=default; t=1584433851;
+	bh=2UiAZWEP1LWNNt/QOPgpoYhFPGiwVU78neopdk8youQ=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=t7FdtjzsHdstI4r3VBDUSQsiZIxCm8HgdxhvwKA1UG/BLNtkhodEpBCVObd+GWs3L
-	 0LSXK0FFe0c77IYcTnSgP2496Httg/prf52pz4wPLk/lIOkk7Vc76p9QjnNtxg/2+k
-	 LWlOD2G8o+MfxzegGyqT3QvDTu/k9skmOgkIAwEE=
+	b=eQ5VBb01bYvB0cu3c3kvaeb4SKmOOAVDWBo4jXGZeFTbRhsUmugt01jXcgOII+zs0
+	 mSybmXFpbXi08ce1fwsKtGg8IYFePDgKoCetpMB9txUk7Q4CYBycuBR6ZEvH3oH8Me
+	 8BAmc2jf1fFS8C1jJq6FvkhHxI8WJqXQ8T91YAZw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B950F80217;
-	Tue, 17 Mar 2020 08:33:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 944F3F80232;
+	Tue, 17 Mar 2020 09:29:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CF799F80253; Tue, 17 Mar 2020 08:33:37 +0100 (CET)
+ id D8F3EF8022B; Tue, 17 Mar 2020 09:29:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com
+ [IPv6:2607:f8b0:4864:20::1043])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 83DA2F80217
- for <alsa-devel@alsa-project.org>; Tue, 17 Mar 2020 08:33:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83DA2F80217
-Authenticated-By: 
-X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID 02H7XPKl027691,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (RTEXMB06.realtek.com.tw[172.21.6.99])
- by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id 02H7XPKl027691
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 17 Mar 2020 15:33:25 +0800
-Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
- RTEXMB06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Tue, 17 Mar 2020 15:33:25 +0800
-Received: from localhost.localdomain (172.22.102.1) by RTEXMB01.realtek.com.tw
- (172.21.6.94) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1779.2; Tue, 17 Mar
- 2020 15:33:25 +0800
-From: <shumingf@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH 2/2] ASoC: rt5682: remove noisy debug messages
-Date: Tue, 17 Mar 2020 15:33:21 +0800
-Message-ID: <20200317073321.12660-1-shumingf@realtek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6B75AF80058
+ for <alsa-devel@alsa-project.org>; Tue, 17 Mar 2020 09:29:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B75AF80058
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=endlessm-com.20150623.gappssmtp.com
+ header.i=@endlessm-com.20150623.gappssmtp.com header.b="aSNejnAS"
+Received: by mail-pj1-x1043.google.com with SMTP id bo3so8748355pjb.5
+ for <alsa-devel@alsa-project.org>; Tue, 17 Mar 2020 01:29:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=endlessm-com.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=wp49eG+mgt94Sf8OotuurBq01cQ7kmd6Td3YpYWcZnY=;
+ b=aSNejnASf5mtNy+7z5yy1Ul5UP6XqQ246NFpAeHvn9PFhcUV8DSwR3FwPahRoqPBMN
+ eikDVrHtDyogY6R0VE2RhdQA+Sm6dBjaWmYgJi6XoQg6J3KL25J9Aqxn8b+tyW33efEO
+ zM7EXFptBn3W6f9T6t1m/Gcr+ZsMiuLjchNm6PX9FSBGroSdP3NratVkmfl9s78vbUUE
+ Rhbgtt0KHQUxFBxccGfIoP3TPvOQVbx3Xh6MHiqHL60CcEqocAvSlJ3Ygy19BpnvTNn+
+ WYJ0CdGKX3QUtsoZEeMB51yALEal8/Vuozt17JHdCOom4s8aVqbW3MKnyWXxq72Y9pQe
+ cg6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=wp49eG+mgt94Sf8OotuurBq01cQ7kmd6Td3YpYWcZnY=;
+ b=aHvG6xK5wH+0Ik2uruu6enQDtnpQF/LzZe5ZZ3mCAT1SyOHg0rIBqSd0DLEZ1K4QoR
+ 5lpiza06XHJ6ljI3h7x4Lz2UHPLwY+RTsnAdxdmPO1gNFJbjnqCf4zlskIDz9+ffP/47
+ v5+hUPrTkWTGHBo5ufiuOhNEg/pmIfRO16yhLlYsZcUNJ11AxX+ajCBD6S8LOI0C1LtL
+ 5J8sbO9Ikoe0yPgSZ21SBx5wvZQ6IDYL3nsj14Kenf+p/QnMVnqk9Phu7bXHSKhAAOJI
+ BGI3a5edxFRVSSiIALzaVBge4LCFOtG3KMATYvBOl+x4iS8pXbnn9T5ySVNgVMvCoQBZ
+ Efgg==
+X-Gm-Message-State: ANhLgQ252rXhMFHaAeyP+dyjf+NPlcqbzCIH9GHcD4Z+eUM5p8tBJ3Uw
+ CXFTstcYcHF5DXjdhIYJUx89fw==
+X-Google-Smtp-Source: ADFU+vuyGkQvDdcATxD0OMwlD0qwZwgEt45StAjnv6dNA1hgaFMp3uWeOX/5JY4BV3CS1ecWSQo/xQ==
+X-Received: by 2002:a17:90a:2503:: with SMTP id
+ j3mr4205128pje.83.1584433739386; 
+ Tue, 17 Mar 2020 01:28:59 -0700 (PDT)
+Received: from starnight.local ([150.116.255.181])
+ by smtp.googlemail.com with ESMTPSA id m68sm21095679pjb.0.2020.03.17.01.28.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Mar 2020 01:28:58 -0700 (PDT)
+From: Jian-Hong Pan <jian-hong@endlessm.com>
+To: Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH 0/2] ALSA: hda/realtek: Enable headset for Acer desktops with
+ ALC662
+Date: Tue, 17 Mar 2020 16:28:05 +0800
+Message-Id: <20200317082806.73194-1-jian-hong@endlessm.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.22.102.1]
-X-ClientProxiedBy: RTEXMB06.realtek.com.tw (172.21.6.99) To
- RTEXMB01.realtek.com.tw (172.21.6.94)
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, Shuming Fan <shumingf@realtek.com>, albertchen@realtek.com,
- derek.fang@realtek.com, sathya.prakash.m.r@intel.com, flove@realtek.com
+Cc: Jian-Hong Pan <jian-hong@endlessm.com>, alsa-devel@alsa-project.org,
+ Kailang Yang <kailang@realtek.com>, linux@endlessm.com,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,34 +100,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Shuming Fan <shumingf@realtek.com>
+This series enables the headset on Acer X2660G and N50-600 desktops with
+ALC662.
 
-Some debug messages are too noisy.
-This patch removes it.
+Jian-Hong Pan (2):
+  ALSA: hda/realtek - Enable headset mic of Acer X2660G with ALC662
+  ALSA: hda/realtek - Enable the headset of Acer N50-600 with ALC662
 
-Signed-off-by: Shuming Fan <shumingf@realtek.com>
----
- sound/soc/codecs/rt5682.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/pci/hda/patch_realtek.c | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
-index 023bc672274b..2ee01e782fe0 100644
---- a/sound/soc/codecs/rt5682.c
-+++ b/sound/soc/codecs/rt5682.c
-@@ -1197,11 +1197,11 @@ static int rt5682_div_sel(struct rt5682_priv *rt5682,
- 	}
- 
- 	for (i = 0; i < size - 1; i++) {
--		pr_info("div[%d]=%d\n", i, div[i]);
-+		dev_dbg(rt5682->component->dev, "div[%d]=%d\n", i, div[i]);
- 		if (target * div[i] == rt5682->sysclk)
- 			return i;
- 		if (target * div[i + 1] > rt5682->sysclk) {
--			pr_err("can't find div for sysclk %d\n",
-+			dev_dbg(rt5682->component->dev, "can't find div for sysclk %d\n",
- 				rt5682->sysclk);
- 			return i;
- 		}
 -- 
 2.25.1
 

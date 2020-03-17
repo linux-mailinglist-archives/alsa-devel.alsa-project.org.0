@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAF2F188BAA
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Mar 2020 18:08:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2025B188BAF
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Mar 2020 18:09:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E207188F;
-	Tue, 17 Mar 2020 18:08:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E207188F
+	by alsa0.perex.cz (Postfix) with ESMTPS id C73AB188C;
+	Tue, 17 Mar 2020 18:08:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C73AB188C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584464936;
-	bh=3fMSsTgorgqXX1Y6dJRdedf4MHUoDCeWlKkN5g11ees=;
+	s=default; t=1584464980;
+	bh=NJcpzOAPGb4ic0IqFuL32GLvAxseuK4B3APy5sRzbMU=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ihtvw7Xl9HDp59MMvAH2gsGfdoPznFqFa1QN/eTasui/BXxHWtM9sphOtvo7wmtT9
-	 GKS6Uti2GSSqLjBygPppf6btXnh3g+u+OZfoY2xdQgdMchVC8WhsUCAAgIrOSD1gnZ
-	 amzNe0RftoCcfSyYou24HDouC6gvZscoyU5Wt0h0=
+	b=C2GC8dfWanuSM6N+eFt5lyytLEc9/nXR8rr0kPYUg9bMaq7K0ALWc2qxTEGgDlurt
+	 lyLFV/Vi6oEd1ntt8+GdeQZIeuPSy5J3Jfay48q43NpjVhAKohUmqfn9akwjxF8eo3
+	 xtfyEfRvHcgbEuf/rgF+HMysoenySu5l6b0Ra3Pc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6BA89F80058;
-	Tue, 17 Mar 2020 18:07:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D37FF80256;
+	Tue, 17 Mar 2020 18:07:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94FC3F80232; Tue, 17 Mar 2020 18:07:12 +0100 (CET)
+ id 99444F8022B; Tue, 17 Mar 2020 18:07:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,22 +34,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 56902F800CD
- for <alsa-devel@alsa-project.org>; Tue, 17 Mar 2020 18:07:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56902F800CD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0058EF80058
+ for <alsa-devel@alsa-project.org>; Tue, 17 Mar 2020 18:07:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0058EF80058
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id C83F3AFDC;
- Tue, 17 Mar 2020 17:07:00 +0000 (UTC)
-Date: Tue, 17 Mar 2020 18:07:00 +0100
-Message-ID: <s5hpndax64r.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 76BB1AFDC;
+ Tue, 17 Mar 2020 17:07:10 +0000 (UTC)
+Date: Tue, 17 Mar 2020 18:07:10 +0100
+Message-ID: <s5ho8sux64h.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Jian-Hong Pan <jian-hong@endlessm.com>
-Subject: Re: [PATCH 1/2] ALSA: hda/realtek - Enable headset mic of Acer X2660G
- with ALC662
-In-Reply-To: <20200317082806.73194-2-jian-hong@endlessm.com>
+Subject: Re: [PATCH 2/2] ALSA: hda/realtek - Enable the headset of Acer
+ N50-600 with ALC662
+In-Reply-To: <20200317082806.73194-3-jian-hong@endlessm.com>
 References: <20200317082806.73194-1-jian-hong@endlessm.com>
- <20200317082806.73194-2-jian-hong@endlessm.com>
+ <20200317082806.73194-3-jian-hong@endlessm.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -73,11 +73,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 17 Mar 2020 09:28:07 +0100,
+On Tue, 17 Mar 2020 09:28:09 +0100,
 Jian-Hong Pan wrote:
 > 
-> The Acer desktop X2660G with ALC662 can't detect the headset microphone
-> until ALC662_FIXUP_ACER_X2660G_HEADSET_MODE quirk applied.
+> A headset on the desktop like Acer N50-600 does not work, until quirk
+> ALC662_FIXUP_ACER_NITRO_HEADSET_MODE is applied.
 > 
 > Signed-off-by: Jian-Hong Pan <jian-hong@endlessm.com>
 

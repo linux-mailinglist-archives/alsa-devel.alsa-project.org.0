@@ -2,80 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3925018893E
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Mar 2020 16:34:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9046718896F
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Mar 2020 16:50:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2E18167E;
-	Tue, 17 Mar 2020 16:33:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2E18167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2608517D0;
+	Tue, 17 Mar 2020 16:49:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2608517D0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584459271;
-	bh=kMsY72mmL59mXN7CXQN6FNdo05HIidCYjxCMHysgvtM=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1584460234;
+	bh=bMoa1c/JNWDjBIjnzmII5DXqip18Ndrbo/2dmqnH5tY=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=k86ZpTHeHQdYFx2DlRF7q9rmeQQ9N3TFCX7FCDqeH0gCD3ZrXGP4Mf63vDO/qoNwl
-	 QCYNAwase8T2gYX7d7UGVY8/Hdr/p1HtBmEv2VVAkrv3RMxa/kkv+I5G4+SJhV+9jh
-	 ewHgYwWGTOiGEuIXNSoe5GjJGP7uje7vk0XgAQq0=
+	b=ml6hCEd9Kd3qQ8Q0a+ZVgYk8+rBXuIPh906/IyDAlhLmQQm72Q9bbW/eYWxXJIhX8
+	 ICe0Mn+/Q2Ho4rSrJWo0E/G7R9Wpx5mTKTfcWHgxr4YzIwOD/u8ztnDL+zXNShMdJk
+	 YSEhuspSNKtx31JXRIYt2/BVrA1wIg+mruhOnAEA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F1D2F800C0;
-	Tue, 17 Mar 2020 16:32:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6F2EF80232;
+	Tue, 17 Mar 2020 16:48:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 61AAAF8022B; Tue, 17 Mar 2020 16:32:44 +0100 (CET)
+ id 79D22F8022B; Tue, 17 Mar 2020 16:48:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from zeus.domdv.de (zeus.domdv.de [IPv6:2a02:2ad0:c00::11])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5F27EF80058
- for <alsa-devel@alsa-project.org>; Tue, 17 Mar 2020 16:32:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F27EF80058
-IronPort-SDR: 45f5ErQX4fOk1A4nnaebVLkoNG/hM3eurortqkZQWZkgT2NlZsrbPUZU+uSQrJri6PKzHQjECY
- aG/zdbES1riw==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2020 08:32:36 -0700
-IronPort-SDR: AlObTxabHgmiM6Jn3ywAh/Yt0oaBfUo/bqhYV9hSVEb6s6cToF6f79VnvrY/w1+8SKKs8wIUcS
- rEU7Bof4w0Eg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,564,1574150400"; d="scan'208";a="268002291"
-Received: from atthomas-mobl.amr.corp.intel.com (HELO [10.255.32.45])
- ([10.255.32.45])
- by fmsmga004.fm.intel.com with ESMTP; 17 Mar 2020 08:32:33 -0700
-Subject: Re: [PATCH] soundwire: stream: only change state if needed
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- alsa-devel@alsa-project.org
-References: <20200317105142.4998-1-pierre-louis.bossart@linux.intel.com>
- <6bc8412a-f6d9-64d1-2218-ca98cfdb31c0@linaro.org>
- <27a73cbd-9418-4488-5cb2-fb21f9fc9110@linux.intel.com>
- <c1e5dc89-a069-a427-4912-89d90ecc0334@linaro.org>
- <6dde3b32-a29a-3ac9-d95d-283f5b05e64a@linux.intel.com>
- <7c7b334d-ae5c-35f6-9cf3-04700677211f@linaro.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <7a362c6a-364e-499a-e841-0a919f48bf84@linux.intel.com>
-Date: Tue, 17 Mar 2020 10:31:29 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id DE44FF800C0
+ for <alsa-devel@alsa-project.org>; Tue, 17 Mar 2020 16:48:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE44FF800C0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=domdv.de header.i=@domdv.de
+ header.b="IexEZklu"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=domdv.de;
+ s=dk3; h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:
+ In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=FBLdkxrDooRqoLcPEEFtrWtJ9/MQQj96jXFP8xrrNJo=; b=IexEZklu41nqwZjT2hUZCMr4vk
+ TLJIPhkLkM5Lm3RTR2Rvrx3sYoy04nI0ODTpMDIfwZuKj6y4QBqJEh7ezh39Oe+vCt0Ag1viEtrKJ
+ PrJD/D05uGuGgmPzK8MQVgQ6CUbwGA+R3KtMpG5ndIypgfSYeeJRjps6/k4Zo2+Q03KU=;
+Received: from [fd06:8443:81a1:74b0::212] (port=4984 helo=castor.lan.domdv.de)
+ by zeus.domdv.de with esmtpsa
+ (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.92.3)
+ (envelope-from <ast@domdv.de>)
+ id 1jEERO-0007rT-8f; Tue, 17 Mar 2020 16:47:38 +0100
+Received: from woody.lan.domdv.de ([10.1.9.28]
+ helo=host028-server-9.lan.domdv.de)
+ by castor.lan.domdv.de with esmtpsa (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+ (Exim 4.92.3) (envelope-from <ast@domdv.de>)
+ id 1jEERO-00085G-2z; Tue, 17 Mar 2020 16:47:38 +0100
+Message-ID: <0a66efeb806871d82bd750ff6219c516e48be66f.camel@domdv.de>
+Subject: Re: [PATCH 1/3] ALSA USB MIDI: Fix port starvation
+From: Andreas Steinmetz <ast@domdv.de>
+To: Clemens Ladisch <clemens@ladisch.de>
+Date: Tue, 17 Mar 2020 16:47:37 +0100
+In-Reply-To: <2c80b1eb-cf19-0882-5ec2-3f95cf253a51@ladisch.de>
+References: <c9aed355adc93d5de0cc4c740d16d19e3e210f79.camel@domdv.de>
+ <36c09bfb-7d28-84c5-acba-9c74ad153a83@ladisch.de>
+ <4f3995a9c08c41bb0a5170e78941f47e6ac33d0f.camel@domdv.de>
+ <2c80b1eb-cf19-0882-5ec2-3f95cf253a51@ladisch.de>
+Organization: D.O.M. Datenverarbeitung GmbH
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.30.5 
 MIME-Version: 1.0
-In-Reply-To: <7c7b334d-ae5c-35f6-9cf3-04700677211f@linaro.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Hui Wang <hui.wang@canonical.com>, vkoul@kernel.org, broonie@kernel.org,
- jank@cadence.com, slawomir.blauciak@intel.com,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,37 +89,91 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
->>>> The change below would be an error case for Intel, so it's probably 
->>>> better if we go with your suggestion. You have a very specific state 
->>>> handling due to your power amps and it's probably better to keep it 
->>>> platform-specific.
->>>
->>> Just trying to understand, why would it be error for Intel case?
->>>
->>> IMO, If stream state is SDW_STREAM_ENABLED that also implicit that 
->>> its prepared too. Similar thing with SDW_STREAM_DEPREPARED.
->>> Isn't it?
->>
->> the stream state is a scalar value, not a mask. The state machine only 
->> allows transition from CONFIGURED TO PREPARED or from DEPREPARED TO 
->> PREPARED, or DISABLED to PREPARED.
->> There is no allowed transition from ENABLED TO PREPARED, you have to 
->> go through the DISABLED state and make sure a bank switch occurred, 
->> and re-do a bank switch to prepare again.
-> I agree with you if are on single dai case. Am happy to move to stream 
-> handling to machine driver for now.
+On Tue, 2020-03-17 at 11:26 +0100, Clemens Ladisch wrote:
+> Andreas Steinmetz wrote:
+> > On Mon, 2020-03-16 at 13:03 +0100, Clemens Ladisch wrote:
+> > > Andreas Steinmetz wrote:
+> > > > the snd_usbmidi_transmit_byte helper had to be converted to
+> > > > return output notification to allow for the 'repeat' shortcut.
+> > > 
+> > > Why not simply handle one MIDI byte per port in each
+> > > iteration?  It
+> > > could be argued that single-byte MIDI commands are likely to be
+> > > real-
+> > > time messages and deserve to go first.
+> > 
+> > Actually the patch does exactly this. As soon as the helper signals
+> > that a message is complete the next port is processed. The "repeat"
+> > loop is just necessary to get a complete class compliant message
+> > for
+> > transfer as the helper processes one byte at a time.
 > 
-> But this also means that in cases like multi-codec its not recommended 
-> to call sdw_prepare and sdw_enable in a single function from codec.
-> Which might be worth documenting.
+> Why is it necessary to immedately get a complete class-compliant
+> message?
+> 
 
-Well, the bigger question is why use sdw_stream functions at the codec 
-level in the first place? All other codec drivers seem to have no issue 
-leaving the dais owned by the master control stream state changes.
+Maybe that's a misunderstanding caused by me using 'message' instead of
+'event'. We need a complete MIDI event (or up to 3 sysex bytes) to form
+the class compliant 4 byte USB event. That's what the 'repeat' shortcut
+is for. And after one such event is collected to the URB the code
+switches to the next port.
 
-I am not saying I object or it's bad, just that there were significant 
-changes in usages of the 'stream' concept since it was introduced, as 
-well as threads in MIPI circles to clarify the prepare/enable 
-dependencies, so it'd be useful to have a complete picture of what 
-different platforms need/want.
+> > The range optimization is there to prevent O(2) performance cost if
+> > possible.
+> 
+> Do you mean O(n^2)?  For what n?
+> 
+
+What I do mean is that in case of only one port being active we would
+do 16 full outer iterations over all ports to collect 1 event. And we
+need to do this for all events of that port. Even if we use the hint
+from port->active as a shortcut its always the full set of iterations.
+
+Memorizing the first and the last port of the previous loop and then
+restricting to this set makes a full 16 port run in the first iteration
+and then only the active port for all subsequent iterations.
+
+And yes, in the worst case of a 16x16 interface with ports 1 and 16
+being active we're back to processing 16 ports for every iteration - I
+do, however, see this scenario as being quite theoretical in practice.
+
+> > > My original idea for that FIXME was to use round robin until the
+> > > packet
+> > > is filled (or all ports are empty), and to store the next port
+> > > index
+> > > (where to start for the next packet) in the endpoint.  This would
+> > > be
+> > > able to distribute the balancing over multiple packets.
+> > 
+> > The problem with "round robin until the packet is filled" is that
+> > in
+> > case of a large wMaxPacketSize there's then a huge
+> > latency.
+> 
+> This mechanism does not require using the original packet size.
+> The point is that we should not restart with the first port in each
+> packet.
+
+I was thinking about that but in practice I do not know any class
+compliant interface that does have a number of outputs that is not
+equal to 2^n, i.e. 1, 2, 4, 8, 16.
+
+Then wMaxPacketSize is also always a 2^m value (16, 64, 512).
+
+With m>=n+2 (I don't believe that there is any class compliant
+interface for which this is not true) we can always start at the first
+port while doing fair scheduling (when a new URB is filled all ports
+get an equal change if they do have events pending).
+
+Implementing a restart based on the last packet scheduled for the very
+rare possibility of the above being not true just adds unnecessary
+complexity.
+
+> 
+> 
+> Regards,
+> Clemens
+Regards
+-- 
+Andreas Steinmetz
+

@@ -2,49 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F4191875BA
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Mar 2020 23:34:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D6971877EC
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Mar 2020 03:55:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9EA9F1875;
-	Mon, 16 Mar 2020 23:33:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9EA9F1875
+	by alsa0.perex.cz (Postfix) with ESMTPS id B64481843;
+	Tue, 17 Mar 2020 03:54:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B64481843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584398060;
-	bh=51jYDR2ZjKAfVv/Sdg9b56O4h6BwL3IlnWS9Hq5UAEU=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=e5w9UxzmGF9sRKQ04jrgywknGAXHsMZ5c1H19GN6vSdX8e+bew3GRTc1/gPthSvLK
-	 VtJxOcvxHhP2CaC/nnJmPBxLklFm6frJXDOwKr0hH9MS0FiD82v9eG91izLiJ5q3O/
-	 hQ4VvpyITibjl9sfW9fiWELD5/lvu9n4q+WYjklM=
+	s=default; t=1584413725;
+	bh=anGe/IgtnxihRsq3Kv/I33bFNq2LeMM47P8/hZeBLO8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=nqqb9J4tlrAcvkJcdr0N34QrhXrANVetc6ALrcb1RFqWT7lmR7AupXrl6drb3qgKA
+	 WqeRsM/qXoPetsjbxGtu25/J4iwsLKhKVvQcUov6HiKDTft6pckB1wXlBoO8zywW8y
+	 dhDPOAxLMLkKeueeGhkMMVqdb4HtU1jUVN2jfTRY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78E04F800D2;
-	Mon, 16 Mar 2020 23:32:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 568FFF80253;
+	Tue, 17 Mar 2020 03:53:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3F1D5F8015B; Mon, 16 Mar 2020 23:32:37 +0100 (CET)
+ id 71FFEF80217; Tue, 17 Mar 2020 03:52:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_FAIL,SPF_HELO_NONE,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id A4D56F800D2
- for <alsa-devel@alsa-project.org>; Mon, 16 Mar 2020 23:32:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4D56F800D2
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 66F30F800CD
+ for <alsa-devel@alsa-project.org>; Tue, 17 Mar 2020 03:52:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66F30F800CD
+Authenticated-By: 
+X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID 02H2qiC1017677,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (RTEXMB06.realtek.com.tw[172.21.6.99])
+ by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id 02H2qiC1017677
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 17 Mar 2020 10:52:45 +0800
+Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
+ RTEXMB06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1779.2; Tue, 17 Mar 2020 10:52:44 +0800
+Received: from localhost.localdomain (172.22.102.1) by RTEXMB01.realtek.com.tw
+ (172.21.6.94) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1779.2; Tue, 17 Mar
+ 2020 10:52:44 +0800
+From: Oder Chiou <oder_chiou@realtek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+Subject: [PATCH 1/3] ASoC: rt5682: Add a property for DMIC clock rate setting
+Date: Tue, 17 Mar 2020 10:52:38 +0800
+Message-ID: <20200317025240.10435-1-oder_chiou@realtek.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1584397953813324928-webhooks-bot@alsa-project.org>
-References: <1584397953813324928-webhooks-bot@alsa-project.org>
-Subject: sof-soundwire: initial UCM2 version
-Message-Id: <20200316223237.3F1D5F8015B@alsa1.perex.cz>
-Date: Mon, 16 Mar 2020 23:32:37 +0100 (CET)
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.22.102.1]
+X-ClientProxiedBy: RTEXMB06.realtek.com.tw (172.21.6.99) To
+ RTEXMB01.realtek.com.tw (172.21.6.94)
+Cc: Oder Chiou <oder_chiou@realtek.com>, jack.yu@realtek.com,
+ alsa-devel@alsa-project.org, cychiang@google.com, derek.fang@realtek.com,
+ shumingf@realtek.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,14 +80,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #17 was opened from plbossart:
+The patch adds a property for DMIC clock rate setting and changes the
+default clock rate to the common optimize DMIC clock rate.
 
-Add conditional inclusion of sections
+Signed-off-by: Oder Chiou <oder_chiou@realtek.com>
+---
+ include/sound/rt5682.h    | 1 +
+ sound/soc/codecs/rt5682.c | 9 +++++++--
+ 2 files changed, 8 insertions(+), 2 deletions(-)
 
-This goes with the kernel PR https://github.com/thesofproject/linux/pull/1889
+diff --git a/include/sound/rt5682.h b/include/sound/rt5682.h
+index 6bf0e3581056..96b268ac96bd 100644
+--- a/include/sound/rt5682.h
++++ b/include/sound/rt5682.h
+@@ -38,6 +38,7 @@ struct rt5682_platform_data {
+ 	enum rt5682_dmic1_clk_pin dmic1_clk_pin;
+ 	enum rt5682_jd_src jd_src;
+ 	unsigned int btndet_delay;
++	unsigned int dmic_clk_rate;
+ 
+ 	const char *dai_clk_names[RT5682_DAI_NUM_CLKS];
+ };
+diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
+index 7ca02a5e52e9..809dc91a89b4 100644
+--- a/sound/soc/codecs/rt5682.c
++++ b/sound/soc/codecs/rt5682.c
+@@ -1231,10 +1231,13 @@ static int set_dmic_clk(struct snd_soc_dapm_widget *w,
+ 	struct snd_soc_component *component =
+ 		snd_soc_dapm_to_component(w->dapm);
+ 	struct rt5682_priv *rt5682 = snd_soc_component_get_drvdata(component);
+-	int idx = -EINVAL;
++	int idx = -EINVAL, dmic_clk_rate = 3072000;
+ 	static const int div[] = {2, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 128};
+ 
+-	idx = rt5682_div_sel(rt5682, 1500000, div, ARRAY_SIZE(div));
++	if (rt5682->pdata.dmic_clk_rate)
++		dmic_clk_rate = rt5682->pdata.dmic_clk_rate;
++
++	idx = rt5682_div_sel(rt5682, dmic_clk_rate, div, ARRAY_SIZE(div));
+ 
+ 	snd_soc_component_update_bits(component, RT5682_DMIC_CTRL_1,
+ 		RT5682_DMIC_CLK_MASK, idx << RT5682_DMIC_CLK_SFT);
+@@ -3231,6 +3234,8 @@ static int rt5682_parse_dt(struct rt5682_priv *rt5682, struct device *dev)
+ 		&rt5682->pdata.jd_src);
+ 	device_property_read_u32(dev, "realtek,btndet-delay",
+ 		&rt5682->pdata.btndet_delay);
++	device_property_read_u32(dev, "realtek,dmic-clk-rate",
++		&rt5682->pdata.dmic_clk_rate);
+ 
+ 	rt5682->pdata.ldo1_en = of_get_named_gpio(dev->of_node,
+ 		"realtek,ldo1-en-gpios", 0);
+-- 
+2.25.1
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
-Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/17
-Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/17.patch
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf

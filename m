@@ -2,76 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAAD618A768
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Mar 2020 22:54:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED6B118A76B
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Mar 2020 22:54:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E8D5173B;
-	Wed, 18 Mar 2020 22:53:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E8D5173B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EC2C1721;
+	Wed, 18 Mar 2020 22:54:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EC2C1721
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584568452;
-	bh=Cg5wnj0VeMDM9Y3YICtJiwjRFOgxptBE95iyZUSfu1k=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1584568495;
+	bh=i47tAMZa8+2oWlRgQVgqYGeSJei0gkzyEsYTylwlZvo=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ctVoWJt94K1o++mg+iCWO9qseepDJqJJ5gJeJx3FyYSdXbchyi6xkYqSQmT0+jqMC
-	 QO7p/Zu1/iPqSTiwxeztb2GnLsmIa9Y5Hh5ayyuCJ8FtBmUFtio6hNZ5RPmZkiNVkg
-	 boq5CMyK5t69IA4YNRUrpZ0L2ll04mFUkF6mcW1w=
+	b=sR8rmjqlJcf5IV422l1JI1Kxeapjvntyf5rOj4mwoiL2Ccq6cHHAXTWCX1TkTzhHX
+	 bdc5HS1grh4Q4xUS8JWPgvCL6VkfpR+v0KVT0qGx6jjT9sQbl1NYTvboGgWWMuCZvV
+	 dZ4iRRVcXjLzMP0QJ5han4OAvds9pjc93pH6J4Go=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4CA05F80132;
-	Wed, 18 Mar 2020 22:52:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F2F5F8015B;
+	Wed, 18 Mar 2020 22:53:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 18A4CF80139; Wed, 18 Mar 2020 22:52:29 +0100 (CET)
+ id 787BCF801DB; Wed, 18 Mar 2020 22:53:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from isilmar-4.linta.de (isilmar-4.linta.de [136.243.71.142])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C8221F80058
- for <alsa-devel@alsa-project.org>; Wed, 18 Mar 2020 22:52:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8221F80058
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-Received: from light.dominikbrodowski.net (brodo.linta [10.1.0.102])
- by isilmar-4.linta.de (Postfix) with ESMTPSA id 756462005E4;
- Wed, 18 Mar 2020 21:52:25 +0000 (UTC)
-Received: by light.dominikbrodowski.net (Postfix, from userid 1000)
- id 91F5B20B1B; Wed, 18 Mar 2020 22:52:18 +0100 (CET)
-Date: Wed, 18 Mar 2020 22:52:18 +0100
-From: Dominik Brodowski <linux@dominikbrodowski.net>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: snd_hda_intel/sst-acpi sound breakage on suspend/resume since
- 5.6-rc1
-Message-ID: <20200318215218.GA2439@light.dominikbrodowski.net>
-References: <20200318063022.GA116342@light.dominikbrodowski.net>
- <41d0b2b5-6014-6fab-b6a2-7a7dbc4fe020@linux.intel.com>
- <20200318123930.GA2433@light.dominikbrodowski.net>
- <d7a357c5-54af-3e69-771c-d7ea83c6fbb7@linux.intel.com>
- <20200318162029.GA3999@light.dominikbrodowski.net>
- <e49eec28-2037-f5db-e75b-9eadf6180d81@intel.com>
- <20200318192213.GA2987@light.dominikbrodowski.net>
- <b352a46b-8a66-8235-3622-23e561d3728c@intel.com>
+X-Spam-Level: **
+X-Spam-Status: No, score=2.8 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ PRX_BODY_64,SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id CF6E7F8015B
+ for <alsa-devel@alsa-project.org>; Wed, 18 Mar 2020 22:53:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF6E7F8015B
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b352a46b-8a66-8235-3622-23e561d3728c@intel.com>
-Cc: alsa-devel@alsa-project.org, curtis@malainey.com,
- linux-kernel@vger.kernel.org, Keyon Jie <yang.jie@linux.intel.com>,
- tiwai@suse.com, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- liam.r.girdwood@linux.intel.com, broonie@kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1584568385481817961-webhooks-bot@alsa-project.org>
+References: <1584568385481817961-webhooks-bot@alsa-project.org>
+Subject: Corrections for pcm_a52 to work with pulseaudio
+Message-Id: <20200318215311.787BCF801DB@alsa1.perex.cz>
+Date: Wed, 18 Mar 2020 22:53:11 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,35 +59,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Mar 18, 2020 at 09:43:54PM +0100, Cezary Rojewski wrote:
-> On 2020-03-18 20:22, Dominik Brodowski wrote:
-> > On Wed, Mar 18, 2020 at 07:27:58PM +0100, Cezary Rojewski wrote:
-> 
-> > > 
-> > > Due to pandemic I'm working remotely and right now won't be able to test
-> > > audio quality so focusing on the stream==NULL issue. And thus we got to help
-> > > each other out : )
-> > 
-> > Sure, and thanks for taking a look at this!
-> > 
-> > > Could you verify issue reproduces on 5.6.0-rc1 on your machine?
-> > 
-> > It reproduces on 5.6.0-rc1 + i915-bugfix. I'm trying to bisect it further in
-> > the background, but that may take quite some time.
-> > 
-> 
-> Could you checkout v5.6-rc1 with following commit reverted:
-> 	ASoC: Intel: broadwell: change cpu_dai and platform components for SOF
-> 
-> For my working v5.6-rc1 commit id is:
-> 64df6afa0dab5eda95cc4cc2269e3d4e83b6b6ce.
+alsa-project/alsa-plugins pull request #8 was opened from amotzkau:
 
-Hm, no joy -- after suspend/resume, no sound at first, and if I twiggle some
-options with pulseaudio, I get garbled output (even when using
+Hi there,
 
-	aplay -f S16_LE -r 44100 -c 2 --device="sysdefault:CARD=broadwellrt286"
+First this is my first contact with ALSA programming, so please excuse any obvious mistakes.
 
-). Will try to bisect further the next days.
+On my computer Pulseaudio didn't work with the pcm_a52 plugin (Digital Surround 5.1 profile in Pulseaudio), everything was played with 30x speed (approximately). So I looked into the cause of this. Pulseaudio uses the zero-copy mmap interface of ALSA and expects that snd_pcm_mmap_commit() will except all frames that snd_pcm_mmap_begin() allowed to send. If snd_pcm_mmap_commit() accepts less frames or none (-EAGAIN) then Pulseaudio didn't remember that or even saved those frames. They were just discarded.
 
-Thanks,
-	Dominik
+I thought that it would be a sound contract to guarantee that snd_pcm_mmap_commit() will always take those frames. Therefore I looked into pcm_a52, why it doesn't promise that, and changed the a52_pointer() function to offer such a guarantee.
+
+These are my patches to make it work.
+
+Best regards,
+Alex
+
+Request URL   : https://github.com/alsa-project/alsa-plugins/pull/8
+Patch URL     : https://github.com/alsa-project/alsa-plugins/pull/8.patch
+Repository URL: https://github.com/alsa-project/alsa-plugins

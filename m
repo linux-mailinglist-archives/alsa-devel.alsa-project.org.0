@@ -2,89 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12A2F189E32
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Mar 2020 15:45:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C24D8189F90
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Mar 2020 16:24:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C7781746;
-	Wed, 18 Mar 2020 15:44:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C7781746
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C491173B;
+	Wed, 18 Mar 2020 16:24:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C491173B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584542736;
-	bh=ThSiuj2Zu/xile/8tjkCnZYoCrioGuUGeDdgoTqXjfQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1584545095;
+	bh=X1xJp2U+XF/Ds7WnH+SkpcFPDq8q0cFM4we4fyAG6ow=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Q8vAI8pvi1wF8Ve2ZLf7+k1aZSDM04Eepl4weZ8CymoPLgZBSCGMsc0fauO0aL/Ej
-	 Hwg3SjibU3sVJQhCiYi3Z9Am6yhQUt5o1Q10MqE2XHQ5pISv2x9vH4bbzjhFeXQY8a
-	 tk/wnvED2Sk0ialXh9mpK9U34CRpgRYq0JS1H81o=
+	b=q5qZ4yQZoCxpW/bIKMlsIFOQ2Lfmcj7VeRgzFBtJafwIgZgkl3zqGdPeMBXnWjpxP
+	 AeG4fC+NJVgPDmBSlyOEZDuXF6uC/S+qyVf8wI+37uxGXDnIKU9/ZKhX72Q4ZGgdZo
+	 SUNuAA0itnMRHvV8ZhObrBsPY3fnjLazITqeEEyA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F6B5F802A0;
-	Wed, 18 Mar 2020 15:42:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D496F800B7;
+	Wed, 18 Mar 2020 16:23:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7F6BF8022D; Wed, 18 Mar 2020 15:42:36 +0100 (CET)
+ id 0B1A2F80139; Wed, 18 Mar 2020 16:23:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
+ autolearn=disabled version=3.4.0
+Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
+ [IPv6:2607:f8b0:4864:20::d42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71337F80212
- for <alsa-devel@alsa-project.org>; Wed, 18 Mar 2020 15:42:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71337F80212
+ by alsa1.perex.cz (Postfix) with ESMTPS id E40E8F800B7
+ for <alsa-devel@alsa-project.org>; Wed, 18 Mar 2020 16:23:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E40E8F800B7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="TbVj8OhF"
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 02IEcsvs022631; Wed, 18 Mar 2020 15:42:33 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=qmRrscMq5Bm23UmAjzqLg4xvf0NZtoGZEA7BhOJb94E=;
- b=TbVj8OhFuzNmHhA0OWHk0QYdoahepFdELxVgfVl9jg5UmrciYbZ40CODzLUxVrCckg0Y
- Y2tI2JL39ei2SUegWJYeIGogBmsHdMCKMpwmUjW2OLq4E2B9Okw963GhA8scniEMqb11
- Ieh8NP3loRLqg2oxYTNCmlbMo+7Dk1qaZGNoLgI/sr+rbsBsNLeM2Vmoib6RFkgoC768
- Q8nQaH4wCxBr9Lp/Vy51tU+IJX6otXkX7GFrrvEc2vqRuLoThbKImKSmwW4rTxGoGIGP
- 7+c2SHsseqpf1yJAZUYgQURcqY3Tx0xieXmfpzC2SiOaG40+8ELoLD5Hge9zrn10w/5B vg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2yu6xdckqa-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 18 Mar 2020 15:42:33 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9C0C210002A;
- Wed, 18 Mar 2020 15:42:28 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8F1522AE6C9;
- Wed, 18 Mar 2020 15:42:28 +0100 (CET)
-Received: from localhost (10.75.127.47) by SFHDAG6NODE2.st.com (10.75.127.17)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2;
- Wed, 18 Mar 2020 15:42:26 +0100
-From: Olivier Moysan <olivier.moysan@st.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <alexandre.torgue@st.com>, <olivier.moysan@st.com>
-Subject: [PATCH 3/3] ASoC: stm32: i2s: manage rebind issue
-Date: Wed, 18 Mar 2020 15:41:25 +0100
-Message-ID: <20200318144125.9163-4-olivier.moysan@st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200318144125.9163-1-olivier.moysan@st.com>
-References: <20200318144125.9163-1-olivier.moysan@st.com>
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="IbZa3Ww/"
+Received: by mail-io1-xd42.google.com with SMTP id h131so25396714iof.1
+ for <alsa-devel@alsa-project.org>; Wed, 18 Mar 2020 08:23:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=rqFGLVExt3dIjBkYFIMsCNrJKg4II79dxavgpwJIkxY=;
+ b=IbZa3Ww/oXVTB60+GBf9vcBIuAUOmKqx87OcH9XRvhu+sCJQ4K+0URRJxNYVRrxaAd
+ 9gdKSAhm4JMf4jWTTqUsJaeijodjwz7bXXRsdNVP37gk4CRuh5QeDLSMcl0/tzhYes6U
+ FB6q/p9mfpU1oK5zSGgtbaaGVARVrRbiRXAfYLmWibFjZJ6WQgCmjFJKu5Piks1eFJuO
+ FQz8m3Ec6QbhPWyn58KU0ap4llR5Lf/QGKxCSPQ/AEty0bFhGijuhVsk5zEu5YM5rcaD
+ ocuXDs512NpVLsmDFbkCoqFyQ62RYyixs4wQQ7nBND5cvUBm9x5jTvWMQptTVjZXMG+5
+ VPyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=rqFGLVExt3dIjBkYFIMsCNrJKg4II79dxavgpwJIkxY=;
+ b=RYo8YBCRMKI0YJr0EhWM3yFitBMELXOQ/j+xYRCFnLLxeXyJHDwbTDUAaSy9fwGiKI
+ FV1Va+pkG4nGUxR71md7WcJWpPNxOtpjBqmmDPy0yz2baFn8M73R05oOITsBKsIyePGj
+ zkfhAlP6ZM4mXp22WtAww+O+SVPhgu6/xm+6Z1lnA9YtNdFNEnnLX786el1gqpzLUWij
+ //kPaBfARJ0nA/4mWULo9SWTwzZhN47VAWNoa+IFXOFTTBHzgabU3S12RfaixuLKfdSm
+ TawJOKkwCyGXBdBqvmfbx8TxHB3pbtHT6bk5zy5plrAsXQrrqooajWFmLszvY5apElgt
+ G7VQ==
+X-Gm-Message-State: ANhLgQ1scFyZeecFsvBusiPpRL0wzBleHBHZfzaof9fg5IFqtG8Kd33Y
+ XQ+2ck6TGO1hsPrdrLJjnHTpT/x9/mkQHjZOYv3V6A==
+X-Google-Smtp-Source: ADFU+vtZPRraKh57/unjy33wEf03ixNzzc2F2s4A3ZKzN4DnovZjVtCmrjsgOO8Uci8zW4dson2Sz6oTy6z+8lUQRcM=
+X-Received: by 2002:a6b:c9d2:: with SMTP id z201mr4212004iof.169.1584544986590; 
+ Wed, 18 Mar 2020 08:23:06 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG5NODE1.st.com (10.75.127.13) To SFHDAG6NODE2.st.com
- (10.75.127.17)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.645
- definitions=2020-03-18_06:2020-03-18,
- 2020-03-18 signatures=0
-Cc: alsa-devel@alsa-project.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20200317073321.12660-1-shumingf@realtek.com>
+In-Reply-To: <20200317073321.12660-1-shumingf@realtek.com>
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Wed, 18 Mar 2020 23:22:47 +0800
+Message-ID: <CA+Px+wUeaARQdGXc=x3jNZJvOsF3bSWnaXMPh-Kmji0QCK=oPg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ASoC: rt5682: remove noisy debug messages
+To: =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com,
+ ALSA development <alsa-devel@alsa-project.org>, lars@metafoo.de,
+ Liam Girdwood <lgirdwood@gmail.com>, Albert Chen <albertchen@realtek.com>,
+ Mark Brown <broonie@kernel.org>, derek.fang@realtek.com, "M R,
+ Sathya Prakash" <sathya.prakash.m.r@intel.com>,
+ "Flove\(HsinFu\)" <flove@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,116 +99,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The commit e894efef9ac7 ("ASoC: core: add support to card rebind")
-allows to rebind the sound card after a rebind of one of its component.
-With this commit, the sound card is actually rebound,
-but may be no more functional.
+On Tue, Mar 17, 2020 at 3:35 PM <shumingf@realtek.com> wrote:
+> Some debug messages are too noisy.
+> This patch removes it.
 
-Corrections:
-- Call snd_dmaengine_pcm_register() before snd_soc_register_component().
-- Call snd_dmaengine_pcm_unregister() and snd_soc_unregister_component()
-explicitly from I2S driver.
+Suggest to use other words.  For example, title: "ASoC: rt5682: make
+output message less verbose"; message: "Makes output message less
+verbose by reducing the log severity".
 
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
----
- sound/soc/stm/stm32_i2s.c | 40 ++++++++++++++++++++++++++++-----------
- 1 file changed, 29 insertions(+), 11 deletions(-)
+>         for (i = 0; i < size - 1; i++) {
+> -               pr_info("div[%d]=%d\n", i, div[i]);
+> +               dev_dbg(rt5682->component->dev, "div[%d]=%d\n", i, div[i]);
+>                 if (target * div[i] == rt5682->sysclk)
+>                         return i;
+>                 if (target * div[i + 1] > rt5682->sysclk) {
+> -                       pr_err("can't find div for sysclk %d\n",
+> +                       dev_dbg(rt5682->component->dev, "can't find div for sysclk %d\n",
+>                                 rt5682->sysclk);
 
-diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
-index 2478405727c3..7c4d63c33f15 100644
---- a/sound/soc/stm/stm32_i2s.c
-+++ b/sound/soc/stm/stm32_i2s.c
-@@ -888,6 +888,14 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
- 	return 0;
- }
- 
-+static int stm32_i2s_remove(struct platform_device *pdev)
-+{
-+	snd_dmaengine_pcm_unregister(&pdev->dev);
-+	snd_soc_unregister_component(&pdev->dev);
-+
-+	return 0;
-+}
-+
- static int stm32_i2s_probe(struct platform_device *pdev)
- {
- 	struct stm32_i2s_data *i2s;
-@@ -921,47 +929,56 @@ static int stm32_i2s_probe(struct platform_device *pdev)
- 		return PTR_ERR(i2s->regmap);
- 	}
- 
--	ret = devm_snd_soc_register_component(&pdev->dev, &stm32_i2s_component,
--					      i2s->dai_drv, 1);
--	if (ret)
--		return ret;
--
--	ret = devm_snd_dmaengine_pcm_register(&pdev->dev,
--					      &stm32_i2s_pcm_config, 0);
-+	ret = snd_dmaengine_pcm_register(&pdev->dev, &stm32_i2s_pcm_config, 0);
- 	if (ret) {
- 		if (ret != -EPROBE_DEFER)
- 			dev_err(&pdev->dev, "PCM DMA register error %d\n", ret);
- 		return ret;
- 	}
- 
-+	ret = snd_soc_register_component(&pdev->dev, &stm32_i2s_component,
-+					 i2s->dai_drv, 1);
-+	if (ret) {
-+		snd_dmaengine_pcm_unregister(&pdev->dev);
-+		return ret;
-+	}
-+
- 	/* Set SPI/I2S in i2s mode */
- 	ret = regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG,
- 				 I2S_CGFR_I2SMOD, I2S_CGFR_I2SMOD);
- 	if (ret)
--		return ret;
-+		goto error;
- 
- 	ret = regmap_read(i2s->regmap, STM32_I2S_IPIDR_REG, &val);
- 	if (ret)
--		return ret;
-+		goto error;
- 
- 	if (val == I2S_IPIDR_NUMBER) {
- 		ret = regmap_read(i2s->regmap, STM32_I2S_HWCFGR_REG, &val);
- 		if (ret)
--			return ret;
-+			goto error;
- 
- 		if (!FIELD_GET(I2S_HWCFGR_I2S_SUPPORT_MASK, val)) {
- 			dev_err(&pdev->dev,
- 				"Device does not support i2s mode\n");
--			return -EPERM;
-+			ret = -EPERM;
-+			goto error;
- 		}
- 
- 		ret = regmap_read(i2s->regmap, STM32_I2S_VERR_REG, &val);
-+		if (ret)
-+			goto error;
- 
- 		dev_dbg(&pdev->dev, "I2S version: %lu.%lu registered\n",
- 			FIELD_GET(I2S_VERR_MAJ_MASK, val),
- 			FIELD_GET(I2S_VERR_MIN_MASK, val));
- 	}
- 
-+	return ret;
-+
-+error:
-+	stm32_i2s_remove(pdev);
-+
- 	return ret;
- }
- 
-@@ -998,6 +1015,7 @@ static struct platform_driver stm32_i2s_driver = {
- 		.pm = &stm32_i2s_pm_ops,
- 	},
- 	.probe = stm32_i2s_probe,
-+	.remove = stm32_i2s_remove,
- };
- 
- module_platform_driver(stm32_i2s_driver);
--- 
-2.17.1
-
+Looking at around of the file, use pr_debug( ) here could be more consistent.

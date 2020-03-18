@@ -2,89 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06F5E189591
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Mar 2020 07:09:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB2021895A9
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Mar 2020 07:24:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 76B821766;
-	Wed, 18 Mar 2020 07:08:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76B821766
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E6951769;
+	Wed, 18 Mar 2020 07:23:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E6951769
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584511765;
-	bh=SknmBrlbcfaf7zEpHysf7DlnoRWYeDeen7iFgkOt8qw=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1584512671;
+	bh=E5YLPBqL0PR2e9MJvgxykD62EP/kM2Rhg/3uL4MrI5A=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cDSkwytn6+14xSRcYejzscSG8gIXs3Cu4LoaWfD1DA86WD5q1a6zlMPHRv8MaQDSQ
-	 MjAEz2+B7IHa5LG9S1LD754famW0dvR3E1tUj/dv3IN4AMK78Dk6gtA+LpZicsGcbB
-	 jnrtd8S8Xv8ec5p7KA16k4jq3LdSYM2NHF/Vg50g=
+	b=A6ySlxTu7+MoaSmcEVU0lRwNxd+R0BTEw/xDqnGSeQJNfy0hOmIAtTQcTPHHGA+NZ
+	 dpk0+pc854tQMDhVylrtEL4NOIXojQN2w7Zb+OrIO67R2adMLx9rllNKPO09UYO+pk
+	 Nd0tQLyi7EY9k04YoCu95hj91qrFMalQNSJdcm+Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 58B40F8015B;
-	Wed, 18 Mar 2020 07:07:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 55051F800B7;
+	Wed, 18 Mar 2020 07:22:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BAB7DF80139; Wed, 18 Mar 2020 07:07:39 +0100 (CET)
+ id C6A68F80139; Wed, 18 Mar 2020 07:22:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.7 required=5.0 tests=DEAR_SOMETHING, SPF_HELO_NONE, 
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41310F80058
- for <alsa-devel@alsa-project.org>; Wed, 18 Mar 2020 07:07:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41310F80058
-Authenticated-By: 
-X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID 02I67N89010466,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (RTEXMB06.realtek.com.tw[172.21.6.99])
- by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id 02I67N89010466
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 18 Mar 2020 14:07:23 +0800
-Received: from RTEXDAG01.realtek.com.tw (172.21.6.100) by
- RTEXMB06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Wed, 18 Mar 2020 14:07:23 +0800
-Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
- RTEXDAG01.realtek.com.tw (172.21.6.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Wed, 18 Mar 2020 14:07:22 +0800
-Received: from RTEXMB01.realtek.com.tw ([fe80::1832:8abc:ec2d:974f]) by
- RTEXMB01.realtek.com.tw ([fe80::1832:8abc:ec2d:974f%6]) with mapi id
- 15.01.1779.005; Wed, 18 Mar 2020 14:07:22 +0800
-From: Albert Chen <albertchen@realtek.com>
-To: Keyon Jie <yang.jie@linux.intel.com>,
- =?utf-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
- "broonie@kernel.org" <broonie@kernel.org>, "lgirdwood@gmail.com"
- <lgirdwood@gmail.com>
-Subject: RE: [PATCH 1/2] ASoC: rt5682: fix the random recording noise of
- headset
-Thread-Topic: [PATCH 1/2] ASoC: rt5682: fix the random recording noise of
- headset
-Thread-Index: AQHV/C5RNGl1MJ15xEW03F4DUXcyd6hNHECAgACPbxD//4EoAIAAsNJQ
-Date: Wed, 18 Mar 2020 06:07:22 +0000
-Message-ID: <8ffd32c6b52b4684bdcdd45f095f38b2@realtek.com>
-References: <20200317073308.11572-1-shumingf@realtek.com>
- <ac2e133b-b68c-025e-cb42-8e061abf9744@linux.intel.com>
- <ca4f69fee72243c9a1b0ac55247cbdb7@realtek.com>
- <2dc0887c-b86f-0f76-2107-bd7978e7a204@linux.intel.com>
-In-Reply-To: <2dc0887c-b86f-0f76-2107-bd7978e7a204@linux.intel.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.22.237.102]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6E355F800B7
+ for <alsa-devel@alsa-project.org>; Wed, 18 Mar 2020 07:22:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E355F800B7
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="dDYk9G2C"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="VR1i8a1v"
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.nyi.internal (Postfix) with ESMTP id 0E4A25C0118;
+ Wed, 18 Mar 2020 02:22:36 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Wed, 18 Mar 2020 02:22:36 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm1; bh=3Fy9avsuXKUYcmccofl6Ea0WtbW
+ Y/XlQ1vnEAoRT+jU=; b=dDYk9G2CDkzEQuUP9Q0/A4P+z5ekN065qEvuorm6eBy
+ rgQp9f2ZXuz83RkWDTH3tVvvb4bytXOQvj3RdvEqrFdkjNaXcZFH9qoz0p5xi6V/
+ dtjfPqDtiB/Wqri4c1CCgKxXTUwKF/kehpEEQw8STpDjy5nevLcv625EF1qdix3i
+ eVykcEz3ootQGqAspZcp9TSpGgDQqPHtVANjzaPjPE6i8vrsRC/QDA8t0hc7AGgj
+ Eg8c+vYEfwPnv4l4MO7Xa96vFYDwmpHniaqQZM6CxGBx4yPjfLIdYPJgEU1NjljR
+ y9M4wqIL2lCjVjTV1kqrk6UfkhzQKX/CfbGM5jAxLgg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=3Fy9av
+ suXKUYcmccofl6Ea0WtbWY/XlQ1vnEAoRT+jU=; b=VR1i8a1vDfCEf21bWXsn+L
+ Z+dnvoXwifZ5fUxMzyQTwafc2BDX28aEqLAyL9z0s/Sjz3bvm4M/gQdtUXycqQu2
+ KJ3fGcwYD99WOvA1/SWOu9eQWVP7rIUv4t5KMw7Qf4wukz82WjoMoN0F/UgdEeEy
+ wEEzNQVplbr80hE6nUcQ7hHDHmx/o1je4OAGi/5UszC/2xi9fdQgj8N6AmM/7KOV
+ qCOd2KTNVzThrsSIuSQDgmClhIcFjJf2jWfgmu2TFcwauXl6nmwItVwLZQDV59j+
+ XXa1W/PJG27j7BW7AQMT/uT0vV2fZJ3pxmfSa7fgxra2FhuHMU2pNdzWti82klEg
+ ==
+X-ME-Sender: <xms:K75xXo-bhgJrF4re9ri9hS2GOA4ulLf9iVSLIT2sbVMceCVXoHretw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrudefiedgledtucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkfhggtggujggfsehttd
+ ertddtredvnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghk
+ rghshhhisehsrghkrghmohgttghhihdrjhhpqeenucffohhmrghinhepghhithhhuhgsrd
+ gtohhmnecukfhppedugedrfedrjeegrdduieeknecuvehluhhsthgvrhfuihiivgeptden
+ ucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthh
+ hirdhjph
+X-ME-Proxy: <xmx:K75xXiTzlJ_9y0kBvLaApXgl6NzmMT1jLgQe_NTJRzZOhjpNlDkaFA>
+ <xmx:K75xXtR0mGhiARvF7xR5leqN-laTCftYKjA_Gg76SREnj-UHrx1wIw>
+ <xmx:K75xXu4HTzj8FBDppWyefyPRTBiRt8NEsBGx0WB8gpbhGFFaq80e-A>
+ <xmx:LL5xXlOz_mnKMSkzuovH_3aMB42kbFpYW-f8NuCgoxFKOZVj-8ymdQ>
+Received: from workstation (ae074168.dynamic.ppp.asahi-net.or.jp [14.3.74.168])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 10D37328005D;
+ Wed, 18 Mar 2020 02:22:33 -0400 (EDT)
+Date: Wed, 18 Mar 2020 15:22:31 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Mathias Buhr <napcode@apparatus.de>
+Subject: Re: snd_dice: Clicking artifacts with TC StudioKonnekt 48
+Message-ID: <20200318062230.GA7323@workstation>
+Mail-Followup-To: Mathias Buhr <napcode@apparatus.de>,
+ alsa-devel@alsa-project.org
+References: <921a3b13-b44e-3300-bb72-84cbc9e3dd88@apparatus.de>
+ <20200222012510.GA4883@laptop>
+ <e29617da-9d34-c99f-f425-5d2aef59b623@apparatus.de>
+ <20200224002031.GA10405@laptop>
+ <3b42e75b-07ec-9dd4-b399-dbad30afc5a4@apparatus.de>
 MIME-Version: 1.0
-Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>,
- =?utf-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
- "sathya.prakash.m.r@intel.com" <sathya.prakash.m.r@intel.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3b42e75b-07ec-9dd4-b399-dbad30afc5a4@apparatus.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,75 +116,100 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-DQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBLZXlvbiBKaWUgPHlhbmcuamll
-QGxpbnV4LmludGVsLmNvbT4gDQpTZW50OiBXZWRuZXNkYXksIE1hcmNoIDE4LCAyMDIwIDExOjMx
-IEFNDQpUbzogQWxiZXJ0IENoZW4gPGFsYmVydGNoZW5AcmVhbHRlay5jb20+OyBTaHVtaW5nIFvo
-jIPmm7jpiphdIDxzaHVtaW5nZkByZWFsdGVrLmNvbT47IGJyb29uaWVAa2VybmVsLm9yZzsgbGdp
-cmR3b29kQGdtYWlsLmNvbQ0KQ2M6IE9kZXIgQ2hpb3UgPG9kZXJfY2hpb3VAcmVhbHRlay5jb20+
-OyBKYWNrIFl1IDxqYWNrLnl1QHJlYWx0ZWsuY29tPjsgYWxzYS1kZXZlbEBhbHNhLXByb2plY3Qu
-b3JnOyBsYXJzQG1ldGFmb28uZGU7IERlcmVrIFvmlrnlvrfnvqldIDxkZXJlay5mYW5nQHJlYWx0
-ZWsuY29tPjsgc2F0aHlhLnByYWthc2gubS5yQGludGVsLmNvbTsgRmxvdmUoSHNpbkZ1KSA8Zmxv
-dmVAcmVhbHRlay5jb20+DQpTdWJqZWN0OiBSZTogW1BBVENIIDEvMl0gQVNvQzogcnQ1NjgyOiBm
-aXggdGhlIHJhbmRvbSByZWNvcmRpbmcgbm9pc2Ugb2YgaGVhZHNldA0KDQoNCk9uIDMvMTgvMjAg
-MTE6MDYgQU0sIEFsYmVydCBDaGVuIHdyb3RlOg0KPiBEZWFyIFNpciwNCj4gDQo+IElubGluZS4N
-Cj4gDQo+IFRoYW5rcywNCj4gQWxiZXJ0DQo+IA0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0t
-LQ0KPiBGcm9tOiBLZXlvbiBKaWUgPHlhbmcuamllQGxpbnV4LmludGVsLmNvbT4NCj4gU2VudDog
-V2VkbmVzZGF5LCBNYXJjaCAxOCwgMjAyMCAxMDozMiBBTQ0KPiBUbzogU2h1bWluZyBb6IyD5pu4
-6YqYXSA8c2h1bWluZ2ZAcmVhbHRlay5jb20+OyBicm9vbmllQGtlcm5lbC5vcmc7IA0KPiBsZ2ly
-ZHdvb2RAZ21haWwuY29tDQo+IENjOiBPZGVyIENoaW91IDxvZGVyX2NoaW91QHJlYWx0ZWsuY29t
-PjsgSmFjayBZdSANCj4gPGphY2sueXVAcmVhbHRlay5jb20+OyBhbHNhLWRldmVsQGFsc2EtcHJv
-amVjdC5vcmc7IGxhcnNAbWV0YWZvby5kZTsgDQo+IEFsYmVydCBDaGVuIDxhbGJlcnRjaGVuQHJl
-YWx0ZWsuY29tPjsgRGVyZWsgW+aWueW+t+e+qV0gDQo+IDxkZXJlay5mYW5nQHJlYWx0ZWsuY29t
-Pjsgc2F0aHlhLnByYWthc2gubS5yQGludGVsLmNvbTsgRmxvdmUoSHNpbkZ1KSANCj4gPGZsb3Zl
-QHJlYWx0ZWsuY29tPg0KPiBTdWJqZWN0OiBSZTogW1BBVENIIDEvMl0gQVNvQzogcnQ1NjgyOiBm
-aXggdGhlIHJhbmRvbSByZWNvcmRpbmcgbm9pc2UgDQo+IG9mIGhlYWRzZXQNCj4gDQo+IE9uIDMv
-MTcvMjAgMzozMyBQTSwgc2h1bWluZ2ZAcmVhbHRlay5jb20gd3JvdGU6DQo+PiBGcm9tOiBTaHVt
-aW5nIEZhbiA8c2h1bWluZ2ZAcmVhbHRlay5jb20+DQo+Pg0KPj4gVGhlIGN5Y2xlIHRpbWUgb2Yg
-RklGTyBjbG9jayBzaG91bGQgaW5jcmVhc2UgMiB0aW1lcyB0byBhdm9pZCB0aGUgDQo+PiByYW5k
-b20gcmVjb3JkaW5nIG5vaXNlIGlzc3VlLg0KPj4gVGhpcyBzZXR0aW5nIGNvdWxkIGFwcGx5IHRv
-IGFsbCBrbm93biBzaXR1YXRpb25zIGluIGkycyBtb2RlLg0KPiANCj4gVGhhbmtzIGZvciBmaXhp
-bmcgdGhpcyBTaHVtaW5nLg0KPiANCj4gSnVzdCB0cnkgdG8gdW5kZXJzdGFuZCB3aGF0IGhhcyBo
-YXBwZW5lZC4NCj4gDQo+IENhbiB5b3UgaGVscCBzaGFyZSBtb3JlIGRldGFpbHMgYWJvdXQgaXQs
-IGUuZy4NCj4gMS4gdGhlIHJlY29yZGluZyBub2lzZSBoYXBwZW5lZCBvbiBoZWFkc2V0IG1pYyBv
-ciBkbWljPw0KPiA8QWxiZXJ0PiBIZWFkc2V0IE1pYw0KPiAyLiB3aWxsIHRoaXMgY2hhbmdlIGlt
-cGFjdCB0aGUgbWljcm9waG9uZSBzYW1wbGluZyBjbG9jaywgb3IgdGhlIEJDTEsgdGhhdCBvZiB0
-aGUgSTJTIGJjbGsgcGluPw0KPiA8QWxiZXJ0PiBOby4NCj4gMy4gd2l0aG91dCB0aGlzIGNoYW5n
-ZSwgd2h5IHRoZSBjbGsgaXMgd3JvbmcsIHNvbWUgZXhhbXBsZT8NCj4gPEFsYmVydD4gT25seSBh
-ZGp1c3QgRklGTyBidWZmZXIgc2V0dGluZy4NCg0KV2hlcmUgaXMgdGhlIEZJRk8gYnVmZmVyIHlv
-dSBtZW50aW9uZWQgbG9jYXRlZD8gSXMgaXQgaW5jbHVkZWQgaW4gdGhlIHBhdGggImhlYWRzZXQg
-bWljIEFEQy0tKGxvb3BiYWNrKS0tPkFEQyBoZWFkcGhvbmUiPw0KPEFsYmVydD4gSTJTIGludGVy
-ZmFjZS4NCg0KVGhlIGlzc3VlIHdhcyByZXBvcnRlZCB0byBJbnRlbCBhbHNvLCB0aGF0J3Mgd2h5
-IEkgYW0gcXVlcnlpbmcgdGhpcyBoZXJlLg0KDQpGcm9tIHByZXZpb3VzIGZlZWRiYWNrLCBTaHVt
-aW5nIHNoYXJlZCB0aGF0IHRoZSBsb29wYmFjayBwYXRoIG1lbnRpb25lZCBhYm92ZSBkb24ndCBo
-YXZlIHRoaXMgcmFuZG9tIG5vaXNlIGlzc3VlLg0KDQo8QWxiZXJ0PlRoZXNlIGFyZSBoYXZlIHRv
-dGFsIHR3byByZWNvcmRpbmcgcmFuZG9tIG5vaXNlIGlzc3Vlcywgb25lIGlzIHRoZSBQQ0IgdHJh
-Y2UgZGVzaWduIGFuZCBhbm90aGVyIGlzIENvZGVjIHNldHRpbmcsIE91ciBwcmV2aW91cyByZXBv
-cnRlZCBpcyBQQ0IgdHJhY2UgY2F1c2Ugbm9pc2UuIA0KDQpUaGFua3MsDQp+S2V5b24NCg0KPiAN
-Cj4gVGhhbmtzLA0KPiB+S2V5b24NCj4gDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogU2h1bWluZyBG
-YW4gPHNodW1pbmdmQHJlYWx0ZWsuY29tPg0KPj4gLS0tDQo+PiAgICBzb3VuZC9zb2MvY29kZWNz
-L3J0NTY4Mi5jIHwgMiArKw0KPj4gICAgc291bmQvc29jL2NvZGVjcy9ydDU2ODIuaCB8IDIgKysN
-Cj4+ICAgIDIgZmlsZXMgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspDQo+Pg0KPj4gZGlmZiAtLWdp
-dCBhL3NvdW5kL3NvYy9jb2RlY3MvcnQ1NjgyLmMgYi9zb3VuZC9zb2MvY29kZWNzL3J0NTY4Mi5j
-IA0KPj4gaW5kZXggN2NhMDJhNWU1MmU5Li4wMjNiYzY3MjI3NGIgMTAwNjQ0DQo+PiAtLS0gYS9z
-b3VuZC9zb2MvY29kZWNzL3J0NTY4Mi5jDQo+PiArKysgYi9zb3VuZC9zb2MvY29kZWNzL3J0NTY4
-Mi5jDQo+PiBAQCAtMzY0Myw2ICszNjQzLDggQEAgc3RhdGljIGludCBydDU2ODJfaTJjX3Byb2Jl
-KHN0cnVjdCBpMmNfY2xpZW50ICppMmMsDQo+PiAgICAJCQlSVDU2ODJfQ1BfQ0xLX0hQX01BU0ss
-IFJUNTY4Ml9DUF9DTEtfSFBfMzAwS0haKTsNCj4+ICAgIAlyZWdtYXBfdXBkYXRlX2JpdHMocnQ1
-NjgyLT5yZWdtYXAsIFJUNTY4Ml9IUF9DSEFSR0VfUFVNUF8xLA0KPj4gICAgCQkJUlQ1NjgyX1BN
-X0hQX01BU0ssIFJUNTY4Ml9QTV9IUF9IVik7DQo+PiArCXJlZ21hcF91cGRhdGVfYml0cyhydDU2
-ODItPnJlZ21hcCwgUlQ1NjgyX0RNSUNfQ1RSTF8xLA0KPj4gKwkJCVJUNTY4Ml9GSUZPX0NMS19E
-SVZfTUFTSywgUlQ1NjgyX0ZJRk9fQ0xLX0RJVl8yKTsNCj4+ICAgIA0KPj4gICAgCUlOSVRfREVM
-QVlFRF9XT1JLKCZydDU2ODItPmphY2tfZGV0ZWN0X3dvcmssDQo+PiAgICAJCQkJcnQ1NjgyX2ph
-Y2tfZGV0ZWN0X2hhbmRsZXIpOw0KPj4gZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9jb2RlY3MvcnQ1
-NjgyLmggYi9zb3VuZC9zb2MvY29kZWNzL3J0NTY4Mi5oIA0KPj4gaW5kZXggNDNkZTZlODAyMzA5
-Li4wYmFlZWNlODRlYzQgMTAwNjQ0DQo+PiAtLS0gYS9zb3VuZC9zb2MvY29kZWNzL3J0NTY4Mi5o
-DQo+PiArKysgYi9zb3VuZC9zb2MvY29kZWNzL3J0NTY4Mi5oDQo+PiBAQCAtNjU3LDYgKzY1Nyw4
-IEBADQo+PiAgICAjZGVmaW5lIFJUNTY4Ml9ETUlDXzFfRU5fU0ZUCQkJMTUNCj4+ICAgICNkZWZp
-bmUgUlQ1NjgyX0RNSUNfMV9ESVMJCQkoMHgwIDw8IDE1KQ0KPj4gICAgI2RlZmluZSBSVDU2ODJf
-RE1JQ18xX0VOCQkJKDB4MSA8PCAxNSkNCj4+ICsjZGVmaW5lIFJUNTY4Ml9GSUZPX0NMS19ESVZf
-TUFTSwkJKDB4NyA8PCAxMikNCj4+ICsjZGVmaW5lIFJUNTY4Ml9GSUZPX0NMS19ESVZfMgkJCSgw
-eDEgPDwgMTIpDQo+PiAgICAjZGVmaW5lIFJUNTY4Ml9ETUlDXzFfRFBfTUFTSwkJCSgweDMgPDwg
-NCkNCj4+ICAgICNkZWZpbmUgUlQ1NjgyX0RNSUNfMV9EUF9TRlQJCQk0DQo+PiAgICAjZGVmaW5l
-IFJUNTY4Ml9ETUlDXzFfRFBfR1BJTzIJCQkoMHgwIDw8IDQpDQo+Pg0KPiANCj4gLS0tLS0tUGxl
-YXNlIGNvbnNpZGVyIHRoZSBlbnZpcm9ubWVudCBiZWZvcmUgcHJpbnRpbmcgdGhpcyBlLW1haWwu
-DQo+IA0K
+Hi,
+
+On Wed, Feb 26, 2020 at 01:51:53PM +0100, Mathias Buhr wrote:
+> On 24.02.20 01:20, Takashi Sakamoto wrote:
+> > Hi,
+> >
+> > On Sat, Feb 22, 2020 at 05:49:29PM +0100, Mathias Buhr wrote:
+> >> Thanks for your reply Takashi! It clarifies the situation. I'lll stick
+> >> with ffado then.
+> >>
+> >> Regards,
+> >>
+> >> Mathias
+> > Both of libffado2 and ALSA dice driver have problems for each, but it's
+> > a convenient option for users of Dice-based devices to use the former,
+> > at present. I've been improved ALSA dice driver for years with the other
+> > drivers, but it doesn't bring so hasty changes since it's a kind of
+> > reverse-engineering; no one knows the actual design and few ones can
+> > make discussion based on the fact.
+> >
+> >
+> > Well, I also own TC Electronic Sudio Konnekt 48 and I've investigated
+> > its protocol to configure I/O routings on internal DSP. After my
+> > vacation, I'll send information about it for your convenience
+> > (maybe next week).
+> >
+> >
+> > Regards
+> >
+> > Takashi Sakamoto
+> 
+> Thanks Takashi! I'd appreciate that!
+
+This is my memo about the part of configuration in this model
+for analog I/O:
+
+Addr: 0x'ffff'e0a0'13dc
+Offset: quadlet: target
+- 0x00: 00 00 00 00:
+- 0x04: ff ff fc 18:
+- 0x08: ff ff fd a8:
+- 0x0c: 00 00 00 00:
+- 0x10: 00 00 00 01:
+- 0x14: 00 00 00 37: main out L source
+- 0x18: 00 00 00 00:
+- 0x1c: 00 00 00 00:
+- 0x20: 00 00 00 38: main out R source
+- 0x24: 00 00 00 00:
+- 0x28: 00 00 00 00:
+- 0x2c: 00 00 00 01:
+- 0x30: 00 00 00 37: phones 1 source
+- 0x34: 00 00 00 00:
+- 0x38: 00 00 00 00:
+- 0x3c: 00 00 00 38: phones 2 source
+- 0x40: 00 00 00 00:
+- 0x44: 00 00 00 00:
+- 0x48: 00 00 00 01:
+- 0x4c: 00 00 00 37: line 5 source
+- 0x50: 00 00 00 00:
+- 0x54: 00 00 00 00:
+- 0x58: 00 00 00 5a: line 6 source
+- 0x5c: 00 00 00 00:
+- 0x60: 00 00 00 00:
+- 0x64: 00 00 00 01:
+- 0x68: 00 00 00 3d: line 7 source
+- 0x6c: 00 00 00 00:
+- 0x70: 00 00 00 00:
+- 0x74: 00 00 00 3e: line 8 source
+Values:
+- Unused: unused
+- Mic/Inst/Line input:0x01-0x0c
+- S/PDIF input:       0x0d/0x0e
+- ADAT input:         0x0f-0x16
+- Stream input:       0x37-0x4e
+- Mixer output:       0x55/0x56
+- Aux 1 output:       0x57/0x58
+- Aux 2 output:       0x59/0x5a
+- Reverb output:      0x5b/0x5c
+
+You can configure your device by 'firewire-request' command in
+'linux-firewire-utils' repository.
+https://github.com/cladisch/linux-firewire-utils
+
+For example, when switching source of main out L from stream-1 to
+mic/inst/line input 1:
+$ printf %x $((0xffffe0a013dc + 0x14))
+0xffffe0a013f0
+$ ./firewire-request /dev/fw1 read 0xffffe0a013f0
+result: 00000037
+$ ./firewire-request /dev/fw1 write 0xffffe0a013f0 0x00000001
+$ ./firewire-request /dev/fw1 read 0xffffe0a013f0
+result: 00000001
+
+
+Regards
+
+Takashi Sakamoto

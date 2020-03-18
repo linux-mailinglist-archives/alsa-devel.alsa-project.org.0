@@ -2,98 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47E5018A009
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Mar 2020 16:59:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7CDA18A073
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Mar 2020 17:24:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CB6C31743;
-	Wed, 18 Mar 2020 16:58:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB6C31743
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2375B1746;
+	Wed, 18 Mar 2020 17:23:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2375B1746
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584547169;
-	bh=EJ0w2Vo0Ldj8C/gZ2o+Ec++5xE+ir/UoKopkHKmE76A=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1584548682;
+	bh=Tyqcm3xiiiT+cEf78Vev5jTW/skU9g1lOSzdAma3reU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=H6wCtTHNiSHCCvckQQevhtttcwlzxsUDX1kMM0vmGOoTaEexKH76zEQmUDr3PdiBN
-	 RQCG/GU/AQhd6t1Nscycqs2xPLfBg17prSd7oplUSPjaW1k7Sw5RKs8+KtkaIuFk7G
-	 /hkut1kT2WimkQ8iViiQPIaRMHr1nObX3Zge8L0c=
+	b=jyHCRadi1cGn1kvFLNLznfT54SSO2kYU5/tzhBHnZVtJrwZQKZki1MnWfDfwGL78U
+	 EzgPjTNujOAYTyYXMcgmNz5DzC7i3OBxwb4BFPSnJ5QKISYhq42Tig2OKxNt7hzSAY
+	 y5sMjuSdPHL+ZT2NYkmYCPJfgSsp85G5AIr0gTVk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B2A47F8015B;
-	Wed, 18 Mar 2020 16:57:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA534F800C0;
+	Wed, 18 Mar 2020 17:23:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 83724F80139; Wed, 18 Mar 2020 16:57:46 +0100 (CET)
+ id 75E44F80139; Wed, 18 Mar 2020 17:22:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from isilmar-4.linta.de (isilmar-4.linta.de [136.243.71.142])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CD80EF80058
- for <alsa-devel@alsa-project.org>; Wed, 18 Mar 2020 16:57:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD80EF80058
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="L28rlUPx"
-Received: by mail-wr1-x441.google.com with SMTP id h9so2294677wrc.8
- for <alsa-devel@alsa-project.org>; Wed, 18 Mar 2020 08:57:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=WKs9IgnQjzOcey+yQmdz8NYqXjD7ApUhbxNTTHxXd2g=;
- b=L28rlUPx3+TpmA+orVyq6GD2PU1T/wM4SozCe9wCtz2g1xoXdbyk4OJJ+6J1n781Eb
- dr2y4h2+RXwrwe6flAUJt9VItB9pqnMYLBtpW3S7b/LguF+ylK3rEAZkIO+VNbiHxaXx
- 1sYHVX/U4w2gtxkDKU99iDO6NBLnx+qr6Z/ZrAOBEpnjjDui5+Hm8OcvZvzLDOEi0FQF
- KuodKzde6MH+iNwZtXU6ClTVw6vsdU9SUW4fHe7cHCm+iKhYRS44N7QeevaWsTGz3mEc
- +leQoJ3D+tP+fe5kn0kS2re2nZ92mlwO8xXUaOcUcNNhsYRW7iS+W8K0ZgZ8CwwtbPiz
- rr7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=WKs9IgnQjzOcey+yQmdz8NYqXjD7ApUhbxNTTHxXd2g=;
- b=lVmPbYywRbLL+7y863+uwoYgIxntk8UNxNEBD8/a2yZt2sX/VvU7znasY8hrWqIIux
- LJ0eQdcCpW2FQ4SVfUkitjZvSSWM97gB8g8HAbLXlffglNja7qpp4eqmpUP2supPKFrK
- GAHhqnyynzpDjoBKKAAg5dtbntbHe3Oia6v9U6vrkKxxkQTQ4PrCRcgt/phXXPJvB52E
- pV5CV260nwtYlyWg4VJERWbuwj9cSqgqJcLtDr0uiOb+ZLXKDhTMrkuDjKP6FKaotBVD
- bfDWEhqAmiJSPD3Pl2TDya/9ypjiS7ILs+MPolkvr5FalOsM5gloC3z+WL1/SntJRmRw
- SZRw==
-X-Gm-Message-State: ANhLgQ0ACx++ewZiECLpwAGJcMTryAx+gWksxoR0AW7uSzdzRpmpOcy0
- 6YOA9FXk1gZguVF0K7KTUd5KSQ==
-X-Google-Smtp-Source: ADFU+vuoc90UFHCUoDzgGQkfj86K1CIpUWNNiBDamxA0TmJ2Xr8zId8gD3etAN/dAO1s4yZb9viTXA==
-X-Received: by 2002:a5d:474b:: with SMTP id o11mr5981930wrs.4.1584547060995;
- Wed, 18 Mar 2020 08:57:40 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.googlemail.com with ESMTPSA id f9sm10057253wro.47.2020.03.18.08.57.38
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 18 Mar 2020 08:57:39 -0700 (PDT)
-Subject: Re: [PATCH 1/2] ASoC: qcom: sdm845: handle soundwire stream
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org
-References: <20200317095351.15582-1-srinivas.kandagatla@linaro.org>
- <20200317095351.15582-2-srinivas.kandagatla@linaro.org>
- <8daeeb26-851b-8311-30f5-5d285ccbc255@linux.intel.com>
- <69c72f5a-e72e-b7b3-90cb-a7354dcb175d@linaro.org>
- <cbc6cc9b-24f5-8c2a-b60d-b5dab08c128e@linux.intel.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <fcf845bd-9803-ab04-d2a9-c258ddfcc972@linaro.org>
-Date: Wed, 18 Mar 2020 15:57:38 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 955EFF800C0
+ for <alsa-devel@alsa-project.org>; Wed, 18 Mar 2020 17:22:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 955EFF800C0
+X-isilmar-external: YES
+X-isilmar-external: YES
+X-isilmar-external: YES
+X-isilmar-external: YES
+X-isilmar-external: YES
+X-isilmar-external: YES
+X-isilmar-external: YES
+X-isilmar-external: YES
+X-isilmar-external: YES
+Received: from light.dominikbrodowski.net (brodo.linta [10.1.0.102])
+ by isilmar-4.linta.de (Postfix) with ESMTPSA id 65537200B32;
+ Wed, 18 Mar 2020 16:22:50 +0000 (UTC)
+Received: by light.dominikbrodowski.net (Postfix, from userid 1000)
+ id 4EC3B20B1B; Wed, 18 Mar 2020 17:20:29 +0100 (CET)
+Date: Wed, 18 Mar 2020 17:20:29 +0100
+From: Dominik Brodowski <linux@dominikbrodowski.net>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: snd_hda_intel/sst-acpi sound breakage on suspend/resume since
+ 5.6-rc1
+Message-ID: <20200318162029.GA3999@light.dominikbrodowski.net>
+References: <20200318063022.GA116342@light.dominikbrodowski.net>
+ <41d0b2b5-6014-6fab-b6a2-7a7dbc4fe020@linux.intel.com>
+ <20200318123930.GA2433@light.dominikbrodowski.net>
+ <d7a357c5-54af-3e69-771c-d7ea83c6fbb7@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <cbc6cc9b-24f5-8c2a-b60d-b5dab08c128e@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, vkoul@kernel.org,
- lgirdwood@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d7a357c5-54af-3e69-771c-d7ea83c6fbb7@linux.intel.com>
+Cc: cezary.rojewski@intel.com, alsa-devel@alsa-project.org, curtis@malainey.com,
+ Keyon Jie <yang.jie@linux.intel.com>, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, liam.r.girdwood@linux.intel.com,
+ broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,43 +83,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 18/03/2020 15:26, Pierre-Louis Bossart wrote:
+On Wed, Mar 18, 2020 at 10:13:54AM -0500, Pierre-Louis Bossart wrote:
 > 
-> Same comment, how does the notion of cpu_dai come in the picture for a 
-> SoundWire dailink?
-> Would you mind listing what the components of the dailinks are?
+> 
+> > > > While 5.5.x works fine, mainline as of ac309e7744be (v5.6-rc6+) causes me
+> > > > some sound-related trouble: after boot, the sound works fine -- but once I
+> > > > suspend and resume my broadwell-based XPS13, I need to switch to headphone
+> > > > and back to speaker to hear something. But what I hear isn't music but
+> > > > garbled output.
+> 
+> It's my understanding that the use of the haswell driver is opt-in for Dell
+> XPS13 9343. When we run the SOF driver on this device, we have to explicitly
+> bypass an ACPI quirk that forces HDAudio to be used:
+> 
+> https://github.com/thesofproject/linux/commit/944b6a2d620a556424ed4195c8428485fcb6c2bd
+> 
+> Have you tried to run in plain vanilla HDAudio mode?
 
-dais that I was referring here are all codec dais from backend-dai.
+I had (see 18d78b64fddc), but not any more in years (and I'd like to keep
+using I2S, which has worked flawlessly in these years).
 
-Device tree entries from
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/arch/arm64/boot/dts/qcom/sdm845-db845c.dts?h=next-20200318#n538
-
-
-Frontend-dai:
-	mm1-dai-link {
-		link-name = "MultiMedia1";
-		cpu {
-			sound-dai = <&q6asmdai  MSM_FRONTEND_DAI_MULTIMEDIA1>;
-		};
-	};
-
-Backend-dai:
-	slim-dai-link {
-		link-name = "SLIM Playback";
-		cpu {
-			sound-dai = <&q6afedai SLIMBUS_0_RX>;
-		};
-
-		platform {
-			sound-dai = <&q6routing>;
-		};
-
-		codec {
-			sound-dai =  <&left_spkr>, <&right_spkr>, <&swm 0>, <&wcd9340 0>;
-		};
-	};
-
-
---srini
+Thanks,
+	Dominik

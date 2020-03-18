@@ -2,88 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C24D8189F90
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Mar 2020 16:24:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8419E189FA7
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Mar 2020 16:30:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C491173B;
-	Wed, 18 Mar 2020 16:24:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C491173B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A6B21738;
+	Wed, 18 Mar 2020 16:29:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A6B21738
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584545095;
-	bh=X1xJp2U+XF/Ds7WnH+SkpcFPDq8q0cFM4we4fyAG6ow=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1584545415;
+	bh=GwaKzoDx+9hnrPQKhyO7A9KQ239EqlMsYx+OlG2Dr+c=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=q5qZ4yQZoCxpW/bIKMlsIFOQ2Lfmcj7VeRgzFBtJafwIgZgkl3zqGdPeMBXnWjpxP
-	 AeG4fC+NJVgPDmBSlyOEZDuXF6uC/S+qyVf8wI+37uxGXDnIKU9/ZKhX72Q4ZGgdZo
-	 SUNuAA0itnMRHvV8ZhObrBsPY3fnjLazITqeEEyA=
+	b=p4eN+I0E/az7FkLIhuYLC/lJc5fz7G684hKgDtDy9zDOopKL0PVE4pRTrN+ZAUkLJ
+	 1GGftWq9yMWzdYdApxre72AUulvT9/F47s+AbtY41ng5kDao8Z0xorrOowlBPaFnrR
+	 HlAYivqyIORc5x+lOaT8/49BHpN+UxxYv32vfXoM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D496F800B7;
-	Wed, 18 Mar 2020 16:23:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CBC56F8015B;
+	Wed, 18 Mar 2020 16:28:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B1A2F80139; Wed, 18 Mar 2020 16:23:12 +0100 (CET)
+ id 90782F8015B; Wed, 18 Mar 2020 16:28:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
- [IPv6:2607:f8b0:4864:20::d42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E40E8F800B7
- for <alsa-devel@alsa-project.org>; Wed, 18 Mar 2020 16:23:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E40E8F800B7
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="IbZa3Ww/"
-Received: by mail-io1-xd42.google.com with SMTP id h131so25396714iof.1
- for <alsa-devel@alsa-project.org>; Wed, 18 Mar 2020 08:23:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=rqFGLVExt3dIjBkYFIMsCNrJKg4II79dxavgpwJIkxY=;
- b=IbZa3Ww/oXVTB60+GBf9vcBIuAUOmKqx87OcH9XRvhu+sCJQ4K+0URRJxNYVRrxaAd
- 9gdKSAhm4JMf4jWTTqUsJaeijodjwz7bXXRsdNVP37gk4CRuh5QeDLSMcl0/tzhYes6U
- FB6q/p9mfpU1oK5zSGgtbaaGVARVrRbiRXAfYLmWibFjZJ6WQgCmjFJKu5Piks1eFJuO
- FQz8m3Ec6QbhPWyn58KU0ap4llR5Lf/QGKxCSPQ/AEty0bFhGijuhVsk5zEu5YM5rcaD
- ocuXDs512NpVLsmDFbkCoqFyQ62RYyixs4wQQ7nBND5cvUBm9x5jTvWMQptTVjZXMG+5
- VPyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=rqFGLVExt3dIjBkYFIMsCNrJKg4II79dxavgpwJIkxY=;
- b=RYo8YBCRMKI0YJr0EhWM3yFitBMELXOQ/j+xYRCFnLLxeXyJHDwbTDUAaSy9fwGiKI
- FV1Va+pkG4nGUxR71md7WcJWpPNxOtpjBqmmDPy0yz2baFn8M73R05oOITsBKsIyePGj
- zkfhAlP6ZM4mXp22WtAww+O+SVPhgu6/xm+6Z1lnA9YtNdFNEnnLX786el1gqpzLUWij
- //kPaBfARJ0nA/4mWULo9SWTwzZhN47VAWNoa+IFXOFTTBHzgabU3S12RfaixuLKfdSm
- TawJOKkwCyGXBdBqvmfbx8TxHB3pbtHT6bk5zy5plrAsXQrrqooajWFmLszvY5apElgt
- G7VQ==
-X-Gm-Message-State: ANhLgQ1scFyZeecFsvBusiPpRL0wzBleHBHZfzaof9fg5IFqtG8Kd33Y
- XQ+2ck6TGO1hsPrdrLJjnHTpT/x9/mkQHjZOYv3V6A==
-X-Google-Smtp-Source: ADFU+vtZPRraKh57/unjy33wEf03ixNzzc2F2s4A3ZKzN4DnovZjVtCmrjsgOO8Uci8zW4dson2Sz6oTy6z+8lUQRcM=
-X-Received: by 2002:a6b:c9d2:: with SMTP id z201mr4212004iof.169.1584544986590; 
- Wed, 18 Mar 2020 08:23:06 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E641DF800B7
+ for <alsa-devel@alsa-project.org>; Wed, 18 Mar 2020 16:28:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E641DF800B7
+IronPort-SDR: tuVw3/FaT52ivTdXK1JioBklj7lEYLkwncBH/eEqFGlOTLHmECoA2LgnEdCM8+mnO235+TRO+A
+ oPDkjd00PHog==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Mar 2020 08:28:25 -0700
+IronPort-SDR: G42k5j9C+Udeti2e8o0QxUDv4p9YSyXsUyVWRcMeC8ssQM82hCw3eerjprY4E8Jg44CfvLbpHS
+ NC3hIwhi0zZg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,568,1574150400"; d="scan'208";a="417985195"
+Received: from nali1-mobl3.amr.corp.intel.com (HELO [10.255.33.194])
+ ([10.255.33.194])
+ by orsmga005.jf.intel.com with ESMTP; 18 Mar 2020 08:28:24 -0700
+Subject: Re: [PATCH 1/2] ASoC: qcom: sdm845: handle soundwire stream
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, broonie@kernel.org
+References: <20200317095351.15582-1-srinivas.kandagatla@linaro.org>
+ <20200317095351.15582-2-srinivas.kandagatla@linaro.org>
+ <8daeeb26-851b-8311-30f5-5d285ccbc255@linux.intel.com>
+ <69c72f5a-e72e-b7b3-90cb-a7354dcb175d@linaro.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <cbc6cc9b-24f5-8c2a-b60d-b5dab08c128e@linux.intel.com>
+Date: Wed, 18 Mar 2020 10:26:47 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-References: <20200317073321.12660-1-shumingf@realtek.com>
-In-Reply-To: <20200317073321.12660-1-shumingf@realtek.com>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Wed, 18 Mar 2020 23:22:47 +0800
-Message-ID: <CA+Px+wUeaARQdGXc=x3jNZJvOsF3bSWnaXMPh-Kmji0QCK=oPg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] ASoC: rt5682: remove noisy debug messages
-To: =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com,
- ALSA development <alsa-devel@alsa-project.org>, lars@metafoo.de,
- Liam Girdwood <lgirdwood@gmail.com>, Albert Chen <albertchen@realtek.com>,
- Mark Brown <broonie@kernel.org>, derek.fang@realtek.com, "M R,
- Sathya Prakash" <sathya.prakash.m.r@intel.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>
+In-Reply-To: <69c72f5a-e72e-b7b3-90cb-a7354dcb175d@linaro.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, vkoul@kernel.org,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,22 +83,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Mar 17, 2020 at 3:35 PM <shumingf@realtek.com> wrote:
-> Some debug messages are too noisy.
-> This patch removes it.
 
-Suggest to use other words.  For example, title: "ASoC: rt5682: make
-output message less verbose"; message: "Makes output message less
-verbose by reducing the log severity".
 
->         for (i = 0; i < size - 1; i++) {
-> -               pr_info("div[%d]=%d\n", i, div[i]);
-> +               dev_dbg(rt5682->component->dev, "div[%d]=%d\n", i, div[i]);
->                 if (target * div[i] == rt5682->sysclk)
->                         return i;
->                 if (target * div[i + 1] > rt5682->sysclk) {
-> -                       pr_err("can't find div for sysclk %d\n",
-> +                       dev_dbg(rt5682->component->dev, "can't find div for sysclk %d\n",
->                                 rt5682->sysclk);
+>>>       for_each_rtd_codec_dais(rtd, i, codec_dai) {
+>>> +        sruntime = snd_soc_dai_get_sdw_stream(codec_dai,
+>>> +                              substream->stream);
+>>> +        if (sruntime != ERR_PTR(-ENOTSUPP))
+>>> +            pdata->sruntime[cpu_dai->id] = sruntime;
+>>> +        else
+>>> +            pdata->sruntime[cpu_dai->id] = NULL;
+>>> +
+>>
+>> Can you explain this part?
+>> The get_sdw_stream() is supposed to return what was set by 
+>> set_sdw_stream(), so if it's not supported isn't this an error?
+> 
+> In this case its not an error because we have
+> totally 3 codecs in this path.
+> One wcd934x Slimbus codec and two wsa881x Soundwire Codec.
+> 
+> wcd934x codec side will return ENOTSUPP which is not an error.
 
-Looking at around of the file, use pr_debug( ) here could be more consistent.
+I must admit I am quite confused here.
+After reading your response, I thought this was a case of codec-to-codec 
+dailink, but then you also have a notion of cpu_dai?
+
+>>
+>>>           ret = snd_soc_dai_get_channel_map(codec_dai,
+>>>                   &tx_ch_cnt, tx_ch, &rx_ch_cnt, rx_ch);
+>>> @@ -425,8 +437,65 @@ static void  sdm845_snd_shutdown(struct 
+>>> snd_pcm_substream *substream)
+>>>       }
+>>>   }
+>>> +static int sdm845_snd_prepare(struct snd_pcm_substream *substream)
+>>> +{
+>>> +    struct snd_soc_pcm_runtime *rtd = substream->private_data;
+>>> +    struct sdm845_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
+>>> +    struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
+>>> +    struct sdw_stream_runtime *sruntime = data->sruntime[cpu_dai->id];
+>>> +    int ret;
+>>> +
+>>> +    if (!sruntime)
+>>> +        return 0;
+>>
+>> same here, isn't this an error?
+> 
+> These callbacks are used for other dais aswell in this case
+> HDMI, Slimbus and Soundwire, so sruntime being null is not treated as 
+> error.
+
+Same comment, how does the notion of cpu_dai come in the picture for a 
+SoundWire dailink?
+Would you mind listing what the components of the dailinks are?

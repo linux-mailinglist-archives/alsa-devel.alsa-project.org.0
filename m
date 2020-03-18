@@ -2,56 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B365918A2A8
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Mar 2020 19:53:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B950918A304
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Mar 2020 20:15:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 48BC21723;
-	Wed, 18 Mar 2020 19:52:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48BC21723
+	by alsa0.perex.cz (Postfix) with ESMTPS id 52A911721;
+	Wed, 18 Mar 2020 20:14:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52A911721
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584557619;
-	bh=Vu16A51jT+20Tv6Lrxyho1cEupRXxRQehWLVqyQJBtU=;
-	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=cS3o+eAArzp6kum65wK5dA0X8oTiE6256WhHHl7Ney/s3ZxcFjLO1wiIvCGGeVYg+
-	 qS/ehM8Fm4s9zHw6EZRMJsrn5biW0eyUQvAL7HHsUoOqQLfdaJQY3xhGAdLuZ16n3o
-	 nGR20sX5vZG0WuHZNpkhja5t7Pq5jNu3TERkvM6g=
+	s=default; t=1584558946;
+	bh=tSJww9Z+wt5Z9Xn77VWgqIlhOoz7PLwBH1L5SgYZ3LM=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ewNClsTfeTnDX/O9oEOYuNT1xeAGq89P2+PAQEwK2cAuRFrgxWQklRNFJ3qddvk94
+	 EeYopak0m34/2Yf7m7c5H4zMLrKDZZO+tKyNBEy9VpV4eul7tX+dqvndm4QVcSJY3D
+	 9TC74VI3WVg7liDYdRO9KSiy6VR8JHcUlFlLZAeI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A9B7F80139;
-	Wed, 18 Mar 2020 19:51:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC02FF80139;
+	Wed, 18 Mar 2020 20:14:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BBE19F80139; Wed, 18 Mar 2020 19:51:54 +0100 (CET)
+ id 2A7BFF80139; Wed, 18 Mar 2020 20:14:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id C7458F800C0
- for <alsa-devel@alsa-project.org>; Wed, 18 Mar 2020 19:51:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7458F800C0
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 625EC1FB;
- Wed, 18 Mar 2020 11:51:48 -0700 (PDT)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DA5E93F67D;
- Wed, 18 Mar 2020 11:51:47 -0700 (PDT)
-Date: Wed, 18 Mar 2020 18:51:46 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Shuming Fan <shumingf@realtek.com>
-Subject: Applied "ASoC: rt5682: fix the random recording noise of headset" to
- the asoc tree
-In-Reply-To: <20200317073308.11572-1-shumingf@realtek.com>
-Message-Id: <applied-20200317073308.11572-1-shumingf@realtek.com>
-X-Patchwork-Hint: ignore
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, lgirdwood@gmail.com, albertchen@realtek.com,
- Mark Brown <broonie@kernel.org>, derek.fang@realtek.com,
- sathya.prakash.m.r@intel.com, flove@realtek.com
+X-Spam-Status: No, score=-14.0 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,FSL_HELO_FAKE,SPF_HELO_NONE,
+ SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
+ version=3.4.0
+Received: from mail-io1-xd36.google.com (mail-io1-xd36.google.com
+ [IPv6:2607:f8b0:4864:20::d36])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB778F800C0
+ for <alsa-devel@alsa-project.org>; Wed, 18 Mar 2020 20:13:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB778F800C0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="bX1vaYCP"
+Received: by mail-io1-xd36.google.com with SMTP id h131so26237829iof.1
+ for <alsa-devel@alsa-project.org>; Wed, 18 Mar 2020 12:13:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=tSJww9Z+wt5Z9Xn77VWgqIlhOoz7PLwBH1L5SgYZ3LM=;
+ b=bX1vaYCPPB+3hM5IVwpSxpiwzeFNin8sOnyWNNukPjTxaOJVKUXxyjAgiDzEyfVe+h
+ 1BDTrfV3KvpphPOsLLKjxbnoiyuCk9Of+znC0Ud79tixSrxJ8LEPC3K0TfOgAXH5o/Se
+ aW4TbGghUl/qsP5mLo+Ef6Kyl0dJuFpSCoYzpaxHYAHAvDkLKLwPOKRgZ2/u2vDsHo30
+ MV45Egr04OdgQXHRvUYEPgE8uAuwD6+5nbURK6tqZ+0Oy5be6np4K7sRFk8Vpr8jHo0+
+ MSLXOqKHxOV1cfAYNaxIumOb0w4d1wovXdnVrlH+1aciO1ZhkBB9gqMTJoG0lvQtnC5N
+ QLaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=tSJww9Z+wt5Z9Xn77VWgqIlhOoz7PLwBH1L5SgYZ3LM=;
+ b=o0ceXAkx2IC5qmZKv7maKMFjTD5mW4MdQFH2leaD56qlck/Pw0qCpUsxkfebrDTJuL
+ dNbugw+sjge05/vEyAkM6t03sZMiTDjXDjV1JwnHOglvPkm+aR3MeDvM1tfxkA11zXlP
+ 9RMhVp30kv7a3G7lgsZ5k9l0F8DAtpq9bL9XVd8iNeB03YOZErj4dITqZpHH/ezYTuvI
+ 62S/cstPBQKm4+5h/WztD6dZLJ5tCXXhj1OZaFBAzZZZ6//XDdeMaiWU8mHXbRVFzck0
+ Y289gHAhnEFAYlbXT4dQ6IWLxpNSuUsOsOIxT8OEjs7T9UZ5OqqYBCAVGVxLYGMRX5yb
+ +l+w==
+X-Gm-Message-State: ANhLgQ3bBBTiygBas1uNxz8RdYwNITjMbrgxWI1MEezVPiTBw9Qs95Kr
+ xdap7bKdKWiyySTUFb5rWfepzQ==
+X-Google-Smtp-Source: ADFU+vvxmOapBlydA+ixonR+vNYzcQ/Pqk4YMTaIcjCPOcsTiWrhK/t3R9pQW2Mpy4FH2QS+sTGdbQ==
+X-Received: by 2002:a5d:894a:: with SMTP id b10mr2381488iot.38.1584558837246; 
+ Wed, 18 Mar 2020 12:13:57 -0700 (PDT)
+Received: from google.com ([2620:15c:183:200:855f:8919:84a7:4794])
+ by smtp.gmail.com with ESMTPSA id u3sm2341022iob.45.2020.03.18.12.13.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Mar 2020 12:13:56 -0700 (PDT)
+Date: Wed, 18 Mar 2020 13:13:53 -0600
+From: Ross Zwisler <zwisler@google.com>
+To: Curtis Malainey <cujomalainey@google.com>
+Subject: Re: snd_hda_intel/sst-acpi sound breakage on suspend/resume since
+ 5.6-rc1
+Message-ID: <20200318191353.GA13459@google.com>
+References: <20200318063022.GA116342@light.dominikbrodowski.net>
+ <41d0b2b5-6014-6fab-b6a2-7a7dbc4fe020@linux.intel.com>
+ <20200318123930.GA2433@light.dominikbrodowski.net>
+ <d7a357c5-54af-3e69-771c-d7ea83c6fbb7@linux.intel.com>
+ <20200318162029.GA3999@light.dominikbrodowski.net>
+ <d974b46b-2899-03c2-0e98-88237f23f1e2@linux.intel.com>
+ <20200318171912.GA6203@light.dominikbrodowski.net>
+ <CAOReqxjmUCGX18y_XW_sjcU2xWha_+wJ7L+SuzJ5ZrOddCfZkw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAOReqxjmUCGX18y_XW_sjcU2xWha_+wJ7L+SuzJ5ZrOddCfZkw@mail.gmail.com>
+User-Agent: Mutt/1.12.2 (2019-09-21)
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Keyon Jie <yang.jie@linux.intel.com>,
+ ALSA development <alsa-devel@alsa-project.org>,
+ Dominik Brodowski <linux@dominikbrodowski.net>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,76 +116,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+On Wed, Mar 18, 2020 at 10:25:32AM -0700, Curtis Malainey wrote:
+> +Ross Zwisler <zwisler@google.com>
+> Do we have any BDW boards that use the rt286 codec? I can't recall any.
+> Also I never saw this issue, did you?
 
-   ASoC: rt5682: fix the random recording noise of headset
+No, I'm not aware of any Chrome OS BDW boards that use rt286.
+Samus uses rt5677.
 
-has been applied to the asoc tree at
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 557270e8dc79f66a1db8907eb3079ade60241fe7 Mon Sep 17 00:00:00 2001
-From: Shuming Fan <shumingf@realtek.com>
-Date: Tue, 17 Mar 2020 15:33:08 +0800
-Subject: [PATCH] ASoC: rt5682: fix the random recording noise of headset
-
-The cycle time of FIFO clock should increase 2 times to avoid
-the random recording noise issue.
-This setting could apply to all known situations in i2s mode.
-
-Signed-off-by: Shuming Fan <shumingf@realtek.com>
-Link: https://lore.kernel.org/r/20200317073308.11572-1-shumingf@realtek.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/codecs/rt5682.c | 2 ++
- sound/soc/codecs/rt5682.h | 2 ++
- 2 files changed, 4 insertions(+)
-
-diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
-index 063dd338539d..3e0b5c43ece8 100644
---- a/sound/soc/codecs/rt5682.c
-+++ b/sound/soc/codecs/rt5682.c
-@@ -2651,6 +2651,8 @@ static int rt5682_i2c_probe(struct i2c_client *i2c,
- 			RT5682_CP_CLK_HP_MASK, RT5682_CP_CLK_HP_300KHZ);
- 	regmap_update_bits(rt5682->regmap, RT5682_HP_CHARGE_PUMP_1,
- 			RT5682_PM_HP_MASK, RT5682_PM_HP_HV);
-+	regmap_update_bits(rt5682->regmap, RT5682_DMIC_CTRL_1,
-+			RT5682_FIFO_CLK_DIV_MASK, RT5682_FIFO_CLK_DIV_2);
- 
- 	INIT_DELAYED_WORK(&rt5682->jack_detect_work,
- 				rt5682_jack_detect_handler);
-diff --git a/sound/soc/codecs/rt5682.h b/sound/soc/codecs/rt5682.h
-index 18faaa2a49a0..fc99e7484283 100644
---- a/sound/soc/codecs/rt5682.h
-+++ b/sound/soc/codecs/rt5682.h
-@@ -651,6 +651,8 @@
- #define RT5682_DMIC_1_EN_SFT			15
- #define RT5682_DMIC_1_DIS			(0x0 << 15)
- #define RT5682_DMIC_1_EN			(0x1 << 15)
-+#define RT5682_FIFO_CLK_DIV_MASK		(0x7 << 12)
-+#define RT5682_FIFO_CLK_DIV_2			(0x1 << 12)
- #define RT5682_DMIC_1_DP_MASK			(0x3 << 4)
- #define RT5682_DMIC_1_DP_SFT			4
- #define RT5682_DMIC_1_DP_GPIO2			(0x0 << 4)
--- 
-2.20.1
-
+I haven't seen this issue, no.

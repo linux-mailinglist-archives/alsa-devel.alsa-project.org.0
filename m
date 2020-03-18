@@ -2,78 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF182189E2A
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Mar 2020 15:43:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 347D6189E2E
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Mar 2020 15:44:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 481CC1730;
-	Wed, 18 Mar 2020 15:43:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 481CC1730
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A6DC173C;
+	Wed, 18 Mar 2020 15:43:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A6DC173C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584542632;
-	bh=1SE1titi/HmBUPv7B+M43B6mu7UPdmSfjOenSCAWrEk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=fRS5vnRp+Pb4qoVjNzNRyuRwBSiwf4ZBFvibmEGG7qC9EHDBY/CLM2+iHxufDFGx4
-	 uqnARZvLyZO3wA15pzoBF6MQnOUVpX0IEoEdI6QVKkqvvMfxlzihkkWyrpMZwCrqCW
-	 6Uz5ZdyYffM4lwkI4TDigbGkY5LbMnaEQWD/RVpU=
+	s=default; t=1584542676;
+	bh=xJ7CYJFY8Ma1PBWYDyS87LOdffJ+L9QVZggOKSfx64g=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=aVUHWpzxjlKVJxaQ8XPw2AD2wEKr64EmSKars/jtstH4Wt/iFeH+gZMyVZZDf+MLa
+	 MzE4b5HlfzZAQFVicUpW4rRwWKR5ANYsb+bwuDm66ciCSi9+BeV9DQjER3xd/8xvae
+	 fXmaFazwJXE+jEdIAAW2wVsKDjvECZFJ9Zz8GZ6Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26EC2F8015B;
-	Wed, 18 Mar 2020 15:42:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 50459F801F9;
+	Wed, 18 Mar 2020 15:42:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DA593F80139; Wed, 18 Mar 2020 15:42:08 +0100 (CET)
+ id 501DBF801DB; Wed, 18 Mar 2020 15:42:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 17D21F800C0
- for <alsa-devel@alsa-project.org>; Wed, 18 Mar 2020 15:42:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17D21F800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5BDB6F800B7
+ for <alsa-devel@alsa-project.org>; Wed, 18 Mar 2020 15:42:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BDB6F800B7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="ouvh+62O"
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="vFnqipND"
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 02IEd4n8021917; Wed, 18 Mar 2020 15:41:58 +0100
+ 02IEcs7x022643; Wed, 18 Mar 2020 15:42:11 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=glh+neVr3hU2AAir3F/WpKodtMms5/f6uoCBtXe+P8c=;
- b=ouvh+62OJe3TfAiCI3m+1utTHcf0+n0+PwUyMaC51xx1MRrpwgRVOZHfFR2ZI2uBDzKX
- V9TjJMuu1J9syUeui1OAKjBSIran8uX/kpO1GKqA7qs1nmLIeFmBIi7JQzz5pfPpTt3B
- OtQENCymMCPqevX2g9CP2gWdYZk/oHz9twgDr8FkaHpbEt+voEZDrelvENYyM0/GIwg9
- M9GslGgGxm64uH0oo7M9pWaRnapzSDOxKmK4Of1OS3Jd1PXBqDNJf4OO9XMN3U51FQL0
- Fvh1ZDoBCXoCVZE2v6ObneNoqAMwNtJp2uox96wATUJjBo5S3DQ9NM5/dNnL4zF1BoGD Vw== 
+ : date : message-id : in-reply-to : references : mime-version :
+ content-type; s=STMicroelectronics;
+ bh=QTa6yBpqVGgt45GTluYI/eRrleTl6RJHDyZ3CT3e6vg=;
+ b=vFnqipNDCO8RvFORxZr1QV/qakKFVK+9ZXQpNKbsOVEXO7zKH2sLj/kslxM2Bm7w8P+M
+ mR/88I4duFxwTEcKyt48ylD4/iP/b+/1DTuKhrvQJWOUYu6/Ajq+yukcwHc+Lt9j0Vbq
+ qrYyECQjA+w4ssFqGbSStyMZayFNr2VguzSNn1nRBu5mkNvhbm3CqYNANpwQuNod+xcF
+ wACTx6PASZ2BlwGZ6qkzdNTcWtnkooZACSEGKd8ivmgDLG4CfVOpd7rncYH8qP6VtMp3
+ zwwQJuNFHKcdJM8miAb6tLFk0amUxYzjWtvOY0PZ09XqVvElC6eGimEjgPsQHGjU8R5u DA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2yua4wbscg-1
+ by mx07-00178001.pphosted.com with ESMTP id 2yu6xdckn8-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 18 Mar 2020 15:41:58 +0100
+ Wed, 18 Mar 2020 15:42:11 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 56C2510002A;
- Wed, 18 Mar 2020 15:41:57 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8A41910003A;
+ Wed, 18 Mar 2020 15:42:07 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 206962AE6C9;
- Wed, 18 Mar 2020 15:41:57 +0100 (CET)
-Received: from localhost (10.75.127.46) by SFHDAG6NODE2.st.com (10.75.127.17)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7EB3D2AE6CC;
+ Wed, 18 Mar 2020 15:42:07 +0100 (CET)
+Received: from localhost (10.75.127.45) by SFHDAG6NODE2.st.com (10.75.127.17)
  with Microsoft SMTP Server (TLS) id 15.0.1347.2;
- Wed, 18 Mar 2020 15:41:55 +0100
+ Wed, 18 Mar 2020 15:42:05 +0100
 From: Olivier Moysan <olivier.moysan@st.com>
 To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
  <tiwai@suse.com>, <alexandre.torgue@st.com>, <olivier.moysan@st.com>
-Subject: [PATCH 0/3] ASoC: stm32: manage rebind issue
-Date: Wed, 18 Mar 2020 15:41:22 +0100
-Message-ID: <20200318144125.9163-1-olivier.moysan@st.com>
+Subject: [PATCH 1/3] ASoC: stm32: spdifrx: fix regmap status check
+Date: Wed, 18 Mar 2020 15:41:23 +0100
+Message-ID: <20200318144125.9163-2-olivier.moysan@st.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200318144125.9163-1-olivier.moysan@st.com>
+References: <20200318144125.9163-1-olivier.moysan@st.com>
 MIME-Version: 1.0
 Content-Type: text/plain
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG5NODE3.st.com (10.75.127.15) To SFHDAG6NODE2.st.com
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG6NODE2.st.com
  (10.75.127.17)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.645
  definitions=2020-03-18_06:2020-03-18,
@@ -95,58 +100,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patchset corrects a rebind issue on STM32 SPDIFRX and I2S drivers.
+Release resources when exiting on error.
 
-The same correction has already been applied for SAI driver:
-0d6defc7e0e4 ("ASoC: stm32: sai: manage rebind issue")
+Fixes: 1a5c0b28fc56 ("ASoC: stm32: spdifrx: manage identification registers")
 
-The commit e894efef9ac7 ("ASoC: core: add support to card rebind")
-allows to rebind the sound card after a rebind of one of its component.
-With this commit, the sound card is actually rebound,
-but may be no more functional.
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+---
+ sound/soc/stm/stm32_spdifrx.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-The following problems have been seen on STM32 drivers.
-
-1) DMA channel is not requested:
-
-With the sound card rebind the simplified call sequence is:
-    probe
-        snd_soc_register_component
-                snd_soc_try_rebind_card
-                        snd_soc_instantiate_card
-        devm_snd_dmaengine_pcm_register
-
-The problem occurs because the pcm must be registered,
-before snd_soc_instantiate_card() is called.
-
-Modify the driver, to change the call sequence as follows:
-    probe
-        devm_snd_dmaengine_pcm_register
-        snd_soc_register_component
-                snd_soc_try_rebind_card
-
-2) DMA channel is not released:
-
-dma_release_channel() is not called when
-devm_dmaengine_pcm_release() is executed.
-This occurs because SND_DMAENGINE_PCM_DRV_NAME component,
-has already been released through devm_component_release().
-
-devm_dmaengine_pcm_release() should be called before
-devm_component_release() to avoid this problem.
-
-Call snd_dmaengine_pcm_unregister() and snd_soc_unregister_component()
-explicitly from the driver, to have the right sequence.
-
-Olivier Moysan (3):
-  ASoC: stm32: spdifrx: fix regmap status check
-  ASoC: stm32: spdifrx: manage rebind issue
-  ASoC: stm32: i2s: manage rebind issue
-
- sound/soc/stm/stm32_i2s.c     | 40 ++++++++++++++++------
- sound/soc/stm/stm32_spdifrx.c | 64 +++++++++++++++++++----------------
- 2 files changed, 63 insertions(+), 41 deletions(-)
-
+diff --git a/sound/soc/stm/stm32_spdifrx.c b/sound/soc/stm/stm32_spdifrx.c
+index 49766afdae61..301f8463390f 100644
+--- a/sound/soc/stm/stm32_spdifrx.c
++++ b/sound/soc/stm/stm32_spdifrx.c
+@@ -1020,6 +1020,8 @@ static int stm32_spdifrx_probe(struct platform_device *pdev)
+ 
+ 	if (idr == SPDIFRX_IPIDR_NUMBER) {
+ 		ret = regmap_read(spdifrx->regmap, STM32_SPDIFRX_VERR, &ver);
++		if (ret)
++			goto error;
+ 
+ 		dev_dbg(&pdev->dev, "SPDIFRX version: %lu.%lu registered\n",
+ 			FIELD_GET(SPDIFRX_VERR_MAJ_MASK, ver),
 -- 
 2.17.1
 

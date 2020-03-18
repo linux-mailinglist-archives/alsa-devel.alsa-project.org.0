@@ -2,80 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2178518A807
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Mar 2020 23:22:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C06418A980
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Mar 2020 00:52:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E44D1747;
-	Wed, 18 Mar 2020 23:22:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E44D1747
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2E4001748;
+	Thu, 19 Mar 2020 00:51:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E4001748
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584570174;
-	bh=NxEEbhLtprQG0ZGyupVNta2Kp/TPAnXHcwVEwf34ytA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1584575542;
+	bh=qig1wOJ7IgBTZ7kXTk2gpe9JQRnJPM+buCwo1cSu+mA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=k1PmqgP//uQD1iQhP22GWXXeBrjbZGbsP21uOaOyqivflAn3nHRbuQnG5WBBwxGZK
-	 BuUjcTLvKjZbHbOumqA3RWcbAe4e5NDbxCDAOSXxdx7/i/7kNxS64LOe8oWrEFUFFT
-	 4Lu5oBeQTclp4xankgHj/nOhz/Wjq4YU3xLkEoRM=
+	b=pMApCbykvwYp68E2ZdDVs8FI1OQv7pPSdf9rMPv7rIFKVMQAtNI2Vr5bkiyMC4xq4
+	 e+/5dRJJXXoowjareUP67dXMBX3UeFo94PXzT4PlkjdJdVikipUH8IWAolUO2t58N9
+	 MTtP0C7kp9y3QsEz4GZzNanyQACDJbzkBGsd8Etc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75C71F8015B;
-	Wed, 18 Mar 2020 23:21:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19894F80058;
+	Thu, 19 Mar 2020 00:50:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B913DF80139; Wed, 18 Mar 2020 23:21:10 +0100 (CET)
+ id 6B3FDF80139; Thu, 19 Mar 2020 00:50:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3F651F80058
- for <alsa-devel@alsa-project.org>; Wed, 18 Mar 2020 23:21:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F651F80058
-IronPort-SDR: cNydcpycfzflZsA7JF5t/1Vq08j1V4yNCCTipORGXjrzWN42+wR9y7nJ+cSY2MmKWWRN3m8zyu
- ZT7ltPmjVRCw==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Mar 2020 15:20:58 -0700
-IronPort-SDR: 2SCiifmS6rxHGZhXP96YyEjN50BdilZG47iR22cF96i4uSIa1+rhuIUG/g2+WuJCq1uvtQ1Hmz
- Spj2sdjFoA/A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,569,1574150400"; d="scan'208";a="238315637"
-Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.249.155.222])
- ([10.249.155.222])
- by fmsmga008.fm.intel.com with ESMTP; 18 Mar 2020 15:20:56 -0700
-Subject: Re: snd_hda_intel/sst-acpi sound breakage on suspend/resume since
- 5.6-rc1
-To: Dominik Brodowski <linux@dominikbrodowski.net>
-References: <20200318063022.GA116342@light.dominikbrodowski.net>
- <41d0b2b5-6014-6fab-b6a2-7a7dbc4fe020@linux.intel.com>
- <20200318123930.GA2433@light.dominikbrodowski.net>
- <d7a357c5-54af-3e69-771c-d7ea83c6fbb7@linux.intel.com>
- <20200318162029.GA3999@light.dominikbrodowski.net>
- <e49eec28-2037-f5db-e75b-9eadf6180d81@intel.com>
- <20200318192213.GA2987@light.dominikbrodowski.net>
- <b352a46b-8a66-8235-3622-23e561d3728c@intel.com>
- <20200318215218.GA2439@light.dominikbrodowski.net>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <e7f4f38d-b53e-8c69-8b23-454718cf92af@intel.com>
-Date: Wed, 18 Mar 2020 23:20:55 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id A1A9FF80058;
+ Thu, 19 Mar 2020 00:50:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1A9FF80058
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="cLazMcVb"
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
+ [209.85.222.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id E788920774;
+ Wed, 18 Mar 2020 23:50:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1584575430;
+ bh=qig1wOJ7IgBTZ7kXTk2gpe9JQRnJPM+buCwo1cSu+mA=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=cLazMcVbX0OWV/lh16fimWRUd6291oIO/HK2kz1wmJ4/LN6IdsggqAO+W7egB78hU
+ 8Mrq85fS+WqwPTN3GH6FdGeaWIxq/B6yucDw7/gchrGZRBwlW7Ev4pTmC2qVEN9nUC
+ kqqD58YMRbY1JkKpM6h8y0iLcYzcEiSnOJ+2VY08=
+Received: by mail-qk1-f182.google.com with SMTP id j4so336349qkc.11;
+ Wed, 18 Mar 2020 16:50:29 -0700 (PDT)
+X-Gm-Message-State: ANhLgQ10s6MSoLaTUvv98JEjPptq76vuamcR8HWgOsuiwSoSWsSZS/3s
+ NzLoKQF5aErQ6pp3N7jFvoFVKXYoiNT+5V+z8Q==
+X-Google-Smtp-Source: ADFU+vsGgf3CiWdZiuk9hVpaRnFNqJkCyylwUsiB5EVfVsqRfIvJJ3ipMxAlOst4B0glkuDEqDWtIgLMddwWogY9zU8=
+X-Received: by 2002:a37:4a85:: with SMTP id x127mr464472qka.152.1584575428917; 
+ Wed, 18 Mar 2020 16:50:28 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200318215218.GA2439@light.dominikbrodowski.net>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, curtis@malainey.com,
- linux-kernel@vger.kernel.org, Keyon Jie <yang.jie@linux.intel.com>,
- tiwai@suse.com, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- liam.r.girdwood@linux.intel.com, broonie@kernel.org
+References: <20200306111353.12906-1-daniel.baluta@oss.nxp.com>
+ <20200306111353.12906-2-daniel.baluta@oss.nxp.com>
+ <20200312202306.GA18767@bogus>
+ <CAEnQRZCLa+NAk=3M84MxjgOzYQdJXGY9S84dU6HO8GG64Lm_mQ@mail.gmail.com>
+In-Reply-To: <CAEnQRZCLa+NAk=3M84MxjgOzYQdJXGY9S84dU6HO8GG64Lm_mQ@mail.gmail.com>
+From: Rob Herring <robh@kernel.org>
+Date: Wed, 18 Mar 2020 17:50:17 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqLNeiPc_isukXKt9wgwNS+kPDujx-Q24V1HJrUv0Fq77w@mail.gmail.com>
+Message-ID: <CAL_JsqLNeiPc_isukXKt9wgwNS+kPDujx-Q24V1HJrUv0Fq77w@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: sound: Add FSL CPU DAI bindings
+To: Daniel Baluta <daniel.baluta@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Daniel Baluta <daniel.baluta@nxp.com>,
+ Devicetree List <devicetree@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Xiubo Li <Xiubo.Lee@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ "S.j. Wang" <shengjiu.wang@nxp.com>, Daniel Baluta <daniel.baluta@oss.nxp.com>,
+ Takashi Iwai <tiwai@suse.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@ti.com>, Mark Brown <broonie@kernel.org>,
+ dl-linux-imx <linux-imx@nxp.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,41 +102,184 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-03-18 22:52, Dominik Brodowski wrote:
-> On Wed, Mar 18, 2020 at 09:43:54PM +0100, Cezary Rojewski wrote:
->> On 2020-03-18 20:22, Dominik Brodowski wrote:
->>> On Wed, Mar 18, 2020 at 07:27:58PM +0100, Cezary Rojewski wrote:
->>
->>>>
->>>> Due to pandemic I'm working remotely and right now won't be able to test
->>>> audio quality so focusing on the stream==NULL issue. And thus we got to help
->>>> each other out : )
->>>
->>> Sure, and thanks for taking a look at this!
->>>
->>>> Could you verify issue reproduces on 5.6.0-rc1 on your machine?
->>>
->>> It reproduces on 5.6.0-rc1 + i915-bugfix. I'm trying to bisect it further in
->>> the background, but that may take quite some time.
->>>
->>
->> Could you checkout v5.6-rc1 with following commit reverted:
->> 	ASoC: Intel: broadwell: change cpu_dai and platform components for SOF
->>
->> For my working v5.6-rc1 commit id is:
->> 64df6afa0dab5eda95cc4cc2269e3d4e83b6b6ce.
-> 
-> Hm, no joy -- after suspend/resume, no sound at first, and if I twiggle some
-> options with pulseaudio, I get garbled output (even when using
-> 
-> 	aplay -f S16_LE -r 44100 -c 2 --device="sysdefault:CARD=broadwellrt286"
-> 
-> ). Will try to bisect further the next days.
-> 
+On Mon, Mar 16, 2020 at 7:01 AM Daniel Baluta <daniel.baluta@gmail.com> wrote:
+>
+> Thanks Rob for review. See my comments inline:
+>
+> <snip>
+>
+> > > +# SPDX-License-Identifier: GPL-2.0
+> >
+> > Dual license new bindings please:
+> >
+> > (GPL-2.0-only OR BSD-2-Clause)
+>
+> Ok, will do.
+>
+> >
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/sound/fsl,dai.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: Generic CPU FSL DAI driver for resource management
+> >
+> > Bindings are for h/w devices, not drivers.
+>
+> Indeed. I think I will change it to something like this.
+>
+> title: 'FSL CPU DAI for resource management'
+>
+> The explanation are already in patch 2/2 of this series but let e
+> explain again what I'm
+> trying to do here and let me know if this makes sense to you.
+>
+> Digital Audio Interface device (DAI) are configured by the firmware
+> running on the DSP. The only
+> trouble we have is that we cannot easily handle 'resources' like:
+> clocks, pinctrl, power domains from
+> firmware.
+>
+> This is because our architecture is like this:
+>
+> M core [running System Controller Firmware]
+>             |
+>             |
+> A core [Linux]<----> DSP core [SOF firmware]
+>
+> In theory, it is possible for DSP core to communicate with M core, but
+> this needs a huge
+> amount of work in order to make it work. We have this on our plans for
+> the future,
+> but we are now trying to do resource management from A core because
+> the infrastructure is already in place.
 
-Thanks for quick reply. Revert of said commit fixes stream==NULL issue 
-for me. See if there were any changes in dmesg.
-Will ask technicians to assist me on site tomorrow.
+When you change things in the future, Linux gets to keep supporting
+both ways of doing things? I'd rather just support one way.
 
-Regards,
-Czarek
+> So, the curent driver introduced in this series acts like a Generic
+> resource driver for DAI device. We can
+> have multiple types of DAIs but most of them need the same types of
+> resources (clocks, pinctrl, pm) sof
+> for this reason I made it generic.
+>
+>
+> >
+> > > +
+> > > +maintainers:
+> > > +  - Daniel Baluta <daniel.baluta@nxp.com>
+> > > +
+> > > +description: |
+> > > +  On platforms with a DSP we need to split the resource handling between
+> > > +  Application Processor (AP) and DSP. On platforms where the DSP doesn't
+> > > +  have an easy access to resources, the AP will take care of
+> > > +  configuring them. Resources handled by this generic driver are: clocks,
+> > > +  power domains, pinctrl.
+> >
+> > The DT should define a DSP node with resources that are part of the
+> > DSP. What setup the AP has to do should be implied by the compatible
+> > string and possibly what resources are described.
+>
+> We already have a DSP node: Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
+> but I thought that the resources attached to DAIs are separated from
+> the resources
+> attached to the DSP device.
+
+I'd agree if the DAI was fully described in the DT.
+
+> In the great scheme of ALSA we usually have things like this:
+>
+> FE         <----->       BE
+>
+> In the SOF world FE are defined by topology framework. Back ends are
+> defined by the machine driver:
+>
+> On the BE side we have:
+> - codec  -> this is the specific code
+> - platform -> this is the DSP
+> - cpu -> this is our Generic DAI device
+>
+> Now, I'm wondering if we can get rid of cpu here and make platform
+> node (dsp) take care of every
+> resource (this looks not natural).
+
+I would think about how the DT will look when the DSP manages all
+these resources itself and how the kernel drivers evolve. I think
+perhaps if you can get rid of the DT part and just define the
+resources in the driver, then the future transition would be easier.
+
+> Perhaps Mark, Liam or Pierre can help me with this.
+>
+>
+> >
+> > Or maybe the audio portion of the DSP is a child node...
+> >
+> > > +
+> > > +properties:
+> > > +  '#sound-dai-cells':
+> > > +    const: 0
+> > > +
+> > > +  compatible:
+> > > +    enum:
+> > > +      - fsl,esai-dai
+> > > +      - fsl,sai-dai
+> >
+> > Not very specific. There's only 2 versions of the DSP and ways it is
+> > integrated?
+>
+> As I said above this is not about the DSP, but about the Digital Audio
+> Intraface. On i.MX
+> NXP boards we have two types of DAIs: SAI and ESAI.
+>
+> <snip>
+>
+> > > +  pinctrl-0:
+> > > +    description: Should specify pin control groups used for this controller.
+> > > +
+> > > +  pinctrl-names:
+> > > +    const: default
+> >
+> > pinctrl properties are implicitly allowed an don't have to be listed
+> > here.
+>
+> Great.
+>
+> >
+> > > +
+> > > +  power-domains:
+> > > +    $ref: '/schemas/types.yaml#/definitions/phandle-array'
+> >
+> > Don't need a type.
+> >
+> > > +    description:
+> > > +      List of phandles and PM domain specifiers, as defined by bindings of the
+> > > +      PM domain provider.
+> >
+> > Don't need to re-define common properties.
+> >
+> > You do need to say how many power domains (maxItems: 1?).
+>
+> We support multiple power domains, so technically there is no upper
+> limit. What should I put here in this case?
+
+There's an upper limit in the h/w so there should be some sort of limit.
+
+
+> > > +  fsl,dai-index:
+> > > +    $ref: '/schemas/types.yaml#/definitions/uint32'
+> > > +    description: Physical DAI index, must match the index from topology file
+> >
+> > Sorry, we don't do indexes in DT.
+> >
+> > What's a topology file?
+>
+> Topology files are binary blobs that contain the description of an
+> audio pipeline. They are built
+> are written in a specific format and compiled with alsa-tplg tools in userspace.
+>
+> Then loaded via firmware interface inside the kernel.
+
+Sounds like a kernel-userspace issue that has nothing to do with DT.
+How do other platforms deal with mulitple DAIs?
+
+Rob

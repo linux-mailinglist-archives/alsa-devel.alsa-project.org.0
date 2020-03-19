@@ -2,60 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1D1218B587
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Mar 2020 14:19:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A1ED18B84A
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Mar 2020 14:43:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3BBAE1770;
-	Thu, 19 Mar 2020 14:18:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3BBAE1770
+	by alsa0.perex.cz (Postfix) with ESMTPS id B26BD1775;
+	Thu, 19 Mar 2020 14:42:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B26BD1775
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584623969;
-	bh=D44rv6U13MUX4QhdQFGle9zPa2E15i/cY+1IqY4mMLI=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1584625414;
+	bh=38o30hEvqmGagEyrNXlCMAobxn0SdVwqjNnaeQeIwwI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ly1FFzRlcMwPeG924zNjDwhM4pDC4Ci0ke9MzfbPhABrhwkGEWwNVG0w3IsDQr7Ci
-	 5H2n45P6QaLW3t8AKKfozBoleHt7YHS3VteozTe2K617bkZTsHIigo8OBhAql59RU9
-	 Ifkf2cs04seZSGnK0oMKbYoKYyFuwPkKFrdRMHMw=
+	b=El8FOIKL+8IAcCJ6GVoQRhzD3FVdPXeRt8jGryPBMFG9UExI+1O+QgM0GB3JoNf6w
+	 mGGQkDPei1HfzmWOdw2hfJz48bqyuJ/tqoL/ju5k0j0WvIcfpjyY+iXt8m3FstoD5R
+	 qeltmV56HDpc/Clzru+k6BvZgCJcKU1eaDNPUKhs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9953F800DD;
-	Thu, 19 Mar 2020 14:17:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2606F800DD;
+	Thu, 19 Mar 2020 14:41:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 416FAF8022B; Thu, 19 Mar 2020 14:17:45 +0100 (CET)
+ id BA3A5F8022B; Thu, 19 Mar 2020 14:41:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E0BDFF8012F
- for <alsa-devel@alsa-project.org>; Thu, 19 Mar 2020 14:17:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0BDFF8012F
-IronPort-SDR: gt3JloJGR1wG00vFx8eHkoXgCbtKHyoFzQfU1RpGvNntKICiuQO6DB92QhcNiqYYU+1IrIY6Pe
- nRT85frF2utw==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2020 06:17:39 -0700
-IronPort-SDR: 13+14NwKfODm3LUqECGN0X6N4/JeF1gSWFftIsTQQaHgh6TqEtdjX59Tpkus1Jmuk7BqQuHJLS
- B3SRkzWbrNrA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,571,1574150400"; d="scan'208";a="245157334"
-Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.249.128.140])
- ([10.249.128.140])
- by orsmga003.jf.intel.com with ESMTP; 19 Mar 2020 06:17:36 -0700
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 1C615F8012F
+ for <alsa-devel@alsa-project.org>; Thu, 19 Mar 2020 14:41:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C615F8012F
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E3D7830E;
+ Thu, 19 Mar 2020 06:41:41 -0700 (PDT)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 668483F52E;
+ Thu, 19 Mar 2020 06:41:41 -0700 (PDT)
+Date: Thu, 19 Mar 2020 13:41:39 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Dominik Brodowski <linux@dominikbrodowski.net>
 Subject: Re: snd_hda_intel/sst-acpi sound breakage on suspend/resume since
  5.6-rc1
-To: Dominik Brodowski <linux@dominikbrodowski.net>,
- kuninori.morimoto.gx@renesas.com
-References: <20200318063022.GA116342@light.dominikbrodowski.net>
- <41d0b2b5-6014-6fab-b6a2-7a7dbc4fe020@linux.intel.com>
+Message-ID: <20200319134139.GB3983@sirena.org.uk>
+References: <41d0b2b5-6014-6fab-b6a2-7a7dbc4fe020@linux.intel.com>
  <20200318123930.GA2433@light.dominikbrodowski.net>
  <d7a357c5-54af-3e69-771c-d7ea83c6fbb7@linux.intel.com>
  <20200318162029.GA3999@light.dominikbrodowski.net>
@@ -65,20 +56,19 @@ References: <20200318063022.GA116342@light.dominikbrodowski.net>
  <20200318215218.GA2439@light.dominikbrodowski.net>
  <e7f4f38d-b53e-8c69-8b23-454718cf92af@intel.com>
  <20200319130049.GA2244@light.dominikbrodowski.net>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <4eb2859f-d1a9-e99b-28c3-54a9dc6f9d17@intel.com>
-Date: Thu, 19 Mar 2020 14:17:35 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="oLBj+sq0vYjzfsbl"
+Content-Disposition: inline
 In-Reply-To: <20200319130049.GA2244@light.dominikbrodowski.net>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, curtis@malainey.com,
- linux-kernel@vger.kernel.org, Keyon Jie <yang.jie@linux.intel.com>,
- tiwai@suse.com, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- liam.r.girdwood@linux.intel.com, broonie@kernel.org
+X-Cookie: Captain's Log, star date 21:34.5...
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ kuninori.morimoto.gx@renesas.com, curtis@malainey.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com,
+ Keyon Jie <yang.jie@linux.intel.com>, alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ liam.r.girdwood@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,49 +84,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-03-19 14:00, Dominik Brodowski wrote:
-> On Wed, Mar 18, 2020 at 11:20:55PM +0100, Cezary Rojewski wrote:
 
->>
->> Thanks for quick reply. Revert of said commit fixes stream==NULL issue for
->> me. See if there were any changes in dmesg.
->> Will ask technicians to assist me on site tomorrow.
-> 
+--oLBj+sq0vYjzfsbl
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Thu, Mar 19, 2020 at 02:00:49PM +0100, Dominik Brodowski wrote:
+
 > Have some good news now, namely that a bisect is complete: That pointed to
 > 1272063a7ee4 ("ASoC: soc-core: care .ignore_suspend for Component suspend");
 > therefore I've added Kuninori Morimoto to this e-mail thread.
-> 
+
+If that's an issue it feels more like a driver bug in that if the driver
+asked for ignore_suspend then it should expect not to have the suspend
+callback called.
+
 > Additionally, I have tested mainline (v5.6-rc6+ as of 5076190daded) with
 > *both* 64df6afa0dab (which you suggested yesterday) and 1272063a7ee4
 > reverted. And that works like a charm as well.
-> 
-> Hope this helps!
-> 
-> Thanks,
-> 	Dominik
-> 
 
-To make everyone not miss a bit - I believe we had 2 issues here, even 
-though that one may seem harmless from user perspective:
+Please include human readable descriptions of things like commits and
+issues being discussed in e-mail in your mails, this makes them much
+easier for humans to read especially when they have no internet access.
+I do frequently catch up on my mail on flights or while otherwise
+travelling so this is even more pressing for me than just being about
+making things a bit easier to read.
 
- From IPC logs indeed it looks like a redundant (additional) stream 
-initialization has occurred - said redundant stream is destroyed right 
-after it has been created, and only to be recreated yet again.. Can 
-share the logs if required.
+--oLBj+sq0vYjzfsbl
+Content-Type: application/pgp-signature; name="signature.asc"
 
-While hw_params() handled doubled init nicely, _reset and _free
-did not (during on pcm_close()) -> secondary invokes attempted to RESET
-and FREE stream despite it being destroyed long ago. With revert of
-patch I had mentioned, no lines:
+-----BEGIN PGP SIGNATURE-----
 
-!!!	haswell-pcm-audio haswell-pcm-audio: warning: stream is NULL, no
-stream to reset, ignore it.
-!!!	haswell-pcm-audio haswell-pcm-audio: warning: stream is NULL, no
-stream to free, ignore it.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5zdpMACgkQJNaLcl1U
+h9C9pAf/RrCobt9NlyJGaB9AaEXAdgTfVIaiKtTXJ5DhvxWM/1HLH5xPAWkrBa32
+EVE4KvTS0DinbpCuAEeJRcQVFEpH6+y+kRnzntxmdsLJFRHzfcLYq/d/robTV221
+r5m6o8+hQSDrSPyQ4UXtUuWcaf8BSWogQpdhBYvhd/AU5yLjRiRc5P3p13A8nliv
+mLpj3QoOlBMigo3MnqGSFBp1AG6Nroyqt/G9uVsyOEZazhPHVX93NCIf/z5v3KHk
+7MKeZjgFbJc5hphI+nZoMa1GuraTXSn0f4tfm99wRRu0Pcb1yoyYWpTiYOKziwXX
+wR44Gs0iHetTwjYP+jmjXGeO6rjTkw==
+=bKjM
+-----END PGP SIGNATURE-----
 
-should appear.
-
-I'll focus now on the commits you found offending during your bisect. 
-Thank you Dominik!
-
-Czarek
+--oLBj+sq0vYjzfsbl--

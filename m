@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3936618B4BC
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Mar 2020 14:12:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1D1218B587
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Mar 2020 14:19:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C11EC176E;
-	Thu, 19 Mar 2020 14:11:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C11EC176E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3BBAE1770;
+	Thu, 19 Mar 2020 14:18:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3BBAE1770
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584623545;
-	bh=IOO9wc7fnGnL17B1Psk7sHYXmeibHcHMHDj/TCi9lK8=;
+	s=default; t=1584623969;
+	bh=D44rv6U13MUX4QhdQFGle9zPa2E15i/cY+1IqY4mMLI=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rPtdzLA6RySXHakzcpQhV19Y8cNozys/yJxbIYlSHHCyheFXyob1WkuINznDDgO4P
-	 gyZ8YQA+G4sziUpGqU3/h8rfJLCElPc5gMxRpK02xwV0DtvWhDeqbA+TLAj68WAFrD
-	 0fFy9Kcj/STJYpI+MkHFxhi03xNvTzOFK9ijKhfI=
+	b=Ly1FFzRlcMwPeG924zNjDwhM4pDC4Ci0ke9MzfbPhABrhwkGEWwNVG0w3IsDQr7Ci
+	 5H2n45P6QaLW3t8AKKfozBoleHt7YHS3VteozTe2K617bkZTsHIigo8OBhAql59RU9
+	 Ifkf2cs04seZSGnK0oMKbYoKYyFuwPkKFrdRMHMw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A865F80232;
-	Thu, 19 Mar 2020 14:10:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B9953F800DD;
+	Thu, 19 Mar 2020 14:17:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6CC3BF8022B; Thu, 19 Mar 2020 14:10:40 +0100 (CET)
+ id 416FAF8022B; Thu, 19 Mar 2020 14:17:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 51F8FF800DD
- for <alsa-devel@alsa-project.org>; Thu, 19 Mar 2020 14:10:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51F8FF800DD
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="xW2TG56b"
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
- by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 02JDAXXl033688;
- Thu, 19 Mar 2020 08:10:33 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1584623433;
- bh=g5yQjD4hjCi9sV3OcRBqc5iLY+nt3JYJepQKuyZY4Ps=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=xW2TG56b1NkNIkwkB2MgbUANSO+jmZozQGuqPh+RRcxJO8LX92ILSfUyv6x1BJTB1
- D1dkYyQXwxE503MPNpjEoOyp2qdFCYD3i+cX1SRYy4vpxwZ3SSKpk1lS6rvNFOKgF9
- S03lwEHP5sCB7uAb72x8RgtzLJbEf0TR4U4sW0Hw=
-Received: from DFLE112.ent.ti.com (dfle112.ent.ti.com [10.64.6.33])
- by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 02JDAXaU059749
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 19 Mar 2020 08:10:33 -0500
-Received: from DFLE113.ent.ti.com (10.64.6.34) by DFLE112.ent.ti.com
- (10.64.6.33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Thu, 19
- Mar 2020 08:10:33 -0500
-Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE113.ent.ti.com
- (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
- Frontend Transport; Thu, 19 Mar 2020 08:10:33 -0500
-Received: from [10.250.52.63] (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 02JDAW2o071238;
- Thu, 19 Mar 2020 08:10:33 -0500
-Subject: Re: [PATCH] ASoC: tas2562: Fixed incorrect amp_level setting.
-To: jonghwan Choi <jhbird.choi@gmail.com>
-References: <CAGZ6kuN_-45pmQKmBKyrT22bX+Mku5Uf2_Bcd249vTte04JMJQ@mail.gmail.com>
-From: Dan Murphy <dmurphy@ti.com>
-Message-ID: <0a464785-53d0-5a87-184a-85c6be605d8e@ti.com>
-Date: Thu, 19 Mar 2020 08:04:45 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id E0BDFF8012F
+ for <alsa-devel@alsa-project.org>; Thu, 19 Mar 2020 14:17:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0BDFF8012F
+IronPort-SDR: gt3JloJGR1wG00vFx8eHkoXgCbtKHyoFzQfU1RpGvNntKICiuQO6DB92QhcNiqYYU+1IrIY6Pe
+ nRT85frF2utw==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Mar 2020 06:17:39 -0700
+IronPort-SDR: 13+14NwKfODm3LUqECGN0X6N4/JeF1gSWFftIsTQQaHgh6TqEtdjX59Tpkus1Jmuk7BqQuHJLS
+ B3SRkzWbrNrA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,571,1574150400"; d="scan'208";a="245157334"
+Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.249.128.140])
+ ([10.249.128.140])
+ by orsmga003.jf.intel.com with ESMTP; 19 Mar 2020 06:17:36 -0700
+Subject: Re: snd_hda_intel/sst-acpi sound breakage on suspend/resume since
+ 5.6-rc1
+To: Dominik Brodowski <linux@dominikbrodowski.net>,
+ kuninori.morimoto.gx@renesas.com
+References: <20200318063022.GA116342@light.dominikbrodowski.net>
+ <41d0b2b5-6014-6fab-b6a2-7a7dbc4fe020@linux.intel.com>
+ <20200318123930.GA2433@light.dominikbrodowski.net>
+ <d7a357c5-54af-3e69-771c-d7ea83c6fbb7@linux.intel.com>
+ <20200318162029.GA3999@light.dominikbrodowski.net>
+ <e49eec28-2037-f5db-e75b-9eadf6180d81@intel.com>
+ <20200318192213.GA2987@light.dominikbrodowski.net>
+ <b352a46b-8a66-8235-3622-23e561d3728c@intel.com>
+ <20200318215218.GA2439@light.dominikbrodowski.net>
+ <e7f4f38d-b53e-8c69-8b23-454718cf92af@intel.com>
+ <20200319130049.GA2244@light.dominikbrodowski.net>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+Message-ID: <4eb2859f-d1a9-e99b-28c3-54a9dc6f9d17@intel.com>
+Date: Thu, 19 Mar 2020 14:17:35 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <CAGZ6kuN_-45pmQKmBKyrT22bX+Mku5Uf2_Bcd249vTte04JMJQ@mail.gmail.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <20200319130049.GA2244@light.dominikbrodowski.net>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: alsa-devel@alsa-project.org
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, curtis@malainey.com,
+ linux-kernel@vger.kernel.org, Keyon Jie <yang.jie@linux.intel.com>,
+ tiwai@suse.com, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ liam.r.girdwood@linux.intel.com, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,25 +94,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Jonghwan
+On 2020-03-19 14:00, Dominik Brodowski wrote:
+> On Wed, Mar 18, 2020 at 11:20:55PM +0100, Cezary Rojewski wrote:
 
-On 3/19/20 1:16 AM, jonghwan Choi wrote:
->  From 9f837d75f16ab18342ac517d5b1e5259ab9b797e Mon Sep 17 00:00:00 2001
->
-> From: Jonghwan Choi <charlie.jh@kakaocorp.com>
->
-> Date: Thu, 19 Mar 2020 14:44:14 +0900
->
-> Subject: [PATCH]  ASoC: tas2562: Fixed incorrect amp_level setting.
+>>
+>> Thanks for quick reply. Revert of said commit fixes stream==NULL issue for
+>> me. See if there were any changes in dmesg.
+>> Will ask technicians to assist me on site tomorrow.
+> 
+> Have some good news now, namely that a bisect is complete: That pointed to
+> 1272063a7ee4 ("ASoC: soc-core: care .ignore_suspend for Component suspend");
+> therefore I've added Kuninori Morimoto to this e-mail thread.
+> 
+> Additionally, I have tested mainline (v5.6-rc6+ as of 5076190daded) with
+> *both* 64df6afa0dab (which you suggested yesterday) and 1272063a7ee4
+> reverted. And that works like a charm as well.
+> 
+> Hope this helps!
+> 
+> Thanks,
+> 	Dominik
+> 
 
-There does not seem to be a commit message here.
+To make everyone not miss a bit - I believe we had 2 issues here, even 
+though that one may seem harmless from user perspective:
 
-Also please add the Fixes tag.
+ From IPC logs indeed it looks like a redundant (additional) stream 
+initialization has occurred - said redundant stream is destroyed right 
+after it has been created, and only to be recreated yet again.. Can 
+share the logs if required.
 
-The change is fine just needs commit message and you need to add all the 
-proper reviewers.
+While hw_params() handled doubled init nicely, _reset and _free
+did not (during on pcm_close()) -> secondary invokes attempted to RESET
+and FREE stream despite it being destroyed long ago. With revert of
+patch I had mentioned, no lines:
 
-You can get this by using the get_maintainers script
+!!!	haswell-pcm-audio haswell-pcm-audio: warning: stream is NULL, no
+stream to reset, ignore it.
+!!!	haswell-pcm-audio haswell-pcm-audio: warning: stream is NULL, no
+stream to free, ignore it.
 
-Dan
+should appear.
 
+I'll focus now on the commits you found offending during your bisect. 
+Thank you Dominik!
+
+Czarek

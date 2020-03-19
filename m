@@ -2,73 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A1ED18B84A
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Mar 2020 14:43:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E16418B8AD
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Mar 2020 15:09:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B26BD1775;
-	Thu, 19 Mar 2020 14:42:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B26BD1775
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1537E1777;
+	Thu, 19 Mar 2020 15:08:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1537E1777
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584625414;
-	bh=38o30hEvqmGagEyrNXlCMAobxn0SdVwqjNnaeQeIwwI=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1584626942;
+	bh=XV0u0ItEc4EH8W254bW0tIa097CzaZvkeCWb8PNI9Ok=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=El8FOIKL+8IAcCJ6GVoQRhzD3FVdPXeRt8jGryPBMFG9UExI+1O+QgM0GB3JoNf6w
-	 mGGQkDPei1HfzmWOdw2hfJz48bqyuJ/tqoL/ju5k0j0WvIcfpjyY+iXt8m3FstoD5R
-	 qeltmV56HDpc/Clzru+k6BvZgCJcKU1eaDNPUKhs=
+	b=J2Fc7mGJDxvxGKkXCgg3eJUoz0HEHEtSD//H8WlanKquldvqmaSfhXFnjh0eRpuM5
+	 Z7Qs6XQ9utn8T+merHecxfx44Z8uv8y8R3w1aPZoJKQvIsx3/I6JPXLlhdLOGdvasn
+	 9T1euA3CDD1m6bTXRtAQqAovpg1da5b6rJY/rvug=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B2606F800DD;
-	Thu, 19 Mar 2020 14:41:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25D16F80232;
+	Thu, 19 Mar 2020 15:07:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BA3A5F8022B; Thu, 19 Mar 2020 14:41:46 +0100 (CET)
+ id 6F453F800C0; Thu, 19 Mar 2020 15:07:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 1C615F8012F
- for <alsa-devel@alsa-project.org>; Thu, 19 Mar 2020 14:41:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C615F8012F
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E3D7830E;
- Thu, 19 Mar 2020 06:41:41 -0700 (PDT)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 668483F52E;
- Thu, 19 Mar 2020 06:41:41 -0700 (PDT)
-Date: Thu, 19 Mar 2020 13:41:39 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Dominik Brodowski <linux@dominikbrodowski.net>
-Subject: Re: snd_hda_intel/sst-acpi sound breakage on suspend/resume since
- 5.6-rc1
-Message-ID: <20200319134139.GB3983@sirena.org.uk>
-References: <41d0b2b5-6014-6fab-b6a2-7a7dbc4fe020@linux.intel.com>
- <20200318123930.GA2433@light.dominikbrodowski.net>
- <d7a357c5-54af-3e69-771c-d7ea83c6fbb7@linux.intel.com>
- <20200318162029.GA3999@light.dominikbrodowski.net>
- <e49eec28-2037-f5db-e75b-9eadf6180d81@intel.com>
- <20200318192213.GA2987@light.dominikbrodowski.net>
- <b352a46b-8a66-8235-3622-23e561d3728c@intel.com>
- <20200318215218.GA2439@light.dominikbrodowski.net>
- <e7f4f38d-b53e-8c69-8b23-454718cf92af@intel.com>
- <20200319130049.GA2244@light.dominikbrodowski.net>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id BD2F9F800C0
+ for <alsa-devel@alsa-project.org>; Thu, 19 Mar 2020 15:07:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD2F9F800C0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="FUIQinlx"
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+ by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 02JE77L3048046;
+ Thu, 19 Mar 2020 09:07:07 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1584626827;
+ bh=F8cnBozYX8/iF9YH+60dq/RPVSZvGKSsyeEtA3GUHiY=;
+ h=Subject:To:CC:References:From:Date:In-Reply-To;
+ b=FUIQinlxjeigNZMn1OTmCITKd7pTLCtLHdjpqObiI5xXQgpEQT2Wo5ZRTHr02bDpR
+ m00TJZbPf6va34eqFVVpqQaBkhh0SQar92NarCwP468LvJ4ZCqMdYD3BJwrdwd2xU5
+ edsOfZgPicfvccrirHYADFMd+WtyTTISsX6abwRc=
+Received: from DLEE100.ent.ti.com (dlee100.ent.ti.com [157.170.170.30])
+ by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTP id 02JE77UJ026756;
+ Thu, 19 Mar 2020 09:07:07 -0500
+Received: from DLEE107.ent.ti.com (157.170.170.37) by DLEE100.ent.ti.com
+ (157.170.170.30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Thu, 19
+ Mar 2020 09:07:07 -0500
+Received: from fllv0039.itg.ti.com (10.64.41.19) by DLEE107.ent.ti.com
+ (157.170.170.37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
+ Frontend Transport; Thu, 19 Mar 2020 09:07:07 -0500
+Received: from [10.250.52.63] (ileax41-snat.itg.ti.com [10.172.224.153])
+ by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id 02JE76v3049010;
+ Thu, 19 Mar 2020 09:07:06 -0500
+Subject: Re: [PATCH] ASoC: tas2562: Fixed incorrect amp_level setting.
+To: Jonghwan Choi <charlie.jh@kakaocorp.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
+ <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+References: <20200319140043.GA6688@jhbirdchoi-MS-7B79>
+From: Dan Murphy <dmurphy@ti.com>
+Message-ID: <0b4a59c9-6af7-a34f-fb08-f5200fbe5926@ti.com>
+Date: Thu, 19 Mar 2020 09:01:24 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="oLBj+sq0vYjzfsbl"
-Content-Disposition: inline
-In-Reply-To: <20200319130049.GA2244@light.dominikbrodowski.net>
-X-Cookie: Captain's Log, star date 21:34.5...
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- kuninori.morimoto.gx@renesas.com, curtis@malainey.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com,
- Keyon Jie <yang.jie@linux.intel.com>, alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- liam.r.girdwood@linux.intel.com
+In-Reply-To: <20200319140043.GA6688@jhbirdchoi-MS-7B79>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,45 +95,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Jonghwan
 
---oLBj+sq0vYjzfsbl
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On 3/19/20 9:00 AM, Jonghwan Choi wrote:
+> According to the tas2562 datasheet,the bits[5:1] represents the amp_level value.
+> So to set the amp_level value correctly,the shift value should be set to 1.
+>
+> Signed-off-by: Jonghwan Choi <charlie.jh@kakaocorp.com>
+> ---
+>   sound/soc/codecs/tas2562.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/sound/soc/codecs/tas2562.c b/sound/soc/codecs/tas2562.c
+> index be52886a5edb..fb2233ca9103 100644
+> --- a/sound/soc/codecs/tas2562.c
+> +++ b/sound/soc/codecs/tas2562.c
+> @@ -409,7 +409,7 @@ static const struct snd_kcontrol_new vsense_switch =
+>   			1, 1);
+>   
+>   static const struct snd_kcontrol_new tas2562_snd_controls[] = {
+> -	SOC_SINGLE_TLV("Amp Gain Volume", TAS2562_PB_CFG1, 0, 0x1c, 0,
+> +	SOC_SINGLE_TLV("Amp Gain Volume", TAS2562_PB_CFG1, 1, 0x1c, 0,
+>   		       tas2562_dac_tlv),
+>   };
+>   
 
-On Thu, Mar 19, 2020 at 02:00:49PM +0100, Dominik Brodowski wrote:
 
-> Have some good news now, namely that a bisect is complete: That pointed to
-> 1272063a7ee4 ("ASoC: soc-core: care .ignore_suspend for Component suspend");
-> therefore I've added Kuninori Morimoto to this e-mail thread.
+Acked-by: Dan Murphy <dmurphy@ti.com>
 
-If that's an issue it feels more like a driver bug in that if the driver
-asked for ignore_suspend then it should expect not to have the suspend
-callback called.
-
-> Additionally, I have tested mainline (v5.6-rc6+ as of 5076190daded) with
-> *both* 64df6afa0dab (which you suggested yesterday) and 1272063a7ee4
-> reverted. And that works like a charm as well.
-
-Please include human readable descriptions of things like commits and
-issues being discussed in e-mail in your mails, this makes them much
-easier for humans to read especially when they have no internet access.
-I do frequently catch up on my mail on flights or while otherwise
-travelling so this is even more pressing for me than just being about
-making things a bit easier to read.
-
---oLBj+sq0vYjzfsbl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5zdpMACgkQJNaLcl1U
-h9C9pAf/RrCobt9NlyJGaB9AaEXAdgTfVIaiKtTXJ5DhvxWM/1HLH5xPAWkrBa32
-EVE4KvTS0DinbpCuAEeJRcQVFEpH6+y+kRnzntxmdsLJFRHzfcLYq/d/robTV221
-r5m6o8+hQSDrSPyQ4UXtUuWcaf8BSWogQpdhBYvhd/AU5yLjRiRc5P3p13A8nliv
-mLpj3QoOlBMigo3MnqGSFBp1AG6Nroyqt/G9uVsyOEZazhPHVX93NCIf/z5v3KHk
-7MKeZjgFbJc5hphI+nZoMa1GuraTXSn0f4tfm99wRRu0Pcb1yoyYWpTiYOKziwXX
-wR44Gs0iHetTwjYP+jmjXGeO6rjTkw==
-=bKjM
------END PGP SIGNATURE-----
-
---oLBj+sq0vYjzfsbl--

@@ -2,80 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9612618B3D2
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Mar 2020 14:02:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3936618B4BC
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Mar 2020 14:12:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D0F3C1769;
-	Thu, 19 Mar 2020 14:01:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0F3C1769
+	by alsa0.perex.cz (Postfix) with ESMTPS id C11EC176E;
+	Thu, 19 Mar 2020 14:11:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C11EC176E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584622964;
-	bh=oSdVJpJ6chv0PIay3o+QYreHJ9y9mzorL872umTS+vs=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1584623545;
+	bh=IOO9wc7fnGnL17B1Psk7sHYXmeibHcHMHDj/TCi9lK8=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EcOSUdVrwInRdbpwtYaMKMHpoHO2JaTHaV5BY0IJ4FBHBfZX4+U/Wm1dlO5UnS61E
-	 lFUjwxb+WITYvacrvejOeXgwH9Aeh9V/yQMQnQsUDMXbOudeYBlw3DJ15Gfrrm7/Sf
-	 FwuhkDlQI4++oopc/F8iHgsJBy+RPtxsc9Qw9R94=
-Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C273BF80232;
-	Thu, 19 Mar 2020 14:01:03 +0100 (CET)
+	b=rPtdzLA6RySXHakzcpQhV19Y8cNozys/yJxbIYlSHHCyheFXyob1WkuINznDDgO4P
+	 gyZ8YQA+G4sziUpGqU3/h8rfJLCElPc5gMxRpK02xwV0DtvWhDeqbA+TLAj68WAFrD
+	 0fFy9Kcj/STJYpI+MkHFxhi03xNvTzOFK9ijKhfI=
+Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A865F80232;
+	Thu, 19 Mar 2020 14:10:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3FCC8F800DD; Thu, 19 Mar 2020 14:00:57 +0100 (CET)
+ id 6CC3BF8022B; Thu, 19 Mar 2020 14:10:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from isilmar-4.linta.de (isilmar-4.linta.de [136.243.71.142])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 87FA0F800DD
- for <alsa-devel@alsa-project.org>; Thu, 19 Mar 2020 14:00:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87FA0F800DD
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-Received: from light.dominikbrodowski.net (brodo.linta [10.1.0.102])
- by isilmar-4.linta.de (Postfix) with ESMTPSA id 5E6E12009CA;
- Thu, 19 Mar 2020 13:00:53 +0000 (UTC)
-Received: by light.dominikbrodowski.net (Postfix, from userid 1000)
- id 172B020B1E; Thu, 19 Mar 2020 14:00:49 +0100 (CET)
-Date: Thu, 19 Mar 2020 14:00:49 +0100
-From: Dominik Brodowski <linux@dominikbrodowski.net>
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- kuninori.morimoto.gx@renesas.com
-Subject: Re: snd_hda_intel/sst-acpi sound breakage on suspend/resume since
- 5.6-rc1
-Message-ID: <20200319130049.GA2244@light.dominikbrodowski.net>
-References: <20200318063022.GA116342@light.dominikbrodowski.net>
- <41d0b2b5-6014-6fab-b6a2-7a7dbc4fe020@linux.intel.com>
- <20200318123930.GA2433@light.dominikbrodowski.net>
- <d7a357c5-54af-3e69-771c-d7ea83c6fbb7@linux.intel.com>
- <20200318162029.GA3999@light.dominikbrodowski.net>
- <e49eec28-2037-f5db-e75b-9eadf6180d81@intel.com>
- <20200318192213.GA2987@light.dominikbrodowski.net>
- <b352a46b-8a66-8235-3622-23e561d3728c@intel.com>
- <20200318215218.GA2439@light.dominikbrodowski.net>
- <e7f4f38d-b53e-8c69-8b23-454718cf92af@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 51F8FF800DD
+ for <alsa-devel@alsa-project.org>; Thu, 19 Mar 2020 14:10:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51F8FF800DD
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="xW2TG56b"
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+ by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 02JDAXXl033688;
+ Thu, 19 Mar 2020 08:10:33 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1584623433;
+ bh=g5yQjD4hjCi9sV3OcRBqc5iLY+nt3JYJepQKuyZY4Ps=;
+ h=Subject:To:CC:References:From:Date:In-Reply-To;
+ b=xW2TG56b1NkNIkwkB2MgbUANSO+jmZozQGuqPh+RRcxJO8LX92ILSfUyv6x1BJTB1
+ D1dkYyQXwxE503MPNpjEoOyp2qdFCYD3i+cX1SRYy4vpxwZ3SSKpk1lS6rvNFOKgF9
+ S03lwEHP5sCB7uAb72x8RgtzLJbEf0TR4U4sW0Hw=
+Received: from DFLE112.ent.ti.com (dfle112.ent.ti.com [10.64.6.33])
+ by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 02JDAXaU059749
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 19 Mar 2020 08:10:33 -0500
+Received: from DFLE113.ent.ti.com (10.64.6.34) by DFLE112.ent.ti.com
+ (10.64.6.33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Thu, 19
+ Mar 2020 08:10:33 -0500
+Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE113.ent.ti.com
+ (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
+ Frontend Transport; Thu, 19 Mar 2020 08:10:33 -0500
+Received: from [10.250.52.63] (ileax41-snat.itg.ti.com [10.172.224.153])
+ by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 02JDAW2o071238;
+ Thu, 19 Mar 2020 08:10:33 -0500
+Subject: Re: [PATCH] ASoC: tas2562: Fixed incorrect amp_level setting.
+To: jonghwan Choi <jhbird.choi@gmail.com>
+References: <CAGZ6kuN_-45pmQKmBKyrT22bX+Mku5Uf2_Bcd249vTte04JMJQ@mail.gmail.com>
+From: Dan Murphy <dmurphy@ti.com>
+Message-ID: <0a464785-53d0-5a87-184a-85c6be605d8e@ti.com>
+Date: Thu, 19 Mar 2020 08:04:45 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e7f4f38d-b53e-8c69-8b23-454718cf92af@intel.com>
-Cc: alsa-devel@alsa-project.org, curtis@malainey.com,
- linux-kernel@vger.kernel.org, Keyon Jie <yang.jie@linux.intel.com>,
- tiwai@suse.com, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- liam.r.girdwood@linux.intel.com, broonie@kernel.org
+In-Reply-To: <CAGZ6kuN_-45pmQKmBKyrT22bX+Mku5Uf2_Bcd249vTte04JMJQ@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,52 +94,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Mar 18, 2020 at 11:20:55PM +0100, Cezary Rojewski wrote:
-> On 2020-03-18 22:52, Dominik Brodowski wrote:
-> > On Wed, Mar 18, 2020 at 09:43:54PM +0100, Cezary Rojewski wrote:
-> > > On 2020-03-18 20:22, Dominik Brodowski wrote:
-> > > > On Wed, Mar 18, 2020 at 07:27:58PM +0100, Cezary Rojewski wrote:
-> > > 
-> > > > > 
-> > > > > Due to pandemic I'm working remotely and right now won't be able to test
-> > > > > audio quality so focusing on the stream==NULL issue. And thus we got to help
-> > > > > each other out : )
-> > > > 
-> > > > Sure, and thanks for taking a look at this!
-> > > > 
-> > > > > Could you verify issue reproduces on 5.6.0-rc1 on your machine?
-> > > > 
-> > > > It reproduces on 5.6.0-rc1 + i915-bugfix. I'm trying to bisect it further in
-> > > > the background, but that may take quite some time.
-> > > > 
-> > > 
-> > > Could you checkout v5.6-rc1 with following commit reverted:
-> > > 	ASoC: Intel: broadwell: change cpu_dai and platform components for SOF
-> > > 
-> > > For my working v5.6-rc1 commit id is:
-> > > 64df6afa0dab5eda95cc4cc2269e3d4e83b6b6ce.
-> > 
-> > Hm, no joy -- after suspend/resume, no sound at first, and if I twiggle some
-> > options with pulseaudio, I get garbled output (even when using
-> > 
-> > 	aplay -f S16_LE -r 44100 -c 2 --device="sysdefault:CARD=broadwellrt286"
-> > 
-> > ). Will try to bisect further the next days.
-> > 
-> 
-> Thanks for quick reply. Revert of said commit fixes stream==NULL issue for
-> me. See if there were any changes in dmesg.
-> Will ask technicians to assist me on site tomorrow.
+Jonghwan
 
-Have some good news now, namely that a bisect is complete: That pointed to
-1272063a7ee4 ("ASoC: soc-core: care .ignore_suspend for Component suspend");
-therefore I've added Kuninori Morimoto to this e-mail thread.
+On 3/19/20 1:16 AM, jonghwan Choi wrote:
+>  From 9f837d75f16ab18342ac517d5b1e5259ab9b797e Mon Sep 17 00:00:00 2001
+>
+> From: Jonghwan Choi <charlie.jh@kakaocorp.com>
+>
+> Date: Thu, 19 Mar 2020 14:44:14 +0900
+>
+> Subject: [PATCH]  ASoC: tas2562: Fixed incorrect amp_level setting.
 
-Additionally, I have tested mainline (v5.6-rc6+ as of 5076190daded) with
-*both* 64df6afa0dab (which you suggested yesterday) and 1272063a7ee4
-reverted. And that works like a charm as well.
+There does not seem to be a commit message here.
 
-Hope this helps!
+Also please add the Fixes tag.
 
-Thanks,
-	Dominik
+The change is fine just needs commit message and you need to add all the 
+proper reviewers.
+
+You can get this by using the get_maintainers script
+
+Dan
+

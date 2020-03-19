@@ -2,71 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8906E18BB7E
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Mar 2020 16:48:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD1C218BB2F
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Mar 2020 16:34:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2A885176E;
-	Thu, 19 Mar 2020 16:47:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A885176E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32CF71776;
+	Thu, 19 Mar 2020 16:33:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32CF71776
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584632902;
-	bh=o3gD+uNiA+cQBOSvt0mrhqM+DWZgg/LjxwXHarz5l/M=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1584632086;
+	bh=JaT2Im0/hCAk0IM6JHQU9/Q4//RWIs38e1/pK2lSQEk=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pWiCwL8qNFjWIQentFoKYKfpqBj7Xq9kAcEDNFK4LirNvaPm/X7QdKFOocpnEaUx9
-	 qaxLjLiLfSTZfEBH4dpJz3twQ7ZUGwBSXpI14fnwM8N+iP21KaZb3I/a3r68+WnTs4
-	 Eeg3W2A9krQXUNiEpLIB4KKqXu4NGXKAyxBBSibo=
+	b=GZIJ+AnfCQ55aRiRUD8fe/r+uBA0OGB7xw3CjGP8AAo7FiXrtUx2k63gVUsO3KEmt
+	 H/HCVHtm/PsbYCa13fmnM5sLXrzOMP0jJZuVvi1bABAAtu3Fx13IKPBL4SZCZvAjna
+	 3mSmlkbM1ve2lLX1NxsHVQjF8GqzhHGIiQvD3jCA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6611F802D2;
-	Thu, 19 Mar 2020 16:43:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DFD0CF8012F;
+	Thu, 19 Mar 2020 16:33:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A749BF802C4; Thu, 19 Mar 2020 16:43:56 +0100 (CET)
+ id B3C4FF8022B; Thu, 19 Mar 2020 16:33:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from imap2.colo.codethink.co.uk (imap2.colo.codethink.co.uk
+ [78.40.148.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE0F0F802C2
- for <alsa-devel@alsa-project.org>; Thu, 19 Mar 2020 16:43:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE0F0F802C2
-IronPort-SDR: yLmXG1vdlsQEIj1ZRuGVfmMG92cjfJGuKONCoVPl9jXt3O3rtT410cojI+okWlZCWT2ivANBDE
- z6LwnOADLZQQ==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2020 08:43:46 -0700
-IronPort-SDR: ck1JtdCmuiqbibanbWNkbdsve7bq2W5F5AkgbbDyfbkkeMjMwGB5Sl2GI93cgNO6MjOKqAhyDG
- aXMyCTaGrFTA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,572,1574150400"; d="scan'208";a="444610102"
-Received: from tvanlang-mobl.ger.corp.intel.com (HELO [10.255.34.72])
- ([10.255.34.72])
- by fmsmga005.fm.intel.com with ESMTP; 19 Mar 2020 08:43:44 -0700
-Subject: Re: UCM ConflictingDevice/Priority concepts
-To: Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org
-References: <c67a5e0d-c5dc-9ce6-73e5-e7fe602177d8@intel.com>
- <576f09dc-7968-3555-2aa4-e99c8ac5acbe@perex.cz>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <885ad95f-3a98-92a5-5539-41779e783e75@linux.intel.com>
-Date: Thu, 19 Mar 2020 09:25:46 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id AB4A8F8012F
+ for <alsa-devel@alsa-project.org>; Thu, 19 Mar 2020 16:32:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB4A8F8012F
+Received: from [78.40.148.177] (helo=localhost)
+ by imap2.colo.codethink.co.uk with esmtpsa  (Exim 4.92 #3 (Debian))
+ id 1jExAA-0000Vn-Tx; Thu, 19 Mar 2020 15:32:51 +0000
 MIME-Version: 1.0
-In-Reply-To: <576f09dc-7968-3555-2aa4-e99c8ac5acbe@perex.cz>
-Content-Type: text/plain; charset=utf-8; format=flowed
+Date: Thu, 19 Mar 2020 15:32:50 +0000
+From: Ben Dooks <ben.dooks@codethink.co.uk>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [Linux-kernel] [PATCH v5 2/7] ASoC: tegra: Allow
+ 24bit and 32bit samples
+In-Reply-To: <20200130131039.GC6682@sirena.org.uk>
+References: <0e0cd260e39ad293edb881da1c565510@codethink.co.uk>
+ <507dcd5a-672b-61ac-aa7f-af5ff01accff@codethink.co.uk>
+ <a2744ea0-cf6d-d083-75e6-853746195001@gmail.com>
+ <28cafc56-095b-68c6-638d-270608a2983f@codethink.co.uk>
+ <3d8544be-af20-f382-85fd-32183365267b@nvidia.com>
+ <1b3c2af4-510e-306c-749a-efffc994b20a@gmail.com>
+ <20200128121315.GD4689@sirena.org.uk>
+ <4b90efd2-5d0c-84df-961d-80cee288e0d4@nvidia.com>
+ <586ea2b9-c204-2bd1-f8e2-875e0974e42d@nvidia.com>
+ <fe002ec7-ae6e-f770-b82a-49237e0b29c6@codethink.co.uk>
+ <20200130131039.GC6682@sirena.org.uk>
+User-Agent: Roundcube Webmail/1.4.3
+Message-ID: <1df9cc13ea636502ac09191523ff0669@codethink.co.uk>
+X-Sender: ben.dooks@codethink.co.uk
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Curtis Malainey <cujomalainey@google.com>, Dylan Reid <dgreid@google.com>,
- Jimmy Cheng-Yi Chiang <cychiang@google.com>, Tanu Kaskinen <tanuk@iki.fi>
+Cc: linux-kernel@lists.codethink.co.uk, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Edward Cragg <edward.cragg@codethink.co.uk>, linux-tegra@vger.kernel.org,
+ Dmitry Osipenko <digetx@gmail.com>, Jon Hunter <jonathanh@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,96 +84,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-[fixing alsa-devel email and rejoining threads]
-
-On 3/19/20 4:06 AM, Jaroslav Kysela wrote:
-> Dne 18. 03. 20 v 22:46 Pierre-Louis Bossart napsal(a):
->> Hi,
->>
->> Traditionally on most PC or mobile platforms, we have one audio output
->> that can be routed to either speakers or headphone, and likewise we can
->> record from either internal mics or headset mic. We signal with UCM that
->> the headphone/speakers and internal mic/headset conflict so hopefully
->> PulseAudio/CRAS switch auto-magically.
->>
->> For SoundWire-based platforms, we typically have a headphone/headset
->> codec on one link, and one or more amplifiers on the other. Functionally
->> it's supported to capture from local mics and headset mic at the same
->> time, or play different streams on speakers and headphones. Recent
->> Intel-based Chromebooks have in theory the same capabilities at the
->> hardware level even with I2S/TDM + DMIC connections.
->>
->> So for UCM, should we use the notion of 'ConflictingDevice' to fall-back
->> to a more traditional single-endpoint user experience, or is this
->> concept only indented to model hardware restrictions? I just checked
->> that Chrome/adhd does not seem to use this concept at all, while it's
->> prevalent in alsa-ucm-conf
->>
->> Or should we instead only use the concept of Playback/CapturePriority,
->> which is also used in a lot of alsa-ucm-conf files, but again not at all
->> in Chrome/adhd?
->>
->> I did find some UCM files relying both on the concept of
->> ConflictingDevices and PlaybackPriorities, which seems rather
->> odd/overkill to me.
->
-> ConflictingDevices/SupportedDevices should be used only if there's a 
-> hardware restriction which prevents the simultaneous usage of devices. 
-> The application can decide how to use those devices.
->
-> The priority describes the preference. Usually, headphones has higher 
-> priority than build-in speakers etc.
-
-I may be thick on this one, but how would an application use both types 
-of information?
-
-Does it e.g.
-
-a) revisit the list all devices currently available when an event occurs 
-(uevent card creation, jack detection, etc)
-
-b) pick the device with the highest priority for the 'default' stream
-
-c) allow for simultaneous use of devices not marked at 'Conflicting', 
-e.g. use the internal microphone for assistant while using the headset 
-mic for a call as suggested by Dylan.
-
-In other words the priority is the first key, and additional devices are 
-filtered with the ConflictingDevice information.
-
-Did I get this right?
-
->
-> In my opinion, it's not part of UCM if the application will use one or 
-> multiple devices. The application must decide. It's another upper 
-> usage / abstraction layer.
-
-I tend to agree, but I wanted to make sure the use of 
-'ConflictingDevices' was not expected outside of true hardware limitations.
-
->
-> Also, we need to consider this to have the whole picture:
->
-> Tanu (the pulseaudio maintainer) has also good question how to ensure, 
-> that the stream can be re-used for the multiple devices. Actually, PA 
-> does not re-open PCM device when the PCM device name and parameters 
-> are similar for the switched devices. I also think that this is also 
-> missing in the UCM specification to resolve this requirement. Usually, 
-> the stream transfer mechanism is separate from the routing control. 
-> But I can assume, that we may have the hardware which will need extra 
-> setup for the streaming (not routing) when the devices are switched.
->
-> I think that adding something like "PlaybackStream" to "PlaybackPCM" 
-> for the stream identification might be sufficient to cover those 
-> cases. So, keep "PlaybackPCM" usage and if "PlaybackStream" exists, 
-> use this value to determine the stream identification. Similar 
-> situation is for the capture direction, of course.
-
-I am not sure I understand the notion of stream and stream transfer. Is 
-there a pointer to this so that I could understand the problem statement?
-
-Thanks,
-
--Pierre
 
 
+On 2020-01-30 13:10, Mark Brown wrote:
+> On Thu, Jan 30, 2020 at 08:17:37AM +0000, Ben Dooks wrote:
+>> On 29/01/2020 14:33, Jon Hunter wrote:
+> 
+>> > controller. Applying these patches it is not distorted but now I am
+>> > observing the clocking issue Ben reported and so the tone is not quite
+>> > right.
+> 
+>> I thought they had been applied? I probably dragged them back in when
+>> putting in the support for the test channel on the colibri.
+> 
+> There were review comments from Jon on patch 6 that you never responded
+> to.
+
+Hmm, I may have accidentally deleted those.
+
+I will look to see if I can re-form the series and re-send in the next
+couple of weeks. I've got no access currently to the machine and having
+to deal with working from home for the next month or so.
+
+-- 
+Ben

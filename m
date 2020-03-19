@@ -2,62 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B2B318B38B
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Mar 2020 13:37:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9612618B3D2
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Mar 2020 14:02:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE05F1769;
-	Thu, 19 Mar 2020 13:36:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE05F1769
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0F3C1769;
+	Thu, 19 Mar 2020 14:01:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0F3C1769
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584621448;
-	bh=BCpxyOUGGeRFuITbv/mBOXvDx/jK3UsOaDoq1nXethU=;
+	s=default; t=1584622964;
+	bh=oSdVJpJ6chv0PIay3o+QYreHJ9y9mzorL872umTS+vs=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Q1P9WRHY7rxlK8Y5F1A9CCcdxQ4GkA7Llu5bKuLwnK0twN54mHw/ol25SLBwYwyfv
-	 IlickLcyxx2Uy1J26ywekT3f4fJnQoKhF11eU0PRcl9de2TglMtFyILj3WIcQpYcR+
-	 I2uvyOkJllWfPOrmZ+NZ3j55zKS0nTNX/lgzRqaA=
-Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD134F80217;
-	Thu, 19 Mar 2020 13:35:47 +0100 (CET)
+	b=EcOSUdVrwInRdbpwtYaMKMHpoHO2JaTHaV5BY0IJ4FBHBfZX4+U/Wm1dlO5UnS61E
+	 lFUjwxb+WITYvacrvejOeXgwH9Aeh9V/yQMQnQsUDMXbOudeYBlw3DJ15Gfrrm7/Sf
+	 FwuhkDlQI4++oopc/F8iHgsJBy+RPtxsc9Qw9R94=
+Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id C273BF80232;
+	Thu, 19 Mar 2020 14:01:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D9D30F8022B; Thu, 19 Mar 2020 13:35:45 +0100 (CET)
+ id 3FCC8F800DD; Thu, 19 Mar 2020 14:00:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id D787BF800C0
- for <alsa-devel@alsa-project.org>; Thu, 19 Mar 2020 13:35:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D787BF800C0
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BF2FB101E;
- Thu, 19 Mar 2020 05:35:31 -0700 (PDT)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4302E3F305;
- Thu, 19 Mar 2020 05:35:31 -0700 (PDT)
-Date: Thu, 19 Mar 2020 12:35:19 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Oder Chiou <oder_chiou@realtek.com>
-Subject: Re: [v2 3/3] ASoC: rt5682: Add the descriptions for the DMIC clock
- rate and delay settings
-Message-ID: <20200319123519.GA3983@sirena.org.uk>
-References: <20200319074328.25284-1-oder_chiou@realtek.com>
- <20200319074328.25284-3-oder_chiou@realtek.com>
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from isilmar-4.linta.de (isilmar-4.linta.de [136.243.71.142])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 87FA0F800DD
+ for <alsa-devel@alsa-project.org>; Thu, 19 Mar 2020 14:00:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87FA0F800DD
+X-isilmar-external: YES
+X-isilmar-external: YES
+X-isilmar-external: YES
+X-isilmar-external: YES
+X-isilmar-external: YES
+X-isilmar-external: YES
+X-isilmar-external: YES
+X-isilmar-external: YES
+X-isilmar-external: YES
+X-isilmar-external: YES
+Received: from light.dominikbrodowski.net (brodo.linta [10.1.0.102])
+ by isilmar-4.linta.de (Postfix) with ESMTPSA id 5E6E12009CA;
+ Thu, 19 Mar 2020 13:00:53 +0000 (UTC)
+Received: by light.dominikbrodowski.net (Postfix, from userid 1000)
+ id 172B020B1E; Thu, 19 Mar 2020 14:00:49 +0100 (CET)
+Date: Thu, 19 Mar 2020 14:00:49 +0100
+From: Dominik Brodowski <linux@dominikbrodowski.net>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ kuninori.morimoto.gx@renesas.com
+Subject: Re: snd_hda_intel/sst-acpi sound breakage on suspend/resume since
+ 5.6-rc1
+Message-ID: <20200319130049.GA2244@light.dominikbrodowski.net>
+References: <20200318063022.GA116342@light.dominikbrodowski.net>
+ <41d0b2b5-6014-6fab-b6a2-7a7dbc4fe020@linux.intel.com>
+ <20200318123930.GA2433@light.dominikbrodowski.net>
+ <d7a357c5-54af-3e69-771c-d7ea83c6fbb7@linux.intel.com>
+ <20200318162029.GA3999@light.dominikbrodowski.net>
+ <e49eec28-2037-f5db-e75b-9eadf6180d81@intel.com>
+ <20200318192213.GA2987@light.dominikbrodowski.net>
+ <b352a46b-8a66-8235-3622-23e561d3728c@intel.com>
+ <20200318215218.GA2439@light.dominikbrodowski.net>
+ <e7f4f38d-b53e-8c69-8b23-454718cf92af@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="yrj/dFKFPuw6o+aM"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200319074328.25284-3-oder_chiou@realtek.com>
-X-Cookie: Captain's Log, star date 21:34.5...
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: jack.yu@realtek.com, alsa-devel@alsa-project.org, cychiang@google.com,
- lgirdwood@gmail.com, derek.fang@realtek.com, shumingf@realtek.com,
- flove@realtek.com
+In-Reply-To: <e7f4f38d-b53e-8c69-8b23-454718cf92af@intel.com>
+Cc: alsa-devel@alsa-project.org, curtis@malainey.com,
+ linux-kernel@vger.kernel.org, Keyon Jie <yang.jie@linux.intel.com>,
+ tiwai@suse.com, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ liam.r.girdwood@linux.intel.com, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,38 +91,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, Mar 18, 2020 at 11:20:55PM +0100, Cezary Rojewski wrote:
+> On 2020-03-18 22:52, Dominik Brodowski wrote:
+> > On Wed, Mar 18, 2020 at 09:43:54PM +0100, Cezary Rojewski wrote:
+> > > On 2020-03-18 20:22, Dominik Brodowski wrote:
+> > > > On Wed, Mar 18, 2020 at 07:27:58PM +0100, Cezary Rojewski wrote:
+> > > 
+> > > > > 
+> > > > > Due to pandemic I'm working remotely and right now won't be able to test
+> > > > > audio quality so focusing on the stream==NULL issue. And thus we got to help
+> > > > > each other out : )
+> > > > 
+> > > > Sure, and thanks for taking a look at this!
+> > > > 
+> > > > > Could you verify issue reproduces on 5.6.0-rc1 on your machine?
+> > > > 
+> > > > It reproduces on 5.6.0-rc1 + i915-bugfix. I'm trying to bisect it further in
+> > > > the background, but that may take quite some time.
+> > > > 
+> > > 
+> > > Could you checkout v5.6-rc1 with following commit reverted:
+> > > 	ASoC: Intel: broadwell: change cpu_dai and platform components for SOF
+> > > 
+> > > For my working v5.6-rc1 commit id is:
+> > > 64df6afa0dab5eda95cc4cc2269e3d4e83b6b6ce.
+> > 
+> > Hm, no joy -- after suspend/resume, no sound at first, and if I twiggle some
+> > options with pulseaudio, I get garbled output (even when using
+> > 
+> > 	aplay -f S16_LE -r 44100 -c 2 --device="sysdefault:CARD=broadwellrt286"
+> > 
+> > ). Will try to bisect further the next days.
+> > 
+> 
+> Thanks for quick reply. Revert of said commit fixes stream==NULL issue for
+> me. See if there were any changes in dmesg.
+> Will ask technicians to assist me on site tomorrow.
 
---yrj/dFKFPuw6o+aM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Have some good news now, namely that a bisect is complete: That pointed to
+1272063a7ee4 ("ASoC: soc-core: care .ignore_suspend for Component suspend");
+therefore I've added Kuninori Morimoto to this e-mail thread.
 
-On Thu, Mar 19, 2020 at 03:43:28PM +0800, Oder Chiou wrote:
+Additionally, I have tested mainline (v5.6-rc6+ as of 5076190daded) with
+*both* 64df6afa0dab (which you suggested yesterday) and 1272063a7ee4
+reverted. And that works like a charm as well.
 
-> +- realtek,dmic-clk-rate : Set the clock rate for the requirement of the
-> +  particular DMIC.
+Hope this helps!
 
-Lars mentioned on the previous version that this should have units on it
-so -hz (I assume, perhaps the unit is different) here.  As he said it'd
-also be a bit more idiomatic to say clock rather than clk.
-
-> +- realtek,dmic-delay-ms : Set the delay time (ms) for the requirement of
-> +  the particular DMIC.
-
-This change is good though.
-
---yrj/dFKFPuw6o+aM
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5zZwQACgkQJNaLcl1U
-h9ACmAf9EW9eLMjl6lw6EyWKlryPbDmj31Z5QAMk7C8atbkhAO/cairMTFMODMbK
-Z7FVtiUlhxrxMVcskaBmWAo8H1ES5O7lfFs9+jnteQHu884hxO+rgE2MKiFkVI0G
-yrXG6VqV8laoLNeY3L3T22aFf9/zo0hQS1pSG5TasDKVyrBvn3KCa5pjyUvxBXwd
-YLZSjW629gncu4y5nJcolGo4A6lofatG7su4zoJjDsshzcH7AsFuQUdStHiO5DJ2
-QnO37IP63yrBLuuwNLAt0ISZlrzQFszsd+Mn8lesRTr3bsxtY+HTDa6GHoKRsg0p
-REqfMsmVKmDxcT0Qa46AdY4KydOE/w==
-=2TlK
------END PGP SIGNATURE-----
-
---yrj/dFKFPuw6o+aM--
+Thanks,
+	Dominik

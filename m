@@ -2,83 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FAA318BF7C
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Mar 2020 19:36:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53DDC18BF84
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Mar 2020 19:41:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 185C0179A;
-	Thu, 19 Mar 2020 19:36:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 185C0179A
+	by alsa0.perex.cz (Postfix) with ESMTPS id E1DFE179C;
+	Thu, 19 Mar 2020 19:41:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1DFE179C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584643017;
-	bh=Aqd8MiaesBuiYJW3gEo1vGkccf7lWrxqCR5pIeZkil8=;
+	s=default; t=1584643319;
+	bh=vd8zSP+JcGUwt/4YyzRS75QuTCsHwJXjrQeYyXovV6k=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VGRn64kqCw46jMo/eZI2+2MLpd6YUDkNdFBF4AUO8rg4Icm9SJ7AhxApakcqfTD8U
-	 2WdEo3irw7Q/2kVExon5svkyjoaKiIdA74K6aJFQ/aRrqIEweYi6LitVuKywjNei/u
-	 HdnpArv2NVbOaamxXA528vBusqnI72MMRxHCd7yc=
+	b=E1oK0GIub+N/0EgHCpkoP4GX0botJg2hAfoIYRSi2I5zKRjPLjyn/mbhLoPXf6LqM
+	 qmMj335NqvatLYq7EzDBs3x4wMDPUcDbl1vp//fJ4vdHWsIrv0m8I3xBE0kjkF9Bbg
+	 iwrxG37feWgFlZjlZ997TTcRgsyaoTwu3BMuaTO0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02DEAF8012F;
-	Thu, 19 Mar 2020 19:35:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AE90EF800C0;
+	Thu, 19 Mar 2020 19:40:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0AD6FF8022B; Thu, 19 Mar 2020 19:35:13 +0100 (CET)
+ id 06043F8022B; Thu, 19 Mar 2020 19:40:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B5C2EF8012F
- for <alsa-devel@alsa-project.org>; Thu, 19 Mar 2020 19:35:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5C2EF8012F
-IronPort-SDR: Eqia3+KgzoXGMvTbxsQsbT2IQvV+6+vgn0qFR0PC0yh8Cd9I7RDo69cxGm0lrkPGMRWeWVE3E1
- BZ5d9btLAVCg==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2020 11:35:04 -0700
-IronPort-SDR: 8PJ20HU+/1aAUtKkXBhL4ENr19sfOFgV1IzgPk5go10JOk0SJ1/gsJeVsaEb18kxxu80xGUxGu
- /TeOiOTXzOxA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,572,1574150400"; d="scan'208";a="356117527"
-Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.249.128.140])
- ([10.249.128.140])
- by fmsmga001.fm.intel.com with ESMTP; 19 Mar 2020 11:35:02 -0700
-Subject: Re: snd_hda_intel/sst-acpi sound breakage on suspend/resume since
- 5.6-rc1
-To: Dominik Brodowski <linux@dominikbrodowski.net>
-References: <e49eec28-2037-f5db-e75b-9eadf6180d81@intel.com>
- <20200318192213.GA2987@light.dominikbrodowski.net>
- <b352a46b-8a66-8235-3622-23e561d3728c@intel.com>
- <20200318215218.GA2439@light.dominikbrodowski.net>
- <e7f4f38d-b53e-8c69-8b23-454718cf92af@intel.com>
- <20200319130049.GA2244@light.dominikbrodowski.net>
- <20200319134139.GB3983@sirena.org.uk>
- <a01359dc-479e-b3e3-37a6-4a9c421d18da@intel.com>
- <20200319165157.GA2254@light.dominikbrodowski.net>
- <a7bf2aee-78e7-f905-bcc3-cd21bf16a976@intel.com>
- <20200319182413.GA3968@light.dominikbrodowski.net>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <750f7841-0b95-9fa8-d858-e0bff4d834d5@intel.com>
-Date: Thu, 19 Mar 2020 19:35:00 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1B74BF800C0
+ for <alsa-devel@alsa-project.org>; Thu, 19 Mar 2020 19:40:12 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id A3EACA003F;
+ Thu, 19 Mar 2020 19:40:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz A3EACA003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1584643209; bh=Uqv0WgAlDYRcTDHVT4HZJvRo9s1cXwRElJg0YK+EIbQ=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=UC8ZRev9THBc6LiLVzmzLlmBxPdxAi5tILxcUlBDJpeqagAoHU0RUXEvBq+c4VxaD
+ 85Fi7/DzgxIPgHxa3VaVUnVW8ylZleiXJ7DC9AJIzq9iI/5CSczstumjhITkWcJw9w
+ cR3oZdL/s9GJPUobg1i50IDqNS57eJouxj7SRYGU=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Thu, 19 Mar 2020 19:40:02 +0100 (CET)
+Subject: Re: UCM ConflictingDevice/Priority concepts
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+References: <c67a5e0d-c5dc-9ce6-73e5-e7fe602177d8@intel.com>
+ <576f09dc-7968-3555-2aa4-e99c8ac5acbe@perex.cz>
+ <885ad95f-3a98-92a5-5539-41779e783e75@linux.intel.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <5435543d-ef49-f9df-7d1a-e1b69bfaeb4e@perex.cz>
+Date: Thu, 19 Mar 2020 19:40:02 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <20200319182413.GA3968@light.dominikbrodowski.net>
+In-Reply-To: <885ad95f-3a98-92a5-5539-41779e783e75@linux.intel.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
- curtis@malainey.com, tiwai@suse.com, Keyon Jie <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- linux-kernel@vger.kernel.org, liam.r.girdwood@linux.intel.com,
- Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Curtis Malainey <cujomalainey@google.com>, Dylan Reid <dgreid@google.com>,
+ Jimmy Cheng-Yi Chiang <cychiang@google.com>, Tanu Kaskinen <tanuk@iki.fi>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,30 +85,123 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-03-19 19:24, Dominik Brodowski wrote:
-> On Thu, Mar 19, 2020 at 06:33:50PM +0100, Cezary Rojewski wrote:
+Dne 19. 03. 20 v 15:25 Pierre-Louis Bossart napsal(a):
+> [fixing alsa-devel email and rejoining threads]
+> 
+> On 3/19/20 4:06 AM, Jaroslav Kysela wrote:
+>> Dne 18. 03. 20 v 22:46 Pierre-Louis Bossart napsal(a):
+>>> Hi,
+>>>
+>>> Traditionally on most PC or mobile platforms, we have one audio output
+>>> that can be routed to either speakers or headphone, and likewise we can
+>>> record from either internal mics or headset mic. We signal with UCM that
+>>> the headphone/speakers and internal mic/headset conflict so hopefully
+>>> PulseAudio/CRAS switch auto-magically.
+>>>
+>>> For SoundWire-based platforms, we typically have a headphone/headset
+>>> codec on one link, and one or more amplifiers on the other. Functionally
+>>> it's supported to capture from local mics and headset mic at the same
+>>> time, or play different streams on speakers and headphones. Recent
+>>> Intel-based Chromebooks have in theory the same capabilities at the
+>>> hardware level even with I2S/TDM + DMIC connections.
+>>>
+>>> So for UCM, should we use the notion of 'ConflictingDevice' to fall-back
+>>> to a more traditional single-endpoint user experience, or is this
+>>> concept only indented to model hardware restrictions? I just checked
+>>> that Chrome/adhd does not seem to use this concept at all, while it's
+>>> prevalent in alsa-ucm-conf
+>>>
+>>> Or should we instead only use the concept of Playback/CapturePriority,
+>>> which is also used in a lot of alsa-ucm-conf files, but again not at all
+>>> in Chrome/adhd?
+>>>
+>>> I did find some UCM files relying both on the concept of
+>>> ConflictingDevices and PlaybackPriorities, which seems rather
+>>> odd/overkill to me.
 >>
->> Could you confirm the same happens on your machine when revert of mentioned
->> patch is not applied ("stream is NULL" messages occur)? Issue may be
->> harmless but explained sequence does not look right.
+>> ConflictingDevices/SupportedDevices should be used only if there's a
+>> hardware restriction which prevents the simultaneous usage of devices.
+>> The application can decide how to use those devices.
+>>
+>> The priority describes the preference. Usually, headphones has higher
+>> priority than build-in speakers etc.
 > 
-> Indeed, I still see
+> I may be thick on this one, but how would an application use both types
+> of information?
 > 
-> haswell-pcm-audio haswell-pcm-audio: warning: stream is NULL, no stream to reset, ignore it.
-> haswell-pcm-audio haswell-pcm-audio: warning: stream is NULL, no stream to free, ignore it.
-> haswell-pcm-audio haswell-pcm-audio: FW loaded, mailbox readback FW info: type 01, - version: 00.00, build 77, source commit id: 876ac6906f31a43b6772b23c7c983ce9dcb18a19
-> haswell-pcm-audio haswell-pcm-audio: warning: stream is NULL, no stream to reset, ignore it.
-> haswell-pcm-audio haswell-pcm-audio: warning: stream is NULL, no stream to free, ignore it.
+> Does it e.g.
 > 
-> though sounds continues to work.
-> 
+> a) revisit the list all devices currently available when an event occurs
+> (uevent card creation, jack detection, etc)
 
-Thanks once again for your input and time!
+The jack detection / hw mute just handle the device (I/O) availability.
 
-I'll prepare patches for both issues. My guess is haswell-pcm could be 
-updated to handle 'platform' component param just fine, but it is 
-probably a change of more than few lines. I'd rather revert non-SOF 
-broadwell to its previous behavior and start a separate task from there.
+> b) pick the device with the highest priority for the 'default' stream
 
-Regards,
-Czarek
+Yes, but the priority is just a hint for the application. The user may be 
+override this. It's another layer.
+
+> c) allow for simultaneous use of devices not marked at 'Conflicting',
+> e.g. use the internal microphone for assistant while using the headset
+> mic for a call as suggested by Dylan.
+
+Yes.
+
+> In other words the priority is the first key, and additional devices are
+> filtered with the ConflictingDevice information.
+> 
+> Did I get this right?
+
+Basically, yes.
+
+> 
+>>
+>> In my opinion, it's not part of UCM if the application will use one or
+>> multiple devices. The application must decide. It's another upper
+>> usage / abstraction layer.
+> 
+> I tend to agree, but I wanted to make sure the use of
+> 'ConflictingDevices' was not expected outside of true hardware limitations.
+> 
+>>
+>> Also, we need to consider this to have the whole picture:
+>>
+>> Tanu (the pulseaudio maintainer) has also good question how to ensure,
+>> that the stream can be re-used for the multiple devices. Actually, PA
+>> does not re-open PCM device when the PCM device name and parameters
+>> are similar for the switched devices. I also think that this is also
+>> missing in the UCM specification to resolve this requirement. Usually,
+>> the stream transfer mechanism is separate from the routing control.
+>> But I can assume, that we may have the hardware which will need extra
+>> setup for the streaming (not routing) when the devices are switched.
+>>
+>> I think that adding something like "PlaybackStream" to "PlaybackPCM"
+>> for the stream identification might be sufficient to cover those
+>> cases. So, keep "PlaybackPCM" usage and if "PlaybackStream" exists,
+>> use this value to determine the stream identification. Similar
+>> situation is for the capture direction, of course.
+> 
+> I am not sure I understand the notion of stream and stream transfer. Is
+> there a pointer to this so that I could understand the problem statement?
+
+Example:
+
+Device1:
+   ... some enable sequence ...
+   PlaybackPCM "hw:0"
+   PlaybackStream "DAC1"
+
+Device2:
+   ... another enable sequence ...
+   PlaybackPCM "hw:0"
+   PlaybackStream "DAC2"
+
+In this case, PCM names for alsa-lib are same, but there's a different setup 
+to route signal to different DAC which cannot be executed without the PCM 
+re-open task (when the PCM "hw:0" is active).
+
+						Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

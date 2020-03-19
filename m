@@ -2,95 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46B8A18BB72
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Mar 2020 16:45:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F48818BB73
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Mar 2020 16:46:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E66371763;
-	Thu, 19 Mar 2020 16:45:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E66371763
+	by alsa0.perex.cz (Postfix) with ESMTPS id C06B91786;
+	Thu, 19 Mar 2020 16:45:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C06B91786
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584632758;
-	bh=17Qc8cjpW+4+xpYO2mZgS+GW1k31jtTvF2tDZnGsJmI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ATZ5uBe+1uH8XRJnue5eAqbvfsc7cKMsmZN+wTlZtGoi4AbiMWpt3TephtGG+kzFq
-	 0+xjXSnhEd2cggZhOgEELl89tnoEkuSP3aPcExn3QTGy3Oa+tOBw3GyUehZMsmvD0i
-	 MRMtNNTxVCx0slco/nkoH4REoJ90M69aZ/rIDtqA=
+	s=default; t=1584632797;
+	bh=TZHq8tUcCYswe6ksti5Oay6EQUEZ8Prbzqz2afO0knM=;
+	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=mKrXMsFKg1wGni7hYOFP25vR7yPtuFa051HIbVJKvl17DY3oJDb/DC7quyGadU7Ws
+	 +qOAW0F+m2V2dxAKRR/9xbgkxN7yjheAFF3VTyslVUG3+2FZLFSw2Hx2d1cZq9FEsQ
+	 C4zDqLQX3mEMw83OSV1W9a7IkYr1veb3cBaXSR8U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 136C2F8028D;
-	Thu, 19 Mar 2020 16:43:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63A1FF80290;
+	Thu, 19 Mar 2020 16:43:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5AAD0F80139; Wed, 18 Mar 2020 18:19:12 +0100 (CET)
+ id AC40FF8022B; Thu, 19 Mar 2020 07:16:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
- [IPv6:2607:f8b0:4864:20::741])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6DDDBF800C0
- for <alsa-devel@alsa-project.org>; Wed, 18 Mar 2020 18:19:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DDDBF800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 409ACF800C0
+ for <alsa-devel@alsa-project.org>; Thu, 19 Mar 2020 07:16:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 409ACF800C0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=malainey-com.20150623.gappssmtp.com
- header.i=@malainey-com.20150623.gappssmtp.com header.b="ivrfws0o"
-Received: by mail-qk1-x741.google.com with SMTP id t17so18310246qkm.6
- for <alsa-devel@alsa-project.org>; Wed, 18 Mar 2020 10:19:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=malainey-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=hOBXSsggzxa7uGxk5aOZZMSXBOBu8auhlb9/HFBPo0I=;
- b=ivrfws0on93D31hyFQWoTG79MampNoMXlQ97o9qCeXTTc8vJJwLNOGjxwhunEAyjQO
- UD55/ioKExPkXrtDmxxAhxmo6gOSLf99nV5+OUsaSHyb9SCwtD0UZ95YbGPecFSspZAO
- doypzAYc3qfmIZg2ZpoFfsztS+CP+b3DCd1wM2IoxVbEIjTw/4rEoOpbkahjnLleeadB
- 1udbF3xSTQAq307F41KLf9iXUppZ2jm90quMtIfdZYYh4sXbgfEdZN3SCOQ8s57t/QuR
- vTvmTOKVgmA2EodsNZsPAdcukyP7FklNqyFGqTaSHrYcN9I8ufOrMo9S7/kPxW43D1E2
- 2vVw==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="TYguyj0h"
+Received: by mail-qt1-x841.google.com with SMTP id m33so886063qtb.3
+ for <alsa-devel@alsa-project.org>; Wed, 18 Mar 2020 23:16:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=c1jNfpwxrBlj6yDsjXhcG+OM7CZt1pDhDxHLqYhw1eY=;
+ b=TYguyj0hFzP/T/LWnIDlyJz9PCFUw+LUguouhKyg7Z74QJeEp1XvDz9NY5TQIEIzcr
+ YToeKPxB6RwUjyQxvDKdP9/VhF8Q7YiE8TtUdEGVWoiV8u74e9ipfiJjyIpbtHJfmyrX
+ DncmEJNFpIkT4N7gRx7Fu6wfws2VtEUUvJSYLM+YPhV551u6iniW58j1/vjaxga7kZbF
+ oe/UouM3/0xO3/DU/DfXV13UqM+iDn42pxezH8fD5W+59+PsCImoue4s53Y2Vnd2K8a3
+ 8Hnzp189C1u/cbBdHNwgMeyDxwfP8wONtH+DJ3ycebjfEOc2KybuOfHmtbBubPQw0rXR
+ ylYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=hOBXSsggzxa7uGxk5aOZZMSXBOBu8auhlb9/HFBPo0I=;
- b=o18TlO3CXriwWvWkfo80Ymz0OPIKm4bawT0f+yH7jP0MKvSBdcwAwye/0Do9JmZQxG
- Hb/U2eUf3XkxtCGqUDlklDVCzfau4kom8n/mr6CoC+mLOyEdCFf8XBeaY07ECmr6O+y5
- AggIehAk1JKXKX+wct5mWEOrtnyiKq5KRKEx4wBhblopJ8G+iTiTuJb4ANtUgYjmwh/P
- +3P2HHfaD8Z9EGW6oTGQYmXyGfpC74LVGRG8476ASjdL94KDc/cEKraGmJNXPo40IPw+
- KY8OpLpgNojv8dEqL4anPlbUjFp0C+RTck622DHSjakLdNNVcRYCZ8gosTTbsab1PE3q
- bMlQ==
-X-Gm-Message-State: ANhLgQ0mhbcbMKMT3Qjw/z4qBcKZVNZU6sEkwJatfsh2mS4bg/RgwF6U
- ZIFj5sknFhy9ZlviSisJms1jbTX4geYxVgGwVMjp4g==
-X-Google-Smtp-Source: ADFU+vu0UPDF+5MHNfZmz6/snZuzysEdbVWo74zRv2tqXUJJQSmUzYfFcPNnEgOi3rMlLLEbF6YBsU61W0d4RGG5mqE=
-X-Received: by 2002:a37:9c07:: with SMTP id f7mr5296208qke.349.1584551945940; 
- Wed, 18 Mar 2020 10:19:05 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=c1jNfpwxrBlj6yDsjXhcG+OM7CZt1pDhDxHLqYhw1eY=;
+ b=ZGT7mfUG/ZWZr/ErY56kpUZ+47dAn+0rq2SaMwAtwM29ifmIow6je8YG2CqINeSnWR
+ Bpf7Ad1+HrtKqnqHWDIphCMuZCPK4bApXEGz7KnsgSrrJRHazBt+yx+EErRZ/1nnNh+S
+ 932/9BNdqyU8VZpi08RN4qyDxf2g4P6VMa7SLJpUGAkO/Q+ZFSmDWjcVEdmSiT+/ZL32
+ qtXoa8IQfuPIJqMDIFLvSqCiIcO081Ulj3qkfEEk63XLiHnzpNNTzE6gCDErpmZxvYU5
+ djv7I66gMRj2ADpx8mdzHGb1/RGOTC+LJvOOEACf8riWzWOxwbFi8raotQtFBzbYbymX
+ Ovsg==
+X-Gm-Message-State: ANhLgQ1aAC2eqqXMWzw10lItPfST4trF1K/dWG6+Ltjiw2Uk1eBFlSHa
+ tCaZ+eQZnMtRWLXguM7o9Y/lNJ1GShGlp/lgK8g=
+X-Google-Smtp-Source: ADFU+vvZBof9Nsz5tnsv+BD3UgTssGS9kZMgPcScaEyuzmFOiiyK5uW3cGKizwQJ7Zxjm57A/gW6FOoTVrbnsWNmUrw=
+X-Received: by 2002:ac8:1111:: with SMTP id c17mr1317750qtj.253.1584598608864; 
+ Wed, 18 Mar 2020 23:16:48 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200318063022.GA116342@light.dominikbrodowski.net>
- <41d0b2b5-6014-6fab-b6a2-7a7dbc4fe020@linux.intel.com>
- <20200318123930.GA2433@light.dominikbrodowski.net>
- <d7a357c5-54af-3e69-771c-d7ea83c6fbb7@linux.intel.com>
- <20200318162029.GA3999@light.dominikbrodowski.net>
- <d974b46b-2899-03c2-0e98-88237f23f1e2@linux.intel.com>
-In-Reply-To: <d974b46b-2899-03c2-0e98-88237f23f1e2@linux.intel.com>
-From: Curtis Malainey <curtis@malainey.com>
-Date: Wed, 18 Mar 2020 10:18:55 -0700
-Message-ID: <CABkGCGe_gjzRehwP-VScjM8WYoQDJM4VDRjyBT0Mgbb7FNV9-g@mail.gmail.com>
-Subject: Re: snd_hda_intel/sst-acpi sound breakage on suspend/resume since
- 5.6-rc1
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, 
- Curtis Malainey <cujomalainey@google.com>
-X-Mailman-Approved-At: Thu, 19 Mar 2020 16:43:13 +0100
+From: jonghwan Choi <jhbird.choi@gmail.com>
+Date: Thu, 19 Mar 2020 15:16:38 +0900
+Message-ID: <CAGZ6kuN_-45pmQKmBKyrT22bX+Mku5Uf2_Bcd249vTte04JMJQ@mail.gmail.com>
+Subject: [PATCH]  ASoC: tas2562: Fixed incorrect amp_level setting.
+To: Dan Murphy <dmurphy@ti.com>
 Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: cezary.rojewski@intel.com, alsa-devel@alsa-project.org,
- Keyon Jie <yang.jie@linux.intel.com>, linux-kernel@vger.kernel.org,
- Dominik Brodowski <linux@dominikbrodowski.net>, tiwai@suse.com,
- liam.r.girdwood@linux.intel.com, broonie@kernel.org
+X-Mailman-Approved-At: Thu, 19 Mar 2020 16:43:13 +0100
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,51 +90,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-+Curtis Malainey <cujomalainey@google.com> -curtis@malainey.com
-Moving chain to my corp email.
+From 9f837d75f16ab18342ac517d5b1e5259ab9b797e Mon Sep 17 00:00:00 2001
 
-On Wed, Mar 18, 2020 at 10:09 AM Pierre-Louis Bossart <
-pierre-louis.bossart@linux.intel.com> wrote:
+From: Jonghwan Choi <charlie.jh@kakaocorp.com>
 
->
->
-> On 3/18/20 11:20 AM, Dominik Brodowski wrote:
-> > On Wed, Mar 18, 2020 at 10:13:54AM -0500, Pierre-Louis Bossart wrote:
-> >>
-> >>
-> >>>>> While 5.5.x works fine, mainline as of ac309e7744be (v5.6-rc6+)
-> causes me
-> >>>>> some sound-related trouble: after boot, the sound works fine -- but
-> once I
-> >>>>> suspend and resume my broadwell-based XPS13, I need to switch to
-> headphone
-> >>>>> and back to speaker to hear something. But what I hear isn't music
-> but
-> >>>>> garbled output.
-> >>
-> >> It's my understanding that the use of the haswell driver is opt-in for
-> Dell
-> >> XPS13 9343. When we run the SOF driver on this device, we have to
-> explicitly
-> >> bypass an ACPI quirk that forces HDAudio to be used:
-> >>
-> >>
-> https://github.com/thesofproject/linux/commit/944b6a2d620a556424ed4195c8428485fcb6c2bd
-> >>
-> >> Have you tried to run in plain vanilla HDAudio mode?
-> >
-> > I had (see 18d78b64fddc), but not any more in years (and I'd like to keep
-> > using I2S, which has worked flawlessly in these years).
->
-> ok. I don't think Intel folks have this device available, or it's used
-> for other things, but if you want to bisect on you may want to use [1]
-> to solve DRM issues. I used it to make Broadwell/Samus work again with SOF.
->
-> [1]
->
-> https://gitlab.freedesktop.org/drm/intel/uploads/ef10c6c27fdc53d114f827bb72b078aa/0001-drm-i915-psr-Force-PSR-probe-only-after-full-initial.patch.txt
->
-> An alternate path would be to switch to SOF. It's still viewed as a
-> developer option but Broadwell/Samus work reliably for me and we have a
-> Broadwell-rt286 platform used for CI.
->
+Date: Thu, 19 Mar 2020 14:44:14 +0900
+
+Subject: [PATCH]  ASoC: tas2562: Fixed incorrect amp_level setting.
+
+
+Signed-off-by: Jonghwan Choi <charlie.jh@kakaocorp.com>
+
+---
+
+ sound/soc/codecs/tas2562.c | 2 +-
+
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+
+diff --git a/sound/soc/codecs/tas2562.c b/sound/soc/codecs/tas2562.c
+
+index be52886a5edb..fb2233ca9103 100644
+
+--- a/sound/soc/codecs/tas2562.c
+
++++ b/sound/soc/codecs/tas2562.c
+
+@@ -409,7 +409,7 @@ static const struct snd_kcontrol_new vsense_switch =
+
+                        1, 1);
+
+
+ static const struct snd_kcontrol_new tas2562_snd_controls[] = {
+
+-       SOC_SINGLE_TLV("Amp Gain Volume", TAS2562_PB_CFG1, 0, 0x1c, 0,
+
++       SOC_SINGLE_TLV("Amp Gain Volume", TAS2562_PB_CFG1, 1, 0x1c, 0,
+
+                       tas2562_dac_tlv),
+
+ };
+
+
+-- 
+
+2.17.1

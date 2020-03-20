@@ -2,98 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1548F18D35C
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Mar 2020 16:53:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C83718D387
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Mar 2020 17:05:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9296374C;
-	Fri, 20 Mar 2020 16:52:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9296374C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D654A84B;
+	Fri, 20 Mar 2020 17:04:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D654A84B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584719584;
-	bh=0Ua2qKCRuJX1p+rRo3iu9VUft1KtJWJecbVLUDaflgk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=jZG7szpLyYDyRWkT5T6DahDQ9zi1boDRY3+kh219KO4kJFiZNAPfDm4J5+MS5hIxU
-	 9CVT9M+dYJQo267QB50QFJZwPmE6voC8Xp19as61MDAePNgDDtr4ur8I9wxLGepVNX
-	 C/K6fMfZAH40P3PDa0V+2XvfuXyxxaU0VzDRR+xE=
+	s=default; t=1584720340;
+	bh=ao4cQ67hLi2WHAXbY0DdmHCOV4ssvocDJRxLeH0WHfw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=nvBDylWlOiSzB9RfMAUMa+Qd0QO06hSJJq9BsABYbWneKEndJ8Zw5N2VkJU7kgDyn
+	 5i+IWrRyyBdSNMW5EOLMuHPpWs64YgweTY6HMAmQZ0QxC0E7xvfvBKwnEWTS34Cdsc
+	 Iyd0msWA78AcU/188uwm5kBITMHBuoOkS6gL1I2s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A3EC3F80162;
-	Fri, 20 Mar 2020 16:51:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5B5AF80162;
+	Fri, 20 Mar 2020 17:03:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F1C4DF8015B; Fri, 20 Mar 2020 16:51:20 +0100 (CET)
+ id 0C215F8015B; Fri, 20 Mar 2020 17:03:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oi1-x242.google.com (mail-oi1-x242.google.com
- [IPv6:2607:f8b0:4864:20::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0AE48F800C0
- for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 16:51:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AE48F800C0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gateworks-com.20150623.gappssmtp.com
- header.i=@gateworks-com.20150623.gappssmtp.com header.b="JrCCUJRD"
-Received: by mail-oi1-x242.google.com with SMTP id b17so6934159oic.8
- for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 08:51:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gateworks-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=0Ua2qKCRuJX1p+rRo3iu9VUft1KtJWJecbVLUDaflgk=;
- b=JrCCUJRDMF/N+NkW+ZOd9bgEyld9L064O27BZmFVHpZAwmutTV85jOU/v2s9twknFl
- mAwlpNzFzlfVOJKZ8NC0eE9nProuOVCq9O4JAFisbK/uA6igKBtYdB8EdqxAS0/5VnAK
- DB3SC/HWXyJMksqcyhlQyBI9l7apsGlNjFyYW9WVs8xtDpoUEvp7gBHQ5UCZnZ6XzQKz
- 6+hhc26tEbs3xDOg6RtIIhv6ZAYwfzK7fXQxIX6NbqC1X2xiQdOXlawvqQOD6CXgBJEG
- dynuKd6WWWddOGJazON8ma8WC3BKCmS3lpyTmcFstxHzvWJwB1HSrD27jcDZiPfj8l59
- mLYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=0Ua2qKCRuJX1p+rRo3iu9VUft1KtJWJecbVLUDaflgk=;
- b=P1lgkOOGHdT43UeCzneHY/Ytw3ij6CSSFhA2DBYBrqZaY6f3J5+xt9yk8IJ8i45BbV
- NZmmqqT3VBulqz1jYXdUdeXzLjKjxGz0CL6ZbwNZeCLxZlrTwz4pMzHVh5Jyv7i84CIL
- 3LDno72/Xc2B8YCuK5wn9zYGPheTAStPSUf1AG/5Bbza4diPEEKm5SSewceTZNVsN/tW
- txg2eYziOwJe243UpspVlub4hdFKIVYsO5Ka1YvHYw3r9BDnMUxsG86uYYQPc3SE87xE
- 4edieIIwYLjROJTqhkc54vVq8LHdqdQuoPnwCDRdxKT8JiIVzfbAeu1JGMxngKzD8i/7
- 0Daw==
-X-Gm-Message-State: ANhLgQ2tCufmG+dWAQ2FmfQG70/g8B+P6mRyXuc2V6uNv+KJYwevPg6Z
- x3QAxQc8vrJXB5xmOX23i0ZMz8o5Cp2MRmUxtJDuDg==
-X-Google-Smtp-Source: ADFU+vvOFP1DF5/ZF9jaKsOKByY+/fgm5EgY644cpEkSUiXubLpGBAmhNaI1uzja7eIaSNjN3msBbppikJDPNVcnX/M=
-X-Received: by 2002:aca:4b56:: with SMTP id y83mr7242234oia.142.1584719474911; 
- Fri, 20 Mar 2020 08:51:14 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3E595F80126
+ for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 17:03:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E595F80126
+IronPort-SDR: lOVAX7Ri4tdFsfDVsPHPu5lxshSMgamvh/hJV8wUXIi7E1iSo6221Oq2T8EV+QlPFD3QaL8m5u
+ 7c++NSGC3uVg==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Mar 2020 09:03:51 -0700
+IronPort-SDR: 6RQMOXAeHie61QvRhfmj8AdAO8vJ2CpIxsQa6nwhMRcHu/x1/gEWLLAN20qbcifJA/Fn/zvUl4
+ uED52zny4qHA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,285,1580803200"; d="scan'208";a="238803778"
+Received: from pi-desktop.igk.intel.com ([10.237.148.102])
+ by fmsmga008.fm.intel.com with ESMTP; 20 Mar 2020 09:03:50 -0700
+From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH] ASoC: topology: Add missing memory checks
+Date: Fri, 20 Mar 2020 14:13:45 -0400
+Message-Id: <20200320181345.31565-1-amadeuszx.slawinski@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <20191212071847.45561-1-alison.wang@nxp.com>
- <CAGgjyvHHzPWjRTqxYmGCmk3qa6=kOezHywVDFomgD6UNj-zwpQ@mail.gmail.com>
- <VI1PR04MB40627CDD5F0C17D8DCDCFFE2F4550@VI1PR04MB4062.eurprd04.prod.outlook.com>
- <VI1PR04MB4062C67906888DA8142C17E1F4550@VI1PR04MB4062.eurprd04.prod.outlook.com>
- <CAGgjyvGAjx1SV=K66AM24DxMTA_sAF2uhhDw5gXCFTGNZi8E7Q@mail.gmail.com>
- <VI1PR04MB40620DD55D5ED0FDC3E94C2BF4550@VI1PR04MB4062.eurprd04.prod.outlook.com>
- <20191212122318.GB4310@sirena.org.uk>
- <CAJ+vNU0xZOb0R2VNkq6k3efdkgQUtO_-cEdNgZ643nt_G=vevQ@mail.gmail.com>
- <af99c9abd9c2aec6a074fb05310c56b780725ebd.camel@toradex.com>
-In-Reply-To: <af99c9abd9c2aec6a074fb05310c56b780725ebd.camel@toradex.com>
-From: Tim Harvey <tharvey@gateworks.com>
-Date: Fri, 20 Mar 2020 08:51:03 -0700
-Message-ID: <CAJ+vNU16ax9JTx2kSMUF8SiVD-+4KGoFO-U07xM5eE=T6Fwjhw@mail.gmail.com>
-Subject: Re: [alsa-devel] [EXT] Re: [PATCH] ASoC: sgtl5000: Revert "ASoC:
- sgtl5000: Fix of unmute outputs on probe"
-To: Marcel Ziswiler <marcel.ziswiler@toradex.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "alison.wang@nxp.com" <alison.wang@nxp.com>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Oleksandr Suvorov <oleksandr.suvorov@toradex.com>,
- Igor Opanyuk <igor.opanyuk@toradex.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "festevam@gmail.com" <festevam@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,60 +76,171 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Mar 20, 2020 at 12:26 AM Marcel Ziswiler
-<marcel.ziswiler@toradex.com> wrote:
->
-> Hi Tim
->
-> On Thu, 2020-03-19 at 13:49 -0700, Tim Harvey wrote:
-> > On Thu, Dec 12, 2019 at 4:24 AM Mark Brown <broonie@kernel.org>
-> > wrote:
-> > > On Thu, Dec 12, 2019 at 10:46:31AM +0000, Alison Wang wrote:
-> > >
-> > > > We tested this standard solution using gstreamer and standard
-> > > > ALSA
-> > > > tools like aplay, arecord and all these tools unmute needed
-> > > > blocks
-> > > > successfully.
-> > > > [Alison Wang] I am using aplay. Do you mean I need to add some
-> > > > parameters for aplay or others to unmute the outputs?
-> > >
-> > > Use amixer.
-> >
-> > Marc / Oleksandr,
-> >
-> > I can't seem to find the original patch in my mailbox for 631bc8f:
-> > ('ASoC: sgtl5000: Fix of unmute outputs on probe')
->
-> I forwarded you that one again. OK?
->
-> > however I find it
-> > breaks sgtl5000 audio output on the Gateworks boards which is still
-> > broken on 5.6-rc6.
->
-> What exactly do you mean by "breaks"? Isn't it that you just need to
-> unmute stuff e.g. using amixer or using a proper updated asound.state
-> file with default states for your controls?
+kstrdup is an allocation function and it can fail, so its return value
+should be checked and handled appropriately.
 
-the audio device is in /proc/asound/cards but when I send audio to it
-I 'hear' nothing out the normal line-out output.
+In order to check all cases, we need to modify set_stream_info to return
+a value, so check that everything went correctly when doing kstrdup().
+Later add proper checks and error handlers.
 
->
-> > Was there some follow-up patches that haven't made
-> > it into mainline yet regarding this?
->
-> I don't think so. It all works perfectly, not?
->
-> > The response above indicates maybe there was an additional ALSA
-> > control perhaps added as a resolution but I don't see any differences
-> > there.
->
-> Not that I am aware of, no.
->
+Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+---
+ sound/soc/soc-topology.c | 65 +++++++++++++++++++++++++++++++---------
+ 1 file changed, 51 insertions(+), 14 deletions(-)
 
-The output of 'amixer' shows nothing different than before this patch
-where audio out worked (same controls, same settings on them). I'm
-testing this with a buildroot rootfs with no asound.conf (or at least
-none that I know of... i'm honestly not clear where all they can be).
+diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
+index 575da6aba807..0bec3ff782c1 100644
+--- a/sound/soc/soc-topology.c
++++ b/sound/soc/soc-topology.c
+@@ -1766,10 +1766,13 @@ static int soc_tplg_dapm_complete(struct soc_tplg *tplg)
+ 	return 0;
+ }
+ 
+-static void set_stream_info(struct snd_soc_pcm_stream *stream,
++static int set_stream_info(struct snd_soc_pcm_stream *stream,
+ 	struct snd_soc_tplg_stream_caps *caps)
+ {
+ 	stream->stream_name = kstrdup(caps->name, GFP_KERNEL);
++	if (!stream->stream_name)
++		return -ENOMEM;
++
+ 	stream->channels_min = le32_to_cpu(caps->channels_min);
+ 	stream->channels_max = le32_to_cpu(caps->channels_max);
+ 	stream->rates = le32_to_cpu(caps->rates);
+@@ -1777,6 +1780,8 @@ static void set_stream_info(struct snd_soc_pcm_stream *stream,
+ 	stream->rate_max = le32_to_cpu(caps->rate_max);
+ 	stream->formats = le64_to_cpu(caps->formats);
+ 	stream->sig_bits = le32_to_cpu(caps->sig_bits);
++
++	return 0;
+ }
+ 
+ static void set_dai_flags(struct snd_soc_dai_driver *dai_drv,
+@@ -1812,20 +1817,29 @@ static int soc_tplg_dai_create(struct soc_tplg *tplg,
+ 	if (dai_drv == NULL)
+ 		return -ENOMEM;
+ 
+-	if (strlen(pcm->dai_name))
++	if (strlen(pcm->dai_name)) {
+ 		dai_drv->name = kstrdup(pcm->dai_name, GFP_KERNEL);
++		if (!dai_drv->name) {
++			ret = -ENOMEM;
++			goto err;
++		}
++	}
+ 	dai_drv->id = le32_to_cpu(pcm->dai_id);
+ 
+ 	if (pcm->playback) {
+ 		stream = &dai_drv->playback;
+ 		caps = &pcm->caps[SND_SOC_TPLG_STREAM_PLAYBACK];
+-		set_stream_info(stream, caps);
++		ret = set_stream_info(stream, caps);
++		if (ret < 0)
++			goto err;
+ 	}
+ 
+ 	if (pcm->capture) {
+ 		stream = &dai_drv->capture;
+ 		caps = &pcm->caps[SND_SOC_TPLG_STREAM_CAPTURE];
+-		set_stream_info(stream, caps);
++		ret = set_stream_info(stream, caps);
++		if (ret < 0)
++			goto err;
+ 	}
+ 
+ 	if (pcm->compress)
+@@ -1835,11 +1849,7 @@ static int soc_tplg_dai_create(struct soc_tplg *tplg,
+ 	ret = soc_tplg_dai_load(tplg, dai_drv, pcm, NULL);
+ 	if (ret < 0) {
+ 		dev_err(tplg->comp->dev, "ASoC: DAI loading failed\n");
+-		kfree(dai_drv->playback.stream_name);
+-		kfree(dai_drv->capture.stream_name);
+-		kfree(dai_drv->name);
+-		kfree(dai_drv);
+-		return ret;
++		goto err;
+ 	}
+ 
+ 	dai_drv->dobj.index = tplg->index;
+@@ -1857,9 +1867,17 @@ static int soc_tplg_dai_create(struct soc_tplg *tplg,
+ 	if (ret != 0) {
+ 		dev_err(dai->dev, "Failed to create DAI widgets %d\n", ret);
+ 		snd_soc_unregister_dai(dai);
+-		return ret;
++		goto err;
+ 	}
+ 
++	return 0;
++
++err:
++	kfree(dai_drv->playback.stream_name);
++	kfree(dai_drv->capture.stream_name);
++	kfree(dai_drv->name);
++	kfree(dai_drv);
++
+ 	return ret;
+ }
+ 
+@@ -1916,11 +1934,20 @@ static int soc_tplg_fe_link_create(struct soc_tplg *tplg,
+ 	if (strlen(pcm->pcm_name)) {
+ 		link->name = kstrdup(pcm->pcm_name, GFP_KERNEL);
+ 		link->stream_name = kstrdup(pcm->pcm_name, GFP_KERNEL);
++		if (!link->name || !link->stream_name) {
++			ret = -ENOMEM;
++			goto err;
++		}
+ 	}
+ 	link->id = le32_to_cpu(pcm->pcm_id);
+ 
+-	if (strlen(pcm->dai_name))
++	if (strlen(pcm->dai_name)) {
+ 		link->cpus->dai_name = kstrdup(pcm->dai_name, GFP_KERNEL);
++		if (!link->cpus->dai_name) {
++			ret = -ENOMEM;
++			goto err;
++		}
++	}
+ 
+ 	link->codecs->name = "snd-soc-dummy";
+ 	link->codecs->dai_name = "snd-soc-dummy-dai";
+@@ -2436,13 +2463,17 @@ static int soc_tplg_dai_config(struct soc_tplg *tplg,
+ 	if (d->playback) {
+ 		stream = &dai_drv->playback;
+ 		caps = &d->caps[SND_SOC_TPLG_STREAM_PLAYBACK];
+-		set_stream_info(stream, caps);
++		ret = set_stream_info(stream, caps);
++		if (ret < 0)
++			goto err;
+ 	}
+ 
+ 	if (d->capture) {
+ 		stream = &dai_drv->capture;
+ 		caps = &d->caps[SND_SOC_TPLG_STREAM_CAPTURE];
+-		set_stream_info(stream, caps);
++		ret = set_stream_info(stream, caps);
++		if (ret < 0)
++			goto err;
+ 	}
+ 
+ 	if (d->flag_mask)
+@@ -2454,10 +2485,16 @@ static int soc_tplg_dai_config(struct soc_tplg *tplg,
+ 	ret = soc_tplg_dai_load(tplg, dai_drv, NULL, dai);
+ 	if (ret < 0) {
+ 		dev_err(tplg->comp->dev, "ASoC: DAI loading failed\n");
+-		return ret;
++		goto err;
+ 	}
+ 
+ 	return 0;
++
++err:
++	kfree(dai_drv->playback.stream_name);
++	kfree(dai_drv->capture.stream_name);
++
++	return ret;
+ }
+ 
+ /* load physical DAI elements */
+-- 
+2.17.1
 
-Tim

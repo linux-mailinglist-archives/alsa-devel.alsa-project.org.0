@@ -2,81 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE1FD18F63C
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 14:51:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C1B218F647
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 14:52:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3FAAA852;
-	Mon, 23 Mar 2020 14:50:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FAAA852
+	by alsa0.perex.cz (Postfix) with ESMTPS id 31B6C1664;
+	Mon, 23 Mar 2020 14:51:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31B6C1664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584971506;
-	bh=wktbysbpKxk2uFZnMfs8IfIeWAzW64HR1aVhyGDBRfg=;
+	s=default; t=1584971523;
+	bh=CMxEpWJ2YkZ2ofp0Fh+n81p9GAe7u22SIlJ9QPgvdOY=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YSZ5z1pVuJ4Y0LKmd0xX7Nrpife1CrxvFakq9XRASfQT45gSm7DpVAFFniPNUWGHQ
-	 GKD17unmSYk2QsCQvRR/YRJ7I5adXzGT1SpAxcxtspJvzwU+tyCTj4Gd5cIOeRdJUP
-	 lZyIUG8uGqR8+/hPmUea5l7//JFGDrLeWZ9FLjz4=
+	b=CnZ+r/NXANYkU/xhyJQfUWGMOgbLnEdk/R+VaZBxosW1alx0DFbznoTIAbtqOSkxr
+	 vJ9yizaX2Lf+W18QSQKMmlTNaKQbed3CwVzqIBhm/S9rzWGcj4dz4OEbq9FaBkp1AU
+	 KXTMXRhlhXH04B63D1L3kdXFm7hGMValp6JJ4qDU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4382FF80291;
-	Mon, 23 Mar 2020 14:47:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3BD8EF802A2;
+	Mon, 23 Mar 2020 14:47:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C5235F800C0; Fri, 20 Mar 2020 15:39:28 +0100 (CET)
+ id AD141F800C0; Fri, 20 Mar 2020 15:47:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_FROM, PRX_BODY_76, SPF_HELO_NONE, SPF_PASS,
- SURBL_BLOCKED, URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
- [IPv6:2607:f8b0:4864:20::642])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
+ [IPv6:2607:f8b0:4864:20::442])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C9467F800C0
- for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 15:39:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9467F800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id DC759F800C0
+ for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 15:47:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC759F800C0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="qNBIADHA"
-Received: by mail-pl1-x642.google.com with SMTP id f8so2557922plt.10
- for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 07:39:25 -0700 (PDT)
+ header.b="jvK6zIz+"
+Received: by mail-pf1-x442.google.com with SMTP id l184so3326531pfl.7
+ for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 07:47:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=a54IW0oB44nJzFv1TQssWnIGDqT1Lq9rUj5K2IpDqwI=;
- b=qNBIADHAq6ehPS/ovZWHrsu7MGd/UxDlnzD+zweINjMHVHnMtBB6FOCc8mZ4AK2sn+
- 0jf8BXHyflIAVz+hE0NX3UYbiaCl06w8BZxkazyhDNur8jMHzNsTQkS/jbggtOTtNowT
- abxarJPlIPxtpGpCYE1GeC+BvrILbtVOFTMLCHOuHtnuAT321KZ6Vp8xTeoVRAuqnnII
- Jalcy7DC+PP0+sC6IxYTuGSL5qsSGRtQsmKX6oTK8VYKu5/Uc580sGHivzbxojUFrSa0
- tGef9gFQWBsjqWIyKiY7khPTi39m+Xc80oV4jD0C4fVyEBhyhfePUTBSh/KTrfeWNzWs
- FoTA==
+ :cc; bh=lzqksOZo9oKzssQWd4+TCqMTVJHNfIm+9Q0SEfaLBjU=;
+ b=jvK6zIz+Qr1G8bcWBVBwn3UfzcaK9sRBJks8raIHNoHYfHO2DmiGRVxPhd4Zu5DrCz
+ ssEKRSg6XEUN2Bh1T3t8FxP+2Llw4OryQC/PYqdtuX2VGcpgpXUJOggqoxLEX14U+Ycg
+ LuBarYM6L87ZRlUuDNsMpGMqd9Lb0heHLMtAbs43E7wHfpmR6nmXZQONvOHiQl54CxGC
+ FbYDgx36/VNKIJit0ypjsiN2/VZSsJQdz4/Mwai+3I0nY+qHqo5TS73yp5yHMdK5Qlep
+ kuFS3nbtw7pZAsbQO+unr7n7vI9tW6NkdNc+MtzoBeK6iS8kQ/6WAkOhGDlo0f0qjuhv
+ Qn5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=a54IW0oB44nJzFv1TQssWnIGDqT1Lq9rUj5K2IpDqwI=;
- b=A76KKeKoN6jqjUtz8l7mL0ExyZvASHBPlLiP18QHPg8vAo+MhlET39KjoNjYYacGuL
- AVbY5h4zx9x0heaK5ySmWcd6n/PNczGCDL8F3PAVgA95GgW/L6om5i4kQ1PYwV8+WLBc
- 4dS/f2XbgRhW7zm999ufC6oCuJn2BRnFCYW9Bja3vpEy6atIBPHmWITWaAViZqKms1Wu
- QJ2sAgeRW6TUOtKwDBsxz6Zp3kJosenrD5sIHVgTCL4UDNdoYx4IY7J6l93juEM7qjje
- UUPGy6XER23kz9UuZFu88TqWEkYcOKZnOcXbYO2ZPJTNBtDafGddANn1N0ZlJBuQB6qH
- MrpA==
-X-Gm-Message-State: ANhLgQ0sd4Iz1Y9m+jvr+tfNd1Q6Yqx/TloagBMujtelhCeNCMD7eou+
- lsrzAvs57UPfysiaXs/dY2nNoS1dEY4Swkh9jWs=
-X-Google-Smtp-Source: ADFU+vvvaVCkXdplje1O4GxrsGz4U6GUkJ3qUTDhDx4G7N8RLK5zRd1Pc/WBHOoPDY8ll979CQXu9IGQKSDD2UQAADM=
-X-Received: by 2002:a17:90a:fb49:: with SMTP id
- iq9mr9739946pjb.143.1584715163452; 
- Fri, 20 Mar 2020 07:39:23 -0700 (PDT)
+ bh=lzqksOZo9oKzssQWd4+TCqMTVJHNfIm+9Q0SEfaLBjU=;
+ b=lflc8hAIAtgYD9JoPI2sXfQa+bcABt329bzq1EBL30jKO9NzzQ7GOzxWwmWrWNDS7u
+ n12NqSq0WWT7Yl3BHR4dVz1vdOXqCvOKHa1qda7tInO+9oYsyxr8ZFlum1yYQWdfE5Wl
+ Bd8P9hNe5+GQ6+tksONcDFe4WfXWQjPVAzIJ6gv2dIU73lSuMQtOsAI8RAu81jlFaL2H
+ 33gcKmNVj9x3f+vOoD/NS6RdqDy+78cqqDfIjWQm80UuqxLveUFK1mt7ajqo4o6e2s/g
+ 3b8UhWGbF2TI+tyn2uuS2C9zB7rctAHjVeyjmf6/MPRZSnczDTlvUoLMw2xpOYh5LKVl
+ bvug==
+X-Gm-Message-State: ANhLgQ0Tf3OxBpZBAzMoZaLJb5Rt1srVph0spBRknELfIn1lqKAE0sJA
+ TO50r+9Mlxn2IFOxnX0jVxio4El5OXjCS9p+Ri4=
+X-Google-Smtp-Source: ADFU+vtsQgQOnLRlTrTgGM50EY41vnr51HFNUk9V7349gPUFHWyFKZzvnxnlkchBu6NONcJcSUPuUU7T2einYPojAXw=
+X-Received: by 2002:aa7:9348:: with SMTP id 8mr10286496pfn.36.1584715637228;
+ Fri, 20 Mar 2020 07:47:17 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200320131345.635023594@linutronix.de>
- <20200320131508.826011988@linutronix.de>
-In-Reply-To: <20200320131508.826011988@linutronix.de>
+ <20200320131509.467730627@linutronix.de>
+In-Reply-To: <20200320131509.467730627@linutronix.de>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Fri, 20 Mar 2020 16:39:16 +0200
-Message-ID: <CAHp75VdKavBD=yTR6Mz4iaGKQVP__xCsf-fWdy1MMJJywhDd-Q@mail.gmail.com>
-Subject: Re: [patch 02/22] x86/cpu: Add conistent CPU match macros
+Date: Fri, 20 Mar 2020 16:47:10 +0200
+Message-ID: <CAHp75VcK3tL0YayjF=CSkSkHiOpg2zOV3rdkXQWJmLZ9fmevpg@mail.gmail.com>
+Subject: Re: [patch 08/22] ACPI: Convert to new X86 CPU match macros
 To: Thomas Gleixner <tglx@linutronix.de>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 23 Mar 2020 14:47:37 +0100
@@ -119,81 +118,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Mar 20, 2020 at 3:18 PM Thomas Gleixner <tglx@linutronix.de> wrote:
+On Fri, Mar 20, 2020 at 3:19 PM Thomas Gleixner <tglx@linutronix.de> wrote:
 >
-> Finding all places which build x86_cpu_id match tables is tedious and the
-> logic is hidden in lots of differently named macro wrappers.
+> The new macro set has a consistent namespace and uses C99 initializers
+> instead of the grufty C89 ones.
 >
-> Most of these initializer macros use plain C89 initializers which rely on
-> the ordering of the struct members. So new members could only be added at
-> the end of the struct, but that's ugly as hell and C99 initializers are
-> really the right thing to use.
->
-> Provide a set of macros which:
->
->   - Have a proper naming scheme, starting with X86_MATCH_
->
->   - Use C99 initializers
->
-> The set of provided macros are all subsets of the base macro
->
->     X86_MATCH_VENDOR_FAM_MODEL_FEATURE()
->
-> which allows to supply all possible selection criteria:
->
->       vendor, family, model, feature
->
-> The other macros shorten this to avoid typing all arguments when they are
-> not needed and would require one of the _ANY constants. They have been
-> created due to the requirements of the existing usage sites.
->
+> Rename the local macro wrapper to X86_MATCH for consistency. It stays for
+> readability sake.
 
-> Also a add a few model constants for Centaur CPUs and QUARK.
+> +       X86_MATCH_INTEL_FAM6_MODEL(ATOM_SILVERMONT,     NULL),
+> +       X86_MATCH_INTEL_FAM6_MODEL(ATOM_AIRMONT,        NULL),
 
-I would perhaps made this as a separate change(s).
+> -#define ICPU(model)    { X86_VENDOR_INTEL, 6, model, X86_FEATURE_ANY, }
+> +#define X86_MATCH(model)       X86_MATCH_INTEL_FAM6_MODEL(model, NULL)
 
-...
-
-> +#define X86_MATCH_VENDOR_FAM_MODEL_FEATURE(_vendor, _family, _model,   \
-> +                                          _feature, _data) {           \
-
-I would leave it on one line despite the length, but it's up to you.
-
-> +       .vendor         = X86_VENDOR_##_vendor,                         \
-> +       .family         = _family,                                      \
-> +       .model          = _model,                                       \
-> +       .feature        = _feature,                                     \
-
-> +       .driver_data    = (unsigned long) _data                         \
-
-For sake of consistency shouldn't be this kernel_ulong_t ?
-Or we are going to get rid of that type?
-
->  }
-
-...
-
-> +#define X86_MATCH_VENDOR_FAM_FEATURE(vendor, family, feature, data)    \
-
-> +       X86_MATCH_VENDOR_FAM_MODEL_FEATURE(vendor, family,              \
-> +                                          X86_MODEL_ANY, feature, data)
-
-I would leave it on one line despite the length, but it's up to you.
-
-...
-
-> +#define X86_MATCH_VENDOR_FAM_MODEL(vendor, family, model, data)                \
-> +       X86_MATCH_VENDOR_FAM_MODEL_FEATURE(vendor, family, model,       \
-> +                                          X86_FEATURE_ANY, data)
-
-Ditto.
-
-...
-
-> + * X86_MATCH_VENDOR_FAM_MODEL_FEATURE(INTEL, 6, INTEL_FAM6_BROADWELL,
-> + *                                   X86_FEATURE_ANY, NULL);
-
-Perhaps one line?
+Maybe we can do a generic macro to avoid all these ', NULL' repetitions?
 
 -- 
 With Best Regards,

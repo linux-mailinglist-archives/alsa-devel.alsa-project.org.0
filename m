@@ -2,70 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2759018C38C
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Mar 2020 00:19:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 486C618C439
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Mar 2020 01:23:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A777717C6;
-	Fri, 20 Mar 2020 00:18:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A777717C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id B11DE17C8;
+	Fri, 20 Mar 2020 01:22:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B11DE17C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584659974;
-	bh=zD3fF3Keozh3LQhuxVojd1PsStm7DEIMooA5TLlVqq0=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1584663785;
+	bh=vr1j1MCsadkOnB8cI79yaYQoZGEZuTmwpWblI/5kSVA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WsfyFAkFihrZGp0b+pBIGP5UfQ2C1U2C7lfZrReK9PuOqVyqHnStzQg/6+eFOFkpc
-	 eodYDoCNTRqXvjiU0beiDZY0oYcwa5xJH8Vq0GgVJsCRZiywA+L4L2RO6VcER11gcJ
-	 VSeKXsuewvGqt/cxV/7bT+9KMR5/Qamnc2qrEBEE=
+	b=I0PdjnlxPlN7mwzqzP5mEl4jzoglxugmJHJJHLhVa7tSB6eR2V0z6id2B5hAssbBp
+	 tKrD8yKJOhgK9eSskp4Wt1mJXZwH7NJlPm9UZtPmvfA1S7V6XkdfI4VwzT1cV/Rnix
+	 Gn6uGQ+SBZ9s/NYXUHIGwgw5esSwKanUdCy8Utlk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B19E3F800C0;
-	Fri, 20 Mar 2020 00:17:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B9A6F80217;
+	Fri, 20 Mar 2020 01:21:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F08BBF8022B; Fri, 20 Mar 2020 00:17:50 +0100 (CET)
+ id 8197CF8022B; Fri, 20 Mar 2020 01:21:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-il1-f193.google.com (mail-il1-f193.google.com
+ [209.85.166.193])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6869CF800DD
- for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 00:17:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6869CF800DD
-IronPort-SDR: uNG3CuAZG+1psY+oBKHbWyr+WyfFuYb9SgAq0LryCiH5QjmUJxrIMuNxid9UxAQk1HOrN3xdv6
- r9Vn0h0EhKNQ==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2020 16:17:40 -0700
-IronPort-SDR: /dxDJbBuOLRtLE4QLXYejRMH7H8VHqfIrJUYBaBk0VqS2DT+27RmXx5N7HbDclZPxji7IiLihG
- YcN/xPnhfj5w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,573,1574150400"; d="scan'208";a="418524587"
-Received: from greenley-mobl2.amr.corp.intel.com (HELO [10.255.33.221])
- ([10.255.33.221])
- by orsmga005.jf.intel.com with ESMTP; 19 Mar 2020 16:17:39 -0700
-Subject: Re: [PATCH] ASoC: Intel: broadwell: Revert SSP0 link to use dummy
- components
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
-References: <20200319211204.21580-1-cezary.rojewski@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <43d75d9e-5dfe-7dee-aa7d-a8a1c0b7876f@linux.intel.com>
-Date: Thu, 19 Mar 2020 17:20:32 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1D4D5F800C0
+ for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 01:21:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D4D5F800C0
+Received: by mail-il1-f193.google.com with SMTP id k29so4090996ilg.0
+ for <alsa-devel@alsa-project.org>; Thu, 19 Mar 2020 17:21:17 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=FuTx6V6iQX3TQQufQK6K65FrEVN9gM5pUAmus1MSvNc=;
+ b=k68WnXfJsb7d6J4YNdQ1an6qzvJxC1b7WnIiWJNG629xfSvCFq34Dm8RtCVit0Fja5
+ TpcNziibgUC0AhPaEVqBCS89hlYcGkSkogc0tfXKoY58nOYsZsYXzRtCOUPA7HPsj/Go
+ 6Y5SzV9ej8HD598Tg1rIQnzWC/dlOrN08VaM4xWkxVF5y0yluRBScuJpWk8mRrtKYEkc
+ R586kMAV2NiG0yzhUYpi4PKCCbTLxAWM9ISnNjrJjJ2dQqh/g2Q+l1hA4akycYenXsAa
+ 9U96wHSieKasK6XLNyhcSJKxN//Wp8aClshUeR8k0L9zf6vZR1tmQ4uxM7YX7X3fIJ9V
+ oJhA==
+X-Gm-Message-State: ANhLgQ2DuvY9mXQFKv7VPEdW579CoT3wyjsxmwy8gPF/w06mAAH+QcGB
+ PcjMoPpCBYaafOpXi7aBnw==
+X-Google-Smtp-Source: ADFU+vtWkY9RoNxxzvof2BMoe1HJaDzh6VsWtHCXeQqV0u6VhrRgZXrJYD2kh9SusnEkFODar2PWAQ==
+X-Received: by 2002:a05:6e02:e0e:: with SMTP id
+ a14mr5896966ilk.104.1584663676074; 
+ Thu, 19 Mar 2020 17:21:16 -0700 (PDT)
+Received: from rob-hp-laptop ([64.188.179.250])
+ by smtp.gmail.com with ESMTPSA id t24sm1275351ioj.13.2020.03.19.17.21.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 19 Mar 2020 17:21:14 -0700 (PDT)
+Received: (nullmailer pid 11035 invoked by uid 1000);
+ Fri, 20 Mar 2020 00:21:12 -0000
+Date: Thu, 19 Mar 2020 18:21:12 -0600
+From: Rob Herring <robh@kernel.org>
+To: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Subject: Re: [PATCH 2/3] bindings: sound: Add documentation for TI j721e EVM
+ (CPB and IVI)
+Message-ID: <20200320002112.GA10030@bogus>
+References: <20200319092815.3776-1-peter.ujfalusi@ti.com>
+ <20200319092815.3776-3-peter.ujfalusi@ti.com>
 MIME-Version: 1.0
-In-Reply-To: <20200319211204.21580-1-cezary.rojewski@intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: broonie@kernel.org, lgirdwood@gmail.com, linux@dominikbrodowski.net,
- tiwai@suse.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200319092815.3776-3-peter.ujfalusi@ti.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, robh+dt@kernel.org, linux-kernel@vger.kernel.org,
+ broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,66 +95,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 3/19/20 4:12 PM, Cezary Rojewski wrote:
-> Commit:
-> "ASoC: Intel: broadwell: change cpu_dai and platform components for SOF
-
-checkpatch.pl probably reports the format doesn't follow conventions?
-
+On Thu, 19 Mar 2020 11:28:14 +0200, Peter Ujfalusi wrote:
+> The audio support on the Common Processor Board board is using
+> pcm3168a codec connected to McASP10 serializers in parallel setup.
 > 
-> while enabling bdw on SOF, changed behavior for non-SOF solutions. In
-> essence replacing platform 'dummy' with actual 'platform' causes
-> redundant stream initialization to occur during audio start. hw_params
-> for haswell-pcm destroys initial stream right after its creation - only
-> to recreate it again from proceed from there.
+> The Infotainment board plugs into the Common Processor Board, the support
+> of the extension board is extending the CPB audio support by adding
+> the two codecs on the expansion board.
 > 
-> While harmless so far, this flow ain't right and should be corrected.
-
-isn't
-
-> The actual need for dummy components for SSP0 link is questionable but
-> that issue is subject for another series.
-
-If we want to be consistent, the same use of a dummy platform component 
-needs to be applied to bdw-rt5677.c and bdw-rt5650.c
-
+> The audio support on the Infotainment Expansion Board consists of McASP0
+> connected to two pcm3168a codecs with dedicated set of serializers to each.
+> The SCKI for pcm3168a is sourced from j721e AUDIO_REFCLK0 pin.
 > 
-> Link to first message in conversation:
-> https://lkml.org/lkml/2020/3/18/54
-> 
-> Reported-by: Dominik Brodowski <linux@dominikbrodowski.net>
-> Fixes: 64df6afa0dab ("ASoC: Intel: broadwell: change cpu_dai and platform components for SOF")
-> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
 > ---
->   sound/soc/intel/boards/broadwell.c | 7 ++++---
->   1 file changed, 4 insertions(+), 3 deletions(-)
+>  .../bindings/sound/ti,j721e-cpb-audio.yaml    |  93 +++++++++++
+>  .../sound/ti,j721e-cpb-ivi-audio.yaml         | 145 ++++++++++++++++++
+>  2 files changed, 238 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/ti,j721e-cpb-audio.yaml
+>  create mode 100644 Documentation/devicetree/bindings/sound/ti,j721e-cpb-ivi-audio.yaml
 > 
-> diff --git a/sound/soc/intel/boards/broadwell.c b/sound/soc/intel/boards/broadwell.c
-> index 0776ea2d4f36..9b639475e99f 100644
-> --- a/sound/soc/intel/boards/broadwell.c
-> +++ b/sound/soc/intel/boards/broadwell.c
-> @@ -167,9 +167,6 @@ SND_SOC_DAILINK_DEF(codec,
->   #if IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
->   SND_SOC_DAILINK_DEF(ssp0_port,
->   	    DAILINK_COMP_ARRAY(COMP_CPU("ssp0-port")));
-> -#else
-> -SND_SOC_DAILINK_DEF(ssp0_port,
-> -	    DAILINK_COMP_ARRAY(COMP_DUMMY()));
->   #endif
->   
->   /* broadwell digital audio interface glue - connects codec <--> CPU */
-> @@ -225,7 +222,11 @@ static struct snd_soc_dai_link broadwell_rt286_dais[] = {
->   		.ops = &broadwell_rt286_ops,
->   		.dpcm_playback = 1,
->   		.dpcm_capture = 1,
-> +#if !IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
-> +		SND_SOC_DAILINK_REG(dummy, codec, dummy),
-> +#else
->   		SND_SOC_DAILINK_REG(ssp0_port, codec, platform),
-> +#endif
->   	},
->   };
->   
-> 
+
+My bot found errors running 'make dt_binding_check' on your patch:
+
+Documentation/devicetree/bindings/sound/ti,j721e-cpb-ivi-audio.yaml: $id: relative path/filename doesn't match actual path or filename
+	expected: http://devicetree.org/schemas/sound/ti,j721e-cpb-ivi-audio.yaml#
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/ti,j721e-cpb-audio.yaml: duplicate '$id' value 'http://devicetree.org/schemas/sound/ti,j721e-cpb-audio.yaml#'
+Error: Documentation/devicetree/bindings/sound/ti,j721e-cpb-ivi-audio.example.dts:21.23-24 syntax error
+FATAL ERROR: Unable to parse input tree
+scripts/Makefile.lib:311: recipe for target 'Documentation/devicetree/bindings/sound/ti,j721e-cpb-ivi-audio.example.dt.yaml' failed
+make[1]: *** [Documentation/devicetree/bindings/sound/ti,j721e-cpb-ivi-audio.example.dt.yaml] Error 1
+make[1]: *** Waiting for unfinished jobs....
+Makefile:1262: recipe for target 'dt_binding_check' failed
+make: *** [dt_binding_check] Error 2
+
+See https://patchwork.ozlabs.org/patch/1258054
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure dt-schema is up to date:
+
+pip3 install git+https://github.com/devicetree-org/dt-schema.git@master --upgrade
+
+Please check and re-submit.

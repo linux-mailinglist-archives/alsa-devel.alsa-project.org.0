@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53E8518D334
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Mar 2020 16:45:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49F1A18D33B
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Mar 2020 16:46:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E2E9785D;
-	Fri, 20 Mar 2020 16:44:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2E9785D
+	by alsa0.perex.cz (Postfix) with ESMTPS id E1D3583D;
+	Fri, 20 Mar 2020 16:45:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1D3583D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584719134;
-	bh=HndsIeMbUnlgvKj9VoGwly/yM9fjQj+xriuxL6qj6vU=;
+	s=default; t=1584719201;
+	bh=CzDuwL0kjtKcimHd1XbGl/22092bJljLNeREghNsiYI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Mp3PwJ3XUxzYgCXNs+Ekoqwmn5/jdaBFpN1ResAJbkmjsjHpZNO3Qh6s1eR4lgmcJ
-	 gGErIA5xyq6VRDLWvpPcA+zzgw21dz/sWA4YkKhtuCJpzZZHyIwfyWCa8eWWvD/TJs
-	 2gt9L+2IJhLC5NDPQGIu0IAmhuERMdiKwYHuZy4g=
+	b=qWrA+ww2zTA3R7n5y4DWXVNli4kFJY41JPjIKxUxXdQPYaRPT/6cZQZxH+6fFW/RY
+	 VbHNxz/X8oCQAdlSTvgcVU9/MNU4wlJdd7kI/+YY4cGgVn6wMvJhwH8i9I51ikMQFt
+	 IDKafe6SAPhnXeHWnTz6hGIpaLNv0txdpjBGdcuc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D21DEF802F7;
-	Fri, 20 Mar 2020 16:41:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64208F80329;
+	Fri, 20 Mar 2020 16:41:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9CDB0F802A2; Fri, 20 Mar 2020 16:40:44 +0100 (CET)
+ id 4CB98F802A7; Fri, 20 Mar 2020 16:40:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,28 +33,29 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 34CCBF80139;
- Fri, 20 Mar 2020 16:40:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34CCBF80139
-IronPort-SDR: tiJklcEqnn62QltgynqKMbPuLB6l3XfIug8DI+Kgk7OtZJHbaPAV9Q7bv1lOsAZh+HihSF2lX7
- NAVyRvcjg2SA==
+ by alsa1.perex.cz (Postfix) with ESMTPS id E7F7EF80162;
+ Fri, 20 Mar 2020 16:40:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7F7EF80162
+IronPort-SDR: yGvEo8tMRsHcdshW+66R7twUcgf742gzv4hI8oZxwUi6NfyOgJy2PvJ1gM/VNFHq11X1bATjhl
+ q7Xl5a0SmXIg==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Mar 2020 08:40:27 -0700
-IronPort-SDR: Hc4o6CWf2Dab14ToCsqDC32jDZL+7MK9TChYzdEhAiowAh+vDbK9+CZqkzx4iPf/XCkAe6RKjg
- TV0HIXC5Vi6w==
+ 20 Mar 2020 08:40:28 -0700
+IronPort-SDR: p8F0MvKARWqqYO01osbo5cJFBOSxR3FXo0RnszBfJlwvNvxCBMmLe2nYyYvsre3pU9Q6HBUPS1
+ Da218k9qi4LA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,285,1580803200"; d="scan'208";a="237257385"
+X-IronPort-AV: E=Sophos;i="5.72,285,1580803200"; d="scan'208";a="237257388"
 Received: from gliakhov-mobl2.ger.corp.intel.com (HELO
  ubuntu.ger.corp.intel.com) ([10.252.57.199])
- by fmsmga007.fm.intel.com with ESMTP; 20 Mar 2020 08:40:26 -0700
+ by fmsmga007.fm.intel.com with ESMTP; 20 Mar 2020 08:40:27 -0700
 From: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 03/12] ASoC: SOF: VirtIO: make a function global
-Date: Fri, 20 Mar 2020 16:40:12 +0100
-Message-Id: <20200320154021.5964-4-guennadi.liakhovetski@linux.intel.com>
+Subject: [PATCH 04/12] vhost: convert VHOST_VSOCK_SET_RUNNING to a generic
+ ioctl
+Date: Fri, 20 Mar 2020 16:40:13 +0100
+Message-Id: <20200320154021.5964-5-guennadi.liakhovetski@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200320154021.5964-1-guennadi.liakhovetski@linux.intel.com>
 References: <20200320154021.5964-1-guennadi.liakhovetski@linux.intel.com>
@@ -76,54 +77,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-sof_ipc_tx_message_unlocked() will be needed for VirtIO code, make
-it global.
+VHOST_VSOCK_SET_RUNNING is used by the vhost vsock driver to perform
+crucial VirtQueue initialisation, like assigning .private fields and
+calling vhost_vq_init_access(), and clean up. However, this ioctl is
+actually extremely useful for any vhost driver, that doesn't have a
+side channel to inform it of a status change, e.g. upon a guest
+reboot. This patch makes that ioctl generic, while preserving its
+numeric value and also keeping the original alias.
 
 Signed-off-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 ---
- sound/soc/sof/ipc.c      | 7 ++++---
- sound/soc/sof/sof-priv.h | 3 +++
- 2 files changed, 7 insertions(+), 3 deletions(-)
+ include/uapi/linux/vhost.h | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
-index 1c67949..cf57085 100644
---- a/sound/soc/sof/ipc.c
-+++ b/sound/soc/sof/ipc.c
-@@ -231,9 +231,9 @@ static int tx_wait_done(struct snd_sof_ipc *ipc, struct snd_sof_ipc_msg *msg,
- }
+diff --git a/include/uapi/linux/vhost.h b/include/uapi/linux/vhost.h
+index 40d028ee..c628103 100644
+--- a/include/uapi/linux/vhost.h
++++ b/include/uapi/linux/vhost.h
+@@ -93,6 +93,8 @@
+ #define VHOST_SET_BACKEND_FEATURES _IOW(VHOST_VIRTIO, 0x25, __u64)
+ #define VHOST_GET_BACKEND_FEATURES _IOR(VHOST_VIRTIO, 0x26, __u64)
  
- /* send IPC message from host to DSP */
--static int sof_ipc_tx_message_unlocked(struct snd_sof_ipc *ipc, u32 header,
--				       void *msg_data, size_t msg_bytes,
--				       void *reply_data, size_t reply_bytes)
-+int sof_ipc_tx_message_unlocked(struct snd_sof_ipc *ipc, u32 header,
-+				void *msg_data, size_t msg_bytes,
-+				void *reply_data, size_t reply_bytes)
- {
- 	struct snd_sof_dev *sdev = ipc->sdev;
- 	struct snd_sof_ipc_msg *msg;
-@@ -284,6 +284,7 @@ static int sof_ipc_tx_message_unlocked(struct snd_sof_ipc *ipc, u32 header,
++#define VHOST_SET_RUNNING _IOW(VHOST_VIRTIO, 0x61, int)
++
+ /* VHOST_NET specific defines */
  
- 	return ret;
- }
-+EXPORT_SYMBOL(sof_ipc_tx_message_unlocked);
+ /* Attach virtio net ring to a raw socket, or tap device.
+@@ -114,6 +116,6 @@
+ /* VHOST_VSOCK specific defines */
  
- /* send IPC message from host to DSP */
- int sof_ipc_tx_message(struct snd_sof_ipc *ipc, u32 header,
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index a4b297c..922b671 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -493,6 +493,9 @@ int sof_ipc_tx_message(struct snd_sof_ipc *ipc, u32 header,
- int sof_ipc_tx_message_no_pm(struct snd_sof_ipc *ipc, u32 header,
- 			     void *msg_data, size_t msg_bytes,
- 			     void *reply_data, size_t reply_bytes);
-+int sof_ipc_tx_message_unlocked(struct snd_sof_ipc *ipc, u32 header,
-+				void *msg_data, size_t msg_bytes,
-+				void *reply_data, size_t reply_bytes);
+ #define VHOST_VSOCK_SET_GUEST_CID	_IOW(VHOST_VIRTIO, 0x60, __u64)
+-#define VHOST_VSOCK_SET_RUNNING		_IOW(VHOST_VIRTIO, 0x61, int)
++#define VHOST_VSOCK_SET_RUNNING		VHOST_SET_RUNNING
  
- /*
-  * Trace/debug
+ #endif
 -- 
 1.9.3
 

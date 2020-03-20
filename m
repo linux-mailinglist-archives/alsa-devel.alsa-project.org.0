@@ -2,84 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 486C618C439
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Mar 2020 01:23:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55BCB18C5AF
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Mar 2020 04:23:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B11DE17C8;
-	Fri, 20 Mar 2020 01:22:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B11DE17C8
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0B5017C9;
+	Fri, 20 Mar 2020 04:22:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0B5017C9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584663785;
-	bh=vr1j1MCsadkOnB8cI79yaYQoZGEZuTmwpWblI/5kSVA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1584674591;
+	bh=P+FjRK2wXx/zGqnWUz4J8BzKVLQR19Evv1TIJT/tL0I=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=I0PdjnlxPlN7mwzqzP5mEl4jzoglxugmJHJJHLhVa7tSB6eR2V0z6id2B5hAssbBp
-	 tKrD8yKJOhgK9eSskp4Wt1mJXZwH7NJlPm9UZtPmvfA1S7V6XkdfI4VwzT1cV/Rnix
-	 Gn6uGQ+SBZ9s/NYXUHIGwgw5esSwKanUdCy8Utlk=
+	b=C6DiPE362coFKt+PAnkbDuuKvW/qy39Mu6NQaLLkYjlojOGNSVP2Npy+ddY6YhcHZ
+	 59CSFMZ0C1OiaD5bOrRg3rcs05FJsAPpHqkuDQn1RBAHW9WJ5m9AidAN3YnhQTqQJc
+	 O0uWbA1ETISCC87qxYjNjMxdhqKX0ActWxnWdllQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B9A6F80217;
-	Fri, 20 Mar 2020 01:21:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DED24F800C0;
+	Fri, 20 Mar 2020 04:21:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8197CF8022B; Fri, 20 Mar 2020 01:21:21 +0100 (CET)
+ id B169EF8015B; Fri, 20 Mar 2020 04:21:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mail-il1-f193.google.com (mail-il1-f193.google.com
- [209.85.166.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1D4D5F800C0
- for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 01:21:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D4D5F800C0
-Received: by mail-il1-f193.google.com with SMTP id k29so4090996ilg.0
- for <alsa-devel@alsa-project.org>; Thu, 19 Mar 2020 17:21:17 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=FuTx6V6iQX3TQQufQK6K65FrEVN9gM5pUAmus1MSvNc=;
- b=k68WnXfJsb7d6J4YNdQ1an6qzvJxC1b7WnIiWJNG629xfSvCFq34Dm8RtCVit0Fja5
- TpcNziibgUC0AhPaEVqBCS89hlYcGkSkogc0tfXKoY58nOYsZsYXzRtCOUPA7HPsj/Go
- 6Y5SzV9ej8HD598Tg1rIQnzWC/dlOrN08VaM4xWkxVF5y0yluRBScuJpWk8mRrtKYEkc
- R586kMAV2NiG0yzhUYpi4PKCCbTLxAWM9ISnNjrJjJ2dQqh/g2Q+l1hA4akycYenXsAa
- 9U96wHSieKasK6XLNyhcSJKxN//Wp8aClshUeR8k0L9zf6vZR1tmQ4uxM7YX7X3fIJ9V
- oJhA==
-X-Gm-Message-State: ANhLgQ2DuvY9mXQFKv7VPEdW579CoT3wyjsxmwy8gPF/w06mAAH+QcGB
- PcjMoPpCBYaafOpXi7aBnw==
-X-Google-Smtp-Source: ADFU+vtWkY9RoNxxzvof2BMoe1HJaDzh6VsWtHCXeQqV0u6VhrRgZXrJYD2kh9SusnEkFODar2PWAQ==
-X-Received: by 2002:a05:6e02:e0e:: with SMTP id
- a14mr5896966ilk.104.1584663676074; 
- Thu, 19 Mar 2020 17:21:16 -0700 (PDT)
-Received: from rob-hp-laptop ([64.188.179.250])
- by smtp.gmail.com with ESMTPSA id t24sm1275351ioj.13.2020.03.19.17.21.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Mar 2020 17:21:14 -0700 (PDT)
-Received: (nullmailer pid 11035 invoked by uid 1000);
- Fri, 20 Mar 2020 00:21:12 -0000
-Date: Thu, 19 Mar 2020 18:21:12 -0600
-From: Rob Herring <robh@kernel.org>
-To: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Subject: Re: [PATCH 2/3] bindings: sound: Add documentation for TI j721e EVM
- (CPB and IVI)
-Message-ID: <20200320002112.GA10030@bogus>
-References: <20200319092815.3776-1-peter.ujfalusi@ti.com>
- <20200319092815.3776-3-peter.ujfalusi@ti.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 41914F800C0
+ for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 04:21:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41914F800C0
+IronPort-SDR: 6QRANaKpFGL40cQHjR0lLkNJEnXmNDfMXG/6Bpqqet4VIYynrvn3hg4u79z6wylZAlj632xDGw
+ CZ3HDnegSTBw==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Mar 2020 20:21:19 -0700
+IronPort-SDR: mR03DYeqvkIQcgn0WcWd2qJ7otYBW15lrJjlF8zdd6PSU699Wr5FRC2o0WZ3rL9yRLtxxBUDjJ
+ ut+0mQv3w5ng==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,283,1580803200"; d="scan'208";a="324731214"
+Received: from jliu231-mobl1.ccr.corp.intel.com (HELO [10.254.208.65])
+ ([10.254.208.65])
+ by orsmga001.jf.intel.com with ESMTP; 19 Mar 2020 20:21:16 -0700
+Subject: Re: snd_hda_intel/sst-acpi sound breakage on suspend/resume since
+ 5.6-rc1
+To: Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+References: <e49eec28-2037-f5db-e75b-9eadf6180d81@intel.com>
+ <20200318192213.GA2987@light.dominikbrodowski.net>
+ <b352a46b-8a66-8235-3622-23e561d3728c@intel.com>
+ <20200318215218.GA2439@light.dominikbrodowski.net>
+ <e7f4f38d-b53e-8c69-8b23-454718cf92af@intel.com>
+ <20200319130049.GA2244@light.dominikbrodowski.net>
+ <20200319134139.GB3983@sirena.org.uk>
+ <a01359dc-479e-b3e3-37a6-4a9c421d18da@intel.com>
+ <20200319165157.GA2254@light.dominikbrodowski.net>
+ <eef45d20-3bce-184a-842c-216c15252014@linux.intel.com>
+ <20200319173502.GC3983@sirena.org.uk>
+From: Keyon Jie <yang.jie@linux.intel.com>
+Message-ID: <0d01b2ce-9531-1a08-e632-4608ab894fbe@linux.intel.com>
+Date: Fri, 20 Mar 2020 11:21:40 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200319092815.3776-3-peter.ujfalusi@ti.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, robh+dt@kernel.org, linux-kernel@vger.kernel.org,
- broonie@kernel.org
+In-Reply-To: <20200319173502.GC3983@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ kuninori.morimoto.gx@renesas.com, curtis@malainey.com, tiwai@suse.com,
+ alsa-devel@alsa-project.org, Dominik Brodowski <linux@dominikbrodowski.net>,
+ linux-kernel@vger.kernel.org, liam.r.girdwood@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,45 +94,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 19 Mar 2020 11:28:14 +0200, Peter Ujfalusi wrote:
-> The audio support on the Common Processor Board board is using
-> pcm3168a codec connected to McASP10 serializers in parallel setup.
+
+
+On 3/20/20 1:35 AM, Mark Brown wrote:
+> On Thu, Mar 19, 2020 at 12:21:47PM -0500, Pierre-Louis Bossart wrote:
+>> On 3/19/20 11:51 AM, Dominik Brodowski wrote:
 > 
-> The Infotainment board plugs into the Common Processor Board, the support
-> of the extension board is extending the CPB audio support by adding
-> the two codecs on the expansion board.
+>>> That patch fixes the issue(s). I didn't even need to revert 64df6afa0dab
+>>> ("ASoC: Intel: broadwell: change cpu_dai and platform components for SOF")
+>>> on top of that. But you can assess better whether that patch needs care for
+>>> other reasons; for me, this one-liner you have suggested is perfect.
 > 
-> The audio support on the Infotainment Expansion Board consists of McASP0
-> connected to two pcm3168a codecs with dedicated set of serializers to each.
-> The SCKI for pcm3168a is sourced from j721e AUDIO_REFCLK0 pin.
+> Good news!
 > 
-> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
-> ---
->  .../bindings/sound/ti,j721e-cpb-audio.yaml    |  93 +++++++++++
->  .../sound/ti,j721e-cpb-ivi-audio.yaml         | 145 ++++++++++++++++++
->  2 files changed, 238 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/ti,j721e-cpb-audio.yaml
->  create mode 100644 Documentation/devicetree/bindings/sound/ti,j721e-cpb-ivi-audio.yaml
+>> .ignore_suspend is set for bdw-rt5677.c and bdw-rt5650.c as well. I don't
+>> know if that was intentional.
 > 
+> The intended use case is for applications doing audio during suspend
+> like telephony audio between the modem and CODEC on a phone or
+> compressed audio playback.  I guess the compressed audio playback case
+> could possibly apply with these systems though x86 suspend/resume is
+> usually sufficiently heavyweight that it's surprising.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+I think that's true, on many of SKL- intel platforms(byt, hsw, bdw), we 
+are seeing this .ignore_suspend set with offload or deep buffer FE 
+dai_links configured together.
 
-Documentation/devicetree/bindings/sound/ti,j721e-cpb-ivi-audio.yaml: $id: relative path/filename doesn't match actual path or filename
-	expected: http://devicetree.org/schemas/sound/ti,j721e-cpb-ivi-audio.yaml#
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/ti,j721e-cpb-audio.yaml: duplicate '$id' value 'http://devicetree.org/schemas/sound/ti,j721e-cpb-audio.yaml#'
-Error: Documentation/devicetree/bindings/sound/ti,j721e-cpb-ivi-audio.example.dts:21.23-24 syntax error
-FATAL ERROR: Unable to parse input tree
-scripts/Makefile.lib:311: recipe for target 'Documentation/devicetree/bindings/sound/ti,j721e-cpb-ivi-audio.example.dt.yaml' failed
-make[1]: *** [Documentation/devicetree/bindings/sound/ti,j721e-cpb-ivi-audio.example.dt.yaml] Error 1
-make[1]: *** Waiting for unfinished jobs....
-Makefile:1262: recipe for target 'dt_binding_check' failed
-make: *** [dt_binding_check] Error 2
+So it looks we can't ignore calling codec's suspend/resume callbacks 
+during the power cycle for rt286 codec(on the Dell XPS here), which is 
+actually supported on Chromebook SAMUS(rt5677)?
 
-See https://patchwork.ozlabs.org/patch/1258054
+Thanks,
+~Keyon
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure dt-schema is up to date:
-
-pip3 install git+https://github.com/devicetree-org/dt-schema.git@master --upgrade
-
-Please check and re-submit.
+> 

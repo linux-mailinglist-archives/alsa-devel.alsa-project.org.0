@@ -2,66 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8890B18D4AF
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Mar 2020 17:41:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65B0418D53A
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Mar 2020 18:03:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1E323844;
-	Fri, 20 Mar 2020 17:40:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E323844
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC945844;
+	Fri, 20 Mar 2020 18:02:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC945844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584722502;
-	bh=0BNF32Ot9S3paqwF1C3COqOTGVZ/vjexQUsZ36K3iI0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1584723795;
+	bh=03A1vQ9EpQlCZNMI4GzvLAos4NQd0MPyT1RKf86YUfY=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ojMxEjfOukSSzGiH1Kc03uHyvT0K0rsogD7XGE39NqBrmbzIabaXdV+SV1mArrsLE
-	 ndWlqHs/Cejvr9KBjh77apquHL2l8G4fPYo/a7jAmvlh99ak3m6d5ZiEoB/sVXgWKl
-	 EMeg8+RuCvRaWU9FD/oL2U9ghAP2m8PqCO9siaBE=
+	b=p4/hs9aFwriTLuobXDMqNT6A3W4oppDwSWLl0CGsmBnAokr4cov0/JQnf5eIjKrgs
+	 uHuoe5XKYb3YmwY84A0jDvLDzlL+WViauiNWQ/PiVX/eakpkCCsxLQmIpP9UjY/xTh
+	 wJI+rv9G2Z5bpxfa2ms9pttb5QTxvvncklaWDfyQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 05D07F80162;
-	Fri, 20 Mar 2020 17:40:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AE99BF80162;
+	Fri, 20 Mar 2020 18:01:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B365F8015B; Fri, 20 Mar 2020 17:39:58 +0100 (CET)
+ id 1C939F8015B; Fri, 20 Mar 2020 18:01:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- PRX_BODY_30, SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 8B60AF800C0;
- Fri, 20 Mar 2020 17:39:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B60AF800C0
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 443831FB;
- Fri, 20 Mar 2020 09:39:50 -0700 (PDT)
-Received: from localhost (unknown [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ED9833F305;
- Fri, 20 Mar 2020 09:39:49 -0700 (PDT)
-Date: Fri, 20 Mar 2020 16:39:48 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Subject: Re: [PATCH 06/14] ASoC: SOF: add a power status IPC
-Message-ID: <20200320163948.GD3961@sirena.org.uk>
-References: <20200312144429.17959-1-guennadi.liakhovetski@linux.intel.com>
- <20200312144429.17959-7-guennadi.liakhovetski@linux.intel.com>
- <20200313143956.GJ5528@sirena.org.uk>
- <20200320115203.GA2130@ubuntu>
- <20200320121952.GC3961@sirena.org.uk>
- <20200320132732.GC2130@ubuntu> <20200320150727.GD2130@ubuntu>
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id CCCCBF800C0
+ for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 18:01:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCCCBF800C0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="PbPE1Wyv"
+Received: by mail-wr1-x444.google.com with SMTP id h9so8373972wrc.8
+ for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 10:01:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=WAc5lm/otiSMYlhAZkwpRkCEm3vOHc+J4qVldOzMYLg=;
+ b=PbPE1WyvLko7zML64W4Fy/tWupg+WQH1wKpA3pUay8H3XFuNYdU3nzhD3CPGihnTx7
+ ih+cLHp3N5pEAkHECPGmtZBMzrPaN+y9XHQMkiI7iqEujqP5t7x+2Lt7a1XeJ9QHHLNK
+ nk+1jOvU7HCwNzazBbQWRyev4rktZQY6ByMAnqaVVSxXAQ0Zi9mOB3MGaNTow49biVkr
+ QDmYbFifK5dkrj3HJ6IRqWKpagtMdGr+QqaZl4sZ7+GtG1hNKyCA9NFmiheF4FBlQb9E
+ QJNRHCnlPaej/Y9dapBmKFx6r1AeoUEpVqzdyDEaA6bQBF5ja+41O6bsou1YZFv39a1s
+ +Mgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=WAc5lm/otiSMYlhAZkwpRkCEm3vOHc+J4qVldOzMYLg=;
+ b=ii5nCzWJm4I38PUl2H5BRVa5XIoYN60Rlw1vJwtdRk1mScWqCMvCDop0Wqoqp1zQzV
+ AMbjLMBfLMuILsjmnye52W3jw9HbyECrR4KdMpLitatQ85eT5MOh437C1seUFK+EtGUg
+ lMZ3u5h3LfQcnGGr3FB9Paj1759TNBQqUvpy2p7gj/JRf8/abanPA9SuU8nwkIucNg5a
+ cjxZRR+U9e+V6PM2CeLl3mXIgAWYcslCvvf/nFb9RKNuXawwDeLJVDSY5hOwyOXT8nti
+ nl8ccrNWcisKCoDQ/DC05QHmd7r1uCoX7LoNBgt85WZMZyKUdyPOmKg3yqXKVQzrYLKB
+ dfug==
+X-Gm-Message-State: ANhLgQ0UkhLkQ0ob3RpQ7oslTylc/BUaGkYJDNgTGtjP/JRQvLmg01VY
+ vZ048GqRSFzQCFzfj9mMGPcIEA==
+X-Google-Smtp-Source: ADFU+vv37Lo2CSsXWa5Kztok67Rtq3einqxjkNtW+ODswAo0H7LtIjSk0BpXPmvoHxMYmOyW+uTN6A==
+X-Received: by 2002:a5d:694e:: with SMTP id r14mr11999902wrw.312.1584723683784; 
+ Fri, 20 Mar 2020 10:01:23 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.googlemail.com with ESMTPSA id c124sm8695442wma.10.2020.03.20.10.01.22
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 20 Mar 2020 10:01:23 -0700 (PDT)
+Subject: Re: [PATCH 5/5] soundwire: qcom: add sdw_master_device support
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+References: <20200320162947.17663-1-pierre-louis.bossart@linux.intel.com>
+ <20200320162947.17663-6-pierre-louis.bossart@linux.intel.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <81e2101e-d7ce-d023-5c35-ac6b55ea7166@linaro.org>
+Date: Fri, 20 Mar 2020 17:01:21 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="VV4b6MQE+OnNyhkM"
-Content-Disposition: inline
-In-Reply-To: <20200320150727.GD2130@ubuntu>
-X-Cookie: Laugh when you can
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- sound-open-firmware@alsa-project.org
+In-Reply-To: <20200320162947.17663-6-pierre-louis.bossart@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Hui Wang <hui.wang@canonical.com>, vkoul@kernel.org, broonie@kernel.org,
+ Andy Gross <agross@kernel.org>, jank@cadence.com,
+ "open list:ARM/QUALCOMM SUPPORT" <linux-arm-msm@vger.kernel.org>,
+ slawomir.blauciak@intel.com, Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,47 +115,113 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---VV4b6MQE+OnNyhkM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Mar 20, 2020 at 04:07:27PM +0100, Guennadi Liakhovetski wrote:
-> On Fri, Mar 20, 2020 at 02:27:32PM +0100, Guennadi Liakhovetski wrote:
+On 20/03/2020 16:29, Pierre-Louis Bossart wrote:
+> Add new device as a child of the platform device, following the
+> following hierarchy:
+> 
+> platform_device
+>      sdw_master_device
+>          sdw_slave0
 
-> > No, this isn't a completion - it's a counter. I've used atomic variable=
-s=20
-> > before, I cannot remember seeing any difficulties with their correct us=
-e=20
-> > described. Do you have a pointer?
+Why can't we just remove the platform device layer here and add 
+sdw_master_device directly?
 
-> Actually I'd even say this isn't a problem. I think it's safe to say, you=
-=20
-> won't suspend and resume your audio interface more often than every 10=20
-> seconds. That makes under 3200000 cycles per year. Even with 31 bits for =
-a=20
-> signed integer that makes more than 600 years. I think we're safe.
+What is it stopping doing that?
 
-The problem is that atomics are just incredibly error prone - for
-example they're just a plain number, they're usually counting something
-which is not being locked so you have to be careful any time you do
-anything around them.  Their lack of structure makes them harder to
-reason about than most other locking primitives, often harder than it's
-worth.
+--srini
 
---VV4b6MQE+OnNyhkM
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl508dMACgkQJNaLcl1U
-h9AwrAf/eWl+Yb8qB8Fr4u5YFzbxMd1qzAcjCqwrHb7QunWcMmllBJOAYCyPin/C
-3n84GcOZezV6APmoZXx6W8KrrMlYBo5BMHXp8vXCzZ36B3UQgdqjLMsFr4pQxp8H
-BKYXtow+NC9B2/h3HpegWkQ0wSAF2ohd3VI5k7OhPwz2MhWeNO30bxQx7dkxFPtE
-3c3EFq77PB662iGDR4YnKuc1MUDblfMtPg/Je866pg0ZCNgQ7Bq9TVxQzWrF+R4b
-tOsZdeYwGO4Zo7Vj/+9GoVw5kYo30961PXjb9Kywa3rHLuGXXNYC0E4yEyOEKQbw
-dow3mx9kcb6v0fCeINu7R6hxXru/Jw==
-=6VtB
------END PGP SIGNATURE-----
-
---VV4b6MQE+OnNyhkM--
+> 	...
+> 	sdw_slaveN
+> 
+> For the Qualcomm implementation no sdw_master_driver is registered so
+> the dais have to be registered using the platform_device and likely
+> all power management is handled at the platform device level.
+> 
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> ---
+>   drivers/soundwire/qcom.c | 29 +++++++++++++++++++++++++----
+>   1 file changed, 25 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+> index 77783ae4b71d..86b46415e50b 100644
+> --- a/drivers/soundwire/qcom.c
+> +++ b/drivers/soundwire/qcom.c
+> @@ -89,6 +89,7 @@ struct qcom_swrm_port_config {
+>   struct qcom_swrm_ctrl {
+>   	struct sdw_bus bus;
+>   	struct device *dev;
+> +	struct sdw_master_device *md;
+>   	struct regmap *regmap;
+>   	struct completion *comp;
+>   	struct work_struct slave_work;
+> @@ -775,14 +776,31 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+>   	mutex_init(&ctrl->port_lock);
+>   	INIT_WORK(&ctrl->slave_work, qcom_swrm_slave_wq);
+>   
+> -	ctrl->bus.dev = dev;
+> +	/*
+> +	 * add sdw_master_device.
+> +	 * For the Qualcomm implementation there is no driver.
+> +	 */
+> +	ctrl->md = sdw_master_device_add(NULL,	/* no driver name */
+> +					 dev,	/* platform device is parent */
+> +					 dev->fwnode,
+> +					 0,	/* only one link supported */
+> +					 NULL);	/* no context */
+> +	if (IS_ERR(ctrl->md)) {
+> +		dev_err(dev, "Could not create sdw_master_device\n");
+> +		ret = PTR_ERR(ctrl->md);
+> +		goto err_clk;
+> +	}
+> +
+> +	/* the bus uses the sdw_master_device, not the platform device */
+> +	ctrl->bus.dev = &ctrl->md->dev;
+> +
+>   	ctrl->bus.ops = &qcom_swrm_ops;
+>   	ctrl->bus.port_ops = &qcom_swrm_port_ops;
+>   	ctrl->bus.compute_params = &qcom_swrm_compute_params;
+>   
+>   	ret = qcom_swrm_get_port_config(ctrl);
+>   	if (ret)
+> -		goto err_clk;
+> +		goto err_md;
+>   
+>   	params = &ctrl->bus.params;
+>   	params->max_dr_freq = DEFAULT_CLK_FREQ;
+> @@ -809,14 +827,14 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+>   					"soundwire", ctrl);
+>   	if (ret) {
+>   		dev_err(dev, "Failed to request soundwire irq\n");
+> -		goto err_clk;
+> +		goto err_md;
+>   	}
+>   
+>   	ret = sdw_add_bus_master(&ctrl->bus);
+>   	if (ret) {
+>   		dev_err(dev, "Failed to register Soundwire controller (%d)\n",
+>   			ret);
+> -		goto err_clk;
+> +		goto err_md;
+>   	}
+>   
+>   	qcom_swrm_init(ctrl);
+> @@ -832,6 +850,8 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+>   
+>   err_master_add:
+>   	sdw_delete_bus_master(&ctrl->bus);
+> +err_md:
+> +	device_unregister(&ctrl->md->dev);
+>   err_clk:
+>   	clk_disable_unprepare(ctrl->hclk);
+>   err_init:
+> @@ -843,6 +863,7 @@ static int qcom_swrm_remove(struct platform_device *pdev)
+>   	struct qcom_swrm_ctrl *ctrl = dev_get_drvdata(&pdev->dev);
+>   
+>   	sdw_delete_bus_master(&ctrl->bus);
+> +	device_unregister(&ctrl->md->dev);
+>   	clk_disable_unprepare(ctrl->hclk);
+>   
+>   	return 0;
+> 

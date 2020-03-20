@@ -2,146 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C105418D559
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Mar 2020 18:07:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F34F918D5E1
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Mar 2020 18:34:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 45B97844;
-	Fri, 20 Mar 2020 18:06:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45B97844
+	by alsa0.perex.cz (Postfix) with ESMTPS id 60705846;
+	Fri, 20 Mar 2020 18:33:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60705846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584724069;
-	bh=x+W39hN8Deiz1JC4Xe8tYUNA8xkl+TkZ4Y3YVLQs0q4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1584725647;
+	bh=WsjgjMc5V84hg2ru5hJzn4ARjRe9A0ITrIl/CNrlPLg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cznMSxQusR/4Y0nO6WZO7H4BgfRKxoNgBaexSii1U9mN+RgHPDO4NmExFXHlNuvov
-	 7j38o2jvRrRhYktorWxHsmk6B+f85iM7U8uEoV6fIky2JByBQhdPMdmrr68kxuFVZX
-	 +LEbH/WUU8OxBq9eTimSXJ+9ZJg9mleKrdHwC+PA=
+	b=FGxAtsw8LjdAFjIbU9HMqRdQS3XonWI+f3KU3Vg0ONMOTPCpXGEoMM2Yh1eDx54fv
+	 u0O5RpMRflpWl8RzH5P79PHKAEVUPf5cVupJola2hhlnQLbFnL44uYdyyLIJ1fK3hu
+	 esfp/L86sFzrMYZYx4yV1cZE3vLTlVj4a1r9eTDQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52E51F800C0;
-	Fri, 20 Mar 2020 18:06:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 691EFF800C0;
+	Fri, 20 Mar 2020 18:32:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B14C9F8015B; Fri, 20 Mar 2020 18:06:05 +0100 (CET)
+ id 2F63EF8015B; Fri, 20 Mar 2020 18:32:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MSGID_FROM_MTA_HEADER,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2117.outbound.protection.outlook.com [40.107.20.117])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-il1-f193.google.com (mail-il1-f193.google.com
+ [209.85.166.193])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3737FF800C0
- for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 18:05:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3737FF800C0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=toradex.com header.i=@toradex.com
- header.b="i9qirCZD"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l2BBN/Z1fAaQb4J5fuBeN69Qp0fvJ5AZQDiGAfFXnaNzCqO87z8xSOmO9gddHBzwvAjsU8mFRgmAH3jM4cmi/2FDsjzrKHDIMP8pn6hI8w+mh7TYrqBvXy6+FSoGUVsd9JOJUfhiv0miVWpaBl/7NMXEy+Krp4Sqk0gI/LsN9YdwNqLlcZDW6CC+urIc9QX27Dqldef824HIR6CPD1ZfGeyo2KJTy5W8TnVTZD/uZuyKtlH9J+oEwTk8FMWsRgKFjFalweg7lAozBJ0r1VDjKGbtqJqOA5KI+Rc7USb0iG2lHRb7CPWFUHVBeyDM5UlG0mhqMCHiJl5PiBkSGze9fA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x+W39hN8Deiz1JC4Xe8tYUNA8xkl+TkZ4Y3YVLQs0q4=;
- b=flR2LivA8ZcMQ+ChGUhHLgpFftMLG6zG3kmJLv1dz1WaqgYxUgmdhR5fl47KiBOJQUT2ciT2r3OpenZf6abqciI28+fylP4pojk1SY8BmIiCgXDsWjHgg39M028x4kjwtaXsld+He12+rU1p5qdCe9L2udu66kjYE+feGokI3/zCyYIIP1CroxCAZU/13skYq0/zEPQlYSx05ZVros1Uwb5SiZZT+3iwubL2Q7EES8EF9zYHWgbuIhF4LYJ1jhQo+SeO7uB5STmkLpCM+rGSiDX1Kf0etoGjYoTOODmBScADmIHSTWyIYPSufsbNRwXlmxXtAsHpYlm/YVceVSzOeA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=toradex.com; dmarc=pass action=none header.from=toradex.com;
- dkim=pass header.d=toradex.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x+W39hN8Deiz1JC4Xe8tYUNA8xkl+TkZ4Y3YVLQs0q4=;
- b=i9qirCZDeLGTLCs4o7gESej/c7hJluJXuFEFqBhR6WFl6DuX4Csrqx2xLowjVolfNKH/K/A8F2GzvUqWL5en/r+Zbqkd2l/AMD1P7paM6oqU4L4SkqSoEAUDya6dp6uGKWo/DMqFp8RlrcVevaAuHjCpbdTZfB9H7Qnr4fX3Arw=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=oleksandr.suvorov@toradex.com; 
-Received: from VI1PR05MB3279.eurprd05.prod.outlook.com (10.170.238.24) by
- VI1PR05MB3472.eurprd05.prod.outlook.com (10.170.237.26) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2814.16; Fri, 20 Mar 2020 17:05:58 +0000
-Received: from VI1PR05MB3279.eurprd05.prod.outlook.com
- ([fe80::7cdd:4feb:a8b6:a6d2]) by VI1PR05MB3279.eurprd05.prod.outlook.com
- ([fe80::7cdd:4feb:a8b6:a6d2%7]) with mapi id 15.20.2835.017; Fri, 20 Mar 2020
- 17:05:58 +0000
-X-Gm-Message-State: ANhLgQ35CD9xhkw24uYsUGr9EV/7c5BJlGUq4ot8bnxz9G9L9btROQ75
- kAEeINwcwQg5V3F6HfhPncwXHPnRCDDEv7Ij+KI=
-X-Google-Smtp-Source: ADFU+vu5eQ0XQ2gaTaJU+0kPrD4Z2okP/4JxmWwAsKxZeiK7wqSpvMQ/y+cvk0uPde5rBNpjU4WSYadgttbhdf9vC6M=
-X-Received: by 2002:ac8:1633:: with SMTP id p48mr9494130qtj.305.1584723952240; 
- Fri, 20 Mar 2020 10:05:52 -0700 (PDT)
-References: <20191212071847.45561-1-alison.wang@nxp.com>
- <CAGgjyvHHzPWjRTqxYmGCmk3qa6=kOezHywVDFomgD6UNj-zwpQ@mail.gmail.com>
- <VI1PR04MB40627CDD5F0C17D8DCDCFFE2F4550@VI1PR04MB4062.eurprd04.prod.outlook.com>
- <VI1PR04MB4062C67906888DA8142C17E1F4550@VI1PR04MB4062.eurprd04.prod.outlook.com>
- <CAGgjyvGAjx1SV=K66AM24DxMTA_sAF2uhhDw5gXCFTGNZi8E7Q@mail.gmail.com>
- <VI1PR04MB40620DD55D5ED0FDC3E94C2BF4550@VI1PR04MB4062.eurprd04.prod.outlook.com>
- <20191212122318.GB4310@sirena.org.uk>
- <CAJ+vNU0xZOb0R2VNkq6k3efdkgQUtO_-cEdNgZ643nt_G=vevQ@mail.gmail.com>
- <af99c9abd9c2aec6a074fb05310c56b780725ebd.camel@toradex.com>
- <CAJ+vNU16ax9JTx2kSMUF8SiVD-+4KGoFO-U07xM5eE=T6Fwjhw@mail.gmail.com>
-In-Reply-To: <CAJ+vNU16ax9JTx2kSMUF8SiVD-+4KGoFO-U07xM5eE=T6Fwjhw@mail.gmail.com>
-From: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
-Date: Fri, 20 Mar 2020 19:05:40 +0200
-X-Gmail-Original-Message-ID: <CAGgjyvFNCbFw7x6QL063oi-fV2UuVQVfL1cv_pQ74HWoJS4Etg@mail.gmail.com>
-Message-ID: <CAGgjyvFNCbFw7x6QL063oi-fV2UuVQVfL1cv_pQ74HWoJS4Etg@mail.gmail.com>
-Subject: Re: [alsa-devel] [EXT] Re: [PATCH] ASoC: sgtl5000: Revert "ASoC:
- sgtl5000: Fix of unmute outputs on probe"
-To: Tim Harvey <tharvey@gateworks.com>
-Content-Type: text/plain; charset="UTF-8"
-X-ClientProxiedBy: MN2PR06CA0007.namprd06.prod.outlook.com
- (2603:10b6:208:23d::12) To VI1PR05MB3279.eurprd05.prod.outlook.com
- (2603:10a6:802:1c::24)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 214ABF800DD
+ for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 18:32:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 214ABF800DD
+Received: by mail-il1-f193.google.com with SMTP id r5so1623432ilq.6
+ for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 10:32:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=FXIfsAVUFp8IJFPm+/hNheLawxwEVeZKgbspez8Hy3A=;
+ b=JJ8Hk0sqc4Q8Yh7cbEInCvh5yyAlXLvAuAfZmSt7Dst+X4S1Jncb2Huuuf7W569nwO
+ 2WOEOSYvhBLopIZJy7Tie4aBoYCavXIrVTFbv4tJv+orXOCnBx5jnyr6qXa1O/D9OQkr
+ /t4u8ZX6gMznRVNJu30BFbNPAAyHslTNM3xFzcxS0DCjNW2zPpWn6sZAS6BkPfpc5lGW
+ OE15s0JeWevDN+ECsEmQ3bkPCnQ0ULu6N7hsevetrwXxret0Up7vCeQlF3AsurWnn5Va
+ QT40ffTopfZH1FH+PH2VXl0q0wKM/H48QWRCrAJ0M1JH/PyPaFXMZklT16icXoQ9cKPV
+ 0SRA==
+X-Gm-Message-State: ANhLgQ2itePzEsLyjBlWXaRJA2I7hIDyekYXJ4G6Pu4jxmnqhGaV2e+7
+ ZgBRncyWFSx3XIjmtRBRkg==
+X-Google-Smtp-Source: ADFU+vvyOEHh52ksLg64oqQQtskIyPgC3Gb9PgcVjz3NdBpqcYEYi8YkzZvcjgp/TY2ZkGE4F1dg5g==
+X-Received: by 2002:a92:d641:: with SMTP id x1mr9850010ilp.223.1584725536379; 
+ Fri, 20 Mar 2020 10:32:16 -0700 (PDT)
+Received: from rob-hp-laptop ([64.188.179.250])
+ by smtp.gmail.com with ESMTPSA id j23sm1874792ioa.10.2020.03.20.10.32.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 20 Mar 2020 10:32:15 -0700 (PDT)
+Received: (nullmailer pid 16573 invoked by uid 1000);
+ Fri, 20 Mar 2020 17:32:13 -0000
+Date: Fri, 20 Mar 2020 11:32:13 -0600
+From: Rob Herring <robh@kernel.org>
+To: Nicolin Chen <nicoleotsuka@gmail.com>
+Subject: Re: [PATCH v5 1/7] ASoC: dt-bindings: fsl_asrc: Add new property
+ fsl,asrc-format
+Message-ID: <20200320173213.GA9093@bogus>
+References: <cover.1583725533.git.shengjiu.wang@nxp.com>
+ <24f69c50925b93afd7a706bd888ee25d27247c78.1583725533.git.shengjiu.wang@nxp.com>
+ <20200309211943.GB11333@Asurada-Nvidia.nvidia.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from mail-qt1-f177.google.com (209.85.160.177) by
- MN2PR06CA0007.namprd06.prod.outlook.com (2603:10b6:208:23d::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.19 via Frontend
- Transport; Fri, 20 Mar 2020 17:05:56 +0000
-Received: by mail-qt1-f177.google.com with SMTP id f20so5525043qtq.6 for
- <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 10:05:55 -0700 (PDT)
-X-Gm-Message-State: ANhLgQ35CD9xhkw24uYsUGr9EV/7c5BJlGUq4ot8bnxz9G9L9btROQ75
- kAEeINwcwQg5V3F6HfhPncwXHPnRCDDEv7Ij+KI=
-X-Google-Smtp-Source: ADFU+vu5eQ0XQ2gaTaJU+0kPrD4Z2okP/4JxmWwAsKxZeiK7wqSpvMQ/y+cvk0uPde5rBNpjU4WSYadgttbhdf9vC6M=
-X-Received: by 2002:ac8:1633:: with SMTP id p48mr9494130qtj.305.1584723952240; 
- Fri, 20 Mar 2020 10:05:52 -0700 (PDT)
-X-Gmail-Original-Message-ID: <CAGgjyvFNCbFw7x6QL063oi-fV2UuVQVfL1cv_pQ74HWoJS4Etg@mail.gmail.com>
-X-Originating-IP: [209.85.160.177]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1e807674-1a79-4b46-75fd-08d7ccf0f464
-X-MS-TrafficTypeDiagnostic: VI1PR05MB3472:
-X-Microsoft-Antispam-PRVS: <VI1PR05MB347277FB64FC1338FEF66B0AF9F50@VI1PR05MB3472.eurprd05.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-Forefront-PRVS: 03484C0ABF
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10019020)(4636009)(396003)(366004)(39850400004)(136003)(346002)(376002)(199004)(44832011)(52116002)(86362001)(6666004)(81156014)(8676002)(81166006)(478600001)(6862004)(316002)(8936002)(5660300002)(42186006)(55446002)(66476007)(9686003)(26005)(2906002)(4326008)(66556008)(54906003)(53546011)(66946007)(55236004)(186003);
- DIR:OUT; SFP:1102; SCL:1; SRVR:VI1PR05MB3472;
- H:VI1PR05MB3279.eurprd05.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; 
-Received-SPF: None (protection.outlook.com: toradex.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2fXdHew50dSpt0Rl6p845yDGDwL/8MbbNGi0k3yy8jZFyTY/g3Q0qSbgfegLBPtAWmAL9q+IZGPg8oVHw2kBNjAlbCGOh/RIRurfhopCqBf56cL00q3fFx4YL5oW4YKeAhCtrasTcOcVpmWT7+VfyJT/bLHh5/VR2L+wqkbaPTkDq5b8Noive3FQKDIqp5ko0b08sWGNoRDQgOMWUJpBgITps22F1QexcV6JuzTAqyOtI6cQR83alzN32D7UlSp7+s4xH0d3zw6SY/cEpM30tBiw07lHCkqfs+jHjYc2OplynqQuFb7W+IOXxpILLf7sisfXApTLp3fiCemiI9Kdt9PX2il5buQOnD8Rdt5oq6V5XnZt8gcrIPLw5hOKlgQUO5dk0axmUs65BLMNU/A0dt1rDIEqQET1Xs61I5Gz/09proXD28Um2EiNDRFgTKtK
-X-MS-Exchange-AntiSpam-MessageData: PN/fVVEcZaIrN9ZDGzM2N27el3swHzREk/z5Cv1sQ8P8pR8tjTKuBManTzpXrfu+7Ix/jgwf/e/YKs9vt5ZKcTkDSydgT8LBc1QMIZn19YSDgz2krEuO7E6h8qMXCwkkCvbuJvU1raVtVCex0iMZpA==
-X-OriginatorOrg: toradex.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e807674-1a79-4b46-75fd-08d7ccf0f464
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2020 17:05:56.3784 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: d9995866-0d9b-4251-8315-093f062abab4
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6FgzoDdJrxzExla1vksSv/oWGZ015e2F4oGWeK/L3llpW+wcR94D9c8cJgsZ1tpAE8+xyiJog2jRO+/w6qN5p6O4rOup24dD22VV5CxtrKM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR05MB3472
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Marcel Ziswiler <marcel.ziswiler@toradex.com>,
- "alison.wang@nxp.com" <alison.wang@nxp.com>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Igor Opanyuk <igor.opanyuk@toradex.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "festevam@gmail.com" <festevam@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200309211943.GB11333@Asurada-Nvidia.nvidia.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
+ linuxppc-dev@lists.ozlabs.org, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org, festevam@gmail.com,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -157,80 +97,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Mar 20, 2020 at 5:51 PM Tim Harvey <tharvey@gateworks.com> wrote:
->
-> On Fri, Mar 20, 2020 at 12:26 AM Marcel Ziswiler
-> <marcel.ziswiler@toradex.com> wrote:
-> >
-> > Hi Tim
-> >
-> > On Thu, 2020-03-19 at 13:49 -0700, Tim Harvey wrote:
-> > > On Thu, Dec 12, 2019 at 4:24 AM Mark Brown <broonie@kernel.org>
-> > > wrote:
-> > > > On Thu, Dec 12, 2019 at 10:46:31AM +0000, Alison Wang wrote:
-> > > >
-> > > > > We tested this standard solution using gstreamer and standard
-> > > > > ALSA
-> > > > > tools like aplay, arecord and all these tools unmute needed
-> > > > > blocks
-> > > > > successfully.
-> > > > > [Alison Wang] I am using aplay. Do you mean I need to add some
-> > > > > parameters for aplay or others to unmute the outputs?
-> > > >
-> > > > Use amixer.
-> > >
-> > > Marc / Oleksandr,
-> > >
-> > > I can't seem to find the original patch in my mailbox for 631bc8f:
-> > > ('ASoC: sgtl5000: Fix of unmute outputs on probe')
-> >
-> > I forwarded you that one again. OK?
-> >
-> > > however I find it
-> > > breaks sgtl5000 audio output on the Gateworks boards which is still
-> > > broken on 5.6-rc6.
-> >
-> > What exactly do you mean by "breaks"? Isn't it that you just need to
-> > unmute stuff e.g. using amixer or using a proper updated asound.state
-> > file with default states for your controls?
->
-> the audio device is in /proc/asound/cards but when I send audio to it
-> I 'hear' nothing out the normal line-out output.
->
-> >
-> > > Was there some follow-up patches that haven't made
-> > > it into mainline yet regarding this?
-> >
-> > I don't think so. It all works perfectly, not?
-> >
-> > > The response above indicates maybe there was an additional ALSA
-> > > control perhaps added as a resolution but I don't see any differences
-> > > there.
-> >
-> > Not that I am aware of, no.
-> >
->
-> The output of 'amixer' shows nothing different than before this patch
-> where audio out worked (same controls, same settings on them). I'm
-> testing this with a buildroot rootfs with no asound.conf (or at least
-> none that I know of... i'm honestly not clear where all they can be).
+On Mon, Mar 09, 2020 at 02:19:44PM -0700, Nicolin Chen wrote:
+> On Mon, Mar 09, 2020 at 11:58:28AM +0800, Shengjiu Wang wrote:
+> > In order to support new EASRC and simplify the code structure,
+> > We decide to share the common structure between them. This bring
+> > a problem that EASRC accept format directly from devicetree, but
+> > ASRC accept width from devicetree.
+> > 
+> > In order to align with new ESARC, we add new property fsl,asrc-format.
+> > The fsl,asrc-format can replace the fsl,asrc-width, then driver
+> > can accept format from devicetree, don't need to convert it to
+> > format through width.
+> > 
+> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > ---
+> >  Documentation/devicetree/bindings/sound/fsl,asrc.txt | 5 +++++
+> >  1 file changed, 5 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/sound/fsl,asrc.txt b/Documentation/devicetree/bindings/sound/fsl,asrc.txt
+> > index cb9a25165503..780455cf7f71 100644
+> > --- a/Documentation/devicetree/bindings/sound/fsl,asrc.txt
+> > +++ b/Documentation/devicetree/bindings/sound/fsl,asrc.txt
+> > @@ -51,6 +51,11 @@ Optional properties:
+> >  			  will be in use as default. Otherwise, the big endian
+> >  			  mode will be in use for all the device registers.
+> >  
+> > +   - fsl,asrc-format	: Defines a mutual sample format used by DPCM Back
+> > +			  Ends, which can replace the fsl,asrc-width.
+> > +			  The value is SNDRV_PCM_FORMAT_S16_LE, or
+> > +			  SNDRV_PCM_FORMAT_S24_LE
+> 
+> I am still holding the concern at the DT binding of this format,
+> as it uses values from ASoC header file instead of a dt-binding
+> header file -- not sure if we can do this. Let's wait for Rob's
+> comments.
 
-Tim, did you try to unmute the output with amixer?
+I assume those are an ABI as well, so it's okay to copy them unless we 
+already have some format definitions for DT. But it does need to be copy 
+in a header under include/dt-bindings/.
 
-Could you provide the output of your amixer with and without this patch?
-
-Before this patch, the driver unmuted HP, LO, and ADC unconditionally
-on load (while it just had to set up ZCD bits).
-Now HP, LO, ADC remain muted until one unmutes them using standard
-ALSA tools/interfaces.
-ALSA mute/unmute controls for these outputs have been presenting in
-the kernel for a long time. Please, just use them.
-
->
-> Tim
---
-Best regards
-Oleksandr Suvorov
-
-Toradex AG
-Ebenaustrasse 10 | 6048 Horw | Switzerland | T: +41 41 500 48 00
+Rob

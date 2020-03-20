@@ -2,58 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 598F718F665
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 14:55:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EA4A18F669
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 14:55:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 013C5846;
-	Mon, 23 Mar 2020 14:54:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 013C5846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F7A386F;
+	Mon, 23 Mar 2020 14:54:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F7A386F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584971702;
-	bh=tT2F5YVflY7cUnyWu+xTJtJt3Y55/1boTLPXttVvxPI=;
+	s=default; t=1584971725;
+	bh=n6C2/WmiUW/pWLpfY+BLQqRiRve2dOvkRENnP1KvdFc=;
 	h=From:To:Subject:In-Reply-To:References:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=u7nalkZ5e/j9a8U1SLpXkTiHD5ErrwKcTKoHJzxGNkbBwTrWGiQKBdh+vbLtCol5j
-	 0IA5eHx+9w9DGL46MpR6GS1KHi8LXFd1tN11RWV9eTeVsEm/MSh18ajg0hIihzONgx
-	 YZH7Tsf9assaHUr94iWitlimE1HDUg6IMzElxhqM=
+	b=ZVhUh+8oEQe5vCFP+eLebPkgih4UOcHqokRiGKQTd9Pbhlq/NqEV8A17bJSPKuf1B
+	 sFjjLcD351oX66QzmHZuitKvQxw02KAGL1twBpcAnkQEOZUEVy8jw36JTFvFr8wG+v
+	 IxD3G7dqk7Wx7CxlVzxtzoxp227yjvZUjVahqXRc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD61FF802E8;
-	Mon, 23 Mar 2020 14:47:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A8A7F802EC;
+	Mon, 23 Mar 2020 14:47:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F2816F8015B; Fri, 20 Mar 2020 21:24:55 +0100 (CET)
+ id 60AB0F8015B; Fri, 20 Mar 2020 21:28:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+ SPF_NONE autolearn=disabled version=3.4.0
 Received: from Galois.linutronix.de (galois.linutronix.de
  [IPv6:2a0a:51c0:0:12e:550::1])
  (using TLSv1.2 with cipher DHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DECA0F800C0
- for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 21:24:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DECA0F800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id D5F91F800C0
+ for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 21:28:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5F91F800C0
 Received: from p5de0bf0b.dip0.t-ipconnect.de ([93.224.191.11]
  helo=nanos.tec.linutronix.de)
  by Galois.linutronix.de with esmtpsa (TLS1.2:DHE_RSA_AES_256_CBC_SHA256:256)
  (Exim 4.80) (envelope-from <tglx@linutronix.de>)
- id 1jFOCA-0003F1-0T; Fri, 20 Mar 2020 21:24:42 +0100
+ id 1jFOFL-0003Pp-8l; Fri, 20 Mar 2020 21:27:59 +0100
 Received: by nanos.tec.linutronix.de (Postfix, from userid 1000)
- id 7019C1039FC; Fri, 20 Mar 2020 21:24:41 +0100 (CET)
+ id 857A71039FC; Fri, 20 Mar 2020 21:27:58 +0100 (CET)
 From: Thomas Gleixner <tglx@linutronix.de>
 To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Subject: Re: [patch 01/22] x86/devicetable: Move x86 specific macro out of
- generic code
-In-Reply-To: <CAHp75Vca0j0=EB2qdvGgFOq2s_ohHUEzY4OeNrv-oynLBVYh1w@mail.gmail.com>
+Subject: Re: [patch 02/22] x86/cpu: Add conistent CPU match macros
+In-Reply-To: <CAHp75VdKavBD=yTR6Mz4iaGKQVP__xCsf-fWdy1MMJJywhDd-Q@mail.gmail.com>
 References: <20200320131345.635023594@linutronix.de>
- <20200320131508.736205164@linutronix.de>
- <CAHp75Vca0j0=EB2qdvGgFOq2s_ohHUEzY4OeNrv-oynLBVYh1w@mail.gmail.com>
-Date: Fri, 20 Mar 2020 21:24:41 +0100
-Message-ID: <87k13epyeu.fsf@nanos.tec.linutronix.de>
+ <20200320131508.826011988@linutronix.de>
+ <CAHp75VdKavBD=yTR6Mz4iaGKQVP__xCsf-fWdy1MMJJywhDd-Q@mail.gmail.com>
+Date: Fri, 20 Mar 2020 21:27:58 +0100
+Message-ID: <87h7yipy9d.fsf@nanos.tec.linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Linutronix-Spam-Score: -1.0
@@ -100,25 +99,33 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Andy Shevchenko <andy.shevchenko@gmail.com> writes:
-> On Fri, Mar 20, 2020 at 3:17 PM Thomas Gleixner <tglx@linutronix.de> wrote:
->> --- a/arch/x86/include/asm/cpu_device_id.h
->> +++ b/arch/x86/include/asm/cpu_device_id.h
->> @@ -6,10 +6,21 @@
->>   * Declare drivers belonging to specific x86 CPUs
->>   * Similar in spirit to pci_device_id and related PCI functions
->>   */
 >
->> -
+>> Also a add a few model constants for Centaur CPUs and QUARK.
 >
-> Seems you are going to remove below anyway in the next patches, so,
-> why not to do this also there?
->
->>  #include <linux/mod_devicetable.h>
+> I would perhaps made this as a separate change(s).
 
-No it stays, but yes I could do that comment change right here.
+Can do.
+
+>> +#define X86_MATCH_VENDOR_FAM_MODEL_FEATURE(_vendor, _family, _model,   \
+>> +                                          _feature, _data) {           \
+>
+> I would leave it on one line despite the length, but it's up to you.
+>
+>> +       .vendor         = X86_VENDOR_##_vendor,                         \
+>> +       .family         = _family,                                      \
+>> +       .model          = _model,                                       \
+>> +       .feature        = _feature,                                     \
+>
+>> +       .driver_data    = (unsigned long) _data                         \
+>
+> For sake of consistency shouldn't be this kernel_ulong_t ?
+
+I can change that though in kernel space this does not matter.
+
+> Or we are going to get rid of that type?
+
+No.
 
 Thanks,
 
         tglx
-
-

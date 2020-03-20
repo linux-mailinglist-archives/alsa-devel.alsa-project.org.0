@@ -2,86 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2170518D490
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Mar 2020 17:35:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 917F418D49B
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Mar 2020 17:38:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C532084A;
-	Fri, 20 Mar 2020 17:34:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C532084A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 06271825;
+	Fri, 20 Mar 2020 17:37:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06271825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584722117;
-	bh=7SWG2PEKXZk41WcCclAKyzauDiC5TQbND7sxl+uEuA8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1584722299;
+	bh=3xK3S9SyPELoF0bIY7oM8yHPmFVwzW3vWsWhIQ4dBaI=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FcuqU0+kXGog8tKU5jMxwhh0dn/6C5jURh5UirOnQuNcij0x2p98txbcK5AI8LAHR
-	 4l7GOGYvipsBzFIUM/i4+NrtNPH2+vpgrXMoCxoQyby21MJ1qAvtOQXOZIZFJvucqD
-	 /fipPo25BCy6tOQKXAHEpyMgyOcbhDIHzSVHYNBs=
+	b=gVe4z3YWXTKotKfGFExEqeN5ckXA+Tw6qismBrI84zW4PnxhdR2gbvEIClyHgz0K0
+	 2X0IpTBq0Na9fS24WWxw8Vt7V8DDurXsA+m7FCyEUxuP8J9Jbd2pzAqb3SMRP7bavV
+	 y+UgDjPBM24rZ9mlwzaJt2lki+aAP6xwtRa/GggE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 27F49F80171;
-	Fri, 20 Mar 2020 17:32:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08945F80139;
+	Fri, 20 Mar 2020 17:36:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B78C3F80171; Fri, 20 Mar 2020 17:32:07 +0100 (CET)
+ id 845C7F8015B; Fri, 20 Mar 2020 17:36:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
- [IPv6:2607:f8b0:4864:20::d44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0211DF800C0
- for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 17:32:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0211DF800C0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel-com.20150623.gappssmtp.com
- header.i=@intel-com.20150623.gappssmtp.com header.b="zOAM8XWN"
-Received: by mail-io1-xd44.google.com with SMTP id h131so6613851iof.1
- for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 09:32:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=intel-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=a1BKn5CFFINTZLbm5APIlvKqfDqqqj0uOyzG9WIQ1Sk=;
- b=zOAM8XWNKXsd04zWxYT9MvQLzUHu7VCbMqCfbh0K28FaMP4OdT44hJAzYNBPqP/wNa
- IF1qbfJZxMcR1gM1j091IygW0J9Cva+6OZvVybmVprr/az0J/WNSXuezAkPSzaVzZddo
- aEXTfk2kjMMo+1Hfikm5MNNDJE5zGRBF6PG22H1y5sNMh6OAIbffsakjUsMe7MRFe0T/
- MRoBToyrgSZsmnn3QwGQj+7MAT58YeryKCnLu6azcm8UQ3K2bDpONhYussWuT5iBwU2O
- 9/6PQ9YPHTMBek8ltYieSUROGyR5ThLJpfVGOsFuF8HWriU9JwLhV/bxpvwUfIuwOYvR
- DoAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=a1BKn5CFFINTZLbm5APIlvKqfDqqqj0uOyzG9WIQ1Sk=;
- b=RLUP5Vmz0TA4p7eWQLpeNKmBFgn619cuAZHGW8L5TbZHgQNTVTwQmyk5pyHru6a8A8
- SyxrJNfu/uH/wTtejiPWfMl7DFGKr1PWYtyTHo0x3TLw3kqbo9bUDzefr5ia2rcj2rzk
- sJRvMk/j5eTu5X/07DjGSI4Zd9KRXkF/kRe8YkkzPExD43iOsC8a8KxgJ7BJATzRI6IK
- UxIIdUMAzTr13hz1yhBLSiXU9ng3nlszkXF2Ft/qSpINAv1pv8+TCvGcbZ1yCwBr56Bk
- tCM1DHbe4u55WWa4+QvHchzfF9x8RAENXy+QpLxvxrreplt7CN3FUWtj/Z+MfWoVb6ft
- Elrg==
-X-Gm-Message-State: ANhLgQ2LXDplEM99xDyN3+hLafYwBGyfYRPB5dnrpM5K3VK1xP3Bm4Ot
- SaA7SF3vtD5l/LxfgSq2czuQweD+Ag85tsGC5N5K6w==
-X-Google-Smtp-Source: ADFU+vseGHQoNI+PNhcMyhTyhAknhoGRs6au0uEgNWF75id2Bv8SdhfAN2h7XqJlUQ+v8u8V88DSivfoPGKADqz9A28=
-X-Received: by 2002:a05:6638:103:: with SMTP id
- x3mr8586872jao.62.1584721920922; 
- Fri, 20 Mar 2020 09:32:00 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7455CF800C0
+ for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 17:36:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7455CF800C0
+IronPort-SDR: EzikAXejZHaH2HA0YjpfhY4VCkFWVmzItmv33FQkBedwalRDnuAwS0hyP80Eos2ztu4tLUPtmo
+ Ep3CkHui4OFg==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Mar 2020 09:36:29 -0700
+IronPort-SDR: OxQvFv6Y9TtecqmiOWaWSvgFu6JCPAAdXBFe2Vfj0jidcVYUlllK7JFot1VBJp3OQXFtagmHg7
+ JRVZ/iRQHfVw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,285,1580803200"; d="scan'208";a="392204315"
+Received: from manallet-mobl.amr.corp.intel.com (HELO [10.255.34.12])
+ ([10.255.34.12])
+ by orsmga004.jf.intel.com with ESMTP; 20 Mar 2020 09:36:26 -0700
+Subject: Re: [PATCH 1/8] soundwire: bus_type: add master_device/driver support
+To: Vinod Koul <vkoul@kernel.org>
+References: <20200305063646.GW4148@vkoul-mobl>
+ <eb30ac49-788f-b856-6fcf-84ae580eb3c8@linux.intel.com>
+ <20200306050115.GC4148@vkoul-mobl>
+ <4fabb135-6fbb-106f-44fd-8155ea716c00@linux.intel.com>
+ <20200311063645.GH4885@vkoul-mobl>
+ <0fafb567-10e5-a1ea-4a6d-b3c53afb215e@linux.intel.com>
+ <20200313115011.GD4885@vkoul-mobl>
+ <4cb16467-87d0-ef99-e471-9eafa9e669d2@linux.intel.com>
+ <20200314094904.GP4885@vkoul-mobl>
+ <3c32830c-cd12-867f-a763-7c3e385cb1e9@linux.intel.com>
+ <20200320153334.GJ4885@vkoul-mobl>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <70d6e0cb-22a6-5ada-83a8-b605974bdd84@linux.intel.com>
+Date: Fri, 20 Mar 2020 11:36:26 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-References: <20200320123634.GB2130@ubuntu>
-In-Reply-To: <20200320123634.GB2130@ubuntu>
-From: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
-Date: Fri, 20 Mar 2020 09:31:50 -0700
-Message-ID: <CAFQqKeW1Fejm1WHwc+Wm8nAoiqj=MtuO6zv1RUYCZoBsre5hjA@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: SOF: fix uninitialised "work" with VirtIO
-To: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
- sound-open-firmware@alsa-project.org
+In-Reply-To: <20200320153334.GJ4885@vkoul-mobl>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Hui Wang <hui.wang@canonical.com>, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,132 +96,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Mar 20, 2020 at 5:36 AM Guennadi Liakhovetski <
-guennadi.liakhovetski@linux.intel.com> wrote:
 
-> In the VirtIO case the sof_pcm_open() function isn't called on the
-> host during guest streaming, which then leaves "work" structures
-> uninitialised. However it is then used to handle position update
-> messages from the DSP. Move their initialisation to immediately after
-> allocation of the containing structure.
->
-> Signed-off-by: Guennadi Liakhovetski <
-> guennadi.liakhovetski@linux.intel.com>
-> ---
->
-> This is a re-send of "[PATCH 08/14] ASoC: SOF: fix uninitialised "work"
-> with VirtIO" as suggested by Mark, also taking into account a comment
-> from Ranjani - thanks. Note: I haven't sent patches before from mutt,
-> hope this will work, if not - will have to re-send.
->
->  sound/soc/sof/pcm.c       |  4 +---
->  sound/soc/sof/sof-audio.h |  3 +++
->  sound/soc/sof/topology.c  | 17 ++++++++++++-----
->  3 files changed, 16 insertions(+), 8 deletions(-)
->
-> diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
-> index f4769e1..47cd741 100644
-> --- a/sound/soc/sof/pcm.c
-> +++ b/sound/soc/sof/pcm.c
-> @@ -57,7 +57,7 @@ static int sof_pcm_dsp_params(struct snd_sof_pcm *spcm,
-> struct snd_pcm_substream
->  /*
->   * sof pcm period elapse work
->   */
-> -static void sof_pcm_period_elapsed_work(struct work_struct *work)
-> +void snd_sof_pcm_period_elapsed_work(struct work_struct *work)
->  {
->         struct snd_sof_pcm_stream *sps =
->                 container_of(work, struct snd_sof_pcm_stream,
-> @@ -475,8 +475,6 @@ static int sof_pcm_open(struct snd_soc_component
-> *component,
->         dev_dbg(component->dev, "pcm: open stream %d dir %d\n",
->                 spcm->pcm.pcm_id, substream->stream);
->
-> -       INIT_WORK(&spcm->stream[substream->stream].period_elapsed_work,
-> -                 sof_pcm_period_elapsed_work);
->
->         caps = &spcm->pcm.caps[substream->stream];
->
-> diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
-> index eacd10e..bf65f31a 100644
-> --- a/sound/soc/sof/sof-audio.h
-> +++ b/sound/soc/sof/sof-audio.h
-> @@ -11,6 +11,8 @@
->  #ifndef __SOUND_SOC_SOF_AUDIO_H
->  #define __SOUND_SOC_SOF_AUDIO_H
->
-> +#include <linux/workqueue.h>
-> +
->  #include <sound/soc.h>
->  #include <sound/control.h>
->  #include <sound/sof/stream.h> /* needs to be included before control.h */
-> @@ -189,6 +191,7 @@ struct snd_sof_pcm *snd_sof_find_spcm_comp(struct
-> snd_soc_component *scomp,
->  struct snd_sof_pcm *snd_sof_find_spcm_pcm_id(struct snd_soc_component
-> *scomp,
->                                              unsigned int pcm_id);
->  void snd_sof_pcm_period_elapsed(struct snd_pcm_substream *substream);
-> +void snd_sof_pcm_period_elapsed_work(struct work_struct *work);
->
->  /*
->   * Mixer IPC
-> diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-> index 058de94..fe8ba3e 100644
-> --- a/sound/soc/sof/topology.c
-> +++ b/sound/soc/sof/topology.c
-> @@ -9,6 +9,7 @@
->  //
->
->  #include <linux/firmware.h>
-> +#include <linux/workqueue.h>
->  #include <sound/tlv.h>
->  #include <sound/pcm_params.h>
->  #include <uapi/sound/sof/tokens.h>
-> @@ -2448,7 +2449,7 @@ static int sof_dai_load(struct snd_soc_component
-> *scomp, int index,
->         struct snd_soc_tplg_stream_caps *caps;
->         struct snd_soc_tplg_private *private = &pcm->priv;
->         struct snd_sof_pcm *spcm;
-> -       int stream = SNDRV_PCM_STREAM_PLAYBACK;
-> +       int stream;
->         int ret = 0;
->
->         /* nothing to do for BEs atm */
-> @@ -2460,8 +2461,12 @@ static int sof_dai_load(struct snd_soc_component
-> *scomp, int index,
->                 return -ENOMEM;
->
->         spcm->scomp = scomp;
-> -       spcm->stream[SNDRV_PCM_STREAM_PLAYBACK].comp_id =
-> COMP_ID_UNASSIGNED;
-> -       spcm->stream[SNDRV_PCM_STREAM_CAPTURE].comp_id =
-> COMP_ID_UNASSIGNED;
-> +
-> +       for_each_pcm_streams(stream) {
-> +               spcm->stream[stream].comp_id = COMP_ID_UNASSIGNED;
-> +               INIT_WORK(&spcm->stream[stream].period_elapsed_work,
-> +                         snd_sof_pcm_period_elapsed_work);
-> +       }
->
->         spcm->pcm = *pcm;
->         dev_dbg(scomp->dev, "tplg: load pcm %s\n", pcm->dai_name);
-> @@ -2482,8 +2487,10 @@ static int sof_dai_load(struct snd_soc_component
-> *scomp, int index,
->         if (!spcm->pcm.playback)
->                 goto capture;
->
-> +       stream = SNDRV_PCM_STREAM_PLAYBACK;
-> +
->         dev_vdbg(scomp->dev, "tplg: pcm %s stream tokens: playback
-> d0i3:%d\n",
-> -                spcm->pcm.pcm_name, spcm->stream[0].d0i3_compatible);
-> +                spcm->pcm.pcm_name, spcm->stream[stream].d0i3_compatible);
->
-Hi Guennadi,
 
-This cleanup is unrelated to the commit message (and the one below)? Should
-it be a separate patch?
+On 3/20/20 10:33 AM, Vinod Koul wrote:
+> On 16-03-20, 14:15, Pierre-Louis Bossart wrote:
+>>
+>>
+>>>> It's really down to your objection to the use of 'struct driver'... For ASoC
+>>>> support we only need the .name and .pm_ops, so there's really no possible
+>>>> path forward otherwise.
+>>>
+>>> It means that we cannot have a solution which is Intel specific into
+>>> core. If you has a standalone controller you do not need this.
+>>
+>> A 'struct driver' is not Intel-specific, sorry.
+> 
+> We are discussing 'struct sdw_master_driver'. Please be very specific in
+> you replies and do not use incorrect terminology which confuses people.
+> 
+> Sorry a 'struct sdw_master_driver' IMHO is. As I have said it is not
+> needed if you have standalone controller even in Intel case, and rest of
+> the world.
 
-Thanks,
-Ranjani
+You're splitting hair without providing a solution.
+
+Please see the series [PATCH 0/5] soundwire: add sdw_master_device 
+support on Qualcomm platforms
+
+This solution was tested on Qualcomm platforms, that doesn't require 
+this sdw_master_driver to be used, so your objections are now invalid.

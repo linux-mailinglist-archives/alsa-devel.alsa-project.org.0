@@ -2,80 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EE7A18F623
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 14:50:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6984118F62D
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 14:51:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2675A1654;
-	Mon, 23 Mar 2020 14:49:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2675A1654
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F6861612;
+	Mon, 23 Mar 2020 14:50:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F6861612
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584971422;
-	bh=9ncUxRvHf0FPXNscLgmmsmMq2h5YMOZH6dHTjucibVA=;
+	s=default; t=1584971462;
+	bh=4Ga4/nRhdnC9UJIYIruT0FKV6lKxmiKral2ggHMGLtk=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fJKve5av+bJ+OFBcgI1dFe71YMrF5xpm4avvJ1qzbX5IEjMolgNU+MN+VSyz87Foh
-	 GOpIP16Wmh73J/XrLWQPOswjqMERITnV55ufnC1iU6+lfihufSIyW6bZG2l+vM1nDM
-	 raSfuqhCJO3rrbYIh8r+psN3fjiKe4hXw9FWcBzg=
+	b=uVCL053qFDAC4C2zW1sTT3CFwMMeai2yWx8Wy3hCnMA04JNxI25F3f8KaS37kDlWz
+	 Wxna5IeZFIbpngUg1qdiTtJOQ0hHsxq8+V6YqD7Y6LfLhGRy9Tqr3wyxDy2v6s+nq7
+	 q2Ie0eXAT8g29+YP+ikj+sZYwTDe2nW1hw80l/II=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68A7CF8028B;
-	Mon, 23 Mar 2020 14:47:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5C9F5F80290;
+	Mon, 23 Mar 2020 14:47:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47A5BF8015B; Fri, 20 Mar 2020 15:31:55 +0100 (CET)
+ id 0E6B6F8015B; Fri, 20 Mar 2020 15:33:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_FROM, PRX_BODY_76, SPF_HELO_NONE, SPF_PASS,
- SURBL_BLOCKED, URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
+ [IPv6:2607:f8b0:4864:20::1041])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EBE43F800DD
- for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 15:31:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBE43F800DD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 261F3F800DD
+ for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 15:33:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 261F3F800DD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="AbnB4www"
-Received: by mail-pg1-x544.google.com with SMTP id k191so2015206pgc.13
- for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 07:31:51 -0700 (PDT)
+ header.b="L9sgbN6w"
+Received: by mail-pj1-x1041.google.com with SMTP id mj6so2541892pjb.5
+ for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 07:33:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=6c+JSVCxP0/exR74ChVM1yt+TIcfNUXUTN2EWov9Law=;
- b=AbnB4wwwyxJU822g6/gWFpEQ4P3sPvgEIZgPVxj0ueTSXGScHWIdqu8Bfum8A4f6/t
- 2cDmx+mRDs0d1aBYc9kuZWhUGlZQopNmfAxvsBGjJ2W8LGR85UU6GLrxxvJOy3kJTSkt
- JE2nO9goUQjnpdlunQj2qxtw4FlMydNhnNhEBXWivBv1tMzUcJQVSsDGBYU36GYVMp8q
- bKTQBBUmTNmI+aPH3SFqG5lItDWQRccn1+Dg8YPYsBTJRjVLTIQ2IzJKGId0vHuwsZiT
- VE+EXhUwgiTuaSOm8mlyq4iFfyyT5oKb3cv24fO6Y63UPc6pY5TFkmuaGyR5BMx2pRpy
- uzkw==
+ :cc; bh=y8CL3zZj4yGG4lD3L6yv8lcW+KdsOuZ+KSCgXBMVoeQ=;
+ b=L9sgbN6wN5LoekRNwV3OkrwtTgMc/JlHqiY7y9vO3HDdjEG/orGFjNxp/q2gIpR2HX
+ cU6tHLQns13rsmmNdoEI7Nv2tbx4XbTTK3yI0Ugeb8037dKJAGcbafkBWz5WUYEGvUES
+ mr4CF0f7lD5Ovkymjy0j4fN+23aB2juafQuLbQCUK8eg6CppHfxoO6WNxz5Un1/qDb/7
+ YTbJyV3ooQQlJT7MjAeroDiUw5ja4n/ivZCszT3H/j46hYkIeHWwf6lkmIIjR+oqM69R
+ wGCC9vfLD+DwxaR+M3PBGwaej7BdJmmi7YgWJAUynp/EXPazIGucxui5Wg1SngYwtTf7
+ V5EQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=6c+JSVCxP0/exR74ChVM1yt+TIcfNUXUTN2EWov9Law=;
- b=ponX/IZAtY7Aolx7Xia5YS04MomIwdqmhoo6JptLh0HBK0I3miwSxZKKb5BFpLM1RW
- a02xILTeRcUPC2Y8pICRrTdpuKSxBofO2o2kOkdg/rpxKKhBBMU0Y17Z5nM2W68s59rr
- bw1AM9/vDI/auU4GV+LDAXC/P/SK22W1r5E52WOXpLgu5+hQUAMHn+OHk2H77yJJYEXI
- /HmYCyaxZS83WOaN+ZMJuHmkIYw8ydHipy6axgh9eXJZjQXhwGctalrKlwcwW3TL36uZ
- ADxsivs04cuhxrUI0yujFTU3ZZPz2t18EG5LbDtX/B3Kp8OAbxsocQ+4gnnK4GmzqOv/
- 8WLg==
-X-Gm-Message-State: ANhLgQ2XhD+ZrNBaqbAM/15zdVbRiK5arPDGYIfp8jdhPuDa4pKnN5jP
- HQw3BICjTkuG3hZE4Y9NwoncN20/pm5/GIj4PUA=
-X-Google-Smtp-Source: ADFU+vup5g2RU5zzwiEF27K/7Facn+zu9j1qO5AF3IVfdl5lu3UZTrDLOmtE7bcC/STD/7WybqqCoP0QLrfa0c2hinA=
-X-Received: by 2002:a63:798a:: with SMTP id u132mr9271382pgc.203.1584714709588; 
- Fri, 20 Mar 2020 07:31:49 -0700 (PDT)
+ bh=y8CL3zZj4yGG4lD3L6yv8lcW+KdsOuZ+KSCgXBMVoeQ=;
+ b=TAijNhazj1sBKJqpBKpYG7A4cDvgVHzW/FZQgLjluPq/ldiVyg7OPH15Bb6dMLfR5G
+ mXQT1x9evNFUpjzivEpoGzN2b8brUeLmvOS6xfbGk//vvz2Pr8S01hu1+oiPahvatByH
+ L+b+YbJwqsKc9BamEADIZWL+IhDNv6MVQdAjS/CThoCgnHibQmn1wYGVvfE0emaBrvQb
+ GchM4w0waH5qh4LEBWQ8lcNc9VgSGTG+jmhR1HFlYQ6IhpRGy6/mzA+DuKFqgYvx/Zxv
+ DckHqkvXVbeEMtXET9fQh4IZIE8vywrIka6BKBCPkcPJGM4M9fizEn/ml+144j7JLaf1
+ H2jQ==
+X-Gm-Message-State: ANhLgQ2caDx09HTtmfBWOAPkHgq2PpnKL2R1U0EZhcwYZh1dchQ3iIJC
+ R3KVDVStnLYtuaSgq1JCa8lZ3n9P7yABGL0al+U=
+X-Google-Smtp-Source: ADFU+vtfmvNWzKVRIO3O61UeKiXfFAkZ78miDvEyQJ+ZPA+9PqY48/8tdpjDkFa9gmPvQSHovm3oH5zXZ65598V9cJg=
+X-Received: by 2002:a17:902:8d92:: with SMTP id
+ v18mr9079029plo.18.1584714801666; 
+ Fri, 20 Mar 2020 07:33:21 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200320131345.635023594@linutronix.de>
-In-Reply-To: <20200320131345.635023594@linutronix.de>
+ <20200320131508.736205164@linutronix.de>
+In-Reply-To: <20200320131508.736205164@linutronix.de>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Fri, 20 Mar 2020 16:31:42 +0200
-Message-ID: <CAHp75Vffg5jm5knwuAKwkDZ16=kDujT1LCpzGU8mUV9NrXkSag@mail.gmail.com>
-Subject: Re: [patch 00/22] x86/treewide: Consolidate CPU match macro maze and
- get rid of C89 (sic!) initializers
+Date: Fri, 20 Mar 2020 16:33:14 +0200
+Message-ID: <CAHp75Vca0j0=EB2qdvGgFOq2s_ohHUEzY4OeNrv-oynLBVYh1w@mail.gmail.com>
+Subject: Re: [patch 01/22] x86/devicetable: Move x86 specific macro out of
+ generic code
 To: Thomas Gleixner <tglx@linutronix.de>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 23 Mar 2020 14:47:37 +0100
@@ -118,70 +120,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Mar 20, 2020 at 3:19 PM Thomas Gleixner <tglx@linutronix.de> wrote:
+On Fri, Mar 20, 2020 at 3:17 PM Thomas Gleixner <tglx@linutronix.de> wrote:
 >
-> The x86 CPU matching based on struct x86_cpu_id:
+> There is no reason that this gunk is in a generic header file. The wildcard
+> defines need to stay as they are required by file2alias.
 >
->   - is using an inconsistent macro mess with pointlessly duplicated and
->     slightly different local macros. Finding the places is an art as there
->     is no consistent name space at all.
+> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+> ---
+>  arch/x86/include/asm/cpu_device_id.h   |   13 ++++++++++++-
+>  arch/x86/kvm/svm.c                     |    1 +
+>  arch/x86/kvm/vmx/vmx.c                 |    1 +
+>  drivers/cpufreq/acpi-cpufreq.c         |    1 +
+>  drivers/cpufreq/amd_freq_sensitivity.c |    1 +
+>  include/linux/mod_devicetable.h        |    4 +---
+>  6 files changed, 17 insertions(+), 4 deletions(-)
 >
->   - is still mostly based on C89 struct initializers which rely on the
->     ordering of the struct members. That's proliferated forever as every
->     new driver just copies the mess from some exising one.
->
-> A recent offlist conversation about adding more match criteria to the CPU
-> matching logic instead of creating yet another set of horrors, reminded me
-> of a pile of scripts and patches which I hacked on a few years ago when I
-> tried to add something to struct x86_cpu_id.
->
-> That stuff was finally not needed and ended up in my ever growing todo list
-> and collected dust and cobwebs, but (un)surprisingly enough most of it
-> still worked out of the box. The copy & paste machinery still works as it
-> did years ago.
->
-> There are a few places which needed extra care due to new creative macros,
-> new check combinations etc. and surprisingly ONE open coded proper C99
-> initializer.
->
-> It was reasonably simple to make it at least compile and pass a quick
-> binary equivalence check.
->
-> The result is a X86_MATCH prefix based set of macros which are reflecting
-> the needs of the usage sites and shorten the base macro which takes all
-> possible parameters (vendor, family, model, feature, data) and uses proper
-> C99 initializers.
->
-> So extensions of the match logic are trivial after that.
->
+> --- a/arch/x86/include/asm/cpu_device_id.h
+> +++ b/arch/x86/include/asm/cpu_device_id.h
+> @@ -6,10 +6,21 @@
+>   * Declare drivers belonging to specific x86 CPUs
+>   * Similar in spirit to pci_device_id and related PCI functions
+>   */
 
-Thank you, Thomas!
+> -
 
-Briefly looking to the code, I like the idea. I'll do (minor) comments
-on individual patches.
+Seems you are going to remove below anyway in the next patches, so,
+why not to do this also there?
 
-I see it incorporates my previous attempts to extend this, but now it
-looks better.
-
-> The patch set is against Linus tree and has trivial conflicts against
-> linux-next.
->
-> The diffstat is:
->  71 files changed, 525 insertions(+), 472 deletions(-)
->
-> but the extra lines are pretty much kernel-doc documentation which I added
-> to each of the new macros. The usage sites diffstat is:
->
->  70 files changed, 393 insertions(+), 471 deletions(-)
->
-> Thoughts?
->
-> Thanks,
->
->         tglx
->
->
-
+>  #include <linux/mod_devicetable.h>
 
 -- 
 With Best Regards,

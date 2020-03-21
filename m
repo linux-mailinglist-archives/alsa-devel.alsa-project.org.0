@@ -2,68 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B8B118DC74
-	for <lists+alsa-devel@lfdr.de>; Sat, 21 Mar 2020 01:20:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54AF618DCDC
+	for <lists+alsa-devel@lfdr.de>; Sat, 21 Mar 2020 01:51:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D979F83D;
-	Sat, 21 Mar 2020 01:19:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D979F83D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A7A62844;
+	Sat, 21 Mar 2020 01:50:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7A62844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584750049;
-	bh=bx0au7f43rNsVwLkRmMdlGB32ABKEhFBUmzsFRCZERo=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1584751899;
+	bh=zH7oNjjOvAJqSptIJ7W8RuBrZiiZWsYhZlx4VOab54w=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bVpjJMaAh6A4jWF9xOLqV1M8eY2MuGse2ysZCbb3jdPUQwTdX101CardodHSm2tCw
-	 OqxLgRdJagYA9fzLr0kCcSp19983tV1MJHXHulYUrhlCzxfHJUkG9QaH0Wpybf6kkY
-	 7uCanygY3wk1nZX6cKCMW5CeUOb4vBMw7OhAi70I=
+	b=KzvH0/jG11F0eVV9/vIIQgWDw2sVhHYI8JJbVgwBYTmCewfpOqPHEwrWSEuCpjBL3
+	 nzk3BlFK+VqKJgi3NmeT0ajBNa3g/8XDKqwupd8so7w1r8vzgRthjhuil7M2WJcO8d
+	 i7RfuOMv9p5GoSeG/0U87lrAR8NH0eebXNXUhd8o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D38C9F80126;
-	Sat, 21 Mar 2020 01:19:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8928F800C0;
+	Sat, 21 Mar 2020 01:49:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47F2DF8015B; Sat, 21 Mar 2020 01:19:06 +0100 (CET)
+ id E54B4F8015B; Sat, 21 Mar 2020 01:49:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
+ [IPv6:2a00:1450:4864:20::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 209F6F80126
- for <alsa-devel@alsa-project.org>; Sat, 21 Mar 2020 01:19:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 209F6F80126
-IronPort-SDR: v7GaY47Rupcx6O4e5geXHH+SJBXN2BjN0sQgHCR1pBwHvhhAWiGEVM6ZYVubW9/ZQ4EZS8nnv0
- nCOPwVaJTs7g==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Mar 2020 17:18:57 -0700
-IronPort-SDR: zZIq+qIZOrh4Mtazb6kYGhvkenIzpXKr1KnDjeEFgwWiA2F3L5xHu4W+GHOXX4qaQiO3RODYRl
- g6M3D56NsbzQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,286,1580803200"; d="scan'208";a="238905029"
-Received: from ksmith5-mobl1.amr.corp.intel.com ([10.254.176.146])
- by fmsmga008.fm.intel.com with ESMTP; 20 Mar 2020 17:18:57 -0700
-Message-ID: <4634e6654473722fca5f509ffb535535c4f6fbac.camel@linux.intel.com>
-Subject: Re: [PATCH] ASoC: topology: Add missing memory checks
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: Amadeusz =?UTF-8?Q?S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
-Date: Fri, 20 Mar 2020 17:18:56 -0700
-In-Reply-To: <20200320181345.31565-1-amadeuszx.slawinski@linux.intel.com>
-References: <20200320181345.31565-1-amadeuszx.slawinski@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
-Mime-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id AB466F80126
+ for <alsa-devel@alsa-project.org>; Sat, 21 Mar 2020 01:49:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB466F80126
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="uZ3Avk7s"
+Received: by mail-lj1-x241.google.com with SMTP id u15so8134863lji.10
+ for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 17:49:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=hfTzf6AkODc+KHzE3s2ZnR2MPNAojxSRMj8xOLinhFw=;
+ b=uZ3Avk7smEVbod80RzW7uRr6ijNtsqyaJdy3tnFO6K5xUOHId0xQS/6taPTQAHYmV8
+ twvZXk/+MpZrWG/SOHy7OfEJCkF3Hr+MY2NQ+tpsErU8711gBYwqjCV5GqPVsFwnFBQM
+ BUkZPs46woWRQruYhlE/WJd6qzMKcJFbpVt6jvmqpGoDhNNAsvWNNhvE/qvS8KDTazVa
+ zdJw9VNPr+HwEti4V6IHD7deRzwG14hwIbTFHaVJwGHhGraiNXSRDT20pNAPZU+QNBsL
+ NAHyJsSvsKZkUtGl2Jg1R+InTgY7Fp2besemwjIrpTsPBQCTN2y05a5wZ8h0cVydVTS9
+ wm2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=hfTzf6AkODc+KHzE3s2ZnR2MPNAojxSRMj8xOLinhFw=;
+ b=s7ZImqYi8oZtlmmLgveMOuucsz4dGGSrbsBVzLPQ4JgZMMEXM0jDg/TI+fuv02/Czm
+ B86VYjSKJOh0jeiy0QPEEu+3oNK84Wri+7Q0YJpy0R/N1gvOYIOFFb4WemNSD87aaRmC
+ 6WYefOAZBWBI1JL6pVUdVjcg2jDYzecGlZmdGE5YsSoVVpl7mkaNxURWdku4n2wqOIYa
+ djvgWZl17Xe/vqVisIVcEOMmlLB7V4IhBJXGEfmqU1hwvZLj/1uQxDkEL+vLk9Y2st56
+ DEPngvWLp16Mdg6BrZRaqU9ostiBWFQxrt38mi5KlvpRScv8qhiyT0tkRGBKPG+/kOsy
+ UgEA==
+X-Gm-Message-State: ANhLgQ1mS0SF9LToNWz3Qugo0X7hhl3yRrTEKJGP233TgJOzCiQkABGv
+ Jqr4cvh2ajzayu3st1uo9Ck=
+X-Google-Smtp-Source: ADFU+vtonjhhEKMbX+G14ChpIgBEzsZ10+qImyxwJ+S+brN4HJLsOs9NIn81D5tr8u0qJosVBYu/Vg==
+X-Received: by 2002:a2e:964e:: with SMTP id z14mr7248148ljh.44.1584751791010; 
+ Fri, 20 Mar 2020 17:49:51 -0700 (PDT)
+Received: from [192.168.2.145] (94-29-39-224.dynamic.spd-mgts.ru.
+ [94.29.39.224])
+ by smtp.googlemail.com with ESMTPSA id q4sm4194078lfd.82.2020.03.20.17.49.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 20 Mar 2020 17:49:50 -0700 (PDT)
+Subject: Re: [PATCH v1 0/2] Support built-in Mic on Tegra boards that use
+ WM8903
+To: Stephen Warren <swarren@wwwdotorg.org>
+References: <20200320205504.30466-1-digetx@gmail.com>
+ <c27c2087-14cf-614d-a8c0-05072a54f24b@wwwdotorg.org>
+From: Dmitry Osipenko <digetx@gmail.com>
+Message-ID: <2f5c1082-2ce9-dff1-4f9f-3442a2ac51fd@gmail.com>
+Date: Sat, 21 Mar 2020 03:49:48 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
+MIME-Version: 1.0
+In-Reply-To: <c27c2087-14cf-614d-a8c0-05072a54f24b@wwwdotorg.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
+ linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,178 +110,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 2020-03-20 at 14:13 -0400, Amadeusz Sławiński wrote:
-> kstrdup is an allocation function and it can fail, so its return
-> value
-> should be checked and handled appropriately.
+21.03.2020 01:30, Stephen Warren пишет:
+> On 3/20/20 2:55 PM, Dmitry Osipenko wrote:
+>> Hello,
+>>
+>> This small series adds audio route for built-in microphone on NVIDIA Tegra
+>> boards that use WM8903 CODEC. In particular this is needed in order to unmute
+>> internal microphone on Acer A500 tablet device. I'm planning to send out the
+>> device tree for the A500 for 5.8, so will be nice to get the microphone
+>> sorted out. Please review and apply, thanks in advance.
 > 
-> In order to check all cases, we need to modify set_stream_info to
-> return
-> a value, so check that everything went correctly when doing
-> kstrdup().
-> Later add proper checks and error handlers.
-> 
-> Signed-off-by: Amadeusz Sławiński <
-> amadeuszx.slawinski@linux.intel.com>
-> ---
->  sound/soc/soc-topology.c | 65 +++++++++++++++++++++++++++++++-------
-> --
->  1 file changed, 51 insertions(+), 14 deletions(-)
-> 
-> diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
-> index 575da6aba807..0bec3ff782c1 100644
-> --- a/sound/soc/soc-topology.c
-> +++ b/sound/soc/soc-topology.c
-> @@ -1766,10 +1766,13 @@ static int soc_tplg_dapm_complete(struct
-> soc_tplg *tplg)
->  	return 0;
->  }
->  
-> -static void set_stream_info(struct snd_soc_pcm_stream *stream,
-> +static int set_stream_info(struct snd_soc_pcm_stream *stream,
->  	struct snd_soc_tplg_stream_caps *caps)
->  {
->  	stream->stream_name = kstrdup(caps->name, GFP_KERNEL);
-> +	if (!stream->stream_name)
-> +		return -ENOMEM;
-> +
->  	stream->channels_min = le32_to_cpu(caps->channels_min);
->  	stream->channels_max = le32_to_cpu(caps->channels_max);
->  	stream->rates = le32_to_cpu(caps->rates);
-> @@ -1777,6 +1780,8 @@ static void set_stream_info(struct
-> snd_soc_pcm_stream *stream,
->  	stream->rate_max = le32_to_cpu(caps->rate_max);
->  	stream->formats = le64_to_cpu(caps->formats);
->  	stream->sig_bits = le32_to_cpu(caps->sig_bits);
-> +
-> +	return 0;
->  }
->  
->  static void set_dai_flags(struct snd_soc_dai_driver *dai_drv,
-> @@ -1812,20 +1817,29 @@ static int soc_tplg_dai_create(struct
-> soc_tplg *tplg,
->  	if (dai_drv == NULL)
->  		return -ENOMEM;
->  
-> -	if (strlen(pcm->dai_name))
-> +	if (strlen(pcm->dai_name)) {
->  		dai_drv->name = kstrdup(pcm->dai_name, GFP_KERNEL);
-> +		if (!dai_drv->name) {
-> +			ret = -ENOMEM;
-> +			goto err;
-> +		}
-> +	}
->  	dai_drv->id = le32_to_cpu(pcm->dai_id);
->  
->  	if (pcm->playback) {
->  		stream = &dai_drv->playback;
->  		caps = &pcm->caps[SND_SOC_TPLG_STREAM_PLAYBACK];
-> -		set_stream_info(stream, caps);
-> +		ret = set_stream_info(stream, caps);
-> +		if (ret < 0)
-> +			goto err;
->  	}
->  
->  	if (pcm->capture) {
->  		stream = &dai_drv->capture;
->  		caps = &pcm->caps[SND_SOC_TPLG_STREAM_CAPTURE];
-> -		set_stream_info(stream, caps);
-> +		ret = set_stream_info(stream, caps);
-> +		if (ret < 0)
-> +			goto err;
->  	}
->  
->  	if (pcm->compress)
-> @@ -1835,11 +1849,7 @@ static int soc_tplg_dai_create(struct soc_tplg
-> *tplg,
->  	ret = soc_tplg_dai_load(tplg, dai_drv, pcm, NULL);
->  	if (ret < 0) {
->  		dev_err(tplg->comp->dev, "ASoC: DAI loading failed\n");
-> -		kfree(dai_drv->playback.stream_name);
-> -		kfree(dai_drv->capture.stream_name);
-> -		kfree(dai_drv->name);
-> -		kfree(dai_drv);
-> -		return ret;
-> +		goto err;
->  	}
->  
->  	dai_drv->dobj.index = tplg->index;
-> @@ -1857,9 +1867,17 @@ static int soc_tplg_dai_create(struct soc_tplg
-> *tplg,
->  	if (ret != 0) {
->  		dev_err(dai->dev, "Failed to create DAI widgets %d\n",
-> ret);
->  		snd_soc_unregister_dai(dai);
-> -		return ret;
-> +		goto err;
-Hi Amadeusz,
+> It's been a long time since I looked at this code, but the series looks
+> plausible,
+> Acked-by: Stephen Warren <swarren@nvidia.com>
 
-I think this is not needed. Once the dai_drv is added to the dobj_list,
-upon a failure here, the tplg components will be removed and this will
-be taken care of. So it is safe to just return ret here.
->  	}
->  
-> +	return 0;
-> +
-> +err:
-> +	kfree(dai_drv->playback.stream_name);
-> +	kfree(dai_drv->capture.stream_name);
-> +	kfree(dai_drv->name);
-> +	kfree(dai_drv);
-> +
->  	return ret;
->  }
->  
-> @@ -1916,11 +1934,20 @@ static int soc_tplg_fe_link_create(struct
-> soc_tplg *tplg,
->  	if (strlen(pcm->pcm_name)) {
->  		link->name = kstrdup(pcm->pcm_name, GFP_KERNEL);
->  		link->stream_name = kstrdup(pcm->pcm_name, GFP_KERNEL);
-> +		if (!link->name || !link->stream_name) {
-> +			ret = -ENOMEM;
-> +			goto err;
-> +		}
->  	}
->  	link->id = le32_to_cpu(pcm->pcm_id);
->  
-> -	if (strlen(pcm->dai_name))
-> +	if (strlen(pcm->dai_name)) {
->  		link->cpus->dai_name = kstrdup(pcm->dai_name,
-> GFP_KERNEL);
-> +		if (!link->cpus->dai_name) {
-> +			ret = -ENOMEM;
-> +			goto err;
-> +		}
-> +	}
->  
->  	link->codecs->name = "snd-soc-dummy";
->  	link->codecs->dai_name = "snd-soc-dummy-dai";
-> @@ -2436,13 +2463,17 @@ static int soc_tplg_dai_config(struct
-> soc_tplg *tplg,
->  	if (d->playback) {
->  		stream = &dai_drv->playback;
->  		caps = &d->caps[SND_SOC_TPLG_STREAM_PLAYBACK];
-> -		set_stream_info(stream, caps);
-> +		ret = set_stream_info(stream, caps);
-> +		if (ret < 0)
-> +			goto err;
->  	}
->  
->  	if (d->capture) {
->  		stream = &dai_drv->capture;
->  		caps = &d->caps[SND_SOC_TPLG_STREAM_CAPTURE];
-> -		set_stream_info(stream, caps);
-> +		ret = set_stream_info(stream, caps);
-> +		if (ret < 0)
-> +			goto err;
->  	}
->  
->  	if (d->flag_mask)
-> @@ -2454,10 +2485,16 @@ static int soc_tplg_dai_config(struct
-> soc_tplg *tplg,
-The return value of soc_tplg_dai_config() in soc_tplg_dai_elems_load()
-is never checked. So maybe we need a follow-up patch to fix that too?
+Thank you!
 
-Thanks,
-Ranjani
+> (I wonder why machine->gpio_int_mic_en was already parse but never used!)
 
+Perhaps there were plans to support it later on, but that never
+materialized.

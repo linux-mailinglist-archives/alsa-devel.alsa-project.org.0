@@ -2,89 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8141418F674
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 14:57:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD86E18F677
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 14:58:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 073A786F;
-	Mon, 23 Mar 2020 14:56:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 073A786F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6CAC41658;
+	Mon, 23 Mar 2020 14:57:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6CAC41658
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584971862;
-	bh=TDulTIa31dsqBFC4Wy278pJyicMsShQOjV07Y1qeyXs=;
-	h=From:To:Subject:In-Reply-To:References:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=L1186fbdnlIGCauuA8iN45yNyfUIkqWtPBJ5Hc3KZuyHf51T/R33HfLKZsxl7hcbf
-	 G2TUDpjM8q4qGMAZr8t+lIdBvG5uJRpurdIFOm1mZRVhcfwkoQbHcUrGEymqmm8wml
-	 t1Crl875/QQWvbdtggyhZLvBoyEGdB5vFSg2/9iM=
+	s=default; t=1584971888;
+	bh=x9N45CHzpUAUbANIthTeDN1wj3zIAuO24FE24TgsBWA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=e6SHSrQNuiJucbmIj1BxiErTnOEt8zWC0GuVQmb795sCIHsELislrN6GHp45c316a
+	 t7ZRB8uCymnDDKa8MDiQLafsXRrvgcDwcyG2s+Ris2yJXeEdEwFtgZ7uCIaqhs1tCu
+	 fSChEjHnH6Ufspowo8hPuPjBFKWwrTntJDe3NPN8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78770F80308;
-	Mon, 23 Mar 2020 14:47:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96081F80323;
+	Mon, 23 Mar 2020 14:47:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1EB0BF8015B; Fri, 20 Mar 2020 23:18:50 +0100 (CET)
+ id 38A90F8022B; Sat, 21 Mar 2020 12:40:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from Galois.linutronix.de (galois.linutronix.de
- [IPv6:2a0a:51c0:0:12e:550::1])
- (using TLSv1.2 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 240E7F800C0
- for <alsa-devel@alsa-project.org>; Fri, 20 Mar 2020 23:18:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 240E7F800C0
-Received: from p5de0bf0b.dip0.t-ipconnect.de ([93.224.191.11]
- helo=nanos.tec.linutronix.de)
- by Galois.linutronix.de with esmtpsa (TLS1.2:DHE_RSA_AES_256_CBC_SHA256:256)
- (Exim 4.80) (envelope-from <tglx@linutronix.de>)
- id 1jFPyQ-00050m-N3; Fri, 20 Mar 2020 23:18:38 +0100
-Received: by nanos.tec.linutronix.de (Postfix, from userid 1000)
- id 3A4771039FC; Fri, 20 Mar 2020 23:18:38 +0100 (CET)
-From: Thomas Gleixner <tglx@linutronix.de>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Subject: Re: [patch 09/22] cpufreq: Convert to new X86 CPU match macros
-In-Reply-To: <CAHp75VfuU98gEriS+GDJqZX4BV-cZT9hPbrDX-roeo63O8UvYQ@mail.gmail.com>
-References: <20200320131345.635023594@linutronix.de>
- <20200320131509.564059710@linutronix.de>
- <CAHp75VdkvyqOaAsLmz8K2j4bdd0sboPoUpRr6U-zvtkSaQfPRQ@mail.gmail.com>
- <87eetmpy56.fsf@nanos.tec.linutronix.de>
- <CAHp75VfuU98gEriS+GDJqZX4BV-cZT9hPbrDX-roeo63O8UvYQ@mail.gmail.com>
-Date: Fri, 20 Mar 2020 23:18:38 +0100
-Message-ID: <877dzept4x.fsf@nanos.tec.linutronix.de>
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Linutronix-Spam-Score: -1.0
-X-Linutronix-Spam-Level: -
-X-Linutronix-Spam-Status: No , -1.0 points, 5.0 required, ALL_TRUSTED=-1,
- SHORTCIRCUIT=-0.0001
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1E887F801DB
+ for <alsa-devel@alsa-project.org>; Sat, 21 Mar 2020 12:40:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E887F801DB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="LsLAT8+u"
+Received: by mail-wr1-x442.google.com with SMTP id 31so4566208wrs.3
+ for <alsa-devel@alsa-project.org>; Sat, 21 Mar 2020 04:40:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=7jR/DJniamHEDhpAAfPOcbN20Xg7ftVEruh/hyhO0PE=;
+ b=LsLAT8+uDmGSdQQJntAF8vnUqUnpGplRkCu3wIrpjOm72QwxiPSyucWszlZYxKozpk
+ qp1vUdTtSmAetmlLU6jTQsYrGZZvda/aPVoulZxELtCJkR0Tsk815tDkL+3HK/YXbxmF
+ jtLdYdPDUeiOXDU/BXFfAiZiw+i+o+K8v/k6ReFNHkMNTlclmAibR2TVRvpJfZhdkJjf
+ PO6EcEnhKLmfdn1TCVDGkM0VDNM4QsMMh+da0N9WrkDmlYc+Nei1FaumMXpQqwIkgw4S
+ CSLK6Su/ZLNqr4Y5WZVY9LyUUDLzSlUN8nngsIj++Gs1w7nQoRTiQsF98zCyGaGin7Oz
+ uAYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=7jR/DJniamHEDhpAAfPOcbN20Xg7ftVEruh/hyhO0PE=;
+ b=bTd+O7vpv22jhKWc/Y8KBCBWzHwy2wAxa1P9tKkyvsOyeqoQSLu6cPqh+xVFbgUYX4
+ Sbn2wt+tu2jnzg1Iyuv6seOKsa55LWUxfhH0jJpzwzt4F9ljRwWjaSMOKTJZAeTsXx53
+ ITgtab94Yl6A6LXR89ZvCN832LKF8rJMNqkwDp7vgXeemrHIc98iLLij4luCH0m3CNqu
+ H2dSK43Zq8eizZhH/8fhRA7tAvVeFvKaFvw7bzqKpf3sSaDGt2Hnqn/XcTWtTgZZMzrh
+ nFjV/vVv4bC84Tpk1/SZy/EEjm23R7feRs3IZWmgc/VRJG5XWNSr2YEH3h2ppBQCWYxQ
+ 4BZQ==
+X-Gm-Message-State: ANhLgQ28GevxqSxGIPcor6OOHAWuT+9Z2nn3Zu1UgT102B6ba/SQ4u/P
+ mQFGE0spWXzHxBC+3MfLG2I=
+X-Google-Smtp-Source: ADFU+vvxfx5Oi42isr8/wePrVDB2XPv0PjWByfMkPVW34u6Ng9Fb9YvXxU3xXUegrdwEReYm41u9Cg==
+X-Received: by 2002:a5d:6a4b:: with SMTP id t11mr17009174wrw.52.1584790834729; 
+ Sat, 21 Mar 2020 04:40:34 -0700 (PDT)
+Received: from felia.fritz.box ([2001:16b8:2d49:b100:e503:a7c7:f4c6:1aab])
+ by smtp.gmail.com with ESMTPSA id t16sm9533091wra.17.2020.03.21.04.40.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 21 Mar 2020 04:40:34 -0700 (PDT)
+From: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+To: Jeff Chang <jeff_chang@richtek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-mediatek@lists.infradead.org
+Subject: [PATCH] ASoC: MT6660: make spdxcheck.py happy
+Date: Sat, 21 Mar 2020 12:40:22 +0100
+Message-Id: <20200321114022.8545-1-lukas.bulwahn@gmail.com>
+X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Mon, 23 Mar 2020 14:47:38 +0100
-Cc: Ulf Hansson <ulf.hansson@linaro.org>, "maintainer:X86 ARCHITECTURE
- \(32-BIT AND 64-BIT\)" <x86@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Platform Driver <platform-driver-x86@vger.kernel.org>,
- Jacob Pan <jacob.jun.pan@linux.intel.com>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Amit Kucheria <amit.kucheria@verdurent.com>,
- Mark Gross <mgross@linux.intel.com>, Herbert Xu <herbert@gondor.apana.org.au>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- ACPI Devel Maling List <linux-acpi@vger.kernel.org>, linux-pci@vger.kernel.org,
- Darren Hart <dvhart@infradead.org>, Zhang Rui <rui.zhang@intel.com>,
- Guenter Roeck <linux@roeck-us.net>, Len Brown <lenb@kernel.org>,
- Jean Delvare <jdelvare@suse.com>, Linux PM <linux-pm@vger.kernel.org>,
- linux-mmc <linux-mmc@vger.kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Takashi Iwai <tiwai@suse.com>, Adrian Hunter <adrian.hunter@intel.com>,
- linux-edac@vger.kernel.org, linux-hwmon@vger.kernel.org,
- Tony Luck <tony.luck@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rjw@rjwysocki.net>, LKML <linux-kernel@vger.kernel.org>,
- linux-crypto <linux-crypto@vger.kernel.org>,
- Paolo Bonzini <pbonzini@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- Andy Shevchenko <andy@infradead.org>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Lukas Bulwahn <lukas.bulwahn@gmail.com>,
+ linux-spdx@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,32 +97,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Andy Shevchenko <andy.shevchenko@gmail.com> writes:
+The SPDX-License-Identifier shall not be suffixed with anything further.
+This makes ./scripts/spdxcheck.py complain:
 
-> On Fri, Mar 20, 2020 at 10:30 PM Thomas Gleixner <tglx@linutronix.de> wrote:
->>
->> Andy Shevchenko <andy.shevchenko@gmail.com> writes:
->> > On Fri, Mar 20, 2020 at 3:18 PM Thomas Gleixner <tglx@linutronix.de> wrote:
->> >
->> >> +       X86_MATCH_VENDOR_FAM_MODEL_FEATURE(INTEL,  6,  9, X86_FEATURE_EST, NULL),
->> >> +       X86_MATCH_VENDOR_FAM_MODEL_FEATURE(INTEL,  6, 13, X86_FEATURE_EST, NULL),
->> >> +       X86_MATCH_VENDOR_FAM_MODEL_FEATURE(INTEL, 15,  3, X86_FEATURE_EST, NULL),
->> >> +       X86_MATCH_VENDOR_FAM_MODEL_FEATURE(INTEL, 15,  4, X86_FEATURE_EST, NULL),
->> >
->> >> +       X86_MATCH_VENDOR_FAM_MODEL(INTEL,  6, 0x8, 0),
->> >> +       X86_MATCH_VENDOR_FAM_MODEL(INTEL,  6, 0xb, 0),
->> >> +       X86_MATCH_VENDOR_FAM_MODEL(INTEL, 15, 0x2, 0),
->> >
->> >> +       X86_MATCH_VENDOR_FAM_MODEL(INTEL,  6, 0x8, 0),
->> >> +       X86_MATCH_VENDOR_FAM_MODEL(INTEL,  6, 0xb, 0),
->> >> +       X86_MATCH_VENDOR_FAM_MODEL(INTEL, 15, 0x2, 0),
->> >
->> > Perhaps use names instead of 6 and 15?
->>
->> Thought about that and did not come up with anyting useful. FAM6 vs. 6
->> is not really any better
->
-> Hmm... Do we have family 15 for Intel? Perhaps I missed something...
-> Or is it for any family?
+  sound/soc/codecs/mt6660.c: 1:36 Invalid token: //
 
-Pentium 4
+Clean up SPDX-License-Identifier line to make spdxcheck.py happy.
+
+Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+---
+ sound/soc/codecs/mt6660.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/soc/codecs/mt6660.c b/sound/soc/codecs/mt6660.c
+index a36c416caad4..06ab1d39d2c1 100644
+--- a/sound/soc/codecs/mt6660.c
++++ b/sound/soc/codecs/mt6660.c
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: GPL-2.0 //
++// SPDX-License-Identifier: GPL-2.0
+ 
+ // Copyright (c) 2019 MediaTek Inc.
+ 
+-- 
+2.17.1
+

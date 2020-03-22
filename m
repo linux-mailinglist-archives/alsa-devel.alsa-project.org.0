@@ -2,83 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D936A18E779
-	for <lists+alsa-devel@lfdr.de>; Sun, 22 Mar 2020 09:05:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAAD318E818
+	for <lists+alsa-devel@lfdr.de>; Sun, 22 Mar 2020 11:49:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3FA7486E;
-	Sun, 22 Mar 2020 09:04:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FA7486E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B0C61616;
+	Sun, 22 Mar 2020 11:48:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B0C61616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584864324;
-	bh=1mChDyXxQzyawi/OpETPRJOYjRetoQEJvPRClP15Tc8=;
+	s=default; t=1584874157;
+	bh=/xGDNL9h4p3OAlnCcwTQynpt/51AlJF8yIy+kFuBUao=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=t5ZE14He7mA/nvHNhbUabsraO8Zl+X5zmO4jcPqKeGUfx0AmrsuWC3ruexSIUGhda
-	 jCqVHq2eRVH3U0MgW7vN+H59zAs5+FTweit0J0y1L2oZ/hwIOn3jxA4lZNj6Eojz1c
-	 Pao8EJoVS+yce5H29u/j2uPFahIqs1AX+0XgUiLc=
+	b=Se/L1SPZA5JFktkz9YkOhkmZE4EnnbADsIvEXW46Jz3amlDpkWsPRwoW47x5ky0BH
+	 qS62QB9eh+s/8vesHnDXlns17VyQQvCefjLzNrM6JmPhLTLkvCQKHo+PAvG1q86Yid
+	 TJEH0SY1h2iU18OEEjxRJ0UMoBj49fys1W21wUBk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 241D1F800C7;
-	Sun, 22 Mar 2020 09:03:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C846F800B9;
+	Sun, 22 Mar 2020 11:47:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 774ECF801F8; Sun, 22 Mar 2020 09:03:19 +0100 (CET)
+ id 5A8E1F801F8; Sun, 22 Mar 2020 11:47:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
- [IPv6:2607:f8b0:4864:20::742])
+Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
+ [IPv6:2607:f8b0:4864:20::743])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96045F800F6
- for <alsa-devel@alsa-project.org>; Sun, 22 Mar 2020 09:03:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96045F800F6
+ by alsa1.perex.cz (Postfix) with ESMTPS id DC9E4F800B9
+ for <alsa-devel@alsa-project.org>; Sun, 22 Mar 2020 11:47:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC9E4F800B9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="aaQ6VVng"
-Received: by mail-qk1-x742.google.com with SMTP id q188so6642371qke.8
- for <alsa-devel@alsa-project.org>; Sun, 22 Mar 2020 01:03:10 -0700 (PDT)
+ header.b="vfJ1Ktbe"
+Received: by mail-qk1-x743.google.com with SMTP id j4so12075331qkc.11
+ for <alsa-devel@alsa-project.org>; Sun, 22 Mar 2020 03:47:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=xXVv3O+6eypP6m1WWp+RaUMVY3oNb3TdV/pq+HroePk=;
- b=aaQ6VVngPHL4EX4wx6NHsYw7h7DHQ+Co8ZaQT3+ricC2dvlwjh+yjYyPlppiu5w/2k
- tgkrJS24DpcYVsN2SpS/m73nsrtXWgQIGP7QgVvGNH4yAQ2CJE9QjUVZJ1VfIBICkwH0
- qvjOKpniEAAWaNNgl1uYm8KivgOm5uRZc3en9aqZAAXmjfpsLdzzCP8ek3KY89OLurBW
- p8wpNTqbZFt4IZED75rsXMFWhez2a+r2ZHH7FKSFRHG8M5QY8gx/87zDOMkj8C1jj4EB
- 9HF/lMB0LHe6RNVgiVSRzidRYxSbSPJc6tZgDTmiQKo3kSc125VgkAv7i4O5/7LQZ10t
- gVmA==
+ :cc; bh=S6yehooPiFA7WFzSiN6iRq3URFGEeFNRubLJGaTKKeg=;
+ b=vfJ1KtbeLDw5rFqeb6hIPBm5Sc1u7NaY5cV22O2B6Qr5sj+BUBGQBoxgBnDyG25Uun
+ XarmSsEFe+LOGy/CsGvlXp+gB1ey4rj/w4Psk1IdT1KxfgfNvtobd8eTKawz4omDaCAp
+ 9Q1QqhexZiCi+puZyxpV4LbWTJuBfTBAcqE1JoZWo+/JFNDLXF0lZPnVSo+5jl0996fB
+ IGiNJbsb2PBmJIQOaHcEPBaA6RMSFpgUk6E0F6mA/cK5z1KzcLPQfehaIJPM83S3xcQ/
+ LjQj/DgPr2S3dv9JTzva8TGWqrNMpWa3T1ybGhe65sBtgGwJoKR509wm+j/05GFrFu65
+ EB9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=xXVv3O+6eypP6m1WWp+RaUMVY3oNb3TdV/pq+HroePk=;
- b=fkxZ+ugVjkn3RzE7/ZmGZOCOCTzf1kH4vKkW37TNUrECVwQXDJ4t9RaZo53F+X/xVa
- P6qzpIL82otvcpa6WLSgw3Nr0wnS4vtgT/1e6rUiO2bSv9xqFUaEVodWdF91MoRGy35A
- elTJEdBjzKmveLFdlcQCMKWWZHKoaN4MCsKESQfrdnyEf+1VcNgx50ACRryoIpI1Hiop
- iN79dezPzhh0SUvb/3vfHZh0njvH37IbgXeC4+uJ2G7GaqKncoT7b17XNqEHg6u2Hq4A
- PAW05ylvYcIJnHsO4enz0DBymHaOD4oissDso+Te2vW2rJBV87m8Ro4MC6xVKJy4gKSp
- PvlQ==
-X-Gm-Message-State: ANhLgQ2WqvPQEAgOEeeMPYpzkwHezdK6F1a90UtYkKD6x8fPWLaMqjbd
- EPfB4+VRRICkikUEzDkcz4hM27r+MMflK8LZ2ec=
-X-Google-Smtp-Source: ADFU+vv15vjlLfsa664H8VI+98Ko/0kGJBPM66yGAqwLj6B2pgF+uXCCQ0y20KBRdMdMu0RQlW+glQ8BaD4Y4HxhOxA=
-X-Received: by 2002:a37:4a85:: with SMTP id
- x127mr16083800qka.152.1584864189047; 
- Sun, 22 Mar 2020 01:03:09 -0700 (PDT)
+ bh=S6yehooPiFA7WFzSiN6iRq3URFGEeFNRubLJGaTKKeg=;
+ b=dFesCP77A9LLFfskGc7Cf4PPhkuL/QVV2JEblboPsEzEXR7Y55n0g42/yJWbevugCo
+ wbM5uWoeg7V98XHk/FNwb+ytD3mVtnrSkpmED7F7tPrrkhikX7Qia9avqThgL6GQJFsT
+ qi3RKvTZa0daIoTB27m8//2mkE8v3iG4mYjwub+czanTVdf+Qx2SoB3lea2fLIHH+CN2
+ vnm2aUMchtUrlC4KSyxMLxOucSoiebz45/+MeuRBLCnB8FfnAVF5wO2EvMeaugfsgkKk
+ HmbRM4/7anNXl6a6pEvxlPFMQqrRW+c7POwzzxtM4+UKatPj8FpCnnmEiLLsjiVE5CLs
+ w4iA==
+X-Gm-Message-State: ANhLgQ1G/SMnLhB9m45jE/37v/vTKeWSHWYpHhBUWhTXZwNxkppX6UXE
+ KhXFGku7fxSNY7ccs6DgqjHKmNCcpLSjrUzFv+4=
+X-Google-Smtp-Source: ADFU+vtFlqm8k9nbdJLDkTWAYuVNBzwsd2eGqUIfasY6+bquWnBaxo5guuFzQCC/yubJX5XQ8gab/74PHmKPUs49zC4=
+X-Received: by 2002:a37:9683:: with SMTP id
+ y125mr16639605qkd.450.1584874041867; 
+ Sun, 22 Mar 2020 03:47:21 -0700 (PDT)
 MIME-Version: 1.0
 References: <cover.1583725533.git.shengjiu.wang@nxp.com>
- <71b6ad3d0ea79076fded2373490ec1eb8c418d21.1583725533.git.shengjiu.wang@nxp.com>
- <20200320174812.GA27070@bogus>
-In-Reply-To: <20200320174812.GA27070@bogus>
+ <24f69c50925b93afd7a706bd888ee25d27247c78.1583725533.git.shengjiu.wang@nxp.com>
+ <20200309211943.GB11333@Asurada-Nvidia.nvidia.com>
+ <20200320173213.GA9093@bogus>
+In-Reply-To: <20200320173213.GA9093@bogus>
 From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Sun, 22 Mar 2020 16:02:57 +0800
-Message-ID: <CAA+D8AMC0fuTxDiWEjOVx11eDuGb9WeMhFTzxFx-3fYKvf=-jw@mail.gmail.com>
-Subject: Re: [PATCH v5 6/7] ASoC: dt-bindings: fsl_easrc: Add document for
- EASRC
+Date: Sun, 22 Mar 2020 18:47:09 +0800
+Message-ID: <CAA+D8APtW+ZRvJufzhNSw8acTdhGRQNphZcyVYnV-ZLUbtTGew@mail.gmail.com>
+Subject: Re: [PATCH v5 1/7] ASoC: dt-bindings: fsl_asrc: Add new property fsl,
+ asrc-format
 To: Rob Herring <robh@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Cc: Mark Rutland <mark.rutland@arm.com>,
@@ -104,93 +105,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, Mar 21, 2020 at 1:50 AM Rob Herring <robh@kernel.org> wrote:
+On Sat, Mar 21, 2020 at 1:34 AM Rob Herring <robh@kernel.org> wrote:
 >
-> On Mon, Mar 09, 2020 at 11:58:33AM +0800, Shengjiu Wang wrote:
-> > EASRC (Enhanced Asynchronous Sample Rate Converter) is a new
-> > IP module found on i.MX8MN.
+> On Mon, Mar 09, 2020 at 02:19:44PM -0700, Nicolin Chen wrote:
+> > On Mon, Mar 09, 2020 at 11:58:28AM +0800, Shengjiu Wang wrote:
+> > > In order to support new EASRC and simplify the code structure,
+> > > We decide to share the common structure between them. This bring
+> > > a problem that EASRC accept format directly from devicetree, but
+> > > ASRC accept width from devicetree.
+> > >
+> > > In order to align with new ESARC, we add new property fsl,asrc-format.
+> > > The fsl,asrc-format can replace the fsl,asrc-width, then driver
+> > > can accept format from devicetree, don't need to convert it to
+> > > format through width.
+> > >
+> > > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > > ---
+> > >  Documentation/devicetree/bindings/sound/fsl,asrc.txt | 5 +++++
+> > >  1 file changed, 5 insertions(+)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/sound/fsl,asrc.txt b/Documentation/devicetree/bindings/sound/fsl,asrc.txt
+> > > index cb9a25165503..780455cf7f71 100644
+> > > --- a/Documentation/devicetree/bindings/sound/fsl,asrc.txt
+> > > +++ b/Documentation/devicetree/bindings/sound/fsl,asrc.txt
+> > > @@ -51,6 +51,11 @@ Optional properties:
+> > >                       will be in use as default. Otherwise, the big endian
+> > >                       mode will be in use for all the device registers.
+> > >
+> > > +   - fsl,asrc-format       : Defines a mutual sample format used by DPCM Back
+> > > +                     Ends, which can replace the fsl,asrc-width.
+> > > +                     The value is SNDRV_PCM_FORMAT_S16_LE, or
+> > > +                     SNDRV_PCM_FORMAT_S24_LE
 > >
-> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> > ---
-> >  .../devicetree/bindings/sound/fsl,easrc.yaml  | 101 ++++++++++++++++++
-> >  1 file changed, 101 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/sound/fsl,easrc.yaml
-> >
-> > diff --git a/Documentation/devicetree/bindings/sound/fsl,easrc.yaml b/Documentation/devicetree/bindings/sound/fsl,easrc.yaml
-> > new file mode 100644
-> > index 000000000000..ff22f8056a63
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/sound/fsl,easrc.yaml
-> > @@ -0,0 +1,101 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/sound/fsl,easrc.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: NXP Asynchronous Sample Rate Converter (ASRC) Controller
-> > +
-> > +maintainers:
-> > +  - Shengjiu Wang <shengjiu.wang@nxp.com>
-> > +
-> > +properties:
-> > +  $nodename:
-> > +    pattern: "^easrc@.*"
-> > +
-> > +  compatible:
-> > +    const: fsl,imx8mn-easrc
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  interrupts:
-> > +    maxItems: 1
-> > +
-> > +  clocks:
-> > +    items:
-> > +      - description: Peripheral clock
-> > +
-> > +  clock-names:
-> > +    items:
-> > +      - const: mem
-> > +
-> > +  dmas:
-> > +    maxItems: 8
-> > +
-> > +  dma-names:
-> > +    items:
-> > +      - const: ctx0_rx
-> > +      - const: ctx0_tx
-> > +      - const: ctx1_rx
-> > +      - const: ctx1_tx
-> > +      - const: ctx2_rx
-> > +      - const: ctx2_tx
-> > +      - const: ctx3_rx
-> > +      - const: ctx3_tx
-> > +
-> > +  fsl,easrc-ram-script-name:
+> > I am still holding the concern at the DT binding of this format,
+> > as it uses values from ASoC header file instead of a dt-binding
+> > header file -- not sure if we can do this. Let's wait for Rob's
+> > comments.
 >
-> 'firmware-name' is the established property name for this.
+> I assume those are an ABI as well, so it's okay to copy them unless we
+> already have some format definitions for DT. But it does need to be copy
+> in a header under include/dt-bindings/.
 
-will use "firmware-name"
-
->
-> > +    allOf:
-> > +      - $ref: /schemas/types.yaml#/definitions/string
-> > +      - const: imx/easrc/easrc-imx8mn.bin
->
-> Though if there's only 1 possible value, why does this need to be in DT?
->
-> > +    description: The coefficient table for the filters
->
-> If the firmware is only 1 thing, then perhaps this should just be a DT
-> property rather than a separate file. It depends on who owns/creates
-> this file. If fixed for the platform, then DT is a good fit. If updated
-> separately from DT and boot firmware, then keeping it separate makes
-> sense.
->
-The firmware is not fixed for the platform, it is updated separately from
-DT.  So we can keep it separately.
+Thanks for reviewing. seems it is not a good time to add a new header
+file in include/dt-bindings/ in this patch serial. I will drop this change
+this time, that still using the "fsl,asrc-width".
 
 best regards
 wang shengjiu

@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CAEE18EF72
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:33:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CDD518EF75
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:34:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F26631664;
-	Mon, 23 Mar 2020 06:33:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F26631664
+	by alsa0.perex.cz (Postfix) with ESMTPS id CFF7E1681;
+	Mon, 23 Mar 2020 06:34:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFF7E1681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584941631;
-	bh=kl6eHkeDSecn5w15h2XbaOsUKJ+uNqMQzC+C+ULstvY=;
+	s=default; t=1584941693;
+	bh=NpGDPNi3neWnLpNdrfHxXMDy2DhKFFh0fx7lVikmNEY=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iaNPoEg7Agv4cnjMui5Uqt8mLxjSBccRoDgn1qjFeE56CBHkXQvk//P+0wgaeOfSN
-	 OtNr5kl/lxnfxM7ZkZ0zMqhiqBHupYtuHbLk+HACIseLAUNUV4mtG8GyLf/V421x0O
-	 2dLpOxBHJ5SItGOys1F8apsmKaTjBaaSZdgQwSSY=
+	b=e0m3TnlGorSlO4UgWaI5UqIKQTllsiM9ErrqIxzlOHxATF43ZQ7ajobRJhK8zqvGy
+	 WuKxiACsbKAseX6a+cvaEztaWUHOBRItSRaXJZS8TbQ/36BIsWlGlI3wtvzF3Kt1Jc
+	 jy7JvT+suWurRd720JthWk9BuzU9tW0LTCck5ZsE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 86A46F801DA;
-	Mon, 23 Mar 2020 06:21:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD3C8F802BE;
+	Mon, 23 Mar 2020 06:21:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5C118F8036B; Mon, 23 Mar 2020 06:21:35 +0100 (CET)
+ id 26391F80371; Mon, 23 Mar 2020 06:21:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id D9F4AF8036B
- for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:21:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9F4AF8036B
-Date: 23 Mar 2020 14:21:28 +0900
-X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42350610"
+ by alsa1.perex.cz (Postfix) with ESMTP id 54E03F8036C
+ for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:21:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54E03F8036C
+Date: 23 Mar 2020 14:21:35 +0900
+X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42350615"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 23 Mar 2020 14:21:28 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 23 Mar 2020 14:21:35 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id E879941657EA;
- Mon, 23 Mar 2020 14:21:28 +0900 (JST)
-Message-ID: <87369zir3b.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 52150416FB87;
+ Mon, 23 Mar 2020 14:21:35 +0900 (JST)
+Message-ID: <871rpjir34.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 28/36] ASoC: uniphier: use asoc_rtd_to_cpu() /
+Subject: [PATCH 29/36] ASoC: ux500: use asoc_rtd_to_cpu() /
  asoc_rtd_to_codec() macro for DAI pointer
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -72,144 +72,70 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/uniphier/aio-compress.c | 22 +++++++++++-----------
- sound/soc/uniphier/aio-dma.c      |  6 +++---
- 2 files changed, 14 insertions(+), 14 deletions(-)
+ sound/soc/ux500/mop500_ab8500.c | 6 +++---
+ sound/soc/ux500/ux500_pcm.c     | 8 ++++----
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/uniphier/aio-compress.c b/sound/soc/uniphier/aio-compress.c
-index 17f773ac5ca1..232d3cc5bce0 100644
---- a/sound/soc/uniphier/aio-compress.c
-+++ b/sound/soc/uniphier/aio-compress.c
-@@ -23,7 +23,7 @@ static int uniphier_aio_comprdma_new(struct snd_soc_pcm_runtime *rtd)
+diff --git a/sound/soc/ux500/mop500_ab8500.c b/sound/soc/ux500/mop500_ab8500.c
+index 77655084bbde..6aaa19829a73 100644
+--- a/sound/soc/ux500/mop500_ab8500.c
++++ b/sound/soc/ux500/mop500_ab8500.c
+@@ -215,8 +215,8 @@ static int mop500_ab8500_hw_params(struct snd_pcm_substream *substream,
+ 			struct snd_pcm_hw_params *params)
  {
- 	struct snd_compr *compr = rtd->compr;
- 	struct device *dev = compr->card->dev;
--	struct uniphier_aio *aio = uniphier_priv(rtd->cpu_dai);
-+	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
- 	struct uniphier_aio_sub *sub = &aio->sub[compr->direction];
- 	size_t size = AUD_RING_SIZE;
- 	int dma_dir = DMA_FROM_DEVICE, ret;
-@@ -56,7 +56,7 @@ static int uniphier_aio_comprdma_free(struct snd_soc_pcm_runtime *rtd)
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
+-	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	struct device *dev = rtd->card->dev;
+ 	unsigned int fmt;
+ 	int channels, ret = 0, driver_mode, slots;
+@@ -339,7 +339,7 @@ static int mop500_ab8500_hw_params(struct snd_pcm_substream *substream,
+ static int mop500_ab8500_hw_free(struct snd_pcm_substream *substream)
  {
- 	struct snd_compr *compr = rtd->compr;
- 	struct device *dev = compr->card->dev;
--	struct uniphier_aio *aio = uniphier_priv(rtd->cpu_dai);
-+	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
- 	struct uniphier_aio_sub *sub = &aio->sub[compr->direction];
- 	int dma_dir = DMA_FROM_DEVICE;
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
  
-@@ -73,7 +73,7 @@ static int uniphier_aio_comprdma_free(struct snd_soc_pcm_runtime *rtd)
- static int uniphier_aio_compr_open(struct snd_compr_stream *cstream)
+ 	mutex_lock(&mop500_ab8500_params_lock);
+ 	__clear_bit(cpu_dai->id, &mop500_ab8500_usage);
+diff --git a/sound/soc/ux500/ux500_pcm.c b/sound/soc/ux500/ux500_pcm.c
+index 9445dbe8e039..39b96c132bc8 100644
+--- a/sound/soc/ux500/ux500_pcm.c
++++ b/sound/soc/ux500/ux500_pcm.c
+@@ -46,7 +46,7 @@ static const struct snd_pcm_hardware ux500_pcm_hw = {
+ static struct dma_chan *ux500_pcm_request_chan(struct snd_soc_pcm_runtime *rtd,
+ 	struct snd_pcm_substream *substream)
  {
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
--	struct uniphier_aio *aio = uniphier_priv(rtd->cpu_dai);
-+	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
- 	struct uniphier_aio_sub *sub = &aio->sub[cstream->direction];
- 	int ret;
+-	struct snd_soc_dai *dai = rtd->cpu_dai;
++	struct snd_soc_dai *dai = asoc_rtd_to_cpu(rtd, 0);
+ 	u16 per_data_width, mem_data_width;
+ 	struct stedma40_chan_cfg *dma_cfg;
+ 	struct ux500_msp_dma_params *dma_params;
+@@ -86,7 +86,7 @@ static int ux500_pcm_prepare_slave_config(struct snd_pcm_substream *substream,
+ 		struct dma_slave_config *slave_config)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct msp_i2s_platform_data *pdata = rtd->cpu_dai->dev->platform_data;
++	struct msp_i2s_platform_data *pdata = asoc_rtd_to_cpu(rtd, 0)->dev->platform_data;
+ 	struct snd_dmaengine_dai_dma_data *snd_dma_params;
+ 	struct ux500_msp_dma_params *ste_dma_params;
+ 	dma_addr_t dma_addr;
+@@ -94,11 +94,11 @@ static int ux500_pcm_prepare_slave_config(struct snd_pcm_substream *substream,
  
-@@ -98,7 +98,7 @@ static int uniphier_aio_compr_open(struct snd_compr_stream *cstream)
- static int uniphier_aio_compr_free(struct snd_compr_stream *cstream)
- {
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
--	struct uniphier_aio *aio = uniphier_priv(rtd->cpu_dai);
-+	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
- 	struct uniphier_aio_sub *sub = &aio->sub[cstream->direction];
- 	int ret;
+ 	if (pdata) {
+ 		ste_dma_params =
+-			snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
++			snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream);
+ 		dma_addr = ste_dma_params->tx_rx_addr;
+ 	} else {
+ 		snd_dma_params =
+-			snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
++			snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream);
+ 		dma_addr = snd_dma_params->addr;
+ 	}
  
-@@ -118,7 +118,7 @@ static int uniphier_aio_compr_get_params(struct snd_compr_stream *cstream,
- 					 struct snd_codec *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
--	struct uniphier_aio *aio = uniphier_priv(rtd->cpu_dai);
-+	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
- 	struct uniphier_aio_sub *sub = &aio->sub[cstream->direction];
- 
- 	*params = sub->cparams.codec;
-@@ -130,7 +130,7 @@ static int uniphier_aio_compr_set_params(struct snd_compr_stream *cstream,
- 					 struct snd_compr_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
--	struct uniphier_aio *aio = uniphier_priv(rtd->cpu_dai);
-+	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
- 	struct uniphier_aio_sub *sub = &aio->sub[cstream->direction];
- 	struct device *dev = &aio->chip->pdev->dev;
- 	int ret;
-@@ -165,7 +165,7 @@ static int uniphier_aio_compr_set_params(struct snd_compr_stream *cstream,
- static int uniphier_aio_compr_hw_free(struct snd_compr_stream *cstream)
- {
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
--	struct uniphier_aio *aio = uniphier_priv(rtd->cpu_dai);
-+	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
- 	struct uniphier_aio_sub *sub = &aio->sub[cstream->direction];
- 
- 	sub->setting = 0;
-@@ -177,7 +177,7 @@ static int uniphier_aio_compr_prepare(struct snd_compr_stream *cstream)
- {
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
- 	struct snd_compr_runtime *runtime = cstream->runtime;
--	struct uniphier_aio *aio = uniphier_priv(rtd->cpu_dai);
-+	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
- 	struct uniphier_aio_sub *sub = &aio->sub[cstream->direction];
- 	int bytes = runtime->fragment_size;
- 	unsigned long flags;
-@@ -215,7 +215,7 @@ static int uniphier_aio_compr_trigger(struct snd_compr_stream *cstream,
- {
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
- 	struct snd_compr_runtime *runtime = cstream->runtime;
--	struct uniphier_aio *aio = uniphier_priv(rtd->cpu_dai);
-+	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
- 	struct uniphier_aio_sub *sub = &aio->sub[cstream->direction];
- 	struct device *dev = &aio->chip->pdev->dev;
- 	int bytes = runtime->fragment_size, ret = 0;
-@@ -248,7 +248,7 @@ static int uniphier_aio_compr_pointer(struct snd_compr_stream *cstream,
- {
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
- 	struct snd_compr_runtime *runtime = cstream->runtime;
--	struct uniphier_aio *aio = uniphier_priv(rtd->cpu_dai);
-+	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
- 	struct uniphier_aio_sub *sub = &aio->sub[cstream->direction];
- 	int bytes = runtime->fragment_size;
- 	unsigned long flags;
-@@ -322,7 +322,7 @@ static int uniphier_aio_compr_copy(struct snd_compr_stream *cstream,
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
- 	struct snd_compr_runtime *runtime = cstream->runtime;
- 	struct device *carddev = rtd->compr->card->dev;
--	struct uniphier_aio *aio = uniphier_priv(rtd->cpu_dai);
-+	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
- 	struct uniphier_aio_sub *sub = &aio->sub[cstream->direction];
- 	size_t cnt = min_t(size_t, count, aio_rb_space_to_end(sub) / 2);
- 	int bytes = runtime->fragment_size;
-diff --git a/sound/soc/uniphier/aio-dma.c b/sound/soc/uniphier/aio-dma.c
-index da83423c52e2..4bbcb007df41 100644
---- a/sound/soc/uniphier/aio-dma.c
-+++ b/sound/soc/uniphier/aio-dma.c
-@@ -109,7 +109,7 @@ static int uniphier_aiodma_prepare(struct snd_soc_component *component,
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
--	struct uniphier_aio *aio = uniphier_priv(rtd->cpu_dai);
-+	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
- 	struct uniphier_aio_sub *sub = &aio->sub[substream->stream];
- 	int bytes = runtime->period_size *
- 		runtime->channels * samples_to_bytes(runtime, 1);
-@@ -136,7 +136,7 @@ static int uniphier_aiodma_trigger(struct snd_soc_component *component,
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
--	struct uniphier_aio *aio = uniphier_priv(rtd->cpu_dai);
-+	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
- 	struct uniphier_aio_sub *sub = &aio->sub[substream->stream];
- 	struct device *dev = &aio->chip->pdev->dev;
- 	int bytes = runtime->period_size *
-@@ -172,7 +172,7 @@ static snd_pcm_uframes_t uniphier_aiodma_pointer(
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
--	struct uniphier_aio *aio = uniphier_priv(rtd->cpu_dai);
-+	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
- 	struct uniphier_aio_sub *sub = &aio->sub[substream->stream];
- 	int bytes = runtime->period_size *
- 		runtime->channels * samples_to_bytes(runtime, 1);
 -- 
 2.17.1
 

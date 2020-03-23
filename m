@@ -2,99 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCD7C18F94C
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 17:07:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B05C318FAF4
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 18:09:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3158E11C;
-	Mon, 23 Mar 2020 17:06:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3158E11C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4FABE1661;
+	Mon, 23 Mar 2020 18:08:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FABE1661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584979634;
-	bh=8gXikLrzpZ5UZZK8kgeHssbC1E5TNKICl+e91mn3MGE=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nHqRhLeE4rjSX9ILEU181HG2cynhbUpvoOK5Mgda+3lnVn2xdRd6/geb3hxlNzvmZ
-	 wkn4uWounm5iqimMlp+isJ7B5QSyWHBrqTKxRAKcZ22oF+9S6IXrAPqjh2lfkFjXA1
-	 qUjUT2hOfL+nI98jNkS6cFFC8RHYELDjCx2IUASY=
+	s=default; t=1584983360;
+	bh=tZvgtYXKw9JI1ga0K/FmJNUJgpzYsMwmTczeuO/9R2c=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=vHAMn5VTEB47uwV2F6QkUUgutJfPpGjdQMm8tgXXHkfILdZhpD4YKYO0ihkDl0gx7
+	 bVYY5db3i7G3pb3GM8fq4N21DGVpnRxqHCIkwCFLyoTteYKe/Q+i7i4+oXneq0acHL
+	 0sLOe7giFNKQdRA9DRlCBL8gx9v+XqilYegoUbkE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 37FEBF800B9;
-	Mon, 23 Mar 2020 17:05:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 858B3F80268;
+	Mon, 23 Mar 2020 18:06:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 210CBF80158; Mon, 23 Mar 2020 17:05:30 +0100 (CET)
+ id A3489F80158; Mon, 23 Mar 2020 18:06:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lj1-x244.google.com (mail-lj1-x244.google.com
- [IPv6:2a00:1450:4864:20::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6BAD0F800B9
- for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 17:05:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BAD0F800B9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="OnrXSUpt"
-Received: by mail-lj1-x244.google.com with SMTP id s13so15227209ljm.1
- for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 09:05:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=E5FPfWElFKdMpZuvQ9h2jaYCgsUPtm/4IuEU5E0aiwA=;
- b=OnrXSUptfAUolkAuOXhiZeTpTm8ihay0iQKBsP3Kd/dLGggrA1xtTPVI0Rgw2fCYXE
- iFEnxMki/UGXNKKOKs80goGAZ65RfvVxSUrMwyPb5KDSnpvFUrQ/Bw8s9qouc3OCVbJC
- /8oF4FV+HiB+E5d4Q7gHX2DktkCNR0wrHs6x5arcC319JecRoRLS4tHpvgxsNmLFDntZ
- A/bbpAx25k+hhK0qucX+RFWPbHGvxI3+IBY3r6+VFWKCYzxKxUjumeMgmMYzGYHerZ5Q
- g95YVOMXMz9d+h+yAwwY6FW8t0yTs3jSmYaJH5ziagHNeik+wYpuNASDNwBPkQUMjON0
- kWlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=E5FPfWElFKdMpZuvQ9h2jaYCgsUPtm/4IuEU5E0aiwA=;
- b=EUrJQW6s+VoqWknevmtuJcxErcbnPb60E/NpUedlgCjzSz6oi7ecrNFfQ9gZmF4aYn
- salcilDCumU22wOvZJhTGXqAXBKkv6T0SQtclvzSN7SJz8PvpiTgMnQmkc+iPnZZjc8J
- h7RC8l+ehOZo3q9MYM9x9Srkek4IW0jQV7IgBcNiC4egljIMEnELgSaQhvPHVUlRFu3Z
- ByUubd8tTOJrgrx6WvRTb4ZQXwcoUD+jABah8YuebEQ7+2UQhFUT4m17IcqnQHqRhiG7
- Sqx+2cl/MRX3Cf1wl2iHr8xb8CSqQdIhSiloiGqY+M6ShrJoC5uSfsmRDzcs5y8neASh
- i78Q==
-X-Gm-Message-State: ANhLgQ3RMnHLJ/bj+SLHcOVnp03WQAiHzlGzDI0PlRoak8aPCYtVDE7U
- TUF0oR7R1afKj+3hDNsNG4Q=
-X-Google-Smtp-Source: ADFU+vs/52TdNiAJfdd41fBWuyLzmoaHbR0mqPud/4CTPhvMMKxvtjN9OkjWJMiXDjzMGMQp1+xibg==
-X-Received: by 2002:a2e:9982:: with SMTP id w2mr14229389lji.11.1584979525397; 
- Mon, 23 Mar 2020 09:05:25 -0700 (PDT)
-Received: from [192.168.2.145] (94-29-39-224.dynamic.spd-mgts.ru.
- [94.29.39.224])
- by smtp.googlemail.com with ESMTPSA id c13sm941220ljj.37.2020.03.23.09.05.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Mar 2020 09:05:24 -0700 (PDT)
-Subject: Re: [PATCH v1 0/2] Support built-in Mic on Tegra boards that use
- WM8903
-To: Jon Hunter <jonathanh@nvidia.com>, Stephen Warren <swarren@wwwdotorg.org>
-References: <20200320205504.30466-1-digetx@gmail.com>
- <c27c2087-14cf-614d-a8c0-05072a54f24b@wwwdotorg.org>
- <da88ddff-e665-8cee-6f03-1a396602b076@nvidia.com>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <8b7a8eb3-98ed-71cb-5bd7-9c784ec24d68@gmail.com>
-Date: Mon, 23 Mar 2020 19:05:23 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
-MIME-Version: 1.0
-In-Reply-To: <da88ddff-e665-8cee-6f03-1a396602b076@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, linux-tegra@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 01628F800B9
+ for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 18:06:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01628F800B9
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 50EC9ABBE
+ for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 17:06:44 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 1/2] ALSA: core: Add snd_device_get_state() helper
+Date: Mon, 23 Mar 2020 18:06:42 +0100
+Message-Id: <20200323170643.19181-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.16.4
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,35 +61,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-23.03.2020 18:59, Jon Hunter пишет:
-> 
-> 
-> On 20/03/2020 22:30, Stephen Warren wrote:
->> On 3/20/20 2:55 PM, Dmitry Osipenko wrote:
->>> Hello,
->>>
->>> This small series adds audio route for built-in microphone on NVIDIA Tegra
->>> boards that use WM8903 CODEC. In particular this is needed in order to unmute
->>> internal microphone on Acer A500 tablet device. I'm planning to send out the
->>> device tree for the A500 for 5.8, so will be nice to get the microphone
->>> sorted out. Please review and apply, thanks in advance.
->>
->> It's been a long time since I looked at this code, but the series looks
->> plausible,
->> Acked-by: Stephen Warren <swarren@nvidia.com>
->>
->> (I wonder why machine->gpio_int_mic_en was already parse but never used!)
-> 
-> Looking at the ventana schematics, it appears that the internal-mic
-> signals was connected to a header and not an actual mic, so maybe we
-> never had a proper internal-mic on any board but allowed one to be
-> connected.
+A new small helper to get the current state of the device registration
+for the given object.  It'll be used for USB-audio driver to check the
+delayed device registrations.
 
-I guess cardhu may have a mic, judging by downstream kernel sources (I
-don't have cardhu schematics).
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ include/sound/core.h |  1 +
+ sound/core/device.c  | 21 +++++++++++++++++++++
+ 2 files changed, 22 insertions(+)
 
-> Anyway, looks good to me as well.
-> 
-> Acked-by: Jon Hunter <jonathanh@nvidia.com>
+diff --git a/include/sound/core.h b/include/sound/core.h
+index ac8b692b69b4..381a010a1bd4 100644
+--- a/include/sound/core.h
++++ b/include/sound/core.h
+@@ -266,6 +266,7 @@ void snd_device_disconnect(struct snd_card *card, void *device_data);
+ void snd_device_disconnect_all(struct snd_card *card);
+ void snd_device_free(struct snd_card *card, void *device_data);
+ void snd_device_free_all(struct snd_card *card);
++int snd_device_get_state(struct snd_card *card, void *device_data);
+ 
+ /* isadma.c */
+ 
+diff --git a/sound/core/device.c b/sound/core/device.c
+index cdc5af526739..bf0b04a7ee79 100644
+--- a/sound/core/device.c
++++ b/sound/core/device.c
+@@ -237,3 +237,24 @@ void snd_device_free_all(struct snd_card *card)
+ 	list_for_each_entry_safe_reverse(dev, next, &card->devices, list)
+ 		__snd_device_free(dev);
+ }
++
++/**
++ * snd_device_get_state - Get the current state of the given device
++ * @card: the card instance
++ * @device_data: the data pointer to release
++ *
++ * Returns the current state of the given device object.  For the valid
++ * device, either @SNDRV_DEV_BUILD, @SNDRV_DEV_REGISTERED or
++ * @SNDRV_DEV_DISCONNECTED is returned.
++ * Or for a non-existing device, -1 is returned as an error.
++ */
++int snd_device_get_state(struct snd_card *card, void *device_data)
++{
++	struct snd_device *dev;
++
++	dev = look_for_dev(card, device_data);
++	if (dev)
++		return dev->state;
++	return -1;
++}
++EXPORT_SYMBOL_GPL(snd_device_get_state);
+-- 
+2.16.4
 
-Thanks

@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7782918EF7B
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:36:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87F0F18EF7F
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:37:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2875B11C;
-	Mon, 23 Mar 2020 06:35:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2875B11C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 30A7F1678;
+	Mon, 23 Mar 2020 06:36:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30A7F1678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584941803;
-	bh=op3n/Br0/9kNu3DT2LNS+veiIIGa5R7p/aMq851LxYA=;
+	s=default; t=1584941838;
+	bh=8OCt5ulzJCqXjCk5LocKzVCqzqnGpefR9TNgLD7FUkU=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SZsRivHgyElf3lZnWrWFEiKEsO1cSc2FUjSXz9InGeB5ctyTpaaDjtjuH0NZUEsKe
-	 9q2B7aijZTaiUQUdj57NDFDAJU2gW/AvXjTXKY8v1I5qEfs/cbmB/SyXCjmGJi/Ziw
-	 HBz3gIirr0Fb8Sqk0YyjaYO/WRZow2YIX39BU8WQ=
+	b=tCGOq70S9dwlCphw+J0KFANS1tQ+pOkeqBhMJmdV//G6W0w8CoStSNB/uZtkPtyAL
+	 mr6aYI1l/PaZKo08c9NJSYmbAv/t5l8Zs9W/QDrMFoGgbYVXKXqSg3tnTvSCQHlstS
+	 z1+DiFmazmZGwkmF+l1yskW2f3tllQoauux/yfKc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56E14F80392;
-	Mon, 23 Mar 2020 06:22:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3890F802C2;
+	Mon, 23 Mar 2020 06:22:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9509F803A6; Mon, 23 Mar 2020 06:22:02 +0100 (CET)
+ id 61019F803AD; Mon, 23 Mar 2020 06:22:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 20D6DF80392
- for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:21:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20D6DF80392
-Date: 23 Mar 2020 14:21:56 +0900
-X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42564666"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 23 Mar 2020 14:21:56 +0900
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 41088F803AE
+ for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:22:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41088F803AE
+Date: 23 Mar 2020 14:22:04 +0900
+X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42350649"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 23 Mar 2020 14:22:04 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id AD0F1416FB87;
- Mon, 23 Mar 2020 14:21:56 +0900 (JST)
-Message-ID: <87wo7bhci3.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id B30434003881;
+ Mon, 23 Mar 2020 14:22:04 +0900 (JST)
+Message-ID: <87v9mvhchv.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 32/36] ASoC: codecs: use asoc_rtd_to_cpu() /
- asoc_rtd_to_codec() macro for DAI pointer
+Subject: [PATCH 33/36] ASoC: soc: use asoc_rtd_to_cpu() / asoc_rtd_to_codec()
+ macro for DAI pointer
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <877dzbk5wm.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,203 +72,403 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/codecs/cs47l15.c |  4 ++--
- sound/soc/codecs/cs47l24.c |  6 +++---
- sound/soc/codecs/cs47l35.c |  6 +++---
- sound/soc/codecs/cs47l85.c |  6 +++---
- sound/soc/codecs/cs47l90.c |  6 +++---
- sound/soc/codecs/cs47l92.c |  4 ++--
- sound/soc/codecs/wm5110.c  |  6 +++---
- sound/soc/codecs/wm_adsp.c | 10 +++++-----
- 8 files changed, 24 insertions(+), 24 deletions(-)
+ include/sound/soc.h                   | 12 ++++-----
+ sound/soc/soc-compress.c              | 36 +++++++++++++--------------
+ sound/soc/soc-core.c                  | 16 ++++++------
+ sound/soc/soc-dapm.c                  |  4 +--
+ sound/soc/soc-generic-dmaengine-pcm.c |  6 ++---
+ sound/soc/soc-pcm.c                   | 30 +++++++++++-----------
+ 6 files changed, 52 insertions(+), 52 deletions(-)
 
-diff --git a/sound/soc/codecs/cs47l15.c b/sound/soc/codecs/cs47l15.c
-index e8840dc142ef..8d1869bf7f9c 100644
---- a/sound/soc/codecs/cs47l15.c
-+++ b/sound/soc/codecs/cs47l15.c
-@@ -1239,12 +1239,12 @@ static int cs47l15_open(struct snd_compr_stream *stream)
- 	struct madera *madera = priv->madera;
- 	int n_adsp;
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index 13458e4fbb13..4dff6745b067 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -1179,16 +1179,16 @@ struct snd_soc_pcm_runtime {
+ 	     (i)++)
+ #define for_each_rtd_cpu_dais(rtd, i, dai)				\
+ 	for ((i) = 0;							\
+-	     ((i) < rtd->num_cpus) && ((dai) = rtd->cpu_dais[i]);	\
++	     ((i) < rtd->num_cpus) && ((dai) = asoc_rtd_to_cpu(rtd, i)); \
+ 	     (i)++)
+ #define for_each_rtd_cpu_dais_rollback(rtd, i, dai)		\
+-	for (; (--(i) >= 0) && ((dai) = rtd->cpu_dais[i]);)
++	for (; (--(i) >= 0) && ((dai) = asoc_rtd_to_cpu(rtd, i));)
+ #define for_each_rtd_codec_dais(rtd, i, dai)				\
+ 	for ((i) = 0;							\
+-	     ((i) < rtd->num_codecs) && ((dai) = rtd->codec_dais[i]);	\
++	     ((i) < rtd->num_codecs) && ((dai) = asoc_rtd_to_codec(rtd, i)); \
+ 	     (i)++)
+ #define for_each_rtd_codec_dais_rollback(rtd, i, dai)		\
+-	for (; (--(i) >= 0) && ((dai) = rtd->codec_dais[i]);)
++	for (; (--(i) >= 0) && ((dai) = asoc_rtd_to_codec(rtd, i));)
+ #define for_each_rtd_dais(rtd, i, dai)					\
+ 	for ((i) = 0;							\
+ 	     ((i) < (rtd)->num_cpus + (rtd)->num_codecs) &&		\
+@@ -1381,8 +1381,8 @@ struct snd_soc_dai *snd_soc_card_get_codec_dai(struct snd_soc_card *card,
+ 	struct snd_soc_pcm_runtime *rtd;
  
--	if (strcmp(rtd->codec_dai->name, "cs47l15-dsp-trace") == 0) {
-+	if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l15-dsp-trace") == 0) {
- 		n_adsp = 0;
- 	} else {
- 		dev_err(madera->dev,
- 			"No suitable compressed stream for DAI '%s'\n",
--			rtd->codec_dai->name);
-+			asoc_rtd_to_codec(rtd, 0)->name);
- 		return -EINVAL;
+ 	list_for_each_entry(rtd, &card->rtd_list, list) {
+-		if (!strcmp(rtd->codec_dai->name, dai_name))
+-			return rtd->codec_dai;
++		if (!strcmp(asoc_rtd_to_codec(rtd, 0)->name, dai_name))
++			return asoc_rtd_to_codec(rtd, 0);
  	}
  
-diff --git a/sound/soc/codecs/cs47l24.c b/sound/soc/codecs/cs47l24.c
-index 25bffc2968f0..6b0570f59630 100644
---- a/sound/soc/codecs/cs47l24.c
-+++ b/sound/soc/codecs/cs47l24.c
-@@ -1076,14 +1076,14 @@ static int cs47l24_open(struct snd_compr_stream *stream)
- 	struct arizona *arizona = priv->core.arizona;
- 	int n_adsp;
+ 	return NULL;
+diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
+index 50062eb79adb..3f77c0208e09 100644
+--- a/sound/soc/soc-compress.c
++++ b/sound/soc/soc-compress.c
+@@ -73,7 +73,7 @@ static int soc_compr_open(struct snd_compr_stream *cstream)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+ 	struct snd_soc_component *component, *save = NULL;
+-	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	int ret, i;
  
--	if (strcmp(rtd->codec_dai->name, "cs47l24-dsp-voicectrl") == 0) {
-+	if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l24-dsp-voicectrl") == 0) {
- 		n_adsp = 2;
--	} else if (strcmp(rtd->codec_dai->name, "cs47l24-dsp-trace") == 0) {
-+	} else if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l24-dsp-trace") == 0) {
- 		n_adsp = 1;
- 	} else {
- 		dev_err(arizona->dev,
- 			"No suitable compressed stream for DAI '%s'\n",
--			rtd->codec_dai->name);
-+			asoc_rtd_to_codec(rtd, 0)->name);
- 		return -EINVAL;
- 	}
+ 	for_each_rtd_components(rtd, i, component) {
+@@ -141,7 +141,7 @@ static int soc_compr_open_fe(struct snd_compr_stream *cstream)
+ 	struct snd_pcm_substream *fe_substream =
+ 		 fe->pcm->streams[cstream->direction].substream;
+ 	struct snd_soc_component *component;
+-	struct snd_soc_dai *cpu_dai = fe->cpu_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(fe, 0);
+ 	struct snd_soc_dpcm *dpcm;
+ 	struct snd_soc_dapm_widget_list *list;
+ 	int stream;
+@@ -230,8 +230,8 @@ static int soc_compr_free(struct snd_compr_stream *cstream)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+ 	struct snd_soc_component *component;
+-	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int stream, i;
  
-diff --git a/sound/soc/codecs/cs47l35.c b/sound/soc/codecs/cs47l35.c
-index 3d48a0d9ecc5..18839807c9d1 100644
---- a/sound/soc/codecs/cs47l35.c
-+++ b/sound/soc/codecs/cs47l35.c
-@@ -1514,14 +1514,14 @@ static int cs47l35_open(struct snd_compr_stream *stream)
- 	struct madera *madera = priv->madera;
- 	int n_adsp;
+ 	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
+@@ -274,7 +274,7 @@ static int soc_compr_free(struct snd_compr_stream *cstream)
+ static int soc_compr_free_fe(struct snd_compr_stream *cstream)
+ {
+ 	struct snd_soc_pcm_runtime *fe = cstream->private_data;
+-	struct snd_soc_dai *cpu_dai = fe->cpu_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(fe, 0);
+ 	struct snd_soc_dpcm *dpcm;
+ 	int stream, ret;
  
--	if (strcmp(rtd->codec_dai->name, "cs47l35-dsp-voicectrl") == 0) {
-+	if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l35-dsp-voicectrl") == 0) {
- 		n_adsp = 2;
--	} else if (strcmp(rtd->codec_dai->name, "cs47l35-dsp-trace") == 0) {
-+	} else if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l35-dsp-trace") == 0) {
- 		n_adsp = 0;
- 	} else {
- 		dev_err(madera->dev,
- 			"No suitable compressed stream for DAI '%s'\n",
--			rtd->codec_dai->name);
-+			asoc_rtd_to_codec(rtd, 0)->name);
- 		return -EINVAL;
- 	}
+@@ -343,8 +343,8 @@ static int soc_compr_components_trigger(struct snd_compr_stream *cstream,
+ static int soc_compr_trigger(struct snd_compr_stream *cstream, int cmd)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
+-	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	int ret;
  
-diff --git a/sound/soc/codecs/cs47l85.c b/sound/soc/codecs/cs47l85.c
-index bef3471f482d..a575113207f0 100644
---- a/sound/soc/codecs/cs47l85.c
-+++ b/sound/soc/codecs/cs47l85.c
-@@ -2457,14 +2457,14 @@ static int cs47l85_open(struct snd_compr_stream *stream)
- 	struct madera *madera = priv->madera;
- 	int n_adsp;
+ 	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
+@@ -373,7 +373,7 @@ static int soc_compr_trigger(struct snd_compr_stream *cstream, int cmd)
+ static int soc_compr_trigger_fe(struct snd_compr_stream *cstream, int cmd)
+ {
+ 	struct snd_soc_pcm_runtime *fe = cstream->private_data;
+-	struct snd_soc_dai *cpu_dai = fe->cpu_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(fe, 0);
+ 	int ret, stream;
  
--	if (strcmp(rtd->codec_dai->name, "cs47l85-dsp-voicectrl") == 0) {
-+	if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l85-dsp-voicectrl") == 0) {
- 		n_adsp = 5;
--	} else if (strcmp(rtd->codec_dai->name, "cs47l85-dsp-trace") == 0) {
-+	} else if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l85-dsp-trace") == 0) {
- 		n_adsp = 0;
- 	} else {
- 		dev_err(madera->dev,
- 			"No suitable compressed stream for DAI '%s'\n",
--			rtd->codec_dai->name);
-+			asoc_rtd_to_codec(rtd, 0)->name);
- 		return -EINVAL;
- 	}
+ 	if (cmd == SND_COMPR_TRIGGER_PARTIAL_DRAIN ||
+@@ -446,7 +446,7 @@ static int soc_compr_set_params(struct snd_compr_stream *cstream,
+ 				struct snd_compr_params *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+-	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	int ret;
  
-diff --git a/sound/soc/codecs/cs47l90.c b/sound/soc/codecs/cs47l90.c
-index 266eade82764..81a1311b14e6 100644
---- a/sound/soc/codecs/cs47l90.c
-+++ b/sound/soc/codecs/cs47l90.c
-@@ -2368,14 +2368,14 @@ static int cs47l90_open(struct snd_compr_stream *stream)
- 	struct madera *madera = priv->madera;
- 	int n_adsp;
+ 	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
+@@ -500,7 +500,7 @@ static int soc_compr_set_params_fe(struct snd_compr_stream *cstream,
+ 	struct snd_soc_pcm_runtime *fe = cstream->private_data;
+ 	struct snd_pcm_substream *fe_substream =
+ 		 fe->pcm->streams[cstream->direction].substream;
+-	struct snd_soc_dai *cpu_dai = fe->cpu_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(fe, 0);
+ 	int ret, stream;
  
--	if (strcmp(rtd->codec_dai->name, "cs47l90-dsp-voicectrl") == 0) {
-+	if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l90-dsp-voicectrl") == 0) {
- 		n_adsp = 5;
--	} else if (strcmp(rtd->codec_dai->name, "cs47l90-dsp-trace") == 0) {
-+	} else if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l90-dsp-trace") == 0) {
- 		n_adsp = 0;
- 	} else {
- 		dev_err(madera->dev,
- 			"No suitable compressed stream for DAI '%s'\n",
--			rtd->codec_dai->name);
-+			asoc_rtd_to_codec(rtd, 0)->name);
- 		return -EINVAL;
- 	}
+ 	if (cstream->direction == SND_COMPRESS_PLAYBACK)
+@@ -558,7 +558,7 @@ static int soc_compr_get_params(struct snd_compr_stream *cstream,
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+ 	struct snd_soc_component *component;
+-	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	int i, ret = 0;
  
-diff --git a/sound/soc/codecs/cs47l92.c b/sound/soc/codecs/cs47l92.c
-index 942040fd354f..15fc213d178d 100644
---- a/sound/soc/codecs/cs47l92.c
-+++ b/sound/soc/codecs/cs47l92.c
-@@ -1840,12 +1840,12 @@ static int cs47l92_open(struct snd_compr_stream *stream)
- 	struct madera *madera = priv->madera;
- 	int n_adsp;
+ 	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
+@@ -632,7 +632,7 @@ static int soc_compr_ack(struct snd_compr_stream *cstream, size_t bytes)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+ 	struct snd_soc_component *component;
+-	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	int i, ret = 0;
  
--	if (strcmp(rtd->codec_dai->name, "cs47l92-dsp-trace") == 0) {
-+	if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l92-dsp-trace") == 0) {
- 		n_adsp = 0;
- 	} else {
- 		dev_err(madera->dev,
- 			"No suitable compressed stream for DAI '%s'\n",
--			rtd->codec_dai->name);
-+			asoc_rtd_to_codec(rtd, 0)->name);
- 		return -EINVAL;
- 	}
+ 	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
+@@ -664,7 +664,7 @@ static int soc_compr_pointer(struct snd_compr_stream *cstream,
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+ 	struct snd_soc_component *component;
+ 	int i, ret = 0;
+-	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
  
-diff --git a/sound/soc/codecs/wm5110.c b/sound/soc/codecs/wm5110.c
-index 9dc215b5c504..499e87d1dfcc 100644
---- a/sound/soc/codecs/wm5110.c
-+++ b/sound/soc/codecs/wm5110.c
-@@ -2245,14 +2245,14 @@ static int wm5110_open(struct snd_compr_stream *stream)
- 	struct arizona *arizona = priv->core.arizona;
- 	int n_adsp;
+ 	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
  
--	if (strcmp(rtd->codec_dai->name, "wm5110-dsp-voicectrl") == 0) {
-+	if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "wm5110-dsp-voicectrl") == 0) {
- 		n_adsp = 2;
--	} else if (strcmp(rtd->codec_dai->name, "wm5110-dsp-trace") == 0) {
-+	} else if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "wm5110-dsp-trace") == 0) {
- 		n_adsp = 0;
- 	} else {
- 		dev_err(arizona->dev,
- 			"No suitable compressed stream for DAI '%s'\n",
--			rtd->codec_dai->name);
-+			asoc_rtd_to_codec(rtd, 0)->name);
- 		return -EINVAL;
- 	}
+@@ -711,7 +711,7 @@ static int soc_compr_set_metadata(struct snd_compr_stream *cstream,
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+ 	struct snd_soc_component *component;
+-	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	int i, ret;
  
-diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
-index ffb9836e0538..1ef69409ccd1 100644
---- a/sound/soc/codecs/wm_adsp.c
-+++ b/sound/soc/codecs/wm_adsp.c
-@@ -3467,22 +3467,22 @@ int wm_adsp_compr_open(struct wm_adsp *dsp, struct snd_compr_stream *stream)
+ 	if (cpu_dai->driver->cops && cpu_dai->driver->cops->set_metadata) {
+@@ -739,7 +739,7 @@ static int soc_compr_get_metadata(struct snd_compr_stream *cstream,
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+ 	struct snd_soc_component *component;
+-	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	int i, ret;
  
- 	if (wm_adsp_fw[dsp->fw].num_caps == 0) {
- 		adsp_err(dsp, "%s: Firmware does not support compressed API\n",
--			 rtd->codec_dai->name);
-+			 asoc_rtd_to_codec(rtd, 0)->name);
- 		ret = -ENXIO;
- 		goto out;
- 	}
+ 	if (cpu_dai->driver->cops && cpu_dai->driver->cops->get_metadata) {
+@@ -801,8 +801,8 @@ static struct snd_compr_ops soc_compr_dyn_ops = {
+ int snd_soc_new_compress(struct snd_soc_pcm_runtime *rtd, int num)
+ {
+ 	struct snd_soc_component *component;
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
+-	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	struct snd_compr *compr;
+ 	struct snd_pcm *be_pcm;
+ 	char new_name[64];
+@@ -891,7 +891,7 @@ int snd_soc_new_compress(struct snd_soc_pcm_runtime *rtd, int num)
+ 	ret = snd_compress_new(rtd->card->snd_card, num, direction,
+ 				new_name, compr);
+ 	if (ret < 0) {
+-		component = rtd->codec_dai->component;
++		component = asoc_rtd_to_codec(rtd, 0)->component;
+ 		dev_err(component->dev,
+ 			"Compress ASoC: can't create compress for codec %s: %d\n",
+ 			component->name, ret);
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 843b8b1c89d4..4ad64b96d893 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -364,7 +364,7 @@ EXPORT_SYMBOL_GPL(snd_soc_get_pcm_runtime);
+  */
+ void snd_soc_close_delayed_work(struct snd_soc_pcm_runtime *rtd)
+ {
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int playback = SNDRV_PCM_STREAM_PLAYBACK;
  
- 	if (wm_adsp_fw[dsp->fw].compr_direction != stream->direction) {
- 		adsp_err(dsp, "%s: Firmware does not support stream direction\n",
--			 rtd->codec_dai->name);
-+			 asoc_rtd_to_codec(rtd, 0)->name);
- 		ret = -EINVAL;
- 		goto out;
- 	}
+ 	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
+@@ -991,13 +991,13 @@ int snd_soc_add_pcm_runtime(struct snd_soc_card *card,
  
- 	list_for_each_entry(tmp, &dsp->compr_list, list) {
--		if (!strcmp(tmp->name, rtd->codec_dai->name)) {
-+		if (!strcmp(tmp->name, asoc_rtd_to_codec(rtd, 0)->name)) {
- 			adsp_err(dsp, "%s: Only a single stream supported per dai\n",
--				 rtd->codec_dai->name);
-+				 asoc_rtd_to_codec(rtd, 0)->name);
- 			ret = -EBUSY;
- 			goto out;
+ 	rtd->num_cpus = dai_link->num_cpus;
+ 	for_each_link_cpus(dai_link, i, cpu) {
+-		rtd->cpu_dais[i] = snd_soc_find_dai(cpu);
+-		if (!rtd->cpu_dais[i]) {
++		asoc_rtd_to_cpu(rtd, i) = snd_soc_find_dai(cpu);
++		if (!asoc_rtd_to_cpu(rtd, i)) {
+ 			dev_info(card->dev, "ASoC: CPU DAI %s not registered\n",
+ 				 cpu->dai_name);
+ 			goto _err_defer;
  		}
-@@ -3496,7 +3496,7 @@ int wm_adsp_compr_open(struct wm_adsp *dsp, struct snd_compr_stream *stream)
+-		snd_soc_rtd_add_component(rtd, rtd->cpu_dais[i]->component);
++		snd_soc_rtd_add_component(rtd, asoc_rtd_to_cpu(rtd, i)->component);
+ 	}
  
- 	compr->dsp = dsp;
- 	compr->stream = stream;
--	compr->name = rtd->codec_dai->name;
-+	compr->name = asoc_rtd_to_codec(rtd, 0)->name;
+ 	/* Single cpu links expect cpu and cpu_dai in runtime data */
+@@ -1006,14 +1006,14 @@ int snd_soc_add_pcm_runtime(struct snd_soc_card *card,
+ 	/* Find CODEC from registered CODECs */
+ 	rtd->num_codecs = dai_link->num_codecs;
+ 	for_each_link_codecs(dai_link, i, codec) {
+-		rtd->codec_dais[i] = snd_soc_find_dai(codec);
+-		if (!rtd->codec_dais[i]) {
++		asoc_rtd_to_codec(rtd, i) = snd_soc_find_dai(codec);
++		if (!asoc_rtd_to_codec(rtd, i)) {
+ 			dev_info(card->dev, "ASoC: CODEC DAI %s not registered\n",
+ 				 codec->dai_name);
+ 			goto _err_defer;
+ 		}
  
- 	list_add_tail(&compr->list, &dsp->compr_list);
+-		snd_soc_rtd_add_component(rtd, rtd->codec_dais[i]->component);
++		snd_soc_rtd_add_component(rtd, asoc_rtd_to_codec(rtd, i)->component);
+ 	}
+ 
+ 	/* Single codec links expect codec and codec_dai in runtime data */
+@@ -1062,7 +1062,7 @@ static int soc_init_pcm_runtime(struct snd_soc_card *card,
+ 				struct snd_soc_pcm_runtime *rtd)
+ {
+ 	struct snd_soc_dai_link *dai_link = rtd->dai_link;
+-	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	struct snd_soc_component *component;
+ 	int ret, num, i;
+ 
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index 04da7928c873..e84356f6e2bf 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -4364,11 +4364,11 @@ static void dapm_connect_dai_link_widgets(struct snd_soc_card *card,
+ 	if (rtd->num_cpus == 1) {
+ 		for_each_rtd_codec_dais(rtd, i, codec_dai)
+ 			dapm_add_valid_dai_widget(card, rtd, codec_dai,
+-						  rtd->cpu_dais[0]);
++						  asoc_rtd_to_cpu(rtd, 0));
+ 	} else if (rtd->num_codecs == rtd->num_cpus) {
+ 		for_each_rtd_codec_dais(rtd, i, codec_dai)
+ 			dapm_add_valid_dai_widget(card, rtd, codec_dai,
+-						  rtd->cpu_dais[i]);
++						  asoc_rtd_to_cpu(rtd, i));
+ 	} else {
+ 		dev_err(card->dev,
+ 			"N cpus to M codecs link is not supported yet\n");
+diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
+index facf1922a714..f728309a0833 100644
+--- a/sound/soc/soc-generic-dmaengine-pcm.c
++++ b/sound/soc/soc-generic-dmaengine-pcm.c
+@@ -68,7 +68,7 @@ int snd_dmaengine_pcm_prepare_slave_config(struct snd_pcm_substream *substream,
+ 		return -EINVAL;
+ 	}
+ 
+-	dma_data = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
++	dma_data = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream);
+ 
+ 	ret = snd_hwparams_to_dma_slave_config(substream, params, slave_config);
+ 	if (ret)
+@@ -134,7 +134,7 @@ dmaengine_pcm_set_runtime_hwparams(struct snd_soc_component *component,
+ 		return snd_soc_set_runtime_hwparams(substream,
+ 				pcm->config->pcm_hardware);
+ 
+-	dma_data = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
++	dma_data = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream);
+ 
+ 	memset(&hw, 0, sizeof(hw));
+ 	hw.info = SNDRV_PCM_INFO_MMAP | SNDRV_PCM_INFO_MMAP_VALID |
+@@ -203,7 +203,7 @@ static struct dma_chan *dmaengine_pcm_compat_request_channel(
+ 		return NULL;
+ 	}
+ 
+-	dma_data = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
++	dma_data = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream);
+ 
+ 	if ((pcm->flags & SND_DMAENGINE_PCM_FLAG_HALF_DUPLEX) && pcm->chan[0])
+ 		return pcm->chan[0];
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index e256d438ee68..33810e0e59b5 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -136,7 +136,7 @@ static ssize_t dpcm_state_read_file(struct file *file, char __user *user_buf,
+ 		return -ENOMEM;
+ 
+ 	for_each_pcm_streams(stream)
+-		if (snd_soc_dai_stream_valid(fe->cpu_dai, stream))
++		if (snd_soc_dai_stream_valid(asoc_rtd_to_cpu(fe, 0), stream))
+ 			offset += dpcm_show_state(fe, stream,
+ 						  buf + offset,
+ 						  out_count - offset);
+@@ -836,10 +836,10 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
+ 	soc_pcm_init_runtime_hw(substream);
+ 
+ 	if (rtd->num_codecs == 1)
+-		codec_dai_name = rtd->codec_dai->name;
++		codec_dai_name = asoc_rtd_to_codec(rtd, 0)->name;
+ 
+ 	if (rtd->num_cpus == 1)
+-		cpu_dai_name = rtd->cpu_dai->name;
++		cpu_dai_name = asoc_rtd_to_cpu(rtd, 0)->name;
+ 
+ 	if (soc_pcm_has_symmetry(substream))
+ 		runtime->hw.info |= SNDRV_PCM_INFO_JOINT_DUPLEX;
+@@ -1483,7 +1483,7 @@ static bool dpcm_end_walk_at_be(struct snd_soc_dapm_widget *widget,
+ int dpcm_path_get(struct snd_soc_pcm_runtime *fe,
+ 	int stream, struct snd_soc_dapm_widget_list **list)
+ {
+-	struct snd_soc_dai *cpu_dai = fe->cpu_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(fe, 0);
+ 	int paths;
+ 
+ 	if (fe->num_cpus > 1) {
+@@ -1842,7 +1842,7 @@ static void dpcm_runtime_merge_chan(struct snd_pcm_substream *substream,
+ 		 * DAIs connected to a single CPU DAI, use CPU DAI's directly
+ 		 */
+ 		if (be->num_codecs == 1) {
+-			codec_stream = snd_soc_dai_get_pcm_stream(be->codec_dais[0], stream);
++			codec_stream = snd_soc_dai_get_pcm_stream(asoc_rtd_to_codec(be, 0), stream);
+ 
+ 			*channels_min = max(*channels_min,
+ 					    codec_stream->channels_min);
+@@ -2757,7 +2757,7 @@ static int soc_dpcm_fe_runtime_update(struct snd_soc_pcm_runtime *fe, int new)
+ 		return 0;
+ 
+ 	/* only check active links */
+-	if (!fe->cpu_dai->active)
++	if (!asoc_rtd_to_cpu(fe, 0)->active)
+ 		return 0;
+ 
+ 	/* DAPM sync will call this to update DSP paths */
+@@ -2767,13 +2767,13 @@ static int soc_dpcm_fe_runtime_update(struct snd_soc_pcm_runtime *fe, int new)
+ 	for_each_pcm_streams(stream) {
+ 
+ 		/* skip if FE doesn't have playback/capture capability */
+-		if (!snd_soc_dai_stream_valid(fe->cpu_dai,   stream) ||
+-		    !snd_soc_dai_stream_valid(fe->codec_dai, stream))
++		if (!snd_soc_dai_stream_valid(asoc_rtd_to_cpu(fe, 0),   stream) ||
++		    !snd_soc_dai_stream_valid(asoc_rtd_to_codec(fe, 0), stream))
+ 			continue;
+ 
+ 		/* skip if FE isn't currently playing/capturing */
+-		if (!fe->cpu_dai->stream_active[stream] ||
+-		    !fe->codec_dai->stream_active[stream])
++		if (!asoc_rtd_to_cpu(fe, 0)->stream_active[stream] ||
++		    !asoc_rtd_to_codec(fe, 0)->stream_active[stream])
+ 			continue;
+ 
+ 		paths = dpcm_path_get(fe, stream, &list);
+@@ -2920,9 +2920,9 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ 
+ 		for_each_rtd_codec_dais(rtd, i, codec_dai) {
+ 			if (rtd->num_cpus == 1) {
+-				cpu_dai = rtd->cpu_dais[0];
++				cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 			} else if (rtd->num_cpus == rtd->num_codecs) {
+-				cpu_dai = rtd->cpu_dais[i];
++				cpu_dai = asoc_rtd_to_cpu(rtd, i);
+ 			} else {
+ 				dev_err(rtd->card->dev,
+ 					"N cpus to M codecs link is not supported yet\n");
+@@ -2969,7 +2969,7 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ 			snprintf(new_name, sizeof(new_name), "%s %s-%d",
+ 				rtd->dai_link->stream_name,
+ 				(rtd->num_codecs > 1) ?
+-				"multicodec" : rtd->codec_dai->name, num);
++				"multicodec" : asoc_rtd_to_codec(rtd, 0)->name, num);
+ 
+ 		ret = snd_pcm_new(rtd->card->snd_card, new_name, num, playback,
+ 			capture, &pcm);
+@@ -3048,8 +3048,8 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ 	pcm->no_device_suspend = true;
+ out:
+ 	dev_info(rtd->card->dev, "%s <-> %s mapping ok\n",
+-		 (rtd->num_codecs > 1) ? "multicodec" : rtd->codec_dai->name,
+-		 (rtd->num_cpus > 1) ? "multicpu" : rtd->cpu_dai->name);
++		 (rtd->num_codecs > 1) ? "multicodec" : asoc_rtd_to_codec(rtd, 0)->name,
++		 (rtd->num_cpus > 1)   ? "multicpu"   : asoc_rtd_to_cpu(rtd, 0)->name);
+ 	return ret;
+ }
  
 -- 
 2.17.1

@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBBD218EF77
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:35:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B617C18EF79
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:36:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7DA831687;
-	Mon, 23 Mar 2020 06:34:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DA831687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 656721674;
+	Mon, 23 Mar 2020 06:35:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 656721674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584941731;
-	bh=jgAcarSIdUf5HclqsQCge/eaqdh4fw39nHmaEEYXOvQ=;
+	s=default; t=1584941772;
+	bh=Dpm7mlmNgKaBvxju0KMEQfabBaAI3kterwTljZurl/0=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LCRZwuEmHClde82ZdV3FZ0br5BqeLtkwztO5zC0CtJ5fwqOCyQt6dwQK92JF88IQA
-	 fqTYGb2X7smu4skdRwNTSRA8FRhRrKQ5DuCgW1dD5S7qKCYJm02UiwVnm8nXRydilY
-	 uZAsNyyKL3C0Fss++lnEHrWKY2+sS+/tzjdLxxU0=
+	b=iqLpw7wqaBmeSHy/WL0rEjZ2WOsjIHElTtgK9ownBPQILpbrLLvnwjRK3kZWPcghT
+	 gxVMaseW6tUHIY349ww8bkEOqFcRpNzt4bAtI9oz2F8WVdu/r9B3A0VYhhsed/Z3cV
+	 Ez0QqyGCNcaRrNhmCUmEXmMpTYGIzryYW+mB2R9s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08632F8037E;
-	Mon, 23 Mar 2020 06:21:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56F32F80383;
+	Mon, 23 Mar 2020 06:21:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8BB49F8037E; Mon, 23 Mar 2020 06:21:47 +0100 (CET)
+ id 46E5EF80391; Mon, 23 Mar 2020 06:21:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 9C74FF80377
- for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:21:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C74FF80377
-Date: 23 Mar 2020 14:21:42 +0900
-X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42564650"
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id EE799F80383
+ for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:21:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE799F80383
+Date: 23 Mar 2020 14:21:49 +0900
+X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42350632"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 23 Mar 2020 14:21:42 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 23 Mar 2020 14:21:49 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 1CA514003880;
- Mon, 23 Mar 2020 14:21:42 +0900 (JST)
-Message-ID: <87zhc7hcih.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 8D8F94003880;
+ Mon, 23 Mar 2020 14:21:49 +0900 (JST)
+Message-ID: <87y2rrhcia.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 30/36] ASoC: xtensa: use asoc_rtd_to_cpu() /
- asoc_rtd_to_codec() macro for DAI pointer
+Subject: [PATCH 31/36] ASoC: arm: use asoc_rtd_to_cpu() / asoc_rtd_to_codec()
+ macro for DAI pointer
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <877dzbk5wm.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,22 +72,49 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/xtensa/xtfpga-i2s.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/arm/pxa2xx-pcm-lib.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/xtensa/xtfpga-i2s.c b/sound/soc/xtensa/xtfpga-i2s.c
-index bcf442faff7c..68af2176b19c 100644
---- a/sound/soc/xtensa/xtfpga-i2s.c
-+++ b/sound/soc/xtensa/xtfpga-i2s.c
-@@ -373,7 +373,7 @@ static int xtfpga_pcm_open(struct snd_soc_component *component,
- 	void *p;
+diff --git a/sound/arm/pxa2xx-pcm-lib.c b/sound/arm/pxa2xx-pcm-lib.c
+index a86c95d89824..e81083e1bc68 100644
+--- a/sound/arm/pxa2xx-pcm-lib.c
++++ b/sound/arm/pxa2xx-pcm-lib.c
+@@ -38,7 +38,7 @@ int pxa2xx_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	struct dma_slave_config config;
+ 	int ret;
  
- 	snd_soc_set_runtime_hwparams(substream, &xtfpga_pcm_hardware);
--	p = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
-+	p = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream);
- 	runtime->private_data = p;
+-	dma_params = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
++	dma_params = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream);
+ 	if (!dma_params)
+ 		return 0;
  
- 	return 0;
+@@ -47,7 +47,7 @@ int pxa2xx_pcm_hw_params(struct snd_pcm_substream *substream,
+ 		return ret;
+ 
+ 	snd_dmaengine_pcm_set_config_from_dai_data(substream,
+-			snd_soc_dai_get_dma_data(rtd->cpu_dai, substream),
++			snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream),
+ 			&config);
+ 
+ 	ret = dmaengine_slave_config(chan, &config);
+@@ -95,7 +95,7 @@ int pxa2xx_pcm_open(struct snd_pcm_substream *substream)
+ 
+ 	runtime->hw = pxa2xx_pcm_hardware;
+ 
+-	dma_params = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
++	dma_params = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream);
+ 	if (!dma_params)
+ 		return 0;
+ 
+@@ -120,7 +120,7 @@ int pxa2xx_pcm_open(struct snd_pcm_substream *substream)
+ 		return ret;
+ 
+ 	return snd_dmaengine_pcm_open(
+-		substream, dma_request_slave_channel(rtd->cpu_dai->dev,
++		substream, dma_request_slave_channel(asoc_rtd_to_cpu(rtd, 0)->dev,
+ 						     dma_params->chan_name));
+ }
+ EXPORT_SYMBOL(pxa2xx_pcm_open);
 -- 
 2.17.1
 

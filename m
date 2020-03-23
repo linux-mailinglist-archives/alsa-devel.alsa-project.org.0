@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A98A718EF1F
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:23:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF8E218EF20
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:23:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 29FCC1669;
-	Mon, 23 Mar 2020 06:22:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29FCC1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A7F21665;
+	Mon, 23 Mar 2020 06:23:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A7F21665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584940998;
-	bh=m1YNmkY9xz6Y1LcMWKUdcvCaxr2QBkRbrJhygIJwlMo=;
+	s=default; t=1584941039;
+	bh=BONNtm57oWDs7z7n738aGqHjN0baZhMfb6ycTDDAPkA=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eiA9hQmmYiVn2IDTNRA0yeRfc2lwfL8GTWWzCyVE52Vzw0A4G2cNi1s/CxCyGFY61
-	 GpgFBzWhqCy3RQVRa1WawYAqB1wKyu5gCV3oLa9Z4OTb7RgjJ68K0xcIimD7mXFaU/
-	 zytTBQuxT0sJpqWyVMFJwDsbt4nY73nbiKRA4yIk=
+	b=PQ5nhCjeU67lCjyE/svyD0k4Bu1aG0Q70g6TO+zvLiqZuXD0yNl7gY3epixRy1WVl
+	 0Hm0fP4rh7c/kPwkGG/Kv2tR7Hs80twoMKRCSYgctS2vxDY/GNdpnCoprVQgbhZgDl
+	 hmP3B40icob0l8v9YZ3eeGLsxsCygA55Vx1+vv0c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80EE0F802E9;
-	Mon, 23 Mar 2020 06:18:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E7DAFF802E7;
+	Mon, 23 Mar 2020 06:19:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9ACA5F802E2; Mon, 23 Mar 2020 06:18:46 +0100 (CET)
+ id 19249F80268; Mon, 23 Mar 2020 06:19:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 09612F802DC
- for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:18:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09612F802DC
-Date: 23 Mar 2020 14:18:41 +0900
-X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42350323"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 23 Mar 2020 14:18:41 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id CBAD6F802E7
+ for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:18:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBAD6F802E7
+Date: 23 Mar 2020 14:18:53 +0900
+X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42350342"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 23 Mar 2020 14:18:53 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 9EB97400007F;
- Mon, 23 Mar 2020 14:18:41 +0900 (JST)
-Message-ID: <87tv2fir7y.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 70AF74170711;
+ Mon, 23 Mar 2020 14:18:53 +0900 (JST)
+Message-ID: <87sghzir7m.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 09/36] ASoC: generic: use asoc_rtd_to_cpu() /
- asoc_rtd_to_codec() macro for DAI pointer
+Subject: [PATCH 10/36] ASoC: img: use asoc_rtd_to_cpu() / asoc_rtd_to_codec()
+ macro for DAI pointer
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <877dzbk5wm.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,50 +72,36 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/generic/simple-card-utils.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ sound/soc/img/img-i2s-in.c  | 2 +-
+ sound/soc/img/img-i2s-out.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
-index abbdf1054f6f..8c54dc6710fe 100644
---- a/sound/soc/generic/simple-card-utils.c
-+++ b/sound/soc/generic/simple-card-utils.c
-@@ -213,8 +213,8 @@ EXPORT_SYMBOL_GPL(asoc_simple_startup);
- void asoc_simple_shutdown(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(rtd->card);
- 	struct simple_dai_props *dai_props =
- 		simple_priv_to_props(priv, rtd->num);
-@@ -249,8 +249,8 @@ int asoc_simple_hw_params(struct snd_pcm_substream *substream,
- 			  struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(rtd->card);
- 	struct simple_dai_props *dai_props =
- 		simple_priv_to_props(priv, rtd->num);
-@@ -381,12 +381,12 @@ int asoc_simple_dai_init(struct snd_soc_pcm_runtime *rtd)
- 	struct simple_dai_props *dai_props = simple_priv_to_props(priv, rtd->num);
+diff --git a/sound/soc/img/img-i2s-in.c b/sound/soc/img/img-i2s-in.c
+index fdd2c73fd2fa..a495d1050d49 100644
+--- a/sound/soc/img/img-i2s-in.c
++++ b/sound/soc/img/img-i2s-in.c
+@@ -397,7 +397,7 @@ static int img_i2s_in_dma_prepare_slave_config(struct snd_pcm_substream *st,
+ 	struct snd_dmaengine_dai_dma_data *dma_data;
  	int ret;
  
--	ret = asoc_simple_init_dai(rtd->codec_dai,
-+	ret = asoc_simple_init_dai(asoc_rtd_to_codec(rtd, 0),
- 				   dai_props->codec_dai);
- 	if (ret < 0)
- 		return ret;
+-	dma_data = snd_soc_dai_get_dma_data(rtd->cpu_dai, st);
++	dma_data = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), st);
  
--	ret = asoc_simple_init_dai(rtd->cpu_dai,
-+	ret = asoc_simple_init_dai(asoc_rtd_to_cpu(rtd, 0),
- 				   dai_props->cpu_dai);
- 	if (ret < 0)
- 		return ret;
+ 	ret = snd_hwparams_to_dma_slave_config(st, params, sc);
+ 	if (ret)
+diff --git a/sound/soc/img/img-i2s-out.c b/sound/soc/img/img-i2s-out.c
+index 4b1853409633..db052ec17d5d 100644
+--- a/sound/soc/img/img-i2s-out.c
++++ b/sound/soc/img/img-i2s-out.c
+@@ -403,7 +403,7 @@ static int img_i2s_out_dma_prepare_slave_config(struct snd_pcm_substream *st,
+ 	struct snd_dmaengine_dai_dma_data *dma_data;
+ 	int ret;
+ 
+-	dma_data = snd_soc_dai_get_dma_data(rtd->cpu_dai, st);
++	dma_data = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), st);
+ 
+ 	ret = snd_hwparams_to_dma_slave_config(st, params, sc);
+ 	if (ret)
 -- 
 2.17.1
 

@@ -2,87 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AF0518F8E1
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 16:44:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FEF318F923
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 17:01:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1CD4D1657;
-	Mon, 23 Mar 2020 16:44:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CD4D1657
+	by alsa0.perex.cz (Postfix) with ESMTPS id CAEB21616;
+	Mon, 23 Mar 2020 17:00:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAEB21616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584978294;
-	bh=iZ822h72NE/s+kYkvIrs3CnzRc/yqGFLhSVVbxiebxo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1584979302;
+	bh=1gJQ0ZUvQqJ967eZf5Fa4CLT29X1V2PXKFfc6ITnGEQ=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UJ4IV50034gDWBhGcawppFUO45cz+LxnI1Co1RwYIEN1LI1QbTBsWqs/b1JVMFtXi
-	 t8qCAnSdAjtq0V2uDYnpy+WTbyDBLsnxSI3E7Sp5hZBd0rp9O5dyd4JVW6R/Ptzlgi
-	 NVhievYEmRam/dIZxy94ym5trak4ICWBvqOcQ+s4=
+	b=jrIpaeL8BzWF5Ek71nmjnIu7EOk8KROmZrEs+5ZgL2QhD8IpSRC9HBSBdGyysly4k
+	 jnwDtT1OvJSaMiCJaKpmaHT5lVn0k9cQ2cNJMVlusYCPNGGZM996brkisSiY8Dyad9
+	 /GR+P9TmRL5rnkdF9kpnbq1lMM/0ty5aWvdfq910=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B2F60F801DA;
-	Mon, 23 Mar 2020 16:43:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E23CF800B9;
+	Mon, 23 Mar 2020 17:00:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C113AF801DA; Mon, 23 Mar 2020 16:43:11 +0100 (CET)
+ id E1A5AF80158; Mon, 23 Mar 2020 16:59:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
- [IPv6:2607:f8b0:4864:20::d44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
+ [216.228.121.64])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A5CC2F800F6
- for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 16:43:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5CC2F800F6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 04F2CF800B9
+ for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 16:59:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04F2CF800B9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel-com.20150623.gappssmtp.com
- header.i=@intel-com.20150623.gappssmtp.com header.b="wroPY5aU"
-Received: by mail-io1-xd44.google.com with SMTP id k9so3898348iov.7
- for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 08:43:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=intel-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=/iMKdz2zejJZLlfp0PbLbxEnudm00ADfZuW8QIGhGA0=;
- b=wroPY5aUWECAhKyASrA5at7TfC6/abwbiQy7csS2FhE/Sr15QrpK2ZcgvnlZOCTkjV
- Zr/mMBBnVezDBSo/A6/XRZi689wPzWIM6IngXqwfA7rFlxViGfUQB7QqqzUtyqcLSK+z
- Gw9b400qr3mlG4STdDknJyi3bt30S7u5K+koOc2WkSiZUI4/BQ1FnDA8uP7A4yJoQbkf
- deZnXhb0TiijTtfBEO3IaLrFcLmiOoI4v4FEjphP+SxCE68j7o0jbyj5byAXp9tSoEA1
- u0AAo5zMAW5wCQuu+Lpoghksw+ffcROEAQAbiXOjHk37AqkuYRW/J49guustFXct2tLz
- wmpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=/iMKdz2zejJZLlfp0PbLbxEnudm00ADfZuW8QIGhGA0=;
- b=jfKFTgAFYx+8KhKBL38VP/YGZsaGIiyy+hkb6bxfu5AwILdHLopXnG9cejG3n0mJac
- w1GbIvllqwWWaLPV+V0VeBz4FERr5eQMA28A34LzgKT9xvo+/upBqeLAgxK1IFxo4fCZ
- b+ZrP01pslQCHiYDNrqjq9rHs/t/JpLiaLC76WNS5xRC8tEViWnDce8bq2VWCVQ+O4YA
- 4BvYn74a67+B5IvfR7VZp9UcaLC2J/lA5dr53lJa7qSOS89B32gs8uAZ/5lO8xMs2dbY
- 0Uijh0ubPeGJV1dMT81FeYRoPP6w6r4cwDtuA7+TG1RgkSwdUPXxI2QOhcCCNmt364uJ
- 4wcg==
-X-Gm-Message-State: ANhLgQ3DGZd7AtFwYnqkzLqyKVNP1ogWASYpYVZSaHVxeK68P69ibWM1
- J3LZTAOgsJ/k938JIU0SvSYUNKiJEOBUICLuoaWx5A==
-X-Google-Smtp-Source: ADFU+vtoClZxh8rkWtnHDlFX72ur+UlQ2wrXpG3VLInRZN+ZpLFmk/fRzHDLKIUpEXAZQ1r8MdEwfgQBwnUy6lzvzZE=
-X-Received: by 2002:a5d:8952:: with SMTP id b18mr19865730iot.40.1584978179222; 
- Mon, 23 Mar 2020 08:42:59 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="qeJM2oCY"
+Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate25.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5e78dcc30000>; Mon, 23 Mar 2020 08:58:59 -0700
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate102.nvidia.com (PGP Universal service);
+ Mon, 23 Mar 2020 08:59:43 -0700
+X-PGP-Universal: processed;
+ by hqpgpgate102.nvidia.com on Mon, 23 Mar 2020 08:59:43 -0700
+Received: from [10.26.73.76] (172.20.13.39) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 23 Mar
+ 2020 15:59:41 +0000
+Subject: Re: [PATCH v1 0/2] Support built-in Mic on Tegra boards that use
+ WM8903
+To: Stephen Warren <swarren@wwwdotorg.org>, Dmitry Osipenko <digetx@gmail.com>
+References: <20200320205504.30466-1-digetx@gmail.com>
+ <c27c2087-14cf-614d-a8c0-05072a54f24b@wwwdotorg.org>
+From: Jon Hunter <jonathanh@nvidia.com>
+Message-ID: <da88ddff-e665-8cee-6f03-1a396602b076@nvidia.com>
+Date: Mon, 23 Mar 2020 15:59:39 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-References: <20200320123634.GB2130@ubuntu>
- <CAFQqKeW1Fejm1WHwc+Wm8nAoiqj=MtuO6zv1RUYCZoBsre5hjA@mail.gmail.com>
- <20200323092041.GA16757@ubuntu>
-In-Reply-To: <20200323092041.GA16757@ubuntu>
-From: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
-Date: Mon, 23 Mar 2020 08:42:48 -0700
-Message-ID: <CAFQqKeVrH+-jzX5L=hB3L7xpQ+aE6FaiioZEfELcXQGDcni79A@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: SOF: fix uninitialised "work" with VirtIO
-To: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
- sound-open-firmware@alsa-project.org
+In-Reply-To: <c27c2087-14cf-614d-a8c0-05072a54f24b@wwwdotorg.org>
+X-Originating-IP: [172.20.13.39]
+X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1584979139; bh=b6ALMa2hKrIs0XbyLi35X2cWmMd8kYGLuEPCzNi1WWw=;
+ h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
+ User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
+ X-ClientProxiedBy:Content-Type:Content-Language:
+ Content-Transfer-Encoding;
+ b=qeJM2oCYmyTdv+5PKAJvYMTxoKTABCkjwRlWYo1L/hJ+ZjVMCUCoNkpWljEu+UXEi
+ X9jtz/nigahYl9DIIc0Dmwv/DrUu9QaIyMPH7YB7lVEwftRVsOE7OYA3DYBenxfwO2
+ BhXhVR4/uaBV53jjEdrafrkxGTtBO1C4uEwSZnqdBDuECOp3Y7Iu/IH+qqIluXu4zC
+ fMIvd8R3zW5YT86pKzp2fH+prd9E3y2gcKZjdzRHSdjhnqT+NVTLAnO4x8SOZ4BqWw
+ TxjzK8CFwYrhwvGtEcLNHmDVbtbdKBIvgTwfDGABeddiF/i+7wmoJ2PNJDnZJ6V1QH
+ TjGm39gokcADQ==
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,154 +101,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Mar 23, 2020 at 2:20 AM Guennadi Liakhovetski <
-guennadi.liakhovetski@linux.intel.com> wrote:
 
-> Hi Ranjani,
->
-> On Fri, Mar 20, 2020 at 09:31:50AM -0700, Sridharan, Ranjani wrote:
-> > On Fri, Mar 20, 2020 at 5:36 AM Guennadi Liakhovetski <
-> > guennadi.liakhovetski@linux.intel.com> wrote:
-> >
-> > > In the VirtIO case the sof_pcm_open() function isn't called on the
-> > > host during guest streaming, which then leaves "work" structures
-> > > uninitialised. However it is then used to handle position update
-> > > messages from the DSP. Move their initialisation to immediately after
-> > > allocation of the containing structure.
-> > >
-> > > Signed-off-by: Guennadi Liakhovetski <
-> > > guennadi.liakhovetski@linux.intel.com>
-> > > ---
-> > >
-> > > This is a re-send of "[PATCH 08/14] ASoC: SOF: fix uninitialised "work"
-> > > with VirtIO" as suggested by Mark, also taking into account a comment
-> > > from Ranjani - thanks. Note: I haven't sent patches before from mutt,
-> > > hope this will work, if not - will have to re-send.
-> > >
-> > >  sound/soc/sof/pcm.c       |  4 +---
-> > >  sound/soc/sof/sof-audio.h |  3 +++
-> > >  sound/soc/sof/topology.c  | 17 ++++++++++++-----
-> > >  3 files changed, 16 insertions(+), 8 deletions(-)
-> > >
-> > > diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
-> > > index f4769e1..47cd741 100644
-> > > --- a/sound/soc/sof/pcm.c
-> > > +++ b/sound/soc/sof/pcm.c
-> > > @@ -57,7 +57,7 @@ static int sof_pcm_dsp_params(struct snd_sof_pcm
-> *spcm,
-> > > struct snd_pcm_substream
-> > >  /*
-> > >   * sof pcm period elapse work
-> > >   */
-> > > -static void sof_pcm_period_elapsed_work(struct work_struct *work)
-> > > +void snd_sof_pcm_period_elapsed_work(struct work_struct *work)
-> > >  {
-> > >         struct snd_sof_pcm_stream *sps =
-> > >                 container_of(work, struct snd_sof_pcm_stream,
-> > > @@ -475,8 +475,6 @@ static int sof_pcm_open(struct snd_soc_component
-> > > *component,
-> > >         dev_dbg(component->dev, "pcm: open stream %d dir %d\n",
-> > >                 spcm->pcm.pcm_id, substream->stream);
-> > >
-> > > -       INIT_WORK(&spcm->stream[substream->stream].period_elapsed_work,
-> > > -                 sof_pcm_period_elapsed_work);
-> > >
-> > >         caps = &spcm->pcm.caps[substream->stream];
-> > >
-> > > diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
-> > > index eacd10e..bf65f31a 100644
-> > > --- a/sound/soc/sof/sof-audio.h
-> > > +++ b/sound/soc/sof/sof-audio.h
-> > > @@ -11,6 +11,8 @@
-> > >  #ifndef __SOUND_SOC_SOF_AUDIO_H
-> > >  #define __SOUND_SOC_SOF_AUDIO_H
-> > >
-> > > +#include <linux/workqueue.h>
-> > > +
-> > >  #include <sound/soc.h>
-> > >  #include <sound/control.h>
-> > >  #include <sound/sof/stream.h> /* needs to be included before
-> control.h */
-> > > @@ -189,6 +191,7 @@ struct snd_sof_pcm *snd_sof_find_spcm_comp(struct
-> > > snd_soc_component *scomp,
-> > >  struct snd_sof_pcm *snd_sof_find_spcm_pcm_id(struct snd_soc_component
-> > > *scomp,
-> > >                                              unsigned int pcm_id);
-> > >  void snd_sof_pcm_period_elapsed(struct snd_pcm_substream *substream);
-> > > +void snd_sof_pcm_period_elapsed_work(struct work_struct *work);
-> > >
-> > >  /*
-> > >   * Mixer IPC
-> > > diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-> > > index 058de94..fe8ba3e 100644
-> > > --- a/sound/soc/sof/topology.c
-> > > +++ b/sound/soc/sof/topology.c
-> > > @@ -9,6 +9,7 @@
-> > >  //
-> > >
-> > >  #include <linux/firmware.h>
-> > > +#include <linux/workqueue.h>
-> > >  #include <sound/tlv.h>
-> > >  #include <sound/pcm_params.h>
-> > >  #include <uapi/sound/sof/tokens.h>
-> > > @@ -2448,7 +2449,7 @@ static int sof_dai_load(struct snd_soc_component
-> > > *scomp, int index,
-> > >         struct snd_soc_tplg_stream_caps *caps;
-> > >         struct snd_soc_tplg_private *private = &pcm->priv;
-> > >         struct snd_sof_pcm *spcm;
-> > > -       int stream = SNDRV_PCM_STREAM_PLAYBACK;
-> > > +       int stream;
-> > >         int ret = 0;
-> > >
-> > >         /* nothing to do for BEs atm */
-> > > @@ -2460,8 +2461,12 @@ static int sof_dai_load(struct snd_soc_component
-> > > *scomp, int index,
-> > >                 return -ENOMEM;
-> > >
-> > >         spcm->scomp = scomp;
-> > > -       spcm->stream[SNDRV_PCM_STREAM_PLAYBACK].comp_id =
-> > > COMP_ID_UNASSIGNED;
-> > > -       spcm->stream[SNDRV_PCM_STREAM_CAPTURE].comp_id =
-> > > COMP_ID_UNASSIGNED;
-> > > +
-> > > +       for_each_pcm_streams(stream) {
-> > > +               spcm->stream[stream].comp_id = COMP_ID_UNASSIGNED;
-> > > +               INIT_WORK(&spcm->stream[stream].period_elapsed_work,
-> > > +                         snd_sof_pcm_period_elapsed_work);
-> > > +       }
-> > >
-> > >         spcm->pcm = *pcm;
-> > >         dev_dbg(scomp->dev, "tplg: load pcm %s\n", pcm->dai_name);
-> > > @@ -2482,8 +2487,10 @@ static int sof_dai_load(struct snd_soc_component
-> > > *scomp, int index,
-> > >         if (!spcm->pcm.playback)
-> > >                 goto capture;
-> > >
-> > > +       stream = SNDRV_PCM_STREAM_PLAYBACK;
-> > > +
-> > >         dev_vdbg(scomp->dev, "tplg: pcm %s stream tokens: playback
-> > > d0i3:%d\n",
-> > > -                spcm->pcm.pcm_name, spcm->stream[0].d0i3_compatible);
-> > > +                spcm->pcm.pcm_name,
-> spcm->stream[stream].d0i3_compatible);
-> > >
-> > Hi Guennadi,
-> >
-> > This cleanup is unrelated to the commit message (and the one below)?
-> Should
-> > it be a separate patch?
->
-> I think it is a matter of judgement. It was your request to use
-> for_each_pcm_streams() which I did. While transitioning to it I noticed a
-> couple of related inconsistencies which I then aso fixed. So IMHO the
-> change is minor, obvious and related. But I agree that this now makes the
-> patch a bit controversial.
 
-Hi Guennadi,
+On 20/03/2020 22:30, Stephen Warren wrote:
+> On 3/20/20 2:55 PM, Dmitry Osipenko wrote:
+>> Hello,
+>>
+>> This small series adds audio route for built-in microphone on NVIDIA Tegra
+>> boards that use WM8903 CODEC. In particular this is needed in order to unmute
+>> internal microphone on Acer A500 tablet device. I'm planning to send out the
+>> device tree for the A500 for 5.8, so will be nice to get the microphone
+>> sorted out. Please review and apply, thanks in advance.
+> 
+> It's been a long time since I looked at this code, but the series looks
+> plausible,
+> Acked-by: Stephen Warren <swarren@nvidia.com>
+> 
+> (I wonder why machine->gpio_int_mic_en was already parse but never used!)
 
-May I suggest to break it up into 2 patches: First, to move to using the
-new for_each_pcm_stream_macro() and  the second to add the add the work
-init. That way there would be no confusion.
+Looking at the ventana schematics, it appears that the internal-mic
+signals was connected to a header and not an actual mic, so maybe we
+never had a proper internal-mic on any board but allowed one to be
+connected.
 
-Thanks,
-Ranjani
+Anyway, looks good to me as well.
+
+Acked-by: Jon Hunter <jonathanh@nvidia.com>
+
+Cheers
+Jon
+
+-- 
+nvpublic

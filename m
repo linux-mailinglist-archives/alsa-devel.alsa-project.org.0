@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59AAF18EF52
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:27:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 058CA18EF54
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:28:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ECC2D950;
-	Mon, 23 Mar 2020 06:26:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECC2D950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 909201677;
+	Mon, 23 Mar 2020 06:27:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 909201677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584941245;
-	bh=1SjQ6ZfWE/GZ04aKmrY0VcmlqFcpVwHQo4DnIiCg+Iw=;
+	s=default; t=1584941287;
+	bh=LO0gXVMQGiHNCITv3mGJScQwPafEFKVVTBN2gRAv+vs=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pxFltiMo2SzvRN4YzMAxURDrJM5hbdtRbl5tUxQfR7D3CPHc0KXeca4kVi0DC02l0
-	 pT52FCsG5OSEoSWM1TSc6jx42nCCUwGmJu3MU2T42VMbdL2ci0aDHJED4Y5/4MTIGC
-	 KlGcE3SMnlUzb4TbToHmp3u2l3830mj4CRvjrbcQ=
+	b=e7ZfCTRxVn3DgEuaTu5PEnfLpOGF5caGsOSb7wifZfYqJqcfIBivtIAya1mCDzyhS
+	 SkpF2fvg8Ky+Ufqqdb6eCrsj1+j3gCEiqDN9mmq1dU2dS+J3516keJPk7MKObxLc9L
+	 Tuf6oBXq+Q54YaTwv7WfHkOVhAoJ6x2kpezzjVcE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0ABBEF80308;
-	Mon, 23 Mar 2020 06:19:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4487CF80331;
+	Mon, 23 Mar 2020 06:20:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95311F80308; Mon, 23 Mar 2020 06:19:56 +0100 (CET)
+ id 2F540F8032A; Mon, 23 Mar 2020 06:20:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 4950DF8028E
- for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:19:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4950DF8028E
-Date: 23 Mar 2020 14:19:49 +0900
-X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42564471"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 23 Mar 2020 14:19:49 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id F32F1F80328
+ for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:20:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F32F1F80328
+Date: 23 Mar 2020 14:20:01 +0900
+X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42564485"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 23 Mar 2020 14:20:01 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id D076F4170D15;
- Mon, 23 Mar 2020 14:19:49 +0900 (JST)
-Message-ID: <87k13bir62.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 6FD81400387F;
+ Mon, 23 Mar 2020 14:20:01 +0900 (JST)
+Message-ID: <87imivir5q.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 16/36] ASoC: pxa: use asoc_rtd_to_cpu() / asoc_rtd_to_codec()
+Subject: [PATCH 17/36] ASoC: qcom: use asoc_rtd_to_cpu() / asoc_rtd_to_codec()
  macro for DAI pointer
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -72,251 +72,195 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/pxa/brownstone.c     | 4 ++--
- sound/soc/pxa/corgi.c          | 4 ++--
- sound/soc/pxa/hx4700.c         | 4 ++--
- sound/soc/pxa/imote2.c         | 4 ++--
- sound/soc/pxa/magician.c       | 8 ++++----
- sound/soc/pxa/mioa701_wm9713.c | 4 ++--
- sound/soc/pxa/mmp-pcm.c        | 2 +-
- sound/soc/pxa/mmp-sspa.c       | 2 +-
- sound/soc/pxa/poodle.c         | 4 ++--
- sound/soc/pxa/pxa2xx-i2s.c     | 2 +-
- sound/soc/pxa/spitz.c          | 4 ++--
- sound/soc/pxa/ttc-dkb.c        | 2 +-
- sound/soc/pxa/z2.c             | 4 ++--
- sound/soc/pxa/zylonite.c       | 6 +++---
- 14 files changed, 27 insertions(+), 27 deletions(-)
+ sound/soc/qcom/apq8016_sbc.c     |  2 +-
+ sound/soc/qcom/apq8096.c         |  6 +++---
+ sound/soc/qcom/lpass-platform.c  |  2 +-
+ sound/soc/qcom/qdsp6/q6asm-dai.c |  4 ++--
+ sound/soc/qcom/qdsp6/q6routing.c |  2 +-
+ sound/soc/qcom/sdm845.c          | 22 +++++++++++-----------
+ sound/soc/qcom/storm.c           |  2 +-
+ 7 files changed, 20 insertions(+), 20 deletions(-)
 
-diff --git a/sound/soc/pxa/brownstone.c b/sound/soc/pxa/brownstone.c
-index 53b1435ced3f..016a91199485 100644
---- a/sound/soc/pxa/brownstone.c
-+++ b/sound/soc/pxa/brownstone.c
-@@ -44,8 +44,8 @@ static int brownstone_wm8994_hw_params(struct snd_pcm_substream *substream,
- 				       struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	int freq_out, sspa_mclk, sysclk;
+diff --git a/sound/soc/qcom/apq8016_sbc.c b/sound/soc/qcom/apq8016_sbc.c
+index 7647af3e51f6..2ef090f4af9e 100644
+--- a/sound/soc/qcom/apq8016_sbc.c
++++ b/sound/soc/qcom/apq8016_sbc.c
+@@ -33,7 +33,7 @@ struct apq8016_sbc_data {
  
- 	if (params_rate(params) > 11025) {
-diff --git a/sound/soc/pxa/corgi.c b/sound/soc/pxa/corgi.c
-index d81082323fb4..6fbef9a0afa7 100644
---- a/sound/soc/pxa/corgi.c
-+++ b/sound/soc/pxa/corgi.c
-@@ -116,8 +116,8 @@ static int corgi_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_pcm_hw_params *params)
+ static int apq8016_sbc_dai_init(struct snd_soc_pcm_runtime *rtd)
+ {
+-	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	struct snd_soc_dai *codec_dai;
+ 	struct snd_soc_component *component;
+ 	struct snd_soc_card *card = rtd->card;
+diff --git a/sound/soc/qcom/apq8096.c b/sound/soc/qcom/apq8096.c
+index 94363fd6846a..d55e3ad96716 100644
+--- a/sound/soc/qcom/apq8096.c
++++ b/sound/soc/qcom/apq8096.c
+@@ -31,8 +31,8 @@ static int msm_snd_hw_params(struct snd_pcm_substream *substream,
+ 			     struct snd_pcm_hw_params *params)
  {
  	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 -	struct snd_soc_dai *codec_dai = rtd->codec_dai;
 -	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
 +	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
 +	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	unsigned int clk = 0;
+ 	u32 rx_ch[SLIM_MAX_RX_PORTS], tx_ch[SLIM_MAX_TX_PORTS];
+ 	u32 rx_ch_cnt = 0, tx_ch_cnt = 0;
+ 	int ret = 0;
+@@ -66,7 +66,7 @@ static struct snd_soc_ops apq8096_ops = {
+ 
+ static int apq8096_init(struct snd_soc_pcm_runtime *rtd)
+ {
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 
+ 	/*
+ 	 * Codec SLIMBUS configuration
+diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
+index 5d1bc5757169..34f7fd1bab1c 100644
+--- a/sound/soc/qcom/lpass-platform.c
++++ b/sound/soc/qcom/lpass-platform.c
+@@ -55,7 +55,7 @@ static int lpass_platform_pcmops_open(struct snd_soc_component *component,
+ {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct snd_soc_pcm_runtime *soc_runtime = substream->private_data;
+-	struct snd_soc_dai *cpu_dai = soc_runtime->cpu_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(soc_runtime, 0);
+ 	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
+ 	struct lpass_variant *v = drvdata->variant;
+ 	int ret, dma_ch, dir = substream->stream;
+diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
+index 8b5d86be9ace..f6c7cddf08e8 100644
+--- a/sound/soc/qcom/qdsp6/q6asm-dai.c
++++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
+@@ -333,7 +333,7 @@ static int q6asm_dai_open(struct snd_soc_component *component,
+ {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct snd_soc_pcm_runtime *soc_prtd = substream->private_data;
+-	struct snd_soc_dai *cpu_dai = soc_prtd->cpu_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(soc_prtd, 0);
+ 	struct q6asm_dai_rtd *prtd;
+ 	struct q6asm_dai_data *pdata;
+ 	struct device *dev = component->dev;
+@@ -545,7 +545,7 @@ static int q6asm_dai_compr_open(struct snd_compr_stream *stream)
+ 	struct snd_soc_pcm_runtime *rtd = stream->private_data;
+ 	struct snd_soc_component *c = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+ 	struct snd_compr_runtime *runtime = stream->runtime;
+-	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	struct q6asm_dai_data *pdata;
+ 	struct device *dev = c->dev;
+ 	struct q6asm_dai_rtd *prtd;
+diff --git a/sound/soc/qcom/qdsp6/q6routing.c b/sound/soc/qcom/qdsp6/q6routing.c
+index 4d5915b9a06d..46e50612b92c 100644
+--- a/sound/soc/qcom/qdsp6/q6routing.c
++++ b/sound/soc/qcom/qdsp6/q6routing.c
+@@ -926,7 +926,7 @@ static int routing_hw_params(struct snd_soc_component *component,
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 	struct msm_routing_data *data = dev_get_drvdata(component->dev);
+-	unsigned int be_id = rtd->cpu_dai->id;
++	unsigned int be_id = asoc_rtd_to_cpu(rtd, 0)->id;
+ 	struct session_data *session;
+ 	int path_type;
+ 
+diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
+index 67a55edf755f..b2de65c7f95c 100644
+--- a/sound/soc/qcom/sdm845.c
++++ b/sound/soc/qcom/sdm845.c
+@@ -46,7 +46,7 @@ static int sdm845_slim_snd_hw_params(struct snd_pcm_substream *substream,
+ 				     struct snd_pcm_hw_params *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	struct snd_soc_dai *codec_dai;
+ 	struct sdm845_snd_data *pdata = snd_soc_card_get_drvdata(rtd->card);
+ 	u32 rx_ch[SLIM_MAX_RX_PORTS], tx_ch[SLIM_MAX_TX_PORTS];
+@@ -86,7 +86,7 @@ static int sdm845_tdm_snd_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	struct snd_soc_dai *codec_dai;
+ 	int ret = 0, j;
+ 	int channels, slot_width;
+@@ -171,8 +171,8 @@ static int sdm845_snd_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
  	int ret = 0;
  
-diff --git a/sound/soc/pxa/hx4700.c b/sound/soc/pxa/hx4700.c
-index 0139343dbcce..b4da9a9a6521 100644
---- a/sound/soc/pxa/hx4700.c
-+++ b/sound/soc/pxa/hx4700.c
-@@ -54,8 +54,8 @@ static int hx4700_hw_params(struct snd_pcm_substream *substream,
- 			    struct snd_pcm_hw_params *params)
+ 	switch (cpu_dai->id) {
+@@ -220,8 +220,8 @@ static int sdm845_dai_init(struct snd_soc_pcm_runtime *rtd)
  {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 	struct snd_soc_component *component;
+ 	struct snd_soc_card *card = rtd->card;
 -	struct snd_soc_dai *codec_dai = rtd->codec_dai;
 -	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
 +	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
 +	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	int ret = 0;
- 
- 	/* set the I2S system clock as output */
-diff --git a/sound/soc/pxa/imote2.c b/sound/soc/pxa/imote2.c
-index 514e17724fc3..3014e8244ab4 100644
---- a/sound/soc/pxa/imote2.c
-+++ b/sound/soc/pxa/imote2.c
-@@ -12,8 +12,8 @@ static int imote2_asoc_hw_params(struct snd_pcm_substream *substream,
- 				 struct snd_pcm_hw_params *params)
- {
+ 	struct sdm845_snd_data *pdata = snd_soc_card_get_drvdata(card);
+ 	struct snd_jack *jack;
+ 	/*
+@@ -304,8 +304,8 @@ static int sdm845_snd_startup(struct snd_pcm_substream *substream)
  	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct sdm845_snd_data *data = snd_soc_card_get_drvdata(card);
 -	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
 +	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	unsigned int clk = 0;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int j;
  	int ret;
  
-diff --git a/sound/soc/pxa/magician.c b/sound/soc/pxa/magician.c
-index 6483cff5b73d..1b926a5bfb50 100644
---- a/sound/soc/pxa/magician.c
-+++ b/sound/soc/pxa/magician.c
-@@ -83,8 +83,8 @@ static int magician_playback_hw_params(struct snd_pcm_substream *substream,
- 				       struct snd_pcm_hw_params *params)
- {
+@@ -394,7 +394,7 @@ static void  sdm845_snd_shutdown(struct snd_pcm_substream *substream)
  	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	unsigned int width;
- 	int ret = 0;
- 
-@@ -121,8 +121,8 @@ static int magician_capture_hw_params(struct snd_pcm_substream *substream,
- 				      struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	int ret = 0;
- 
- 	/* set codec DAI configuration */
-diff --git a/sound/soc/pxa/mioa701_wm9713.c b/sound/soc/pxa/mioa701_wm9713.c
-index 76e054d514a8..bf27b277c01f 100644
---- a/sound/soc/pxa/mioa701_wm9713.c
-+++ b/sound/soc/pxa/mioa701_wm9713.c
-@@ -73,7 +73,7 @@ static int rear_amp_event(struct snd_soc_dapm_widget *widget,
- 	struct snd_soc_component *component;
- 
- 	rtd = snd_soc_get_pcm_runtime(card, &card->dai_link[0]);
--	component = rtd->codec_dai->component;
-+	component = asoc_rtd_to_codec(rtd, 0)->component;
- 	return rear_amp_power(component, SND_SOC_DAPM_EVENT_ON(event));
- }
- 
-@@ -117,7 +117,7 @@ static const struct snd_soc_dapm_route audio_map[] = {
- 
- static int mioa701_wm9713_init(struct snd_soc_pcm_runtime *rtd)
- {
--	struct snd_soc_component *component = rtd->codec_dai->component;
-+	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
- 
- 	/* Prepare GPIO8 for rear speaker amplifier */
- 	snd_soc_component_update_bits(component, AC97_GPIO_CFG, 0x100, 0x100);
-diff --git a/sound/soc/pxa/mmp-pcm.c b/sound/soc/pxa/mmp-pcm.c
-index 287b5da739e5..3fe6c4c5a3ab 100644
---- a/sound/soc/pxa/mmp-pcm.c
-+++ b/sound/soc/pxa/mmp-pcm.c
-@@ -112,7 +112,7 @@ static int mmp_pcm_open(struct snd_soc_component *component,
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct platform_device *pdev = to_platform_device(component->dev);
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	struct mmp_dma_data dma_data;
- 	struct resource *r;
- 
-diff --git a/sound/soc/pxa/mmp-sspa.c b/sound/soc/pxa/mmp-sspa.c
-index e701637a9ae9..3548a2634a63 100644
---- a/sound/soc/pxa/mmp-sspa.c
-+++ b/sound/soc/pxa/mmp-sspa.c
-@@ -251,7 +251,7 @@ static int mmp_sspa_hw_params(struct snd_pcm_substream *substream,
- 			       struct snd_soc_dai *dai)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	struct sspa_priv *sspa_priv = snd_soc_dai_get_drvdata(dai);
- 	struct ssp_device *sspa = sspa_priv->sspa;
- 	struct snd_dmaengine_dai_dma_data *dma_params;
-diff --git a/sound/soc/pxa/poodle.c b/sound/soc/pxa/poodle.c
-index 59ef04d0467a..287984a564c8 100644
---- a/sound/soc/pxa/poodle.c
-+++ b/sound/soc/pxa/poodle.c
-@@ -90,8 +90,8 @@ static int poodle_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	unsigned int clk = 0;
- 	int ret = 0;
- 
-diff --git a/sound/soc/pxa/pxa2xx-i2s.c b/sound/soc/pxa/pxa2xx-i2s.c
-index 5f1c477b5833..9a32bf72127a 100644
---- a/sound/soc/pxa/pxa2xx-i2s.c
-+++ b/sound/soc/pxa/pxa2xx-i2s.c
-@@ -96,7 +96,7 @@ static int pxa2xx_i2s_startup(struct snd_pcm_substream *substream,
- 			      struct snd_soc_dai *dai)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct sdm845_snd_data *data = snd_soc_card_get_drvdata(card);
 -	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
 +	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
  
- 	if (IS_ERR(clk_i2s))
- 		return PTR_ERR(clk_i2s);
-diff --git a/sound/soc/pxa/spitz.c b/sound/soc/pxa/spitz.c
-index f7babffb7228..6d8174f62935 100644
---- a/sound/soc/pxa/spitz.c
-+++ b/sound/soc/pxa/spitz.c
-@@ -117,8 +117,8 @@ static int spitz_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_pcm_hw_params *params)
+ 	switch (cpu_dai->id) {
+ 	case PRIMARY_MI2S_RX:
+@@ -439,7 +439,7 @@ static int sdm845_snd_prepare(struct snd_pcm_substream *substream)
  {
  	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
+ 	struct sdm845_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
 -	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
 +	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	unsigned int clk = 0;
- 	int ret = 0;
+ 	struct sdw_stream_runtime *sruntime = data->sruntime[cpu_dai->id];
+ 	int ret;
  
-diff --git a/sound/soc/pxa/ttc-dkb.c b/sound/soc/pxa/ttc-dkb.c
-index d8f79e2266b1..d5f2961b1a3e 100644
---- a/sound/soc/pxa/ttc-dkb.c
-+++ b/sound/soc/pxa/ttc-dkb.c
-@@ -61,7 +61,7 @@ static const struct snd_soc_dapm_route ttc_audio_map[] = {
- 
- static int ttc_pm860x_init(struct snd_soc_pcm_runtime *rtd)
- {
--	struct snd_soc_component *component = rtd->codec_dai->component;
-+	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
- 
- 	/* Headset jack detection */
- 	snd_soc_card_jack_new(rtd->card, "Headphone Jack", SND_JACK_HEADPHONE |
-diff --git a/sound/soc/pxa/z2.c b/sound/soc/pxa/z2.c
-index f9a33cb36f5b..6eee1aefc89a 100644
---- a/sound/soc/pxa/z2.c
-+++ b/sound/soc/pxa/z2.c
-@@ -34,8 +34,8 @@ static int z2_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_pcm_hw_params *params)
+@@ -478,7 +478,7 @@ static int sdm845_snd_hw_free(struct snd_pcm_substream *substream)
  {
  	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
+ 	struct sdm845_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
 -	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
 +	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	unsigned int clk = 0;
- 	int ret = 0;
+ 	struct sdw_stream_runtime *sruntime = data->sruntime[cpu_dai->id];
  
-diff --git a/sound/soc/pxa/zylonite.c b/sound/soc/pxa/zylonite.c
-index 567dc133ea92..447b59b8bd33 100644
---- a/sound/soc/pxa/zylonite.c
-+++ b/sound/soc/pxa/zylonite.c
-@@ -66,7 +66,7 @@ static const struct snd_soc_dapm_route audio_map[] = {
- static int zylonite_wm9713_init(struct snd_soc_pcm_runtime *rtd)
- {
- 	if (clk_pout)
--		snd_soc_dai_set_pll(rtd->codec_dai, 0, 0,
-+		snd_soc_dai_set_pll(asoc_rtd_to_codec(rtd, 0), 0, 0,
- 				    clk_get_rate(pout), 0);
+ 	if (sruntime && data->stream_prepared[cpu_dai->id]) {
+diff --git a/sound/soc/qcom/storm.c b/sound/soc/qcom/storm.c
+index e6666e597265..3a6e18709b9e 100644
+--- a/sound/soc/qcom/storm.c
++++ b/sound/soc/qcom/storm.c
+@@ -39,7 +39,7 @@ static int storm_ops_hw_params(struct snd_pcm_substream *substream,
+ 	 */
+ 	sysclk_freq = rate * bitwidth * 2 * STORM_SYSCLK_MULT;
  
- 	return 0;
-@@ -76,8 +76,8 @@ static int zylonite_voice_hw_params(struct snd_pcm_substream *substream,
- 				    struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	unsigned int wm9713_div = 0;
- 	int ret = 0;
- 	int rate = params_rate(params);
+-	ret = snd_soc_dai_set_sysclk(soc_runtime->cpu_dai, 0, sysclk_freq, 0);
++	ret = snd_soc_dai_set_sysclk(asoc_rtd_to_cpu(soc_runtime, 0), 0, sysclk_freq, 0);
+ 	if (ret) {
+ 		dev_err(card->dev, "error setting sysclk to %u: %d\n",
+ 			sysclk_freq, ret);
 -- 
 2.17.1
 

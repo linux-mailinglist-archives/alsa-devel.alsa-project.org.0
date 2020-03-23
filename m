@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B617C18EF79
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:36:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7782918EF7B
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:36:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 656721674;
-	Mon, 23 Mar 2020 06:35:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 656721674
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2875B11C;
+	Mon, 23 Mar 2020 06:35:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2875B11C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584941772;
-	bh=Dpm7mlmNgKaBvxju0KMEQfabBaAI3kterwTljZurl/0=;
+	s=default; t=1584941803;
+	bh=op3n/Br0/9kNu3DT2LNS+veiIIGa5R7p/aMq851LxYA=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iqLpw7wqaBmeSHy/WL0rEjZ2WOsjIHElTtgK9ownBPQILpbrLLvnwjRK3kZWPcghT
-	 gxVMaseW6tUHIY349ww8bkEOqFcRpNzt4bAtI9oz2F8WVdu/r9B3A0VYhhsed/Z3cV
-	 Ez0QqyGCNcaRrNhmCUmEXmMpTYGIzryYW+mB2R9s=
+	b=SZsRivHgyElf3lZnWrWFEiKEsO1cSc2FUjSXz9InGeB5ctyTpaaDjtjuH0NZUEsKe
+	 9q2B7aijZTaiUQUdj57NDFDAJU2gW/AvXjTXKY8v1I5qEfs/cbmB/SyXCjmGJi/Ziw
+	 HBz3gIirr0Fb8Sqk0YyjaYO/WRZow2YIX39BU8WQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56F32F80383;
-	Mon, 23 Mar 2020 06:21:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56E14F80392;
+	Mon, 23 Mar 2020 06:22:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 46E5EF80391; Mon, 23 Mar 2020 06:21:55 +0100 (CET)
+ id A9509F803A6; Mon, 23 Mar 2020 06:22:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id EE799F80383
- for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:21:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE799F80383
-Date: 23 Mar 2020 14:21:49 +0900
-X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42350632"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 23 Mar 2020 14:21:49 +0900
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 20D6DF80392
+ for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:21:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20D6DF80392
+Date: 23 Mar 2020 14:21:56 +0900
+X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42564666"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 23 Mar 2020 14:21:56 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 8D8F94003880;
- Mon, 23 Mar 2020 14:21:49 +0900 (JST)
-Message-ID: <87y2rrhcia.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id AD0F1416FB87;
+ Mon, 23 Mar 2020 14:21:56 +0900 (JST)
+Message-ID: <87wo7bhci3.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 31/36] ASoC: arm: use asoc_rtd_to_cpu() / asoc_rtd_to_codec()
- macro for DAI pointer
+Subject: [PATCH 32/36] ASoC: codecs: use asoc_rtd_to_cpu() /
+ asoc_rtd_to_codec() macro for DAI pointer
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <877dzbk5wm.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,49 +72,204 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/arm/pxa2xx-pcm-lib.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ sound/soc/codecs/cs47l15.c |  4 ++--
+ sound/soc/codecs/cs47l24.c |  6 +++---
+ sound/soc/codecs/cs47l35.c |  6 +++---
+ sound/soc/codecs/cs47l85.c |  6 +++---
+ sound/soc/codecs/cs47l90.c |  6 +++---
+ sound/soc/codecs/cs47l92.c |  4 ++--
+ sound/soc/codecs/wm5110.c  |  6 +++---
+ sound/soc/codecs/wm_adsp.c | 10 +++++-----
+ 8 files changed, 24 insertions(+), 24 deletions(-)
 
-diff --git a/sound/arm/pxa2xx-pcm-lib.c b/sound/arm/pxa2xx-pcm-lib.c
-index a86c95d89824..e81083e1bc68 100644
---- a/sound/arm/pxa2xx-pcm-lib.c
-+++ b/sound/arm/pxa2xx-pcm-lib.c
-@@ -38,7 +38,7 @@ int pxa2xx_pcm_hw_params(struct snd_pcm_substream *substream,
- 	struct dma_slave_config config;
- 	int ret;
+diff --git a/sound/soc/codecs/cs47l15.c b/sound/soc/codecs/cs47l15.c
+index e8840dc142ef..8d1869bf7f9c 100644
+--- a/sound/soc/codecs/cs47l15.c
++++ b/sound/soc/codecs/cs47l15.c
+@@ -1239,12 +1239,12 @@ static int cs47l15_open(struct snd_compr_stream *stream)
+ 	struct madera *madera = priv->madera;
+ 	int n_adsp;
  
--	dma_params = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
-+	dma_params = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream);
- 	if (!dma_params)
- 		return 0;
+-	if (strcmp(rtd->codec_dai->name, "cs47l15-dsp-trace") == 0) {
++	if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l15-dsp-trace") == 0) {
+ 		n_adsp = 0;
+ 	} else {
+ 		dev_err(madera->dev,
+ 			"No suitable compressed stream for DAI '%s'\n",
+-			rtd->codec_dai->name);
++			asoc_rtd_to_codec(rtd, 0)->name);
+ 		return -EINVAL;
+ 	}
  
-@@ -47,7 +47,7 @@ int pxa2xx_pcm_hw_params(struct snd_pcm_substream *substream,
- 		return ret;
+diff --git a/sound/soc/codecs/cs47l24.c b/sound/soc/codecs/cs47l24.c
+index 25bffc2968f0..6b0570f59630 100644
+--- a/sound/soc/codecs/cs47l24.c
++++ b/sound/soc/codecs/cs47l24.c
+@@ -1076,14 +1076,14 @@ static int cs47l24_open(struct snd_compr_stream *stream)
+ 	struct arizona *arizona = priv->core.arizona;
+ 	int n_adsp;
  
- 	snd_dmaengine_pcm_set_config_from_dai_data(substream,
--			snd_soc_dai_get_dma_data(rtd->cpu_dai, substream),
-+			snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream),
- 			&config);
+-	if (strcmp(rtd->codec_dai->name, "cs47l24-dsp-voicectrl") == 0) {
++	if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l24-dsp-voicectrl") == 0) {
+ 		n_adsp = 2;
+-	} else if (strcmp(rtd->codec_dai->name, "cs47l24-dsp-trace") == 0) {
++	} else if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l24-dsp-trace") == 0) {
+ 		n_adsp = 1;
+ 	} else {
+ 		dev_err(arizona->dev,
+ 			"No suitable compressed stream for DAI '%s'\n",
+-			rtd->codec_dai->name);
++			asoc_rtd_to_codec(rtd, 0)->name);
+ 		return -EINVAL;
+ 	}
  
- 	ret = dmaengine_slave_config(chan, &config);
-@@ -95,7 +95,7 @@ int pxa2xx_pcm_open(struct snd_pcm_substream *substream)
+diff --git a/sound/soc/codecs/cs47l35.c b/sound/soc/codecs/cs47l35.c
+index 3d48a0d9ecc5..18839807c9d1 100644
+--- a/sound/soc/codecs/cs47l35.c
++++ b/sound/soc/codecs/cs47l35.c
+@@ -1514,14 +1514,14 @@ static int cs47l35_open(struct snd_compr_stream *stream)
+ 	struct madera *madera = priv->madera;
+ 	int n_adsp;
  
- 	runtime->hw = pxa2xx_pcm_hardware;
+-	if (strcmp(rtd->codec_dai->name, "cs47l35-dsp-voicectrl") == 0) {
++	if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l35-dsp-voicectrl") == 0) {
+ 		n_adsp = 2;
+-	} else if (strcmp(rtd->codec_dai->name, "cs47l35-dsp-trace") == 0) {
++	} else if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l35-dsp-trace") == 0) {
+ 		n_adsp = 0;
+ 	} else {
+ 		dev_err(madera->dev,
+ 			"No suitable compressed stream for DAI '%s'\n",
+-			rtd->codec_dai->name);
++			asoc_rtd_to_codec(rtd, 0)->name);
+ 		return -EINVAL;
+ 	}
  
--	dma_params = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
-+	dma_params = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream);
- 	if (!dma_params)
- 		return 0;
+diff --git a/sound/soc/codecs/cs47l85.c b/sound/soc/codecs/cs47l85.c
+index bef3471f482d..a575113207f0 100644
+--- a/sound/soc/codecs/cs47l85.c
++++ b/sound/soc/codecs/cs47l85.c
+@@ -2457,14 +2457,14 @@ static int cs47l85_open(struct snd_compr_stream *stream)
+ 	struct madera *madera = priv->madera;
+ 	int n_adsp;
  
-@@ -120,7 +120,7 @@ int pxa2xx_pcm_open(struct snd_pcm_substream *substream)
- 		return ret;
+-	if (strcmp(rtd->codec_dai->name, "cs47l85-dsp-voicectrl") == 0) {
++	if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l85-dsp-voicectrl") == 0) {
+ 		n_adsp = 5;
+-	} else if (strcmp(rtd->codec_dai->name, "cs47l85-dsp-trace") == 0) {
++	} else if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l85-dsp-trace") == 0) {
+ 		n_adsp = 0;
+ 	} else {
+ 		dev_err(madera->dev,
+ 			"No suitable compressed stream for DAI '%s'\n",
+-			rtd->codec_dai->name);
++			asoc_rtd_to_codec(rtd, 0)->name);
+ 		return -EINVAL;
+ 	}
  
- 	return snd_dmaengine_pcm_open(
--		substream, dma_request_slave_channel(rtd->cpu_dai->dev,
-+		substream, dma_request_slave_channel(asoc_rtd_to_cpu(rtd, 0)->dev,
- 						     dma_params->chan_name));
- }
- EXPORT_SYMBOL(pxa2xx_pcm_open);
+diff --git a/sound/soc/codecs/cs47l90.c b/sound/soc/codecs/cs47l90.c
+index 266eade82764..81a1311b14e6 100644
+--- a/sound/soc/codecs/cs47l90.c
++++ b/sound/soc/codecs/cs47l90.c
+@@ -2368,14 +2368,14 @@ static int cs47l90_open(struct snd_compr_stream *stream)
+ 	struct madera *madera = priv->madera;
+ 	int n_adsp;
+ 
+-	if (strcmp(rtd->codec_dai->name, "cs47l90-dsp-voicectrl") == 0) {
++	if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l90-dsp-voicectrl") == 0) {
+ 		n_adsp = 5;
+-	} else if (strcmp(rtd->codec_dai->name, "cs47l90-dsp-trace") == 0) {
++	} else if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l90-dsp-trace") == 0) {
+ 		n_adsp = 0;
+ 	} else {
+ 		dev_err(madera->dev,
+ 			"No suitable compressed stream for DAI '%s'\n",
+-			rtd->codec_dai->name);
++			asoc_rtd_to_codec(rtd, 0)->name);
+ 		return -EINVAL;
+ 	}
+ 
+diff --git a/sound/soc/codecs/cs47l92.c b/sound/soc/codecs/cs47l92.c
+index 942040fd354f..15fc213d178d 100644
+--- a/sound/soc/codecs/cs47l92.c
++++ b/sound/soc/codecs/cs47l92.c
+@@ -1840,12 +1840,12 @@ static int cs47l92_open(struct snd_compr_stream *stream)
+ 	struct madera *madera = priv->madera;
+ 	int n_adsp;
+ 
+-	if (strcmp(rtd->codec_dai->name, "cs47l92-dsp-trace") == 0) {
++	if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l92-dsp-trace") == 0) {
+ 		n_adsp = 0;
+ 	} else {
+ 		dev_err(madera->dev,
+ 			"No suitable compressed stream for DAI '%s'\n",
+-			rtd->codec_dai->name);
++			asoc_rtd_to_codec(rtd, 0)->name);
+ 		return -EINVAL;
+ 	}
+ 
+diff --git a/sound/soc/codecs/wm5110.c b/sound/soc/codecs/wm5110.c
+index 9dc215b5c504..499e87d1dfcc 100644
+--- a/sound/soc/codecs/wm5110.c
++++ b/sound/soc/codecs/wm5110.c
+@@ -2245,14 +2245,14 @@ static int wm5110_open(struct snd_compr_stream *stream)
+ 	struct arizona *arizona = priv->core.arizona;
+ 	int n_adsp;
+ 
+-	if (strcmp(rtd->codec_dai->name, "wm5110-dsp-voicectrl") == 0) {
++	if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "wm5110-dsp-voicectrl") == 0) {
+ 		n_adsp = 2;
+-	} else if (strcmp(rtd->codec_dai->name, "wm5110-dsp-trace") == 0) {
++	} else if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "wm5110-dsp-trace") == 0) {
+ 		n_adsp = 0;
+ 	} else {
+ 		dev_err(arizona->dev,
+ 			"No suitable compressed stream for DAI '%s'\n",
+-			rtd->codec_dai->name);
++			asoc_rtd_to_codec(rtd, 0)->name);
+ 		return -EINVAL;
+ 	}
+ 
+diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
+index ffb9836e0538..1ef69409ccd1 100644
+--- a/sound/soc/codecs/wm_adsp.c
++++ b/sound/soc/codecs/wm_adsp.c
+@@ -3467,22 +3467,22 @@ int wm_adsp_compr_open(struct wm_adsp *dsp, struct snd_compr_stream *stream)
+ 
+ 	if (wm_adsp_fw[dsp->fw].num_caps == 0) {
+ 		adsp_err(dsp, "%s: Firmware does not support compressed API\n",
+-			 rtd->codec_dai->name);
++			 asoc_rtd_to_codec(rtd, 0)->name);
+ 		ret = -ENXIO;
+ 		goto out;
+ 	}
+ 
+ 	if (wm_adsp_fw[dsp->fw].compr_direction != stream->direction) {
+ 		adsp_err(dsp, "%s: Firmware does not support stream direction\n",
+-			 rtd->codec_dai->name);
++			 asoc_rtd_to_codec(rtd, 0)->name);
+ 		ret = -EINVAL;
+ 		goto out;
+ 	}
+ 
+ 	list_for_each_entry(tmp, &dsp->compr_list, list) {
+-		if (!strcmp(tmp->name, rtd->codec_dai->name)) {
++		if (!strcmp(tmp->name, asoc_rtd_to_codec(rtd, 0)->name)) {
+ 			adsp_err(dsp, "%s: Only a single stream supported per dai\n",
+-				 rtd->codec_dai->name);
++				 asoc_rtd_to_codec(rtd, 0)->name);
+ 			ret = -EBUSY;
+ 			goto out;
+ 		}
+@@ -3496,7 +3496,7 @@ int wm_adsp_compr_open(struct wm_adsp *dsp, struct snd_compr_stream *stream)
+ 
+ 	compr->dsp = dsp;
+ 	compr->stream = stream;
+-	compr->name = rtd->codec_dai->name;
++	compr->name = asoc_rtd_to_codec(rtd, 0)->name;
+ 
+ 	list_add_tail(&compr->list, &dsp->compr_list);
+ 
 -- 
 2.17.1
 

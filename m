@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8A7518F452
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 13:17:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8996218F45E
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 13:20:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 465F51657;
-	Mon, 23 Mar 2020 13:17:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 465F51657
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2DEFE1657;
+	Mon, 23 Mar 2020 13:19:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DEFE1657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584965877;
-	bh=jCOWRh42vHKRmuLejlk3NOJX2vnfeEJTZUiki6Qd37I=;
+	s=default; t=1584966011;
+	bh=hxcrz2tO+N8anTbgxKJo/lWuzhD01NFnXAyUAjiHza4=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HpnFZgeL+4JOpdIiANOWW/XEHRDAocWfyCSyvxcFnzPAC+EpMd1UFQ2E8pHyiRP+T
-	 Pqld5+CoHRJOinTjkNscSMP05JXJlr+6Ccl6jheGnhBciPosMaAhNVNkhc/3jrfXDK
-	 zVm51Se5XXEYA6gKoAme1G6VuajyZxhFkJvUjOSo=
+	b=vuNRVnGq9YvAINKR7iI+b00QlJWtJk9VH3SsrSzk0fH2yS5fx8nY2ltS2zDuDTQTY
+	 B9j7cpjwdU2p9Zy1J0lL/bcMcyUVIOo2SWjf6C+wcRg6mE8Ys9nGB3+JQ90OcIHoFm
+	 qjAiGMFElNN/BH17stfdol3hzjUraSZGHzi4d/kE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5BE7DF8015A;
-	Mon, 23 Mar 2020 13:16:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3AE56F8015A;
+	Mon, 23 Mar 2020 13:18:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C5548F800F6; Mon, 23 Mar 2020 13:16:13 +0100 (CET)
+ id BE0EFF80158; Mon, 23 Mar 2020 13:18:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,43 +34,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DB425F800F6
- for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 13:16:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB425F800F6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10043F800F6
+ for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 13:18:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10043F800F6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="oHBwIXyT"
+ header.b="PI/1uCxo"
 Received: from localhost (unknown [122.178.205.141])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B33B92078B;
- Mon, 23 Mar 2020 12:16:04 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id E63E520788;
+ Mon, 23 Mar 2020 12:18:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1584965765;
- bh=jCOWRh42vHKRmuLejlk3NOJX2vnfeEJTZUiki6Qd37I=;
+ s=default; t=1584965901;
+ bh=hxcrz2tO+N8anTbgxKJo/lWuzhD01NFnXAyUAjiHza4=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=oHBwIXyT+XFi4LgqRYZP+1b1FgpZ6QuEpEq3rOBoebxb+yPg5AjdQZXLn3SNgH5U9
- 4sXay+DVxIVNhgy44uw9EhRIx3MgBCLlScZHpwW22fKI6DgMOpLlQGkotJvJNO2ZQO
- tVTQvsd5xQcvW44VLPsdwtjNVuz9SaX9rG+SQOB4=
-Date: Mon, 23 Mar 2020 17:46:01 +0530
+ b=PI/1uCxozIzKRx7vhHJPe0CsTSpO3XsKw9Sgd+LFaJn3Ln0JiFczyNebpU4XmLahd
+ 9k2Jsj9Y9e6Vi6VVRWE8rmYkHk7u/wYVR2cGXT9q7MejalmAbv5lilBEiRO4MKJcu9
+ rTiJ3RLUkcFlToDqkbg1zA0SKTiB/OAXgLwUGy1Q=
+Date: Mon, 23 Mar 2020 17:48:17 +0530
 From: Vinod Koul <vkoul@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 1/8] soundwire: bus_type: add master_device/driver support
-Message-ID: <20200323121601.GJ72691@vkoul-mobl>
-References: <20200306050115.GC4148@vkoul-mobl>
- <4fabb135-6fbb-106f-44fd-8155ea716c00@linux.intel.com>
- <20200311063645.GH4885@vkoul-mobl>
- <0fafb567-10e5-a1ea-4a6d-b3c53afb215e@linux.intel.com>
- <20200313115011.GD4885@vkoul-mobl>
- <4cb16467-87d0-ef99-e471-9eafa9e669d2@linux.intel.com>
- <20200314094904.GP4885@vkoul-mobl>
- <3c32830c-cd12-867f-a763-7c3e385cb1e9@linux.intel.com>
- <20200320153334.GJ4885@vkoul-mobl>
- <70d6e0cb-22a6-5ada-83a8-b605974bdd84@linux.intel.com>
+Subject: Re: [PATCH 3/7] soundwire: intel: add mutex to prevent concurrent
+ access to SHIM registers
+Message-ID: <20200323121817.GK72691@vkoul-mobl>
+References: <20200311221026.18174-1-pierre-louis.bossart@linux.intel.com>
+ <20200311221026.18174-4-pierre-louis.bossart@linux.intel.com>
+ <20200320134112.GC4885@vkoul-mobl>
+ <a989368c-5a57-a726-0816-2e389d733ae0@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <70d6e0cb-22a6-5ada-83a8-b605974bdd84@linux.intel.com>
+In-Reply-To: <a989368c-5a57-a726-0816-2e389d733ae0@linux.intel.com>
 Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
@@ -94,45 +89,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 20-03-20, 11:36, Pierre-Louis Bossart wrote:
+On 20-03-20, 09:07, Pierre-Louis Bossart wrote:
 > 
-> 
-> On 3/20/20 10:33 AM, Vinod Koul wrote:
-> > On 16-03-20, 14:15, Pierre-Louis Bossart wrote:
-> > > 
-> > > 
-> > > > > It's really down to your objection to the use of 'struct driver'... For ASoC
-> > > > > support we only need the .name and .pm_ops, so there's really no possible
-> > > > > path forward otherwise.
-> > > > 
-> > > > It means that we cannot have a solution which is Intel specific into
-> > > > core. If you has a standalone controller you do not need this.
-> > > 
-> > > A 'struct driver' is not Intel-specific, sorry.
+> > > diff --git a/drivers/soundwire/intel.h b/drivers/soundwire/intel.h
+> > > index 38b7c125fb10..568c84a80d79 100644
+> > > --- a/drivers/soundwire/intel.h
+> > > +++ b/drivers/soundwire/intel.h
+> > > @@ -15,6 +15,7 @@
+> > >    * @irq: Interrupt line
+> > >    * @ops: Shim callback ops
+> > >    * @dev: device implementing hw_params and free callbacks
+> > > + * @shim_lock: mutex to handle access to shared SHIM registers
+> > >    */
+> > >   struct sdw_intel_link_res {
+> > >   	struct platform_device *pdev;
+> > > @@ -25,6 +26,7 @@ struct sdw_intel_link_res {
+> > >   	int irq;
+> > >   	const struct sdw_intel_ops *ops;
+> > >   	struct device *dev;
+> > > +	struct mutex *shim_lock; /* protect shared registers */
 > > 
-> > We are discussing 'struct sdw_master_driver'. Please be very specific in
-> > you replies and do not use incorrect terminology which confuses people.
-> > 
-> > Sorry a 'struct sdw_master_driver' IMHO is. As I have said it is not
-> > needed if you have standalone controller even in Intel case, and rest of
-> > the world.
+> > Where is this mutex initialized? Did you test this...
 > 
-> You're splitting hair without providing a solution.
+> Dude, we've been testing the heck out of SoundWire.
 > 
-> Please see the series [PATCH 0/5] soundwire: add sdw_master_device support
-> on Qualcomm platforms
+> If you want to see the actual initialization it's in the intel_init.c code:
 > 
-> This solution was tested on Qualcomm platforms, that doesn't require this
-> sdw_master_driver to be used, so your objections are now invalid.
+> https://github.com/thesofproject/linux/blob/9c7487b33072040ab755d32ca173b75151c0160c/drivers/soundwire/intel_init.c#L231
 
-I have given you a solution which you dont like. I have asked you to
-talk to your colleagues at Intel, I have not heard back. I cant do
-anymore than this.
+Which doesn't make much sense. A patch should do complete thing. I don't
+see a reason why you cannot pull this single line into this patch.
 
-testing on QC boards doesnt make sense, the contention is
-'sdw_master_driver' which doesnt get used. I have said earlier, will say
-again, if you drop this piece I am ready to apply the rest of the
-patches.
+It belongs here, not anywhere else.
 
 -- 
 ~Vinod

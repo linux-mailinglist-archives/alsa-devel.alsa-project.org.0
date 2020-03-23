@@ -2,49 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2CDF18EF87
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:38:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9127E18EF88
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:39:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D7E1839;
-	Mon, 23 Mar 2020 06:37:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D7E1839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B7CB1673;
+	Mon, 23 Mar 2020 06:38:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B7CB1673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584941910;
-	bh=scb6Yg6BoYHxxYOaUR9Q/m1m/g88y7hXAvXSmbrDghg=;
+	s=default; t=1584941945;
+	bh=FEJNmPZFXKuQDVxdFn75+ZTuVjvT7i/v8Mpq6WWL8vQ=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UNo4tT9uJ/zgYVMqAYCqPliJRj5zomRGmneyUmaUrUj2fkHUIAuqZIwmpgFSZ+p74
-	 UT6hItooUzo+haT6jiZiAZ+wpfaUkQhsaU02xhCRg92IR0xUHs87TD0svK5diB6Msp
-	 UVft/zvkqzQxmpFORd3h6DHJB7SJvnDuoshp5pV8=
+	b=RFDraikCcv+XTWssZTrcuRjoK3s7SOUY7c2D1wL9fJ/FL6Ft6+ImCapxXzCGvAWJH
+	 29ALUYPRSj4AmmF4ThDmyYAoABdxjHSHldUJaKsJh73kzQ1RfBN47mnSnVXHoAUHpu
+	 4bgapp+3vKNB6N0l9hZOterVz30HuWKjGdGfX2+s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47959F802DC;
-	Mon, 23 Mar 2020 06:22:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91151F803CB;
+	Mon, 23 Mar 2020 06:22:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2FEDCF803BE; Mon, 23 Mar 2020 06:22:28 +0100 (CET)
+ id C4AB9F803CB; Mon, 23 Mar 2020 06:22:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id D4217F802DC
- for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:22:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4217F802DC
-Date: 23 Mar 2020 14:22:22 +0900
-X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42564726"
+ by alsa1.perex.cz (Postfix) with ESMTP id 7F6E7F803C9
+ for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:22:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F6E7F803C9
+Date: 23 Mar 2020 14:22:33 +0900
+X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42564740"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 23 Mar 2020 14:22:22 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 23 Mar 2020 14:22:33 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 6B3DB4003880;
- Mon, 23 Mar 2020 14:22:22 +0900 (JST)
-Message-ID: <87sghzhchd.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 18B2E4003881;
+ Mon, 23 Mar 2020 14:22:33 +0900 (JST)
+Message-ID: <87r1xjhch2.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 35/36] ASoC: soc-core: tidyup soc_new_pcm_runtime() rtd setups
+Subject: [PATCH 36/36] ASoC: soc-core: remove
+ cpu_dai/codec_dai/cpu_dais/codec_dais
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <877dzbk5wm.wl-kuninori.morimoto.gx@renesas.com>
@@ -67,42 +68,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-soc_new_pcm_runtime() setups rtd, but code is very random.
-This patch tidyup it.
+No-one is using cpu_dai/codec_dai/cpu_dais/codec_dais.
+Let's remove these from snd_soc_pcm_runtime
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
+ include/sound/soc.h  | 14 ++++++++------
  sound/soc/soc-core.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
+ 2 files changed, 11 insertions(+), 14 deletions(-)
 
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index 4dff6745b067..a904086b8ef6 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -1143,14 +1143,16 @@ struct snd_soc_pcm_runtime {
+ 	/* runtime devices */
+ 	struct snd_pcm *pcm;
+ 	struct snd_compr *compr;
+-	struct snd_soc_dai *codec_dai;
+-	struct snd_soc_dai *cpu_dai;
+-	struct snd_soc_dai **dais;
+ 
+-	struct snd_soc_dai **codec_dais;
++	/*
++	 * dais = cpu_dai + codec_dai
++	 * see
++	 *	soc_new_pcm_runtime()
++	 *	asoc_rtd_to_cpu()
++	 *	asoc_rtd_to_codec()
++	 */
++	struct snd_soc_dai **dais;
+ 	unsigned int num_codecs;
+-
+-	struct snd_soc_dai **cpu_dais;
+ 	unsigned int num_cpus;
+ 
+ 	struct delayed_work delayed_work;
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 8cef4fd6df36..4d617c495864 100644
+index 4d617c495864..7ea9725e33b3 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -492,17 +492,12 @@ static struct snd_soc_pcm_runtime *soc_new_pcm_runtime(
- 	rtd->codec_dais	= &rtd->dais[dai_link->num_cpus];
+@@ -487,9 +487,10 @@ static struct snd_soc_pcm_runtime *soc_new_pcm_runtime(
+ 	 * dais = [][][][][][][][][][][][][][][][][][]
+ 	 *	  ^cpu_dais         ^codec_dais
+ 	 *	  |--- num_cpus ---|--- num_codecs --|
++	 * see
++	 *	asoc_rtd_to_cpu()
++	 *	asoc_rtd_to_codec()
+ 	 */
+-	rtd->cpu_dais	= &rtd->dais[0];
+-	rtd->codec_dais	= &rtd->dais[dai_link->num_cpus];
  	rtd->num_cpus	= dai_link->num_cpus;
  	rtd->num_codecs	= dai_link->num_codecs;
+ 	rtd->card	= card;
+@@ -996,9 +997,6 @@ int snd_soc_add_pcm_runtime(struct snd_soc_card *card,
+ 		snd_soc_rtd_add_component(rtd, asoc_rtd_to_cpu(rtd, i)->component);
+ 	}
+ 
+-	/* Single cpu links expect cpu and cpu_dai in runtime data */
+-	rtd->cpu_dai = rtd->cpu_dais[0];
 -
--	/*
--	 * rtd remaining settings
--	 */
--	rtd->card = card;
--	rtd->dai_link = dai_link;
-+	rtd->card	= card;
-+	rtd->dai_link	= dai_link;
-+	rtd->num	= card->num_rtd++;
+ 	/* Find CODEC from registered CODECs */
+ 	for_each_link_codecs(dai_link, i, codec) {
+ 		asoc_rtd_to_codec(rtd, i) = snd_soc_find_dai(codec);
+@@ -1011,9 +1009,6 @@ int snd_soc_add_pcm_runtime(struct snd_soc_card *card,
+ 		snd_soc_rtd_add_component(rtd, asoc_rtd_to_codec(rtd, i)->component);
+ 	}
  
- 	/* see for_each_card_rtds */
- 	list_add_tail(&rtd->list, &card->rtd_list);
--	rtd->num = card->num_rtd;
--	card->num_rtd++;
- 
- 	return rtd;
- 
+-	/* Single codec links expect codec and codec_dai in runtime data */
+-	rtd->codec_dai = rtd->codec_dais[0];
+-
+ 	/* Find PLATFORM from registered PLATFORMs */
+ 	for_each_link_platforms(dai_link, i, platform) {
+ 		for_each_component(component) {
 -- 
 2.17.1
 

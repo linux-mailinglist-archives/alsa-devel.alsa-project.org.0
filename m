@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B05FC18EF65
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:31:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9BD918EF67
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:31:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 54D7B1670;
-	Mon, 23 Mar 2020 06:30:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54D7B1670
+	by alsa0.perex.cz (Postfix) with ESMTPS id 93F2B167A;
+	Mon, 23 Mar 2020 06:30:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93F2B167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584941460;
-	bh=Qq7Jsd385I+OctVB9Z82X8FZ83BOtCoO4Wct06b4fgM=;
+	s=default; t=1584941489;
+	bh=tDTwB0XeGJZCDp5T15snztp611MLTcJs5N7EOS6QOPg=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TwEEB8TEj4irdQP5PrxcTGbELZpthBf4YZuGGS9vepaF4BmWuGDUJSNd+8RSQE8u9
-	 6PH38uwduMQ8toPNwLwALZ8bV5QQEMQrqUnu86zgjqIPdvr/g/cVuqPqs2sXq2Mvsp
-	 2A72aWX7MyID62Phymm3sbo81V+kPaDiHVkAcvQk=
+	b=fbub6cpWwcLWtIW0oWsmONjrCbmnJauQ8Y85hGQpR09xOnNp01ojqZTRe3zcCjFcY
+	 gyrW3F1e48kvmCswOeJ1TGJF/OGwYl7HAhf5Zxv1Vvg+MW335yG/UDKAT4nEB9VlMU
+	 YA0sLJY2mPo8QKIAAcrOxGpL74xm5UoJIOLkGf34=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC3F9F80348;
-	Mon, 23 Mar 2020 06:20:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C4D2F802A9;
+	Mon, 23 Mar 2020 06:21:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 97588F80349; Mon, 23 Mar 2020 06:20:48 +0100 (CET)
+ id 5C8A4F8034A; Mon, 23 Mar 2020 06:20:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 984AAF80343
- for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:20:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 984AAF80343
-Date: 23 Mar 2020 14:20:44 +0900
-X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42564584"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 23 Mar 2020 14:20:44 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id A49D0F802A9
+ for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:20:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A49D0F802A9
+Date: 23 Mar 2020 14:20:52 +0900
+X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42564589"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 23 Mar 2020 14:20:52 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 218D04008542;
- Mon, 23 Mar 2020 14:20:44 +0900 (JST)
-Message-ID: <87blonir4j.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 7FC2B416FB87;
+ Mon, 23 Mar 2020 14:20:52 +0900 (JST)
+Message-ID: <87a747ir4b.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 22/36] ASoC: sprd: use asoc_rtd_to_cpu() / asoc_rtd_to_codec()
+Subject: [PATCH 23/36] ASoC: stm: use asoc_rtd_to_cpu() / asoc_rtd_to_codec()
  macro for DAI pointer
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -72,45 +72,81 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/sprd/sprd-pcm-compress.c | 4 ++--
- sound/soc/sprd/sprd-pcm-dma.c      | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ sound/soc/stm/stm32_adfsdm.c  | 12 ++++++------
+ sound/soc/stm/stm32_sai_sub.c |  2 +-
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/sprd/sprd-pcm-compress.c b/sound/soc/sprd/sprd-pcm-compress.c
-index 6cddf551bc11..74d48340cade 100644
---- a/sound/soc/sprd/sprd-pcm-compress.c
-+++ b/sound/soc/sprd/sprd-pcm-compress.c
-@@ -135,7 +135,7 @@ static int sprd_platform_compr_dma_config(struct snd_compr_stream *cstream,
- 	struct snd_soc_component *component =
- 		snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct device *dev = component->dev;
--	struct sprd_compr_data *data = snd_soc_dai_get_drvdata(rtd->cpu_dai);
-+	struct sprd_compr_data *data = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 	struct sprd_pcm_dma_params *dma_params = data->dma_params;
- 	struct sprd_compr_dma *dma = &stream->dma[channel];
- 	struct dma_slave_config config = { };
-@@ -321,7 +321,7 @@ static int sprd_platform_compr_open(struct snd_compr_stream *cstream)
- 	struct snd_soc_component *component =
- 		snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct device *dev = component->dev;
--	struct sprd_compr_data *data = snd_soc_dai_get_drvdata(rtd->cpu_dai);
-+	struct sprd_compr_data *data = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 	struct sprd_compr_stream *stream;
- 	struct sprd_compr_callback cb;
- 	int stream_id = cstream->direction, ret;
-diff --git a/sound/soc/sprd/sprd-pcm-dma.c b/sound/soc/sprd/sprd-pcm-dma.c
-index 2284558684bc..d12d3cad8cbd 100644
---- a/sound/soc/sprd/sprd-pcm-dma.c
-+++ b/sound/soc/sprd/sprd-pcm-dma.c
-@@ -200,7 +200,7 @@ static int sprd_pcm_hw_params(struct snd_soc_component *component,
- 	unsigned long flags;
- 	int ret, i, j, sg_num;
+diff --git a/sound/soc/stm/stm32_adfsdm.c b/sound/soc/stm/stm32_adfsdm.c
+index 51407a21c440..16ff02953015 100644
+--- a/sound/soc/stm/stm32_adfsdm.c
++++ b/sound/soc/stm/stm32_adfsdm.c
+@@ -215,7 +215,7 @@ static int stm32_adfsdm_trigger(struct snd_soc_component *component,
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 	struct stm32_adfsdm_priv *priv =
+-		snd_soc_dai_get_drvdata(rtd->cpu_dai);
++		snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
  
--	dma_params = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
-+	dma_params = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream);
- 	if (!dma_params) {
- 		dev_warn(component->dev, "no dma parameters setting\n");
- 		dma_private->params = NULL;
+ 	switch (cmd) {
+ 	case SNDRV_PCM_TRIGGER_START:
+@@ -235,7 +235,7 @@ static int stm32_adfsdm_pcm_open(struct snd_soc_component *component,
+ 				 struct snd_pcm_substream *substream)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct stm32_adfsdm_priv *priv = snd_soc_dai_get_drvdata(rtd->cpu_dai);
++	struct stm32_adfsdm_priv *priv = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 	int ret;
+ 
+ 	ret =  snd_soc_set_runtime_hwparams(substream, &stm32_adfsdm_pcm_hw);
+@@ -250,7 +250,7 @@ static int stm32_adfsdm_pcm_close(struct snd_soc_component *component,
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 	struct stm32_adfsdm_priv *priv =
+-		snd_soc_dai_get_drvdata(rtd->cpu_dai);
++		snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 
+ 	priv->substream = NULL;
+ 
+@@ -263,7 +263,7 @@ static snd_pcm_uframes_t stm32_adfsdm_pcm_pointer(
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 	struct stm32_adfsdm_priv *priv =
+-		snd_soc_dai_get_drvdata(rtd->cpu_dai);
++		snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 
+ 	return bytes_to_frames(substream->runtime, priv->pos);
+ }
+@@ -274,7 +274,7 @@ static int stm32_adfsdm_pcm_hw_params(struct snd_soc_component *component,
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 	struct stm32_adfsdm_priv *priv =
+-		snd_soc_dai_get_drvdata(rtd->cpu_dai);
++		snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 
+ 	priv->pcm_buff = substream->runtime->dma_area;
+ 
+@@ -287,7 +287,7 @@ static int stm32_adfsdm_pcm_new(struct snd_soc_component *component,
+ {
+ 	struct snd_pcm *pcm = rtd->pcm;
+ 	struct stm32_adfsdm_priv *priv =
+-		snd_soc_dai_get_drvdata(rtd->cpu_dai);
++		snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 	unsigned int size = DFSDM_MAX_PERIODS * DFSDM_MAX_PERIOD_SIZE;
+ 
+ 	snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_DEV,
+diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
+index fe4903260d4e..2bd280c01c33 100644
+--- a/sound/soc/stm/stm32_sai_sub.c
++++ b/sound/soc/stm/stm32_sai_sub.c
+@@ -1238,7 +1238,7 @@ static int stm32_sai_pcm_process_spdif(struct snd_pcm_substream *substream,
+ {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	struct stm32_sai_sub_data *sai = dev_get_drvdata(cpu_dai->dev);
+ 	int *ptr = (int *)(runtime->dma_area + hwoff +
+ 			   channel * (runtime->dma_bytes / runtime->channels));
 -- 
 2.17.1
 

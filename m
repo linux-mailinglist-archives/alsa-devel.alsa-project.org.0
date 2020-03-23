@@ -2,96 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A22F518EEE5
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 05:39:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A20618EF11
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:18:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 24DDF1607;
-	Mon, 23 Mar 2020 05:38:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24DDF1607
+	by alsa0.perex.cz (Postfix) with ESMTPS id 743C686F;
+	Mon, 23 Mar 2020 06:17:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 743C686F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584938351;
-	bh=jjcykooMSoObdXnVfV7+IYY3XHmQGVVFq/arn6nOMsU=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Pco1roOkfV4lQOnEuPOo6b9PrEwCW07C1RYJtWrcD4GBdBHSly34xccf/UPNhG802
-	 OThQjQFhXHdya9K2bKAVE8fFlX+aShHmLkKJxY7hJI/4E1W2u6cvFlfMpljZuTgZz7
-	 3EfVy3UErU5qs4QRgrh1+b4Ei8B4cIVQWW5rMl5A=
+	s=default; t=1584940688;
+	bh=uc7t5EYrWyuTEHofDerbuC2zPRB5nRSgrNjkuQ8Rjbk=;
+	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=B/sUptylwfy5zjiS5/7SxVo7kRTK6bQWVTU/nGCK6B/5IWz0hPu+rWxAO1/avWh8P
+	 XfRMkcYA9qAhjWGUB0m7bHpM+YZG7jymGEODaAJJIZiEUawUv2O0tmgPwXuTfB8WtK
+	 N/AD0ImuYEFftsvC8HH4G3dkVunb0wdwKj2AHuvc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0CF2AF800B9;
-	Mon, 23 Mar 2020 05:37:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63F4EF8015A;
+	Mon, 23 Mar 2020 06:16:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8F2D9F80158; Mon, 23 Mar 2020 05:37:23 +0100 (CET)
+ id 72499F80158; Mon, 23 Mar 2020 06:16:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_PASS,SPF_NEUTRAL,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E281AF800F6
- for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 05:37:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E281AF800F6
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="siiBqbIg"
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id 6DF3B5C01C5;
- Mon, 23 Mar 2020 00:37:16 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Mon, 23 Mar 2020 00:37:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; bh=ZXM+7JaBf5iyOz+jWKhmgi6uD+E54YaLtCRymWsWu
- mY=; b=siiBqbIg5eSPsu3I5J7Dh6170jCAGZBPNaCQsCMbWWiXXryW6oYhyRFGv
- Zv7Q8aF/x/ddCozp5WlINEJwU1kIVfo7u+JmVmCEw+r6QXeJz6oqR/zwznnqyQip
- LTYMBkGBtP5ogYKBDFI9Ya4bcVhccS+OqQ10VPoSHC1ehLe+eJXmVnULVeAtmem9
- AiYil9v2Ft9Guiawxa7jY8+zDX+kOOZG47CHpppLV/AZrJKPamncqf6uD+9JxAOE
- l/WaT56URkVe3j4qigDZqjSESzN0imgU6eiDJaWtqwZU76qMJRAv2Y38GULw0Tyq
- 0HGMfDIj48zMVc7L4A5eeQomkHbqA==
-X-ME-Sender: <xms:-jx4XtdiZ31XlPt9Syu1SgNgqpX66SrKJX4O6Ay-S2cm8F2BrH0oAA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrudegjedgiedtucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepkffuhffvffgjfhgtfggggfesthejredttderjeenucfhrhhomhepvfgrnhhu
- ucfmrghskhhinhgvnhcuoehtrghnuhhksehikhhirdhfiheqnecuffhomhgrihhnpehprg
- htrhgvohhnrdgtohhmpdhlihgsvghrrghprgihrdgtohhmnecukfhppeduleeirddvgeeg
- rdduledurddvieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfh
- hrohhmpehtrghnuhhksehikhhirdhfih
-X-ME-Proxy: <xmx:-jx4Xqx-JHYpikz5mtB7ESJEgbqB0VrTT6bCXSoqz6ZQOz3tHGohgw>
- <xmx:-jx4Xq0KZOiWjI_Wqe1DQzIBTL5qIa5dkOWoHuB4TlnPV6GiriwQfg>
- <xmx:-jx4Xpd5jPLdR44qLY3-hO36SV28sZHa-PX_GKG0m41Mse7Ap83Jqw>
- <xmx:_Dx4XkujD-uicWLd2RFOdPA48PX4yW0ywoWvMehfBMXA-IVpIoHFOA>
-Received: from laptop (unknown [196.244.191.26])
- by mail.messagingengine.com (Postfix) with ESMTPA id B0C1C328005A;
- Mon, 23 Mar 2020 00:37:13 -0400 (EDT)
-Message-ID: <cb2473421b72960cda83488a7bdc4629469131d6.camel@iki.fi>
-Subject: Re: UCM ConflictingDevice/Priority concepts
-From: Tanu Kaskinen <tanuk@iki.fi>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Jaroslav
- Kysela <perex@perex.cz>, alsa-devel@alsa-project.org
-Date: Mon, 23 Mar 2020 06:37:09 +0200
-In-Reply-To: <75799302-0f0a-1a9a-369e-36b3eef2080a@linux.intel.com>
-References: <c67a5e0d-c5dc-9ce6-73e5-e7fe602177d8@intel.com>
- <576f09dc-7968-3555-2aa4-e99c8ac5acbe@perex.cz>
- <885ad95f-3a98-92a5-5539-41779e783e75@linux.intel.com>
- <5435543d-ef49-f9df-7d1a-e1b69bfaeb4e@perex.cz>
- <75799302-0f0a-1a9a-369e-36b3eef2080a@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.30.5-1.1 
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Curtis Malainey <cujomalainey@google.com>, Dylan Reid <dgreid@google.com>,
- Jimmy Cheng-Yi Chiang <cychiang@google.com>
+X-Spam-Level: 
+X-Spam-Status: No, score=0.3 required=5.0 tests=AC_FROM_MANY_DOTS,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 9784EF80095
+ for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:16:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9784EF80095
+Date: 23 Mar 2020 14:16:09 +0900
+X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42350065"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 23 Mar 2020 14:16:09 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 4E7294004BDB;
+ Mon, 23 Mar 2020 14:16:09 +0900 (JST)
+Message-ID: <877dzbk5wm.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH 00/36] ASoC: remove rtd->cpu/codec_dai{s}
+User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
+To: Mark Brown <broonie@kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,88 +64,244 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 2020-03-19 at 14:27 -0500, Pierre-Louis Bossart wrote:
-> > > > Also, we need to consider this to have the whole picture:
-> > > > 
-> > > > Tanu (the pulseaudio maintainer) has also good question how to ensure,
-> > > > that the stream can be re-used for the multiple devices. Actually, PA
-> > > > does not re-open PCM device when the PCM device name and parameters
-> > > > are similar for the switched devices. I also think that this is also
-> > > > missing in the UCM specification to resolve this requirement. Usually,
-> > > > the stream transfer mechanism is separate from the routing control.
-> > > > But I can assume, that we may have the hardware which will need extra
-> > > > setup for the streaming (not routing) when the devices are switched.
-> > > > 
-> > > > I think that adding something like "PlaybackStream" to "PlaybackPCM"
-> > > > for the stream identification might be sufficient to cover those
-> > > > cases. So, keep "PlaybackPCM" usage and if "PlaybackStream" exists,
-> > > > use this value to determine the stream identification. Similar
-> > > > situation is for the capture direction, of course.
-> > > 
-> > > I am not sure I understand the notion of stream and stream transfer. Is
-> > > there a pointer to this so that I could understand the problem statement?
-> > 
-> > Example:
-> > 
-> > Device1:
-> >    ... some enable sequence ...
-> >    PlaybackPCM "hw:0"
-> >    PlaybackStream "DAC1"
-> > 
-> > Device2:
-> >    ... another enable sequence ...
-> >    PlaybackPCM "hw:0"
-> >    PlaybackStream "DAC2"
-> > 
-> > In this case, PCM names for alsa-lib are same, but there's a different 
-> > setup to route signal to different DAC which cannot be executed without 
-> > the PCM re-open task (when the PCM "hw:0" is active).
-> 
-> I see, thanks for the explanations.
-> 
-> Indeed in the past we had similar routing issues that required 
-> re-configuration and possibly stopping the stream or changing clock 
-> settings/ownership.
-> 
-> However I would argue that the solution is more to define additional 
-> steps than add additional qualifiers in the enable/disable steps.
-> 
-> FWIW in the Android solutions from Intel, we had 5 steps for each 
-> routing change:
-> - mute old paths
-> - disable streaming on old paths
-> - configure new paths
-> - enable streaming on new paths
-> - unmute new paths
-> 
-> At each step we could describe what actions were necessary or if the 
-> step could be skipped. That allowed us to deal nicely with transitions, 
-> I don't think we encountered any case that these steps couldn't handle.
 
-It seems that Pierre understood the idea behind the PlaybackStream
-proposal, but I still don't understand what problem it's solving. Is
-the problem that PulseAudio doesn't reopen the stream when it should?
-So in the example, there are two DACs, and selecting the DAC is done
-via the mixer, but the switch can't be done while the stream is open? I
-haven't seen such devices, so this is a new problem to me.
+Hi Mark
 
-The "problem" that I brought up earlier in the device variant
-discussion was different: the PulseAudio profile scheme that Jaroslav
-proposed would mean that PulseAudio would always reopen the stream even
-when it would be sufficient to just change a setting in the mixer. I
-don't think this is a significant problem. When changing routing, it's
-not important to keep the stream running without any interruption.
+Now, CPU/Codec DAI(s) were replaced by rtd->dais.
+Thus, We don't need rtd->cpu/codec_dai{s} anymore.
+This pathset replaces it by new macro.
 
-The 5-step process that Pierre described is good, in particular it
-allows setting the volume at the right time (currently PulseAudio
-doesn't follow that process, and as a result there can be volume
-glitches when changing routing). To me it seems that following this
-process is already possible without changes to UCM, so I don't know
-what Pierre meant by defining additional steps.
+Kuninori Morimoto (36):
+  ASoC: soc-core: add asoc_rtd_to_cpu/codec() macro
+  ASoC: amd: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: atmel: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: au1x: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: bcm: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: cirrus: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: dwc: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: fsl: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: generic: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: img: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: intel: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: kirkwood: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: mediatek: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: meson: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: mxs: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: pxa: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: qcom: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: rockchip: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: samsung: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: sh: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: sof: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: sprd: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: stm: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: sunxi: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: tegra: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: ti: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: txx9: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: uniphier: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: ux500: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: xtensa: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: arm: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: codecs: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: soc: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+  ASoC: soc-core: set rtd->num_cpu/codec at soc_new_pcm_runtime()
+  ASoC: soc-core: tidyup soc_new_pcm_runtime() rtd setups
+  ASoC: soc-core: remove cpu_dai/codec_dai/cpu_dais/codec_dais
+
+ include/sound/soc.h                           | 30 +++++++------
+ sound/arm/pxa2xx-pcm-lib.c                    |  8 ++--
+ sound/soc/amd/acp-da7219-max98357a.c          |  2 +-
+ sound/soc/amd/acp-rt5645.c                    |  4 +-
+ sound/soc/amd/acp3x-rt5682-max9836.c          |  6 +--
+ sound/soc/atmel/atmel-pcm-dma.c               |  4 +-
+ sound/soc/atmel/atmel-pcm-pdc.c               |  2 +-
+ sound/soc/atmel/atmel_wm8904.c                |  2 +-
+ sound/soc/atmel/mikroe-proto.c                |  2 +-
+ sound/soc/atmel/sam9g20_wm8731.c              |  2 +-
+ sound/soc/atmel/sam9x5_wm8731.c               |  2 +-
+ sound/soc/au1x/db1200.c                       |  2 +-
+ sound/soc/au1x/dbdma2.c                       |  2 +-
+ sound/soc/au1x/dma.c                          |  2 +-
+ sound/soc/au1x/psc-ac97.c                     |  2 +-
+ sound/soc/bcm/bcm63xx-pcm-whistler.c          | 16 +++----
+ sound/soc/bcm/cygnus-pcm.c                    | 22 +++++-----
+ sound/soc/cirrus/edb93xx.c                    |  4 +-
+ sound/soc/cirrus/snappercl15.c                |  4 +-
+ sound/soc/codecs/cs47l15.c                    |  4 +-
+ sound/soc/codecs/cs47l24.c                    |  6 +--
+ sound/soc/codecs/cs47l35.c                    |  6 +--
+ sound/soc/codecs/cs47l85.c                    |  6 +--
+ sound/soc/codecs/cs47l90.c                    |  6 +--
+ sound/soc/codecs/cs47l92.c                    |  4 +-
+ sound/soc/codecs/wm5110.c                     |  6 +--
+ sound/soc/codecs/wm_adsp.c                    | 10 ++---
+ sound/soc/dwc/dwc-pcm.c                       |  2 +-
+ sound/soc/fsl/eukrea-tlv320.c                 |  4 +-
+ sound/soc/fsl/fsl-asoc-card.c                 | 10 ++---
+ sound/soc/fsl/fsl_asrc_dma.c                  |  6 +--
+ sound/soc/fsl/fsl_spdif.c                     | 10 ++---
+ sound/soc/fsl/fsl_ssi.c                       |  8 ++--
+ sound/soc/fsl/imx-audmix.c                    |  8 ++--
+ sound/soc/fsl/imx-mc13783.c                   |  4 +-
+ sound/soc/fsl/imx-sgtl5000.c                  |  2 +-
+ sound/soc/fsl/mpc5200_dma.c                   | 10 ++---
+ sound/soc/fsl/mpc5200_psc_i2s.c               |  2 +-
+ sound/soc/fsl/mpc8610_hpcd.c                  |  4 +-
+ sound/soc/fsl/mx27vis-aic32x4.c               |  4 +-
+ sound/soc/fsl/p1022_ds.c                      |  4 +-
+ sound/soc/fsl/p1022_rdk.c                     |  4 +-
+ sound/soc/fsl/wm1133-ev1.c                    |  6 +--
+ sound/soc/generic/simple-card-utils.c         | 12 +++---
+ sound/soc/img/img-i2s-in.c                    |  2 +-
+ sound/soc/img/img-i2s-out.c                   |  2 +-
+ sound/soc/intel/atom/sst-mfld-platform-pcm.c  |  6 +--
+ sound/soc/intel/boards/bdw-rt5650.c           |  6 +--
+ sound/soc/intel/boards/bdw-rt5677.c           |  6 +--
+ sound/soc/intel/boards/broadwell.c            |  4 +-
+ sound/soc/intel/boards/bxt_da7219_max98357a.c |  8 ++--
+ sound/soc/intel/boards/bxt_rt298.c            |  8 ++--
+ sound/soc/intel/boards/byt-max98090.c         |  2 +-
+ sound/soc/intel/boards/byt-rt5640.c           |  4 +-
+ sound/soc/intel/boards/bytcht_cx2072x.c       | 10 ++---
+ sound/soc/intel/boards/bytcht_da7213.c        |  8 ++--
+ sound/soc/intel/boards/bytcht_es8316.c        |  8 ++--
+ sound/soc/intel/boards/bytcht_nocodec.c       |  4 +-
+ sound/soc/intel/boards/bytcr_rt5640.c         |  8 ++--
+ sound/soc/intel/boards/bytcr_rt5651.c         |  8 ++--
+ sound/soc/intel/boards/cht_bsw_max98090_ti.c  |  6 +--
+ sound/soc/intel/boards/cht_bsw_nau8824.c      |  4 +-
+ sound/soc/intel/boards/cht_bsw_rt5645.c       | 14 +++----
+ sound/soc/intel/boards/cht_bsw_rt5672.c       |  8 ++--
+ sound/soc/intel/boards/cml_rt1011_rt5682.c    |  6 +--
+ sound/soc/intel/boards/glk_rt5682_max98357a.c | 10 ++---
+ sound/soc/intel/boards/haswell.c              |  2 +-
+ sound/soc/intel/boards/kbl_da7219_max98357a.c |  8 ++--
+ sound/soc/intel/boards/kbl_da7219_max98927.c  |  6 +--
+ sound/soc/intel/boards/kbl_rt5660.c           |  6 +--
+ sound/soc/intel/boards/kbl_rt5663_max98927.c  |  8 ++--
+ .../intel/boards/kbl_rt5663_rt5514_max98927.c |  8 ++--
+ .../soc/intel/boards/skl_nau88l25_max98357a.c | 12 +++---
+ sound/soc/intel/boards/skl_nau88l25_ssm4567.c | 16 +++----
+ sound/soc/intel/boards/skl_rt286.c            |  8 ++--
+ sound/soc/intel/boards/sof_da7219_max98373.c  |  8 ++--
+ sound/soc/intel/boards/sof_pcm512x.c          |  8 ++--
+ sound/soc/intel/boards/sof_rt5682.c           |  6 +--
+ sound/soc/intel/haswell/sst-haswell-pcm.c     | 26 ++++++------
+ sound/soc/intel/skylake/skl-pcm.c             | 10 ++---
+ sound/soc/kirkwood/armada-370-db.c            |  2 +-
+ sound/soc/kirkwood/kirkwood-dma.c             |  2 +-
+ sound/soc/mediatek/common/mtk-afe-fe-dai.c    | 10 ++---
+ .../mediatek/common/mtk-afe-platform-driver.c |  2 +-
+ sound/soc/mediatek/mt2701/mt2701-afe-pcm.c    |  2 +-
+ sound/soc/mediatek/mt2701/mt2701-cs42448.c    |  4 +-
+ sound/soc/mediatek/mt2701/mt2701-wm8960.c     |  4 +-
+ sound/soc/mediatek/mt6797/mt6797-afe-pcm.c    |  2 +-
+ sound/soc/mediatek/mt8173/mt8173-afe-pcm.c    |  2 +-
+ sound/soc/mediatek/mt8173/mt8173-max98090.c   |  4 +-
+ .../mediatek/mt8173/mt8173-rt5650-rt5514.c    |  2 +-
+ .../mediatek/mt8173/mt8173-rt5650-rt5676.c    |  4 +-
+ sound/soc/mediatek/mt8173/mt8173-rt5650.c     |  6 +--
+ sound/soc/mediatek/mt8183/mt8183-afe-pcm.c    |  2 +-
+ .../mediatek/mt8183/mt8183-da7219-max98357.c  |  4 +-
+ .../mt8183/mt8183-mt6358-ts3a227-max98357.c   |  2 +-
+ sound/soc/meson/aiu-fifo.c                    |  2 +-
+ sound/soc/meson/axg-card.c                    |  8 ++--
+ sound/soc/meson/axg-fifo.c                    |  2 +-
+ sound/soc/meson/meson-card-utils.c            |  2 +-
+ sound/soc/mxs/mxs-sgtl5000.c                  |  4 +-
+ sound/soc/pxa/brownstone.c                    |  4 +-
+ sound/soc/pxa/corgi.c                         |  4 +-
+ sound/soc/pxa/hx4700.c                        |  4 +-
+ sound/soc/pxa/imote2.c                        |  4 +-
+ sound/soc/pxa/magician.c                      |  8 ++--
+ sound/soc/pxa/mioa701_wm9713.c                |  4 +-
+ sound/soc/pxa/mmp-pcm.c                       |  2 +-
+ sound/soc/pxa/mmp-sspa.c                      |  2 +-
+ sound/soc/pxa/poodle.c                        |  4 +-
+ sound/soc/pxa/pxa2xx-i2s.c                    |  2 +-
+ sound/soc/pxa/spitz.c                         |  4 +-
+ sound/soc/pxa/ttc-dkb.c                       |  2 +-
+ sound/soc/pxa/z2.c                            |  4 +-
+ sound/soc/pxa/zylonite.c                      |  6 +--
+ sound/soc/qcom/apq8016_sbc.c                  |  2 +-
+ sound/soc/qcom/apq8096.c                      |  6 +--
+ sound/soc/qcom/lpass-platform.c               |  2 +-
+ sound/soc/qcom/qdsp6/q6asm-dai.c              |  4 +-
+ sound/soc/qcom/qdsp6/q6routing.c              |  2 +-
+ sound/soc/qcom/sdm845.c                       | 22 +++++-----
+ sound/soc/qcom/storm.c                        |  2 +-
+ sound/soc/rockchip/rk3288_hdmi_analog.c       |  4 +-
+ sound/soc/rockchip/rk3399_gru_sound.c         | 16 +++----
+ sound/soc/rockchip/rockchip_max98090.c        |  6 +--
+ sound/soc/rockchip/rockchip_rt5645.c          |  6 +--
+ sound/soc/samsung/arndale.c                   |  6 +--
+ sound/soc/samsung/bells.c                     | 16 +++----
+ sound/soc/samsung/h1940_uda1380.c             |  2 +-
+ sound/soc/samsung/i2s.c                       |  2 +-
+ sound/soc/samsung/jive_wm8750.c               |  4 +-
+ sound/soc/samsung/littlemill.c                | 14 +++----
+ sound/soc/samsung/lowland.c                   |  4 +-
+ sound/soc/samsung/neo1973_wm8753.c            | 10 ++---
+ sound/soc/samsung/odroid.c                    |  2 +-
+ sound/soc/samsung/pcm.c                       |  4 +-
+ sound/soc/samsung/rx1950_uda1380.c            |  2 +-
+ sound/soc/samsung/s3c-i2s-v2.c                |  2 +-
+ sound/soc/samsung/s3c24xx_simtec.c            |  4 +-
+ sound/soc/samsung/s3c24xx_uda134x.c           |  6 +--
+ sound/soc/samsung/smartq_wm8987.c             |  4 +-
+ sound/soc/samsung/smdk_spdif.c                |  2 +-
+ sound/soc/samsung/smdk_wm8580.c               |  2 +-
+ sound/soc/samsung/smdk_wm8994.c               |  2 +-
+ sound/soc/samsung/smdk_wm8994pcm.c            |  4 +-
+ sound/soc/samsung/snow.c                      |  4 +-
+ sound/soc/samsung/spdif.c                     |  8 ++--
+ sound/soc/samsung/speyside.c                  |  8 ++--
+ sound/soc/samsung/tm2_wm5110.c                | 16 +++----
+ sound/soc/samsung/tobermory.c                 |  8 ++--
+ sound/soc/sh/dma-sh7760.c                     | 16 +++----
+ sound/soc/sh/fsi.c                            |  2 +-
+ sound/soc/sh/migor.c                          |  6 +--
+ sound/soc/sh/rcar/core.c                      |  2 +-
+ sound/soc/soc-compress.c                      | 36 ++++++++--------
+ sound/soc/soc-core.c                          | 42 +++++++------------
+ sound/soc/soc-dapm.c                          |  4 +-
+ sound/soc/soc-generic-dmaengine-pcm.c         |  6 +--
+ sound/soc/soc-pcm.c                           | 30 ++++++-------
+ sound/soc/sof/intel/hda-dai.c                 |  6 +--
+ sound/soc/sof/intel/hda-dsp.c                 |  2 +-
+ sound/soc/sprd/sprd-pcm-compress.c            |  4 +-
+ sound/soc/sprd/sprd-pcm-dma.c                 |  2 +-
+ sound/soc/stm/stm32_adfsdm.c                  | 12 +++---
+ sound/soc/stm/stm32_sai_sub.c                 |  2 +-
+ sound/soc/sunxi/sun4i-spdif.c                 |  2 +-
+ sound/soc/tegra/tegra_alc5632.c               |  2 +-
+ sound/soc/tegra/tegra_max98090.c              |  2 +-
+ sound/soc/tegra/tegra_rt5640.c                |  2 +-
+ sound/soc/tegra/tegra_rt5677.c                |  2 +-
+ sound/soc/tegra/tegra_sgtl5000.c              |  2 +-
+ sound/soc/tegra/tegra_wm8753.c                |  2 +-
+ sound/soc/tegra/tegra_wm8903.c                |  6 +--
+ sound/soc/tegra/trimslice.c                   |  2 +-
+ sound/soc/ti/ams-delta.c                      |  4 +-
+ sound/soc/ti/davinci-evm.c                    |  4 +-
+ sound/soc/ti/davinci-vcif.c                   |  4 +-
+ sound/soc/ti/n810.c                           |  2 +-
+ sound/soc/ti/omap-abe-twl6040.c               |  6 +--
+ sound/soc/ti/omap-mcbsp-st.c                  |  2 +-
+ sound/soc/ti/omap-mcbsp.c                     |  4 +-
+ sound/soc/ti/omap-mcpdm.c                     |  2 +-
+ sound/soc/ti/omap3pandora.c                   |  4 +-
+ sound/soc/ti/osk5912.c                        |  2 +-
+ sound/soc/ti/rx51.c                           |  2 +-
+ sound/soc/txx9/txx9aclc.c                     |  2 +-
+ sound/soc/uniphier/aio-compress.c             | 22 +++++-----
+ sound/soc/uniphier/aio-dma.c                  |  6 +--
+ sound/soc/ux500/mop500_ab8500.c               |  6 +--
+ sound/soc/ux500/ux500_pcm.c                   |  8 ++--
+ sound/soc/xtensa/xtfpga-i2s.c                 |  2 +-
+ 191 files changed, 573 insertions(+), 577 deletions(-)
 
 -- 
-Tanu
-
-https://www.patreon.com/tanuk
-https://liberapay.com/tanuk
+2.17.1
 

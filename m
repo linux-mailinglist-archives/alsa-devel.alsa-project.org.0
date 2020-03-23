@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B299B18EF5F
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:30:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B05FC18EF65
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:31:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5F5741677;
-	Mon, 23 Mar 2020 06:29:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F5741677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 54D7B1670;
+	Mon, 23 Mar 2020 06:30:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54D7B1670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584941427;
-	bh=Qc94gw5bMyU22dKmWM5d7P5HNioWe1f2ypKaCpHjmY8=;
+	s=default; t=1584941460;
+	bh=Qq7Jsd385I+OctVB9Z82X8FZ83BOtCoO4Wct06b4fgM=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ujqc1aN2dtMYV3XKKNwQYUlq1ulzgkYvkSp61n76jmT45R9efOobub56MT5lonzxC
-	 icoLUTpPiZqhSzGxGdeuSBfIMSPITOnGcqlpv9wE3xf6kc7O109blg9PsM+uww5I/U
-	 rsb8VhSV4f0/IlPTlalVlflubucpKloOGQO+/ddI=
+	b=TwEEB8TEj4irdQP5PrxcTGbELZpthBf4YZuGGS9vepaF4BmWuGDUJSNd+8RSQE8u9
+	 6PH38uwduMQ8toPNwLwALZ8bV5QQEMQrqUnu86zgjqIPdvr/g/cVuqPqs2sXq2Mvsp
+	 2A72aWX7MyID62Phymm3sbo81V+kPaDiHVkAcvQk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 996EFF80345;
-	Mon, 23 Mar 2020 06:20:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC3F9F80348;
+	Mon, 23 Mar 2020 06:20:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7EF11F80345; Mon, 23 Mar 2020 06:20:43 +0100 (CET)
+ id 97588F80349; Mon, 23 Mar 2020 06:20:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id F3CA0F80343
- for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:20:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3CA0F80343
-Date: 23 Mar 2020 14:20:37 +0900
-X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42564571"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 23 Mar 2020 14:20:37 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 984AAF80343
+ for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:20:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 984AAF80343
+Date: 23 Mar 2020 14:20:44 +0900
+X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42564584"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 23 Mar 2020 14:20:44 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 863C441717DF;
- Mon, 23 Mar 2020 14:20:37 +0900 (JST)
-Message-ID: <87d093ir4q.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 218D04008542;
+ Mon, 23 Mar 2020 14:20:44 +0900 (JST)
+Message-ID: <87blonir4j.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 21/36] ASoC: sof: use asoc_rtd_to_cpu() / asoc_rtd_to_codec()
+Subject: [PATCH 22/36] ASoC: sprd: use asoc_rtd_to_cpu() / asoc_rtd_to_codec()
  macro for DAI pointer
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -72,54 +72,45 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/sof/intel/hda-dai.c | 6 +++---
- sound/soc/sof/intel/hda-dsp.c | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ sound/soc/sprd/sprd-pcm-compress.c | 4 ++--
+ sound/soc/sprd/sprd-pcm-dma.c      | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
-index b9e3ce65e778..833dc303b394 100644
---- a/sound/soc/sof/intel/hda-dai.c
-+++ b/sound/soc/sof/intel/hda-dai.c
-@@ -204,7 +204,7 @@ static int hda_link_hw_params(struct snd_pcm_substream *substream,
- 	struct hdac_bus *bus = hstream->bus;
- 	struct hdac_ext_stream *link_dev;
- 	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	struct sof_intel_hda_stream *hda_stream;
- 	struct hda_pipe_params p_params = {0};
- 	struct hdac_ext_link *link;
-@@ -293,7 +293,7 @@ static int hda_link_pcm_trigger(struct snd_pcm_substream *substream,
- 	bus = hstream->bus;
- 	rtd = snd_pcm_substream_chip(substream);
+diff --git a/sound/soc/sprd/sprd-pcm-compress.c b/sound/soc/sprd/sprd-pcm-compress.c
+index 6cddf551bc11..74d48340cade 100644
+--- a/sound/soc/sprd/sprd-pcm-compress.c
++++ b/sound/soc/sprd/sprd-pcm-compress.c
+@@ -135,7 +135,7 @@ static int sprd_platform_compr_dma_config(struct snd_compr_stream *cstream,
+ 	struct snd_soc_component *component =
+ 		snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+ 	struct device *dev = component->dev;
+-	struct sprd_compr_data *data = snd_soc_dai_get_drvdata(rtd->cpu_dai);
++	struct sprd_compr_data *data = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 	struct sprd_pcm_dma_params *dma_params = data->dma_params;
+ 	struct sprd_compr_dma *dma = &stream->dma[channel];
+ 	struct dma_slave_config config = { };
+@@ -321,7 +321,7 @@ static int sprd_platform_compr_open(struct snd_compr_stream *cstream)
+ 	struct snd_soc_component *component =
+ 		snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+ 	struct device *dev = component->dev;
+-	struct sprd_compr_data *data = snd_soc_dai_get_drvdata(rtd->cpu_dai);
++	struct sprd_compr_data *data = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 	struct sprd_compr_stream *stream;
+ 	struct sprd_compr_callback cb;
+ 	int stream_id = cstream->direction, ret;
+diff --git a/sound/soc/sprd/sprd-pcm-dma.c b/sound/soc/sprd/sprd-pcm-dma.c
+index 2284558684bc..d12d3cad8cbd 100644
+--- a/sound/soc/sprd/sprd-pcm-dma.c
++++ b/sound/soc/sprd/sprd-pcm-dma.c
+@@ -200,7 +200,7 @@ static int sprd_pcm_hw_params(struct snd_soc_component *component,
+ 	unsigned long flags;
+ 	int ret, i, j, sg_num;
  
--	link = snd_hdac_ext_bus_get_link(bus, rtd->codec_dai->component->name);
-+	link = snd_hdac_ext_bus_get_link(bus, asoc_rtd_to_codec(rtd, 0)->component->name);
- 	if (!link)
- 		return -EINVAL;
- 
-@@ -374,7 +374,7 @@ static int hda_link_hw_free(struct snd_pcm_substream *substream,
- 	if (ret < 0)
- 		return ret;
- 
--	link = snd_hdac_ext_bus_get_link(bus, rtd->codec_dai->component->name);
-+	link = snd_hdac_ext_bus_get_link(bus, asoc_rtd_to_codec(rtd, 0)->component->name);
- 	if (!link)
- 		return -EINVAL;
- 
-diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
-index 79ce52c32ef1..d910cf833a04 100644
---- a/sound/soc/sof/intel/hda-dsp.c
-+++ b/sound/soc/sof/intel/hda-dsp.c
-@@ -806,7 +806,7 @@ int hda_dsp_set_hw_params_upon_resume(struct snd_sof_dev *sdev)
- 		 */
- 		if (stream->link_substream) {
- 			rtd = snd_pcm_substream_chip(stream->link_substream);
--			name = rtd->codec_dai->component->name;
-+			name = asoc_rtd_to_codec(rtd, 0)->component->name;
- 			link = snd_hdac_ext_bus_get_link(bus, name);
- 			if (!link)
- 				return -EINVAL;
+-	dma_params = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
++	dma_params = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream);
+ 	if (!dma_params) {
+ 		dev_warn(component->dev, "no dma parameters setting\n");
+ 		dma_private->params = NULL;
 -- 
 2.17.1
 

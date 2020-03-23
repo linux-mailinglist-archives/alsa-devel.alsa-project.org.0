@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 060D518EF59
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:29:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B299B18EF5F
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:30:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A213F167B;
-	Mon, 23 Mar 2020 06:29:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A213F167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F5741677;
+	Mon, 23 Mar 2020 06:29:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F5741677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584941390;
-	bh=AFXaqFPDIosz2ACGPLVXsazm+Wqz69w8QgcvrOrNmtk=;
+	s=default; t=1584941427;
+	bh=Qc94gw5bMyU22dKmWM5d7P5HNioWe1f2ypKaCpHjmY8=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VnbCvwe9wm+42dq2hk6n+tkNxUu2dUA2BCTTsI9+fVQtYb21WDns1ZJdxn3SHTGXd
-	 W13rULPRV+as2pRQo6MEwRKshrHtAtUzKSAuzIy4JTlYdUgvfCwfT98ubzs96drZfz
-	 gMZ+q5lsanW97ctsSOvBd8gL1dsI8yJabxtY1J28=
+	b=ujqc1aN2dtMYV3XKKNwQYUlq1ulzgkYvkSp61n76jmT45R9efOobub56MT5lonzxC
+	 icoLUTpPiZqhSzGxGdeuSBfIMSPITOnGcqlpv9wE3xf6kc7O109blg9PsM+uww5I/U
+	 rsb8VhSV4f0/IlPTlalVlflubucpKloOGQO+/ddI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1295FF80344;
-	Mon, 23 Mar 2020 06:20:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 996EFF80345;
+	Mon, 23 Mar 2020 06:20:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DBA85F80343; Mon, 23 Mar 2020 06:20:37 +0100 (CET)
+ id 7EF11F80345; Mon, 23 Mar 2020 06:20:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 158EEF80339
- for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:20:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 158EEF80339
-Date: 23 Mar 2020 14:20:30 +0900
-X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42350537"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 23 Mar 2020 14:20:30 +0900
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id F3CA0F80343
+ for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:20:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3CA0F80343
+Date: 23 Mar 2020 14:20:37 +0900
+X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42564571"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 23 Mar 2020 14:20:37 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 3EA1C400387E;
- Mon, 23 Mar 2020 14:20:30 +0900 (JST)
-Message-ID: <87eetjir4x.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 863C441717DF;
+ Mon, 23 Mar 2020 14:20:37 +0900 (JST)
+Message-ID: <87d093ir4q.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 20/36] ASoC: sh: use asoc_rtd_to_cpu() / asoc_rtd_to_codec()
+Subject: [PATCH 21/36] ASoC: sof: use asoc_rtd_to_cpu() / asoc_rtd_to_codec()
  macro for DAI pointer
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -72,145 +72,54 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/sh/dma-sh7760.c | 16 ++++++++--------
- sound/soc/sh/fsi.c        |  2 +-
- sound/soc/sh/migor.c      |  6 +++---
- sound/soc/sh/rcar/core.c  |  2 +-
- 4 files changed, 13 insertions(+), 13 deletions(-)
+ sound/soc/sof/intel/hda-dai.c | 6 +++---
+ sound/soc/sof/intel/hda-dsp.c | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/sh/dma-sh7760.c b/sound/soc/sh/dma-sh7760.c
-index eee1a1e994cb..a35de78f14a9 100644
---- a/sound/soc/sh/dma-sh7760.c
-+++ b/sound/soc/sh/dma-sh7760.c
-@@ -119,7 +119,7 @@ static int camelot_pcm_open(struct snd_soc_component *component,
- 			    struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct camelot_pcm *cam = &cam_pcm_data[rtd->cpu_dai->id];
-+	struct camelot_pcm *cam = &cam_pcm_data[asoc_rtd_to_cpu(rtd, 0)->id];
- 	int recv = substream->stream == SNDRV_PCM_STREAM_PLAYBACK ? 0:1;
- 	int ret, dmairq;
- 
-@@ -132,7 +132,7 @@ static int camelot_pcm_open(struct snd_soc_component *component,
- 		ret = dmabrg_request_irq(dmairq, camelot_rxdma, cam);
- 		if (unlikely(ret)) {
- 			pr_debug("audio unit %d irqs already taken!\n",
--			     rtd->cpu_dai->id);
-+			     asoc_rtd_to_cpu(rtd, 0)->id);
- 			return -EBUSY;
- 		}
- 		(void)dmabrg_request_irq(dmairq + 1,camelot_rxdma, cam);
-@@ -141,7 +141,7 @@ static int camelot_pcm_open(struct snd_soc_component *component,
- 		ret = dmabrg_request_irq(dmairq, camelot_txdma, cam);
- 		if (unlikely(ret)) {
- 			pr_debug("audio unit %d irqs already taken!\n",
--			     rtd->cpu_dai->id);
-+			     asoc_rtd_to_cpu(rtd, 0)->id);
- 			return -EBUSY;
- 		}
- 		(void)dmabrg_request_irq(dmairq + 1, camelot_txdma, cam);
-@@ -153,7 +153,7 @@ static int camelot_pcm_close(struct snd_soc_component *component,
- 			     struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct camelot_pcm *cam = &cam_pcm_data[rtd->cpu_dai->id];
-+	struct camelot_pcm *cam = &cam_pcm_data[asoc_rtd_to_cpu(rtd, 0)->id];
- 	int recv = substream->stream == SNDRV_PCM_STREAM_PLAYBACK ? 0:1;
- 	int dmairq;
- 
-@@ -175,7 +175,7 @@ static int camelot_hw_params(struct snd_soc_component *component,
- 			     struct snd_pcm_hw_params *hw_params)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct camelot_pcm *cam = &cam_pcm_data[rtd->cpu_dai->id];
-+	struct camelot_pcm *cam = &cam_pcm_data[asoc_rtd_to_cpu(rtd, 0)->id];
- 	int recv = substream->stream == SNDRV_PCM_STREAM_PLAYBACK ? 0:1;
- 	int ret;
- 
-@@ -194,7 +194,7 @@ static int camelot_prepare(struct snd_soc_component *component,
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct camelot_pcm *cam = &cam_pcm_data[rtd->cpu_dai->id];
-+	struct camelot_pcm *cam = &cam_pcm_data[asoc_rtd_to_cpu(rtd, 0)->id];
- 
- 	pr_debug("PCM data: addr 0x%08lx len %d\n",
- 		 (u32)runtime->dma_addr, runtime->dma_bytes);
-@@ -242,7 +242,7 @@ static int camelot_trigger(struct snd_soc_component *component,
- 			   struct snd_pcm_substream *substream, int cmd)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct camelot_pcm *cam = &cam_pcm_data[rtd->cpu_dai->id];
-+	struct camelot_pcm *cam = &cam_pcm_data[asoc_rtd_to_cpu(rtd, 0)->id];
- 	int recv = substream->stream == SNDRV_PCM_STREAM_PLAYBACK ? 0:1;
- 
- 	switch (cmd) {
-@@ -270,7 +270,7 @@ static snd_pcm_uframes_t camelot_pos(struct snd_soc_component *component,
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct camelot_pcm *cam = &cam_pcm_data[rtd->cpu_dai->id];
-+	struct camelot_pcm *cam = &cam_pcm_data[asoc_rtd_to_cpu(rtd, 0)->id];
- 	int recv = substream->stream == SNDRV_PCM_STREAM_PLAYBACK ? 0:1;
- 	unsigned long pos;
- 
-diff --git a/sound/soc/sh/fsi.c b/sound/soc/sh/fsi.c
-index 5ef4221be6c3..1c3c4fdc9bef 100644
---- a/sound/soc/sh/fsi.c
-+++ b/sound/soc/sh/fsi.c
-@@ -408,7 +408,7 @@ static struct snd_soc_dai *fsi_get_dai(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 
--	return  rtd->cpu_dai;
-+	return  asoc_rtd_to_cpu(rtd, 0);
- }
- 
- static struct fsi_priv *fsi_get_priv_frm_dai(struct snd_soc_dai *dai)
-diff --git a/sound/soc/sh/migor.c b/sound/soc/sh/migor.c
-index 991557e25eba..d5702fbf176b 100644
---- a/sound/soc/sh/migor.c
-+++ b/sound/soc/sh/migor.c
-@@ -46,7 +46,7 @@ static int migor_hw_params(struct snd_pcm_substream *substream,
- 			   struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
+index b9e3ce65e778..833dc303b394 100644
+--- a/sound/soc/sof/intel/hda-dai.c
++++ b/sound/soc/sof/intel/hda-dai.c
+@@ -204,7 +204,7 @@ static int hda_link_hw_params(struct snd_pcm_substream *substream,
+ 	struct hdac_bus *bus = hstream->bus;
+ 	struct hdac_ext_stream *link_dev;
+ 	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
 -	struct snd_soc_dai *codec_dai = rtd->codec_dai;
 +	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	int ret;
- 	unsigned int rate = params_rate(params);
+ 	struct sof_intel_hda_stream *hda_stream;
+ 	struct hda_pipe_params p_params = {0};
+ 	struct hdac_ext_link *link;
+@@ -293,7 +293,7 @@ static int hda_link_pcm_trigger(struct snd_pcm_substream *substream,
+ 	bus = hstream->bus;
+ 	rtd = snd_pcm_substream_chip(substream);
  
-@@ -67,7 +67,7 @@ static int migor_hw_params(struct snd_pcm_substream *substream,
- 	clk_set_rate(&siumckb_clk, codec_freq);
- 	dev_dbg(codec_dai->dev, "%s: configure %luHz\n", __func__, codec_freq);
+-	link = snd_hdac_ext_bus_get_link(bus, rtd->codec_dai->component->name);
++	link = snd_hdac_ext_bus_get_link(bus, asoc_rtd_to_codec(rtd, 0)->component->name);
+ 	if (!link)
+ 		return -EINVAL;
  
--	ret = snd_soc_dai_set_sysclk(rtd->cpu_dai, SIU_CLKB_EXT,
-+	ret = snd_soc_dai_set_sysclk(asoc_rtd_to_cpu(rtd, 0), SIU_CLKB_EXT,
- 				     codec_freq / 2, SND_SOC_CLOCK_IN);
+@@ -374,7 +374,7 @@ static int hda_link_hw_free(struct snd_pcm_substream *substream,
+ 	if (ret < 0)
+ 		return ret;
  
- 	if (!ret)
-@@ -79,7 +79,7 @@ static int migor_hw_params(struct snd_pcm_substream *substream,
- static int migor_hw_free(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+-	link = snd_hdac_ext_bus_get_link(bus, rtd->codec_dai->component->name);
++	link = snd_hdac_ext_bus_get_link(bus, asoc_rtd_to_codec(rtd, 0)->component->name);
+ 	if (!link)
+ 		return -EINVAL;
  
- 	if (use_count) {
- 		use_count--;
-diff --git a/sound/soc/sh/rcar/core.c b/sound/soc/sh/rcar/core.c
-index 0bfcb77e5f65..4349f2fb823f 100644
---- a/sound/soc/sh/rcar/core.c
-+++ b/sound/soc/sh/rcar/core.c
-@@ -696,7 +696,7 @@ struct snd_soc_dai *rsnd_substream_to_dai(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 
--	return  rtd->cpu_dai;
-+	return  asoc_rtd_to_cpu(rtd, 0);
- }
- 
- static
+diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
+index 79ce52c32ef1..d910cf833a04 100644
+--- a/sound/soc/sof/intel/hda-dsp.c
++++ b/sound/soc/sof/intel/hda-dsp.c
+@@ -806,7 +806,7 @@ int hda_dsp_set_hw_params_upon_resume(struct snd_sof_dev *sdev)
+ 		 */
+ 		if (stream->link_substream) {
+ 			rtd = snd_pcm_substream_chip(stream->link_substream);
+-			name = rtd->codec_dai->component->name;
++			name = asoc_rtd_to_codec(rtd, 0)->component->name;
+ 			link = snd_hdac_ext_bus_get_link(bus, name);
+ 			if (!link)
+ 				return -EINVAL;
 -- 
 2.17.1
 

@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2827E18EF69
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:32:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DE2E18EF6A
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:32:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C9E351657;
-	Mon, 23 Mar 2020 06:31:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9E351657
+	by alsa0.perex.cz (Postfix) with ESMTPS id E0497167A;
+	Mon, 23 Mar 2020 06:31:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0497167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584941525;
-	bh=jhmzJiMoC1uyAK6IhBUiHXXTl7xLEVZmK+DV1d+EWU8=;
+	s=default; t=1584941557;
+	bh=zV/kQQqHI5AX1LnsO8gloOzLYD//SOZPb2jJnjDes0E=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=io6PmdMSKexc0TyF1a9fGtl8blqSjzFp1Do+TAbyBVm8slTAIKhqhH6Qqozdoxx6A
-	 CF6fSvFomYSfr08D7El8q6gYijoKoSUrH0Bz9yg+3mlSUo9hUl0o5DDRv1CnzPESrb
-	 G1hCyXnPTMvtT+M5utE2Y/6U3JPxIU6R7KobjJnw=
+	b=mKVPvIE28RJSeILGzcpJRR7l8gqAVDuirJRLn+x+F3JxhfT7dM5vfb6ttOjk3jZ5J
+	 JmSh31pc0AWLj4IQvbJOuIiRqQ9psZiH8cEeoDrCRqaWrrQ3wXhno0A98zFmOS+VWg
+	 AnejCOrT9UjPjJ/6JDqM8kJKGbfhpBd+P7jNQVlA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ECE15F80350;
-	Mon, 23 Mar 2020 06:21:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3DA10F802BC;
+	Mon, 23 Mar 2020 06:21:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DF573F8034F; Mon, 23 Mar 2020 06:21:03 +0100 (CET)
+ id 42378F8035E; Mon, 23 Mar 2020 06:21:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 22D20F8034D
- for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:21:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22D20F8034D
-Date: 23 Mar 2020 14:21:00 +0900
-X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42564600"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 23 Mar 2020 14:21:00 +0900
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 3FE9CF802BC
+ for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:21:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FE9CF802BC
+Date: 23 Mar 2020 14:21:07 +0900
+X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42350596"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 23 Mar 2020 14:21:07 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 8A389400387E;
- Mon, 23 Mar 2020 14:21:00 +0900 (JST)
-Message-ID: <878sjrir43.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id CEA5F4011CEB;
+ Mon, 23 Mar 2020 14:21:07 +0900 (JST)
+Message-ID: <877dzbir3w.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 24/36] ASoC: sunxi: use asoc_rtd_to_cpu() /
+Subject: [PATCH 25/36] ASoC: tegra: use asoc_rtd_to_cpu() /
  asoc_rtd_to_codec() macro for DAI pointer
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -72,22 +72,138 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/sunxi/sun4i-spdif.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/tegra/tegra_alc5632.c  | 2 +-
+ sound/soc/tegra/tegra_max98090.c | 2 +-
+ sound/soc/tegra/tegra_rt5640.c   | 2 +-
+ sound/soc/tegra/tegra_rt5677.c   | 2 +-
+ sound/soc/tegra/tegra_sgtl5000.c | 2 +-
+ sound/soc/tegra/tegra_wm8753.c   | 2 +-
+ sound/soc/tegra/tegra_wm8903.c   | 6 +++---
+ sound/soc/tegra/trimslice.c      | 2 +-
+ 8 files changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/sound/soc/sunxi/sun4i-spdif.c b/sound/soc/sunxi/sun4i-spdif.c
-index 98a9fe645521..86779a99df75 100644
---- a/sound/soc/sunxi/sun4i-spdif.c
-+++ b/sound/soc/sunxi/sun4i-spdif.c
-@@ -244,7 +244,7 @@ static int sun4i_spdif_startup(struct snd_pcm_substream *substream,
- 			       struct snd_soc_dai *cpu_dai)
+diff --git a/sound/soc/tegra/tegra_alc5632.c b/sound/soc/tegra/tegra_alc5632.c
+index 9e8b1497efd3..ec39ecba1e8b 100644
+--- a/sound/soc/tegra/tegra_alc5632.c
++++ b/sound/soc/tegra/tegra_alc5632.c
+@@ -37,7 +37,7 @@ static int tegra_alc5632_asoc_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params)
  {
  	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct sun4i_spdif_dev *host = snd_soc_dai_get_drvdata(rtd->cpu_dai);
-+	struct sun4i_spdif_dev *host = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct tegra_alc5632 *alc5632 = snd_soc_card_get_drvdata(card);
+ 	int srate, mclk;
+diff --git a/sound/soc/tegra/tegra_max98090.c b/sound/soc/tegra/tegra_max98090.c
+index 4954a33ff46b..d800b62b36f8 100644
+--- a/sound/soc/tegra/tegra_max98090.c
++++ b/sound/soc/tegra/tegra_max98090.c
+@@ -38,7 +38,7 @@ static int tegra_max98090_asoc_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct tegra_max98090 *machine = snd_soc_card_get_drvdata(card);
+ 	int srate, mclk;
+diff --git a/sound/soc/tegra/tegra_rt5640.c b/sound/soc/tegra/tegra_rt5640.c
+index d46915a3ec4c..9878bc3eb89e 100644
+--- a/sound/soc/tegra/tegra_rt5640.c
++++ b/sound/soc/tegra/tegra_rt5640.c
+@@ -40,7 +40,7 @@ static int tegra_rt5640_asoc_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct tegra_rt5640 *machine = snd_soc_card_get_drvdata(card);
+ 	int srate, mclk;
+diff --git a/sound/soc/tegra/tegra_rt5677.c b/sound/soc/tegra/tegra_rt5677.c
+index 81cb6cc6236e..5821313db977 100644
+--- a/sound/soc/tegra/tegra_rt5677.c
++++ b/sound/soc/tegra/tegra_rt5677.c
+@@ -42,7 +42,7 @@ static int tegra_rt5677_asoc_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct tegra_rt5677 *machine = snd_soc_card_get_drvdata(card);
+ 	int srate, mclk, err;
+diff --git a/sound/soc/tegra/tegra_sgtl5000.c b/sound/soc/tegra/tegra_sgtl5000.c
+index e13b81d29cf3..dc411ba2e36d 100644
+--- a/sound/soc/tegra/tegra_sgtl5000.c
++++ b/sound/soc/tegra/tegra_sgtl5000.c
+@@ -36,7 +36,7 @@ static int tegra_sgtl5000_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct tegra_sgtl5000 *machine = snd_soc_card_get_drvdata(card);
+ 	int srate, mclk;
+diff --git a/sound/soc/tegra/tegra_wm8753.c b/sound/soc/tegra/tegra_wm8753.c
+index f6dd790dad71..0d653a605358 100644
+--- a/sound/soc/tegra/tegra_wm8753.c
++++ b/sound/soc/tegra/tegra_wm8753.c
+@@ -40,7 +40,7 @@ static int tegra_wm8753_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct tegra_wm8753 *machine = snd_soc_card_get_drvdata(card);
+ 	int srate, mclk;
+diff --git a/sound/soc/tegra/tegra_wm8903.c b/sound/soc/tegra/tegra_wm8903.c
+index f08d3489c3cf..b52397f56c5f 100644
+--- a/sound/soc/tegra/tegra_wm8903.c
++++ b/sound/soc/tegra/tegra_wm8903.c
+@@ -45,7 +45,7 @@ static int tegra_wm8903_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct tegra_wm8903 *machine = snd_soc_card_get_drvdata(card);
+ 	int srate, mclk;
+@@ -155,7 +155,7 @@ static const struct snd_kcontrol_new tegra_wm8903_controls[] = {
  
- 	if (substream->stream != SNDRV_PCM_STREAM_PLAYBACK)
- 		return -EINVAL;
+ static int tegra_wm8903_init(struct snd_soc_pcm_runtime *rtd)
+ {
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_component *component = codec_dai->component;
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct tegra_wm8903 *machine = snd_soc_card_get_drvdata(card);
+@@ -187,7 +187,7 @@ static int tegra_wm8903_remove(struct snd_soc_card *card)
+ {
+ 	struct snd_soc_pcm_runtime *rtd =
+ 		snd_soc_get_pcm_runtime(card, &card->dai_link[0]);
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_component *component = codec_dai->component;
+ 
+ 	wm8903_mic_detect(component, NULL, 0, 0);
+diff --git a/sound/soc/tegra/trimslice.c b/sound/soc/tegra/trimslice.c
+index 3f67ddd13674..f9834afaa2e8 100644
+--- a/sound/soc/tegra/trimslice.c
++++ b/sound/soc/tegra/trimslice.c
+@@ -35,7 +35,7 @@ static int trimslice_asoc_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct tegra_trimslice *trimslice = snd_soc_card_get_drvdata(card);
+ 	int srate, mclk;
 -- 
 2.17.1
 

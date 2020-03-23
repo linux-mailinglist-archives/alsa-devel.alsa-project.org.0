@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 373F018EF50
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:26:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6E0018EF51
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Mar 2020 06:26:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CABE9950;
-	Mon, 23 Mar 2020 06:25:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CABE9950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 56CBD165F;
+	Mon, 23 Mar 2020 06:25:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56CBD165F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1584941184;
-	bh=ngrwHJJV+R0SBDb1DzQMbRdrbEGFqGALs48VKBFsX6g=;
+	s=default; t=1584941209;
+	bh=n13VwF0dIcnG6R7j1odbht9hOaDL+dr5YD5p5TZR8Hw=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZfsFNx00WKe+FYSRl8q5Ot5dsZQlatzYSvgAV2u62fdFS75W5IyVFqUA14W4AheYl
-	 QsoqcL1DEV/W/ZDNRFmXgbjZ/YgWeE6UAP+ubbkPxVfXtREOdUP/uO6nUoUs5DPSMh
-	 2aaDNNjcrRmM9kIKJXfFY+LdGl8vrb5YkpkspqhI=
+	b=nouI3RGlgKnZUd/sXd0zJn3Nt/RUA+dCfQVrGn32XvzS6V263v01VRvB81QdxNIUx
+	 ZPd5pLku2q6tlpzn3XkZrM8Ml/I7XOzIFLWa6SWCdsC/Ta+J6u8TUC9+2/TVjel62j
+	 5RhxJfgtLLe4MvKpDTaURYhG8zmFX1IeQtH3q6mg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 289A6F80307;
-	Mon, 23 Mar 2020 06:19:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EEFFEF80316;
+	Mon, 23 Mar 2020 06:19:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 146EAF80305; Mon, 23 Mar 2020 06:19:39 +0100 (CET)
+ id BCDD4F80315; Mon, 23 Mar 2020 06:19:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id E71D8F80303
- for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:19:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E71D8F80303
-Date: 23 Mar 2020 14:19:32 +0900
-X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42350406"
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id EC7BAF80306
+ for <alsa-devel@alsa-project.org>; Mon, 23 Mar 2020 06:19:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC7BAF80306
+Date: 23 Mar 2020 14:19:39 +0900
+X-IronPort-AV: E=Sophos;i="5.72,295,1580742000"; d="scan'208";a="42564452"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 23 Mar 2020 14:19:32 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 23 Mar 2020 14:19:39 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 6CD4A4003860;
- Mon, 23 Mar 2020 14:19:32 +0900 (JST)
-Message-ID: <87mu87ir6j.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id D072E4003860;
+ Mon, 23 Mar 2020 14:19:39 +0900 (JST)
+Message-ID: <87lfnrir6c.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 14/36] ASoC: meson: use asoc_rtd_to_cpu() /
- asoc_rtd_to_codec() macro for DAI pointer
+Subject: [PATCH 15/36] ASoC: mxs: use asoc_rtd_to_cpu() / asoc_rtd_to_codec()
+ macro for DAI pointer
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <877dzbk5wm.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,81 +72,24 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/meson/aiu-fifo.c         | 2 +-
- sound/soc/meson/axg-card.c         | 8 ++++----
- sound/soc/meson/axg-fifo.c         | 2 +-
- sound/soc/meson/meson-card-utils.c | 2 +-
- 4 files changed, 7 insertions(+), 7 deletions(-)
+ sound/soc/mxs/mxs-sgtl5000.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/meson/aiu-fifo.c b/sound/soc/meson/aiu-fifo.c
-index da8c098e8750..d9cede4c33ff 100644
---- a/sound/soc/meson/aiu-fifo.c
-+++ b/sound/soc/meson/aiu-fifo.c
-@@ -26,7 +26,7 @@ static struct snd_soc_dai *aiu_fifo_dai(struct snd_pcm_substream *ss)
+diff --git a/sound/soc/mxs/mxs-sgtl5000.c b/sound/soc/mxs/mxs-sgtl5000.c
+index 9841e1da9782..f46d7aca8cf6 100644
+--- a/sound/soc/mxs/mxs-sgtl5000.c
++++ b/sound/soc/mxs/mxs-sgtl5000.c
+@@ -20,8 +20,8 @@ static int mxs_sgtl5000_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_hw_params *params)
  {
- 	struct snd_soc_pcm_runtime *rtd = ss->private_data;
- 
--	return rtd->cpu_dai;
-+	return asoc_rtd_to_cpu(rtd, 0);
- }
- 
- snd_pcm_uframes_t aiu_fifo_pointer(struct snd_soc_component *component,
-diff --git a/sound/soc/meson/axg-card.c b/sound/soc/meson/axg-card.c
-index 77a7d5f36ebf..af46845f4ef2 100644
---- a/sound/soc/meson/axg-card.c
-+++ b/sound/soc/meson/axg-card.c
-@@ -72,10 +72,10 @@ static int axg_card_tdm_dai_init(struct snd_soc_pcm_runtime *rtd)
- 		}
- 	}
- 
--	ret = axg_tdm_set_tdm_slots(rtd->cpu_dai, be->tx_mask, be->rx_mask,
-+	ret = axg_tdm_set_tdm_slots(asoc_rtd_to_cpu(rtd, 0), be->tx_mask, be->rx_mask,
- 				    be->slots, be->slot_width);
- 	if (ret) {
--		dev_err(rtd->cpu_dai->dev, "setting tdm link slots failed\n");
-+		dev_err(asoc_rtd_to_cpu(rtd, 0)->dev, "setting tdm link slots failed\n");
- 		return ret;
- 	}
- 
-@@ -90,10 +90,10 @@ static int axg_card_tdm_dai_lb_init(struct snd_soc_pcm_runtime *rtd)
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
+-	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	unsigned int rate = params_rate(params);
+ 	u32 mclk;
  	int ret;
- 
- 	/* The loopback rx_mask is the pad tx_mask */
--	ret = axg_tdm_set_tdm_slots(rtd->cpu_dai, NULL, be->tx_mask,
-+	ret = axg_tdm_set_tdm_slots(asoc_rtd_to_cpu(rtd, 0), NULL, be->tx_mask,
- 				    be->slots, be->slot_width);
- 	if (ret) {
--		dev_err(rtd->cpu_dai->dev, "setting tdm link slots failed\n");
-+		dev_err(asoc_rtd_to_cpu(rtd, 0)->dev, "setting tdm link slots failed\n");
- 		return ret;
- 	}
- 
-diff --git a/sound/soc/meson/axg-fifo.c b/sound/soc/meson/axg-fifo.c
-index c12b0d5e8ebf..2e9b56b29d31 100644
---- a/sound/soc/meson/axg-fifo.c
-+++ b/sound/soc/meson/axg-fifo.c
-@@ -47,7 +47,7 @@ static struct snd_soc_dai *axg_fifo_dai(struct snd_pcm_substream *ss)
- {
- 	struct snd_soc_pcm_runtime *rtd = ss->private_data;
- 
--	return rtd->cpu_dai;
-+	return asoc_rtd_to_cpu(rtd, 0);
- }
- 
- static struct axg_fifo *axg_fifo_data(struct snd_pcm_substream *ss)
-diff --git a/sound/soc/meson/meson-card-utils.c b/sound/soc/meson/meson-card-utils.c
-index b5d3c9f56bac..2ca8c98e204f 100644
---- a/sound/soc/meson/meson-card-utils.c
-+++ b/sound/soc/meson/meson-card-utils.c
-@@ -30,7 +30,7 @@ int meson_card_i2s_set_sysclk(struct snd_pcm_substream *substream,
- 			return ret;
- 	}
- 
--	ret = snd_soc_dai_set_sysclk(rtd->cpu_dai, 0, mclk,
-+	ret = snd_soc_dai_set_sysclk(asoc_rtd_to_cpu(rtd, 0), 0, mclk,
- 				     SND_SOC_CLOCK_OUT);
- 	if (ret && ret != -ENOTSUPP)
- 		return ret;
 -- 
 2.17.1
 

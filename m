@@ -2,63 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B7BD191390
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Mar 2020 15:50:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41CF61913C0
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Mar 2020 15:57:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 780631661;
-	Tue, 24 Mar 2020 15:49:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 780631661
+	by alsa0.perex.cz (Postfix) with ESMTPS id BEC831660;
+	Tue, 24 Mar 2020 15:57:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEC831660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585061414;
-	bh=rCqKL8WIHB/3Q1CGY/FoTTgvE7k/4AsIVHJOCfWiZ4w=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1585061876;
+	bh=B0wCr2saDIknIhlMx6BzYZDxV4OhQWYQBMgOfSs1Yzw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JnISFPtSlzUA8k7qkFWPZQQk73FiMhUnXIXMmYqdL14Vw0PszSdqr6c2BdntQvHPs
-	 4bDe5Zh745nBJeovSdmxQ+8pXB34T18mzPhIGj6d2x4iSQf7WO6AxL90mM0UUIjHC3
-	 HwNw0iCeiDt5D+1C9Crdr6SCDd5XzxYVzVsC68ow=
+	b=gjd0XpewUJQ3cXrGPuJHsSEEAj1cOjxofDd+ZFhtkK1NO38FbW3XhfihlCeVpmthl
+	 DIoTHqI5vW/68KI7l1ezRKQbfmQQXzwx+5ar4CWIfKwma8mlYiHPEzE1UdJhJGSqkb
+	 7jeP3OEBLonkRrInYz4em+6qud4AVFPCvVkc7vY4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 81D31F801F8;
-	Tue, 24 Mar 2020 15:48:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D21DEF80227;
+	Tue, 24 Mar 2020 15:56:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 78BF4F801F9; Tue, 24 Mar 2020 15:48:30 +0100 (CET)
+ id 7051FF800FE; Tue, 24 Mar 2020 15:56:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id EBF74F80095;
- Tue, 24 Mar 2020 15:48:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBF74F80095
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 558381FB;
- Tue, 24 Mar 2020 07:48:24 -0700 (PDT)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C8BEB3F52E;
- Tue, 24 Mar 2020 07:48:23 -0700 (PDT)
-Date: Tue, 24 Mar 2020 14:48:22 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Subject: Re: [PATCH 0/2] ASoC: SOF: initialise work immediately
-Message-ID: <20200324144822.GG7039@sirena.org.uk>
-References: <20200324122921.29582-1-guennadi.liakhovetski@linux.intel.com>
- <20200324133042.GB7039@sirena.org.uk>
- <20200324135856.GA29623@ubuntu>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="S5HS5MvDw4DmbRmb"
-Content-Disposition: inline
-In-Reply-To: <20200324135856.GA29623@ubuntu>
-X-Cookie: I feel ... JUGULAR ...
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Takashi Iwai <tiwai@suse.de>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>, alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@intel.com>,
- sound-open-firmware@alsa-project.org
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2CEC9F800FE
+ for <alsa-devel@alsa-project.org>; Tue, 24 Mar 2020 15:56:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CEC9F800FE
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 64721AB6D;
+ Tue, 24 Mar 2020 14:56:10 +0000 (UTC)
+Date: Tue, 24 Mar 2020 15:56:10 +0100
+Message-ID: <s5h8sjpn6np.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ALSA: core: sysfs: show components string
+In-Reply-To: <69761ee4-463b-25ff-1d2d-635a19487663@linux.intel.com>
+References: <20200323193623.3587-1-pierre-louis.bossart@linux.intel.com>
+ <20200324015331.GA3679@workstation>
+ <d31659cc-d528-345f-1e56-b0cfae36be5c@linux.intel.com>
+ <20200324043336.GA8342@workstation>
+ <a74e4b68-d6f6-c12d-d600-d8cb7321cc00@linux.intel.com>
+ <20200324090152.GA14579@workstation>
+ <69761ee4-463b-25ff-1d2d-635a19487663@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,58 +74,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, 24 Mar 2020 14:15:44 +0100,
+Pierre-Louis Bossart wrote:
+> 
+> 
+> 
+> On 3/24/20 4:01 AM, Takashi Sakamoto wrote:
+> > On Tue, Mar 24, 2020 at 12:12:15AM -0500, Pierre-Louis Bossart wrote:
+> >> when people report that their microphone is not reported by PulseAudio/UCM,
+> >> it's very helpful to know what UCM was supposed to use in the first place.
+> >> We don't have a debugger or step-by-step mechanisms to figure out what the
+> >> configurations are.
+> >
+> > If I get your intension correctly, the addition of sysfs node is just to
+> > investigate which use-case configuration is applied in cases that people
+> > get issues. If so, it's really exaggerative in a point of the concept of
+> > sysfs.
+> >
+> > I have two alternatives. If it's possible to focus on ALSA SoC part only,
+> > addition of node to debugfs is reasonable for this purpose.
+> >
+> > Another alternative is to change output of 'cards' node of procfs. The
+> > latter is commonly available for all cases. For example:
+> 
+> I initially wanted to use /proc but thought it was a thing from the
+> past so I looked at sysfs. If this is the recommendation I don't mind
+> using it.
 
---S5HS5MvDw4DmbRmb
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+procfs will practically never die, and it's already there, so I'm fine
+with that path, too, supposing that the primary purpose is for help
+debugging / analyzing.  If it's used by UCM or whatever configuration
+tool, sysfs is the better choice, OTOH.
 
-On Tue, Mar 24, 2020 at 02:58:56PM +0100, Guennadi Liakhovetski wrote:
-> On Tue, Mar 24, 2020 at 01:30:42PM +0000, Mark Brown wrote:
+> debugsfs is not something the average user is familiar with, and it's
+> not available in all cases. I'd like to extend existing pieces of
+> information than add new things.
 
-> > As documented in submitting-patches.rst please send patches to the=20
-> > maintainers for the code you would like to change.  The normal kernel
-> > workflow is that people apply patches from their inboxes, if they aren't
-> > copied they are likely to not see the patch at all and it is much more
-> > difficult to apply patches.
+Right, debugfs isn't available per card as default, so it's no good
+option.
 
-> I know that different maintainers have different preferences. For example=
-=20
-> in the subsysteem, where I'd worked for about 10 years the maintainer=20
-> preferred not to be CCed on patches, he preferred to pick up patches from=
-=20
-> his mailing list folders, or whatever arrangement his mail filters=20
-> provided for. I learned already that in ALSA / ASoC it's usual to CC=20
-> maintainers. But I wasn't sure whether that also holds for larger patch=
-=20
-> series. E.g. my main patch series now consists of 14 patches, so, I=20
-> thought, that maybe you would rather not receive multiple copies of the=
-=20
-> entire seriees for each new version both directly in your inbox and in=20
-> the mailing list folder. Or is it indeed your preference to always be=20
-> CCed on all patches? I apologise for re-iterating a question, that=20
-> probably had been addressed multiple times before, maybe it's worth=20
-> documenting this somewhere on ALSA web?
 
-Yes, copy me on patches.  This is, as covered in what I wrote above, the
-standard and documented approach for the kernel - unless you explicitly
-know that there is some unusual approach for a specific subsystem you
-should assume that if you want people to see your patches you need to
-send the patches to them.
-
---S5HS5MvDw4DmbRmb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl56HbUACgkQJNaLcl1U
-h9DwYQf/fnkH96IDpMV4ok2U6VKZFbMgaEmrhxxcZgKhFRLIRv76Rm4pHrlZcsMn
-OtmNRN5u23DCHrL/Spm+6VLUiw84gYgzhWaKd9qbNnPrpRDRHhd85yTR/bfyxJI4
-8Tj4LHz2OpBQ/XvwHCM08vh5wyIWjLbspucAmFlEyILxzMw9u6pKQg6OPNiQLlq3
-qCiAhzjA2rKp/M8sIIE8M00/C+wiqaKu72IefyCYNq1RyXL8A43Q7JQQjvcfnd/9
-PBLP8arXGOLHz7Iyt5GrFgww1io4moPWRrIaR3cHgjReZBuzg3SPkfgIt1xHE1O5
-K9JYEAUH+MzwJe+sZsHlUQLJtx6BOg==
-=OBQ8
------END PGP SIGNATURE-----
-
---S5HS5MvDw4DmbRmb--
+Takashi

@@ -2,50 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0180A191768
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Mar 2020 18:18:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2DC0191766
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Mar 2020 18:18:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1FAA81662;
-	Tue, 24 Mar 2020 18:17:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FAA81662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 310AF1660;
+	Tue, 24 Mar 2020 18:17:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 310AF1660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585070328;
-	bh=QhTIGDa3tJ3ccy06nrYXCwIgGIP0Ua9f+Bp+XPWiYWg=;
+	s=default; t=1585070284;
+	bh=mXJ1Wr1K1oOWiQ6RUv8DIz2FSHvsrSsueC+bSrqdZIE=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=lJQDmqOdKtTtCT788QRDVJ1OlPLQxR0V6ZPVraa5vM3RjWS9ao/NXMcvBxJwPHcjN
-	 B7+qx5wRzPb6Nwa1e+HkRgQnO2nlDZ3PGQ4h9kdBBw1NRwYhlsHpZH1r1KAVjeeey/
-	 +li4leXsyFcIadkqLqLtj4OFn6TMSBKL4+i99wQg=
+	b=hZ6BDKdG5NwGbIjkLP4ZO7g4gZHefHFOM3EQ22U3eaPFXbTl8nLw8uxLrfrOtm4YC
+	 NC+t7NG24iEQVSeuEndItaFzNN342gKbZ7f6MEtFPgQ+yLOTndOX4MUoB8+XKjSU/4
+	 VwgumiJnX+wzT4AlR1rwoeuUH4PPzFbrN7kH1OHk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49C4DF80258;
-	Tue, 24 Mar 2020 18:16:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A14CF80227;
+	Tue, 24 Mar 2020 18:16:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ABF58F801F9; Tue, 24 Mar 2020 18:16:21 +0100 (CET)
+ id EBC21F80227; Tue, 24 Mar 2020 18:16:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 66565F80095
- for <alsa-devel@alsa-project.org>; Tue, 24 Mar 2020 18:16:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66565F80095
+ by alsa1.perex.cz (Postfix) with ESMTP id 69D90F800B9
+ for <alsa-devel@alsa-project.org>; Tue, 24 Mar 2020 18:16:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69D90F800B9
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0AD4C1FB;
- Tue, 24 Mar 2020 10:16:13 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7CDB5FEC;
+ Tue, 24 Mar 2020 10:16:17 -0700 (PDT)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 80CE53F71F;
- Tue, 24 Mar 2020 10:16:12 -0700 (PDT)
-Date: Tue, 24 Mar 2020 17:16:11 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 001543F71F;
+ Tue, 24 Mar 2020 10:16:16 -0700 (PDT)
+Date: Tue, 24 Mar 2020 17:16:15 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Paul Cercueil <paul@crapouillou.net>
-Subject: Applied "ASoC: Convert jz4740-i2s doc to YAML" to the asoc tree
-In-Reply-To: <20200306222931.39664-1-paul@crapouillou.net>
-Message-Id: <applied-20200306222931.39664-1-paul@crapouillou.net>
+Subject: Applied "ASoC: jz4740-i2s: Add support for the JZ4770" to the asoc
+ tree
+In-Reply-To: <20200306222931.39664-6-paul@crapouillou.net>
+Message-Id: <applied-20200306222931.39664-6-paul@crapouillou.net>
 X-Patchwork-Hint: ignore
 Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
  alsa-devel@alsa-project.org, od@zcrc.me,
@@ -69,7 +70,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Convert jz4740-i2s doc to YAML
+   ASoC: jz4740-i2s: Add support for the JZ4770
 
 has been applied to the asoc tree at
 
@@ -94,153 +95,75 @@ to this mail.
 Thanks,
 Mark
 
-From 129a5d4824d5fc4a8c155d4349492caaf1a4ea28 Mon Sep 17 00:00:00 2001
+From a3434a497a2f33324e0f47bc1500a400959b4b25 Mon Sep 17 00:00:00 2001
 From: Paul Cercueil <paul@crapouillou.net>
-Date: Fri, 6 Mar 2020 23:29:26 +0100
-Subject: [PATCH] ASoC: Convert jz4740-i2s doc to YAML
+Date: Fri, 6 Mar 2020 23:29:31 +0100
+Subject: [PATCH] ASoC: jz4740-i2s: Add support for the JZ4770
 
-Convert the textual binding documentation for the AIC (AC97/I2S
-Controller) of Ingenic SoCs to a YAML schema, and add the new compatible
-strings in the process.
+Before the JZ4770, the playback and capture sampling rates had to match.
+The JZ4770 supports independent sampling rates for both.
 
 Signed-off-by: Paul Cercueil <paul@crapouillou.net>
-Reviewed-by: Rob Herring <robh@kernel.org>
-Link: https://lore.kernel.org/r/20200306222931.39664-1-paul@crapouillou.net
+Link: https://lore.kernel.org/r/20200306222931.39664-6-paul@crapouillou.net
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- .../bindings/sound/ingenic,aic.yaml           | 92 +++++++++++++++++++
- .../bindings/sound/ingenic,jz4740-i2s.txt     | 23 -----
- 2 files changed, 92 insertions(+), 23 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/ingenic,aic.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/ingenic,jz4740-i2s.txt
+ sound/soc/jz4740/jz4740-i2s.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/ingenic,aic.yaml b/Documentation/devicetree/bindings/sound/ingenic,aic.yaml
-new file mode 100644
-index 000000000000..44f49bebb267
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/ingenic,aic.yaml
-@@ -0,0 +1,92 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/ingenic,aic.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/sound/soc/jz4740/jz4740-i2s.c b/sound/soc/jz4740/jz4740-i2s.c
+index 253f8d8ba273..6f6f8dad0356 100644
+--- a/sound/soc/jz4740/jz4740-i2s.c
++++ b/sound/soc/jz4740/jz4740-i2s.c
+@@ -87,6 +87,7 @@
+ enum jz47xx_i2s_version {
+ 	JZ_I2S_JZ4740,
+ 	JZ_I2S_JZ4760,
++	JZ_I2S_JZ4770,
+ 	JZ_I2S_JZ4780,
+ };
+ 
+@@ -286,7 +287,7 @@ static int jz4740_i2s_hw_params(struct snd_pcm_substream *substream,
+ 		ctrl &= ~JZ_AIC_CTRL_INPUT_SAMPLE_SIZE_MASK;
+ 		ctrl |= sample_size << JZ_AIC_CTRL_INPUT_SAMPLE_SIZE_OFFSET;
+ 
+-		if (i2s->soc_info->version >= JZ_I2S_JZ4780) {
++		if (i2s->soc_info->version >= JZ_I2S_JZ4770) {
+ 			div_reg &= ~I2SDIV_IDV_MASK;
+ 			div_reg |= (div - 1) << I2SDIV_IDV_SHIFT;
+ 		} else {
+@@ -469,7 +470,7 @@ static const struct i2s_soc_info jz4760_i2s_soc_info = {
+ 	.dai = &jz4740_i2s_dai,
+ };
+ 
+-static struct snd_soc_dai_driver jz4780_i2s_dai = {
++static struct snd_soc_dai_driver jz4770_i2s_dai = {
+ 	.probe = jz4740_i2s_dai_probe,
+ 	.remove = jz4740_i2s_dai_remove,
+ 	.playback = {
+@@ -487,9 +488,14 @@ static struct snd_soc_dai_driver jz4780_i2s_dai = {
+ 	.ops = &jz4740_i2s_dai_ops,
+ };
+ 
++static const struct i2s_soc_info jz4770_i2s_soc_info = {
++	.version = JZ_I2S_JZ4770,
++	.dai = &jz4770_i2s_dai,
++};
 +
-+title: Ingenic SoCs AC97 / I2S Controller (AIC) DT bindings
-+
-+maintainers:
-+  - Paul Cercueil <paul@crapouillou.net>
-+
-+properties:
-+  $nodename:
-+    pattern: '^audio-controller@'
-+
-+  compatible:
-+    oneOf:
-+      - enum:
-+        - ingenic,jz4740-i2s
-+        - ingenic,jz4760-i2s
-+        - ingenic,jz4770-i2s
-+        - ingenic,jz4780-i2s
-+      - items:
-+        - const: ingenic,jz4725b-i2s
-+        - const: ingenic,jz4740-i2s
-+
-+  '#sound-dai-cells':
-+    const: 0
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: AIC clock
-+      - description: I2S clock
-+      - description: EXT clock
-+      - description: PLL/2 clock
-+
-+  clock-names:
-+    items:
-+      - const: aic
-+      - const: i2s
-+      - const: ext
-+      - const: pll half
-+
-+  dmas:
-+    items:
-+      - description: DMA controller phandle and request line for I2S RX
-+      - description: DMA controller phandle and request line for I2S TX
-+
-+  dma-names:
-+    items:
-+      - const: rx
-+      - const: tx
-+
-+additionalProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - dmas
-+  - dma-names
-+  - '#sound-dai-cells'
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/jz4740-cgu.h>
-+    aic: audio-controller@10020000 {
-+      compatible = "ingenic,jz4740-i2s";
-+      reg = <0x10020000 0x38>;
-+
-+      #sound-dai-cells = <0>;
-+
-+      interrupt-parent = <&intc>;
-+      interrupts = <18>;
-+
-+      clocks = <&cgu JZ4740_CLK_AIC>,
-+               <&cgu JZ4740_CLK_I2S>,
-+               <&cgu JZ4740_CLK_EXT>,
-+               <&cgu JZ4740_CLK_PLL_HALF>;
-+      clock-names = "aic", "i2s", "ext", "pll half";
-+
-+      dmas = <&dmac 25 0xffffffff>, <&dmac 24 0xffffffff>;
-+      dma-names = "rx", "tx";
-+    };
-diff --git a/Documentation/devicetree/bindings/sound/ingenic,jz4740-i2s.txt b/Documentation/devicetree/bindings/sound/ingenic,jz4740-i2s.txt
-deleted file mode 100644
-index b623d50004fb..000000000000
---- a/Documentation/devicetree/bindings/sound/ingenic,jz4740-i2s.txt
-+++ /dev/null
-@@ -1,23 +0,0 @@
--Ingenic JZ4740 I2S controller
--
--Required properties:
--- compatible : "ingenic,jz4740-i2s" or "ingenic,jz4780-i2s"
--- reg : I2S registers location and length
--- clocks : AIC and I2S PLL clock specifiers.
--- clock-names: "aic" and "i2s"
--- dmas: DMA controller phandle and DMA request line for I2S Tx and Rx channels
--- dma-names: Must be "tx" and "rx"
--
--Example:
--
--i2s: i2s@10020000 {
--	compatible = "ingenic,jz4740-i2s";
--	reg = <0x10020000 0x94>;
--
--	clocks = <&cgu JZ4740_CLK_AIC>, <&cgu JZ4740_CLK_I2SPLL>;
--	clock-names = "aic", "i2s";
--
--	dmas = <&dma 2>, <&dma 3>;
--	dma-names = "tx", "rx";
--
--};
+ static const struct i2s_soc_info jz4780_i2s_soc_info = {
+ 	.version = JZ_I2S_JZ4780,
+-	.dai = &jz4780_i2s_dai,
++	.dai = &jz4770_i2s_dai,
+ };
+ 
+ static const struct snd_soc_component_driver jz4740_i2s_component = {
+@@ -502,6 +508,7 @@ static const struct snd_soc_component_driver jz4740_i2s_component = {
+ static const struct of_device_id jz4740_of_matches[] = {
+ 	{ .compatible = "ingenic,jz4740-i2s", .data = &jz4740_i2s_soc_info },
+ 	{ .compatible = "ingenic,jz4760-i2s", .data = &jz4760_i2s_soc_info },
++	{ .compatible = "ingenic,jz4770-i2s", .data = &jz4770_i2s_soc_info },
+ 	{ .compatible = "ingenic,jz4780-i2s", .data = &jz4780_i2s_soc_info },
+ 	{ /* sentinel */ }
+ };
 -- 
 2.20.1
 

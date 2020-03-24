@@ -2,75 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 477811913C9
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Mar 2020 16:01:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96F3819169A
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Mar 2020 17:38:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C80E91612;
-	Tue, 24 Mar 2020 16:00:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C80E91612
+	by alsa0.perex.cz (Postfix) with ESMTPS id 076B61661;
+	Tue, 24 Mar 2020 17:38:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 076B61661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585062084;
-	bh=wHdWgw1z7G3SiJoNBBzZ3tzG/+5WPOvSbq5X7qxCxwI=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=kxIRr8pH2gnOr13ybZToizvU8SzVy1ujCqtRuhOhsF6MW7X/SNvuHg8/8+Q2Z6t29
-	 Bxxmexf17gkidgg4AiNrEz7MfvL7ld2868+/FTXRLPGN/eADv81aukLmst33SYb77Q
-	 ptWt5Mq5Npa8+SkNmTdd4VZFvZWdLRYLEjnC5b7I=
+	s=default; t=1585067938;
+	bh=z57hpe1IUusb/CPgsearl2ftWvBEMroUg9OEgRAwMIs=;
+	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=MP5/Oo+uj3Mx6D18BmNwEoVYxFkdRrAc2wN49lgA05jvnzBESX0hScFNTUzBcFd/C
+	 85rcCr42rtB96ulrQQWEbE2qaZ6Ndl7oUhXevBtrUxEzVaQiU8yxF0CoUJtLsVZG9o
+	 BnHOasdD9bEBwj9cWXu1RkNU+YxA2Qsowv080x14=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C69C8F80227;
-	Tue, 24 Mar 2020 15:59:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 084D2F80227;
+	Tue, 24 Mar 2020 17:37:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D3387F801F9; Tue, 24 Mar 2020 15:59:40 +0100 (CET)
+ id 879F6F801F9; Tue, 24 Mar 2020 17:37:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94C0EF80095
- for <alsa-devel@alsa-project.org>; Tue, 24 Mar 2020 15:59:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94C0EF80095
-IronPort-SDR: 44pGBxCuxQ6UlE7KMLHYbyBQcO7MlfkePbv52Vwu1z9JF17SCoPkqcgF+JWOK++LVE/CLXni3/
- TDYYhPZLjvBw==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2020 07:59:30 -0700
-IronPort-SDR: zADVtNoi/pxeQyDd+Wlk104slh/VnpDBfKHepWSytcgdzxTFIpQTO8l4aBl6CHJDXLFvX7fR9B
- rHmJUf3FdYkA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,300,1580803200"; d="scan'208";a="357447178"
-Received: from bpsimon-mobl2.amr.corp.intel.com (HELO [10.212.197.66])
- ([10.212.197.66])
- by fmsmga001.fm.intel.com with ESMTP; 24 Mar 2020 07:59:29 -0700
-Subject: Re: [PATCH] ALSA: core: sysfs: show components string
-To: Takashi Iwai <tiwai@suse.de>
-References: <20200323193623.3587-1-pierre-louis.bossart@linux.intel.com>
- <20200324015331.GA3679@workstation>
- <d31659cc-d528-345f-1e56-b0cfae36be5c@linux.intel.com>
- <20200324043336.GA8342@workstation>
- <a74e4b68-d6f6-c12d-d600-d8cb7321cc00@linux.intel.com>
- <20200324090152.GA14579@workstation>
- <69761ee4-463b-25ff-1d2d-635a19487663@linux.intel.com>
- <s5h8sjpn6np.wl-tiwai@suse.de>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <72705dc9-f91f-2d8c-18f2-384db87b590f@linux.intel.com>
-Date: Tue, 24 Mar 2020 09:59:29 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
-MIME-Version: 1.0
-In-Reply-To: <s5h8sjpn6np.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id ED72CF800B9
+ for <alsa-devel@alsa-project.org>; Tue, 24 Mar 2020 17:37:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED72CF800B9
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9EAFF1FB;
+ Tue, 24 Mar 2020 09:37:06 -0700 (PDT)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 20F393F52E;
+ Tue, 24 Mar 2020 09:37:05 -0700 (PDT)
+Date: Tue, 24 Mar 2020 16:37:04 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Jonghwan Choi <charlie.jh@kakaocorp.com>
+Subject: Applied "ASoC: tas2562: Fixed incorrect amp_level setting." to the
+ asoc tree
+In-Reply-To: <20200319140043.GA6688@jhbirdchoi-MS-7B79>
+Message-Id: <applied-20200319140043.GA6688@jhbirdchoi-MS-7B79>
+X-Patchwork-Hint: ignore
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Dan Murphy <dmurphy@ti.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,39 +67,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The patch
 
->>>> when people report that their microphone is not reported by PulseAudio/UCM,
->>>> it's very helpful to know what UCM was supposed to use in the first place.
->>>> We don't have a debugger or step-by-step mechanisms to figure out what the
->>>> configurations are.
->>>
->>> If I get your intension correctly, the addition of sysfs node is just to
->>> investigate which use-case configuration is applied in cases that people
->>> get issues. If so, it's really exaggerative in a point of the concept of
->>> sysfs.
->>>
->>> I have two alternatives. If it's possible to focus on ALSA SoC part only,
->>> addition of node to debugfs is reasonable for this purpose.
->>>
->>> Another alternative is to change output of 'cards' node of procfs. The
->>> latter is commonly available for all cases. For example:
->>
->> I initially wanted to use /proc but thought it was a thing from the
->> past so I looked at sysfs. If this is the recommendation I don't mind
->> using it.
-> 
-> procfs will practically never die, and it's already there, so I'm fine
-> with that path, too, supposing that the primary purpose is for help
-> debugging / analyzing.  If it's used by UCM or whatever configuration
-> tool, sysfs is the better choice, OTOH.
-> 
->> debugsfs is not something the average user is familiar with, and it's
->> not available in all cases. I'd like to extend existing pieces of
->> information than add new things.
-> 
-> Right, debugfs isn't available per card as default, so it's no good
-> option.
+   ASoC: tas2562: Fixed incorrect amp_level setting.
 
-ok, let's go with procfs then, thanks for the feedback. I'll work on an 
-update and resubmit.
--Pierre
+has been applied to the asoc tree at
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From eedf8a126629bf9db8ad3a2a5dc9dc1798fb2302 Mon Sep 17 00:00:00 2001
+From: Jonghwan Choi <charlie.jh@kakaocorp.com>
+Date: Thu, 19 Mar 2020 23:00:44 +0900
+Subject: [PATCH] ASoC: tas2562: Fixed incorrect amp_level setting.
+
+According to the tas2562 datasheet,the bits[5:1] represents the amp_level value.
+So to set the amp_level value correctly,the shift value should be set to 1.
+
+Signed-off-by: Jonghwan Choi <charlie.jh@kakaocorp.com>
+Acked-by: Dan Murphy <dmurphy@ti.com>
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/r/20200319140043.GA6688@jhbirdchoi-MS-7B79
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/codecs/tas2562.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/soc/codecs/tas2562.c b/sound/soc/codecs/tas2562.c
+index be52886a5edb..fb2233ca9103 100644
+--- a/sound/soc/codecs/tas2562.c
++++ b/sound/soc/codecs/tas2562.c
+@@ -409,7 +409,7 @@ static const struct snd_kcontrol_new vsense_switch =
+ 			1, 1);
+ 
+ static const struct snd_kcontrol_new tas2562_snd_controls[] = {
+-	SOC_SINGLE_TLV("Amp Gain Volume", TAS2562_PB_CFG1, 0, 0x1c, 0,
++	SOC_SINGLE_TLV("Amp Gain Volume", TAS2562_PB_CFG1, 1, 0x1c, 0,
+ 		       tas2562_dac_tlv),
+ };
+ 
+-- 
+2.20.1
+

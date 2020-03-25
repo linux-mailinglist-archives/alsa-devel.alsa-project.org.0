@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A007019332F
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Mar 2020 23:00:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEEFE19332C
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Mar 2020 22:59:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 412BC15F9;
-	Wed, 25 Mar 2020 22:59:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 412BC15F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D181167F;
+	Wed, 25 Mar 2020 22:58:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D181167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585173611;
-	bh=mitVRBXlK/6Eb22g0E4ksAI+Uy3cmWUAV7aWPdZxyk0=;
+	s=default; t=1585173547;
+	bh=Yz1RluBX7r69bnjHoh9i9DO051Po8prcvlwG/ABkt8A=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=H9iTF6L7S7dv0X4U0tQPRCMMFwyUVMnEYMlDgwhLZ9F26b7QjMPY3RD5M+7s25vdK
-	 ymUm4BEf+UTU2hHSg/KMPcGifScWiYOnqP+6nZeTe1/NM5rxZQi525Td4w9s1sFET5
-	 hls6zGZoPXt22xxJa4CE+w95523uxu9pn0gqfIKY=
+	b=sGX43uR070xb1DC+ttWU7lKXdcEz+BZItngcNF6j10D9F4c+n2Ds/XjgPHteLpAlf
+	 +YMw62OnLchVe6dOrSEiipzroqGnQYwpe7VfMmKfE06cDwz+CckwGR3VEtBxUB3JUk
+	 cg8Ifd3MaDpUNDBtcmzv1ohrMiayD9fxhdQamW2Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 05A18F80317;
-	Wed, 25 Mar 2020 22:51:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 27D22F80322;
+	Wed, 25 Mar 2020 22:51:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D8D07F802E9; Wed, 25 Mar 2020 22:50:56 +0100 (CET)
+ id B9CD1F802EA; Wed, 25 Mar 2020 22:50:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,29 +33,29 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B1A16F800EF
- for <alsa-devel@alsa-project.org>; Wed, 25 Mar 2020 22:50:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1A16F800EF
-IronPort-SDR: jXUZsvDfSw7qwX3e9gb/V6gAGCu1XTqGFPeqx/Bnh64CtPbLMNok3BSo1EeNS3nYnAlCCjbozm
- 5kf/OizJ3l7A==
+ by alsa1.perex.cz (Postfix) with ESMTPS id E6B9EF802E0
+ for <alsa-devel@alsa-project.org>; Wed, 25 Mar 2020 22:50:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6B9EF802E0
+IronPort-SDR: 2DeYv/z71NXOCjrQcG7X2PXk6il1lSWjVpu9Ov6WftutZAKLzllEu0xAzhDM6RUatsuxW9K/dL
+ +zmSZakYBLdQ==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2020 14:50:44 -0700
-IronPort-SDR: jWY6i3v++K56Gez7tWMJvDA6Kko0650Gs3dUxCUg1xGYXQNlfeti1ff83LA1zR6/6vz/wQThfb
- dWnoSX7ALdVg==
+ 25 Mar 2020 14:50:45 -0700
+IronPort-SDR: 9BZ8s8dVsOs0nBCKF65CvKEDpJOxmAo0W1TnXBBhtpOiMXgpDieznEX+uIJaXntKFTQK+jvC4k
+ Sxz1EWgowZMA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,305,1580803200"; d="scan'208";a="265666210"
+X-IronPort-AV: E=Sophos;i="5.72,305,1580803200"; d="scan'208";a="265666219"
 Received: from abeljans.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.251.233.195])
- by orsmga002.jf.intel.com with ESMTP; 25 Mar 2020 14:50:43 -0700
+ by orsmga002.jf.intel.com with ESMTP; 25 Mar 2020 14:50:44 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 09/11] ASoC: SOF: Intel: hda: add WAKEEN interrupt support
- for SoundWire
-Date: Wed, 25 Mar 2020 16:50:25 -0500
-Message-Id: <20200325215027.28716-10-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH v2 10/11] Asoc: SOF: Intel: hda: check SoundWire wakeen
+ interrupt in irq thread
+Date: Wed, 25 Mar 2020 16:50:26 -0500
+Message-Id: <20200325215027.28716-11-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200325215027.28716-1-pierre-louis.bossart@linux.intel.com>
 References: <20200325215027.28716-1-pierre-louis.bossart@linux.intel.com>
@@ -81,102 +81,75 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Rander Wang <rander.wang@intel.com>
 
-When a SoundWire link is in clock stop state, a Slave device may wake
-up the Master for some events such as jack detection. The WAKEEN
-interrupt will be triggered and processed by the audio pci device.
-
-If audio device is in D3, the interrupt will be routed to PME, or
-aggregated at cAVS level as interrupt when audio device is in D0. This
-patch only supports D3 case, where the audio pci device will be
-resumed by a PME event and the WAKEEN interrupt will be processed
-after audio pci device is powered up and ROM is initialized
-successfully.
-
-The WAKEEN handling is only enabled after the first boot due to
-dependencies on a shim_lock mutex being initialized.
+If pci device is in D0, wakeen interrupt will be
+aggregated at cAVS level as interrupt. This commit
+check the wakeen status and process it in irq thread
 
 Signed-off-by: Rander Wang <rander.wang@intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/intel/hda-loader.c | 18 ++++++++++++++++++
- sound/soc/sof/intel/hda.c        | 11 +++++++++++
- sound/soc/sof/intel/hda.h        |  5 +++++
- 3 files changed, 34 insertions(+)
+ sound/soc/sof/intel/hda.c | 16 ++++++++++++++++
+ sound/soc/sof/intel/hda.h |  6 ++++++
+ 2 files changed, 22 insertions(+)
 
-diff --git a/sound/soc/sof/intel/hda-loader.c b/sound/soc/sof/intel/hda-loader.c
-index 2ae94ea53122..e1550ccd0a49 100644
---- a/sound/soc/sof/intel/hda-loader.c
-+++ b/sound/soc/sof/intel/hda-loader.c
-@@ -346,6 +346,24 @@ int hda_dsp_cl_boot_firmware(struct snd_sof_dev *sdev)
- 		goto cleanup;
- 	}
- 
-+	/*
-+	 * When a SoundWire link is in clock stop state, a Slave
-+	 * device may trigger in-band wakes for events such as jack
-+	 * insertion or acoustic event detection. This event will lead
-+	 * to a WAKEEN interrupt, handled by the PCI device and routed
-+	 * to PME if the PCI device is in D3. The resume function in
-+	 * audio PCI driver will be invoked by ACPI for PME event and
-+	 * initialize the device and process WAKEEN interrupt.
-+	 *
-+	 * The WAKEEN interrupt should be processed ASAP to prevent an
-+	 * interrupt flood, otherwise other interrupts, such IPC,
-+	 * cannot work normally.  The WAKEEN is handled after the ROM
-+	 * is initialized successfully, which ensures power rails are
-+	 * enabled before accessing the SoundWire SHIM registers
-+	 */
-+	if (!sdev->first_boot)
-+		hda_sdw_process_wakeen(sdev);
-+
- 	/*
- 	 * at this point DSP ROM has been initialized and
- 	 * should be ready for code loading and firmware boot
 diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index 1e69cfcee8e0..7d1aa4c7d82c 100644
+index 7d1aa4c7d82c..211e91e79eae 100644
 --- a/sound/soc/sof/intel/hda.c
 +++ b/sound/soc/sof/intel/hda.c
-@@ -241,6 +241,17 @@ static irqreturn_t hda_dsp_sdw_thread(int irq, void *context)
+@@ -241,6 +241,19 @@ static irqreturn_t hda_dsp_sdw_thread(int irq, void *context)
  	return sdw_intel_thread(irq, context);
  }
  
-+void hda_sdw_process_wakeen(struct snd_sof_dev *sdev)
++static bool hda_sdw_check_wakeen_irq(struct snd_sof_dev *sdev)
 +{
 +	struct sof_intel_hda_dev *hdev;
 +
 +	hdev = sdev->pdata->hw_pdata;
-+	if (!hdev->sdw)
-+		return;
++	if (hdev->sdw &&
++	    snd_sof_dsp_read(sdev, HDA_DSP_BAR,
++			     HDA_DSP_REG_SNDW_WAKE_STS))
++		return true;
 +
-+	sdw_intel_process_wakeen_event(hdev->sdw);
++	return false;
 +}
 +
- #endif
+ void hda_sdw_process_wakeen(struct snd_sof_dev *sdev)
+ {
+ 	struct sof_intel_hda_dev *hdev;
+@@ -684,6 +697,9 @@ static irqreturn_t hda_dsp_interrupt_thread(int irq, void *context)
+ 	if (hda_dsp_check_sdw_irq(sdev))
+ 		hda_dsp_sdw_thread(irq, hdev->sdw);
  
- /*
++	if (hda_sdw_check_wakeen_irq(sdev))
++		hda_sdw_process_wakeen(sdev);
++
+ 	/* enable GIE interrupt */
+ 	snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR,
+ 				SOF_HDA_INTCTL,
 diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index fc104c5ba006..6f1765b1ed1d 100644
+index 6f1765b1ed1d..e9825798de77 100644
 --- a/sound/soc/sof/intel/hda.h
 +++ b/sound/soc/sof/intel/hda.h
-@@ -671,6 +671,7 @@ int hda_dsp_trace_trigger(struct snd_sof_dev *sdev, int cmd);
+@@ -233,6 +233,7 @@
+ #define HDA_DSP_REG_ADSPIS2		(HDA_DSP_GEN_BASE + 0x14)
  
- int hda_sdw_startup(struct snd_sof_dev *sdev);
- void hda_sdw_int_enable(struct snd_sof_dev *sdev, bool enable);
-+void hda_sdw_process_wakeen(struct snd_sof_dev *sdev);
+ #define HDA_DSP_REG_ADSPIS2_SNDW	BIT(5)
++#define HDA_DSP_REG_SNDW_WAKE_STS      0x2C192
  
- #else
- 
-@@ -707,6 +708,10 @@ static inline irqreturn_t hda_dsp_sdw_thread(int irq, void *context)
- {
+ /* Intel HD Audio Inter-Processor Communication Registers */
+ #define HDA_DSP_IPC_BASE		0x40
+@@ -709,6 +710,11 @@ static inline irqreturn_t hda_dsp_sdw_thread(int irq, void *context)
  	return IRQ_HANDLED;
  }
-+
-+static inline void hda_sdw_process_wakeen(struct snd_sof_dev *sdev)
-+{
-+}
- #endif
  
- /* common dai driver */
++static inline bool hda_sdw_check_wakeen_irq(struct snd_sof_dev *sdev)
++{
++	return false;
++}
++
+ static inline void hda_sdw_process_wakeen(struct snd_sof_dev *sdev)
+ {
+ }
 -- 
 2.20.1
 

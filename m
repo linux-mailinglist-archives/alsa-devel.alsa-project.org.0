@@ -2,55 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50198193316
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Mar 2020 22:53:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2D92193317
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Mar 2020 22:54:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F420C166A;
-	Wed, 25 Mar 2020 22:52:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F420C166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D2AF1669;
+	Wed, 25 Mar 2020 22:53:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D2AF1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585173204;
-	bh=Mgojjxq2CNJ30z0Gw1Wh0d6odVZ6DCNSc3LxEYGzNRA=;
-	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=CXD0ogjEQk0r+Uzvy7X0a3/WlociHx0Vy37ZIcd4jlljISq2YJWjtJxmessRoNVzN
-	 2cFKJZvePn2OAiqQK/rbf9f3eZy6Y7+OiG0pan/Y9szRiT8ydwB4zeq1+75JQ8HBPd
-	 J5pv7ZAZMlnQLvX7FWinYlDx5JlYBLcsTVA2gdS0=
+	s=default; t=1585173245;
+	bh=5Li2SueCYsVzJ5dpiYty8miLkDfuUzvaU0rU82ynQVY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=XPvCcAPhgvddbFQg7lR/eovMdgKGHoK6HiAU4gL+s8T0xZTViJYJVIhk43AIpVDhG
+	 n9TG7vLW2YEtUszxABzGp21PEdMsQd4U+ySc/FwWuuxbsWVd0BUQgiDiZUvyCqycih
+	 hLoR4L9AIVL1DugJlS3fLqnDfpe8wTo/iOBsePl0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DCBC9F802C3;
-	Wed, 25 Mar 2020 22:49:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA12FF8029A;
+	Wed, 25 Mar 2020 22:50:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EBB10F8028B; Wed, 25 Mar 2020 22:48:49 +0100 (CET)
+ id 4D47FF8011E; Wed, 25 Mar 2020 22:50:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id C29E6F8028C
- for <alsa-devel@alsa-project.org>; Wed, 25 Mar 2020 22:33:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C29E6F8028C
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C687E31B;
- Wed, 25 Mar 2020 14:33:51 -0700 (PDT)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4B2023F71E;
- Wed, 25 Mar 2020 14:33:51 -0700 (PDT)
-Date: Wed, 25 Mar 2020 21:33:49 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Applied "ASoC: Intel: broadwell: Revert back SSP0 link to use dummy
- components" to the asoc tree
-In-Reply-To: 
-Message-Id: 
-X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Dominik Brodowski <linux@dominikbrodowski.net>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 41529F8011E
+ for <alsa-devel@alsa-project.org>; Wed, 25 Mar 2020 22:50:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41529F8011E
+IronPort-SDR: E/9jM6cBmG/YbV6Ixw//rRwJzl3YcKzYYuPENsyJJ5v60uQK35ziXTgiDjby2pS0WimmeK2vvh
+ qEN5j13ngIXw==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2020 14:50:37 -0700
+IronPort-SDR: sL7Pvor4WX6kKvEiLpfjqtE/Cxe4TkCzvN8TiYd8qVHdTfOuFcDdRGZFkCLu3h5d8BBUVRqvoF
+ pEXN+RgeoFnQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,305,1580803200"; d="scan'208";a="265666141"
+Received: from abeljans.amr.corp.intel.com (HELO
+ pbossart-mobl3.amr.corp.intel.com) ([10.251.233.195])
+ by orsmga002.jf.intel.com with ESMTP; 25 Mar 2020 14:50:35 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2 00/11] ASoC: SOF: Intel: add SoundWire support
+Date: Wed, 25 Mar 2020 16:50:16 -0500
+Message-Id: <20200325215027.28716-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de, broonie@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,89 +74,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+This patchset provides the support for SoundWire support on Intel
+CometLake, IcelLake and TigerLake RVP platforms and form-factor
+devices to be released 'soon'.
 
-   ASoC: Intel: broadwell: Revert back SSP0 link to use dummy components
+The bulk of the code is about detecting a valid SoundWire
+configuration from ACPI, and implementing the interfaces suggested in
+'[PATCH 0/8] soundwire: remove platform devices, add SOF interfaces'
+for interrupts, PCI wakes and clock-stop configurations.
 
-has been applied to the asoc tree at
+Since that SoundWire series will not be in 5.7, the build support for
+SOF w/ SoundWire is not provided for now, and fall-back functions will
+be used. This code is tested on a daily basis in the SOF tree and is
+not expected to change in significant ways.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+Changes since v2:
+Corrected error in ACPI table (thanks Amadeusz)
+Added patch 11 to add reset cycle required on some SoundWire platforms
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+Bard Liao (1):
+  ASoC: SOF: Intel: hda: merge IPC, stream and SoundWire interrupt
+    handlers
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Pierre-Louis Bossart (8):
+  ASoC: soc-acpi: expand description of _ADR-based devices
+  ASoC: SOF: Intel: add SoundWire configuration interface
+  ASoC: SOF: IPC: dai-intel: move ALH declarations in header file
+  ASoC: SOF: Intel: hda: add SoundWire stream config/free callbacks
+  ASoC: SOF: Intel: hda: initial SoundWire machine driver autodetect
+  ASoC: SOF: Intel: hda: disable SoundWire interrupts on suspend
+  ASoC: SOF: Intel: hda: add parameter to control SoundWire clock stop
+    quirks
+  ASoC: SOF: Intel: hda-ctrl: add reset cycle before parsing
+    capabilities
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Rander Wang (2):
+  ASoC: SOF: Intel: hda: add WAKEEN interrupt support for SoundWire
+  Asoc: SOF: Intel: hda: check SoundWire wakeen interrupt in irq thread
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+ include/sound/soc-acpi.h                      |  39 +-
+ include/sound/sof/dai-intel.h                 |  18 +-
+ .../intel/common/soc-acpi-intel-cml-match.c   |  87 +++-
+ .../intel/common/soc-acpi-intel-icl-match.c   |  97 ++++-
+ .../intel/common/soc-acpi-intel-tgl-match.c   |  49 ++-
+ sound/soc/sof/intel/hda-ctrl.c                |  25 +-
+ sound/soc/sof/intel/hda-dsp.c                 |   2 +
+ sound/soc/sof/intel/hda-loader.c              |  31 ++
+ sound/soc/sof/intel/hda.c                     | 400 ++++++++++++++++++
+ sound/soc/sof/intel/hda.h                     |  66 +++
+ 10 files changed, 750 insertions(+), 64 deletions(-)
 
-Thanks,
-Mark
-
-From 68999d939dcfb430dd9834df56c71e43b7f37c6e Mon Sep 17 00:00:00 2001
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Date: Wed, 25 Mar 2020 14:16:09 +0100
-Subject: [PATCH] ASoC: Intel: broadwell: Revert back SSP0 link to use dummy
- components
-
-Recent series of patches targeting broadwell boards, while enabling
-SOF, changed behavior for non-SOF solutions. In essence replacing
-platform 'dummy' with actual 'platform' causes redundant stream
-initialization to occur during audio start. hw_params for haswell-pcm
-destroys initial stream right after its creation - only to recreate it
-again from proceed from there.
-
-While harmless so far, this flow isn't correct and should be corrected.
-The actual need for dummy components for SSP0 link is questionable but
-that issue is subject for another series.
-
-Link to first message in conversation:
-https://lkml.org/lkml/2020/3/18/54
-
-Fixes: 64df6afa0dab ("ASoC: Intel: broadwell: change cpu_dai and platform components for SOF")
-Reported-by: Dominik Brodowski <linux@dominikbrodowski.net>
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200325131611.545-2-cezary.rojewski@intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/intel/boards/broadwell.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/sound/soc/intel/boards/broadwell.c b/sound/soc/intel/boards/broadwell.c
-index b9c12e24c70b..ffbb597052aa 100644
---- a/sound/soc/intel/boards/broadwell.c
-+++ b/sound/soc/intel/boards/broadwell.c
-@@ -167,9 +167,6 @@ SND_SOC_DAILINK_DEF(codec,
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
- SND_SOC_DAILINK_DEF(ssp0_port,
- 	    DAILINK_COMP_ARRAY(COMP_CPU("ssp0-port")));
--#else
--SND_SOC_DAILINK_DEF(ssp0_port,
--	    DAILINK_COMP_ARRAY(COMP_DUMMY()));
- #endif
- 
- /* broadwell digital audio interface glue - connects codec <--> CPU */
-@@ -226,7 +223,11 @@ static struct snd_soc_dai_link broadwell_rt286_dais[] = {
- 		.ops = &broadwell_rt286_ops,
- 		.dpcm_playback = 1,
- 		.dpcm_capture = 1,
-+#if !IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
-+		SND_SOC_DAILINK_REG(dummy, codec, dummy),
-+#else
- 		SND_SOC_DAILINK_REG(ssp0_port, codec, platform),
-+#endif
- 	},
- };
- 
 -- 
 2.20.1
 

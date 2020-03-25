@@ -2,65 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85D0719296B
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Mar 2020 14:19:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C1C9192979
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Mar 2020 14:20:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D2D6167B;
-	Wed, 25 Mar 2020 14:18:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D2D6167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id A509D166E;
+	Wed, 25 Mar 2020 14:20:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A509D166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585142351;
-	bh=KQNNlSBz8DWcYoqMsfxwPITyrzGRNtkeXn/NbqsU9pw=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1585142451;
+	bh=TlQMVw6SpOzg7I9BgEulIfuoV+aI1WbdHRx1ueZR+MM=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LBQAbBbE4+stDY/NPNMAiKb+i451OzrDmi6znclpfu1ZqEdcDSyQjIEe8fH1g1mxW
-	 y8g/5wkZUF7274aOrnJR5W5ja7jTbO1gufJyHrM+2DsgHTntiB6Dj5aVhRcuWrenZr
-	 GbuhhL0P+XxCM8xzw0RV7sx/bfFEdS2Cr8hAjsGU=
+	b=Rw3d0U5gcVAB8PK1ZSnxI6zixtArIyB0CtFYe2t29ecHtkEhhP9P4xXYxjQ2puYDK
+	 r7Kme0uIVm9+lfw7hmKRVXo4mrk5oUmg6oJ3yobqWcVS6l1j8yhM0d6h+i2f8etcd4
+	 tuv8UpKD6CyvImwmsx5MAS/bjAeuLrea+kGiSmWs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0318FF80095;
-	Wed, 25 Mar 2020 14:16:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6811F80218;
+	Wed, 25 Mar 2020 14:18:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B19A9F801DA; Wed, 25 Mar 2020 14:16:44 +0100 (CET)
+ id 865E4F8015A; Wed, 25 Mar 2020 14:18:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4268FF8015A
- for <alsa-devel@alsa-project.org>; Wed, 25 Mar 2020 14:16:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4268FF8015A
-IronPort-SDR: v+u3CABMh20dqjnJrqiKCTDbW6wD5JHwCH1/6HSM4vmj4mCTLm6ayVbsjSSW39UkupvzwMTMxO
- /2z44u6w8w9g==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3E46EF80147
+ for <alsa-devel@alsa-project.org>; Wed, 25 Mar 2020 14:18:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E46EF80147
+IronPort-SDR: 4KKIXg6/4oPlvmOXT4C8t/mPrHJnFn8kOUTReg44OTR/uwYmntm4XzhRn4xPTFX8TWzIdJ1p/A
+ 6EjSVO2X6jDQ==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2020 06:16:38 -0700
-IronPort-SDR: N6+oSDfTFWhTsw4eRQ/JQfRIIXkZo8q5dt2wmr5vR4IogoSaR15dGt/kHNayjWcrJn8dipjsLV
- /vITo1v9h9UA==
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2020 06:18:45 -0700
+IronPort-SDR: B4T/vk7Aw8J7ABDQrAvZ6Lly/MsWcQTRVpi/RTtimXjStBoID73ocRSuNuENjJzHD4Yw3QppIU
+ YkW2yvkuIKow==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,304,1580803200"; d="scan'208";a="446618815"
-Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga005.fm.intel.com with ESMTP; 25 Mar 2020 06:16:36 -0700
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 3/3] ASoC: Intel: bdw-rt5650: Revert SSP0 link to use dummy
+X-IronPort-AV: E=Sophos;i="5.72,304,1580803200"; d="scan'208";a="293337183"
+Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.213.3.125])
+ ([10.213.3.125])
+ by FMSMGA003.fm.intel.com with ESMTP; 25 Mar 2020 06:18:43 -0700
+Subject: Re: [PATCH] ASoC: Intel: broadwell: Revert SSP0 link to use dummy
  components
-Date: Wed, 25 Mar 2020 14:16:11 +0100
-Message-Id: <20200325131611.545-4-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200325131611.545-1-cezary.rojewski@intel.com>
-References: <20200325131611.545-1-cezary.rojewski@intel.com>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, broonie@kernel.org,
- tiwai@suse.com, linux@dominikbrodowski.net,
- pierre-louis.bossart@linux.intel.com
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+References: <20200319211204.21580-1-cezary.rojewski@intel.com>
+ <43d75d9e-5dfe-7dee-aa7d-a8a1c0b7876f@linux.intel.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+Message-ID: <17171eaa-89a7-f7ca-deae-044eae567b13@intel.com>
+Date: Wed, 25 Mar 2020 14:18:42 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
+MIME-Version: 1.0
+In-Reply-To: <43d75d9e-5dfe-7dee-aa7d-a8a1c0b7876f@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: broonie@kernel.org, lgirdwood@gmail.com, linux@dominikbrodowski.net,
+ tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,49 +83,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Recent series of patches targeting broadwell boards, while enabling
-SOF, changed behavior for non-SOF solutions. In essence replacing
-platform 'dummy' with actual 'platform' causes redundant stream
-initialization to occur during audio start. hw_params for haswell-pcm
-destroys initial stream right after its creation - only to recreate it
-again from proceed from there.
+On 2020-03-19 23:20, Pierre-Louis Bossart wrote:
+> 
+> 
+> On 3/19/20 4:12 PM, Cezary Rojewski wrote:
+>> Commit:
+>> "ASoC: Intel: broadwell: change cpu_dai and platform components for SOF
+> 
+> checkpatch.pl probably reports the format doesn't follow conventions?
+> 
 
-While harmless so far, this flow isn't right and should be corrected.
-The actual need for dummy components for SSP0 link is questionable but
-that issue is subject for another series.
+It does not. Reworded anyway so it's not bothering anyone.
 
-Fixes: a40acc6bfceb ("ASoC: Intel: bdw-rt5650: change cpu_dai and platform components for SOF")
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
----
- sound/soc/intel/boards/bdw-rt5650.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+>>
+>> while enabling bdw on SOF, changed behavior for non-SOF solutions. In
+>> essence replacing platform 'dummy' with actual 'platform' causes
+>> redundant stream initialization to occur during audio start. hw_params
+>> for haswell-pcm destroys initial stream right after its creation - only
+>> to recreate it again from proceed from there.
+>>
+>> While harmless so far, this flow ain't right and should be corrected.
+> 
+> isn't
+> 
 
-diff --git a/sound/soc/intel/boards/bdw-rt5650.c b/sound/soc/intel/boards/bdw-rt5650.c
-index 4545dbd48879..fbceea4a66b8 100644
---- a/sound/soc/intel/boards/bdw-rt5650.c
-+++ b/sound/soc/intel/boards/bdw-rt5650.c
-@@ -226,9 +226,6 @@ SND_SOC_DAILINK_DEF(be,
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
- SND_SOC_DAILINK_DEF(ssp0_port,
- 	    DAILINK_COMP_ARRAY(COMP_CPU("ssp0-port")));
--#else
--SND_SOC_DAILINK_DEF(ssp0_port,
--	    DAILINK_COMP_ARRAY(COMP_DUMMY()));
- #endif
- 
- static struct snd_soc_dai_link bdw_rt5650_dais[] = {
-@@ -263,7 +260,11 @@ static struct snd_soc_dai_link bdw_rt5650_dais[] = {
- 		.dpcm_playback = 1,
- 		.dpcm_capture = 1,
- 		.init = bdw_rt5650_init,
-+#if !IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
-+		SND_SOC_DAILINK_REG(dummy, be, dummy),
-+#else
- 		SND_SOC_DAILINK_REG(ssp0_port, be, platform),
-+#endif
- 	},
- };
- 
--- 
-2.17.1
+Reworded.
 
+>> The actual need for dummy components for SSP0 link is questionable but
+>> that issue is subject for another series.
+> 
+> If we want to be consistent, the same use of a dummy platform component 
+> needs to be applied to bdw-rt5677.c and bdw-rt5650.c
+> 
+
+Agreed. Combined all three into one series.
+
+Czarek

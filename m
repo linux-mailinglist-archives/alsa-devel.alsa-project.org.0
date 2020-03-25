@@ -2,83 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D26FC1930E6
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Mar 2020 20:09:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24D7A19311E
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Mar 2020 20:28:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5EA371683;
-	Wed, 25 Mar 2020 20:09:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EA371683
+	by alsa0.perex.cz (Postfix) with ESMTPS id A97F01682;
+	Wed, 25 Mar 2020 20:28:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A97F01682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585163394;
-	bh=p/vheuZl9gGfHCw9SstfNz5RMQQnLIRdSoV7LwV/imU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1585164534;
+	bh=efaWdAgnOTyV12x6jL5jVBzwEEXsLQHNixxPtxDYOAo=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YYYHgi7zVgxxRjcJEnBbcJj4HPWHWd56lq8QAzK6Tx8lh6y4sIBP/ljMCqThQdz9t
-	 7bzuJXNH4FhZfCB81/LLw1rlGTPYaXNnetR80QIuVkC8aHrnAW+yyShQY5hhcd2iRc
-	 7Xg9R/n6fv0079RgUUDFltxyv1ZtC5AJDzF4vvb8=
+	b=fDlIsa3z1GsdMSGCAkQFejkMP8nRGbyW0EeVEmeEVg2xb+M1zkv3lMKs0Bh0L+Egi
+	 Lzxr1+tddpfZhbNYrqQCFGLYU+CTmkpL5meDrjetzwI2Wb0I91mjs70Y3piyhW6Bdp
+	 EA4PfGkmd/IoE8gcfRNE0M9/rpqH2BXJ4YEm2H4s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 694D3F8015A;
-	Wed, 25 Mar 2020 20:08:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94FB8F80095;
+	Wed, 25 Mar 2020 20:27:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 27F4FF80158; Wed, 25 Mar 2020 20:08:11 +0100 (CET)
+ id 9D2A5F80095; Wed, 25 Mar 2020 20:27:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
- [IPv6:2607:f8b0:4864:20::844])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4BE2BF8011E
- for <alsa-devel@alsa-project.org>; Wed, 25 Mar 2020 20:08:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BE2BF8011E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="XFGtMQ2B"
-Received: by mail-qt1-x844.google.com with SMTP id a5so3165439qtw.10
- for <alsa-devel@alsa-project.org>; Wed, 25 Mar 2020 12:08:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=p/vheuZl9gGfHCw9SstfNz5RMQQnLIRdSoV7LwV/imU=;
- b=XFGtMQ2BtzzuNTBVww0gjNX6JRdels2dk93+NBqFekaMBxGmnCY01XADZ4rC2lHOXM
- 7zNvjaxix2h3jWGjUOfm3K6stikrQgsBDukxDhk6HpnmZO8JgV6UwA8DpmLNDHKWvqBx
- SWpLv7zijmZ8NSeFOplrfiIcWr7PojxHWwdpT/fFVFA+r1w0FvdNAavoeCri1hN8moEr
- kse47MdUbNbZZXuYdTreSIAP950z3x/7hwcZrPYMfSxAjBkv56zBKtFJLFkU063iMXDi
- JZgcyTkRuajQH9Ya0QOLZ5BRdrVocjSYxnoB25eNCQnTaWk2DRXi1AK0HrPIH3BU22G1
- BGGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=p/vheuZl9gGfHCw9SstfNz5RMQQnLIRdSoV7LwV/imU=;
- b=UZyU84cXqZ/zic+rbuZatqUYOG5zS6gAIaCAbyMLtVlv7otR8xciDkzuGW9Zdyp+YF
- huVU6xdIhLEv29tOD40MiAk1evTgHqblb7DisvFNzRs/oNBP1W7NmXj3RTiAtPixliGs
- VD/ikS0pLIN+gIAPKHqFbt9evMCQ+VARBsyZUZDO/ux4iSFvxROYZIhCfqD2pZlC/VTi
- 652+fy4tpHaNr0KQ2yjU2y83YmTVWSHxjipKwoTSsX5bs25YNaH/bkJXcEd+9Wu+PPEb
- gudjbGc3PqPFA5p2tozHAHQzE8BmTM+51x4ufzud9yYIiZ0HmumKn73ogM7Xcjdi0BsV
- jJQA==
-X-Gm-Message-State: ANhLgQ3cGrejA7/oLdKq3C93KaFMBWGlacOr0kNglChT1/YitZD/Vr67
- qcAKRqSzi6A2ZvGVrS4Uid/EdcC79dJ+aI4wTWgSRA==
-X-Google-Smtp-Source: ADFU+vtIB2xGt1dP6WhAiuZ/RzzJ6eAxhy5kpiDw+5rowEmoriZSTrld7r8hR5Ok6Gcz+muRSrhb5ezayNs/bQ1w4ms=
-X-Received: by 2002:ac8:10f:: with SMTP id e15mr4644092qtg.355.1585163284372; 
- Wed, 25 Mar 2020 12:08:04 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200319211204.21580-1-cezary.rojewski@intel.com>
-In-Reply-To: <20200319211204.21580-1-cezary.rojewski@intel.com>
-From: Curtis Malainey <cujomalainey@google.com>
-Date: Wed, 25 Mar 2020 12:07:52 -0700
-Message-ID: <CAOReqxjfqkdy6Z-LGwa3O6ooOpTEdqOWU5nvr8KwG78uebioNw@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id BBD6AF80095
+ for <alsa-devel@alsa-project.org>; Wed, 25 Mar 2020 20:27:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBD6AF80095
+IronPort-SDR: beeNrplaljczjKCosn3PKrYaIRAEClfyWLJ5o7n6KDF+J+Q3eR/21T+KYZTOVv2H5IRDatcjS6
+ 5ZdkUxOC+E7A==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2020 12:26:53 -0700
+IronPort-SDR: S3xA04QW1He1IIbmwqbR5h3VE7V240tMOd3N/fjEOnrqQPU7VMDcBVPj2NMlxk4HHJUNsiKBq4
+ zadDc5pTBCow==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,305,1580803200"; d="scan'208";a="293427579"
+Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.213.3.125])
+ ([10.213.3.125])
+ by FMSMGA003.fm.intel.com with ESMTP; 25 Mar 2020 12:26:51 -0700
 Subject: Re: [PATCH] ASoC: Intel: broadwell: Revert SSP0 link to use dummy
  components
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+To: Curtis Malainey <cujomalainey@google.com>
+References: <20200319211204.21580-1-cezary.rojewski@intel.com>
+ <CAOReqxjfqkdy6Z-LGwa3O6ooOpTEdqOWU5nvr8KwG78uebioNw@mail.gmail.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+Message-ID: <f3635d96-e04a-c474-c070-19d0a97c4dfa@intel.com>
+Date: Wed, 25 Mar 2020 20:26:50 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
+MIME-Version: 1.0
+In-Reply-To: <CAOReqxjfqkdy6Z-LGwa3O6ooOpTEdqOWU5nvr8KwG78uebioNw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Cc: ALSA development <alsa-devel@alsa-project.org>,
  Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
  Dominik Brodowski <linux@dominikbrodowski.net>,
@@ -99,12 +86,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Mar 19, 2020 at 2:13 PM Cezary Rojewski
-<cezary.rojewski@intel.com> wrote:
->
-> Commit:
-> "ASoC: Intel: broadwell: change cpu_dai and platform components for SOF
-Where does this quote end?
->
-> while enabling bdw on SOF, changed behavior for non-SOF solutions. In
-> essence replacing platform 'dummy' with actual 'platform' causes
+On 2020-03-25 20:07, Curtis Malainey wrote:
+> On Thu, Mar 19, 2020 at 2:13 PM Cezary Rojewski
+> <cezary.rojewski@intel.com> wrote:
+>>
+>> Commit:
+>> "ASoC: Intel: broadwell: change cpu_dai and platform components for SOF
+> Where does this quote end?
+
+I'm afraid, it doesn't. Does it matter, though? You're not looking at 
+the newest version - one that is part of: "[PATCH 0/3] ASoC: Intel: 
+boards: Revert SSP0 links to use dummy" series.
+
+Regards,
+Czarek

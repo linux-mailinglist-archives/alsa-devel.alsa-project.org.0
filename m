@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 543581925C4
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Mar 2020 11:37:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CC591925C5
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Mar 2020 11:37:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CBC4D1664;
-	Wed, 25 Mar 2020 11:36:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBC4D1664
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1EF8167A;
+	Wed, 25 Mar 2020 11:36:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1EF8167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585132639;
-	bh=ZhmWMHf/+4q0HUlZQ5Wc4ndRMhlSxFS+NfUdwnZnPcw=;
+	s=default; t=1585132642;
+	bh=DJtpIsw2wgLdNVLUZ/V3otYyLeJT0euxFUcw7D3bFg0=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AtVJdBJCjLrlvFaIDYYjJxafoKX8yx6y7v1SE57he2ei/Z+DtCvWXuh9iBZwOu2tK
-	 b8YYTbHDSB9kJ4e9L3MHCMwbiAhrxxD0Z7rMnDt8wgBVUuihvV95wNeAuiNKkEkqmR
-	 3I9SbJ/OUCcBQWEZaN++6btenhvVB0qBAhXZeS4s=
+	b=itqg+YcqCkXxFW1Zb+3nwNJB6r4r4QTEHJLRpLk3ye2rWmlBXJH9FVYl+cFuaL0RX
+	 W+FO8Rm4350vuUf5s1678lLzyjx6ZFcrwoXzgAzcwquV3jOAFcRl/S3TSyc4iSQvv8
+	 ZixhdB0FZwGjP7uMIWpAOEQThHWSccAqYhkoeAqw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C668EF80290;
-	Wed, 25 Mar 2020 11:34:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 979C6F8029A;
+	Wed, 25 Mar 2020 11:34:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 99B9EF80095; Wed, 25 Mar 2020 11:33:31 +0100 (CET)
+ id B1685F80147; Wed, 25 Mar 2020 11:33:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,19 +34,19 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5B3FDF801DA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 535C4F80158
  for <alsa-devel@alsa-project.org>; Wed, 25 Mar 2020 11:33:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B3FDF801DA
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 535C4F80158
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 893BFACCA
+ by mx2.suse.de (Postfix) with ESMTP id 8C115ACD0
  for <alsa-devel@alsa-project.org>; Wed, 25 Mar 2020 10:33:25 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 3/4] ALSA: usb-audio: Inform devices that need delayed
- registration
-Date: Wed, 25 Mar 2020 11:33:21 +0100
-Message-Id: <20200325103322.2508-4-tiwai@suse.de>
+Subject: [PATCH 4/4] ALSA: usb-audio: Update the documentation for the new
+ delayed_register option
+Date: Wed, 25 Mar 2020 11:33:22 +0100
+Message-Id: <20200325103322.2508-5-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20200325103322.2508-1-tiwai@suse.de>
 References: <20200325103322.2508-1-tiwai@suse.de>
@@ -65,83 +65,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The USB-audio driver may call snd_card_register() multiple times as
-its probe function is per USB interface while some USB-audio devices
-may provide multiple interfaces to assign different streams although
-they belong to the same device.  This works in most cases but the
-registration is racy, hence it may miss the device recognition,
-e.g. PA doesn't see certain devices when hotplugged.
-
-The recent addition of the delayed registration quirk allows to sync
-the registration at the last known interface, and the previous commit
-added a new module option to allow the dynamic setup for that
-purpose.
-
-Now, this patch tries to find out and notifies for such devices that
-require the delayed registration.  It shows a message like:
-
-  Found post-registration device assignment: 1234abcd:02
-
-If you hit this message, you can pass delayed_register module option
-like:
-
-  snd_usb_audio.delayed_register=1234abcd:02
-
-by just copying the last shown entry.  If this works, it can be added
-statically in the quirk list, registration_quirks[] found at the end
-of sound/usb/quirks.c.
+Just adding a brief explanation to alsa-configuration.rst.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/usb/card.c     | 7 +++++++
- sound/usb/stream.c   | 3 +++
- sound/usb/usbaudio.h | 1 +
- 3 files changed, 11 insertions(+)
+ Documentation/sound/alsa-configuration.rst | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/sound/usb/card.c b/sound/usb/card.c
-index 951134238669..fd6fd1726ea0 100644
---- a/sound/usb/card.c
-+++ b/sound/usb/card.c
-@@ -680,6 +680,13 @@ static int usb_audio_probe(struct usb_interface *intf,
- 			goto __error;
- 	}
+diff --git a/Documentation/sound/alsa-configuration.rst b/Documentation/sound/alsa-configuration.rst
+index 392875a1b94e..72f97d4b01a7 100644
+--- a/Documentation/sound/alsa-configuration.rst
++++ b/Documentation/sound/alsa-configuration.rst
+@@ -2234,6 +2234,19 @@ use_vmalloc
+     buffers.  If mmap is used on such architectures, turn off this
+     option, so that the DMA-coherent buffers are allocated and used
+     instead.
++delayed_register
++    The option is needed for devices that have multiple streams
++    defined in multiple USB interfaces.  The driver may invoke
++    registrations multiple times (once per interface) and this may
++    lead to the insufficient device enumeration.
++    This option receives an array of strings, and you can pass
++    ID:INTERFACE like ``0123abcd:4`` for performing the delayed
++    registration to the given device.  In this example, when a USB
++    device 0123:abcd is probed, the driver waits the registration
++    until the USB interface 4 gets probed.
++    The driver prints a message like "Found post-registration device
++    assignment: 1234abcd:04" for such a device, so that user can
++    notice the need.
  
-+	if (chip->need_delayed_register) {
-+		dev_info(&dev->dev,
-+			 "Found post-registration device assignment: %08x:%02x\n",
-+			 chip->usb_id, ifnum);
-+		chip->need_delayed_register = false; /* clear again */
-+	}
-+
- 	/* we are allowed to call snd_card_register() many times, but first
- 	 * check to see if a device needs to skip it or do anything special
- 	 */
-diff --git a/sound/usb/stream.c b/sound/usb/stream.c
-index afd5aa574611..15296f2c902c 100644
---- a/sound/usb/stream.c
-+++ b/sound/usb/stream.c
-@@ -502,6 +502,9 @@ static int __snd_usb_add_audio_stream(struct snd_usb_audio *chip,
- 		subs = &as->substream[stream];
- 		if (subs->ep_num)
- 			continue;
-+		if (snd_device_get_state(chip->card, as->pcm) !=
-+		    SNDRV_DEV_BUILD)
-+			chip->need_delayed_register = true;
- 		err = snd_pcm_new_stream(as->pcm, stream, 1);
- 		if (err < 0)
- 			return err;
-diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
-index 6fe3ab582ec6..1c892c7f14d7 100644
---- a/sound/usb/usbaudio.h
-+++ b/sound/usb/usbaudio.h
-@@ -34,6 +34,7 @@ struct snd_usb_audio {
- 	unsigned int txfr_quirk:1; /* Subframe boundaries on transfers */
- 	unsigned int tx_length_quirk:1; /* Put length specifier in transfers */
- 	unsigned int setup_fmt_after_resume_quirk:1; /* setup the format to interface after resume */
-+	unsigned int need_delayed_register:1; /* warn for delayed registration */
- 	int num_interfaces;
- 	int num_suspended_intf;
- 	int sample_rate_read_error;
+ This module supports multiple devices, autoprobe and hotplugging.
+ 
 -- 
 2.16.4
 

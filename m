@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54B64194D13
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 00:28:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8498194D22
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 00:29:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E57F21666;
-	Fri, 27 Mar 2020 00:28:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E57F21666
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6EEB61665;
+	Fri, 27 Mar 2020 00:28:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EEB61665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585265338;
-	bh=E3QsCnsuUDRRo8kdeYSkq2UO7hjxNljMU6+avIz5qQ4=;
+	s=default; t=1585265357;
+	bh=SZawdQI40sboV8ru38/GjGrBnwBOqz+ZRaoetvhWniA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=f4H19uijccGmdUDdA6rBxhxTFizE3a/L9ecxtEEJo3qo1YJacZkwX70rRQSCnxhBD
-	 ldWSGfI2Ad71BpaJfHRTUodw6F0GONfw16J84fGoIaxH17s62al4GYtk4pGwmOBbM0
-	 KdTAAnq2ANNwb/62zWKTNX65lngQYx9SXPEuMP/g=
+	b=B0/MrhuwfTU59qxmVRL8n4S+KbNiusQ6HYM/665dVkqdYnBYvMhfBrpNW83o6dHTG
+	 IA5p/6k9c0badRXqkG1EeqCLtub9w0iFpgxW3HpzNwxuyiFvdWMe42MMgciMLBl2Ca
+	 6JiAFMi641uX1jBpmA0jLmhelA6t3eR79iFcdIbA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48C58F802BC;
-	Fri, 27 Mar 2020 00:24:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8045DF802D2;
+	Fri, 27 Mar 2020 00:24:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22CDDF802A9; Fri, 27 Mar 2020 00:24:54 +0100 (CET)
+ id 5D5E3F802C4; Fri, 27 Mar 2020 00:24:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,31 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9372AF802A9
- for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 00:24:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9372AF802A9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9F5BDF802A8
+ for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 00:24:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F5BDF802A8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="DHOePvVp"
+ header.b="uNzul4Yf"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 916F7208FE;
- Thu, 26 Mar 2020 23:24:49 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9EEA1214DB;
+ Thu, 26 Mar 2020 23:24:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1585265090;
- bh=E3QsCnsuUDRRo8kdeYSkq2UO7hjxNljMU6+avIz5qQ4=;
+ s=default; t=1585265091;
+ bh=SZawdQI40sboV8ru38/GjGrBnwBOqz+ZRaoetvhWniA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DHOePvVpy4m0+FwiMhczOnBeOu+XG01mngJRCcJuJ4tS7EM2oyvf6WgyaBeY8Qy+H
- 6wDy808h51eOmDQRnpFyYvJpLDWvoPKOETeMf65pktUcoXvmjHaYGTXgHilivCxlVz
- 1OLe2nH+aNNeY+mIX9b/S0LVuzU3kWI6aoDI1W90=
+ b=uNzul4YfIkk0voVpuBA1nWn0qPZaNzQNu/mGMH62uYLTQ9cStQzW77HUw75NGQJYe
+ bBj4psvtkR9katyVofDR4MSBxetyk3bX12Kvgc75Sp1RQd7sIaEGaye1sqwPouNlyA
+ pfSQyHbNWG+eP2krL/JR7NwzA9xHKxBkcMucFIj0=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 16/19] ALSA: line6: Fix endless MIDI read loop
-Date: Thu, 26 Mar 2020 19:24:28 -0400
-Message-Id: <20200326232431.7816-16-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 17/19] ALSA: pcm: oss: Remove WARNING from
+ snd_pcm_plug_alloc() checks
+Date: Thu, 26 Mar 2020 19:24:29 -0400
+Message-Id: <20200326232431.7816-17-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200326232431.7816-1-sashal@kernel.org>
 References: <20200326232431.7816-1-sashal@kernel.org>
@@ -68,7 +69,7 @@ X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
  alsa-devel@alsa-project.org,
- syzbot+cce32521ee0a824c21f7@syzkaller.appspotmail.com
+ syzbot+2a59ee7a9831b264f45e@syzkaller.appspotmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,57 +87,46 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit d683469b3c93d7e2afd39e6e1970f24700eb7a68 ]
+[ Upstream commit 5461e0530c222129dfc941058be114b5cbc00837 ]
 
-The MIDI input event parser of the LINE6 driver may enter into an
-endless loop when the unexpected data sequence is given, as it tries
-to continue the secondary bytes without termination.  Also, when the
-input data is too short, the parser returns a negative error, while
-the caller doesn't handle it properly.  This would lead to the
-unexpected behavior as well.
+The return value checks in snd_pcm_plug_alloc() are covered with
+snd_BUG_ON() macro that may trigger a kernel WARNING depending on the
+kconfig.  But since the error condition can be triggered by a weird
+user space parameter passed to OSS layer, we shouldn't give the kernel
+stack trace just for that.  As it's a normal error condition, let's
+remove snd_BUG_ON() macro usage there.
 
-This patch addresses those issues by checking the return value
-correctly and handling the one-byte event in the parser properly.
-
-The bug was reported by syzkaller.
-
-Reported-by: syzbot+cce32521ee0a824c21f7@syzkaller.appspotmail.com
+Reported-by: syzbot+2a59ee7a9831b264f45e@syzkaller.appspotmail.com
 Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/r/000000000000033087059f8f8fa3@google.com
-Link: https://lore.kernel.org/r/20200309095922.30269-1-tiwai@suse.de
+Link: https://lore.kernel.org/r/20200312155730.7520-1-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/line6/driver.c  | 2 +-
- sound/usb/line6/midibuf.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ sound/core/oss/pcm_plugin.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/usb/line6/driver.c b/sound/usb/line6/driver.c
-index b5a3f754a4f13..4f096685ed654 100644
---- a/sound/usb/line6/driver.c
-+++ b/sound/usb/line6/driver.c
-@@ -305,7 +305,7 @@ static void line6_data_received(struct urb *urb)
- 				line6_midibuf_read(mb, line6->buffer_message,
- 						LINE6_MIDI_MESSAGE_MAXLEN);
- 
--			if (done == 0)
-+			if (done <= 0)
- 				break;
- 
- 			line6->message_length = done;
-diff --git a/sound/usb/line6/midibuf.c b/sound/usb/line6/midibuf.c
-index 8d6eefa0d9362..6a70463f82c4e 100644
---- a/sound/usb/line6/midibuf.c
-+++ b/sound/usb/line6/midibuf.c
-@@ -159,7 +159,7 @@ int line6_midibuf_read(struct midi_buffer *this, unsigned char *data,
- 			int midi_length_prev =
- 			    midibuf_message_length(this->command_prev);
- 
--			if (midi_length_prev > 0) {
-+			if (midi_length_prev > 1) {
- 				midi_length = midi_length_prev - 1;
- 				repeat = 1;
- 			} else
+diff --git a/sound/core/oss/pcm_plugin.c b/sound/core/oss/pcm_plugin.c
+index 9b588c6a6f099..732bbede7ebfd 100644
+--- a/sound/core/oss/pcm_plugin.c
++++ b/sound/core/oss/pcm_plugin.c
+@@ -111,7 +111,7 @@ int snd_pcm_plug_alloc(struct snd_pcm_substream *plug, snd_pcm_uframes_t frames)
+ 		while (plugin->next) {
+ 			if (plugin->dst_frames)
+ 				frames = plugin->dst_frames(plugin, frames);
+-			if (snd_BUG_ON((snd_pcm_sframes_t)frames <= 0))
++			if ((snd_pcm_sframes_t)frames <= 0)
+ 				return -ENXIO;
+ 			plugin = plugin->next;
+ 			err = snd_pcm_plugin_alloc(plugin, frames);
+@@ -123,7 +123,7 @@ int snd_pcm_plug_alloc(struct snd_pcm_substream *plug, snd_pcm_uframes_t frames)
+ 		while (plugin->prev) {
+ 			if (plugin->src_frames)
+ 				frames = plugin->src_frames(plugin, frames);
+-			if (snd_BUG_ON((snd_pcm_sframes_t)frames <= 0))
++			if ((snd_pcm_sframes_t)frames <= 0)
+ 				return -ENXIO;
+ 			plugin = plugin->prev;
+ 			err = snd_pcm_plugin_alloc(plugin, frames);
 -- 
 2.20.1
 

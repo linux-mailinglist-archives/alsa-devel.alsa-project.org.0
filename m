@@ -2,69 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66667193FF9
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Mar 2020 14:43:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E14E1941AD
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Mar 2020 15:38:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8D85166F;
-	Thu, 26 Mar 2020 14:42:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8D85166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23441166F;
+	Thu, 26 Mar 2020 15:37:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23441166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585230181;
-	bh=mYMCME5eE1SS9nJ80OeD1sm+IzL98RYkOvLJVONSUSY=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=sTuxcRr445iPqLMa54/YZN7x/Cu1wkKfke9+lTT9VZ1xeQePQmh42BQ4r25vnIuq4
-	 /BAOoSWWHGkKA7m069VcZpwAXWIKLB2wzRCgViN5W08NkQDOMQT/y0BW4B8+NWhrkk
-	 sQ7uSgbrEHnzJA8bugwMVtElcCKebOaiUe6n/zqA=
+	s=default; t=1585233500;
+	bh=VcCow2LUsM5eAvbRtQKzhPzWKU363zQVrwdoYIQxSBo=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=gMYK5bgtXSKeido1janCeASuo86svZb9lEe63cU0QfF8dLnMso9IWksLI75m/i+5A
+	 Ln8KRtp2WgWYXHYU2OLSv53USiudbLi3YaNjcFDrV7b88b6logs2zHcqevay+L0kLx
+	 dKGz54Gh0g0lOJS8e41SD/gXcfQO8zb7gqEod2PM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6C3CF80095;
-	Thu, 26 Mar 2020 14:41:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3F518F8011E;
+	Thu, 26 Mar 2020 15:36:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47CECF80227; Thu, 26 Mar 2020 14:41:18 +0100 (CET)
+ id 40CE6F80227; Thu, 26 Mar 2020 15:36:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from smtp1.axis.com (smtp1.axis.com [195.60.68.17])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D09B4F80095
- for <alsa-devel@alsa-project.org>; Thu, 26 Mar 2020 14:41:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D09B4F80095
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=axis.com header.i=@axis.com
- header.b="KFj51q5J"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=axis.com; l=769; q=dns/txt; s=axis-central1;
- t=1585230076; x=1616766076;
- h=date:from:to:subject:message-id:mime-version;
- bh=stU8o8V/t9duzfgSCNpFxFgf9Cq8DsmpBL2vQ8CG1ic=;
- b=KFj51q5JQEmkLDM0Gw7oXOXT7CXYTQzlUYLWPRwQCWpVt2DJFpUqv/w0
- 9/ZuzWNkJ1mjY+rXaJyNbmS7a2UG96UaC3a2avxa7+sVhk8FOcGXv+WpZ
- 5oFwj8BSfR029sFm1hJJb53o6tS95KxGhFUELhQL2w5yr+Tho+lyABRnz
- +hf+zwPFkRq8ilQSlV8ngjv/JYYhlPoIG9hq+onKeUtqsxxp7mSYLsxch
- Tb0Z0Mn2JSdDYIaghS3/4kh7tOsZgdguv7fY3YVqc2lEiVGE1YCATT/nh
- N/30sXCrAU8fVspDbe1ao9ZIux6gHfcKBT+8OkQUQt4IU7NqfXLTt/iil A==;
-IronPort-SDR: coGAjV5Ly5jqq11+1BQqnsHadyENx8qRuMWJeUVXRJKW1VLkNdxurJqJNk0bPL7p1S+UOhnwLT
- Ys9AMlmskhjqVSxvKbhe4fjjI3lKrJE5eJgZIUr7PGH88c9AYTrH8eR8cARSawgF+cH+e2D1R1
- ZqWjCLw9IZzUiK/zQ2qlOmZyCb4lUu1Kcq9Km86jrQgXwEYzN6o06ySXZoev4fpgPsC0evbb3P
- DA8XlWxEu/Lm+GT0BYG80Qk1MaFEeITR19m4GnP1wxVtxJDKOLJjNT/HvXf53buAbnWYwTd8oS
- bpM=
-X-IronPort-AV: E=Sophos;i="5.72,308,1580770800"; 
-   d="scan'208";a="6958814"
-Date: Thu, 26 Mar 2020 14:41:11 +0100
-From: Jonas Holmberg <jonashg@axis.com>
-To: <alsa-devel@alsa-project.org>
-Subject: route and chmap
-Message-ID: <20200326134110.GA3784158@axis.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E0439F8011E
+ for <alsa-devel@alsa-project.org>; Thu, 26 Mar 2020 15:36:27 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id A9A02A003F;
+ Thu, 26 Mar 2020 15:36:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz A9A02A003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1585233386; bh=qN7d4m15380FlROoT8A5QT9w0qFPUfcEgXb/Gs1p6lE=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=wy6HnRUnH7mzdY1VKTqYdVDbs1Mfbmv169xwV6YyXVIv3IoegeK9hYufyE2AAYZ+Z
+ 8V/U/nPn2tnM+ZpGtgoGpkinHSLgAsupNk5k8ZVexnkt880mugA0uN7EPFh2GLUEcb
+ ULVSbahCBIDYLpRABMJQFfIg8h61LYrdFZOgxoGA=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Thu, 26 Mar 2020 15:36:23 +0100 (CET)
+Subject: Re: sw_params for a direct-ed(dmix) hw pcm
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, sylvain.bertrand@gmail.com
+References: <20200321155303.GB357@freedom> <20200325174419.GA1224@freedom>
+ <alpine.DEB.2.21.2003261350380.2957@eliteleevi.tm.intel.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <9d986c48-184a-1d6e-4c5b-172a7ecd98a8@perex.cz>
+Date: Thu, 26 Mar 2020 15:36:23 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <alpine.DEB.2.21.2003261350380.2957@eliteleevi.tm.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,19 +81,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
-I use the route plugin to copy mono to both FL and FR (front left and 
-front right stereo) of the slave during playback. When get_chmap() is 
-called in the route plugin it will call get_chmap() of the slave, 
-which returns 2 channels with FL and FR positions, and then route 
-itself returns 1 channel with FL position. But the application that 
-called snd_pcm_get_chmap() on the playback device expected to get 
-position MONO instead of FL since the number of channels is 1.
+Dne 26. 03. 20 v 13:02 Kai Vehmanen napsal(a):
+> Hey,
+> 
+> On Wed, 25 Mar 2020, sylvain.bertrand@gmail.com wrote:
+> 
+>> On this issue, I am doing something fundamentaly wrong, but I don't see how to
+>> do it right.
+>>
+>> While configuring a pcm, I should not use sw_params if it is a "direct-ed"
+>> (direct::dmix) real hw pcm: in pcm_direct.c, snd_pcm_direct_sw_params
+>> function is empty and it seems coherent with the fact the real hw pcm is
+>> actually shared and was probably already configured.
+> 
+> how does the problem appear in your program?
+> 
+> Applications should just use the ALSA PCM API and not have any special
+> casing for different types of PCMs (unless the differences show up via the
+> public PCM API). If applications started doing plugin specifics, writing
+> and deploying new ALSA plugins would become much harder and kind of defeat
+> the whole purpose of the plugin API. In case of dmix, the
+> pcm.c:snd_pcm_sw_params() should do the right thing and your application
+> should get the cached values.
 
-Is the application wrong in not accepting the chmap or should the 
-route plugin have changed position from FL to MONO? Is it possible to 
-add something to the config (asound.conf) to make FL become MONO in 
-the reply of get_chmap() or solve the problem in any other way?
+I agree. Also, the snd_pcm_direct_sw_params() does nothing, because the 
+sw_params are already cached in the pcm structure (see comment). It means that 
+the dmix (direct) plugins operates with those cached values. Just set 
+sw_params like for any other PCM handle. The dmix uses those values (if possible).
 
-BR
-/Jonas
+						Jaroslav
+
+
+> 
+> Br, Kai
+> 
+
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

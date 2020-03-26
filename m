@@ -2,66 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DC7F193E88
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Mar 2020 13:03:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54853193F7F
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Mar 2020 14:11:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CB2AA1668;
-	Thu, 26 Mar 2020 13:03:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB2AA1668
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC420166F;
+	Thu, 26 Mar 2020 14:09:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC420166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585224237;
-	bh=YwhojiE+uundvJUSWPcr8bIVMk+P/aEqpj9fYCKGt8o=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1585228249;
+	bh=D8VACJjYB1OQsInHQWoGxncQxZnlx24MYWhyRTeWrC4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qCe2IoDcpjNsTDzHQLLp81eLaGXHsqShZfeSpA/2T/Dt8tPThho8aVPbXblo9GI/K
-	 RTAf6itlr5+hAOYVCK+P3alobXxZuT3AfeaZBqWzg5OrQDtJjCaJIVUb6zWKQLNfLx
-	 md3hLRJ/VP4hyD98DRrzgBd1ri/e1kVhn5AvaVak=
+	b=n/326ZwZXukd1OCKHi1/7isyPD2TYPxFri0J7RZ9ZNlkojsifb8R5w0VrdLlO3ofU
+	 CPwHkALrSyu9ikeUHZ16A+R2hklOORiePo5rZ6xaTnkPvNdsYlfA2O833vfgDUlpOy
+	 g612OkKGtMrkYGOJpXuYwy/NCwnvmbBwdEDKfIWU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4BAFF8011B;
-	Thu, 26 Mar 2020 13:02:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A038BF80234;
+	Thu, 26 Mar 2020 14:09:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 376E1F80227; Thu, 26 Mar 2020 13:02:14 +0100 (CET)
+ id 51701F80227; Thu, 26 Mar 2020 14:09:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3F99BF8011B
- for <alsa-devel@alsa-project.org>; Thu, 26 Mar 2020 13:02:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F99BF8011B
-IronPort-SDR: i/FVoEibL+BviVsDRjHegx5TGscGIKflt6V2qBGkzFRn7Qd3m18JrwBaASD+eF7UVj4aZOzycU
- c0JVZmqzbaPA==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2020 05:02:06 -0700
-IronPort-SDR: HK5k9D7q2tIXAbwMzNgQ44vb6/y0RErOkKGeGeXiN+3IjHKWZl3zS+8cOFK5acb5TAMLiq+Mai
- 3jVauIP1dK9A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,308,1580803200"; d="scan'208";a="420676971"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga005.jf.intel.com with ESMTP; 26 Mar 2020 05:02:06 -0700
-Date: Thu, 26 Mar 2020 14:02:05 +0200 (EET)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: sylvain.bertrand@gmail.com
-Subject: Re: sw_params for a direct-ed(dmix) hw pcm
-In-Reply-To: <20200325174419.GA1224@freedom>
-Message-ID: <alpine.DEB.2.21.2003261350380.2957@eliteleevi.tm.intel.com>
-References: <20200321155303.GB357@freedom> <20200325174419.GA1224@freedom>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+ by alsa1.perex.cz (Postfix) with ESMTPS id 14787F8011B
+ for <alsa-devel@alsa-project.org>; Thu, 26 Mar 2020 14:09:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14787F8011B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="tFcfXjdR"
+Received: by mail-wr1-x441.google.com with SMTP id 65so7752940wrl.1
+ for <alsa-devel@alsa-project.org>; Thu, 26 Mar 2020 06:09:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=nesUQSo9Vy5oi7lhwsgMDQiIGSwXYZh1lt04KTBMkDM=;
+ b=tFcfXjdRVhPsDI+TBYBqK0xDPMuNUggKrctOuYnFzJJtwQp2ffy8uQKhBM8w7ozTe9
+ 5t5EFj8nU1rqY/4HmIBU8oJ9snyrAxrTDpEt8ioxutKT008f0/RIp7CF2uJ0lQK/iBed
+ 7nc0OZFSOtUuzC0HJ1dGpPtz1/gTGK3CBRZ/PpshpDh3i8o/F8N4Q5uEjfHsAJXNEQsf
+ rnTCUjbGngL22dpjlHz7ykw+sallnQutRtIsJnjgy1+U9ysEex7ldEDbp4LulE29B8iw
+ G07DiyJDrSOCZB4I/8ZyAhNFIyYwkBhQfV8Ug0GS1n5R65M9xU2AR2EAGXbPRR0iWl+5
+ XA9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=nesUQSo9Vy5oi7lhwsgMDQiIGSwXYZh1lt04KTBMkDM=;
+ b=n40iJlA3geSEEnBsKjU5FdqOc6+L/R1QZSlalrcDKrCjsICOtyiuTKyeYZ0fWtNDvH
+ WJ0sR1YBkxOUzuNdCf3XjS9e8hOyBxfl2cRMIlXoIkEiIQNjBgNR5oHeoFm2jWOsRGZ2
+ J8JJ1vmJfnCXAU5SiRVMvNFTGc15ofFV1TwkGeJHChXuYSKOAGOmBsFwhkEc63h2LnsH
+ /37Jus3JHoszy2o49/r/pWlYg/KfRJRrjYXLvGKNX1KzlwSKR8F9aege1JH3HUIbuaDT
+ RG2tzZWjpGer9LmWHHGjzj4qM1aHru4b2nTsYJXzwrykokQUZJpPR5Yp3SDOC4HbvdHf
+ du7A==
+X-Gm-Message-State: ANhLgQ2P24cn0inuggI/Ao0e8MeboaWPuQ/6Rw5NB4Nz4DYG3CiDLLYt
+ ew5LpF52KrM2vuqLCO7IayorKA==
+X-Google-Smtp-Source: ADFU+vuiRdwL7ByDiPYmrvKBbOq29uYwlV7UlDd4ZcEJ8oqWH61S0lpU7HC3vUP+I31uRwLraXF5oQ==
+X-Received: by 2002:a5d:4c87:: with SMTP id z7mr9987504wrs.39.1585228141513;
+ Thu, 26 Mar 2020 06:09:01 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.googlemail.com with ESMTPSA id b80sm3657335wme.24.2020.03.26.06.08.59
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 26 Mar 2020 06:09:00 -0700 (PDT)
+Subject: Re: [PATCH v1] slimbus: core: Set fwnode for a device when setting
+ of_node
+To: Saravana Kannan <saravanak@google.com>
+References: <20200326061648.78914-1-saravanak@google.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <dfeacd9d-fed6-10fb-0b9d-9a1fceb075f5@linaro.org>
+Date: Thu, 26 Mar 2020 13:08:59 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+In-Reply-To: <20200326061648.78914-1-saravanak@google.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ alsa-devel@alsa-project.org, kernel-team@android.com,
+ John Stultz <john.stultz@linaro.org>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,26 +107,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hey,
+Thanks for doing this!
 
-On Wed, 25 Mar 2020, sylvain.bertrand@gmail.com wrote:
-
-> On this issue, I am doing something fundamentaly wrong, but I don't see how to
-> do it right.
+On 26/03/2020 06:16, Saravana Kannan wrote:
+> When setting the of_node for a newly created device, also set the
+> fwnode. This allows fw_devlink to work for slimbus devices.
 > 
-> While configuring a pcm, I should not use sw_params if it is a "direct-ed"
-> (direct::dmix) real hw pcm: in pcm_direct.c, snd_pcm_direct_sw_params
-> function is empty and it seems coherent with the fact the real hw pcm is
-> actually shared and was probably already configured.
+> Signed-off-by: Saravana Kannan <saravanak@google.com>
+> Change-Id: I5505213f8ecca908860a1ad6bbc275ec0f78e4a6
 
-how does the problem appear in your program? 
+Once Change-Id is removed as Greg suggested!
 
-Applications should just use the ALSA PCM API and not have any special 
-casing for different types of PCMs (unless the differences show up via the 
-public PCM API). If applications started doing plugin specifics, writing 
-and deploying new ALSA plugins would become much harder and kind of defeat 
-the whole purpose of the plugin API. In case of dmix, the 
-pcm.c:snd_pcm_sw_params() should do the right thing and your application 
-should get the cached values.
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 
-Br, Kai
+--srini
+
+> ---
+>   drivers/slimbus/core.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/slimbus/core.c b/drivers/slimbus/core.c
+> index 526e3215d8fe..44228a5b246d 100644
+> --- a/drivers/slimbus/core.c
+> +++ b/drivers/slimbus/core.c
+> @@ -163,8 +163,10 @@ static int slim_add_device(struct slim_controller *ctrl,
+>   	INIT_LIST_HEAD(&sbdev->stream_list);
+>   	spin_lock_init(&sbdev->stream_list_lock);
+>   
+> -	if (node)
+> +	if (node) {
+>   		sbdev->dev.of_node = of_node_get(node);
+> +		sbdev->dev.fwnode = of_fwnode_handle(node);
+> +	}
+>   
+>   	dev_set_name(&sbdev->dev, "%x:%x:%x:%x",
+>   				  sbdev->e_addr.manf_id,
+> 

@@ -2,81 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EC5B19456E
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Mar 2020 18:26:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39F29194588
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Mar 2020 18:36:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 255401670;
-	Thu, 26 Mar 2020 18:26:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 255401670
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF9E91670;
+	Thu, 26 Mar 2020 18:36:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF9E91670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585243612;
-	bh=QL0qxUXRw+YhB7WGSfSv8aDkbWewWo73uusg4++o6ZA=;
+	s=default; t=1585244212;
+	bh=WvzwVK/3I73H8TAMR33ovNa5DMn9AUrkj67EyQld2Us=;
 	h=Date:Subject:From:To:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=QVcC+VAbTFM1GKubqzkpycRg3yNTUUd+obowNo9mRhGwuVUOddgvg+mA5MMCZeNo/
-	 FyncDRgVb6smPt7yO5gdipKNVe/QUrbT83Z92sCGorMy9yjUe0AnDZC2Pvgvp18t8A
-	 CDr0Tzj9dNGo5bFK01rA91dzWUEIzmPaI1/fQbRM=
+	b=qLoENf7Nn3gF4MHpVnc5riHUm6uPnJr6S/iP7I4VP3bfkxc8SF/4zdriKey3UXsdy
+	 Aaq7DoAVaLng6zXuCRlsmuoPjuE0MEIDz+HEuagOxCuWHwybKl8qfeXhx1esXZgE/y
+	 7Hp2qPYSMbc3/30W5ztuOt+bOMFE/0NmeyHTKAg0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 362DAF80095;
-	Thu, 26 Mar 2020 18:25:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C4D72F80234;
+	Thu, 26 Mar 2020 18:35:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C92A4F80227; Thu, 26 Mar 2020 18:25:09 +0100 (CET)
+ id AECDAF80227; Thu, 26 Mar 2020 18:35:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
  autolearn=disabled version=3.4.0
-Received: from mail-pf1-x449.google.com (mail-pf1-x449.google.com
- [IPv6:2607:f8b0:4864:20::449])
+Received: from mail-pg1-x54a.google.com (mail-pg1-x54a.google.com
+ [IPv6:2607:f8b0:4864:20::54a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 370E0F80095
- for <alsa-devel@alsa-project.org>; Thu, 26 Mar 2020 18:25:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 370E0F80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id 17CEBF8011B
+ for <alsa-devel@alsa-project.org>; Thu, 26 Mar 2020 18:35:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17CEBF8011B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="KWyLYlFq"
-Received: by mail-pf1-x449.google.com with SMTP id s8so5651665pfd.23
- for <alsa-devel@alsa-project.org>; Thu, 26 Mar 2020 10:25:06 -0700 (PDT)
+ header.b="VktKbXpg"
+Received: by mail-pg1-x54a.google.com with SMTP id x4so5353322pgh.14
+ for <alsa-devel@alsa-project.org>; Thu, 26 Mar 2020 10:35:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=date:message-id:mime-version:subject:from:to:cc;
- bh=ORmUSUtMfRthZSgIgNleni10jnUu0xs0YPL13mNZ/NE=;
- b=KWyLYlFq8o7jxlgnH34j8OJCRRgm9gRtqNBxsed6Sny4C9RwfW3BeeY9a6m4u6EprZ
- 51jFmyCOmO6jdJbz9Gojk0W0yqxaGHiKuvfw+PMMx9Dn94DfxOJOqANHt1sRzrgPOcKS
- onFTQsuLpVi0OMF5J+uMwUOevghKQ/8nossTFzpxr6Rd6j3r/Rxzl3AQl7LCVckSdOea
- XNzOSeHEasDpxzI/PNifOa1bD8eBbuRyR8F5B8soLWsGmZIvWFX1OSjiWRZbr9fYRkhI
- zNn3CDOHn7Nd/ylM0m6dVLoOCxlfUgvUu0nhrkxxXt/MICG2+GHIdtNmoeBL/DG/k0Fq
- jaEA==
+ bh=G+G8SzoTNYm3INTXZnya/9BfrExbp6FOm4lsdACc9gY=;
+ b=VktKbXpg0Ao5yMu4T3/zZ0IkunVLznTzi3YISxgzT27E2R21Mq9W4obdxBrjpWmvpW
+ dYfL86TNZPqhACrwLiin0og2QiAUeF31QIbNU4NjDDt0P5ZkG2tZDuTUGtAZ84D97Gu8
+ EGS9/riz8VU7cuM1TuixG/Fzcy0QO11pY36A2ME+BtirqMOUmpT9LhgkoG2/06m5E5w6
+ KwwPh3ZMMeOoARPq+4atwfAS34STDNHOgousf97A+DntfBawLWCT8WN7hSRP1vfpRP0D
+ zQs31npcQxr9R9IYGS1lLBF09sEmAQi0Yz2lD9mBYppJvvXDTBMadqecDI4hU5tGQbPM
+ FLKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=ORmUSUtMfRthZSgIgNleni10jnUu0xs0YPL13mNZ/NE=;
- b=L8mgK2yufoEt3CBgquHpnANGuhQg0cqWyflm2faVbumlxJBhqtaXTy822hv9ub6u/x
- dXXc5Am4SJ9qXmFtrt1PLRQDTjAsKc3O1HLmCbtsgjKYyy5sYT9Mcqj9XuuyKF9yUsFX
- prol1MjAlgm9t+n557LBV6fOaRyhQwAMbTICbTAa8dQB6az6ftsd2iSNtE0gUd99JHGi
- pxq7jgdaeMZ9l3as5WIAZ024aK1eY5/630e/jfah4KX4YsmA7Qy2/PoMr1t0sa+No6Dn
- z4JhaggUSkptJjlKvYDXldm1hd6J6w/4m9NNzqovSuxciXCNpiMYLZiETb6H47czAQQ2
- gbLA==
-X-Gm-Message-State: ANhLgQ1NKpgI1kAUc/AsHmsPR3AijkBa2925sZSCDpgDiOuVbwRQXBk9
- rbOBg57YccwFUfwxmibxLP0ciiK7UOgfghI=
-X-Google-Smtp-Source: ADFU+vvCdNOQiMzb+fr/gId1WBu7XP5LxEcHieyQODvhu5d5p5y0gwZ285rhR8riYbkBhrsbX5Li/GnKFW5lkPs=
-X-Received: by 2002:a63:844a:: with SMTP id k71mr9541565pgd.79.1585243503414; 
- Thu, 26 Mar 2020 10:25:03 -0700 (PDT)
-Date: Thu, 26 Mar 2020 10:24:57 -0700
-Message-Id: <20200326172457.205493-1-saravanak@google.com>
+ bh=G+G8SzoTNYm3INTXZnya/9BfrExbp6FOm4lsdACc9gY=;
+ b=gZuG6bdt4tNBQMvA+/YBVyxL4ya4+SqWuJEMfDRuAsvdP+QsobI3MQY22dbvr4Z1q3
+ 7DeGjlDEWJbMxmK153cg+yhyR3rMswFqUKEz0+Szgw8broe0j4kLxsfYOlwoBWI4wAOn
+ JDvT15/Mufe/lY7r/5Os3wd68wcv6tb/wwtxbIA4oWjIiJ+ubE0TThg4LfXXcPyCRNAB
+ J0N/NXj/jitDQST/asXrksYWFqTlrx0ANLXVM59XdzzEzwuKHzamHTwccRmi9L2cGCi9
+ W5wAnlYNspFpa8OEv/486IJb7bx0i6SV2c3g4WAHlKwWyGhWNpkSAlLfdlst4TLZhBTZ
+ R8Ig==
+X-Gm-Message-State: ANhLgQ2obMEX08UStBPmvQ/Kv6+xCjB+lLvUff2sJCpg4xfcIxfhTbVb
+ 4vapW3I2ILyrGqbpwH3mjBPGbc/qkucTtgM=
+X-Google-Smtp-Source: ADFU+vvrbubNnjF/Quaud6R8eOUsieihvCBBg9WfH4mP4HFBuqBith01Gbz68HRn3tEjfLibzAYBTR1d8Ti89yY=
+X-Received: by 2002:a17:90a:198b:: with SMTP id
+ 11mr1230411pji.23.1585244101710; 
+ Thu, 26 Mar 2020 10:35:01 -0700 (PDT)
+Date: Thu, 26 Mar 2020 10:34:56 -0700
+Message-Id: <20200326173457.29233-1-saravanak@google.com>
 Mime-Version: 1.0
 X-Mailer: git-send-email 2.25.1.696.g5e7596f4ac-goog
-Subject: [PATCH v2] slimbus: core: Set fwnode for a device when setting of_node
+Subject: [PATCH v1] slimbus: core: Fix mismatch in of_node_get/put
 From: Saravana Kannan <saravanak@google.com>
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
-Cc: alsa-devel@alsa-project.org, Saravana Kannan <saravanak@google.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- John Stultz <john.stultz@linaro.org>, kernel-team@android.com
+Cc: alsa-devel@alsa-project.org, kernel-team@android.com,
+ linux-kernel@vger.kernel.org, Saravana Kannan <saravanak@google.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,30 +92,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When setting the of_node for a newly created device, also set the
-fwnode. This allows fw_devlink feature to work for slimbus devices.
+Also, remove some unnecessary NULL checks. The functions in question
+already do NULL checks.
 
 Signed-off-by: Saravana Kannan <saravanak@google.com>
 ---
- drivers/slimbus/core.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/slimbus/core.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/slimbus/core.c b/drivers/slimbus/core.c
-index 526e3215d8fe..44228a5b246d 100644
+index 44228a5b246d..ae1e248a8fb8 100644
 --- a/drivers/slimbus/core.c
 +++ b/drivers/slimbus/core.c
-@@ -163,8 +163,10 @@ static int slim_add_device(struct slim_controller *ctrl,
+@@ -162,11 +162,8 @@ static int slim_add_device(struct slim_controller *ctrl,
+ 	sbdev->ctrl = ctrl;
  	INIT_LIST_HEAD(&sbdev->stream_list);
  	spin_lock_init(&sbdev->stream_list_lock);
- 
--	if (node)
-+	if (node) {
- 		sbdev->dev.of_node = of_node_get(node);
-+		sbdev->dev.fwnode = of_fwnode_handle(node);
-+	}
+-
+-	if (node) {
+-		sbdev->dev.of_node = of_node_get(node);
+-		sbdev->dev.fwnode = of_fwnode_handle(node);
+-	}
++	sbdev->dev.of_node = of_node_get(node);
++	sbdev->dev.fwnode = of_fwnode_handle(node);
  
  	dev_set_name(&sbdev->dev, "%x:%x:%x:%x",
  				  sbdev->e_addr.manf_id,
+@@ -285,6 +282,7 @@ EXPORT_SYMBOL_GPL(slim_register_controller);
+ /* slim_remove_device: Remove the effect of slim_add_device() */
+ static void slim_remove_device(struct slim_device *sbdev)
+ {
++	of_node_put(sbdev->dev.of_node);
+ 	device_unregister(&sbdev->dev);
+ }
+ 
 -- 
 2.25.1.696.g5e7596f4ac-goog
 

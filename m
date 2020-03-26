@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24E40194D54
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 00:34:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5095194D55
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 00:35:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD1361664;
-	Fri, 27 Mar 2020 00:33:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD1361664
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D4BB1683;
+	Fri, 27 Mar 2020 00:34:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D4BB1683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585265662;
-	bh=Dqsupld2a2qBOtoBbXGQG+b3cHYSjnResYRFtNhgryw=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=VqAtcXGOTy+s6sK8f1fZLMWZBH2Ct6oNYIHvyShq68rU23t0qZmMMnDqHDN4WRTTj
-	 mCttc1rpdXUL/k15j8da8WeHa6XKg6lL4C0hMV2+mCDE8SlQPC/6EQqlZl2J80UwwA
-	 3J7RKTUzwBwYH5+fH4vgyZC2ZgJRP912mJW3ihjw=
+	s=default; t=1585265704;
+	bh=lQb/xXX8zVFoZHn6gU47t5ZizdgR0lyDspWP5kOlTWE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=NiFSvT9OInEj8XlKcP928s4PPZVhX8efNvLuJtGFYLh4sg/eSC3yFdPxlGMW2qtXL
+	 2RZ8KyGNgPwYjx3K+45QQCPAJYPCQFQKwKLAxyj1OLHhMUC9NwWlvt/nxeIJqzc7nK
+	 l0nAyoANAWb3r1vS+PynFkHaRUfZp/pE5plwwD1A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1C5A0F80333;
-	Fri, 27 Mar 2020 00:25:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D861F80339;
+	Fri, 27 Mar 2020 00:25:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6125FF80323; Fri, 27 Mar 2020 00:25:29 +0100 (CET)
+ id E259CF80331; Fri, 27 Mar 2020 00:25:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,42 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 865CEF80316
- for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 00:25:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 865CEF80316
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5EC86F80322
+ for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 00:25:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EC86F80322
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="CF1pXzLD"
+ header.b="UxNPq30g"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8946B208FE;
- Thu, 26 Mar 2020 23:25:24 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 5641F20774;
+ Thu, 26 Mar 2020 23:25:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1585265125;
- bh=Dqsupld2a2qBOtoBbXGQG+b3cHYSjnResYRFtNhgryw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=CF1pXzLDME4wU+JWLL96ESkzK3JCDbc8129kVQBZsfVFTbO8zvIWNxecUYlIG+1qI
- aWxLfmJR74ccCZbgCnnv3yNv+TqzES6QW0Am4Ep7W35l9zTdwWfbhoFSoSkGh140K5
- DXlItGa3MPQv7T68m4m87IseovCIhZ/1wwkWutYo=
+ s=default; t=1585265128;
+ bh=lQb/xXX8zVFoZHn6gU47t5ZizdgR0lyDspWP5kOlTWE=;
+ h=From:To:Cc:Subject:Date:From;
+ b=UxNPq30ggtP+Thjhe2Em4IXnS/K/S/yje3I3U0xnn6870qq6uwEooBcyE5qpsAbRH
+ F1r75U9f8eHLsCjoThNZsyOgeIEmeKVBhqLtDlu/nh1A4a81+w1Kc3rjc74qVMibhQ
+ SJqxsWP89ElNDK2gtd0UYf4vsLqHAcL6/26hhVJQ=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.14 10/10] ALSA: pcm: oss: Remove WARNING from
- snd_pcm_plug_alloc() checks
-Date: Thu, 26 Mar 2020 19:25:13 -0400
-Message-Id: <20200326232513.8212-10-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.9 1/7] ALSA: hda/realtek: Fix pop noise on ALC225
+Date: Thu, 26 Mar 2020 19:25:20 -0400
+Message-Id: <20200326232526.8349-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200326232513.8212-1-sashal@kernel.org>
-References: <20200326232513.8212-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org,
- syzbot+2a59ee7a9831b264f45e@syzkaller.appspotmail.com
+ alsa-devel@alsa-project.org, Kai-Heng Feng <kai.heng.feng@canonical.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,48 +80,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Takashi Iwai <tiwai@suse.de>
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
 
-[ Upstream commit 5461e0530c222129dfc941058be114b5cbc00837 ]
+[ Upstream commit 3b36b13d5e69d6f51ff1c55d1b404a74646c9757 ]
 
-The return value checks in snd_pcm_plug_alloc() are covered with
-snd_BUG_ON() macro that may trigger a kernel WARNING depending on the
-kconfig.  But since the error condition can be triggered by a weird
-user space parameter passed to OSS layer, we shouldn't give the kernel
-stack trace just for that.  As it's a normal error condition, let's
-remove snd_BUG_ON() macro usage there.
+Commit 317d9313925c ("ALSA: hda/realtek - Set default power save node to
+0") makes the ALC225 have pop noise on S3 resume and cold boot.
 
-Reported-by: syzbot+2a59ee7a9831b264f45e@syzkaller.appspotmail.com
-Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/r/20200312155730.7520-1-tiwai@suse.de
+So partially revert this commit for ALC225 to fix the regression.
+
+Fixes: 317d9313925c ("ALSA: hda/realtek - Set default power save node to 0")
+BugLink: https://bugs.launchpad.net/bugs/1866357
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Link: https://lore.kernel.org/r/20200311061328.17614-1-kai.heng.feng@canonical.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/core/oss/pcm_plugin.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/pci/hda/patch_realtek.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/core/oss/pcm_plugin.c b/sound/core/oss/pcm_plugin.c
-index 6583eb411f82a..40d2d39151bfb 100644
---- a/sound/core/oss/pcm_plugin.c
-+++ b/sound/core/oss/pcm_plugin.c
-@@ -111,7 +111,7 @@ int snd_pcm_plug_alloc(struct snd_pcm_substream *plug, snd_pcm_uframes_t frames)
- 		while (plugin->next) {
- 			if (plugin->dst_frames)
- 				frames = plugin->dst_frames(plugin, frames);
--			if (snd_BUG_ON((snd_pcm_sframes_t)frames <= 0))
-+			if ((snd_pcm_sframes_t)frames <= 0)
- 				return -ENXIO;
- 			plugin = plugin->next;
- 			err = snd_pcm_plugin_alloc(plugin, frames);
-@@ -123,7 +123,7 @@ int snd_pcm_plug_alloc(struct snd_pcm_substream *plug, snd_pcm_uframes_t frames)
- 		while (plugin->prev) {
- 			if (plugin->src_frames)
- 				frames = plugin->src_frames(plugin, frames);
--			if (snd_BUG_ON((snd_pcm_sframes_t)frames <= 0))
-+			if ((snd_pcm_sframes_t)frames <= 0)
- 				return -ENXIO;
- 			plugin = plugin->prev;
- 			err = snd_pcm_plugin_alloc(plugin, frames);
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index a64612db1f155..d7b33c9c9f40b 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -6410,6 +6410,8 @@ static int patch_alc269(struct hda_codec *codec)
+ 		spec->gen.mixer_nid = 0;
+ 		break;
+ 	case 0x10ec0225:
++		codec->power_save_node = 1;
++		/* fall through */
+ 	case 0x10ec0295:
+ 		spec->codec_variant = ALC269_TYPE_ALC225;
+ 		break;
 -- 
 2.20.1
 

@@ -2,54 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5B8119473D
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Mar 2020 20:13:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A073194848
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Mar 2020 21:06:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 464A91665;
-	Thu, 26 Mar 2020 20:12:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 464A91665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86385166F;
+	Thu, 26 Mar 2020 21:05:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86385166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585250008;
-	bh=YYyOWLP8tyPsNmFcriLMMo1ASAi/gAQeqJtLDHLDU24=;
-	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=J4JkCcfCYhOFMrQ9gOITPfGpasnG+z1vkY/9z6Igpim0NeqSKUNodpjHtokR51B48
-	 MfkB7AKcRL/ZLYQqJEL537IxpN8ubZvh3QzBPtKq5BCe3/xuBoJUscZT01Cy32b3Jf
-	 D/Odk3r9RHQE7oHauUAxXPGUIYYIRr0m3xm5qJDg=
+	s=default; t=1585253184;
+	bh=uvlTjHdbuqMkJBzMYRmkNFN6wLlzPtlFGeNo7fSXqNI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=MhQRADDo16tzegQX0E/5XGHbMB90747FpVi72jTY128PfyTOQw4j9ehYhPRP2Hi5P
+	 InaUJWGQpYF3r9D1kB2PBh8jBMHqUBLuobfKPlPmiolIXOoE3SAbOwKRGaOdVjP4/m
+	 SG12pc//806P+Ml3HwIlVXyfhXcNVELcgOrnSFpM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42FFCF80316;
-	Thu, 26 Mar 2020 20:05:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58B8AF80227;
+	Thu, 26 Mar 2020 21:04:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88CC5F80315; Thu, 26 Mar 2020 20:05:46 +0100 (CET)
+ id 0F669F8011E; Thu, 26 Mar 2020 21:04:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 1D1D4F802FE
- for <alsa-devel@alsa-project.org>; Thu, 26 Mar 2020 20:05:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D1D4F802FE
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D40537FA;
- Thu, 26 Mar 2020 12:05:37 -0700 (PDT)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 586DC3F71F;
- Thu, 26 Mar 2020 12:05:37 -0700 (PDT)
-Date: Thu, 26 Mar 2020 19:05:35 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Curtis Malainey <cujomalainey@chromium.org>
-Subject: Applied "ASoC: Intel: Make glk+rt5682 echo ref dynamic" to the asoc
- tree
-In-Reply-To: <20200325213245.28247-2-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20200325213245.28247-2-pierre-louis.bossart@linux.intel.com>
-X-Patchwork-Hint: ignore
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E64E7F8011E
+ for <alsa-devel@alsa-project.org>; Thu, 26 Mar 2020 21:04:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E64E7F8011E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="bUcqPYEU"
+Received: by mail-wm1-x341.google.com with SMTP id b12so8234828wmj.3
+ for <alsa-devel@alsa-project.org>; Thu, 26 Mar 2020 13:04:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=zbQ3Uwb6d8flUslu5Q4iOEydjhF66RY75GTAbvCC5Wg=;
+ b=bUcqPYEUnPFMSXhJrn0P7yxgp7Wm8EpQLBOIhczj7WT1CZwlsNsCvygJd2cGP1jaNc
+ xXVe92x6VwZNdqrz1wjElUoSpfvSpB6P+704Iq7oCAEHDJ7CzSx84HS+94vAjzQR7pko
+ pQk5lwJPaPT91msJcAmdcS3TZBxAMjObyHDJiWgH0bqP5C81VViw17GnXPWI1Ddn1p8J
+ qPI5YjGZqweSIzH28EGBwGsapNwVir3BpuuxBqokhadspKXTIzzDOK10IpmH+nchpepL
+ yz8eai1ABqjYR7HkFY6r1VHmhPz5TaB+eHWF6eWFKZqXsyXBZOh0YE1Wzn/+VRemRucm
+ YimQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=zbQ3Uwb6d8flUslu5Q4iOEydjhF66RY75GTAbvCC5Wg=;
+ b=Ps4d8f+gCvYIWKduopzuA+Hz0t9wWAlWihoBKiMLUfmPndwnT+ZNZcWOcJrfDikWfi
+ DNcRguKW94U+zHLPRnUBKrApINQCJwzx3Lf/vH9Su9uUhBN/zw+4D2mjTNcaiHPTnxtT
+ W+2hShCE6wOI3ojGJh1Kr3wBLqnOBXQsB8jt/4NlTDdx48aXkB5XsgVFSwpi4XTCgfJf
+ Qwn/X85COjoZmLOsUuJjk0tkHl5yDjXkHh5s+UYImy2KCxdC8vAW1tbWGWd2eotv7YmN
+ PQhXNuhj2iAiUI03PC9rbqdVdyZGcj7AdXRhClM2C8v7CjF91uMIxdYPXHLOrPMdcnzH
+ BoVA==
+X-Gm-Message-State: ANhLgQ2SgIss1vQpxHvNbzS+RqS8/trHZg/mjkAksQ+3qLi4JoXUNr8U
+ /iv9XBNbg7rpT+Ukb62k3Jc=
+X-Google-Smtp-Source: ADFU+vuDePG3SgkJUDICukDIfduiYSC+himaO2rgnRgJj8DvyyQYf3DGmiZJImxmTotAS8uHNagGeQ==
+X-Received: by 2002:adf:fe0f:: with SMTP id n15mr2555988wrr.204.1585253076499; 
+ Thu, 26 Mar 2020 13:04:36 -0700 (PDT)
+Received: from localhost (108.78.124.78.rev.sfr.net. [78.124.78.108])
+ by smtp.gmail.com with ESMTPSA id h132sm5270619wmf.18.2020.03.26.13.04.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Mar 2020 13:04:35 -0700 (PDT)
+Date: Thu, 26 Mar 2020 20:04:15 +0000
+From: sylvain.bertrand@gmail.com
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: sw_params for a direct-ed(dmix) hw pcm
+Message-ID: <20200326200415.GA1321@freedom>
+References: <20200321155303.GB357@freedom> <20200325174419.GA1224@freedom>
+ <alpine.DEB.2.21.2003261350380.2957@eliteleevi.tm.intel.com>
+ <9d986c48-184a-1d6e-4c5b-172a7ecd98a8@perex.cz>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <9d986c48-184a-1d6e-4c5b-172a7ecd98a8@perex.cz>
+User-Agent: Mutt/ (2018-04-13)
+Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,63 +102,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+On Thu, Mar 26, 2020 at 03:36:23PM +0100, Jaroslav Kysela wrote:
+> I agree. Also, the snd_pcm_direct_sw_params() does nothing, because the
+> sw_params are already cached in the pcm structure (see comment). It means
+> that the dmix (direct) plugins operates with those cached values. Just set
+> sw_params like for any other PCM handle. The dmix uses those values (if
+> possible).
 
-   ASoC: Intel: Make glk+rt5682 echo ref dynamic
+This is the "if possible" which would impacts the way how code should do setup
+right, but:
 
-has been applied to the asoc tree at
+Let's take the case of a classic plugin "pipeline":
+pcm:plug->...->direct::dmix->hw
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+From the top plugin (usually plug) to the direct::plugin, the "sw_params" pcm
+op is usually pcm_generic.c:snd_pcm_generic_sw_params which does recurse down.
+This recursion down will stop once pcm_direct.c:snd_pcm_direct_sw_params is
+reached, then will recurse up, without error.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+But pcm.c:snd_pcm_sw_params will copy anyway the provided sw_params into each
+recursed back pcm if the "sw_params" pcm op return no error code, which is the
+case.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Then looking at pcm.c:snd_pcm_sw_params_current, I get those "wrong" sw_params,
+then I get no way to know something went wrong.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Why "wrong", because they may significantly differ from the bottom hw plugin
+sw_params which some fields are used to configure the kernel driver.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+for instance, a fast_op status call will recurse down to
+pcm_dmix.c:snd_pcm_dmix_status, which will call the hw plugin fast op status
+function which will use _its_ tstamp_type field for the ioctl call, but will
+"override" the trigger_tstamp field computed with the "wrong" sw_params
+tstamp_type!
 
-Thanks,
-Mark
+It happens that the monotonic_raw and monotonic clocks can have audio
+significant difference. Additionally, the other sw_params field might cause
+similar issues.
 
-From d60b55c9edaed31e8e0c961f42237dcb5c83deb8 Mon Sep 17 00:00:00 2001
-From: Curtis Malainey <cujomalainey@chromium.org>
-Date: Wed, 25 Mar 2020 16:32:42 -0500
-Subject: [PATCH] ASoC: Intel: Make glk+rt5682 echo ref dynamic
+regards,
 
-Without the dynamic flag to allow runtime routing, the card cannot
-probe on chromebooks because SOF is constantly waiting for the link.
-Adding flag back to allow upstream kernels to work on rt5682 based
-chromebooks since SOF can now ignore the hard coded front end.
-
-Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200325213245.28247-2-pierre-louis.bossart@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/intel/boards/glk_rt5682_max98357a.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/sound/soc/intel/boards/glk_rt5682_max98357a.c b/sound/soc/intel/boards/glk_rt5682_max98357a.c
-index ea1de8b3f3cd..3c576b33b9c6 100644
---- a/sound/soc/intel/boards/glk_rt5682_max98357a.c
-+++ b/sound/soc/intel/boards/glk_rt5682_max98357a.c
-@@ -409,6 +409,7 @@ static struct snd_soc_dai_link geminilake_dais[] = {
- 		.init = NULL,
- 		.capture_only = 1,
- 		.nonatomic = 1,
-+		.dynamic = 1,
- 		SND_SOC_DAILINK_REG(echoref, dummy, platform),
- 	},
- 	[GLK_DPCM_AUDIO_REF_CP] = {
 -- 
-2.20.1
-
+Sylvain

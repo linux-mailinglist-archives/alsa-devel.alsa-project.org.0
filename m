@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30040194D5E
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 00:37:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5406194D60
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 00:37:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CC0541665;
-	Fri, 27 Mar 2020 00:36:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC0541665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53AAC1679;
+	Fri, 27 Mar 2020 00:36:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53AAC1679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585265842;
-	bh=bbDDgNcNSy4IsWJ3xy4DY8T3FJXG1AAnHPaXeYk5WT4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=YLj7nRdDqYhkx5O76G4lTxmWv+2mNqiDA8Guix+HDM8Nmb4nM/vAKd1Xlc6FGZ4Dd
-	 EfZeE5jvVHhZP4p++pMGT/oem20pDmpvXrPDHX8l36yrPJes1KGWE0bB5SZhIQoW5g
-	 KdXuaWygV6qx90RNyI3pPZ6tXMmVLbcIaOvZNxt0=
+	s=default; t=1585265868;
+	bh=DMDAmsX01Z1tF2K9W75nHKqQQTSG6LCtx+m5EJLBaZ4=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=UbQyR3a9RJEzcTgVyi9+1pncQHcaZ9E0M0NI+6c+cPYUmuOA7n73NXeDM8pAf29aX
+	 RLIHq2quwHOBbRFd6Qc9zUU+TaBNb3L00V1E2Buqd746/bW5udzGm2gbXh0ssTvnDT
+	 0SfEoRwdIsAdXqEbEW9LbCcFOpLPeyTE2sR/7mAI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44F15F80351;
-	Fri, 27 Mar 2020 00:25:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5F56AF80360;
+	Fri, 27 Mar 2020 00:25:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C4F3BF8034A; Fri, 27 Mar 2020 00:25:41 +0100 (CET)
+ id F15F9F8034C; Fri, 27 Mar 2020 00:25:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,38 +34,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A0BCF80344
- for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 00:25:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A0BCF80344
+ by alsa1.perex.cz (Postfix) with ESMTPS id F254DF80347
+ for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 00:25:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F254DF80347
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="WA5ASMaO"
+ header.b="U3Xunht/"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 85ABD20774;
- Thu, 26 Mar 2020 23:25:36 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id C1F7C208E0;
+ Thu, 26 Mar 2020 23:25:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1585265137;
- bh=bbDDgNcNSy4IsWJ3xy4DY8T3FJXG1AAnHPaXeYk5WT4=;
- h=From:To:Cc:Subject:Date:From;
- b=WA5ASMaOfzp/Tzt/q6RzXkf8lEILiYZHV2oveVtdn0jb+iDW/8T7aa2yroyfUrM3X
- 2C9SonHvywJCC3EWJDzO4iiZ6YvAljpApaBp5YZh1HJSxGRrq8wWLfsifraWPNFMSH
- 2ZASyOjkbxJ6agZQZsA6FSiXJ5ZFXPtbQx6IQQMk=
+ s=default; t=1585265139;
+ bh=DMDAmsX01Z1tF2K9W75nHKqQQTSG6LCtx+m5EJLBaZ4=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=U3Xunht/1WWDqV2kfFshyivuN98Rd6dmjVzJx2OsECPkt+TxD8BBHSnpgvsZm/ReQ
+ 8RtolHd5KgoBL+wxGMBmIIciCsGX8UgPzgVezjkOdsbVE5ql5dAj2NBjQVWa8K6xmE
+ Tm1wYu9/e4+op2y/8acOCYB5JpRoNNznX6qE/Llg=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.4 1/4] ALSA: hda/realtek: Fix pop noise on ALC225
-Date: Thu, 26 Mar 2020 19:25:32 -0400
-Message-Id: <20200326232535.8460-1-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.4 3/4] ALSA: pcm: oss: Avoid plugin buffer overflow
+Date: Thu, 26 Mar 2020 19:25:34 -0400
+Message-Id: <20200326232535.8460-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200326232535.8460-1-sashal@kernel.org>
+References: <20200326232535.8460-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org, Kai-Heng Feng <kai.heng.feng@canonical.com>
+ syzbot+e1fe9f44fb8ecf4fb5dd@syzkaller.appspotmail.com,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,38 +84,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 3b36b13d5e69d6f51ff1c55d1b404a74646c9757 ]
+[ Upstream commit f2ecf903ef06eb1bbbfa969db9889643d487e73a ]
 
-Commit 317d9313925c ("ALSA: hda/realtek - Set default power save node to
-0") makes the ALC225 have pop noise on S3 resume and cold boot.
+Each OSS PCM plugins allocate its internal buffer per pre-calculation
+of the max buffer size through the chain of plugins (calling
+src_frames and dst_frames callbacks).  This works for most plugins,
+but the rate plugin might behave incorrectly.  The calculation in the
+rate plugin involves with the fractional position, i.e. it may vary
+depending on the input position.  Since the buffer size
+pre-calculation is always done with the offset zero, it may return a
+shorter size than it might be; this may result in the out-of-bound
+access as spotted by fuzzer.
 
-So partially revert this commit for ALC225 to fix the regression.
+This patch addresses those possible buffer overflow accesses by simply
+setting the upper limit per the given buffer size for each plugin
+before src_frames() and after dst_frames() calls.
 
-Fixes: 317d9313925c ("ALSA: hda/realtek - Set default power save node to 0")
-BugLink: https://bugs.launchpad.net/bugs/1866357
-Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Link: https://lore.kernel.org/r/20200311061328.17614-1-kai.heng.feng@canonical.com
+Reported-by: syzbot+e1fe9f44fb8ecf4fb5dd@syzkaller.appspotmail.com
+Cc: <stable@vger.kernel.org>
+Link: https://lore.kernel.org/r/000000000000b25ea005a02bcf21@google.com
+Link: https://lore.kernel.org/r/20200309082148.19855-1-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/patch_realtek.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/core/oss/pcm_plugin.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 55bae9e6de27d..76cf438aa339c 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -6333,6 +6333,8 @@ static int patch_alc269(struct hda_codec *codec)
- 		alc_update_coef_idx(codec, 0x36, 1 << 13, 1 << 5); /* Switch pcbeep path to Line in path*/
- 		break;
- 	case 0x10ec0225:
-+		codec->power_save_node = 1;
-+		/* fall through */
- 	case 0x10ec0295:
- 	case 0x10ec0299:
- 		spec->codec_variant = ALC269_TYPE_ALC225;
+diff --git a/sound/core/oss/pcm_plugin.c b/sound/core/oss/pcm_plugin.c
+index c6888d76ca5e9..b08b2d2d804bd 100644
+--- a/sound/core/oss/pcm_plugin.c
++++ b/sound/core/oss/pcm_plugin.c
+@@ -209,6 +209,8 @@ snd_pcm_sframes_t snd_pcm_plug_client_size(struct snd_pcm_substream *plug, snd_p
+ 	if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
+ 		plugin = snd_pcm_plug_last(plug);
+ 		while (plugin && drv_frames > 0) {
++			if (drv_frames > plugin->buf_frames)
++				drv_frames = plugin->buf_frames;
+ 			plugin_prev = plugin->prev;
+ 			if (plugin->src_frames)
+ 				drv_frames = plugin->src_frames(plugin, drv_frames);
+@@ -220,6 +222,8 @@ snd_pcm_sframes_t snd_pcm_plug_client_size(struct snd_pcm_substream *plug, snd_p
+ 			plugin_next = plugin->next;
+ 			if (plugin->dst_frames)
+ 				drv_frames = plugin->dst_frames(plugin, drv_frames);
++			if (drv_frames > plugin->buf_frames)
++				drv_frames = plugin->buf_frames;
+ 			plugin = plugin_next;
+ 		}
+ 	} else
+@@ -248,11 +252,15 @@ snd_pcm_sframes_t snd_pcm_plug_slave_size(struct snd_pcm_substream *plug, snd_pc
+ 				if (frames < 0)
+ 					return frames;
+ 			}
++			if (frames > plugin->buf_frames)
++				frames = plugin->buf_frames;
+ 			plugin = plugin_next;
+ 		}
+ 	} else if (stream == SNDRV_PCM_STREAM_CAPTURE) {
+ 		plugin = snd_pcm_plug_last(plug);
+ 		while (plugin) {
++			if (frames > plugin->buf_frames)
++				frames = plugin->buf_frames;
+ 			plugin_prev = plugin->prev;
+ 			if (plugin->src_frames) {
+ 				frames = plugin->src_frames(plugin, frames);
 -- 
 2.20.1
 

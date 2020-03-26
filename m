@@ -2,58 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F645196BC1
-	for <lists+alsa-devel@lfdr.de>; Sun, 29 Mar 2020 09:58:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 941F5196BC3
+	for <lists+alsa-devel@lfdr.de>; Sun, 29 Mar 2020 09:59:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D3AB91675;
-	Sun, 29 Mar 2020 09:57:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3AB91675
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3C6181678;
+	Sun, 29 Mar 2020 09:58:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C6181678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585468706;
-	bh=w6rNVLbb9h5jJBdGnLfyrofx4KLoqioQgN2DqGsKz+U=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=qqJweiBt4T59S0QtkY8Any4LFgqswC8gOEbX3NxyhJInHe4+lqwE/55UZwBg5po9t
-	 bLqBBNfVJmFGd3qHDYrnQGSQpc9rUxZUCgj+QQQiFtV2Tki4c/0j8fbSe7R9WRKvRg
-	 jNdw8dAhoRBeKZUlWv3AurO6Lg/tSFmUAyxmQCTY=
+	s=default; t=1585468763;
+	bh=UMmSUJx88sBu0N9nOKRtBPLcSHg6XROAcLmALvIEO08=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=nbdf8uKwXo5jqqDCpuwTsXY2JaSlwyOur0y/jMmw7jwGcHpj46rYZt2X5TPjPCv/k
+	 eawQgNhattyER6VEwvA6CKyRuXj4D/jUsp6X1yxbpIb7YtUpsEAYWLMGZOMs6PM1/c
+	 oeVaT0RgDW7arMxxIbkOCPwlXzgs7FRWOl+51vjQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3011F8029A;
-	Sun, 29 Mar 2020 09:54:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7708EF802BC;
+	Sun, 29 Mar 2020 09:54:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25A07F80234; Sat, 28 Mar 2020 17:43:31 +0100 (CET)
+ id AD7D3F80227; Thu, 26 Mar 2020 09:34:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.1 required=5.0 tests=DATE_IN_PAST_96_XX,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx.sdf.org (mx.sdf.org [205.166.94.20])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B4E62F80146
- for <alsa-devel@alsa-project.org>; Sat, 28 Mar 2020 17:43:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4E62F80146
-Received: from sdf.org (IDENT:lkml@sdf.lonestar.org [205.166.94.16])
- by mx.sdf.org (8.15.2/8.14.5) with ESMTPS id 02SGhBmk014221
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits) verified NO);
- Sat, 28 Mar 2020 16:43:12 GMT
-Received: (from lkml@localhost)
- by sdf.org (8.15.2/8.12.8/Submit) id 02SGhBrh000992;
- Sat, 28 Mar 2020 16:43:11 GMT
-Message-Id: <202003281643.02SGhBrh000992@sdf.org>
-From: George Spelvin <lkml@sdf.org>
-Date: Wed, 21 Aug 2019 20:25:10 -0400
-Subject: [RFC PATCH v1 13/50] Avoid some useless msecs/jiffies conversions
-To: linux-kernel@vger.kernel.org, lkml@sdf.org
-X-Mailman-Approved-At: Sun, 29 Mar 2020 09:54:16 +0200
-Cc: alsa-devel@alsa-project.org, Marek Lindner <mareklindner@neomailbox.ch>,
- linux-scsi@vger.kernel.org, Simon Wunderlich <sw@simonwunderlich.de>,
- linux-wireless@vger.kernel.org, Antonio Quartulli <a@unstable.cc>,
- Takashi Iwai <tiwai@suse.com>, b.a.t.m.a.n@diktynna.open-mesh.org,
- Hannes Reinecke <hare@suse.de>, Johannes Berg <johannes@sipsolutions.net>,
- Sven Eckelmann <sven@narfation.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3E006F8011E
+ for <alsa-devel@alsa-project.org>; Thu, 26 Mar 2020 09:34:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E006F8011E
+IronPort-SDR: fwQN7fcbcdQ49VcU8gSe72uzM1RppRq5Ut65H3XNh7pd6b8N1p8fM0qClauB6bE3COtAupD2Wl
+ shp4JQ63mwqA==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Mar 2020 01:34:21 -0700
+IronPort-SDR: nly9xD30xpsmGWYFWXpCQfSK56dqJFIPOST3nuhEheHKExNfIQ5XgPc3HXfYowGvGJpdixXyaW
+ B8k9bFVtCr9w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,307,1580803200"; d="scan'208";a="446919804"
+Received: from shao2-debian.sh.intel.com (HELO localhost) ([10.239.13.3])
+ by fmsmga005.fm.intel.com with ESMTP; 26 Mar 2020 01:34:13 -0700
+Date: Thu, 26 Mar 2020 16:33:55 +0800
+From: kernel test robot <rong.a.chen@intel.com>
+To: Thomas Gleixner <tglx@linutronix.de>
+Subject: Re: [cpufreq] 06c4d00466: will-it-scale.per_process_ops -53.4%
+ regression
+Message-ID: <20200326083355.GO11705@shao2-debian>
+References: <20200320131509.564059710@linutronix.de>
+ <20200324060124.GC11705@shao2-debian>
+ <CAHp75VeeKZLeZ8E3Py7LECN54SPFHaRgkxrMzBYQWXM8x+4JhA@mail.gmail.com>
+ <43a4189a-7153-18e8-4657-4a4400002c05@intel.com>
+ <87zhc4ybbt.fsf@nanos.tec.linutronix.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <87zhc4ybbt.fsf@nanos.tec.linutronix.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Mailman-Approved-At: Sun, 29 Mar 2020 09:54:17 +0200
+Cc: Ulf Hansson <ulf.hansson@linaro.org>,
+ "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Platform Driver <platform-driver-x86@vger.kernel.org>,
+ Jacob Pan <jacob.jun.pan@linux.intel.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Amit Kucheria <amit.kucheria@verdurent.com>,
+ Mark Gross <mgross@linux.intel.com>, Herbert Xu <herbert@gondor.apana.org.au>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>, linux-pci@vger.kernel.org,
+ Darren Hart <dvhart@infradead.org>, Zhang Rui <rui.zhang@intel.com>,
+ Guenter Roeck <linux@roeck-us.net>, Len Brown <lenb@kernel.org>,
+ Jean Delvare <jdelvare@suse.com>, Linux PM <linux-pm@vger.kernel.org>,
+ linux-mmc <linux-mmc@vger.kernel.org>, lkp@lists.01.org,
+ Bjorn Helgaas <bhelgaas@google.com>, Takashi Iwai <tiwai@suse.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, linux-edac@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, Tony Luck <tony.luck@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>, LKML <linux-kernel@vger.kernel.org>,
+ linux-crypto <linux-crypto@vger.kernel.org>,
+ Paolo Bonzini <pbonzini@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ Andy Shevchenko <andy@infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,152 +106,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Rather than generating a random number of milliseconds in a
-constant range and then converting to jiffies, convert the range
-to jiffies (evaluated at compile time) and choose a random number
-of jiffies in that range.
+On Wed, Mar 25, 2020 at 11:32:06AM +0100, Thomas Gleixner wrote:
+> Rong Chen <rong.a.chen@intel.com> writes:
+> > On 3/24/20 6:24 PM, Andy Shevchenko wrote:
+> >> On Tue, Mar 24, 2020 at 8:02 AM kernel test robot <rong.a.chen@intel.com> wrote:
+> >>> Greeting,
+> >>>
+> >>> FYI, we noticed a -53.4% regression of will-it-scale.per_process_ops due to commit:
+> >>> commit: 06c4d00466eb374841bc84c39af19b3161ff6917 ("[patch 09/22] cpufreq: Convert to new X86 CPU match macros")
+> >>> url: https://github.com/0day-ci/linux/commits/Thomas-Gleixner/x86-devicetable-Move-x86-specific-macro-out-of-generic-code/20200321-031729
+> >>> base: https://git.kernel.org/cgit/linux/kernel/git/rafael/linux-pm.git linux-next
+> >>>
+> >>> in testcase: will-it-scale
+> >>> on test machine: 4 threads Intel(R) Core(TM) i3-3220 CPU @ 3.30GHz with 8G memory
+> >>> with following parameters:
+> >>
+> >> drivers/cpufreq/speedstep-centrino.c change missed the terminator,
+> >> perhaps it's a culprit, because I don't believe removing dups and
+> >> reordering lines may affect this.
+> >> Can you restore terminator there and re-test?
+> >>
+> >
+> > I have retested with the change, but it has no effect on the performance.
+> 
+> Bah. The binary equivalence testing detected this, but I obvioulsy
+> missed it. Delta fix below.
+> 
+> Thanks,
+> 
+>         tglx
+> 
+> 8<--------------
+> --- a/drivers/cpufreq/intel_pstate.c
+> +++ b/drivers/cpufreq/intel_pstate.c
+> @@ -2727,7 +2727,7 @@ static inline void intel_pstate_request_
+>  
+>  #define X86_MATCH_HWP(model, hwp_mode)					\
+>  	X86_MATCH_VENDOR_FAM_MODEL_FEATURE(INTEL, 6, INTEL_FAM6_##model, \
+> -					   X86_FEATURE_APERFMPERF, hwp_mode)
+> +					   X86_FEATURE_HWP, hwp_mode)
+>  
+>  static const struct x86_cpu_id hwp_support_ids[] __initconst = {
+>  	X86_MATCH_HWP(BROADWELL_X,	INTEL_PSTATE_HWP_BROADWELL),
 
-Likewise, "msecs_to_jiffies(seconds * 1000)" is more
-conveniently written "seconds * HZ".
+Hi Thomas,
 
-Signed-off-by: George Spelvin <lkml@sdf.org>
-Cc: Hannes Reinecke <hare@suse.de>
-Cc: linux-scsi@vger.kernel.org
-Cc: Marek Lindner <mareklindner@neomailbox.ch>
-Cc: Simon Wunderlich <sw@simonwunderlich.de>
-Cc: Antonio Quartulli <a@unstable.cc>
-Cc: Sven Eckelmann <sven@narfation.org>
-Cc: b.a.t.m.a.n@lists.open-mesh.org
-Cc: Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org
----
- drivers/scsi/fcoe/fcoe_ctlr.c | 10 +++++-----
- net/batman-adv/bat_iv_ogm.c   |  2 +-
- net/batman-adv/bat_v_ogm.c    |  8 ++++----
- net/bluetooth/hci_request.c   |  2 +-
- net/wireless/scan.c           |  2 +-
- sound/core/pcm_lib.c          |  2 +-
- sound/core/pcm_native.c       |  2 +-
- 7 files changed, 14 insertions(+), 14 deletions(-)
+The patch can fix the regression:
 
-diff --git a/drivers/scsi/fcoe/fcoe_ctlr.c b/drivers/scsi/fcoe/fcoe_ctlr.c
-index 1791a393795da..9c530f8827518 100644
---- a/drivers/scsi/fcoe/fcoe_ctlr.c
-+++ b/drivers/scsi/fcoe/fcoe_ctlr.c
-@@ -2238,10 +2238,10 @@ static void fcoe_ctlr_vn_restart(struct fcoe_ctlr *fip)
- 
- 	if (fip->probe_tries < FIP_VN_RLIM_COUNT) {
- 		fip->probe_tries++;
--		wait = prandom_u32() % FIP_VN_PROBE_WAIT;
-+		wait = prandom_u32_max(msecs_to_jiffies(FIP_VN_PROBE_WAIT));
- 	} else
--		wait = FIP_VN_RLIM_INT;
--	mod_timer(&fip->timer, jiffies + msecs_to_jiffies(wait));
-+		wait = msecs_to_jiffies(FIP_VN_RLIM_INT);
-+	mod_timer(&fip->timer, jiffies + wait);
- 	fcoe_ctlr_set_state(fip, FIP_ST_VNMP_START);
- }
- 
-@@ -3132,8 +3132,8 @@ static void fcoe_ctlr_vn_timeout(struct fcoe_ctlr *fip)
- 			fcoe_ctlr_vn_send(fip, FIP_SC_VN_BEACON,
- 					  fcoe_all_vn2vn, 0);
- 			fip->port_ka_time = jiffies +
--				 msecs_to_jiffies(FIP_VN_BEACON_INT +
--					(prandom_u32() % FIP_VN_BEACON_FUZZ));
-+			  msecs_to_jiffies(FIP_VN_BEACON_INT) +
-+			  prandom_u32_max(msecs_to_jiffies(FIP_VN_BEACON_FUZZ));
- 		}
- 		if (time_before(fip->port_ka_time, next_time))
- 			next_time = fip->port_ka_time;
-diff --git a/net/batman-adv/bat_iv_ogm.c b/net/batman-adv/bat_iv_ogm.c
-index 46c5cd9f8019e..9efd96e91d53e 100644
---- a/net/batman-adv/bat_iv_ogm.c
-+++ b/net/batman-adv/bat_iv_ogm.c
-@@ -288,7 +288,7 @@ batadv_iv_ogm_emit_send_time(const struct batadv_priv *bat_priv)
- /* when do we schedule a ogm packet to be sent */
- static unsigned long batadv_iv_ogm_fwd_send_time(void)
- {
--	return jiffies + msecs_to_jiffies(prandom_u32() % (BATADV_JITTER / 2));
-+	return jiffies + prandom_u32_max(msecs_to_jiffies(BATADV_JITTER / 2));
- }
- 
- /* apply hop penalty for a normal link */
-diff --git a/net/batman-adv/bat_v_ogm.c b/net/batman-adv/bat_v_ogm.c
-index 411ce5fc6492f..61fa742ff5501 100644
---- a/net/batman-adv/bat_v_ogm.c
-+++ b/net/batman-adv/bat_v_ogm.c
-@@ -85,12 +85,12 @@ struct batadv_orig_node *batadv_v_ogm_orig_get(struct batadv_priv *bat_priv,
-  */
- static void batadv_v_ogm_start_queue_timer(struct batadv_hard_iface *hard_iface)
- {
--	unsigned int msecs = BATADV_MAX_AGGREGATION_MS * 1000;
-+	unsigned int delay = msecs_to_jiffies(BATADV_MAX_AGGREGATION_MS);
- 
--	/* msecs * [0.9, 1.1] */
--	msecs += prandom_u32() % (msecs / 5) - (msecs / 10);
-+	/* delay * [0.9, 1.1] */
-+	delay += prandom_u32_max(delay / 5) - (delay / 10);
- 	queue_delayed_work(batadv_event_workqueue, &hard_iface->bat_v.aggr_wq,
--			   msecs_to_jiffies(msecs / 1000));
-+			   delay);
- }
- 
- /**
-diff --git a/net/bluetooth/hci_request.c b/net/bluetooth/hci_request.c
-index 2a1b64dbf76e4..8b46e23b4abe7 100644
---- a/net/bluetooth/hci_request.c
-+++ b/net/bluetooth/hci_request.c
-@@ -1505,7 +1505,7 @@ int hci_get_random_address(struct hci_dev *hdev, bool require_privacy,
- 
- 		bacpy(rand_addr, &hdev->rpa);
- 
--		to = msecs_to_jiffies(hdev->rpa_timeout * 1000);
-+		to = hdev->rpa_timeout * HZ;
- 		if (adv_instance)
- 			queue_delayed_work(hdev->workqueue,
- 					   &adv_instance->rpa_expired_cb, to);
-diff --git a/net/wireless/scan.c b/net/wireless/scan.c
-index aef240fdf8df6..b6856cbb68d3b 100644
---- a/net/wireless/scan.c
-+++ b/net/wireless/scan.c
-@@ -700,7 +700,7 @@ void cfg80211_bss_age(struct cfg80211_registered_device *rdev,
-                       unsigned long age_secs)
- {
- 	struct cfg80211_internal_bss *bss;
--	unsigned long age_jiffies = msecs_to_jiffies(age_secs * MSEC_PER_SEC);
-+	unsigned long age_jiffies = age_secs * HZ;
- 
- 	spin_lock_bh(&rdev->bss_lock);
- 	list_for_each_entry(bss, &rdev->bss_list, list)
-diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
-index 2236b5e0c1f25..8a2bf333200c1 100644
---- a/sound/core/pcm_lib.c
-+++ b/sound/core/pcm_lib.c
-@@ -1839,7 +1839,7 @@ static int wait_for_avail(struct snd_pcm_substream *substream,
- 					 runtime->rate;
- 				wait_time = max(t, wait_time);
- 			}
--			wait_time = msecs_to_jiffies(wait_time * 1000);
-+			wait_time *= HZ;
- 		}
- 	}
- 
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index df40d38f6e290..1ea763f9f956d 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -1937,7 +1937,7 @@ static int snd_pcm_drain(struct snd_pcm_substream *substream,
- 				long t = runtime->period_size * 2 / runtime->rate;
- 				tout = max(t, tout);
- 			}
--			tout = msecs_to_jiffies(tout * 1000);
-+			tout *= HZ;
- 		}
- 		tout = schedule_timeout(tout);
- 
--- 
-2.26.0
+commit: 
+  06c4d00466 ("cpufreq: Convert to new X86 CPU match macros")
+  d369f9be1a ("the fix patch")
 
+06c4d00466eb3748  d369f9be1ad1e22da4e8f03557  testcase/testparams/testbox
+----------------  --------------------------  ---------------------------
+         %stddev      change         %stddev
+             \          |                \  
+     93200             114%     199599        will-it-scale/performance-process-16-read2-ucode=0x21/lkp-ivb-d02
+     93200             114%     199599        GEO-MEAN will-it-scale.per_process_ops
+
+Best Regards,
+Rong Chen

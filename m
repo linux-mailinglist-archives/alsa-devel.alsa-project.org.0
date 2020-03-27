@@ -2,51 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EDB3195A68
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 16:58:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60DB6195A6A
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 16:59:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E995116C3;
-	Fri, 27 Mar 2020 16:57:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E995116C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08BA2166C;
+	Fri, 27 Mar 2020 16:58:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08BA2166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585324709;
-	bh=Rot/HDHU66Bhhp8Q0CWK/vPSgODa2HLT9aENT1Y3+mQ=;
+	s=default; t=1585324746;
+	bh=ZcDLhTCZw5vQjePlgJJKHlkucj5bS9DU3M74MmINoZ8=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=imbH9Xutal1thLvOZn8cazmQb/cradXZPpEVXHT3TFOSgkPgL9WsU7JyWpWlm+8Su
-	 FBYaN5kNDcyhWowjylGy2GpFYvUSc5wWhOydGoYZDvTqfddQQ1kDoIy1EnbPIIgMVP
-	 +ejoIhvwoE3IBSGreYr0fi6b7IOTSh48oSl3bCdQ=
+	b=c/nzhsljdTNOkeRIF+jVIutaf5iaxgrEt1zfq5T5Ww0kpH8gW0yID50CjsJM0ZPAx
+	 UQB+j0I7s1WhKMrojfGY+f2mkVTik4Pa2RqQSSEJwou2+ma3dSM6H6T8LNk6fClZ/F
+	 A0oyg5AmPq25QPRzzv6ancHsNePOl5YUAy8BGcw4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 60069F80474;
-	Fri, 27 Mar 2020 16:36:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79620F8046F;
+	Fri, 27 Mar 2020 16:36:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D9FF9F8046C; Fri, 27 Mar 2020 16:36:29 +0100 (CET)
+ id C0352F80475; Fri, 27 Mar 2020 16:36:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id F1E8DF802A0
- for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 16:36:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1E8DF802A0
+ by alsa1.perex.cz (Postfix) with ESMTP id 646FAF80459
+ for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 16:36:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 646FAF80459
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6E6431FB;
- Fri, 27 Mar 2020 08:36:23 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D4E671FB;
+ Fri, 27 Mar 2020 08:36:27 -0700 (PDT)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E41B53F71F;
- Fri, 27 Mar 2020 08:36:22 -0700 (PDT)
-Date: Fri, 27 Mar 2020 15:36:21 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 586BB3F71F;
+ Fri, 27 Mar 2020 08:36:27 -0700 (PDT)
+Date: Fri, 27 Mar 2020 15:36:25 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Applied "ASoC: cirrus: use asoc_rtd_to_cpu() / asoc_rtd_to_codec()
- macro for DAI pointer" to the asoc tree
-In-Reply-To: <87y2rrir8s.wl-kuninori.morimoto.gx@renesas.com>
-Message-Id: <applied-87y2rrir8s.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Applied "ASoC: bcm: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro
+ for DAI pointer" to the asoc tree
+In-Reply-To: <87zhc7ir94.wl-kuninori.morimoto.gx@renesas.com>
+Message-Id: <applied-87zhc7ir94.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
@@ -67,7 +67,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: cirrus: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+   ASoC: bcm: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
 
 has been applied to the asoc tree at
 
@@ -92,51 +92,193 @@ to this mail.
 Thanks,
 Mark
 
-From 07c497a621c50c28ade05891dcb0333a501e6a21 Mon Sep 17 00:00:00 2001
+From fc3923644867e4bf2ccd3b9a1daca269c0bc8ff1 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Mon, 23 Mar 2020 14:18:11 +0900
-Subject: [PATCH] ASoC: cirrus: use asoc_rtd_to_cpu() / asoc_rtd_to_codec()
- macro for DAI pointer
+Date: Mon, 23 Mar 2020 14:17:59 +0900
+Subject: [PATCH] ASoC: bcm: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro
+ for DAI pointer
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Tested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/87y2rrir8s.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87zhc7ir94.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/cirrus/edb93xx.c     | 4 ++--
- sound/soc/cirrus/snappercl15.c | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ sound/soc/bcm/bcm63xx-pcm-whistler.c | 16 ++++++++--------
+ sound/soc/bcm/cygnus-pcm.c           | 22 +++++++++++-----------
+ 2 files changed, 19 insertions(+), 19 deletions(-)
 
-diff --git a/sound/soc/cirrus/edb93xx.c b/sound/soc/cirrus/edb93xx.c
-index 10961190068e..ccf65f087ea6 100644
---- a/sound/soc/cirrus/edb93xx.c
-+++ b/sound/soc/cirrus/edb93xx.c
-@@ -23,8 +23,8 @@ static int edb93xx_hw_params(struct snd_pcm_substream *substream,
- 			     struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	int err;
- 	unsigned int mclk_rate;
- 	unsigned int rate = params_rate(params);
-diff --git a/sound/soc/cirrus/snappercl15.c b/sound/soc/cirrus/snappercl15.c
-index 70c2f3e08d6d..cb133e80b7c3 100644
---- a/sound/soc/cirrus/snappercl15.c
-+++ b/sound/soc/cirrus/snappercl15.c
-@@ -23,8 +23,8 @@ static int snappercl15_hw_params(struct snd_pcm_substream *substream,
- 				 struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	int err;
+diff --git a/sound/soc/bcm/bcm63xx-pcm-whistler.c b/sound/soc/bcm/bcm63xx-pcm-whistler.c
+index 55c760f1cf4d..e46c390683e7 100644
+--- a/sound/soc/bcm/bcm63xx-pcm-whistler.c
++++ b/sound/soc/bcm/bcm63xx-pcm-whistler.c
+@@ -55,7 +55,7 @@ static int bcm63xx_pcm_hw_params(struct snd_soc_component *component,
+ 	if (!dma_desc)
+ 		return -ENOMEM;
  
- 	err = snd_soc_dai_set_sysclk(codec_dai, 0, CODEC_CLOCK, 
+-	snd_soc_dai_set_dma_data(rtd->cpu_dai, substream, dma_desc);
++	snd_soc_dai_set_dma_data(asoc_rtd_to_cpu(rtd, 0), substream, dma_desc);
+ 
+ 	return 0;
+ }
+@@ -66,7 +66,7 @@ static int bcm63xx_pcm_hw_free(struct snd_soc_component *component,
+ 	struct i2s_dma_desc	*dma_desc;
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 
+-	dma_desc = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
++	dma_desc = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream);
+ 	kfree(dma_desc);
+ 	snd_pcm_set_runtime_buffer(substream, NULL);
+ 
+@@ -82,7 +82,7 @@ static int bcm63xx_pcm_trigger(struct snd_soc_component *component,
+ 	struct regmap   *regmap_i2s;
+ 
+ 	rtd = substream->private_data;
+-	i2s_priv = dev_get_drvdata(rtd->cpu_dai->dev);
++	i2s_priv = dev_get_drvdata(asoc_rtd_to_cpu(rtd, 0)->dev);
+ 	regmap_i2s = i2s_priv->regmap_i2s;
+ 
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+@@ -152,7 +152,7 @@ static int bcm63xx_pcm_prepare(struct snd_soc_component *component,
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	uint32_t regaddr_desclen, regaddr_descaddr;
+ 
+-	dma_desc = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
++	dma_desc = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream);
+ 	dma_desc->dma_len  = snd_pcm_lib_period_bytes(substream);
+ 	dma_desc->dma_addr = runtime->dma_addr;
+ 	dma_desc->dma_area = runtime->dma_area;
+@@ -165,7 +165,7 @@ static int bcm63xx_pcm_prepare(struct snd_soc_component *component,
+ 		regaddr_descaddr = I2S_RX_DESC_IFF_ADDR;
+ 	}
+ 
+-	i2s_priv = dev_get_drvdata(rtd->cpu_dai->dev);
++	i2s_priv = dev_get_drvdata(asoc_rtd_to_cpu(rtd, 0)->dev);
+ 	regmap_i2s = i2s_priv->regmap_i2s;
+ 
+ 	regmap_write(regmap_i2s, regaddr_desclen, dma_desc->dma_len);
+@@ -269,7 +269,7 @@ static irqreturn_t i2s_dma_isr(int irq, void *bcm_i2s_priv)
+ 		runtime = substream->runtime;
+ 		rtd = substream->private_data;
+ 		prtd = runtime->private_data;
+-		dma_desc = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
++		dma_desc = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream);
+ 
+ 		offlevel = (int_status & I2S_RX_DESC_OFF_LEVEL_MASK) >>
+ 			   I2S_RX_DESC_OFF_LEVEL_SHIFT;
+@@ -317,7 +317,7 @@ static irqreturn_t i2s_dma_isr(int irq, void *bcm_i2s_priv)
+ 		runtime = substream->runtime;
+ 		rtd = substream->private_data;
+ 		prtd = runtime->private_data;
+-		dma_desc = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
++		dma_desc = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream);
+ 
+ 		offlevel = (int_status & I2S_TX_DESC_OFF_LEVEL_MASK) >>
+ 			   I2S_TX_DESC_OFF_LEVEL_SHIFT;
+@@ -388,7 +388,7 @@ static int bcm63xx_soc_pcm_new(struct snd_soc_component *component,
+ 	struct bcm_i2s_priv *i2s_priv;
+ 	int ret;
+ 
+-	i2s_priv = dev_get_drvdata(rtd->cpu_dai->dev);
++	i2s_priv = dev_get_drvdata(asoc_rtd_to_cpu(rtd, 0)->dev);
+ 
+ 	of_dma_configure(pcm->card->dev, pcm->card->dev->of_node, 1);
+ 
+diff --git a/sound/soc/bcm/cygnus-pcm.c b/sound/soc/bcm/cygnus-pcm.c
+index 3a80c613bc3f..f96d27c8b301 100644
+--- a/sound/soc/bcm/cygnus-pcm.c
++++ b/sound/soc/bcm/cygnus-pcm.c
+@@ -209,7 +209,7 @@ static struct cygnus_aio_port *cygnus_dai_get_dma_data(
+ {
+ 	struct snd_soc_pcm_runtime *soc_runtime = substream->private_data;
+ 
+-	return snd_soc_dai_get_dma_data(soc_runtime->cpu_dai, substream);
++	return snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(soc_runtime, 0), substream);
+ }
+ 
+ static void ringbuf_set_initial(void __iomem *audio_io,
+@@ -359,7 +359,7 @@ static void disable_intr(struct snd_pcm_substream *substream)
+ 
+ 	aio = cygnus_dai_get_dma_data(substream);
+ 
+-	dev_dbg(rtd->cpu_dai->dev, "%s on port %d\n", __func__, aio->portnum);
++	dev_dbg(asoc_rtd_to_cpu(rtd, 0)->dev, "%s on port %d\n", __func__, aio->portnum);
+ 
+ 	/* The port number maps to the bit position to be set */
+ 	set_mask = BIT(aio->portnum);
+@@ -590,7 +590,7 @@ static int cygnus_pcm_open(struct snd_soc_component *component,
+ 	if (!aio)
+ 		return -ENODEV;
+ 
+-	dev_dbg(rtd->cpu_dai->dev, "%s port %d\n", __func__, aio->portnum);
++	dev_dbg(asoc_rtd_to_cpu(rtd, 0)->dev, "%s port %d\n", __func__, aio->portnum);
+ 
+ 	snd_soc_set_runtime_hwparams(substream, &cygnus_pcm_hw);
+ 
+@@ -623,7 +623,7 @@ static int cygnus_pcm_close(struct snd_soc_component *component,
+ 
+ 	aio = cygnus_dai_get_dma_data(substream);
+ 
+-	dev_dbg(rtd->cpu_dai->dev, "%s  port %d\n", __func__, aio->portnum);
++	dev_dbg(asoc_rtd_to_cpu(rtd, 0)->dev, "%s  port %d\n", __func__, aio->portnum);
+ 
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+ 		aio->play_stream = NULL;
+@@ -631,7 +631,7 @@ static int cygnus_pcm_close(struct snd_soc_component *component,
+ 		aio->capture_stream = NULL;
+ 
+ 	if (!aio->play_stream && !aio->capture_stream)
+-		dev_dbg(rtd->cpu_dai->dev, "freed  port %d\n", aio->portnum);
++		dev_dbg(asoc_rtd_to_cpu(rtd, 0)->dev, "freed  port %d\n", aio->portnum);
+ 
+ 	return 0;
+ }
+@@ -645,7 +645,7 @@ static int cygnus_pcm_hw_params(struct snd_soc_component *component,
+ 	struct cygnus_aio_port *aio;
+ 
+ 	aio = cygnus_dai_get_dma_data(substream);
+-	dev_dbg(rtd->cpu_dai->dev, "%s  port %d\n", __func__, aio->portnum);
++	dev_dbg(asoc_rtd_to_cpu(rtd, 0)->dev, "%s  port %d\n", __func__, aio->portnum);
+ 
+ 	snd_pcm_set_runtime_buffer(substream, &substream->dma_buffer);
+ 	runtime->dma_bytes = params_buffer_bytes(params);
+@@ -660,7 +660,7 @@ static int cygnus_pcm_hw_free(struct snd_soc_component *component,
+ 	struct cygnus_aio_port *aio;
+ 
+ 	aio = cygnus_dai_get_dma_data(substream);
+-	dev_dbg(rtd->cpu_dai->dev, "%s  port %d\n", __func__, aio->portnum);
++	dev_dbg(asoc_rtd_to_cpu(rtd, 0)->dev, "%s  port %d\n", __func__, aio->portnum);
+ 
+ 	snd_pcm_set_runtime_buffer(substream, NULL);
+ 	return 0;
+@@ -678,12 +678,12 @@ static int cygnus_pcm_prepare(struct snd_soc_component *component,
+ 	struct ringbuf_regs *p_rbuf = NULL;
+ 
+ 	aio = cygnus_dai_get_dma_data(substream);
+-	dev_dbg(rtd->cpu_dai->dev, "%s port %d\n", __func__, aio->portnum);
++	dev_dbg(asoc_rtd_to_cpu(rtd, 0)->dev, "%s port %d\n", __func__, aio->portnum);
+ 
+ 	bufsize = snd_pcm_lib_buffer_bytes(substream);
+ 	periodsize = snd_pcm_lib_period_bytes(substream);
+ 
+-	dev_dbg(rtd->cpu_dai->dev, "%s (buf_size %lu) (period_size %lu)\n",
++	dev_dbg(asoc_rtd_to_cpu(rtd, 0)->dev, "%s (buf_size %lu) (period_size %lu)\n",
+ 			__func__, bufsize, periodsize);
+ 
+ 	configure_ringbuf_regs(substream);
+@@ -745,11 +745,11 @@ static int cygnus_pcm_preallocate_dma_buffer(struct snd_pcm *pcm, int stream)
+ 	buf->area = dma_alloc_coherent(pcm->card->dev, size,
+ 			&buf->addr, GFP_KERNEL);
+ 
+-	dev_dbg(rtd->cpu_dai->dev, "%s: size 0x%zx @ %pK\n",
++	dev_dbg(asoc_rtd_to_cpu(rtd, 0)->dev, "%s: size 0x%zx @ %pK\n",
+ 				__func__, size, buf->area);
+ 
+ 	if (!buf->area) {
+-		dev_err(rtd->cpu_dai->dev, "%s: dma_alloc failed\n", __func__);
++		dev_err(asoc_rtd_to_cpu(rtd, 0)->dev, "%s: dma_alloc failed\n", __func__);
+ 		return -ENOMEM;
+ 	}
+ 	buf->bytes = size;
 -- 
 2.20.1
 

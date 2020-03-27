@@ -2,81 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14BF3195B1F
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 17:32:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED057195C70
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 18:20:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9F43D16A2;
-	Fri, 27 Mar 2020 17:31:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F43D16A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8A18186F;
+	Fri, 27 Mar 2020 18:19:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A18186F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585326737;
-	bh=4jsy/fSCQEZtBM+IpNog+fc6XrxcCp3irpGXrEDl9aE=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1585329639;
+	bh=dmkyA8pY6y/v1664D9aoiYBvLi5TiltVrZ2SzmdJWR4=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=FaYnuD5VGxFl7meoOlYw9IDTh2vigoHDzWMldJDrmKUx73pKGHiaM3VecLBeMDDrg
-	 AKB7WQEX0yhBP8M/rGq/pmFYMOK2sXLWb5iJHTTLBoSC/QM+epIfzSK+JufUG7oA0x
-	 izc21/1e8mDqhgxuWPP5FkdURagz58JY1CWwHvGY=
+	b=NZMgAihRzPPApwPbkUr/aKu8DlxXIiECn786HQqCp+dr3ulNpsTtjVi3p4VGU8Fz+
+	 uzOVEx5uyPteRK5GPvb22bfxxRgnxWj2Nte1R5tulY6xQHnSpGPJ1Gu9ZUkq5858Du
+	 ZATNNNkopiy3FB7Ja5/9gsYNhDXNChdDNKLxcMy0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC3CBF8015A;
-	Fri, 27 Mar 2020 17:30:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 863D4F801DA;
+	Fri, 27 Mar 2020 18:18:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 326ABF80158; Fri, 27 Mar 2020 17:30:32 +0100 (CET)
+ id 598F5F8015A; Fri, 27 Mar 2020 18:18:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [IPv6:2a00:1450:4864:20::432])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8805AF800EA
- for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 17:30:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8805AF800EA
+ by alsa1.perex.cz (Postfix) with ESMTPS id B19B5F80147
+ for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 18:18:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B19B5F80147
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="Sc8lp1CH"
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
- by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 02RGUNhE049560;
- Fri, 27 Mar 2020 11:30:23 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1585326623;
- bh=l5rP1MJ098endPpFd2r/1F4oKnCHZocHpiIjl3Yjeas=;
- h=From:To:CC:Subject:Date;
- b=Sc8lp1CHfGpWMuD27YH+Bcn8tzIN/6RAV4Y2CV1gpPWmzxwl2bh1nDlLUNTieHG8D
- eW6qxaH8zrE5CuyAoKxEAds6hXvClCyw3yh4dMXddAF7OzkRMSKSNMKbAXMlcZbRyG
- 55bU/nFPIx8puDDsl3/EWIX42V6nKj8zARloiPQo=
-Received: from DLEE108.ent.ti.com (dlee108.ent.ti.com [157.170.170.38])
- by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 02RGUNUc094613
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 27 Mar 2020 11:30:23 -0500
-Received: from DLEE105.ent.ti.com (157.170.170.35) by DLEE108.ent.ti.com
- (157.170.170.38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Fri, 27
- Mar 2020 11:30:22 -0500
-Received: from fllv0039.itg.ti.com (10.64.41.19) by DLEE105.ent.ti.com
- (157.170.170.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
- Frontend Transport; Fri, 27 Mar 2020 11:30:22 -0500
-Received: from localhost (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id 02RGUMvJ054778;
- Fri, 27 Mar 2020 11:30:22 -0500
-From: Dan Murphy <dmurphy@ti.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>
-Subject: [PATCH] dt-bindings: sound: tlv320adcx140: Remove undocumented
- property
-Date: Fri, 27 Mar 2020 11:24:32 -0500
-Message-ID: <20200327162432.17067-1-dmurphy@ti.com>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="YdmJIKva"
+Received: by mail-wr1-x432.google.com with SMTP id p10so12335073wrt.6
+ for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 10:18:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:subject:message-id:mime-version:content-disposition
+ :user-agent; bh=PSUyp9mh9zzGz7WtxUBFm4ZhdtcGHPkm37YZwxddco8=;
+ b=YdmJIKvaFttPZCgBStmjXigcYMLHLGydZgGjsfWl09JxK9iJnGUWujFNtQOcFbpMLw
+ R1V5nRDk5O9Qrhrs6RL/DzRD6Dk9iZDnEq9SWUz65T96vGxDKT0KMvasEYpy7zmzvjzn
+ M4GiwKC+ezrMBx8DnKlveJ/9Bd6ZRFy9D9I2moSyHQ1vh4CohZSFRjoARISqRW9mMfcL
+ 8DZ7dTTB8HHGd5SLyy4G1ghBWbwDx8RwQu/dwojPmKNrRMyiNmFd8mSIBja/tHIxZcxS
+ o1vsPmCYnZZpQHVoy9sl6M66K84gM1XWP7nLsodSlxiVra7+G4+pZV33WjmYUjGTh6kD
+ 4tRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:subject:message-id:mime-version
+ :content-disposition:user-agent;
+ bh=PSUyp9mh9zzGz7WtxUBFm4ZhdtcGHPkm37YZwxddco8=;
+ b=SWz14lC0jrQkZyV4UqglKlF3+jmVF/2x6UWrRifxZwJmqxUiWqVIsM2QOI3DhEO/yC
+ 7Kyr2ylR0UWmXMoyc+2iiMNAnGrGTt6fud/NnicLM6UosCWjAwd9FxKcmaoZ3K9daQ+N
+ xcJWxhcmMPFYFjWOc1ZUiPA0hMZYaCBEE/J2XOx0vTG/rwLVqrpeonP3Evk7QeyvRxcD
+ HGyOzc6axh6tL0cdGjujDfITSCqNp4/jyejOtuFbgVIo85oskBOdinopzkgdt0uhJSDc
+ A9im9AATJT8lMqVcY3bVNXjgoHwS0ForRVf2+PftQj3CUCYTZOHRJjufy0AXBLwKBKGN
+ c/5g==
+X-Gm-Message-State: ANhLgQ1Mg1kth3jF7mIPWVvY5fvgJrp1tEJ8U/0ttJUYt05ZtcXBdme2
+ 2pX5xUCiZqHtStAu/T4+uGmz1H5X
+X-Google-Smtp-Source: ADFU+vvx/nvtBIZVYwqNcZbhasecQmKXetHlL9QGaDHq9cmzdYR3QwxxxGd3xe1Kfp9xmzV64QznJg==
+X-Received: by 2002:adf:d4ce:: with SMTP id w14mr441630wrk.101.1585329527592; 
+ Fri, 27 Mar 2020 10:18:47 -0700 (PDT)
+Received: from localhost (108.78.124.78.rev.sfr.net. [78.124.78.108])
+ by smtp.gmail.com with ESMTPSA id u13sm9178496wru.88.2020.03.27.10.18.47
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 27 Mar 2020 10:18:47 -0700 (PDT)
+Date: Fri, 27 Mar 2020 17:18:24 +0000
+From: sylvain.bertrand@gmail.com
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] additional cleanup for "arecord -L show entries which are
+ not capture pcms"
+Message-ID: <20200327171824.GA18675@freedom>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: Rob Herring <robh@kernel.org>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Dan Murphy <dmurphy@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+User-Agent: Mutt/ (2018-04-13)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,31 +97,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Remove undocumented and unneeded ti,use-internal-reg from the example as
-it was an artifact from initial development.  The code does not query
-for this property and as the document indicates if areg-supply is
-undefined then the internal regulator is used.
+I did post to github, my bad.
 
-Fixes: 302c0b7490cd ("dt-bindings: sound: Add TLV320ADCx140 dt
-bindings")
-CC: Rob Herring <robh@kernel.org>
-Signed-off-by: Dan Murphy <dmurphy@ti.com>
----
- Documentation/devicetree/bindings/sound/tlv320adcx140.yaml | 1 -
- 1 file changed, 1 deletion(-)
+On Fri, Mar 27, 2020 at 04:01:57AM -0700, Jaroslav Kysela wrote:
+> Closed #39 via d434638a683c01bd6decf8f41863044055237a50.
 
-diff --git a/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml b/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml
-index 1433ff62b14f..ab2268c0ee67 100644
---- a/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml
-+++ b/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml
-@@ -76,7 +76,6 @@ examples:
-       codec: codec@4c {
-         compatible = "ti,tlv320adc5140";
-         reg = <0x4c>;
--        ti,use-internal-areg;
-         ti,mic-bias-source = <6>;
-         reset-gpios = <&gpio0 14 GPIO_ACTIVE_HIGH>;
-       };
+Tested with the mic from my usb webcam, and it actually needs a little bit more
+tidying.
+
 -- 
-2.25.1
+Sylvain
 
+--- a/share/alsa/pcm/front.conf
++++ b/share/alsa/pcm/front.conf
+@@ -53,6 +53,7 @@
+ 			name defaults.namehint.basic
+ 		}
+ 		description "Front speakers"
+-		device $DEV
++		device_output $DEV
++		omit_noargs true
+ 	}
+ }
+
+--- a/share/alsa/pcm/iec958.conf
++++ b/share/alsa/pcm/iec958.conf
+@@ -78,6 +78,6 @@
+ 			name defaults.namehint.basic
+ 		}
+ 		description "IEC958 (S/PDIF) Digital Audio Output"
+-		device $DEV
++		device_output $DEV
+ 	}
+ }

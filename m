@@ -2,77 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA3F71957F5
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 14:25:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 952C41957F6
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 14:25:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B4071675;
-	Fri, 27 Mar 2020 14:24:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B4071675
+	by alsa0.perex.cz (Postfix) with ESMTPS id 34A10167F;
+	Fri, 27 Mar 2020 14:25:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34A10167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585315514;
-	bh=mFLSz14Ch+5wU6eA6PzzYKJ26HoFPRv2MzXlNF2Bnqc=;
+	s=default; t=1585315558;
+	bh=ZO8cnyuK4uE8hYX1SN5VGhV4AdbiYRJNV+hhPjRz3HU=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TC9VOw5AY1qgswMBOmfTyTRsKReHLUX5lT7kYWLyYO5Sf/R4MpCXREOt9hzfgor6r
-	 jCH7kbSw9GKkDh/gSAiXJ/NcFMzgkjUOmIp6PqIya3d4fFUqN9EdqM4B3gMcndIBdK
-	 bULcWkR3jN1cijeOHs4D+6VD4wxAdUFDjnDNqlvA=
+	b=SX3QuUMqsHgk8M0hFJCtCA+pfOW6YleJC1CQOJR1TtSFhD5RaaDkYE7SYWfFkyGCf
+	 P5vgMVqws7bInDMbjSRRprIcvum0zoIy/MQptTDJIHKil1Xy4PguZoz2K5CMn8+Eeg
+	 2BZTWcqSNKpBWYVnE5A0UDH5H4SeVCN/uZW4zD2U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53963F8028B;
-	Fri, 27 Mar 2020 14:23:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 706CBF80290;
+	Fri, 27 Mar 2020 14:24:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E745DF80292; Fri, 27 Mar 2020 14:23:30 +0100 (CET)
+ id 2C85BF8029B; Fri, 27 Mar 2020 14:24:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.horus.com (mail.horus.com [78.46.148.228])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D73FAF80290
- for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 14:23:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D73FAF80290
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=horus.com header.i=@horus.com
- header.b="NaSOKIEm"
-Received: from lenny.lan (193-83-225-155.adsl.highway.telekom.at
- [193.83.225.155])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client CN "E-Mail Matthias Reichl Lenny",
- Issuer "HiassofT CA 2014" (verified OK))
- by mail.horus.com (Postfix) with ESMTPSA id 708AD640B1;
- Fri, 27 Mar 2020 14:23:25 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=horus.com;
- s=20180324; t=1585315405;
- bh=/n6T9fLywOrR10zOU4gzpxZ7YUS9qiXTWrX/0NVhq80=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=NaSOKIEm3VDtHUnmsHZEKmLBraRQSAMNMB/qnGzbDtl17Gw3WjIocrqWt6nCQKHb6
- snE2BrE+j8r4VHiIB3RyeJPrHlhMt3Tr6brEg+8syrJfunctEADCQPSUjd9G+uuA3v
- dlcIxwPJqltsWojnYHJIQN4PbutlEI9f05sMboBs=
-Received: by lenny.lan (Postfix, from userid 1000)
- id EAC72203311; Fri, 27 Mar 2020 14:23:24 +0100 (CET)
-Date: Fri, 27 Mar 2020 14:23:24 +0100
-From: Matthias Reichl <hias@horus.com>
-To: Matt Flax <flatmax@flatmax.org>
-Subject: Re: [PATCH] ASoC: bcm2835-i2s: substream alignment now independent
- in hwparams
-Message-ID: <20200327132324.GA4523@lenny.lan>
-References: <20200324090823.20754-1-flatmax@flatmax.org>
- <d0684926-3f7a-0b97-a298-4088925442a4@flatmax.org>
- <1dcf128a-4ad3-0efa-81e4-b3ccc7caa8f1@flatmax.org>
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 2E138F80290
+ for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 14:24:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E138F80290
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D069F1FB;
+ Fri, 27 Mar 2020 06:24:45 -0700 (PDT)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4F3813F71F;
+ Fri, 27 Mar 2020 06:24:45 -0700 (PDT)
+Date: Fri, 27 Mar 2020 13:24:43 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH 33/36] ASoC: soc: use asoc_rtd_to_cpu() /
+ asoc_rtd_to_codec() macro for DAI pointer
+Message-ID: <20200327132443.GC4437@sirena.org.uk>
+References: <877dzbk5wm.wl-kuninori.morimoto.gx@renesas.com>
+ <87v9mvhchv.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="oJ71EGRlYNjSvfq7"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <1dcf128a-4ad3-0efa-81e4-b3ccc7caa8f1@flatmax.org>
+In-Reply-To: <87v9mvhchv.wl-kuninori.morimoto.gx@renesas.com>
+X-Cookie: Drop in any mailbox.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- linux-rpi-kernel@lists.infradead.org
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,126 +72,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Mar 27, 2020 at 11:30:50AM +1100, Matt Flax wrote:
-> 
-> On 27/3/20 10:56 am, Matt Flax wrote:
-> > 
-> > Should this patch be handled through the ALSA team the R. Pi team or the
-> > BCM team ?
-> > 
-> 
-> Resending again with reduced recipients.
-> 
-> 
-> > 
-> > thanks
-> > 
-> > Matt
-> > 
-> > On 24/3/20 8:08 pm, Matt Flax wrote:
-> > > Substream sample alignment was being set in hwparams for both
-> > > substreams at the same time. This became a problem when    the Audio
-> > > Injector isolated sound card needed to offset sample alignment
-> > > for high sample    rates. The latency difference between playback
-> > > and capture occurs because of the digital isolation chip
-> > > propagation time, particularly when the codec is master and
-> > > the DAC return is twice delayed.
-> > > 
-> > > This patch sets sample alignment registers  based on the substream
-> > > direction in hwparams. This gives the machine driver more control
-> > > over sample alignment in the bcm2835 i2s driver.
-> > > 
-> > > Signed-off-by: Matt Flax <flatmax@flatmax.org>
-> > > ---
-> > >   sound/soc/bcm/bcm2835-i2s.c | 36 +++++++++++++++++++-----------------
-> > >   1 file changed, 19 insertions(+), 17 deletions(-)
-> > > 
-> > > diff --git a/sound/soc/bcm/bcm2835-i2s.c b/sound/soc/bcm/bcm2835-i2s.c
-> > > index e6a12e271b07..9db542699a13 100644
-> > > --- a/sound/soc/bcm/bcm2835-i2s.c
-> > > +++ b/sound/soc/bcm/bcm2835-i2s.c
-> > > @@ -493,11 +493,6 @@ static int bcm2835_i2s_hw_params(struct
-> > > snd_pcm_substream *substream,
-> > >           return -EINVAL;
-> > >       }
-> > >   -    bcm2835_i2s_calc_channel_pos(&rx_ch1_pos, &rx_ch2_pos,
-> > > -        rx_mask, slot_width, data_delay, odd_slot_offset);
-> > > -    bcm2835_i2s_calc_channel_pos(&tx_ch1_pos, &tx_ch2_pos,
-> > > -        tx_mask, slot_width, data_delay, odd_slot_offset);
-> > > -
-> > >       /*
-> > >        * Transmitting data immediately after frame start, eg
-> > >        * in left-justified or DSP mode A, only works stable
-> > > @@ -508,19 +503,26 @@ static int bcm2835_i2s_hw_params(struct
-> > > snd_pcm_substream *substream,
-> > >               "Unstable slave config detected, L/R may be swapped");
-> > >         /*
-> > > -     * Set format for both streams.
-> > > -     * We cannot set another frame length
-> > > -     * (and therefore word length) anyway,
-> > > -     * so the format will be the same.
-> > > +     * Set format on a per stream basis.
-> > > +     * The alignment format can be different depending on direction.
-> > >        */
-> > > -    regmap_write(dev->i2s_regmap, BCM2835_I2S_RXC_A_REG,
-> > > -          format
-> > > -        | BCM2835_I2S_CH1_POS(rx_ch1_pos)
-> > > -        | BCM2835_I2S_CH2_POS(rx_ch2_pos));
-> > > -    regmap_write(dev->i2s_regmap, BCM2835_I2S_TXC_A_REG,
-> > > -          format
-> > > -        | BCM2835_I2S_CH1_POS(tx_ch1_pos)
-> > > -        | BCM2835_I2S_CH2_POS(tx_ch2_pos));
-> > > +    if (substream->stream == SNDRV_PCM_STREAM_CAPTURE) {
-> > > +        bcm2835_i2s_calc_channel_pos(&rx_ch1_pos, &rx_ch2_pos,
-> > > +            rx_mask, slot_width, data_delay, odd_slot_offset);
-> > > +        regmap_write(dev->i2s_regmap, BCM2835_I2S_RXC_A_REG,
-> > > +              format
-> > > +            | BCM2835_I2S_CH1_POS(rx_ch1_pos)
-> > > +            | BCM2835_I2S_CH2_POS(rx_ch2_pos));
-> > > +    }
-> > > +
-> > > +    if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-> > > +        bcm2835_i2s_calc_channel_pos(&tx_ch1_pos, &tx_ch2_pos,
-> > > +            tx_mask, slot_width, data_delay, odd_slot_offset);
-> > > +        regmap_write(dev->i2s_regmap, BCM2835_I2S_TXC_A_REG,
-> > > +              format
-> > > +            | BCM2835_I2S_CH1_POS(tx_ch1_pos)
-> > > +            | BCM2835_I2S_CH2_POS(tx_ch2_pos));
-> > > +    }
-> > >         /* Setup the I2S mode */
 
-This will break duplex operation if a second stream is opened when
-a stream is already running as the channel position registers for
-the second stream haven't been set up.
+--oJ71EGRlYNjSvfq7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Note this code at the very beginning of hw_params:
+On Mon, Mar 23, 2020 at 02:22:04PM +0900, Kuninori Morimoto wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+>=20
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+>  include/sound/soc.h                   | 12 ++++-----
+>  sound/soc/soc-compress.c              | 36 +++++++++++++--------------
+>  sound/soc/soc-core.c                  | 16 ++++++------
+>  sound/soc/soc-dapm.c                  |  4 +--
+>  sound/soc/soc-generic-dmaengine-pcm.c |  6 ++---
+>  sound/soc/soc-pcm.c                   | 30 +++++++++++-----------
+>  6 files changed, 52 insertions(+), 52 deletions(-)
 
-        /*
-         * If a stream is already enabled,
-         * the registers are already set properly.
-         */
-        regmap_read(dev->i2s_regmap, BCM2835_I2S_CS_A_REG, &csreg);
+This doesn't apply against current code, it'll need a rebase.
 
-        if (csreg & (BCM2835_I2S_TXON | BCM2835_I2S_RXON))
-                return 0;
+--oJ71EGRlYNjSvfq7
+Content-Type: application/pgp-signature; name="signature.asc"
 
-The reason for this check is that we can't change bcm2835 I2S registers
-after I2S RX/TX has been enabled - the reason why is explained in the
-datasheet:
+-----BEGIN PGP SIGNATURE-----
 
-> The PCM interface runs asynchronously at the PCM_CLK rate and
-> automatically transfers transmit and receive data across to the
-> internal APB clock domain. The control registers are NOT
-> synchronised and should be programmed before the device is enabled
-> and should NOT be changed whilst the interface is running.
-> 
-> Only the EN, RXON and TXON bits of the PCMCS register are synchronised
-> across the PCM - APB clock domain and are allowed to be changed whilst
-> the interface is running.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl59/psACgkQJNaLcl1U
+h9DU6Af9FKY+hKAamidqqkynGxynwkxO6vKICtIKrLHu4GeYUIfWTIeb5GaUGjJN
+madNQzUIUcOcHF6UdC0skvUBLnnMl6SBIsC2Qh/0gfREHqn0aRac17IcW+ncx+/B
+nF7OWeR7qqZHdBWlSopblvlmt4ne+KF2V8cUOk2NdUnHM8e8ukojznUm/esX8cFS
+5IY3z0tWJv7lyZmUIZCiEMqXBMNv4Q94H1wWFMLMun6k24nNM4bTxxgv/ZpCuC5t
+QsS+opMUbMrXcheEjKKmQJrFD17JcmAhR3BHfgv9lgCuK8UFKhdxSSL+ov93VXuz
+SJRG5/Ofsg2KxCrScIc579obT1T2yg==
+=fwLL
+-----END PGP SIGNATURE-----
 
-Therefore we need to set up channel masks for both RX and TX before
-any stream is started.
-
-so long,
-
-Hias
+--oJ71EGRlYNjSvfq7--

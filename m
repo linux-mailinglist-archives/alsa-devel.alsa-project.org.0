@@ -2,70 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2C28195230
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 08:41:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B11D1952A2
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 09:10:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 75CAD166F;
-	Fri, 27 Mar 2020 08:40:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75CAD166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA56C166F;
+	Fri, 27 Mar 2020 09:09:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA56C166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585294876;
-	bh=xul483JebXqy3sOYWEklRssOb7UVeyV4c117Dh2aJAc=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=F+GYfBS/ULwRWZuoIByespoyKNhyoQYJv5Grl7MESIluGJHgU21iWd3p218QXfGX6
-	 1gEbpX0K5NdLuV3RgEsoMLdiMzkUpAmAYIi5/AQ1yAUWIdtl03X5BpjQOtqX+HI3/9
-	 GZr1RAZhFsgyd6mMyWJPznGPknoKstMJwAukrLkY=
+	s=default; t=1585296635;
+	bh=v+8jEl9eJCM0irm6C+weVdyY/2CAdGSEQPRfXb+8rj4=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ZEv2jm1u1G72PTppTnsc+UUKxfzMNIvD89XZGqEaV2Lmn7JbxfRKfxEZc0PRZ5Rpb
+	 I6eTbTHWAGf76VS7RaMPeTWjr5FIKBJKf5f/RhnzKjelnyZt5rb7HUYIZ7mFvOhavi
+	 8N50k5ikybAYCze+TckvStQU46GKb++eocpg/DZo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E501F8015A;
-	Fri, 27 Mar 2020 08:39:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92D33F800EA;
+	Fri, 27 Mar 2020 09:08:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94AA6F80158; Fri, 27 Mar 2020 08:39:32 +0100 (CET)
+ id 77B89F80158; Fri, 27 Mar 2020 09:08:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1F91FF8011B
- for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 08:39:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F91FF8011B
-Authenticated-By: 
-X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID 02R7dAfX005565,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (RTEXMB06.realtek.com.tw[172.21.6.99])
- by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id 02R7dAfX005565
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 27 Mar 2020 15:39:10 +0800
-Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
- RTEXMB06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Fri, 27 Mar 2020 15:39:10 +0800
-Received: from localhost.localdomain (172.22.102.1) by RTEXMB01.realtek.com.tw
- (172.21.6.94) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1779.2; Fri, 27 Mar
- 2020 15:39:09 +0800
-From: <shumingf@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH] ASoC: rt5682: move DAI clock registry to I2S mode
-Date: Fri, 27 Mar 2020 15:38:49 +0800
-Message-ID: <20200327073849.18291-1-shumingf@realtek.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.22.102.1]
-X-ClientProxiedBy: RTEXMB05.realtek.com.tw (172.21.6.98) To
- RTEXMB01.realtek.com.tw (172.21.6.94)
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, rander.wang@intel.com, albertchen@realtek.com,
- derek.fang@realtek.com, bard.liao@intel.com,
- Shuming Fan <shumingf@realtek.com>, flove@realtek.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7055FF800EA
+ for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 09:08:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7055FF800EA
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 3FCE3B3A8;
+ Fri, 27 Mar 2020 08:08:46 +0000 (UTC)
+Date: Fri, 27 Mar 2020 09:08:46 +0100
+Message-ID: <s5hlfnmfcdt.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: sylvain.bertrand@gmail.com
+Subject: Re: sw_params for a direct-ed(dmix) hw pcm
+In-Reply-To: <20200326200415.GA1321@freedom>
+References: <20200321155303.GB357@freedom> <20200325174419.GA1224@freedom>
+ <alpine.DEB.2.21.2003261350380.2957@eliteleevi.tm.intel.com>
+ <9d986c48-184a-1d6e-4c5b-172a7ecd98a8@perex.cz>
+ <20200326200415.GA1321@freedom>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,73 +71,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Shuming Fan <shumingf@realtek.com>
+On Thu, 26 Mar 2020 21:04:15 +0100,
+sylvain.bertrand@gmail.com wrote:
+> 
+> On Thu, Mar 26, 2020 at 03:36:23PM +0100, Jaroslav Kysela wrote:
+> > I agree. Also, the snd_pcm_direct_sw_params() does nothing, because the
+> > sw_params are already cached in the pcm structure (see comment). It means
+> > that the dmix (direct) plugins operates with those cached values. Just set
+> > sw_params like for any other PCM handle. The dmix uses those values (if
+> > possible).
+> 
+> This is the "if possible" which would impacts the way how code should do setup
+> right, but:
+> 
+> Let's take the case of a classic plugin "pipeline":
+> pcm:plug->...->direct::dmix->hw
+> 
+> >From the top plugin (usually plug) to the direct::plugin, the "sw_params" pcm
+> op is usually pcm_generic.c:snd_pcm_generic_sw_params which does recurse down.
+> This recursion down will stop once pcm_direct.c:snd_pcm_direct_sw_params is
+> reached, then will recurse up, without error.
+> 
+> But pcm.c:snd_pcm_sw_params will copy anyway the provided sw_params into each
+> recursed back pcm if the "sw_params" pcm op return no error code, which is the
+> case.
+> 
+> Then looking at pcm.c:snd_pcm_sw_params_current, I get those "wrong" sw_params,
+> then I get no way to know something went wrong.
+> 
+> Why "wrong", because they may significantly differ from the bottom hw plugin
+> sw_params which some fields are used to configure the kernel driver.
+> 
+> for instance, a fast_op status call will recurse down to
+> pcm_dmix.c:snd_pcm_dmix_status, which will call the hw plugin fast op status
+> function which will use _its_ tstamp_type field for the ioctl call, but will
+> "override" the trigger_tstamp field computed with the "wrong" sw_params
+> tstamp_type!
+> 
+> It happens that the monotonic_raw and monotonic clocks can have audio
+> significant difference. Additionally, the other sw_params field might cause
+> similar issues.
 
-The SoundWire mode doesn't need the DAI clocks.
-Therefore, the DAI clock registry moves to I2S mode case.
+The tstamp type handling in dmix is certainly buggy, yes.
+It should have been restricted with the slave PCM unless it's
+compatible.
 
-Signed-off-by: Shuming Fan <shumingf@realtek.com>
----
- sound/soc/codecs/rt5682.c | 39 +++++++++++++++++++--------------------
- 1 file changed, 19 insertions(+), 20 deletions(-)
 
-diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
-index d5a9e8a48607..c9268a230daa 100644
---- a/sound/soc/codecs/rt5682.c
-+++ b/sound/soc/codecs/rt5682.c
-@@ -2856,26 +2856,6 @@ static int rt5682_probe(struct snd_soc_component *component)
- #endif
- 	rt5682->component = component;
- 
--#ifdef CONFIG_COMMON_CLK
--	/* Check if MCLK provided */
--	rt5682->mclk = devm_clk_get(component->dev, "mclk");
--	if (IS_ERR(rt5682->mclk)) {
--		if (PTR_ERR(rt5682->mclk) != -ENOENT) {
--			ret = PTR_ERR(rt5682->mclk);
--			return ret;
--		}
--		rt5682->mclk = NULL;
--	}
--
--	/* Register CCF DAI clock control */
--	ret = rt5682_register_dai_clks(component);
--	if (ret)
--		return ret;
--
--	/* Initial setup for CCF */
--	rt5682->lrck[RT5682_AIF1] = CLK_48;
--#endif
--
- 	if (rt5682->is_sdw) {
- 		slave = rt5682->slave;
- 		time = wait_for_completion_timeout(
-@@ -2885,6 +2865,25 @@ static int rt5682_probe(struct snd_soc_component *component)
- 			dev_err(&slave->dev, "Initialization not complete, timed out\n");
- 			return -ETIMEDOUT;
- 		}
-+	} else {
-+#ifdef CONFIG_COMMON_CLK
-+		/* Check if MCLK provided */
-+		rt5682->mclk = devm_clk_get(component->dev, "mclk");
-+		if (IS_ERR(rt5682->mclk)) {
-+			if (PTR_ERR(rt5682->mclk) != -ENOENT) {
-+				ret = PTR_ERR(rt5682->mclk);
-+				return ret;
-+			}
-+			rt5682->mclk = NULL;
-+		} else {
-+			/* Register CCF DAI clock control */
-+			ret = rt5682_register_dai_clks(component);
-+			if (ret)
-+				return ret;
-+		}
-+		/* Initial setup for CCF */
-+		rt5682->lrck[RT5682_AIF1] = CLK_48;
-+#endif
- 	}
- 
- 	return 0;
--- 
-2.25.1
-
+Takashi

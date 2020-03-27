@@ -2,61 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82780194E0D
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 01:32:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AFF2195027
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 05:48:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F2407166C;
-	Fri, 27 Mar 2020 01:31:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2407166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id CACE1166F;
+	Fri, 27 Mar 2020 05:47:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CACE1166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585269169;
-	bh=vcsoS24jj7gTGagIyWwp+fdT1Cwu+GHiyS2KXJ6l9No=;
-	h=Subject:From:References:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=QjC3KFfp6YdaRFvZPTiXKTQB2ipC+2ojoVV104LEsy+UuxsCtwAtCnpNRsYomrmuo
-	 Nvddw+JKEztLLbhalgC+yQ94yt9IL1/qRsBy8vguSNJHG8Y6hYdjJmQKlIAoXf89F4
-	 p//YTxeeQ/BockcKmnhplS9q9KlUZb7zstwp6NXc=
+	s=default; t=1585284528;
+	bh=f7ETjGncpjVOaZcYNeFgjG6CGHuiecsP+4W/RVDEPJw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=a8ldr6vI1zSQum9oEHAAb2a6lXT79CA3L4V+G1kMfssQN4SJHl/zK4qOQRvYCHecB
+	 fbUj2hFq7UownbI98Js10QSeiyR5f1U7hyQMyRpXyWs+ihaS6XVYljG+5xfYK/UlQG
+	 tAunhSvvWOiCBRLBugYgJBGMFW0KhZv7LM95ZJ3U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5B3DF80234;
-	Fri, 27 Mar 2020 01:31:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ACF58F8011B;
+	Fri, 27 Mar 2020 05:47:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 50D58F80227; Fri, 27 Mar 2020 01:31:05 +0100 (CET)
+ id 650E2F8011B; Fri, 27 Mar 2020 05:47:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.2 required=5.0 tests=MISSING_HEADERS, SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx.flatmax.org (mx.flatmax.org [13.55.16.222])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.4 required=5.0 tests=AC_FROM_MANY_DOTS,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 90397F80095
- for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 01:30:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90397F80095
-Received: from 41.68.233.220.static.exetel.com.au ([220.233.68.41]
- helo=[192.168.1.51])
- by mx.flatmax.org with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.89) (envelope-from <flatmax@flatmax.org>)
- id 1jHcte-0007rg-U3; Fri, 27 Mar 2020 11:30:51 +1100
-Subject: Re: [PATCH] ASoC: bcm2835-i2s: substream alignment now independent in
- hwparams
-From: Matt Flax <flatmax@flatmax.org>
-References: <20200324090823.20754-1-flatmax@flatmax.org>
- <d0684926-3f7a-0b97-a298-4088925442a4@flatmax.org>
-Message-ID: <1dcf128a-4ad3-0efa-81e4-b3ccc7caa8f1@flatmax.org>
-Date: Fri, 27 Mar 2020 11:30:50 +1100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.2
-MIME-Version: 1.0
-In-Reply-To: <d0684926-3f7a-0b97-a298-4088925442a4@flatmax.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- linux-rpi-kernel@lists.infradead.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id F3988F800EA
+ for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 05:46:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3988F800EA
+Received: from 61-220-137-37.hinet-ip.hinet.net ([61.220.137.37]
+ helo=localhost) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <kai.heng.feng@canonical.com>)
+ id 1jHgtC-0001rT-9v; Fri, 27 Mar 2020 04:46:39 +0000
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+To: tiwai@suse.com
+Subject: [PATCH] ALSA: hda/realtek: Enable mute LED on an HP system
+Date: Fri, 27 Mar 2020 12:46:25 +0800
+Message-Id: <20200327044626.29582-1-kai.heng.feng@canonical.com>
+X-Mailer: git-send-email 2.17.1
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Kailang Yang <kailang@realtek.com>, Tomas Espeleta <tomas.espeleta@gmail.com>,
+ Sergey Bostandzhyan <jin@mediatomb.cc>, Chris Chiu <chiu@endlessm.com>,
+ open list <linux-kernel@vger.kernel.org>, Hui Wang <hui.wang@canonical.com>,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Jian-Hong Pan <jian-hong@endlessm.com>,
+ =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,89 +70,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The system in question uses ALC285, and it uses GPIO 0x04 to control its
+mute LED.
 
-On 27/3/20 10:56 am, Matt Flax wrote:
->
-> Should this patch be handled through the ALSA team the R. Pi team or 
-> the BCM team ?
->
+The mic mute LED can be controlled by GPIO 0x01, however the system uses
+DMIC so we should use that to control mic mute LED.
 
-Resending again with reduced recipients.
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+---
+ sound/pci/hda/patch_realtek.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 63e1a56f705b..1ad8c2e2d1af 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -4008,6 +4008,12 @@ static void alc269_fixup_hp_gpio_led(struct hda_codec *codec,
+ 	alc_fixup_hp_gpio_led(codec, action, 0x08, 0x10);
+ }
+ 
++static void alc285_fixup_hp_gpio_led(struct hda_codec *codec,
++				const struct hda_fixup *fix, int action)
++{
++	alc_fixup_hp_gpio_led(codec, action, 0x04, 0x00);
++}
++
+ static void alc286_fixup_hp_gpio_led(struct hda_codec *codec,
+ 				const struct hda_fixup *fix, int action)
+ {
+@@ -5923,6 +5929,7 @@ enum {
+ 	ALC294_FIXUP_ASUS_DUAL_SPK,
+ 	ALC285_FIXUP_THINKPAD_HEADSET_JACK,
+ 	ALC294_FIXUP_ASUS_HPE,
++	ALC285_FIXUP_HP_GPIO_LED,
+ };
+ 
+ static const struct hda_fixup alc269_fixups[] = {
+@@ -7061,6 +7068,10 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC294_FIXUP_ASUS_HEADSET_MIC
+ 	},
++	[ALC285_FIXUP_HP_GPIO_LED] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = alc285_fixup_hp_gpio_led,
++	},
+ };
+ 
+ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+@@ -7208,6 +7219,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x83b9, "HP Spectre x360", ALC269_FIXUP_HP_MUTE_LED_MIC3),
+ 	SND_PCI_QUIRK(0x103c, 0x8497, "HP Envy x360", ALC269_FIXUP_HP_MUTE_LED_MIC3),
+ 	SND_PCI_QUIRK(0x103c, 0x84e7, "HP Pavilion 15", ALC269_FIXUP_HP_MUTE_LED_MIC3),
++	SND_PCI_QUIRK(0x103c, 0x8736, "HP", ALC285_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x1043, 0x103e, "ASUS X540SA", ALC256_FIXUP_ASUS_MIC),
+ 	SND_PCI_QUIRK(0x1043, 0x103f, "ASUS TX300", ALC282_FIXUP_ASUS_TX300),
+ 	SND_PCI_QUIRK(0x1043, 0x106d, "Asus K53BE", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+-- 
+2.17.1
 
->
-> thanks
->
-> Matt
->
-> On 24/3/20 8:08 pm, Matt Flax wrote:
->> Substream sample alignment was being set in hwparams for both
->> substreams at the same time. This became a problem when    the Audio
->> Injector isolated sound card needed to offset sample alignment
->> for high sample    rates. The latency difference between playback
->> and capture occurs because of the digital isolation chip
->> propagation time, particularly when the codec is master and
->> the DAC return is twice delayed.
->>
->> This patch sets sample alignment registers  based on the substream
->> direction in hwparams. This gives the machine driver more control
->> over sample alignment in the bcm2835 i2s driver.
->>
->> Signed-off-by: Matt Flax <flatmax@flatmax.org>
->> ---
->>   sound/soc/bcm/bcm2835-i2s.c | 36 +++++++++++++++++++-----------------
->>   1 file changed, 19 insertions(+), 17 deletions(-)
->>
->> diff --git a/sound/soc/bcm/bcm2835-i2s.c b/sound/soc/bcm/bcm2835-i2s.c
->> index e6a12e271b07..9db542699a13 100644
->> --- a/sound/soc/bcm/bcm2835-i2s.c
->> +++ b/sound/soc/bcm/bcm2835-i2s.c
->> @@ -493,11 +493,6 @@ static int bcm2835_i2s_hw_params(struct 
->> snd_pcm_substream *substream,
->>           return -EINVAL;
->>       }
->>   -    bcm2835_i2s_calc_channel_pos(&rx_ch1_pos, &rx_ch2_pos,
->> -        rx_mask, slot_width, data_delay, odd_slot_offset);
->> -    bcm2835_i2s_calc_channel_pos(&tx_ch1_pos, &tx_ch2_pos,
->> -        tx_mask, slot_width, data_delay, odd_slot_offset);
->> -
->>       /*
->>        * Transmitting data immediately after frame start, eg
->>        * in left-justified or DSP mode A, only works stable
->> @@ -508,19 +503,26 @@ static int bcm2835_i2s_hw_params(struct 
->> snd_pcm_substream *substream,
->>               "Unstable slave config detected, L/R may be swapped");
->>         /*
->> -     * Set format for both streams.
->> -     * We cannot set another frame length
->> -     * (and therefore word length) anyway,
->> -     * so the format will be the same.
->> +     * Set format on a per stream basis.
->> +     * The alignment format can be different depending on direction.
->>        */
->> -    regmap_write(dev->i2s_regmap, BCM2835_I2S_RXC_A_REG,
->> -          format
->> -        | BCM2835_I2S_CH1_POS(rx_ch1_pos)
->> -        | BCM2835_I2S_CH2_POS(rx_ch2_pos));
->> -    regmap_write(dev->i2s_regmap, BCM2835_I2S_TXC_A_REG,
->> -          format
->> -        | BCM2835_I2S_CH1_POS(tx_ch1_pos)
->> -        | BCM2835_I2S_CH2_POS(tx_ch2_pos));
->> +    if (substream->stream == SNDRV_PCM_STREAM_CAPTURE) {
->> +        bcm2835_i2s_calc_channel_pos(&rx_ch1_pos, &rx_ch2_pos,
->> +            rx_mask, slot_width, data_delay, odd_slot_offset);
->> +        regmap_write(dev->i2s_regmap, BCM2835_I2S_RXC_A_REG,
->> +              format
->> +            | BCM2835_I2S_CH1_POS(rx_ch1_pos)
->> +            | BCM2835_I2S_CH2_POS(rx_ch2_pos));
->> +    }
->> +
->> +    if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
->> +        bcm2835_i2s_calc_channel_pos(&tx_ch1_pos, &tx_ch2_pos,
->> +            tx_mask, slot_width, data_delay, odd_slot_offset);
->> +        regmap_write(dev->i2s_regmap, BCM2835_I2S_TXC_A_REG,
->> +              format
->> +            | BCM2835_I2S_CH1_POS(tx_ch1_pos)
->> +            | BCM2835_I2S_CH2_POS(tx_ch2_pos));
->> +    }
->>         /* Setup the I2S mode */

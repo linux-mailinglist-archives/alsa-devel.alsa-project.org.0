@@ -2,51 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9A96195A84
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 17:00:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87F68195A88
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 17:01:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D8BCE16AF;
-	Fri, 27 Mar 2020 16:59:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8BCE16AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 94DD416AD;
+	Fri, 27 Mar 2020 17:00:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94DD416AD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585324846;
-	bh=ExG+ByK619js+DtA9hwaAZvTUSuowScq+lGQJgFQ1zc=;
+	s=default; t=1585324878;
+	bh=xg8lSqPfVVEhD4ADvfgI3bWuXQP0wu8iWAvKJ7yi7nU=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=tIKtrELHhR7bt9P6BssQ1C4O6+KI9mmP0PsMM2s3wMzmbFjsP18vwlS7XEyungC/v
-	 ywzfXH/rTnFqObVGmdxxadkzwsq2IlaS7GXUCtZFGSyJei9m2CqyGVWbbgrTERgZPn
-	 CZhm7++6tHSy5Dq8AFCesbiciURAE34mnJX757Rw=
+	b=OuEZowCn6O7ll88gRPV/OwiTwG65nW8QXemG3e/u5Z6hR8XSRY6QZwy+Mm1m6Q8Wz
+	 TS0h0ityjVzaW5DDcjD78r0rAq3AqL2uypt6iHVMxyvK6bxUvIHDK1olzo2ZGCzfkL
+	 5uo3pG/f/46xJSLqyt2NtTRByL0XJRd5SR90LiKk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 58CD8F80492;
-	Fri, 27 Mar 2020 16:36:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 564E6F8049D;
+	Fri, 27 Mar 2020 16:36:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B00BF80492; Fri, 27 Mar 2020 16:36:49 +0100 (CET)
+ id 5FC5FF80491; Fri, 27 Mar 2020 16:36:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id DCC23F8047F
- for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 16:36:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCC23F8047F
+ by alsa1.perex.cz (Postfix) with ESMTP id 6146EF80490
+ for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 16:36:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6146EF80490
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 49A591FB;
- Fri, 27 Mar 2020 08:36:41 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AC9611FB;
+ Fri, 27 Mar 2020 08:36:45 -0700 (PDT)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C206F3F71F;
- Fri, 27 Mar 2020 08:36:40 -0700 (PDT)
-Date: Fri, 27 Mar 2020 15:36:39 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 302F13F71F;
+ Fri, 27 Mar 2020 08:36:45 -0700 (PDT)
+Date: Fri, 27 Mar 2020 15:36:43 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Applied "ASoC: amd: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro
- for DAI pointer" to the asoc tree
-In-Reply-To: <874kufk5uu.wl-kuninori.morimoto.gx@renesas.com>
-Message-Id: <applied-874kufk5uu.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Applied "ASoC: soc-core: add asoc_rtd_to_cpu/codec() macro" to the
+ asoc tree
+In-Reply-To: <875zevk5va.wl-kuninori.morimoto.gx@renesas.com>
+Message-Id: <applied-875zevk5va.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
@@ -67,7 +67,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: amd: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+   ASoC: soc-core: add asoc_rtd_to_cpu/codec() macro
 
 has been applied to the asoc tree at
 
@@ -92,88 +92,53 @@ to this mail.
 Thanks,
 Mark
 
-From b09b22fcf9fb8a3186ad0e09aedfa9e119520c43 Mon Sep 17 00:00:00 2001
+From 2af69581e1b11152bc42f1122d3c16e177bd77cf Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Mon, 23 Mar 2020 14:17:13 +0900
-Subject: [PATCH] ASoC: amd: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro
- for DAI pointer
+Date: Mon, 23 Mar 2020 14:16:57 +0900
+Subject: [PATCH] ASoC: soc-core: add asoc_rtd_to_cpu/codec() macro
+
+Now, snd_soc_pcm_runtime supports multi cpu_dai/codec_dai.
+It still has cpu_dai/codec_dai for single DAI,
+and has cpu_dais/codec_dais for multi DAIs.
+
+	dais  = [][][][][][][][][][][][][][][][][][]
+		^cpu_dais         ^codec_dais
+		|--- num_cpus ---|--- num_codecs --|
+
+	/* for multi DAIs */
+	rtd->cpu_dais   = &rtd->dais[0];
+	rtd->codec_dais = &rtd->dais[dai_link->num_cpus];
+
+	/* for single DAI */
+	rtd->cpu_dai    = rtd->cpu_dais[0];
+	rtd->codec_dai	= rtd->codec_dais[0];
+
+But, these can be replaced by dais.
+This patch adds asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Tested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/874kufk5uu.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/875zevk5va.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/amd/acp-da7219-max98357a.c | 2 +-
- sound/soc/amd/acp-rt5645.c           | 4 ++--
- sound/soc/amd/acp3x-rt5682-max9836.c | 6 +++---
- 3 files changed, 6 insertions(+), 6 deletions(-)
+ include/sound/soc.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/sound/soc/amd/acp-da7219-max98357a.c b/sound/soc/amd/acp-da7219-max98357a.c
-index 7a5621e5e233..9414d7269c4f 100644
---- a/sound/soc/amd/acp-da7219-max98357a.c
-+++ b/sound/soc/amd/acp-da7219-max98357a.c
-@@ -54,7 +54,7 @@ static int cz_da7219_init(struct snd_soc_pcm_runtime *rtd)
- {
- 	int ret;
- 	struct snd_soc_card *card = rtd->card;
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	struct snd_soc_component *component = codec_dai->component;
- 
- 	dev_info(rtd->dev, "codec dai name = %s\n", codec_dai->name);
-diff --git a/sound/soc/amd/acp-rt5645.c b/sound/soc/amd/acp-rt5645.c
-index 91abeb92b648..73b31f88a6b5 100644
---- a/sound/soc/amd/acp-rt5645.c
-+++ b/sound/soc/amd/acp-rt5645.c
-@@ -48,7 +48,7 @@ static int cz_aif1_hw_params(struct snd_pcm_substream *substream,
- {
- 	int ret = 0;
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 
- 	ret = snd_soc_dai_set_pll(codec_dai, 0, RT5645_PLL1_S_MCLK,
- 				  CZ_PLAT_CLK, params_rate(params) * 512);
-@@ -73,7 +73,7 @@ static int cz_init(struct snd_soc_pcm_runtime *rtd)
- 	struct snd_soc_card *card;
- 	struct snd_soc_component *codec;
- 
--	codec = rtd->codec_dai->component;
-+	codec = asoc_rtd_to_codec(rtd, 0)->component;
- 	card = rtd->card;
- 
- 	ret = snd_soc_card_jack_new(card, "Headset Jack",
-diff --git a/sound/soc/amd/acp3x-rt5682-max9836.c b/sound/soc/amd/acp3x-rt5682-max9836.c
-index 8f71c3f7ef79..024a7ee54cd5 100644
---- a/sound/soc/amd/acp3x-rt5682-max9836.c
-+++ b/sound/soc/amd/acp3x-rt5682-max9836.c
-@@ -35,7 +35,7 @@ static int acp3x_5682_init(struct snd_soc_pcm_runtime *rtd)
- {
- 	int ret;
- 	struct snd_soc_card *card = rtd->card;
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	struct snd_soc_component *component = codec_dai->component;
- 
- 	dev_info(rtd->dev, "codec dai name = %s\n", codec_dai->name);
-@@ -183,7 +183,7 @@ static int acp3x_ec_dmic0_startup(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct snd_soc_card *card = rtd->card;
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	struct acp3x_platform_info *machine = snd_soc_card_get_drvdata(card);
- 
- 	machine->cap_i2s_instance = I2S_BT_INSTANCE;
-@@ -198,7 +198,7 @@ static int acp3x_ec_dmic1_startup(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct snd_soc_card *card = rtd->card;
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	struct acp3x_platform_info *machine = snd_soc_card_get_drvdata(card);
- 
- 	machine->cap_i2s_instance = I2S_BT_INSTANCE;
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index 539211bd0f94..13458e4fbb13 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -1169,6 +1169,10 @@ struct snd_soc_pcm_runtime {
+ 	int num_components;
+ 	struct snd_soc_component *components[0]; /* CPU/Codec/Platform */
+ };
++/* see soc_new_pcm_runtime()  */
++#define asoc_rtd_to_cpu(rtd, n)   (rtd)->dais[n]
++#define asoc_rtd_to_codec(rtd, n) (rtd)->dais[n + (rtd)->num_cpus]
++
+ #define for_each_rtd_components(rtd, i, component)			\
+ 	for ((i) = 0;							\
+ 	     ((i) < rtd->num_components) && ((component) = rtd->components[i]);\
 -- 
 2.20.1
 

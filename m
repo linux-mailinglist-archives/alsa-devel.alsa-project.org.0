@@ -2,51 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 307D8195A5F
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 16:55:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B5DF195A63
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 16:56:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8486016C8;
-	Fri, 27 Mar 2020 16:54:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8486016C8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9AE7916AE;
+	Fri, 27 Mar 2020 16:55:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AE7916AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585324525;
-	bh=6/awo/RRae3K8eHGW31M7+xCOshO97NrMGkqsJIqCaw=;
+	s=default; t=1585324603;
+	bh=/l2rBt5UVkvX9rucG6tL2g1eEtRClc6AWuUWLBlx8gM=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=rHvrAtnqkGcgabbf3kqkipqYODMOIfKLjqWo88dMrdPJv/jht8rRTvq21djEtVGPV
-	 W8c+8PR5JYZsQ8z8TErpcmCI111ba1kVPKIwv/QQldrDqkejYM1jLWOXKp1Km4MXc2
-	 GtMmODc7/jNv4HmEYClL1SFfa8Z9O2D4PFL5pjPc=
+	b=CnOnHRvN4A8yIXirt3YYQV4gJ3GevHyhd8PcBckGZJwIPsWPkzlyOIxfMjm3NDddl
+	 vqGVVfuVhMfWDL/TeyZcvHjfSBlPOUnNYa4KkNzb3BKeTiwHMe0ptmaeTZ5z/YbGUY
+	 c3oxyG577iVVBjqrbITU5kB0sUzvY9tB7enMtfzA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2F462F8042A;
-	Fri, 27 Mar 2020 16:36:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BA015F80446;
+	Fri, 27 Mar 2020 16:36:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A308BF803FE; Fri, 27 Mar 2020 16:36:08 +0100 (CET)
+ id A63EEF80444; Fri, 27 Mar 2020 16:36:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 75570F8011B
- for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 16:36:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75570F8011B
+ by alsa1.perex.cz (Postfix) with ESMTP id 4A09AF80274
+ for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 16:36:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A09AF80274
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C77831FB;
- Fri, 27 Mar 2020 08:36:04 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BBD411FB;
+ Fri, 27 Mar 2020 08:36:09 -0700 (PDT)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4B7E03F71F;
- Fri, 27 Mar 2020 08:36:04 -0700 (PDT)
-Date: Fri, 27 Mar 2020 15:36:02 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3FC703F71F;
+ Fri, 27 Mar 2020 08:36:09 -0700 (PDT)
+Date: Fri, 27 Mar 2020 15:36:07 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Applied "ASoC: img: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro
- for DAI pointer" to the asoc tree
-In-Reply-To: <87sghzir7m.wl-kuninori.morimoto.gx@renesas.com>
-Message-Id: <applied-87sghzir7m.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Applied "ASoC: generic: use asoc_rtd_to_cpu() / asoc_rtd_to_codec()
+ macro for DAI pointer" to the asoc tree
+In-Reply-To: <87tv2fir7y.wl-kuninori.morimoto.gx@renesas.com>
+Message-Id: <applied-87tv2fir7y.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
@@ -67,7 +67,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: img: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+   ASoC: generic: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
 
 has been applied to the asoc tree at
 
@@ -92,47 +92,61 @@ to this mail.
 Thanks,
 Mark
 
-From 4d3801d5f49d6d06cabad7afad97d3a155de4a84 Mon Sep 17 00:00:00 2001
+From e7718a72653603722e1b0e06f6a4e76bcafdc431 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Mon, 23 Mar 2020 14:18:53 +0900
-Subject: [PATCH] ASoC: img: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro
- for DAI pointer
+Date: Mon, 23 Mar 2020 14:18:41 +0900
+Subject: [PATCH] ASoC: generic: use asoc_rtd_to_cpu() / asoc_rtd_to_codec()
+ macro for DAI pointer
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Tested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/87sghzir7m.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87tv2fir7y.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/img/img-i2s-in.c  | 2 +-
- sound/soc/img/img-i2s-out.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/generic/simple-card-utils.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/img/img-i2s-in.c b/sound/soc/img/img-i2s-in.c
-index fdd2c73fd2fa..a495d1050d49 100644
---- a/sound/soc/img/img-i2s-in.c
-+++ b/sound/soc/img/img-i2s-in.c
-@@ -397,7 +397,7 @@ static int img_i2s_in_dma_prepare_slave_config(struct snd_pcm_substream *st,
- 	struct snd_dmaengine_dai_dma_data *dma_data;
+diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
+index abbdf1054f6f..8c54dc6710fe 100644
+--- a/sound/soc/generic/simple-card-utils.c
++++ b/sound/soc/generic/simple-card-utils.c
+@@ -213,8 +213,8 @@ EXPORT_SYMBOL_GPL(asoc_simple_startup);
+ void asoc_simple_shutdown(struct snd_pcm_substream *substream)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
+-	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(rtd->card);
+ 	struct simple_dai_props *dai_props =
+ 		simple_priv_to_props(priv, rtd->num);
+@@ -249,8 +249,8 @@ int asoc_simple_hw_params(struct snd_pcm_substream *substream,
+ 			  struct snd_pcm_hw_params *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
+-	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(rtd->card);
+ 	struct simple_dai_props *dai_props =
+ 		simple_priv_to_props(priv, rtd->num);
+@@ -381,12 +381,12 @@ int asoc_simple_dai_init(struct snd_soc_pcm_runtime *rtd)
+ 	struct simple_dai_props *dai_props = simple_priv_to_props(priv, rtd->num);
  	int ret;
  
--	dma_data = snd_soc_dai_get_dma_data(rtd->cpu_dai, st);
-+	dma_data = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), st);
+-	ret = asoc_simple_init_dai(rtd->codec_dai,
++	ret = asoc_simple_init_dai(asoc_rtd_to_codec(rtd, 0),
+ 				   dai_props->codec_dai);
+ 	if (ret < 0)
+ 		return ret;
  
- 	ret = snd_hwparams_to_dma_slave_config(st, params, sc);
- 	if (ret)
-diff --git a/sound/soc/img/img-i2s-out.c b/sound/soc/img/img-i2s-out.c
-index 4b1853409633..db052ec17d5d 100644
---- a/sound/soc/img/img-i2s-out.c
-+++ b/sound/soc/img/img-i2s-out.c
-@@ -403,7 +403,7 @@ static int img_i2s_out_dma_prepare_slave_config(struct snd_pcm_substream *st,
- 	struct snd_dmaengine_dai_dma_data *dma_data;
- 	int ret;
- 
--	dma_data = snd_soc_dai_get_dma_data(rtd->cpu_dai, st);
-+	dma_data = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), st);
- 
- 	ret = snd_hwparams_to_dma_slave_config(st, params, sc);
- 	if (ret)
+-	ret = asoc_simple_init_dai(rtd->cpu_dai,
++	ret = asoc_simple_init_dai(asoc_rtd_to_cpu(rtd, 0),
+ 				   dai_props->cpu_dai);
+ 	if (ret < 0)
+ 		return ret;
 -- 
 2.20.1
 

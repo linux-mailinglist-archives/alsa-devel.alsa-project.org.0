@@ -2,51 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F4B0195A30
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 16:46:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 765B3195A37
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 16:47:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C91215F9;
-	Fri, 27 Mar 2020 16:45:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C91215F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id D53761679;
+	Fri, 27 Mar 2020 16:46:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D53761679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585323991;
-	bh=xWYlfcAa0ICkdtNdUP3k2xREhwrXwci19BABBLXGLKs=;
+	s=default; t=1585324030;
+	bh=Xh4wUnELfaPShwMfjB+maztFgCF7Ve4adLeQ5aN7jS8=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=cX3ursGK2r5/CtJQEXOnlecqqhXMb+nJcHI0Z1RnwFnkZUy1R5wGMkiCvUXnkiLWC
-	 TEBXoC6VQ6nMWstMwLm6kkzMOAr0zcMIyoVGC/jnkWWOF8ZKnjfMLAJbI+jx+DKS77
-	 9JRvIPhLAFUxRN3wIenNLrdbwphqIZ1ApcTAMVps=
+	b=UylVsW66YMvJCS8kvV20Jeop4cgV7qMYwQsumyJ4Krga7E75Nf7+azuLjGDAEqaNZ
+	 QEIRhgWCPb7/WqJ+Or6NTACSYmQPubh1wIdsbL7xvtRQJRVi2sruVJwlv4ElpETGFW
+	 v+uE9UX8iP5yOsZgNCFAnp6PtT8kXtK59sevpdKo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B422F8035E;
-	Fri, 27 Mar 2020 16:35:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D0A8F8036C;
+	Fri, 27 Mar 2020 16:35:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A114EF8034D; Fri, 27 Mar 2020 16:34:56 +0100 (CET)
+ id 65061F80360; Fri, 27 Mar 2020 16:35:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 64381F8034B
- for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 16:34:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64381F8034B
+ by alsa1.perex.cz (Postfix) with ESMTP id DCB75F8034F
+ for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 16:34:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCB75F8034F
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B8F1B1FB;
- Fri, 27 Mar 2020 08:34:52 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3C4801FB;
+ Fri, 27 Mar 2020 08:34:57 -0700 (PDT)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3B4B63F71F;
- Fri, 27 Mar 2020 08:34:52 -0700 (PDT)
-Date: Fri, 27 Mar 2020 15:34:50 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B289A3F71F;
+ Fri, 27 Mar 2020 08:34:56 -0700 (PDT)
+Date: Fri, 27 Mar 2020 15:34:55 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Applied "ASoC: ti: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro
- for DAI pointer" to the asoc tree
-In-Reply-To: <875zevir3p.wl-kuninori.morimoto.gx@renesas.com>
-Message-Id: <applied-875zevir3p.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Applied "ASoC: tegra: use asoc_rtd_to_cpu() / asoc_rtd_to_codec()
+ macro for DAI pointer" to the asoc tree
+In-Reply-To: <877dzbir3w.wl-kuninori.morimoto.gx@renesas.com>
+Message-Id: <applied-877dzbir3w.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
@@ -67,7 +67,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: ti: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+   ASoC: tegra: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
 
 has been applied to the asoc tree at
 
@@ -92,221 +92,149 @@ to this mail.
 Thanks,
 Mark
 
-From 2842b87148af9ab7a0f3913022f2935e47cedd97 Mon Sep 17 00:00:00 2001
+From 0b25cffb2c117186ee6c9701c6680afa1a1748f2 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Mon, 23 Mar 2020 14:21:14 +0900
-Subject: [PATCH] ASoC: ti: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro
- for DAI pointer
+Date: Mon, 23 Mar 2020 14:21:07 +0900
+Subject: [PATCH] ASoC: tegra: use asoc_rtd_to_cpu() / asoc_rtd_to_codec()
+ macro for DAI pointer
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Tested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/875zevir3p.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/877dzbir3w.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/ti/ams-delta.c        | 4 ++--
- sound/soc/ti/davinci-evm.c      | 4 ++--
- sound/soc/ti/davinci-vcif.c     | 4 ++--
- sound/soc/ti/n810.c             | 2 +-
- sound/soc/ti/omap-abe-twl6040.c | 6 +++---
- sound/soc/ti/omap-mcbsp-st.c    | 2 +-
- sound/soc/ti/omap-mcbsp.c       | 4 ++--
- sound/soc/ti/omap-mcpdm.c       | 2 +-
- sound/soc/ti/omap3pandora.c     | 4 ++--
- sound/soc/ti/osk5912.c          | 2 +-
- sound/soc/ti/rx51.c             | 2 +-
- 11 files changed, 18 insertions(+), 18 deletions(-)
+ sound/soc/tegra/tegra_alc5632.c  | 2 +-
+ sound/soc/tegra/tegra_max98090.c | 2 +-
+ sound/soc/tegra/tegra_rt5640.c   | 2 +-
+ sound/soc/tegra/tegra_rt5677.c   | 2 +-
+ sound/soc/tegra/tegra_sgtl5000.c | 2 +-
+ sound/soc/tegra/tegra_wm8753.c   | 2 +-
+ sound/soc/tegra/tegra_wm8903.c   | 6 +++---
+ sound/soc/tegra/trimslice.c      | 2 +-
+ 8 files changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/sound/soc/ti/ams-delta.c b/sound/soc/ti/ams-delta.c
-index 8e2fb81ad05c..e17cd5e939f0 100644
---- a/sound/soc/ti/ams-delta.c
-+++ b/sound/soc/ti/ams-delta.c
-@@ -460,14 +460,14 @@ static void ams_delta_shutdown(struct snd_pcm_substream *substream)
- 
- static int ams_delta_cx20442_init(struct snd_soc_pcm_runtime *rtd)
- {
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	struct snd_soc_card *card = rtd->card;
- 	struct snd_soc_dapm_context *dapm = &card->dapm;
- 	int ret;
- 	/* Codec is ready, now add/activate board specific controls */
- 
- 	/* Store a pointer to the codec structure for tty ldisc use */
--	cx20442_codec = rtd->codec_dai->component;
-+	cx20442_codec = asoc_rtd_to_codec(rtd, 0)->component;
- 
- 	/* Add hook switch - can be used to control the codec from userspace
- 	 * even if line discipline fails */
-diff --git a/sound/soc/ti/davinci-evm.c b/sound/soc/ti/davinci-evm.c
-index 686b23d7a90d..2cfbeebdfb41 100644
---- a/sound/soc/ti/davinci-evm.c
-+++ b/sound/soc/ti/davinci-evm.c
-@@ -54,8 +54,8 @@ static int evm_hw_params(struct snd_pcm_substream *substream,
- 			 struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	struct snd_soc_card *soc_card = rtd->card;
- 	int ret = 0;
- 	unsigned sysclk = ((struct snd_soc_card_drvdata_davinci *)
-diff --git a/sound/soc/ti/davinci-vcif.c b/sound/soc/ti/davinci-vcif.c
-index c84650e4a7aa..ee4d3ef821a1 100644
---- a/sound/soc/ti/davinci-vcif.c
-+++ b/sound/soc/ti/davinci-vcif.c
-@@ -43,7 +43,7 @@ static void davinci_vcif_start(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct davinci_vcif_dev *davinci_vcif_dev =
--			snd_soc_dai_get_drvdata(rtd->cpu_dai);
-+			snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 	struct davinci_vc *davinci_vc = davinci_vcif_dev->davinci_vc;
- 	u32 w;
- 
-@@ -62,7 +62,7 @@ static void davinci_vcif_stop(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct davinci_vcif_dev *davinci_vcif_dev =
--			snd_soc_dai_get_drvdata(rtd->cpu_dai);
-+			snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 	struct davinci_vc *davinci_vc = davinci_vcif_dev->davinci_vc;
- 	u32 w;
- 
-diff --git a/sound/soc/ti/n810.c b/sound/soc/ti/n810.c
-index 3ad2b6daf31e..a1672b479cb7 100644
---- a/sound/soc/ti/n810.c
-+++ b/sound/soc/ti/n810.c
-@@ -101,7 +101,7 @@ static int n810_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	int err;
- 
- 	/* Set the codec system clock for DAC and ADC */
-diff --git a/sound/soc/ti/omap-abe-twl6040.c b/sound/soc/ti/omap-abe-twl6040.c
-index 6d564ab5e437..61e45fea5dd8 100644
---- a/sound/soc/ti/omap-abe-twl6040.c
-+++ b/sound/soc/ti/omap-abe-twl6040.c
-@@ -46,7 +46,7 @@ static int omap_abe_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_pcm_hw_params *params)
+diff --git a/sound/soc/tegra/tegra_alc5632.c b/sound/soc/tegra/tegra_alc5632.c
+index 9e8b1497efd3..ec39ecba1e8b 100644
+--- a/sound/soc/tegra/tegra_alc5632.c
++++ b/sound/soc/tegra/tegra_alc5632.c
+@@ -37,7 +37,7 @@ static int tegra_alc5632_asoc_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params)
  {
  	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 -	struct snd_soc_dai *codec_dai = rtd->codec_dai;
 +	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
  	struct snd_soc_card *card = rtd->card;
- 	struct abe_twl6040 *priv = snd_soc_card_get_drvdata(card);
- 	int clk_id, freq;
-@@ -78,7 +78,7 @@ static int omap_abe_dmic_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_pcm_hw_params *params)
+ 	struct tegra_alc5632 *alc5632 = snd_soc_card_get_drvdata(card);
+ 	int srate, mclk;
+diff --git a/sound/soc/tegra/tegra_max98090.c b/sound/soc/tegra/tegra_max98090.c
+index 4954a33ff46b..d800b62b36f8 100644
+--- a/sound/soc/tegra/tegra_max98090.c
++++ b/sound/soc/tegra/tegra_max98090.c
+@@ -38,7 +38,7 @@ static int tegra_max98090_asoc_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params)
  {
  	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	int ret = 0;
- 
- 	ret = snd_soc_dai_set_sysclk(cpu_dai, OMAP_DMIC_SYSCLK_PAD_CLKS,
-@@ -166,7 +166,7 @@ static const struct snd_soc_dapm_route audio_map[] = {
- 
- static int omap_abe_twl6040_init(struct snd_soc_pcm_runtime *rtd)
- {
--	struct snd_soc_component *component = rtd->codec_dai->component;
-+	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
  	struct snd_soc_card *card = rtd->card;
- 	struct abe_twl6040 *priv = snd_soc_card_get_drvdata(card);
- 	int hs_trim;
-diff --git a/sound/soc/ti/omap-mcbsp-st.c b/sound/soc/ti/omap-mcbsp-st.c
-index 1a3fe854e856..5a32b54bbf3b 100644
---- a/sound/soc/ti/omap-mcbsp-st.c
-+++ b/sound/soc/ti/omap-mcbsp-st.c
-@@ -489,7 +489,7 @@ OMAP_MCBSP_ST_CONTROLS(3);
- 
- int omap_mcbsp_st_add_controls(struct snd_soc_pcm_runtime *rtd, int port_id)
- {
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	struct omap_mcbsp *mcbsp = snd_soc_dai_get_drvdata(cpu_dai);
- 
- 	if (!mcbsp->st_data) {
-diff --git a/sound/soc/ti/omap-mcbsp.c b/sound/soc/ti/omap-mcbsp.c
-index 26b503bbdb5f..ff24546a10ee 100644
---- a/sound/soc/ti/omap-mcbsp.c
-+++ b/sound/soc/ti/omap-mcbsp.c
-@@ -737,7 +737,7 @@ static void omap_mcbsp_set_threshold(struct snd_pcm_substream *substream,
- 		unsigned int packet_size)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	struct omap_mcbsp *mcbsp = snd_soc_dai_get_drvdata(cpu_dai);
- 	int words;
- 
-@@ -902,7 +902,7 @@ static snd_pcm_sframes_t omap_mcbsp_dai_delay(
- 			struct snd_soc_dai *dai)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	struct omap_mcbsp *mcbsp = snd_soc_dai_get_drvdata(cpu_dai);
- 	u16 fifo_use;
- 	snd_pcm_sframes_t delay;
-diff --git a/sound/soc/ti/omap-mcpdm.c b/sound/soc/ti/omap-mcpdm.c
-index a726cd7a8252..0ff33fe165f2 100644
---- a/sound/soc/ti/omap-mcpdm.c
-+++ b/sound/soc/ti/omap-mcpdm.c
-@@ -532,7 +532,7 @@ static const struct snd_soc_component_driver omap_mcpdm_component = {
- void omap_mcpdm_configure_dn_offsets(struct snd_soc_pcm_runtime *rtd,
- 				    u8 rx1, u8 rx2)
- {
--	struct omap_mcpdm *mcpdm = snd_soc_dai_get_drvdata(rtd->cpu_dai);
-+	struct omap_mcpdm *mcpdm = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 
- 	mcpdm->dn_rx_offset = MCPDM_DNOFST_RX1(rx1) | MCPDM_DNOFST_RX2(rx2);
- }
-diff --git a/sound/soc/ti/omap3pandora.c b/sound/soc/ti/omap3pandora.c
-index 545f8dac9bd5..b04146311b31 100644
---- a/sound/soc/ti/omap3pandora.c
-+++ b/sound/soc/ti/omap3pandora.c
-@@ -32,8 +32,8 @@ static int omap3pandora_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	int ret;
- 
- 	/* Set the codec system clock for DAC and ADC */
-diff --git a/sound/soc/ti/osk5912.c b/sound/soc/ti/osk5912.c
-index 1ca466bc4025..e01485cc51a1 100644
---- a/sound/soc/ti/osk5912.c
-+++ b/sound/soc/ti/osk5912.c
-@@ -39,7 +39,7 @@ static int osk_hw_params(struct snd_pcm_substream *substream,
- 			 struct snd_pcm_hw_params *params)
+ 	struct tegra_max98090 *machine = snd_soc_card_get_drvdata(card);
+ 	int srate, mclk;
+diff --git a/sound/soc/tegra/tegra_rt5640.c b/sound/soc/tegra/tegra_rt5640.c
+index d46915a3ec4c..9878bc3eb89e 100644
+--- a/sound/soc/tegra/tegra_rt5640.c
++++ b/sound/soc/tegra/tegra_rt5640.c
+@@ -40,7 +40,7 @@ static int tegra_rt5640_asoc_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params)
  {
  	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 -	struct snd_soc_dai *codec_dai = rtd->codec_dai;
 +	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	int err;
- 
- 	/* Set the codec system clock for DAC and ADC */
-diff --git a/sound/soc/ti/rx51.c b/sound/soc/ti/rx51.c
-index fdb0dc85fe67..2a714a004163 100644
---- a/sound/soc/ti/rx51.c
-+++ b/sound/soc/ti/rx51.c
-@@ -103,7 +103,7 @@ static int rx51_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_pcm_hw_params *params)
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct tegra_rt5640 *machine = snd_soc_card_get_drvdata(card);
+ 	int srate, mclk;
+diff --git a/sound/soc/tegra/tegra_rt5677.c b/sound/soc/tegra/tegra_rt5677.c
+index 81cb6cc6236e..5821313db977 100644
+--- a/sound/soc/tegra/tegra_rt5677.c
++++ b/sound/soc/tegra/tegra_rt5677.c
+@@ -42,7 +42,7 @@ static int tegra_rt5677_asoc_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params)
  {
  	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 -	struct snd_soc_dai *codec_dai = rtd->codec_dai;
 +	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct tegra_rt5677 *machine = snd_soc_card_get_drvdata(card);
+ 	int srate, mclk, err;
+diff --git a/sound/soc/tegra/tegra_sgtl5000.c b/sound/soc/tegra/tegra_sgtl5000.c
+index e13b81d29cf3..dc411ba2e36d 100644
+--- a/sound/soc/tegra/tegra_sgtl5000.c
++++ b/sound/soc/tegra/tegra_sgtl5000.c
+@@ -36,7 +36,7 @@ static int tegra_sgtl5000_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct tegra_sgtl5000 *machine = snd_soc_card_get_drvdata(card);
+ 	int srate, mclk;
+diff --git a/sound/soc/tegra/tegra_wm8753.c b/sound/soc/tegra/tegra_wm8753.c
+index f6dd790dad71..0d653a605358 100644
+--- a/sound/soc/tegra/tegra_wm8753.c
++++ b/sound/soc/tegra/tegra_wm8753.c
+@@ -40,7 +40,7 @@ static int tegra_wm8753_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct tegra_wm8753 *machine = snd_soc_card_get_drvdata(card);
+ 	int srate, mclk;
+diff --git a/sound/soc/tegra/tegra_wm8903.c b/sound/soc/tegra/tegra_wm8903.c
+index 071c7d2de77c..9b5651502f12 100644
+--- a/sound/soc/tegra/tegra_wm8903.c
++++ b/sound/soc/tegra/tegra_wm8903.c
+@@ -45,7 +45,7 @@ static int tegra_wm8903_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct tegra_wm8903 *machine = snd_soc_card_get_drvdata(card);
+ 	int srate, mclk;
+@@ -173,7 +173,7 @@ static const struct snd_kcontrol_new tegra_wm8903_controls[] = {
  
- 	/* Set the codec system clock for DAC and ADC */
- 	return snd_soc_dai_set_sysclk(codec_dai, 0, 19200000,
+ static int tegra_wm8903_init(struct snd_soc_pcm_runtime *rtd)
+ {
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_component *component = codec_dai->component;
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct tegra_wm8903 *machine = snd_soc_card_get_drvdata(card);
+@@ -205,7 +205,7 @@ static int tegra_wm8903_remove(struct snd_soc_card *card)
+ {
+ 	struct snd_soc_pcm_runtime *rtd =
+ 		snd_soc_get_pcm_runtime(card, &card->dai_link[0]);
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_component *component = codec_dai->component;
+ 
+ 	wm8903_mic_detect(component, NULL, 0, 0);
+diff --git a/sound/soc/tegra/trimslice.c b/sound/soc/tegra/trimslice.c
+index 3f67ddd13674..f9834afaa2e8 100644
+--- a/sound/soc/tegra/trimslice.c
++++ b/sound/soc/tegra/trimslice.c
+@@ -35,7 +35,7 @@ static int trimslice_asoc_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct tegra_trimslice *trimslice = snd_soc_card_get_drvdata(card);
+ 	int srate, mclk;
 -- 
 2.20.1
 

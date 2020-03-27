@@ -2,53 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 626ED195A16
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 16:42:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30F57195A17
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Mar 2020 16:43:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 02B181681;
-	Fri, 27 Mar 2020 16:41:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02B181681
+	by alsa0.perex.cz (Postfix) with ESMTPS id D492D1670;
+	Fri, 27 Mar 2020 16:42:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D492D1670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585323738;
-	bh=1LanByFtZo5PsajtE2FDgpY64JbTYbwnLVB7dlcPFZo=;
+	s=default; t=1585323782;
+	bh=VKpshtolYMFR2a6EXeJWLar10O/uJMEw8X0PwGxRevc=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=mMoNRRgKvNMwCtw/tra0h3UTUUcszW4bJjtrQGlCplx0JLMqox+VwLaivbQyXLo5j
-	 ArZdoesMTPeiTpJXFlbShjEX4DdeOr/EHrrBlSMGVi/GE5GFqXM8dt2cloWLDJkQMm
-	 zALxo8YzRRTQ813dkYtE1GzBRfzvTZLFoHTkfZ3g=
+	b=Ub40yHwZ/Ey0XXAFZ64JEAEemvnGIPFuAk4T7IH1QAe6FeC9/SGEezw8Pd19GzRBr
+	 x6Lv7yU+92c69vDGYsV7NEmJREwgaWMKF2sp3CKhcM+lu9pltzHZl6mIJnH2h9Tnjv
+	 JYNyVWSzYP7MQrsXvnPlwzdWAkz2v6++MknL3HOE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4537FF8031A;
-	Fri, 27 Mar 2020 16:34:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E00B4F80332;
+	Fri, 27 Mar 2020 16:34:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AC9F8F80306; Fri, 27 Mar 2020 16:34:25 +0100 (CET)
+ id 00B9EF80321; Fri, 27 Mar 2020 16:34:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 21FF7F80303
- for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 16:34:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21FF7F80303
+ by alsa1.perex.cz (Postfix) with ESMTP id 58519F80304
+ for <alsa-devel@alsa-project.org>; Fri, 27 Mar 2020 16:34:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58519F80304
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3AF7F1FB;
- Fri, 27 Mar 2020 08:34:21 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A2D121FB;
+ Fri, 27 Mar 2020 08:34:25 -0700 (PDT)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B15D23F71F;
- Fri, 27 Mar 2020 08:34:20 -0700 (PDT)
-Date: Fri, 27 Mar 2020 15:34:19 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 254AF3F71F;
+ Fri, 27 Mar 2020 08:34:25 -0700 (PDT)
+Date: Fri, 27 Mar 2020 15:34:23 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Applied "ASoC: soc-acpi: expand description of _ADR-based devices" to
- the asoc tree
-In-Reply-To: <20200325215027.28716-2-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20200325215027.28716-2-pierre-louis.bossart@linux.intel.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Applied "ASoC: codecs: use asoc_rtd_to_cpu() / asoc_rtd_to_codec()
+ macro for DAI pointer" to the asoc tree
+In-Reply-To: <87wo7bhci3.wl-kuninori.morimoto.gx@renesas.com>
+Message-Id: <applied-87wo7bhci3.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,7 +67,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-acpi: expand description of _ADR-based devices
+   ASoC: codecs: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
 
 has been applied to the asoc tree at
 
@@ -91,460 +92,215 @@ to this mail.
 Thanks,
 Mark
 
-From 004bd4163104e4d8b6c1433b31ead10a69c69845 Mon Sep 17 00:00:00 2001
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Wed, 25 Mar 2020 16:50:17 -0500
-Subject: [PATCH] ASoC: soc-acpi: expand description of _ADR-based devices
+From b5cb8558e53d28db571f4ae79b9e9590ed30b280 Mon Sep 17 00:00:00 2001
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Date: Mon, 23 Mar 2020 14:21:56 +0900
+Subject: [PATCH] ASoC: codecs: use asoc_rtd_to_cpu() / asoc_rtd_to_codec()
+ macro for DAI pointer
 
-For SoundWire, we need to know if endpoints needs to be 'aggregated'
-(MIPI parlance, meaning logically grouped), e.g. when two speaker
-amplifiers need to be handled as a single logical output.
-
-We don't necessarily have the information at the firmware (BIOS)
-level, so add a notion of endpoints and specify if a device/endpoint
-is part of a group, with a position.
-
-This may be expanded in future solutions, for now only provide a group
-and position information.
-
-Since we modify the header file, change all existing upstream tables
-as well to avoid breaking compilation/bisect.
-
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200325215027.28716-2-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Tested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/87wo7bhci3.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/soc-acpi.h                      | 39 ++++++--
- .../intel/common/soc-acpi-intel-cml-match.c   | 87 +++++++++++++----
- .../intel/common/soc-acpi-intel-icl-match.c   | 97 +++++++++++++++----
- .../intel/common/soc-acpi-intel-tgl-match.c   | 49 ++++++++--
- 4 files changed, 221 insertions(+), 51 deletions(-)
+ sound/soc/codecs/cs47l15.c |  4 ++--
+ sound/soc/codecs/cs47l24.c |  6 +++---
+ sound/soc/codecs/cs47l35.c |  6 +++---
+ sound/soc/codecs/cs47l85.c |  6 +++---
+ sound/soc/codecs/cs47l90.c |  6 +++---
+ sound/soc/codecs/cs47l92.c |  4 ++--
+ sound/soc/codecs/wm5110.c  |  6 +++---
+ sound/soc/codecs/wm_adsp.c | 10 +++++-----
+ 8 files changed, 24 insertions(+), 24 deletions(-)
 
-diff --git a/include/sound/soc-acpi.h b/include/sound/soc-acpi.h
-index a217a87cae86..392e953d561e 100644
---- a/include/sound/soc-acpi.h
-+++ b/include/sound/soc-acpi.h
-@@ -75,18 +75,45 @@ struct snd_soc_acpi_mach_params {
- };
+diff --git a/sound/soc/codecs/cs47l15.c b/sound/soc/codecs/cs47l15.c
+index e8840dc142ef..8d1869bf7f9c 100644
+--- a/sound/soc/codecs/cs47l15.c
++++ b/sound/soc/codecs/cs47l15.c
+@@ -1239,12 +1239,12 @@ static int cs47l15_open(struct snd_compr_stream *stream)
+ 	struct madera *madera = priv->madera;
+ 	int n_adsp;
  
- /**
-- * snd_soc_acpi_link_adr: ACPI-based list of _ADR, with a variable
-- * number of devices per link
-- *
-+ * snd_soc_acpi_endpoint - endpoint descriptor
-+ * @num: endpoint number (mandatory, unique per device)
-+ * @aggregated: 0 (independent) or 1 (logically grouped)
-+ * @group_position: zero-based order (only when @aggregated is 1)
-+ * @group_id: platform-unique group identifier (only when @aggregrated is 1)
-+ */
-+struct snd_soc_acpi_endpoint {
-+	u8 num;
-+	u8 aggregated;
-+	u8 group_position;
-+	u8 group_id;
-+};
-+
-+/**
-+ * snd_soc_acpi_adr_device - descriptor for _ADR-enumerated device
-+ * @adr: 64 bit ACPI _ADR value
-+ * @num_endpoints: number of endpoints for this device
-+ * @endpoints: array of endpoints
-+ */
-+struct snd_soc_acpi_adr_device {
-+	const u64 adr;
-+	const u8 num_endpoints;
-+	const struct snd_soc_acpi_endpoint *endpoints;
-+};
-+
-+/**
-+ * snd_soc_acpi_link_adr - ACPI-based list of _ADR enumerated devices
-  * @mask: one bit set indicates the link this list applies to
-- * @num_adr: ARRAY_SIZE of adr
-- * @adr: array of _ADR (represented as u64).
-+ * @num_adr: ARRAY_SIZE of devices
-+ * @adr_d: array of devices
-+ *
-+ * The number of devices per link can be more than 1, e.g. in SoundWire
-+ * multi-drop configurations.
-  */
+-	if (strcmp(rtd->codec_dai->name, "cs47l15-dsp-trace") == 0) {
++	if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l15-dsp-trace") == 0) {
+ 		n_adsp = 0;
+ 	} else {
+ 		dev_err(madera->dev,
+ 			"No suitable compressed stream for DAI '%s'\n",
+-			rtd->codec_dai->name);
++			asoc_rtd_to_codec(rtd, 0)->name);
+ 		return -EINVAL;
+ 	}
  
- struct snd_soc_acpi_link_adr {
- 	const u32 mask;
- 	const u32 num_adr;
--	const u64 *adr;
-+	const struct snd_soc_acpi_adr_device *adr_d;
- };
+diff --git a/sound/soc/codecs/cs47l24.c b/sound/soc/codecs/cs47l24.c
+index 25bffc2968f0..6b0570f59630 100644
+--- a/sound/soc/codecs/cs47l24.c
++++ b/sound/soc/codecs/cs47l24.c
+@@ -1076,14 +1076,14 @@ static int cs47l24_open(struct snd_compr_stream *stream)
+ 	struct arizona *arizona = priv->core.arizona;
+ 	int n_adsp;
  
- /**
-diff --git a/sound/soc/intel/common/soc-acpi-intel-cml-match.c b/sound/soc/intel/common/soc-acpi-intel-cml-match.c
-index f55634c4c2e8..3525da79c68a 100644
---- a/sound/soc/intel/common/soc-acpi-intel-cml-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-cml-match.c
-@@ -59,42 +59,95 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_cml_machines[] = {
- };
- EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_cml_machines);
+-	if (strcmp(rtd->codec_dai->name, "cs47l24-dsp-voicectrl") == 0) {
++	if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l24-dsp-voicectrl") == 0) {
+ 		n_adsp = 2;
+-	} else if (strcmp(rtd->codec_dai->name, "cs47l24-dsp-trace") == 0) {
++	} else if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l24-dsp-trace") == 0) {
+ 		n_adsp = 1;
+ 	} else {
+ 		dev_err(arizona->dev,
+ 			"No suitable compressed stream for DAI '%s'\n",
+-			rtd->codec_dai->name);
++			asoc_rtd_to_codec(rtd, 0)->name);
+ 		return -EINVAL;
+ 	}
  
--static const u64 rt711_0_adr[] = {
--	0x000010025D071100
-+static const struct snd_soc_acpi_endpoint single_endpoint = {
-+	.num = 0,
-+	.aggregated = 0,
-+	.group_position = 0,
-+	.group_id = 0,
- };
+diff --git a/sound/soc/codecs/cs47l35.c b/sound/soc/codecs/cs47l35.c
+index 3d48a0d9ecc5..18839807c9d1 100644
+--- a/sound/soc/codecs/cs47l35.c
++++ b/sound/soc/codecs/cs47l35.c
+@@ -1514,14 +1514,14 @@ static int cs47l35_open(struct snd_compr_stream *stream)
+ 	struct madera *madera = priv->madera;
+ 	int n_adsp;
  
--static const u64 rt1308_1_adr[] = {
--	0x000110025D130800
-+static const struct snd_soc_acpi_endpoint spk_l_endpoint = {
-+	.num = 0,
-+	.aggregated = 1,
-+	.group_position = 0,
-+	.group_id = 1,
- };
+-	if (strcmp(rtd->codec_dai->name, "cs47l35-dsp-voicectrl") == 0) {
++	if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l35-dsp-voicectrl") == 0) {
+ 		n_adsp = 2;
+-	} else if (strcmp(rtd->codec_dai->name, "cs47l35-dsp-trace") == 0) {
++	} else if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l35-dsp-trace") == 0) {
+ 		n_adsp = 0;
+ 	} else {
+ 		dev_err(madera->dev,
+ 			"No suitable compressed stream for DAI '%s'\n",
+-			rtd->codec_dai->name);
++			asoc_rtd_to_codec(rtd, 0)->name);
+ 		return -EINVAL;
+ 	}
  
--static const u64 rt1308_2_adr[] = {
--	0x000210025D130800
-+static const struct snd_soc_acpi_endpoint spk_r_endpoint = {
-+	.num = 0,
-+	.aggregated = 1,
-+	.group_position = 1,
-+	.group_id = 1,
- };
+diff --git a/sound/soc/codecs/cs47l85.c b/sound/soc/codecs/cs47l85.c
+index bef3471f482d..a575113207f0 100644
+--- a/sound/soc/codecs/cs47l85.c
++++ b/sound/soc/codecs/cs47l85.c
+@@ -2457,14 +2457,14 @@ static int cs47l85_open(struct snd_compr_stream *stream)
+ 	struct madera *madera = priv->madera;
+ 	int n_adsp;
  
--static const u64 rt715_3_adr[] = {
--	0x000310025D071500
-+static const struct snd_soc_acpi_adr_device rt711_0_adr[] = {
-+	{
-+		.adr = 0x000010025D071100,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+	}
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt1308_1_adr[] = {
-+	{
-+		.adr = 0x000110025D130800,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+	}
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt1308_2_adr[] = {
-+	{
-+		.adr = 0x000210025D130800,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+	}
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt1308_1_group1_adr[] = {
-+	{
-+		.adr = 0x000110025D130800,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_l_endpoint,
-+	}
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt1308_2_group1_adr[] = {
-+	{
-+		.adr = 0x000210025D130800,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_r_endpoint,
-+	}
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt715_3_adr[] = {
-+	{
-+		.adr = 0x000310025D071500,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+	}
- };
+-	if (strcmp(rtd->codec_dai->name, "cs47l85-dsp-voicectrl") == 0) {
++	if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l85-dsp-voicectrl") == 0) {
+ 		n_adsp = 5;
+-	} else if (strcmp(rtd->codec_dai->name, "cs47l85-dsp-trace") == 0) {
++	} else if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l85-dsp-trace") == 0) {
+ 		n_adsp = 0;
+ 	} else {
+ 		dev_err(madera->dev,
+ 			"No suitable compressed stream for DAI '%s'\n",
+-			rtd->codec_dai->name);
++			asoc_rtd_to_codec(rtd, 0)->name);
+ 		return -EINVAL;
+ 	}
  
- static const struct snd_soc_acpi_link_adr cml_3_in_1_default[] = {
- 	{
- 		.mask = BIT(0),
- 		.num_adr = ARRAY_SIZE(rt711_0_adr),
--		.adr = rt711_0_adr,
-+		.adr_d = rt711_0_adr,
- 	},
- 	{
- 		.mask = BIT(1),
--		.num_adr = ARRAY_SIZE(rt1308_1_adr),
--		.adr = rt1308_1_adr,
-+		.num_adr = ARRAY_SIZE(rt1308_1_group1_adr),
-+		.adr_d = rt1308_1_group1_adr,
- 	},
- 	{
- 		.mask = BIT(2),
--		.num_adr = ARRAY_SIZE(rt1308_2_adr),
--		.adr = rt1308_2_adr,
-+		.num_adr = ARRAY_SIZE(rt1308_2_group1_adr),
-+		.adr_d = rt1308_2_group1_adr,
- 	},
- 	{
- 		.mask = BIT(3),
- 		.num_adr = ARRAY_SIZE(rt715_3_adr),
--		.adr = rt715_3_adr,
-+		.adr_d = rt715_3_adr,
- 	},
- 	{}
- };
-@@ -103,17 +156,17 @@ static const struct snd_soc_acpi_link_adr cml_3_in_1_mono_amp[] = {
- 	{
- 		.mask = BIT(0),
- 		.num_adr = ARRAY_SIZE(rt711_0_adr),
--		.adr = rt711_0_adr,
-+		.adr_d = rt711_0_adr,
- 	},
- 	{
- 		.mask = BIT(1),
- 		.num_adr = ARRAY_SIZE(rt1308_1_adr),
--		.adr = rt1308_1_adr,
-+		.adr_d = rt1308_1_adr,
- 	},
- 	{
- 		.mask = BIT(3),
- 		.num_adr = ARRAY_SIZE(rt715_3_adr),
--		.adr = rt715_3_adr,
-+		.adr_d = rt715_3_adr,
- 	},
- 	{}
- };
-diff --git a/sound/soc/intel/common/soc-acpi-intel-icl-match.c b/sound/soc/intel/common/soc-acpi-intel-icl-match.c
-index 752733013d54..a05fc083829e 100644
---- a/sound/soc/intel/common/soc-acpi-intel-icl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-icl-match.c
-@@ -33,55 +33,112 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_icl_machines[] = {
- };
- EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_icl_machines);
+diff --git a/sound/soc/codecs/cs47l90.c b/sound/soc/codecs/cs47l90.c
+index 266eade82764..81a1311b14e6 100644
+--- a/sound/soc/codecs/cs47l90.c
++++ b/sound/soc/codecs/cs47l90.c
+@@ -2368,14 +2368,14 @@ static int cs47l90_open(struct snd_compr_stream *stream)
+ 	struct madera *madera = priv->madera;
+ 	int n_adsp;
  
--static const u64 rt700_0_adr[] = {
--	0x000010025D070000
-+static const struct snd_soc_acpi_endpoint single_endpoint = {
-+	.num = 0,
-+	.aggregated = 0,
-+	.group_position = 0,
-+	.group_id = 0,
-+};
-+
-+static const struct snd_soc_acpi_endpoint spk_l_endpoint = {
-+	.num = 0,
-+	.aggregated = 1,
-+	.group_position = 0,
-+	.group_id = 1,
-+};
-+
-+static const struct snd_soc_acpi_endpoint spk_r_endpoint = {
-+	.num = 0,
-+	.aggregated = 1,
-+	.group_position = 1,
-+	.group_id = 1,
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt700_0_adr[] = {
-+	{
-+		.adr = 0x000010025D070000,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+	}
- };
+-	if (strcmp(rtd->codec_dai->name, "cs47l90-dsp-voicectrl") == 0) {
++	if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l90-dsp-voicectrl") == 0) {
+ 		n_adsp = 5;
+-	} else if (strcmp(rtd->codec_dai->name, "cs47l90-dsp-trace") == 0) {
++	} else if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l90-dsp-trace") == 0) {
+ 		n_adsp = 0;
+ 	} else {
+ 		dev_err(madera->dev,
+ 			"No suitable compressed stream for DAI '%s'\n",
+-			rtd->codec_dai->name);
++			asoc_rtd_to_codec(rtd, 0)->name);
+ 		return -EINVAL;
+ 	}
  
- static const struct snd_soc_acpi_link_adr icl_rvp[] = {
- 	{
- 		.mask = BIT(0),
- 		.num_adr = ARRAY_SIZE(rt700_0_adr),
--		.adr = rt700_0_adr,
-+		.adr_d = rt700_0_adr,
- 	},
- 	{}
- };
+diff --git a/sound/soc/codecs/cs47l92.c b/sound/soc/codecs/cs47l92.c
+index 942040fd354f..15fc213d178d 100644
+--- a/sound/soc/codecs/cs47l92.c
++++ b/sound/soc/codecs/cs47l92.c
+@@ -1840,12 +1840,12 @@ static int cs47l92_open(struct snd_compr_stream *stream)
+ 	struct madera *madera = priv->madera;
+ 	int n_adsp;
  
--static const u64 rt711_0_adr[] = {
--	0x000010025D071100
-+static const struct snd_soc_acpi_adr_device rt711_0_adr[] = {
-+	{
-+		.adr = 0x000010025D071100,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+	}
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt1308_1_adr[] = {
-+	{
-+		.adr = 0x000110025D130800,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+	}
- };
+-	if (strcmp(rtd->codec_dai->name, "cs47l92-dsp-trace") == 0) {
++	if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "cs47l92-dsp-trace") == 0) {
+ 		n_adsp = 0;
+ 	} else {
+ 		dev_err(madera->dev,
+ 			"No suitable compressed stream for DAI '%s'\n",
+-			rtd->codec_dai->name);
++			asoc_rtd_to_codec(rtd, 0)->name);
+ 		return -EINVAL;
+ 	}
  
--static const u64 rt1308_1_adr[] = {
--	0x000110025D130800
-+static const struct snd_soc_acpi_adr_device rt1308_2_adr[] = {
-+	{
-+		.adr = 0x000210025D130800,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+	}
- };
+diff --git a/sound/soc/codecs/wm5110.c b/sound/soc/codecs/wm5110.c
+index 9dc215b5c504..499e87d1dfcc 100644
+--- a/sound/soc/codecs/wm5110.c
++++ b/sound/soc/codecs/wm5110.c
+@@ -2245,14 +2245,14 @@ static int wm5110_open(struct snd_compr_stream *stream)
+ 	struct arizona *arizona = priv->core.arizona;
+ 	int n_adsp;
  
--static const u64 rt1308_2_adr[] = {
--	0x000210025D130800
-+static const struct snd_soc_acpi_adr_device rt1308_1_group1_adr[] = {
-+	{
-+		.adr = 0x000110025D130800,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_l_endpoint,
-+	}
- };
+-	if (strcmp(rtd->codec_dai->name, "wm5110-dsp-voicectrl") == 0) {
++	if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "wm5110-dsp-voicectrl") == 0) {
+ 		n_adsp = 2;
+-	} else if (strcmp(rtd->codec_dai->name, "wm5110-dsp-trace") == 0) {
++	} else if (strcmp(asoc_rtd_to_codec(rtd, 0)->name, "wm5110-dsp-trace") == 0) {
+ 		n_adsp = 0;
+ 	} else {
+ 		dev_err(arizona->dev,
+ 			"No suitable compressed stream for DAI '%s'\n",
+-			rtd->codec_dai->name);
++			asoc_rtd_to_codec(rtd, 0)->name);
+ 		return -EINVAL;
+ 	}
  
--static const u64 rt715_3_adr[] = {
--	0x000310025D071500
-+static const struct snd_soc_acpi_adr_device rt1308_2_group1_adr[] = {
-+	{
-+		.adr = 0x000210025D130800,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_r_endpoint,
-+	}
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt715_3_adr[] = {
-+	{
-+		.adr = 0x000310025D071500,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+	}
- };
+diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
+index ffb9836e0538..1ef69409ccd1 100644
+--- a/sound/soc/codecs/wm_adsp.c
++++ b/sound/soc/codecs/wm_adsp.c
+@@ -3467,22 +3467,22 @@ int wm_adsp_compr_open(struct wm_adsp *dsp, struct snd_compr_stream *stream)
  
- static const struct snd_soc_acpi_link_adr icl_3_in_1_default[] = {
- 	{
- 		.mask = BIT(0),
- 		.num_adr = ARRAY_SIZE(rt711_0_adr),
--		.adr = rt711_0_adr,
-+		.adr_d = rt711_0_adr,
- 	},
- 	{
- 		.mask = BIT(1),
--		.num_adr = ARRAY_SIZE(rt1308_1_adr),
--		.adr = rt1308_1_adr,
-+		.num_adr = ARRAY_SIZE(rt1308_1_group1_adr),
-+		.adr_d = rt1308_1_group1_adr,
- 	},
- 	{
- 		.mask = BIT(2),
--		.num_adr = ARRAY_SIZE(rt1308_2_adr),
--		.adr = rt1308_2_adr,
-+		.num_adr = ARRAY_SIZE(rt1308_2_group1_adr),
-+		.adr_d = rt1308_2_group1_adr,
- 	},
- 	{
- 		.mask = BIT(3),
- 		.num_adr = ARRAY_SIZE(rt715_3_adr),
--		.adr = rt715_3_adr,
-+		.adr_d = rt715_3_adr,
- 	},
- 	{}
- };
-@@ -90,17 +147,17 @@ static const struct snd_soc_acpi_link_adr icl_3_in_1_mono_amp[] = {
- 	{
- 		.mask = BIT(0),
- 		.num_adr = ARRAY_SIZE(rt711_0_adr),
--		.adr = rt711_0_adr,
-+		.adr_d = rt711_0_adr,
- 	},
- 	{
- 		.mask = BIT(1),
- 		.num_adr = ARRAY_SIZE(rt1308_1_adr),
--		.adr = rt1308_1_adr,
-+		.adr_d = rt1308_1_adr,
- 	},
- 	{
- 		.mask = BIT(3),
- 		.num_adr = ARRAY_SIZE(rt715_3_adr),
--		.adr = rt715_3_adr,
-+		.adr_d = rt715_3_adr,
- 	},
- 	{}
- };
-diff --git a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-index c15eae402b18..3153b44f9053 100644
---- a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-@@ -14,20 +14,53 @@ static struct snd_soc_acpi_codecs tgl_codecs = {
- 	.codecs = {"MX98357A"}
- };
+ 	if (wm_adsp_fw[dsp->fw].num_caps == 0) {
+ 		adsp_err(dsp, "%s: Firmware does not support compressed API\n",
+-			 rtd->codec_dai->name);
++			 asoc_rtd_to_codec(rtd, 0)->name);
+ 		ret = -ENXIO;
+ 		goto out;
+ 	}
  
--static const u64 rt711_0_adr[] = {
--	0x000010025D071100
-+static const struct snd_soc_acpi_endpoint single_endpoint = {
-+	.num = 0,
-+	.aggregated = 0,
-+	.group_position = 0,
-+	.group_id = 0,
- };
+ 	if (wm_adsp_fw[dsp->fw].compr_direction != stream->direction) {
+ 		adsp_err(dsp, "%s: Firmware does not support stream direction\n",
+-			 rtd->codec_dai->name);
++			 asoc_rtd_to_codec(rtd, 0)->name);
+ 		ret = -EINVAL;
+ 		goto out;
+ 	}
  
--static const u64 rt1308_1_adr[] = {
--	0x000120025D130800,
--	0x000122025D130800
-+static const struct snd_soc_acpi_endpoint spk_l_endpoint = {
-+	.num = 0,
-+	.aggregated = 1,
-+	.group_position = 0,
-+	.group_id = 1,
-+};
-+
-+static const struct snd_soc_acpi_endpoint spk_r_endpoint = {
-+	.num = 0,
-+	.aggregated = 1,
-+	.group_position = 1,
-+	.group_id = 1,
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt711_0_adr[] = {
-+	{
-+		.adr = 0x000010025D071100,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+	}
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt1308_1_adr[] = {
-+	{
-+		.adr = 0x000120025D130800,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_l_endpoint,
-+	},
-+	{
-+		.adr = 0x000122025D130800,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_r_endpoint,
-+	}
- };
+ 	list_for_each_entry(tmp, &dsp->compr_list, list) {
+-		if (!strcmp(tmp->name, rtd->codec_dai->name)) {
++		if (!strcmp(tmp->name, asoc_rtd_to_codec(rtd, 0)->name)) {
+ 			adsp_err(dsp, "%s: Only a single stream supported per dai\n",
+-				 rtd->codec_dai->name);
++				 asoc_rtd_to_codec(rtd, 0)->name);
+ 			ret = -EBUSY;
+ 			goto out;
+ 		}
+@@ -3496,7 +3496,7 @@ int wm_adsp_compr_open(struct wm_adsp *dsp, struct snd_compr_stream *stream)
  
- static const struct snd_soc_acpi_link_adr tgl_i2s_rt1308[] = {
- 	{
- 		.mask = BIT(0),
- 		.num_adr = ARRAY_SIZE(rt711_0_adr),
--		.adr = rt711_0_adr,
-+		.adr_d = rt711_0_adr,
- 	},
- 	{}
- };
-@@ -36,12 +69,12 @@ static const struct snd_soc_acpi_link_adr tgl_rvp[] = {
- 	{
- 		.mask = BIT(0),
- 		.num_adr = ARRAY_SIZE(rt711_0_adr),
--		.adr = rt711_0_adr,
-+		.adr_d = rt711_0_adr,
- 	},
- 	{
- 		.mask = BIT(1),
- 		.num_adr = ARRAY_SIZE(rt1308_1_adr),
--		.adr = rt1308_1_adr,
-+		.adr_d = rt1308_1_adr,
- 	},
- 	{}
- };
+ 	compr->dsp = dsp;
+ 	compr->stream = stream;
+-	compr->name = rtd->codec_dai->name;
++	compr->name = asoc_rtd_to_codec(rtd, 0)->name;
+ 
+ 	list_add_tail(&compr->list, &dsp->compr_list);
+ 
 -- 
 2.20.1
 

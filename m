@@ -2,121 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 258171964D5
-	for <lists+alsa-devel@lfdr.de>; Sat, 28 Mar 2020 10:42:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9AC21965ED
+	for <lists+alsa-devel@lfdr.de>; Sat, 28 Mar 2020 13:01:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 331311675;
-	Sat, 28 Mar 2020 10:41:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 331311675
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7ABBE1673;
+	Sat, 28 Mar 2020 13:00:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7ABBE1673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585388535;
-	bh=jDSwP8xsKEfwjmaHq3UVcK/CFSoy97ktGcZqH+F/kOI=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=YCLOe25C32k36ul/Ku20JSGQyCI19TEtYAM/su3LYG6Uy5qpKtrSFw1y7Ol6v5XCZ
-	 VjW6ESNr0l+o4wAFQ04RPxU5BT1d1xffORBq+rXxOKvk4jLIH592y2CV2wvkaydCHQ
-	 Efy5mvcCFnjrEkne1Dn/Pry9+U/4HyBtLjffEI3w=
+	s=default; t=1585396859;
+	bh=iiN59bdPd169AVqWebDhM2AJkzu8cWbbEAZkimmhwsw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=eOMMrmIlaSkO08hZ5dwj0oTxv7nPHe2o5W5gNQRUrbCG6o6U7bVNXIOFs2G+ScULM
+	 YOfpouEmq0adruRUHaGATmwMq/7qNO6dvgCeBpWyOfGwlfaaGBpJHYFNSuBiFOMjCB
+	 GfOQZ8kbpZEGzPcNViU/QWlWiSbxQDxEZ6mE8Z38=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30FBBF80227;
-	Sat, 28 Mar 2020 10:40:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99C50F80249;
+	Sat, 28 Mar 2020 12:59:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ABB10F80234; Sat, 28 Mar 2020 10:40:10 +0100 (CET)
+ id 375DAF800EA; Sat, 28 Mar 2020 12:59:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FORGED_SPF_HELO,MSGID_FROM_MTA_HEADER,RCVD_IN_SORBS_WEB,SPF_HELO_PASS,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700082.outbound.protection.outlook.com [40.107.70.82])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.horus.com (mail.horus.com [78.46.148.228])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CCBDEF80118
- for <alsa-devel@alsa-project.org>; Sat, 28 Mar 2020 10:40:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCBDEF80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2A389F800EA
+ for <alsa-devel@alsa-project.org>; Sat, 28 Mar 2020 12:59:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A389F800EA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
- header.i=@amdcloud.onmicrosoft.com header.b="xcw2RTXU"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Hvz+NEnual14Ke6zgWe0SEOvECXdPc0yoblyy5pI5PX1Oj9AfnZ/chAFxRY5EprNqamFjW3U0rlAxj1O1Hw41DYXjoLKaY+jNixsqKThDrlDbbzOVGYOrGpLXwWXbXjAM2yiVhLDQQUbn64Hi2KZDbUvm6EtoF+s8DUy4UJMIWmHhvqAVJEpP2CO3ltCoAYSbk9zpkUWJYjEuTBHSqBHissmclSdIRC/hBG64+nhZUdZcocsZ/dPvZwcT5rM//ctn/ipFJTv4KwEDXksh+WNPBQPmHzjauU7qXk+JGXHALQ9Aw7hRrZZ2uMdNETy17CZhTNPZN9MTH+5iR1b+nkfSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dDDgUc1rgGdo3DsiiTihP4wA0Tjhf3ICW2zGC216wAw=;
- b=end7YXQ1l3evoFD/JaLhJz7kCZBzGUNmhcCvXrGPVhr2q2OwQZ7+/o+9F2YYJT0Dw9S02uQI/k9vHvUWmIPfvbQrzbJHB+a15uvIfXeYo3vfNsH186NR/xO9Ch9T+DlPBWb0lD6yMTss+PBw9H0g8CClfkv8MpRfbPjC47IswEJhvPPSLEy5Cp9pwlOm4acIlR/TCcAWeTTm24CGLf2NcqLF4P923QSk0FGIT35Yleq4sC/9Rvx4568k7DbYqhWnX7I0UQfuSSIy2oTMmJCqgBhA+0xU1Bp0cLK1xYOnMMao1EYookxKJzIwDmfM3xnMhE0WuURrA7nLIzkmokfd6Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dDDgUc1rgGdo3DsiiTihP4wA0Tjhf3ICW2zGC216wAw=;
- b=xcw2RTXUiAsOKjpypFGZYaWew+6p0QH4K/LJSPgUfR2sOjc8JyWsm5hMoYHVdTrAR/HAF8O+7Zi0h21IZXIRUNRTiA/7aJqrWVRhfaJ3WOb6QAtahYyyiKlymvOUvt8ziz3TD0mhhlrKxQdqhZlAmVM5v19ZzqLIjhT7cc0DTqA=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Akshu.Agrawal@amd.com; 
-Received: from MWHPR12MB1855.namprd12.prod.outlook.com (10.175.53.23) by
- MWHPR12MB1407.namprd12.prod.outlook.com (10.169.207.137) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2856.19; Sat, 28 Mar 2020 09:39:59 +0000
-Received: from MWHPR12MB1855.namprd12.prod.outlook.com
- ([fe80::e438:e4ff:ef0f:27d5]) by MWHPR12MB1855.namprd12.prod.outlook.com
- ([fe80::e438:e4ff:ef0f:27d5%12]) with mapi id 15.20.2856.019; Sat, 28 Mar
- 2020 09:39:59 +0000
-From: Akshu Agrawal <akshu.agrawal@amd.com>
-To: 
-Subject: [PATCH] ASoC: AMD: Clear format bits before setting them
-Date: Sat, 28 Mar 2020 03:39:16 -0600
-Message-Id: <20200328093921.32211-1-akshu.agrawal@amd.com>
-X-Mailer: git-send-email 2.20.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MAXPR01CA0118.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a00:5d::36) To MWHPR12MB1855.namprd12.prod.outlook.com
- (2603:10b6:300:10e::23)
+ dkim=pass (1024-bit key) header.d=horus.com header.i=@horus.com
+ header.b="LJxuGkSf"
+Received: from [192.168.1.20] (193-83-225-155.adsl.highway.telekom.at
+ [193.83.225.155])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client CN "E-Mail Matthias Reichl", Issuer "HiassofT CA 2014" (not verified))
+ by mail.horus.com (Postfix) with ESMTPSA id A437C6412F;
+ Sat, 28 Mar 2020 12:59:12 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=horus.com;
+ s=20180324; t=1585396752;
+ bh=TNHYVUFCR6clz/R+eD1bmzTMCLkZjLvojGJzR0otF6A=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=LJxuGkSfrfeuM1g8unxtbFykkMbPU9XznwoYF6eaRgEpwrkzpk+6VB8EviKao//AA
+ dDeLw8xah6fMrQUXKGZW4Buus4t3DX12FL9BPVsooDDicdw4puJNxH9zXo6KlQ7pX3
+ kbwHeTb6jJXF2oKMeGvcnd09q9dMbiupEQZsiMvY=
+Received: by camel2.lan (Postfix, from userid 1000)
+ id 859AD1C72A8; Sat, 28 Mar 2020 12:59:11 +0100 (CET)
+Date: Sat, 28 Mar 2020 12:59:11 +0100
+From: Matthias Reichl <hias@horus.com>
+To: Matt Flax <flatmax@flatmax.org>
+Subject: Re: [PATCH] ASoC: bcm2835-i2s: substream alignment now independent
+ in hwparams
+Message-ID: <20200328115911.GA4997@camel2.lan>
+References: <20200324090823.20754-1-flatmax@flatmax.org>
+ <d0684926-3f7a-0b97-a298-4088925442a4@flatmax.org>
+ <1dcf128a-4ad3-0efa-81e4-b3ccc7caa8f1@flatmax.org>
+ <20200327132324.GA4523@lenny.lan>
+ <59b9ef4e-0067-593e-b4f9-49a5b271b432@flatmax.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from Elitebook.dlink.router (122.172.181.222) by
- MAXPR01CA0118.INDPRD01.PROD.OUTLOOK.COM (2603:1096:a00:5d::36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2856.19 via Frontend Transport; Sat, 28 Mar 2020 09:39:49 +0000
-X-Mailer: git-send-email 2.20.1
-X-Originating-IP: [122.172.181.222]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 4d12cf7e-b0b5-46a7-30f1-08d7d2fbfb1b
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1407:|MWHPR12MB1407:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MWHPR12MB14076281FFD321AF1A1333CEF8CD0@MWHPR12MB1407.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:309;
-X-Forefront-PRVS: 03569407CC
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR12MB1855.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(10009020)(4636009)(376002)(136003)(366004)(396003)(346002)(39860400002)(6506007)(55236004)(66556008)(316002)(86362001)(66946007)(52116002)(1076003)(66476007)(54906003)(5660300002)(478600001)(2906002)(109986005)(6512007)(956004)(2616005)(26005)(6486002)(44832011)(186003)(6666004)(8936002)(81156014)(4326008)(81166006)(16526019)(36756003)(8676002)(266003);
- DIR:OUT; SFP:1101; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: T6MoiCRBjvt0s+IeurEI7PE4dRYZpML1S+0IXFpQegYvmLFmmKNZRH2N/xtFlRJ4/x+pZJ9HxWeWX8PaVEZ8RP+ja0KjabaCyxWYUcke57KKPTPV96xrTq8nF5Bzyugj9ykhuHURpf+TFUWrXr6uSKxXYnK6q7FiM4Gk3q06rEGiUN1VUxX7zp1vhuMzQOM7b3B8wX6lFPanREcN5FPer+BueADmwhC0x8S/uvmirA7+BgJ4/zUykki0cBa3VD2ewbPQJBMqmqjryfur5nrAginEl1NQ+GA7pgjLjRcm8QLXAqie70Up8Nq6asGnyrsCZFucu4SvYjeTfeZIyKu3ZWc+GdTsG/QCZHPdGoDUC9npDHYK32IHo0pl5tYSlV43SUhPYFxamLkupVF14zNNqqYxdu9M+5dMey2YOzdw6EBx0gntoqgylcrpj+NjkvrglIFp8yzsPJ6Z+WAjdJwv66w6QWFzJUKutDOWAzu+ujE=
-X-MS-Exchange-AntiSpam-MessageData: GtEyaAyg0JqJlaID3COi5CJC5n8rSzhobgHl9CyPg+3gRiUrgKJUdTPmlOkFuE6Enapbd9MTU5o2kFgH20I34ZLFP/62rY2/cEVQ01ODcuqDGUE7UsZF2zzK4FO+vVrDk71jiIc066SCRT96H2Vk3Q==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d12cf7e-b0b5-46a7-30f1-08d7d2fbfb1b
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2020 09:39:59.1850 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fT12AjLkaZy/6IZ6tdOUKFRW0gcarSZvzluYrejPCGu5Mh7ZijOfsm3g+/nUe3FRzoQxzoflwTCdXccYaHMvog==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1407
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>,
- open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>, Wei Yongjun <weiyongjun1@huawei.com>,
- Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
- akshu.agrawal@amd.com, Dan Carpenter <dan.carpenter@oracle.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <59b9ef4e-0067-593e-b4f9-49a5b271b432@flatmax.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ linux-rpi-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -132,41 +89,153 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This avoids residual bit form previous format when the format is changed.
-Hence, the resultant format is not an invalid one.
+On Sat, Mar 28, 2020 at 08:50:52AM +1100, Matt Flax wrote:
+> 
+> On 28/3/20 12:23 am, Matthias Reichl wrote:
+> > On Fri, Mar 27, 2020 at 11:30:50AM +1100, Matt Flax wrote:
+> > > On 27/3/20 10:56 am, Matt Flax wrote:
+> > > > Should this patch be handled through the ALSA team the R. Pi team or the
+> > > > BCM team ?
+> > > > 
+> > > Resending again with reduced recipients.
+> > > 
+> > > 
+> > > > thanks
+> > > > 
+> > > > Matt
+> > > > 
+> > > > On 24/3/20 8:08 pm, Matt Flax wrote:
+> > > > > Substream sample alignment was being set in hwparams for both
+> > > > > substreams at the same time. This became a problem when    the Audio
+> > > > > Injector isolated sound card needed to offset sample alignment
+> > > > > for high sample    rates. The latency difference between playback
+> > > > > and capture occurs because of the digital isolation chip
+> > > > > propagation time, particularly when the codec is master and
+> > > > > the DAC return is twice delayed.
+> > > > > 
+> > > > > This patch sets sample alignment registers  based on the substream
+> > > > > direction in hwparams. This gives the machine driver more control
+> > > > > over sample alignment in the bcm2835 i2s driver.
+> > > > > 
+> > > > > Signed-off-by: Matt Flax <flatmax@flatmax.org>
+> > > > > ---
+> > > > >    sound/soc/bcm/bcm2835-i2s.c | 36 +++++++++++++++++++-----------------
+> > > > >    1 file changed, 19 insertions(+), 17 deletions(-)
+> > > > > 
+> > > > > diff --git a/sound/soc/bcm/bcm2835-i2s.c b/sound/soc/bcm/bcm2835-i2s.c
+> > > > > index e6a12e271b07..9db542699a13 100644
+> > > > > --- a/sound/soc/bcm/bcm2835-i2s.c
+> > > > > +++ b/sound/soc/bcm/bcm2835-i2s.c
+> > > > > @@ -493,11 +493,6 @@ static int bcm2835_i2s_hw_params(struct
+> > > > > snd_pcm_substream *substream,
+> > > > >            return -EINVAL;
+> > > > >        }
+> > > > >    -    bcm2835_i2s_calc_channel_pos(&rx_ch1_pos, &rx_ch2_pos,
+> > > > > -        rx_mask, slot_width, data_delay, odd_slot_offset);
+> > > > > -    bcm2835_i2s_calc_channel_pos(&tx_ch1_pos, &tx_ch2_pos,
+> > > > > -        tx_mask, slot_width, data_delay, odd_slot_offset);
+> > > > > -
+> > > > >        /*
+> > > > >         * Transmitting data immediately after frame start, eg
+> > > > >         * in left-justified or DSP mode A, only works stable
+> > > > > @@ -508,19 +503,26 @@ static int bcm2835_i2s_hw_params(struct
+> > > > > snd_pcm_substream *substream,
+> > > > >                "Unstable slave config detected, L/R may be swapped");
+> > > > >          /*
+> > > > > -     * Set format for both streams.
+> > > > > -     * We cannot set another frame length
+> > > > > -     * (and therefore word length) anyway,
+> > > > > -     * so the format will be the same.
+> > > > > +     * Set format on a per stream basis.
+> > > > > +     * The alignment format can be different depending on direction.
+> > > > >         */
+> > > > > -    regmap_write(dev->i2s_regmap, BCM2835_I2S_RXC_A_REG,
+> > > > > -          format
+> > > > > -        | BCM2835_I2S_CH1_POS(rx_ch1_pos)
+> > > > > -        | BCM2835_I2S_CH2_POS(rx_ch2_pos));
+> > > > > -    regmap_write(dev->i2s_regmap, BCM2835_I2S_TXC_A_REG,
+> > > > > -          format
+> > > > > -        | BCM2835_I2S_CH1_POS(tx_ch1_pos)
+> > > > > -        | BCM2835_I2S_CH2_POS(tx_ch2_pos));
+> > > > > +    if (substream->stream == SNDRV_PCM_STREAM_CAPTURE) {
+> > > > > +        bcm2835_i2s_calc_channel_pos(&rx_ch1_pos, &rx_ch2_pos,
+> > > > > +            rx_mask, slot_width, data_delay, odd_slot_offset);
+> > > > > +        regmap_write(dev->i2s_regmap, BCM2835_I2S_RXC_A_REG,
+> > > > > +              format
+> > > > > +            | BCM2835_I2S_CH1_POS(rx_ch1_pos)
+> > > > > +            | BCM2835_I2S_CH2_POS(rx_ch2_pos));
+> > > > > +    }
+> > > > > +
+> > > > > +    if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+> > > > > +        bcm2835_i2s_calc_channel_pos(&tx_ch1_pos, &tx_ch2_pos,
+> > > > > +            tx_mask, slot_width, data_delay, odd_slot_offset);
+> > > > > +        regmap_write(dev->i2s_regmap, BCM2835_I2S_TXC_A_REG,
+> > > > > +              format
+> > > > > +            | BCM2835_I2S_CH1_POS(tx_ch1_pos)
+> > > > > +            | BCM2835_I2S_CH2_POS(tx_ch2_pos));
+> > > > > +    }
+> > > > >          /* Setup the I2S mode */
+> > This will break duplex operation if a second stream is opened when
+> > a stream is already running as the channel position registers for
+> > the second stream haven't been set up.
+> > 
+> > Note this code at the very beginning of hw_params:
+> > 
+> >          /*
+> >           * If a stream is already enabled,
+> >           * the registers are already set properly.
+> >           */
+> >          regmap_read(dev->i2s_regmap, BCM2835_I2S_CS_A_REG, &csreg);
+> > 
+> >          if (csreg & (BCM2835_I2S_TXON | BCM2835_I2S_RXON))
+> >                  return 0;
+> > 
+> > The reason for this check is that we can't change bcm2835 I2S registers
+> > after I2S RX/TX has been enabled - the reason why is explained in the
+> > datasheet:
+> > 
+> > > The PCM interface runs asynchronously at the PCM_CLK rate and
+> > > automatically transfers transmit and receive data across to the
+> > > internal APB clock domain. The control registers are NOT
+> > > synchronised and should be programmed before the device is enabled
+> > > and should NOT be changed whilst the interface is running.
+> > > 
+> > > Only the EN, RXON and TXON bits of the PCMCS register are synchronised
+> > > across the PCM - APB clock domain and are allowed to be changed whilst
+> > > the interface is running.
+> > Therefore we need to set up channel masks for both RX and TX before
+> > any stream is started.
+> 
+> 
+> I see what you mean. We can't change the registers once the system has
+> started half duplex and then subsequently changed to full duplex.
+> 
+> There are cases however where playback and capture need to be set
+> independently. In these cases the machine driver requires different format
+> settings based on the stream direction.
+> 
+> What if we make a check for whether the system is already running and in
+> that case return an error - forcing the user to use specify the same dai_fmt
+> which is already in use before continuing ?
 
-Signed-off-by: Akshu Agrawal <akshu.agrawal@amd.com>
-Signed-off-by: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
----
- sound/soc/amd/raven/acp3x-i2s.c | 1 +
- sound/soc/amd/raven/acp3x.h     | 2 ++
- 2 files changed, 3 insertions(+)
+I'm not sure if I can follow you. dai_fmt, as the name implies, sets
+the format of the DAI - you can't have different DAI formats for
+playback/capture active at the same time.
 
-diff --git a/sound/soc/amd/raven/acp3x-i2s.c b/sound/soc/amd/raven/acp3x-i2s.c
-index 3a3c47e820ab..f160d35a6832 100644
---- a/sound/soc/amd/raven/acp3x-i2s.c
-+++ b/sound/soc/amd/raven/acp3x-i2s.c
-@@ -139,6 +139,7 @@ static int acp3x_i2s_hwparams(struct snd_pcm_substream *substream,
- 		rv_writel(adata->tdm_fmt, rtd->acp3x_base + frmt_reg);
- 	}
- 	val = rv_readl(rtd->acp3x_base + reg_val);
-+	val &= ~ACP3x_ITER_IRER_SAMP_LEN_MASK;
- 	val = val | (rtd->xfer_resolution  << 3);
- 	rv_writel(val, rtd->acp3x_base + reg_val);
- 	return 0;
-diff --git a/sound/soc/amd/raven/acp3x.h b/sound/soc/amd/raven/acp3x.h
-index 21e7ac017f2b..03fe93913e12 100644
---- a/sound/soc/amd/raven/acp3x.h
-+++ b/sound/soc/amd/raven/acp3x.h
-@@ -76,6 +76,8 @@
- #define ACP_POWERED_OFF			0x02
- #define ACP_POWER_OFF_IN_PROGRESS	0x03
- 
-+#define ACP3x_ITER_IRER_SAMP_LEN_MASK	0x38
-+
- struct acp3x_platform_info {
- 	u16 play_i2s_instance;
- 	u16 cap_i2s_instance;
--- 
-2.20.1
+This sounds a bit like you may be trying to work around some hardware
+or codec configuration issue by creative use of the API.
 
+> Would there be a better way to achieve different hwparams based on stream
+> direction ?
+
+If you really need different DAI formats for playback/capture it's
+best to disallow full-duplex mode and set the DAI format based on
+stream direction in the machine driver.
+
+so long,
+
+Hias
+
+> 
+> Matt
+> 

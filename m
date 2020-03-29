@@ -2,51 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B7C7196BF2
-	for <lists+alsa-devel@lfdr.de>; Sun, 29 Mar 2020 10:52:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13607196BF5
+	for <lists+alsa-devel@lfdr.de>; Sun, 29 Mar 2020 10:58:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C798E166E;
-	Sun, 29 Mar 2020 10:51:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C798E166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id A11ED1670;
+	Sun, 29 Mar 2020 10:57:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A11ED1670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585471961;
-	bh=LlORgPEDBUdpq0seZytO6d7phoEW9+XilGHazaNXCBc=;
+	s=default; t=1585472305;
+	bh=wTgZBungnpCO4ph8LopQBlPpFPxRFPPhxpZSu6oVTxI=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bvubs1g8+c+lrxDCaobQ5bVEf0kXP8++UrXbOKFhVcseU2ludhvaQApNHVP8i/SxZ
-	 dQMpT8sICacTmFf7cDMjGP8Pdcc9jMMaXikqRRmqLx+WTFV4ZivX8HxAebI2U4qInX
-	 nPw1WYS6b4CcSKHherSCI08qBCERkMSWzL2wqmFU=
+	b=h9utHcUKtwL/lSujoaJUmFCNSz2Vj4/8eGl20sUONsbJqI+jyIbWgfYrK1owXG7zL
+	 t2DkpLeufh4+fvalJ0JrvGyWZXGiwVBBDAWJCw1UNklHKiMHYNaDkX9Cc1HAX0J/If
+	 2lReMmFAAWOYxVeye2gp/1QAuTsX4cM8nDnI9Bus=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC61AF80157;
-	Sun, 29 Mar 2020 10:51:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BFC82F8014F;
+	Sun, 29 Mar 2020 10:56:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0BBE5F8013F; Sun, 29 Mar 2020 10:50:58 +0200 (CEST)
+ id BADACF80146; Sun, 29 Mar 2020 10:56:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.0 required=5.0 tests=PDS_TONAME_EQ_TOLOCAL_SHORT,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42E1CF8013F
- for <alsa-devel@alsa-project.org>; Sun, 29 Mar 2020 10:50:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42E1CF8013F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 23136F8013F
+ for <alsa-devel@alsa-project.org>; Sun, 29 Mar 2020 10:56:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23136F8013F
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 076D0AE4E;
- Sun, 29 Mar 2020 08:50:54 +0000 (UTC)
-Date: Sun, 29 Mar 2020 10:50:53 +0200
-Message-ID: <s5hftdrczo2.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 630B1AE4E;
+ Sun, 29 Mar 2020 08:56:36 +0000 (UTC)
+Date: Sun, 29 Mar 2020 10:56:35 +0200
+Message-ID: <s5heetbczek.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: scorpio@qelectrotech.org
-Subject: Re: TRX40 Realtek ALC1220-VB USB Audio
-In-Reply-To: <14399276.b7z6KR4yDS@debian>
-References: <14399276.b7z6KR4yDS@debian>
+To: andythe_great <andythe_great@protonmail.com>
+Subject: Re: Port HDA Analyzer to python 3
+In-Reply-To: <ol12k6zTg1bF6sZnv01hgWTqv1uqtvMWljgnxbh_d4uOGiQfSLHsaRbmQ7ddFfSu8taOrpCW0yvBMuxa5JVLs-ZtSDVy1-Eyj30Cp-WymZs=@protonmail.com>
+References: <ol12k6zTg1bF6sZnv01hgWTqv1uqtvMWljgnxbh_d4uOGiQfSLHsaRbmQ7ddFfSu8taOrpCW0yvBMuxa5JVLs-ZtSDVy1-Eyj30Cp-WymZs=@protonmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -68,36 +69,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 07 Mar 2020 14:00:26 +0100,
-laurent Trinques wrote:
+On Sun, 08 Mar 2020 16:10:50 +0100,
+andythe_great wrote:
 > 
 > Hello,
 > 
-> sudo dmesg -lerr -lcrit
->  
-> [    0.386478] ACPI BIOS Error (bug): Failure creating named object 
-> [\_SB.I2CA.WT1A], AE_ALREADY_EXISTS (20191018/dswload2-323)
-(snip)
-> [    2.545332] Error: Driver 'pcspkr' is already registered, aborting...
+> Is it possible to port HDA Analyzer to python 3? https://www.alsa-project.org/main/index.php/HDA_Analyzer
+> 
+> Because openSUSE is retiring python 2.
+> 
+> I tried using python-modernize https://python-modernize.readthedocs.io/en/latest/ but many could not get it to run.
 
-All those are irrelevant with the sound problem.
+It's Jaroslav's pet project, so he might give an answer :)
 
-> [    2.572542] snd_hda_intel 0000:23:00.4: no codecs found!
-
-I guess this is a known "problem", the strange hardware implementation
-where exposing the dummy HD-audio bus with non-existing codec.  So
-this can be ignored as well (maybe we can blacklist the PCI ID for
-ignoring more properly).
-
-The real issue is:
-> [    8.169209] usb 7-5: cannot get ctl value: req = 0x83, wValue = 0xc00, 
-> wIndex = 0x1300, type = 4
-> [    8.169214] usb 7-5: 19:0: cannot get min/max values for control 12 (id 19)
-
-So it's likely a USB audio firmware that doesn't behave correctly as
-advertised, and we'd need a workaround.
-
-Could you give lsusb -v output for this device?
+Would it be worth for moving it to alsa-tools repo once when
+conversion is done?
 
 
 Takashi

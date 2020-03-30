@@ -2,73 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5CDC19851F
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 22:09:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE3911985BE
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 22:44:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B7B81655;
-	Mon, 30 Mar 2020 22:09:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B7B81655
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6016F166D;
+	Mon, 30 Mar 2020 22:43:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6016F166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585598992;
-	bh=TDrx4vLSl2+txCh0mH6vNAiFpiWZKGjMWjGFhFuO0yo=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=eLw8xNjiYEl85Rbu18CzPHQxtXx8+Y21R2Dhadb4vrlKshvna2FvQFLATf233zDwk
-	 KxGxRe/MZvYTZHeuH5iVg9TZC/ReC3nmx3ZwZUXrOlQGbwaI9W85GMH+D2LGHkU4X8
-	 +fNn15SZuUKZ7p+VVu6jtsl1Z62j+3xFi/7p/3j0=
+	s=default; t=1585601083;
+	bh=ldkkDuj1UdsKmuP911onmSK7Xo0QbBwP8mfte6fuVDI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=YEXnCiu5D1G9jqo79oTQ+iHCuehYUH7bsltBqox8DlfblznwiEvxxiRH6PF3J5T3J
+	 ih8geGiZ+hgZ+N3E8DtJmNGVdPW0iWrX+mhqcZfr0+z/xtLiQkOMoFcmA0B9jfB/TW
+	 kbTJ/yd0s00MJ6wlkG9LsQS/usvTmmxjXCbQkPA4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1ED9DF8028C;
-	Mon, 30 Mar 2020 22:07:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6422EF800EB;
+	Mon, 30 Mar 2020 22:43:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 92E47F8014A; Mon, 30 Mar 2020 22:07:10 +0200 (CEST)
+ id 20433F8015C; Mon, 30 Mar 2020 22:42:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
+ [IPv6:2a00:1450:4864:20::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78CB6F80148
- for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 22:07:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78CB6F80148
-IronPort-SDR: 2NbMc8qoAf3c7h/0UgHczUnKYtjR5c8X5f3AKcfmxxYuUmeTKPjfa0KF9TRpB512v+T/KCI+3G
- Avn0vwqBtD1Q==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2020 13:07:01 -0700
-IronPort-SDR: FBmhe8AthXB0+KVrywlHCmh18zmuctcn0kZClWFnFfO1lPsQnKs30eiDaLc9PW5F6bGIFcySY2
- oygEEr5izKkw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,325,1580803200"; d="scan'208";a="248816622"
-Received: from unknown (HELO [10.134.63.32]) ([10.134.63.32])
- by orsmga003.jf.intel.com with ESMTP; 30 Mar 2020 13:07:00 -0700
-Subject: Re: [PATCH] ASoC: qcom: q6asm-dai: Add SNDRV_PCM_INFO_BATCH flag
-To: Lars-Peter Clausen <lars@metafoo.de>,
- Stephan Gerhold <stephan@gerhold.net>, Mark Brown <broonie@kernel.org>
-References: <20200330175210.47518-1-stephan@gerhold.net>
- <ca71ef4e-069f-af8b-ae43-bdd5a3e45be0@metafoo.de>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <3ac5fe32-8292-ce3a-f586-32d556efc98c@linux.intel.com>
-Date: Mon, 30 Mar 2020 13:52:55 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 02DF6F8010C
+ for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 22:42:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02DF6F8010C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="EWPGpeeD"
+Received: by mail-lj1-x242.google.com with SMTP id n17so19648990lji.8
+ for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 13:42:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=gmG6Nw2gJlFbmNF3ZrYh4WCs9X24BSpQSwGXaDwojEM=;
+ b=EWPGpeeD9xPPFMNqQ6vW4zN9xym3eTWIch0s0QCJ2Cy+B1Py/5kXTZOs8CKstvZVGr
+ Lzg3JkHf1lrq+CYKHi7QPBwRA4glrwK2KWK4c97VpHc/U8Y3osFvCxn6O+0If0LU0FmM
+ /wcHvHhNxpY7g9jWsLg5OGhrQKREZ8ZSgGIUscqLU2yHGiQ+MYa9II4CHdnp4tOxspKh
+ mg5Kz/w1Zx7HLaPBDJHf+PMYCKapObCs1GP/IfvzRlN5KViWBgGYiY1WQ9hyC2P4gmnp
+ OPz6KVVReN7P6QL5g8NeYzB2YAXMvei9IE3tI2n4yWmMk0yLLM1cHql10O+bjuAJlocy
+ lsZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=gmG6Nw2gJlFbmNF3ZrYh4WCs9X24BSpQSwGXaDwojEM=;
+ b=qDQxI8oV8xPirwnFC8M2H0bQey0t7VA6nLxCPQk85Gq3itZOXDjHCVxw2SjRjgPsqm
+ Pv+5TKLwJzdJ6VkrBaGqOzFEWu8wT1mg6zZig0abEi0rjXX0eUc6CdCn/Mb/bKkZVCCM
+ 65jPRrHUEdMGtuZzRFXO18n+CwzGaaxGkui5IMtlfvUAutRkP4nwigTLi7HB1P/gxh4g
+ xkRufl5P61ESLHtwD98TPHSVdt9VKMyPkvxxEAoZ4v7aSS6GZe1jv9qpgTjXZilH6LbZ
+ M++vvNAODcxK4XFO4rkTL6kjDTiGhdExneHuVXzDy54z6W04szbFaAaFz8awJ0eAHD01
+ 0hsg==
+X-Gm-Message-State: AGi0PuaLkMwSaKr7YsKleIRSrwZGIpzPqzIicT88fqTyXF8QchkpQpYV
+ jBrDzepHtqDnAdYTYefAMMI=
+X-Google-Smtp-Source: APiQypJxE6SfhjbuHfxqVIzERON0sXL7oImWTuEjhb77hQureETdjO+AJJ/LqtZPpIH8am9utoTy5A==
+X-Received: by 2002:a2e:804a:: with SMTP id p10mr5966662ljg.289.1585600963256; 
+ Mon, 30 Mar 2020 13:42:43 -0700 (PDT)
+Received: from localhost.localdomain (ppp91-78-208-152.pppoe.mtu-net.ru.
+ [91.78.208.152])
+ by smtp.gmail.com with ESMTPSA id v22sm7287988ljj.67.2020.03.30.13.42.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Mar 2020 13:42:42 -0700 (PDT)
+From: Dmitry Osipenko <digetx@gmail.com>
+To: Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Stephen Warren <swarren@wwwdotorg.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>
+Subject: [PATCH v1 0/2] Support headset on Tegra boards that use WM8903
+Date: Mon, 30 Mar 2020 23:40:09 +0300
+Message-Id: <20200330204011.18465-1-digetx@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <ca71ef4e-069f-af8b-ae43-bdd5a3e45be0@metafoo.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
- Patrick Lai <plai@codeaurora.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- ~postmarketos/upstreaming@lists.sr.ht
+Cc: linux-tegra@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,51 +102,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hello,
 
+Some devices have a 4-pin jack instead of a 3-pin and currently the
+WM8903 configuration is hardcoded to the case of 3-pin jack in the
+Tegra's ASoC driver. A new device-tree property is required in order
+to convey that hardware has a 4-pin jack, and thus, microphone's
+detection needs to be done in a different way.
 
-On 3/30/20 1:15 PM, Lars-Peter Clausen wrote:
-> On 3/30/20 7:52 PM, Stephan Gerhold wrote:
->> At the moment, playing audio with PulseAudio with the qdsp6 driver
->> results in distorted sound. It seems like its timer-based scheduling
->> does not work properly with qdsp6 since setting tsched=0 in
->> the PulseAudio configuration avoids the issue.
->>
->> Apparently this happens when the pointer() callback is not accurate
->> enough. There is a SNDRV_PCM_INFO_BATCH flag that can be used to stop
->> PulseAudio from using timer-based scheduling by default.
->>
->> According to 
->> https://www.alsa-project.org/pipermail/alsa-devel/2014-March/073816.html:
->>
->>      The flag is being used in the sense explained in the previous audio
->>      meeting -- the data transfer granularity isn't fine enough but 
->> aligned
->>      to the period size (or less).
->>
->> q6asm-dai reports the position as multiple of
->>
->>      prtd->pcm_count = snd_pcm_lib_period_bytes(substream)
->>
->> so it indeed just a multiple of the period size.
->>
->> Therefore adding the flag here seems appropriate and makes audio
->> work out of the box.
->>
->> Fixes: 2a9e92d371db ("ASoC: qdsp6: q6asm: Add q6asm dai driver")
->> Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
->> Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
->> ---
->> I'm still quite confused about the true meaning of SNDRV_PCM_INFO_BATCH,
->> so please correct me if I'm wrong :)
-> 
-> The meaning might have changed over the years, but the way it is used 
-> right now is that it means that the position pointer has limited 
-> granularity. With 'limited' being a bit fuzzy, but typically means that 
-> the granularity is worse than a few samples.
-> 
-> This driver definitely falls into the limited category as the 
-> granularity seems to be period size.
+In particular this is needed for Acer A500 tablet device that has
+a 4-pin headset jack, otherwise userspace sees headset instead of
+headphones and internal microphone isn't enabled by ALSA UCM rule
+when it should be. Please review and apply, thanks in advance.
 
-Agree, we added this INFO_BATCH flag for SOF Broadwell and Baytrail 
-platforms as well for the same reason of large granularity.
+Dmitry Osipenko (2):
+  dt-bindings: sound: tegra-wm8903: Document new nvidia,headset property
+  ASoC: tegra: tegra_wm8903: Support nvidia,headset property
+
+ .../devicetree/bindings/sound/nvidia,tegra-audio-wm8903.txt | 1 +
+ sound/soc/tegra/tegra_wm8903.c                              | 6 +++++-
+ 2 files changed, 6 insertions(+), 1 deletion(-)
+
+-- 
+2.25.1
 

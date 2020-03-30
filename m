@@ -2,75 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F93519763D
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 10:14:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26C041976BE
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 10:40:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0BD98166D;
-	Mon, 30 Mar 2020 10:13:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0BD98166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id B09861666;
+	Mon, 30 Mar 2020 10:39:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B09861666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585556068;
-	bh=Ao4CnocQQXX7C4xjyQFV0wNvr6mzOp4i8V3kuMfBn04=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1585557617;
+	bh=k+6SJjzYNL5BHTKzHwllOwh9emwzyRR5+BMPVSJ4eho=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mpGRyNYM4muRdSqx+qLNWUrNTnkw+7okMXEK6F4WTx1BxG7jzIKSO7EfIsZDxO3Sl
-	 65v5IK3XOvIzDVAHxn/tKWFaEKd2S1hMq2hBfu0ppPu9WGRUddboPp/wn8i3o08Sy3
-	 84w1ihI1IgTbShu87RPOhYNvRnfIoDIpUJs01gkI=
+	b=OvUETVMQS6YPu+JURNBPFErD0Bb4wnoGOVeJLmdD6DH8lBAJr6SkJS0H0hnACQ/BJ
+	 KmV+kQZDPXIpeUlHUQbsqeHybXXslW2da7EAaLv0kSz0TdivVbBCO9r/3/25nPRzoO
+	 pouOWfkTYhX2D8DPkaHF6JeDgrlnU2mbstX77xJ4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC5FCF800AA;
-	Mon, 30 Mar 2020 10:12:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AFEB3F8014A;
+	Mon, 30 Mar 2020 10:38:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1BDC6F80148; Mon, 30 Mar 2020 10:12:44 +0200 (CEST)
+ id 449FAF80148; Mon, 30 Mar 2020 10:38:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE autolearn=disabled version=3.4.0
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9F555F800EB
- for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 10:12:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F555F800EB
-IronPort-SDR: 5xdmNJ4EDugrrKk/kOeSI8I77pWKF4LLZMh7RqrNs2b8X+n5527fOVoMbIJhNGvMGGdxC15Sj5
- PYutlurWGKhA==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2020 01:12:37 -0700
-IronPort-SDR: gaiOMh+alj66gW6Hz+QqEFWD5TSaaoUBMqn30ltst5jrGYgX/w47d+i0xwnQmJ5x3BXCs4QbDW
- TY6t81ea7t9A==
-X-IronPort-AV: E=Sophos;i="5.72,323,1580803200"; d="scan'208";a="395051175"
-Received: from aslawinx-mobl1.ger.corp.intel.com (HELO [10.249.135.1])
- ([10.249.135.1])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2020 01:12:35 -0700
-Subject: Re: [PATCH v2 3/6] ASoC: topology: Check return value of
- soc_tplg_*_create
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>
-References: <20200327204729.397-1-amadeuszx.slawinski@linux.intel.com>
- <20200327204729.397-4-amadeuszx.slawinski@linux.intel.com>
- <ea618248-5c0c-24f2-b1fb-2b5aecb16049@linux.intel.com>
-From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-Message-ID: <41ce872f-7fa5-74cd-396b-9bfae989e91c@linux.intel.com>
-Date: Mon, 30 Mar 2020 10:12:33 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 30C26F800AA
+ for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 10:38:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30C26F800AA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="QwBMkhl+"
+Received: by mail-wm1-x342.google.com with SMTP id z14so2567791wmf.0
+ for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 01:38:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=d7dT77Mj8SFfgoSadzsoTpTpaeQ7c6h2QTZMTMg5w18=;
+ b=QwBMkhl+nqKTSY1XSOzTHAjPupV6mq5wO4yaX4cblyxkTiak2UrTY+Z7Su93Z7aQf0
+ x3Vs6FIhR4Y2a6mR0PQUel5wUIrNAGOGHMPBVvpIft7fn61c+cGNrebVDjZdsHrc1wgx
+ GDZ3lbzKaGaLqxwbdefO2ZN3TxgY8ZGDyDJn5sC+XWMBiHTIKlHN8SBdK9m23wo8v3rQ
+ CiN81B4HqXHILMC0uUOw1z53jHcIiiB8FvxTpkrgl+yBBBcQk7FB2WIhGLZxfpZfHi2q
+ qgYgAuRENu31KypW6q27ab/jZzv/JCNRnvHX6jfi4kYHHI4cRQC86qI/jifE3Ia2YEl0
+ c7Ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=d7dT77Mj8SFfgoSadzsoTpTpaeQ7c6h2QTZMTMg5w18=;
+ b=IRxT5Zw1KCo/0H26a+cjmpD93BZTi7bh2kqbj5dg6etrT/yUT3uieHgOGbKfHSqHMK
+ J03OYkz6aHm+BMtm2QfvboesE6+gj/nLS6S+tprHB0K+suzQDQnRIUXx7YPUb7K7QEEZ
+ Xpxwa/aK2unGSlHCOLgFckawNCG11da2e1neNFKyJxlmXGlDJYCvAeCVUz1rFGipu2Qg
+ x59rIS5p2N75kf8UR1yjUJcYt1oHLsdu75zDSxtkKahCpjirdOFpY5jMtPs/hKlIwIdS
+ b7Ib6XYP3jUEj64HehalGMKBeS224UeF7YzcdGDES7vj/xUMz591zy+XrNbkfhvkhwFT
+ 2fNQ==
+X-Gm-Message-State: ANhLgQ2DXPlU8pUDbCsSrzM7TsQy0kxpQGCO1UOYWwNV1pEBmg+mZAFy
+ NbgZNGqTVsICSFmMHkaRJoaDpwfOhYeNJEHsYOI=
+X-Google-Smtp-Source: ADFU+vuF1lMbuqMXNh6El+A/BD+TdA9UFO6/f3q1PrZ1gEs2kWmu/sTZ17ZP9QJo3REUe7XlcvpwTMeY7D1ca8YEN7A=
+X-Received: by 2002:a1c:c3c3:: with SMTP id
+ t186mr12576715wmf.118.1585557505217; 
+ Mon, 30 Mar 2020 01:38:25 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <ea618248-5c0c-24f2-b1fb-2b5aecb16049@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+References: <20200304121943.28989-1-daniel.baluta@oss.nxp.com>
+In-Reply-To: <20200304121943.28989-1-daniel.baluta@oss.nxp.com>
+From: Daniel Baluta <daniel.baluta@gmail.com>
+Date: Mon, 30 Mar 2020 11:38:13 +0300
+Message-ID: <CAEnQRZDsfSohbkbLd73AjN=2C3C6MTBdKqt84DHXkscjpq9rKQ@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 0/2] Introduce multi PM domains helpers
+To: Daniel Baluta <daniel.baluta@oss.nxp.com>,
+ Aisheng Dong <aisheng.dong@nxp.com>, 
+ Ulf Hansson <ulf.hansson@linaro.org>, rafael.j.wysocki@intel.com
+Content-Type: text/plain; charset="UTF-8"
+Cc: Daniel Baluta <daniel.baluta@nxp.com>, "Brown, Len" <len.brown@intel.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, linux-pm@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, khilman@kernel.org, rjw@rjwysocki.net,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Paul Olaru <paul.olaru@nxp.com>, dl-linux-imx <linux-imx@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Shawn Guo <shawnguo@kernel.org>, Fabio Estevam <festevam@gmail.com>,
+ "S.j. Wang" <shengjiu.wang@nxp.com>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,81 +106,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Rafael / Ulf / Aisheng,
 
+Any comments?
 
-On 3/27/2020 7:56 PM, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 3/27/20 3:47 PM, Amadeusz Sławiński wrote:
->> Functions soc_tplg_denum_create, soc_tplg_dmixer_create,
->> soc_tplg_dbytes_create can fail, so their return values should be
->> checked and error should be propagated.
->>
->> Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
->> ---
->>
->>   v2:
->>    Added this patch
->>
->>   sound/soc/soc-topology.c | 18 ++++++++++++------
->>   1 file changed, 12 insertions(+), 6 deletions(-)
->>
->> diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
->> index c3811dd66b68..860bced933d6 100644
->> --- a/sound/soc/soc-topology.c
->> +++ b/sound/soc/soc-topology.c
->> @@ -1124,6 +1124,7 @@ static int soc_tplg_kcontrol_elems_load(struct 
->> soc_tplg *tplg,
->>       struct snd_soc_tplg_hdr *hdr)
->>   {
->>       struct snd_soc_tplg_ctl_hdr *control_hdr;
->> +    int ret;
->>       int i;
->>       if (tplg->pass != SOC_TPLG_PASS_MIXER) {
->> @@ -1152,25 +1153,30 @@ static int soc_tplg_kcontrol_elems_load(struct 
->> soc_tplg *tplg,
->>           case SND_SOC_TPLG_CTL_RANGE:
->>           case SND_SOC_TPLG_DAPM_CTL_VOLSW:
->>           case SND_SOC_TPLG_DAPM_CTL_PIN:
->> -            soc_tplg_dmixer_create(tplg, 1,
->> -                           le32_to_cpu(hdr->payload_size));
->> +            ret = soc_tplg_dmixer_create(tplg, 1,
->> +                    le32_to_cpu(hdr->payload_size));
->>               break;
->>           case SND_SOC_TPLG_CTL_ENUM:
->>           case SND_SOC_TPLG_CTL_ENUM_VALUE:
->>           case SND_SOC_TPLG_DAPM_CTL_ENUM_DOUBLE:
->>           case SND_SOC_TPLG_DAPM_CTL_ENUM_VIRT:
->>           case SND_SOC_TPLG_DAPM_CTL_ENUM_VALUE:
->> -            soc_tplg_denum_create(tplg, 1,
->> -                          le32_to_cpu(hdr->payload_size));
->> +            ret = soc_tplg_denum_create(tplg, 1,
->> +                    le32_to_cpu(hdr->payload_size));
->>               break;
->>           case SND_SOC_TPLG_CTL_BYTES:
->> -            soc_tplg_dbytes_create(tplg, 1,
->> -                           le32_to_cpu(hdr->payload_size));
->> +            ret = soc_tplg_dbytes_create(tplg, 1,
->> +                    le32_to_cpu(hdr->payload_size));
->>               break;
->>           default:
->>               soc_bind_err(tplg, control_hdr, i);
->>               return -EINVAL;
->>           }
->> +        if (ret < 0) {
->> +            dev_err(tplg->dev, "ASoC: invalid control\n");
->> +            return ret;
->> +        }
-> 
-> Sounds good, but this happens in a loop, so would all the memory 
-> previously allocated by denum/dbytes/dmixer_create leak, or is it freed 
-> automatically somewhere else?
-> 
-
-Well, now that error is propagated, snd_soc_tplg_component_remove() 
-should be called by snd_soc_tplg_component_load() in case of errors 
-while parsing. From quick look it seems like it should be able to free 
-it up correctly by calling remove_enum/bytes/mixer.
-
-Thanks,
-Amadeusz
+On Wed, Mar 4, 2020 at 2:20 PM Daniel Baluta <daniel.baluta@oss.nxp.com> wrote:
+>
+> From: Daniel Baluta <daniel.baluta@nxp.com>
+>
+> i.MX8QXP/i.MX8QM has IPs that need multiple power domains to be up
+> in order to work. In order to help drivers, we introduce multi PM
+> domains helpers that are able to activate/deactivate multi PM domains.
+>
+> First patch introduces the helpers and second patch demonstrates how
+> a driver can use them instead of hardcoding the PM domains handling.
+>
+> Changes since v1: (addressed Ranjani's comments)
+>         - enhanced description for dev_multi_pm_attach return value
+>         - renamed exit_unroll_pm label to exit_detach_pm
+>
+> Daniel Baluta (2):
+>   PM / domains: Introduce multi PM domains helpers
+>   ASoC: SOF: Use multi PM domains helpers
+>
+>  drivers/base/power/common.c | 93 +++++++++++++++++++++++++++++++++++++
+>  include/linux/pm_domain.h   | 19 ++++++++
+>  sound/soc/sof/imx/imx8.c    | 60 ++++--------------------
+>  3 files changed, 121 insertions(+), 51 deletions(-)
+>
+> --
+> 2.17.1
+>

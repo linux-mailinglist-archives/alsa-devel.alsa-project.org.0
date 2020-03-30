@@ -2,98 +2,128 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CD801975C6
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 09:33:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA7111975D3
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 09:37:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F09651607;
-	Mon, 30 Mar 2020 09:32:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F09651607
+	by alsa0.perex.cz (Postfix) with ESMTPS id 54F64166D;
+	Mon, 30 Mar 2020 09:36:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54F64166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585553624;
-	bh=T1SZulG5gqn2ZXS6PoxpE7k5CI473qhPyjGJtr3NkWE=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=dHNYIUxh1m7quePioUVXPLwSN+B0bGQDUD/z+wuCXutnm4STknS+zBDFP97uRi6Nw
-	 DHNUU5pon7w+UoFsBBmJSyKFAEa5zOrcoZ4z+/HVpwCDtbnHnwU5f00RcokIy45FN+
-	 7+7g7jQQoK1G5V3X19iCESbOfyzTmt1kpF6zROLA=
+	s=default; t=1585553830;
+	bh=3c2k8bENq3mmuPPhJl0hBubHaLBFjokI2prnqp6hg4k=;
+	h=From:To:Subject:Date:References:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=Sdvq4WQXjke6jn2HTAHISTgUWv7MKETkyUSfznr5qe0GG8zIy+egqyQCbeIkYGmTK
+	 mLQBbhEAFV+OtA+WZX7Z8LD1img5eO2CTq43hgpKp9KhPBJwlb7fryMbS4YilzU/No
+	 aY8T+zLShaE46Lr5z3kQq0eH3k+h3aGhQ+uo/TCY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 844D3F80291;
-	Mon, 30 Mar 2020 09:31:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6C037F8014A;
+	Mon, 30 Mar 2020 09:35:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7E674F8029A; Mon, 30 Mar 2020 09:30:49 +0200 (CEST)
+ id 44A44F80148; Mon, 30 Mar 2020 09:35:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
- [IPv6:2607:f8b0:4864:20::f44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03F10F8028F
- for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 09:30:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03F10F8028F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 67930F800AA
+ for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 09:35:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67930F800AA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="WNCYmI3o"
-Received: by mail-qv1-xf44.google.com with SMTP id c28so8404443qvb.10
- for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 00:30:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=sDYAIctGkn55KBqR9qucSo56z5+CeH+A3ihWoQapPKY=;
- b=WNCYmI3oYH+agXhTebOSeL2CID0bR9t39xX6EfKnqeKOf+2VVfT7H6P9WSWARJHnx1
- Nwkm5x9hPuXJwB56AXTq5qQTTH/idixjQ9Es+EQVTJhdXYIEjfObcL1TQjfzGOLk+4ho
- 2EmdN1asGeCy2R6PETUd1EDwF43yxKg3osvBpzWpFLRM2WBQXDojgFT3JpC5uYlTIqbw
- +N7C7bpz5j5z9CiWJBVXq6Y0MTKnsNGzBW/6f2sgyiui5T+TPNHSisG+AeF7da2QwkdT
- 19YEwYPZIs/WbOToU9tkZHX3RKGznuTJV+Zyq4PGvRt93PlJ8+Wm3dJlDcB12YzPzw8p
- VnLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=sDYAIctGkn55KBqR9qucSo56z5+CeH+A3ihWoQapPKY=;
- b=aCPvxwYd9E3qs4nIxhM8GED2x6wUP/dHTOwWfni+gp6i4BGMXLteQTMmjiVSuafjod
- aOKfp/6BAef46pC8s+dJ/gx74Qk+Y7HJeVSkkP72OJ+MHo/ETq60aY4Fn0bUl9ReTANy
- yHm4s8+F4qEujzxqjaAeQ5wtAQRX/Z+MG8El6nLN5aTgr3W4S8VGWyAAiBp4QEcSORJk
- 1DeiXUcYLyg9EnOhq8NmB88pCEyLeNISCX1hkxc35iFTafG/VlAkyYVuochpUOpKg6kk
- 4Pmw6MR5GUAyw7hrE47g5cjMCZj3O4sUv6tsh7+W9mGv6GMsP20kgj1pKYyXKN9cDbkU
- Fyfw==
-X-Gm-Message-State: ANhLgQ0ySZa8i6mpNxEl5bbpUAGTfLjEgO0lWebApXR7uG2ySspd6gQc
- 8oUGBtzPAbomHDoqF7wgtU16eQfiaJG8VA==
-X-Google-Smtp-Source: ADFU+vspur6Fo6L5EFe9kdsDpikMX9TxcLq75up84/QmElUAH98QakXKSqYOdFKj8dsXaAKbaA2OrQ==
-X-Received: by 2002:ad4:4847:: with SMTP id t7mr10498967qvy.237.1585553442116; 
- Mon, 30 Mar 2020 00:30:42 -0700 (PDT)
-Received: from stingray.lan (pool-173-76-255-234.bstnma.fios.verizon.net.
- [173.76.255.234])
- by smtp.gmail.com with ESMTPSA id n63sm10078499qka.80.2020.03.30.00.30.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Mar 2020 00:30:41 -0700 (PDT)
-From: Thomas Hebb <tommyhebb@gmail.com>
-To: alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.or
-Subject: [PATCH 3/3] ALSA: hda/realtek - Remove now-unnecessary XPS 13
- headphone noise fixups
-Date: Mon, 30 Mar 2020 03:30:32 -0400
-Message-Id: <028b0c410238090546cf80ef6075b3b9139986a7.1585553414.git.tommyhebb@gmail.com>
-X-Mailer: git-send-email 2.25.2
-In-Reply-To: <cover.1585553414.git.tommyhebb@gmail.com>
-References: <cover.1585553414.git.tommyhebb@gmail.com>
+ dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
+ header.b="vBYD9mhO"
+Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
+ by mailout4.samsung.com (KnoxPortal) with ESMTP id
+ 20200330073517epoutp04298e8084588ade4d6c18642d28d3574e~BBLSErk0q0558005580epoutp04K
+ for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 07:35:17 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com
+ 20200330073517epoutp04298e8084588ade4d6c18642d28d3574e~BBLSErk0q0558005580epoutp04K
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1585553717;
+ bh=SszRmXux7IRugv5j0/sOCKNLwMsdhf5W39E+comTlSE=;
+ h=From:To:Cc:Subject:Date:References:From;
+ b=vBYD9mhOx7aKM1wKYvV3Yy3VMSBIfbNn/NA9Hf1tBCkH338kpqgnfW/DgxqTHYJxh
+ wp8HVo8ChOQH2tBBmG4O5TuTQR+1aR+wKnLzm7YKuV7xm/QIyx/hJN2BsRaepPvrog
+ a5NBulDxCwL+6JhEsZHIxoJITBJDFygYCoe1D3+c=
+Received: from epsnrtp1.localdomain (unknown [182.195.42.162]) by
+ epcas2p4.samsung.com (KnoxPortal) with ESMTP id
+ 20200330073516epcas2p43144ccced2855f49b391d72c3969a906~BBLRdiYYT1761517615epcas2p4S;
+ Mon, 30 Mar 2020 07:35:16 +0000 (GMT)
+Received: from epsmges2p2.samsung.com (unknown [182.195.40.185]) by
+ epsnrtp1.localdomain (Postfix) with ESMTP id 48rPPZ4XwbzMqYm0; Mon, 30 Mar
+ 2020 07:35:14 +0000 (GMT)
+Received: from epcas2p3.samsung.com ( [182.195.41.55]) by
+ epsmges2p2.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 52.A5.04142.031A18E5; Mon, 30 Mar 2020 16:35:12 +0900 (KST)
+Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
+ epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20200330073511epcas2p2dd0a6e9dca67734192f0d55b86104cbb~BBLM0DRZj1942719427epcas2p2r;
+ Mon, 30 Mar 2020 07:35:11 +0000 (GMT)
+Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
+ epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20200330073511epsmtrp21d8a9701cfa4926aa30b8759d3741397~BBLMylNVg0961209612epsmtrp28;
+ Mon, 30 Mar 2020 07:35:11 +0000 (GMT)
+X-AuditID: b6c32a46-3f9ff7000000102e-e0-5e81a130f545
+Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
+ epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 16.CC.04024.F21A18E5; Mon, 30 Mar 2020 16:35:11 +0900 (KST)
+Received: from KORDO025540 (unknown [12.36.182.130]) by epsmtip2.samsung.com
+ (KnoxPortal) with ESMTPA id
+ 20200330073511epsmtip2ddc7aba5024782e3ec56480927a61f38~BBLMlAGNt2051720517epsmtip2h;
+ Mon, 30 Mar 2020 07:35:11 +0000 (GMT)
+From: =?ks_c_5601-1987?B?wMyw5sXD?= <gt82.lee@samsung.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <tiwai@suse.com>
+Subject: [PATCH 0/3] fixes for topology
+Date: Mon, 30 Mar 2020 16:35:11 +0900
+Message-ID: <000d01d60665$be93a920$3bbafb60$@samsung.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Kailang Yang <kailang@realtek.com>, Tomas Espeleta <tomas.espeleta@gmail.com>,
- Jonathan Corbet <corbet@lwn.net>, linux-kernel@vger.kernel.org,
- Sergey Bostandzhyan <jin@mediatomb.cc>, linux-doc@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, stable@vger.kernel.org,
- Hui Wang <hui.wang@canonical.com>, Thomas Hebb <tommyhebb@gmail.com>,
- Jian-Hong Pan <jian-hong@endlessm.com>,
- =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>
+Content-Type: text/plain; charset="ks_c_5601-1987"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AdYGYvyrH0qwNT3RQHyuZlUsr//4ow==
+Content-Language: ko
+X-Brightmail-Tracker: H4sIAAAAAAAAA02Sa0hTYRjHe3fOzo7W7LSsnvyQ85hFgbbNZmeh0kVkoZhRFIWoBz04cTfO
+ 2SyLYhWYNyK72tKulmVUU6y0G7ZJkpAZaHmhD6J+KNFCuxgsa+6s2Lff+7z///u8f56HxBTV
+ RARZaLZxvJk10kQo/sizZkOs6trRbFXnOMX0vnNLmHPDowTzo7dMwrh+3kObcL1r+hihb3N+
+ lOmbG8sJ/YOWPjwT32dMNHBsPscrOXOeJb/QXJBEp+3M2ZqjTVCpY9U6ZgOtNLMmLolOSc+M
+ TS00+nrSymLWaPeVMllBoNclJ/IWu41TGiyCLYnmrPlGq1ptjRNYk2A3F8TlWUwb1SqVRutT
+ 5hoN3+q+IGszfuC6h3egR1gFCiGBWg9f208TFSiUVFCtCF5OfUXiYQqBo9GNiYcfCJ48vfbf
+ cqfH62cF9RzBzIRNFH1C4Lxw1XdBkgS1Eaoq6TlNOLUZvr9y4HOMUVEw4q3182JqNZyoGSLm
+ GKdiYGbqk5/llA4aHe9lIi+C1xdHA14N1N+9IhE5Eh5P1Ab+o4RfY7ekYq84uD/eFdCHw6Xy
+ Un8AoFwE9Pe14aIhBRoGhpDIi+FzZ4tM5AiYnnxOiIbjCCbfeAMXZxGUVypEjoeWui7JXEig
+ oqFjMNAsDMo8v2ViWQ5lpQE1DU1dswE1wGVX4EE9eNynpKdQlDMopTMopTMopTMozVWEN6Kl
+ nFUwFXCCxqoJnnUz8q/j2tRWVN+d7kYUiegF8pqHjmyFlC0WSkxuBCRGh8uJ7b6SPJ8tOcjx
+ lhzebuQEN9L6plCNRSzJs/iW22zLUWs1CQkqnZbRJmgYepm8ef5AloIqYG1cEcdZOf6fT0KG
+ RDhQ2q7ohowMo/rwiv2zE6nLj+w+WmeRFoeTGeSZky8mtzHnhxd26eJdUZ52h8mbtfLDqtZZ
+ wxZb//74G2di9uT27pVtbcrLfbWDHXMs/dPdM/jW1tZhP5ievOfmvC/M+qbSQ6Ep0wtSbz/z
+ ap6F3aspWp55HOv7NjJeFRsSs4qPfIrxNC4YWPVajBfYv49Rjp6kAwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrMLMWRmVeSWpSXmKPExsWy7bCSvK7+wsY4g/mzJC2uXDzEZDH14RM2
+ i29XOpgsNnxfy+jA4rHhcxObx85Zd9k9Nq3qZPNYv+UqSwBLFJdNSmpOZllqkb5dAlfGl7nv
+ GQs2sVQsOlzUwLiNuYuRk0NCwERi5YU/QDYXh5DAbkaJizNWMkEkJCQ+zD/DDmELS9xvOcIK
+ UfScUWLHtBMsXYwcHGwCVhI93UogNSICrhL39zaA1TMLKEo8/jOHBcQWFlCXaJ9xmw3EZhFQ
+ lfjx6SWYzStgKbGq4Ro7hC0ocXLmExaIXhOJxsPdULa8xPa3c6AOVZD4+XQZK8QuPYl1r09B
+ 1YhIzO5sY57AKDgLyahZSEbNQjJqFpKWBYwsqxglUwuKc9Nziw0LDPNSy/WKE3OLS/PS9ZLz
+ czcxgoNeS3MH4+Ul8YcYBTgYlXh4P2xviBNiTSwrrsw9xCjBwawkwsvmDxTiTUmsrEotyo8v
+ Ks1JLT7EKM3BoiTO+zTvWKSQQHpiSWp2ampBahFMlomDU6qBcdHtaTEnUiY/OmgdefXryx/x
+ zkeaX9Zd0lX+v9JlY7LeHfl1r8V8sw2PvfjU+iziTsLUpaqF1/5q7Zgb7zjxp8ukpwsuiznb
+ O9a3BNnEPaj7fjP155ECs/dmXVtkQmylVtX8l2S4P++J9R/vU9rirB2n5bIvv52zNiztDN/G
+ V+k+YVxndh3y+q3EUpyRaKjFXFScCADCQ4iYdgIAAA==
+X-CMS-MailID: 20200330073511epcas2p2dd0a6e9dca67734192f0d55b86104cbb
+X-Msg-Generator: CA
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20200330073511epcas2p2dd0a6e9dca67734192f0d55b86104cbb
+References: <CGME20200330073511epcas2p2dd0a6e9dca67734192f0d55b86104cbb@epcas2p2.samsung.com>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,140 +139,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-patch_realtek.c has historically failed to properly configure the PC
-Beep Hidden Register for the ALC256 codec (among others). Depending on
-your kernel version, symptoms of this misconfiguration can range from
-chassis noise, picked up by a poorly-shielded PCBEEP trace, getting
-amplified and played on your internal speaker and/or headphones to loud
-feedback, which responds to the "Headphone Mic Boost" ALSA control,
-getting played through your headphones. For details of the problem, see
-the patch in this series titled "ALSA: hda/realtek - Set principled PC
-Beep configuration for ALC256", which fixes the configuration.
+Hi,
 
-These symptoms have been most noticed on the Dell XPS 13 9350 and 9360,
-popular laptops that use the ALC256. As a result, several model-specific
-fixups have been introduced to try and fix the problem, the most
-egregious of which locks the "Headphone Mic Boost" control as a hack to
-minimize noise from a feedback loop that shouldn't have been there in
-the first place.
+I'd like to submit couple of patches which will fix few problems
+in corner case scenarios using topology.
+Any feedback will be greatly appreciated.
 
-Now that the underlying issue has been fixed, remove all these fixups.
-Remaining fixups needed by the XPS 13 are all picked up by existing pin
-quirks.
+Lee
 
-This change should, for the XPS 13 9350/9360
+Gyeongtaek Lee (3):
+  ASoC: dapm: connect virtual mux with default value
+  ASoC: topology: use name_prefix for new kcontrol
+  ASoC: fix regwmask
 
- - Significantly increase volume and audio quality on headphones
- - Eliminate headphone popping on suspend/resume
- - Allow "Headphone Mic Boost" to be set again, making the headphone
-   jack fully usable as a microphone jack too.
+ sound/soc/soc-dapm.c     | 11 ++++++++++-
+ sound/soc/soc-ops.c      |  4 ++--
+ sound/soc/soc-topology.c |  2 +-
+ 3 files changed, 13 insertions(+), 4 deletions(-)
 
-Fixes: 8c69729b4439 ("ALSA: hda - Fix headphone noise after Dell XPS 13 resume back from S3")
-Fixes: 423cd785619a ("ALSA: hda - Fix headphone noise on Dell XPS 13 9360")
-Fixes: e4c9fd10eb21 ("ALSA: hda - Apply headphone noise quirk for another Dell XPS 13 variant")
-Fixes: 1099f48457d0 ("ALSA: hda/realtek: Reduce the Headphone static noise on XPS 9350/9360")
-Cc: stable@vger.kernel.org
-Signed-off-by: Thomas Hebb <tommyhebb@gmail.com>
----
 
- Documentation/sound/hd-audio/models.rst |  2 --
- sound/pci/hda/patch_realtek.c           | 34 -------------------------
- 2 files changed, 36 deletions(-)
-
-diff --git a/Documentation/sound/hd-audio/models.rst b/Documentation/sound/hd-audio/models.rst
-index 11298f0ce44d..0ea967d34583 100644
---- a/Documentation/sound/hd-audio/models.rst
-+++ b/Documentation/sound/hd-audio/models.rst
-@@ -216,8 +216,6 @@ alc298-dell-aio
-     ALC298 fixups on Dell AIO machines
- alc275-dell-xps
-     ALC275 fixups on Dell XPS models
--alc256-dell-xps13
--    ALC256 fixups on Dell XPS13
- lenovo-spk-noise
-     Workaround for speaker noise on Lenovo machines
- lenovo-hotkey
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 024dd61a788b..a57581ddcc0c 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -5378,17 +5378,6 @@ static void alc271_hp_gate_mic_jack(struct hda_codec *codec,
- 	}
- }
- 
--static void alc256_fixup_dell_xps_13_headphone_noise2(struct hda_codec *codec,
--						      const struct hda_fixup *fix,
--						      int action)
--{
--	if (action != HDA_FIXUP_ACT_PRE_PROBE)
--		return;
--
--	snd_hda_codec_amp_stereo(codec, 0x1a, HDA_INPUT, 0, HDA_AMP_VOLMASK, 1);
--	snd_hda_override_wcaps(codec, 0x1a, get_wcaps(codec, 0x1a) & ~AC_WCAP_IN_AMP);
--}
--
- static void alc269_fixup_limit_int_mic_boost(struct hda_codec *codec,
- 					     const struct hda_fixup *fix,
- 					     int action)
-@@ -5866,8 +5855,6 @@ enum {
- 	ALC298_FIXUP_DELL1_MIC_NO_PRESENCE,
- 	ALC298_FIXUP_DELL_AIO_MIC_NO_PRESENCE,
- 	ALC275_FIXUP_DELL_XPS,
--	ALC256_FIXUP_DELL_XPS_13_HEADPHONE_NOISE,
--	ALC256_FIXUP_DELL_XPS_13_HEADPHONE_NOISE2,
- 	ALC293_FIXUP_LENOVO_SPK_NOISE,
- 	ALC233_FIXUP_LENOVO_LINE2_MIC_HOTKEY,
- 	ALC255_FIXUP_DELL_SPK_NOISE,
-@@ -6607,23 +6594,6 @@ static const struct hda_fixup alc269_fixups[] = {
- 			{}
- 		}
- 	},
--	[ALC256_FIXUP_DELL_XPS_13_HEADPHONE_NOISE] = {
--		.type = HDA_FIXUP_VERBS,
--		.v.verbs = (const struct hda_verb[]) {
--			/* Disable pass-through path for FRONT 14h */
--			{0x20, AC_VERB_SET_COEF_INDEX, 0x36},
--			{0x20, AC_VERB_SET_PROC_COEF, 0x1737},
--			{}
--		},
--		.chained = true,
--		.chain_id = ALC255_FIXUP_DELL1_MIC_NO_PRESENCE
--	},
--	[ALC256_FIXUP_DELL_XPS_13_HEADPHONE_NOISE2] = {
--		.type = HDA_FIXUP_FUNC,
--		.v.func = alc256_fixup_dell_xps_13_headphone_noise2,
--		.chained = true,
--		.chain_id = ALC256_FIXUP_DELL_XPS_13_HEADPHONE_NOISE
--	},
- 	[ALC293_FIXUP_LENOVO_SPK_NOISE] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc_fixup_disable_aamix,
-@@ -7117,17 +7087,14 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1028, 0x06de, "Dell", ALC293_FIXUP_DISABLE_AAMIX_MULTIJACK),
- 	SND_PCI_QUIRK(0x1028, 0x06df, "Dell", ALC293_FIXUP_DISABLE_AAMIX_MULTIJACK),
- 	SND_PCI_QUIRK(0x1028, 0x06e0, "Dell", ALC293_FIXUP_DISABLE_AAMIX_MULTIJACK),
--	SND_PCI_QUIRK(0x1028, 0x0704, "Dell XPS 13 9350", ALC256_FIXUP_DELL_XPS_13_HEADPHONE_NOISE2),
- 	SND_PCI_QUIRK(0x1028, 0x0706, "Dell Inspiron 7559", ALC256_FIXUP_DELL_INSPIRON_7559_SUBWOOFER),
- 	SND_PCI_QUIRK(0x1028, 0x0725, "Dell Inspiron 3162", ALC255_FIXUP_DELL_SPK_NOISE),
- 	SND_PCI_QUIRK(0x1028, 0x0738, "Dell Precision 5820", ALC269_FIXUP_NO_SHUTUP),
--	SND_PCI_QUIRK(0x1028, 0x075b, "Dell XPS 13 9360", ALC256_FIXUP_DELL_XPS_13_HEADPHONE_NOISE2),
- 	SND_PCI_QUIRK(0x1028, 0x075c, "Dell XPS 27 7760", ALC298_FIXUP_SPK_VOLUME),
- 	SND_PCI_QUIRK(0x1028, 0x075d, "Dell AIO", ALC298_FIXUP_SPK_VOLUME),
- 	SND_PCI_QUIRK(0x1028, 0x07b0, "Dell Precision 7520", ALC295_FIXUP_DISABLE_DAC3),
- 	SND_PCI_QUIRK(0x1028, 0x0798, "Dell Inspiron 17 7000 Gaming", ALC256_FIXUP_DELL_INSPIRON_7559_SUBWOOFER),
- 	SND_PCI_QUIRK(0x1028, 0x080c, "Dell WYSE", ALC225_FIXUP_DELL_WYSE_MIC_NO_PRESENCE),
--	SND_PCI_QUIRK(0x1028, 0x082a, "Dell XPS 13 9360", ALC256_FIXUP_DELL_XPS_13_HEADPHONE_NOISE2),
- 	SND_PCI_QUIRK(0x1028, 0x084b, "Dell", ALC274_FIXUP_DELL_AIO_LINEOUT_VERB),
- 	SND_PCI_QUIRK(0x1028, 0x084e, "Dell", ALC274_FIXUP_DELL_AIO_LINEOUT_VERB),
- 	SND_PCI_QUIRK(0x1028, 0x0871, "Dell Precision 3630", ALC255_FIXUP_DELL_HEADSET_MIC),
-@@ -7480,7 +7447,6 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
- 	{.id = ALC298_FIXUP_DELL1_MIC_NO_PRESENCE, .name = "alc298-dell1"},
- 	{.id = ALC298_FIXUP_DELL_AIO_MIC_NO_PRESENCE, .name = "alc298-dell-aio"},
- 	{.id = ALC275_FIXUP_DELL_XPS, .name = "alc275-dell-xps"},
--	{.id = ALC256_FIXUP_DELL_XPS_13_HEADPHONE_NOISE, .name = "alc256-dell-xps13"},
- 	{.id = ALC293_FIXUP_LENOVO_SPK_NOISE, .name = "lenovo-spk-noise"},
- 	{.id = ALC233_FIXUP_LENOVO_LINE2_MIC_HOTKEY, .name = "lenovo-hotkey"},
- 	{.id = ALC255_FIXUP_DELL_SPK_NOISE, .name = "dell-spk-noise"},
+base-commit: 76ccd234269bd05debdbc12c96eafe62dd9a6180
 -- 
-2.25.2
+2.21.0
+
 

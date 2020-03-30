@@ -2,115 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E48E198CE4
-	for <lists+alsa-devel@lfdr.de>; Tue, 31 Mar 2020 09:25:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A68651986BD
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 23:41:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8DD8B1614;
-	Tue, 31 Mar 2020 09:24:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DD8B1614
+	by alsa0.perex.cz (Postfix) with ESMTPS id 37BB01614;
+	Mon, 30 Mar 2020 23:40:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37BB01614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585639502;
-	bh=6z4g/3atHdAr/FHv1ySFbxSRHdnz0vBAUgqE0DBqTuo=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=N8OdQAUu32/xwrdb+guJQ4EWsRmhSE1f68bUsY2qvw8GYG9c+FlTPT8nKTjBo5MOw
-	 7iDjwDrZJufSjw3P4wTqQj4IZidL/g3bQvivxoY1gCQ75h6/cUSAKapJPg2c0h3CJJ
-	 xiDo9K6uId73XECNb8I8YxK6LVhLigM4Dz1LZJO4=
+	s=default; t=1585604472;
+	bh=np4o+SLhBqto4477PafKc6evD4xcBbE2zIcPHLqYI3I=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=dvSbCZUXTUFqStzKsOqU1ltCrW8U8sKnvX2aaNlbri9X51RZ/0sDhdEDvlUYglKMr
+	 dHa3xMpdlBpPBaer8ojkrhT03+Ay0Ynhh7dGfZsjoKSLj44Z6l/2Z9x7m04KZBNMQW
+	 BIHIOBZ7C0ZPt5tfohtLmxpS7ej/nJv5jYmg606Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A32B1F80146;
-	Tue, 31 Mar 2020 09:23:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 36241F800EB;
+	Mon, 30 Mar 2020 23:39:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D2B1FF8014A; Mon, 30 Mar 2020 15:32:28 +0200 (CEST)
+ id 9CFFAF80148; Mon, 30 Mar 2020 23:39:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from us-smtp-delivery-74.mimecast.com
+ (us-smtp-delivery-74.mimecast.com [216.205.24.74])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CA482F8010C
- for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 15:32:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA482F8010C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3DCBDF800EB
+ for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 23:39:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DCBDF800EB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=monstr-eu.20150623.gappssmtp.com
- header.i=@monstr-eu.20150623.gappssmtp.com header.b="tPtDy92F"
-Received: by mail-wr1-x444.google.com with SMTP id 31so21628877wrs.3
- for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 06:32:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=monstr-eu.20150623.gappssmtp.com; s=20150623;
- h=sender:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=GReVM19GqlV7E1aqnFYm2Dbl1ANbJ9X/aCuGV6MPAK4=;
- b=tPtDy92FT4caRu0Go0j/xtotMfvEW73iVr1JrhXGYFiODgBmlFD4UkSG+eIhOelQ1v
- 5NRavlh2gpcX1SlyM069vAdFaI3ZKdD9dSDvHljVLXWJ3JkIk5JipREpSGpx2KYJNL4B
- lUKNx7pIs3PB00N271P+OpF96/RhRouVe8Fq8IyQc6F/UKTWr5TiEVqCAe5hFUEcrP3e
- p82QUd/MGQfMz6nnMwrnGuqjrjrCFNMxq3SCpeTiEHUITZEDcO7W4FMwXpNINYDSQyH9
- M0LnX8G76+Yfc770nfxdsIFAUDW4aTKkAK5nSUe36Qpjmck2pmAr7lx+SXJc8Sz7JhQ/
- sDsA==
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="O89m2E+D"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1585604362;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=cLAxc9h/2g/Kt0lGCbg//O6dcS/quuDsYwk9z/L+Qyo=;
+ b=O89m2E+DmBE+oMVwF1XLwnDhh4thAgTubueWNoFsNkMBufJ3ifyv3TmuWHMF84ImSC/8l6
+ gUum1K3STHgVw7PUeUYgaf109/wnWNxZRipET3bRA+Skr/893GOz8EGQrg2QFyYpJHEYU9
+ FJ9UFEnZHQsu/f0UXiBrp34Kd7ZWYCk=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-125-P0GoRkH8PomWx8rqnlD5Lw-1; Mon, 30 Mar 2020 17:39:19 -0400
+X-MC-Unique: P0GoRkH8PomWx8rqnlD5Lw-1
+Received: by mail-wr1-f72.google.com with SMTP id w12so11934336wrl.23
+ for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 14:39:19 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
- :mime-version:content-transfer-encoding;
- bh=GReVM19GqlV7E1aqnFYm2Dbl1ANbJ9X/aCuGV6MPAK4=;
- b=gVDsFu5L9677UqdUdIuxIe69+lqk0XOSL6juVfhw5Z7VqMSOoe0d1o6cOiJMQ7/G0l
- GXgcWRAk3AiyjkHq2PYb/9QolIEj+kksaLsMhmDurALlVPPkgcNcsXcvUxxpYBca7fDn
- Md3KtQtJdSUH2akcbbdbqhVkZGLReG6oUo+szqdBOT35mbqtJoeYFqlUoN8QZQfEAQcx
- 7k/NsI7U91emGjy9VdDwpWjebXNdMWoxipJs/dIXJ4izPSRq/IEUHjJPhQHDZU1rqHhs
- TGK0xXy5+PYlh8PBKc3qvRK7xh3UdO2cbOcDHNghNYT8V94+SfIBMVTBMfqf595DHe0n
- RwFA==
-X-Gm-Message-State: ANhLgQ3ZAL6nQUHjn5DzX4z6tTfHTQ/O9vonBR9EyegbUOci9R8zIY1k
- GkZMO8q4NbkIFPtT8WmJ2NunHw==
-X-Google-Smtp-Source: ADFU+vukZhm8tPUtLxOs/XW+LNo5gAR+llcU4X818GoCkrWfN2kr6XBx/zvgubTDyo9BIxw/lYRumQ==
-X-Received: by 2002:adf:bc12:: with SMTP id s18mr4492529wrg.220.1585575139439; 
- Mon, 30 Mar 2020 06:32:19 -0700 (PDT)
-Received: from localhost (nat-35.starnet.cz. [178.255.168.35])
- by smtp.gmail.com with ESMTPSA id x6sm4823230wmi.2.2020.03.30.06.32.18
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 30 Mar 2020 06:32:18 -0700 (PDT)
-From: Michal Simek <michal.simek@xilinx.com>
-To: linux-kernel@vger.kernel.org, monstr@monstr.eu, michal.simek@xilinx.com,
- git@xilinx.com, sfr@canb.auug.org.au, maz@kernel.org
-Subject: [PATCH v2 0/2] powerpc: Remove support for ppc405/440 Xilinx platforms
-Date: Mon, 30 Mar 2020 15:32:15 +0200
-Message-Id: <cover.1585575111.git.michal.simek@xilinx.com>
-X-Mailer: git-send-email 2.26.0
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=/gKl6HergYib0WERu35yxh1XJUzLXL9wB0owhTSev4Q=;
+ b=QY274fC2o/aPo820n+bdVmtPvKzJFCoxh2DI5kSLnwMU7y+hAF5PDRBGM6kp5yBLb3
+ poaW5D9To7BsiEyinZmYM9f4kHh9j+Y54DCrNeMK9PWr9SD5x733KRa/8pZCIwHYRKQq
+ ZxbGy6Vw9LReFjD3uSQ/jjG/7kY+EZdOWxyIIoR3LKLg+ANgZxdIStsROo00D0i2W41v
+ wMKty9XoNYjqlIK80DUPSgNpDbALuIi67GwSxPHeiYTDpcN6Y9hnALcyWvyepN3IUjgD
+ sMDV3s3Mt5c7N4bg5Jm6WxrIzsyds40RkVlBbedut8U0HFNoBkuEHzltSq2hssHNAQjl
+ Lzzw==
+X-Gm-Message-State: ANhLgQ0DEMCCWwfgsYH3QogGNSImr32Am1wkA2wQXr8F5iLqJDySDwoM
+ 3Jv6AizsTDkh6aa52Mg+jHqNDAglLFUhUeQXvpZwOyTV+IlO0Q6L6UUvRxirUjYifeWFqXqFQX4
+ tk/aWZ1G+6+eTcTxeKn2DNHo=
+X-Received: by 2002:a1c:4486:: with SMTP id r128mr150477wma.32.1585604358864; 
+ Mon, 30 Mar 2020 14:39:18 -0700 (PDT)
+X-Google-Smtp-Source: ADFU+vt1MlM3lb/jDSHAe2eg4l1SkYSASfix4qSdkD5YTppKiiQpllWIWX3XY7EZJobGgCkfYm49Cg==
+X-Received: by 2002:a1c:4486:: with SMTP id r128mr150468wma.32.1585604358673; 
+ Mon, 30 Mar 2020 14:39:18 -0700 (PDT)
+Received: from x1.localdomain
+ (2001-1c00-0c0c-fe00-fc7e-fd47-85c1-1ab3.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c0c:fe00:fc7e:fd47:85c1:1ab3])
+ by smtp.gmail.com with ESMTPSA id u204sm1017836wmg.40.2020.03.30.14.39.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 30 Mar 2020 14:39:18 -0700 (PDT)
+Subject: Re: [PATCH 3/4] ASoC: Intel: bdw-rt5677: Remove ignore_suspend flag
+ from SSP0 dai link
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
+References: <20200319204947.18963-1-cezary.rojewski@intel.com>
+ <20200319204947.18963-4-cezary.rojewski@intel.com>
+ <dea20cf7-f324-a933-8f8e-e70a4dffa249@linux.intel.com>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <259cbb60-9e59-1132-8371-83f837577f86@redhat.com>
+Date: Mon, 30 Mar 2020 23:39:17 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 31 Mar 2020 09:23:19 +0200
-Cc: Kate Stewart <kstewart@linuxfoundation.org>,
- Mark Rutland <mark.rutland@arm.com>,
- "Desnes A. Nunes do Rosario" <desnesn@linux.ibm.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>, linux-doc@vger.kernel.org,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>, alsa-devel@alsa-project.org,
- dri-devel@lists.freedesktop.org, Richard Fontana <rfontana@redhat.com>,
- Paul Mackerras <paulus@samba.org>, Miquel Raynal <miquel.raynal@bootlin.com>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- Fabio Estevam <festevam@gmail.com>, Sasha Levin <sashal@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Michael Ellerman <mpe@ellerman.id.au>,
- Masahiro Yamada <masahiroy@kernel.org>, YueHaibing <yuehaibing@huawei.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Allison Randal <allison@lohutok.net>,
- Matt Porter <mporter@kernel.crashing.org>,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- Andrew Donnellan <ajd@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- Alistair Popple <alistair@popple.id.au>, linuxppc-dev@lists.ozlabs.org,
- Nicholas Piggin <npiggin@gmail.com>, Alexios Zavras <alexios.zavras@intel.com>,
- Mark Brown <broonie@kernel.org>, linux-fbdev@vger.kernel.org,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>,
- Thomas Gleixner <tglx@linutronix.de>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Dmitry Vyukov <dvyukov@google.com>, Christophe Leroy <christophe.leroy@c-s.fr>,
- Wei Hu <weh@microsoft.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Takashi Iwai <tiwai@suse.com>,
- Rob Herring <robh+dt@kernel.org>, Enrico Weigelt <info@metux.net>,
- "David S. Miller" <davem@davemloft.net>,
- Thiago Jung Bauermann <bauerman@linux.ibm.com>
+In-Reply-To: <dea20cf7-f324-a933-8f8e-e70a4dffa249@linux.intel.com>
+Content-Language: en-US
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Curtis Malainey <cujomalainey@google.com>, tiwai@suse.com,
+ Dominik Brodowski <linux@dominikbrodowski.net>, lgirdwood@gmail.com,
+ vkoul@kernel.org, broonie@kernel.org, Ben Zhang <benzh@google.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -128,95 +123,78 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Hi,
 
-recently we wanted to update xilinx intc driver and we found that function
-which we wanted to remove is still wired by ancient Xilinx PowerPC
-platforms. Here is the thread about it.
-https://lore.kernel.org/linux-next/48d3232d-0f1d-42ea-3109-f44bbabfa2e8@xilinx.com/
+On 3/19/20 11:14 PM, Pierre-Louis Bossart wrote:
+>=20
+>=20
+> On 3/19/20 3:49 PM, Cezary Rojewski wrote:
+>> As of commit:
+>> ASoC: soc-core: care .ignore_suspend for Component suspend
+>>
+>> function soc-core::snd_soc_suspend no longer ignores 'ignore_suspend'
+>> flag for dai links. While BE dai link for System Pin is
+>> supposed to follow standard suspend-resume flow, appended
+>> 'ignore_suspend' flag disturbs that flow and causes audio to break
+>> right after resume. Remove the flag to address this.
+>>
+>> Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+>> Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>> Cc: Dominik Brodowski <linux@dominikbrodowski.net>
+>> Cc: Mark Brown <broonie@kernel.org>
+>> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+>=20
+> we should ask Ben and Curtis @ Google if the changes related to suspend i=
+nterfere with the wake-on-voice support?
+>=20
+> Btw the .ignore_suspend is also set in bytcr_rt5640/51 drivers, so wonder=
+ing if additional devices are broken, or if there's something off about Bro=
+adwell in general. Hans, have you heard of any regressions on Baytrail devi=
+ces?
 
-I have been talking about it internally and there is no interest in these
-platforms and it is also orphan for quite a long time. None is really
-running/testing these platforms regularly that's why I think it makes sense
-to remove them also with drivers which are specific to this platform.
+I've just tested 5.6.0 on Bay Trail + a rt5651 codec,
+using the bytcr_rt5651 machine driver which sets
+ignore_suspend, as well as on a Cherry Trail + rt5645
+device using the chtrt5645 machine driver which does
+_not_ set ignore suspend.
 
-U-Boot support was removed in 2017 without anybody complain about it
-https://github.com/Xilinx/u-boot-xlnx/commit/98f705c9cefdfdba62c069821bbba10273a0a8ed
+Suspend/resume work fine on both and music playing
+before suspend continues playing after suspend.
 
-Based on current ppc/next.
+Note that the bytcr_rt5651 machine driver also does:
 
-If anyone has any objection about it, please let me know.
+         snd_soc_dapm_ignore_suspend(&card->dapm, "Headphone");
+         snd_soc_dapm_ignore_suspend(&card->dapm, "Speaker");
 
-Thanks,
-Michal
+Which the bdw-rt5677 seems to not do...
 
-Changes in v2:
-- Remove also sound/drivers/pcm-indirect2.[ch] files
-  Reported-by: Takashi Iwai <tiwai@suse.de>
-- Based on my chat with Arnd I removed arch/powerpc/xmon/ changes done in
-  v1 to keep them the same as before. (kbuild reported some issues with it
-  too)
+Regards,
 
-Michal Simek (2):
-  sound: ac97: Remove sound driver for ancient platform
-  powerpc: Remove Xilinx PPC405/PPC440 support
+Hans
 
- Documentation/devicetree/bindings/xilinx.txt |  143 --
- Documentation/powerpc/bootwrapper.rst        |   28 +-
- MAINTAINERS                                  |    6 -
- arch/powerpc/Kconfig.debug                   |    2 +-
- arch/powerpc/boot/Makefile                   |    7 +-
- arch/powerpc/boot/dts/Makefile               |    1 -
- arch/powerpc/boot/dts/virtex440-ml507.dts    |  406 ------
- arch/powerpc/boot/dts/virtex440-ml510.dts    |  466 -------
- arch/powerpc/boot/ops.h                      |    1 -
- arch/powerpc/boot/serial.c                   |    5 -
- arch/powerpc/boot/uartlite.c                 |   79 --
- arch/powerpc/boot/virtex.c                   |   97 --
- arch/powerpc/boot/virtex405-head.S           |   31 -
- arch/powerpc/boot/wrapper                    |    8 -
- arch/powerpc/configs/40x/virtex_defconfig    |   75 -
- arch/powerpc/configs/44x/virtex5_defconfig   |   74 -
- arch/powerpc/configs/ppc40x_defconfig        |    8 -
- arch/powerpc/configs/ppc44x_defconfig        |    8 -
- arch/powerpc/include/asm/xilinx_intc.h       |   16 -
- arch/powerpc/include/asm/xilinx_pci.h        |   21 -
- arch/powerpc/kernel/cputable.c               |   39 -
- arch/powerpc/platforms/40x/Kconfig           |   31 -
- arch/powerpc/platforms/40x/Makefile          |    1 -
- arch/powerpc/platforms/40x/virtex.c          |   54 -
- arch/powerpc/platforms/44x/Kconfig           |   37 -
- arch/powerpc/platforms/44x/Makefile          |    2 -
- arch/powerpc/platforms/44x/virtex.c          |   60 -
- arch/powerpc/platforms/44x/virtex_ml510.c    |   30 -
- arch/powerpc/platforms/Kconfig               |    4 -
- arch/powerpc/sysdev/Makefile                 |    2 -
- arch/powerpc/sysdev/xilinx_intc.c            |   88 --
- arch/powerpc/sysdev/xilinx_pci.c             |  132 --
- drivers/char/Kconfig                         |    2 +-
- drivers/video/fbdev/Kconfig                  |    2 +-
- sound/drivers/Kconfig                        |   12 -
- sound/drivers/Makefile                       |    2 -
- sound/drivers/ml403-ac97cr.c                 | 1298 ------------------
- sound/drivers/pcm-indirect2.c                |  560 --------
- sound/drivers/pcm-indirect2.h                |  127 --
- 39 files changed, 7 insertions(+), 3958 deletions(-)
- delete mode 100644 arch/powerpc/boot/dts/virtex440-ml507.dts
- delete mode 100644 arch/powerpc/boot/dts/virtex440-ml510.dts
- delete mode 100644 arch/powerpc/boot/uartlite.c
- delete mode 100644 arch/powerpc/boot/virtex.c
- delete mode 100644 arch/powerpc/boot/virtex405-head.S
- delete mode 100644 arch/powerpc/configs/40x/virtex_defconfig
- delete mode 100644 arch/powerpc/configs/44x/virtex5_defconfig
- delete mode 100644 arch/powerpc/include/asm/xilinx_intc.h
- delete mode 100644 arch/powerpc/include/asm/xilinx_pci.h
- delete mode 100644 arch/powerpc/platforms/40x/virtex.c
- delete mode 100644 arch/powerpc/platforms/44x/virtex.c
- delete mode 100644 arch/powerpc/platforms/44x/virtex_ml510.c
- delete mode 100644 arch/powerpc/sysdev/xilinx_intc.c
- delete mode 100644 arch/powerpc/sysdev/xilinx_pci.c
- delete mode 100644 sound/drivers/ml403-ac97cr.c
- delete mode 100644 sound/drivers/pcm-indirect2.c
- delete mode 100644 sound/drivers/pcm-indirect2.h
 
--- 
-2.26.0
+>=20
+>> ---
+>> =C2=A0 sound/soc/intel/boards/bdw-rt5677.c | 1 -
+>> =C2=A0 1 file changed, 1 deletion(-)
+>>
+>> diff --git a/sound/soc/intel/boards/bdw-rt5677.c b/sound/soc/intel/board=
+s/bdw-rt5677.c
+>> index a94f498388e1..713ef48b36a8 100644
+>> --- a/sound/soc/intel/boards/bdw-rt5677.c
+>> +++ b/sound/soc/intel/boards/bdw-rt5677.c
+>> @@ -343,7 +343,6 @@ static struct snd_soc_dai_link bdw_rt5677_dais[] =3D=
+ {
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .no_pcm =3D 1,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .dai_fmt =3D SND_=
+SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 SND_SOC_DAIFMT_CBS_CFS,
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .ignore_suspend =3D 1,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .ignore_pmdown_ti=
+me =3D 1,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .be_hw_params_fix=
+up =3D broadwell_ssp0_fixup,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .ops =3D &bdw_rt5=
+677_ops,
+>>
+>=20
 

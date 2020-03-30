@@ -2,127 +2,127 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61B2C1974DD
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 09:08:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1521E1974E1
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 09:09:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DFAE61658;
-	Mon, 30 Mar 2020 09:07:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFAE61658
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA7D71671;
+	Mon, 30 Mar 2020 09:08:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA7D71671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585552117;
-	bh=P6Ne9Ntzec/rQt8oWnjXH/STkKukGHm0BIAFOJZmAQM=;
+	s=default; t=1585552160;
+	bh=cYitUv0Z+HxpGpMpkYAp/o5OlW+AoysGUJDRHbAXVMU=;
 	h=From:To:Subject:Date:References:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=kmi8KeV8BnpdpA542q1OecB/9Kml3kq0jEXOKWoFxtTJTcfb60PvMDg20Q5mseSwJ
-	 v40naq3/Sq762PTJVMzaU6QY8baWeC7YsYZc0P8LONLOo8fVDD2eIoizETcxesuL8m
-	 lo4jqm+lYEoWRysErrsa3xs36nYDzI9BANvNdoVg=
+	b=BW/l597vTn4c7dpapGn0AmXRpCFbG1ofvPVn/0UJlgL7nDflRl1UwMHknR5B6xpNM
+	 wzu+avEnioyMw/q7103OAovYZ+/yYLXRW4PQJmWtIGSJqXdpSYipp9c4CoqYxf/rm/
+	 hAO4F5QnJTUX56o1KPev2REuFAkad9hXdYPntWHU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6591F8014A;
-	Mon, 30 Mar 2020 09:06:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CB25F8022D;
+	Mon, 30 Mar 2020 09:06:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 80C24F8014A; Mon, 30 Mar 2020 09:06:53 +0200 (CEST)
+ id 79F33F80148; Mon, 30 Mar 2020 09:06:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled
- version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C70CF80145
+ by alsa1.perex.cz (Postfix) with ESMTPS id 12297F8010C
  for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 09:06:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C70CF80145
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12297F8010C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="BQYFugF3"
-Received: from epcas2p3.samsung.com (unknown [182.195.41.55])
+ header.b="UFw3yuqh"
+Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
  by mailout2.samsung.com (KnoxPortal) with ESMTP id
- 20200330070643epoutp025cca8a08af00ec6e7b3ac167dd763f65~BAyWMV2G91207712077epoutp02U
+ 20200330070643epoutp02935e598014b6d65e04390690db33d7e9~BAyWChnZv1163011630epoutp029
  for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 07:06:43 +0000 (GMT)
 DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com
- 20200330070643epoutp025cca8a08af00ec6e7b3ac167dd763f65~BAyWMV2G91207712077epoutp02U
+ 20200330070643epoutp02935e598014b6d65e04390690db33d7e9~BAyWChnZv1163011630epoutp029
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
  s=mail20170921; t=1585552003;
- bh=C24PRGO0eSaiRHdUnzlskCe9iho3JnxuI6FPfSbKFg0=;
+ bh=lZVcsO639biKOLxOMk9nBhc+HVBgBppflRsiaZ9WyeA=;
  h=From:To:Cc:Subject:Date:References:From;
- b=BQYFugF3kl7Rrsqwi7YAwy1sa+Sp8VTgamv4gGePl29bOoJd6S/a32cNIZBi5Br5Y
- IyqRZoV7S9BwtFFk+mAUcS8YUKcmAWoYKNO3ZMyKs9SPtC8hfMMIgJDLzSB4DWM0lt
- y6oLCc1dt6fON4CY6LwJHwPX95eHzEfuarWpjUek=
-Received: from epsnrtp3.localdomain (unknown [182.195.42.164]) by
- epcas2p1.samsung.com (KnoxPortal) with ESMTP id
- 20200330070642epcas2p17c51d7d67e402797d38f699b69651656~BAyVkxV7O0785507855epcas2p1n;
- Mon, 30 Mar 2020 07:06:42 +0000 (GMT)
-Received: from epsmges2p3.samsung.com (unknown [182.195.40.190]) by
- epsnrtp3.localdomain (Postfix) with ESMTP id 48rNmd5zz4zMqYkd; Mon, 30 Mar
+ b=UFw3yuqhgAJq0DMBeDiWqBwoineyd2kTFa1QIyNBm2QAkkqZJL194Xj/kwRevvq0k
+ yrhDHR3FQRNM4w8y5AT2Z17ozL3oy4UhQe0vbBNEk5DiM6BhvSQYtelxKFyb/Dz2yD
+ nymEZDpvdg87fnOPCZbxWe7iJ+kx+DnId0ThZj1Y=
+Received: from epsnrtp4.localdomain (unknown [182.195.42.165]) by
+ epcas2p4.samsung.com (KnoxPortal) with ESMTP id
+ 20200330070643epcas2p4487b84b8664f9c9c089f54ed168e640a~BAyVzGGdJ0516705167epcas2p4S;
+ Mon, 30 Mar 2020 07:06:43 +0000 (GMT)
+Received: from epsmges2p3.samsung.com (unknown [182.195.40.189]) by
+ epsnrtp4.localdomain (Postfix) with ESMTP id 48rNmd5yvHzMqYkV; Mon, 30 Mar
  2020 07:06:41 +0000 (GMT)
-Received: from epcas2p2.samsung.com ( [182.195.41.54]) by
+Received: from epcas2p3.samsung.com ( [182.195.41.55]) by
  epsmges2p3.samsung.com (Symantec Messaging Gateway) with SMTP id
- 04.5E.04105.D7A918E5; Mon, 30 Mar 2020 16:06:37 +0900 (KST)
-Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
- epcas2p4.samsung.com (KnoxPortal) with ESMTPA id
- 20200330070637epcas2p4952eac2f04b7e3c175390b0488b4340d~BAyQizAZY3068230682epcas2p4w;
- Mon, 30 Mar 2020 07:06:37 +0000 (GMT)
-Received: from epsmgms1p2new.samsung.com (unknown [182.195.42.42]) by
- epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20200330070637epsmtrp1f19f1f3ffda541e1e19858f14109fbdd~BAyQiD59X0238402384epsmtrp14;
- Mon, 30 Mar 2020 07:06:37 +0000 (GMT)
-X-AuditID: b6c32a47-15bff70000001009-90-5e819a7d6fa6
+ D4.5E.04105.E7A918E5; Mon, 30 Mar 2020 16:06:38 +0900 (KST)
+Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
+ epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20200330070638epcas2p27ad39d4009e60435c65f30ca7a17f850~BAyRULzEK1066210662epcas2p2h;
+ Mon, 30 Mar 2020 07:06:38 +0000 (GMT)
+Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
+ epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20200330070638epsmtrp29b376a7e5619aea704f6820c8a9c693e~BAyRThf3h2804028040epsmtrp2Q;
+ Mon, 30 Mar 2020 07:06:38 +0000 (GMT)
+X-AuditID: b6c32a47-15bff70000001009-94-5e819a7e4728
 Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
- epsmgms1p2new.samsung.com (Symantec Messaging Gateway) with SMTP id
- D8.5C.04158.D7A918E5; Mon, 30 Mar 2020 16:06:37 +0900 (KST)
+ epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ D2.7A.04024.E7A918E5; Mon, 30 Mar 2020 16:06:38 +0900 (KST)
 Received: from KORDO025540 (unknown [12.36.182.130]) by epsmtip1.samsung.com
  (KnoxPortal) with ESMTPA id
- 20200330070637epsmtip1355fef921a4609c84b80bd6b71d037f0~BAyQZ9zFq1162711627epsmtip1y;
- Mon, 30 Mar 2020 07:06:37 +0000 (GMT)
+ 20200330070638epsmtip1c7504a07aa35ffe8aa977ea9df35b4c3~BAyRKxWVG0893208932epsmtip1i;
+ Mon, 30 Mar 2020 07:06:38 +0000 (GMT)
 From: =?ks_c_5601-1987?B?wMyw5sXD?= <gt82.lee@samsung.com>
 To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <tiwai@suse.com>
-Subject: [PATCH 0/1] ASoC: dpcm: allow started or stop during pause for backend
-Date: Mon, 30 Mar 2020 16:06:37 +0900
-Message-ID: <000801d60661$c1078c20$4316a460$@samsung.com>
+Subject: [PATCH 1/1] ASoC: dpcm: allow start or stop during pause for backend
+Date: Mon, 30 Mar 2020 16:06:38 +0900
+Message-ID: <000901d60661$c183c100$448b4300$@samsung.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="ks_c_5601-1987"
 Content-Transfer-Encoding: 7bit
 X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AdYGYGUsSZ3VmvjjTMyekSpnsHg/Lw==
+Thread-Index: AdYGYFfa3pb48cifSEKWYs7GW9JTBQ==
 Content-Language: ko
-X-Brightmail-Tracker: H4sIAAAAAAAAA02Se0hTcRTH+93d3V211XVZHaRo3d6RdrfampXRu4FBRpQmoV30h7O2u7W7
- SRbVLBBnUVYWa2kvysoIl1gqYuQMTcOeJpVlRS9MepfRu827YP99zuP7O78v59Ay1X4qls4R
- HNgu8GaWiiQvNU3Sx23x5qdzzyp1ho7bfsJw4NkLytDXUUgYfN/Oo7mk0fd5O2Ws8z5WGKsq
- 3JSxsvoemUymmWebMJ+F7WosZFqzcoTsRDZpRcaCDJ2e08RpEgwzWLXAW3Aiu3BpctziHHNg
- JqvO5c3OQCqZF0V26pzZdqvTgdUmq+hIZLEty2zTaGzxIm8RnUJ2fKbVMlPDcVpdoHOt2VSf
- /x7ZTpMby74WEi5ULytCETQw0+Gst1ZRhCJpFVOLoO9pkUwKPiEoLy8OVfoQeDpfUf8lpf5z
- lFRoQFDceoaUgh4Ev3u75UWIpilmJuzayQYFMcw8+NrsIoMsY0bD81+l/TyEWQ4e93EiyCQz
- Dj519MiDrGQS4GCZi5A4GloPvQhptXDy3FFC4lFQ87Y05EEN31+Wy6VZ8VD/2oeknhg47C7o
- twOMj4JebychCRZCR3ebXOIh8KalWiFxLPTsKVBIgh0I3rX/ChVKELh3qiSeBtVlbUTQJDBj
- 4OrD0OcGQWHTb4WUVkJhQaibhQttf0LdAEd8oQeNsO/OF0UxGu0Nc+kNc+kNc+kNc3MMkRVo
- GLaJlmwsam3TwrddhfoPcvKSWnTpxlI/YmjEDlR+qHGlq+R8rphn8SOgZWyMkloWSCmz+LxN
- 2G7NsDvNWPQjXWALe2WxQzOtgfMWHBkanVav5xJ0Bp1ea2CHK6uiHqxRMdm8A6/H2Ibt/3UE
- HRHrQrlljU9e5fQsftssIN9q7u+in0lbbo6IL8lvnIXzUkq3Tndc753UWZGUP2aVqenaBvet
- wSmHlnFyS82xH1H3309Jbx/Q8GiFIs7lPBM9cfy3j3WnzH2blfvWnRrXlZa6O+ry2BMXsSd1
- 24SR3c+5lkY6Uhh45Yjn7t66HSu7rIPnc0qBJUUTr5kss4v8P20HmYimAwAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrCLMWRmVeSWpSXmKPExsWy7bCSnG7trMY4g5On5S2uXDzEZDH14RM2
- i29XOpgsNnxfy+jA4rHhcxObx85Zd9k9Nq3qZPNYv+UqSwBLFJdNSmpOZllqkb5dAlfG7sb3
- jAXLWSrmfu1gamDczdzFyMkhIWAiMefQarYuRi4OIYHdjBKLLv+GSkhIfJh/hh3CFpa433KE
- FaLoOaPEk/MTmLoYOTjYBKwkerqVQGpEBFwl7u9tAKtnFlCUePxnDguILSzgL3Hh9FUwm0VA
- VeLTlZesIDavgKXEtLkNTBC2oMTJmU9YIHpNJBoPd0PZ8hLb386BukdB4ufTZawQu/Qkdj/f
- wAhRIyIxu7ONeQKj4Cwko2YhGTULyahZSFoWMLKsYpRMLSjOTc8tNiwwykst1ytOzC0uzUvX
- S87P3cQIDnstrR2MJ07EH2IU4GBU4uH9sL0hTog1say4MvcQowQHs5IIL5s/UIg3JbGyKrUo
- P76oNCe1+BCjNAeLkjivfP6xSCGB9MSS1OzU1ILUIpgsEwenVANjJo+p08/FEZPUZnWG/L3e
- H6+/TrZ51uc/Oi41B27U/SlQqm+oldxXwe48zT0q5J5C1YyZR/5sEUi5Lv+l4/nW3ykffhuX
- XD0iahwe/PiNHWuFh/Wmv677Fm41dBD80rre8MmzyrsX/9wRWD3pZdXrHa/e3jBc6dYv9J53
- 58rNz796iX5ydJnCocRSnJFoqMVcVJwIAJXzMf93AgAA
-X-CMS-MailID: 20200330070637epcas2p4952eac2f04b7e3c175390b0488b4340d
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprEJsWRmVeSWpSXmKPExsWy7bCmuW7drMY4gxPvDSyuXDzEZDH14RM2
+ i29XOpgsNnxfy+jA4rHhcxObx85Zd9k9Nq3qZPNYv+UqSwBLVI5NRmpiSmqRQmpecn5KZl66
+ rZJ3cLxzvKmZgaGuoaWFuZJCXmJuqq2Si0+ArltmDtBOJYWyxJxSoFBAYnGxkr6dTVF+aUmq
+ QkZ+cYmtUmpBSk6BoWGBXnFibnFpXrpecn6ulaGBgZEpUGVCTkbLmuvMBU+5K7qOfmJsYHzA
+ 2cXIySEhYCKx/utP1i5GLg4hgR2MEi0XX7FBOJ8YJS7ffswE4XxjlNj79B0LTEv/4V1Qib2M
+ Et+XP2eHcF4ySjzd1w/kcHCwCVhJ9HQrgTSICDhKfD3WANbMLKAo8fjPHDBbWMBf4tXfblYQ
+ m0VAVeLq7UNgcV4BS4kfx9rZIGxBiZMzn0D1GkksWT2fCcKWl9j+dg4zxEEKEj+fLmOF2KUn
+ 0f/3PStEjYjE7M42ZpDbJATWsElc7exnBblNQsBF4uU3Z4heYYlXx7ewQ9hSEp/f7WWDqG9m
+ lHh39g9UYgqjRGe3EIRtLLFl7ikmiDnKEkduQd3GJ9Fx+C87RJhXoqMNqlpJYuOpf1DVEhLz
+ NkAN9JC4+3sm+wRGxVlInpyF5MlZSJ6cheSZBYwsqxjFUguKc9NTi40KjJEjexMjOD1que9g
+ 3HbO5xCjAAejEg/vh+0NcUKsiWXFlbmHGCU4mJVEeNn8gUK8KYmVValF+fFFpTmpxYcYTYGR
+ MJFZSjQ5H5i680riDU2NzMwMLE0tTM2MLJTEeTdx34wREkhPLEnNTk0tSC2C6WPi4JRqYJS6
+ yvhrNdfDRa+OOzDtPXS3In7K4x2LvzYUljDJXojebTBdZaXi+4D9PTN0zUXn6IZMP7vmcLDH
+ gxuneb1/L3mvayKy+bTXn/IDOysvH5pq7XVM8gu3zpZVrJHqBif570z9ZPYzyUqoOpbBize6
+ bYmB7oy/Lx5U7ShaE64Qt9Ugq8zYveuO7yMlluKMREMt5qLiRACqDgWWpQMAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrCLMWRmVeSWpSXmKPExsWy7bCSnG7drMY4gyvfhCyuXDzEZDH14RM2
+ i29XOpgsNnxfy+jA4rHhcxObx85Zd9k9Nq3qZPNYv+UqSwBLFJdNSmpOZllqkb5dAldGy5rr
+ zAVPuSu6jn5ibGB8wNnFyMkhIWAi0X94F1MXIxeHkMBuRon9O1sZIRISEh/mn2GHsIUl7rcc
+ YYUoes4ocWVbE1CCg4NNwEqip1sJpEZEwFXi/t4GsHpmAUWJx3/msIDYwgK+Ept2/AKLswio
+ Sly9fQgszitgKfHjWDsbhC0ocXLmExaIXhOJxsPdULa8xPa3c5ghblCQ+Pl0GSvELj2J/r/v
+ WSFqRCRmd7YxT2AUnIVk1Cwko2YhGTULScsCRpZVjJKpBcW56bnFhgWGeanlesWJucWleel6
+ yfm5mxjBYa+luYPx8pL4Q4wCHIxKPLwftjfECbEmlhVX5h5ilOBgVhLhZfMHCvGmJFZWpRbl
+ xxeV5qQWH2KU5mBREud9mncsUkggPbEkNTs1tSC1CCbLxMEp1cCodfRAjMjZdEvnE9IKAutq
+ JiSe8jxdlpguerqaUVo+0kWs6uCh8pxwv+Vvd6R5bH/88+XqQKOF3Adsq9fOX5gWuU4jMTKa
+ yXXS6RrWcM/+y6y++8X388xWyS7JF7gha37I7UaQxZ+rD21f98T+OKre0hnpayfpLPiP5902
+ +VdiVlmcWvEPqpVYijMSDbWYi4oTAVlZr0N3AgAA
+X-CMS-MailID: 20200330070638epcas2p27ad39d4009e60435c65f30ca7a17f850
 X-Msg-Generator: CA
 X-Sendblock-Type: AUTO_CONFIDENTIAL
 CMS-TYPE: 102P
 DLP-Filter: Pass
 X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20200330070637epcas2p4952eac2f04b7e3c175390b0488b4340d
-References: <CGME20200330070637epcas2p4952eac2f04b7e3c175390b0488b4340d@epcas2p4.samsung.com>
+X-CMS-RootMailID: 20200330070638epcas2p27ad39d4009e60435c65f30ca7a17f850
+References: <CGME20200330070638epcas2p27ad39d4009e60435c65f30ca7a17f850@epcas2p2.samsung.com>
 Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -139,26 +139,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
-
-When compress offload is used with DPCM, error can be occurred on
-start or stop after pause.
 soc_compr_trigger_fe() allows start or stop after pause_push.
 In dpcm_be_dai_trigger(), however, only pause_release is allowed
 command after pause_push.
+To fix this problem, SND_SOC_DPCM_STATE_PAUSED should be allowed
+also for start or stop command.
 
-Any feedback will be greatly appreciated.
-
-
-
-Gyeongtaek Lee (1):
-  ASoC: dpcm: allow start or stop during pause for backend
-
+Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
+---
  sound/soc/soc-pcm.c | 6 ++++--
  1 file changed, 4 insertions(+), 2 deletions(-)
 
-
-base-commit: 76ccd234269bd05debdbc12c96eafe62dd9a6180
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 2c59b3688ca0..8f6f0ad50288 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -2236,7 +2236,8 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime
+*fe, int stream,
+ 		switch (cmd) {
+ 		case SNDRV_PCM_TRIGGER_START:
+ 			if ((be->dpcm[stream].state !=
+SND_SOC_DPCM_STATE_PREPARE) &&
+-			    (be->dpcm[stream].state !=
+SND_SOC_DPCM_STATE_STOP))
++			    (be->dpcm[stream].state !=
+SND_SOC_DPCM_STATE_STOP) &&
++			    (be->dpcm[stream].state !=
+SND_SOC_DPCM_STATE_PAUSED))
+ 				continue;
+ 
+ 			ret = dpcm_do_trigger(dpcm, be_substream, cmd);
+@@ -2266,7 +2267,8 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime
+*fe, int stream,
+ 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
+ 			break;
+ 		case SNDRV_PCM_TRIGGER_STOP:
+-			if (be->dpcm[stream].state !=
+SND_SOC_DPCM_STATE_START)
++			if ((be->dpcm[stream].state !=
+SND_SOC_DPCM_STATE_START) &&
++			    (be->dpcm[stream].state !=
+SND_SOC_DPCM_STATE_PAUSED))
+ 				continue;
+ 
+ 			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
 -- 
 2.21.0
 

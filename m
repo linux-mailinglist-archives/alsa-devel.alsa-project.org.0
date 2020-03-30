@@ -2,133 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75CFC197A53
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 13:04:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E2C0197A69
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 13:10:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 18CB91675;
-	Mon, 30 Mar 2020 13:03:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18CB91675
+	by alsa0.perex.cz (Postfix) with ESMTPS id E3D9E166F;
+	Mon, 30 Mar 2020 13:09:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3D9E166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585566249;
-	bh=Vdjz+cL2sVdlPuwPNDr4zOowAvOpMOQSyggPxGJaS1g=;
-	h=From:To:In-Reply-To:Subject:Date:References:Cc:List-Id:
+	s=default; t=1585566634;
+	bh=WL2SAcJ07tqeaHrcoiJOVclBP6sdo1/MfZfFRQwwchs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KShCHFgqv3LlXTE6tnJNuOPmW/Q34RWq3YbrpIr5tXgEcLl7fvFZE3CWP1sUtiTEI
-	 VKTTrQpeQchtmTCogFnFSRj2Zpvf/vl8+/+XOotzqIx98IrpG2EmUROX6xHdkpYK61
-	 aCN9wqiBsmVNnOxp3v5gGgQA/cegwnnmaz+zg3EQ=
+	b=FkvRneeFCTuxcL9n0nTzWxaCT0aO3rLr3Pa756xXj8f9/+imAm013n7OzjdYEiYPu
+	 DQUtV9mmpwggNUL83apn2HUYnj3PUqVJSu9+uh+oW32+6JaniXqVz9d5ps87UKgo1y
+	 G7IUHe6eUPClWaVwDb9KhizPRzj9VvDwB171m6nE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E277F80252;
-	Mon, 30 Mar 2020 13:01:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 12A40F80145;
+	Mon, 30 Mar 2020 13:08:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 618BBF80148; Mon, 30 Mar 2020 13:01:40 +0200 (CEST)
+ id 91FD6F80148; Mon, 30 Mar 2020 13:08:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 23537F800AA
- for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 13:01:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23537F800AA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="t0SoE5iO"
-Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
- by mailout3.samsung.com (KnoxPortal) with ESMTP id
- 20200330110128epoutp03817a01cf2c4205b6334bcddf6630bc54~BD-Td-v5g1552815528epoutp03X
- for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 11:01:28 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com
- 20200330110128epoutp03817a01cf2c4205b6334bcddf6630bc54~BD-Td-v5g1552815528epoutp03X
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1585566088;
- bh=mqcJHin9DZuxRbWnbcV20OHiH36huxb9vs5Hi4T26ws=;
- h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
- b=t0SoE5iOaJYFbMKt/gL1GXcFXaIouoibvV241QGJoX7YtK/WgsOK7f7e5OfJVB7xl
- d13YDsoJhbsSqv04XFvARWDKdwLwVxh7umtKq76m3YgQsbvi0DIaCjHHrDd7Hb3zD3
- F9dfTUbzDKBiuDbB3PsMGc7RpwjgQZRT6eXf5i8I=
-Received: from epsnrtp1.localdomain (unknown [182.195.42.162]) by
- epcas2p4.samsung.com (KnoxPortal) with ESMTP id
- 20200330110128epcas2p42410d85ed82803b12d01f6a7ec33263f~BD-TT8Ugv0130101301epcas2p4H;
- Mon, 30 Mar 2020 11:01:28 +0000 (GMT)
-Received: from epsmges2p3.samsung.com (unknown [182.195.40.186]) by
- epsnrtp1.localdomain (Postfix) with ESMTP id 48rTzV6FsdzMqYlr; Mon, 30 Mar
- 2020 11:01:26 +0000 (GMT)
-Received: from epcas2p4.samsung.com ( [182.195.41.56]) by
- epsmges2p3.samsung.com (Symantec Messaging Gateway) with SMTP id
- 5D.92.04105.681D18E5; Mon, 30 Mar 2020 20:01:26 +0900 (KST)
-Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
- epcas2p4.samsung.com (KnoxPortal) with ESMTPA id
- 20200330110126epcas2p4525e5c6f61f7452df008696f9153770d~BD-R-dOXf0615806158epcas2p4M;
- Mon, 30 Mar 2020 11:01:26 +0000 (GMT)
-Received: from epsmgms1p2new.samsung.com (unknown [182.195.42.42]) by
- epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20200330110126epsmtrp22290e7544916453d6cebbb7ea12a07f1~BD-R_0PHl2404324043epsmtrp23;
- Mon, 30 Mar 2020 11:01:26 +0000 (GMT)
-X-AuditID: b6c32a47-173ff70000001009-50-5e81d1862e87
-Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
- epsmgms1p2new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 06.FE.04158.681D18E5; Mon, 30 Mar 2020 20:01:26 +0900 (KST)
-Received: from KORDO025540 (unknown [12.36.182.130]) by epsmtip1.samsung.com
- (KnoxPortal) with ESMTPA id
- 20200330110126epsmtip110e688e76428870515305b32e7bbd164~BD-R1zZ9p1232612326epsmtip1c;
- Mon, 30 Mar 2020 11:01:26 +0000 (GMT)
-From: =?ks_c_5601-1987?B?wMyw5sXD?= <gt82.lee@samsung.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <tiwai@suse.com>,
- <vkoul@kernel.org>
-In-Reply-To: 
-Subject: [PATCH 1/1] ASoC: soc-compress: lock pcm_mutex to resolve lockdep
- error
-Date: Mon, 30 Mar 2020 20:01:26 +0900
-Message-ID: <002101d60682$8ec21ed0$ac465c70$@samsung.com>
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 8C7D1F800EB
+ for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 13:08:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C7D1F800EB
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C90EB31B;
+ Mon, 30 Mar 2020 04:08:45 -0700 (PDT)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4DC103F52E;
+ Mon, 30 Mar 2020 04:08:45 -0700 (PDT)
+Date: Mon, 30 Mar 2020 12:08:43 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH v3 5/8] ASoC: soc-pcm: call
+ snd_soc_dai_startup()/shutdown() once
+Message-ID: <20200330110843.GC4792@sirena.org.uk>
+References: <87d0anceze.wl-kuninori.morimoto.gx@renesas.com>
+ <875zgfcey5.wl-kuninori.morimoto.gx@renesas.com>
+ <54b81b41-f4cf-c28c-0ec5-363e2c62796b@linux.intel.com>
+ <df297c98-74a4-fe61-9c61-563a5bae2615@linux.intel.com>
+ <87lfnibqba.wl-kuninori.morimoto.gx@renesas.com>
+ <d7f0fc98-afbf-c6ea-22d2-690f988b1d1a@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="ks_c_5601-1987"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AdYDSscBSVBNfjlCS4qPRcBesQFFBADNYf5A
-Content-Language: ko
-X-Brightmail-Tracker: H4sIAAAAAAAAA01Sa0gUURjt7szOjubUtJl9SOE2PSDD2l1bGx/bg6S2MpIKNkLSQQeVZh/s
- rJZBYBa6a1YWSbSZmUiUJposmph/VulhDxTsrUL5iITKNJVCq51mg/13vvOd737n3HtJTF1B
- RJK5VifvsHICQ4TiLZ1r2Zji3lNHtK9/6di+Xp+CrfgwTLDTfS4F2zTTgNi2/sfYVqWpabKI
- MLV5BlSm5jo3YWr0vsRT8cNCUg7PZfEODW/NtGXlWrONzJ4D6dvTDXFaXYwunt3EaKychTcy
- ySmpMTtyBf9iRpPPCXl+KpUTRWbD5iSHLc/Ja3JsotPI8PYswa7T2deLnEXMs2avz7RZEnRa
- rd7gV2YIOTM/Jgh7P3m8++5NZSHqVJWiEBLojdB4rlpRikJJNX0fwdSbB7hcTCD4UzMT6Ewj
- aByUCnmkb9oVaHQguNczppSLzwgGnjUSpYgkCToBys4y0kA4bYaaKxVKCWP0ChiarcQlSQhN
- QfnvRAkupvfD6BhICpxeDQ31j1QSTdHxUPZxuURT9CJ4cnUYlw/RQ239DYWMo6D1SyUmO9PA
- z5FbSnmpHt6fmVLJmnC45i7GJJNAvybg0vm2QPpkmPC5CRkvhrFH3gAfCZNfOwh54DSCr89n
- A43LCNxn1TKOBe/1boVkFOiV0PUuYG4BuDrnVDJNgas4oGbgXvfvgBqgqklVjhhPUDJPUDJP
- UDJPUIJqhNehCN4uWrJ5UW+PDX7qZvTvS0bvvI9aXqT4EE0iJowaby08olZy+WKBxYeAxJhw
- itjnp6gsruAE77ClO/IEXvQhg//iL2KRSzJt/g9udabrDPq4OG28gTXE6VlmKdU8/22ams7m
- nPxRnrfzjv9zCjIkshART9Ii8s0pUT2fqFNPXVvSIr51VF6Yrtn7aqHZVOnaNfI9f/BhiTm+
- fTZswbPaS3jbKtG7bPn46i7vmqiSuhNzt6tSBVdse2lG1LHtzkOjya6iecLaPylfzHdf3Uls
- 7dzW/NF9cgZroItjMta17haGWtpjHfSShcaCQeOhDPagZjeDizmcLhpziNxfNWV0hKgDAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrPLMWRmVeSWpSXmKPExsWy7bCSnG7bxcY4gx9HFC2uXDzEZDH14RM2
- i29XOpgsNnxfy2ix884JZgdWjw2fm9g8ds66y+6xaVUnm8f6LVdZAliiuGxSUnMyy1KL9O0S
- uDK+f/nEVnCHo+LUmoWsDYyH2bsYOTkkBEwkrnzrYOpi5OIQEtjNKNG36CtUQkLiw/wzULaw
- xP2WI6wQRc8ZJX6uugvUwcHBJmAl0dOtBFIjIhAtMadtNRuIzSygKPH4zxwWEFtIgEfi1Yb9
- jCDlnAK8EhP+WYOEhQUCJCY8O8cEYrMIqEqsXX2cHaSEV8BSoueRLEiYV0BQ4uTMJywQE00k
- Gg93Q9nyEtvfzmGGuExB4ufTZawQFxhJ3G6BuJ5ZQERidmcb8wRG4VlIRs1CMmoWklGzkLQs
- YGRZxSiZWlCcm55bbFhglJdarlecmFtcmpeul5yfu4kRHC1aWjsYT5yIP8QowMGoxMP7YXtD
- nBBrYllxZe4hRgkOZiURXjZ/oBBvSmJlVWpRfnxRaU5q8SFGaQ4WJXFe+fxjkUIC6Yklqdmp
- qQWpRTBZJg5OqQZGl6Wd6zo/bHCd9men7ue1WzL/3by53fWKRnVX3Fsm9qk/r1RMm+nxzGbj
- Uab9jdX3SjX4dnZPesSelmQgEj85lVG/wChO/9fMCL2bajGNFhY2V574a1i9Xbp9bsZ6h5A1
- 08o4IvOOTbzJOO2G8uk1fQuqO3Ur7vu5d3YvtH/yN+HWuo8TTisvVGIpzkg01GIuKk4EAMgE
- 6g6SAgAA
-X-CMS-MailID: 20200330110126epcas2p4525e5c6f61f7452df008696f9153770d
-X-Msg-Generator: CA
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20200330110126epcas2p4525e5c6f61f7452df008696f9153770d
-References: <CGME20200330110126epcas2p4525e5c6f61f7452df008696f9153770d@epcas2p4.samsung.com>
-Cc: alsa-devel@alsa-project.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="Pk6IbRAofICFmK5e"
+Content-Disposition: inline
+In-Reply-To: <d7f0fc98-afbf-c6ea-22d2-690f988b1d1a@linux.intel.com>
+X-Cookie: Ahead warp factor one, Mr. Sulu.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -144,41 +77,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-snd_soc_runtime_activate() and snd_soc_runtime_deactivate()
-require locked pcm_mutex.
 
-Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
----
- sound/soc/soc-compress.c | 4 ++++
- 1 file changed, 4 insertions(+)
+--Pk6IbRAofICFmK5e
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
-index 392a1c5b15d3..42d416ac7e9b 100644
---- a/sound/soc/soc-compress.c
-+++ b/sound/soc/soc-compress.c
-@@ -207,7 +207,9 @@ static int soc_compr_open_fe(struct snd_compr_stream
-*cstream)
- 	fe->dpcm[stream].state = SND_SOC_DPCM_STATE_OPEN;
- 	fe->dpcm[stream].runtime_update = SND_SOC_DPCM_UPDATE_NO;
- 
-+	mutex_lock_nested(&fe->pcm_mutex, fe->pcm_subclass);
- 	snd_soc_runtime_activate(fe, stream);
-+	mutex_unlock(&fe->pcm_mutex);
- 
- 	mutex_unlock(&fe->card->mutex);
- 
-@@ -285,7 +287,9 @@ static int soc_compr_free_fe(struct snd_compr_stream
-*cstream)
- 	else
- 		stream = SNDRV_PCM_STREAM_CAPTURE;
- 
-+	mutex_lock_nested(&fe->pcm_mutex, fe->pcm_subclass);
- 	snd_soc_runtime_deactivate(fe, stream);
-+	mutex_unlock(&fe->pcm_mutex);
- 
- 	fe->dpcm[stream].runtime_update = SND_SOC_DPCM_UPDATE_FE;
- 
--- 
-2.21.0
+On Mon, Mar 30, 2020 at 09:25:31AM +0200, Amadeusz S=C5=82awi=C5=84ski wrot=
+e:
+> On 3/30/2020 3:10 AM, Kuninori Morimoto wrote:
 
+> > But, I will re-try this issue (for DAI, for Component) again.
+> > Let's just revert it so far.
+> > Is it OK for you ?
 
+> I tested patch from Pierre and it works for me, I'm also ok with revert.
+
+Pierre's patch makes sense to me and this is the only reported issue so
+I'd be happy with that.  Whichever way can one (or both!) of you please
+send a patch?
+
+--Pk6IbRAofICFmK5e
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6B0zsACgkQJNaLcl1U
+h9DohAf/SolB2Gl6Ao7M83er50+1W6fM6/xgtstjT7GLYRCtDd2jNag7x6+jvhtV
+cEcSGmj+OskmuXtZTwL4ClM4JEemso5rzUYqTa+HS2vhRHAfntECiQTXH6iBPH4o
+Y4WW2Y+n869ASI25m/yhWdtK/ovY7CX4cqsoRVvqEcXImqtkiWHAf2CAQl6NEWXe
+XO6ZVeDYxtM3LoVYu/OmLkzHkW9eP0BYUPfDYclWTJwfb0jLSABuN2PcETxVGrKh
+bI78UKHuO25EtnsuwjgfWFjUjylRniHl1oApb0uhTMSBWq+n3ljuBpbUspmdkung
+kKiNajhCvXRV2hvy86CQDb/Px7fXuw==
+=pEZ9
+-----END PGP SIGNATURE-----
+
+--Pk6IbRAofICFmK5e--

@@ -2,66 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1538F19807D
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 18:08:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE7BB1980AC
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 18:13:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 90EA3166E;
-	Mon, 30 Mar 2020 18:07:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90EA3166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6406D1673;
+	Mon, 30 Mar 2020 18:12:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6406D1673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585584483;
-	bh=AmeFGt5JYCj4k+HBQdc0uMjpmnLDDHEKjOl4aRqM6kw=;
+	s=default; t=1585584820;
+	bh=0TNUCOMj93/3vOuGGs9Wk8c8PAFOVYSLIof2XuzgLmw=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=eHBpFwMrpjeXgKAnGqewPcq0VIJZkna80/smhfsyygcPe9j8Wv7dJP2vkMRw7P4qj
-	 e+h33Fwkgq6IlRTY51jNkNj0Nln4oD3EiyRWOVfwi+eqw55P04TmJS8vtOm88i7uXQ
-	 93ztxJCNiyM5/0TFqmirnegxnTelG5cAKCY3yico=
+	b=XBMxZ4+eCpkACCEDIQUMZrajxIwuNdo4Tx0sjoZ3seUG9NyAlwQx87Vwe7f2JWnvO
+	 +RmTT80tStR2h8GVPmvqXkAxWGrCTnEJgZNU9yAd3ywIWmETgJfX78eCXEhYOOpZdr
+	 pZeyZ15d9cBqeoz0Y73/zKS4RoeKSt7TvS2JiOqE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80FF5F800EB;
-	Mon, 30 Mar 2020 18:06:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05667F8014C;
+	Mon, 30 Mar 2020 18:11:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 17CFDF800AA; Mon, 30 Mar 2020 18:06:14 +0200 (CEST)
+ id B91D8F8022D; Mon, 30 Mar 2020 18:10:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-qk1-x736.google.com (mail-qk1-x736.google.com
+ [IPv6:2607:f8b0:4864:20::736])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5ECD1F800AA
- for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 18:06:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5ECD1F800AA
-IronPort-SDR: nAnSiGZpac5mddRkPHeD2/lIdvkLgyhoa98HGP9HGEeQI4APpgJoHtwojfEQ9pVsIaein5Esq3
- mbVzpgKJDKwg==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2020 09:06:05 -0700
-IronPort-SDR: MisFbeaznJ3xS6k0w7VAvZNrqg+n0ut6M4DBsGYS8eUglBk37dAOceh9qvuYfPccLcV4+WFwxn
- NBpDPm3h4+dw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,324,1580803200"; d="scan'208";a="395172611"
-Received: from sgobriel-mobl.amr.corp.intel.com (HELO
- pbossart-mobl3.amr.corp.intel.com) ([10.212.145.94])
- by orsmga004.jf.intel.com with ESMTP; 30 Mar 2020 09:06:04 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4048FF800AA
+ for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 18:09:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4048FF800AA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="bpq7LsqJ"
+Received: by mail-qk1-x736.google.com with SMTP id b62so19571983qkf.6
+ for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 09:09:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=UtnZua9sH2Iz7Lmw4x/rdjkPSeBWQLU1aJEbCn/TIY4=;
+ b=bpq7LsqJ6UNpk2gk9z/Tl5PrVf64JY3bOJ3Di3Vg97FIDygLrz9nK6Re0fdMXazZ/F
+ /Beo8zSsS2BXoyBYZNu7q7BPgBTyt50DWidVdeYzEcDjuOm3vY1+2e2yn4Fz4pDvOkL3
+ qFy+kqIEqFDzZ3UY6tNcSpKKAdMgHGShtno8lRa1Aon8joF8bE4L8U/jWa87OopMVxMB
+ s1BY0r5hOMQNlZYVEyFIRYunxexRpqrPzvrcTal6T+FcFEQkcVRfac1hZV7VaKXzVItQ
+ hTNT24N/FOcfA2USXvDPc3RAlHF5UnoClWLLgWHSlPgs3bE0zInO6J8ieXT/867NfS2t
+ hPrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=UtnZua9sH2Iz7Lmw4x/rdjkPSeBWQLU1aJEbCn/TIY4=;
+ b=rmqSdjbrIiQqSkR1oab4xO7jEQOQipSotocOAPC6yZchQs924pNb3SIwankqQjl9lZ
+ OuXCmIbatHhlYpMa9J6Cx7kYbxoazzRQ517OLIWjvppxKSus4rMbHpwBZZXI3dcAje1h
+ pskn7oCck/mwjWxsvB+lmRgzwR+wuO1alk7kV/Mlbq1qWnSQIhPQdGvfP3NBDown3SAU
+ Tg3DC91/IMNd5XQJt3Y6FWUG+fHn3xc+7zXWrwNt6jaEcofX7l0kSgwnPcc0lgmJvUuM
+ EJyyBYkyhLNhNh9lKGuiH5S7eWUqzQc3y6scmWI4bWmu81Zn7Cs7w5vUoy0JaiWSjoan
+ go0A==
+X-Gm-Message-State: ANhLgQ1PqATl77Wvbhvc5AGStAszwNdaF28DU3avG1jCqyMtW8GfaRyD
+ nlx97UktQ2p0NLzU3fihh0IRfT/CtYRWKg==
+X-Google-Smtp-Source: ADFU+vsIf6Rq8zIGRIGqrFGZj1stu4iXXpPIMDoOLgUuA+FCsvZIsHP9TqFltRu78UbXw6AiHhneeg==
+X-Received: by 2002:a37:8044:: with SMTP id b65mr727931qkd.238.1585584592639; 
+ Mon, 30 Mar 2020 09:09:52 -0700 (PDT)
+Received: from stingray.lan (pool-173-76-255-234.bstnma.fios.verizon.net.
+ [173.76.255.234])
+ by smtp.gmail.com with ESMTPSA id z18sm11789091qtz.77.2020.03.30.09.09.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Mar 2020 09:09:52 -0700 (PDT)
+From: Thomas Hebb <tommyhebb@gmail.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: soc-dai: fix DAI startup/shutdown sequence
-Date: Mon, 30 Mar 2020 11:06:02 -0500
-Message-Id: <20200330160602.10180-1-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.20.1
+Subject: [PATCH v2 0/3] Properly fix headphone noise on the XPS 13 and other
+ ALC256 devices
+Date: Mon, 30 Mar 2020 12:09:36 -0400
+Message-Id: <cover.1585584498.git.tommyhebb@gmail.com>
+X-Mailer: git-send-email 2.25.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, broonie@kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
+Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Kailang Yang <kailang@realtek.com>, Tomas Espeleta <tomas.espeleta@gmail.com>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sergey Bostandzhyan <jin@mediatomb.cc>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Hui Wang <hui.wang@canonical.com>,
+ Thomas Hebb <tommyhebb@gmail.com>, Jian-Hong Pan <jian-hong@endlessm.com>,
+ Takashi Iwai <tiwai@suse.com>,
+ =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,67 +106,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The addition of a single flag to track the DAI status prevents the DAI
-startup sequence from being called on capture if the DAI is already
-used for playback.
 
-Fix by extending the existing code with one flag per direction.
+The root cause of various pervasive audio problems on the XPS 13
+9350/9360, mostly relating to the headphone jack, turns out to be an
+undocumented feature of the ALC256 and similar codecs that routes audio
+along paths not exposed in the HDA node graph. The best we've had so far
+to configure this feature is magic numbers provided by Realtek, none of
+which have fully fixed all issues.
 
-Reported-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-Tested-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-Fixes: b56be800f1292 ("ASoC: soc-pcm: call snd_soc_dai_startup()/shutdown() once")
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- include/sound/soc-dai.h | 2 +-
- sound/soc/soc-dai.c     | 8 ++++----
- 2 files changed, 5 insertions(+), 5 deletions(-)
+This series documents the "PC Beep Hidden Register", which controls the
+feature and which I've reverse engineered using black box techniques,
+and uses my findings to hopefully fix the headphone issues on my XPS 13
+once and for all.
 
-diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
-index 78bac995db15..d4825b82c7a3 100644
---- a/include/sound/soc-dai.h
-+++ b/include/sound/soc-dai.h
-@@ -351,7 +351,7 @@ struct snd_soc_dai {
- 
- 	/* bit field */
- 	unsigned int probed:1;
--	unsigned int started:1;
-+	unsigned int started[SNDRV_PCM_STREAM_LAST + 1];
- };
- 
- static inline struct snd_soc_pcm_stream *
-diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
-index 19142f6e533c..8f3cad8db89a 100644
---- a/sound/soc/soc-dai.c
-+++ b/sound/soc/soc-dai.c
-@@ -295,12 +295,12 @@ int snd_soc_dai_startup(struct snd_soc_dai *dai,
- {
- 	int ret = 0;
- 
--	if (!dai->started &&
-+	if (!dai->started[substream->stream] &&
- 	    dai->driver->ops->startup)
- 		ret = dai->driver->ops->startup(substream, dai);
- 
- 	if (ret == 0)
--		dai->started = 1;
-+		dai->started[substream->stream] = 1;
- 
- 	return ret;
- }
-@@ -308,11 +308,11 @@ int snd_soc_dai_startup(struct snd_soc_dai *dai,
- void snd_soc_dai_shutdown(struct snd_soc_dai *dai,
- 			 struct snd_pcm_substream *substream)
- {
--	if (dai->started &&
-+	if (dai->started[substream->stream] &&
- 	    dai->driver->ops->shutdown)
- 		dai->driver->ops->shutdown(substream, dai);
- 
--	dai->started = 0;
-+	dai->started[substream->stream] = 0;
- }
- 
- int snd_soc_dai_prepare(struct snd_soc_dai *dai,
+Changes in v2:
+- Change fixed value from 0x4727 to 0x5757, which should behave
+  identically, on advice from Kailang.
+
+Thomas Hebb (3):
+  ALSA: doc: Document PC Beep Hidden Register on Realtek ALC256
+  ALSA: hda/realtek - Set principled PC Beep configuration for ALC256
+  ALSA: hda/realtek - Remove now-unnecessary XPS 13 headphone noise
+    fixups
+
+ Documentation/sound/hd-audio/index.rst        |   1 +
+ Documentation/sound/hd-audio/models.rst       |   2 -
+ .../sound/hd-audio/realtek-pc-beep.rst        | 129 ++++++++++++++++++
+ sound/pci/hda/patch_realtek.c                 |  49 ++-----
+ 4 files changed, 139 insertions(+), 42 deletions(-)
+ create mode 100644 Documentation/sound/hd-audio/realtek-pc-beep.rst
+
 -- 
-2.20.1
+2.25.2
 

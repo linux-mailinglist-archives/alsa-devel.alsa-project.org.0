@@ -2,71 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C26DD197B30
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 13:49:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51DC3197B45
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 13:52:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5689D1666;
-	Mon, 30 Mar 2020 13:48:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5689D1666
+	by alsa0.perex.cz (Postfix) with ESMTPS id E7D811666;
+	Mon, 30 Mar 2020 13:51:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7D811666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585568950;
-	bh=bolhhtn/zsW9hgT7sOG/KCu4gAqAzVYB+AcJBxuTk/Y=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1585569163;
+	bh=tuwxOsY821R7xy4a+uhP8W4QeDhGL4Ucyx0eYox10kE=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BY0vtJIdmgqijCYANtx8BN0J5rNQq6KvZi8XQVSxo8loLbW12GauSrfhjWdMTuxmZ
-	 r7aOlpg8+kH/SzV0TlCK94m5gxCsYpDDeHRoXA6LZ41y3Xlyw05ruXTHZgGESv7GLm
-	 O4iGI0vn73Y6yeVfq/Uh5iBYVGmXAM+RaAlQfjR8=
+	b=QX6fAspW25thO6Rk2uH3eGtw9jERJsTAOcnKe3R+3oeHhEcpr2oXq4kZZxi5UGjb4
+	 WF14Mk1kal1a2Hn+2yK3TEohqzYjDO+zwOdOe4VfFrROje/EXyB0jJTfkBDD18osCj
+	 5jnUL9108p2ed7k+9r3Gw+/Cs6iCnyW4l4cysY0U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80373F8014A;
-	Mon, 30 Mar 2020 13:47:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21E46F800AA;
+	Mon, 30 Mar 2020 13:51:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7B4AFF80148; Mon, 30 Mar 2020 13:47:26 +0200 (CEST)
+ id 2C92AF80148; Mon, 30 Mar 2020 13:51:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 83453F8010C
- for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 13:47:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83453F8010C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lxhaTbln"
-Received: from localhost (unknown [122.182.197.249])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 07EA22072E;
- Mon, 30 Mar 2020 11:47:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1585568840;
- bh=bolhhtn/zsW9hgT7sOG/KCu4gAqAzVYB+AcJBxuTk/Y=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=lxhaTblnEtSCP2BqFNQkF9GBZXoW5jBKFfIZV3YDY4wM1Lj3u6CxdImkWJv5TAd6Z
- gkXNnalXMS6RQaI1HgTW/ONbXNgBRw0+o3CLh5KgnEjZaucSkaZYZt+sbYNN+/j5Nm
- lLzvZeywPedQ2ZsR3xJAw20Sclw8etbkciqzXqcM=
-Date: Mon, 30 Mar 2020 17:17:16 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: =?utf-8?B?77+9zLDvv73vv73vv70=?= <gt82.lee@samsung.com>
-Subject: Re: [PATCH 1/1] ASoC: soc-compress: lock pcm_mutex to resolve
- lockdep error
-Message-ID: <20200330114716.GA72691@vkoul-mobl>
-References: <CGME20200330110126epcas2p4525e5c6f61f7452df008696f9153770d@epcas2p4.samsung.com>
- <002101d60682$8ec21ed0$ac465c70$@samsung.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <002101d60682$8ec21ed0$ac465c70$@samsung.com>
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org, lgirdwood@gmail.com,
- tiwai@suse.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 63315F800AA
+ for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 13:50:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63315F800AA
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 8859CAC5F;
+ Mon, 30 Mar 2020 11:50:53 +0000 (UTC)
+Date: Mon, 30 Mar 2020 13:50:53 +0200
+Message-ID: <s5htv269i3m.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [GIT PULL] ASoC updates for v5.7
+In-Reply-To: <20200330113404.GE4792@sirena.org.uk>
+References: <20200330113404.GE4792@sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,50 +68,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello,
-
-On 30-03-20, 20:01, �̰��� wrote:
-> snd_soc_runtime_activate() and snd_soc_runtime_deactivate()
-> require locked pcm_mutex.
+On Mon, 30 Mar 2020 13:34:04 +0200,
+Mark Brown wrote:
 > 
-> Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
-> ---
->  sound/soc/soc-compress.c | 4 ++++
->  1 file changed, 4 insertions(+)
+> The following changes since commit 16fbf79b0f83bc752cee8589279f1ebfe57b3b6e:
 > 
-> diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
-> index 392a1c5b15d3..42d416ac7e9b 100644
-> --- a/sound/soc/soc-compress.c
-> +++ b/sound/soc/soc-compress.c
-> @@ -207,7 +207,9 @@ static int soc_compr_open_fe(struct snd_compr_stream
-> *cstream)
->  	fe->dpcm[stream].state = SND_SOC_DPCM_STATE_OPEN;
->  	fe->dpcm[stream].runtime_update = SND_SOC_DPCM_UPDATE_NO;
->  
-> +	mutex_lock_nested(&fe->pcm_mutex, fe->pcm_subclass);
->  	snd_soc_runtime_activate(fe, stream);
-> +	mutex_unlock(&fe->pcm_mutex);
+>   Linux 5.6-rc7 (2020-03-22 18:31:56 -0700)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-v5.7
+> 
+> for you to fetch changes up to 1c521d7e62262793789845989edca57dea24eb7d:
+> 
+>   Merge branch 'asoc-5.7' into asoc-next (2020-03-27 17:29:20 +0000)
+> 
+> ----------------------------------------------------------------
+> ASoC: Updates for v5.7
+> 
+> This is a very big update for the core since Morimoto-san has been
+> rather busy continuing his refactorings to clean up a lot of the cruft
+> that we have accumilated over the years.  We've also gained several new
+> drivers, including initial (but still not complete) parts of the Intel
+> SoundWire support.
+> 
+>  - Lots of refactorings to modernize the code from Morimoto-san.
+>  - Conversion of SND_SOC_ALL_CODECS to use imply from Geert Uytterhoeven.
+>  - Continued refactoring and fixing of the Intel support.
+>  - Soundwire and more advanced clocking support for Realtek RT5682.
+>  - Support for amlogic GX, Meson 8, Meson 8B and T9015 DAC, Broadcom
+>    DSL/PON, Ingenic JZ4760 and JZ4770, Realtek RL6231, and TI TAS2563 and
+>    TLV320ADCX140.
 
-Can you please explain why you need the lock here, as
->  
->  	mutex_unlock(&fe->card->mutex);
+Pulled now.  Thanks.
 
-we already have a lock here..
 
-> @@ -285,7 +287,9 @@ static int soc_compr_free_fe(struct snd_compr_stream
-> *cstream)
->  	else
->  		stream = SNDRV_PCM_STREAM_CAPTURE;
->  
-> +	mutex_lock_nested(&fe->pcm_mutex, fe->pcm_subclass);
->  	snd_soc_runtime_deactivate(fe, stream);
-> +	mutex_unlock(&fe->pcm_mutex);
-
-And this instance is also using fe->card->mutex.. so I think double lock
-may not serve any purpose here..
-
-Can you explain why we need the extra lock?
-
-Thanks
--- 
-~Vinod
+Takashi

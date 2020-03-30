@@ -2,61 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDDFC19814F
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 18:33:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15D5819817E
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 18:43:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5C7CA1666;
-	Mon, 30 Mar 2020 18:32:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C7CA1666
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D7B41666;
+	Mon, 30 Mar 2020 18:42:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D7B41666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585586028;
-	bh=7YLPfHYzvcjsitPmeEChTl9Q/c63c9iJrj1hH472ybo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1585586594;
+	bh=0CpcpZNj41fu3P8/k83fjX3m+8WgK2hQBql+7v6YBpM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jvIGRUdR9kOhuo/pV1uma7XxdqLZN/AQWLEbXK/NpczkGjikJ/7reAGOPPRdnoIzl
-	 7CuxftHbW++aCjVHhpxJSCRGkcBNhAWnV/0DXgyErk2O5aB+H0nGKf8um9W6O/Rsli
-	 FKJqkJ/UyRTh+atLuoWZ1jHqT0+mX/3zqr7IqwSM=
+	b=Cp7/KpGnFXp3D/r2oZnIV+SL9JoR6fMx4c8MkEwXn3RUiNj3x+BASIjgVEg714VJU
+	 Af0ZBAlsMEdIOBkJNwnXctUSG5tK7VQM/1FB50j8s7f0ScGuiAaC52AqlwB34aAqnH
+	 Whp0YJlfEYgJBh1e1obseSerf2bqVrxoqySCUHQo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6FE39F8014A;
-	Mon, 30 Mar 2020 18:32:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2620F8014A;
+	Mon, 30 Mar 2020 18:41:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 30B43F80148; Mon, 30 Mar 2020 18:32:00 +0200 (CEST)
+ id CA9FEF80148; Mon, 30 Mar 2020 18:41:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 4705DF800EB
- for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 18:31:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4705DF800EB
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 64CED1042;
- Mon, 30 Mar 2020 09:31:44 -0700 (PDT)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D9D5B3F71E;
- Mon, 30 Mar 2020 09:31:43 -0700 (PDT)
-Date: Mon, 30 Mar 2020 17:31:42 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Matt Flax <flatmax@flatmax.org>
-Subject: Re: [PATCH] ASoC: snd_soc_dai_set_fmt add substream independence.
-Message-ID: <20200330163142.GI4792@sirena.org.uk>
-References: <20200328015831.6230-1-flatmax@flatmax.org>
- <20200330103213.GA4792@sirena.org.uk>
- <3c00bf93-04a8-04af-e0b5-d0f76f5dbb06@flatmax.org>
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-io1-xd33.google.com (mail-io1-xd33.google.com
+ [IPv6:2607:f8b0:4864:20::d33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6B5FCF800EB
+ for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 18:41:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B5FCF800EB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel-com.20150623.gappssmtp.com
+ header.i=@intel-com.20150623.gappssmtp.com header.b="BwXDxbtP"
+Received: by mail-io1-xd33.google.com with SMTP id x9so12032143iom.10
+ for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 09:41:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=intel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=KaOiEBNQZO3XH78CgYsD0ZSOHbuUFveEbxpmcY56/Qc=;
+ b=BwXDxbtPv5/d1LNYw7e6R4Me2nkKbZXz1dyYR0tUuOefIhRTT63QxeTgbk2lHbMlZF
+ yorbSkxUx8r8s2ULg9usilW8jmelit9uCxgX3Wp/zKtEpSY4hmrfb54vaKSlSp28bQEb
+ /K7CnbwomIidgSf899JHv3bXdV/0KatzhSYR9dI4008G/o8l84TYFt3BulEr0lBxm1fh
+ l+eh7zo8oMUeVBBTxunn4zShaNdi/kPT7iHYpRHzb4gn3MgRakD7mAiW/kptn7lKtops
+ a67Cgt+k0a2pPUdkq9E9GyJs3Yk2ux/2ArcIAW9V/2F5yBKDSvpdXM512NsNDLdOwC1u
+ 0lcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=KaOiEBNQZO3XH78CgYsD0ZSOHbuUFveEbxpmcY56/Qc=;
+ b=RsiXPXClx/9WiiaUh3J+qXenVmX20Gu9Aud8wytJ9iG6RYje16+YWQ7DYOQpt2YJig
+ z9qai3zAlO/0Q4vWYsqCHtobhOLW0WB4dZe7KTamVKQPTRG3OJlfQszFRfU/5Ky75KAH
+ adl5QUuAi3r748N9tMrPSgPsd8hH5knbyjrk2sV+uQm9FmfXDdvOet0vePn/cdQPXv7x
+ 5BgYmKLCPLSliNs9Z8Q8FbKUm6iABV6eP08F70PL7Qg64v8mU+XdJY8//xET04APd/zM
+ /Va3ZWiz1TV0TAP67X5GdXeLlcZfUKjM0dY10v+a/W4P/ZNM076RmPf55G3D3vBjD5sC
+ xdiw==
+X-Gm-Message-State: ANhLgQ1OtjunQvwFhEYgvcIIjKnqo61aGg+tc+uoaMDNDJtgYRkhAzrr
+ lvDnD7wQV82saZourQn1pBLB3hsNaE/zRxqWjwexwQ==
+X-Google-Smtp-Source: ADFU+vuwzHOs2E7LkPzLOhStWkrAJV6exWCfWDnSa5DiklZp16c8KtgAWXxH+fDbqfLChVEpzc8eBMbzgcMQN5bxRPU=
+X-Received: by 2002:a02:1485:: with SMTP id 127mr11624243jag.122.1585586482988; 
+ Mon, 30 Mar 2020 09:41:22 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Op27XXJsWz80g3oF"
-Content-Disposition: inline
-In-Reply-To: <3c00bf93-04a8-04af-e0b5-d0f76f5dbb06@flatmax.org>
-X-Cookie: Ahead warp factor one, Mr. Sulu.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, lars@metafoo.de, lgirdwood@gmail.com,
- pierre-louis.bossart@linux.intel.com
+References: <20200327204729.397-1-amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <20200327204729.397-1-amadeuszx.slawinski@linux.intel.com>
+From: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
+Date: Mon, 30 Mar 2020 09:41:12 -0700
+Message-ID: <CAFQqKeVNKUqK4CP4RMLJkm+YQjN-6Kr5BfdisBvVgFn+jD5uKg@mail.gmail.com>
+Subject: Re: [PATCH v2 0/6] ASoC: topology: Propagate error appropriately
+To: =?UTF-8?B?QW1hZGV1c3ogU8WCYXdpxYRza2k=?=
+ <amadeuszx.slawinski@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,70 +99,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, Mar 27, 2020 at 11:40 AM Amadeusz S=C5=82awi=C5=84ski <
+amadeuszx.slawinski@linux.intel.com> wrote:
 
---Op27XXJsWz80g3oF
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> v1:
+>   Check if kstrdup succeeded.
+>
+> v2:
+>   Remove unneeded freeing, which is performed in another place by dobj
+>   handlers.
+>
+>   Additionally for functions which have return status which was ignored,
+>   perform success checks and handle failures in appropriate way.
+>
+> Amadeusz S=C5=82awi=C5=84ski (6):
+>   ASoC: topology: Add missing memory checks
+>   ASoC: topology: Check return value of soc_tplg_create_tlv
+>   ASoC: topology: Check return value of soc_tplg_*_create
+>   ASoC: topology: Check soc_tplg_add_route return value
+>   ASoC: topology: Check return value of pcm_new_ver
+>   ASoC: topology: Check return value of soc_tplg_dai_config
 
-On Mon, Mar 30, 2020 at 11:28:26PM +1100, Matt Flax wrote:
-> On 30/3/20 9:32 pm, Mark Brown wrote:
-> > On Sat, Mar 28, 2020 at 12:58:31PM +1100, Matt Flax wrote:
-
-> > > This patch is aims to start a stronger discussion on allowing both CPU
-> > > and Codec dais to set formats independently based on direction.
-
-> > If the DAIs support completely separate formats they're not a single DAI
-> > and should be represented as two DAIs.
-
-> I understand, however having two DAIs produces subdevices and pushes the
-> overhead of managing registers to the end user in the form of two sub
-> devices.
-
-I think that's a swings and roundabouts thing where it really depends on
-your use case - for example if the DAIs can be organized however people
-like then people can come up with creative ways to wire things that
-don't pair things in the way that makes sense for userspace.  Ideally
-we'd be able to match up any playback only stream with any capture only
-stream which would help a much wider range of systems.
-
-> Is everyone firm on the concept that a DAI's playback and capture stream has
-> to have the same format in the same DAI ?
-
-> I can see a much better solution (then the one I posted here) which is also
-> very simple to solve this problem in the same DAI.
-
-It does push a requirement for dealing with asymmetric setups including
-validation that nobody did anything that can't be supported onto all
-users to at least some extent, even if standard stuff were factored out
-into the core (which didn't happen yet).  This is for a *very* unusual
-requiremenet.
-
-> > having an asymmetric configuration.  You probably need to represent
-> > these isolators as a CODEC and do a CODEC to CODEC link and even then it
-> > seems worrying.
-
-> I like to think of isolation as innovative, not worrying :)
-
-> However w.r.t. the codec to codec link approach, I will take your advice and
-> not go down that route.
-
-No, my advice is to go down that route if you are doing this.  I'm just
-not convinced that it's going to work reliably since this all sounds
-rather shaky.
-
---Op27XXJsWz80g3oF
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6CHu0ACgkQJNaLcl1U
-h9B25Qf/T5vJZAS/Fv5gDforAG223ex9jg1vhJu/1mHrKrtt9x7R0+tWYV1Jic/I
-dc+eI4LLoLeHiEGXEGuWxgcPpygK8+Elos5pEtcCxA6IzG7YODMdL/HPTmqHDrOd
-A3a2j1kHS/Ga7uxUf/SkCumBfIx3f3yOMt/JQ8MVkcwjg4g1Dg6XXEfm31MAnWbW
-FGzrmHOj/U3s4SWE6I0mKVvjqYpQusXE5LHyB6mhdc4yuPzJdva4xXL8yLL/0tVH
-++vWjBottWcSoVbldGKymgLMj+rG4nkVVuOk4wix0h5DEdgV7EZXfIMkYh84036e
-I2UX2bmsxFWasW9qHQhgFsxh+hNbvg==
-=Gbt9
------END PGP SIGNATURE-----
-
---Op27XXJsWz80g3oF--
+Thanks, Amadeusz. LGTM
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>

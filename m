@@ -2,88 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67DB31985C1
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 22:45:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A1991985C3
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 22:45:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09DD61607;
-	Mon, 30 Mar 2020 22:44:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09DD61607
+	by alsa0.perex.cz (Postfix) with ESMTPS id E394D1666;
+	Mon, 30 Mar 2020 22:44:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E394D1666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585601127;
-	bh=cA27puQRFgBTKbojz7exIJnEkulsBuEkNT7iyHXs+14=;
+	s=default; t=1585601147;
+	bh=y0An0/glDFapFI2Vu6Gx7gNwNWWhP+tT6d44HQq8wUE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HtGi3muc8PLt5HqBSnH7/usADQUftCAGoK3JgRn6rom2Ef5NOpg5v3qaPJBoMnrRa
-	 w1JU5tUKWiFJogC7HFBW6ITcR5mArb73wqmoWQ+Iad/UqfE9ZHlRfzgYNSfiEbAigp
-	 T/fL56FatQgVTO+I/ueJmLL1+pVA+3JdMKDtExCo=
+	b=eVkUiDv7Juo6a3vQJzhbadvAdp15vGiiLZ2BjcDWF+cnFS3rfNDN+mM2ipJla/Pby
+	 koYcdYDlHe5N9MMGOJeMP5ibagxNGT8k8g88jK9b5Zo9kt5jym/g4BRmPQEt1JPcQm
+	 3wRe7u1ycT81Ms0PthW3AZAhbuNmwOp5+AUJ16U8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 450DFF8028B;
-	Mon, 30 Mar 2020 22:43:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34BA8F80292;
+	Mon, 30 Mar 2020 22:43:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 616C5F800EB; Mon, 30 Mar 2020 22:42:56 +0200 (CEST)
+ id A0BD0F8010C; Mon, 30 Mar 2020 22:42:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail-lj1-x244.google.com (mail-lj1-x244.google.com
- [IPv6:2a00:1450:4864:20::244])
+Received: from mail-lf1-x144.google.com (mail-lf1-x144.google.com
+ [IPv6:2a00:1450:4864:20::144])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9E2E5F800EB
- for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 22:42:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E2E5F800EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 785E0F80145
+ for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 22:42:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 785E0F80145
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="A66f6X8l"
-Received: by mail-lj1-x244.google.com with SMTP id f20so19671041ljm.0
- for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 13:42:49 -0700 (PDT)
+ header.b="oh689xve"
+Received: by mail-lf1-x144.google.com with SMTP id u15so6316731lfi.3
+ for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 13:42:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Q9dmJd31XEhMYenYHGxi8YuYhFyxM6XMQHq+VN0FDTA=;
- b=A66f6X8lQNBIne5NO0ntEAJDEDYnNwBIz73Tdrfxf3GiMPg1AB2mXl5GB40UwzKxa7
- bZWbkxfhEKJpGG7P6OLuY8UDztGFJ/JfZAhT0FyWHnr0Ht25MLHgspwJV+wnfrWFq46j
- MpcbwYhUJXs1pWmyeW/AdT2yPjCpymvJanazaVokahWPFoh1bXLTDU6pZCuWIwNIPdYP
- v4gflHBdWxYiKfeBsyBVtAg+5+eRX7zlIclt7vDgnJCYz+VAJb4JjmgZ+2Mcc74Vd0dp
- i8Mye5k72gPGFnijorIDp3Q66t2tLmlSuSkElwpdzQ51T+ypjl+8FVNHzdHj8xucT4mj
- Xt+A==
+ bh=9UkrNjDcajPGTgBBKiQQcXEwPOc4ohLFowCr4Ks0haU=;
+ b=oh689xveR36/57W4/RPGauOKst42L1S+MXOTtXleBkLzOiJ+NL6bEEF08gPLfBCf0w
+ 9Pjkq3FiUE6g4iYJ8R39BdR0UWMSKcTcSnno1jANPY0fk/zWl1BAJFlujrzpTgHKkSGV
+ gObEjTicF1K/HwtUIdhfSUayjN79qoBwC316M9dZthNujLGmduxoHiokK5om+GbTi3AS
+ L/Dxvq4qgEZhv5U/aZrx6fSyXGwCCMliWGEcViF4NUEropR1GG3/uqfvnR5+yzLKHgyT
+ aXNT0WT7NKJmJsVH/dDsGFZR3FUZqlExP3CH+UOkUsLNUYXSPO1fGkEna1DVIH04DUpT
+ cdTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Q9dmJd31XEhMYenYHGxi8YuYhFyxM6XMQHq+VN0FDTA=;
- b=VE0+o0/tniTs6kj9HxUB9XqBonhbKKhDxROO8pKwdqr2N+i25tnCWh/q3xR5HKNSKM
- hVysov/fCXt+cc/p0SDwfa6dFjdalXBatXPR/s5pbTsJWii4X6pZz20XzanjxklmLHOW
- EtmrXDVxEhIRSlvaJI20hGpvlp8fAEOKnWbIDizjxWu/cyIXahLlFuV+mudDUNWLdTMw
- w5C1GDqcDsjPpKqqKT5HBYgiotcz3z/942zffkRH68kBjNLpnzGDOuWsPCqupJmVAnkd
- XRjFCFhu9QL51h6XjbKRsK+V97qjHZ+mbsvkUEQ3cr/zZeoItYfr/53E4zmKny3GMvBl
- g5mA==
-X-Gm-Message-State: AGi0PuZJsHeH7LuP4RlGDiOUIQYxXZEECqP+yqNZ3OKsIpYe1dh8s5dB
- 6kSLP9i1a5nhRoXvTq5Bc+g=
-X-Google-Smtp-Source: APiQypJfqcBA7TyhBQLhNFsjLxFmFe3JYTbJlcU1IjgTFoLg6D02DeJMCMcDI1MOWqZjd6xZNkUSsw==
-X-Received: by 2002:a2e:94c8:: with SMTP id r8mr8112416ljh.28.1585600964401;
- Mon, 30 Mar 2020 13:42:44 -0700 (PDT)
+ bh=9UkrNjDcajPGTgBBKiQQcXEwPOc4ohLFowCr4Ks0haU=;
+ b=AkwROSvbIj3RXY/jtCaMZz7zUTYIFuqKFwX9jZ5CKon3rf/teiI2BPxwRZuven2dz+
+ yhMdLeceHJdKnrjFm+pPS2tSg/Hj8qjeFjjHxr5iWxJWk2PQ8xd4x5I9m5hXP1h9P90s
+ kXbB3fox/+r/cNVN65K2Mal4if5K2rE7V6evGYfNn5GZcVXlmPWSUkDDxSoE1hcBXjoG
+ u34Bx4p/pw5ACiXboAreQ1FwkOclxFWizyW92BGA+gUeDPrT+xsOzf8dn4vhFCyFnDIp
+ OgokA/N1uFMVumIMqZcqPChldpdYDpGsWMux0tajMioNHIzMtNuOo+SOFBFWaFyJoHPY
+ 9QMQ==
+X-Gm-Message-State: AGi0PuYI8gUexI1iUeP9ERfv5GqHV/g0FCpWnI0sOf5df+AvwGpTXj7y
+ sTsHSYmoIUQk0WTuApalifs=
+X-Google-Smtp-Source: APiQypLLLnVzRTLcP4jabC1fU1WzfNOMcZ3hKwFpODI7tRHqByybGrOo5XBHUG6/XotAfAYXhdyTvQ==
+X-Received: by 2002:ac2:4c88:: with SMTP id d8mr9381636lfl.100.1585600965414; 
+ Mon, 30 Mar 2020 13:42:45 -0700 (PDT)
 Received: from localhost.localdomain (ppp91-78-208-152.pppoe.mtu-net.ru.
  [91.78.208.152])
- by smtp.gmail.com with ESMTPSA id v22sm7287988ljj.67.2020.03.30.13.42.43
+ by smtp.gmail.com with ESMTPSA id v22sm7287988ljj.67.2020.03.30.13.42.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Mar 2020 13:42:43 -0700 (PDT)
+ Mon, 30 Mar 2020 13:42:44 -0700 (PDT)
 From: Dmitry Osipenko <digetx@gmail.com>
 To: Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  Liam Girdwood <lgirdwood@gmail.com>,
  Stephen Warren <swarren@wwwdotorg.org>,
  Jonathan Hunter <jonathanh@nvidia.com>
-Subject: [PATCH v1 1/2] dt-bindings: sound: tegra-wm8903: Document new nvidia,
+Subject: [PATCH v1 2/2] ASoC: tegra: tegra_wm8903: Support nvidia,
  headset property
-Date: Mon, 30 Mar 2020 23:40:10 +0300
-Message-Id: <20200330204011.18465-2-digetx@gmail.com>
+Date: Mon, 30 Mar 2020 23:40:11 +0300
+Message-Id: <20200330204011.18465-3-digetx@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200330204011.18465-1-digetx@gmail.com>
 References: <20200330204011.18465-1-digetx@gmail.com>
@@ -106,28 +106,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Some devices have a 4-pin headset jack instead of 3-pin microphone jack.
-The new boolean nvidia,headset property tells that the Mic Jack represents
-the state of a headset microphone. This additional hardware description is
-needed because microphone detection procedure differs in a case of a 4-pin
-jack from a 3-pin jack.
+The microphone-jack state needs to be masked in a case of a 4-pin jack
+when microphone and ground pins are shorted. Presence of nvidia,headset
+tells that WM8903 CODEC driver should mask microphone's status if short
+circuit is detected, i.e headphones are inserted.
 
 Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 ---
- .../devicetree/bindings/sound/nvidia,tegra-audio-wm8903.txt      | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/tegra/tegra_wm8903.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8903.txt b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8903.txt
-index a8f2b0c56c79..bbd581a8c5bc 100644
---- a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8903.txt
-+++ b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8903.txt
-@@ -29,6 +29,7 @@ Optional properties:
- - nvidia,hp-det-gpios : The GPIO that detect headphones are plugged in
- - nvidia,int-mic-en-gpios : The GPIO that enables the internal microphone
- - nvidia,ext-mic-en-gpios : The GPIO that enables the external microphone
-+- nvidia,headset : The Mic Jack represents state of the headset microphone pin
+diff --git a/sound/soc/tegra/tegra_wm8903.c b/sound/soc/tegra/tegra_wm8903.c
+index 071c7d2de77c..e756dc8eeca4 100644
+--- a/sound/soc/tegra/tegra_wm8903.c
++++ b/sound/soc/tegra/tegra_wm8903.c
+@@ -177,6 +177,7 @@ static int tegra_wm8903_init(struct snd_soc_pcm_runtime *rtd)
+ 	struct snd_soc_component *component = codec_dai->component;
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct tegra_wm8903 *machine = snd_soc_card_get_drvdata(card);
++	int shrt = 0;
  
- Example:
+ 	if (gpio_is_valid(machine->gpio_hp_det)) {
+ 		tegra_wm8903_hp_jack_gpio.gpio = machine->gpio_hp_det;
+@@ -189,12 +190,15 @@ static int tegra_wm8903_init(struct snd_soc_pcm_runtime *rtd)
+ 					&tegra_wm8903_hp_jack_gpio);
+ 	}
+ 
++	if (of_property_read_bool(card->dev->of_node, "nvidia,headset"))
++		shrt = SND_JACK_MICROPHONE;
++
+ 	snd_soc_card_jack_new(rtd->card, "Mic Jack", SND_JACK_MICROPHONE,
+ 			      &tegra_wm8903_mic_jack,
+ 			      tegra_wm8903_mic_jack_pins,
+ 			      ARRAY_SIZE(tegra_wm8903_mic_jack_pins));
+ 	wm8903_mic_detect(component, &tegra_wm8903_mic_jack, SND_JACK_MICROPHONE,
+-				0);
++				shrt);
+ 
+ 	snd_soc_dapm_force_enable_pin(&card->dapm, "MICBIAS");
  
 -- 
 2.25.1

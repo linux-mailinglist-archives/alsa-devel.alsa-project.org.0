@@ -2,55 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E06A019823E
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 19:24:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0BDF198247
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 19:25:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5EE9E166F;
-	Mon, 30 Mar 2020 19:23:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EE9E166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 770C41658;
+	Mon, 30 Mar 2020 19:24:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 770C41658
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585589087;
-	bh=ABzpVIYCD9770CMezZ8YgdtVcrOX3AIXCYVnkknagfg=;
+	s=default; t=1585589131;
+	bh=7HNUQ6LApCrvEOhugCuwDfj2q32nlAmC5mytwFWP0hs=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=BvNmv6kPtI3lJrnIsDVoj2VqQi3TC6nl7gELCoC0/ByDc+qk4ek7w6S+YujdPoJl8
-	 GCAitYdrJ5H7mYf4CT8cwCzcoZrKzdUtVSbWeAixNXuKW9sUdv6oviXSzTOZQxoC/C
-	 ++NBhtHF9Nq6ZaqBL9OMXLxJp9wa8geazl0n/hqE=
+	b=g0DgNnBw504s1006WM9g2sMvKko5qixGNBSSLz7qNIx+/BOKrO7TEWd41WpkLu4Q8
+	 4YMNeMHOMzZ3jMf23IM2AnE9GvUU0nE10rPOLoE4G3lpjNE/o1CqDXww9PkuDmwCUA
+	 dnaO4IEjP3xRc9AoWwWxbhFSoLPNEFiS1RFDYfZg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7BAA1F80145;
-	Mon, 30 Mar 2020 19:23:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C3D5F8015C;
+	Mon, 30 Mar 2020 19:23:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 291D3F80148; Mon, 30 Mar 2020 19:23:03 +0200 (CEST)
+ id D2385F8010C; Mon, 30 Mar 2020 19:23:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS,
+X-Spam-Status: No, score=0.6 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ MIME_8BIT_HEADER, SPF_HELO_NONE, SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id A0A53F8010C
- for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 19:22:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0A53F8010C
+ by alsa1.perex.cz (Postfix) with ESMTP id DD19EF8010C
+ for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 19:23:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD19EF8010C
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2E14F101E;
- Mon, 30 Mar 2020 10:22:57 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 99E18101E;
+ Mon, 30 Mar 2020 10:23:01 -0700 (PDT)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A5A443F68F;
- Mon, 30 Mar 2020 10:22:56 -0700 (PDT)
-Date: Mon, 30 Mar 2020 18:22:55 +0100
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1EF953F68F;
+ Mon, 30 Mar 2020 10:23:00 -0700 (PDT)
+Date: Mon, 30 Mar 2020 18:22:59 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Applied "ASoC: soc-dai: fix DAI startup/shutdown sequence" to the
- asoc tree
-In-Reply-To: <20200330160602.10180-1-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20200330160602.10180-1-pierre-louis.bossart@linux.intel.com>
+To: 이경택 <gt82.lee@samsung.com>
+Subject: Applied "ASoC: fix regwmask" to the asoc tree
+In-Reply-To: <001001d60665$db7af3e0$9270dba0$@samsung.com>
+Message-Id: <applied-001001d60665$db7af3e0$9270dba0$@samsung.com>
 X-Patchwork-Hint: ignore
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- =?utf-8?q?Amad?= =?utf-8?q?eusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ tiwai@suse.com, Gyeongtaek Lee <gt82.lee@samsung.com>, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,7 +66,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-dai: fix DAI startup/shutdown sequence
+   ASoC: fix regwmask
 
 has been applied to the asoc tree at
 
@@ -93,77 +91,45 @@ to this mail.
 Thanks,
 Mark
 
-From 1ba616bd1a6d5ebdb31ceaa9265b2a2bb670155b Mon Sep 17 00:00:00 2001
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Mon, 30 Mar 2020 11:06:02 -0500
-Subject: [PATCH] ASoC: soc-dai: fix DAI startup/shutdown sequence
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 0ab070917afdc93670c2d0ea02ab6defb6246a7c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=EC=9D=B4=EA=B2=BD=ED=83=9D?= <gt82.lee@samsung.com>
+Date: Mon, 30 Mar 2020 16:35:59 +0900
+Subject: [PATCH] ASoC: fix regwmask
 
-The addition of a single flag to track the DAI status prevents the DAI
-startup sequence from being called on capture if the DAI is already
-used for playback.
+If regwshift is 32 and the selected architecture compiles '<<' operator
+for signed int literal into rotating shift, '1<<regwshift' became 1 and
+it makes regwmask to 0x0.
+The literal is set to unsigned long to get intended regwmask.
 
-Fix by extending the existing code with one flag per direction.
-
-Fixes: b56be800f1292 ("ASoC: soc-pcm: call snd_soc_dai_startup()/shutdown() once")
-Reported-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Tested-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-Link: https://lore.kernel.org/r/20200330160602.10180-1-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
+Link: https://lore.kernel.org/r/001001d60665$db7af3e0$9270dba0$@samsung.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/soc-dai.h | 2 +-
- sound/soc/soc-dai.c     | 8 ++++----
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ sound/soc/soc-ops.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
-index 78bac995db15..d4825b82c7a3 100644
---- a/include/sound/soc-dai.h
-+++ b/include/sound/soc-dai.h
-@@ -351,7 +351,7 @@ struct snd_soc_dai {
- 
- 	/* bit field */
- 	unsigned int probed:1;
--	unsigned int started:1;
-+	unsigned int started[SNDRV_PCM_STREAM_LAST + 1];
- };
- 
- static inline struct snd_soc_pcm_stream *
-diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
-index 19142f6e533c..8f3cad8db89a 100644
---- a/sound/soc/soc-dai.c
-+++ b/sound/soc/soc-dai.c
-@@ -295,12 +295,12 @@ int snd_soc_dai_startup(struct snd_soc_dai *dai,
- {
- 	int ret = 0;
- 
--	if (!dai->started &&
-+	if (!dai->started[substream->stream] &&
- 	    dai->driver->ops->startup)
- 		ret = dai->driver->ops->startup(substream, dai);
- 
- 	if (ret == 0)
--		dai->started = 1;
-+		dai->started[substream->stream] = 1;
- 
- 	return ret;
- }
-@@ -308,11 +308,11 @@ int snd_soc_dai_startup(struct snd_soc_dai *dai,
- void snd_soc_dai_shutdown(struct snd_soc_dai *dai,
- 			 struct snd_pcm_substream *substream)
- {
--	if (dai->started &&
-+	if (dai->started[substream->stream] &&
- 	    dai->driver->ops->shutdown)
- 		dai->driver->ops->shutdown(substream, dai);
- 
--	dai->started = 0;
-+	dai->started[substream->stream] = 0;
- }
- 
- int snd_soc_dai_prepare(struct snd_soc_dai *dai,
+diff --git a/sound/soc/soc-ops.c b/sound/soc/soc-ops.c
+index 652657dc6809..55ffb34be95e 100644
+--- a/sound/soc/soc-ops.c
++++ b/sound/soc/soc-ops.c
+@@ -825,7 +825,7 @@ int snd_soc_get_xr_sx(struct snd_kcontrol *kcontrol,
+ 	unsigned int regbase = mc->regbase;
+ 	unsigned int regcount = mc->regcount;
+ 	unsigned int regwshift = component->val_bytes * BITS_PER_BYTE;
+-	unsigned int regwmask = (1<<regwshift)-1;
++	unsigned int regwmask = (1UL<<regwshift)-1;
+ 	unsigned int invert = mc->invert;
+ 	unsigned long mask = (1UL<<mc->nbits)-1;
+ 	long min = mc->min;
+@@ -874,7 +874,7 @@ int snd_soc_put_xr_sx(struct snd_kcontrol *kcontrol,
+ 	unsigned int regbase = mc->regbase;
+ 	unsigned int regcount = mc->regcount;
+ 	unsigned int regwshift = component->val_bytes * BITS_PER_BYTE;
+-	unsigned int regwmask = (1<<regwshift)-1;
++	unsigned int regwmask = (1UL<<regwshift)-1;
+ 	unsigned int invert = mc->invert;
+ 	unsigned long mask = (1UL<<mc->nbits)-1;
+ 	long max = mc->max;
 -- 
 2.20.1
 

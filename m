@@ -2,72 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A542D197AFC
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 13:41:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C26DD197B30
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 13:49:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BFF71654;
-	Mon, 30 Mar 2020 13:40:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BFF71654
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5689D1666;
+	Mon, 30 Mar 2020 13:48:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5689D1666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585568478;
-	bh=OFQ9c5MHRq45REPEIsT+s90t0Wzn/ttCQWwUH5pLhZ4=;
+	s=default; t=1585568950;
+	bh=bolhhtn/zsW9hgT7sOG/KCu4gAqAzVYB+AcJBxuTk/Y=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KcTuoBqxpKJ40dV15G8Gev5hk5awbG/x1otmANvXoPKlu7qaZY+Xe6Mds9OcAQfsO
-	 JWFK2tns/mXtbnXVvRMax+rlWorjkCfZ76mkbPuY7WS7Xo8VMD0GrhsgOoPPi0C6fQ
-	 Mg53z2Qb/Cr9fFOyAqEjsoDqHYxeUdX6769QQlGo=
+	b=BY0vtJIdmgqijCYANtx8BN0J5rNQq6KvZi8XQVSxo8loLbW12GauSrfhjWdMTuxmZ
+	 r7aOlpg8+kH/SzV0TlCK94m5gxCsYpDDeHRoXA6LZ41y3Xlyw05ruXTHZgGESv7GLm
+	 O4iGI0vn73Y6yeVfq/Uh5iBYVGmXAM+RaAlQfjR8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F71FF800AA;
-	Mon, 30 Mar 2020 13:39:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80373F8014A;
+	Mon, 30 Mar 2020 13:47:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E262FF80148; Mon, 30 Mar 2020 13:39:34 +0200 (CEST)
+ id 7B4AFF80148; Mon, 30 Mar 2020 13:47:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 4D18BF800AA
- for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 13:39:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D18BF800AA
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7DE0731B;
- Mon, 30 Mar 2020 04:39:31 -0700 (PDT)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F2D623F52E;
- Mon, 30 Mar 2020 04:39:30 -0700 (PDT)
-Date: Mon, 30 Mar 2020 12:39:29 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: snd_hda_intel/sst-acpi sound breakage on suspend/resume since
- 5.6-rc1
-Message-ID: <20200330113929.GF4792@sirena.org.uk>
-References: <20200318192213.GA2987@light.dominikbrodowski.net>
- <b352a46b-8a66-8235-3622-23e561d3728c@intel.com>
- <20200318215218.GA2439@light.dominikbrodowski.net>
- <e7f4f38d-b53e-8c69-8b23-454718cf92af@intel.com>
- <20200319130049.GA2244@light.dominikbrodowski.net>
- <20200319134139.GB3983@sirena.org.uk>
- <a01359dc-479e-b3e3-37a6-4a9c421d18da@intel.com>
- <20200319165157.GA2254@light.dominikbrodowski.net>
- <20200330102356.GA16588@light.dominikbrodowski.net>
- <43c098c9-005e-b9f4-2132-ed6e4a65feee@intel.com>
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 83453F8010C
+ for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 13:47:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83453F8010C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="lxhaTbln"
+Received: from localhost (unknown [122.182.197.249])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 07EA22072E;
+ Mon, 30 Mar 2020 11:47:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1585568840;
+ bh=bolhhtn/zsW9hgT7sOG/KCu4gAqAzVYB+AcJBxuTk/Y=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=lxhaTblnEtSCP2BqFNQkF9GBZXoW5jBKFfIZV3YDY4wM1Lj3u6CxdImkWJv5TAd6Z
+ gkXNnalXMS6RQaI1HgTW/ONbXNgBRw0+o3CLh5KgnEjZaucSkaZYZt+sbYNN+/j5Nm
+ lLzvZeywPedQ2ZsR3xJAw20Sclw8etbkciqzXqcM=
+Date: Mon, 30 Mar 2020 17:17:16 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: =?utf-8?B?77+9zLDvv73vv73vv70=?= <gt82.lee@samsung.com>
+Subject: Re: [PATCH 1/1] ASoC: soc-compress: lock pcm_mutex to resolve
+ lockdep error
+Message-ID: <20200330114716.GA72691@vkoul-mobl>
+References: <CGME20200330110126epcas2p4525e5c6f61f7452df008696f9153770d@epcas2p4.samsung.com>
+ <002101d60682$8ec21ed0$ac465c70$@samsung.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="hK8Uo4Yp55NZU70L"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <43c098c9-005e-b9f4-2132-ed6e4a65feee@intel.com>
-X-Cookie: Ahead warp factor one, Mr. Sulu.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
- curtis@malainey.com, tiwai@suse.com, Keyon Jie <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Dominik Brodowski <linux@dominikbrodowski.net>, linux-kernel@vger.kernel.org,
- liam.r.girdwood@linux.intel.com
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <002101d60682$8ec21ed0$ac465c70$@samsung.com>
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org, lgirdwood@gmail.com,
+ tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,48 +82,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hello,
 
---hK8Uo4Yp55NZU70L
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On 30-03-20, 20:01, �̰��� wrote:
+> snd_soc_runtime_activate() and snd_soc_runtime_deactivate()
+> require locked pcm_mutex.
+> 
+> Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
+> ---
+>  sound/soc/soc-compress.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
+> index 392a1c5b15d3..42d416ac7e9b 100644
+> --- a/sound/soc/soc-compress.c
+> +++ b/sound/soc/soc-compress.c
+> @@ -207,7 +207,9 @@ static int soc_compr_open_fe(struct snd_compr_stream
+> *cstream)
+>  	fe->dpcm[stream].state = SND_SOC_DPCM_STATE_OPEN;
+>  	fe->dpcm[stream].runtime_update = SND_SOC_DPCM_UPDATE_NO;
+>  
+> +	mutex_lock_nested(&fe->pcm_mutex, fe->pcm_subclass);
+>  	snd_soc_runtime_activate(fe, stream);
+> +	mutex_unlock(&fe->pcm_mutex);
 
-On Mon, Mar 30, 2020 at 01:10:34PM +0200, Cezary Rojewski wrote:
-> On 2020-03-30 12:23, Dominik Brodowski wrote:
+Can you please explain why you need the lock here, as
+>  
+>  	mutex_unlock(&fe->card->mutex);
 
-> > Seems this patch didn't make it into v5.6 (and neither did the other ones
-> > you sent relating to the "dummy" components). Can these patches therefore be
-> > marked for stable, please?
+we already have a lock here..
 
-I sent my pull request already sorry - once it hits Linus' tree I'd send
-a request to stable.
+> @@ -285,7 +287,9 @@ static int soc_compr_free_fe(struct snd_compr_stream
+> *cstream)
+>  	else
+>  		stream = SNDRV_PCM_STREAM_CAPTURE;
+>  
+> +	mutex_lock_nested(&fe->pcm_mutex, fe->pcm_subclass);
+>  	snd_soc_runtime_deactivate(fe, stream);
+> +	mutex_unlock(&fe->pcm_mutex);
 
-> While one of the series was accepted and merged, there is a delay caused by
-> Google/ SOF folks in merging the second one.
+And this instance is also using fe->card->mutex.. so I think double lock
+may not serve any purpose here..
 
-> Idk why rt286 aka "broadwell" machine board patch has not been merged yet.
-> It's not like we have to merge all (rt5650 + rt5650 + rt286) patches at
-> once. Google guys can keep verifying Buddy or whatnot while guys with Dell
-> XPS can enjoy smooth audio experience.
+Can you explain why we need the extra lock?
 
-My scripting is set up to merge things sent to me as a patch series and
-we didn't get positive review from Pierre on any of it with the review
-on that one patch seeming to suggest it might also be waiting go go
-through a test farm.  TBH I also wasn't expecting it to take quite so
-long to get reviewed when it came in, it's been over 2 weeks now...
-
---hK8Uo4Yp55NZU70L
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6B2nAACgkQJNaLcl1U
-h9CV2wf/Q5xQ8+z3m3nsFtxyh6rxzmzREsyl9PalMKFUiuKtDDMbT8NcdK8MVX9R
-GNOLRjEY6NNV27jQ0mEB+d7VjaDSxUNAkGKx+iQfv2jP/dME2rbqz57GgnFrmNzw
-Jj/aGwNhgdHvTVUkSYagDpPOWsV16VcyTDwCdUMjYV5zDmB4S8JRL9uJ0ykoje21
-BEaeWvkTfQeEUr7WruNF7cq2jCE0eu/ytauoesMGhQ03uD9QzbszphpZLAhxvUpI
-CjCcu4UjmqqXNCtH8m2choviIIbmEJzImaZXKJnMZCObQm4ajxOyoyupL6B+QD2y
-ELkwygc8I8AWRlpoOkqtFYDwVm/oGQ==
-=wpkO
------END PGP SIGNATURE-----
-
---hK8Uo4Yp55NZU70L--
+Thanks
+-- 
+~Vinod

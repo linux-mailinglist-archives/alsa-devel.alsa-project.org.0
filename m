@@ -2,94 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5671D197E59
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 16:27:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CF39197E74
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 16:34:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA657166E;
-	Mon, 30 Mar 2020 16:27:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA657166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id E367D82B;
+	Mon, 30 Mar 2020 16:33:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E367D82B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585578473;
-	bh=NCgKYox8kBxzlx6WmJ7s774Zpf7UDB74LJBooOfcG/o=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=HzkgK+LlbWGCjYppYEGtzj9omflxhOAuOChWkSGGdNKN8ZVS4Zjwp97tPcpTm5rf2
-	 IoFdRFId5EhiuumE3MqA8OBHqrn2WgpyaJ79s/vGG75d6k3tK64M011Nc4Klh5jVLn
-	 3dt0qiyre2Qe73KFp2jt6LYsDO3aDnI/wgA/YGn0=
+	s=default; t=1585578876;
+	bh=1kXTpX/yWwozFlgHWWi66FpvqsLhyioW/SMPlj9tlsw=;
+	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=rLiHyZCnJLxofhYo2SL6QN/Mjct1HWzj71dAF1maowwQVEa+mzi52uJ18/29ee68Y
+	 kpWl8nJRTMqXwh3cHvfCK9W6D3EE3rryfanUi6QREGtRDMzCmOEHKJT3Nn97dmjB4A
+	 6zsLwRcSJ082OLvFra/H+XUSa3D1St8UWtQ+KeUM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE464F80148;
-	Mon, 30 Mar 2020 16:26:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C7B3FF80145;
+	Mon, 30 Mar 2020 16:32:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A3985F80148; Mon, 30 Mar 2020 16:26:06 +0200 (CEST)
+ id E90E6F80148; Mon, 30 Mar 2020 16:32:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C9F0F8010C
- for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 16:26:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C9F0F8010C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="v4VSpPJr"
-Received: by mail-wm1-x341.google.com with SMTP id z18so20171717wmk.2
- for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 07:26:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=MpBTSEwmaAqAHZkF4ilI23br9Re1qv/0BxVULiNxTeM=;
- b=v4VSpPJrlOBbvaLpBqiz01Xp7dAhnnXtV3FY8mV8gTed7STPBhsFhFWOpTx8CnLMIm
- /TntA0lWKai6wf4PgnH1ZhFdpymAR9EN+QJnMrC2NzOERh6ms/IGca3mxhSUEoAgmXfu
- 1vMdcHd72FX4/Wkdm5EEQINdIYUM0SYclk5FiE2xyx/S7T6Xt3+YOgq35Z5xdgrzAHgl
- Jzg+GIxceS14Q7Ft7gC/SHLPWbSVLLFbZl5v5G4f93dGyyEkXsrAUXNXtAMwAicUWpaq
- HGskc1F7qAW+oGSu6lpXHg7HsZY603GO0QPGYCRqxzZu6kzOEthWAMiH0zImJSs5yO34
- Yx1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=MpBTSEwmaAqAHZkF4ilI23br9Re1qv/0BxVULiNxTeM=;
- b=uQd7n8/aqkPOW1og77o6Q17hPmIF99u4QbO1Q3+5BlFqzOvBE0B2lBoVbR9iiOmpl3
- WKPcYMv1KuwsS4BdHAI7JOKagBeQHydwrCoUBhhDNWZPs0C76peOKnfn9nzjHaDWU9Av
- Uzskvn0IM06FEj2K4CQbF+KQ1lGw6rptU8Y1byTstgZDolw462UPVKYQFpigwNpv6KKR
- 6uUvKqrc3OMisBFsrXSHZaIA/akIm7IPdkDDWhcjPBW5phSNkrXvxC+SGr/2yZ2XBpZk
- JzXC/8J/FqUlWktY43qWHMRDuQLVOtxnWvBJkFaQUfAUVkwKXILZZOJofiYxUgIwp+nH
- Fa4Q==
-X-Gm-Message-State: ANhLgQ39L5/Ig4JbHOhXzWe5ULRClONGItyBo5UUb/JS63d82tgV72oB
- LFFla/vR5HPva3Q8RdLU2A4ZWO99nSQ=
-X-Google-Smtp-Source: ADFU+vuTdnoQjJEEIhuFO3cDr41Rvn3vOSfGZ/rgR2arGk6FSeayZuf8P48DzBz528XamNqgBsCNvA==
-X-Received: by 2002:a1c:41d4:: with SMTP id o203mr12953168wma.1.1585578360631; 
- Mon, 30 Mar 2020 07:26:00 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.googlemail.com with ESMTPSA id a13sm22508279wrh.80.2020.03.30.07.25.59
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 30 Mar 2020 07:26:00 -0700 (PDT)
-Subject: Re: [PATCH 0/4] ucm2: Add support to SDM845 based platforms
-To: Jaroslav Kysela <perex@perex.cz>
-References: <20200305134404.7690-1-srinivas.kandagatla@linaro.org>
- <41e83744-5164-7cbb-98e6-fb8504c6b44e@linaro.org>
- <8732f355-adff-3a28-34b3-a85a027f297e@perex.cz>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <37d24771-d5ff-56fc-9dcc-3590385c61ad@linaro.org>
-Date: Mon, 30 Mar 2020 15:25:59 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <8732f355-adff-3a28-34b3-a85a027f297e@perex.cz>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: ALSA development <alsa-devel@alsa-project.org>
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 3288CF800AA
+ for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 16:32:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3288CF800AA
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CE42F1042;
+ Mon, 30 Mar 2020 07:32:45 -0700 (PDT)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4F5803F71E;
+ Mon, 30 Mar 2020 07:32:45 -0700 (PDT)
+Date: Mon, 30 Mar 2020 15:32:43 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Akshu Agrawal <akshu.agrawal@amd.com>
+Subject: Applied "ASoC: AMD: Clear format bits before setting them" to the
+ asoc tree
+In-Reply-To: <20200328093921.32211-1-akshu.agrawal@amd.com>
+Message-Id: <applied-20200328093921.32211-1-akshu.agrawal@amd.com>
+X-Patchwork-Hint: ignore
+Cc: , "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, open list <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ akshu.agrawal@amd.com, Mark Brown <broonie@kernel.org>,
+ Wei Yongjun <weiyongjun1@huawei.com>,
+ Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,40 +70,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The patch
 
+   ASoC: AMD: Clear format bits before setting them
 
-On 30/03/2020 15:19, Jaroslav Kysela wrote:
-> Dne 30. 03. 20 v 16:10 Srinivas Kandagatla napsal(a):
->> Hi Jaroslav,
->>
->> On 05/03/2020 13:44, Srinivas Kandagatla wrote:
->>> This patchset adds UCM support for WSA881x, WCD934x codec and two 
->>> platforms,
->>> DB845c DragonBoard and Lenovo YOGA C360 Laptop that use these codecs.
->>>
->>> Tested on Ubuntu 20.04 with pulseaudio 13 along with
->>> with this fix
->>>    
->>> https://github.com/pulseaudio/pulseaudio/commit/cabd387e26b5fe03661f4b894826c7c6b58d7efa 
->>>
->>>
->>
->> Are you okay to pick these ucm2 patches?
-> 
-> Hi,
-> 
->    it seems that those changes does not pass through the ucm validator 
-> (https://github.com/alsa-project/alsa-tests - python/ucm-validator 
-> directory).
+has been applied to the asoc tree at
 
-Thanks, I did not knew that there was an ucm-validator, I try run it and 
-fix those issues before sending a pull request!
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
 
---srini
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
 
-> 
->    I have also some comments, but I would probably prefer to create a 
-> pull request on github to do the review for all files with history.
-> 
->                  Thank you,
->                      Jaroslav
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From a91ab6509cd382dae4b7953155f47f276ff0d22f Mon Sep 17 00:00:00 2001
+From: Akshu Agrawal <akshu.agrawal@amd.com>
+Date: Sat, 28 Mar 2020 03:39:16 -0600
+Subject: [PATCH] ASoC: AMD: Clear format bits before setting them
+
+This avoids residual bit form previous format when the format is changed.
+Hence, the resultant format is not an invalid one.
+
+Signed-off-by: Akshu Agrawal <akshu.agrawal@amd.com>
+Signed-off-by: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+Link: https://lore.kernel.org/r/20200328093921.32211-1-akshu.agrawal@amd.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/amd/raven/acp3x-i2s.c | 1 +
+ sound/soc/amd/raven/acp3x.h     | 2 ++
+ 2 files changed, 3 insertions(+)
+
+diff --git a/sound/soc/amd/raven/acp3x-i2s.c b/sound/soc/amd/raven/acp3x-i2s.c
+index 3a3c47e820ab..f160d35a6832 100644
+--- a/sound/soc/amd/raven/acp3x-i2s.c
++++ b/sound/soc/amd/raven/acp3x-i2s.c
+@@ -139,6 +139,7 @@ static int acp3x_i2s_hwparams(struct snd_pcm_substream *substream,
+ 		rv_writel(adata->tdm_fmt, rtd->acp3x_base + frmt_reg);
+ 	}
+ 	val = rv_readl(rtd->acp3x_base + reg_val);
++	val &= ~ACP3x_ITER_IRER_SAMP_LEN_MASK;
+ 	val = val | (rtd->xfer_resolution  << 3);
+ 	rv_writel(val, rtd->acp3x_base + reg_val);
+ 	return 0;
+diff --git a/sound/soc/amd/raven/acp3x.h b/sound/soc/amd/raven/acp3x.h
+index 21e7ac017f2b..03fe93913e12 100644
+--- a/sound/soc/amd/raven/acp3x.h
++++ b/sound/soc/amd/raven/acp3x.h
+@@ -76,6 +76,8 @@
+ #define ACP_POWERED_OFF			0x02
+ #define ACP_POWER_OFF_IN_PROGRESS	0x03
+ 
++#define ACP3x_ITER_IRER_SAMP_LEN_MASK	0x38
++
+ struct acp3x_platform_info {
+ 	u16 play_i2s_instance;
+ 	u16 cap_i2s_instance;
+-- 
+2.20.1
+

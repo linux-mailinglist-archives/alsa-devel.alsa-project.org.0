@@ -2,63 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1348197085
-	for <lists+alsa-devel@lfdr.de>; Sun, 29 Mar 2020 23:32:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3AAA1971F2
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 03:12:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 52F22852;
-	Sun, 29 Mar 2020 23:31:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52F22852
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40A2E1614;
+	Mon, 30 Mar 2020 03:11:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40A2E1614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585517541;
-	bh=jX9MEwh90mGjInqgOX078NMhN6tdMcaQScasvBJGKHg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1585530760;
+	bh=f9Z8khJ3UINnQijAYwkP1Ll6oFkeXAzL6B+xbTCDyB0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=o/49sZyr5CUMQcCf6E6OtGGkJWvbStU9bzsiPWmm6tlbOjpDIB130nb8n7gKxk9h4
-	 k56HELrz/Ts17GYIGqi6Y/u8b6o365594QMMQRNl/Bg4pFirOMDxYA2AWnHWubaCfZ
-	 B358ADtYzonxHFPY+8hvY5eCOV1iBRSK9IPEcreA=
+	b=KijWqLWGKo9FumIc24PWXpwy3bTp77i6354IPM2+D2KYubeHwk52FFY6z19zmjFyA
+	 B0Mh+8MBgbcR6dcEHqV5tVVZ9gDDt8OnaQuoBrDSvkXqxnPRSS9a0sH5I3ko9qzBHn
+	 8G2FO2828IigvAgeDkLEGVkTAfoFjJEou519qhaY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E327F800EB;
-	Sun, 29 Mar 2020 23:30:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 36F60F8013F;
+	Mon, 30 Mar 2020 03:10:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8C293F80146; Sun, 29 Mar 2020 23:28:59 +0200 (CEST)
-Received: from mx.sdf.org (mx.sdf.org [205.166.94.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6560BF800EB
- for <alsa-devel@alsa-project.org>; Sun, 29 Mar 2020 23:18:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6560BF800EB
-Received: from sdf.org (IDENT:lkml@sdf.lonestar.org [205.166.94.16])
- by mx.sdf.org (8.15.2/8.14.5) with ESMTPS id 02TLIFW9002042
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits) verified NO);
- Sun, 29 Mar 2020 21:18:15 GMT
-Received: (from lkml@localhost)
- by sdf.org (8.15.2/8.12.8/Submit) id 02TLIFVM019351;
- Sun, 29 Mar 2020 21:18:15 GMT
-Date: Sun, 29 Mar 2020 21:18:14 +0000
-From: George Spelvin <lkml@SDF.ORG>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Subject: Re: [RFC PATCH v1 13/50] Avoid some useless msecs/jiffies conversions
-Message-ID: <20200329211316.GG4675@SDF.ORG>
-References: <202003281643.02SGhBrh000992@sdf.org>
- <s5ho8sfd2dk.wl-tiwai@suse.de> <20200329121129.GC11951@SDF.ORG>
- <s5h7dz3ccea.wl-tiwai@suse.de> <20200329175032.GE4675@SDF.ORG>
- <1585505807.4510.1.camel@HansenPartnership.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1585505807.4510.1.camel@HansenPartnership.com>
-Cc: lkml@sdf.org, alsa-devel@alsa-project.org,
- Marek Lindner <mareklindner@neomailbox.ch>, linux-scsi@vger.kernel.org,
- Simon Wunderlich <sw@simonwunderlich.de>, Takashi Iwai <tiwai@suse.de>,
- linux-wireless@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Antonio Quartulli <a@unstable.cc>, linux-kernel@vger.kernel.org,
- Hannes Reinecke <hare@suse.de>, Johannes Berg <johannes@sipsolutions.net>,
- Sven Eckelmann <sven@narfation.org>
+ id BF797F80146; Mon, 30 Mar 2020 03:10:45 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=0.3 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE
+ autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 36086F8013F
+ for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 03:10:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36086F8013F
+Date: 30 Mar 2020 10:10:33 +0900
+X-IronPort-AV: E=Sophos;i="5.72,322,1580742000"; d="scan'208";a="42943206"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 30 Mar 2020 10:10:33 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 1D6154002633;
+ Mon, 30 Mar 2020 10:10:33 +0900 (JST)
+Message-ID: <87lfnibqba.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH v3 5/8] ASoC: soc-pcm: call
+ snd_soc_dai_startup()/shutdown() once
+In-Reply-To: <df297c98-74a4-fe61-9c61-563a5bae2615@linux.intel.com>
+References: <87d0anceze.wl-kuninori.morimoto.gx@renesas.com>
+ <875zgfcey5.wl-kuninori.morimoto.gx@renesas.com>
+ <54b81b41-f4cf-c28c-0ec5-363e2c62796b@linux.intel.com>
+ <df297c98-74a4-fe61-9c61-563a5bae2615@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,83 +73,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, Mar 29, 2020 at 11:16:47AM -0700, James Bottomley wrote:
-> On Sun, 2020-03-29 at 17:50 +0000, George Spelvin wrote:
->> On Sun, Mar 29, 2020 at 07:13:33PM +0200, Takashi Iwai wrote:
->>> Fair enough.  But it's still a question whether an open code X * HZ
->>> is good at all...
->> 
->> I'm sorry, I don't understand what you mean by "good at all" here.
->> The value computed is exactly the same.
-> 
-> I think he means what the compiler does with it.
-> 
-> We all assume that msecs_to_jiffies is properly optimized so there
-> should be no need to open code it like you're proposing.  So firstly
-> can you produce the assembly that shows the worse output from
-> msecs_to_jiffies?  If there is a problem, then we should be fixing it
-> in msecs_to_jiffies, not adding open coding.
 
-Fair enough.  For the two alternative functions:
+Hi Amadeusz, Pierre-Louis
 
-#include <linux/jiffies.h>
+Thank you for your feedback, and sorry to bother you.
 
-unsigned long timeout1(unsigned seconds)
-{
-	return jiffies + msecs_to_jiffies(seconds * 1000);
-}
+> > the above change breaks simultaneous playback and capture on single
+> > DAI in more complicated use cases. With above change when one runs
+> > playback first, startup callback is skipped when running capture
+> > while playback is still running.
 
-unsigned long timeout2(unsigned seconds)
-{
-	return jiffies + seconds * HZ;
-}
+Similar issue had been happened on component open before.
+https://lore.kernel.org/alsa-devel/20200219182650.1416-1-kai.vehmanen@linux.intel.com/
 
-compiled with Kbuild, the object code produced is:
+I'm so sorry but this is bug.
+In my quick check, this patch is not related to other patches.
+So, just reverting it is nice idea, I think.
 
-Disassembly of section .text:
+> Should the 'started' bitfield should be an array for capture and
+> playback cases respectively? e.g.
 
-0000000000000000 <timeout1>:
-   0:	69 ff e8 03 00 00       imul   $0x3e8,%edi,%edi
-   6:	e8 00 00 00 00          callq  b <timeout1+0xb>
-                        7: R_X86_64_PLT32       __msecs_to_jiffies-0x4
-   b:	49 89 c0                mov    %rax,%r8
-   e:	48 8b 05 00 00 00 00    mov    0x0(%rip),%rax        # 15 
-<timeout1+0x15>
-                        11: R_X86_64_PC32       jiffies-0x4
-  15:	4c 01 c0                add    %r8,%rax
-  18:	c3                      retq   
-  19:	0f 1f 80 00 00 00 00    nopl   0x0(%rax)
+Yeah.
+But, I will re-try this issue (for DAI, for Component) again.
+Let's just revert it so far.
+Is it OK for you ?
 
-0000000000000020 <timeout2>:
-  20:	48 8b 15 00 00 00 00    mov    0x0(%rip),%rdx        # 27 
-<timeout2+0x7>
-                        23: R_X86_64_PC32       jiffies-0x4
-  27:	69 c7 2c 01 00 00       imul   $0x12c,%edi,%eax
-  2d:	48 01 d0                add    %rdx,%rax
-  30:	c3                      retq   
+Thank you for your help !!
 
-This is the type of code I replaced: code where the number of seconds
-is not known at compile time.  Notice how the first multiplies by 1000
-and then calls __msecs_to_jiffies.  The second multiplies by 300 and
-makes no function call.
+Best regards
+---
+Kuninori Morimoto
 
-__msecs_to_jiffies (from kernel/time/time.o) is:
 
-0000000000000100 <__msecs_to_jiffies>:
-     100:	48 b8 fe ff ff ff ff    movabs $0x3ffffffffffffffe,%rax
-     107:	ff ff 3f 
-     10a:	85 ff                   test   %edi,%edi
-     10c:	78 1c                   js     12a 
-<__msecs_to_jiffies+0x2a>
-     10e:	b8 9a 99 99 99          mov    $0x9999999a,%eax
-     113:	89 ff                   mov    %edi,%edi
-     115:	48 0f af f8             imul   %rax,%rdi
-     119:	48 b8 cc cc cc cc 01    movabs $0x1cccccccc,%rax
-     120:	00 00 00 
-     123:	48 01 f8                add    %rdi,%rax
-     126:	48 c1 e8 21             shr    $0x21,%rax
-     12a:	c3                      retq   
-     12b:	0f 1f 44 00 00          nopl   0x0(%rax,%rax,1)
 
-I didn't try to replace code that uses compile-time constant arguments
-such as include/linux/ceph/libceph.h.
+
+Thank you for your help !!
+
+Best regards
+---
+Kuninori Morimoto

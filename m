@@ -2,70 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2295C197FFC
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 17:42:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BAEE198046
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Mar 2020 17:57:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A4D6E166F;
-	Mon, 30 Mar 2020 17:41:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4D6E166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5BAB166D;
+	Mon, 30 Mar 2020 17:56:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5BAB166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585582946;
-	bh=oG6T/gOGk9/Kyd0hHVAMpBlx4+RhDiOzWifYqBCE8HM=;
+	s=default; t=1585583829;
+	bh=vPtOrDH3dv6Ku7BbuZbQ+x4YjFaXNmi1KpTUcdWD674=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VWuac1OLe+Pd8lAxOef7FLDHiVJLcShcxX1ma2zYXEtwE+fhdRGxORre7X4l+gGya
-	 zZ303Hl6deSHP6ziXNI5tRbx9fSk0XqadUSt8OYYumIuKPq5uhvRiM3Mks/mJey0Fs
-	 /laFKX1bKZUPRHGBrRBHtfUM+rAaMvCsw+27W4Cs=
+	b=NxmRsCzu6p2jHAqIkWQ7dx32IwhopojCNwy9TjUQeG47hCraPorY7Bzb9Xl/rd0BF
+	 47jM2ijBOd2Vw7H02nMm35BgeR0kbKNjQa0hR/bQTnjWE9zWjE0CCMCZ5/OXpcFS9v
+	 UHOqEpHKTPhMVGwP4bw4fVHKCwaOn2Q4BOuRO81c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 500A0F8014A;
-	Mon, 30 Mar 2020 17:40:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97ADBF80145;
+	Mon, 30 Mar 2020 17:55:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94BFCF80148; Mon, 30 Mar 2020 17:40:29 +0200 (CEST)
+ id 23C1BF80148; Mon, 30 Mar 2020 17:52:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 52B49F800EB
- for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 17:40:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52B49F800EB
-IronPort-SDR: 6QE95vv6dTYy8KGNFmYs4F+VdTp6BegdIx4DCiaTsfhWvlRlASz1NaaI/OQT5vFOlWsHIXygv6
- SpfANqhIBRyw==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 18295F800AA
+ for <alsa-devel@alsa-project.org>; Mon, 30 Mar 2020 17:52:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18295F800AA
+IronPort-SDR: NMpkV9Y0Sub5DqvQKf3zY5TPPwo688WtLXKoiPPHSg2SmmDkgf7ZLTnUmQnQn+w2zQBTNdr6Sd
+ ZQ2Um3UgcwSg==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2020 08:40:16 -0700
-IronPort-SDR: Eb2wCb1HDrU2DzP2nA7wX4Pbrz6pL26tO4z1Tv0An+jMLK0GbSzhbsOkvUE2sGuAJTXysg9+8M
- Nq2gK+so6sBg==
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2020 08:51:55 -0700
+IronPort-SDR: 6ZhI8R90W+NOCg5nfg4qyAKnK78okYmsk7KIpoHTrh4Jab/gBvRmomCtEwGZ83BP+dZVtUhvKr
+ +piYZDeY6XVA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,324,1580803200"; d="scan'208";a="395161805"
+X-IronPort-AV: E=Sophos;i="5.72,324,1580803200"; d="scan'208";a="395166114"
 Received: from sgobriel-mobl.amr.corp.intel.com (HELO [10.212.145.94])
  ([10.212.145.94])
- by orsmga004.jf.intel.com with ESMTP; 30 Mar 2020 08:40:15 -0700
-Subject: Re: [PATCH 0/4] ASoC: Intel: boards: Remove ignore_suspend flag from
- SSP0 dai link
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
-References: <20200319204947.18963-1-cezary.rojewski@intel.com>
+ by orsmga004.jf.intel.com with ESMTP; 30 Mar 2020 08:51:54 -0700
+Subject: Re: [PATCH v2 3/6] ASoC: topology: Check return value of
+ soc_tplg_*_create
+To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
+References: <20200327204729.397-1-amadeuszx.slawinski@linux.intel.com>
+ <20200327204729.397-4-amadeuszx.slawinski@linux.intel.com>
+ <ea618248-5c0c-24f2-b1fb-2b5aecb16049@linux.intel.com>
+ <41ce872f-7fa5-74cd-396b-9bfae989e91c@linux.intel.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <a8d375c4-6b07-fcae-270d-ad03d6eb9def@linux.intel.com>
-Date: Mon, 30 Mar 2020 10:40:15 -0500
+Message-ID: <8e03a294-3562-7e26-6654-a5b0f7970060@linux.intel.com>
+Date: Mon, 30 Mar 2020 10:51:54 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <20200319204947.18963-1-cezary.rojewski@intel.com>
+In-Reply-To: <41ce872f-7fa5-74cd-396b-9bfae989e91c@linux.intel.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: vkoul@kernel.org, broonie@kernel.org, lgirdwood@gmail.com, tiwai@suse.com
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,34 +87,54 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+>>>       if (tplg->pass != SOC_TPLG_PASS_MIXER) {
+>>> @@ -1152,25 +1153,30 @@ static int 
+>>> soc_tplg_kcontrol_elems_load(struct soc_tplg *tplg,
+>>>           case SND_SOC_TPLG_CTL_RANGE:
+>>>           case SND_SOC_TPLG_DAPM_CTL_VOLSW:
+>>>           case SND_SOC_TPLG_DAPM_CTL_PIN:
+>>> -            soc_tplg_dmixer_create(tplg, 1,
+>>> -                           le32_to_cpu(hdr->payload_size));
+>>> +            ret = soc_tplg_dmixer_create(tplg, 1,
+>>> +                    le32_to_cpu(hdr->payload_size));
+>>>               break;
+>>>           case SND_SOC_TPLG_CTL_ENUM:
+>>>           case SND_SOC_TPLG_CTL_ENUM_VALUE:
+>>>           case SND_SOC_TPLG_DAPM_CTL_ENUM_DOUBLE:
+>>>           case SND_SOC_TPLG_DAPM_CTL_ENUM_VIRT:
+>>>           case SND_SOC_TPLG_DAPM_CTL_ENUM_VALUE:
+>>> -            soc_tplg_denum_create(tplg, 1,
+>>> -                          le32_to_cpu(hdr->payload_size));
+>>> +            ret = soc_tplg_denum_create(tplg, 1,
+>>> +                    le32_to_cpu(hdr->payload_size));
+>>>               break;
+>>>           case SND_SOC_TPLG_CTL_BYTES:
+>>> -            soc_tplg_dbytes_create(tplg, 1,
+>>> -                           le32_to_cpu(hdr->payload_size));
+>>> +            ret = soc_tplg_dbytes_create(tplg, 1,
+>>> +                    le32_to_cpu(hdr->payload_size));
+>>>               break;
+>>>           default:
+>>>               soc_bind_err(tplg, control_hdr, i);
+>>>               return -EINVAL;
+>>>           }
+>>> +        if (ret < 0) {
+>>> +            dev_err(tplg->dev, "ASoC: invalid control\n");
+>>> +            return ret;
+>>> +        }
+>>
+>> Sounds good, but this happens in a loop, so would all the memory 
+>> previously allocated by denum/dbytes/dmixer_create leak, or is it 
+>> freed automatically somewhere else?
+>>
+> 
+> Well, now that error is propagated, snd_soc_tplg_component_remove() 
+> should be called by snd_soc_tplg_component_load() in case of errors 
+> while parsing. From quick look it seems like it should be able to free 
+> it up correctly by calling remove_enum/bytes/mixer.
 
-On 3/19/20 3:49 PM, Cezary Rojewski wrote:
-> As of commit:
-> ASoC: soc-core: care .ignore_suspend for Component suspend
-> 
-> function soc-core::snd_soc_suspend no longer ignores 'ignore_suspend'
-> flag for dai links. While BE dai link for System Pin is
-> supposed to follow standard suspend-resume flow, appended
-> 'ignore_suspend' flag disturbs that flow and causes audio to break
-> right after resume. Remove the flag to address this.
-> 
-> Link to first message in conversation:
-> https://lkml.org/lkml/2020/3/18/54
-> 
-> Cezary Rojewski (4):
->    ASoC: Intel: broadwell: Remove ignore_suspend flag from SSP0 dai link
->    ASoC: Intel: haswell: Remove ignore_suspend flag from SSP0 dai link
->    ASoC: Intel: bdw-rt5677: Remove ignore_suspend flag from SSP0 dai link
->    ASoC: Intel: bdw-rt5650: Remove ignore_suspend flag from SSP0 dai link
-
-tested on Broadwell XPS 13 and bdw-rt5677, so
-
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
-> 
->   sound/soc/intel/boards/bdw-rt5650.c | 1 -
->   sound/soc/intel/boards/bdw-rt5677.c | 1 -
->   sound/soc/intel/boards/broadwell.c  | 1 -
->   sound/soc/intel/boards/haswell.c    | 1 -
->   4 files changed, 4 deletions(-)
-> 
+I am not sure what you meant by 'should be called', if it's a 
+recommendation for a future change or a description of the existing 
+behavior.
+Just to be clear, are you saying the existing code will take care of 
+this error flow or that a new patch is needed?

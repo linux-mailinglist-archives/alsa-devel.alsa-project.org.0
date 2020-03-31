@@ -2,132 +2,132 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8BA8198BD6
-	for <lists+alsa-devel@lfdr.de>; Tue, 31 Mar 2020 07:44:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2ECA198BDF
+	for <lists+alsa-devel@lfdr.de>; Tue, 31 Mar 2020 07:44:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4117B166D;
-	Tue, 31 Mar 2020 07:43:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4117B166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 223591673;
+	Tue, 31 Mar 2020 07:44:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 223591673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585633446;
-	bh=AJcbZzzeX2GcSN6n09F+Hp0xNwhEEvMTKArNQM6cXX4=;
+	s=default; t=1585633490;
+	bh=QG6mricB5qEw2dKAN2049xFNYphKC6DtSZHP1K6NN4s=;
 	h=From:To:In-Reply-To:Subject:Date:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QirutUzzxfhMsz33LJZCGUmaVMj4Xr75gQvc4t2FEDjMqwcgkFlG4iryTLDwBR0pi
-	 yVPbk5v40UezXzVRendLGpMAqEsQJtLnCsSkFbdTUrDi0wwnyuQcRUK9C3+qUjv3oQ
-	 /9TTL8O4vvtYIqEhR3x5hpubAjNcT/rWa17IAHUU=
+	b=Ok5VJNgDicEiMUSPMUYnZ+fyAWOxC9dXUWQ9ZouuSHaGUlo011LsFJXlqeYjVo+Sm
+	 NZO9XQNU0nrUfjeE4xVDvJmSf8Xo4api6XuMVbim9MFuC4RvDFlrnxgg1zifzvnU6g
+	 YnOXa66wn+GKkEYKUB0Ev4/eBE2axvESGZv7wuiI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F148F80146;
-	Tue, 31 Mar 2020 07:42:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99AB5F80256;
+	Tue, 31 Mar 2020 07:42:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2FF8F8014F; Tue, 31 Mar 2020 07:42:21 +0200 (CEST)
+ id 1D285F80146; Tue, 31 Mar 2020 07:42:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CFDAEF8010C
- for <alsa-devel@alsa-project.org>; Tue, 31 Mar 2020 07:42:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFDAEF8010C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8383BF800AA
+ for <alsa-devel@alsa-project.org>; Tue, 31 Mar 2020 07:42:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8383BF800AA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="joSyFyMZ"
-Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
- by mailout1.samsung.com (KnoxPortal) with ESMTP id
- 20200331054211epoutp01c8ea82163ad23fc6bff08b287aa838ef~BTR0gYEae3204532045epoutp01a
- for <alsa-devel@alsa-project.org>; Tue, 31 Mar 2020 05:42:11 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
- 20200331054211epoutp01c8ea82163ad23fc6bff08b287aa838ef~BTR0gYEae3204532045epoutp01a
+ header.b="qYeqMrWn"
+Received: from epcas2p3.samsung.com (unknown [182.195.41.55])
+ by mailout4.samsung.com (KnoxPortal) with ESMTP id
+ 20200331054213epoutp04c543356b02d060d99d1354fa9fbb71be~BTR2V5eCJ1028810288epoutp04E
+ for <alsa-devel@alsa-project.org>; Tue, 31 Mar 2020 05:42:13 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com
+ 20200331054213epoutp04c543356b02d060d99d1354fa9fbb71be~BTR2V5eCJ1028810288epoutp04E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1585633331;
- bh=hFcpKVJj25+xe62AedFKEBhBKP4z/4LIODe/zAU4lxc=;
+ s=mail20170921; t=1585633333;
+ bh=nxBljRL/HqZF/Xnk5mkQ0LBK9jG8ZWRGDYmwc1AskKs=;
  h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
- b=joSyFyMZNTnZixVjGZ7pgIcL+adtN+29piv6Zpjy/ltRgcpdII0WW6LxNtzscJ6bs
- m7rmkAwMoUaIsXhAwnWao5QHPZBxI1oZCzb0T3rsanMsUOYavT3bQroJfyhCiKC0n8
- /HOk0dqSlkwQUKrsoS4vNRWihmwP1coiY8XD+opI=
-Received: from epsnrtp2.localdomain (unknown [182.195.42.163]) by
- epcas2p1.samsung.com (KnoxPortal) with ESMTP id
- 20200331054210epcas2p11c5f88be613f13738abfb9ead24c5177~BTRz6rQbf2079520795epcas2p1a;
- Tue, 31 Mar 2020 05:42:10 +0000 (GMT)
-Received: from epsmges2p4.samsung.com (unknown [182.195.40.184]) by
- epsnrtp2.localdomain (Postfix) with ESMTP id 48ryrc0B5szMqYkr; Tue, 31 Mar
- 2020 05:42:08 +0000 (GMT)
+ b=qYeqMrWnHub9d2TXzNKOj37alJrMQj+mfpQrrMfPY6J5Wl0HXHwY7oeHhspBj72dc
+ SIyvRS1pEJWXbDUL68xUdrGsGgiaYxVuz5+ioxoJM5LSxaeyUaGn7GI8rKvHKePM/D
+ pigceuE4IFkgNlD//ZjOaVAEJ1CyOxs5xMLRA1tc=
+Received: from epsnrtp4.localdomain (unknown [182.195.42.165]) by
+ epcas2p4.samsung.com (KnoxPortal) with ESMTP id
+ 20200331054212epcas2p4049282e4e0842e8f9f745fd69704ed49~BTR16QI7A0979109791epcas2p4D;
+ Tue, 31 Mar 2020 05:42:12 +0000 (GMT)
+Received: from epsmges2p2.samsung.com (unknown [182.195.40.190]) by
+ epsnrtp4.localdomain (Postfix) with ESMTP id 48ryrg3GlXzMqYkd; Tue, 31 Mar
+ 2020 05:42:11 +0000 (GMT)
 Received: from epcas2p3.samsung.com ( [182.195.41.55]) by
- epsmges2p4.samsung.com (Symantec Messaging Gateway) with SMTP id
- CC.A5.04024.F28D28E5; Tue, 31 Mar 2020 14:42:07 +0900 (KST)
+ epsmges2p2.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 8A.C8.04142.238D28E5; Tue, 31 Mar 2020 14:42:10 +0900 (KST)
 Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
- epcas2p3.samsung.com (KnoxPortal) with ESMTPA id
- 20200331054207epcas2p3818aae4ef5d73ae1d7cdf804bca3a63f~BTRw98b1A3244532445epcas2p3x;
- Tue, 31 Mar 2020 05:42:07 +0000 (GMT)
-Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
+ epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20200331054210epcas2p2923129b0393e62b6e3d8931c2393c934~BTRznIFhj0079800798epcas2p2J;
+ Tue, 31 Mar 2020 05:42:10 +0000 (GMT)
+Received: from epsmgms1p2new.samsung.com (unknown [182.195.42.42]) by
  epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20200331054207epsmtrp23f3a1eca115d35a457be91e3c9263216~BTRw9MF6n0531905319epsmtrp2J;
- Tue, 31 Mar 2020 05:42:07 +0000 (GMT)
-X-AuditID: b6c32a48-5c1ff70000000fb8-97-5e82d82f21a8
-Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
- epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 97.AE.04024.F28D28E5; Tue, 31 Mar 2020 14:42:07 +0900 (KST)
-Received: from KORDO025540 (unknown [12.36.182.130]) by epsmtip1.samsung.com
+ 20200331054210epsmtrp2883bb851fa184cd1b2d3e2e195be1ba3~BTRzmexDu0532005320epsmtrp2J;
+ Tue, 31 Mar 2020 05:42:10 +0000 (GMT)
+X-AuditID: b6c32a46-3f9ff7000000102e-96-5e82d832514c
+Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
+ epsmgms1p2new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ B0.60.04158.238D28E5; Tue, 31 Mar 2020 14:42:10 +0900 (KST)
+Received: from KORDO025540 (unknown [12.36.182.130]) by epsmtip2.samsung.com
  (KnoxPortal) with ESMTPA id
- 20200331054207epsmtip12d8087862b0b5509acb984cf25a71e08~BTRwwwOF30985909859epsmtip1T;
- Tue, 31 Mar 2020 05:42:07 +0000 (GMT)
+ 20200331054210epsmtip26b9597c18c71ffcc4984d9c40b65a680~BTRzd1qMB0212902129epsmtip2h;
+ Tue, 31 Mar 2020 05:42:10 +0000 (GMT)
 From: =?ks_c_5601-1987?B?wMyw5sXD?= <gt82.lee@samsung.com>
 To: <broonie@kernel.org>
-In-Reply-To: <000d01d60665$be93a920$3bbafb60$@samsung.com>
-Subject: [PATCH 0/3] fixes for topology
-Date: Tue, 31 Mar 2020 14:42:07 +0900
-Message-ID: <010801d6071f$1d716680$58543380$@samsung.com>
+In-Reply-To: <000e01d60665$d48444b0$7d8cce10$@samsung.com>
+Subject: [PATCH 1/3] ASoC: dapm: connect virtual mux with default value
+Date: Tue, 31 Mar 2020 14:42:10 +0900
+Message-ID: <010901d6071f$1f299dd0$5d7cd970$@samsung.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="ks_c_5601-1987"
 Content-Transfer-Encoding: 7bit
 X-Mailer: Microsoft Outlook 16.0
 Content-Language: ko
-Thread-Index: AQE8i8ZtjI711u7LMsI3xetGlRxONgKEfuIyqYD+kZA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA02Sa0hTYRjHec85OzuzJqel9eCHXCeisrRttXk0DSmpUUJS36K0k745aTd2
- tkrpgymZN6JCy9aVFDNtZWpWVlBL0aKChaJmoVF2WzfKLkZJm2fBvv2e5/m/vP//+z4MqWqg
- Y5h8qxM7rIKZoyOojnuLEuOXDhZnab4PpPB9Pi/B17x4RfO1HZUU/6OvjOC7fXUE3/LTg/iu
- fdVEmtzY8q2YNt5wP5cbW5vKaePB9iZkvNzeT2XKNptTTFjIxQ41tubYcvOteanc+k3Zq7P1
- Bo02XpvEJ3Jqq2DBqVx6Rmb8mnxzwAen3iWYXYFWpiCK3NKVKQ6by4nVJpvoTOWwPdds12rt
- CaJgEV3WvIQcmyVZq9Ho9AHlNrOp019F2oeoPW/9f2RF6AlZgRQMsMvh8kgdUYEiGBV7HcHr
- rxeQVHxFUF/VKZOKH4HJzUni/5G/tY1yaXAbwae7v1FwoGLfIXB7EisQw9BsMlRVcsF2FAsw
- 3tk7dQXJHkHQ/PbNlF4R0Ix7vPIgz2QXwIHaYTrIFDsfxjy9U/6UbBIUfzlGSDwD7h9/RQWZ
- ZHVQ33yGkDgWrn08GcqjhomxBpnUj4IT5aWkZCIZSg4ekkkaPw2j3QaJ06G2boKSeCa872mX
- SxwD3z7dpoOmgS0JhHz0JzSoRlBeqZJ4GbSfekAEAwM7D7qehrxFQtm9v3KprYSy0pCagysP
- JkNqgNMt8kOIc4cFc4cFc4cFc4eFOYuoJjQL20VLHhZ19uXhn92KpnY0zngd3Xmc4UUsg7jp
- ytH+fVkqmbBLLLB4ETAkF6WkNxRlqZS5QkEhdtiyHS4zFr1IH3j4w2RMdI4tsPFWZ7ZWrzMY
- NEl6Xm/Q8dxsZeu0oS0qNk9w4p0Y27Hj/zmCUcQUobmNJb3PorP2z9pRL7QplsxdOPxy4qPp
- Umzs71Vbi98suTF/+ucrO3B0oeUiCc+vorFNaZEji9kTPQN7Ew1PzhnXDg1mmP3jh33rbhk2
- 7j52ye9J6FqRmeYrbCjznZo8Cu+oOaOxbTMKXmxsXvvrtUcxcL7ChU2PPgxtr3kYXxrX6+Mo
- 0SRo40iHKPwDK+TmDrkDAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprIIsWRmVeSWpSXmKPExsWy7bCSnK7+jaY4g2M7JSyuXDzEZDH14RM2
- ixnbulksvl3pYLI4enExk8WG72sZLY40TmFyYPfY8LmJzWPnrLvsHptWdbJ59G1ZxeixfstV
- lgDWKC6blNSczLLUIn27BK6MXa97mAtuslS8eP2HtYHxEnMXIyeHhICJxN8ZK9hBbCGB3YwS
- S5syIOISEh/mn2GHsIUl7rccYe1i5AKqec4oMXnKHrYuRg4ONgEriZ5uJZAaEaD6L7tOMIHU
- MAvMYpR4NWc2VEM3o8T8bR/ZQKo4gRq+rD0ENlVYQF2ifcZtsDiLgKrE07UnwC7iFbCUaPow
- nQnCFpQ4OfMJC4jNDHRp4+FuKFteYvvbOVAfKEj8fLqMFSIuIjG7s40Z4iIriea+CawTGIVn
- IRk1C8moWUhGzULSvoCRZRWjZGpBcW56brFhgWFearlecWJucWleul5yfu4mRnBEaWnuYLy8
- JP4QowAHoxIP74OrjXFCrIllxZW5hxglOJiVRHjZ/BvihHhTEiurUovy44tKc1KLDzFKc7Ao
- ifM+zTsWKSSQnliSmp2aWpBaBJNl4uCUamAMmi+fvphh6cKnz96Eviirz6h1fFT94FbLfbbi
- JXNErHYaVZ6/dnOOLevLfmb7ZzZG8+TuzmeO40/yY+QX+PvsvVrvSqtVDZ0Xb+8/Lr/A5+tL
- 3ZNfVmdkTpV7eE5yrjebt+Uq4zMyXSfOLb17+++jJ/7c18UEXj9a/PuG4IXshR/FV3UtyX+i
- oMRSnJFoqMVcVJwIAFdsRaakAgAA
-X-CMS-MailID: 20200331054207epcas2p3818aae4ef5d73ae1d7cdf804bca3a63f
+Thread-Index: AQHT5UBTKtX+5pznRWgpVI/NXVAXlgFfQZWpqFt1jmA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA01Sa0hTYRjuO+fs7GitTsvyxX40TlQkqNvR2dEyulGLioSKIsJ5cAc32uW0
+ MyX7kxnJptHFLGzdhCxiFl5adpVoLiu1IJilhV21myWUZQUtmjsL9u953/d5Pp7n/V4KV18g
+ UyiL3SU47byVIROJto75C9LYvooCrbd3Hhd6HMC4o68HSa6urZrgxkJujLv7+CzGNf+8hLjg
+ nlpsidLQPFpBGq57B5SGVp+HNBzw+5Chyd9L5Cu2WheZBd4kODWCvchhstiL85g1G4zLjfps
+ rS5Nl8MtYDR23ibkMSvW5qettFgjPhhNKW8tibTyeUliMhYvcjpKXILG7JBceYwgmqyiTiem
+ S7xNKrEXpxc5bLk6rZbVR5iFVnPY/0Yh3qR2ngp3onLURVahBAroLPjhq8KrUCKlpq8h6Hwe
+ xOTiG4KXn/cRcjGG4PboEPZfUut5oZAH7Qhq6kIx/UcE/SNeVIUoiqRzYX81My5IogG+37gf
+ fRanaxA0fniPxgcJEU7DYGUUT6NXQWjvhagpgp4Dh9vOR/sqOgc6joQJGU+FB8cHoxinWWho
+ PIPJeBZc/XISl91p4PfQeYXcT4ITnkpcNpELl4+0R00APUzC0HCQkAUrYNhzPLaNafDpnl8p
+ 4xQYHWknZcFeBCMP/8QGtQg81WoZZ4L/VBc2nhjo2RB8FjM3GdwdYaXcVoG7MsZmoKXrb4wN
+ cLpZeQgx3rhk3rhk3rhk3rg09YjwoRmCKNmKBYkV2fjvbkXRK01deQ01PFobQDSFmEmqV717
+ CtQKvlQqswUQUDiTpCLXlxeoVSa+bJfgdBidJVZBCiB9ZPOH8ZTpRY7IzdtdRp2ezc7W5ug5
+ fTbLMcmq1on929R0Me8StguCKDj/6zAqIaUcsX3nvpZtUbJLvmbOvTj15ZX8xOAvy8n6H7tL
+ 34Ud+2c9OWZsMr2df5BwT7Is3uTzsv47E5Nv/v0zs3NroKd62d2Bp+XSutQJJr+7u1GcYk43
+ JZel53bXZIUyDq0fGFy6bONmbkP9Da6ukOnxf1r4+V33rcIMpufF6n1nHk7YIY61VDCEZOZ1
+ qbhT4v8BlUL5d7sDAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprEIsWRmVeSWpSXmKPExsWy7bCSvK7RjaY4g4XtghZXLh5ispj68Amb
+ xYxt3SwW3650MFkcvbiYyWLD97WMFkcapzA5sHts+NzE5rFz1l12j02rOtk8+rasYvRYv+Uq
+ SwBrFJdNSmpOZllqkb5dAlfG3y2PWAt2c1TM/XuMsYHxFFsXIyeHhICJxJTOe6xdjFwcQgK7
+ GSVunH/GBJGQkPgw/ww7hC0scb/lCFTRc0aJVY1dQN0cHGwCVhI93UogNSJA9V92nWACqWEW
+ mMUo8WrObKiGbkaJC0dfMINUcQI1LHnSxghiCwu4S1xpXgF2BouAqsTEbcvA4rwClhKHJ/9l
+ gbAFJU7OfAJmMwOd2ni4G8qWl9j+dg4zxHUKEj+fLmOFiItIzO5sY4a4yEpi8+S9TBMYhWch
+ GTULyahZSEbNQtK+gJFlFaNkakFxbnpusWGBUV5quV5xYm5xaV66XnJ+7iZGcExpae1gPHEi
+ /hCjAAejEg/vg6uNcUKsiWXFlbmHGCU4mJVEeNn8G+KEeFMSK6tSi/Lji0pzUosPMUpzsCiJ
+ 88rnH4sUEkhPLEnNTk0tSC2CyTJxcEo1ME7RXuiWrVwXMPvAe4VtIYc/HHi2QP6L6dUl66bF
+ tG6beOtVUN/9v9yZEiIZMeF72Q1NFk4oeOF8n/flMaaLy1VqHRfsCn3b1a657srCloc7Vm7d
+ z15xcMP2HfuU/BYLJPtML1Sez2gW/msNxxQ7LgdZk7ue9w7nC5vPSlvEx+P8kdNQJ+Fvu4QS
+ S3FGoqEWc1FxIgCWRmjepQIAAA==
+X-CMS-MailID: 20200331054210epcas2p2923129b0393e62b6e3d8931c2393c934
 X-Msg-Generator: CA
 X-Sendblock-Type: AUTO_CONFIDENTIAL
 CMS-TYPE: 102P
 DLP-Filter: Pass
 X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20200330073511epcas2p2dd0a6e9dca67734192f0d55b86104cbb
-References: <CGME20200330073511epcas2p2dd0a6e9dca67734192f0d55b86104cbb@epcas2p2.samsung.com>
- <000d01d60665$be93a920$3bbafb60$@samsung.com>
+X-CMS-RootMailID: 20200330073548epcas2p3045be9d3c8b76115c76ce27679840b6f
+References: <CGME20200330073548epcas2p3045be9d3c8b76115c76ce27679840b6f@epcas2p3.samsung.com>
+ <000e01d60665$d48444b0$7d8cce10$@samsung.com>
 Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, tiwai@suse.com,
  hmseo@samsung.com, tkjung@samsung.com, pilsun.jang@samsung.com
 X-BeenThere: alsa-devel@alsa-project.org
@@ -145,29 +145,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi, Mark
+Since a virtual mixer has no backing registers to decide which path to
+connect, it will try to match with initial value 0.
+This is to ensure that the default mixer choice will be correctly powered
+up during initialization.
 
-I resend these patches as you requested.
+Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
+---
+ sound/soc/soc-dapm.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-And, please ignore my previous email "RE: [PATCH 3/3] ASoC: fix regwmask".
-I miss-clicked send button.
-I'm sorry about that.
-
-Thank you.
-Lee
-
-Gyeongtaek Lee (3):
-  ASoC: dapm: connect virtual mux with default value
-  ASoC: topology: use name_prefix for new kcontrol
-  ASoC: fix regwmask
-
- sound/soc/soc-dapm.c     | 11 ++++++++++-
- sound/soc/soc-ops.c      |  4 ++--
- sound/soc/soc-topology.c |  2 +-
- 3 files changed, 13 insertions(+), 4 deletions(-)
-
-
-base-commit: 76ccd234269bd05debdbc12c96eafe62dd9a6180
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c index
+9fb54e6fe254..fc55a0534252 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -802,7 +802,16 @@ static void dapm_set_mixer_path_status(struct
+snd_soc_dapm_path *p, int i,
+ 			val = max - val;
+ 		p->connect = !!val;
+ 	} else {
+-		p->connect = 0;
++		/* since a virtual mixer has no backing registers to
++		 * decide which path to connect, it will try to match
++		 * with initial value 0.  This is to ensure
++		 * that the default mixer choice will be
++		 * correctly powered up during initialization.
++		 */
++		val = 0;
++		if (invert)
++			val = max - val;
++		p->connect = !!val;
+ 	}
+ }
+ 
 --
 2.21.0
 

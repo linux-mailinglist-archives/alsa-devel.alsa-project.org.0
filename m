@@ -2,75 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14046199931
-	for <lists+alsa-devel@lfdr.de>; Tue, 31 Mar 2020 17:07:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13481199936
+	for <lists+alsa-devel@lfdr.de>; Tue, 31 Mar 2020 17:08:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9F1691660;
-	Tue, 31 Mar 2020 17:06:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F1691660
+	by alsa0.perex.cz (Postfix) with ESMTPS id B91E01672;
+	Tue, 31 Mar 2020 17:07:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B91E01672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585667253;
-	bh=WqTQxHzJOnSXncORw8QHPl00dVrABQh1TjK/Fi8laVc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1585667296;
+	bh=TWpmbApNI59cAR4VmwJHkC1RWd80cTR3CK6Bp8mp/SY=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gib00vz3QQltoa89NOgXhGS9EMaj8aCNzTIU4Hp+ZtyjUnSokNyB1fkjEJJYqw6+u
-	 1BCEPmfzs/y0kv2jkCjQRUrtZiLQOgbJQSQR3eSAgmqGScAbmxkY/NFgd8g/XMpMA3
-	 FqvzUw/IJkrQ8BK9o9l7gclo09t2ATNCgmWbl7Yw=
+	b=j0uzo1cUgi4k2KCLNk81LMlZ1ZaDlWanruH5zh1HGLbNsat3lJC/XpFz7BG90dM8d
+	 acwEahsBCOX3w4/Liv/dR+odjr3E19fCjMgTCF50536HRl0iTEa0qBK/0U2/Kaq+7O
+	 enLP00RvK1wNcnTPbrHFUorOdZEefuTAt5ff6flk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 995FEF8014F;
-	Tue, 31 Mar 2020 17:05:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F039BF80146;
+	Tue, 31 Mar 2020 17:07:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BCD7EF80146; Tue, 31 Mar 2020 17:05:49 +0200 (CEST)
+ id C25F5F80157; Tue, 31 Mar 2020 17:07:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp1.axis.com (smtp1.axis.com [195.60.68.17])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from cable.insite.cz (cable.insite.cz [84.242.75.189])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 26509F8010C
- for <alsa-devel@alsa-project.org>; Tue, 31 Mar 2020 17:05:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26509F8010C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=axis.com header.i=@axis.com
- header.b="I6py2KmW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=axis.com; l=517; q=dns/txt; s=axis-central1;
- t=1585667148; x=1617203148;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=UdVSVGrWqh2+I4OVc1jvsDQdLmXpgCrsNvOns0fxOGM=;
- b=I6py2KmWewYS8f+bBxtLYvK8Uo9KMUu5CCnMTrSbNqkU626qExPL1ljn
- sLQGclivTAKJLAzgY2WSwunOi8yTf+SA33vGA8vkJp9D++0G0DVXE5xfg
- /LJBpFuYNZ9z9rHwkHjDI0zHycQ3B4mHl1z+OUo/ODOuiQ+AOkeIDWX6e
- pV/W3tiF1MxemfcPxlsdax1VC85gtyIR0/VYbn8yJlA1/HIUp6i4TWe3Z
- ka0ar5ah9QDGdd602Cggua0ATIFPSsTGbGMPgRxubbNsZUzRYzIa2NZUc
- YTQKXMDVHM2zTJeukKWfcaM8V6zmeJuJ8nbKvXGEGFqrny4NINe9LgTwa w==;
-IronPort-SDR: GgDmi9TQKqG3Nvi0OZ2E3iZNVPOhtSWcfZ8Tl9/tCOux5Q5mHXm9F0uKVyLOyToO/QgCaJ5nPu
- c7XmHveyC9/YnohathzGIKWdKmjnvVir2es8LM2jIsNddSd1jazkle3RVlnTNVR179GmOSTIFp
- 5ZeQaSpZfJ9ZBrIbw66+JfFhoUVdn2qcLNQ8V9wfQIbyvJduuwkiSTvnr06QCUoHIPlDojeZV/
- KwF8P1nMLj7tkhAoNR1PCwpP6U8bDnRcLac5HiLXpAdIgWER0f/9idOWpVRZzJBWQAyBoRHujT
- 57E=
-X-IronPort-AV: E=Sophos;i="5.72,328,1580770800"; 
-   d="scan'208";a="7163862"
-Date: Tue, 31 Mar 2020 17:05:44 +0200
-From: Jonas Holmberg <jonashg@axis.com>
-To: <tiwai@suse.de>
-Subject: Re: [PATCH] pcm: add chmap option to route plugin
-Message-ID: <20200331150543.GA787649@axis.com>
-References: <20200331142255.786462-1-jonashg@axis.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 077FDF8010C
+ for <alsa-devel@alsa-project.org>; Tue, 31 Mar 2020 17:07:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 077FDF8010C
+Received: from localhost (localhost [127.0.0.1])
+ by cable.insite.cz (Postfix) with ESMTP id 3E134A1A4A8F5;
+ Tue, 31 Mar 2020 17:07:11 +0200 (CEST)
+Received: from cable.insite.cz ([84.242.75.189])
+ by localhost (server.insite.cz [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id JtvVJyT7uiVF; Tue, 31 Mar 2020 17:07:05 +0200 (CEST)
+Received: from [192.168.105.119] (ip28.insite.cz [81.0.237.28])
+ (Authenticated sender: pavel)
+ by cable.insite.cz (Postfix) with ESMTPSA id 29CF7A1A4A820;
+ Tue, 31 Mar 2020 17:07:05 +0200 (CEST)
+Subject: Re: Functionality of pcm_notify in snd-aloop?
+To: Jaroslav Kysela <perex@perex.cz>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+References: <b4af9071-f8d7-5b47-4d7a-c5743bd67394@ivitera.com>
+ <61d837f1-de1a-7aa6-ca8f-d0cfaa36ea69@perex.cz>
+ <28a05a44-55bf-1831-aa3c-875e0499caea@ivitera.com>
+ <28063dd1-71ab-a313-04b8-f4d97312b1b5@ivitera.com>
+ <a325c165-5ced-618b-0b71-c0c4381473a1@perex.cz>
+From: Pavel Hofman <pavel.hofman@ivitera.com>
+Message-ID: <2787fae9-ec83-5c9f-ccb6-f68c8b0a9056@ivitera.com>
+Date: Tue, 31 Mar 2020 17:07:00 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.2.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <20200331142255.786462-1-jonashg@axis.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org
+In-Reply-To: <a325c165-5ced-618b-0b71-c0c4381473a1@perex.cz>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: Takashi Iwai <tiwai@suse.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,18 +80,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Mar 31, 2020 at 04:22:55PM +0200, Jonas Holmberg wrote:
-> From: Jonas Holmberg <jonashg@axis.com>
-> 
-> Add a config definition "chmap" to override the channel maps in the same
-> way as in the hw and null plugins.
-> 
-> Signed-off-by: Jonas Holmberg <jonashg@axis.com>
-> ---
->  src/pcm/pcm_route.c | 57 +++++++++++++++++++++++++++++++++++++--------
->  1 file changed, 47 insertions(+), 10 deletions(-)
 
-There were some indentation mistakes in the patch. I will fix them and 
-send a new patch.
+Dne 30. 03. 20 v 17:09 Jaroslav Kysela napsal(a):
+> Dne 30. 03. 20 v 16:43 Pavel Hofman napsal(a):
+>>
+>> Dne 26. 03. 20 v 18:59 Pavel Hofman napsal(a):
+>>> Dne 26. 03. 20 v 18:44 Jaroslav Kysela napsal(a):
+>>>> Dne 26. 03. 20 v 18:19 Pavel Hofman napsal(a):
+>>>>> Hi,
+>>>>>
+>>>>> Please how is the module params pcm_notify supposed to be used, to do
+>>>>> what the documentation says: Break capture when PCM 
+>>>>> format/rate/channels
+>>>>> changes?
+>>>>>
+>>>>> Breaking capture side operation when the playback side changes the
+>>>>> params is very useful, but I cannot find a way to use this param
+>>>>> properly. When the capture side is open, the playback side cannot 
+>>>>> use a
+>>>>> different parameter than the one currently used by the capture side 
+>>>>> (the
+>>>>> configuration space is limited)
+>>>>
+>>>> Really? Then it's a bug introduced by the last changes.
+>>>>
+>>>> If you look to sources:
+>>>>
+>>>>        if (get_notify(dpcm))
+>>>>                  runtime->hw = loopback_pcm_hardware;
+>>>>          else
+>>>>                  runtime->hw = cable->hw;
+>>>>
+>>>> And:
+>>>>
+>>>>        if (!(cable->valid & ~(1 << substream->stream)) ||
+>>>>              (get_setup(dpcm)->notify &&
+>>>>               substream->stream == SNDRV_PCM_STREAM_PLAYBACK))
+>>>>                  params_change(substream);
+>>>>
+>>>> So the functionality should be there.
+>>>
+>>> I am using older kernels (4.15 and 3.16), but this is an old 
+>>> functionality.
+>>>
+>>> modprobe snd-aloop pcm_substreams=1 pcm_notify=1,1
+>>>
+>>
+>> Please is there any way to solve this issue? Thanks a lot for your 
+>> patience.
+> 
+> I can reproduce this. It appears that the driver should be fixed, but I 
+> don't have a solution at the moment.
+> 
+> It seems that 898dfe4687f460ba337a01c11549f87269a13fa2 from Takashi 
+> broke this functionality (tied the cable parameters more strictly, so 
+> the playback cannot set freely own parameters for the pcm_notify=1 
+> case). We need to find another way to detach capture stream in this case.
+> 
 
-/Jonas
+Thanks a lot for your effort. I am afraid I cannot help with such 
+design-level task.
+
+BTW the sound design of snd-aloop allows reliable operation at 20MHz 
+samplerate, it took just a period_max param change 
+https://www.diyaudio.com/forums/equipment-and-tools/349239-support-samplerates-sw-analyzers.html#post6133979 
+I will ask for considering a substantial samplerate range extension in a 
+separate post :-)
+
+Thanks again.
+
+Best regards,
+
+Pavel.

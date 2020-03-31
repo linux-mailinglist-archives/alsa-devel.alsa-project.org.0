@@ -2,131 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 623BE198BAE
-	for <lists+alsa-devel@lfdr.de>; Tue, 31 Mar 2020 07:29:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E21C198CE5
+	for <lists+alsa-devel@lfdr.de>; Tue, 31 Mar 2020 09:25:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DE2B01657;
-	Tue, 31 Mar 2020 07:28:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE2B01657
+	by alsa0.perex.cz (Postfix) with ESMTPS id A77491607;
+	Tue, 31 Mar 2020 09:24:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A77491607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585632577;
-	bh=b0rnPpL78RHgb4dBYqMLp1hCnkQZVNKmWCbLFMJsCWU=;
-	h=From:To:In-Reply-To:Subject:Date:References:Cc:List-Id:
+	s=default; t=1585639546;
+	bh=wBZTBGwXUKd1W8rXBvklBLNI6VWNJG7y8+GiwKSfwyw=;
+	h=From:To:Subject:In-Reply-To:References:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=igomuA3M8GBZzY9LcA2UHypbC8xD0eGD2zNIQXJ2Vv5xSzESJd1Ks4a10n2+s4aK8
-	 WueK8XbCQVLF8c38hB+paM3STtu/XRZk/zT2sOnmxfOt4ZHt6DEGenFZuqEVMpykzR
-	 R9NFRqOavJxLUy1etUdpnvM3WopIdzXEAKdPDtGY=
+	b=cH9Qk2mNhA3JQHTZsNpM+zOcSrXjE+HMF8KGo4mX8kQVAAhyAEnNH4NDpJvY02PoE
+	 O/h//g8YLKCOOrNS08sxVeBxUwBgm0QlcH6UBS+xZmMrL/K003XtV9LH6tnsm8YaeG
+	 4l8pjKWc9B0KxHT0gOoH9+tjvulm0bMA/vIfgbcs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6823F8014F;
-	Tue, 31 Mar 2020 07:27:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7CC2BF80254;
+	Tue, 31 Mar 2020 09:23:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C780F800AA; Tue, 31 Mar 2020 07:27:49 +0200 (CEST)
+ id 5680EF80140; Tue, 31 Mar 2020 07:31:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from ozlabs.org (bilbo.ozlabs.org [203.11.71.1])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A8E28F800AA
- for <alsa-devel@alsa-project.org>; Tue, 31 Mar 2020 07:27:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8E28F800AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 70BB3F800AA
+ for <alsa-devel@alsa-project.org>; Tue, 31 Mar 2020 07:31:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70BB3F800AA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="fP7OlJUk"
-Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
- by mailout4.samsung.com (KnoxPortal) with ESMTP id
- 20200331052737epoutp04f4185a1a1ca57bf6ad50a0d38edf9c7d~BTFG-i-qc2827428274epoutp048
- for <alsa-devel@alsa-project.org>; Tue, 31 Mar 2020 05:27:37 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com
- 20200331052737epoutp04f4185a1a1ca57bf6ad50a0d38edf9c7d~BTFG-i-qc2827428274epoutp048
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1585632457;
- bh=b0rnPpL78RHgb4dBYqMLp1hCnkQZVNKmWCbLFMJsCWU=;
- h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
- b=fP7OlJUkKUQvhh+5Gkhq/Mkg1ckz5Ikhfg+V7N9zFGu+jdGAKhX+QWoKTBlTdEHfl
- 7I0agLE4KQ5HVQ3OtlAsjvx5uV9rn+NjYibm/7QVCh1zDkd4c52ouU/u59wCI8t9mZ
- FCHr14Ypt5krubxV38AQ8Fg1uoMzvowM6gY3odu4=
-Received: from epsnrtp2.localdomain (unknown [182.195.42.163]) by
- epcas2p1.samsung.com (KnoxPortal) with ESMTP id
- 20200331052737epcas2p1bc46656fe751c9be38d1cd162ee319aa~BTFGauww40472704727epcas2p11;
- Tue, 31 Mar 2020 05:27:37 +0000 (GMT)
-Received: from epsmges2p1.samsung.com (unknown [182.195.40.187]) by
- epsnrtp2.localdomain (Postfix) with ESMTP id 48ryWq3m2MzMqYkp; Tue, 31 Mar
- 2020 05:27:35 +0000 (GMT)
-Received: from epcas2p2.samsung.com ( [182.195.41.54]) by
- epsmges2p1.samsung.com (Symantec Messaging Gateway) with SMTP id
- 74.BB.04128.5C4D28E5; Tue, 31 Mar 2020 14:27:33 +0900 (KST)
-Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
- epcas2p4.samsung.com (KnoxPortal) with ESMTPA id
- 20200331052733epcas2p4672957fefb52fefe5621e42e5ee8064c~BTFCsBe6L1429314293epcas2p41;
- Tue, 31 Mar 2020 05:27:33 +0000 (GMT)
-Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
- epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20200331052733epsmtrp22d891afdf77f41cbb244d8255039e708~BTFCrSik_2895428954epsmtrp28;
- Tue, 31 Mar 2020 05:27:33 +0000 (GMT)
-X-AuditID: b6c32a45-f9bff70000001020-d7-5e82d4c58d28
-Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
- epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 8A.6D.04024.4C4D28E5; Tue, 31 Mar 2020 14:27:33 +0900 (KST)
-Received: from KORDO025540 (unknown [12.36.182.130]) by epsmtip1.samsung.com
- (KnoxPortal) with ESMTPA id
- 20200331052732epsmtip1f6b17ecd6818f17b42c3e0007e77b02b~BTFCfh2Iq3205532055epsmtip1o;
- Tue, 31 Mar 2020 05:27:32 +0000 (GMT)
-From: =?ks_c_5601-1987?B?wMyw5sXD?= <gt82.lee@samsung.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <tiwai@suse.com>
-In-Reply-To: <001001d60665$db7af3e0$9270dba0$@samsung.com>
-Subject: RE: [PATCH 3/3] ASoC: fix regwmask
-Date: Tue, 31 Mar 2020 14:27:32 +0900
-Message-ID: <00fa01d6071d$144a2da0$3cde88e0$@samsung.com>
+ dkim=pass (2048-bit key) header.d=ellerman.id.au header.i=@ellerman.id.au
+ header.b="OXuI0kpZ"
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 48rybT5bWHz9sQt;
+ Tue, 31 Mar 2020 16:30:45 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ellerman.id.au;
+ s=201909; t=1585632657;
+ bh=wBZTBGwXUKd1W8rXBvklBLNI6VWNJG7y8+GiwKSfwyw=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=OXuI0kpZye/5Qq3R/+8SAFSe9LUM7PwBmIdxrYytUIHSuRxmANIxjUadBh+6TrUAG
+ 0/scSdRqozxwIvGpx5YAoqaas6zyYNu1ofRUtDLL9xankqQA8NRoSKsovNe2d8T2ox
+ EE+pYrp5vhw+njgE6sz4hE0xSoG5qd1kM70abPp0iLw+8xrK7rbT+X72WYJkdznwIR
+ vylvZwmwhjEsCOYWDAkyokOTl5I0EDHTpAOQtvrJic+I553FsdUe6lUqqhTTKeOKtJ
+ bEGAgXICIQ9Dnq442VWtcXsV5MEBEXK6DSfOfoTC1imS12aITD0LH3toDAD0wzjxgU
+ 0uub9n396MWgw==
+From: Michael Ellerman <mpe@ellerman.id.au>
+To: Christophe Leroy <christophe.leroy@c-s.fr>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [PATCH 0/2] powerpc: Remove support for ppc405/440 Xilinx
+ platforms
+In-Reply-To: <b5adcc7a-9d10-d75f-50e3-9c150a7b4989@c-s.fr>
+References: <cover.1585311091.git.michal.simek@xilinx.com>
+ <CAK8P3a2mKPRFbRE3MWScr9GSiL4cpLg0wqv1Q28XDCZVPWgHfg@mail.gmail.com>
+ <20200327131026.GT1922688@smile.fi.intel.com>
+ <20200327131531.GU1922688@smile.fi.intel.com>
+ <CAK8P3a1Z+ZPTDzgAjdz0a7d85R62BhUqkdEWgrwXh-OnYe6rog@mail.gmail.com>
+ <20200327141434.GA1922688@smile.fi.intel.com>
+ <b5adcc7a-9d10-d75f-50e3-9c150a7b4989@c-s.fr>
+Date: Tue, 31 Mar 2020 16:30:54 +1100
+Message-ID: <87mu7xum41.fsf@mpe.ellerman.id.au>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="ks_c_5601-1987"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: ko
-Thread-Index: AQLEOIH1sK9HcthW43dBh7e87NpZcwEJSRRNpn1+2QA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprIJsWRmVeSWpSXmKPExsWy7bCmme7RK01xBg1LdS2uXDzEZDH14RM2
- i29XOpgsNnxfy+jA4rHhcxObx85Zd9k9Nq3qZPNYv+UqSwBLVI5NRmpiSmqRQmpecn5KZl66
- rZJ3cLxzvKmZgaGuoaWFuZJCXmJuqq2Si0+ArltmDtBOJYWyxJxSoFBAYnGxkr6dTVF+aUmq
- QkZ+cYmtUmpBSk6BoWGBXnFibnFpXrpecn6ulaGBgZEpUGVCTsasb19ZCrYJVVzqj2lgfC/Y
- xcjJISFgInFn3QP2LkYuDiGBHYwSz9eeYoFwPjFKbF65Ccr5xiixY8pEVpiWaRv7WEBsIYG9
- jBI/tnBDFL1klJh78x9QgoODTcBKoqdbCaRGRMBR4uuxBrB6ZgFFicd/5oDZnEAl0xYuBJsp
- LKAtsWdfMzOIzSKgKjHz+C2wOK+ApcTaSe/YIGxBiZMzn0DNMZJYsno+E4StLbFs4WtmiNsU
- JH4+XcYKEReRmN3Zxgxxg5XEzEmvwN6UEDjBJnF72jF2iAYXiT8LFrJA2MISr45vgYpLSXx+
- t5cNoqGZUeLd2T9QiSmMEp3dQhC2scSWuaeYQB6WEFCWOHIL6jg+iY7Df9khwrwSHW1Q1UoS
- G0/9g6qWkJi3gX0Co9IsJJ/NQvLZLCSfzULyzQJGllWMYqkFxbnpqcVGBYbIcb2JEZwctVx3
- MM4453OIUYCDUYmH98HVxjgh1sSy4srcQ4wSHMxKIrxs/g1xQrwpiZVVqUX58UWlOanFhxhN
- gSE/kVlKNDkfmLjzSuINTY3MzAwsTS1MzYwslMR5N3PfjBESSE8sSc1OTS1ILYLpY+LglGpg
- NHCIPrHNb6O12fVlyvFRbDk9BhKBnR17p7yLSs+2nL7e2NMpjq9jtbSY4rdn8c47qxhLL3bu
- V35ksuHYJrvewMoKFSfBs6tPBUZGBTk/TJp79W737pj7Tev/K2pm95h9UJC8/W9X0+c59sH+
- lv33ti85oXzQ4VnCPKvjVzlnL/7zSyC4oSZIiaU4I9FQi7moOBEAtNroCaQDAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrLLMWRmVeSWpSXmKPExsWy7bCSnO7RK01xBjP6mS2uXDzEZDH14RM2
- i29XOpgsNnxfy+jA4rHhcxObx85Zd9k9Nq3qZPNYv+UqSwBLFJdNSmpOZllqkb5dAldG+7Pv
- zAXreCuWn1rG2sA4k7uLkZNDQsBEYtrGPpYuRi4OIYHdjBIbz91ig0hISHyYf4YdwhaWuN9y
- hBWi6DmjxOdlG4EcDg42ASuJnm4lkBoRAVeJ+3sbwOqZBRQlHv+ZAzW0m1Fi5cRHrCAJTqD6
- aQsXgtnCAtoSe/Y1M4PYLAKqEjOP3wKL8wpYSqyd9I4NwhaUODnzCQvEUBOJxsPdULa2xLKF
- r5khjlOQ+Pl0GStEXERidmcbM8RBVhIzJ71in8AoPAvJqFlIRs1CMmoWkvYFjCyrGCVTC4pz
- 03OLDQsM81LL9YoTc4tL89L1kvNzNzGCI0VLcwfj5SXxhxgFOBiVeHgfXG2ME2JNLCuuzD3E
- KMHBrCTCy+bfECfEm5JYWZValB9fVJqTWnyIUZqDRUmc92nesUghgfTEktTs1NSC1CKYLBMH
- p1QDY1ha+tNV0iazVN17lV+JdkQo9E17rXburuLprrBDO7L48+xrOTRbRZ603ri2tuV0v9rZ
- 4piSHYZWgXyeEkxFumcPfk1f0+FxuqZrmq7YtwuMwosOXVPrUnmS+8X5/0LtybN+iIVttFvE
- mlP0fh/v9yfPbQ+cuXHz0axdDNuij55etDudN5yzWImlOCPRUIu5qDgRAItMN8eQAgAA
-X-CMS-MailID: 20200331052733epcas2p4672957fefb52fefe5621e42e5ee8064c
-X-Msg-Generator: CA
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20200330073600epcas2p3712a5e92d86a524bedda790f2e273935
-References: <CGME20200330073600epcas2p3712a5e92d86a524bedda790f2e273935@epcas2p3.samsung.com>
- <001001d60665$db7af3e0$9270dba0$@samsung.com>
-Cc: alsa-devel@alsa-project.org
+X-Mailman-Approved-At: Tue, 31 Mar 2020 09:23:19 +0200
+Cc: Kate Stewart <kstewart@linuxfoundation.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ "Desnes A. Nunes do Rosario" <desnesn@linux.ibm.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, "open
+ list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Richard Fontana <rfontana@redhat.com>, Paul Mackerras <paulus@samba.org>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, Sasha Levin <sashal@kernel.org>,
+ Stephen Rothwell <sfr@canb.auug.org.au>, Jonathan Corbet <corbet@lwn.net>,
+ Masahiro Yamada <masahiroy@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ YueHaibing <yuehaibing@huawei.com>, Michal Simek <michal.simek@xilinx.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Leonardo Bras <leonardo@linux.ibm.com>,
+ Matt Porter <mporter@kernel.crashing.org>, DTML <devicetree@vger.kernel.org>,
+ Andrew Donnellan <ajd@linux.ibm.com>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ Marc Zyngier <marc.zyngier@arm.com>, Alistair Popple <alistair@popple.id.au>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ Nicholas Piggin <npiggin@gmail.com>, Alexios Zavras <alexios.zavras@intel.com>,
+ Mark Brown <broonie@kernel.org>, git@xilinx.com,
+ Linux Fbdev development list <linux-fbdev@vger.kernel.org>,
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Allison Randal <allison@lohutok.net>,
+ Michal Simek <monstr@monstr.eu>, Wei Hu <weh@microsoft.com>,
+ Christian Lamparter <chunkeey@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Armijn Hemel <armijn@tjaldur.nl>, Rob Herring <robh+dt@kernel.org>,
+ Enrico Weigelt <info@metux.net>, "David S. Miller" <davem@davemloft.net>,
+ Thiago Jung Bauermann <bauerman@linux.ibm.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -142,37 +127,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Christophe Leroy <christophe.leroy@c-s.fr> writes:
+> Le 27/03/2020 =C3=A0 15:14, Andy Shevchenko a =C3=A9crit=C2=A0:
+>> On Fri, Mar 27, 2020 at 02:22:55PM +0100, Arnd Bergmann wrote:
+>>> On Fri, Mar 27, 2020 at 2:15 PM Andy Shevchenko
+>>> <andriy.shevchenko@linux.intel.com> wrote:
+>>>> On Fri, Mar 27, 2020 at 03:10:26PM +0200, Andy Shevchenko wrote:
+>>>>> On Fri, Mar 27, 2020 at 01:54:33PM +0100, Arnd Bergmann wrote:
+>>>>>> On Fri, Mar 27, 2020 at 1:12 PM Michal Simek <michal.simek@xilinx.co=
+m> wrote:
+>> ...
+>>=20
+>>>>>> It does raise a follow-up question about ppc40x though: is it time to
+>>>>>> retire all of it?
+>>>>>
+>>>>> Who knows?
+>>>>>
+>>>>> I have in possession nice WD My Book Live, based on this architecture=
+, and I
+>>>>> won't it gone from modern kernel support. OTOH I understand that amou=
+nt of real
+>>>>> users not too big.
+>>>>
+>>>> +Cc: Christian Lamparter, whom I owe for that WD box.
+>>>
+>>> According to https://openwrt.org/toh/wd/mybooklive, that one is based on
+>>> APM82181/ppc464, so it is about several generations newer than what I
+>>> asked about (ppc40x).
+>>>
+>>>>> Ah, and I have Amiga board, but that one is being used only for testi=
+ng, so,
+>>>>> I don't care much.
+>>>
+>>> I think there are a couple of ppc440 based Amiga boards, but again, not=
+ 405
+>>> to my knowledge.
+>>=20
+>> Ah, you are right. No objections from ppc40x removal!
+>
+> Removing 40x would help cleaning things a bit. For instance 40x is the=20
+> last platform still having PTE_ATOMIC_UPDATES. So if we can remove 40x=20
+> we can get rid of PTE_ATOMIC_UPDATES completely.
+>
+> If no one objects, I can prepare a series to drop support for 40x=20
+> completely.
+>
+> Michael, any thought ?
 
+I have no attachment to 40x, and I'd certainly be happy to have less
+code in the tree, we struggle to keep even the modern platforms well
+maintained.
 
------Original Message-----
-From: Alsa-devel <alsa-devel-bounces=40alsa-project.org> On Behalf Of =C0=
-=CC=B0=E6=C5=C3=0D=0ASent:=20Monday,=20March=2030,=202020=204:36=20PM=0D=0A=
-To:=20lgirdwood=40gmail.com;=20broonie=40kernel.org;=20tiwai=40suse.com=0D=
-=0ACc:=20alsa-devel=40alsa-project.org=0D=0ASubject:=20=5BPATCH=203/3=5D=20=
-ASoC:=20fix=20regwmask=0D=0A=0D=0AIf=20regwshift=20is=2032=20and=20the=20se=
-lected=20architecture=20compiles=20'<<'=20operator=20for=0D=0Asigned=20int=
-=20literal=20into=20rotating=20shift,=20'1<<regwshift'=20became=201=20and=
-=20it=0D=0Amakes=20regwmask=20to=200x0.=0D=0AThe=20literal=20is=20set=20to=
-=20unsigned=20long=20to=20get=20intended=20regwmask.=0D=0A=0D=0ASigned-off-=
-by:=20Gyeongtaek=20Lee=20<gt82.lee=40samsung.com>=0D=0A---=0D=0A=20sound/so=
-c/soc-ops.c=20=7C=204=20++--=0D=0A=201=20file=20changed,=202=20insertions(+=
-),=202=20deletions(-)=0D=0A=0D=0Adiff=20--git=20a/sound/soc/soc-ops.c=20b/s=
-ound/soc/soc-ops.c=20index=0D=0A652657dc6809..55ffb34be95e=20100644=0D=0A--=
--=20a/sound/soc/soc-ops.c=0D=0A+++=20b/sound/soc/soc-ops.c=0D=0A=40=40=20-8=
-25,7=20+825,7=20=40=40=20int=20snd_soc_get_xr_sx(struct=20snd_kcontrol=20*k=
-control,=0D=0A=20=09unsigned=20int=20regbase=20=3D=20mc->regbase;=0D=0A=20=
-=09unsigned=20int=20regcount=20=3D=20mc->regcount;=0D=0A=20=09unsigned=20in=
-t=20regwshift=20=3D=20component->val_bytes=20*=20BITS_PER_BYTE;=0D=0A-=09un=
-signed=20int=20regwmask=20=3D=20(1<<regwshift)-1;=0D=0A+=09unsigned=20int=
-=20regwmask=20=3D=20(1UL<<regwshift)-1;=0D=0A=20=09unsigned=20int=20invert=
-=20=3D=20mc->invert;=0D=0A=20=09unsigned=20long=20mask=20=3D=20(1UL<<mc->nb=
-its)-1;=0D=0A=20=09long=20min=20=3D=20mc->min;=0D=0A=40=40=20-874,7=20+874,=
-7=20=40=40=20int=20snd_soc_put_xr_sx(struct=20snd_kcontrol=20*kcontrol,=0D=
-=0A=20=09unsigned=20int=20regbase=20=3D=20mc->regbase;=0D=0A=20=09unsigned=
-=20int=20regcount=20=3D=20mc->regcount;=0D=0A=20=09unsigned=20int=20regwshi=
-ft=20=3D=20component->val_bytes=20*=20BITS_PER_BYTE;=0D=0A-=09unsigned=20in=
-t=20regwmask=20=3D=20(1<<regwshift)-1;=0D=0A+=09unsigned=20int=20regwmask=
-=20=3D=20(1UL<<regwshift)-1;=0D=0A=20=09unsigned=20int=20invert=20=3D=20mc-=
->invert;=0D=0A=20=09unsigned=20long=20mask=20=3D=20(1UL<<mc->nbits)-1;=0D=
-=0A=20=09long=20max=20=3D=20mc->max;=0D=0A--=0D=0A2.21.0=0D=0A=0D=0A=0D=0A=
-=0D=0A
+At the same time I don't want to render anyone's hardware obsolete
+unnecessarily. But if there's really no one using 40x then we should
+remove it, it could well be broken already.
+
+So I guess post a series to do the removal and we'll see if anyone
+speaks up.
+
+cheers

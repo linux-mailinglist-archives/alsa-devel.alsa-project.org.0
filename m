@@ -2,61 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2D44199575
-	for <lists+alsa-devel@lfdr.de>; Tue, 31 Mar 2020 13:40:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A1651995D3
+	for <lists+alsa-devel@lfdr.de>; Tue, 31 Mar 2020 13:54:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5285D1660;
-	Tue, 31 Mar 2020 13:39:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5285D1660
+	by alsa0.perex.cz (Postfix) with ESMTPS id EFEC31662;
+	Tue, 31 Mar 2020 13:53:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFEC31662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585654848;
-	bh=bAQCZmoL4oMdfq56PDJ+0XswcQkpYW7AGFWBUmKzOpY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1585655654;
+	bh=KNKWejapKLE0KFqV9Eo8yhrRafvvMtl1tvP0/l0z4i0=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YaHUNK+h4K24/2fOz/ccN5gOHWfWLhc4cN8Q9pF7nVbOTdFwEqTIUAKSGW9trBuL7
-	 GhGCo8zu8+53IYsMxYYejBxPPrrCLc7wW5hYPLmiz59sh5Atkk/vlMc+Fe3cNYQ6g3
-	 fo0Bs068OhhBAvKBePMQ+yMXGMcnTgCrQXdLhfcE=
+	b=rVdyJwk8vShsJLAgFkVXMw18/X7bx0ZRpxtXgafWi8E02fwJSd0J7HKXacUNxN67a
+	 6jdGOVx6aa9TPLQUvmMDPb+wXSgsX8uJIiqnRne0k/Ctm6twtBk4ZME8pAOS6K/RUT
+	 UIyA3wW5SVBvl+fe3yNWdSLN9BTOf9q86Qrt/DnI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78F87F8010C;
-	Tue, 31 Mar 2020 13:39:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E079DF8010C;
+	Tue, 31 Mar 2020 13:52:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 65292F80146; Tue, 31 Mar 2020 13:39:05 +0200 (CEST)
+ id 1BC82F80146; Tue, 31 Mar 2020 13:52:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 4C44CF8010D
- for <alsa-devel@alsa-project.org>; Tue, 31 Mar 2020 13:39:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C44CF8010D
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4C6211FB;
- Tue, 31 Mar 2020 04:38:59 -0700 (PDT)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C10E73F52E;
- Tue, 31 Mar 2020 04:38:58 -0700 (PDT)
-Date: Tue, 31 Mar 2020 12:38:57 +0100
-From: Mark Brown <broonie@kernel.org>
-To: =?utf-8?B?77+9zLDvv73vv73vv70=?= <gt82.lee@samsung.com>
-Subject: Re: [PATCH 3/3] ASoC: fix regwmask
-Message-ID: <20200331113857.GC4802@sirena.org.uk>
-References: <CGME20200330073600epcas2p3712a5e92d86a524bedda790f2e273935@epcas2p3.samsung.com>
- <001001d60665$db7af3e0$9270dba0$@samsung.com>
- <012801d60728$bdab3a50$3901aef0$@samsung.com>
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx.flatmax.org (mx.flatmax.org [13.55.16.222])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 51DEEF8010D
+ for <alsa-devel@alsa-project.org>; Tue, 31 Mar 2020 13:52:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51DEEF8010D
+Received: from 41.68.233.220.static.exetel.com.au ([220.233.68.41]
+ helo=[192.168.1.50])
+ by mx.flatmax.org with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.89) (envelope-from <flatmax@flatmax.org>)
+ id 1jJFRJ-0004IL-Dp; Tue, 31 Mar 2020 22:52:17 +1100
+Subject: Re: [PATCH] ASoC: snd_soc_dai_set_fmt add substream independence.
+To: Mark Brown <broonie@kernel.org>
+References: <20200328015831.6230-1-flatmax@flatmax.org>
+ <20200330103213.GA4792@sirena.org.uk>
+ <3c00bf93-04a8-04af-e0b5-d0f76f5dbb06@flatmax.org>
+ <20200330163142.GI4792@sirena.org.uk>
+ <98c3a94a-9020-9a34-7bdf-0ce504573f79@flatmax.org>
+ <20200331111348.GA4802@sirena.org.uk>
+From: Matt Flax <flatmax@flatmax.org>
+Message-ID: <b09ca467-ac7a-d3b3-c76e-cd76aa70050d@flatmax.org>
+Date: Tue, 31 Mar 2020 22:52:17 +1100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="t0UkRYy7tHLRMCai"
-Content-Disposition: inline
-In-Reply-To: <012801d60728$bdab3a50$3901aef0$@samsung.com>
-X-Cookie: It's later than you think.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, tiwai@suse.com,
- hmseo@samsung.com, tkjung@samsung.com, pilsun.jang@samsung.com
+In-Reply-To: <20200331111348.GA4802@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, lars@metafoo.de, lgirdwood@gmail.com,
+ pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,37 +77,35 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---t0UkRYy7tHLRMCai
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 31/3/20 10:13 pm, Mark Brown wrote:
+> On Tue, Mar 31, 2020 at 06:40:26PM +1100, Matt Flax wrote:
 
-On Tue, Mar 31, 2020 at 03:51:01PM +0900, =EF=BF=BD=CC=B0=EF=BF=BD=EF=BF=BD=
-=EF=BF=BD wrote:
-> If regwshift is 32 and the selected architecture compiles '<<' operator f=
-or signed int literal into rotating shift, '1<<regwshift'
-> became 1 and it makes regwmask to 0x0.
-> The literal is set to unsigned long to get intended regwmask.
+>>> No, my advice is to go down that route if you are doing this.  I'm just
+>>> not convinced that it's going to work reliably since this all sounds
+>>> rather shaky.
+>> OK - I can try to go down that route. However I would like to confirm that
+>> having a codec to codec link doesn't require the original codec or CPU
+>> drivers to have separate DAIs for playback and capture ? In my case both the
+>> CPU and Codec drivers have single DAIs for both streams.
+> OK, that probably won't help then :/
 
-Please do not submit new versions of already applied patches, please
-submit incremental updates to the existing code.  Modifying existing
-commits creates problems for other users building on top of those
-commits so it's best practice to only change pubished git commits if
-absolutely essential.
 
---t0UkRYy7tHLRMCai
-Content-Type: application/pgp-signature; name="signature.asc"
+OK - well, the codec approach was worth a try. My concerns with the 
+codec API is that it chews resources and clock cycles - if it is 
+possible to work around it, then it is a good idea.
 
------BEGIN PGP SIGNATURE-----
+I feel that the best way to reduce resource consumption, complexity and 
+overhead is to allow link formats to be defined based on the stream 
+direction.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6DK9AACgkQJNaLcl1U
-h9AxBAf+IaDIuEkPmWo0iq+VkhxP+pw5o1aqZh0/Y/ZEelN2o5aqBzHYYEN5PCJD
-kAX5negFLQExX3qaLYaq2knqCN/N5eMTFPXlXkfLC7k/j6Nu2v8HPOYSvgEtYQRB
-rUwRfQQXvu4f6W1egvMV3HqL1wB2nYol2VGIKTp15dgubGRcLMChPhn4Nf9dgSRc
-WtMU4tKapuQ3UHOazeHHaRbDemrOhT2FknyucyEVtgh9MHFoxkU+Lw3hLPsnkXBf
-L0enRh3+9YV4m6pY+TLJXwRw92US272KxDPv+fIJ1bSovWtWSK7z4Ljuuus4D2UA
-1a4vFG231iZb2pIC0mfn2PKZODXCAA==
-=fUhL
------END PGP SIGNATURE-----
+I can see why we would want different DAIs if the sample rate is 
+asymmetric, however for word alignment perhaps we should let the stream 
+direction seep into the snd_soc_dai opertions. These days CPU and Codec 
+designers seem to treat both streams independently, which is why their 
+registers can be independently configured.
 
---t0UkRYy7tHLRMCai--
+
+thanks for the discussion
+
+Matt
+

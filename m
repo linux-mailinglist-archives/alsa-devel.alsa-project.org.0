@@ -2,56 +2,172 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7337619AA7B
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Apr 2020 13:09:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13CA819C627
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Apr 2020 17:42:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0AEA31679;
-	Wed,  1 Apr 2020 13:08:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AEA31679
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4FC11607;
+	Thu,  2 Apr 2020 17:41:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4FC11607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585739375;
-	bh=GHGY1APurHBlnnVO//VuwjjWVbw+Y2v3w0qwuWDFZUU=;
-	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=quthKDn00SEIdPY8uFmhNxK3Mk1rj9WRuiheXp4VNkYFD83YZ+kqxy3wyY0b3mZff
-	 3RPGtIYpe/TSCBRGTKmh+PAkbcw2uvAEqwytdMGpWeEZMN9fu699Q8//nXUap6EK9t
-	 z9+dk/9HKqKdI0FKYKPxGoBMTcIRkIz31y0p6U0k=
+	s=default; t=1585842147;
+	bh=4RUWJ/LaazCzeKnz4ohBcuwJpF7UpeqH6O1EDeokKRs=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=OzA0aptypFFP96lpv5LR6bdEj4Fwn7IdDt+qfpr0lGivniILp/Q0Dr5Am2BKYyeY6
+	 o3Sq4bA6ElASIffy5RAyzwnwqBpAh31Zw6yIJxqfiv3kAz5Z4MLWsIXVNxrS0xXXzE
+	 qC74MNSTPI3/UsI3+bkWp8uY1euYofwh1c+9DOOI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 482BDF8015C;
-	Wed,  1 Apr 2020 13:07:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E091F802BE;
+	Thu,  2 Apr 2020 17:37:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8358EF8028D; Wed,  1 Apr 2020 13:06:57 +0200 (CEST)
+ id A13D2F8014B; Wed,  1 Apr 2020 13:31:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.6 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- MIME_8BIT_HEADER, SPF_HELO_NONE, SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 110A8F8015C
- for <alsa-devel@alsa-project.org>; Wed,  1 Apr 2020 13:06:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 110A8F8015C
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 948EE101E;
- Wed,  1 Apr 2020 04:06:52 -0700 (PDT)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 187463F68F;
- Wed,  1 Apr 2020 04:06:51 -0700 (PDT)
-Date: Wed, 01 Apr 2020 12:06:50 +0100
-From: Mark Brown <broonie@kernel.org>
-To: 이경택 <gt82.lee@samsung.com>
-Subject: Applied "ASoC: dpcm: allow start or stop during pause for backend" to
- the asoc tree
-In-Reply-To: <004d01d607c1$7a3d5250$6eb7f6f0$@samsung.com>
-Message-Id: <applied-004d01d607c1$7a3d5250$6eb7f6f0$@samsung.com>
-X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, tiwai@suse.com,
- vkoul@kernel.org, Mark Brown <broonie@kernel.org>, hmseo@samsung.com,
- Gyeongtaek Lee <gt82.lee@samsung.com>, pilsun.jang@samsung.com,
- tkjung@samsung.com
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2052.outbound.protection.outlook.com [40.107.236.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B2D07F8010D
+ for <alsa-devel@alsa-project.org>; Wed,  1 Apr 2020 13:31:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2D07F8010D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=xilinx.onmicrosoft.com
+ header.i=@xilinx.onmicrosoft.com header.b="NWZUyQVp"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=T3cm/lTBRoHSSMfIeRwiFzAAWFjjbkUSieFGbUagKxDCqxRstvsaXobzvyUGGkYMrBGK9FvV68Q/9nPldU0Bhsel2FUC2u5qf91Ai+c51FD4ye7bKJ2Jc+6UKOFOqr+L3SpFqbbbuLj8Dy5gdckjIwkmuPYLYRnRahAtnSDD+eYlzDVkoPpEVT89B/OxOiZuc/mXpvn4z7mzLfWhLq3LhNvNbi5hgdLLs6XIvrlmNDhxw7DaoQWEWsOAttKWZnhqUQDYicJAo8YmKgqpcdzrFxDs37fTmL8GbcJaZRqWwVCVvs6ot7ko1wnN/yJ0BsN6sAVGPMUlwvYMeX88finpug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LsxNFZRykI0/83ykuJMcgdMC6mPCZVa8LDZEpn4HxK0=;
+ b=J7SoY8dMzKLsJjQMExWxbdUhKS8GcBSi3SDzvFf1wCOx4/Bc8Cu050oXMqHnIW/n6LUj8DguZks9ei+nalg3pTlnpt84BVOpWJpQ569r2plL8aPU0HwgoxVKKIfw+XbApgCpf9L59yhbj5z2LPf2Xi3ZQYcwTty058cCZhISEJhrpDkYnpunWdTLYmct9JBogcth1FnwWNDIULWPOvU0HC9WWU/lfO4RlipJ2TBAZ3G3mLYiXcXUIjATfINevkdB6jwKVBb1EZjnYYC4gFLFsJhPJijtmuuwmcBfUhq0vzfzuGOaqVy8Iuv3wly+E02Fr5UxOpFq1Ff91ps1fE6kzA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 149.199.60.83) smtp.rcpttodomain=suse.de smtp.mailfrom=xilinx.com;
+ dmarc=bestguesspass action=none header.from=xilinx.com; dkim=none (message
+ not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=xilinx.onmicrosoft.com; s=selector2-xilinx-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LsxNFZRykI0/83ykuJMcgdMC6mPCZVa8LDZEpn4HxK0=;
+ b=NWZUyQVponiN0BjYc6nQ/vuUHyA9iLZ//ysZx9ojTbO9/ROmhE27IbnXn338wbEW+WcoFPZF3XRBiss6FEaQEEdFuv+FkDMcniGmiY1BdpqpxGLzHnC68FBeGJEIzseLAhOJ8SJ/TIBF42KPEojxfQLBq9jBb7VCUXccQqkIdMI=
+Received: from CY4PR21CA0035.namprd21.prod.outlook.com (2603:10b6:903:12b::21)
+ by BL0PR02MB4804.namprd02.prod.outlook.com (2603:10b6:208:5f::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2856.20; Wed, 1 Apr
+ 2020 11:31:01 +0000
+Received: from CY1NAM02FT042.eop-nam02.prod.protection.outlook.com
+ (2603:10b6:903:12b:cafe::fd) by CY4PR21CA0035.outlook.office365.com
+ (2603:10b6:903:12b::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2900.4 via Frontend
+ Transport; Wed, 1 Apr 2020 11:31:01 +0000
+Authentication-Results: spf=pass (sender IP is 149.199.60.83)
+ smtp.mailfrom=xilinx.com; suse.de; dkim=none (message not signed)
+ header.d=none;suse.de; dmarc=bestguesspass action=none
+ header.from=xilinx.com;
+Received-SPF: Pass (protection.outlook.com: domain of xilinx.com designates
+ 149.199.60.83 as permitted sender) receiver=protection.outlook.com;
+ client-ip=149.199.60.83; helo=xsj-pvapsmtpgw01;
+Received: from xsj-pvapsmtpgw01 (149.199.60.83) by
+ CY1NAM02FT042.mail.protection.outlook.com (10.152.75.136) with Microsoft SMTP
+ Server id 15.20.2878.15 via Frontend Transport; Wed, 1 Apr 2020 11:31:01
+ +0000
+Received: from [149.199.38.66] (port=36160 helo=xsj-pvapsmtp01)
+ by xsj-pvapsmtpgw01 with esmtp (Exim 4.90)
+ (envelope-from <michal.simek@xilinx.com>)
+ id 1jJbaE-0008If-6u; Wed, 01 Apr 2020 04:30:58 -0700
+Received: from [127.0.0.1] (helo=localhost)
+ by xsj-pvapsmtp01 with smtp (Exim 4.63)
+ (envelope-from <michal.simek@xilinx.com>)
+ id 1jJbaG-0002uf-JB; Wed, 01 Apr 2020 04:31:00 -0700
+Received: from xsj-pvapsmtp01 (mailman.xilinx.com [149.199.38.66])
+ by xsj-smtp-dlp2.xlnx.xilinx.com (8.13.8/8.13.1) with ESMTP id 031BUrWL012673; 
+ Wed, 1 Apr 2020 04:30:53 -0700
+Received: from [172.30.17.108] by xsj-pvapsmtp01 with esmtp (Exim 4.63)
+ (envelope-from <michals@xilinx.com>)
+ id 1jJba8-0002jl-Rf; Wed, 01 Apr 2020 04:30:53 -0700
+Subject: Re: [PATCH v2 0/2] powerpc: Remove support for ppc405/440 Xilinx
+ platforms
+To: Takashi Iwai <tiwai@suse.de>, Michael Ellerman <mpe@ellerman.id.au>
+References: <cover.1585575111.git.michal.simek@xilinx.com>
+ <87imikufes.fsf@mpe.ellerman.id.au>
+ <12db51d6-d848-118e-5ec1-a4172bd47aa4@xilinx.com>
+ <87y2rftrx7.fsf@mpe.ellerman.id.au> <s5hk12z4hj5.wl-tiwai@suse.de>
+From: Michal Simek <michal.simek@xilinx.com>
+Message-ID: <02e7f790-b105-de67-799c-0fe065e58320@xilinx.com>
+Date: Wed, 1 Apr 2020 13:30:41 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
+MIME-Version: 1.0
+In-Reply-To: <s5hk12z4hj5.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-RCIS-Action: ALLOW
+X-TM-AS-Product-Ver: IMSS-7.1.0.1224-8.2.0.1013-23620.005
+X-TM-AS-User-Approved-Sender: Yes;Yes
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:149.199.60.83; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:xsj-pvapsmtpgw01; PTR:unknown-60-83.xilinx.com; CAT:NONE;
+ SFTY:;
+ SFS:(10009020)(4636009)(376002)(39860400002)(346002)(136003)(396003)(46966005)(316002)(426003)(110136005)(7416002)(70586007)(2616005)(6666004)(31696002)(186003)(4326008)(54906003)(5660300002)(9786002)(82740400003)(36756003)(70206006)(47076004)(31686004)(356004)(966005)(81156014)(8936002)(336012)(2906002)(7366002)(26005)(44832011)(81166006)(8676002)(478600001)(7406005);
+ DIR:OUT; SFP:1101; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a4b9b715-2deb-40dc-cf62-08d7d63027d9
+X-MS-TrafficTypeDiagnostic: BL0PR02MB4804:
+X-LD-Processed: 657af505-d5df-48d0-8300-c31994686c5c,ExtAddr
+X-Microsoft-Antispam-PRVS: <BL0PR02MB4804F593C4C82B29D5EFA1D2C6C90@BL0PR02MB4804.namprd02.prod.outlook.com>
+X-Auto-Response-Suppress: DR, RN, NRN, OOF, AutoReply
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-Forefront-PRVS: 03607C04F0
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: XwggZbNoDBd/lXHCqSqSaIaup4xSbalQJLtSnsPXJs+sgVjHqLJAHjiXJUHpl83JlhF1y2u9hRU1t0VXIB6xbNoQv4d+adDDaQzYq4zW2jSIjOoJwTs4vIlAToeMyodKHqFmbirHBzs/0j08s95aetKRFJ9lRPulTe0xUCg+Jd3bisu1qlMGxZQUd/6R1qMbqAKf+LDmHPYz5CQdNu65QUmAai4zvgp4aAzog7sADLWdwiYqQJaobpkPxrF8oI+jN/4kkCf7YGT04gq67lOmVCeZla8tMxnTPJKgzXUYVMUDAEZ4d+c6hkJEU7mScYwUYWxvUEBu5SaRxISh4eo6n0BQ8ZwtgVFZO/vRWgggQfzD3E2adIwO9GmJ5UrDFCZAFh3g1fI+oOL9fhyPqy+mv8Kh3UGZOtkgeelxGDzhZT3gnGlbkm+LVw2M234fFOtYbuXM6/I18wCGP5g6AlxPKEnQUH52ilWLCCA1M8/D/uPzb4QPYFC9/R2wXA/68cJy02xtXE0M2jChGjVOGBtYA+tNcj58zR5Jp0WKFBKQY5GrAdnYtZD1Ufe+r2CGjwcEoo2+Ds/zeKCiZr307brklA==
+X-OriginatorOrg: xilinx.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2020 11:31:01.0874 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4b9b715-2deb-40dc-cf62-08d7d63027d9
+X-MS-Exchange-CrossTenant-Id: 657af505-d5df-48d0-8300-c31994686c5c
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c; Ip=[149.199.60.83];
+ Helo=[xsj-pvapsmtpgw01]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR02MB4804
+X-Mailman-Approved-At: Thu, 02 Apr 2020 17:37:22 +0200
+Cc: Kate Stewart <kstewart@linuxfoundation.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ "Desnes A. Nunes do Rosario" <desnesn@linux.ibm.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, linux-doc@vger.kernel.org,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>, alsa-devel@alsa-project.org,
+ dri-devel@lists.freedesktop.org, Richard Fontana <rfontana@redhat.com>,
+ Paul Mackerras <paulus@samba.org>, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, Sasha Levin <sashal@kernel.org>,
+ sfr@canb.auug.org.au, Jonathan Corbet <corbet@lwn.net>, maz@kernel.org,
+ Masahiro Yamada <masahiroy@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ YueHaibing <yuehaibing@huawei.com>, Michal Simek <michal.simek@xilinx.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Allison Randal <allison@lohutok.net>,
+ Matt Porter <mporter@kernel.crashing.org>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ Andrew Donnellan <ajd@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ Alistair Popple <alistair@popple.id.au>, linuxppc-dev@lists.ozlabs.org,
+ Nicholas Piggin <npiggin@gmail.com>, Alexios Zavras <alexios.zavras@intel.com>,
+ Mark Brown <broonie@kernel.org>, git@xilinx.com, linux-fbdev@vger.kernel.org,
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Dmitry Vyukov <dvyukov@google.com>, Christophe Leroy <christophe.leroy@c-s.fr>,
+ monstr@monstr.eu, Wei Hu <weh@microsoft.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Enrico Weigelt <info@metux.net>,
+ "David S. Miller" <davem@davemloft.net>,
+ Thiago Jung Bauermann <bauerman@linux.ibm.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,78 +183,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+On 01. 04. 20 12:38, Takashi Iwai wrote:
+> On Wed, 01 Apr 2020 12:35:16 +0200,
+> Michael Ellerman wrote:
+>>
+>> Michal Simek <michal.simek@xilinx.com> writes:
+>>> On 01. 04. 20 4:07, Michael Ellerman wrote:
+>>>> Michal Simek <michal.simek@xilinx.com> writes:
+>>>>> Hi,
+>>>>>
+>>>>> recently we wanted to update xilinx intc driver and we found that function
+>>>>> which we wanted to remove is still wired by ancient Xilinx PowerPC
+>>>>> platforms. Here is the thread about it.
+>>>>> https://lore.kernel.org/linux-next/48d3232d-0f1d-42ea-3109-f44bbabfa2e8@xilinx.com/
+>>>>>
+>>>>> I have been talking about it internally and there is no interest in these
+>>>>> platforms and it is also orphan for quite a long time. None is really
+>>>>> running/testing these platforms regularly that's why I think it makes sense
+>>>>> to remove them also with drivers which are specific to this platform.
+>>>>>
+>>>>> U-Boot support was removed in 2017 without anybody complain about it
+>>>>> https://github.com/Xilinx/u-boot-xlnx/commit/98f705c9cefdfdba62c069821bbba10273a0a8ed
+>>>>>
+>>>>> Based on current ppc/next.
+>>>>>
+>>>>> If anyone has any objection about it, please let me know.
+>>>>
+>>>> Thanks for taking the time to find all this code and remove it.
+>>>>
+>>>> I'm not going to take this series for v5.7, it was posted too close to
+>>>> the merge window, and doing so wouldn't give people much time to object,
+>>>> especially given people are distracted at the moment.
+>>>>
+>>>> I'm happy to take it for v5.8, assuming there's no major objections.
+>>>
+>>> Sure. Just to let you know Christophe Leroy included this patch in his
+>>> series about ppc405 removal. It should be the same.
+>>>
+>>> If you don't want to take that alsa patch I can send it separately and
+>>> this patch can be taken from his series. I don't really mind but please
+>>> let me know what way you prefer.
+>>
+>> It's better to keep it all together, so I'm happy take the alsa patch as
+>> well, it's already been acked.
+> 
+> Sure, please go ahead.
 
-   ASoC: dpcm: allow start or stop during pause for backend
 
-has been applied to the asoc tree at
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+g8.
 
 Thanks,
-Mark
-
-From 21fca8bdbb64df1297e8c65a746c4c9f4a689751 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?=EC=9D=B4=EA=B2=BD=ED=83=9D?= <gt82.lee@samsung.com>
-Date: Wed, 1 Apr 2020 10:04:21 +0900
-Subject: [PATCH] ASoC: dpcm: allow start or stop during pause for backend
-
-soc_compr_trigger_fe() allows start or stop after pause_push.
-In dpcm_be_dai_trigger(), however, only pause_release is allowed
-command after pause_push.
-So, start or stop after pause in compress offload is always
-returned as error if the compress offload is used with dpcm.
-To fix the problem, SND_SOC_DPCM_STATE_PAUSED should be allowed
-for start or stop command.
-
-Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
-Reviewed-by: Vinod Koul <vkoul@kernel.org>
-Link: https://lore.kernel.org/r/004d01d607c1$7a3d5250$6eb7f6f0$@samsung.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/soc-pcm.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index e256d438ee68..289aebc15529 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -2324,7 +2324,8 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 		switch (cmd) {
- 		case SNDRV_PCM_TRIGGER_START:
- 			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PREPARE) &&
--			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP))
-+			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP) &&
-+			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
- 				continue;
- 
- 			ret = dpcm_do_trigger(dpcm, be_substream, cmd);
-@@ -2354,7 +2355,8 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
- 			break;
- 		case SNDRV_PCM_TRIGGER_STOP:
--			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START)
-+			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_START) &&
-+			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
- 				continue;
- 
- 			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
--- 
-2.20.1
-
+Michal

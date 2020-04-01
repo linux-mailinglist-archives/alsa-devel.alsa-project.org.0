@@ -2,101 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A0C719C612
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Apr 2020 17:39:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CFF419A47D
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Apr 2020 07:07:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC55B1684;
-	Thu,  2 Apr 2020 17:39:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC55B1684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 18358167A;
+	Wed,  1 Apr 2020 07:07:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18358167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585841992;
-	bh=5Eij0H0oCxuYHXBpvkwU455sMVKeqXD4R0I88w1ezf0=;
-	h=From:To:Subject:In-Reply-To:References:Date:Cc:List-Id:
+	s=default; t=1585717679;
+	bh=CHwZ7t4T2n+93moxoWET1ChbbS9nLUQ4W/xKqHQDHhE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=D9Pym7/p5mJ59gOwBpXVwLjxaBx3j37d+hI8pzZ7ALgBGJKVShoL30Buf5ZgJ2LQ2
-	 3g/r2BTycCtFQ/hM+c+TZweNb42LV7td1L/ZwkdlVH2pNNrVxO46xMgg6p0XaRGW2+
-	 lDTVGRxpmvDsxapc+aJnaoQ1oJk76+pPAtTUcS28=
+	b=cftjv9mm9a4uV6rt+R52Lu6TSGrwRcm4ozduKcmetBDzwpggeDCnXQAUiPAxw4l/k
+	 Xue5GKEQ0SJNfs0Ac7Bl+06IiClR51DSDxj4MGZTIVVkHfoVZCmm+3oQoLTBBCuuV+
+	 tamvH9KrDcDZMSChjD+3uS3QSguqu81yGG/0s+jA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 46A86F80157;
-	Thu,  2 Apr 2020 17:37:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F0159F80110;
+	Wed,  1 Apr 2020 07:06:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 60C96F8014B; Wed,  1 Apr 2020 04:08:11 +0200 (CEST)
+ id 9DE8AF8014B; Wed,  1 Apr 2020 07:06:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from ozlabs.org (bilbo.ozlabs.org [203.11.71.1])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4555FF8010D
- for <alsa-devel@alsa-project.org>; Wed,  1 Apr 2020 04:08:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4555FF8010D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25F99F80110
+ for <alsa-devel@alsa-project.org>; Wed,  1 Apr 2020 07:06:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25F99F80110
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=ellerman.id.au header.i=@ellerman.id.au
- header.b="G5WMbSF/"
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 48sV2t09Dpz9sRf;
- Wed,  1 Apr 2020 13:07:49 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ellerman.id.au;
- s=201909; t=1585706881;
- bh=5Eij0H0oCxuYHXBpvkwU455sMVKeqXD4R0I88w1ezf0=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
- b=G5WMbSF/9RnD0WcjjTHkS89KfsK9z+Ul8eGUnDsHox4hY9Wd27IV+efsEM5A9xjXL
- MJ3dPXyUs/OslGrGeTglaohlf/wYAVoh/U7KCAKNEj6mI0qw8p8s0DbLpfhEqbeTyV
- t+Z1PWfRsrZVOiig4zjml/SlgGTfF8dmLnlxwp4jR2OT0YJWje5TtJp9EyWGnGTtyt
- grLGNGb3RPjPP8ZdiSyn4fr0jKkcQTDoMnc1TF1TdR0djqWEVFIFD2ft5P+1t2b600
- wnHLbfV/yqq+RjKSWNFJ/1ksfFPLeqv7ZDLciDyZKTGuY6XmvCvgpcIIt+dSQbWZZd
- wg3zBk4OWnJcw==
-From: Michael Ellerman <mpe@ellerman.id.au>
-To: Michal Simek <michal.simek@xilinx.com>, linux-kernel@vger.kernel.org,
- monstr@monstr.eu, michal.simek@xilinx.com, git@xilinx.com,
- sfr@canb.auug.org.au, maz@kernel.org
-Subject: Re: [PATCH v2 0/2] powerpc: Remove support for ppc405/440 Xilinx
- platforms
-In-Reply-To: <cover.1585575111.git.michal.simek@xilinx.com>
-References: <cover.1585575111.git.michal.simek@xilinx.com>
-Date: Wed, 01 Apr 2020 13:07:55 +1100
-Message-ID: <87imikufes.fsf@mpe.ellerman.id.au>
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="KjEaWA28"
+Received: from localhost (unknown [122.167.76.164])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id C9B182074D;
+ Wed,  1 Apr 2020 05:06:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1585717566;
+ bh=CHwZ7t4T2n+93moxoWET1ChbbS9nLUQ4W/xKqHQDHhE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=KjEaWA28I4dRrDFwkprzyYnJc/KjzARW+1KsGpPskpPpMB7mM44lbENGnu3KEjFRA
+ 4pTEGFojFEfp6npQ24PP+QxW3/eoO8Uu78rsFC5QGDdeP5vFxvj9jXZw07Y0hAqzQp
+ t8PGfXfL7SdnCLCTk21fzEq75IBVdFmvurB29sH4=
+Date: Wed, 1 Apr 2020 10:36:01 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: =?utf-8?B?77+9zLDvv73vv73vv70=?= <gt82.lee@samsung.com>
+Subject: Re: [PATCH] ASoC: dpcm: allow start or stop during pause for backend
+Message-ID: <20200401050601.GB72691@vkoul-mobl>
+References: <CGME20200401010421epcas2p3d5b16041fa59efa0ac8786f682d4c991@epcas2p3.samsung.com>
+ <004d01d607c1$7a3d5250$6eb7f6f0$@samsung.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Mailman-Approved-At: Thu, 02 Apr 2020 17:37:21 +0200
-Cc: Kate Stewart <kstewart@linuxfoundation.org>,
- Mark Rutland <mark.rutland@arm.com>,
- "Desnes A. Nunes do Rosario" <desnesn@linux.ibm.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>, linux-doc@vger.kernel.org,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>, alsa-devel@alsa-project.org,
- dri-devel@lists.freedesktop.org, Richard Fontana <rfontana@redhat.com>,
- Paul Mackerras <paulus@samba.org>, Miquel Raynal <miquel.raynal@bootlin.com>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- Fabio Estevam <festevam@gmail.com>, Sasha Levin <sashal@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Masahiro Yamada <masahiroy@kernel.org>,
- YueHaibing <yuehaibing@huawei.com>, Krzysztof Kozlowski <krzk@kernel.org>,
- Allison Randal <allison@lohutok.net>,
- Matt Porter <mporter@kernel.crashing.org>,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- Andrew Donnellan <ajd@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- Alistair Popple <alistair@popple.id.au>, linuxppc-dev@lists.ozlabs.org,
- Nicholas Piggin <npiggin@gmail.com>, Alexios Zavras <alexios.zavras@intel.com>,
- Mark Brown <broonie@kernel.org>, linux-fbdev@vger.kernel.org,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>,
- Thomas Gleixner <tglx@linutronix.de>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Dmitry Vyukov <dvyukov@google.com>, Christophe Leroy <christophe.leroy@c-s.fr>,
- Wei Hu <weh@microsoft.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Takashi Iwai <tiwai@suse.com>,
- Rob Herring <robh+dt@kernel.org>, Enrico Weigelt <info@metux.net>,
- "David S. Miller" <davem@davemloft.net>,
- Thiago Jung Bauermann <bauerman@linux.ibm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <004d01d607c1$7a3d5250$6eb7f6f0$@samsung.com>
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, tiwai@suse.com,
+ broonie@kernel.org, hmseo@samsung.com, tkjung@samsung.com,
+ pilsun.jang@samsung.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,32 +82,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Michal Simek <michal.simek@xilinx.com> writes:
-> Hi,
->
-> recently we wanted to update xilinx intc driver and we found that function
-> which we wanted to remove is still wired by ancient Xilinx PowerPC
-> platforms. Here is the thread about it.
-> https://lore.kernel.org/linux-next/48d3232d-0f1d-42ea-3109-f44bbabfa2e8@xilinx.com/
->
-> I have been talking about it internally and there is no interest in these
-> platforms and it is also orphan for quite a long time. None is really
-> running/testing these platforms regularly that's why I think it makes sense
-> to remove them also with drivers which are specific to this platform.
->
-> U-Boot support was removed in 2017 without anybody complain about it
-> https://github.com/Xilinx/u-boot-xlnx/commit/98f705c9cefdfdba62c069821bbba10273a0a8ed
->
-> Based on current ppc/next.
->
-> If anyone has any objection about it, please let me know.
+Hello Gyeongtaek,
 
-Thanks for taking the time to find all this code and remove it.
+On 01-04-20, 10:04, �̰��� wrote:
+> soc_compr_trigger_fe() allows start or stop after pause_push.
+> In dpcm_be_dai_trigger(), however, only pause_release is allowed
+> command after pause_push.
+> So, start or stop after pause in compress offload is always
+> returned as error if the compress offload is used with dpcm.
+> To fix the problem, SND_SOC_DPCM_STATE_PAUSED should be allowed
+> for start or stop command.
 
-I'm not going to take this series for v5.7, it was posted too close to
-the merge window, and doing so wouldn't give people much time to object,
-especially given people are distracted at the moment.
+I think it makes sense to allow START if the stream is paused. Similarly
+a STOP should be legal as well for paused stream, so:
 
-I'm happy to take it for v5.8, assuming there's no major objections.
+Reviewed-by: Vinod Koul <vkoul@kernel.org>
 
-cheers
+> 
+> Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
+> ---
+>  sound/soc/soc-pcm.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+> index 2c59b3688ca0..8f6f0ad50288 100644
+> --- a/sound/soc/soc-pcm.c
+> +++ b/sound/soc/soc-pcm.c
+> @@ -2236,7 +2236,8 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
+>  		switch (cmd) {
+>  		case SNDRV_PCM_TRIGGER_START:
+>  			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PREPARE) &&
+> -			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP))
+> +			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP) &&
+> +			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
+>  				continue;
+>  
+>  			ret = dpcm_do_trigger(dpcm, be_substream, cmd);
+> @@ -2266,7 +2267,8 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
+>  			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
+>  			break;
+>  		case SNDRV_PCM_TRIGGER_STOP:
+> -			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START)
+> +			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_START) &&
+> +			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
+>  				continue;
+>  
+>  			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
+> -- 
+> 2.21.0
+> 
+
+-- 
+~Vinod

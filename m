@@ -2,74 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34FF619C616
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Apr 2020 17:40:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2261119C61D
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Apr 2020 17:40:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DDDAD166F;
-	Thu,  2 Apr 2020 17:39:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDDAD166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id B2219167D;
+	Thu,  2 Apr 2020 17:39:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2219167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585842004;
-	bh=tOrgJGXP/njUrIMXidGuSCKwc178zrgu0S+NEYMqYHU=;
-	h=From:To:Subject:In-Reply-To:References:Date:Cc:List-Id:
+	s=default; t=1585842046;
+	bh=sZ4tyvLvFGBxlvCcJKk5K1ZKj/pAn00JOC2Qgo46z70=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Z0jp3iEQRJKT/IZdau+rP0TUm/vBVQcbP7ZzSpmbGuCyozn1nVTVmxOvod9374apQ
-	 xvFznS5HyOZKWbjX53B9JoOwi68QkF5VuJfwz0QHy5B8X361wCPBHYwSc0SQMvtnpy
-	 4CztQuaZxKdzCso8wvnniPcwfISadQa1Dwz8fLeA=
+	b=d70wtX2OPIQAceHb/N6Hz0QjdPEg3DiWSSAbCyNo/0c1/nkneZkpO/rsMZGhl+h52
+	 YYWZbKWFkl7cQgK8bAERtzGjWwORdbewjMMIQcMZkj6Iz5YSUgAJFej0iZF64Wb70N
+	 nmrPSoSAu3GLW1pFXqbF+LnRed65stdBVbovzUxM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD946F80088;
-	Thu,  2 Apr 2020 17:37:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA008F80292;
+	Thu,  2 Apr 2020 17:37:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5EF53F8014B; Wed,  1 Apr 2020 12:35:31 +0200 (CEST)
+ id 8B35BF8014B; Wed,  1 Apr 2020 12:39:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2B06DF8010D
- for <alsa-devel@alsa-project.org>; Wed,  1 Apr 2020 12:35:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B06DF8010D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=ellerman.id.au header.i=@ellerman.id.au
- header.b="P1whhju4"
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 48sjJG1fdNz9sPF;
- Wed,  1 Apr 2020 21:35:10 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ellerman.id.au;
- s=201909; t=1585737317;
- bh=tOrgJGXP/njUrIMXidGuSCKwc178zrgu0S+NEYMqYHU=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
- b=P1whhju4jgzAL2Psm98KymlrEICEGralDcTIlW8g8UT+lDTgyzSEDjQDCMbUi0ETr
- W/3VEd+68JgnO+DNBCqAYlV5cH3PYejroV6p2lHqqOZ0X419cHoD4W1CiN8Ev8VwyZ
- 2niHYiMRiRvaBHYGCpYZjhsjmp4tai+OS1JV4zx3t8XRpwh/g4JkErdA29Yb8oTnHD
- EV/I/xOiV2bqVYwF2R5KuZdGh9DmEvJKN/hE+H1MXlstH3qVixSixsFD6cihk2nhn0
- QMEZEVCWkC2UxlvVulmpNX2bi9UCBTZzAsIBX2wyCv7n64ESMbPOOStDI55bkW/qnh
- drc4RnG8+sF4A==
-From: Michael Ellerman <mpe@ellerman.id.au>
-To: Michal Simek <michal.simek@xilinx.com>,
- Michal Simek <michal.simek@xilinx.com>, linux-kernel@vger.kernel.org,
- monstr@monstr.eu, git@xilinx.com, sfr@canb.auug.org.au, maz@kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7AF3CF8010D
+ for <alsa-devel@alsa-project.org>; Wed,  1 Apr 2020 12:39:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7AF3CF8010D
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id A1E35ABF6;
+ Wed,  1 Apr 2020 10:38:57 +0000 (UTC)
+Date: Wed, 01 Apr 2020 12:38:54 +0200
+Message-ID: <s5hk12z4hj5.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Michael Ellerman <mpe@ellerman.id.au>
 Subject: Re: [PATCH v2 0/2] powerpc: Remove support for ppc405/440 Xilinx
  platforms
-In-Reply-To: <12db51d6-d848-118e-5ec1-a4172bd47aa4@xilinx.com>
+In-Reply-To: <87y2rftrx7.fsf@mpe.ellerman.id.au>
 References: <cover.1585575111.git.michal.simek@xilinx.com>
  <87imikufes.fsf@mpe.ellerman.id.au>
  <12db51d6-d848-118e-5ec1-a4172bd47aa4@xilinx.com>
-Date: Wed, 01 Apr 2020 21:35:16 +1100
-Message-ID: <87y2rftrx7.fsf@mpe.ellerman.id.au>
-MIME-Version: 1.0
-Content-Type: text/plain
+ <87y2rftrx7.fsf@mpe.ellerman.id.au>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
 X-Mailman-Approved-At: Thu, 02 Apr 2020 17:37:21 +0200
 Cc: Kate Stewart <kstewart@linuxfoundation.org>,
  Mark Rutland <mark.rutland@arm.com>,
@@ -80,22 +67,24 @@ Cc: Kate Stewart <kstewart@linuxfoundation.org>,
  Paul Mackerras <paulus@samba.org>, Miquel Raynal <miquel.raynal@bootlin.com>,
  Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
  Fabio Estevam <festevam@gmail.com>, Sasha Levin <sashal@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Masahiro Yamada <masahiroy@kernel.org>,
- YueHaibing <yuehaibing@huawei.com>, Krzysztof Kozlowski <krzk@kernel.org>,
- Allison Randal <allison@lohutok.net>,
+ sfr@canb.auug.org.au, Jonathan Corbet <corbet@lwn.net>, maz@kernel.org,
+ Masahiro Yamada <masahiroy@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ YueHaibing <yuehaibing@huawei.com>, Michal Simek <michal.simek@xilinx.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Allison Randal <allison@lohutok.net>,
  Matt Porter <mporter@kernel.crashing.org>,
  linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
  Andrew Donnellan <ajd@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
  Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
  Alistair Popple <alistair@popple.id.au>, linuxppc-dev@lists.ozlabs.org,
  Nicholas Piggin <npiggin@gmail.com>, Alexios Zavras <alexios.zavras@intel.com>,
- Mark Brown <broonie@kernel.org>, linux-fbdev@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, git@xilinx.com, linux-fbdev@vger.kernel.org,
  Jonathan Cameron <Jonathan.Cameron@huawei.com>,
  Thomas Gleixner <tglx@linutronix.de>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Dmitry Vyukov <dvyukov@google.com>, Christophe Leroy <christophe.leroy@c-s.fr>,
- Wei Hu <weh@microsoft.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Takashi Iwai <tiwai@suse.com>,
+ monstr@monstr.eu, Wei Hu <weh@microsoft.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
  Rob Herring <robh+dt@kernel.org>, Enrico Weigelt <info@metux.net>,
  "David S. Miller" <davem@davemloft.net>,
  Thiago Jung Bauermann <bauerman@linux.ibm.com>
@@ -114,44 +103,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Michal Simek <michal.simek@xilinx.com> writes:
-> On 01. 04. 20 4:07, Michael Ellerman wrote:
->> Michal Simek <michal.simek@xilinx.com> writes:
->>> Hi,
->>>
->>> recently we wanted to update xilinx intc driver and we found that function
->>> which we wanted to remove is still wired by ancient Xilinx PowerPC
->>> platforms. Here is the thread about it.
->>> https://lore.kernel.org/linux-next/48d3232d-0f1d-42ea-3109-f44bbabfa2e8@xilinx.com/
->>>
->>> I have been talking about it internally and there is no interest in these
->>> platforms and it is also orphan for quite a long time. None is really
->>> running/testing these platforms regularly that's why I think it makes sense
->>> to remove them also with drivers which are specific to this platform.
->>>
->>> U-Boot support was removed in 2017 without anybody complain about it
->>> https://github.com/Xilinx/u-boot-xlnx/commit/98f705c9cefdfdba62c069821bbba10273a0a8ed
->>>
->>> Based on current ppc/next.
->>>
->>> If anyone has any objection about it, please let me know.
->> 
->> Thanks for taking the time to find all this code and remove it.
->> 
->> I'm not going to take this series for v5.7, it was posted too close to
->> the merge window, and doing so wouldn't give people much time to object,
->> especially given people are distracted at the moment.
->> 
->> I'm happy to take it for v5.8, assuming there's no major objections.
->
-> Sure. Just to let you know Christophe Leroy included this patch in his
-> series about ppc405 removal. It should be the same.
->
-> If you don't want to take that alsa patch I can send it separately and
-> this patch can be taken from his series. I don't really mind but please
-> let me know what way you prefer.
+On Wed, 01 Apr 2020 12:35:16 +0200,
+Michael Ellerman wrote:
+> 
+> Michal Simek <michal.simek@xilinx.com> writes:
+> > On 01. 04. 20 4:07, Michael Ellerman wrote:
+> >> Michal Simek <michal.simek@xilinx.com> writes:
+> >>> Hi,
+> >>>
+> >>> recently we wanted to update xilinx intc driver and we found that function
+> >>> which we wanted to remove is still wired by ancient Xilinx PowerPC
+> >>> platforms. Here is the thread about it.
+> >>> https://lore.kernel.org/linux-next/48d3232d-0f1d-42ea-3109-f44bbabfa2e8@xilinx.com/
+> >>>
+> >>> I have been talking about it internally and there is no interest in these
+> >>> platforms and it is also orphan for quite a long time. None is really
+> >>> running/testing these platforms regularly that's why I think it makes sense
+> >>> to remove them also with drivers which are specific to this platform.
+> >>>
+> >>> U-Boot support was removed in 2017 without anybody complain about it
+> >>> https://github.com/Xilinx/u-boot-xlnx/commit/98f705c9cefdfdba62c069821bbba10273a0a8ed
+> >>>
+> >>> Based on current ppc/next.
+> >>>
+> >>> If anyone has any objection about it, please let me know.
+> >> 
+> >> Thanks for taking the time to find all this code and remove it.
+> >> 
+> >> I'm not going to take this series for v5.7, it was posted too close to
+> >> the merge window, and doing so wouldn't give people much time to object,
+> >> especially given people are distracted at the moment.
+> >> 
+> >> I'm happy to take it for v5.8, assuming there's no major objections.
+> >
+> > Sure. Just to let you know Christophe Leroy included this patch in his
+> > series about ppc405 removal. It should be the same.
+> >
+> > If you don't want to take that alsa patch I can send it separately and
+> > this patch can be taken from his series. I don't really mind but please
+> > let me know what way you prefer.
+> 
+> It's better to keep it all together, so I'm happy take the alsa patch as
+> well, it's already been acked.
 
-It's better to keep it all together, so I'm happy take the alsa patch as
-well, it's already been acked.
+Sure, please go ahead.
 
-cheers
+
+thanks,
+
+Takashi

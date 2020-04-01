@@ -2,71 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CFF419A47D
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Apr 2020 07:07:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79D1D19A4D4
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Apr 2020 07:39:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 18358167A;
-	Wed,  1 Apr 2020 07:07:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18358167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D4B6167A;
+	Wed,  1 Apr 2020 07:39:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D4B6167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585717679;
-	bh=CHwZ7t4T2n+93moxoWET1ChbbS9nLUQ4W/xKqHQDHhE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cftjv9mm9a4uV6rt+R52Lu6TSGrwRcm4ozduKcmetBDzwpggeDCnXQAUiPAxw4l/k
-	 Xue5GKEQ0SJNfs0Ac7Bl+06IiClR51DSDxj4MGZTIVVkHfoVZCmm+3oQoLTBBCuuV+
-	 tamvH9KrDcDZMSChjD+3uS3QSguqu81yGG/0s+jA=
+	s=default; t=1585719592;
+	bh=kX/Jb9wNU0nMG4JEXuYwUagvPAe9x203ekiphJzg7G4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=uH5EI0T7RYihFNEPkTqCO96QI5IJZfNblMzvAfDl5UBlNG+wfZnrjbydXvEkNvnu1
+	 cdw0kG8v6Iv+eIEwrZ1tasLeifkiEWn5355UMl4wrH9TDSXWI3CDb46gRx0vuuKZhq
+	 w/5xnCm6cUUga/BmTtogKgm3tyRsa+v666yPC1wg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0159F80110;
-	Wed,  1 Apr 2020 07:06:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 114BCF80110;
+	Wed,  1 Apr 2020 07:38:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9DE8AF8014B; Wed,  1 Apr 2020 07:06:14 +0200 (CEST)
+ id 23412F8014B; Wed,  1 Apr 2020 07:38:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 25F99F80110
- for <alsa-devel@alsa-project.org>; Wed,  1 Apr 2020 07:06:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25F99F80110
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="KjEaWA28"
-Received: from localhost (unknown [122.167.76.164])
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.0 required=5.0 tests=PRX_APP_ATTACH, SPF_HELO_NONE, 
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C9B182074D;
- Wed,  1 Apr 2020 05:06:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1585717566;
- bh=CHwZ7t4T2n+93moxoWET1ChbbS9nLUQ4W/xKqHQDHhE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KjEaWA28I4dRrDFwkprzyYnJc/KjzARW+1KsGpPskpPpMB7mM44lbENGnu3KEjFRA
- 4pTEGFojFEfp6npQ24PP+QxW3/eoO8Uu78rsFC5QGDdeP5vFxvj9jXZw07Y0hAqzQp
- t8PGfXfL7SdnCLCTk21fzEq75IBVdFmvurB29sH4=
-Date: Wed, 1 Apr 2020 10:36:01 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: =?utf-8?B?77+9zLDvv73vv73vv70=?= <gt82.lee@samsung.com>
-Subject: Re: [PATCH] ASoC: dpcm: allow start or stop during pause for backend
-Message-ID: <20200401050601.GB72691@vkoul-mobl>
-References: <CGME20200401010421epcas2p3d5b16041fa59efa0ac8786f682d4c991@epcas2p3.samsung.com>
- <004d01d607c1$7a3d5250$6eb7f6f0$@samsung.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1D47F80110
+ for <alsa-devel@alsa-project.org>; Wed,  1 Apr 2020 07:37:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1D47F80110
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.69 with qID 0315bouH7017421,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexmb06.realtek.com.tw[172.21.6.99])
+ by rtits2.realtek.com.tw (8.15.2/2.66/5.86) with ESMTPS id 0315bouH7017421
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 1 Apr 2020 13:37:50 +0800
+Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
+ RTEXMB06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1779.2; Wed, 1 Apr 2020 13:37:50 +0800
+Received: from RTEXMB01.realtek.com.tw ([fe80::1832:8abc:ec2d:974f]) by
+ RTEXMB01.realtek.com.tw ([fe80::1832:8abc:ec2d:974f%6]) with mapi id
+ 15.01.1779.005; Wed, 1 Apr 2020 13:37:50 +0800
+From: Kailang <kailang@realtek.com>
+To: "Takashi Iwai (tiwai@suse.de)" <tiwai@suse.de>
+Subject: New HP mute led feature
+Thread-Topic: New HP mute led feature
+Thread-Index: AdYH51wtUO4r/n8vTQmHwBcFof06lQ==
+Date: Wed, 1 Apr 2020 05:37:50 +0000
+Message-ID: <e8a61928cfae439b9fa99d80e3c5c6cc@realtek.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.22.105.171]
+Content-Type: multipart/mixed;
+ boundary="_003_e8a61928cfae439b9fa99d80e3c5c6ccrealtekcom_"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <004d01d607c1$7a3d5250$6eb7f6f0$@samsung.com>
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, tiwai@suse.com,
- broonie@kernel.org, hmseo@samsung.com, tkjung@samsung.com,
- pilsun.jang@samsung.com
+Cc: " \(alsa-devel@alsa-project.org\)" <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,55 +80,164 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello Gyeongtaek,
+--_003_e8a61928cfae439b9fa99d80e3c5c6ccrealtekcom_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 01-04-20, 10:04, �̰��� wrote:
-> soc_compr_trigger_fe() allows start or stop after pause_push.
-> In dpcm_be_dai_trigger(), however, only pause_release is allowed
-> command after pause_push.
-> So, start or stop after pause in compress offload is always
-> returned as error if the compress offload is used with dpcm.
-> To fix the problem, SND_SOC_DPCM_STATE_PAUSED should be allowed
-> for start or stop command.
+Hi Takashi,
 
-I think it makes sense to allow START if the stream is paused. Similarly
-a STOP should be legal as well for paused stream, so:
+HP had new mute led feature.
+Attach two patches will enable it.
 
-Reviewed-by: Vinod Koul <vkoul@kernel.org>
+BR,
+Kailang
 
-> 
-> Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
-> ---
->  sound/soc/soc-pcm.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-> index 2c59b3688ca0..8f6f0ad50288 100644
-> --- a/sound/soc/soc-pcm.c
-> +++ b/sound/soc/soc-pcm.c
-> @@ -2236,7 +2236,8 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
->  		switch (cmd) {
->  		case SNDRV_PCM_TRIGGER_START:
->  			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PREPARE) &&
-> -			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP))
-> +			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP) &&
-> +			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
->  				continue;
->  
->  			ret = dpcm_do_trigger(dpcm, be_substream, cmd);
-> @@ -2266,7 +2267,8 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
->  			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
->  			break;
->  		case SNDRV_PCM_TRIGGER_STOP:
-> -			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START)
-> +			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_START) &&
-> +			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
->  				continue;
->  
->  			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
-> -- 
-> 2.21.0
-> 
+--_003_e8a61928cfae439b9fa99d80e3c5c6ccrealtekcom_
+Content-Type: application/octet-stream;
+	name="0000-hp-thinclient-0x877d-mute-led.patch"
+Content-Description: 0000-hp-thinclient-0x877d-mute-led.patch
+Content-Disposition: attachment;
+	filename="0000-hp-thinclient-0x877d-mute-led.patch"; size=3440;
+	creation-date="Wed, 18 Mar 2020 08:31:00 GMT";
+	modification-date="Thu, 19 Mar 2020 08:06:13 GMT"
+Content-Transfer-Encoding: base64
 
--- 
-~Vinod
+RnJvbSBhYTE5NGFmY2RlMzg3YjUzNmE2NmU4NGRmZTk5NGJkNTU4ZTI2MGJiIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
+dGU6IFRodSwgMTkgTWFyIDIwMjAgMTY6MDI6NTcgKzA4MDAKU3ViamVjdDogW1BBVENIXSBBTFNB
+OiBoZGEvcmVhbHRlayAtIEFkZCBIUCBuZXcgbXV0ZSBsZWQgc3VwcG9ydGVkCgpIUCBuZXcgcGxh
+dGZvcm0gaGFzIG5ldyBtdXRlIGxlZCBmZWF0dXJlLgoKU2lnbmVkLW9mZi1ieTogS2FpbGFuZyBZ
+YW5nIDxrYWlsYW5nQHJlYWx0ZWsuY29tPgoKZGlmZiAtLWdpdCBhL3NvdW5kL3BjaS9oZGEvcGF0
+Y2hfcmVhbHRlay5jIGIvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKaW5kZXggN2I4M2Iw
+MjBhYzNjLi5iNTdhZTA1OThmMDEgMTAwNjQ0Ci0tLSBhL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVh
+bHRlay5jCisrKyBiL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5jCkBAIC00MDYyLDYgKzQw
+NjIsNjAgQEAgc3RhdGljIHZvaWQgYWxjMjgwX2ZpeHVwX2hwX2dwaW80KHN0cnVjdCBoZGFfY29k
+ZWMgKmNvZGVjLAogCX0KIH0KIAorLyogdXBkYXRlIG11dGUtTEVEIGFjY29yZGluZyB0byB0aGUg
+c3BlYWtlciBtdXRlIHN0YXRlIHZpYSBDT0VGIGJpdCAqLworc3RhdGljIHZvaWQgYWxjMjM2X2Zp
+eHVwX211dGVfbGVkX2NvZWZiaXRfaG9vayh2b2lkICpwcml2YXRlX2RhdGEsIGludCBlbmFibGVk
+KQoreworCXN0cnVjdCBoZGFfY29kZWMgKmNvZGVjID0gcHJpdmF0ZV9kYXRhOworCXN0cnVjdCBh
+bGNfc3BlYyAqc3BlYyA9IGNvZGVjLT5zcGVjOworCisJaWYgKHNwZWMtPm11dGVfbGVkX3BvbGFy
+aXR5KQorCQllbmFibGVkID0gIWVuYWJsZWQ7CisKKwllbmFibGVkID8gYWxjX3VwZGF0ZV9jb2Vm
+X2lkeChjb2RlYywgMHgzNCwgMCwgMTw8NSkgOgorCQkgIGFsY191cGRhdGVfY29lZl9pZHgoY29k
+ZWMsIDB4MzQsIDE8PDUsIDApOworfQorCitzdGF0aWMgdm9pZCBhbGMyMzZfZml4dXBfaHBfbXV0
+ZV9sZWRfY29lZmJpdChzdHJ1Y3QgaGRhX2NvZGVjICpjb2RlYywKKwkJCQkJICBjb25zdCBzdHJ1
+Y3QgaGRhX2ZpeHVwICpmaXgsCisJCQkJCSAgaW50IGFjdGlvbikKK3sKKwlzdHJ1Y3QgYWxjX3Nw
+ZWMgKnNwZWMgPSBjb2RlYy0+c3BlYzsKKworCWlmIChhY3Rpb24gPT0gSERBX0ZJWFVQX0FDVF9Q
+UkVfUFJPQkUpIHsKKwkJc3BlYy0+bXV0ZV9sZWRfcG9sYXJpdHkgPSAwOworCQlzcGVjLT5nZW4u
+dm1hc3Rlcl9tdXRlLmhvb2sgPSBhbGMyMzZfZml4dXBfbXV0ZV9sZWRfY29lZmJpdF9ob29rOwor
+CQlzcGVjLT5nZW4udm1hc3Rlcl9tdXRlX2VudW0gPSAxOworCX0KK30KKworLyogdHVybiBvbi9v
+ZmYgbWljLW11dGUgTEVEIHBlciBjYXB0dXJlIGhvb2sgKi8KK3N0YXRpYyB2b2lkIGFsYzIzNl9o
+cF9jYXBfbWljbXV0ZV91cGRhdGUoc3RydWN0IGhkYV9jb2RlYyAqY29kZWMpCit7CisJc3RydWN0
+IGFsY19zcGVjICpzcGVjID0gY29kZWMtPnNwZWM7CisKKwlpZiAoc3BlYy0+Z2VuLm1pY211dGVf
+bGVkLmxlZF92YWx1ZSkKKwkJYWxjX3VwZGF0ZV9jb2VmX2lkeChjb2RlYywgMHgzNSwgMzw8Miwg
+Mjw8Mik7CisJZWxzZQorCQlhbGNfdXBkYXRlX2NvZWZfaWR4KGNvZGVjLCAweDM1LCAzPDwyLCAx
+PDwyKTsKK30KKworc3RhdGljIHZvaWQgYWxjMjM2X2ZpeHVwX2hwX2NvZWZfbWljbXV0ZV9sZWQo
+c3RydWN0IGhkYV9jb2RlYyAqY29kZWMsCisJCQkJY29uc3Qgc3RydWN0IGhkYV9maXh1cCAqZml4
+LCBpbnQgYWN0aW9uKQoreworCXN0cnVjdCBhbGNfc3BlYyAqc3BlYyA9IGNvZGVjLT5zcGVjOwor
+CisJaWYgKGFjdGlvbiA9PSBIREFfRklYVVBfQUNUX1BSRV9QUk9CRSkgeworCQlzbmRfaGRhX2dl
+bl9hZGRfbWljbXV0ZV9sZWQoY29kZWMsIGFsYzIzNl9ocF9jYXBfbWljbXV0ZV91cGRhdGUpOwor
+CX0KK30KKworc3RhdGljIHZvaWQgYWxjMjM2X2ZpeHVwX2hwX211dGVfbGVkKHN0cnVjdCBoZGFf
+Y29kZWMgKmNvZGVjLAorCQkJCWNvbnN0IHN0cnVjdCBoZGFfZml4dXAgKmZpeCwgaW50IGFjdGlv
+bikKK3sKKwlhbGMyMzZfZml4dXBfaHBfbXV0ZV9sZWRfY29lZmJpdChjb2RlYywgZml4LCBhY3Rp
+b24pOworCWFsYzIzNl9maXh1cF9ocF9jb2VmX21pY211dGVfbGVkKGNvZGVjLCBmaXgsIGFjdGlv
+bik7Cit9CisKICNpZiBJU19SRUFDSEFCTEUoQ09ORklHX0lOUFVUKQogc3RhdGljIHZvaWQgZ3Bp
+bzJfbWljX2hvdGtleV9ldmVudChzdHJ1Y3QgaGRhX2NvZGVjICpjb2RlYywKIAkJCQkgICBzdHJ1
+Y3QgaGRhX2phY2tfY2FsbGJhY2sgKmV2ZW50KQpAQCAtNTkyMyw2ICs1OTc3LDcgQEAgZW51bSB7
+CiAJQUxDMjk0X0ZJWFVQX0FTVVNfRFVBTF9TUEssCiAJQUxDMjg1X0ZJWFVQX1RISU5LUEFEX0hF
+QURTRVRfSkFDSywKIAlBTEMyOTRfRklYVVBfQVNVU19IUEUsCisJQUxDMjM2X0ZJWFVQX0hQX01V
+VEVfTEVELAogfTsKIAogc3RhdGljIGNvbnN0IHN0cnVjdCBoZGFfZml4dXAgYWxjMjY5X2ZpeHVw
+c1tdID0gewpAQCAtNzA2MSw2ICs3MTE2LDEwIEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgaGRhX2Zp
+eHVwIGFsYzI2OV9maXh1cHNbXSA9IHsKIAkJLmNoYWluZWQgPSB0cnVlLAogCQkuY2hhaW5faWQg
+PSBBTEMyOTRfRklYVVBfQVNVU19IRUFEU0VUX01JQwogCX0sCisJW0FMQzIzNl9GSVhVUF9IUF9N
+VVRFX0xFRF0gPSB7CisJCS50eXBlID0gSERBX0ZJWFVQX0ZVTkMsCisJCS52LmZ1bmMgPSBhbGMy
+MzZfZml4dXBfaHBfbXV0ZV9sZWQsCisJfSwKIH07CiAKIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc25k
+X3BjaV9xdWlyayBhbGMyNjlfZml4dXBfdGJsW10gPSB7CkBAIC03MjA4LDYgKzcyNjcsNyBAQCBz
+dGF0aWMgY29uc3Qgc3RydWN0IHNuZF9wY2lfcXVpcmsgYWxjMjY5X2ZpeHVwX3RibFtdID0gewog
+CVNORF9QQ0lfUVVJUksoMHgxMDNjLCAweDgzYjksICJIUCBTcGVjdHJlIHgzNjAiLCBBTEMyNjlf
+RklYVVBfSFBfTVVURV9MRURfTUlDMyksCiAJU05EX1BDSV9RVUlSSygweDEwM2MsIDB4ODQ5Nywg
+IkhQIEVudnkgeDM2MCIsIEFMQzI2OV9GSVhVUF9IUF9NVVRFX0xFRF9NSUMzKSwKIAlTTkRfUENJ
+X1FVSVJLKDB4MTAzYywgMHg4NGU3LCAiSFAgUGF2aWxpb24gMTUiLCBBTEMyNjlfRklYVVBfSFBf
+TVVURV9MRURfTUlDMyksCisJU05EX1BDSV9RVUlSSygweDEwM2MsIDB4ODc3ZCwgIkhQIiwgQUxD
+MjM2X0ZJWFVQX0hQX01VVEVfTEVEKSwKIAlTTkRfUENJX1FVSVJLKDB4MTA0MywgMHgxMDNlLCAi
+QVNVUyBYNTQwU0EiLCBBTEMyNTZfRklYVVBfQVNVU19NSUMpLAogCVNORF9QQ0lfUVVJUksoMHgx
+MDQzLCAweDEwM2YsICJBU1VTIFRYMzAwIiwgQUxDMjgyX0ZJWFVQX0FTVVNfVFgzMDApLAogCVNO
+RF9QQ0lfUVVJUksoMHgxMDQzLCAweDEwNmQsICJBc3VzIEs1M0JFIiwgQUxDMjY5X0ZJWFVQX0xJ
+TUlUX0lOVF9NSUNfQk9PU1QpLAo=
+
+--_003_e8a61928cfae439b9fa99d80e3c5c6ccrealtekcom_
+Content-Type: application/octet-stream;
+	name="0001-hp-thinclient-0x877a-mute-led.patch"
+Content-Description: 0001-hp-thinclient-0x877a-mute-led.patch
+Content-Disposition: attachment;
+	filename="0001-hp-thinclient-0x877a-mute-led.patch"; size=3688;
+	creation-date="Wed, 01 Apr 2020 05:28:32 GMT";
+	modification-date="Wed, 01 Apr 2020 05:27:59 GMT"
+Content-Transfer-Encoding: base64
+
+RnJvbSAyMWZhODkyYmNkNjZhN2VlY2RiMDcyMTA5NzAzNmYzYTU1YjA4YTEzIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
+dGU6IFdlZCwgMSBBcHIgMjAyMCAxMzoyNToyMiArMDgwMApTdWJqZWN0OiBbUEFUQ0hdIEFMU0E6
+IGhkYS9yZWFsdGVrIC0gQWRkIHN1cHBvcnRlZCBuZXcgbXV0ZSBMZWQgZm9yIEhQCgpIUCBUaGlu
+IENsaWVudCBOb3RlIEJvb2sgc3VwcG9ydGVkIG11dGUgTGVkLgpIYXJkd2FyZSBQSU4gd2FzIG5v
+dCBlbm91Z2ggdG8gbWVldCBvbGQgTEVEIHJ1bGUuCkpEMiB0byBjb250cm9sIHBsYXliYWNrIG11
+dGUgbGVkLgpHUE8zIHRvIGNvbnRyb2wgY2FwdHVyZSBtdXRlIGxlZC4oQUxDMjg1IGRpZG4ndCBj
+b250cm9sIEdQTzMgdmlhIHZlcmIgY29tbWFuZCkKVGhpcyB0d28gUElOIGp1c3QgY291bGQgY29u
+dHJvbCBieSBDT0VGIHJlZ2lzdGVyLgoKU2lnbmVkLW9mZi1ieTogS2FpbGFuZyBZYW5nIDxrYWls
+YW5nQHJlYWx0ZWsuY29tPgoKZGlmZiAtLWdpdCBhL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRl
+ay5jIGIvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKaW5kZXggMGFmMzNmMDA2MTdhLi5h
+ODBhYjEwN2U1NGUgMTAwNjQ0Ci0tLSBhL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5jCisr
+KyBiL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5jCkBAIC00MTc1LDYgKzQxNzUsNjEgQEAg
+c3RhdGljIHZvaWQgYWxjMjgwX2ZpeHVwX2hwX2dwaW80KHN0cnVjdCBoZGFfY29kZWMgKmNvZGVj
+LAogCX0KIH0KIAorLyogdXBkYXRlIG11dGUtTEVEIGFjY29yZGluZyB0byB0aGUgc3BlYWtlciBt
+dXRlIHN0YXRlIHZpYSBDT0VGIGJpdCAqLworc3RhdGljIHZvaWQgYWxjMjg1X2ZpeHVwX211dGVf
+bGVkX2NvZWZiaXRfaG9vayh2b2lkICpwcml2YXRlX2RhdGEsIGludCBlbmFibGVkKQoreworCXN0
+cnVjdCBoZGFfY29kZWMgKmNvZGVjID0gcHJpdmF0ZV9kYXRhOworCXN0cnVjdCBhbGNfc3BlYyAq
+c3BlYyA9IGNvZGVjLT5zcGVjOworCisJaWYgKHNwZWMtPm11dGVfbGVkX3BvbGFyaXR5KQorCQll
+bmFibGVkID0gIWVuYWJsZWQ7CisKKwkvKiB0ZW1wb3JhcmlseSBwb3dlciB1cC9kb3duIGZvciBz
+ZXR0aW5nIENPRUYgYml0ICovCisJZW5hYmxlZCA/IGFsY191cGRhdGVfY29lZl9pZHgoY29kZWMs
+IDB4MGIsIDE8PDMsIDApIDoKKwkJICBhbGNfdXBkYXRlX2NvZWZfaWR4KGNvZGVjLCAweDBiLCAw
+LCAxPDwzKTsKK30KKworc3RhdGljIHZvaWQgYWxjMjg1X2ZpeHVwX2hwX211dGVfbGVkX2NvZWZi
+aXQoc3RydWN0IGhkYV9jb2RlYyAqY29kZWMsCisJCQkJCSAgY29uc3Qgc3RydWN0IGhkYV9maXh1
+cCAqZml4LAorCQkJCQkgIGludCBhY3Rpb24pCit7CisJc3RydWN0IGFsY19zcGVjICpzcGVjID0g
+Y29kZWMtPnNwZWM7CisKKwlpZiAoYWN0aW9uID09IEhEQV9GSVhVUF9BQ1RfUFJFX1BST0JFKSB7
+CisJCXNwZWMtPm11dGVfbGVkX3BvbGFyaXR5ID0gMDsKKwkJc3BlYy0+Z2VuLnZtYXN0ZXJfbXV0
+ZS5ob29rID0gYWxjMjg1X2ZpeHVwX211dGVfbGVkX2NvZWZiaXRfaG9vazsKKwkJc3BlYy0+Z2Vu
+LnZtYXN0ZXJfbXV0ZV9lbnVtID0gMTsKKwl9Cit9CisKKy8qIHR1cm4gb24vb2ZmIG1pYy1tdXRl
+IExFRCBwZXIgY2FwdHVyZSBob29rICovCitzdGF0aWMgdm9pZCBhbGMyODVfaHBfY2FwX21pY211
+dGVfdXBkYXRlKHN0cnVjdCBoZGFfY29kZWMgKmNvZGVjKQoreworCXN0cnVjdCBhbGNfc3BlYyAq
+c3BlYyA9IGNvZGVjLT5zcGVjOworCisJaWYgKHNwZWMtPmdlbi5taWNtdXRlX2xlZC5sZWRfdmFs
+dWUpCisJCWFsY191cGRhdGVfY29lZl9pZHgoY29kZWMsIDB4MTksIDAsIDE8PDEzKTsKKwllbHNl
+CisJCWFsY191cGRhdGVfY29lZl9pZHgoY29kZWMsIDB4MTksIDE8PDEzLCAwKTsKK30KKworc3Rh
+dGljIHZvaWQgYWxjMjg1X2ZpeHVwX2hwX2NvZWZfbWljbXV0ZV9sZWQoc3RydWN0IGhkYV9jb2Rl
+YyAqY29kZWMsCisJCQkJY29uc3Qgc3RydWN0IGhkYV9maXh1cCAqZml4LCBpbnQgYWN0aW9uKQor
+eworCXN0cnVjdCBhbGNfc3BlYyAqc3BlYyA9IGNvZGVjLT5zcGVjOworCisJaWYgKGFjdGlvbiA9
+PSBIREFfRklYVVBfQUNUX1BSRV9QUk9CRSkgeworCQlzbmRfaGRhX2dlbl9hZGRfbWljbXV0ZV9s
+ZWQoY29kZWMsIGFsYzI4NV9ocF9jYXBfbWljbXV0ZV91cGRhdGUpOworCX0KK30KKworc3RhdGlj
+IHZvaWQgYWxjMjg1X2ZpeHVwX2hwX211dGVfbGVkKHN0cnVjdCBoZGFfY29kZWMgKmNvZGVjLAor
+CQkJCWNvbnN0IHN0cnVjdCBoZGFfZml4dXAgKmZpeCwgaW50IGFjdGlvbikKK3sKKwlhbGMyODVf
+Zml4dXBfaHBfbXV0ZV9sZWRfY29lZmJpdChjb2RlYywgZml4LCBhY3Rpb24pOworCWFsYzI4NV9m
+aXh1cF9ocF9jb2VmX21pY211dGVfbGVkKGNvZGVjLCBmaXgsIGFjdGlvbik7Cit9CisKICNpZiBJ
+U19SRUFDSEFCTEUoQ09ORklHX0lOUFVUKQogc3RhdGljIHZvaWQgZ3BpbzJfbWljX2hvdGtleV9l
+dmVudChzdHJ1Y3QgaGRhX2NvZGVjICpjb2RlYywKIAkJCQkgICBzdHJ1Y3QgaGRhX2phY2tfY2Fs
+bGJhY2sgKmV2ZW50KQpAQCAtNTk3NCw2ICs2MDI5LDcgQEAgZW51bSB7CiAJQUxDMjg1X0ZJWFVQ
+X1RISU5LUEFEX0hFQURTRVRfSkFDSywKIAlBTEMyOTRfRklYVVBfQVNVU19IUEUsCiAJQUxDMjg1
+X0ZJWFVQX0hQX0dQSU9fTEVELAorCUFMQzI4NV9GSVhVUF9IUF9NVVRFX0xFRCwKIH07CiAKIHN0
+YXRpYyBjb25zdCBzdHJ1Y3QgaGRhX2ZpeHVwIGFsYzI2OV9maXh1cHNbXSA9IHsKQEAgLTcxMTYs
+NiArNzE3MiwxMCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGhkYV9maXh1cCBhbGMyNjlfZml4dXBz
+W10gPSB7CiAJCS50eXBlID0gSERBX0ZJWFVQX0ZVTkMsCiAJCS52LmZ1bmMgPSBhbGMyODVfZml4
+dXBfaHBfZ3Bpb19sZWQsCiAJfSwKKwlbQUxDMjg1X0ZJWFVQX0hQX01VVEVfTEVEXSA9IHsKKwkJ
+LnR5cGUgPSBIREFfRklYVVBfRlVOQywKKwkJLnYuZnVuYyA9IGFsYzI4NV9maXh1cF9ocF9tdXRl
+X2xlZCwKKwl9LAogfTsKIAogc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfcGNpX3F1aXJrIGFsYzI2
+OV9maXh1cF90YmxbXSA9IHsKQEAgLTcyNjQsNiArNzMyNCw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1
+Y3Qgc25kX3BjaV9xdWlyayBhbGMyNjlfZml4dXBfdGJsW10gPSB7CiAJU05EX1BDSV9RVUlSSygw
+eDEwM2MsIDB4ODQ5NywgIkhQIEVudnkgeDM2MCIsIEFMQzI2OV9GSVhVUF9IUF9NVVRFX0xFRF9N
+SUMzKSwKIAlTTkRfUENJX1FVSVJLKDB4MTAzYywgMHg4NGU3LCAiSFAgUGF2aWxpb24gMTUiLCBB
+TEMyNjlfRklYVVBfSFBfTVVURV9MRURfTUlDMyksCiAJU05EX1BDSV9RVUlSSygweDEwM2MsIDB4
+ODczNiwgIkhQIiwgQUxDMjg1X0ZJWFVQX0hQX0dQSU9fTEVEKSwKKwlTTkRfUENJX1FVSVJLKDB4
+MTAzYywgMHg4NzdhLCAiSFAiLCBBTEMyODVfRklYVVBfTVVURV9MRUQpLAogCVNORF9QQ0lfUVVJ
+UksoMHgxMDQzLCAweDEwM2UsICJBU1VTIFg1NDBTQSIsIEFMQzI1Nl9GSVhVUF9BU1VTX01JQyks
+CiAJU05EX1BDSV9RVUlSSygweDEwNDMsIDB4MTAzZiwgIkFTVVMgVFgzMDAiLCBBTEMyODJfRklY
+VVBfQVNVU19UWDMwMCksCiAJU05EX1BDSV9RVUlSSygweDEwNDMsIDB4MTA2ZCwgIkFzdXMgSzUz
+QkUiLCBBTEMyNjlfRklYVVBfTElNSVRfSU5UX01JQ19CT09TVCksCg==
+
+--_003_e8a61928cfae439b9fa99d80e3c5c6ccrealtekcom_--

@@ -2,60 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 911D019A797
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Apr 2020 10:41:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A23B719A7EC
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Apr 2020 10:55:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 456D31677;
-	Wed,  1 Apr 2020 10:40:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 456D31677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 183C9167D;
+	Wed,  1 Apr 2020 10:54:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 183C9167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585730469;
-	bh=bCAkbcSaYfiEPE7qWQeomak3DUc5F4qOM0M2cfGxkEc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=faBZakmvCsb3BZkh8XiR8KXvc/YKim0bNh6FS+FadtSdWLzlk+9t+WLwRN6d3WGz8
-	 fGcWfreHLABli2+1R3X/5oeLV4M6jNCUuiWTmO57SR7/CJCMK+qqDlwCcIyHFbiFmW
-	 9erxYuylN61BYRaGA9wK02OMFQg6R+Gd2fGIG060=
+	s=default; t=1585731306;
+	bh=LJektK+DOJikeboPdFn19oJ5jbiREi4fnCY/puqqW/k=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ed/8CP57U8KAf2ox4tg6NZA+0HfxEu2T61DZz1XWZbX89r9PU8JyTGviP3Uq0+2QV
+	 Mnop8w6NfTs/vMFSlJBHn8wYTYnrZZpNlvC78Ao7aQP8PY8A5bGMHQpyUHRF1OVdNk
+	 SbbL/PHrSzfPYEovXeAjaLOM0wm2EfC4zQ7excV0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 85E1EF8014A;
-	Wed,  1 Apr 2020 10:39:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D139F8028B;
+	Wed,  1 Apr 2020 10:53:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4246F8014B; Wed,  1 Apr 2020 10:39:26 +0200 (CEST)
+ id 4A8CBF8014C; Wed,  1 Apr 2020 10:53:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id CC4BFF80110
- for <alsa-devel@alsa-project.org>; Wed,  1 Apr 2020 10:39:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC4BFF80110
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 335D831B;
- Wed,  1 Apr 2020 01:39:22 -0700 (PDT)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A77653F52E;
- Wed,  1 Apr 2020 01:39:21 -0700 (PDT)
-Date: Wed, 1 Apr 2020 09:39:20 +0100
-From: Mark Brown <broonie@kernel.org>
-To: YueHaibing <yuehaibing@huawei.com>
-Subject: Re: [PATCH -next] ASoC: rt5682: Fix build error without CONFIG_I2C
-Message-ID: <20200401083920.GB4943@sirena.org.uk>
-References: <20200401082540.21876-1-yuehaibing@huawei.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="E39vaYmALEf/7YXx"
-Content-Disposition: inline
-In-Reply-To: <20200401082540.21876-1-yuehaibing@huawei.com>
-X-Cookie: The Ranger isn't gonna like it, Yogi.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- tiwai@suse.com
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A189AF8010D
+ for <alsa-devel@alsa-project.org>; Wed,  1 Apr 2020 10:53:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A189AF8010D
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 380CC20025F;
+ Wed,  1 Apr 2020 10:53:17 +0200 (CEST)
+Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
+ [165.114.16.14])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 183ED200CB2;
+ Wed,  1 Apr 2020 10:53:10 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 477144024E;
+ Wed,  1 Apr 2020 16:53:01 +0800 (SGT)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, broonie@kernel.org, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, robh+dt@kernel.org,
+ mark.rutland@arm.com, devicetree@vger.kernel.org
+Subject: [PATCH v6 0/7] ASoC: Add new module driver for new ASRC
+Date: Wed,  1 Apr 2020 16:45:33 +0800
+Message-Id: <cover.1585726761.git.shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,40 +72,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Add new module driver for new ASRC in i.MX8MN, several commits
+are added for new property fsl,asrc-format
 
---E39vaYmALEf/7YXx
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Shengjiu Wang (7):
+  ASoC: fsl_asrc: rename asrc_priv to asrc
+  ASoC: dt-bindings: fsl_asrc: Add new property fsl,asrc-format
+  ASoC: fsl-asoc-card: Support new property fsl,asrc-format
+  ASoC: fsl_asrc: Support new property fsl,asrc-format
+  ASoC: fsl_asrc: Move common definition to fsl_asrc_common
+  ASoC: dt-bindings: fsl_easrc: Add document for EASRC
+  ASoC: fsl_easrc: Add EASRC ASoC CPU DAI drivers
 
-On Wed, Apr 01, 2020 at 04:25:40PM +0800, YueHaibing wrote:
+changes in v6
+- updated according to Nicoin's and Rob's comments.
 
-> -static const char *rt5682_supply_names[RT5682_NUM_SUPPLIES] =3D {
-> -	"AVDD",
-> -	"MICVDD",
-> -	"VBAT",
-> -};
-> -
+changes in v5
+- Add new property fsl,asrc-format, rather than change fsl,asrc-width
+  to fsl,asrc-formt.
+- code change for above change.
 
-I imagine that the device is going to need power even when use with
-slimbus, even if the regulator support isn't wired up at the minute.
-For things like this __maybey_unused annotations tend to be better,=20
-this stops warnings about things not being used but doesn't need ifdefs
-or big code moves.
+changes in v4
+- Add several commit for changing DT binding asrc-width to asrc-format
+- rename asrc_priv to asrc
 
---E39vaYmALEf/7YXx
-Content-Type: application/pgp-signature; name="signature.asc"
+changes in v3
+- add new commit "ASoC: fsl_asrc: Change asrc_width to asrc_format"
+- modify binding doc to yaml format
+- remove fsl_easrc_dma.c, make fsl_asrc_dma.c useable for easrc.
 
------BEGIN PGP SIGNATURE-----
+changes in v2
+- change i.MX815 to i.MX8MN
+- Add changes in Kconfig and Makefile
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6EUzcACgkQJNaLcl1U
-h9ANrgf/f7gocQPtQBlwwICg0sIaoabV0i7a4QjmUQl+hyL/r1q0weR9P42brmMZ
-EQwcm89LZOJJG8pLSonMGPeoIH0gePFlBqN4AbFl0h+uUBDfvuSZbuFnZS+AEVyd
-pa2KTzaM3LAbzuwfAH0R8AkWn2WE9LmetNEGuWluP4yKYsRWLNmGsalDm/kw7ww7
-zexY9Z9eOZZddfn2PBAWfqHcy7HFFXy0bB4rG2LR6KevIGp+8ZwJvs5BwllnpqiU
-/O6tIY282GqwsuPFg1nktHVgUP35cQVkAF+mjddMvPI3pGMdYvAdd3YWcGmwOzJr
-ZXnMzVEKsd1L8e4v9nty0/z7Fk7YUA==
-=lx3U
------END PGP SIGNATURE-----
+ .../devicetree/bindings/sound/fsl,asrc.txt    |    4 +
+ .../devicetree/bindings/sound/fsl,easrc.yaml  |  101 +
+ sound/soc/fsl/Kconfig                         |   11 +
+ sound/soc/fsl/Makefile                        |    2 +
+ sound/soc/fsl/fsl-asoc-card.c                 |   21 +-
+ sound/soc/fsl/fsl_asrc.c                      |  303 +--
+ sound/soc/fsl/fsl_asrc.h                      |   74 +-
+ sound/soc/fsl/fsl_asrc_common.h               |  105 +
+ sound/soc/fsl/fsl_asrc_dma.c                  |   54 +-
+ sound/soc/fsl/fsl_easrc.c                     | 2114 +++++++++++++++++
+ sound/soc/fsl/fsl_easrc.h                     |  651 +++++
+ 11 files changed, 3206 insertions(+), 234 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/fsl,easrc.yaml
+ create mode 100644 sound/soc/fsl/fsl_asrc_common.h
+ create mode 100644 sound/soc/fsl/fsl_easrc.c
+ create mode 100644 sound/soc/fsl/fsl_easrc.h
 
---E39vaYmALEf/7YXx--
+-- 
+2.21.0
+

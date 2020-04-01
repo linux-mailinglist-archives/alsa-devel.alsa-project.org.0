@@ -2,98 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AF6A19B6EA
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Apr 2020 22:23:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7155419C623
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Apr 2020 17:41:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB8A91677;
-	Wed,  1 Apr 2020 22:23:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB8A91677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1EF781655;
+	Thu,  2 Apr 2020 17:40:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1EF781655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585772631;
-	bh=kEMZzx6viJDnoYLofsQS/nPIQaRUgQo2ejYrqha+MsY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=rGb8Gb+dQf6PpHLq7lo/913DRr77p6zLAhldWIklKbdXmckRsTpxZfOG55tu6cHjw
-	 dguw8ZY4rM3ApJCUt5Pp3OxyKGXAErtRjz7MpvMkwQw96W+HWifr4QE1kt9QWlVjH5
-	 +ppx1kxuyGCYlezvMmerheNoXg15vC7Ae2/WBTOA=
+	s=default; t=1585842091;
+	bh=MS6cDs/7dIfARMOlXsmp94lLA29CaWxq19rLLNbQBp0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=CEZdj1TMdY5ZSnDDLdOaFWAj4erOQRfQcSNOShRdP7YIP5kMpxacevOuW53cmyQFQ
+	 udXhwGyhc4+17J6UUFpdfpgzYajV2D/kCaM7iKS9QNRhWNp+tD4MAsRR9kjNhI9yfO
+	 r/YVQIBvnYfcXAuxy4Z7zbqd9YV2avoqjD5AAHgg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9BEC1F8014C;
-	Wed,  1 Apr 2020 22:22:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 378BFF802A0;
+	Thu,  2 Apr 2020 17:37:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8000BF8014B; Wed,  1 Apr 2020 22:22:07 +0200 (CEST)
+ id 58F61F8014B; Wed,  1 Apr 2020 22:55:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
+ [IPv6:2607:f8b0:4864:20::741])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1A3C2F80110
- for <alsa-devel@alsa-project.org>; Wed,  1 Apr 2020 22:22:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A3C2F80110
+ by alsa1.perex.cz (Postfix) with ESMTPS id D79D5F8010D
+ for <alsa-devel@alsa-project.org>; Wed,  1 Apr 2020 22:55:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D79D5F8010D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Hvk1SIqG"
-Received: by mail-wr1-x443.google.com with SMTP id h15so1610037wrx.9
- for <alsa-devel@alsa-project.org>; Wed, 01 Apr 2020 13:22:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=mh2HHstJfsPQjIMH906dc2gC/rvBJb/RqJewKFAVRuo=;
- b=Hvk1SIqG+ZthJwgc9ELnFu8c3kSBNBLpk336raiRIrCXCo33jqWsqnNsxoJT44gQbt
- eKiZKFNJbjL1eT3r8fhQNcuYEgQZyUbeHrtykU2zRiRXzRKVb8WIrtTj2t1s1pIbTliM
- iCgFi6Uq5XgLtH2GZfsFVLtF28fZVXXlE74eLJ2vOrYl3j6SRmCOz9r2q6N8K/JxKT6h
- 11OX78z01uGGTIEsakP3jjNpqG1j0F4gzcvCeWVHES4up1uZFURqvePzYrI0uxEezGJW
- Zvny6G2/r2+Csc+zzxB9F47l0hiMCeC+VEFYX+b7ZybacYmwg5wA9xWHrDzUIkHNlSGL
- V+fQ==
+ dkim=pass (1024-bit key) header.d=izotope.com header.i=@izotope.com
+ header.b="BQrRD6cM"
+Received: by mail-qk1-x741.google.com with SMTP id q188so1605081qke.8
+ for <alsa-devel@alsa-project.org>; Wed, 01 Apr 2020 13:55:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=izotope.com; s=google;
+ h=from:to:cc:subject:date:message-id;
+ bh=g4kk6wwdY8yrihIPw6mOhLzUhNs3dsF0WNszM6fL+OE=;
+ b=BQrRD6cMScOAE7orufyNWIAP8Aoz3NlnWbGUl0U3jbUYe05UY+WIdK55hedussU3FZ
+ B9++uLspCP+usWvmQoGI8GWgXL7T7Hm/cnkUAyPN7g0wRWz4onaw2Nc11GhSvc+BSKcX
+ HpXy0fUmRJhK3J8jklPmUzsjhzhNq+JjLhOOc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=mh2HHstJfsPQjIMH906dc2gC/rvBJb/RqJewKFAVRuo=;
- b=swF25p7H2JR4bdfefVsfYn2rmU1uFn/++iLx41DWN6yH4/hCEGZUmeLgYDVFCQ8pw5
- X4gVmE6LOIPxN6ch7/9wChnI6EKsiv6LKVOWl5hYi5eeemfrpT7YgCKdCZrsctGIxnnh
- Et099xGzyJFbclRtjRLET41+M2McFWBeJh4wf4a0ONXTqf11oPcqvLP05ts/bkaTs4bC
- 1KeywlTjCULjm2xgEGrBkR8w+WUobfnYAENy7nIdU/dCh2M8hEOsD3Bx6uUBfRWpp4wJ
- 312XiZDsT0tcIkT/z62Y2jQnhEvx+/yFY0dOFOreHGTCmnF1cl/npgap3mVRkmPda0Va
- EOGQ==
-X-Gm-Message-State: ANhLgQ06eN3izb9L9jOgdQKkx1sjIcVlucWcHy2sACLK0NyX5MZdHrt4
- CxC82gYE0TjQb7ilC7AKtYc=
-X-Google-Smtp-Source: ADFU+vtsHBgTwUMxrWW/oLhgZDnLjUCkkvB+4MGJzCpQEzDlzMkTO8nXTmV7+Nh0PqF4u1GKrGedJQ==
-X-Received: by 2002:a5d:6a43:: with SMTP id t3mr26474827wrw.87.1585772522706; 
- Wed, 01 Apr 2020 13:22:02 -0700 (PDT)
-Received: from localhost (108.78.124.78.rev.sfr.net. [78.124.78.108])
- by smtp.gmail.com with ESMTPSA id j5sm4423262wrr.47.2020.04.01.13.22.02
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=g4kk6wwdY8yrihIPw6mOhLzUhNs3dsF0WNszM6fL+OE=;
+ b=N5C+re5d6EW3MX+fOqeBR7BZ2BKAZe8mlJYkEOGKprCZoHIltdWnAij1kxb6laifXo
+ CFQ3SVMtgU2DwD5TXSZQQu3RjtfSGd5q+lyTCFYuhHwSgXEVrBlBTRB0dW9v/V6EDW7f
+ pVWbzS+GO6JfVJ8gTrX6jQB3VS2HCM/a8hBcIBfKIqj2EUMmy/gTzZeFLJUzCxE9qjKz
+ 2c42y2eRUkvB+CBFiql8fAUJM9d/Uc1AAFh+NGttpF9CfzdqBVakfWsid1nd2tAQgv+B
+ bHpIVHSNtb7rEsGeAqDgquxzIwJPrrUbCtHSFvJwmB0XyvGUADeFURpHR6ibFpgDUXnU
+ GsHA==
+X-Gm-Message-State: AGi0PuZscvSs+COos2aFFiQ9b9EmZmUGNuTiIELTdtFENQ4nR/YAMcmI
+ W3RiG5bvy9Q0GBzZXjMrZTXH4Q==
+X-Google-Smtp-Source: APiQypLWPhzlA+PB0a2CXGRt1T1qFtY0r63L2T6hl8lIyR+BDFBhk6djKQYvV6iwp8k8XMNeHOwuSw==
+X-Received: by 2002:a37:9ac6:: with SMTP id c189mr215593qke.214.1585774507223; 
+ Wed, 01 Apr 2020 13:55:07 -0700 (PDT)
+Received: from localhost.localdomain
+ (pool-71-184-149-228.bstnma.fios.verizon.net. [71.184.149.228])
+ by smtp.gmail.com with ESMTPSA id c12sm2330202qtb.49.2020.04.01.13.55.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Apr 2020 13:22:02 -0700 (PDT)
-Date: Wed, 1 Apr 2020 20:21:26 +0000
-From: sylvain.bertrand@gmail.com
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: sw_params for a direct-ed(dmix) hw pcm
-Message-ID: <20200401202126.GA9511@freedom>
-References: <0b0f5117-3b4b-0c25-cd4b-0ecc72479635@perex.cz>
- <20200328182624.GA775@freedom>
- <1baab0fd-d802-3707-645f-d5dc4bf6c32c@linux.intel.com>
- <20200328203744.GA2398@freedom>
- <59266c58-96d8-93e9-bc8f-86e9fccf8d60@linux.intel.com>
- <20200328222021.GA4610@freedom> <s5hr1xbd2su.wl-tiwai@suse.de>
- <s5hlfng7oaj.wl-tiwai@suse.de> <20200401152538.GA11377@freedom>
- <s5hwo6z2o3r.wl-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <s5hwo6z2o3r.wl-tiwai@suse.de>
-User-Agent: Mutt/ (2018-04-13)
-Cc: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+ Wed, 01 Apr 2020 13:55:06 -0700 (PDT)
+From: Mike Willard <mwillard@izotope.com>
+To: mwillard@izotope.com
+Subject: [PATCH] ASoC: cs4270: pull reset GPIO low then high
+Date: Wed,  1 Apr 2020 20:54:54 +0000
+Message-Id: <20200401205454.79792-1-mwillard@izotope.com>
+X-Mailer: git-send-email 2.17.1
+X-Mailman-Approved-At: Thu, 02 Apr 2020 17:37:21 +0200
+Cc: Brian Austin <brian.austin@cirrus.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Paul Handrigan <Paul.Handrigan@cirrus.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,263 +94,95 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Apr 01, 2020 at 05:59:52PM +0200, Takashi Iwai wrote:
-> Heh, my initial patch was also with that strong type, but I changed it
-> because I wanted to allow the "system default" value, which isn't
-> represented with that type.
+Pull the RST line low then high when initializing the driver,
+in order to force a reset of the chip.
+Previously, the line was not pulled low, which could result in
+the chip registers not resetting to their default values on boot.
 
-I stand corrected. I noticed that after sending my email :(
-
-The patch actually did not install the tstamp configuration option. I did add
-the installation of the option all direct based plugins (dmix/dsnoop/dshare),
-that with a global configuration option.
-
-I did some testing and quickly found out some defaults for sw_params are
-installed in pcm_params.c:_snd_pcm_hw_params_internal from a snd_pcm_hw_params
-installation call.
-
-Those defaults are defined in pcm_params.c:snd_pcm_sw_params_default which
-tstamp value will break in the case of a plugin pipeline ending with already
-running direct plugin.
-
-It means that all calls to snd_pcm_sw_params done internally should have their
-sw_params values investigated to see if they work with a plugin pipeline ending
-with an already running direct plugin.
-
-For the first case, in pcm_params.c:_snd_pcm_hw_params_internal, it seems that
-"valid" default sw_params for a plugin pipeline should be made sort of
-recursive or "something else".
-
-I'll start to try to find a way to deal with with this first case and will
-start to investigate those internal sw_params uses.
-
-Meanwhile, below is the modified patch.
-
-cheers,
-
--- 
-Sylvain
-
+Signed-off-by: Mike Willard <mwillard@izotope.com>
 ---
-diff --git a/src/conf/alsa.conf b/src/conf/alsa.conf
-index a091b810..0e01c887 100644
---- a/src/conf/alsa.conf
-+++ b/src/conf/alsa.conf
-@@ -69,6 +69,7 @@ defaults.pcm.minperiodtime 5000		# in us
- defaults.pcm.ipc_key 5678293
- defaults.pcm.ipc_gid audio
- defaults.pcm.ipc_perm 0660
-+defaults.pcm.tstamp_type "default"
- defaults.pcm.dmix.max_periods 0
- defaults.pcm.dmix.channels 2
- defaults.pcm.dmix.rate 48000
-diff --git a/src/conf/pcm/dmix.conf b/src/conf/pcm/dmix.conf
-index 7fa5c8b2..50e573da 100644
---- a/src/conf/pcm/dmix.conf
-+++ b/src/conf/pcm/dmix.conf
-@@ -56,6 +56,10 @@ pcm.!dmix {
- 		@func refer
- 		name defaults.pcm.ipc_perm
- 	}
-+	tstamp_type {
-+		@func refer
-+		name defaults.pcm.tstamp_type
-+	}
- 	slave {
- 		pcm {
- 			type hw
-diff --git a/src/conf/pcm/dsnoop.conf b/src/conf/pcm/dsnoop.conf
-index abbd44f7..f4336e5f 100644
---- a/src/conf/pcm/dsnoop.conf
-+++ b/src/conf/pcm/dsnoop.conf
-@@ -49,6 +49,10 @@ pcm.!dsnoop {
- 		@func refer
- 		name defaults.pcm.ipc_perm
- 	}
-+	tstamp_type {
-+		@func refer
-+		name defaults.pcm.tstamp_type
-+	}
- 	slave {
- 		pcm {
- 			type hw
-diff --git a/src/pcm/pcm_direct.c b/src/pcm/pcm_direct.c
-index 54d99005..b6f5c731 100644
---- a/src/pcm/pcm_direct.c
-+++ b/src/pcm/pcm_direct.c
-@@ -991,8 +991,13 @@ int snd_pcm_direct_hw_free(snd_pcm_t *pcm ATTRIBUTE_UNUSED)
- 	return 0;
- }
+ sound/soc/codecs/cs4270.c | 40 ++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 35 insertions(+), 5 deletions(-)
+
+diff --git a/sound/soc/codecs/cs4270.c b/sound/soc/codecs/cs4270.c
+index 5f25b9f872bd..8a02791e44ad 100644
+--- a/sound/soc/codecs/cs4270.c
++++ b/sound/soc/codecs/cs4270.c
+@@ -137,6 +137,9 @@ struct cs4270_private {
  
--int snd_pcm_direct_sw_params(snd_pcm_t *pcm ATTRIBUTE_UNUSED, snd_pcm_sw_params_t * params ATTRIBUTE_UNUSED)
-+int snd_pcm_direct_sw_params(snd_pcm_t *pcm, snd_pcm_sw_params_t *params)
- {
-+	snd_pcm_direct_t *dmix = pcm->private_data;
+ 	/* power domain regulators */
+ 	struct regulator_bulk_data supplies[ARRAY_SIZE(supply_names)];
 +
-+	if ((int)params->tstamp_type != dmix->tstamp_type)
-+		return -EINVAL;
-+
- 	/* values are cached in the pcm structure */
- 	return 0;
- }
-@@ -1318,6 +1323,15 @@ int snd_pcm_direct_initialize_slave(snd_pcm_direct_t *dmix, snd_pcm_t *spcm, str
- 		return ret;
- 	}
- 
-+	if (dmix->tstamp_type != -1) {
-+		ret = snd_pcm_sw_params_set_tstamp_type(spcm, &sw_params,
-+							dmix->tstamp_type);
-+		if (ret < 0) {
-+			SNDERR("unable to set tstamp type");
-+			return ret;
-+		}
-+	}
-+
- 	if (dmix->type != SND_PCM_TYPE_DMIX &&
- 	    dmix->type != SND_PCM_TYPE_DSHARE)
- 		goto __skip_silencing;
-@@ -1341,6 +1355,9 @@ int snd_pcm_direct_initialize_slave(snd_pcm_direct_t *dmix, snd_pcm_t *spcm, str
- 		return ret;
- 	}
- 
-+	/* copy back the slave setup */
-+	dmix->tstamp_type = (int)sw_params.tstamp_type;
-+
- 	if (dmix->type == SND_PCM_TYPE_DSHARE) {
- 		const snd_pcm_channel_area_t *dst_areas;
- 		dst_areas = snd_pcm_mmap_areas(spcm);
-@@ -1878,6 +1895,7 @@ int snd_pcm_direct_parse_open_conf(snd_config_t *root, snd_config_t *conf,
- 	rec->var_periodsize = 0;
- 	rec->direct_memory_access = 1;
- 	rec->hw_ptr_alignment = SND_PCM_HW_PTR_ALIGNMENT_AUTO;
-+	rec->tstamp_type = -1;
- 
- 	/* read defaults */
- 	if (snd_config_search(root, "defaults.pcm.dmix_max_periods", &n) >= 0) {
-@@ -1941,6 +1959,27 @@ int snd_pcm_direct_parse_open_conf(snd_config_t *root, snd_config_t *conf,
- 
- 			continue;
- 		}
-+		if (strcmp(id, "tstamp_type") == 0) {
-+			const char *str;
-+			err = snd_config_get_string(n, &str);
-+			if (err < 0) {
-+				SNDERR("Invalid type for %s", id);
-+				return -EINVAL;
-+			}
-+			if (strcmp(str, "default") == 0)
-+				rec->tstamp_type = -1;
-+			else if (strcmp(str, "gettimeofday") == 0)
-+				rec->tstamp_type = SND_PCM_TSTAMP_TYPE_GETTIMEOFDAY;
-+			else if (strcmp(str, "monotonic") == 0)
-+				rec->tstamp_type = SND_PCM_TSTAMP_TYPE_MONOTONIC;
-+			else if (strcmp(str, "monotonic_raw") == 0)
-+				rec->tstamp_type = SND_PCM_TSTAMP_TYPE_MONOTONIC_RAW;
-+			else {
-+				SNDERR("The field tstamp_type is invalid : %s", str);
-+				return -EINVAL;
-+			}
-+			continue;
-+		}
- 		if (strcmp(id, "ipc_gid") == 0) {
- 			char *group;
- 			char *endp;
-diff --git a/src/pcm/pcm_direct.h b/src/pcm/pcm_direct.h
-index 221edbe1..63dd645b 100644
---- a/src/pcm/pcm_direct.h
-+++ b/src/pcm/pcm_direct.h
-@@ -173,6 +173,7 @@ struct snd_pcm_direct {
- 	unsigned int recoveries;	/* mirror of executed recoveries on slave */
- 	int direct_memory_access;	/* use arch-optimized buffer RW */
- 	snd_pcm_direct_hw_ptr_alignment_t hw_ptr_alignment;
-+	int tstamp_type;
- 	union {
- 		struct {
- 			int shmid_sum;			/* IPC global sum ring buffer memory identification */
-@@ -357,6 +358,7 @@ struct snd_pcm_direct_open_conf {
- 	int var_periodsize;
- 	int direct_memory_access;
- 	snd_pcm_direct_hw_ptr_alignment_t hw_ptr_alignment;
-+	int tstamp_type;
- 	snd_config_t *slave;
- 	snd_config_t *bindings;
++	/* reset gpio */
++	struct gpio_desc *reset_gpio;
  };
-diff --git a/src/pcm/pcm_dmix.c b/src/pcm/pcm_dmix.c
-index d533f40c..843fa316 100644
---- a/src/pcm/pcm_dmix.c
-+++ b/src/pcm/pcm_dmix.c
-@@ -1038,6 +1038,7 @@ int snd_pcm_dmix_open(snd_pcm_t **pcmp, const char *name,
- 	dmix->ipc_key = opts->ipc_key;
- 	dmix->ipc_perm = opts->ipc_perm;
- 	dmix->ipc_gid = opts->ipc_gid;
-+	dmix->tstamp_type = opts->tstamp_type;
- 	dmix->semid = -1;
- 	dmix->shmid = -1;
  
-@@ -1237,6 +1238,9 @@ pcm.name {
- 				# roundup
- 				# rounddown
- 				# auto (default)
-+	tstamp_type STR		# timestamp type
-+				# STR can be one of the below strings :
-+				# default, gettimeofday, monotonic, monotonic_raw
- 	slave STR
- 	# or
- 	slave {			# Slave definition
-diff --git a/src/pcm/pcm_dshare.c b/src/pcm/pcm_dshare.c
-index 59448cfb..6a99452b 100644
---- a/src/pcm/pcm_dshare.c
-+++ b/src/pcm/pcm_dshare.c
-@@ -723,6 +723,7 @@ int snd_pcm_dshare_open(snd_pcm_t **pcmp, const char *name,
- 	dshare->ipc_key = opts->ipc_key;
- 	dshare->ipc_perm = opts->ipc_perm;
- 	dshare->ipc_gid = opts->ipc_gid;
-+	dshare->tstamp_type = opts->tstamp_type;
- 	dshare->semid = -1;
- 	dshare->shmid = -1;
+ static const struct snd_soc_dapm_widget cs4270_dapm_widgets[] = {
+@@ -648,6 +651,22 @@ static const struct regmap_config cs4270_regmap = {
+ 	.volatile_reg =		cs4270_reg_is_volatile,
+ };
  
-@@ -929,6 +930,9 @@ pcm.name {
- 		# roundup
- 		# rounddown
- 		# auto (default)
-+	tstamp_type STR		# timestamp type
-+				# STR can be one of the below strings :
-+				# default, gettimeofday, monotonic, monotonic_raw
- 	slave STR
- 	# or
- 	slave {			# Slave definition
-diff --git a/src/pcm/pcm_dsnoop.c b/src/pcm/pcm_dsnoop.c
-index 24f472c7..c64df381 100644
---- a/src/pcm/pcm_dsnoop.c
-+++ b/src/pcm/pcm_dsnoop.c
-@@ -591,6 +591,7 @@ int snd_pcm_dsnoop_open(snd_pcm_t **pcmp, const char *name,
- 	dsnoop->ipc_key = opts->ipc_key;
- 	dsnoop->ipc_perm = opts->ipc_perm;
- 	dsnoop->ipc_gid = opts->ipc_gid;
-+	dsnoop->tstamp_type = opts->tstamp_type;
- 	dsnoop->semid = -1;
- 	dsnoop->shmid = -1;
++/**
++ * cs4270_i2c_remove - deinitialize the I2C interface of the CS4270
++ * @i2c_client: the I2C client object
++ *
++ * This function puts the chip into low power mode when the i2c device
++ * is removed.
++ */
++static int cs4270_i2c_remove(struct i2c_client *i2c_client)
++{
++	struct cs4270_private *cs4270 = i2c_get_clientdata(i2c_client);
++
++	gpiod_set_value_cansleep(cs4270->reset_gpio, 0);
++
++	return 0;
++}
++
+ /**
+  * cs4270_i2c_probe - initialize the I2C interface of the CS4270
+  * @i2c_client: the I2C client object
+@@ -660,7 +679,6 @@ static int cs4270_i2c_probe(struct i2c_client *i2c_client,
+ 	const struct i2c_device_id *id)
+ {
+ 	struct cs4270_private *cs4270;
+-	struct gpio_desc *reset_gpiod;
+ 	unsigned int val;
+ 	int ret, i;
  
-@@ -780,6 +781,9 @@ pcm.name {
- 		# roundup
- 		# rounddown
- 		# auto (default)
-+	tstamp_type STR		# timestamp type
-+				# STR can be one of the below strings :
-+				# default, gettimeofday, monotonic, monotonic_raw
- 	slave STR
- 	# or
- 	slave {			# Slave definition
-diff --git a/src/pcm/pcm_local.h b/src/pcm/pcm_local.h
-index 05ed935f..89d4125b 100644
---- a/src/pcm/pcm_local.h
-+++ b/src/pcm/pcm_local.h
-@@ -928,6 +928,8 @@ int INTERNAL(snd_pcm_hw_params_set_buffer_size_last)(snd_pcm_t *pcm, snd_pcm_hw_
+@@ -679,10 +697,21 @@ static int cs4270_i2c_probe(struct i2c_client *i2c_client,
+ 	if (ret < 0)
+ 		return ret;
  
- int snd_pcm_sw_params_set_tstamp_mode(snd_pcm_t *pcm, snd_pcm_sw_params_t *params, snd_pcm_tstamp_t val);
- int INTERNAL(snd_pcm_sw_params_get_tstamp_mode)(const snd_pcm_sw_params_t *params, snd_pcm_tstamp_t *val);
-+int snd_pcm_sw_params_set_tstamp_type(snd_pcm_t *pcm, snd_pcm_sw_params_t *params, snd_pcm_tstamp_type_t val);
-+int snd_pcm_sw_params_get_tstamp_type(const snd_pcm_sw_params_t *params, snd_pcm_tstamp_type_t *val);
- int snd_pcm_sw_params_set_avail_min(snd_pcm_t *pcm, snd_pcm_sw_params_t *params, snd_pcm_uframes_t val);
- int INTERNAL(snd_pcm_sw_params_get_avail_min)(const snd_pcm_sw_params_t *params, snd_pcm_uframes_t *val);
- int snd_pcm_sw_params_set_start_threshold(snd_pcm_t *pcm, snd_pcm_sw_params_t *params, snd_pcm_uframes_t val);
+-	reset_gpiod = devm_gpiod_get_optional(&i2c_client->dev, "reset",
+-					      GPIOD_OUT_HIGH);
+-	if (PTR_ERR(reset_gpiod) == -EPROBE_DEFER)
+-		return -EPROBE_DEFER;
++	/* reset the device */
++	cs4270->reset_gpio = devm_gpiod_get_optional(&i2c_client->dev, "reset",
++						     GPIOD_OUT_LOW);
++	if (IS_ERR(cs4270->reset_gpio)) {
++		dev_dbg(&i2c_client->dev, "Error getting CS4270 reset GPIO\n");
++		return PTR_ERR(cs4270->reset_gpio);
++	}
++
++	if (cs4270->reset_gpio) {
++		dev_dbg(&i2c_client->dev, "Found reset GPIO\n");
++		gpiod_set_value_cansleep(cs4270->reset_gpio, 1);
++	}
++
++	/* Sleep 500ns before i2c communications */
++	ndelay(500);
+ 
+ 	cs4270->regmap = devm_regmap_init_i2c(i2c_client, &cs4270_regmap);
+ 	if (IS_ERR(cs4270->regmap))
+@@ -735,6 +764,7 @@ static struct i2c_driver cs4270_i2c_driver = {
+ 	},
+ 	.id_table = cs4270_id,
+ 	.probe = cs4270_i2c_probe,
++	.remove = cs4270_i2c_remove,
+ };
+ 
+ module_i2c_driver(cs4270_i2c_driver);
+-- 
+2.17.1
+

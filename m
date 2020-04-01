@@ -2,131 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B85BF19A325
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Apr 2020 03:06:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A0C719C612
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Apr 2020 17:39:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 47F7D1662;
-	Wed,  1 Apr 2020 03:05:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47F7D1662
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC55B1684;
+	Thu,  2 Apr 2020 17:39:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC55B1684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585703182;
-	bh=1IyHJDP45ESCHpiMa5s28d69fU5fOKag7ZlngJT5x9I=;
-	h=From:To:Subject:Date:References:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=twNeyjH2TvgrYuYkt2kabuzmZz5i7rB49ppuxvgqS8m4ptSnkFoi5JuqoP2Eo6AIJ
-	 DG2nFehx/NKY54ydYKB/OAhsS0u6HuqhHaVmqlKPCmth7fBRsHRBRebDNLhZDC3F9V
-	 Wku9HvvW2LOvYF2CghaxFSCfVvMNjf9QLe5v0Nd0=
+	s=default; t=1585841992;
+	bh=5Eij0H0oCxuYHXBpvkwU455sMVKeqXD4R0I88w1ezf0=;
+	h=From:To:Subject:In-Reply-To:References:Date:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=D9Pym7/p5mJ59gOwBpXVwLjxaBx3j37d+hI8pzZ7ALgBGJKVShoL30Buf5ZgJ2LQ2
+	 3g/r2BTycCtFQ/hM+c+TZweNb42LV7td1L/ZwkdlVH2pNNrVxO46xMgg6p0XaRGW2+
+	 lDTVGRxpmvDsxapc+aJnaoQ1oJk76+pPAtTUcS28=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52EC8F800AA;
-	Wed,  1 Apr 2020 03:04:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46A86F80157;
+	Thu,  2 Apr 2020 17:37:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 228ABF80146; Wed,  1 Apr 2020 03:04:39 +0200 (CEST)
+ id 60C96F8014B; Wed,  1 Apr 2020 04:08:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from ozlabs.org (bilbo.ozlabs.org [203.11.71.1])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9F046F8010C
- for <alsa-devel@alsa-project.org>; Wed,  1 Apr 2020 03:04:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F046F8010C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4555FF8010D
+ for <alsa-devel@alsa-project.org>; Wed,  1 Apr 2020 04:08:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4555FF8010D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="EDKztMsa"
-Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
- by mailout4.samsung.com (KnoxPortal) with ESMTP id
- 20200401010427epoutp04550ebd3ac95ad60b18491f91eab2723d~BjInZ_O1C1524715247epoutp040
- for <alsa-devel@alsa-project.org>; Wed,  1 Apr 2020 01:04:27 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com
- 20200401010427epoutp04550ebd3ac95ad60b18491f91eab2723d~BjInZ_O1C1524715247epoutp040
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1585703067;
- bh=Hv1HlAyLvC+X7Yi0z09bZO6VkFkquifFbau9sGI+zo4=;
- h=From:To:Cc:Subject:Date:References:From;
- b=EDKztMsanUKEQ/4LWcFKTGSQB3/SFO/sv5nSfO2dNPC5etOmbEIOadlHeKUz54nF6
- niCdfaykhYog/lJ2Mlnem5i914ofH595Ba2WO++3oYYiNWs3Omv5i9V5msqfHyexWt
- GIdGSxv/VNE9ql403Upancfn7yESCOARW4hYVYeE=
-Received: from epsnrtp2.localdomain (unknown [182.195.42.163]) by
- epcas2p4.samsung.com (KnoxPortal) with ESMTP id
- 20200401010427epcas2p49e88144c2cb0ecda7b61968972c74193~BjIm9z03Y3131931319epcas2p4U;
- Wed,  1 Apr 2020 01:04:27 +0000 (GMT)
-Received: from epsmges2p1.samsung.com (unknown [182.195.40.185]) by
- epsnrtp2.localdomain (Postfix) with ESMTP id 48sSdh672gzMqYks; Wed,  1 Apr
- 2020 01:04:24 +0000 (GMT)
-Received: from epcas2p2.samsung.com ( [182.195.41.54]) by
- epsmges2p1.samsung.com (Symantec Messaging Gateway) with SMTP id
- 7C.30.04128.698E38E5; Wed,  1 Apr 2020 10:04:22 +0900 (KST)
-Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
- epcas2p3.samsung.com (KnoxPortal) with ESMTPA id
- 20200401010421epcas2p3d5b16041fa59efa0ac8786f682d4c991~BjIh_mNSG2877428774epcas2p3X;
- Wed,  1 Apr 2020 01:04:21 +0000 (GMT)
-Received: from epsmgms1p2new.samsung.com (unknown [182.195.42.42]) by
- epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20200401010421epsmtrp254851d442eaa1fd43b049e5e59ed738c~BjIh9xJ900728207282epsmtrp2Q;
- Wed,  1 Apr 2020 01:04:21 +0000 (GMT)
-X-AuditID: b6c32a45-f9bff70000001020-bc-5e83e896a6a1
-Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
- epsmgms1p2new.samsung.com (Symantec Messaging Gateway) with SMTP id
- E5.3F.04158.598E38E5; Wed,  1 Apr 2020 10:04:21 +0900 (KST)
-Received: from KORDO025540 (unknown [12.36.182.130]) by epsmtip1.samsung.com
- (KnoxPortal) with ESMTPA id
- 20200401010421epsmtip12b69b8034c30f6b47f27bcfbd0a519eb~BjIhx-4QL2530425304epsmtip1t;
- Wed,  1 Apr 2020 01:04:21 +0000 (GMT)
-From: =?ks_c_5601-1987?B?wMyw5sXD?= <gt82.lee@samsung.com>
-To: <broonie@kernel.org>, <vkoul@kernel.org>
-Subject: [PATCH] ASoC: dpcm: allow start or stop during pause for backend
-Date: Wed, 1 Apr 2020 10:04:21 +0900
-Message-ID: <004d01d607c1$7a3d5250$6eb7f6f0$@samsung.com>
+ dkim=pass (2048-bit key) header.d=ellerman.id.au header.i=@ellerman.id.au
+ header.b="G5WMbSF/"
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 48sV2t09Dpz9sRf;
+ Wed,  1 Apr 2020 13:07:49 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ellerman.id.au;
+ s=201909; t=1585706881;
+ bh=5Eij0H0oCxuYHXBpvkwU455sMVKeqXD4R0I88w1ezf0=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=G5WMbSF/9RnD0WcjjTHkS89KfsK9z+Ul8eGUnDsHox4hY9Wd27IV+efsEM5A9xjXL
+ MJ3dPXyUs/OslGrGeTglaohlf/wYAVoh/U7KCAKNEj6mI0qw8p8s0DbLpfhEqbeTyV
+ t+Z1PWfRsrZVOiig4zjml/SlgGTfF8dmLnlxwp4jR2OT0YJWje5TtJp9EyWGnGTtyt
+ grLGNGb3RPjPP8ZdiSyn4fr0jKkcQTDoMnc1TF1TdR0djqWEVFIFD2ft5P+1t2b600
+ wnHLbfV/yqq+RjKSWNFJ/1ksfFPLeqv7ZDLciDyZKTGuY6XmvCvgpcIIt+dSQbWZZd
+ wg3zBk4OWnJcw==
+From: Michael Ellerman <mpe@ellerman.id.au>
+To: Michal Simek <michal.simek@xilinx.com>, linux-kernel@vger.kernel.org,
+ monstr@monstr.eu, michal.simek@xilinx.com, git@xilinx.com,
+ sfr@canb.auug.org.au, maz@kernel.org
+Subject: Re: [PATCH v2 0/2] powerpc: Remove support for ppc405/440 Xilinx
+ platforms
+In-Reply-To: <cover.1585575111.git.michal.simek@xilinx.com>
+References: <cover.1585575111.git.michal.simek@xilinx.com>
+Date: Wed, 01 Apr 2020 13:07:55 +1100
+Message-ID: <87imikufes.fsf@mpe.ellerman.id.au>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="ks_c_5601-1987"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AdYHwP4G1c7OgnqKTquv+mCyAtB3qA==
-Content-Language: ko
-X-Brightmail-Tracker: H4sIAAAAAAAAA02Se0hTYRjG+c7Zzo7W4rSsXoRqHYUw0rbV1lGygi7MshIq0MrZyR2ctFs7
- m6R00QamKWbldVkp2QVLM29doARNLOnCSCHLispIpdS8FN3bPAv23+/73ud5v/fhe0lcdo0I
- JlPNds5mZo00EShqaQ/ThJcMOHWK1xVSptvdhjHFb/sJpqwlT8R87c7BmA73BYyp/1aLmPtZ
- RRhzu+8BvobU1o8fJbS3Xa8k2oaaXEJb0FSDtNebekRx4p3GlQaO1XM2OWdOtuhTzSnR9KZt
- SWuT1BqFMlwZyayg5WbWxEXT62LjwjekGj3D0PI01ujwXMWxPE8vXbXSZnHYObnBwtujac6q
- N1qVSmsEz5p4hzklItliilIqFCq1R7nHaGj90kxY3dMPnOh4L8lE9wKPowASqOXQPPxD4mUZ
- dQtB9cT24yjQw2MI6iYbkXD4iuDFm7/i/47WrkpcKNxFUFrT6TsMIsgqrvT0IkmCioL8PNpr
- CKKWwNP8OsyrwalTCK4OfETewiwqBi6/7pliERUK2aX5uJelVCRkFVQjgWfCw/J+kZdxSgXV
- V89jAi+Am58rcGEiOXz/cEksPBYBlytGxIImCM7kZk8NB9RLAiZ+VhGCYR305byUCDwLhjqb
- fBwM48N3CcHgRDD8+JevUIQgN08m8DJoOtuFeVMCFQL3X/iGmwE57b8lwrUUcrJ9ahpudP3x
- qQHO1fsaauF9y5C4EC10+aV0+aV0+aV0+aWpRKIaNIez8qYUjldZlf6/3YCmNnXx+luo7Els
- G6JIRE+XyqOcOpmYTePTTW0ISJwOkhJbM3UyqZ5Nz+BsliSbw8jxbUjt+YWTePDsZItn7832
- JKVapdEoItWMWqNi6LnSxmm9u2VUCmvn9nGclbP992FkQHAmMozZQp6NXp//4FFC+qKQK9UW
- 3Z0jT1br3vWc7ovv2uvIKITnkTs62j+09Bclt7eObnEfIg6GMfbVtWHOswk3iYzNxzLdteSq
- ir+h8X3yT871WGLzZO+XaaMxjtzx+KJ5gxdnJu5/FDTQLAnsrNq1pUTMjhzWl38bqoqJ2Jj2
- cFn5JC3iDaxyMW7j2X8d/ahZvwMAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrHLMWRmVeSWpSXmKPExsWy7bCSnO7UF81xBkeXK1lcuXiIyWLqwyds
- FjO2dbNYfLvSwWRx9OJiJosN39cyWhxpnMJksfPOCWYHDo8Nn5vYPHbOusvusWlVJ5tH35ZV
- jB7rt1xlCWCN4rJJSc3JLEst0rdL4MrY/3ErW8FFnor+o4/ZGxj3cXUxcnJICJhI7D+1gLmL
- kYtDSGA3o8TZpbcYIRISEh/mn2GHsIUl7rccYYUoes4oseXwJbYuRg4ONgEriZ5uJZAaEQE9
- iaW7jrOA1DALzGKUeDVnNitIQljAU2L5vatgQ1kEVCTapvcwg9i8ApYSjX1LGCFsQYmTM5+w
- gNjMQBc1Hu6GsuUltr+dwwxxhILEz6fLWGGWLZ/znhWiRkRidmcb8wRGwVlIRs1CMmoWklGz
- kLQsYGRZxSiZWlCcm55bbFhglJdarlecmFtcmpeul5yfu4kRHCtaWjsYT5yIP8QowMGoxMOr
- aNUcJ8SaWFZcmXuIUYKDWUmEl82/IU6INyWxsiq1KD++qDQntfgQozQHi5I4r3z+sUghgfTE
- ktTs1NSC1CKYLBMHp1QDo+y09vQJs6JLbxfnerHWrJFtVy7/uLB+0dPNq+ZYhNzJDm9zO+h/
- Qax0rrnFZBlflS0F4jpmJ+euM7P31uF/w1zuc2Srgn6tepfr/kUSKYnOU31nLb5k+m+vy5mF
- OfbB1vsf2urmTN6zcc/PGdsvSC+Zde7/CoGwhywMf+psvG5UfOwPzTv5SomlOCPRUIu5qDgR
- AHqBKDqRAgAA
-X-CMS-MailID: 20200401010421epcas2p3d5b16041fa59efa0ac8786f682d4c991
-X-Msg-Generator: CA
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20200401010421epcas2p3d5b16041fa59efa0ac8786f682d4c991
-References: <CGME20200401010421epcas2p3d5b16041fa59efa0ac8786f682d4c991@epcas2p3.samsung.com>
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, tiwai@suse.com,
- hmseo@samsung.com, tkjung@samsung.com, pilsun.jang@samsung.com
+Content-Type: text/plain
+X-Mailman-Approved-At: Thu, 02 Apr 2020 17:37:21 +0200
+Cc: Kate Stewart <kstewart@linuxfoundation.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ "Desnes A. Nunes do Rosario" <desnesn@linux.ibm.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, linux-doc@vger.kernel.org,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>, alsa-devel@alsa-project.org,
+ dri-devel@lists.freedesktop.org, Richard Fontana <rfontana@redhat.com>,
+ Paul Mackerras <paulus@samba.org>, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, Sasha Levin <sashal@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Masahiro Yamada <masahiroy@kernel.org>,
+ YueHaibing <yuehaibing@huawei.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Allison Randal <allison@lohutok.net>,
+ Matt Porter <mporter@kernel.crashing.org>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ Andrew Donnellan <ajd@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ Alistair Popple <alistair@popple.id.au>, linuxppc-dev@lists.ozlabs.org,
+ Nicholas Piggin <npiggin@gmail.com>, Alexios Zavras <alexios.zavras@intel.com>,
+ Mark Brown <broonie@kernel.org>, linux-fbdev@vger.kernel.org,
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Dmitry Vyukov <dvyukov@google.com>, Christophe Leroy <christophe.leroy@c-s.fr>,
+ Wei Hu <weh@microsoft.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh+dt@kernel.org>, Enrico Weigelt <info@metux.net>,
+ "David S. Miller" <davem@davemloft.net>,
+ Thiago Jung Bauermann <bauerman@linux.ibm.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -142,44 +112,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-soc_compr_trigger_fe() allows start or stop after pause_push.
-In dpcm_be_dai_trigger(), however, only pause_release is allowed
-command after pause_push.
-So, start or stop after pause in compress offload is always
-returned as error if the compress offload is used with dpcm.
-To fix the problem, SND_SOC_DPCM_STATE_PAUSED should be allowed
-for start or stop command.
+Michal Simek <michal.simek@xilinx.com> writes:
+> Hi,
+>
+> recently we wanted to update xilinx intc driver and we found that function
+> which we wanted to remove is still wired by ancient Xilinx PowerPC
+> platforms. Here is the thread about it.
+> https://lore.kernel.org/linux-next/48d3232d-0f1d-42ea-3109-f44bbabfa2e8@xilinx.com/
+>
+> I have been talking about it internally and there is no interest in these
+> platforms and it is also orphan for quite a long time. None is really
+> running/testing these platforms regularly that's why I think it makes sense
+> to remove them also with drivers which are specific to this platform.
+>
+> U-Boot support was removed in 2017 without anybody complain about it
+> https://github.com/Xilinx/u-boot-xlnx/commit/98f705c9cefdfdba62c069821bbba10273a0a8ed
+>
+> Based on current ppc/next.
+>
+> If anyone has any objection about it, please let me know.
 
-Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
----
- sound/soc/soc-pcm.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Thanks for taking the time to find all this code and remove it.
 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 2c59b3688ca0..8f6f0ad50288 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -2236,7 +2236,8 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 		switch (cmd) {
- 		case SNDRV_PCM_TRIGGER_START:
- 			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PREPARE) &&
--			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP))
-+			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP) &&
-+			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
- 				continue;
- 
- 			ret = dpcm_do_trigger(dpcm, be_substream, cmd);
-@@ -2266,7 +2267,8 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
- 			break;
- 		case SNDRV_PCM_TRIGGER_STOP:
--			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START)
-+			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_START) &&
-+			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
- 				continue;
- 
- 			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
--- 
-2.21.0
+I'm not going to take this series for v5.7, it was posted too close to
+the merge window, and doing so wouldn't give people much time to object,
+especially given people are distracted at the moment.
 
+I'm happy to take it for v5.8, assuming there's no major objections.
 
+cheers

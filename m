@@ -2,68 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D646619A90E
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Apr 2020 12:01:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34FF619C616
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Apr 2020 17:40:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 585761675;
-	Wed,  1 Apr 2020 12:00:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 585761675
+	by alsa0.perex.cz (Postfix) with ESMTPS id DDDAD166F;
+	Thu,  2 Apr 2020 17:39:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDDAD166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585735264;
-	bh=0KwZv8ThkJ6gb0S1hbFVZWP5HiS8UQ3XLg2YnpIxRyQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1585842004;
+	bh=tOrgJGXP/njUrIMXidGuSCKwc178zrgu0S+NEYMqYHU=;
+	h=From:To:Subject:In-Reply-To:References:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tJ1vY+5kwNDSL8OV7AlQixXdqzowI7vmRC9o0j20dK8/eWLicoQwI078Srlk9PIHV
-	 0VxZA4OOeiqxsnfmO5sX+c7PsDrjS6PP4E41hkO7D36glOS2CXi405PmG6RyscJySU
-	 bnXk0ng3oAxo8eLBAghew7sTLcyg6la1E8pcRdjo=
+	b=Z0jp3iEQRJKT/IZdau+rP0TUm/vBVQcbP7ZzSpmbGuCyozn1nVTVmxOvod9374apQ
+	 xvFznS5HyOZKWbjX53B9JoOwi68QkF5VuJfwz0QHy5B8X361wCPBHYwSc0SQMvtnpy
+	 4CztQuaZxKdzCso8wvnniPcwfISadQa1Dwz8fLeA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 723F6F8014A;
-	Wed,  1 Apr 2020 11:59:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD946F80088;
+	Thu,  2 Apr 2020 17:37:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A2E60F8014B; Wed,  1 Apr 2020 11:59:21 +0200 (CEST)
+ id 5EF53F8014B; Wed,  1 Apr 2020 12:35:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from posta.frantovo.cz (czf.frantovo.cz [91.219.244.97])
- (using TLSv1.1 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BCD52F80148
- for <alsa-devel@alsa-project.org>; Wed,  1 Apr 2020 11:59:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCD52F80148
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B06DF8010D
+ for <alsa-devel@alsa-project.org>; Wed,  1 Apr 2020 12:35:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B06DF8010D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=frantovo.cz header.i=@frantovo.cz
- header.b="WAIX5FIa"
-Received: from posta.frantovo.cz (localhost [127.0.0.1])
- by posta.frantovo.cz (Postfix) with ESMTP id 8F6A61A05AD;
- Wed,  1 Apr 2020 11:56:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=frantovo.cz;
- s=default; t=1585734965;
- bh=0KwZv8ThkJ6gb0S1hbFVZWP5HiS8UQ3XLg2YnpIxRyQ=;
- h=From:To:Subject:Date:In-Reply-To:References;
- b=WAIX5FIapcL06o0dWLMlFkRdMzZclZn4TCMwCL4Pxq1UKtMck6efPbVk40b2uusyT
- 5IP+1i2AJ8e3/c6+RF81RDuoTw9aL/DuVsFaEluluneucQH2HJkorOIWcZ+TwIbPgm
- zvuEv/9qmJF8jSnKUTWBgRXHK43Z+hQAdin2n5gw=
-From: =?UTF-8?q?Franti=C5=A1ek=20Ku=C4=8Dera?= <konference@frantovo.cz>
-To: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>,
- =?UTF-8?q?Franti=C5=A1ek=20Ku=C4=8Dera?= <franta-linux@frantovo.cz>
-Subject: [PATCH] ALSA: usb-audio: Add Pioneer DJ DJM-250MK2 quirk
-Date: Wed,  1 Apr 2020 11:59:07 +0200
-Message-Id: <20200401095907.3387-1-konference@frantovo.cz>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <s5h1rpfihvc.wl-tiwai@suse.de>
-References: <s5h1rpfihvc.wl-tiwai@suse.de>
+ dkim=pass (2048-bit key) header.d=ellerman.id.au header.i=@ellerman.id.au
+ header.b="P1whhju4"
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 48sjJG1fdNz9sPF;
+ Wed,  1 Apr 2020 21:35:10 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ellerman.id.au;
+ s=201909; t=1585737317;
+ bh=tOrgJGXP/njUrIMXidGuSCKwc178zrgu0S+NEYMqYHU=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=P1whhju4jgzAL2Psm98KymlrEICEGralDcTIlW8g8UT+lDTgyzSEDjQDCMbUi0ETr
+ W/3VEd+68JgnO+DNBCqAYlV5cH3PYejroV6p2lHqqOZ0X419cHoD4W1CiN8Ev8VwyZ
+ 2niHYiMRiRvaBHYGCpYZjhsjmp4tai+OS1JV4zx3t8XRpwh/g4JkErdA29Yb8oTnHD
+ EV/I/xOiV2bqVYwF2R5KuZdGh9DmEvJKN/hE+H1MXlstH3qVixSixsFD6cihk2nhn0
+ QMEZEVCWkC2UxlvVulmpNX2bi9UCBTZzAsIBX2wyCv7n64ESMbPOOStDI55bkW/qnh
+ drc4RnG8+sF4A==
+From: Michael Ellerman <mpe@ellerman.id.au>
+To: Michal Simek <michal.simek@xilinx.com>,
+ Michal Simek <michal.simek@xilinx.com>, linux-kernel@vger.kernel.org,
+ monstr@monstr.eu, git@xilinx.com, sfr@canb.auug.org.au, maz@kernel.org
+Subject: Re: [PATCH v2 0/2] powerpc: Remove support for ppc405/440 Xilinx
+ platforms
+In-Reply-To: <12db51d6-d848-118e-5ec1-a4172bd47aa4@xilinx.com>
+References: <cover.1585575111.git.michal.simek@xilinx.com>
+ <87imikufes.fsf@mpe.ellerman.id.au>
+ <12db51d6-d848-118e-5ec1-a4172bd47aa4@xilinx.com>
+Date: Wed, 01 Apr 2020 21:35:16 +1100
+Message-ID: <87y2rftrx7.fsf@mpe.ellerman.id.au>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: clamav-milter 0.98.1 at posta
-X-Virus-Status: Clean
+Content-Type: text/plain
+X-Mailman-Approved-At: Thu, 02 Apr 2020 17:37:21 +0200
+Cc: Kate Stewart <kstewart@linuxfoundation.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ "Desnes A. Nunes do Rosario" <desnesn@linux.ibm.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, linux-doc@vger.kernel.org,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>, alsa-devel@alsa-project.org,
+ dri-devel@lists.freedesktop.org, Richard Fontana <rfontana@redhat.com>,
+ Paul Mackerras <paulus@samba.org>, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, Sasha Levin <sashal@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Masahiro Yamada <masahiroy@kernel.org>,
+ YueHaibing <yuehaibing@huawei.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Allison Randal <allison@lohutok.net>,
+ Matt Porter <mporter@kernel.crashing.org>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ Andrew Donnellan <ajd@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ Alistair Popple <alistair@popple.id.au>, linuxppc-dev@lists.ozlabs.org,
+ Nicholas Piggin <npiggin@gmail.com>, Alexios Zavras <alexios.zavras@intel.com>,
+ Mark Brown <broonie@kernel.org>, linux-fbdev@vger.kernel.org,
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Dmitry Vyukov <dvyukov@google.com>, Christophe Leroy <christophe.leroy@c-s.fr>,
+ Wei Hu <weh@microsoft.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh+dt@kernel.org>, Enrico Weigelt <info@metux.net>,
+ "David S. Miller" <davem@davemloft.net>,
+ Thiago Jung Bauermann <bauerman@linux.ibm.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,70 +114,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: František Kučera <franta-linux@frantovo.cz>
+Michal Simek <michal.simek@xilinx.com> writes:
+> On 01. 04. 20 4:07, Michael Ellerman wrote:
+>> Michal Simek <michal.simek@xilinx.com> writes:
+>>> Hi,
+>>>
+>>> recently we wanted to update xilinx intc driver and we found that function
+>>> which we wanted to remove is still wired by ancient Xilinx PowerPC
+>>> platforms. Here is the thread about it.
+>>> https://lore.kernel.org/linux-next/48d3232d-0f1d-42ea-3109-f44bbabfa2e8@xilinx.com/
+>>>
+>>> I have been talking about it internally and there is no interest in these
+>>> platforms and it is also orphan for quite a long time. None is really
+>>> running/testing these platforms regularly that's why I think it makes sense
+>>> to remove them also with drivers which are specific to this platform.
+>>>
+>>> U-Boot support was removed in 2017 without anybody complain about it
+>>> https://github.com/Xilinx/u-boot-xlnx/commit/98f705c9cefdfdba62c069821bbba10273a0a8ed
+>>>
+>>> Based on current ppc/next.
+>>>
+>>> If anyone has any objection about it, please let me know.
+>> 
+>> Thanks for taking the time to find all this code and remove it.
+>> 
+>> I'm not going to take this series for v5.7, it was posted too close to
+>> the merge window, and doing so wouldn't give people much time to object,
+>> especially given people are distracted at the moment.
+>> 
+>> I'm happy to take it for v5.8, assuming there's no major objections.
+>
+> Sure. Just to let you know Christophe Leroy included this patch in his
+> series about ppc405 removal. It should be the same.
+>
+> If you don't want to take that alsa patch I can send it separately and
+> this patch can be taken from his series. I don't really mind but please
+> let me know what way you prefer.
 
-Pioneer DJ DJM-250MK2 is a mixer that acts like a USB sound card.
-The MIDI controller part is standard but the PCM part is "vendor specific".
-Output is enabled by this quirk: 8 channels, 48 000 Hz, S24_3LE.
-Input is not working.
+It's better to keep it all together, so I'm happy take the alsa patch as
+well, it's already been acked.
 
-Signed-off-by: František Kučera <franta-linux@frantovo.cz>
----
- sound/usb/quirks-table.h | 42 ++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 42 insertions(+)
-
-diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
-index d187aa6d50db..dcaf9eed9a41 100644
---- a/sound/usb/quirks-table.h
-+++ b/sound/usb/quirks-table.h
-@@ -3592,5 +3592,47 @@ AU0828_DEVICE(0x2040, 0x7270, "Hauppauge", "HVR-950Q"),
- 		}
- 	}
- },
-+{
-+	/*
-+	 * Pioneer DJ DJM-250MK2
-+	 * PCM is 8 channels out @ 48 fixed (endpoints 0x01).
-+	 * The output from computer to the mixer is usable.
-+	 *
-+	 * The input (phono or line to computer) is not working.
-+	 * It should be at endpoint 0x82 and probably also 8 channels,
-+	 * but it seems that it works only with Pioneer proprietary software.
-+	 * Even on officially supported OS, the Audacity was unable to record
-+	 * and Mixxx to recognize the control vinyls.
-+	 */
-+	USB_DEVICE_VENDOR_SPEC(0x2b73, 0x0017),
-+	.driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
-+		.ifnum = QUIRK_ANY_INTERFACE,
-+		.type = QUIRK_COMPOSITE,
-+		.data = (const struct snd_usb_audio_quirk[]) {
-+			{
-+				.ifnum = 0,
-+				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
-+				.data = &(const struct audioformat) {
-+					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
-+					.channels = 8, // outputs
-+					.iface = 0,
-+					.altsetting = 1,
-+					.altset_idx = 1,
-+					.endpoint = 0x01,
-+					.ep_attr = USB_ENDPOINT_XFER_ISOC|
-+						USB_ENDPOINT_SYNC_ASYNC,
-+					.rates = SNDRV_PCM_RATE_48000,
-+					.rate_min = 48000,
-+					.rate_max = 48000,
-+					.nr_rates = 1,
-+					.rate_table = (unsigned int[]) { 48000 }
-+				}
-+			},
-+			{
-+				.ifnum = -1
-+			}
-+		}
-+	}
-+},
- 
- #undef USB_DEVICE_VENDOR_SPEC
--- 
-2.20.1
-
+cheers

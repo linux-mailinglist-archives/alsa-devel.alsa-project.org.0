@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAB2C19C937
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Apr 2020 20:54:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 724C719C93A
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Apr 2020 20:55:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 57C601682;
-	Thu,  2 Apr 2020 20:54:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57C601682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F46E86F;
+	Thu,  2 Apr 2020 20:54:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F46E86F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585853695;
-	bh=ttCBNO7wQbz2UdLSPlbuDqfI48dR/cu2iSXgR1XBChk=;
+	s=default; t=1585853740;
+	bh=waijQgW3vHeK6a9MWnbh5dGEMmSbKogaOGcnoo5J5tQ=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=HrUq9E2/ddtOiiCWui8l7kaMFBLFMcDtM4VuQg493WQmFoNuwMJZVpxg6ll2nmdf9
-	 4uaUWHrxzjeyyJZgfVlRyAjBrv0zlkSZ+TPdUVidNWbNRweEzzADAADh2lZQtFOuqq
-	 E1Gva1mCHWhmUirF1NFBARHzZhyg/Mdaz8x8dULU=
+	b=Vbw03sxpv098EiSd/seenY8zCo6n1kl40v3m6HFgH8ttc0la9CfQhZ/CWshrwNyVN
+	 YMW8Ltwvp7eYtIyEEbIkTohRjAiw1mR5VIBE6S2CFibzhbLHYpl6N+pzWz293O/sFx
+	 ahOeU2aE56mVfErFjK/e77Z2Vsy9gS5G4g142HsA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41E09F80146;
-	Thu,  2 Apr 2020 20:53:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 517F4F80254;
+	Thu,  2 Apr 2020 20:54:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 08D62F80148; Thu,  2 Apr 2020 20:53:11 +0200 (CEST)
+ id 402F2F801F2; Thu,  2 Apr 2020 20:54:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,34 +34,34 @@ Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1793F80140
- for <alsa-devel@alsa-project.org>; Thu,  2 Apr 2020 20:53:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1793F80140
+ by alsa1.perex.cz (Postfix) with ESMTPS id CEE1AF80140
+ for <alsa-devel@alsa-project.org>; Thu,  2 Apr 2020 20:54:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CEE1AF80140
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="OP+vnimC"
+ header.b="T+IQ82sM"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1585853586;
+ s=mimecast20190719; t=1585853647;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding;
- bh=ttCBNO7wQbz2UdLSPlbuDqfI48dR/cu2iSXgR1XBChk=;
- b=OP+vnimC34mC78/XEYCzDc4I++0m5gGxkH80q7slvNJL20IN57t67xtInftM9yLEAISZV0
- t/WHpjxwZ2/nSDM7m3Cj4bQD+267z6KO4tKUZ+GID8b6YviBftSjUomfG4rKAKuXtpIh9E
- TcMBEiWhcx1BzsHSO5NnQu1afnGB7DI=
+ bh=waijQgW3vHeK6a9MWnbh5dGEMmSbKogaOGcnoo5J5tQ=;
+ b=T+IQ82sMcAe+3+fBrO+yhv8A4zMLGiR2jIgpM43JSEORCPDstpR2GMGBj9qwlcjrx2pFiU
+ 6foXyePiheVGQOubC9qBGAkwiu6cI6HYUmexPJJTRgpR0W9H394BwVIz3MbFHV/rIuQv2b
+ 9mhtR9TaHv+4Eq1HdbVDF3vWRR4LdBw=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-507-tTpAwOvINK2VKFiqko3FZw-1; Thu, 02 Apr 2020 14:53:03 -0400
-X-MC-Unique: tTpAwOvINK2VKFiqko3FZw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
- [10.5.11.16])
+ us-mta-459-sd_WTfHyMrKo1ImvtMFP8g-1; Thu, 02 Apr 2020 14:54:05 -0400
+X-MC-Unique: sd_WTfHyMrKo1ImvtMFP8g-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+ [10.5.11.22])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 46E718018B8;
- Thu,  2 Apr 2020 18:53:01 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AC88D8024D4;
+ Thu,  2 Apr 2020 18:54:03 +0000 (UTC)
 Received: from x1.localdomain.com (ovpn-112-45.ams2.redhat.com [10.36.112.45])
- by smtp.corp.redhat.com (Postfix) with ESMTP id B553D5C1C5;
- Thu,  2 Apr 2020 18:52:58 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id DF1DB1036D00;
+ Thu,  2 Apr 2020 18:54:00 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Cezary Rojewski <cezary.rojewski@intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
@@ -69,11 +69,12 @@ To: Cezary Rojewski <cezary.rojewski@intel.com>,
  Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>,
  flove@realtek.com, shumingf@realtek.com,
  Oder Chiou <oder_chiou@realtek.com>
-Subject: [PATCH] ASoC: rt5645: Add platform-data for Medion E1239T
-Date: Thu,  2 Apr 2020 20:52:57 +0200
-Message-Id: <20200402185257.3355-1-hdegoede@redhat.com>
+Subject: [PATCH 1/3] ASoC: Intel: atom: Take the drv->lock mutex before
+ calling sst_send_slot_map()
+Date: Thu,  2 Apr 2020 20:53:57 +0200
+Message-Id: <20200402185359.3424-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=US-ASCII
@@ -95,38 +96,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The Medion E1239T uses the default jack-detect mode 3, but instead of
-using an analog microphone it is using a DMIC on dmic-data-pin 1,
-like other models following Intel's Brasswell's reference design.
+sst_send_slot_map() uses sst_fill_and_send_cmd_unlocked() because in some
+places it is called with the drv->lock mutex already held.
 
-This commit adds a DMI quirk pointing to the intel_braswell_platform_data
-for this model.
+So it must always be called with the mutex locked. This commit adds missing
+locking in the sst_set_be_modules() code-path.
 
+Fixes: 24c8d14192cc ("ASoC: Intel: mrfld: add DSP core controls")
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- sound/soc/codecs/rt5645.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ sound/soc/intel/atom/sst-atom-controls.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
-index 92d67010aeed..6ba1849a77b0 100644
---- a/sound/soc/codecs/rt5645.c
-+++ b/sound/soc/codecs/rt5645.c
-@@ -3758,6 +3758,14 @@ static const struct dmi_system_id dmi_platform_data[=
-] =3D {
- =09=09},
- =09=09.driver_data =3D (void *)&kahlee_platform_data,
- =09},
-+=09{
-+=09=09.ident =3D "Medion E1239T",
-+=09=09.matches =3D {
-+=09=09=09DMI_EXACT_MATCH(DMI_SYS_VENDOR, "MEDION"),
-+=09=09=09DMI_MATCH(DMI_PRODUCT_NAME, "E1239T MD60568"),
-+=09=09},
-+=09=09.driver_data =3D (void *)&intel_braswell_platform_data,
-+=09},
- =09{ }
- };
+diff --git a/sound/soc/intel/atom/sst-atom-controls.c b/sound/soc/intel/ato=
+m/sst-atom-controls.c
+index baef461a99f1..2c3798034b1d 100644
+--- a/sound/soc/intel/atom/sst-atom-controls.c
++++ b/sound/soc/intel/atom/sst-atom-controls.c
+@@ -966,7 +966,9 @@ static int sst_set_be_modules(struct snd_soc_dapm_widge=
+t *w,
+ =09dev_dbg(c->dev, "Enter: widget=3D%s\n", w->name);
 =20
+ =09if (SND_SOC_DAPM_EVENT_ON(event)) {
++=09=09mutex_lock(&drv->lock);
+ =09=09ret =3D sst_send_slot_map(drv);
++=09=09mutex_unlock(&drv->lock);
+ =09=09if (ret)
+ =09=09=09return ret;
+ =09=09ret =3D sst_send_pipe_module_params(w, k);
 --=20
 2.26.0
 

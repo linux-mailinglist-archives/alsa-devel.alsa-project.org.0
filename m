@@ -2,109 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4A2319E20C
-	for <lists+alsa-devel@lfdr.de>; Sat,  4 Apr 2020 03:17:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D34419DB71
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Apr 2020 18:22:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F23A1612;
-	Sat,  4 Apr 2020 03:16:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F23A1612
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA58B1658;
+	Fri,  3 Apr 2020 18:21:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA58B1658
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585963027;
-	bh=5lJjnPepBaGKOS0OXRRjPSVxiznLGpmmBv145M0KXbw=;
-	h=From:To:Subject:Date:References:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=jWxhwcXYt4ELqrG57vdWVyeMZJqyhSwuw635LYeRT5exgdkAsrJGcxk4IKfrAh8L2
-	 snopqtyvCuS/xMRZsptNQUYtZsgkt+XppRndVi56ghTl3GDfvynxkBaDDwnfQZ3FC1
-	 bFqeP5NItsGOI5KTvAazXWhws/74EGVLq3yl540c=
+	s=default; t=1585930937;
+	bh=koYVW8+QvgurOimf4wuCFmPOFY+nRMwdFMub/0jhHZY=;
+	h=From:To:Subject:In-Reply-To:References:Date:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=uHqEGz7mN6yxQCEMAzo3W/aX+KTXNdFXJVh6hXIRz3LzDvE7Sx+2WnSsbxDxLh4GD
+	 E4VNlXD+19Jf0FP0sLn9QCMEcqKb8l2YsusXQvcUW/s2R3CTSct+jgwzbTsvtclOOt
+	 XwTOQJ9QnT/YcAvbNRA6Xr9B92uT62I45bf2/9W8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2F480F800C2;
-	Sat,  4 Apr 2020 03:15:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E735AF8015C;
+	Fri,  3 Apr 2020 18:20:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5B1CEF8014C; Sat,  4 Apr 2020 03:15:14 +0200 (CEST)
+ id E951FF800C2; Fri,  3 Apr 2020 06:59:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from ozlabs.org (bilbo.ozlabs.org [IPv6:2401:3900:2:1::2])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6136CF800C2
- for <alsa-devel@alsa-project.org>; Sat,  4 Apr 2020 03:15:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6136CF800C2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2769DF800C2
+ for <alsa-devel@alsa-project.org>; Fri,  3 Apr 2020 06:59:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2769DF800C2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="eCT4h8tk"
-Received: from epcas1p2.samsung.com (unknown [182.195.41.46])
- by mailout3.samsung.com (KnoxPortal) with ESMTP id
- 20200404011502epoutp039d007a8b3e73e49feff357a4cf0dac89~CeNtnNO5L0695906959epoutp03E
- for <alsa-devel@alsa-project.org>; Sat,  4 Apr 2020 01:15:02 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com
- 20200404011502epoutp039d007a8b3e73e49feff357a4cf0dac89~CeNtnNO5L0695906959epoutp03E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1585962902;
- bh=PvDPnEeL38qwNjUsp6lgQLyDbYk60hp7979iwMWeQaY=;
- h=From:To:Cc:Subject:Date:References:From;
- b=eCT4h8tkh5BBQpm0VenMzRgub2gdHvT2ct+4BgdsYdH2jVGsl5voUlKTAhRLfhfBU
- NK9LARiuoCXuX3dnsb7hglgKMi43zpLO4oyfg0zr9Sx+SE1tAtBBYEBOtpwm5NX3bf
- reYqPwQWBxoUzBgKyjcDykK0sxqaXc3wWkPCZyCI=
-Received: from epcpadp1 (unknown [182.195.40.11]) by epcas1p4.samsung.com
- (KnoxPortal) with ESMTP id
- 20200404011501epcas1p489e695112a7a0fbd8e37c67ab769ee72~CeNs7z78v1802018020epcas1p4F;
- Sat,  4 Apr 2020 01:15:01 +0000 (GMT)
-Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
- epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
- 20200403041724epcas2p233810a68ae04a15427c33e5b82bc200a~CNDpZmCjr0654106541epcas2p2D;
- Fri,  3 Apr 2020 04:17:24 +0000 (GMT)
-Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
- epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20200403041723epsmtrp2ee17d63b6d31f07acc45858c1fc379cd~CNDpYvFR73171631716epsmtrp2e;
- Fri,  3 Apr 2020 04:17:23 +0000 (GMT)
-X-AuditID: b6c32a29-2dfff70000000fb8-e3-5e86b8d39bd1
-Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
- epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
- FD.50.04024.3D8B68E5; Fri,  3 Apr 2020 13:17:23 +0900 (KST)
-Received: from KORDO025540 (unknown [12.36.182.130]) by epsmtip1.samsung.com
- (KnoxPortal) with ESMTPA id
- 20200403041723epsmtip1ad30a327ab13d2a79b75b0fd73d856c5~CNDpPR89L3066230662epsmtip19;
- Fri,  3 Apr 2020 04:17:23 +0000 (GMT)
-From: "Gyeongtaek Lee" <gt82.lee@samsung.com>
-To: "'Mark Brown'" <broonie@kernel.org>, <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 1/1] ASoC: soc-component: add snd_soc_component_ack()
-Date: Fri, 3 Apr 2020 13:17:23 +0900
-Message-ID: <1019298652.01585962901762.JavaMail.epsvc@epcpadp1>
+ dkim=pass (2048-bit key) header.d=ellerman.id.au header.i=@ellerman.id.au
+ header.b="nwDK+Zhi"
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 48tnlr1WLCz9sP7;
+ Fri,  3 Apr 2020 15:59:20 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ellerman.id.au;
+ s=201909; t=1585889968;
+ bh=koYVW8+QvgurOimf4wuCFmPOFY+nRMwdFMub/0jhHZY=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=nwDK+ZhiEWknY+358l34LoaogRVndV4GhHNy5EZDHG90fqoXBFV8V3G/97NyM9i3P
+ hAQL0RCcyQuLU4Yqm/VxtVpvPIIDIG7dTw+3cRRbcRuhbEnLcDKAouyshmJ/OE6Rni
+ 2m0ZkoE0JhABRUuSMWpbVp5kyPdiWQivRv3OfFv+SniE8QXq4Ldm273KUTpcLZi9a5
+ MKlqhnU2CQebiGyXSCqRnfK12DCJv0lZuzNnnQL7N69FyGbfRE1N2g7fdi6YPPpB2Z
+ orO4wHWgp5g/lCSRjdcZf3NmOgHTGFM4kWC2imnOELqNKbKe7C2sRnPhv3KdHE2abO
+ tEa55yVhXWN6g==
+From: Michael Ellerman <mpe@ellerman.id.au>
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Christophe Leroy <christophe.leroy@c-s.fr>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [PATCH 0/2] powerpc: Remove support for ppc405/440 Xilinx
+ platforms
+In-Reply-To: <bac9af641140cf6df04e3532589a11c2f3bccd2f.camel@kernel.crashing.org>
+References: <cover.1585311091.git.michal.simek@xilinx.com>
+ <CAK8P3a2mKPRFbRE3MWScr9GSiL4cpLg0wqv1Q28XDCZVPWgHfg@mail.gmail.com>
+ <20200327131026.GT1922688@smile.fi.intel.com>
+ <20200327131531.GU1922688@smile.fi.intel.com>
+ <CAK8P3a1Z+ZPTDzgAjdz0a7d85R62BhUqkdEWgrwXh-OnYe6rog@mail.gmail.com>
+ <20200327141434.GA1922688@smile.fi.intel.com>
+ <b5adcc7a-9d10-d75f-50e3-9c150a7b4989@c-s.fr>
+ <87mu7xum41.fsf@mpe.ellerman.id.au>
+ <bac9af641140cf6df04e3532589a11c2f3bccd2f.camel@kernel.crashing.org>
+Date: Fri, 03 Apr 2020 15:59:30 +1100
+Message-ID: <87pncprwp9.fsf@mpe.ellerman.id.au>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AdYJbrRSoxcxjOniTkOYVNEBV7kQiQ==
-Content-Language: ko
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFmpjkeLIzCtJLcpLzFFi42LZdlhJTvfyjrY4g1uTLC2uXDzEZDH14RM2
- i5eHNC1mbOtmsXh1eBejxbcrHUwWRy8uZrLY8H0to8WRxilMDpweGz43sXnsnHWX3WPTqk42
- j29nJrJ49G1ZxeixfstVlgC2KC6blNSczLLUIn27BK6MZZ8XshbcEa6Yc2sNcwPjWYEuRk4O
- CQETidN/77F0MXJxCAnsZpQ4dvUiM0RCQuLD/DPsELawxP2WI6wgtpDAc0aJ61vAbDYBXYkv
- 9+6A1YsI+EpcedTCCDKIWWADo8SEyQ+ZQBLCAh4SvzccZQSxWQRUJF5umAc0lIODV8BSYvpb
- R5Awr4CgxMmZT1hAbGYBbYmnN59C2fIS29/OgbpHQeLn02WsELv0JB7eXsgOUSMiMbuzjXkC
- o+AsJKNmIRk1C8moWUhaFjCyrGKUTC0ozk3PLTYsMMxLLdcrTswtLs1L10vOz93ECI4dLc0d
- jJeXxB9iFOBgVOLhZTjYGifEmlhWXJl7iFGCg1lJhNdxBlCINyWxsiq1KD++qDQntfgQozQH
- i5I479O8Y5FCAumJJanZqakFqUUwWSYOTqkGxr6Fr2d8nHjgPmvBbr9E8y3HzSxuzRP4s3ih
- 16/DTV3XA9itlW0WNh6b7iuUcOe/cvUUGU7TG/tqbgkIvjXZ3GkVGb/loFhUvUFI5a24XXsS
- M954fNOx5tz0Qe7MxQDjiYbcraXvVvhwWv//NUt3jdKW2wauOV8uC71iPG+7x/6QmXr5k9kX
- 9JVYijMSDbWYi4oTAc1YN/qZAgAA
-X-CMS-MailID: 20200403041724epcas2p233810a68ae04a15427c33e5b82bc200a
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-X-CPGSPASS: Y
-X-Hop-Count: 3
-X-CMS-RootMailID: 20200403041724epcas2p233810a68ae04a15427c33e5b82bc200a
-References: <CGME20200403041724epcas2p233810a68ae04a15427c33e5b82bc200a@epcas2p2.samsung.com>
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, tiwai@suse.com,
- hmseo@samsung.com, cpgs@samsung.com, tkjung@samsung.com,
- pilsun.jang@samsung.com
+Content-Type: text/plain
+X-Mailman-Approved-At: Fri, 03 Apr 2020 18:20:33 +0200
+Cc: Kate Stewart <kstewart@linuxfoundation.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ "Desnes A. Nunes do Rosario" <desnesn@linux.ibm.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Richard Fontana <rfontana@redhat.com>, Paul Mackerras <paulus@samba.org>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, Sasha Levin <sashal@kernel.org>,
+ Stephen Rothwell <sfr@canb.auug.org.au>, Jonathan Corbet <corbet@lwn.net>,
+ Masahiro Yamada <masahiroy@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ YueHaibing <yuehaibing@huawei.com>, Michal Simek <michal.simek@xilinx.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Leonardo Bras <leonardo@linux.ibm.com>,
+ Matt Porter <mporter@kernel.crashing.org>, DTML <devicetree@vger.kernel.org>,
+ Andrew Donnellan <ajd@linux.ibm.com>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ Marc Zyngier <marc.zyngier@arm.com>, Alistair Popple <alistair@popple.id.au>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ Nicholas Piggin <npiggin@gmail.com>, Alexios Zavras <alexios.zavras@intel.com>,
+ Mark Brown <broonie@kernel.org>, git@xilinx.com,
+ Linux Fbdev development list <linux-fbdev@vger.kernel.org>,
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Allison Randal <allison@lohutok.net>,
+ Michal Simek <monstr@monstr.eu>, Wei Hu <weh@microsoft.com>,
+ Christian Lamparter <chunkeey@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Armijn Hemel <armijn@tjaldur.nl>, Rob Herring <robh+dt@kernel.org>,
+ Enrico Weigelt <info@metux.net>, "David S. Miller" <davem@davemloft.net>,
+ Thiago Jung Bauermann <bauerman@linux.ibm.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,77 +128,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Current ALSA SoC is directly using component->driver->ops->xxx,
-thus, it is deep nested, and makes code difficult to read,
-and is not good for encapsulation.
-This patch adds new snd_soc_component_ack() and use it.
-Ack callback is revived because some ASoC driver is using it.
+Benjamin Herrenschmidt <benh@kernel.crashing.org> writes:
+> On Tue, 2020-03-31 at 16:30 +1100, Michael Ellerman wrote:
+>> I have no attachment to 40x, and I'd certainly be happy to have less
+>> code in the tree, we struggle to keep even the modern platforms well
+>> maintained.
+>> 
+>> At the same time I don't want to render anyone's hardware obsolete
+>> unnecessarily. But if there's really no one using 40x then we should
+>> remove it, it could well be broken already.
+>> 
+>> So I guess post a series to do the removal and we'll see if anyone
+>> speaks up.
+>
+> We shouldn't remove 40x completely. Just remove the Xilinx 405 stuff.
 
-Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
----
- include/sound/soc-component.h |  1 +
- sound/soc/soc-component.c     | 18 ++++++++++++++++++
- sound/soc/soc-pcm.c           |  2 ++
- 3 files changed, 21 insertions(+)
+Congratulations on becoming the 40x maintainer!
 
-diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-index 5d80b2eef525..50b079272b47 100644
---- a/include/sound/soc-component.h
-+++ b/include/sound/soc-component.h
-@@ -381,6 +381,7 @@ struct page *snd_soc_pcm_component_page(struct snd_pcm_substream *substream,
- 					unsigned long offset);
- int snd_soc_pcm_component_mmap(struct snd_pcm_substream *substream,
- 			       struct vm_area_struct *vma);
-+int snd_soc_pcm_component_ack(struct snd_pcm_substream *substream);
- int snd_soc_pcm_component_new(struct snd_pcm *pcm);
- void snd_soc_pcm_component_free(struct snd_pcm *pcm);
- 
-diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index 79ffc2820ba9..b4be91cb9fa0 100644
---- a/sound/soc/soc-component.c
-+++ b/sound/soc/soc-component.c
-@@ -526,6 +526,24 @@ int snd_soc_pcm_component_mmap(struct snd_pcm_substream *substream,
- 	return -EINVAL;
- }
- 
-+int snd_soc_pcm_component_ack(struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_rtdcom_list *rtdcom;
-+	struct snd_soc_component *component;
-+
-+	for_each_rtdcom(rtd, rtdcom) {
-+		component = rtdcom->component;
-+
-+		/* FIXME. it returns 1st ack now */
-+		if (component->driver->ops &&
-+		    component->driver->ops->ack)
-+			return component->driver->ops->ack(substream);
-+	}
-+
-+	return -EINVAL;
-+}
-+
- int snd_soc_pcm_component_new(struct snd_pcm *pcm)
- {
- 	struct snd_soc_pcm_runtime *rtd = pcm->private_data;
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index b600d3eaaf5c..c8a5a9a9d35f 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -2941,6 +2941,8 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
- 		if (!ops)
- 			continue;
- 
-+		if (ops->ack)
-+			rtd->ops.ack		= snd_soc_pcm_component_ack;
- 		if (ops->copy_user)
- 			rtd->ops.copy_user	= snd_soc_pcm_component_copy_user;
- 		if (ops->page)
-
-base-commit: ef8e14794308a428b194f8b06ad9ae06b43466e4
--- 
-2.21.0
-
-
-
+cheers

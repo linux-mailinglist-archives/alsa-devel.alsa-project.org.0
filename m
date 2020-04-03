@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF81C19D373
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Apr 2020 11:24:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3330419D371
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Apr 2020 11:23:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D6761675;
-	Fri,  3 Apr 2020 11:23:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D6761675
+	by alsa0.perex.cz (Postfix) with ESMTPS id D88DB16AC;
+	Fri,  3 Apr 2020 11:22:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D88DB16AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585905846;
-	bh=r42gI+C3gHbq36IerjFijj+kBdhUVsdh64o3hccgThI=;
+	s=default; t=1585905784;
+	bh=w+RoGX5D7zuVqfYS5o7jV0ErsVdif+rEuHmKxFhimTg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HiX4fQJPmn2Oc1fwQ1IqlglVx1ZOLHrz70S2zP9lh+lEN3f66c1BjyEmvRjiwj1Hc
-	 v0I/Q2uyVO6nl9JMSuuaEZS1QVOyxK3eb/tsuFuN4pod/mSzKpWeTdDqQP+O23y8/W
-	 famXsaMQHie4oflcCaT/NaJ/aOYXZaqhcX0SOJI0=
+	b=BFqGdz/AAnbyra0G5yPNFG/usP2B0aYAYs0ngB6lmTWnOUiAhB9GB+PCXAPkWtaXY
+	 zryLl7dBvPUh6/kznMH+0W5q1ms38+FxqR8XY7n4mcQqYp5COWYw2Ilb8/XfEsTrUz
+	 xKreKVFookBNKh+ZiAf5t6A9Fyh4ILbFKUsPbeMI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9E37F80376;
-	Fri,  3 Apr 2020 11:15:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 30FC7F80360;
+	Fri,  3 Apr 2020 11:15:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BE250F8014C; Fri,  3 Apr 2020 11:14:45 +0200 (CEST)
+ id 98445F801A3; Fri,  3 Apr 2020 11:14:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,28 +33,29 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C7EEDF80292;
- Fri,  3 Apr 2020 11:14:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7EEDF80292
-IronPort-SDR: tQluDVheLqNFcTt0D7HoSrr+/8ihBvLOmjvQYVjQrME2kuHFA0J7YXp3sgPoByrlZAV/4jfSm8
- DCQAzP3w3Y8A==
+ by alsa1.perex.cz (Postfix) with ESMTPS id C13ECF8014B;
+ Fri,  3 Apr 2020 11:14:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C13ECF8014B
+IronPort-SDR: 5xyosLBCuLIci7S+SJi+dDpcRtMs7ekh+Ogv36waR52VzBVVVfWdLfmN3905I36YsqfK0lXAtf
+ 3f/v6prMPiqA==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2020 02:14:28 -0700
-IronPort-SDR: JPXNB1RWpWtro+54V0GFzpkeqqcJouOKDa5Ui8VqZ9Hlb9ASnTdU7Ci4kdBjwbpFpRFuLvXUxj
- Bly74Zu2MeLA==
+ 03 Apr 2020 02:14:30 -0700
+IronPort-SDR: +iQot4nRt77xmjM4jF6FMx55YjEF2YN/6ZQkpeJoszcujeq0bkCWvJ2auapG7KS2WZAVwK6nNG
+ 2hljyNXSbLpg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,339,1580803200"; d="scan'208";a="451235000"
+X-IronPort-AV: E=Sophos;i="5.72,339,1580803200"; d="scan'208";a="451235010"
 Received: from gliakhov-mobl2.ger.corp.intel.com (HELO
  ubuntu.ger.corp.intel.com) ([10.249.36.113])
- by fmsmga006.fm.intel.com with ESMTP; 03 Apr 2020 02:14:26 -0700
+ by fmsmga006.fm.intel.com with ESMTP; 03 Apr 2020 02:14:28 -0700
 From: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 10/12] [RESEND] vhost: add an SOF DSP driver
-Date: Fri,  3 Apr 2020 11:14:04 +0200
-Message-Id: <20200403091406.22381-11-guennadi.liakhovetski@linux.intel.com>
+Subject: [PATCH v2 11/12] [RESEND] ASoC: SOF: VirtIO: free guest pipelines
+ upon termination
+Date: Fri,  3 Apr 2020 11:14:05 +0200
+Message-Id: <20200403091406.22381-12-guennadi.liakhovetski@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200403091406.22381-1-guennadi.liakhovetski@linux.intel.com>
 References: <20200403091406.22381-1-guennadi.liakhovetski@linux.intel.com>
@@ -79,785 +80,290 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The SOF DSP vhost driver consists of two parts: a sound and a vhost
-part. This patch implements the vhost part of the driver. It handles
-QEMU communication with the vhost misc device and virtual queues to
-any VirtIO guests.
+Currently the SOF driver switches off the DSP every time runtime or
+system-wide suspend is entered. After the DSP is turned off, next
+time it's turned on, the firmware and topology have to be re-sent to
+it.
+
+When a guest SOF instance restarts it sends its topology to the host,
+which then forwards it to the DSP. This is correct if the DSP was
+suspended during that time and lost the guest's topology. However, if
+the DSP stayed active during that entire time, sending duplicate
+components to it produces errors. To prevent this from happening this
+patch adds freeing of components during guest shut down.
 
 Signed-off-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 ---
- drivers/vhost/Kconfig  |   7 +
- drivers/vhost/Makefile |   5 +
- drivers/vhost/dsp.c    | 728 +++++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 740 insertions(+)
- create mode 100644 drivers/vhost/dsp.c
+ drivers/vhost/dsp.c        |   3 +
+ include/sound/sof/virtio.h |   4 ++
+ sound/soc/sof/vhost-be.c   | 155 +++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 162 insertions(+)
 
-diff --git a/drivers/vhost/Kconfig b/drivers/vhost/Kconfig
-index 3d03ccb..b9f3071 100644
---- a/drivers/vhost/Kconfig
-+++ b/drivers/vhost/Kconfig
-@@ -34,6 +34,13 @@ config VHOST_VSOCK
- 	To compile this driver as a module, choose M here: the module will be called
- 	vhost_vsock.
- 
-+config VHOST_SOF
-+	bool "Vhost SOF driver"
-+	default n
-+	---help---
-+	  SOF vhost VirtIO driver. It exports the same IPC interface, as the
-+	  one, used for DSP communication, to Linux VirtIO guests.
-+
- config VHOST
- 	tristate
- 	---help---
-diff --git a/drivers/vhost/Makefile b/drivers/vhost/Makefile
-index 6c6df24..1914561 100644
---- a/drivers/vhost/Makefile
-+++ b/drivers/vhost/Makefile
-@@ -10,4 +10,9 @@ vhost_vsock-y := vsock.o
- 
- obj-$(CONFIG_VHOST_RING) += vringh.o
- 
-+ifdef CONFIG_VHOST_SOF
-+obj-$(CONFIG_SND_SOC_SOF) += vhost_sof.o
-+vhost_sof-y := dsp.o
-+endif
-+
- obj-$(CONFIG_VHOST)	+= vhost.o
 diff --git a/drivers/vhost/dsp.c b/drivers/vhost/dsp.c
-new file mode 100644
-index 00000000..205ae8c
---- /dev/null
+index 205ae8c..33e849a 100644
+--- a/drivers/vhost/dsp.c
 +++ b/drivers/vhost/dsp.c
-@@ -0,0 +1,728 @@
-+/* SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause) */
-+/*
-+ * Copyright(c) 2019-2020 Intel Corporation. All rights reserved.
-+ *
-+ * Author: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-+ *
-+ * vhost-SOF VirtIO interface
-+ */
+@@ -114,6 +114,9 @@ static void vhost_dsp_deactivate(struct vhost_dsp *dsp)
+ 
+ 		dsp->active = false;
+ 
++		/* If a VM reboots dsp_sof_client_release() isn't called */
++		dsp_sof_topology_purge(dsp->snd);
 +
-+#include <linux/bitmap.h>
-+#include <linux/compat.h>
-+#include <linux/file.h>
-+#include <linux/miscdevice.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/slab.h>
-+#include <linux/spinlock.h>
-+#include <linux/vhost.h>
-+#include <linux/workqueue.h>
-+
-+#include <sound/sof/stream.h>
-+#include <sound/sof/virtio.h>
-+
-+#include "vhost.h"
-+
-+#define VHOST_DSP_FEATURES VHOST_FEATURES
-+#define VHOST_DSP_BATCH 64
-+#define VHOST_DSP_WEIGHT 0x80000
-+#define VHOST_DSP_PKT_WEIGHT 256
-+
-+struct vhost_dsp_virtqueue {
-+	struct vhost_virtqueue vq;
+ 		spin_lock_irqsave(&dsp->posn_lock, flags);
+ 		list_for_each_entry_safe(buf, next, &dsp->posn_buf_list, list) {
+ 			list_del(&buf->list);
+diff --git a/include/sound/sof/virtio.h b/include/sound/sof/virtio.h
+index fc98664..80e174e 100644
+--- a/include/sound/sof/virtio.h
++++ b/include/sound/sof/virtio.h
+@@ -147,6 +147,9 @@ struct dsp_sof_client {
+ 	struct list_head pipe_conn;
+ 	/* List of vhost instances on a DSP */
+ 	struct list_head list;
++	/* List of widgets to free for tear-down */
++	struct list_head comp_list;
++	struct list_head pipe_list;
+ 
+ 	/* Component ID range index in the bitmap */
+ 	unsigned int id;
+@@ -177,6 +180,7 @@ int dsp_sof_stream_data(struct dsp_sof_client *client,
+ int dsp_sof_ipc_fwd(struct dsp_sof_client *client, int vq_idx,
+ 		    void *ipc_buf, void *reply_buf,
+ 		    size_t count, size_t reply_sz);
++void dsp_sof_topology_purge(struct dsp_sof_client *client);
+ 
+ /* The below functions are always referenced, they need dummy counterparts */
+ int dsp_sof_update_guest_posn(struct snd_sof_dev *sdev,
+diff --git a/sound/soc/sof/vhost-be.c b/sound/soc/sof/vhost-be.c
+index 79d6f8c..1fe1f33 100644
+--- a/sound/soc/sof/vhost-be.c
++++ b/sound/soc/sof/vhost-be.c
+@@ -43,6 +43,18 @@ struct dsp_pipeline_connect {
+ 	struct list_head list;
+ };
+ 
++struct dsp_sof_comp_list {
++	struct list_head list;
++	uint32_t comp_id;
++	enum sof_comp_type comp_type;
 +};
 +
-+struct snd_sof_dev;
++struct dsp_sof_pipe_list {
++	struct list_head list;
++	uint32_t comp_id;
++	uint32_t pipe_id;
++};
 +
-+struct dsp_sof_client;
-+struct vhost_dsp {
-+	struct vhost_dev dev;
-+	struct vhost_dsp_virtqueue vqs[SOF_VIRTIO_NUM_OF_VQS];
-+	struct vhost_work work;
-+	struct vhost_virtqueue *vq_p[SOF_VIRTIO_NUM_OF_VQS];
-+
-+	bool active;
-+
-+	spinlock_t posn_lock;		/* Protects posn_list */
-+	struct list_head posn_list;
-+	struct list_head posn_buf_list;
-+
-+	u8 ipc_buf[SOF_IPC_MSG_MAX_SIZE];
-+	u8 reply_buf[SOF_IPC_MSG_MAX_SIZE];
-+
-+	union {
-+		struct dsp_sof_data_req data_req;
-+		struct dsp_sof_data_resp data_resp;
+ static const char dsp_pcm_name[] = "VHost PCM";
+ 
+ /*
+@@ -446,6 +458,75 @@ static int dsp_sof_ipc_comp(struct dsp_sof_client *client,
+ 		cdata->comp_id >= client->comp_id_end ? -EINVAL : 0;
+ }
+ 
++void dsp_sof_topology_purge(struct dsp_sof_client *client)
++{
++	struct snd_sof_dev *sdev = client->sdev;
++	struct sof_ipc_free fcomp = {
++		.hdr = {
++			.size = sizeof(fcomp),
++		},
 +	};
++	struct sof_ipc_reply reply;
++	struct dsp_sof_comp_list *citem, *ctmp;
++	struct dsp_sof_pipe_list *pitem, *ptmp;
++	int ret;
 +
-+	struct dsp_sof_client *snd;
-+};
++	pm_runtime_get_sync(sdev->dev);
 +
-+/* A stream position message, waiting to be sent to a guest */
-+struct vhost_dsp_posn {
-+	struct list_head list;
-+	struct sof_ipc_stream_posn posn;
-+};
++	/* First free all pipelines */
++	list_for_each_entry_safe(pitem, ptmp, &client->pipe_list, list) {
++		fcomp.id = pitem->comp_id;
++		fcomp.hdr.cmd = SOF_IPC_GLB_TPLG_MSG |
++			SOF_IPC_TPLG_PIPE_FREE;
 +
-+/* A guest buffer, waiting to be filled with a stream position message */
-+struct vhost_dsp_iovec {
-+	struct list_head list;
-+	int head;
-+};
++		dev_dbg(sdev->dev, "tplg: unload component ID: %d pipe %u\n",
++			fcomp.id, pitem->pipe_id);
 +
-+/* A guest is booting */
-+static int vhost_dsp_activate(struct vhost_dsp *dsp)
-+{
-+	unsigned int i;
-+	int ret = 0;
++		/* send IPC to the DSP */
++		ret = sof_ipc_tx_message(sdev->ipc,
++					 fcomp.hdr.cmd, &fcomp, sizeof(fcomp),
++					 &reply, sizeof(reply));
++		if (ret < 0)
++			dev_err(sdev->dev, "error: %d unloading component %d\n",
++				ret, fcomp.id);
 +
-+	mutex_lock(&dsp->dev.mutex);
++		list_del(&pitem->list);
++		kfree(pitem);
++	}
 +
-+	/* Wait until all the VirtQueues have been initialised */
-+	if (!dsp->active) {
-+		for (i = 0; i < ARRAY_SIZE(dsp->vqs); i++) {
-+			struct vhost_virtqueue *vq = &dsp->vqs[i].vq;
-+
-+			/* .private_data is required != NULL */
-+			vq->private_data = dsp->vqs + i;
-+			/* needed for re-initialisation upon guest reboot */
-+			ret = vhost_vq_init_access(vq);
-+			if (ret)
-+				vq_err(vq,
-+				       "%s(): error %d initialising vq #%d\n",
-+				       __func__, ret, i);
++	/* Then free all individual components */
++	list_for_each_entry_safe(citem, ctmp, &client->comp_list, list) {
++		fcomp.id = citem->comp_id;
++		switch (citem->comp_type) {
++		case SOF_COMP_BUFFER:
++			fcomp.hdr.cmd = SOF_IPC_GLB_TPLG_MSG |
++				SOF_IPC_TPLG_BUFFER_FREE;
++			break;
++		default:
++			fcomp.hdr.cmd = SOF_IPC_GLB_TPLG_MSG |
++				SOF_IPC_TPLG_COMP_FREE;
 +		}
-+		if (!ret)
-+			dsp->active = true;
++
++		dev_dbg(sdev->dev, "tplg: unload component ID: %d type %u\n",
++			fcomp.id, citem->comp_type);
++
++		/* send IPC to the DSP */
++		ret = sof_ipc_tx_message(sdev->ipc,
++					 fcomp.hdr.cmd, &fcomp, sizeof(fcomp),
++					 &reply, sizeof(reply));
++		if (ret < 0)
++			dev_err(sdev->dev, "error: %d unloading component %d\n",
++				ret, fcomp.id);
++
++		list_del(&citem->list);
++		kfree(citem);
 +	}
 +
-+	mutex_unlock(&dsp->dev.mutex);
-+
-+	return ret;
++	pm_runtime_mark_last_busy(sdev->dev);
++	pm_runtime_put_autosuspend(sdev->dev);
 +}
++EXPORT_SYMBOL_GPL(dsp_sof_topology_purge);
 +
-+/* A guest is powered off or reset */
-+static void vhost_dsp_deactivate(struct vhost_dsp *dsp)
+ /* process PM IPC */
+ static int dsp_sof_ipc_pm(struct dsp_sof_client *client, struct sof_ipc_cmd_hdr *hdr,
+ 			  struct sof_vfe_ipc_power_resp *resp)
+@@ -526,6 +607,47 @@ int dsp_sof_add_conn(struct snd_sof_dev *sdev,
+ 	return 0;
+ }
+ 
++static int dsp_sof_tplg_comp_add(struct dsp_sof_client *client,
++				 struct sof_ipc_comp *comp)
 +{
-+	unsigned int i;
++	struct dsp_sof_comp_list *citem = kmalloc(sizeof(*citem), GFP_KERNEL);
++	if (!citem)
++		return -ENOMEM;
 +
-+	mutex_lock(&dsp->dev.mutex);
++	citem->comp_id = comp->id;
++	citem->comp_type = comp->type;
 +
-+	if (dsp->active) {
-+		struct vhost_dsp_iovec *buf, *next;
-+		unsigned long flags;
-+
-+		dsp->active = false;
-+
-+		spin_lock_irqsave(&dsp->posn_lock, flags);
-+		list_for_each_entry_safe(buf, next, &dsp->posn_buf_list, list) {
-+			list_del(&buf->list);
-+			kfree(buf);
-+		}
-+		spin_unlock_irqrestore(&dsp->posn_lock, flags);
-+
-+		/* signal, that we're inactive */
-+		for (i = 0; i < ARRAY_SIZE(dsp->vqs); i++)
-+			dsp->vqs[i].vq.private_data = NULL;
-+	}
-+
-+	mutex_unlock(&dsp->dev.mutex);
-+}
-+
-+/* No special features at the moment */
-+static int vhost_dsp_set_features(struct vhost_dsp *dsp, u64 features)
-+{
-+	struct vhost_virtqueue *vq;
-+	unsigned int i;
-+
-+	if (features & ~VHOST_DSP_FEATURES)
-+		return -EOPNOTSUPP;
-+
-+	mutex_lock(&dsp->dev.mutex);
-+
-+	if ((features & (1 << VHOST_F_LOG_ALL)) &&
-+	    !vhost_log_access_ok(&dsp->dev)) {
-+		mutex_unlock(&dsp->dev.mutex);
-+		return -EFAULT;
-+	}
-+
-+	for (i = 0; i < SOF_VIRTIO_NUM_OF_VQS; i++) {
-+		vq = &dsp->vqs[i].vq;
-+
-+		mutex_lock(&vq->mutex);
-+		vq->acked_features = features;
-+		mutex_unlock(&vq->mutex);
-+	}
-+
-+	mutex_unlock(&dsp->dev.mutex);
++	dev_dbg(client->sdev->dev, "%s(): adding %p ID %d type %x\n",
++		__func__, citem, comp->id, comp->type);
++	list_add_tail(&citem->list, &client->comp_list);
 +
 +	return 0;
 +}
 +
-+/* .ioctl(): we only use VHOST_SET_RUNNING in a not-default way */
-+static long vhost_dsp_ioctl(struct file *filp, unsigned int ioctl,
-+			    unsigned long arg)
++static int dsp_sof_tplg_pipe_add(struct dsp_sof_client *client,
++				 struct sof_ipc_pipe_new *pipe)
 +{
-+	struct vhost_dsp *dsp = filp->private_data;
-+	void __user *argp = (void __user *)arg;
-+	struct vhost_dsp_topology tplg;
-+	u64 __user *featurep = argp;
-+	u64 features;
-+	int start;
-+	long ret;
++	struct dsp_sof_pipe_list *pitem = kmalloc(sizeof(*pitem), GFP_KERNEL);
++	if (!pitem)
++		return -ENOMEM;
 +
-+	switch (ioctl) {
-+	case VHOST_GET_FEATURES:
-+		features = VHOST_DSP_FEATURES;
-+		if (copy_to_user(featurep, &features, sizeof features))
-+			return -EFAULT;
-+		return 0;
-+	case VHOST_SET_FEATURES:
-+		if (copy_from_user(&features, featurep, sizeof features))
-+			return -EFAULT;
-+		return vhost_dsp_set_features(dsp, features);
-+	case VHOST_GET_BACKEND_FEATURES:
-+		features = 0;
-+		if (copy_to_user(featurep, &features, sizeof(features)))
-+			return -EFAULT;
-+		return 0;
-+	case VHOST_SET_BACKEND_FEATURES:
-+		if (copy_from_user(&features, featurep, sizeof(features)))
-+			return -EFAULT;
-+		if (features)
-+			return -EOPNOTSUPP;
-+		return 0;
-+	case VHOST_RESET_OWNER:
-+		mutex_lock(&dsp->dev.mutex);
-+		ret = vhost_dev_check_owner(&dsp->dev);
-+		if (!ret) {
-+			struct vhost_umem *umem = vhost_dev_reset_owner_prepare();
-+			if (!umem) {
-+				ret = -ENOMEM;
-+			} else {
-+				vhost_dev_stop(&dsp->dev);
-+				vhost_dev_reset_owner(&dsp->dev, umem);
-+			}
-+		}
-+		mutex_unlock(&dsp->dev.mutex);
++	pitem->comp_id = pipe->comp_id;
++	pitem->pipe_id = pipe->pipeline_id;
++
++	dev_dbg(client->sdev->dev, "%s(): adding %p ID %d pipe %x\n",
++		__func__, pitem, pipe->comp_id, pipe->pipeline_id);
++	list_add_tail(&pitem->list, &client->pipe_list);
++
++	return 0;
++}
++
++static int dsp_sof_ipc_tplg_buf_new(struct dsp_sof_client *client,
++			struct sof_ipc_cmd_hdr *hdr, struct sof_ipc_reply *rhdr)
++{
++	struct sof_ipc_comp *comp = container_of(hdr, struct sof_ipc_comp, hdr);
++	return dsp_sof_tplg_comp_add(client, comp);
++}
++
+ /* Handle some special cases of the "new component" IPC */
+ static int dsp_sof_ipc_tplg_comp_new(struct dsp_sof_client *client, int vq_idx,
+ 			struct sof_ipc_cmd_hdr *hdr, struct sof_ipc_reply *rhdr)
+@@ -535,6 +657,7 @@ static int dsp_sof_ipc_tplg_comp_new(struct dsp_sof_client *client, int vq_idx,
+ 	struct snd_sof_pcm *spcm, *last;
+ 	struct sof_ipc_comp_host *host;
+ 	struct dsp_pipeline_connect *conn;
++	int ret;
+ 
+ 	if (comp->id < client->comp_id_begin ||
+ 	    comp->id >= client->comp_id_end)
+@@ -595,6 +718,10 @@ static int dsp_sof_ipc_tplg_comp_new(struct dsp_sof_client *client, int vq_idx,
+ 		break;
+ 	}
+ 
++	ret = dsp_sof_tplg_comp_add(client, comp);
++	if (ret < 0)
 +		return ret;
-+	case VHOST_SET_OWNER:
-+		mutex_lock(&dsp->dev.mutex);
-+		ret = vhost_dev_set_owner(&dsp->dev);
-+		mutex_unlock(&dsp->dev.mutex);
++
+ 	return 0;
+ }
+ 
+@@ -606,6 +733,9 @@ static int dsp_sof_ipc_tplg_pipe_new(struct dsp_sof_client *client, int vq_idx,
+ 						struct sof_ipc_pipe_new, hdr);
+ 	struct snd_sof_dev *sdev = client->sdev;
+ 	struct dsp_pipeline_connect *conn;
++	int ret = dsp_sof_tplg_pipe_add(client, pipeline);
++	if (ret < 0)
 +		return ret;
-+	case VHOST_SET_RUNNING:
-+		if (copy_from_user(&start, argp, sizeof(start)))
-+			return -EFAULT;
+ 
+ 	list_for_each_entry(conn, &sdev->connector_list, list)
+ 		if (pipeline->pipeline_id == conn->guest_pipeline_id) {
+@@ -723,6 +853,8 @@ static int dsp_sof_ipc_tplg(struct dsp_sof_client *client, int vq_idx,
+ 	case SOF_IPC_TPLG_COMP_NEW:
+ 		return dsp_sof_ipc_tplg_comp_new(client, vq_idx, hdr,
+ 						 reply_buf);
++	case SOF_IPC_TPLG_BUFFER_NEW:
++		return dsp_sof_ipc_tplg_buf_new(client, hdr, reply_buf);
+ 	case SOF_IPC_TPLG_PIPE_NEW:
+ 		return dsp_sof_ipc_tplg_pipe_new(client, vq_idx, hdr);
+ 	case SOF_IPC_TPLG_COMP_CONNECT:
+@@ -987,6 +1119,23 @@ int dsp_sof_set_tplg(struct dsp_sof_client *client,
+ void dsp_sof_suspend(struct snd_sof_dev *sdev)
+ {
+ 	struct snd_sof_pcm *spcm, *next;
++	struct dsp_sof_client *client;
 +
-+		if (start)
-+			return vhost_dsp_activate(dsp);
++	/* Upon resume we'll rebuild lists */
++	list_for_each_entry(client, &sdev->vbe_list, list) {
++		struct dsp_sof_comp_list *citem, *ctmp;
++		struct dsp_sof_pipe_list *pitem, *ptmp;
 +
-+		vhost_dsp_deactivate(dsp);
-+		return 0;
-+	case VHOST_DSP_SET_GUEST_TPLG:
-+		if (copy_from_user(&tplg, argp, sizeof(tplg)))
-+			return -EFAULT;
-+		return dsp_sof_set_tplg(dsp->snd, &tplg);
-+	}
-+
-+	mutex_lock(&dsp->dev.mutex);
-+	ret = vhost_dev_ioctl(&dsp->dev, ioctl, argp);
-+	if (ret == -ENOIOCTLCMD)
-+		ret = vhost_vring_ioctl(&dsp->dev, ioctl, argp);
-+	mutex_unlock(&dsp->dev.mutex);
-+
-+	return ret;
-+}
-+
-+#ifdef CONFIG_COMPAT
-+static long vhost_dsp_compat_ioctl(struct file *filp, unsigned int ioctl,
-+				   unsigned long arg)
-+{
-+	return vhost_dsp_ioctl(filp, ioctl, (unsigned long)compat_ptr(arg));
-+}
-+#endif
-+
-+static ssize_t vhost_dsp_chr_read_iter(struct kiocb *iocb, struct iov_iter *to)
-+{
-+	struct file *filp = iocb->ki_filp;
-+	struct vhost_dsp *dsp = filp->private_data;
-+	struct vhost_dev *dev = &dsp->dev;
-+	int noblock = filp->f_flags & O_NONBLOCK;
-+
-+	return vhost_chr_read_iter(dev, to, noblock);
-+}
-+
-+static ssize_t vhost_dsp_chr_write_iter(struct kiocb *iocb,
-+					struct iov_iter *from)
-+{
-+	struct file *filp = iocb->ki_filp;
-+	struct vhost_dsp *dsp = filp->private_data;
-+	struct vhost_dev *dev = &dsp->dev;
-+
-+	return vhost_chr_write_iter(dev, from);
-+}
-+
-+static __poll_t vhost_dsp_chr_poll(struct file *filp, poll_table *wait)
-+{
-+	struct vhost_dsp *dsp = filp->private_data;
-+	struct vhost_dev *dev = &dsp->dev;
-+
-+	return vhost_chr_poll(filp, dev, wait);
-+}
-+
-+/* IPC message from a guest */
-+static void handle_ipc_cmd_kick(struct vhost_work *work)
-+{
-+	struct vhost_virtqueue *vq = container_of(work, struct vhost_virtqueue,
-+						  poll.work);
-+	struct vhost_dsp *dsp = container_of(vq->dev, struct vhost_dsp, dev);
-+	int vq_idx = SOF_VIRTIO_IPC_CMD_VQ;
-+	size_t total_len = 0;
-+
-+	/* IPC message from the guest */
-+	mutex_lock(&vq->mutex);
-+
-+	/* notifications must be disabled while handling the queue */
-+	vhost_disable_notify(&dsp->dev, vq);
-+
-+	for (;;) {
-+		struct iov_iter iov_iter;
-+		size_t len, nbytes;
-+		unsigned int out, in, i;
-+		size_t iov_offset, iov_count;
-+		/* IPC command from FE to DSP */
-+		int head = vhost_get_vq_desc(vq, vq->iov, ARRAY_SIZE(vq->iov),
-+					     &out, &in, NULL, NULL), ret;
-+		if (head < 0)
-+			break;
-+
-+		/* Nothing new?  Wait for eventfd to tell us they refilled. */
-+		if (head == vq->num) {
-+			if (unlikely(vhost_enable_notify(&dsp->dev, vq))) {
-+				vhost_disable_notify(&dsp->dev, vq);
-+				continue;
-+			}
-+			break;
++		list_for_each_entry_safe(pitem, ptmp, &client->pipe_list, list) {
++			list_del(&pitem->list);
++			kfree(pitem);
 +		}
 +
-+		if (in != out)
-+			/* We expect in == out and usually == 1 */
-+			continue;
-+
-+		iov_offset = out;
-+		iov_count = out;
-+
-+		for (i = 0; i < iov_count; i++) {
-+			struct sof_ipc_reply *rhdr = (struct sof_ipc_reply *)dsp->reply_buf;
-+			size_t to_copy;
-+
-+			len = vq->iov[i].iov_len;
-+
-+			if (len > sizeof(dsp->ipc_buf)) {
-+				vq_err(vq,
-+				       "%s(): head %d out %d in %d len %zd\n",
-+				       __func__, head, out, in, len);
-+				continue;
-+			}
-+
-+			total_len += len;
-+
-+			iov_iter_init(&iov_iter, WRITE, vq->iov + i, 1, len);
-+
-+			nbytes = copy_from_iter(dsp->ipc_buf, len, &iov_iter);
-+			if (nbytes != len) {
-+				vq_err(vq, "Expected %zu bytes for IPC, got %zu bytes\n",
-+				       len, nbytes);
-+				continue;
-+			}
-+
-+			/* Process the IPC payload */
-+			ret = dsp_sof_ipc_fwd(dsp->snd, vq_idx, dsp->ipc_buf,
-+					      dsp->reply_buf, len,
-+					      vq->iov[iov_offset + i].iov_len);
-+			if (ret < 0) {
-+				struct sof_ipc_cmd_hdr *hdr =
-+					(struct sof_ipc_cmd_hdr *)dsp->ipc_buf;
-+				vq_err(vq,
-+				       "%s(): IPC 0x%x failed with error %d\n",
-+				       __func__, hdr->cmd, ret);
-+			}
-+
-+			to_copy = min_t(size_t, sizeof(dsp->reply_buf),
-+					rhdr->hdr.size);
-+
-+			iov_iter_init(&iov_iter, READ, vq->iov + iov_offset + i,
-+				      1, to_copy);
-+			if (copy_to_iter(dsp->reply_buf, to_copy, &iov_iter) > 0)
-+				/* Return any response */
-+				vhost_add_used_and_signal(vq->dev, vq, head, to_copy);
++		list_for_each_entry_safe(citem, ctmp, &client->comp_list, list) {
++			list_del(&citem->list);
++			kfree(citem);
 +		}
 +	}
-+
-+	mutex_unlock(&vq->mutex);
-+}
-+
-+/* Try to send a position update buffer to the guest */
-+static void vhost_dsp_fill_posn_vqbuf(struct vhost_dsp *dsp)
-+{
-+	struct vhost_virtqueue *vq = &dsp->vqs[SOF_VIRTIO_POSN_VQ].vq;
-+	struct iov_iter iov_iter;
-+	struct vhost_dsp_iovec *buf;
-+	struct vhost_dsp_posn *entry;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&dsp->posn_lock, flags);
-+
-+	if (list_empty(&dsp->posn_list)) {
-+		/*
-+		 * This is the normal path, when called from
-+		 * handle_posn_kick(): usually at that time we don't have a
-+		 * position update waiting yet
-+		 */
-+		spin_unlock_irqrestore(&dsp->posn_lock, flags);
-+		return;
-+	}
-+
-+	if (list_empty(&dsp->posn_buf_list)) {
-+		vq_err(vq, "%s(): no vq descriptors\n", __func__);
-+		spin_unlock_irqrestore(&dsp->posn_lock, flags);
-+		return;
-+	}
-+
-+	buf = list_first_entry(&dsp->posn_buf_list,
-+			       struct vhost_dsp_iovec, list);
-+	list_del(&buf->list);
-+
-+	entry = list_first_entry(&dsp->posn_list,
-+				 struct vhost_dsp_posn, list);
-+	list_del(&entry->list);
-+
-+	spin_unlock_irqrestore(&dsp->posn_lock, flags);
-+
-+	/* Take the lock and send the buffer */
-+	mutex_lock(&vq->mutex);
-+	iov_iter_init(&iov_iter, READ, vq->iov, 1, sizeof(entry->posn));
-+	if (copy_to_iter(&entry->posn, sizeof(entry->posn), &iov_iter) > 0)
-+		/*
-+		 * Actually the last parameter for vhost_add_used_and_signal()
-+		 * should be "sizeof(*posn)," but that didn't work
-+		 */
-+		vhost_add_used_and_signal(vq->dev, vq, buf->head, 0);
-+	mutex_unlock(&vq->mutex);
-+
-+	kfree(buf);
-+	kfree(entry);
-+}
-+
-+/* Handle kick on the data VirtQ */
-+static void handle_data_kick(struct vhost_work *work)
-+{
-+	struct vhost_virtqueue *vq = container_of(work, struct vhost_virtqueue,
-+						  poll.work);
-+	struct vhost_dsp *dsp = container_of(vq->dev, struct vhost_dsp, dev);
-+
-+	mutex_lock(&vq->mutex);
-+
-+	vhost_disable_notify(&dsp->dev, vq);
-+
-+	for (;;) {
-+		struct iov_iter iov_iter;
-+		unsigned int out, in, i;
-+		int head = vhost_get_vq_desc(vq, vq->iov, ARRAY_SIZE(vq->iov),
-+					     &out, &in, NULL, NULL);
-+		if (head < 0)
-+			break;
-+
-+		/* Nothing new?  Wait for eventfd to tell us they refilled. */
-+		if (head == vq->num) {
-+			if (unlikely(vhost_enable_notify(&dsp->dev, vq))) {
-+				vhost_disable_notify(&dsp->dev, vq);
-+				continue;
-+			}
-+			break;
-+		}
-+
-+		if (in != out)
-+			/* We expect in == out and usually == 1 */
-+			continue;
-+
-+		for (i = 0; i < out; i++) {
-+			u8 _req[HDR_SIZE_REQ];
-+			u8 _resp[HDR_SIZE_RESP];
-+			struct dsp_sof_data_resp *resp;
-+			struct dsp_sof_data_req *req;
-+			size_t to_copy, nbytes, len = vq->iov[i].iov_len;
-+			int ret;
-+
-+			if (len > sizeof(dsp->data_req) || len < HDR_SIZE_REQ) {
-+				vq_err(vq,
-+				       "%s(): head %d out %d in %d len %zd\n",
-+				       __func__, head, out, in, len);
-+				continue;
-+			}
-+
-+			iov_iter_init(&iov_iter, WRITE, vq->iov + i, 1, len);
-+
-+			if (len > HDR_SIZE_REQ) {
-+				/* playback */
-+				req = &dsp->data_req;
-+				resp = (struct dsp_sof_data_resp *)_resp;
-+			} else {
-+				/* capture */
-+				req = (struct dsp_sof_data_req *)_req;
-+				resp = &dsp->data_resp;
-+			}
-+
-+			nbytes = copy_from_iter(req, len, &iov_iter);
-+			if (nbytes != len) {
-+				vq_err(vq, "Expected %zu bytes for IPC, got %zu bytes\n",
-+				       len, nbytes);
-+				continue;
-+			}
-+
-+			/* Copy data to or from the audio buffer */
-+			ret = dsp_sof_stream_data(dsp->snd, req, resp);
-+			if (ret < 0) {
-+				vq_err(vq, "Error %d copying data\n", ret);
-+				continue;
-+			}
-+
-+			to_copy = resp->size + HDR_SIZE_RESP;
-+
-+			iov_iter_init(&iov_iter, READ, vq->iov + out + i,
-+				      1, to_copy);
-+			if (copy_to_iter(resp, to_copy, &iov_iter) > 0)
-+				vhost_add_used_and_signal(vq->dev, vq, head, to_copy);
-+		}
-+	}
-+
-+	mutex_unlock(&vq->mutex);
-+}
-+
-+/* A new position update buffer from the guest */
-+static void handle_posn_kick(struct vhost_work *work)
-+{
-+	struct vhost_virtqueue *vq = container_of(work, struct vhost_virtqueue,
-+						  poll.work);
-+	struct vhost_dsp *dsp = container_of(vq->dev, struct vhost_dsp, dev);
-+	struct vhost_dsp_iovec *buf;
-+	unsigned int out, in;
-+	unsigned long flags;
-+	bool free = true, enable = true;
-+
-+	/* Queue the buffer for future position updates from the DSP */
-+	buf = kmalloc(sizeof(*buf), GFP_KERNEL);
-+	if (!buf)
-+		return;
-+
-+	mutex_lock(&vq->mutex);
-+
-+	vhost_disable_notify(&dsp->dev, vq);
-+
-+	for (;;) {
-+		/* A posn descriptor should have 1 "in" and 0 "out" buffers */
-+		buf->head = vhost_get_vq_desc(vq, vq->iov, ARRAY_SIZE(vq->iov),
-+					      &out, &in, NULL, NULL);
-+
-+		if (buf->head < 0) {
-+			vq_err(vq, "%s(): no vq descriptors: %d\n",
-+			       __func__, buf->head);
-+			break;
-+		}
-+
-+		if (buf->head == vq->num) {
-+			if (unlikely(vhost_enable_notify(&dsp->dev, vq))) {
-+				vhost_disable_notify(&dsp->dev, vq);
-+				continue;
-+			}
-+			enable = false;
-+			break;
-+		}
-+
-+		if (unlikely(out))
-+			vq_err(vq,
-+			       "%s(): position update has %d outgoing buffers!\n",
-+			       __func__, out);
-+
-+		if (unlikely(vq->iov[out].iov_len !=
-+			     sizeof(struct sof_ipc_stream_posn)))
-+			vq_err(vq, "%s(): position update has wrong size %d!\n",
-+			       __func__, out);
-+
-+		if (!in) {
-+			/* This queue should only contain "in" buffers */
-+			vq_err(vq, "%s(): no input buffers!\n", __func__);
-+			break;
-+		}
-+
-+		spin_lock_irqsave(&dsp->posn_lock, flags);
-+		list_add_tail(&buf->list, &dsp->posn_buf_list);
-+		spin_unlock_irqrestore(&dsp->posn_lock, flags);
-+
-+		free = false;
-+		break;
-+	}
-+
-+	if (enable)
-+		vhost_enable_notify(&dsp->dev, vq);
-+
-+	mutex_unlock(&vq->mutex);
-+
-+	if (free)
-+		kfree(buf);
-+	else
-+		/* Try to send immediately if a position update is pending */
-+		vhost_dsp_fill_posn_vqbuf(dsp);
-+}
-+
-+static void vhost_dsp_posn_work(struct vhost_work *work)
-+{
-+	struct vhost_dsp *dsp = container_of(work, struct vhost_dsp, work);
-+
-+	/*
-+	 * If there is an available VQ buffer, notify immediately. This is the
-+	 * normal case, since the guest pre-queues position update VQ buffers.
-+	 */
-+	vhost_dsp_fill_posn_vqbuf(dsp);
-+}
-+
-+static int vhost_dsp_open(struct inode *inode, struct file *filp)
-+{
-+	struct miscdevice *misc = filp->private_data;
-+	struct snd_sof_dev *sdev = dev_get_drvdata(misc->parent);
-+	struct vhost_dsp *dsp = kvmalloc(sizeof(*dsp),
-+					 GFP_KERNEL | __GFP_RETRY_MAYFAIL);
-+	unsigned int i;
-+
-+	if (!dsp)
-+		return -ENOMEM;
-+
-+	dsp->snd = dsp_sof_client_add(sdev, dsp);
-+	if (!dsp->snd) {
-+		kvfree(dsp);
-+		return -ENOMEM;
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(dsp->vq_p); i++)
-+		dsp->vq_p[i] = &dsp->vqs[i].vq;
-+
-+	dsp->vqs[SOF_VIRTIO_IPC_CMD_VQ].vq.handle_kick = handle_ipc_cmd_kick;
-+	dsp->vqs[SOF_VIRTIO_POSN_VQ].vq.handle_kick = handle_posn_kick;
-+	dsp->vqs[SOF_VIRTIO_DATA_VQ].vq.handle_kick = handle_data_kick;
-+	/*
-+	 * TODO: do we ever want to support multiple guest machines per DSP, if
-+	 * not, we might as well perform all allocations when registering the
-+	 * misc device.
-+	 */
-+	INIT_LIST_HEAD(&dsp->posn_list);
-+	INIT_LIST_HEAD(&dsp->posn_buf_list);
-+	spin_lock_init(&dsp->posn_lock);
-+	dsp->active = false;
-+	vhost_work_init(&dsp->work, vhost_dsp_posn_work);
-+
-+	vhost_dev_init(&dsp->dev, dsp->vq_p, SOF_VIRTIO_NUM_OF_VQS,
-+		       UIO_MAXIOV + VHOST_DSP_BATCH,
-+		       VHOST_DSP_PKT_WEIGHT, VHOST_DSP_WEIGHT);
-+
-+	/* Overwrite file private data */
-+	filp->private_data = dsp;
-+
-+	return 0;
-+}
-+
-+/*
-+ * The device is closed by QEMU when the client driver is unloaded or the guest
-+ * is shut down
-+ */
-+static int vhost_dsp_release(struct inode *inode, struct file *filp)
-+{
-+	struct vhost_dsp *dsp = filp->private_data;
-+
-+	vhost_work_flush(&dsp->dev, &dsp->work);
-+	vhost_dev_cleanup(&dsp->dev);
-+	vhost_poll_flush(&dsp->vqs[SOF_VIRTIO_POSN_VQ].vq.poll);
-+	vhost_poll_flush(&dsp->vqs[SOF_VIRTIO_IPC_CMD_VQ].vq.poll);
-+	vhost_poll_flush(&dsp->vqs[SOF_VIRTIO_DATA_VQ].vq.poll);
-+
-+	dsp_sof_client_release(dsp->snd);
-+
-+	kvfree(dsp);
-+
-+	return 0;
-+}
-+
-+static const struct file_operations vhost_dsp_fops = {
-+	.owner          = THIS_MODULE,
-+	.release        = vhost_dsp_release,
-+	.read_iter      = vhost_dsp_chr_read_iter,
-+	.write_iter     = vhost_dsp_chr_write_iter,
-+	.poll           = vhost_dsp_chr_poll,
-+	.unlocked_ioctl = vhost_dsp_ioctl,
-+#ifdef CONFIG_COMPAT
-+	.compat_ioctl   = vhost_dsp_compat_ioctl,
-+#endif
-+	.open           = vhost_dsp_open,
-+	.llseek		= noop_llseek,
-+};
-+
-+static struct miscdevice vhost_dsp_misc = {
-+	.minor = MISC_DYNAMIC_MINOR,
-+	.name = "vhost-dsp",
-+	.fops = &vhost_dsp_fops,
-+};
-+
-+/* Always called from an interrupt thread context */
-+static int dsp_sof_update_posn(struct vhost_dsp *dsp,
-+			       struct sof_ipc_stream_posn *posn)
-+{
-+	struct vhost_dsp_posn *entry;
-+
-+	if (!dsp->active)
-+		return 0;
-+
-+	entry = kmalloc(sizeof(*entry), GFP_KERNEL);
-+	if (!entry)
-+		return -ENOMEM;
-+
-+	memcpy(&entry->posn, posn, sizeof(entry->posn));
-+
-+	/*
-+	 * Save the position update msg and send it when a vq buffer becomes
-+	 * available.
-+	 */
-+	spin_lock_irq(&dsp->posn_lock);
-+	list_add_tail(&entry->list, &dsp->posn_list);
-+	spin_unlock_irq(&dsp->posn_lock);
-+
-+	/* posn update for guest */
-+	vhost_work_queue(&dsp->dev, &dsp->work);
-+
-+	return 0;
-+}
-+
-+static struct sof_vhost_ops vhost_dsp_ops = {
-+	.update_posn = dsp_sof_update_posn,
-+};
-+
-+static int __init dsp_sof_init(void)
-+{
-+	vhost_dsp_misc.parent = dsp_sof_dev_init(&vhost_dsp_ops);
-+	if (!vhost_dsp_misc.parent)
-+		return -ENODEV;
-+
-+	return misc_register(&vhost_dsp_misc);
-+}
-+
-+static void __exit dsp_sof_exit(void)
-+{
-+	misc_deregister(&vhost_dsp_misc);
-+}
-+
-+module_init(dsp_sof_init);
-+module_exit(dsp_sof_exit);
-+
-+MODULE_VERSION("0.9");
-+MODULE_LICENSE("Dual BSD/GPL");
-+MODULE_AUTHOR("Guennadi Liakhovetski");
-+MODULE_DESCRIPTION("Host kernel accelerator for virtio sound");
+ 
+ 	list_for_each_entry_safe(spcm, next, &sdev->pcm_list, list)
+ 		if (!strcmp(dsp_pcm_name, spcm->pcm.pcm_name)) {
+@@ -1000,6 +1149,9 @@ void dsp_sof_suspend(struct snd_sof_dev *sdev)
+ /* A VM instance has closed the miscdevice */
+ void dsp_sof_client_release(struct dsp_sof_client *client)
+ {
++	/* If a VM crashes we don't get ioctl(VHOST_SET_RUNNING, 0) from QEMU */
++	dsp_sof_topology_purge(client);
++
+ 	bitmap_release_region(client->sdev->vfe_mask, client->id, 0);
+ 
+ 	list_del(&client->list);
+@@ -1024,6 +1176,9 @@ struct dsp_sof_client *dsp_sof_client_add(struct snd_sof_dev *sdev,
+ 		return NULL;
+ 	}
+ 
++	INIT_LIST_HEAD(&client->pipe_list);
++	INIT_LIST_HEAD(&client->comp_list);
++
+ 	client->sdev = sdev;
+ 	client->id = id;
+ 	client->vhost = dsp;
 -- 
 1.9.3
 

@@ -2,117 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D34419DB71
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Apr 2020 18:22:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4371D19CF9E
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Apr 2020 07:05:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BA58B1658;
-	Fri,  3 Apr 2020 18:21:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA58B1658
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA6CA1683;
+	Fri,  3 Apr 2020 07:04:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA6CA1683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1585930937;
-	bh=koYVW8+QvgurOimf4wuCFmPOFY+nRMwdFMub/0jhHZY=;
-	h=From:To:Subject:In-Reply-To:References:Date:Cc:List-Id:
+	s=default; t=1585890301;
+	bh=S3ctxW7o7EZereeeWMbWr/RqcfdpZImGbg/BaaZHJqU=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uHqEGz7mN6yxQCEMAzo3W/aX+KTXNdFXJVh6hXIRz3LzDvE7Sx+2WnSsbxDxLh4GD
-	 E4VNlXD+19Jf0FP0sLn9QCMEcqKb8l2YsusXQvcUW/s2R3CTSct+jgwzbTsvtclOOt
-	 XwTOQJ9QnT/YcAvbNRA6Xr9B92uT62I45bf2/9W8=
+	b=Gog5Xi+iB0FsbZhCUCb1HCLUJyPAubDRX2ZCIf+TlLuUbMAXdIu9hDSgnZrncrXx2
+	 Q7xDHDPZcOniJSX1WWzHd42Em8E7W6DOIrZJ5UxZM6J4xYWNy42+3eJ8srXnILheGf
+	 G9HQlK/AzwwLCs736E5EXQyehYfpthRmiY0MDzQE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E735AF8015C;
-	Fri,  3 Apr 2020 18:20:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0F542F8014B;
+	Fri,  3 Apr 2020 07:03:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E951FF800C2; Fri,  3 Apr 2020 06:59:45 +0200 (CEST)
+ id C8C95F8014C; Fri,  3 Apr 2020 07:03:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from ozlabs.org (bilbo.ozlabs.org [IPv6:2401:3900:2:1::2])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2769DF800C2
- for <alsa-devel@alsa-project.org>; Fri,  3 Apr 2020 06:59:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2769DF800C2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=ellerman.id.au header.i=@ellerman.id.au
- header.b="nwDK+Zhi"
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 48tnlr1WLCz9sP7;
- Fri,  3 Apr 2020 15:59:20 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ellerman.id.au;
- s=201909; t=1585889968;
- bh=koYVW8+QvgurOimf4wuCFmPOFY+nRMwdFMub/0jhHZY=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
- b=nwDK+ZhiEWknY+358l34LoaogRVndV4GhHNy5EZDHG90fqoXBFV8V3G/97NyM9i3P
- hAQL0RCcyQuLU4Yqm/VxtVpvPIIDIG7dTw+3cRRbcRuhbEnLcDKAouyshmJ/OE6Rni
- 2m0ZkoE0JhABRUuSMWpbVp5kyPdiWQivRv3OfFv+SniE8QXq4Ldm273KUTpcLZi9a5
- MKlqhnU2CQebiGyXSCqRnfK12DCJv0lZuzNnnQL7N69FyGbfRE1N2g7fdi6YPPpB2Z
- orO4wHWgp5g/lCSRjdcZf3NmOgHTGFM4kWC2imnOELqNKbKe7C2sRnPhv3KdHE2abO
- tEa55yVhXWN6g==
-From: Michael Ellerman <mpe@ellerman.id.au>
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Christophe Leroy <christophe.leroy@c-s.fr>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Arnd Bergmann <arnd@arndb.de>
-Subject: Re: [PATCH 0/2] powerpc: Remove support for ppc405/440 Xilinx
- platforms
-In-Reply-To: <bac9af641140cf6df04e3532589a11c2f3bccd2f.camel@kernel.crashing.org>
-References: <cover.1585311091.git.michal.simek@xilinx.com>
- <CAK8P3a2mKPRFbRE3MWScr9GSiL4cpLg0wqv1Q28XDCZVPWgHfg@mail.gmail.com>
- <20200327131026.GT1922688@smile.fi.intel.com>
- <20200327131531.GU1922688@smile.fi.intel.com>
- <CAK8P3a1Z+ZPTDzgAjdz0a7d85R62BhUqkdEWgrwXh-OnYe6rog@mail.gmail.com>
- <20200327141434.GA1922688@smile.fi.intel.com>
- <b5adcc7a-9d10-d75f-50e3-9c150a7b4989@c-s.fr>
- <87mu7xum41.fsf@mpe.ellerman.id.au>
- <bac9af641140cf6df04e3532589a11c2f3bccd2f.camel@kernel.crashing.org>
-Date: Fri, 03 Apr 2020 15:59:30 +1100
-Message-ID: <87pncprwp9.fsf@mpe.ellerman.id.au>
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Mailman-Approved-At: Fri, 03 Apr 2020 18:20:33 +0200
-Cc: Kate Stewart <kstewart@linuxfoundation.org>,
- Mark Rutland <mark.rutland@arm.com>,
- "Desnes A. Nunes do Rosario" <desnesn@linux.ibm.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Richard Fontana <rfontana@redhat.com>, Paul Mackerras <paulus@samba.org>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- Fabio Estevam <festevam@gmail.com>, Sasha Levin <sashal@kernel.org>,
- Stephen Rothwell <sfr@canb.auug.org.au>, Jonathan Corbet <corbet@lwn.net>,
- Masahiro Yamada <masahiroy@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- YueHaibing <yuehaibing@huawei.com>, Michal Simek <michal.simek@xilinx.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Leonardo Bras <leonardo@linux.ibm.com>,
- Matt Porter <mporter@kernel.crashing.org>, DTML <devicetree@vger.kernel.org>,
- Andrew Donnellan <ajd@linux.ibm.com>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- Marc Zyngier <marc.zyngier@arm.com>, Alistair Popple <alistair@popple.id.au>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- Nicholas Piggin <npiggin@gmail.com>, Alexios Zavras <alexios.zavras@intel.com>,
- Mark Brown <broonie@kernel.org>, git@xilinx.com,
- Linux Fbdev development list <linux-fbdev@vger.kernel.org>,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>,
- Thomas Gleixner <tglx@linutronix.de>, Allison Randal <allison@lohutok.net>,
- Michal Simek <monstr@monstr.eu>, Wei Hu <weh@microsoft.com>,
- Christian Lamparter <chunkeey@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Armijn Hemel <armijn@tjaldur.nl>, Rob Herring <robh+dt@kernel.org>,
- Enrico Weigelt <info@metux.net>, "David S. Miller" <davem@davemloft.net>,
- Thiago Jung Bauermann <bauerman@linux.ibm.com>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 21B0EF80141
+ for <alsa-devel@alsa-project.org>; Fri,  3 Apr 2020 07:03:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21B0EF80141
+Date: 03 Apr 2020 14:03:09 +0900
+X-IronPort-AV: E=Sophos;i="5.72,338,1580742000"; d="scan'208";a="43388233"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 03 Apr 2020 14:03:09 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 035DD4199177;
+ Fri,  3 Apr 2020 14:03:09 +0900 (JST)
+Message-ID: <87sghlnotv.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: "Gyeongtaek Lee" <gt82.lee@samsung.com>
+Subject: Re: [PATCH 0/1] reviving ack callback for 5.7(latest)
+In-Reply-To: <1019298652.01585883881138.JavaMail.epsvc@epcpadp2>
+References: <CGME20200403022148epcas2p26dd2bc9071a69f08102af082d813cd36@epcas2p2.samsung.com>
+ <1019298652.01585883881138.JavaMail.epsvc@epcpadp2>
+User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, tiwai@suse.com,
+ 'Mark Brown' <broonie@kernel.org>, hmseo@samsung.com, cpgs@samsung.com,
+ tkjung@samsung.com, pilsun.jang@samsung.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -128,21 +70,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Benjamin Herrenschmidt <benh@kernel.crashing.org> writes:
-> On Tue, 2020-03-31 at 16:30 +1100, Michael Ellerman wrote:
->> I have no attachment to 40x, and I'd certainly be happy to have less
->> code in the tree, we struggle to keep even the modern platforms well
->> maintained.
->> 
->> At the same time I don't want to render anyone's hardware obsolete
->> unnecessarily. But if there's really no one using 40x then we should
->> remove it, it could well be broken already.
->> 
->> So I guess post a series to do the removal and we'll see if anyone
->> speaks up.
->
-> We shouldn't remove 40x completely. Just remove the Xilinx 405 stuff.
 
-Congratulations on becoming the 40x maintainer!
+Hi
 
-cheers
+Thank you for the patch
+
+> ACK callback is useful to notify application pointer in DMA buffer to DSP,
+> because it is called after application pointer is updated in ALSA.
+> DSP can use the pointer to control preprocessing, detect underrun and so on.
+> I'd like to revive it from 5.4 if it is possible.
+> This patch is created in for-linus branch.
+
+If you want to revive ACK,
+post with user driver patch is nice idea IMO.
+Otherwise, it will/might be removed again
+because of "there is no user driver".
+
+Thank you for your help !!
+
+Best regards
+---
+Kuninori Morimoto

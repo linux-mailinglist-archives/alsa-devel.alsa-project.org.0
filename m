@@ -2,89 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D78CA19E4CA
-	for <lists+alsa-devel@lfdr.de>; Sat,  4 Apr 2020 13:54:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A435919E9D9
+	for <lists+alsa-devel@lfdr.de>; Sun,  5 Apr 2020 10:16:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D0B8166F;
-	Sat,  4 Apr 2020 13:53:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D0B8166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E9CF1676;
+	Sun,  5 Apr 2020 10:15:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E9CF1676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586001266;
-	bh=Wxxcle3Czx0yK4uTtWA6VEa/+0e6YbDsd9Ftg4Y8sIo=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Eler2rE29pve1FXf3ySUPdT+MhvTAOOgGqGTgA5pACwLpNPL35DqAYJ8YKhBpFxl6
-	 O9Kw9M5TAZyuvyfM4Uw5X38zxeuP+EgxFBjTFuU7mOvNwAid0flJQ9RrHGPZtGJjRT
-	 mF+7TJSBieNdYkO2vpaXVjRgMkXtCvyLc1TVlQdc=
+	s=default; t=1586074606;
+	bh=aWeb5mWYi9FgE3Jwquvui3f8+QwIzOYzET68o4mgwRE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=bNUQxKObgsTi4UYTfnaKkrJVS36hE21ICP39ghjXfDISc0T/7/Nr89Vxasz27Z03R
+	 Cu4rN1lXjcD6zJfC9rBx2svuEhoJrb0G9zHsVMnrudIoChQ1ch8UdLY5+ybo6Cqcow
+	 7RwbqM03gBtpqBLTqMqi6gDvl7+RIlCkT9mSGVbk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5EF4AF800E4;
-	Sat,  4 Apr 2020 13:52:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14039F80121;
+	Sun,  5 Apr 2020 10:15:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1617CF8014B; Sat,  4 Apr 2020 13:52:42 +0200 (CEST)
+ id 4EE45F80148; Sat,  4 Apr 2020 17:39:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
  SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 54E49F80058
- for <alsa-devel@alsa-project.org>; Sat,  4 Apr 2020 13:52:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54E49F80058
+ by alsa1.perex.cz (Postfix) with ESMTPS id 22F3FF80131
+ for <alsa-devel@alsa-project.org>; Sat,  4 Apr 2020 17:39:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22F3FF80131
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="KMcn9it0"
-Received: by mail-wm1-x342.google.com with SMTP id t128so9876249wma.0
- for <alsa-devel@alsa-project.org>; Sat, 04 Apr 2020 04:52:35 -0700 (PDT)
+ header.b="UlsGxS3l"
+Received: by mail-wr1-x444.google.com with SMTP id a25so12241071wrd.0
+ for <alsa-devel@alsa-project.org>; Sat, 04 Apr 2020 08:39:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=J7JWQaNHlZkGey2CYstynUU1J9hNrgdTpL9zcYilbqk=;
- b=KMcn9it08ctna9tgMEQrsjpXRPY/0IlCndUov70cazbmUWifl1XfERwQwaWbxb8fnc
- CLSlKcbbvKF41FGA533Eo8T6KEFilYbQfMX6N8aj2xG5UyjGjz1EHWEzRMlxi47pQ6l/
- JbVRLrHt/o1cYKG4K+Cbl8/dAuKYYNau7sL18LJTBtmT5ZB7yvb5lxVrEYqrw+VOQPLg
- tHdn3DP5eElLfpIwficpxfYtQwSeKfIcHOzvNeTewtwjILWrUU9eROXl2mfMeT+3XpiG
- D2wB2Z5h4oRkvkYHL/5jX95ZgLH6PaAb1G/9UpiUXrBwceXrAL3QjS4G40EoPA50iojj
- fLtg==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=BF7UW8CK06SE0eBxOhlUCYg5eQ6WTl1tJij/gpor+Lk=;
+ b=UlsGxS3liOFJSlyr7GF8lsqrLC75d1vpdraLA86G7MPHMfYEbTTtQgN6CGhaluGbOs
+ eHWZwMiF53onIbQNEPRtAZm6C9thuw9qLmo+NsIMI9wdpQ/Rnp0zfztmOVs3+G/rgmah
+ vuPQCfBygCPQ/oncThXwQfQmHOxdoRqk2v3V8Fyb5QbzayZPfkr3Zhdie3ao1wz16PSM
+ MhMVqj5ONK/nZsvNr+0w2kBC/j8kxf90UuTohbrwGAojuD8u3z4nVVuRPDcAfSzmmD0d
+ oWeUH7AoYf/5ZMxhST/QAXFUmAqpCV+qXp8eWOWtfg72z1Ccmo8Hqk/5ZvG+yO8M2NII
+ O6rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=J7JWQaNHlZkGey2CYstynUU1J9hNrgdTpL9zcYilbqk=;
- b=hFevr1SIyzbDCwyYXqdWTVUaUvvaXbYHEUtaBLQUaECcnSgyR23wzTsGp5QhSGgEgO
- rqnFjUMxgAQLZ4M3kpGiot7WhrmxzFcEtvDszAEAOh5gErisIJgtlwVo7BxnlhBvYGhe
- NKbl/ZK8FYM5Ji8oTXgWO2at5Lv/7J9SY0f2aa1LEvhy0g9/8L1YioeB9kmsPO03wWET
- li7STxwSvT1DFbZOHDpaacUPcdVOnUadFGHANQg+XRSUxABUQR28f4M61/ngJbk35jCn
- thdSdWMOHEMfcggOmgULdv6iOOFRLckzBOqzuP/GCqcKLsw/eOFK2xMNcrZlxDnXhYVB
- 12Kw==
-X-Gm-Message-State: AGi0Pubek97Y2o5ybkl9PmdMGXQzHOvWLmWGV8t5ne30dU63GsX328LR
- UHz9PbuS9NXmDI3cgpcj120=
-X-Google-Smtp-Source: APiQypJOBCdxMEJ3ncc/Kkyn7t6jJ/t0d4nR31OFtbx1bKw5Uw1QEC7QFaR1ybRs/cSapZBPKEkpqg==
-X-Received: by 2002:a7b:cbd6:: with SMTP id n22mr12504001wmi.29.1586001154733; 
- Sat, 04 Apr 2020 04:52:34 -0700 (PDT)
-Received: from debian.home (ip51ccf9cd.speed.planet.nl. [81.204.249.205])
- by smtp.gmail.com with ESMTPSA id g186sm16183276wmg.36.2020.04.04.04.52.33
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Sat, 04 Apr 2020 04:52:34 -0700 (PDT)
-From: Johan Jonker <jbx6244@gmail.com>
-To: lgirdwood@gmail.com
-Subject: [PATCH v3 3/3] dt-bindings: sound: rockchip-spdif: add power-domains
- property
-Date: Sat,  4 Apr 2020 13:52:25 +0200
-Message-Id: <20200404115225.4314-3-jbx6244@gmail.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20200404115225.4314-1-jbx6244@gmail.com>
-References: <20200404115225.4314-1-jbx6244@gmail.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, heiko@sntech.de,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- linux-rockchip@lists.infradead.org, broonie@kernel.org,
- linux-arm-kernel@lists.infradead.org
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=BF7UW8CK06SE0eBxOhlUCYg5eQ6WTl1tJij/gpor+Lk=;
+ b=eLMjiC+F4toittSH32tzJsG6jWyT8Xl2lmtES+oZox8eu8rvPAn2zkADjwb/FS58TM
+ lrKhG8iNB22CSM5lrvOU7ShoO2cqnA8hofY3w7NLSrNdj4LZIWpl0wPEMqsb9ql63hBy
+ J3zLKykpE8SuE/rH9xd9Qj5uNhFETgRC5TZVtlDt+zt/wyMSYyUsNGtF7ERaDEym0b1a
+ J9QhkRzQNKrVhcGQAZ6cISfUehXIOvGXDWuuiIIylzHHlgEM0H7d6PUDS14f1rhbQapl
+ NjpTReQKLCMgbQXcaGKuD5vKUoFE4A3rzAUFfN6SqUUnqsH8se4TteUxklueZ0zV7XNV
+ Om9Q==
+X-Gm-Message-State: AGi0PuZ0/9X/c+cXRlS5lDxR8Wi6Lovn7M0YC+OtnUgfuGnwUqZiitb4
+ PR9cZZf9FgtllZJ1Trg87VM=
+X-Google-Smtp-Source: APiQypKBMaiyw7REJv645zIbS88N35C/tyuH5jaHjiwYNOlhSFZQnv4dNS4RpNaYk+oYgmendtc3Rg==
+X-Received: by 2002:adf:f892:: with SMTP id u18mr14375271wrp.367.1586014742353; 
+ Sat, 04 Apr 2020 08:39:02 -0700 (PDT)
+Received: from pc-emmanuel.ealp-net.at (84-112-96-10.cable.dynamic.surfer.at.
+ [84.112.96.10])
+ by smtp.gmail.com with ESMTPSA id z21sm189889wml.47.2020.04.04.08.39.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 04 Apr 2020 08:39:01 -0700 (PDT)
+From: Emmanuel Pescosta <emmanuelpescosta099@gmail.com>
+To: perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, crwulff@gmail.com
+Subject: [PATCH] ALSA: usb-audio: Add registration quirk for Kingston HyperX
+ Cloud Alpha S
+Date: Sat,  4 Apr 2020 17:38:43 +0200
+Message-Id: <20200404153843.9288-1-emmanuelpescosta099@gmail.com>
+X-Mailer: git-send-email 2.26.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sun, 05 Apr 2020 10:15:00 +0200
+Cc: emmanuelpescosta099@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,34 +100,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In the old txt situation we add/describe only properties that are used
-by the driver/hardware itself. With yaml it also filters things in a
-node that are used by other drivers like 'power-domains' for rk3399,
-so add it to 'rockchip-spdif.yaml'.
+Similar to the Kingston HyperX AMP, the Kingston HyperX Cloud
+Alpha S (0951:16d8) uses two interfaces, but only the second
+interface contains the capture stream. This patch delays the
+registration until the second interface appears.
 
-Signed-off-by: Johan Jonker <jbx6244@gmail.com>
-Reviewed-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Emmanuel Pescosta <emmanuelpescosta099@gmail.com>
 ---
-Changes v3:
-  Add reviewed by
----
- Documentation/devicetree/bindings/sound/rockchip-spdif.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+ sound/usb/quirks.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/rockchip-spdif.yaml b/Documentation/devicetree/bindings/sound/rockchip-spdif.yaml
-index f381dbbf5..c46715265 100644
---- a/Documentation/devicetree/bindings/sound/rockchip-spdif.yaml
-+++ b/Documentation/devicetree/bindings/sound/rockchip-spdif.yaml
-@@ -51,6 +51,9 @@ properties:
-   dma-names:
-     const: tx
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 86f192a3043d..a8ece1701068 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -1827,6 +1827,7 @@ struct registration_quirk {
  
-+  power-domains:
-+    maxItems: 1
-+
-   rockchip,grf:
-     $ref: /schemas/types.yaml#/definitions/phandle
-     description:
+ static const struct registration_quirk registration_quirks[] = {
+ 	REG_QUIRK_ENTRY(0x0951, 0x16d8, 2),	/* Kingston HyperX AMP */
++	REG_QUIRK_ENTRY(0x0951, 0x16ed, 2),	/* Kingston HyperX Cloud Alpha S */
+ 	{ 0 }					/* terminator */
+ };
+ 
 -- 
-2.11.0
+2.26.0
 

@@ -2,83 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65B2419ED62
-	for <lists+alsa-devel@lfdr.de>; Sun,  5 Apr 2020 20:38:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23F9119EEB3
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Apr 2020 01:53:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 11D5A1682;
-	Sun,  5 Apr 2020 20:37:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11D5A1682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7E11D1683;
+	Mon,  6 Apr 2020 01:52:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E11D1683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586111914;
-	bh=iHEkUq0IUK55nHoSxmM4+QS78Ikzk095quaQYY5zsQE=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1586130811;
+	bh=mbaiy0lsMEpKpeCN6k3U9qxGEEwiPT9uEYlhmJvLMF0=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ik4GkTjOhukxD85mhmCVO8wMWGgOlFwfoDtJs0ENwz41M0oToN6CzsZbOyQTC30wf
-	 EL9NzUNd95datHn+IzBNzXMz/zkBVLe4OsnZO4vDKTYh0PK3xNS/unyDk6dGmOQ4k0
-	 jTK3B+OORxeJadPiiooWrmFQy41nzyL/rwFlSxMo=
+	b=BD1x1+deLdfkU8DTrBv8RTOi8tY0aRi+PaUmrHrU8tZC1F4jUj5bY9irtSuoE4TkS
+	 KwPMWI/5aVeu64CD0oLBopNWRnpU+ww9b7aUho66FSBvmmyh1V8HQZAN48u5N39KeY
+	 puahBy3aMmF3N6LQicd/Mm3wUKuQPhv2FcGBd9q4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BCFA4F8029A;
-	Sun,  5 Apr 2020 20:35:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6B2A6F80229;
+	Mon,  6 Apr 2020 01:51:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 92921F80216; Sun,  5 Apr 2020 20:35:11 +0200 (CEST)
+ id ACA49F80213; Mon,  6 Apr 2020 01:51:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
- [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C5850F801DA
- for <alsa-devel@alsa-project.org>; Sun,  5 Apr 2020 20:35:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5850F801DA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="JARdVQgf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1586111705;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=tDVqz1CEwwlFtzdvOTwRVcni+AzFty+d+ZTbj+MDgHU=;
- b=JARdVQgfnUXykqr4M2nDuEZYIhh84jqL8jvKJWzLM1SgWIO9uHtNPMb3hZpdZMXIGdypiM
- nbBWeZP7L6HUDN8iQYyyvo+rjneHloj77rwpygCmhUJMs431EG41yvFr74xsNki3LyMdpK
- YegOJaUAefd2grlv8vjSXjiYusrFP6Y=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-202-8WFJYjDpM5ujgabYTYcCAA-1; Sun, 05 Apr 2020 14:35:03 -0400
-X-MC-Unique: 8WFJYjDpM5ujgabYTYcCAA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
- [10.5.11.13])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7C94F107ACC7;
- Sun,  5 Apr 2020 18:35:02 +0000 (UTC)
-Received: from x1.localdomain.com (ovpn-112-60.ams2.redhat.com [10.36.112.60])
- by smtp.corp.redhat.com (Postfix) with ESMTP id A858F98A51;
- Sun,  5 Apr 2020 18:35:01 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: [PATCH 5/5] cht-bsw-rt5672: Fix HiFi-stereo-dmic2 conf not loading /
- working
-Date: Sun,  5 Apr 2020 20:34:54 +0200
-Message-Id: <20200405183454.34515-5-hdegoede@redhat.com>
-In-Reply-To: <20200405183454.34515-1-hdegoede@redhat.com>
-References: <20200405183454.34515-1-hdegoede@redhat.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5D2E9F800E4
+ for <alsa-devel@alsa-project.org>; Mon,  6 Apr 2020 01:50:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D2E9F800E4
+IronPort-SDR: JQ3LmOQ8akR+isOQzFTOQ70iWk7uhdbsGlVMHifUjDxND5nDiVXGjW7EenT0j2pFr4cF6a4dEl
+ hmUbi0sHxC7g==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Apr 2020 16:50:51 -0700
+IronPort-SDR: XKreq45w3WuCrO4UPWxmUy7CINTEiNdVtEx+N/XqKdo+6FzU7N+IoQD00z+uWDFvpVvGok6Rtx
+ 3wZQB2GVlCDA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,349,1580803200"; d="scan'208";a="253949526"
+Received: from tecook-mobl1.amr.corp.intel.com (HELO [10.212.185.245])
+ ([10.212.185.245])
+ by orsmga006.jf.intel.com with ESMTP; 05 Apr 2020 16:50:50 -0700
+Subject: Re: [PATCH v3] ASoC: Intel: bytcr_rt5640: Add quirk for MPMAN
+ MPWIN895CL tablet
+To: Hans de Goede <hdegoede@redhat.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>,
+ flove@realtek.com, shumingf@realtek.com, Oder Chiou <oder_chiou@realtek.com>
+References: <20200405133726.24154-1-hdegoede@redhat.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <0b7cfac8-857c-c4c1-0f79-7ce6522e073e@linux.intel.com>
+Date: Sun, 5 Apr 2020 17:55:54 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org
+In-Reply-To: <20200405133726.24154-1-hdegoede@redhat.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,152 +84,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix HiFi-stereo-dmic2 conf not loading because of references to
-non existing devices in the ConflictingDevices sections.
 
-Stop playing Rename + Remove tricks with the output (Speaker2) and
-input (DMIC1) devices which we do not want to be part of this config,
-this does not work now that we only allow devices which are actually
-part of our config in the ConflictingDevices sections.
 
-Instead start with only having devices which all configs have in
-the ConflictingDevices sections (Headphones / Headset) and add the
-other ones from our HiFi*.conf files after including the shared
-basic configs.
+On 4/5/20 8:37 AM, Hans de Goede wrote:
+> The MPMAN MPWIN895CL tablet almost fully works with out default settings.
+> The only problem is that it has only 1 speaker so any sounds only playing
+> on the right channel get lost.
+> 
+> Add a quirk for this model using the default settings + MONO_SPEAKER.
+> 
+> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 
-BugLink: https://bugzilla.redhat.com/show_bug.cgi?id=3D1786723
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
-I have tested that both HiFi.conf and HiFi-stereo-dmic2.conf work
-properly after these changes.
----
- ucm2/cht-bsw-rt5672/HiFi-stereo-dmic2.conf | 6 ++----
- ucm2/cht-bsw-rt5672/HiFi.conf              | 8 ++++++++
- ucm2/codecs/rt5672/DMIC1.conf              | 1 -
- ucm2/codecs/rt5672/DMIC2.conf              | 1 -
- ucm2/codecs/rt5672/HeadPhones.conf         | 2 --
- ucm2/codecs/rt5672/HeadsetMic.conf         | 2 --
- ucm2/codecs/rt5672/MonoSpeaker.conf        | 1 -
- ucm2/codecs/rt5672/Speaker.conf            | 1 -
- 8 files changed, 10 insertions(+), 12 deletions(-)
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-diff --git a/ucm2/cht-bsw-rt5672/HiFi-stereo-dmic2.conf b/ucm2/cht-bsw-rt56=
-72/HiFi-stereo-dmic2.conf
-index 82c976b..5e06b42 100644
---- a/ucm2/cht-bsw-rt5672/HiFi-stereo-dmic2.conf
-+++ b/ucm2/cht-bsw-rt5672/HiFi-stereo-dmic2.conf
-@@ -12,11 +12,9 @@ SectionVerb {
- }
-=20
- <codecs/rt5672/Speaker.conf>
--RenameDevice."Speaker1" "Speaker"
--RemoveDevice."Speaker2" "Speaker2"
- <codecs/rt5672/HeadPhones.conf>
-+SectionDevice."Headphones".ConflictingDevice.0 "Speaker1"
-=20
- <codecs/rt5672/DMIC2.conf>
--RenameDevice."Mic2" "Mic"
--RemoveDevice."Mic1" "Mic1"
- <codecs/rt5672/HeadsetMic.conf>
-+SectionDevice."Headset".ConflictingDevice.0 "Mic2"
-diff --git a/ucm2/cht-bsw-rt5672/HiFi.conf b/ucm2/cht-bsw-rt5672/HiFi.conf
-index 9a64cc3..2dfa479 100644
---- a/ucm2/cht-bsw-rt5672/HiFi.conf
-+++ b/ucm2/cht-bsw-rt5672/HiFi.conf
-@@ -14,7 +14,15 @@ SectionVerb {
- <codecs/rt5672/Speaker.conf>
- <codecs/rt5672/MonoSpeaker.conf>
- <codecs/rt5672/HeadPhones.conf>
-+SectionDevice."Speaker1".ConflictingDevice.1 "Speaker2"
-+SectionDevice."Speaker2".ConflictingDevice.1 "Speaker1"
-+SectionDevice."Headphones".ConflictingDevice.0 "Speaker1"
-+SectionDevice."Headphones".ConflictingDevice.1 "Speaker2"
-=20
- <codecs/rt5672/DMIC1.conf>
- <codecs/rt5672/DMIC2.conf>
- <codecs/rt5672/HeadsetMic.conf>
-+SectionDevice."Mic1".ConflictingDevice.1 "Mic2"
-+SectionDevice."Mic2".ConflictingDevice.1 "Mic1"
-+SectionDevice."Headset".ConflictingDevice.0 "Mic1"
-+SectionDevice."Headset".ConflictingDevice.1 "Mic2"
-diff --git a/ucm2/codecs/rt5672/DMIC1.conf b/ucm2/codecs/rt5672/DMIC1.conf
-index 2018283..acc26f7 100644
---- a/ucm2/codecs/rt5672/DMIC1.conf
-+++ b/ucm2/codecs/rt5672/DMIC1.conf
-@@ -2,7 +2,6 @@ SectionDevice."Mic1" {
- =09Comment "Internal Digital Microphone on DMIC1"
-=20
- =09ConflictingDevice [
--=09=09"Mic2"
- =09=09"Headset"
- =09]
-=20
-diff --git a/ucm2/codecs/rt5672/DMIC2.conf b/ucm2/codecs/rt5672/DMIC2.conf
-index 48e6170..abe139b 100644
---- a/ucm2/codecs/rt5672/DMIC2.conf
-+++ b/ucm2/codecs/rt5672/DMIC2.conf
-@@ -2,7 +2,6 @@ SectionDevice."Mic2" {
- =09Comment "Internal Digital Microphone on DMIC2"
-=20
- =09ConflictingDevice [
--=09=09"Mic1"
- =09=09"Headset"
- =09]
-=20
-diff --git a/ucm2/codecs/rt5672/HeadPhones.conf b/ucm2/codecs/rt5672/HeadPh=
-ones.conf
-index 2c8d6e8..9178607 100644
---- a/ucm2/codecs/rt5672/HeadPhones.conf
-+++ b/ucm2/codecs/rt5672/HeadPhones.conf
-@@ -2,8 +2,6 @@ SectionDevice."Headphones" {
- =09Comment "Headphones"
-=20
- =09ConflictingDevice [
--=09=09"Speaker1"
--=09=09"Speaker2"
- =09]
-=20
- =09EnableSequence [
-diff --git a/ucm2/codecs/rt5672/HeadsetMic.conf b/ucm2/codecs/rt5672/Headse=
-tMic.conf
-index a764d82..e04c3ce 100644
---- a/ucm2/codecs/rt5672/HeadsetMic.conf
-+++ b/ucm2/codecs/rt5672/HeadsetMic.conf
-@@ -2,8 +2,6 @@ SectionDevice."Headset" {
- =09Comment "Headset Microphone"
-=20
- =09ConflictingDevice [
--=09=09"Mic1"
--=09=09"Mic2"
- =09]
-=20
- =09EnableSequence [
-diff --git a/ucm2/codecs/rt5672/MonoSpeaker.conf b/ucm2/codecs/rt5672/MonoS=
-peaker.conf
-index f08c9c6..88c39d2 100644
---- a/ucm2/codecs/rt5672/MonoSpeaker.conf
-+++ b/ucm2/codecs/rt5672/MonoSpeaker.conf
-@@ -2,7 +2,6 @@ SectionDevice."Speaker2" {
- =09Comment "Mono Speaker"
-=20
- =09ConflictingDevice [
--=09=09"Speaker1"
- =09=09"Headphones"
- =09]
-=20
-diff --git a/ucm2/codecs/rt5672/Speaker.conf b/ucm2/codecs/rt5672/Speaker.c=
-onf
-index 8b7bcf8..c70ffae 100644
---- a/ucm2/codecs/rt5672/Speaker.conf
-+++ b/ucm2/codecs/rt5672/Speaker.conf
-@@ -2,7 +2,6 @@ SectionDevice."Speaker1" {
- =09Comment "Stereo Speakers"
-=20
- =09ConflictingDevice [
--=09=09"Speaker2"
- =09=09"Headphones"
- =09]
-=20
---=20
-2.26.0
+Thanks Hans!
 
+> ---
+>   sound/soc/intel/boards/bytcr_rt5640.c | 11 +++++++++++
+>   1 file changed, 11 insertions(+)
+> 
+> diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+> index 6bd9ae813be2..d14d5f7db168 100644
+> --- a/sound/soc/intel/boards/bytcr_rt5640.c
+> +++ b/sound/soc/intel/boards/bytcr_rt5640.c
+> @@ -591,6 +591,17 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
+>   					BYT_RT5640_SSP0_AIF1 |
+>   					BYT_RT5640_MCLK_EN),
+>   	},
+> +	{
+> +		/* MPMAN MPWIN895CL */
+> +		.matches = {
+> +			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "MPMAN"),
+> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MPWIN8900CL"),
+> +		},
+> +		.driver_data = (void *)(BYTCR_INPUT_DEFAULTS |
+> +					BYT_RT5640_MONO_SPEAKER |
+> +					BYT_RT5640_SSP0_AIF1 |
+> +					BYT_RT5640_MCLK_EN),
+> +	},
+>   	{	/* MSI S100 tablet */
+>   		.matches = {
+>   			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Micro-Star International Co., Ltd."),
+> 

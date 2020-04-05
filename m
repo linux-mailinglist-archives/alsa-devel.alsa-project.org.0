@@ -2,51 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B66B19E844
-	for <lists+alsa-devel@lfdr.de>; Sun,  5 Apr 2020 03:29:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5284E19EB81
+	for <lists+alsa-devel@lfdr.de>; Sun,  5 Apr 2020 15:39:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A00B4167A;
-	Sun,  5 Apr 2020 03:28:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A00B4167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id D402F1679;
+	Sun,  5 Apr 2020 15:38:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D402F1679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586050178;
-	bh=5VQx0G+uwQNpv2Av9QIWs7ER47KUrP63pPv57SzKFTo=;
-	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=qfRFNfAFO9Xk87psu1HmZzK4as6bqJjBREfvQ29gVCuuYrIaASmbVACu6fGebqs9G
-	 i4e4iO6QIB+cE83aCEw4yS0S8CbUoFLzwyAHZfOxoTBOaqRCrkkvDi4Q2OTbxUZLMx
-	 0XZIacAfPjhNj1NjsKTjWoVGtezBDu+nUCEGzAIM=
+	s=default; t=1586093963;
+	bh=Wnbd0yNcOX0K1gv+OAadmit2rPOXKreH56u0k/x+wM4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=POpr/kx0hiIIFQIv3RPL7xmP/7jQTwgW0wVE7gTuMFZowl7BZzxnZi3FLixpauzln
+	 8/IJwTcr+EYglnHKUrlNHFWKKIS9BuaGw9hL6hK9DK4k9bNOW7fA9pIAJ8xcvIv+sH
+	 cI6fiwyoNTTlDamWFNRzh2Daec3/+XjEDma26+7Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F84BF80058;
-	Sun,  5 Apr 2020 03:27:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7C03F801DA;
+	Sun,  5 Apr 2020 15:37:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 31ADAF80148; Sun,  5 Apr 2020 03:27:54 +0200 (CEST)
+ id 1B93CF801D8; Sun,  5 Apr 2020 15:37:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from netrider.rowland.org (netrider.rowland.org [192.131.102.5])
- by alsa1.perex.cz (Postfix) with SMTP id 4D622F800E4
- for <alsa-devel@alsa-project.org>; Sun,  5 Apr 2020 03:27:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D622F800E4
-Received: (qmail 25974 invoked by uid 500); 4 Apr 2020 21:27:42 -0400
-Received: from localhost (sendmail-bs@127.0.0.1)
- by localhost with SMTP; 4 Apr 2020 21:27:42 -0400
-Date: Sat, 4 Apr 2020 21:27:42 -0400 (EDT)
-From: Alan Stern <stern@rowland.harvard.edu>
-X-X-Sender: stern@netrider.rowland.org
-To: Ruslan Bilovol <ruslan.bilovol@gmail.com>
-Subject: Re:
-In-Reply-To: <CAB=otbS1RTnn9PixJYjsW4U_37GcFvR-O3WZ-7YnamdcDGKvRA@mail.gmail.com>
-Message-ID: <Pine.LNX.4.44L0.2004042124390.25831-100000@netrider.rowland.org>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2C92DF800E4
+ for <alsa-devel@alsa-project.org>; Sun,  5 Apr 2020 15:37:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C92DF800E4
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="VnwQk3KG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1586093855;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=Wnbd0yNcOX0K1gv+OAadmit2rPOXKreH56u0k/x+wM4=;
+ b=VnwQk3KGxamZfhB0ky0XFXF5qAhyJGxN+PXeiCHwvN16uJiGQ6Sasl9EnTNAXI3GE//lMg
+ yTpSdiuZ4ttef+xTLl/xxWKBODLowXxHvQjNcs2KfHsyFUCOFMSp7/III51Ykbbntb+VZU
+ Mzgl5p7ddUvrsFerPit6qYiMf+vMpHM=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-212--msFIa2jPKOW3G1sOD6Dag-1; Sun, 05 Apr 2020 09:37:32 -0400
+X-MC-Unique: -msFIa2jPKOW3G1sOD6Dag-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+ [10.5.11.22])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 373FA100550D;
+ Sun,  5 Apr 2020 13:37:31 +0000 (UTC)
+Received: from x1.localdomain.com (ovpn-112-60.ams2.redhat.com [10.36.112.60])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id A7ABF10027AF;
+ Sun,  5 Apr 2020 13:37:28 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>,
+ flove@realtek.com, shumingf@realtek.com,
+ Oder Chiou <oder_chiou@realtek.com>
+Subject: [PATCH v3] ASoC: Intel: bytcr_rt5640: Add quirk for MPMAN MPWIN895CL
+ tablet
+Date: Sun,  5 Apr 2020 15:37:26 +0200
+Message-Id: <20200405133726.24154-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Linux USB <linux-usb@vger.kernel.org>,
- Colin Williams <colin.williams.seattle@gmail.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,74 +95,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 5 Apr 2020, Ruslan Bilovol wrote:
+The MPMAN MPWIN895CL tablet almost fully works with out default settings.
+The only problem is that it has only 1 speaker so any sounds only playing
+on the right channel get lost.
 
-> Hi,
-> 
-> Please also add to CC related mailing lists (alsa-devel, linux-usb) rather
-> then directly emailing - community may also help with the issue. Also it can be
-> googled so if somebody else have same issue it can find answers faster.
-> 
-> On Fri, Apr 3, 2020 at 10:56 AM Colin Williams
-> <colin.williams.seattle@gmail.com> wrote:
-> >
-> > https://ubuntuforums.org/showthread.php?t=2439897
-> >
-> > On Thu, Apr 2, 2020 at 4:50 PM Colin Williams <colin.williams.seattle@gmail.com> wrote:
-> >>
-> >> Hello,
-> >>
-> >> Is it possible that one of these commits or related broke support for the Blue Mic Yeti?
-> >>
-> >> https://github.com/torvalds/linux/blame/ac438771ccb4479528594c7e19f2c39cf1814a86/sound/usb/stream.c#L816
-> 
-> Tha'ts workaround to ignore last altsetting which is the same as previous.
-> During UAC3 implementation, I reimplemented that workaround carefully,
-> but I didn't have (and still do not own) any Blue Mic USB device.
-> I don't know whether it was tested after that by anyone.
-> 
-> >>
-> >> I am getting the following when I plug my mic in:
-> 
-> Which kernel version is that? Have you tried latest Linux Kernel?
-> 
-> >>
-> >> [ 1283.848740] usb 1-1.2: new full-speed USB device number 82 using ehci-pci
-> >> [ 1283.964802] usb 1-1.2: New USB device found, idVendor=b58e, idProduct=9e84, bcdDevice= 1.00
-> >> [ 1283.964808] usb 1-1.2: New USB device strings: Mfr=1, Product=2, SerialNumber=0
-> >> [ 1283.964810] usb 1-1.2: Product: Yeti Stereo Microphone
-> >> [ 1283.964812] usb 1-1.2: Manufacturer: Blue Microphones
-> >> [ 1284.080671] usb 1-1.3: new low-speed USB device number 83 using ehci-pci
-> >> [ 1284.784678] usb 1-1.3: device descriptor read/64, error -32
-> >> [ 1285.180674] usb 1-1.3: device descriptor read/64, error -32
-> >> [ 1285.992682] usb 1-1.3: new low-speed USB device number 84 using ehci-pci
-> >> [ 1286.696672] usb 1-1.3: device descriptor read/64, error -32
-> >> [ 1287.092695] usb 1-1.3: device descriptor read/64, error -32
-> >> [ 1287.200804] usb 1-1-port3: attempt power cycle
-> >> [ 1287.804662] usb 1-1.3: new low-speed USB device number 85 using ehci-pci
-> >> [ 1288.220686] usb 1-1.3: device not accepting address 85, error -32
-> >> [ 1288.508685] usb 1-1.3: new low-speed USB device number 86 using ehci-pci
-> >> [ 1288.924690] usb 1-1.3: device not accepting address 86, error -32
-> >> [ 1288.924916] usb 1-1-port3: unable to enumerate USB device
-> >> [ 1288.925391] usb 1-1.2: USB disconnect, device number 82
-> >> [ 1289.308736] usb 1-1.3: new low-speed USB device number 87 using ehci-pci
-> >> [ 1289.596727] usb 1-1.3: device descriptor read/64, error -32
-> >> [ 1289.992635] usb 1-1.3: device descriptor read/64, error -32
-> >> [ 1290.596683] usb 1-1.3: new low-speed USB device number 88 using ehci-pci
-> >> [ 1290.888718] usb 1-1.3: device descriptor read/64, error -32
-> >> [ 1291.284673] usb 1-1.3: device descriptor read/64, error -32
-> >> [ 1291.392928] usb 1-1-port3: attempt power cycle
-> 
-> Looking at this log, it seems the issue happens during enumeration,
-> so mentioned workaround isn't executed yet at this moment.
-> So it seems this is related to USB core, not to ALSA driver.
+Add a quirk for this model using the default settings + MONO_SPEAKER.
 
-All those errors were for the 1-1.3 device.  The microphone was 1-1.2.
-It's not clear from the log above what the relationship between those 
-two devices is, but it sure looks like the microphone was enumerated 
-okay.
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ sound/soc/intel/boards/bytcr_rt5640.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-What shows up in /sys/kernel/debug/usb/devices?
-
-Alan Stern
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards=
+/bytcr_rt5640.c
+index 6bd9ae813be2..d14d5f7db168 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -591,6 +591,17 @@ static const struct dmi_system_id byt_rt5640_quirk_tab=
+le[] =3D {
+ =09=09=09=09=09BYT_RT5640_SSP0_AIF1 |
+ =09=09=09=09=09BYT_RT5640_MCLK_EN),
+ =09},
++=09{
++=09=09/* MPMAN MPWIN895CL */
++=09=09.matches =3D {
++=09=09=09DMI_EXACT_MATCH(DMI_SYS_VENDOR, "MPMAN"),
++=09=09=09DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MPWIN8900CL"),
++=09=09},
++=09=09.driver_data =3D (void *)(BYTCR_INPUT_DEFAULTS |
++=09=09=09=09=09BYT_RT5640_MONO_SPEAKER |
++=09=09=09=09=09BYT_RT5640_SSP0_AIF1 |
++=09=09=09=09=09BYT_RT5640_MCLK_EN),
++=09},
+ =09{=09/* MSI S100 tablet */
+ =09=09.matches =3D {
+ =09=09=09DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Micro-Star International Co., Lt=
+d."),
+--=20
+2.26.0
 

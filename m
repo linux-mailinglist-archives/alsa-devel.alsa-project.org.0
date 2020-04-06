@@ -2,75 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFD2219FB19
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Apr 2020 19:12:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BC6519FC96
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Apr 2020 20:10:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7A00D1679;
-	Mon,  6 Apr 2020 19:11:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A00D1679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 25D2A166D;
+	Mon,  6 Apr 2020 20:10:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25D2A166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586193152;
-	bh=kg4uiLZ0ONxEZfbQ04N45QEqkmJrNu+atRD7jFBszXE=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1586196659;
+	bh=wyc9fHmBuBpUeOJDt6Fi986lNkFAWYBK25zi7EZ6Bmc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IDjs6Bs/jVlQR4B1t5GfXmQes2dM4Jv2VaNO3DFcH5X1KZsUtThrk7+veHSnWpRLZ
-	 OkErPYhSJ3IGpxuYJoF6GFjb1Q8hBBKlyNTyQBEv88Uio6GiJrWcDfeAC5PvSDd1Yr
-	 /ZuFCK6JndkZKGku9DCf0tbPvMFpJsITQkqojQbI=
+	b=HhVx+iKnrLgCAmyoPE7noX6RMdsIpBJX377iutLTgwcavP0SfoBrDoA+kqYjkH6RV
+	 rj15no2sV2H9MhMnr9Fa4jDpRpR5DBGha8mmngQLZAgGJTpvpr9Z6Mx4vTjsgfp0b8
+	 u2CN3WC+MPb/X38RXDX8O2SQv6hDX4fvoAZQhi0s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC615F80150;
-	Mon,  6 Apr 2020 19:10:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 35EA4F80150;
+	Mon,  6 Apr 2020 20:09:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8564CF80143; Mon,  6 Apr 2020 19:10:47 +0200 (CEST)
+ id 8DDACF80143; Mon,  6 Apr 2020 20:09:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3A95FF80140
- for <alsa-devel@alsa-project.org>; Mon,  6 Apr 2020 19:10:43 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 48E93A003F;
- Mon,  6 Apr 2020 19:10:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 48E93A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1586193043; bh=gvH+xcvSt8AARZhTJeqBevccPiRpTTR/ev0xqU7rmo4=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=BDMVIdV04k1KgVmKJxg8qtXA3zvfRFjzwEL8ivkbqi1aJ2MZmEErScyWqSdD2OYCn
- 2jRnkZITNYTqR4kS76f5HVUfrtIqBCRNK1xlB/2h9r90shn2EM0rqZ7/KpTH3ypVly
- wPwNv5gInpuy2wob+KU8CyprpAuWRNOWRmYxVO4Y=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
+X-Spam-Status: No, score=-14.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,FSL_HELO_FAKE,SPF_HELO_NONE,
+ SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
+ autolearn=disabled version=3.4.0
+Received: from mail-il1-x143.google.com (mail-il1-x143.google.com
+ [IPv6:2607:f8b0:4864:20::143])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Mon,  6 Apr 2020 19:10:40 +0200 (CEST)
-Subject: Re: [PATCH 4/5] chtrt5645: Remove bogus JackHWMute settings
-To: Hans de Goede <hdegoede@redhat.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-References: <20200405183454.34515-1-hdegoede@redhat.com>
- <20200405183454.34515-4-hdegoede@redhat.com>
- <d06f3894-6cd7-fd4e-2261-94505fc0db4a@linux.intel.com>
- <c19aadd5-80b4-91de-4e0a-344e21125883@redhat.com>
- <3198cbfb-f498-2c82-88cd-c8b7d0b53574@linux.intel.com>
- <2ba90327-6a23-7c5f-5b4e-f01e51b59ace@redhat.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <f6832844-8fe1-9a9b-57a5-f13b072b79a1@perex.cz>
-Date: Mon, 6 Apr 2020 19:10:40 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A320BF800CC
+ for <alsa-devel@alsa-project.org>; Mon,  6 Apr 2020 20:09:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A320BF800CC
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="wO66w7Ry"
+Received: by mail-il1-x143.google.com with SMTP id r5so392505ilq.6
+ for <alsa-devel@alsa-project.org>; Mon, 06 Apr 2020 11:09:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=yBMpefkFr1boXNr9NGfUCytWABQV5PpSdvJ9e1eZ9Es=;
+ b=wO66w7RyXF4K79Hct6soT9mBO2A8VgpslZPCNtSOASF4tgb5aSbemRnFSHrPBNtZH0
+ X7kiY3BF+T8eEQg3G1owaaFUS89tcAVWsufnUv704A2GnEcoxbPBUXVxHt3AIAwk5FW7
+ KA6YlhRkOY/O7suBv7qyX3A3aJOOxFJJKowRGPOgszktlhuOro4lqCMRXsEjE7kZbzjk
+ UZskTmfltFZSiiVEFR+pwxPWnQZkWtkJRWMNlugPcc6txm6wT4iWU0LV7PlV303bvnVS
+ Fc59hfayfoTsoriHy9MxY7sKkWIfP0Q85re+gl9mwl1/L/Pj/waCdYv1qaonpjXqnjmt
+ NPJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=yBMpefkFr1boXNr9NGfUCytWABQV5PpSdvJ9e1eZ9Es=;
+ b=ibMjJ/apz31He+eG8Xd6C/9CquRdFqQpG9HxbezdKs7d6AaGe2hBJXPPbpQVmp+5RT
+ aQ+3VDBRqNKgAKj3/sYdsC0tSXK+LaV/GgNC1wMgU3lrZuoOiKXjGXPO0V5Yk0QOQj9D
+ CGHxXnyDLTWpwQsyy04qDOHV/E9+m4nCnKFPm5lKAm043TR5V/krObX7OwAwip+S54cz
+ 1uEQsuEwe3yKwt2ti5mVFQuW8d9HdPBee2Luwr4s10YYFA65iXOkFDY8sK7CSjSJwBt2
+ /Zs3ymFMaLRa2cKgRD6tM+rGuG9/99jAC5P4UzpBL/yoTG93Kclbyq/VOnAKqSo5dfX6
+ qlRg==
+X-Gm-Message-State: AGi0PubdiRLRDmD33Gsk/ycmmXJL2GH52Zu60QYp9otW1QdHqX44bUaz
+ R/P43zk2TTelf3nCVnaV7veWTw==
+X-Google-Smtp-Source: APiQypJEfqE9YynsnHLF5iY81bQ0/H/YvnAi1Gb5Nx3OD9l/PmtqHoG2OXq3p49sFP7rni3/OH53mA==
+X-Received: by 2002:a92:5b51:: with SMTP id p78mr592016ilb.250.1586196546082; 
+ Mon, 06 Apr 2020 11:09:06 -0700 (PDT)
+Received: from google.com ([2601:285:8380:9270::8798])
+ by smtp.gmail.com with ESMTPSA id v24sm5206313iob.0.2020.04.06.11.09.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Apr 2020 11:09:05 -0700 (PDT)
+Date: Mon, 6 Apr 2020 12:09:03 -0600
+From: Ross Zwisler <zwisler@google.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH] ASoC: Intel: haswell: Power transition refactor
+Message-ID: <20200406180903.GA109941@google.com>
+References: <20200330194520.13253-1-cezary.rojewski@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <2ba90327-6a23-7c5f-5b4e-f01e51b59ace@redhat.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200330194520.13253-1-cezary.rojewski@intel.com>
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com, vkoul@kernel.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,94 +101,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 06. 04. 20 v 18:58 Hans de Goede napsal(a):
-> Hi,
+On Mon, Mar 30, 2020 at 09:45:20PM +0200, Cezary Rojewski wrote:
+> Update D0 <-> D3 sequence to correctly transition hardware and DSP core
+> from and to D3. On top of that, set SHIM registers to their recommended
+> defaults during D0 and D3 proceduces as HW does not reset registers for
+> us.
 > 
-> On 4/6/20 5:17 PM, Pierre-Louis Bossart wrote:
->>
->>>> So overall it seems rather unlikely that we can support dmic + headset mic in parallel?
->>>
->>> Right that is what the ConflictingDevices sections are for.
->>>
->>> Removing the JackHWMute does not allow using both add the same time,
->>> it merely allows overriding which of the 2 to use (if the headset mic
->>> is detected by the jack, the JackControl setting is kept).
->>>
->>> So lets say the internal mic is crappy, but the user prefers to
->>> have their ears free, then they can use a headset around there neck,
->>> using just the headset-mic and select speakers as output even though
->>> a jack is inserted.
->>>
->>> Note pulseaudio will still automatically switch to the headphones /
->>> headsetmic when plugged in, this merely allows overriding that
->>> choice manually.
->>>
->>> Jacks which actually physically disable (or re-route) signals are
->>> quite rare now a days so having a JackHWMute in the UCM conf is
->>> often wrong. After this patch only a few cases are left:
->>>
->>> [hans@x1 alsa-ucm-conf]$ ack -l JackHWMute ucm2
->>> ucm2/HDA-Intel/HiFi-dual.conf
->>> ucm2/chtrt5650/HiFi.conf
->>> ucm2/hda-dsp/HiFi.conf
->>> ucm2/codecs/es8316/HeadPhones.conf
->>> ucm2/sof-bdw-rt5677/HiFi.conf
->>> ucm2/broxton-rt298/HiFi.conf
->>> ucm2/skylake-rt286/HiFi.conf
->>>
->>> The es8316 case is actually correct, the es8316 has only 1
->>> output (which is amplified for e.g. a speaker) and at
->>> least the reference design suggests routing the speaker signal
->>> through the jack and using a jack which will interrupt the
->>> signal when headphones are plugged in.
->>>
->>> Note most actual designs implement this with an analog
->>> switch and a GPIO to control that switch, since 3.5 mm
->>> jacks which actually can disconnect a signal are rare
->>> (if they exist at all, but I guess they do). For the
->>> designs using the GPIO controlled analog switch, the
->>> JackHWMute technically also is wrong, but I put it
->>> there (IIRC it was me) because it matches the reference
->>> design.
->>>
->>> I'm not familiar enough with any of the others to say anything
->>> about them, but most of them are for HDA setups, where this
->>> is somewhat more normal I guess.
->>
->> If I follow the logic, I guess we should also remove the JackHWMute for sof-bdw-rt5677, hda-dsp and HDA-Intel. I can't think of a hardware limitation preventing the headset mic from being used while the speakers are used for playback. Likewise the rt5650 is a cheaper version of rt5645 so the same applies.
+> Connected to:
+> [alsa-devel][BUG] bdw-rt5650 DSP boot timeout
+> https://mailman.alsa-project.org/pipermail/alsa-devel/2019-July/153098.html
 > 
-> Right AFAIK:
+> Github issue ticket reference:
+> https://github.com/thesofproject/linux/pull/1842
 > 
-> JackHWMute "foo"
+> Tested on:
+> - BDW-Y RVP with rt286
+> - SAMUS with rt5677
 > 
-> Means that the JackControl listed in the same section does
-> something at the hardware level which makes it impossible
-> for the "foo" input / output to function until the jack
-> is removed. Typically this would be something like actually
-> disconnecting the speakers at the electrical level.
+> Proposed solution (both in July 2019 and on github):
+> 'Revert "ASoC: Intel: Work around to fix HW d3 potential crash issue"'
+> is NAKed as it only covers the problem up and actually brings back the
+> undefined behavior: some registers (e.g.: APLLSE) are describing LPT
+> offsets rather than WPT ones. In consequence, during power-transitions
+> driver issues incorrect writes and leaves the regs of interest alone.
 > 
-> So almost always using it is wrong.
+> Existing patch - the non-revert - does not resolve the HW D3 issue at
+> all as it ignores the recommended sequence and does not initialize
+> hardware registers as expected. And thus, leaving things as are is also
+> unacceptable.
+> 
+> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 
-I agree. The description is really straight (use-case.h):
-
-"Note that JackHWMute should be used only when the hardware enforces the 
-automatic muting."
-
-Pierre, it seems that hds-dsp uses JackHWMute for Speaker and Headphones, I 
-think that it should be removed. Otherwise PA thinks that those devices cannot 
-be used simultaneously when user wants to..
-
-					Jaroslav
-
-
-> 
-> Regards,
-> 
-> Hans
-> 
-> 
-
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Tested-by: Ross Zwisler <zwisler@google.com>

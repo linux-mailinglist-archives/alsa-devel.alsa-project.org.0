@@ -2,95 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 198221A03D2
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Apr 2020 02:31:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 785DD1A07F8
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Apr 2020 09:09:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B31F382B;
-	Tue,  7 Apr 2020 02:30:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B31F382B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 065D11658;
+	Tue,  7 Apr 2020 09:08:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 065D11658
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586219472;
-	bh=ZXvm4WOwZu37wr/cmNh7eLHC98CcHIg+zSG4nzN670A=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1586243357;
+	bh=1FYSes7EkH8HXYvcsIszqM4TIW/hyXEZnuSn+jNNZlo=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Xtv+hVv8DkoOEdnmPluWv2xvxuzrOFio5qaKNdq6ExrJA21om5AujwK0A67wCryb1
-	 Kgh4jLtKM6Z+awv/fBuByPXNm5OzWNzL0ZDvfrwhCP49hchfspQnKsjhwEJf57CQc8
-	 xV8AUqU2OyA8TgYpDexyltnN2Y+7DZnyr+5MockQ=
+	b=F4slEBsuxWMhezwWfh5MwhXBkTFryJNNNr8Si1aATzb12ry17KZRa2G5xwd1q/ywP
+	 Ztl2Aat5ImbG7YorKK5e+SUtYqV8qCpaY5javeGtrdxfUQb8GmnfnaEpUTioocRIg7
+	 NNQ8UsmBOdkPWlcabYdx6L7qIoSbK841/ykuRh88=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8D168F80150;
-	Tue,  7 Apr 2020 02:29:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2DB58F801D8;
+	Tue,  7 Apr 2020 09:07:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8AC53F80143; Tue,  7 Apr 2020 02:29:26 +0200 (CEST)
+ id D8991F801D8; Tue,  7 Apr 2020 09:06:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.0 required=5.0 tests=PRX_APP_ATTACH, SPF_HELO_NONE, 
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8065BF800CC
- for <alsa-devel@alsa-project.org>; Tue,  7 Apr 2020 02:29:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8065BF800CC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="BtZs2j/d"
-Received: by mail-pf1-x442.google.com with SMTP id v23so622233pfm.1
- for <alsa-devel@alsa-project.org>; Mon, 06 Apr 2020 17:29:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=Hqwa+hUekQq3MYYw51APHLwXOUrFBa1sM5+b28OQ11o=;
- b=BtZs2j/dnw2PngLknCmZUjx56rNiQyDoDmVAOgZQjjRFRVxLZmw40H/jFGMoJZu00W
- LLkqlHs1rwByTmWTrV9dylFtIoPG+wYrFTNW58bNW7CX3M4zii4/8arExgdhP2ic/PTf
- WlMBZCjZHDb/BccMKoa4uwTN/Apkz9UcGUQFfRGmkWHUDDSkqkC2cEUyLY1KFcdwEZ94
- aoNc4cygUuxfFDA1FlbDFkkIC4yCB4kJuh2R4uoxmaVAYdTyERGIL9vfLA3tFkUHINdA
- y0q7KIHg48OMMq82+/ct57yUkpHZ+qahZDz6d7pgpWUvQ03wpYntCF+gpzk4jkfeoHU3
- wBfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=Hqwa+hUekQq3MYYw51APHLwXOUrFBa1sM5+b28OQ11o=;
- b=CG0Y6ky+MImthjnTILBiy1iF6LfYdho9OOEjefYDiEqNsEeDwrbJkuk95aZ88b+pDZ
- ydf11KKhrjAv8No7eJldi/ww3YVfqRyVq2D+iquDXWaT3TnYRAjdzE3VrpU43YIXKO/+
- qWVBSohKboo1nAFFIKNDLUWiVfn3HFcQVM24XwKiep6CEG7sW+DdbNQxvzufJrSnRL2D
- 2plc8vldLOwlhepGnGOao4qU0vUUlVA/SREyYO+ioSQitYmov+2qupoS4pzHCNzPMMaB
- 2zcSMkmULN4oKrXA4qqBW5VYpsJcj+CNz/1jeDrxojICBBQsWmLUSJWBGkTvjF7ngGba
- HTYw==
-X-Gm-Message-State: AGi0PubUqN4E48T8KXU/F973++1I+BRvXPefZKJAOQDpfwW2MxPJK9lM
- 0ec19Ucqj8gPgBCqxVusBzQ=
-X-Google-Smtp-Source: APiQypL4QBLHOntUiX150El6Uq7vgM86HJSiaP4ts+25+U4uWp6LAmAo44aRKGMV6U/ne7TLrZMjQw==
-X-Received: by 2002:aa7:97a7:: with SMTP id d7mr13246pfq.194.1586219354103;
- Mon, 06 Apr 2020 17:29:14 -0700 (PDT)
-Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
- [216.228.112.22])
- by smtp.gmail.com with ESMTPSA id s76sm11686055pgc.64.2020.04.06.17.29.13
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 06 Apr 2020 17:29:13 -0700 (PDT)
-Date: Mon, 6 Apr 2020 17:29:18 -0700
-From: Nicolin Chen <nicoleotsuka@gmail.com>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [PATCH v6 7/7] ASoC: fsl_easrc: Add EASRC ASoC CPU DAI drivers
-Message-ID: <20200407002918.GC20945@Asurada-Nvidia.nvidia.com>
-References: <cover.1585726761.git.shengjiu.wang@nxp.com>
- <3b5abe538eb293be9e82c077379d63487f71b7c6.1585726761.git.shengjiu.wang@nxp.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id B77CDF800F0
+ for <alsa-devel@alsa-project.org>; Tue,  7 Apr 2020 09:05:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B77CDF800F0
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.69 with qID 03775ntM6009190,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexmb06.realtek.com.tw[172.21.6.99])
+ by rtits2.realtek.com.tw (8.15.2/2.66/5.86) with ESMTPS id 03775ntM6009190
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Tue, 7 Apr 2020 15:05:49 +0800
+Received: from RTEXDAG01.realtek.com.tw (172.21.6.100) by
+ RTEXMB06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1779.2; Tue, 7 Apr 2020 15:05:49 +0800
+Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
+ RTEXDAG01.realtek.com.tw (172.21.6.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1779.2; Tue, 7 Apr 2020 15:05:49 +0800
+Received: from RTEXMB01.realtek.com.tw ([fe80::1832:8abc:ec2d:974f]) by
+ RTEXMB01.realtek.com.tw ([fe80::1832:8abc:ec2d:974f%6]) with mapi id
+ 15.01.1779.005; Tue, 7 Apr 2020 15:05:49 +0800
+From: Kailang <kailang@realtek.com>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: RE: New HP mute led feature
+Thread-Topic: New HP mute led feature
+Thread-Index: AdYH51wtUO4r/n8vTQmHwBcFof06lf//hbSA//X/XnA=
+Date: Tue, 7 Apr 2020 07:05:49 +0000
+Message-ID: <6741211598ba499687362ff2aa30626b@realtek.com>
+References: <e8a61928cfae439b9fa99d80e3c5c6cc@realtek.com>
+ <s5hlfnf686q.wl-tiwai@suse.de>
+In-Reply-To: <s5hlfnf686q.wl-tiwai@suse.de>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.22.105.171]
+Content-Type: multipart/mixed;
+ boundary="_003_6741211598ba499687362ff2aa30626brealtekcom_"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3b5abe538eb293be9e82c077379d63487f71b7c6.1585726761.git.shengjiu.wang@nxp.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
- linuxppc-dev@lists.ozlabs.org, tiwai@suse.com, lgirdwood@gmail.com,
- robh+dt@kernel.org, broonie@kernel.org, festevam@gmail.com,
- linux-kernel@vger.kernel.org
+Cc: " \(alsa-devel@alsa-project.org\)" <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,37 +88,216 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Apr 01, 2020 at 04:45:40PM +0800, Shengjiu Wang wrote:
-> EASRC (Enhanced Asynchronous Sample Rate Converter) is a new IP module
-> found on i.MX8MN. It is different with old ASRC module.
-> 
-> The primary features for the EASRC are as follows:
-> - 4 Contexts - groups of channels with an independent time base
-> - Fully independent and concurrent context control
-> - Simultaneous processing of up to 32 audio channels
-> - Programmable filter charachteristics for each context
-> - 32, 24, 20, and 16-bit fixed point audio sample support
-> - 32-bit floating point audio sample support
-> - 8kHz to 384kHz sample rate
-> - 1/16 to 8x sample rate conversion ratio
-> 
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> Signed-off-by: Cosmin-Gabriel Samoila <cosmin.samoila@nxp.com>
+--_003_6741211598ba499687362ff2aa30626brealtekcom_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Overall, looks good to me.
+Hi Takashi,
 
-Please add:
-Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
+I modified as attaches.
 
-> diff --git a/sound/soc/fsl/fsl_easrc.c b/sound/soc/fsl/fsl_easrc.c
-> +static int fsl_easrc_normalize_filter(struct fsl_asrc *easrc,
+BR,
+Kailang
 
-> +	 * If exponent is zero (value == 0), or 7ff (value == NaNs)
-[...]
-> +	if (exp == 0 || exp == 0x7ff) {
-[...]
-> +	if ((shift > 0 && exp >= 2047) ||
-> +	    (shift < 0 && exp <= 0)) {
+> -----Original Message-----
+> From: Takashi Iwai <tiwai@suse.de>
+> Sent: Wednesday, April 1, 2020 2:18 PM
+> To: Kailang <kailang@realtek.com>
+> Cc: (alsa-devel@alsa-project.org) <alsa-devel@alsa-project.org>
+> Subject: Re: New HP mute led feature
+>=20
+> On Wed, 01 Apr 2020 07:37:50 +0200,
+> Kailang wrote:
+> >
+> > Hi Takashi,
+> >
+> > HP had new mute led feature.
+> > Attach two patches will enable it.
+>=20
+> They don't seem applied cleanly.
+> Could you rebase to the latest git tree?
+>=20
+> Also, it might be worth unifying the handling.  Both patches introduce ve=
+ry
+> similar functions, and the values to mask and set can be referred, e.g.
+> spec->coefbit_mask, etc.  But such a cleanup can be done in a separate pa=
+tch
+> later, too.
+>=20
+>=20
+> thanks,
+>=20
+> Takashi
+>=20
+> ------Please consider the environment before printing this e-mail.
 
-Could fit into one line, and would be probably nicer to re-use
-"0x7ff" matching previous places, instead of "2047".
+--_003_6741211598ba499687362ff2aa30626brealtekcom_
+Content-Type: application/octet-stream;
+	name="0001-hp-thinclient-0x877a-mute-led.patch"
+Content-Description: 0001-hp-thinclient-0x877a-mute-led.patch
+Content-Disposition: attachment;
+	filename="0001-hp-thinclient-0x877a-mute-led.patch"; size=4723;
+	creation-date="Tue, 07 Apr 2020 06:53:57 GMT";
+	modification-date="Tue, 07 Apr 2020 06:43:32 GMT"
+Content-Transfer-Encoding: base64
+
+RnJvbSA5M2JlYTFmMzIyMzU4YTRiYmQxYjVkN2EwNTRjZDI5NjBjMGFjOTFjIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
+dGU6IFR1ZSwgNyBBcHIgMjAyMCAxNDo0MDoyMCArMDgwMApTdWJqZWN0OiBbUEFUQ0hdIEFMU0E6
+IGhkYS9yZWFsdGVrIC0gQWRkIHN1cHBvcnRlZCBuZXcgbXV0ZSBMZWQgZm9yIEhQCgpIUCBOb3Rl
+IEJvb2sgc3VwcG9ydGVkIG5ldyBtdXRlIExlZC4KSGFyZHdhcmUgUElOIHdhcyBub3QgZW5vdWdo
+IHRvIG1lZXQgb2xkIExFRCBydWxlLgpKRDIgdG8gY29udHJvbCBwbGF5YmFjayBtdXRlIGxlZC4K
+R1BPMyB0byBjb250cm9sIGNhcHR1cmUgbXV0ZSBsZWQuKEFMQzI4NSBkaWRuJ3QgY29udHJvbCBH
+UE8zIHZpYSB2ZXJiIGNvbW1hbmQpClRoaXMgdHdvIFBJTiBqdXN0IGNvdWxkIGNvbnRyb2wgYnkg
+Q09FRiByZWdpc3RlcnMuCgpTaWduZWQtb2ZmLWJ5OiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVh
+bHRlay5jb20+CgpkaWZmIC0tZ2l0IGEvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMgYi9z
+b3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYwppbmRleCBmNjZhNDgxNTRhNTcuLmMxODI4ODQz
+NGExMCAxMDA2NDQKLS0tIGEvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKKysrIGIvc291
+bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKQEAgLTg2LDYgKzg2LDE0IEBAIHN0cnVjdCBhbGNf
+c3BlYyB7CiAKIAl1bnNpZ25lZCBpbnQgZ3Bpb19tdXRlX2xlZF9tYXNrOwogCXVuc2lnbmVkIGlu
+dCBncGlvX21pY19sZWRfbWFzazsKKwl1bnNpZ25lZCBpbnQgbXV0ZV9sZWRfY29lZl9pZHg7CisJ
+dW5zaWduZWQgaW50IG11dGVfbGVkX2NvZWZiaXRfbWFzazsKKwl1bnNpZ25lZCBpbnQgbXV0ZV9s
+ZWRfY29lZmJpdF9vbjsKKwl1bnNpZ25lZCBpbnQgbXV0ZV9sZWRfY29lZmJpdF9vZmY7CisJdW5z
+aWduZWQgaW50IG1pY19sZWRfY29lZl9pZHg7CisJdW5zaWduZWQgaW50IG1pY19sZWRfY29lZmJp
+dF9tYXNrOworCXVuc2lnbmVkIGludCBtaWNfbGVkX2NvZWZiaXRfb247CisJdW5zaWduZWQgaW50
+IG1pY19sZWRfY29lZmJpdF9vZmY7CiAKIAloZGFfbmlkX3QgaGVhZHNldF9taWNfcGluOwogCWhk
+YV9uaWRfdCBoZWFkcGhvbmVfbWljX3BpbjsKQEAgLTQxNzgsNiArNDE4Niw3MyBAQCBzdGF0aWMg
+dm9pZCBhbGMyODBfZml4dXBfaHBfZ3BpbzQoc3RydWN0IGhkYV9jb2RlYyAqY29kZWMsCiAJfQog
+fQogCisvKiB1cGRhdGUgbXV0ZS1MRUQgYWNjb3JkaW5nIHRvIHRoZSBzcGVha2VyIG11dGUgc3Rh
+dGUgdmlhIENPRUYgYml0ICovCitzdGF0aWMgdm9pZCBhbGNfZml4dXBfbXV0ZV9sZWRfY29lZmJp
+dF9ob29rKHZvaWQgKnByaXZhdGVfZGF0YSwgaW50IGVuYWJsZWQpCit7CisJc3RydWN0IGhkYV9j
+b2RlYyAqY29kZWMgPSBwcml2YXRlX2RhdGE7CisJc3RydWN0IGFsY19zcGVjICpzcGVjID0gY29k
+ZWMtPnNwZWM7CisKKwlpZiAoc3BlYy0+bXV0ZV9sZWRfcG9sYXJpdHkpCisJCWVuYWJsZWQgPSAh
+ZW5hYmxlZDsKKworCS8qIHRlbXBvcmFyaWx5IHBvd2VyIHVwL2Rvd24gZm9yIHNldHRpbmcgQ09F
+RiBiaXQgKi8KKwllbmFibGVkID8gYWxjX3VwZGF0ZV9jb2VmX2lkeChjb2RlYywgc3BlYy0+bXV0
+ZV9sZWRfY29lZl9pZHgsCisJCXNwZWMtPm11dGVfbGVkX2NvZWZiaXRfbWFzaywgc3BlYy0+c3Bl
+Yy0+bXV0ZV9sZWRfY29lZmJpdF9vZmYpIDoKKwkJICBhbGNfdXBkYXRlX2NvZWZfaWR4KGNvZGVj
+LCBzcGVjLT5tdXRlX2xlZF9jb2VmX2lkeCwKKwkJc3BlYy0+bXV0ZV9sZWRfY29lZmJpdF9tYXNr
+LCBzcGVjLT5zcGVjLT5tdXRlX2xlZF9jb2VmYml0X29uKTsKK30KKworc3RhdGljIHZvaWQgYWxj
+Mjg1X2ZpeHVwX2hwX211dGVfbGVkX2NvZWZiaXQoc3RydWN0IGhkYV9jb2RlYyAqY29kZWMsCisJ
+CQkJCSAgY29uc3Qgc3RydWN0IGhkYV9maXh1cCAqZml4LAorCQkJCQkgIGludCBhY3Rpb24pCit7
+CisJc3RydWN0IGFsY19zcGVjICpzcGVjID0gY29kZWMtPnNwZWM7CisKKwlpZiAoYWN0aW9uID09
+IEhEQV9GSVhVUF9BQ1RfUFJFX1BST0JFKSB7CisJCXNwZWMtPm11dGVfbGVkX3BvbGFyaXR5ID0g
+MDsKKwkJc3BlYy0+bXV0ZV9sZWRfY29lZl9pZHggPSAweDBiOworCQlzcGVjLT5tdXRlX2xlZF9j
+b2VmYml0X21hc2sgPSAxPDwzOworCQlzcGVjLT5zcGVjLT5tdXRlX2xlZF9jb2VmYml0X29uID0g
+MTw8MzsKKwkJc3BlYy0+c3BlYy0+bXV0ZV9sZWRfY29lZmJpdF9vZmYgPSAwOworCQlzcGVjLT5n
+ZW4udm1hc3Rlcl9tdXRlLmhvb2sgPSBhbGNfZml4dXBfbXV0ZV9sZWRfY29lZmJpdF9ob29rOwor
+CQlzcGVjLT5nZW4udm1hc3Rlcl9tdXRlX2VudW0gPSAxOworCX0KK30KKworLyogdHVybiBvbi9v
+ZmYgbWljLW11dGUgTEVEIHBlciBjYXB0dXJlIGhvb2sgYnkgY29lZiBiaXQgKi8KK3N0YXRpYyB2
+b2lkIGFsY19ocF9jYXBfbWljbXV0ZV91cGRhdGUoc3RydWN0IGhkYV9jb2RlYyAqY29kZWMpCit7
+CisJc3RydWN0IGFsY19zcGVjICpzcGVjID0gY29kZWMtPnNwZWM7CisKKwlpZiAoc3BlYy0+Z2Vu
+Lm1pY211dGVfbGVkLmxlZF92YWx1ZSkKKwkJYWxjX3VwZGF0ZV9jb2VmX2lkeChjb2RlYywgc3Bl
+Yy0+bWljX2xlZF9jb2VmX2lkeCwKKwkJCXNwZWMtPm1pY19sZWRfY29lZmJpdF9tYXNrLCBzcGVj
+LT5taWNfbGVkX2NvZWZiaXRfb24pOworCWVsc2UKKwkJYWxjX3VwZGF0ZV9jb2VmX2lkeChjb2Rl
+Yywgc3BlYy0+bWljX2xlZF9jb2VmX2lkeCwKKwkJCXNwZWMtPm1pY19sZWRfY29lZmJpdF9tYXNr
+LCBzcGVjLT5taWNfbGVkX2NvZWZiaXRfb2ZmKTsKK30KKworc3RhdGljIHZvaWQgYWxjMjg1X2Zp
+eHVwX2hwX2NvZWZfbWljbXV0ZV9sZWQoc3RydWN0IGhkYV9jb2RlYyAqY29kZWMsCisJCQkJY29u
+c3Qgc3RydWN0IGhkYV9maXh1cCAqZml4LCBpbnQgYWN0aW9uKQoreworCXN0cnVjdCBhbGNfc3Bl
+YyAqc3BlYyA9IGNvZGVjLT5zcGVjOworCisJaWYgKGFjdGlvbiA9PSBIREFfRklYVVBfQUNUX1BS
+RV9QUk9CRSkgeworCQlzcGVjLT5taWNfbGVkX2NvZWZfaWR4ID0gMHgxOTsKKwkJc3BlYy0+bWlj
+X2xlZF9jb2VmYml0X21hc2sgPSAxPDwxMzsKKwkJc3BlYy0+bWljX2xlZF9jb2VmYml0X29uID0g
+MTw8MTM7CisJCXNwZWMtPm1pY19sZWRfY29lZmJpdF9vZmYgPSAwOworCQlzbmRfaGRhX2dlbl9h
+ZGRfbWljbXV0ZV9sZWQoY29kZWMsIGFsY19ocF9jYXBfbWljbXV0ZV91cGRhdGUpOworCX0KK30K
+Kworc3RhdGljIHZvaWQgYWxjMjg1X2ZpeHVwX2hwX211dGVfbGVkKHN0cnVjdCBoZGFfY29kZWMg
+KmNvZGVjLAorCQkJCWNvbnN0IHN0cnVjdCBoZGFfZml4dXAgKmZpeCwgaW50IGFjdGlvbikKK3sK
+KwlhbGMyODVfZml4dXBfaHBfbXV0ZV9sZWRfY29lZmJpdChjb2RlYywgZml4LCBhY3Rpb24pOwor
+CWFsYzI4NV9maXh1cF9ocF9jb2VmX21pY211dGVfbGVkKGNvZGVjLCBmaXgsIGFjdGlvbik7Cit9
+CisKICNpZiBJU19SRUFDSEFCTEUoQ09ORklHX0lOUFVUKQogc3RhdGljIHZvaWQgZ3BpbzJfbWlj
+X2hvdGtleV9ldmVudChzdHJ1Y3QgaGRhX2NvZGVjICpjb2RlYywKIAkJCQkgICBzdHJ1Y3QgaGRh
+X2phY2tfY2FsbGJhY2sgKmV2ZW50KQpAQCAtNTk2NCw2ICs2MDM5LDcgQEAgZW51bSB7CiAJQUxD
+Mjg1X0ZJWFVQX1RISU5LUEFEX0hFQURTRVRfSkFDSywKIAlBTEMyOTRfRklYVVBfQVNVU19IUEUs
+CiAJQUxDMjg1X0ZJWFVQX0hQX0dQSU9fTEVELAorCUFMQzI4NV9GSVhVUF9IUF9NVVRFX0xFRCwK
+IH07CiAKIHN0YXRpYyBjb25zdCBzdHJ1Y3QgaGRhX2ZpeHVwIGFsYzI2OV9maXh1cHNbXSA9IHsK
+QEAgLTcwODksNiArNzE2NSwxMCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGhkYV9maXh1cCBhbGMy
+NjlfZml4dXBzW10gPSB7CiAJCS50eXBlID0gSERBX0ZJWFVQX0ZVTkMsCiAJCS52LmZ1bmMgPSBh
+bGMyODVfZml4dXBfaHBfZ3Bpb19sZWQsCiAJfSwKKwlbQUxDMjg1X0ZJWFVQX0hQX01VVEVfTEVE
+XSA9IHsKKwkJLnR5cGUgPSBIREFfRklYVVBfRlVOQywKKwkJLnYuZnVuYyA9IGFsYzI4NV9maXh1
+cF9ocF9tdXRlX2xlZCwKKwl9LAogfTsKIAogc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfcGNpX3F1
+aXJrIGFsYzI2OV9maXh1cF90YmxbXSA9IHsKQEAgLTcyMzQsNiArNzMxNCw3IEBAIHN0YXRpYyBj
+b25zdCBzdHJ1Y3Qgc25kX3BjaV9xdWlyayBhbGMyNjlfZml4dXBfdGJsW10gPSB7CiAJU05EX1BD
+SV9RVUlSSygweDEwM2MsIDB4ODQ5NywgIkhQIEVudnkgeDM2MCIsIEFMQzI2OV9GSVhVUF9IUF9N
+VVRFX0xFRF9NSUMzKSwKIAlTTkRfUENJX1FVSVJLKDB4MTAzYywgMHg4NGU3LCAiSFAgUGF2aWxp
+b24gMTUiLCBBTEMyNjlfRklYVVBfSFBfTVVURV9MRURfTUlDMyksCiAJU05EX1BDSV9RVUlSSygw
+eDEwM2MsIDB4ODczNiwgIkhQIiwgQUxDMjg1X0ZJWFVQX0hQX0dQSU9fTEVEKSwKKwlTTkRfUENJ
+X1FVSVJLKDB4MTAzYywgMHg4NzdhLCAiSFAiLCBBTEMyODVfRklYVVBfTVVURV9MRUQpLAogCVNO
+RF9QQ0lfUVVJUksoMHgxMDQzLCAweDEwM2UsICJBU1VTIFg1NDBTQSIsIEFMQzI1Nl9GSVhVUF9B
+U1VTX01JQyksCiAJU05EX1BDSV9RVUlSSygweDEwNDMsIDB4MTAzZiwgIkFTVVMgVFgzMDAiLCBB
+TEMyODJfRklYVVBfQVNVU19UWDMwMCksCiAJU05EX1BDSV9RVUlSSygweDEwNDMsIDB4MTA2ZCwg
+IkFzdXMgSzUzQkUiLCBBTEMyNjlfRklYVVBfTElNSVRfSU5UX01JQ19CT09TVCksCg==
+
+--_003_6741211598ba499687362ff2aa30626brealtekcom_
+Content-Type: application/octet-stream;
+	name="0002-hp-thinclient-0x877d-mute-led.patch"
+Content-Description: 0002-hp-thinclient-0x877d-mute-led.patch
+Content-Disposition: attachment;
+	filename="0002-hp-thinclient-0x877d-mute-led.patch"; size=3592;
+	creation-date="Tue, 07 Apr 2020 06:58:30 GMT";
+	modification-date="Tue, 07 Apr 2020 06:57:57 GMT"
+Content-Transfer-Encoding: base64
+
+RnJvbSA5ZTZhNjEzMTkzN2JhMzJjN2VmMWJjZWYwOWUyZWQxMmY4NzE1Y2JhIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
+dGU6IFR1ZSwgNyBBcHIgMjAyMCAxNDo1Mjo0MiArMDgwMApTdWJqZWN0OiBbUEFUQ0hdIEFMU0E6
+IGhkYS9yZWFsdGVrIC0gQWRkIEhQIG5ldyBtdXRlIGxlZCBzdXBwb3J0ZWQgZm9yIEFMQzIzNgoK
+SFAgbmV3IHBsYXRmb3JtIGhhcyBuZXcgbXV0ZSBsZWQgZmVhdHVyZS4KQ09FRiBpbmRleCAweDM0
+IGJpdCA1IHRvIGNvbnRyb2wgcGxheWJhY2sgbXV0ZSBsZWQuCkNPRUYgaW5kZXggMHgzNSBiaXQg
+MiBhbmQgYml0IDMgdG8gY29udHJvbCBNaWMgbXV0ZSBsZWQuCgpTaWduZWQtb2ZmLWJ5OiBLYWls
+YW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CgpkaWZmIC0tZ2l0IGEvc291bmQvcGNpL2hk
+YS9wYXRjaF9yZWFsdGVrLmMgYi9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYwppbmRleCBj
+MTgyODg0MzRhMTAuLjQ3Y2VhYmI2MWZlOCAxMDA2NDQKLS0tIGEvc291bmQvcGNpL2hkYS9wYXRj
+aF9yZWFsdGVrLmMKKysrIGIvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKQEAgLTQyMTks
+NiArNDIxOSwyMyBAQCBzdGF0aWMgdm9pZCBhbGMyODVfZml4dXBfaHBfbXV0ZV9sZWRfY29lZmJp
+dChzdHJ1Y3QgaGRhX2NvZGVjICpjb2RlYywKIAl9CiB9CiAKK3N0YXRpYyB2b2lkIGFsYzIzNl9m
+aXh1cF9ocF9tdXRlX2xlZF9jb2VmYml0KHN0cnVjdCBoZGFfY29kZWMgKmNvZGVjLAorCQkJCQkg
+IGNvbnN0IHN0cnVjdCBoZGFfZml4dXAgKmZpeCwKKwkJCQkJICBpbnQgYWN0aW9uKQoreworCXN0
+cnVjdCBhbGNfc3BlYyAqc3BlYyA9IGNvZGVjLT5zcGVjOworCisJaWYgKGFjdGlvbiA9PSBIREFf
+RklYVVBfQUNUX1BSRV9QUk9CRSkgeworCQlzcGVjLT5tdXRlX2xlZF9wb2xhcml0eSA9IDA7CisJ
+CXNwZWMtPm11dGVfbGVkX2NvZWZfaWR4ID0gMHgzNDsKKwkJc3BlYy0+bXV0ZV9sZWRfY29lZmJp
+dF9tYXNrID0gMTw8NTsKKwkJc3BlYy0+c3BlYy0+bXV0ZV9sZWRfY29lZmJpdF9vbiA9IDA7CisJ
+CXNwZWMtPnNwZWMtPm11dGVfbGVkX2NvZWZiaXRfb2ZmID0gMTw8NTsKKwkJc3BlYy0+Z2VuLnZt
+YXN0ZXJfbXV0ZS5ob29rID0gYWxjX2ZpeHVwX211dGVfbGVkX2NvZWZiaXRfaG9vazsKKwkJc3Bl
+Yy0+Z2VuLnZtYXN0ZXJfbXV0ZV9lbnVtID0gMTsKKwl9Cit9CisKIC8qIHR1cm4gb24vb2ZmIG1p
+Yy1tdXRlIExFRCBwZXIgY2FwdHVyZSBob29rIGJ5IGNvZWYgYml0ICovCiBzdGF0aWMgdm9pZCBh
+bGNfaHBfY2FwX21pY211dGVfdXBkYXRlKHN0cnVjdCBoZGFfY29kZWMgKmNvZGVjKQogewpAQCAt
+NDI0Niw2ICs0MjYzLDIwIEBAIHN0YXRpYyB2b2lkIGFsYzI4NV9maXh1cF9ocF9jb2VmX21pY211
+dGVfbGVkKHN0cnVjdCBoZGFfY29kZWMgKmNvZGVjLAogCX0KIH0KIAorc3RhdGljIHZvaWQgYWxj
+MjM2X2ZpeHVwX2hwX2NvZWZfbWljbXV0ZV9sZWQoc3RydWN0IGhkYV9jb2RlYyAqY29kZWMsCisJ
+CQkJY29uc3Qgc3RydWN0IGhkYV9maXh1cCAqZml4LCBpbnQgYWN0aW9uKQoreworCXN0cnVjdCBh
+bGNfc3BlYyAqc3BlYyA9IGNvZGVjLT5zcGVjOworCisJaWYgKGFjdGlvbiA9PSBIREFfRklYVVBf
+QUNUX1BSRV9QUk9CRSkgeworCQlzcGVjLT5taWNfbGVkX2NvZWZfaWR4ID0gMHgzNTsKKwkJc3Bl
+Yy0+bWljX2xlZF9jb2VmYml0X21hc2sgPSAzPDwyOworCQlzcGVjLT5taWNfbGVkX2NvZWZiaXRf
+b24gPSAyPDwyOworCQlzcGVjLT5taWNfbGVkX2NvZWZiaXRfb2ZmID0gMTw8MjsKKwkJc25kX2hk
+YV9nZW5fYWRkX21pY211dGVfbGVkKGNvZGVjLCBhbGNfaHBfY2FwX21pY211dGVfdXBkYXRlKTsK
+Kwl9Cit9CisKIHN0YXRpYyB2b2lkIGFsYzI4NV9maXh1cF9ocF9tdXRlX2xlZChzdHJ1Y3QgaGRh
+X2NvZGVjICpjb2RlYywKIAkJCQljb25zdCBzdHJ1Y3QgaGRhX2ZpeHVwICpmaXgsIGludCBhY3Rp
+b24pCiB7CkBAIC00MjUzLDYgKzQyODQsMTMgQEAgc3RhdGljIHZvaWQgYWxjMjg1X2ZpeHVwX2hw
+X211dGVfbGVkKHN0cnVjdCBoZGFfY29kZWMgKmNvZGVjLAogCWFsYzI4NV9maXh1cF9ocF9jb2Vm
+X21pY211dGVfbGVkKGNvZGVjLCBmaXgsIGFjdGlvbik7CiB9CiAKK3N0YXRpYyB2b2lkIGFsYzIz
+Nl9maXh1cF9ocF9tdXRlX2xlZChzdHJ1Y3QgaGRhX2NvZGVjICpjb2RlYywKKwkJCQljb25zdCBz
+dHJ1Y3QgaGRhX2ZpeHVwICpmaXgsIGludCBhY3Rpb24pCit7CisJYWxjMjM2X2ZpeHVwX2hwX211
+dGVfbGVkX2NvZWZiaXQoY29kZWMsIGZpeCwgYWN0aW9uKTsKKwlhbGMyMzZfZml4dXBfaHBfY29l
+Zl9taWNtdXRlX2xlZChjb2RlYywgZml4LCBhY3Rpb24pOworfQorCiAjaWYgSVNfUkVBQ0hBQkxF
+KENPTkZJR19JTlBVVCkKIHN0YXRpYyB2b2lkIGdwaW8yX21pY19ob3RrZXlfZXZlbnQoc3RydWN0
+IGhkYV9jb2RlYyAqY29kZWMsCiAJCQkJICAgc3RydWN0IGhkYV9qYWNrX2NhbGxiYWNrICpldmVu
+dCkKQEAgLTYwNDAsNiArNjA3OCw3IEBAIGVudW0gewogCUFMQzI5NF9GSVhVUF9BU1VTX0hQRSwK
+IAlBTEMyODVfRklYVVBfSFBfR1BJT19MRUQsCiAJQUxDMjg1X0ZJWFVQX0hQX01VVEVfTEVELAor
+CUFMQzIzNl9GSVhVUF9IUF9NVVRFX0xFRCwKIH07CiAKIHN0YXRpYyBjb25zdCBzdHJ1Y3QgaGRh
+X2ZpeHVwIGFsYzI2OV9maXh1cHNbXSA9IHsKQEAgLTcxNjksNiArNzIwOCwxMCBAQCBzdGF0aWMg
+Y29uc3Qgc3RydWN0IGhkYV9maXh1cCBhbGMyNjlfZml4dXBzW10gPSB7CiAJCS50eXBlID0gSERB
+X0ZJWFVQX0ZVTkMsCiAJCS52LmZ1bmMgPSBhbGMyODVfZml4dXBfaHBfbXV0ZV9sZWQsCiAJfSwK
+KwlbQUxDMjM2X0ZJWFVQX0hQX01VVEVfTEVEXSA9IHsKKwkJLnR5cGUgPSBIREFfRklYVVBfRlVO
+QywKKwkJLnYuZnVuYyA9IGFsYzIzNl9maXh1cF9ocF9tdXRlX2xlZCwKKwl9LAogfTsKIAogc3Rh
+dGljIGNvbnN0IHN0cnVjdCBzbmRfcGNpX3F1aXJrIGFsYzI2OV9maXh1cF90YmxbXSA9IHsKQEAg
+LTczMTUsNiArNzM1OCw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc25kX3BjaV9xdWlyayBhbGMy
+NjlfZml4dXBfdGJsW10gPSB7CiAJU05EX1BDSV9RVUlSSygweDEwM2MsIDB4ODRlNywgIkhQIFBh
+dmlsaW9uIDE1IiwgQUxDMjY5X0ZJWFVQX0hQX01VVEVfTEVEX01JQzMpLAogCVNORF9QQ0lfUVVJ
+UksoMHgxMDNjLCAweDg3MzYsICJIUCIsIEFMQzI4NV9GSVhVUF9IUF9HUElPX0xFRCksCiAJU05E
+X1BDSV9RVUlSSygweDEwM2MsIDB4ODc3YSwgIkhQIiwgQUxDMjg1X0ZJWFVQX01VVEVfTEVEKSwK
+KwlTTkRfUENJX1FVSVJLKDB4MTAzYywgMHg4NzdkLCAiSFAiLCBBTEMyMzZfRklYVVBfTVVURV9M
+RUQpLAogCVNORF9QQ0lfUVVJUksoMHgxMDQzLCAweDEwM2UsICJBU1VTIFg1NDBTQSIsIEFMQzI1
+Nl9GSVhVUF9BU1VTX01JQyksCiAJU05EX1BDSV9RVUlSSygweDEwNDMsIDB4MTAzZiwgIkFTVVMg
+VFgzMDAiLCBBTEMyODJfRklYVVBfQVNVU19UWDMwMCksCiAJU05EX1BDSV9RVUlSSygweDEwNDMs
+IDB4MTA2ZCwgIkFzdXMgSzUzQkUiLCBBTEMyNjlfRklYVVBfTElNSVRfSU5UX01JQ19CT09TVCks
+Cg==
+
+--_003_6741211598ba499687362ff2aa30626brealtekcom_--

@@ -2,102 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F7F11A169B
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Apr 2020 22:14:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 735A51A23D6
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Apr 2020 16:14:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 34F1B886;
-	Tue,  7 Apr 2020 22:14:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34F1B886
+	by alsa0.perex.cz (Postfix) with ESMTPS id 14E32167F;
+	Wed,  8 Apr 2020 16:13:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14E32167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586290499;
-	bh=Eg1+KrZa9/gAeLKATnV44tLbO0NLFMjlqF12GbZWbHw=;
-	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=g3h5VR9YZJVlncd2RX0oMhiepsijBud3HtguFVm6ONc32p2+j5r8ajpykey4bsHSl
-	 gDTmoWTdG3GtuksbwDgbw0OfFLPJBB27Ijdeko2HZvSAz+G/1zD6SE5fK6xdOYZr25
-	 5sczEUvF/kKND63trA9rNa6M2rDDfdrINSCRkJUs=
+	s=default; t=1586355266;
+	bh=ZQn2DVqnQnn7GoovPWKVIPSqrh9z+oizDZdgNlQbF7A=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=hRcqSpK7O8No9xeNc9WRk5y3Dj+Pi91mBLdLITqJYbGhKsPH9vH17h6nS/yyFXVmI
+	 0nWa7UpsbfXbm4Tqpx17BB5BDVJtkzwoq9o51CwfJbVVIjy2UPN+ietgL7xJriTOIw
+	 5a33+sMZixmkCO5fMsszgodL3PcFY/UiKniYV+GY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 302B7F801DA;
-	Tue,  7 Apr 2020 22:13:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28A89F80105;
+	Wed,  8 Apr 2020 16:12:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7FEB9F801DA; Tue,  7 Apr 2020 22:13:14 +0200 (CEST)
+ id 5B70DF801DA; Wed,  8 Apr 2020 01:33:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
- HTML_MESSAGE,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from gateway36.websitewelcome.com (gateway36.websitewelcome.com
- [192.185.186.5])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from kernel.crashing.org (kernel.crashing.org [76.164.61.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B59AEF80121
- for <alsa-devel@alsa-project.org>; Tue,  7 Apr 2020 22:13:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B59AEF80121
-Authentication-Results: alsa1.perex.cz;
- dkim=fail reason="key not found in DNS" (0-bit key) header.d=gmarqu.es
- header.i=@gmarqu.es header.b="J7HJx4u3"
-Received: from cm12.websitewelcome.com (cm12.websitewelcome.com [100.42.49.8])
- by gateway36.websitewelcome.com (Postfix) with ESMTP id 7268F400CA057
- for <alsa-devel@alsa-project.org>; Tue,  7 Apr 2020 14:21:42 -0500 (CDT)
-Received: from br760.hostgator.com.br ([50.116.86.55]) by cmsmtp with SMTP
- id LuSZjmGM91s2xLuSZjREww; Tue, 07 Apr 2020 15:04:35 -0500
-X-Authority-Reason: nr=8
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=gmarqu.es; 
- s=default;
- h=Content-Type:To:Subject:Message-ID:Date:From:MIME-Version:
- Sender:Reply-To:Cc:Content-Transfer-Encoding:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=eEZoi2YnIRGDSxoLoBiK/wOZpeYPwis28Mt6pX7UvcY=; b=J7HJx4u3MXpLGEiLnQnAwQrQhL
- mN/R7HOpWZ5icpC5RXO5uqLnsbsoVzCV8jS+4QbVOjHRmcxKP82+tsesKUrLQ7VaFqd7ArY9lHCUY
- xUgSgKQgBYCzidR+72xitBAh3DOEEvTENuagy/l75daW66WlInJQHhoLL0SoU0C6tybK+wy3SoFmA
- ut87rh3bYY10YA9Ha5pzKZEYeZ2KfPCQSKYvXl0+hYmEhqhxUhWtOyhYtYU/TO7MKjXBfYWZ6Q3Zm
- 2Kync9HMlytvWacOaj1aUbMH65EjvPcvsBducU2YGAY/cRGcgurC7V57pc9Mq8vOks0IQc2MLZbPH
- WKenSh8g==;
-Received: from mail-il1-f181.google.com ([209.85.166.181]:35377)
- by br760.hostgator.com.br with esmtpsa
- (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128) (Exim 4.92)
- (envelope-from <george@gmarqu.es>) id 1jLuSZ-003Mvp-0T
- for alsa-devel@alsa-project.org; Tue, 07 Apr 2020 17:04:35 -0300
-Received: by mail-il1-f181.google.com with SMTP id u15so4262418ilm.2
- for <alsa-devel@alsa-project.org>; Tue, 07 Apr 2020 13:04:34 -0700 (PDT)
-X-Gm-Message-State: AGi0PuYt4qnE7yRfHGCYCq5uI/4xQoT32GPLxaxmAUIqUA8QzIsEKpMg
- hRkEPDTmZ1HVO8Jxve0NAYRT0nmG8pcibHLay0c=
-X-Google-Smtp-Source: APiQypIsO82zwQk5s7sxksF7outkOiCIwaq6UWXTcfS4Zy2kAfpN3lWKNv346WhlgnGmpqzvCrk2N7U8DmjTbIbTGBg=
-X-Received: by 2002:a92:8659:: with SMTP id g86mr4411045ild.267.1586289874551; 
- Tue, 07 Apr 2020 13:04:34 -0700 (PDT)
-MIME-Version: 1.0
-From: George Marques <george@gmarqu.es>
-Date: Tue, 7 Apr 2020 17:04:23 -0300
-X-Gmail-Original-Message-ID: <CAHWuuHnFKgbZicK-3YADXoKccZZsEsZk4fM4OJMe7cV36ZwZdQ@mail.gmail.com>
-Message-ID: <CAHWuuHnFKgbZicK-3YADXoKccZZsEsZk4fM4OJMe7cV36ZwZdQ@mail.gmail.com>
-Subject: M-Audio Fast Track Ultra S/PDIF clock source
-To: alsa-devel@alsa-project.org
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - br760.hostgator.com.br
-X-AntiAbuse: Original Domain - alsa-project.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - gmarqu.es
-X-BWhitelist: no
-X-Source-IP: 209.85.166.181
-X-Source-L: No
-X-Exim-ID: 1jLuSZ-003Mvp-0T
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: mail-il1-f181.google.com [209.85.166.181]:35377
-X-Source-Auth: george@gmarqu.es
-X-Email-Count: 1
-X-Source-Cap: dmVyc2kwNDk7dmVyc2kwNDk7YnI3NjAuaG9zdGdhdG9yLmNvbS5icg==
-X-Local-Domain: yes
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D89BF80121
+ for <alsa-devel@alsa-project.org>; Wed,  8 Apr 2020 01:33:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D89BF80121
+Received: from localhost (gate.crashing.org [63.228.1.57])
+ (authenticated bits=0)
+ by kernel.crashing.org (8.14.7/8.14.7) with ESMTP id 037NWrF8017854
+ (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+ Tue, 7 Apr 2020 18:32:58 -0500
+Message-ID: <5782f9a42ad8acd8b234fa9c15a09db93552dc6b.camel@kernel.crashing.org>
+Subject: Re: [PATCH 0/2] powerpc: Remove support for ppc405/440 Xilinx
+ platforms
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Michael Ellerman <mpe@ellerman.id.au>, Christophe Leroy
+ <christophe.leroy@c-s.fr>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, Arnd Bergmann <arnd@arndb.de>
+Date: Wed, 08 Apr 2020 09:32:52 +1000
+In-Reply-To: <87pncprwp9.fsf@mpe.ellerman.id.au>
+References: <cover.1585311091.git.michal.simek@xilinx.com>
+ <CAK8P3a2mKPRFbRE3MWScr9GSiL4cpLg0wqv1Q28XDCZVPWgHfg@mail.gmail.com>
+ <20200327131026.GT1922688@smile.fi.intel.com>
+ <20200327131531.GU1922688@smile.fi.intel.com>
+ <CAK8P3a1Z+ZPTDzgAjdz0a7d85R62BhUqkdEWgrwXh-OnYe6rog@mail.gmail.com>
+ <20200327141434.GA1922688@smile.fi.intel.com>
+ <b5adcc7a-9d10-d75f-50e3-9c150a7b4989@c-s.fr>
+ <87mu7xum41.fsf@mpe.ellerman.id.au>
+ <bac9af641140cf6df04e3532589a11c2f3bccd2f.camel@kernel.crashing.org>
+ <87pncprwp9.fsf@mpe.ellerman.id.au>
 Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Wed, 08 Apr 2020 16:12:43 +0200
+Cc: Kate Stewart <kstewart@linuxfoundation.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ "Desnes A. Nunes do Rosario" <desnesn@linux.ibm.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Richard Fontana <rfontana@redhat.com>, Paul Mackerras <paulus@samba.org>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, Sasha Levin <sashal@kernel.org>,
+ Stephen Rothwell <sfr@canb.auug.org.au>, Jonathan Corbet <corbet@lwn.net>,
+ Masahiro Yamada <masahiroy@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ YueHaibing <yuehaibing@huawei.com>, Michal Simek <michal.simek@xilinx.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Leonardo Bras <leonardo@linux.ibm.com>,
+ Matt Porter <mporter@kernel.crashing.org>, DTML <devicetree@vger.kernel.org>,
+ Andrew Donnellan <ajd@linux.ibm.com>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ Marc Zyngier <marc.zyngier@arm.com>, Alistair Popple <alistair@popple.id.au>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ Nicholas Piggin <npiggin@gmail.com>, Alexios Zavras <alexios.zavras@intel.com>,
+ Mark Brown <broonie@kernel.org>, git@xilinx.com,
+ Linux Fbdev development list <linux-fbdev@vger.kernel.org>,
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Allison Randal <allison@lohutok.net>,
+ Michal Simek <monstr@monstr.eu>, Wei Hu <weh@microsoft.com>,
+ Christian Lamparter <chunkeey@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Armijn Hemel <armijn@tjaldur.nl>, Rob Herring <robh+dt@kernel.org>,
+ Enrico Weigelt <info@metux.net>, "David S. Miller" <davem@davemloft.net>,
+ Thiago Jung Bauermann <bauerman@linux.ibm.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,38 +115,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello, I have my trusty old FTU audio interface and I've been super happy
-of how it works well on Linux with ALSA.
+On Fri, 2020-04-03 at 15:59 +1100, Michael Ellerman wrote:
+> Benjamin Herrenschmidt <benh@kernel.crashing.org> writes:
+> > On Tue, 2020-03-31 at 16:30 +1100, Michael Ellerman wrote:
+> > > I have no attachment to 40x, and I'd certainly be happy to have
+> > > less
+> > > code in the tree, we struggle to keep even the modern platforms
+> > > well
+> > > maintained.
+> > > 
+> > > At the same time I don't want to render anyone's hardware
+> > > obsolete
+> > > unnecessarily. But if there's really no one using 40x then we
+> > > should
+> > > remove it, it could well be broken already.
+> > > 
+> > > So I guess post a series to do the removal and we'll see if
+> > > anyone
+> > > speaks up.
+> > 
+> > We shouldn't remove 40x completely. Just remove the Xilinx 405
+> > stuff.
+> 
+> Congratulations on becoming the 40x maintainer!
 
-Today I finally found some use for the S/PDIF input, which would allow me
-to free up two analog inputs in my setup. However, I found out it's not
-possible to change the clock source using ALSA, so I cannot use the S/PDIF
-input on Linux.
+Didn't I give you my last 40x system ? :-) IBM still put 40x cores
+inside POWER chips no ?
 
-This issue was raised by Felix Homann back in 2011:
-https://www.alsa-project.org/pipermail/alsa-devel/2011-June/040846.html but
-I couldn't find any new development, even though other issues were fixed.
+Cheers,
+Ben.
 
-On Windows the proprietary driver naturally has an option for that, which
-allowed me to verify that the input is in fact working correctly. Changing
-on Windows and then rebooting into Linux does not work, so either this is
-not persisted or something on Linux is unknowingly changing it back.
 
-I actually want to help add this option to the driver, so I can use it
-myself but also make it available to others who still rely on this
-interface.
-
-My questions are:
-
-1) Was there any progress in this regard? Most of work has been done around
-2012 for what I could find, nothing newer, so can I assume no work was done
-after the concern was raised?
-
-2) If I were to develop this option, where could I start? I can get myself
-around with C, but I have no idea how to debug and test my patches, nor how
-to find the exact control.
-
-I know it's an old card, but it works very well for me so I have no excuse
-to just replace it at this point.
-
-I hope someone can help me.

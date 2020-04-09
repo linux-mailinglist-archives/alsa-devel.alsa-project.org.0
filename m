@@ -2,124 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CDCF1A2FF3
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Apr 2020 09:23:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D57551A33A1
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Apr 2020 14:00:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB5511663;
-	Thu,  9 Apr 2020 09:22:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB5511663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 54A7D1665;
+	Thu,  9 Apr 2020 13:59:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54A7D1665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586417007;
-	bh=LYdFcu9qhiPHgChF8FdELBh7ikbvWJLhG+NTK1nv068=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1586433600;
+	bh=lN0ygn5/dZV15ujZ+cj198BWBGcIIuhtubMMzPu5z2A=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dln2JQW2RMbnsruDqj3WyyAF/jHnUHtNDfX0fw583M6sFfs2iHK8B+XnzALbscxG2
-	 ecIffQY08Kh1pFwP4DKYAdf26XeU9jJdW2OcDRB0pc43OxtEkkAFr+THK4n8fEbx8h
-	 WZf27wKTg6Sj5BxbvgzFeXZqqdapgNZrViQVJD7w=
+	b=iK/uOm/imx6Okceqa4xvz5I2bFGa0saCBhA2SevEncvuixeO0oBMtkGq3F73MR3OV
+	 1A/46EPaRnR80JvHyJZ6qyg9LHw/T386mObbVgKzHZ03OouUZqIFgCoUPHW2hUJXcL
+	 keH9nbRcQFCrTkOdBU4WnWFnAGfVWFBoesdLEUq8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 33675F802A1;
-	Thu,  9 Apr 2020 09:19:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71559F80107;
+	Thu,  9 Apr 2020 13:58:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2F420F80107; Thu,  9 Apr 2020 09:19:01 +0200 (CEST)
+ id 79F6FF801DA; Thu,  9 Apr 2020 13:58:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- MSGID_FROM_MTA_HEADER,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2064.outbound.protection.outlook.com [40.107.22.64])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7B554F801D8
- for <alsa-devel@alsa-project.org>; Thu,  9 Apr 2020 09:18:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B554F801D8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=NXP1.onmicrosoft.com
- header.i=@NXP1.onmicrosoft.com header.b="FdCken2W"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YTpRBXLV3weyeii9KjI8/hQnUkWYJAU0rnmWqXpmxIaD9lqldOdGUYYpffIo13OcQ2J555DpJDN4H+0bFHilWeOEcfIkEQKCLbTyCyXrJZaxBwtW4tL1uB00HNxi9lcN8S4h1aC1t94OuCUMmCGu0sLYqU93bDk0SJg1FCdjcZQFnmzp7LPhGBhziDjm/9BB13xYtK/H1FBr44eOqPuC4H4F+MB+DyZnWcDSqPCLPIWvVPpwFV3IHLD0dKBDXwjGPrE9tCIBnDRzvRh0t2fFTp+6tBSzN3TI5IOwwRNHDIrdhcIRRpdCLSIyIOs4u9jVYYHTKHNYl7FxL/IN5mUfbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9IPZKRAwAaIrVRLfg8iGPhbGaDLlLs0YxllEgX41Cbc=;
- b=PNscnJwuEQSxRQUHqZriLlsJ0qdWoMxxTdxSN/LgnAPlZMR66ZSeWRkCJfOdax+X5AywWMVQbc7cDrJdyHfPpHKxw41nyuRDlTQPa3baTqdv6Dmp6tmAlPFKKe1shCXlTic/g9b7gLqqcmRQ3QH+MPoUoPaTZWfWrP7CzfnzyYClm1HjLWc5QFqim9k6ozzN1kAfncZjw3GXSsFCXb+POeCFEm+WexnstiRx+C4mKUDZzI7ym/WqC9WDiG/8rz/JG5prnQczcBiqt3DS5rdRJyYRO/Cp15bmfkc48hd2c3mYn2hhguB8p+GkWqC2vuvSPWG1D9n591MM4Rgs18NbkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector2-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9IPZKRAwAaIrVRLfg8iGPhbGaDLlLs0YxllEgX41Cbc=;
- b=FdCken2WbE28kxCMFEpWTrxTe8FQfJ6CqGjGoDUgaNkU2TyFlMMc5nimYyxlslMCJxMzPpsgs5P6Ek3aA/GsJI8QiEPOCu/6C+jreWHOWPwFglwTDV0QbjUFOyR/R1LoDCd5F5YPOfCnCStzNh0i8TZ9irrdMMFG5DK4TYBMdgw=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=daniel.baluta@oss.nxp.com; 
-Received: from DB3PR0402MB3835.eurprd04.prod.outlook.com (2603:10a6:8:3::30)
- by DB3PR0402MB3756.eurprd04.prod.outlook.com (2603:10a6:8:12::29) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.17; Thu, 9 Apr
- 2020 07:18:55 +0000
-Received: from DB3PR0402MB3835.eurprd04.prod.outlook.com
- ([fe80::f0e5:c143:32aa:ed7c]) by DB3PR0402MB3835.eurprd04.prod.outlook.com
- ([fe80::f0e5:c143:32aa:ed7c%7]) with mapi id 15.20.2878.023; Thu, 9 Apr 2020
- 07:18:54 +0000
-From: Daniel Baluta <daniel.baluta@oss.nxp.com>
-To: broonie@kernel.org
-Subject: [PATCH v2 5/5] dt-bindings: dsp: fsl: Add fsl,imx8mp-dsp entry
-Date: Thu,  9 Apr 2020 10:18:32 +0300
-Message-Id: <20200409071832.2039-6-daniel.baluta@oss.nxp.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200409071832.2039-1-daniel.baluta@oss.nxp.com>
-References: <20200409071832.2039-1-daniel.baluta@oss.nxp.com>
-Content-Type: text/plain
-X-ClientProxiedBy: AM4P190CA0002.EURP190.PROD.OUTLOOK.COM
- (2603:10a6:200:56::12) To DB3PR0402MB3835.eurprd04.prod.outlook.com
- (2603:10a6:8:3::30)
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 633C0F80107
+ for <alsa-devel@alsa-project.org>; Thu,  9 Apr 2020 13:58:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 633C0F80107
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from fsr-ub1864-103.ro-buh02.nxp.com (89.37.124.34) by
- AM4P190CA0002.EURP190.PROD.OUTLOOK.COM (2603:10a6:200:56::12) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2900.15 via Frontend Transport; Thu, 9 Apr 2020 07:18:53 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [89.37.124.34]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: afb062b3-b327-472f-9b48-08d7dc5642d8
-X-MS-TrafficTypeDiagnostic: DB3PR0402MB3756:|DB3PR0402MB3756:
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DB3PR0402MB37569839B2F3F511F4C71176B8C10@DB3PR0402MB3756.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
-X-Forefront-PRVS: 0368E78B5B
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DB3PR0402MB3835.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(10009020)(4636009)(366004)(346002)(376002)(396003)(136003)(39860400002)(4326008)(5660300002)(478600001)(316002)(26005)(4744005)(1076003)(66476007)(6512007)(81156014)(81166007)(66556008)(6506007)(2906002)(66946007)(52116002)(956004)(2616005)(8936002)(6916009)(6486002)(8676002)(86362001)(6666004)(186003)(16526019)(44832011)(142933001);
- DIR:OUT; SFP:1101; 
-Received-SPF: None (protection.outlook.com: oss.nxp.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9Na/wav08nX1520MHdfKqxygM9P/AWcN2OJC87jyDokiihk5xyRKw/DitGja2R27Afw9uU74dgqpzuI93jDzsWIIslnz91n1EsImOk/nnt31DX/3rc9Iv/I31GlRtVqKdjvVzl5cbFXcHGQR5XSV6J5GMoGjCSUmbuCDsY6u3OpYCnw6AtVds6q5KktPDaSsG4Ot1FxO9iXxXHRrowhBbWPD+FNjLaeoLic6xhg519pNqx/qeitUlA4VL76uvyKs+67a4nV5YnWIjegAOC8T/VgNZ6jrQX2tzwblw+PqHK2k2DOzUxXlbFNY7RXNnOZHTJf6UYEANtV4oqnyEu+TNniNJHvwPrc+9jiyHGcz43mz34QpBL0c3vphR0/+DLa3X/lmYfSclN4xkxPNOQkH26KMp3d8ttn3gQ8ji722u/+0P8PVEXVdwObVCu0OwMMpHdmLmv43LZP/tYn6qecDTWvYqZxgHY71vD/dTkZdL3OqRBM6pXaEZaLJ/fyYxaU+
-X-MS-Exchange-AntiSpam-MessageData: jIh5F0jFCcTCLk3Y03GDtm+sNaPhP/y1FV0iG+PPAuOi4FfmqxRgfLuFBgXj8MR/lmUsinfmuNXQyjhLzPX5dO51+E1ns1oBDGHCNZcMK3aVdK0WAz4KJHOdjEbf1zpkgS49srIEM/ssHoZZO3JweQ==
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: afb062b3-b327-472f-9b48-08d7dc5642d8
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2020 07:18:54.6552 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aRhiAoLkdSgBUQBawKh2LC7l4QjiRvffyY+xxVM4A0/Any83zGUdra1UtYxufzd6TCr/KOIZV5GMkD1AymHvnQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB3PR0402MB3756
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- kai.vehmanen@linux.intel.com, Daniel Baluta <daniel.baluta@nxp.com>,
- shengjiu.wang@nxp.com, ranjani.sridharan@linux.intel.com,
- linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- robh+dt@kernel.org, linux-imx@nxp.com, festevam@gmail.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1586433493470645905-webhooks-bot@alsa-project.org>
+References: <1586433493470645905-webhooks-bot@alsa-project.org>
+Subject: alsa-gobject: Add shared library to operate ALSA rawmidi character
+ device
+Message-Id: <20200409115817.79F6FF801DA@alsa1.perex.cz>
+Date: Thu,  9 Apr 2020 13:58:17 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -135,31 +60,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Daniel Baluta <daniel.baluta@nxp.com>
+alsa-project/alsa-gobject pull request #16 was opened from takaswie:
 
-Minimal implementation needs the same DT properties as
-existing compatible strings. So, we just add the new
-compatible string in the list.
+This patchset is to add a new library, libalsarawmidi, to operate ALSA rawmidi
+character device. This library is compatible with GObject Introspection.
 
-Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
-Acked-by: Rob Herring <robh@kernel.org>
----
- Documentation/devicetree/bindings/dsp/fsl,dsp.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ALSA rawmidi interface is designed to transfer MIDI messages. Userspace
+application operate ALSA rawmidi character device for incoming/outgoing
+transmission. The transmission line is abstracted as substream. One
+character device is associated to several substreams. The application can
+indicate subdevice to select a substream or a pair of substreams from them.
 
-diff --git a/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml b/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
-index f04870d84542..65d4d07e1952 100644
---- a/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
-+++ b/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
-@@ -17,6 +17,8 @@ properties:
-   compatible:
-     enum:
-       - fsl,imx8qxp-dsp
-+      - fsl,imx8qm-dsp
-+      - fsl,imx8mp-dsp
- 
-   reg:
-     description: Should contain register location and length
--- 
-2.17.1
+The library has ALSARawmidi.StreamPair to operate the character device.
+Userspace application call ALSARawmidi.StreamPair.open() to open the chracter
+device, select subdevice and attach the substreams to the device. After the
+call, data transmission already starts. The application can call
+ALSARawmidi.StreamPair.write_to_substream() to transfer MIDI message bytes.
 
+The application can also call ALSARawmidi.StreamPair.read_from_substream()
+to receive MIDI message bytes, but this call can be blocked till any
+messages are actually received and available as a default. For polling,
+GSource which ALSARawmidi.StreamPair.create_source() returns is useful.
+The application can use it for GMainContext/GMainLoop. When any message
+is available, ALSARawmidi.StreamPair emits 'handle-messages' GObject signal.
+The application register its handler to the signal in advance, then
+process the messages.
+
+ALSARawmidi.StreamPair has the other methods to drain/drop running
+substream:
+ - ALSARawmidi.StreamPair.drain_substream() 
+ - ALSARawmidi.StreamPair.drop_substream() 
+
+ALSARawmidi.StreamPair has more methods to return GObject-derived objects
+for information/status/parameters of substream:
+ - ALSARawmidi.StreamPair.get_substream_info()
+ - ALSARawmidi.StreamPair.get_substream_status() 
+ - ALSARawmidi.StreamPair.set_substream_params() 
+
+The library includes global method to query information about rawmidi:
+ - ALSARawmidi.get_rawmidi_sysname()
+ - ALSARawmidi.get_rawmidi_devnode()
+ - ALSARawmidi.get_device_id_list()
+ - ALSARawmidi.get_subdevice_id_list()
+ - ALSARawmidi.get_substream_info()
+
+Request URL   : https://github.com/alsa-project/alsa-gobject/pull/16
+Patch URL     : https://github.com/alsa-project/alsa-gobject/pull/16.patch
+Repository URL: https://github.com/alsa-project/alsa-gobject

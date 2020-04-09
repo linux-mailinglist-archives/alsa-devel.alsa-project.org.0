@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CAE81A3B14
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Apr 2020 22:06:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1E651A3B1C
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Apr 2020 22:07:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E6D6E16A6;
-	Thu,  9 Apr 2020 22:05:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6D6E16A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 44DF61693;
+	Thu,  9 Apr 2020 22:06:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44DF61693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586462762;
-	bh=npbHvQn4md4nldtr4r+O61s8n29JuqB7Q4lxui53k0s=;
+	s=default; t=1586462842;
+	bh=zY7EQyzHDppMFSmHiOi9IwN+ZvN3AvLNwyP3oNdclp8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qR0IBDx3Jwp/LCV4Lp97H4UcMRnWnLstiHcpaBQWQ4hTRq5qdF7DWhiyHsndDOEob
-	 MWrOwSsCoezmSiXlnwVfKCP5QV+RzwNXUEuMMXtu/7boVp41/cOSDNJrvVabmmmC3W
-	 wG3mtmhYpLAltpsvMnDYEtRp6RXzniERXTPsVBgo=
+	b=u+paz10zLqxt3CxqpYLdVxIzu7lja/RzGUGd2Wh4pWQXaGjn8LxycH2ee9ekXGvcz
+	 IIt1i2R+CkFEssnf98k13Gx2ieVQ33Fxj9NgKP7bXjkhcA5c7HznS5TQYXjdk5O6rG
+	 KWr1sWNK0Xq2LFL6cHFIM3VVXk/41zLDOHvDtrnw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26B0BF802EB;
-	Thu,  9 Apr 2020 21:59:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1CEC8F80305;
+	Thu,  9 Apr 2020 21:59:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CDD1AF802E0; Thu,  9 Apr 2020 21:59:23 +0200 (CEST)
+ id 520F4F8028F; Thu,  9 Apr 2020 21:59:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,28 +33,28 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C98B5F802BE
- for <alsa-devel@alsa-project.org>; Thu,  9 Apr 2020 21:59:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C98B5F802BE
-IronPort-SDR: 4jov7F+Ydstse8C7ko3l0aGEQq57T4JD8GTRu56dMF4aALXldl2hQkkyr5XI8IQ8A85cTDkizv
- Lz22+0IM49Sg==
+ by alsa1.perex.cz (Postfix) with ESMTPS id B7DCFF8028F
+ for <alsa-devel@alsa-project.org>; Thu,  9 Apr 2020 21:59:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7DCFF8028F
+IronPort-SDR: bDcz6iKltlrEhNBIhbln8L6Jj4t0nnrEQJhptJFUjr7g5OqTFV/8kgcIcYrZZTw4dnBUgXWJbg
+ b1tYU478m5Lg==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2020 12:59:19 -0700
-IronPort-SDR: SCQki6u1WXLuzIaogBvENlB/SyC8FvW70CK7lcip5Ade1JpIkSWQa1YU86AMWlvPlZB9nM0T25
- vhWCo10F6iDg==
+ 09 Apr 2020 12:59:21 -0700
+IronPort-SDR: 0D80xSN2e8ZlyhaRLFGKvpxSyzt9ebrNS/wl73d/6TDEu6hm7qMSOJYjkbPu6am2toWPVQ+oWk
+ KhaQnMJ64z+w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,363,1580803200"; d="scan'208";a="242745365"
+X-IronPort-AV: E=Sophos;i="5.72,363,1580803200"; d="scan'208";a="242745377"
 Received: from davidadu-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.212.151.218])
- by fmsmga007.fm.intel.com with ESMTP; 09 Apr 2020 12:59:17 -0700
+ by fmsmga007.fm.intel.com with ESMTP; 09 Apr 2020 12:59:19 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [RFC PATCH 10/16] clk: hifiberry-dacpro: add OF dependency
-Date: Thu,  9 Apr 2020 14:58:35 -0500
-Message-Id: <20200409195841.18901-11-pierre-louis.bossart@linux.intel.com>
+Subject: [RFC PATCH 11/16] clk: hifiberry-dacpro: transition to _hw functions
+Date: Thu,  9 Apr 2020 14:58:36 -0500
+Message-Id: <20200409195841.18901-12-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200409195841.18901-1-pierre-louis.bossart@linux.intel.com>
 References: <20200409195841.18901-1-pierre-louis.bossart@linux.intel.com>
@@ -83,26 +83,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Make sure OF is enabled, in case ACPI platforms use OF matching with
-PRP0001 and .compatible string
+devm_clk_register() and of_clk_add_provider() are deprecated, use the
+recommended functions.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- drivers/clk/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/clk/clk-hifiberry-dacpro.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
-index 6bfffc99e3fd..5b9f829d84fe 100644
---- a/drivers/clk/Kconfig
-+++ b/drivers/clk/Kconfig
-@@ -72,6 +72,7 @@ config COMMON_CLK_HI655X
+diff --git a/drivers/clk/clk-hifiberry-dacpro.c b/drivers/clk/clk-hifiberry-dacpro.c
+index 78ede325d237..bf0616c959da 100644
+--- a/drivers/clk/clk-hifiberry-dacpro.c
++++ b/drivers/clk/clk-hifiberry-dacpro.c
+@@ -91,7 +91,6 @@ static int clk_hifiberry_dacpro_probe(struct platform_device *pdev)
+ 	struct clk_hifiberry_hw *proclk;
+ 	struct clk_init_data init;
+ 	struct device *dev;
+-	struct clk *clk;
+ 	int ret;
  
- config COMMON_CLK_HIFIBERRY_DACPRO
- 	tristate
-+	depends on OF
+ 	dev = &pdev->dev;
+@@ -109,14 +108,15 @@ static int clk_hifiberry_dacpro_probe(struct platform_device *pdev)
+ 	proclk->mode = 0;
+ 	proclk->hw.init = &init;
  
- config COMMON_CLK_SCMI
- 	tristate "Clock driver controlled via SCMI interface"
+-	clk = devm_clk_register(dev, &proclk->hw);
+-	if (!IS_ERR(clk)) {
+-		ret = of_clk_add_provider(dev->of_node, of_clk_src_simple_get,
+-			clk);
+-	} else {
++	ret = devm_clk_hw_register(dev, &proclk->hw);
++	if (ret) {
+ 		dev_err(dev, "Fail to register clock driver\n");
+-		ret = PTR_ERR(clk);
++		return ret;
+ 	}
++
++	ret = of_clk_add_hw_provider(dev->of_node, of_clk_hw_simple_get,
++				     &proclk->hw);
++
+ 	return ret;
+ }
+ 
 -- 
 2.20.1
 

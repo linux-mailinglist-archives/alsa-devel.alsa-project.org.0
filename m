@@ -2,65 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A1C41A436F
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Apr 2020 10:16:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F7331A4370
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Apr 2020 10:16:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2AAD516AB;
-	Fri, 10 Apr 2020 10:15:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AAD516AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB2CB169C;
+	Fri, 10 Apr 2020 10:15:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB2CB169C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586506564;
-	bh=JEx8yawejMufLu7maq5+pnznJm+MEbkmXj46mo/wfgc=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1586506581;
+	bh=9D/pZshgY/nGdpZFJ63rNc7xvaJxRGTXjDMDnrWORrw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pwkOb50XPFfFJdw2m8wX86KbHqS9Ijdfi5sHZdDaic4x8VQu93mS0mNSVTUKuFiKZ
-	 HTP3LBebFEz62CHtRM56URRMaFON2XUAzOdfq8tJVkD/+iivwug5dJR2oeRQPzsFGg
-	 WzOTD3zxd61cv+xmhT6MWN6e+Gk9Ts15k3Zca/A0=
+	b=ejCSeQav2MPSJm/PGYaEmoBHi5Se8hoNmxw+xzRUK3yEyzNb0zbar0lMqiZic5BUa
+	 POmRN2jXgaPH+oqcmWyiKorKtw3bFGxeTZkDZ3kSqj5707OqptwYG7BrCBcSu60AD2
+	 wD2XAe+CgieSPmX1eoiGlMlcZbrgHky2PHVdSvQo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 304D7F8015D;
-	Fri, 10 Apr 2020 10:13:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57A7DF80273;
+	Fri, 10 Apr 2020 10:14:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D1F63F80143; Fri, 10 Apr 2020 10:13:16 +0200 (CEST)
+ id 85608F80252; Fri, 10 Apr 2020 10:14:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AEC3FF800CB
- for <alsa-devel@alsa-project.org>; Fri, 10 Apr 2020 10:13:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AEC3FF800CB
-Received: from DGGEMS405-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id 883BBF5DE01656036ADB;
- Fri, 10 Apr 2020 16:12:58 +0800 (CST)
-Received: from huawei.com (10.175.124.28) by DGGEMS405-HUB.china.huawei.com
- (10.3.19.205) with Microsoft SMTP Server id 14.3.487.0; Fri, 10 Apr 2020
- 16:12:48 +0800
-From: Jason Yan <yanaijie@huawei.com>
-To: <cezary.rojewski@intel.com>, <pierre-louis.bossart@linux.intel.com>,
- <liam.r.girdwood@linux.intel.com>, <yang.jie@linux.intel.com>,
- <broonie@kernel.org>, <perex@perex.cz>, <tiwai@suse.com>,
- <yung-chuan.liao@linux.intel.com>, <ranjani.sridharan@linux.intel.com>,
- <rander.wang@intel.com>, <christophe.jaillet@wanadoo.fr>,
- <yanaijie@huawei.com>, <alsa-devel@alsa-project.org>
-Subject: [PATCH 2/2] ASoC: Intel: soc-acpi-intel-cml-match: remove useless
- 'rt1308_2_adr'
-Date: Fri, 10 Apr 2020 16:11:17 +0800
-Message-ID: <20200410081117.21319-2-yanaijie@huawei.com>
-X-Mailer: git-send-email 2.17.2
-In-Reply-To: <20200410081117.21319-1-yanaijie@huawei.com>
-References: <20200410081117.21319-1-yanaijie@huawei.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.175.124.28]
-X-CFilter-Loop: Reflected
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2F760F800CB
+ for <alsa-devel@alsa-project.org>; Fri, 10 Apr 2020 10:14:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F760F800CB
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 51BE9AD07;
+ Fri, 10 Apr 2020 08:14:47 +0000 (UTC)
+Date: Fri, 10 Apr 2020 10:14:47 +0200
+Message-ID: <s5hsghbn4eg.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Adam Barber <barberadam995@gmail.com>
+Subject: Re: [PATCH] ALSA: hda/realtek - Enable the headset mic on Asus FX505DT
+In-Reply-To: <20200410005533.4802-1-barberadam995@gmail.com>
+References: <20200410005533.4802-1-barberadam995@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,38 +68,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix the following gcc warning:
+On Fri, 10 Apr 2020 02:55:33 +0200,
+Adam Barber wrote:
+> 
+> On Asus FX505DT with Realtek ALC233, the headset mic is connected
+> to pin 0x19, with default 0x411111f0.
+> 
+> Enable headset mic by reconfiguring the pin to an external mic
+> associated with the headphone on 0x21. Mic jack detection was also
+> found to be working.
 
-sound/soc/intel/common/soc-acpi-intel-cml-match.c:116:45: warning:
-‘rt1308_2_adr’ defined but not used [-Wunused-const-variable=]
- static const struct snd_soc_acpi_adr_device rt1308_2_adr[] = {
-                                             ^~~~~~~~~~~~
+Could you give your sign-off?  It's mandatory for merging to upstream.
+Also, if there is some information linke (e.g. Bugzilla), put it in
+"BugLink: $URL" line, too.
 
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: Jason Yan <yanaijie@huawei.com>
----
- sound/soc/intel/common/soc-acpi-intel-cml-match.c | 8 --------
- 1 file changed, 8 deletions(-)
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-cml-match.c b/sound/soc/intel/common/soc-acpi-intel-cml-match.c
-index bcedec6c6117..7d85bd5aff9f 100644
---- a/sound/soc/intel/common/soc-acpi-intel-cml-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-cml-match.c
-@@ -113,14 +113,6 @@ static const struct snd_soc_acpi_adr_device rt1308_1_adr[] = {
- 	}
- };
- 
--static const struct snd_soc_acpi_adr_device rt1308_2_adr[] = {
--	{
--		.adr = 0x000210025D130800,
--		.num_endpoints = 1,
--		.endpoints = &single_endpoint,
--	}
--};
--
- static const struct snd_soc_acpi_adr_device rt1308_1_group1_adr[] = {
- 	{
- 		.adr = 0x000110025D130800,
--- 
-2.17.2
+thanks,
 
+Takashi
+
+
+> ---
+>  sound/pci/hda/patch_realtek.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index f66a48154a57..5016fa50956a 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -7252,6 +7252,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+>  	SND_PCI_QUIRK(0x1043, 0x16e3, "ASUS UX50", ALC269_FIXUP_STEREO_DMIC),
+>  	SND_PCI_QUIRK(0x1043, 0x17d1, "ASUS UX431FL", ALC294_FIXUP_ASUS_DUAL_SPK),
+>  	SND_PCI_QUIRK(0x1043, 0x18b1, "Asus MJ401TA", ALC256_FIXUP_ASUS_HEADSET_MIC),
+> +	SND_PCI_QUIRK(0x1043, 0x18f1, "Asus FX505DT", ALC256_FIXUP_ASUS_HEADSET_MIC),
+>  	SND_PCI_QUIRK(0x1043, 0x19ce, "ASUS B9450FA", ALC294_FIXUP_ASUS_HPE),
+>  	SND_PCI_QUIRK(0x1043, 0x1a13, "Asus G73Jw", ALC269_FIXUP_ASUS_G73JW),
+>  	SND_PCI_QUIRK(0x1043, 0x1a30, "ASUS X705UD", ALC256_FIXUP_ASUS_MIC),
+> -- 
+> 2.26.0
+> 

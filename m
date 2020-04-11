@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BC751A54EB
-	for <lists+alsa-devel@lfdr.de>; Sun, 12 Apr 2020 01:08:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71BAE1A550B
+	for <lists+alsa-devel@lfdr.de>; Sun, 12 Apr 2020 01:09:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2068169C;
-	Sun, 12 Apr 2020 01:07:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2068169C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 06D4116BC;
+	Sun, 12 Apr 2020 01:08:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06D4116BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586646508;
-	bh=vkkBVzW/sRQX6NVpM58Zt+UhlaswQDSkXRNwMThHjj4=;
+	s=default; t=1586646547;
+	bh=4PfxH9l0qhbWx1emsduO6XYhYTrttNMwv+o5Jv1Bmp0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WVYB4tsKUxoDKUcNvM4EuqSXEdhZxbdPhfu9T2QDWlrojI8hIawPYbtLzNntfLmTn
-	 8DP6ls+Tnwif0NloD4n5nlYeOagkLg/7lVo7knsiMffJzO1Diz7y431TSU5sCuMVon
-	 maTDoQ2+0DQPNBJb84xn0uHRgCLEmR6hDEvnPejw=
+	b=WyoGwGdl/Zm2utj9/4tW79m2oiIxXIqlGm+G6DXuHBI4MxIM/Ud0WJPZUe+n1DCDZ
+	 wdZVEOsdyLkXq+D0hNCZVtYo+CKlWE9RyCbFIgzVjHVXnIrgQiWQDHEuUr39X2UCDW
+	 A/BItbG0R8qc6STTcHvfjaFf5doyRwLPU1uIHbjk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EF642F80218;
-	Sun, 12 Apr 2020 01:06:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4485BF80291;
+	Sun, 12 Apr 2020 01:06:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 135D8F80278; Sun, 12 Apr 2020 01:06:22 +0200 (CEST)
+ id BA527F8028F; Sun, 12 Apr 2020 01:06:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66DCEF80218
- for <alsa-devel@alsa-project.org>; Sun, 12 Apr 2020 01:06:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66DCEF80218
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5E2FCF80218
+ for <alsa-devel@alsa-project.org>; Sun, 12 Apr 2020 01:06:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E2FCF80218
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="abKp1SR7"
+ header.b="1JOj4JL7"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1C1C6217D8;
- Sat, 11 Apr 2020 23:06:17 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 56A54218AC;
+ Sat, 11 Apr 2020 23:06:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586646378;
- bh=vkkBVzW/sRQX6NVpM58Zt+UhlaswQDSkXRNwMThHjj4=;
+ s=default; t=1586646379;
+ bh=4PfxH9l0qhbWx1emsduO6XYhYTrttNMwv+o5Jv1Bmp0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=abKp1SR72Rn+z1P+EY7C0Y1ecCBSKjUbWx6ihXlnHvi4jgjGp8UYTux2a6cB60ECy
- rdm9W+LKckN/yW+Xx907hWz5G4i1fm5lFEswwtG10LPMSi/ipmz9D3stl97jL7zzGb
- UrAQCS6DjwqpkU4iqTDnEWjg72vBAYdkJ7yLAC4M=
+ b=1JOj4JL7Pez/zPcRTdUZtwALtyXDptOQWjBZ3WX5SwdJ81B5pYh23xuD65xC0aYEA
+ H9gy0bKpRg7OmDm5nBkUNJhtJlQA7k5dn6XXTOzO1vCyypkBTYrb8+XbFKDU1OyAjZ
+ 4IPNmkZ/DEh0Mwg1swbL/Yr6yHw8f8TqtAenPkHs=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.6 119/149] ASoC: stm32: spdifrx: fix regmap status
- check
-Date: Sat, 11 Apr 2020 19:03:16 -0400
-Message-Id: <20200411230347.22371-119-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.6 120/149] ASoC: Intel: Skylake: Enable codec wakeup
+ during chip init
+Date: Sat, 11 Apr 2020 19:03:17 -0400
+Message-Id: <20200411230347.22371-120-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200411230347.22371-1-sashal@kernel.org>
 References: <20200411230347.22371-1-sashal@kernel.org>
@@ -67,9 +67,10 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Olivier Moysan <olivier.moysan@st.com>, Mark Brown <broonie@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Cc: Sasha Levin <sashal@kernel.org>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,35 +86,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Olivier Moysan <olivier.moysan@st.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
 
-[ Upstream commit a168dae5ea14283e8992d5282237bb0d6a3e1c06 ]
+[ Upstream commit e603f11d5df8997d104ab405ff27640b90baffaa ]
 
-Release resources when exiting on error.
+Follow the recommendation set by hda_intel.c and enable HDMI/DP codec
+wakeup during bus initialization procedure. Disable wakeup once init
+completes.
 
-Fixes: 1a5c0b28fc56 ("ASoC: stm32: spdifrx: manage identification registers")
-
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
-Link: https://lore.kernel.org/r/20200318144125.9163-2-olivier.moysan@st.com
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20200305145314.32579-4-cezary.rojewski@intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/stm/stm32_spdifrx.c | 2 ++
+ sound/soc/intel/skylake/skl.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/stm/stm32_spdifrx.c b/sound/soc/stm/stm32_spdifrx.c
-index 3769d9ce5dbef..e6e75897cce83 100644
---- a/sound/soc/stm/stm32_spdifrx.c
-+++ b/sound/soc/stm/stm32_spdifrx.c
-@@ -1009,6 +1009,8 @@ static int stm32_spdifrx_probe(struct platform_device *pdev)
+diff --git a/sound/soc/intel/skylake/skl.c b/sound/soc/intel/skylake/skl.c
+index f755ca2484cff..0f3f291c223e2 100644
+--- a/sound/soc/intel/skylake/skl.c
++++ b/sound/soc/intel/skylake/skl.c
+@@ -130,6 +130,7 @@ static int skl_init_chip(struct hdac_bus *bus, bool full_reset)
+ 	struct hdac_ext_link *hlink;
+ 	int ret;
  
- 	if (idr == SPDIFRX_IPIDR_NUMBER) {
- 		ret = regmap_read(spdifrx->regmap, STM32_SPDIFRX_VERR, &ver);
-+		if (ret)
-+			goto error;
++	snd_hdac_set_codec_wakeup(bus, true);
+ 	skl_enable_miscbdcge(bus->dev, false);
+ 	ret = snd_hdac_bus_init_chip(bus, full_reset);
  
- 		dev_dbg(&pdev->dev, "SPDIFRX version: %lu.%lu registered\n",
- 			FIELD_GET(SPDIFRX_VERR_MAJ_MASK, ver),
+@@ -138,6 +139,7 @@ static int skl_init_chip(struct hdac_bus *bus, bool full_reset)
+ 		writel(0, hlink->ml_addr + AZX_REG_ML_LOSIDV);
+ 
+ 	skl_enable_miscbdcge(bus->dev, true);
++	snd_hdac_set_codec_wakeup(bus, false);
+ 
+ 	return ret;
+ }
 -- 
 2.20.1
 

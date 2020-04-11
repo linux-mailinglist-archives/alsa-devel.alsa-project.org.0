@@ -2,75 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0E0A1A5655
-	for <lists+alsa-devel@lfdr.de>; Sun, 12 Apr 2020 01:15:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C30B51A5B9A
+	for <lists+alsa-devel@lfdr.de>; Sun, 12 Apr 2020 01:56:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 46FBF16E3;
-	Sun, 12 Apr 2020 01:15:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46FBF16E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4F24D16BD;
+	Sun, 12 Apr 2020 01:55:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F24D16BD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586646952;
-	bh=5T0OkAH/agxDSAqcm6lOHiqwNFnz1fdTwkDtooN0nUQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1586649407;
+	bh=1n+ItEYqtgO06mlhNpUSk/fglDuXpggIxONUDzNsigc=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=d2f9+ObfsnRiEe7lqLALZc7QtFCboKRUY7QE2EAejRvkIA/Og8VRkPO589LKdvJVT
-	 Hws5SMUAoJ4bmvydZnm98wfyyZ6Z0deSlWZUksbIyem6TSkLsRNpJW55gedSJK9n6i
-	 Bc9SOldy2qq036b+ITqRnLeLazpOBszj+a/URDKk=
+	b=ZK31wSj2A4VILKWLqo9kDOXB/F1+8pnNu9NKMjkhe5FjuOUPKz+T8ZlMRN/ulMqjz
+	 6dMarTVjnsChfDsWVuHp2SD7L074lUOwnUx7YOdEDpJJBfPbIZJOWKWGKXerx7gPFq
+	 +IgmMyG4TPriygkH3FXuYLuuhCkwSjGEB51tRKLY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E440F801DA;
-	Sun, 12 Apr 2020 01:14:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77204F800B9;
+	Sun, 12 Apr 2020 01:55:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7564CF801F9; Sun, 12 Apr 2020 01:14:44 +0200 (CEST)
+ id CCB28F801DA; Sun, 12 Apr 2020 01:55:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EC35EF801D8
- for <alsa-devel@alsa-project.org>; Sun, 12 Apr 2020 01:14:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC35EF801D8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GuVppX5J"
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
- [73.47.72.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BA2EB20CC7;
- Sat, 11 Apr 2020 23:14:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586646880;
- bh=5T0OkAH/agxDSAqcm6lOHiqwNFnz1fdTwkDtooN0nUQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=GuVppX5J2EBEPpcdWDffYf8eTxowRztEQihg3b0IUHJ7LBweZz1bqnJBuLGNImGs1
- EuuxfdoVZr3oWKwxJlp/BVqpMgUdyGmDYK9cfseRWIfgC9OAJ7HT6VOA3nKRoS/mWC
- fX2TTdYn4/3bpo/tKk8tkwNQdjWmlA75f/ODGtgs=
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.9 22/26] ASoC: Intel: Skylake: Enable codec wakeup
- during chip init
-Date: Sat, 11 Apr 2020 19:14:09 -0400
-Message-Id: <20200411231413.26911-22-sashal@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200411231413.26911-1-sashal@kernel.org>
-References: <20200411231413.26911-1-sashal@kernel.org>
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id BBE84F8007E
+ for <alsa-devel@alsa-project.org>; Sun, 12 Apr 2020 01:55:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBE84F8007E
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - edited <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1586649300028500080-webhooks-bot@alsa-project.org>
+References: <1586649300028500080-webhooks-bot@alsa-project.org>
+Subject: snd_pcm_drain() infinite loop
+Message-Id: <20200411235503.CCB28F801DA@alsa1.perex.cz>
+Date: Sun, 12 Apr 2020 01:55:03 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,39 +59,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Cezary Rojewski <cezary.rojewski@intel.com>
+alsa-project/alsa-lib issue #41 was edited from sylware:
 
-[ Upstream commit e603f11d5df8997d104ab405ff27640b90baffaa ]
+In a non-blocking dmix-ed plugin pipeline (see below), playing audio from a 44100Hz source to a running 48000Hz hardware pcm, will go into an -EAGAIN infinite loop in snd_pcm_drain().
+I did a bit of tracing and it seems snd_pcm_drain() will always return -EAGAIN because in pcm_dmix.c:snd_pcm_dmix_sync_ptr0, avail  is never >= pcm->stop_threshold
 
-Follow the recommendation set by hda_intel.c and enable HDMI/DP codec
-wakeup during bus initialization procedure. Disable wakeup once init
-completes.
-
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200305145314.32579-4-cezary.rojewski@intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/intel/skylake/skl.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/sound/soc/intel/skylake/skl.c b/sound/soc/intel/skylake/skl.c
-index 3e526fbd267e6..223958c49bf8d 100644
---- a/sound/soc/intel/skylake/skl.c
-+++ b/sound/soc/intel/skylake/skl.c
-@@ -102,9 +102,11 @@ static int skl_init_chip(struct hdac_bus *bus, bool full_reset)
- {
- 	int ret;
- 
-+	snd_hdac_set_codec_wakeup(bus, true);
- 	skl_enable_miscbdcge(bus->dev, false);
- 	ret = snd_hdac_bus_init_chip(bus, full_reset);
- 	skl_enable_miscbdcge(bus->dev, true);
-+	snd_hdac_set_codec_wakeup(bus, false);
- 
- 	return ret;
- }
--- 
-2.20.1
-
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/41
+Repository URL: https://github.com/alsa-project/alsa-lib

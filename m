@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D00B41A751D
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 09:44:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1ACB21A7521
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 09:46:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B017169D;
-	Tue, 14 Apr 2020 09:44:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B017169D
+	by alsa0.perex.cz (Postfix) with ESMTPS id B7423168C;
+	Tue, 14 Apr 2020 09:45:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7423168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586850294;
-	bh=iXw/90kgNgV+65nLurqRVw7PQEne8xVE+CBqzlCo//I=;
+	s=default; t=1586850376;
+	bh=y28UbxWdvqoty5hr2urcEAnMd+Ed8EBk5a2sKzxEBMA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CMGaq9p6oNHz5BTTXGIMjIx13jw6WMoDMs44Cwwhf70onga2JvKCTR6rDasYFNz8E
-	 OBUPRpn6RJ2s3KLz9YvBfqLNm5KPmt/jE4fg+x2CpFTByfBsEjw3EvSUSbPwIpM8DL
-	 jIxmy74BY/Sx39rK7Dy2bXU3/M28B0hKlvgbBx20=
+	b=Yct9JSWaYuQVJY0ARgL0lFIRqncxUMFRPcbIqAnq0vbB/ulCVVX4l2fhDfpkPoFil
+	 pdPXdHXT8r8A+a31xwiJH9rtBpgniVQFyRVCYrSAOpZ3B5Z/3JfSQ0YDSzHg/wFmF9
+	 feRfhRVKqS3jkKUdzEqqkNfXODoJ9RnUeIYKnBwQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 935A5F8028C;
-	Tue, 14 Apr 2020 09:42:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78E3BF8029B;
+	Tue, 14 Apr 2020 09:42:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7C4E2F801DA; Sat, 11 Apr 2020 10:04:05 +0200 (CEST)
+ id B3766F801DA; Sat, 11 Apr 2020 10:04:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,35 +34,35 @@ Received: from mail27.static.mailgun.info (mail27.static.mailgun.info
  [104.130.122.27])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 88CF6F800B9
- for <alsa-devel@alsa-project.org>; Sat, 11 Apr 2020 10:04:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88CF6F800B9
+ by alsa1.perex.cz (Postfix) with ESMTPS id CF670F800CB
+ for <alsa-devel@alsa-project.org>; Sat, 11 Apr 2020 10:04:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF670F800CB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="FEzc0nJI"
+ header.i=@mg.codeaurora.org header.b="pwjskvPU"
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1586592243; h=References: In-Reply-To: Message-Id: Date:
+ s=smtp; t=1586592244; h=References: In-Reply-To: Message-Id: Date:
  Subject: Cc: To: From: Sender;
- bh=KXy1loHb2FhxhHhKQrd5okL0GUCoCdYflO1LTaz/12I=;
- b=FEzc0nJISJ7RwMZsT8AhK+wJtUOe+StmRc9yajntkuMYhVKh29O0sfxp0CIB7FcRAhHNCme7
- VuZ8l963S+XNBMVvPaD45gw8TmSkoU1Vf5UfnsPVu0xdt0zFK78DYoOGIzhDHPMpIMSl4Wmr
- 43GwPEYNZuAISH0O+nw9XoQnsR4=
+ bh=Y8q86WTB5/2WAKeKfT6xOfI6cCwvGx47c3+wU560RYE=;
+ b=pwjskvPUzCSZlnEH65KwTMD8u7t0ZHSsA3U7YBErrTcqtOiR3J0Fb8dsNQaBIFqynCwvvuub
+ aDzyJd6UnJBGWscuaS+51Ip9ik+Yfz/FAvPHbprIWU+8kz54yFwYR8rkxnyZLG44YD6pDZuZ
+ /EA3V/e9DLPCctlTk2K90LuQ4r8=
 X-Mailgun-Sending-Ip: 104.130.122.27
 X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5e9179e9.7f266d4e3848-smtp-out-n05;
- Sat, 11 Apr 2020 08:03:53 -0000 (UTC)
+ by mxa.mailgun.org with ESMTP id 5e9179f3.7f70714401b8-smtp-out-n05;
+ Sat, 11 Apr 2020 08:04:03 -0000 (UTC)
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 69BD6C432C2; Sat, 11 Apr 2020 08:03:53 +0000 (UTC)
+ id 41875C432C2; Sat, 11 Apr 2020 08:04:02 +0000 (UTC)
 Received: from c-ajitp-linux.qualcomm.com
  (blr-c-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.19.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: ajitp)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 857D6C433CB;
- Sat, 11 Apr 2020 08:03:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 857D6C433CB
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 8C4B2C433F2;
+ Sat, 11 Apr 2020 08:03:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 8C4B2C433F2
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
@@ -71,10 +71,10 @@ From: Ajit Pandey <ajitp@codeaurora.org>
 To: alsa-devel@alsa-project.org, broonie@kernel.org,
  devicetree@vger.kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
  srinivas.kandagatla@linaro.org
-Subject: [PATCH 02/11] ASoC: qcom: lpass: Add struct lpass_dai to store dai
- clocks pointer
-Date: Sat, 11 Apr 2020 13:32:42 +0530
-Message-Id: <1586592171-31644-3-git-send-email-ajitp@codeaurora.org>
+Subject: [PATCH 03/11] ASoC: qcom: Add common array to initialize soc based
+ core clocks
+Date: Sat, 11 Apr 2020 13:32:43 +0530
+Message-Id: <1586592171-31644-4-git-send-email-ajitp@codeaurora.org>
 X-Mailer: git-send-email 1.9.1
 In-Reply-To: <1586592171-31644-1-git-send-email-ajitp@codeaurora.org>
 References: <1586592171-31644-1-git-send-email-ajitp@codeaurora.org>
@@ -96,208 +96,116 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-lpass_dai will store clocks related to respective dai's and it will
-be initialized during probe based on variant clock names.
+lpass variants have their own soc specific clocks that needs to be
+enable for MI2S audio support. Added a common variable in drvdata to
+initialize such clocks using bulk clk api. Such clock names is still
+defined in variants specific data and needs to fetched during init.
 
 Signed-off-by: Ajit Pandey <ajitp@codeaurora.org>
 ---
- sound/soc/qcom/lpass-cpu.c | 89 ++++++++++++++++++++++++++--------------------
- sound/soc/qcom/lpass.h     | 18 +++++-----
- 2 files changed, 61 insertions(+), 46 deletions(-)
+ sound/soc/qcom/lpass-apq8016.c | 39 ++++++++++++++++++---------------------
+ sound/soc/qcom/lpass.h         | 10 +++++++---
+ 2 files changed, 25 insertions(+), 24 deletions(-)
 
-diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-index dbce7e9..492f27b 100644
---- a/sound/soc/qcom/lpass-cpu.c
-+++ b/sound/soc/qcom/lpass-cpu.c
-@@ -23,13 +23,15 @@ static int lpass_cpu_daiops_set_sysclk(struct snd_soc_dai *dai, int clk_id,
- 		unsigned int freq, int dir)
+diff --git a/sound/soc/qcom/lpass-apq8016.c b/sound/soc/qcom/lpass-apq8016.c
+index 6575da5..cef4661 100644
+--- a/sound/soc/qcom/lpass-apq8016.c
++++ b/sound/soc/qcom/lpass-apq8016.c
+@@ -161,33 +161,26 @@ static int apq8016_lpass_free_dma_channel(struct lpass_data *drvdata, int chan)
+ static int apq8016_lpass_init(struct platform_device *pdev)
  {
- 	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
--	int ret;
--
--	ret = clk_set_rate(drvdata->mi2s_osr_clk[dai->driver->id], freq);
--	if (ret)
--		dev_err(dai->dev, "error setting mi2s osrclk to %u: %d\n",
--			freq, ret);
-+	struct lpass_dai *dai_data = drvdata->dai_priv[dai->driver->id];
-+	int ret = 0;
- 
-+	if (dai_data->osr_clk != NULL) {
-+		ret = clk_set_rate(dai_data->osr_clk, freq);
-+		if (ret)
-+			dev_err(dai->dev, "error setting mi2s osrclk to %u:%d\n",
-+				freq, ret);
-+	}
- 	return ret;
- }
- 
-@@ -37,18 +39,22 @@ static int lpass_cpu_daiops_startup(struct snd_pcm_substream *substream,
- 		struct snd_soc_dai *dai)
- {
- 	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
-+	struct lpass_dai *dai_data = drvdata->dai_priv[dai->driver->id];
- 	int ret;
- 
--	ret = clk_prepare_enable(drvdata->mi2s_osr_clk[dai->driver->id]);
--	if (ret) {
--		dev_err(dai->dev, "error in enabling mi2s osr clk: %d\n", ret);
--		return ret;
-+	if (dai_data->osr_clk != NULL) {
-+		ret = clk_prepare_enable(dai_data->osr_clk);
-+		if (ret) {
-+			dev_err(dai->dev,
-+				"error in enabling mi2s osr clk: %d\n", ret);
-+			return ret;
-+		}
- 	}
- 
--	ret = clk_prepare_enable(drvdata->mi2s_bit_clk[dai->driver->id]);
-+	ret = clk_prepare_enable(dai_data->bit_clk);
- 	if (ret) {
- 		dev_err(dai->dev, "error in enabling mi2s bit clk: %d\n", ret);
--		clk_disable_unprepare(drvdata->mi2s_osr_clk[dai->driver->id]);
-+		clk_disable_unprepare(dai_data->osr_clk);
- 		return ret;
- 	}
- 
-@@ -59,16 +65,18 @@ static void lpass_cpu_daiops_shutdown(struct snd_pcm_substream *substream,
- 		struct snd_soc_dai *dai)
- {
- 	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
-+	struct lpass_dai *dai_data = drvdata->dai_priv[dai->driver->id];
- 
--	clk_disable_unprepare(drvdata->mi2s_bit_clk[dai->driver->id]);
-+	clk_disable_unprepare(dai_data->bit_clk);
- 
--	clk_disable_unprepare(drvdata->mi2s_osr_clk[dai->driver->id]);
-+	clk_disable_unprepare(dai_data->osr_clk);
- }
- 
- static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
- 		struct snd_pcm_hw_params *params, struct snd_soc_dai *dai)
- {
- 	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
-+	struct lpass_dai *dai_data = drvdata->dai_priv[dai->driver->id];
- 	snd_pcm_format_t format = params_format(params);
- 	unsigned int channels = params_channels(params);
- 	unsigned int rate = params_rate(params);
-@@ -163,8 +171,7 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
- 		return ret;
- 	}
- 
--	ret = clk_set_rate(drvdata->mi2s_bit_clk[dai->driver->id],
--			   rate * bitwidth * 2);
-+	ret = clk_set_rate(dai_data->bit_clk, rate * bitwidth * 2);
- 	if (ret) {
- 		dev_err(dai->dev, "error setting mi2s bitclk to %u: %d\n",
- 			rate * bitwidth * 2, ret);
-@@ -413,6 +420,25 @@ static bool lpass_cpu_regmap_volatile(struct device *dev, unsigned int reg)
- 	.cache_type = REGCACHE_FLAT,
- };
- 
-+static int lpass_init_dai_clocks(struct device *dev,
-+			   struct lpass_data *drvdata)
-+{
-+	struct lpass_dai *dai;
-+	struct lpass_variant *v = drvdata->variant;
-+	int i;
-+
-+	for (i = 0; i < v->num_dai; i++) {
-+
-+		dai = drvdata->dai_priv[i];
-+
-+		dai->osr_clk = devm_clk_get_optional(dev,
-+						     v->dai_osr_clk_names[i]);
-+		dai->bit_clk = devm_clk_get(dev, v->dai_bit_clk_names[i]);
-+	}
-+
-+	return 0;
-+}
-+
- int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
- {
- 	struct lpass_data *drvdata;
-@@ -421,7 +447,7 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
- 	struct lpass_variant *variant;
+ 	struct lpass_data *drvdata = platform_get_drvdata(pdev);
++	struct lpass_variant *variant = drvdata->variant;
  	struct device *dev = &pdev->dev;
- 	const struct of_device_id *match;
--	int ret, i, dai_id;
+-	int ret;
 +	int ret, i;
  
- 	dsp_of_node = of_parse_phandle(pdev->dev.of_node, "qcom,adsp", 0);
- 	if (dsp_of_node) {
-@@ -467,28 +493,15 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
- 		variant->init(pdev);
+-	drvdata->pcnoc_mport_clk = devm_clk_get(dev, "pcnoc-mport-clk");
+-	if (IS_ERR(drvdata->pcnoc_mport_clk)) {
+-		dev_err(&pdev->dev, "error getting pcnoc-mport-clk: %ld\n",
+-			PTR_ERR(drvdata->pcnoc_mport_clk));
+-		return PTR_ERR(drvdata->pcnoc_mport_clk);
+-	}
++	drvdata->clks = devm_kcalloc(dev, variant->num_clks,
++				     sizeof(*drvdata->clks), GFP_KERNEL);
++	drvdata->num_clks = variant->num_clks;
++
++	for (i = 0; i < drvdata->num_clks; i++)
++		drvdata->clks[i].id = variant->clk_name[i];
  
- 	for (i = 0; i < variant->num_dai; i++) {
--		dai_id = variant->dai_driver[i].id;
--		drvdata->mi2s_osr_clk[dai_id] = devm_clk_get(&pdev->dev,
--					     variant->dai_osr_clk_names[i]);
--		if (IS_ERR(drvdata->mi2s_osr_clk[dai_id])) {
--			dev_warn(&pdev->dev,
--				"%s() error getting optional %s: %ld\n",
--				__func__,
--				variant->dai_osr_clk_names[i],
--				PTR_ERR(drvdata->mi2s_osr_clk[dai_id]));
--
--			drvdata->mi2s_osr_clk[dai_id] = NULL;
--		}
-+		drvdata->dai_priv[i] = devm_kzalloc(dev,
-+						sizeof(struct lpass_dai),
-+						GFP_KERNEL);
-+	}
- 
--		drvdata->mi2s_bit_clk[dai_id] = devm_clk_get(&pdev->dev,
--						variant->dai_bit_clk_names[i]);
--		if (IS_ERR(drvdata->mi2s_bit_clk[dai_id])) {
--			dev_err(&pdev->dev,
--				"error getting %s: %ld\n",
--				variant->dai_bit_clk_names[i],
--				PTR_ERR(drvdata->mi2s_bit_clk[dai_id]));
--			return PTR_ERR(drvdata->mi2s_bit_clk[dai_id]);
--		}
-+	ret = lpass_init_dai_clocks(dev, drvdata);
-+	if (ret) {
-+		dev_err(&pdev->dev, "error intializing dai clock: %d\n", ret);
-+		return ret;
+-	ret = clk_prepare_enable(drvdata->pcnoc_mport_clk);
++	ret = devm_clk_bulk_get(dev, drvdata->num_clks, drvdata->clks);
+ 	if (ret) {
+-		dev_err(&pdev->dev, "Error enabling pcnoc-mport-clk: %d\n",
+-			ret);
++		dev_err(dev, "Failed to get clocks %d\n", ret);
+ 		return ret;
  	}
  
- 	drvdata->ahbix_clk = devm_clk_get(&pdev->dev, "ahbix-clk");
+-	drvdata->pcnoc_sway_clk = devm_clk_get(dev, "pcnoc-sway-clk");
+-	if (IS_ERR(drvdata->pcnoc_sway_clk)) {
+-		dev_err(&pdev->dev, "error getting pcnoc-sway-clk: %ld\n",
+-			PTR_ERR(drvdata->pcnoc_sway_clk));
+-		return PTR_ERR(drvdata->pcnoc_sway_clk);
+-	}
+-
+-	ret = clk_prepare_enable(drvdata->pcnoc_sway_clk);
++	ret = clk_bulk_prepare_enable(drvdata->num_clks, drvdata->clks);
+ 	if (ret) {
+-		dev_err(&pdev->dev, "Error enabling pcnoc_sway_clk: %d\n", ret);
++		dev_err(dev, "ao8016 clk_enable failed\n");
+ 		return ret;
+ 	}
+ 
+@@ -198,8 +191,7 @@ static int apq8016_lpass_exit(struct platform_device *pdev)
+ {
+ 	struct lpass_data *drvdata = platform_get_drvdata(pdev);
+ 
+-	clk_disable_unprepare(drvdata->pcnoc_mport_clk);
+-	clk_disable_unprepare(drvdata->pcnoc_sway_clk);
++	clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
+ 
+ 	return 0;
+ }
+@@ -220,6 +212,11 @@ static int apq8016_lpass_exit(struct platform_device *pdev)
+ 	.wrdma_reg_stride	= 0x1000,
+ 	.wrdma_channel_start	= 5,
+ 	.wrdma_channels		= 2,
++	.clk_name		= (const char*[]) {
++				   "pcnoc-mport-clk",
++				   "pcnoc-sway-clk",
++				  },
++	.num_clks		= 2,
+ 	.dai_driver		= apq8016_lpass_cpu_dai_driver,
+ 	.num_dai		= ARRAY_SIZE(apq8016_lpass_cpu_dai_driver),
+ 	.dai_osr_clk_names	= (const char *[]) {
 diff --git a/sound/soc/qcom/lpass.h b/sound/soc/qcom/lpass.h
-index 17113d3..b729686 100644
+index b729686..279cd02 100644
 --- a/sound/soc/qcom/lpass.h
 +++ b/sound/soc/qcom/lpass.h
-@@ -13,9 +13,14 @@
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
+@@ -49,9 +49,9 @@ struct lpass_data {
+ 	/* used it for handling interrupt per dma channel */
+ 	struct snd_pcm_substream *substream[LPASS_MAX_DMA_CHANNELS];
  
--#define LPASS_AHBIX_CLOCK_FREQUENCY		131072000
--#define LPASS_MAX_MI2S_PORTS			(8)
--#define LPASS_MAX_DMA_CHANNELS			(8)
-+#define LPASS_AHBIX_CLOCK_FREQUENCY            131072000
-+#define LPASS_MAX_MI2S_PORTS                   (8)
-+#define LPASS_MAX_DMA_CHANNELS                 (8)
+-	/* 8016 specific */
+-	struct clk *pcnoc_mport_clk;
+-	struct clk *pcnoc_sway_clk;
++	/* SOC specific clock list */
++	struct clk_bulk_data *clks;
++	int num_clks;
+ 
+ };
+ 
+@@ -87,6 +87,10 @@ struct lpass_variant {
+ 	int num_dai;
+ 	const char * const *dai_osr_clk_names;
+ 	const char * const *dai_bit_clk_names;
 +
-+struct lpass_dai {
-+	struct clk *osr_clk;
-+	struct clk *bit_clk;
-+};
++	/* SOC specific clocks configuration */
++	const char **clk_name;
++	int num_clks;
+ };
  
- /* Both the CPU DAI and platform drivers will access this data */
- struct lpass_data {
-@@ -23,11 +28,8 @@ struct lpass_data {
- 	/* AHB-I/X bus clocks inside the low-power audio subsystem (LPASS) */
- 	struct clk *ahbix_clk;
- 
--	/* MI2S system clock */
--	struct clk *mi2s_osr_clk[LPASS_MAX_MI2S_PORTS];
--
--	/* MI2S bit clock (derived from system clock by a divider */
--	struct clk *mi2s_bit_clk[LPASS_MAX_MI2S_PORTS];
-+	/* MI2S dai specific configuration */
-+	struct lpass_dai *dai_priv[LPASS_MAX_MI2S_PORTS];
- 
- 	/* low-power audio interface (LPAIF) registers */
- 	void __iomem *lpaif;
+ /* register the platform driver from the CPU DAI driver */
 -- 
 1.9.1

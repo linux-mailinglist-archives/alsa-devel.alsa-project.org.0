@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01F771A5D74
-	for <lists+alsa-devel@lfdr.de>; Sun, 12 Apr 2020 10:17:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C8F21A5D70
+	for <lists+alsa-devel@lfdr.de>; Sun, 12 Apr 2020 10:16:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A111416AC;
-	Sun, 12 Apr 2020 10:17:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A111416AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1BFB16C9;
+	Sun, 12 Apr 2020 10:15:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1BFB16C9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586679473;
-	bh=1bxWBqeAwDo1AfQ6yG4vA7hUI6h8v01hJZnhyeE1bxU=;
+	s=default; t=1586679373;
+	bh=5S8uxD9r+wlkF2v/k6tQ1jjbhG3dpGLL8wet4N+KeR8=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qmxiYd+faT+Wnb+InX/0/mSzD401s6VJtrzC+/dCx4Pw/7g2JZpLX59a+1fC9nQz5
-	 EnTrHaD/hjH5LKSZ061lV4s9aCeiSmy0qHZqA10HZB66HWpnZPvT8JO11q+4gINfvf
-	 7oNMt4nxAlbwnHiYLN5kKT/H2IZzmDNSWSAwQjm0=
+	b=HRKVBPpepHljSbFdBCjKQwRCE8HvAG3NQU/u6T/5MCNf2kDTM5SQg8lrR2vnUz1mh
+	 7sHh6V1aRI01T5/MQiVr45SGHb3eoDLhuIdaEj5owkcxJzfN7WsktSJhZw3ugWaC2w
+	 RCFVyOF3NKEUOAyDeuHCblH6fcjUDCIg+Kebh6uY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E14F4F8029B;
-	Sun, 12 Apr 2020 10:14:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3C84F8027C;
+	Sun, 12 Apr 2020 10:13:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 50BA2F80229; Sun, 12 Apr 2020 10:13:51 +0200 (CEST)
+ id 9A280F80229; Sun, 12 Apr 2020 10:13:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,19 +34,19 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E816DF8013D
- for <alsa-devel@alsa-project.org>; Sun, 12 Apr 2020 10:13:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E816DF8013D
+ by alsa1.perex.cz (Postfix) with ESMTPS id F08D9F8016F
+ for <alsa-devel@alsa-project.org>; Sun, 12 Apr 2020 10:13:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F08D9F8016F
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 37638AE41
+ by mx2.suse.de (Postfix) with ESMTP id 4603EAE47
  for <alsa-devel@alsa-project.org>; Sun, 12 Apr 2020 08:13:36 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 3/4] ALSA: usb-audio: Don't create jack controls for PCM
- terminals
-Date: Sun, 12 Apr 2020 10:13:30 +0200
-Message-Id: <20200412081331.4742-4-tiwai@suse.de>
+Subject: [PATCH 4/4] ALSA: usb-audio: Check mapping at creating connector
+ controls, too
+Date: Sun, 12 Apr 2020 10:13:31 +0200
+Message-Id: <20200412081331.4742-5-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20200412081331.4742-1-tiwai@suse.de>
 References: <20200412081331.4742-1-tiwai@suse.de>
@@ -65,52 +65,103 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Some funky firmwares set the connector flag even on PCM terminals
-although it doesn't make sense (and even actually the firmware doesn't
-react properly!).  Let's skip creation of jack controls in such a
-case.
+Add the mapping check to build_connector_control() so that the device
+specific quirk can provide the node to skip for the badly behaving
+connector controls.  As an example, ALC1220-VB-based codec implements
+the skip entry for the broken SPDIF connector detection.
 
 BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=206873
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/usb/mixer.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ sound/usb/mixer.c      | 18 +++++++++++-------
+ sound/usb/mixer_maps.c |  4 +++-
+ 2 files changed, 14 insertions(+), 8 deletions(-)
 
 diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index 83926b1be53b..ab9c908a8771 100644
+index ab9c908a8771..e7b9040a54e6 100644
 --- a/sound/usb/mixer.c
 +++ b/sound/usb/mixer.c
-@@ -2109,7 +2109,8 @@ static int parse_audio_input_terminal(struct mixer_build *state, int unitid,
- 	check_input_term(state, term_id, &iterm);
+@@ -1771,11 +1771,15 @@ static void get_connector_control_name(struct usb_mixer_interface *mixer,
  
+ /* Build a mixer control for a UAC connector control (jack-detect) */
+ static void build_connector_control(struct usb_mixer_interface *mixer,
++				    const struct usbmix_name_map *imap,
+ 				    struct usb_audio_term *term, bool is_input)
+ {
+ 	struct snd_kcontrol *kctl;
+ 	struct usb_mixer_elem_info *cval;
+ 
++	if (check_ignored_ctl(find_map(imap, term->id, 0)))
++		return;
++
+ 	cval = kzalloc(sizeof(*cval), GFP_KERNEL);
+ 	if (!cval)
+ 		return;
+@@ -2111,7 +2115,7 @@ static int parse_audio_input_terminal(struct mixer_build *state, int unitid,
  	/* Check for jack detection. */
--	if (uac_v2v3_control_is_readable(bmctls, control))
-+	if ((iterm.type & 0xff00) != 0x0100 &&
-+	    uac_v2v3_control_is_readable(bmctls, control))
- 		build_connector_control(state->mixer, &iterm, true);
+ 	if ((iterm.type & 0xff00) != 0x0100 &&
+ 	    uac_v2v3_control_is_readable(bmctls, control))
+-		build_connector_control(state->mixer, &iterm, true);
++		build_connector_control(state->mixer, state->map, &iterm, true);
  
  	return 0;
-@@ -3149,7 +3150,8 @@ static int snd_usb_mixer_controls(struct usb_mixer_interface *mixer)
- 			if (err < 0 && err != -EINVAL)
- 				return err;
+ }
+@@ -3072,13 +3076,13 @@ static int snd_usb_mixer_controls_badd(struct usb_mixer_interface *mixer,
+ 		memset(&iterm, 0, sizeof(iterm));
+ 		iterm.id = UAC3_BADD_IT_ID4;
+ 		iterm.type = UAC_BIDIR_TERMINAL_HEADSET;
+-		build_connector_control(mixer, &iterm, true);
++		build_connector_control(mixer, map->map, &iterm, true);
  
--			if (uac_v2v3_control_is_readable(le16_to_cpu(desc->bmControls),
-+			if ((state.oterm.type & 0xff00) != 0x0100 &&
-+			    uac_v2v3_control_is_readable(le16_to_cpu(desc->bmControls),
+ 		/* Output Term - Insertion control */
+ 		memset(&oterm, 0, sizeof(oterm));
+ 		oterm.id = UAC3_BADD_OT_ID3;
+ 		oterm.type = UAC_BIDIR_TERMINAL_HEADSET;
+-		build_connector_control(mixer, &oterm, false);
++		build_connector_control(mixer, map->map, &oterm, false);
+ 	}
+ 
+ 	return 0;
+@@ -3153,8 +3157,8 @@ static int snd_usb_mixer_controls(struct usb_mixer_interface *mixer)
+ 			if ((state.oterm.type & 0xff00) != 0x0100 &&
+ 			    uac_v2v3_control_is_readable(le16_to_cpu(desc->bmControls),
  							 UAC2_TE_CONNECTOR)) {
- 				build_connector_control(state.mixer, &state.oterm,
- 							false);
-@@ -3174,7 +3176,8 @@ static int snd_usb_mixer_controls(struct usb_mixer_interface *mixer)
- 			if (err < 0 && err != -EINVAL)
- 				return err;
- 
--			if (uac_v2v3_control_is_readable(le32_to_cpu(desc->bmControls),
-+			if ((state.oterm.type & 0xff00) != 0x0100 &&
-+			    uac_v2v3_control_is_readable(le32_to_cpu(desc->bmControls),
+-				build_connector_control(state.mixer, &state.oterm,
+-							false);
++				build_connector_control(state.mixer, state.map,
++							&state.oterm, false);
+ 			}
+ 		} else {  /* UAC_VERSION_3 */
+ 			struct uac3_output_terminal_descriptor *desc = p;
+@@ -3179,8 +3183,8 @@ static int snd_usb_mixer_controls(struct usb_mixer_interface *mixer)
+ 			if ((state.oterm.type & 0xff00) != 0x0100 &&
+ 			    uac_v2v3_control_is_readable(le32_to_cpu(desc->bmControls),
  							 UAC3_TE_INSERTION)) {
- 				build_connector_control(state.mixer, &state.oterm,
- 							false);
+-				build_connector_control(state.mixer, &state.oterm,
+-							false);
++				build_connector_control(state.mixer, state.map,
++							&state.oterm, false);
+ 			}
+ 		}
+ 	}
+diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
+index 72b575c34860..b4e77000f441 100644
+--- a/sound/usb/mixer_maps.c
++++ b/sound/usb/mixer_maps.c
+@@ -360,9 +360,11 @@ static const struct usbmix_name_map corsair_virtuoso_map[] = {
+ };
+ 
+ /* Some mobos shipped with a dummy HD-audio show the invalid GET_MIN/GET_MAX
+- * response for Input Gain Pad (id=19, control=12).  Skip it.
++ * response for Input Gain Pad (id=19, control=12) and the connector status
++ * for SPDIF terminal (id=18).  Skip them.
+  */
+ static const struct usbmix_name_map asus_rog_map[] = {
++	{ 18, NULL }, /* OT, connector control */
+ 	{ 19, NULL, 12 }, /* FU, Input Gain Pad */
+ 	{}
+ };
 -- 
 2.16.4
 

@@ -2,54 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C8F21A5D70
-	for <lists+alsa-devel@lfdr.de>; Sun, 12 Apr 2020 10:16:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 229E71A7533
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 09:52:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D1BFB16C9;
-	Sun, 12 Apr 2020 10:15:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1BFB16C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id BCEF116A2;
+	Tue, 14 Apr 2020 09:51:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCEF116A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586679373;
-	bh=5S8uxD9r+wlkF2v/k6tQ1jjbhG3dpGLL8wet4N+KeR8=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=HRKVBPpepHljSbFdBCjKQwRCE8HvAG3NQU/u6T/5MCNf2kDTM5SQg8lrR2vnUz1mh
-	 7sHh6V1aRI01T5/MQiVr45SGHb3eoDLhuIdaEj5owkcxJzfN7WsktSJhZw3ugWaC2w
-	 RCFVyOF3NKEUOAyDeuHCblH6fcjUDCIg+Kebh6uY=
+	s=default; t=1586850729;
+	bh=ZxmgDJQCYvN5UDrL1T5SEa/OomP0wN7bxg+1duIt/Lg=;
+	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=irQaf2O/1+dQ+fzZKxZuI69ls6vsbgcrBDp9ltGlqeh61fdRGETr7+MhiqWnmZavs
+	 NPYgeDOLt9UCnxpL8RmX66VHPj4d5n39OEqKpi5pPS4OSN62hvnETB1eWJ4mvc2l7X
+	 Gi+wr/+tDbenOco4mPc7smrDqWpBIqbCkAa2q4Dw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3C84F8027C;
-	Sun, 12 Apr 2020 10:13:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CEA4AF80315;
+	Tue, 14 Apr 2020 09:42:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9A280F80229; Sun, 12 Apr 2020 10:13:43 +0200 (CEST)
+ id 0881BF8013D; Sun, 12 Apr 2020 13:43:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, SPF_HELO_NONE, SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-yb1-xb42.google.com (mail-yb1-xb42.google.com
+ [IPv6:2607:f8b0:4864:20::b42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F08D9F8016F
- for <alsa-devel@alsa-project.org>; Sun, 12 Apr 2020 10:13:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F08D9F8016F
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 4603EAE47
- for <alsa-devel@alsa-project.org>; Sun, 12 Apr 2020 08:13:36 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9D917F800B6
+ for <alsa-devel@alsa-project.org>; Sun, 12 Apr 2020 13:42:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D917F800B6
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="CL8dalZj"
+Received: by mail-yb1-xb42.google.com with SMTP id t10so3761963ybk.8
+ for <alsa-devel@alsa-project.org>; Sun, 12 Apr 2020 04:42:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=DlNubOsGgG9UnvRSmJsP6nkFgf/TGrRpd6lbJPBtZIM=;
+ b=CL8dalZjC7YzahQHAtKyld4xUc2hrOr3Ikd5KbThOImr8svFvepVXg7wCBKwP4Ue4b
+ 4a7V0jzah0cSLx7lIzNof3N2I3j/PEB/UmYfIFeOACpDTF/7lon4fKCBRmS4C8+WCFAO
+ 4QlAoXJBg2Ily8OZE1eNzHu1uEkpR50vKgWvl3r3LOmywrR/R5Eu8GhlvEZMsqZHr5fd
+ JkvTQicK3mmE+OTjgiifbv6I3QzySU1IdP3I3MOfKqN8M8HVoHnVBFYYckYuYiPPby9U
+ 0L9lSK0GjjaNH7C3XV5xeHnj9O6GC4N6WXcEPyzcjy1BpjfeHcR1G5Sdc755Jw2CI6zt
+ HTDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=DlNubOsGgG9UnvRSmJsP6nkFgf/TGrRpd6lbJPBtZIM=;
+ b=MNQzC5DOrcOGKL1Pu+DF+sKChF76k4122B9YB6sgPmic33EUKqCYN3z+NGHIdFkJ7w
+ X8aAAIRTmVOpGTtafVIIk9QYbBn2tnxcad0/9clQW5Hi4q7JEWloFLyNf7ImjuuU/GDg
+ pDi5C9ZXHvmQo0uyMm97cL3EJMltRWhmELATisvSar+NS6csJwNse23KTIcl+o39v4t7
+ ilQCBUSIgCHADHjAv/qP43lOl0E4JLk6addjiMLrcr78e890tQOaTYP/+ExF9nKMXkxY
+ lrcqnqhb2AY4jPTqoqGFcUdOoUl7gBO8pvxr8MWE+z5bajh13jZbKuS3928GIO63RTgO
+ x7mA==
+X-Gm-Message-State: AGi0Pub/QyI960Wh+zj6AoAdCsviUpFAezML7NLqDUZNMSyG6EEkHWhO
+ G5waE6iUse4DD/6Rc4iMZhjEZPQjBHq/1w1V9QX7LkdfUDdywR57HLg=
+X-Google-Smtp-Source: APiQypK3PGCfgg/NCGRNGvVh3jwQ6opk3PigVFaJTEkkyk/f0ZabcJk1UxbXQ5DeL338fsFqAe/+ls5KgraTjouXFMw=
+X-Received: by 2002:a25:800f:: with SMTP id m15mr18976982ybk.320.1586691777525; 
+ Sun, 12 Apr 2020 04:42:57 -0700 (PDT)
+MIME-Version: 1.0
+From: n c <ironincoder@gmail.com>
+Date: Sun, 12 Apr 2020 11:42:46 +0000
+Message-ID: <CAHTAdq1bmbjHu9fuK-TV-wG2aVCgGTYdhorQjV7LE+Myv1W0xQ@mail.gmail.com>
+Subject: desperate to find a fix for ALC298
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 4/4] ALSA: usb-audio: Check mapping at creating connector
- controls, too
-Date: Sun, 12 Apr 2020 10:13:31 +0200
-Message-Id: <20200412081331.4742-5-tiwai@suse.de>
-X-Mailer: git-send-email 2.16.4
-In-Reply-To: <20200412081331.4742-1-tiwai@suse.de>
-References: <20200412081331.4742-1-tiwai@suse.de>
+X-Mailman-Approved-At: Tue, 14 Apr 2020 09:41:56 +0200
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,103 +90,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add the mapping check to build_connector_control() so that the device
-specific quirk can provide the node to skip for the badly behaving
-connector controls.  As an example, ALC1220-VB-based codec implements
-the skip entry for the broken SPDIF connector detection.
+Kernel: linux5.6 (source here
+<https://github.com/torvalds/linux/releases/tag/v5.6>)
+Distro: Tried most for months since linux5.4 (currently on manjaro)
+Desktop: gnome
+Alsa-info: (pastebin here <https://pastebin.com/w35JGdGu>)
+Any configs: No just the defaults (no alsa/.asound, pulse/client.conf
+etc...)
+Cards: Single on-board Realtek ALC298
 
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=206873
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/mixer.c      | 18 +++++++++++-------
- sound/usb/mixer_maps.c |  4 +++-
- 2 files changed, 14 insertions(+), 8 deletions(-)
+*Issue*
+On-board sound does not work at all. Neither on speakers or headphones, no
+matter which distro or kernel I tried (since 5.4+ of course).
 
-diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index ab9c908a8771..e7b9040a54e6 100644
---- a/sound/usb/mixer.c
-+++ b/sound/usb/mixer.c
-@@ -1771,11 +1771,15 @@ static void get_connector_control_name(struct usb_mixer_interface *mixer,
- 
- /* Build a mixer control for a UAC connector control (jack-detect) */
- static void build_connector_control(struct usb_mixer_interface *mixer,
-+				    const struct usbmix_name_map *imap,
- 				    struct usb_audio_term *term, bool is_input)
- {
- 	struct snd_kcontrol *kctl;
- 	struct usb_mixer_elem_info *cval;
- 
-+	if (check_ignored_ctl(find_map(imap, term->id, 0)))
-+		return;
-+
- 	cval = kzalloc(sizeof(*cval), GFP_KERNEL);
- 	if (!cval)
- 		return;
-@@ -2111,7 +2115,7 @@ static int parse_audio_input_terminal(struct mixer_build *state, int unitid,
- 	/* Check for jack detection. */
- 	if ((iterm.type & 0xff00) != 0x0100 &&
- 	    uac_v2v3_control_is_readable(bmctls, control))
--		build_connector_control(state->mixer, &iterm, true);
-+		build_connector_control(state->mixer, state->map, &iterm, true);
- 
- 	return 0;
- }
-@@ -3072,13 +3076,13 @@ static int snd_usb_mixer_controls_badd(struct usb_mixer_interface *mixer,
- 		memset(&iterm, 0, sizeof(iterm));
- 		iterm.id = UAC3_BADD_IT_ID4;
- 		iterm.type = UAC_BIDIR_TERMINAL_HEADSET;
--		build_connector_control(mixer, &iterm, true);
-+		build_connector_control(mixer, map->map, &iterm, true);
- 
- 		/* Output Term - Insertion control */
- 		memset(&oterm, 0, sizeof(oterm));
- 		oterm.id = UAC3_BADD_OT_ID3;
- 		oterm.type = UAC_BIDIR_TERMINAL_HEADSET;
--		build_connector_control(mixer, &oterm, false);
-+		build_connector_control(mixer, map->map, &oterm, false);
- 	}
- 
- 	return 0;
-@@ -3153,8 +3157,8 @@ static int snd_usb_mixer_controls(struct usb_mixer_interface *mixer)
- 			if ((state.oterm.type & 0xff00) != 0x0100 &&
- 			    uac_v2v3_control_is_readable(le16_to_cpu(desc->bmControls),
- 							 UAC2_TE_CONNECTOR)) {
--				build_connector_control(state.mixer, &state.oterm,
--							false);
-+				build_connector_control(state.mixer, state.map,
-+							&state.oterm, false);
- 			}
- 		} else {  /* UAC_VERSION_3 */
- 			struct uac3_output_terminal_descriptor *desc = p;
-@@ -3179,8 +3183,8 @@ static int snd_usb_mixer_controls(struct usb_mixer_interface *mixer)
- 			if ((state.oterm.type & 0xff00) != 0x0100 &&
- 			    uac_v2v3_control_is_readable(le32_to_cpu(desc->bmControls),
- 							 UAC3_TE_INSERTION)) {
--				build_connector_control(state.mixer, &state.oterm,
--							false);
-+				build_connector_control(state.mixer, state.map,
-+							&state.oterm, false);
- 			}
- 		}
- 	}
-diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
-index 72b575c34860..b4e77000f441 100644
---- a/sound/usb/mixer_maps.c
-+++ b/sound/usb/mixer_maps.c
-@@ -360,9 +360,11 @@ static const struct usbmix_name_map corsair_virtuoso_map[] = {
- };
- 
- /* Some mobos shipped with a dummy HD-audio show the invalid GET_MIN/GET_MAX
-- * response for Input Gain Pad (id=19, control=12).  Skip it.
-+ * response for Input Gain Pad (id=19, control=12) and the connector status
-+ * for SPDIF terminal (id=18).  Skip them.
-  */
- static const struct usbmix_name_map asus_rog_map[] = {
-+	{ 18, NULL }, /* OT, connector control */
- 	{ 19, NULL, 12 }, /* FU, Input Gain Pad */
- 	{}
- };
--- 
-2.16.4
+*Have I asked the community?*
+I have a SO question here
+<https://unix.stackexchange.com/questions/579486/alsa-pulseaudio-and-intel-hda-pch-with-no-sound>
+and a manjaro topic here
+<https://forum.manjaro.org/t/alsa-pulseaudio-and-intel-hda-pch-with-no-sound>
+.
 
+*Have I tried fixing it myself?*
+Yes, a lot. The threads above both have a lot of information in them.
+Highlight of my debugging so far is that the codec pin "0x1a" has an
+incorrect VREF assigned to it (HIZ). Found this by accident when using
+hda-analyzer. Changing it to VREF 50, 80 or 100 fixes the headphones. Have
+no idea how to persist it using init_verbs (don't know how to package the
+new value 0x05), so wrote a systemd file to hack it using hda-verb utility
+at startup. It stopped working eventually or sometimes had to stop/restart
+the service to reissue the change. I read somewhere that the incorrect VREF
+is a sign of UEFI/BIOS chip assigning incorrect speaker pins. Although I
+could not get the speakers working at all using any utilities mentioned
+above.
+
+Thank you for reading,

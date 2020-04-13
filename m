@@ -2,67 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 167741A63FC
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Apr 2020 10:17:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDD161A6402
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Apr 2020 10:23:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 82DC616DF;
-	Mon, 13 Apr 2020 10:17:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82DC616DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 61A3A16EB;
+	Mon, 13 Apr 2020 10:22:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61A3A16EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586765877;
-	bh=XUAzvaVMOvP3VSTj5tI89pzT2fEHROejFliLYuSHZJ4=;
+	s=default; t=1586766193;
+	bh=HP9DVudVJVHQYnNfYXdNXgmdUdxQiEcnkGl0pSU/kAg=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=jKkWGfPAa80DepqHSzx/hT8PVyWhzwTUihV5jW1zrENwS8NDuVD7av9uAhJ6BxyiM
-	 ncikNBEZ1xkthQMeLkR9coRpCO1S9IhPceZwoeKbkpwZNxINbn6N1+j52UWm1u1xaq
-	 /tdcUS6aZRhWPq2SGCTCWiLFyP8oz5RpMaPLOdRM=
+	b=GN2sdCBH+uNFwNPQI7DYeSYed2wQCx5P5VB9TtLe8PeAnb/M3W0bYLB29W0OZO6/o
+	 6nSMEsT0HtjE9LcTZKGcsPL+agAiqGez06NkGsKDGVwBJuxS/37/7ONo5zlWM6IhaX
+	 YzSOwjq2IQCj+1S8iDQEehvzjfQuQgeIepMprAlo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9E20EF8025F;
-	Mon, 13 Apr 2020 10:16:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E616BF8028B;
+	Mon, 13 Apr 2020 10:20:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9A905F80245; Mon, 13 Apr 2020 10:16:13 +0200 (CEST)
+ id 1C42EF8028C; Mon, 13 Apr 2020 10:20:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C878AF800B9
- for <alsa-devel@alsa-project.org>; Mon, 13 Apr 2020 10:16:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C878AF800B9
-IronPort-SDR: yI4oyiMzpxtGQQYvAP8zDkWuZhGZxRphehjGyM2dXKczXt2DGN/Qt7NUH8nPt7OE6ealdFzyGB
- XKAfeklr7M+w==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2020 01:16:06 -0700
-IronPort-SDR: LMtMC2kw108QPa4vZkYR1RcM22cb0TDcUaSzwuq3e3b9zFGeYHIfbCaV+ODipKT4ZoPeMi8wlc
- XpDLiqh5W78w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,378,1580803200"; d="scan'208";a="245088427"
-Received: from brentlu-desk0.itwn.intel.com ([10.5.253.11])
- by fmsmga008.fm.intel.com with ESMTP; 13 Apr 2020 01:16:04 -0700
-From: Brent Lu <brent.lu@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 24B9FF80245
+ for <alsa-devel@alsa-project.org>; Mon, 13 Apr 2020 10:20:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24B9FF80245
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 67412AC26;
+ Mon, 13 Apr 2020 08:20:39 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: bdw-rt5650: incorrect rate of PCM data
-Date: Mon, 13 Apr 2020 16:09:18 +0800
-Message-Id: <1586765358-18474-1-git-send-email-brent.lu@intel.com>
-X-Mailer: git-send-email 2.7.4
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Ben Zhang <benzh@chromium.org>, Mac Chiang <mac.chiang@intel.com>,
- Mark Brown <broonie@kernel.org>, Brent Lu <brent.lu@intel.com>
+Subject: [PATCH 0/6] ALSA: hda: Fix/improve no-codec bus
+Date: Mon, 13 Apr 2020 10:20:28 +0200
+Message-Id: <20200413082034.25166-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.16.4
+Cc: Roy Spliet <nouveau@spliet.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,63 +61,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Implement a constrain to exclude 3-channel capture since only 2 and 4
-channel capture are supported on the platform.
+Hi,
 
-Signed-off-by: Brent Lu <brent.lu@intel.com>
----
- sound/soc/intel/boards/bdw-rt5650.c | 31 +++++++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+here is a patch set for fixing / improving the error handling of
+HD-audio bus without codecs, which can be seen on some GPUs, for
+example.
 
-diff --git a/sound/soc/intel/boards/bdw-rt5650.c b/sound/soc/intel/boards/bdw-rt5650.c
-index af2f502..eedbdad 100644
---- a/sound/soc/intel/boards/bdw-rt5650.c
-+++ b/sound/soc/intel/boards/bdw-rt5650.c
-@@ -83,6 +83,36 @@ static struct snd_soc_jack_pin mic_jack_pin = {
- 	.mask	= SND_JACK_MICROPHONE,
- };
- 
-+static const unsigned int channels[] = {
-+	2, 4,
-+};
-+
-+static const struct snd_pcm_hw_constraint_list constraints_channels = {
-+	.count = ARRAY_SIZE(channels),
-+	.list = channels,
-+	.mask = 0,
-+};
-+
-+static int bdw_fe_startup(struct snd_pcm_substream *substream)
-+{
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+
-+	/*
-+	 * On this platform for PCM device we support,
-+	 * 2 or 4 channel capture
-+	 */
-+	if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
-+		snd_pcm_hw_constraint_list(runtime, 0,
-+					   SNDRV_PCM_HW_PARAM_CHANNELS,
-+					   &constraints_channels);
-+
-+	return 0;
-+}
-+
-+static const struct snd_soc_ops bdw_rt5650_fe_ops = {
-+	.startup = bdw_fe_startup,
-+};
-+
- static int broadwell_ssp0_fixup(struct snd_soc_pcm_runtime *rtd,
- 			struct snd_pcm_hw_params *params)
- {
-@@ -234,6 +264,7 @@ static struct snd_soc_dai_link bdw_rt5650_dais[] = {
- 		.name = "System PCM",
- 		.stream_name = "System Playback",
- 		.dynamic = 1,
-+		.ops = &bdw_rt5650_fe_ops,
- #if !IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
- 		.init = bdw_rt5650_rtd_init,
- #endif
+It's been debugged and tested in bugzilla:
+  https://bugzilla.kernel.org/show_bug.cgi?id=207043
+
+
+Takashi
+
+===
+
+Roy Spliet (1):
+  ALSA: hda: Explicitly permit using autosuspend if runtime PM is
+    supported
+
+Takashi Iwai (5):
+  ALSA: hda: Don't release card at firmware loading error
+  ALSA: hda: Honor PM disablement in PM freeze and thaw_noirq ops
+  ALSA: hda: Release resources at error in delayed probe
+  ALSA: hda: Keep the controller initialization even if no codecs found
+  ALSA: hda: Skip controller resume if not needed
+
+ include/sound/hda_codec.h |   5 +++
+ sound/pci/hda/hda_codec.c |   2 +-
+ sound/pci/hda/hda_intel.c | 106 +++++++++++++++++++++++++++-------------------
+ sound/pci/hda/hda_intel.h |   1 +
+ 4 files changed, 69 insertions(+), 45 deletions(-)
+
 -- 
-2.7.4
+2.16.4
 

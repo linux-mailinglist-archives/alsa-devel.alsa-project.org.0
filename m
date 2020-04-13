@@ -2,74 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD0E71A6563
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Apr 2020 12:49:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B61451A7539
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 09:53:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62AE116FD;
-	Mon, 13 Apr 2020 12:48:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62AE116FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 61CF91691;
+	Tue, 14 Apr 2020 09:52:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61CF91691
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586774980;
-	bh=pwHXmNdTrdD5im5ZdqooE890HFVV5Zh0aQOgenrQ3qM=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1586850795;
+	bh=34NOXLlEHBTtMhKyNDIX7ns/BCxDiQlvNC2AqXBCRn0=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TDgaubUrYQ7ls4ocTfpCr/eFmIASTW8Y7BFybOMz7LBTnVhiQ/Zmn5lYzFbTsv/0k
-	 DPRNYaqN8D+8wioQ/maRKhQ6PJI2/Quw3KkhXHREaqKm1Qs4wDjlMGyz85PVCSsk1m
-	 hx6MYLPB82/tOtrYt36jVYZoTPU4qcv2CqCtDCk4=
+	b=l0uil74mxaTv1NlrZLooR2YZ0kU392+oFqkAo6Epjnwr7DEHzE6YwQyzpmPU+Pebt
+	 0vXUTniqbCYa9vN3SXsfzf0+aSW2+ujKXTUhEDIEuckk99PmDfJvdy627qeCwrYJLq
+	 VtV7vHlb4AbPPigKO9m+gb+e223cvt7hfhDw6oxs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D8CACF800B9;
-	Mon, 13 Apr 2020 12:47:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46412F80332;
+	Tue, 14 Apr 2020 09:42:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 99E32F8028A; Mon, 13 Apr 2020 12:47:09 +0200 (CEST)
+ id 6E16AF80245; Mon, 13 Apr 2020 12:53:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B63DEF800B9
- for <alsa-devel@alsa-project.org>; Mon, 13 Apr 2020 12:47:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B63DEF800B9
-IronPort-SDR: NqmTR+3KfmpJe6DNvxLgpI2Q2HBRunguQlnJVDkgPdAi/un+OvIqU0EqDJXtqjFFq5/Iv1QJfB
- ZL6LbLQ4uPFw==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2020 03:47:02 -0700
-IronPort-SDR: ayMz8icoKuu1Cou9MhiqAeFL4MrjUzbHqplQK9F8EJo6KijVa0uvvgu/BoL+PHlCTnE7p2iB+x
- OduldT/7UWAw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,378,1580803200"; d="scan'208";a="243507850"
-Received: from ftehrig-mobl.amr.corp.intel.com (HELO [10.209.82.92])
- ([10.209.82.92])
- by fmsmga007.fm.intel.com with ESMTP; 13 Apr 2020 03:47:00 -0700
-Subject: Re: [PATCH v2] ASoC: bdw-rt5650: remove 3-channel capture support
-To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
-References: <1586766533-18557-1-git-send-email-brent.lu@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <9a484795-ea4a-e559-4ea9-3de24417ec9b@linux.intel.com>
-Date: Mon, 13 Apr 2020 05:18:33 -0500
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mupuf.org (mupuf.org [167.71.42.210])
+ by alsa1.perex.cz (Postfix) with ESMTP id 7DA5AF800B9
+ for <alsa-devel@alsa-project.org>; Mon, 13 Apr 2020 12:53:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7DA5AF800B9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=spliet.org header.i=@spliet.org
+ header.b="eId0IXPb"
+Received: from [10.249.163.62] (global-5-181.nat-2.net.cam.ac.uk
+ [131.111.5.181])
+ by Neelix.spliet.org (Postfix) with ESMTPSA id 47A3E60033;
+ Mon, 13 Apr 2020 11:52:56 +0100 (BST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 Neelix.spliet.org 47A3E60033
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=spliet.org;
+ s=default; t=1586775176;
+ bh=NpkrioZSBpH2AJPgU+1uCo+bdupY0Z/fsQgonpO3mM0=;
+ h=Subject:To:References:From:Date:In-Reply-To:From;
+ b=eId0IXPb2J+pldvO0gjk9GO+UAmRdPBovACr+O33ed01eo55pBPyBbIY1nl4oxruI
+ LzwUKhshz+/BBJY5JeDtYtbPUPwvSiSGtVlweUnqO2ZgFEECu7tFgmV0owDpJw9lQE
+ YillodaDmGWWNYyU6yGdebi9Hm0WhMNr7sOXzEAM=
+Subject: Re: [PATCH 4/6] ALSA: hda: Keep the controller initialization even if
+ no codecs found
+To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
+References: <20200413082034.25166-1-tiwai@suse.de>
+ <20200413082034.25166-5-tiwai@suse.de>
+From: Roy Spliet <nouveau@spliet.org>
+Message-ID: <ec79a499-3b55-3bea-13ff-9e3802d6b092@spliet.org>
+Date: Mon, 13 Apr 2020 11:52:55 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <1586766533-18557-1-git-send-email-brent.lu@intel.com>
+In-Reply-To: <20200413082034.25166-5-tiwai@suse.de>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Jie Yang <yang.jie@linux.intel.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Ben Zhang <benzh@chromium.org>, Mac Chiang <mac.chiang@intel.com>,
- Mark Brown <broonie@kernel.org>
+X-Virus-Scanned: clamav-milter 0.102.2 at Neelix
+X-Virus-Status: Clean
+X-Mailman-Approved-At: Tue, 14 Apr 2020 09:41:48 +0200
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,73 +83,64 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-
-On 4/13/20 3:28 AM, Brent Lu wrote:
-> Implement a constrain to exclude 3-channel capture since only 2 and 4
-> channel capture are supported on the platform.
-
-That looks like an error caught by the ALSA conformance tool?
-
-What are the odds that we have a similar issue with the other broadwell 
-drivers which don't have a constraint on the number of channels either 
-on their 'System PCM' dailink?
-
-Thanks
--Pierre
-
+Op 13-04-2020 om 09:20 schreef Takashi Iwai:
+> Currently, when the HD-audio controller driver doesn't detect any
+> codecs, it tries to abort the probe.  But this abort happens at the
+> delayed probe, i.e. the primary probe call already returned success,
+> hence the driver is never unbound until user does so explicitly.
+> As a result, it may leave the HD-audio device in the running state
+> without the runtime PM.  More badly, if the device is a HD-audio bus
+> that is tied with a GPU, GPU cannot reach to the full power down and
+> consumes unnecessarily much power.
 > 
-> Signed-off-by: Brent Lu <brent.lu@intel.com>
+> This patch changes the logic after no-codec situation; it continues
+> probing without the further codec initialization but keep the
+> controller driver running normally.
+> 
+> BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=207043
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+
+Tested-by: Roy Spliet <nouveau@spliet.org>
+
 > ---
->   sound/soc/intel/boards/bdw-rt5650.c | 31 +++++++++++++++++++++++++++++++
->   1 file changed, 31 insertions(+)
+>   sound/pci/hda/hda_intel.c | 12 +++++++-----
+>   1 file changed, 7 insertions(+), 5 deletions(-)
 > 
-> diff --git a/sound/soc/intel/boards/bdw-rt5650.c b/sound/soc/intel/boards/bdw-rt5650.c
-> index af2f502..eedbdad 100644
-> --- a/sound/soc/intel/boards/bdw-rt5650.c
-> +++ b/sound/soc/intel/boards/bdw-rt5650.c
-> @@ -83,6 +83,36 @@ static struct snd_soc_jack_pin mic_jack_pin = {
->   	.mask	= SND_JACK_MICROPHONE,
->   };
+> diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+> index 692857904d49..aa0be85614b6 100644
+> --- a/sound/pci/hda/hda_intel.c
+> +++ b/sound/pci/hda/hda_intel.c
+> @@ -2009,7 +2009,7 @@ static int azx_first_init(struct azx *chip)
+>   	/* codec detection */
+>   	if (!azx_bus(chip)->codec_mask) {
+>   		dev_err(card->dev, "no codecs found!\n");
+> -		return -ENODEV;
+> +		/* keep running the rest for the runtime PM */
+>   	}
 >   
-> +static const unsigned int channels[] = {
-> +	2, 4,
-> +};
-> +
-> +static const struct snd_pcm_hw_constraint_list constraints_channels = {
-> +	.count = ARRAY_SIZE(channels),
-> +	.list = channels,
-> +	.mask = 0,
-> +};
-> +
-> +static int bdw_fe_startup(struct snd_pcm_substream *substream)
-> +{
-> +	struct snd_pcm_runtime *runtime = substream->runtime;
-> +
-> +	/*
-> +	 * On this platform for PCM device we support,
-> +	 * 2 or 4 channel capture
-> +	 */
-> +	if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
-> +		snd_pcm_hw_constraint_list(runtime, 0,
-> +					   SNDRV_PCM_HW_PARAM_CHANNELS,
-> +					   &constraints_channels);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct snd_soc_ops bdw_rt5650_fe_ops = {
-> +	.startup = bdw_fe_startup,
-> +};
-> +
->   static int broadwell_ssp0_fixup(struct snd_soc_pcm_runtime *rtd,
->   			struct snd_pcm_hw_params *params)
->   {
-> @@ -234,6 +264,7 @@ static struct snd_soc_dai_link bdw_rt5650_dais[] = {
->   		.name = "System PCM",
->   		.stream_name = "System Playback",
->   		.dynamic = 1,
-> +		.ops = &bdw_rt5650_fe_ops,
->   #if !IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
->   		.init = bdw_rt5650_rtd_init,
+>   	if (azx_acquire_irq(chip, 0) < 0)
+> @@ -2303,9 +2303,11 @@ static int azx_probe_continue(struct azx *chip)
 >   #endif
+>   
+>   	/* create codec instances */
+> -	err = azx_probe_codecs(chip, azx_max_codecs[chip->driver_type]);
+> -	if (err < 0)
+> -		goto out_free;
+> +	if (bus->codec_mask) {
+> +		err = azx_probe_codecs(chip, azx_max_codecs[chip->driver_type]);
+> +		if (err < 0)
+> +			goto out_free;
+> +	}
+>   
+>   #ifdef CONFIG_SND_HDA_PATCH_LOADER
+>   	if (chip->fw) {
+> @@ -2319,7 +2321,7 @@ static int azx_probe_continue(struct azx *chip)
+>   #endif
+>   	}
+>   #endif
+> -	if ((probe_only[dev] & 1) == 0) {
+> +	if (bus->codec_mask && !(probe_only[dev] & 1)) {
+>   		err = azx_codec_configure(chip);
+>   		if (err < 0)
+>   			goto out_free;
 > 

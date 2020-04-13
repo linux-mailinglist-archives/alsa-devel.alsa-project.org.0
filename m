@@ -2,85 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60AE81A609C
-	for <lists+alsa-devel@lfdr.de>; Sun, 12 Apr 2020 23:07:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 635BD1A61B7
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Apr 2020 05:18:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E19A316CE;
-	Sun, 12 Apr 2020 23:06:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E19A316CE
+	by alsa0.perex.cz (Postfix) with ESMTPS id C86281696;
+	Mon, 13 Apr 2020 05:17:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C86281696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586725625;
-	bh=95sOgbZ4W7RrDUpmVQVqTM/gBD4HkuY69JbuDI0TMSU=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=KS2AViUSeZmmBDSYK+Q4zAsy32CA/hLQe7Kp5uVAcfHWdSiKJVnr8Bjz2dxzzD2yw
-	 wzshFAaExwp3krpj54DR6fxmoshlWHS8/8LWmJM3acOns5CwB6VXt9Uey4PnY42ujV
-	 qMnj6HYa1SrnbPTrlTomuBM1FrTjbsDlnMVdgSD4=
+	s=default; t=1586747919;
+	bh=dvse0COOrsfgfoczcCmGwHBjJaJmXMkMzR4XwPPgeKQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Fi1CXTAbDAK1F0kVojRIYzT9aJIB7NZ/2vV51tiGNitZUtU52/0saOLHIVC/NZozN
+	 Jlz94LgehuTtFcI9u2UKQW4Pcncee7ofIuAFXUKJZLzkcGDMnHCxQXxGLJG4L/Z/0/
+	 IeoNmqBhBMxdmnTEY7wn2hAX+ibfR8BHXaVNTpnw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C2DCF80126;
-	Sun, 12 Apr 2020 23:05:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99B28F8025F;
+	Mon, 13 Apr 2020 05:16:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D97BCF8013D; Sun, 12 Apr 2020 23:05:18 +0200 (CEST)
+ id 54444F80245; Mon, 13 Apr 2020 05:16:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
+Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
+ [IPv6:2607:f8b0:4864:20::741])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D294BF800B6
- for <alsa-devel@alsa-project.org>; Sun, 12 Apr 2020 23:05:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D294BF800B6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 89F89F80115
+ for <alsa-devel@alsa-project.org>; Mon, 13 Apr 2020 05:16:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89F89F80115
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="E/ahyzsM"
-Received: by mail-wr1-x429.google.com with SMTP id k1so1165693wrx.4
- for <alsa-devel@alsa-project.org>; Sun, 12 Apr 2020 14:05:15 -0700 (PDT)
+ header.b="rN69rysV"
+Received: by mail-qk1-x741.google.com with SMTP id m67so8210492qke.12
+ for <alsa-devel@alsa-project.org>; Sun, 12 Apr 2020 20:16:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:subject:message-id:mime-version:content-disposition
- :user-agent; bh=DJLKShDtouEeuArxX9puy0QsvMxwbmxr66gQtxxuuU4=;
- b=E/ahyzsM12vwcaXx0yInX2wkM6ktzNfNjSFuvRf2npmkMFGWGyL1j4gduFCstup5YK
- QssoQZ+5ScGwNVnotp7t9bwVR6hDByH5F9YFeN1wFShowXZP2QJ2Yc3KWly7Zt1zWFE9
- Fe9uDsBVzRYv246NVPZvjMsL8kG/PVXxo6Mt3swN9BlBW4m3LlB/O1/g2S1WYyntvM1L
- I+zAQ6rcsAEH8HlfsJJsdh61B4Usodvwi4olcatpKXN9uFS6SIOiyJL23QvbDLO/HepP
- /vfXf+yBHc9f7cUsU+JaUN/5ZD9wym6sAD157WeRFyZgY4eu1D8ltu0bsmeo0/yKF5i7
- 02sA==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=8E/j11TZfH7UZNApZvH4fEyzZjBApgpFuNvhfzAcUS4=;
+ b=rN69rysVCPRtDzu9ocDB8luGscQ5EDAzFC2HUPBZoBmnadjkGd12CRKaUx5KCEmflo
+ EjTtB+OZ2lBX7RZXRvyzxIqvKtDx/jgPV82ukKk4l3qRTVFmtWCScuIAIcWvHi+zUDww
+ Cr7BAtYsbLMGPjM0IFFZx87NZcQUYIBsEaRTJDmxyRFWGIvQVX6iAisWS93MSXj07hrA
+ FB3kyYhKxDxDChLwsHTilLFCicvIZSSBv1ehw6yEG2MMLACgwMJp58iqUHb7TfI55Qa4
+ BVMIvw8KomziBHrkvm29KOnA7a6RWsgHHxhSdNWqrbO+XAg9rtixBd9DVRkw73jbvwkJ
+ 7/lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:subject:message-id:mime-version
- :content-disposition:user-agent;
- bh=DJLKShDtouEeuArxX9puy0QsvMxwbmxr66gQtxxuuU4=;
- b=lZ1pCh7X7+JEIPlRExQMpsyS/IO3mfsAI/s7VUYCVKQ+010Um866DAFgnBxaI1EcjM
- LK2zE44debrBLTHVT85amnWc+a6mslU/XSt3KDhrItcqr7OCisz7JvVBRArV9coyK+sj
- 6C1GrwD9d3JlN70zWqqYnXaKccF6dmRcvBmwmJR8ptP5yhgticR6whNDmdKrC8LXV352
- LhtQk9CR62UHCSyL0hwd4Vy+iMrifAa9l4n+mnZnL8r5g9PKuQk77iSVYJ4X+TQ8ur2i
- TSPiRY6jM86RkSR9yIWaoLZVe4Tnl75uSNG/Xxfnbj+3eH/+xZZ412en25Ku/lIeBEco
- ZSjg==
-X-Gm-Message-State: AGi0Pub1gqfKR7u94XIifKj+C7eoCNjTF3TZD+bq8YqA3ZRzc5neVNW5
- L1YneTi85kUcbg7kEQ9kLxkPzlyb
-X-Google-Smtp-Source: APiQypK1uaBUvad5bJFgEMTGU9fpVivXTw+xkLpd4n1okOUZYjRsdSQrg8n9pdrboOn/igFzHBvuZA==
-X-Received: by 2002:adf:84c2:: with SMTP id 60mr15383999wrg.65.1586725514694; 
- Sun, 12 Apr 2020 14:05:14 -0700 (PDT)
-Received: from localhost (108.78.124.78.rev.sfr.net. [78.124.78.108])
- by smtp.gmail.com with ESMTPSA id l26sm4223857wrb.7.2020.04.12.14.05.14
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 12 Apr 2020 14:05:14 -0700 (PDT)
-Date: Sun, 12 Apr 2020 21:05:06 +0000
-From: sylvain.bertrand@gmail.com
-To: alsa-devel@alsa-project.org
-Subject: [PATCH RFC] clumsy attempt at fixing rate plugin draining function
-Message-ID: <20200412210506.GA32445@freedom>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=8E/j11TZfH7UZNApZvH4fEyzZjBApgpFuNvhfzAcUS4=;
+ b=pghOr4yhsV0t7IifjFCYzbhyNrDD7SnQ8+6S0kGvPASv3SPCDdYLO4sjk+sgJXibEP
+ +fKVkKz988ApwMoBME4D1ezBKwtcwZKXhdUftNQDN5X/II/425aaj5kzHknHev/c7OxH
+ r2xlWjNzduJkxFljMG5w26OhittH7VUg1x+js5qlxcswplY9eckm4dZHwAzMnb0jpFf5
+ 4Nu7BoFvXP7j22Fx8pV2GPbVB2b5uRndjxjhdELU5KITnPtkRlRpEoyjqUDbsFn+uEak
+ HE5oETPdFGResUQ5uc2GM/Vjdt7mhXqEe2YPzrlTyzX6jIcKgBMbBtLeltqyzfiS7fZ+
+ 2uEA==
+X-Gm-Message-State: AGi0PuazNI/lDQlsjbjcG0xeagWhSTe80/4VTnlRwJnoSHtyXmuJa/vn
+ BgWo/BCMGgD/Wqk6FHGcHZ8H+a7yNF+H63kT1h8=
+X-Google-Smtp-Source: APiQypItGHPXPnsy1S/7ewXviLIp7ovweo1JzQvp+pRla6x2SM0Xc5ae+Mid29m10MeNtKBNayczigkmHxXihCVcmM0=
+X-Received: by 2002:a37:4fd0:: with SMTP id
+ d199mr14522999qkb.121.1586747802796; 
+ Sun, 12 Apr 2020 20:16:42 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-User-Agent: Mutt/ (2018-04-13)
+References: <cover.1585726761.git.shengjiu.wang@nxp.com>
+ <93531963f028aabf9176173de3c6038a200acb89.1585726761.git.shengjiu.wang@nxp.com>
+ <20200406234819.GB20945@Asurada-Nvidia.nvidia.com>
+ <CAA+D8AM69bhorQKikQGwwFRqgBYN8V2pXBW5JLZyFCVHWKkNGg@mail.gmail.com>
+ <20200412020814.GA5984@Asurada>
+In-Reply-To: <20200412020814.GA5984@Asurada>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Mon, 13 Apr 2020 11:16:31 +0800
+Message-ID: <CAA+D8AOapHbw_AREcJmef2tnM4aNiU11FLacW3HS7CXQThs80Q@mail.gmail.com>
+Subject: Re: [PATCH v6 5/7] ASoC: fsl_asrc: Move common definition to
+ fsl_asrc_common
+To: Nicolin Chen <nicoleotsuka@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,64 +106,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+On Sun, Apr 12, 2020 at 10:08 AM Nicolin Chen <nicoleotsuka@gmail.com> wrote:
+>
+> On Sat, Apr 11, 2020 at 01:49:43PM +0800, Shengjiu Wang wrote:
+>
+> > > > diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
+> > > > index b15946e03380..5cf0468ce6e3 100644
+> > > > --- a/sound/soc/fsl/fsl_asrc_dma.c
+> > > > +++ b/sound/soc/fsl/fsl_asrc_dma.c
+> > >
+> > > > @@ -311,11 +311,12 @@ static int fsl_asrc_dma_startup(struct snd_soc_component *component,
+> > > >               return ret;
+> > > >       }
+> > > >
+> > > > -     pair = kzalloc(sizeof(struct fsl_asrc_pair), GFP_KERNEL);
+> > > > +     pair = kzalloc(sizeof(struct fsl_asrc_pair) + PAIR_PRIVAT_SIZE, GFP_KERNEL);
+> > >
+> > > If we only use the PAIR_PRIVATE_SIZE here, maybe we can put the
+> > > define in this file too, rather than in the header file.
+> > >
+> > > And could fit 80 characters:
+> > >
+> > > +       pair = kzalloc(sizeof(*pair) + PAIR_PRIVAT_SIZE, GFP_KERNEL);
+>
+> > I will use a function pointer
+> >     int (*get_pair_priv_size)(void)
+>
+> Since it's the size of pair or cts structure, could be just a
+> size_t variable?
 
-This is related to github issue #41.
+Yes, should be "size_t (*get_pair_priv_size)(void)"
 
-I don't know how to update last_commit_ptr properly.
-Neither if it is consistent with the rate state (boundary, app_ptr, etc).
-
--- 
-Sylvain
-
-
---- a/src/pcm/pcm_rate.c
-+++ b/src/pcm/pcm_rate.c
-@@ -1051,6 +1051,7 @@ static int snd_pcm_rate_drain(snd_pcm_t *pcm)
- 		/* commit the remaining fraction (if any) */
- 		snd_pcm_uframes_t size, ofs, saved_avail_min;
- 		snd_pcm_sw_params_t sw_params;
-+		int commit_err;
- 
- 		__snd_pcm_lock(pcm);
- 		/* temporarily set avail_min to one */
-@@ -1064,7 +1065,7 @@ static int snd_pcm_rate_drain(snd_pcm_t *pcm)
- 		while (size > 0) {
- 			snd_pcm_uframes_t psize, spsize;
- 			int err;
--
-+			
- 			err = __snd_pcm_wait_in_lock(rate->gen.slave, -1);
- 			if (err < 0)
- 				break;
-@@ -1077,14 +1078,29 @@ static int snd_pcm_rate_drain(snd_pcm_t *pcm)
- 				if (! spsize)
- 					break;
- 			}
--			snd_pcm_rate_commit_area(pcm, rate, ofs,
-+			commit_err = snd_pcm_rate_commit_area(pcm, rate, ofs,
- 						 psize, spsize);
-+			if (commit_err == 1) {
-+				rate->last_commit_ptr += psize;
-+				if (rate->last_commit_ptr >= pcm->boundary)
-+					rate->last_commit_ptr = 0;
-+			} else if (commit_err == 0) {
-+				if (pcm->mode & SND_PCM_NONBLOCK != 0) {
-+					commit_err = -EAGAIN;
-+					break;
-+				}
-+				continue;
-+			} else
-+				break;
-+
- 			ofs = (ofs + psize) % pcm->buffer_size;
- 			size -= psize;
- 		}
- 		sw_params.avail_min = saved_avail_min;
- 		snd_pcm_sw_params(rate->gen.slave, &sw_params);
- 		__snd_pcm_unlock(pcm);
-+		if (commit_err < 0)
-+			return commit_err;
- 	}
- 	return snd_pcm_drain(rate->gen.slave);
- }
+best regards
+wang shengjiu

@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 834921A6412
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Apr 2020 10:26:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD0E71A6563
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Apr 2020 12:49:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 31CB916D8;
-	Mon, 13 Apr 2020 10:25:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31CB916D8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 62AE116FD;
+	Mon, 13 Apr 2020 12:48:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62AE116FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586766393;
-	bh=wSNu/Tuvnh4j0eFpEUS8HciuBpfp5S3XtIHXITwW+Qg=;
+	s=default; t=1586774980;
+	bh=pwHXmNdTrdD5im5ZdqooE890HFVV5Zh0aQOgenrQ3qM=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=e0OIK6CebafY3VSM52eaMRw4vM9K5N9DUPTE0xXKhRLdgntJopsOpF/JBzhTLzL6M
-	 /GGzZY7Sj9HP7GPyeFu1iEGUmL1V+YypwEOY/07g57vOHxj1id4Irn1vkCdAhgK4p6
-	 hrdj+NTJVNMqjA2GSDkedGIxL0i7MEgqgJYojcuk=
+	b=TDgaubUrYQ7ls4ocTfpCr/eFmIASTW8Y7BFybOMz7LBTnVhiQ/Zmn5lYzFbTsv/0k
+	 DPRNYaqN8D+8wioQ/maRKhQ6PJI2/Quw3KkhXHREaqKm1Qs4wDjlMGyz85PVCSsk1m
+	 hx6MYLPB82/tOtrYt36jVYZoTPU4qcv2CqCtDCk4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB6A9F8025F;
-	Mon, 13 Apr 2020 10:24:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D8CACF800B9;
+	Mon, 13 Apr 2020 12:47:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4D7DBF80245; Mon, 13 Apr 2020 10:24:54 +0200 (CEST)
+ id 99E32F8028A; Mon, 13 Apr 2020 12:47:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0FB77F800B9
- for <alsa-devel@alsa-project.org>; Mon, 13 Apr 2020 10:24:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FB77F800B9
-IronPort-SDR: 8zFZFGc4BgyLHzMsGIpfyrNDcdULRoBZXyWyjjepojidgWv/x+o3HnEH1vP7CEN07MLp2x4K8G
- XpBX5JE1lHRA==
+ by alsa1.perex.cz (Postfix) with ESMTPS id B63DEF800B9
+ for <alsa-devel@alsa-project.org>; Mon, 13 Apr 2020 12:47:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B63DEF800B9
+IronPort-SDR: NqmTR+3KfmpJe6DNvxLgpI2Q2HBRunguQlnJVDkgPdAi/un+OvIqU0EqDJXtqjFFq5/Iv1QJfB
+ ZL6LbLQ4uPFw==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2020 01:24:48 -0700
-IronPort-SDR: 89OuDTtVm7GFv4SzRRMrenZSTb2zYhZCJ/a2q2ZWqGGEak0vg31sUCDLb6kKpDrKjcybHD+WQC
- xQNibDVPwHgA==
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2020 03:47:02 -0700
+IronPort-SDR: ayMz8icoKuu1Cou9MhiqAeFL4MrjUzbHqplQK9F8EJo6KijVa0uvvgu/BoL+PHlCTnE7p2iB+x
+ OduldT/7UWAw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,378,1580803200"; d="scan'208";a="454141300"
-Received: from keyon-x299.sh.intel.com (HELO [10.239.159.75]) ([10.239.159.75])
- by fmsmga006.fm.intel.com with ESMTP; 13 Apr 2020 01:24:44 -0700
-Subject: Re: [PATCH] ASoC: bdw-rt5650: incorrect rate of PCM data
+X-IronPort-AV: E=Sophos;i="5.72,378,1580803200"; d="scan'208";a="243507850"
+Received: from ftehrig-mobl.amr.corp.intel.com (HELO [10.209.82.92])
+ ([10.209.82.92])
+ by fmsmga007.fm.intel.com with ESMTP; 13 Apr 2020 03:47:00 -0700
+Subject: Re: [PATCH v2] ASoC: bdw-rt5650: remove 3-channel capture support
 To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
-References: <1586765358-18474-1-git-send-email-brent.lu@intel.com>
-From: Keyon Jie <yang.jie@linux.intel.com>
-Message-ID: <751b03e3-c4de-cbcb-e1b6-dc6f3f572aab@linux.intel.com>
-Date: Mon, 13 Apr 2020 16:35:52 +0800
+References: <1586766533-18557-1-git-send-email-brent.lu@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <9a484795-ea4a-e559-4ea9-3de24417ec9b@linux.intel.com>
+Date: Mon, 13 Apr 2020 05:18:33 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <1586765358-18474-1-git-send-email-brent.lu@intel.com>
+In-Reply-To: <1586766533-18557-1-git-send-email-brent.lu@intel.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
  Cezary Rojewski <cezary.rojewski@intel.com>,
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
  Ben Zhang <benzh@chromium.org>, Mac Chiang <mac.chiang@intel.com>,
  Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -86,15 +86,19 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-On 2020/4/13 下午4:09, Brent Lu wrote:
+
+On 4/13/20 3:28 AM, Brent Lu wrote:
 > Implement a constrain to exclude 3-channel capture since only 2 and 4
 > channel capture are supported on the platform.
 
-The patch looks good to me, except that the subject seems unrelated? you 
-are changing the channel number, not the sample rate?
+That looks like an error caught by the ALSA conformance tool?
 
-Thanks,
-~Keyon
+What are the odds that we have a similar issue with the other broadwell 
+drivers which don't have a constraint on the number of channels either 
+on their 'System PCM' dailink?
+
+Thanks
+-Pierre
 
 > 
 > Signed-off-by: Brent Lu <brent.lu@intel.com>

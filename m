@@ -2,98 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 677161A637F
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Apr 2020 09:21:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 167741A63FC
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Apr 2020 10:17:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E561016D2;
-	Mon, 13 Apr 2020 09:20:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E561016D2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 82DC616DF;
+	Mon, 13 Apr 2020 10:17:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82DC616DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586762468;
-	bh=Dc6PLjOdDhtcyFz6E9kF06yBCXq+M6QjrtPrw7BFYps=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=u4dgbVSFkdwQVAL6W+sEfWX8+os6juvl/VXfxOjW8hnvx6odz5VTjmp5fu5xGpZIS
-	 s+2Xh6QpfKll5H5+wd6pkeCJdCJqeFTjxG1jp2Ap6OtvDEfbPLD9VoyBCm1fI2f0tO
-	 i1MNX5Lt0ie/HrF1mbN4UUic5xMOo8d5cC37JvpI=
+	s=default; t=1586765877;
+	bh=XUAzvaVMOvP3VSTj5tI89pzT2fEHROejFliLYuSHZJ4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=jKkWGfPAa80DepqHSzx/hT8PVyWhzwTUihV5jW1zrENwS8NDuVD7av9uAhJ6BxyiM
+	 ncikNBEZ1xkthQMeLkR9coRpCO1S9IhPceZwoeKbkpwZNxINbn6N1+j52UWm1u1xaq
+	 /tdcUS6aZRhWPq2SGCTCWiLFyP8oz5RpMaPLOdRM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 033C0F80115;
-	Mon, 13 Apr 2020 09:19:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E20EF8025F;
+	Mon, 13 Apr 2020 10:16:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72B57F80245; Mon, 13 Apr 2020 09:19:24 +0200 (CEST)
+ id 9A905F80245; Mon, 13 Apr 2020 10:16:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
- [IPv6:2607:f8b0:4864:20::844])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CC79DF80115
- for <alsa-devel@alsa-project.org>; Mon, 13 Apr 2020 09:19:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC79DF80115
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Lm3du3ZN"
-Received: by mail-qt1-x844.google.com with SMTP id b10so6450511qtt.9
- for <alsa-devel@alsa-project.org>; Mon, 13 Apr 2020 00:19:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=2nT3Va3E4vwilp1Fdp7ARRfOyF9O8UdBycnmN+9Xhsw=;
- b=Lm3du3ZNa8HvaBi6XryhBn8zFP8p7bnaPyDhrcxfNIvLvG0xa9ym0IHVYBQ/nv9i9R
- sayue0wrNelJykTg46+IjgbVRRHGLYy7MZ6Lc0xIeBoLYkv5gtnJZXaDFqTWw0RZzYAl
- d9d0fz9wc5Fx2L+T6rvAWERt7aUZ4w8U+UXjORxiMrtg6Vps8Z93DdGOv9qIGL3LYGMQ
- vjInJ5kMEmKYQfraZHjLv6FpJ0LYJzSJYpJRnhzsCcCaaop1hAG98Uq7m1vU/LImOmDi
- eiLqXAV1rFX/qITBUBI3RwJIdPorIsc7k32KSrLj8kuzqJDfkJuSRClis03CI5UhSnEg
- UJxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=2nT3Va3E4vwilp1Fdp7ARRfOyF9O8UdBycnmN+9Xhsw=;
- b=sZyDcFFKXQGbDN4C1pTkbB1j6R45Bxgd1NfnaOBAaQx89JsVqX4HOpZSXxWD9UK9Ps
- aGZnMbEASbjRIwKQs0WwMUvG18iZKYGHfTc/yE16UqPPxmV0u3O4Is0LZeXOPiihuTok
- 0pRCTr71cnW0Cu4pou1ATUj0HWKsmGDTy6TjCzgza/FgXEaq56hAy9jHka7nFwoEda8B
- Wxt3/wVLK6Jl2HEfb7i4SPbY6ZZOF4XFPEhYLcorGbBZqSiLX/vT+wlOHmXKR8oF5/O7
- lZ8hAhgMlEQNvszLZ+uVHT3ME7PJM6O5LSJj+NLsDHRp+sEDAQJc1/OHc3dSOeKqlxrv
- pMQg==
-X-Gm-Message-State: AGi0PuYPOdlDkeUHrP7TFFMxC9UHejzKZcI5JX8jiXiVcR6qQdtZtYlq
- yqMco3BLEhmybW7j1F+60B7pfhRsZhKLfaCKWkc=
-X-Google-Smtp-Source: APiQypLiZzOmvvNbZthlcuAk+7DNZ/bAtcOVLzBOGnKD29q18014aTMKUIxT6RpYFvwJHP1TcCDBEfyHYQ62HhVJz7M=
-X-Received: by 2002:ac8:22ad:: with SMTP id f42mr9986167qta.292.1586762359717; 
- Mon, 13 Apr 2020 00:19:19 -0700 (PDT)
-MIME-Version: 1.0
-References: <cover.1585726761.git.shengjiu.wang@nxp.com>
- <93531963f028aabf9176173de3c6038a200acb89.1585726761.git.shengjiu.wang@nxp.com>
- <20200406234819.GB20945@Asurada-Nvidia.nvidia.com>
- <CAA+D8AM69bhorQKikQGwwFRqgBYN8V2pXBW5JLZyFCVHWKkNGg@mail.gmail.com>
- <20200412020814.GA5984@Asurada>
- <CAA+D8AOapHbw_AREcJmef2tnM4aNiU11FLacW3HS7CXQThs80Q@mail.gmail.com>
- <20200413043143.GA9116@Asurada>
-In-Reply-To: <20200413043143.GA9116@Asurada>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Mon, 13 Apr 2020 15:19:08 +0800
-Message-ID: <CAA+D8ANUDAfLVJ6NQvtHSV27G4RUoQYEnA3Ym0wH28YCA6bZMg@mail.gmail.com>
-Subject: Re: [PATCH v6 5/7] ASoC: fsl_asrc: Move common definition to
- fsl_asrc_common
-To: Nicolin Chen <nicoleotsuka@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: Mark Rutland <mark.rutland@arm.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>,
- Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel <linux-kernel@vger.kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C878AF800B9
+ for <alsa-devel@alsa-project.org>; Mon, 13 Apr 2020 10:16:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C878AF800B9
+IronPort-SDR: yI4oyiMzpxtGQQYvAP8zDkWuZhGZxRphehjGyM2dXKczXt2DGN/Qt7NUH8nPt7OE6ealdFzyGB
+ XKAfeklr7M+w==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2020 01:16:06 -0700
+IronPort-SDR: LMtMC2kw108QPa4vZkYR1RcM22cb0TDcUaSzwuq3e3b9zFGeYHIfbCaV+ODipKT4ZoPeMi8wlc
+ XpDLiqh5W78w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,378,1580803200"; d="scan'208";a="245088427"
+Received: from brentlu-desk0.itwn.intel.com ([10.5.253.11])
+ by fmsmga008.fm.intel.com with ESMTP; 13 Apr 2020 01:16:04 -0700
+From: Brent Lu <brent.lu@intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: bdw-rt5650: incorrect rate of PCM data
+Date: Mon, 13 Apr 2020 16:09:18 +0800
+Message-Id: <1586765358-18474-1-git-send-email-brent.lu@intel.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Ben Zhang <benzh@chromium.org>, Mac Chiang <mac.chiang@intel.com>,
+ Mark Brown <broonie@kernel.org>, Brent Lu <brent.lu@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,68 +78,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Apr 13, 2020 at 12:31 PM Nicolin Chen <nicoleotsuka@gmail.com> wrot=
-e:
->
-> On Mon, Apr 13, 2020 at 11:16:31AM +0800, Shengjiu Wang wrote:
-> > On Sun, Apr 12, 2020 at 10:08 AM Nicolin Chen <nicoleotsuka@gmail.com> =
-wrote:
-> > >
-> > > On Sat, Apr 11, 2020 at 01:49:43PM +0800, Shengjiu Wang wrote:
-> > >
-> > > > > > diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_a=
-src_dma.c
-> > > > > > index b15946e03380..5cf0468ce6e3 100644
-> > > > > > --- a/sound/soc/fsl/fsl_asrc_dma.c
-> > > > > > +++ b/sound/soc/fsl/fsl_asrc_dma.c
-> > > > >
-> > > > > > @@ -311,11 +311,12 @@ static int fsl_asrc_dma_startup(struct sn=
-d_soc_component *component,
-> > > > > >               return ret;
-> > > > > >       }
-> > > > > >
-> > > > > > -     pair =3D kzalloc(sizeof(struct fsl_asrc_pair), GFP_KERNEL=
-);
-> > > > > > +     pair =3D kzalloc(sizeof(struct fsl_asrc_pair) + PAIR_PRIV=
-AT_SIZE, GFP_KERNEL);
-> > > > >
-> > > > > If we only use the PAIR_PRIVATE_SIZE here, maybe we can put the
-> > > > > define in this file too, rather than in the header file.
-> > > > >
-> > > > > And could fit 80 characters:
-> > > > >
-> > > > > +       pair =3D kzalloc(sizeof(*pair) + PAIR_PRIVAT_SIZE, GFP_KE=
-RNEL);
-> > >
-> > > > I will use a function pointer
-> > > >     int (*get_pair_priv_size)(void)
-> > >
-> > > Since it's the size of pair or cts structure, could be just a
-> > > size_t variable?
-> >
-> > Yes, should be "size_t (*get_pair_priv_size)(void)"
->
-> Does it have to be a function? -- how about this:
->
-> struct pair {
->         ...
->         size_t private_size;
->         void *private;
-> };
->
-> probe/or-somewhere() {
->         ...
->         pair->private =3D pair_priv;
+Implement a constrain to exclude 3-channel capture since only 2 and 4
+channel capture are supported on the platform.
 
-we need to know the size of pair_priv before allocate memory.
+Signed-off-by: Brent Lu <brent.lu@intel.com>
+---
+ sound/soc/intel/boards/bdw-rt5650.c | 31 +++++++++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
->         pair->private_size =3D sizeof(*pair_priv);
->         ...
-> }
+diff --git a/sound/soc/intel/boards/bdw-rt5650.c b/sound/soc/intel/boards/bdw-rt5650.c
+index af2f502..eedbdad 100644
+--- a/sound/soc/intel/boards/bdw-rt5650.c
++++ b/sound/soc/intel/boards/bdw-rt5650.c
+@@ -83,6 +83,36 @@ static struct snd_soc_jack_pin mic_jack_pin = {
+ 	.mask	= SND_JACK_MICROPHONE,
+ };
+ 
++static const unsigned int channels[] = {
++	2, 4,
++};
++
++static const struct snd_pcm_hw_constraint_list constraints_channels = {
++	.count = ARRAY_SIZE(channels),
++	.list = channels,
++	.mask = 0,
++};
++
++static int bdw_fe_startup(struct snd_pcm_substream *substream)
++{
++	struct snd_pcm_runtime *runtime = substream->runtime;
++
++	/*
++	 * On this platform for PCM device we support,
++	 * 2 or 4 channel capture
++	 */
++	if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
++		snd_pcm_hw_constraint_list(runtime, 0,
++					   SNDRV_PCM_HW_PARAM_CHANNELS,
++					   &constraints_channels);
++
++	return 0;
++}
++
++static const struct snd_soc_ops bdw_rt5650_fe_ops = {
++	.startup = bdw_fe_startup,
++};
++
+ static int broadwell_ssp0_fixup(struct snd_soc_pcm_runtime *rtd,
+ 			struct snd_pcm_hw_params *params)
+ {
+@@ -234,6 +264,7 @@ static struct snd_soc_dai_link bdw_rt5650_dais[] = {
+ 		.name = "System PCM",
+ 		.stream_name = "System Playback",
+ 		.dynamic = 1,
++		.ops = &bdw_rt5650_fe_ops,
+ #if !IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
+ 		.init = bdw_rt5650_rtd_init,
+ #endif
+-- 
+2.7.4
 
-In fsl_asrc_dma_startup, we need to allocate memory for pair and
-pair->private=EF=BC=8Cbut we don't know the object, so we don't know the
-size of private, so function pointer is better.
-
-best regards
-wang shengjiu

@@ -2,64 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 919F81A8737
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 19:15:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B3921A8749
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 19:19:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3FD5516A1;
-	Tue, 14 Apr 2020 19:14:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FD5516A1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D0DD16A3;
+	Tue, 14 Apr 2020 19:19:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D0DD16A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586884507;
-	bh=lGQ9GNsci926cFdlTS/6dFA7CiTbIAMIknCbOVW5Lw4=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	s=default; t=1586884792;
+	bh=dkXdr0CAevfQVuDxknxcJpGtVqZ+l00Cln1GYX5ybKo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LkNI+5t/Nu3AqdfjoRGlTrcos0dX6kaKI8m1esXsUM2obOWjKVhBB3r51BL4qPi8o
-	 +ed2Uy+PnAkuyXBhR7hEEvCLGL7tr4scpIizxQvodzUenURLNE5REFr68i/MxSdt8p
-	 YO+QrgPJ97Z7XkpFh12MZSC9/e4JKvl9n5uOOh6Y=
+	b=tRvgGxzPcqcZ1/c5xInu8CVKuR1szkzbRL1XD8JQBL/5kFOLzE7ro/7xegW3t6Yp8
+	 LHY1pqdocujVcbg1uIiMENcbzw3EGD23PzSqCg2BXejCST9SWUZ6eIITIMYX5bxnCk
+	 JBaSBURWC8m8aWQuyvEdXVhRvts7HPtrAaVELIDw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3157DF8013D;
-	Tue, 14 Apr 2020 19:13:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AEDBEF8014E;
+	Tue, 14 Apr 2020 19:18:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C0B97F8013D; Tue, 14 Apr 2020 19:13:23 +0200 (CEST)
+ id 67776F8013D; Tue, 14 Apr 2020 19:18:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ob3.cityemail.com (mail-ob3.cityemail.com [104.128.152.20])
- by alsa1.perex.cz (Postfix) with ESMTP id 9AC86F800B9
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 19:13:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AC86F800B9
-Received: (qmail 29455 invoked from network); 14 Apr 2020 17:13:14 -0000
-Received: from riddle.wizard.ca (HELO [192.168.1.55])
- (michael@wizard.ca@104.128.144.8)
- by fe3.cityemail.com with (AES128-SHA encrypted) SMTP
- (39d3be4c-7e73-11ea-b433-474945905952); Tue, 14 Apr 2020 10:13:14 -0700
-Subject: Re: [FRUSTRATED] Missing Sound Codecs for Lenovo ThinkCentre M710e
-To: Roy Spliet <nouveau@spliet.org>, alsa-devel@alsa-project.org
-References: <7046b5fa-af79-5221-f54f-3d4be22e879e@wizard.ca>
- <34cfffec-39f7-d0e5-bab6-c4b0eb47943b@spliet.org>
-From: Michael <michael@wizard.ca>
-Message-ID: <8ab4b52c-5397-0fed-97ff-c8be7d4ae168@wizard.ca>
-Date: Tue, 14 Apr 2020 10:13:14 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9860EF800F5
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 19:18:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9860EF800F5
+IronPort-SDR: YIEG5LnoVu6Y9Ns/EOxd9oRolF4vDZ3/zCQyMaeaDeW8Tn5c4STLPaPpkniZYXbnzw/Tt8mw9I
+ sk+MnhZPAIeA==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2020 10:17:54 -0700
+IronPort-SDR: wSdXoXBWbtwb3E7Tm0mh49EdJASJhS4vvbnijD6FTeBStrc1NUUNKh844LrZnzhDD7+w5nbfAD
+ Ad73pOsdtXRA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,383,1580803200"; d="scan'208";a="256582475"
+Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
+ by orsmga006.jf.intel.com with ESMTP; 14 Apr 2020 10:17:50 -0700
+Received: from andy by smile with local (Exim 4.93)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1jOPC4-000Zo4-PO; Tue, 14 Apr 2020 20:17:52 +0300
+Date: Tue, 14 Apr 2020 20:17:52 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [RFC PATCH 03/16] ASoC: Intel: sof-pcm512x: use gpiod for LED
+Message-ID: <20200414171752.GC34613@smile.fi.intel.com>
+References: <20200409195841.18901-1-pierre-louis.bossart@linux.intel.com>
+ <20200409195841.18901-4-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <34cfffec-39f7-d0e5-bab6-c4b0eb47943b@spliet.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-MagicMail-OS: Linux 2.2.x-3.x
-X-MagicMail-UUID: 39d3be4c-7e73-11ea-b433-474945905952
-X-MagicMail-Authenticated: michael@wizard.ca
-X-MagicMail-SourceIP: 104.128.144.8
-X-MagicMail-RegexMatch: 0
-X-MagicMail-EnvelopeFrom: <michael@wizard.ca>
-X-Archive: Yes
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200409195841.18901-4-pierre-louis.bossart@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Cc: alsa-devel@alsa-project.org, Rob Herring <robh+dt@kernel.org>,
+ linux-gpio@vger.kernel.org, tiwai@suse.de,
+ Linus Walleij <linus.walleij@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
+ Daniel Matuschek <daniel@hifiberry.com>, Hui Wang <hui.wang@canonical.com>,
+ Matthias Reichl <hias@horus.com>, broonie@kernel.org,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+ Michael Turquette <mturquette@baylibre.com>, linux-clk@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,87 +86,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Appreciate the response, but running the 16.04 LTE with the hwe kernel, 
-which should have updated support.  I would expect that at least an 
-older codec should be supported on the board, highly doubt a completely 
-new sound card shipset would be used.
-
-How do I try to resolve this WITHOUT going to a 5.6 kernel?
-
-On 2020-04-14 8:55 a.m., Roy Spliet wrote:
-> The 4.15.0 kernel was released in January 2018. Your computer was first 
-> sold around May 2018 (at least where I'm from). It's hardly surprising 
-> that some components in your computer aren't supported. First try 
-> upgrading to a newer kernel (ideally 5.6) before you try other steps to 
-> debug your issues.
+On Thu, Apr 09, 2020 at 02:58:28PM -0500, Pierre-Louis Bossart wrote:
+> Remove direct regmap access, use gpios exposed by PCM512x codec
+> Keep the codec_init function, this will be used in following patches
 > 
-> Roy
-> 
-> Op 14-04-2020 om 15:16 schreef Michael:
->> Hi All,
->>
->> Technically this probably should go to a support channnel, and not a 
->> development list, but at my wits end.
->>
->> Kernel:  4.15.0-91-generic #92~16.04.1-Ubuntu SMP
->>
->> dmesg | grep snd
->> [   12.656843] snd_hda_intel 0000:00:1f.3: bound 0000:00:02.0 (ops 
->> i915_audio_component_bind_ops [i915])
->> [   12.807521] snd_hda_intel 0000:00:1f.3: CORB reset timeout#1, 
->> CORBRP = 0
->> [   12.810429] snd_hda_intel 0000:00:1f.3: no codecs found!
->>
->> I have been playing with settings in the modprobe directory for Also 
->> with no effect.. current settings are..
->>
->> options snd-hda-intel single_cmd=1
->> options snd-hda-intel probe_mask=1
->> options snd-hda-intel model=thinkpad
->> options snd-hda-intel position_fix=3
->>
->> Have tried model=generic, and various other suggestions from online, 
->> but at a loss.  Don't see anything in:
->>
->> https://github.com/torvalds/linux/blob/master/Documentation/sound/hd-audio/models.rst 
->>
->>
->> Your ALSA information is located at 
->> http://alsa-project.org/db/?f=7898b30139e9a91fecec22f3ee46049f33248b85
->>
->> Can anyone point me to how to debug this further, or any way to force 
->> detection of a proper codec for this model?
->>
->> 00:1f.3 Audio device [0403]: Intel Corporation 200 Series PCH HD Audio 
->> [8086:a2f0]
->>      Subsystem: Lenovo Device [17aa:313c]
->>      Kernel driver in use: snd_hda_intel
->>
->>
->>         description: Motherboard
->>         product: 313C
->>         vendor: LENOVO
->>         physical id: 0
->>         version: SDK0J40697 WIN 3305181519567
->>         slot: Default string
->>
->> Booting in legacy OS mode, not EUFI..
->>
->>
->>
+> The gpios handling is done with an explicit lookup table. We cannot
+> use ACPI-based mappings since we don't have an ACPI device for the
+> machine driver, and the gpiochip is created during the probe of the
+> PCM512x driver.
 
+...
+
+> +#include <linux/gpio/machine.h>
+
+Okay, it's a board code.
+
+...
+
+> +static struct gpiod_lookup_table pcm512x_gpios_table = {
+> +	/* .dev_id set during probe */
+> +	.table = {
+
+> +		GPIO_LOOKUP("pcm512x-gpio", 3, "PCM512x-GPIO4", GPIO_ACTIVE_HIGH),
+
+It says GPIO 4 and here is number 3.
+Does this 4 come from hardware documentation?
+
+> +		{ },
+
+No comma for terminator entries.
+
+> +	},
+> +};
+
+...
+
+> +	gpiod_add_lookup_table(&pcm512x_gpios_table);
+
+Where is the counterpart gpiod_remove_lookup_table() call?
+
+> +	ctx->gpio_4 = devm_gpiod_get(&pdev->dev, "PCM512x-GPIO4",
+> +				     GPIOD_OUT_LOW);
+
+Can driver work without this GPIO? If so, perhaps devm_gpiod_get_optional().
+
+> +	if (IS_ERR(ctx->gpio_4)) {
+> +		dev_err(&pdev->dev, "gpio4 not found\n");
+> +		ret = PTR_ERR(ctx->gpio_4);
+> +		return ret;
+> +	}
 
 -- 
-"Catch the Magic of Linux..."
-------------------------------------------------------------------------
-Michael Peddemors, President/CEO LinuxMagic Inc.
-Visit us at http://www.linuxmagic.com @linuxmagic
-A Wizard IT Company - For More Info http://www.wizard.ca
-"MagicSpam" is a Registered TradeMark of Wizard Tower TechnoServices Ltd.
-------------------------------------------------------------------------
-604-682-0300 Beautiful British Columbia, Canada
+With Best Regards,
+Andy Shevchenko
 
-This email and any electronic data contained are confidential and intended
-solely for the use of the individual or entity to which they are addressed.
-Please note that any views or opinions presented in this email are solely
-those of the author and are not intended to represent those of the company.
+

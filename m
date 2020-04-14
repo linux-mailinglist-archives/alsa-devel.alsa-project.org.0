@@ -2,65 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7750B1A8084
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 16:56:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 356891A8086
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 16:56:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 264D816A5;
-	Tue, 14 Apr 2020 16:55:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 264D816A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id D39A916A0;
+	Tue, 14 Apr 2020 16:56:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D39A916A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586876183;
-	bh=uLxjlWo1GoRmvs1y0MBgcLwwGQKigiigM/W31Ot6no4=;
+	s=default; t=1586876211;
+	bh=8l8qvAdkG3irVaNUvMR5e7sGi6NgrQ7nNnMN7lU+Ypw=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=dVHTkFLNapcJ1kHCE1Rfr5cm7HU3K3U88uqox4P5VtM9Jmwz4Y/+HTlojM8wb3qwP
-	 zeV8HX4yP92IZoNC0egVPUqiq5UbgicBxyVHDo1RFBs7v5G3NqaJgSn7hcRYYV2ux3
-	 g7pfjzpZ9EwQCI6Y23hCBges7twk8GnQBL9gwPlw=
+	b=mXm7prB6WRP4gAGnaFjwdrIQPtzSkLlV6j3QfOS8+9MDm3ASxyxtJ3uyF0jE6wGTQ
+	 Iup76wEe+Uyk7d7an4ZB8H9AqjicdQKefNHk8z4obTOkcCPgx57wlDJkW4hsbQ1jdS
+	 AJ0CjIjfOlllQDB6P4yBDTaUSyfp5sugfQBsFNek=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C1A19F80331;
-	Tue, 14 Apr 2020 16:48:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B2E4F80337;
+	Tue, 14 Apr 2020 16:48:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 710F1F80329; Tue, 14 Apr 2020 16:47:18 +0200 (CEST)
+ id 7CA5FF80333; Tue, 14 Apr 2020 16:47:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 36DEEF800B9
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:47:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36DEEF800B9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 810E7F800B9
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:47:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 810E7F800B9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="eKx0Mtvm"
+ header.b="H5dFdqx6"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 554A52087E;
- Tue, 14 Apr 2020 14:47:10 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 726D820CC7;
+ Tue, 14 Apr 2020 14:47:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586875630;
- bh=uLxjlWo1GoRmvs1y0MBgcLwwGQKigiigM/W31Ot6no4=;
+ s=default; t=1586875636;
+ bh=8l8qvAdkG3irVaNUvMR5e7sGi6NgrQ7nNnMN7lU+Ypw=;
  h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=eKx0Mtvmgkn8tY8wT/C4JWFo1mQI9TgZ84ZKzpzzhc8DGWcsJhbpJY3OzPmyWyr/W
- QY17g12sRUohrKgoPQDBwFL/2govxhx9WzXqPF/VZh+j08UpzyN+EcTTYWQ4WLB8Zt
- ZI/K1r5oo8OeGhGdJ4bHpAn2ODDMa9ysDUiIyBW8=
-Date: Tue, 14 Apr 2020 15:47:08 +0100
+ b=H5dFdqx6nIDqdZkcysqi+odJ4NkyCs6vNMSeVV+Gp6uXhKAvOresbwHMCiOV10NID
+ X6vS2GogFkMfGhAVMdNlI6D6dS9ZCwIT5krpEM7YboD1DmfrH4Z/ph8xasLiKshilH
+ A5c5Xi2LenPDrv/r9hHEOkbV/a9rcY5TFv3NUvRo=
+Date: Tue, 14 Apr 2020 15:47:13 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Jason Yan <yanaijie@huawei.com>
-Subject: Applied "ASoC: wm8994: remove wm1811_snd_controls and
- mixin_boost_tlv" to the asoc tree
-In-Reply-To: <20200407082932.41511-2-yanaijie@huawei.com>
-Message-Id: <applied-20200407082932.41511-2-yanaijie@huawei.com>
+To: Dmitry Osipenko <digetx@gmail.com>
+Subject: Applied "ASoC: tegra-wm8903: Document new nvidia,
+ headset property" to the asoc tree
+In-Reply-To: <20200330204011.18465-2-digetx@gmail.com>
+Message-Id: <applied-20200330204011.18465-2-digetx@gmail.com>
 X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, lgirdwood@gmail.com,
- Hulk Robot <hulkci@huawei.com>, Mark Brown <broonie@kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Stephen Warren <swarren@wwwdotorg.org>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Mark Brown <broonie@kernel.org>, linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,7 +81,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: wm8994: remove wm1811_snd_controls and mixin_boost_tlv
+   ASoC: tegra-wm8903: Document new nvidia, headset property
 
 has been applied to the asoc tree at
 
@@ -103,55 +106,36 @@ to this mail.
 Thanks,
 Mark
 
-From e8ec193e485d933946ca7cc788c5503cd38af1a2 Mon Sep 17 00:00:00 2001
-From: Jason Yan <yanaijie@huawei.com>
-Date: Tue, 7 Apr 2020 16:29:29 +0800
-Subject: [PATCH] ASoC: wm8994: remove wm1811_snd_controls and mixin_boost_tlv
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 8240fe6c91b884b5f1f861a8c22721d6ea4c53c9 Mon Sep 17 00:00:00 2001
+From: Dmitry Osipenko <digetx@gmail.com>
+Date: Mon, 30 Mar 2020 23:40:10 +0300
+Subject: [PATCH] ASoC: tegra-wm8903: Document new nvidia, headset property
 
-Fix the following gcc warning:
+Some devices have a 4-pin headset jack instead of 3-pin microphone jack.
+The new boolean nvidia,headset property tells that the Mic Jack represents
+the state of a headset microphone. This additional hardware description is
+needed because microphone detection procedure differs in a case of a 4-pin
+jack from a 3-pin jack.
 
-sound/soc/codecs/wm8994.c:736:38: warning: ‘wm1811_snd_controls’ defined
-but not used [-Wunused-const-variable=]
- static const struct snd_kcontrol_new wm1811_snd_controls[] = {
-                                      ^~~~~~~~~~~~~~~~~~~
-
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: Jason Yan <yanaijie@huawei.com>
-Link: https://lore.kernel.org/r/20200407082932.41511-2-yanaijie@huawei.com
+Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
+Link: https://lore.kernel.org/r/20200330204011.18465-2-digetx@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/wm8994.c | 8 --------
- 1 file changed, 8 deletions(-)
+ .../devicetree/bindings/sound/nvidia,tegra-audio-wm8903.txt      | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/codecs/wm8994.c b/sound/soc/codecs/wm8994.c
-index 15ce64a48a87..55d0b9be6ff0 100644
---- a/sound/soc/codecs/wm8994.c
-+++ b/sound/soc/codecs/wm8994.c
-@@ -285,7 +285,6 @@ static const DECLARE_TLV_DB_SCALE(st_tlv, -3600, 300, 0);
- static const DECLARE_TLV_DB_SCALE(wm8994_3d_tlv, -1600, 183, 0);
- static const DECLARE_TLV_DB_SCALE(eq_tlv, -1200, 100, 0);
- static const DECLARE_TLV_DB_SCALE(ng_tlv, -10200, 600, 0);
--static const DECLARE_TLV_DB_SCALE(mixin_boost_tlv, 0, 900, 0);
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8903.txt b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8903.txt
+index a8f2b0c56c79..bbd581a8c5bc 100644
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8903.txt
++++ b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8903.txt
+@@ -29,6 +29,7 @@ Optional properties:
+ - nvidia,hp-det-gpios : The GPIO that detect headphones are plugged in
+ - nvidia,int-mic-en-gpios : The GPIO that enables the internal microphone
+ - nvidia,ext-mic-en-gpios : The GPIO that enables the external microphone
++- nvidia,headset : The Mic Jack represents state of the headset microphone pin
  
- #define WM8994_DRC_SWITCH(xname, reg, shift) \
- 	SOC_SINGLE_EXT(xname, reg, shift, 1, 0, \
-@@ -733,13 +732,6 @@ SOC_SINGLE_TLV("AIF2DAC Noise Gate Threshold Volume",
- 	       7, 1, ng_tlv),
- };
+ Example:
  
--static const struct snd_kcontrol_new wm1811_snd_controls[] = {
--SOC_SINGLE_TLV("MIXINL IN1LP Boost Volume", WM8994_INPUT_MIXER_1, 7, 1, 0,
--	       mixin_boost_tlv),
--SOC_SINGLE_TLV("MIXINL IN1RP Boost Volume", WM8994_INPUT_MIXER_1, 8, 1, 0,
--	       mixin_boost_tlv),
--};
--
- /* We run all mode setting through a function to enforce audio mode */
- static void wm1811_jackdet_set_mode(struct snd_soc_component *component, u16 mode)
- {
 -- 
 2.20.1
 

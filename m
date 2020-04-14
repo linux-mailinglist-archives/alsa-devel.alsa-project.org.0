@@ -2,87 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B0D81A7913
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 13:05:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AD601A7B56
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 14:53:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9E6BF16A5;
-	Tue, 14 Apr 2020 13:04:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E6BF16A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id D578516A8;
+	Tue, 14 Apr 2020 14:52:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D578516A8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586862342;
-	bh=NEXF3ezdf542MnbQ15GHQkULaaUEy4QyP2AyRlL6ogE=;
+	s=default; t=1586868782;
+	bh=rmS6XaLsIkPwJ/gBtSP9OQ6M01Qyp3xbgfqynzkfiDs=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=YubNVdhvkr1P0KDNqAB7pc+C//toTp6C8XUr62dzzJeDz9elyfdfs018DFUg5nADA
-	 qpoEi7LjSeZEpCyoVYJgN0QYMzgFkacWbhWNyJcXitBvOl8yg1Kdb7e8uQQVyR83xR
-	 fV+WfCHitOS/1ob4wcXT5g7Qd2uf6SOAMZB9FEjw=
+	b=sBuOctccqekA6OPyhe2Zu5thX6WYaDPTaPxPRLDebQqX5CyifQ6vkTzTKJKZ7mXgJ
+	 YX6h/qnzd3P7BO4SaQJK/MKN6FHYXuVtDA5Y2T7inuEiU4qn5Ak/w4bkM56HPs4jjz
+	 AzLmqX9R9LqUfCE9KB1w0Xtl28See1yHdqpNPI9Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1FF4F800F5;
-	Tue, 14 Apr 2020 13:04:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09F79F80126;
+	Tue, 14 Apr 2020 14:51:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8CE1AF8013D; Tue, 14 Apr 2020 13:03:59 +0200 (CEST)
+ id 2CE97F8013D; Tue, 14 Apr 2020 13:28:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from dd10228.kasserver.com (dd10228.kasserver.com [85.13.133.23])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 88F85F80115
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 13:03:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88F85F80115
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="DT7CG0ss"
-Received: by mail-wr1-x443.google.com with SMTP id h9so13797676wrc.8
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 04:03:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Kozp6i3Lacgef5+4DSMHoj7MA9dOzLCEz2jUPeMWfbA=;
- b=DT7CG0ssfUne9lNYdPJ9Ecue56wKlgS2k6+ncHI0dPVClo4XpziRxwmp23K8foCmoW
- Ies2xoFcXT9MXxE5iA+V6bHWY+JTD6hewBKACAJeqfyZDKIu8GPbEaLyvgNm+U3awvAt
- mbopGWym3uqalLQSDP58sUntlxfxDSo4HkgjF/Hk+TLm9DQOgxAbf3YLvRuHfd5iQ8LN
- waM/w2GqFMv0wIzsspgGB4Q9OZRyN7XXo9NgIMwnnkJDf5ZLlvpdoJnatqsbTlL1FUGF
- sG2ZBK/c90tuKWrzt4k0obq2TMLvpzB1+Ny8vy/agL4I3jM4rhJ8kO4XAHSm675H/RBU
- 4y0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Kozp6i3Lacgef5+4DSMHoj7MA9dOzLCEz2jUPeMWfbA=;
- b=jK3/FtH5Vi/qDEjDIMNQKZIpWiiHWaRfpjPHmp5mT2+xsnrC/Sn+iO8+sE6yeZdSZ4
- 4ZHlYt2Vd2UzXqaS5guZcLEkHH+jaBUNx/bBuyduj0Ck7PCrBJXJC6SCvqxzoX5VwVlv
- UghGWG8FhHmqnRBxW/IDJw8xBvEPzX4wy/LU5TFhuGtldGNTTSZLbLKzbk5CoJsuaREh
- Ciq2L3py3vf/FVkLy/E4nLtzF6EQ4vI2XZuMy06IaiFJ0HQb7CTLh2cqLDaEDx/EE9vd
- +VbJnEu9m0+4t1f2UVrs7zoNL0QxfWRW+tIaDSGUab3YpR94+Z3Oe64SYambQGAIXF5U
- 6mQQ==
-X-Gm-Message-State: AGi0PuabX/jCTZv1YMbDxRDDXMUX6d3A6d0ztuQ9q8pgeh2PbxbjVu8n
- xC8vBcLuH6susBKr2Y52h4Vl4Rk6Q5s=
-X-Google-Smtp-Source: APiQypLnFggHzw40uCeOKStfMH7DEa3ix/MQQT+27B0+i0Gpd4CjYgAioKfmQb4l8jR9Raq4nljbAA==
-X-Received: by 2002:a5d:664f:: with SMTP id f15mr22603091wrw.72.1586862235663; 
- Tue, 14 Apr 2020 04:03:55 -0700 (PDT)
-Received: from srini-hackbox.lan
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.gmail.com with ESMTPSA id 5sm17989784wmg.34.2020.04.14.04.03.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Apr 2020 04:03:55 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org
-Subject: [RESEND PATCH] ASoC: wsa881x: mark read_only_wordlength flag
-Date: Tue, 14 Apr 2020 12:03:47 +0100
-Message-Id: <20200414110347.23829-1-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 97CB2F800F5
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 13:27:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97CB2F800F5
+Received: from devpool17.fritz.box (ip1f107c11.dynamic.kabel-deutschland.de
+ [31.16.124.17])
+ by dd10228.kasserver.com (Postfix) with ESMTPSA id 47E406CC0254;
+ Tue, 14 Apr 2020 13:27:56 +0200 (CEST)
+From: Philipp Puschmann <p.puschmann@pironex.de>
+To: cernekee@chromium.org, lgirdwood@gmail.com, broonie@kernel.org,
+ tglx@linutronix.de, nhuck@google.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: tas571x: disable regulators on failed probe
+Date: Tue, 14 Apr 2020 13:27:54 +0200
+Message-Id: <20200414112754.3365406-1-p.puschmann@pironex.de>
+X-Mailer: git-send-email 2.26.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: vkoul@kernel.org, Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+X-Mailman-Approved-At: Tue, 14 Apr 2020 14:51:17 +0200
+Cc: Philipp Puschmann <p.puschmann@pironex.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,65 +66,87 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-WSA881x works in PDM mode so the wordlength is fixed, which also makes
-the only field "WordLength" in DPN_BlockCtrl1 register a read-only.
-Writing to this register will throw up errors with Qualcomm Controller.
-So use ro_blockctrl1_reg flag to mark this field as read-only so that
-core will not write to this register.
+If probe fails after enabling the regulators regulator_put is called for
+each supply without having them disabled before. This produces some
+warnings like
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+WARNING: CPU: 0 PID: 90 at drivers/regulator/core.c:2044 _regulator_put.part.0+0x154/0x15c
+[<c010f7a8>] (unwind_backtrace) from [<c010c544>] (show_stack+0x10/0x14)
+[<c010c544>] (show_stack) from [<c012b640>] (__warn+0xd0/0xf4)
+[<c012b640>] (__warn) from [<c012b9b4>] (warn_slowpath_fmt+0x64/0xc4)
+[<c012b9b4>] (warn_slowpath_fmt) from [<c04c4064>] (_regulator_put.part.0+0x154/0x15c)
+[<c04c4064>] (_regulator_put.part.0) from [<c04c4094>] (regulator_put+0x28/0x38)
+[<c04c4094>] (regulator_put) from [<c04c40cc>] (regulator_bulk_free+0x28/0x38)
+[<c04c40cc>] (regulator_bulk_free) from [<c0579b2c>] (release_nodes+0x1d0/0x22c)
+[<c0579b2c>] (release_nodes) from [<c05756dc>] (really_probe+0x108/0x34c)
+[<c05756dc>] (really_probe) from [<c0575aec>] (driver_probe_device+0xb8/0x16c)
+[<c0575aec>] (driver_probe_device) from [<c0575d40>] (device_driver_attach+0x58/0x60)
+[<c0575d40>] (device_driver_attach) from [<c0575da0>] (__driver_attach+0x58/0xcc)
+[<c0575da0>] (__driver_attach) from [<c0573978>] (bus_for_each_dev+0x78/0xc0)
+[<c0573978>] (bus_for_each_dev) from [<c0574b5c>] (bus_add_driver+0x188/0x1e0)
+[<c0574b5c>] (bus_add_driver) from [<c05768b0>] (driver_register+0x74/0x108)
+[<c05768b0>] (driver_register) from [<c061ab7c>] (i2c_register_driver+0x3c/0x88)
+[<c061ab7c>] (i2c_register_driver) from [<c0102df8>] (do_one_initcall+0x58/0x250)
+[<c0102df8>] (do_one_initcall) from [<c01a91bc>] (do_init_module+0x60/0x244)
+[<c01a91bc>] (do_init_module) from [<c01ab5a4>] (load_module+0x2180/0x2540)
+[<c01ab5a4>] (load_module) from [<c01abbd4>] (sys_finit_module+0xd0/0xe8)
+[<c01abbd4>] (sys_finit_module) from [<c01011e0>] (__sys_trace_return+0x0/0x20)
+
+Fixes: 3fd6e7d9a146 (ASoC: tas571x: New driver for TI TAS571x power amplifiers)
+Signed-off-by: Philipp Puschmann <p.puschmann@pironex.de>
 ---
-Hi Mark,
+ sound/soc/codecs/tas571x.c | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
 
-For some reason this patch was missed during last merge window,
-Other patch in this series is already in mainline.
-Without this patch audio is not functional on DB845c and other SDM845
-based platforms.
-
-Can you please take this for next possible rc.
-
-Thanks,
-srini
-
- sound/soc/codecs/wsa881x.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/sound/soc/codecs/wsa881x.c b/sound/soc/codecs/wsa881x.c
-index f2d6f2f81f14..d39d479e2378 100644
---- a/sound/soc/codecs/wsa881x.c
-+++ b/sound/soc/codecs/wsa881x.c
-@@ -394,6 +394,7 @@ static struct sdw_dpn_prop wsa_sink_dpn_prop[WSA881X_MAX_SWR_PORTS] = {
- 		.min_ch = 1,
- 		.max_ch = 1,
- 		.simple_ch_prep_sm = true,
-+		.read_only_wordlength = true,
- 	}, {
- 		/* COMP */
- 		.num = 2,
-@@ -401,6 +402,7 @@ static struct sdw_dpn_prop wsa_sink_dpn_prop[WSA881X_MAX_SWR_PORTS] = {
- 		.min_ch = 1,
- 		.max_ch = 1,
- 		.simple_ch_prep_sm = true,
-+		.read_only_wordlength = true,
- 	}, {
- 		/* BOOST */
- 		.num = 3,
-@@ -408,6 +410,7 @@ static struct sdw_dpn_prop wsa_sink_dpn_prop[WSA881X_MAX_SWR_PORTS] = {
- 		.min_ch = 1,
- 		.max_ch = 1,
- 		.simple_ch_prep_sm = true,
-+		.read_only_wordlength = true,
- 	}, {
- 		/* VISENSE */
- 		.num = 4,
-@@ -415,6 +418,7 @@ static struct sdw_dpn_prop wsa_sink_dpn_prop[WSA881X_MAX_SWR_PORTS] = {
- 		.min_ch = 1,
- 		.max_ch = 1,
- 		.simple_ch_prep_sm = true,
-+		.read_only_wordlength = true,
- 	}
- };
+diff --git a/sound/soc/codecs/tas571x.c b/sound/soc/codecs/tas571x.c
+index 1554631cb397..5b7f9fcf6cbf 100644
+--- a/sound/soc/codecs/tas571x.c
++++ b/sound/soc/codecs/tas571x.c
+@@ -820,8 +820,10 @@ static int tas571x_i2c_probe(struct i2c_client *client,
  
+ 	priv->regmap = devm_regmap_init(dev, NULL, client,
+ 					priv->chip->regmap_config);
+-	if (IS_ERR(priv->regmap))
+-		return PTR_ERR(priv->regmap);
++	if (IS_ERR(priv->regmap)) {
++		ret = PTR_ERR(priv->regmap);
++		goto disable_regs;
++	}
+ 
+ 	priv->pdn_gpio = devm_gpiod_get_optional(dev, "pdn", GPIOD_OUT_LOW);
+ 	if (IS_ERR(priv->pdn_gpio)) {
+@@ -845,7 +847,7 @@ static int tas571x_i2c_probe(struct i2c_client *client,
+ 
+ 	ret = regmap_write(priv->regmap, TAS571X_OSC_TRIM_REG, 0);
+ 	if (ret)
+-		return ret;
++		goto disable_regs;
+ 
+ 	usleep_range(50000, 60000);
+ 
+@@ -861,12 +863,20 @@ static int tas571x_i2c_probe(struct i2c_client *client,
+ 		 */
+ 		ret = regmap_update_bits(priv->regmap, TAS571X_MVOL_REG, 1, 0);
+ 		if (ret)
+-			return ret;
++			goto disable_regs;
+ 	}
+ 
+-	return devm_snd_soc_register_component(&client->dev,
++	ret = devm_snd_soc_register_component(&client->dev,
+ 				      &priv->component_driver,
+ 				      &tas571x_dai, 1);
++	if (ret)
++		goto disable_regs;
++
++	return ret;
++
++disable_regs:
++	regulator_bulk_disable(priv->chip->num_supply_names, priv->supplies);
++	return ret;
+ }
+ 
+ static int tas571x_i2c_remove(struct i2c_client *client)
 -- 
-2.21.0
+2.26.0
 

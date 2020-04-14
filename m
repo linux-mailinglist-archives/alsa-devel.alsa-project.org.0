@@ -2,50 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 190BC1A6D23
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Apr 2020 22:21:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE5391A7052
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 02:53:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9EAC6169F;
-	Mon, 13 Apr 2020 22:20:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9EAC6169F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 85FC6169F;
+	Tue, 14 Apr 2020 02:52:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85FC6169F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586809271;
-	bh=9vpCZ0bU4gkmdKRVrRNVkLiRvz5E4EdlB1IC+laC00g=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1586825604;
+	bh=jNG2Xh0u3aXCQXZEhWSgEIHEf0GIz3Ooh4JgJ497Kow=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=dDfJ8es+vDWj0JusiL1k/NtUuyWjtM5wdwNmQ5R414yTbABHepm51wG8zYQaXEPDC
-	 DOcES2nRoM0BrtJuiQYhqHjkUigJsoBYqrea+4POUTpsz5PQJImo6NuJTDw0gWOGeb
-	 /gpyDer01YlFZznc/HjmfIemav4YYFTG6KhO/sqk=
+	b=SwbEL1zvEM8/rqVi+InLlv9arM3EJAJkz1Qv5FN0BRLje9aRYonVNXOiBHVtcx+Cz
+	 6HeSG586syNFnpBJ2z2tiXEPCUMHj1Lk/M0M2Uqb+ufYAV/CnqWX9b1d0fm193htaC
+	 3cA91mDRlIG8XP6bAPulBUCU8Q3LPgnBJjGzonWo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B2771F80229;
-	Mon, 13 Apr 2020 22:19:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A87F9F8027C;
+	Tue, 14 Apr 2020 02:51:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 42D42F80245; Mon, 13 Apr 2020 22:19:24 +0200 (CEST)
+ id CE9FFF80277; Tue, 14 Apr 2020 02:51:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D97D5F8010E
- for <alsa-devel@alsa-project.org>; Mon, 13 Apr 2020 22:19:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D97D5F8010E
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 68685ABAD
- for <alsa-devel@alsa-project.org>; Mon, 13 Apr 2020 20:19:19 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: hda: Allow setting preallocation again for x86
-Date: Mon, 13 Apr 2020 22:19:19 +0200
-Message-Id: <20200413201919.24241-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.16.4
+ by alsa1.perex.cz (Postfix) with ESMTPS id D6838F80115
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 02:51:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6838F80115
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 825601A0247;
+ Tue, 14 Apr 2020 02:51:24 +0200 (CEST)
+Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
+ [165.114.16.14])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id DAB5A1A023F;
+ Tue, 14 Apr 2020 02:51:18 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id CB1474028B;
+ Tue, 14 Apr 2020 08:51:11 +0800 (SGT)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, broonie@kernel.org, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, robh+dt@kernel.org,
+ mark.rutland@arm.com, devicetree@vger.kernel.org
+Subject: [PATCH v7 0/7] ASoC: Add new module driver for new ASRC
+Date: Tue, 14 Apr 2020 08:43:02 +0800
+Message-Id: <cover.1586747728.git.shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,52 +72,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The commit c31427d0d21e ("ALSA: hda: No preallocation on x86
-platforms") changed CONFIG_SND_HDA_PREALLOC_SIZE setup and its default
-to zero for x86, as the preallocation should work almost all cases.
-However, this expectation was too naive; some applications try to
-allocate as the max buffer size as possible, and it leads to the
-memory exhaustion.  More badly, the commit changed the kconfig no
-longer adjustable for x86, so you can't fix it statically (although it
-can be still adjusted via procfs).
+Add new module driver for new ASRC in i.MX8MN, several commits
+are added for new property fsl,asrc-format
 
-So, practically seen, it's more recommended to set a reasonable limit
-for x86, too.  This patch follows to that experience, and changes the
-default to 2048 and allow the kconfig adjustable again.
+Shengjiu Wang (7):
+  ASoC: fsl_asrc: rename asrc_priv to asrc
+  ASoC: dt-bindings: fsl_asrc: Add new property fsl,asrc-format
+  ASoC: fsl-asoc-card: Support new property fsl,asrc-format
+  ASoC: fsl_asrc: Support new property fsl,asrc-format
+  ASoC: fsl_asrc: Move common definition to fsl_asrc_common
+  ASoC: dt-bindings: fsl_easrc: Add document for EASRC
+  ASoC: fsl_easrc: Add EASRC ASoC CPU DAI drivers
 
-Fixes: c31427d0d21e ("ALSA: hda: No preallocation on x86 platforms")
-Cc: <stable@vger.kernel.org>
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=207223
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/hda/Kconfig | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+changes in v7
+- updated according to Nicoin's comments.
+- add get_pair_priv_size to replace PAIR_PRIVATE_SIZE
 
-diff --git a/sound/hda/Kconfig b/sound/hda/Kconfig
-index 4ca6b09056f3..3bc9224d5e4f 100644
---- a/sound/hda/Kconfig
-+++ b/sound/hda/Kconfig
-@@ -21,16 +21,17 @@ config SND_HDA_EXT_CORE
-        select SND_HDA_CORE
- 
- config SND_HDA_PREALLOC_SIZE
--	int "Pre-allocated buffer size for HD-audio driver" if !SND_DMA_SGBUF
-+	int "Pre-allocated buffer size for HD-audio driver"
- 	range 0 32768
--	default 0 if SND_DMA_SGBUF
-+	default 2048 if SND_DMA_SGBUF
- 	default 64 if !SND_DMA_SGBUF
- 	help
- 	  Specifies the default pre-allocated buffer-size in kB for the
- 	  HD-audio driver.  A larger buffer (e.g. 2048) is preferred
- 	  for systems using PulseAudio.  The default 64 is chosen just
- 	  for compatibility reasons.
--	  On x86 systems, the default is zero as we need no preallocation.
-+	  On x86 systems, the default is 2048 as a reasonable value for
-+	  most of modern systems.
- 
- 	  Note that the pre-allocation size can be changed dynamically
- 	  via a proc file (/proc/asound/card*/pcm*/sub*/prealloc), too.
+changes in v6
+- updated according to Nicoin's and Rob's comments.
+
+changes in v5
+- Add new property fsl,asrc-format, rather than change fsl,asrc-width
+  to fsl,asrc-formt.
+- code change for above change.
+
+changes in v4
+- Add several commit for changing DT binding asrc-width to asrc-format
+- rename asrc_priv to asrc
+
+changes in v3
+- add new commit "ASoC: fsl_asrc: Change asrc_width to asrc_format"
+- modify binding doc to yaml format
+- remove fsl_easrc_dma.c, make fsl_asrc_dma.c useable for easrc.
+
+changes in v2
+- change i.MX815 to i.MX8MN
+- Add changes in Kconfig and Makefile
+
+ .../devicetree/bindings/sound/fsl,asrc.txt    |    4 +
+ .../devicetree/bindings/sound/fsl,easrc.yaml  |  101 +
+ sound/soc/fsl/Kconfig                         |   11 +
+ sound/soc/fsl/Makefile                        |    2 +
+ sound/soc/fsl/fsl-asoc-card.c                 |   24 +-
+ sound/soc/fsl/fsl_asrc.c                      |  310 +--
+ sound/soc/fsl/fsl_asrc.h                      |   74 +-
+ sound/soc/fsl/fsl_asrc_common.h               |  106 +
+ sound/soc/fsl/fsl_asrc_dma.c                  |   54 +-
+ sound/soc/fsl/fsl_easrc.c                     | 2119 +++++++++++++++++
+ sound/soc/fsl/fsl_easrc.h                     |  651 +++++
+ 11 files changed, 3222 insertions(+), 234 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/fsl,easrc.yaml
+ create mode 100644 sound/soc/fsl/fsl_asrc_common.h
+ create mode 100644 sound/soc/fsl/fsl_easrc.c
+ create mode 100644 sound/soc/fsl/fsl_easrc.h
+
 -- 
-2.16.4
+2.21.0
 

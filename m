@@ -2,79 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E8B51A87FF
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 19:53:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A56C1A8911
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 20:18:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1361F16A5;
-	Tue, 14 Apr 2020 19:53:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1361F16A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id ACD3816A8;
+	Tue, 14 Apr 2020 20:17:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACD3816A8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586886836;
-	bh=bBmFGEaWpYg8ap7AtJ78GaxoqXkZsiVqGYraG7fEbc8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1586888310;
+	bh=EH8Xyy1nwED1YhAp2btLlY3S4BcbTGe3pFkZEmzY0IY=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GFj9GufaTk2hnC6LMCxXBUwtO/Nun3IQDWUFfoFSCSWtppfrNR97kxlCkDC4W4AOC
-	 vx05O7kBHKQDJySvSG7gDLjH+KH6dBpnEsB2DxPX4opdg4vjKw8JV1ECWf8sScfV5x
-	 uxIN5M4b1ENcJexfgvo2FNGg3Xkawpkl7fSDbRMQ=
+	b=Q4snbtrIsQ4eHulRZ+M0XMi28dH/5urUC8IDaWVGPOMB2GMh5AD0JZC8XxrhdRxEH
+	 PLEjci4jQmmT4RGcNZHzFIDkz4HxNjVqsywR4TLjBk1/xnBDS0aRcumptubHuhEVS5
+	 wznsqs2mPrd+dpEJeNfGvusn2EoniXmfVSdntPZg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 318ABF800B9;
-	Tue, 14 Apr 2020 19:52:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C73D7F8013D;
+	Tue, 14 Apr 2020 20:16:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DF6F8F8013D; Tue, 14 Apr 2020 19:52:12 +0200 (CEST)
+ id 70C72F8013D; Tue, 14 Apr 2020 20:16:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 70107F800B9
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 19:52:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70107F800B9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Wp6LgqVs"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.2 required=5.0 tests=PRX_BODY_76,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7AD842074D;
- Tue, 14 Apr 2020 17:52:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586886728;
- bh=bBmFGEaWpYg8ap7AtJ78GaxoqXkZsiVqGYraG7fEbc8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Wp6LgqVscVKq5YHlPBXE2syWWh3yNkgpqC+91VEwyp5Ovod8vI0hKx65GHf0fJ9Zj
- NhIbdFNC3a6cI3RsqmE1jhfGca3nnr/xKgndpgQI88y7MVj5MX6jQQiJGmNmEug8zE
- 5Rq8xDU2kQrm/wrQPpZf0Ns36wk7rBj/ct3fbo8A=
-Date: Tue, 14 Apr 2020 18:52:05 +0100
-From: Mark Brown <broonie@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id B4734F800F5
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 20:16:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4734F800F5
+IronPort-SDR: ZdzoIN6nVgsTOaVc5iiVsizMLkdtvvpp2NZ9Qlbwi8lDhbmf3Ny9zPZq2gB8qxLEfboG3ctaA+
+ focBkO7MjxqQ==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2020 11:16:40 -0700
+IronPort-SDR: UTuFLX3YOUg8m9hrWrHUhi1cMN2h/wTqDRLz9NHdi6CPDlX7fPOuzVtWbxYKhaZV2FS9Ax5d7P
+ ElkvrfUZ78EA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,383,1580803200"; d="scan'208";a="253272826"
+Received: from svarahab-mobl.amr.corp.intel.com (HELO [10.212.190.40])
+ ([10.212.190.40])
+ by orsmga003.jf.intel.com with ESMTP; 14 Apr 2020 11:16:34 -0700
+Subject: Re: [RFC PATCH 01/16] ASoC: pcm512x: expose 6 GPIOs
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: Re: [RFC PATCH 03/16] ASoC: Intel: sof-pcm512x: use gpiod for LED
-Message-ID: <20200414175205.GL5412@sirena.org.uk>
 References: <20200409195841.18901-1-pierre-louis.bossart@linux.intel.com>
- <20200409195841.18901-4-pierre-louis.bossart@linux.intel.com>
- <20200414171752.GC34613@smile.fi.intel.com>
+ <20200409195841.18901-2-pierre-louis.bossart@linux.intel.com>
+ <20200414170934.GA34613@smile.fi.intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <31e956de-8f62-1857-5153-b163ff7d56e1@linux.intel.com>
+Date: Tue, 14 Apr 2020 12:52:07 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="HLsZ5Z1opAQvdr2J"
-Content-Disposition: inline
-In-Reply-To: <20200414171752.GC34613@smile.fi.intel.com>
-X-Cookie: I've only got 12 cards.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Rob Herring <robh+dt@kernel.org>,
- linux-gpio@vger.kernel.org, tiwai@suse.de,
- Linus Walleij <linus.walleij@linaro.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Daniel Matuschek <daniel@hifiberry.com>, Hui Wang <hui.wang@canonical.com>,
- Matthias Reichl <hias@horus.com>, Michael Turquette <mturquette@baylibre.com>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, linux-clk@vger.kernel.org
+In-Reply-To: <20200414170934.GA34613@smile.fi.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Matthias Reichl <hias@horus.com>,
+ tiwai@suse.de, Linus Walleij <linus.walleij@linaro.org>,
+ Stephen Boyd <sboyd@kernel.org>, Daniel Matuschek <daniel@hifiberry.com>,
+ linux-clk@vger.kernel.org, Hui Wang <hui.wang@canonical.com>,
+ linux-gpio@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ broonie@kernel.org, Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+ Michael Turquette <mturquette@baylibre.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,33 +88,152 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---HLsZ5Z1opAQvdr2J
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Tue, Apr 14, 2020 at 08:17:52PM +0300, Andy Shevchenko wrote:
-> On Thu, Apr 09, 2020 at 02:58:28PM -0500, Pierre-Louis Bossart wrote:
+>> +static int pcm512x_gpio_get_direction(struct gpio_chip *chip,
+>> +				      unsigned int offset)
+>> +{
+>> +	struct pcm512x_priv *pcm512x = gpiochip_get_data(chip);
+>> +	unsigned int val;
+>> +	int ret;
+>> +
+>> +	ret = regmap_read(pcm512x->regmap, PCM512x_GPIO_EN, &val);
+>> +	if (ret < 0)
+>> +		return ret;
+> 
+>> +	val = (val >> offset) & 1;
+>> +
+>> +	/* val is 0 for input, 1 for output, return inverted */
+>> +	return val ? GPIO_LINE_DIRECTION_OUT : GPIO_LINE_DIRECTION_IN;
+> 
+> This better to read as simple conditional, like
+> 
+> 	if (val & BIT(offset))
+> 		return ..._OUT;
+> 	return ..._IN;
+> 
+>> +}
 
-> > +		GPIO_LOOKUP("pcm512x-gpio", 3, "PCM512x-GPIO4", GPIO_ACTIVE_HIGH),
+ok
 
-> It says GPIO 4 and here is number 3.
-> Does this 4 come from hardware documentation?
+> 
+> ...
+> 
+>> +static int pcm512x_gpio_direction_output(struct gpio_chip *chip,
+>> +					 unsigned int offset,
+>> +					 int value)
+>> +{
+>> +	struct pcm512x_priv *pcm512x = gpiochip_get_data(chip);
+>> +	unsigned int reg;
+>> +	int ret;
+>> +
+>> +	/* select Register GPIOx output for OUTPUT_x (1..6) */
+>> +	reg = PCM512x_GPIO_OUTPUT_1 + offset;
+> 
+>> +	ret = regmap_update_bits(pcm512x->regmap, reg, 0x0f, 0x02);
+> 
+> Magic numbers detected.
+> 
+>> +	if (ret < 0)
+> 
+> Drop unnecessary ' < 0' parts where it makes sense, like here.
 
-Yes, the first GPIO in the device is GPIO1.
+did you mean use  if (ret) or drop the test altogether?
 
---HLsZ5Z1opAQvdr2J
-Content-Type: application/pgp-signature; name="signature.asc"
+There's no standard style for regmap functions so I used what was used 
+in the rest of this driver.
 
------BEGIN PGP SIGNATURE-----
+Mark?
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6V+EQACgkQJNaLcl1U
-h9AWgQf/bIQs+gv5yXrGrVTSpNHyX246/chEfkEGGW13vu7i30lHMx7WqTl2XYH8
-dxug0+PjPKNCxQqtt278m7YnB2VZw1Go9EhQg3pq1HE7nMmf5pVgzB6wHcAkst5R
-EIQB8ezHiiVoAfJzdHSC7jXNvuc7PKuqJBPqaUZrink1flI50FyPMybtKNjCHe6n
-B+2NyFFIue4/P64qCSVLUtK0GQ2xZiUGIcAbCLMZQJg/CBOvugTygvVYFmLOBIXA
-0CHH9ozBELK/ofd55JItdSSueHgQ6RmDNmDiwlfLIkqQhPFC+1l4SJIy0agz3IeQ
-tq3d+rvrTW68hHrgEsSddNeRQEXupw==
-=7ljH
------END PGP SIGNATURE-----
+> 
+>> +		return ret;
+>> +
+> 
+>> +	/* enable output x */
+> 
+> (1)
+> 
+>> +	ret = regmap_update_bits(pcm512x->regmap, PCM512x_GPIO_EN,
+>> +				 BIT(offset), BIT(offset));
+>> +	if (ret < 0)
+>> +		return ret;
+>> +
+>> +	/* set value */
+> 
+> (2)
+> 
+> With this (1)->(2) ordering it may be a glitch. So, first set value (if
+> hardware allows you, otherwise it seems like a broken one), and then switch
+> it to output.
 
---HLsZ5Z1opAQvdr2J--
+good suggestion, thanks.
+
+> 
+>> +	return regmap_update_bits(pcm512x->regmap, PCM512x_GPIO_CONTROL_1,
+>> +				  BIT(offset), value << offset);
+> 
+> You are using many times BIT(offset) mask above, perhaps
+> 	int mask = BIT(offset);
+> 
+> Also, more robust is to use ternary here: 'value ? BIT(offset) : 0'.
+> Rationale: think what happen with value != 1 (theoretical possibility in the
+> future).
+
+ok
+
+> 
+>> +}
+> 
+> ...
+> 
+>> +static int pcm512x_gpio_get(struct gpio_chip *chip, unsigned int offset)
+>> +{
+> 
+>> +	return (val >> offset) & 1;
+> 
+> Don't forget to use BIT() macro.
+> 
+> 	return !!(val & BIT(offset));
+
+There's a point where this becomes less readable IMHO, but fine.
+The !! gives me a headache...
+
+>> +static void pcm512x_gpio_set(struct gpio_chip *chip, unsigned int offset,
+>> +			     int value)
+>> +{
+>> +	struct pcm512x_priv *pcm512x = gpiochip_get_data(chip);
+>> +	int ret;
+>> +
+>> +	ret = regmap_update_bits(pcm512x->regmap, PCM512x_GPIO_CONTROL_1,
+>> +				 BIT(offset), value << offset);
+> 
+> value ? BIT(offset) : 0
+
+ok
+
+> 
+>> +	if (ret < 0)
+> 
+>> +		pr_debug("%s: regmap_update_bits failed: %d\n", __func__, ret);
+> 
+> No __func__ in debug messages.
+> Use dev_dbg() when we have struct device available.
+
+Not sure we do, will look into this.
+
+>> +static const struct gpio_chip template_chip = {
+> 
+> Give better name, please. E.g. pcm512x_gpio_chip.
+
+ok
+
+>> +	/* expose 6 GPIO pins, numbered from 1 to 6 */
+>> +	pcm512x->chip = template_chip;
+>> +	pcm512x->chip.parent = dev;
+>> +
+>> +	ret = devm_gpiochip_add_data(dev, &pcm512x->chip, pcm512x);
+> 
+>> +	if (ret != 0) {
+> 
+> if (ret)
+
+ok

@@ -2,77 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A00951A76D4
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 11:01:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18A8E1A76EE
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 11:05:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2664C16A0;
-	Tue, 14 Apr 2020 11:00:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2664C16A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 94AF016A0;
+	Tue, 14 Apr 2020 11:04:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94AF016A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586854907;
-	bh=/pG6LtNHP3OkEtun23stZHjuj+LWbBGXDhFFDIqCCW8=;
+	s=default; t=1586855130;
+	bh=3aWXmT0mjPhKfUPwrWYdpnH9OR6i6eEI+0sdN2hAnZc=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=thqXmLTikGxU9ByVek3Z+KzbjGaQ3fXc5eYNVxEEGdX3rSQtGdhkFrUtw0IhG2EEa
-	 nW/hOJs7sFQEkb1IMB1KOGvztbdcM4FY6D4TiT116Zi6P1qJgRqU5HyXLe4BbAs7Na
-	 okssXOth0GtRjSZrS/VZZyCaY4QHDC44TuO/vi8I=
+	b=VIZGAsAK8xKJOk8bCWktcjeDmDOa+yUdvKKAEUaBRSR1qagAvcFDuOJK9qhhyqRF5
+	 maF01Ace+peGWBXcv+lWSuOocf3JjlNlWqPlRqvbY0ntebdu5a+9wHlqp0OcaZN0QG
+	 e2/2Q9veEKOz4p3DKi5IDM6xBj/BqRsLG/ydRu+0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3DD43F8013D;
-	Tue, 14 Apr 2020 11:00:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BFAE9F800F5;
+	Tue, 14 Apr 2020 11:03:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 73CBCF800F5; Tue, 14 Apr 2020 11:00:01 +0200 (CEST)
+ id B8EA4F8013D; Tue, 14 Apr 2020 11:03:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E32C7F800F5
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 10:59:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E32C7F800F5
-IronPort-SDR: TMo++OnPzkldiz51u/49vzsMJD44WIGpZQkOWN2HpIssL+iCffO5V3ePQYolCiDtb7rRMihl1Z
- I0BaZxmFa1ZA==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2020 01:59:54 -0700
-IronPort-SDR: nTRY4F9FYKyL9PfVM6xsZ5/9u0TRKVZNswM5DrPWZ0E9d8IIUx3Jnr5XWmaDCrn73Jj4aa20Gd
- 101o5HYFttVQ==
-X-IronPort-AV: E=Sophos;i="5.72,382,1580803200"; d="scan'208";a="253141691"
-Received: from aslawinx-mobl1.ger.corp.intel.com (HELO [10.249.141.95])
- ([10.249.141.95])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2020 01:59:50 -0700
-Subject: Re: [PATCH] ASoC: Intel: sst: ipc command timeout
-To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
-References: <1586506705-3194-1-git-send-email-brent.lu@intel.com>
-From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-Message-ID: <d59774fc-bc95-d6c7-e354-a81e6490049a@linux.intel.com>
-Date: Tue, 14 Apr 2020 10:59:47 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3E951F80115
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 11:03:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E951F80115
+Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.58])
+ by Forcepoint Email with ESMTP id 63EA92964518253B8D39;
+ Tue, 14 Apr 2020 17:03:37 +0800 (CST)
+Received: from [127.0.0.1] (10.173.222.212) by DGGEMS412-HUB.china.huawei.com
+ (10.3.19.212) with Microsoft SMTP Server id 14.3.487.0;
+ Tue, 14 Apr 2020 17:03:22 +0800
+Subject: Re: [RFC v2] ALSA: control: fix a error handling exist in
+ snd_ctl_elem_add
+To: Takashi Iwai <tiwai@suse.de>
+References: <20200414065109.6923-1-yangerkun@huawei.com>
+ <s5h4ktmlfpx.wl-tiwai@suse.de>
+From: yangerkun <yangerkun@huawei.com>
+Message-ID: <59873ec6-b18c-a241-40c0-da75d089b128@huawei.com>
+Date: Tue, 14 Apr 2020 17:03:21 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <1586506705-3194-1-git-send-email-brent.lu@intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <s5h4ktmlfpx.wl-tiwai@suse.de>
+Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: Kate Stewart <kstewart@linuxfoundation.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Richard Fontana <rfontana@redhat.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- clang-built-linux@googlegroups.com, Mark Brown <broonie@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Allison Randal <allison@lohutok.net>
+X-Originating-IP: [10.173.222.212]
+X-CFilter-Loop: Reflected
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,46 +77,57 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 4/10/2020 10:18 AM, Brent Lu wrote:
-> After sending an ipc command to DSP, the host waits for the reply message
-> which will be read from SST_IPCD register in sst_byt_irq_thread() to
-> complete the transaction. Sometimes the value read from SST_IPCD register
-> is still the reply message for previous command instead of the waiting
-> command so ipc command timeout happens.
+On 2020/4/14 14:54, Takashi Iwai wrote:
+> On Tue, 14 Apr 2020 08:51:09 +0200,
+> yangerkun wrote:
+>>
+>> CVE-2020-11725 report that 'count = info->owner' may result a
+>> SIZE_OVERFLOW. 'info->owner' represent a pid, and actually, we should
+>> use info->count.
+>>
+>> Signed-off-by: yangerkun <yangerkun@huawei.com>
 > 
-> In an experiment we read the same SST_IPCD register again when the defect
-> happens and found the value of second read is different from previous one
-> and is the correct reply message. It suggests the DSP is okay but the way
-> we read the register may be the cause.
+> The CVE report is simply wrong.  info->owner is used intentionally for
+> this specific API to add a user-space control.  For the normal kernel
+> kctls, the field is used indeed for storing the pid, but but the
+> user-space kctl addition API usage is an exception.
 > 
-> Currently the driver is using memcpy_fromio() to read the value of 64-bit
-> registers. This function is based on __builtin_memcpy() call and depends
-> on the implementation of compiler. Since this issue happens right after
-> the toolchain switched from clang 10 to clang 11, we replace the register
-> read with two readl() function calls to avoid all optimization from
-> compiler's library.
+> You can see the another use of info->count of field in the very same
+> function at a later point and find it has a different meaning.
 > 
-> Signed-off-by: Brent Lu <brent.lu@intel.com>
-> ---
->   sound/soc/intel/common/sst-dsp.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+> The CVE should be disputed.
+
+Got it! Thanks for your reply.
+
 > 
-> diff --git a/sound/soc/intel/common/sst-dsp.c b/sound/soc/intel/common/sst-dsp.c
-> index ec66be2..12af7aa 100644
-> --- a/sound/soc/intel/common/sst-dsp.c
-> +++ b/sound/soc/intel/common/sst-dsp.c
-> @@ -42,7 +42,7 @@ u64 sst_shim32_read64(void __iomem *addr, u32 offset)
->   {
->   	u64 val;
->   
-> -	memcpy_fromio(&val, addr + offset, sizeof(val));
-> +	sst_memcpy_fromio_32(NULL, &val, addr + offset, sizeof(val));
->   	return val;
->   }
->   EXPORT_SYMBOL_GPL(sst_shim32_read64);
+> 
+> thanks,
+> 
+> Takashi
+> 
+>> ---
+>>   sound/core/control.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> v1->v2: reword the patch head
+>>
+>> diff --git a/sound/core/control.c b/sound/core/control.c
+>> index aa0c0cf182af..c77ca7f39637 100644
+>> --- a/sound/core/control.c
+>> +++ b/sound/core/control.c
+>> @@ -1431,7 +1431,7 @@ static int snd_ctl_elem_add(struct snd_ctl_file *file,
+>>   		return -ENOMEM;
+>>   
+>>   	/* Check the number of elements for this userspace control. */
+>> -	count = info->owner;
+>> +	count = info->count;
+>>   	if (count == 0)
+>>   		count = 1;
+>>   
+>> -- 
+>> 2.21.1
+>>
+> 
+> .
 > 
 
-I'm not convinced that it is a correct fix. From your description it 
-seems to be a timing issue and you are just masking a problem, while 
-real problem is flow which allows to read data before confirming that 
-DSP finished processing.

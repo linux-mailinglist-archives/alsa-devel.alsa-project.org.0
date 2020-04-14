@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BD321A80E6
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 17:03:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC5941A80E9
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 17:03:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B32D016CE;
-	Tue, 14 Apr 2020 17:02:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B32D016CE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A02716DF;
+	Tue, 14 Apr 2020 17:02:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A02716DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586876590;
-	bh=q1TsmEQ7wbDcJmniqWHqMFjLmrk1YLX7JD6dHw9hv8A=;
+	s=default; t=1586876626;
+	bh=jrTCms1HdtB8Eq6KSmPL6lxMJTcFpDfjPaODsWWh/Hc=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=rnRYbwiTz2rqQD1to0YPLScS0hhYEWwhkunR2MO3nz81IA4t/me0MMc9vYmj5u2S4
-	 KvpQiAT/FoXDTrqIJ4zS/+nF+cfEblUqGQUWBW0VW+WK4CNXoyh7dC6K1k7O+TaBPD
-	 yLjnvlOTnod0gHkgKJCF8C81l/MBgKmuegM4qsnM=
+	b=CKxXIIoP72SvFuIsG9d8NGlUVApztcTBE6+G/6vWH3qotfWPDCVqeVDGvokFQFtJI
+	 0d/YPYHo9ofrf7sG3sS9RDjUoKpyyPhVJLEwTgQP7qDtMxmZrPzAqAiuoWihC3UovK
+	 yGZQ5dtxT4ouBKllQdzA1eaga/AapuQMwWp8mPAI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2780EF80385;
-	Tue, 14 Apr 2020 16:48:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A14BF803A6;
+	Tue, 14 Apr 2020 16:48:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9FA5AF8034D; Tue, 14 Apr 2020 16:48:21 +0200 (CEST)
+ id DDC7AF8034B; Tue, 14 Apr 2020 16:48:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,31 +33,30 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BB5C0F8033E
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:48:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB5C0F8033E
+ by alsa1.perex.cz (Postfix) with ESMTPS id DC399F80348
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:48:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC399F80348
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="CF2B0nLD"
+ header.b="ImsnNJN/"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9CB522078B;
- Tue, 14 Apr 2020 14:48:12 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id C6E9E20578;
+ Tue, 14 Apr 2020 14:48:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586875693;
- bh=q1TsmEQ7wbDcJmniqWHqMFjLmrk1YLX7JD6dHw9hv8A=;
+ s=default; t=1586875698;
+ bh=jrTCms1HdtB8Eq6KSmPL6lxMJTcFpDfjPaODsWWh/Hc=;
  h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=CF2B0nLDXLPbuhCZ4Y4bB/bP7S3jqGvaQAGnFrLYXrkUjAgLHAPwQzPdTUv3vvAXT
- L11aBvxGLNNJ5+ZSKXTVEGQuiB/5l9tEUFMtWODJCKNFhz0L69vhACTnhcOm0NNvpX
- ixUFa9enrWt1Wf9IG4t4BNWD4EDPBxhWOPFFBUQw=
-Date: Tue, 14 Apr 2020 15:48:10 +0100
+ b=ImsnNJN/PcXL89ts6Wq1/tnme9++4a8j4khI6ZKffLnfWHrZMMvJydCZ2pqjquZE3
+ w0NO6CR2y/rRpkak2jFMtYHTtNhbF+iRrPMnRzhMuJxWIG+P3FPpZuaXBKVR6oJN6f
+ 47bdj4+TpHeraI7hFDLzEiwezQIbo4yYszBBt4aM=
+Date: Tue, 14 Apr 2020 15:48:15 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Libin Yang <libin.yang@linux.intel.com>
-Subject: Applied "ASoC: SOF: Intel: add PCI ID for ElkhartLake" to the asoc
- tree
-In-Reply-To: <20200409185827.16255-5-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20200409185827.16255-5-pierre-louis.bossart@linux.intel.com>
+Subject: Applied "ALSA: hda: Add ElkhartLake HDMI codec vid" to the asoc tree
+In-Reply-To: <20200409185827.16255-4-pierre-louis.bossart@linux.intel.com>
+Message-Id: <applied-20200409185827.16255-4-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
 Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
  alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
@@ -80,7 +79,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Intel: add PCI ID for ElkhartLake
+   ALSA: hda: Add ElkhartLake HDMI codec vid
 
 has been applied to the asoc tree at
 
@@ -105,37 +104,37 @@ to this mail.
 Thanks,
 Mark
 
-From a4ed29273376cb1f5aa05b90eb3c4d5877564976 Mon Sep 17 00:00:00 2001
+From d233c4941630af0ec2e14be7c2a693e9c9ce3087 Mon Sep 17 00:00:00 2001
 From: Libin Yang <libin.yang@linux.intel.com>
-Date: Thu, 9 Apr 2020 13:58:18 -0500
-Subject: [PATCH] ASoC: SOF: Intel: add PCI ID for ElkhartLake
+Date: Thu, 9 Apr 2020 13:58:17 -0500
+Subject: [PATCH] ALSA: hda: Add ElkhartLake HDMI codec vid
 
-Add PCI ID for ElkhartLake platform.
+Add HDMI codec vid for the Intel ElkhartLake platform
 
 Signed-off-by: Libin Yang <libin.yang@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Link: https://lore.kernel.org/r/20200409185827.16255-5-pierre-louis.bossart@linux.intel.com
+Acked-by: Takashi Iwai <tiwai@suse.de>
+Link: https://lore.kernel.org/r/20200409185827.16255-4-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/sof-pci-dev.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/pci/hda/patch_hdmi.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
-index cec631a1389b..b5f0221d624f 100644
---- a/sound/soc/sof/sof-pci-dev.c
-+++ b/sound/soc/sof/sof-pci-dev.c
-@@ -435,6 +435,8 @@ static const struct pci_device_id sof_pci_ids[] = {
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_ELKHARTLAKE)
- 	{ PCI_DEVICE(0x8086, 0x4b55),
- 		.driver_data = (unsigned long)&ehl_desc},
-+	{ PCI_DEVICE(0x8086, 0x4b58),
-+		.driver_data = (unsigned long)&ehl_desc},
- #endif
- 	{ 0, }
- };
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index bb287a916dae..403baca89452 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -4156,6 +4156,7 @@ HDA_CODEC_ENTRY(0x8086280d, "Geminilake HDMI",	patch_i915_glk_hdmi),
+ HDA_CODEC_ENTRY(0x8086280f, "Icelake HDMI",	patch_i915_icl_hdmi),
+ HDA_CODEC_ENTRY(0x80862812, "Tigerlake HDMI",	patch_i915_tgl_hdmi),
+ HDA_CODEC_ENTRY(0x8086281a, "Jasperlake HDMI",	patch_i915_icl_hdmi),
++HDA_CODEC_ENTRY(0x8086281b, "Elkhartlake HDMI",	patch_i915_icl_hdmi),
+ HDA_CODEC_ENTRY(0x80862880, "CedarTrail HDMI",	patch_generic_hdmi),
+ HDA_CODEC_ENTRY(0x80862882, "Valleyview2 HDMI",	patch_i915_byt_hdmi),
+ HDA_CODEC_ENTRY(0x80862883, "Braswell HDMI",	patch_i915_byt_hdmi),
 -- 
 2.20.1
 

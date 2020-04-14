@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E816B1A8068
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 16:51:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E16A81A806A
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 16:52:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 89B2D1695;
-	Tue, 14 Apr 2020 16:51:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89B2D1695
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86DA116B9;
+	Tue, 14 Apr 2020 16:51:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86DA116B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586875916;
-	bh=AvWDYceu/cqkZhWEjKP7V8S3OaqMmOo5h9aewVP1Dpk=;
+	s=default; t=1586875936;
+	bh=ryHtNYVzUexhqA2GFOfPm8++vEt7xVAluxQUHAtmK/o=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=IlRqHntXSejWK2qzPE6/lvF/q5p0jEgCgl3ERlmsQdWtjwxQSqZhj7dbkPNh7TWDM
-	 ogH22TBc8FRzrKFKU5fsHVfVShreVDLeYL6sias+vYudRIDjEKK5FpQUj9h180iIfK
-	 neXf0L50B4x6E9rMW+8ADmcTYfqLQoF+ObNpeLLE=
+	b=X9q0xDksecOuniGLB7ytP4BgcQc01S7dqsrysZMYVWqrlD9r1ApB/HvsRIqWIK/SR
+	 M1O6MvbiZWodGTItQfXakrs/5tsylxTp4iW/o9QaM5mrYpmx3jvEeGv/Idmw+CDzgN
+	 pnXh8/kORkRqSHV0Z3snufJHRuN7i70E9xnObUQI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62D3DF802DF;
-	Tue, 14 Apr 2020 16:46:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92446F802E3;
+	Tue, 14 Apr 2020 16:46:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 318FBF802E1; Tue, 14 Apr 2020 16:46:34 +0200 (CEST)
+ id 13915F802E8; Tue, 14 Apr 2020 16:46:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,28 +33,28 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8CF7CF802DC
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:46:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CF7CF802DC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 97F62F802E3
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:46:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97F62F802E3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="A9z4kGoZ"
+ header.b="LChd8S7f"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 5E3232078B;
- Tue, 14 Apr 2020 14:46:29 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9160D20578;
+ Tue, 14 Apr 2020 14:46:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586875589;
- bh=AvWDYceu/cqkZhWEjKP7V8S3OaqMmOo5h9aewVP1Dpk=;
+ s=default; t=1586875595;
+ bh=ryHtNYVzUexhqA2GFOfPm8++vEt7xVAluxQUHAtmK/o=;
  h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=A9z4kGoZZr7BpfDI4eYJx0FPbQm/FqOHkymXgDHe8gv8MwJVN3xroMPqoxDt/y55+
- YCVk0yrCwoPoR3lFXfA4x5f1Ei4C+PPEXit5p8u63DOYn4zBOn0y9ysr2tbMLbISjB
- +JcIcyd2vGf0KG+zhUgt1F7+hp0AOBcffKADUDe0=
-Date: Tue, 14 Apr 2020 15:46:27 +0100
+ b=LChd8S7fpfWdayJP8JeSClTHixsslXyzGIWExkzDlg3O6iEZLJMM5hcZJCuicSgH6
+ FCFZxSeMY9eNZVsrSn7giMEPUvVRBA3ZsPOI++V3rpCvvg6Ybprk19daqUlNUAuhKj
+ j03NsRJ2ndq5DQdEzSqm6KqCEbtw1RO/U4WZKU1I=
+Date: Tue, 14 Apr 2020 15:46:32 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Johan Jonker <jbx6244@gmail.com>
-Subject: Applied "ASoC: rockchip-spdif: add power-domains property" to the
+Subject: Applied "ASoC: rockchip-spdif: add #sound-dai-cells property" to the
  asoc tree
 In-Reply-To: 
 Message-Id: 
@@ -77,7 +77,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rockchip-spdif: add power-domains property
+   ASoC: rockchip-spdif: add #sound-dai-cells property
 
 has been applied to the asoc tree at
 
@@ -102,38 +102,51 @@ to this mail.
 Thanks,
 Mark
 
-From 65f1d3d9cee7e10d105756b6ef678885a23a31d7 Mon Sep 17 00:00:00 2001
+From f0c0f5a4541cb5dee1f16cebcc4e11d952394c53 Mon Sep 17 00:00:00 2001
 From: Johan Jonker <jbx6244@gmail.com>
-Date: Sat, 4 Apr 2020 13:52:25 +0200
-Subject: [PATCH] ASoC: rockchip-spdif: add power-domains property
+Date: Sat, 4 Apr 2020 13:52:24 +0200
+Subject: [PATCH] ASoC: rockchip-spdif: add #sound-dai-cells property
 
-In the old txt situation we add/describe only properties that are used
-by the driver/hardware itself. With yaml it also filters things in a
-node that are used by other drivers like 'power-domains' for rk3399,
-so add it to 'rockchip-spdif.yaml'.
+'#sound-dai-cells' is required to properly interpret
+the list of DAI specified in the 'sound-dai' property,
+so add them to 'rockchip-spdif.yaml'
 
 Signed-off-by: Johan Jonker <jbx6244@gmail.com>
 Reviewed-by: Rob Herring <robh@kernel.org>
-Link: https://lore.kernel.org/r/20200404115225.4314-3-jbx6244@gmail.com
+Link: https://lore.kernel.org/r/20200404115225.4314-2-jbx6244@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- Documentation/devicetree/bindings/sound/rockchip-spdif.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+ Documentation/devicetree/bindings/sound/rockchip-spdif.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/sound/rockchip-spdif.yaml b/Documentation/devicetree/bindings/sound/rockchip-spdif.yaml
-index f381dbbf5de6..c467152656f7 100644
+index bfd44fd8ecbc..f381dbbf5de6 100644
 --- a/Documentation/devicetree/bindings/sound/rockchip-spdif.yaml
 +++ b/Documentation/devicetree/bindings/sound/rockchip-spdif.yaml
-@@ -51,6 +51,9 @@ properties:
-   dma-names:
-     const: tx
+@@ -57,6 +57,9 @@ properties:
+       The phandle of the syscon node for the GRF register.
+       Required property on RK3288.
  
-+  power-domains:
-+    maxItems: 1
++  "#sound-dai-cells":
++    const: 0
 +
-   rockchip,grf:
-     $ref: /schemas/types.yaml#/definitions/phandle
-     description:
+ required:
+   - compatible
+   - reg
+@@ -65,6 +68,7 @@ required:
+   - clock-names
+   - dmas
+   - dma-names
++  - "#sound-dai-cells"
+ 
+ if:
+   properties:
+@@ -90,4 +94,5 @@ examples:
+       clock-names = "mclk", "hclk";
+       dmas = <&dmac1_s 8>;
+       dma-names = "tx";
++      #sound-dai-cells = <0>;
+     };
 -- 
 2.20.1
 

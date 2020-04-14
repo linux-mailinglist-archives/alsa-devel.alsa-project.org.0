@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FC9A1A80EB
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 17:04:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D14311A80EC
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 17:04:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F63216A1;
-	Tue, 14 Apr 2020 17:03:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F63216A1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7FBC416F4;
+	Tue, 14 Apr 2020 17:04:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FBC416F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586876665;
-	bh=hJDh7EaWhZf8LcP3NbG8CQBRkXS4ky85CVdPSmxVqJ4=;
+	s=default; t=1586876698;
+	bh=Y9T3JF07Rbt2p7DDoNici8aob1hVC38JPFHnL5AV/CI=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=X4V9y5jZa9OuoFsklJDU9C+ehUlzR7dbYzLvMYTYJLKBLe6fhgPzeLyQ296dWrnAn
-	 PGuFy1PSA/1XvfYyUd9Yd1qhyv2LQRJZc6BVwzYIak2IuewxUHIaf7vpVP5IlnAkyW
-	 2ufzdFYKjUCafhN3TnZbuRCMuheIucc/mTcD3zFU=
+	b=Ieo0BLGENddhHqBbjAjgfPnK0ptW+4bAq9/+jeVlzAqWASWtgarKIvN7VtCVhHREs
+	 a0hKCWgsjay5/YAZsxoUnOa8xVvIlK0RXgTlhv1e/UB4ANrQtjjK2dYD4kMEiMkUOM
+	 6Z3Xr/nAvIpTeWfCklMHzwOVTIVd7xK9ebPQtKPQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59DFCF803B1;
-	Tue, 14 Apr 2020 16:48:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 90F4AF803C9;
+	Tue, 14 Apr 2020 16:48:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 776DFF80371; Tue, 14 Apr 2020 16:48:29 +0200 (CEST)
+ id C8DC5F80377; Tue, 14 Apr 2020 16:48:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,37 +33,36 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CB836F8034E
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:48:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB836F8034E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 378C7F8036D
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:48:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 378C7F8036D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="VpDegGgQ"
+ header.b="YG9F8gg2"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E2CD620578;
- Tue, 14 Apr 2020 14:48:22 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1744F2078B;
+ Tue, 14 Apr 2020 14:48:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586875703;
- bh=hJDh7EaWhZf8LcP3NbG8CQBRkXS4ky85CVdPSmxVqJ4=;
+ s=default; t=1586875708;
+ bh=Y9T3JF07Rbt2p7DDoNici8aob1hVC38JPFHnL5AV/CI=;
  h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=VpDegGgQLo/NAVmHh0UYxXKafXMIKEH0/MPvjIX0a9REhETg4iTdEFzqnBLlXJZ1D
- Oal/ial3xr9IwvGCkCSN4lDtl/K9uxiytSzGRJ/pwM0DxCAa3RhZ13KhMiufXW8hxg
- 4ia18ZZyIP9h+huQn4oAVdJemoEUdnMKf1JZpzAk=
-Date: Tue, 14 Apr 2020 15:48:20 +0100
+ b=YG9F8gg24h5sDhOFdzfDIrciXaXCzKVhrd64W0ELoW2d1JK6UpRrKG0542z/yAzEu
+ H7vJbuF5LzHAUFL/rGJzHCbCyDfEzNoYhwn6ca/ovFvQ5K7jfyn5NpgAi9TT6Jhv4l
+ DgYAaH21dkvxTmQjD5jXxOUHwc0oW9q/1hM6Bde8=
+Date: Tue, 14 Apr 2020 15:48:26 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Hui Wang <hui.wang@canonical.com>
-Subject: Applied "ASoC: intel/skl/hda - set autosuspend timeout for hda
- codecs" to the asoc tree
-In-Reply-To: <20200409185827.16255-3-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20200409185827.16255-3-pierre-louis.bossart@linux.intel.com>
+To: Yong Zhi <yong.zhi@intel.com>
+Subject: Applied "ASoC: Intel: sof_da7219_max98373: Add BE dailink for
+ dmic16k" to the asoc tree
+In-Reply-To: <20200409185827.16255-2-pierre-louis.bossart@linux.intel.com>
+Message-Id: <applied-20200409185827.16255-2-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
 Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
  tiwai@suse.de, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Clarex Zhou <clarex.zhou@intel.com>, Mark Brown <broonie@kernel.org>,
- Jaska Uimonen <jaska.uimonen@linux.intel.com>
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,7 +80,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: intel/skl/hda - set autosuspend timeout for hda codecs
+   ASoC: Intel: sof_da7219_max98373: Add BE dailink for dmic16k
 
 has been applied to the asoc tree at
 
@@ -106,96 +105,53 @@ to this mail.
 Thanks,
 Mark
 
-From 3a24f135e6cc58c2dc042dde44031ec31b706ce5 Mon Sep 17 00:00:00 2001
-From: Hui Wang <hui.wang@canonical.com>
-Date: Thu, 9 Apr 2020 13:58:16 -0500
-Subject: [PATCH] ASoC: intel/skl/hda - set autosuspend timeout for hda codecs
+From a8bb72f160020db5d7f81824b2dba6c8e29ef67a Mon Sep 17 00:00:00 2001
+From: Yong Zhi <yong.zhi@intel.com>
+Date: Thu, 9 Apr 2020 13:58:15 -0500
+Subject: [PATCH] ASoC: Intel: sof_da7219_max98373: Add BE dailink for dmic16k
 
-On some Lenovo and HP laptops, if both codec driver and SOF driver
-are in runtime suspend mode, we plug a headset to the audio jack,
-the headphone could be detected but Mic couldn't.
+Add dmic16k BE dailink for keyword detection support, FE is
+added in topology tplg file.
 
-That is because when plugging, the headphone triggers a unsol event
-first, and about 0.7s later (on the Lenovo X1 Carbon 7th), the Mic
-triggers a unsol event. But if the codec driver enters runtime suspend
-within 0.7s, the Mic can't trigger the unsol event.
-
-If we don't set autosuspend_delay to a non-zero value for the hda codec
-driver, it will enter runtime suspend immediately after the headphone
-triggers the unsol event.
-
-Follow the sequence of legacy hda driver and set a autosuspend delay
-of 1sec after card registration (refer to pci/hda/hda_intel.c and
-pci/hda/hda_codec.c).
-
-Co-developed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Co-developed-by: Jaska Uimonen <jaska.uimonen@linux.intel.com>
-Signed-off-by: Hui Wang <hui.wang@canonical.com>
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Signed-off-by: Jaska Uimonen <jaska.uimonen@linux.intel.com>
+Signed-off-by: Yong Zhi <yong.zhi@intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Clarex Zhou <clarex.zhou@intel.com>
-Link: https://lore.kernel.org/r/20200409185827.16255-3-pierre-louis.bossart@linux.intel.com
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Link: https://lore.kernel.org/r/20200409185827.16255-2-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/boards/skl_hda_dsp_generic.c | 29 +++++++++++++++++++-
- 1 file changed, 28 insertions(+), 1 deletion(-)
+ sound/soc/intel/boards/sof_da7219_max98373.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/sound/soc/intel/boards/skl_hda_dsp_generic.c b/sound/soc/intel/boards/skl_hda_dsp_generic.c
-index 3be764299ab0..64197b010e7d 100644
---- a/sound/soc/intel/boards/skl_hda_dsp_generic.c
-+++ b/sound/soc/intel/boards/skl_hda_dsp_generic.c
-@@ -113,6 +113,8 @@ static char hda_soc_components[30];
- #define IDISP_ROUTE_COUNT	(IDISP_DAI_COUNT * 2)
- #define IDISP_CODEC_MASK	0x4
+diff --git a/sound/soc/intel/boards/sof_da7219_max98373.c b/sound/soc/intel/boards/sof_da7219_max98373.c
+index b707dd3b5625..8b5b74ba349f 100644
+--- a/sound/soc/intel/boards/sof_da7219_max98373.c
++++ b/sound/soc/intel/boards/sof_da7219_max98373.c
+@@ -265,6 +265,9 @@ SND_SOC_DAILINK_DEF(dmic_pin,
+ SND_SOC_DAILINK_DEF(dmic_codec,
+ 	DAILINK_COMP_ARRAY(COMP_CODEC("dmic-codec", "dmic-hifi")));
  
-+#define HDA_CODEC_AUTOSUSPEND_DELAY_MS 1000
++SND_SOC_DAILINK_DEF(dmic16k_pin,
++	DAILINK_COMP_ARRAY(COMP_CPU("DMIC16k Pin")));
 +
- static int skl_hda_fill_card_info(struct snd_soc_acpi_mach_params *mach_params)
- {
- 	struct snd_soc_card *card = &hda_soc_card;
-@@ -168,6 +170,27 @@ static int skl_hda_fill_card_info(struct snd_soc_acpi_mach_params *mach_params)
- 	return 0;
- }
+ SND_SOC_DAILINK_DEF(idisp1_pin,
+ 	DAILINK_COMP_ARRAY(COMP_CPU("iDisp1 Pin")));
+ SND_SOC_DAILINK_DEF(idisp1_codec,
+@@ -337,6 +340,14 @@ static struct snd_soc_dai_link dais[] = {
+ 		.no_pcm = 1,
+ 		SND_SOC_DAILINK_REG(idisp3_pin, idisp3_codec, platform),
+ 	},
++	{
++		.name = "dmic16k",
++		.id = 6,
++		.ignore_suspend = 1,
++		.dpcm_capture = 1,
++		.no_pcm = 1,
++		SND_SOC_DAILINK_REG(dmic16k_pin, dmic_codec, platform),
++	}
+ };
  
-+static void skl_set_hda_codec_autosuspend_delay(struct snd_soc_card *card)
-+{
-+	struct snd_soc_pcm_runtime *rtd =
-+		list_first_entry(&card->rtd_list,
-+				 struct snd_soc_pcm_runtime, list);
-+	struct snd_soc_dai *codec_dai = rtd->codec_dai;
-+	struct hdac_hda_priv *hda_pvt;
-+
-+	if (!codec_dai)
-+		return;
-+
-+	/*
-+	 * all codecs are on the same bus, so it's sufficient
-+	 * to lookup the first runtime and its codec, and set
-+	 * power save defaults for all codecs on the bus
-+	 */
-+	hda_pvt = snd_soc_component_get_drvdata(codec_dai->component);
-+	snd_hda_set_power_save(hda_pvt->codec.bus,
-+			       HDA_CODEC_AUTOSUSPEND_DELAY_MS);
-+}
-+
- static int skl_hda_audio_probe(struct platform_device *pdev)
- {
- 	struct snd_soc_acpi_mach *mach;
-@@ -206,7 +229,11 @@ static int skl_hda_audio_probe(struct platform_device *pdev)
- 		hda_soc_card.components = hda_soc_components;
- 	}
- 
--	return devm_snd_soc_register_card(&pdev->dev, &hda_soc_card);
-+	ret = devm_snd_soc_register_card(&pdev->dev, &hda_soc_card);
-+	if (!ret)
-+		skl_set_hda_codec_autosuspend_delay(&hda_soc_card);
-+
-+	return ret;
- }
- 
- static struct platform_driver skl_hda_audio = {
+ static struct snd_soc_card card_da7219_m98373 = {
 -- 
 2.20.1
 

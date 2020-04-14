@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A1841A7A2F
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 13:57:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A71CE1A7A39
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 14:01:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8A2C16A3;
-	Tue, 14 Apr 2020 13:56:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8A2C16A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51F6D16A3;
+	Tue, 14 Apr 2020 14:00:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51F6D16A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586865436;
-	bh=LkQ0dcrf9MyjqTc7cSRslR0WVvMeZfNCFsl59el83SY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=iGUv9I2ugIs4UI4QD6wuAiJuxJ/Ul1FEsL6sHtTSeZwMd3hshStcYqB43LH4LRAOr
-	 5fBoxHamSXlUgSPCsarUL54jbGug11aoboAzGFweqv6lpgdVoEtBPwSnJ2kAgUj17d
-	 lmThy7dcKRy2Hl9F2yL/qRUiewmRYXul0rTGRF8E=
+	s=default; t=1586865674;
+	bh=iQ0FSIWebUA6Tbs01biRgrtT29PK4sY32qVaXVLuuMk=;
+	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=BshCnz+7aO4KOMF+cEQLPwbwir9yQMtkMxX3BqM+llDzj7YR3HHJhh5sSwD3x1guq
+	 4joZNhJ1u7X/hWWNfzt+SEBxnYeYvzQp2n5TjTyivXIKdv7EdVffVuwko4b/3/56Oi
+	 rTNiuK4i43RKzEYx/FmGUuab4a4HOW17f0Uo7O0M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16562F8013D;
-	Tue, 14 Apr 2020 13:55:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79655F8014E;
+	Tue, 14 Apr 2020 13:59:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DEE3BF8013D; Tue, 14 Apr 2020 13:55:32 +0200 (CEST)
+ id E81B9F8013D; Tue, 14 Apr 2020 13:59:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,36 +33,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6AFDCF800B9
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 13:55:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AFDCF800B9
+ by alsa1.perex.cz (Postfix) with ESMTPS id EAAA4F800B9
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 13:59:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAAA4F800B9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="mnNY+rRO"
-Received: from localhost (unknown [106.51.106.133])
+ header.b="iic2G+2l"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6D53E206D5;
- Tue, 14 Apr 2020 11:55:21 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id B318D206A2;
+ Tue, 14 Apr 2020 11:59:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586865326;
- bh=LkQ0dcrf9MyjqTc7cSRslR0WVvMeZfNCFsl59el83SY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=mnNY+rROPD2XsMKTOhtq44rZfwnnvF4NyAxYxKm+A9t8kvy1azy+gRdcDjHTLqj+O
- gDGylWU5KlgywVfu0+tYfHRNfE8K4VQobZs87stg/aQ3aWnK3L0qbaAIburMe67YpT
- XzBjPCItCIPIsUN9OTtHNWZ39tnvq9r+2+8D+9uY=
-Date: Tue, 14 Apr 2020 17:25:12 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [RESEND PATCH] ASoC: wsa881x: mark read_only_wordlength flag
-Message-ID: <20200414115512.GG72691@vkoul-mobl>
-References: <20200414110347.23829-1-srinivas.kandagatla@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200414110347.23829-1-srinivas.kandagatla@linaro.org>
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
- linux-kernel@vger.kernel.org
+ s=default; t=1586865565;
+ bh=iQ0FSIWebUA6Tbs01biRgrtT29PK4sY32qVaXVLuuMk=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=iic2G+2lC79jUfXdcno5+zVhsRM3jbj+AA06lzlK4m5NSNcl4LBWiBXPKgpSif4tx
+ sfuXWQBTHoqPOIP6k0DWHG4FBOEgvApCjtVO+q+saoOk19yWQ0DUnuCROyfPqsDqAS
+ 52aBH3Z2Nuh8LP0PV7y/RqoJHI8UkHxzi+M6M2hw=
+Date: Tue, 14 Apr 2020 12:59:22 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Akshu Agrawal <akshu.agrawal@amd.com>
+Subject: Applied "ASoC: amd: Fix button configuration" to the asoc tree
+In-Reply-To: <20200414113527.13532-1-akshu.agrawal@amd.com>
+Message-Id: <applied-20200414113527.13532-1-akshu.agrawal@amd.com>
+X-Patchwork-Hint: ignore
+Cc: , "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ YueHaibing <yuehaibing@huawei.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ akshu.agrawal@amd.com, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,71 +79,64 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 14-04-20, 12:03, Srinivas Kandagatla wrote:
-> WSA881x works in PDM mode so the wordlength is fixed, which also makes
-> the only field "WordLength" in DPN_BlockCtrl1 register a read-only.
-> Writing to this register will throw up errors with Qualcomm Controller.
-> So use ro_blockctrl1_reg flag to mark this field as read-only so that
-> core will not write to this register.
+The patch
 
-Reviewed-by: Vinod Koul <vkoul@kernel.org>
+   ASoC: amd: Fix button configuration
 
-> 
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> ---
-> Hi Mark,
-> 
-> For some reason this patch was missed during last merge window,
-> Other patch in this series is already in mainline.
-> Without this patch audio is not functional on DB845c and other SDM845
-> based platforms.
-> 
-> Can you please take this for next possible rc.
-> 
-> Thanks,
-> srini
-> 
->  sound/soc/codecs/wsa881x.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/sound/soc/codecs/wsa881x.c b/sound/soc/codecs/wsa881x.c
-> index f2d6f2f81f14..d39d479e2378 100644
-> --- a/sound/soc/codecs/wsa881x.c
-> +++ b/sound/soc/codecs/wsa881x.c
-> @@ -394,6 +394,7 @@ static struct sdw_dpn_prop wsa_sink_dpn_prop[WSA881X_MAX_SWR_PORTS] = {
->  		.min_ch = 1,
->  		.max_ch = 1,
->  		.simple_ch_prep_sm = true,
-> +		.read_only_wordlength = true,
->  	}, {
->  		/* COMP */
->  		.num = 2,
-> @@ -401,6 +402,7 @@ static struct sdw_dpn_prop wsa_sink_dpn_prop[WSA881X_MAX_SWR_PORTS] = {
->  		.min_ch = 1,
->  		.max_ch = 1,
->  		.simple_ch_prep_sm = true,
-> +		.read_only_wordlength = true,
->  	}, {
->  		/* BOOST */
->  		.num = 3,
-> @@ -408,6 +410,7 @@ static struct sdw_dpn_prop wsa_sink_dpn_prop[WSA881X_MAX_SWR_PORTS] = {
->  		.min_ch = 1,
->  		.max_ch = 1,
->  		.simple_ch_prep_sm = true,
-> +		.read_only_wordlength = true,
->  	}, {
->  		/* VISENSE */
->  		.num = 4,
-> @@ -415,6 +418,7 @@ static struct sdw_dpn_prop wsa_sink_dpn_prop[WSA881X_MAX_SWR_PORTS] = {
->  		.min_ch = 1,
->  		.max_ch = 1,
->  		.simple_ch_prep_sm = true,
-> +		.read_only_wordlength = true,
->  	}
->  };
->  
-> -- 
-> 2.21.0
+has been applied to the asoc tree at
 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From 8dbcfcfc73d43df5a3dc306b6a4c1d996caf37e0 Mon Sep 17 00:00:00 2001
+From: Akshu Agrawal <akshu.agrawal@amd.com>
+Date: Tue, 14 Apr 2020 05:35:23 -0600
+Subject: [PATCH] ASoC: amd: Fix button configuration
+
+RT5682 buttons were incorrectly mapped.
+
+Signed-off-by: Akshu Agrawal <akshu.agrawal@amd.com>
+Link: https://lore.kernel.org/r/20200414113527.13532-1-akshu.agrawal@amd.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/amd/acp3x-rt5682-max9836.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/sound/soc/amd/acp3x-rt5682-max9836.c b/sound/soc/amd/acp3x-rt5682-max9836.c
+index 024a7ee54cd5..e499c00e0c66 100644
+--- a/sound/soc/amd/acp3x-rt5682-max9836.c
++++ b/sound/soc/amd/acp3x-rt5682-max9836.c
+@@ -89,9 +89,9 @@ static int acp3x_5682_init(struct snd_soc_pcm_runtime *rtd)
+ 	}
+ 
+ 	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
+-	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_1, KEY_VOLUMEUP);
+-	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_2, KEY_VOLUMEDOWN);
+-	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_3, KEY_VOICECOMMAND);
++	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
++	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
++	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
+ 
+ 	ret = snd_soc_component_set_jack(component, &pco_jack, NULL);
+ 	if (ret) {
 -- 
-~Vinod
+2.20.1
+

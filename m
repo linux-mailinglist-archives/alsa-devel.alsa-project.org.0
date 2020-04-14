@@ -2,67 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC5D41A8049
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 16:49:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 056871A8059
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 16:49:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66EBE169C;
-	Tue, 14 Apr 2020 16:48:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66EBE169C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E5EC1696;
+	Tue, 14 Apr 2020 16:49:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E5EC1696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586875778;
-	bh=550yDRRNFH/KAKBnw/zzOaMx4yYeCB4m9knrvjHhjMk=;
+	s=default; t=1586875795;
+	bh=NF+ReJtRcTYkXwWbn0gQZMoewENSGMQLJ68bqwW6Mmo=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=LcXlJi7J4KtZ1IWmuoAUzBM5Rjcyq0iMjC50eAdeI9kxJ70UGdT+VPtBGZbr6UBI2
-	 VrnuZzJ55USn3qVCKG0Uzha4aLYYCbhQFeYol5697fg3JPC8nbVK0nmZiiiJ9bycq2
-	 KkqNVJ1g2hc8Q3r/at7i15c6EwTRGMDdMu4Moa8c=
+	b=p9LgnDha+r1+iIMZH1/736rAfp67Z3znjw+2f6KQm0N8gzrnNep9OoTpgSsQKecVT
+	 vBhYotdBB5XMZ8ispMUaagzTAKWfaeUAcE4244zuEdevpFBi2Ki23TPA1M5qYTddhS
+	 QlNlXjbz26+v4L8eiX6JtYJeOEtnxhY94Btw6P2k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B9B9F8029A;
-	Tue, 14 Apr 2020 16:46:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 701EAF80126;
+	Tue, 14 Apr 2020 16:46:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A1377F8029A; Tue, 14 Apr 2020 16:46:13 +0200 (CEST)
+ id E2E3AF802A2; Tue, 14 Apr 2020 16:46:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CEC0DF8028D
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:46:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CEC0DF8028D
+ by alsa1.perex.cz (Postfix) with ESMTPS id EE0EEF802A0
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:46:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE0EEF802A0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="tQXk7Bs2"
+ header.b="C/BTHfQD"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A7C512076D;
- Tue, 14 Apr 2020 14:46:08 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id E397120787;
+ Tue, 14 Apr 2020 14:46:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586875569;
- bh=550yDRRNFH/KAKBnw/zzOaMx4yYeCB4m9knrvjHhjMk=;
+ s=default; t=1586875574;
+ bh=NF+ReJtRcTYkXwWbn0gQZMoewENSGMQLJ68bqwW6Mmo=;
  h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=tQXk7Bs2mmJoHSR0U1aT1XOibvgfQAeB0u3K7jGl7yto1Qe3iqVCOLvuygK6ZCPej
- d2jkNnJYllIIcikjYkc/wjVnjEPcfMc9DeYGghPL9VsHXcqxTji2fujd7y4bdjxMF6
- DqmIziBSu59Kj5cQwWn5h70iRpTu8E1Zdzef+B0Q=
-Date: Tue, 14 Apr 2020 15:46:06 +0100
+ b=C/BTHfQDUOzrAqshiXGCZxUd05u6HaBj3kdNTyGK93zm96V/C6YRj9GuyfLwpYHcv
+ dDP9o79bwt+lLfi4bXk2Efv0bJ/OFYlMVVYA2XN5bZhQt7C0DK+iNSpnUcBnfCIxAT
+ OuSaau+3AnAquDPsh12gpkVSza7hSxUQm9smVQ3Q=
+Date: Tue, 14 Apr 2020 15:46:11 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-Subject: Applied "ASoC: qcom: common: Silence duplicate parse error messages"
- to the asoc tree
-In-Reply-To: <20200406003229.2354631-1-bjorn.andersson@linaro.org>
-Message-Id: <applied-20200406003229.2354631-1-bjorn.andersson@linaro.org>
+To: Sebastian Fricke <sebastian.fricke.linux@gmail.com>
+Subject: Applied "soc/stm/stm32_sub_sai: Add missing '\n' in log messages" to
+ the asoc tree
+In-Reply-To: <20200413042952.7675-1-sebastian.fricke.linux@gmail.com>
+Message-Id: <applied-20200413042952.7675-1-sebastian.fricke.linux@gmail.com>
 X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
- Patrick Lai <plai@codeaurora.org>, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, srinivas.kandagatla@linaro.org
+Cc: alsa-devel@alsa-project.org, olivier.moysan@st.com,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Arnaud Pouliquen <arnaud.pouliquen@st.com>, Takashi Iwai <tiwai@suse.com>,
+ kernel-janitors@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, sebastian.fricke.linux@gmail.com,
+ Mark Brown <broonie@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,7 +83,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: qcom: common: Silence duplicate parse error messages
+   soc/stm/stm32_sub_sai: Add missing '\n' in log messages
 
 has been applied to the asoc tree at
 
@@ -105,55 +108,35 @@ to this mail.
 Thanks,
 Mark
 
-From d0c56b307f37fd21e2424d3c210e5d85831dd132 Mon Sep 17 00:00:00 2001
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-Date: Sun, 5 Apr 2020 17:32:29 -0700
-Subject: [PATCH] ASoC: qcom: common: Silence duplicate parse error messages
+From 9de300abb71f24b190362ff53907ab90505517bc Mon Sep 17 00:00:00 2001
+From: Sebastian Fricke <sebastian.fricke.linux@gmail.com>
+Date: Mon, 13 Apr 2020 06:29:52 +0200
+Subject: [PATCH] soc/stm/stm32_sub_sai: Add missing '\n' in log messages
 
-All error paths in qcom_snd_parse_of() prints more specific error
-messages, so silence the one in apq8096_platform_probe() and
-sdm845_snd_platform_probe() to avoid spamming the kernel log.
+Message logged by 'dev_xxx()' or 'pr_xxx()' should end with a '\n'.
 
-Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-Link: https://lore.kernel.org/r/20200406003229.2354631-1-bjorn.andersson@linaro.org
+Fixes: 3e086ed("ASoC: stm32: add SAI drivers")
+
+Signed-off-by: Sebastian Fricke <sebastian.fricke.linux@gmail.com>
+Link: https://lore.kernel.org/r/20200413042952.7675-1-sebastian.fricke.linux@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/qcom/apq8096.c | 4 +---
- sound/soc/qcom/sdm845.c  | 4 +---
- 2 files changed, 2 insertions(+), 6 deletions(-)
+ sound/soc/stm/stm32_sai_sub.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/qcom/apq8096.c b/sound/soc/qcom/apq8096.c
-index d55e3ad96716..287ad2aa27f3 100644
---- a/sound/soc/qcom/apq8096.c
-+++ b/sound/soc/qcom/apq8096.c
-@@ -116,10 +116,8 @@ static int apq8096_platform_probe(struct platform_device *pdev)
- 	card->dev = dev;
- 	dev_set_drvdata(dev, card);
- 	ret = qcom_snd_parse_of(card);
--	if (ret) {
--		dev_err(dev, "Error parsing OF data\n");
-+	if (ret)
- 		goto err;
--	}
+diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
+index 0d0c9afd8791..34a7c3d6fb91 100644
+--- a/sound/soc/stm/stm32_sai_sub.c
++++ b/sound/soc/stm/stm32_sai_sub.c
+@@ -837,7 +837,7 @@ static int stm32_sai_set_config(struct snd_soc_dai *cpu_dai,
+ 		cr1 = SAI_XCR1_DS_SET(SAI_DATASIZE_32);
+ 		break;
+ 	default:
+-		dev_err(cpu_dai->dev, "Data format not supported");
++		dev_err(cpu_dai->dev, "Data format not supported\n");
+ 		return -EINVAL;
+ 	}
  
- 	apq8096_add_be_ops(card);
- 	ret = snd_soc_register_card(card);
-diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
-index b2de65c7f95c..68e9388ff46f 100644
---- a/sound/soc/qcom/sdm845.c
-+++ b/sound/soc/qcom/sdm845.c
-@@ -559,10 +559,8 @@ static int sdm845_snd_platform_probe(struct platform_device *pdev)
- 	card->dev = dev;
- 	dev_set_drvdata(dev, card);
- 	ret = qcom_snd_parse_of(card);
--	if (ret) {
--		dev_err(dev, "Error parsing OF data\n");
-+	if (ret)
- 		goto parse_dt_fail;
--	}
- 
- 	data->card = card;
- 	snd_soc_card_set_drvdata(card, data);
 -- 
 2.20.1
 

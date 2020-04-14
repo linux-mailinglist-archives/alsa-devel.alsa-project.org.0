@@ -2,76 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42E1B1A8730
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 19:13:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 919F81A8737
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 19:15:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E097616A0;
-	Tue, 14 Apr 2020 19:12:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E097616A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3FD5516A1;
+	Tue, 14 Apr 2020 19:14:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FD5516A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586884396;
-	bh=hraxpeuPo4SzgqHcYX/sVUDkxHNYwEhCsnhngqh8MqY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1586884507;
+	bh=lGQ9GNsci926cFdlTS/6dFA7CiTbIAMIknCbOVW5Lw4=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=q0WnY2luB/UrKTLdLxlXG5qnagTOXA+E6+ZCKedKRagmC7ZmIbIYPDCw9Zn6uFDS9
-	 5x7LmbEn/HxKsdNcTzG0Y0WioVvHPNFViXjuf7fz+vJ+8w7Lr+RCFo0hLPOF77DY50
-	 c7EwcV/HN1cYTyBztOq2CiKFBUJw8clvIDvoP4mk=
+	b=LkNI+5t/Nu3AqdfjoRGlTrcos0dX6kaKI8m1esXsUM2obOWjKVhBB3r51BL4qPi8o
+	 +ed2Uy+PnAkuyXBhR7hEEvCLGL7tr4scpIizxQvodzUenURLNE5REFr68i/MxSdt8p
+	 YO+QrgPJ97Z7XkpFh12MZSC9/e4JKvl9n5uOOh6Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10FC2F8014E;
-	Tue, 14 Apr 2020 19:11:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3157DF8013D;
+	Tue, 14 Apr 2020 19:13:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B22EF8013D; Tue, 14 Apr 2020 19:11:31 +0200 (CEST)
+ id C0B97F8013D; Tue, 14 Apr 2020 19:13:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AB15CF800F5
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 19:11:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB15CF800F5
-IronPort-SDR: KeQdYSugHK7yPLAPunrduvetDJy0hY7+JEN3W3wUR4vqPJauu3rUxwXSYqI3maY/9qzeZEOkr4
- hh/ZBlduo89Q==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2020 10:11:27 -0700
-IronPort-SDR: X2hTiwRuNNYfRLz2VLOiMFJdlmRfVHJElCnoyRMQXDU8M3WGbp89EjT8hNRzzE/v6NG223QzxF
- mFvtNXzD40nw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,383,1580803200"; d="scan'208";a="454626137"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by fmsmga006.fm.intel.com with ESMTP; 14 Apr 2020 10:11:23 -0700
-Received: from andy by smile with local (Exim 4.93)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1jOP5p-000Zja-QL; Tue, 14 Apr 2020 20:11:25 +0300
-Date: Tue, 14 Apr 2020 20:11:25 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [RFC PATCH 02/16] ASoC: pcm512x: use "sclk" string to retrieve
- clock
-Message-ID: <20200414171125.GB34613@smile.fi.intel.com>
-References: <20200409195841.18901-1-pierre-louis.bossart@linux.intel.com>
- <20200409195841.18901-3-pierre-louis.bossart@linux.intel.com>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ob3.cityemail.com (mail-ob3.cityemail.com [104.128.152.20])
+ by alsa1.perex.cz (Postfix) with ESMTP id 9AC86F800B9
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 19:13:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AC86F800B9
+Received: (qmail 29455 invoked from network); 14 Apr 2020 17:13:14 -0000
+Received: from riddle.wizard.ca (HELO [192.168.1.55])
+ (michael@wizard.ca@104.128.144.8)
+ by fe3.cityemail.com with (AES128-SHA encrypted) SMTP
+ (39d3be4c-7e73-11ea-b433-474945905952); Tue, 14 Apr 2020 10:13:14 -0700
+Subject: Re: [FRUSTRATED] Missing Sound Codecs for Lenovo ThinkCentre M710e
+To: Roy Spliet <nouveau@spliet.org>, alsa-devel@alsa-project.org
+References: <7046b5fa-af79-5221-f54f-3d4be22e879e@wizard.ca>
+ <34cfffec-39f7-d0e5-bab6-c4b0eb47943b@spliet.org>
+From: Michael <michael@wizard.ca>
+Message-ID: <8ab4b52c-5397-0fed-97ff-c8be7d4ae168@wizard.ca>
+Date: Tue, 14 Apr 2020 10:13:14 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200409195841.18901-3-pierre-louis.bossart@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Cc: alsa-devel@alsa-project.org, Rob Herring <robh+dt@kernel.org>,
- linux-gpio@vger.kernel.org, tiwai@suse.de,
- Linus Walleij <linus.walleij@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
- Daniel Matuschek <daniel@hifiberry.com>, Hui Wang <hui.wang@canonical.com>,
- Matthias Reichl <hias@horus.com>, broonie@kernel.org,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- Michael Turquette <mturquette@baylibre.com>, linux-clk@vger.kernel.org
+In-Reply-To: <34cfffec-39f7-d0e5-bab6-c4b0eb47943b@spliet.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-MagicMail-OS: Linux 2.2.x-3.x
+X-MagicMail-UUID: 39d3be4c-7e73-11ea-b433-474945905952
+X-MagicMail-Authenticated: michael@wizard.ca
+X-MagicMail-SourceIP: 104.128.144.8
+X-MagicMail-RegexMatch: 0
+X-MagicMail-EnvelopeFrom: <michael@wizard.ca>
+X-Archive: Yes
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,17 +75,87 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Apr 09, 2020 at 02:58:27PM -0500, Pierre-Louis Bossart wrote:
-> Using devm_clk_get() with a NULL string fails on ACPI platforms, use
-> the "sclk" string as a fallback.
+Appreciate the response, but running the 16.04 LTE with the hwe kernel, 
+which should have updated support.  I would expect that at least an 
+older codec should be supported on the board, highly doubt a completely 
+new sound card shipset would be used.
 
-This is fishy a bit.
-Do we have this name in the bindings?
+How do I try to resolve this WITHOUT going to a 5.6 kernel?
 
-If no, why not simple switch to devm_clk_get_optional()?
+On 2020-04-14 8:55 a.m., Roy Spliet wrote:
+> The 4.15.0 kernel was released in January 2018. Your computer was first 
+> sold around May 2018 (at least where I'm from). It's hardly surprising 
+> that some components in your computer aren't supported. First try 
+> upgrading to a newer kernel (ideally 5.6) before you try other steps to 
+> debug your issues.
+> 
+> Roy
+> 
+> Op 14-04-2020 om 15:16 schreef Michael:
+>> Hi All,
+>>
+>> Technically this probably should go to a support channnel, and not a 
+>> development list, but at my wits end.
+>>
+>> Kernel:  4.15.0-91-generic #92~16.04.1-Ubuntu SMP
+>>
+>> dmesg | grep snd
+>> [   12.656843] snd_hda_intel 0000:00:1f.3: bound 0000:00:02.0 (ops 
+>> i915_audio_component_bind_ops [i915])
+>> [   12.807521] snd_hda_intel 0000:00:1f.3: CORB reset timeout#1, 
+>> CORBRP = 0
+>> [   12.810429] snd_hda_intel 0000:00:1f.3: no codecs found!
+>>
+>> I have been playing with settings in the modprobe directory for Also 
+>> with no effect.. current settings are..
+>>
+>> options snd-hda-intel single_cmd=1
+>> options snd-hda-intel probe_mask=1
+>> options snd-hda-intel model=thinkpad
+>> options snd-hda-intel position_fix=3
+>>
+>> Have tried model=generic, and various other suggestions from online, 
+>> but at a loss.  Don't see anything in:
+>>
+>> https://github.com/torvalds/linux/blob/master/Documentation/sound/hd-audio/models.rst 
+>>
+>>
+>> Your ALSA information is located at 
+>> http://alsa-project.org/db/?f=7898b30139e9a91fecec22f3ee46049f33248b85
+>>
+>> Can anyone point me to how to debug this further, or any way to force 
+>> detection of a proper codec for this model?
+>>
+>> 00:1f.3 Audio device [0403]: Intel Corporation 200 Series PCH HD Audio 
+>> [8086:a2f0]
+>>      Subsystem: Lenovo Device [17aa:313c]
+>>      Kernel driver in use: snd_hda_intel
+>>
+>>
+>>         description: Motherboard
+>>         product: 313C
+>>         vendor: LENOVO
+>>         physical id: 0
+>>         version: SDK0J40697 WIN 3305181519567
+>>         slot: Default string
+>>
+>> Booting in legacy OS mode, not EUFI..
+>>
+>>
+>>
+
 
 -- 
-With Best Regards,
-Andy Shevchenko
+"Catch the Magic of Linux..."
+------------------------------------------------------------------------
+Michael Peddemors, President/CEO LinuxMagic Inc.
+Visit us at http://www.linuxmagic.com @linuxmagic
+A Wizard IT Company - For More Info http://www.wizard.ca
+"MagicSpam" is a Registered TradeMark of Wizard Tower TechnoServices Ltd.
+------------------------------------------------------------------------
+604-682-0300 Beautiful British Columbia, Canada
 
-
+This email and any electronic data contained are confidential and intended
+solely for the use of the individual or entity to which they are addressed.
+Please note that any views or opinions presented in this email are solely
+those of the author and are not intended to represent those of the company.

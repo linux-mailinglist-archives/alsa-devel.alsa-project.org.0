@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3CB81A8091
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 16:59:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92FF01A8092
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 16:59:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BE831693;
-	Tue, 14 Apr 2020 16:58:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BE831693
+	by alsa0.perex.cz (Postfix) with ESMTPS id 36B8016C7;
+	Tue, 14 Apr 2020 16:58:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36B8016C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586876345;
-	bh=r1NhfXyWJb62VFF1vOYE70l9Pg/OYGbv67upAzhuxTU=;
+	s=default; t=1586876383;
+	bh=fN7z3Pizj8da6osS3fVPyD/rbri86xBuQy8jHto7jkE=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=qVmxkW41sogv086pY3lTj3LIlQtXaDdyJOrZTYQyddYhSzv2xHjX/2rZ2YH2wSTIs
-	 cJAU6mSY90C8000mv7Q1IQmwqPg7Cf+zlT5Urhn6CKLCNlViojX+VYscItQBYHXpMN
-	 C0EktuY0+UUU6kcPqxQzP9NP9ilVPFY+JXiMc+gs=
+	b=Hq58BjTECjOswthRAx3HynqBmouJyvzEG8afNN/U2jXkyhhW1hYD3dNIvzAxd3oV6
+	 JzwWrb5zbO/a4VlOrJitTz5pN9BblvJ1yLX9+gObKtRHJLiB3/MHy/+3V5Vnry6D6K
+	 DNJ3YShHMbVyhubskjThVL5ZUA/yshvxJtO939a8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D32EAF80347;
-	Tue, 14 Apr 2020 16:48:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B0546F80338;
+	Tue, 14 Apr 2020 16:48:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 742CBF80332; Tue, 14 Apr 2020 16:47:42 +0200 (CEST)
+ id CA078F80332; Tue, 14 Apr 2020 16:47:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,31 +33,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE688F80331
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:47:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE688F80331
+ by alsa1.perex.cz (Postfix) with ESMTPS id 382B9F800B9
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:47:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 382B9F800B9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="wqIOKEpH"
+ header.b="q6qh9SJM"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0B8E82076D;
- Tue, 14 Apr 2020 14:47:35 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2E8E020578;
+ Tue, 14 Apr 2020 14:47:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586875656;
- bh=r1NhfXyWJb62VFF1vOYE70l9Pg/OYGbv67upAzhuxTU=;
+ s=default; t=1586875661;
+ bh=fN7z3Pizj8da6osS3fVPyD/rbri86xBuQy8jHto7jkE=;
  h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=wqIOKEpHpDH0STmOhP3RQn/jGbDrUNqf4IusxdtpDE+H7ppli5y6DRleE8qPD9S4K
- 6NmEXG19j2eJqxHnnnA8fksleLM1TD12QoBTPH8uWIht/KqlroZkTrTzKnqCCWwIkU
- EzOZg3qw+IfxdvASOEiNtBwUJUtT8jQzrDvgZ5V8=
-Date: Tue, 14 Apr 2020 15:47:34 +0100
+ b=q6qh9SJMFHmnWatPYvfmZBR7dm407A4i4VDa5gHyuTYT616zO5zU3a/kXLMiCItLi
+ eGlrZJw/2W9GgpOtJtY6yrA7h/NpNDnKRJPVjpnEkbprCXKcPNUqHJSKAKE6/+G0Qe
+ lrDOaj5Nb2HMARXZbipgHGRLFDDaRqplS2IhTEew=
+Date: Tue, 14 Apr 2020 15:47:39 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Applied "ASoC: Intel: sof_sdw_rt5682: remove codec_dai use" to the
+Subject: Applied "ASoC: Intel: sof_sdw_rt1308: remove codec dai use" to the
  asoc tree
-In-Reply-To: <20200409185827.16255-12-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20200409185827.16255-12-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20200409185827.16255-11-pierre-louis.bossart@linux.intel.com>
+Message-Id: <applied-20200409185827.16255-11-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -77,7 +77,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Intel: sof_sdw_rt5682: remove codec_dai use
+   ASoC: Intel: sof_sdw_rt1308: remove codec dai use
 
 has been applied to the asoc tree at
 
@@ -102,33 +102,32 @@ to this mail.
 Thanks,
 Mark
 
-From f11633da41bd00cc436e4e9b143bd6a00b9b65c6 Mon Sep 17 00:00:00 2001
+From 680ca80f731e11ff510f8ec2777f920ee228e54a Mon Sep 17 00:00:00 2001
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Thu, 9 Apr 2020 13:58:25 -0500
-Subject: [PATCH] ASoC: Intel: sof_sdw_rt5682: remove codec_dai use
+Date: Thu, 9 Apr 2020 13:58:24 -0500
+Subject: [PATCH] ASoC: Intel: sof_sdw_rt1308: remove codec dai use
 
 Use macro.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200409185827.16255-12-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20200409185827.16255-11-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/boards/sof_sdw_rt5682.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ sound/soc/intel/boards/sof_sdw_rt1308.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/intel/boards/sof_sdw_rt5682.c b/sound/soc/intel/boards/sof_sdw_rt5682.c
-index 5aa6211a1ed9..6680dde76682 100644
---- a/sound/soc/intel/boards/sof_sdw_rt5682.c
-+++ b/sound/soc/intel/boards/sof_sdw_rt5682.c
-@@ -47,7 +47,8 @@ static int rt5682_rtd_init(struct snd_soc_pcm_runtime *rtd)
+diff --git a/sound/soc/intel/boards/sof_sdw_rt1308.c b/sound/soc/intel/boards/sof_sdw_rt1308.c
+index 321768e54d08..a3d0e053b1a6 100644
+--- a/sound/soc/intel/boards/sof_sdw_rt1308.c
++++ b/sound/soc/intel/boards/sof_sdw_rt1308.c
+@@ -93,7 +93,7 @@ static int rt1308_i2s_hw_params(struct snd_pcm_substream *substream,
  {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
  	struct snd_soc_card *card = rtd->card;
- 	struct mc_private *ctx = snd_soc_card_get_drvdata(card);
--	struct snd_soc_component *component = rtd->codec_dai->component;
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
 +	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_component *component = codec_dai->component;
- 	struct snd_soc_jack *jack;
- 	int ret;
+ 	int clk_id, clk_freq, pll_out;
+ 	int err;
  
 -- 
 2.20.1

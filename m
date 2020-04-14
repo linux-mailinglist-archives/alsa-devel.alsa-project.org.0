@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91C8F1A8074
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 16:53:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ED5B1A8079
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 16:54:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 41498167F;
-	Tue, 14 Apr 2020 16:52:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41498167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC19516A3;
+	Tue, 14 Apr 2020 16:53:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC19516A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586876020;
-	bh=FDDFCvbmNNIrazyB4a3C4tcI4jN7MuoLeLE4oRrfZXI=;
+	s=default; t=1586876045;
+	bh=a3RkKb/u04UWuvGn5eygMW3u/ygADBHMY/NXBwu+5xo=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Al6q87jEyvgZ/10VT5mikO50nd9XUsHc6wW9QlUSjMVsvIwTL5kkFh1GbWCef5nyM
-	 3nXUjx/m+MqGMP6clPsbrHAo/vXq6qRg4RpsXw/Y2UL3VFlNvGAHULy6Z50/aawLlp
-	 LLFzvU3w9mZY2BBMRlOXZIWO5zWYcbgB1zUqFkB4=
+	b=b8s2Sur6Shz5t4kY0AC6tcjhtqwMinruJGkh4nWRW5SMDD1JPeWpma+5cXg79/yTb
+	 xQUFJUuQTHw6qf0e6wUkW9klJ43XXDhhdc6uYlc7vP2e02+vjYFrhkya3n0Zi5cujr
+	 Hhz9ABbFORk/nSjYohGIelDN8VQrSwv7AG/iNdCk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9AAD7F80306;
-	Tue, 14 Apr 2020 16:46:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21BD2F80307;
+	Tue, 14 Apr 2020 16:46:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 59B0CF80305; Tue, 14 Apr 2020 16:46:50 +0200 (CEST)
+ id 8E151F80315; Tue, 14 Apr 2020 16:46:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,38 +33,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E62D5F802F8
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:46:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E62D5F802F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id B4456F80307
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:46:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4456F80307
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fU0UHxh7"
+ header.b="YaFwE7jT"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C8DE720787;
- Tue, 14 Apr 2020 14:46:44 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id CD9BA20578;
+ Tue, 14 Apr 2020 14:46:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586875605;
- bh=FDDFCvbmNNIrazyB4a3C4tcI4jN7MuoLeLE4oRrfZXI=;
+ s=default; t=1586875610;
+ bh=a3RkKb/u04UWuvGn5eygMW3u/ygADBHMY/NXBwu+5xo=;
  h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=fU0UHxh7MYW8sWqsCaMQ9rvEoF5/KlimNiOsCQamIlayvSslTfs2qV7Tew2+06DT9
- 0Qn0xEc6QDZxyWlOyKuzVfl2ntwtw+s0AbXkOG5XDkwdp2zI+7o6ZrvL9o1uM7JTTB
- b2CDtcmp6Gl8pkTk0dpvgdq7YS5Wy7wdkhjpDW2E=
-Date: Tue, 14 Apr 2020 15:46:42 +0100
+ b=YaFwE7jTdjUa4RxoTxT8f0CFc9AkYKsfQf5myjbyeeBlp0atbCQdN9ORK4sJgQo2W
+ TXtCbM59KTrZPwmha9g28Ecm8WzbyeAAwDgB6c8iZ7n6dzrO8B2n8HdvqmAGk4PSHv
+ 0QyY54Cgj02UpfGnM4vsh4zkvVG0Bx9M64TgctfQ=
+Date: Tue, 14 Apr 2020 15:46:47 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Jason Yan <yanaijie@huawei.com>
-Subject: Applied "ASoC: Intel: soc-acpi-intel-cml-match: remove useless
+Subject: Applied "ASoC: intel: soc-acpi-intel-icl-match: remove useless
  'rt1308_2_adr'" to the asoc tree
-In-Reply-To: <20200410081117.21319-2-yanaijie@huawei.com>
-Message-Id: <applied-20200410081117.21319-2-yanaijie@huawei.com>
+In-Reply-To: <20200410081117.21319-1-yanaijie@huawei.com>
+Message-Id: <applied-20200410081117.21319-1-yanaijie@huawei.com>
 X-Patchwork-Hint: ignore
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- yanaijie@huawei.com, tiwai@suse.com, yang.jie@linux.intel.com,
- cezary.rojewski@intel.com, liam.r.girdwood@linux.intel.com,
- Hulk Robot <hulkci@huawei.com>, Mark Brown <broonie@kernel.org>,
- christophe.jaillet@wanadoo.fr, ranjani.sridharan@linux.intel.com,
- rander.wang@intel.com, yung-chuan.liao@linux.intel.com
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, yanaijie@huawei.com, tiwai@suse.com,
+ yang.jie@linux.intel.com, cezary.rojewski@intel.com,
+ liam.r.girdwood@linux.intel.com, Hulk Robot <hulkci@huawei.com>,
+ Mark Brown <broonie@kernel.org>, christophe.jaillet@wanadoo.fr,
+ ranjani.sridharan@linux.intel.com, rander.wang@intel.com,
+ yung-chuan.liao@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,7 +83,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Intel: soc-acpi-intel-cml-match: remove useless 'rt1308_2_adr'
+   ASoC: intel: soc-acpi-intel-icl-match: remove useless 'rt1308_2_adr'
 
 has been applied to the asoc tree at
 
@@ -107,10 +108,10 @@ to this mail.
 Thanks,
 Mark
 
-From a306f04511148fade6bead59920dde864a54f017 Mon Sep 17 00:00:00 2001
+From acda42b30fa6b67f07b4560577418df5ada77b52 Mon Sep 17 00:00:00 2001
 From: Jason Yan <yanaijie@huawei.com>
-Date: Fri, 10 Apr 2020 16:11:17 +0800
-Subject: [PATCH] ASoC: Intel: soc-acpi-intel-cml-match: remove useless
+Date: Fri, 10 Apr 2020 16:11:16 +0800
+Subject: [PATCH] ASoC: intel: soc-acpi-intel-icl-match: remove useless
  'rt1308_2_adr'
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -118,24 +119,25 @@ Content-Transfer-Encoding: 8bit
 
 Fix the following gcc warning:
 
-sound/soc/intel/common/soc-acpi-intel-cml-match.c:116:45: warning:
+sound/soc/intel/common/soc-acpi-intel-icl-match.c:90:45: warning:
 ‘rt1308_2_adr’ defined but not used [-Wunused-const-variable=]
  static const struct snd_soc_acpi_adr_device rt1308_2_adr[] = {
                                              ^~~~~~~~~~~~
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: Jason Yan <yanaijie@huawei.com>
-Link: https://lore.kernel.org/r/20200410081117.21319-2-yanaijie@huawei.com
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20200410081117.21319-1-yanaijie@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/common/soc-acpi-intel-cml-match.c | 8 --------
+ sound/soc/intel/common/soc-acpi-intel-icl-match.c | 8 --------
  1 file changed, 8 deletions(-)
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-cml-match.c b/sound/soc/intel/common/soc-acpi-intel-cml-match.c
-index bcedec6c6117..7d85bd5aff9f 100644
---- a/sound/soc/intel/common/soc-acpi-intel-cml-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-cml-match.c
-@@ -113,14 +113,6 @@ static const struct snd_soc_acpi_adr_device rt1308_1_adr[] = {
+diff --git a/sound/soc/intel/common/soc-acpi-intel-icl-match.c b/sound/soc/intel/common/soc-acpi-intel-icl-match.c
+index ef8500349f2f..16ec9f382b0f 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-icl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-icl-match.c
+@@ -87,14 +87,6 @@ static const struct snd_soc_acpi_adr_device rt1308_1_adr[] = {
  	}
  };
  

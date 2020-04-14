@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A577E1A8089
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 16:58:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECD7F1A808C
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 16:58:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 43E891677;
-	Tue, 14 Apr 2020 16:57:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43E891677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 91C321678;
+	Tue, 14 Apr 2020 16:57:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91C321678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586876282;
-	bh=cJrGG4yiej9TCD9AKARgX2YIrPkIqSEEZI1+VbdzPvc=;
+	s=default; t=1586876310;
+	bh=gTu2AfOA1KhAiMCjHhYOVvYlufQjCsLNiQivRN8pIsg=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=hXlN/tm0rUGuOdcxomfrAQaoQ+Og+IajmnHzlXEC0CdIIsR/gaYatoJXyVupdyYwe
-	 6tNCyIXCz4x5gNgJj0A55vs6CIFgQP6pvIAnS8im8aDiAjtzhLkcnbGAsJCFOuyWlq
-	 PuHpku4vm2cR+MoCHgOcKLBxcXkSiO+SpPRvz8MM=
+	b=TB8ImuQ6pUFtA/Ony9og9g+d3ebAuSu7sQ0Isp5FTmJfeUFvWaXsJfyPsTQHHWhFg
+	 6yywHJfnwnpW63UbE3hmuS+lQGCtMhvTuM3PGMskaYFrXXpzfASaGgvwGfNk3WGzoA
+	 AJEHKKbhmxMhgXLUv/DyRxiezKLghW7c6m+octGk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9E4BF8033F;
-	Tue, 14 Apr 2020 16:48:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0EA96F80343;
+	Tue, 14 Apr 2020 16:48:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 16D4FF80332; Tue, 14 Apr 2020 16:47:36 +0200 (CEST)
+ id 8311CF80331; Tue, 14 Apr 2020 16:47:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,31 +33,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 659C1F80334
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:47:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 659C1F80334
+ by alsa1.perex.cz (Postfix) with ESMTPS id D7E2AF800B9
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:47:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7E2AF800B9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="SDUnpX3s"
+ header.b="0zVNhdL4"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B2A0B20578;
- Tue, 14 Apr 2020 14:47:25 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id DDAAB20578;
+ Tue, 14 Apr 2020 14:47:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586875646;
- bh=cJrGG4yiej9TCD9AKARgX2YIrPkIqSEEZI1+VbdzPvc=;
+ s=default; t=1586875651;
+ bh=gTu2AfOA1KhAiMCjHhYOVvYlufQjCsLNiQivRN8pIsg=;
  h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=SDUnpX3sX7nVMDh1PeFH+AKvCO8Zw1hksbJPISukppA6s8SjATFTJHWJDXJtVklBu
- k52DU3X5MlrhUXECkITFwwu3hRzv6QDgpG0iT90Ja8ClVpP0Yb95Nk0eEalQWYznb1
- jGwMoC5l5P4OhubjNebjMqzWrNyyDxgXb1QAvb9k=
-Date: Tue, 14 Apr 2020 15:47:23 +0100
+ b=0zVNhdL4BZLW+2mykrt2OYSNLFqcqmDZLmg8pVPjwijBsxc22ai1S6PaksX+1SSsE
+ DGEjOEePmwSnDDAAeiAGy/BN9ACZoJdEuNSzGIwsdfjyJI7H6IxtD/SzCfD8h6XPIc
+ J9WxQbl3ZB3EokIVZPGsettbdLSrBcGuDynxytdA=
+Date: Tue, 14 Apr 2020 15:47:28 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Applied "ASoC: Intel: sof_sdw_rt711: remove codec_dai use" to the
+Subject: Applied "ASoC: Intel: sof_sdw_rt700: remove codec_dai use" to the
  asoc tree
-In-Reply-To: <20200409185827.16255-14-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20200409185827.16255-14-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20200409185827.16255-13-pierre-louis.bossart@linux.intel.com>
+Message-Id: <applied-20200409185827.16255-13-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -77,7 +77,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Intel: sof_sdw_rt711: remove codec_dai use
+   ASoC: Intel: sof_sdw_rt700: remove codec_dai use
 
 has been applied to the asoc tree at
 
@@ -102,25 +102,25 @@ to this mail.
 Thanks,
 Mark
 
-From 30e3edfbd1bf2f79287a5586508bb51f3fce5826 Mon Sep 17 00:00:00 2001
+From 6a739362211b14c1cfe56929c1da71f15c5e6143 Mon Sep 17 00:00:00 2001
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Thu, 9 Apr 2020 13:58:27 -0500
-Subject: [PATCH] ASoC: Intel: sof_sdw_rt711: remove codec_dai use
+Date: Thu, 9 Apr 2020 13:58:26 -0500
+Subject: [PATCH] ASoC: Intel: sof_sdw_rt700: remove codec_dai use
 
-Use macro.
+Use macro
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200409185827.16255-14-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20200409185827.16255-13-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/boards/sof_sdw_rt711.c | 3 ++-
+ sound/soc/intel/boards/sof_sdw_rt700.c | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/intel/boards/sof_sdw_rt711.c b/sound/soc/intel/boards/sof_sdw_rt711.c
-index 2a4917e3d561..8590a8a8889f 100644
---- a/sound/soc/intel/boards/sof_sdw_rt711.c
-+++ b/sound/soc/intel/boards/sof_sdw_rt711.c
-@@ -71,7 +71,8 @@ static int rt711_rtd_init(struct snd_soc_pcm_runtime *rtd)
+diff --git a/sound/soc/intel/boards/sof_sdw_rt700.c b/sound/soc/intel/boards/sof_sdw_rt700.c
+index 2ee4e6910d7f..d3725bb91e43 100644
+--- a/sound/soc/intel/boards/sof_sdw_rt700.c
++++ b/sound/soc/intel/boards/sof_sdw_rt700.c
+@@ -47,7 +47,8 @@ static int rt700_rtd_init(struct snd_soc_pcm_runtime *rtd)
  {
  	struct snd_soc_card *card = rtd->card;
  	struct mc_private *ctx = snd_soc_card_get_drvdata(card);

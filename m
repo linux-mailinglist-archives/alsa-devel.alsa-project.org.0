@@ -2,74 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EECA1A8037
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 16:47:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F4F51A803F
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 16:47:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D8FFB16A5;
-	Tue, 14 Apr 2020 16:46:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8FFB16A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD76416AC;
+	Tue, 14 Apr 2020 16:47:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD76416AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586875631;
-	bh=CFyx2jlgch7SVqn9pfr9H+vVrWh9pK1WZvkRuAqAD4U=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=IMG3lU2AXWN3N9UEKqhhX1pLiraYs/2Lo0KjZRVqz+q/RYQ1Gdv/TshYKvJEoZJjH
-	 04l8R8HIbfb14KlrJEJGhe47jicrziZNOaIP0w38wCfrA9ARI6mQ8Ea2f2iHW6W9bS
-	 pw8jjg92RfrsR5H7TFZwqPlgHxZrXw6JrQIWpT0E=
+	s=default; t=1586875678;
+	bh=BKt0ly0X0uSnzjL/jCTuX7kQW79brFOyTVWQb3pvaVg=;
+	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=L8urqSveyrVsNDBJHpix3xqVfjtpoSJoI3BRPYvNg7QdU5knW9RWnZGeCPEHelpMA
+	 v54+yRs6V8OyicMXHFIqaMpmJroiHkzn0r3DZzxtHQG9LAtGRhhQf+VdpWB14UymuL
+	 imatb42pLMyEGjETuBnuL2Io904u88pGFQP0QkFo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ED0EDF800B9;
-	Tue, 14 Apr 2020 16:45:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 26F96F8027C;
+	Tue, 14 Apr 2020 16:46:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D04C0F8013D; Tue, 14 Apr 2020 16:45:26 +0200 (CEST)
+ id 571F2F8021E; Tue, 14 Apr 2020 16:45:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C8F13F8014E
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:45:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8F13F8014E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Xj0eRvpc"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D489F800F5
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:45:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D489F800F5
-IronPort-SDR: Lj61EX4RbPCDfFZwncrjiarsSl4iPYy3GPMf5zQKCgs7WtUgiA/qvlzyK60aut93ATMm/KuPl1
- tpG90chuXO0Q==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2020 07:45:19 -0700
-IronPort-SDR: Lpqgqpuu8dkosUXnpShP+Se6gy09TW2I5uYsHkAFKYCyD2U13pjPC11BnEM3LP4Io2ww7omEDk
- ZE0E8zyZ7Sbg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,382,1580803200"; d="scan'208";a="288236775"
-Received: from bjkulkar-mobl.amr.corp.intel.com (HELO [10.212.152.71])
- ([10.212.152.71])
- by fmsmga002.fm.intel.com with ESMTP; 14 Apr 2020 07:45:18 -0700
-Subject: Re: Regression on Intel Atom/SST/Baytrail devices w/ v5.7-rc1
-To: Hans de Goede <hdegoede@redhat.com>,
- "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>
-References: <4d9d2c14-4db7-1a98-9b3d-e9193333e1b9@linux.intel.com>
- <c863319e-51bf-37e9-e550-5f1af1267408@redhat.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <e75d7390-7375-a8b2-90f0-7041c8618bd3@linux.intel.com>
-Date: Tue, 14 Apr 2020 09:45:17 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
-MIME-Version: 1.0
-In-Reply-To: <c863319e-51bf-37e9-e550-5f1af1267408@redhat.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, "Rojewski,
- Cezary" <cezary.rojewski@intel.com>, Mark Brown <broonie@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+ by mail.kernel.org (Postfix) with ESMTPSA id 7EA4320578;
+ Tue, 14 Apr 2020 14:45:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1586875553;
+ bh=BKt0ly0X0uSnzjL/jCTuX7kQW79brFOyTVWQb3pvaVg=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=Xj0eRvpcd0zAHHGgS+wlkuC4N5yFk7/Jl/HNtK96l4XQMHdwnPoEAvivqpMhgIeM0
+ vPngoZWMyKMqw4h4vqjDFcvzCxx/XMchC3Fwy/4lD2/mzfQ7AASvzYHB+w1bkMcJI+
+ NNDw8/wBVhwYCKjYJlDHd/tPPcA8jAUWZt/e+Xmw=
+Date: Tue, 14 Apr 2020 15:45:50 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Johan Jonker <jbx6244@gmail.com>
+Subject: Applied "ASoC: rockchip-i2s: add power-domains property" to the asoc
+ tree
+In-Reply-To: <20200324094149.6904-3-jbx6244@gmail.com>
+Message-Id: <applied-20200324094149.6904-3-jbx6244@gmail.com>
+X-Patchwork-Hint: ignore
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, heiko@sntech.de,
+ lgirdwood@gmail.com, robh+dt@kernel.org, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, Mark Brown <broonie@kernel.org>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,28 +78,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The patch
 
->>
->> Both 5.5 and 5.6 work though, as if we are missing a set of 
->> dependencies? I am running out of time this evening, but I'd be good 
->> to see if anyone else reproduces my findings.
-> 
-> I saw the same thing yesterday, also when testing UCM changes :)
-> 
-> I was planning to bisect this myself today. But given your findings I'm 
-> not sure
-> if that is useful.  I would count the intermediate errors as also being 
-> bad I guess
-> and try to find the first bad commit and see from there.
-> 
-> Can you send me your git bisect log ?
+   ASoC: rockchip-i2s: add power-domains property
 
-I didn't keep it but it pointed to v5.6-rc1 as the first bad commit - 
-rather useless.
+has been applied to the asoc tree at
 
-I'll try to spend more time on this later today.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
 
-The good thing is that it's not an isolated hardware problem, so we will 
-likely reproduce this and converge to a solution faster. I only have 2 
-devices that work reliably.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From 2a79c31a498e002eeb7c7d759241c3cca95b28d9 Mon Sep 17 00:00:00 2001
+From: Johan Jonker <jbx6244@gmail.com>
+Date: Tue, 24 Mar 2020 10:41:49 +0100
+Subject: [PATCH] ASoC: rockchip-i2s: add power-domains property
+
+In the old txt situation we add/describe only properties that are used
+by the driver/hardware itself. With yaml it also filters things in a
+node that are used by other drivers like 'power-domains' for rk3399,
+so add it to 'rockchip-i2s.yaml'.
+
+Signed-off-by: Johan Jonker <jbx6244@gmail.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
+Link: https://lore.kernel.org/r/20200324094149.6904-3-jbx6244@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ Documentation/devicetree/bindings/sound/rockchip-i2s.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml b/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml
+index 7cd0e278ed85..a3ba2186d6a1 100644
+--- a/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml
++++ b/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml
+@@ -56,6 +56,9 @@ properties:
+       - const: tx
+       - const: rx
+ 
++  power-domains:
++    maxItems: 1
++
+   rockchip,capture-channels:
+     allOf:
+       - $ref: /schemas/types.yaml#/definitions/uint32
+-- 
+2.20.1
 

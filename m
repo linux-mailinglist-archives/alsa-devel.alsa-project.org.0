@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64E0B1A8096
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 17:00:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EB751A8097
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 17:00:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 12996169D;
-	Tue, 14 Apr 2020 16:59:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12996169D
+	by alsa0.perex.cz (Postfix) with ESMTPS id EBD3A16D8;
+	Tue, 14 Apr 2020 16:59:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBD3A16D8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586876410;
-	bh=6YTqllc4aZFpKu3yUtPt+mBgRCyCSbEH+M0GQvhTWJQ=;
+	s=default; t=1586876438;
+	bh=zFHCtX/oNDUWCWdQBX4PWEdwKym77eBCoViUwodjLvA=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=IoTyackz2LgpgaTZAwlqnHV4gDldJmfyROAe2jg5ujCgFvGFyppYZScnj7j1NgI5k
-	 WaQcEJnNwSWac9UMH2RHnWoWPWO4wVp5moBueLK9RUOYTLhq1rDlpUv978+5vIGlY+
-	 SCzrvlB5tKcpbmkWJGAaYMHVoqjHfGRIBRr2Cu+Q=
+	b=q0pRF0PogRqhZ3rtPKahbvrbJAsqnEb16pKnEnl6f6DFR9ev6X+CERV1PqIwZlSRv
+	 dvkvgYUjM88CTjmvVDLYPFEzkh/X9XBnfepXqIDY++TKyDbrcQPHPVX2cZjooSxBG2
+	 Zr7clGXD+3IRZZzlQzRDZ2Z1peL9TzOd3yjaaThM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A93FF80340;
-	Tue, 14 Apr 2020 16:48:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5B86FF80350;
+	Tue, 14 Apr 2020 16:48:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B799FF80332; Tue, 14 Apr 2020 16:47:50 +0200 (CEST)
+ id 0CE26F80332; Tue, 14 Apr 2020 16:47:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,33 +33,36 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 616CFF800B9
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:47:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 616CFF800B9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8ED19F80278
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:47:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8ED19F80278
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="wLtXfxr3"
+ header.b="v2Yw65CD"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 5B3462076D;
- Tue, 14 Apr 2020 14:47:46 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 8867A2076D;
+ Tue, 14 Apr 2020 14:47:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586875666;
- bh=6YTqllc4aZFpKu3yUtPt+mBgRCyCSbEH+M0GQvhTWJQ=;
+ s=default; t=1586875672;
+ bh=zFHCtX/oNDUWCWdQBX4PWEdwKym77eBCoViUwodjLvA=;
  h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=wLtXfxr3EiFjjpgG8JPPGrRFgxDEY+qsAQdSbTY2q4fsAymy4lPr4KQmmnkSo6ovU
- y+rfIg/MME8D9TNYJI5+m6T+eGY9t0HEjRHumcJJVgd0yL9Llr0um3YiEwqW1ZESQU
- Jk6aWxfhHBk8Ghj0aV5TEYF02ClNaz3hin+nphPo=
-Date: Tue, 14 Apr 2020 15:47:44 +0100
+ b=v2Yw65CDAFP2ZNg85dV0kT4G0ILrCNMbB69bCx8x6TvwzdekbAhgVZZKUTlBsr0LE
+ hx96PDjny242yM/hbFpT9n2nLa+/mr+94Mihs+LeHBrckBxVyY0eAZ0Ctm7illFlHp
+ QVv3HkIkL3utetZ8zQ/jwfBp5ULaTYQaMBkfUFiQ=
+Date: Tue, 14 Apr 2020 15:47:49 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Applied "ASoC: Intel: sof_sdw_hdmi: remove codec_dai use" to the asoc
- tree
-In-Reply-To: <20200409185827.16255-10-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20200409185827.16255-10-pierre-louis.bossart@linux.intel.com>
+Subject: Applied "ASoC: Intel: sof_sdw_hdmi: fix compilation issue in fallback
+ mode" to the asoc tree
+In-Reply-To: <20200409185827.16255-9-pierre-louis.bossart@linux.intel.com>
+Message-Id: <applied-20200409185827.16255-9-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ tiwai@suse.de, Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,7 +80,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Intel: sof_sdw_hdmi: remove codec_dai use
+   ASoC: Intel: sof_sdw_hdmi: fix compilation issue in fallback mode
 
 has been applied to the asoc tree at
 
@@ -102,33 +105,37 @@ to this mail.
 Thanks,
 Mark
 
-From 5611e6f4b32bbdfe973e22d1534c2838c57408b7 Mon Sep 17 00:00:00 2001
+From 272e68d06539d0abc39d949657a2bc6c5ee25647 Mon Sep 17 00:00:00 2001
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Thu, 9 Apr 2020 13:58:23 -0500
-Subject: [PATCH] ASoC: Intel: sof_sdw_hdmi: remove codec_dai use
+Date: Thu, 9 Apr 2020 13:58:22 -0500
+Subject: [PATCH] ASoC: Intel: sof_sdw_hdmi: fix compilation issue in fallback
+ mode
 
-Use macro instead.
+Missing prefix causing build fail when NOCODEC option is selected
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200409185827.16255-10-pierre-louis.bossart@linux.intel.com
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Link: https://lore.kernel.org/r/20200409185827.16255-9-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
  sound/soc/intel/boards/sof_sdw_hdmi.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/sound/soc/intel/boards/sof_sdw_hdmi.c b/sound/soc/intel/boards/sof_sdw_hdmi.c
-index 93e00b03cf85..cb1118e78e89 100644
+index c7b5612a39e6..93e00b03cf85 100644
 --- a/sound/soc/intel/boards/sof_sdw_hdmi.c
 +++ b/sound/soc/intel/boards/sof_sdw_hdmi.c
-@@ -28,7 +28,7 @@ struct hdmi_pcm {
- int sof_sdw_hdmi_init(struct snd_soc_pcm_runtime *rtd)
+@@ -90,7 +90,7 @@ int sof_sdw_hdmi_card_late_probe(struct snd_soc_card *card)
+ 	return hdac_hdmi_jack_port_init(component, &card->dapm);
+ }
+ #else
+-int hdmi_card_late_probe(struct snd_soc_card *card)
++int sof_sdw_hdmi_card_late_probe(struct snd_soc_card *card)
  {
- 	struct mc_private *ctx = snd_soc_card_get_drvdata(rtd->card);
--	struct snd_soc_dai *dai = rtd->codec_dai;
-+	struct snd_soc_dai *dai = asoc_rtd_to_codec(rtd, 0);
- 	struct hdmi_pcm *pcm;
- 
- 	pcm = devm_kzalloc(rtd->card->dev, sizeof(*pcm), GFP_KERNEL);
+ 	return 0;
+ }
 -- 
 2.20.1
 

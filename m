@@ -2,76 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DA371A878D
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 19:33:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7F001A87AF
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 19:38:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 088A016A6;
-	Tue, 14 Apr 2020 19:32:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 088A016A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 650DD16A5;
+	Tue, 14 Apr 2020 19:37:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 650DD16A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586885589;
-	bh=shV95jIRjaA/YgRO1z01RN7+yFNAm+lgotmrj1cbL2I=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1586885899;
+	bh=uExQLK073p6XcJrCs+dCgBSK3qeL4fXyB1+jJBZO+tQ=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=O+5vYnUofFQUzk2tpenaVezFwarntU8kD3OnBFp+ueubGQZs9R90MrLF1Q2hTF27Q
-	 mZqcxrQUbBT+MklW2b5+mJlj+oO4mqWm59G0uBqzPB+TNZm7mqfLTgEuwDYs2mW1vo
-	 hf22SkxdHKcHkgmWaS8e/1voA2cIajqcfoCpPFFo=
+	b=eh8KWEPxhGm/JbBJ+HxGK3eBAYZSskGxbx0opQZG36vK2Jv9JV3JCdvWiCLAuEUwj
+	 2GG6SKyaSXi9c4dXE09rxv5pjsOMjr1qL2VPiiEM4B53XXfO5fmsEztxCSvc5EmfCH
+	 SFQOany4EeEMQwKX6aIzZHKbK9kq8hADVVIR44G4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22E65F8014E;
-	Tue, 14 Apr 2020 19:31:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84AE4F8014E;
+	Tue, 14 Apr 2020 19:36:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4E780F8013D; Tue, 14 Apr 2020 19:31:23 +0200 (CEST)
+ id F30FCF8013D; Tue, 14 Apr 2020 19:36:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6490EF800F5
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 19:31:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6490EF800F5
-IronPort-SDR: D/J3cejjgkaCsn9TtFwGr7sXxRERZtLHMghosy0LedUWUpN0TewYW26tNcHVdhCc6tHIZH7xUB
- bc7QXN3BulNg==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2020 10:31:12 -0700
-IronPort-SDR: i0kCkIFUR74Blyj6EAjijEEDnrSwFH14wws42sXrehAbT0FunF8mp2lTkIzRnF/BHeIMtCRN+M
- ItQ5BGFfBK9A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,383,1580803200"; d="scan'208";a="332246781"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by orsmga001.jf.intel.com with ESMTP; 14 Apr 2020 10:31:08 -0700
-Received: from andy by smile with local (Exim 4.93)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1jOPOw-000Zxz-92; Tue, 14 Apr 2020 20:31:10 +0300
-Date: Tue, 14 Apr 2020 20:31:10 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [RFC PATCH 07/16] clk: hifiberry-dacpro: initial import
-Message-ID: <20200414173110.GG34613@smile.fi.intel.com>
-References: <20200409195841.18901-1-pierre-louis.bossart@linux.intel.com>
- <20200409195841.18901-8-pierre-louis.bossart@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200409195841.18901-8-pierre-louis.bossart@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Cc: alsa-devel@alsa-project.org, Rob Herring <robh+dt@kernel.org>,
- linux-gpio@vger.kernel.org, tiwai@suse.de,
- DigitalDreamtime <clive.messer@digitaldreamtime.co.uk>,
- Linus Walleij <linus.walleij@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
- Daniel Matuschek <daniel@hifiberry.com>, Hui Wang <hui.wang@canonical.com>,
- Matthias Reichl <hias@horus.com>, broonie@kernel.org,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- Michael Turquette <mturquette@baylibre.com>, linux-clk@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 00028F800F5
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 19:36:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00028F800F5
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 2D37BAD1E;
+ Tue, 14 Apr 2020 17:36:29 +0000 (UTC)
+Date: Tue, 14 Apr 2020 19:36:29 +0200
+Message-ID: <s5h5ze2hsv6.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Michael <michael@wizard.ca>
+Subject: Re: [FRUSTRATED] Missing Sound Codecs for Lenovo ThinkCentre M710e
+In-Reply-To: <8ab4b52c-5397-0fed-97ff-c8be7d4ae168@wizard.ca>
+References: <7046b5fa-af79-5221-f54f-3d4be22e879e@wizard.ca>
+ <34cfffec-39f7-d0e5-bab6-c4b0eb47943b@spliet.org>
+ <8ab4b52c-5397-0fed-97ff-c8be7d4ae168@wizard.ca>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Roy Spliet <nouveau@spliet.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,22 +72,105 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Apr 09, 2020 at 02:58:32PM -0500, Pierre-Louis Bossart wrote:
-> From: Daniel Matuschek <daniel@hifiberry.com>
+On Tue, 14 Apr 2020 19:13:14 +0200,
+Michael wrote:
 > 
-> This patch imports the clock code from the Raspberry v5.5-y tree. The
-> ASoC machine driver initially present in this patch was dropped. The
-> comments are also dropped but all sign-offs are kept below. The patch
-> authorship was modified with explicit permission from Daniel Matuschek
-> to make sure it matches the Signed-off tag.
+> Appreciate the response, but running the 16.04 LTE with the hwe
+> kernel, which should have updated support.  I would expect that at
+> least an older codec should be supported on the board, highly doubt a
+> completely new sound card shipset would be used.
 > 
-> This patch generates a lot of checkpatch.pl warnings that are
-> corrected in follow-up patches.
+> How do I try to resolve this WITHOUT going to a 5.6 kernel?
 
-I guess it will be waste of time to review this part without squashing it first.
+The best is to ask your distro.  It's a distro kernel, and we have no
+idea what's missing and what's fixed, after all.
 
--- 
-With Best Regards,
-Andy Shevchenko
+But, if you can just test 5.6.y kernel while keeping the rest of your
+system, and it still shows the same problem, then it becomes more
+interesting to us.  Installing and testing a new kernel takes only a
+couple of minutes.  Any reason to hesitate to do it so much...?
 
 
+thanks,
+
+Takashi
+
+> 
+> On 2020-04-14 8:55 a.m., Roy Spliet wrote:
+> > The 4.15.0 kernel was released in January 2018. Your computer was
+> > first sold around May 2018 (at least where I'm from). It's hardly
+> > surprising that some components in your computer aren't
+> > supported. First try upgrading to a newer kernel (ideally 5.6)
+> > before you try other steps to debug your issues.
+> >
+> > Roy
+> >
+> > Op 14-04-2020 om 15:16 schreef Michael:
+> >> Hi All,
+> >>
+> >> Technically this probably should go to a support channnel, and not
+> >> a development list, but at my wits end.
+> >>
+> >> Kernel:  4.15.0-91-generic #92~16.04.1-Ubuntu SMP
+> >>
+> >> dmesg | grep snd
+> >> [   12.656843] snd_hda_intel 0000:00:1f.3: bound 0000:00:02.0 (ops
+> >> i915_audio_component_bind_ops [i915])
+> >> [   12.807521] snd_hda_intel 0000:00:1f.3: CORB reset timeout#1,
+> >> CORBRP = 0
+> >> [   12.810429] snd_hda_intel 0000:00:1f.3: no codecs found!
+> >>
+> >> I have been playing with settings in the modprobe directory for
+> >> Also with no effect.. current settings are..
+> >>
+> >> options snd-hda-intel single_cmd=1
+> >> options snd-hda-intel probe_mask=1
+> >> options snd-hda-intel model=thinkpad
+> >> options snd-hda-intel position_fix=3
+> >>
+> >> Have tried model=generic, and various other suggestions from
+> >> online, but at a loss.  Don't see anything in:
+> >>
+> >> https://github.com/torvalds/linux/blob/master/Documentation/sound/hd-audio/models.rst 
+> >>
+> >>
+> >> Your ALSA information is located at
+> >> http://alsa-project.org/db/?f=7898b30139e9a91fecec22f3ee46049f33248b85
+> >>
+> >> Can anyone point me to how to debug this further, or any way to
+> >> force detection of a proper codec for this model?
+> >>
+> >> 00:1f.3 Audio device [0403]: Intel Corporation 200 Series PCH HD
+> >> Audio [8086:a2f0]
+> >>      Subsystem: Lenovo Device [17aa:313c]
+> >>      Kernel driver in use: snd_hda_intel
+> >>
+> >>
+> >>         description: Motherboard
+> >>         product: 313C
+> >>         vendor: LENOVO
+> >>         physical id: 0
+> >>         version: SDK0J40697 WIN 3305181519567
+> >>         slot: Default string
+> >>
+> >> Booting in legacy OS mode, not EUFI..
+> >>
+> >>
+> >>
+> 
+> 
+> -- 
+> "Catch the Magic of Linux..."
+> ------------------------------------------------------------------------
+> Michael Peddemors, President/CEO LinuxMagic Inc.
+> Visit us at http://www.linuxmagic.com @linuxmagic
+> A Wizard IT Company - For More Info http://www.wizard.ca
+> "MagicSpam" is a Registered TradeMark of Wizard Tower TechnoServices Ltd.
+> ------------------------------------------------------------------------
+> 604-682-0300 Beautiful British Columbia, Canada
+> 
+> This email and any electronic data contained are confidential and intended
+> solely for the use of the individual or entity to which they are addressed.
+> Please note that any views or opinions presented in this email are solely
+> those of the author and are not intended to represent those of the company.
+> 

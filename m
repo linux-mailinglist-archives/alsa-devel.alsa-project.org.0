@@ -2,83 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0755F1A8D2B
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 23:04:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45C991A8D6D
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 23:12:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 92BD61662;
-	Tue, 14 Apr 2020 23:03:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92BD61662
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA77B1665;
+	Tue, 14 Apr 2020 23:11:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA77B1665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586898241;
-	bh=6avD9jW52n48oKSD1wjtLeCWI3k/p97RjNLe4AH8Pag=;
-	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=d6PHZGcHiHbI08jbVQ2SEq6eL7D0WRtLdKj+AmnpA1imz60BuHu3HXjRHEe4V7w0h
-	 ImfpCbMwQPQh02zntuhYH9npYuMQObpFymYTX8KmW/sAooun5z3oH6hBtLxH5Cl8kZ
-	 I5q2WYy2S/pPMCldm5fQ4wurMp7vpSXK3eR5PovA=
+	s=default; t=1586898753;
+	bh=ZHlPgZpTQ/IcKcuao0jJuBUFgfSJLq2z62oSbuaxYGc=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LaPHim7jkK/B1fSpU0lQ2/Qt8AkfeRIGArDAKqKigOVC7v2+hwIlanQIZjiWizH0Q
+	 fYubW9nrY3yme9btO1a6IR4dexWnnkgmqUCSU2uTAbQ9Zsx7MDxdQ+VjUw1xNv/TuK
+	 LLU7SK1HXrhup/TZWIes6/U4QRNHU2l7xQKFg66w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8308FF8014E;
-	Tue, 14 Apr 2020 23:02:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E46DDF80115;
+	Tue, 14 Apr 2020 23:10:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 19B67F8013D; Tue, 14 Apr 2020 23:02:13 +0200 (CEST)
+ id 6BDA7F8013D; Tue, 14 Apr 2020 23:10:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bollie.ca9.eu (bollie.ca9.eu [81.169.254.190])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1DDBFF800F5
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 23:02:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1DDBFF800F5
-IronPort-SDR: ap3JSsUYmqXXJMkCuV1TYV0Dop7/gpEivn+aW/qSkeaslydfw3fLJKNrExh/2EjXdG15JPNcgX
- J8Gw6GuKeztQ==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2020 14:02:04 -0700
-IronPort-SDR: sw1v3qoJwpCrhjXAgPjxDhUcU/4wBNvdpeM9QheHiQWt58QksZR0M6gHG0dH14uaMOYVbz+gW0
- ym3KsPoQZizA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,384,1580803200"; d="scan'208";a="253310592"
-Received: from svarahab-mobl.amr.corp.intel.com (HELO [10.212.190.40])
- ([10.212.190.40])
- by orsmga003.jf.intel.com with ESMTP; 14 Apr 2020 14:02:01 -0700
-Subject: Re: [RFC PATCH 02/16] ASoC: pcm512x: use "sclk" string to retrieve
- clock
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>
-References: <20200409195841.18901-1-pierre-louis.bossart@linux.intel.com>
- <20200409195841.18901-3-pierre-louis.bossart@linux.intel.com>
- <20200414174530.GK5412@sirena.org.uk>
- <8ee01a4f-ceb2-d207-7cef-cf766fa670af@linux.intel.com>
- <20200414182728.GM5412@sirena.org.uk>
- <3017b762-7a0c-cee2-06dd-1e96f52eb849@linux.intel.com>
- <20200414195031.GP5412@sirena.org.uk>
- <0d2aed9b-5c79-9ed2-6ca1-67b2688e4c99@linux.intel.com>
-Message-ID: <8876c7ef-89f1-b79f-c7c4-7862b9f37db1@linux.intel.com>
-Date: Tue, 14 Apr 2020 16:02:00 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id CEDDDF80115
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 23:10:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CEDDDF80115
+Received: by bollie.ca9.eu (Postfix, from userid 1000)
+ id 216E7C488A; Tue, 14 Apr 2020 23:10:29 +0200 (CEST)
+Date: Tue, 14 Apr 2020 23:10:29 +0200
+From: Thomas Ebeling <penguins@bollie.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: usb-audio: RME Babyface Pro mixer patch
+Message-ID: <20200414211019.qprg7whepg2y7nei@bollie.ca9.eu>
 MIME-Version: 1.0
-In-Reply-To: <0d2aed9b-5c79-9ed2-6ca1-67b2688e4c99@linux.intel.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Matthias Reichl <hias@horus.com>,
- tiwai@suse.de, Linus Walleij <linus.walleij@linaro.org>,
- Stephen Boyd <sboyd@kernel.org>, Daniel Matuschek <daniel@hifiberry.com>,
- linux-clk@vger.kernel.org, Hui Wang <hui.wang@canonical.com>,
- linux-gpio@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Michael Turquette <mturquette@baylibre.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: NeoMutt/20180716
+Cc: tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,71 +63,450 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Added mixer quirks to allow controlling the internal DSP of the
+RME Babyface Pro and its successor Babyface Pro FS.
 
->>>> Wait, so SCLK is in the *global* namespace and the provider has to
->>>> register the same name?  That doesn't sound clever.  It might be better
->>>> to have the board register the connection from the clock provider to 
->>>> the
->>>> device rather than hard code global namespace strings like this, that
->>>> sounds like a recipie for misery.
+Signed-off-by: Thomas Ebeling <penguins@bollie.de>
+---
+ sound/usb/mixer_quirks.c | 418 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 418 insertions(+)
 
-Thinking a bit more on this, is the objection on the notion of using a 
-fixed string, on the way it's registered or the lack of support for 
-clocks in ACPI?
-
- From a quick look, the use of a fixed string is rather prevalent, see 
-below. Less than 10% of codec drivers rely on a NULL string, so is it 
-really a dangerous precedent so use "sclk" in this case? It seems to me 
-that all clk providers need to use a unique string - what am I missing here?
-
-adau17x1.c:	adau->mclk = devm_clk_get(dev, "mclk");
-cs42l51.c:	cs42l51->mclk_handle = devm_clk_get(dev, "MCLK");
-cs42xx8.c:	cs42xx8->clk = devm_clk_get(dev, "mclk");
-cs53l30.c:	cs53l30->mclk = devm_clk_get(dev, "mclk");
-cx2072x.c:	cx2072x->mclk = devm_clk_get(cx2072x->dev, "mclk");
-da7213.c:	da7213->mclk = devm_clk_get(component->dev, "mclk");
-da7218.c:	da7218->mclk = devm_clk_get(component->dev, "mclk");
-da7219.c:	da7219->mclk = devm_clk_get(component->dev, "mclk");
-es8316.c:	es8316->mclk = devm_clk_get_optional(component->dev, "mclk");
-es8328.c:	es8328->clk = devm_clk_get(component->dev, NULL);
-inno_rk3036.c:	priv->pclk = devm_clk_get(&pdev->dev, "acodec_pclk");
-jz4725b.c:	icdc->clk = devm_clk_get(&pdev->dev, "aic");
-jz4770.c:	codec->clk = devm_clk_get(dev, "aic");
-lochnagar-sc.c:	priv->mclk = devm_clk_get(&pdev->dev, "mclk");
-max98088.c:	max98088->mclk = devm_clk_get(&i2c->dev, "mclk");
-max98090.c:	max98090->mclk = devm_clk_get(component->dev, "mclk");
-max98095.c:	max98095->mclk = devm_clk_get(component->dev, "mclk");
-max9860.c:	mclk = clk_get(dev, "mclk");
-msm8916-wcd-analog.c:	priv->mclk = devm_clk_get(dev, "mclk");
-msm8916-wcd-digital.c:	priv->ahbclk = devm_clk_get(dev, "ahbix-clk");
-msm8916-wcd-digital.c:	priv->mclk = devm_clk_get(dev, "mclk");
-msm8916-wcd-digital.c:	mclk_rate = clk_get_rate(msm8916_wcd->mclk);
-nau8825.c:	nau8825->mclk = devm_clk_get(nau8825->dev, "mclk");
-nau8825.c:	nau8825->mclk = devm_clk_get(dev, "mclk");
-pcm3168a.c:	pcm3168a->scki = devm_clk_get(dev, "scki");
-pcm512x.c:	pcm512x->sclk = devm_clk_get(dev, NULL);
-rk3328_codec.c:	rk3328->mclk = devm_clk_get(&pdev->dev, "mclk");
-rk3328_codec.c:	rk3328->pclk = devm_clk_get(&pdev->dev, "pclk");
-rt5514.c:	rt5514->mclk = devm_clk_get(component->dev, "mclk");
-rt5616.c:	rt5616->mclk = devm_clk_get(component->dev, "mclk");
-rt5640.c:	rt5640->mclk = devm_clk_get(component->dev, "mclk");
-rt5659.c:	rt5659->mclk = devm_clk_get(&i2c->dev, "mclk");
-rt5660.c:	rt5660->mclk = devm_clk_get(&i2c->dev, "mclk");
-rt5682.c:		rt5682->mclk = devm_clk_get(component->dev, "mclk");
-sirf-audio-codec.c:	sirf_audio_codec->clk = devm_clk_get(&pdev->dev, NULL);
-sta32x.c:	sta32x->xti_clk = devm_clk_get(dev, "xti");
-tas571x.c:	priv->mclk = devm_clk_get(dev, "mclk");
-tlv320aic32x4.c:	pll = devm_clk_get(component->dev, "pll");
-tscs42xx.c:		tscs42xx->sysclk = devm_clk_get(&i2c->dev, src_names[src]);
-tscs454.c:		freq = clk_get_rate(tscs454->sysclk);
-tscs454.c:		tscs454->sysclk = devm_clk_get(&i2c->dev, src_names[src]);
-wcd9335.c:	wcd->mclk = devm_clk_get(dev, "mclk");
-wcd9335.c:	wcd->native_clk = devm_clk_get(dev, "slimbus");
-wm2000.c:	wm2000->mclk = devm_clk_get(&i2c->dev, "MCLK");
-wm8731.c:	wm8731->mclk = devm_clk_get(&spi->dev, "mclk");
-wm8731.c:	wm8731->mclk = devm_clk_get(&i2c->dev, "mclk");
-wm8904.c:	wm8904->mclk = devm_clk_get(&i2c->dev, "mclk");
-wm8960.c:	wm8960->mclk = devm_clk_get(&i2c->dev, "mclk");
-wm8962.c:	pdata->mclk = devm_clk_get(&i2c->dev, NULL);
-
+diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
+index 02b036b2aefb..f0302ad7f5a0 100644
+--- a/sound/usb/mixer_quirks.c
++++ b/sound/usb/mixer_quirks.c
+@@ -2181,6 +2181,421 @@ static int snd_rme_controls_create(struct usb_mixer_interface *mixer)
+ 	return 0;
+ }
+ 
++/*
++ * RME Babyface Pro (FS)
++ *
++ * These devices exposes a couple of DSP functions via request to EP0.
++ * Switches are available via control registers, while routing is controlled
++ * by controlling the volume on each possible crossing point.
++ * Volume control is linear, from -inf (dec. 0) to +6dB (dec. 46341) with
++ * 0dB being at dec. 32768.
++ */
++enum {
++	SND_BBFPRO_CTL_REG1 = 0,
++	SND_BBFPRO_CTL_REG2
++};
++
++#define SND_BBFPRO_CTL_REG_MASK 1
++#define SND_BBFPRO_CTL_IDX_MASK 0xff
++#define SND_BBFPRO_CTL_IDX_SHIFT 1
++#define SND_BBFPRO_CTL_VAL_MASK 1
++#define SND_BBFPRO_CTL_VAL_SHIFT 9
++#define SND_BBFPRO_CTL_REG1_CLK_MASTER 0
++#define SND_BBFPRO_CTL_REG1_CLK_OPTICAL 1
++#define SND_BBFPRO_CTL_REG1_SPDIF_PRO 7
++#define SND_BBFPRO_CTL_REG1_SPDIF_EMPH 8
++#define SND_BBFPRO_CTL_REG1_SPDIF_OPTICAL 10
++#define SND_BBFPRO_CTL_REG2_48V_AN1 0
++#define SND_BBFPRO_CTL_REG2_48V_AN2 1
++#define SND_BBFPRO_CTL_REG2_SENS_IN3 2
++#define SND_BBFPRO_CTL_REG2_SENS_IN4 3
++#define SND_BBFPRO_CTL_REG2_PAD_AN1 4
++#define SND_BBFPRO_CTL_REG2_PAD_AN2 5
++
++#define SND_BBFPRO_MIXER_IDX_MASK 0x1ff
++#define SND_BBFPRO_MIXER_VAL_MASK 0x3ffff
++#define SND_BBFPRO_MIXER_VAL_SHIFT 9
++#define SND_BBFPRO_MIXER_VAL_MIN 0 // -inf
++#define SND_BBFPRO_MIXER_VAL_MAX 46341 // +6dB
++
++#define SND_BBFPRO_USBREQ_CTL_REG1 0x10
++#define SND_BBFPRO_USBREQ_CTL_REG2 0x17
++#define SND_BBFPRO_USBREQ_MIXER 0x12
++
++static int snd_bbfpro_ctl_update(struct usb_mixer_interface *mixer, u8 reg,
++				 u8 index, u8 value)
++{
++	int err;
++	u16 usb_req, usb_idx, usb_val;
++	struct snd_usb_audio *chip = mixer->chip;
++
++	err = snd_usb_lock_shutdown(chip);
++	if (err < 0)
++		return err;
++
++	if (reg == SND_BBFPRO_CTL_REG1) {
++		usb_req = SND_BBFPRO_USBREQ_CTL_REG1;
++		if (index == SND_BBFPRO_CTL_REG1_CLK_OPTICAL) {
++			usb_idx = 3;
++			usb_val = value ? 3 : 0;
++		} else {
++			usb_idx = 1 << index;
++			usb_val = value ? usb_idx : 0;
++		}
++	} else {
++		usb_req = SND_BBFPRO_USBREQ_CTL_REG2;
++		usb_idx = 1 << index;
++		usb_val = value ? usb_idx : 0;
++	}
++
++	err = snd_usb_ctl_msg(chip->dev,
++			      usb_sndctrlpipe(chip->dev, 0), usb_req,
++			      USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
++			      usb_val, usb_idx, 0, 0);
++
++	snd_usb_unlock_shutdown(chip);
++	return err;
++}
++
++static int snd_bbfpro_ctl_get(struct snd_kcontrol *kcontrol,
++			      struct snd_ctl_elem_value *ucontrol)
++{
++	u8 reg, idx, val;
++	int pv;
++
++	pv = kcontrol->private_value;
++	reg = pv & SND_BBFPRO_CTL_REG_MASK;
++	idx = (pv >> SND_BBFPRO_CTL_IDX_SHIFT) & SND_BBFPRO_CTL_IDX_MASK;
++	val = kcontrol->private_value >> SND_BBFPRO_CTL_VAL_SHIFT;
++
++	if ((reg == SND_BBFPRO_CTL_REG1 &&
++	     idx == SND_BBFPRO_CTL_REG1_CLK_OPTICAL) ||
++	    (reg == SND_BBFPRO_CTL_REG2 &&
++	    (idx == SND_BBFPRO_CTL_REG2_SENS_IN3 ||
++	     idx == SND_BBFPRO_CTL_REG2_SENS_IN4))) {
++		ucontrol->value.enumerated.item[0] = val;
++	} else {
++		ucontrol->value.integer.value[0] = val;
++	}
++	return 0;
++}
++
++static int snd_bbfpro_ctl_info(struct snd_kcontrol *kcontrol,
++			       struct snd_ctl_elem_info *uinfo)
++{
++	u8 reg, idx;
++	int pv;
++
++	pv = kcontrol->private_value;
++	reg = pv & SND_BBFPRO_CTL_REG_MASK;
++	idx = (pv >> SND_BBFPRO_CTL_IDX_SHIFT) & SND_BBFPRO_CTL_IDX_MASK;
++
++	if (reg == SND_BBFPRO_CTL_REG1 &&
++	    idx == SND_BBFPRO_CTL_REG1_CLK_OPTICAL) {
++		static const char * const texts[2] = {
++			"AutoSync",
++			"Internal"
++		};
++		return snd_ctl_enum_info(uinfo, 1, 2, texts);
++	} else if (reg == SND_BBFPRO_CTL_REG2 &&
++		   (idx == SND_BBFPRO_CTL_REG2_SENS_IN3 ||
++		    idx == SND_BBFPRO_CTL_REG2_SENS_IN4)) {
++		static const char * const texts[2] = {
++			"-10dBV",
++			"+4dBu"
++		};
++		return snd_ctl_enum_info(uinfo, 1, 2, texts);
++	}
++
++	uinfo->count = 1;
++	uinfo->value.integer.min = 0;
++	uinfo->value.integer.max = 1;
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_BOOLEAN;
++	return 0;
++}
++
++static int snd_bbfpro_ctl_put(struct snd_kcontrol *kcontrol,
++			      struct snd_ctl_elem_value *ucontrol)
++{
++	int err;
++	u8 reg, idx;
++	int old_value, pv, val;
++
++	struct usb_mixer_elem_list *list = snd_kcontrol_chip(kcontrol);
++	struct usb_mixer_interface *mixer = list->mixer;
++
++	pv = kcontrol->private_value;
++	reg = pv & SND_BBFPRO_CTL_REG_MASK;
++	idx = (pv >> SND_BBFPRO_CTL_IDX_SHIFT) & SND_BBFPRO_CTL_IDX_MASK;
++	old_value = (pv >> SND_BBFPRO_CTL_VAL_SHIFT) & SND_BBFPRO_CTL_VAL_MASK;
++
++	if ((reg == SND_BBFPRO_CTL_REG1 &&
++	     idx == SND_BBFPRO_CTL_REG1_CLK_OPTICAL) ||
++	    (reg == SND_BBFPRO_CTL_REG2 &&
++	    (idx == SND_BBFPRO_CTL_REG2_SENS_IN3 ||
++	     idx == SND_BBFPRO_CTL_REG2_SENS_IN4))) {
++		val = ucontrol->value.enumerated.item[0];
++	} else {
++		val = ucontrol->value.integer.value[0];
++	}
++
++	if (val > 1)
++		return -EINVAL;
++
++	if (val == old_value)
++		return 0;
++
++	kcontrol->private_value = reg
++		| ((idx & SND_BBFPRO_CTL_IDX_MASK) << SND_BBFPRO_CTL_IDX_SHIFT)
++		| ((val & SND_BBFPRO_CTL_VAL_MASK) << SND_BBFPRO_CTL_VAL_SHIFT);
++
++	err = snd_bbfpro_ctl_update(mixer, reg, idx, val);
++	return err < 0 ? err : 1;
++}
++
++static int snd_bbfpro_ctl_resume(struct usb_mixer_elem_list *list)
++{
++	u8 reg, idx;
++	int value, pv;
++
++	pv = list->kctl->private_value;
++	reg = pv & SND_BBFPRO_CTL_REG_MASK;
++	idx = (pv >> SND_BBFPRO_CTL_IDX_SHIFT) & SND_BBFPRO_CTL_IDX_MASK;
++	value = (pv >> SND_BBFPRO_CTL_VAL_SHIFT) & SND_BBFPRO_CTL_VAL_MASK;
++
++	return snd_bbfpro_ctl_update(list->mixer, reg, idx, value);
++}
++
++static int snd_bbfpro_vol_update(struct usb_mixer_interface *mixer, u16 index,
++				 u32 value)
++{
++	struct snd_usb_audio *chip = mixer->chip;
++	int err;
++	u16 idx;
++	u16 usb_idx, usb_val;
++	u32 v;
++
++	err = snd_usb_lock_shutdown(chip);
++	if (err < 0)
++		return err;
++
++	idx = index & SND_BBFPRO_MIXER_IDX_MASK;
++	// 18 bit linear volume, split so 2 bits end up in index.
++	v = value & SND_BBFPRO_MIXER_VAL_MASK;
++	usb_idx = idx | (v & 0x3) << 14;
++	usb_val = (v >> 2) & 0xffff;
++
++	err = snd_usb_ctl_msg(chip->dev,
++			      usb_sndctrlpipe(chip->dev, 0),
++			      SND_BBFPRO_USBREQ_MIXER,
++			      USB_DIR_OUT | USB_TYPE_VENDOR |
++			      USB_RECIP_DEVICE,
++			      usb_val, usb_idx, 0, 0);
++
++	snd_usb_unlock_shutdown(chip);
++	return err;
++}
++
++static int snd_bbfpro_vol_get(struct snd_kcontrol *kcontrol,
++			      struct snd_ctl_elem_value *ucontrol)
++{
++	ucontrol->value.integer.value[0] =
++		kcontrol->private_value >> SND_BBFPRO_MIXER_VAL_SHIFT;
++	return 0;
++}
++
++static int snd_bbfpro_vol_info(struct snd_kcontrol *kcontrol,
++			       struct snd_ctl_elem_info *uinfo)
++{
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
++	uinfo->count = 1;
++	uinfo->value.integer.min = SND_BBFPRO_MIXER_VAL_MIN;
++	uinfo->value.integer.max = SND_BBFPRO_MIXER_VAL_MAX;
++	return 0;
++}
++
++static int snd_bbfpro_vol_put(struct snd_kcontrol *kcontrol,
++			      struct snd_ctl_elem_value *ucontrol)
++{
++	int err;
++	u16 idx;
++	u32 new_val, old_value, uvalue;
++	struct usb_mixer_elem_list *list = snd_kcontrol_chip(kcontrol);
++	struct usb_mixer_interface *mixer = list->mixer;
++
++	uvalue = ucontrol->value.integer.value[0];
++	idx = kcontrol->private_value & SND_BBFPRO_MIXER_IDX_MASK;
++	old_value = kcontrol->private_value >> SND_BBFPRO_MIXER_VAL_SHIFT;
++
++	if (uvalue > SND_BBFPRO_MIXER_VAL_MAX)
++		return -EINVAL;
++
++	if (uvalue == old_value)
++		return 0;
++
++	new_val = uvalue & SND_BBFPRO_MIXER_VAL_MASK;
++
++	kcontrol->private_value = idx
++		| (new_val << SND_BBFPRO_MIXER_VAL_SHIFT);
++
++	err = snd_bbfpro_vol_update(mixer, idx, new_val);
++	return err < 0 ? err : 1;
++}
++
++static int snd_bbfpro_vol_resume(struct usb_mixer_elem_list *list)
++{
++	int pv = list->kctl->private_value;
++	u16 idx = pv & SND_BBFPRO_MIXER_IDX_MASK;
++	u32 val = (pv >> SND_BBFPRO_MIXER_VAL_SHIFT)
++		& SND_BBFPRO_MIXER_VAL_MASK;
++	return snd_bbfpro_vol_update(list->mixer, idx, val);
++}
++
++// Predfine elements
++static const struct snd_kcontrol_new snd_bbfpro_ctl_control = {
++	.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++	.access = SNDRV_CTL_ELEM_ACCESS_READWRITE,
++	.index = 0,
++	.info = snd_bbfpro_ctl_info,
++	.get = snd_bbfpro_ctl_get,
++	.put = snd_bbfpro_ctl_put
++};
++
++static const struct snd_kcontrol_new snd_bbfpro_vol_control = {
++	.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++	.access = SNDRV_CTL_ELEM_ACCESS_READWRITE,
++	.index = 0,
++	.info = snd_bbfpro_vol_info,
++	.get = snd_bbfpro_vol_get,
++	.put = snd_bbfpro_vol_put
++};
++
++static int snd_bbfpro_ctl_add(struct usb_mixer_interface *mixer, u8 reg,
++			      u8 index, char *name)
++{
++	struct snd_kcontrol_new knew = snd_bbfpro_ctl_control;
++
++	knew.name = name;
++	knew.private_value = (reg & SND_BBFPRO_CTL_REG_MASK)
++		| ((index & SND_BBFPRO_CTL_IDX_MASK)
++			<< SND_BBFPRO_CTL_IDX_SHIFT);
++
++	return add_single_ctl_with_resume(mixer, 0, snd_bbfpro_ctl_resume,
++		&knew, NULL);
++}
++
++static int snd_bbfpro_vol_add(struct usb_mixer_interface *mixer, u16 index,
++			      char *name)
++{
++	struct snd_kcontrol_new knew = snd_bbfpro_vol_control;
++
++	knew.name = name;
++	knew.private_value = index & SND_BBFPRO_MIXER_IDX_MASK;
++
++	return add_single_ctl_with_resume(mixer, 0, snd_bbfpro_vol_resume,
++		&knew, NULL);
++}
++
++static int snd_bbfpro_controls_create(struct usb_mixer_interface *mixer)
++{
++	int err, i, o;
++	char name[48];
++
++	static const char * const input[] = {
++		"AN1", "AN2", "IN3", "IN4", "AS1", "AS2", "ADAT3",
++		"ADAT4", "ADAT5", "ADAT6", "ADAT7", "ADAT8"};
++
++	static const char * const output[] = {
++		"AN1", "AN2", "PH3", "PH4", "AS1", "AS2", "ADAT3", "ADAT4",
++		"ADAT5", "ADAT6", "ADAT7", "ADAT8"};
++
++	for (o = 0 ; o < 12 ; ++o) {
++		for (i = 0 ; i < 12 ; ++i) {
++			// Line routing
++			snprintf(name, sizeof(name),
++				 "%s-%s-%s Playback Volume",
++				 (i < 2 ? "Mic" : "Line"),
++				 input[i], output[o]);
++			err = snd_bbfpro_vol_add(mixer, (26 * o + i), name);
++			if (err < 0)
++				return err;
++
++			// PCM routing... yes, it is output remapping
++			snprintf(name, sizeof(name),
++				 "PCM-%s-%s Playback Volume",
++				 output[i], output[o]);
++			err = snd_bbfpro_vol_add(mixer, (26 * o + 12 + i),
++						 name);
++			if (err < 0)
++				return err;
++		}
++	}
++
++	// Control Reg 1
++	err = snd_bbfpro_ctl_add(mixer, SND_BBFPRO_CTL_REG1,
++				 SND_BBFPRO_CTL_REG1_CLK_OPTICAL,
++				 "Sample Clock Source");
++	if (err < 0)
++		return err;
++
++	err = snd_bbfpro_ctl_add(mixer, SND_BBFPRO_CTL_REG1,
++				 SND_BBFPRO_CTL_REG1_SPDIF_PRO,
++				 "IEC958 Pro Mask");
++	if (err < 0)
++		return err;
++
++	err = snd_bbfpro_ctl_add(mixer, SND_BBFPRO_CTL_REG1,
++				 SND_BBFPRO_CTL_REG1_SPDIF_EMPH,
++				 "IEC958 Emphasis");
++	if (err < 0)
++		return err;
++
++	err = snd_bbfpro_ctl_add(mixer, SND_BBFPRO_CTL_REG1,
++				 SND_BBFPRO_CTL_REG1_SPDIF_OPTICAL,
++				 "IEC958 Switch");
++	if (err < 0)
++		return err;
++
++	// Control Reg 2
++	err = snd_bbfpro_ctl_add(mixer, SND_BBFPRO_CTL_REG2,
++				 SND_BBFPRO_CTL_REG2_48V_AN1,
++				 "Mic-AN1 48V");
++	if (err < 0)
++		return err;
++
++	err = snd_bbfpro_ctl_add(mixer, SND_BBFPRO_CTL_REG2,
++				 SND_BBFPRO_CTL_REG2_48V_AN2,
++				 "Mic-AN2 48V");
++	if (err < 0)
++		return err;
++
++	err = snd_bbfpro_ctl_add(mixer, SND_BBFPRO_CTL_REG2,
++				 SND_BBFPRO_CTL_REG2_SENS_IN3,
++				 "Line-IN3 Sens.");
++	if (err < 0)
++		return err;
++
++	err = snd_bbfpro_ctl_add(mixer, SND_BBFPRO_CTL_REG2,
++				 SND_BBFPRO_CTL_REG2_SENS_IN4,
++				 "Line-IN4 Sens.");
++	if (err < 0)
++		return err;
++
++	err = snd_bbfpro_ctl_add(mixer, SND_BBFPRO_CTL_REG2,
++				 SND_BBFPRO_CTL_REG2_PAD_AN1,
++				 "Mic-AN1 PAD");
++	if (err < 0)
++		return err;
++
++	err = snd_bbfpro_ctl_add(mixer, SND_BBFPRO_CTL_REG2,
++				 SND_BBFPRO_CTL_REG2_PAD_AN2,
++				 "Mic-AN2 PAD");
++	if (err < 0)
++		return err;
++
++	return 0;
++}
++
+ int snd_usb_mixer_apply_create_quirk(struct usb_mixer_interface *mixer)
+ {
+ 	int err = 0;
+@@ -2282,6 +2697,9 @@ int snd_usb_mixer_apply_create_quirk(struct usb_mixer_interface *mixer)
+ 	case USB_ID(0x0194f, 0x010c): /* Presonus Studio 1810c */
+ 		err = snd_sc1810_init_mixer(mixer);
+ 		break;
++	case USB_ID(0x2a39, 0x3fb0): /* RME Babyface Pro FS */
++		err = snd_bbfpro_controls_create(mixer);
++		break;
+ 	}
+ 
+ 	return err;
+-- 
+2.26.0
 

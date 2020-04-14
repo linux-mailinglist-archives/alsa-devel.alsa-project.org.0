@@ -2,68 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82A6B1A7CFA
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 15:19:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C3F51A7DD0
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 15:26:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 154FC16A4;
-	Tue, 14 Apr 2020 15:18:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 154FC16A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id EDDAA16A4;
+	Tue, 14 Apr 2020 15:25:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDDAA16A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586870345;
-	bh=n6+tUMS+PVSs7g3tlr9CEe7sR5/7I9PXzkO/wY61NUo=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1586870764;
+	bh=b5j/0cIAUn4NRxwDB7/NIA/3GLka6G3fLDEMQqdAM8Y=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ki1sxvaLXUpvMtZ3VjAPPzFua5H25Wg5ODRrzF8kNOh3p5nRs9BFIxvXK1+XcUjbb
-	 lBHXasAu1h8ta6yhbQDsGz/O3x0PPGoH93AEI3N6MQkkYJ7obBGy4pp1aAxAf6EE+2
-	 +1GnNsbwOD3r+6eMf2I6H+G12JMU5bUUG/tp9/lg=
+	b=CH9j+OG2v9lLq7TZZkR4QnKBTHTIQRhUa9wiGenixTE+3WL7BZiZ8vnEBrFl7HTYD
+	 cVK/G2eFBwJ+LtTF/H+SO0qSPiPgAv/lGamqJXs/9jcyGhRAqP8OV9XkebbB9xEonQ
+	 d3UfX/xtjMYNK3s8CphsSPMWOpAmS+WmP0kIwUs8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28796F8014E;
-	Tue, 14 Apr 2020 15:17:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E420F800B9;
+	Tue, 14 Apr 2020 15:24:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E777F8013D; Tue, 14 Apr 2020 15:17:21 +0200 (CEST)
+ id 3AE8FF8013D; Tue, 14 Apr 2020 15:24:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 92EF6F800B9
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 15:17:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92EF6F800B9
-Received: from [222.130.141.248] (helo=[192.168.2.104])
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <hui.wang@canonical.com>)
- id 1jOLRE-0004kb-Iy; Tue, 14 Apr 2020 13:17:17 +0000
-Subject: Re: [PATCH] ALSA: hda: enable the runtime_pm for non-vgaswitcheroo
- hda controllers
-To: Takashi Iwai <tiwai@suse.de>, Roy Spliet <nouveau@spliet.org>
-References: <20200414101405.6992-1-hui.wang@canonical.com>
- <s5hmu7ejra2.wl-tiwai@suse.de>
- <121237cf-8ef9-2a21-8ee3-6c6954e846e2@canonical.com>
- <d73a3c02-360b-12d9-6e4b-fff60f819cd6@spliet.org>
- <9e8a7b1b-decc-d149-6b86-01946df82d54@canonical.com>
- <e2a309ca-158e-3788-cb11-30bdc6f18aea@spliet.org>
- <s5hy2qyi5dz.wl-tiwai@suse.de>
-From: Hui Wang <hui.wang@canonical.com>
-Message-ID: <49ede1ef-db51-400f-bf41-b3182042de22@canonical.com>
-Date: Tue, 14 Apr 2020 21:17:02 +0800
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C508F80115
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 15:24:14 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 6187DA003F;
+ Tue, 14 Apr 2020 15:24:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 6187DA003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1586870654; bh=qrt5UN4ljS9hH8lxeNjXZ9+DXgOq04x4E56TkuUyn6Q=;
+ h=Subject:To:References:From:Date:In-Reply-To:From;
+ b=xfLyr6NkQi5xd+VZtNIu2jUgyJxh6+fbsVAb87Qd9SptfRrja/7PKe87nl/xYwKVH
+ q8qmT2j7qN6uBxtQbul4ZpkEU/ykWfSDymxlTwiFpJHMaLFoaCl8nLCUyXFSRNFdna
+ xLXxtXl/7wQmzI5ND3T8V9OwSarGW4cIgUFTcREE=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Tue, 14 Apr 2020 15:24:11 +0200 (CEST)
+Subject: Re: [PATCH] alsactl: don't exit on EINTR from epoll_wait().
+To: Zev Weiss <zev@bewilderbeest.net>, alsa-devel@alsa-project.org,
+ Takashi Sakamoto <o-takashi@sakamocchi.jp>
+References: <20191015043650.23536-1-zev@bewilderbeest.net>
+ <20200412021457.GA3961@workstation>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <44c2c1cd-4324-a059-ce9d-63389b3b5447@perex.cz>
+Date: Tue, 14 Apr 2020 15:24:11 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <s5hy2qyi5dz.wl-tiwai@suse.de>
+In-Reply-To: <20200412021457.GA3961@workstation>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-Cc: alsa-devel@alsa-project.org
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,108 +81,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-On 2020/4/14 下午9:06, Takashi Iwai wrote:
-> On Tue, 14 Apr 2020 14:59:01 +0200,
-> Roy Spliet wrote:
->> Op 14-04-2020 om 13:56 schreef Hui Wang:
->>> On 2020/4/14 下午8:42, Roy Spliet wrote:
->>>> Dear Hui, Takashi,
->>>>
->>>> Op 14-04-2020 om 13:35 schreef Hui Wang:
->>>>> On 2020/4/14 下午6:27, Takashi Iwai wrote:
->>>>>> On Tue, 14 Apr 2020 12:14:05 +0200,
->>>>>> Hui Wang wrote:
->>>>>>> Before the pci_driver->probe() is called, the pci subsystem calls
->>>>>>> runtime_forbib() and runtime_get_sync() on this pci dev, so only call
->>>>>>> runtime_put_autosuspend() is not enough to enable the runtime_pm on
->>>>>>> this device.
->>>>>>>
->>>>>>> For controllers with vgaswitcheroo feature, the pci/quirks.c will call
->>>>>>> runtime_allow() for this dev, then the controllers could enter
->>>>>>> rt_idle/suspend/resume, but for non-vgaswitcheroo controllers like
->>>>>>> Intel hda controllers, the runtime_pm is not enabled even it calls
->>>>>>> put_autosuspend(). Need to call runtime_allow() for those controllers
->>>>>>> in the hda driver.
->>>>  From what I can tell there are no ill effects of calling
->>>> runtime_allow() twice. Technically, the check against
->>>> use_vga_switcheroo() is thus redundant.
->>>> Is there a good reason why runtime_allow() is called in the pci
->>>> quirks rather than in hda_intel? Is it a suggestion to perform this
->>>> call in hda_intel regardless of whether it's a switcheroo-device or
->>>> not, and removing calls to runtime_allow() from the PCI quirks?
->>> I guess after the hda driver calls the _allow() unconditionally, we
->>> could remove the _allow() in the pci/quirks.c. But it is no harm
->>> keeping it since _allow() could be called many times.
->> After a bit of research, I agree! It's better left in place in the PCI
->> quirks, such that in the case that hda_intel doesn't load or bind for
->> whatever reason (not compiled in e.g. an embedded kernel, new/unknown
->> PCI vendor/device identifier), the GPUs HDA device can still run-time
->> suspend.
-> Right, some background information is found in the original commit
-> that introduced the quirk (07f4f97d7b4b).
->
-> Hui, care to resend the patch with that change, also a bit refreshing
-> the patch description?
-
-OK.
-
-Thanks.
-
->
-> thanks,
->
-> Takashi
->
->
->> Thank you! Best,
+Dne 12. 04. 20 v 4:15 Takashi Sakamoto napsal(a):
+> On Mon, Oct 14, 2019 at 11:36:50PM -0500, Zev Weiss wrote:
+>> Previously, things like attaching strace to a running 'alsactl monitor'
+>> process would cause it to exit.
 >>
->> Roy
->>
->>> Thanks,
->>>
->>> Hui.
->>>
->>>> Thanks. Best,
->>>>
->>>> Roy
->>>>>>> Signed-off-by: Hui Wang <hui.wang@canonical.com>
->>>>>> Was this behavior changed from the earlier kernels?  I thought this
->>>>>> was left untouched because it's supposed to be set via udev rules or
->>>>>> such.
->>>>> Oh, I don't know that,  according to my test with ubuntu rootfs,
->>>>> the runtime pm is not enabled on Intel's hda controllers. But with
->>>>> the sof driver, the controller driver calls runtime_allow()
->>>>> (soc/sof/sof-pci-dev.c), so I sent this patch.
->>>>>
->>>>> Regards,
->>>>>
->>>>> Hui.
->>>>>
->>>>>> OTOH, enabling the runtime PM is almost mandatory for modern systems,
->>>>>> and I'm fine to apply this kind of forcible enablement.
->>>>>>
->>>>>>
->>>>>> thanks,
->>>>>>
->>>>>> Takashi
->>>>>>
->>>>>>
->>>>>>> ---
->>>>>>>    sound/pci/hda/hda_intel.c | 2 ++
->>>>>>>    1 file changed, 2 insertions(+)
->>>>>>>
->>>>>>> diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
->>>>>>> index 8519051a426e..779705bef88b 100644
->>>>>>> --- a/sound/pci/hda/hda_intel.c
->>>>>>> +++ b/sound/pci/hda/hda_intel.c
->>>>>>> @@ -2356,6 +2356,8 @@ static int azx_probe_continue(struct azx *chip)
->>>>>>>        if (azx_has_pm_runtime(chip)) {
->>>>>>>            pm_runtime_use_autosuspend(&pci->dev);
->>>>>>> +        if (!use_vga_switcheroo(chip))
->>>>>>> +            pm_runtime_allow(&pci->dev);
->>>>>>>            pm_runtime_put_autosuspend(&pci->dev);
->>>>>>>        }
->>>>>>> -- 
->>>>>>> 2.17.1
->>>>>>>
+>> Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
+>> ---
+>>   alsactl/monitor.c | 2 ++
+>>   1 file changed, 2 insertions(+)
+>   
+> I'm sorry but I overlooked the post. It looks good to me.
+> 
+> Reviewed-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> Tested-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> 
+>> diff --git a/alsactl/monitor.c b/alsactl/monitor.c
+>> index 6b090e4f5c92..cf4167bee165 100644
+>> --- a/alsactl/monitor.c
+>> +++ b/alsactl/monitor.c
+>> @@ -342,6 +342,8 @@ static int run_dispatcher(int epfd, int sigfd, int infd, struct list_head *srcs,
+>>   
+>>   		count = epoll_wait(epfd, epev, max_ev_count, 200);
+>>   		if (count < 0) {
+>> +			if (errno == EINTR)
+>> +				continue;
+>>   			err = count;
+>>   			break;
+>>   		}
+>> -- 
+>> 2.23.0
+> 
+> Regards
+> 
+> Takashi Sakamoto
+> 
+
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

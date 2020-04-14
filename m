@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC5941A80E9
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 17:03:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FC9A1A80EB
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Apr 2020 17:04:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6A02716DF;
-	Tue, 14 Apr 2020 17:02:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A02716DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F63216A1;
+	Tue, 14 Apr 2020 17:03:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F63216A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586876626;
-	bh=jrTCms1HdtB8Eq6KSmPL6lxMJTcFpDfjPaODsWWh/Hc=;
+	s=default; t=1586876665;
+	bh=hJDh7EaWhZf8LcP3NbG8CQBRkXS4ky85CVdPSmxVqJ4=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=CKxXIIoP72SvFuIsG9d8NGlUVApztcTBE6+G/6vWH3qotfWPDCVqeVDGvokFQFtJI
-	 0d/YPYHo9ofrf7sG3sS9RDjUoKpyyPhVJLEwTgQP7qDtMxmZrPzAqAiuoWihC3UovK
-	 yGZQ5dtxT4ouBKllQdzA1eaga/AapuQMwWp8mPAI=
+	b=X4V9y5jZa9OuoFsklJDU9C+ehUlzR7dbYzLvMYTYJLKBLe6fhgPzeLyQ296dWrnAn
+	 PGuFy1PSA/1XvfYyUd9Yd1qhyv2LQRJZc6BVwzYIak2IuewxUHIaf7vpVP5IlnAkyW
+	 2ufzdFYKjUCafhN3TnZbuRCMuheIucc/mTcD3zFU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A14BF803A6;
-	Tue, 14 Apr 2020 16:48:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59DFCF803B1;
+	Tue, 14 Apr 2020 16:48:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DDC7AF8034B; Tue, 14 Apr 2020 16:48:23 +0200 (CEST)
+ id 776DFF80371; Tue, 14 Apr 2020 16:48:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,35 +33,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DC399F80348
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:48:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC399F80348
+ by alsa1.perex.cz (Postfix) with ESMTPS id CB836F8034E
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:48:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB836F8034E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ImsnNJN/"
+ header.b="VpDegGgQ"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C6E9E20578;
- Tue, 14 Apr 2020 14:48:17 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id E2CD620578;
+ Tue, 14 Apr 2020 14:48:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586875698;
- bh=jrTCms1HdtB8Eq6KSmPL6lxMJTcFpDfjPaODsWWh/Hc=;
+ s=default; t=1586875703;
+ bh=hJDh7EaWhZf8LcP3NbG8CQBRkXS4ky85CVdPSmxVqJ4=;
  h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=ImsnNJN/PcXL89ts6Wq1/tnme9++4a8j4khI6ZKffLnfWHrZMMvJydCZ2pqjquZE3
- w0NO6CR2y/rRpkak2jFMtYHTtNhbF+iRrPMnRzhMuJxWIG+P3FPpZuaXBKVR6oJN6f
- 47bdj4+TpHeraI7hFDLzEiwezQIbo4yYszBBt4aM=
-Date: Tue, 14 Apr 2020 15:48:15 +0100
+ b=VpDegGgQLo/NAVmHh0UYxXKafXMIKEH0/MPvjIX0a9REhETg4iTdEFzqnBLlXJZ1D
+ Oal/ial3xr9IwvGCkCSN4lDtl/K9uxiytSzGRJ/pwM0DxCAa3RhZ13KhMiufXW8hxg
+ 4ia18ZZyIP9h+huQn4oAVdJemoEUdnMKf1JZpzAk=
+Date: Tue, 14 Apr 2020 15:48:20 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Libin Yang <libin.yang@linux.intel.com>
-Subject: Applied "ALSA: hda: Add ElkhartLake HDMI codec vid" to the asoc tree
-In-Reply-To: <20200409185827.16255-4-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20200409185827.16255-4-pierre-louis.bossart@linux.intel.com>
+To: Hui Wang <hui.wang@canonical.com>
+Subject: Applied "ASoC: intel/skl/hda - set autosuspend timeout for hda
+ codecs" to the asoc tree
+In-Reply-To: <20200409185827.16255-3-pierre-louis.bossart@linux.intel.com>
+Message-Id: <applied-20200409185827.16255-3-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
  tiwai@suse.de, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Clarex Zhou <clarex.zhou@intel.com>, Mark Brown <broonie@kernel.org>,
+ Jaska Uimonen <jaska.uimonen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,7 +81,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ALSA: hda: Add ElkhartLake HDMI codec vid
+   ASoC: intel/skl/hda - set autosuspend timeout for hda codecs
 
 has been applied to the asoc tree at
 
@@ -104,37 +106,96 @@ to this mail.
 Thanks,
 Mark
 
-From d233c4941630af0ec2e14be7c2a693e9c9ce3087 Mon Sep 17 00:00:00 2001
-From: Libin Yang <libin.yang@linux.intel.com>
-Date: Thu, 9 Apr 2020 13:58:17 -0500
-Subject: [PATCH] ALSA: hda: Add ElkhartLake HDMI codec vid
+From 3a24f135e6cc58c2dc042dde44031ec31b706ce5 Mon Sep 17 00:00:00 2001
+From: Hui Wang <hui.wang@canonical.com>
+Date: Thu, 9 Apr 2020 13:58:16 -0500
+Subject: [PATCH] ASoC: intel/skl/hda - set autosuspend timeout for hda codecs
 
-Add HDMI codec vid for the Intel ElkhartLake platform
+On some Lenovo and HP laptops, if both codec driver and SOF driver
+are in runtime suspend mode, we plug a headset to the audio jack,
+the headphone could be detected but Mic couldn't.
 
-Signed-off-by: Libin Yang <libin.yang@linux.intel.com>
+That is because when plugging, the headphone triggers a unsol event
+first, and about 0.7s later (on the Lenovo X1 Carbon 7th), the Mic
+triggers a unsol event. But if the codec driver enters runtime suspend
+within 0.7s, the Mic can't trigger the unsol event.
+
+If we don't set autosuspend_delay to a non-zero value for the hda codec
+driver, it will enter runtime suspend immediately after the headphone
+triggers the unsol event.
+
+Follow the sequence of legacy hda driver and set a autosuspend delay
+of 1sec after card registration (refer to pci/hda/hda_intel.c and
+pci/hda/hda_codec.c).
+
+Co-developed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Co-developed-by: Jaska Uimonen <jaska.uimonen@linux.intel.com>
+Signed-off-by: Hui Wang <hui.wang@canonical.com>
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Signed-off-by: Jaska Uimonen <jaska.uimonen@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Acked-by: Takashi Iwai <tiwai@suse.de>
-Link: https://lore.kernel.org/r/20200409185827.16255-4-pierre-louis.bossart@linux.intel.com
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Clarex Zhou <clarex.zhou@intel.com>
+Link: https://lore.kernel.org/r/20200409185827.16255-3-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/pci/hda/patch_hdmi.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/intel/boards/skl_hda_dsp_generic.c | 29 +++++++++++++++++++-
+ 1 file changed, 28 insertions(+), 1 deletion(-)
 
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index bb287a916dae..403baca89452 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -4156,6 +4156,7 @@ HDA_CODEC_ENTRY(0x8086280d, "Geminilake HDMI",	patch_i915_glk_hdmi),
- HDA_CODEC_ENTRY(0x8086280f, "Icelake HDMI",	patch_i915_icl_hdmi),
- HDA_CODEC_ENTRY(0x80862812, "Tigerlake HDMI",	patch_i915_tgl_hdmi),
- HDA_CODEC_ENTRY(0x8086281a, "Jasperlake HDMI",	patch_i915_icl_hdmi),
-+HDA_CODEC_ENTRY(0x8086281b, "Elkhartlake HDMI",	patch_i915_icl_hdmi),
- HDA_CODEC_ENTRY(0x80862880, "CedarTrail HDMI",	patch_generic_hdmi),
- HDA_CODEC_ENTRY(0x80862882, "Valleyview2 HDMI",	patch_i915_byt_hdmi),
- HDA_CODEC_ENTRY(0x80862883, "Braswell HDMI",	patch_i915_byt_hdmi),
+diff --git a/sound/soc/intel/boards/skl_hda_dsp_generic.c b/sound/soc/intel/boards/skl_hda_dsp_generic.c
+index 3be764299ab0..64197b010e7d 100644
+--- a/sound/soc/intel/boards/skl_hda_dsp_generic.c
++++ b/sound/soc/intel/boards/skl_hda_dsp_generic.c
+@@ -113,6 +113,8 @@ static char hda_soc_components[30];
+ #define IDISP_ROUTE_COUNT	(IDISP_DAI_COUNT * 2)
+ #define IDISP_CODEC_MASK	0x4
+ 
++#define HDA_CODEC_AUTOSUSPEND_DELAY_MS 1000
++
+ static int skl_hda_fill_card_info(struct snd_soc_acpi_mach_params *mach_params)
+ {
+ 	struct snd_soc_card *card = &hda_soc_card;
+@@ -168,6 +170,27 @@ static int skl_hda_fill_card_info(struct snd_soc_acpi_mach_params *mach_params)
+ 	return 0;
+ }
+ 
++static void skl_set_hda_codec_autosuspend_delay(struct snd_soc_card *card)
++{
++	struct snd_soc_pcm_runtime *rtd =
++		list_first_entry(&card->rtd_list,
++				 struct snd_soc_pcm_runtime, list);
++	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct hdac_hda_priv *hda_pvt;
++
++	if (!codec_dai)
++		return;
++
++	/*
++	 * all codecs are on the same bus, so it's sufficient
++	 * to lookup the first runtime and its codec, and set
++	 * power save defaults for all codecs on the bus
++	 */
++	hda_pvt = snd_soc_component_get_drvdata(codec_dai->component);
++	snd_hda_set_power_save(hda_pvt->codec.bus,
++			       HDA_CODEC_AUTOSUSPEND_DELAY_MS);
++}
++
+ static int skl_hda_audio_probe(struct platform_device *pdev)
+ {
+ 	struct snd_soc_acpi_mach *mach;
+@@ -206,7 +229,11 @@ static int skl_hda_audio_probe(struct platform_device *pdev)
+ 		hda_soc_card.components = hda_soc_components;
+ 	}
+ 
+-	return devm_snd_soc_register_card(&pdev->dev, &hda_soc_card);
++	ret = devm_snd_soc_register_card(&pdev->dev, &hda_soc_card);
++	if (!ret)
++		skl_set_hda_codec_autosuspend_delay(&hda_soc_card);
++
++	return ret;
+ }
+ 
+ static struct platform_driver skl_hda_audio = {
 -- 
 2.20.1
 

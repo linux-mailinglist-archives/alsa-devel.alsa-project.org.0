@@ -2,63 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C47491A9186
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 05:29:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FA481A920D
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 06:47:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 612AA1678;
-	Wed, 15 Apr 2020 05:28:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 612AA1678
+	by alsa0.perex.cz (Postfix) with ESMTPS id 12BB8167A;
+	Wed, 15 Apr 2020 06:46:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12BB8167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586921345;
-	bh=915oPQTmHa1uRJLo0Pr48FxshBjh07o8BwoqMOMxAsA=;
+	s=default; t=1586926023;
+	bh=28BAiipkb0qr+SNdIctYRRpvJifU8VmfcfM354aXek8=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=FfIvfKWneogo8xmK3JTwqF6zZIXpBFwY9R7/db6jO5yIBdzowvDiBaIWyid1882Zl
-	 IpLnpxXc39RFL9wPI1z+bjKSey/Sil3lMSM6iuGj/vhZ1rv483vR64Wmbxd5ucQPhY
-	 zL/ZBddVmgEXxbD8Ia1sHxh2eKYbcp8rVLUHNQgo=
+	b=CIPdrPhn045TB5AcU/rjbzVJ4cm9/c6xw2luh+bko2FL/Vzjfs68Km2C6ptAUD3dD
+	 TQsJmu8Izj8Cs6FqsBV/MZvMCUr3qsTOgdGgIQhBFi6cWHdi8OpImhJ1F/yXifrY4O
+	 P5QUBLgs0MH7bdaVx+Zbs5CSs4vEZCb/A3Fe9Gw8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 410B3F8025F;
-	Wed, 15 Apr 2020 05:27:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2EE86F8025F;
+	Wed, 15 Apr 2020 06:45:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0A740F80245; Wed, 15 Apr 2020 05:27:16 +0200 (CEST)
+ id 728BEF80245; Wed, 15 Apr 2020 06:45:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3762CF800ED
- for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 05:27:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3762CF800ED
-IronPort-SDR: 0BFzNntCZwu3RmJHXuFTZ3FiE1gRURfxymLzsKxCArhMiCxPVqe0K6tYQCtgSP0rB3mmqIyihj
- NOgiz/MitPiw==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2020 20:27:04 -0700
-IronPort-SDR: 2sQk5zkKDb9JMYf7Kh4oRpWgYo0aaQ1OAjbPGGosU1LVQCPrzL77QQACNweHjfoMJ0aSlstdld
- v+YMzsqzlRPQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,385,1580803200"; d="scan'208";a="242186965"
-Received: from pazucen-mobl.amr.corp.intel.com (HELO
- pbossart-mobl3.amr.corp.intel.com) ([10.209.38.34])
- by orsmga007.jf.intel.com with ESMTP; 14 Apr 2020 20:27:03 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: Intel: skl_hda_generic: remove rtd->codec_dai
-Date: Tue, 14 Apr 2020 22:26:47 -0500
-Message-Id: <20200415032647.11209-1-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.20.1
+Received: from cmccmta3.chinamobile.com (cmccmta3.chinamobile.com
+ [221.176.66.81])
+ by alsa1.perex.cz (Postfix) with ESMTP id 77FD1F80115
+ for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 06:44:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77FD1F80115
+Received: from spf.mail.chinamobile.com (unknown[172.16.121.11]) by
+ rmmx-syy-dmz-app12-12012 (RichMail) with SMTP id 2eec5e9690f5ddd-61fbb;
+ Wed, 15 Apr 2020 12:43:34 +0800 (CST)
+X-RM-TRANSID: 2eec5e9690f5ddd-61fbb
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG: 00000000
+Received: from localhost.localdomain (unknown[112.25.154.146])
+ by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee65e9690f3a89-00121;
+ Wed, 15 Apr 2020 12:43:33 +0800 (CST)
+X-RM-TRANSID: 2ee65e9690f3a89-00121
+From: Tang Bin <tangbin@cmss.chinamobile.com>
+To: broonie@kernel.org, timur@kernel.org, nicoleotsuka@gmail.com,
+ Xiubo.Lee@gmail.com, perex@perex.cz, tiwai@suse.com
+Subject: [PATCH] ASoC: fsl_micfil: Omit superfluous error message in
+ fsl_micfil_probe()
+Date: Wed, 15 Apr 2020 12:45:13 +0800
+Message-Id: <20200415044513.17492-1-tangbin@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.20.1.windows.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Stephen Rothwell <sfr@canb.auug.org.au>, broonie@kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: alsa-devel@alsa-project.org,
+ Shengju Zhang <zhangshengju@cmss.chinamobile.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ Tang Bin <tangbin@cmss.chinamobile.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,27 +73,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Use macro and solve compilation issues
+In the function fsl_micfil_probe(), when get irq failed, the function 
+platform_get_irq() logs an error message, so remove redundant message here.
 
-Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
+Signed-off-by: Shengju Zhang <zhangshengju@cmss.chinamobile.com>
 ---
- sound/soc/intel/boards/skl_hda_dsp_generic.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/fsl/fsl_micfil.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/sound/soc/intel/boards/skl_hda_dsp_generic.c b/sound/soc/intel/boards/skl_hda_dsp_generic.c
-index 64197b010e7d..35f222ed9912 100644
---- a/sound/soc/intel/boards/skl_hda_dsp_generic.c
-+++ b/sound/soc/intel/boards/skl_hda_dsp_generic.c
-@@ -175,7 +175,7 @@ static void skl_set_hda_codec_autosuspend_delay(struct snd_soc_card *card)
- 	struct snd_soc_pcm_runtime *rtd =
- 		list_first_entry(&card->rtd_list,
- 				 struct snd_soc_pcm_runtime, list);
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	struct hdac_hda_priv *hda_pvt;
+diff --git a/sound/soc/fsl/fsl_micfil.c b/sound/soc/fsl/fsl_micfil.c
+index f7f2d29f1..e73bd6570 100644
+--- a/sound/soc/fsl/fsl_micfil.c
++++ b/sound/soc/fsl/fsl_micfil.c
+@@ -702,10 +702,8 @@ static int fsl_micfil_probe(struct platform_device *pdev)
+ 	for (i = 0; i < MICFIL_IRQ_LINES; i++) {
+ 		micfil->irq[i] = platform_get_irq(pdev, i);
+ 		dev_err(&pdev->dev, "GET IRQ: %d\n", micfil->irq[i]);
+-		if (micfil->irq[i] < 0) {
+-			dev_err(&pdev->dev, "no irq for node %s\n", pdev->name);
++		if (micfil->irq[i] < 0)
+ 			return micfil->irq[i];
+-		}
+ 	}
  
- 	if (!codec_dai)
+ 	if (of_property_read_bool(np, "fsl,shared-interrupt"))
 -- 
-2.20.1
+2.20.1.windows.1
+
+
 

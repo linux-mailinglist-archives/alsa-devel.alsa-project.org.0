@@ -2,92 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83D7D1A9137
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 05:00:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64C551A916B
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 05:07:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0BAB91666;
-	Wed, 15 Apr 2020 04:59:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0BAB91666
+	by alsa0.perex.cz (Postfix) with ESMTPS id EA87F829;
+	Wed, 15 Apr 2020 05:06:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA87F829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586919604;
-	bh=2gyegij/148ozlQaCG0Am8haTLiMoCJW8pVdtiqzj/Y=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=NUj2B4oMp9grd2WXXXvoIIpCDB1Ur9jp79AgsYWMFyhvkbQiwgCMHJfppl5cjjxzT
-	 OxrwSFKzej3bldwwHkXOD09Pw9qZBMCwmrU+96rh0mG2VLEn3a0IIMo+J5v6E3a75p
-	 yvBE25LuktiI5178eRWP8CKTAcdiZ0WejsUYXrcE=
+	s=default; t=1586920042;
+	bh=JiDTU113TLqBt/29YQpTqi6N7IfnQRaumFQ5gKlaJbs=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=n3yF+QJMU/tPQTEuStCQa2N2MioMXIbT7m071HPF57fte6zbDwI41gr6tBzVGJY7t
+	 zfWykV1z1AU32tzH1WdNIn3buy7QP7Dmp/Fw3HPNzLFnWy6jKILVMcr7WDPLJ8WnEu
+	 24MWXkn3EJAye5CoMuu6ORIz2vosXqAJ/cfRotHk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F46BF8025F;
-	Wed, 15 Apr 2020 04:58:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29D67F800ED;
+	Wed, 15 Apr 2020 05:05:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7EBF7F80115; Wed, 15 Apr 2020 04:56:12 +0200 (CEST)
+ id 87243F800ED; Wed, 15 Apr 2020 05:04:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-qv1-xf43.google.com (mail-qv1-xf43.google.com
- [IPv6:2607:f8b0:4864:20::f43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42F3AF80115
- for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 04:56:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42F3AF80115
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="dyBX2dum"
-Received: by mail-qv1-xf43.google.com with SMTP id s3so990139qvk.12
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 19:56:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=5+pk54KXVRCt6mCeYfu6u1hgghJvTphtuH45b199eug=;
- b=dyBX2dumBT3DX60HltmnArMIt6VdxDUSG499ZJ+SRAW1GNYbaDK0TUKMeEq/aSkESG
- ChLKmTo6et7e8BsIPVwRNLLNO9n/dw8bpcW9L9WweiHlT8y42jKTCt+AeIllZGKe76jU
- RCJUyCb3E7/1slLwAqTMTggJnLfQCt+1pYkAtHgsu7uB3FhuoZHhbfYnkQ+I6xm8NEE6
- FnY3Z833zX6HWbAH1HxGSB0Bo9GqexomPFByl1c6UoTg01cXsev+ZUKRSoBVimBuYroh
- m71L7+eFHi5pdsEosfQhCxZfgq5510wDXejkW+/+V2tIAXptyqXdWbIIQX8BclLlyFL4
- l+Mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=5+pk54KXVRCt6mCeYfu6u1hgghJvTphtuH45b199eug=;
- b=ulPgnIiX29Xc1LiG/zS2m/tobRjc9LLo1UHNiMXVq+RBc1pGQkl0sAMI5nXEpU2jVG
- 7vWqLapaHyRMWe0uUES1pdZMnM5cA5PsDVIxWkgiv/w2+mZxhOY7Awn7gc4PrhBWwHnc
- yAxMfiZ/4MOpN0+CtpD2FQ2dYNLQTY+27Z2XTvnm9v4lKNIx5xWnabQdKIB+WkAf6Vcc
- dZmqte2I6O0XzYCrelab7+r7TxkNAXyQT6tyCSK4es2U0eMDr8VJqapXwxLFb8coMq7/
- nPbwjl+ZBiOz4UmUPFS08o7RX+U8Q0MSDRiYbFyNWYguAJYeCYTto+pv6doLIjF8M1pU
- npwA==
-X-Gm-Message-State: AGi0PuYp+Fsfv6Y1SXeIN5Fo4PHdvBSoaovw036Ar9+mK08sjQ5m4UeD
- GYzGenY9Z1pbcsPbSbF6+DAY5VspqwACgi6roR4=
-X-Google-Smtp-Source: APiQypL6fx5Jo66bviF7emrcPPuSgkq+sExxjq0BShhEl+ej8+MVt0ZP8mIC/3uoA9xgoayPyN+s0Rj7dR5hh4U60L4=
-X-Received: by 2002:ad4:46e3:: with SMTP id h3mr3036173qvw.14.1586919359561;
- Tue, 14 Apr 2020 19:55:59 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 97D43F80124
+ for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 05:04:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97D43F80124
+IronPort-SDR: Q+ybTRAyK2FN1DK+tJb4cTyUreHbRvi2+wiBDDvUcaJ3Hhyr+bzv84DnSWxexFeBOcIO/JQiNj
+ qzOBtYg1jouQ==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2020 20:04:46 -0700
+IronPort-SDR: k13gwpNachUvWNZnqWP1YowJ/ySmFyy5caWQHW40jfrrS4ag6t2WWMONBaiz3OcURxOtmBbZo5
+ vCIgkvx3QvVQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,385,1580803200"; d="scan'208";a="332370012"
+Received: from dweeratu-mobl1.amr.corp.intel.com (HELO
+ pbossart-mobl3.amr.corp.intel.com) ([10.212.109.154])
+ by orsmga001.jf.intel.com with ESMTP; 14 Apr 2020 20:04:46 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [RFC TEST] ASoC: soc-dai: revert all changes to DAI startup/shutdown
+ sequence
+Date: Tue, 14 Apr 2020 22:04:37 -0500
+Message-Id: <20200415030437.23803-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-References: <cover.1585726761.git.shengjiu.wang@nxp.com>
- <68208297b49e85adfddf843bc205d154790a49de.1585726761.git.shengjiu.wang@nxp.com>
- <20200414154643.GA29098@bogus>
-In-Reply-To: <20200414154643.GA29098@bogus>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Wed, 15 Apr 2020 10:55:47 +0800
-Message-ID: <CAA+D8AP2CiRT7qkNa7yBDH0Dbd=i1eyqL4g4zobRmR-vEx4VBQ@mail.gmail.com>
-Subject: Re: [PATCH v6 6/7] ASoC: dt-bindings: fsl_easrc: Add document for
- EASRC
-To: Rob Herring <robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Mark Rutland <mark.rutland@arm.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>,
- Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel <linux-kernel@vger.kernel.org>
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de, Hans de Goede <hdegoede@redhat.com>, broonie@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,85 +76,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Rob
+On Baytrail/Cherrytrail, the Atom/SST driver fails miserably:
 
-On Tue, Apr 14, 2020 at 11:49 PM Rob Herring <robh@kernel.org> wrote:
->
-> On Wed, Apr 01, 2020 at 04:45:39PM +0800, Shengjiu Wang wrote:
-> > EASRC (Enhanced Asynchronous Sample Rate Converter) is a new
-> > IP module found on i.MX8MN.
-> >
-> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> > ---
-> >  .../devicetree/bindings/sound/fsl,easrc.yaml  | 101 ++++++++++++++++++
-> >  1 file changed, 101 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/sound/fsl,easrc.yaml
-> >
-> > diff --git a/Documentation/devicetree/bindings/sound/fsl,easrc.yaml b/Documentation/devicetree/bindings/sound/fsl,easrc.yaml
-> > new file mode 100644
-> > index 000000000000..14ea60084420
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/sound/fsl,easrc.yaml
-> > @@ -0,0 +1,101 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/sound/fsl,easrc.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: NXP Asynchronous Sample Rate Converter (ASRC) Controller
-> > +
-> > +maintainers:
-> > +  - Shengjiu Wang <shengjiu.wang@nxp.com>
-> > +
-> > +properties:
-> > +  $nodename:
-> > +    pattern: "^easrc@.*"
-> > +
-> > +  compatible:
-> > +    const: fsl,imx8mn-easrc
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  interrupts:
-> > +    maxItems: 1
-> > +
-> > +  clocks:
-> > +    items:
-> > +      - description: Peripheral clock
-> > +
-> > +  clock-names:
-> > +    items:
-> > +      - const: mem
-> > +
-> > +  dmas:
-> > +    maxItems: 8
-> > +
-> > +  dma-names:
-> > +    items:
-> > +      - const: ctx0_rx
-> > +      - const: ctx0_tx
-> > +      - const: ctx1_rx
-> > +      - const: ctx1_tx
-> > +      - const: ctx2_rx
-> > +      - const: ctx2_tx
-> > +      - const: ctx3_rx
-> > +      - const: ctx3_tx
-> > +
-> > +  firmware-name:
-> > +    allOf:
-> > +      - $ref: /schemas/types.yaml#/definitions/string
-> > +      - const: imx/easrc/easrc-imx8mn.bin
-> > +    description: The coefficient table for the filters
-> > +
-> > +  fsl,asrc-rate:
->
-> fsl,asrc-rate-hz
+[    9.741953] intel_sst_acpi 80860F28:00: FW Version 01.0c.00.01
+[    9.832992] intel_sst_acpi 80860F28:00: FW sent error response 0x40034
+[    9.833019] intel_sst_acpi 80860F28:00: FW alloc failed ret -4
+[    9.833028] intel_sst_acpi 80860F28:00: sst_get_stream returned err -5
+[    9.833033] sst-mfld-platform sst-mfld-platform: ASoC: DAI prepare error: -5
+[    9.833037]  Baytrail Audio Port: ASoC: prepare FE Baytrail Audio Port failed
+[    9.853942] intel_sst_acpi 80860F28:00: FW sent error response 0x40034
+[    9.853974] intel_sst_acpi 80860F28:00: FW alloc failed ret -4
+[    9.853984] intel_sst_acpi 80860F28:00: sst_get_stream returned err -5
+[    9.853990] sst-mfld-platform sst-mfld-platform: ASoC: DAI prepare error: -5
+[    9.853994]  Baytrail Audio Port: ASoC: prepare FE Baytrail Audio Port failed
 
-Can we keep "fsl,asrc-rate", because I want this property
-align with the one in fsl,asrc.txt.  These two asrc modules
-can share same property name.
+Commit b56be800f1292 ("ASoC: soc-pcm: call
+snd_soc_dai_startup()/shutdown() once") was the initial problematic
+commit.
 
-best regards
-wang shengjiu
+Commit 1ba616bd1a6d5e ("ASoC: soc-dai: fix DAI startup/shutdown sequence")
+was an attempt to fix things but it does not work on Baytrail,
+reverting all changes seems necessary for now.
+
+Fixes: 1ba616bd1a6d5e ("ASoC: soc-dai: fix DAI startup/shutdown sequence")
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+
+Sending as RFC since I don't have a good understanding of the
+root-cause and for others to confirm my findings. Tested on top of
+v5.7-rc1.
+
+ include/sound/soc-dai.h |  1 -
+ sound/soc/soc-dai.c     | 11 ++---------
+ 2 files changed, 2 insertions(+), 10 deletions(-)
+
+diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
+index d4825b82c7a3..b33abe93b905 100644
+--- a/include/sound/soc-dai.h
++++ b/include/sound/soc-dai.h
+@@ -351,7 +351,6 @@ struct snd_soc_dai {
+ 
+ 	/* bit field */
+ 	unsigned int probed:1;
+-	unsigned int started[SNDRV_PCM_STREAM_LAST + 1];
+ };
+ 
+ static inline struct snd_soc_pcm_stream *
+diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
+index 8f3cad8db89a..31c41559034b 100644
+--- a/sound/soc/soc-dai.c
++++ b/sound/soc/soc-dai.c
+@@ -295,24 +295,17 @@ int snd_soc_dai_startup(struct snd_soc_dai *dai,
+ {
+ 	int ret = 0;
+ 
+-	if (!dai->started[substream->stream] &&
+-	    dai->driver->ops->startup)
++	if (dai->driver->ops->startup)
+ 		ret = dai->driver->ops->startup(substream, dai);
+ 
+-	if (ret == 0)
+-		dai->started[substream->stream] = 1;
+-
+ 	return ret;
+ }
+ 
+ void snd_soc_dai_shutdown(struct snd_soc_dai *dai,
+ 			 struct snd_pcm_substream *substream)
+ {
+-	if (dai->started[substream->stream] &&
+-	    dai->driver->ops->shutdown)
++	if (dai->driver->ops->shutdown)
+ 		dai->driver->ops->shutdown(substream, dai);
+-
+-	dai->started[substream->stream] = 0;
+ }
+ 
+ int snd_soc_dai_prepare(struct snd_soc_dai *dai,
+-- 
+2.20.1
+

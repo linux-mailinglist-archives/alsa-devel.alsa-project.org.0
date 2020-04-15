@@ -2,87 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAAA61A8F7A
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 02:08:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CFCB1A8FD1
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 02:46:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 55FD0166F;
-	Wed, 15 Apr 2020 02:07:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55FD0166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF7841670;
+	Wed, 15 Apr 2020 02:45:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF7841670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586909324;
-	bh=d6uxhSulRF8TeLnRDNgidxYMiLjnB2MJe8dPiT5FhzA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=MyqaQOWJ8zesjdapnXjojVJSf7Z6Cs5EMwl+GzkF2NlhivWo+ES94sNs1T89a6TvP
-	 Q8RSSW+/cdJ82Dg/npILsP7kPafdwqiCbx2qMyEE35JMcx5tU1YG7Jw6kq4RojVYP4
-	 hbGzJnd/3OwXoT7SVSCECHR3Invn5FrMmKutyzeM=
+	s=default; t=1586911608;
+	bh=MIFbLLsQWp269Xzn44zyUOw4QjOlLllwg+2W4ocF7cw=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=KBwaYVuaK8ganS6g4cwv8QNNH3y5y6bef5RSPsLw1tKCpKFTmgOxMApkeR+5Nxq2C
+	 h7nfRiec5dYM4Vab+xoIzNav6D89P5XKIPtT23Qd+z1QSDhQy6iqAALvSU4/jUk72C
+	 84e8PjdEV+ETclB0E/l+tdL8/9IsTQMllpZzLTA0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6222CF8014E;
-	Wed, 15 Apr 2020 02:07:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E25F0F800B9;
+	Wed, 15 Apr 2020 02:45:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2FD03F8013D; Wed, 15 Apr 2020 02:07:00 +0200 (CEST)
+ id 876D2F8013D; Wed, 15 Apr 2020 02:45:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-ot1-f65.google.com (mail-ot1-f65.google.com
- [209.85.210.65])
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EE1E3F80115
- for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 02:06:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE1E3F80115
-Received: by mail-ot1-f65.google.com with SMTP id m2so1696233otr.1
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 17:06:53 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id EFA8AF800B9
+ for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 02:44:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFA8AF800B9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="TgJt1Ek8"
+Received: by mail-wm1-x344.google.com with SMTP id h2so15278361wmb.4
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 17:44:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:mime-version:content-disposition
+ :user-agent; bh=da5vaFjSMeegtBHCMhBjxA2leXTbBVrGPC89YU84XVU=;
+ b=TgJt1Ek8B2hWfOzcbyZgtFWI8S0RCh61oFBPykC3mfYswG6y7tE7MiPiuOGKnEVqiC
+ VH1+VbkzgepA5c/9rpsDn4ob5Dx5p3wvBU7j3fvNPloqEhjaXat7iX0nbE9EtNZWXrOl
+ cGDwc8x/h3AYODBGMl4z5RofzIi3vtT04hAAGheA1sntU93m0QUuSL4BqQprwZUsDHGh
+ kEXEzYSQ39Iz+PkBcf/5SNiX0u39EOK3Ykjyw2qWv0hdxOag5fqRXE4d7FvY4ZKbcWpu
+ f6SfbAjINTwd5PovXaaVg/fIR3EFmiyxBx4Mqp4ygLAhQwIKFWLkUNFfzMe6JTqVb1JQ
+ V9/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=zzzsKz1aXq1FGxDkuAfWvlD6tFRvDkWAA3kCh2toeFc=;
- b=eZ2FBeEdpu2UqAem/WHiYUoR/rUKmfwW7vMm/y6fzWYbT0Ly9VnQ3GSfN2XBJPNpMr
- kVsevvQY3niq8T8DHoU4i0MoJiKlSf4faIZCJlE6iQlKdzC+ddLCm9MvOViFb0t/QTJ7
- oZfl5dGPHpGNKUJ59Skoe5aRWrSiH3mCp/NB0qqs/HDPT4hQh9+BMdW5B0BI1FTsfN4+
- iE4qxbNzqw22k4r4Xf5AvSCSL5n8ofhi1Y7jIJ3QQihC6vTBLU8Qy/p/Or4sQMzSxmXt
- G2fbJe3tZrWeFtFsPz33IbX4iqvx4st6pgKOllTo2n2Sx/VMmT26s/1oaIgtoNt2tk6j
- AEqg==
-X-Gm-Message-State: AGi0Pub/NJ/EMvEIs24XZIRCtniAClwMx0pYoxa6OD/0FP91PA4k07/d
- XSSMYRblFseQGHa2oj5DMw==
-X-Google-Smtp-Source: APiQypKXBmIANTuzqAKXJR1+GcTctxVj4356oR1rWyrdLfaNvOjR94IF3xYVI+WWd5PezEcDkgPjKw==
-X-Received: by 2002:a05:6830:1bdb:: with SMTP id
- v27mr16047181ota.218.1586909211644; 
- Tue, 14 Apr 2020 17:06:51 -0700 (PDT)
-Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id k13sm4756205oou.27.2020.04.14.17.06.50
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+ :content-disposition:user-agent;
+ bh=da5vaFjSMeegtBHCMhBjxA2leXTbBVrGPC89YU84XVU=;
+ b=X6K6yEXBt/PNavoh1QZ3jcwGjg9aVQ+J+4d2q7XdX5Y+uchP/j1/T8opfJ0u5ko9DS
+ +bOzwtz+5wzN75zubnEhdqPN4bavj5qCn6J9hKecIFZzrvz27HF0fjLztYSvyzdQAFCg
+ CoBiIpxjvEZpG11u7aH0y72AXYMyabj9uQPfH8qeudF/f9v2DfFbAHt2TWf5i1O5I4ml
+ ABThFG6tV60AOOLYmUafz6U6pBqNdsukRotlla0mlaO4dEsb9RD6e58mPTbClHuP2adn
+ OUSAW4R7wVe1+RkxLrXARjhzGlweeNclr+7BDB/+b8gSAy84iM1noYkScPaw4gA4bAFZ
+ XcQg==
+X-Gm-Message-State: AGi0PubgKvtOmRcmPmTHDcldWQ2GfCXXoRz1ZrBG8OEB4gW6cXb7CEJL
+ 1fAfPm1M+PmLdlg1v0uShkVbK86h
+X-Google-Smtp-Source: APiQypKHvv8PQ4VFa39BtbcJrw8JIupCq/Qx400q0MUAplaY8nBJKZx7oSka7vjKGcv718YrD/NQYQ==
+X-Received: by 2002:a1c:384:: with SMTP id 126mr2455481wmd.58.1586911493346;
+ Tue, 14 Apr 2020 17:44:53 -0700 (PDT)
+Received: from localhost (108.78.124.78.rev.sfr.net. [78.124.78.108])
+ by smtp.gmail.com with ESMTPSA id i129sm21548158wmi.20.2020.04.14.17.44.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Apr 2020 17:06:50 -0700 (PDT)
-Received: (nullmailer pid 19643 invoked by uid 1000);
- Wed, 15 Apr 2020 00:06:49 -0000
-Date: Tue, 14 Apr 2020 19:06:49 -0500
-From: Rob Herring <robh@kernel.org>
-To: Stephan Gerhold <stephan@gerhold.net>
-Subject: Re: [PATCH 1/2] dt-bindings: sound: lpass-cpu: Document DAI subnodes
-Message-ID: <20200415000649.GA28504@bogus>
-References: <20200406135608.126171-1-stephan@gerhold.net>
+ Tue, 14 Apr 2020 17:44:52 -0700 (PDT)
+Date: Wed, 15 Apr 2020 00:44:39 +0000
+From: sylvain.bertrand@gmail.com
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] fix sw_params handling of timestamp types in direct plugins
+Message-ID: <20200415004439.GA4480@freedom>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20200406135608.126171-1-stephan@gerhold.net>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
- Patrick Lai <plai@codeaurora.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- ~postmarketos/upstreaming@lists.sr.ht,
- Kenneth Westfield <kwestfie@codeaurora.org>
+User-Agent: Mutt/ (2018-04-13)
+Cc: Takashi Iwai <tiwai@suse.de>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,70 +98,231 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Apr 06, 2020 at 03:56:07PM +0200, Stephan Gerhold wrote:
-> The lpass-cpu driver now allows configuring the MI2S SD lines
-> by defining subnodes for one of the DAIs.
-> 
-> Document this in the device tree bindings.
-> 
-> Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
-> ---
->  .../bindings/sound/qcom,lpass-cpu.txt         | 23 +++++++++++++++++++
->  1 file changed, 23 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
-> index 21c648328be9..df53a10502f7 100644
-> --- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
-> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
-> @@ -30,6 +30,8 @@ Required properties:
->  - reg			: Must contain an address for each entry in reg-names.
->  - reg-names		: A list which must include the following entries:
->  				* "lpass-lpaif"
-> +- #address-cells	: Must be 1
-> +- #size-cells		: Must be 0
->  
->  
->  
-> @@ -37,6 +39,18 @@ Optional properties:
->  
->  - qcom,adsp		: Phandle for the audio DSP node
->  
-> +By default, the driver uses up to 4 MI2S SD lines, for a total of 8 channels.
-> +The SD lines to use can be configured by adding subnodes for each of the DAIs.
-> +
-> +Required properties for each DAI (represented by a subnode):
-> +- reg			: Must be one of the DAI IDs
-> +			  (usually part of dt-bindings header)
-> +- qcom,playback-sd-lines: List of serial data lines (0-3) to use for playback
+In pcms using direct plugins (dmix/dsnoop/dshare), the timestamp type could
+be different from the terminating hw plugin, then the kernel driver.
 
-0-3 for the values or number of entries?
+Be sure such pcms have plugins using consistently the same timestamp type.
 
-> +- qcom,capture-sd-lines	: List of serial data lines (0-3) to use for capture
-> +
-> +Note that adding a subnode changes the default to "no lines configured",
-> +so both playback and capture lines should be configured when a subnode is added.
-> +
->  Example:
->  
->  lpass@28100000 {
-> @@ -51,4 +65,13 @@ lpass@28100000 {
->  	reg = <0x28100000 0x10000>;
->  	reg-names = "lpass-lpaif";
->  	qcom,adsp = <&adsp>;
-> +
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +
-> +	/* Optional to set different MI2S SD lines */
-> +	mi2s-quaternary@3 {
+signed-off-by: Sylvain Bertrand <sylvain.bertrand@legeek.net>
+---
+ src/conf/alsa.conf       |  1 +
+ src/conf/pcm/dmix.conf   |  4 ++++
+ src/conf/pcm/dsnoop.conf |  4 ++++
+ src/pcm/pcm_direct.c     | 36 +++++++++++++++++++++++++++++++++++-
+ src/pcm/pcm_direct.h     |  2 ++
+ src/pcm/pcm_dmix.c       |  4 ++++
+ src/pcm/pcm_dshare.c     |  4 ++++
+ src/pcm/pcm_dsnoop.c     |  4 ++++
+ src/pcm/pcm_local.h      |  2 ++
+ 9 files changed, 60 insertions(+), 1 deletion(-)
 
-Normally the node name reflects the class of device. IOW, all the child 
-nodes should have the same name.
-
-> +		reg = <MI2S_QUATERNARY>;
-> +		qcom,playback-sd-lines = <0 1>;
-> +	};
->  };
-> -- 
-> 2.26.0
-> 
+diff --git a/src/conf/alsa.conf b/src/conf/alsa.conf
+index a091b810..0e01c887 100644
+--- a/src/conf/alsa.conf
++++ b/src/conf/alsa.conf
+@@ -69,6 +69,7 @@ defaults.pcm.minperiodtime 5000		# in us
+ defaults.pcm.ipc_key 5678293
+ defaults.pcm.ipc_gid audio
+ defaults.pcm.ipc_perm 0660
++defaults.pcm.tstamp_type "default"
+ defaults.pcm.dmix.max_periods 0
+ defaults.pcm.dmix.channels 2
+ defaults.pcm.dmix.rate 48000
+diff --git a/src/conf/pcm/dmix.conf b/src/conf/pcm/dmix.conf
+index 7fa5c8b2..50e573da 100644
+--- a/src/conf/pcm/dmix.conf
++++ b/src/conf/pcm/dmix.conf
+@@ -56,6 +56,10 @@ pcm.!dmix {
+ 		@func refer
+ 		name defaults.pcm.ipc_perm
+ 	}
++	tstamp_type {
++		@func refer
++		name defaults.pcm.tstamp_type
++	}
+ 	slave {
+ 		pcm {
+ 			type hw
+diff --git a/src/conf/pcm/dsnoop.conf b/src/conf/pcm/dsnoop.conf
+index abbd44f7..f4336e5f 100644
+--- a/src/conf/pcm/dsnoop.conf
++++ b/src/conf/pcm/dsnoop.conf
+@@ -49,6 +49,10 @@ pcm.!dsnoop {
+ 		@func refer
+ 		name defaults.pcm.ipc_perm
+ 	}
++	tstamp_type {
++		@func refer
++		name defaults.pcm.tstamp_type
++	}
+ 	slave {
+ 		pcm {
+ 			type hw
+diff --git a/src/pcm/pcm_direct.c b/src/pcm/pcm_direct.c
+index 54d99005..aa60a477 100644
+--- a/src/pcm/pcm_direct.c
++++ b/src/pcm/pcm_direct.c
+@@ -991,8 +991,11 @@ int snd_pcm_direct_hw_free(snd_pcm_t *pcm ATTRIBUTE_UNUSED)
+ 	return 0;
+ }
+ 
+-int snd_pcm_direct_sw_params(snd_pcm_t *pcm ATTRIBUTE_UNUSED, snd_pcm_sw_params_t * params ATTRIBUTE_UNUSED)
++int snd_pcm_direct_sw_params(snd_pcm_t *pcm, snd_pcm_sw_params_t *params)
+ {
++	if (params->tstamp_type != pcm->tstamp_type)
++		return -EINVAL;
++
+ 	/* values are cached in the pcm structure */
+ 	return 0;
+ }
+@@ -1318,6 +1321,15 @@ int snd_pcm_direct_initialize_slave(snd_pcm_direct_t *dmix, snd_pcm_t *spcm, str
+ 		return ret;
+ 	}
+ 
++	if (dmix->tstamp_type != -1) {
++		ret = snd_pcm_sw_params_set_tstamp_type(spcm, &sw_params,
++							dmix->tstamp_type);
++		if (ret < 0) {
++			SNDERR("unable to set tstamp type");
++			return ret;
++		}
++	}
++
+ 	if (dmix->type != SND_PCM_TYPE_DMIX &&
+ 	    dmix->type != SND_PCM_TYPE_DSHARE)
+ 		goto __skip_silencing;
+@@ -1878,6 +1890,7 @@ int snd_pcm_direct_parse_open_conf(snd_config_t *root, snd_config_t *conf,
+ 	rec->var_periodsize = 0;
+ 	rec->direct_memory_access = 1;
+ 	rec->hw_ptr_alignment = SND_PCM_HW_PTR_ALIGNMENT_AUTO;
++	rec->tstamp_type = -1;
+ 
+ 	/* read defaults */
+ 	if (snd_config_search(root, "defaults.pcm.dmix_max_periods", &n) >= 0) {
+@@ -1941,6 +1954,27 @@ int snd_pcm_direct_parse_open_conf(snd_config_t *root, snd_config_t *conf,
+ 
+ 			continue;
+ 		}
++		if (strcmp(id, "tstamp_type") == 0) {
++			const char *str;
++			err = snd_config_get_string(n, &str);
++			if (err < 0) {
++				SNDERR("Invalid type for %s", id);
++				return -EINVAL;
++			}
++			if (strcmp(str, "default") == 0)
++				rec->tstamp_type = -1;
++			else if (strcmp(str, "gettimeofday") == 0)
++				rec->tstamp_type = SND_PCM_TSTAMP_TYPE_GETTIMEOFDAY;
++			else if (strcmp(str, "monotonic") == 0)
++				rec->tstamp_type = SND_PCM_TSTAMP_TYPE_MONOTONIC;
++			else if (strcmp(str, "monotonic_raw") == 0)
++				rec->tstamp_type = SND_PCM_TSTAMP_TYPE_MONOTONIC_RAW;
++			else {
++				SNDERR("The field tstamp_type is invalid : %s", str);
++				return -EINVAL;
++			}
++			continue;
++		}
+ 		if (strcmp(id, "ipc_gid") == 0) {
+ 			char *group;
+ 			char *endp;
+diff --git a/src/pcm/pcm_direct.h b/src/pcm/pcm_direct.h
+index 221edbe1..8a236970 100644
+--- a/src/pcm/pcm_direct.h
++++ b/src/pcm/pcm_direct.h
+@@ -173,6 +173,7 @@ struct snd_pcm_direct {
+ 	unsigned int recoveries;	/* mirror of executed recoveries on slave */
+ 	int direct_memory_access;	/* use arch-optimized buffer RW */
+ 	snd_pcm_direct_hw_ptr_alignment_t hw_ptr_alignment;
++	int tstamp_type;		/* cached from conf, can be -1(default) on top of real types */
+ 	union {
+ 		struct {
+ 			int shmid_sum;			/* IPC global sum ring buffer memory identification */
+@@ -357,6 +358,7 @@ struct snd_pcm_direct_open_conf {
+ 	int var_periodsize;
+ 	int direct_memory_access;
+ 	snd_pcm_direct_hw_ptr_alignment_t hw_ptr_alignment;
++	int tstamp_type;
+ 	snd_config_t *slave;
+ 	snd_config_t *bindings;
+ };
+diff --git a/src/pcm/pcm_dmix.c b/src/pcm/pcm_dmix.c
+index d533f40c..843fa316 100644
+--- a/src/pcm/pcm_dmix.c
++++ b/src/pcm/pcm_dmix.c
+@@ -1038,6 +1038,7 @@ int snd_pcm_dmix_open(snd_pcm_t **pcmp, const char *name,
+ 	dmix->ipc_key = opts->ipc_key;
+ 	dmix->ipc_perm = opts->ipc_perm;
+ 	dmix->ipc_gid = opts->ipc_gid;
++	dmix->tstamp_type = opts->tstamp_type;
+ 	dmix->semid = -1;
+ 	dmix->shmid = -1;
+ 
+@@ -1237,6 +1238,9 @@ pcm.name {
+ 				# roundup
+ 				# rounddown
+ 				# auto (default)
++	tstamp_type STR		# timestamp type
++				# STR can be one of the below strings :
++				# default, gettimeofday, monotonic, monotonic_raw
+ 	slave STR
+ 	# or
+ 	slave {			# Slave definition
+diff --git a/src/pcm/pcm_dshare.c b/src/pcm/pcm_dshare.c
+index 59448cfb..6a99452b 100644
+--- a/src/pcm/pcm_dshare.c
++++ b/src/pcm/pcm_dshare.c
+@@ -723,6 +723,7 @@ int snd_pcm_dshare_open(snd_pcm_t **pcmp, const char *name,
+ 	dshare->ipc_key = opts->ipc_key;
+ 	dshare->ipc_perm = opts->ipc_perm;
+ 	dshare->ipc_gid = opts->ipc_gid;
++	dshare->tstamp_type = opts->tstamp_type;
+ 	dshare->semid = -1;
+ 	dshare->shmid = -1;
+ 
+@@ -929,6 +930,9 @@ pcm.name {
+ 		# roundup
+ 		# rounddown
+ 		# auto (default)
++	tstamp_type STR		# timestamp type
++				# STR can be one of the below strings :
++				# default, gettimeofday, monotonic, monotonic_raw
+ 	slave STR
+ 	# or
+ 	slave {			# Slave definition
+diff --git a/src/pcm/pcm_dsnoop.c b/src/pcm/pcm_dsnoop.c
+index 24f472c7..c64df381 100644
+--- a/src/pcm/pcm_dsnoop.c
++++ b/src/pcm/pcm_dsnoop.c
+@@ -591,6 +591,7 @@ int snd_pcm_dsnoop_open(snd_pcm_t **pcmp, const char *name,
+ 	dsnoop->ipc_key = opts->ipc_key;
+ 	dsnoop->ipc_perm = opts->ipc_perm;
+ 	dsnoop->ipc_gid = opts->ipc_gid;
++	dsnoop->tstamp_type = opts->tstamp_type;
+ 	dsnoop->semid = -1;
+ 	dsnoop->shmid = -1;
+ 
+@@ -780,6 +781,9 @@ pcm.name {
+ 		# roundup
+ 		# rounddown
+ 		# auto (default)
++	tstamp_type STR		# timestamp type
++				# STR can be one of the below strings :
++				# default, gettimeofday, monotonic, monotonic_raw
+ 	slave STR
+ 	# or
+ 	slave {			# Slave definition
+diff --git a/src/pcm/pcm_local.h b/src/pcm/pcm_local.h
+index 05ed935f..89d4125b 100644
+--- a/src/pcm/pcm_local.h
++++ b/src/pcm/pcm_local.h
+@@ -928,6 +928,8 @@ int INTERNAL(snd_pcm_hw_params_set_buffer_size_last)(snd_pcm_t *pcm, snd_pcm_hw_
+ 
+ int snd_pcm_sw_params_set_tstamp_mode(snd_pcm_t *pcm, snd_pcm_sw_params_t *params, snd_pcm_tstamp_t val);
+ int INTERNAL(snd_pcm_sw_params_get_tstamp_mode)(const snd_pcm_sw_params_t *params, snd_pcm_tstamp_t *val);
++int snd_pcm_sw_params_set_tstamp_type(snd_pcm_t *pcm, snd_pcm_sw_params_t *params, snd_pcm_tstamp_type_t val);
++int snd_pcm_sw_params_get_tstamp_type(const snd_pcm_sw_params_t *params, snd_pcm_tstamp_type_t *val);
+ int snd_pcm_sw_params_set_avail_min(snd_pcm_t *pcm, snd_pcm_sw_params_t *params, snd_pcm_uframes_t val);
+ int INTERNAL(snd_pcm_sw_params_get_avail_min)(const snd_pcm_sw_params_t *params, snd_pcm_uframes_t *val);
+ int snd_pcm_sw_params_set_start_threshold(snd_pcm_t *pcm, snd_pcm_sw_params_t *params, snd_pcm_uframes_t val);

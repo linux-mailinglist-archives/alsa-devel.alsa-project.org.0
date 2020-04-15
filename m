@@ -2,87 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 253BB1AB2D6
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 22:45:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DD481AB340
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 23:28:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C5FB1167B;
-	Wed, 15 Apr 2020 22:44:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5FB1167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 092E83E;
+	Wed, 15 Apr 2020 23:27:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 092E83E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586983507;
-	bh=F3qZyBdt2Xx1NwEP6uSq60pJt8B7zrWHn0GD/ylers8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1586986115;
+	bh=2N3noXazXXBtKAYhtfpH5EljyvSxPCkGNtW5lQQFD3M=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Yxv+FL6tLJsJm9xCwNIVuxKVJ/rDc0Pd7R4x+yCMQ5sNxyiBuxS2Hiuq+KN+PMoPt
-	 ixbJtFg9JXWoOwInfEUCpdl5k5dvWo2X/P9RpLa7KIxoo+QVRnpPfBxQjaBfluLP5l
-	 VQvtrC0KJ7v2CEATlbsy63kxnYINLAbn5rnSlKZM=
+	b=tS/5krkGl1WsYPQxc+WawLm9ApPsEL/wQJKJp/Uy3JBDXfju64ZygWF6VSEfgO3xm
+	 g2A3km4sHv6KxH3hJg1rDdLBffNXdqAdwYVKKLbrVcZmWmqTAMgwrIVUZAXoD+MpF7
+	 0prVUdI32OpkOFwiGNTVxD1KrNnLCRzK2NMBjDEM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B15A8F80124;
-	Wed, 15 Apr 2020 22:39:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2C1E0F80115;
+	Wed, 15 Apr 2020 23:26:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E4DF8F80245; Wed, 15 Apr 2020 22:39:27 +0200 (CEST)
+ id 1E5DDF80245; Wed, 15 Apr 2020 23:26:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D9862F80115
- for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 22:39:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9862F80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4990AF800ED
+ for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 23:26:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4990AF800ED
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="RisHhF3j"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4AA6120787;
- Wed, 15 Apr 2020 20:39:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586983162;
- bh=F3qZyBdt2Xx1NwEP6uSq60pJt8B7zrWHn0GD/ylers8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RisHhF3jA6l7pk2/1o4KS7ZVzduaO9wpuoTq4cpb1LqSFRrPVk2cxGA3ebcru1oLg
- vTmRqcRDblI5UfRiOpU257GuoDjSId0OmwBRigzMPdHnOshL0vp0PGtHYdDstGUru5
- ZjymD2Yc1OOWIhyTR2vtky9zew687ZvpEpHTs9zo=
-Date: Wed, 15 Apr 2020 21:39:20 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [RFC PATCH 02/16] ASoC: pcm512x: use "sclk" string to retrieve
- clock
-Message-ID: <20200415203920.GN5265@sirena.org.uk>
-References: <20200414182728.GM5412@sirena.org.uk>
- <3017b762-7a0c-cee2-06dd-1e96f52eb849@linux.intel.com>
- <20200414195031.GP5412@sirena.org.uk>
- <0d2aed9b-5c79-9ed2-6ca1-67b2688e4c99@linux.intel.com>
- <20200415113630.GC5265@sirena.org.uk>
- <4635e57b-fccd-d8a9-fa99-8124debb3428@linux.intel.com>
- <20200415162247.GF5265@sirena.org.uk>
- <9a7fbbac-818a-01d0-7a32-8ae313f9ad50@linux.intel.com>
- <20200415195033.GL5265@sirena.org.uk>
- <b2db6026-c29f-0213-98d1-d8533e3159e1@linux.intel.com>
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="LwZ76ION"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1586985993;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=XyCvsVD72flvIWCDcxqkGp3qvk3BiWVw36w2SyJzTN0=;
+ b=LwZ76IONt+P4yegjWjNIIZYJCXPavhyJfncFYNXGxcGQ0SMqnkNYzIL4VcwLK4epqbm1H9
+ VpPzh3Q/Bc8llW7rKRTgpBNKCEqpFUdu82tTwD/gxrefDrDbriPkfH4s6nkR44iaGzohRv
+ Ab5X16AiBjMY2W1NB1Z4vqheRKQn86c=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-89-o27Vn6AkN7a3cE7LZShCrA-1; Wed, 15 Apr 2020 17:26:30 -0400
+X-MC-Unique: o27Vn6AkN7a3cE7LZShCrA-1
+Received: by mail-wm1-f69.google.com with SMTP id h22so522828wml.1
+ for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 14:26:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=XyCvsVD72flvIWCDcxqkGp3qvk3BiWVw36w2SyJzTN0=;
+ b=Os8iYIzcChHVOi6AaXucjHZo3FBs08y8x1HGIjVayVKu68RzHoAAD+bSLqhEUdzReW
+ TzPdfxOkeHRL4D2pGdkLRNqMMGaAj/CEIs1io0VoX4zQESawc4QHsy5ieuqC7RJVAzFi
+ nVOKUrOtyVM5ZinHh66ENqEYAXSM9JPW8AbusGyjWAhqeZaower/V2eQbjqJIXAzqiq5
+ kuLjEIYiTzsPLrlXhy0fxjINYtPnDBtBf9MLqeFmryKnv2+yMYg918w/40wDAqFDU4zw
+ QEdYETOfNcgq6A9fwSakS/30pELZ32IAPiOwup4c7SXOmSB3IkFMFSyX2MRzNCtNl0gY
+ 2F0g==
+X-Gm-Message-State: AGi0PuZTUI0uHqCeQK8s0DI+tCLaYYyn8P6HSyA7JQtK/ZmsK0ejstZZ
+ 471bXZWpDVdly5L31GW7ROS7AdSn5jWIzG0icXDPobWcn7iHj7zvI5WIuMVActH5FPSiJdjxmT0
+ CSd35NQH7Rk48DXq2frbfxUo=
+X-Received: by 2002:a1c:2dc7:: with SMTP id t190mr1173754wmt.129.1586985989537; 
+ Wed, 15 Apr 2020 14:26:29 -0700 (PDT)
+X-Google-Smtp-Source: APiQypLjVPZnWy9RDTF9crBCQHn2CIR5YcaF7rmR9LIdwETP+riVriMiFXC5vEgIHKhyisb2GojeUw==
+X-Received: by 2002:a1c:2dc7:: with SMTP id t190mr1173740wmt.129.1586985989292; 
+ Wed, 15 Apr 2020 14:26:29 -0700 (PDT)
+Received: from x1.localdomain
+ (2001-1c00-0c0c-fe00-d2ea-f29d-118b-24dc.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c0c:fe00:d2ea:f29d:118b:24dc])
+ by smtp.gmail.com with ESMTPSA id n4sm934009wmi.20.2020.04.15.14.26.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Apr 2020 14:26:28 -0700 (PDT)
+Subject: Re: [RFC TEST] ASoC: soc-dai: revert all changes to DAI
+ startup/shutdown sequence
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+References: <20200415030437.23803-1-pierre-louis.bossart@linux.intel.com>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <9bbb1e49-6542-b1a3-d9e6-8dd30b79d07f@redhat.com>
+Date: Wed, 15 Apr 2020 23:26:27 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="prC3/KjdfqNV7evK"
-Content-Disposition: inline
-In-Reply-To: <b2db6026-c29f-0213-98d1-d8533e3159e1@linux.intel.com>
-X-Cookie: Hire the morally handicapped.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Matthias Reichl <hias@horus.com>,
- tiwai@suse.de, Linus Walleij <linus.walleij@linaro.org>,
- Stephen Boyd <sboyd@kernel.org>, Daniel Matuschek <daniel@hifiberry.com>,
- linux-clk@vger.kernel.org, Hui Wang <hui.wang@canonical.com>,
- linux-gpio@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Michael Turquette <mturquette@baylibre.com>
+In-Reply-To: <20200415030437.23803-1-pierre-louis.bossart@linux.intel.com>
+Content-Language: en-US
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: tiwai@suse.de, broonie@kernel.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,60 +117,102 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
---prC3/KjdfqNV7evK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On 4/15/20 5:04 AM, Pierre-Louis Bossart wrote:
+> On Baytrail/Cherrytrail, the Atom/SST driver fails miserably:
+> 
+> [    9.741953] intel_sst_acpi 80860F28:00: FW Version 01.0c.00.01
+> [    9.832992] intel_sst_acpi 80860F28:00: FW sent error response 0x40034
+> [    9.833019] intel_sst_acpi 80860F28:00: FW alloc failed ret -4
+> [    9.833028] intel_sst_acpi 80860F28:00: sst_get_stream returned err -5
+> [    9.833033] sst-mfld-platform sst-mfld-platform: ASoC: DAI prepare error: -5
+> [    9.833037]  Baytrail Audio Port: ASoC: prepare FE Baytrail Audio Port failed
+> [    9.853942] intel_sst_acpi 80860F28:00: FW sent error response 0x40034
+> [    9.853974] intel_sst_acpi 80860F28:00: FW alloc failed ret -4
+> [    9.853984] intel_sst_acpi 80860F28:00: sst_get_stream returned err -5
+> [    9.853990] sst-mfld-platform sst-mfld-platform: ASoC: DAI prepare error: -5
+> [    9.853994]  Baytrail Audio Port: ASoC: prepare FE Baytrail Audio Port failed
+> 
+> Commit b56be800f1292 ("ASoC: soc-pcm: call
+> snd_soc_dai_startup()/shutdown() once") was the initial problematic
+> commit.
+> 
+> Commit 1ba616bd1a6d5e ("ASoC: soc-dai: fix DAI startup/shutdown sequence")
+> was an attempt to fix things but it does not work on Baytrail,
+> reverting all changes seems necessary for now.
+> 
+> Fixes: 1ba616bd1a6d5e ("ASoC: soc-dai: fix DAI startup/shutdown sequence")
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-On Wed, Apr 15, 2020 at 03:22:50PM -0500, Pierre-Louis Bossart wrote:
+Thank you for figuring this out!
 
-> > In the case of this driver could you look at registering the link from
-> > the device for the clocks?  Have it say "I supply SCK on device X" as it
-> > registers.  That should be fairly straightforward I think, we do that
-> > for one of the regulators.
+I've tested this on the 2 devices where I have seen the problem
+(the only 2 devices on which I've tested 5.7-rc1 so far):
 
-> When you wrote 'in the case of this driver', were you referring to the clock
-> provider, saying 'I support SCK on device i2c-104C5122:00' ?
+One Cherry Trail device with a RT5645 codec and another
+Cherry Trail device with an ES8316 and I can confirm that this
+fixes the issue on both devices:
 
-Yes.
+Tested-by: Hans de Goede <hdegoede@redhat.com>
 
-> If you have a pointer on the regulator example, I'd appreciate it, I am
-> really way beyond my comfort zone.
+Regards,
 
-The arizona driver is what I was thinking of, that's more complex than
-you proabably need as it's a MFD.
+Hans
 
-> Maybe an alternate suggestion if you want to avoid hard-coded strings in the
-> kernel: what if we added optional properties for the clock lookup name in
-> both the codec and clock driver, and set the name in a _DSD blob. That would
-> move the platform-specific names to platform firmware, and avoid the links
-> described above that are probably ACPI-only.
 
-If you read the lookup information from firmware somehow that's probably
-fine I think.  It's not nice but if it's baked into firmware...
+> ---
+> 
+> Sending as RFC since I don't have a good understanding of the
+> root-cause and for others to confirm my findings. Tested on top of
+> v5.7-rc1.
+> 
+>   include/sound/soc-dai.h |  1 -
+>   sound/soc/soc-dai.c     | 11 ++---------
+>   2 files changed, 2 insertions(+), 10 deletions(-)
+> 
+> diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
+> index d4825b82c7a3..b33abe93b905 100644
+> --- a/include/sound/soc-dai.h
+> +++ b/include/sound/soc-dai.h
+> @@ -351,7 +351,6 @@ struct snd_soc_dai {
+>   
+>   	/* bit field */
+>   	unsigned int probed:1;
+> -	unsigned int started[SNDRV_PCM_STREAM_LAST + 1];
+>   };
+>   
+>   static inline struct snd_soc_pcm_stream *
+> diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
+> index 8f3cad8db89a..31c41559034b 100644
+> --- a/sound/soc/soc-dai.c
+> +++ b/sound/soc/soc-dai.c
+> @@ -295,24 +295,17 @@ int snd_soc_dai_startup(struct snd_soc_dai *dai,
+>   {
+>   	int ret = 0;
+>   
+> -	if (!dai->started[substream->stream] &&
+> -	    dai->driver->ops->startup)
+> +	if (dai->driver->ops->startup)
+>   		ret = dai->driver->ops->startup(substream, dai);
+>   
+> -	if (ret == 0)
+> -		dai->started[substream->stream] = 1;
+> -
+>   	return ret;
+>   }
+>   
+>   void snd_soc_dai_shutdown(struct snd_soc_dai *dai,
+>   			 struct snd_pcm_substream *substream)
+>   {
+> -	if (dai->started[substream->stream] &&
+> -	    dai->driver->ops->shutdown)
+> +	if (dai->driver->ops->shutdown)
+>   		dai->driver->ops->shutdown(substream, dai);
+> -
+> -	dai->started[substream->stream] = 0;
+>   }
+>   
+>   int snd_soc_dai_prepare(struct snd_soc_dai *dai,
+> 
 
-> > I think by now there's ample evidence that it's worth investing in
-> > better firmware descriptions :(
-
-> Indeed, and tools to check they are correct! Most of the stuff we defined
-> for SoundWire ends-up wrong or undefined, still an uphill battle...
-
-The audio-graph-card appears to be working really well FWIW,
-Morimoto-san did an excellent job there.
-
---prC3/KjdfqNV7evK
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6XcPcACgkQJNaLcl1U
-h9CebAf6A48V9aus+H7FxEuq8AB7bAyf63kZiGZv2wSHn2LPeRtdM3Gq+gQ8DX9B
-ABou4ScgfHuBiZJgP6/CXeSIJDoyRSvrMWyv/RkGa9Dunj+THYuMATPnC9lDZYPt
-mNV/3tTBBOBajXwJgkMKw3lGnUz9o2BaQeiWBYin8LH0SpqddEn5ORv5Jv2Pf4CN
-dNhyO1C8Bfd1aUhhUzmLQwvkh9WU7hRPutGJMcj1Ygf3ayRFUTHV8txS1d8ikEi6
-2wi8zeIhgpgK4G4WUxgLUbT4kj1zqV3ZAPEaz9ALlh8Fy7EctSi8tFeAWCZMETX/
-Kli2fIRNAisVjMywH3V0NtxEI/MVxA==
-=uaKf
------END PGP SIGNATURE-----
-
---prC3/KjdfqNV7evK--

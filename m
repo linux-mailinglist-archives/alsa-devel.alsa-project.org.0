@@ -2,64 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E23E1AA100
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 14:38:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61AC81AAAF9
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 16:59:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 215E11671;
-	Wed, 15 Apr 2020 14:37:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 215E11671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 064561612;
+	Wed, 15 Apr 2020 16:58:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 064561612
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586954318;
-	bh=AvCoq+ZNYuYT4wKGBtVZSAxZ6mbek3CIqjG584ycEkw=;
-	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Qu0LNmKaa5Z1zBHxt4bdkDfol2lLIMdg5NPch5GzwKCb/tDoxwK96faX4inXRgK89
-	 Wp/54ltymYlUlvD59J62wCtPS+RG06ZeGO0LTC/ZoS9B0F2D9JKX9Hhmag4H2xZHQ3
-	 8L6+qDyWY+iVduv1YEFWxkRYjdBJgFAFOLGfT4Zg=
+	s=default; t=1586962779;
+	bh=fPIjh/S+wnnHjQtoUmOuMrDRrCKv+RQs+5PDZ83/ZYE=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=VmHbHKSwSkkkoYeoNPob7DQ/eoCt9b95RhWYzaD9zPAQFbXfFz9nwLG5KkJXINSe6
+	 I60Fj6u4/ZE2Fa9/NRuYQu/BGDFXW8IVmI4YaEiCQowkg9q3b5gDG2QBJXc6DW/whK
+	 B3EiUo/tWTRfQJrZyKYrW5Lf0VQ943UCTCWLKRgk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A4C6DF8026A;
-	Wed, 15 Apr 2020 14:36:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EEC11F80115;
+	Wed, 15 Apr 2020 16:57:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 71C08F8025F; Wed, 15 Apr 2020 14:35:02 +0200 (CEST)
+ id 463F8F80115; Wed, 15 Apr 2020 16:57:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
- SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A6C19F800ED
- for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 14:34:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6C19F800ED
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="bdd94AVl"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BA2B520737;
- Wed, 15 Apr 2020 12:34:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586954089;
- bh=AvCoq+ZNYuYT4wKGBtVZSAxZ6mbek3CIqjG584ycEkw=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=bdd94AVlFtiR+pdTp2Pja6K/zR02AuhVsH3ppjXabwiXxUM1cmlajv+RPMMuqliuN
- NbOLal6j6Q3ybmbccmXCjn6OOZImKPYW8qKaM/kDXbAtXc/4vYMFYPnPAagSe4Nj5d
- 8aO3hvbSBKIvpQfobTHLoSX2UErITaJRtF7y4HN8=
-Date: Wed, 15 Apr 2020 13:34:46 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Applied "ASoC: Intel: skl_hda_generic: remove rtd->codec_dai" to the
- asoc tree
-In-Reply-To: <20200415032647.11209-1-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20200415032647.11209-1-pierre-louis.bossart@linux.intel.com>
-X-Patchwork-Hint: ignore
-Cc: tiwai@suse.de, Stephen Rothwell <sfr@canb.auug.org.au>,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 59F44F80115
+ for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 16:57:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59F44F80115
+IronPort-SDR: nsYVq48mgFPtOWI5rEB0Jm5jOuEnuryueaIT5/z39JclFKwB/AmBq9YtL62F2blZeCvAX19t9C
+ kWKTdGcHzlvg==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Apr 2020 07:57:09 -0700
+IronPort-SDR: vTZGDdDuMV+ybxPP4XZua6xk6dUN/yHLuEGjn3AQCYHjh1uACWaSCt7N6rt09jcVkdqBHiXq2/
+ UTKYIoOEExpw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,387,1580803200"; d="scan'208";a="400337197"
+Received: from ccarey-mobl.amr.corp.intel.com (HELO [10.209.36.121])
+ ([10.209.36.121])
+ by orsmga004.jf.intel.com with ESMTP; 15 Apr 2020 07:57:07 -0700
+Subject: Re: [RFC PATCH 04/16] ASoC: Intel: sof-pcm512x: detect Hifiberry DAC+
+ PRO
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+References: <20200409195841.18901-1-pierre-louis.bossart@linux.intel.com>
+ <20200409195841.18901-5-pierre-louis.bossart@linux.intel.com>
+ <20200414172002.GD34613@smile.fi.intel.com>
+ <d3b154f4-fa8a-50a5-7246-51d31e18c4e6@linux.intel.com>
+ <20200415095526.GP34613@smile.fi.intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <664999e7-f345-7296-feca-56cb53a27eb1@linux.intel.com>
+Date: Wed, 15 Apr 2020 09:07:20 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
+MIME-Version: 1.0
+In-Reply-To: <20200415095526.GP34613@smile.fi.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, linux-gpio@vger.kernel.org, tiwai@suse.de,
+ Linus Walleij <linus.walleij@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
+ Daniel Matuschek <daniel@hifiberry.com>, Hui Wang <hui.wang@canonical.com>,
+ Matthias Reichl <hias@horus.com>, Rob Herring <robh+dt@kernel.org>,
+ broonie@kernel.org, Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+ Michael Turquette <mturquette@baylibre.com>, linux-clk@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,61 +89,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
 
-   ASoC: Intel: skl_hda_generic: remove rtd->codec_dai
 
-has been applied to the asoc tree at
+On 4/15/20 4:55 AM, Andy Shevchenko wrote:
+> On Tue, Apr 14, 2020 at 01:02:12PM -0500, Pierre-Louis Bossart wrote:
+>> On 4/14/20 12:20 PM, Andy Shevchenko wrote:
+>>> On Thu, Apr 09, 2020 at 02:58:29PM -0500, Pierre-Louis Bossart wrote:
+> 
+> ...
+> 
+>>>> +	ctx->sclk = devm_clk_get(rtd->card->dev, "sclk");
+>>>
+>>> Is this in the bindings?
+>>
+>> Not for now. the 'sclk' part is only used by me myself and I in an ACPI
+>> context. I can add this description if desired.
+> 
+> Unfortunately you need to add this to the bindings, because it's a part of it
+> and somebody may use it outside of your scope.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+ok
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+>>>> +	if (IS_ERR(ctx->sclk)) {
+>>>
+>>>> +		dev_info(dev, "Could not get SCLK, will operate in SOC master mode\n");
+>>>
+>>> Sounds like devm_clk_get_optional().
+>>
+>> I am not sure about the semantic here. This driver selects the one which
+>> implements this clock, so if we get a -ENOENT return it's a very bad sign.
+>> Not sure what suppressing the error and converting to NULL would do?
+> 
+> Same as per GPIO.
+> Can it work without this clock? How did it work before your change?
+> 
+> When you add any hard dependency always ask yourself above questions.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+The clock is not required in codec slave mode, it's provided by the SOC.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+The clock is required when the codec is configured as master. Without 
+these GPIO selection there will be no audio. So yes we could move this 
+to devm_clk_get_optional() and change the test to IS_ERR_OR_NULL.
 
-Thanks,
-Mark
 
-From 46b7e2ff8cb67f9f23bdfec0d8d08d803eb1146e Mon Sep 17 00:00:00 2001
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Tue, 14 Apr 2020 22:26:47 -0500
-Subject: [PATCH] ASoC: Intel: skl_hda_generic: remove rtd->codec_dai
 
-Use macro and solve compilation issues
-
-Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200415032647.11209-1-pierre-louis.bossart@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/intel/boards/skl_hda_dsp_generic.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/intel/boards/skl_hda_dsp_generic.c b/sound/soc/intel/boards/skl_hda_dsp_generic.c
-index 64197b010e7d..35f222ed9912 100644
---- a/sound/soc/intel/boards/skl_hda_dsp_generic.c
-+++ b/sound/soc/intel/boards/skl_hda_dsp_generic.c
-@@ -175,7 +175,7 @@ static void skl_set_hda_codec_autosuspend_delay(struct snd_soc_card *card)
- 	struct snd_soc_pcm_runtime *rtd =
- 		list_first_entry(&card->rtd_list,
- 				 struct snd_soc_pcm_runtime, list);
--	struct snd_soc_dai *codec_dai = rtd->codec_dai;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	struct hdac_hda_priv *hda_pvt;
- 
- 	if (!codec_dai)
--- 
-2.20.1
-
+>>>> +		goto skip_dacpro;
+>>>> +	}
+> 

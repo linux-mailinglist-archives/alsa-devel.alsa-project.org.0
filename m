@@ -2,66 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 683581AA9BB
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 16:21:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E35F1AAE6A
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 18:45:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09C99166F;
-	Wed, 15 Apr 2020 16:20:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09C99166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id DBEA91662;
+	Wed, 15 Apr 2020 18:44:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBEA91662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586960488;
-	bh=uRTx3Uw3M66GVuY4Xz6as8E0+YmeQonfHmvRks83Q4w=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Us967NHkEcm85nkvs6eUtIAos4aP2riZterNyh19DGguVECGHyGmF9BPf5Lf0md/V
-	 F8GrsR6jjOPu3PUA8nNiVyDTVLMnHS7IItShvIPLW4l8HoVfmp0xJeECk8C3BFXsuW
-	 GZW/tGLjcQ/mpUqMKTiZhnOHHNnj7NIBo9LFkB68=
+	s=default; t=1586969147;
+	bh=1V7bTS8hJtHnyewIxglL6roHI427met7ojZCpPvNXIE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=TAXj4qYpazeXnegGdZPtHslLYFolhreJSGy2t0pt4vxf2RxoTObhFP/NIyr4nNnBx
+	 Yki9DlKdRK1zg3L1+jAZTzMagO5Cb7N9UgYLTPsKJFMwHQfFuxi1OW68Ir+74zjFMK
+	 mxD3AbjaGxDvcPfXs1v21qf0TabaAIhlrXwOCnjc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01A5CF80124;
-	Wed, 15 Apr 2020 16:19:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8D0EF80115;
+	Wed, 15 Apr 2020 18:44:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BA254F80124; Wed, 15 Apr 2020 16:19:43 +0200 (CEST)
+ id BA4B8F80245; Wed, 15 Apr 2020 18:44:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DFD63F80124
- for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 16:19:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFD63F80124
-IronPort-SDR: 1/V77jipPkDgbNS9R5xDahAPp6FEVLmO0qzr7iWSalqFuGFhHlTxxatQdiKfsUsB0Ai/yZAmnJ
- oQ6em99i7NDg==
+ by alsa1.perex.cz (Postfix) with ESMTPS id DFD9CF80124
+ for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 18:43:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFD9CF80124
+IronPort-SDR: PBp8zH3aB5iEJonc92lsn9eRptDjaj28onWUWA0fsAQY/RKmRLa4CUaEMR1TcrvbWXFUlcSY8o
+ rEbIt+lnIH0g==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2020 07:19:33 -0700
-IronPort-SDR: tCWXMGZgkMMQuXn65NPlJ7WtiIo4kNmLnWH+D5xHmPFSJXSZJIu6lHrUh1DqT6oHWa3Y7/lcbz
- fP85v3z/LaGQ==
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Apr 2020 09:43:55 -0700
+IronPort-SDR: fuagpmujq77Rziv1zLS89tA66hrokcG+kqQcDL48t9oyYrlnE8kYF9kpV2ECtPeXNwsgFX/yNK
+ WglxWEVbKDmg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,387,1580803200"; d="scan'208";a="242317080"
-Received: from pi-desktop.igk.intel.com ([10.237.148.102])
- by orsmga007.jf.intel.com with ESMTP; 15 Apr 2020 07:19:30 -0700
-From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 1/3] ASoC: codecs: hdac_hdmi: Fix incorrect use of
- list_for_each_entry
-Date: Wed, 15 Apr 2020 12:28:49 -0400
-Message-Id: <20200415162849.308-1-amadeuszx.slawinski@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
+X-IronPort-AV: E=Sophos;i="5.72,387,1580803200"; d="scan'208";a="256912004"
+Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
+ by orsmga006.jf.intel.com with ESMTP; 15 Apr 2020 09:43:52 -0700
+Received: from andy by smile with local (Exim 4.93)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1jOl8l-000pTo-38; Wed, 15 Apr 2020 19:43:55 +0300
+Date: Wed, 15 Apr 2020 19:43:55 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH v4 8/9] ASoC: rt5645: Switch DMI table match to a test of
+ variable
+Message-ID: <20200415164355.GW185537@smile.fi.intel.com>
+References: <20200415145524.31745-1-andriy.shevchenko@linux.intel.com>
+ <20200415145524.31745-9-andriy.shevchenko@linux.intel.com>
+ <20200415162507.GG5265@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200415162507.GG5265@sirena.org.uk>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ x86@kernel.org, Jie Yang <yang.jie@linux.intel.com>,
+ linux-kernel@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ "H. Peter Anvin" <hpa@zytor.com>, Thomas Gleixner <tglx@linutronix.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,37 +88,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If we don't find any pcm, pcm will point at address at an offset from
-the the list head and not a meaningful structure. Fix this by returning
-correct pcm if found and NULL if not. Found with coccinelle.
+On Wed, Apr 15, 2020 at 05:25:07PM +0100, Mark Brown wrote:
+> On Wed, Apr 15, 2020 at 05:55:23PM +0300, Andy Shevchenko wrote:
+> > Since we have a common x86 quirk that provides an exported variable,
+> > use it instead of local DMI table match.
+> > 
+> > Note, arch/x86/kernel/quirks.c::early_platform_detect_quirk() prints
+> > the detected platform.
+> 
+> > @@ -3674,13 +3675,6 @@ static const struct dmi_system_id dmi_platform_data[] = {
+> >  		},
+> >  		.driver_data = (void *)&intel_braswell_platform_data,
+> >  	},
+> > -	{
+> > -		.ident = "Microsoft Surface 3",
+> > -		.matches = {
+> > -			DMI_MATCH(DMI_PRODUCT_NAME, "Surface 3"),
+> > -		},
+> > -		.driver_data = (void *)&intel_braswell_platform_data,
+> > -	},
+> >  	{
+> 
+> Are we going to convert all the other platforms to using a variable too?
 
-Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
----
- sound/soc/codecs/hdac_hdmi.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+It makes sense to ones that have spread quirks over the kernel, like Apple.
 
-diff --git a/sound/soc/codecs/hdac_hdmi.c b/sound/soc/codecs/hdac_hdmi.c
-index fba9b749839d..f26b77faed59 100644
---- a/sound/soc/codecs/hdac_hdmi.c
-+++ b/sound/soc/codecs/hdac_hdmi.c
-@@ -142,14 +142,14 @@ static struct hdac_hdmi_pcm *
- hdac_hdmi_get_pcm_from_cvt(struct hdac_hdmi_priv *hdmi,
- 			   struct hdac_hdmi_cvt *cvt)
- {
--	struct hdac_hdmi_pcm *pcm = NULL;
-+	struct hdac_hdmi_pcm *pcm;
- 
- 	list_for_each_entry(pcm, &hdmi->pcm_list, head) {
- 		if (pcm->cvt == cvt)
--			break;
-+			return pcm;
- 	}
- 
--	return pcm;
-+	return NULL;
- }
- 
- static void hdac_hdmi_jack_report(struct hdac_hdmi_pcm *pcm,
 -- 
-2.17.1
+With Best Regards,
+Andy Shevchenko
+
 

@@ -2,85 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05F911AAD48
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 18:24:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDEB01AAD49
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 18:25:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 82E7A1612;
-	Wed, 15 Apr 2020 18:23:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82E7A1612
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9BE93950;
+	Wed, 15 Apr 2020 18:24:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BE93950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586967886;
-	bh=5vqYtdTCKFz1d6OC39tkbz4gI+3qu+ArDdtxYAtQrdc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1586967929;
+	bh=JQT+HuM/zCJTs/fwRKaUbyNCMqGquigm+0jCk+etBu4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dvklcWM7K+N7COPmbQn7Jyr2Vt9bxOZtF31rZbmjc2e4CLXwZSI+jiTYCN3Cb+17Y
-	 x46rZJDqihTZYpm8xCfdOPsMVLQ6xeR0IWGJKTlbEf1E0FRkYf4HRaovDKm3uM67Hs
-	 kXVnEiNouZm2mrzcVhdNxOzNbKpE20zLcXGevNmA=
+	b=cIBca8KSaRHjs2GYtBL+4aBoxtTLCN7+cUuuliUibipKWhJyPvJwzmL9I7T122k5T
+	 IYFPuFNHTitP8OeFD3ZJFL+iDTZl7oyhMTO86aP9A9XCBDyyWNSS+JaBOajrcozxVo
+	 J8rMx47x62LY6UedpSOckWqpZf01PI/i5PCJt6cs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9F38F8025F;
-	Wed, 15 Apr 2020 18:23:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A1A9F80266;
+	Wed, 15 Apr 2020 18:23:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DCBA9F80245; Wed, 15 Apr 2020 18:23:00 +0200 (CEST)
+ id 7919EF80266; Wed, 15 Apr 2020 18:23:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
- SPF_HELO_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1BC30F80124
- for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 18:22:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BC30F80124
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5E3E6F80115
+ for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 18:23:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E3E6F80115
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="utbHXhov"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 76CBF206F9;
- Wed, 15 Apr 2020 16:22:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586967771;
- bh=5vqYtdTCKFz1d6OC39tkbz4gI+3qu+ArDdtxYAtQrdc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=utbHXhovrSMk2Z+MefR5IojzWv2ZfkATL0DePNHpYK2CiqAB04Zmq/N9YZKqDzQTb
- Nr26wl52buZfyRKbSXTvn7HP6bSwM2cz+XnhTxHwXV3cEnxswsDB+0iQJgeaGGCWFP
- XhjtEzs72xyUjkaAF9FhYHckGVTu3by4V162+WP0=
-Date: Wed, 15 Apr 2020 17:22:47 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [RFC PATCH 02/16] ASoC: pcm512x: use "sclk" string to retrieve
- clock
-Message-ID: <20200415162247.GF5265@sirena.org.uk>
-References: <20200409195841.18901-1-pierre-louis.bossart@linux.intel.com>
- <20200409195841.18901-3-pierre-louis.bossart@linux.intel.com>
- <20200414174530.GK5412@sirena.org.uk>
- <8ee01a4f-ceb2-d207-7cef-cf766fa670af@linux.intel.com>
- <20200414182728.GM5412@sirena.org.uk>
- <3017b762-7a0c-cee2-06dd-1e96f52eb849@linux.intel.com>
- <20200414195031.GP5412@sirena.org.uk>
- <0d2aed9b-5c79-9ed2-6ca1-67b2688e4c99@linux.intel.com>
- <20200415113630.GC5265@sirena.org.uk>
- <4635e57b-fccd-d8a9-fa99-8124debb3428@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="fJ7OMWyy"
+Received: by mail-wr1-x443.google.com with SMTP id d27so632776wra.1
+ for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 09:23:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=kcC5qrP6lxTN1bpMkTFtJey878YdcmfOfdqMdienk8M=;
+ b=fJ7OMWyy7qFjUirTnI0docDJt58yTpgVEo6ANazO+reesGXk76M7yy6aJaNPPbNI3y
+ sd5bj1WtrWFdAItXHxclSwqqwj6FNpoM51grUgNZMv9JLeyLFTG4uECZ2bkiqdapSYAs
+ pSCLmTxHGDXNZdSa3aRXnP0p7Dbs/2/5h6jX8/FUmGqHnYjGsVkkbufxU+Z+36wmbskf
+ B7pCrc0cuckvf+iS4b6hcIiGTgJwhBwiq7gTuaAiWUVSEbImXvl9hF7UFWMpklUAKlqZ
+ ZKH5hopTA1EjtJ1pDYd8SQtIFxVfVTs7Gy1yLQsBXn1WOEwF8biNONcmG5lh1WMkTbAu
+ udNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=kcC5qrP6lxTN1bpMkTFtJey878YdcmfOfdqMdienk8M=;
+ b=RA3aSB4emLapj8aQb1A+I1Yf07psp5QHI7Ro7HJpJK4N8s+iddWZigsUmE8ergfZ8r
+ 2Z3+KPGhF+W+EMRlYWsk0GHZscZsWAooMXG/+n/KCV8l6h8YcD79zi/ED8vYUNotftDd
+ +zn9PS9sR123Iz9yW9mXduL91wG+SgeDAVXX+m9pR4k3u+oq0PvLlg6C2uh6A1bCBDMr
+ sOjLexd09a/4n6QlCmqNtMlLklx1A0RLh+sY5uPk0Z1UcD5JjbEEQRrm0bSat0yi0Lv0
+ 7+tLJWHyVObcoN37UmD6AVZOhJWu/kEHI3PhXpsAtisyR2AmOoXQz0p7EV9Q9HPBoGUz
+ LXPg==
+X-Gm-Message-State: AGi0PuYefGrTAm2vPm1w8Z9cF+dv7/t6dDThit9UXUoasgO5sleCm11C
+ j6vRYn9khEMlrAWJqiPhHvQPmA==
+X-Google-Smtp-Source: APiQypL4bpCX/4+MH2JpnPfyGaDtORfMr5BfRwUzdf/j2p47frdwbq3qevkXrlCJWx4ErCfvXwoRYQ==
+X-Received: by 2002:a5d:4cd0:: with SMTP id c16mr23693829wrt.98.1586967817240; 
+ Wed, 15 Apr 2020 09:23:37 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.googlemail.com with ESMTPSA id h188sm112330wme.8.2020.04.15.09.23.36
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 15 Apr 2020 09:23:36 -0700 (PDT)
+Subject: Re: [PATCH] ASoC: q6dsp6: q6afe-dai: add missing channels to MI2S DAIs
+To: Stephan Gerhold <stephan@gerhold.net>, Mark Brown <broonie@kernel.org>
+References: <20200415150050.616392-1-stephan@gerhold.net>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <30d5c723-d840-3e0f-17c8-dcbfb45a3528@linaro.org>
+Date: Wed, 15 Apr 2020 17:23:35 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="/QKKmeG/X/bPShih"
-Content-Disposition: inline
-In-Reply-To: <4635e57b-fccd-d8a9-fa99-8124debb3428@linux.intel.com>
-X-Cookie: Hire the morally handicapped.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Rob Herring <robh+dt@kernel.org>,
- linux-gpio@vger.kernel.org, tiwai@suse.de,
- Linus Walleij <linus.walleij@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
- Daniel Matuschek <daniel@hifiberry.com>, Hui Wang <hui.wang@canonical.com>,
- Matthias Reichl <hias@horus.com>, Michael Turquette <mturquette@baylibre.com>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, linux-clk@vger.kernel.org
+In-Reply-To: <20200415150050.616392-1-stephan@gerhold.net>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Banajit Goswami <bgoswami@codeaurora.org>, alsa-devel@alsa-project.org,
+ Patrick Lai <plai@codeaurora.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ ~postmarketos/upstreaming@lists.sr.ht
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,80 +106,121 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---/QKKmeG/X/bPShih
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Wed, Apr 15, 2020 at 09:44:12AM -0500, Pierre-Louis Bossart wrote:
-> On 4/15/20 6:36 AM, Mark Brown wrote:
+On 15/04/2020 16:00, Stephan Gerhold wrote:
+> For some reason, the MI2S DAIs do not have channels_min/max defined.
+> This means that snd_soc_dai_stream_valid() returns false,
+> i.e. the DAIs have neither valid playback nor capture stream.
+> 
+> It's quite surprising that this ever worked correctly,
+> but in 5.7-rc1 this is now failing badly: :)
+> 
+> Commit 0e9cf4c452ad ("ASoC: pcm: check if cpu-dai supports a given stream")
+> introduced a check for snd_soc_dai_stream_valid() before calling
+> hw_params(), which means that the q6i2s_hw_params() function
+> was never called, eventually resulting in:
+> 
+>      qcom-q6afe aprsvc:q6afe:4:4: no line is assigned
+> 
+> ... even though "qcom,sd-lines" is set in the device tree.
+> 
+> Commit 9b5db059366a ("ASoC: soc-pcm: dpcm: Only allow playback/capture if supported")
+> now even avoids creating PCM devices if the stream is not supported,
+> which means that it is failing even earlier with e.g.:
+> 
+>      Primary MI2S: ASoC: no backend playback stream
+> 
+> Avoid all that trouble by adding channels_min/max for the MI2S DAIs.
+> 
+> Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> Fixes: 24c4cbcfac09 ("ASoC: qdsp6: q6afe: Add q6afe dai driver")
+> Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
 
-> > Architectures that don't have firmware bindings use straight C code to
-> > register and set things up.  Machine drivers are essentially board
-> > files, they're just audio specific bits of board file that use audio
-> > APIs and so are in the sound directory.
 
-> Humm, we may have a conceptual disconnect here. In the ACPI world, there is
-> no support for the machine driver - unlike Device Tree. It is probed when
+Thanks for the patch,
 
-This is nothing to do with device tree except in that it has useful
-firmware descriptions of the hardware.
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 
-> the SST/SOF driver creates a platform device using the codec _HID as a key
-> to hard-coded lookup tables in sound/soc/intel/common/soc-acpi*.c - it will
-> be probed *after* the codec driver probes. I really don't see how to use the
-> machine driver as currently implemented to establish board-level connections
-> that would influence the codec driver probe and its use of a clock.
 
-You have the opportunity to run whatever code you want to run at the
-point where you're registering your drivers with the system on module
-init, things like DMI quirk tables (which is what you're going to need
-to do here AFAICT) should work just as well there as they do later on
-when the driver loads.
 
-> > I think you're giving up way too easily here.  The kernel has really
-> > good support for systems that don't have any firmware description at
-> > all, this shouldn't be complex or breaking new ground.
-
-> See above, I don't think the machine driver can do what you had in mind?
-
-> I don't see how to proceed unless we remove all support for ACPI, both for
-> codec and clock driver, and trigger their probe "manually" with a
-> board-level initialization.
-
-The clkdev stuff can use dev_name() so so long as the devices appear
-with predictable names you should be fine.  If not IIRC everything in
-ACPI is named in the AML so clkdev could be extended to be able to find
-things based on the names it gives.
-
-> And btw there's already a precedent for using global names, it's what the
-> Skylake driver does for the mclk and ssp clocks. To the best of my knowledge
-> the device specific namespacing does not exist on any ACPI platform. We have
-
-No machine description at all exists on board file systems other than
-what we write in C and they manage to cope with this, I'm sure we can
-find a way to do it with ACPI.  I mentioned clkdev before, that is
-something that's done entirely at the Linux level.
-
-> a request from Dialog to implement the same thing for SOF to solve
-> dependencies on the clock being stable before turning on the codec, so if
-> global names are not acceptable we have a real problem.
-
-If existing usages that have ended up getting merged are going to be
-used to push for additional adoption then that's not encouraging.
-
---/QKKmeG/X/bPShih
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6XNNYACgkQJNaLcl1U
-h9Aqhwf/cG1ywCKHbggOqbCvgesS1TiRvusYdrRC114nvcJ7Ljju1ZCzTa+SK2Xp
-bBL2XaKZ0KYChnzuGMGYjQEJbf1sUbA3zyM5barfwt4syASXT7VeaUfdcTYxS4dA
-pDtWAex05jD2YGVPThnn4AKiCBRB9ygszMsf4NTZHGW7l9bKvvZOWQTuvrZWY3pb
-0vRL6roijlkQ+2lDjpMZPQ9i5ni5Za0rwrHhS2b/kaGkBRZjpYuWjsQJXFRVKOsi
-yF5K3jCsFr7F6AAjEtGYoS5riG2c6vi2nvpquEe3EeAc0i0OlgJNpddd6K/mL+P0
-qqBUAo1IHNAuum9AYzbm9FSCpYBcyg==
-=ww1w
------END PGP SIGNATURE-----
-
---/QKKmeG/X/bPShih--
+> ---
+>   sound/soc/qcom/qdsp6/q6afe-dai.c | 16 ++++++++++++++++
+>   1 file changed, 16 insertions(+)
+> 
+> diff --git a/sound/soc/qcom/qdsp6/q6afe-dai.c b/sound/soc/qcom/qdsp6/q6afe-dai.c
+> index c1a7624eaf17..2a5302f1db98 100644
+> --- a/sound/soc/qcom/qdsp6/q6afe-dai.c
+> +++ b/sound/soc/qcom/qdsp6/q6afe-dai.c
+> @@ -902,6 +902,8 @@ static struct snd_soc_dai_driver q6afe_dais[] = {
+>   				 SNDRV_PCM_RATE_16000,
+>   			.formats = SNDRV_PCM_FMTBIT_S16_LE |
+>   				   SNDRV_PCM_FMTBIT_S24_LE,
+> +			.channels_min = 1,
+> +			.channels_max = 8,
+>   			.rate_min =     8000,
+>   			.rate_max =     48000,
+>   		},
+> @@ -917,6 +919,8 @@ static struct snd_soc_dai_driver q6afe_dais[] = {
+>   				 SNDRV_PCM_RATE_16000,
+>   			.formats = SNDRV_PCM_FMTBIT_S16_LE |
+>   				   SNDRV_PCM_FMTBIT_S24_LE,
+> +			.channels_min = 1,
+> +			.channels_max = 8,
+>   			.rate_min =     8000,
+>   			.rate_max =     48000,
+>   		},
+> @@ -931,6 +935,8 @@ static struct snd_soc_dai_driver q6afe_dais[] = {
+>   			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
+>   				 SNDRV_PCM_RATE_16000,
+>   			.formats = SNDRV_PCM_FMTBIT_S16_LE,
+> +			.channels_min = 1,
+> +			.channels_max = 8,
+>   			.rate_min =     8000,
+>   			.rate_max =     48000,
+>   		},
+> @@ -946,6 +952,8 @@ static struct snd_soc_dai_driver q6afe_dais[] = {
+>   				 SNDRV_PCM_RATE_16000,
+>   			.formats = SNDRV_PCM_FMTBIT_S16_LE |
+>   				   SNDRV_PCM_FMTBIT_S24_LE,
+> +			.channels_min = 1,
+> +			.channels_max = 8,
+>   			.rate_min =     8000,
+>   			.rate_max =     48000,
+>   		},
+> @@ -960,6 +968,8 @@ static struct snd_soc_dai_driver q6afe_dais[] = {
+>   			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
+>   				 SNDRV_PCM_RATE_16000,
+>   			.formats = SNDRV_PCM_FMTBIT_S16_LE,
+> +			.channels_min = 1,
+> +			.channels_max = 8,
+>   			.rate_min =     8000,
+>   			.rate_max =     48000,
+>   		},
+> @@ -975,6 +985,8 @@ static struct snd_soc_dai_driver q6afe_dais[] = {
+>   				 SNDRV_PCM_RATE_16000,
+>   			.formats = SNDRV_PCM_FMTBIT_S16_LE |
+>   				   SNDRV_PCM_FMTBIT_S24_LE,
+> +			.channels_min = 1,
+> +			.channels_max = 8,
+>   			.rate_min =     8000,
+>   			.rate_max =     48000,
+>   		},
+> @@ -989,6 +1001,8 @@ static struct snd_soc_dai_driver q6afe_dais[] = {
+>   			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
+>   				 SNDRV_PCM_RATE_16000,
+>   			.formats = SNDRV_PCM_FMTBIT_S16_LE,
+> +			.channels_min = 1,
+> +			.channels_max = 8,
+>   			.rate_min =     8000,
+>   			.rate_max =     48000,
+>   		},
+> @@ -1004,6 +1018,8 @@ static struct snd_soc_dai_driver q6afe_dais[] = {
+>   				 SNDRV_PCM_RATE_16000,
+>   			.formats = SNDRV_PCM_FMTBIT_S16_LE |
+>   				   SNDRV_PCM_FMTBIT_S24_LE,
+> +			.channels_min = 1,
+> +			.channels_max = 8,
+>   			.rate_min =     8000,
+>   			.rate_max =     48000,
+>   		},
+> 

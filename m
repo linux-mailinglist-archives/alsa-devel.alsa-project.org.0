@@ -2,84 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAE921A9CB3
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 13:38:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB4991A9EEB
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 14:06:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 384481666;
-	Wed, 15 Apr 2020 13:37:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 384481666
+	by alsa0.perex.cz (Postfix) with ESMTPS id EF65C166D;
+	Wed, 15 Apr 2020 14:05:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF65C166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586950703;
-	bh=hGaPNPo2bXtmqhGm530nnBNN9yGymFS64dOLD7ZHm+o=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ccr9Ida0YaWoIKQwZMqIq0lMYAj9159ju2rcqCwwBz+XPMgci61pgPEFEivb6OLAf
-	 wBZ6j5ytxc3in0W27mLMpGMkJe4Jf1o8UdHPY61tTcOAGK8iuAdBYigS+hrn3N94TH
-	 TJPYPXisgI75UXEBi37YcVTJMp7p+eQir6ie2MeU=
+	s=default; t=1586952392;
+	bh=XXcV+4XErxBRJ2lvcaCeiC4djWYf6Iv6N2+KQFtFRLQ=;
+	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=VSIk+RgBGo7a6b6MbN2ck/lG1eo0k4QLtkj+lI41VGrJB4ELLsRJHu8XdIuzMDu+v
+	 ikTOCIy6U/UL8iwgU9qV1MCwQeJeZ2kFFNR5W/vcLdD6UGD5ySWyFvXR3getfiZCrc
+	 ViJ46XdJpsVE2iVbGnxhbod0znfVWZHzh3dvc6hk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 513E6F80115;
-	Wed, 15 Apr 2020 13:36:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9123CF8025F;
+	Wed, 15 Apr 2020 14:04:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 77FC3F80245; Wed, 15 Apr 2020 13:36:38 +0200 (CEST)
+ id BC942F80264; Wed, 15 Apr 2020 14:01:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DB88BF800ED
- for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 13:36:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB88BF800ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id B6659F80229
+ for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 14:00:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6659F80229
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="RDSYzi66"
+ header.b="1p8qlL03"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id EF07220857;
- Wed, 15 Apr 2020 11:36:31 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9906F20575;
+ Wed, 15 Apr 2020 12:00:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586950592;
- bh=hGaPNPo2bXtmqhGm530nnBNN9yGymFS64dOLD7ZHm+o=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RDSYzi66kakJCorZcJfkhARuzoUP//RGk5PLdJ450hrz9g205FplNu38EDzppW/ov
- TCUjHOeKWHOSTLwCFCbpwKqRyUxti0cC9B2ozrkZROzXFkqvqAvpSIOxTy8oo0lB0W
- Xk5FBXSqwwoz0VxNjsg4z4a60Fm/ZN4QZv2mS4DA=
-Date: Wed, 15 Apr 2020 12:36:30 +0100
+ s=default; t=1586952044;
+ bh=XXcV+4XErxBRJ2lvcaCeiC4djWYf6Iv6N2+KQFtFRLQ=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=1p8qlL03YhFtgdjp85otYcO/4XvK7W0JFWKgqC7WTdmAR27ZVH9Y0tEIkzp449+4F
+ wC+0pKWzx3vd9yBhWfIYI3nttp1DJuzNfki6PFR5Ybfd1K/6LD/dipeUzMVop5gnY3
+ KWShg20GVahWITf6ky1mAptI8DJFftptiTKBxgvY=
+Date: Wed, 15 Apr 2020 13:00:41 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [RFC PATCH 02/16] ASoC: pcm512x: use "sclk" string to retrieve
- clock
-Message-ID: <20200415113630.GC5265@sirena.org.uk>
-References: <20200409195841.18901-1-pierre-louis.bossart@linux.intel.com>
- <20200409195841.18901-3-pierre-louis.bossart@linux.intel.com>
- <20200414174530.GK5412@sirena.org.uk>
- <8ee01a4f-ceb2-d207-7cef-cf766fa670af@linux.intel.com>
- <20200414182728.GM5412@sirena.org.uk>
- <3017b762-7a0c-cee2-06dd-1e96f52eb849@linux.intel.com>
- <20200414195031.GP5412@sirena.org.uk>
- <0d2aed9b-5c79-9ed2-6ca1-67b2688e4c99@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="tqI+Z3u+9OQ7kwn0"
-Content-Disposition: inline
-In-Reply-To: <0d2aed9b-5c79-9ed2-6ca1-67b2688e4c99@linux.intel.com>
-X-Cookie: Hire the morally handicapped.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Rob Herring <robh+dt@kernel.org>,
- linux-gpio@vger.kernel.org, tiwai@suse.de,
- Linus Walleij <linus.walleij@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
- Daniel Matuschek <daniel@hifiberry.com>, Hui Wang <hui.wang@canonical.com>,
- Matthias Reichl <hias@horus.com>, Michael Turquette <mturquette@baylibre.com>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, linux-clk@vger.kernel.org
+To: Stephan Gerhold <stephan@gerhold.net>
+Subject: Applied "ASoC: soc-pcm: dpcm: Only allow playback/capture if
+ supported" to the asoc tree
+In-Reply-To: <20200415104928.86091-1-stephan@gerhold.net>
+Message-Id: <applied-20200415104928.86091-1-stephan@gerhold.net>
+X-Patchwork-Hint: ignore
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, ~postmarketos/upstreaming@lists.sr.ht
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,73 +77,108 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The patch
 
---tqI+Z3u+9OQ7kwn0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+   ASoC: soc-pcm: dpcm: Only allow playback/capture if supported
 
-On Tue, Apr 14, 2020 at 03:13:01PM -0500, Pierre-Louis Bossart wrote:
-> On 4/14/20 2:50 PM, Mark Brown wrote:
+has been applied to the asoc tree at
 
-> > It's not just DT platforms that I'm worried about here, it's also ACPI
-> > systems - all it takes is for a system to have a second device and a
-> > name collision could happen, especially with such generic names.  We
-> > tried to avoid doing this for board files for the same reason.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
 
-> I am on the paranoid side but here I don't see much potential for conflicts:
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
 
-> a) this only works for the Up2 board with a HAT connector
-> b) this only work with the Hifiberry DAC+ PRO board.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-> This codec is not used in any traditional client devices.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-That's what you're doing right now but someone else can use the same
-devices, or adopt the same approaches on something like a Chromebook.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-> > My understanding is that ACPI just doesn't have clock bindings (or audio
-> > bindings or...) so you're basically using board files here and board
-> > files can definitely do more than we're seeing here.
+Thanks,
+Mark
 
-> I don't understand your definition of board file, sorry. We've never had
-> one, the only thing that's board-specific is the machine driver.
+From 9b5db059366ae2087e07892b5fc108f81f4ec189 Mon Sep 17 00:00:00 2001
+From: Stephan Gerhold <stephan@gerhold.net>
+Date: Wed, 15 Apr 2020 12:49:28 +0200
+Subject: [PATCH] ASoC: soc-pcm: dpcm: Only allow playback/capture if supported
 
-Architectures that don't have firmware bindings use straight C code to
-register and set things up.  Machine drivers are essentially board
-files, they're just audio specific bits of board file that use audio
-APIs and so are in the sound directory.
+At the moment, PCM devices for DPCM are only created based on the
+dpcm_playback/capture parameters of the DAI link, without considering
+if the CPU/FE DAI is actually capable of playback/capture.
 
-> > You should be able to register links between devices using the clock
-> > API, or add that functionality if it's not there but AFAIK clkdev still
-> > works.
+Normally the dpcm_playback/capture parameter should match the
+capabilities of the CPU DAI. However, there is no way to set that
+parameter from the device tree (e.g. with simple-audio-card or
+qcom sound cards). dpcm_playback/capture are always both set to 1.
 
-> The machine driver has no information whatsoever on who provides the clock.
-> I just don't see how I might link stuff without at least some amount of
-> information?
+This causes problems when the CPU DAI does only support playback
+or capture. Attemting to open that PCM device with an unsupported
+stream type then results in a null pointer dereference:
 
-The machine driver must have this information, it knows exactly what
-hardware it runs on.  The whole point of a machine driver is that it's
-board specific.
+    Unable to handle kernel NULL pointer dereference at virtual address 0000000000000128
+    Internal error: Oops: 96000044 [#1] PREEMPT SMP
+    CPU: 3 PID: 1582 Comm: arecord Not tainted 5.7.0-rc1
+    pc : invalidate_paths_ep+0x30/0xe0
+    lr : snd_soc_dapm_dai_get_connected_widgets+0x170/0x1a8
+    Call trace:
+     invalidate_paths_ep+0x30/0xe0
+     snd_soc_dapm_dai_get_connected_widgets+0x170/0x1a8
+     dpcm_path_get+0x38/0xd0
+     dpcm_fe_dai_open+0x70/0x920
+     snd_pcm_open_substream+0x564/0x840
+     snd_pcm_open+0xfc/0x228
+     snd_pcm_capture_open+0x4c/0x78
+     snd_open+0xac/0x1a8
+     ...
 
-> All I needed was to toggle 2 gpios to select 44.1 or 48kHz...Looks like it's
-> going to take two more years, oh well.
+... because the DAI playback/capture_widget is not set in that case.
 
-I think you're giving up way too easily here.  The kernel has really
-good support for systems that don't have any firmware description at
-all, this shouldn't be complex or breaking new ground.
+We could add checks there to fix the problem (maybe we should
+anyway), but much easier is to not expose the device as
+playback/capture in the first place. Attemting to use that
+device would always fail later anyway.
 
---tqI+Z3u+9OQ7kwn0
-Content-Type: application/pgp-signature; name="signature.asc"
+Add checks for snd_soc_dai_stream_valid() to the DPCM case
+to avoid exposing playback/capture if it is not supported.
 
------BEGIN PGP SIGNATURE-----
+Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
+Link: https://lore.kernel.org/r/20200415104928.86091-1-stephan@gerhold.net
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/soc-pcm.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6W8b0ACgkQJNaLcl1U
-h9D17Af/RhGgm4ZGHtLAdFJ+aGM6tFqBf1vbPHV3CiIESBM6b2F4siv8Zz1Tm62X
-ZrLAoIDt7NB9a9wxuWGYzZL0QKOunAXzw4kAxwdh3HlJPhrlc+mG0CPkc2gccNgb
-v9AQRQJX5Q6RkRsXPKLTENGvvBH/pjsybKCnHGZtj4ffWfitIRGLkRWa5ieEL0XS
-NAY2B1/Oqj0m9UXZnPC4vHPEyflD5z5thYNpCtrikrqWA0f/ydpYVOhLZxI7/Sli
-Bc/Z2E7vEoA/uifEu97t0X0VEqHShdd1ha7EPpNdPv5OUFW4GSrM6XJOIYGmtcAx
-ZKzPKc7vExdL8HgvNakMTp98Uxxfhw==
-=Be0S
------END PGP SIGNATURE-----
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 289aebc15529..1f302de44052 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -2911,8 +2911,17 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ 	int i;
+ 
+ 	if (rtd->dai_link->dynamic || rtd->dai_link->no_pcm) {
+-		playback = rtd->dai_link->dpcm_playback;
+-		capture = rtd->dai_link->dpcm_capture;
++		cpu_dai = asoc_rtd_to_cpu(rtd, 0);
++		if (rtd->num_cpus > 1) {
++			dev_err(rtd->dev,
++				"DPCM doesn't support Multi CPU yet\n");
++			return -EINVAL;
++		}
++
++		playback = rtd->dai_link->dpcm_playback &&
++			   snd_soc_dai_stream_valid(cpu_dai, SNDRV_PCM_STREAM_PLAYBACK);
++		capture = rtd->dai_link->dpcm_capture &&
++			  snd_soc_dai_stream_valid(cpu_dai, SNDRV_PCM_STREAM_CAPTURE);
+ 	} else {
+ 		/* Adapt stream for codec2codec links */
+ 		int cpu_capture = rtd->dai_link->params ?
+-- 
+2.20.1
 
---tqI+Z3u+9OQ7kwn0--

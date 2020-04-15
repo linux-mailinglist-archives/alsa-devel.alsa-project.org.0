@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D89AC1AB296
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 22:38:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 963F81AB29A
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 22:39:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 87F6C86E;
-	Wed, 15 Apr 2020 22:37:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87F6C86E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3DE301669;
+	Wed, 15 Apr 2020 22:38:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DE301669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586983111;
-	bh=ZvVLE6rHuMNHacWfb4ndNwVdi1scp68aUBMDvLFaGE4=;
+	s=default; t=1586983176;
+	bh=mdW3O3vbW9Ngd7ViM5bA5gNK2T0DNNg3KJ8e7CwwfP0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dcpyUgGs6J6C9eJtWFf2T49rpR0x289B3jIjpD9zizidqW4NbLpMVJ96ekXRD/wdT
-	 HVLQGaw2d4H+7jQ+YyJSWmPXQ9A69T7Q7ODaPujKL/qohEg7NBTCgTsNA6v7MaZ0Sh
-	 iG+jHT04pAmSZOvsNR+gK0rpAF5BOMvvUF7Ceby8=
+	b=Z/1CEgQudq5T6ob+AOWlnawnjv3rnXDpzj7v3vENuyUrn9DmNf1K5/goTHxQuNPl0
+	 p+zT9ygwV6HSKxx09vLuM4W49+ULts/QoDmrWCNiQ6Hv0a/fv7+ZIIISwndThvl9sa
+	 wd8dvjTyRF7/VJ8uquo1BRn09hcvLaZq++symR9g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1B7A6F80307;
-	Wed, 15 Apr 2020 22:29:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C316F80321;
+	Wed, 15 Apr 2020 22:29:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E5FB1F802BD; Wed, 15 Apr 2020 22:29:18 +0200 (CEST)
+ id 20DE3F8029B; Wed, 15 Apr 2020 22:29:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,36 +33,39 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A93BFF8027D
- for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 22:29:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A93BFF8027D
-IronPort-SDR: dQpQ4jIbnYE7RP+/m8JPwWYGEhZuFZK1vB4yNtIM3x3GIYaF6VftnjJeG9D3v9K0Du4zO5XQyo
- 1GhBHfNC7JRQ==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 432B0F802BC
+ for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 22:29:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 432B0F802BC
+IronPort-SDR: qV3Er59W6S+I2iQU1940XPZ8r+bE93R5nZlSyT8wQe5VVRiQbhsaE+PFGCX+JUwJwNtHMmJfaR
+ Kc7fY1xim1mQ==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2020 13:29:10 -0700
-IronPort-SDR: CfjThzDCE6+v79qL/R7Rq8PXRYRpy7dcjiEQKXRNZsoPtGeinxkGMOfrbBQZfVlKTWV1O+EIol
- jUVFyW+0ZZ7A==
+ 15 Apr 2020 13:29:11 -0700
+IronPort-SDR: pMkQenf13uke2zT5uqVPQtJIvYpNIQDGeQEkbP+AE0hgxS3a0WA3mMrv+x0pYws08KHkoAEuUR
+ okJltFH3nI8A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,388,1580803200"; d="scan'208";a="288656315"
+X-IronPort-AV: E=Sophos;i="5.72,388,1580803200"; d="scan'208";a="288656316"
 Received: from jplam-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.209.82.197])
- by fmsmga002.fm.intel.com with ESMTP; 15 Apr 2020 13:29:08 -0700
+ by fmsmga002.fm.intel.com with ESMTP; 15 Apr 2020 13:29:09 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 14/24] ASoC: SOF: make sof_ipc_cc_version to fixed length
-Date: Wed, 15 Apr 2020 15:28:06 -0500
-Message-Id: <20200415202816.934-15-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 15/24] ASoC: SOF: Add XRUN flags field to struct
+ sof_ipc_buffer.
+Date: Wed, 15 Apr 2020 15:28:07 -0500
+Message-Id: <20200415202816.934-16-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200415202816.934-1-pierre-louis.bossart@linux.intel.com>
 References: <20200415202816.934-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, broonie@kernel.org, Pan Xiuli <xiuli.pan@linux.intel.com>,
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ Artur Kloniecki <arturx.kloniecki@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, tiwai@suse.de,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+ broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,54 +81,74 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pan Xiuli <xiuli.pan@linux.intel.com>
+From: Artur Kloniecki <arturx.kloniecki@linux.intel.com>
 
-Align struct sof_ipc_cc_version to firmware definition in SOF ABI 3.15.0.
+Currently if a component source buffer underruns or a component sink
+buffer overruns the pipeline will enter an XRUN status and attempt
+recovery. This is desired in most pipelines but some topologies need to
+support use cases where we expect buffers to underrun or overrun.
 
-The struct definition was changed due to errors in FW build.
-The Cadence XCC compiler produces incorrect linkage section sizes, when a
-variable length array is used in the compiler version struct. The firmware
-definition was changed to a fixed 32 byte compiler description string.
-This length covers all released firmware binaries and thus only a minor
-ABI change is needed.
+Host ---> Proc----> Selector0 --> Buf0 ---- > DAI Playback
+                      |
+                      v
+                     Buf1
+                      |
+                      v
+Host <---------------Selector1 <----- Buf2 <----- Echo Ref DAI
 
-As the same structure is used in IPC messages between driver and firmware,
-the kernel needs to be aligned to firmware change.
+In the example above we two host PCMs that can be independently
+started/stopped thereby causing buf1 to either underrun or overrun
+(and stop the pipelines). Buf1 should be permitted to underrun or overrun
+without invoking pipeline XRUN logic and should over write oldest data
+(for overrun) and readback 0s (for underrun).
+
+2 flags have been added for use during buffer instantiation:
+SOF_BUF_OVERRUN_PERMITTED and SOF_BUF_UNDERRUN_PERMITTED,
+along with struct sof_ipc_buffer member fields: flags and reserved.
+Flags field is supposed to hold the above-mentioned flags to allow
+some control over XRUN behaviour.
+Also added reserved field to the structure in case it comes in handy
+some time in the future.
+
+This is an incremental ABI change as the new fields are ignored by older
+versions of the firmware.
 
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Signed-off-by: Pan Xiuli <xiuli.pan@linux.intel.com>
+Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Signed-off-by: Artur Kloniecki <arturx.kloniecki@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- include/sound/sof/info.h     | 2 +-
- include/uapi/sound/sof/abi.h | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ include/sound/sof/topology.h | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/include/sound/sof/info.h b/include/sound/sof/info.h
-index 2ef98b2fee1f..d5eff3179a39 100644
---- a/include/sound/sof/info.h
-+++ b/include/sound/sof/info.h
-@@ -113,7 +113,7 @@ struct sof_ipc_cc_version {
+diff --git a/include/sound/sof/topology.h b/include/sound/sof/topology.h
+index 6a6b4791eaf6..08267d284edc 100644
+--- a/include/sound/sof/topology.h
++++ b/include/sound/sof/topology.h
+@@ -76,11 +76,23 @@ struct sof_ipc_comp {
+ #define SOF_MEM_CAPS_CACHE			(1 << 6) /**< cacheable */
+ #define SOF_MEM_CAPS_EXEC			(1 << 7) /**< executable */
  
- 	uint8_t name[16]; /* null terminated compiler name */
- 	uint8_t optim[4]; /* null terminated compiler -O flag value */
--	uint8_t desc[]; /* null terminated compiler description */
-+	uint8_t desc[32]; /* null terminated compiler description */
++/*
++ * overrun will cause ring buffer overwrite, instead of XRUN.
++ */
++#define SOF_BUF_OVERRUN_PERMITTED	BIT(0)
++
++/*
++ * underrun will cause readback of 0s, instead of XRUN.
++ */
++#define SOF_BUF_UNDERRUN_PERMITTED	BIT(1)
++
+ /* create new component buffer - SOF_IPC_TPLG_BUFFER_NEW */
+ struct sof_ipc_buffer {
+ 	struct sof_ipc_comp comp;
+ 	uint32_t size;		/**< buffer size in bytes */
+ 	uint32_t caps;		/**< SOF_MEM_CAPS_ */
++	uint32_t flags;		/**< SOF_BUF_ flags defined above */
++	uint32_t reserved;	/**< reserved for future use */
  } __packed;
  
- /* extended data: Probe setup */
-diff --git a/include/uapi/sound/sof/abi.h b/include/uapi/sound/sof/abi.h
-index e0fa2939d49c..6c802a2386ef 100644
---- a/include/uapi/sound/sof/abi.h
-+++ b/include/uapi/sound/sof/abi.h
-@@ -26,7 +26,7 @@
- 
- /* SOF ABI version major, minor and patch numbers */
- #define SOF_ABI_MAJOR 3
--#define SOF_ABI_MINOR 14
-+#define SOF_ABI_MINOR 15
- #define SOF_ABI_PATCH 0
- 
- /* SOF ABI version number. Format within 32bit word is MMmmmppp */
+ /* generic component config data - must always be after struct sof_ipc_comp */
 -- 
 2.20.1
 

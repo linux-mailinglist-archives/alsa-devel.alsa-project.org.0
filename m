@@ -2,72 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB51A1AAF8A
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 19:29:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EB471AB049
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 20:03:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8ED681670;
-	Wed, 15 Apr 2020 19:28:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8ED681670
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0EAB21663;
+	Wed, 15 Apr 2020 20:02:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EAB21663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586971777;
-	bh=Up2EZrSuJmR+/Ct9e0Zig4VEgFWU7CsIcOYsNq9adSA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1586973794;
+	bh=lviBmEBXyPoO8ImukLlCzyJqaHikaqB07+H+6JdkSqU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tjixrJWPMkdd6CLC7SILvweCUIGSwZFA1dUUeilzo1Qlt8kge65cE1Np+899En8bD
-	 pUxylv8wmyZnOp5UmXyjO+xVxzBnuh2FD+1RvFQu9OC9inA5QZi6cb9KNJhP5L/ixE
-	 jADpnNuEeNDXTJ5hQI5P+7b+3gdB+aBwDCC1d1RA=
+	b=AtYn4htH4BMYJxxoKLRCNHyxZfBm5eIWGVHJd7DxWe/vwoq1lpGOBQycwrDTghq+u
+	 ORRmL2PtuzkOcPwUOSu6/wP5fxXgruYfuktrCvkBJiV4qlE+wtuc1mI2GkUE+JPNqI
+	 i/2oxxd4G9qI8NCV1TtSWr10gC7exZE03V/ltqMs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8887CF80245;
-	Wed, 15 Apr 2020 19:28:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22D15F80229;
+	Wed, 15 Apr 2020 20:01:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86AFDF80264; Wed, 15 Apr 2020 19:28:23 +0200 (CEST)
+ id 4164BF80245; Wed, 15 Apr 2020 20:01:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
- SPF_HELO_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,HTML_MESSAGE,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-vs1-xe2f.google.com (mail-vs1-xe2f.google.com
+ [IPv6:2607:f8b0:4864:20::e2f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9DB93F80229
- for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 19:28:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DB93F80229
+ by alsa1.perex.cz (Postfix) with ESMTPS id 61BD5F80115
+ for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 20:01:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61BD5F80115
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lgXdq6RZ"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8979A20787;
- Wed, 15 Apr 2020 17:28:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586971698;
- bh=Up2EZrSuJmR+/Ct9e0Zig4VEgFWU7CsIcOYsNq9adSA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=lgXdq6RZoxW+yz0bP0F/wDIm7vdvNvmED9v2AKxDpnPgNw82mcA+WLUP6GUUlhK5t
- /3dHGJI8ZOLa0s6bBp6RbwI0Ymm1bBg1lUWAvTZQn5e+hzkdMkir1Z3jzqBg422lq/
- VOj7XPKkTjmXCGWAACDbNe4wkbeCpVWLFEB11ncE=
-Date: Wed, 15 Apr 2020 18:28:15 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [RFC TEST] ASoC: soc-dai: revert all changes to DAI
- startup/shutdown sequence
-Message-ID: <20200415172815.GJ5265@sirena.org.uk>
-References: <20200415030437.23803-1-pierre-louis.bossart@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="OWFk25m0"
+Received: by mail-vs1-xe2f.google.com with SMTP id p28so417925vsg.13
+ for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 11:01:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=qdKLq0NZlku3Nq34ZCae+lTPN25Hf7+glYBao5E+6g8=;
+ b=OWFk25m0jFOHy1KBnmjt214aFJmDmPs95Zah/DzJUnhakQvZYDlzUuZSGOhcPcvopo
+ K15DpDgRLGOQsiiY/8BciP6ANfOiTpjMxUKnz9ZO4Rpn8DW+iyx5BWhHHF4AVKKlM/Ac
+ Ce5hKhx6B8Kdp3Drt8ENUd0bJ3y51jYFWzi7ydSF2g39yQDreJVXgYNy22zBh1xHjcSS
+ 4jfGg590PdET/PX3wJ59kk73NVT+0fKCjIUK47+yZgZ16A7FZyslpXXxVCNJWw1iHUOI
+ ceGtn0GTyqe0is2qCpod6XgExQ4aJnjLwl1O9O1cfli4YP7LM0Kmxr5C69xSZX3XTnmW
+ r5VQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=qdKLq0NZlku3Nq34ZCae+lTPN25Hf7+glYBao5E+6g8=;
+ b=YqKjdJWspcueX3wCpSc0TybnzhPZrw/PrfMDpQ92tD2Io/iNY20NdAdwEs9/ap+6Jx
+ Bkudf/EdmEZjZx5/nB3bi74T56S56HQYL63KgzG5SMfXxuGXiXY7hPE8D3tWW9APBZHE
+ A6iGtMVIjy2nHhTKJnqDHndIi+Fi6j2xwWtfShr9kss4V/+jFI8JjFp9FyUxQVTnLFv0
+ QQ74Ra+UIQzxMjobEB7HcledtNR4jRDYBbfmNETEwHHWdns3PRr8jjYmp4OFbrArE3Wu
+ JuBT4DUq2cHSOi0sgBBMXTgaYdUqAXge3VQ78etllwp81/nKPKV+PEJJgIuM/r5RP21F
+ qDag==
+X-Gm-Message-State: AGi0PuYdt8DhUGP5/EcnaLGeurAduzIahtmlgmdhsygUUNEeafbFO+7S
+ sPa/i2hcOV8KUW+4xk4dyaVBuZfLjYT5c9xx5kM=
+X-Google-Smtp-Source: APiQypK2EQbfo5zzw73/eDYAr98lggC/KsXp1Oi2zcNkh1O83WIp+1ubTuB4STcbIgzTW6ee8DBuUooEhR9lSrxuASI=
+X-Received: by 2002:a67:d00e:: with SMTP id r14mr5374891vsi.43.1586973678448; 
+ Wed, 15 Apr 2020 11:01:18 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="GlnCQLZWzqLRJED8"
-Content-Disposition: inline
-In-Reply-To: <20200415030437.23803-1-pierre-louis.bossart@linux.intel.com>
-X-Cookie: Hire the morally handicapped.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: tiwai@suse.de, Hans de Goede <hdegoede@redhat.com>,
- alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+References: <CAM2dokvhFWfXev+JMfKnCxCPdLrFgG7xqf=8Dt5N92BPqOGKcA@mail.gmail.com>
+ <efc2d79c-7d08-2d7c-9e4d-18f93b1ca302@linux.intel.com>
+In-Reply-To: <efc2d79c-7d08-2d7c-9e4d-18f93b1ca302@linux.intel.com>
+From: Jaime Perez <19.jaime.91@gmail.com>
+Date: Wed, 15 Apr 2020 20:01:05 +0200
+Message-ID: <CAM2dokt+MZrN_8=BkxXR1-c-r4yPQXSkM7vVzK6U2tNrZChdDQ@mail.gmail.com>
+Subject: Re: Baytrail audio not working on next branch
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,34 +96,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+it works
 
---GlnCQLZWzqLRJED8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+thanks!
 
-On Tue, Apr 14, 2020 at 10:04:37PM -0500, Pierre-Louis Bossart wrote:
+El mi=C3=A9., 15 abr. 2020 a las 17:43, Pierre-Louis Bossart (<
+pierre-louis.bossart@linux.intel.com>) escribi=C3=B3:
 
-> Sending as RFC since I don't have a good understanding of the
-> root-cause and for others to confirm my findings. Tested on top of
-> v5.7-rc1.
-
-Hans?  Morimoto-san?  I'm fine with this as a fix, it's not ideal but
-I'm guessing anything more substantial is going to be unsuitable for a
--rc series.
-
---GlnCQLZWzqLRJED8
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6XRC4ACgkQJNaLcl1U
-h9Ajfwf8DP38+XB2QLA/Iv7hScLp6vKUgfU5N+o0dioKetvISNoURXLOH545LnOc
-IqGzmLBcTaVbVb9f7Y9NnuSVc0qCsw3N+kUIJojNIlB+m8li9sUMVekHj8kUgbjp
-y6mFyK9my8mqn3WZDcMC4eIFZq/6PSDOHXfomkC35QZUpGbvp/VjKLhujkS1uGkg
-VohMLJG3RnA52Pw7cbWlZR/1BhK4RFW/lIapwYmQJlUpBAVuhZRWwnUh6o28nQL7
-ctGu4UGlw77tmdYbZ7NzXLTpTn6N2wy5Ug6/UnYO9LGNEYS7RF13vCmvZ5BWS+T0
-fJcR0ZSvA4vU8vDanqcpIOx65831Jg==
-=7Nan
------END PGP SIGNATURE-----
-
---GlnCQLZWzqLRJED8--
+>
+>
+> On 4/15/20 5:10 AM, Jaime Perez wrote:
+> > tested 20200409 20200413 20200414 tags
+> >
+> > maybe related issue
+> >   https://bugzilla.kernel.org/show_bug.cgi?id=3D201787
+>
+> yes, please try the patch shared yesterday on alsa-devel, thanks!
+>
+> [RFC TEST] ASoC: soc-dai: revert all changes to DAI startup/shutdown
+> sequence
+>
+>
+>

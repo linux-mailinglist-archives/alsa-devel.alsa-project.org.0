@@ -2,68 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CAD61AA99B
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 16:18:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 597DE1AAD4C
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 18:26:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EEBB91676;
-	Wed, 15 Apr 2020 16:17:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEBB91676
+	by alsa0.perex.cz (Postfix) with ESMTPS id F07261675;
+	Wed, 15 Apr 2020 18:25:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F07261675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586960280;
-	bh=p9o9hufIK/yrSdgktx+UBgDMPDTjcDw3OFi3y7wSftA=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1586967968;
+	bh=AYPtS0WYn7H0E9PHyEfI6x2/DOj+Yai+eeorng2znKI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iM+Ua1BGkYZq10LZO3NmuOgCBRcrztqSnO3dYOk9SYumNEdRgH4FMTfWjlUUZ8qSX
-	 XKGS76PsO6xl0htVcJofjjGlU9JZ57Ctz2Hm4/tyklGGwja4+F8z1qi5k2KG9ksi8d
-	 ox6ERN8+NcutmC8zdYM9pbUt9XhPrYvYniBD/0YU=
+	b=PBm1MvfTU1NyUDB0pUeUXvFNIzIc6ViJfgevmkkfsmf3W36xmAXWmtYWlSMtQpJaC
+	 F4oUbJUxWBxMhvS0N66f+TWnDoZ9+/4KAFlxcTw7meRM44u2RGrPi4mD9xIlp17VcI
+	 9PzoWzvBM4lgnVbZ5EHoZJ1SwndDp6U+e+ygkVzQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F079FF80115;
-	Wed, 15 Apr 2020 16:15:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59382F80264;
+	Wed, 15 Apr 2020 18:25:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4800AF80124; Wed, 15 Apr 2020 16:15:33 +0200 (CEST)
+ id 0E132F8025F; Wed, 15 Apr 2020 18:25:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+ SPF_HELO_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 66910F80124
+ for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 18:25:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66910F80124
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="kLk1w3Tm"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2F71BF80124
- for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 16:15:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F71BF80124
-IronPort-SDR: UcL6DPLfVX2B1Y3tR0kkMQ0MuBZi5CsN4jR4zQhOZlPdg4Vg8DErbxylnjvMTZ7wMwMrRlXUPO
- LeslyJOGL9qw==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2020 07:15:22 -0700
-IronPort-SDR: j47obdvQl74ZC/8q4sJZsCIj5Vbah2cc/DY4g/UjAAKe2jK2NhOxjd+wbMaF6kElzRAo9brkDf
- gJj7KD5Do2Sg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,387,1580803200"; d="scan'208";a="271738618"
-Received: from pi-desktop.igk.intel.com ([10.237.148.102])
- by orsmga002.jf.intel.com with ESMTP; 15 Apr 2020 07:15:20 -0700
-From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 2/2] ASoC: topology: Fix endianness issue
-Date: Wed, 15 Apr 2020 12:24:35 -0400
-Message-Id: <20200415162435.31859-2-amadeuszx.slawinski@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200415162435.31859-1-amadeuszx.slawinski@linux.intel.com>
-References: <20200415162435.31859-1-amadeuszx.slawinski@linux.intel.com>
+ by mail.kernel.org (Postfix) with ESMTPSA id 5F0A2206F9;
+ Wed, 15 Apr 2020 16:25:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1586967909;
+ bh=AYPtS0WYn7H0E9PHyEfI6x2/DOj+Yai+eeorng2znKI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=kLk1w3TmchJiUPIe10WuPbeSkMldK/0Wq18qjxpzYBAl3uQY4SqrCC/8Bv7D4tVvD
+ TEmkSlnhTOw0Rokgd9YNTV78Ne4d/VRzuLuE4soUhGi9hUm3yKoNoL9rLi1XdgRaH4
+ sMqE69DntHmURf7FN2A7K9yihVim0wjoENhwK1Mo=
+Date: Wed, 15 Apr 2020 17:25:07 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: Re: [PATCH v4 8/9] ASoC: rt5645: Switch DMI table match to a test of
+ variable
+Message-ID: <20200415162507.GG5265@sirena.org.uk>
+References: <20200415145524.31745-1-andriy.shevchenko@linux.intel.com>
+ <20200415145524.31745-9-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="/Zw+/jwnNHcBRYYu"
+Content-Disposition: inline
+In-Reply-To: <20200415145524.31745-9-andriy.shevchenko@linux.intel.com>
+X-Cookie: Hire the morally handicapped.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ x86@kernel.org, Jie Yang <yang.jie@linux.intel.com>,
+ linux-kernel@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ "H. Peter Anvin" <hpa@zytor.com>, Thomas Gleixner <tglx@linutronix.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,27 +88,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-As done in already existing cases, we should use le32_to_cpu macro while
-accessing hdr->magic. Found with sparse.
 
-Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
----
- sound/soc/soc-topology.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--/Zw+/jwnNHcBRYYu
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
-index a5cd73742dc5..49875978a1ce 100644
---- a/sound/soc/soc-topology.c
-+++ b/sound/soc/soc-topology.c
-@@ -2652,7 +2652,7 @@ static int soc_valid_header(struct soc_tplg *tplg,
- 	}
- 
- 	/* big endian firmware objects not supported atm */
--	if (hdr->magic == SOC_TPLG_MAGIC_BIG_ENDIAN) {
-+	if (le32_to_cpu(hdr->magic) == SOC_TPLG_MAGIC_BIG_ENDIAN) {
- 		dev_err(tplg->dev,
- 			"ASoC: pass %d big endian not supported header got %x at offset 0x%lx size 0x%zx.\n",
- 			tplg->pass, hdr->magic,
--- 
-2.17.1
+On Wed, Apr 15, 2020 at 05:55:23PM +0300, Andy Shevchenko wrote:
+> Since we have a common x86 quirk that provides an exported variable,
+> use it instead of local DMI table match.
+>=20
+> Note, arch/x86/kernel/quirks.c::early_platform_detect_quirk() prints
+> the detected platform.
 
+> @@ -3674,13 +3675,6 @@ static const struct dmi_system_id dmi_platform_dat=
+a[] =3D {
+>  		},
+>  		.driver_data =3D (void *)&intel_braswell_platform_data,
+>  	},
+> -	{
+> -		.ident =3D "Microsoft Surface 3",
+> -		.matches =3D {
+> -			DMI_MATCH(DMI_PRODUCT_NAME, "Surface 3"),
+> -		},
+> -		.driver_data =3D (void *)&intel_braswell_platform_data,
+> -	},
+>  	{
+
+Are we going to convert all the other platforms to using a variable too?
+
+--/Zw+/jwnNHcBRYYu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6XNWIACgkQJNaLcl1U
+h9CV0wf/em9G/ERwnZy11DLRg2vrxZxULM/L8dpShtUtkEt3v/SYJ85NTVR9CAJD
+vjbPS3J/WeRpLmdCalBk8O/QTApngJnK/q4xz0v+/qaYTWQYwlE+NXvsHa1l70Fb
+v5H1hEMwq+2ZeDv3TwU0yAuDK2HlC/IDlppdWDGT5k5tQDAaCVzbs8sMm8fbCa2b
+avEyI1dX3f9ovT6qZUiFEhudRVXLKrb56f7pecBIXtP/jalNrZ8MtKGxNHgDzDzf
+tpXHfW9UH+7cvEn2ZShxvm6O++ye1gmRlzfnHLtf0Y7qlGN1dTVlVgJ2Vw1DubvW
+9SJPbBT5dfSidGq/aedmAqzpVbddKQ==
+=HWhC
+-----END PGP SIGNATURE-----
+
+--/Zw+/jwnNHcBRYYu--

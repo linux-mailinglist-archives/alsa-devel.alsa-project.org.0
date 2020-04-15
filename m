@@ -2,96 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3344F1A8F0E
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 01:22:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAAA61A8F7A
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 02:08:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A81E31663;
-	Wed, 15 Apr 2020 01:21:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A81E31663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 55FD0166F;
+	Wed, 15 Apr 2020 02:07:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55FD0166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586906552;
-	bh=DhBb7YbQg8uA8FQUMAl9TVLqiOPNJ7CzhaFLf19tTVc=;
+	s=default; t=1586909324;
+	bh=d6uxhSulRF8TeLnRDNgidxYMiLjnB2MJe8dPiT5FhzA=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VTexn0Rgs3RN/u6fW42ty7K50pcBqvH4+ydIcRb9j39o/JX4DWb7CeuutaMqvkUkW
-	 gXvm0Nc1dlIwpNen922LZWf/FO/UItuy4+Y8ZmrBMtOTs/VXLrpYP3pdnWLqpojMo/
-	 Bm3mJVl5YIPYRZ9ofSZwN+aU73YR6gXtFksovyAs=
+	b=MyqaQOWJ8zesjdapnXjojVJSf7Z6Cs5EMwl+GzkF2NlhivWo+ES94sNs1T89a6TvP
+	 Q8RSSW+/cdJ82Dg/npILsP7kPafdwqiCbx2qMyEE35JMcx5tU1YG7Jw6kq4RojVYP4
+	 hbGzJnd/3OwXoT7SVSCECHR3Invn5FrMmKutyzeM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C0C7F800B9;
-	Wed, 15 Apr 2020 01:20:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6222CF8014E;
+	Wed, 15 Apr 2020 02:07:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 52539F8013D; Wed, 15 Apr 2020 01:20:48 +0200 (CEST)
+ id 2FD03F8013D; Wed, 15 Apr 2020 02:07:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-ot1-f65.google.com (mail-ot1-f65.google.com
+ [209.85.210.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 34EF0F800B9
- for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 01:20:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34EF0F800B9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="srcLj/bg"
-Received: by mail-wr1-x443.google.com with SMTP id k11so16004534wrp.5
- for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 16:20:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=BA6IA/KUQ2yk6Fs+gDrfnpceXLK3T7qfruEPRzk2NFI=;
- b=srcLj/bgow42ol0OfDwj9gF5b0/NwgG3x4kAxZ4Wi9wTWZE/8NUED8XWG9oQrvEiFd
- 7bI20dbDMEw/AJE0FZ6ehdxcQTodNCjHHIgfDTPSTDPX+7SKlj2ItOx9azKVhNo/aMY9
- dZI9fwAu2Dn6Cu3o1gyFhEHVvGEfXiMbeWN79h7AXlHneWDu/ybXkB6rBXIiVc8PxkFS
- lxFJR4DuczK0PffAC+To3+JuCKwHqQQ7n1XdxJUGdanwRC4qv2r6wgFAb/hD42hnawxS
- 2S+80zqllJz4PCP8spCjAuUtAU1L4QxaEzSRgNYnYg4cnFt6zm7C8qWT4N11IfSe8bQt
- pBHg==
+ by alsa1.perex.cz (Postfix) with ESMTPS id EE1E3F80115
+ for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 02:06:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE1E3F80115
+Received: by mail-ot1-f65.google.com with SMTP id m2so1696233otr.1
+ for <alsa-devel@alsa-project.org>; Tue, 14 Apr 2020 17:06:53 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=BA6IA/KUQ2yk6Fs+gDrfnpceXLK3T7qfruEPRzk2NFI=;
- b=r1Fw8NGfsghBtWT5adYQWAmTuUrY99088d3Zru/TBAxog0mhhrtOgKpsRkicXA23+J
- YbumBZ+j+dkDMV3tX4J33Q2mTPAj3eJW7RNyjV833G6z/eKvRDV5gstdvOEtwk9StOrN
- 0oF6QvhV0FlbXRyH+j6JxzjZqhj5Lmg58W5o5CUE5GyKyzap4rxrih/wnyzBGiLHkvqj
- 8BsnNvj6o0wKA3U3Z7+9pw1pzbblxeibqdEPB4prbt12YAZMvb9V52RSp+qGFxHdVK12
- /AfQVy0fbNLzH67EHlhZ6CL1yvl2c744H678KbEgeXMZIei+iQIchj1j8jqA/l7R3BVF
- NlgA==
-X-Gm-Message-State: AGi0PuaJHRr7ic3E0h413RNZNpTfuPqaOBcpsd4toHd8s97uwR5UhADO
- hGv24vhcdZ98wwrmme3KTVU=
-X-Google-Smtp-Source: APiQypJblcyLc4sTu+r7LHFZ4EAosDjPP3fWPPdA7iuVCzViFOggPyIKTnnD4wXeGWEM4quMoFcocw==
-X-Received: by 2002:a5d:5646:: with SMTP id j6mr1006795wrw.207.1586906443936; 
- Tue, 14 Apr 2020 16:20:43 -0700 (PDT)
-Received: from localhost (108.78.124.78.rev.sfr.net. [78.124.78.108])
- by smtp.gmail.com with ESMTPSA id n4sm20102701wmi.20.2020.04.14.16.20.43
+ bh=zzzsKz1aXq1FGxDkuAfWvlD6tFRvDkWAA3kCh2toeFc=;
+ b=eZ2FBeEdpu2UqAem/WHiYUoR/rUKmfwW7vMm/y6fzWYbT0Ly9VnQ3GSfN2XBJPNpMr
+ kVsevvQY3niq8T8DHoU4i0MoJiKlSf4faIZCJlE6iQlKdzC+ddLCm9MvOViFb0t/QTJ7
+ oZfl5dGPHpGNKUJ59Skoe5aRWrSiH3mCp/NB0qqs/HDPT4hQh9+BMdW5B0BI1FTsfN4+
+ iE4qxbNzqw22k4r4Xf5AvSCSL5n8ofhi1Y7jIJ3QQihC6vTBLU8Qy/p/Or4sQMzSxmXt
+ G2fbJe3tZrWeFtFsPz33IbX4iqvx4st6pgKOllTo2n2Sx/VMmT26s/1oaIgtoNt2tk6j
+ AEqg==
+X-Gm-Message-State: AGi0Pub/NJ/EMvEIs24XZIRCtniAClwMx0pYoxa6OD/0FP91PA4k07/d
+ XSSMYRblFseQGHa2oj5DMw==
+X-Google-Smtp-Source: APiQypKXBmIANTuzqAKXJR1+GcTctxVj4356oR1rWyrdLfaNvOjR94IF3xYVI+WWd5PezEcDkgPjKw==
+X-Received: by 2002:a05:6830:1bdb:: with SMTP id
+ v27mr16047181ota.218.1586909211644; 
+ Tue, 14 Apr 2020 17:06:51 -0700 (PDT)
+Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id k13sm4756205oou.27.2020.04.14.17.06.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Apr 2020 16:20:43 -0700 (PDT)
-Date: Tue, 14 Apr 2020 23:20:30 +0000
-From: sylvain.bertrand@gmail.com
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: sw_params for a direct-ed(dmix) hw pcm
-Message-ID: <20200414232030.GA3816@freedom>
-References: <59266c58-96d8-93e9-bc8f-86e9fccf8d60@linux.intel.com>
- <20200328222021.GA4610@freedom> <s5hr1xbd2su.wl-tiwai@suse.de>
- <s5hlfng7oaj.wl-tiwai@suse.de> <20200401152538.GA11377@freedom>
- <s5hwo6z2o3r.wl-tiwai@suse.de> <20200401202126.GA9511@freedom>
- <20200402190326.GA12391@freedom> <20200406134957.GA643@freedom>
- <s5hk12ihz98.wl-tiwai@suse.de>
+ Tue, 14 Apr 2020 17:06:50 -0700 (PDT)
+Received: (nullmailer pid 19643 invoked by uid 1000);
+ Wed, 15 Apr 2020 00:06:49 -0000
+Date: Tue, 14 Apr 2020 19:06:49 -0500
+From: Rob Herring <robh@kernel.org>
+To: Stephan Gerhold <stephan@gerhold.net>
+Subject: Re: [PATCH 1/2] dt-bindings: sound: lpass-cpu: Document DAI subnodes
+Message-ID: <20200415000649.GA28504@bogus>
+References: <20200406135608.126171-1-stephan@gerhold.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <s5hk12ihz98.wl-tiwai@suse.de>
-User-Agent: Mutt/ (2018-04-13)
-Cc: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+In-Reply-To: <20200406135608.126171-1-stephan@gerhold.net>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
+ Patrick Lai <plai@codeaurora.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ ~postmarketos/upstreaming@lists.sr.ht,
+ Kenneth Westfield <kwestfie@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,15 +98,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Apr 14, 2020 at 05:18:27PM +0200, Takashi Iwai wrote:
-> If the patch worked for you, basically it's OK to accept.
+On Mon, Apr 06, 2020 at 03:56:07PM +0200, Stephan Gerhold wrote:
+> The lpass-cpu driver now allows configuring the MI2S SD lines
+> by defining subnodes for one of the DAIs.
+> 
+> Document this in the device tree bindings.
+> 
+> Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
+> ---
+>  .../bindings/sound/qcom,lpass-cpu.txt         | 23 +++++++++++++++++++
+>  1 file changed, 23 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
+> index 21c648328be9..df53a10502f7 100644
+> --- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
+> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
+> @@ -30,6 +30,8 @@ Required properties:
+>  - reg			: Must contain an address for each entry in reg-names.
+>  - reg-names		: A list which must include the following entries:
+>  				* "lpass-lpaif"
+> +- #address-cells	: Must be 1
+> +- #size-cells		: Must be 0
+>  
+>  
+>  
+> @@ -37,6 +39,18 @@ Optional properties:
+>  
+>  - qcom,adsp		: Phandle for the audio DSP node
+>  
+> +By default, the driver uses up to 4 MI2S SD lines, for a total of 8 channels.
+> +The SD lines to use can be configured by adding subnodes for each of the DAIs.
+> +
+> +Required properties for each DAI (represented by a subnode):
+> +- reg			: Must be one of the DAI IDs
+> +			  (usually part of dt-bindings header)
+> +- qcom,playback-sd-lines: List of serial data lines (0-3) to use for playback
 
-I did not manage to make it fail. But I found another and unrelated issue, see
-github #41 and the patch attempt I did post on the mailing list earlier.
+0-3 for the values or number of entries?
 
-> So, could you post the proper patch for the merge?
+> +- qcom,capture-sd-lines	: List of serial data lines (0-3) to use for capture
+> +
+> +Note that adding a subnode changes the default to "no lines configured",
+> +so both playback and capture lines should be configured when a subnode is added.
+> +
+>  Example:
+>  
+>  lpass@28100000 {
+> @@ -51,4 +65,13 @@ lpass@28100000 {
+>  	reg = <0x28100000 0x10000>;
+>  	reg-names = "lpass-lpaif";
+>  	qcom,adsp = <&adsp>;
+> +
+> +	#address-cells = <1>;
+> +	#size-cells = <0>;
+> +
+> +	/* Optional to set different MI2S SD lines */
+> +	mi2s-quaternary@3 {
 
-I'll try to format that properly.
+Normally the node name reflects the class of device. IOW, all the child 
+nodes should have the same name.
 
--- 
-Sylvain
+> +		reg = <MI2S_QUATERNARY>;
+> +		qcom,playback-sd-lines = <0 1>;
+> +	};
+>  };
+> -- 
+> 2.26.0
+> 

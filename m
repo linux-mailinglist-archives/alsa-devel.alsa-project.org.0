@@ -2,78 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61AC81AAAF9
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 16:59:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B7A91AAB2F
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 17:01:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 064561612;
-	Wed, 15 Apr 2020 16:58:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 064561612
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32DE61676;
+	Wed, 15 Apr 2020 17:01:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32DE61676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586962779;
-	bh=fPIjh/S+wnnHjQtoUmOuMrDRrCKv+RQs+5PDZ83/ZYE=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=VmHbHKSwSkkkoYeoNPob7DQ/eoCt9b95RhWYzaD9zPAQFbXfFz9nwLG5KkJXINSe6
-	 I60Fj6u4/ZE2Fa9/NRuYQu/BGDFXW8IVmI4YaEiCQowkg9q3b5gDG2QBJXc6DW/whK
-	 B3EiUo/tWTRfQJrZyKYrW5Lf0VQ943UCTCWLKRgk=
+	s=default; t=1586962918;
+	bh=R2ui3V1fBRvMg6XwEcl5g0t1TMGJAyL118heTVC002E=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=q2A07Hqn4GSloFaU93O5Zk8bI+iBqZD/Cisn7yDf0rGyGH4wnH/2PFS8LszZHg/rJ
+	 yihY7KgBdHp8fXLoX90E7L946zE9QHuyYhow6S/39xGtm8hIrfGxCf4k7Vq8wwcyYh
+	 CaqbMVfh0Q/rDG7UbSISpYtzToJsWPY8CbL3OM4A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EEC11F80115;
-	Wed, 15 Apr 2020 16:57:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64F2AF802BE;
+	Wed, 15 Apr 2020 16:58:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 463F8F80115; Wed, 15 Apr 2020 16:57:15 +0200 (CEST)
+ id 42508F80245; Wed, 15 Apr 2020 16:10:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE
  autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 59F44F80115
- for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 16:57:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59F44F80115
-IronPort-SDR: nsYVq48mgFPtOWI5rEB0Jm5jOuEnuryueaIT5/z39JclFKwB/AmBq9YtL62F2blZeCvAX19t9C
- kWKTdGcHzlvg==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2020 07:57:09 -0700
-IronPort-SDR: vTZGDdDuMV+ybxPP4XZua6xk6dUN/yHLuEGjn3AQCYHjh1uACWaSCt7N6rt09jcVkdqBHiXq2/
- UTKYIoOEExpw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,387,1580803200"; d="scan'208";a="400337197"
-Received: from ccarey-mobl.amr.corp.intel.com (HELO [10.209.36.121])
- ([10.209.36.121])
- by orsmga004.jf.intel.com with ESMTP; 15 Apr 2020 07:57:07 -0700
-Subject: Re: [RFC PATCH 04/16] ASoC: Intel: sof-pcm512x: detect Hifiberry DAC+
- PRO
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-References: <20200409195841.18901-1-pierre-louis.bossart@linux.intel.com>
- <20200409195841.18901-5-pierre-louis.bossart@linux.intel.com>
- <20200414172002.GD34613@smile.fi.intel.com>
- <d3b154f4-fa8a-50a5-7246-51d31e18c4e6@linux.intel.com>
- <20200415095526.GP34613@smile.fi.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <664999e7-f345-7296-feca-56cb53a27eb1@linux.intel.com>
-Date: Wed, 15 Apr 2020 09:07:20 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id BCEA0F80115
+ for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 16:10:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCEA0F80115
+Received: from mail.cetitecgmbh.com ([87.190.42.90]) by
+ mrelayeu.kundenserver.de (mreue011 [212.227.15.167]) with ESMTPSA (Nemesis)
+ id 1M433w-1jOikV1ArA-0008D6; Wed, 15 Apr 2020 16:10:43 +0200
+Received: from pflvmailgateway.corp.cetitec.com (unknown [127.0.0.1])
+ by mail.cetitecgmbh.com (Postfix) with ESMTP id 0D300650EBC;
+ Wed, 15 Apr 2020 14:10:42 +0000 (UTC)
+X-Virus-Scanned: amavisd-new at cetitec.com
+Received: from mail.cetitecgmbh.com ([127.0.0.1])
+ by pflvmailgateway.corp.cetitec.com (pflvmailgateway.corp.cetitec.com
+ [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id a9FxySuCWEi3; Wed, 15 Apr 2020 16:10:41 +0200 (CEST)
+Received: from pfwsexchange.corp.cetitec.com (unknown [10.10.1.99])
+ by mail.cetitecgmbh.com (Postfix) with ESMTPS id A77C564C0D9;
+ Wed, 15 Apr 2020 16:10:41 +0200 (CEST)
+Received: from pflmmbl.corp.cetitec.com (10.8.5.60) by
+ PFWSEXCHANGE.corp.cetitec.com (10.10.1.99) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Wed, 15 Apr 2020 16:10:41 +0200
+From: Matthias Blankertz <matthias.blankertz@cetitec.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: [PATCH 0/2] ASoC: rsnd: Fixes for multichannel HDMI audio output
+Date: Wed, 15 Apr 2020 16:10:15 +0200
+Message-ID: <20200415141017.384017-1-matthias.blankertz@cetitec.com>
+X-Mailer: git-send-email 2.26.0
 MIME-Version: 1.0
-In-Reply-To: <20200415095526.GP34613@smile.fi.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, linux-gpio@vger.kernel.org, tiwai@suse.de,
- Linus Walleij <linus.walleij@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
- Daniel Matuschek <daniel@hifiberry.com>, Hui Wang <hui.wang@canonical.com>,
- Matthias Reichl <hias@horus.com>, Rob Herring <robh+dt@kernel.org>,
- broonie@kernel.org, Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- Michael Turquette <mturquette@baylibre.com>, linux-clk@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.8.5.60]
+X-ClientProxiedBy: PFWSEXCHANGE.corp.cetitec.com (10.10.1.99) To
+ PFWSEXCHANGE.corp.cetitec.com (10.10.1.99)
+X-EsetResult: clean, is OK
+X-EsetId: 37303A290D7F536B647460
+X-Provags-ID: V03:K1:ls00uf4IlbrL5k+iWkD/WTmWYJj2Y84rUbhh+RZdOmEf3f68PT4
+ FNEAZa4F7Phw66UR0nWjFpSj8t3Voz1xizvTTK53uk9EADtZ/ZitvNm85mdgfti69qH5I6a
+ UinE9tuhDB0krwi7u8TPxThlkypNIWsC2fBFky4+MKCdLbwLUA/ZpnQ0gmR5QyyZnHw6A8N
+ SX51zgcEnCyz2rJlqvYYg==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:jytcsZGxxWc=:QLEgfUO1mDZFEbghCIOVbk
+ KY+vl+FRwGZVX9VdnmNGQ6fM4ZUfxE6XOkLI077L9TkwYRBnBXzKcVeqYliL1Q2mV+1krDhQ6
+ xrSmfpQUMiDNkobLrBMGVHbAzsbUs6IBqNp7H+//64Dyrlmz6MS8lhnUoVnNnNMr/wTrnR9FM
+ uYNwExBslY3O1/9A2KrKX0lSXJLk2DyYBRzQoe2DgwQQJyWckGy/vR1X7qrvbVYkWZbYDtkTY
+ iOMF1RvasrIZVG2abdGuXQoxBkAKjUyx6Uod+7UOD7emQoBKCtp1oe6Jpr3g49IFbKRT7pMOM
+ gmYiyyiDxEDCRoidNw2p5sfyKiN4I+gXNfs4bkEDy4m5GsnBQRwNIO8gYnrZK1APEyU4C+617
+ lyG5PDKwP6m23PSdajBjRTyiQblQBAAMk7M8ldOM4h16as43qnrqrmwGejLHElNva0Rt5UuRk
+ f3PYk2i8fD35JeRwsuZQChyc1Xyf5S5MS34WIRwZxla1sz2A9oHff3pvxRHKL8Yu3jkxCzkR9
+ SyvMqAyxjLprSDRe20DED+C9DDYMY6j4FwSUh/Xyw2N/Jxy4XKrMj6s7WrvuJlNsTOMGUkSzA
+ 5/cr+B20n9elSaNcdGRwIGGMuhI4YH54Jjynpm7etXzSazH48vIScId0YUnL6du+UaJyMyYZz
+ r4YDm9AJrRfAL9J2txtkE0GvTkvvNCe5xH9BFMj++CtyRgYFYQtNcRMCRlmkN/kArtDEu8uvv
+ OSDK7PfRzQPfozY+pxYJTeURAeQkMNkDpgoFJMNFUPrtUl0qwnIdC0Xo0/IjygnHU2UBKRFbw
+ YqD9znHvaYh/PPI5m3GFlY34NtLW+uz06NpxrjVqO8wx1z3dDV1xhvxgYfHWzKCQkUk+IfrL5
+ s4eP2fOsKWedPqZtPvYw==
+X-Mailman-Approved-At: Wed, 15 Apr 2020 16:57:55 +0200
+Cc: alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, linux-renesas-soc@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,51 +104,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This fixes two issues in the snd-soc-rcar driver blocking multichannel
+HDMI audio out: The parent SSI in a multi-SSI configuration is not
+correctly set up and started, and the SSI->HDMI channel mapping is
+wrong.
+
+With these patches, the following device tree snippet can be used on an
+r8a7795-based platform (Salvator-X) to enable multichannel HDMI audio on
+HDMI0:
+
+rsnd_port1: port@1 {
+	rsnd_endpoint1: endpoint {
+		remote-endpoint = <&dw_hdmi0_snd_in>;
+
+		dai-format = "i2s";
+		bitclock-master = <&rsnd_endpoint1>;
+		frame-master = <&rsnd_endpoint1>;
+
+		playback = <&ssi0 &ssi1 &ssi2 &ssi9>;
+	};
+};
+
+With a capable receiver attached, all of 2ch (stereo), 6ch (e.g. 5.1)
+and 8ch audio output should work.
 
 
-On 4/15/20 4:55 AM, Andy Shevchenko wrote:
-> On Tue, Apr 14, 2020 at 01:02:12PM -0500, Pierre-Louis Bossart wrote:
->> On 4/14/20 12:20 PM, Andy Shevchenko wrote:
->>> On Thu, Apr 09, 2020 at 02:58:29PM -0500, Pierre-Louis Bossart wrote:
-> 
-> ...
-> 
->>>> +	ctx->sclk = devm_clk_get(rtd->card->dev, "sclk");
->>>
->>> Is this in the bindings?
->>
->> Not for now. the 'sclk' part is only used by me myself and I in an ACPI
->> context. I can add this description if desired.
-> 
-> Unfortunately you need to add this to the bindings, because it's a part of it
-> and somebody may use it outside of your scope.
+Matthias Blankertz (2):
+  ASoC: rsnd: Fix parent SSI start/stop in multi-SSI mode
+  ASoC: rsnd: Fix HDMI channel mapping for multi-SSI mode
 
-ok
+ sound/soc/sh/rcar/ssi.c  | 8 ++++----
+ sound/soc/sh/rcar/ssiu.c | 2 +-
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
 
->>>> +	if (IS_ERR(ctx->sclk)) {
->>>
->>>> +		dev_info(dev, "Could not get SCLK, will operate in SOC master mode\n");
->>>
->>> Sounds like devm_clk_get_optional().
->>
->> I am not sure about the semantic here. This driver selects the one which
->> implements this clock, so if we get a -ENOENT return it's a very bad sign.
->> Not sure what suppressing the error and converting to NULL would do?
-> 
-> Same as per GPIO.
-> Can it work without this clock? How did it work before your change?
-> 
-> When you add any hard dependency always ask yourself above questions.
+base-commit: 7111951b8d4973bda27ff663f2cf18b663d15b48
+-- 
+2.26.0
 
-The clock is not required in codec slave mode, it's provided by the SOC.
-
-The clock is required when the codec is configured as master. Without 
-these GPIO selection there will be no audio. So yes we could move this 
-to devm_clk_get_optional() and change the test to IS_ERR_OR_NULL.
-
-
-
->>>> +		goto skip_dacpro;
->>>> +	}
-> 

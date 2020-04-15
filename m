@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E85591AB287
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 22:33:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D41691AB28D
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 22:35:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D7051614;
-	Wed, 15 Apr 2020 22:32:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D7051614
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79D351657;
+	Wed, 15 Apr 2020 22:34:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79D351657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586982809;
-	bh=/n3aqcshHRyjhQJHERn5s3guw0TFxsieODzO/Jck7Vc=;
+	s=default; t=1586982909;
+	bh=U6THAMhw0CDfCF5W/e1Y91sC+QkKGGuiYHWs1FIfTUs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iVFe4CiGI7mPCzHelGBuvuyIMz3tIIZHTU7S1q4VqlBossUYLJzYQm85WkmfPkxKY
-	 57EFTpBI6SNpVdtLuldsBaYJQg5mQp4hfAFtM4URqmaExgn4KAMc7Lc7UMOhfBY4Lv
-	 RdA7Fc/BQd5IMSHePlbObzNkR3d/PXG+M+0/boU4=
+	b=cK/YQojEdryLBT464AVfThHi75tCUC+QZFiJpLN5bEMPeeHhfLnFZlT8naGEM/JPD
+	 zJydgzizW2oR2o0MyonUNkPNAnsvF22lCLAxXx0RRC1j0wYf8wb6LU0sup724XLcNu
+	 FkkOeHAwWOiUV4RFO1zn2lqKVhB9JCZv3vp7+xfc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0101BF8027D;
-	Wed, 15 Apr 2020 22:29:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 45290F802E1;
+	Wed, 15 Apr 2020 22:29:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F370F80290; Wed, 15 Apr 2020 22:29:05 +0200 (CEST)
+ id F15ABF802A0; Wed, 15 Apr 2020 22:29:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,37 +33,38 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9BA3FF80264
- for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 22:29:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BA3FF80264
-IronPort-SDR: MRCFoYAN3g0V/HTnGqnZfmdMsSfTRL9z73AZIDfoxE1O9DkuU7N6co/R6Q4SvwsuhjOH/AEqCy
- U5Anc7DTNnnQ==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8A425F8027D
+ for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 22:29:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A425F8027D
+IronPort-SDR: WOygsJKFt2CpKO2dinSiowqPOGXVnl8wF7eDoZWVcGOlBDudG6G6A6KqHk5Yfkd7C0FyB4pNP4
+ i8uXcaMIASCg==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2020 13:29:00 -0700
-IronPort-SDR: OCbadVmMJMNH02iKsXVWujeslOAfPbM4kjaRf6ATWVmvrzQbqVAJOSgzBx1LLcvCETz3nYfI2T
- /MkSJgtnE+JA==
+ 15 Apr 2020 13:29:01 -0700
+IronPort-SDR: UQbY0ruZZhmsAQCPWxq3k9GL4AjjyF5+hNdAa36POLpPPextNoCqTaYN3cwvABvBMSE9mAfqiX
+ 6+lVCaQdJ0TQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,388,1580803200"; d="scan'208";a="288656266"
+X-IronPort-AV: E=Sophos;i="5.72,388,1580803200"; d="scan'208";a="288656283"
 Received: from jplam-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.209.82.197])
- by fmsmga002.fm.intel.com with ESMTP; 15 Apr 2020 13:28:58 -0700
+ by fmsmga002.fm.intel.com with ESMTP; 15 Apr 2020 13:29:00 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 07/24] ASoC: SOF: ext_manifest: parse compiler version
-Date: Wed, 15 Apr 2020 15:27:59 -0500
-Message-Id: <20200415202816.934-8-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 08/24] ASoC: SOF: topology: Add support for DC Blocker
+Date: Wed, 15 Apr 2020 15:28:00 -0500
+Message-Id: <20200415202816.934-9-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200415202816.934-1-pierre-louis.bossart@linux.intel.com>
 References: <20200415202816.934-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>, tiwai@suse.de,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+Cc: Seppo Ingalsuo <seppo.ingalsuo@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Sebastiano Carlucci <scarlucci@google.com>, tiwai@suse.de,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org, Karol Trzcinski <karolx.trzcinski@linux.intel.com>
+ Curtis Malainey <curtis@malainey.com>, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,93 +80,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Karol Trzcinski <karolx.trzcinski@linux.intel.com>
+From: Sebastiano Carlucci <scarlucci@google.com>
 
-The compiler version and description can be extracted from the
-extended manifest content. This information known at build time
-does not need to be provided in a mailbox.
+This commit adds the enumerations to support the dc blocker component
+from SOF.
 
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Curtis Malainey <curtis@malainey.com>
+Reviewed-by: Seppo Ingalsuo <seppo.ingalsuo@intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Signed-off-by: Karol Trzcinski <karolx.trzcinski@linux.intel.com>
+Signed-off-by: Sebastiano Carlucci <scarlucci@google.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- include/uapi/sound/sof/ext_manifest.h |  8 ++++++++
- sound/soc/sof/loader.c                | 23 +++++++++++++++++++++++
- 2 files changed, 31 insertions(+)
+ include/sound/sof/topology.h | 2 ++
+ sound/soc/sof/topology.c     | 1 +
+ 2 files changed, 3 insertions(+)
 
-diff --git a/include/uapi/sound/sof/ext_manifest.h b/include/uapi/sound/sof/ext_manifest.h
-index 203c203f6531..d49c47d08c7f 100644
---- a/include/uapi/sound/sof/ext_manifest.h
-+++ b/include/uapi/sound/sof/ext_manifest.h
-@@ -56,6 +56,7 @@ struct sof_ext_man_header {
- enum sof_ext_man_elem_type {
- 	SOF_EXT_MAN_ELEM_FW_VERSION		= 0,
- 	SOF_EXT_MAN_ELEM_WINDOW			= SOF_IPC_EXT_WINDOW,
-+	SOF_EXT_MAN_ELEM_CC_VERSION		= SOF_IPC_EXT_CC_INFO,
+diff --git a/include/sound/sof/topology.h b/include/sound/sof/topology.h
+index 402e0250c508..8f8d1cf649f2 100644
+--- a/include/sound/sof/topology.h
++++ b/include/sound/sof/topology.h
+@@ -37,6 +37,7 @@ enum sof_comp_type {
+ 	SOF_COMP_SELECTOR,		/**< channel selector component */
+ 	SOF_COMP_DEMUX,
+ 	SOF_COMP_ASRC,		/**< Asynchronous sample rate converter */
++	SOF_COMP_DCBLOCK,
+ 	/* keep FILEREAD/FILEWRITE as the last ones */
+ 	SOF_COMP_FILEREAD = 10000,	/**< host test based file IO */
+ 	SOF_COMP_FILEWRITE = 10001,	/**< host test based file IO */
+@@ -206,6 +207,7 @@ enum sof_ipc_process_type {
+ 	SOF_PROCESS_CHAN_SELECTOR,	/**< Channel Selector */
+ 	SOF_PROCESS_MUX,
+ 	SOF_PROCESS_DEMUX,
++	SOF_PROCESS_DCBLOCK,
  };
  
- /* extended manifest element header */
-@@ -80,4 +81,11 @@ struct sof_ext_man_window {
- 	struct sof_ipc_window ipc_window;
- } __packed;
+ /* generic "effect", "codec" or proprietary processing component */
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index 3386886fd743..e988e6b1a594 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -430,6 +430,7 @@ static const struct sof_process_types sof_process[] = {
+ 	{"CHAN_SELECTOR", SOF_PROCESS_CHAN_SELECTOR, SOF_COMP_SELECTOR},
+ 	{"MUX", SOF_PROCESS_MUX, SOF_COMP_MUX},
+ 	{"DEMUX", SOF_PROCESS_DEMUX, SOF_COMP_DEMUX},
++	{"DCBLOCK", SOF_PROCESS_DCBLOCK, SOF_COMP_DCBLOCK},
+ };
  
-+/* Used C compiler description */
-+struct sof_ext_man_cc_version {
-+	struct sof_ext_man_elem_header hdr;
-+	/* use sof_ipc struct because of code re-use */
-+	struct sof_ipc_cc_version cc_version;
-+} __packed;
-+
- #endif /* __SOF_FIRMWARE_EXT_MANIFEST_H__ */
-diff --git a/sound/soc/sof/loader.c b/sound/soc/sof/loader.c
-index bbfdf07fa6f5..8be30cd5e038 100644
---- a/sound/soc/sof/loader.c
-+++ b/sound/soc/sof/loader.c
-@@ -49,6 +49,14 @@ static int get_cc_info(struct snd_sof_dev *sdev,
- 	const struct sof_ipc_cc_version *cc =
- 		container_of(ext_hdr, struct sof_ipc_cc_version, ext_hdr);
- 
-+	if (sdev->cc_version) {
-+		if (memcmp(sdev->cc_version, cc, cc->ext_hdr.hdr.size)) {
-+			dev_err(sdev->dev, "error: receive diverged cc_version descriptions");
-+			return -EINVAL;
-+		}
-+		return 0;
-+	}
-+
- 	dev_dbg(sdev->dev, "Firmware info: used compiler %s %d:%d:%d%s used optimization flags %s\n",
- 		cc->name, cc->major, cc->minor, cc->micro, cc->desc,
- 		cc->optim);
-@@ -161,6 +169,18 @@ static int ext_man_get_windows(struct snd_sof_dev *sdev,
- 	return get_ext_windows(sdev, w_ipc);
- }
- 
-+static int ext_man_get_cc_info(struct snd_sof_dev *sdev,
-+			       const struct sof_ext_man_elem_header *hdr)
-+{
-+	const struct sof_ext_man_cc_version *cc;
-+	const struct sof_ipc_ext_data_hdr *cc_version;
-+
-+	cc = container_of(hdr, struct sof_ext_man_cc_version, hdr);
-+	cc_version = (const struct sof_ipc_ext_data_hdr *)&cc->cc_version;
-+
-+	return get_cc_info(sdev, cc_version);
-+}
-+
- static ssize_t snd_sof_ext_man_size(const struct firmware *fw)
- {
- 	const struct sof_ext_man_header *head = (void *)fw->data;
-@@ -241,6 +261,9 @@ static int snd_sof_fw_ext_man_parse(struct snd_sof_dev *sdev,
- 		case SOF_EXT_MAN_ELEM_WINDOW:
- 			ret = ext_man_get_windows(sdev, elem_hdr);
- 			break;
-+		case SOF_EXT_MAN_ELEM_CC_VERSION:
-+			ret = ext_man_get_cc_info(sdev, elem_hdr);
-+			break;
- 		default:
- 			dev_warn(sdev->dev, "warning: unknown sof_ext_man header type %d size 0x%X\n",
- 				 elem_hdr->type, elem_hdr->size);
+ static enum sof_ipc_process_type find_process(const char *name)
 -- 
 2.20.1
 

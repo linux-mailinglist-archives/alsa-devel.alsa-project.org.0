@@ -2,69 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B33E1A999A
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 11:53:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 434B21A999F
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 11:54:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C0F41665;
-	Wed, 15 Apr 2020 11:52:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C0F41665
+	by alsa0.perex.cz (Postfix) with ESMTPS id DDD4C165D;
+	Wed, 15 Apr 2020 11:53:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDD4C165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586944408;
-	bh=5Ett8a4ZRbK8Do9njrPh5yeUjHTPt87XDWU7V41ndK8=;
+	s=default; t=1586944454;
+	bh=ASrIK/TSkCnu7vGLjOwF5DvsDjXyZRD428ng53GzK8s=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZO5JhuH1Xedhi78i8Hq/HVJnZLdzJ90i3D2sWrox+DyNinuXeOsFaITlVZezawv9L
-	 E0Dxbud8MB4Wix9m5KQYbW6YQ0/kILsAbPSc2YQ2nLvYiyfdxxpSzuAkFDBty/tPXV
-	 vOKa11K2Lc55w3BiQEC+JcwOVotB3uMDZ0/hSPOw=
+	b=pIo7UkYPNvTiRFaA8vSvmzP8pj6dhRpRfhtPTpQG4nv2qZr0UU/0u8ERDa/1E2x5H
+	 l2XsdBJnKGekw4Bzbtnzl/BBjrK19RceMJchWtjGP0MpLa/cTAMLdFRS93Ya/faTAx
+	 t3RTWVEAYo4H4ImQ+pGCerRsp9GqEULPONCwKkOQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A17CF8025F;
-	Wed, 15 Apr 2020 11:51:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2874F80266;
+	Wed, 15 Apr 2020 11:52:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 89811F80115; Wed, 15 Apr 2020 11:51:44 +0200 (CEST)
+ id D7BC4F80266; Wed, 15 Apr 2020 11:52:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 30EF5F80115
- for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 11:51:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30EF5F80115
-IronPort-SDR: 1okoMbi0Uqw79ygyNL3tkTxiEbWKio4KWEnsStLV1D9sNC+RKGHfYlKDNfFZkXVWWfThBGaqvT
- Am+b29VsNStg==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9404FF80124
+ for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 11:52:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9404FF80124
+IronPort-SDR: 23xIvOeovkoOcFG5RSWnvPhzvphAPWoXEAwxavOQWNRR56Qnc8HoiwOhyxG8nzq2HEkgUPdVNo
+ BUM1v28tIBcw==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2020 02:51:38 -0700
-IronPort-SDR: UnN5cCxPNTxvHGxBYKHw55LozRjz4wqIOdvsn5Q5o6Ua8P40BR8xduL2AKeOtoTkp+MxZbc4GK
- uqtL5ElcoFYw==
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Apr 2020 02:52:29 -0700
+IronPort-SDR: 3bHQzkGc0m5CIF5k9OB9pBoA/yIN1QL7/nZw6gWfk4G/8OiCSCkm5q7s7OrlvcmnazXjv4fp6+
+ dQFWuzLywxJA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,386,1580803200"; d="scan'208";a="454856974"
+X-IronPort-AV: E=Sophos;i="5.72,386,1580803200"; d="scan'208";a="242261048"
 Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by fmsmga006.fm.intel.com with ESMTP; 15 Apr 2020 02:51:35 -0700
+ by orsmga007.jf.intel.com with ESMTP; 15 Apr 2020 02:52:25 -0700
 Received: from andy by smile with local (Exim 4.93)
  (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1jOehl-000kBB-BD; Wed, 15 Apr 2020 12:51:37 +0300
-Date: Wed, 15 Apr 2020 12:51:37 +0300
+ id 1jOeia-000kCY-5n; Wed, 15 Apr 2020 12:52:28 +0300
+Date: Wed, 15 Apr 2020 12:52:28 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [RFC PATCH 03/16] ASoC: Intel: sof-pcm512x: use gpiod for LED
-Message-ID: <20200415095137.GN34613@smile.fi.intel.com>
+Subject: Re: [RFC PATCH 02/16] ASoC: pcm512x: use "sclk" string to retrieve
+ clock
+Message-ID: <20200415095228.GO34613@smile.fi.intel.com>
 References: <20200409195841.18901-1-pierre-louis.bossart@linux.intel.com>
- <20200409195841.18901-4-pierre-louis.bossart@linux.intel.com>
- <20200414171752.GC34613@smile.fi.intel.com>
- <92636c24-32d5-3ec6-23db-e7f9e22f66dc@linux.intel.com>
+ <20200409195841.18901-3-pierre-louis.bossart@linux.intel.com>
+ <20200414171125.GB34613@smile.fi.intel.com>
+ <7c0e7f81-cb1c-9c59-4421-baf41b8d015b@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <92636c24-32d5-3ec6-23db-e7f9e22f66dc@linux.intel.com>
+In-Reply-To: <7c0e7f81-cb1c-9c59-4421-baf41b8d015b@linux.intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Cc: alsa-devel@alsa-project.org, Rob Herring <robh+dt@kernel.org>,
  linux-gpio@vger.kernel.org, tiwai@suse.de,
@@ -88,41 +89,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Apr 14, 2020 at 12:57:35PM -0500, Pierre-Louis Bossart wrote:
+On Tue, Apr 14, 2020 at 12:54:25PM -0500, Pierre-Louis Bossart wrote:
+> On 4/14/20 12:11 PM, Andy Shevchenko wrote:
+> > On Thu, Apr 09, 2020 at 02:58:27PM -0500, Pierre-Louis Bossart wrote:
+> > > Using devm_clk_get() with a NULL string fails on ACPI platforms, use
+> > > the "sclk" string as a fallback.
+> > 
+> > This is fishy a bit.
+> 
+> I didn't find a single example where we use a NULL string in ACPI cases?
 
 ...
 
-> > > +		GPIO_LOOKUP("pcm512x-gpio", 3, "PCM512x-GPIO4", GPIO_ACTIVE_HIGH),
-> > 
-> > It says GPIO 4 and here is number 3.
-> > Does this 4 come from hardware documentation?
+> > If no, why not simple switch to devm_clk_get_optional()?
 > 
-> Yes TI count from 1 to 6 in their documentation. The initial HifiBerry DAC+
-> also counts from 1 to 6. I can add a comment here.
+> Not sure what that would change?
 
-Okay!
-
-...
-
-> > > +	ctx->gpio_4 = devm_gpiod_get(&pdev->dev, "PCM512x-GPIO4",
-> > > +				     GPIOD_OUT_LOW);
-> > 
-> > Can driver work without this GPIO? If so, perhaps devm_gpiod_get_optional().
-> 
-> that part yes, it's only for the LED, but if this fails then probably the
-> rest of the code will also fail.
-
-The problem with above code that it's setting the hard dependency to a LED
-gpio. Is it crucial to get codec working? I bet no. In case
-gpiod_get_optional() fails, it will be correct to bail out, because it will
-mean other kind of errors not related to optionality of the GPIO (rather it's
-present, but something went wrong).
-
-> > > +	if (IS_ERR(ctx->gpio_4)) {
-> > > +		dev_err(&pdev->dev, "gpio4 not found\n");
-> > > +		ret = PTR_ERR(ctx->gpio_4);
-> > > +		return ret;
-> > > +	}
+Hmm... Who is the provider of this clock?
 
 -- 
 With Best Regards,

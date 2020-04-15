@@ -2,83 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FB601AAAFB
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 17:00:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86F6A1AAAE4
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Apr 2020 16:52:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DE57A1662;
-	Wed, 15 Apr 2020 16:59:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE57A1662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 111231666;
+	Wed, 15 Apr 2020 16:51:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 111231666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1586962819;
-	bh=ssSOrsJ7xvXlA+GOclAUTRbR0WGV/6xfQ5yobsESd9A=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1586962365;
+	bh=uVrTU6SslrMUuy6SwA6ixkxrAdrOOQCriM+zWijEpt8=;
+	h=In-Reply-To:References:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MXxLeqPUdmyrepf2F6uyW9ttNHoFL1ni1TwKO80FNllwjpJWEnsTosmZjEf+WJyZs
-	 qUC126d6QihNycKNJRVrjO1XH89MZ2TZZ8aHY7FlBCg0H9RWI8C+FQLVXqkw8cJMgk
-	 WwDDZ5jL6ZKN6f6fMOdTqS6RdvokYuo1ltorIKD8=
+	b=oiGL7impLOEHgE+0GeDsrRRm73qOP8T3Bn0Nf3AgG8X+aeZTNLCSl6eOycJFqGWQ/
+	 tji9/es8ubzIaG85gtz73/PcRBp9IOQ6qhpIot3l7+rSG28618xTF48+hFuPsX+wIc
+	 +HDBHnyDpZgHwqyTb4bR06kBrNxlIv/4Nav5tThA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61D2EF802A8;
-	Wed, 15 Apr 2020 16:57:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20B70F80115;
+	Wed, 15 Apr 2020 16:51:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BC9A0F802A8; Wed, 15 Apr 2020 16:57:19 +0200 (CEST)
+ id 9F60EF80245; Wed, 15 Apr 2020 16:51:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.7 required=5.0 tests=DKIM_ADSP_CUSTOM_MED,
+ DKIM_INVALID,DKIM_SIGNED,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+ NML_ADSP_CUSTOM_MED,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-il1-x129.google.com (mail-il1-x129.google.com
+ [IPv6:2607:f8b0:4864:20::129])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5544DF80245
- for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 16:57:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5544DF80245
-IronPort-SDR: ou2Hk9eewIurbmtBxQnwpnPjXpTAIeiLsHiMWeGc7rGp2MznMLFyKCEDQsxyAmnvUJze5vVM2h
- 5+bMnANhtmZA==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2020 07:57:13 -0700
-IronPort-SDR: TNZsy4SP9GBFchjn5F8fxYVqunPZfBr4bT/E/57a2xp65b6ujjeSwvZ/IlU6gpMvCpNL9io1CH
- G+2zgrGgvWtQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,387,1580803200"; d="scan'208";a="400337213"
-Received: from ccarey-mobl.amr.corp.intel.com (HELO [10.209.36.121])
- ([10.209.36.121])
- by orsmga004.jf.intel.com with ESMTP; 15 Apr 2020 07:57:12 -0700
-Subject: Re: [RFC PATCH 02/16] ASoC: pcm512x: use "sclk" string to retrieve
- clock
-To: Mark Brown <broonie@kernel.org>
-References: <20200409195841.18901-1-pierre-louis.bossart@linux.intel.com>
- <20200409195841.18901-3-pierre-louis.bossart@linux.intel.com>
- <20200414174530.GK5412@sirena.org.uk>
- <8ee01a4f-ceb2-d207-7cef-cf766fa670af@linux.intel.com>
- <20200414182728.GM5412@sirena.org.uk>
- <3017b762-7a0c-cee2-06dd-1e96f52eb849@linux.intel.com>
- <20200414195031.GP5412@sirena.org.uk>
- <0d2aed9b-5c79-9ed2-6ca1-67b2688e4c99@linux.intel.com>
- <20200415113630.GC5265@sirena.org.uk>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <4635e57b-fccd-d8a9-fa99-8124debb3428@linux.intel.com>
-Date: Wed, 15 Apr 2020 09:44:12 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 506B6F80115
+ for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 16:50:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 506B6F80115
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="RV4xqBrQ"
+Received: by mail-il1-x129.google.com with SMTP id i2so3511899ils.12
+ for <alsa-devel@alsa-project.org>; Wed, 15 Apr 2020 07:50:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=uVrTU6SslrMUuy6SwA6ixkxrAdrOOQCriM+zWijEpt8=;
+ b=RV4xqBrQwNTi1A2J974AYYX6but+tspdvQVWP+nY63IMi4SI9YQmdMV+NwwDqmJAY4
+ 8mRqrdk+Jmp3LNZ8h5GB/uA4J5xQN4pw45N2IhOxtW9MzSqvapzwYqMhllcLzLEfJ9pU
+ 6YlyBPh4vLcF9Qqr/po12mW2XydVVjWfJJkNc0DLlq6iApaZ7PBNG/nANYp5Gs6aB+NF
+ vyHHbe0wBWhVwjw4DKf15UdWL2EEga4a1tW/6wO6dRk1CJ8h01utBKDcKhCd+bhPVuUt
+ OpD8D8xnLEn73NiiIe1r8fk6osGd+sSoiTS2YiS2hLC4FAiau7mWz3CYhverhUWqP2g+
+ 9pwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=uVrTU6SslrMUuy6SwA6ixkxrAdrOOQCriM+zWijEpt8=;
+ b=T9D4uriSeYNVPKvMdFxjGS2bLdn6I/khXKf4jKaqj2KKZD12tDKXjRGtvm/SfHQE34
+ aO0KQ+/oFs9sneQqX9+IQge9sszXxUkdNLwDK4WUiuQNSL2PACjevgCRekSypDxoGZrW
+ 5HVL5ZUpd2GP6d3+O7uHWQC3RoUsPeHD8NaB4c9e+QuvUhk+ipGvyRI8GB35IBi37nj+
+ 1+eSr7bkXpAyzWXc47HBtTjHw9uBY954pbg8kDw+ArqwO6nzVUCNwrUQOCt7Wvwm7FD2
+ i9H+MunKWlASH5r35HJzTdiBZm5lTVd+gM1YIyLgm1qvUVf3KahRM1tdhNVaPfXFSFt7
+ uclQ==
+X-Gm-Message-State: AGi0PuYgB8whnMcKBxgiMRjjvwFvesbjqi97ODykX7QK6XSz2zs5ErIm
+ 9RibE3eF+C9wdne8cDrimPtZwcWPkb0Eww3doZQ=
+X-Google-Smtp-Source: APiQypIUPMddpYFh04ggXfanY6G54QmifpbgFJE5WXIoapZNntbmCSk5+VqgDe/Rg7jlTNzmeuRh5gIIeNdHHLqhaxc=
+X-Received: by 2002:a92:c98c:: with SMTP id y12mr6034591iln.263.1586962249759; 
+ Wed, 15 Apr 2020 07:50:49 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200415113630.GC5265@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Rob Herring <robh+dt@kernel.org>,
- linux-gpio@vger.kernel.org, tiwai@suse.de,
- Linus Walleij <linus.walleij@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
- Daniel Matuschek <daniel@hifiberry.com>, Hui Wang <hui.wang@canonical.com>,
- Matthias Reichl <hias@horus.com>, Michael Turquette <mturquette@baylibre.com>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, linux-clk@vger.kernel.org
+Received: by 2002:ac0:a58b:0:0:0:0:0 with HTTP; Wed, 15 Apr 2020 07:50:49
+ -0700 (PDT)
+In-Reply-To: <21488b92-601f-9acf-09fd-4537c8eb9b1a@redhat.com>
+References: <20200413145957.22459-1-youling257@gmail.com>
+ <ae69c1b0-b347-4366-4bb0-383aed69c4b1@redhat.com>
+ <d6146d62-a20a-f6a0-64f0-65cea7253948@perex.cz>
+ <CAOzgRdbgOykctcteVMLJqqyeXwww2ekzUrbzLbu0jtCoU_5Xgg@mail.gmail.com>
+ <2c1d70d1-6a77-9d06-96df-86c602c1e2e8@redhat.com>
+ <CAOzgRdYsy3MZCO4NvuBL_-SDpSyiLrnc5oesfMhqHdeg+zAhgA@mail.gmail.com>
+ <21488b92-601f-9acf-09fd-4537c8eb9b1a@redhat.com>
+From: youling 257 <youling257@gmail.com>
+Date: Wed, 15 Apr 2020 22:50:49 +0800
+Message-ID: <CAOzgRda2vkNzibgwMzcHFWBryVddn9WyjmpVu7swVa+JzecpwA@mail.gmail.com>
+Subject: Re: [PATCH] bytcht-es8316: fix Speaker or Headphone no sound if
+ enable Mic or Headset
+To: Hans de Goede <hdegoede@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,78 +105,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+2020-04-15 16:45 GMT+08:00, Hans de Goede <hdegoede@redhat.com>:
+> Hi,
+>
+> On 4/15/20 10:18 AM, youling 257 wrote:
+>> 2020-04-15 16:04 GMT+08:00, Hans de Goede <hdegoede@redhat.com>:
+>>> Hi,
+>>>
+>>> On 4/15/20 8:26 AM, youling 257 wrote:
+>>>> boot enter ubuntu no sound at all if EnableSeq.conf disable all output=
+.
+>>>> =E2=80=9C The PA should activate HiFi verb only once.=E2=80=9D i don't=
+ think so.
+>>>
+>>> Which version of pulseaudio does the Ubuntu you are using have?
+>> pulseaudio (1:13.99.1-1ubuntu2) packages.ubuntu.com/focal/pulseaudio
+>
+> Ah yes then you are likely hitting the bug I was talking about.
+>
+> Can you please file a bug against Ubuntu for this?
 
+open a bug, https://bugs.launchpad.net/ubuntu/+source/pulseaudio/+bug/18729=
+70
 
-On 4/15/20 6:36 AM, Mark Brown wrote:
-> On Tue, Apr 14, 2020 at 03:13:01PM -0500, Pierre-Louis Bossart wrote:
->> On 4/14/20 2:50 PM, Mark Brown wrote:
-> 
->>> It's not just DT platforms that I'm worried about here, it's also ACPI
->>> systems - all it takes is for a system to have a second device and a
->>> name collision could happen, especially with such generic names.  We
->>> tried to avoid doing this for board files for the same reason.
-> 
->> I am on the paranoid side but here I don't see much potential for conflicts:
-> 
->> a) this only works for the Up2 board with a HAT connector
->> b) this only work with the Hifiberry DAC+ PRO board.
-> 
->> This codec is not used in any traditional client devices.
-> 
-> That's what you're doing right now but someone else can use the same
-> devices, or adopt the same approaches on something like a Chromebook.
-> 
->>> My understanding is that ACPI just doesn't have clock bindings (or audio
->>> bindings or...) so you're basically using board files here and board
->>> files can definitely do more than we're seeing here.
-> 
->> I don't understand your definition of board file, sorry. We've never had
->> one, the only thing that's board-specific is the machine driver.
-> 
-> Architectures that don't have firmware bindings use straight C code to
-> register and set things up.  Machine drivers are essentially board
-> files, they're just audio specific bits of board file that use audio
-> APIs and so are in the sound directory.
-
-Humm, we may have a conceptual disconnect here. In the ACPI world, there 
-is no support for the machine driver - unlike Device Tree. It is probed 
-when the SST/SOF driver creates a platform device using the codec _HID 
-as a key to hard-coded lookup tables in 
-sound/soc/intel/common/soc-acpi*.c - it will be probed *after* the codec 
-driver probes. I really don't see how to use the machine driver as 
-currently implemented to establish board-level connections that would 
-influence the codec driver probe and its use of a clock.
-
-> 
->>> You should be able to register links between devices using the clock
->>> API, or add that functionality if it's not there but AFAIK clkdev still
->>> works.
-> 
->> The machine driver has no information whatsoever on who provides the clock.
->> I just don't see how I might link stuff without at least some amount of
->> information?
-> 
-> The machine driver must have this information, it knows exactly what
-> hardware it runs on.  The whole point of a machine driver is that it's
-> board specific.
-> 
->> All I needed was to toggle 2 gpios to select 44.1 or 48kHz...Looks like it's
->> going to take two more years, oh well.
-> 
-> I think you're giving up way too easily here.  The kernel has really
-> good support for systems that don't have any firmware description at
-> all, this shouldn't be complex or breaking new ground.
-
-See above, I don't think the machine driver can do what you had in mind?
-
-I don't see how to proceed unless we remove all support for ACPI, both 
-for codec and clock driver, and trigger their probe "manually" with a 
-board-level initialization.
-
-And btw there's already a precedent for using global names, it's what 
-the Skylake driver does for the mclk and ssp clocks. To the best of my 
-knowledge the device specific namespacing does not exist on any ACPI 
-platform. We have a request from Dialog to implement the same thing for 
-SOF to solve dependencies on the clock being stable before turning on 
-the codec, so if global names are not acceptable we have a real problem.
-
+> Here is the original Fedora bug for this:
+> https://bugzilla.redhat.com/show_bug.cgi?id=3D1818883
+>
+> And here are the patches fixing it:
+> https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/merge_requests/276=
+/
+>
+> Regards,
+>
+> Hans
+>
+>

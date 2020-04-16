@@ -2,72 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B8781ABCF7
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Apr 2020 11:37:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82AC61ABE05
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Apr 2020 12:35:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8AAF61665;
-	Thu, 16 Apr 2020 11:36:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AAF61665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 29DC615F2;
+	Thu, 16 Apr 2020 12:34:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29DC615F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587029869;
-	bh=8AFD3plu+KjEQrKRRIW/WPjAt6mrEDHJMoiYPlXMdsA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=R4kw2h/zZqRGmb54KlyuERvE6Sw80sX6KdCYuatDt537xvV+zFU4TyigiZ0IWIBu+
-	 +QFLmrvUTnz5jxA9cGIeg6BtOJm54VPlobB6H5J2Wfm7pu+Tgg8Q/p5qrwNvy+sZ5n
-	 ksZvu+T1qilrwLR6XtQUePlyfsJ0DlSaG5ekDUPc=
+	s=default; t=1587033348;
+	bh=yTV0HSCJPtgcrFe0J8eh/jl6vkME9u9KNZut4I1j4ac=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=d6q2vPl1TUniUyTbTClyzobMiZXZ/c27pjHNiDY14ky4yUmFcZTggEdl20aW3LZ8t
+	 sHSO5ePLwZfwcLSTzoTcKOenk05EHjG3PzCLl6hsMBAPlGJWIVk1qITD+hTEtNCBLw
+	 AxaCwzU6S1KC/NrmYQZSW2gV1pMjHUmVS/wLzSOU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8729F8016F;
-	Thu, 16 Apr 2020 11:36:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E798F802A7;
+	Thu, 16 Apr 2020 12:31:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9616AF8016F; Thu, 16 Apr 2020 11:36:06 +0200 (CEST)
+ id 23E59F8028D; Thu, 16 Apr 2020 12:31:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.6 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ PRX_BODY_135, SPF_HELO_NONE, SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from xavier.telenet-ops.be (xavier.telenet-ops.be
+ [IPv6:2a02:1800:120:4::f00:14])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 59C51F8013D
- for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 11:36:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59C51F8013D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="a0IjzBIG"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A7AD621BE5;
- Thu, 16 Apr 2020 09:35:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587029759;
- bh=8AFD3plu+KjEQrKRRIW/WPjAt6mrEDHJMoiYPlXMdsA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=a0IjzBIGZOxVe1GHgJjUAzkRmKA0r5kDh8Nr7oICMwcdzUH7YneNHH72cx7RASZiS
- j3cuL/YvRXpslmP88sumAU/EOcBQ+Ljt5i3GBS1uOisUHO3WwjkEPmqyL8Z8NloauQ
- jMwFF3ysBTPYnXZ6lXlXh7A25hhFFc5TxTaJZ0ZU=
-Date: Thu, 16 Apr 2020 10:35:56 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH] ASoC: qcom: lpass-cpu: support full duplex operation
-Message-ID: <20200416093556.GB5354@sirena.org.uk>
-References: <20200306130147.27452-1-srinivas.kandagatla@linaro.org>
- <841cb73b-82d3-9fb9-0ed3-547882872085@linaro.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="ZoaI/ZTpAVc4A5k6"
-Content-Disposition: inline
-In-Reply-To: <841cb73b-82d3-9fb9-0ed3-547882872085@linaro.org>
-X-Cookie: Tempt me with a spoon!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Takahide Higuchi <takahidehiguchi@gmail.com>,
- linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 011E8F80240
+ for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 12:31:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 011E8F80240
+Received: from ramsan ([IPv6:2a02:1810:ac12:ed60:fd83:81bb:c1d7:433d])
+ by xavier.telenet-ops.be with bizsmtp
+ id TNWz2200i4dKHqf01NWzxE; Thu, 16 Apr 2020 12:31:11 +0200
+Received: from rox.of.borg ([192.168.97.57]) by ramsan with esmtp (Exim 4.90_1)
+ (envelope-from <geert@linux-m68k.org>)
+ id 1jP1nP-0001cj-Ll; Thu, 16 Apr 2020 12:30:59 +0200
+Received: from geert by rox.of.borg with local (Exim 4.90_1)
+ (envelope-from <geert@linux-m68k.org>)
+ id 1jP1nP-0003z7-JX; Thu, 16 Apr 2020 12:30:59 +0200
+From: Geert Uytterhoeven <geert+renesas@glider.be>
+To: Rob Herring <robh+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ Stefan Popa <stefan.popa@analog.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jiri Kosina <trivial@kernel.org>
+Subject: [PATCH trivial 0/6] Fix misspellings of "Analog Devices"
+Date: Thu, 16 Apr 2020 12:30:52 +0200
+Message-Id: <20200416103058.15269-1-geert+renesas@glider.be>
+X-Mailer: git-send-email 2.17.1
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Geert Uytterhoeven <geert+renesas@glider.be>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ dmaengine@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,45 +79,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+	Hi all,
 
---ZoaI/ZTpAVc4A5k6
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In several files the company also known as ADI is spelled as "Analog
+Device".  However, according to https://www.analog.com/, the company
+name is spelled "Analog Devices".
 
-On Thu, Apr 16, 2020 at 09:05:55AM +0100, Srinivas Kandagatla wrote:
+Hence this patch series, one per subsystem, fixes these misspellings.
 
-> Looks like this patch was missed in last cycle, Should I resend this one =
-or
-> are you okay to apply this. This patch is required to get full duplex on
-> msm8916 based platforms.
+Thanks for your comments!
 
-Please don't send content free pings and please allow a reasonable time
-for review.  People get busy, go on holiday, attend conferences and so=20
-on so unless there is some reason for urgency (like critical bug fixes)
-please allow at least a couple of weeks for review.  If there have been
-review comments then people may be waiting for those to be addressed.
+Geert Uytterhoeven (6):
+  dt-bindings: Fix misspellings of "Analog Devices"
+  dma: Fix misspelling of "Analog Devices"
+  drm: Fix misspellings of "Analog Devices"
+  iio: Fix misspellings of "Analog Devices"
+  ALSA: Fix misspellings of "Analog Devices"
+  ASoC: Fix misspellings of "Analog Devices"
 
-Sending content free pings adds to the mail volume (if they are seen at
-all) which is often the problem and since they can't be reviewed
-directly if something has gone wrong you'll have to resend the patches
-anyway, so sending again is generally a better approach though there are
-some other maintainers who like them - if in doubt look at how patches
-for the subsystem are normally handled.
+ .../devicetree/bindings/display/bridge/adi,adv7123.txt        | 4 ++--
+ .../devicetree/bindings/display/bridge/adi,adv7511.txt        | 4 ++--
+ Documentation/devicetree/bindings/dma/adi,axi-dmac.txt        | 2 +-
+ Documentation/devicetree/bindings/iio/dac/ad5755.txt          | 2 +-
+ drivers/dma/Kconfig                                           | 2 +-
+ drivers/gpu/drm/bridge/adv7511/Kconfig                        | 2 +-
+ drivers/gpu/drm/drm_fb_cma_helper.c                           | 2 +-
+ drivers/gpu/drm/tegra/fb.c                                    | 2 +-
+ drivers/iio/adc/ad7791.c                                      | 2 +-
+ drivers/iio/trigger/iio-trig-hrtimer.c                        | 2 +-
+ drivers/staging/iio/Documentation/overview.txt                | 2 +-
+ sound/isa/ad1816a/ad1816a.c                                   | 2 +-
+ sound/pci/ac97/ac97_patch.c                                   | 2 +-
+ sound/pci/hda/Kconfig                                         | 4 ++--
+ sound/soc/codecs/ad1980.c                                     | 2 +-
+ sound/soc/codecs/ad73311.c                                    | 2 +-
+ sound/soc/codecs/wm8782.c                                     | 2 +-
+ 17 files changed, 20 insertions(+), 20 deletions(-)
 
---ZoaI/ZTpAVc4A5k6
-Content-Type: application/pgp-signature; name="signature.asc"
+-- 
+2.17.1
 
------BEGIN PGP SIGNATURE-----
+Gr{oetje,eeting}s,
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6YJvsACgkQJNaLcl1U
-h9BgUAf+P5xci/XZM3xcqCLxrOBiDlbEAw2QYHpY+orX/gMgPJIya4k0/3KNlPsQ
-Vr/987zEpqJApIrM6F3CYgwslsTcnLZzRvTJp/QxO4FR94Jb0guaZ6l031is7wHa
-N5rNI9lO7hXE9zoOoHGF8E+7Us0cW4xfZOgpJq19Tos9vVOzn+rFVowK5E5BIcoA
-k0oJ1MLNiUOq0lFIkwETNmvab9OVT9VJU+FpIvMqSmTh5CmaKtSx4W+HQGPbeWko
-0UmjJlrJBgfMYZGEnLiy98dUjlod1OclUMLbj0TZZdxT3kAaqNP/agjZNUXBfNM5
-FXtoMFWLdN+eJCtmhr1ABez71lygpQ==
-=BL6m
------END PGP SIGNATURE-----
+						Geert
 
---ZoaI/ZTpAVc4A5k6--
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+							    -- Linus Torvalds

@@ -2,111 +2,133 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D14A1AB6C6
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Apr 2020 06:26:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CF781AB78F
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Apr 2020 07:54:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ACB4C1663;
-	Thu, 16 Apr 2020 06:25:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACB4C1663
+	by alsa0.perex.cz (Postfix) with ESMTPS id D85BE15F9;
+	Thu, 16 Apr 2020 07:54:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D85BE15F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587011176;
-	bh=XCXFf7V0z+YjDywyTqVBWear9rBpBCsolcpi9KWtsEI=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1587016490;
+	bh=L/V/jslQusQGEl1GQyUXReaKbjDejKlH8gDgVNDz50Y=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=kU06vZtzP0PpHOGVbwBOqMeyqiRGWfegNhtEkuXpcTY244xaeRPx6E4YY6mKbfn/H
-	 zI4D5HFSFfwDXF9ngrGhCKaGGazEBHXjG1HuM9Af3dxpytGGJV2tOMhMhDpQmJWOzh
-	 0QAMfv5bXC0NpPjgRMDiNeUxV7RaZ2tbhsu0nu0k=
+	b=n65xTg/LDbqaGqvKdqs2RAMoIQKw9Xng4Tdt4gvkN8k8oE1BqM8YrEI++7GlVkq7d
+	 BjZCRWnUGviigKMuq6uKA77MJbfhlfovJZohsFfoo2msq/St081hVxJgSc/cmk9YkV
+	 OTDYEx+LV10BVAP8AMpu5DCRd3Wq71Reo0DT5kpU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CCABFF8016F;
-	Thu, 16 Apr 2020 06:24:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC909F8016F;
+	Thu, 16 Apr 2020 07:53:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 266EDF8014E; Thu, 16 Apr 2020 06:24:32 +0200 (CEST)
+ id 1AD06F8014E; Thu, 16 Apr 2020 07:53:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FORGED_HOTMAIL_RCVD2,FREEMAIL_FROM,RCVD_IN_MSPIKE_H2,
- SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12olkn2049.outbound.protection.outlook.com [40.92.23.49])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4E590F8012E
- for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 06:24:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E590F8012E
+ by alsa1.perex.cz (Postfix) with ESMTPS id A96D1F800AB
+ for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 07:52:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A96D1F800AB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com
- header.b="e+UPaA1Z"
+ dkim=pass (1024-bit key) header.d=intel.onmicrosoft.com
+ header.i=@intel.onmicrosoft.com header.b="jGAKQkR5"
+IronPort-SDR: 5YWe0qvpo0YLvKfyGoAv9nHUqr6R65zN9mq8XqOpeBZetSHZbTbTXHC+S7cHUPnlBQpSSX22g6
+ nN4krjDgk2oQ==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Apr 2020 22:52:48 -0700
+IronPort-SDR: maQ4k0TS1cHIy1xTNVP4uH3dMXtH5QEh/QNHmVlN5+gzUhERm9fB1rOXPM2WduvYM/OYCgXgA6
+ 3ZXSuI+O5vaA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,388,1580803200"; 
+ d="scan'208,217";a="253751175"
+Received: from fmsmsx103.amr.corp.intel.com ([10.18.124.201])
+ by orsmga003.jf.intel.com with ESMTP; 15 Apr 2020 22:52:48 -0700
+Received: from fmsmsx163.amr.corp.intel.com (10.18.125.72) by
+ FMSMSX103.amr.corp.intel.com (10.18.124.201) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Wed, 15 Apr 2020 22:52:47 -0700
+Received: from FMSEDG002.ED.cps.intel.com (10.1.192.134) by
+ fmsmsx163.amr.corp.intel.com (10.18.125.72) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Wed, 15 Apr 2020 22:52:47 -0700
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.109)
+ by edgegateway.intel.com (192.55.55.69) with Microsoft SMTP Server (TLS) id
+ 14.3.439.0; Wed, 15 Apr 2020 22:52:47 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RC9+GXYjPIg3F+/hrVyuSIVANSJyFk/I2FeibcDviiJSBAnPAPnRgvl8foqAknf6K/ACCANZvKu7D21V8B89k1Z/bLsEt2B+jTXxm8njvtRL0yF/seI5JuysbXwi06AEDE2Mp60l5y0H9TaLmU3X8RSh+IaH4/OourHmMy85vnMqYThLcd16nAZP2addJ7o2QsM4rQ5tehGHRj3dBBJPZMbZQby7HEriAHCGM6uNWvn6Y27uj8kJa63inh0nPkw4s5N+K3pzGgGs/0a6pLbWUixGE8J46OKg87HhAyT3KIlTJeWaEf8boHs7JGVSfX+O1zVYw16QzLhRdvexhskP2A==
+ b=TaLzsVgrKqpjo3nAD/A2hG10SL8rISo2ovmXTfDm1wVPrLfdU7EydN7fWrEi++TFOybgtasPfDsM/akKCnpJIltWX4OK93Wgr1QFOc34P0k+KmlDPE153YjP0ydIXUYWm2D3aP1T6JrB2egCX6wnZqYztv5awCgMrZQ8wnprD4Kiae09nxwD7Z8FnXRlRQwCWxr6mYKkVAS4qB/U5n8T++hqln2BXaKMfhOSo/601TeaMwc1+lvR7CWxtCPu1/VZW48xGr6kTj9272yQj6nTkPvHrYwcehq+R0VhVzqMxdVfCRe8Q7uFDx7ITgDc8k9cJzxVpHYQI+ZoyJHqnQoaMg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FkSNNCCYJx2E2pVIiiQgwOMzMhyKKJPaanFKpeKW6iI=;
- b=VlvFqpZHqb+vq7y5583aRWbcLgizo6tV1p1EQJYN/sEpZGSOpdZEy/Q8x0DDHfGsAEd0i79U3HtKOBKu0zwz9kEUANqHkm654EBhQXPilcR9NpQ7h8Yx25c7n5yvHEtK1tnKWvGqvx/dHC/mFgXodFbioh3EDQxsgSPQjJJnbeXrZjAILwUz7LrYlPo526VXRNqGMY+KpLTlCkUQjfvXbF3Uu4mSEeVgboSMiy0NvO9zNX8Xs2NYrA8o6UZACqfxYuRl8E7YYmLpIgm7jLdGWoKf2OYRid3SGtqyI9RDVFCFEjwJujb5CpN8QPj6sQHi2+pUjxsy0dgRmECJfF3vCg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
+ bh=/IpA7WkbFBgNdCy3lNeWJ1sps8uhkkLtN7lKYEZ+hZ8=;
+ b=QIb7hu+m4HEIP4cGi3XvU1A7l5gCXicP4m4ZKwz4E/uQL7vFkyfp2Bp4QokB/+JYZVzZ68IDNqLxY58xj1xmjWZs5BdZAnpGDC82nZdeeZimnl5yMdKmIZd6g6tbIs3CUc3zwjj/sKf0sk3pOPerjBbIwq8xLF1uoNJQzSiZ/2GRKLVgBahTTaFW+bFQLLmslow9uLzot5yfNdMj+H0SY9Bajcsr6r8qThUrcOTU5pYUS6wEWMt6zIVzj4bFqNOKQMm3D6NOYXl6wMIchJHMcmQ0hy6HDw3OmXtK85mCxNCcQ6hQkJw53eRUFTk34Gz+68yu5pDssHFkyIaLEp2jkg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
+ s=selector2-intel-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FkSNNCCYJx2E2pVIiiQgwOMzMhyKKJPaanFKpeKW6iI=;
- b=e+UPaA1ZQEljhexf47jtXdaXGitDLNzRgIrHJfaZEsrsVZEtVZn4CeXZEQwZ+FOD1SHSdRFZC1/JTbh339uS3QEpe09U2xptSImKqkbGByWANPWug81QsDf39gYF5Erb8KwASxXHAESuH3AKLcQ3IGe0cyRLblDZ8x5z3Jg0IcYifvInFx/MB+t8rNDfEL7DJoj4dbdI7YIS2N0wUm6m6fEJzSMSx3+PFCSC1FLaxt0K+KdcrLq3rIU/SgZQzirXThfhhZKODUShITMrWrFAmErtUEgSonQQx3k1Orx242AGy+CVG0dQSsFkML2cDosOZFGzGqFPlipuheNZtoyn6g==
-Received: from DM6NAM12FT064.eop-nam12.prod.protection.outlook.com
- (2a01:111:e400:fc64::50) by
- DM6NAM12HT168.eop-nam12.prod.protection.outlook.com (2a01:111:e400:fc64::131)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2921.12; Thu, 16 Apr
- 2020 04:24:18 +0000
-Received: from BL0PR01MB4802.prod.exchangelabs.com (2a01:111:e400:fc64::44) by
- DM6NAM12FT064.mail.protection.outlook.com (2a01:111:e400:fc64::114)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2921.12 via Frontend
- Transport; Thu, 16 Apr 2020 04:24:18 +0000
-Received: from BL0PR01MB4802.prod.exchangelabs.com
- ([fe80::a183:5ea9:1771:8226]) by BL0PR01MB4802.prod.exchangelabs.com
- ([fe80::a183:5ea9:1771:8226%5]) with mapi id 15.20.2900.028; Thu, 16 Apr 2020
- 04:24:18 +0000
-From: Alexey Shinkin <alexshinkin@hotmail.com>
-To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Subject: wm8960  codec driver question
-Thread-Topic: wm8960  codec driver question
-Thread-Index: AQHWE6TcbAUos7XiQ0yvW6Go4aEqqg==
-Date: Thu, 16 Apr 2020 04:24:18 +0000
-Message-ID: <BL0PR01MB4802ECF9650E33DCAA7FEFEDAFD80@BL0PR01MB4802.prod.exchangelabs.com>
-Accept-Language: en-AU, en-US
-Content-Language: en-AU
+ bh=/IpA7WkbFBgNdCy3lNeWJ1sps8uhkkLtN7lKYEZ+hZ8=;
+ b=jGAKQkR5QhGTciuRz8FXfigZoWxBWH/BcQ0/n1UzchEnUObMv0eTWvlLHcJRyrHLep2/gWfU17wiZFuMT0fkRZlkeAEIX6kwFJyXpr/J1FxYSwFUGGpfuzy2GlRAN2oJpn3exNcbHd/acCLe9sbAwxu8NQK8dU5KBF0pZlxNuw0=
+Received: from DM6PR11MB2905.namprd11.prod.outlook.com (2603:10b6:5:62::18) by
+ DM6PR11MB3465.namprd11.prod.outlook.com (2603:10b6:5:b::18) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2921.25; Thu, 16 Apr 2020 05:52:45 +0000
+Received: from DM6PR11MB2905.namprd11.prod.outlook.com
+ ([fe80::fdae:41c5:b91b:b7ec]) by DM6PR11MB2905.namprd11.prod.outlook.com
+ ([fe80::fdae:41c5:b91b:b7ec%4]) with mapi id 15.20.2900.028; Thu, 16 Apr 2020
+ 05:52:45 +0000
+From: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
+To: Takashi Iwai <tiwai@suse.com>, Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: Question about snd_soc_card_register()
+Thread-Topic: Question about snd_soc_card_register()
+Thread-Index: AQHWE7HCfFHTKu+2bECdeacoGgJRLw==
+Date: Thu, 16 Apr 2020 05:52:45 +0000
+Message-ID: <DM6PR11MB29052BDEDBB872123FE6410FE8D80@DM6PR11MB2905.namprd11.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-incomingtopheadermarker: OriginalChecksum:26EE81E41A164437EF69DB60840FEBA8F2F3F6EAD147DF8B817FD8FA1AF13112;
- UpperCasedChecksum:D0BBE4C3AB1052CD86B4C1C04D05159607CEC927CED3BC3359779C88C0D2C478;
- SizeAsReceived:6807; Count:42
-x-tmn: [gq68qEETEXeB+Y7TVnBiSC0YFfK46afCEGouGkOkJoECd+U0bFSQiGOe6oAExvq2]
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=ranjani.sridharan@intel.com; 
+x-originating-ip: [134.191.227.39]
 x-ms-publictraffictype: Email
-x-incomingheadercount: 42
-x-eopattributedmessage: 0
-x-ms-office365-filtering-correlation-id: 0a4203a6-e3e0-48cc-36c1-08d7e1be0796
-x-ms-traffictypediagnostic: DM6NAM12HT168:
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 8dAYvKJmKGj+6lQg0eT0FFbypvTfrJ/SVTSAEU3GOZzQCS2+MTzX1DmkxE1hksNPIvCjGGczwNkc1ZF3X5joDDvK07NIyTC7Wc0llk4dXGaaQH55gQxaXNVmSa/bDyCRR3dsBkBUkiYrlZ3EqKi8S5+e+jMcNUVNYeZrF0Als8qi1YLrYS3Ugyai+qddATU5
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:0; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR01MB4802.prod.exchangelabs.com; PTR:; CAT:NONE;
- SFTY:; SFS:; DIR:OUT; SFP:1901; 
-x-ms-exchange-antispam-messagedata: a0YMcbjft04WIwzelhV4AIKgmj8p51NFybG0QHHmJttuTu2EvkMT1k9rNzGxQwxpb32PHFAIB6p8siRndEuN4ONNG6LVBNtp4EjE6Lm9c20AKDwrSmTYSolc/QVLv39mT/c6RkmkWhpHe7KW0i7PpoJKK/ePzxPIVSTF0c9xFHJTv2fnqTeMcFGFDqK9wYAyN/V2SLiAZN6uTYficX4ibw==
+x-ms-office365-filtering-correlation-id: d8bf3403-2580-4374-dc7f-08d7e1ca62e8
+x-ms-traffictypediagnostic: DM6PR11MB3465:
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
 x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR11MB346582FFCFDCD8D6744FDA7BE8D80@DM6PR11MB3465.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-forefront-prvs: 0375972289
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR11MB2905.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(10019020)(366004)(346002)(376002)(136003)(39860400002)(396003)(7116003)(478600001)(110136005)(4326008)(6506007)(66946007)(7696005)(316002)(76116006)(66476007)(66556008)(64756008)(91956017)(66446008)(52536014)(33656002)(71200400001)(86362001)(19627405001)(26005)(186003)(8676002)(107886003)(8936002)(5660300002)(81156014)(9686003)(4744005)(55016002)(2906002);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: folQjB50txJDmqden/Z5rft1e8IMfj4spZVYPQrwzNI4bT5m8xK4Da1kPAGdrKI/TAxrR8WibcGjDNT8qSmZt59xB/t5eGe3Dw1io1QsEl4ouOFxrBqv2lsBD74Iijh+9hKXkRa0GqthSZ5YhhM4iB20Y+5uwOE8Gc51Sn5xpSzaB4hsvZVYo1hFl8c6bew3O5758WLpoQR4Mve7ZDvZs1tTfrR8/+jsyVzq+KN1tr58uaKwChNs4Jn8HEErGrHEcRJEdfMklHi7bEiHLYy29wG/YsjsoVY+Qyp24d9WgJ3Mo+J1gR28G5Z4Z+qTAKvxe0w5OiLcbJ/3W6OJxUaqOiRrfrYfp0Ud80Xz6PYuKASylp8fUaJI8qEaS5cKSnydQNWvgu/IfPXMxRzMRJZl1SCMTmqHnQN0ovq4nhXrU0iyEK58nINrHrBrs+q6/c8L
+x-ms-exchange-antispam-messagedata: IHQMjYUKgb3nzKBxmKJxWWopSe5CR+0H5O9tjDyce7CZaFOsYFFZ06Ip2/XzqZSKjZHeXCj17w/K1pDeeM4n02wlWE4WAh3/fDHu07FkIRCGeK+SmEZDW+41Ltk6ieaNRGqtSg30nq3dCyIR6TWWMg==
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-Network-Message-Id: d8bf3403-2580-4374-dc7f-08d7e1ca62e8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Apr 2020 05:52:45.4246 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: oC3sVNmkQQCXBcE5G8P6eKxCfB1PCQD/DU9wYmHCq8ewI40/sASMR0ujAtBnsI09DQ+/5oi3EgbXln4D4QmymhMpR99kqjpq3GGizaqjwaM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB3465
+X-OriginatorOrg: intel.com
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-OriginatorOrg: hotmail.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0a4203a6-e3e0-48cc-36c1-08d7e1be0796
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Apr 2020 04:24:18.2745 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Internet
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6NAM12HT168
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: "Bossart, Pierre-louis" <pierre-louis.bossart@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -122,27 +144,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,=0A=
-=0A=
-I hope this is the right place to ask .=0A=
-=0A=
-In the driver ( soc/codecs/wm8960.c )=A0 there is a function that sets pll =
--=A0 the wm8960_set_pll() , line 1185 .=0A=
-On exit , the function turns on the pll clocking like this :=A0=0A=
-=0A=
-	/* Turn it on */=0A=
-	snd_soc_component_update_bits(component, WM8960_POWER2, 0x1, 0x1);=0A=
-	msleep(250);=0A=
-	snd_soc_component_update_bits(component, WM8960_CLOCK1, 0x1, 0x1);=0A=
-=0A=
-=0A=
-What is the reason  for the 250 ms delay ?  I did not find anything related=
- in the chip datasheet . =0A=
-=0A=
-I found the delay very annoying in my app that generates an audible feedbac=
-k to touchscreen events.  Looks like it is safe to comment out the msleep()=
- call  , could there be any implications ?   =0A=
-=0A=
- =0A=
-Best regards,=0A=
-Alex Shinkin=
+Hi Takashi,
+
+While working on implementing the probes features in SOF using a separate c=
+ard for the probe DAI links, I noticed that calling snd_soc_register_card()=
+  results in
+incrementing the usage_count for the device that registers the card by 2 an=
+d it is not decremented until the card is freed.
+
+Is this the expected behaviour? Typically, we register a separate platform =
+device for the Intel machines which in turn register the card and none of t=
+hem ever enable runtime PM. So this has no impact on the parent device's ru=
+ntime PM status.
+
+I'd like to avoid creating a separate platform device just to register the =
+card if possible while also enabling runtime PM . But when I do this today,=
+ the device cannot enter runtime suspend at all. Could you please shed some=
+ light on this?
+
+Thanks,
+Ranjani

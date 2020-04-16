@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C822F1AD924
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 10:53:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B5A11AD926
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 10:54:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5BB65166D;
-	Fri, 17 Apr 2020 10:52:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BB65166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D84881675;
+	Fri, 17 Apr 2020 10:53:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D84881675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587113606;
-	bh=2QFm0Wo20Rfh/JkTada04gufI50ZQO+dO5ytWRgWt+k=;
+	s=default; t=1587113644;
+	bh=BqqKIcfi71uO3657FgOJMTKMuLhswHar/FvLMekg8gw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EFnbJTLDczFaNiOGrYkg19AjsEMN5tjkVVkhkPrtnCaQN1NLQXCsnNEmyCq9J8ILl
-	 itiwK8C+SYS3WlnWPqOAnaQ0/4UY/ryKN8h3F8tvEC7Cw7xhwk0yV5rffwRU7Jq86+
-	 zd3nWgLhk2yQKirfY8TXnd8575SI7i35T8zyGlLw=
+	b=LCLgzTBvTyM+LweaX/Eg4PiTV1PrkfOY81lrfa6T9TECsDuML4RlP+dN83ZUWUaAU
+	 pzHER4N1dF4yFvmCZaQlIf6OABvC4KFbrViRK1ec1BrpIjJfdLwOjRr/f2Tu9282x9
+	 xC8lzj6/8881A6AiQ8IYodgQ/6xvR5stQNUug5YA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78882F8028A;
-	Fri, 17 Apr 2020 10:50:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C5B7BF80291;
+	Fri, 17 Apr 2020 10:50:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C7110F80266; Fri, 17 Apr 2020 10:50:44 +0200 (CEST)
+ id A0FF1F80266; Fri, 17 Apr 2020 10:50:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
@@ -33,29 +33,28 @@ X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 219A0F800DE
- for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 10:50:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 219A0F800DE
-IronPort-SDR: d8ZTupZpqDT+nHPzUKkZrC8Lj5DDCxfiXcOQi5WR175hkh3+TFY5SSnNf7L/S6dMwI0UTFngM3
- Xjw40d4P+xaw==
+ by alsa1.perex.cz (Postfix) with ESMTPS id C0480F80268
+ for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 10:50:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0480F80268
+IronPort-SDR: I9fjg2cFpsZMc7/WQuYl13oaZZw7XYTBlVHiR9ootqt7zh+i/bWlqxZTXCM08/8uv0Tn+oz12X
+ B0qz4R5kuACQ==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Apr 2020 01:50:36 -0700
-IronPort-SDR: gfOsYFLTybkPRyrNv0LcZc8ObkXbC0NWu4yG6cCK6Ebtn8V7eHtEW5UAm9rxoSnlPAClz8FHCk
- xZMHp0/p72Cw==
+ 17 Apr 2020 01:50:40 -0700
+IronPort-SDR: VDaYhI04bXnxrIgdRX3TvFSDnT3Mfg5N7oy8zUI/vOJTe+h5K225x3dn/AAvSM6lWlBai1cDYp
+ sn8ifT+KwXig==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,394,1580803200"; d="scan'208";a="454661457"
+X-IronPort-AV: E=Sophos;i="5.72,394,1580803200"; d="scan'208";a="454661472"
 Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
- by fmsmga005.fm.intel.com with ESMTP; 17 Apr 2020 01:50:32 -0700
+ by fmsmga005.fm.intel.com with ESMTP; 17 Apr 2020 01:50:35 -0700
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
-Subject: [RFC 2/5] soundwire: master: use device node pointer from master
- device
-Date: Fri, 17 Apr 2020 04:55:21 +0800
-Message-Id: <20200416205524.2043-3-yung-chuan.liao@linux.intel.com>
+Subject: [RFC 3/5] soundwire: qcom: fix error handling in probe
+Date: Fri, 17 Apr 2020 04:55:22 +0800
+Message-Id: <20200416205524.2043-4-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200416205524.2043-1-yung-chuan.liao@linux.intel.com>
 References: <20200416205524.2043-1-yung-chuan.liao@linux.intel.com>
@@ -80,30 +79,87 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-device_node pointer is required for scanning slave devices, update
-it from the master device.
+Make sure all error cases are properly handled and all resources freed.
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- drivers/soundwire/master.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/soundwire/qcom.c | 26 +++++++++++++++++---------
+ 1 file changed, 17 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/soundwire/master.c b/drivers/soundwire/master.c
-index 094518817601..c930c871caae 100644
---- a/drivers/soundwire/master.c
-+++ b/drivers/soundwire/master.c
-@@ -49,6 +49,7 @@ struct sdw_master_device
- 	md->link_ops = link_ops;
+diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+index d6c9ad231873..e08a17c13f92 100644
+--- a/drivers/soundwire/qcom.c
++++ b/drivers/soundwire/qcom.c
+@@ -765,12 +765,16 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+ 	}
  
- 	md->dev.parent = parent;
-+	md->dev.of_node = parent->of_node;
- 	md->dev.fwnode = fwnode;
- 	md->dev.bus = &sdw_bus_type;
- 	md->dev.type = &sdw_master_type;
+ 	ctrl->irq = of_irq_get(dev->of_node, 0);
+-	if (ctrl->irq < 0)
+-		return ctrl->irq;
++	if (ctrl->irq < 0) {
++		ret = ctrl->irq;
++		goto err_init;
++	}
+ 
+ 	ctrl->hclk = devm_clk_get(dev, "iface");
+-	if (IS_ERR(ctrl->hclk))
+-		return PTR_ERR(ctrl->hclk);
++	if (IS_ERR(ctrl->hclk)) {
++		ret = PTR_ERR(ctrl->hclk);
++		goto err_init;
++	}
+ 
+ 	clk_prepare_enable(ctrl->hclk);
+ 
+@@ -787,7 +791,7 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+ 
+ 	ret = qcom_swrm_get_port_config(ctrl);
+ 	if (ret)
+-		return ret;
++		goto err_clk;
+ 
+ 	params = &ctrl->bus.params;
+ 	params->max_dr_freq = DEFAULT_CLK_FREQ;
+@@ -814,28 +818,32 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+ 					"soundwire", ctrl);
+ 	if (ret) {
+ 		dev_err(dev, "Failed to request soundwire irq\n");
+-		goto err;
++		goto err_clk;
+ 	}
+ 
+ 	ret = sdw_add_bus_master(&ctrl->bus);
+ 	if (ret) {
+ 		dev_err(dev, "Failed to register Soundwire controller (%d)\n",
+ 			ret);
+-		goto err;
++		goto err_clk;
+ 	}
+ 
+ 	qcom_swrm_init(ctrl);
+ 	ret = qcom_swrm_register_dais(ctrl);
+ 	if (ret)
+-		goto err;
++		goto err_master_add;
+ 
+ 	dev_info(dev, "Qualcomm Soundwire controller v%x.%x.%x Registered\n",
+ 		 (ctrl->version >> 24) & 0xff, (ctrl->version >> 16) & 0xff,
+ 		 ctrl->version & 0xffff);
+ 
+ 	return 0;
+-err:
++
++err_master_add:
++	sdw_delete_bus_master(&ctrl->bus);
++err_clk:
+ 	clk_disable_unprepare(ctrl->hclk);
++err_init:
+ 	return ret;
+ }
+ 
 -- 
 2.17.1
 

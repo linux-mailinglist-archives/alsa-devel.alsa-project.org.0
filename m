@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACD971AC9A6
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Apr 2020 17:26:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79EB61AC9A9
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Apr 2020 17:26:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E9DA61665;
-	Thu, 16 Apr 2020 17:25:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9DA61665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 26A8015E4;
+	Thu, 16 Apr 2020 17:25:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26A8015E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587050764;
-	bh=ZIoIsXIaQkSSo9DwrSDuxVUKUDWHBUIiPNGyWCNpMjY=;
+	s=default; t=1587050781;
+	bh=IzkNZB35W1ndrDT9IYOyxKuHacGeFfTHARmLelJ2Y4A=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Ohr1L5ad2wrRs8dWraZcWwAzIvLQsm+QJbzqpqMyImXXpdD/UYp69K+p5N0Gdfk7o
-	 14H/jdgrqjzMySmf3nTPrmrVK6VsUmRJLMlIv2vNZRP8bxqm4Yd8RmSRkcv++73qVX
-	 18ZJJkjWqa3DqTx7I1q4sy+gecbQv1VZXI3gND4Q=
+	b=Xrefgvz7WYjiziZoURhSEH4mIs67LNVfk0dpSphS8oWocStlAWzSSoyo9++DFyL7k
+	 VaxpCSL/zMW2getSBHvH16zfhT0iKd1NZoqn+sMHVzVNVeyqleqdYffL8SRRMIChkA
+	 4jcTChlFL5FLbZ7TmY0uG38LwrKMg3OIHe8kk6LY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E54BF80240;
-	Thu, 16 Apr 2020 17:23:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1189FF8028D;
+	Thu, 16 Apr 2020 17:23:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 53C19F80278; Thu, 16 Apr 2020 17:23:40 +0200 (CEST)
+ id 0D2F0F8028C; Thu, 16 Apr 2020 17:23:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,42 +33,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C37E7F800AB
- for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 17:23:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C37E7F800AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 798E7F80115
+ for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 17:23:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 798E7F80115
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="bBTzd9Or"
+ header.b="0itGvQ0T"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7A022214D8;
- Thu, 16 Apr 2020 15:23:30 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id DD784206D6;
+ Thu, 16 Apr 2020 15:23:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587050611;
- bh=ZIoIsXIaQkSSo9DwrSDuxVUKUDWHBUIiPNGyWCNpMjY=;
+ s=default; t=1587050616;
+ bh=IzkNZB35W1ndrDT9IYOyxKuHacGeFfTHARmLelJ2Y4A=;
  h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=bBTzd9OrYpXGg6ORHDevc26biU8U6Ir9eDMrYVbq0oazh6OMuVNc+sGyIZ47f/7em
- 9meS9HRqxJekEbvO8q77PIn9Lnv5yio2WbX+XoF1s/KEVYXbiaOmjD7h4soWVtcrHG
- 7bhbBJI+VfwXU79XQ6M8zC9fvfiC7rsu/xGQ/jfU=
-Date: Thu, 16 Apr 2020 16:23:28 +0100
+ b=0itGvQ0TRTSbAX89qQPxyd624QQHZgcthxDJZuTh1ggkUswcN5j1nXOLbnVSHqJue
+ fYC5kBVkTgl2kBYymGsgWY89hXTA2mmnHCprGo8W0vppPvtvfHjsNtmrF91M2+aoJN
+ narHOBRK3+6V5J429mTBb+5Vu4V1rhQRkEBtNaf4=
+Date: Thu, 16 Apr 2020 16:23:33 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: Applied "ASoC: Fix misspellings of "Analog Devices"" to the asoc tree
-In-Reply-To: <20200416103058.15269-7-geert+renesas@glider.be>
-Message-Id: <applied-20200416103058.15269-7-geert+renesas@glider.be>
+To: Stephan Gerhold <stephan@gerhold.net>
+Subject: Applied "ASoC: qdsp6: Suggest more generic node names" to the asoc
+ tree
+In-Reply-To: <20200415081159.1098-1-stephan@gerhold.net>
+Message-Id: <applied-20200415081159.1098-1-stephan@gerhold.net>
 X-Patchwork-Hint: ignore
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Lars-Peter Clausen <lars@metafoo.de>, Jiri Kosina <trivial@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- dri-devel@lists.freedesktop.org, Stefan Popa <stefan.popa@analog.com>,
- linux-iio@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- Mark Brown <broonie@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- dmaengine@vger.kernel.org, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Jonathan Cameron <jic23@kernel.org>
+ linux-arm-msm@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Andy Gross <agross@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,7 +81,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Fix misspellings of "Analog Devices"
+   ASoC: qdsp6: Suggest more generic node names
 
 has been applied to the asoc tree at
 
@@ -111,63 +106,184 @@ to this mail.
 Thanks,
 Mark
 
-From b938b25f49cdb47397b0215b69cdd5251b4b2f8b Mon Sep 17 00:00:00 2001
-From: Geert Uytterhoeven <geert+renesas@glider.be>
-Date: Thu, 16 Apr 2020 12:30:58 +0200
-Subject: [PATCH] ASoC: Fix misspellings of "Analog Devices"
+From 35c638d039bbabbca7affb52960d468951d811c1 Mon Sep 17 00:00:00 2001
+From: Stephan Gerhold <stephan@gerhold.net>
+Date: Wed, 15 Apr 2020 10:11:58 +0200
+Subject: [PATCH] ASoC: qdsp6: Suggest more generic node names
 
-According to https://www.analog.com/, the company name is spelled
-"Analog Devices".
+Change the listed examples to use more generic node names, representing
+the class of the device nodes:
 
-Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Reviewed-by: Alexandru Ardelean <alexandru.ardelean@analog.com>
-Link: https://lore.kernel.org/r/20200416103058.15269-7-geert+renesas@glider.be
+  - apr-service@<id>
+  - dai@<id>
+
+Both names are already in use in arch/arm64/boot/dts/qcom/sdm845.dtsi.
+
+Also add #address-cells + #size-cells to the q6asm example,
+without them the example produces dtc warnings.
+
+Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Link: https://lore.kernel.org/r/20200415081159.1098-1-stephan@gerhold.net
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/ad1980.c  | 2 +-
- sound/soc/codecs/ad73311.c | 2 +-
- sound/soc/codecs/wm8782.c  | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ .../devicetree/bindings/sound/qcom,q6adm.txt  |  2 +-
+ .../devicetree/bindings/sound/qcom,q6afe.txt  | 46 +++++++++----------
+ .../devicetree/bindings/sound/qcom,q6asm.txt  |  7 ++-
+ .../devicetree/bindings/sound/qcom,q6core.txt |  2 +-
+ 4 files changed, 30 insertions(+), 27 deletions(-)
 
-diff --git a/sound/soc/codecs/ad1980.c b/sound/soc/codecs/ad1980.c
-index c4414c725c1f..43b1337bac37 100644
---- a/sound/soc/codecs/ad1980.c
-+++ b/sound/soc/codecs/ad1980.c
-@@ -2,7 +2,7 @@
- /*
-  * ad1980.c  --  ALSA Soc AD1980 codec support
-  *
-- * Copyright:	Analog Device Inc.
-+ * Copyright:	Analog Devices Inc.
-  * Author:	Roy Huang <roy.huang@analog.com>
-  * 		Cliff Cai <cliff.cai@analog.com>
-  */
-diff --git a/sound/soc/codecs/ad73311.c b/sound/soc/codecs/ad73311.c
-index 10daf61f0294..b98bf19f594e 100644
---- a/sound/soc/codecs/ad73311.c
-+++ b/sound/soc/codecs/ad73311.c
-@@ -2,7 +2,7 @@
- /*
-  * ad73311.c  --  ALSA Soc AD73311 codec support
-  *
-- * Copyright:	Analog Device Inc.
-+ * Copyright:	Analog Devices Inc.
-  * Author:	Cliff Cai <cliff.cai@analog.com>
-  */
+diff --git a/Documentation/devicetree/bindings/sound/qcom,q6adm.txt b/Documentation/devicetree/bindings/sound/qcom,q6adm.txt
+index bbae426cdfb1..15c353a20de8 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,q6adm.txt
++++ b/Documentation/devicetree/bindings/sound/qcom,q6adm.txt
+@@ -29,7 +29,7 @@ used by the apr service device.
+ 	Definition: Must be 0
  
-diff --git a/sound/soc/codecs/wm8782.c b/sound/soc/codecs/wm8782.c
-index aa5577e364d0..f89855c616eb 100644
---- a/sound/soc/codecs/wm8782.c
-+++ b/sound/soc/codecs/wm8782.c
-@@ -7,7 +7,7 @@
-  * Author: Johannes Stezenbach <js@sig21.net>
-  *
-  * based on ad73311.c
-- * Copyright:	Analog Device Inc.
-+ * Copyright:	Analog Devices Inc.
-  * Author:	Cliff Cai <cliff.cai@analog.com>
-  */
+ = EXAMPLE
+-q6adm@8 {
++apr-service@8 {
+ 	compatible = "qcom,q6adm";
+ 	reg = <APR_SVC_ADM>;
+ 	q6routing: routing {
+diff --git a/Documentation/devicetree/bindings/sound/qcom,q6afe.txt b/Documentation/devicetree/bindings/sound/qcom,q6afe.txt
+index d74888b9f1bb..4916dd6a0896 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,q6afe.txt
++++ b/Documentation/devicetree/bindings/sound/qcom,q6afe.txt
+@@ -100,7 +100,7 @@ configuration of each dai. Must contain the following properties.
  
+ = EXAMPLE
+ 
+-q6afe@4 {
++apr-service@4 {
+ 	compatible = "qcom,q6afe";
+ 	reg = <APR_SVC_AFE>;
+ 
+@@ -110,12 +110,12 @@ q6afe@4 {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+ 
+-		hdmi@1 {
+-			reg = <1>;
++		dai@1 {
++			reg = <HDMI_RX>;
+ 		};
+ 
+-		tdm@24 {
+-			reg = <24>;
++		dai@24 {
++			reg = <PRIMARY_TDM_RX_0>;
+ 			qcom,tdm-sync-mode = <1>:
+ 			qcom,tdm-sync-src = <1>;
+ 			qcom,tdm-data-out = <0>;
+@@ -125,8 +125,8 @@ q6afe@4 {
+ 
+ 		};
+ 
+-		tdm@25 {
+-			reg = <25>;
++		dai@25 {
++			reg = <PRIMARY_TDM_TX_0>;
+ 			qcom,tdm-sync-mode = <1>:
+ 			qcom,tdm-sync-src = <1>;
+ 			qcom,tdm-data-out = <0>;
+@@ -135,43 +135,43 @@ q6afe@4 {
+ 			qcom,tdm-data-align = <0>;
+ 		};
+ 
+-		prim-mi2s-rx@16 {
+-			reg = <16>;
++		dai@16 {
++			reg = <PRIMARY_MI2S_RX>;
+ 			qcom,sd-lines = <0 2>;
+ 		};
+ 
+-		prim-mi2s-tx@17 {
+-			reg = <17>;
++		dai@17 {
++			reg = <PRIMARY_MI2S_TX>;
+ 			qcom,sd-lines = <1>;
+ 		};
+ 
+-		sec-mi2s-rx@18 {
+-			reg = <18>;
++		dai@18 {
++			reg = <SECONDARY_MI2S_RX>;
+ 			qcom,sd-lines = <0 3>;
+ 		};
+ 
+-		sec-mi2s-tx@19 {
+-			reg = <19>;
++		dai@19 {
++			reg = <SECONDARY_MI2S_TX>;
+ 			qcom,sd-lines = <1>;
+ 		};
+ 
+-		tert-mi2s-rx@20 {
+-			reg = <20>;
++		dai@20 {
++			reg = <TERTIARY_MI2S_RX>;
+ 			qcom,sd-lines = <1 3>;
+ 		};
+ 
+-		tert-mi2s-tx@21 {
+-			reg = <21>;
++		dai@21 {
++			reg = <TERTIARY_MI2S_TX>;
+ 			qcom,sd-lines = <0>;
+ 		};
+ 
+-		quat-mi2s-rx@22 {
+-			reg = <22>;
++		dai@22 {
++			reg = <QUATERNARY_MI2S_RX>;
+ 			qcom,sd-lines = <0>;
+ 		};
+ 
+-		quat-mi2s-tx@23 {
+-			reg = <23>;
++		dai@23 {
++			reg = <QUATERNARY_MI2S_TX>;
+ 			qcom,sd-lines = <1>;
+ 		};
+ 	};
+diff --git a/Documentation/devicetree/bindings/sound/qcom,q6asm.txt b/Documentation/devicetree/bindings/sound/qcom,q6asm.txt
+index 9f5378c51686..6b9a88d0ea3f 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,q6asm.txt
++++ b/Documentation/devicetree/bindings/sound/qcom,q6asm.txt
+@@ -51,13 +51,16 @@ configuration of each dai. Must contain the following properties.
+ 
+ = EXAMPLE
+ 
+-q6asm@7 {
++apr-service@7 {
+ 	compatible = "qcom,q6asm";
+ 	reg = <APR_SVC_ASM>;
+ 	q6asmdai: dais {
+ 		compatible = "qcom,q6asm-dais";
++		#address-cells = <1>;
++		#size-cells = <0>;
+ 		#sound-dai-cells = <1>;
+-		mm@0 {
++
++		dai@0 {
+ 			reg = <0>;
+ 			direction = <2>;
+ 			is-compress-dai;
+diff --git a/Documentation/devicetree/bindings/sound/qcom,q6core.txt b/Documentation/devicetree/bindings/sound/qcom,q6core.txt
+index 7f36ff8bec18..5cd4cc9b1fde 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,q6core.txt
++++ b/Documentation/devicetree/bindings/sound/qcom,q6core.txt
+@@ -15,7 +15,7 @@ used by the apr service device.
+ 		   example "qcom,q6core-v2.0"
+ 
+ = EXAMPLE
+-q6core@3 {
++apr-service@3 {
+ 	compatible = "qcom,q6core";
+ 	reg = <APR_SVC_ADSP_CORE>;
+ };
 -- 
 2.20.1
 

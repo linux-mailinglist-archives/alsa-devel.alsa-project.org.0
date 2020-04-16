@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 882AC1AD9B2
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 11:22:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B38261AD9B5
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 11:23:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2ED0B15F2;
-	Fri, 17 Apr 2020 11:21:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2ED0B15F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5AC2A165D;
+	Fri, 17 Apr 2020 11:22:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5AC2A165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587115355;
-	bh=PbIJJBCyxb0zjE+EsVUIseBGje2iBqdBzd3TawdCtII=;
+	s=default; t=1587115392;
+	bh=u5fMQDNAUuXaPw+89dTTA0ZVG5dJuZz63WEnr/aWCsA=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qRUGMRF3qjmLHnRuCIcwYChO7rq2VdzMbwvfbW536sD7bOfzF9+RgEDaxIS+iZjab
-	 wiGWdp4H70xVt0wS98JnTIUEdCKTL2eWkU77qqR92b991ZgcJkYU+jE2+AC1Aq9YTE
-	 Pe+p8mWHtjhQ91VBi0t9dhpCleWfutvDuAhoE76o=
+	b=Qso753LHzNXeM7LgOpsRgepLRvJ3t8qCqZz6TRL/qBrGkf0IXaEOBKCVHwHMfLNha
+	 dz7CyCFVeZyFbRoDurjmdTlpUnug6GBmrfBW9k6JlVCL8SSwlSqy/Tgo2twOP7fOhR
+	 AGIZ6/bLB043livVKNH19hTy1y4mVCS0bLqW2kFM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73949F802E2;
-	Fri, 17 Apr 2020 11:16:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 601A8F802E3;
+	Fri, 17 Apr 2020 11:16:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9897F8014E; Thu, 16 Apr 2020 12:40:32 +0200 (CEST)
+ id 05754F8014E; Thu, 16 Apr 2020 12:41:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,35 +34,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1FF4F800AB
- for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 12:40:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1FF4F800AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4CABFF800AB
+ for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 12:41:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CABFF800AB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="qLx+neJh"
+ header.b="xp/KXtyB"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9BEA4206B9;
- Thu, 16 Apr 2020 10:40:26 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id C8860221E9;
+ Thu, 16 Apr 2020 10:41:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587033627;
- bh=PbIJJBCyxb0zjE+EsVUIseBGje2iBqdBzd3TawdCtII=;
+ s=default; t=1587033667;
+ bh=u5fMQDNAUuXaPw+89dTTA0ZVG5dJuZz63WEnr/aWCsA=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=qLx+neJh2XiUym52/Y5To6wDkJdF+YfeO3N39IXBEI/aglNs6bS7P/uMNiV4FoJl3
- TMp7QxwJIyoECwfzV+F5isAyTkbeACxvuyoa8MrjQkJVF1B64098yNWGLrS06i/htu
- 0dOZ+2iYr9R63yIwg4ubkL8oPIU3RmTo6iLh2Iwc=
-Date: Thu, 16 Apr 2020 11:40:24 +0100
+ b=xp/KXtyBC+AW47+w/EThPewPKJno4LpErrb9k/MShW8CSZOjoH/eQie3gyamQtAPZ
+ 7+2VNJeLRNNDDKaVoGmzb7acrQ3F10p7zOFoaEDwJaxmNypi234utwSFrQnjNbswMB
+ 9dE8DImjkqaSZMR+teMounUi1jKOEIZOXIrffOdk=
+Date: Thu, 16 Apr 2020 11:41:04 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: Clean-up schema indentation formatting
-Message-ID: <20200416104024.GD5354@sirena.org.uk>
+Subject: Re: [PATCH 2/2] dt-bindings: Remove cases of 'allOf' containing a
+ '$ref'
+Message-ID: <20200416104104.GE5354@sirena.org.uk>
 References: <20200416005549.9683-1-robh@kernel.org>
+ <20200416005549.9683-2-robh@kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="wLAMOaPNJ0fu1fTG"
+ protocol="application/pgp-signature"; boundary="/2994txjAzEdQwm5"
 Content-Disposition: inline
-In-Reply-To: <20200416005549.9683-1-robh@kernel.org>
+In-Reply-To: <20200416005549.9683-2-robh@kernel.org>
 X-Cookie: Tempt me with a spoon!
 User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mailman-Approved-At: Fri, 17 Apr 2020 11:15:50 +0200
@@ -109,31 +111,30 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---wLAMOaPNJ0fu1fTG
+--/2994txjAzEdQwm5
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Wed, Apr 15, 2020 at 07:55:48PM -0500, Rob Herring wrote:
-> Fix various inconsistencies in schema indentation. Most of these are
-> list indentation which should be 2 spaces more than the start of the
-> enclosing keyword. This doesn't matter functionally, but affects running
-> scripts which do transforms on the schema files.
+On Wed, Apr 15, 2020 at 07:55:49PM -0500, Rob Herring wrote:
+> json-schema versions draft7 and earlier have a weird behavior in that
+> any keywords combined with a '$ref' are ignored (silently). The correct
+> form was to put a '$ref' under an 'allOf'. This behavior is now changed
 
 Acked-by: Mark Brown <broonie@kernel.org>
 
---wLAMOaPNJ0fu1fTG
+--/2994txjAzEdQwm5
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6YNhcACgkQJNaLcl1U
-h9CTpAf+IW4icH5zPKy5c7TecTxfEyWNDjNTt8Pa69ga67NVmMDHKzueRcPb7D3e
-ihhK7zM0HDSd8aebO5YtW3GiVBBUyJ0m1CNYvbcsJscIhoOoco+NPJUss00w/0Zs
-L0RHGHcgc6lhNve8n+r6QbzSYEeeT9QhqTaPtyPnvMDRUkAYgShAD0ejHjNQWYOt
-3KuH8RD18xfK/PWSRsrrxCY3flOTx0RIpS9+oyO+JWIcKd6Y5lCZiBAXGrXEdEjx
-bgRsC/mO1YSE03iuDgQnodKThzIoJrygjOkGGDJuYsKY5erh8JZ93l5KPoLkyKCT
-SSA9qjNaVs+wMuSlq8WJ3w8m+z5cOA==
-=dNaD
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6YNkAACgkQJNaLcl1U
+h9B9Tgf/e6Ex42p5b/rjUYhiAhK+0T+nvTbdLGjxGyRfopnnVMMaYPWXmkdGdh0H
+/nGE0rn04EUyWfBkjgCeKuclbzRWJCfQBSl+4dlYbMuX1LKrybV3nRANP03o7A9y
+sqPsDL3Qq01Rgb8waJiwmXqcHjxKBbCZd5bzU8ff82hg8jGKMIDVzJdnYrzGJJm7
+wLygPWU+Nj65KniavgesiRhfwSLfveuWwAR6SsWCCiOhJOWgl0/KbhceiFTRLJ4c
+pQQeBPzy+/C5VH2sYPCZB3/MEQ4/6+CC1AchkSDqGwOooj4KsPXXCjiJtj4YZB86
+9wfRx0ePvlfgBQgHYw4LX6341lhYUw==
+=Rw7L
 -----END PGP SIGNATURE-----
 
---wLAMOaPNJ0fu1fTG--
+--/2994txjAzEdQwm5--

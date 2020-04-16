@@ -2,50 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82AC61ABE05
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Apr 2020 12:35:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98F511ABDFB
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Apr 2020 12:34:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 29DC615F2;
-	Thu, 16 Apr 2020 12:34:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29DC615F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 41CDF823;
+	Thu, 16 Apr 2020 12:33:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41CDF823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587033348;
-	bh=yTV0HSCJPtgcrFe0J8eh/jl6vkME9u9KNZut4I1j4ac=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=d6q2vPl1TUniUyTbTClyzobMiZXZ/c27pjHNiDY14ky4yUmFcZTggEdl20aW3LZ8t
-	 sHSO5ePLwZfwcLSTzoTcKOenk05EHjG3PzCLl6hsMBAPlGJWIVk1qITD+hTEtNCBLw
-	 AxaCwzU6S1KC/NrmYQZSW2gV1pMjHUmVS/wLzSOU=
+	s=default; t=1587033247;
+	bh=FXk5Kd3nTKXYoaPjFpU3yO4NziJhaehmyF/iuoUQRLM=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=nDswq2FYv7tkO0HgpHh5uxUCFdRyR7oBDRiWjb5CK5uwZ1xsRhDyU8qo+MTRthAWp
+	 v1L80xiD115OalavwMstQVHYzW3UC1DbIsGCdIeIMRWmtuFmdviWRVb0SY3zZ096t0
+	 dzOhGx76HS12nxJDaX/2HfBMcRDiE7u7CVPMRkXE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E798F802A7;
-	Thu, 16 Apr 2020 12:31:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3271F8028C;
+	Thu, 16 Apr 2020 12:31:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 23E59F8028D; Thu, 16 Apr 2020 12:31:25 +0200 (CEST)
+ id 3FF4AF8016F; Thu, 16 Apr 2020 12:31:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.6 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- PRX_BODY_135, SPF_HELO_NONE, SPF_NONE,
+X-Spam-Status: No, score=0.8 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ PRX_BODY_13, SPF_HELO_NONE, SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from xavier.telenet-ops.be (xavier.telenet-ops.be
  [IPv6:2a02:1800:120:4::f00:14])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 011E8F80240
- for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 12:31:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 011E8F80240
+ by alsa1.perex.cz (Postfix) with ESMTPS id F1BB0F8012E
+ for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 12:31:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1BB0F8012E
 Received: from ramsan ([IPv6:2a02:1810:ac12:ed60:fd83:81bb:c1d7:433d])
  by xavier.telenet-ops.be with bizsmtp
- id TNWz2200i4dKHqf01NWzxE; Thu, 16 Apr 2020 12:31:11 +0200
+ id TNWz2200j4dKHqf01NWzxF; Thu, 16 Apr 2020 12:31:11 +0200
 Received: from rox.of.borg ([192.168.97.57]) by ramsan with esmtp (Exim 4.90_1)
  (envelope-from <geert@linux-m68k.org>)
- id 1jP1nP-0001cj-Ll; Thu, 16 Apr 2020 12:30:59 +0200
+ id 1jP1nP-0001ci-Lk; Thu, 16 Apr 2020 12:30:59 +0200
 Received: from geert by rox.of.borg with local (Exim 4.90_1)
  (envelope-from <geert@linux-m68k.org>)
- id 1jP1nP-0003z7-JX; Thu, 16 Apr 2020 12:30:59 +0200
+ id 1jP1nP-0003z9-KO; Thu, 16 Apr 2020 12:30:59 +0200
 From: Geert Uytterhoeven <geert+renesas@glider.be>
 To: Rob Herring <robh+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
@@ -56,10 +57,12 @@ To: Rob Herring <robh+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
  =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jiri Kosina <trivial@kernel.org>
-Subject: [PATCH trivial 0/6] Fix misspellings of "Analog Devices"
-Date: Thu, 16 Apr 2020 12:30:52 +0200
-Message-Id: <20200416103058.15269-1-geert+renesas@glider.be>
+Subject: [PATCH trivial 1/6] dt-bindings: Fix misspellings of "Analog Devices"
+Date: Thu, 16 Apr 2020 12:30:53 +0200
+Message-Id: <20200416103058.15269-2-geert+renesas@glider.be>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200416103058.15269-1-geert+renesas@glider.be>
+References: <20200416103058.15269-1-geert+renesas@glider.be>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Geert Uytterhoeven <geert+renesas@glider.be>, linux-iio@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
@@ -79,53 +82,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-	Hi all,
+According to https://www.analog.com/, the company name is spelled
+"Analog Devices".
 
-In several files the company also known as ADI is spelled as "Analog
-Device".  However, according to https://www.analog.com/, the company
-name is spelled "Analog Devices".
-
-Hence this patch series, one per subsystem, fixes these misspellings.
-
-Thanks for your comments!
-
-Geert Uytterhoeven (6):
-  dt-bindings: Fix misspellings of "Analog Devices"
-  dma: Fix misspelling of "Analog Devices"
-  drm: Fix misspellings of "Analog Devices"
-  iio: Fix misspellings of "Analog Devices"
-  ALSA: Fix misspellings of "Analog Devices"
-  ASoC: Fix misspellings of "Analog Devices"
-
+Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+---
  .../devicetree/bindings/display/bridge/adi,adv7123.txt        | 4 ++--
  .../devicetree/bindings/display/bridge/adi,adv7511.txt        | 4 ++--
  Documentation/devicetree/bindings/dma/adi,axi-dmac.txt        | 2 +-
  Documentation/devicetree/bindings/iio/dac/ad5755.txt          | 2 +-
- drivers/dma/Kconfig                                           | 2 +-
- drivers/gpu/drm/bridge/adv7511/Kconfig                        | 2 +-
- drivers/gpu/drm/drm_fb_cma_helper.c                           | 2 +-
- drivers/gpu/drm/tegra/fb.c                                    | 2 +-
- drivers/iio/adc/ad7791.c                                      | 2 +-
- drivers/iio/trigger/iio-trig-hrtimer.c                        | 2 +-
- drivers/staging/iio/Documentation/overview.txt                | 2 +-
- sound/isa/ad1816a/ad1816a.c                                   | 2 +-
- sound/pci/ac97/ac97_patch.c                                   | 2 +-
- sound/pci/hda/Kconfig                                         | 4 ++--
- sound/soc/codecs/ad1980.c                                     | 2 +-
- sound/soc/codecs/ad73311.c                                    | 2 +-
- sound/soc/codecs/wm8782.c                                     | 2 +-
- 17 files changed, 20 insertions(+), 20 deletions(-)
+ 4 files changed, 6 insertions(+), 6 deletions(-)
 
+diff --git a/Documentation/devicetree/bindings/display/bridge/adi,adv7123.txt b/Documentation/devicetree/bindings/display/bridge/adi,adv7123.txt
+index a6b2b2b8f3d9e3a6..d3c2a4914ea2c247 100644
+--- a/Documentation/devicetree/bindings/display/bridge/adi,adv7123.txt
++++ b/Documentation/devicetree/bindings/display/bridge/adi,adv7123.txt
+@@ -1,5 +1,5 @@
+-Analog Device ADV7123 Video DAC
+--------------------------------
++Analog Devices ADV7123 Video DAC
++--------------------------------
+ 
+ The ADV7123 is a digital-to-analog converter that outputs VGA signals from a
+ parallel video input.
+diff --git a/Documentation/devicetree/bindings/display/bridge/adi,adv7511.txt b/Documentation/devicetree/bindings/display/bridge/adi,adv7511.txt
+index e8ddec5d9d910a5a..659523f538bfc0ee 100644
+--- a/Documentation/devicetree/bindings/display/bridge/adi,adv7511.txt
++++ b/Documentation/devicetree/bindings/display/bridge/adi,adv7511.txt
+@@ -1,5 +1,5 @@
+-Analog Device ADV7511(W)/13/33/35 HDMI Encoders
+------------------------------------------
++Analog Devices ADV7511(W)/13/33/35 HDMI Encoders
++------------------------------------------------
+ 
+ The ADV7511, ADV7511W, ADV7513, ADV7533 and ADV7535 are HDMI audio and video
+ transmitters compatible with HDMI 1.4 and DVI 1.0. They support color space
+diff --git a/Documentation/devicetree/bindings/dma/adi,axi-dmac.txt b/Documentation/devicetree/bindings/dma/adi,axi-dmac.txt
+index b38ee732efa9fd5f..cd17684aaab5bcd3 100644
+--- a/Documentation/devicetree/bindings/dma/adi,axi-dmac.txt
++++ b/Documentation/devicetree/bindings/dma/adi,axi-dmac.txt
+@@ -1,4 +1,4 @@
+-Analog Device AXI-DMAC DMA controller
++Analog Devices AXI-DMAC DMA controller
+ 
+ Required properties:
+  - compatible: Must be "adi,axi-dmac-1.00.a".
+diff --git a/Documentation/devicetree/bindings/iio/dac/ad5755.txt b/Documentation/devicetree/bindings/iio/dac/ad5755.txt
+index f0bbd7e1029bd44d..502e1e55adbdebd0 100644
+--- a/Documentation/devicetree/bindings/iio/dac/ad5755.txt
++++ b/Documentation/devicetree/bindings/iio/dac/ad5755.txt
+@@ -1,4 +1,4 @@
+-* Analog Device AD5755 IIO Multi-Channel DAC Linux Driver
++* Analog Devices AD5755 IIO Multi-Channel DAC Linux Driver
+ 
+ Required properties:
+  - compatible: Has to contain one of the following:
 -- 
 2.17.1
 
-Gr{oetje,eeting}s,
-
-						Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-							    -- Linus Torvalds

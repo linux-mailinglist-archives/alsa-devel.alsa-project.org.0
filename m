@@ -2,119 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 118241AD9D6
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 11:27:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D75D1ACE10
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Apr 2020 18:53:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9BE4C1673;
-	Fri, 17 Apr 2020 11:26:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BE4C1673
+	by alsa0.perex.cz (Postfix) with ESMTPS id A70C41665;
+	Thu, 16 Apr 2020 18:52:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A70C41665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587115619;
-	bh=lAG6zzq1Sqen9mJhj5pG0jXwK1qfgmptfKCYtqRavfc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1587056000;
+	bh=kBp32Fy4rhflMsBnqndyf8RvRac1ntz6I3fcKAN3CXo=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CUYnqlCLrWAEduCCxC1M93jmbkBWQO5XyKJ3PWzvppr3RkyBcJy/w5Qy/tTf8GSJb
-	 7SiZfIAaXG0goptVZOehJrykvrrS1jAf43QvaOFY62oQgIEhzY5D1Xs8/xYY8Qud2Q
-	 eGrx4f8VwlGbOroMeL9vzbMA9Pl5vNWCQVnOQ0mQ=
+	b=tfx+QDNfQk3ouHq52ppiAOlONt4rR3LHB+X66N9kZEpg4Wt5myg0toSUMX7eefJfn
+	 893dKZaHNl4NTtgpdOnftxG569nM9z/ezZ6pjxLfi0TVXRRyu1hjXeWB3yTSZGScci
+	 /WcUHut+Eaesm/rqkFyO7pxQT3li7i3dCyMXdf8g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 392CFF80332;
-	Fri, 17 Apr 2020 11:16:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF97DF8013D;
+	Thu, 16 Apr 2020 18:51:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9257FF8012E; Thu, 16 Apr 2020 15:55:44 +0200 (CEST)
+ id E23F8F8014E; Thu, 16 Apr 2020 18:51:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 529E3F8012E
- for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 15:55:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 529E3F8012E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="OJtBap6g"
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com
- [209.85.219.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1E3B322247
- for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 13:55:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587045334;
- bh=lAG6zzq1Sqen9mJhj5pG0jXwK1qfgmptfKCYtqRavfc=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=OJtBap6gxkn7B64p6YI3gTyfG+37GXhLma2wex7puLnTvEPVIckcw2EWyHIlGxpbU
- axCPq/uLuHBCHTtrTyk9e9F01ZRfk1h5UwSfOVyg7KnEYG4Mh0g9CUMFFZUUhlg6Dn
- cKIhtKmwFJOdPx1PSLWhEzhafdvl/OQ5lWzBbqUw=
-Received: by mail-qv1-f45.google.com with SMTP id fb4so2009615qvb.7
- for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 06:55:34 -0700 (PDT)
-X-Gm-Message-State: AGi0Pub4HRZQg/dpL/JmwQ7XT1y6boaZ/i/IoQIAPA3Y04hKmJS/dAuu
- RqnldxyHgsPfLL4gMaXdvJ4HRBDnXBdLdICqdA==
-X-Google-Smtp-Source: APiQypJP5/uECHnZPqCD8aDFNOvB3C1OTKaRvvNdGUWUD6LvJ9HnhAL59x+YqONzfmAtrwzd6yqnrOF4qnSJIJfw8nM=
-X-Received: by 2002:a05:6214:a8a:: with SMTP id
- ev10mr9484527qvb.20.1587045333124; 
- Thu, 16 Apr 2020 06:55:33 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 07F16F800AB
+ for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 18:51:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07F16F800AB
+IronPort-SDR: e0R+K5WEnw4kbW8UoV8JET1U88n2mmdwvaq8GgZ0IbBRpw7ql3fdmuV7llzPxknXies5mlxAjK
+ 8RDESu98xWSQ==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Apr 2020 09:51:25 -0700
+IronPort-SDR: BFJewqmLyHxlwPPIzbmpaDcWq2/78eGWBs6jbDpOcKLssIPLdS5UDrylMxYYckHIXKF9clIUA+
+ 2JGaJL3drs4w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,391,1580803200"; d="scan'208";a="278060214"
+Received: from ernestom-mobl.amr.corp.intel.com (HELO [10.251.128.102])
+ ([10.251.128.102])
+ by fmsmga004.fm.intel.com with ESMTP; 16 Apr 2020 09:51:23 -0700
+Subject: Re: [RFC PATCH 01/16] ASoC: pcm512x: expose 6 GPIOs
+To: Linus Walleij <linus.walleij@linaro.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Michael Walle <michael@walle.cc>
+References: <20200409195841.18901-1-pierre-louis.bossart@linux.intel.com>
+ <20200409195841.18901-2-pierre-louis.bossart@linux.intel.com>
+ <20200414170934.GA34613@smile.fi.intel.com>
+ <CACRpkdZRnSUhmVPKjJ6dWnSfhnvrAKUrBY6tWLkxPgT28CzbHw@mail.gmail.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <2cd8d540-8bd0-4a42-4d11-7dea0fb03c22@linux.intel.com>
+Date: Thu, 16 Apr 2020 09:25:21 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-References: <20200416005549.9683-1-robh@kernel.org>
- <20200416005549.9683-2-robh@kernel.org>
- <d93f90bbcc99967ed5ba458ba99d7e73de12e3b2.camel@perches.com>
-In-Reply-To: <d93f90bbcc99967ed5ba458ba99d7e73de12e3b2.camel@perches.com>
-From: Rob Herring <robh@kernel.org>
-Date: Thu, 16 Apr 2020 08:55:21 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqLcJrFow_+-o2CxoPRCv4U-ELb2FHSbUgG=Mzt8PFn_CA@mail.gmail.com>
-Message-ID: <CAL_JsqLcJrFow_+-o2CxoPRCv4U-ELb2FHSbUgG=Mzt8PFn_CA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] dt-bindings: Remove cases of 'allOf' containing a
- '$ref'
-To: Joe Perches <joe@perches.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Fri, 17 Apr 2020 11:15:49 +0200
-Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
- Heiko Stuebner <heiko@sntech.de>, Linux PWM List <linux-pwm@vger.kernel.org>,
- "open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>,
- PCI <linux-pci@vger.kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
- "open list:REMOTE PROCESSOR \(REMOTEPROC\) SUBSYSTEM"
- <linux-remoteproc@vger.kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- MTD Maling List <linux-mtd@lists.infradead.org>,
- Linux I2C <linux-i2c@vger.kernel.org>, Pavel Machek <pavel@ucw.cz>,
- linux-riscv <linux-riscv@lists.infradead.org>,
- Lee Jones <lee.jones@linaro.org>, linux-clk <linux-clk@vger.kernel.org>,
- Linux LED Subsystem <linux-leds@vger.kernel.org>,
- "open list:REAL TIME CLOCK \(RTC\) SUBSYSTEM" <linux-rtc@vger.kernel.org>,
- Florian Fainelli <f.fainelli@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
- Linux Input <linux-input@vger.kernel.org>, Guenter Roeck <linux@roeck-us.net>,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- devicetree@vger.kernel.org, Alexandre Torgue <alexandre.torgue@st.com>,
- Linux-ALSA <alsa-devel@alsa-project.org>, Maxime Ripard <mripard@kernel.org>,
- linux-can@vger.kernel.org,
+In-Reply-To: <CACRpkdZRnSUhmVPKjJ6dWnSfhnvrAKUrBY6tWLkxPgT28CzbHw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Rob Herring <robh+dt@kernel.org>,
  "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>, Jacek Anaszewski <jacek.anaszewski@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>,
- Linux HWMON List <linux-hwmon@vger.kernel.org>,
- Stephen Boyd <sboyd@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- linux-mmc <linux-mmc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Amit Kucheria <amit.kucheria@linaro.org>,
- linux-spi <linux-spi@vger.kernel.org>, Vinod Koul <vkoul@kernel.org>,
- netdev <netdev@vger.kernel.org>, Jonathan Cameron <jic23@kernel.org>
+ Takashi Iwai <tiwai@suse.de>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Daniel Matuschek <daniel@hifiberry.com>,
+ Hui Wang <hui.wang@canonical.com>, Matthias Reichl <hias@horus.com>,
+ Mark Brown <broonie@kernel.org>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+ linux-clk <linux-clk@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -130,29 +92,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Apr 16, 2020 at 1:52 AM Joe Perches <joe@perches.com> wrote:
->
-> On Wed, 2020-04-15 at 19:55 -0500, Rob Herring wrote:
-> > json-schema versions draft7 and earlier have a weird behavior in that
-> > any keywords combined with a '$ref' are ignored (silently). The correct
-> > form was to put a '$ref' under an 'allOf'. This behavior is now changed
-> > in the 2019-09 json-schema spec and '$ref' can be mixed with other
-> > keywords. The json-schema library doesn't yet support this, but the
-> > tooling now does a fixup for this and either way works.
-> >
-> > This has been a constant source of review comments, so let's change this
-> > treewide so everyone copies the simpler syntax.
->
-> This is a large change.
->
-> Was this done manually or by some script?
 
-Scripted with python ruamel yaml, but then I had to filter out all the
-re-formatting (hence the first patch to cut down some of that).
 
-> If it was done manually, how likely is it there are defects
-> in the conversion?
+On 4/16/20 6:42 AM, Linus Walleij wrote:
+> On Tue, Apr 14, 2020 at 7:09 PM Andy Shevchenko
+> <andriy.shevchenko@linux.intel.com> wrote:
+>> On Thu, Apr 09, 2020 at 02:58:26PM -0500, Pierre-Louis Bossart wrote:
+>>> The GPIOs are used e.g. on HifiBerry DAC+ HATs to control the LED
+>>> (GPIO3) and the choice of the 44.1 (GPIO6) or 48 (GPIO3) kHz
+>>> oscillator (when present).
+>>>
+>>> Enable basic gpio_chip to get/set values and get/set
+>>> directions. Tested with GPIO_LIB from sys/class/gpio, the LED turns
+>>> on/off as desired.
+>>
+>>
+>> One question, can this use existing GPIO infrastructure, like bgpio_init()?
+>> Ah, I see, that one operates over MMIO, while we would need something based on
+>> regmap API.
+>>
+>> Bartosz, do we have plans to have bgpio_regmap_init() or alike?
+> 
+> Michael Walle is working on that:
+> https://lore.kernel.org/linux-gpio/20200402203656.27047-11-michael@walle.cc/
+> 
+> I think we should try to merge it sooner rather than later.
+> I can provide an ib-* branch for ASoC whenever we agreed
+> on a basic generic driver.
 
-Either way, the schemas still have to pass the meta-schema checks.
-
-Rob
+Thanks for the pointer, I will give it a try.

@@ -2,85 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C93B71AD063
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Apr 2020 21:33:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B38231AD188
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Apr 2020 22:53:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D79D1662;
-	Thu, 16 Apr 2020 21:32:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D79D1662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B6FE1662;
+	Thu, 16 Apr 2020 22:52:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B6FE1662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587065587;
-	bh=rr/IdS13zfQRtLooHZNTeQ39fm0/kQrw1TdyrXsGIb4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1587070399;
+	bh=79asucDXdhLpbOJ69I296G/1PIqyk/hWN4rcCmdnFTE=;
+	h=From:Subject:To:References:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iRQ4+b8kkqJCbhXZHg8loGqdV9kqCGbDXe35Aybut1nSKGKau572bEbMgm1GWulSK
-	 imGF/a0CzkzkthigHLpKz9tQskGaVX8SOwgfHdocnK7iUj3steQKjrh/ZOaRzJ2nio
-	 dUDCkDs6h1bACciKo41asjW1mOLwA/bURAW19pXo=
+	b=JgbHSFpM/hNR5PFWpIXgw7HsD/d3MFinZXg5b21oUTpnxx7DSJVgnJDLd3UrgPdYf
+	 1H8d4CJPIREB6PrB0Irwzmuict7vfDON0NcVXjPC2KOILilFfdvpP4elYzPxr8q2my
+	 2qjWvlqtzCHwhGXaMwcDst71ZgwFC/a6+XP5zhFQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F106F8013D;
-	Thu, 16 Apr 2020 21:31:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D06DF80115;
+	Thu, 16 Apr 2020 22:51:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9679F8014E; Thu, 16 Apr 2020 21:31:23 +0200 (CEST)
+ id C3085F8014E; Thu, 16 Apr 2020 22:51:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-oi1-f193.google.com (mail-oi1-f193.google.com
- [209.85.167.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 32B61F800AB
- for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 21:31:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32B61F800AB
-Received: by mail-oi1-f193.google.com with SMTP id j16so17569313oih.10
- for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 12:31:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=83Bpp8uoGsIBtYSm1pLHa49KTy+QHzu3gut9+0c+dz8=;
- b=BqUB47AsrudUYebp3XwGNMywzvWQ9HyxYjy8foHypwrt7XuXYuIkNk8HYuFO/ssq4X
- 0gyLzfyRywYLI0B/dSry+pFf91WxVdjNp+70azprQW76Bxb2ShPBrGXsIrXRplsGiNSy
- T/8QT80WmwYUoOSf/oMyNuKOrPvoV3ALdDtqjRYaLsoVHYqFUHROJktnvMG36QOB3WNK
- AqmP/2xYcHAhhvdQaNUHcpgj1UrMzLFjTx3MTChIwHWVIiKLrF9p08MMhonQa9gcPLne
- M9kD3hnjWp6QTJXJBT8dpdtXpENemZwh16VBZyvEMCSZVcTnk/uUin1bg5eV1YR7PFyQ
- Kz9w==
-X-Gm-Message-State: AGi0PuYz4vvXMneLrAh8i4en7r+RJxj619Mn5dBr6FFui7cyLbdnATsy
- bzyK/lM0jB4QIw+MQeOHqA==
-X-Google-Smtp-Source: APiQypKtFNn7klGmlxS7O33zd15hLes5Ce7gwnHv476q+1Q8X3OSIexFGD7vX+EbNCMQi+0zLh3qvw==
-X-Received: by 2002:aca:d705:: with SMTP id o5mr4155329oig.67.1587065461930;
- Thu, 16 Apr 2020 12:31:01 -0700 (PDT)
-Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id r205sm7324602oih.47.2020.04.16.12.31.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Apr 2020 12:31:01 -0700 (PDT)
-Received: (nullmailer pid 19733 invoked by uid 1000);
- Thu, 16 Apr 2020 19:31:00 -0000
-Date: Thu, 16 Apr 2020 14:31:00 -0500
-From: Rob Herring <robh@kernel.org>
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: Re: [PATCH trivial 1/6] dt-bindings: Fix misspellings of "Analog
- Devices"
-Message-ID: <20200416193100.GA19671@bogus>
-References: <20200416103058.15269-1-geert+renesas@glider.be>
- <20200416103058.15269-2-geert+renesas@glider.be>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60C64F8012E
+ for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 22:51:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60C64F8012E
+IronPort-SDR: FeT+R7CTXwmoW+pSujJn/NV99yUoqo1NAuE/9s6wVd8rIDpvrSKjTGZBpvVdq7Rs6TigRMe7Sv
+ df+jAytn0mCw==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Apr 2020 13:51:25 -0700
+IronPort-SDR: AsoYwv8ry0Y5O13ttEOTJSWzbdmr+B9NzA2oriGRnmNOtPEkUvl2GW1CankfzMeZ4nwXsn6G6d
+ X2VrhMiTiLxQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,392,1580803200"; d="scan'208";a="242779835"
+Received: from atrikali-mobl.amr.corp.intel.com (HELO [10.254.59.97])
+ ([10.254.59.97])
+ by orsmga007.jf.intel.com with ESMTP; 16 Apr 2020 13:51:24 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: soc-pcm: dpcm: Only allow playback/capture if
+ supported
+To: Stephan Gerhold <stephan@gerhold.net>, Mark Brown <broonie@kernel.org>
+References: <20200415104928.86091-1-stephan@gerhold.net>
+Message-ID: <61ccf27d-a511-b3a4-2da7-56edb01b24c6@linux.intel.com>
+Date: Thu, 16 Apr 2020 15:51:23 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200416103058.15269-2-geert+renesas@glider.be>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Geert Uytterhoeven <geert+renesas@glider.be>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- dmaengine@vger.kernel.org
+In-Reply-To: <20200415104928.86091-1-stephan@gerhold.net>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, ~postmarketos/upstreaming@lists.sr.ht
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,19 +82,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 16 Apr 2020 12:30:53 +0200, Geert Uytterhoeven wrote:
-> According to https://www.analog.com/, the company name is spelled
-> "Analog Devices".
-> 
-> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> ---
->  .../devicetree/bindings/display/bridge/adi,adv7123.txt        | 4 ++--
->  .../devicetree/bindings/display/bridge/adi,adv7511.txt        | 4 ++--
->  Documentation/devicetree/bindings/dma/adi,axi-dmac.txt        | 2 +-
->  Documentation/devicetree/bindings/iio/dac/ad5755.txt          | 2 +-
->  4 files changed, 6 insertions(+), 6 deletions(-)
-> 
 
-Applied, thanks.
+> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+> index 454735f8fa92..77a680da366f 100644
+> --- a/sound/soc/soc-pcm.c
+> +++ b/sound/soc/soc-pcm.c
+> @@ -2911,8 +2911,17 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+>   	int i;
+>   
+>   	if (rtd->dai_link->dynamic || rtd->dai_link->no_pcm) {
+> -		playback = rtd->dai_link->dpcm_playback;
+> -		capture = rtd->dai_link->dpcm_capture;
+> +		cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+> +		if (rtd->num_cpus > 1) {
+> +			dev_err(rtd->dev,
+> +				"DPCM doesn't support Multi CPU yet\n");
+> +			return -EINVAL;
+> +		}
+> +
+> +		playback = rtd->dai_link->dpcm_playback &&
+> +			   snd_soc_dai_stream_valid(cpu_dai, SNDRV_PCM_STREAM_PLAYBACK);
+> +		capture = rtd->dai_link->dpcm_capture &&
+> +			  snd_soc_dai_stream_valid(cpu_dai, SNDRV_PCM_STREAM_CAPTURE);
 
-Rob
+This commit introduces major regressions with SOF on CherryTrail and 
+Broadwell:
+
+     [   25.705750]  SSP2-Codec: ASoC: no backend playback stream
+     [   27.923378]  SSP2-Codec: ASoC: no users playback at close - state
+
+it's likely due to the check for min_channels > 0 in 
+snd_soc_dai_stream_valid(), which wasn't a requirement before.
+
+We are testing a fix [1] but other users of DPCM might be impacted.
+
+Mark, this commit is on your for-5.7 branch but not on for-next? Not 
+sure which SHA1 to use for the Fixes: tag
+
+[1] 
+https://github.com/thesofproject/linux/pull/2018/commits/4fa10638dca8aad7a320e85cc3e00b179b8de410

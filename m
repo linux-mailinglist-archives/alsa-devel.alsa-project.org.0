@@ -2,95 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59E8A1ABAD0
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Apr 2020 10:07:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D63B1AD9AA
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 11:21:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E878E1665;
-	Thu, 16 Apr 2020 10:06:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E878E1665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2BF191657;
+	Fri, 17 Apr 2020 11:20:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BF191657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587024468;
-	bh=VxSllAJH/zVv/mARLGCkb021wqovSASU9gMj8cwSFZQ=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1587115294;
+	bh=6kwbxJH2RDveXqsZesbfmy1W3FzqE56YVY6CxJmBpFo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=houu9eS59CPDu/TGMmYKcFkueUgFK0d5vD3YY8d5okYUSXGI0Y+ICyR2dhyoKMmdT
-	 MAOeTjquWV9lFagi4KtYxses4Qkx9D+hrMOjs9LMBUFqpu7QJWFoMu55RTCkj0jb3C
-	 lSnXl2mZVGo+lI8MRI+DUK3pBY0jr05+qe0fxsu0=
+	b=JtZfEqrLDIG0f1SNVaDYRDSQGW7xNUTyKYmr6Fd0z0cuU2DOQe1vEYpSlhyepWjNW
+	 Ji2T1q44pQc8Y8xmUqOvwYo3s9RH93tMp3sDe7gbbhY/3EK5P2ZrzOu2+3Mwlax2ck
+	 SFYtPq5UAzRTlpDcsbT0tpDYOkq3+C+iscmw9Big=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA2F8F8016F;
-	Thu, 16 Apr 2020 10:06:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D80BEF802C4;
+	Fri, 17 Apr 2020 11:15:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 292E7F8014E; Thu, 16 Apr 2020 10:06:03 +0200 (CEST)
+ id 070FFF8021E; Thu, 16 Apr 2020 10:07:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5AD35F8012E
- for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 10:05:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5AD35F8012E
+ by alsa1.perex.cz (Postfix) with ESMTPS id EEAECF8013D
+ for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 10:07:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEAECF8013D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="ljCN0Eh8"
-Received: by mail-wm1-x344.google.com with SMTP id x4so3561815wmj.1
- for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 01:05:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=uV16bW5Qou5HX/ecLg8k6CUH6HA5iJ8FFoob8YYamBs=;
- b=ljCN0Eh8i0yJ4+SXVeS8uWjAW7ZFvAZJwKpZ6fLDVwjGW0e0Ehfcf1AEfaWthyab7o
- 2FDZt6F/h9cJMPeHORes/2aQElMBh/q6ri1YKBxOuaZcX+Gj9Q/8WHIqWYXdYS1qLTQx
- bfFGjpPm98kDJjPq3KAYPa56+q4LakqovsK8WZzKFPdTr/L94OjT9/7rH1OAW6E9gR+W
- JFQiEv+r7VIOHA2qEJiL73R6mhtpsawbtsAlYHk/f3uSifyTm3cGDY6Vf6ciRpGEH3pz
- JT3yNCMwEOkIjG61/Qk/vBqLyhd29BBp0TC+MT7XEcbpLelji96T5FAdiQUEMvigVGEZ
- B4EQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=uV16bW5Qou5HX/ecLg8k6CUH6HA5iJ8FFoob8YYamBs=;
- b=hDCHnO1CPNNyIrQC61S+rglJ5KDdLklfhfoNUXs2sPs4gkbwqV+nnwKHMe+BT4q/H7
- 5woaigEmXnBVX5CfsXoGI/LFS3djIUzOWKd2XuCIcIYYsuu6an0qxpwv07fPqWMYgYnd
- CvVxyytL4r5zu1FwJu1/oysgmWR5WziiSzz/OuClcn+fyJYaIBwiI2xaQarn5uD5xqyK
- illIaKq1upjcRWAJEVpiYh6sfNMl5myYOq5/+pboWU+Rs4nLfabokf+wN1eIG2xnokUZ
- n4ynLRxfCBEPK5D487i7BrxbyRxU9F6yLFP4mJXrfu8xF2WeHPFsAELMi0jR+OzDMq/w
- 4ieQ==
-X-Gm-Message-State: AGi0PubCvMesMY3y7vLgfSvVGi8smTjXfonnagx9Ul64245JZl4MU/0z
- jEzGIwTeGeZzbktqU1PUFJ7KtA==
-X-Google-Smtp-Source: APiQypIRGcjIwp1s+fOs+F0CzIqeFfO2L62PN8lr+ClPBiAGKeNKI2rZAgQCnriNtLAp60EQECv19Q==
-X-Received: by 2002:a05:600c:22d1:: with SMTP id
- 17mr3296204wmg.167.1587024356884; 
- Thu, 16 Apr 2020 01:05:56 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.googlemail.com with ESMTPSA id t67sm2687859wmg.40.2020.04.16.01.05.55
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 16 Apr 2020 01:05:56 -0700 (PDT)
-Subject: Re: [PATCH] ASoC: qcom: lpass-cpu: support full duplex operation
-To: broonie@kernel.org
-References: <20200306130147.27452-1-srinivas.kandagatla@linaro.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <841cb73b-82d3-9fb9-0ed3-547882872085@linaro.org>
-Date: Thu, 16 Apr 2020 09:05:55 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="O1d6NWlK"
+Received: from localhost (unknown [223.235.195.235])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 69F85206E9;
+ Thu, 16 Apr 2020 08:07:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1587024434;
+ bh=6kwbxJH2RDveXqsZesbfmy1W3FzqE56YVY6CxJmBpFo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=O1d6NWlKFfnyKMYlp3FSfoZyP6WL58llnMOPAcukWE4NK15IAgUmTc9Oy1CJfBrQJ
+ FzFh77ntmk81ok6QNhBa7Fsxt0mRWxySPBmmQLISyBFjZXKruM2zAQoNUgGwtCZMXr
+ hATzQxclu6p7VFesf/GI28sOVbjEiU4zdOe4G2WA=
+Date: Thu, 16 Apr 2020 13:37:10 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: Clean-up schema indentation formatting
+Message-ID: <20200416080710.GI72691@vkoul-mobl>
+References: <20200416005549.9683-1-robh@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20200306130147.27452-1-srinivas.kandagatla@linaro.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Takahide Higuchi <takahidehiguchi@gmail.com>,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200416005549.9683-1-robh@kernel.org>
+X-Mailman-Approved-At: Fri, 17 Apr 2020 11:15:50 +0200
+Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Heiko Stuebner <heiko@sntech.de>, Sam Ravnborg <sam@ravnborg.org>,
+ linux-pwm@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-pci@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
+ linux-remoteproc@vger.kernel.org,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Thierry Reding <thierry.reding@gmail.com>, linux-mtd@lists.infradead.org,
+ linux-i2c@vger.kernel.org, Pavel Machek <pavel@ucw.cz>,
+ linux-riscv@lists.infradead.org, Lee Jones <lee.jones@linaro.org>,
+ linux-clk@vger.kernel.org, linux-leds@vger.kernel.org,
+ linux-rtc@vger.kernel.org, Florian Fainelli <f.fainelli@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, linux-serial@vger.kernel.org,
+ linux-input@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@st.com>, alsa-devel@alsa-project.org,
+ Maxime Ripard <mripard@kernel.org>, linux-can@vger.kernel.org,
+ linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
+ Stephen Boyd <sboyd@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Amit Kucheria <amit.kucheria@linaro.org>,
+ linux-spi@vger.kernel.org, netdev@vger.kernel.org,
+ Jonathan Cameron <jic23@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,131 +107,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mark,
-
-
-On 06/03/2020 13:01, Srinivas Kandagatla wrote:
-> From: Takahide Higuchi <takahidehiguchi@gmail.com>
+On 15-04-20, 19:55, Rob Herring wrote:
+> Fix various inconsistencies in schema indentation. Most of these are
+> list indentation which should be 2 spaces more than the start of the
+> enclosing keyword. This doesn't matter functionally, but affects running
+> scripts which do transforms on the schema files.
 > 
-> This patch fixes a bug where playback on bidirectional I2S interface stops
-> when we start recording on the same interface.
-> 
-> We use regmap_update_bits instead of regmap_write so that we will not clear
-> SPKEN and SPKMODE bits when we start/stop recording.
-> 
-> Signed-off-by: Takahide Higuchi <takahidehiguchi@gmail.com>
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-
-Looks like this patch was missed in last cycle, Should I resend this one 
-or are you okay to apply this. This patch is required to get full duplex 
-on msm8916 based platforms.
-
-
-thanks,
-srini
-
+> Signed-off-by: Rob Herring <robh@kernel.org>
 > ---
->   sound/soc/qcom/lpass-apq8016.c   |  2 ++
->   sound/soc/qcom/lpass-cpu.c       | 24 ++++++++++++++++++------
->   sound/soc/qcom/lpass-lpaif-reg.h |  2 +-
->   3 files changed, 21 insertions(+), 7 deletions(-)
-> 
-> diff --git a/sound/soc/qcom/lpass-apq8016.c b/sound/soc/qcom/lpass-apq8016.c
-> index 6575da549237..85079c697faa 100644
-> --- a/sound/soc/qcom/lpass-apq8016.c
-> +++ b/sound/soc/qcom/lpass-apq8016.c
-> @@ -121,6 +121,8 @@ static struct snd_soc_dai_driver apq8016_lpass_cpu_dai_driver[] = {
->   		},
->   		.probe	= &asoc_qcom_lpass_cpu_dai_probe,
->   		.ops    = &asoc_qcom_lpass_cpu_dai_ops,
-> +		.symmetric_samplebits   = 1,
-> +		.symmetric_rates        = 1,
->   	},
->   };
->   
-> diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-> index dbce7e92baf3..dc8acb380b6f 100644
-> --- a/sound/soc/qcom/lpass-cpu.c
-> +++ b/sound/soc/qcom/lpass-cpu.c
-> @@ -72,6 +72,7 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
->   	snd_pcm_format_t format = params_format(params);
->   	unsigned int channels = params_channels(params);
->   	unsigned int rate = params_rate(params);
-> +	unsigned int mask;
->   	unsigned int regval;
->   	int bitwidth, ret;
->   
-> @@ -81,6 +82,9 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
->   		return bitwidth;
->   	}
->   
-> +	mask   = LPAIF_I2SCTL_LOOPBACK_MASK |
-> +			LPAIF_I2SCTL_WSSRC_MASK |
-> +			LPAIF_I2SCTL_BITWIDTH_MASK;
->   	regval = LPAIF_I2SCTL_LOOPBACK_DISABLE |
->   			LPAIF_I2SCTL_WSSRC_INTERNAL;
->   
-> @@ -100,6 +104,7 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
->   	}
->   
->   	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-> +		mask   |= LPAIF_I2SCTL_SPKMODE_MASK | LPAIF_I2SCTL_SPKMONO_MASK;
->   		switch (channels) {
->   		case 1:
->   			regval |= LPAIF_I2SCTL_SPKMODE_SD0;
-> @@ -127,6 +132,7 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
->   			return -EINVAL;
->   		}
->   	} else {
-> +		mask   |= LPAIF_I2SCTL_MICMODE_MASK | LPAIF_I2SCTL_MICMONO_MASK;
->   		switch (channels) {
->   		case 1:
->   			regval |= LPAIF_I2SCTL_MICMODE_SD0;
-> @@ -155,9 +161,9 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
->   		}
->   	}
->   
-> -	ret = regmap_write(drvdata->lpaif_map,
-> -			   LPAIF_I2SCTL_REG(drvdata->variant, dai->driver->id),
-> -			   regval);
-> +	ret = regmap_update_bits(drvdata->lpaif_map,
-> +			 LPAIF_I2SCTL_REG(drvdata->variant, dai->driver->id),
-> +			 mask, regval);
->   	if (ret) {
->   		dev_err(dai->dev, "error writing to i2sctl reg: %d\n", ret);
->   		return ret;
-> @@ -178,11 +184,17 @@ static int lpass_cpu_daiops_hw_free(struct snd_pcm_substream *substream,
->   		struct snd_soc_dai *dai)
->   {
->   	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
-> +	unsigned int mask;
->   	int ret;
->   
-> -	ret = regmap_write(drvdata->lpaif_map,
-> -			   LPAIF_I2SCTL_REG(drvdata->variant, dai->driver->id),
-> -			   0);
-> +	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-> +		mask   = LPAIF_I2SCTL_SPKMODE_MASK;
-> +	else
-> +		mask   = LPAIF_I2SCTL_MICMODE_MASK;
-> +
-> +	ret = regmap_update_bits(drvdata->lpaif_map,
-> +			 LPAIF_I2SCTL_REG(drvdata->variant, dai->driver->id),
-> +			 mask, 0);
->   	if (ret)
->   		dev_err(dai->dev, "error writing to i2sctl reg: %d\n", ret);
->   
-> diff --git a/sound/soc/qcom/lpass-lpaif-reg.h b/sound/soc/qcom/lpass-lpaif-reg.h
-> index 3d74ae123e9d..7a2b9cf99976 100644
-> --- a/sound/soc/qcom/lpass-lpaif-reg.h
-> +++ b/sound/soc/qcom/lpass-lpaif-reg.h
-> @@ -56,7 +56,7 @@
->   #define LPAIF_I2SCTL_MICMODE_6CH	(7 << LPAIF_I2SCTL_MICMODE_SHIFT)
->   #define LPAIF_I2SCTL_MICMODE_8CH	(8 << LPAIF_I2SCTL_MICMODE_SHIFT)
->   
-> -#define LPAIF_I2SCTL_MIMONO_MASK	GENMASK(3, 3)
-> +#define LPAIF_I2SCTL_MICMONO_MASK	GENMASK(3, 3)
->   #define LPAIF_I2SCTL_MICMONO_SHIFT	3
->   #define LPAIF_I2SCTL_MICMONO_STEREO	(0 << LPAIF_I2SCTL_MICMONO_SHIFT)
->   #define LPAIF_I2SCTL_MICMONO_MONO	(1 << LPAIF_I2SCTL_MICMONO_SHIFT)
-> 
+>  .../devicetree/bindings/arm/altera.yaml       |  6 +-
+>  .../amlogic/amlogic,meson-gx-ao-secure.yaml   |  2 +-
+>  .../devicetree/bindings/arm/bitmain.yaml      |  2 +-
+>  .../devicetree/bindings/arm/nxp/lpc32xx.yaml  |  9 ++-
+>  .../bindings/arm/socionext/uniphier.yaml      | 26 ++++----
+>  .../bindings/arm/stm32/st,mlahb.yaml          |  2 +-
+>  .../bindings/arm/stm32/st,stm32-syscon.yaml   |  6 +-
+>  .../bindings/ata/faraday,ftide010.yaml        |  4 +-
+>  .../bindings/bus/allwinner,sun8i-a23-rsb.yaml |  4 +-
+>  .../clock/allwinner,sun4i-a10-gates-clk.yaml  |  8 +--
+>  .../devicetree/bindings/clock/fsl,plldig.yaml | 17 +++--
+>  .../devicetree/bindings/clock/qcom,mmcc.yaml  | 16 ++---
+>  .../bindings/connector/usb-connector.yaml     |  6 +-
+>  .../crypto/allwinner,sun4i-a10-crypto.yaml    | 14 ++--
+>  .../bindings/crypto/allwinner,sun8i-ce.yaml   | 16 ++---
+>  .../bindings/crypto/amlogic,gxl-crypto.yaml   |  2 +-
+>  .../display/allwinner,sun4i-a10-hdmi.yaml     | 40 ++++++------
+>  .../display/allwinner,sun4i-a10-tcon.yaml     | 58 ++++++++---------
+>  .../display/allwinner,sun6i-a31-mipi-dsi.yaml | 28 ++++----
+>  .../display/allwinner,sun8i-a83t-dw-hdmi.yaml | 10 +--
+>  .../bindings/display/bridge/lvds-codec.yaml   | 18 +++---
+>  .../display/panel/sony,acx424akp.yaml         |  2 +-
+>  .../display/panel/xinpeng,xpp055c272.yaml     |  4 +-
+>  .../bindings/display/renesas,cmm.yaml         | 16 ++---
+>  .../devicetree/bindings/dma/ti/k3-udma.yaml   |  8 +--
+
+Acked-By: Vinod Koul <vkoul@kernel.org>
+
+-- 
+~Vinod

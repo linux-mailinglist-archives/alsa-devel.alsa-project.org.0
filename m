@@ -2,99 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B38261AD9B5
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 11:23:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3FD31ABEB1
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Apr 2020 13:01:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5AC2A165D;
-	Fri, 17 Apr 2020 11:22:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5AC2A165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6EE121660;
+	Thu, 16 Apr 2020 13:00:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EE121660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587115392;
-	bh=u5fMQDNAUuXaPw+89dTTA0ZVG5dJuZz63WEnr/aWCsA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1587034901;
+	bh=7s9F/XNsbGsOimewojKrYJ1aFHWQOlL+e7GqYuLDXhE=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Qso753LHzNXeM7LgOpsRgepLRvJ3t8qCqZz6TRL/qBrGkf0IXaEOBKCVHwHMfLNha
-	 dz7CyCFVeZyFbRoDurjmdTlpUnug6GBmrfBW9k6JlVCL8SSwlSqy/Tgo2twOP7fOhR
-	 AGIZ6/bLB043livVKNH19hTy1y4mVCS0bLqW2kFM=
+	b=qpaUcJ/+aunPKt8wtucBmKi4sqPM+vY8+sgOpnxSN5lNnQ/SbL7aSR8JvoIol5tTk
+	 /AFJO9Pnfi+RN4CL5DINwgDmCppQ7CcNxTmcbhPkpRaVaFv51bCnxiNeEuxpBkIO+K
+	 vTMUvuSt2GR8Ge0Z7FSKsz3f7J9ORIVXxL5rSS/A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 601A8F802E3;
-	Fri, 17 Apr 2020 11:16:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C297F8013D;
+	Thu, 16 Apr 2020 13:00:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 05754F8014E; Thu, 16 Apr 2020 12:41:12 +0200 (CEST)
+ id 88DD6F8014E; Thu, 16 Apr 2020 12:59:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4CABFF800AB
- for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 12:41:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CABFF800AB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="xp/KXtyB"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C8860221E9;
- Thu, 16 Apr 2020 10:41:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587033667;
- bh=u5fMQDNAUuXaPw+89dTTA0ZVG5dJuZz63WEnr/aWCsA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=xp/KXtyBC+AW47+w/EThPewPKJno4LpErrb9k/MShW8CSZOjoH/eQie3gyamQtAPZ
- 7+2VNJeLRNNDDKaVoGmzb7acrQ3F10p7zOFoaEDwJaxmNypi234utwSFrQnjNbswMB
- 9dE8DImjkqaSZMR+teMounUi1jKOEIZOXIrffOdk=
-Date: Thu, 16 Apr 2020 11:41:04 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH 2/2] dt-bindings: Remove cases of 'allOf' containing a
- '$ref'
-Message-ID: <20200416104104.GE5354@sirena.org.uk>
-References: <20200416005549.9683-1-robh@kernel.org>
- <20200416005549.9683-2-robh@kernel.org>
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 0E708F8012E
+ for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 12:59:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E708F8012E
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="/2994txjAzEdQwm5"
-Content-Disposition: inline
-In-Reply-To: <20200416005549.9683-2-robh@kernel.org>
-X-Cookie: Tempt me with a spoon!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Fri, 17 Apr 2020 11:15:50 +0200
-Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
- Heiko Stuebner <heiko@sntech.de>, linux-pwm@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-pci@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>, linux-remoteproc@vger.kernel.org,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Thierry Reding <thierry.reding@gmail.com>, linux-mtd@lists.infradead.org,
- linux-i2c@vger.kernel.org, Pavel Machek <pavel@ucw.cz>,
- linux-riscv@lists.infradead.org, Lee Jones <lee.jones@linaro.org>,
- linux-clk@vger.kernel.org, linux-leds@vger.kernel.org,
- linux-rtc@vger.kernel.org, Florian Fainelli <f.fainelli@gmail.com>,
- Sam Ravnborg <sam@ravnborg.org>, Daniel Lezcano <daniel.lezcano@linaro.org>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, linux-serial@vger.kernel.org,
- linux-input@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@st.com>, alsa-devel@alsa-project.org,
- Maxime Ripard <mripard@kernel.org>, linux-can@vger.kernel.org,
- linux-gpio@vger.kernel.org, Jacek Anaszewski <jacek.anaszewski@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
- Stephen Boyd <sboyd@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Amit Kucheria <amit.kucheria@linaro.org>,
- linux-spi@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- netdev@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1587034793425049067-webhooks-bot@alsa-project.org>
+References: <1587034793425049067-webhooks-bot@alsa-project.org>
+Subject: alsactl: Wrong line if (!sched_setscheduler(0, SCHED_IDLE,
+ &sched_param))
+Message-Id: <20200416105957.88DD6F8014E@alsa1.perex.cz>
+Date: Thu, 16 Apr 2020 12:59:57 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,31 +60,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+alsa-project/alsa-utils pull request #38 was opened from Oscar65:
 
---/2994txjAzEdQwm5
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+As man page says: "If successful, the sched_setparam() function shall return zero."
+So the if must be without !
 
-On Wed, Apr 15, 2020 at 07:55:49PM -0500, Rob Herring wrote:
-> json-schema versions draft7 and earlier have a weird behavior in that
-> any keywords combined with a '$ref' are ignored (silently). The correct
-> form was to put a '$ref' under an 'allOf'. This behavior is now changed
+Without update I got this output in the syslog (journalctl):
+abr 16 09:25:30 mypc alsactl[1652]: alsactl 1.2.2 daemon started
+abr 16 09:25:30 mypc alsactl[1652]: /usr/bin/alsactl: do_nice:165sched_setparam failed: No such file or directory
 
-Acked-by: Mark Brown <broonie@kernel.org>
+That I think that is a wrong message. The call to sched_setparam is correct.
 
---/2994txjAzEdQwm5
-Content-Type: application/pgp-signature; name="signature.asc"
+This is the output with strace:
+getpriority(PRIO_PROCESS, 0)            = 20
+setpriority(PRIO_PROCESS, 0, 19)        = 0
+getpriority(PRIO_PROCESS, 0)            = 1
+sched_getparam(0, [0])                  = 0
+sched_setscheduler(0, SCHED_IDLE, [0])  = 0
+write(2, "/usr/bin/alsactl: do_nice:165: ", 31/usr/bin/alsactl: do_nice:165: ) = 31
+write(2, "sched_setparam failed: No such f"..., 48sched_setparam failed: No such file or directory) = 48
+write(2, "\n", 1)                       = 1
 
------BEGIN PGP SIGNATURE-----
+Call to sched_setscheduler returns 0, so it means that the call was successful.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6YNkAACgkQJNaLcl1U
-h9B9Tgf/e6Ex42p5b/rjUYhiAhK+0T+nvTbdLGjxGyRfopnnVMMaYPWXmkdGdh0H
-/nGE0rn04EUyWfBkjgCeKuclbzRWJCfQBSl+4dlYbMuX1LKrybV3nRANP03o7A9y
-sqPsDL3Qq01Rgb8waJiwmXqcHjxKBbCZd5bzU8ff82hg8jGKMIDVzJdnYrzGJJm7
-wLygPWU+Nj65KniavgesiRhfwSLfveuWwAR6SsWCCiOhJOWgl0/KbhceiFTRLJ4c
-pQQeBPzy+/C5VH2sYPCZB3/MEQ4/6+CC1AchkSDqGwOooj4KsPXXCjiJtj4YZB86
-9wfRx0ePvlfgBQgHYw4LX6341lhYUw==
-=Rw7L
------END PGP SIGNATURE-----
-
---/2994txjAzEdQwm5--
+Request URL   : https://github.com/alsa-project/alsa-utils/pull/38
+Patch URL     : https://github.com/alsa-project/alsa-utils/pull/38.patch
+Repository URL: https://github.com/alsa-project/alsa-utils

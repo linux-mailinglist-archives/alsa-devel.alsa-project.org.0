@@ -2,72 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D0D81AB9F8
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Apr 2020 09:30:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 096091AD9A6
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 11:20:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB3891662;
-	Thu, 16 Apr 2020 09:29:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB3891662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D2A2165D;
+	Fri, 17 Apr 2020 11:19:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D2A2165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587022217;
-	bh=IUtumwMOkukF24bZiyyIRmFb7iLPA0Pwt93DPRyxKiw=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1587115217;
+	bh=ocB+fuskP5X2vqz2mK9JfzPGdCvpvwqfP2GKzu4sCYQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bncEoOG2lAy+IreCcfjW3YrE9H9HJ4cZ3SHkZgtMJNdrlFr7a4Ffr1tU/BKdZbzwI
-	 KfkiaZNLGngbq+9v1Nnxj4PEkCKIZ5KsO9dXKvOZ8bh+tuVDjAfFYxtqDzeywAPJtC
-	 phM/hU51F/oA21XwxkeEO1xSgoEVMUioJMFjkuDc=
+	b=DDDobXAr0lRPZBaW4iTmVADur+iDNkqGJnjakWq/f3UWvXRE6Qx8rJ1/AhAvfjnWL
+	 I0J/6LppskAbNbCQLka+xAPxHEAnDhgCUpMpOKETtoBunYZdJtxYQxmabA99oVmPzJ
+	 qKeyqJA2SgqBOHdVL2V4MsuDlY4sjzewKuwOYJT8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1D95F80299;
-	Thu, 16 Apr 2020 09:27:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1FD3BF802A7;
+	Fri, 17 Apr 2020 11:15:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E485BF8028F; Thu, 16 Apr 2020 09:27:41 +0200 (CEST)
+ id B1B41F80290; Thu, 16 Apr 2020 09:27:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 05132F8028B
- for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 09:27:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05132F8028B
-IronPort-SDR: iy+FoeOm5pmDLLhi6VwrS5oLk/TcxaOZpY4ulgPB2jd7LqDx0Eoow6TVmDw19/2BkYCwKoXo9V
- Crsk6OEgjI7Q==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Apr 2020 00:27:35 -0700
-IronPort-SDR: yPp5K+i57MWmPxB8q+27JQkOxNOFA1BKDkWIVHCPZ6a7nOfEGZuxIbsaTisWlCXhA1XKOgShOZ
- pawJnZ2zKpJA==
-X-IronPort-AV: E=Sophos;i="5.72,390,1580803200"; d="scan'208";a="427732197"
-Received: from mantonie-mobl.ger.corp.intel.com (HELO [10.249.140.64])
- ([10.249.140.64])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Apr 2020 00:27:33 -0700
-Subject: Re: [PATCH 1/3] ASoC: codecs: hdac_hdmi: Fix incorrect use of
- list_for_each_entry
-To: Mark Brown <broonie@kernel.org>
-References: <20200415162849.308-1-amadeuszx.slawinski@linux.intel.com>
- <20200415172513.GI5265@sirena.org.uk>
-From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-Message-ID: <af6087bd-315a-43f7-e283-1b35ec48cdd4@linux.intel.com>
-Date: Thu, 16 Apr 2020 09:27:29 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from pokefinder.org (sauhun.de [88.99.104.3])
+ by alsa1.perex.cz (Postfix) with ESMTP id 576F8F8028C
+ for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 09:27:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 576F8F8028C
+Received: from localhost (p54B33393.dip0.t-ipconnect.de [84.179.51.147])
+ by pokefinder.org (Postfix) with ESMTPSA id 898972C1F4B;
+ Thu, 16 Apr 2020 09:27:37 +0200 (CEST)
+Date: Thu, 16 Apr 2020 09:27:37 +0200
+From: Wolfram Sang <wsa@the-dreams.de>
+To: Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH 2/2] dt-bindings: Remove cases of 'allOf' containing a
+ '$ref'
+Message-ID: <20200416072737.GA1023@kunai>
+References: <20200416005549.9683-1-robh@kernel.org>
+ <20200416005549.9683-2-robh@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20200415172513.GI5265@sirena.org.uk>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ZGiS0Q5IWpPtfppv"
+Content-Disposition: inline
+In-Reply-To: <20200416005549.9683-2-robh@kernel.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Mailman-Approved-At: Fri, 17 Apr 2020 11:15:50 +0200
+Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Heiko Stuebner <heiko@sntech.de>, linux-pwm@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-pci@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>, linux-remoteproc@vger.kernel.org,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Thierry Reding <thierry.reding@gmail.com>, linux-mtd@lists.infradead.org,
+ linux-i2c@vger.kernel.org, Pavel Machek <pavel@ucw.cz>,
+ linux-riscv@lists.infradead.org, Lee Jones <lee.jones@linaro.org>,
+ linux-clk@vger.kernel.org, linux-leds@vger.kernel.org,
+ linux-rtc@vger.kernel.org, Florian Fainelli <f.fainelli@gmail.com>,
+ Sam Ravnborg <sam@ravnborg.org>, Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, linux-serial@vger.kernel.org,
+ linux-input@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@st.com>, alsa-devel@alsa-project.org,
+ Maxime Ripard <mripard@kernel.org>, linux-can@vger.kernel.org,
+ linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
+ Stephen Boyd <sboyd@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Amit Kucheria <amit.kucheria@linaro.org>,
+ linux-spi@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+ netdev@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,16 +96,45 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--ZGiS0Q5IWpPtfppv
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 4/15/2020 7:25 PM, Mark Brown wrote:
-> On Wed, Apr 15, 2020 at 12:28:49PM -0400, Amadeusz Sławiński wrote:
->> If we don't find any pcm, pcm will point at address at an offset from
->> the the list head and not a meaningful structure. Fix this by returning
->> correct pcm if found and NULL if not. Found with coccinelle.
-> 
-> I only have patch 1/3 here and no cover letter - what's going on with
-> dependencies?
-> 
+On Wed, Apr 15, 2020 at 07:55:49PM -0500, Rob Herring wrote:
+> json-schema versions draft7 and earlier have a weird behavior in that
+> any keywords combined with a '$ref' are ignored (silently). The correct
+> form was to put a '$ref' under an 'allOf'. This behavior is now changed
+> in the 2019-09 json-schema spec and '$ref' can be mixed with other
+> keywords. The json-schema library doesn't yet support this, but the
+> tooling now does a fixup for this and either way works.
+>=20
+> This has been a constant source of review comments, so let's change this
+> treewide so everyone copies the simpler syntax.
+>=20
+> Signed-off-by: Rob Herring <robh@kernel.org>
 
-Oops, I'm sorry about this. There is only this patch, do you want me to 
-resend?
+Acked-by: Wolfram Sang <wsa@the-dreams.de> # for I2C
+
+
+--ZGiS0Q5IWpPtfppv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl6YCOQACgkQFA3kzBSg
+KbZcAg/7BNCS6Plzd0nif30LvUASyKL2fqZ54PDaxkVsHFZ6ILioIzHIss7e8ai/
+YkJmKgNKbLtEgg6dNTfoqLN5p52ekU7WvY/r9pDTFJiW0Lllc3aF1LNIC/owey/B
+GVXJCFK5qNr0hkMOsS55AW6rBaHMKA73o4hbAByJkdet+EtP0hMphL/0iC6P3g85
+edXGHYYNs2ZFcKE4mMMGWc6/kEFsokOp/hWh4nxpGZz9Rpe6C2Q97bvwivhJTLs8
++ef1qvMxtLOjAKNsUB6Kx8yjLKw6qMx/4o0l9ybVUc7WIUxG5E8dNenqDTyqUXej
+C1ZQLA8r7cVz6tLihoEeXMNPRBMFXwijjbDA2ai8kVt1nU5eY7/W9MmJfYOdmERQ
+fBc8c9sk7nHQGqzXlLD4uONayWHGecD52lns65PUrrCPgyH3tMK2Ds8NPthfl7A/
+sx9ezOIP+wbAP07OKg2tPI+q6GdCnGgHpIzUVS0UZjbMGawC/yeW7Kszqa8Dhsp/
+xH9sIw5p4Bmwvpct9Y/yFJ7zK0Udyd8Ro4AeF0oeHG7dmWb1RhLGZfg5yfmCJw30
+xOMgjKhuD+Uh7raT2JnX3h2lTbKtoZtHldcjOVBmwRDFd7vo3b9yU73FcuGf6QHC
+zfdSI05xzxbecqL9It624taFNLcWV0SKltTN2XHG/9EeTqfo+gA=
+=vXQq
+-----END PGP SIGNATURE-----
+
+--ZGiS0Q5IWpPtfppv--

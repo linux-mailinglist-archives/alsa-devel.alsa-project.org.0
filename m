@@ -2,67 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECE491AC9DD
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Apr 2020 17:28:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F4A81AC9E9
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Apr 2020 17:29:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C0B115F2;
-	Thu, 16 Apr 2020 17:27:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C0B115F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 183F01676;
+	Thu, 16 Apr 2020 17:28:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 183F01676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587050921;
-	bh=nlIoWzdqyk42cQzlK0nulsxbUgd+cIzM+bIMPUFDAlI=;
+	s=default; t=1587050964;
+	bh=/+6BznV8Jf9Tl/AqA3M9t+PR0nD926zjVaL5oQ8S0AY=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=WBFsoAFj52netS9FjlFH3zwCrN8wv3keEQoEQqb82xPzRAuygqKbnP5OcR5PiLzyw
-	 6RiI70MPnzCKwza7uaO97//RgyntAPCRjobO4FWxqQ+ZrxrpFzKAv9uqXqvEU+YLaT
-	 VCzhOlgaIrDwgyXTwgow311Tv++cq5nQw5OhKExo=
+	b=HQS/Qdh/mPfCzhCUv0jTbgS8fH+l2UH+97dRHJ/i3wz6pMDTbI1s5ig69wbNOIzwF
+	 1tp6tBcCtBkmBduYQkzv88xFQ3vU305WraFqEqQz1YKgJgLEIeX1escjdEEzMWtBZb
+	 mLReJWuaZ4tbq7FEwigqey7G8yf57JJ0+AbJi0Tc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A536DF802DC;
-	Thu, 16 Apr 2020 17:24:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 963DCF802E1;
+	Thu, 16 Apr 2020 17:24:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3260FF802A9; Thu, 16 Apr 2020 17:24:02 +0200 (CEST)
+ id 14AABF802DF; Thu, 16 Apr 2020 17:24:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81E20F802A2
- for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 17:23:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81E20F802A2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 107D3F802C3
+ for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 17:24:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 107D3F802C3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="uOtJtJnE"
+ header.b="GWynoKSZ"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D26E1206D6;
- Thu, 16 Apr 2020 15:23:56 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 09BB7206D6;
+ Thu, 16 Apr 2020 15:24:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587050637;
- bh=nlIoWzdqyk42cQzlK0nulsxbUgd+cIzM+bIMPUFDAlI=;
+ s=default; t=1587050642;
+ bh=/+6BznV8Jf9Tl/AqA3M9t+PR0nD926zjVaL5oQ8S0AY=;
  h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=uOtJtJnEn183jGTGYG+EuR/emZOrXK/ogMMo/XNy0JOsWHSAJ5tW5KTUG6hedzp2j
- qWO8zL+YhcHXp6EA68wyEVJ0Ukx0xTR6xAM5hx+j7ejgm5h774ETbFEZ6N5Uxghi8r
- lkMl1M8uSMYSxJvePH3gmJ38UCMYRrNA029J23uY=
-Date: Thu, 16 Apr 2020 16:23:54 +0100
+ b=GWynoKSZkm5TdWkTB2P7dIw4Re22LvVYXVbHsCXz7klxfFmuopxHPf4ejeAYjYv6R
+ vfUKC8xztQb5eOiZ6DiT0lLBzuowgS9mfnT2p1AbPCkz7j3kVZdWmUdojHdtsI4CKR
+ GJj3BfHWhnhsXs3j5hr/kngcihT45KaxF0TVnQhQ=
+Date: Thu, 16 Apr 2020 16:24:00 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Marc Gonzalez <marc.w.gonzalez@free.fr>
-Subject: Applied "ASoC: wcd9335: Fix missing regmap requirement" to the asoc
- tree
-In-Reply-To: <8c0b22e2-2c67-8d45-a57d-dfc54043fbc9@free.fr>
-Message-Id: <applied-8c0b22e2-2c67-8d45-a57d-dfc54043fbc9@free.fr>
+To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Subject: Applied "ASoC: pcm: fix error handling when try_module_get() fails."
+ to the asoc tree
+In-Reply-To: <20190408193025.22639-1-ranjani.sridharan@linux.intel.com>
+Message-Id: <applied-20190408193025.22639-1-ranjani.sridharan@linux.intel.com>
 X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
- Takashi Iwai <tiwai@suse.com>, LKML <linux-kernel@vger.kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,7 +78,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: wcd9335: Fix missing regmap requirement
+   ASoC: pcm: fix error handling when try_module_get() fails.
 
 has been applied to the asoc tree at
 
@@ -105,31 +103,48 @@ to this mail.
 Thanks,
 Mark
 
-From 741bfce676b765f01396e148862740caec91338c Mon Sep 17 00:00:00 2001
-From: Marc Gonzalez <marc.w.gonzalez@free.fr>
-Date: Wed, 10 Apr 2019 16:23:38 +0200
-Subject: [PATCH] ASoC: wcd9335: Fix missing regmap requirement
+From 7df8e234449a9a1cd2af5de728b7f811346c6fec Mon Sep 17 00:00:00 2001
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Date: Mon, 8 Apr 2019 12:30:25 -0700
+Subject: [PATCH] ASoC: pcm: fix error handling when try_module_get() fails.
 
-wcd9335.c: undefined reference to 'devm_regmap_add_irq_chip'
+Handle error before returning when try_module_get() fails
+to prevent inconsistent mutex lock/unlock.
 
-Signed-off-by: Marc Gonzalez <marc.w.gonzalez@free.fr>
+Fixes: 52034add7 (ASoC: pcm: update module refcount if
+		  module_get_upon_open is set)
+Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/soc-pcm.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 419114edfd57..667fc1d59e18 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -1151,6 +1151,7 @@ config SND_SOC_WCD9335
- 	tristate "WCD9335 Codec"
- 	depends on SLIMBUS
- 	select REGMAP_SLIMBUS
-+	select REGMAP_IRQ
- 	help
- 	  The WCD9335 is a standalone Hi-Fi audio CODEC IC, supports
- 	  Qualcomm Technologies, Inc. (QTI) multimedia solutions,
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index a810f6eeffee..69ea962de585 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -518,8 +518,10 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
+ 			continue;
+ 
+ 		if (component->driver->module_get_upon_open &&
+-		    !try_module_get(component->dev->driver->owner))
+-			return -ENODEV;
++		    !try_module_get(component->dev->driver->owner)) {
++			ret = -ENODEV;
++			goto module_err;
++		}
+ 
+ 		ret = component->driver->ops->open(substream);
+ 		if (ret < 0) {
+@@ -636,7 +638,7 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
+ 
+ component_err:
+ 	soc_pcm_components_close(substream, component);
+-
++module_err:
+ 	if (cpu_dai->driver->ops->shutdown)
+ 		cpu_dai->driver->ops->shutdown(substream, cpu_dai);
+ out:
 -- 
 2.20.1
 

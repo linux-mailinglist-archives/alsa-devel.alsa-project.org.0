@@ -2,120 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0440E1AD9C5
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 11:24:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59E8A1ABAD0
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Apr 2020 10:07:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9F7691612;
-	Fri, 17 Apr 2020 11:23:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F7691612
+	by alsa0.perex.cz (Postfix) with ESMTPS id E878E1665;
+	Thu, 16 Apr 2020 10:06:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E878E1665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587115485;
-	bh=sHJ12tcYNsSfgttEUfr+8K97RYYeru+HfS3132z1u6U=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1587024468;
+	bh=VxSllAJH/zVv/mARLGCkb021wqovSASU9gMj8cwSFZQ=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G7lVlexcxdzih6TtY6pl+FcHlToypSByauq3tYuuqDq/kFZVwrTlSfYTeF1i9GOXh
-	 t7eAR+ZdN7ZcgI2fX+eOK4kw27PSjkXs5qVQMbYdmFAnXjj022Z17EkPawNupUIBHh
-	 myIDoNxvQs9XjkPodx3Jsya7WhIYaZ4XafhoDWHs=
+	b=houu9eS59CPDu/TGMmYKcFkueUgFK0d5vD3YY8d5okYUSXGI0Y+ICyR2dhyoKMmdT
+	 MAOeTjquWV9lFagi4KtYxses4Qkx9D+hrMOjs9LMBUFqpu7QJWFoMu55RTCkj0jb3C
+	 lSnXl2mZVGo+lI8MRI+DUK3pBY0jr05+qe0fxsu0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C12F7F80308;
-	Fri, 17 Apr 2020 11:16:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BA2F8F8016F;
+	Thu, 16 Apr 2020 10:06:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 098B2F8014E; Thu, 16 Apr 2020 10:04:34 +0200 (CEST)
+ id 292E7F8014E; Thu, 16 Apr 2020 10:06:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
- [IPv6:2a00:1450:4864:20::241])
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D61EDF800AB
- for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 10:04:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D61EDF800AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5AD35F8012E
+ for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 10:05:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5AD35F8012E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="X0/ss7Bs"
-Received: by mail-lj1-x241.google.com with SMTP id u6so5179610ljl.6
- for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 01:04:26 -0700 (PDT)
+ header.b="ljCN0Eh8"
+Received: by mail-wm1-x344.google.com with SMTP id x4so3561815wmj.1
+ for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 01:05:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=sHJ12tcYNsSfgttEUfr+8K97RYYeru+HfS3132z1u6U=;
- b=X0/ss7BsABjV0v58eUDRQHcZuoc6jZGR8QlxXHm4iMm2jIobcqWr46sIwdS9XtZxjv
- J6lyowndGnsjJ2T09ZLAXy4vuLLuNuWfByvI3ZL89WC2FPNAxvWKs0UVVQzT5Ee2llor
- wzSBTCJVOBt2+9Ohb9KBSlvOhscZ+OiUHUnMWxgzt6ZDO9PVTPdpvuxMydg2t99gu6wZ
- oj37Ec/BUycHap9z0+LYieFHR2fzSSCOI+l9sq7xxfebteYGbDW3WPgbMFAteqOk2bKf
- K6q0mR7VNoF30yy9UA6z33ozE8ZHcOBMgzyIRBgLhkAceDqUT6mHxhpEYBOQpImmHhPe
- fohw==
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=uV16bW5Qou5HX/ecLg8k6CUH6HA5iJ8FFoob8YYamBs=;
+ b=ljCN0Eh8i0yJ4+SXVeS8uWjAW7ZFvAZJwKpZ6fLDVwjGW0e0Ehfcf1AEfaWthyab7o
+ 2FDZt6F/h9cJMPeHORes/2aQElMBh/q6ri1YKBxOuaZcX+Gj9Q/8WHIqWYXdYS1qLTQx
+ bfFGjpPm98kDJjPq3KAYPa56+q4LakqovsK8WZzKFPdTr/L94OjT9/7rH1OAW6E9gR+W
+ JFQiEv+r7VIOHA2qEJiL73R6mhtpsawbtsAlYHk/f3uSifyTm3cGDY6Vf6ciRpGEH3pz
+ JT3yNCMwEOkIjG61/Qk/vBqLyhd29BBp0TC+MT7XEcbpLelji96T5FAdiQUEMvigVGEZ
+ B4EQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=sHJ12tcYNsSfgttEUfr+8K97RYYeru+HfS3132z1u6U=;
- b=lEH8v8wYWJo4vLAt7T8/+c2qzlGG6rUok3HcTpY5y3JwA8r5mCm3gnlBcg4abyRxuP
- 3P/ZvJqEbMbbRDR5c1nixOy3I5pGwAevgqyfEMBrb/tSRvXOnKK4OmZy1KEYlh+eH9R4
- Swgui2KBrIyjieYkZKf4btaKXSxxixepaacljVTr5X0VEI/9esYWxXnAtTG527PfVoTr
- CwjzX4QKrcfpsm4LhavuOyOGZ54bJwt7+g/Wyt1MrXzscxXzPTreHZ9oMxFWQ7nogJhD
- ca7HRubJXAWFYgLYkrTICHG/3yg9gsjaNUnDUe6G2Ca6Dkc3O072dTZRcPP/f6zQ2Zm/
- FcPg==
-X-Gm-Message-State: AGi0PubCefwsBnQ3g/Ddf4dDYID5/eI0c14N2loRnjtm8V4HERVHxROX
- 4qx56bLAxoXfkdaiiDr7+u0gh6XGKFnYM4eX+zlxoA==
-X-Google-Smtp-Source: APiQypJa0ViiE/ZtKOxobDklTprFmqZh7Nrc1Zappo4GrzOsZZrJysLNIrOKRtQLmBogZMZaiR9WSbvdJtt5f/9aPuw=
-X-Received: by 2002:a2e:9ad9:: with SMTP id p25mr5793355ljj.39.1587024265660; 
- Thu, 16 Apr 2020 01:04:25 -0700 (PDT)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=uV16bW5Qou5HX/ecLg8k6CUH6HA5iJ8FFoob8YYamBs=;
+ b=hDCHnO1CPNNyIrQC61S+rglJ5KDdLklfhfoNUXs2sPs4gkbwqV+nnwKHMe+BT4q/H7
+ 5woaigEmXnBVX5CfsXoGI/LFS3djIUzOWKd2XuCIcIYYsuu6an0qxpwv07fPqWMYgYnd
+ CvVxyytL4r5zu1FwJu1/oysgmWR5WziiSzz/OuClcn+fyJYaIBwiI2xaQarn5uD5xqyK
+ illIaKq1upjcRWAJEVpiYh6sfNMl5myYOq5/+pboWU+Rs4nLfabokf+wN1eIG2xnokUZ
+ n4ynLRxfCBEPK5D487i7BrxbyRxU9F6yLFP4mJXrfu8xF2WeHPFsAELMi0jR+OzDMq/w
+ 4ieQ==
+X-Gm-Message-State: AGi0PubCvMesMY3y7vLgfSvVGi8smTjXfonnagx9Ul64245JZl4MU/0z
+ jEzGIwTeGeZzbktqU1PUFJ7KtA==
+X-Google-Smtp-Source: APiQypIRGcjIwp1s+fOs+F0CzIqeFfO2L62PN8lr+ClPBiAGKeNKI2rZAgQCnriNtLAp60EQECv19Q==
+X-Received: by 2002:a05:600c:22d1:: with SMTP id
+ 17mr3296204wmg.167.1587024356884; 
+ Thu, 16 Apr 2020 01:05:56 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.googlemail.com with ESMTPSA id t67sm2687859wmg.40.2020.04.16.01.05.55
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 16 Apr 2020 01:05:56 -0700 (PDT)
+Subject: Re: [PATCH] ASoC: qcom: lpass-cpu: support full duplex operation
+To: broonie@kernel.org
+References: <20200306130147.27452-1-srinivas.kandagatla@linaro.org>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <841cb73b-82d3-9fb9-0ed3-547882872085@linaro.org>
+Date: Thu, 16 Apr 2020 09:05:55 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-References: <20200416005549.9683-1-robh@kernel.org>
- <20200416005549.9683-2-robh@kernel.org>
-In-Reply-To: <20200416005549.9683-2-robh@kernel.org>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 16 Apr 2020 10:04:14 +0200
-Message-ID: <CACRpkdYDrytCL3ZX9YeW39t2mb4M8KbCfCFm0Ba67oPpshckLw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] dt-bindings: Remove cases of 'allOf' containing a
- '$ref'
-To: Rob Herring <robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Fri, 17 Apr 2020 11:15:50 +0200
-Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
- Heiko Stuebner <heiko@sntech.de>, Sam Ravnborg <sam@ravnborg.org>,
- linux-pwm@vger.kernel.org, linux-iio <linux-iio@vger.kernel.org>,
- linux-pci <linux-pci@vger.kernel.org>, linux-remoteproc@vger.kernel.org,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Thierry Reding <thierry.reding@gmail.com>, linux-mtd@lists.infradead.org,
- linux-i2c <linux-i2c@vger.kernel.org>, Pavel Machek <pavel@ucw.cz>,
- linux-riscv@lists.infradead.org, Lee Jones <lee.jones@linaro.org>,
- linux-clk <linux-clk@vger.kernel.org>,
- Linux LED Subsystem <linux-leds@vger.kernel.org>, linux-rtc@vger.kernel.org,
- Florian Fainelli <f.fainelli@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
- Linux Input <linux-input@vger.kernel.org>, Guenter Roeck <linux@roeck-us.net>,
- linux-media@vger.kernel.org,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Alexandre Torgue <alexandre.torgue@st.com>,
- "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, Maxime Ripard <mripard@kernel.org>,
- linux-can@vger.kernel.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>, Jacek Anaszewski <jacek.anaszewski@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-hwmon@vger.kernel.org,
- Stephen Boyd <sboyd@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- linux-mmc <linux-mmc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Amit Kucheria <amit.kucheria@linaro.org>,
- linux-spi <linux-spi@vger.kernel.org>, Vinod Koul <vkoul@kernel.org>,
- netdev <netdev@vger.kernel.org>, Jonathan Cameron <jic23@kernel.org>
+In-Reply-To: <20200306130147.27452-1-srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Takahide Higuchi <takahidehiguchi@gmail.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -131,21 +106,131 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Apr 16, 2020 at 2:55 AM Rob Herring <robh@kernel.org> wrote:
+Hi Mark,
 
-> json-schema versions draft7 and earlier have a weird behavior in that
-> any keywords combined with a '$ref' are ignored (silently). The correct
-> form was to put a '$ref' under an 'allOf'. This behavior is now changed
-> in the 2019-09 json-schema spec and '$ref' can be mixed with other
-> keywords. The json-schema library doesn't yet support this, but the
-> tooling now does a fixup for this and either way works.
->
-> This has been a constant source of review comments, so let's change this
-> treewide so everyone copies the simpler syntax.
->
-> Signed-off-by: Rob Herring <robh@kernel.org>
 
-Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+On 06/03/2020 13:01, Srinivas Kandagatla wrote:
+> From: Takahide Higuchi <takahidehiguchi@gmail.com>
+> 
+> This patch fixes a bug where playback on bidirectional I2S interface stops
+> when we start recording on the same interface.
+> 
+> We use regmap_update_bits instead of regmap_write so that we will not clear
+> SPKEN and SPKMODE bits when we start/stop recording.
+> 
+> Signed-off-by: Takahide Higuchi <takahidehiguchi@gmail.com>
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 
-Thanks for fixing this!
-Linus Walleij
+Looks like this patch was missed in last cycle, Should I resend this one 
+or are you okay to apply this. This patch is required to get full duplex 
+on msm8916 based platforms.
+
+
+thanks,
+srini
+
+> ---
+>   sound/soc/qcom/lpass-apq8016.c   |  2 ++
+>   sound/soc/qcom/lpass-cpu.c       | 24 ++++++++++++++++++------
+>   sound/soc/qcom/lpass-lpaif-reg.h |  2 +-
+>   3 files changed, 21 insertions(+), 7 deletions(-)
+> 
+> diff --git a/sound/soc/qcom/lpass-apq8016.c b/sound/soc/qcom/lpass-apq8016.c
+> index 6575da549237..85079c697faa 100644
+> --- a/sound/soc/qcom/lpass-apq8016.c
+> +++ b/sound/soc/qcom/lpass-apq8016.c
+> @@ -121,6 +121,8 @@ static struct snd_soc_dai_driver apq8016_lpass_cpu_dai_driver[] = {
+>   		},
+>   		.probe	= &asoc_qcom_lpass_cpu_dai_probe,
+>   		.ops    = &asoc_qcom_lpass_cpu_dai_ops,
+> +		.symmetric_samplebits   = 1,
+> +		.symmetric_rates        = 1,
+>   	},
+>   };
+>   
+> diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+> index dbce7e92baf3..dc8acb380b6f 100644
+> --- a/sound/soc/qcom/lpass-cpu.c
+> +++ b/sound/soc/qcom/lpass-cpu.c
+> @@ -72,6 +72,7 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
+>   	snd_pcm_format_t format = params_format(params);
+>   	unsigned int channels = params_channels(params);
+>   	unsigned int rate = params_rate(params);
+> +	unsigned int mask;
+>   	unsigned int regval;
+>   	int bitwidth, ret;
+>   
+> @@ -81,6 +82,9 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
+>   		return bitwidth;
+>   	}
+>   
+> +	mask   = LPAIF_I2SCTL_LOOPBACK_MASK |
+> +			LPAIF_I2SCTL_WSSRC_MASK |
+> +			LPAIF_I2SCTL_BITWIDTH_MASK;
+>   	regval = LPAIF_I2SCTL_LOOPBACK_DISABLE |
+>   			LPAIF_I2SCTL_WSSRC_INTERNAL;
+>   
+> @@ -100,6 +104,7 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
+>   	}
+>   
+>   	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+> +		mask   |= LPAIF_I2SCTL_SPKMODE_MASK | LPAIF_I2SCTL_SPKMONO_MASK;
+>   		switch (channels) {
+>   		case 1:
+>   			regval |= LPAIF_I2SCTL_SPKMODE_SD0;
+> @@ -127,6 +132,7 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
+>   			return -EINVAL;
+>   		}
+>   	} else {
+> +		mask   |= LPAIF_I2SCTL_MICMODE_MASK | LPAIF_I2SCTL_MICMONO_MASK;
+>   		switch (channels) {
+>   		case 1:
+>   			regval |= LPAIF_I2SCTL_MICMODE_SD0;
+> @@ -155,9 +161,9 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
+>   		}
+>   	}
+>   
+> -	ret = regmap_write(drvdata->lpaif_map,
+> -			   LPAIF_I2SCTL_REG(drvdata->variant, dai->driver->id),
+> -			   regval);
+> +	ret = regmap_update_bits(drvdata->lpaif_map,
+> +			 LPAIF_I2SCTL_REG(drvdata->variant, dai->driver->id),
+> +			 mask, regval);
+>   	if (ret) {
+>   		dev_err(dai->dev, "error writing to i2sctl reg: %d\n", ret);
+>   		return ret;
+> @@ -178,11 +184,17 @@ static int lpass_cpu_daiops_hw_free(struct snd_pcm_substream *substream,
+>   		struct snd_soc_dai *dai)
+>   {
+>   	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
+> +	unsigned int mask;
+>   	int ret;
+>   
+> -	ret = regmap_write(drvdata->lpaif_map,
+> -			   LPAIF_I2SCTL_REG(drvdata->variant, dai->driver->id),
+> -			   0);
+> +	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+> +		mask   = LPAIF_I2SCTL_SPKMODE_MASK;
+> +	else
+> +		mask   = LPAIF_I2SCTL_MICMODE_MASK;
+> +
+> +	ret = regmap_update_bits(drvdata->lpaif_map,
+> +			 LPAIF_I2SCTL_REG(drvdata->variant, dai->driver->id),
+> +			 mask, 0);
+>   	if (ret)
+>   		dev_err(dai->dev, "error writing to i2sctl reg: %d\n", ret);
+>   
+> diff --git a/sound/soc/qcom/lpass-lpaif-reg.h b/sound/soc/qcom/lpass-lpaif-reg.h
+> index 3d74ae123e9d..7a2b9cf99976 100644
+> --- a/sound/soc/qcom/lpass-lpaif-reg.h
+> +++ b/sound/soc/qcom/lpass-lpaif-reg.h
+> @@ -56,7 +56,7 @@
+>   #define LPAIF_I2SCTL_MICMODE_6CH	(7 << LPAIF_I2SCTL_MICMODE_SHIFT)
+>   #define LPAIF_I2SCTL_MICMODE_8CH	(8 << LPAIF_I2SCTL_MICMODE_SHIFT)
+>   
+> -#define LPAIF_I2SCTL_MIMONO_MASK	GENMASK(3, 3)
+> +#define LPAIF_I2SCTL_MICMONO_MASK	GENMASK(3, 3)
+>   #define LPAIF_I2SCTL_MICMONO_SHIFT	3
+>   #define LPAIF_I2SCTL_MICMONO_STEREO	(0 << LPAIF_I2SCTL_MICMONO_SHIFT)
+>   #define LPAIF_I2SCTL_MICMONO_MONO	(1 << LPAIF_I2SCTL_MICMONO_SHIFT)
+> 

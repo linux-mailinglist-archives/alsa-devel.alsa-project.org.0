@@ -2,76 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AD321ACBD0
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Apr 2020 17:53:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94D8D1ACD10
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Apr 2020 18:14:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 40E341660;
-	Thu, 16 Apr 2020 17:52:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40E341660
+	by alsa0.perex.cz (Postfix) with ESMTPS id 17CB61662;
+	Thu, 16 Apr 2020 18:13:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17CB61662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587052418;
-	bh=f+v0/f94whq+RFELRQRok+Qo9U6CspwMX5WgTcLbQ9M=;
+	s=default; t=1587053662;
+	bh=UBXmzFhBpFgoY6vyEgZDx/G29gEPaaN/4bc/3OJtawE=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fzmL87tPhO3ZgJBc7PjAO0iBL+BOUtcoQkcrNXOdHZv4uIcuI+9OIQa6I79In2rRa
-	 41qPCHAiFhJCdHDvrFpiElQfJESGs5n3MPEE/RcIFqB42cOC7w/73Zj5yAhj0e2S1g
-	 lV0mGmOADi18HMFAuvEf1ZubQL02UyYG72hP2TZM=
+	b=JB0ixTxIZcM3vqiysycrlNZ/z7wHUdOCi8T6ihoIiR+whiJqPmxVTUNcFarXRMEE4
+	 9Y1eocTrdLg55k5j6oL+r9fsdjDd+Uj0Q0asu+6DSZgtFERxCS29rFJto2LCByddpH
+	 8PMT9XjXl8hMxuqPTzkBIomKF3abzVb1XZB0uXGc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6BA3AF800AB;
-	Thu, 16 Apr 2020 17:51:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 27C5FF8016F;
+	Thu, 16 Apr 2020 18:12:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2515F8014E; Thu, 16 Apr 2020 17:51:55 +0200 (CEST)
+ id 5C37EF8014E; Thu, 16 Apr 2020 18:12:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9AD92F80115
- for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 17:51:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AD92F80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8BC75F800AB
+ for <alsa-devel@alsa-project.org>; Thu, 16 Apr 2020 18:12:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BC75F800AB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="U5nPloWn"
+ header.b="VIZX6WdX"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4BACC20732;
- Thu, 16 Apr 2020 15:51:46 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 29CBC206B9;
+ Thu, 16 Apr 2020 16:12:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587052306;
- bh=f+v0/f94whq+RFELRQRok+Qo9U6CspwMX5WgTcLbQ9M=;
+ s=default; t=1587053548;
+ bh=UBXmzFhBpFgoY6vyEgZDx/G29gEPaaN/4bc/3OJtawE=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=U5nPloWnP86QJZDjWomAThBMqB3yOl2Uupk0oXRpWZqiHwU84G5P6UDuFfyerwmrz
- 47p/J30AwMTeW5zSJTvdUs7hXGwYBfQGAj2trgrejwc1aA/IzLb+mqNVbVQm7SC6WA
- CRQ+7UmPmju+ujZ7vz10IPvok54pLnhEoa+V498U=
-Date: Thu, 16 Apr 2020 16:51:44 +0100
+ b=VIZX6WdXWGiQrMeDr2VMTqHBvMeh3c2VpUcozveNJsTJeaH7EW4QSN7gl+a5FZuLB
+ 6trTiRAk9+2FGitd9VrRmDcoYphRYgEFrXs2+/AZMTrMjueRSQwPhx4k43Rxh1xLQ/
+ idLywQ7FmJEwBUTYf+Cb8idVbattvmERHkTFWLwk=
+Date: Thu, 16 Apr 2020 17:12:26 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Sven Van Asbroeck <thesven73@gmail.com>
-Subject: Re: [PATCH v1 2/2] ASoC: Add initial ZL38060 driver
-Message-ID: <20200416155144.GM5354@sirena.org.uk>
-References: <20200416001414.25746-1-TheSven73@gmail.com>
- <20200416001414.25746-2-TheSven73@gmail.com>
- <20200416124239.GH5354@sirena.org.uk>
- <CAGngYiVXk+1Qzs3yLwyne3X567_yvbuRfXkjihmGc0EigHo50A@mail.gmail.com>
+To: Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH 1/7] ASoC: txx9: don't work around too small
+ resource_size_t
+Message-ID: <20200416161226.GN5354@sirena.org.uk>
+References: <20200416150011.820984-1-hch@lst.de>
+ <20200416150011.820984-2-hch@lst.de>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="VLAOICcq5m4DWEYr"
+ protocol="application/pgp-signature"; boundary="NJSRbAqOy4NeGDns"
 Content-Disposition: inline
-In-Reply-To: <CAGngYiVXk+1Qzs3yLwyne3X567_yvbuRfXkjihmGc0EigHo50A@mail.gmail.com>
+In-Reply-To: <20200416150011.820984-2-hch@lst.de>
 X-Cookie: Tempt me with a spoon!
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree <devicetree@vger.kernel.org>, alsa-devel@alsa-project.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Rob Herring <robh+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-mips@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,73 +86,34 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---VLAOICcq5m4DWEYr
+--NJSRbAqOy4NeGDns
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Thu, Apr 16, 2020 at 11:23:14AM -0400, Sven Van Asbroeck wrote:
-> On Thu, Apr 16, 2020 at 8:42 AM Mark Brown <broonie@kernel.org> wrote:
+On Thu, Apr 16, 2020 at 05:00:05PM +0200, Christoph Hellwig wrote:
+> The txx9 sound driver deends on HAS_TXX9_ACLC, which is only set for
+> three tx49xx SOCs, and thus always has a 64-bit phys_addr_t and
+> resource_size_t.  Instead of poking into ioremap internals to work
+> around a potentially too small resource_size_t just add a BUILD_BUG_ON
+> to catch such a case.
 
-> > > @@ -0,0 +1,643 @@
-> > > +// SPDX-License-Identifier: GPL-2.0-only
-> > > +/*
-> > > + * Codec driver for Microsemi ZL38060 Connected Home Audio Processor.
-> > > + *
+Acked-by: Mark Brown <broonie@kernel.org>
 
-> > Please make the entire comment a C++ one so things look more
-> > intentional.
+or can I just apply this independently of the rest of the series?
 
-> The 'weird' combination of // SPDX and /* Description/copyright */ seems to
-> be a kernel-wide standard (for C files, at least) ?
-
-> E.g.:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/soc/codecs/wm9090.c?h=v5.7-rc1#n2
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/soc/codecs/wm8904.c?h=v5.7-rc1#n2
-
-> Ok to keep?
-
-Those were all automatically converted, one of these days I might get
-round to updating them :/
-
-> > This external amplifier support shouldn't be here, if there's other
-> > devices in the system then they will have their own drivers and the
-> > machine driver will take care of linking things together.
-
-> In our application, the amp is a "dumb" class-D amp with a single enable line:
-> https://www.onsemi.com/pub/Collateral/FAB3103-D.pdf
-
-> I am not sure how I could make this more general. Could you point me to an
-> example somewhere in the tree?
-
-Look for GPIOs in machine drivers, there's quite a lot of examples (eg,
-rx51 has a speaker amp although it's not the most modern).
-
-> > > +     priv->regmap = devm_regmap_init(dev, &zl38_regmap_bus, spi,
-> > > +                                     &zl38_regmap_conf);
-> > > +     if (IS_ERR(priv->regmap))
-> > > +             return PTR_ERR(priv->regmap);
-
-> > devm_regmap_init_spi()
-
-> I wish !! This chip has complex SPI addressing, using an "address" which:
-> - is variable length, depending on the page of the register being accessed;
-> - contains a field with the length of the data to follow.
-
-OK.
-
---VLAOICcq5m4DWEYr
+--NJSRbAqOy4NeGDns
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6Yfw8ACgkQJNaLcl1U
-h9BSVwf+P2xC6Q4mb+FyMvkNgT3QFu0YqF4YMuC6akEHl+Ne/WqRC6TSls52JJD1
-sLwGV585mfFcdmevXFp/glhZ3sJTIX6kpDGlfBIetsG+bBXZgZ5rwIFdPYPRX94X
-OG/2E75aoQzo/RXv7F+7eXEVZHOrwbW1SDy/AF9EOtrr1CvEj9/kiWTdqVLIj/Rm
-wfWlFaBraepLOKowIpg/eu5JGvmWbHPZwqYu98FloE20jV6RAaCA231IJoMVSK+d
-v4i2SyGZtF7cuG8S6XkBuFPHAwFxTanxxfBs81FazAXLty8VaOfp5GngIYlst1iI
-ivYzjobJUeAsZ1PASHds1ris+woLzw==
-=9et2
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6Yg+kACgkQJNaLcl1U
+h9DEbgf+JwzZc2jhXpAP4FvODQGQv1h0Vc/XAbA4UGDH2HWoKz9NJ+pIUCfuCnOw
+DAysKMiHzprQKBvLH5LmrsMjHlzCGa8tzGqf3FjRxRTEcTZwwzlHk/1+e12JctPK
+QZsERfcmkEvJcJajNoafnFi9DbHHzJvY2hd32zbrY97sgAXhqy7XhkFgvXKJBXZI
+sGrWoQS+vxQeQUzLToCWwNLo8akrKGmBX0oSvOf+9vgeqg3PF5ShpxjOyJs74nOc
+32mw8r9AB5A+K7QKVIe3Q4x9irWxv5kxQ7O09gqJ/PQZTeaJZ3XqnJ0uMMs5SadH
+gV4+DtvO63MROj2M0JdqnVWDPMjvjw==
+=uLa8
 -----END PGP SIGNATURE-----
 
---VLAOICcq5m4DWEYr--
+--NJSRbAqOy4NeGDns--

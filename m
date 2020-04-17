@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F10F1AD584
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 07:11:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF6001AD588
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 07:11:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 450481670;
-	Fri, 17 Apr 2020 07:10:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 450481670
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7FE7F82A;
+	Fri, 17 Apr 2020 07:10:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FE7F82A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587100265;
-	bh=ljnl5txoyzy9ggcsBWdvHaPPmC6BFy5mJIeSotOS/2I=;
+	s=default; t=1587100305;
+	bh=xl/3AxfElHOdCZokO/jDjFFFUyptTP1d0ezo4fhjYd0=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DXKbrc2iU2n2TPxojLv8ngqHbQQFkrSsMjpY1gdpxFG+gUjnYG/K0YEHhlRVq11ri
-	 cs4nd1O1n00hJLkN6IY2Nubspj9b0bEdfpZFjPXrJZxDX5S17D8XAKiR2GF76kIfZj
-	 y3Ni4q0C/KXHPKphunoMaDzEakSfQma2uR6o66cA=
+	b=Cl+nDpEtZx8/SiOw5I6Wk0hHBp9FBPTwKNiHtGQUFILUYoDhb1vsyF7lY/8cOWK69
+	 JDArUjGUXVqtlXD2wEjSwjuZQb1eUYtZxL5oVbSgfYGg4wNJrA4xuMFP5iSpTvW0GV
+	 PUxTKwz8aiYslSBlCP1kWFPkssoQCICDKxwXpO/8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 092FFF802E1;
-	Fri, 17 Apr 2020 07:07:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17F75F802E3;
+	Fri, 17 Apr 2020 07:07:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 62C21F802A8; Fri, 17 Apr 2020 07:07:01 +0200 (CEST)
+ id B6E71F802E3; Fri, 17 Apr 2020 07:07:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 242B9F802A8
- for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 07:06:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 242B9F802A8
-Date: 17 Apr 2020 14:06:56 +0900
-X-IronPort-AV: E=Sophos;i="5.72,393,1580742000"; d="scan'208";a="44972254"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 17 Apr 2020 14:06:56 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id E238AF802E0
+ for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 07:07:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E238AF802E0
+Date: 17 Apr 2020 14:07:03 +0900
+X-IronPort-AV: E=Sophos;i="5.72,393,1580742000"; d="scan'208";a="44972279"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 17 Apr 2020 14:07:03 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id B422C4132521;
- Fri, 17 Apr 2020 14:06:56 +0900 (JST)
-Message-ID: <873692puof.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 7EE7B400A0F7;
+ Fri, 17 Apr 2020 14:07:03 +0900 (JST)
+Message-ID: <871rompuo8.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 6/8] ASoC: sof: use snd_compress_ops
+Subject: [PATCH 7/8] ASoC: sprd: use snd_compress_ops
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87blnqpuqp.wl-kuninori.morimoto.gx@renesas.com>
@@ -73,177 +73,201 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 We can use snd_compress_ops.
 Let's switch to use it.
 
-Upstream code doesn't have sof_compressed_ops.
-This patch assume it is implemented at out-of-tree.
-
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/sof/compress.c | 34 +++++++++++++++++++++-------------
- sound/soc/sof/compress.h | 34 +++++++++++++++++++++-------------
- sound/soc/sof/pcm.c      |  4 ++--
- sound/soc/sof/sof-priv.h |  2 +-
- 4 files changed, 45 insertions(+), 29 deletions(-)
+ sound/soc/sprd/sprd-pcm-compress.c | 49 ++++++++++++++----------------
+ sound/soc/sprd/sprd-pcm-dma.c      |  2 +-
+ sound/soc/sprd/sprd-pcm-dma.h      |  2 +-
+ 3 files changed, 25 insertions(+), 28 deletions(-)
 
-diff --git a/sound/soc/sof/compress.c b/sound/soc/sof/compress.c
-index 7354dc6a49cf..52a1d7ed97a5 100644
---- a/sound/soc/sof/compress.c
-+++ b/sound/soc/sof/compress.c
-@@ -13,13 +13,14 @@
- #include "ops.h"
- #include "probe.h"
- 
--struct snd_compr_ops sof_probe_compressed_ops = {
-+struct snd_compress_ops sof_probe_compressed_ops = {
- 	.copy		= sof_probe_compr_copy,
+diff --git a/sound/soc/sprd/sprd-pcm-compress.c b/sound/soc/sprd/sprd-pcm-compress.c
+index 74d48340cade..749dcb7b993b 100644
+--- a/sound/soc/sprd/sprd-pcm-compress.c
++++ b/sound/soc/sprd/sprd-pcm-compress.c
+@@ -96,7 +96,8 @@ struct sprd_compr_stream {
+ 	int stage1_pointer;
  };
- EXPORT_SYMBOL(sof_probe_compressed_ops);
  
--int sof_probe_compr_open(struct snd_compr_stream *cstream,
--		struct snd_soc_dai *dai)
-+int sof_probe_compr_open(struct snd_soc_component *component,
-+			 struct snd_compr_stream *cstream,
-+			 struct snd_soc_dai *dai)
- {
- 	struct snd_sof_dev *sdev =
- 				snd_soc_component_get_drvdata(dai->component);
-@@ -36,8 +37,9 @@ int sof_probe_compr_open(struct snd_compr_stream *cstream,
+-static int sprd_platform_compr_trigger(struct snd_compr_stream *cstream,
++static int sprd_platform_compr_trigger(struct snd_soc_component *component,
++				       struct snd_compr_stream *cstream,
+ 				       int cmd);
+ 
+ static void sprd_platform_compr_drain_notify(void *arg)
+@@ -125,15 +126,14 @@ static void sprd_platform_compr_dma_complete(void *data)
+ 	snd_compr_fragment_elapsed(cstream);
  }
- EXPORT_SYMBOL(sof_probe_compr_open);
  
--int sof_probe_compr_free(struct snd_compr_stream *cstream,
--		struct snd_soc_dai *dai)
-+int sof_probe_compr_free(struct snd_soc_component *component,
-+			 struct snd_compr_stream *cstream,
-+			 struct snd_soc_dai *dai)
+-static int sprd_platform_compr_dma_config(struct snd_compr_stream *cstream,
++static int sprd_platform_compr_dma_config(struct snd_soc_component *component,
++					  struct snd_compr_stream *cstream,
+ 					  struct snd_compr_params *params,
+ 					  int channel)
  {
- 	struct snd_sof_dev *sdev =
- 				snd_soc_component_get_drvdata(dai->component);
-@@ -68,8 +70,10 @@ int sof_probe_compr_free(struct snd_compr_stream *cstream,
+ 	struct snd_compr_runtime *runtime = cstream->runtime;
+ 	struct sprd_compr_stream *stream = runtime->private_data;
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+-	struct snd_soc_component *component =
+-		snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+ 	struct device *dev = component->dev;
+ 	struct sprd_compr_data *data = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 	struct sprd_pcm_dma_params *dma_params = data->dma_params;
+@@ -261,14 +261,12 @@ static int sprd_platform_compr_dma_config(struct snd_compr_stream *cstream,
+ 	return ret;
  }
- EXPORT_SYMBOL(sof_probe_compr_free);
  
--int sof_probe_compr_set_params(struct snd_compr_stream *cstream,
--		struct snd_compr_params *params, struct snd_soc_dai *dai)
-+int sof_probe_compr_set_params(struct snd_soc_component *component,
-+			       struct snd_compr_stream *cstream,
-+			       struct snd_compr_params *params,
-+			       struct snd_soc_dai *dai)
+-static int sprd_platform_compr_set_params(struct snd_compr_stream *cstream,
++static int sprd_platform_compr_set_params(struct snd_soc_component *component,
++					  struct snd_compr_stream *cstream,
+ 					  struct snd_compr_params *params)
  {
- 	struct snd_compr_runtime *rtd = cstream->runtime;
- 	struct snd_sof_dev *sdev =
-@@ -97,8 +101,9 @@ int sof_probe_compr_set_params(struct snd_compr_stream *cstream,
+ 	struct snd_compr_runtime *runtime = cstream->runtime;
+ 	struct sprd_compr_stream *stream = runtime->private_data;
+-	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+-	struct snd_soc_component *component =
+-		snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+ 	struct device *dev = component->dev;
+ 	struct sprd_compr_params compr_params = { };
+ 	int ret;
+@@ -279,13 +277,13 @@ static int sprd_platform_compr_set_params(struct snd_compr_stream *cstream,
+ 	 * means once the source channel's transaction is done, it will trigger
+ 	 * the destination channel's transaction automatically.
+ 	 */
+-	ret = sprd_platform_compr_dma_config(cstream, params, 1);
++	ret = sprd_platform_compr_dma_config(component, cstream, params, 1);
+ 	if (ret) {
+ 		dev_err(dev, "failed to config stage 1 DMA: %d\n", ret);
+ 		return ret;
+ 	}
+ 
+-	ret = sprd_platform_compr_dma_config(cstream, params, 0);
++	ret = sprd_platform_compr_dma_config(component, cstream, params, 0);
+ 	if (ret) {
+ 		dev_err(dev, "failed to config stage 0 DMA: %d\n", ret);
+ 		goto config_err;
+@@ -314,12 +312,11 @@ static int sprd_platform_compr_set_params(struct snd_compr_stream *cstream,
+ 	return ret;
  }
- EXPORT_SYMBOL(sof_probe_compr_set_params);
  
--int sof_probe_compr_trigger(struct snd_compr_stream *cstream, int cmd,
--		struct snd_soc_dai *dai)
-+int sof_probe_compr_trigger(struct snd_soc_component *component,
-+			    struct snd_compr_stream *cstream, int cmd,
-+			    struct snd_soc_dai *dai)
+-static int sprd_platform_compr_open(struct snd_compr_stream *cstream)
++static int sprd_platform_compr_open(struct snd_soc_component *component,
++				    struct snd_compr_stream *cstream)
  {
- 	struct snd_sof_dev *sdev =
- 				snd_soc_component_get_drvdata(dai->component);
-@@ -107,8 +112,10 @@ int sof_probe_compr_trigger(struct snd_compr_stream *cstream, int cmd,
+ 	struct snd_compr_runtime *runtime = cstream->runtime;
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+-	struct snd_soc_component *component =
+-		snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+ 	struct device *dev = component->dev;
+ 	struct sprd_compr_data *data = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 	struct sprd_compr_stream *stream;
+@@ -392,13 +389,11 @@ static int sprd_platform_compr_open(struct snd_compr_stream *cstream)
+ 	return ret;
  }
- EXPORT_SYMBOL(sof_probe_compr_trigger);
  
--int sof_probe_compr_pointer(struct snd_compr_stream *cstream,
--		struct snd_compr_tstamp *tstamp, struct snd_soc_dai *dai)
-+int sof_probe_compr_pointer(struct snd_soc_component *component,
-+			    struct snd_compr_stream *cstream,
-+			    struct snd_compr_tstamp *tstamp,
-+			    struct snd_soc_dai *dai)
+-static int sprd_platform_compr_free(struct snd_compr_stream *cstream)
++static int sprd_platform_compr_free(struct snd_soc_component *component,
++				    struct snd_compr_stream *cstream)
  {
- 	struct snd_sof_dev *sdev =
- 				snd_soc_component_get_drvdata(dai->component);
-@@ -117,8 +124,9 @@ int sof_probe_compr_pointer(struct snd_compr_stream *cstream,
+ 	struct snd_compr_runtime *runtime = cstream->runtime;
+ 	struct sprd_compr_stream *stream = runtime->private_data;
+-	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+-	struct snd_soc_component *component =
+-		snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+ 	struct device *dev = component->dev;
+ 	int stream_id = cstream->direction, i;
+ 
+@@ -420,14 +415,12 @@ static int sprd_platform_compr_free(struct snd_compr_stream *cstream)
+ 	return 0;
  }
- EXPORT_SYMBOL(sof_probe_compr_pointer);
  
--int sof_probe_compr_copy(struct snd_compr_stream *cstream,
--		char __user *buf, size_t count)
-+int sof_probe_compr_copy(struct snd_soc_component *component,
-+			 struct snd_compr_stream *cstream,
-+			 char __user *buf, size_t count)
+-static int sprd_platform_compr_trigger(struct snd_compr_stream *cstream,
++static int sprd_platform_compr_trigger(struct snd_soc_component *component,
++				       struct snd_compr_stream *cstream,
+ 				       int cmd)
  {
- 	struct snd_compr_runtime *rtd = cstream->runtime;
- 	unsigned int offset, n;
-diff --git a/sound/soc/sof/compress.h b/sound/soc/sof/compress.h
-index 800f163603e1..afc7ab9bc3c9 100644
---- a/sound/soc/sof/compress.h
-+++ b/sound/soc/sof/compress.h
-@@ -13,19 +13,27 @@
+ 	struct snd_compr_runtime *runtime = cstream->runtime;
+ 	struct sprd_compr_stream *stream = runtime->private_data;
+-	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+-	struct snd_soc_component *component =
+-		snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+ 	struct device *dev = component->dev;
+ 	int channels = stream->num_channels, ret = 0, i;
+ 	int stream_id = cstream->direction;
+@@ -518,7 +511,8 @@ static int sprd_platform_compr_trigger(struct snd_compr_stream *cstream,
+ 	return ret;
+ }
  
- #include <sound/compress_driver.h>
+-static int sprd_platform_compr_pointer(struct snd_compr_stream *cstream,
++static int sprd_platform_compr_pointer(struct snd_soc_component *component,
++				       struct snd_compr_stream *cstream,
+ 				       struct snd_compr_tstamp *tstamp)
+ {
+ 	struct snd_compr_runtime *runtime = cstream->runtime;
+@@ -532,7 +526,8 @@ static int sprd_platform_compr_pointer(struct snd_compr_stream *cstream,
+ 	return 0;
+ }
  
--extern struct snd_compr_ops sof_probe_compressed_ops;
-+extern struct snd_compress_ops sof_probe_compressed_ops;
+-static int sprd_platform_compr_copy(struct snd_compr_stream *cstream,
++static int sprd_platform_compr_copy(struct snd_soc_component *component,
++				    struct snd_compr_stream *cstream,
+ 				    char __user *buf, size_t count)
+ {
+ 	struct snd_compr_runtime *runtime = cstream->runtime;
+@@ -609,7 +604,8 @@ static int sprd_platform_compr_copy(struct snd_compr_stream *cstream,
+ 	return count;
+ }
  
--int sof_probe_compr_open(struct snd_compr_stream *cstream,
--		struct snd_soc_dai *dai);
--int sof_probe_compr_free(struct snd_compr_stream *cstream,
--		struct snd_soc_dai *dai);
--int sof_probe_compr_set_params(struct snd_compr_stream *cstream,
--		struct snd_compr_params *params, struct snd_soc_dai *dai);
--int sof_probe_compr_trigger(struct snd_compr_stream *cstream, int cmd,
--		struct snd_soc_dai *dai);
--int sof_probe_compr_pointer(struct snd_compr_stream *cstream,
--		struct snd_compr_tstamp *tstamp, struct snd_soc_dai *dai);
--int sof_probe_compr_copy(struct snd_compr_stream *cstream,
--		char __user *buf, size_t count);
-+int sof_probe_compr_open(struct snd_soc_component *component,
-+			 struct snd_compr_stream *cstream,
-+			 struct snd_soc_dai *dai);
-+int sof_probe_compr_free(struct snd_soc_component *component,
-+			 struct snd_compr_stream *cstream,
-+			 struct snd_soc_dai *dai);
-+int sof_probe_compr_set_params(struct snd_soc_component *component,
-+			       struct snd_compr_stream *cstream,
-+			       struct snd_compr_params *params,
-+			       struct snd_soc_dai *dai);
-+int sof_probe_compr_trigger(struct snd_soc_component *component,
-+			    struct snd_compr_stream *cstream, int cmd,
-+			    struct snd_soc_dai *dai);
-+int sof_probe_compr_pointer(struct snd_soc_component *component,
-+			    struct snd_compr_stream *cstream,
-+			    struct snd_compr_tstamp *tstamp,
-+			    struct snd_soc_dai *dai);
-+int sof_probe_compr_copy(struct snd_soc_component *component,
-+			 struct snd_compr_stream *cstream,
-+			 char __user *buf, size_t count);
+-static int sprd_platform_compr_get_caps(struct snd_compr_stream *cstream,
++static int sprd_platform_compr_get_caps(struct snd_soc_component *component,
++					struct snd_compr_stream *cstream,
+ 					struct snd_compr_caps *caps)
+ {
+ 	caps->direction = cstream->direction;
+@@ -625,7 +621,8 @@ static int sprd_platform_compr_get_caps(struct snd_compr_stream *cstream,
+ }
  
- #endif
-diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
-index 47cd741f2a8c..0885826adb6c 100644
---- a/sound/soc/sof/pcm.c
-+++ b/sound/soc/sof/pcm.c
-@@ -785,11 +785,11 @@ void snd_sof_new_platform_drv(struct snd_sof_dev *sdev)
- 	pd->pointer = sof_pcm_pointer;
+ static int
+-sprd_platform_compr_get_codec_caps(struct snd_compr_stream *cstream,
++sprd_platform_compr_get_codec_caps(struct snd_soc_component *component,
++				   struct snd_compr_stream *cstream,
+ 				   struct snd_compr_codec_caps *codec)
+ {
+ 	switch (codec->codec) {
+@@ -658,7 +655,7 @@ sprd_platform_compr_get_codec_caps(struct snd_compr_stream *cstream,
+ 	return 0;
+ }
  
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_COMPRESS)
--	pd->compr_ops = &sof_compressed_ops;
-+	pd->compress_ops = &sof_compressed_ops;
- #endif
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_PROBES)
- 	/* override cops when probe support is enabled */
--	pd->compr_ops = &sof_probe_compressed_ops;
-+	pd->compress_ops = &sof_probe_compressed_ops;
- #endif
- 	pd->pcm_construct = sof_pcm_new;
- 	pd->ignore_machine = drv_name;
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index a4b297c842df..965b9da696d5 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -522,7 +522,7 @@ void snd_sof_handle_fw_exception(struct snd_sof_dev *sdev);
- /*
-  * Platform specific ops.
-  */
--extern struct snd_compr_ops sof_compressed_ops;
-+extern struct snd_compress_ops sof_compressed_ops;
+-const struct snd_compr_ops sprd_platform_compr_ops = {
++const struct snd_compress_ops sprd_platform_compress_ops = {
+ 	.open = sprd_platform_compr_open,
+ 	.free = sprd_platform_compr_free,
+ 	.set_params = sprd_platform_compr_set_params,
+diff --git a/sound/soc/sprd/sprd-pcm-dma.c b/sound/soc/sprd/sprd-pcm-dma.c
+index d12d3cad8cbd..5074123f8855 100644
+--- a/sound/soc/sprd/sprd-pcm-dma.c
++++ b/sound/soc/sprd/sprd-pcm-dma.c
+@@ -515,7 +515,7 @@ static const struct snd_soc_component_driver sprd_soc_component = {
+ 	.mmap		= sprd_pcm_mmap,
+ 	.pcm_construct	= sprd_pcm_new,
+ 	.pcm_destruct	= sprd_pcm_free,
+-	.compr_ops	= &sprd_platform_compr_ops,
++	.compress_ops	= &sprd_platform_compress_ops,
+ };
  
- /*
-  * DSP Architectures.
+ static int sprd_soc_platform_probe(struct platform_device *pdev)
+diff --git a/sound/soc/sprd/sprd-pcm-dma.h b/sound/soc/sprd/sprd-pcm-dma.h
+index 08e9fdba82f1..be5e385f5e42 100644
+--- a/sound/soc/sprd/sprd-pcm-dma.h
++++ b/sound/soc/sprd/sprd-pcm-dma.h
+@@ -6,7 +6,7 @@
+ #define DRV_NAME		"sprd_pcm_dma"
+ #define SPRD_PCM_CHANNEL_MAX	2
+ 
+-extern const struct snd_compr_ops sprd_platform_compr_ops;
++extern const struct snd_compress_ops sprd_platform_compress_ops;
+ 
+ struct sprd_pcm_dma_params {
+ 	dma_addr_t dev_phys[SPRD_PCM_CHANNEL_MAX];
 -- 
 2.17.1
 

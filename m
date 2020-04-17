@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B4331AD57D
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 07:08:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E771B1AD57F
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 07:09:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 001051612;
-	Fri, 17 Apr 2020 07:08:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 001051612
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95D9C1660;
+	Fri, 17 Apr 2020 07:08:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95D9C1660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587100139;
-	bh=RGs4ELc8yQCh8RqAlykGJbXd4lCp5zBZRgWOwIf4boc=;
+	s=default; t=1587100157;
+	bh=DyIBfUt10Wi15Nqiu9hlz6Jgbgf0OzcqxptCzyTJx8s=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Z0yO/boAGwFExHdveVRYevExDABYAl5nVx7Yxyj6uInYZzYg+KTl7LOKISL3LnhcB
-	 ykPciKz1nTqoa9Lx4Pov7xC13IszAK6yfwnsYfXvs6BIEDa1763SSrY1WM/fyeKzRT
-	 AmnU27Svc1Ic5nj6jZx/6joVr2MlxmSV4vHSTWAs=
+	b=RfZEgkzMeyns0BZiKTPbyAhq7O1KzUOsisYN9hc1gnSoPbWKQfN5JmA64WfqJyS3E
+	 UnmM4vXiPQRHfFkx0nOQIevIJrM7jQ3klmcLtpxzUpzoEYQucNLb2N+prL7zie5WNv
+	 R64Rl1hcDCXlZb3Qgu84ShfBAEw4OrmsVcvhQnrM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD65DF80290;
-	Fri, 17 Apr 2020 07:06:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57491F80229;
+	Fri, 17 Apr 2020 07:06:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4DB28F80291; Fri, 17 Apr 2020 07:06:30 +0200 (CEST)
+ id 34049F802A0; Fri, 17 Apr 2020 07:06:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id CD036F8025F
- for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 07:06:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD036F8025F
-Date: 17 Apr 2020 14:06:24 +0900
-X-IronPort-AV: E=Sophos;i="5.72,393,1580742000"; d="scan'208";a="44972189"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 17 Apr 2020 14:06:24 +0900
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id A6867F8029A
+ for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 07:06:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6867F8029A
+Date: 17 Apr 2020 14:06:31 +0900
+X-IronPort-AV: E=Sophos;i="5.72,393,1580742000"; d="scan'208";a="44758790"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 17 Apr 2020 14:06:31 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 6528B40A04D0;
- Fri, 17 Apr 2020 14:06:24 +0900 (JST)
-Message-ID: <878siupupb.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 1D8B1400A0F7;
+ Fri, 17 Apr 2020 14:06:31 +0900 (JST)
+Message-ID: <877dyepup4.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 2/8] ASoC: codec: wm_adsp: use snd_compress_ops
+Subject: [PATCH 3/8] ASoC: uniphier: use snd_compress_ops
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87blnqpuqp.wl-kuninori.morimoto.gx@renesas.com>
@@ -75,400 +75,189 @@ Let's switch to use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/codecs/cs47l15.c |  9 ++++-----
- sound/soc/codecs/cs47l24.c |  8 ++++----
- sound/soc/codecs/cs47l35.c |  9 ++++-----
- sound/soc/codecs/cs47l85.c |  9 ++++-----
- sound/soc/codecs/cs47l90.c |  9 ++++-----
- sound/soc/codecs/cs47l92.c |  9 ++++-----
- sound/soc/codecs/wm5102.c  |  9 ++++-----
- sound/soc/codecs/wm5110.c  |  8 ++++----
- sound/soc/codecs/wm_adsp.c | 18 ++++++++++++------
- sound/soc/codecs/wm_adsp.h | 18 ++++++++++++------
- 10 files changed, 56 insertions(+), 50 deletions(-)
+ sound/soc/uniphier/aio-compress.c | 45 ++++++++++++++++++++-----------
+ sound/soc/uniphier/aio-dma.c      |  2 +-
+ sound/soc/uniphier/aio.h          |  2 +-
+ 3 files changed, 31 insertions(+), 18 deletions(-)
 
-diff --git a/sound/soc/codecs/cs47l15.c b/sound/soc/codecs/cs47l15.c
-index 8d1869bf7f9c..402c6b7c7014 100644
---- a/sound/soc/codecs/cs47l15.c
-+++ b/sound/soc/codecs/cs47l15.c
-@@ -1229,11 +1229,10 @@ static struct snd_soc_dai_driver cs47l15_dai[] = {
- 	},
- };
+diff --git a/sound/soc/uniphier/aio-compress.c b/sound/soc/uniphier/aio-compress.c
+index 232d3cc5bce0..0f76bc601ca9 100644
+--- a/sound/soc/uniphier/aio-compress.c
++++ b/sound/soc/uniphier/aio-compress.c
+@@ -16,8 +16,10 @@
  
--static int cs47l15_open(struct snd_compr_stream *stream)
-+static int cs47l15_open(struct snd_soc_component *component,
-+			struct snd_compr_stream *stream)
+ #include "aio.h"
+ 
+-static int uniphier_aio_compr_prepare(struct snd_compr_stream *cstream);
+-static int uniphier_aio_compr_hw_free(struct snd_compr_stream *cstream);
++static int uniphier_aio_compr_prepare(struct snd_soc_component *component,
++				      struct snd_compr_stream *cstream);
++static int uniphier_aio_compr_hw_free(struct snd_soc_component *component,
++				      struct snd_compr_stream *cstream);
+ 
+ static int uniphier_aio_comprdma_new(struct snd_soc_pcm_runtime *rtd)
  {
- 	struct snd_soc_pcm_runtime *rtd = stream->private_data;
--	struct snd_soc_component *component =
--		snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct cs47l15 *cs47l15 = snd_soc_component_get_drvdata(component);
- 	struct madera_priv *priv = &cs47l15->core;
- 	struct madera *madera = priv->madera;
-@@ -1329,7 +1328,7 @@ static unsigned int cs47l15_digital_vu[] = {
- 	MADERA_DAC_DIGITAL_VOLUME_5R,
- };
- 
--static const struct snd_compr_ops cs47l15_compr_ops = {
-+static const struct snd_compress_ops cs47l15_compress_ops = {
- 	.open = &cs47l15_open,
- 	.free = &wm_adsp_compr_free,
- 	.set_params = &wm_adsp_compr_set_params,
-@@ -1345,7 +1344,7 @@ static const struct snd_soc_component_driver soc_component_dev_cs47l15 = {
- 	.set_sysclk		= &madera_set_sysclk,
- 	.set_pll		= &cs47l15_set_fll,
- 	.name			= DRV_NAME,
--	.compr_ops		= &cs47l15_compr_ops,
-+	.compress_ops		= &cs47l15_compress_ops,
- 	.controls		= cs47l15_snd_controls,
- 	.num_controls		= ARRAY_SIZE(cs47l15_snd_controls),
- 	.dapm_widgets		= cs47l15_dapm_widgets,
-diff --git a/sound/soc/codecs/cs47l24.c b/sound/soc/codecs/cs47l24.c
-index 6b0570f59630..f6d173d0120e 100644
---- a/sound/soc/codecs/cs47l24.c
-+++ b/sound/soc/codecs/cs47l24.c
-@@ -1068,10 +1068,10 @@ static struct snd_soc_dai_driver cs47l24_dai[] = {
- 	},
- };
- 
--static int cs47l24_open(struct snd_compr_stream *stream)
-+static int cs47l24_open(struct snd_soc_component *component,
-+			struct snd_compr_stream *stream)
- {
- 	struct snd_soc_pcm_runtime *rtd = stream->private_data;
--	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct cs47l24_priv *priv = snd_soc_component_get_drvdata(component);
- 	struct arizona *arizona = priv->core.arizona;
- 	int n_adsp;
-@@ -1178,7 +1178,7 @@ static unsigned int cs47l24_digital_vu[] = {
- 	ARIZONA_DAC_DIGITAL_VOLUME_4L,
- };
- 
--static struct snd_compr_ops cs47l24_compr_ops = {
-+static struct snd_compress_ops cs47l24_compress_ops = {
- 	.open		= cs47l24_open,
- 	.free		= wm_adsp_compr_free,
- 	.set_params	= wm_adsp_compr_set_params,
-@@ -1194,7 +1194,7 @@ static const struct snd_soc_component_driver soc_component_dev_cs47l24 = {
- 	.set_sysclk		= arizona_set_sysclk,
- 	.set_pll		= cs47l24_set_fll,
- 	.name			= DRV_NAME,
--	.compr_ops		= &cs47l24_compr_ops,
-+	.compress_ops		= &cs47l24_compress_ops,
- 	.controls		= cs47l24_snd_controls,
- 	.num_controls		= ARRAY_SIZE(cs47l24_snd_controls),
- 	.dapm_widgets		= cs47l24_dapm_widgets,
-diff --git a/sound/soc/codecs/cs47l35.c b/sound/soc/codecs/cs47l35.c
-index 18839807c9d1..d7538d50bbd3 100644
---- a/sound/soc/codecs/cs47l35.c
-+++ b/sound/soc/codecs/cs47l35.c
-@@ -1504,11 +1504,10 @@ static struct snd_soc_dai_driver cs47l35_dai[] = {
- 	},
- };
- 
--static int cs47l35_open(struct snd_compr_stream *stream)
-+static int cs47l35_open(struct snd_soc_component *component,
-+			struct snd_compr_stream *stream)
- {
- 	struct snd_soc_pcm_runtime *rtd = stream->private_data;
--	struct snd_soc_component *component =
--		snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct cs47l35 *cs47l35 = snd_soc_component_get_drvdata(component);
- 	struct madera_priv *priv = &cs47l35->core;
- 	struct madera *madera = priv->madera;
-@@ -1622,7 +1621,7 @@ static unsigned int cs47l35_digital_vu[] = {
- 	MADERA_DAC_DIGITAL_VOLUME_5R,
- };
- 
--static const struct snd_compr_ops cs47l35_compr_ops = {
-+static const struct snd_compress_ops cs47l35_compress_ops = {
- 	.open = &cs47l35_open,
- 	.free = &wm_adsp_compr_free,
- 	.set_params = &wm_adsp_compr_set_params,
-@@ -1638,7 +1637,7 @@ static const struct snd_soc_component_driver soc_component_dev_cs47l35 = {
- 	.set_sysclk		= &madera_set_sysclk,
- 	.set_pll		= &cs47l35_set_fll,
- 	.name			= DRV_NAME,
--	.compr_ops		= &cs47l35_compr_ops,
-+	.compress_ops		= &cs47l35_compress_ops,
- 	.controls		= cs47l35_snd_controls,
- 	.num_controls		= ARRAY_SIZE(cs47l35_snd_controls),
- 	.dapm_widgets		= cs47l35_dapm_widgets,
-diff --git a/sound/soc/codecs/cs47l85.c b/sound/soc/codecs/cs47l85.c
-index a575113207f0..9de991adad74 100644
---- a/sound/soc/codecs/cs47l85.c
-+++ b/sound/soc/codecs/cs47l85.c
-@@ -2447,11 +2447,10 @@ static struct snd_soc_dai_driver cs47l85_dai[] = {
- 	},
- };
- 
--static int cs47l85_open(struct snd_compr_stream *stream)
-+static int cs47l85_open(struct snd_soc_component *component,
-+			struct snd_compr_stream *stream)
- {
- 	struct snd_soc_pcm_runtime *rtd = stream->private_data;
--	struct snd_soc_component *component =
--		snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct cs47l85 *cs47l85 = snd_soc_component_get_drvdata(component);
- 	struct madera_priv *priv = &cs47l85->core;
- 	struct madera *madera = priv->madera;
-@@ -2566,7 +2565,7 @@ static const unsigned int cs47l85_digital_vu[] = {
- 	MADERA_DAC_DIGITAL_VOLUME_6R,
- };
- 
--static const struct snd_compr_ops cs47l85_compr_ops = {
-+static const struct snd_compress_ops cs47l85_compress_ops = {
- 	.open = &cs47l85_open,
- 	.free = &wm_adsp_compr_free,
- 	.set_params = &wm_adsp_compr_set_params,
-@@ -2582,7 +2581,7 @@ static const struct snd_soc_component_driver soc_component_dev_cs47l85 = {
- 	.set_sysclk		= &madera_set_sysclk,
- 	.set_pll		= &cs47l85_set_fll,
- 	.name			= DRV_NAME,
--	.compr_ops		= &cs47l85_compr_ops,
-+	.compress_ops		= &cs47l85_compress_ops,
- 	.controls		= cs47l85_snd_controls,
- 	.num_controls		= ARRAY_SIZE(cs47l85_snd_controls),
- 	.dapm_widgets		= cs47l85_dapm_widgets,
-diff --git a/sound/soc/codecs/cs47l90.c b/sound/soc/codecs/cs47l90.c
-index 81a1311b14e6..2715b5da0415 100644
---- a/sound/soc/codecs/cs47l90.c
-+++ b/sound/soc/codecs/cs47l90.c
-@@ -2358,11 +2358,10 @@ static struct snd_soc_dai_driver cs47l90_dai[] = {
- 	},
- };
- 
--static int cs47l90_open(struct snd_compr_stream *stream)
-+static int cs47l90_open(struct snd_soc_component *component,
-+			struct snd_compr_stream *stream)
- {
- 	struct snd_soc_pcm_runtime *rtd = stream->private_data;
--	struct snd_soc_component *component =
--		snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct cs47l90 *cs47l90 = snd_soc_component_get_drvdata(component);
- 	struct madera_priv *priv = &cs47l90->core;
- 	struct madera *madera = priv->madera;
-@@ -2473,7 +2472,7 @@ static unsigned int cs47l90_digital_vu[] = {
- 	MADERA_DAC_DIGITAL_VOLUME_5R,
- };
- 
--static const struct snd_compr_ops cs47l90_compr_ops = {
-+static const struct snd_compress_ops cs47l90_compress_ops = {
- 	.open = &cs47l90_open,
- 	.free = &wm_adsp_compr_free,
- 	.set_params = &wm_adsp_compr_set_params,
-@@ -2489,7 +2488,7 @@ static const struct snd_soc_component_driver soc_component_dev_cs47l90 = {
- 	.set_sysclk		= &madera_set_sysclk,
- 	.set_pll		= &cs47l90_set_fll,
- 	.name			= DRV_NAME,
--	.compr_ops		= &cs47l90_compr_ops,
-+	.compress_ops		= &cs47l90_compress_ops,
- 	.controls		= cs47l90_snd_controls,
- 	.num_controls		= ARRAY_SIZE(cs47l90_snd_controls),
- 	.dapm_widgets		= cs47l90_dapm_widgets,
-diff --git a/sound/soc/codecs/cs47l92.c b/sound/soc/codecs/cs47l92.c
-index 15fc213d178d..108d28007185 100644
---- a/sound/soc/codecs/cs47l92.c
-+++ b/sound/soc/codecs/cs47l92.c
-@@ -1830,11 +1830,10 @@ static struct snd_soc_dai_driver cs47l92_dai[] = {
- 	},
- };
- 
--static int cs47l92_open(struct snd_compr_stream *stream)
-+static int cs47l92_open(struct snd_soc_component *component,
-+			struct snd_compr_stream *stream)
- {
- 	struct snd_soc_pcm_runtime *rtd = stream->private_data;
--	struct snd_soc_component *component =
--		snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct cs47l92 *cs47l92 = snd_soc_component_get_drvdata(component);
- 	struct madera_priv *priv = &cs47l92->core;
- 	struct madera *madera = priv->madera;
-@@ -1933,7 +1932,7 @@ static unsigned int cs47l92_digital_vu[] = {
- 	MADERA_DAC_DIGITAL_VOLUME_5R,
- };
- 
--static const struct snd_compr_ops cs47l92_compr_ops = {
-+static const struct snd_compress_ops cs47l92_compress_ops = {
- 	.open = &cs47l92_open,
- 	.free = &wm_adsp_compr_free,
- 	.set_params = &wm_adsp_compr_set_params,
-@@ -1949,7 +1948,7 @@ static const struct snd_soc_component_driver soc_component_dev_cs47l92 = {
- 	.set_sysclk		= &madera_set_sysclk,
- 	.set_pll		= &cs47l92_set_fll,
- 	.name			= DRV_NAME,
--	.compr_ops		= &cs47l92_compr_ops,
-+	.compress_ops		= &cs47l92_compress_ops,
- 	.controls		= cs47l92_snd_controls,
- 	.num_controls		= ARRAY_SIZE(cs47l92_snd_controls),
- 	.dapm_widgets		= cs47l92_dapm_widgets,
-diff --git a/sound/soc/codecs/wm5102.c b/sound/soc/codecs/wm5102.c
-index d6d4b4121369..2ed3fa67027d 100644
---- a/sound/soc/codecs/wm5102.c
-+++ b/sound/soc/codecs/wm5102.c
-@@ -1909,10 +1909,9 @@ static struct snd_soc_dai_driver wm5102_dai[] = {
- 	},
- };
- 
--static int wm5102_open(struct snd_compr_stream *stream)
-+static int wm5102_open(struct snd_soc_component *component,
-+		       struct snd_compr_stream *stream)
- {
--	struct snd_soc_pcm_runtime *rtd = stream->private_data;
--	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct wm5102_priv *priv = snd_soc_component_get_drvdata(component);
- 
- 	return wm_adsp_compr_open(&priv->core.adsp[0], stream);
-@@ -1992,7 +1991,7 @@ static unsigned int wm5102_digital_vu[] = {
- 	ARIZONA_DAC_DIGITAL_VOLUME_5R,
- };
- 
--static struct snd_compr_ops wm5102_compr_ops = {
-+static struct snd_compress_ops wm5102_compress_ops = {
- 	.open		= wm5102_open,
- 	.free		= wm_adsp_compr_free,
- 	.set_params	= wm_adsp_compr_set_params,
-@@ -2008,7 +2007,7 @@ static const struct snd_soc_component_driver soc_component_dev_wm5102 = {
- 	.set_sysclk		= arizona_set_sysclk,
- 	.set_pll		= wm5102_set_fll,
- 	.name			= DRV_NAME,
--	.compr_ops		= &wm5102_compr_ops,
-+	.compress_ops		= &wm5102_compress_ops,
- 	.controls		= wm5102_snd_controls,
- 	.num_controls		= ARRAY_SIZE(wm5102_snd_controls),
- 	.dapm_widgets		= wm5102_dapm_widgets,
-diff --git a/sound/soc/codecs/wm5110.c b/sound/soc/codecs/wm5110.c
-index 499e87d1dfcc..44de44bff423 100644
---- a/sound/soc/codecs/wm5110.c
-+++ b/sound/soc/codecs/wm5110.c
-@@ -2237,10 +2237,10 @@ static struct snd_soc_dai_driver wm5110_dai[] = {
- 	},
- };
- 
--static int wm5110_open(struct snd_compr_stream *stream)
-+static int wm5110_open(struct snd_soc_component *component,
-+		       struct snd_compr_stream *stream)
- {
- 	struct snd_soc_pcm_runtime *rtd = stream->private_data;
--	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct wm5110_priv *priv = snd_soc_component_get_drvdata(component);
- 	struct arizona *arizona = priv->core.arizona;
- 	int n_adsp;
-@@ -2355,7 +2355,7 @@ static unsigned int wm5110_digital_vu[] = {
- 	ARIZONA_DAC_DIGITAL_VOLUME_6R,
- };
- 
--static struct snd_compr_ops wm5110_compr_ops = {
-+static struct snd_compress_ops wm5110_compress_ops = {
- 	.open		= wm5110_open,
- 	.free		= wm_adsp_compr_free,
- 	.set_params	= wm_adsp_compr_set_params,
-@@ -2371,7 +2371,7 @@ static const struct snd_soc_component_driver soc_component_dev_wm5110 = {
- 	.set_sysclk		= arizona_set_sysclk,
- 	.set_pll		= wm5110_set_fll,
- 	.name			= DRV_NAME,
--	.compr_ops		= &wm5110_compr_ops,
-+	.compress_ops		= &wm5110_compress_ops,
- 	.controls		= wm5110_snd_controls,
- 	.num_controls		= ARRAY_SIZE(wm5110_snd_controls),
- 	.dapm_widgets		= wm5110_dapm_widgets,
-diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
-index 1ef69409ccd1..519ca2e69637 100644
---- a/sound/soc/codecs/wm_adsp.c
-+++ b/sound/soc/codecs/wm_adsp.c
-@@ -3509,7 +3509,8 @@ int wm_adsp_compr_open(struct wm_adsp *dsp, struct snd_compr_stream *stream)
- }
- EXPORT_SYMBOL_GPL(wm_adsp_compr_open);
- 
--int wm_adsp_compr_free(struct snd_compr_stream *stream)
-+int wm_adsp_compr_free(struct snd_soc_component *component,
-+		       struct snd_compr_stream *stream)
- {
- 	struct wm_adsp_compr *compr = stream->runtime->private_data;
- 	struct wm_adsp *dsp = compr->dsp;
-@@ -3583,7 +3584,8 @@ static inline unsigned int wm_adsp_compr_frag_words(struct wm_adsp_compr *compr)
- 	return compr->size.fragment_size / WM_ADSP_DATA_WORD_SIZE;
- }
- 
--int wm_adsp_compr_set_params(struct snd_compr_stream *stream,
-+int wm_adsp_compr_set_params(struct snd_soc_component *component,
-+			     struct snd_compr_stream *stream,
- 			     struct snd_compr_params *params)
- {
- 	struct wm_adsp_compr *compr = stream->runtime->private_data;
-@@ -3610,7 +3612,8 @@ int wm_adsp_compr_set_params(struct snd_compr_stream *stream,
- }
- EXPORT_SYMBOL_GPL(wm_adsp_compr_set_params);
- 
--int wm_adsp_compr_get_caps(struct snd_compr_stream *stream,
-+int wm_adsp_compr_get_caps(struct snd_soc_component *component,
-+			   struct snd_compr_stream *stream,
- 			   struct snd_compr_caps *caps)
- {
- 	struct wm_adsp_compr *compr = stream->runtime->private_data;
-@@ -3976,7 +3979,8 @@ static int wm_adsp_buffer_get_error(struct wm_adsp_compr_buf *buf)
+@@ -70,7 +72,8 @@ static int uniphier_aio_comprdma_free(struct snd_soc_pcm_runtime *rtd)
  	return 0;
  }
  
--int wm_adsp_compr_trigger(struct snd_compr_stream *stream, int cmd)
-+int wm_adsp_compr_trigger(struct snd_soc_component *component,
-+			  struct snd_compr_stream *stream, int cmd)
+-static int uniphier_aio_compr_open(struct snd_compr_stream *cstream)
++static int uniphier_aio_compr_open(struct snd_soc_component *component,
++				   struct snd_compr_stream *cstream)
  {
- 	struct wm_adsp_compr *compr = stream->runtime->private_data;
- 	struct wm_adsp *dsp = compr->dsp;
-@@ -4139,7 +4143,8 @@ static int wm_adsp_buffer_reenable_irq(struct wm_adsp_compr_buf *buf)
- 				    buf->irq_count);
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+ 	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
+@@ -95,14 +98,15 @@ static int uniphier_aio_compr_open(struct snd_compr_stream *cstream)
+ 	return 0;
  }
  
--int wm_adsp_compr_pointer(struct snd_compr_stream *stream,
-+int wm_adsp_compr_pointer(struct snd_soc_component *component,
-+			  struct snd_compr_stream *stream,
- 			  struct snd_compr_tstamp *tstamp)
+-static int uniphier_aio_compr_free(struct snd_compr_stream *cstream)
++static int uniphier_aio_compr_free(struct snd_soc_component *component,
++				   struct snd_compr_stream *cstream)
  {
- 	struct wm_adsp_compr *compr = stream->runtime->private_data;
-@@ -4297,7 +4302,8 @@ static int wm_adsp_compr_read(struct wm_adsp_compr *compr,
- 	return ntotal;
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+ 	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
+ 	struct uniphier_aio_sub *sub = &aio->sub[cstream->direction];
+ 	int ret;
+ 
+-	ret = uniphier_aio_compr_hw_free(cstream);
++	ret = uniphier_aio_compr_hw_free(component, cstream);
+ 	if (ret)
+ 		return ret;
+ 	ret = uniphier_aio_comprdma_free(rtd);
+@@ -114,7 +118,8 @@ static int uniphier_aio_compr_free(struct snd_compr_stream *cstream)
+ 	return 0;
  }
  
--int wm_adsp_compr_copy(struct snd_compr_stream *stream, char __user *buf,
-+int wm_adsp_compr_copy(struct snd_soc_component *component,
-+		       struct snd_compr_stream *stream, char __user *buf,
- 		       size_t count)
+-static int uniphier_aio_compr_get_params(struct snd_compr_stream *cstream,
++static int uniphier_aio_compr_get_params(struct snd_soc_component *component,
++					 struct snd_compr_stream *cstream,
+ 					 struct snd_codec *params)
  {
- 	struct wm_adsp_compr *compr = stream->runtime->private_data;
-diff --git a/sound/soc/codecs/wm_adsp.h b/sound/soc/codecs/wm_adsp.h
-index 4c481cf20275..1996350b817e 100644
---- a/sound/soc/codecs/wm_adsp.h
-+++ b/sound/soc/codecs/wm_adsp.h
-@@ -190,16 +190,22 @@ int wm_adsp_fw_put(struct snd_kcontrol *kcontrol,
- 		   struct snd_ctl_elem_value *ucontrol);
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+@@ -126,7 +131,8 @@ static int uniphier_aio_compr_get_params(struct snd_compr_stream *cstream,
+ 	return 0;
+ }
  
- int wm_adsp_compr_open(struct wm_adsp *dsp, struct snd_compr_stream *stream);
--int wm_adsp_compr_free(struct snd_compr_stream *stream);
--int wm_adsp_compr_set_params(struct snd_compr_stream *stream,
-+int wm_adsp_compr_free(struct snd_soc_component *component,
-+		       struct snd_compr_stream *stream);
-+int wm_adsp_compr_set_params(struct snd_soc_component *component,
-+			     struct snd_compr_stream *stream,
- 			     struct snd_compr_params *params);
--int wm_adsp_compr_get_caps(struct snd_compr_stream *stream,
-+int wm_adsp_compr_get_caps(struct snd_soc_component *component,
-+			   struct snd_compr_stream *stream,
- 			   struct snd_compr_caps *caps);
--int wm_adsp_compr_trigger(struct snd_compr_stream *stream, int cmd);
-+int wm_adsp_compr_trigger(struct snd_soc_component *component,
-+			  struct snd_compr_stream *stream, int cmd);
- int wm_adsp_compr_handle_irq(struct wm_adsp *dsp);
--int wm_adsp_compr_pointer(struct snd_compr_stream *stream,
-+int wm_adsp_compr_pointer(struct snd_soc_component *component,
-+			  struct snd_compr_stream *stream,
- 			  struct snd_compr_tstamp *tstamp);
--int wm_adsp_compr_copy(struct snd_compr_stream *stream,
-+int wm_adsp_compr_copy(struct snd_soc_component *component,
-+		       struct snd_compr_stream *stream,
- 		       char __user *buf, size_t count);
- int wm_adsp_write_ctl(struct wm_adsp *dsp, const char *name,  int type,
- 		      unsigned int alg, void *buf, size_t len);
+-static int uniphier_aio_compr_set_params(struct snd_compr_stream *cstream,
++static int uniphier_aio_compr_set_params(struct snd_soc_component *component,
++					 struct snd_compr_stream *cstream,
+ 					 struct snd_compr_params *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+@@ -155,14 +161,15 @@ static int uniphier_aio_compr_set_params(struct snd_compr_stream *cstream,
+ 	aio_port_reset(sub);
+ 	aio_src_reset(sub);
+ 
+-	ret = uniphier_aio_compr_prepare(cstream);
++	ret = uniphier_aio_compr_prepare(component, cstream);
+ 	if (ret)
+ 		return ret;
+ 
+ 	return 0;
+ }
+ 
+-static int uniphier_aio_compr_hw_free(struct snd_compr_stream *cstream)
++static int uniphier_aio_compr_hw_free(struct snd_soc_component *component,
++				      struct snd_compr_stream *cstream)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+ 	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
+@@ -173,7 +180,8 @@ static int uniphier_aio_compr_hw_free(struct snd_compr_stream *cstream)
+ 	return 0;
+ }
+ 
+-static int uniphier_aio_compr_prepare(struct snd_compr_stream *cstream)
++static int uniphier_aio_compr_prepare(struct snd_soc_component *component,
++				      struct snd_compr_stream *cstream)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+ 	struct snd_compr_runtime *runtime = cstream->runtime;
+@@ -210,7 +218,8 @@ static int uniphier_aio_compr_prepare(struct snd_compr_stream *cstream)
+ 	return 0;
+ }
+ 
+-static int uniphier_aio_compr_trigger(struct snd_compr_stream *cstream,
++static int uniphier_aio_compr_trigger(struct snd_soc_component *component,
++				      struct snd_compr_stream *cstream,
+ 				      int cmd)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+@@ -243,7 +252,8 @@ static int uniphier_aio_compr_trigger(struct snd_compr_stream *cstream,
+ 	return ret;
+ }
+ 
+-static int uniphier_aio_compr_pointer(struct snd_compr_stream *cstream,
++static int uniphier_aio_compr_pointer(struct snd_soc_component *component,
++				      struct snd_compr_stream *cstream,
+ 				      struct snd_compr_tstamp *tstamp)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+@@ -316,7 +326,8 @@ static int aio_compr_send_to_hw(struct uniphier_aio_sub *sub,
+ 	return 0;
+ }
+ 
+-static int uniphier_aio_compr_copy(struct snd_compr_stream *cstream,
++static int uniphier_aio_compr_copy(struct snd_soc_component *component,
++				   struct snd_compr_stream *cstream,
+ 				   char __user *buf, size_t count)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+@@ -375,7 +386,8 @@ static int uniphier_aio_compr_copy(struct snd_compr_stream *cstream,
+ 	return cnt;
+ }
+ 
+-static int uniphier_aio_compr_get_caps(struct snd_compr_stream *cstream,
++static int uniphier_aio_compr_get_caps(struct snd_soc_component *component,
++				       struct snd_compr_stream *cstream,
+ 				       struct snd_compr_caps *caps)
+ {
+ 	caps->num_codecs = 1;
+@@ -401,7 +413,8 @@ static const struct snd_compr_codec_caps caps_iec = {
+ 	.descriptor[0].formats = 0,
+ };
+ 
+-static int uniphier_aio_compr_get_codec_caps(struct snd_compr_stream *stream,
++static int uniphier_aio_compr_get_codec_caps(struct snd_soc_component *component,
++					     struct snd_compr_stream *stream,
+ 					     struct snd_compr_codec_caps *codec)
+ {
+ 	if (codec->codec == SND_AUDIOCODEC_IEC61937)
+@@ -412,7 +425,7 @@ static int uniphier_aio_compr_get_codec_caps(struct snd_compr_stream *stream,
+ 	return 0;
+ }
+ 
+-const struct snd_compr_ops uniphier_aio_compr_ops = {
++const struct snd_compress_ops uniphier_aio_compress_ops = {
+ 	.open           = uniphier_aio_compr_open,
+ 	.free           = uniphier_aio_compr_free,
+ 	.get_params     = uniphier_aio_compr_get_params,
+diff --git a/sound/soc/uniphier/aio-dma.c b/sound/soc/uniphier/aio-dma.c
+index 4bbcb007df41..d6bcd476df12 100644
+--- a/sound/soc/uniphier/aio-dma.c
++++ b/sound/soc/uniphier/aio-dma.c
+@@ -227,7 +227,7 @@ static const struct snd_soc_component_driver uniphier_soc_platform = {
+ 	.pointer	= uniphier_aiodma_pointer,
+ 	.mmap		= uniphier_aiodma_mmap,
+ 	.pcm_construct	= uniphier_aiodma_new,
+-	.compr_ops	= &uniphier_aio_compr_ops,
++	.compress_ops	= &uniphier_aio_compress_ops,
+ };
+ 
+ static const struct regmap_config aiodma_regmap_config = {
+diff --git a/sound/soc/uniphier/aio.h b/sound/soc/uniphier/aio.h
+index 694ac030950e..0b03571aa9f0 100644
+--- a/sound/soc/uniphier/aio.h
++++ b/sound/soc/uniphier/aio.h
+@@ -304,7 +304,7 @@ static inline struct uniphier_aio *uniphier_priv(struct snd_soc_dai *dai)
+ }
+ 
+ int uniphier_aiodma_soc_register_platform(struct platform_device *pdev);
+-extern const struct snd_compr_ops uniphier_aio_compr_ops;
++extern const struct snd_compress_ops uniphier_aio_compress_ops;
+ 
+ int uniphier_aio_dai_probe(struct snd_soc_dai *dai);
+ int uniphier_aio_dai_remove(struct snd_soc_dai *dai);
 -- 
 2.17.1
 

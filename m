@@ -2,94 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50CFB1AE134
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 17:33:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EFA81AE14C
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 17:37:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E37D01673;
-	Fri, 17 Apr 2020 17:32:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E37D01673
+	by alsa0.perex.cz (Postfix) with ESMTPS id C9CBC1616;
+	Fri, 17 Apr 2020 17:36:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9CBC1616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587137593;
-	bh=GQpMJ+YX5GJJULfRYZHwFV3dQ+E8kCysvAmbr7NIETU=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1587137848;
+	bh=n5/Ewyg0nLf2KXoQWR/hzTcYQibvXu4BjZR5ek7a4CQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fTEVlsi4hd7zZmfcU0UboNiA3xB/LbI0hHr0y1NhdHfgepPJ01wWKi7/0KqMhaLFj
-	 yu0R+qCkQ6y8nZtdCD8cpoLlfd9a105DBW4L2ev9/O5ExEuogLsb97VTdIM8X0ONA1
-	 4G7sMbLUXKmplgnn+wtg5OHm0JbwXbUMHJAD8oBQ=
+	b=aClkWzXD80cw8xvmHUx/P4Ui6jW8949XOQmMePWA1OvxRXtuJkasH92mjoz2o4C4s
+	 lz10rWXZ12zfqnq1p4qffwxdP5DLS0zbmMI435tQY5prMyGPF60pMJlNbt89I0qyva
+	 6D1SzlcrzWY/AnKYa0XId0cwGpJSPJJaHgrWdlNU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CF15AF80229;
-	Fri, 17 Apr 2020 17:30:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2175F8012E;
+	Fri, 17 Apr 2020 17:35:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 77E3BF8026A; Fri, 17 Apr 2020 17:30:46 +0200 (CEST)
+ id E2ECEF80245; Fri, 17 Apr 2020 17:35:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mo6-p00-ob.smtp.rzone.de (mo6-p00-ob.smtp.rzone.de
+ [IPv6:2a01:238:20a:202:5300::12])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 73C5AF80229
- for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 17:30:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73C5AF80229
-Received: from mail.cetitecgmbh.com ([87.190.42.90]) by
- mrelayeu.kundenserver.de (mreue010 [212.227.15.167]) with ESMTPSA (Nemesis)
- id 1N0WsG-1j4Nko1EJA-00wSVb; Fri, 17 Apr 2020 17:30:30 +0200
-Received: from pflvmailgateway.corp.cetitec.com (unknown [127.0.0.1])
- by mail.cetitecgmbh.com (Postfix) with ESMTP id B5F9E64ECEB;
- Fri, 17 Apr 2020 15:30:28 +0000 (UTC)
-X-Virus-Scanned: amavisd-new at cetitec.com
-Received: from mail.cetitecgmbh.com ([127.0.0.1])
- by pflvmailgateway.corp.cetitec.com (pflvmailgateway.corp.cetitec.com
- [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id V9ig1oZlNVEl; Fri, 17 Apr 2020 17:30:28 +0200 (CEST)
-Received: from pfwsexchange.corp.cetitec.com (unknown [10.10.1.99])
- by mail.cetitecgmbh.com (Postfix) with ESMTPS id 6E047650DE0;
- Fri, 17 Apr 2020 17:30:28 +0200 (CEST)
-Received: from pflmmbl.corp.cetitec.com (10.8.5.29) by
- PFWSEXCHANGE.corp.cetitec.com (10.10.1.99) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Fri, 17 Apr 2020 17:30:28 +0200
-From: Matthias Blankertz <matthias.blankertz@cetitec.com>
-To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH 2/2] ASoC: rsnd: Fix "status check failed" spam for multi-SSI
-Date: Fri, 17 Apr 2020 17:30:17 +0200
-Message-ID: <20200417153017.1744454-3-matthias.blankertz@cetitec.com>
-X-Mailer: git-send-email 2.26.1
-In-Reply-To: <20200417153017.1744454-1-matthias.blankertz@cetitec.com>
-References: <20200417153017.1744454-1-matthias.blankertz@cetitec.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E4265F800DE
+ for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 17:35:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4265F800DE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gerhold.net header.i=@gerhold.net
+ header.b="p2rcCY+r"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1587137741;
+ s=strato-dkim-0002; d=gerhold.net;
+ h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:
+ X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+ bh=Qaen0lQiP0FWn3qCidsRX3hKu//mw1RvQ8vN/KmdeWY=;
+ b=p2rcCY+rk6qejiaTf2LOOh0yh1sLBabCDIzRo4ef1O7KaLzzAsbMh8JELHdiNOk3Kg
+ jYAU06rPecWYMTWE/i8GrXZ7pOOdjhelQUxYlMLn5dfRNFXn3HX8jo1+HfjdMqZmZyTU
+ 54lBqg3ChiJLErx3wsbz4bxlncwHHPTcEw//65OiOpbPlgLX8G/0RX+OyVe58DHyYb2g
+ +x0z6Z51QkpLgyXvwsTwcoIgwoLZZMLOY+f3nxDsdY2fgYjOX0AMvjGIyda0751iONwT
+ jnlTfYlDYXhpvbLnbgsfYWUrkYYo1DiemmJsgVo2aWywbXWOXKv4wfkQGRyR9uCXVMQb
+ xHnQ==
+X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVOQ/OcYgojyw4j34+u26zEodhPgRDZ8j8Ic/Fboo="
+X-RZG-CLASS-ID: mo00
+Received: from gerhold.net by smtp.strato.de (RZmta 46.5.0 DYNA|AUTH)
+ with ESMTPSA id I0a766w3HFZe3da
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Fri, 17 Apr 2020 17:35:40 +0200 (CEST)
+Date: Fri, 17 Apr 2020 17:35:34 +0200
+From: Stephan Gerhold <stephan@gerhold.net>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH 0/2] ASoC: qdsp6: fix default FE dais and routings.
+Message-ID: <20200417153534.GA65143@gerhold.net>
+References: <20200311180422.28363-1-srinivas.kandagatla@linaro.org>
+ <20200417112455.GA7558@gerhold.net>
+ <03d0d14c-d52c-460b-0232-184156f62eb7@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.8.5.29]
-X-ClientProxiedBy: PFWSEXCHANGE.corp.cetitec.com (10.10.1.99) To
- PFWSEXCHANGE.corp.cetitec.com (10.10.1.99)
-X-EsetResult: clean, is OK
-X-EsetId: 37303A290D7F536B64766A
-X-Provags-ID: V03:K1:0iRD0Id+7QAfQTeP6+QurWwUltdZG+fqMJxBvkqJPUd9FojZGun
- sf/9XgiwufPW5lLOJnygfUJDpIG3Z4/yUnjoh2uQ3UTbt+ieGVMXWejLjl4NJFwleR7VHXz
- eRsYNxfKmS1M33G07P44CMIo742DTe2CGMpOqZivLTzQTkStbAMtWDN5CKCSydpQxOTyUkZ
- FwuIJnLucp0OAHrIeur5g==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:qrbtVe90pA4=:tpoXoz3xiMvTH8cBv3+3P5
- O4EfrILxVOr5loC4L9WtX5APJDqGNf3/02r4YxVynorLJGVCh/O4fVnfGLw7bn1ah8a2azkk9
- GbUbFIDS9MYt5+SS2kfMgcoemth2pPdoReZlC3AempfKFBat9gacbxiGTH+zdL5pyXvXZ6P5b
- i0rXQ3ka5ADlVHSX8K/wVthVsNVlKd9/f7238FjMJkns3Zk/b+HUfYa7gwOlBYqlMviXeUdCd
- 6xf19mziHr6IBOetMAF1i2bVDnwU7xxFy1aYFIGXqzvpDGDvwTYEGpBGB+OvLhKLn1KOZBlXx
- yHpsVOGpORrmCSQLRpNaMCymL6RoaDJCco3APjIMVIqyTBsvpDEVT6VF6y4BHbRs2Gv85ARNJ
- DSX7qcjmp7FW2QHI/vUk9tcVuER2NYUWlRv5QPhbtp441llHqfXKfsogfMIbMBMQ7yzTKx4s2
- 0sbIazv1WZR618d1aRS7H6N5/+Te/h2a5bC0KBLN3aacObwZCpGXRt3Gv2oLMGo4IidjwqEbD
- RpvbEUHoAsBTR5X0Feqks9hQFhkJFU1ukodv65khpgHXq1+kPT350qQj27Eb+YjWyR5Q8Jk66
- APq2T35CZTvLSAHG3IoAbxVEOcvfDH33qutyMOUDelS0C6i6xKnN6yb7wQmyF7meFkOtRdZsV
- OH2IZCe3Q8X3nV//JRVeP5fa0yJpgqPmtbXsekghIoZ0DMhWdA3z0H2FOIAKFWIf8F7s3lmtt
- bmOoT5ZGm/lwnPkCLZPwlARHRXc/zIi2RNJ3qfQiSxP0xDOy8fnTcKJmZiTWGw9iNPK6Wt1Ad
- jUgYyQPkWFiAUeibo2fhkR/uZhGy4SJid8Ysld0jikN58hBAUX0hoXh9/fCDCC1W2IQIaHzkd
- ebk9P8irWlOJkEzhT4sQ==
-Cc: alsa-devel@alsa-project.org, Kuninori
- Morimoto <kuninori.morimoto.gx@renesas.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <03d0d14c-d52c-460b-0232-184156f62eb7@linaro.org>
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,42 +87,175 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix the rsnd_ssi_stop function to skip disabling the individual SSIs of
-a multi-SSI setup, as the actual stop is performed by rsnd_ssiu_stop_gen2
-- the same logic as in rsnd_ssi_start. The attempt to disable these SSIs
-was harmless, but caused a "status check failed" message to be printed
-for every SSI in the multi-SSI setup.
-The disabling of interrupts is still performed, as they are enabled for
-all SSIs in rsnd_ssi_init, but care is taken to not accidentally set the
-EN bit for an SSI where it was not set by rsnd_ssi_start.
+On Fri, Apr 17, 2020 at 02:02:08PM +0100, Srinivas Kandagatla wrote:
+> 
+> 
+> On 17/04/2020 12:24, Stephan Gerhold wrote:
+> > Hi Srini,
+> > 
+> > On Wed, Mar 11, 2020 at 06:04:20PM +0000, Srinivas Kandagatla wrote:
+> > > QDSP6 Frontend dais can be configured to work in rx or tx or both rx/tx mode,
+> > > however the default routing do not honour this DT configuration making sound
+> > > card fail to probe. FE dais are also not fully honouring device tree configuration.
+> > > Fix both of them.
+> > > 
+> > 
+> > I discovered this patch set when QDSP6 audio stopped working after
+> > upgrading to Linux 5.7-rc1. As far as I understand, device tree bindings
+> > should attempt to be backwards compatible wherever possible.
+> > This isn't the case here, although this is not the reason for my mail.
+> > (I don't mind updating my device tree, especially since it is not
+> > upstream yet...)
+> > 
+> > I have a general question about the design here.
+> > 
+> > I understand the original motivation for this patch set: Attempting to
+> > configure a TX/RX-only DAI was not possible due to the default routing.
+> > In my opinion this is only relevant for the compressed DAI case.
+> > 
+> > If we ignore the compressed DAIs for a moment (which can be
+> > unidirectional only), I think we shouldn't care how userspace uses the
+> > available FE/MultiMedia DAIs. We have this huge routing matrix in q6routing,
+> > with 800+ mixers that can be configured in any way possible from userspace.
+> > 
+> > In "ASoC: qdsp6: q6asm-dai: only enable dais from device tree" you mention:
+> > 
+> > > This can lead to un-necessary dais in the system which will never be
+> > > used. So honour whats specfied in device tree.
+> > 
+> > but IMO the FE DAIs are a negligible overhead compared to the routing
+> > matrix and the many BE DAIs that are really never going to be used
+> > (because nothing is physically connected to the ports).
+> 
+> Two things, one unnecessary mixers, second thing is we need to know how many
+> FE dais are in the system, which should be derived from the number of dai
+> child nodes. These can potentially be SoC specific or firmware specific.
+> 
 
-Signed-off-by: Matthias Blankertz <matthias.blankertz@cetitec.com>
----
- sound/soc/sh/rcar/ssi.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+So there are SoCs/firmwares that just support e.g. MultiMedia1-4 and not
+all 8 MultiMedia FE DAIs?
 
-diff --git a/sound/soc/sh/rcar/ssi.c b/sound/soc/sh/rcar/ssi.c
-index 9900a4f6f4e5..4a7d3413917f 100644
---- a/sound/soc/sh/rcar/ssi.c
-+++ b/sound/soc/sh/rcar/ssi.c
-@@ -594,10 +594,16 @@ static int rsnd_ssi_stop(struct rsnd_mod *mod,
- 	 * Capture:  It might not receave data. Do nothing
- 	 */
- 	if (rsnd_io_is_play(io)) {
--		rsnd_mod_write(mod, SSICR, cr | EN);
-+		rsnd_mod_write(mod, SSICR, cr | ssi->cr_en);
- 		rsnd_ssi_status_check(mod, DIRQ);
- 	}
- 
-+	/* In multi-SSI mode, stop is performed by setting ssi0129 in
-+	 * SSI_CONTROL to 0 (in rsnd_ssio_stop_gen2). Do nothing here.
-+	 */
-+	if (rsnd_ssi_multi_slaves_runtime(io))
-+		return 0;
-+
- 	/*
- 	 * disable SSI,
- 	 * and, wait idle state
--- 
-2.26.1
+> My plan is to cleanup the BE DAIs as well!, any patches welcome!
+> 
+> > 
+> > Even if you restrict FE DAIs to RX/TX only, or disable them entirely,
+> 
+> I think this is mistake from myside. Alteast according to bindings direction
+> property is only "Required for Compress offload dais", code should have
+> explicitly ignored it. Here is change that should fix it.
+> 
 
+This would make the MultiMedia1-3 bi-directional in sdm845-db845c,
+but MultiMedia5-8 would still be disabled.
+
+My question here would then be similar as above:
+Is this an arbitrary selection of a reasonable amount of FE DAIs,
+or actually based on some firmware limitations?
+
+As I described in the rest of my mail (below your diff),
+before this patch set it was simple to just expose all 8 FE DAIs.
+At least on MSM8916 all of them work in exactly the same way,
+there is no difference between any of them.
+
+If we list what is working in SoC/firmware in the device tree,
+would I just list all 8 FE DAIs?
+
+Basically I'm still trying to understand why we limit the number of
+FE/MultiMedia DAIs that we expose, when all of them would be working
+fine. :)
+
+Thanks,
+Stephan
+
+> --------------------------->cut<---------------------------------
+> diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c
+> b/sound/soc/qcom/qdsp6/q6asm-dai.c
+> index 125af00bba53..31f46b25978e 100644
+> --- a/sound/soc/qcom/qdsp6/q6asm-dai.c
+> +++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
+> @@ -1067,6 +1067,11 @@ static int of_q6asm_parse_dai_data(struct device
+> *dev,
+>                 dai_drv = &pdata->dais[idx++];
+>                 *dai_drv = q6asm_fe_dais_template[id];
+> 
+> +               if (of_property_read_bool(node, "is-compress-dai"))
+> +                       dai_drv->compress_new = snd_soc_new_compress;
+> +               else
+> +                       continue;
+> +
+>                 ret = of_property_read_u32(node, "direction", &dir);
+>                 if (ret)
+>                         continue;
+> @@ -1076,8 +1081,6 @@ static int of_q6asm_parse_dai_data(struct device *dev,
+>                 else if (dir == Q6ASM_DAI_TX)
+>                         dai_drv->playback = empty_stream;
+> 
+> -               if (of_property_read_bool(node, "is-compress-dai"))
+> -                       dai_drv->compress_new = snd_soc_new_compress;
+>         }
+> 
+>         return 0;
+> 
+> --------------------------->cut<---------------------------------
+> 
+> Thanks,
+> srini
+> 
+> > all the routing mixers still exist for them. They will just result in
+> > configurations that are not usable in any way. IMO the only thing we
+> > gain by restricting the FE DAIs is that the available mixers no longer
+> > match possible configurations.
+> > 
+> > Before this patch set I used a slightly different approach in my device
+> > tree for MSM8916: I kept all FE DAIs bi-directional, and added DAI links
+> > for all of them. This means that I actually had 8 bi-directional PCM
+> > devices in userspace.
+> > 
+> > I didn't use all of them - my ALSA UCM configuration only uses
+> > MultiMedia1 for playback and MultiMedia2 for capture.
+> > However, some other userspace (let's say Android) could have chosen
+> > different FE DAIs for whatever reason. We have the overhead for the
+> > routing matrix anyway, so we might as well expose it in my opinion.
+> > 
+> > My question is: In what way are the FE DAIs really board-specific?
+> > 
+> > If we expose only some FE DAIs with intended usage per board,
+> > e.g. MultiMedia1 for HDMI, MultiMedia2 for slimbus playback,
+> >       MultiMedia3 for slimbus capture,
+> > I could almost argue that we don't need DPCM at all.
+> > The FE DAIs are always going to be used for the same backend anyway.
+> > 
+> > This is a bit exaggerated - for example if you have a single compress
+> > DAI per board you probably intend to use it for both HDMI/slimbus.
+> > But this is the feeling I get if we configure the FE DAIs separately
+> > for each board.
+> > 
+> > I wonder if we should leave configuration of the FE DAIs up to userspace
+> > (e.g. ALSA UCM), and expose the same full set of FE DAIs for each board.
+> > 
+> > I think this is mostly a matter of convention for configuring FE DAIs
+> > in the device tree - I have some ideas how to make that work
+> > with the existing device tree bindings and for compressed DAIs.
+> > But this mail is already long enough as-is. ;)
+> > 
+> > I also don't mind if we keep everything as-is
+> > - I just wanted to share what I have been thinking about.
+> > 
+> > What do you think?
+> > 
+> > Thanks for reading! ;)
+> > Stephan
+> > 
+> > > Originally  issue was reported by Vinod Koul
+> > > 
+> > > Srinivas Kandagatla (2):
+> > >    ASoC: qdsp6: q6asm-dai: only enable dais from device tree
+> > >    ASoC: qdsp6: q6routing: remove default routing
+> > > 
+> > >   sound/soc/qcom/qdsp6/q6asm-dai.c | 30 +++++++++++++++++++++++-------
+> > >   sound/soc/qcom/qdsp6/q6routing.c | 19 -------------------
+> > >   2 files changed, 23 insertions(+), 26 deletions(-)
+> > > 
+> > > -- 
+> > > 2.21.0
+> > > 

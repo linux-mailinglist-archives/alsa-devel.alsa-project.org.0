@@ -2,55 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AFE51AD589
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 07:12:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C27451AD5B9
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 07:41:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D4EC1612;
-	Fri, 17 Apr 2020 07:11:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D4EC1612
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5AC931663;
+	Fri, 17 Apr 2020 07:40:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5AC931663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587100341;
-	bh=yWWvu68lpPZXpTlxAJkzxn7e65cHfLpl5/a/hBagGXA=;
-	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1587102083;
+	bh=woSlDmlzf1jA/qkMPVbVyolL0thaFa9NKS8WE3P/+cA=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LBDhYt1TPKN/JAYfZp+49v226jvQx+j0kRflZs+BP7pJrXKBhb0aTADKxtu2YfVMG
-	 n3NikOID7gLToFqaRam6rMb6fp1aIY2Q4prIG9YpfVdJiyxKyha3A0EquDulFmpDGx
-	 JuDDyiOJpqP9bYNO77pC/hDBUn/S7nX8Rpa/elKM=
+	b=f65+zIM2E730DwQyqIv5DBP8VJEcGK3+TU8egkx4vZtjZFgoLVe3Pa5lLKKDtp15z
+	 +lq4quFKhBA8p8dDs+qShxgpV/qUak5t94INqGNYBCjX7ySOtCm1EHbg+kpskGVZBr
+	 3ROZ4CaF4KI9KFHrX6wgLKyCzj2tXgLfh8bCS1sA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 36ACEF802E9;
-	Fri, 17 Apr 2020 07:07:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66F4DF80229;
+	Fri, 17 Apr 2020 07:39:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 16F8AF802E3; Fri, 17 Apr 2020 07:07:13 +0200 (CEST)
+ id 2E19BF80229; Fri, 17 Apr 2020 07:39:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=PRX_BODY_76,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 84587F802DF
- for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 07:07:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84587F802DF
-Date: 17 Apr 2020 14:07:08 +0900
-X-IronPort-AV: E=Sophos;i="5.72,393,1580742000"; d="scan'208";a="44758898"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 17 Apr 2020 14:07:08 +0900
-Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 4FBE040A7323;
- Fri, 17 Apr 2020 14:07:08 +0900 (JST)
-Message-ID: <87zhbaog3n.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 8/8] ASoC: soc-compress: remove snd_compr_ops
-User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
-To: Mark Brown <broonie@kernel.org>
-In-Reply-To: <87blnqpuqp.wl-kuninori.morimoto.gx@renesas.com>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id EC0EFF800DE
+ for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 07:39:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC0EFF800DE
+IronPort-SDR: Xj8xGkMHPmk+5PUVnyRzDRgUJs3JlGa9NKcxBea03wYCCu8426+uCXigxDc5OghitoNqd5/vzA
+ 3IckUL0f4ybA==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Apr 2020 22:39:22 -0700
+IronPort-SDR: +QpNRraDP65NXho9pExymThFg0H2a9AQh22+f+Nkwd7qr4r6M1gyNvwk3tbcfNbhrLaqtlN3Pl
+ zo6iKAxbZeKg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,393,1580803200"; d="scan'208";a="242899356"
+Received: from suem-mobl1.amr.corp.intel.com ([10.251.128.210])
+ by orsmga007.jf.intel.com with ESMTP; 16 Apr 2020 22:39:22 -0700
+Message-ID: <9401d09f060ea3143c4304fd2944dafe738f1643.camel@linux.intel.com>
+Subject: Re: [PATCH 6/8] ASoC: sof: use snd_compress_ops
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown
+ <broonie@kernel.org>
+Date: Thu, 16 Apr 2020 22:39:20 -0700
+In-Reply-To: <873692puof.wl-kuninori.morimoto.gx@renesas.com>
 References: <87blnqpuqp.wl-kuninori.morimoto.gx@renesas.com>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
+ <873692puof.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -67,272 +78,180 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, 2020-04-17 at 14:06 +0900, Kuninori Morimoto wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> 
+> We can use snd_compress_ops.
+> Let's switch to use it.
+> 
+> Upstream code doesn't have sof_compressed_ops.
+> This patch assume it is implemented at out-of-tree.
+> 
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+>  sound/soc/sof/compress.c | 34 +++++++++++++++++++++-------------
+>  sound/soc/sof/compress.h | 34 +++++++++++++++++++++-------------
+>  sound/soc/sof/pcm.c      |  4 ++--
+>  sound/soc/sof/sof-priv.h |  2 +-
+>  4 files changed, 45 insertions(+), 29 deletions(-)
+> 
+> diff --git a/sound/soc/sof/compress.c b/sound/soc/sof/compress.c
+> index 7354dc6a49cf..52a1d7ed97a5 100644
+> --- a/sound/soc/sof/compress.c
+> +++ b/sound/soc/sof/compress.c
+> @@ -13,13 +13,14 @@
+>  #include "ops.h"
+>  #include "probe.h"
+>  
+> -struct snd_compr_ops sof_probe_compressed_ops = {
+> +struct snd_compress_ops sof_probe_compressed_ops = {
+>  	.copy		= sof_probe_compr_copy,
+>  };
+>  EXPORT_SYMBOL(sof_probe_compressed_ops);
+Morimoto-san,
 
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+This change is correct based on your new snd_compress_ops. And the only
+change we need is for the copy op in sof_probe_compressed_ops.
 
-snd_compr_ops couldn't care called component,
-but now we can care it via snd_compress_ops.
-All drivers switched to it.
-This patch removes snd_compr_ops.
+>  
+> -int sof_probe_compr_open(struct snd_compr_stream *cstream,
+> -		struct snd_soc_dai *dai)
+> +int sof_probe_compr_open(struct snd_soc_component *component,
+> +			 struct snd_compr_stream *cstream,
+> +			 struct snd_soc_dai *dai)
 
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
----
- include/sound/soc-component.h |   1 -
- sound/soc/soc-compress.c      | 145 ----------------------------------
- 2 files changed, 146 deletions(-)
+But this one seems incorrect? This op (and the ones below except for
+copy) is actually the startup op in struct snd_soc_cdai_ops. 
+>  {
+>  	struct snd_sof_dev *sdev =
+>  				snd_soc_component_get_drvdata(dai-
+> >component);
+> @@ -36,8 +37,9 @@ int sof_probe_compr_open(struct snd_compr_stream
+> *cstream,
+>  }
+>  EXPORT_SYMBOL(sof_probe_compr_open);
+>  
+> -int sof_probe_compr_free(struct snd_compr_stream *cstream,
+> -		struct snd_soc_dai *dai)
+> +int sof_probe_compr_free(struct snd_soc_component
+> *componsnd_soc_cdai_opsent,
+> +			 struct snd_compr_stream *cstream,
+> +		 struct snd_soc_dai *dai)
+ditto
+> > 
+>  {
+>  	struct snd_sof_dev *sdev =
+>  				snd_soc_component_get_drvdata(dai-
+> >component);
+> @@ -68,8 +70,10 @@ int sof_probe_compr_free(struct snd_compr_stream
+> *cstream,
+>  }
+>  EXPORT_SYMBOL(sof_probe_compr_free);
+>  
+> -int sof_probe_compr_set_params(struct snd_compr_stream *cstream,
+> -		struct snd_compr_params *params, struct snd_soc_dai
+> *dai)
+> +int sof_probe_compr_set_params(struct snd_soc_component *component,
+> +			       struct snd_compr_stream *cstream,
+> +			       struct snd_compr_params *params,
+> +			       struct snd_soc_dai *dai)
+ditto
+> >  {
+>  	struct snd_compr_runtime *rtd = cstream->runtime;
+>  	struct snd_sof_dev *sdev =
+> @@ -97,8 +101,9 @@ int sof_probe_compr_set_params(struct
+> snd_compr_stream *cstream,
+>  }
+>  EXPORT_SYMBOL(sof_probe_compr_set_params);
+>  
+> -int sof_probe_compr_trigger(struct snd_compr_stream *cstream, int
+> cmd,
+> -		struct snd_soc_dai *dai)
+> +int sof_probe_compr_trigger(struct snd_soc_component *component,
+> +			    struct snd_compr_stream *cstream, int cmd,
+> +			    struct snd_soc_dai *dai)
+ditto
+>  {
+>  	struct snd_sof_dev *sdev =
+>  				snd_soc_component_get_drvdata(dai-
+> >component);
+> @@ -107,8 +112,10 @@ int sof_probe_compr_trigger(struct
+> snd_compr_stream *cstream, int cmd,
+>  }
+>  EXPORT_SYMBOL(sof_probe_compr_trigger);
+>  
+> -int sof_probe_compr_pointer(struct snd_compr_stream *cstream,
+> -		struct snd_compr_tstamp *tstamp, struct snd_soc_dai
+> *dai)
+> +int sof_probe_compr_pointer(struct snd_soc_component *component,
+> +			    struct snd_compr_stream *cstream,
+> +			    struct snd_compr_tstamp *tstamp,
+> +			    struct snd_soc_dai *dai)
+ditto
+>  {
+>  	struct snd_sof_dev *sdev =
+>  				snd_soc_component_get_drvdata(dai-
+> >component);
+> @@ -117,8 +124,9 @@ int sof_probe_compr_pointer(struct
+> snd_compr_stream *cstream,
+>  }
+>  EXPORT_SYMBOL(sof_probe_compr_pointer);
+>  
+> -int sof_probe_compr_copy(struct snd_compr_stream *cstream,
+> -		char __user *buf, size_t count)
+> +int sof_probe_compr_copy(struct snd_soc_component *component,
+> +			 struct snd_compr_stream *cstream,
+> +			 char __user *buf, size_t count)
+This one is correct.
 
-diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-index 9122b11f51e9..864983b09846 100644
---- a/include/sound/soc-component.h
-+++ b/include/sound/soc-component.h
-@@ -146,7 +146,6 @@ struct snd_soc_component_driver {
- 		    struct snd_pcm_substream *substream,
- 		    struct vm_area_struct *vma);
- 
--	const struct snd_compr_ops *compr_ops; /* remove me */
- 	const struct snd_compress_ops *compress_ops;
- 
- 	/* probe ordering - for components with runtime dependencies */
-diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
-index 343de969179e..ceaf976db0bb 100644
---- a/sound/soc/soc-compress.c
-+++ b/sound/soc/soc-compress.c
-@@ -44,23 +44,6 @@ static int soc_compr_components_open(struct snd_compr_stream *cstream,
- 		}
- 	}
- 
--	/* remvoe me */
--	for_each_rtd_components(rtd, i, component) {
--		if (!component->driver->compr_ops ||
--		    !component->driver->compr_ops->open)
--			continue;
--
--		ret = component->driver->compr_ops->open(cstream);
--		if (ret < 0) {
--			dev_err(component->dev,
--				"Compress ASoC: can't open platform %s: %d\n",
--				component->name, ret);
--
--			*last = component;
--			return ret;
--		}
--	}
--
- 	*last = NULL;
- 	return 0;
- }
-@@ -83,18 +66,6 @@ static int soc_compr_components_free(struct snd_compr_stream *cstream,
- 		component->driver->compress_ops->free(component, cstream);
- 	}
- 
--	/* remove me */
--	for_each_rtd_components(rtd, i, component) {
--		if (component == last)
--			break;
--
--		if (!component->driver->compr_ops ||
--		    !component->driver->compr_ops->free)
--			continue;
--
--		component->driver->compr_ops->free(cstream);
--	}
--
- 	return 0;
- }
- 
-@@ -367,17 +338,6 @@ static int soc_compr_components_trigger(struct snd_compr_stream *cstream,
- 			return ret;
- 	}
- 
--	/* remove me */
--	for_each_rtd_components(rtd, i, component) {
--		if (!component->driver->compr_ops ||
--		    !component->driver->compr_ops->trigger)
--			continue;
--
--		ret = component->driver->compr_ops->trigger(cstream, cmd);
--		if (ret < 0)
--			return ret;
--	}
--
- 	return 0;
- }
- 
-@@ -481,17 +441,6 @@ static int soc_compr_components_set_params(struct snd_compr_stream *cstream,
- 			return ret;
- 	}
- 
--	/* remove me */
--	for_each_rtd_components(rtd, i, component) {
--		if (!component->driver->compr_ops ||
--		    !component->driver->compr_ops->set_params)
--			continue;
--
--		ret = component->driver->compr_ops->set_params(cstream, params);
--		if (ret < 0)
--			return ret;
--	}
--
- 	return 0;
- }
- 
-@@ -632,16 +581,6 @@ static int soc_compr_get_params(struct snd_compr_stream *cstream,
- 		break;
- 	}
- 
--	/* remove me */
--	for_each_rtd_components(rtd, i, component) {
--		if (!component->driver->compr_ops ||
--		    !component->driver->compr_ops->get_params)
--			continue;
--
--		ret = component->driver->compr_ops->get_params(cstream, params);
--		break;
--	}
--
- err:
- 	mutex_unlock(&rtd->card->pcm_mutex);
- 	return ret;
-@@ -666,16 +605,6 @@ static int soc_compr_get_caps(struct snd_compr_stream *cstream,
- 		break;
- 	}
- 
--	/* remove me */
--	for_each_rtd_components(rtd, i, component) {
--		if (!component->driver->compr_ops ||
--		    !component->driver->compr_ops->get_caps)
--			continue;
--
--		ret = component->driver->compr_ops->get_caps(cstream, caps);
--		break;
--	}
--
- 	mutex_unlock(&rtd->card->pcm_mutex);
- 	return ret;
- }
-@@ -699,17 +628,6 @@ static int soc_compr_get_codec_caps(struct snd_compr_stream *cstream,
- 		break;
- 	}
- 
--	/* remove me */
--	for_each_rtd_components(rtd, i, component) {
--		if (!component->driver->compr_ops ||
--		    !component->driver->compr_ops->get_codec_caps)
--			continue;
--
--		ret = component->driver->compr_ops->get_codec_caps(cstream,
--								   codec);
--		break;
--	}
--
- 	mutex_unlock(&rtd->card->pcm_mutex);
- 	return ret;
- }
-@@ -740,17 +658,6 @@ static int soc_compr_ack(struct snd_compr_stream *cstream, size_t bytes)
- 			goto err;
- 	}
- 
--	/* remove me */
--	for_each_rtd_components(rtd, i, component) {
--		if (!component->driver->compr_ops ||
--		    !component->driver->compr_ops->ack)
--			continue;
--
--		ret = component->driver->compr_ops->ack(cstream, bytes);
--		if (ret < 0)
--			goto err;
--	}
--
- err:
- 	mutex_unlock(&rtd->card->pcm_mutex);
- 	return ret;
-@@ -779,16 +686,6 @@ static int soc_compr_pointer(struct snd_compr_stream *cstream,
- 		break;
- 	}
- 
--	/* remove me */
--	for_each_rtd_components(rtd, i, component) {
--		if (!component->driver->compr_ops ||
--		    !component->driver->compr_ops->pointer)
--			continue;
--
--		ret = component->driver->compr_ops->pointer(cstream, tstamp);
--		break;
--	}
--
- 	mutex_unlock(&rtd->card->pcm_mutex);
- 	return ret;
- }
-@@ -812,16 +709,6 @@ static int soc_compr_copy(struct snd_compr_stream *cstream,
- 		break;
- 	}
- 
--	/* remove me */
--	for_each_rtd_components(rtd, i, component) {
--		if (!component->driver->compr_ops ||
--		    !component->driver->compr_ops->copy)
--			continue;
--
--		ret = component->driver->compr_ops->copy(cstream, buf, count);
--		break;
--	}
--
- 	mutex_unlock(&rtd->card->pcm_mutex);
- 	return ret;
- }
-@@ -851,18 +738,6 @@ static int soc_compr_set_metadata(struct snd_compr_stream *cstream,
- 			return ret;
- 	}
- 
--	/* remove me */
--	for_each_rtd_components(rtd, i, component) {
--		if (!component->driver->compr_ops ||
--		    !component->driver->compr_ops->set_metadata)
--			continue;
--
--		ret = component->driver->compr_ops->set_metadata(cstream,
--								 metadata);
--		if (ret < 0)
--			return ret;
--	}
--
- 	return 0;
- }
- 
-@@ -889,16 +764,6 @@ static int soc_compr_get_metadata(struct snd_compr_stream *cstream,
- 			component, cstream, metadata);
- 	}
- 
--	/* remove me */
--	for_each_rtd_components(rtd, i, component) {
--		if (!component->driver->compr_ops ||
--		    !component->driver->compr_ops->get_metadata)
--			continue;
--
--		return component->driver->compr_ops->get_metadata(cstream,
--								  metadata);
--	}
--
- 	return 0;
- }
- 
-@@ -1029,16 +894,6 @@ int snd_soc_new_compress(struct snd_soc_pcm_runtime *rtd, int num)
- 		break;
- 	}
- 
--	/* remove me */
--	for_each_rtd_components(rtd, i, component) {
--		if (!component->driver->compr_ops ||
--		    !component->driver->compr_ops->copy)
--			continue;
--
--		compr->ops->copy = soc_compr_copy;
--		break;
--	}
--
- 	mutex_init(&compr->lock);
- 	ret = snd_compress_new(rtd->card->snd_card, num, direction,
- 				new_name, compr);
--- 
-2.17.1
+>  {
+>  	struct snd_compr_runtime *rtd = cstream->runtime;
+>  	unsigned int offset, n;
+> diff --git a/sound/soc/sof/compress.h b/sound/soc/sof/compress.h
+> index 800f163603e1..afc7ab9bc3c9 100644
+> --- a/sound/soc/sof/compress.h
+> +++ b/sound/soc/sof/compress.h
+> @@ -13,19 +13,27 @@
+>  
+>  #include <sound/compress_driver.h>
+>  
+> -extern struct snd_compr_ops sof_probe_compressed_ops;
+> +extern struct snd_compress_ops sof_probe_compressed_ops;
+>  
+> -int sof_probe_compr_open(struct snd_compr_stream *cstream,
+> -		struct snd_soc_dai *dai);
+> -int sof_probe_compr_free(struct snd_compr_stream *cstream,
+> -		struct snd_soc_dai *dai);
+> -int sof_probe_compr_set_params(struct snd_compr_stream *cstream,
+> -		struct snd_compr_params *params, struct snd_soc_dai
+> *dai);
+> -int sof_probe_compr_trigger(struct snd_compr_stream *cstream, int
+> cmd,
+> -		struct snd_soc_dai *dai);
+> -int sof_probe_compr_pointer(struct snd_compr_stream *cstream,
+> -		struct snd_compr_tstamp *tstamp, struct snd_soc_dai
+> *dai);
+> -int sof_probe_compr_copy(struct snd_compr_stream *cstream,
+> -		char __user *buf, size_t count);
+> +int sof_probe_compr_open(struct snd_soc_component *component,
+> +			 struct snd_compr_stream *cstream,
+> +			 struct snd_soc_dai *dai);
+> +int sof_probe_compr_free(struct snd_soc_component *component,
+> +			 struct snd_compr_stream *cstream,
+> +			 struct snd_soc_dai *dai);
+> +int sof_probe_compr_set_params(struct snd_soc_component *component,
+> +			       struct snd_compr_stream *cstream,
+> +			       struct snd_compr_params *params,
+> +			       struct snd_soc_dai *dai);
+> +int sof_probe_compr_trigger(struct snd_soc_component *component,
+> +			    struct snd_compr_stream *cstream, int cmd,
+> +			    struct snd_soc_dai *dai);
+> +int sof_probe_compr_pointer(struct snd_soc_component *component,
+> +			    struct snd_compr_stream *cstream,
+> +			    struct snd_compr_tstamp *tstamp,
+> +			    struct snd_soc_dai *dai);
+All of the above are part of struct snd_soc_cdai_ops.
+
+Thanks,
+Ranjani
 

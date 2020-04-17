@@ -2,112 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 595D41AE06B
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 17:04:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E8491AE12A
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 17:32:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CCA351669;
-	Fri, 17 Apr 2020 17:03:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCA351669
+	by alsa0.perex.cz (Postfix) with ESMTPS id DCD5B1669;
+	Fri, 17 Apr 2020 17:31:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCD5B1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587135859;
-	bh=TN9QuMfFDd+Rh3J6OWLbcgtmbYQ+wtBHg1QNWzy8xYw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=p+bKjM6MyetTb4rC7nrzqWLA4INATk32DVnr3nTnfbJifw9rCA99g1kQUywBp8Wb8
-	 KHUsPotBhJ8Zb5oUtVz1IFve8gSmeRiVNHUTBJTi4XOU3mlkpH8hG5rLsYU8/y5C/0
-	 UEMPE5EUg6bf5o3Ec8UG19Tg/YoSyRE+/D6c+uFc=
+	s=default; t=1587137545;
+	bh=3C44VZclBvJOz46coRvYR9QWzORm+X9CAir4li1DL90=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=oAB6urp7PmtB5Apl2MI7XWHA/dDKxpPerpuPQjoBbspJASxkk68zHiJT4oal8j3Eo
+	 fhvX5zImlklaAkS70413KVgk15T5TF9X8mQvuIa6uZZywkVm3n+s/PHVmQ7nX/JioM
+	 VLhrNZ52C06BkK4CVXIEripoOhu8h7zlg5ityEtk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E720FF8025F;
-	Fri, 17 Apr 2020 17:02:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C7B0F80266;
+	Fri, 17 Apr 2020 17:30:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 03D0AF80245; Fri, 17 Apr 2020 17:02:36 +0200 (CEST)
+ id 25EE5F80264; Fri, 17 Apr 2020 17:30:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
+X-Spam-Status: No, score=-0.8 required=5.0 tests=RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.187])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 58F0DF800DE
- for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 17:02:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58F0DF800DE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch
- header.b="Co8VCB7j"
-Received: by mail-wr1-x441.google.com with SMTP id j2so3394580wrs.9
- for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 08:02:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=MZOx11K7BVkb9vfDngpczKG72DuQTl/mUltDtknINYM=;
- b=Co8VCB7jRRt1O8+H04fdcxwEtJQvvJ85wW4SvxgTv/mHipUFj+ltqVgCL7M0LxDbBm
- Pb7tEFjXMUdCDK1W7VoRTpT556UNIZvUATsFGTDHXX4ngalCQfdP4rjg3fEM8Y0uLOUu
- QsIi+ueZ6e8w8tapH3hrUwyBDQ4rCmAD5wsU8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=MZOx11K7BVkb9vfDngpczKG72DuQTl/mUltDtknINYM=;
- b=QSQsMiP8R1o5czHs+S1AlThJIuD2BRK7ugqtb0u3QsOXxPp0fRxdY1L66aAcJ+mYei
- +u8fViKlcuYv6j0yzSdaIleXPNDTDIqlwGTEEIdbjLgxFcE5bL8B2LwWRg3/G9PEJQQ2
- /NmcnAps3JW+EH2vbRV5DF5TjUs6wM6h86afrOR6OLOYxvs/h5pBxRRtGSTRm9KxWacj
- CzA5ygGhez2hv2qnIMwWBQQMlzrOQS1Fw12UhujSnOwNRth0noyQEX99f6BaaEHlG+Mw
- oln+RkYlV9K8q7g1fVwkspqYoc4TVBlZ/Exp5POJTcbRdTJrj5aRjiSAF20mVaaUpd/3
- boXg==
-X-Gm-Message-State: AGi0PubfhULp3yTzWX894fC21zKX7BAzZ+9Mcf50lYQbeJHJozzIgKMo
- nTe8p2Vaoltr/K1KJdZfAysy+A==
-X-Google-Smtp-Source: APiQypJc7M6g4SJSxadMb830ZLUuNjVyEPZxJsFHSeWGeY7zkoZSsxwQWcW79Vv6OwRGwssTlFoC0w==
-X-Received: by 2002:a5d:438c:: with SMTP id i12mr4404415wrq.14.1587135747372; 
- Fri, 17 Apr 2020 08:02:27 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id e5sm33270104wru.92.2020.04.17.08.02.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Apr 2020 08:02:26 -0700 (PDT)
-Date: Fri, 17 Apr 2020 17:02:24 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: Re: [PATCH trivial 3/6] drm: Fix misspellings of "Analog Devices"
-Message-ID: <20200417150224.GO3456981@phenom.ffwll.local>
-Mail-Followup-To: Geert Uytterhoeven <geert+renesas@glider.be>,
- Rob Herring <robh+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- David Airlie <airlied@linux.ie>,
- Jonathan Cameron <jic23@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Stefan Popa <stefan.popa@analog.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Jiri Kosina <trivial@kernel.org>,
- devicetree@vger.kernel.org, dmaengine@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-iio@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-References: <20200416103058.15269-1-geert+renesas@glider.be>
- <20200416103058.15269-4-geert+renesas@glider.be>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1CA21F800DE
+ for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 17:30:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CA21F800DE
+Received: from mail.cetitecgmbh.com ([87.190.42.90]) by
+ mrelayeu.kundenserver.de (mreue011 [212.227.15.167]) with ESMTPSA (Nemesis)
+ id 1Mbzdn-1ipIWA0C5f-00da7d; Fri, 17 Apr 2020 17:30:29 +0200
+Received: from pflvmailgateway.corp.cetitec.com (unknown [127.0.0.1])
+ by mail.cetitecgmbh.com (Postfix) with ESMTP id CA23C650CBC;
+ Fri, 17 Apr 2020 15:30:27 +0000 (UTC)
+X-Virus-Scanned: amavisd-new at cetitec.com
+Received: from mail.cetitecgmbh.com ([127.0.0.1])
+ by pflvmailgateway.corp.cetitec.com (pflvmailgateway.corp.cetitec.com
+ [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id aO044AulWpIr; Fri, 17 Apr 2020 17:30:27 +0200 (CEST)
+Received: from pfwsexchange.corp.cetitec.com (unknown [10.10.1.99])
+ by mail.cetitecgmbh.com (Postfix) with ESMTPS id 7911A64ECEB;
+ Fri, 17 Apr 2020 17:30:27 +0200 (CEST)
+Received: from pflmmbl.corp.cetitec.com (10.8.5.29) by
+ PFWSEXCHANGE.corp.cetitec.com (10.10.1.99) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Fri, 17 Apr 2020 17:30:27 +0200
+From: Matthias Blankertz <matthias.blankertz@cetitec.com>
+To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
+Subject: [PATCH 0/2] ASoC: rsnd: multi-SSI setup fixes
+Date: Fri, 17 Apr 2020 17:30:15 +0200
+Message-ID: <20200417153017.1744454-1-matthias.blankertz@cetitec.com>
+X-Mailer: git-send-email 2.26.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200416103058.15269-4-geert+renesas@glider.be>
-X-Operating-System: Linux phenom 5.3.0-3-amd64 
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Lars-Peter Clausen <lars@metafoo.de>, Jiri Kosina <trivial@kernel.org>,
- Stefan Popa <stefan.popa@analog.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Liam Girdwood <lgirdwood@gmail.com>, David Airlie <airlied@linux.ie>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, dri-devel@lists.freedesktop.org,
- linux-iio@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- dmaengine@vger.kernel.org, Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Jonathan Cameron <jic23@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.8.5.29]
+X-ClientProxiedBy: PFWSEXCHANGE.corp.cetitec.com (10.10.1.99) To
+ PFWSEXCHANGE.corp.cetitec.com (10.10.1.99)
+X-EsetResult: clean, is OK
+X-EsetId: 37303A290D7F536B64766A
+X-Provags-ID: V03:K1:QNcV6Oturueaw/p4lzF3+WWTDTwDcZBnAuBryfo+i2N5dtxH2uq
+ +t6Sz/ge4PJmiEuMN90KdNq2xXZ02NBWyuFHv8I9ot/+JtE/D+grmpZfFzqFM502cVrvtu6
+ 72WW2x5rokNOhTsiB5Ai2akfPhkovaE+x71vXV/8Zo4fpAKfbQbfJOkgW/ah5b5dIjHLY1d
+ T5V2ieylNwuNfLpoY2BOw==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:ZY7ZuWAKTR0=:uSfd8DHZnxk85uOJoy4lG4
+ 3z1WmRTTkv5hQ3LHl/G5PQoBzvji083+YMfUQDrjh8UdZPwapZPXRt4vE5Qg2cHZDw3t1koAZ
+ hnYuvEbfX4TPfrnkp6Cwl58P0Z+6Rqb/MYcvMVAu8hFB1rp+J7QKSnfqUGIoDZ+FatOOsnAEZ
+ 03qJnzM77w0l7Tbsm8liZkYq2HDubdQd9LVkBmavBjNWbV76KZ11bK/sO8ztXDznbTy1DRdow
+ rT4RVJG/mRTXXH5q4ixDdETbcPGREjvCDIgWStP7q976pMz40zfuqHdliOMlr/kELehOdZrUi
+ PjEI21j6VWkt05BB4bcKoOOdEkEwHRrP2DfWFdMh68EWfuXmxIVjj8qK+G6dEgGCTVt7u8uc7
+ wyH6yyvzlHY0vopeqrmCs6TCt3nEtkQ5GTtspI9skT+KBljm0lVTw7bR6ozJwwUNezT4ohQO8
+ ONTGib4Sg1+Ew7lM4i1ZGwO9JnKGna9Rx++EVCy+OIoi659eoz1OqejL4VtZFW92bXsLTdYE5
+ BDYFi0N7lZSV3BwW7C1T/v8QuJJjY2NeIWSeU7Z5K6AbISYY2tqb583x3zoahfn3UbZktmq6k
+ Kn1WOp/SbbtsGC/1GoRf+itfCocvfEefCSNLC5l4XDpbGHW91C23PpC20zNsYbNbeJhlLzxap
+ NRDqRwRfjLycKOQ1uQCzUu0e4OhIjs4i7B7Sd+fEnCa11+/sKglNfr4/xTiXgZzygfgFPObT5
+ JyMaABfvJYPSflI1XHwWod1bBpoloPaBCjV1Wu8gPceiVJGjCqyNJcrTnCia4EH6sQeofyaZ0
+ lenyy2Krirp5kkoB2gelXn1Y1lqjrGHE2tcMUEYu7cG+z5RZlXboz+WSLy/XmqDldzJetU7dE
+ k/+OAsmI/bTPWkOQuSkw==
+Cc: alsa-devel@alsa-project.org, Kuninori
+ Morimoto <kuninori.morimoto.gx@renesas.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, linux-renesas-soc@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,65 +102,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Apr 16, 2020 at 12:30:55PM +0200, Geert Uytterhoeven wrote:
-> According to https://www.analog.com/, the company name is spelled
-> "Analog Devices".
-> 
-> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Fix rsnd_dai_call() operations being performed twice for the master SSI
+in multi-SSI setups, and fix the rsnd_ssi_stop operation for multi-SSI
+setups.
+The only visible effect of these issues was some "status check failed"
+spam when the rsnd_ssi_stop was called, but overall the code is cleaner
+now, and some questionable writes to the SSICR register which did not
+lead to any observable misbehaviour but were contrary to the datasheet
+are fixed.
 
-Queued for 5.8 in drm-misc-next, thanks for your patch.
--Daniel
+Mark:
+The first patch kind of reverts my "ASoC: rsnd: Fix parent SSI
+start/stop in multi-SSI mode" from a few days ago and achieves the same
+effect in a simpler fashion, if you would prefer a clean patch series
+based on v5.6 drop me a note.
 
-> ---
->  drivers/gpu/drm/bridge/adv7511/Kconfig | 2 +-
->  drivers/gpu/drm/drm_fb_cma_helper.c    | 2 +-
->  drivers/gpu/drm/tegra/fb.c             | 2 +-
->  3 files changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/bridge/adv7511/Kconfig b/drivers/gpu/drm/bridge/adv7511/Kconfig
-> index 47d4eb9e845d085c..f46a5e26b5dd6406 100644
-> --- a/drivers/gpu/drm/bridge/adv7511/Kconfig
-> +++ b/drivers/gpu/drm/bridge/adv7511/Kconfig
-> @@ -6,7 +6,7 @@ config DRM_I2C_ADV7511
->  	select REGMAP_I2C
->  	select DRM_MIPI_DSI
->  	help
-> -	  Support for the Analog Device ADV7511(W)/13/33/35 HDMI encoders.
-> +	  Support for the Analog Devices ADV7511(W)/13/33/35 HDMI encoders.
->  
->  config DRM_I2C_ADV7511_AUDIO
->  	bool "ADV7511 HDMI Audio driver"
-> diff --git a/drivers/gpu/drm/drm_fb_cma_helper.c b/drivers/gpu/drm/drm_fb_cma_helper.c
-> index 9801c0333eca29e9..cb2349ad338d953b 100644
-> --- a/drivers/gpu/drm/drm_fb_cma_helper.c
-> +++ b/drivers/gpu/drm/drm_fb_cma_helper.c
-> @@ -2,7 +2,7 @@
->  /*
->   * drm kms/fb cma (contiguous memory allocator) helper functions
->   *
-> - * Copyright (C) 2012 Analog Device Inc.
-> + * Copyright (C) 2012 Analog Devices Inc.
->   *   Author: Lars-Peter Clausen <lars@metafoo.de>
->   *
->   * Based on udl_fbdev.c
-> diff --git a/drivers/gpu/drm/tegra/fb.c b/drivers/gpu/drm/tegra/fb.c
-> index b8a328f538626e7a..2b0666ac681b8721 100644
-> --- a/drivers/gpu/drm/tegra/fb.c
-> +++ b/drivers/gpu/drm/tegra/fb.c
-> @@ -4,7 +4,7 @@
->   * Copyright (C) 2012 NVIDIA CORPORATION.  All rights reserved.
->   *
->   * Based on the KMS/FB CMA helpers
-> - *   Copyright (C) 2012 Analog Device Inc.
-> + *   Copyright (C) 2012 Analog Devices Inc.
->   */
->  
->  #include <linux/console.h>
-> -- 
-> 2.17.1
-> 
+Greetings,
+	Matthias
 
+
+Matthias Blankertz (2):
+  ASoC: rsnd: Don't treat master SSI in multi SSI setup as parent
+  ASoC: rsnd: Fix "status check failed" spam for multi-SSI
+
+ sound/soc/sh/rcar/ssi.c | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
+
+base-commit: 15a5760cb8b6d5c1ebbf1d2e1f0b77380ab68a82
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.26.1
+

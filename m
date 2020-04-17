@@ -2,94 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4CAE1ADDFC
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 15:04:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB9001ADE07
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 15:10:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 19C081665;
-	Fri, 17 Apr 2020 15:03:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19C081665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4DCCC1669;
+	Fri, 17 Apr 2020 15:09:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4DCCC1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587128640;
-	bh=ZNM0F2BEyjO++4QKmYQ7MoBVyDjcZvyTDzqeCYBTvDU=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1587129011;
+	bh=+g7AsjHCTtHieDZGUkD8/5i6awawwsXwRp2XZ1vZpZQ=;
+	h=References:From:To:Subject:In-reply-to:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Un0LI338NuMimBvg6yPFHsJ4jyQz95dQewBzHNnbKIYvdPfngxL5wKQaJr9Gspc9L
-	 vcXcbM6WhwZQwTACceMxBg2jJlko40LyjQpJ1GJd07DjHuLddWELX7U2NdpW5Uu/7v
-	 kAUYMwpvEBcvDcZemHbOFVkWVGJQwPBOYNUi+6hY=
+	b=JDoUmcsohho+pdiu7AnLS+pS8+r4IWW/GIfyiAPsVeZGLH65iDRCbo7lQiCF1Xm4I
+	 rXa9pT5aaJI8GCzWtULLAyj/dn5B/lvI02jZjfghN0IdCOQTovno441vNe3NkbUc99
+	 xwjZSKGYb7OU1a2yUWB2bSuw0+3UchTTBPfZ7mms=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 394C5F8025F;
-	Fri, 17 Apr 2020 15:02:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 740A2F8025F;
+	Fri, 17 Apr 2020 15:08:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 260C1F80245; Fri, 17 Apr 2020 15:02:17 +0200 (CEST)
+ id 7D726F80245; Fri, 17 Apr 2020 15:08:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1DEAFF800DE
- for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 15:02:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1DEAFF800DE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5DF3DF800DE
+ for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 15:08:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DF3DF800DE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="O+bAnw7x"
-Received: by mail-wr1-x444.google.com with SMTP id d17so2919388wrg.11
- for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 06:02:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=tKr5OOcjl0LO68mRyxecrrNTWQR/Owq8GYegVeXuvus=;
- b=O+bAnw7xBiFyHQ+4Yy6M5I/WsxAkjOE4W2T/ce3IT+o6ja4IAoOJ/Mj5srEAQt68ks
- C7JUm6iMOzKPhRmt2J8n+0nXb+c7X6H4QgOBrqIlEpeFR4mfxSC5ggd/U6WkkVUdFkeM
- v8H8S5IE+Mlm61nDb6N9ITl/b7N1TT8ntXtfIzSo3/Axx/Kf8EZTv6qFrfgjKi/n9F1i
- PN5NBG80Fpm1kVTOCmDy4A7XSbcnoVeeAeT7vf8nGkUGWOuaNgWo5HV9R43tpY8nF+UH
- +2C+ZMXYaHBaA9ozNQBuzH8EEv7odocyLGT7Zc6tQINnBx4jOm6O7oWS3jeAtC8Yc5qF
- 18Vg==
+ dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="q8IcMrG4"
+Received: by mail-wm1-x343.google.com with SMTP id t63so1857851wmt.3
+ for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 06:08:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20150623.gappssmtp.com; s=20150623;
+ h=references:user-agent:from:to:cc:subject:in-reply-to:date
+ :message-id:mime-version;
+ bh=Ty4YTCO7eQj+vGjNzxJv3bkIvDP275wZ0W28XMErgUw=;
+ b=q8IcMrG4v7M8XlN0exK0hMVP2nwlcTyHDEzFMdI4u0XRhSxGzpaZSJ2KHYaQzUCfxQ
+ GJiLvFFNOgXl+yMDLXQ8TH+0I0PrpguM7T0vEtcON+U0GlHd/ZPUGDQFGDmVBkanciZX
+ wjXdA+I6WH2K8QafUNu5GOrsEYoJMa4I45NIuCnh/i/uQw7f53cONNGcwFd7U54BVTMh
+ T1G0vip/Zr/IRRxrMXMcmxgM/wcNu/DZFlsuFl53p+ldftLApoRdFjm+6Cw1OEeGMfkM
+ TZ9AX+CcxKb39qX4qLIl0w50IHYzNh5j6CRMUuJ1lItMjRvS2H1LtbYaJRvEQaHFXm9q
+ zjhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=tKr5OOcjl0LO68mRyxecrrNTWQR/Owq8GYegVeXuvus=;
- b=fMyexHgmaeBeA73sF34vVhVAzVk+SWr1tLm60f94vmiWX3jQu22enOr/Eg0XP7Ha1z
- dl+Ab4ZXtpDJz0Kk41OlNvwCmI88i1JW3evZVYntmfBdVb9jkBcjhYvjPX7eEN5MgyFi
- SyD5GP8hVTAB9J8IQVLEQ5dn1TxThqNydtd2lxUW/aBy+jWyJ9ZksA3ehVvTlLREHuXd
- 2Aq+zpi00EIHGwrHkUZVCRuPHuF1A9QCufS+vJu8ppmcpAfUrEEK+7AJufrRXPX5w/Y/
- dp5kvkdwQzOZx75YC/ll2F9taSKKmxl5d40j+9fMr5NMsG8DaJSJa3rtlcCkZ7Sx1y+m
- vlLw==
-X-Gm-Message-State: AGi0PuYdULYyF0SmapF7aeLzi2PkGQ0J039szRVBtiLu4dQFAhMZVcsB
- 5RzZlop299tnP+divBa35el6Sw==
-X-Google-Smtp-Source: APiQypJBuSAZYvxAVQIO84/B+i7vKU+95qK+SXe7jAj7u1BX40jmGRvSljGRre8Q319UXVQ+vH92Rg==
-X-Received: by 2002:a5d:4645:: with SMTP id j5mr3720160wrs.282.1587128530156; 
- Fri, 17 Apr 2020 06:02:10 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.googlemail.com with ESMTPSA id x18sm7460766wmi.29.2020.04.17.06.02.09
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 17 Apr 2020 06:02:09 -0700 (PDT)
-Subject: Re: [PATCH 0/2] ASoC: qdsp6: fix default FE dais and routings.
-To: Stephan Gerhold <stephan@gerhold.net>
-References: <20200311180422.28363-1-srinivas.kandagatla@linaro.org>
- <20200417112455.GA7558@gerhold.net>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <03d0d14c-d52c-460b-0232-184156f62eb7@linaro.org>
-Date: Fri, 17 Apr 2020 14:02:08 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ h=x-gm-message-state:references:user-agent:from:to:cc:subject
+ :in-reply-to:date:message-id:mime-version;
+ bh=Ty4YTCO7eQj+vGjNzxJv3bkIvDP275wZ0W28XMErgUw=;
+ b=Hx03psjGLvae/VGHAbNw7S1Yhtj9MWnU1/SH6FOGV7hVAxKzEExSD1AqI0jrlJegKK
+ cHp5AWRKMWhL9OAQEh1ZmdxaLEOl1EbpyMr/9vItDYM8GxtUpSYK8f1D5Q49zV8+pZMC
+ gs9ZRPNqoujU5LaE8Rfl9EHovU4gIvI74laUVIj9ljV78TEsa5gkKflyi9gBf681ZcFp
+ Gmh5CuHcpqEgvvoJT8llJA1wzOxgetikvFeUCtUk9giJDAhMKhI1CuvSoVbPF2Ewirwv
+ XSkDhz5P6YW+Hi9JnK6mQxKa2F+c+ULT5HbCWTMcpUJqe6kBAjqfcj+zhTOur9kJOLsu
+ jh4g==
+X-Gm-Message-State: AGi0PuZ5vESPymT9/9vdWQCK80D5ibgsOZR0H9qTysghN/20VSB9Rtp+
+ N9HY6c5OArS5tAUozkUycl0UlA==
+X-Google-Smtp-Source: APiQypKwTbH+UGQ6RLlco7ixhD9tQWGQpYXxV9Vy3bYqM7vvtsoiQVJx0hV+EC3HGZzU0pzs4SYGzg==
+X-Received: by 2002:a1c:c2d6:: with SMTP id s205mr3533464wmf.90.1587128896491; 
+ Fri, 17 Apr 2020 06:08:16 -0700 (PDT)
+Received: from localhost (cag06-3-82-243-161-21.fbx.proxad.net.
+ [82.243.161.21])
+ by smtp.gmail.com with ESMTPSA id l19sm7787106wmj.14.2020.04.17.06.08.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Apr 2020 06:08:15 -0700 (PDT)
+References: <5e997ca0.1c69fb81.f69a1.620e@mx.google.com>
+ <20200417122732.GC5315@sirena.org.uk>
+User-agent: mu4e 1.3.3; emacs 26.3
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Mark Brown <broonie@kernel.org>, Stephan Gerhold <stephan@gerhold.net>
+Subject: Re: next/master bisection: baseline.dmesg.alert on meson-sm1-sei610
+In-reply-to: <20200417122732.GC5315@sirena.org.uk>
+Date: Fri, 17 Apr 2020 15:08:14 +0200
+Message-ID: <1j7dyeb6pt.fsf@starbuckisacylon.baylibre.com>
 MIME-Version: 1.0
-In-Reply-To: <20200417112455.GA7558@gerhold.net>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
- linux-kernel@vger.kernel.org, lgirdwood@gmail.com
+Content-Type: text/plain
+Cc: alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ tomeu.vizoso@collabora.com, khilman@baylibre.com, mgalka@collabora.com,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ guillaume.tucker@collabora.com, enric.balletbo@collabora.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,147 +106,156 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+On Fri 17 Apr 2020 at 14:27, Mark Brown <broonie@kernel.org> wrote:
 
-On 17/04/2020 12:24, Stephan Gerhold wrote:
-> Hi Srini,
-> 
-> On Wed, Mar 11, 2020 at 06:04:20PM +0000, Srinivas Kandagatla wrote:
->> QDSP6 Frontend dais can be configured to work in rx or tx or both rx/tx mode,
->> however the default routing do not honour this DT configuration making sound
->> card fail to probe. FE dais are also not fully honouring device tree configuration.
->> Fix both of them.
->>
-> 
-> I discovered this patch set when QDSP6 audio stopped working after
-> upgrading to Linux 5.7-rc1. As far as I understand, device tree bindings
-> should attempt to be backwards compatible wherever possible.
-> This isn't the case here, although this is not the reason for my mail.
-> (I don't mind updating my device tree, especially since it is not
-> upstream yet...)
-> 
-> I have a general question about the design here.
-> 
-> I understand the original motivation for this patch set: Attempting to
-> configure a TX/RX-only DAI was not possible due to the default routing.
-> In my opinion this is only relevant for the compressed DAI case.
-> 
-> If we ignore the compressed DAIs for a moment (which can be
-> unidirectional only), I think we shouldn't care how userspace uses the
-> available FE/MultiMedia DAIs. We have this huge routing matrix in q6routing,
-> with 800+ mixers that can be configured in any way possible from userspace.
-> 
-> In "ASoC: qdsp6: q6asm-dai: only enable dais from device tree" you mention:
-> 
->> This can lead to un-necessary dais in the system which will never be
->> used. So honour whats specfied in device tree.
-> 
-> but IMO the FE DAIs are a negligible overhead compared to the routing
-> matrix and the many BE DAIs that are really never going to be used
-> (because nothing is physically connected to the ports).
+> On Fri, Apr 17, 2020 at 02:53:36AM -0700, kernelci.org bot wrote:
+>
+>> next/master bisection: baseline.dmesg.alert on meson-sm1-sei610
+>
+>> Summary:
+>>   Start:      a3ca59b9af21e Add linux-next specific files for 20200416
+>>   Plain log:  https://storage.kernelci.org//next/master/next-20200416/arm64/defconfig+CONFIG_RANDOMIZE_BASE=y/gcc-8/lab-baylibre/baseline-meson-sm1-sei610.txt
+>>   HTML log:   https://storage.kernelci.org//next/master/next-20200416/arm64/defconfig+CONFIG_RANDOMIZE_BASE=y/gcc-8/lab-baylibre/baseline-meson-sm1-sei610.html
+>>   Result:     9b5db059366ae ASoC: soc-pcm: dpcm: Only allow playback/capture if supported
+>
+> This change to check the playback and capture constraints is also
+> causing issues on at least Meson - I'm a bit worried that this is also
+> causing oopses here, not just audio problems so copying in Morimoto-san
+> too.  We should fix the things that are broken by this change since it's
+> a thing we should be able to rely on and do enforce for non-DPCm links
+> but I'm wondering if we should revert for 5.7 and reapply for 5.8.
+>
+> Including complete report so people have it.
+>
 
-Two things, one unnecessary mixers, second thing is we need to know how 
-many FE dais are in the system, which should be derived from the number 
-of dai child nodes. These can potentially be SoC specific or firmware 
-specific.
+I have the device with me. I'll check an report back
 
-My plan is to cleanup the BE DAIs as well!, any patches welcome!
+>> Checks:
+>>   revert:     PASS
+>>   verify:     PASS
+>
+>> Parameters:
+>>   Tree:       next
+>>   URL:        https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+>>   Branch:     master
+>>   Target:     meson-sm1-sei610
+>>   CPU arch:   arm64
+>>   Lab:        lab-baylibre
+>>   Compiler:   gcc-8
+>>   Config:     defconfig+CONFIG_RANDOMIZE_BASE=y
+>>   Test case:  baseline.dmesg.alert
+>> 
+>> Breaking commit found:
+>> 
+>> -------------------------------------------------------------------------------
+>> commit 9b5db059366ae2087e07892b5fc108f81f4ec189
+>> Author: Stephan Gerhold <stephan@gerhold.net>
+>> Date:   Wed Apr 15 12:49:28 2020 +0200
+>> 
+>>     ASoC: soc-pcm: dpcm: Only allow playback/capture if supported
+>>     
+>>     At the moment, PCM devices for DPCM are only created based on the
+>>     dpcm_playback/capture parameters of the DAI link, without considering
+>>     if the CPU/FE DAI is actually capable of playback/capture.
+>>     
+>>     Normally the dpcm_playback/capture parameter should match the
+>>     capabilities of the CPU DAI. However, there is no way to set that
+>>     parameter from the device tree (e.g. with simple-audio-card or
+>>     qcom sound cards). dpcm_playback/capture are always both set to 1.
+>>     
+>>     This causes problems when the CPU DAI does only support playback
+>>     or capture. Attemting to open that PCM device with an unsupported
+>>     stream type then results in a null pointer dereference:
+>>     
+>>         Unable to handle kernel NULL pointer dereference at virtual address 0000000000000128
+>>         Internal error: Oops: 96000044 [#1] PREEMPT SMP
+>>         CPU: 3 PID: 1582 Comm: arecord Not tainted 5.7.0-rc1
+>>         pc : invalidate_paths_ep+0x30/0xe0
+>>         lr : snd_soc_dapm_dai_get_connected_widgets+0x170/0x1a8
+>>         Call trace:
+>>          invalidate_paths_ep+0x30/0xe0
+>>          snd_soc_dapm_dai_get_connected_widgets+0x170/0x1a8
+>>          dpcm_path_get+0x38/0xd0
+>>          dpcm_fe_dai_open+0x70/0x920
+>>          snd_pcm_open_substream+0x564/0x840
+>>          snd_pcm_open+0xfc/0x228
+>>          snd_pcm_capture_open+0x4c/0x78
+>>          snd_open+0xac/0x1a8
+>>          ...
+>>     
+>>     ... because the DAI playback/capture_widget is not set in that case.
+>>     
+>>     We could add checks there to fix the problem (maybe we should
+>>     anyway), but much easier is to not expose the device as
+>>     playback/capture in the first place. Attemting to use that
+>>     device would always fail later anyway.
+>>     
+>>     Add checks for snd_soc_dai_stream_valid() to the DPCM case
+>>     to avoid exposing playback/capture if it is not supported.
+>>     
+>>     Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
+>>     Link: https://lore.kernel.org/r/20200415104928.86091-1-stephan@gerhold.net
+>>     Signed-off-by: Mark Brown <broonie@kernel.org>
+>> 
+>> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+>> index 289aebc155293..1f302de440525 100644
+>> --- a/sound/soc/soc-pcm.c
+>> +++ b/sound/soc/soc-pcm.c
+>> @@ -2911,8 +2911,17 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+>>  	int i;
+>>  
+>>  	if (rtd->dai_link->dynamic || rtd->dai_link->no_pcm) {
+>> -		playback = rtd->dai_link->dpcm_playback;
+>> -		capture = rtd->dai_link->dpcm_capture;
+>> +		cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+>> +		if (rtd->num_cpus > 1) {
+>> +			dev_err(rtd->dev,
+>> +				"DPCM doesn't support Multi CPU yet\n");
+>> +			return -EINVAL;
+>> +		}
+>> +
+>> +		playback = rtd->dai_link->dpcm_playback &&
+>> +			   snd_soc_dai_stream_valid(cpu_dai, SNDRV_PCM_STREAM_PLAYBACK);
+>> +		capture = rtd->dai_link->dpcm_capture &&
+>> +			  snd_soc_dai_stream_valid(cpu_dai, SNDRV_PCM_STREAM_CAPTURE);
+>>  	} else {
+>>  		/* Adapt stream for codec2codec links */
+>>  		int cpu_capture = rtd->dai_link->params ?
+>> -------------------------------------------------------------------------------
+>> 
+>> 
+>> Git bisection log:
+>> 
+>> -------------------------------------------------------------------------------
+>> git bisect start
+>> # good: [87b0f983f66f23762921129fd35966eddc3f2dae] net: mscc: ocelot: fix untagged packet drops when enslaving to vlan aware bridge
+>> git bisect good 87b0f983f66f23762921129fd35966eddc3f2dae
+>> # bad: [a3ca59b9af21e68069555ffff1ad89bd2a7c40fc] Add linux-next specific files for 20200416
+>> git bisect bad a3ca59b9af21e68069555ffff1ad89bd2a7c40fc
+>> # bad: [feb09551bfe34ccf0ba462188a1aee651be0f2c3] Merge remote-tracking branch 'i2c/i2c/for-next'
+>> git bisect bad feb09551bfe34ccf0ba462188a1aee651be0f2c3
+>> # good: [a4721ced760684d1776bf31f7925aa41bb3f4846] Merge v5.7-rc1 into drm-misc-fixes
+>> git bisect good a4721ced760684d1776bf31f7925aa41bb3f4846
+>> # bad: [e75043c693af6a10c9e2087adeef243cf05ce3bd] Merge remote-tracking branch 'rockchip/for-next'
+>> git bisect bad e75043c693af6a10c9e2087adeef243cf05ce3bd
+>> # bad: [08a315860a1b462fef5969d2e6ab4cdab26df8e3] Merge remote-tracking branch 'arm-soc/for-next'
+>> git bisect bad 08a315860a1b462fef5969d2e6ab4cdab26df8e3
+>> # bad: [80dbfa57508c36c2b3798b387ef3eb92954b9c09] Merge remote-tracking branch 'slave-dma-fixes/fixes'
+>> git bisect bad 80dbfa57508c36c2b3798b387ef3eb92954b9c09
+>> # good: [a723380c6f0a3723db72da6c6097b32b23f5564c] Merge remote-tracking branch 'sound-current/for-linus'
+>> git bisect good a723380c6f0a3723db72da6c6097b32b23f5564c
+>> # bad: [5bd70440cb0a6f5c6a84019bb2aa93ab8310a5cd] ASoC: soc-dai: revert all changes to DAI startup/shutdown sequence
+>> git bisect bad 5bd70440cb0a6f5c6a84019bb2aa93ab8310a5cd
+>> # good: [4d1a015a203c0249e3332ea217a38ec978118daa] ASoC: convert rockchip spdif bindings to yaml
+>> git bisect good 4d1a015a203c0249e3332ea217a38ec978118daa
+>> # good: [0f2a3b02274c02eb97697c4d89c019d1d21ac225] ASoC: wsa881x: mark read_only_wordlength flag
+>> git bisect good 0f2a3b02274c02eb97697c4d89c019d1d21ac225
+>> # good: [aa7812737f2877e192d57626cbe8825cc7cf6de9] ASoC: sgtl5000: Fix VAG power-on handling
+>> git bisect good aa7812737f2877e192d57626cbe8825cc7cf6de9
+>> # bad: [0c824ec094b5cda766c80d88c2036e28c24a4cb1] ASoC: q6dsp6: q6afe-dai: add missing channels to MI2S DAIs
+>> git bisect bad 0c824ec094b5cda766c80d88c2036e28c24a4cb1
+>> # bad: [9b5db059366ae2087e07892b5fc108f81f4ec189] ASoC: soc-pcm: dpcm: Only allow playback/capture if supported
+>> git bisect bad 9b5db059366ae2087e07892b5fc108f81f4ec189
+>> # first bad commit: [9b5db059366ae2087e07892b5fc108f81f4ec189] ASoC: soc-pcm: dpcm: Only allow playback/capture if supported
+>> -------------------------------------------------------------------------------
 
-> 
-> Even if you restrict FE DAIs to RX/TX only, or disable them entirely,
-
-I think this is mistake from myside. Alteast according to bindings 
-direction property is only "Required for Compress offload dais", code 
-should have explicitly ignored it. Here is change that should fix it.
-
---------------------------->cut<---------------------------------
-diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c 
-b/sound/soc/qcom/qdsp6/q6asm-dai.c
-index 125af00bba53..31f46b25978e 100644
---- a/sound/soc/qcom/qdsp6/q6asm-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
-@@ -1067,6 +1067,11 @@ static int of_q6asm_parse_dai_data(struct device 
-*dev,
-                 dai_drv = &pdata->dais[idx++];
-                 *dai_drv = q6asm_fe_dais_template[id];
-
-+               if (of_property_read_bool(node, "is-compress-dai"))
-+                       dai_drv->compress_new = snd_soc_new_compress;
-+               else
-+                       continue;
-+
-                 ret = of_property_read_u32(node, "direction", &dir);
-                 if (ret)
-                         continue;
-@@ -1076,8 +1081,6 @@ static int of_q6asm_parse_dai_data(struct device *dev,
-                 else if (dir == Q6ASM_DAI_TX)
-                         dai_drv->playback = empty_stream;
-
--               if (of_property_read_bool(node, "is-compress-dai"))
--                       dai_drv->compress_new = snd_soc_new_compress;
-         }
-
-         return 0;
-
---------------------------->cut<---------------------------------
-
-Thanks,
-srini
-
-> all the routing mixers still exist for them. They will just result in
-> configurations that are not usable in any way. IMO the only thing we
-> gain by restricting the FE DAIs is that the available mixers no longer
-> match possible configurations.
-> 
-> Before this patch set I used a slightly different approach in my device
-> tree for MSM8916: I kept all FE DAIs bi-directional, and added DAI links
-> for all of them. This means that I actually had 8 bi-directional PCM
-> devices in userspace.
-> 
-> I didn't use all of them - my ALSA UCM configuration only uses
-> MultiMedia1 for playback and MultiMedia2 for capture.
-> However, some other userspace (let's say Android) could have chosen
-> different FE DAIs for whatever reason. We have the overhead for the
-> routing matrix anyway, so we might as well expose it in my opinion.
-> 
-> My question is: In what way are the FE DAIs really board-specific?
-> 
-> If we expose only some FE DAIs with intended usage per board,
-> e.g. MultiMedia1 for HDMI, MultiMedia2 for slimbus playback,
->       MultiMedia3 for slimbus capture,
-> I could almost argue that we don't need DPCM at all.
-> The FE DAIs are always going to be used for the same backend anyway.
-> 
-> This is a bit exaggerated - for example if you have a single compress
-> DAI per board you probably intend to use it for both HDMI/slimbus.
-> But this is the feeling I get if we configure the FE DAIs separately
-> for each board.
-> 
-> I wonder if we should leave configuration of the FE DAIs up to userspace
-> (e.g. ALSA UCM), and expose the same full set of FE DAIs for each board.
-> 
-> I think this is mostly a matter of convention for configuring FE DAIs
-> in the device tree - I have some ideas how to make that work
-> with the existing device tree bindings and for compressed DAIs.
-> But this mail is already long enough as-is. ;)
-> 
-> I also don't mind if we keep everything as-is
-> - I just wanted to share what I have been thinking about.
-> 
-> What do you think?
-> 
-> Thanks for reading! ;)
-> Stephan
-> 
->> Originally  issue was reported by Vinod Koul
->>
->> Srinivas Kandagatla (2):
->>    ASoC: qdsp6: q6asm-dai: only enable dais from device tree
->>    ASoC: qdsp6: q6routing: remove default routing
->>
->>   sound/soc/qcom/qdsp6/q6asm-dai.c | 30 +++++++++++++++++++++++-------
->>   sound/soc/qcom/qdsp6/q6routing.c | 19 -------------------
->>   2 files changed, 23 insertions(+), 26 deletions(-)
->>
->> -- 
->> 2.21.0
->>

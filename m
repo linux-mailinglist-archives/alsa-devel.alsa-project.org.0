@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF6001AD588
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 07:11:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AFE51AD589
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 07:12:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7FE7F82A;
-	Fri, 17 Apr 2020 07:10:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FE7F82A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0D4EC1612;
+	Fri, 17 Apr 2020 07:11:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D4EC1612
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587100305;
-	bh=xl/3AxfElHOdCZokO/jDjFFFUyptTP1d0ezo4fhjYd0=;
+	s=default; t=1587100341;
+	bh=yWWvu68lpPZXpTlxAJkzxn7e65cHfLpl5/a/hBagGXA=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Cl+nDpEtZx8/SiOw5I6Wk0hHBp9FBPTwKNiHtGQUFILUYoDhb1vsyF7lY/8cOWK69
-	 JDArUjGUXVqtlXD2wEjSwjuZQb1eUYtZxL5oVbSgfYGg4wNJrA4xuMFP5iSpTvW0GV
-	 PUxTKwz8aiYslSBlCP1kWFPkssoQCICDKxwXpO/8=
+	b=LBDhYt1TPKN/JAYfZp+49v226jvQx+j0kRflZs+BP7pJrXKBhb0aTADKxtu2YfVMG
+	 n3NikOID7gLToFqaRam6rMb6fp1aIY2Q4prIG9YpfVdJiyxKyha3A0EquDulFmpDGx
+	 JuDDyiOJpqP9bYNO77pC/hDBUn/S7nX8Rpa/elKM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17F75F802E3;
-	Fri, 17 Apr 2020 07:07:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 36ACEF802E9;
+	Fri, 17 Apr 2020 07:07:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B6E71F802E3; Fri, 17 Apr 2020 07:07:07 +0200 (CEST)
+ id 16F8AF802E3; Fri, 17 Apr 2020 07:07:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id E238AF802E0
- for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 07:07:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E238AF802E0
-Date: 17 Apr 2020 14:07:03 +0900
-X-IronPort-AV: E=Sophos;i="5.72,393,1580742000"; d="scan'208";a="44972279"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 17 Apr 2020 14:07:03 +0900
+X-Spam-Status: No, score=0.2 required=5.0 tests=PRX_BODY_76,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 84587F802DF
+ for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 07:07:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84587F802DF
+Date: 17 Apr 2020 14:07:08 +0900
+X-IronPort-AV: E=Sophos;i="5.72,393,1580742000"; d="scan'208";a="44758898"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 17 Apr 2020 14:07:08 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 7EE7B400A0F7;
- Fri, 17 Apr 2020 14:07:03 +0900 (JST)
-Message-ID: <871rompuo8.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 4FBE040A7323;
+ Fri, 17 Apr 2020 14:07:08 +0900 (JST)
+Message-ID: <87zhbaog3n.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 7/8] ASoC: sprd: use snd_compress_ops
+Subject: [PATCH 8/8] ASoC: soc-compress: remove snd_compr_ops
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87blnqpuqp.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,204 +70,269 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-We can use snd_compress_ops.
-Let's switch to use it.
+snd_compr_ops couldn't care called component,
+but now we can care it via snd_compress_ops.
+All drivers switched to it.
+This patch removes snd_compr_ops.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/sprd/sprd-pcm-compress.c | 49 ++++++++++++++----------------
- sound/soc/sprd/sprd-pcm-dma.c      |  2 +-
- sound/soc/sprd/sprd-pcm-dma.h      |  2 +-
- 3 files changed, 25 insertions(+), 28 deletions(-)
+ include/sound/soc-component.h |   1 -
+ sound/soc/soc-compress.c      | 145 ----------------------------------
+ 2 files changed, 146 deletions(-)
 
-diff --git a/sound/soc/sprd/sprd-pcm-compress.c b/sound/soc/sprd/sprd-pcm-compress.c
-index 74d48340cade..749dcb7b993b 100644
---- a/sound/soc/sprd/sprd-pcm-compress.c
-+++ b/sound/soc/sprd/sprd-pcm-compress.c
-@@ -96,7 +96,8 @@ struct sprd_compr_stream {
- 	int stage1_pointer;
- };
+diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
+index 9122b11f51e9..864983b09846 100644
+--- a/include/sound/soc-component.h
++++ b/include/sound/soc-component.h
+@@ -146,7 +146,6 @@ struct snd_soc_component_driver {
+ 		    struct snd_pcm_substream *substream,
+ 		    struct vm_area_struct *vma);
  
--static int sprd_platform_compr_trigger(struct snd_compr_stream *cstream,
-+static int sprd_platform_compr_trigger(struct snd_soc_component *component,
-+				       struct snd_compr_stream *cstream,
- 				       int cmd);
+-	const struct snd_compr_ops *compr_ops; /* remove me */
+ 	const struct snd_compress_ops *compress_ops;
  
- static void sprd_platform_compr_drain_notify(void *arg)
-@@ -125,15 +126,14 @@ static void sprd_platform_compr_dma_complete(void *data)
- 	snd_compr_fragment_elapsed(cstream);
- }
- 
--static int sprd_platform_compr_dma_config(struct snd_compr_stream *cstream,
-+static int sprd_platform_compr_dma_config(struct snd_soc_component *component,
-+					  struct snd_compr_stream *cstream,
- 					  struct snd_compr_params *params,
- 					  int channel)
- {
- 	struct snd_compr_runtime *runtime = cstream->runtime;
- 	struct sprd_compr_stream *stream = runtime->private_data;
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
--	struct snd_soc_component *component =
--		snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct device *dev = component->dev;
- 	struct sprd_compr_data *data = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 	struct sprd_pcm_dma_params *dma_params = data->dma_params;
-@@ -261,14 +261,12 @@ static int sprd_platform_compr_dma_config(struct snd_compr_stream *cstream,
- 	return ret;
- }
- 
--static int sprd_platform_compr_set_params(struct snd_compr_stream *cstream,
-+static int sprd_platform_compr_set_params(struct snd_soc_component *component,
-+					  struct snd_compr_stream *cstream,
- 					  struct snd_compr_params *params)
- {
- 	struct snd_compr_runtime *runtime = cstream->runtime;
- 	struct sprd_compr_stream *stream = runtime->private_data;
--	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
--	struct snd_soc_component *component =
--		snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct device *dev = component->dev;
- 	struct sprd_compr_params compr_params = { };
- 	int ret;
-@@ -279,13 +277,13 @@ static int sprd_platform_compr_set_params(struct snd_compr_stream *cstream,
- 	 * means once the source channel's transaction is done, it will trigger
- 	 * the destination channel's transaction automatically.
- 	 */
--	ret = sprd_platform_compr_dma_config(cstream, params, 1);
-+	ret = sprd_platform_compr_dma_config(component, cstream, params, 1);
- 	if (ret) {
- 		dev_err(dev, "failed to config stage 1 DMA: %d\n", ret);
- 		return ret;
+ 	/* probe ordering - for components with runtime dependencies */
+diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
+index 343de969179e..ceaf976db0bb 100644
+--- a/sound/soc/soc-compress.c
++++ b/sound/soc/soc-compress.c
+@@ -44,23 +44,6 @@ static int soc_compr_components_open(struct snd_compr_stream *cstream,
+ 		}
  	}
  
--	ret = sprd_platform_compr_dma_config(cstream, params, 0);
-+	ret = sprd_platform_compr_dma_config(component, cstream, params, 0);
- 	if (ret) {
- 		dev_err(dev, "failed to config stage 0 DMA: %d\n", ret);
- 		goto config_err;
-@@ -314,12 +312,11 @@ static int sprd_platform_compr_set_params(struct snd_compr_stream *cstream,
- 	return ret;
+-	/* remvoe me */
+-	for_each_rtd_components(rtd, i, component) {
+-		if (!component->driver->compr_ops ||
+-		    !component->driver->compr_ops->open)
+-			continue;
+-
+-		ret = component->driver->compr_ops->open(cstream);
+-		if (ret < 0) {
+-			dev_err(component->dev,
+-				"Compress ASoC: can't open platform %s: %d\n",
+-				component->name, ret);
+-
+-			*last = component;
+-			return ret;
+-		}
+-	}
+-
+ 	*last = NULL;
+ 	return 0;
  }
+@@ -83,18 +66,6 @@ static int soc_compr_components_free(struct snd_compr_stream *cstream,
+ 		component->driver->compress_ops->free(component, cstream);
+ 	}
  
--static int sprd_platform_compr_open(struct snd_compr_stream *cstream)
-+static int sprd_platform_compr_open(struct snd_soc_component *component,
-+				    struct snd_compr_stream *cstream)
- {
- 	struct snd_compr_runtime *runtime = cstream->runtime;
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
--	struct snd_soc_component *component =
--		snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct device *dev = component->dev;
- 	struct sprd_compr_data *data = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 	struct sprd_compr_stream *stream;
-@@ -392,13 +389,11 @@ static int sprd_platform_compr_open(struct snd_compr_stream *cstream)
- 	return ret;
- }
- 
--static int sprd_platform_compr_free(struct snd_compr_stream *cstream)
-+static int sprd_platform_compr_free(struct snd_soc_component *component,
-+				    struct snd_compr_stream *cstream)
- {
- 	struct snd_compr_runtime *runtime = cstream->runtime;
- 	struct sprd_compr_stream *stream = runtime->private_data;
--	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
--	struct snd_soc_component *component =
--		snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct device *dev = component->dev;
- 	int stream_id = cstream->direction, i;
- 
-@@ -420,14 +415,12 @@ static int sprd_platform_compr_free(struct snd_compr_stream *cstream)
+-	/* remove me */
+-	for_each_rtd_components(rtd, i, component) {
+-		if (component == last)
+-			break;
+-
+-		if (!component->driver->compr_ops ||
+-		    !component->driver->compr_ops->free)
+-			continue;
+-
+-		component->driver->compr_ops->free(cstream);
+-	}
+-
  	return 0;
  }
  
--static int sprd_platform_compr_trigger(struct snd_compr_stream *cstream,
-+static int sprd_platform_compr_trigger(struct snd_soc_component *component,
-+				       struct snd_compr_stream *cstream,
- 				       int cmd)
- {
- 	struct snd_compr_runtime *runtime = cstream->runtime;
- 	struct sprd_compr_stream *stream = runtime->private_data;
--	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
--	struct snd_soc_component *component =
--		snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct device *dev = component->dev;
- 	int channels = stream->num_channels, ret = 0, i;
- 	int stream_id = cstream->direction;
-@@ -518,7 +511,8 @@ static int sprd_platform_compr_trigger(struct snd_compr_stream *cstream,
+@@ -367,17 +338,6 @@ static int soc_compr_components_trigger(struct snd_compr_stream *cstream,
+ 			return ret;
+ 	}
+ 
+-	/* remove me */
+-	for_each_rtd_components(rtd, i, component) {
+-		if (!component->driver->compr_ops ||
+-		    !component->driver->compr_ops->trigger)
+-			continue;
+-
+-		ret = component->driver->compr_ops->trigger(cstream, cmd);
+-		if (ret < 0)
+-			return ret;
+-	}
+-
+ 	return 0;
+ }
+ 
+@@ -481,17 +441,6 @@ static int soc_compr_components_set_params(struct snd_compr_stream *cstream,
+ 			return ret;
+ 	}
+ 
+-	/* remove me */
+-	for_each_rtd_components(rtd, i, component) {
+-		if (!component->driver->compr_ops ||
+-		    !component->driver->compr_ops->set_params)
+-			continue;
+-
+-		ret = component->driver->compr_ops->set_params(cstream, params);
+-		if (ret < 0)
+-			return ret;
+-	}
+-
+ 	return 0;
+ }
+ 
+@@ -632,16 +581,6 @@ static int soc_compr_get_params(struct snd_compr_stream *cstream,
+ 		break;
+ 	}
+ 
+-	/* remove me */
+-	for_each_rtd_components(rtd, i, component) {
+-		if (!component->driver->compr_ops ||
+-		    !component->driver->compr_ops->get_params)
+-			continue;
+-
+-		ret = component->driver->compr_ops->get_params(cstream, params);
+-		break;
+-	}
+-
+ err:
+ 	mutex_unlock(&rtd->card->pcm_mutex);
+ 	return ret;
+@@ -666,16 +605,6 @@ static int soc_compr_get_caps(struct snd_compr_stream *cstream,
+ 		break;
+ 	}
+ 
+-	/* remove me */
+-	for_each_rtd_components(rtd, i, component) {
+-		if (!component->driver->compr_ops ||
+-		    !component->driver->compr_ops->get_caps)
+-			continue;
+-
+-		ret = component->driver->compr_ops->get_caps(cstream, caps);
+-		break;
+-	}
+-
+ 	mutex_unlock(&rtd->card->pcm_mutex);
  	return ret;
  }
+@@ -699,17 +628,6 @@ static int soc_compr_get_codec_caps(struct snd_compr_stream *cstream,
+ 		break;
+ 	}
  
--static int sprd_platform_compr_pointer(struct snd_compr_stream *cstream,
-+static int sprd_platform_compr_pointer(struct snd_soc_component *component,
-+				       struct snd_compr_stream *cstream,
- 				       struct snd_compr_tstamp *tstamp)
- {
- 	struct snd_compr_runtime *runtime = cstream->runtime;
-@@ -532,7 +526,8 @@ static int sprd_platform_compr_pointer(struct snd_compr_stream *cstream,
+-	/* remove me */
+-	for_each_rtd_components(rtd, i, component) {
+-		if (!component->driver->compr_ops ||
+-		    !component->driver->compr_ops->get_codec_caps)
+-			continue;
+-
+-		ret = component->driver->compr_ops->get_codec_caps(cstream,
+-								   codec);
+-		break;
+-	}
+-
+ 	mutex_unlock(&rtd->card->pcm_mutex);
+ 	return ret;
+ }
+@@ -740,17 +658,6 @@ static int soc_compr_ack(struct snd_compr_stream *cstream, size_t bytes)
+ 			goto err;
+ 	}
+ 
+-	/* remove me */
+-	for_each_rtd_components(rtd, i, component) {
+-		if (!component->driver->compr_ops ||
+-		    !component->driver->compr_ops->ack)
+-			continue;
+-
+-		ret = component->driver->compr_ops->ack(cstream, bytes);
+-		if (ret < 0)
+-			goto err;
+-	}
+-
+ err:
+ 	mutex_unlock(&rtd->card->pcm_mutex);
+ 	return ret;
+@@ -779,16 +686,6 @@ static int soc_compr_pointer(struct snd_compr_stream *cstream,
+ 		break;
+ 	}
+ 
+-	/* remove me */
+-	for_each_rtd_components(rtd, i, component) {
+-		if (!component->driver->compr_ops ||
+-		    !component->driver->compr_ops->pointer)
+-			continue;
+-
+-		ret = component->driver->compr_ops->pointer(cstream, tstamp);
+-		break;
+-	}
+-
+ 	mutex_unlock(&rtd->card->pcm_mutex);
+ 	return ret;
+ }
+@@ -812,16 +709,6 @@ static int soc_compr_copy(struct snd_compr_stream *cstream,
+ 		break;
+ 	}
+ 
+-	/* remove me */
+-	for_each_rtd_components(rtd, i, component) {
+-		if (!component->driver->compr_ops ||
+-		    !component->driver->compr_ops->copy)
+-			continue;
+-
+-		ret = component->driver->compr_ops->copy(cstream, buf, count);
+-		break;
+-	}
+-
+ 	mutex_unlock(&rtd->card->pcm_mutex);
+ 	return ret;
+ }
+@@ -851,18 +738,6 @@ static int soc_compr_set_metadata(struct snd_compr_stream *cstream,
+ 			return ret;
+ 	}
+ 
+-	/* remove me */
+-	for_each_rtd_components(rtd, i, component) {
+-		if (!component->driver->compr_ops ||
+-		    !component->driver->compr_ops->set_metadata)
+-			continue;
+-
+-		ret = component->driver->compr_ops->set_metadata(cstream,
+-								 metadata);
+-		if (ret < 0)
+-			return ret;
+-	}
+-
  	return 0;
  }
  
--static int sprd_platform_compr_copy(struct snd_compr_stream *cstream,
-+static int sprd_platform_compr_copy(struct snd_soc_component *component,
-+				    struct snd_compr_stream *cstream,
- 				    char __user *buf, size_t count)
- {
- 	struct snd_compr_runtime *runtime = cstream->runtime;
-@@ -609,7 +604,8 @@ static int sprd_platform_compr_copy(struct snd_compr_stream *cstream,
- 	return count;
- }
+@@ -889,16 +764,6 @@ static int soc_compr_get_metadata(struct snd_compr_stream *cstream,
+ 			component, cstream, metadata);
+ 	}
  
--static int sprd_platform_compr_get_caps(struct snd_compr_stream *cstream,
-+static int sprd_platform_compr_get_caps(struct snd_soc_component *component,
-+					struct snd_compr_stream *cstream,
- 					struct snd_compr_caps *caps)
- {
- 	caps->direction = cstream->direction;
-@@ -625,7 +621,8 @@ static int sprd_platform_compr_get_caps(struct snd_compr_stream *cstream,
- }
- 
- static int
--sprd_platform_compr_get_codec_caps(struct snd_compr_stream *cstream,
-+sprd_platform_compr_get_codec_caps(struct snd_soc_component *component,
-+				   struct snd_compr_stream *cstream,
- 				   struct snd_compr_codec_caps *codec)
- {
- 	switch (codec->codec) {
-@@ -658,7 +655,7 @@ sprd_platform_compr_get_codec_caps(struct snd_compr_stream *cstream,
+-	/* remove me */
+-	for_each_rtd_components(rtd, i, component) {
+-		if (!component->driver->compr_ops ||
+-		    !component->driver->compr_ops->get_metadata)
+-			continue;
+-
+-		return component->driver->compr_ops->get_metadata(cstream,
+-								  metadata);
+-	}
+-
  	return 0;
  }
  
--const struct snd_compr_ops sprd_platform_compr_ops = {
-+const struct snd_compress_ops sprd_platform_compress_ops = {
- 	.open = sprd_platform_compr_open,
- 	.free = sprd_platform_compr_free,
- 	.set_params = sprd_platform_compr_set_params,
-diff --git a/sound/soc/sprd/sprd-pcm-dma.c b/sound/soc/sprd/sprd-pcm-dma.c
-index d12d3cad8cbd..5074123f8855 100644
---- a/sound/soc/sprd/sprd-pcm-dma.c
-+++ b/sound/soc/sprd/sprd-pcm-dma.c
-@@ -515,7 +515,7 @@ static const struct snd_soc_component_driver sprd_soc_component = {
- 	.mmap		= sprd_pcm_mmap,
- 	.pcm_construct	= sprd_pcm_new,
- 	.pcm_destruct	= sprd_pcm_free,
--	.compr_ops	= &sprd_platform_compr_ops,
-+	.compress_ops	= &sprd_platform_compress_ops,
- };
+@@ -1029,16 +894,6 @@ int snd_soc_new_compress(struct snd_soc_pcm_runtime *rtd, int num)
+ 		break;
+ 	}
  
- static int sprd_soc_platform_probe(struct platform_device *pdev)
-diff --git a/sound/soc/sprd/sprd-pcm-dma.h b/sound/soc/sprd/sprd-pcm-dma.h
-index 08e9fdba82f1..be5e385f5e42 100644
---- a/sound/soc/sprd/sprd-pcm-dma.h
-+++ b/sound/soc/sprd/sprd-pcm-dma.h
-@@ -6,7 +6,7 @@
- #define DRV_NAME		"sprd_pcm_dma"
- #define SPRD_PCM_CHANNEL_MAX	2
- 
--extern const struct snd_compr_ops sprd_platform_compr_ops;
-+extern const struct snd_compress_ops sprd_platform_compress_ops;
- 
- struct sprd_pcm_dma_params {
- 	dma_addr_t dev_phys[SPRD_PCM_CHANNEL_MAX];
+-	/* remove me */
+-	for_each_rtd_components(rtd, i, component) {
+-		if (!component->driver->compr_ops ||
+-		    !component->driver->compr_ops->copy)
+-			continue;
+-
+-		compr->ops->copy = soc_compr_copy;
+-		break;
+-	}
+-
+ 	mutex_init(&compr->lock);
+ 	ret = snd_compress_new(rtd->card->snd_card, num, direction,
+ 				new_name, compr);
 -- 
 2.17.1
 

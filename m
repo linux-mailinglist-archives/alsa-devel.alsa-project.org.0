@@ -2,87 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 195BE1ADB39
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 12:36:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 223DD1ADC1B
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 13:26:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9182E1660;
-	Fri, 17 Apr 2020 12:35:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9182E1660
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84FFB1665;
+	Fri, 17 Apr 2020 13:26:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84FFB1665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587119785;
-	bh=+uqa7yAtXi/+rIDSBhh5pMKJH3uMCkkO+UveKyfgaHI=;
-	h=To:From:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=XnRYS6A3pQ+DJ3Vv4hBR+eQvT6e9BKPBia6SED4kGGqixQghHZ5+HfvuqselQ0PkS
-	 wPzxtefV5Tue02AFJeocWAkJOMhi9qXkzZ6A8+OeFRm6VmAJhKjrO+7Iqlf8yA9EWb
-	 4qEg89p/ovPPZpD4Cm3PdvAfEQT0NfqMossR5Psg=
+	s=default; t=1587122811;
+	bh=PtfGQ6y34BdAO1ERtwRvNpJQ+pWBqxwze8gj9eRBAuY=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=XPwwqte6e4rbXfi3GqJXXovbzXfQIrfahVOVJJa8BgEDbUNBvy3IhF0wcBop/fCfn
+	 KVSnlP+oHWelH4SrsrEwvCwtRszgI1cEmVN4dCS10DY9q3zhkXaabJ2GVlGcdnbcyS
+	 9S/j1MLZ9J8J3vXIQT7vtdBef0NbPgd16c4Xe2Co=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B8A5BF800AB;
-	Fri, 17 Apr 2020 12:34:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8CF97F800DE;
+	Fri, 17 Apr 2020 13:25:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 904D7F80245; Fri, 17 Apr 2020 12:34:42 +0200 (CEST)
+ id A4027F80245; Fri, 17 Apr 2020 13:25:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mo6-p00-ob.smtp.rzone.de (mo6-p00-ob.smtp.rzone.de
+ [IPv6:2a01:238:20a:202:5300::5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 626DCF8012E
- for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 12:34:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 626DCF8012E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 18CC4F800DE
+ for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 13:25:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18CC4F800DE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=flowbird.group header.i=@flowbird.group
- header.b="DQ7mhfaz"
-Received: by mail-wr1-x444.google.com with SMTP id b11so2469054wrs.6
- for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 03:34:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=flowbird.group; s=google;
- h=to:from:subject:message-id:date:user-agent:mime-version
- :content-transfer-encoding:content-language;
- bh=wbl0aeufa/22z2eeBbL/aAsKWxbJHUBJwEkTChBqoAQ=;
- b=DQ7mhfazBsBQ+ES59fgYlEVbYgOFJDUz1grN966rtthpXdE37315Z7k5F6y5Qh9Kld
- ca2tKRYtiHLEuJmoG6hGgWNx3zSICRTcWkETdYVHe1HSmdR7BEG++jgClo2rPj+9Idzz
- 2TSbG6TTIlIbAQ9Uv5jEf/Izi83bqKe7icAPQnReB8pruqLDyoDDor6sQk+Ut0Ql+TGB
- BPE0skncSZ1itzyIve7av2UyKtlOUEyBq8lkUbgpGbOwZrr+PHyC5noXDKaufMgRteLu
- H2dCNCJWlOM0+zzOjyO4vvjuXIxMYAzYWin7guLEMWpBEkRNGzQl5a32Es+GoCqlIUwl
- WBBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:to:from:subject:message-id:date:user-agent
- :mime-version:content-transfer-encoding:content-language;
- bh=wbl0aeufa/22z2eeBbL/aAsKWxbJHUBJwEkTChBqoAQ=;
- b=idNf9y3BAsfp0TnzH9lWpVkUAazmfsZKuD/j2sK0rIFJttSrhureoddC8p33bRWJLr
- +ekIvVsB8uizm/kv2J2B0lVZUusyxABZZ5BVNlm+B9+rMqFqB4VODAPucu54j04iYStR
- mjRp7kKNO/ykQxxWJIiTkGKUjZkgStQgFBMarLG+Kt12LR1vtriilX3xjh4XBiQXlNPu
- jVTaiSxcUdTYldgv9dWYj/e7aOOreGcRqb63Ralv/XO++iBCZIrc0UTwyEPv5Q0cvy5H
- oOv6jR1j2r2qXMsjfc1epXdc0wFwt5W/xo8FHDASWeDBDZLbtJeCLQXGG2q5w4i2wYf8
- gh2g==
-X-Gm-Message-State: AGi0Puan2C1ZJz1Pnb9BIU2mBYqOGAxaiFy6I9ayAdnULq1z2szIIyE3
- mBJqMyMHJbdZ16hhx31m/sV97g==
-X-Google-Smtp-Source: APiQypJU4mSnTwvo6lfnqIOp31wU50jv2d7MU895Khl/UloSf9oxo+OQ/S3ELnytF3z8glmdHjAGZA==
-X-Received: by 2002:adf:f450:: with SMTP id f16mr3183676wrp.346.1587119676323; 
- Fri, 17 Apr 2020 03:34:36 -0700 (PDT)
-Received: from [192.168.0.26] ([88.125.5.131])
- by smtp.gmail.com with ESMTPSA id f8sm8783057wrm.14.2020.04.17.03.34.35
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 17 Apr 2020 03:34:35 -0700 (PDT)
-To: alsa-devel@alsa-project.org, dmaengine@vger.kernel.org
-From: Martin Fuzzey <martin.fuzzey@flowbird.group>
-Subject: alsa / dma: Sound stops playing after xrun
-Message-ID: <49b8b57c-4e69-6e9e-9bb5-a2ef2df2f258@flowbird.group>
-Date: Fri, 17 Apr 2020 12:34:34 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ dkim=pass (2048-bit key) header.d=gerhold.net header.i=@gerhold.net
+ header.b="l/mbfKlk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1587122702;
+ s=strato-dkim-0002; d=gerhold.net;
+ h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:
+ X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+ bh=PL8NP1zjYSBNJ+7M2gB6mpIwxdDNW486VMAFOgdOofM=;
+ b=l/mbfKlkhg/rLIxBQXyx3MOH27DjfANneSDuJdH0VZjA4Li7aTFcC2WgdkZ4ylfSg9
+ /15BB03o6C7OeRZRdklqTgvssujxmnAjK/3AYmUMLD3isjHWu1MeRvrIgD9WT8HkXnn7
+ IARRmQhlzWHDEdwcso9scCtk0/akGa/+qnX/eNjqmuUVfS9C4db4WUXhSZy/L2FCWXS/
+ 8uPfA0dAXMUBYKpC1QL07tj5y46KZTM4RJ35h0bz5EcBKg81enOz8u7qIpT10aTRM7ve
+ WOYo13tLrxbzTmkZ3jUiU8NKteCdyPFqwuHRu6GMdMIB1eaTgBnWCi5SQAFwWfbFRaDq
+ qAag==
+X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVOQ/OcYgojyw4j34+u26zEodhPgRDZ8j8Ic/Fboo="
+X-RZG-CLASS-ID: mo00
+Received: from gerhold.net by smtp.strato.de (RZmta 46.5.0 DYNA|AUTH)
+ with ESMTPSA id I0a766w3HBP11Vr
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Fri, 17 Apr 2020 13:25:01 +0200 (CEST)
+Date: Fri, 17 Apr 2020 13:24:55 +0200
+From: Stephan Gerhold <stephan@gerhold.net>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH 0/2] ASoC: qdsp6: fix default FE dais and routings.
+Message-ID: <20200417112455.GA7558@gerhold.net>
+References: <20200311180422.28363-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: fr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200311180422.28363-1-srinivas.kandagatla@linaro.org>
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,96 +85,98 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi all,
+Hi Srini,
 
-I am seeing a sound problem leading to no more sound after an XRUN .
-I see more or less what is happening and have a work around but am not
-entirely sure of the correct solution.
+On Wed, Mar 11, 2020 at 06:04:20PM +0000, Srinivas Kandagatla wrote:
+> QDSP6 Frontend dais can be configured to work in rx or tx or both rx/tx mode,
+> however the default routing do not honour this DT configuration making sound
+> card fail to probe. FE dais are also not fully honouring device tree configuration.
+> Fix both of them.
+> 
 
-The problem occurs on an i.MX6DL using mainline kernel 5.4 with the
-fsl_ssi driver and a SGTL5000 audio codec connected over I2S.
-The userspace is Android 8 using tinnyhal + tinyalsa.
-This uses ioctl to push samples rather than mmap.
+I discovered this patch set when QDSP6 audio stopped working after
+upgrading to Linux 5.7-rc1. As far as I understand, device tree bindings
+should attempt to be backwards compatible wherever possible.
+This isn't the case here, although this is not the reason for my mail.
+(I don't mind updating my device tree, especially since it is not
+upstream yet...)
 
-The scenario is:
-1) A buffer underrun occurs, causing -EPIPE to be returned to userspace.
-2) Userpsapce (the tinyalsa component) does a pcm_prepare() to recover 
-(which
-completes OK).
-3) Userspace starts sending data again and then, when the start threshold
-is exceeded this kernel log is generated
+I have a general question about the design here.
 
-     fsl-ssi-dai 2028000.ssi: Timeout waiting TX FIFO filling
+I understand the original motivation for this patch set: Attempting to
+configure a TX/RX-only DAI was not possible due to the default routing.
+In my opinion this is only relevant for the compressed DAI case.
 
-4) From this point on no more sound is played, further writes timeout
-after 10s and return -EIO.
+If we ignore the compressed DAIs for a moment (which can be
+unidirectional only), I think we shouldn't care how userspace uses the
+available FE/MultiMedia DAIs. We have this huge routing matrix in q6routing,
+with 800+ mixers that can be configured in any way possible from userspace.
 
-My analsysis is as follows:
+In "ASoC: qdsp6: q6asm-dai: only enable dais from device tree" you mention:
 
-When the underrun occurs snd_dmaengine_pcm_trigger(SNDRV_PCM_TRIGGER_STOP)
-is performed which does
-     dmaengine_terminate_async()
+> This can lead to un-necessary dais in the system which will never be
+> used. So honour whats specfied in device tree.
 
-When the stream is restarted 
-snd_dmaengine_pcm_trigger(SNDRV_PCM_TRIGGER_START
-does
-     dmaengine_submit()
-     dma_async_issue_pending()
+but IMO the FE DAIs are a negligible overhead compared to the routing 
+matrix and the many BE DAIs that are really never going to be used
+(because nothing is physically connected to the ports).
 
-Because dmaengine_terminate_async() is asynchronus it sometimes completes
-after the dmaengine_submit(), causing the new DMA request to be cancelled
-before it has started.
+Even if you restrict FE DAIs to RX/TX only, or disable them entirely,
+all the routing mixers still exist for them. They will just result in
+configurations that are not usable in any way. IMO the only thing we
+gain by restricting the FE DAIs is that the available mixers no longer
+match possible configurations.
 
-This results in the "Timeout waiting TX FIFO filling" message (in 
-fsl_ssi_config_enable())
-because it enables the SSI and expects data to be transfered to the FIFO by
-DMA.
+Before this patch set I used a slightly different approach in my device
+tree for MSM8916: I kept all FE DAIs bi-directional, and added DAI links
+for all of them. This means that I actually had 8 bi-directional PCM
+devices in userspace.
 
-The message is only a warning, (void function with no error return)
-So without DMA running the buffer quicky fills up, resulting in all future
-writes timeouting waiting for buffer space.
+I didn't use all of them - my ALSA UCM configuration only uses
+MultiMedia1 for playback and MultiMedia2 for capture.
+However, some other userspace (let's say Android) could have chosen
+different FE DAIs for whatever reason. We have the overhead for the
+routing matrix anyway, so we might as well expose it in my opinion.
 
-Where I'm not sure is if this is an ALSA bug or a bug in the i.MX6 SDMA
-controller driver. IE is it OK to do dmaengine_terminate_async() and later
-dmaengine_submit() on the same DMA channel without waiting for the
-terminate to complete?
+My question is: In what way are the FE DAIs really board-specific?
 
-My workaround is to wait for the terminate to complete before returning
--EPIPE (just after releasing the lock which prevents sleeping earlier).
+If we expose only some FE DAIs with intended usage per board,
+e.g. MultiMedia1 for HDMI, MultiMedia2 for slimbus playback,
+     MultiMedia3 for slimbus capture,
+I could almost argue that we don't need DPCM at all.
+The FE DAIs are always going to be used for the same backend anyway.
 
-Ie this:
+This is a bit exaggerated - for example if you have a single compress
+DAI per board you probably intend to use it for both HDMI/slimbus.
+But this is the feeling I get if we configure the FE DAIs separately
+for each board.
 
-diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
-index 2236b5e..b03dac3 100644
---- a/sound/core/pcm_lib.c
-+++ b/sound/core/pcm_lib.c
-@@ -18,6 +18,9 @@
-  #include <sound/pcm_params.h>
-  #include <sound/timer.h>
+I wonder if we should leave configuration of the FE DAIs up to userspace
+(e.g. ALSA UCM), and expose the same full set of FE DAIs for each board.
 
-+#include <linux/dmaengine.h>
-+#include <sound/dmaengine_pcm.h>
-+
-  #include "pcm_local.h"
+I think this is mostly a matter of convention for configuring FE DAIs
+in the device tree - I have some ideas how to make that work
+with the existing device tree bindings and for compressed DAIs.
+But this mail is already long enough as-is. ;)
 
-  #ifdef CONFIG_SND_PCM_XRUN_DEBUG
-@@ -2239,6 +2242,10 @@ snd_pcm_sframes_t __snd_pcm_lib_xfer(struct 
-snd_pcm_substream *substream,
-                 }
-         }
-   _end_unlock:
-+    /* MF: Workaround for broken sound after XRUN. */
-+    if (err == -EPIPE)
-+ dmaengine_synchronize(snd_dmaengine_pcm_get_chan(substream));
-+
-     runtime->twake = 0;
-     if (xfer > 0 && err >= 0)
-         snd_pcm_update_state(substream, runtime);
+I also don't mind if we keep everything as-is
+- I just wanted to share what I have been thinking about.
 
+What do you think?
 
-Regards,
+Thanks for reading! ;)
+Stephan
 
-
-Martin
-
-
+> Originally  issue was reported by Vinod Koul
+> 
+> Srinivas Kandagatla (2):
+>   ASoC: qdsp6: q6asm-dai: only enable dais from device tree
+>   ASoC: qdsp6: q6routing: remove default routing
+> 
+>  sound/soc/qcom/qdsp6/q6asm-dai.c | 30 +++++++++++++++++++++++-------
+>  sound/soc/qcom/qdsp6/q6routing.c | 19 -------------------
+>  2 files changed, 23 insertions(+), 26 deletions(-)
+> 
+> -- 
+> 2.21.0
+> 

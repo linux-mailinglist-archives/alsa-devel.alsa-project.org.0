@@ -2,89 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C82651ADA1E
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 11:38:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFF041ADA3D
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Apr 2020 11:40:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66027166F;
-	Fri, 17 Apr 2020 11:37:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66027166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 649381675;
+	Fri, 17 Apr 2020 11:40:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 649381675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587116315;
-	bh=9QUu4I4QXKnjgKyPl3WJjiPp1jfaBSx5JRxOipr0d5E=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=NOlso+W7gGulBrK10IXrgzXbW/5XZz/Ts0W505wO4QFsi1D8uLiauF1prW3A4JcEf
-	 NJ873ewLBZMAlOIP01BzUQ7pz+sRvHH0qfreZZgS4FLKR+zbGAOTQTVVRDd30iLYak
-	 6SNAKYqyKXG4DxK+a3oZWEzSDOi4ppT5xDLhWiBc=
+	s=default; t=1587116451;
+	bh=HiGfUT3+FQ6i7FqJqnrg8PKX27I6UK3LFxLUoEy11kQ=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=NoRB9Q8o7eNYB6wEnawfj3UaDH07AgAm2QElQhhYNf20qv67hs9B6z0EaLMbVTVM2
+	 HwH7XYiqLigK7fiLn8yJOYvdkYLmdz96uQhxpAhAd9Qd8h8EXl2OOSzvOm9UZOBQNo
+	 NKqoa90pZHyqKgLsWhJHq50Pg1UKR66DGI4u1DMk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 51633F80290;
-	Fri, 17 Apr 2020 11:36:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9661EF80229;
+	Fri, 17 Apr 2020 11:39:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B50FF80292; Fri, 17 Apr 2020 11:36:36 +0200 (CEST)
+ id 7E69DF80245; Fri, 17 Apr 2020 11:39:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78908F80290
- for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 11:36:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78908F80290
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="kSz5h/7b"
-Received: by mail-wr1-x444.google.com with SMTP id u13so2293509wrp.3
- for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 02:36:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Nr4vKvs2qrJShxFn1O+ztxZUZEQFA+yVojQ7rh1kCD0=;
- b=kSz5h/7bGrJkc/P34ntw8nXpZOrDvE3F342U/XFDDNM66DRjfnDbDvE1g3Xowe2Hyo
- 0O3XJZHuZ0WPvz7I2nWs9vEste+IZSGrcbecg+Ngk5H2nY63ld/TuVvhujmGJ0CJIiXc
- CI0D/rzFPSEBMEuaX0ih2c4fpyuEQchuqwFN/58oaQHIRX1VNuwKNt5khMWCXhKjuEVS
- xPscU1/UGdx+r5816XnjgBxCMDaqEr2q4isXF9pkx0OqUOovm1aMlkMBFwxA8pqX561X
- 3tI4ecUg/+lDdjbVBHo2urtXRQpJJzn2yRlqzVMJ1cWhD/AwoJF7/MMWBPOAO/7w/g2l
- 4fHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Nr4vKvs2qrJShxFn1O+ztxZUZEQFA+yVojQ7rh1kCD0=;
- b=aQHjV2QkVMUtpR1aeyj3xxEihkE7YebOj0BEYwUZQxOnLcSkHIvmBdV+/Y5xalIts8
- EK4EDKe4Y0kAnbDv7OsEIQnWOJ79vAAFQsYX3dkuRTYefR8FENbnhJajfLq5i4GdHEMe
- FdbrQu97msPZPLoim3NPES69Vg+jn7Xrc7tEcMt3dlLp3Q8rVvY9tAWmSM1bQCfPhqZA
- aXr0mmvW3v5gRzrjBtvtzEiZNDNzXcO6okR1bzgMhrA9eqNYzJCDYK+HK8fb82qUelGp
- lWbOjOlFVeWFEs6wI1EM+PQdXgPCbi9CDlcG8/caUi5nLEPGflx2jiCO75gksc/6N6j0
- nyKQ==
-X-Gm-Message-State: AGi0PuZU5EH//L2+edfK2I1IaSkHYZNlqmtJpmdGhR7msTI7BZlovVRZ
- gx+z8+TyTuEgf7nfF1kNhIiDTw==
-X-Google-Smtp-Source: APiQypLxHOfwG1ryjC/TcH1jk7Fqcg15PZuF3rUQqrV6goNBMMG+OjJ2jRHeFEWG+XHD0e7kNPGDGA==
-X-Received: by 2002:a5d:6a04:: with SMTP id m4mr3148130wru.326.1587116187648; 
- Fri, 17 Apr 2020 02:36:27 -0700 (PDT)
-Received: from srini-hackbox.lan
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.gmail.com with ESMTPSA id h137sm7819792wme.0.2020.04.17.02.36.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Apr 2020 02:36:26 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: srini@kernel.org,
-	gregkh@linuxfoundation.org
-Subject: [PATCH] slimbus: ngd: get drvdata from correct device
-Date: Fri, 17 Apr 2020 10:36:18 +0100
-Message-Id: <20200417093618.7929-1-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 83CC9F800AB
+ for <alsa-devel@alsa-project.org>; Fri, 17 Apr 2020 11:39:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83CC9F800AB
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 4FB76B02B;
+ Fri, 17 Apr 2020 09:39:00 +0000 (UTC)
+Date: Fri, 17 Apr 2020 11:39:00 +0200
+Message-ID: <s5hd086bgej.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Subject: Re: [PATCH trivial 5/6] ALSA: Fix misspellings of "Analog Devices"
+In-Reply-To: <20200416103058.15269-6-geert+renesas@glider.be>
+References: <20200416103058.15269-1-geert+renesas@glider.be>
+ <20200416103058.15269-6-geert+renesas@glider.be>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Lars-Peter Clausen <lars@metafoo.de>, Jiri Kosina <trivial@kernel.org>,
+ Stefan Popa <stefan.popa@analog.com>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, David Airlie <airlied@linux.ie>,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, dri-devel@lists.freedesktop.org,
+ linux-iio@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ dmaengine@vger.kernel.org, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
+ Jonathan Cameron <jic23@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,41 +80,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Get drvdata directly from parent instead of ngd dev, as ngd
-dev can probe defer and previously set drvdata will become null.
+On Thu, 16 Apr 2020 12:30:57 +0200,
+Geert Uytterhoeven wrote:
+> 
+> According to https://www.analog.com/, the company name is spelled
+> "Analog Devices".
+> 
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- drivers/slimbus/qcom-ngd-ctrl.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Applied this patch to sound git tree for-next branch.
 
-diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-index fc2575fef51b..7426b5884218 100644
---- a/drivers/slimbus/qcom-ngd-ctrl.c
-+++ b/drivers/slimbus/qcom-ngd-ctrl.c
-@@ -1361,7 +1361,6 @@ static int of_qcom_slim_ngd_register(struct device *parent,
- 		ngd->pdev->driver_override = QCOM_SLIM_NGD_DRV_NAME;
- 		ngd->pdev->dev.of_node = node;
- 		ctrl->ngd = ngd;
--		platform_set_drvdata(ngd->pdev, ctrl);
- 
- 		platform_device_add(ngd->pdev);
- 		ngd->base = ctrl->base + ngd->id * data->offset +
-@@ -1376,12 +1375,13 @@ static int of_qcom_slim_ngd_register(struct device *parent,
- 
- static int qcom_slim_ngd_probe(struct platform_device *pdev)
- {
--	struct qcom_slim_ngd_ctrl *ctrl = platform_get_drvdata(pdev);
- 	struct device *dev = &pdev->dev;
-+	struct qcom_slim_ngd_ctrl *ctrl = dev_get_drvdata(dev->parent);
- 	int ret;
- 
- 	ctrl->ctrl.dev = dev;
- 
-+	platform_set_drvdata(pdev, ctrl);
- 	pm_runtime_use_autosuspend(dev);
- 	pm_runtime_set_autosuspend_delay(dev, QCOM_SLIM_NGD_AUTOSUSPEND);
- 	pm_runtime_set_suspended(dev);
--- 
-2.21.0
 
+thanks,
+
+Takashi
+
+
+> ---
+>  sound/isa/ad1816a/ad1816a.c | 2 +-
+>  sound/pci/ac97/ac97_patch.c | 2 +-
+>  sound/pci/hda/Kconfig       | 4 ++--
+>  3 files changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/sound/isa/ad1816a/ad1816a.c b/sound/isa/ad1816a/ad1816a.c
+> index ce4c8ba2fa9873e7..ca18fe3ff8a59a9f 100644
+> --- a/sound/isa/ad1816a/ad1816a.c
+> +++ b/sound/isa/ad1816a/ad1816a.c
+> @@ -54,7 +54,7 @@ MODULE_PARM_DESC(clockfreq, "Clock frequency for ad1816a driver (default = 0).")
+>  static const struct pnp_card_device_id snd_ad1816a_pnpids[] = {
+>  	/* Analog Devices AD1815 */
+>  	{ .id = "ADS7150", .devs = { { .id = "ADS7150" }, { .id = "ADS7151" } } },
+> -	/* Analog Device AD1816? */
+> +	/* Analog Devices AD1816? */
+>  	{ .id = "ADS7180", .devs = { { .id = "ADS7180" }, { .id = "ADS7181" } } },
+>  	/* Analog Devices AD1816A - added by Kenneth Platz <kxp@atl.hp.com> */
+>  	{ .id = "ADS7181", .devs = { { .id = "ADS7180" }, { .id = "ADS7181" } } },
+> diff --git a/sound/pci/ac97/ac97_patch.c b/sound/pci/ac97/ac97_patch.c
+> index ebf926728c5f84af..45ef0f52ec55b803 100644
+> --- a/sound/pci/ac97/ac97_patch.c
+> +++ b/sound/pci/ac97/ac97_patch.c
+> @@ -1356,7 +1356,7 @@ static int patch_cx20551(struct snd_ac97 *ac97)
+>  }
+>  
+>  /*
+> - * Analog Device AD18xx, AD19xx codecs
+> + * Analog Devices AD18xx, AD19xx codecs
+>   */
+>  #ifdef CONFIG_PM
+>  static void ad18xx_resume(struct snd_ac97 *ac97)
+> diff --git a/sound/pci/hda/Kconfig b/sound/pci/hda/Kconfig
+> index e1d3082a4fe93153..7ba542e45a3d7f88 100644
+> --- a/sound/pci/hda/Kconfig
+> +++ b/sound/pci/hda/Kconfig
+> @@ -99,10 +99,10 @@ comment "Set to Y if you want auto-loading the codec driver"
+>  	depends on SND_HDA=y && SND_HDA_CODEC_REALTEK=m
+>  
+>  config SND_HDA_CODEC_ANALOG
+> -	tristate "Build Analog Device HD-audio codec support"
+> +	tristate "Build Analog Devices HD-audio codec support"
+>  	select SND_HDA_GENERIC
+>  	help
+> -	  Say Y or M here to include Analog Device HD-audio codec support in
+> +	  Say Y or M here to include Analog Devices HD-audio codec support in
+>  	  snd-hda-intel driver, such as AD1986A.
+>  
+>  comment "Set to Y if you want auto-loading the codec driver"
+> -- 
+> 2.17.1
+> 

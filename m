@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BA041AEE5A
-	for <lists+alsa-devel@lfdr.de>; Sat, 18 Apr 2020 16:12:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5AE01AEE5B
+	for <lists+alsa-devel@lfdr.de>; Sat, 18 Apr 2020 16:13:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC96C1660;
-	Sat, 18 Apr 2020 16:11:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC96C1660
+	by alsa0.perex.cz (Postfix) with ESMTPS id 59697167F;
+	Sat, 18 Apr 2020 16:12:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59697167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587219169;
-	bh=OieE0ed45h2bHXoLy6uX/VfWnlGezWHdPFYyZXS+NWM=;
+	s=default; t=1587219188;
+	bh=/xdDyhpMsSbsCHdP6i4AtMBNInOW9/PEpb0r4nmGPz8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LgFS3gG76QL4+DnFvFCCx/6U5blMFVs0EiflFsBB+43WsJZP9vC+/grl8Sbx6Vs91
-	 UX5MZYRJqdJW891pcltSVXI9Ws0Vba2m7BbfBefcDu3z1ZTUjPrjYYOFAjZDH+qym6
-	 KnlB/G1ZpocbP8UJK1G2hKt50d7PWgCaoJqbKhrM=
+	b=Vt0tJ7pRYFMxEKGMavbCWQEcvVhbxLMJLEIcqDzcmRqH1/ArMHEtwRCuInJ5jPaQa
+	 vroi3eRnMoGhcJsZge0TmyIl6iNr7h1jFuM6TiNHCYaIlAarAHili+yQ9iyo9yc0cF
+	 9MFA1o3i5FOumZvQUGSwKxsAR/YZTe4j3EbYqBjY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10212F80299;
-	Sat, 18 Apr 2020 16:10:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DE004F802A1;
+	Sat, 18 Apr 2020 16:10:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B3153F80299; Sat, 18 Apr 2020 16:10:24 +0200 (CEST)
+ id 7DAE1F80290; Sat, 18 Apr 2020 16:10:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CECDDF8028D
- for <alsa-devel@alsa-project.org>; Sat, 18 Apr 2020 16:10:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CECDDF8028D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9EDAAF80290
+ for <alsa-devel@alsa-project.org>; Sat, 18 Apr 2020 16:10:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EDAAF80290
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="AlXmOckx"
+ header.b="BV2rNPp0"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C04AF21D6C;
- Sat, 18 Apr 2020 14:10:16 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id B7E1E21D79;
+ Sat, 18 Apr 2020 14:10:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587219017;
- bh=OieE0ed45h2bHXoLy6uX/VfWnlGezWHdPFYyZXS+NWM=;
+ s=default; t=1587219018;
+ bh=/xdDyhpMsSbsCHdP6i4AtMBNInOW9/PEpb0r4nmGPz8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=AlXmOckxByTE4raphNWGYGtqYNdnYcosoDsCIrq01gtsTs4+nCRuyxlEQMDOe6oqY
- R7uYUG13Dx/0GZCCz9gcLJMUu/Vznbga7BvVxFy6LDmq6c6wmadYnKpovdhORkmjKO
- aEBPrjmtn7H3JXFRJq/kQPQ2GnZ6cTUvD1HaNi0k=
+ b=BV2rNPp0sWZxkFXhpI50ig1FMcM0iQ4vWDMmqcLxdElSGNIEGl5YxSNL4XdR3++FL
+ jUqY9eEb4+uELw168K/mXoFx+ZGacJrnURD+Kux5jYT6aFZxVnWCDdNLFmjEmfSWBU
+ VomVNvJcl1b7LY68Vw9PDB2cLRpmQ6OeFBPeKn40=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.5 53/75] ALSA: hda: Add driver blacklist
-Date: Sat, 18 Apr 2020 10:08:48 -0400
-Message-Id: <20200418140910.8280-53-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.5 54/75] ALSA: hda/realtek - Add quirk for MSI GL63
+Date: Sat, 18 Apr 2020 10:08:49 -0400
+Message-Id: <20200418140910.8280-54-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200418140910.8280-1-sashal@kernel.org>
 References: <20200418140910.8280-1-sashal@kernel.org>
@@ -85,63 +85,34 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 3c6fd1f07ed03a04debbb9a9d782205f1ef5e2ab ]
+[ Upstream commit 1d3aa4a5516d2e4933fe3cca11d3349ef63bc547 ]
 
-The recent AMD platform exposes an HD-audio bus but without any actual
-codecs, which is internally tied with a USB-audio device, supposedly.
-It results in "no codecs" error of HD-audio bus driver, and it's
-nothing but a waste of resources.
+MSI GL63 laptop requires the similar quirk like other MSI models,
+ALC1220_FIXUP_CLEVO_P950.  The board BIOS doesn't provide a PCI SSID
+for the device, hence we need to take the codec SSID (1462:1275)
+instead.
 
-This patch introduces a static blacklist table for skipping such a
-known bogus PCI SSID entry.  As of writing this patch, the known SSIDs
-are:
-* 1043:874f - ASUS ROG Zenith II / Strix
-* 1462:cb59 - MSI TRX40 Creator
-* 1462:cb60 - MSI TRX40
-
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=206543
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=207157
 Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/r/20200408140449.22319-2-tiwai@suse.de
+Link: https://lore.kernel.org/r/20200408135645.21896-1-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/hda_intel.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index 9d3b28bcba9b4..d2d5a19bdecce 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -2074,6 +2074,17 @@ static void pcm_mmap_prepare(struct snd_pcm_substream *substream,
- #endif
- }
- 
-+/* Blacklist for skipping the whole probe:
-+ * some HD-audio PCI entries are exposed without any codecs, and such devices
-+ * should be ignored from the beginning.
-+ */
-+static const struct snd_pci_quirk driver_blacklist[] = {
-+	SND_PCI_QUIRK(0x1043, 0x874f, "ASUS ROG Zenith II / Strix", 0),
-+	SND_PCI_QUIRK(0x1462, 0xcb59, "MSI TRX40 Creator", 0),
-+	SND_PCI_QUIRK(0x1462, 0xcb60, "MSI TRX40", 0),
-+	{}
-+};
-+
- static const struct hda_controller_ops pci_hda_ops = {
- 	.disable_msi_reset_irq = disable_msi_reset_irq,
- 	.pcm_mmap_prepare = pcm_mmap_prepare,
-@@ -2090,6 +2101,11 @@ static int azx_probe(struct pci_dev *pci,
- 	bool schedule_probe;
- 	int err;
- 
-+	if (snd_pci_quirk_lookup(pci, driver_blacklist)) {
-+		dev_info(&pci->dev, "Skipping the blacklisted device\n");
-+		return -ENODEV;
-+	}
-+
- 	if (dev >= SNDRV_CARDS)
- 		return -ENODEV;
- 	if (!enable[dev]) {
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index f44d8e2589337..62eac992ebd55 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -2449,6 +2449,7 @@ static const struct snd_pci_quirk alc882_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1458, 0xa0b8, "Gigabyte AZ370-Gaming", ALC1220_FIXUP_GB_DUAL_CODECS),
+ 	SND_PCI_QUIRK(0x1458, 0xa0cd, "Gigabyte X570 Aorus Master", ALC1220_FIXUP_CLEVO_P950),
+ 	SND_PCI_QUIRK(0x1462, 0x1228, "MSI-GP63", ALC1220_FIXUP_CLEVO_P950),
++	SND_PCI_QUIRK(0x1462, 0x1275, "MSI-GL63", ALC1220_FIXUP_CLEVO_P950),
+ 	SND_PCI_QUIRK(0x1462, 0x1276, "MSI-GL73", ALC1220_FIXUP_CLEVO_P950),
+ 	SND_PCI_QUIRK(0x1462, 0x1293, "MSI-GP65", ALC1220_FIXUP_CLEVO_P950),
+ 	SND_PCI_QUIRK(0x1462, 0x7350, "MSI-7350", ALC889_FIXUP_CD),
 -- 
 2.20.1
 

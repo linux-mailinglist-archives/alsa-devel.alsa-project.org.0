@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04D8F1AF398
-	for <lists+alsa-devel@lfdr.de>; Sat, 18 Apr 2020 20:46:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 169E71AF396
+	for <lists+alsa-devel@lfdr.de>; Sat, 18 Apr 2020 20:44:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A00051665;
-	Sat, 18 Apr 2020 20:45:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A00051665
+	by alsa0.perex.cz (Postfix) with ESMTPS id B1A931671;
+	Sat, 18 Apr 2020 20:44:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1A931671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587235561;
-	bh=A5adWBmPGS4tpgfOHIGGxtWeshpYC+EdVZFX493tCaw=;
+	s=default; t=1587235498;
+	bh=6t6e9Euqct0/BGzvIoTcm5FqRObQ6kis9QcjoINxgW4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=unthUQteLtw9EmTtjJJCy0en+N/Vb/W2dmETZ1e3zYlaxyXiq+xWVcoQCxHQ+R1wR
-	 MmECJeLMNvxaCP+cVrxliBCxARUtEjxE4p9D5T3om60oHBX0JHU9h/9YIaBPgIQ3aW
-	 FLKhtF5bASa2ag3FhIL63H1FVE0G2mpBAs8J6YMk=
+	b=uI/l2saYsliJzVjisL56JS1/cQp1yLEqifzJZOZOZmIBIeesINhXrLzyURETbF2PN
+	 Nz/Il78D1mZA7SCly21jjIRMk+Sy9mYFLgS4Twav0Q8b0auKKiY056GCl+o4x+pqvn
+	 zqFZh/gZV86ma6uz4nGLVTen3j3Ib+jt570U2VSg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BEC92F802A8;
-	Sat, 18 Apr 2020 20:41:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 261CEF80292;
+	Sat, 18 Apr 2020 20:41:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 30AECF80240; Sat, 18 Apr 2020 20:41:41 +0200 (CEST)
+ id EB737F80292; Sat, 18 Apr 2020 20:41:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,30 +35,30 @@ Received: from bombadil.infradead.org (bombadil.infradead.org
  [IPv6:2607:7c80:54:e::133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6561DF8014E
- for <alsa-devel@alsa-project.org>; Sat, 18 Apr 2020 20:41:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6561DF8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id B27A3F80240
+ for <alsa-devel@alsa-project.org>; Sat, 18 Apr 2020 20:41:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B27A3F80240
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="jiUzn1PA"
+ header.b="rJ3FSC6+"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
  Content-Type:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:
  To:From:Sender:Reply-To:Content-ID:Content-Description;
- bh=a1s3aPpvGKpLdiCJSF1xLoCWRs8yNfGARacikYyrDtI=; b=jiUzn1PA4booMrgyt5t3GsYFr/
- ZqbT1yqWuAseTRoPR1cZ03WbQhbWrvrfb3Shktw7TgEPLJPejITeFAbVpfnenXWRmF7BSdlw5fufc
- 5xVlLn5sdiZQghsGwMmWWL3arC3NhWrkyBajNutMr9ImoAPpM5lUCW04FYz0kBfqOP3r4nEhct+h+
- TCAeoRiWqPwZ5aMwlmi2X9WUo2e8C3nduhVceISsZ3l3t8Xh7FJIDIIpigt0+kncqSYZfrE4lZsBt
- 6TUBNG1H8zQfQhU58PLzemrg6gBhYWrYtkQmRG8kcbMriC/faW7nNfRC00eH2Qpc13GljIFfSJ2mg
- RiFLp/YA==;
+ bh=Z/ABBV2vtDLyfRcjamC38HwxTrQtSwsZcb0OzbkWsUE=; b=rJ3FSC6+DaZYG5qDC0wUPtN1SQ
+ 6kc24pbTmZHwpWQG5VbJcOvhSND5w9lvWyU0STq3J5awSJ+mQGR6mBrLgoi2n3O6n9Jw35QUg9Y74
+ 9mmpZhqsG2g9ClzjoUATTOR7PYeSeWpeoKr+IpZYuUcbVJVRFfFgNbPYgpOz2vwvO1ArJnNTugkXf
+ e5UqMYAoTNEErclRAZHOgSgCt9idLwF4FUQ0aYMp3ZrqvF+UofS5GPLc/CzBRVxKIeIMKMq5oaCq0
+ LHXEtvPs6ntRLkN71ahJU4FlZPCqVhnccZu4pp1C/uv0wBPvLn5xg26bBKm46QINfwvrPOOMyxieh
+ 11sA8ibQ==;
 Received: from [2601:1c0:6280:3f0::19c2] (helo=smtpauth.infradead.org)
  by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jPsP1-0007rZ-9Y; Sat, 18 Apr 2020 18:41:19 +0000
+ id 1jPsP2-0007rZ-8t; Sat, 18 Apr 2020 18:41:20 +0000
 From: Randy Dunlap <rdunlap@infradead.org>
 To: linux-kernel@vger.kernel.org
-Subject: [PATCH 6/9] nfsd: fix empty-body warning in nfs4state.c
-Date: Sat, 18 Apr 2020 11:41:08 -0700
-Message-Id: <20200418184111.13401-7-rdunlap@infradead.org>
+Subject: [PATCH 7/9] drivers/base: fix empty-body warnings in devcoredump.c
+Date: Sat, 18 Apr 2020 11:41:09 -0700
+Message-Id: <20200418184111.13401-8-rdunlap@infradead.org>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20200418184111.13401-1-rdunlap@infradead.org>
 References: <20200418184111.13401-1-rdunlap@infradead.org>
@@ -96,34 +96,38 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Fix gcc empty-body warning when -Wextra is used:
 
-../fs/nfsd/nfs4state.c:3898:3: warning: suggest braces around empty body in an ‘else’ statement [-Wempty-body]
+../drivers/base/devcoredump.c:297:42: warning: suggest braces around empty body in an ‘if’ statement [-Wempty-body]
+../drivers/base/devcoredump.c:301:42: warning: suggest braces around empty body in an ‘if’ statement [-Wempty-body]
 
 Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Cc: Johannes Berg <johannes@sipsolutions.net>
 Cc: Linus Torvalds <torvalds@linux-foundation.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: "J. Bruce Fields" <bfields@fieldses.org>
-Cc: Chuck Lever <chuck.lever@oracle.com>
-Cc: linux-nfs@vger.kernel.org
 ---
- fs/nfsd/nfs4state.c |    3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/base/devcoredump.c |    5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
---- linux-next-20200417.orig/fs/nfsd/nfs4state.c
-+++ linux-next-20200417/fs/nfsd/nfs4state.c
-@@ -34,6 +34,7 @@
- 
- #include <linux/file.h>
- #include <linux/fs.h>
+--- linux-next-20200417.orig/drivers/base/devcoredump.c
++++ linux-next-20200417/drivers/base/devcoredump.c
+@@ -9,6 +9,7 @@
+  *
+  * Author: Johannes Berg <johannes@sipsolutions.net>
+  */
 +#include <linux/kernel.h>
- #include <linux/slab.h>
- #include <linux/namei.h>
- #include <linux/swap.h>
-@@ -3895,7 +3896,7 @@ nfsd4_setclientid(struct svc_rqst *rqstp
- 		copy_clid(new, conf);
- 		gen_confirm(new, nn);
- 	} else /* case 4 (new client) or cases 2, 3 (client reboot): */
--		;
-+		do_empty();
- 	new->cl_minorversion = 0;
- 	gen_callback(new, setclid, rqstp);
- 	add_to_unconfirmed(new);
+ #include <linux/module.h>
+ #include <linux/device.h>
+ #include <linux/devcoredump.h>
+@@ -294,11 +295,11 @@ void dev_coredumpm(struct device *dev, s
+ 
+ 	if (sysfs_create_link(&devcd->devcd_dev.kobj, &dev->kobj,
+ 			      "failing_device"))
+-		/* nothing - symlink will be missing */;
++		do_empty(); /* nothing - symlink will be missing */
+ 
+ 	if (sysfs_create_link(&dev->kobj, &devcd->devcd_dev.kobj,
+ 			      "devcoredump"))
+-		/* nothing - symlink will be missing */;
++		do_empty(); /* nothing - symlink will be missing */
+ 
+ 	INIT_DELAYED_WORK(&devcd->del_wk, devcd_del);
+ 	schedule_delayed_work(&devcd->del_wk, DEVCD_TIMEOUT);

@@ -2,66 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE9C91AF2F9
-	for <lists+alsa-devel@lfdr.de>; Sat, 18 Apr 2020 20:00:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C6401AF390
+	for <lists+alsa-devel@lfdr.de>; Sat, 18 Apr 2020 20:44:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4CCC91665;
-	Sat, 18 Apr 2020 19:59:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CCC91665
+	by alsa0.perex.cz (Postfix) with ESMTPS id AEA2B9F6;
+	Sat, 18 Apr 2020 20:43:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEA2B9F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587232806;
-	bh=Kw04TPqCldOjIpHJMeDjkWHX5Maz8e0K+RmI4Mp4vv8=;
+	s=default; t=1587235460;
+	bh=B+xXdJ6NZQ/rsQFYwTYkDR6IG+JhHN+WLmoRcnyff5A=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=hUujdn5SIb1duccDH8GOoSWiQ+VNpXo1Up+WKcXnNRruB68lAJW1cRZDioTXYOy9X
-	 Jg8DeJhsymFHsaSdsKJm6f5YVcK8jmav+1pvOGukluDl9rG7HL3A3YtUu4TWu2gPAE
-	 VoOz1h+dW+/kg41ufGkh4FtpFri6OMdkBMIg5taE=
+	b=OdxTWJ/l0gSwKIvA7SlFkqq7Aslgt1eIFcKKuWroVPr0Qb2eLn/3tjJkif8LXF2yp
+	 /sKfYj0xtnh4kyznAld93cm+XoWYcRL8Fqp9HlV1RoRBFcvSLyhMvykdq758ytMKGC
+	 JzHp6HMBJ+QC8f6k3TgoFgf0qKZ5EVngIqGMqA8Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C992F8016F;
-	Sat, 18 Apr 2020 19:58:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 350C0F8013D;
+	Sat, 18 Apr 2020 20:41:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 90DE0F8014E; Sat, 18 Apr 2020 19:58:23 +0200 (CEST)
+ id DB6FDF8028B; Sat, 18 Apr 2020 20:41:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5C054F80122
- for <alsa-devel@alsa-project.org>; Sat, 18 Apr 2020 19:58:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C054F80122
+ by alsa1.perex.cz (Postfix) with ESMTPS id 682FCF8016F
+ for <alsa-devel@alsa-project.org>; Sat, 18 Apr 2020 20:41:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 682FCF8016F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=tsoy.me header.i=@tsoy.me
- header.b="h7cRdaQf"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
- s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
- Subject:Cc:To:From:Reply-To:Content-Type:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=Ic5TpljKmfpf3rc5maLqysACbwk/DlWDM/4/SFm230Y=; b=h7cRdaQf3pHvXmZwjP+vRO4r8A
- szml5i7nQA35nTZaaYkV4P6x/9Wm/JAt+EZz08y/BXBDrzuTpUhSbqjicTeSRyjGGM0HYSNpVwJzG
- 7LCmouVt4Q5svYD+Vok7EFcyLw7ZeweFPHfDzS6Iw/TUyHW6tCGNpnNomDROqcWAHMRU=;
-Received: from [2a00:1370:8125:3f98:890:f100:d37d:7ada] (helo=home.puleglot.ru)
- by puleglot.ru with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.92.3) (envelope-from <puleglot@puleglot.ru>)
- id 1jPrjM-00013n-J1; Sat, 18 Apr 2020 20:58:16 +0300
-From: Alexander Tsoy <alexander@tsoy.me>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v2] ALSA: usb-audio: Filter out unsupported sample rates on
- Focusrite devices
-Date: Sat, 18 Apr 2020 20:58:15 +0300
-Message-Id: <20200418175815.12211-1-alexander@tsoy.me>
-X-Mailer: git-send-email 2.25.3
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="XCwSjlVe"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
+ Content-Type:MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=d5zfrylOKoUmkiJ/VV8Fl3fzLkxXbmDEJr/3MIsevyo=; b=XCwSjlVez+qHxOPmcyTIK6oiMp
+ olawr70vtpi0V1QI9XKQUEdNlzc7gZtydJwYjHnNgNwCiR0Y8ytqLU1885mYKcfU2nNRcSQ+hBEej
+ MiJH64ZiTrBz5h80SHKV7B2XhV/8NA5dx2/XMstBP2kRcY+jAyFTPEP07dibSEvWPpw6URRhjEARq
+ GsW6VSkFXNXfFpWKtacsKtxhxuNePEr2gYhZGljGT1rr1HkTT8hxKqdKHdiJLDwOvTjuHdAESVOeL
+ NqEnuUJjyC5UmLntvc7lJwAg8Acv/O1w1fMRoAZtCHCPa4lyuiz4kTPN/HiIYqU17pqZ6fxYiBEQ9
+ d15hNa1Q==;
+Received: from [2601:1c0:6280:3f0::19c2] (helo=smtpauth.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1jPsOv-0007rZ-9I; Sat, 18 Apr 2020 18:41:13 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 0/9] fix -Wempty-body build warnings
+Date: Sat, 18 Apr 2020 11:41:02 -0700
+Message-Id: <20200418184111.13401-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.16.4
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Alexey Skobkin <skobkin-ru@ya.ru>
+Cc: alsa-devel@alsa-project.org, Randy Dunlap <rdunlap@infradead.org>,
+ Zzy Wysm <zzy@zzywysm.com>, "J. Bruce Fields" <bfields@fieldses.org>,
+ target-devel@vger.kernel.org, Dave Jiang <dave.jiang@intel.com>,
+ linux-scsi@vger.kernel.org, linux-nvdimm@lists.01.org,
+ Vishal Verma <vishal.l.verma@intel.com>, Chuck Lever <chuck.lever@oracle.com>,
+ linux-input@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-nfs@vger.kernel.org,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ linux-usb@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ Johannes Berg <johannes@sipsolutions.net>,
+ Linus Torvalds <torvalds@linux-foundation.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,95 +90,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Many Focusrite devices supports a limited set of sample rates per
-altsetting. These includes audio interfaces with ADAT ports:
- - Scarlett 18i6, 18i8 1st gen, 18i20 1st gen;
- - Scarlett 18i8 2nd gen, 18i20 2nd gen;
- - Scarlett 18i8 3rd gen, 18i20 3rd gen;
- - Clarett 2Pre USB, 4Pre USB, 8Pre USB.
+Hi,
 
-Maximum rate is exposed in the last 4 bytes of Format Type descriptor
-which has a non-standard bLength = 10.
+When -Wextra is used, gcc emits many warnings about an empty 'if' or
+'else' body, like this:
 
-Tested-by: Alexey Skobkin <skobkin-ru@ya.ru>
-Signed-off-by: Alexander Tsoy <alexander@tsoy.me>
----
+../fs/posix_acl.c: In function ‘get_acl’:
+../fs/posix_acl.c:127:22: warning: suggest braces around empty body in an ‘if’ statement [-Wempty-body]
+   /* fall through */ ;
+                      ^
 
-Notes:
-    v2: updated description
+To quieten these warnings, add a new macro "do_empty()".
+I originally wanted to use do_nothing(), but that's already in use.
 
- sound/usb/format.c | 51 ++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 51 insertions(+)
+It would sorta be nice if "fallthrough" could be coerced for this
+instead of using something like do_empty().
 
-diff --git a/sound/usb/format.c b/sound/usb/format.c
-index 50e1874c847c..5ffb457cc88c 100644
---- a/sound/usb/format.c
-+++ b/sound/usb/format.c
-@@ -277,6 +277,52 @@ static bool s1810c_valid_sample_rate(struct audioformat *fp,
- 	return false;
- }
- 
-+/*
-+ * Many Focusrite devices supports a limited set of sampling rates per
-+ * altsetting. Maximum rate is exposed in the last 4 bytes of Format Type
-+ * descriptor which has a non-standard bLength = 10.
-+ */
-+static bool focusrite_valid_sample_rate(struct snd_usb_audio *chip,
-+					struct audioformat *fp,
-+					unsigned int rate)
-+{
-+	struct usb_interface *iface;
-+	struct usb_host_interface *alts;
-+	unsigned char *fmt;
-+	unsigned int max_rate;
-+
-+	iface = usb_ifnum_to_if(chip->dev, fp->iface);
-+	if (!iface)
-+		return true;
-+
-+	alts = &iface->altsetting[fp->altset_idx];
-+	fmt = snd_usb_find_csint_desc(alts->extra, alts->extralen,
-+				      NULL, UAC_FORMAT_TYPE);
-+	if (!fmt)
-+		return true;
-+
-+	if (fmt[0] == 10) { /* bLength */
-+		max_rate = combine_quad(&fmt[6]);
-+
-+		/* Validate max rate */
-+		if (max_rate != 48000 &&
-+		    max_rate != 96000 &&
-+		    max_rate != 192000 &&
-+		    max_rate != 384000) {
-+
-+			usb_audio_info(chip,
-+				"%u:%d : unexpected max rate: %u\n",
-+				fp->iface, fp->altsetting, max_rate);
-+
-+			return true;
-+		}
-+
-+		return rate <= max_rate;
-+	}
-+
-+	return true;
-+}
-+
- /*
-  * Helper function to walk the array of sample rate triplets reported by
-  * the device. The problem is that we need to parse whole array first to
-@@ -319,6 +365,11 @@ static int parse_uac2_sample_rate_range(struct snd_usb_audio *chip,
- 			    !s1810c_valid_sample_rate(fp, rate))
- 				goto skip_rate;
- 
-+			/* Filter out invalid rates on Focusrite devices */
-+			if (USB_ID_VENDOR(chip->usb_id) == 0x1235 &&
-+			    !focusrite_valid_sample_rate(chip, fp, rate))
-+				goto skip_rate;
-+
- 			if (fp->rate_table)
- 				fp->rate_table[nr_rates] = rate;
- 			if (!fp->rate_min || rate < fp->rate_min)
--- 
-2.25.3
+Or should we just use "{}" in place of ";"?
+This causes some odd coding style issue IMO. E.g., see this change:
 
+original:
+ 	if (cmpxchg(p, ACL_NOT_CACHED, sentinel) != ACL_NOT_CACHED)
+		/* fall through */ ;
+
+with new macro:
+ 	if (cmpxchg(p, ACL_NOT_CACHED, sentinel) != ACL_NOT_CACHED)
+		do_empty(); /* fall through */
+
+using {}:
+ 	if (cmpxchg(p, ACL_NOT_CACHED, sentinel) != ACL_NOT_CACHED)
+		{} /* fall through */
+or
+		{ /* fall through */ }
+or even
+ 	if (cmpxchg(p, ACL_NOT_CACHED, sentinel) != ACL_NOT_CACHED) {
+		/* fall through */ }
+or
+ 	if (cmpxchg(p, ACL_NOT_CACHED, sentinel) != ACL_NOT_CACHED) {
+		} /* fall through */
+
+
+ drivers/base/devcoredump.c         |    5 +++--
+ drivers/dax/bus.c                  |    5 +++--
+ drivers/input/mouse/synaptics.c    |    3 ++-
+ drivers/target/target_core_pscsi.c |    3 ++-
+ drivers/usb/core/sysfs.c           |    2 +-
+ fs/nfsd/nfs4state.c                |    3 ++-
+ fs/posix_acl.c                     |    2 +-
+ include/linux/kernel.h             |    8 ++++++++
+ sound/drivers/vx/vx_core.c         |    3 ++-
+ 9 files changed, 24 insertions(+), 10 deletions(-)

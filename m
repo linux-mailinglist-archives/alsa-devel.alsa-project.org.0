@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27D011AF057
-	for <lists+alsa-devel@lfdr.de>; Sat, 18 Apr 2020 16:50:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70FBD1AF02F
+	for <lists+alsa-devel@lfdr.de>; Sat, 18 Apr 2020 16:49:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4BBC1688;
-	Sat, 18 Apr 2020 16:49:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4BBC1688
+	by alsa0.perex.cz (Postfix) with ESMTPS id 187E41670;
+	Sat, 18 Apr 2020 16:48:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 187E41670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587221430;
-	bh=djjlQD49nGvDfZ8Xq1ihlGnvcW0C3lWCW9SYDIgq2iU=;
+	s=default; t=1587221359;
+	bh=SC/vqzeMx1k3k9AAbtjSE5BmU6VVJ9MANDBe3abuSXk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fZ7Irq4xh8AaZkCKnVPhC3N3xVmti5Z7cpnwy69PEru6ECSxUkra0nmjmYKNo9SBD
-	 NOXGk772VsXDJmSYlLXin8g4T3WO6ILEKpNwbJc25/E8wXfcGmFhRZb/96xmnFgzU3
-	 5wuV4E5cYGNyKAdKfdfgHcwfpcrS9yuG2WAPzhZc=
+	b=m02cflwYa+oWVTQoWwtcy4iYRwWRGoXSZeO2bgmmT518seWXmSKukrKLwjoMDtqlu
+	 Tbbzh/52BuxuxeUlZ9oPZOsXPcvhMj56zB/MJ4SNgR8OEDt+JShLhsdhaZ0/Xumiwz
+	 4EC22DiAdgENHu7GQ9McJ5KcjzIeQHuefOkXBaIA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4567F80331;
-	Sat, 18 Apr 2020 16:42:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38743F8028B;
+	Sat, 18 Apr 2020 16:42:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 00BADF80316; Sat, 18 Apr 2020 16:42:12 +0200 (CEST)
+ id BFA82F80316; Sat, 18 Apr 2020 16:42:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,42 +34,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 30461F8013D
- for <alsa-devel@alsa-project.org>; Sat, 18 Apr 2020 16:42:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30461F8013D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8C652F80303
+ for <alsa-devel@alsa-project.org>; Sat, 18 Apr 2020 16:42:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C652F80303
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="mL/yr2uO"
+ header.b="HJ3ujVtX"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E68D222202;
- Sat, 18 Apr 2020 14:41:56 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 676292224F;
+ Sat, 18 Apr 2020 14:41:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587220917;
- bh=djjlQD49nGvDfZ8Xq1ihlGnvcW0C3lWCW9SYDIgq2iU=;
+ s=default; t=1587220920;
+ bh=SC/vqzeMx1k3k9AAbtjSE5BmU6VVJ9MANDBe3abuSXk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=mL/yr2uOieaHOcd1REISd79RdjQiP2WtNYfjyXOZHSk3bqO0yHK79zZTajdeQGXgR
- Lx/0VpoT2diyUSlNFlEjkiPawfquKMzBpLlx5tALZ95RmrJmPVQFob2HDv/YzeO7L4
- jydrVag8if3mGHpboezLiiiwevv4WsVfclyVn+kM=
+ b=HJ3ujVtXKNApUgyMIYJ5qtwCHZ3xirDfQyarkQxK95iX5NO3tOiartrji0/IL0/I1
+ UJWRM/QzuZgxKL8zt/kYGYdQoEw49Z0mYxd6zhmgUSCiv9yYeaXn85tXsWGXKQBeXU
+ nwFgkvqky+qqr89+NaH4ApIhfLgga5GNnMVW/Tqc=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 56/78] ASoC: Intel: bytcr_rt5640: Add quirk for
- MPMAN MPWIN895CL tablet
-Date: Sat, 18 Apr 2020 10:40:25 -0400
-Message-Id: <20200418144047.9013-56-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 58/78] ALSA: usb-audio: Add Pioneer DJ DJM-250MK2
+ quirk
+Date: Sat, 18 Apr 2020 10:40:27 -0400
+Message-Id: <20200418144047.9013-58-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200418144047.9013-1-sashal@kernel.org>
 References: <20200418144047.9013-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org,
+ =?UTF-8?q?Franti=C5=A1ek=20Ku=C4=8Dera?= <franta-linux@frantovo.cz>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,47 +86,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Hans de Goede <hdegoede@redhat.com>
+From: František Kučera <franta-linux@frantovo.cz>
 
-[ Upstream commit c8b78f24c1247b7bd0882885c672d9dec5800bc6 ]
+[ Upstream commit 73d8c94084341e2895169a0462dbc18167f01683 ]
 
-The MPMAN MPWIN895CL tablet almost fully works with out default settings.
-The only problem is that it has only 1 speaker so any sounds only playing
-on the right channel get lost.
+Pioneer DJ DJM-250MK2 is a mixer that acts like a USB sound card.
+The MIDI controller part is standard but the PCM part is "vendor specific".
+Output is enabled by this quirk: 8 channels, 48 000 Hz, S24_3LE.
+Input is not working.
 
-Add a quirk for this model using the default settings + MONO_SPEAKER.
-
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200405133726.24154-1-hdegoede@redhat.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: František Kučera <franta-linux@frantovo.cz>
+Link: https://lore.kernel.org/r/20200401095907.3387-1-konference@frantovo.cz
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/boards/bytcr_rt5640.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ sound/usb/quirks-table.h | 42 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 42 insertions(+)
 
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index 243f683bc02a7..e62e1d7815aa9 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -591,6 +591,17 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
- 					BYT_RT5640_SSP0_AIF1 |
- 					BYT_RT5640_MCLK_EN),
- 	},
-+	{
-+		/* MPMAN MPWIN895CL */
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "MPMAN"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MPWIN8900CL"),
-+		},
-+		.driver_data = (void *)(BYTCR_INPUT_DEFAULTS |
-+					BYT_RT5640_MONO_SPEAKER |
-+					BYT_RT5640_SSP0_AIF1 |
-+					BYT_RT5640_MCLK_EN),
-+	},
- 	{	/* MSI S100 tablet */
- 		.matches = {
- 			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Micro-Star International Co., Ltd."),
+diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+index d187aa6d50db0..dcaf9eed9a415 100644
+--- a/sound/usb/quirks-table.h
++++ b/sound/usb/quirks-table.h
+@@ -3592,5 +3592,47 @@ AU0828_DEVICE(0x2040, 0x7270, "Hauppauge", "HVR-950Q"),
+ 		}
+ 	}
+ },
++{
++	/*
++	 * Pioneer DJ DJM-250MK2
++	 * PCM is 8 channels out @ 48 fixed (endpoints 0x01).
++	 * The output from computer to the mixer is usable.
++	 *
++	 * The input (phono or line to computer) is not working.
++	 * It should be at endpoint 0x82 and probably also 8 channels,
++	 * but it seems that it works only with Pioneer proprietary software.
++	 * Even on officially supported OS, the Audacity was unable to record
++	 * and Mixxx to recognize the control vinyls.
++	 */
++	USB_DEVICE_VENDOR_SPEC(0x2b73, 0x0017),
++	.driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
++		.ifnum = QUIRK_ANY_INTERFACE,
++		.type = QUIRK_COMPOSITE,
++		.data = (const struct snd_usb_audio_quirk[]) {
++			{
++				.ifnum = 0,
++				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
++				.data = &(const struct audioformat) {
++					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
++					.channels = 8, // outputs
++					.iface = 0,
++					.altsetting = 1,
++					.altset_idx = 1,
++					.endpoint = 0x01,
++					.ep_attr = USB_ENDPOINT_XFER_ISOC|
++						USB_ENDPOINT_SYNC_ASYNC,
++					.rates = SNDRV_PCM_RATE_48000,
++					.rate_min = 48000,
++					.rate_max = 48000,
++					.nr_rates = 1,
++					.rate_table = (unsigned int[]) { 48000 }
++				}
++			},
++			{
++				.ifnum = -1
++			}
++		}
++	}
++},
+ 
+ #undef USB_DEVICE_VENDOR_SPEC
 -- 
 2.20.1
 

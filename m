@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D72851AF158
-	for <lists+alsa-devel@lfdr.de>; Sat, 18 Apr 2020 16:57:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D13081AF159
+	for <lists+alsa-devel@lfdr.de>; Sat, 18 Apr 2020 16:58:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B90C168B;
-	Sat, 18 Apr 2020 16:56:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B90C168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 75CA1167A;
+	Sat, 18 Apr 2020 16:57:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75CA1167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587221869;
-	bh=busdwEqfqrOllh/yyOJYSdqfqInLmSqmqcQUKjFz8BA=;
+	s=default; t=1587221911;
+	bh=DZSCDdCDB69HIfhhzIlKvyhVBwtzJQwmpG6SLjhFycQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=q4X1z2Z8Y3aeHTKOI2eyQjZ3D4XlmDuOzTxvuwB8jkBV51UaPdkzqu49+l+DHorAQ
-	 MYRbGCohKj6mdAnebapXp9Rgje+62saiFW9gDPCv4y4w8/9id2rGFVDG4ZVqjQ3MP8
-	 yAxhWTCObHeB5FZlLOz0TgxzbDzDxfwUV1bWu5SQ=
+	b=X6SurqafCK8Cew7P7vLBcxjZs+srCG9O60m9NLI9xBNnER1dBdInG9hvC4/LeozdY
+	 yaY3R+F4cdGJFJ/tyb1nv46pBFNtZ+NJuk3WDD2XWzHo7S7dZf8WTwpOFRJ2UtPa9d
+	 rZZFfj5boYVJxjqdWao1ZLGHFlO5EzrFvZpSaDaE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 208FBF8036C;
-	Sat, 18 Apr 2020 16:44:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94786F802C3;
+	Sat, 18 Apr 2020 16:44:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B23EF8036E; Sat, 18 Apr 2020 16:44:25 +0200 (CEST)
+ id 8B586F8037E; Sat, 18 Apr 2020 16:44:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 36C53F80363
- for <alsa-devel@alsa-project.org>; Sat, 18 Apr 2020 16:44:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36C53F80363
+ by alsa1.perex.cz (Postfix) with ESMTPS id 56A9CF80377
+ for <alsa-devel@alsa-project.org>; Sat, 18 Apr 2020 16:44:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56A9CF80377
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="A5NGYVYA"
+ header.b="OPYHTXEt"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1F03322245;
- Sat, 18 Apr 2020 14:44:16 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2E615221F4;
+ Sat, 18 Apr 2020 14:44:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587221056;
- bh=busdwEqfqrOllh/yyOJYSdqfqInLmSqmqcQUKjFz8BA=;
+ s=default; t=1587221072;
+ bh=DZSCDdCDB69HIfhhzIlKvyhVBwtzJQwmpG6SLjhFycQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=A5NGYVYApDJkHUbXwt+15a1tSJAeKhFJ8z7LUltIeM5bHBf3mjsbTa0ZbfOKXA+R3
- mAcxxu3OHXVVRxkWm39TnK/1kej/ZTOy6mZ9b0XZ4olCTm9RkdDub37xQDmZxFyg0t
- buzT8hRVPVwetaFbI2PCzhaKA0IaOCSMyyLJie1s=
+ b=OPYHTXEt7f++FSFGDuqNtV3doBOPG21Xo9UONJRVC2XTdRJ+rNuZnLJnsRhZ2g75f
+ 5j0rvaj0AENx+L03n57z83a8qU9OUkFOs/VtP8eWzeWRjC1ndCielsWrtGoKcal0ri
+ hxJhBi04Iwt8m7vF5jNLcDpquqeEL374fZKNNxuU=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.9 09/23] ASoC: Intel: atom: Take the drv->lock mutex
- before calling sst_send_slot_map()
-Date: Sat, 18 Apr 2020 10:43:51 -0400
-Message-Id: <20200418144405.10565-9-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.9 21/23] ALSA: ice1724: Fix invalid access for
+ enumerated ctl items
+Date: Sat, 18 Apr 2020 10:44:03 -0400
+Message-Id: <20200418144405.10565-21-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200418144405.10565-1-sashal@kernel.org>
 References: <20200418144405.10565-1-sashal@kernel.org>
@@ -67,9 +67,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,40 +84,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Hans de Goede <hdegoede@redhat.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 81630dc042af998b9f58cd8e2c29dab9777ea176 ]
+[ Upstream commit c47914c00be346bc5b48c48de7b0da5c2d1a296c ]
 
-sst_send_slot_map() uses sst_fill_and_send_cmd_unlocked() because in some
-places it is called with the drv->lock mutex already held.
+The access to Analog Capture Source control value implemented in
+prodigy_hifi.c is wrong, as caught by the recently introduced sanity
+check; it should be accessing value.enumerated.item[] instead of
+value.integer.value[].  This patch corrects the wrong access pattern.
 
-So it must always be called with the mutex locked. This commit adds missing
-locking in the sst_set_be_modules() code-path.
-
-Fixes: 24c8d14192cc ("ASoC: Intel: mrfld: add DSP core controls")
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200402185359.3424-1-hdegoede@redhat.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Fixes: 6b8d6e5518e2 ("[ALSA] ICE1724: Added support for Audiotrak Prodigy 7.1 HiFi & HD2, Hercules Fortissimo IV")
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=207139
+Reviewed-by: Jaroslav Kysela <perex@perex.cz>
+Cc: <stable@vger.kernel.org>
+Link: https://lore.kernel.org/r/20200407084402.25589-3-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/atom/sst-atom-controls.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/pci/ice1712/prodigy_hifi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/intel/atom/sst-atom-controls.c b/sound/soc/intel/atom/sst-atom-controls.c
-index 0838478c4c3f9..92aa1518b7723 100644
---- a/sound/soc/intel/atom/sst-atom-controls.c
-+++ b/sound/soc/intel/atom/sst-atom-controls.c
-@@ -976,7 +976,9 @@ static int sst_set_be_modules(struct snd_soc_dapm_widget *w,
- 	dev_dbg(c->dev, "Enter: widget=%s\n", w->name);
+diff --git a/sound/pci/ice1712/prodigy_hifi.c b/sound/pci/ice1712/prodigy_hifi.c
+index 2697402b51957..41f6450a2539f 100644
+--- a/sound/pci/ice1712/prodigy_hifi.c
++++ b/sound/pci/ice1712/prodigy_hifi.c
+@@ -569,7 +569,7 @@ static int wm_adc_mux_enum_get(struct snd_kcontrol *kcontrol,
+ 	struct snd_ice1712 *ice = snd_kcontrol_chip(kcontrol);
  
- 	if (SND_SOC_DAPM_EVENT_ON(event)) {
-+		mutex_lock(&drv->lock);
- 		ret = sst_send_slot_map(drv);
-+		mutex_unlock(&drv->lock);
- 		if (ret)
- 			return ret;
- 		ret = sst_send_pipe_module_params(w, k);
+ 	mutex_lock(&ice->gpio_mutex);
+-	ucontrol->value.integer.value[0] = wm_get(ice, WM_ADC_MUX) & 0x1f;
++	ucontrol->value.enumerated.item[0] = wm_get(ice, WM_ADC_MUX) & 0x1f;
+ 	mutex_unlock(&ice->gpio_mutex);
+ 	return 0;
+ }
+@@ -583,7 +583,7 @@ static int wm_adc_mux_enum_put(struct snd_kcontrol *kcontrol,
+ 
+ 	mutex_lock(&ice->gpio_mutex);
+ 	oval = wm_get(ice, WM_ADC_MUX);
+-	nval = (oval & 0xe0) | ucontrol->value.integer.value[0];
++	nval = (oval & 0xe0) | ucontrol->value.enumerated.item[0];
+ 	if (nval != oval) {
+ 		wm_put(ice, WM_ADC_MUX, nval);
+ 		change = 1;
 -- 
 2.20.1
 

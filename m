@@ -2,89 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E61F1AF846
-	for <lists+alsa-devel@lfdr.de>; Sun, 19 Apr 2020 09:43:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF5721AF525
+	for <lists+alsa-devel@lfdr.de>; Sat, 18 Apr 2020 23:32:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E65E0167F;
-	Sun, 19 Apr 2020 09:42:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E65E0167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 49184166F;
+	Sat, 18 Apr 2020 23:31:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49184166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587282209;
-	bh=0CUGCz8/5TiP6Ufqia5Cgb8EYAj0sqfBm845dVqP5k4=;
-	h=From:Subject:To:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=a9FJYR7KIBvykwca5YlyXQj8Be7MZr2dGF33h/x1EmHMbOxIVr35Vfo4mGld5Mfz2
-	 aXQqcmWsGHXAW7ZwJwMQQVqOOu3dFUCHonX7VQk7cYlXjrCQu6EChyiyiqJXltFMja
-	 Ek53DvbMVy1dMyUtGPbe3kQNcc/AsWEGKI97UEJc=
+	s=default; t=1587245538;
+	bh=i8hul0rFZw8p4JRDe/0XUV8P+/lPUgtbQoMVaylvCpo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=I/KQmNDNI3Tinfkd1Fu54Tc3VBieVRk/5LsqG8tmNzdSWc2mzdDO3IY7X9YroeqJF
+	 yJ2lxOHwNnhI+ZYW9c2pG6tCyuIGm+4DZVLmDJp17HQbouebVUe8OksuZhK5oZAhLV
+	 gQjjTV+VSko70QaGyloyNu99kE4c42UtVi4l83m0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0FC2F802A8;
-	Sun, 19 Apr 2020 09:38:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5F3F2F8016F;
+	Sat, 18 Apr 2020 23:30:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5045BF8014E; Sat, 18 Apr 2020 23:22:50 +0200 (CEST)
+ id AFB45F8014E; Sat, 18 Apr 2020 23:30:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-il1-x141.google.com (mail-il1-x141.google.com
+ [IPv6:2607:f8b0:4864:20::141])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F191BF800E7
- for <alsa-devel@alsa-project.org>; Sat, 18 Apr 2020 23:22:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F191BF800E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 827F4F80122
+ for <alsa-devel@alsa-project.org>; Sat, 18 Apr 2020 23:30:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 827F4F80122
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=gmx.net header.i=@gmx.net
- header.b="Ce6A4T+T"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1587244962;
- bh=0CUGCz8/5TiP6Ufqia5Cgb8EYAj0sqfBm845dVqP5k4=;
- h=X-UI-Sender-Class:From:Subject:To:Cc:Date;
- b=Ce6A4T+TeVEqvnV9t7F+3kroNK3RqNki4uLRYIMbSxLpqzSfQ67oTReAhu2aJeVhp
- QKVJAPPW0x9lAQyHc4kCCBPW9bWDLdhoga9vrg1pnAIXPoKonbYoUJh9onDrwBGrha
- dbKuFCnU39PRH1A9dC2jv2LcIScPti87caDgVp1w=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from [192.168.178.36] ([85.127.240.3]) by mail.gmx.com (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MJVDW-1jfEss1g2i-00Jqhw; Sat, 18
- Apr 2020 23:22:42 +0200
-From: Johnathan Smithinovic <johnathan.smithinovic@gmx.at>
-Subject: PROBLEM: No sound on ASUS ROG Zenith Extreme in 5.6.5
-To: tiwai@suse.com
-Message-ID: <f19e2e93-8d6d-207b-202a-5ceeab0f8571@gmx.at>
-Date: Sat, 18 Apr 2020 23:22:41 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="PBweGkuN"
+Received: by mail-il1-x141.google.com with SMTP id x2so4498245ilp.13
+ for <alsa-devel@alsa-project.org>; Sat, 18 Apr 2020 14:30:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=nKuUM6IHW8RYHdTcFjqmk2a4BW3C6dzC42TENSM2aLE=;
+ b=PBweGkuNrIIhqTHUkOqGVSkGqJB1PNvsadvz8LjfFnZ6P4CKIZCf1OAKrTNC4fy/ci
+ 4Rp54B1F6f+fHirPVBzu+pGSLCRXannDPndxPXIipkYN04OXsDitRYo8dMu6UkvQ7wka
+ mHlk2SqG72sY3ogGch4dFZJ5dabTsi5z1+3kdAhCfWGUt7A+bnu61TA2CtygquAFmihW
+ ia+COjjURroAkwcgnA79DX9SyvVhL0/SIcGzfzTafYQuR5zcQ3p1u0mLakhEy0SG5eMN
+ ukpZ34SJsxEsGD8VCPxfd/24Qf4ZqKsbkfRiDsxCLI5BV5p0WpoconaIixFeUU6D9fyd
+ Snhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=nKuUM6IHW8RYHdTcFjqmk2a4BW3C6dzC42TENSM2aLE=;
+ b=ebVTPU82ULwEiqZOwKmDw9p8EhIbjNa0Qawm/EVqfFT8LT1Smxyps4lnVEtSX5fPzs
+ hu7+lu+BIZsejbUBR1vgDAElgDQjA/F+XLX4HktltQ3/m6cuTv9ZT7TvnjZsC9ORiM6l
+ DRyd8czwtmwlfLCllahJwV7kldjZ2U2HAzgH6/osY3209tCJku2mc7FYvWRmPhBlSSpu
+ Cc5LDBXd5ozYPsGHjJHnS8xrnwFA9oCHI1prqoyKLbhQ3Y2T5VFVj/1Xrq/E8Fy4m8bi
+ bRvb3lDUyvBmhey2VGcY4suoIwxLcZj0Cu1esWHWcnHWfApS4NMbVHjZAn+EUBBQ6NVY
+ 4kCQ==
+X-Gm-Message-State: AGi0PuZwiLHqb7yZkCZd8SRxyUBBdvRPGGk688xVFS1hPysGytW3XPmK
+ hGmp15VdT1YgQNS0z7dbhhE2rJ6eF3GFo8oIbII=
+X-Google-Smtp-Source: APiQypJzTdzColiYA6jI5kUE3R3feOOH5KcSAgB1jGYlnjTxo7vews7lVZM8Ee7P9ayUu0/SV24dV3u7niNPl+4w1Io=
+X-Received: by 2002:a92:540f:: with SMTP id i15mr8784006ilb.59.1587245427254; 
+ Sat, 18 Apr 2020 14:30:27 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+References: <20200418143923.19608-1-peron.clem@gmail.com>
+ <20200418143923.19608-5-peron.clem@gmail.com>
+In-Reply-To: <20200418143923.19608-5-peron.clem@gmail.com>
+From: =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
+Date: Sat, 18 Apr 2020 23:30:16 +0200
+Message-ID: <CAJiuCcdH0=wdKfmAquNfv=0AT_S8qx0Nasbb4m6itWXjUyw8_g@mail.gmail.com>
+Subject: Re: [PATCH 4/7] ASoC: sun4i-i2s: Set sign extend sample
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh+dt@kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ Chen-Yu Tsai <wens@csie.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:Y9QSTNdqf1Z5zsK4TmLWsR7G5M09rZqNEveIOoMOJb/zHcvbqTu
- 6HFHuGDsv4H7lY+9Eoi83DffsvMCYemQgCAb6r7q7+UL5RSwxOAsx/rSHlPtmNZhORkZLNW
- bpz7aRaBUMWSeLf3QYsJi2axcsIPq+VfYZm7NHG2FNQ9j/cQb5FhcH14QtdfPj5yI2++QOe
- 9qagHKpD104SM7qrhocEA==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:5oMSYX0pp78=:3fjguAHctVSsMtOYcSKnLK
- EH6C87gFZH+SIpo8rDW8JIVzRnIWNRtT0JiH0gXIOTjliF8Sx3deR2BhkOuq2S923Vok1Zvdk
- xAcS8A0P/bQWp6NaneBB2DEVVSjjzg7mX5+2oNUkx95neTBCRJOW6ykq9yY11VkQ67bUqjPNf
- xdAkTEkRgU7HHJoTR0EKwOS6J9ZYqSKYtnT2c/ZXpfYXFTuAOrrZawpNdHxxCjaKFZbJD0Ty7
- gHLxwoQyimJrgLtRjTWTAc5ykkz3Wf2KQnj1a6Bl9U9rHIWJ0RHqJh5bzkoqf8goxirNK/FfY
- O2VBA09kBLJggbhnvjTuAavNqqegtBxHEJGCSkGpy+Ui2MxiabdfT90HR6DjS3ynF01FN5+x7
- rFKmKiTgB8Ib3t9ec9kU+4RSRkPLEAPNLQN2UNNiVCaTyPG1rLE0ngcs43w6yRW+B7zw1VLgs
- LbVLHW+BysSPuK/08Yj72W53kE9QhvDR4dKDocI+IxJ/pD+T3RHQkq7X4rtiKiP263KIBGLcq
- 3iwbJj8NgBT3Gz3NlDrrfmkMInPFKATd/iyvZR5PHUC1mxd6SjeS+70y9dcJ6+NtCTI7ODDWk
- pY6Lwe/NLjVk7kGd6Cmzf1ugd68jaX00Lpe8x7T5QLWDWT8BS5G5bngrnsFoxoPUFk4FRV47k
- zIRmx1lKK2wOYkvNZDdeYSAoBsrOis2ca39aD1+wC1uDQ9fBGnkgZ/0K6DrKbMkE06v60lLQx
- ETKrSYac8tcagNDRy4uOxXtUTRL1yALvshT9fy5e/re/+uNswfJBcucvX6bJz+1DNIBGz4OvW
- xk9zUmTxPUIwWgIDu15RgGk0JnAHFosMkSpQH6L2acPLTbFL8YAhlLAk/6/HSIdu3dtsoWOKh
- bnJ8b2k9VMHkStUj5KMc6ey3YnlGoGrk48KLOTKDvQK72W+U+VrY/Q/MFZIGGn0VXEf3UNuS4
- s9nlApG4raRakmqZYonilIevghqUjL5QnGjOwO2aCrTcNE6Q8v8q7Hz+tuLYh3LjRVQKBYyoV
- JBZ8A3Y6kyo5o//fVp3u8bEVKnjN3esX9pAWc6qURtYYJzi8RuO8bMj798P1gXWGK7Or8Ueh3
- 61jZ25R2qXdwe8snqkinJZ/hz39h6hdE6VrDQXMmmCTsFu7XocDBGk2w+LF+VIP61d9pr4gbC
- w6LYDWXNUGAcYTnuBgmHCijywMMnjTdzsBq9gGjUxrUZhEtjqMbrNmECAydAXvAl/YK2B6i/m
- tG+l16vnTYe1cdNSVfrggukPiGUCtfsu6A35RfQ==
-X-Mailman-Approved-At: Sun, 19 Apr 2020 09:38:23 +0200
-Cc: alsa-devel@alsa-project.org
+Cc: devicetree <devicetree@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ Marcus Cooper <codekipper@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,28 +103,85 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-PROBLEM: No sound on ASUS ROG Zenith Extreme since 5.6.5
+Hi,
 
-When I upgraded from 5.6.4 to 5.6.5 I noticed that my sound stopped workin=
-g.
+On Sat, 18 Apr 2020 at 16:39, Cl=C3=A9ment P=C3=A9ron <peron.clem@gmail.com=
+> wrote:
+>
+> From: Marcus Cooper <codekipper@gmail.com>
+>
+> On the newer SoCs such as the H3 and A64 this is set by default
+> to transfer a 0 after each sample in each slot. However the A10
+> and A20 SoCs that this driver was developed on had a default
+> setting where it padded the audio gain with zeros.
+>
+> This isn't a problem whilst we have only support for 16bit audio
+> but with larger sample resolution rates in the pipeline then SEXT
+> bits should be cleared so that they also pad at the LSB. Without
+> this the audio gets distorted.
+>
+> Signed-off-by: Marcus Cooper <codekipper@gmail.com>
+> Signed-off-by: Cl=C3=A9ment P=C3=A9ron <peron.clem@gmail.com>
+> ---
+>  sound/soc/sunxi/sun4i-i2s.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+>
+> diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
+> index a23c9f2a3f8c..e5f00be8cdcf 100644
+> --- a/sound/soc/sunxi/sun4i-i2s.c
+> +++ b/sound/soc/sunxi/sun4i-i2s.c
+> @@ -663,6 +663,12 @@ static int sun4i_i2s_set_soc_fmt(const struct sun4i_=
+i2s *i2s,
+>         }
+>         regmap_update_bits(i2s->regmap, SUN4I_I2S_CTRL_REG,
+>                            SUN4I_I2S_CTRL_MODE_MASK, val);
+> +
+> +       /* Set sign extension to pad out LSB with 0 */
+> +       regmap_update_bits(i2s->regmap, SUN4I_I2S_FMT1_REG,
+> +                          SUN4I_I2S_FMT1_REG_SEXT_MASK,
+> +                          SUN4I_I2S_FMT1_REG_SEXT(0));
 
-My motherboard is a first generation "ASUS ROG Zenith Extreme".
-(I'm running Ubuntu 18.04 in case that matters.)
+My apologies, I made a mistake during the rebase between old Marcus
+Cooper patches and new one.
+And sadly I lost the defines required here without noticing it.
 
-I'm pretty sure it comes from stable kernel release commit
-7f722d9aa00fde795834840cc84e13a94efb29ed
-(git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git) which
-notes "commit 3c6fd1f07ed03a04debbb9a9d782205f1ef5e2ab upstream."
-("ALSA: hda: Add driver blacklist").
+Will send a v2.
 
-When I comment out 'SND_PCI_QUIRK(0x1043, 0x874f, "ASUS ROG Zenith II /
-Strix", 0),' in sound/pci/hda/hda_intel.c my sound works again.
+Sorry for that,
+Clement
 
-(In case I chose incorrect places to write this mail to I'm sorry. I
-tried to follow
-https://www.kernel.org/doc/html/latest/admin-guide/reporting-bugs.html
-while keeping this report minimal.)
-
-
-Kind regards
-John
+> +
+>         return 0;
+>  }
+>
+> @@ -765,6 +771,11 @@ static int sun8i_i2s_set_soc_fmt(const struct sun4i_=
+i2s *i2s,
+>                            SUN8I_I2S_CTRL_BCLK_OUT | SUN8I_I2S_CTRL_LRCK_=
+OUT,
+>                            val);
+>
+> +       /* Set sign extension to pad out LSB with 0 */
+> +       regmap_update_bits(i2s->regmap, SUN4I_I2S_FMT1_REG,
+> +                          SUN8I_I2S_FMT1_REG_SEXT_MASK,
+> +                          SUN8I_I2S_FMT1_REG_SEXT(0));
+> +
+>         return 0;
+>  }
+>
+> @@ -867,6 +878,11 @@ static int sun50i_i2s_set_soc_fmt(const struct sun4i=
+_i2s *i2s,
+>                            SUN8I_I2S_CTRL_BCLK_OUT | SUN8I_I2S_CTRL_LRCK_=
+OUT,
+>                            val);
+>
+> +       /* Set sign extension to pad out LSB with 0 */
+> +       regmap_update_bits(i2s->regmap, SUN4I_I2S_FMT1_REG,
+> +                          SUN8I_I2S_FMT1_REG_SEXT_MASK,
+> +                          SUN8I_I2S_FMT1_REG_SEXT(0));
+> +
+>         return 0;
+>  }
+>
+> --
+> 2.20.1
+>

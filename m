@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 257921AF0E2
-	for <lists+alsa-devel@lfdr.de>; Sat, 18 Apr 2020 16:53:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 174C51AF0E3
+	for <lists+alsa-devel@lfdr.de>; Sat, 18 Apr 2020 16:54:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BF2571694;
-	Sat, 18 Apr 2020 16:53:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF2571694
+	by alsa0.perex.cz (Postfix) with ESMTPS id B48481678;
+	Sat, 18 Apr 2020 16:53:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B48481678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587221631;
-	bh=bdRG4QJSIh1FzpVsaOuoYBVt/Quoq5dTXWozMxcztH0=;
+	s=default; t=1587221666;
+	bh=xWkh+wgmkv2dtOUT5TheKqZ9bLvgmKP42sLP6G2pLhA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Gak+okn6ZW89DLX5VagxxIf31bQnVO0PsO0bRLRIBd/tOLuKw2qssew0m1bMX5t/m
-	 KEBW5iL0JAgWObAuAsOUbk5uD+vD6GND/+zl59dGmxQh/4KX5GooV3OjfCNomzDWuc
-	 xMpBRnF++aD+rZqFeN6f2s/ZZp51KbsYEruMR91U=
+	b=NtTAC9BPNkGWxfL+uPRdPSl4G7cGLxcK8ID0hdJ95A73BQIu3Ex3BpWM3/9SM3Cyn
+	 jyl87cKTt6V6xEsuA3y7Y792lXEKAHsw+25lAwQvGuXb/bsD4KHd++8VlbRx8LQrq0
+	 7v5+T6xOy8al/Cxx9eljUk86eB9j92Bjbd2x6Bwo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D359F80340;
-	Sat, 18 Apr 2020 16:43:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8A210F80349;
+	Sat, 18 Apr 2020 16:43:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 75388F802A2; Sat, 18 Apr 2020 16:43:19 +0200 (CEST)
+ id C0163F80340; Sat, 18 Apr 2020 16:43:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0C127F8029B
- for <alsa-devel@alsa-project.org>; Sat, 18 Apr 2020 16:43:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C127F8029B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9301AF8033E
+ for <alsa-devel@alsa-project.org>; Sat, 18 Apr 2020 16:43:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9301AF8033E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="z9+/uCVU"
+ header.b="A5zC0A5A"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0B9E721D79;
- Sat, 18 Apr 2020 14:43:09 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 536F222244;
+ Sat, 18 Apr 2020 14:43:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587220990;
- bh=bdRG4QJSIh1FzpVsaOuoYBVt/Quoq5dTXWozMxcztH0=;
+ s=default; t=1587220993;
+ bh=xWkh+wgmkv2dtOUT5TheKqZ9bLvgmKP42sLP6G2pLhA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=z9+/uCVUsIS1wA8A9iUrSz1hRaBoh789zdR0mIB+nIkmijPROSwwF9UHQ2fwH0mak
- TvqP1vXkJ7KLKQUJLY1Ou4BSZBrlKxhTVt3hst+kEOIv/9L5ZiU0FgFHH9aDvi6hbK
- H2h2p90J2iHh6oyAmL/0YUuuhckjsAd49iX6UGQ0=
+ b=A5zC0A5ApyKYlHyYWd3PTN8sEva/9fo79WEVcz1bo2EMIi3PrkHvRBHmWQe15Sk71
+ 5bFPt5j1oUQZ7yLMWJBrCGbwO4aCdvb+t/WyRlTt0+uVDEIFbTaVNNnLFHEgduclQA
+ R4NulQuaYh2T8+cdUS2J8Y0XiJYUh2ANGvGRPWBI=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 34/47] ALSA: hda: Fix potential access overflow
- in beep helper
-Date: Sat, 18 Apr 2020 10:42:14 -0400
-Message-Id: <20200418144227.9802-34-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 36/47] ASoC: Intel: bytcr_rt5640: Add quirk for
+ MPMAN MPWIN895CL tablet
+Date: Sat, 18 Apr 2020 10:42:16 -0400
+Message-Id: <20200418144227.9802-36-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200418144227.9802-1-sashal@kernel.org>
 References: <20200418144227.9802-1-sashal@kernel.org>
@@ -67,8 +67,9 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org
+Cc: Sasha Levin <sashal@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,48 +85,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Takashi Iwai <tiwai@suse.de>
+From: Hans de Goede <hdegoede@redhat.com>
 
-[ Upstream commit 0ad3f0b384d58f3bd1f4fb87d0af5b8f6866f41a ]
+[ Upstream commit c8b78f24c1247b7bd0882885c672d9dec5800bc6 ]
 
-The beep control helper function blindly stores the values in two
-stereo channels no matter whether the actual control is mono or
-stereo.  This is practically harmless, but it annoys the recently
-introduced sanity check, resulting in an error when the checker is
-enabled.
+The MPMAN MPWIN895CL tablet almost fully works with out default settings.
+The only problem is that it has only 1 speaker so any sounds only playing
+on the right channel get lost.
 
-This patch corrects the behavior to store only on the defined array
-member.
+Add a quirk for this model using the default settings + MONO_SPEAKER.
 
-Fixes: 0401e8548eac ("ALSA: hda - Move beep helper functions to hda_beep.c")
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=207139
-Reviewed-by: Jaroslav Kysela <perex@perex.cz>
-Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/r/20200407084402.25589-2-tiwai@suse.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20200405133726.24154-1-hdegoede@redhat.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/hda_beep.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ sound/soc/intel/boards/bytcr_rt5640.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/sound/pci/hda/hda_beep.c b/sound/pci/hda/hda_beep.c
-index 066b5b59c4d7c..0224011a240fb 100644
---- a/sound/pci/hda/hda_beep.c
-+++ b/sound/pci/hda/hda_beep.c
-@@ -297,8 +297,12 @@ int snd_hda_mixer_amp_switch_get_beep(struct snd_kcontrol *kcontrol,
- {
- 	struct hda_codec *codec = snd_kcontrol_chip(kcontrol);
- 	struct hda_beep *beep = codec->beep;
-+	int chs = get_amp_channels(kcontrol);
-+
- 	if (beep && (!beep->enabled || !ctl_has_mute(kcontrol))) {
--		ucontrol->value.integer.value[0] =
-+		if (chs & 1)
-+			ucontrol->value.integer.value[0] = beep->enabled;
-+		if (chs & 2)
- 			ucontrol->value.integer.value[1] = beep->enabled;
- 		return 0;
- 	}
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index e58240e18b301..f29014a7d6723 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -588,6 +588,17 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
+ 					BYT_RT5640_SSP0_AIF1 |
+ 					BYT_RT5640_MCLK_EN),
+ 	},
++	{
++		/* MPMAN MPWIN895CL */
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "MPMAN"),
++			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MPWIN8900CL"),
++		},
++		.driver_data = (void *)(BYTCR_INPUT_DEFAULTS |
++					BYT_RT5640_MONO_SPEAKER |
++					BYT_RT5640_SSP0_AIF1 |
++					BYT_RT5640_MCLK_EN),
++	},
+ 	{	/* MSI S100 tablet */
+ 		.matches = {
+ 			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Micro-Star International Co., Ltd."),
 -- 
 2.20.1
 

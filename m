@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 650F81AF397
-	for <lists+alsa-devel@lfdr.de>; Sat, 18 Apr 2020 20:45:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 058391AF39D
+	for <lists+alsa-devel@lfdr.de>; Sat, 18 Apr 2020 20:46:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09E659F6;
-	Sat, 18 Apr 2020 20:44:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09E659F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A2091678;
+	Sat, 18 Apr 2020 20:45:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A2091678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587235544;
-	bh=PiPBc4fJl2XiNscOjYOGbaP6QhoANzt0JSu+mMj9eRY=;
+	s=default; t=1587235598;
+	bh=o+sH+D9ElbdjHs9lJfBxsJOrM7Hq8hsb/seC9x67KEo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kGDcOhRGXpDI1vFtMEFX29FHbmhAy15kKyVq66OCUizV12AcloXEO559Bt1ZfroiV
-	 kiUiqNTIXMWVlUsq2KPdySzB8TlpG8dlrlNocEbTqyv4e8hp+XMS//rsWHgZbY+M7I
-	 qIuglf+nKtxKZPmnVwsWi5Hvo0rKqoXEm6c4YxaU=
+	b=iwE3p3eiO1sl7r/GaE/bD4YUuDA+JxyU2AFWzGx0eahaWDR8UriybyNRhBMRYg7ZS
+	 b3dlbhRB8UpF+LyoILlLUGRST/8ls43XiE0eYCoCx3QEhy8Nc7UWzOkalIeGE1XMzP
+	 kTc+VAX0WcrC27VbivtPjGzMy7TECx2M44EYi6oo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C186F80299;
-	Sat, 18 Apr 2020 20:41:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 26EF4F80122;
+	Sat, 18 Apr 2020 20:41:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 48D64F8014E; Sat, 18 Apr 2020 20:41:41 +0200 (CEST)
+ id 3B946F80292; Sat, 18 Apr 2020 20:41:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,30 +35,30 @@ Received: from bombadil.infradead.org (bombadil.infradead.org
  [IPv6:2607:7c80:54:e::133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C9FB9F8026A
- for <alsa-devel@alsa-project.org>; Sat, 18 Apr 2020 20:41:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9FB9F8026A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60771F8028A
+ for <alsa-devel@alsa-project.org>; Sat, 18 Apr 2020 20:41:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60771F8028A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="j5q/SQ1+"
+ header.b="JDXvnRUe"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
  Content-Type:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:
  To:From:Sender:Reply-To:Content-ID:Content-Description;
- bh=RAwgh7dK6Aq2GUmD2z2q67RSpKe0Qba5fsNnenVzxMI=; b=j5q/SQ1+k3/+/NWSTV/WCIkHyr
- zch6FAcwYZsrW1PmSwaW8sUH6ZWeOC45ea2Cw5ovOtRwJLJOkQhRg13tWis5r+icV/DhjmdEjwv79
- s2h+fCIcRl3RnLCdtSGFczimDTd9m/8AzLPWV2hp+UzgF8z2XnH0R/f/a5DQg9nNd3Y73Ad9ZrO4P
- SE8YtJq+oauVuVNS6MyEi2RLVp6TVtw40sWJHw1JEOXlVu7aGBz0X1bug3Vw49BLE3fO57MGGN/q0
- Pmq5oXAMF6sIRcv8GgeZALDInNNSJ4NKJzYxSO84gAsonX87pABbmdSy94HL9m+wa0jkyxTrzud66
- 2h6YWfaA==;
+ bh=PcYjWQQ7jWfjWjAXgVV1SYCf3duL2j5Dyqo6dTDCrvc=; b=JDXvnRUeifNZ+Ac5TUneCkXEfw
+ xGm7FAIuWAOT5gimqOHdhp/grioqH8IcST+jg0KLZY3liAOqyk+QRxz88gfFrn1pGspjvVf4kn+9z
+ 6WnDEql0MbixpKyaGExg7dKQXpW5xcLjkR6Sghi8cCQI/hTO1yXq4UDTbsHmGn4nDqmEnHzJuU3K1
+ xD7HyAbbCak26otzJily36UMy3pM+4gOlaaVkoFKBllnKTlL2HIrqBh3/P+uJ7g73UIIdgCRYZljh
+ 6KJkixDPOYB+DeexXaN99s1T3haGNSH+ia9YOZZ2bNW49PZ2AL6kZXsFv+3C4ILtQ3Sm08S03mSqL
+ JJuwddgw==;
 Received: from [2601:1c0:6280:3f0::19c2] (helo=smtpauth.infradead.org)
  by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jPsP3-0007rZ-5p; Sat, 18 Apr 2020 18:41:21 +0000
+ id 1jPsP4-0007rZ-33; Sat, 18 Apr 2020 18:41:22 +0000
 From: Randy Dunlap <rdunlap@infradead.org>
 To: linux-kernel@vger.kernel.org
-Subject: [PATCH 8/9] dax: fix empty-body warnings in bus.c
-Date: Sat, 18 Apr 2020 11:41:10 -0700
-Message-Id: <20200418184111.13401-9-rdunlap@infradead.org>
+Subject: [PATCH 9/9] target: fix empty-body warning in target_core_pscsi.c
+Date: Sat, 18 Apr 2020 11:41:11 -0700
+Message-Id: <20200418184111.13401-10-rdunlap@infradead.org>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20200418184111.13401-1-rdunlap@infradead.org>
 References: <20200418184111.13401-1-rdunlap@infradead.org>
@@ -96,42 +96,34 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Fix gcc empty-body warning when -Wextra is used:
 
-../drivers/dax/bus.c:93:27: warning: suggest braces around empty body in an ‘else’ statement [-Wempty-body]
-../drivers/dax/bus.c:98:29: warning: suggest braces around empty body in an ‘else’ statement [-Wempty-body]
+../drivers/target/target_core_pscsi.c:624:5: warning: suggest braces around empty body in an ‘if’ statement [-Wempty-body]
 
 Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Cc: Dan Williams <dan.j.williams@intel.com>
-Cc: Vishal Verma <vishal.l.verma@intel.com>
-Cc: Dave Jiang <dave.jiang@intel.com>
-Cc: linux-nvdimm@lists.01.org
 Cc: Linus Torvalds <torvalds@linux-foundation.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: "Martin K. Petersen" <martin.petersen@oracle.com>
+Cc: linux-scsi@vger.kernel.org
+Cc: target-devel@vger.kernel.org
 ---
- drivers/dax/bus.c |    5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/target/target_core_pscsi.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
---- linux-next-20200417.orig/drivers/dax/bus.c
-+++ linux-next-20200417/drivers/dax/bus.c
-@@ -2,6 +2,7 @@
- /* Copyright(c) 2017-2018 Intel Corporation. All rights reserved. */
- #include <linux/memremap.h>
- #include <linux/device.h>
-+#include <linux/kernel.h>
- #include <linux/mutex.h>
- #include <linux/list.h>
+--- linux-next-20200417.orig/drivers/target/target_core_pscsi.c
++++ linux-next-20200417/drivers/target/target_core_pscsi.c
+@@ -18,6 +18,7 @@
  #include <linux/slab.h>
-@@ -90,12 +91,12 @@ static ssize_t do_id_store(struct device
- 			} else
- 				rc = -ENOMEM;
- 		} else
--			/* nothing to remove */;
-+			do_empty(); /* nothing to remove */
- 	} else if (action == ID_REMOVE) {
- 		list_del(&dax_id->list);
- 		kfree(dax_id);
- 	} else
--		/* dax_id already added */;
-+		do_empty(); /* dax_id already added */
- 	mutex_unlock(&dax_bus_lock);
+ #include <linux/spinlock.h>
+ #include <linux/genhd.h>
++#include <linux/kernel.h>
+ #include <linux/cdrom.h>
+ #include <linux/ratelimit.h>
+ #include <linux/module.h>
+@@ -621,7 +622,7 @@ static void pscsi_complete_cmd(struct se
  
- 	if (rc < 0)
+ 			buf = transport_kmap_data_sg(cmd);
+ 			if (!buf)
+-				; /* XXX: TCM_LOGICAL_UNIT_COMMUNICATION_FAILURE */
++				do_empty(); /* XXX: TCM_LOGICAL_UNIT_COMMUNICATION_FAILURE */
+ 
+ 			if (cdb[0] == MODE_SENSE_10) {
+ 				if (!(buf[3] & 0x80))

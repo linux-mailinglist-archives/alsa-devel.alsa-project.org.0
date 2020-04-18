@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B7131AF38B
-	for <lists+alsa-devel@lfdr.de>; Sat, 18 Apr 2020 20:43:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F1A61AF3B5
+	for <lists+alsa-devel@lfdr.de>; Sat, 18 Apr 2020 20:48:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C75E6166D;
-	Sat, 18 Apr 2020 20:42:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C75E6166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0C63A1660;
+	Sat, 18 Apr 2020 20:47:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C63A1660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587235397;
-	bh=bit41N5P+OHfYUXveR4OqEs8LllxXcWZLOoG+6fQ3cQ=;
+	s=default; t=1587235711;
+	bh=eK/88O6FI5H2/cR7qV6g37Bkt5cHIjz9rwRGU97p5/M=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Xhi1bEE2Ox5bTLxwvIdMJeb25ulb/x72EXW8soQX5x9BEPsclJ/E2jnOepmtZYm4I
-	 5HQg9SXSu7hij+Bl4pdfGca6p6hV7cyOZcGFHohGlO5SEbQTMz50cSFm8MJSuqT4lV
-	 7hod0mevyrduplqnn59B/VG0FYqdMnidTD/kF91A=
+	b=Ghq7Xjl8FthJTIzUd3FKzGB7BFqg10Q8UbyTLvGSP/bKUBgAWDE1jOeVf7Lu6mt/n
+	 pIRZL1aLg9htJDdFjEewMDq3W3UEv/ygl0DcZUihZzHnVYJeCRVgH6A7jTFzmMMR1i
+	 TbjnUQjAqRc68W/7HC88Fz1c1deC7FmlApZSteUs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9AF1F8028D;
-	Sat, 18 Apr 2020 20:41:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2221AF802FD;
+	Sat, 18 Apr 2020 20:42:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9AD70F8028D; Sat, 18 Apr 2020 20:41:33 +0200 (CEST)
+ id 445B8F80122; Sat, 18 Apr 2020 20:41:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,30 +35,30 @@ Received: from bombadil.infradead.org (bombadil.infradead.org
  [IPv6:2607:7c80:54:e::133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5DC3AF80122
- for <alsa-devel@alsa-project.org>; Sat, 18 Apr 2020 20:41:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DC3AF80122
+ by alsa1.perex.cz (Postfix) with ESMTPS id DB523F8021E
+ for <alsa-devel@alsa-project.org>; Sat, 18 Apr 2020 20:41:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB523F8021E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="px+muzAC"
+ header.b="qUPAX78G"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
  Content-Type:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:
  To:From:Sender:Reply-To:Content-ID:Content-Description;
- bh=SGvFqJlge/g9dh6ag6oSj2PmPKQuD0q8zfCwNpSxj1k=; b=px+muzACVI4ZR8Qma6/M2w08SW
- hySuB9tKA02KzaeL7Bz0hXOlFit5cPmIV408Ey2/X6DSkMu6cgZOGJNeXNArmsoAsUoc5WLXe/hw7
- PUb7y3czjGD9CQNnzOug4xBpyyS7F1rtcwnMYwldVZcEKIxxjt8fEjtiOCtqBiv/YhL1hpiEkcC32
- +Ial0oM3ilDiy7b15NOERaI8soL0uKgf7Q1zCQdIIn1pdo7wE4v1udirhHNffI5G2FWCaDzt7pqmn
- Os3cuV4r/Vol0BRefFeWzgu2YZhyihiwy2DDv2Uyg5GiuU2bN2PxS+V9KP2uy1ZGZchyZTVXk6HhJ
- OTstc49w==;
+ bh=LOicRCPeL82g+7UhQ7W6knJ0Xcg7BEBtrZpHvQi2Xvs=; b=qUPAX78GmStmrzI/GjQeS30C2C
+ pf+JS26rMvDzwnc2Eicv/E6iYddiBqeB8nvkVcgSW2j/uHe3NwddNiMvUjPHgrYQrMTB6NBEJ6Q4j
+ Rmevyte62j1lID7vgkcJqqYHGR2MOeuzttD0VlNCXVRCcyTVd3GSoufQdGDlcNf+0ThcfvOl9CRWa
+ Ht+LS8ZEFX/rH894i3z4iad3ZPVXY1Udf3RqCd/qSxW56OPRStx5/BhopFFsaYXhXitaPPN84WLos
+ fDoyVBiGWJ7uO4FMNjLq8+6J2A3ZeS/prafMTg+o4HUDBJXsY7KFv8UjH8Xb/sVT1g7Gs5uV5n4n7
+ om//euPw==;
 Received: from [2601:1c0:6280:3f0::19c2] (helo=smtpauth.infradead.org)
  by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jPsOy-0007rZ-2e; Sat, 18 Apr 2020 18:41:16 +0000
+ id 1jPsOz-0007rZ-FM; Sat, 18 Apr 2020 18:41:17 +0000
 From: Randy Dunlap <rdunlap@infradead.org>
 To: linux-kernel@vger.kernel.org
-Subject: [PATCH 3/9] input: fix empty-body warning in synaptics.c
-Date: Sat, 18 Apr 2020 11:41:05 -0700
-Message-Id: <20200418184111.13401-4-rdunlap@infradead.org>
+Subject: [PATCH 4/9] sound: fix empty-body warning in vx_core.c
+Date: Sat, 18 Apr 2020 11:41:06 -0700
+Message-Id: <20200418184111.13401-5-rdunlap@infradead.org>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20200418184111.13401-1-rdunlap@infradead.org>
 References: <20200418184111.13401-1-rdunlap@infradead.org>
@@ -96,36 +96,34 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Fix gcc empty-body warning when -Wextra is used:
 
-../drivers/input/mouse/synaptics.c: In function ‘synaptics_process_packet’:
-../drivers/input/mouse/synaptics.c:1106:6: warning: suggest braces around empty body in an ‘if’ statement [-Wempty-body]
-      ;   /* Nothing, treat a pen as a single finger */
-      ^
+../sound/drivers/vx/vx_core.c:515:3: warning: suggest braces around empty body in an ‘if’ statement [-Wempty-body]
 
 Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org
 Cc: Linus Torvalds <torvalds@linux-foundation.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>
 ---
- drivers/input/mouse/synaptics.c |    3 ++-
+ sound/drivers/vx/vx_core.c |    3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
---- linux-next-20200327.orig/drivers/input/mouse/synaptics.c
-+++ linux-next-20200327/drivers/input/mouse/synaptics.c
-@@ -20,6 +20,7 @@
-  * Trademarks are the property of their respective owners.
-  */
- 
+--- linux-next-20200327.orig/sound/drivers/vx/vx_core.c
++++ linux-next-20200327/sound/drivers/vx/vx_core.c
+@@ -13,6 +13,7 @@
+ #include <linux/init.h>
+ #include <linux/device.h>
+ #include <linux/firmware.h>
 +#include <linux/kernel.h>
  #include <linux/module.h>
- #include <linux/delay.h>
- #include <linux/dmi.h>
-@@ -1103,7 +1104,7 @@ static void synaptics_process_packet(str
- 				break;
- 			case 2:
- 				if (SYN_MODEL_PEN(info->model_id))
--					;   /* Nothing, treat a pen as a single finger */
-+					do_empty(); /* Nothing, treat a pen as a single finger */
- 				break;
- 			case 4 ... 15:
- 				if (SYN_CAP_PALMDETECT(info->capabilities))
+ #include <linux/io.h>
+ #include <sound/core.h>
+@@ -512,7 +513,7 @@ irqreturn_t snd_vx_threaded_irq_handler(
+ 	 * received by the board is equal to one of those given to it).
+ 	 */
+ 	if (events & TIME_CODE_EVENT_PENDING)
+-		; /* so far, nothing to do yet */
++		do_empty(); /* so far, nothing to do yet */
+ 
+ 	/* The frequency has changed on the board (UER mode). */
+ 	if (events & FREQUENCY_CHANGE_EVENT_PENDING)

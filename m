@@ -2,98 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33ABE1B0421
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 10:16:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7E0C1B0195
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 08:32:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C734A1678;
-	Mon, 20 Apr 2020 10:15:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C734A1678
+	by alsa0.perex.cz (Postfix) with ESMTPS id 31042166F;
+	Mon, 20 Apr 2020 08:31:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31042166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587370567;
-	bh=bOt9BTn/I9BtpLW6MYPux7kH7zXf1KQ4OwttSbOUgxw=;
-	h=In-Reply-To:References:Subject:From:To:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=QvXAbxKCB5n/XyWRqSmsMxASffL8y0ZjIFHUiZ2J8LMsWSMjWD1A2czFAkxkUQ12s
-	 Z0C03c2wtMPUtEcQYF5/vU/kk9er5OEmACRdB4KudrR48ziw/fWEVvZjvNrD3CEMyk
-	 zrnU1u75vmjSP7C0BuskycMv134SASKJHalx/M08=
+	s=default; t=1587364326;
+	bh=oR1psWkKj74UF42CLepyCrLj2IqgjpZgbxxcmtTBzQA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=fvGIUCMZWYapakAJ9tf1Dme/8c/JFz0oQMeVwXT8hF+n2q3CNCSQMrYG93xPfYpr+
+	 br2yEBnnGyh4TA3KadV1A9KGjFUlI03v9sWT07Fq62ASniLSJ6Lrc4HdbRVpoNrScc
+	 Mo4stH0TzCtxW/wgJkyfgBouWLEnJzm1Iw8cizoo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DCF56F8023F;
-	Mon, 20 Apr 2020 10:13:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5824FF801D9;
+	Mon, 20 Apr 2020 08:30:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09529F801EC; Sun, 19 Apr 2020 20:14:45 +0200 (CEST)
+ id 2F99FF801D9; Mon, 20 Apr 2020 08:30:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1FB06F800E7
- for <alsa-devel@alsa-project.org>; Sun, 19 Apr 2020 20:14:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FB06F800E7
-Authentication-Results: alsa1.perex.cz;
- dkim=fail reason="signature verification failed" (1024-bit key)
- header.d=kernel.org header.i=@kernel.org header.b="F96kxGnw"
-Received: from kernel.org (unknown [104.132.0.74])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3440920771;
- Sun, 19 Apr 2020 18:14:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587320079;
- bh=bOt9BTn/I9BtpLW6MYPux7kH7zXf1KQ4OwttSbOUgxw=;
- h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
- b=F96kxGnwb5hbRo2uaveExMkh4pG5tmsfXC/X4f7LcIR9NVVk3+CXqwPimCRGIZsLq
- 200DZ+NlYkyxPrNFkbuYootDCzDqqWFu0hJkAVPZpKUAgkDDPBPfI6mIZvHi8k+VtM
- aJNXnDOzYimf/GSU7Z8wIQIZEF7kJxvbDOxdjZqA=
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20200416005549.9683-2-robh@kernel.org>
-References: <20200416005549.9683-1-robh@kernel.org>
- <20200416005549.9683-2-robh@kernel.org>
-Subject: Re: [PATCH 2/2] dt-bindings: Remove cases of 'allOf' containing a
- '$ref'
-From: Stephen Boyd <sboyd@kernel.org>
-To: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Sun, 19 Apr 2020 11:14:38 -0700
-Message-ID: <158732007844.132238.3936257450130949073@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9
-X-Mailman-Approved-At: Mon, 20 Apr 2020 10:13:36 +0200
-Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
- Heiko Stuebner <heiko@sntech.de>, Sam Ravnborg <sam@ravnborg.org>,
- linux-iio@vger.kernel.org, linux-pci@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>, linux-remoteproc@vger.kernel.org,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Thierry Reding <thierry.reding@gmail.com>, linux-mtd@lists.infradead.org,
- linux-i2c@vger.kernel.org, Pavel Machek <pavel@ucw.cz>,
- linux-riscv@lists.infradead.org, Lee Jones <lee.jones@linaro.org>,
- linux-clk@vger.kernel.org, linux-leds@vger.kernel.org,
- linux-rtc@vger.kernel.org, Florian Fainelli <f.fainelli@gmail.com>,
- Fabio Estevam <festevam@gmail.com>,
- Danie l Lezcano <daniel.lezcano@linaro.org>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, linux-serial@vger.kernel.org,
- linux-input@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>,
- linux-media@vger.kernel.org, linux-pwm@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@st.com>, alsa-devel@alsa-project.org,
- Maxime Ripard <mripard@kernel.org>, linux-can@vger.kernel.org,
- linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Jacek Anaszewski <jacek.anaszewski@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
- Amit Kucheria <amit.kucheria@linaro.org>, linux-spi@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, netdev@vger.kernel.org,
- Jonathan Cameron <jic23@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5B860F800E7
+ for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 08:30:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B860F800E7
+IronPort-SDR: lTq3nE0/Tse9A7Vd5ETquhVM+bVUEM9pNIfuSte2kXIvREzi6adwkmT0UTfh7Aqd5YbIMYb4nm
+ FX32Yyua80Ug==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Apr 2020 23:30:02 -0700
+IronPort-SDR: fDiQbUJWQM3bnIaVkcdsLT4PwaA5IQioHQ2Wh0UQKqSpML23RWCAO1iZ+1wvBoYcsbTHhEML5R
+ Y7kcYDEQJ6sg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,406,1580803200"; d="scan'208";a="429008169"
+Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
+ by orsmga005.jf.intel.com with ESMTP; 19 Apr 2020 23:29:58 -0700
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: broonie@kernel.org,
+	tiwai@suse.de
+Subject: [PATCH] ASoC: Intel: sof_sdw: add amp number in components string for
+ ucm
+Date: Mon, 20 Apr 2020 02:35:09 +0800
+Message-Id: <20200419183509.4134-1-yung-chuan.liao@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,19 +73,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Quoting Rob Herring (2020-04-15 17:55:49)
-> json-schema versions draft7 and earlier have a weird behavior in that
-> any keywords combined with a '$ref' are ignored (silently). The correct
-> form was to put a '$ref' under an 'allOf'. This behavior is now changed
-> in the 2019-09 json-schema spec and '$ref' can be mixed with other
-> keywords. The json-schema library doesn't yet support this, but the
-> tooling now does a fixup for this and either way works.
->=20
-> This has been a constant source of review comments, so let's change this
-> treewide so everyone copies the simpler syntax.
->=20
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
->  .../bindings/clock/fixed-factor-clock.yaml    |   5 +-
+From: randerwang <rander.wang@linux.intel.com>
 
-Reviewed-by: Stephen Boyd <sboyd@kernel.org> # clock
+The number of speaker amplifiers may vary between platforms. UCM
+needs to check amp number to include different configuration files.
+This patch keeps track of the number of speaker amplifiers and
+stores it in components string of the card.
+
+Tested on Comet Lake platforms.
+
+Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Signed-off-by: randerwang <rander.wang@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+---
+ sound/soc/intel/boards/sof_sdw.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
+index a64dc563b47e..c94e71563891 100644
+--- a/sound/soc/intel/boards/sof_sdw.c
++++ b/sound/soc/intel/boards/sof_sdw.c
+@@ -898,6 +898,7 @@ static int mc_probe(struct platform_device *pdev)
+ 	struct snd_soc_card *card = &card_sof_sdw;
+ 	struct snd_soc_acpi_mach *mach;
+ 	struct mc_private *ctx;
++	int amp_num = 0, i;
+ 	int ret;
+ 
+ 	dev_dbg(&pdev->dev, "Entry %s\n", __func__);
+@@ -924,9 +925,18 @@ static int mc_probe(struct platform_device *pdev)
+ 
+ 	snd_soc_card_set_drvdata(card, ctx);
+ 
++	/*
++	 * the default amp_num is zero for each codec and
++	 * amp_num will only be increased for active amp
++	 * codecs on used platform
++	 */
++	for (i = 0; i < ARRAY_SIZE(codec_info_list); i++)
++		amp_num += codec_info_list[i].amp_num;
++
+ 	card->components = devm_kasprintf(card->dev, GFP_KERNEL,
+-					  "cfg-spk:%d",
+-					  (sof_sdw_quirk & SOF_SDW_FOUR_SPK) ? 4 : 2);
++					  "cfg-spk:%d, cfg-amp:%d",
++					  (sof_sdw_quirk & SOF_SDW_FOUR_SPK)
++					  ? 4 : 2, amp_num);
+ 	if (!card->components)
+ 		return -ENOMEM;
+ 
+-- 
+2.17.1
+

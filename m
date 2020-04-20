@@ -2,99 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E7571B034F
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 09:44:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 386EE1B0425
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 10:17:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D42D61669;
-	Mon, 20 Apr 2020 09:43:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D42D61669
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6EDB1672;
+	Mon, 20 Apr 2020 10:16:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6EDB1672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587368661;
-	bh=S2gZguDmIhkEXSqcs7tZfqJVPnHyQYtss9DAD35ezNw=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1587370621;
+	bh=lcag6KEH3cWnkQrerBf97Iun089rQdmB+Tl33zPBS1k=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HICueltk8IJAA55TeLcq6Zif3mp8h07pr5jaXVG/0Z0fcDk5gRhrt4OgL7eMio7it
-	 ashGtjyRmjjGOpCmo5dMc6NA5u/SHspTdtAX1scFL5+sjCp6PpwwzNwlvqAMRoPfhN
-	 H21LXrZoNPxW45OL42Wj1M/rYWAtt8cIC0NgStdQ=
+	b=eXd5g4SokFh4fjYGpQ/JYhVExzHnFvnTQBjvnaj6lFLz2n7RGxvRLuNmO9kDOSeHb
+	 CIfPREBe02iXzytdItIgJUs0DvyLOkEeye/gIxA6v3xzPbfocK5Kh4diJahTY9hoZX
+	 izvOmXRliZQyxodSR9+qTpoZ2/QFpHI/NWbsm7jI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB08DF8020C;
-	Mon, 20 Apr 2020 09:42:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 362D4F80292;
+	Mon, 20 Apr 2020 10:13:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3F371F801D9; Mon, 20 Apr 2020 09:42:37 +0200 (CEST)
+ id 2822CF801D9; Mon, 20 Apr 2020 09:49:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3FECBF800E7
- for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 09:42:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FECBF800E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2F3BDF800C8
+ for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 09:49:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F3BDF800C8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="xtWDgbT5"
-Received: by mail-wr1-x443.google.com with SMTP id b11so10818920wrs.6
- for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 00:42:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=ewZfJT+hF2YM+qJSsl0O1dzlck6lSvjtReN5vcsfFY0=;
- b=xtWDgbT5GWxuvhGTx8BXdhFEVtB6kLkQbuxwBIgpsVTZNJVTiItdv2FJ9BRiNFrSKe
- UPFy6IMwoD4koU4RHkaD8BZ72RBFBxB5c73ulmRDWdgUL13lep2Lv0CS7TqRDuwFdiGj
- Qo5GkMSwdAuvF39w3yBjlIMJQaDLUyDjpGHkliiaF0Pho+PHkjV5I2YOZ4CEVYvGBSRh
- J/XaAB92ylbxoxj3xY3K3DSqtzv503w9HdbxThphdUa5NOikiLXCCInuLRb3lk4Li4Th
- 6SbKKg9VHOTkLoerNXOz9WpFkvXeJeSCfP3vQjENWjMppiZzI1xx2FuJ0RCNlPwQ6qPU
- KNsQ==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ETqClMEa"
+Received: by mail-ot1-x32e.google.com with SMTP id i22so7262700otp.12
+ for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 00:49:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=kupX88peHj7z03pMK+BIy6RR5VeQ/oEo17K/fUIVFI8=;
+ b=ETqClMEaRQGsBDrkRvZOpIv+A/gJTJp/ISa0kGwXW8Es0ItmXWBa12avReKrR4hKlh
+ 4PAwRHLeOLNTVbMmefdF99Kwbz9KCcCyAAH8kg/P9ejwtdGUElVUV53Rr24PIQWpOnWM
+ SJAxV8BlZUXbD7rQDIjBAImGQTqEAWI27yfP1bOlxACW+P4neiWM4gaZy8hYF9A5LMx3
+ R2DRv89Zy5V9AisuFyWm/JWUkXa8gMybuupP2K9VCV291csLjFmGWqNqsZQVj+bAaSf0
+ N124XD9BzIsKVivCgIwEPrdm78hZpAYPD8I+hsZ27xoU4qd4OVHkx7aKrmqPGsMHgR0z
+ +/gA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=ewZfJT+hF2YM+qJSsl0O1dzlck6lSvjtReN5vcsfFY0=;
- b=hVv0ypdp6bWqQUNkbapB1y5a1sMlVa0A8jXr6TcaKDTbQht+XlCpQsg1+agno7AX2e
- x70OhiSovEJbb6Om8mH4NN9bXSvPLcyaXmyqbNeg0RJm2hXRWHUZDDTZE5xYYBtyRH4P
- Lrt2Z2FWZWxu7s5X7v7T9FeAWz+r4NIdOr1/pHZZ4b/xK+Tp10C4QL3ZP98sK406y2mH
- fZ/gZK0sXPj5pExuo5jC4k/OYm3CYgsCCdOmfGmlbv9Lqok+EgaK/qIeSB4IbM7+i/yf
- pYuY9jz3yYv6f9L4SyYw4le08Z77wgCRbpfO53Pc/arM3RQWD2r8OTTZYBTO8xwTPvIv
- 69/A==
-X-Gm-Message-State: AGi0PuYY/gz+N7JuxC0pBhEc6mJMGj7T0K5zFPwb5JYWRNyrW4zQLD63
- 5+v5TXPS0obC+vO7Xq7Of7K7kA==
-X-Google-Smtp-Source: APiQypLK9dr1rlKUtLsy8YI0+R+kaRLY7vo8ZLe3s7d0bIGnDCUnRm13tWGx8hctWsBYmLqlydc0KQ==
-X-Received: by 2002:a5d:634d:: with SMTP id b13mr16923695wrw.353.1587368549727; 
- Mon, 20 Apr 2020 00:42:29 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.googlemail.com with ESMTPSA id f63sm205720wma.47.2020.04.20.00.42.28
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 20 Apr 2020 00:42:29 -0700 (PDT)
-Subject: Re: [RFC 3/5] soundwire: qcom: fix error handling in probe
-To: Bard Liao <yung-chuan.liao@linux.intel.com>, alsa-devel@alsa-project.org, 
- vkoul@kernel.org
-References: <20200416205524.2043-1-yung-chuan.liao@linux.intel.com>
- <20200416205524.2043-4-yung-chuan.liao@linux.intel.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <6be6b739-2f5e-e2ba-2ca0-56108f667ffe@linaro.org>
-Date: Mon, 20 Apr 2020 08:42:27 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=kupX88peHj7z03pMK+BIy6RR5VeQ/oEo17K/fUIVFI8=;
+ b=Me3P69sGsaT8jvhuj32k+Q02lgiev/Nbn1bs638GwxiIMC4zkE5ZNa5cevF/V9nwXk
+ gO80ZZP+Zhe3/V9Xn/9M3egjItMhc5vODlaBoP7EVKL9Y+0+7b+jYMJJhwaAsOOpltm0
+ q85AI28PUMDYMwiybZq8QSLchdXP4tZARSjV4PRSqIPXyuTg+TzS5iGD+7aOSrRYB7Qt
+ cyjBZlL4T8v4HXoD41Af5oyR8lom5ttE6YAdH1gHA1KRKkJ4ymuxHHRlS/oD9FxlKE0x
+ V/zCNLkwM1JU0ykqtv0pynVdMOhDtjAlHwQsnhKu+6IYIM7Y/t6vKM8A1A2Y9qBeFU9p
+ koqg==
+X-Gm-Message-State: AGi0PuaF+fB9WQQiiaZeTMING/rIFjAVfcSLolXJw5IfDKI44tqAok0I
+ XdhS2E3BwpimOmE43innDSRfpfgskFh/KK53NRo=
+X-Google-Smtp-Source: APiQypIYgLJ4p85nuk+m8qbyCQDui2Fan3kA5AKYexSlb6eiFzikHLe6x10TeUTfMOcjwgPK6FZbC6iT6teI6wEmmfI=
+X-Received: by 2002:a05:6830:3150:: with SMTP id
+ c16mr8097421ots.251.1587368956872; 
+ Mon, 20 Apr 2020 00:49:16 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200416205524.2043-4-yung-chuan.liao@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: pierre-louis.bossart@linux.intel.com, tiwai@suse.de,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
- jank@cadence.com, mengdong.lin@intel.com, slawomir.blauciak@intel.com,
- sanyog.r.kale@intel.com, rander.wang@linux.intel.com
+References: <CANTwqXB+Lq1fq0dXUjToL9JhjcfSFwtqPpiFoRcFZeJC3o0s-g@mail.gmail.com>
+ <s5hftcy7gr8.wl-tiwai@suse.de>
+In-Reply-To: <s5hftcy7gr8.wl-tiwai@suse.de>
+From: =?UTF-8?B?5Lq/5LiA?= <teroincn@gmail.com>
+Date: Mon, 20 Apr 2020 15:49:06 +0800
+Message-ID: <CANTwqXD41wbSV_44AQZU6MmGNGChjjKzL_4VCYVBzZYwjVauDQ@mail.gmail.com>
+Subject: Re: sound: usb: usx2y: is it a null pointer deference in function
+ usX2Y_rate_set?
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Mon, 20 Apr 2020 10:13:37 +0200
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,92 +99,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+you can patch it and add a Reported by  Lin Yi <teroincn@gmail.com>
+if  pleasure.~
 
+thanks,
 
-On 16/04/2020 21:55, Bard Liao wrote:
-> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> 
-> Make sure all error cases are properly handled and all resources freed.
-> 
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-> ---
-Thanks for the patch,
+Lin Yi
 
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-
->   drivers/soundwire/qcom.c | 26 +++++++++++++++++---------
->   1 file changed, 17 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-> index d6c9ad231873..e08a17c13f92 100644
-> --- a/drivers/soundwire/qcom.c
-> +++ b/drivers/soundwire/qcom.c
-> @@ -765,12 +765,16 @@ static int qcom_swrm_probe(struct platform_device *pdev)
->   	}
->   
->   	ctrl->irq = of_irq_get(dev->of_node, 0);
-> -	if (ctrl->irq < 0)
-> -		return ctrl->irq;
-> +	if (ctrl->irq < 0) {
-> +		ret = ctrl->irq;
-> +		goto err_init;
-> +	}
->   
->   	ctrl->hclk = devm_clk_get(dev, "iface");
-> -	if (IS_ERR(ctrl->hclk))
-> -		return PTR_ERR(ctrl->hclk);
-> +	if (IS_ERR(ctrl->hclk)) {
-> +		ret = PTR_ERR(ctrl->hclk);
-> +		goto err_init;
-> +	}
->   
->   	clk_prepare_enable(ctrl->hclk);
->   
-> @@ -787,7 +791,7 @@ static int qcom_swrm_probe(struct platform_device *pdev)
->   
->   	ret = qcom_swrm_get_port_config(ctrl);
->   	if (ret)
-> -		return ret;
-> +		goto err_clk;
->   
->   	params = &ctrl->bus.params;
->   	params->max_dr_freq = DEFAULT_CLK_FREQ;
-> @@ -814,28 +818,32 @@ static int qcom_swrm_probe(struct platform_device *pdev)
->   					"soundwire", ctrl);
->   	if (ret) {
->   		dev_err(dev, "Failed to request soundwire irq\n");
-> -		goto err;
-> +		goto err_clk;
->   	}
->   
->   	ret = sdw_add_bus_master(&ctrl->bus);
->   	if (ret) {
->   		dev_err(dev, "Failed to register Soundwire controller (%d)\n",
->   			ret);
-> -		goto err;
-> +		goto err_clk;
->   	}
->   
->   	qcom_swrm_init(ctrl);
->   	ret = qcom_swrm_register_dais(ctrl);
->   	if (ret)
-> -		goto err;
-> +		goto err_master_add;
->   
->   	dev_info(dev, "Qualcomm Soundwire controller v%x.%x.%x Registered\n",
->   		 (ctrl->version >> 24) & 0xff, (ctrl->version >> 16) & 0xff,
->   		 ctrl->version & 0xffff);
->   
->   	return 0;
-> -err:
-> +
-> +err_master_add:
-> +	sdw_delete_bus_master(&ctrl->bus);
-> +err_clk:
->   	clk_disable_unprepare(ctrl->hclk);
-> +err_init:
->   	return ret;
->   }
->   
-> 
+Takashi Iwai <tiwai@suse.de> =E4=BA=8E2020=E5=B9=B44=E6=9C=8820=E6=97=A5=E5=
+=91=A8=E4=B8=80 =E4=B8=8B=E5=8D=883:34=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Mon, 20 Apr 2020 09:22:11 +0200,
+> =E4=BA=BF=E4=B8=80 wrote:
+> >
+> > Hi, all:
+> >     when reviewing function usX2Y_rate_set, here may exist a NULL
+> > pointer deference if kmalloc_array failed or usb_alloc_urb failed,
+> > in cleanup,  we should judge whether us->urb[i] is NULL first.
+>
+> Right, that's a missing check.  Would you submit the fix patch, or
+> shall I write quickly?
+>
+>
+> thanks,
+>
+> Takashi

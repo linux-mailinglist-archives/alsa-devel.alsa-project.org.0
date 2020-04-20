@@ -2,60 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 836171B0B90
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 14:57:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 303C41B1711
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 22:28:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 20C8E1692;
-	Mon, 20 Apr 2020 14:56:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20C8E1692
+	by alsa0.perex.cz (Postfix) with ESMTPS id C126F1689;
+	Mon, 20 Apr 2020 22:27:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C126F1689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587387454;
-	bh=qZiyP0CEU5dTUgbO9irAYGWwKK0X3o5eVLiD6Yof2DE=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1587414479;
+	bh=09SKGhHF8j93l8BWTtBZN+CKEqw55TGNdO+HurAGCcM=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FtLsI4cuXiaoQnl9utAGAtfOgkBmI118qoBqcXXNWw8B1CLu1xIKyVIYsJPDnyl4D
-	 sLTGc0FEMFX5ajKifd14cc4woD6UubaPAy3WIpBGPaU87bAKUKIaA0Gj3NOJNGX6Io
-	 jOprXObDFw9T/5Wo2AZnvZhYjhaFG0yzyJXB0AMw=
+	b=PdQJcpXTp2sGGmIAOzATIAHtCcm6JJW/t8Yoc0zwfb4+ZtfjM5aiCE46Wc22fmnpf
+	 npW3COI7zgybBdGKjOaRCrc0t74fEiOc1lDOIRDyeX8S7aBmC7BLOZuebOPX26Poyi
+	 dBGbP7DOepTp7rT8JxPTxbaSy57czCf0iGJcWhh8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A4EA1F800E7;
-	Mon, 20 Apr 2020 14:55:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E69F9F801D9;
+	Mon, 20 Apr 2020 22:26:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C92DF8025E; Mon, 20 Apr 2020 14:26:41 +0200 (CEST)
+ id 6BDC4F801D9; Mon, 20 Apr 2020 22:26:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DATE_IN_FUTURE_06_12,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 25064F801D9
- for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 14:26:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25064F801D9
-Received: from DGGEMS402-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 1234D41BD4D12F86F4A3;
- Mon, 20 Apr 2020 20:26:29 +0800 (CST)
-Received: from euler.huawei.com (10.175.104.193) by
- DGGEMS402-HUB.china.huawei.com (10.3.19.202) with Microsoft SMTP Server id
- 14.3.487.0; Mon, 20 Apr 2020 20:26:26 +0800
-From: Wei Li <liwei391@huawei.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <rdunlap@infradead.org>, <geert@linux-m68k.org>
-Subject: [PATCH 2/2] ASoC: Fix wrong dependency of da7210 and wm8983
-Date: Tue, 21 Apr 2020 04:24:10 +0800
-Message-ID: <20200420202410.47327-3-liwei391@huawei.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200420202410.47327-1-liwei391@huawei.com>
-References: <20200420202410.47327-1-liwei391@huawei.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 01C4EF800E7
+ for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 22:26:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01C4EF800E7
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=tsoy.me header.i=@tsoy.me
+ header.b="hE3jjcIi"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
+ s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Content-Type:
+ References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Reply-To:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
+ :List-Post:List-Owner:List-Archive;
+ bh=ZKaz9g+0dN4EMZTssIuTURp7XdyfTbM9NKhYQlFDI6Q=; b=hE3jjcIicpBLRbfMdYwOm7k70P
+ O5XW9hDIULhuBkjgZqgmGtvWgiB2l2dl/LygBV9Y2pixjriADPQEQMOsukOQjl2llEGEn3s33b9hA
+ L1tr4wdWUQQpQ/WZnBvi2bhGzwdSwYSPjtrGnFOuQlLon4ZP/pxUlkLv2NfWbYKx70iI=;
+Received: from [2a00:1370:8125:3f98:890:f100:d37d:7ada] (helo=home)
+ by puleglot.ru with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92.3) (envelope-from <puleglot@puleglot.ru>)
+ id 1jQczO-0006SG-8n; Mon, 20 Apr 2020 23:25:58 +0300
+Message-ID: <1c4b8a362761421eba0ded60bb4f0e11b7e42f3b.camel@tsoy.me>
+Subject: Re: [PATCH] ALSA: usb-audio: Add quirk for Focusrite Scarlett 2i2
+From: Alexander Tsoy <alexander@tsoy.me>
+To: Gregor Pintar <grpintar@gmail.com>, tiwai@suse.com, perex@perex.cz
+Date: Mon, 20 Apr 2020 23:25:56 +0300
+In-Reply-To: <20200420201937.12634-1-grpintar@gmail.com>
+References: <20200420201937.12634-1-grpintar@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.32.5 
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.175.104.193]
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Mon, 20 Apr 2020 14:55:51 +0200
+Content-Transfer-Encoding: 8bit
 Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -72,37 +80,131 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-As these two drivers support I2C and SPI, we should add the SND_SOC_I2C_AND_SPI
-dependency instead.
+В Пн, 20/04/2020 в 22:19 +0200, Gregor Pintar пишет:
+> Force it to use asynchronous playback.
 
-Fixes: ce0c97f8a2936 ("ASoC: Fix SND_SOC_ALL_CODECS imply SPI fallout")
-Signed-off-by: Wei Li <liwei391@huawei.com>
----
- sound/soc/codecs/Kconfig | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Can we use snd_usb_audioformat_attributes_quirk() for such fixes? See
+the quirk for Griffin iMic as an example.
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index e60e0b6a689c..d0fec1b90256 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -717,7 +717,7 @@ config SND_SOC_L3
- 
- config SND_SOC_DA7210
- 	tristate
--	depends on I2C
-+	depends on SND_SOC_I2C_AND_SPI
- 
- config SND_SOC_DA7213
- 	tristate "Dialog DA7213 CODEC"
-@@ -1569,7 +1569,7 @@ config SND_SOC_WM8978
- 
- config SND_SOC_WM8983
- 	tristate
--	depends on I2C
-+	depends on SND_SOC_I2C_AND_SPI
- 
- config SND_SOC_WM8985
- 	tristate "Wolfson Microelectronics WM8985 and WM8758 codec driver"
--- 
-2.17.1
+> 
+> Same quirk has already been added for Focusrite Scarlett Solo (2nd
+> gen)
+> with a commit 46f5710f0b88 ("ALSA: usb-audio: Add quirk for Focusrite
+> Scarlett Solo").
+> 
+> This also seems to prevent regular clicks when playing at 44100Hz
+> on Scarlett 2i2 (2nd gen). I did not notice any side effects.
+> 
+> Signed-off-by: Gregor Pintar <grpintar@gmail.com>
+> ---
+>  sound/usb/quirks-table.h | 84
+> ++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 84 insertions(+)
+> 
+> diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+> index e009d584e..bc936bf79 100644
+> --- a/sound/usb/quirks-table.h
+> +++ b/sound/usb/quirks-table.h
+> @@ -2840,6 +2840,90 @@ YAMAHA_DEVICE(0x7010, "UB99"),
+>  		}
+>  	}
+>  },
+> +{
+> +	/*
+> +	 * Focusrite Scarlett 2i2 2nd generation
+> +	 * Reports that playback should use Synch: Synchronous
+> +	 * while still providing a feedback endpoint. Synchronous
+> causes
+> +	 * snapping on some sample rates.
+> +	 * Force it to use Synch: Asynchronous.
+> +	 */
+> +	USB_DEVICE(0x1235, 0x8202),
+> +	.driver_info = (unsigned long) &(const struct
+> snd_usb_audio_quirk) {
+> +		.ifnum = QUIRK_ANY_INTERFACE,
+> +		.type = QUIRK_COMPOSITE,
+> +		.data = (const struct snd_usb_audio_quirk[]) {
+> +			{
+> +				.ifnum = 1,
+> +				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
+> +				.data = &(const struct audioformat) {
+> +					.formats =
+> SNDRV_PCM_FMTBIT_S32_LE,
+> +					.channels = 2,
+> +					.iface = 1,
+> +					.altsetting = 1,
+> +					.altset_idx = 1,
+> +					.attributes = 0,
+> +					.endpoint = 0x01,
+> +					.ep_attr =
+> USB_ENDPOINT_XFER_ISOC |
+> +						USB_ENDPOINT_SYNC_ASYNC
+> ,
+> +					.protocol = UAC_VERSION_2,
+> +					.rates = SNDRV_PCM_RATE_44100 |
+> +						SNDRV_PCM_RATE_48000 |
+> +						SNDRV_PCM_RATE_88200 |
+> +						SNDRV_PCM_RATE_96000 |
+> +						SNDRV_PCM_RATE_176400 |
+> +						SNDRV_PCM_RATE_192000,
+> +					.rate_min = 44100,
+> +					.rate_max = 192000,
+> +					.nr_rates = 6,
+> +					.rate_table = (unsigned int[])
+> {
+> +						44100, 48000, 88200,
+> +						96000, 176400, 192000
+> +					},
+> +					.clock = 41
+> +				}
+> +			},
+> +			{
+> +				.ifnum = 2,
+> +				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
+> +				.data = &(const struct audioformat) {
+> +					.formats =
+> SNDRV_PCM_FMTBIT_S32_LE,
+> +					.channels = 2,
+> +					.iface = 2,
+> +					.altsetting = 1,
+> +					.altset_idx = 1,
+> +					.attributes = 0,
+> +					.endpoint = 0x82,
+> +					.ep_attr =
+> USB_ENDPOINT_XFER_ISOC |
+> +						USB_ENDPOINT_SYNC_ASYNC
+> |
+> +						USB_ENDPOINT_USAGE_IMPL
+> ICIT_FB,
+> +					.protocol = UAC_VERSION_2,
+> +					.rates = SNDRV_PCM_RATE_44100 |
+> +						SNDRV_PCM_RATE_48000 |
+> +						SNDRV_PCM_RATE_88200 |
+> +						SNDRV_PCM_RATE_96000 |
+> +						SNDRV_PCM_RATE_176400 |
+> +						SNDRV_PCM_RATE_192000,
+> +					.rate_min = 44100,
+> +					.rate_max = 192000,
+> +					.nr_rates = 6,
+> +					.rate_table = (unsigned int[])
+> {
+> +						44100, 48000, 88200,
+> +						96000, 176400, 192000
+> +					},
+> +					.clock = 41
+> +				}
+> +			},
+> +			{
+> +				.ifnum = 3,
+> +				.type = QUIRK_IGNORE_INTERFACE
+> +			},
+> +			{
+> +				.ifnum = -1
+> +			}
+> +		}
+> +	}
+> +},
+>  
+>  /* Access Music devices */
+>  {
 

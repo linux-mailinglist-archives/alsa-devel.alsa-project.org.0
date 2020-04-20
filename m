@@ -2,70 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A1F11B0260
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 09:10:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA8871B0262
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 09:11:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 051D0167B;
-	Mon, 20 Apr 2020 09:09:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 051D0167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4F9271681;
+	Mon, 20 Apr 2020 09:10:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F9271681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587366643;
-	bh=UWEF8anj4RInPM8cOzySci9CGjDHuS3EH9QM7a51Be8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1587366685;
+	bh=gM9tdwG04+Ij2UYtrA6EEUGwKERMMiFIMKIgerbrNWU=;
+	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NVspbk63/zYqazdFLEkP8IeiOfVbYRm2AJS642wfMShDKe3LDTIFDrO49/kQHR7bX
-	 95IWN3bzSKFV3nhXrlDVbt8MxeYJqusbkU22MX54tjFCcGnK88fBtdhf1+AniU3xvg
-	 yn367T4Xs2zReiceM97YQOZnZNIT5x0JTc7LZwUs=
+	b=RZMLcqMQQyopAKO70SZw9pvDtv5b0WJBS7AcG4znqLtYVp8R5p8PlIhARR6dxh3PW
+	 FQCrXFvQ6omMNAexhd5/roh8nQHImBhff31pgQPtCx9M78UcEcFSfJOx68zVs2kd/n
+	 YTo45IdO1ttMdG+ZxIq8CHwnwwFon6yZjjc8pM4I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9ACB6F8029A;
-	Mon, 20 Apr 2020 09:08:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2882F802A0;
+	Mon, 20 Apr 2020 09:08:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D003AF80292; Mon, 20 Apr 2020 09:08:35 +0200 (CEST)
+ id 88F60F802A0; Mon, 20 Apr 2020 09:08:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7296BF8028F
- for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 09:08:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7296BF8028F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="v+NqI280"
-Received: from localhost (unknown [171.61.106.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 68B9021473;
- Mon, 20 Apr 2020 07:08:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587366503;
- bh=UWEF8anj4RInPM8cOzySci9CGjDHuS3EH9QM7a51Be8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=v+NqI280vQ0VCqH7CFazIGBoespfaQ5HGIU7y9J2GNVY4lMAUOyBbvpPX3sSXWXgy
- uEPdiyzLVxLSdJwO3fphUYn1lb3EWyd1q11gtKxizOmm0jXTOZjpgZJUBHLrYpwqA8
- ZZ7+VyedZzVd8OfTl+41EHEJVHcbrsQlXlIMDMkE=
-Date: Mon, 20 Apr 2020 12:38:16 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH] soundwire: intel: use asoc_rtd_to_cpu() /
- asoc_rtd_to_codec() macro for DAI pointer
-Message-ID: <20200420070816.GU72691@vkoul-mobl>
-References: <87y2qqvdxu.wl-kuninori.morimoto.gx@renesas.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87y2qqvdxu.wl-kuninori.morimoto.gx@renesas.com>
-Cc: linux-kernel@vger.kernel.org, Sanyog Kale <sanyog.r.kale@intel.com>,
- Mark Brown <broonie@kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id EE570F8028F
+ for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 09:08:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE570F8028F
+Date: 20 Apr 2020 16:08:30 +0900
+X-IronPort-AV: E=Sophos;i="5.72,406,1580742000"; d="scan'208";a="45179734"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 20 Apr 2020 16:08:30 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id B83EE419EC68;
+ Mon, 20 Apr 2020 16:08:30 +0900 (JST)
+Message-ID: <87sggyvdld.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH v2 3/8] ASoC: uniphier: use snd_compress_ops
+User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
+To: Mark Brown <broonie@kernel.org>
+In-Reply-To: <87wo6avdq1.wl-kuninori.morimoto.gx@renesas.com>
+References: <87wo6avdq1.wl-kuninori.morimoto.gx@renesas.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,13 +67,201 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 20-04-20, 16:01, Kuninori Morimoto wrote:
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> 
-> Now ALSA SoC needs to use asoc_rtd_to_codec(),
-> otherwise, it will be compile error.
 
-Applied, thanks
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
+We can use snd_compress_ops.
+Let's switch to use it.
+
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+---
+v1 -> v2
+
+   - no change
+
+ sound/soc/uniphier/aio-compress.c | 45 ++++++++++++++++++++-----------
+ sound/soc/uniphier/aio-dma.c      |  2 +-
+ sound/soc/uniphier/aio.h          |  2 +-
+ 3 files changed, 31 insertions(+), 18 deletions(-)
+
+diff --git a/sound/soc/uniphier/aio-compress.c b/sound/soc/uniphier/aio-compress.c
+index 232d3cc5bce0..0f76bc601ca9 100644
+--- a/sound/soc/uniphier/aio-compress.c
++++ b/sound/soc/uniphier/aio-compress.c
+@@ -16,8 +16,10 @@
+ 
+ #include "aio.h"
+ 
+-static int uniphier_aio_compr_prepare(struct snd_compr_stream *cstream);
+-static int uniphier_aio_compr_hw_free(struct snd_compr_stream *cstream);
++static int uniphier_aio_compr_prepare(struct snd_soc_component *component,
++				      struct snd_compr_stream *cstream);
++static int uniphier_aio_compr_hw_free(struct snd_soc_component *component,
++				      struct snd_compr_stream *cstream);
+ 
+ static int uniphier_aio_comprdma_new(struct snd_soc_pcm_runtime *rtd)
+ {
+@@ -70,7 +72,8 @@ static int uniphier_aio_comprdma_free(struct snd_soc_pcm_runtime *rtd)
+ 	return 0;
+ }
+ 
+-static int uniphier_aio_compr_open(struct snd_compr_stream *cstream)
++static int uniphier_aio_compr_open(struct snd_soc_component *component,
++				   struct snd_compr_stream *cstream)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+ 	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
+@@ -95,14 +98,15 @@ static int uniphier_aio_compr_open(struct snd_compr_stream *cstream)
+ 	return 0;
+ }
+ 
+-static int uniphier_aio_compr_free(struct snd_compr_stream *cstream)
++static int uniphier_aio_compr_free(struct snd_soc_component *component,
++				   struct snd_compr_stream *cstream)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+ 	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
+ 	struct uniphier_aio_sub *sub = &aio->sub[cstream->direction];
+ 	int ret;
+ 
+-	ret = uniphier_aio_compr_hw_free(cstream);
++	ret = uniphier_aio_compr_hw_free(component, cstream);
+ 	if (ret)
+ 		return ret;
+ 	ret = uniphier_aio_comprdma_free(rtd);
+@@ -114,7 +118,8 @@ static int uniphier_aio_compr_free(struct snd_compr_stream *cstream)
+ 	return 0;
+ }
+ 
+-static int uniphier_aio_compr_get_params(struct snd_compr_stream *cstream,
++static int uniphier_aio_compr_get_params(struct snd_soc_component *component,
++					 struct snd_compr_stream *cstream,
+ 					 struct snd_codec *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+@@ -126,7 +131,8 @@ static int uniphier_aio_compr_get_params(struct snd_compr_stream *cstream,
+ 	return 0;
+ }
+ 
+-static int uniphier_aio_compr_set_params(struct snd_compr_stream *cstream,
++static int uniphier_aio_compr_set_params(struct snd_soc_component *component,
++					 struct snd_compr_stream *cstream,
+ 					 struct snd_compr_params *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+@@ -155,14 +161,15 @@ static int uniphier_aio_compr_set_params(struct snd_compr_stream *cstream,
+ 	aio_port_reset(sub);
+ 	aio_src_reset(sub);
+ 
+-	ret = uniphier_aio_compr_prepare(cstream);
++	ret = uniphier_aio_compr_prepare(component, cstream);
+ 	if (ret)
+ 		return ret;
+ 
+ 	return 0;
+ }
+ 
+-static int uniphier_aio_compr_hw_free(struct snd_compr_stream *cstream)
++static int uniphier_aio_compr_hw_free(struct snd_soc_component *component,
++				      struct snd_compr_stream *cstream)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+ 	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
+@@ -173,7 +180,8 @@ static int uniphier_aio_compr_hw_free(struct snd_compr_stream *cstream)
+ 	return 0;
+ }
+ 
+-static int uniphier_aio_compr_prepare(struct snd_compr_stream *cstream)
++static int uniphier_aio_compr_prepare(struct snd_soc_component *component,
++				      struct snd_compr_stream *cstream)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+ 	struct snd_compr_runtime *runtime = cstream->runtime;
+@@ -210,7 +218,8 @@ static int uniphier_aio_compr_prepare(struct snd_compr_stream *cstream)
+ 	return 0;
+ }
+ 
+-static int uniphier_aio_compr_trigger(struct snd_compr_stream *cstream,
++static int uniphier_aio_compr_trigger(struct snd_soc_component *component,
++				      struct snd_compr_stream *cstream,
+ 				      int cmd)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+@@ -243,7 +252,8 @@ static int uniphier_aio_compr_trigger(struct snd_compr_stream *cstream,
+ 	return ret;
+ }
+ 
+-static int uniphier_aio_compr_pointer(struct snd_compr_stream *cstream,
++static int uniphier_aio_compr_pointer(struct snd_soc_component *component,
++				      struct snd_compr_stream *cstream,
+ 				      struct snd_compr_tstamp *tstamp)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+@@ -316,7 +326,8 @@ static int aio_compr_send_to_hw(struct uniphier_aio_sub *sub,
+ 	return 0;
+ }
+ 
+-static int uniphier_aio_compr_copy(struct snd_compr_stream *cstream,
++static int uniphier_aio_compr_copy(struct snd_soc_component *component,
++				   struct snd_compr_stream *cstream,
+ 				   char __user *buf, size_t count)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+@@ -375,7 +386,8 @@ static int uniphier_aio_compr_copy(struct snd_compr_stream *cstream,
+ 	return cnt;
+ }
+ 
+-static int uniphier_aio_compr_get_caps(struct snd_compr_stream *cstream,
++static int uniphier_aio_compr_get_caps(struct snd_soc_component *component,
++				       struct snd_compr_stream *cstream,
+ 				       struct snd_compr_caps *caps)
+ {
+ 	caps->num_codecs = 1;
+@@ -401,7 +413,8 @@ static const struct snd_compr_codec_caps caps_iec = {
+ 	.descriptor[0].formats = 0,
+ };
+ 
+-static int uniphier_aio_compr_get_codec_caps(struct snd_compr_stream *stream,
++static int uniphier_aio_compr_get_codec_caps(struct snd_soc_component *component,
++					     struct snd_compr_stream *stream,
+ 					     struct snd_compr_codec_caps *codec)
+ {
+ 	if (codec->codec == SND_AUDIOCODEC_IEC61937)
+@@ -412,7 +425,7 @@ static int uniphier_aio_compr_get_codec_caps(struct snd_compr_stream *stream,
+ 	return 0;
+ }
+ 
+-const struct snd_compr_ops uniphier_aio_compr_ops = {
++const struct snd_compress_ops uniphier_aio_compress_ops = {
+ 	.open           = uniphier_aio_compr_open,
+ 	.free           = uniphier_aio_compr_free,
+ 	.get_params     = uniphier_aio_compr_get_params,
+diff --git a/sound/soc/uniphier/aio-dma.c b/sound/soc/uniphier/aio-dma.c
+index 4bbcb007df41..d6bcd476df12 100644
+--- a/sound/soc/uniphier/aio-dma.c
++++ b/sound/soc/uniphier/aio-dma.c
+@@ -227,7 +227,7 @@ static const struct snd_soc_component_driver uniphier_soc_platform = {
+ 	.pointer	= uniphier_aiodma_pointer,
+ 	.mmap		= uniphier_aiodma_mmap,
+ 	.pcm_construct	= uniphier_aiodma_new,
+-	.compr_ops	= &uniphier_aio_compr_ops,
++	.compress_ops	= &uniphier_aio_compress_ops,
+ };
+ 
+ static const struct regmap_config aiodma_regmap_config = {
+diff --git a/sound/soc/uniphier/aio.h b/sound/soc/uniphier/aio.h
+index 694ac030950e..0b03571aa9f0 100644
+--- a/sound/soc/uniphier/aio.h
++++ b/sound/soc/uniphier/aio.h
+@@ -304,7 +304,7 @@ static inline struct uniphier_aio *uniphier_priv(struct snd_soc_dai *dai)
+ }
+ 
+ int uniphier_aiodma_soc_register_platform(struct platform_device *pdev);
+-extern const struct snd_compr_ops uniphier_aio_compr_ops;
++extern const struct snd_compress_ops uniphier_aio_compress_ops;
+ 
+ int uniphier_aio_dai_probe(struct snd_soc_dai *dai);
+ int uniphier_aio_dai_remove(struct snd_soc_dai *dai);
 -- 
-~Vinod
+2.17.1
+

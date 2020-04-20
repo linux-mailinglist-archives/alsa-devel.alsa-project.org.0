@@ -2,73 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0179F1B0936
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 14:19:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 754BB1B0948
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 14:25:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A41C11680;
-	Mon, 20 Apr 2020 14:19:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A41C11680
+	by alsa0.perex.cz (Postfix) with ESMTPS id 189CD1682;
+	Mon, 20 Apr 2020 14:24:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 189CD1682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587385190;
-	bh=GD6yKftMiFUcgIV6wTVwHE7yEFYw9iJR2KXH1JFWqIo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1587385503;
+	bh=xy9VhJVcH0qPwv57A35vcWwzjCHkkaqUd92mi2lIXyg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RSlcbJUpBDQNiz0HzUa92yONGpvIn81bk86qmAtZ6JS5ulHwBub3i8lr6QfCMHeAN
-	 KuLUk9T6TlWmaYDs35J9mWjUnuxUWc9s2fxmpFt9V8qXCbkFu9qN9NI39wV37yEQmz
-	 LrplN/TsXTsn6YiOgMqb265cD3N5lMIV+7RGnZT4=
+	b=i+Ao2ejjaa52np97CPC0SAHVMfIa4I81NfU5lIcGnXLh8PJ8WbNQGTvHG4nwKkhb6
+	 V96g/Ri7S3g2scm4bEKZyA/fwjxGtfROQy7Y3tGh4JBuhWG41iH0hv5XL+wSUUz8Gg
+	 UH0xgatkifvjt32Ujz4Am5rSM/RDEc4v8pKPGxUc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D7853F8013E;
-	Mon, 20 Apr 2020 14:18:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 54EABF8020C;
+	Mon, 20 Apr 2020 14:23:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 134E5F801D9; Mon, 20 Apr 2020 14:18:07 +0200 (CEST)
+ id 5D75CF801D9; Mon, 20 Apr 2020 14:23:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_PASS, URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ot1-x344.google.com (mail-ot1-x344.google.com
+ [IPv6:2607:f8b0:4864:20::344])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 44530F800C8
- for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 14:18:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44530F800C8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 12719F800E7
+ for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 14:23:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12719F800E7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="2uPBVK41"
-Received: from localhost (unknown [171.61.106.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B69EC206B9;
- Mon, 20 Apr 2020 12:18:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587385081;
- bh=GD6yKftMiFUcgIV6wTVwHE7yEFYw9iJR2KXH1JFWqIo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=2uPBVK41YVu/dXIrss/tCWROOew4ZD1hUthru4+AxfzYQwR1g4lhcy9WiA0hXdSW9
- Z7tDa5Q/wN4FSL4cjaRYUunfcsIDyIQSgXP/Gs9pYGtFG0e7O1jKtNEe7j3BlJiBYo
- Ph6UcHZLSqRdwGrixHNA032YLFoWHzzMS7r871uw=
-Date: Mon, 20 Apr 2020 17:47:52 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] soundwire: intel: use asoc_rtd_to_cpu() /
- asoc_rtd_to_codec() macro for DAI pointer
-Message-ID: <20200420121752.GY72691@vkoul-mobl>
-References: <87y2qqvdxu.wl-kuninori.morimoto.gx@renesas.com>
- <20200420070816.GU72691@vkoul-mobl>
- <20200420120348.GA6507@sirena.org.uk>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="oksKOqpk"
+Received: by mail-ot1-x344.google.com with SMTP id m13so7849314otf.6
+ for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 05:23:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=dB5fFXDtNZJmKi5W1CbxDiopUm/CrNq1L0Xs/KI3ugA=;
+ b=oksKOqpkL5BIT0FQ3tM/1yCv9/QCkBbYAp9oHSGmnD02GSrlJ+H5X28PF7Lhp2B4+3
+ c30mxy6tvb98VsH8vSWt0ccXD77/CCm79AR2X4nbroKfgCilofvvz7aOxU3rG3BNwiRh
+ WHui24ltdhTl1ZT/EILNfr+ybZ17tMMn24RefPqYIuJchHHpYB+23fF4TC4vY4V7Unmz
+ 2gqK+KawqQcldK+MKv0JoPXQSd6z+JqZssBruNIqIfA2KxDEPdMdS9N8gRTa1xTOkiqh
+ WAb+qQ29Yf+tjLq37uNTEmaXlQz7babkJUE+R2l/R4xEQMa8KJDboJQR16desRHjNAjg
+ 7vrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=dB5fFXDtNZJmKi5W1CbxDiopUm/CrNq1L0Xs/KI3ugA=;
+ b=eQdIPBx3Tp5x2rWbWuGsGw+MX1zTBNrtAM/KZ4X+AqOGECp71ZLb3zUW1zs2Mudend
+ sBWO2I03eBoXy5bRu7TiDNFv1/MQn3g1Hlqc8VjywlWyoamneIvyew74d0pRcrynsBwV
+ kgMY4cDJ5EtMRK47vpRhPL3KKY4kEyKFf+kWYwb5wQQYuPgcWe3sDbbxuJdUdsMWtWhs
+ 6kxrDRdH/dNLzl08L1bxzPJH3ssNFaeGxX1GVLbq8b6+ydy+Tvp2DMX1ZyvtP8i9+wlG
+ rWZBu2tYLTBPNn0kWLy2KMZePSGYajUvu5k9Jei19P1lL/3TtkMpFCXMY/SlXuLqzL92
+ AiMQ==
+X-Gm-Message-State: AGi0PuZ8jdXd6oNzwQjJm1p0yG23bKIyraZSgB3HgWRVRJhOXwhVAkaf
+ vMR7zrM3vwHYJSkCt4JNzUPhK5vMbBjTCZprPcU=
+X-Google-Smtp-Source: APiQypKmSZJ8nmissvGU/pkWsPLYQA+fpHEY2Jk4ZHL3avI07b483TyKWn8igklk6qenSoDZ5w/ar4w4V/qRc8lWCLs=
+X-Received: by 2002:a9d:19ca:: with SMTP id k68mr9591231otk.232.1587385389897; 
+ Mon, 20 Apr 2020 05:23:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200420120348.GA6507@sirena.org.uk>
-Cc: linux-kernel@vger.kernel.org, Sanyog Kale <sanyog.r.kale@intel.com>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+References: <20200417221341.31428-1-TheSven73@gmail.com>
+ <20200420121542.GB6507@sirena.org.uk>
+In-Reply-To: <20200420121542.GB6507@sirena.org.uk>
+From: Sven Van Asbroeck <thesven73@gmail.com>
+Date: Mon, 20 Apr 2020 08:22:57 -0400
+Message-ID: <CAGngYiWauBTnXDcP9UC1S7U5Ogy0B=bUZSdGs1Z9aKZ2+sB=Qw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: sound: add Microsemi ZL38060 binding
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: devicetree <devicetree@vger.kernel.org>, alsa-devel@alsa-project.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh+dt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,21 +97,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 20-04-20, 13:03, Mark Brown wrote:
-> On Mon, Apr 20, 2020 at 12:38:16PM +0530, Vinod Koul wrote:
-> > On 20-04-20, 16:01, Kuninori Morimoto wrote:
-> 
-> > > Now ALSA SoC needs to use asoc_rtd_to_codec(),
-> > > otherwise, it will be compile error.
-> 
-> > Applied, thanks
-> 
-> This fix is needed in the ASoC tree - are you OK with me applying it
-> there?
+On Mon, Apr 20, 2020 at 8:15 AM Mark Brown <broonie@kernel.org> wrote:
+>
+> > +maintainers:
+> > +  - Jaroslav Kysela <perex@perex.cz>
+> > +  - Takashi Iwai <tiwai@suse.com>
+>
+> This is supposed to be people maintianing this specific binding, not the
+> subsystem.
 
-Sure..
-
-Acked-By: Vinod Koul <vkoul@kernel.org>
-
--- 
-~Vinod
+That would be Liam and yourself?

@@ -2,75 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A0CD1B1555
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 21:04:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8407A1B103B
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 17:32:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E1C43168E;
-	Mon, 20 Apr 2020 21:04:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1C43168E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 28382168C;
+	Mon, 20 Apr 2020 17:32:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28382168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587409496;
-	bh=3bHtnjsSvJCGJtGe05yww5+GqcaKc4h5OBV50/ZW1P0=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1587396778;
+	bh=mBtAU8+++LzfANGdd4dkRTMjCsIyXYRofREjG2ceEm0=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SQTDFCfwrSvDFo5I6WDG/rkJYcsvElETw17nG0JIhu9xHwrCxDC+nuIuqim9KbWni
-	 XbWH7hZtfd3lKy638ojXVBzCTCLoz1Fbb2nBQ1rr2HbUwXgJoHwRFxvNILXuMpyr64
-	 xEVbifCVGaVQfI+eGR3bAtF0pBIOEd+r+oX+FtHU=
+	b=W1ggPviTkunPiWT88sm6qeKG0ScFeEPMBA4Q5VamvEjW9ZtIDM2yqqyVvYTK5VwxG
+	 D9AZeVfR7L8/MuomdhOoEWI5oKmrThmKe5EwAtm9kmQQB3OpfYUHROqOZBed2l3pRP
+	 ZLhjZB2z6h1wyTjbNMhC8YaZqJ3eNh0a9WNtCbOM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ED0FFF801D9;
-	Mon, 20 Apr 2020 21:03:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 50F31F8020C;
+	Mon, 20 Apr 2020 17:31:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EBC54F801D9; Mon, 20 Apr 2020 21:03:12 +0200 (CEST)
+ id 1086FF801D9; Mon, 20 Apr 2020 17:31:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_03_06,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9B60CF800C8
+ for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 17:31:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B60CF800C8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="dpNOykOH"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9C188F8012F
- for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 21:03:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C188F8012F
-IronPort-SDR: qE5JripPYCqQ/yjPTAkZ4dUzklyrokJxIjBgCkyw5OhfhsNkkdcS1jkbduxHeQwasnKuzvCdlX
- J7ztQg1qSOpw==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2020 12:03:04 -0700
-IronPort-SDR: A86NY6IMNrtdOxYbx6uvzrDUxMvv8hjuyd4JGFl98tcYSlTocBf9zwjDHQYSMmS1ccNf2aUQzB
- nRrp0yOMXLmA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,407,1580803200"; d="scan'208";a="273273893"
-Received: from ktseng-mobl1.amr.corp.intel.com (HELO [10.255.68.120])
- ([10.255.68.120])
- by orsmga002.jf.intel.com with ESMTP; 20 Apr 2020 12:03:03 -0700
-Subject: Re: [PATCH 1/2] ASoC: SOF: Fix "no reply expected" error during
- firmware-boot
-To: Mark Brown <broonie@kernel.org>
-References: <20200402184948.3014-1-hdegoede@redhat.com>
- <1ecf6c31-4eb1-0288-2353-7a7a421fe5e7@linux.intel.com>
- <a0d5d95e-113b-3543-cfc5-43dfa3f9142c@redhat.com>
- <be66d657-f4c5-46d8-d0b5-4879d7aa7463@linux.intel.com>
- <20200420124815.GB10045@sirena.org.uk>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <84764e4c-8077-15b6-ff4c-9d002d42734a@linux.intel.com>
-Date: Mon, 20 Apr 2020 10:17:00 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <20200420124815.GB10045@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>
+ by mail.kernel.org (Postfix) with ESMTPSA id 7721C206F9;
+ Mon, 20 Apr 2020 15:31:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1587396665;
+ bh=mBtAU8+++LzfANGdd4dkRTMjCsIyXYRofREjG2ceEm0=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=dpNOykOHE/RuS4HaqLkJOiavP+sLIO3YbhFMCida0C+lvlDYhxvZVBieCZm/Z/CyW
+ sdIlj3tYZmkKhjWZ6HEhWBVDrA5DKJdEF5dLfQ33T4yKWUVRCdyKVNvB/c6OsoI51U
+ H+2ZzhYggMqKpQpWvHjBT01kpp10ETZPjwSrceiM=
+Date: Mon, 20 Apr 2020 16:31:02 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Vinod Koul <vkoul@kernel.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>
+In-Reply-To: <87y2qqvdxu.wl-kuninori.morimoto.gx@renesas.com>
+References: <87y2qqvdxu.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH] soundwire: intel: use asoc_rtd_to_cpu() /
+ asoc_rtd_to_codec() macro for DAI pointer
+Message-Id: <158739666242.39069.11002748203255634356.b4-ty@kernel.org>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,22 +80,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 20 Apr 2020 16:01:01 +0900, Kuninori Morimoto wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> 
+> Now ALSA SoC needs to use asoc_rtd_to_codec(),
+> otherwise, it will be compile error.
+> 
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> Acked-By: Vinod Koul <vkoul@kernel.org>
+> 
+> [...]
 
+Applied to
 
-On 4/20/20 7:48 AM, Mark Brown wrote:
-> On Fri, Apr 03, 2020 at 08:17:32AM -0500, Pierre-Louis Bossart wrote:
->> On 4/3/20 3:01 AM, Hans de Goede wrote:
-> 
->>> That commit is not in Torvald's tree yet, but it is in
->>> broonie/sound.git, I've cherry picked it into my local tree
->>> and reverted my own fix.
-> 
->>> Unfortunately even with that patch cherry picked the errors my
->>> patch silences still happen.
-> 
->> Ok, we'll look into it. Give us a couple of days on this one, thanks!
-> 
-> It's been more than a few days now...
+	https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.7
 
-Sorry about the delay, on my side I don't see this anymore in my 
-ApolloLake or CML tests. Kai, can you confirm for HDaudio platforms?
+Thanks!
+
+[1/1] soundwire: intel: use asoc_rtd_to_cpu() / asoc_rtd_to_codec() macro for DAI pointer
+      commit: c74a793806537d8564064cfb1b58488c3d4b70c9
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

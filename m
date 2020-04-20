@@ -2,59 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 261EB1B006F
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 06:05:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D37741B0181
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 08:22:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BAB4D167B;
-	Mon, 20 Apr 2020 06:05:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BAB4D167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB9C91671;
+	Mon, 20 Apr 2020 08:21:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB9C91671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587355554;
-	bh=+T0/NC+0u6uuNSF94E4rrF4iBJEg5R4K5hVQM+22Uyk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1587363748;
+	bh=2Fu3OC6/Zw4HeQeZWrjAra0Yl7UMQc9m/9zTTmdgyHU=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=HQRiOKqcEIzd2YEs9NFlIf8pAjswQvLRL6/3LFzVOQjiTAXDtcqE2XIeMLQ45L+r9
-	 fc+QiK9TVa42i/A/ro3E4xXjAXfB5pSiTK3KsV9OmBb+kye+FdV+UaAPzi8oTKpuf0
-	 CPe18FlP08Kd7cRPfzqvhQg7t+5DG2M79FeWyLDk=
+	b=KdsFln9kE7t26VnZt464txfINxGrSerMn5IGhJOP+yRNDINIq5h1+wxHZJ5PWRNkK
+	 FMQN8aKsGZFUo4g/gaVJYl/1Es2Z4dgVXAEKNn1xiKS0kmq6TktbWMy3HnbviWaW2j
+	 y6Ibzaxqb0RbXAAWf/TyChfBLOiMN5Akb3t/hYmU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E4DBF80292;
-	Mon, 20 Apr 2020 06:02:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E3A7F8020C;
+	Mon, 20 Apr 2020 08:20:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BE144F8029B; Mon, 20 Apr 2020 06:02:47 +0200 (CEST)
+ id 3F22FF801D9; Mon, 20 Apr 2020 08:20:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9BA4AF80292
- for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 06:02:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BA4AF80292
-Received: from DGGEMS411-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id 720B091CADBB50EFF986;
- Mon, 20 Apr 2020 12:02:36 +0800 (CST)
-Received: from huawei.com (10.175.124.28) by DGGEMS411-HUB.china.huawei.com
- (10.3.19.211) with Microsoft SMTP Server id 14.3.487.0; Mon, 20 Apr 2020
- 12:02:29 +0800
-From: Jason Yan <yanaijie@huawei.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <srinivas.kandagatla@linaro.org>,
- <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH] ASoC: wcd934x: remove unneeded semicolon
-Date: Mon, 20 Apr 2020 12:29:11 +0800
-Message-ID: <20200420042911.19379-1-yanaijie@huawei.com>
-X-Mailer: git-send-email 2.21.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.175.124.28]
-X-CFilter-Loop: Reflected
-Cc: Jason Yan <yanaijie@huawei.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1EE5AF800E7
+ for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 08:20:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EE5AF800E7
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id EA3E7AF69
+ for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 06:20:39 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: usb-audio: Add static mapping table for
+ ALC1220-VB-based mobos
+Date: Mon, 20 Apr 2020 08:20:36 +0200
+Message-Id: <20200420062036.28567-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.16.4
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,156 +62,131 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix the following coccicheck warning:
+TRX40 mobos from MSI and others with ALC1220-VB USB-audio device need
+yet more quirks for the proper control names.
 
-sound/soc/codecs/wcd934x.c:3621:2-3: Unneeded semicolon
-sound/soc/codecs/wcd934x.c:4270:2-3: Unneeded semicolon
-sound/soc/codecs/wcd934x.c:4018:2-3: Unneeded semicolon
-sound/soc/codecs/wcd934x.c:4043:2-3: Unneeded semicolon
-sound/soc/codecs/wcd934x.c:3804:2-3: Unneeded semicolon
-sound/soc/codecs/wcd934x.c:3866:2-3: Unneeded semicolon
-sound/soc/codecs/wcd934x.c:3596:2-3: Unneeded semicolon
-sound/soc/codecs/wcd934x.c:3542:2-3: Unneeded semicolon
-sound/soc/codecs/wcd934x.c:3673:2-3: Unneeded semicolon
-sound/soc/codecs/wcd934x.c:3723:2-3: Unneeded semicolon
-sound/soc/codecs/wcd934x.c:2492:2-3: Unneeded semicolon
-sound/soc/codecs/wcd934x.c:1790:3-4: Unneeded semicolon
-sound/soc/codecs/wcd934x.c:1806:3-4: Unneeded semicolon
-sound/soc/codecs/wcd934x.c:1812:2-3: Unneeded semicolon
+This patch provides the mapping table for those boards, correcting the
+FU names for volume and mute controls as well as the terminal names
+for jack controls.  It also improves build_connector_control() not to
+add the directional suffix blindly if the string is given from the
+mapping table.
 
-Signed-off-by: Jason Yan <yanaijie@huawei.com>
+With this patch applied, the new UCM profiles will be effective.
+
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=206873
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/soc/codecs/wcd934x.c | 28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
+ sound/usb/mixer.c        | 12 +++++++++---
+ sound/usb/mixer_maps.c   | 24 +++++++++++++++++++++---
+ sound/usb/quirks-table.h | 14 ++++++++++++++
+ 3 files changed, 44 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/codecs/wcd934x.c b/sound/soc/codecs/wcd934x.c
-index 5269857e2746..a514eb32e3e6 100644
---- a/sound/soc/codecs/wcd934x.c
-+++ b/sound/soc/codecs/wcd934x.c
-@@ -1787,7 +1787,7 @@ static int wcd934x_hw_params(struct snd_pcm_substream *substream,
- 				params_rate(params));
- 			return -EINVAL;
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index e7b9040a54e6..ecd5036a0b44 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -1776,8 +1776,10 @@ static void build_connector_control(struct usb_mixer_interface *mixer,
+ {
+ 	struct snd_kcontrol *kctl;
+ 	struct usb_mixer_elem_info *cval;
++	const struct usbmix_name_map *map;
  
--		};
-+		}
+-	if (check_ignored_ctl(find_map(imap, term->id, 0)))
++	map = find_map(imap, term->id, 0);
++	if (check_ignored_ctl(map))
+ 		return;
  
- 		ret = wcd934x_set_decimator_rate(dai, tx_fs_rate,
- 						 params_rate(params));
-@@ -1803,13 +1803,13 @@ static int wcd934x_hw_params(struct snd_pcm_substream *substream,
- 			dev_err(wcd->dev, "Invalid format 0x%x\n",
- 				params_width(params));
- 			return -EINVAL;
--		};
-+		}
- 		break;
- 	default:
- 		dev_err(wcd->dev, "Invalid stream type %d\n",
- 			substream->stream);
- 		return -EINVAL;
--	};
-+	}
- 
- 	wcd->dai[dai->id].sconfig.rate = params_rate(params);
- 	wcd934x_slim_set_hw_params(wcd, &wcd->dai[dai->id], substream->stream);
-@@ -2489,7 +2489,7 @@ static int wcd934x_compander_set(struct snd_kcontrol *kc,
- 		break;
- 	default:
- 		break;
--	};
-+	}
- 
- 	return 0;
+ 	cval = kzalloc(sizeof(*cval), GFP_KERNEL);
+@@ -1809,8 +1811,12 @@ static void build_connector_control(struct usb_mixer_interface *mixer,
+ 		usb_mixer_elem_info_free(cval);
+ 		return;
+ 	}
+-	get_connector_control_name(mixer, term, is_input, kctl->id.name,
+-				   sizeof(kctl->id.name));
++
++	if (check_mapped_name(map, kctl->id.name, sizeof(kctl->id.name)))
++		strlcat(kctl->id.name, " Jack", sizeof(kctl->id.name));
++	else
++		get_connector_control_name(mixer, term, is_input, kctl->id.name,
++					   sizeof(kctl->id.name));
+ 	kctl->private_free = snd_usb_mixer_elem_free;
+ 	snd_usb_mixer_add_control(&cval->head, kctl);
  }
-@@ -3539,7 +3539,7 @@ static int wcd934x_codec_enable_mix_path(struct snd_soc_dapm_widget *w,
- 		val += offset_val;
- 		snd_soc_component_write(comp, gain_reg, val);
- 		break;
--	};
-+	}
+diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
+index b4e77000f441..fb2c4a992951 100644
+--- a/sound/usb/mixer_maps.c
++++ b/sound/usb/mixer_maps.c
+@@ -369,6 +369,24 @@ static const struct usbmix_name_map asus_rog_map[] = {
+ 	{}
+ };
  
- 	return 0;
- }
-@@ -3593,7 +3593,7 @@ static int wcd934x_codec_enable_main_path(struct snd_soc_dapm_widget *w,
- 		snd_soc_component_write(comp, gain_reg,
- 				snd_soc_component_read32(comp, gain_reg));
- 		break;
--	};
-+	}
++/* TRX40 mobos with Realtek ALC1220-VB */
++static const struct usbmix_name_map trx40_mobo_map[] = {
++	{ 18, NULL }, /* OT, IEC958 - broken response, disabled */
++	{ 19, NULL, 12 }, /* FU, Input Gain Pad - broken response, disabled */
++	{ 16, "Speaker" },		/* OT */
++	{ 22, "Speaker Playback" },	/* FU */
++	{ 7, "Line" },			/* IT */
++	{ 19, "Line Capture" },		/* FU */
++	{ 17, "Front Headphone" },	/* OT */
++	{ 23, "Front Headphone Playback" },	/* FU */
++	{ 8, "Mic" },			/* IT */
++	{ 20, "Mic Capture" },		/* FU */
++	{ 9, "Front Mic" },		/* IT */
++	{ 21, "Front Mic Capture" },	/* FU */
++	{ 24, "IEC958 Playback" },	/* FU */
++	{}
++};
++
+ /*
+  * Control map entries
+  */
+@@ -500,7 +518,7 @@ static const struct usbmix_ctl_map usbmix_ctl_maps[] = {
+ 	},
+ 	{	/* Gigabyte TRX40 Aorus Pro WiFi */
+ 		.id = USB_ID(0x0414, 0xa002),
+-		.map = asus_rog_map,
++		.map = trx40_mobo_map,
+ 	},
+ 	{	/* ASUS ROG Zenith II */
+ 		.id = USB_ID(0x0b05, 0x1916),
+@@ -512,11 +530,11 @@ static const struct usbmix_ctl_map usbmix_ctl_maps[] = {
+ 	},
+ 	{	/* MSI TRX40 Creator */
+ 		.id = USB_ID(0x0db0, 0x0d64),
+-		.map = asus_rog_map,
++		.map = trx40_mobo_map,
+ 	},
+ 	{	/* MSI TRX40 */
+ 		.id = USB_ID(0x0db0, 0x543d),
+-		.map = asus_rog_map,
++		.map = trx40_mobo_map,
+ 	},
+ 	{ 0 } /* terminator */
+ };
+diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+index e009d584e7d0..7598d6d6740c 100644
+--- a/sound/usb/quirks-table.h
++++ b/sound/usb/quirks-table.h
+@@ -3635,4 +3635,18 @@ AU0828_DEVICE(0x2040, 0x7270, "Hauppauge", "HVR-950Q"),
+ 	}
+ },
  
- 	return 0;
- }
-@@ -3618,7 +3618,7 @@ static int wcd934x_codec_ear_dac_event(struct snd_soc_dapm_widget *w,
- 		wcd_clsh_ctrl_set_state(wcd->clsh_ctrl, WCD_CLSH_EVENT_POST_PA,
- 					WCD_CLSH_STATE_EAR, CLS_H_NORMAL);
- 		break;
--	};
-+	}
- 
- 	return 0;
- }
-@@ -3670,7 +3670,7 @@ static int wcd934x_codec_hphl_dac_event(struct snd_soc_dapm_widget *w,
- 		break;
- 	default:
- 		break;
--	};
-+	}
- 
- 	return 0;
- }
-@@ -3720,7 +3720,7 @@ static int wcd934x_codec_hphr_dac_event(struct snd_soc_dapm_widget *w,
- 		break;
- 	default:
- 		break;
--	};
-+	}
- 
- 	return 0;
- }
-@@ -3801,7 +3801,7 @@ static int wcd934x_codec_enable_hphl_pa(struct snd_soc_dapm_widget *w,
- 		 */
- 		usleep_range(20000, 20100);
- 		break;
--	};
-+	}
- 
- 	return 0;
- }
-@@ -3863,7 +3863,7 @@ static int wcd934x_codec_enable_hphr_pa(struct snd_soc_dapm_widget *w,
- 		 */
- 		usleep_range(20000, 20100);
- 		break;
--	};
-+	}
- 
- 	return 0;
- }
-@@ -4015,7 +4015,7 @@ static int wcd934x_codec_enable_dmic(struct snd_soc_dapm_widget *w,
- 		dev_err(comp->dev, "%s: Invalid DMIC Selection\n",
- 			__func__);
- 		return -EINVAL;
--	};
-+	}
- 
- 	switch (event) {
- 	case SND_SOC_DAPM_PRE_PMU:
-@@ -4040,7 +4040,7 @@ static int wcd934x_codec_enable_dmic(struct snd_soc_dapm_widget *w,
- 			snd_soc_component_update_bits(comp, dmic_clk_reg,
- 						      dmic_clk_en, 0);
- 		break;
--	};
-+	}
- 
- 	return 0;
- }
-@@ -4267,7 +4267,7 @@ static int wcd934x_codec_enable_dec(struct snd_soc_dapm_widget *w,
- 					      WCD934X_DEC_PWR_LVL_MASK,
- 					      WCD934X_DEC_PWR_LVL_DF);
- 		break;
--	};
-+	}
- out:
- 	kfree(wname);
- 	return ret;
++#define ALC1220_VB_DESKTOP(vend, prod) { \
++	USB_DEVICE(vend, prod),	\
++	.driver_info = (unsigned long) & (const struct snd_usb_audio_quirk) { \
++		.vendor_name = "Realtek", \
++		.product_name = "ALC1220-VB-DT", \
++		.profile_name = "Realtek-ALC1220-VB-Desktop", \
++		.ifnum = QUIRK_NO_INTERFACE \
++	} \
++}
++ALC1220_VB_DESKTOP(0x0414, 0xa002), /* Gigabyte TRX40 Aorus Pro WiFi */
++ALC1220_VB_DESKTOP(0x0db0, 0x0d64), /* MSI TRX40 Creator */
++ALC1220_VB_DESKTOP(0x0db0, 0x543d), /* MSI TRX40 */
++#undef ALC1220_VB_DESKTOP
++
+ #undef USB_DEVICE_VENDOR_SPEC
 -- 
-2.21.1
+2.16.4
 

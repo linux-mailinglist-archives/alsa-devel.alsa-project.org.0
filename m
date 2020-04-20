@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA8871B0262
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 09:11:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A1861B0265
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 09:12:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4F9271681;
-	Mon, 20 Apr 2020 09:10:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F9271681
+	by alsa0.perex.cz (Postfix) with ESMTPS id 15D8E1672;
+	Mon, 20 Apr 2020 09:11:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15D8E1672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587366685;
-	bh=gM9tdwG04+Ij2UYtrA6EEUGwKERMMiFIMKIgerbrNWU=;
+	s=default; t=1587366730;
+	bh=EPBzKxDCnzJrxa8W85PoI/G++f7GUdkMC4M2/EEjrWU=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RZMLcqMQQyopAKO70SZw9pvDtv5b0WJBS7AcG4znqLtYVp8R5p8PlIhARR6dxh3PW
-	 FQCrXFvQ6omMNAexhd5/roh8nQHImBhff31pgQPtCx9M78UcEcFSfJOx68zVs2kd/n
-	 YTo45IdO1ttMdG+ZxIq8CHwnwwFon6yZjjc8pM4I=
+	b=EI+M3WSsTWmqD8TvA7IdpMCUlcyPQM7R+Yn7/OafFuc45s+LHoKrAPUgDi1Y5xyz8
+	 v3aaXc0Ivxc9a4cf0yqtI2giICFJJTu91brDUpjjPdcc3rdNn9C8r2+OlnOzuNvhyf
+	 W2yGX4+91ljDQuEJGqPtpO4h0t0yl2x5b0Hn9dWo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2882F802A0;
-	Mon, 20 Apr 2020 09:08:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 13849F80278;
+	Mon, 20 Apr 2020 09:09:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88F60F802A0; Mon, 20 Apr 2020 09:08:41 +0200 (CEST)
+ id 0814DF8029B; Mon, 20 Apr 2020 09:08:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id EE570F8028F
- for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 09:08:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE570F8028F
-Date: 20 Apr 2020 16:08:30 +0900
-X-IronPort-AV: E=Sophos;i="5.72,406,1580742000"; d="scan'208";a="45179734"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 20 Apr 2020 16:08:30 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id E6D41F8029B
+ for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 09:08:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6D41F8029B
+Date: 20 Apr 2020 16:08:44 +0900
+X-IronPort-AV: E=Sophos;i="5.72,406,1580742000"; d="scan'208";a="45179747"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 20 Apr 2020 16:08:44 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id B83EE419EC68;
- Mon, 20 Apr 2020 16:08:30 +0900 (JST)
-Message-ID: <87sggyvdld.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id AEFFE40062AF;
+ Mon, 20 Apr 2020 16:08:44 +0900 (JST)
+Message-ID: <87r1wivdkz.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 3/8] ASoC: uniphier: use snd_compress_ops
+Subject: [PATCH v2 4/8] ASoC: qcom: q6sp6: use snd_compress_ops
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87wo6avdq1.wl-kuninori.morimoto.gx@renesas.com>
@@ -79,189 +79,171 @@ v1 -> v2
 
    - no change
 
- sound/soc/uniphier/aio-compress.c | 45 ++++++++++++++++++++-----------
- sound/soc/uniphier/aio-dma.c      |  2 +-
- sound/soc/uniphier/aio.h          |  2 +-
- 3 files changed, 31 insertions(+), 18 deletions(-)
+ sound/soc/qcom/qdsp6/q6asm-dai.c | 51 ++++++++++++++++++--------------
+ 1 file changed, 28 insertions(+), 23 deletions(-)
 
-diff --git a/sound/soc/uniphier/aio-compress.c b/sound/soc/uniphier/aio-compress.c
-index 232d3cc5bce0..0f76bc601ca9 100644
---- a/sound/soc/uniphier/aio-compress.c
-+++ b/sound/soc/uniphier/aio-compress.c
-@@ -16,8 +16,10 @@
- 
- #include "aio.h"
- 
--static int uniphier_aio_compr_prepare(struct snd_compr_stream *cstream);
--static int uniphier_aio_compr_hw_free(struct snd_compr_stream *cstream);
-+static int uniphier_aio_compr_prepare(struct snd_soc_component *component,
-+				      struct snd_compr_stream *cstream);
-+static int uniphier_aio_compr_hw_free(struct snd_soc_component *component,
-+				      struct snd_compr_stream *cstream);
- 
- static int uniphier_aio_comprdma_new(struct snd_soc_pcm_runtime *rtd)
- {
-@@ -70,7 +72,8 @@ static int uniphier_aio_comprdma_free(struct snd_soc_pcm_runtime *rtd)
- 	return 0;
+diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
+index 125af00bba53..ce77446dbbdd 100644
+--- a/sound/soc/qcom/qdsp6/q6asm-dai.c
++++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
+@@ -540,19 +540,19 @@ static void compress_event_handler(uint32_t opcode, uint32_t token,
+ 	}
  }
  
--static int uniphier_aio_compr_open(struct snd_compr_stream *cstream)
-+static int uniphier_aio_compr_open(struct snd_soc_component *component,
-+				   struct snd_compr_stream *cstream)
+-static int q6asm_dai_compr_open(struct snd_compr_stream *stream)
++static int q6asm_dai_compr_open(struct snd_soc_component *component,
++				struct snd_compr_stream *stream)
  {
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
- 	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
-@@ -95,14 +98,15 @@ static int uniphier_aio_compr_open(struct snd_compr_stream *cstream)
- 	return 0;
- }
+ 	struct snd_soc_pcm_runtime *rtd = stream->private_data;
+-	struct snd_soc_component *c = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+ 	struct snd_compr_runtime *runtime = stream->runtime;
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	struct q6asm_dai_data *pdata;
+-	struct device *dev = c->dev;
++	struct device *dev = component->dev;
+ 	struct q6asm_dai_rtd *prtd;
+ 	int stream_id, size, ret;
  
--static int uniphier_aio_compr_free(struct snd_compr_stream *cstream)
-+static int uniphier_aio_compr_free(struct snd_soc_component *component,
-+				   struct snd_compr_stream *cstream)
- {
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
- 	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
- 	struct uniphier_aio_sub *sub = &aio->sub[cstream->direction];
- 	int ret;
- 
--	ret = uniphier_aio_compr_hw_free(cstream);
-+	ret = uniphier_aio_compr_hw_free(component, cstream);
- 	if (ret)
- 		return ret;
- 	ret = uniphier_aio_comprdma_free(rtd);
-@@ -114,7 +118,8 @@ static int uniphier_aio_compr_free(struct snd_compr_stream *cstream)
- 	return 0;
- }
- 
--static int uniphier_aio_compr_get_params(struct snd_compr_stream *cstream,
-+static int uniphier_aio_compr_get_params(struct snd_soc_component *component,
-+					 struct snd_compr_stream *cstream,
- 					 struct snd_codec *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
-@@ -126,7 +131,8 @@ static int uniphier_aio_compr_get_params(struct snd_compr_stream *cstream,
- 	return 0;
- }
- 
--static int uniphier_aio_compr_set_params(struct snd_compr_stream *cstream,
-+static int uniphier_aio_compr_set_params(struct snd_soc_component *component,
-+					 struct snd_compr_stream *cstream,
- 					 struct snd_compr_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
-@@ -155,14 +161,15 @@ static int uniphier_aio_compr_set_params(struct snd_compr_stream *cstream,
- 	aio_port_reset(sub);
- 	aio_src_reset(sub);
- 
--	ret = uniphier_aio_compr_prepare(cstream);
-+	ret = uniphier_aio_compr_prepare(component, cstream);
- 	if (ret)
- 		return ret;
- 
- 	return 0;
- }
- 
--static int uniphier_aio_compr_hw_free(struct snd_compr_stream *cstream)
-+static int uniphier_aio_compr_hw_free(struct snd_soc_component *component,
-+				      struct snd_compr_stream *cstream)
- {
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
- 	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
-@@ -173,7 +180,8 @@ static int uniphier_aio_compr_hw_free(struct snd_compr_stream *cstream)
- 	return 0;
- }
- 
--static int uniphier_aio_compr_prepare(struct snd_compr_stream *cstream)
-+static int uniphier_aio_compr_prepare(struct snd_soc_component *component,
-+				      struct snd_compr_stream *cstream)
- {
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
- 	struct snd_compr_runtime *runtime = cstream->runtime;
-@@ -210,7 +218,8 @@ static int uniphier_aio_compr_prepare(struct snd_compr_stream *cstream)
- 	return 0;
- }
- 
--static int uniphier_aio_compr_trigger(struct snd_compr_stream *cstream,
-+static int uniphier_aio_compr_trigger(struct snd_soc_component *component,
-+				      struct snd_compr_stream *cstream,
- 				      int cmd)
- {
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
-@@ -243,7 +252,8 @@ static int uniphier_aio_compr_trigger(struct snd_compr_stream *cstream,
+ 	stream_id = cpu_dai->driver->id;
+-	pdata = snd_soc_component_get_drvdata(c);
++	pdata = snd_soc_component_get_drvdata(component);
+ 	if (!pdata) {
+ 		dev_err(dev, "Drv data not found ..\n");
+ 		return -EINVAL;
+@@ -600,7 +600,8 @@ static int q6asm_dai_compr_open(struct snd_compr_stream *stream)
  	return ret;
  }
  
--static int uniphier_aio_compr_pointer(struct snd_compr_stream *cstream,
-+static int uniphier_aio_compr_pointer(struct snd_soc_component *component,
-+				      struct snd_compr_stream *cstream,
- 				      struct snd_compr_tstamp *tstamp)
+-static int q6asm_dai_compr_free(struct snd_compr_stream *stream)
++static int q6asm_dai_compr_free(struct snd_soc_component *component,
++				struct snd_compr_stream *stream)
  {
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
-@@ -316,7 +326,8 @@ static int aio_compr_send_to_hw(struct uniphier_aio_sub *sub,
+ 	struct snd_compr_runtime *runtime = stream->runtime;
+ 	struct q6asm_dai_rtd *prtd = runtime->private_data;
+@@ -622,13 +623,13 @@ static int q6asm_dai_compr_free(struct snd_compr_stream *stream)
  	return 0;
  }
  
--static int uniphier_aio_compr_copy(struct snd_compr_stream *cstream,
-+static int uniphier_aio_compr_copy(struct snd_soc_component *component,
-+				   struct snd_compr_stream *cstream,
- 				   char __user *buf, size_t count)
+-static int q6asm_dai_compr_set_params(struct snd_compr_stream *stream,
++static int q6asm_dai_compr_set_params(struct snd_soc_component *component,
++				      struct snd_compr_stream *stream,
+ 				      struct snd_compr_params *params)
  {
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
-@@ -375,7 +386,8 @@ static int uniphier_aio_compr_copy(struct snd_compr_stream *cstream,
- 	return cnt;
- }
+ 	struct snd_compr_runtime *runtime = stream->runtime;
+ 	struct q6asm_dai_rtd *prtd = runtime->private_data;
+ 	struct snd_soc_pcm_runtime *rtd = stream->private_data;
+-	struct snd_soc_component *c = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+ 	int dir = stream->direction;
+ 	struct q6asm_dai_data *pdata;
+ 	struct q6asm_flac_cfg flac_cfg;
+@@ -636,7 +637,7 @@ static int q6asm_dai_compr_set_params(struct snd_compr_stream *stream,
+ 	struct q6asm_alac_cfg alac_cfg;
+ 	struct q6asm_ape_cfg ape_cfg;
+ 	unsigned int wma_v9 = 0;
+-	struct device *dev = c->dev;
++	struct device *dev = component->dev;
+ 	int ret;
+ 	union snd_codec_options *codec_options;
+ 	struct snd_dec_flac *flac;
+@@ -649,7 +650,7 @@ static int q6asm_dai_compr_set_params(struct snd_compr_stream *stream,
  
--static int uniphier_aio_compr_get_caps(struct snd_compr_stream *cstream,
-+static int uniphier_aio_compr_get_caps(struct snd_soc_component *component,
-+				       struct snd_compr_stream *cstream,
- 				       struct snd_compr_caps *caps)
- {
- 	caps->num_codecs = 1;
-@@ -401,7 +413,8 @@ static const struct snd_compr_codec_caps caps_iec = {
- 	.descriptor[0].formats = 0,
- };
+ 	memcpy(&prtd->codec_param, params, sizeof(*params));
  
--static int uniphier_aio_compr_get_codec_caps(struct snd_compr_stream *stream,
-+static int uniphier_aio_compr_get_codec_caps(struct snd_soc_component *component,
-+					     struct snd_compr_stream *stream,
- 					     struct snd_compr_codec_caps *codec)
- {
- 	if (codec->codec == SND_AUDIOCODEC_IEC61937)
-@@ -412,7 +425,7 @@ static int uniphier_aio_compr_get_codec_caps(struct snd_compr_stream *stream,
+-	pdata = snd_soc_component_get_drvdata(c);
++	pdata = snd_soc_component_get_drvdata(component);
+ 	if (!pdata)
+ 		return -EINVAL;
+ 
+@@ -842,7 +843,8 @@ static int q6asm_dai_compr_set_params(struct snd_compr_stream *stream,
  	return 0;
  }
  
--const struct snd_compr_ops uniphier_aio_compr_ops = {
-+const struct snd_compress_ops uniphier_aio_compress_ops = {
- 	.open           = uniphier_aio_compr_open,
- 	.free           = uniphier_aio_compr_free,
- 	.get_params     = uniphier_aio_compr_get_params,
-diff --git a/sound/soc/uniphier/aio-dma.c b/sound/soc/uniphier/aio-dma.c
-index 4bbcb007df41..d6bcd476df12 100644
---- a/sound/soc/uniphier/aio-dma.c
-+++ b/sound/soc/uniphier/aio-dma.c
-@@ -227,7 +227,7 @@ static const struct snd_soc_component_driver uniphier_soc_platform = {
- 	.pointer	= uniphier_aiodma_pointer,
- 	.mmap		= uniphier_aiodma_mmap,
- 	.pcm_construct	= uniphier_aiodma_new,
--	.compr_ops	= &uniphier_aio_compr_ops,
-+	.compress_ops	= &uniphier_aio_compress_ops,
- };
- 
- static const struct regmap_config aiodma_regmap_config = {
-diff --git a/sound/soc/uniphier/aio.h b/sound/soc/uniphier/aio.h
-index 694ac030950e..0b03571aa9f0 100644
---- a/sound/soc/uniphier/aio.h
-+++ b/sound/soc/uniphier/aio.h
-@@ -304,7 +304,7 @@ static inline struct uniphier_aio *uniphier_priv(struct snd_soc_dai *dai)
+-static int q6asm_dai_compr_trigger(struct snd_compr_stream *stream, int cmd)
++static int q6asm_dai_compr_trigger(struct snd_soc_component *component,
++				   struct snd_compr_stream *stream, int cmd)
+ {
+ 	struct snd_compr_runtime *runtime = stream->runtime;
+ 	struct q6asm_dai_rtd *prtd = runtime->private_data;
+@@ -870,8 +872,9 @@ static int q6asm_dai_compr_trigger(struct snd_compr_stream *stream, int cmd)
+ 	return ret;
  }
  
- int uniphier_aiodma_soc_register_platform(struct platform_device *pdev);
--extern const struct snd_compr_ops uniphier_aio_compr_ops;
-+extern const struct snd_compress_ops uniphier_aio_compress_ops;
+-static int q6asm_dai_compr_pointer(struct snd_compr_stream *stream,
+-		struct snd_compr_tstamp *tstamp)
++static int q6asm_dai_compr_pointer(struct snd_soc_component *component,
++				   struct snd_compr_stream *stream,
++				   struct snd_compr_tstamp *tstamp)
+ {
+ 	struct snd_compr_runtime *runtime = stream->runtime;
+ 	struct q6asm_dai_rtd *prtd = runtime->private_data;
+@@ -887,8 +890,9 @@ static int q6asm_dai_compr_pointer(struct snd_compr_stream *stream,
+ 	return 0;
+ }
  
- int uniphier_aio_dai_probe(struct snd_soc_dai *dai);
- int uniphier_aio_dai_remove(struct snd_soc_dai *dai);
+-static int q6asm_dai_compr_ack(struct snd_compr_stream *stream,
+-				size_t count)
++static int q6asm_dai_compr_ack(struct snd_soc_component *component,
++			       struct snd_compr_stream *stream,
++			       size_t count)
+ {
+ 	struct snd_compr_runtime *runtime = stream->runtime;
+ 	struct q6asm_dai_rtd *prtd = runtime->private_data;
+@@ -901,21 +905,21 @@ static int q6asm_dai_compr_ack(struct snd_compr_stream *stream,
+ 	return count;
+ }
+ 
+-static int q6asm_dai_compr_mmap(struct snd_compr_stream *stream,
+-		struct vm_area_struct *vma)
++static int q6asm_dai_compr_mmap(struct snd_soc_component *component,
++				struct snd_compr_stream *stream,
++				struct vm_area_struct *vma)
+ {
+ 	struct snd_compr_runtime *runtime = stream->runtime;
+ 	struct q6asm_dai_rtd *prtd = runtime->private_data;
+-	struct snd_soc_pcm_runtime *rtd = stream->private_data;
+-	struct snd_soc_component *c = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+-	struct device *dev = c->dev;
++	struct device *dev = component->dev;
+ 
+ 	return dma_mmap_coherent(dev, vma,
+ 			prtd->dma_buffer.area, prtd->dma_buffer.addr,
+ 			prtd->dma_buffer.bytes);
+ }
+ 
+-static int q6asm_dai_compr_get_caps(struct snd_compr_stream *stream,
++static int q6asm_dai_compr_get_caps(struct snd_soc_component *component,
++				    struct snd_compr_stream *stream,
+ 				    struct snd_compr_caps *caps)
+ {
+ 	caps->direction = SND_COMPRESS_PLAYBACK;
+@@ -933,7 +937,8 @@ static int q6asm_dai_compr_get_caps(struct snd_compr_stream *stream,
+ 	return 0;
+ }
+ 
+-static int q6asm_dai_compr_get_codec_caps(struct snd_compr_stream *stream,
++static int q6asm_dai_compr_get_codec_caps(struct snd_soc_component *component,
++					  struct snd_compr_stream *stream,
+ 					  struct snd_compr_codec_caps *codec)
+ {
+ 	switch (codec->codec) {
+@@ -947,7 +952,7 @@ static int q6asm_dai_compr_get_codec_caps(struct snd_compr_stream *stream,
+ 	return 0;
+ }
+ 
+-static struct snd_compr_ops q6asm_dai_compr_ops = {
++static struct snd_compress_ops q6asm_dai_compress_ops = {
+ 	.open		= q6asm_dai_compr_open,
+ 	.free		= q6asm_dai_compr_free,
+ 	.set_params	= q6asm_dai_compr_set_params,
+@@ -1021,7 +1026,7 @@ static const struct snd_soc_component_driver q6asm_fe_dai_component = {
+ 	.mmap		= q6asm_dai_mmap,
+ 	.pcm_construct	= q6asm_dai_pcm_new,
+ 	.pcm_destruct	= q6asm_dai_pcm_free,
+-	.compr_ops	= &q6asm_dai_compr_ops,
++	.compress_ops	= &q6asm_dai_compress_ops,
+ };
+ 
+ static struct snd_soc_dai_driver q6asm_fe_dais_template[] = {
 -- 
 2.17.1
 

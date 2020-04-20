@@ -2,61 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 085741B0E45
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 16:26:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A20E1B0E5A
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 16:29:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95F22168B;
-	Mon, 20 Apr 2020 16:25:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95F22168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id BBF0D1690;
+	Mon, 20 Apr 2020 16:28:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBF0D1690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587392768;
-	bh=IYneKBYRFwVoZYfmR3TdLC+JN7+YenlWe/LlmbtBVxE=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=g0du97vePsbRtUcKsRt9ezP/FlgJNkgRfhV78pEBVisuPWvr/C9XQ+LY9eABaZAvS
-	 azZfvH1p+xcO+nydFH3sLj/6xaY8fr8bLmEzum5ybqfQyC+MzthkLv82Pj3CWF8HIa
-	 MzHin5Rd4qdikH6hmpLv8zswp9RkVpEC/WGnDwgE=
+	s=default; t=1587392947;
+	bh=iHr1Cn1jxEVva69HoDHFKc/6TcVS4pEiRER0S2RgaRg=;
+	h=Date:From:To:In-Reply-To:References:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=RAsNry9Grqn8N1/a2Vo8prpgdpy2MmctlzV4blC70LDbZ/rTdzPHyANcd+bvferPR
+	 C8dNldcREjaqYqgh04pC1Sl1tugyuHpFBhUREosTvHMv349DG02mPLPcPAG9NNnBGM
+	 g8hCPccVM2AonKKVlOglOWc3GnQDa6kixyoxzTjM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF470F8020C;
-	Mon, 20 Apr 2020 16:24:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E19ADF800E7;
+	Mon, 20 Apr 2020 16:27:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 96B45F801D9; Mon, 20 Apr 2020 16:24:25 +0200 (CEST)
+ id E4F33F801D9; Mon, 20 Apr 2020 16:27:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from cmccmta1.chinamobile.com (cmccmta1.chinamobile.com
- [221.176.66.79])
- by alsa1.perex.cz (Postfix) with ESMTP id 5CA43F800E7
- for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 16:24:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CA43F800E7
-Received: from spf.mail.chinamobile.com (unknown[172.16.121.3]) by
- rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee35e9db059e55-d7192;
- Mon, 20 Apr 2020 22:23:21 +0800 (CST)
-X-RM-TRANSID: 2ee35e9db059e55-d7192
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG: 00000000
-Received: from localhost.localdomain (unknown[112.1.173.179])
- by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee25e9db056663-c7edf;
- Mon, 20 Apr 2020 22:23:21 +0800 (CST)
-X-RM-TRANSID: 2ee25e9db056663-c7edf
-From: Tang Bin <tangbin@cmss.chinamobile.com>
-To: broonie@kernel.org, perex@perex.cz, tiwai@suse.com, shawnguo@kernel.org,
- s.hauer@pengutronix.de, lgirdwood@gmail.com
-Subject: [PATCH] ASoC: mxs-saif: Avoid unnecessary check
-Date: Mon, 20 Apr 2020 22:25:09 +0800
-Message-Id: <20200420142509.9728-1-tangbin@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.20.1.windows.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org,
- Shengju Zhang <zhangshengju@cmss.chinamobile.com>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Tang Bin <tangbin@cmss.chinamobile.com>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 574D2F800E7
+ for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 16:27:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 574D2F800E7
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="yN4WOCrp"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id DBD25206DD;
+ Mon, 20 Apr 2020 14:27:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1587392840;
+ bh=iHr1Cn1jxEVva69HoDHFKc/6TcVS4pEiRER0S2RgaRg=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=yN4WOCrpgTKIeQzG9EZzX1QBBpnnaUJpzjI9jAPMJPHEkDmuniO0zx7hFkhKMpzeY
+ efH+aDy3yze63LTFbBY13mL4d0mJENhNQnbeDHVYzP2aXKtQqyQs+NLxZS5canCOzU
+ IEXHqG3qX0g+DQmpxZ/wiS1+5DItg6NUbmxkvjNw=
+Date: Mon, 20 Apr 2020 15:27:17 +0100
+From: Mark Brown <broonie@kernel.org>
+To: tiwai@suse.com, linux-kernel@vger.kernel.org,
+ Jason Yan <yanaijie@huawei.com>, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, perex@perex.cz
+In-Reply-To: <20200420042847.19206-1-yanaijie@huawei.com>
+References: <20200420042847.19206-1-yanaijie@huawei.com>
+Subject: Re: [PATCH] ASoC: wcd9335: remove unneeded semicolon
+Message-Id: <158739283776.7647.16702267883187620715.b4-ty@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,32 +76,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The function mxs_saif_probe() is only called with an
-openfirmware platform device. Therefore there is no
-need to check that it has an openfirmware node.
+On Mon, 20 Apr 2020 12:28:47 +0800, Jason Yan wrote:
+> Fix the following coccicheck warning:
+> 
+> sound/soc/codecs/wcd9335.c:2606:2-3: Unneeded semicolon
+> sound/soc/codecs/wcd9335.c:3619:2-3: Unneeded semicolon
+> sound/soc/codecs/wcd9335.c:2849:2-3: Unneeded semicolon
+> sound/soc/codecs/wcd9335.c:2955:2-3: Unneeded semicolon
+> sound/soc/codecs/wcd9335.c:2988:2-3: Unneeded semicolon
+> sound/soc/codecs/wcd9335.c:3960:2-3: Unneeded semicolon
+> sound/soc/codecs/wcd9335.c:3776:2-3: Unneeded semicolon
+> sound/soc/codecs/wcd9335.c:3924:2-3: Unneeded semicolon
+> sound/soc/codecs/wcd9335.c:3355:2-3: Unneeded semicolon
+> sound/soc/codecs/wcd9335.c:3832:2-3: Unneeded semicolon
+> sound/soc/codecs/wcd9335.c:3079:2-3: Unneeded semicolon
+> sound/soc/codecs/wcd9335.c:3089:2-3: Unneeded semicolon
+> sound/soc/codecs/wcd9335.c:3232:2-3: Unneeded semicolon
+> sound/soc/codecs/wcd9335.c:3878:2-3: Unneeded semicolon
+> sound/soc/codecs/wcd9335.c:3578:2-3: Unneeded semicolon
+> sound/soc/codecs/wcd9335.c:3728:2-3: Unneeded semicolon
+> sound/soc/codecs/wcd9335.c:1922:3-4: Unneeded semicolon
+> sound/soc/codecs/wcd9335.c:1938:3-4: Unneeded semicolon
+> sound/soc/codecs/wcd9335.c:1944:2-3: Unneeded semicolon
+> sound/soc/codecs/wcd9335.c:3144:2-3: Unneeded semicolon
+> sound/soc/codecs/wcd9335.c:2568:2-3: Unneeded semicolon
+> sound/soc/codecs/wcd9335.c:2219:2-3: Unneeded semicolon
+> 
+> [...]
 
-Signed-off-by: Shengju Zhang <zhangshengju@cmss.chinamobile.com>
-Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
----
- sound/soc/mxs/mxs-saif.c | 3 ---
- 1 file changed, 3 deletions(-)
+Applied to
 
-diff --git a/sound/soc/mxs/mxs-saif.c b/sound/soc/mxs/mxs-saif.c
-index 1e38ce858..64c095b91 100644
---- a/sound/soc/mxs/mxs-saif.c
-+++ b/sound/soc/mxs/mxs-saif.c
-@@ -736,9 +736,6 @@ static int mxs_saif_probe(struct platform_device *pdev)
- 	int irq, ret = 0;
- 	struct device_node *master;
- 
--	if (!np)
--		return -EINVAL;
--
- 	saif = devm_kzalloc(&pdev->dev, sizeof(*saif), GFP_KERNEL);
- 	if (!saif)
- 		return -ENOMEM;
--- 
-2.20.1.windows.1
+	https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.7
 
+Thanks!
 
+[1/1] ASoC: wcd9335: remove unneeded semicolon
+      commit: 6b6d5043621fff6e71b7501018a4d58a59cf9527
 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

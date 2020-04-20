@@ -2,85 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7F261B0800
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 13:48:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62E861B07FD
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 13:47:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8EB9B1676;
-	Mon, 20 Apr 2020 13:47:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EB9B1676
+	by alsa0.perex.cz (Postfix) with ESMTPS id 667571687;
+	Mon, 20 Apr 2020 13:47:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 667571687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587383287;
-	bh=X9wiZ2+KyP2lyYptE1yNTeVRG9Ea8yXyjko0usqZzj0=;
+	s=default; t=1587383272;
+	bh=1bNepT7XTcOm4PrRft/orNjym/cwBbL4f7l1CcDOwuw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gKDznErEBC/f0R7Hk6hQgChaXaLozvtsvUsmMgS7UoSDlYHPqTOdek2M53ynLy0ct
-	 xvcxJWebXWQ0WVJlKLEX/1/fgCY+h/VBmqQtfyId6AyCm4TLtjXa0xCJDVcm/MuujT
-	 9BbG/Yq/KuitsIwYFMtpM5ulWppLppN1T6gf4EaU=
+	b=eZhqooJq1+07FUo04dSl9GXLDymFc4VfevRibWNY5iKPMO0uoJTgafmvR/EZQ9R9k
+	 A17I73U5FKw827D08URwa99TDHHb1aazn0LZGJH9U/gLtJvmAMafcXCe0ZXyqrUVWB
+	 0fMzrdGPLoWLa8t+gsJRc9OFpKLOQmvYZJpSO+OA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4AD3FF8028C;
-	Mon, 20 Apr 2020 13:45:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E14BF8013E;
+	Mon, 20 Apr 2020 13:45:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85446F8025E; Mon, 20 Apr 2020 13:45:25 +0200 (CEST)
+ id 529E9F80276; Mon, 20 Apr 2020 13:45:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99A39F800C8
- for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 13:45:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99A39F800C8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 52998F8013E
+ for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 13:45:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52998F8013E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="1SIVE6W4"
-Received: by mail-wm1-x343.google.com with SMTP id h2so10634291wmb.4
- for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 04:45:19 -0700 (PDT)
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="H63+etA+"
+Received: by mail-wr1-x441.google.com with SMTP id f13so11708455wrm.13
+ for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 04:45:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=baylibre-com.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=/Eo7z/bW/75JbK01dAXq1seEbWg98VkTUnan0t5hkQw=;
- b=1SIVE6W4mcJTTZWKBGYOHiT3uHXcmVOkHZQEgxjGTgee8IoV3FNLpqrFJnZH923Fbc
- O39HPbopLAKYTRR45NG3vTPnxj5NHjj8qR2uA+BkBQj7XtBehqKHLrfwwLN7f+/st2WD
- fbmTHYA24mggSSRuPIZwNruyXT4eWW+uMBp2QCLJ05Ap7oFG8pcGGCEZ1duH0RK3cDr7
- UTuoV9A8YjhkemvD0Ex9zHzyjnoM5DW9pegWP7m3SOic/0r97TfutOjBBdrHU1zi/cyk
- nyebTDYjUvVUl/iTOyJ0Fcg+K7pnhJpb/4JoVs+q0Cg4QXq/DEhIl6IVNC1z2LV3HU84
- E4Fw==
+ bh=ncP3J/qEg/xypRpjtJqFD+RT7/yjhZOFPm/IKzFyAyk=;
+ b=H63+etA+aBJlMVl9xXpa86QHXb9a5dX32vkn2AEsYOB2Lr39BmuXB9GZNtuMJLMEio
+ F53gZCaOUDJ9+0KKUFKultag1E9Pa9jDIFNz1e7t1UJu3JLjq24zZripnzQjBRDGmSF9
+ Tz5s/Ougfco1mti4PclNrUptOOMomFy+9D52yQI+aAlnCNA9VO9iMMbcShgbNWy1jH1w
+ tvb5CpgD4H2+MLjYLlhSdpDX/DFYnzbVpndTRT5ipifwYaB9crfOlT8QUByVkQ1STmqu
+ /FbzVWAhCaKUXnZCaJUQml4fQ8rRIY8Rzlc1Ky/A3LuYEKp8jS16VQjRt+cIcgZ3obsq
+ HyWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=/Eo7z/bW/75JbK01dAXq1seEbWg98VkTUnan0t5hkQw=;
- b=ZOzwl+J1Li0VTLBAE4xvsQKgmLqFlNosBZR65U8PSptKRQZ9KF4RKNrkP+419LTmo+
- 3wkxEYPOmRwrlrXNojSwtYwk8scpFYzmOELl2+vyvkUDRkYbz8OS3CY8Ox89LTi/PGV9
- nyKKA0Xa834o6en4oY/DeZktsFeifUmNBDhCZihCH1VC8KiOJJbZkKhzccXSjDk2gjoO
- Dppovcpk4JPQJ71cJz/0AU9k2k9OYnjM2GirS8n259NCGWJFO3qK/c/LZBqdNpEtxsJ6
- SxNAXpnZNTafsd64wPKUgmnf2Dcg8AMk9zDyOZ92FMUuC2/g2v91Njm8d0npgZoHCyJR
- fqLA==
-X-Gm-Message-State: AGi0PubeBSiQlE9ZP5pOEmvqFWOJC4EwfWQNHwbIOujvOFfcmJ9+5soG
- slFRfXNhSMkI3wxhj81CZv70GbRQzfg=
-X-Google-Smtp-Source: APiQypIXImpuNN70wYFRkSp5hlI7aYph/2B0xZyzWhfHsi7Idg5iyDUi1yNEDGrbmDiFOIN9oJI1fQ==
-X-Received: by 2002:a05:600c:29c2:: with SMTP id
- s2mr17145704wmd.111.1587383117186; 
- Mon, 20 Apr 2020 04:45:17 -0700 (PDT)
+ bh=ncP3J/qEg/xypRpjtJqFD+RT7/yjhZOFPm/IKzFyAyk=;
+ b=XzAM7CE5HN10Kl9ffz83e5dxDNUkvtw+O7F6mUYy4U6ppATk4YofcVM/qSjdkLSqY0
+ 53LXHr2B2nTuUd4yttFGDRGf+PawoMMDqr54TfMTub6nlBDVZxUpXv/YztRjFGgvfG86
+ XtksUY7Osp9SNmgoCYEQfIdVtH9xgRW9NNGkPkFmWFJ8r6aQ8xj4+3dHxBRkcTZpNdd8
+ iUaa5PzHvsqluYnEQwA6GAqaguoXZPSRZGvcYp8MUq8pIoRfesvUlz5Xt54c30KjTdGI
+ nm+0BviXT2IpnfNjpHo4W2mJ9V4TlNb/Y/ArIcS4RnOGI5Xw0nDL1PidKcNpimz6X2bR
+ mGtQ==
+X-Gm-Message-State: AGi0PuZ2cpkFGGHlaSaQOSnCsW14vppsMfUeZng9AtpDfHKPk3y+N6ck
+ lH2nwNeYts9Q6jKz3kGZ7j8uaQ==
+X-Google-Smtp-Source: APiQypJtZQCS5Jcc+6Wrcet51tOZw+iTZukm4wlAyWIuiJnqxjolLoYFCVIQCmLUUeNj3EDTq5gHsg==
+X-Received: by 2002:adf:bb0d:: with SMTP id r13mr19633300wrg.251.1587383118410; 
+ Mon, 20 Apr 2020 04:45:18 -0700 (PDT)
 Received: from starbuck.lan (cag06-3-82-243-161-21.fbx.proxad.net.
  [82.243.161.21])
- by smtp.googlemail.com with ESMTPSA id k6sm1079182wma.19.2020.04.20.04.45.16
+ by smtp.googlemail.com with ESMTPSA id k6sm1079182wma.19.2020.04.20.04.45.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Apr 2020 04:45:16 -0700 (PDT)
+ Mon, 20 Apr 2020 04:45:17 -0700 (PDT)
 From: Jerome Brunet <jbrunet@baylibre.com>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH 1/2] ASoC: meson: axg-card: fix codec-to-codec link setup
-Date: Mon, 20 Apr 2020 13:45:10 +0200
-Message-Id: <20200420114511.450560-2-jbrunet@baylibre.com>
+Subject: [PATCH 2/2] ASoC: meson: gx-card: fix codec-to-codec link setup
+Date: Mon, 20 Apr 2020 13:45:11 +0200
+Message-Id: <20200420114511.450560-3-jbrunet@baylibre.com>
 X-Mailer: git-send-email 2.25.2
 In-Reply-To: <20200420114511.450560-1-jbrunet@baylibre.com>
 References: <20200420114511.450560-1-jbrunet@baylibre.com>
@@ -107,7 +106,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Since the addition of commit 9b5db059366a ("ASoC: soc-pcm: dpcm: Only allow
 playback/capture if supported"), meson-axg cards which have codec-to-codec
-links fail to init and Oops:
+links fail to init and Oops.
 
   Unable to handle kernel NULL pointer dereference at virtual address 0000000000000128
   Internal error: Oops: 96000044 [#1] PREEMPT SMP
@@ -125,6 +124,9 @@ links fail to init and Oops:
    snd_open+0xac/0x1a8
    ...
 
+While this error was initially reported the axg-card type, it also applies
+to the gx-card type.
+
 While initiliazing the links, ASoC treats the codec-to-codec links of this
 card type as a DPCM backend. This error eventually leads to the Oops.
 
@@ -132,22 +134,22 @@ Most of the card driver code is shared between DPCM backends and
 codec-to-codec links. The property "no_pcm" marking DCPM BE was left set on
 codec-to-codec links, leading to this problem. This commit fixes that.
 
-Fixes: 0a8f1117a680 ("ASoC: meson: axg-card: add basic codec-to-codec link support")
+Fixes: e37a0c313a0f ("ASoC: meson: gx: add sound card support")
 Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
- sound/soc/meson/axg-card.c | 4 +++-
+ sound/soc/meson/gx-card.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/meson/axg-card.c b/sound/soc/meson/axg-card.c
-index af46845f4ef2..89f7f64747cd 100644
---- a/sound/soc/meson/axg-card.c
-+++ b/sound/soc/meson/axg-card.c
-@@ -338,8 +338,10 @@ static int axg_card_add_link(struct snd_soc_card *card, struct device_node *np,
+diff --git a/sound/soc/meson/gx-card.c b/sound/soc/meson/gx-card.c
+index 7b01dcb73e5e..4abf7efb7eac 100644
+--- a/sound/soc/meson/gx-card.c
++++ b/sound/soc/meson/gx-card.c
+@@ -108,8 +108,10 @@ static int gx_card_add_link(struct snd_soc_card *card, struct device_node *np,
+ 		ret = gx_card_parse_i2s(card, np, index);
  
- 	if (axg_card_cpu_is_tdm_iface(dai_link->cpus->of_node))
- 		ret = axg_card_parse_tdm(card, np, index);
--	else if (axg_card_cpu_is_codec(dai_link->cpus->of_node))
-+	else if (axg_card_cpu_is_codec(dai_link->cpus->of_node)) {
+ 	/* Or apply codec to codec params if necessary */
+-	else if (gx_card_cpu_identify(dai_link->cpus, "CODEC CTRL"))
++	else if (gx_card_cpu_identify(dai_link->cpus, "CODEC CTRL")) {
  		dai_link->params = &codec_params;
 +		dai_link->no_pcm = 0; /* link is not a DPCM BE */
 +	}

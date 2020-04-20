@@ -2,87 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B17D1B180A
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 23:08:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 197CE1B1891
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 23:42:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A98E168A;
-	Mon, 20 Apr 2020 23:07:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A98E168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 998BF168D;
+	Mon, 20 Apr 2020 23:41:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 998BF168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587416888;
-	bh=eJI8SaHUVitkkNN3aDf1BFV7eBtN5QCsq3lm3QLB/S4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1587418956;
+	bh=m3zQMNvZ0W/ULailByyxE4Z/YL4wmH8uNsBRmIksKC4=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IsZ7GJ2IEqzgsoWJPiWU0T5A81sa/S+r3lAHoGD1dUvo3YJAwMbEfWsOprnBLfzwU
-	 N835wkEPkzbl0r0GsQlDvGhdKLoVrpgdkZHrFtYOmWwQz7N8lPgvG2TrlePd8BKC//
-	 ivedkirj0RTal0jVpAWHO8FQbSFduHQ5FBYz63ug=
+	b=leQZEsOMAlDWtPv83njlZGztetlAbZFGnP6T9xiZDp9+iYBjfUuuxNSrxEsEV/r9T
+	 5eN2xylHITOp9d2HeUxCJg5Zn3PyQLxaVVOfnnmfa12eG+/51L4sDyMDFpWygR7o8S
+	 aybWPfvv9hQ1SUBRdxwrXSolSyvMPbCvnZ/4f1/c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 00D86F8020C;
-	Mon, 20 Apr 2020 23:06:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AE645F800C8;
+	Mon, 20 Apr 2020 23:40:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F2A7F801D9; Mon, 20 Apr 2020 23:06:24 +0200 (CEST)
+ id 376A8F801D9; Mon, 20 Apr 2020 23:40:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
- [209.85.210.66])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41DD4F800E7
- for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 23:06:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41DD4F800E7
-Received: by mail-ot1-f66.google.com with SMTP id i27so9416970ota.7
- for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 14:06:12 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A7219F800E7
+ for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 23:40:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7219F800E7
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="d631R2gw"
+Received: by mail-wm1-x32e.google.com with SMTP id x25so1251483wmc.0
+ for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 14:40:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=4Gk/VYoQhPhQ7TbUJt9ppu0wX7IwMr6mSq4U87B4Pb4=;
+ b=d631R2gwMehAjcbsqcBoh4S2uRZcvSYuoWemely5PVflzq3Ass3LCUsCfgkdWtgc9F
+ TU/kozgTBVtlrpNUHjbEOMTrNAys+iW5pwg54cxSGmSkx/hQoOTACufZ8014modkhsZE
+ SXC0MGzMeMwozpMkt0xhoyZg1FPP+/p8xWJpo6ypBnSUFdq3eOLAVzqFeHBi/RJetGwZ
+ vCwyNvDg/FV4RHIrXnfaI06i5hbbyjuKfUKtND4vvWgvqIBd8sl4yQM1SC/T6rjpPUDn
+ GCaa3YJg5naB5dXMMlfzIsuxz3oBLhV45iKht+np77NGxU/ZR1zIqJ1CdkwI8C4BgCCn
+ M9IQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=uB24L/EHWMUmjNtmjWGehiMAvY3CkKcJfhSvIbdPK9U=;
- b=ZJ6vMKZ5zdYSGAJFNMg1+j0Atb5AkgWCCIYXk9uM7GMm4wK1Q1Q5nPfVRM3FjrXCID
- q35Y4T8qrLjARF/csNKLuUTyKhkkmJLZJhIg46MdA57LJgHEffLZTVjEEwNHmWpStTtp
- q9uOo+cDYjW1zjZZ4/dPbyt8JqngO8kZg1oOmAjxEBLw/0gF3o5kEQ3/PKLcJi83t/zu
- 8mgaRCs1WqJKENWRRO6zadEq9m1Jcvn1vrx9/fMrl044Q0QWw7r3/+xniFPaI3aVxcRM
- ftp07jjsVzOlrMunPsAyHzNjBey38qYOMujxsOPLQM3Yfi/lURj/1Dhb3/GX6TPghpaV
- 44Uw==
-X-Gm-Message-State: AGi0PuY1+T3yqXuiL5nTSf70+FHoophVS1xIiLtxh/xzM0sH4JMRAso3
- 50S/A03RzMKEePY2AiDJgA==
-X-Google-Smtp-Source: APiQypJ61QuLn0gRFwjv7tBbNaZhcCNVOe5uH4hWnq+9Kov3OqipkZNTDsd+9hUszKj/zQnlos6E3g==
-X-Received: by 2002:a05:6830:1b65:: with SMTP id
- d5mr10613823ote.141.1587416771097; 
- Mon, 20 Apr 2020 14:06:11 -0700 (PDT)
-Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id 33sm205505otn.50.2020.04.20.14.06.09
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=4Gk/VYoQhPhQ7TbUJt9ppu0wX7IwMr6mSq4U87B4Pb4=;
+ b=oSk8/jT0KqYuOaebUE+xtpxhTgepXmMqGOVXau0e0IVilcT8b2VcqJaQ0LD+vdQn4V
+ Nxe6EA9AKZarzD37PZO98tyu+bTiABZglqJ6V35J0Hw1Z0YtbwntK40Y+ayOCjsLhuEc
+ YHozEOf7ImSufZi2sUel7BkyRZhssuxhAGJjD3mRsP7sVx0h5/9ZabSIgLXlvWSi/mh7
+ vVDSnkAcpvUO0PWb39D6ocd+///0zSLj3ashTSSSnuR4z5r9MmjOkjvzJC6CamnZ9dob
+ GzfSja+G0kMNBKURJxIV6gKv+tVTTmuqRQoNPNJzuL0xfYHUz9h9wWqe9XnpwaCMifEc
+ SouQ==
+X-Gm-Message-State: AGi0PuYyUroxehvMO5k0D4frySL67dc8uLtWrrpoz4NIhXHvABj6mWxE
+ MntmmQqEDuKGSBgXzEORpt4=
+X-Google-Smtp-Source: APiQypLvpyyDBqeAgz8buD5OJjsPdNQop2mMLHkzAHCjiqgN9PjtiPL4xXegCiReIbsQ8ECaZ/lF/A==
+X-Received: by 2002:a7b:cf27:: with SMTP id m7mr1466022wmg.183.1587418847498; 
+ Mon, 20 Apr 2020 14:40:47 -0700 (PDT)
+Received: from localhost.localdomain ([91.221.170.230])
+ by smtp.googlemail.com with ESMTPSA id q17sm755380wmj.45.2020.04.20.14.40.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Apr 2020 14:06:10 -0700 (PDT)
-Received: (nullmailer pid 28621 invoked by uid 1000);
- Mon, 20 Apr 2020 21:06:09 -0000
-Date: Mon, 20 Apr 2020 16:06:09 -0500
-From: Rob Herring <robh@kernel.org>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [PATCH v8 6/7] ASoC: dt-bindings: fsl_easrc: Add document for
- EASRC
-Message-ID: <20200420210609.GA28583@bogus>
-References: <cover.1586845137.git.shengjiu.wang@nxp.com>
- <396a73da2a2fa8b77d0b773d321500b3e504d919.1586845138.git.shengjiu.wang@nxp.com>
+ Mon, 20 Apr 2020 14:40:46 -0700 (PDT)
+From: Gregor Pintar <grpintar@gmail.com>
+To: tiwai@suse.com,
+	perex@perex.cz,
+	alexander@tsoy.me
+Subject: [PATCH v2] ALSA: usb-audio: Add quirk for Focusrite Scarlett 2i2
+Date: Mon, 20 Apr 2020 23:40:30 +0200
+Message-Id: <20200420214030.2361-1-grpintar@gmail.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <1c4b8a362761421eba0ded60bb4f0e11b7e42f3b.camel@tsoy.me>
+References: <1c4b8a362761421eba0ded60bb4f0e11b7e42f3b.camel@tsoy.me>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <396a73da2a2fa8b77d0b773d321500b3e504d919.1586845138.git.shengjiu.wang@nxp.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
- linuxppc-dev@lists.ozlabs.org, tiwai@suse.com, lgirdwood@gmail.com,
- robh+dt@kernel.org, nicoleotsuka@gmail.com, broonie@kernel.org,
- festevam@gmail.com, linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Cc: grpintar@gmail.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,15 +102,142 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 14 Apr 2020 14:56:06 +0800, Shengjiu Wang wrote:
-> EASRC (Enhanced Asynchronous Sample Rate Converter) is a new
-> IP module found on i.MX8MN.
-> 
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> ---
->  .../devicetree/bindings/sound/fsl,easrc.yaml  | 101 ++++++++++++++++++
->  1 file changed, 101 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/fsl,easrc.yaml
-> 
+Force it to use asynchronous playback.
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Same quirk has already been added for Focusrite Scarlett Solo (2nd gen)
+with a commit 46f5710f0b88 ("ALSA: usb-audio: Add quirk for Focusrite
+Scarlett Solo").
+
+This also seems to prevent regular clicks when playing at 44100Hz
+on Scarlett 2i2 (2nd gen). I did not notice any side effects.
+
+Moved both quirks to snd_usb_audioformat_attributes_quirk() as suggested.
+
+Signed-off-by: Gregor Pintar <grpintar@gmail.com>
+---
+ sound/usb/quirks-table.h | 84 ----------------------------------------
+ sound/usb/quirks.c       | 13 +++++++
+ 2 files changed, 13 insertions(+), 84 deletions(-)
+
+diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+index e009d584e..7e06ab108 100644
+--- a/sound/usb/quirks-table.h
++++ b/sound/usb/quirks-table.h
+@@ -2756,90 +2756,6 @@ YAMAHA_DEVICE(0x7010, "UB99"),
+ 		.type = QUIRK_MIDI_NOVATION
+ 	}
+ },
+-{
+-	/*
+-	 * Focusrite Scarlett Solo 2nd generation
+-	 * Reports that playback should use Synch: Synchronous
+-	 * while still providing a feedback endpoint. Synchronous causes
+-	 * snapping on some sample rates.
+-	 * Force it to use Synch: Asynchronous.
+-	 */
+-	USB_DEVICE(0x1235, 0x8205),
+-	.driver_info = (unsigned long) & (const struct snd_usb_audio_quirk) {
+-		.ifnum = QUIRK_ANY_INTERFACE,
+-		.type = QUIRK_COMPOSITE,
+-		.data = (const struct snd_usb_audio_quirk[]) {
+-			{
+-				.ifnum = 1,
+-				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
+-				.data = & (const struct audioformat) {
+-					.formats = SNDRV_PCM_FMTBIT_S32_LE,
+-					.channels = 2,
+-					.iface = 1,
+-					.altsetting = 1,
+-					.altset_idx = 1,
+-					.attributes = 0,
+-					.endpoint = 0x01,
+-					.ep_attr = USB_ENDPOINT_XFER_ISOC |
+-						   USB_ENDPOINT_SYNC_ASYNC,
+-					.protocol = UAC_VERSION_2,
+-					.rates = SNDRV_PCM_RATE_44100 |
+-						 SNDRV_PCM_RATE_48000 |
+-						 SNDRV_PCM_RATE_88200 |
+-						 SNDRV_PCM_RATE_96000 |
+-						 SNDRV_PCM_RATE_176400 |
+-						 SNDRV_PCM_RATE_192000,
+-					.rate_min = 44100,
+-					.rate_max = 192000,
+-					.nr_rates = 6,
+-					.rate_table = (unsigned int[]) {
+-						44100, 48000, 88200,
+-						96000, 176400, 192000
+-					},
+-					.clock = 41
+-				}
+-			},
+-			{
+-				.ifnum = 2,
+-				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
+-				.data = & (const struct audioformat) {
+-					.formats = SNDRV_PCM_FMTBIT_S32_LE,
+-					.channels = 2,
+-					.iface = 2,
+-					.altsetting = 1,
+-					.altset_idx = 1,
+-					.attributes = 0,
+-					.endpoint = 0x82,
+-					.ep_attr = USB_ENDPOINT_XFER_ISOC |
+-						   USB_ENDPOINT_SYNC_ASYNC |
+-						   USB_ENDPOINT_USAGE_IMPLICIT_FB,
+-					.protocol = UAC_VERSION_2,
+-					.rates = SNDRV_PCM_RATE_44100 |
+-						 SNDRV_PCM_RATE_48000 |
+-						 SNDRV_PCM_RATE_88200 |
+-						 SNDRV_PCM_RATE_96000 |
+-						 SNDRV_PCM_RATE_176400 |
+-						 SNDRV_PCM_RATE_192000,
+-					.rate_min = 44100,
+-					.rate_max = 192000,
+-					.nr_rates = 6,
+-					.rate_table = (unsigned int[]) {
+-						44100, 48000, 88200,
+-						96000, 176400, 192000
+-					},
+-					.clock = 41
+-				}
+-			},
+-			{
+-				.ifnum = 3,
+-				.type = QUIRK_IGNORE_INTERFACE
+-			},
+-			{
+-				.ifnum = -1
+-			}
+-		}
+-	}
+-},
+ 
+ /* Access Music devices */
+ {
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index a8ece1701..6c2dfd3bf 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -1806,6 +1806,19 @@ void snd_usb_audioformat_attributes_quirk(struct snd_usb_audio *chip,
+ 		 */
+ 		fp->attributes &= ~UAC_EP_CS_ATTR_FILL_MAX;
+ 		break;
++	case USB_ID(0x1235, 0x8202):  /* Focusrite Scarlett 2i2 2nd gen */
++	case USB_ID(0x1235, 0x8205):  /* Focusrite Scarlett Solo 2nd gen */
++		/*
++		 * Reports that playback should use Synch: Synchronous
++		 * while still providing a feedback endpoint.
++		 * Synchronous causes snapping on some sample rates.
++		 * Force it to use Synch: Asynchronous.
++		 */
++		if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
++			fp->ep_attr &= ~USB_ENDPOINT_SYNCTYPE;
++			fp->ep_attr |= USB_ENDPOINT_SYNC_ASYNC;
++		}
++		break;
+ 	}
+ }
+ 
+-- 
+2.20.1
+

@@ -2,109 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD2741B1E91
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Apr 2020 08:07:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C75841B16CC
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 22:22:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C52D168A;
-	Tue, 21 Apr 2020 08:06:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C52D168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 485AE168D;
+	Mon, 20 Apr 2020 22:21:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 485AE168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587449240;
-	bh=phWybluJh4Glb6EhiUxSu+xC6rAuN+x8pQS/QuTPatU=;
-	h=Subject:From:In-Reply-To:Date:References:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=u6xTP33ffIyH6+oIlO0p0a0/um4RPHrLJMCCPxm1q/oG77PVzgtjWX7B0+VXTjEiP
-	 wmPfkIpb0vOTqPjx5KNhma65wqN1xLb5/AHP3qttfcLWfmUo1IznWgTUEMce5ApfKh
-	 /td+MKcTb8M+z+3q972IREkFQt7Nnok7nle6JJQo=
+	s=default; t=1587414131;
+	bh=YJUix7Fb5iq10VHJscp5lsL12vjHUFzVmfENE1kAiDk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=oI7WTKWF26W1ewk8UDvrTYlqOAbdGbUfGNjbKpQd6K8HYGFVtmiPwPk21UYZ8Y+yd
+	 F1CUyQ4+7eEVWcCXj7cpderhhC4MOaPPUA0jA4ruiDFp2qar4kWu5houR+D2DRNlpH
+	 ZJhk5YAuWP9+tMo1CUI7C59v4/cYuuE/5uVyop+Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39F98F8028C;
-	Tue, 21 Apr 2020 08:04:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51CA5F8013E;
+	Mon, 20 Apr 2020 22:20:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 19E03F801D9; Mon, 20 Apr 2020 21:58:51 +0200 (CEST)
+ id B9894F801D9; Mon, 20 Apr 2020 22:20:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
- [IPv6:2607:f8b0:4864:20::741])
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0BA56F800C8
- for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 21:58:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BA56F800C8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 26EC1F8012F
+ for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 22:20:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26EC1F8012F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=zzywysm.com header.i=@zzywysm.com
- header.b="DHwk8VKE"
-Received: by mail-qk1-x741.google.com with SMTP id v7so12176813qkc.0
- for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 12:58:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zzywysm.com; s=google;
- h=mime-version:subject:from:in-reply-to:date:cc
- :content-transfer-encoding:message-id:references:to;
- bh=1CahSbHOz6rwR75qjwbzvpk5/lxzAsXTVlJJFrluNmk=;
- b=DHwk8VKEaaVWe6umPwn75HeYPWa4/to4TPUyIyniHa8w0VjI4jbFRgfwiJbMPyVTBF
- XIxMCwftVuZ5LMDuVHb9gd/oo9bVOeOag3KnWsbyRKiBySEDw18VNG9po6wPOgaX+JV0
- U696lIpKGeSvPcCzw56gqM/agX1+2/QWVes4jWwOX1kSM0DMbVae9AqQEle3/5swq1WR
- 3E0xc6MJg7TbdMO3xq2INKKP9cMKexf1GETBAnT4Wc/qvIJu4eZ79zfLThZbNisSrGcf
- uNvuImd6aWtDGh5xTm0hSIil3sDlm0TTj3TRSR1SEsiBL/e+4Ps6DP19SkF+CcVNT33D
- HkgA==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Y3EwKK9Y"
+Received: by mail-wr1-x444.google.com with SMTP id s10so4672395wrr.0
+ for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 13:20:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=WaNkYITjpr2SJjowiiyR8sRi3eo+gyei8bJaiA5cLw0=;
+ b=Y3EwKK9Y5HCD6i0fmisN2pj7R3M+p4Ukl2HwAWgKkuyHdWJOKD3hAvOAs3MFDiaOmX
+ SPpTk7WcQJIAQhUyNqkiLDyC88nU1aCgLqZke94+xejuqmQmQMYxmpdaYYWK24xtbfVH
+ CMRWCyZ0/qhfHG6rQRRlj/JIrhY1I3JbsM3Js69YIS5plZecPEqRq1j2c559p2BIJNWg
+ o7z+8IfmeUV7Z+MvizXjkbo5F8AU/5Oir5+W66XBFQEZdNxIuSw1vMCqd1UGd+MVTvsC
+ p1w+LTV8fsKfE5joQamgpZdFJ+S8jCHXzFRolk+p83sJRHPf2THpkwlAme7aYtn8UBAw
+ 9tOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
- :content-transfer-encoding:message-id:references:to;
- bh=1CahSbHOz6rwR75qjwbzvpk5/lxzAsXTVlJJFrluNmk=;
- b=t0CVV36O5R0q107NIkm27g47RXRczbe3Crx2Lz+VQKVt5ms6RLys1CX8tEQaGFl4MD
- vTt458Yk9PcTUeZQxnmrOebdqMWPqtulLBFzUdn46gdARUsx7lANq0xGmRZ+8sHA/BHA
- vZNf4gu38Ym5CQLrPxMG8qaZtQkFcJRKGRNwIQrBB8IyYiuMN16VXsnHb1+KM7Tbk9SD
- R0vN/cIfzRIJHWJ41Yvwm+JU/yRXADPz572RI2JmZrXH4UZufeqaKtzjHjACu290YVs1
- +gbVlke+EiVgmccBZOilPPjo4UfszMoH7J3uD3sJ3XFSLEa9MmHYC8SI+Jb4tL7uR2/6
- 62Aw==
-X-Gm-Message-State: AGi0PuaJlrCJXuOHcK8X426Ear3yRqjXXpNTYWOKwSqVRqDPYtb2Ltg8
- 1KozZxRSfTAKJTI7bv8P7gsbXw==
-X-Google-Smtp-Source: APiQypLbKFRt3y7j9cRt5ohxKGUgZ2cg5IXsM72wAdwrD/eEvlPuY2BnSQ46fW3IHvQ9kSE9m6xMag==
-X-Received: by 2002:a37:5284:: with SMTP id g126mr18284316qkb.51.1587412716060; 
- Mon, 20 Apr 2020 12:58:36 -0700 (PDT)
-Received: from [10.19.49.2] (ec2-3-17-74-181.us-east-2.compute.amazonaws.com.
- [3.17.74.181])
- by smtp.gmail.com with ESMTPSA id j2sm241058qtp.5.2020.04.20.12.58.33
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 20 Apr 2020 12:58:35 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.80.23.2.2\))
-Subject: Re: [PATCH 2/9] fix empty-body warning in posix_acl.c
-From: Zzy Wysm <zzy@zzywysm.com>
-In-Reply-To: <CAHk-=wjSzuTyyBkmMDG4fx_sXzLJsh+9Xk-ubgbpJzJq_kzPsA@mail.gmail.com>
-Date: Mon, 20 Apr 2020 14:58:31 -0500
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <F8B969BE-A2B1-4E6D-8746-BBFBE6399328@zzywysm.com>
-References: <20200418184111.13401-1-rdunlap@infradead.org>
- <20200418184111.13401-3-rdunlap@infradead.org>
- <CAHk-=wjSzuTyyBkmMDG4fx_sXzLJsh+9Xk-ubgbpJzJq_kzPsA@mail.gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-X-Mailer: Apple Mail (2.3608.80.23.2.2)
-X-Mailman-Approved-At: Tue, 21 Apr 2020 08:04:34 +0200
-Cc: alsa-devel@alsa-project.org, Randy Dunlap <rdunlap@infradead.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- "J. Bruce Fields" <bfields@fieldses.org>,
- target-devel <target-devel@vger.kernel.org>, Dave Jiang <dave.jiang@intel.com>,
- linux-scsi <linux-scsi@vger.kernel.org>,
- linux-nvdimm <linux-nvdimm@lists.01.org>,
- Vishal Verma <vishal.l.verma@intel.com>, Chuck Lever <chuck.lever@oracle.com>,
- linux-input@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>,
- Dan Williams <dan.j.williams@intel.com>,
- Andrew Morton <akpm@linux-foundation.org>, "open list:NFS, SUNRPC,
- AND..." <linux-nfs@vger.kernel.org>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- linux-usb@vger.kernel.org, linux-fsdevel <linux-fsdevel@vger.kernel.org>,
- Johannes Berg <johannes@sipsolutions.net>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=WaNkYITjpr2SJjowiiyR8sRi3eo+gyei8bJaiA5cLw0=;
+ b=tPoJr9dRplyKYWVgj5UJFWGTlWzdMFUvb2BWZ4YuYz7wyEa1dO3mHYUSYtIQy7f4Bw
+ OuZROIOYQCr2dNzMCBUoBzgIFjR8GF1Dgzn4dQ+d1VT3AA/Q0vz1+JO54heIFpkHc9cX
+ xM84oSMS1GiI5gZ0mdqUxZnmx2+DQI4B6MzHhTmMcEobZ/6nlw7VK+KkAg+gxccso8c3
+ ZhBIU/GUFzVXslyDr4aBD3NHCRG69+pEVDqRvJSPOm9suEN3gHXcvv27iO+V+Lqo2xCa
+ 1JIgKQUna27avVLhhKDw4g2XjQJCAYbqopoYMSfDzD3Df1uv6TUrpjKDKFP3wFyHAxWQ
+ MYpQ==
+X-Gm-Message-State: AGi0PuZgizKwiNdR/U3XZmVkxn+MlkKe1AKIxK8P54t8boDhw7T+lWqa
+ S5MKpnPWdPNys3laaafjgQg=
+X-Google-Smtp-Source: APiQypKOFZ/OsoFUO7Ip+UczM4P7hW+gEVwybr4+Ux4Vbi2V+C8fm37/5IMLcEVQXuL+BuKVbSWCFw==
+X-Received: by 2002:a5d:4b49:: with SMTP id w9mr20692680wrs.359.1587414023070; 
+ Mon, 20 Apr 2020 13:20:23 -0700 (PDT)
+Received: from localhost.localdomain ([91.221.170.230])
+ by smtp.googlemail.com with ESMTPSA id o18sm773682wrp.23.2020.04.20.13.20.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Apr 2020 13:20:22 -0700 (PDT)
+From: Gregor Pintar <grpintar@gmail.com>
+To: tiwai@suse.com,
+	perex@perex.cz
+Subject: [PATCH] ALSA: usb-audio: Add quirk for Focusrite Scarlett 2i2
+Date: Mon, 20 Apr 2020 22:19:37 +0200
+Message-Id: <20200420201937.12634-1-grpintar@gmail.com>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: grpintar@gmail.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,35 +98,115 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Force it to use asynchronous playback.
 
-> On Apr 18, 2020, at 1:53 PM, Linus Torvalds =
-<torvalds@linux-foundation.org> wrote:
->=20
-> Thirdly, there's a *reason* why "-Wextra" isn't used.
->=20
-> The warnings enabled by -Wextra are usually complete garbage, and
-> trying to fix them often makes the code worse. Exactly like here.
->=20
+Same quirk has already been added for Focusrite Scarlett Solo (2nd gen)
+with a commit 46f5710f0b88 ("ALSA: usb-audio: Add quirk for Focusrite
+Scarlett Solo").
 
-As the instigator of this warning cleanup activity, even _I_ don=E2=80=99t=
- recommend
-building with all of -Wextra.  Doing so on an allmodconfig build =
-generates=20
-500 megabytes of warning text (not exaggerating), primarily due to=20
--Wunused-parameter and Wmissing-field-initializers.
+This also seems to prevent regular clicks when playing at 44100Hz
+on Scarlett 2i2 (2nd gen). I did not notice any side effects.
 
-I strongly recommend disabling them with -Wno-unused-parameter=20
--Wno-missing-field-initializers since the spew is completely =
-unactionable.
+Signed-off-by: Gregor Pintar <grpintar@gmail.com>
+---
+ sound/usb/quirks-table.h | 84 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 84 insertions(+)
 
-On the other hand, -Woverride-init found a legit bug that was breaking =
-DVD
-drives, fixed in commit 03264ddde2453f6877a7d637d84068079632a3c5.
-
-I believe finding a good set of compiler warning settings can lead to =
-lots of=20
-good bugs being spotted and (hopefully) fixed.  Why let syzbot do all =
-the work?
-
-zzy
+diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+index e009d584e..bc936bf79 100644
+--- a/sound/usb/quirks-table.h
++++ b/sound/usb/quirks-table.h
+@@ -2840,6 +2840,90 @@ YAMAHA_DEVICE(0x7010, "UB99"),
+ 		}
+ 	}
+ },
++{
++	/*
++	 * Focusrite Scarlett 2i2 2nd generation
++	 * Reports that playback should use Synch: Synchronous
++	 * while still providing a feedback endpoint. Synchronous causes
++	 * snapping on some sample rates.
++	 * Force it to use Synch: Asynchronous.
++	 */
++	USB_DEVICE(0x1235, 0x8202),
++	.driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
++		.ifnum = QUIRK_ANY_INTERFACE,
++		.type = QUIRK_COMPOSITE,
++		.data = (const struct snd_usb_audio_quirk[]) {
++			{
++				.ifnum = 1,
++				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
++				.data = &(const struct audioformat) {
++					.formats = SNDRV_PCM_FMTBIT_S32_LE,
++					.channels = 2,
++					.iface = 1,
++					.altsetting = 1,
++					.altset_idx = 1,
++					.attributes = 0,
++					.endpoint = 0x01,
++					.ep_attr = USB_ENDPOINT_XFER_ISOC |
++						USB_ENDPOINT_SYNC_ASYNC,
++					.protocol = UAC_VERSION_2,
++					.rates = SNDRV_PCM_RATE_44100 |
++						SNDRV_PCM_RATE_48000 |
++						SNDRV_PCM_RATE_88200 |
++						SNDRV_PCM_RATE_96000 |
++						SNDRV_PCM_RATE_176400 |
++						SNDRV_PCM_RATE_192000,
++					.rate_min = 44100,
++					.rate_max = 192000,
++					.nr_rates = 6,
++					.rate_table = (unsigned int[]) {
++						44100, 48000, 88200,
++						96000, 176400, 192000
++					},
++					.clock = 41
++				}
++			},
++			{
++				.ifnum = 2,
++				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
++				.data = &(const struct audioformat) {
++					.formats = SNDRV_PCM_FMTBIT_S32_LE,
++					.channels = 2,
++					.iface = 2,
++					.altsetting = 1,
++					.altset_idx = 1,
++					.attributes = 0,
++					.endpoint = 0x82,
++					.ep_attr = USB_ENDPOINT_XFER_ISOC |
++						USB_ENDPOINT_SYNC_ASYNC |
++						USB_ENDPOINT_USAGE_IMPLICIT_FB,
++					.protocol = UAC_VERSION_2,
++					.rates = SNDRV_PCM_RATE_44100 |
++						SNDRV_PCM_RATE_48000 |
++						SNDRV_PCM_RATE_88200 |
++						SNDRV_PCM_RATE_96000 |
++						SNDRV_PCM_RATE_176400 |
++						SNDRV_PCM_RATE_192000,
++					.rate_min = 44100,
++					.rate_max = 192000,
++					.nr_rates = 6,
++					.rate_table = (unsigned int[]) {
++						44100, 48000, 88200,
++						96000, 176400, 192000
++					},
++					.clock = 41
++				}
++			},
++			{
++				.ifnum = 3,
++				.type = QUIRK_IGNORE_INTERFACE
++			},
++			{
++				.ifnum = -1
++			}
++		}
++	}
++},
+ 
+ /* Access Music devices */
+ {
+-- 
+2.20.1
 

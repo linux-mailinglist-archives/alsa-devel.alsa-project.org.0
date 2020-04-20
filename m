@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A22021B0268
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 09:12:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 731FB1B0270
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 09:13:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D0681665;
-	Mon, 20 Apr 2020 09:11:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D0681665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D2EF1671;
+	Mon, 20 Apr 2020 09:12:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D2EF1671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587366755;
-	bh=138Q8XCfIUGiGVT6B62dgn4IyQvX3j7d1L4OqoIgJaU=;
+	s=default; t=1587366792;
+	bh=UFtHomlUJCjFAe+RcR8XWjVOmEE5H2p4RhQBvHrcf/o=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oZjd1aLFWvra7MmJhLDWVaE7ejRkVHHLIBItBoydxwaWGYyZ3rMLPTPmHjbdYWkX3
-	 ba5/4kdE2sz2NPOeVlzLEZM6F+67e6O8S/X/bCIBppVR5b5Vpn7wvfanC9KnfenOBg
-	 35H6FQGx7awvk2TAIBDiDcLYcaaRcv8bEEk0dY0Q=
+	b=KvVxmL4fzNdN2H7zQP+fLoULOpk/j9efbvpyyYuY2O0UlddathvVT7wh+2WnCRZU6
+	 +KpwMPqUGFbUPpRDzUuk6mklsS0QbZ6UVuhseYRtUuiZhUqQp9CTk2EurD4nqhPBrh
+	 tn+nh0Rf8/k74PyqDia9mfKHivrnA5+lTUtg4YZs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21505F8020C;
-	Mon, 20 Apr 2020 09:09:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29FF9F802BD;
+	Mon, 20 Apr 2020 09:09:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A6993F8028B; Mon, 20 Apr 2020 09:09:16 +0200 (CEST)
+ id E4089F8028C; Mon, 20 Apr 2020 09:09:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id A4753F8020C
- for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 09:09:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4753F8020C
-Date: 20 Apr 2020 16:09:09 +0900
-X-IronPort-AV: E=Sophos;i="5.72,406,1580742000"; d="scan'208";a="45180051"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 20 Apr 2020 16:09:09 +0900
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 85954F800E7
+ for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 09:09:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85954F800E7
+Date: 20 Apr 2020 16:09:48 +0900
+X-IronPort-AV: E=Sophos;i="5.72,405,1580742000"; d="scan'208";a="44966192"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 20 Apr 2020 16:09:48 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 839A74008C41;
- Mon, 20 Apr 2020 16:09:09 +0900 (JST)
-Message-ID: <87pnc2vdka.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 5DAC941A32B9;
+ Mon, 20 Apr 2020 16:09:48 +0900 (JST)
+Message-ID: <87o8rmvdj7.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 5/8] ASoC: intel: atom: use snd_compress_ops
+Subject: [PATCH v2 6/8] ASoC: sof: use snd_compress_ops
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87wo6avdq1.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,168 +70,104 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-vWe can use snd_compress_ops.
+We can use snd_compress_ops.
 Let's switch to use it.
+
+Upstream code doesn't have sof_compressed_ops.
+This patch assume it is implemented at out-of-tree.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
 v1 -> v2
 
-   - no change
+   - tidyup non-related functions
 
- .../intel/atom/sst-mfld-platform-compress.c   | 43 +++++++++++--------
- sound/soc/intel/atom/sst-mfld-platform-pcm.c  |  2 +-
- sound/soc/intel/atom/sst-mfld-platform.h      |  2 +-
- 3 files changed, 27 insertions(+), 20 deletions(-)
+ sound/soc/sof/compress.c | 7 ++++---
+ sound/soc/sof/compress.h | 7 ++++---
+ sound/soc/sof/pcm.c      | 4 ++--
+ sound/soc/sof/sof-priv.h | 2 +-
+ 4 files changed, 11 insertions(+), 9 deletions(-)
 
-diff --git a/sound/soc/intel/atom/sst-mfld-platform-compress.c b/sound/soc/intel/atom/sst-mfld-platform-compress.c
-index 4a7a9426a3b9..1595e01a7e12 100644
---- a/sound/soc/intel/atom/sst-mfld-platform-compress.c
-+++ b/sound/soc/intel/atom/sst-mfld-platform-compress.c
-@@ -39,7 +39,8 @@ static void sst_drain_notify(void *arg)
- 		snd_compr_drain_notify(cstream);
- }
+diff --git a/sound/soc/sof/compress.c b/sound/soc/sof/compress.c
+index 7354dc6a49cf..7294451cd67c 100644
+--- a/sound/soc/sof/compress.c
++++ b/sound/soc/sof/compress.c
+@@ -13,7 +13,7 @@
+ #include "ops.h"
+ #include "probe.h"
  
--static int sst_platform_compr_open(struct snd_compr_stream *cstream)
-+static int sst_platform_compr_open(struct snd_soc_component *component,
-+				   struct snd_compr_stream *cstream)
- {
- 
- 	int ret_val = 0;
-@@ -72,7 +73,8 @@ static int sst_platform_compr_open(struct snd_compr_stream *cstream)
- 	return ret_val;
- }
- 
--static int sst_platform_compr_free(struct snd_compr_stream *cstream)
-+static int sst_platform_compr_free(struct snd_soc_component *component,
-+				   struct snd_compr_stream *cstream)
- {
- 	struct sst_runtime_stream *stream;
- 	int ret_val = 0, str_id;
-@@ -91,15 +93,14 @@ static int sst_platform_compr_free(struct snd_compr_stream *cstream)
- 	return 0;
- }
- 
--static int sst_platform_compr_set_params(struct snd_compr_stream *cstream,
--					struct snd_compr_params *params)
-+static int sst_platform_compr_set_params(struct snd_soc_component *component,
-+					 struct snd_compr_stream *cstream,
-+					 struct snd_compr_params *params)
- {
- 	struct sst_runtime_stream *stream;
- 	int retval;
- 	struct snd_sst_params str_params;
- 	struct sst_compress_cb cb;
--	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
--	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct sst_data *ctx = snd_soc_component_get_drvdata(component);
- 
- 	stream = cstream->runtime->private_data;
-@@ -166,7 +167,8 @@ static int sst_platform_compr_set_params(struct snd_compr_stream *cstream,
- 	return 0;
- }
- 
--static int sst_platform_compr_trigger(struct snd_compr_stream *cstream, int cmd)
-+static int sst_platform_compr_trigger(struct snd_soc_component *component,
-+				      struct snd_compr_stream *cstream, int cmd)
- {
- 	struct sst_runtime_stream *stream = cstream->runtime->private_data;
- 
-@@ -199,8 +201,9 @@ static int sst_platform_compr_trigger(struct snd_compr_stream *cstream, int cmd)
- 	return -EINVAL;
- }
- 
--static int sst_platform_compr_pointer(struct snd_compr_stream *cstream,
--					struct snd_compr_tstamp *tstamp)
-+static int sst_platform_compr_pointer(struct snd_soc_component *component,
-+				      struct snd_compr_stream *cstream,
-+				      struct snd_compr_tstamp *tstamp)
- {
- 	struct sst_runtime_stream *stream;
- 
-@@ -212,8 +215,9 @@ static int sst_platform_compr_pointer(struct snd_compr_stream *cstream,
- 	return 0;
- }
- 
--static int sst_platform_compr_ack(struct snd_compr_stream *cstream,
--					size_t bytes)
-+static int sst_platform_compr_ack(struct snd_soc_component *component,
-+				  struct snd_compr_stream *cstream,
-+				  size_t bytes)
- {
- 	struct sst_runtime_stream *stream;
- 
-@@ -224,8 +228,9 @@ static int sst_platform_compr_ack(struct snd_compr_stream *cstream,
- 	return 0;
- }
- 
--static int sst_platform_compr_get_caps(struct snd_compr_stream *cstream,
--					struct snd_compr_caps *caps)
-+static int sst_platform_compr_get_caps(struct snd_soc_component *component,
-+				       struct snd_compr_stream *cstream,
-+				       struct snd_compr_caps *caps)
- {
- 	struct sst_runtime_stream *stream =
- 		cstream->runtime->private_data;
-@@ -233,8 +238,9 @@ static int sst_platform_compr_get_caps(struct snd_compr_stream *cstream,
- 	return stream->compr_ops->get_caps(caps);
- }
- 
--static int sst_platform_compr_get_codec_caps(struct snd_compr_stream *cstream,
--					struct snd_compr_codec_caps *codec)
-+static int sst_platform_compr_get_codec_caps(struct snd_soc_component *component,
-+					     struct snd_compr_stream *cstream,
-+					     struct snd_compr_codec_caps *codec)
- {
- 	struct sst_runtime_stream *stream =
- 		cstream->runtime->private_data;
-@@ -242,8 +248,9 @@ static int sst_platform_compr_get_codec_caps(struct snd_compr_stream *cstream,
- 	return stream->compr_ops->get_codec_caps(codec);
- }
- 
--static int sst_platform_compr_set_metadata(struct snd_compr_stream *cstream,
--					struct snd_compr_metadata *metadata)
-+static int sst_platform_compr_set_metadata(struct snd_soc_component *component,
-+					   struct snd_compr_stream *cstream,
-+					   struct snd_compr_metadata *metadata)
- {
- 	struct sst_runtime_stream *stream  =
- 		 cstream->runtime->private_data;
-@@ -251,7 +258,7 @@ static int sst_platform_compr_set_metadata(struct snd_compr_stream *cstream,
- 	return stream->compr_ops->set_metadata(sst->dev, stream->id, metadata);
- }
- 
--const struct snd_compr_ops sst_platform_compr_ops = {
-+const struct snd_compress_ops sst_platform_compress_ops = {
- 
- 	.open = sst_platform_compr_open,
- 	.free = sst_platform_compr_free,
-diff --git a/sound/soc/intel/atom/sst-mfld-platform-pcm.c b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-index 82f2b6357778..2e9222ed9daa 100644
---- a/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-+++ b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-@@ -684,7 +684,7 @@ static const struct snd_soc_component_driver sst_soc_platform_drv  = {
- 	.open		= sst_soc_open,
- 	.trigger	= sst_soc_trigger,
- 	.pointer	= sst_soc_pointer,
--	.compr_ops	= &sst_platform_compr_ops,
-+	.compress_ops	= &sst_platform_compress_ops,
- 	.pcm_construct	= sst_soc_pcm_new,
+-struct snd_compr_ops sof_probe_compressed_ops = {
++struct snd_compress_ops sof_probe_compressed_ops = {
+ 	.copy		= sof_probe_compr_copy,
  };
+ EXPORT_SYMBOL(sof_probe_compressed_ops);
+@@ -117,8 +117,9 @@ int sof_probe_compr_pointer(struct snd_compr_stream *cstream,
+ }
+ EXPORT_SYMBOL(sof_probe_compr_pointer);
  
-diff --git a/sound/soc/intel/atom/sst-mfld-platform.h b/sound/soc/intel/atom/sst-mfld-platform.h
-index fe4749cfa4f5..10c9ecfa7038 100644
---- a/sound/soc/intel/atom/sst-mfld-platform.h
-+++ b/sound/soc/intel/atom/sst-mfld-platform.h
-@@ -17,7 +17,7 @@
- #include "sst-atom-controls.h"
+-int sof_probe_compr_copy(struct snd_compr_stream *cstream,
+-		char __user *buf, size_t count)
++int sof_probe_compr_copy(struct snd_soc_component *component,
++			 struct snd_compr_stream *cstream,
++			 char __user *buf, size_t count)
+ {
+ 	struct snd_compr_runtime *rtd = cstream->runtime;
+ 	unsigned int offset, n;
+diff --git a/sound/soc/sof/compress.h b/sound/soc/sof/compress.h
+index 800f163603e1..0386844c0bf5 100644
+--- a/sound/soc/sof/compress.h
++++ b/sound/soc/sof/compress.h
+@@ -13,7 +13,7 @@
  
- extern struct sst_device *sst;
--extern const struct snd_compr_ops sst_platform_compr_ops;
-+extern const struct snd_compress_ops sst_platform_compress_ops;
+ #include <sound/compress_driver.h>
  
- #define DRV_NAME "sst"
+-extern struct snd_compr_ops sof_probe_compressed_ops;
++extern struct snd_compress_ops sof_probe_compressed_ops;
  
+ int sof_probe_compr_open(struct snd_compr_stream *cstream,
+ 		struct snd_soc_dai *dai);
+@@ -25,7 +25,8 @@ int sof_probe_compr_trigger(struct snd_compr_stream *cstream, int cmd,
+ 		struct snd_soc_dai *dai);
+ int sof_probe_compr_pointer(struct snd_compr_stream *cstream,
+ 		struct snd_compr_tstamp *tstamp, struct snd_soc_dai *dai);
+-int sof_probe_compr_copy(struct snd_compr_stream *cstream,
+-		char __user *buf, size_t count);
++int sof_probe_compr_copy(struct snd_soc_component *component,
++			 struct snd_compr_stream *cstream,
++			 char __user *buf, size_t count);
+ 
+ #endif
+diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
+index 47cd741f2a8c..0885826adb6c 100644
+--- a/sound/soc/sof/pcm.c
++++ b/sound/soc/sof/pcm.c
+@@ -785,11 +785,11 @@ void snd_sof_new_platform_drv(struct snd_sof_dev *sdev)
+ 	pd->pointer = sof_pcm_pointer;
+ 
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_COMPRESS)
+-	pd->compr_ops = &sof_compressed_ops;
++	pd->compress_ops = &sof_compressed_ops;
+ #endif
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_PROBES)
+ 	/* override cops when probe support is enabled */
+-	pd->compr_ops = &sof_probe_compressed_ops;
++	pd->compress_ops = &sof_probe_compressed_ops;
+ #endif
+ 	pd->pcm_construct = sof_pcm_new;
+ 	pd->ignore_machine = drv_name;
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index a4b297c842df..965b9da696d5 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -522,7 +522,7 @@ void snd_sof_handle_fw_exception(struct snd_sof_dev *sdev);
+ /*
+  * Platform specific ops.
+  */
+-extern struct snd_compr_ops sof_compressed_ops;
++extern struct snd_compress_ops sof_compressed_ops;
+ 
+ /*
+  * DSP Architectures.
 -- 
 2.17.1
 

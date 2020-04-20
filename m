@@ -2,88 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E56001B0AD9
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 14:52:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3F071B0B1C
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Apr 2020 14:54:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 791371677;
-	Mon, 20 Apr 2020 14:51:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 791371677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74FDA1680;
+	Mon, 20 Apr 2020 14:53:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74FDA1680
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587387166;
-	bh=35aqzVMMcIlOOYhLALGKxscQPUJo+RlR+stQptgOImc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1587387277;
+	bh=WzoNoH/aBHYBltzKKWVfDStdb/rnCV624KN9CZEVPcc=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Dt9gr+PApEsHBJ5pZstlceIIQIeUBTfgxaG1h1vnI7Chgt5r7l7Q0mHpIn+oc3vKW
-	 U896VcH4KMRZ6YWI9uQjF9NVzdj4PCyC82klSSb8/1YZSLdUKHN7eg14FONggD/mgF
-	 ANTwd+lHOGOKjBUVTn7vQ7kTWXd6v+hEU25vKyI8=
+	b=ph1n6Mw7x8iKTOVw+CBQ83jIWKEl8oygrdeiW/soI+FP71+kTyo2JJcjFHes3WF5Q
+	 6nzmMDuP3t78Xj0x6I74FNdx8oHjrYBrBRPqyeJY5H/p1btJIETSQ+3/aBwZMU5RuE
+	 qCo7ti/BIOy7ACK+Im0aJkf3AqdmeDJ0MnxMTWWo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9922CF8020C;
-	Mon, 20 Apr 2020 14:51:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B05CAF8013E;
+	Mon, 20 Apr 2020 14:52:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 997CDF801D9; Mon, 20 Apr 2020 14:51:02 +0200 (CEST)
+ id 13585F801D9; Mon, 20 Apr 2020 14:52:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-oi1-x241.google.com (mail-oi1-x241.google.com
- [IPv6:2607:f8b0:4864:20::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AC584F800C8
- for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 14:50:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC584F800C8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Xy8tnJGN"
-Received: by mail-oi1-x241.google.com with SMTP id s202so8620231oih.3
- for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 05:50:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=35aqzVMMcIlOOYhLALGKxscQPUJo+RlR+stQptgOImc=;
- b=Xy8tnJGNE6IPz8WZ/6FO3Q1inVAJSdTpoIxxV8Ux3JOU6jzoZgSo2z7XMgnEPW46N9
- P6QxEiWKXe/FZpYWdIedsYvkjV7dQVVb4YBZX1wagT0BAfcG8106E9ivHOW67/4Y9LTA
- LO5V8Ofjd4lLcW7yirW8B48dF5Mf+o7nZdYWcxYn8triKYf6kU5NJc8DECDek6B/dOBP
- fc0CE8kIyjAbZoyRZNZrVd9CPs1RC5VirmUNeSnxLxzHV/OG+rFCAiXYxHfKJKl/CPIV
- L+TFufhxIn3IQVFRYmHE3GRcMP5TuEJuUDWRIuwAjNdfkhX4sAulJvl7fFVD8R4o6b6m
- cIBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=35aqzVMMcIlOOYhLALGKxscQPUJo+RlR+stQptgOImc=;
- b=JUp38oNh0JU6rk5jatTr2beXAQyGTts2M0X/BnDOBTe82aJoRhn8zonr+vXpW6VtPd
- xNcxIUV2J/tLhEp97yHDUT8pbJkt0RqIkgk3Ohk+dCFzlQ2nIKoEUJrN8NxDAAbY57zs
- rL5X+nkAXbEeSlaEr6xoOhI+rbNzKkXEymLvkyg9oJitpVZ1L3UmEM/C2Wi9Kb3yR5ca
- JmCmFPnVZGZqs6IaRo5VDVeNrSr8fmGy1FA+1bNOKHR+VD2WSQbb9efxnRbxG9nYWXcN
- KzuRMylA3hg2c6Mi8VWFlR1ikuqBRC+Gvj85VuJvMcmaG6XVRhUzSGNe+S6stxfp4Bb3
- W6Fw==
-X-Gm-Message-State: AGi0PuaJxfINNWJeMBv7Rr6R8r/pWlyaMpqLM40cPig2k//AoGqxha6S
- JX6h2XzRTOhmZEebuoMZekZ6XwRxaBfgOVCCP5E=
-X-Google-Smtp-Source: APiQypJQOv9Ww+7hoK/CdulOK2O+mlEVZi3+qaYbfvCToGcp+X800VBJy2czYU/s9k9AzL8Q0DF1MbReNmebyiXuhYg=
-X-Received: by 2002:aca:fc0a:: with SMTP id a10mr10490437oii.77.1587387056332; 
- Mon, 20 Apr 2020 05:50:56 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 96270F800E7
+ for <alsa-devel@alsa-project.org>; Mon, 20 Apr 2020 14:52:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96270F800E7
+Received: from DGGEMS402-HUB.china.huawei.com (unknown [172.30.72.59])
+ by Forcepoint Email with ESMTP id 3E7B429041ABCD99F1AA;
+ Mon, 20 Apr 2020 20:52:46 +0800 (CST)
+Received: from [127.0.0.1] (10.166.215.154) by DGGEMS402-HUB.china.huawei.com
+ (10.3.19.202) with Microsoft SMTP Server id 14.3.487.0;
+ Mon, 20 Apr 2020 20:52:41 +0800
+Subject: Re: [PATCH] ASoC: wm89xx: Fix build error without CONFIG_I2C
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+References: <20200418090853.30340-1-yuehaibing@huawei.com>
+ <20200420102701.GB44490@ediswmail.ad.cirrus.com>
+From: Yuehaibing <yuehaibing@huawei.com>
+Message-ID: <f175d79f-ff45-18e5-f7e7-1b22a1495871@huawei.com>
+Date: Mon, 20 Apr 2020 20:52:40 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:45.0) Gecko/20100101
+ Thunderbird/45.2.0
 MIME-Version: 1.0
-References: <20200417221341.31428-1-TheSven73@gmail.com>
- <20200420121542.GB6507@sirena.org.uk>
- <CAGngYiWauBTnXDcP9UC1S7U5Ogy0B=bUZSdGs1Z9aKZ2+sB=Qw@mail.gmail.com>
- <20200420122534.GC6507@sirena.org.uk>
-In-Reply-To: <20200420122534.GC6507@sirena.org.uk>
-From: Sven Van Asbroeck <thesven73@gmail.com>
-Date: Mon, 20 Apr 2020 08:50:45 -0400
-Message-ID: <CAGngYiV9MxeLrERkgU2+rucCiJ5StCXN7GXxKLMfaJ-bqSpAAw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: sound: add Microsemi ZL38060 binding
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: devicetree <devicetree@vger.kernel.org>, alsa-devel@alsa-project.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Rob Herring <robh+dt@kernel.org>
+In-Reply-To: <20200420102701.GB44490@ediswmail.ad.cirrus.com>
+Content-Type: text/plain; charset="windows-1252"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.166.215.154]
+X-CFilter-Loop: Reflected
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com, broonie@kernel.org, geert@linux-m68k.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,16 +74,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Apr 20, 2020 at 8:25 AM Mark Brown <broonie@kernel.org> wrote:
->
-> I'd expect someone with knowledge of the hardware such as yourself.
+On 2020/4/20 18:27, Charles Keepax wrote:
+> On Sat, Apr 18, 2020 at 05:08:53PM +0800, YueHaibing wrote:
+>> sound/soc/codecs/wm8900.o: In function `wm8900_i2c_probe':
+>> wm8900.c:(.text+0xa36): undefined reference to `__devm_regmap_init_i2c'
+>> sound/soc/codecs/wm8900.o: In function `wm8900_modinit':
+>> wm8900.c:(.init.text+0xb): undefined reference to `i2c_register_driver'
+>> sound/soc/codecs/wm8900.o: In function `wm8900_exit':
+>> wm8900.c:(.exit.text+0x8): undefined reference to `i2c_del_driver'
+>> sound/soc/codecs/wm8988.o: In function `wm8988_i2c_probe':
+>> wm8988.c:(.text+0x857): undefined reference to `__devm_regmap_init_i2c'
+>> sound/soc/codecs/wm8988.o: In function `wm8988_modinit':
+>> wm8988.c:(.init.text+0xb): undefined reference to `i2c_register_driver'
+>> sound/soc/codecs/wm8988.o: In function `wm8988_exit':
+>> wm8988.c:(.exit.text+0x8): undefined reference to `i2c_del_driver'
+>> sound/soc/codecs/wm8995.o: In function `wm8995_i2c_probe':
+>> wm8995.c:(.text+0x1c4f): undefined reference to `__devm_regmap_init_i2c'
+>> sound/soc/codecs/wm8995.o: In function `wm8995_modinit':
+>> wm8995.c:(.init.text+0xb): undefined reference to `i2c_register_driver'
+>> sound/soc/codecs/wm8995.o: In function `wm8995_exit':
+>> wm8995.c:(.exit.text+0x8): undefined reference to `i2c_del_driver'
+>>
+>> Add missing I2C dependency to fix this.
+>>
+> 
+> This doesn't look like the right fix there, all these parts can
+> be used on SPI so should be usable without I2C build in.
 
-I claim no expertise - I was just getting tired of dragging the
-out-of-tree vendor
-driver for this chip from kernel to kernel. AFAIK, most people using this chip
-have forked the vendor driver and adapted it to their specific needs.
+Sorry, the patch title is wrong, the issue is CONFIG_I2C m but SND_SOC_WM8900 is y.
 
-If my name has to be there, I'd be keen to hand it over once someone more
-familiar with this chip comes along.
+This should depends on SND_SOC_I2C_AND_SPI like others.
 
-Hopefully someone from Microsemi will be monitoring this discussion.
+> 
+> Thanks,
+> Charles
+> 
+> .
+> 
+

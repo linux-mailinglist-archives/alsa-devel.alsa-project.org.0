@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81D471B1E21
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Apr 2020 07:19:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 434DC1B1E23
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Apr 2020 07:20:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 19B17168A;
-	Tue, 21 Apr 2020 07:18:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19B17168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id E3DC8168E;
+	Tue, 21 Apr 2020 07:19:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3DC8168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587446383;
-	bh=qDymQGR001PZ4gCHyHXKVmf1guzMqOfrCTWByBDzq98=;
+	s=default; t=1587446429;
+	bh=15xNu8yB2sxuFM4oNiIN94qNQvl4dVqEeBNBq79MaZA=;
 	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=SO3yOojzuJHU8YjVLBa2u5PszWyvyUxP78SvpXtA/nvoVmru9Ieuk26YPMx1oy51b
-	 QbTCDRpKpbvVSZMuhCWOyajouDhs+HEZK1IiZ3VTPZN+Rx0xNT3Ro8GC+Iq6fVc29x
-	 QFqGWsRVHOh9Wcfb+Bm2X2ONUNro37qkbDKdicY0=
+	b=GmbcbtctM+UZvi9L8FvOl0DxuReohOkTOt1yH9fC0SqBshddzL4aOXBx3rstZyYt7
+	 ouO2I2hiaRJPYh3LB+tFxdXdk28uaSr7ZuBdn0bi8m4BP4FtTNfzFJrBKD9kLPW/ns
+	 60O49cEUn0oC4MDSvGv2Q7VXxw3MkEf9as91NIO4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B716F801F5;
-	Tue, 21 Apr 2020 07:18:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 60CEAF80143;
+	Tue, 21 Apr 2020 07:18:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E8617F800FF; Tue, 21 Apr 2020 07:17:55 +0200 (CEST)
+ id D0105F80246; Tue, 21 Apr 2020 07:18:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=AC_FROM_MANY_DOTS,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id DD472F800FF
- for <alsa-devel@alsa-project.org>; Tue, 21 Apr 2020 07:17:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD472F800FF
-Date: 21 Apr 2020 14:17:43 +0900
-X-IronPort-AV: E=Sophos;i="5.72,409,1580742000"; d="scan'208";a="45062950"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 21 Apr 2020 14:17:43 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 85318F80143
+ for <alsa-devel@alsa-project.org>; Tue, 21 Apr 2020 07:17:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85318F80143
+Date: 21 Apr 2020 14:17:53 +0900
+X-IronPort-AV: E=Sophos;i="5.72,409,1580742000"; d="scan'208";a="45062963"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 21 Apr 2020 14:17:53 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id F18CC4008560;
- Tue, 21 Apr 2020 14:17:42 +0900 (JST)
-Message-ID: <87imhtv2mh.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id CBBF441AEF48;
+ Tue, 21 Apr 2020 14:17:53 +0900 (JST)
+Message-ID: <87h7xdv2m6.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH] ASoC: dt-bindings: ak4613: switch to yaml base Documentation
+Subject: [PATCH] ASoC: dt-bindings: ak4642: switch to yaml base Documentation
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>
@@ -72,99 +72,97 @@ This patch switches from .txt base to .yaml base Document.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- .../devicetree/bindings/sound/ak4613.txt      | 27 --------
- .../devicetree/bindings/sound/ak4613.yaml     | 65 +++++++++++++++++++
- 2 files changed, 65 insertions(+), 27 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/ak4613.txt
- create mode 100644 Documentation/devicetree/bindings/sound/ak4613.yaml
+ .../devicetree/bindings/sound/ak4642.txt      | 37 ------------
+ .../devicetree/bindings/sound/ak4642.yaml     | 58 +++++++++++++++++++
+ 2 files changed, 58 insertions(+), 37 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/ak4642.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/ak4642.yaml
 
-diff --git a/Documentation/devicetree/bindings/sound/ak4613.txt b/Documentation/devicetree/bindings/sound/ak4613.txt
+diff --git a/Documentation/devicetree/bindings/sound/ak4642.txt b/Documentation/devicetree/bindings/sound/ak4642.txt
 deleted file mode 100644
-index 49a2e74fd9cb..000000000000
---- a/Documentation/devicetree/bindings/sound/ak4613.txt
+index 58e48ee97175..000000000000
+--- a/Documentation/devicetree/bindings/sound/ak4642.txt
 +++ /dev/null
-@@ -1,27 +0,0 @@
--AK4613 I2C transmitter
+@@ -1,37 +0,0 @@
+-AK4642 I2C transmitter
 -
 -This device supports I2C mode only.
 -
 -Required properties:
 -
--- compatible : "asahi-kasei,ak4613"
--- reg : The chip select number on the I2C bus
+-  - compatible : "asahi-kasei,ak4642" or "asahi-kasei,ak4643" or "asahi-kasei,ak4648"
+-  - reg : The chip select number on the I2C bus
 -
 -Optional properties:
--- asahi-kasei,in1-single-end	: Boolean. Indicate input / output pins are single-ended.
--- asahi-kasei,in2-single-end	  rather than differential.
--- asahi-kasei,out1-single-end
--- asahi-kasei,out2-single-end
--- asahi-kasei,out3-single-end
--- asahi-kasei,out4-single-end
--- asahi-kasei,out5-single-end
--- asahi-kasei,out6-single-end
 -
--Example:
+-  - #clock-cells :		common clock binding; shall be set to 0
+-  - clocks :			common clock binding; MCKI clock
+-  - clock-frequency :		common clock binding; frequency of MCKO
+-  - clock-output-names :	common clock binding; MCKO clock name
+-
+-Example 1:
 -
 -&i2c {
--	ak4613: ak4613@10 {
--		compatible = "asahi-kasei,ak4613";
--		reg = <0x10>;
+-	ak4648: ak4648@12 {
+-		compatible = "asahi-kasei,ak4642";
+-		reg = <0x12>;
 -	};
 -};
-diff --git a/Documentation/devicetree/bindings/sound/ak4613.yaml b/Documentation/devicetree/bindings/sound/ak4613.yaml
+-
+-Example 2:
+-
+-&i2c {
+-	ak4643: codec@12 {
+-		compatible = "asahi-kasei,ak4643";
+-		reg = <0x12>;
+-		#clock-cells = <0>;
+-		clocks = <&audio_clock>;
+-		clock-frequency = <12288000>;
+-		clock-output-names = "ak4643_mcko";
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/sound/ak4642.yaml b/Documentation/devicetree/bindings/sound/ak4642.yaml
 new file mode 100644
-index 000000000000..b5929239505e
+index 000000000000..6cd213be2266
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/ak4613.yaml
-@@ -0,0 +1,65 @@
++++ b/Documentation/devicetree/bindings/sound/ak4642.yaml
+@@ -0,0 +1,58 @@
 +# SPDX-License-Identifier: GPL-2.0
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/sound/ak4613.yaml#
++$id: http://devicetree.org/schemas/sound/ak4642.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: AK4613 I2C transmitter Device Tree Bindings
++title: AK4642 I2C transmitter Device Tree Bindings
 +
 +maintainers:
 +  - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 +
 +properties:
 +  compatible:
-+    const: asahi-kasei,ak4613
++    enum:
++      - asahi-kasei,ak4642
++      - asahi-kasei,ak4643
++      - asahi-kasei,ak4648
 +
 +  reg:
 +    maxItems: 1
 +
-+  clocks:
-+    maxItems: 1
-+
++  "#clock-cells":
++    const: 0
 +  "#sound-dai-cells":
 +    const: 0
 +
-+  # for OF-graph
-+  port:
-+    $ref: "audio-graph-card.yaml#definitions/port"
-+  ports:
-+    $ref: "audio-graph-card.yaml#definitions/ports"
++  clocks:
++    maxItems: 1
 +
-+# use patternProperties to avoid naming "xxx,yyy" issue
-+patternProperties:
-+  "^asahi-kasei,in1-single-end$":
-+    $ref: /schemas/types.yaml#/definitions/flag
-+  "^asahi-kasei,in2-single-end$":
-+    $ref: /schemas/types.yaml#/definitions/flag
-+  "^asahi-kasei,out1-single-end$":
-+    $ref: /schemas/types.yaml#/definitions/flag
-+  "^asahi-kasei,out2-single-end$":
-+    $ref: /schemas/types.yaml#/definitions/flag
-+  "^asahi-kasei,out3-single-end$":
-+    $ref: /schemas/types.yaml#/definitions/flag
-+  "^asahi-kasei,out4-single-end$":
-+    $ref: /schemas/types.yaml#/definitions/flag
-+  "^asahi-kasei,out5-single-end$":
-+    $ref: /schemas/types.yaml#/definitions/flag
-+  "^asahi-kasei,out6-single-end$":
-+    $ref: /schemas/types.yaml#/definitions/flag
++  clock-frequency:
++    description: common clock binding; frequency of MCKO
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  clock-output-names:
++    description: common clock name
++    $ref: /schemas/types.yaml#/definitions/string
 +
 +required:
 +  - compatible
@@ -177,9 +175,14 @@ index 000000000000..b5929239505e
 +    i2c {
 +        #address-cells = <1>;
 +        #size-cells = <0>;
-+        ak4613: ak4613@10 {
-+            compatible = "asahi-kasei,ak4613";
-+            reg = <0x10>;
++        ak4643: codec@12 {
++            compatible = "asahi-kasei,ak4643";
++            #sound-dai-cells = <0>;
++            reg = <0x12>;
++            #clock-cells = <0>;
++            clocks = <&audio_clock>;
++            clock-frequency = <12288000>;
++            clock-output-names = "ak4643_mcko";
 +        };
 +    };
 -- 

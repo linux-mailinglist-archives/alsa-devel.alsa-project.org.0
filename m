@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E2A61B2F9D
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Apr 2020 20:55:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB8131B2F9E
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Apr 2020 20:55:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BCC1E16CB;
-	Tue, 21 Apr 2020 20:54:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCC1E16CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EBCE16D2;
+	Tue, 21 Apr 2020 20:55:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EBCE16D2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587495311;
-	bh=zL91bQLozjyvNdYRpNFYZUjL+HYvZDuMjOLRropM4QE=;
+	s=default; t=1587495358;
+	bh=Frj/cz+GQh8ZuQCSfkzEEJVdndMiKBCd4eR3aH2VEz0=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GYRRyy/Jt4r7EXr7YcjrSXqOQzNBz9KgUJUxYRnZ1ohdxNMEuY08nD6dBhaDbImvZ
-	 wpRzS+lHvtA+hsNaaWsD6Xqi1EyTq5Bj7yQehsqqrYXy5+XVdY6rjYxP7Y0yk1AX7F
-	 87qOMSc+dzI9TdhnBg+9RNofcp5O16AoENCuE/+4=
+	b=rW69ygIRkgjNg9imJ/DeQBpfU9L9tH+4yoSpQFrWhik2IW3Vrwo+7I5ioGiASLhHL
+	 L15cSrJCJEe+HEiygflYy+34objKyycqGHGNLSFYJ1RR3KACzdCoEn+hC7zVGhqVJS
+	 95oGy6+qj6/KFEX0j3FREEhwsyf9RMen0pea54Z8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC428F800E7;
-	Tue, 21 Apr 2020 20:53:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19F62F80246;
+	Tue, 21 Apr 2020 20:53:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7BC69F801ED; Tue, 21 Apr 2020 20:53:28 +0200 (CEST)
+ id 38D0FF80246; Tue, 21 Apr 2020 20:53:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 56D6AF8012F
- for <alsa-devel@alsa-project.org>; Tue, 21 Apr 2020 20:53:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56D6AF8012F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 37BCAF80143
+ for <alsa-devel@alsa-project.org>; Tue, 21 Apr 2020 20:53:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37BCAF80143
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Ayy34cIQ"
+ header.b="cbnefvKB"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 06B4E2068F;
- Tue, 21 Apr 2020 18:53:17 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id D812E206F4;
+ Tue, 21 Apr 2020 18:53:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587495198;
- bh=zL91bQLozjyvNdYRpNFYZUjL+HYvZDuMjOLRropM4QE=;
+ s=default; t=1587495204;
+ bh=Frj/cz+GQh8ZuQCSfkzEEJVdndMiKBCd4eR3aH2VEz0=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=Ayy34cIQe/oe1ZC+/tDUcaruKkkfGJGELY2FzETid71cGbZZG0IW1+4AviJMQyHI6
- LUppst0ahQRypQNwXEvsBfnUqd9K9xcdCYCjYg8f31XfWS2T7zLp3CkR0X+bBpw3ad
- hDgEtfaCBRvAiA22ob4FhwtePn3UCJgaJgNLUd6k=
-Date: Tue, 21 Apr 2020 19:53:15 +0100
+ b=cbnefvKBv2nT1wgdDmXRavQvfKfj/z6zwP4LJGAaC5mWFujOKN22MxIHnysaYYL6a
+ E0RfdK0RFqlIvPwdvxYpTWvRzIxwY2FuMt7E2eToBJ8hLkV6mN8+l9j4x/9ckHG0hb
+ SDzK5RuM9IwDuO6YV0b5mTK5ffwv0L5R/RfxWedo=
+Date: Tue, 21 Apr 2020 19:53:21 +0100
 From: Mark Brown <broonie@kernel.org>
 To: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
-In-Reply-To: <20200417075957.24811-1-kai.vehmanen@linux.intel.com>
-References: <20200417075957.24811-1-kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH] ASoC: intel/skl/hda - fix oops on systems without i915
+In-Reply-To: <20200420205431.13070-1-kai.vehmanen@linux.intel.com>
+References: <20200420205431.13070-1-kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH v2] ASoC: intel/skl/hda - fix oops on systems without i915
  audio codec
-Message-Id: <158749519587.29498.12545439964374857405.b4-ty@kernel.org>
+Message-Id: <158749519587.29498.18124503080479706658.b4-ty@kernel.org>
 Cc: hui.wang@canonical.com,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
@@ -79,7 +79,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 17 Apr 2020 10:59:57 +0300, Kai Vehmanen wrote:
+On Mon, 20 Apr 2020 23:54:31 +0300, Kai Vehmanen wrote:
 > Recent fix for jack detection caused a regression on systems with HDA
 > audio codec but no HDMI/DP audio via i915 graphics, leading to a kernel
 > oops at device probe. On these systems, HDA bus instance lookup fails,

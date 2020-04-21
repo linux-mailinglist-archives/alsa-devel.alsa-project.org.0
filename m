@@ -2,67 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C03D81B3271
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 00:03:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 875171B3272
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 00:04:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1CD4816C8;
-	Wed, 22 Apr 2020 00:02:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CD4816C8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2C60C16D1;
+	Wed, 22 Apr 2020 00:03:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C60C16D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587506608;
-	bh=jezG8jIJrcRUz8ZI+cUx4uVeo5mIICz/cio3VM+MIfM=;
+	s=default; t=1587506655;
+	bh=VRbdKW7Kc3KtskubmkEA9uM6tVINZnWJKwgth9t0qVo=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=e54B5hGeokYJh9Ct/0Y12xnYVuCK7mTi0aYZTiIQHMjQCsW5br2NcG4gSC80kGipV
-	 br+I6z/p/eGKsypA/uQBfaAYHbW6cOefZuNMWqCvZTryfuHj+itfowmJW312JIkaDu
-	 67bc4cW8qiRJZcAKe1s5VXqIFpS0Ez8QLhIop7/U=
+	b=hjAZGSAYPjo0JPNU1jIvYTley1G8y0KD4JdqlQpd5FiKzMdm/dHUEGgzUsuqzFJ9o
+	 B4bHK6wnv6lYIK9ypf2iupqaHHqxopEUp4SLOYXjagLZjQaerGav/GsHaRpi/WXdWS
+	 f3dbGzS+/TxrRWHFCgNL8PROKvn2aFjvLKnF5PlI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B876F800E7;
-	Wed, 22 Apr 2020 00:01:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98358F801F5;
+	Wed, 22 Apr 2020 00:01:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 240F2F801ED; Wed, 22 Apr 2020 00:01:38 +0200 (CEST)
+ id F3F91F800E7; Wed, 22 Apr 2020 00:01:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED817F800FF
- for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 00:01:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED817F800FF
-IronPort-SDR: y0fPmGcpUtBbyoX3qJgKDnJIQN3uQoXhV2+bVyPcsRpBswFy5Dm5gdj20bFsR+AZhbH3TqSsm+
- zY5SKLv//BZQ==
+ by alsa1.perex.cz (Postfix) with ESMTPS id EA220F800E7
+ for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 00:01:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA220F800E7
+IronPort-SDR: CDIWaKSez0veWEqF+LEl7vqvDbOcQjSlX0iO3G7tSBNbRxbPaEV5UrJlqgKa0e3XhgWZn6zfyq
+ hSCKsNWft28w==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Apr 2020 15:01:27 -0700
-IronPort-SDR: /IPInb68liflrj3aBrHS1R/CkZuyBJDZTCqMeYT6CZFyVUmDCBRWixOpHhfgDlZ8IzDUB6r1RS
- kSPbLmS9TC/Q==
+ 21 Apr 2020 15:01:29 -0700
+IronPort-SDR: XW6i3mAjmpNPMWbyA+0u8KCpFbBNf13oozWBVPqZoRD0H2yFVKWUyTHmuhHKvuam4D2zio2otp
+ YFec63mpSyAA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,411,1580803200"; d="scan'208";a="456921723"
+X-IronPort-AV: E=Sophos;i="5.72,411,1580803200"; d="scan'208";a="456921738"
 Received: from sabeliak-mobl.amr.corp.intel.com (HELO [10.254.24.98])
  ([10.254.24.98])
- by fmsmga006.fm.intel.com with ESMTP; 21 Apr 2020 15:01:26 -0700
-Subject: Re: [PATCH 1/4] ASoC: Intel: Skylake: Change the order of machine
- device and platform registration
+ by fmsmga006.fm.intel.com with ESMTP; 21 Apr 2020 15:01:28 -0700
+Subject: Re: [PATCH 4/4] ASoC: Intel: Skylake: Automatic DMIC format
+ configuration according to information from NHLT
 To: Mateusz Gorski <mateusz.gorski@linux.intel.com>,
  alsa-devel@alsa-project.org
 References: <20200421202519.4008-1-mateusz.gorski@linux.intel.com>
- <20200421202519.4008-2-mateusz.gorski@linux.intel.com>
+ <20200421202519.4008-5-mateusz.gorski@linux.intel.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <bd0e8d65-74ea-8b17-9f92-ed980e265a1c@linux.intel.com>
-Date: Tue, 21 Apr 2020 15:49:17 -0500
+Message-ID: <5530780f-9e86-1db3-b83b-9940560d27a2@linux.intel.com>
+Date: Tue, 21 Apr 2020 15:55:03 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200421202519.4008-2-mateusz.gorski@linux.intel.com>
+In-Reply-To: <20200421202519.4008-5-mateusz.gorski@linux.intel.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -84,54 +84,23 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 4/21/20 3:25 PM, Mateusz Gorski wrote:
-> Swap the order of machine device and platform device registration.
-> This change ensures that even if the codec enumeration falls late - during
-> the driver module or topology reload - i2s_dev field is always ready to
-> be used.
 
-Are you sure?
+> @@ -3123,12 +3141,15 @@ static int skl_tplg_control_load(struct snd_soc_component *cmpnt,
+>   	case SND_SOC_TPLG_CTL_ENUM:
+>   		tplg_ec = container_of(hdr,
+>   				struct snd_soc_tplg_enum_control, hdr);
+> -		if (kctl->access & SNDRV_CTL_ELEM_ACCESS_READWRITE) {
+> +		if (kctl->access & SNDRV_CTL_ELEM_ACCESS_READ) {
+>   			se = (struct soc_enum *)kctl->private_value;
+>   			if (tplg_ec->priv.size)
+> -				return skl_init_enum_data(bus->dev, se,
+> -						tplg_ec);
+> +				skl_init_enum_data(bus->dev, se, tplg_ec);
+>   		}
+> +
+> +		if (hdr->ops.get == SKL_CONTROL_TYPE_MULTI_IO_SELECT_DMIC)
+> +			kctl->access = SNDRV_CTL_ELEM_ACCESS_READ;
+> +
 
-The platform device will register the DAIs that are used by the machine 
-driver, don't you have a risk of missing dependencies during the card 
-registration with this change?
-
-Put differently, why do this now when the existing code has been 
-'working' for a number of years without needing such a change?
-
-
-> Follow-up patch uses data from this field to create alternative topology
-> name based on used machine device.
-> 
-> Signed-off-by: Mateusz Gorski <mateusz.gorski@linux.intel.com>
-> ---
->   sound/soc/intel/skylake/skl.c | 10 +++++-----
->   1 file changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/sound/soc/intel/skylake/skl.c b/sound/soc/intel/skylake/skl.c
-> index 63182bfd7941..8473eb13ea65 100644
-> --- a/sound/soc/intel/skylake/skl.c
-> +++ b/sound/soc/intel/skylake/skl.c
-> @@ -819,16 +819,16 @@ static void skl_probe_work(struct work_struct *work)
->   	/* create codec instances */
->   	skl_codec_create(bus);
->   
-> -	/* register platform dai and controls */
-> -	err = skl_platform_register(bus->dev);
-> +	err = skl_machine_device_register(skl);
->   	if (err < 0) {
-> -		dev_err(bus->dev, "platform register failed: %d\n", err);
-> +		dev_err(bus->dev, "machine register failed: %d\n", err);
->   		goto out_err;
->   	}
->   
-> -	err = skl_machine_device_register(skl);
-> +	/* register platform dai and controls */
-> +	err = skl_platform_register(bus->dev);
->   	if (err < 0) {
-> -		dev_err(bus->dev, "machine register failed: %d\n", err);
-> +		dev_err(bus->dev, "platform register failed: %d\n", err);
->   		goto out_err;
->   	}
->   
-> 
+Is it intentional that you first test the kctrl->access as READ only, 
+and then later set it to READ only for DMICs? The sequence looks rather odd?

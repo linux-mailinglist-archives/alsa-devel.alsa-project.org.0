@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6061D1B50BF
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 01:16:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDD9E1B50C1
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 01:17:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C2AC16C3;
-	Thu, 23 Apr 2020 01:16:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C2AC16C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8693E169B;
+	Thu, 23 Apr 2020 01:16:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8693E169B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587597415;
-	bh=P3snNPmOSebcXSD5PpzklODBE3sdm0pbs6KgrPIs3Rk=;
+	s=default; t=1587597461;
+	bh=W9HEhgyHAwNzZgRwnZSKtQOYmpoIB7qqf9YDxGq7Xa8=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CjeGt7Hwv1ct/8xhJFTVW/AlIPlEHBYQIAMgE8PwObitNYcs8wFYXwxoaFO1NXJHb
-	 ePpirx7+5u48lEuhDSjuU6Br/lXHebpaQjh6umLP4TO4f6WmN7I+66AHeAVFyqBS23
-	 ITeCQGf93m4116bJ139mfvyR+lfyedGitKnUKL5k=
+	b=YpmyRr7V0n/BqP8KiHT48vFR0YqKUH69o35uanYm+9cJq6Qu96I/vhr5dvs4My7He
+	 R9y+7geEPdgW9bM69y/7YSVzDfLyW/vWNLcBN5Xtu/yYxxJMIlZiyXO8AuhQb9WjzQ
+	 jJBI9AZkP0Ye5W0x6G7381K39lfFby7aAtwcklJI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F269F802A2;
-	Thu, 23 Apr 2020 01:14:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5EEDEF802A8;
+	Thu, 23 Apr 2020 01:14:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BC793F8029A; Thu, 23 Apr 2020 01:14:17 +0200 (CEST)
+ id CC36EF802A7; Thu, 23 Apr 2020 01:14:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id EB542F8029A
- for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 01:14:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB542F8029A
-Date: 23 Apr 2020 08:14:11 +0900
-X-IronPort-AV: E=Sophos;i="5.73,304,1583161200"; d="scan'208";a="45236847"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 23 Apr 2020 08:14:11 +0900
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id AE20BF80299
+ for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 01:14:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE20BF80299
+Date: 23 Apr 2020 08:14:16 +0900
+X-IronPort-AV: E=Sophos;i="5.73,304,1583161200"; d="scan'208";a="45449999"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 23 Apr 2020 08:14:16 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 7D77F40F1D63;
- Thu, 23 Apr 2020 08:14:11 +0900 (JST)
-Message-ID: <87wo67t8os.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 99AB4400007B;
+ Thu, 23 Apr 2020 08:14:16 +0900 (JST)
+Message-ID: <87v9lrt8on.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 03/17] ASoC: soc-dai: add snd_soc_pcm_dai_new()
+Subject: [PATCH 04/17] ASoC: soc-dai: add snd_soc_pcm_dai_prepare()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <871rofunaq.wl-kuninori.morimoto.gx@renesas.com>
@@ -74,87 +74,75 @@ We have 2 type of component functions
 snd_soc_dai_xxx()     is focusing to dai itself,
 snd_soc_pcm_dai_xxx() is focusing to rtd related dai.
 
-Now we can update soc_dai_pcm_new() to
-snd_soc_pcm_dai_new(). This patch do it.
+Now we can update snd_soc_dai_prepare() to
+snd_soc_pcm_dai_prepare(). This patch do it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc-dai.h |  2 ++
- sound/soc/soc-core.c    | 23 +----------------------
- sound/soc/soc-dai.c     | 16 ++++++++++++++++
- 3 files changed, 19 insertions(+), 22 deletions(-)
+ include/sound/soc-dai.h |  3 +--
+ sound/soc/soc-dai.c     | 30 ++++++++++++++++++------------
+ sound/soc/soc-pcm.c     | 11 ++++-------
+ 3 files changed, 23 insertions(+), 21 deletions(-)
 
 diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
-index b33abe93b905..fd7e203315e6 100644
+index fd7e203315e6..1b25318b6325 100644
 --- a/include/sound/soc-dai.h
 +++ b/include/sound/soc-dai.h
-@@ -170,6 +170,8 @@ int snd_soc_dai_compress_new(struct snd_soc_dai *dai,
- 			     struct snd_soc_pcm_runtime *rtd, int num);
+@@ -154,8 +154,6 @@ int snd_soc_dai_startup(struct snd_soc_dai *dai,
+ 			struct snd_pcm_substream *substream);
+ void snd_soc_dai_shutdown(struct snd_soc_dai *dai,
+ 			  struct snd_pcm_substream *substream);
+-int snd_soc_dai_prepare(struct snd_soc_dai *dai,
+-			struct snd_pcm_substream *substream);
+ int snd_soc_dai_trigger(struct snd_soc_dai *dai,
+ 			struct snd_pcm_substream *substream, int cmd);
+ int snd_soc_dai_bespoke_trigger(struct snd_soc_dai *dai,
+@@ -171,6 +169,7 @@ int snd_soc_dai_compress_new(struct snd_soc_dai *dai,
  bool snd_soc_dai_stream_valid(struct snd_soc_dai *dai, int stream);
  
-+int snd_soc_pcm_dai_new(struct snd_soc_pcm_runtime *rtd);
-+
+ int snd_soc_pcm_dai_new(struct snd_soc_pcm_runtime *rtd);
++int snd_soc_pcm_dai_prepare(struct snd_pcm_substream *substream);
+ 
  struct snd_soc_dai_ops {
  	/*
- 	 * DAI clocking configuration, all optional.
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 6778eeffb48f..76167fa264af 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -1036,27 +1036,6 @@ int snd_soc_add_pcm_runtime(struct snd_soc_card *card,
- }
- EXPORT_SYMBOL_GPL(snd_soc_add_pcm_runtime);
- 
--static int soc_dai_pcm_new(struct snd_soc_pcm_runtime *rtd)
--{
--	struct snd_soc_dai *dai;
--	int i, ret = 0;
--
--	for_each_rtd_dais(rtd, i, dai) {
--		struct snd_soc_dai_driver *drv = dai->driver;
--
--		if (drv->pcm_new)
--			ret = drv->pcm_new(rtd, dai);
--		if (ret < 0) {
--			dev_err(dai->dev,
--				"ASoC: Failed to bind %s with pcm device\n",
--				dai->name);
--			return ret;
--		}
--	}
--
--	return 0;
--}
--
- static int soc_init_pcm_runtime(struct snd_soc_card *card,
- 				struct snd_soc_pcm_runtime *rtd)
- {
-@@ -1121,7 +1100,7 @@ static int soc_init_pcm_runtime(struct snd_soc_card *card,
- 		return ret;
- 	}
- 
--	return soc_dai_pcm_new(rtd);
-+	return snd_soc_pcm_dai_new(rtd);
- }
- 
- static void soc_set_name_prefix(struct snd_soc_card *card,
 diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
-index 93e03c9ec164..1b45e6e114ad 100644
+index 1b45e6e114ad..1a9cfdcfc736 100644
 --- a/sound/soc/soc-dai.c
 +++ b/sound/soc/soc-dai.c
-@@ -445,3 +445,19 @@ bool snd_soc_dai_stream_valid(struct snd_soc_dai *dai, int dir)
- 	/* If the codec specifies any channels at all, it supports the stream */
- 	return stream->channels_min;
+@@ -354,18 +354,6 @@ void snd_soc_dai_shutdown(struct snd_soc_dai *dai,
+ 		dai->driver->ops->shutdown(substream, dai);
+ }
+ 
+-int snd_soc_dai_prepare(struct snd_soc_dai *dai,
+-			struct snd_pcm_substream *substream)
+-{
+-	int ret = 0;
+-
+-	if (dai->driver->ops &&
+-	    dai->driver->ops->prepare)
+-		ret = dai->driver->ops->prepare(substream, dai);
+-
+-	return soc_dai_ret(dai, ret);
+-}
+-
+ int snd_soc_dai_trigger(struct snd_soc_dai *dai,
+ 			struct snd_pcm_substream *substream,
+ 			int cmd)
+@@ -461,3 +449,21 @@ int snd_soc_pcm_dai_new(struct snd_soc_pcm_runtime *rtd)
+ 
+ 	return 0;
  }
 +
-+int snd_soc_pcm_dai_new(struct snd_soc_pcm_runtime *rtd)
++int snd_soc_pcm_dai_prepare(struct snd_pcm_substream *substream)
 +{
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_dai *dai;
-+	int i, ret = 0;
++	int i, ret;
 +
 +	for_each_rtd_dais(rtd, i, dai) {
-+		if (dai->driver->pcm_new) {
-+			ret = dai->driver->pcm_new(rtd, dai);
++		if (dai->driver->ops &&
++		    dai->driver->ops->prepare) {
++			ret = dai->driver->ops->prepare(substream, dai);
 +			if (ret < 0)
 +				return soc_dai_ret(dai, ret);
 +		}
@@ -162,6 +150,28 @@ index 93e03c9ec164..1b45e6e114ad 100644
 +
 +	return 0;
 +}
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 77a680da366f..f7b3dca1d152 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -950,13 +950,10 @@ static int soc_pcm_prepare(struct snd_pcm_substream *substream)
+ 		}
+ 	}
+ 
+-	for_each_rtd_dais(rtd, i, dai) {
+-		ret = snd_soc_dai_prepare(dai, substream);
+-		if (ret < 0) {
+-			dev_err(dai->dev,
+-				"ASoC: DAI prepare error: %d\n", ret);
+-			goto out;
+-		}
++	ret = snd_soc_pcm_dai_prepare(substream);
++	if (ret < 0) {
++		dev_err(rtd->dev, "ASoC: DAI prepare error: %d\n", ret);
++		goto out;
+ 	}
+ 
+ 	/* cancel any delayed stream shutdown that is pending */
 -- 
 2.17.1
 

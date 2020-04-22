@@ -2,88 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7071A1B31DC
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Apr 2020 23:23:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D1131B35D2
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 05:59:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E9A4F16C9;
-	Tue, 21 Apr 2020 23:22:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9A4F16C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA95116C0;
+	Wed, 22 Apr 2020 05:58:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA95116C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587504199;
-	bh=kJ6FYcQjswI1ftVVPnhOBdcV8lBKm4np5uypm78flfM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=oKNsStVfMwrh/tosgqRXUi7QKN+WXFz1f9OKXSOVTW55TG5hpdEJqbLl7IMlMZL1v
-	 QzkpmOtgbLF6q5A5dvDEJ5m2f0V6NQPBr9d+zIRJRCI4KENehTSXKWLSP0JG45Rxkl
-	 L8XH6b06XmIlMlbMHFxXtHQpkjhW4wC1mDQJ44oc=
+	s=default; t=1587527939;
+	bh=23BzqynphMFq9fbVMYqMQH112Itx56HxH3+TOWzwEO0=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=e2SC5Lu74S7G3FI/6Pm0dUFqpTolLkt+sKEmS+U/1E/8dFVz3Y7rXYcvshkdjs2jl
+	 ok+vna/6eAtAsBXS4ZEbS38hH2xm1OAokjwgEYHCG+YjhLu9x5Lzz2P/9ODIPEFTcG
+	 N3Nu9M0DPEY5Fc3YXkkBM8hXxOMOAzaUrbsr/7xI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1C53AF801ED;
-	Tue, 21 Apr 2020 23:21:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73A6BF80142;
+	Wed, 22 Apr 2020 05:57:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41CCEF801EC; Tue, 21 Apr 2020 23:21:35 +0200 (CEST)
+ id AAFE4F801D9; Wed, 22 Apr 2020 05:57:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9B522F800FF
- for <alsa-devel@alsa-project.org>; Tue, 21 Apr 2020 23:21:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B522F800FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7E1ABF80108
+ for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 05:57:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E1ABF80108
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="XIKtgmre"
-Received: by mail-wm1-x342.google.com with SMTP id t63so4984329wmt.3
- for <alsa-devel@alsa-project.org>; Tue, 21 Apr 2020 14:21:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=TK7n//gPeG36lihND5HMtLgm//L8iTOGVH+6m3LoRfw=;
- b=XIKtgmreyS0Cr6MKPOKrYxqNc93UbzcWrhNvLYFT9vLZAJagyeJmTIQ8Pm6cD7ezdx
- YuSb9y/DnY/LbqShUXWjH1D/onnkNjCoYWLZ0dxFZABe5sx7vS4Aqb+dfLMKUJTRWbnH
- 5C8mmPYlFP52as320wX32lNV88wLvHtEG69BFpT8ikKSIqwSrgdXHbxqSnEnpdtP1CDn
- RImCkCDSIg8OFs0iBA8I6UYsDPm1hJlLz7wVj/DmxOmpK7U6G//o6WIbS5/7eL9jNb/p
- cK/zTDFubnJx7n+7DlAplKXWQN5lvh8PajC5LUnyFvlsvVPJLQnZfzhwq9QLajgPLZcV
- Ia5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=TK7n//gPeG36lihND5HMtLgm//L8iTOGVH+6m3LoRfw=;
- b=fzTXBbIG3iJ6570dwfdUUMyOOBakTZYN7lo5PPBPJZpyNigQX0VXw1fJLoNRWZDThm
- QUFdtH05Lr1cyN7D4E2Z3PZBtFrrRCjOcrZd9XrmHIy9PFvium8ss+rTBnWDY3v0RzCe
- IMTNlt3ZTRnHRglWRw8VG+doKyPWXh+r4fL/W8W1UVbs0O1J9H1fPaNUez+hw0+1MmEX
- s9goKTQe20AKaByqq5kRafAnHtvP89LHg8U2QpHqvI9LNFqg98ETgrjdiCK3zz+lOz/O
- ptvXSamjn1doj9i3KBZI3KulSK4BcGiGvFGTRKDM5TwgXbQrJhm8UThwhvJjfK9iqS65
- adag==
-X-Gm-Message-State: AGi0PuaRdRcaINH67OnnmL2bam/I7cE5lSnEmdU2xiTKJ4W/33jA+T4e
- 9TuxGDshvCht+RUzQ+0lr1w=
-X-Google-Smtp-Source: APiQypJHCYt/qQSBjjIeoumdlZTCo2ETQ8TRw1e0/LrPSZlVZ38YwA2+3pNHXDSq+tHbVExjrJwweA==
-X-Received: by 2002:a7b:c306:: with SMTP id k6mr6630963wmj.40.1587504091656;
- Tue, 21 Apr 2020 14:21:31 -0700 (PDT)
-Received: from localhost (p2E5BEDBA.dip0.t-ipconnect.de. [46.91.237.186])
- by smtp.gmail.com with ESMTPSA id c190sm5252751wme.10.2020.04.21.14.21.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Apr 2020 14:21:30 -0700 (PDT)
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Subject: [GIT PULL] ASoC: tegra: Fixes for v5.7-rc3
-Date: Tue, 21 Apr 2020 23:21:21 +0200
-Message-Id: <20200421212121.3286517-1-thierry.reding@gmail.com>
-X-Mailer: git-send-email 2.24.1
+ dkim=pass (1024-bit key) header.d=tsoy.me header.i=@tsoy.me
+ header.b="DSLiF70h"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
+ s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Content-Type:
+ References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Reply-To:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
+ :List-Post:List-Owner:List-Archive;
+ bh=j4Ls9wRVE3rzrnjPn4jr+wNKwnnaHQT5dpsn0hB2le4=; b=DSLiF70hGIJpZAwlRs3SpnBt0Q
+ QQW8HASY5Qz0V07Y/7tmrphyYJgTvlnPrSaMMgRWY+Pr0MLRUg2pJPI/WBLGnPCPylXkzvVJCooYm
+ gVj7FXR/hyeslZqR6HGNJfUdnkDGWSEDfJ4Uz3LBfkSJbxyj4+fcE6//5tDw2z7NITF4=;
+Received: from [2a00:1370:8125:3f98:890:f100:d37d:7ada] (helo=home)
+ by puleglot.ru with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92.3) (envelope-from <puleglot@puleglot.ru>)
+ id 1jR6VU-000coH-Ix; Wed, 22 Apr 2020 06:57:04 +0300
+Message-ID: <7190177d62f349eea7a5d1056924a63fc4270d43.camel@tsoy.me>
+Subject: Re: [PATCH] ALSA: usb-audio: Apply async workaround for Scarlett
+ 2i4 2nd gen
+From: Alexander Tsoy <alexander@tsoy.me>
+To: Takashi Iwai <tiwai@suse.de>
+Date: Wed, 22 Apr 2020 06:57:03 +0300
+In-Reply-To: <s5hpnc01vq5.wl-tiwai@suse.de>
+References: <20200421190908.462860-1-alexander@tsoy.me>
+ <s5hpnc01vq5.wl-tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.32.5 
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,58 +82,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Liam, Mark,
+В Вт, 21/04/2020 в 21:31 +0200, Takashi Iwai пишет:
+> On Tue, 21 Apr 2020 21:09:08 +0200,
+> Alexander Tsoy wrote:
+> > Due to rounding error driver sometimes incorrectly calculate next
+> > packet
+> > size, which results in audible clicks on devices with synchronous
+> > playback
+> > endpoints. For example on a high speed bus and a sample rate 44.1
+> > kHz it
+> > loses one sample every ~40.9 seconds. Fortunately playback
+> > interface on
+> > Scarlett 2i4 2nd gen has a working explicit feedback endpoint, so
+> > we can
+> > switch playback data endpoint to asynchronous mode as a workaround.
+> > 
+> > Signed-off-by: Alexander Tsoy <alexander@tsoy.me>
+> 
+> Applied now, thanks.
+> 
+> I wonder, though, whether we can correct the rounding error in the
+> driver code, too.
 
-The following changes since commit 8f3d9f354286745c751374f5f1fcafee6b3f3136:
+I'm not sure if it's possible with currently used Q16.16 arithmetic.
 
-  Linux 5.7-rc1 (2020-04-12 12:35:55 -0700)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/tegra/linux.git tags/tegra-for-5.7-asoc
-
-for you to fetch changes up to ff5d18cb04f4ecccbcf05b7f83ab6df2a0d95c16:
-
-  ASoC: tegra: Enable audio mclk during tegra_asoc_utils_init() (2020-04-21 16:53:15 +0200)
-
-This is a set of patches that I was supposed to send out during the
-merge window[0], but I somehow messed up my scripts and then didn't
-notice that this was missing. I've rebased these patches on top of
-v5.7-rc1.
-
-The lack of these are now causing some issues with unbalanced clock
-reference counts.
-
-Is there any chance you can pick these up for v5.7-rc3?
-
-Thanks,
-Thierry
-
-[0]: https://lore.kernel.org/lkml/20200327154506.GF4437@sirena.org.uk/
-
-----------------------------------------------------------------
-ASoC: tegra: Fixes for v5.7-rc3
-
-This contains a couple of fixes that are needed to properly reconfigure
-the audio clocks on older Tegra devices.
-
-----------------------------------------------------------------
-Sowjanya Komatineni (4):
-      ASoC: tegra: Use device managed resource APIs to get the clock
-      ASoC: nau8825: Change Tegra clk_out_2 provider to PMC
-      ASoC: tegra: Add audio mclk parent configuration
-      ASoC: tegra: Enable audio mclk during tegra_asoc_utils_init()
-
- .../devicetree/bindings/sound/nau8825.txt          |   2 +-
- sound/soc/tegra/tegra_alc5632.c                    |   7 +-
- sound/soc/tegra/tegra_asoc_utils.c                 | 113 ++++++++++-----------
- sound/soc/tegra/tegra_asoc_utils.h                 |   1 -
- sound/soc/tegra/tegra_max98090.c                   |  22 ++--
- sound/soc/tegra/tegra_rt5640.c                     |  22 ++--
- sound/soc/tegra/tegra_rt5677.c                     |   7 +-
- sound/soc/tegra/tegra_sgtl5000.c                   |   7 +-
- sound/soc/tegra/tegra_wm8753.c                     |  22 ++--
- sound/soc/tegra/tegra_wm8903.c                     |  22 ++--
- sound/soc/tegra/tegra_wm9712.c                     |   8 +-
- sound/soc/tegra/trimslice.c                        |  18 +---
- 12 files changed, 90 insertions(+), 161 deletions(-)

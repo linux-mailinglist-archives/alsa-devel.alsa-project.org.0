@@ -2,67 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49EE31B46C8
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 16:04:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 808181B4789
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 16:42:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BDE3816BD;
-	Wed, 22 Apr 2020 16:03:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDE3816BD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0425516AF;
+	Wed, 22 Apr 2020 16:41:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0425516AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587564287;
-	bh=Eee8d+5Hu8BFJeOdJCHWoIR/ex6fFhcbdTN/Vls1UIw=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1587566539;
+	bh=z1CnuEQAJidEWIVzn6kA9IJKeuFGMKe+jXQsGbFSGjc=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=W9b1J5QhfGUkxL8Z9mu8OtBoIlaWu6b8TGurLnOZwMOs0DtIy0+sykcHGNtQimdbF
-	 Xced+3+QkmoPhS+VarN1pPlyDdVmvT3n1C+540Yt2r93JmsX2eSAh1nGK5Wm4JfhuF
-	 KEb/iHflajz6/qPJI9iTd/NazkFZSp/d2eRkcu1Y=
+	b=D4e2SvUBwincNL95t+WLvCk4WMizQCirkijA1xG5gcl6GDfp6uQPoWhs6OdLL3GET
+	 WDaObMxaiw09//Ud2QE7KCcBJfvMGUawO/bcXN2ufGjLAt8FUrAf4VDhXmRdvLAhYU
+	 vFnIkRpgLx/zyrWzLiXx/Hl6l/GhGt5uO7EE3FKU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF4FBF8020C;
-	Wed, 22 Apr 2020 16:03:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29AE0F800F2;
+	Wed, 22 Apr 2020 16:40:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F307AF801D9; Wed, 22 Apr 2020 16:03:02 +0200 (CEST)
+ id 61CE6F801D9; Wed, 22 Apr 2020 16:40:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 24515F800FF
- for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 16:02:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24515F800FF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="bBLH5hR/"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CCAB92077D;
- Wed, 22 Apr 2020 14:02:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587564177;
- bh=Eee8d+5Hu8BFJeOdJCHWoIR/ex6fFhcbdTN/Vls1UIw=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=bBLH5hR/kD0OiuCE1N1gPai0IMmih6B7hDHD+Yn0zpltoPQQfYly+5bCufdy3BcyH
- HDMQrmnQi1cgfI6jHI2UXOtapZRWnJpmXK/RcnKdzkPFlWg2uflJJcWp5NykWVBBC6
- WzFqWZJ+JeMBmHJxcyB1OerHCNRy73x0QrulURco=
-Date: Wed, 22 Apr 2020 15:02:54 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>
-In-Reply-To: <20200421212121.3286517-1-thierry.reding@gmail.com>
-References: <20200421212121.3286517-1-thierry.reding@gmail.com>
-Subject: Re: [GIT PULL] ASoC: tegra: Fixes for v5.7-rc3
-Message-Id: <158756395814.23495.171205742201395813.b4-ty@kernel.org>
-Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 7676CF80108
+ for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 16:40:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7676CF80108
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1587566427716154099-webhooks-bot@alsa-project.org>
+References: <1587566427716154099-webhooks-bot@alsa-project.org>
+Subject: alsa-gobject: seq: Revert "seq: tstamp: use wrapper structure instead
+ of union"
+Message-Id: <20200422144035.61CE6F801D9@alsa1.perex.cz>
+Date: Wed, 22 Apr 2020 16:40:35 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,24 +60,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 21 Apr 2020 23:21:21 +0200, Thierry Reding wrote:
-> Hi Liam, Mark,
-> 
-> The following changes since commit 8f3d9f354286745c751374f5f1fcafee6b3f3136:
-> 
->   Linux 5.7-rc1 (2020-04-12 12:35:55 -0700)
-> 
-> are available in the Git repository at:
-> 
-> [...]
+alsa-project/alsa-gobject pull request #19 was opened from takaswie:
 
-Merged into
+This reverts commit 20fdc2d893ccba609cc786ebac733bf6914f9874.
 
-   undefined asoc-5.7
+In the above commit, union type structure is wrapped with care of
+language bindings in which union-compatible feature is not expected.
+However, it's responsible for language bindings to parse gir and
+the care is not necessarily required in shared library side. In first
+place, ALSASeq.Tstamp is boxed type object.
 
-Thanks!
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-merge commit: 41d91ec3de8a90167159275bde7ed65768723556
-
-Thanks,
-Mark
+Request URL   : https://github.com/alsa-project/alsa-gobject/pull/19
+Patch URL     : https://github.com/alsa-project/alsa-gobject/pull/19.patch
+Repository URL: https://github.com/alsa-project/alsa-gobject

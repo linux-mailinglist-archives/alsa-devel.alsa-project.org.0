@@ -2,68 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96FC71B45D5
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 15:06:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B38E51B45FA
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 15:11:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2DCB716C0;
-	Wed, 22 Apr 2020 15:05:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DCB716C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4471B16B5;
+	Wed, 22 Apr 2020 15:10:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4471B16B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587560806;
-	bh=BtCNhZ0xuhtlCys6/fKMuYQzaIFSs8CNe+8qNl96ZuA=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=VcN4yjFwW/qCWtaNxCpz+zYYwKhk7lcSUDsWXKHeBpjOzgb31s4U/U8S+U0HoArWK
-	 lw1QpImmwmHGcCVn8vEkoISkO+aTRyeTlb1VKfB6xaIWqBzLfUcOqXkJhAvuAZbCn7
-	 pFLylqYt20oL1KUsNnG1S+A8taRp7C98NOZrmMdo=
+	s=default; t=1587561108;
+	bh=rnqV1KlpEB/OLP2H0L2z2mcr785L2XdnHSE4djvrOwM=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=bdDSJXDo1jg/gpHb3JSWjqEQSPiWLqtn0LbAGV2XBIR5o5Onu4ykvwHPdvmTaoJ8z
+	 pez/2Y80RLoEuKS10gzT8/yy/wgbTj2F4C6K9asBrUWvijme66pBsik2ZtYN1yL+Mu
+	 vc02P/9VDJev5HZh+m+SdSIpLLIvmSI2X24tHW0M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4AA4CF801D9;
-	Wed, 22 Apr 2020 15:05:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 39F7EF800FF;
+	Wed, 22 Apr 2020 15:10:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA218F801D9; Wed, 22 Apr 2020 15:05:01 +0200 (CEST)
+ id 200DFF800FF; Wed, 22 Apr 2020 15:10:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8766EF800FF
+ for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 15:09:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8766EF800FF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="ezGrCZEK"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 21271F800FF
- for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 15:04:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21271F800FF
-IronPort-SDR: aEWXPFa0qdeOj+qMRCL899exAMVxPvMwgy1Eam+y1jhqrsEfZzqSBYQ67vf9s3wp537O5SrdQ2
- Jd7GdIsgaThQ==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Apr 2020 06:04:47 -0700
-IronPort-SDR: xa/PhuUHP3+6q9h+fZvxxxVp/YEDuOTbM8RYXcZEppVtWZakorJvXc0zFHWIM7hh//SRVwLlGq
- wu6RRzIkBFgA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,414,1580803200"; d="scan'208";a="247460230"
-Received: from black.fi.intel.com ([10.237.72.28])
- by fmsmga008.fm.intel.com with ESMTP; 22 Apr 2020 06:04:44 -0700
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 098CB58F; Wed, 22 Apr 2020 16:04:43 +0300 (EEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>
-Subject: [PATCH v1] ASoC: Intel: Skylake: Replace guid_copy() with
- import_guid()
-Date: Wed, 22 Apr 2020 16:04:43 +0300
-Message-Id: <20200422130443.38815-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.26.1
+ by mail.kernel.org (Postfix) with ESMTPSA id 10224206EC;
+ Wed, 22 Apr 2020 13:09:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1587560996;
+ bh=rnqV1KlpEB/OLP2H0L2z2mcr785L2XdnHSE4djvrOwM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ezGrCZEKmXBMrIUP6/fH2wct54raaWFVLqCpH+gsAAjJ8Ye9uDGLJMvPN9ypW1PLU
+ VAfu7S3r85RhMjlxnBJpyZN0hMB33hUSGz6PSLcqgfFWOrc4Llh4NP1sBDaGjN8KGA
+ OwbGrzeKSTJFP8G2b/y9NgZQFYwZ1cQ/41V4QQWA=
+Date: Wed, 22 Apr 2020 14:09:54 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH] ASoC: SOF: Fix build
+Message-ID: <20200422130954.GG4898@sirena.org.uk>
+References: <20200422112602.13109-1-broonie@kernel.org>
+ <2c307fac-077e-6692-a57a-2c2084a4742f@linux.intel.com>
+ <20200422125145.GE4898@sirena.org.uk>
+ <s5ho8rjznb6.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="BzCohdixPhurzSK4"
+Content-Disposition: inline
+In-Reply-To: <s5ho8rjznb6.wl-tiwai@suse.de>
+X-Cookie: A stitch in time saves nine.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>, alsa-devel@alsa-project.org,
+ Karol Trzcinski <karolx.trzcinski@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,52 +87,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There is a specific API to treat raw data as GUID, i.e. import_guid().
-Use it instead of guid_copy() with explicit casting.
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- sound/soc/intel/skylake/skl-sst-utils.c | 2 +-
- sound/soc/intel/skylake/skl-topology.c  | 6 +++---
- 2 files changed, 4 insertions(+), 4 deletions(-)
+--BzCohdixPhurzSK4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/sound/soc/intel/skylake/skl-sst-utils.c b/sound/soc/intel/skylake/skl-sst-utils.c
-index d43cbf4a71ef2..b233f89517c11 100644
---- a/sound/soc/intel/skylake/skl-sst-utils.c
-+++ b/sound/soc/intel/skylake/skl-sst-utils.c
-@@ -290,7 +290,7 @@ int snd_skl_parse_uuids(struct sst_dsp *ctx, const struct firmware *fw,
- 			goto free_uuid_list;
- 		}
- 
--		guid_copy(&module->uuid, (guid_t *)&mod_entry->uuid);
-+		import_guid(&module->uuid, mod_entry->uuid);
- 
- 		module->id = (i | (index << 12));
- 		module->is_loadable = mod_entry->type.load_type;
-diff --git a/sound/soc/intel/skylake/skl-topology.c b/sound/soc/intel/skylake/skl-topology.c
-index 69cd7a81bf2ac..43a159f23a10d 100644
---- a/sound/soc/intel/skylake/skl-topology.c
-+++ b/sound/soc/intel/skylake/skl-topology.c
-@@ -1989,7 +1989,7 @@ static int skl_tplg_get_uuid(struct device *dev, guid_t *guid,
- 	      struct snd_soc_tplg_vendor_uuid_elem *uuid_tkn)
- {
- 	if (uuid_tkn->token == SKL_TKN_UUID) {
--		guid_copy(guid, (guid_t *)&uuid_tkn->uuid);
-+		import_guid(guid, uuid_tkn->uuid);
- 		return 0;
- 	}
- 
-@@ -3376,8 +3376,8 @@ static int skl_tplg_get_manifest_tkn(struct device *dev,
- 				dev_err(dev, "Too many UUID tokens\n");
- 				return -EINVAL;
- 			}
--			guid_copy(&skl->modules[uuid_index++]->uuid,
--				  (guid_t *)&array->uuid->uuid);
-+			import_guid(&skl->modules[uuid_index++]->uuid,
-+				    array->uuid->uuid);
- 
- 			tuple_size += sizeof(*array->uuid);
- 			continue;
--- 
-2.26.1
+On Wed, Apr 22, 2020 at 03:01:49PM +0200, Takashi Iwai wrote:
 
+> Through a quick glance, this seems to be the error from the user
+> header installation.  See the path shown "/usr/include/sound/..." in
+> the error message.
+
+> If uapi header needs inclusion of another header file, it must be also
+> present in uapi/*.
+
+Yes, that's the patch I'm guessing is missing - we need a new UAPI
+header.
+
+--BzCohdixPhurzSK4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6gQiEACgkQJNaLcl1U
+h9Dt5Qf/Y8F0zKFjoukRWRqfo3rCpd50sVhaTrm+HxTsRESumryN+6gT+YGKPWQa
+Fy9Fa/sEzCgLYdAR1g6IcBl+xHk4G2XstflnFEcop6VFNr/FHtORGwi2nSEHvqBa
+kfOf09EJDu203euTEVsGgcGyOtavE6CwH7OecobUAbXfB1Rct3u/CmoISOBBmneG
+M/lCIL9KhsTUjJ0Y8QAHBn1xA0LyuH1AYZ5gQ8pBky3Ng/Y5DPYr3kb0xVgU721U
+n5GUAGXszBQFRkDZZjhy+jkKrPSiOHWtJ9RALaZfcqgPnDR/ntkP3bqj1QC2EFaT
+mXlE+c4dLBHtHioB+bqBxUCjRFeXGA==
+=HUt1
+-----END PGP SIGNATURE-----
+
+--BzCohdixPhurzSK4--

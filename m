@@ -2,72 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8E791B3B4B
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 11:28:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 900851B3B5E
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 11:31:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B64016A8;
-	Wed, 22 Apr 2020 11:28:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B64016A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3753B16C7;
+	Wed, 22 Apr 2020 11:30:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3753B16C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587547736;
-	bh=Ci4JF1NHPJ0yO0zqX5/6pxnEG3LL0hLpPBCaXrYTTY4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1587547892;
+	bh=KOMtGcPJ4awezw3qNB3ASnqu86JURENpy671HJEV2o4=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=m8YnAfA3ZbXpPSOh+lUy7VJRfBd/l+RG5NfEDIxLYjbIYp4yH9nUL3srAD4fp2KZ8
-	 h2pqYSiidrwHy3orBMzikZOHlrVH5a/h+A1MFSdUIixlHf+gjvt83h9v+EJMl4DSGI
-	 pREH9AJFpuQXiiTtDRHYHjzsTXirIlqtnqLeYM14=
+	b=h8l5szbBsSH+AQM1+IyRnEdSbfFVY4sZEV7L+tbASKHOlAuTxzFGMySL8vB9Bid75
+	 adXBatBhqa1x/cAlRmdfUquyAHx9JkevqkfRtc8d8sovFXMYDDxabwM3slqIKIN9lZ
+	 uvNMcbGLGG7gFvPxBT8Ug20Mm3pzVWSfh9B717ig=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BCA13F80108;
-	Wed, 22 Apr 2020 11:27:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71FF0F8020C;
+	Wed, 22 Apr 2020 11:29:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B8E1F801D9; Wed, 22 Apr 2020 11:27:13 +0200 (CEST)
+ id E7E3AF800F2; Wed, 22 Apr 2020 11:29:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1E79CF80108
- for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 11:27:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E79CF80108
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="eUYROwYS"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4EC6E20735;
- Wed, 22 Apr 2020 09:27:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587547624;
- bh=Ci4JF1NHPJ0yO0zqX5/6pxnEG3LL0hLpPBCaXrYTTY4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=eUYROwYS0Wer3r94OOt6gI8KJmZYeDDFgn4Wwuo+qVAELkm6EZw3U+BZuYdiPKLY1
- wpSAw0wf/Xtddx6oxPos/SpElp3L7VNqRSvoh6nBj3FPUFlDa24GQAQ0HjrYL6EMWP
- wUlOXnjzqcnDLecsJSj4RTOHxQ5hNfnMAQrLj5z8=
-Date: Wed, 22 Apr 2020 10:27:02 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Tzung-Bi Shih <tzungbi@google.com>
-Subject: Re: [PATCH] ASoC: dmic: Allow GPIO operations to sleep
-Message-ID: <20200422092702.GC4898@sirena.org.uk>
-References: <20200422083550.50711-1-broonie@kernel.org>
- <CA+Px+wUFgz0MP0vwkJ+5L5V5G6AK7-6iDbRuUerFBmwnm-CYFA@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="vEao7xgI/oilGqZ+"
-Content-Disposition: inline
-In-Reply-To: <CA+Px+wUFgz0MP0vwkJ+5L5V5G6AK7-6iDbRuUerFBmwnm-CYFA@mail.gmail.com>
-X-Cookie: A stitch in time saves nine.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Liam Girdwood <lgirdwood@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C2CD1F800F2
+ for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 11:29:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2CD1F800F2
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 02756AD5C;
+ Wed, 22 Apr 2020 09:29:41 +0000 (UTC)
+Date: Wed, 22 Apr 2020 11:29:42 +0200
+Message-ID: <s5h8sin27i1.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [PATCH] ALSA: usb-audio: Fix a limit check in
+ proc_dump_substream_formats()
+In-Reply-To: <20200422092255.GB195357@mwanda>
+References: <20200422092255.GB195357@mwanda>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Allison Randal <allison@lohutok.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,38 +70,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 22 Apr 2020 11:22:55 +0200,
+Dan Carpenter wrote:
+> 
+> This should be ARRAY_SIZE() instead of sizeof().  The sizeof() limit is
+> too high so it doesn't work.
+> 
+> Fixes: 093b8494f299 ("ALSA: usb-audio: Print more information in stream proc files")
+> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
 
---vEao7xgI/oilGqZ+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thanks, applied.
 
-On Wed, Apr 22, 2020 at 05:24:54PM +0800, Tzung-Bi Shih wrote:
 
-> Wondering about:
-> - Did you get any warning message to inspire you to use _cansleep() version?
-
-No, pure code inspection.  I don't know that I've got any systems that
-can run this driver.
-
-> - Does that imply in any _can sleep_ context, it is more encouraged to
-> call _cansleep() version?  (e.g.
-> https://elixir.bootlin.com/linux/v5.7-rc2/source/sound/soc/codecs/max98357a.c#L41)
-
-Yes, it's better.
-
---vEao7xgI/oilGqZ+
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6gDeUACgkQJNaLcl1U
-h9Arfgf7BLMy3BY4Q7Uguyk9KcMhn3e6DT8wkv5vV4KzjAGQCbB+Wyh87hQJqkNk
-utF8W6c5Zy7pxNq1NvZP1xPb34ac4+bM8JgbG5YJHpId7HsYpmlPEWjTWYV0yGmA
-ioMI1xvEGhegBWgrdjGvcrWs4pf5CPT7QPsJOuYR99vYrNpqdUekrtoTRN8nVWrT
-zckJEgLJoKxhgxc8Goz6yFy2LppdWWiLBXKMW5ZTYVLHRDYXrCnbEqSFNWFnjaUD
-hF1gAUdtN53qvrwCgfvCC+GwO/+vL0khtIrNS88JEp+AXS6AAGMy0ZW8G9Cjni1v
-pAr12C4JW2kaRNeqE88T/3yQGKzXZw==
-=5cly
------END PGP SIGNATURE-----
-
---vEao7xgI/oilGqZ+--
+Takashi

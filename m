@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 681411B3693
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 06:50:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E53A61B3695
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 06:51:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 12AA416C6;
-	Wed, 22 Apr 2020 06:49:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12AA416C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C91516D7;
+	Wed, 22 Apr 2020 06:50:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C91516D7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587531046;
-	bh=yJ6tVH+y+Bo4F+QPTSWd6BcnpUexpEGJMML1B9fNl90=;
+	s=default; t=1587531073;
+	bh=o26E9T2Cwd5t5de0+840DiiwoUIHh6NIe4DW7yJX2n4=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YQEVThW84wVDFlKLzsUk+r+4mf4p6AMxecw9sWQoDLTd59+xFJmdjwn0pfOZew05L
-	 Tum3VzcrUAC7X8dDzgNEa6FHugoTn/TiveUOQe/CLMz2nygPOZ5dHNy+kEExh2pgou
-	 VSlBFjGwT9kWwKwMBRsV3h4mz8ow0RP1w2qRjwDk=
-Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D78AF80299;
-	Wed, 22 Apr 2020 06:48:36 +0200 (CEST)
+	b=ovSjJY4WBcJBE9kKoLaldYl59Ttmh4NrsKU3r9yNhTwCEIp2U8WiKTasXIVjWH1KU
+	 VeqrYvRVeQQmtlAwSkE9OXXYNbopN0DFFgZc/3T88XP3XGh5+IcpAozo9cz2JZ/l/O
+	 Nbqu1NDJ7TlG0gOncO2AtedgChvFCjGlVGPA5WHE=
+Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id C51D1F8020C;
+	Wed, 22 Apr 2020 06:48:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 871ECF80278; Wed, 22 Apr 2020 06:48:22 +0200 (CEST)
+ id 1A477F8028B; Wed, 22 Apr 2020 06:48:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 6B842F80142
- for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 06:48:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B842F80142
-Date: 22 Apr 2020 13:48:16 +0900
-X-IronPort-AV: E=Sophos;i="5.72,412,1580742000"; d="scan'208";a="45382387"
+ by alsa1.perex.cz (Postfix) with ESMTP id 7FC28F80108
+ for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 06:48:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FC28F80108
+Date: 22 Apr 2020 13:48:22 +0900
+X-IronPort-AV: E=Sophos;i="5.72,412,1580742000"; d="scan'208";a="45382396"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 22 Apr 2020 13:48:16 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 22 Apr 2020 13:48:22 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 78D7841C00DA;
- Wed, 22 Apr 2020 13:48:16 +0900 (JST)
-Message-ID: <878siounvz.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id D985541C1DB1;
+ Wed, 22 Apr 2020 13:48:21 +0900 (JST)
+Message-ID: <877dy8unvu.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 3/4] ASoC: intel: haswell: don't use snd_soc_rtdcom_lookup()
+Subject: [PATCH 4/4] ASoC: amd: don't use snd_soc_rtdcom_lookup()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87d080unyx.wl-kuninori.morimoto.gx@renesas.com>
@@ -89,43 +89,48 @@ It works today, but, will not work in the future if we support multi
 CPU/Codec/Platform, because 1 rtd might have multiple same driver
 named component.
 
-intel haswell driver is using it, but we can avoid it easily
-by having component pointer at hsw_pcm_data.
-This patch removes snd_soc_rtdcom_lookup() from this driver.
+acp3x-pcm-dma driver is using snd_soc_rtdcom_lookup() at
+open/close() to get component by using DRV_NAME.
+
+But, lookuped "component" and function parameter "component"
+are same. We don't need to use snd_soc_rtdcom_lookup().
+This patch fixup it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/intel/haswell/sst-haswell-pcm.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/amd/raven/acp3x-pcm-dma.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
-diff --git a/sound/soc/intel/haswell/sst-haswell-pcm.c b/sound/soc/intel/haswell/sst-haswell-pcm.c
-index c183f8e94ee4..15e94dae45de 100644
---- a/sound/soc/intel/haswell/sst-haswell-pcm.c
-+++ b/sound/soc/intel/haswell/sst-haswell-pcm.c
-@@ -108,6 +108,7 @@ struct hsw_pcm_data {
- 	struct snd_pcm *hsw_pcm;
- 	u32 volume[2];
- 	struct snd_pcm_substream *substream;
-+	struct snd_soc_component *component;
- 	struct snd_compr_stream *cstream;
- 	unsigned int wpos;
- 	struct mutex mutex;
-@@ -696,7 +697,7 @@ static u32 hsw_notify_pointer(struct sst_hsw_stream *stream, void *data)
- 	struct snd_pcm_substream *substream = pcm_data->substream;
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
-+	struct snd_soc_component *component = pcm_data->component;
- 	struct hsw_priv_data *pdata = snd_soc_component_get_drvdata(component);
- 	struct sst_hsw *hsw = pdata->hsw;
- 	u32 pos;
-@@ -798,6 +799,7 @@ static int hsw_pcm_open(struct snd_soc_component *component,
- 	pm_runtime_get_sync(pdata->dev);
+diff --git a/sound/soc/amd/raven/acp3x-pcm-dma.c b/sound/soc/amd/raven/acp3x-pcm-dma.c
+index e362f0bc9e46..8a892ade1f40 100644
+--- a/sound/soc/amd/raven/acp3x-pcm-dma.c
++++ b/sound/soc/amd/raven/acp3x-pcm-dma.c
+@@ -211,14 +211,11 @@ static int acp3x_dma_open(struct snd_soc_component *component,
+ 			  struct snd_pcm_substream *substream)
+ {
+ 	struct snd_pcm_runtime *runtime;
+-	struct snd_soc_pcm_runtime *prtd;
+ 	struct i2s_dev_data *adata;
+ 	struct i2s_stream_instance *i2s_data;
+ 	int ret;
  
- 	pcm_data->substream = substream;
-+	pcm_data->component = component;
+ 	runtime = substream->runtime;
+-	prtd = substream->private_data;
+-	component = snd_soc_rtdcom_lookup(prtd, DRV_NAME);
+ 	adata = dev_get_drvdata(component->dev);
+ 	i2s_data = kzalloc(sizeof(*i2s_data), GFP_KERNEL);
+ 	if (!i2s_data)
+@@ -337,11 +334,8 @@ static int acp3x_dma_mmap(struct snd_soc_component *component,
+ static int acp3x_dma_close(struct snd_soc_component *component,
+ 			   struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *prtd;
+ 	struct i2s_dev_data *adata;
  
- 	snd_soc_set_runtime_hwparams(substream, &hsw_pcm_hardware);
+-	prtd = substream->private_data;
+-	component = snd_soc_rtdcom_lookup(prtd, DRV_NAME);
+ 	adata = dev_get_drvdata(component->dev);
+ 
  
 -- 
 2.17.1

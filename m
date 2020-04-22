@@ -2,70 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A8981B4575
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 14:53:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D26D41B45BE
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 15:01:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D01BB16BD;
-	Wed, 22 Apr 2020 14:52:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D01BB16BD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 63BD116B5;
+	Wed, 22 Apr 2020 15:00:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63BD116B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587560016;
-	bh=pybmVfG50fMMVZW6HPcx+fnsLHiFY0WqD6ci+hKFXQ4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1587560493;
+	bh=90V6KBKYjT3rTJ8mhPB53Iqgjvj2NL3thp2qeNj2sBw=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EC3LXgbwh7MjvwO8ByKcf1pmVLz/JjiuOwdhwEnCYeSnu3XFoO/4W1O1vxqifbdy0
-	 CrOcRBWYG52N2NZygVPEfE6Gmr61Gbu2augir1EdPHP5g3vLF2srn1WvThWmnygzy7
-	 VbttAmYwR1czemj7jFRNhREIhLMMaMUKWqeShAGM=
+	b=D1EUKnxZsrxAqujnSzcefv2ypwC1iIed4t8iZCnXWYowB8gudU0VA+B/4goEmrRyy
+	 d28+i+3Hhg6blQV4WmRyAZbo5gwvklJgVbiOA7ld7BKeqNCuq7Wn/ftB76Dp10lrcg
+	 tdigNtLgTjGzhAgUAahvGIeqOJkZnDu+4cSAZOlQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C70B3F80108;
-	Wed, 22 Apr 2020 14:51:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7AA35F80142;
+	Wed, 22 Apr 2020 14:59:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 53490F801D9; Wed, 22 Apr 2020 14:51:54 +0200 (CEST)
+ id E2018F801D9; Wed, 22 Apr 2020 14:59:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BB7EBF800FF
- for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 14:51:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB7EBF800FF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="vxC1f6xT"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 379C320787;
- Wed, 22 Apr 2020 12:51:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587559908;
- bh=pybmVfG50fMMVZW6HPcx+fnsLHiFY0WqD6ci+hKFXQ4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=vxC1f6xThl3MJgH7DJaTTsFn3rvXYV25scxbvNtnc+z8sk2tdHGGJ7Jn2hCYiDDeu
- iSUfzI/29vpb+9TarDs3eqcHt7yF0J/t3NWyWcRXD78seakLXfYbrlL7swftaxrrAF
- IzSvVjmNdCGgzM7CRpPIe7gLEeBLJ7hFnz2q54Dw=
-Date: Wed, 22 Apr 2020 13:51:46 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D4D40F800FF
+ for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 14:59:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4D40F800FF
+IronPort-SDR: CIXyfiX6TtNwlgvnY+acorR1kJQFecNjbOC0B1Z8aZbiCp5oQOLJ0fTGJWpe1SMfW1CGJkQPh9
+ RIX+oUY2YVbA==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Apr 2020 05:59:38 -0700
+IronPort-SDR: l+Z0xxLDTRnRxJtK0ztiV/q54ivyUk/hcVoDctmmTiKNDDmOX1mLf/DAiDwoMhhnraA8329bd7
+ K+M1iTXYqTpw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,414,1580803200"; d="scan'208";a="259060745"
+Received: from lokoro-mobl.amr.corp.intel.com (HELO [10.251.147.75])
+ ([10.251.147.75])
+ by orsmga006.jf.intel.com with ESMTP; 22 Apr 2020 05:59:38 -0700
 Subject: Re: [PATCH] ASoC: SOF: Fix build
-Message-ID: <20200422125145.GE4898@sirena.org.uk>
+To: Mark Brown <broonie@kernel.org>
 References: <20200422112602.13109-1-broonie@kernel.org>
  <2c307fac-077e-6692-a57a-2c2084a4742f@linux.intel.com>
+ <20200422125145.GE4898@sirena.org.uk>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <276595db-6a14-d4c4-8490-33a0b06b241b@linux.intel.com>
+Date: Wed, 22 Apr 2020 07:59:37 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="+SfteS7bOf3dGlBC"
-Content-Disposition: inline
-In-Reply-To: <2c307fac-077e-6692-a57a-2c2084a4742f@linux.intel.com>
-X-Cookie: A stitch in time saves nine.
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20200422125145.GE4898@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Cc: Stephen Rothwell <sfr@canb.auug.org.au>, alsa-devel@alsa-project.org,
  Karol Trzcinski <karolx.trzcinski@linux.intel.com>,
  Liam Girdwood <lgirdwood@gmail.com>
@@ -85,45 +84,30 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---+SfteS7bOf3dGlBC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Wed, Apr 22, 2020 at 07:11:26AM -0500, Pierre-Louis Bossart wrote:
-> On 4/22/20 6:26 AM, Mark Brown wrote:
+On 4/22/20 7:51 AM, Mark Brown wrote:
+> On Wed, Apr 22, 2020 at 07:11:26AM -0500, Pierre-Louis Bossart wrote:
+>> On 4/22/20 6:26 AM, Mark Brown wrote:
+> 
+>>> The recent batch of SOF changes failed to build on some x86
+>>> configurations including an allmodconfig, revert the commits:
+> 
+>> Not sure what happened here, these patches were held for a rather long time
+>> in the SOF tree, I haven't seen any kbuild report or email on this?
+> 
+> This was reported by Stephen:
+> 
+>     https://lore.kernel.org/linux-next/20200421121130.44423958@canb.auug.org.au/
+> 
+> with you in CC and the failures have been visible on kernelci.
+> 
+>> We'll fix 'this' but if there's a pointer on what configurations failed that
+>> would be nice to know.
+> 
+> As the above and Stephen's report said it shows up in allmodconfig,
+> that's the one I tested.  I'm guessing it should show up in most
+> configurations where that code gets built.
 
-> > The recent batch of SOF changes failed to build on some x86
-> > configurations including an allmodconfig, revert the commits:
-
-> Not sure what happened here, these patches were held for a rather long time
-> in the SOF tree, I haven't seen any kbuild report or email on this?
-
-This was reported by Stephen:
-
-   https://lore.kernel.org/linux-next/20200421121130.44423958@canb.auug.org.au/
-
-with you in CC and the failures have been visible on kernelci.
-
-> We'll fix 'this' but if there's a pointer on what configurations failed that
-> would be nice to know.
-
-As the above and Stephen's report said it shows up in allmodconfig,
-that's the one I tested.  I'm guessing it should show up in most
-configurations where that code gets built.
-
---+SfteS7bOf3dGlBC
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6gPeEACgkQJNaLcl1U
-h9CONQf/VtBzHOzTsLZQCboJr1RXbo+lbFsyHcCs++7QlyPFxR9nzoN1f2O/hLc4
-Q9kdeHqCcmfw1Kue6GV4S4YH8B52VG8ZIGNdJDYFr0pxGUPfufPunV8qCsjh6pVZ
-QX3WzPStaSMJOyXmzlf8H4bi3T2KzNVzM/3Fo67QWVqEiZRye5Hnl9Y0IH7xeWll
-ZPL6G9aEH4YkcB0hLvuGsu6NSoYvRYg8P75CemV5DARgctgKsUhzs7K4RSgbnH8n
-1jjoQPEMH6xtf71DfY2Xd72k0jXvvfOeGi3WqNWBaWz+0dfFLOSJ/TkqaLqk9qMs
-6EmIVshiWzstrqqILplSU/cLwM/h0Q==
-=fgHB
------END PGP SIGNATURE-----
-
---+SfteS7bOf3dGlBC--
+Gah, yes, I missed this report. I still don't get how this error went 
+undetected for weeks on the SOF side, will look into this.
+We'll resubmit the whole thing.

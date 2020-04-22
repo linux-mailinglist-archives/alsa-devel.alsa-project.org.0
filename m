@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02FC81B3692
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 06:50:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 681411B3693
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 06:50:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9ED6416CF;
-	Wed, 22 Apr 2020 06:49:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9ED6416CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 12AA416C6;
+	Wed, 22 Apr 2020 06:49:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12AA416C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587531001;
-	bh=vrr5zxObwy8yRQSwNhFFsg3aFVQ/gfWjPA9zHJwyDuI=;
+	s=default; t=1587531046;
+	bh=yJ6tVH+y+Bo4F+QPTSWd6BcnpUexpEGJMML1B9fNl90=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HAFY78Qf7uWoTZliZ2RygSP8dPxAW5wvqntim9NdLJjI9dQEQ+HeEEcsbcXRQFPs7
-	 NsNo6DdIF1lyM/3+PNv8nHa0zVmBqZ4gXS7YbLeDLfMWJJwh1KzZ1Kza1oT7KVrCGW
-	 RkzpY0ikFdb0CufkU+CgBE9KA0yjxcloN7DzxDIY=
-Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 98158F80279;
-	Wed, 22 Apr 2020 06:48:24 +0200 (CEST)
+	b=YQEVThW84wVDFlKLzsUk+r+4mf4p6AMxecw9sWQoDLTd59+xFJmdjwn0pfOZew05L
+	 Tum3VzcrUAC7X8dDzgNEa6FHugoTn/TiveUOQe/CLMz2nygPOZ5dHNy+kEExh2pgou
+	 VSlBFjGwT9kWwKwMBRsV3h4mz8ow0RP1w2qRjwDk=
+Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id 9D78AF80299;
+	Wed, 22 Apr 2020 06:48:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 80FAAF80279; Wed, 22 Apr 2020 06:48:20 +0200 (CEST)
+ id 871ECF80278; Wed, 22 Apr 2020 06:48:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 89EA8F80108
- for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 06:48:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89EA8F80108
-Date: 22 Apr 2020 13:48:12 +0900
-X-IronPort-AV: E=Sophos;i="5.72,412,1580742000"; d="scan'208";a="45169025"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 6B842F80142
+ for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 06:48:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B842F80142
+Date: 22 Apr 2020 13:48:16 +0900
+X-IronPort-AV: E=Sophos;i="5.72,412,1580742000"; d="scan'208";a="45382387"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 22 Apr 2020 13:48:12 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 22 Apr 2020 13:48:16 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id ECC9E41C1D93;
- Wed, 22 Apr 2020 13:48:11 +0900 (JST)
-Message-ID: <87a734unw4.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 78D7841C00DA;
+ Wed, 22 Apr 2020 13:48:16 +0900 (JST)
+Message-ID: <878siounvz.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 2/4] ASoC: intel: baytrail: don't use snd_soc_rtdcom_lookup()
+Subject: [PATCH 3/4] ASoC: intel: haswell: don't use snd_soc_rtdcom_lookup()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87d080unyx.wl-kuninori.morimoto.gx@renesas.com>
@@ -89,68 +89,43 @@ It works today, but, will not work in the future if we support multi
 CPU/Codec/Platform, because 1 rtd might have multiple same driver
 named component.
 
-intel baytrail driver is using it, but we can avoid it easily
-by having component pointer at sst_byt_pcm_data.
+intel haswell driver is using it, but we can avoid it easily
+by having component pointer at hsw_pcm_data.
 This patch removes snd_soc_rtdcom_lookup() from this driver.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/intel/baytrail/sst-baytrail-pcm.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ sound/soc/intel/haswell/sst-haswell-pcm.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/intel/baytrail/sst-baytrail-pcm.c b/sound/soc/intel/baytrail/sst-baytrail-pcm.c
-index 53383055c8dc..dbd830375bc4 100644
---- a/sound/soc/intel/baytrail/sst-baytrail-pcm.c
-+++ b/sound/soc/intel/baytrail/sst-baytrail-pcm.c
-@@ -36,6 +36,7 @@ static const struct snd_pcm_hardware sst_byt_pcm_hardware = {
- /* private data for each PCM DSP stream */
- struct sst_byt_pcm_data {
- 	struct sst_byt_stream *stream;
-+	struct snd_soc_component *component;
+diff --git a/sound/soc/intel/haswell/sst-haswell-pcm.c b/sound/soc/intel/haswell/sst-haswell-pcm.c
+index c183f8e94ee4..15e94dae45de 100644
+--- a/sound/soc/intel/haswell/sst-haswell-pcm.c
++++ b/sound/soc/intel/haswell/sst-haswell-pcm.c
+@@ -108,6 +108,7 @@ struct hsw_pcm_data {
+ 	struct snd_pcm *hsw_pcm;
+ 	u32 volume[2];
  	struct snd_pcm_substream *substream;
++	struct snd_soc_component *component;
+ 	struct snd_compr_stream *cstream;
+ 	unsigned int wpos;
  	struct mutex mutex;
- 
-@@ -119,12 +120,11 @@ static int sst_byt_pcm_hw_params(struct snd_soc_component *component,
- 	return 0;
- }
- 
--static int sst_byt_pcm_restore_stream_context(struct snd_pcm_substream *substream)
-+static int sst_byt_pcm_restore_stream_context(struct sst_byt_pcm_data *pcm_data)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
-+	struct snd_soc_pcm_runtime *rtd = pcm_data->substream->private_data;
-+	struct snd_soc_component *component = pcm_data->component;
- 	struct sst_byt_priv_data *pdata = snd_soc_component_get_drvdata(component);
--	struct sst_byt_pcm_data *pcm_data = &pdata->pcm[substream->stream];
- 	struct sst_byt *byt = pdata->byt;
- 	int ret;
- 
-@@ -149,7 +149,7 @@ static void sst_byt_pcm_work(struct work_struct *work)
- 		container_of(work, struct sst_byt_pcm_data, work);
- 
- 	if (snd_pcm_running(pcm_data->substream))
--		sst_byt_pcm_restore_stream_context(pcm_data->substream);
-+		sst_byt_pcm_restore_stream_context(pcm_data);
- }
- 
- static int sst_byt_pcm_trigger(struct snd_soc_component *component,
-@@ -198,7 +198,7 @@ static u32 byt_notify_pointer(struct sst_byt_stream *stream, void *data)
+@@ -696,7 +697,7 @@ static u32 hsw_notify_pointer(struct sst_hsw_stream *stream, void *data)
  	struct snd_pcm_substream *substream = pcm_data->substream;
  	struct snd_pcm_runtime *runtime = substream->runtime;
  	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 -	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
 +	struct snd_soc_component *component = pcm_data->component;
- 	struct sst_byt_priv_data *pdata = snd_soc_component_get_drvdata(component);
- 	struct sst_byt *byt = pdata->byt;
- 	u32 pos, hw_pos;
-@@ -242,6 +242,7 @@ static int sst_byt_pcm_open(struct snd_soc_component *component,
- 	mutex_lock(&pcm_data->mutex);
+ 	struct hsw_priv_data *pdata = snd_soc_component_get_drvdata(component);
+ 	struct sst_hsw *hsw = pdata->hsw;
+ 	u32 pos;
+@@ -798,6 +799,7 @@ static int hsw_pcm_open(struct snd_soc_component *component,
+ 	pm_runtime_get_sync(pdata->dev);
  
  	pcm_data->substream = substream;
 +	pcm_data->component = component;
  
- 	snd_soc_set_runtime_hwparams(substream, &sst_byt_pcm_hardware);
+ 	snd_soc_set_runtime_hwparams(substream, &hsw_pcm_hardware);
  
 -- 
 2.17.1

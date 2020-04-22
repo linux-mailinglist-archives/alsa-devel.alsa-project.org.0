@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C26D01B445C
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 14:19:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A8981B4575
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 14:53:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 720FE16A9;
-	Wed, 22 Apr 2020 14:18:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 720FE16A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id D01BB16BD;
+	Wed, 22 Apr 2020 14:52:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D01BB16BD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587557954;
-	bh=bpPKxpz11SYhWTfv22owZ65XOFKOg9Ieo8uSb/AaLe0=;
-	h=Date:From:To:In-Reply-To:References:Subject:List-Id:
+	s=default; t=1587560016;
+	bh=pybmVfG50fMMVZW6HPcx+fnsLHiFY0WqD6ci+hKFXQ4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JPS5TRnbNNiCcxyzZEnRGf8BEbwfLRu8LpCtfR4fWpJvgwCy6AKbHb3ldJZoEZGuW
-	 JuVEisjXngiW4uMvXdSJYZzVKACx4ab5nRPTpeJZ+2vX7W83youP3DNE9Q1Ecn5Oxy
-	 CAQAQC7ffH3n2MjqcRZ7csF+KazKrZBpRAFtt0Xg=
+	b=EC3LXgbwh7MjvwO8ByKcf1pmVLz/JjiuOwdhwEnCYeSnu3XFoO/4W1O1vxqifbdy0
+	 CrOcRBWYG52N2NZygVPEfE6Gmr61Gbu2augir1EdPHP5g3vLF2srn1WvThWmnygzy7
+	 VbttAmYwR1czemj7jFRNhREIhLMMaMUKWqeShAGM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E62A8F8023F;
-	Wed, 22 Apr 2020 14:16:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C70B3F80108;
+	Wed, 22 Apr 2020 14:51:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6DE82F8028B; Wed, 22 Apr 2020 14:16:56 +0200 (CEST)
+ id 53490F801D9; Wed, 22 Apr 2020 14:51:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,34 +34,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 92C07F8023F
- for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 14:16:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92C07F8023F
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB7EBF800FF
+ for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 14:51:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB7EBF800FF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ugD+hpZb"
+ header.b="vxC1f6xT"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 85DF12084D;
- Wed, 22 Apr 2020 12:16:48 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 379C320787;
+ Wed, 22 Apr 2020 12:51:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587557809;
- bh=bpPKxpz11SYhWTfv22owZ65XOFKOg9Ieo8uSb/AaLe0=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=ugD+hpZba41YUQEYft7ycbxY5cw+ZUyZyoif61nM8mIjsVWMyUf1xOq09wLS60oAF
- yjmoNypbAy2wl/aTxpYKUeZcEcqMNZ0H2uek1f61MbSiUj0Gre0Un+lt3U/IOSj13I
- pnKA93yWW+8QDlCTxqjuE9vG46S7WLGB4P/qid6A=
-Date: Wed, 22 Apr 2020 13:16:46 +0100
+ s=default; t=1587559908;
+ bh=pybmVfG50fMMVZW6HPcx+fnsLHiFY0WqD6ci+hKFXQ4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=vxC1f6xThl3MJgH7DJaTTsFn3rvXYV25scxbvNtnc+z8sk2tdHGGJ7Jn2hCYiDDeu
+ iSUfzI/29vpb+9TarDs3eqcHt7yF0J/t3NWyWcRXD78seakLXfYbrlL7swftaxrrAF
+ IzSvVjmNdCGgzM7CRpPIe7gLEeBLJ7hFnz2q54Dw=
+Date: Wed, 22 Apr 2020 13:51:46 +0100
 From: Mark Brown <broonie@kernel.org>
-To: perex@perex.cz, kuninori.morimoto.gx@renesas.com,
- Jason Yan <yanaijie@huawei.com>, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, tiwai@suse.com
-In-Reply-To: <20200422071805.48793-1-yanaijie@huawei.com>
-References: <20200422071805.48793-1-yanaijie@huawei.com>
-Subject: Re: [PATCH] ASoC: soc-core: return true,
- false in snd_soc_volsw_is_stereo()
-Message-Id: <158755779483.28370.5663062095876370884.b4-ty@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: Fix build
+Message-ID: <20200422125145.GE4898@sirena.org.uk>
+References: <20200422112602.13109-1-broonie@kernel.org>
+ <2c307fac-077e-6692-a57a-2c2084a4742f@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="+SfteS7bOf3dGlBC"
+Content-Disposition: inline
+In-Reply-To: <2c307fac-077e-6692-a57a-2c2084a4742f@linux.intel.com>
+X-Cookie: A stitch in time saves nine.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>, alsa-devel@alsa-project.org,
+ Karol Trzcinski <karolx.trzcinski@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,40 +84,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 22 Apr 2020 15:18:05 +0800, Jason Yan wrote:
-> Fix the following coccicheck warning:
-> 
-> include/sound/soc.h:1271:9-10: WARNING: return of 0/1 in function
-> 'snd_soc_volsw_is_stereo' with return type bool
-> 
-> Signed-off-by: Jason Yan <yanaijie@huawei.com>
-> 
-> [...]
 
-Applied to
+--+SfteS7bOf3dGlBC
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.8
+On Wed, Apr 22, 2020 at 07:11:26AM -0500, Pierre-Louis Bossart wrote:
+> On 4/22/20 6:26 AM, Mark Brown wrote:
 
-Thanks!
+> > The recent batch of SOF changes failed to build on some x86
+> > configurations including an allmodconfig, revert the commits:
 
-[1/1] ASoC: soc-core: return true, false in snd_soc_volsw_is_stereo()
-      commit: 4aa86e05be84b0692846799fce16c233a170c559
+> Not sure what happened here, these patches were held for a rather long time
+> in the SOF tree, I haven't seen any kbuild report or email on this?
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+This was reported by Stephen:
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+   https://lore.kernel.org/linux-next/20200421121130.44423958@canb.auug.org.au/
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+with you in CC and the failures have been visible on kernelci.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+> We'll fix 'this' but if there's a pointer on what configurations failed that
+> would be nice to know.
 
-Thanks,
-Mark
+As the above and Stephen's report said it shows up in allmodconfig,
+that's the one I tested.  I'm guessing it should show up in most
+configurations where that code gets built.
+
+--+SfteS7bOf3dGlBC
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6gPeEACgkQJNaLcl1U
+h9CONQf/VtBzHOzTsLZQCboJr1RXbo+lbFsyHcCs++7QlyPFxR9nzoN1f2O/hLc4
+Q9kdeHqCcmfw1Kue6GV4S4YH8B52VG8ZIGNdJDYFr0pxGUPfufPunV8qCsjh6pVZ
+QX3WzPStaSMJOyXmzlf8H4bi3T2KzNVzM/3Fo67QWVqEiZRye5Hnl9Y0IH7xeWll
+ZPL6G9aEH4YkcB0hLvuGsu6NSoYvRYg8P75CemV5DARgctgKsUhzs7K4RSgbnH8n
+1jjoQPEMH6xtf71DfY2Xd72k0jXvvfOeGi3WqNWBaWz+0dfFLOSJ/TkqaLqk9qMs
+6EmIVshiWzstrqqILplSU/cLwM/h0Q==
+=fgHB
+-----END PGP SIGNATURE-----
+
+--+SfteS7bOf3dGlBC--

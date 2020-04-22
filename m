@@ -2,83 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E4BD1B3BF1
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 12:01:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B27FF1B432F
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 13:26:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1E54416C6;
-	Wed, 22 Apr 2020 12:00:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E54416C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 44EA516BA;
+	Wed, 22 Apr 2020 13:25:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44EA516BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587549676;
-	bh=P5izvElOmtTq5iYRVHHoZxeD9w+gOORw8a47EJo2N0o=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Awstli0A9ZYrp83AbF+bTgEqlqSWJSr8KlH8vV2QhH+C6ABraoLVF6lK/qf7mUtYY
-	 aXbqoWA2o+50D7wj0X6Ppf4IUiwri6TNPxFhamG2LsIJ5rGpQxu80Qb3J03kN45fW5
-	 yAWJYK7hXjehIk+P3kELQkbYgl2yKb8h2anqVIwE=
+	s=default; t=1587554778;
+	bh=Cu5IacCeiglMo6qJFJ3BgUjkOxoh30q8a49JBJJJs2g=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Cs8SjkqtHyli779tO9bReeyhePv/QCb5GGL6M6kemUMiLrNjFWDoRwJz3RWbICk1H
+	 VVruFmvZdtqbyWpUEKqOIWfM8n40xP09trkISH7f7hxrcalGyDHFx4vl54AWV1gPe/
+	 ihyX8hjedjgT/bG3Y8roQElB9qLggNJFd4D8T50Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E3B4F8020C;
-	Wed, 22 Apr 2020 11:59:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62EE8F800F2;
+	Wed, 22 Apr 2020 13:24:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0D6CFF800F2; Wed, 22 Apr 2020 11:59:33 +0200 (CEST)
+ id 228E1F801D9; Wed, 22 Apr 2020 13:24:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com
- [IPv6:2607:f8b0:4864:20::d41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C7D86F800F2
- for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 11:59:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7D86F800F2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="eQh8+ITX"
-Received: by mail-io1-xd41.google.com with SMTP id b12so1681660ion.8
- for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 02:59:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=P5izvElOmtTq5iYRVHHoZxeD9w+gOORw8a47EJo2N0o=;
- b=eQh8+ITXgOFqdvcsGMWAVRZFJouNahjtWGoEsg1Hf71TpYgBq6HHkyqn2LB46VXI8j
- sdG0ZTVrFj0V/S7zuZpL3WbQpsfIqCtc51BTEIEq6mAhGLgHEtYxHONu+8fBuyQngqaf
- OaHNzVTcnDbtu2yqatZ6l0tnZxRfRNdHuT2PizWq93ULiDS1uO2HUlxirypIEgo0NF3v
- ZSN+/YZiAEgqpMlRR2qo6ossbYv9AghbFCgtoAxNWLqZydbbNBGTE70CYArQVVKOsipf
- kASBTM0oC9ibh4zqGUjJ+qnOrscUrEfT0jHpJAVNpftqWGmQyE6J23/Gp9wwoZyUItpe
- ctvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=P5izvElOmtTq5iYRVHHoZxeD9w+gOORw8a47EJo2N0o=;
- b=WQgEO9+3o2g7IjRYp58JKPys1VmXWyS3vJunHEPo25X5oW9Y8YtBSZM1S8NwDqL9px
- xU5BP4P6kVrTtFQ66b+imCmbXSVy2zXDoVVXP9h01r4w1FbQCD1QgygYtL61tYBxVHBW
- o1RUsESV1yTJZNHiaeIaqxPPUIinq3XVTboY2n/DQmXhvYkJ02AdmUMNKTzhOkvhoT22
- PIh/SkdMfb/APrmWr+0h65Bhf8dZV5ivLkDriqKCkIZ9LUYBWNsioikDUIzzr3vGAs7c
- B2JCu4ThrKIG2JqaV4rwAZyqoyuqs8prP+PZpb5JUa7/2GTLgZ66PdhZ+bcb67bATRDG
- 23Mw==
-X-Gm-Message-State: AGi0PuZbESpGYhywdRBpp8V+FRUF1nxJ13EDrTh7mdTnYurVYCd8AF/P
- 1+bqG8M6ElOkZ/RS+jg3Xkf/byQW3nAicW5AqFtjVw==
-X-Google-Smtp-Source: APiQypIpbq9jgp8hPLmgLdnrMpfk7zO+RBTVNTz4rmcXOxnv+oyKWFv/se8X5iOj3f31j97RNYLiiLM1vVLA7nu7lIw=
-X-Received: by 2002:a5d:9c46:: with SMTP id 6mr24601321iof.146.1587549566706; 
- Wed, 22 Apr 2020 02:59:26 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1C5B7F800FF;
+ Wed, 22 Apr 2020 13:24:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C5B7F800FF
+Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <colin.king@canonical.com>)
+ id 1jRDUH-0006HA-IO; Wed, 22 Apr 2020 11:24:17 +0000
+From: Colin King <colin.king@canonical.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ sound-open-firmware@alsa-project.org, alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: SOF: ensure all fields in header are zero'd before
+ copying back to userspace
+Date: Wed, 22 Apr 2020 12:24:17 +0100
+Message-Id: <20200422112417.208843-1-colin.king@canonical.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20200422083550.50711-1-broonie@kernel.org>
-In-Reply-To: <20200422083550.50711-1-broonie@kernel.org>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Wed, 22 Apr 2020 17:59:15 +0800
-Message-ID: <CA+Px+wUo1N5ATiQaUJg-9yiUizWXxjv5j7KW-N5UQcynxD399Q@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: dmic: Allow GPIO operations to sleep
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Liam Girdwood <lgirdwood@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,12 +73,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Apr 22, 2020 at 4:37 PM Mark Brown <broonie@kernel.org> wrote:
->
-> If there is a power GPIO provided we control it from DAPM context so there
-> is no problem with a sleeping GPIO, use the _cansleep() version of the API
-> to allow this.
->
-> Signed-off-by: Mark Brown <broonie@kernel.org>
+From: Colin Ian King <colin.king@canonical.com>
 
-Reviewed-by: Tzung-Bi Shih <tzungbi@google.com>
+Field header.tlv is uninitialized and being copied back to userspace
+and hence leaking data from the stack to userspace.  Fix this by
+ensuring the header structure is zero'd.
+
+Fixes: c3078f539704 ("ASoC: SOF: Add Sound Open Firmware KControl support")
+Addresses-Coverity: ("Uninitialized scalar variable")
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ sound/soc/sof/control.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/soc/sof/control.c b/sound/soc/sof/control.c
+index dfc412e2d956..97d5c1a4c1ff 100644
+--- a/sound/soc/sof/control.c
++++ b/sound/soc/sof/control.c
+@@ -362,7 +362,7 @@ int snd_sof_bytes_ext_get(struct snd_kcontrol *kcontrol,
+ 	struct snd_sof_control *scontrol = be->dobj.private;
+ 	struct snd_soc_component *scomp = scontrol->scomp;
+ 	struct sof_ipc_ctrl_data *cdata = scontrol->control_data;
+-	struct snd_ctl_tlv header;
++	struct snd_ctl_tlv header = { };
+ 	struct snd_ctl_tlv __user *tlvd =
+ 		(struct snd_ctl_tlv __user *)binary_data;
+ 	int data_size;
+-- 
+2.25.1
+

@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C58A41B50D5
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 01:23:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A74E1B50D7
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 01:23:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6989B16E0;
-	Thu, 23 Apr 2020 01:22:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6989B16E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE49616D1;
+	Thu, 23 Apr 2020 01:23:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE49616D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587597803;
-	bh=q9AWDd4ExBTaZgIq1DOpYMm3L5nVfLcAKers0gCHkt0=;
+	s=default; t=1587597831;
+	bh=bJrHco5s/zF0Afs3MyuKZhF4wCk0miRwqOzlWeGZFjQ=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=a+ytUGT2XHATIUcLXUsDzhpfmC4qkheVoeCRjM6Dkqo5L/8OOY6//dffSuyJS0jF7
-	 03ZHDhJcRZHjfSZvntJuWPym14u9AVwySNI1JShmAsHJLz7kEkXSJcj6TjBhzFr86H
-	 OzSHjhFJaR3ZJo5poe5Dw+Kb69EVKkAO65mLHxCk=
+	b=MoLcymahJLYwvNnWXcz8kEh6Kbz01CpFjvz89T9nrVPgYC327Nf7DdqF17jolLNHd
+	 Qkl+UWp3ak3Ot6tClX6nTNdutSA+xGERailmO4a1x4p/YOJuw2Y6T8GcK+C/V3FcvX
+	 3mM959IqQ1n3osHCIPnjb7urCRuvent4PYIRNOPU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07255F80322;
-	Thu, 23 Apr 2020 01:15:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A540F8032A;
+	Thu, 23 Apr 2020 01:15:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 96B29F80328; Thu, 23 Apr 2020 01:15:52 +0200 (CEST)
+ id 488A7F8032A; Thu, 23 Apr 2020 01:15:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id C7972F80290
- for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 01:15:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7972F80290
-Date: 23 Apr 2020 08:15:47 +0900
-X-IronPort-AV: E=Sophos;i="5.73,304,1583161200"; d="scan'208";a="45450138"
+ by alsa1.perex.cz (Postfix) with ESMTP id B02D7F80329
+ for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 01:15:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B02D7F80329
+Date: 23 Apr 2020 08:15:54 +0900
+X-IronPort-AV: E=Sophos;i="5.73,304,1583161200"; d="scan'208";a="45450147"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 23 Apr 2020 08:15:47 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 23 Apr 2020 08:15:54 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id AC88140F290D;
- Thu, 23 Apr 2020 08:15:47 +0900 (JST)
-Message-ID: <87h7xbt8m4.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 4168B40F2919;
+ Thu, 23 Apr 2020 08:15:54 +0900 (JST)
+Message-ID: <87ftcvt8lx.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 14/17] ASoC: soc-dai: add snd_soc_dai_compr_ack()
+Subject: [PATCH 15/17] ASoC: soc-dai: add snd_soc_dai_compr_pointer()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <871rofunaq.wl-kuninori.morimoto.gx@renesas.com>
@@ -71,70 +71,76 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 dai related function should be implemented at soc-dai.c.
-This patch adds snd_soc_dai_compr_ack().
+This patch adds snd_soc_dai_compr_pointer().
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
  include/sound/soc-dai.h  |  3 +++
- sound/soc/soc-compress.c |  8 +++-----
+ sound/soc/soc-compress.c |  7 ++++---
  sound/soc/soc-dai.c      | 14 ++++++++++++++
- 3 files changed, 20 insertions(+), 5 deletions(-)
+ 3 files changed, 21 insertions(+), 3 deletions(-)
 
 diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
-index ba48dc9d0a73..16dc9248f7f0 100644
+index 16dc9248f7f0..8101ec030e63 100644
 --- a/include/sound/soc-dai.h
 +++ b/include/sound/soc-dai.h
-@@ -182,6 +182,9 @@ int snd_soc_dai_compr_set_params(struct snd_soc_dai *dai,
- int snd_soc_dai_compr_get_params(struct snd_soc_dai *dai,
- 				 struct snd_compr_stream *cstream,
- 				 struct snd_codec *params);
-+int snd_soc_dai_compr_ack(struct snd_soc_dai *dai,
-+			  struct snd_compr_stream *cstream,
-+			  size_t bytes);
+@@ -185,6 +185,9 @@ int snd_soc_dai_compr_get_params(struct snd_soc_dai *dai,
+ int snd_soc_dai_compr_ack(struct snd_soc_dai *dai,
+ 			  struct snd_compr_stream *cstream,
+ 			  size_t bytes);
++int snd_soc_dai_compr_pointer(struct snd_soc_dai *dai,
++			      struct snd_compr_stream *cstream,
++			      struct snd_compr_tstamp *tstamp);
  
  struct snd_soc_dai_ops {
  	/*
 diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
-index 031f7d95b112..d4b016d99e5d 100644
+index d4b016d99e5d..062a8c521876 100644
 --- a/sound/soc/soc-compress.c
 +++ b/sound/soc/soc-compress.c
-@@ -618,11 +618,9 @@ static int soc_compr_ack(struct snd_compr_stream *cstream, size_t bytes)
+@@ -648,8 +648,9 @@ static int soc_compr_pointer(struct snd_compr_stream *cstream,
  
  	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
  
--	if (cpu_dai->driver->cops && cpu_dai->driver->cops->ack) {
--		ret = cpu_dai->driver->cops->ack(cstream, bytes, cpu_dai);
--		if (ret < 0)
--			goto err;
--	}
-+	ret = snd_soc_dai_compr_ack(cpu_dai, cstream, bytes);
+-	if (cpu_dai->driver->cops && cpu_dai->driver->cops->pointer)
+-		cpu_dai->driver->cops->pointer(cstream, tstamp, cpu_dai);
++	ret = snd_soc_dai_compr_pointer(cpu_dai, cstream, tstamp);
 +	if (ret < 0)
-+		goto err;
++		goto out;
  
  	for_each_rtd_components(rtd, i, component) {
  		if (!component->driver->compress_ops ||
+@@ -660,7 +661,7 @@ static int soc_compr_pointer(struct snd_compr_stream *cstream,
+ 			component, cstream, tstamp);
+ 		break;
+ 	}
+-
++out:
+ 	mutex_unlock(&rtd->card->pcm_mutex);
+ 	return ret;
+ }
 diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
-index c06e510855f2..bf52ecb26c0e 100644
+index bf52ecb26c0e..89fcf194c45e 100644
 --- a/sound/soc/soc-dai.c
 +++ b/sound/soc/soc-dai.c
-@@ -567,3 +567,17 @@ int snd_soc_dai_compr_get_params(struct snd_soc_dai *dai,
+@@ -581,3 +581,17 @@ int snd_soc_dai_compr_ack(struct snd_soc_dai *dai,
  	return soc_dai_ret(dai, ret);
  }
- EXPORT_SYMBOL_GPL(snd_soc_dai_compr_get_params);
+ EXPORT_SYMBOL_GPL(snd_soc_dai_compr_ack);
 +
-+int snd_soc_dai_compr_ack(struct snd_soc_dai *dai,
-+			  struct snd_compr_stream *cstream,
-+			  size_t bytes)
++int snd_soc_dai_compr_pointer(struct snd_soc_dai *dai,
++			      struct snd_compr_stream *cstream,
++			      struct snd_compr_tstamp *tstamp)
 +{
 +	int ret = 0;
 +
 +	if (dai->driver->cops &&
-+	    dai->driver->cops->ack)
-+		ret = dai->driver->cops->ack(cstream, bytes, dai);
++	    dai->driver->cops->pointer)
++		ret = dai->driver->cops->pointer(cstream, tstamp, dai);
 +
 +	return soc_dai_ret(dai, ret);
 +}
-+EXPORT_SYMBOL_GPL(snd_soc_dai_compr_ack);
++EXPORT_SYMBOL_GPL(snd_soc_dai_compr_pointer);
 -- 
 2.17.1
 

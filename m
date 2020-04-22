@@ -2,67 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E75E71B4333
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 13:28:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB94D1B4358
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 13:35:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D2D116C0;
-	Wed, 22 Apr 2020 13:27:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D2D116C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4333316BA;
+	Wed, 22 Apr 2020 13:34:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4333316BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587554890;
-	bh=Iq2Kv3ZxC841G3kMR4hx63eGmWZ3187+T4CsWKcNXIk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1587555315;
+	bh=CgCHLacwUzYhqpq52JZ9FCAuQOfE84Yp2C6+rnaztOg=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=UqkDADEt/2PIfx7sK/fFepemtgjk8WXZT2wGRr9IS1+3WDxO+KItuXYCcKY/VbZU7
-	 cV/nVu9OhnnlknnKVmbrpnydVfHpwN06iHPopxAh3yF9fFajk4B/zBZODmjDleYVgD
-	 JKC3lnehFco8tNDX6sjWkZ6gEAmv855MOX7nT4Jk=
+	b=FFCRQ/cBBMyfo2qe3oz88T+ndgPXnbm4/J37GPd295Dq9c5WqrsNbbpiRwZM0J1S6
+	 jtiUDNaqJVzBCD7dHam6oHAiBwUwMXCB/WtYgKLcKSGUUIYopQ/6HcwGTyYf38Tgch
+	 K1UrKDy0pgH9ZQc2GQo8D83JcIb41j9x00QXidPs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B7251F8020C;
-	Wed, 22 Apr 2020 13:26:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 593C9F800F2;
+	Wed, 22 Apr 2020 13:33:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BD6FFF8020C; Wed, 22 Apr 2020 13:26:22 +0200 (CEST)
+ id 63777F80142; Wed, 22 Apr 2020 13:33:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2A830F80142
- for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 13:26:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A830F80142
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="yRQkT2f0"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D9F9F20781;
- Wed, 22 Apr 2020 11:26:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587554773;
- bh=Iq2Kv3ZxC841G3kMR4hx63eGmWZ3187+T4CsWKcNXIk=;
- h=From:To:Cc:Subject:Date:From;
- b=yRQkT2f0I2GPvqWzkJTV953NF8Ebop4rMUtLjuRXyX+PFgGK751ZnB4XU9sEHfmsr
- 8Wib5z2PG4Gg90iNutnSHogRoLDIGB4X9nQYH6MYCQy2ODczcgonqm+ADeTiRdzGbv
- LzkLa/RLuwVBaGfj9My+2+u3wC5o+lzKVt9GKM7w=
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
- Karol Trzcinski <karolx.trzcinski@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH] ASoC: SOF: Fix build
-Date: Wed, 22 Apr 2020 12:26:02 +0100
-Message-Id: <20200422112602.13109-1-broonie@kernel.org>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E3F7EF800FF
+ for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 13:33:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3F7EF800FF
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 257A5AF2C
+ for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 11:33:21 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: usb-audio: Add connector notifier delegation
+Date: Wed, 22 Apr 2020 13:33:20 +0200
+Message-Id: <20200422113320.26664-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.16.4
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,366 +60,162 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The recent batch of SOF changes failed to build on some x86
-configurations including an allmodconfig, revert the commits:
+It turned out that ALC1220-VB USB-audio device gives the interrupt
+event to some PCM terminals while those don't allow the connector
+state request but only the actual I/O terminals return the request.
+The recent commit 7dc3c5a0172e ("ALSA: usb-audio: Don't create jack
+controls for PCM terminals") excluded those phantom terminals, so
+those events are ignored, too.
 
-e150ef4169a76  ASoC: SOF: Introduce extended manifest
-371091417864b  ASoC: SOF: ext_manifest: parse firmware version
-7c024b948c206  ASoC: SOF: ext_manifest: parse compiler version
-9e72f13ee541c  ASoC: SOF: ext_manifest: parse windows
+My first thought was that this could be easily deduced from the
+associated terminals, but some of them have even no associate terminal
+ID, hence it's not too trivial to figure out.
 
-to fix this.
+Since the number of such terminals are small and limited, this patch
+implements another quirk table for the simple mapping of the
+connectors.  It's not really scalable, but let's hope that there will
+be not many such funky devices in future.
 
-Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Fixes: 7dc3c5a0172e ("ALSA: usb-audio: Don't create jack controls for PCM terminals")
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=206873
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- include/uapi/sound/sof/ext_manifest.h |  91 -------------
- sound/soc/sof/loader.c                | 189 +-------------------------
- 2 files changed, 2 insertions(+), 278 deletions(-)
- delete mode 100644 include/uapi/sound/sof/ext_manifest.h
+ sound/usb/mixer.c      | 25 +++++++++++++++++++++++++
+ sound/usb/mixer.h      | 10 ++++++++++
+ sound/usb/mixer_maps.c | 13 +++++++++++++
+ 3 files changed, 48 insertions(+)
 
-diff --git a/include/uapi/sound/sof/ext_manifest.h b/include/uapi/sound/sof/ext_manifest.h
-deleted file mode 100644
-index d49c47d08c7f..000000000000
---- a/include/uapi/sound/sof/ext_manifest.h
-+++ /dev/null
-@@ -1,91 +0,0 @@
--/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
--/*
-- * This file is provided under a dual BSD/GPLv2 license.  When using or
-- * redistributing this file, you may do so under either license.
-- *
-- * Copyright(c) 2020 Intel Corporation. All rights reserved.
-- */
--
--/*
-- * Extended manifest is a place to store metadata about firmware, known during
-- * compilation time - for example firmware version or used compiler.
-- * Given information are read on host side before firmware startup.
-- * This part of output binary is not signed.
-- */
--
--#ifndef __SOF_FIRMWARE_EXT_MANIFEST_H__
--#define __SOF_FIRMWARE_EXT_MANIFEST_H__
--
--#include <linux/const.h>
--#include <sound/sof/info.h>
--
--/* In ASCII `XMan` */
--#define SOF_EXT_MAN_MAGIC_NUMBER	0x6e614d58
--
--/* Build u32 number in format MMmmmppp */
--#define SOF_EXT_MAN_BUILD_VERSION(MAJOR, MINOR, PATH) ((uint32_t)( \
--	((MAJOR) << 24) | \
--	((MINOR) << 12) | \
--	(PATH)))
--
--/* check extended manifest version consistency */
--#define SOF_EXT_MAN_VERSION_INCOMPATIBLE(host_ver, cli_ver) ( \
--	((host_ver) & GENMASK(31, 24)) != \
--	((cli_ver) & GENMASK(31, 24)))
--
--/* used extended manifest header version */
--#define SOF_EXT_MAN_VERSION		SOF_EXT_MAN_BUILD_VERSION(1, 0, 0)
--
--/* extended manifest header, deleting any field breaks backward compatibility */
--struct sof_ext_man_header {
--	uint32_t magic;		/*< identification number, */
--				/*< EXT_MAN_MAGIC_NUMBER */
--	uint32_t full_size;	/*< [bytes] full size of ext_man, */
--				/*< (header + content + padding) */
--	uint32_t header_size;	/*< [bytes] makes header extensionable, */
--				/*< after append new field to ext_man header */
--				/*< then backward compatible won't be lost */
--	uint32_t header_version; /*< value of EXT_MAN_VERSION */
--				/*< not related with following content */
--	uint8_t elements[];	/*< list of ext_man_elem_* elements */
--} __packed;
--
--/* Now define extended manifest elements */
--
--/* Extended manifest elements types */
--enum sof_ext_man_elem_type {
--	SOF_EXT_MAN_ELEM_FW_VERSION		= 0,
--	SOF_EXT_MAN_ELEM_WINDOW			= SOF_IPC_EXT_WINDOW,
--	SOF_EXT_MAN_ELEM_CC_VERSION		= SOF_IPC_EXT_CC_INFO,
--};
--
--/* extended manifest element header */
--struct sof_ext_man_elem_header {
--	uint32_t type;		/*< SOF_EXT_MAN_ELEM_ */
--	uint32_t size;		/*< in bytes, including header size */
--	uint8_t blob[];		/*< type dependent content */
--} __packed;
--
--/* FW version */
--struct sof_ext_man_fw_version {
--	struct sof_ext_man_elem_header hdr;
--	/* use sof_ipc struct because of code re-use */
--	struct sof_ipc_fw_version version;
--	uint32_t flags;
--} __packed;
--
--/* extended data memory windows for IPC, trace and debug */
--struct sof_ext_man_window {
--	struct sof_ext_man_elem_header hdr;
--	/* use sof_ipc struct because of code re-use */
--	struct sof_ipc_window ipc_window;
--} __packed;
--
--/* Used C compiler description */
--struct sof_ext_man_cc_version {
--	struct sof_ext_man_elem_header hdr;
--	/* use sof_ipc struct because of code re-use */
--	struct sof_ipc_cc_version cc_version;
--} __packed;
--
--#endif /* __SOF_FIRMWARE_EXT_MANIFEST_H__ */
-diff --git a/sound/soc/sof/loader.c b/sound/soc/sof/loader.c
-index 8be30cd5e038..89f35db2577d 100644
---- a/sound/soc/sof/loader.c
-+++ b/sound/soc/sof/loader.c
-@@ -12,7 +12,6 @@
- 
- #include <linux/firmware.h>
- #include <sound/sof.h>
--#include <uapi/sound/sof/ext_manifest.h>
- #include "ops.h"
- 
- static int get_ext_windows(struct snd_sof_dev *sdev,
-@@ -20,21 +19,13 @@ static int get_ext_windows(struct snd_sof_dev *sdev,
- {
- 	const struct sof_ipc_window *w =
- 		container_of(ext_hdr, struct sof_ipc_window, ext_hdr);
--	size_t w_size = struct_size(w, window, w->num_windows);
--
--	if (sdev->info_window) {
--		if (memcmp(sdev->info_window, w, w_size)) {
--			dev_err(sdev->dev, "error: mistmatch between window descriptor from extended manifest and mailbox");
--			return -EINVAL;
--		}
--		return 0;
--	}
- 
- 	if (w->num_windows == 0 || w->num_windows > SOF_IPC_MAX_ELEMS)
- 		return -EINVAL;
- 
- 	/* keep a local copy of the data */
--	sdev->info_window = kmemdup(w, w_size, GFP_KERNEL);
-+	sdev->info_window = kmemdup(w, struct_size(w, window, w->num_windows),
-+				    GFP_KERNEL);
- 	if (!sdev->info_window)
- 		return -ENOMEM;
- 
-@@ -49,14 +40,6 @@ static int get_cc_info(struct snd_sof_dev *sdev,
- 	const struct sof_ipc_cc_version *cc =
- 		container_of(ext_hdr, struct sof_ipc_cc_version, ext_hdr);
- 
--	if (sdev->cc_version) {
--		if (memcmp(sdev->cc_version, cc, cc->ext_hdr.hdr.size)) {
--			dev_err(sdev->dev, "error: receive diverged cc_version descriptions");
--			return -EINVAL;
--		}
--		return 0;
--	}
--
- 	dev_dbg(sdev->dev, "Firmware info: used compiler %s %d:%d:%d%s used optimization flags %s\n",
- 		cc->name, cc->major, cc->minor, cc->micro, cc->desc,
- 		cc->optim);
-@@ -143,151 +126,6 @@ int snd_sof_fw_parse_ext_data(struct snd_sof_dev *sdev, u32 bar, u32 offset)
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index ecd5036a0b44..a88d7854513b 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -3117,6 +3117,7 @@ static int snd_usb_mixer_controls(struct usb_mixer_interface *mixer)
+ 		if (map->id == state.chip->usb_id) {
+ 			state.map = map->map;
+ 			state.selector_map = map->selector_map;
++			mixer->connector_map = map->connector_map;
+ 			mixer->ignore_ctl_error |= map->ignore_ctl_error;
+ 			break;
+ 		}
+@@ -3198,10 +3199,32 @@ static int snd_usb_mixer_controls(struct usb_mixer_interface *mixer)
+ 	return 0;
  }
- EXPORT_SYMBOL(snd_sof_fw_parse_ext_data);
  
--static int ext_man_get_fw_version(struct snd_sof_dev *sdev,
--				  const struct sof_ext_man_elem_header *hdr)
--{
--	const struct sof_ext_man_fw_version *v;
--
--	v = container_of(hdr, struct sof_ext_man_fw_version, hdr);
--
--	memcpy(&sdev->fw_ready.version, &v->version, sizeof(v->version));
--	sdev->fw_ready.flags = v->flags;
--
--	/* log ABI versions and check FW compatibility */
--	return snd_sof_ipc_valid(sdev);
--}
--
--static int ext_man_get_windows(struct snd_sof_dev *sdev,
--			       const struct sof_ext_man_elem_header *hdr)
--{
--	const struct sof_ipc_ext_data_hdr *w_ipc;
--	const struct sof_ext_man_window *w;
--
--	w = container_of(hdr, struct sof_ext_man_window, hdr);
--	w_ipc = (const struct sof_ipc_ext_data_hdr *)&w->ipc_window;
--
--	return get_ext_windows(sdev, w_ipc);
--}
--
--static int ext_man_get_cc_info(struct snd_sof_dev *sdev,
--			       const struct sof_ext_man_elem_header *hdr)
--{
--	const struct sof_ext_man_cc_version *cc;
--	const struct sof_ipc_ext_data_hdr *cc_version;
--
--	cc = container_of(hdr, struct sof_ext_man_cc_version, hdr);
--	cc_version = (const struct sof_ipc_ext_data_hdr *)&cc->cc_version;
--
--	return get_cc_info(sdev, cc_version);
--}
--
--static ssize_t snd_sof_ext_man_size(const struct firmware *fw)
--{
--	const struct sof_ext_man_header *head = (void *)fw->data;
--
--	/*
--	 * assert fw size is big enough to contain extended manifest header,
--	 * it prevents from reading unallocated memory from `head` in following
--	 * step.
--	 */
--	if (fw->size < sizeof(*head))
--		return -EINVAL;
--
--	/*
--	 * When fw points to extended manifest,
--	 * then first u32 must be equal SOF_EXT_MAN_MAGIC_NUMBER.
--	 */
--	if (head->magic == SOF_EXT_MAN_MAGIC_NUMBER)
--		return head->full_size;
--
--	/* otherwise given fw don't have an extended manifest */
--	return 0;
--}
--
--/* parse extended FW manifest data structures */
--static int snd_sof_fw_ext_man_parse(struct snd_sof_dev *sdev,
--				    const struct firmware *fw)
--{
--	const struct sof_ext_man_elem_header *elem_hdr;
--	const struct sof_ext_man_header *head;
--	ssize_t ext_man_size;
--	ssize_t remaining;
--	uintptr_t iptr;
--	int ret = 0;
--
--	head = (struct sof_ext_man_header *)fw->data;
--	remaining = head->full_size - head->header_size;
--	ext_man_size = snd_sof_ext_man_size(fw);
--
--	/* Assert firmware starts with extended manifest */
--	if (ext_man_size < 0) {
--		dev_err(sdev->dev, "error: exception while reading firmware extended manifest, code %d\n",
--			(int)ext_man_size);
--		return ext_man_size;
--	} else if (!ext_man_size) {
--		dev_err(sdev->dev, "error: can't parse extended manifest when it's not present\n");
--		return -EINVAL;
--	}
--
--	/* incompatible version */
--	if (SOF_EXT_MAN_VERSION_INCOMPATIBLE(SOF_EXT_MAN_VERSION,
--					     head->header_version)) {
--		dev_err(sdev->dev, "error: extended manifest version 0x%X differ from used 0x%X\n",
--			head->header_version, SOF_EXT_MAN_VERSION);
--		return -EINVAL;
--	}
--
--	/* get first extended manifest element header */
--	iptr = (uintptr_t)fw->data + head->header_size;
--
--	while (remaining > sizeof(*elem_hdr)) {
--		elem_hdr = (struct sof_ext_man_elem_header *)iptr;
--
--		dev_dbg(sdev->dev, "found sof_ext_man header type %d size 0x%X\n",
--			elem_hdr->type, elem_hdr->size);
--
--		if (elem_hdr->size < sizeof(*elem_hdr) ||
--		    elem_hdr->size > remaining) {
--			dev_err(sdev->dev, "error: invalid sof_ext_man header size, type %d size 0x%X\n",
--				elem_hdr->type, elem_hdr->size);
--			break;
--		}
--
--		/* process structure data */
--		switch (elem_hdr->type) {
--		case SOF_EXT_MAN_ELEM_FW_VERSION:
--			ret = ext_man_get_fw_version(sdev, elem_hdr);
--			break;
--		case SOF_EXT_MAN_ELEM_WINDOW:
--			ret = ext_man_get_windows(sdev, elem_hdr);
--			break;
--		case SOF_EXT_MAN_ELEM_CC_VERSION:
--			ret = ext_man_get_cc_info(sdev, elem_hdr);
--			break;
--		default:
--			dev_warn(sdev->dev, "warning: unknown sof_ext_man header type %d size 0x%X\n",
--				 elem_hdr->type, elem_hdr->size);
--			break;
--		}
--
--		if (ret < 0) {
--			dev_err(sdev->dev, "error: failed to parse sof_ext_man header type %d size 0x%X\n",
--				elem_hdr->type, elem_hdr->size);
--			break;
--		}
--
--		remaining -= elem_hdr->size;
--		iptr += elem_hdr->size;
--	}
--
--	if (remaining) {
--		dev_err(sdev->dev, "error: sof_ext_man header is inconsistent\n");
--		ret = -EINVAL;
--	}
--
--	return ret;
--}
--
- /*
-  * IPC Firmware ready.
-  */
-@@ -635,7 +473,6 @@ int snd_sof_load_firmware_raw(struct snd_sof_dev *sdev)
++static int delegate_notify(struct usb_mixer_interface *mixer, int unitid,
++			   u8 *control, u8 *channel)
++{
++	const struct usbmix_connector_map *map = mixer->connector_map;
++
++	if (!map)
++		return unitid;
++
++	for (; map->id; map++) {
++		if (map->id == unitid) {
++			if (control && map->control)
++				*control = map->control;
++			if (channel && map->channel)
++				*channel = map->channel;
++			return map->delegated_id;
++		}
++	}
++	return unitid;
++}
++
+ void snd_usb_mixer_notify_id(struct usb_mixer_interface *mixer, int unitid)
  {
- 	struct snd_sof_pdata *plat_data = sdev->pdata;
- 	const char *fw_filename;
--	ssize_t ext_man_size;
- 	int ret;
+ 	struct usb_mixer_elem_list *list;
  
- 	/* Don't request firmware again if firmware is already requested */
-@@ -653,33 +490,11 @@ int snd_sof_load_firmware_raw(struct snd_sof_dev *sdev)
- 	if (ret < 0) {
- 		dev_err(sdev->dev, "error: request firmware %s failed err: %d\n",
- 			fw_filename, ret);
--		goto err;
- 	} else {
- 		dev_dbg(sdev->dev, "request_firmware %s successful\n",
- 			fw_filename);
++	unitid = delegate_notify(mixer, unitid, NULL, NULL);
++
+ 	for_each_mixer_elem(list, mixer, unitid) {
+ 		struct usb_mixer_elem_info *info =
+ 			mixer_elem_list_to_info(list);
+@@ -3271,6 +3294,8 @@ static void snd_usb_mixer_interrupt_v2(struct usb_mixer_interface *mixer,
+ 		return;
  	}
  
--	/* check for extended manifest */
--	ext_man_size = snd_sof_ext_man_size(plat_data->fw);
--	if (ext_man_size > 0) {
--		ret = snd_sof_fw_ext_man_parse(sdev, plat_data->fw);
--
--		/* when no error occurred, drop extended manifest */
--		if (!ret)
--			plat_data->fw_offset = ext_man_size;
--		else
--			dev_err(sdev->dev, "error: firmware %s contains unsupported or invalid extended manifest: %d\n",
--				fw_filename, ret);
--	} else if (!ext_man_size) {
--		/* No extended manifest, so nothing to skip during FW load */
--		dev_dbg(sdev->dev, "firmware doesn't contain extended manifest\n");
--	} else {
--		ret = ext_man_size;
--		dev_err(sdev->dev, "error: firmware %s contains unsupported or invalid extended manifest: %d\n",
--			fw_filename, ret);
--	}
--
--err:
- 	kfree(fw_filename);
++	unitid = delegate_notify(mixer, unitid, &control, &channel);
++
+ 	for_each_mixer_elem(list, mixer, unitid)
+ 		count++;
  
- 	return ret;
+diff --git a/sound/usb/mixer.h b/sound/usb/mixer.h
+index 65d6d08c96f5..41ec9dc4139b 100644
+--- a/sound/usb/mixer.h
++++ b/sound/usb/mixer.h
+@@ -6,6 +6,13 @@
+ 
+ struct media_mixer_ctl;
+ 
++struct usbmix_connector_map {
++	u8 id;
++	u8 delegated_id;
++	u8 control;
++	u8 channel;
++};
++
+ struct usb_mixer_interface {
+ 	struct snd_usb_audio *chip;
+ 	struct usb_host_interface *hostif;
+@@ -18,6 +25,9 @@ struct usb_mixer_interface {
+ 	/* the usb audio specification version this interface complies to */
+ 	int protocol;
+ 
++	/* optional connector delegation map */
++	const struct usbmix_connector_map *connector_map;
++
+ 	/* Sound Blaster remote control stuff */
+ 	const struct rc_config *rc_cfg;
+ 	u32 rc_code;
+diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
+index fb2c4a992951..0260c750e156 100644
+--- a/sound/usb/mixer_maps.c
++++ b/sound/usb/mixer_maps.c
+@@ -27,6 +27,7 @@ struct usbmix_ctl_map {
+ 	u32 id;
+ 	const struct usbmix_name_map *map;
+ 	const struct usbmix_selector_map *selector_map;
++	const struct usbmix_connector_map *connector_map;
+ 	int ignore_ctl_error;
+ };
+ 
+@@ -387,6 +388,15 @@ static const struct usbmix_name_map trx40_mobo_map[] = {
+ 	{}
+ };
+ 
++static const struct usbmix_connector_map trx40_mobo_connector_map[] = {
++	{ 10, 16 },	/* (Back) Speaker */
++	{ 11, 17 },	/* Front Headphone */
++	{ 13, 7 },	/* Line */
++	{ 14, 8 },	/* Mic */
++	{ 15, 9 },	/* Front Mic */
++	{}
++};
++
+ /*
+  * Control map entries
+  */
+@@ -519,6 +529,7 @@ static const struct usbmix_ctl_map usbmix_ctl_maps[] = {
+ 	{	/* Gigabyte TRX40 Aorus Pro WiFi */
+ 		.id = USB_ID(0x0414, 0xa002),
+ 		.map = trx40_mobo_map,
++		.connector_map = trx40_mobo_connector_map,
+ 	},
+ 	{	/* ASUS ROG Zenith II */
+ 		.id = USB_ID(0x0b05, 0x1916),
+@@ -531,10 +542,12 @@ static const struct usbmix_ctl_map usbmix_ctl_maps[] = {
+ 	{	/* MSI TRX40 Creator */
+ 		.id = USB_ID(0x0db0, 0x0d64),
+ 		.map = trx40_mobo_map,
++		.connector_map = trx40_mobo_connector_map,
+ 	},
+ 	{	/* MSI TRX40 */
+ 		.id = USB_ID(0x0db0, 0x543d),
+ 		.map = trx40_mobo_map,
++		.connector_map = trx40_mobo_connector_map,
+ 	},
+ 	{ 0 } /* terminator */
+ };
 -- 
-2.20.1
+2.16.4
 

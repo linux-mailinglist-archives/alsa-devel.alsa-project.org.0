@@ -2,98 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A1E41B3B2C
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 11:25:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9D221B3B43
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 11:26:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B5D616C3;
-	Wed, 22 Apr 2020 11:24:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B5D616C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74674169B;
+	Wed, 22 Apr 2020 11:26:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74674169B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587547505;
-	bh=km7egsPCgWO+7fmVctsOQOv8pZ5yu7UFocTycD6mvAc=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=hmU+/qFX5xRA7KwaqNJ40IgTa85YTvxGn25W7tF1mLeUyPlTx6+VC5R0HzVrIV7Na
-	 5IFhWaTSgX4WdHqtQWjN5bMxiceSOtbxR9JLAPuYU2r+jy8uPUzNKMxcg65JJkVMcv
-	 ke7i61QsRD+yOwcE+FvK8rtpSjIBpRoXldcIrTjw=
+	s=default; t=1587547618;
+	bh=5aeCjWTdqPWPzb1goDChpHsmnqlUMywMUXA0Ei2GBjQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=TUqyxwptcR8+HMOefRQjIGreMJ5rrAgTsdBcbCupvfjKmSqFfilmdmfxYg/BXnaLE
+	 tQ+JGiTZdhZr7OTs5ExjbWDgIDnb8Yy/lTHHbhZGuvQHg5ORAuAaPTbclGgFPIe/wt
+	 2VtFomy8NZjgXEYYT+pLa1Xm7MD/x+IB2acvpybE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4A885F8020C;
-	Wed, 22 Apr 2020 11:23:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E1E9F8020C;
+	Wed, 22 Apr 2020 11:25:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 655A4F801D9; Wed, 22 Apr 2020 11:23:21 +0200 (CEST)
+ id C65C2F801D9; Wed, 22 Apr 2020 11:25:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_NONE,UNPARSEABLE_RELAY
- autolearn=disabled version=3.4.0
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
+Received: from mail-il1-x144.google.com (mail-il1-x144.google.com
+ [IPv6:2607:f8b0:4864:20::144])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 869F7F80108
- for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 11:23:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 869F7F80108
+ by alsa1.perex.cz (Postfix) with ESMTPS id C6997F80108
+ for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 11:25:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6997F80108
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
- header.b="N3cNlE7+"
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 03M9Ik2c021841;
- Wed, 22 Apr 2020 09:23:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
- bh=dLtRYqGNB9RgcVygXcN07syddWJjMdr6zGGihKEe1WI=;
- b=N3cNlE7+XLHuBDccnIykeUBb9a1b3piPoiPenD+ZiTIHUEhFqv0MpNIj6G53+Rv57v0f
- rXhL2WUzqYrR3yBlPMVSxc1sb2IK8/bYbuO1ne7oJ6sydbsV7F2G+IpR57xpqFmmoCy8
- f09onpXJwQ/HpycvXqhJFVYcLFAo2Zclhik+aecXNdPktpdSfIT0cMyt/NMbIAA/H9eb
- 27oQBTga9rxZ4WaAwAQc6ZWCf2yLSbuVssCNJa+Zf16fIb8hQ8ibc+QPLIFrrEtOvClF
- RFtEf/XMS/qQmBjV9ISzBUxac34M2Itzxiw4eBSCQvd5ZHL76jgdThZHOVElEhWEh9cA HQ== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by aserp2120.oracle.com with ESMTP id 30fsgm1nvc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 22 Apr 2020 09:23:15 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 03M9ILxw119121;
- Wed, 22 Apr 2020 09:23:14 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by userp3030.oracle.com with ESMTP id 30gb1j46hd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 22 Apr 2020 09:23:14 +0000
-Received: from abhmp0009.oracle.com (abhmp0009.oracle.com [141.146.116.15])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 03M9N1Yp005013;
- Wed, 22 Apr 2020 09:23:06 GMT
-Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Wed, 22 Apr 2020 02:23:01 -0700
-Date: Wed, 22 Apr 2020 12:22:55 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH] ALSA: usb-audio: Fix a limit check in
- proc_dump_substream_formats()
-Message-ID: <20200422092255.GB195357@mwanda>
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="ZAs2V+lU"
+Received: by mail-il1-x144.google.com with SMTP id u189so1189703ilc.4
+ for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 02:25:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=s2KOo5DN2tQHC0ttBGqJLKqcOpz5bYVgQnDC4CjvClk=;
+ b=ZAs2V+lUe93nujpIJ5+JhZZTOeDEONMpOVYNTYGO2doZAzF0TlL7PlDdcFQtLLe7S2
+ 9N1saTGc1W6HUZ71rpytWhbO8ZMC7fmNWWIk6/6cBmYtXN9riRtBE+WEWTs5ltlg7tuM
+ Ghm7zikO8PJDRYS8NOqF61dbZ6/HqHwgBIryRURT4FDOyoOEOtBWfxoB2A9qAXu9B4Gv
+ HzQri354TaeTyf1J2sLo4oYCuyNZITBp1kW7k0pKCldiVgWb3TmL06gLeStWT5nPxWfO
+ w3AEeCAmYhUmC9MV7OQGTuqnjF4x+AoY81SnbvzVGNsmU/5a93m0xkOO8yssGHAeiWsx
+ RKAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=s2KOo5DN2tQHC0ttBGqJLKqcOpz5bYVgQnDC4CjvClk=;
+ b=ffTvV/oZ3z00ofZvCTwhjRfkEdjjJ0LpjyVSpG908M/xlPXFipDBU+Z9RaLwn3umSl
+ OVqy2WeXsuuHP1WG6z+vVgX5w2Q3H/C4NFtOQOv5Z96xZb4OGv0m+SVhyMUkBlFNjnZ0
+ yGKbpnck/H6LX1L2AhXbII1p99Dnsrc5GKQUWgNlPBXnfvLmSHeTCDIifhGFAaqCQ0a1
+ 8BBAjK8kfDembzRTFW7uYWP6c//ZvYmeI432xTiTQ5CuJ65Kw1nrBBYzFwqqQxaYsCN3
+ TNLjL8JiOfSF/MCTVJGEC7URsieWGgWzmp/oz00A9HLOQM3CRyMsAJQVlp6KKh3GQLvw
+ paiw==
+X-Gm-Message-State: AGi0PuYiVBsdTB/Pva7EFBmN2QbF6fAe42w1dumUQBYWzzqgcTDvlw3r
+ 6eEm9o5xBtvIqort+is5F275RMuZTFIEoLp4p/k/lg==
+X-Google-Smtp-Source: APiQypJgyckQ2MQp5BO2H/uyX8MsVT3MvPc+pdQJlBFrT5jjUilrKtVyvlFUQkUOdrUdaQe07WwCX65FWGv4TwcHLlA=
+X-Received: by 2002:a92:798f:: with SMTP id
+ u137mr11579542ilc.235.1587547505829; 
+ Wed, 22 Apr 2020 02:25:05 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9598
- signatures=668686
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- suspectscore=0 spamscore=0
- mlxlogscore=999 mlxscore=0 malwarescore=0 bulkscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2003020000
- definitions=main-2004220075
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9598
- signatures=668686
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- priorityscore=1501
- lowpriorityscore=0 mlxlogscore=999 malwarescore=0 clxscore=1011
- spamscore=0 bulkscore=0 phishscore=0 suspectscore=0 impostorscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2003020000 definitions=main-2004220075
-Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
- Allison Randal <allison@lohutok.net>
+References: <20200422083550.50711-1-broonie@kernel.org>
+In-Reply-To: <20200422083550.50711-1-broonie@kernel.org>
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Wed, 22 Apr 2020 17:24:54 +0800
+Message-ID: <CA+Px+wUFgz0MP0vwkJ+5L5V5G6AK7-6iDbRuUerFBmwnm-CYFA@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: dmic: Allow GPIO operations to sleep
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,28 +95,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This should be ARRAY_SIZE() instead of sizeof().  The sizeof() limit is
-too high so it doesn't work.
+On Wed, Apr 22, 2020 at 4:37 PM Mark Brown <broonie@kernel.org> wrote:
+>
+> If there is a power GPIO provided we control it from DAPM context so there
+> is no problem with a sleeping GPIO, use the _cansleep() version of the API
+> to allow this.
 
-Fixes: 093b8494f299 ("ALSA: usb-audio: Print more information in stream proc files")
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
----
- sound/usb/proc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Compared gpiod_set_value_cansleep() vs. gpiod_set_value().
 
-diff --git a/sound/usb/proc.c b/sound/usb/proc.c
-index 5a36e192ebb0..889c550c9f29 100644
---- a/sound/usb/proc.c
-+++ b/sound/usb/proc.c
-@@ -140,7 +140,7 @@ static void proc_dump_substream_formats(struct snd_usb_substream *subs, struct s
- 
- 			snd_iprintf(buffer, "    Channel map:");
- 			for (c = 0; c < map->channels; c++) {
--				if (map->map[c] >= sizeof(channel_labels) ||
-+				if (map->map[c] >= ARRAY_SIZE(channel_labels) ||
- 				    !channel_labels[map->map[c]])
- 					snd_iprintf(buffer, " --");
- 				else
--- 
-2.26.1
+gpiod_set_value_cansleep()
++        might_sleep_if(extra_checks);
 
+gpiod_set_value()
++        /* Should be using gpiod_set_value_cansleep() */
++        WARN_ON(desc->gdev->chip->can_sleep);
+
+And the extra_checks is:
+#ifdef  DEBUG
+#define extra_checks    1
+#else
+#define extra_checks    0
+#endif
+
+Looks like it only changes behavior when DEBUG.
+
+Wondering about:
+- Did you get any warning message to inspire you to use _cansleep() version?
+- Does that imply in any _can sleep_ context, it is more encouraged to
+call _cansleep() version?  (e.g.
+https://elixir.bootlin.com/linux/v5.7-rc2/source/sound/soc/codecs/max98357a.c#L41)

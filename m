@@ -2,80 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49C371B36E4
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 07:41:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCF011B3801
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 08:53:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6ACF16D1;
-	Wed, 22 Apr 2020 07:40:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6ACF16D1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C5AF16C8;
+	Wed, 22 Apr 2020 08:52:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C5AF16C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587534071;
-	bh=JKETlKZJcO9KYYqRzTx2xXkW6HijHD4VpjJ+E2iJWw0=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=CWC3HxqWX2T+RMmmIpcuQdlbmxiOXpZ/ONgpLV7BiPSBWONRCv8+RxlaB5mk2jlPw
-	 qlej3nWfVe+phXDsf1UvUwHLWKP1kLG0MLPZmEEpZtd911kZDnfmq8oukhEwQEUw01
-	 TWzP7ddQ0zFl9kAkN2bhIQjDRvElPTF08+z1b800=
+	s=default; t=1587538414;
+	bh=6WIXipBm1mssrlfy650rmj1luRbFA3Cyii02NjQSGhg=;
+	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=J4wCYWwYA4JHT8nROAfrCLIWutYMo+Vw4QCfapDbKUEsOLPtrPbzTE/i7vz4CHvRz
+	 EQTOMUSPGc3xgUtZMGuXNihSMbU47JORrvxs7FdkXwin9GR4BWgHkmWnVMSXiE1utZ
+	 W5P2zkraFCk6leW1SZig7vnDQcdkHF1KAceZRsls=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6DEBF8020C;
-	Wed, 22 Apr 2020 07:39:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 54C77F800F2;
+	Wed, 22 Apr 2020 08:51:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C272CF801D9; Wed, 22 Apr 2020 07:39:27 +0200 (CEST)
+ id 9B5A3F801D9; Wed, 22 Apr 2020 08:51:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-qt1-x833.google.com (mail-qt1-x833.google.com
+ [IPv6:2607:f8b0:4864:20::833])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CC4DDF80108
- for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 07:39:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC4DDF80108
-IronPort-SDR: 9xN3bsDDcrWbQ0C6SXZxUfkXoNZcqaxe1/iipCoOEymmlwHEc04PMrt7eeSdLhJCkc8siL73n4
- o2XTXWkC8KQA==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Apr 2020 22:39:13 -0700
-IronPort-SDR: AboEqZaXGpccJr0IPJJXmM82rMMNExbbsE3I1ZPkQSgGlgX+c/9qqnQGFz1kAYZ34LJHYfJEeA
- INzyAyN1iVBw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,412,1580803200"; d="scan'208";a="245882690"
-Received: from dtzimme-mobl.amr.corp.intel.com ([10.251.145.143])
- by fmsmga007.fm.intel.com with ESMTP; 21 Apr 2020 22:39:13 -0700
-Message-ID: <d20cc18d0fa10b52437e0ac29ea98792e0a3d45d.camel@linux.intel.com>
-Subject: Re: [PATCH 0/4] ASoC:: don't use snd_soc_rtdcom_lookup()
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown
- <broonie@kernel.org>
-Date: Tue, 21 Apr 2020 22:39:13 -0700
-In-Reply-To: <87d080unyx.wl-kuninori.morimoto.gx@renesas.com>
-References: <87d080unyx.wl-kuninori.morimoto.gx@renesas.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id B65D6F800FF
+ for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 08:51:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B65D6F800FF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ANAeVD56"
+Received: by mail-qt1-x833.google.com with SMTP id z90so857735qtd.10
+ for <alsa-devel@alsa-project.org>; Tue, 21 Apr 2020 23:51:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=V4pXwGRsqqRtiV3ahMn8UzaJzmUKAyMUanfEOAD5tN4=;
+ b=ANAeVD567oLr0BQ7ab4Cy7cFbsveWFNNqKaCuxvyy6bdWFAjiOvVVCc7ZSzikxikRF
+ lJ8FiJWrshEE7ZsHWUhj2ID3Id3EqSsczlQhMDhGPfNB2NyzwRhEG+Hztws+HOWlAOnM
+ AveqtgVMoMdceFa8vW3sMhHQzAaxNh7q/eB0AMtTBb7EPuHCKNOeTLUKo23KVlaTCJjQ
+ s4lpUpAvbllDDL1Vr8243O/OJ+euuoBjkENBwv9Dt53cTuB7VZUNCkfd2olgnPiKNDvp
+ R1zH0I0lR6CAjA9oRpyOp00dSjY1fuydGENSBY6L5XaIQYes6CSpE7P0P4AyD6eoYF64
+ hMFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=V4pXwGRsqqRtiV3ahMn8UzaJzmUKAyMUanfEOAD5tN4=;
+ b=M5OErx1k4Rr2xTt6M9JoaqTnbFMBqljxx3AKJPZGpqN3MDRRDcGuFlEj6V0dQjZoOk
+ tjXUzgDxvpyQxqjdti3xd/2tonz0aB8WAHbBy7/tO885r9zCMRhhb3k7BK8yRalVFks8
+ SW2XR6DDxx5JpvCclD16X0npHr4exID6/andk3jhB1gQ9biq9xrLXCH6eVboEYj3vfp0
+ Q+AoC/82UNKSdTuIIHDVNN1lCHcwEXi8+kGF77NOYNXpm7Xdcz+93Tbq9+eT/IZLZwH1
+ 014KwhmihPXPPSZ0dxLHRBqYYBrS2mP2yFZikk7cYb8HNXKqfp5i6hwDMKiu49UXkxzo
+ t06w==
+X-Gm-Message-State: AGi0PuY1uLidZmCF9DkOf7QW+yA0EEdgOSc5GfCJN//ZaO0wof4zvqTA
+ k+38BvB6R6T4iJ2pIuuQFrTyRQxjLKWNMO8x8xXtVroAVRs=
+X-Google-Smtp-Source: APiQypLwZSMRmGsxwzXR3xzice/Pdq5Gg75uV5EDIyIxfyT8WKl+MLBpshTz6ts9U4rXhSJTGn4KqZ9FNMU29RfcyHI=
+X-Received: by 2002:ac8:6799:: with SMTP id b25mr24931248qtp.54.1587538301730; 
+ Tue, 21 Apr 2020 23:51:41 -0700 (PDT)
+MIME-Version: 1.0
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Wed, 22 Apr 2020 14:51:30 +0800
+Message-ID: <CAA+D8APas0p1ghsGK+OL3+zu_xbgCG2HnVNd2dzoAbKXt=6JJw@mail.gmail.com>
+Subject: How to support multi FIFO address in ALSA & DMA Engine?
+To: Linux-ALSA <alsa-devel@alsa-project.org>
 Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Kate Stewart <kstewart@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
- YueHaibing <yuehaibing@huawei.com>, Eason Yen <eason.yen@mediatek.com>,
- Jie Yang <yang.jie@linux.intel.com>, alsa-devel@alsa-project.org,
- Jiaxin Yu <jiaxin.yu@mediatek.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Richard Fontana <rfontana@redhat.com>, linux-mediatek@lists.infradead.org,
- Shunli Wang <shunli.wang@mediatek.com>, Allison Randal <allison@lohutok.net>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Colin Ian King <colin.king@canonical.com>,
- Thomas Gleixner <tglx@linutronix.de>, Stephen Boyd <swboyd@chromium.org>,
- linux-arm-kernel@lists.infradead.org
+Cc: yibin.gong@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,34 +89,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 2020-04-22 at 13:46 +0900, Kuninori Morimoto wrote:
-> Hi Mark
-> Cc related engineer
-> 
-> These patches are tring to not to use snd_soc_rtdcom_lookup()
-> function
-> on each drivers as much as possible,  because we might have same name
-> component under multi component situation.
-> It can't find correct component in such case.
-> 
-> I tried to add new feature on each drivers to not to use it,
-> but I can't test.
-> Thus, these patches should get Acked-by or Tested-by from each
-> drivers
-> user/maintenor. Please test these.
-> 
-> After these patches, Intel / SOF drivers are still using
-> snd_soc_rtdcom_lookup(). Because it is very complex, I couldn't try
-> not to use it.
-> If possible, each drivers should try to not use it,
-> and it should be removed from ASoC.
-Morimoti-san,
+Hi Experts
 
-For my education, I understand the concept of multi-cpu/codec
-components, but when or who would need multiple platform components?
-This would help me able to remove the snd_soc_rtdcom_lookup() call in
-SOF.
+     Some cpu-dai devices support multi FIFO,  so we need to tell DMA
+which fifos and how many fifos it should fill the data to.
 
-Thanks,
-Ranjani
+     For example, when channels = 2, only one fifo is used.   when
+channels = 4, then two fifos are used.
 
+    or  when channels = 2,   two fifos are used,  when channels= 4,
+four fifos are used.
+
+    But in snd_dmaengine_dai_dma_data, and dma_slave_config, there is
+only one dma address.   Do you have any idea to support multi FIFO?
+is there any implemented reference?
+
+Best regards
+Wang shengjiu

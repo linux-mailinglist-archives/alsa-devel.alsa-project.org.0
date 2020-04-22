@@ -2,83 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE5A81B4D12
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Apr 2020 21:10:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07B261B559D
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 09:27:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4535B16A4;
-	Wed, 22 Apr 2020 21:09:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4535B16A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0E97116FE;
+	Thu, 23 Apr 2020 09:26:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E97116FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587582607;
-	bh=k95E3PF5/wpb9CdGZcaR8eT2Xnh3c/SMQCEl3xb01O8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1587626861;
+	bh=bT+toeSW/tqa6z8FWEaEaJpTep00WkLpX64oMkvij6Y=;
+	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=EfsvlaUqRGVGHZGFZY9eY7EWm9Eg3Un8FcWInVQ5Rzwj6KpYK1uu3f+eAxvR3Wnh7
-	 uO1tA7mvV3xOEWLLO5ZKMceCYJVDvYG7NEJWRHhT1ylx7+dw4RY/dWuMmK51AtRSpz
-	 8HA3i/anQdQZp8qLCam105IBzmTKnz9KRvtYDihM=
+	b=IfrI5JJaAT7u5QGlTORx48ggrBvYIehGyJxMgLwOUFKD7caa1xWUq08pirbqmC35j
+	 PC5wJfNaWcm4unxRoNarGikkqG25BwkBIRYCUV50TFD+0FR9mD2cM/YVmRFc1bXGle
+	 j0HpC3225oarYQKk/LJzyyRoZZiB9I0fBJxezeZo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59D93F80108;
-	Wed, 22 Apr 2020 21:08:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6477EF80228;
+	Thu, 23 Apr 2020 09:25:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1C2A2F80108; Wed, 22 Apr 2020 21:08:23 +0200 (CEST)
+ id C912DF801D9; Wed, 22 Apr 2020 21:16:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODYSUB_5,SPF_HELO_NONE,SPF_PASS
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
+Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
+ [IPv6:2a00:1450:4864:20::542])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 65ECDF80108
- for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 21:08:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65ECDF80108
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0D01AF80108
+ for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 21:16:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D01AF80108
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="sopfsph4"
-Received: by mail-wm1-x342.google.com with SMTP id y24so3769425wma.4
- for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 12:08:19 -0700 (PDT)
+ header.b="TxoewdDb"
+Received: by mail-ed1-x542.google.com with SMTP id a8so2409028edv.2
+ for <alsa-devel@alsa-project.org>; Wed, 22 Apr 2020 12:16:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=+zDLeLkxWO2+hMNosAqgOgGEHIDnT4PWh0YVuszpFwo=;
- b=sopfsph4Ox9cam1LRYncWs+ATliTvE3+yCH1/n3zC+PX+46tWteEs5pbbO09FpD9Ld
- r/T8sQSTxn6hVmtEs5YuDM251mPwNVnwDPNvrrEdFtU/Ia5ZpYHG2mWVZp/WgoY7RzSf
- 2zcKZDO5Skbh8RJr81lsXpB7rciNEqJdeFtu7FyXpJj6pEdA+xmnQUJj4L/F1enZxBep
- GJs7gobSR07T3i7GHMWgpHZec4chFv030zhxoWPVGqwYz9wZKBdv6ufhXypKqK87WOVS
- A4sCOjXPpfzDVmpHQit1mR5bJuE1U0tQNOUWNYqhNDefBIPReC8am1RubNFKiXDTpUIW
- w+dw==
+ h=mime-version:from:date:message-id:subject:to;
+ bh=VKh0D77o8Okg0Trgma6am+eO1wD0AUkDm8J9zTCOZco=;
+ b=TxoewdDbUYM8EOwu/SC8RQHP3YzMAxP55u1k+j4Cpx7eJoIDHy2a6dSGUnTzkRYm1J
+ HKBnIPZkPaV2dKfoGgKb2d8Pgv/UOIX6aHwu9F4Ul0T8fv8VrwVjjoVmOGXmHEw1gpSx
+ mbxr+vXqhTjWshlhsa+yPAJ2HIZeMCmr+dp39ia5e5y9YRjrzCAOEXnBwdaauy3OrSNT
+ 6dp/X96JABvzx5ed3bQEaidB91ZiY3wipZzd7epn/edL2rumHABj9MRpn7psBpB5OAMy
+ 2cwBMv0BGNWyPBAW1t46UUZ4i+pJb6/83lyFpsbglxGuaiUYjtC6PfGv5LrwQ69FBoM0
+ iUMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=+zDLeLkxWO2+hMNosAqgOgGEHIDnT4PWh0YVuszpFwo=;
- b=lhYjXIN/mFm07J8UZvIXmc+9uwuEytD2VwARSsPuWxx4n5Evg3QCacPf/wd6Ul8GMY
- 3u6LcaYTWMYCDQqlST2MLRg1IBcSBZh7SFPd9/V5/z9ci3/240ZKvxinwOZ/f2Gm0XKT
- RP2NcoeLJLNQUkFrYDFRqJ9oDTTJZMJDFUPQhM+Nk6SfGQKEBjP8o2z959Bq6mo+1X5s
- TnnVCqvteFT/saxBINwshnl/tzVBIgXIT4rWw3U6+Ab/y+bWiypMBqohSnzrK1XdSYvR
- 5eqPUJULyvTNgxKxeWwy6XPC27EpIBy5Fa4W0WVrqF8T7NuDaoggEMoIhnOuyTrwI2Xv
- VLPw==
-X-Gm-Message-State: AGi0PubUofoy7eYNm6Y8Sf7lQ5+PzcSWgr17oB+JJHhl/V0JLyVtyVSQ
- xHbuSlyeIz9XLLb88Jl5MrM=
-X-Google-Smtp-Source: APiQypKKOtJHSktS3ZUja/AxftlJ/XBl/AguO72IhuFkq9dh8eOQNeBgIAM46126fomV+VYhlr96FA==
-X-Received: by 2002:a1c:5403:: with SMTP id i3mr12817772wmb.10.1587582497902; 
- Wed, 22 Apr 2020 12:08:17 -0700 (PDT)
-Received: from debian.lan (host-84-13-17-86.opaltelecom.net. [84.13.17.86])
- by smtp.gmail.com with ESMTPSA id f8sm201837wrm.14.2020.04.22.12.08.16
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 22 Apr 2020 12:08:17 -0700 (PDT)
-From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>, Sanyog Kale <sanyog.r.kale@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH] soundwire: intel: Remove unused function
-Date: Wed, 22 Apr 2020 20:08:15 +0100
-Message-Id: <20200422190815.5975-1-sudipm.mukherjee@gmail.com>
-X-Mailer: git-send-email 2.11.0
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=VKh0D77o8Okg0Trgma6am+eO1wD0AUkDm8J9zTCOZco=;
+ b=mP86CxEh1KomViGQVBpyYe+r8+TFPhHc7twQJFsx5BCDw3pvydevdhME8N5hIV06YS
+ 3ckLfEiZm5SSxcbQ2lOZi+AzTbe43SnziMTmOQqblP0UDlMlMfiicWhJcKx1H3b3xo2S
+ rWXb/w41mfstuyNgsgnP9sSGMvmpcnwPg9FFpURqk540NVWBeyAcpclXeoQFqe5ywses
+ yz48D/YYun+PA38DCLbVlN6EfDl4HRK+tqSrFQBYF/A5X9ma+pwq3oyNJik+RYxPCBdH
+ s3J4YMJTaDSoKjLGSSLkYlm9oyUkfuOHOmigd8/Z25bH/jC+QoAg/NYNFctOa2so7QgJ
+ 9jLQ==
+X-Gm-Message-State: AGi0PuaraqekPMRtSxAZ+bnla6Hy6VaE7U22ozZ2IplUr5I7PRKLLOHn
+ wViTJ2p8H/uzxRpT51pdmTxiC2KhJwApFN4pqxddd8qe
+X-Google-Smtp-Source: APiQypJX8oUuZeUcF43EQaIY/E1zDK9TX1Mi14SNuAi99Ut2wgwgUAWxRVTH2tpg6s38IYFzCmEZjSdYWZsPWITN3WY=
+X-Received: by 2002:a05:6402:6cb:: with SMTP id
+ n11mr124873edy.210.1587582963077; 
+ Wed, 22 Apr 2020 12:16:03 -0700 (PDT)
+MIME-Version: 1.0
+From: Xingyu Li <lixingyufree@gmail.com>
+Date: Wed, 22 Apr 2020 12:15:52 -0700
+Message-ID: <CAOX8YS8EYDJOpy1NxLphzYzwnLdmoGquEjveB7fGAg0dunw+CQ@mail.gmail.com>
+Subject: sound:core:oss: what determines the value of plugin->extra_data in
+ rate_src_frames()?
+To: alsa-devel@alsa-project.org
+X-Mailman-Approved-At: Thu, 23 Apr 2020 09:25:08 +0200
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,47 +92,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The function sdw_intel_init() is not used anywhere, remove it for now.
+Hi all,
 
-Signed-off-by: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
----
- drivers/soundwire/intel_init.c | 23 -----------------------
- 1 file changed, 23 deletions(-)
+I encountered a problem about ALSA subsystem when I try to reproduce a bug
+https://syzkaller.appspot.com/bug?id=54576f48248190caa29334a754275ce5e1d8be95
+.
+I run the PoC https://syzkaller.appspot.com/text?tag=ReproC&x=1275090ee00000,
+it is supposed to crash the  kernel. But it sometimes does not.
+Then I found the point is rate_src_frames() in sound/core/oss/rate.c. When
+I can not reproduce the bug,data->old_src_frames variable
+in rate_src_frames() and the passed arguments
+frames are both 11. When it can reproduce, the value
+of data->old_src_frames is 85. The variable data is one member extra_data
+in plugin variable. But I can not find where it write to
+plugin->extra_data. So I want to what determines the value
+of plugin->extra_data? Why is the value of it different at different time?
 
-diff --git a/drivers/soundwire/intel_init.c b/drivers/soundwire/intel_init.c
-index ad7053463889..2f37dad06321 100644
---- a/drivers/soundwire/intel_init.c
-+++ b/drivers/soundwire/intel_init.c
-@@ -183,29 +183,6 @@ static acpi_status sdw_intel_acpi_cb(acpi_handle handle, u32 level,
- }
- 
- /**
-- * sdw_intel_init() - SoundWire Intel init routine
-- * @parent_handle: ACPI parent handle
-- * @res: resource data
-- *
-- * This scans the namespace and creates SoundWire link controller devices
-- * based on the info queried.
-- */
--static void *sdw_intel_init(acpi_handle *parent_handle,
--			    struct sdw_intel_res *res)
--{
--	acpi_status status;
--
--	status = acpi_walk_namespace(ACPI_TYPE_DEVICE,
--				     parent_handle, 1,
--				     sdw_intel_acpi_cb,
--				     NULL, res, NULL);
--	if (ACPI_FAILURE(status))
--		return NULL;
--
--	return sdw_intel_add_controller(res);
--}
--
--/**
-  * sdw_intel_exit() - SoundWire Intel exit
-  * @arg: callback context
-  *
--- 
-2.11.0
-
+Thanks

@@ -2,66 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98DA11B60EC
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 18:29:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EF9C1B610A
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 18:34:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 283AE169E;
-	Thu, 23 Apr 2020 18:28:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 283AE169E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19ADA167D;
+	Thu, 23 Apr 2020 18:33:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19ADA167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587659373;
-	bh=ky5iXn5UEpgEUlyZWT7+68OWaubhRbOKsYG2GFRYvWA=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1587659659;
+	bh=cJ9sRTleosi8OVbDnMxeczyRJdVcP94ZoybYpp0BsxY=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=deO1GjGYfwL58TZyR4EeczFIkWE269L6KCpLJWVD1YFr+Ied5hO27UCRbnPDUR3oi
-	 +khWD10f62xUR+YpKPbb6+bSnU/xtrLf+eODoB/19OVLqdanBNqN3gnjuReI+MdhR8
-	 zEt9fVdMoDgumJjoHTZw4OF7Tsbow/iSrTzzln6c=
+	b=jXRuRQr+K1pUw6aSM4SS78Qw8zV0DUQDIxtnHrM3u+TUVGzn2UHY93hQCOLhWkD7S
+	 Fhk884w3UC7EvoyoIXW6cGqSoOuVbyzmD1GY/LnGlpXPXHU4Pi7tE2GTw/CYA7G4WO
+	 yVoCQ0kNWHHsESzX9PrAf5o0UqaD4WFLAOO8EMn4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B8B0F800FF;
-	Thu, 23 Apr 2020 18:27:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8616DF80299;
+	Thu, 23 Apr 2020 18:30:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 68CE7F801EC; Thu, 23 Apr 2020 18:27:49 +0200 (CEST)
+ id 54A23F802A0; Thu, 23 Apr 2020 18:30:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D02EBF800FF
- for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 18:27:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D02EBF800FF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="aP2EYC+l"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id DBA7320704;
- Thu, 23 Apr 2020 16:27:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587659265;
- bh=ky5iXn5UEpgEUlyZWT7+68OWaubhRbOKsYG2GFRYvWA=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=aP2EYC+lPMFuUeOSQngeMc+6mufBTSxfrfefsDqZhgV29T1ysrWLRJlfCdqevQau8
- ERH/LJzvuLWRV4ajXbxHi84jR2Lyju/nka0ASTVI+sBymEXGaDtQjKMQuWPff5hHXs
- yAU1G6rvORnd+0jTBxPUPZY26Mwr8bXShQKieymc=
-Date: Thu, 23 Apr 2020 17:27:42 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-In-Reply-To: <20200423142805.52757-1-broonie@kernel.org>
-References: <20200423142805.52757-1-broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: SOF: Add missing dependency on IMX_SCU
-Message-Id: <158765926266.52275.12049804642333754117.b4-ty@kernel.org>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>, alsa-devel@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id AB4D4F80228
+ for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 18:30:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB4D4F80228
+IronPort-SDR: s21UdoUYFbF8l1Mdn5YVC1CQvzfPA/t92kNpYpjdChR5VIgPtcYHIV7hOyT3xe9yBL7Ly+tJcL
+ PyuMLYfmCbOg==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2020 09:30:10 -0700
+IronPort-SDR: N14StEzhABvVdcgKcBUb+vMAD258MuLFlwVU1h3gsPH0Y/ioeY6lU7PYs/IYKmv9FZ62EeYQMe
+ lfxEcOzPsDwQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,307,1583222400"; d="scan'208";a="256040318"
+Received: from lsatpatx-mobl.gar.corp.intel.com (HELO [10.251.150.156])
+ ([10.251.150.156])
+ by orsmga003.jf.intel.com with ESMTP; 23 Apr 2020 09:30:10 -0700
+Subject: Re: [PATCH] ALSA: hda: Refactor Intel NHLT init
+To: Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.de>
+References: <20200423112136.25207-1-cezary.rojewski@intel.com>
+ <s5hd07ywikl.wl-tiwai@suse.de>
+ <b37cb05b-f4c2-e747-c3f0-1582ed3afadd@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <8e3d7780-d776-d964-d8a8-4618b7ae045a@linux.intel.com>
+Date: Thu, 23 Apr 2020 11:29:38 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
+MIME-Version: 1.0
+In-Reply-To: <b37cb05b-f4c2-e747-c3f0-1582ed3afadd@intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,41 +82,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 23 Apr 2020 15:28:05 +0100, Mark Brown wrote:
-> This broke PowerPC allyesconfig.
+
+
+On 4/23/20 6:40 AM, Cezary Rojewski wrote:
+> On 2020-04-23 13:24, Takashi Iwai wrote:
+>> On Thu, 23 Apr 2020 13:21:36 +0200,
+>> Cezary Rojewski wrote:
+>>>
+>>> NHLT fetch based on _DSM prevents ACPI table override mechanism from
+>>> being utilized. Make use of acpi_get_table to enable it and get rid of
+>>> redundant code.
+>>>
+>>> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+>>
+>> This looks like a nice cleanup and I'll happily apply if anyone can
+>> test with the actual hardware -- currently mine has no DSP, so unable
+>> to check.
+>>
+>>
+>> thanks,
+>>
+>> Takashi
+>>
 > 
-> Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> ---
->  sound/soc/sof/imx/Kconfig | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> [...]
+> NHLT override method has been added for internal use half a year ago and 
+> is for some time the default method within our CI. This is tested on a 
+> wide spread of hardware, that is any Intel AVS archtecture, including 
+> production laptops.
 
-Applied to
+We are checking independently with SOF CI [1], the NHLT is used to 
+detect microphone counts so we'll see if there's a regression.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.8
+That said, for my education Cezary an you clarify what you typically 
+override? the settings are usually tied to specific hardware configs.
+Also the NHLT may point to a topology file name but with your recent 
+changes an alternate file can be used, so it's not clear to me how 
+non-Intel folks might use the override and for what?
 
-Thanks!
+While I am at it, we recently had a bug report where a user provided the 
+NHLT, and I had no idea how to go about parsing it to check its 
+contents. Are there any tools to dump the contents in human-readable 
+representation?
 
-[1/1] ASoC: SOF: Add missing dependency on IMX_SCU
-      commit: fe57a92c88580ae7894b9c71d2d520ba98eb1591
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+[1] https://github.com/thesofproject/linux/pull/2046

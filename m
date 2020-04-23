@@ -2,73 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 864EB1B550B
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 09:01:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 626DE1B552C
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 09:07:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2302116D6;
-	Thu, 23 Apr 2020 09:00:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2302116D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 070C516DD;
+	Thu, 23 Apr 2020 09:06:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 070C516DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587625299;
-	bh=Fsh9JnxtOxnrXlk+fduGwq9rdFy8LhDD399f0QicJ9A=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=fGVN8I1B52i4A2eC+fD+XXO9vPycaA662e9Xmnw1TMJQT5FeD0LRt/WcisQK3WZN5
-	 COgOFE2jeZIDGzgcgGZ3Z9UyTzc6vdebZ/0Rj3K99oDGW/f/RCtiIngLWzdK7IEDh8
-	 KDgtJeuAmjZaBJnKzF/zohtrqq98nwCgY+t2vHXw=
+	s=default; t=1587625667;
+	bh=dMdZfYUeFp6hD3OAlB5zjL1UFZ4WZBEfGD2JhZkJu84=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=O1+QMUcRSpl0jeVhZY40sWWE+IBhh9MnBJngCtAmS9t5KvEeG2nCwcPcS53BABUi1
+	 rO7SJIonqd++y+kqvfzDSgbzusvCa/gptsFiaXv5+d263EYKgnAccVei9+FyUV5ULn
+	 jy8tT2sbkLW4DcF/4F4E0lO69MQ9h46QcEAwh3fY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 566ECF801ED;
-	Thu, 23 Apr 2020 08:59:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9ED31F801ED;
+	Thu, 23 Apr 2020 09:06:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 28BF1F801F5; Thu, 23 Apr 2020 08:59:50 +0200 (CEST)
+ id 8D146F801EC; Thu, 23 Apr 2020 09:06:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.0 required=5.0 tests=PRX_APP_ATTACH, SPF_HELO_NONE, 
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0BF71F800F2
- for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 08:59:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BF71F800F2
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.69 with qID 03N6xSBp9016119,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexmb06.realtek.com.tw[172.21.6.99])
- by rtits2.realtek.com.tw (8.15.2/2.66/5.86) with ESMTPS id 03N6xSBp9016119
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 23 Apr 2020 14:59:28 +0800
-Received: from RTEXMB05.realtek.com.tw (172.21.6.98) by
- RTEXMB06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Thu, 23 Apr 2020 14:59:27 +0800
-Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
- RTEXMB05.realtek.com.tw (172.21.6.98) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Thu, 23 Apr 2020 14:59:27 +0800
-Received: from RTEXMB01.realtek.com.tw ([fe80::d53a:d9a5:318:7cd8]) by
- RTEXMB01.realtek.com.tw ([fe80::d53a:d9a5:318:7cd8%5]) with mapi id
- 15.01.1779.005; Thu, 23 Apr 2020 14:59:27 +0800
-From: Kailang <kailang@realtek.com>
-To: "Takashi Iwai (tiwai@suse.de)" <tiwai@suse.de>
-Subject: New codec ALC245
-Thread-Topic: New codec ALC245
-Thread-Index: AdYZPHTB/BjuOQ8oQz6lAyTQ0NZ+rw==
-Date: Thu, 23 Apr 2020 06:59:27 +0000
-Message-ID: <8c0804738b2c42439f59c39c8437817f@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.22.105.171]
-Content-Type: multipart/mixed;
- boundary="_002_8c0804738b2c42439f59c39c8437817frealtekcom_"
-MIME-Version: 1.0
-Cc: " \(alsa-devel@alsa-project.org\)" <alsa-devel@alsa-project.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4FDE3F800F2
+ for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 09:05:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FDE3F800F2
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id A2910AE38;
+ Thu, 23 Apr 2020 07:05:54 +0000 (UTC)
+Date: Thu, 23 Apr 2020 09:05:54 +0200
+Message-ID: <s5h368uy94d.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Subject: Re: Unrecoverable AER error when resuming from RAM (hda regression in
+ 5.7-rc2)
+In-Reply-To: <20200422232127.GA24666@google.com>
+References: <s5h8sinxlfz.wl-tiwai@suse.de> <20200422232127.GA24666@google.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, linux-pm@vger.kernel.org,
+ linux-pci@vger.kernel.org, "Rafael J. Wysocki" <rjw@rjwysocki.net>,
+ linux-kernel@vger.kernel.org, "Alex Xu \(Hello71\)" <alex_y_xu@yahoo.ca>,
+ Roy Spliet <nouveau@spliet.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,50 +72,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---_002_8c0804738b2c42439f59c39c8437817frealtekcom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On Thu, 23 Apr 2020 01:21:27 +0200,
+Bjorn Helgaas wrote:
+> 
+> On Wed, Apr 22, 2020 at 11:25:04PM +0200, Takashi Iwai wrote:
+> > On Wed, 22 Apr 2020 22:50:28 +0200,
+> > Bjorn Helgaas wrote:
+> > > ...
+> > > I feel like this UR issue could be a PCI core issue or maybe some sort
+> > > of misuse of PCI power management, but I can't seem to get traction on
+> > > it.
+> > > 
+> > > > Then the display freezes and the system basically falls apart (can't 
+> > > > even sudo reboot -f, need to use magic sysrq).
+> > > > 
+> > > > I bisected this to "ALSA: hda: Skip controller resume if not needed". 
+> > > > Setting snd_hda_intel.power_save=0 resolves the issue.
+> > > 
+> > > FWIW, the complete citation is c4c8dd6ef807 ("ALSA: hda: Skip
+> > > controller resume if not needed"),
+> > > https://git.kernel.org/linus/c4c8dd6ef807, which first appeared in
+> > > v5.7-rc2.
+> > 
+> > Yes, and I posted the fix patch right now:
+> >   https://lore.kernel.org/r/20200422203744.26299-1-tiwai@suse.de
+> > 
+> > The possible cause was the tricky resume code that both HD-audio
+> > controller (the parent PCI device) and the codec devices used.
+> > 
+> > At least the patch above seems working for the reporter's machine.
+> > Now we need a bit more testing before merging, but it looks promising,
+> > so far.
+> 
+> Great, I'm glad you figured something out because I sure wasn't
+> getting anywhere!
+> 
+> Maybe this is a tangent, but I can't figure out what
+> snd_power_change_state() is doing.  It *looks* like it's supposed to
+> change the PCI power state, but I gave up trying to figure out where
+> it actually touches the device.
 
-Hi Takashi,
-=09
-Attach was ALC245 supported patch.
-Many Thanks.
+Not really, it merely updates the internal state field stored in the
+sound card object, see in include/sound/core.h:
 
-BR,
-Kailang
+static inline void snd_power_change_state(struct snd_card *card, unsigned int state)
+{
+	card->power_state = state;
+	wake_up(&card->power_sleep);
+}
 
---_002_8c0804738b2c42439f59c39c8437817frealtekcom_
-Content-Type: application/octet-stream; name="0000-alc245-supported.patch"
-Content-Description: 0000-alc245-supported.patch
-Content-Disposition: attachment; filename="0000-alc245-supported.patch";
-	size=1406; creation-date="Thu, 23 Apr 2020 06:22:46 GMT";
-	modification-date="Thu, 23 Apr 2020 06:22:00 GMT"
-Content-Transfer-Encoding: base64
+The sound API blocks the operation while suspend/resume explicitly
+with this card top-level signal.
 
-RnJvbSBkYmZkZWYxZjhmY2RlNzRjYmQ5MWRmMzU4ZmIzZmM4ZjVkNWQ2YTUxIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
-dGU6IFRodSwgMjMgQXByIDIwMjAgMTQ6MTg6MzEgKzA4MDAKU3ViamVjdDogW1BBVENIXSBBTFNB
-OiBoZGEvcmVhbHRlayAtIEFkZCBuZXcgY29kZWMgc3VwcG9ydGVkIGZvciBBTEMyNDUKCkVuYWJs
-ZSBuZXcgY29kZWMgc3VwcG9ydGVkIGZvciBBTEMyNDUuCgpTaWduZWQtb2ZmLWJ5OiBLYWlsYW5n
-IFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CgpkaWZmIC0tZ2l0IGEvc291bmQvcGNpL2hkYS9w
-YXRjaF9yZWFsdGVrLmMgYi9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYwppbmRleCA1NGUx
-YzljMGEzM2YuLmMxYTg1YzhmN2I2OSAxMDA2NDQKLS0tIGEvc291bmQvcGNpL2hkYS9wYXRjaF9y
-ZWFsdGVrLmMKKysrIGIvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKQEAgLTM3Nyw2ICsz
-NzcsNyBAQCBzdGF0aWMgdm9pZCBhbGNfZmlsbF9lYXBkX2NvZWYoc3RydWN0IGhkYV9jb2RlYyAq
-Y29kZWMpCiAJY2FzZSAweDEwZWMwMjMzOgogCWNhc2UgMHgxMGVjMDIzNToKIAljYXNlIDB4MTBl
-YzAyMzY6CisJY2FzZSAweDEwZWMwMjQ1OgogCWNhc2UgMHgxMGVjMDI1NToKIAljYXNlIDB4MTBl
-YzAyNTY6CiAJY2FzZSAweDEwZWMwMjU3OgpAQCAtODE5OCw2ICs4MTk5LDcgQEAgc3RhdGljIGlu
-dCBwYXRjaF9hbGMyNjkoc3RydWN0IGhkYV9jb2RlYyAqY29kZWMpCiAJCXNwZWMtPmdlbi5taXhl
-cl9uaWQgPSAwOwogCQlicmVhazsKIAljYXNlIDB4MTBlYzAyMTU6CisJY2FzZSAweDEwZWMwMjQ1
-OgogCWNhc2UgMHgxMGVjMDI4NToKIAljYXNlIDB4MTBlYzAyODk6CiAJCXNwZWMtPmNvZGVjX3Zh
-cmlhbnQgPSBBTEMyNjlfVFlQRV9BTEMyMTU7CkBAIC05NDU5LDYgKzk0NjEsNyBAQCBzdGF0aWMg
-Y29uc3Qgc3RydWN0IGhkYV9kZXZpY2VfaWQgc25kX2hkYV9pZF9yZWFsdGVrW10gPSB7CiAJSERB
-X0NPREVDX0VOVFJZKDB4MTBlYzAyMzQsICJBTEMyMzQiLCBwYXRjaF9hbGMyNjkpLAogCUhEQV9D
-T0RFQ19FTlRSWSgweDEwZWMwMjM1LCAiQUxDMjMzIiwgcGF0Y2hfYWxjMjY5KSwKIAlIREFfQ09E
-RUNfRU5UUlkoMHgxMGVjMDIzNiwgIkFMQzIzNiIsIHBhdGNoX2FsYzI2OSksCisJSERBX0NPREVD
-X0VOVFJZKDB4MTBlYzAyNDUsICJBTEMyNDUiLCBwYXRjaF9hbGMyNjkpLAogCUhEQV9DT0RFQ19F
-TlRSWSgweDEwZWMwMjU1LCAiQUxDMjU1IiwgcGF0Y2hfYWxjMjY5KSwKIAlIREFfQ09ERUNfRU5U
-UlkoMHgxMGVjMDI1NiwgIkFMQzI1NiIsIHBhdGNoX2FsYzI2OSksCiAJSERBX0NPREVDX0VOVFJZ
-KDB4MTBlYzAyNTcsICJBTEMyNTciLCBwYXRjaF9hbGMyNjkpLAo=
 
---_002_8c0804738b2c42439f59c39c8437817frealtekcom_--
+thanks,
+
+Takashi

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F85B1B6A09
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Apr 2020 01:40:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6860F1B6A0D
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Apr 2020 01:40:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1C6451697;
-	Fri, 24 Apr 2020 01:39:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C6451697
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0814B16A1;
+	Fri, 24 Apr 2020 01:40:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0814B16A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587685212;
-	bh=4hbpZdcTfPbAGBHDyVNA+6dOMoqNOuuDw+PduwNGMG8=;
+	s=default; t=1587685259;
+	bh=Vrj3BYjYF/kyih9rBHaVvbeZbNdvfzNx2kVtQzMfMTk=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=g8qjz9vmpwsib1hhlRHiNqZIMCcusFae3c+OwUncjH767fwEqHp8k9DIIdi8WxVrK
-	 RB2vIzY1sZUy0e03wCMD6TbAas7Uw3RPUy18CmOINITaFua/7DLe0SGwoLQyhkv1EH
-	 CVEsFoy5FUoHc8hlwuF9UrvUKR3Qkk8vGbsLWn6o=
+	b=jgA7kwIhL5mSvyMK9CGrQMs8sSdVZ5hHTWcZNf8//aKc7c4naKZQEsAVyexvcfxaS
+	 adE2M/SOxSwerHr1XA3W4ydx9VMcC2QtMvF476XTf38DfvUECUaFpUY2szTmr/2v3K
+	 6HvPn8m145lnhigSr3rgmm6flwlZKodK91HnoJ90=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 348D6F801ED;
-	Fri, 24 Apr 2020 01:38:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69231F80228;
+	Fri, 24 Apr 2020 01:38:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5D9DAF801ED; Fri, 24 Apr 2020 01:38:29 +0200 (CEST)
+ id 4A5B9F801ED; Fri, 24 Apr 2020 01:38:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_03_06,
@@ -34,41 +34,39 @@ X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_03_06,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DD595F800F2
- for <alsa-devel@alsa-project.org>; Fri, 24 Apr 2020 01:38:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD595F800F2
-IronPort-SDR: 7XfNcKh+/gjinEr1sCvp3nrNS6GlC7EOXCFvzs+l3EhBlS6BrG5lsF4H1o48pjErOoCzioFylD
- 708c2/tGi+9g==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8630DF80121
+ for <alsa-devel@alsa-project.org>; Fri, 24 Apr 2020 01:38:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8630DF80121
+IronPort-SDR: DkoR7+B1mHM5apvILSF3HWN4x506v+iGhhAzJd7zAl+YAauCpTn5n3UZ3QVJcgo1AyL6wf+CKK
+ ofpAi06sKixw==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2020 16:38:21 -0700
-IronPort-SDR: 8gikWGmCROnoMKKs1CgGyV674cjut9m7Fvc/I5GxEOmqbOkr6Gq9od/9U3JoktBGBKPPOYt2Dg
- PC9K3GUEZJxA==
+ 23 Apr 2020 16:38:24 -0700
+IronPort-SDR: JczsA5XDcOXDmLpSbuv/mm0fP/FHxKPKzFct8HL/BBI1Nfp0n7q8K4RMs/nTu6IzuwQ7UgcD1f
+ Y+NJFQ6eR1/A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,309,1583222400"; d="scan'208";a="280613632"
+X-IronPort-AV: E=Sophos;i="5.73,309,1583222400"; d="scan'208";a="280613634"
 Received: from rguevarr-mobl1.amr.corp.intel.com (HELO [10.251.131.195])
  ([10.251.131.195])
- by fmsmga004.fm.intel.com with ESMTP; 23 Apr 2020 16:38:21 -0700
-Subject: Re: [alsa-devel] [alsa-lib][RFC PATCH] ucm: reset config id of
- condition items
-To: Jaroslav Kysela <perex@perex.cz>, libin.yang@linux.intel.com,
- alsa-devel@alsa-project.org
-References: <1587607135-20106-1-git-send-email-libin.yang@linux.intel.com>
- <4b5a1e72-9d8c-221d-f0ea-df44f1ffb1d5@linux.intel.com>
- <79a9e97e-c58a-403a-9ffb-b9d3f9f70ad2@perex.cz>
+ by fmsmga004.fm.intel.com with ESMTP; 23 Apr 2020 16:38:23 -0700
+Subject: Re: [PATCH 01/17] ASoC: soc-dai: add soc_dai_err()
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>
+References: <871rofunaq.wl-kuninori.morimoto.gx@renesas.com>
+ <87zhb3t8p5.wl-kuninori.morimoto.gx@renesas.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <aadd877b-c153-6ee3-e955-b0c20d28a472@linux.intel.com>
-Date: Thu, 23 Apr 2020 13:27:37 -0500
+Message-ID: <bf6b80e9-79ef-eddd-29ec-fc54bcac37db@linux.intel.com>
+Date: Thu, 23 Apr 2020 13:33:35 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <79a9e97e-c58a-403a-9ffb-b9d3f9f70ad2@perex.cz>
+In-Reply-To: <87zhb3t8p5.wl-kuninori.morimoto.gx@renesas.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: libin.yang@intel.com
+Content-Transfer-Encoding: 7bit
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,97 +84,46 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 4/23/20 12:36 PM, Jaroslav Kysela wrote:
-> Dne 23. 04. 20 v 15:06 Pierre-Louis Bossart napsal(a):
->>
->>
->> On 4/22/20 8:58 PM, libin.yang@linux.intel.com wrote:
->>> From: Libin Yang <libin.yang@intel.com>
->>>
->>> UCMv2 supports "If" statement and will merge the same items with
->>> compound_merge(). If the items have the same id, it will fail to
->>> add the config items. And the id of the item in an array is
->>> automatically generated with the increased number. It is probably
->>> that some items to be merged have the same id. Let's add prefix
->>> in the id to avoid such situation.
->>>
->>> For example:
->>>
->>> If.seq1 {
->>>     Condition {
->>>         Type ControlExists
->>>         Control "name='PGA1.0 1 Master Playback Volume'"
->>>     }
->>>     True {
->>>         EnableSequence [
->>>             cset "name='PGA1.0 1 Master Playback Volume' 50"
->>>         ]
->>>     }
->>> }
->>>
->>> If.seq2 {
->>>     Condition {
->>>         Type ControlExists
->>>         Control "name='PGA2.0 2 Master Playback Volume'"
->>>     }
->>>     True {
->>>         EnableSequence [
->>>             cset "name='PGA2.0 2 Master Playback Volume' 50"
->>>         ]
->>>     }
->>> }
->>>
->>> If.seq3 {
->>>     Condition {
->>>         Type ControlExists
->>>         Control "name='PGA3.0 3 Master Playback Volume'"
->>>     }
->>>     True {
->>>         EnableSequence [
->>>             cset "name='PGA3.0 3 Master Playback Volume' 50"
->>>         ]
->>>     }
->>> }
->>>
->>> If seq1, seq2 and seq3 conditions are true, UCM will fail to initialize.
->>>
->>> This patch rename the config id to avoid the same id conflict.
->>
->> The example confuses me completely, I checked three times and the seq1,
->> seq2 and seq3 parts configure different controls.
->>
->> Can you clarify what the conflict is and what id you were referring to?
+On 4/22/20 6:13 PM, Kuninori Morimoto wrote:
 > 
-> The arrays in the ALSA configs are represented like:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > 
-> User syntax:
-> 
-> name [
->    value0
->    value1
-> ]
-> 
-> Internal tree:
-> 
-> name.0 value0
-> name.1 value1
-> 
-> or
-> 
-> name {
->    0 value0
->    1 value1
-> }
-> 
-> (all three syntaxes are equal, the array just removes the indexes for 
-> the readability)
-> 
-> This patch tries to change name.0 to something like name.unique-0 or so 
-> which is not so much pretty.
-> 
-> You can just declare the new sequences like this to avoid clash:
-> 
-> EnableSequence.seq3.cset "name='PGA3.0 3 Master Playback Volume' 50"
+> At soc-dai.c, it is good idea to indicate error function and
+> its component name if there was error.
+> This patch adds soc_dai_err() for it.
 
-Wow, I had no idea. Thanks for enlightening us :-)
+the code below adds soc_dai_ret(), is this a typo?
+
+> 
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+>   sound/soc/soc-dai.c | 155 +++++++++++++++++++++++++++-----------------
+>   1 file changed, 96 insertions(+), 59 deletions(-)
+> 
+> diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
+> index 31c41559034b..d591b3bd8b99 100644
+> --- a/sound/soc/soc-dai.c
+> +++ b/sound/soc/soc-dai.c
+> @@ -9,6 +9,24 @@
+>   #include <sound/soc.h>
+>   #include <sound/soc-dai.h>
+>   
+> +#define soc_dai_ret(dai, ret) _soc_dai_ret(dai, __func__, ret)
+> +static inline int _soc_dai_ret(struct snd_soc_dai *dai,
+> +			       const char *func, int ret)
+> +{
+> +	switch (ret) {
+> +	case -EPROBE_DEFER:
+> +	case -ENOTSUPP:
+> +	case 0:
+> +		break;
+> +	default:
+> +		dev_err(dai->dev,
+> +			"ASoC: error at %s on %s: %d\n",
+> +			func, dai->name, ret);
+> +	}
+> +
+> +	return ret;
+> +}
+> +
 

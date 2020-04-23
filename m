@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 533BA1B61F2
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 19:30:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6983A1B6203
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 19:34:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D2023169B;
-	Thu, 23 Apr 2020 19:30:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2023169B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8B58169B;
+	Thu, 23 Apr 2020 19:33:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8B58169B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587663058;
-	bh=8oRzMfPWFaJlR6tXZs7wM/klHKXIUdDp/AYgsHvq7Pk=;
+	s=default; t=1587663278;
+	bh=RqgTlzD5Om5nBsYdGcmwoWd81Qntq4xIFnJo5eU0OBc=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iWazzAjhUddwGJqo9YWPPblmy3REWqyXhA+mTYoBbbc4hCSzw2iWJTYbs1Tc8b6U2
-	 B3jeFErELslKf4pU0+gAzZ5fUi26fye/Osvok70naJ2nrxjeB5FfRwLDuDeqh7FpLm
-	 S3M/KfZly/jUW66E1rk7hdxQSI8WnMmSHyvVYedc=
+	b=Ie9rNteD/2Ss1xsSV8w4iMTfYE2vnodwEz26RPM31dNnVGjE3jATAiN1gkYCHQuir
+	 mNaGY8mtaZZL3AJmP6vgnQDpBbxrt27VXKoPokQwPN5RIvczrNbiGWTEdIQcCvv4qh
+	 sdRtJFzzu96Ddua7PnQ0hgl/Im1F21BrLZD5tPNs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6DCFF800FF;
-	Thu, 23 Apr 2020 19:29:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A4FCF80121;
+	Thu, 23 Apr 2020 19:32:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 37BD6F801EC; Thu, 23 Apr 2020 19:29:14 +0200 (CEST)
+ id 9D9EEF801EC; Thu, 23 Apr 2020 19:32:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -33,20 +33,20 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 504C6F800FF
- for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 19:29:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 504C6F800FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 266ACF800FF
+ for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 19:32:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 266ACF800FF
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id B82C6ACAE;
- Thu, 23 Apr 2020 17:29:07 +0000 (UTC)
-Date: Thu, 23 Apr 2020 19:29:08 +0200
-Message-ID: <s5htv1at8kb.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id A3F56AE0C;
+ Thu, 23 Apr 2020 17:32:51 +0000 (UTC)
+Date: Thu, 23 Apr 2020 19:32:51 +0200
+Message-ID: <s5hsggut8e4.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Alexander Tsoy <alexander@tsoy.me>
 Subject: Re: [PATCH] ALSA: usb-audio: Apply async workaround for Scarlett 2i4
  2nd gen
-In-Reply-To: <99bb394ff162a16442fd83c0ab56a9d8c0055877.camel@tsoy.me>
+In-Reply-To: <470d034599514e83454663f389bad30fd98ad3e2.camel@tsoy.me>
 References: <7190177d62f349eea7a5d1056924a63fc4270d43.camel@tsoy.me>
  <20200422185522.3347-1-grpintar@gmail.com>
  <a45d18d7922d780f29f89cff855eb30fbdd1fce8.camel@tsoy.me>
@@ -54,7 +54,6 @@ References: <7190177d62f349eea7a5d1056924a63fc4270d43.camel@tsoy.me>
  <c0cb78664e3acd94f07e59f3a4216c16ab9f497d.camel@tsoy.me>
  <s5hy2qmwts3.wl-tiwai@suse.de> <s5heesewip1.wl-tiwai@suse.de>
  <470d034599514e83454663f389bad30fd98ad3e2.camel@tsoy.me>
- <99bb394ff162a16442fd83c0ab56a9d8c0055877.camel@tsoy.me>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -77,150 +76,137 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 23 Apr 2020 18:57:34 +0200,
+On Thu, 23 Apr 2020 17:10:16 +0200,
 Alexander Tsoy wrote:
 > 
-> В Чт, 23/04/2020 в 18:10 +0300, Alexander Tsoy пишет:
-> > В Чт, 23/04/2020 в 13:22 +0200, Takashi Iwai пишет:
-> > > On Thu, 23 Apr 2020 09:22:36 +0200,
-> > > Takashi Iwai wrote:
-> > > > On Thu, 23 Apr 2020 01:45:01 +0200,
-> > > > Alexander Tsoy wrote:
-> > > > > В Ср, 22/04/2020 в 22:28 +0200, Takashi Iwai пишет:
-> > > > > > On Wed, 22 Apr 2020 21:26:23 +0200,
-> > > > > > Alexander Tsoy wrote:
-> > > > > > > В Ср, 22/04/2020 в 20:55 +0200, Gregor Pintar пишет:
-> > > > > > > > On Wed, 22 Apr 2020 Alexander Tsoy wrote:
-> > > > > > > > > В Вт, 21/04/2020 в 21:31 +0200, Takashi Iwai пишет:
-> > > > > > > > > > I wonder, though, whether we can correct the rounding
-> > > > > > > > > > error
-> > > > > > > > > > in
-> > > > > > > > > > the
-> > > > > > > > > > driver code, too.
-> > > > > > > > > 
-> > > > > > > > > I'm not sure if it's possible with currently used
-> > > > > > > > > Q16.16
-> > > > > > > > > arithmetic.
+> В Чт, 23/04/2020 в 13:22 +0200, Takashi Iwai пишет:
+> > On Thu, 23 Apr 2020 09:22:36 +0200,
+> > Takashi Iwai wrote:
+> > > On Thu, 23 Apr 2020 01:45:01 +0200,
+> > > Alexander Tsoy wrote:
+> > > > В Ср, 22/04/2020 в 22:28 +0200, Takashi Iwai пишет:
+> > > > > On Wed, 22 Apr 2020 21:26:23 +0200,
+> > > > > Alexander Tsoy wrote:
+> > > > > > В Ср, 22/04/2020 в 20:55 +0200, Gregor Pintar пишет:
+> > > > > > > On Wed, 22 Apr 2020 Alexander Tsoy wrote:
+> > > > > > > > В Вт, 21/04/2020 в 21:31 +0200, Takashi Iwai пишет:
+> > > > > > > > > I wonder, though, whether we can correct the rounding
+> > > > > > > > > error
+> > > > > > > > > in
+> > > > > > > > > the
+> > > > > > > > > driver code, too.
 > > > > > > > > 
-> > > > > > > > Maybe calculate fixed correction shifts (like it would be
-> > > > > > > > feedback)?
-> > > > > > > > Something like leap year.
-> > > > > > > > 
-> > > > > > > > In endpoint.c:
-> > > > > > > > static inline unsigned get_usb_high_speed_rate(unsigned
-> > > > > > > > int
-> > > > > > > > rate)
-> > > > > > > > {
-> > > > > > > > 	return ((rate << 10) + 62) / 125;
-> > > > > > > > }
-> > > > > > > > I guess 62 tries to round it, but exact number is needed.
-> > > > > > > > So
-> > > > > > > > exact
-> > > > > > > > value for
-> > > > > > > > 44100 should be 361267.2. For 48000 it is 360448.
-> > > > > > > > If only we can deliver that 0.2 by shifting rate somehow?
-> > > > > > > > 
-> > > > > > > > At least maybe it would be better to disable sample rates
-> > > > > > > > that do
-> > > > > > > > not
-> > > > > > > > divide
-> > > > > > > > by 1000 on SYNC playback endpoints, if there are others
-> > > > > > > > sample
-> > > > > > > > rates.
-> > > > > > > > 
-> > > > > > > > But I'm not familar with the code or USB.
+> > > > > > > > I'm not sure if it's possible with currently used Q16.16
+> > > > > > > > arithmetic.
 > > > > > > > 
-> > > > > > > I think instead of accumulating the fractional part of
-> > > > > > > fs/fps
-> > > > > > > in
-> > > > > > > Q16.16
-> > > > > > > format we should accumulating remainder of division fs/fps.
+> > > > > > > Maybe calculate fixed correction shifts (like it would be
+> > > > > > > feedback)?
+> > > > > > > Something like leap year.
 > > > > > > > 
-> > > > > > > So for 44100 Hz and High Speed USB the calculations would
-> > > > > > > be:
+> > > > > > > In endpoint.c:
+> > > > > > > static inline unsigned get_usb_high_speed_rate(unsigned int
+> > > > > > > rate)
+> > > > > > > {
+> > > > > > > 	return ((rate << 10) + 62) / 125;
+> > > > > > > }
+> > > > > > > I guess 62 tries to round it, but exact number is needed.
+> > > > > > > So
+> > > > > > > exact
+> > > > > > > value for
+> > > > > > > 44100 should be 361267.2. For 48000 it is 360448.
+> > > > > > > If only we can deliver that 0.2 by shifting rate somehow?
 > > > > > > > 
-> > > > > > > fs = 44100
-> > > > > > > fps = 8000
-> > > > > > > rem = 44100 % 8000 = 4100
-> > > > > > > accum = 0
-> > > > > > > packet_size_min = 44100 / 8000 = 5
-> > > > > > > packet_size_max = 44100 + (8000 - 1) / 8000 = 6
+> > > > > > > At least maybe it would be better to disable sample rates
+> > > > > > > that do
+> > > > > > > not
+> > > > > > > divide
+> > > > > > > by 1000 on SYNC playback endpoints, if there are others
+> > > > > > > sample
+> > > > > > > rates.
 > > > > > > > 
-> > > > > > > 
-> > > > > > > 1. accum += rem = 4100
-> > > > > > >    accum < fps => packet_size = packet_size_min = 5
-> > > > > > > 
-> > > > > > > 2. accum += rem = 8200
-> > > > > > >    accum >= fps => {
-> > > > > > >        packet_size = packet_size_max = 6
-> > > > > > >        accum -= fps = 200
-> > > > > > >    }
-> > > > > > > 
-> > > > > > > 3. accum += rem = 4300
-> > > > > > >    accum < fps => packet_size = packet_size_min = 5
-> > > > > > > 
-> > > > > > > ...
-> > > > > > > 
-> > > > > > > 80. accum += rem = 8000
-> > > > > > >     accum >= fps => {
-> > > > > > >         packet_size = packet_size_max = 6
-> > > > > > >         accum -= fps = 0
-> > > > > > >     }
-> > > > > > > ...
+> > > > > > > But I'm not familar with the code or USB.
 > > > > > > 
-> > > > > > Yeah, something like that is what I had in my mind.
-> > > > > > It'd be greatly appreciated if someone can experiment it.
-> > > > > > Unfortunately I have no proper USB-audio device now at
-> > > > > > hands...
+> > > > > > I think instead of accumulating the fractional part of fs/fps
+> > > > > > in
+> > > > > > Q16.16
+> > > > > > format we should accumulating remainder of division fs/fps.
+> > > > > > 
+> > > > > > So for 44100 Hz and High Speed USB the calculations would be:
+> > > > > > 
+> > > > > > fs = 44100
+> > > > > > fps = 8000
+> > > > > > rem = 44100 % 8000 = 4100
+> > > > > > accum = 0
+> > > > > > packet_size_min = 44100 / 8000 = 5
+> > > > > > packet_size_max = 44100 + (8000 - 1) / 8000 = 6
+> > > > > > 
+> > > > > > 
+> > > > > > 1. accum += rem = 4100
+> > > > > >    accum < fps => packet_size = packet_size_min = 5
+> > > > > > 
+> > > > > > 2. accum += rem = 8200
+> > > > > >    accum >= fps => {
+> > > > > >        packet_size = packet_size_max = 6
+> > > > > >        accum -= fps = 200
+> > > > > >    }
+> > > > > > 
+> > > > > > 3. accum += rem = 4300
+> > > > > >    accum < fps => packet_size = packet_size_min = 5
+> > > > > > 
+> > > > > > ...
+> > > > > > 
+> > > > > > 80. accum += rem = 8000
+> > > > > >     accum >= fps => {
+> > > > > >         packet_size = packet_size_max = 6
+> > > > > >         accum -= fps = 0
+> > > > > >     }
+> > > > > > ...
 > > > > > 
-> > > > > OK, here is a quick hacky patch, that seems to work for me:
+> > > > > Yeah, something like that is what I had in my mind.
+> > > > > It'd be greatly appreciated if someone can experiment it.
+> > > > > Unfortunately I have no proper USB-audio device now at hands...
 > > > > 
-> > > > Awesome, thanks!
-> > > > 
-> > > > The patch looks good enough.  A minor fix would be reset
-> > > > sample_accum
-> > > > at snd_usb_pcm_prepare().
+> > > > OK, here is a quick hacky patch, that seems to work for me:
 > > > 
-> > > It should be rather in snd_usb_endpoint_start().
-> > 
-> > Yes, indeed. Thanks!
-> > 
-> > > > If someone can test more and it shows the positive result, I'd
-> > > > happy
-> > > > take it.
+> > > Awesome, thanks!
 > > > 
-> > > ... and on the second thought, I wonder whether the new method can
-> > > be simply applied to all cases.  Your code gives basically more
-> > > accurate timing. 
+> > > The patch looks good enough.  A minor fix would be reset
+> > > sample_accum
+> > > at snd_usb_pcm_prepare().
 > > 
-> > I'm not sure. We are getting feedback data already in Q16.16 format
-> > so
-> > the current code seems pretty good for its task.
+> > It should be rather in snd_usb_endpoint_start().
+> 
+> Yes, indeed. Thanks!
+> 
 > > 
-> > Some additional notes:
-> > - Locking inside snd_usb_endpoint_next_packet_size() is probably not
-> > needed. It is needed in snd_usb_endpoint_slave_next_packet_size()
-> > because snd_usb_handle_sync_urb() can modify ep->freqm. Or maybe I'm
-> > missing something?
+> > > If someone can test more and it shows the positive result, I'd
+> > > happy
+> > > take it.
+> > 
+> > ... and on the second thought, I wonder whether the new method can
+> > be simply applied to all cases.  Your code gives basically more
+> > accurate timing. 
 > 
-> And some further notes:
-> 
-> - I removed locking from snd_usb_endpoint_next_packet_size() and this
-> seems completely fixed an issue with large URBs I reported here:
-> 
-> https://bugzilla.kernel.org/show_bug.cgi?id=199327#c28
-> 
-> So playing at 96 kHz, driver packs 48 frames per URB and no more audio
-> discontinuities.
+> I'm not sure. We are getting feedback data already in Q16.16 format so
+> the current code seems pretty good for its task.
 
-Hmm, that's weird.
+OK, unless we see any real problem, we can leave the working code as
+is, of course.
 
-If removing the lock from snd_usb_endpoint_next_packet_size() really
-fixes the problem, it implies the lock contention.  But as far as I
-see the code performed in this lock isn't conflicting so much.  The
-URB processing shouldn't happen in parallel for the same EP.
+> Some additional notes:
+> - Locking inside snd_usb_endpoint_next_packet_size() is probably not
+> needed. It is needed in snd_usb_endpoint_slave_next_packet_size()
+> because snd_usb_handle_sync_urb() can modify ep->freqm. Or maybe I'm
+> missing something?
 
-Is it really only that was changed from the vanilla kernel code?
+I believe it's ep->freqm reference, yes.  But removing it should be
+mostly fine.  Or we may change freqm atomic, too.
+
+> - Handling of ep->fill_max case looks broken. There is also a comment
+> in pcm.c stating that this mode is not supported yet.
+
+Right.  There is little device that actually uses this mode, I
+suppose.
 
 
 thanks,

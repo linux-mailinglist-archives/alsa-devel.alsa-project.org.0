@@ -2,74 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 100641B6093
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 18:19:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00A101B610C
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 18:35:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AED32169A;
-	Thu, 23 Apr 2020 18:18:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AED32169A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A2A83169D;
+	Thu, 23 Apr 2020 18:34:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2A83169D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587658784;
-	bh=b0lDH9Mfc1vYyUclWZeFPw/yRYBNO2AbnWd5/GTal1k=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1587659716;
+	bh=elGGasN0OIjUxouqKztONY9Xnv+QGZD4wHCUNXlMW70=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tZa0PuST+ey96u3fb3xNmKgTNbjTepy1sQULtkpy389+C+zunvqIc+CWDVqPXKGRH
-	 q7V72AvbCmmbfu2uuRKZD6Z7i5e9SaxxBWu4YrDq5p6LwG2s4GyMKfw7g2HMSNhGTk
-	 sjvGZjZ2b6Ra1yKh9DQqS/f1eMN88alfs6WW5yQM=
+	b=LUuGjxaL1sJmL0C2SMy03ddjVMlAcA8itxpCs47khhiOq8uGmC3BcA60+OiWajdI7
+	 BzCuxF5Lpws9t0CC3joyNE4MKIYGp21CHwjSJKYPSV9p0nbKPFiY5A/fw3JUYWiQbN
+	 o3vjb8/YijiokLQ9RmHygvsIoxPB2xu/sfwU/fcw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD95EF800F2;
-	Thu, 23 Apr 2020 18:18:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C2F58F802BD;
+	Thu, 23 Apr 2020 18:30:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E69F5F801EC; Thu, 23 Apr 2020 18:18:00 +0200 (CEST)
+ id 3B775F802A1; Thu, 23 Apr 2020 18:30:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 34AF1F800F2
- for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 18:17:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34AF1F800F2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="m/q/JGZO"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 185A920704;
- Thu, 23 Apr 2020 16:17:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587658676;
- bh=b0lDH9Mfc1vYyUclWZeFPw/yRYBNO2AbnWd5/GTal1k=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=m/q/JGZOiOuULK8FBCg6+kzEZzijCRb/kOIagFAGm+mmT1SJCEpMKP71Ir2VhCyN9
- KMdfp/h2o0MTQ4fRkdM6BUbYO2A6fhjALWrkRE5JSCtc89Qscx2Ls6iu3dJ0AKQze/
- E3BDDPxuaHaj6GzsRck6xzs8FI/Z0QwbtnKcnA08=
-Date: Thu, 23 Apr 2020 17:17:54 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Daniel Baluta <daniel.baluta@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C551AF800F2
+ for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 18:30:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C551AF800F2
+IronPort-SDR: s9SDPLmVpmwKItMlOGFFW1yT4c5Pk7S1EvHwBckmt4AFyLoP1TnhK2VOr1UNxp/KT6VewT9i60
+ saIArER9LesQ==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2020 09:30:09 -0700
+IronPort-SDR: QIcU+EgvUpTd+LdIl/3cEw11D2MnAJ9T2j42AuoWQnwxlqp5SQZc6lOZkSWYcf6x1mvm5LXLGd
+ rS2sTCTTvgYA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,307,1583222400"; d="scan'208";a="256040303"
+Received: from lsatpatx-mobl.gar.corp.intel.com (HELO [10.251.150.156])
+ ([10.251.150.156])
+ by orsmga003.jf.intel.com with ESMTP; 23 Apr 2020 09:30:09 -0700
 Subject: Re: [PATCH] ASoC: SOF: Add missing dependency on IMX_SCU
-Message-ID: <20200423161753.GQ4808@sirena.org.uk>
+To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
 References: <20200423142805.52757-1-broonie@kernel.org>
- <CAEnQRZDqNRfUu1Yak=8AM98sAicxnv+Cpm0y2UcCMeABcRQPWQ@mail.gmail.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <8faa8f98-2b9e-8229-e67d-cd5c88ddebef@linux.intel.com>
+Date: Thu, 23 Apr 2020 11:25:41 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="+r+clu82y77Ss1pj"
-Content-Disposition: inline
-In-Reply-To: <CAEnQRZDqNRfUu1Yak=8AM98sAicxnv+Cpm0y2UcCMeABcRQPWQ@mail.gmail.com>
-X-Cookie: This unit... must... survive.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
- Linux-ALSA <alsa-devel@alsa-project.org>, Shawn Guo <shawnguo@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>
+In-Reply-To: <20200423142805.52757-1-broonie@kernel.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,60 +81,28 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---+r+clu82y77Ss1pj
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Apr 23, 2020 at 06:21:40PM +0300, Daniel Baluta wrote:
+On 4/23/20 9:28 AM, Mark Brown wrote:
+> This broke PowerPC allyesconfig.
+> 
+> Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+> ---
+>   sound/soc/sof/imx/Kconfig | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/sound/soc/sof/imx/Kconfig b/sound/soc/sof/imx/Kconfig
+> index 5e0c68b12292..9a5ed1860e4e 100644
+> --- a/sound/soc/sof/imx/Kconfig
+> +++ b/sound/soc/sof/imx/Kconfig
+> @@ -21,6 +21,7 @@ config SND_SOC_SOF_IMX_OF
+>   
+>   config SND_SOC_SOF_IMX8_SUPPORT
+>   	bool "SOF support for i.MX8"
+> +	depends on IMX_SCU
 
-Please don't top post, reply in line with needed context.  This allows
-readers to readily follow the flow of conversation and understand what
-you are talking about and also helps ensure that everything in the
-discussion is being addressed.
+this works, but there is another issue with IMX_MBOX that's a mandatory 
+dependency for IMX_DSP, so another risk of unmet dependency
 
-> This should no longer be a problem after the following patch is merged:
->=20
-> https://patchwork.kernel.org/patch/11395247/
-
-That's "firmware: imx: add dummy functions".  That'll fix the issue but
-we'll still see stuff in -next unless the firmware tree gets merged
-before ASoC.
-
-Please include human readable descriptions of things like commits and
-issues being discussed in e-mail in your mails, this makes them much
-easier for humans to read especially when they have no internet access.
-I do frequently catch up on my mail on flights or while otherwise
-travelling so this is even more pressing for me than just being about
-making things a bit easier to read.
-
-> Anyone,
-
-> What is the exact difference between 'depends on' and 'selects'. This
-> is a question I try
-> to clarify for myself for a while. And most important when to use one
-> or another?
-
-depends on says "this configuration can't be enabled without X already
-being enabled".  select says "force X on" but ignores any dependencies
-that X itself has so the thing doing the selecting has to figure those
-out.  select is mainly for enabling library type things that users
-shouldn't have to deal with directly either because they are libraries
-or because they're just not independently useful somehow.
-
---+r+clu82y77Ss1pj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6hv7EACgkQJNaLcl1U
-h9A3nQf+I2bTW/3PPXkZyv7VzVCJ+XuQryQSyRp5MPeQYsFnyDaIFjANu2BSQO38
-1LE5Y6fHXOwkgp7p0Vp9KvAynueUuv3U6pgbfgIdYIiWT/VaPCqHQ0+rKqKtUxSV
-W/7A8ib61CopaBbAa1ttdSj9VtXbUidJs++m+dQ74UzoZsyy1DNCeDEQ5KP/oYVe
-7LfPHCv+UJPlJmSSTzh+gWtTGwflM7v+uvBaqC9o8x8x/qGRaTi2C9J9KBDADNZ4
-D+ZPRSR3+v4v8d4POtAQzaaVAFoNtfRz+Q3KBvv8OiS1GetOIKhwwneVSQLnrfZz
-eeXN7w9nRs5PBi9G7X3noZPzaygvIg==
-=9vPM
------END PGP SIGNATURE-----
-
---+r+clu82y77Ss1pj--
+I can send the additional fix on top of this one or a combined fix, your 
+call Mark.

@@ -2,68 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00A101B610C
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 18:35:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98DA11B60EC
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 18:29:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A2A83169D;
-	Thu, 23 Apr 2020 18:34:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2A83169D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 283AE169E;
+	Thu, 23 Apr 2020 18:28:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 283AE169E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587659716;
-	bh=elGGasN0OIjUxouqKztONY9Xnv+QGZD4wHCUNXlMW70=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1587659373;
+	bh=ky5iXn5UEpgEUlyZWT7+68OWaubhRbOKsYG2GFRYvWA=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LUuGjxaL1sJmL0C2SMy03ddjVMlAcA8itxpCs47khhiOq8uGmC3BcA60+OiWajdI7
-	 BzCuxF5Lpws9t0CC3joyNE4MKIYGp21CHwjSJKYPSV9p0nbKPFiY5A/fw3JUYWiQbN
-	 o3vjb8/YijiokLQ9RmHygvsIoxPB2xu/sfwU/fcw=
+	b=deO1GjGYfwL58TZyR4EeczFIkWE269L6KCpLJWVD1YFr+Ied5hO27UCRbnPDUR3oi
+	 +khWD10f62xUR+YpKPbb6+bSnU/xtrLf+eODoB/19OVLqdanBNqN3gnjuReI+MdhR8
+	 zEt9fVdMoDgumJjoHTZw4OF7Tsbow/iSrTzzln6c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C2F58F802BD;
-	Thu, 23 Apr 2020 18:30:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B8B0F800FF;
+	Thu, 23 Apr 2020 18:27:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3B775F802A1; Thu, 23 Apr 2020 18:30:25 +0200 (CEST)
+ id 68CE7F801EC; Thu, 23 Apr 2020 18:27:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D02EBF800FF
+ for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 18:27:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D02EBF800FF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="aP2EYC+l"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C551AF800F2
- for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 18:30:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C551AF800F2
-IronPort-SDR: s9SDPLmVpmwKItMlOGFFW1yT4c5Pk7S1EvHwBckmt4AFyLoP1TnhK2VOr1UNxp/KT6VewT9i60
- saIArER9LesQ==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2020 09:30:09 -0700
-IronPort-SDR: QIcU+EgvUpTd+LdIl/3cEw11D2MnAJ9T2j42AuoWQnwxlqp5SQZc6lOZkSWYcf6x1mvm5LXLGd
- rS2sTCTTvgYA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,307,1583222400"; d="scan'208";a="256040303"
-Received: from lsatpatx-mobl.gar.corp.intel.com (HELO [10.251.150.156])
- ([10.251.150.156])
- by orsmga003.jf.intel.com with ESMTP; 23 Apr 2020 09:30:09 -0700
-Subject: Re: [PATCH] ASoC: SOF: Add missing dependency on IMX_SCU
-To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
-References: <20200423142805.52757-1-broonie@kernel.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <8faa8f98-2b9e-8229-e67d-cd5c88ddebef@linux.intel.com>
-Date: Thu, 23 Apr 2020 11:25:41 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
+ by mail.kernel.org (Postfix) with ESMTPSA id DBA7320704;
+ Thu, 23 Apr 2020 16:27:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1587659265;
+ bh=ky5iXn5UEpgEUlyZWT7+68OWaubhRbOKsYG2GFRYvWA=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=aP2EYC+lPMFuUeOSQngeMc+6mufBTSxfrfefsDqZhgV29T1ysrWLRJlfCdqevQau8
+ ERH/LJzvuLWRV4ajXbxHi84jR2Lyju/nka0ASTVI+sBymEXGaDtQjKMQuWPff5hHXs
+ yAU1G6rvORnd+0jTBxPUPZY26Mwr8bXShQKieymc=
+Date: Thu, 23 Apr 2020 17:27:42 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
 In-Reply-To: <20200423142805.52757-1-broonie@kernel.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <20200423142805.52757-1-broonie@kernel.org>
+Subject: Re: [PATCH] ASoC: SOF: Add missing dependency on IMX_SCU
+Message-Id: <158765926266.52275.12049804642333754117.b4-ty@kernel.org>
 Cc: Stephen Rothwell <sfr@canb.auug.org.au>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -80,29 +77,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 4/23/20 9:28 AM, Mark Brown wrote:
+On Thu, 23 Apr 2020 15:28:05 +0100, Mark Brown wrote:
 > This broke PowerPC allyesconfig.
 > 
 > Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
 > Signed-off-by: Mark Brown <broonie@kernel.org>
 > ---
->   sound/soc/sof/imx/Kconfig | 1 +
->   1 file changed, 1 insertion(+)
+>  sound/soc/sof/imx/Kconfig | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> diff --git a/sound/soc/sof/imx/Kconfig b/sound/soc/sof/imx/Kconfig
-> index 5e0c68b12292..9a5ed1860e4e 100644
-> --- a/sound/soc/sof/imx/Kconfig
-> +++ b/sound/soc/sof/imx/Kconfig
-> @@ -21,6 +21,7 @@ config SND_SOC_SOF_IMX_OF
->   
->   config SND_SOC_SOF_IMX8_SUPPORT
->   	bool "SOF support for i.MX8"
-> +	depends on IMX_SCU
+> [...]
 
-this works, but there is another issue with IMX_MBOX that's a mandatory 
-dependency for IMX_DSP, so another risk of unmet dependency
+Applied to
 
-I can send the additional fix on top of this one or a combined fix, your 
-call Mark.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.8
+
+Thanks!
+
+[1/1] ASoC: SOF: Add missing dependency on IMX_SCU
+      commit: fe57a92c88580ae7894b9c71d2d520ba98eb1591
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

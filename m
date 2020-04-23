@@ -2,69 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8604D1B58C0
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 12:04:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5A731B591C
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 12:25:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09DC0169B;
-	Thu, 23 Apr 2020 12:03:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09DC0169B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 33729169B;
+	Thu, 23 Apr 2020 12:24:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33729169B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587636248;
-	bh=+XXteDLgurQ1y9mxT/o+a+imn5nfuclWzyZwUQoqn4M=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1587637513;
+	bh=nt6BxUMN9W2eJF7E9nemEDO2szsJjgfFAzjuRjtd3Us=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iSMS42t58YbshX7kz3y8PmdTbSQWiWyDYAMwQ/NRfu32rTkoX9Uoq8RsQTp9ChBkk
-	 pHm6eaaXYw1jQzwqw/qW4G5qIpfYbR1i5dmcG1cBieB7TqYb47KkdLgM046lT8y2Ba
-	 nKwTYwvxPlfR09Pxbs9WLvRNt/xWlYROjoAFXLks=
+	b=JmK19uyXcmuSeKefL747A6pgugLMcITsOX7sVYMGoxHO/jXc3Hm+Kg92+yLnO2KJ/
+	 XDTFCz+GsRIm654w8lU9uHXt47tFg9KZZuzrRX3NWIX24tjYj80Zrs3YnkXy63fSvl
+	 /aHCyXEyfsQdsKym+PMnE6JT6pSNnbjPBeCvMcJw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 176D3F801EC;
-	Thu, 23 Apr 2020 12:02:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E061F8014A;
+	Thu, 23 Apr 2020 12:23:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C0A55F801EC; Thu, 23 Apr 2020 12:02:22 +0200 (CEST)
+ id 03F27F800FF; Thu, 23 Apr 2020 12:22:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id BEAA3F800FF
+ for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 12:21:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEAA3F800FF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="RXnuOrjP"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E9DF0F800FF
- for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 12:02:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9DF0F800FF
-IronPort-SDR: zrvatOLMYN1Dwepjz+DJ5qZRFOMzi5BUFGtC0+ltVxjC0KzHzaqgpQwYXleTYtD1UeLeJ0txX3
- qrofyQNFwCBg==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2020 03:02:11 -0700
-IronPort-SDR: Vqsf2Avgr6Wfgi4rsenScR4Wg0TvR4pCD5wR49N0kqpgdY0pC5aGkId9Ys9+sgB0A2K0EkSeII
- FuhHKI0ENMJg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,306,1583222400"; d="scan'208";a="301179237"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by FMSMGA003.fm.intel.com with ESMTP; 23 Apr 2020 03:02:10 -0700
-Date: Thu, 23 Apr 2020 13:02:09 +0300 (EEST)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH] ALSA: hda: Always use jackpoll helper for jack update
- after resume
-In-Reply-To: <s5hblnjxn7i.wl-tiwai@suse.de>
-Message-ID: <alpine.DEB.2.21.2004231245470.2957@eliteleevi.tm.intel.com>
-References: <20200422203744.26299-1-tiwai@suse.de>
- <s5hblnjxn7i.wl-tiwai@suse.de>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+ by mail.kernel.org (Postfix) with ESMTPSA id 7603F2074F;
+ Thu, 23 Apr 2020 10:21:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1587637279;
+ bh=nt6BxUMN9W2eJF7E9nemEDO2szsJjgfFAzjuRjtd3Us=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=RXnuOrjPt+5uK+vtmfLy+653zHEpc3aVLTlJHtDE8BsHBf6GvHDeZGYC/NeOPUPcc
+ tqdPaMzB0IrldqaQ68oyZw9JFmTNLt/Cjr2EzBMJXL9HtmMmNT916Iw8K8TJRz19Yp
+ lI4QiKysCakuUGB7AtME8XJTvTJlipp7CTwHshjk=
+Date: Thu, 23 Apr 2020 11:21:16 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH v2 0/3] Add support for different DMIC configurations
+Message-ID: <20200423102116.GB4808@sirena.org.uk>
+References: <20200422120532.31492-1-mateusz.gorski@linux.intel.com>
+ <89873366-c063-5754-0e18-511477c3daa5@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: Hui Wang <hui.wang@canonical.com>, alsa-devel@alsa-project.org,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="oC1+HKm2/end4ao3"
+Content-Disposition: inline
+In-Reply-To: <89873366-c063-5754-0e18-511477c3daa5@intel.com>
+X-Cookie: This unit... must... survive.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, tiwai@suse.com,
+ Mateusz Gorski <mateusz.gorski@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,16 +84,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hey,
 
-On Wed, 22 Apr 2020, Takashi Iwai wrote:
+--oC1+HKm2/end4ao3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> On Wed, 22 Apr 2020 22:37:44 +0200, Takashi Iwai wrote:
-> Also, Kai, it'd be appreciated if you can test whether it causes
-> regression on Intel HDMI audio.  Currently I have no enough test
-> machines due to lockdown, unfortunately.
+On Thu, Apr 23, 2020 at 11:11:05AM +0200, Cezary Rojewski wrote:
+> On 2020-04-22 14:05, Mateusz Gorski wrote:
 
-sure thing. I did tests on a few machines with snd_hda_intel and also gave 
-a test spin with SOF and seems to hold up just fine with both.
+> > Changes in v2:
+> > - removed patch 1/4 swapping machine device and platform device
+> >    registration order
+> > - alt_tplg_name creation now uses different field to read machine driver
+> >    name
+> > - including of <sound/soc-acpi.h> moved to different patch
 
-Br, Kai
+> Ain't change-block supposed to be just below message body?
+
+Only in patches to stop them getting included in the git changelog.
+
+> Don't believe series need to be resend just to fix cosmetics:
+> Acked-by: Cezary Rojewski <cezary.rojewski@intel.com>
+
+Well, I don't seem to have a copy of it so it'll need a resend for that
+unless it's just held up somewhere and arrives shortly.
+
+--oC1+HKm2/end4ao3
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6hbBsACgkQJNaLcl1U
+h9Dirgf+Lh2CSaRCl1bWga0HFUsfQzZCrKhSNbCP4aMBl4tuJh9MyGZgBreURDSZ
+655sjzS5Axd9BMQVoMZPvGuyG3pYni+od8t898YmQ4HhkRBPQzh6LuKsIjEYbBhz
+0h2iyWTK+EYujFpsLQxcJ8zgBw09nEo9qgCj49Uy0G7nn6usP7YAQyli8AijsXUT
+gZV/eoQWzSP+HKRGVibO6u5wTBpZq23rEwgYbp+RZzQcDd+xl9VQwCzk+fe1RS0C
+tHdcr1OGwEJS3NsBkB5KmOXqwwJw8NO8SvRpPGb4S7syYVcjz4VdoLkWtakvGzmI
++D5OoKdytfVBxWYgpdwesLFft+8CZg==
+=QGti
+-----END PGP SIGNATURE-----
+
+--oC1+HKm2/end4ao3--

@@ -2,72 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65FA51B6114
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 18:36:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D20C1B6176
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 18:59:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C312516A1;
-	Thu, 23 Apr 2020 18:35:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C312516A1
+	by alsa0.perex.cz (Postfix) with ESMTPS id D7A64169C;
+	Thu, 23 Apr 2020 18:58:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7A64169C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587659767;
-	bh=snSEUMNG2EV2Jo59jHoTDA7zGZsRBA55IewXlFTL7hk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1587661165;
+	bh=U44Al+MCpwhCW+VQI8AMdTNy4Ce/jJ44rjsLdjvbkbE=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SIwa1uAwefFE8i/L1iRwidw8NPe0YdlCPNnFqyPD9WqcIgoTuFk0dG/TRO46L3IZY
-	 SUlpgczEHcdjq7MCB9dGQzpTE67HY4yBSOdcwMIH/DeZ/nQQurRza4Xh9S9AQCa3UE
-	 YY91BSjaqdoHyE3j1eJHSM3mnUStT1xrp56qpUj8=
+	b=p438u5USL1ZUgyVW2pDIWtJu5+IlYi/WxzpMW787/M6y6hiyyoDSaECcRxv0eiMuQ
+	 0JfiTnirZe/W88pANMK2eLN2OZOCvMwFrTbgWG+KNNMSwR8j8y6/qBlys8ICJ0raBC
+	 usK0Yea1MzEU3bUKUPZB5FV3YNOOveVY526wFtgI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C83AF801F5;
-	Thu, 23 Apr 2020 18:35:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 141FBF800FF;
+	Thu, 23 Apr 2020 18:57:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 63262F801EC; Thu, 23 Apr 2020 18:35:04 +0200 (CEST)
+ id 16805F801EC; Thu, 23 Apr 2020 18:57:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94BC0F800FF
- for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 18:35:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94BC0F800FF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="toESXYtd"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2113920728;
- Thu, 23 Apr 2020 16:34:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587659699;
- bh=snSEUMNG2EV2Jo59jHoTDA7zGZsRBA55IewXlFTL7hk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=toESXYtd6OdaU7e0rDn1uEm5suSRV1UykPLrmK0EyNrzxPslnjWD1BRoZMp1WfjqC
- o4RJhRjy5IUuiDpR0J5IDCafnzEEGCdIIpANNHjxj+N92kbDNNrAamnfpZNVWE9wog
- nwrvsgw1xf/57x/HvFsx3R050pObl6pi+Q1s/QBE=
-Date: Thu, 23 Apr 2020 17:34:57 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: Add missing dependency on IMX_SCU
-Message-ID: <20200423163457.GR4808@sirena.org.uk>
-References: <20200423142805.52757-1-broonie@kernel.org>
- <8faa8f98-2b9e-8229-e67d-cd5c88ddebef@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7A530F800FF
+ for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 18:57:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A530F800FF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=tsoy.me header.i=@tsoy.me
+ header.b="XtGRdy+Z"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
+ s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Content-Type:
+ References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Reply-To:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
+ :List-Post:List-Owner:List-Archive;
+ bh=iRt8jALtSe4yCrIjAnNL4kwEJ2okbJrshyKS5goOUuE=; b=XtGRdy+Z4yT3/Cz0aSu658JepB
+ UOPekRfLx7xZn+ToAF7GPDMeekbbX+DQJJ+09bOiOZFbIwWRySqKNC2BJoFCvZQjHTQ1M82VyNkil
+ ulxc94G1vgzNleLgcgDc+n5H9paOTrI56P7HjaKDNOpqGtVovaXPbPTmzxQGf481sc/8=;
+Received: from [2a00:1370:8125:3f98:890:f100:d37d:7ada] (helo=home)
+ by puleglot.ru with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92.3) (envelope-from <puleglot@puleglot.ru>)
+ id 1jRfAO-0001yC-Am; Thu, 23 Apr 2020 19:57:36 +0300
+Message-ID: <99bb394ff162a16442fd83c0ab56a9d8c0055877.camel@tsoy.me>
+Subject: Re: [PATCH] ALSA: usb-audio: Apply async workaround for Scarlett
+ 2i4 2nd gen
+From: Alexander Tsoy <alexander@tsoy.me>
+To: Takashi Iwai <tiwai@suse.de>
+Date: Thu, 23 Apr 2020 19:57:34 +0300
+In-Reply-To: <470d034599514e83454663f389bad30fd98ad3e2.camel@tsoy.me>
+References: <7190177d62f349eea7a5d1056924a63fc4270d43.camel@tsoy.me>
+ <20200422185522.3347-1-grpintar@gmail.com>
+ <a45d18d7922d780f29f89cff855eb30fbdd1fce8.camel@tsoy.me>
+ <s5heesfxo2o.wl-tiwai@suse.de>
+ <c0cb78664e3acd94f07e59f3a4216c16ab9f497d.camel@tsoy.me>
+ <s5hy2qmwts3.wl-tiwai@suse.de> <s5heesewip1.wl-tiwai@suse.de>
+ <470d034599514e83454663f389bad30fd98ad3e2.camel@tsoy.me>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.34.4 
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="84mZ5ifxO1MoKVCL"
-Content-Disposition: inline
-In-Reply-To: <8faa8f98-2b9e-8229-e67d-cd5c88ddebef@linux.intel.com>
-X-Cookie: This unit... must... survive.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>
+Content-Transfer-Encoding: 8bit
+Cc: Gregor Pintar <grpintar@gmail.com>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,41 +87,143 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+В Чт, 23/04/2020 в 18:10 +0300, Alexander Tsoy пишет:
+> В Чт, 23/04/2020 в 13:22 +0200, Takashi Iwai пишет:
+> > On Thu, 23 Apr 2020 09:22:36 +0200,
+> > Takashi Iwai wrote:
+> > > On Thu, 23 Apr 2020 01:45:01 +0200,
+> > > Alexander Tsoy wrote:
+> > > > В Ср, 22/04/2020 в 22:28 +0200, Takashi Iwai пишет:
+> > > > > On Wed, 22 Apr 2020 21:26:23 +0200,
+> > > > > Alexander Tsoy wrote:
+> > > > > > В Ср, 22/04/2020 в 20:55 +0200, Gregor Pintar пишет:
+> > > > > > > On Wed, 22 Apr 2020 Alexander Tsoy wrote:
+> > > > > > > > В Вт, 21/04/2020 в 21:31 +0200, Takashi Iwai пишет:
+> > > > > > > > > I wonder, though, whether we can correct the rounding
+> > > > > > > > > error
+> > > > > > > > > in
+> > > > > > > > > the
+> > > > > > > > > driver code, too.
+> > > > > > > > 
+> > > > > > > > I'm not sure if it's possible with currently used
+> > > > > > > > Q16.16
+> > > > > > > > arithmetic.
+> > > > > > > 
+> > > > > > > Maybe calculate fixed correction shifts (like it would be
+> > > > > > > feedback)?
+> > > > > > > Something like leap year.
+> > > > > > > 
+> > > > > > > In endpoint.c:
+> > > > > > > static inline unsigned get_usb_high_speed_rate(unsigned
+> > > > > > > int
+> > > > > > > rate)
+> > > > > > > {
+> > > > > > > 	return ((rate << 10) + 62) / 125;
+> > > > > > > }
+> > > > > > > I guess 62 tries to round it, but exact number is needed.
+> > > > > > > So
+> > > > > > > exact
+> > > > > > > value for
+> > > > > > > 44100 should be 361267.2. For 48000 it is 360448.
+> > > > > > > If only we can deliver that 0.2 by shifting rate somehow?
+> > > > > > > 
+> > > > > > > At least maybe it would be better to disable sample rates
+> > > > > > > that do
+> > > > > > > not
+> > > > > > > divide
+> > > > > > > by 1000 on SYNC playback endpoints, if there are others
+> > > > > > > sample
+> > > > > > > rates.
+> > > > > > > 
+> > > > > > > But I'm not familar with the code or USB.
+> > > > > > 
+> > > > > > I think instead of accumulating the fractional part of
+> > > > > > fs/fps
+> > > > > > in
+> > > > > > Q16.16
+> > > > > > format we should accumulating remainder of division fs/fps.
+> > > > > > 
+> > > > > > So for 44100 Hz and High Speed USB the calculations would
+> > > > > > be:
+> > > > > > 
+> > > > > > fs = 44100
+> > > > > > fps = 8000
+> > > > > > rem = 44100 % 8000 = 4100
+> > > > > > accum = 0
+> > > > > > packet_size_min = 44100 / 8000 = 5
+> > > > > > packet_size_max = 44100 + (8000 - 1) / 8000 = 6
+> > > > > > 
+> > > > > > 
+> > > > > > 1. accum += rem = 4100
+> > > > > >    accum < fps => packet_size = packet_size_min = 5
+> > > > > > 
+> > > > > > 2. accum += rem = 8200
+> > > > > >    accum >= fps => {
+> > > > > >        packet_size = packet_size_max = 6
+> > > > > >        accum -= fps = 200
+> > > > > >    }
+> > > > > > 
+> > > > > > 3. accum += rem = 4300
+> > > > > >    accum < fps => packet_size = packet_size_min = 5
+> > > > > > 
+> > > > > > ...
+> > > > > > 
+> > > > > > 80. accum += rem = 8000
+> > > > > >     accum >= fps => {
+> > > > > >         packet_size = packet_size_max = 6
+> > > > > >         accum -= fps = 0
+> > > > > >     }
+> > > > > > ...
+> > > > > 
+> > > > > Yeah, something like that is what I had in my mind.
+> > > > > It'd be greatly appreciated if someone can experiment it.
+> > > > > Unfortunately I have no proper USB-audio device now at
+> > > > > hands...
+> > > > 
+> > > > OK, here is a quick hacky patch, that seems to work for me:
+> > > 
+> > > Awesome, thanks!
+> > > 
+> > > The patch looks good enough.  A minor fix would be reset
+> > > sample_accum
+> > > at snd_usb_pcm_prepare().
+> > 
+> > It should be rather in snd_usb_endpoint_start().
+> 
+> Yes, indeed. Thanks!
+> 
+> > > If someone can test more and it shows the positive result, I'd
+> > > happy
+> > > take it.
+> > 
+> > ... and on the second thought, I wonder whether the new method can
+> > be simply applied to all cases.  Your code gives basically more
+> > accurate timing. 
+> 
+> I'm not sure. We are getting feedback data already in Q16.16 format
+> so
+> the current code seems pretty good for its task.
+> 
+> Some additional notes:
+> - Locking inside snd_usb_endpoint_next_packet_size() is probably not
+> needed. It is needed in snd_usb_endpoint_slave_next_packet_size()
+> because snd_usb_handle_sync_urb() can modify ep->freqm. Or maybe I'm
+> missing something?
 
---84mZ5ifxO1MoKVCL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+And some further notes:
 
-On Thu, Apr 23, 2020 at 11:25:41AM -0500, Pierre-Louis Bossart wrote:
-> On 4/23/20 9:28 AM, Mark Brown wrote:
+- I removed locking from snd_usb_endpoint_next_packet_size() and this
+seems completely fixed an issue with large URBs I reported here:
 
-> >   	bool "SOF support for i.MX8"
-> > +	depends on IMX_SCU
+https://bugzilla.kernel.org/show_bug.cgi?id=199327#c28
 
-> this works, but there is another issue with IMX_MBOX that's a mandatory
-> dependency for IMX_DSP, so another risk of unmet dependency
+So playing at 96 kHz, driver packs 48 frames per URB and no more audio
+discontinuities.
 
-> I can send the additional fix on top of this one or a combined fix, your
-> call Mark.
+- All remaining issues with MOTU Microbook IIc a fixed now. This device
+is *extremely* sensitive to correctness of the input stream, and
+previously at sample rates 44.1 and 88.2 it was periodically starting
+playing some harsh noise or switching output to different channels.
+Probably it performed reads from the buffer that were not aligned to
+the frames boundary. Now this issue is completely gone.
 
-Please send something incremental, like I said in the other thread this
-was just a quick fix for the error Stephen reported to make sure there's
-something there for tomorrow's -next.  A better/more comprehensive
-replacement would definitely be good.
-
---84mZ5ifxO1MoKVCL
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6hw7AACgkQJNaLcl1U
-h9BbQwf/aBeMhFiCo/cpAlXgzmzeaUZzMmJjclQ5XatzCpQ8W7tpVXzuVoAHiXFP
-3LvOtdkwpTDjev4TpYZoq9rzeg7pTNd8wamhvOGDKa8+1RqlHkVBitOfkNPkjGos
-8K5YUcHOTynga20CEENa3nwkZpmFTGcsCrcn7+48dqfDAuCZpOxR7G9mAb/mEVJ3
-yzdeBX48zX2y7Jpil6QE6eGKopFQwh70LwQzb9tL8d6kedwOqzu6MsHYyFC0Bbg5
-kPF2myPQO8N9SMrP/g+L61riKOz4cCVcyp+zFtql2TCvg3maju0SkToUWysSjdhk
-h9H4SCeLYss/tdB/KAEOC6+3YQJUAw==
-=C9Sr
------END PGP SIGNATURE-----
-
---84mZ5ifxO1MoKVCL--

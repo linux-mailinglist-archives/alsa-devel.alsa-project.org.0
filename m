@@ -2,71 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EF9C1B610A
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 18:34:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65FA51B6114
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 18:36:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 19ADA167D;
-	Thu, 23 Apr 2020 18:33:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19ADA167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id C312516A1;
+	Thu, 23 Apr 2020 18:35:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C312516A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587659659;
-	bh=cJ9sRTleosi8OVbDnMxeczyRJdVcP94ZoybYpp0BsxY=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1587659767;
+	bh=snSEUMNG2EV2Jo59jHoTDA7zGZsRBA55IewXlFTL7hk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jXRuRQr+K1pUw6aSM4SS78Qw8zV0DUQDIxtnHrM3u+TUVGzn2UHY93hQCOLhWkD7S
-	 Fhk884w3UC7EvoyoIXW6cGqSoOuVbyzmD1GY/LnGlpXPXHU4Pi7tE2GTw/CYA7G4WO
-	 yVoCQ0kNWHHsESzX9PrAf5o0UqaD4WFLAOO8EMn4=
+	b=SIwa1uAwefFE8i/L1iRwidw8NPe0YdlCPNnFqyPD9WqcIgoTuFk0dG/TRO46L3IZY
+	 SUlpgczEHcdjq7MCB9dGQzpTE67HY4yBSOdcwMIH/DeZ/nQQurRza4Xh9S9AQCa3UE
+	 YY91BSjaqdoHyE3j1eJHSM3mnUStT1xrp56qpUj8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8616DF80299;
-	Thu, 23 Apr 2020 18:30:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C83AF801F5;
+	Thu, 23 Apr 2020 18:35:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 54A23F802A0; Thu, 23 Apr 2020 18:30:22 +0200 (CEST)
+ id 63262F801EC; Thu, 23 Apr 2020 18:35:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 94BC0F800FF
+ for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 18:35:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94BC0F800FF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="toESXYtd"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AB4D4F80228
- for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 18:30:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB4D4F80228
-IronPort-SDR: s21UdoUYFbF8l1Mdn5YVC1CQvzfPA/t92kNpYpjdChR5VIgPtcYHIV7hOyT3xe9yBL7Ly+tJcL
- PyuMLYfmCbOg==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2020 09:30:10 -0700
-IronPort-SDR: N14StEzhABvVdcgKcBUb+vMAD258MuLFlwVU1h3gsPH0Y/ioeY6lU7PYs/IYKmv9FZ62EeYQMe
- lfxEcOzPsDwQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,307,1583222400"; d="scan'208";a="256040318"
-Received: from lsatpatx-mobl.gar.corp.intel.com (HELO [10.251.150.156])
- ([10.251.150.156])
- by orsmga003.jf.intel.com with ESMTP; 23 Apr 2020 09:30:10 -0700
-Subject: Re: [PATCH] ALSA: hda: Refactor Intel NHLT init
-To: Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.de>
-References: <20200423112136.25207-1-cezary.rojewski@intel.com>
- <s5hd07ywikl.wl-tiwai@suse.de>
- <b37cb05b-f4c2-e747-c3f0-1582ed3afadd@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <8e3d7780-d776-d964-d8a8-4618b7ae045a@linux.intel.com>
-Date: Thu, 23 Apr 2020 11:29:38 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ by mail.kernel.org (Postfix) with ESMTPSA id 2113920728;
+ Thu, 23 Apr 2020 16:34:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1587659699;
+ bh=snSEUMNG2EV2Jo59jHoTDA7zGZsRBA55IewXlFTL7hk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=toESXYtd6OdaU7e0rDn1uEm5suSRV1UykPLrmK0EyNrzxPslnjWD1BRoZMp1WfjqC
+ o4RJhRjy5IUuiDpR0J5IDCafnzEEGCdIIpANNHjxj+N92kbDNNrAamnfpZNVWE9wog
+ nwrvsgw1xf/57x/HvFsx3R050pObl6pi+Q1s/QBE=
+Date: Thu, 23 Apr 2020 17:34:57 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: Add missing dependency on IMX_SCU
+Message-ID: <20200423163457.GR4808@sirena.org.uk>
+References: <20200423142805.52757-1-broonie@kernel.org>
+ <8faa8f98-2b9e-8229-e67d-cd5c88ddebef@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <b37cb05b-f4c2-e747-c3f0-1582ed3afadd@intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org, tiwai@suse.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="84mZ5ifxO1MoKVCL"
+Content-Disposition: inline
+In-Reply-To: <8faa8f98-2b9e-8229-e67d-cd5c88ddebef@linux.intel.com>
+X-Cookie: This unit... must... survive.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,45 +84,40 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--84mZ5ifxO1MoKVCL
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 4/23/20 6:40 AM, Cezary Rojewski wrote:
-> On 2020-04-23 13:24, Takashi Iwai wrote:
->> On Thu, 23 Apr 2020 13:21:36 +0200,
->> Cezary Rojewski wrote:
->>>
->>> NHLT fetch based on _DSM prevents ACPI table override mechanism from
->>> being utilized. Make use of acpi_get_table to enable it and get rid of
->>> redundant code.
->>>
->>> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
->>
->> This looks like a nice cleanup and I'll happily apply if anyone can
->> test with the actual hardware -- currently mine has no DSP, so unable
->> to check.
->>
->>
->> thanks,
->>
->> Takashi
->>
-> 
-> NHLT override method has been added for internal use half a year ago and 
-> is for some time the default method within our CI. This is tested on a 
-> wide spread of hardware, that is any Intel AVS archtecture, including 
-> production laptops.
+On Thu, Apr 23, 2020 at 11:25:41AM -0500, Pierre-Louis Bossart wrote:
+> On 4/23/20 9:28 AM, Mark Brown wrote:
 
-We are checking independently with SOF CI [1], the NHLT is used to 
-detect microphone counts so we'll see if there's a regression.
+> >   	bool "SOF support for i.MX8"
+> > +	depends on IMX_SCU
 
-That said, for my education Cezary an you clarify what you typically 
-override? the settings are usually tied to specific hardware configs.
-Also the NHLT may point to a topology file name but with your recent 
-changes an alternate file can be used, so it's not clear to me how 
-non-Intel folks might use the override and for what?
+> this works, but there is another issue with IMX_MBOX that's a mandatory
+> dependency for IMX_DSP, so another risk of unmet dependency
 
-While I am at it, we recently had a bug report where a user provided the 
-NHLT, and I had no idea how to go about parsing it to check its 
-contents. Are there any tools to dump the contents in human-readable 
-representation?
+> I can send the additional fix on top of this one or a combined fix, your
+> call Mark.
 
-[1] https://github.com/thesofproject/linux/pull/2046
+Please send something incremental, like I said in the other thread this
+was just a quick fix for the error Stephen reported to make sure there's
+something there for tomorrow's -next.  A better/more comprehensive
+replacement would definitely be good.
+
+--84mZ5ifxO1MoKVCL
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6hw7AACgkQJNaLcl1U
+h9BbQwf/aBeMhFiCo/cpAlXgzmzeaUZzMmJjclQ5XatzCpQ8W7tpVXzuVoAHiXFP
+3LvOtdkwpTDjev4TpYZoq9rzeg7pTNd8wamhvOGDKa8+1RqlHkVBitOfkNPkjGos
+8K5YUcHOTynga20CEENa3nwkZpmFTGcsCrcn7+48dqfDAuCZpOxR7G9mAb/mEVJ3
+yzdeBX48zX2y7Jpil6QE6eGKopFQwh70LwQzb9tL8d6kedwOqzu6MsHYyFC0Bbg5
+kPF2myPQO8N9SMrP/g+L61riKOz4cCVcyp+zFtql2TCvg3maju0SkToUWysSjdhk
+h9H4SCeLYss/tdB/KAEOC6+3YQJUAw==
+=C9Sr
+-----END PGP SIGNATURE-----
+
+--84mZ5ifxO1MoKVCL--

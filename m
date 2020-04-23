@@ -2,70 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A10BA1B6100
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 18:32:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1F871B603F
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 18:05:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D201168D;
-	Thu, 23 Apr 2020 18:32:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D201168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5071B168E;
+	Thu, 23 Apr 2020 18:04:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5071B168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587659578;
-	bh=s15aixBtz3ZLxbIPilw9PjKMzGyyZQZ8xazVIoyA7gk=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=og/EnnNhno3Mi4yevpXOB46kAFoc11IG2iPXEuiRLQTrhXfA1fLWEZkuuh2l1FBHW
-	 NcO38dEsmYCjwM8ck4t+joE8sYLLp+ajnr4yPs0CHw9sZjLZoJH6QzQAWJao679xj6
-	 32KuK5+MncE2ySYeLD+myAHF06e+WQOAOnft83MA=
+	s=default; t=1587657916;
+	bh=vZZ1STVry+ZTVR5pXvOjLHRuE1PxH1tmqhxhA88Wt0w=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Tr213YuhYACntfSx8OLBk+qa1nlr5BYhXaCiJBSQlIqXHG21rdqlE2K/ZMol+dm7v
+	 UK0hNJ7apUQmC4KOA5oSFIE1qYO35ZXZGI/drPdXNjdn+EsCnrPXohN/39khvuGShg
+	 M+WFmRcD6c9urTNORkXFZA8N3GMf5B6WzN3HdmIY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC7B4F80290;
-	Thu, 23 Apr 2020 18:30:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A421F801ED;
+	Thu, 23 Apr 2020 18:03:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C0429F801F5; Thu, 23 Apr 2020 18:30:12 +0200 (CEST)
+ id 2A0CCF801EC; Thu, 23 Apr 2020 18:03:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AC60BF801EC
- for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 18:30:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC60BF801EC
-IronPort-SDR: 0y51wM/QmgAESmQvGNzv/euWMrtzZBKGV4pHfv65lM298kak2crYWYlue1UMPD/w/6BVNjyJxr
- +cZPVZB+heCQ==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 39EC7F800FF
+ for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 18:03:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39EC7F800FF
+IronPort-SDR: 4yW4LxYxA+j0rDitaintXZU2sLcJUpYJjlIhOp/cWlwKci0JYDuSkj90R7twjEAYHld52yPgl4
+ dIGFyJdUkmpA==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2020 09:30:08 -0700
-IronPort-SDR: sjeTWS7Qo94Jbd7VH8lm1lcxAbtTMy2N6DOHgqN2aenEId5C6zjwffLBwGRAXsbG+hcIuXVdX5
- kyHPMUbnkWiA==
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2020 09:03:22 -0700
+IronPort-SDR: Nu874FQZyX5LRVkdYw5ozdPJrHhjJ2LOgv9NqNVI3faFtjoEqfEr221iY1mXjyA7ZayYuwMUGF
+ 77fZ+mIu6WFw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,307,1583222400"; d="scan'208";a="256040297"
-Received: from lsatpatx-mobl.gar.corp.intel.com (HELO [10.251.150.156])
- ([10.251.150.156])
- by orsmga003.jf.intel.com with ESMTP; 23 Apr 2020 09:30:07 -0700
-Subject: Re: [PATCH v3 0/3] Add support for different DMIC configurations
-To: Mateusz Gorski <mateusz.gorski@linux.intel.com>,
- alsa-devel@alsa-project.org
-References: <20200423111148.6977-1-mateusz.gorski@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <703d14ad-6a79-a05c-5b79-dd2de991fe14@linux.intel.com>
-Date: Thu, 23 Apr 2020 10:56:05 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <20200423111148.6977-1-mateusz.gorski@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: cezary.rojewski@intel.com, broonie@kernel.org, tiwai@suse.com
+X-IronPort-AV: E=Sophos;i="5.73,307,1583222400"; d="scan'208";a="244913799"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by orsmga007.jf.intel.com with ESMTP; 23 Apr 2020 09:03:20 -0700
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2] ALSA: hda: Refactor Intel NHLT init
+Date: Thu, 23 Apr 2020 18:03:10 +0200
+Message-Id: <20200423160310.28019-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, broonie@kernel.org,
+ tiwai@suse.com, pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,39 +71,106 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+NHLT fetch based on _DSM prevents ACPI table override mechanism from
+being utilized. Make use of acpi_get_table to enable it and get rid of
+redundant code. In consequence, NHLT can be overridden just like any
+other ACPI table, e.g.: DSDT or SSDT.
 
+Change has been verified on all Intel AVS architecture platforms, RVP
+and production laptops both.
 
-On 4/23/20 6:11 AM, Mateusz Gorski wrote:
-> Set of patches to enable DMIC capture on different hardware
-> configurations.
-> Information about supported DMIC configuration is read from NHLT and
-> correct pipeline configuration is selected automatically.
-> Also, adding additional option for topology binary name which is
-> based on used machine driver.
-> 
-> Changes in v2:
-> - removed patch 1/4 swapping machine device and platform device
->    registration order
-> - alt_tplg_name creation now uses different field to read machine driver
->    name
-> - including of <sound/soc-acpi.h> moved to different patch
-> 
-> Changes in v3:
-> - cosmetic changes in skl-topology.c file
+Change possible due to addition of NHLT signature to the list of
+standard ACPI tables:
+https://patchwork.kernel.org/patch/11463235/
 
-I suggested a couple of improvements/nit-picks but the code looks good 
-to me already so:
+Override helps not only with debug purposes but also allows user for
+table adjustment when one found on their production hardware is invalid.
+Shared official NHLT spec is now available to community at:
+https://01.org/blogs/intel-smart-sound-technology-audio-dsp
 
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+NHLT support for iASL is still ongoing subject but should be available
+in nearest future.
 
-> Mateusz Gorski (3):
->    ASoC: Intel: Skylake: Add alternative topology binary name
->    ASoC: Intel: Multiple I/O PCM format support for pipe
->    ASoC: Intel: Skylake: Automatic DMIC format configuration according to
->      information from NHLT
-> 
->   include/uapi/sound/skl-tplg-interface.h |   2 +
->   sound/soc/intel/skylake/skl-topology.c  | 188 +++++++++++++++++++++++-
->   sound/soc/intel/skylake/skl-topology.h  |   1 +
->   3 files changed, 186 insertions(+), 5 deletions(-)
-> 
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+---
+
+Changes in v2:
+- commit message update, no functional changes
+
+ sound/hda/intel-nhlt.c | 49 +++++++-----------------------------------
+ 1 file changed, 8 insertions(+), 41 deletions(-)
+
+diff --git a/sound/hda/intel-nhlt.c b/sound/hda/intel-nhlt.c
+index 99a23fe7fab9..2f741d2792d8 100644
+--- a/sound/hda/intel-nhlt.c
++++ b/sound/hda/intel-nhlt.c
+@@ -4,58 +4,25 @@
+ #include <linux/acpi.h>
+ #include <sound/intel-nhlt.h>
+ 
+-#define NHLT_ACPI_HEADER_SIG	"NHLT"
+-
+-/* Unique identification for getting NHLT blobs */
+-static const guid_t osc_guid =
+-	GUID_INIT(0xA69F886E, 0x6CEB, 0x4594,
+-		  0xA4, 0x1F, 0x7B, 0x5D, 0xCE, 0x24, 0xC5, 0x53);
+-
+ struct nhlt_acpi_table *intel_nhlt_init(struct device *dev)
+ {
+-	acpi_handle handle;
+-	union acpi_object *obj;
+-	struct nhlt_resource_desc *nhlt_ptr;
+-	struct nhlt_acpi_table *nhlt_table = NULL;
+-
+-	handle = ACPI_HANDLE(dev);
+-	if (!handle) {
+-		dev_err(dev, "Didn't find ACPI_HANDLE\n");
+-		return NULL;
+-	}
++	struct nhlt_acpi_table *nhlt;
++	acpi_status status;
+ 
+-	obj = acpi_evaluate_dsm(handle, &osc_guid, 1, 1, NULL);
+-
+-	if (!obj)
+-		return NULL;
+-
+-	if (obj->type != ACPI_TYPE_BUFFER) {
+-		dev_dbg(dev, "No NHLT table found\n");
+-		ACPI_FREE(obj);
++	status = acpi_get_table(ACPI_SIG_NHLT, 0,
++				(struct acpi_table_header **)&nhlt);
++	if (ACPI_FAILURE(status)) {
++		dev_warn(dev, "NHLT table not found\n");
+ 		return NULL;
+ 	}
+ 
+-	nhlt_ptr = (struct nhlt_resource_desc  *)obj->buffer.pointer;
+-	if (nhlt_ptr->length)
+-		nhlt_table = (struct nhlt_acpi_table *)
+-			memremap(nhlt_ptr->min_addr, nhlt_ptr->length,
+-				 MEMREMAP_WB);
+-	ACPI_FREE(obj);
+-	if (nhlt_table &&
+-	    (strncmp(nhlt_table->header.signature,
+-		     NHLT_ACPI_HEADER_SIG,
+-		     strlen(NHLT_ACPI_HEADER_SIG)) != 0)) {
+-		memunmap(nhlt_table);
+-		dev_err(dev, "NHLT ACPI header signature incorrect\n");
+-		return NULL;
+-	}
+-	return nhlt_table;
++	return nhlt;
+ }
+ EXPORT_SYMBOL_GPL(intel_nhlt_init);
+ 
+ void intel_nhlt_free(struct nhlt_acpi_table *nhlt)
+ {
+-	memunmap((void *)nhlt);
++	acpi_put_table((struct acpi_table_header *)nhlt);
+ }
+ EXPORT_SYMBOL_GPL(intel_nhlt_free);
+ 
+-- 
+2.17.1
+

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A7881B5A26
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 13:13:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32F7A1B5A27
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 13:13:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C60D316A9;
-	Thu, 23 Apr 2020 13:12:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C60D316A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id D254C1699;
+	Thu, 23 Apr 2020 13:12:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D254C1699
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587640387;
-	bh=3P+hiDJ7CKugdVtSHcJUrHfi2mjZPEXEEofWzRq+Er4=;
+	s=default; t=1587640402;
+	bh=FfGgO//Hz19mrDtPoJ6vrHbrhqAkS65CHgAzHtl1ZiY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ozyWKWhYJLF596w42vc3XznqyABbQ18+fJ9Ep3HK6xNewc4n/HFn94PgV8eBqMoT3
-	 MOvzIHCb+I7Rao9lyPSJ4X8HYqLy04OA8RBSUAS0Mm65SuYUezNKQhmFo+q6fciOMD
-	 zkKB7hswV3Z/0fxekAVuqdmb9G0K9qvPrbAwtOV8=
+	b=HBHGo3Mu9pqtS87CqFmJb+k26TnADmctDPUY81Ufpyo4ArGaKTvZ86oZkj0E3k8qK
+	 jWTouCAP8vI2QlIZ7z+sCfJrUeB/EPUf7fFYCjDgPYlg/ADHCtZIesz7ob/zdQMPt2
+	 W1dIVRSxsYfzq9JQ8fbBKzm7rQqCor0VU6ejUS84=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B438EF800FF;
-	Thu, 23 Apr 2020 13:10:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80D50F8028D;
+	Thu, 23 Apr 2020 13:10:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 99CEFF80279; Thu, 23 Apr 2020 13:10:40 +0200 (CEST)
+ id D6830F80228; Thu, 23 Apr 2020 13:10:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,33 +33,33 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 68ED0F8014A
- for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 13:10:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68ED0F8014A
-IronPort-SDR: HjTZy//hRuXvvRepcmDxPrluZZfJvtFjZr9JWU2ygsXFH+S4o7WL+1eTazGzRZlw0QEbzDyV8I
- osTA+OmQilrw==
+ by alsa1.perex.cz (Postfix) with ESMTPS id B8C54F801EC
+ for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 13:10:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8C54F801EC
+IronPort-SDR: lrg+2QGF0pdVTw4wlTXb54XIJP1sMTDK4b9w1TW/TZzEir5U42P3Mx3uMrUjEigLHSpVqwKfZP
+ U7Uc6qORL3gw==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2020 04:10:29 -0700
-IronPort-SDR: VjtBRYMfp0uootdjBaCeS+aD6ILA9dudHXOCNLc2BwJQVad4oRxNrljIVZ3591J01FHfCDmYfh
- niCwC71LcmvQ==
+ 23 Apr 2020 04:10:32 -0700
+IronPort-SDR: 6j7YhQKJg7YFh/lCa12eu/rhvzER2bwFDjhgisDZ4MGP+ajd9Plgn8T74rKD5qqvVzJ3sY7nI/
+ lcckU91cDPNQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,307,1583222400"; d="scan'208";a="247726321"
+X-IronPort-AV: E=Sophos;i="5.73,307,1583222400"; d="scan'208";a="247726328"
 Received: from mgorski-all-series.igk.intel.com ([10.237.149.201])
- by fmsmga008.fm.intel.com with ESMTP; 23 Apr 2020 04:10:28 -0700
+ by fmsmga008.fm.intel.com with ESMTP; 23 Apr 2020 04:10:30 -0700
 From: Mateusz Gorski <mateusz.gorski@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v3 1/3] ASoC: Intel: Skylake: Add alternative topology binary
- name
-Date: Thu, 23 Apr 2020 13:11:46 +0200
-Message-Id: <20200423111148.6977-2-mateusz.gorski@linux.intel.com>
+Subject: [PATCH v3 2/3] ASoC: Intel: Multiple I/O PCM format support for pipe
+Date: Thu, 23 Apr 2020 13:11:47 +0200
+Message-Id: <20200423111148.6977-3-mateusz.gorski@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200423111148.6977-1-mateusz.gorski@linux.intel.com>
 References: <20200423111148.6977-1-mateusz.gorski@linux.intel.com>
-Cc: Mateusz Gorski <mateusz.gorski@linux.intel.com>, cezary.rojewski@intel.com,
- broonie@kernel.org, tiwai@suse.com, pierre-louis.bossart@linux.intel.com
+Cc: cezary.rojewski@intel.com, Pavan K <pavan.k.s@intel.com>, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com, broonie@kernel.org,
+ Mateusz Gorski <mateusz.gorski@linux.intel.com>, S@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,70 +75,195 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add alternative topology binary file name based on used machine driver
-and fallback to use this name after failed attempt to load topology file
-with name based on NHLT.
-This change addresses multiple issues with current mechanism, for
-example - there are devices without NHLT table, and that currently
-results in tplg_name being empty.
+For pipes supporting multiple input/output formats, kcontrol is
+created and selection of pipe input and output configuration
+is done based on control set.
+
+If more than one configuration is supported, then this patch
+allows user to select configuration of choice
+using amixer settings.
 
 Signed-off-by: Mateusz Gorski <mateusz.gorski@linux.intel.com>
+Signed-off-by: S, Pavan K <pavan.k.s@intel.com>
 ---
 
 Changes in v2:
-- added <sound/soc-acpi.h> include
-- machine driver name is now read from different field
+--none--
 
 Changes in v3:
-- deleted additional newline after component_load:
+- reordered declarations in skl_tplg_is_multi_fmt 
 
- sound/soc/intel/skylake/skl-topology.c | 19 +++++++++++++++++--
- 1 file changed, 17 insertions(+), 2 deletions(-)
+ include/uapi/sound/skl-tplg-interface.h |   1 +
+ sound/soc/intel/skylake/skl-topology.c  | 110 ++++++++++++++++++++++++
+ sound/soc/intel/skylake/skl-topology.h  |   1 +
+ 3 files changed, 112 insertions(+)
 
+diff --git a/include/uapi/sound/skl-tplg-interface.h b/include/uapi/sound/skl-tplg-interface.h
+index 9eee32f5e407..f2711186c81f 100644
+--- a/include/uapi/sound/skl-tplg-interface.h
++++ b/include/uapi/sound/skl-tplg-interface.h
+@@ -18,6 +18,7 @@
+  */
+ #define SKL_CONTROL_TYPE_BYTE_TLV	0x100
+ #define SKL_CONTROL_TYPE_MIC_SELECT	0x102
++#define SKL_CONTROL_TYPE_MULTI_IO_SELECT	0x103
+ 
+ #define HDA_SST_CFG_MAX	900 /* size of copier cfg*/
+ #define MAX_IN_QUEUE 8
 diff --git a/sound/soc/intel/skylake/skl-topology.c b/sound/soc/intel/skylake/skl-topology.c
-index 69cd7a81bf2a..34ddbdc2b32a 100644
+index 34ddbdc2b32a..1794c5838d35 100644
 --- a/sound/soc/intel/skylake/skl-topology.c
 +++ b/sound/soc/intel/skylake/skl-topology.c
-@@ -14,6 +14,7 @@
- #include <linux/uuid.h>
- #include <sound/intel-nhlt.h>
- #include <sound/soc.h>
-+#include <sound/soc-acpi.h>
- #include <sound/soc-topology.h>
- #include <uapi/sound/snd_sst_tokens.h>
- #include <uapi/sound/skl-tplg-interface.h>
-@@ -3565,8 +3566,20 @@ int skl_tplg_init(struct snd_soc_component *component, struct hdac_bus *bus)
+@@ -579,6 +579,38 @@ static int skl_tplg_unload_pipe_modules(struct skl_dev *skl,
+ 	return ret;
+ }
  
- 	ret = request_firmware(&fw, skl->tplg_name, bus->dev);
- 	if (ret < 0) {
--		dev_info(bus->dev, "tplg fw %s load failed with %d, falling back to dfw_sst.bin",
--				skl->tplg_name, ret);
-+		char alt_tplg_name[64];
++static bool skl_tplg_is_multi_fmt(struct skl_dev *skl, struct skl_pipe *pipe)
++{
++	struct skl_pipe_fmt *cur_fmt;
++	struct skl_pipe_fmt *next_fmt;
++	int i;
 +
-+		snprintf(alt_tplg_name, sizeof(alt_tplg_name), "%s-tplg.bin",
-+				skl->mach->drv_name);
-+		dev_info(bus->dev, "tplg fw %s load failed with %d, trying alternative tplg name %s",
-+				skl->tplg_name, ret, alt_tplg_name);
++	if (pipe->nr_cfgs <= 1)
++		return false;
 +
-+		ret = request_firmware(&fw, alt_tplg_name, bus->dev);
-+		if (!ret)
-+			goto component_load;
++	if (pipe->conn_type != SKL_PIPE_CONN_TYPE_FE)
++		return true;
 +
-+		dev_info(bus->dev, "tplg %s failed with %d, falling back to dfw_sst.bin",
-+				alt_tplg_name, ret);
++	for (i = 0; i < pipe->nr_cfgs - 1; i++) {
++		if (pipe->direction == SNDRV_PCM_STREAM_PLAYBACK) {
++			cur_fmt = &pipe->configs[i].out_fmt;
++			next_fmt = &pipe->configs[i+1].out_fmt;
++		} else {
++			cur_fmt = &pipe->configs[i].in_fmt;
++			next_fmt = &pipe->configs[i+1].in_fmt;
++		}
 +
- 		ret = request_firmware(&fw, "dfw_sst.bin", bus->dev);
- 		if (ret < 0) {
- 			dev_err(bus->dev, "Fallback tplg fw %s load failed with %d\n",
-@@ -3575,6 +3588,8 @@ int skl_tplg_init(struct snd_soc_component *component, struct hdac_bus *bus)
- 		}
++		if (!CHECK_HW_PARAMS(cur_fmt->channels, cur_fmt->freq,
++				     cur_fmt->bps,
++				     next_fmt->channels,
++				     next_fmt->freq,
++				     next_fmt->bps))
++			return true;
++	}
++
++	return false;
++}
++
+ /*
+  * Here, we select pipe format based on the pipe type and pipe
+  * direction to determine the current config index for the pipeline.
+@@ -601,6 +633,14 @@ skl_tplg_get_pipe_config(struct skl_dev *skl, struct skl_module_cfg *mconfig)
+ 		return 0;
  	}
  
-+component_load:
++	if (skl_tplg_is_multi_fmt(skl, pipe)) {
++		pipe->cur_config_idx = pipe->pipe_config_idx;
++		pipe->memory_pages = pconfig->mem_pages;
++		dev_dbg(skl->dev, "found pipe config idx:%d\n",
++				pipe->cur_config_idx);
++		return 0;
++	}
 +
- 	/*
- 	 * The complete tplg for SKL is loaded as index 0, we don't use
- 	 * any other index
+ 	if (pipe->conn_type == SKL_PIPE_CONN_TYPE_NONE) {
+ 		dev_dbg(skl->dev, "No conn_type detected, take 0th config\n");
+ 		pipe->cur_config_idx = 0;
+@@ -1315,6 +1355,71 @@ static int skl_tplg_pga_event(struct snd_soc_dapm_widget *w,
+ 	return 0;
+ }
+ 
++static int skl_tplg_multi_config_get(struct snd_kcontrol *kcontrol,
++			struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component =
++		snd_soc_kcontrol_component(kcontrol);
++	struct hdac_bus *bus = snd_soc_component_get_drvdata(component);
++	struct skl_dev *skl = bus_to_skl(bus);
++	struct skl_pipeline *ppl;
++	struct skl_pipe *pipe = NULL;
++	u32 *pipe_id;
++	struct soc_enum *ec = (struct soc_enum *)kcontrol->private_value;
++
++	if (!ec)
++		return -EINVAL;
++
++	pipe_id = ec->dobj.private;
++
++	list_for_each_entry(ppl, &skl->ppl_list, node) {
++		if (ppl->pipe->ppl_id == *pipe_id) {
++			pipe = ppl->pipe;
++			break;
++		}
++	}
++	if (!pipe)
++		return -EIO;
++
++	ucontrol->value.enumerated.item[0]  =  pipe->pipe_config_idx;
++
++	return 0;
++}
++
++static int skl_tplg_multi_config_set(struct snd_kcontrol *kcontrol,
++			struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component =
++		snd_soc_kcontrol_component(kcontrol);
++	struct hdac_bus *bus = snd_soc_component_get_drvdata(component);
++	struct skl_dev *skl = bus_to_skl(bus);
++	struct skl_pipeline *ppl;
++	struct skl_pipe *pipe = NULL;
++	struct soc_enum *ec = (struct soc_enum *)kcontrol->private_value;
++	u32 *pipe_id;
++
++	if (!ec)
++		return -EINVAL;
++
++	if (ucontrol->value.enumerated.item[0] > ec->items)
++		return -EINVAL;
++
++	pipe_id = ec->dobj.private;
++
++	list_for_each_entry(ppl, &skl->ppl_list, node) {
++		if (ppl->pipe->ppl_id == *pipe_id) {
++			pipe = ppl->pipe;
++			break;
++		}
++	}
++	if (!pipe)
++		return -EIO;
++
++	pipe->pipe_config_idx = ucontrol->value.enumerated.item[0];
++
++	return 0;
++}
++
+ static int skl_tplg_tlv_control_get(struct snd_kcontrol *kcontrol,
+ 			unsigned int __user *data, unsigned int size)
+ {
+@@ -1854,6 +1959,11 @@ static const struct snd_soc_tplg_kcontrol_ops skl_tplg_kcontrol_ops[] = {
+ 		.get = skl_tplg_mic_control_get,
+ 		.put = skl_tplg_mic_control_set,
+ 	},
++	{
++		.id = SKL_CONTROL_TYPE_MULTI_IO_SELECT,
++		.get = skl_tplg_multi_config_get,
++		.put = skl_tplg_multi_config_set,
++	},
+ };
+ 
+ static int skl_tplg_fill_pipe_cfg(struct device *dev,
+diff --git a/sound/soc/intel/skylake/skl-topology.h b/sound/soc/intel/skylake/skl-topology.h
+index e967800dbb62..06576147cc29 100644
+--- a/sound/soc/intel/skylake/skl-topology.h
++++ b/sound/soc/intel/skylake/skl-topology.h
+@@ -306,6 +306,7 @@ struct skl_pipe {
+ 	struct skl_path_config configs[SKL_MAX_PATH_CONFIGS];
+ 	struct list_head w_list;
+ 	bool passthru;
++	u32 pipe_config_idx;
+ };
+ 
+ enum skl_module_state {
 -- 
 2.17.1
 

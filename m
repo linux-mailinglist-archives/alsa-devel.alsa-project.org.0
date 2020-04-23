@@ -2,75 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 080A51B6081
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 18:15:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E5C21B6105
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 18:33:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 91A9511C;
-	Thu, 23 Apr 2020 18:14:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91A9511C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 30B7716AF;
+	Thu, 23 Apr 2020 18:32:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30B7716AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587658505;
-	bh=vDHVx4FW0XNnRYZbKBU9+aaxnz2beeSbDiBL6DfrOvE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1587659617;
+	bh=W3uD2gwryLuskQHLPCX8Akn/QB77A4eru/o/IX4cj2s=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uJrc8zsN9G7TKH+DzJrNTfyBvYrd3MASulsbnd+OFORBl2CZCr29NVQyAo0Mbr7KL
-	 NNigxh2Tlq7sjT+wB2reo0heWr4Eg/9YEWgbFYtsKhnALSFnOsD/4EWmsp4lNy82qs
-	 8mQl6ru2WX0cg3UU+pscvXAtjnm0yOT1PGEf7yOU=
+	b=E5znqr0axO2aSUlTp79wQmsueE5CRowTYnlqvX6FKuM1bnngNiiXDYRyc/VZcXDVB
+	 KN8P8hkYGaKroXyURjfpRneCkgADy81VCip65CBbP7KAi6oYB9SNey8NAQIKnMnB5w
+	 w6J3mh6JDUcCowuPnAx+9CH7b/fS1Xd7ZT6YSw2I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7CF91F800FF;
-	Thu, 23 Apr 2020 18:13:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2F730F8029A;
+	Thu, 23 Apr 2020 18:30:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E5F44F801EC; Thu, 23 Apr 2020 18:13:19 +0200 (CEST)
+ id 46200F8028B; Thu, 23 Apr 2020 18:30:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 194E3F800F2
- for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 18:13:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 194E3F800F2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GZK12FzW"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D521520728;
- Thu, 23 Apr 2020 16:13:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587658390;
- bh=vDHVx4FW0XNnRYZbKBU9+aaxnz2beeSbDiBL6DfrOvE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=GZK12FzWq1ySsNfwDW1hsUp6FVLN/UCi7+FgM54YUEcI03ERqBpBQU4FXN8pamH4f
- nhgj09ezW1gjVunuu7PLK/XmwFnMWjZ2YIBFS/CEQWyYsp5uRMFHMZo3lB6idW0inu
- iu1fjHVSi9t6J9LEsnAZDOpvTGHVHlcw09uLgJC4=
-Date: Thu, 23 Apr 2020 17:13:07 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 55401F800FF
+ for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 18:30:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55401F800FF
+IronPort-SDR: WZDsYOkL1ZeR3a+wCHxv0/X2nwkf3LkkSee30v7qtUb+6ktt67qx4ZEWOiMcB98+c5b8q1wh6P
+ Gqp9Fwy3zunQ==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2020 09:30:08 -0700
+IronPort-SDR: uHiq6D+GWhLPsWP5TaI/Afuzmd3GMTkOI9Fch2IrixFERvxXLJ1sTQwJOWwJsPLeSQ61e0x08f
+ KDEs1rjWj2Gw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,307,1583222400"; d="scan'208";a="256040300"
+Received: from lsatpatx-mobl.gar.corp.intel.com (HELO [10.251.150.156])
+ ([10.251.150.156])
+ by orsmga003.jf.intel.com with ESMTP; 23 Apr 2020 09:30:08 -0700
 Subject: Re: ASoC driver names
-Message-ID: <20200423161307.GP4808@sirena.org.uk>
+To: Jaroslav Kysela <perex@perex.cz>, Mark Brown <broonie@kernel.org>
 References: <c57f21dc-412d-3057-6150-b96d96a20727@perex.cz>
  <20200423110437.GF4808@sirena.org.uk>
  <e31a20e6-91ab-2f30-f496-064bea07762a@perex.cz>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <7b44a625-fe88-5eac-280f-daa15a7c83dc@linux.intel.com>
+Date: Thu, 23 Apr 2020 11:17:30 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="jh06fhy6YTawvwPV"
-Content-Disposition: inline
 In-Reply-To: <e31a20e6-91ab-2f30-f496-064bea07762a@perex.cz>
-X-Cookie: This unit... must... survive.
-User-Agent: Mutt/1.10.1 (2018-07-13)
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Cc: Takashi Iwai <tiwai@suse.de>,
  ALSA development <alsa-devel@alsa-project.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Pierre-louis Bossart <pierre-louis.bossart@linux.intel.com>
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,74 +84,48 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---jh06fhy6YTawvwPV
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Thu, Apr 23, 2020 at 01:19:31PM +0200, Jaroslav Kysela wrote:
-> Dne 23. 04. 20 v 13:04 Mark Brown napsal(a):
-
-> > With ASoC systems there is no clear controller - you've got a bunch of
-> > different components, usually connected by separate buses, and it's not
-> > super obvious what if anything should be the singular name that gets
-> > picked for some grouping of devices.  The whole point of the subsystem
-> > is to glue a bunch of independent devices together, we've generally
-> > picked that glue as the driver name.
-
-> I refer mostly the top-level code which creates and registers the ASoC card structure.
-> So it seems the platform name for many ASoC drivers should be there.
-
-At that level you could just say ASoC...  bear in mind that a huge
-proportion of cards are going to come out as one of the generic cards
-(especially on DT platforms where the firmware situation is less
-shambolic) which I'm not sure is super useful for grouping things.
-
-> > Without knowing what you're actually proposing it's hard to know, and
-> > there is the risk of userspace breakage here when you change things
-> > people are relying on.
 
 > +#ifdef CONFIG_SND_SOC_DRIVER_NAMES
-> +       card->driver_name = "SDM845";
-> +#endif
+> +       if (!card->driver_name) {
+> +               dev_warn(card->dev,
+> +                        "ASoC: Card driver does not set the driver name\n");
+> +               return -EINVAL;
+> +       }
 
-OK, so really I think your actual need here sounds like reference
-platforms here.  There's obviously some overlap with drivers but only
-for the things which use DPCM and ideally we'll be able to move these
-things over to drivers going forwards which would mean that you'd have
-the same problem again.
+I am all for Jaroslav's proposal of making the driver name the basis for 
+UCM identification. we've been working on this since e.g. the addition 
+of the sof- prefix creates a driver name that makes no sense after a 
+truncation of the card name to 16 characters [1] [2] - still WIP.
 
-> >>    The goal is to group the related UCM2 configurations and do the required
-> >> split inside the UCM2 top-level configuration file based on card components
-> >> string or other card identificators (related to the driver).
+Making the card name more user-friendly is also a good thing, there's 
+also a nice hidden feature when the card name contains spaces, the last 
+word - typically the codec - is used for the card ID.
 
-> > This sounds like you either want some enumeration of the card components
-> > or perhaps you're looking for some for some indication of the reference
-> > design that an individual board is based off so you can have a generic
-> > configuration for that reference design and then override bits of it?
+But reporting an error when the driver name is not set is a bit extreme 
+and would break all Intel boards. I think we want to encourage people to 
+move to the suggested solution, but do we want to break existing setups?
+I must admit I also don't see a generic solution when the card is 
+generated from a DT description, it's not straightforward to translate 
+parsed elements into human-readable ones.
 
-> I'd like to group the related configuration files and it seems that the driver
-> name field in the CTL info structure is misused (duplicate information).
+While I am at it, I think we should probably avoid using the DMI 
+information for the long card name. It's just awful. It might be a 
+better idea to add it in the component strings (if it fits) so that UCM 
+can use it internally, but it's really horrible. Even with the clean-ups 
+suggested by Jaroslav I ended-up with this horror of a long name on my 
+test device:
 
-For the generic cards you're not going to get a useful grouping based on
-the name of the machine driver, they are flexible enough that there can
-be minimal similarities in the underlying hardware or what it looks like
-to control in userspace.  You are likely to be able to get useful
-groupings based on things like the CODEC or the SoC from them but the
-machine driver name isn't going to help much.
+root@Zotac:~# cat /proc/asound/cards
+  0 [rt5640         ]: SOF - sof-bytcht rt5640
+                       ZOTAC-XXXXXX-XX-CherryTrailFFD
 
---jh06fhy6YTawvwPV
-Content-Type: application/pgp-signature; name="signature.asc"
+If we really wanted to be user-friendly we'd use something like
 
------BEGIN PGP SIGNATURE-----
+"SOF card for Baytrail/Cherrytrail devices with Realtek RT5640 codec"
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6hvpIACgkQJNaLcl1U
-h9CayQf9FL8v7yIavrfZo0jCEKe6B/9Ds9FikDgIFXkbddydZovau7ePkIscX7VI
-uCQz3u9A7f0/OAWKufDqiSwHFC/Pxx/fhIjFdvhbhWNDts8pbgs24736TqkXCoDg
-RNcATbXGwrcPIIxuuOhLZkhNEpqil4khSVqHwC3VhZOH0pdwvpqf8XksekoarLH9
-oFQx1i7nD6AtV6vsX6r/aFbhmroXbGe/Rl4thZziPl0sHMfjMeN/VsGkE0HDCPTm
-Cy8VONsAjywDn45WbRBT9LtrzmtvAFcXePuyznOUX02PeExraieJ+d39txbO3BFC
-IkdWTy9Ndo7rwTJK8hV2TX3j4Gdprg==
-=f/+U
------END PGP SIGNATURE-----
+and apply the same pattern for all machine drivers.
 
---jh06fhy6YTawvwPV--
+[1] https://github.com/thesofproject/linux/pull/2021
+
+[2] 
+https://github.com/alsa-project/alsa-ucm-conf/pull/20/commits/4cc7fe4493c237253cb43cf7d33c32ec975a0691

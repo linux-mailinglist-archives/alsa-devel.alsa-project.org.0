@@ -2,71 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6860F1B6A0D
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Apr 2020 01:40:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ACD21B63EB
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Apr 2020 20:42:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0814B16A1;
-	Fri, 24 Apr 2020 01:40:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0814B16A1
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6FC9169B;
+	Thu, 23 Apr 2020 20:42:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6FC9169B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587685259;
-	bh=Vrj3BYjYF/kyih9rBHaVvbeZbNdvfzNx2kVtQzMfMTk=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1587667370;
+	bh=oYkwurOVZg81RslFyHFFzzH5Q8hJevd0/981yqPwwCQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jgA7kwIhL5mSvyMK9CGrQMs8sSdVZ5hHTWcZNf8//aKc7c4naKZQEsAVyexvcfxaS
-	 adE2M/SOxSwerHr1XA3W4ydx9VMcC2QtMvF476XTf38DfvUECUaFpUY2szTmr/2v3K
-	 6HvPn8m145lnhigSr3rgmm6flwlZKodK91HnoJ90=
+	b=L0SER9xkKLK+zKHCygAKKeZEELsWwhofyM/WLTUnSVZ/cZWH0ZXYYJ65++Tnxj5xi
+	 uoi1ZOd125O6HAlpfgNjCCUj01A7+Ou8c7t92uzEQjaHWRhpH9nsVa2Pd4vYscbkWA
+	 nxDYLEPZ4OSlfGpHKuRKlSMgcaIPcgCKktvqZGs0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69231F80228;
-	Fri, 24 Apr 2020 01:38:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C34DEF800F2;
+	Thu, 23 Apr 2020 20:41:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4A5B9F801ED; Fri, 24 Apr 2020 01:38:30 +0200 (CEST)
+ id B5BD5F801EC; Thu, 23 Apr 2020 20:41:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_03_06,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id AA106F800F2
+ for <alsa-devel@alsa-project.org>; Thu, 23 Apr 2020 20:41:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA106F800F2
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="NCcOv6Py"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8630DF80121
- for <alsa-devel@alsa-project.org>; Fri, 24 Apr 2020 01:38:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8630DF80121
-IronPort-SDR: DkoR7+B1mHM5apvILSF3HWN4x506v+iGhhAzJd7zAl+YAauCpTn5n3UZ3QVJcgo1AyL6wf+CKK
- ofpAi06sKixw==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2020 16:38:24 -0700
-IronPort-SDR: JczsA5XDcOXDmLpSbuv/mm0fP/FHxKPKzFct8HL/BBI1Nfp0n7q8K4RMs/nTu6IzuwQ7UgcD1f
- Y+NJFQ6eR1/A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,309,1583222400"; d="scan'208";a="280613634"
-Received: from rguevarr-mobl1.amr.corp.intel.com (HELO [10.251.131.195])
- ([10.251.131.195])
- by fmsmga004.fm.intel.com with ESMTP; 23 Apr 2020 16:38:23 -0700
-Subject: Re: [PATCH 01/17] ASoC: soc-dai: add soc_dai_err()
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Mark Brown <broonie@kernel.org>
-References: <871rofunaq.wl-kuninori.morimoto.gx@renesas.com>
- <87zhb3t8p5.wl-kuninori.morimoto.gx@renesas.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <bf6b80e9-79ef-eddd-29ec-fc54bcac37db@linux.intel.com>
-Date: Thu, 23 Apr 2020 13:33:35 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ by mail.kernel.org (Postfix) with ESMTPSA id 8D91820767;
+ Thu, 23 Apr 2020 18:40:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1587667259;
+ bh=oYkwurOVZg81RslFyHFFzzH5Q8hJevd0/981yqPwwCQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=NCcOv6PyWvahW8ekC/G3WaPxUp0eGL1Va+hSJJNfaT1mpa7KF49WbXNWOsnWhxGGU
+ psNkL0YMu1k8o/25LJBk4RiW6K5qyLBSNeae3/6zVuwhQ6gJtErU1/VPywysERcB+o
+ UNSn1RZhBeNy2Q30zpwBqKTK7JchAO/DyKGZSpaU=
+Date: Thu, 23 Apr 2020 19:40:56 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: ASoC driver names
+Message-ID: <20200423184056.GS4808@sirena.org.uk>
+References: <c57f21dc-412d-3057-6150-b96d96a20727@perex.cz>
+ <20200423110437.GF4808@sirena.org.uk>
+ <e31a20e6-91ab-2f30-f496-064bea07762a@perex.cz>
+ <7b44a625-fe88-5eac-280f-daa15a7c83dc@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <87zhb3t8p5.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="Er1qpsOqk0l6oMce"
+Content-Disposition: inline
+In-Reply-To: <7b44a625-fe88-5eac-280f-daa15a7c83dc@linux.intel.com>
+X-Cookie: This unit... must... survive.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Takashi Iwai <tiwai@suse.de>,
+ ALSA development <alsa-devel@alsa-project.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,47 +87,85 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--Er1qpsOqk0l6oMce
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 4/22/20 6:13 PM, Kuninori Morimoto wrote:
-> 
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> 
-> At soc-dai.c, it is good idea to indicate error function and
-> its component name if there was error.
-> This patch adds soc_dai_err() for it.
+On Thu, Apr 23, 2020 at 11:17:30AM -0500, Pierre-Louis Bossart wrote:
 
-the code below adds soc_dai_ret(), is this a typo?
+> I am all for Jaroslav's proposal of making the driver name the basis for UCM
+> identification. we've been working on this since e.g. the addition of the
+> sof- prefix creates a driver name that makes no sense after a truncation of
+> the card name to 16 characters [1] [2] - still WIP.
 
-> 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
->   sound/soc/soc-dai.c | 155 +++++++++++++++++++++++++++-----------------
->   1 file changed, 96 insertions(+), 59 deletions(-)
-> 
-> diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
-> index 31c41559034b..d591b3bd8b99 100644
-> --- a/sound/soc/soc-dai.c
-> +++ b/sound/soc/soc-dai.c
-> @@ -9,6 +9,24 @@
->   #include <sound/soc.h>
->   #include <sound/soc-dai.h>
->   
-> +#define soc_dai_ret(dai, ret) _soc_dai_ret(dai, __func__, ret)
-> +static inline int _soc_dai_ret(struct snd_soc_dai *dai,
-> +			       const char *func, int ret)
-> +{
-> +	switch (ret) {
-> +	case -EPROBE_DEFER:
-> +	case -ENOTSUPP:
-> +	case 0:
-> +		break;
-> +	default:
-> +		dev_err(dai->dev,
-> +			"ASoC: error at %s on %s: %d\n",
-> +			func, dai->name, ret);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
+> Making the card name more user-friendly is also a good thing, there's also a
+> nice hidden feature when the card name contains spaces, the last word -
+> typically the codec - is used for the card ID.
 
+> But reporting an error when the driver name is not set is a bit extreme and
+> would break all Intel boards. I think we want to encourage people to move to
+> the suggested solution, but do we want to break existing setups?
+
+That's an issue, yes - it makes me think we need a really strong case to
+change things.
+
+> I must admit I also don't see a generic solution when the card is generated
+> from a DT description, it's not straightforward to translate parsed elements
+> into human-readable ones.
+
+We do let people just fill in an arbatrary string in the generic cards,
+not actually checked how many do something sensible though.  This is a
+big worry for me, if we're solving the problem by doing something that
+doesn't work for generic cards that means that as the generic cards get
+better and we need fewer custom cards whatever issues the current
+situation causes in userspace will get worse.  For them the commonality
+is likely to come from one or more of the components in the card and the
+card itself isn't really interesting.
+
+My instinct is that the machine driver name is being used as a
+proxy for something else here and that if we need to change the ABI
+perhaps we need to extend it rather than trying to shoehorn things into
+what's there.
+
+> While I am at it, I think we should probably avoid using the DMI information
+> for the long card name. It's just awful. It might be a better idea to add it
+> in the component strings (if it fits) so that UCM can use it internally, but
+> it's really horrible. Even with the clean-ups suggested by Jaroslav I
+> ended-up with this horror of a long name on my test device:
+
+> root@Zotac:~# cat /proc/asound/cards
+>  0 [rt5640         ]: SOF - sof-bytcht rt5640
+>                       ZOTAC-XXXXXX-XX-CherryTrailFFD
+
+I don't actually appear to have any DMI equipped systems with non-HDA
+sound cards but looking at the systems I have (a mix of Lenovo and Dell)
+they all have sensible display names in the DMI corresponding to the
+model name.  But yeah, outside of enterprise users nobody really pays
+attention to DMI so there's serious QoI issues in general.
+
+> If we really wanted to be user-friendly we'd use something like
+
+> "SOF card for Baytrail/Cherrytrail devices with Realtek RT5640 codec"
+
+> and apply the same pattern for all machine drivers.
+
+It kind of depends on how well filled in the DMI stuff is - if it's
+badly filled in it's obviously not useful but if you have a clear model
+name it works fairly well and matches what a lot of Windows systems do.
+
+--Er1qpsOqk0l6oMce
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6h4TcACgkQJNaLcl1U
+h9DDBgf+IgTyCjP1WaMVWrGmx/woAXQzKj0krf+NXWFO/DMvQqdZZUI/Et4rqYuZ
+MwGEMM0i5IAWKkQJTy+2jXzg0qb3hgQH0rFG+BgX09fVAvg2cVzznSv251iVGvU1
+sdP+2lYR1zExWEZVBILwFYdGIsrl7v97COToQvqXJEXU+J0fDIhxzTV1A+L5naUN
+vRIbWnDAmsr1PGiU2MQTGAm6wjaQKI/vSQ55mR+Y8JvynKKs4CLmSA86CJRD3iCu
+QX/HY6zsKyovEUzxKHiw7SecSQ+fbrXtzp4RfoY7s2HWtkYZoqA+bUtBk9oSvHMm
+zKGZ45WuiKg3IXFG0ebefJXAE5B3yA==
+=OgZZ
+-----END PGP SIGNATURE-----
+
+--Er1qpsOqk0l6oMce--

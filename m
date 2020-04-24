@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F34501B6E2E
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Apr 2020 08:29:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C79DC1B6E30
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Apr 2020 08:30:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6165B1693;
-	Fri, 24 Apr 2020 08:29:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6165B1693
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79F711697;
+	Fri, 24 Apr 2020 08:29:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79F711697
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587709796;
-	bh=0sKTfX0R59E+J/xxNTbHYBdkkUaiAB5U5XXpSKNDRiU=;
+	s=default; t=1587709843;
+	bh=60/NAisSVtr4DJ8VnRTKD97woES3FGM0sTAB7umoUmc=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=J7ABVWViE58g3XO/kigX0U8SoNsUSKiFocNevQxrG/CquT0KOsAQvkZzgY7jHd1lS
-	 lj3HZaOrlbAF8dMp/BU8YPb5D93nB8fOY3Nl3jhC3JZbeV+DM3cAQ61c7ItqWMyvQB
-	 dYd27gMH6JbFMkgp6APDrkfb62HXhp33bsiccYeU=
+	b=l0FV9FroMumxu39SAt1v9jKtwMfTTfDN5NouGt65VXPiKrjgXgvm16RZ4kVBCWlmD
+	 nENELNbrZSh7zm4FOEJRqnezIKsifM6fISur1asDQ6g5INkktBrxNXk/YaAsz8qfd8
+	 nlylGXwXID9spP5Dnm0CYz/S3nau5VLdoQduDIKU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8ECD0F80121;
-	Fri, 24 Apr 2020 08:28:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20BDDF80116;
+	Fri, 24 Apr 2020 08:28:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 99C16F80142; Fri, 24 Apr 2020 08:28:10 +0200 (CEST)
+ id 01530F8021C; Fri, 24 Apr 2020 08:28:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -33,20 +33,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C603DF800BE
- for <alsa-devel@alsa-project.org>; Fri, 24 Apr 2020 08:28:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C603DF800BE
+ by alsa1.perex.cz (Postfix) with ESMTPS id B6075F801D9
+ for <alsa-devel@alsa-project.org>; Fri, 24 Apr 2020 08:28:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6075F801D9
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 46798ADCD;
- Fri, 24 Apr 2020 06:28:02 +0000 (UTC)
-Date: Fri, 24 Apr 2020 08:28:02 +0200
-Message-ID: <s5hk125tn2l.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id AA447ADCD;
+ Fri, 24 Apr 2020 06:28:17 +0000 (UTC)
+Date: Fri, 24 Apr 2020 08:28:18 +0200
+Message-ID: <s5himhptn25.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Alexander Tsoy <alexander@tsoy.me>
-Subject: Re: [PATCH 1/2] ALSA: usb-audio: Improve frames size computation
-In-Reply-To: <20200424022449.14972-1-alexander@tsoy.me>
+Subject: Re: [PATCH 2/2] ALSA: usb-audio: Remove async workaround for Scarlett
+ 2nd gen
+In-Reply-To: <20200424022449.14972-2-alexander@tsoy.me>
 References: <20200424022449.14972-1-alexander@tsoy.me>
+ <20200424022449.14972-2-alexander@tsoy.me>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -69,25 +71,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 24 Apr 2020 04:24:48 +0200,
+On Fri, 24 Apr 2020 04:24:49 +0200,
 Alexander Tsoy wrote:
 > 
-> For computation of the the next frame size current value of fs/fps and
-> accumulated fractional parts of fs/fps are used, where values are stored
-> in Q16.16 format. This is quite natural for computing frame size for
-> asynchronous endpoints driven by explicit feedback, since in this case
-> fs/fps is a value provided by the feedback endpoint and it's already in
-> the Q format. If an error is accumulated over time, the device can
-> adjust fs/fps value to prevent buffer overruns/underruns.
-> 
-> But for synchronous endpoints the accuracy provided by these computations
-> is not enough. Due to accumulated error the driver periodically produces
-> frames with incorrect size (+/- 1 audio sample).
-> 
-> This patch fixes this issue by implementing a different algorithm for
-> frame size computation. It is based on accumulating of the remainders
-> from division fs/fps and it doesn't accumulate errors over time. This
-> new method is enabled for synchronous and adaptive playback endpoints.
+> Frame size computation has been fixed and the workaround is no longer
+> needed.
 > 
 > Signed-off-by: Alexander Tsoy <alexander@tsoy.me>
 

@@ -2,71 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 575161B70F5
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Apr 2020 11:32:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2870F1B70F9
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Apr 2020 11:32:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B4A1616C2;
-	Fri, 24 Apr 2020 11:31:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4A1616C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id A02F916C3;
+	Fri, 24 Apr 2020 11:31:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A02F916C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587720722;
-	bh=A9fOLUh1XSzfMYBhpMPel7JQbD0JV6mCWHnkJzkpXvE=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1587720769;
+	bh=ClZZ+zNkpZtjl/C5ITekfMDtYhjvWj1JuDvsxQceVy8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RdIS15SyVkPDhHgyvu69/jNPXqwuVPrPGlnWtQ96dMg1FcMVgExli/pXj3waX5jJc
-	 FWMkwOzibmbebOpLfDxny/tp3Mq6A/ptyVeFfow7iCWe+nOA0fXG75yLj630NwR7wF
-	 7lRsvoyVR1IQxjNTiZjPGrWg+87ihDmUFzf9W4XE=
-Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5261F80117;
-	Fri, 24 Apr 2020 11:30:21 +0200 (CEST)
+	b=P8Z9TDMtWrvax8iiSXJey/CHHRWEJFZpIgPvBeMqXRhlljuqqnhPnHj7sJe88yHE5
+	 gJxSrm5PPz6rTZNny5VLGbwoeRNyBBpwpnofrn1cuHkhzZFgiQ70TOSp/j97zC6hlX
+	 EySq/wbX8AT58IGrMt6go67KHUNpjr5IRIy1EdtE=
+Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id D2FCDF801D9;
+	Fri, 24 Apr 2020 11:31:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E718DF80142; Fri, 24 Apr 2020 11:30:13 +0200 (CEST)
+ id 182E8F8021C; Fri, 24 Apr 2020 11:30:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B8765F801D9
+ for <alsa-devel@alsa-project.org>; Fri, 24 Apr 2020 11:30:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8765F801D9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="nuioZ6cr"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AEFE9F80117
- for <alsa-devel@alsa-project.org>; Fri, 24 Apr 2020 11:29:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AEFE9F80117
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=tsoy.me header.i=@tsoy.me
- header.b="LeaVYslt"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
- s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Content-Type:
- References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Reply-To:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
- :List-Post:List-Owner:List-Archive;
- bh=+uD+oaVYBQecOgujphxMIfmFbVVymF4SlPKPlRF1cMk=; b=LeaVYslts4hX/oe8+KjKOLRj3/
- 1iWo5atCVATGKGLZF3ClpgNDHATQv4vtkzhXqLabYEp8FZcONZG8htSbK3Gw9DfvpoGtcauOPvVfx
- 4isClO3ra/pMB/ttjhCHYMS5lMKEN2yiPN2dj3FLB22xa6CWnvowYMie+DqcgAZakA5I=;
-Received: from [2a00:1370:8125:3f98:890:f100:d37d:7ada] (helo=home)
- by puleglot.ru with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.92.3) (envelope-from <puleglot@puleglot.ru>)
- id 1jRueg-00023V-Da; Fri, 24 Apr 2020 12:29:54 +0300
-Message-ID: <a876d867496c2c58866a626430dd2f174f16c107.camel@tsoy.me>
-Subject: Re: [PATCH 1/2] ALSA: usb-audio: Improve frames size computation
-From: Alexander Tsoy <alexander@tsoy.me>
-To: Pavel Hofman <pavel.hofman@ivitera.com>, alsa-devel@alsa-project.org
-Date: Fri, 24 Apr 2020 12:29:53 +0300
-In-Reply-To: <11dca14b-39a7-635a-a62f-ea10f21aa697@ivitera.com>
-References: <20200424022449.14972-1-alexander@tsoy.me>
- <11dca14b-39a7-635a-a62f-ea10f21aa697@ivitera.com>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.34.4 
+ by mail.kernel.org (Postfix) with ESMTPSA id D7CB420736;
+ Fri, 24 Apr 2020 09:30:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1587720654;
+ bh=ClZZ+zNkpZtjl/C5ITekfMDtYhjvWj1JuDvsxQceVy8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=nuioZ6crqRqT6ywAgGFJTNzf14utCcTkooewPUyM2jbEvgCeVwaoHTt2kqGLc55Dk
+ HJdHGeWZJXe+SBkjS92Ji+6zGvpNeY3aVyCItYT9JfWiNiq8qnPyg5cTPV2PxRBv+j
+ rgtIjRsKC3RqF3FppSYVnvN+FEsaHzWo4xX24mQY=
+Date: Fri, 24 Apr 2020 10:30:51 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH 02/17] ASoC: soc-dai: don't overwide dai->driver->ops
+Message-ID: <20200424093051.GA5850@sirena.org.uk>
+References: <871rofunaq.wl-kuninori.morimoto.gx@renesas.com>
+ <87y2qnt8oy.wl-kuninori.morimoto.gx@renesas.com>
+ <20200423150933.GO4808@sirena.org.uk>
+ <874kt9u8qq.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Gregor Pintar <grpintar@gmail.com>,
- Roope Salmi <rpsalmi@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="YZ5djTAD1cGYuMQK"
+Content-Disposition: inline
+In-Reply-To: <874kt9u8qq.wl-kuninori.morimoto.gx@renesas.com>
+X-Cookie: Information is the inverse of entropy.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,107 +84,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-В Пт, 24/04/2020 в 11:19 +0200, Pavel Hofman пишет:
-> Dne 24. 04. 20 v 4:24 Alexander Tsoy napsal(a):
-> > For computation of the the next frame size current value of fs/fps
-> > and
-> > accumulated fractional parts of fs/fps are used, where values are
-> > stored
-> > in Q16.16 format. This is quite natural for computing frame size
-> > for
-> > asynchronous endpoints driven by explicit feedback, since in this
-> > case
-> > fs/fps is a value provided by the feedback endpoint and it's
-> > already in
-> > the Q format. If an error is accumulated over time, the device can
-> > adjust fs/fps value to prevent buffer overruns/underruns.
-> > 
-> > But for synchronous endpoints the accuracy provided by these
-> > computations
-> > is not enough. Due to accumulated error the driver periodically
-> > produces
-> > frames with incorrect size (+/- 1 audio sample).
-> > 
-> > This patch fixes this issue by implementing a different algorithm
-> > for
-> > frame size computation. It is based on accumulating of the
-> > remainders
-> > from division fs/fps and it doesn't accumulate errors over time.
-> > This
-> > new method is enabled for synchronous and adaptive playback
-> > endpoints.
-> > 
-> > Signed-off-by: Alexander Tsoy <alexander@tsoy.me>
-> > ---
-> >  sound/usb/card.h     |  4 ++++
-> >  sound/usb/endpoint.c | 43 ++++++++++++++++++++++++++++++++++++++
-> > -----
-> >  sound/usb/endpoint.h |  1 +
-> >  sound/usb/pcm.c      |  2 ++
-> >  4 files changed, 45 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/sound/usb/card.h b/sound/usb/card.h
-> > index 395403a2d33f..820e564656ed 100644
-> > --- a/sound/usb/card.h
-> > +++ b/sound/usb/card.h
-> > @@ -84,6 +84,10 @@ struct snd_usb_endpoint {
-> >  	dma_addr_t sync_dma;		/* DMA address of syncbuf
-> > */
-> >  
-> >  	unsigned int pipe;		/* the data i/o pipe */
-> > +	unsigned int framesize[2];	/* small/large frame sizes in
-> > samples */
-> > +	unsigned int sample_rem;	/* remainder from division fs/fps
-> > */
-> > +	unsigned int sample_accum;	/* sample accumulator */
-> > +	unsigned int fps;		/* frames per second */
-> >  	unsigned int freqn;		/* nominal sampling rate in fs/fps
-> > in Q16.16 format */
-> >  	unsigned int freqm;		/* momentary sampling rate in
-> > fs/fps in Q16.16 format */
-> >  	int	   freqshift;		/* how much to shift the feedback
-> > value to get Q16.16 */
-> > diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
-> > index 4a9a2f6ef5a4..d8dc7cb56d43 100644
-> > --- a/sound/usb/endpoint.c
-> > +++ b/sound/usb/endpoint.c
-> > @@ -124,12 +124,12 @@ int
-> > snd_usb_endpoint_implicit_feedback_sink(struct snd_usb_endpoint
-> > *ep)
-> >  
-> >  /*
-> >   * For streaming based on information derived from sync endpoints,
-> > - * prepare_outbound_urb_sizes() will call next_packet_size() to
-> > + * prepare_outbound_urb_sizes() will call slave_next_packet_size()
-> > to
-> >   * determine the number of samples to be sent in the next packet.
-> 
-> Please should not this read
-> 
-> "For streaming based on information derived from async endpoints,"
-> 
-> or
-> 
-> "For streaming based on information derived from sync-master
-> endpoints,"?
 
-"sync endpoints" actually means "feedback endpoints" here. This is the
-terminology used by the driver. So it is not the type of
-synchronization of the endpoint for which this function is being
-called. :)
+--YZ5djTAD1cGYuMQK
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Probably comment I made for snd_usb_endpoint_next_packet_size() is
-slightly inaccurate, because this function will be also used for
-asynchronous endpoints in the case feedback endpoint is not configured
-for some reason.
+On Fri, Apr 24, 2020 at 07:39:58AM +0900, Kuninori Morimoto wrote:
+> > > From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-> 
-> Because the next method says:
-> 
-> For adaptive and synchronous endpoints,
-> prepare_outbound_urb_sizes()...
-> 
-> Thanks for the great patch,
-> 
-> Pavel.
+> > > Current ASoC overwides dai->driver->ops if it was NULL.
+> > > But, it is not good idea, because dai->driver might be reused
+> > > when modprobe/rmmod or bind/unbind, etc.
 
+> > This is fine but it's not a correctness issue since we're always filling
+> > the same value in - the big issue with putting stuff in structures is
+> > when you end up using the same struct for two different different things
+> > so you fill different values in.
+
+> I see.
+> But all my remaining patches are based on this patch,
+> and rebase without it seems very difficult.
+
+> So, I want to keep it.
+> v2 patchset still has it, but adds different git-log.
+
+Right, like I say the change is fine - it was just a note about the
+changelog.
+
+--YZ5djTAD1cGYuMQK
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6isccACgkQJNaLcl1U
+h9Dspwf/V3LiqfaOGUfPzZWjuPUX43pGOfY/pR8SDStU9hU0UEbXfLpn6htXr2KQ
+9DfGw9cbRlXX/2Qsjme/9BDJ0ExC/sOOLF3MLkP3zGw9rb9mzG5alXl/AMwDWOLc
+AAbXoh8vC1ZEgGa/yIW3LTeE1FfUAaamt6OF9Lto3WXaiDPVLM9PYNWocdsMkN/4
+5D9xO09eVswe+vt+Fr1Hw8RgIpzP2pLoEeWBbVKrmZ3zZOmMPCXJgr4cUUafW9hx
+7hAxSv2Km9qNMre5QiTjstZ8SfTK6AV1oem8qITCLgDVISWpxm4bsgaPV8klgCpA
+00hik+YNLRWt5kvQQ0so0SZzHdh29g==
+=UJHo
+-----END PGP SIGNATURE-----
+
+--YZ5djTAD1cGYuMQK--

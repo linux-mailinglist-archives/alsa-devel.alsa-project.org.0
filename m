@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AAFD1B73C5
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Apr 2020 14:22:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13AB91B745B
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Apr 2020 14:26:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D1C0E16CC;
-	Fri, 24 Apr 2020 14:21:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1C0E16CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id B85C516DE;
+	Fri, 24 Apr 2020 14:25:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B85C516DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587730926;
-	bh=5WEt3s7TOfHVS6lKtXjDHjr86ZoVXaSFyuNlxEmzUhg=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1587731181;
+	bh=IEy7Kjr9+UyETMpmsFP7167uF2IVWAuDrab38EHG1CA=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PNIC+ftbUIQX/WmTKkgqhhCgztrc6D/CunW7U/jmSy/0pf8Fgy3Cvs+ZeKKiSK31+
-	 j1bTpJMPczELwa94u3WTKn6EQ0lbS+9cFtbazmKxArajN7Sg+CWermkZJfWO5cDi/M
-	 nVD9C8AMlPJTAD777x3dys5Nox/r67yFTlSJ8UNc=
+	b=iFgKlsvFyfAx2DK9LUBVIj+XGVongC00tqd2iVs3Z5q4UK4XzdSxF/fs17y8To5jQ
+	 CHqgR3K+3DMTiLiMaGppc7SqFNHt1TEfV60PCp2U6fV98kuSoX498ZmN7gfDV4pRjG
+	 Edkh+TSCbPhVtEA9mzngTVm9snXHFOrblSFYcBDE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13F79F8023F;
-	Fri, 24 Apr 2020 14:19:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01F62F80291;
+	Fri, 24 Apr 2020 14:23:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DF749F800BE; Fri, 24 Apr 2020 14:19:40 +0200 (CEST)
+ id A5195F8023F; Fri, 24 Apr 2020 14:23:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,38 +34,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2B1AEF8020C
- for <alsa-devel@alsa-project.org>; Fri, 24 Apr 2020 14:19:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B1AEF8020C
+ by alsa1.perex.cz (Postfix) with ESMTPS id CED1EF800BE
+ for <alsa-devel@alsa-project.org>; Fri, 24 Apr 2020 14:22:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CED1EF800BE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="03+gRZgk"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ header.b="JgUdaEJb"
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 232BA20700;
- Fri, 24 Apr 2020 12:19:35 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 64E9B20776;
+ Fri, 24 Apr 2020 12:22:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587730776;
- bh=5WEt3s7TOfHVS6lKtXjDHjr86ZoVXaSFyuNlxEmzUhg=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=03+gRZgkT/SrRkLTBtpirAo7oL/seJDtnoX/7nOVMpPcv524ZDRMDUKyJ2OYkGLXt
- dv9B/RisUHn5aDw9mc6Q6AUkn7DDXVlW/TDuUhNp7EkqNFsaqeDr0bSz0DhFoOaiUe
- s3CGudvVjQrIUup7xeeL6JHmJJb0mgJWU5Qs5RWM=
-Date: Fri, 24 Apr 2020 13:19:34 +0100
-From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, Rong Chen <rong.a.chen@intel.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Vinod Koul <vkoul@kernel.org>, alsa-devel@alsa-project.org,
- Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <20200424005437.3941-1-rong.a.chen@intel.com>
-References: <202004201540.vYPhhYMs%lkp@intel.com>
- <20200424005437.3941-1-rong.a.chen@intel.com>
-Subject: Re: [PATCH v2] ASoC: soc-compress: avoid false-positive
- Wuninitialized warning
-Message-Id: <158773076811.21878.3256404080318528635.b4-ty@kernel.org>
-Cc: kbuild test robot <lkp@intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+ s=default; t=1587730969;
+ bh=IEy7Kjr9+UyETMpmsFP7167uF2IVWAuDrab38EHG1CA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=JgUdaEJbxfb7mxDPBFKq41xK+EVKV0nHXWI0ZICSMfNSFP4EgyfY+sUGkqQJ7s7Q2
+ 91rV0sM0TNxWFrjA7V15AoZd5C12i2bKbxueoHdsn8zN9zolzTHOklrMA2ZdoFp6aK
+ BN1Juzg+84RltCa1wVwxx6wmkA4iG2oQsZuWtU6Q=
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.6 10/38] ALSA: hda: Release resources at error in
+ delayed probe
+Date: Fri, 24 Apr 2020 08:22:08 -0400
+Message-Id: <20200424122237.9831-10-sashal@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200424122237.9831-1-sashal@kernel.org>
+References: <20200424122237.9831-1-sashal@kernel.org>
+MIME-Version: 1.0
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,40 +84,139 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 24 Apr 2020 08:54:37 +0800, Rong Chen wrote:
-> gcc-6.5 and earlier show a new warning:
-> 
-> sound/soc/soc-compress.c: In function ‘soc_compr_open’:
-> sound/soc/soc-compress.c:75:28: warning: ‘component’ is used uninitialized in this function [-Wuninitialized]
->   struct snd_soc_component *component, *save = NULL;
->                               ^~~~~~~~~
-> 
-> [...]
+From: Takashi Iwai <tiwai@suse.de>
 
-Applied to
+[ Upstream commit 2393e7555b531a534152ffe7bfd1862cacedaacb ]
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.8
+snd-hda-intel driver handles the most of its probe task in the delayed
+work (either via workqueue or via firmware loader).  When an error
+happens in the later delayed probe, we can't deregister the device
+itself because the probe callback already returned success and the
+device was bound.  So, for now, we set hda->init_failed flag and make
+the rest untouched until the device gets really unbound.
+However, this leaves the device up running, keeping the resources
+without any use that prevents other operations.
 
-Thanks!
+In this patch, we release the resources at first when a probe error
+happens in the delayed probe stage, but keeps the top-level object, so
+that the PM and other ops can still refer to the object itself.
 
-[1/1] ASoC: soc-compress: avoid false-positive Wuninitialized warning
-      commit: 3e645a4add53eec22f3818c9da01c19191525096
+Also for simplicity, snd_hda_intel object is allocated via devm, so
+that we can get rid of the explicit kfree calls.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=207043
+Link: https://lore.kernel.org/r/20200413082034.25166-4-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/pci/hda/hda_intel.c | 29 ++++++++++++++++-------------
+ sound/pci/hda/hda_intel.h |  1 +
+ 2 files changed, 17 insertions(+), 13 deletions(-)
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index f41d8b7864c1e..692857904d49e 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -1203,10 +1203,8 @@ static void azx_vs_set_state(struct pci_dev *pci,
+ 		if (!disabled) {
+ 			dev_info(chip->card->dev,
+ 				 "Start delayed initialization\n");
+-			if (azx_probe_continue(chip) < 0) {
++			if (azx_probe_continue(chip) < 0)
+ 				dev_err(chip->card->dev, "initialization error\n");
+-				hda->init_failed = true;
+-			}
+ 		}
+ 	} else {
+ 		dev_info(chip->card->dev, "%s via vga_switcheroo\n",
+@@ -1339,12 +1337,15 @@ static int register_vga_switcheroo(struct azx *chip)
+ /*
+  * destructor
+  */
+-static int azx_free(struct azx *chip)
++static void azx_free(struct azx *chip)
+ {
+ 	struct pci_dev *pci = chip->pci;
+ 	struct hda_intel *hda = container_of(chip, struct hda_intel, chip);
+ 	struct hdac_bus *bus = azx_bus(chip);
+ 
++	if (hda->freed)
++		return;
++
+ 	if (azx_has_pm_runtime(chip) && chip->running)
+ 		pm_runtime_get_noresume(&pci->dev);
+ 	chip->running = 0;
+@@ -1388,9 +1389,8 @@ static int azx_free(struct azx *chip)
+ 
+ 	if (chip->driver_caps & AZX_DCAPS_I915_COMPONENT)
+ 		snd_hdac_i915_exit(bus);
+-	kfree(hda);
+ 
+-	return 0;
++	hda->freed = 1;
+ }
+ 
+ static int azx_dev_disconnect(struct snd_device *device)
+@@ -1406,7 +1406,8 @@ static int azx_dev_disconnect(struct snd_device *device)
+ 
+ static int azx_dev_free(struct snd_device *device)
+ {
+-	return azx_free(device->device_data);
++	azx_free(device->device_data);
++	return 0;
+ }
+ 
+ #ifdef SUPPORT_VGA_SWITCHEROO
+@@ -1773,7 +1774,7 @@ static int azx_create(struct snd_card *card, struct pci_dev *pci,
+ 	if (err < 0)
+ 		return err;
+ 
+-	hda = kzalloc(sizeof(*hda), GFP_KERNEL);
++	hda = devm_kzalloc(&pci->dev, sizeof(*hda), GFP_KERNEL);
+ 	if (!hda) {
+ 		pci_disable_device(pci);
+ 		return -ENOMEM;
+@@ -1814,7 +1815,6 @@ static int azx_create(struct snd_card *card, struct pci_dev *pci,
+ 
+ 	err = azx_bus_init(chip, model[dev]);
+ 	if (err < 0) {
+-		kfree(hda);
+ 		pci_disable_device(pci);
+ 		return err;
+ 	}
+@@ -2340,13 +2340,16 @@ static int azx_probe_continue(struct azx *chip)
+ 		pm_runtime_put_autosuspend(&pci->dev);
+ 
+ out_free:
+-	if (err < 0 || !hda->need_i915_power)
++	if (err < 0) {
++		azx_free(chip);
++		return err;
++	}
++
++	if (!hda->need_i915_power)
+ 		display_power(chip, false);
+-	if (err < 0)
+-		hda->init_failed = 1;
+ 	complete_all(&hda->probe_wait);
+ 	to_hda_bus(bus)->bus_probing = 0;
+-	return err;
++	return 0;
+ }
+ 
+ static void azx_remove(struct pci_dev *pci)
+diff --git a/sound/pci/hda/hda_intel.h b/sound/pci/hda/hda_intel.h
+index 2acfff3da1a04..3fb119f090408 100644
+--- a/sound/pci/hda/hda_intel.h
++++ b/sound/pci/hda/hda_intel.h
+@@ -27,6 +27,7 @@ struct hda_intel {
+ 	unsigned int use_vga_switcheroo:1;
+ 	unsigned int vga_switcheroo_registered:1;
+ 	unsigned int init_failed:1; /* delayed init failed */
++	unsigned int freed:1; /* resources already released */
+ 
+ 	bool need_i915_power:1; /* the hda controller needs i915 power */
+ };
+-- 
+2.20.1
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

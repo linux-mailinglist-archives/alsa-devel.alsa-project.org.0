@@ -2,60 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C45A21B6E9E
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Apr 2020 09:05:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F245A1B6EE1
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Apr 2020 09:23:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 443E01699;
-	Fri, 24 Apr 2020 09:04:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 443E01699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B97F169F;
+	Fri, 24 Apr 2020 09:22:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B97F169F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587711923;
-	bh=uHwqAm/wCjvDc6Ob2inEso9BM5vID9H7oN7DwxobKWc=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1587712984;
+	bh=nUDtujpkA05q9hjDHsG634xQm9Nh49rewyyDiP/Vm7Y=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=GREXCwdo8SlBgijSEvcwB74Yxd1hSokJk544vnHlDxF5iBMPddzuhebZGhYFP7WzD
-	 WypKJHtE8nkb1DlTh45nR1+ySsfcpuxwTOo3I7atcZl5Sk+fc4KvdrVd5Zy0nh3M9k
-	 Dclw0s/fBOOsLYSGjQmJvjZgHja0PrZJkF5ZyEP8=
+	b=IeJdFfZEimK1BBJQbolGTpNSgWCPhQHXLrdraHAWe81QaikxzUt/797/jseD2Qa92
+	 d8PJFCHm7LWrOP5q/yNkrpKIpU5XI4nVoa/mPI9umpl1u50qrnoGq4CtjhC3G30Qet
+	 RyLUPd5jIQW1n/MLRFcUhVBF8AWK+pYfMpykprgc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F7AEF800BE;
-	Fri, 24 Apr 2020 09:03:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73109F80117;
+	Fri, 24 Apr 2020 09:21:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA45BF80142; Fri, 24 Apr 2020 09:03:39 +0200 (CEST)
+ id 1296AF80142; Fri, 24 Apr 2020 09:20:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7D0ADF800BE
- for <alsa-devel@alsa-project.org>; Fri, 24 Apr 2020 09:03:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D0ADF800BE
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id DACB1205243;
- Fri, 24 Apr 2020 09:03:29 +0200 (CEST)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 666D9204FE9;
- Fri, 24 Apr 2020 09:03:25 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 121E74034F;
- Fri, 24 Apr 2020 15:02:32 +0800 (SGT)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, broonie@kernel.org, lgirdwood@gmail.com,
- perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: fsl_esai: Remove the tasklet
-Date: Fri, 24 Apr 2020 14:54:06 +0800
-Message-Id: <1587711246-27226-1-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-X-Virus-Scanned: ClamAV using ClamSMTP
+Received: from maillog.nuvoton.com (maillog.nuvoton.com [202.39.227.15])
+ by alsa1.perex.cz (Postfix) with ESMTP id 12652F80116
+ for <alsa-devel@alsa-project.org>; Fri, 24 Apr 2020 09:20:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12652F80116
+Received: from NTHCCAS01.nuvoton.com (nthccas01.nuvoton.com [10.1.8.28])
+ by maillog.nuvoton.com (Postfix) with ESMTP id A87B71C80C5D;
+ Fri, 24 Apr 2020 15:20:31 +0800 (CST)
+Received: from NTHCML01B.nuvoton.com (10.1.8.178) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server (TLS) id 15.0.1130.7; Fri, 24 Apr 2020
+ 15:20:31 +0800
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01B.nuvoton.com
+ (10.1.8.178) with Microsoft SMTP Server (TLS) id 15.0.1130.7; Fri, 24 Apr
+ 2020 15:20:31 +0800
+Received: from localhost.localdomain (10.4.36.27) by NTHCCAS01.nuvoton.com
+ (10.1.12.25) with Microsoft SMTP Server id 15.0.1130.7 via Frontend
+ Transport; Fri, 24 Apr 2020 15:20:31 +0800
+From: Seven Lee <wtli@nuvoton.com>
+To: <broonie@kernel.org>
+Subject: [PATCH] ASoc: nau8810: add AUX related dapm widgets and routes
+Date: Fri, 24 Apr 2020 15:17:40 +0800
+Message-ID: <20200424071739.20854-1-wtli@nuvoton.com>
+X-Mailer: git-send-email 2.25.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Mailman-Approved-At: Fri, 24 Apr 2020 09:21:21 +0200
+Cc: alsa-devel@alsa-project.org, Seven Lee <wtli@nuvoton.com>,
+ KCHSU0@nuvoton.com, lgirdwood@gmail.com, YHCHuang@nuvoton.com,
+ CTLIN0@nuvoton.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,86 +73,105 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Remove tasklet for it may cause the reset operation
-can't be handled immediately, then there will be
-endless xrun interrupt.
+This patch implements the following features:
+- AUX input for recording.
+- An input AUX output to SPK/MOUT.
 
-Fixes: 7ccafa2b3879 ("ASoC: fsl_esai: recover the channel swap after xrun")
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Signed-off-by: Seven Lee <wtli@nuvoton.com>
 ---
- sound/soc/fsl/fsl_esai.c | 15 ++++-----------
- 1 file changed, 4 insertions(+), 11 deletions(-)
+ sound/soc/codecs/nau8810.c | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
-index c7a49d03463a..1ad0859da5e2 100644
---- a/sound/soc/fsl/fsl_esai.c
-+++ b/sound/soc/fsl/fsl_esai.c
-@@ -32,7 +32,6 @@
-  * @extalclk: esai clock source to derive HCK, SCK and FS
-  * @fsysclk: system clock source to derive HCK, SCK and FS
-  * @spbaclk: SPBA clock (optional, depending on SoC design)
-- * @task: tasklet to handle the reset operation
-  * @lock: spin lock between hw_reset() and trigger()
-  * @fifo_depth: depth of tx/rx FIFO
-  * @slot_width: width of each DAI slot
-@@ -56,7 +55,6 @@ struct fsl_esai {
- 	struct clk *extalclk;
- 	struct clk *fsysclk;
- 	struct clk *spbaclk;
--	struct tasklet_struct task;
- 	spinlock_t lock; /* Protect hw_reset and trigger */
- 	u32 fifo_depth;
- 	u32 slot_width;
-@@ -74,6 +72,8 @@ struct fsl_esai {
- 	char name[32];
- };
+diff --git a/sound/soc/codecs/nau8810.c b/sound/soc/codecs/nau8810.c
+index de26758c30a8..2a04243ffeaa 100644
+--- a/sound/soc/codecs/nau8810.c
++++ b/sound/soc/codecs/nau8810.c
+@@ -355,6 +355,8 @@ static const struct snd_kcontrol_new nau8810_snd_controls[] = {
  
-+static void fsl_esai_hw_reset(struct fsl_esai *esai_priv);
+ /* Speaker Output Mixer */
+ static const struct snd_kcontrol_new nau8810_speaker_mixer_controls[] = {
++	SOC_DAPM_SINGLE("AUX Bypass Switch", NAU8810_REG_SPKMIX,
++		NAU8810_AUXSPK_SFT, 1, 0),
+ 	SOC_DAPM_SINGLE("Line Bypass Switch", NAU8810_REG_SPKMIX,
+ 		NAU8810_BYPSPK_SFT, 1, 0),
+ 	SOC_DAPM_SINGLE("PCM Playback Switch", NAU8810_REG_SPKMIX,
+@@ -363,6 +365,8 @@ static const struct snd_kcontrol_new nau8810_speaker_mixer_controls[] = {
+ 
+ /* Mono Output Mixer */
+ static const struct snd_kcontrol_new nau8810_mono_mixer_controls[] = {
++	SOC_DAPM_SINGLE("AUX Bypass Switch", NAU8810_REG_MONOMIX,
++		NAU8810_AUXMOUT_SFT, 1, 0),
+ 	SOC_DAPM_SINGLE("Line Bypass Switch", NAU8810_REG_MONOMIX,
+ 		NAU8810_BYPMOUT_SFT, 1, 0),
+ 	SOC_DAPM_SINGLE("PCM Playback Switch", NAU8810_REG_MONOMIX,
+@@ -371,6 +375,8 @@ static const struct snd_kcontrol_new nau8810_mono_mixer_controls[] = {
+ 
+ /* PGA Mute */
+ static const struct snd_kcontrol_new nau8810_pgaboost_mixer_controls[] = {
++	SOC_DAPM_SINGLE("AUX PGA Switch", NAU8810_REG_ADCBOOST,
++		NAU8810_AUXBSTGAIN_SFT, 0x7, 0),
+ 	SOC_DAPM_SINGLE("PGA Mute Switch", NAU8810_REG_PGAGAIN,
+ 		NAU8810_PGAMT_SFT, 1, 1),
+ 	SOC_DAPM_SINGLE("PMIC PGA Switch", NAU8810_REG_ADCBOOST,
+@@ -379,6 +385,8 @@ static const struct snd_kcontrol_new nau8810_pgaboost_mixer_controls[] = {
+ 
+ /* Input PGA */
+ static const struct snd_kcontrol_new nau8810_inpga[] = {
++	SOC_DAPM_SINGLE("AUX Switch", NAU8810_REG_INPUT_SIGNAL,
++		NAU8810_AUXPGA_SFT, 1, 0),
+ 	SOC_DAPM_SINGLE("MicN Switch", NAU8810_REG_INPUT_SIGNAL,
+ 		NAU8810_NMICPGA_SFT, 1, 0),
+ 	SOC_DAPM_SINGLE("MicP Switch", NAU8810_REG_INPUT_SIGNAL,
+@@ -425,6 +433,8 @@ static const struct snd_soc_dapm_widget nau8810_dapm_widgets[] = {
+ 	SND_SOC_DAPM_MIXER("Input Boost Stage", NAU8810_REG_POWER2,
+ 		NAU8810_BST_EN_SFT, 0, nau8810_pgaboost_mixer_controls,
+ 		ARRAY_SIZE(nau8810_pgaboost_mixer_controls)),
++	SND_SOC_DAPM_PGA("AUX Input", NAU8810_REG_POWER1,
++		NAU8810_AUX_EN_SFT, 0, NULL, 0),
+ 
+ 	SND_SOC_DAPM_SUPPLY("Mic Bias", NAU8810_REG_POWER1,
+ 		NAU8810_MICBIAS_EN_SFT, 0, NULL, 0),
+@@ -434,6 +444,7 @@ static const struct snd_soc_dapm_widget nau8810_dapm_widgets[] = {
+ 	SND_SOC_DAPM_SWITCH("Digital Loopback", SND_SOC_NOPM, 0, 0,
+ 		&nau8810_loopback),
+ 
++	SND_SOC_DAPM_INPUT("AUX"),
+ 	SND_SOC_DAPM_INPUT("MICN"),
+ 	SND_SOC_DAPM_INPUT("MICP"),
+ 	SND_SOC_DAPM_OUTPUT("MONOOUT"),
+@@ -445,10 +456,12 @@ static const struct snd_soc_dapm_route nau8810_dapm_routes[] = {
+ 	{"DAC", NULL, "PLL", check_mclk_select_pll},
+ 
+ 	/* Mono output mixer */
++	{"Mono Mixer", "AUX Bypass Switch", "AUX Input"},
+ 	{"Mono Mixer", "PCM Playback Switch", "DAC"},
+ 	{"Mono Mixer", "Line Bypass Switch", "Input Boost Stage"},
+ 
+ 	/* Speaker output mixer */
++	{"Speaker Mixer", "AUX Bypass Switch", "AUX Input"},
+ 	{"Speaker Mixer", "PCM Playback Switch", "DAC"},
+ 	{"Speaker Mixer", "Line Bypass Switch", "Input Boost Stage"},
+ 
+@@ -463,14 +476,18 @@ static const struct snd_soc_dapm_route nau8810_dapm_routes[] = {
+ 	/* Input Boost Stage */
+ 	{"ADC", NULL, "Input Boost Stage"},
+ 	{"ADC", NULL, "PLL", check_mclk_select_pll},
++	{"Input Boost Stage", "AUX PGA Switch", "AUX Input"},
+ 	{"Input Boost Stage", "PGA Mute Switch", "Input PGA"},
+ 	{"Input Boost Stage", "PMIC PGA Switch", "MICP"},
+ 
+ 	/* Input PGA */
+-	{"Input PGA", NULL, "Mic Bias"},
++	{"Input PGA", NULL, "Mic Bias", check_mic_enabled},
++	{"Input PGA", "AUX Switch", "AUX Input"},
+ 	{"Input PGA", "MicN Switch", "MICN"},
+ 	{"Input PGA", "MicP Switch", "MICP"},
+ 
++	{"AUX Input", NULL, "AUX"},
 +
- static irqreturn_t esai_isr(int irq, void *devid)
- {
- 	struct fsl_esai *esai_priv = (struct fsl_esai *)devid;
-@@ -87,7 +87,7 @@ static irqreturn_t esai_isr(int irq, void *devid)
- 	if ((saisr & (ESAI_SAISR_TUE | ESAI_SAISR_ROE)) &&
- 	    esai_priv->reset_at_xrun) {
- 		dev_dbg(&pdev->dev, "reset module for xrun\n");
--		tasklet_schedule(&esai_priv->task);
-+		fsl_esai_hw_reset(esai_priv);
- 	}
- 
- 	if (esr & ESAI_ESR_TINIT_MASK)
-@@ -674,9 +674,8 @@ static void fsl_esai_trigger_stop(struct fsl_esai *esai_priv, bool tx)
- 			   ESAI_xFCR_xFR, 0);
- }
- 
--static void fsl_esai_hw_reset(unsigned long arg)
-+static void fsl_esai_hw_reset(struct fsl_esai *esai_priv)
- {
--	struct fsl_esai *esai_priv = (struct fsl_esai *)arg;
- 	bool tx = true, rx = false, enabled[2];
- 	unsigned long lock_flags;
- 	u32 tfcr, rfcr;
-@@ -1034,9 +1033,6 @@ static int fsl_esai_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
--	tasklet_init(&esai_priv->task, fsl_esai_hw_reset,
--		     (unsigned long)esai_priv);
--
- 	pm_runtime_enable(&pdev->dev);
- 
- 	regcache_cache_only(esai_priv->regmap, true);
-@@ -1050,10 +1046,7 @@ static int fsl_esai_probe(struct platform_device *pdev)
- 
- static int fsl_esai_remove(struct platform_device *pdev)
- {
--	struct fsl_esai *esai_priv = platform_get_drvdata(pdev);
--
- 	pm_runtime_disable(&pdev->dev);
--	tasklet_kill(&esai_priv->task);
- 
- 	return 0;
- }
+ 	/* Digital Looptack */
+ 	{"Digital Loopback", "Switch", "ADC"},
+ 	{"DAC", NULL, "Digital Loopback"},
 -- 
-2.21.0
+2.25.2
 

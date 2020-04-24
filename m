@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3F421B7990
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Apr 2020 17:29:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E57481B7A6A
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Apr 2020 17:46:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C48C16C2;
-	Fri, 24 Apr 2020 17:28:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C48C16C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 82DB916C3;
+	Fri, 24 Apr 2020 17:45:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82DB916C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587742143;
-	bh=rK3Bn097f17E5+bGIAZGIpKLJeTfb61OcM7CQKFuhoQ=;
+	s=default; t=1587743178;
+	bh=BQz0K2EclqNduXJhyE7B1dsT4ToT9UJL+qx5eOgPrKc=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PNngscFYVnIXLM/5JRACLGOlj82AXYA1OCkoOTG99YH7V900Az2SBXIjDSLvyY+CW
-	 BK9WQtLIv6DuifuyJF7+TvaRu/ILNfeIRIdQId9BAe434vONysMjhDQWLx7PjcEj3V
-	 Oqw0o6QI/iQsRTLsMnMf8XcvN7V7h9gnjQ+y/cmU=
+	b=r+2M0PpyVq9w2rpeZKPa9RGtWDNL1k408TkKz1WdJgddOcEAPXqS9rNFGKRvd0stF
+	 iG/dwzcBr0Nw/5nPxs0LxZ7cblf66VV2nf7sexFgPTMErgnLxXJbLUL/f3d2Krh77z
+	 v0PeZSwq51ySt38uB25t8jUgBVRF7FkNz+sjDRKs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D25C6F80121;
-	Fri, 24 Apr 2020 17:27:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD416F80121;
+	Fri, 24 Apr 2020 17:44:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 05ED8F80142; Fri, 24 Apr 2020 17:27:12 +0200 (CEST)
+ id 15111F80142; Fri, 24 Apr 2020 17:44:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3A6FAF800BE;
- Fri, 24 Apr 2020 17:27:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A6FAF800BE
-IronPort-SDR: oMtCiYvxkV1+LeU3kn3EbwH4ssxuHANP9lR7+hz0KYnPPTkc14+5VFiW9+kPGIvmLsjxiKimrB
- Sa6MA2PxqxcA==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6584FF80116
+ for <alsa-devel@alsa-project.org>; Fri, 24 Apr 2020 17:44:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6584FF80116
+IronPort-SDR: m1RjBTi3KnPP19ozkOTn1rMSS9ncNrqZr45j1vWCK6YsrCBKp8c3XqpfuzLdCCPdUYrSlGunQS
+ u+H0X/e8/sJQ==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Apr 2020 08:26:44 -0700
-IronPort-SDR: ji4pttRNP0Cny4ZZMcZ2f+7haiFwqhCJ7P4u1u/Iy2D7Zp4K4H0vTOG5vMGLEEaybO2QSs1Srv
- rFn+r4Glalcw==
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Apr 2020 08:44:28 -0700
+IronPort-SDR: ycRuODqh4DGXjF1+X4wSFFhGFp8Hg8fD3pO8NSzlQaoiT1TRk2VtL69UKbfrx4UiaScbbLncQH
+ LwhAxku5pf2w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,311,1583222400"; d="scan'208";a="274624608"
+X-IronPort-AV: E=Sophos;i="5.73,311,1583222400"; d="scan'208";a="274628742"
 Received: from jinglu1-mobl1.amr.corp.intel.com (HELO [10.254.176.234])
  ([10.254.176.234])
- by orsmga002.jf.intel.com with ESMTP; 24 Apr 2020 08:26:43 -0700
-Subject: Re: [PATCH v4 2/3] ASoC: Intel: Multiple I/O PCM format support for
- pipe
-To: Mateusz Gorski <mateusz.gorski@linux.intel.com>,
- alsa-devel@alsa-project.org
-References: <20200424132002.3850-1-mateusz.gorski@linux.intel.com>
- <20200424132002.3850-3-mateusz.gorski@linux.intel.com>
+ by orsmga002.jf.intel.com with ESMTP; 24 Apr 2020 08:44:27 -0700
+Subject: Re: [PATCH] ASoC: snd-sof-intel-hda-common - add hda_model parameter
+ and pass it to HDA codec driver
+To: Takashi Iwai <tiwai@suse.de>, Kai Vehmanen <kai.vehmanen@linux.intel.com>
+References: <20200424092520.23989-1-perex@perex.cz>
+ <alpine.DEB.2.21.2004241517530.2957@eliteleevi.tm.intel.com>
+ <s5hk125rr82.wl-tiwai@suse.de>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <57f7b40e-a075-ce2f-917b-cf6f2a198f33@linux.intel.com>
-Date: Fri, 24 Apr 2020 10:26:43 -0500
+Message-ID: <28900433-f2a7-bf4e-7861-5522f0aedee1@linux.intel.com>
+Date: Fri, 24 Apr 2020 10:44:27 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200424132002.3850-3-mateusz.gorski@linux.intel.com>
+In-Reply-To: <s5hk125rr82.wl-tiwai@suse.de>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: S@alsa-project.org, cezary.rojewski@intel.com, broonie@kernel.org,
- Pavan K <pavan.k.s@intel.com>, tiwai@suse.com
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,122 +84,19 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-> +static int skl_tplg_multi_config_set_get(struct snd_kcontrol *kcontrol,
-> +		struct snd_ctl_elem_value *ucontrol, bool is_set)
-> +{
-> +	struct snd_soc_component *component =
-> +		snd_soc_kcontrol_component(kcontrol);
-> +	struct hdac_bus *bus = snd_soc_component_get_drvdata(component);
-> +	struct skl_dev *skl = bus_to_skl(bus);
-> +	struct skl_pipeline *ppl;
-> +	struct skl_pipe *pipe = NULL;
-> +	struct soc_enum *ec = (struct soc_enum *)kcontrol->private_value;
-> +	u32 *pipe_id;
-> +
-> +	if (!ec)
-> +		return -EINVAL;
-> +
-> +	if (is_set && (ucontrol->value.enumerated.item[0] > ec->items))
-> +		return -EINVAL;
-> +
-> +	pipe_id = ec->dobj.private;
-> +
-> +	list_for_each_entry(ppl, &skl->ppl_list, node) {
-> +		if (ppl->pipe->ppl_id == *pipe_id) {
-> +			pipe = ppl->pipe;
-> +			break;
-> +			}
-> +		}
 
-is there an alignment issue here or just a diff illusion?
+>> Hmm, I wonder is this now doing more harm than good. Based on browsing
+>> through the related code in hda-codec.c and friends, it would seem
+>> "sofbus" as the default is mostly harmless, but I could have missed
+>> something.
+> 
+> That's currently harmless since no codec driver defines "sofbus"
+> model, hence the HDA parser continues to match with the default
+> quirks. OTOH, the fixed "sofbus" model is fairly useless.  So, feel
+> free to take my ack, too:
 
-> +	if (!pipe)
-> +		return -EIO;
-> +
-> +	if (is_set)
-> +		pipe->pipe_config_idx = ucontrol->value.enumerated.item[0];
-> +	else
-> +		ucontrol->value.enumerated.item[0]  =  pipe->pipe_config_idx;
-> +
-> +	return 0;
-> +}
-> +
-
-You also have a number of other alignment/style issues reported by 
-checkpatch.pl
-
----------------------------------------------------------------
-0001-ASoC-Intel-Skylake-Add-alternative-topology-binary-n.patch
----------------------------------------------------------------
-CHECK: Alignment should match open parenthesis
-#41: FILE: sound/soc/intel/skylake/skl-topology.c:3572:
-+		snprintf(alt_tplg_name, sizeof(alt_tplg_name), "%s-tplg.bin",
-+				skl->mach->drv_name);
-
-CHECK: Alignment should match open parenthesis
-#43: FILE: sound/soc/intel/skylake/skl-topology.c:3574:
-+		dev_info(bus->dev, "tplg fw %s load failed with %d, trying 
-alternative tplg name %s",
-+				skl->tplg_name, ret, alt_tplg_name);
-
-CHECK: Alignment should match open parenthesis
-#50: FILE: sound/soc/intel/skylake/skl-topology.c:3581:
-+		dev_info(bus->dev, "tplg %s failed with %d, falling back to dfw_sst.bin",
-+				alt_tplg_name, ret);
-
---------------------------------------------------------------
-0002-ASoC-Intel-Multiple-I-O-PCM-format-support-for-pipe.patch
---------------------------------------------------------------
-CHECK: spaces preferred around that '+' (ctx:VxV)
-#58: FILE: sound/soc/intel/skylake/skl-topology.c:597:
-+			next_fmt = &pipe->configs[i+1].out_fmt;
-  			                           ^
-
-CHECK: spaces preferred around that '+' (ctx:VxV)
-#61: FILE: sound/soc/intel/skylake/skl-topology.c:600:
-+			next_fmt = &pipe->configs[i+1].in_fmt;
-  			                           ^
-
-CHECK: Alignment should match open parenthesis
-#86: FILE: sound/soc/intel/skylake/skl-topology.c:640:
-+		dev_dbg(skl->dev, "found pipe config idx:%d\n",
-+				pipe->cur_config_idx);
-
-CHECK: Alignment should match open parenthesis
-#98: FILE: sound/soc/intel/skylake/skl-topology.c:1359:
-+static int skl_tplg_multi_config_set_get(struct snd_kcontrol *kcontrol,
-+		struct snd_ctl_elem_value *ucontrol, bool is_set)
-
-CHECK: Unnecessary parentheses around 
-'ucontrol->value.enumerated.item[0] > ec->items'
-#112: FILE: sound/soc/intel/skylake/skl-topology.c:1373:
-+	if (is_set && (ucontrol->value.enumerated.item[0] > ec->items))
-
-CHECK: Alignment should match open parenthesis
-#135: FILE: sound/soc/intel/skylake/skl-topology.c:1396:
-+static int skl_tplg_multi_config_get(struct snd_kcontrol *kcontrol,
-+			struct snd_ctl_elem_value *ucontrol)
-
-CHECK: Alignment should match open parenthesis
-#141: FILE: sound/soc/intel/skylake/skl-topology.c:1402:
-+static int skl_tplg_multi_config_set(struct snd_kcontrol *kcontrol,
-+			struct snd_ctl_elem_value *ucontrol)
-
----------------------------------------------------------------
-0003-ASoC-Intel-Skylake-Automatic-DMIC-format-configurati.patch
----------------------------------------------------------------
-CHECK: Alignment should match open parenthesis
-#40: FILE: sound/soc/intel/skylake/skl-topology.c:1408:
-+static int skl_tplg_multi_config_get_dmic(struct snd_kcontrol *kcontrol,
-+		struct snd_ctl_elem_value *ucontrol)
-
-CHECK: Alignment should match open parenthesis
-#46: FILE: sound/soc/intel/skylake/skl-topology.c:1414:
-+static int skl_tplg_multi_config_set_dmic(struct snd_kcontrol *kcontrol,
-+		struct snd_ctl_elem_value *ucontrol)
-
-CHECK: Alignment should match open parenthesis
-#110: FILE: sound/soc/intel/skylake/skl-topology.c:3627:
-+		if (dobj->type != SND_SOC_DOBJ_ENUM ||
-+				dobj->control.kcontrol->put !=
-
+For my education, are you saying that the default should be that the 
+modelname is NULL, and the hda auto parser will use known quirks based 
+on PCI/SSID information, and when the user sets the model name to a 
+non-NULL string it will force a specific quirk to be used?
+Thanks!

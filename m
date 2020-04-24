@@ -2,79 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 463EE1B78CB
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Apr 2020 17:04:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14E511B7979
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Apr 2020 17:23:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C09A216C5;
-	Fri, 24 Apr 2020 17:04:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C09A216C5
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB95B16B4;
+	Fri, 24 Apr 2020 17:22:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB95B16B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587740696;
-	bh=khHJ/qfDXwO0SxRqa2dmn0jtYs80C5IPsO2M64YJzr8=;
+	s=default; t=1587741828;
+	bh=aLWv3eaknaTlsHMOsfr9P75/q0ksYi/EFOGMHSB+6Wg=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=emQCPqpZxvKGqA90KN06W9Eii+KH0XHY87ZaW0bXEx34Z0UAjRHFN0b7qxSp4IJHb
-	 TZQ7NXJtp0vd3PypB8K7wgi5CHO718rHZZ4WGViMQTA8vSGb8q1BvLUvL4Y49qn+ci
-	 RJWvjVpaqdOXc2gUqkQudMm1RATBxFYJxYYY6EPI=
+	b=uTgTMsm8tfoEohHsW4eCEXWS+PjioflxN0GRSetjxWpWLjwiKR4s2jOE4/wRAZ2gh
+	 1TKJmb/2NXy25sfMQT57BVytm5l410hq9GDGmQq0O64YatyAMv6rl3fH18T8pmdNHV
+	 9Vr8PetIB9nypyej2dGJ7HK1UAJ87PdB9oIBODNs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E35D3F801D9;
-	Fri, 24 Apr 2020 17:03:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8801DF80142;
+	Fri, 24 Apr 2020 17:22:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9D78F80142; Fri, 24 Apr 2020 17:03:13 +0200 (CEST)
+ id 80828F80142; Fri, 24 Apr 2020 17:22:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
- [IPv6:2a00:1450:4864:20::141])
+Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
+ [IPv6:2a00:1450:4864:20::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6C153F800BE
- for <alsa-devel@alsa-project.org>; Fri, 24 Apr 2020 17:03:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C153F800BE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 79C15F80116
+ for <alsa-devel@alsa-project.org>; Fri, 24 Apr 2020 17:22:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79C15F80116
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="RRkr5OSN"
-Received: by mail-lf1-x141.google.com with SMTP id l11so7946087lfc.5
- for <alsa-devel@alsa-project.org>; Fri, 24 Apr 2020 08:03:06 -0700 (PDT)
+ header.b="DJYepYnP"
+Received: by mail-lj1-x241.google.com with SMTP id n6so10308252ljg.12
+ for <alsa-devel@alsa-project.org>; Fri, 24 Apr 2020 08:22:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=khHJ/qfDXwO0SxRqa2dmn0jtYs80C5IPsO2M64YJzr8=;
- b=RRkr5OSNjAFff21BUpkXHHkPxSIyAuTioZOFSEw1dXZMBMDMV8ESgZx1sN+bieMOEi
- rNrHYqIAzUUWL20zbs4UlOmWJnNHhWxsncuCo1UfpG/7qrTVBWGXNH+6N6+Mg0jIo1dU
- +ayHl25uddEqcORLrWtTMMXtIDmvENxt3Zj+B22kCYudS66/6OWog7BB7LI8se0k4tyN
- VWgY0aZNoYb64h6z5vN0rdvQUH+FqFHrPH5JUPEkM13VFEBDzVe6J13m6Dm19dgo4nX2
- 7Gcpsa7av/lDZlHMWzGacFnYkfFxlONDGGfd2uxZ4hiD3qqjD0wDkaeOJBSsVSt8KDkJ
- splg==
+ :cc; bh=aLWv3eaknaTlsHMOsfr9P75/q0ksYi/EFOGMHSB+6Wg=;
+ b=DJYepYnPRTIzVP9SKTevWcRZ+d5xf7ByvyA4Nl6uTjAz82fzkQ69VuNHCxoypstTER
+ BFnNt0GXXeHzr4uERz/3Gg0sMapkNju8ROk1IEhjTgd3MHVbFUq4Cp5mB4g9Hv3zQV/7
+ k826z2TzRXXooo7kT4quu6hSmEYc1uuJUAx3xhD9v6odAGgLE1vxLbqpwARLeI+08WqX
+ ZSqQeBfWLILrdlk1JF/MX8Qbo4+z3Aw18/HY+ZiltLmw4FdiY2NTGZQgtSma+suAoz2j
+ G5HJ/WBlt6+GQ9vrs4iyiNESjSG9yFggv5EtYUABml0ZnFGmxYHNP+BOQvtF7vX5ojZf
+ /YDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=khHJ/qfDXwO0SxRqa2dmn0jtYs80C5IPsO2M64YJzr8=;
- b=nNAO/V7ZtZ0J69EfGjqmzuuQpCGVjTO3qqRRg7fjrpcVo7lixxCe98NDiwBBuN50uy
- kBRuZb1Wopj6hpox0uMKI2sn894BlSzMWOtbbmYf4L3S1H1FgJLfNOTxfKQaGUaFdnTl
- 3Mn2G7ORxWIUbOV5F85Fw7IR4ZGKGdk8PfIKYcCayTfuOYpoe17wh9D85xrI9zTsPx7c
- 5K0EXulMPIAeNqJlc/TkfM4aOdr10gGAKsO51rehFG0ZQi8V2G+DCdIpLcOCQDoaRfM2
- v1MGcSCromyImi4K/oEzSnu4RF7+Lq74SRsfCms7TFtBA47RM+TbhAsxE9Pgng9ttTfn
- ADnw==
-X-Gm-Message-State: AGi0PuZHCojhIRE2ge7r1bfAhDeH5jAsyyAKkkaD4xX+nD8vW5730l52
- 0r0OdZDobwa09ITqQXQyDWlSj/RMaU5CRR8yT+Q=
-X-Google-Smtp-Source: APiQypKfN8x/KiL8cm20USDhG1bDKgL3Mm1Z96Nh43Ey6t7cQFrqUvE0hqL+TKzoCoSEBsWgGg/hnzbYCytgTuv3VME=
-X-Received: by 2002:ac2:5932:: with SMTP id v18mr6723669lfi.175.1587740585655; 
- Fri, 24 Apr 2020 08:03:05 -0700 (PDT)
+ bh=aLWv3eaknaTlsHMOsfr9P75/q0ksYi/EFOGMHSB+6Wg=;
+ b=TW7Oyku2GnSd3iF3kgOR048p1jm/wjHhwuJyberMwQsu6iLnWtQtsD1teJBiNHpYR1
+ oSu9hwVs4Euo5VHC/bMAidbghAdxH/gQ+IxN55hGByGYAYJ8sMINoFwwDeNusvOw/elt
+ yYsVj8R1l7zfOOPpgtOyjRLT9qx1hgq4IpSiYJOsKY0JIlWtn23FVsRwF+848IbrdT3l
+ xRaOAVa3Pmlo6eGqfsuqOrXqMPCeoryMzkJBerEcl7xyzZ4zEWbumv8qJajHbFiDUjrE
+ gn56tUpxN9Q3xKm40qxjZ5SpYDFkfJ4NIcFGCejF+jV6z8BZ+wKX4uSmpk7Ox+qoGLHT
+ 2LtQ==
+X-Gm-Message-State: AGi0PubnyzCR/KuN4Mw8EHIURmFK0sNyYGxetQRWScQggTLyxHEOoksD
+ oFhiUqZFeQMMBL0HSGjnrKKkXosDPafoHsC2LMJzWV4k2e9MbQ==
+X-Google-Smtp-Source: APiQypJn40GjeiS3BU3IkJfbeUl/ZwEOtPhT1mHus9Q0KlCF8g4AZvGpqFCNc9S2ETib0eAbO22LMmphp7k3bWvIH3w=
+X-Received: by 2002:a2e:b88b:: with SMTP id r11mr6250238ljp.116.1587741717593; 
+ Fri, 24 Apr 2020 08:21:57 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200424022449.14972-1-alexander@tsoy.me>
-In-Reply-To: <20200424022449.14972-1-alexander@tsoy.me>
+ <20200424022449.14972-2-alexander@tsoy.me>
+In-Reply-To: <20200424022449.14972-2-alexander@tsoy.me>
 From: Gregor Pintar <grpintar@gmail.com>
-Date: Fri, 24 Apr 2020 17:02:54 +0200
-Message-ID: <CAOPXC2kF-k9xH8KhP_s+RmebgTdZW7avn9uedMRAooOB5WhzCA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] ALSA: usb-audio: Improve frames size computation
+Date: Fri, 24 Apr 2020 17:21:46 +0200
+Message-ID: <CAOPXC2nE+q7XbSBAT+mufMfQdsC=KCBm2hnHUXFU=_ThBoe=Dw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ALSA: usb-audio: Remove async workaround for Scarlett
+ 2nd gen
 To: Alexander Tsoy <alexander@tsoy.me>
 Content-Type: text/plain; charset="UTF-8"
 Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
@@ -96,13 +98,14 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On Fri, Apr 24, 2020 at 4:24 AM Alexander Tsoy <alexander@tsoy.me> wrote:
 >
-> This patch fixes this issue by implementing a different algorithm for
-> frame size computation. It is based on accumulating of the remainders
-> from division fs/fps and it doesn't accumulate errors over time. This
-> new method is enabled for synchronous and adaptive playback endpoints.
+> Frame size computation has been fixed and the workaround is no longer
+> needed.
 >
 
-Hm, I still sometimes get click usually in about first 2 seconds,
-but it is hard to reproduce.
+It seems async is preferred and usually more reliable.
 
-This will provide better out-of-box experience. Thanks.
+Would it be possible to check, if there is feedback endpoint and use async,
+even if interface is reporting synchronous?
+
+Maybe make it configurable so it doesn't break devices with broken feedback
+endpoints.

@@ -2,61 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB19F1B6E0D
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Apr 2020 08:22:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5D271B6DEC
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Apr 2020 08:14:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 71DD9169A;
-	Fri, 24 Apr 2020 08:21:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71DD9169A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 52C72169A;
+	Fri, 24 Apr 2020 08:13:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52C72169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587709355;
-	bh=cPf6wx1F1H+9W9refIxOqdkTr9R2KPZIAQNy8Ma7/iQ=;
+	s=default; t=1587708865;
+	bh=FV6yMYCdteKsyr5ibnGLimDcFJdGXnrAgW+ne9H37mE=;
 	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Coc1wtaesr4u0ZCtcEIBiaAG63Bei4GlSNr1B0Gxd5WIJbfbTUUzNwfaLMgrL1D5Y
-	 48wAVxGI0Qntsp7rBEMVzEy2to4K1vgco13rBtUvu7B2I3wOC3JKUbs/aptQo3nfsL
-	 hA59LQ5/x3OhtH0VfVHfa2kHXWkSBfS+UDwxjxSA=
+	b=hPA30TWtqw2e4eRlxUpsnVAzgB2L6VabEsYHKRvlOjo4hu4iSJjb1VmjSw5H4DEA7
+	 tdB3XIkbJPLbB7b3r8k4ZGNhIvPwlT44HITlAlsJYMphWFYuaMfdDkwBKtSrXlUkqM
+	 P5Ovsh8Hi5FqzJOnDmt57kmWNjgFQmbMIsOvNPKU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B279F800BE;
-	Fri, 24 Apr 2020 08:20:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5946DF800BE;
+	Fri, 24 Apr 2020 08:12:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6D677F800BE; Fri, 24 Apr 2020 08:20:52 +0200 (CEST)
+ id F1224F80142; Fri, 24 Apr 2020 08:12:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 51323F800BE
- for <alsa-devel@alsa-project.org>; Fri, 24 Apr 2020 08:20:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51323F800BE
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 6438B2002E3;
- Fri, 24 Apr 2020 08:20:44 +0200 (CEST)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id D70A32002DD;
- Fri, 24 Apr 2020 08:20:39 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id EDF1D402D8;
- Fri, 24 Apr 2020 14:20:33 +0800 (SGT)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- shengjiu.wang@nxp.com, tglx@linutronix.de, allison@lohutok.net,
- info@metux.net, patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: wm8962: Force suspend/resume during system
- suspend/resume
-Date: Fri, 24 Apr 2020 14:12:07 +0800
-Message-Id: <1587708727-13657-1-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-X-Virus-Scanned: ClamAV using ClamSMTP
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8E4B4F800BE
+ for <alsa-devel@alsa-project.org>; Fri, 24 Apr 2020 08:12:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E4B4F800BE
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 63BD0ADCD
+ for <alsa-devel@alsa-project.org>; Fri, 24 Apr 2020 06:12:31 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: hda: Match both PCI ID and SSID for driver blacklist
+Date: Fri, 24 Apr 2020 08:12:22 +0200
+Message-Id: <20200424061222.19792-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.16.4
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,27 +60,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Use force_suspend/resume to make sure clocks are disabled/enabled
-accordingly during system suspend/resume.
+The commit 3c6fd1f07ed0 ("ALSA: hda: Add driver blacklist") added a
+new blacklist for the devices that are known to have empty codecs, and
+one of the entries was ASUS ROG Zenith II (PCI SSID 1043:874f).
+However, it turned out that the very same PCI SSID is used for the
+previous model that does have the valid HD-audio codecs and the change
+broke the sound on it.
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Since the empty codec problem appear on the certain AMD platform (PCI
+ID 1022:1487), this patch changes the blacklist matching to both PCI
+ID and SSID using pci_match_id().  Also, the entry that was removed by
+the previous fix for ASUS ROG Zenigh II is re-added.
+
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/soc/codecs/wm8962.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/pci/hda/hda_intel.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
-index 0a2cfff44441..80332c147da9 100644
---- a/sound/soc/codecs/wm8962.c
-+++ b/sound/soc/codecs/wm8962.c
-@@ -3854,6 +3854,8 @@ static int wm8962_runtime_suspend(struct device *dev)
- 
- static const struct dev_pm_ops wm8962_pm = {
- 	SET_RUNTIME_PM_OPS(wm8962_runtime_suspend, wm8962_runtime_resume, NULL)
-+	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-+				pm_runtime_force_resume)
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index d7adae316c0d..9f995576cff1 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -2091,9 +2091,10 @@ static void pcm_mmap_prepare(struct snd_pcm_substream *substream,
+  * some HD-audio PCI entries are exposed without any codecs, and such devices
+  * should be ignored from the beginning.
+  */
+-static const struct snd_pci_quirk driver_blacklist[] = {
+-	SND_PCI_QUIRK(0x1462, 0xcb59, "MSI TRX40 Creator", 0),
+-	SND_PCI_QUIRK(0x1462, 0xcb60, "MSI TRX40", 0),
++static const struct pci_device_id driver_blacklist[] = {
++	{ PCI_DEVICE_SUB(0x1022, 0x1487, 0x1043, 0x874f) }, /* ASUS ROG Zenith II / Strix */
++	{ PCI_DEVICE_SUB(0x1022, 0x1487, 0x1462, 0xcb59) }, /* MSI TRX40 Creator */
++	{ PCI_DEVICE_SUB(0x1022, 0x1487, 0x1462, 0xcb60) }, /* MSI TRX40 */
+ 	{}
  };
  
- static const struct i2c_device_id wm8962_i2c_id[] = {
+@@ -2113,7 +2114,7 @@ static int azx_probe(struct pci_dev *pci,
+ 	bool schedule_probe;
+ 	int err;
+ 
+-	if (snd_pci_quirk_lookup(pci, driver_blacklist)) {
++	if (pci_match_id(driver_blacklist, pci)) {
+ 		dev_info(&pci->dev, "Skipping the blacklisted device\n");
+ 		return -ENODEV;
+ 	}
 -- 
-2.21.0
+2.16.4
 

@@ -2,87 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63C8D1B88FB
-	for <lists+alsa-devel@lfdr.de>; Sat, 25 Apr 2020 21:31:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F9521B8925
+	for <lists+alsa-devel@lfdr.de>; Sat, 25 Apr 2020 21:51:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC3CF1682;
-	Sat, 25 Apr 2020 21:30:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC3CF1682
+	by alsa0.perex.cz (Postfix) with ESMTPS id D5B1B1699;
+	Sat, 25 Apr 2020 21:51:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5B1B1699
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587843071;
-	bh=6oR+kKHIFDrzHTaomEPloJnWDZLzGncYmUJHInIGEDs=;
-	h=To:From:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=CWXNXFp1/Z2AvWf6Exuf4r2agYc2YrhZFnWjsC59DT2d6enPcOXo29FJq8Mbb2Vj6
-	 pFEK/9jmliPk/H4kUVBLNKPLIVQtzdiXfKO/sZjyXBPdUi+yjeQIgr9uDAGZqxe3bV
-	 R7qMqoPmpSwbKntzTrB/FTqXTw8wBDmh+c0jw5cc=
+	s=default; t=1587844315;
+	bh=Iah7NzvvP78PEh9xc8EErNqk9po2mM571mhlPZvbSOU=;
+	h=Subject:From:To:Date:In-Reply-To:References:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=iHcSA30orNs07ngcGgd1N4/ZPObQ731C1xq/7e6GJsWzpMF0NHvfv9h4N2ZcRfQy1
+	 IhT9oAT6h02eA43zdq/1gUIUt+psgvgtRF79h3dG/E1wIY5BThHSQdCPH6zuxbJk9h
+	 hZe+SNCpy4B6ZGG/UAFD8Jc4VDNvuG/eIfjwsVFc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C11A3F801ED;
-	Sat, 25 Apr 2020 21:29:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B0FF5F801ED;
+	Sat, 25 Apr 2020 21:50:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6A099F801EC; Sat, 25 Apr 2020 21:29:25 +0200 (CEST)
+ id 892A2F801EC; Sat, 25 Apr 2020 21:50:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from mail.mgeb.org (mail.mgeb.org [178.63.91.126])
- by alsa1.perex.cz (Postfix) with ESMTP id 5B805F80105
- for <alsa-devel@alsa-project.org>; Sat, 25 Apr 2020 21:29:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B805F80105
-To: alsa-devel@alsa-project.org
-From: Michael Gebetsroither <michael@mgeb.org>
-Subject: MOTU M2 stopped working after upgrade to 5.5
-Autocrypt: addr=michael@mgeb.org; prefer-encrypt=mutual; keydata=
- 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 sQ==
-Message-ID: <b07c3b1b-dbc7-32d5-77bc-a2d9ef80db3c@mgeb.org>
-Date: Sat, 25 Apr 2020 21:29:18 +0200
+Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7D041F800BE
+ for <alsa-devel@alsa-project.org>; Sat, 25 Apr 2020 21:50:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D041F800BE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=tsoy.me header.i=@tsoy.me
+ header.b="ER7sVoBH"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
+ s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Content-Type:
+ References:In-Reply-To:Date:To:From:Subject:Message-ID:Reply-To:Cc:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
+ :List-Post:List-Owner:List-Archive;
+ bh=PdHfeMhdI6LefoDwV2wr9bakCsX2dwQfvdJDJFucAPk=; b=ER7sVoBHlXA5vlDjv5CF76N96Y
+ iv6doJflQ7nG5Zinm0lN1JLBGmbx1zTo6p4brEuoQo5kCyjqbqEJ8vknZDWtSiHMY/I424RNg7cL9
+ pq+ndD87tpkNQuRK7qWhsmVlDJxNiHFji9kZTKYzQShgfJVrW+rYvUIopcOtC8+o5jjc=;
+Received: from [2a00:1370:8125:3f98:890:f100:d37d:7ada] (helo=home)
+ by puleglot.ru with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92.3) (envelope-from <puleglot@puleglot.ru>)
+ id 1jSQoO-0009Dl-2o; Sat, 25 Apr 2020 22:50:04 +0300
+Message-ID: <253259a4ef8a2bcfa0568982b8fd23d5e2d0937a.camel@tsoy.me>
+Subject: Re: High-bandwidth/multiple transactions per microframe in usb audio?
+From: Alexander Tsoy <alexander@tsoy.me>
+To: Pavel Hofman <pavel.hofman@ivitera.com>, "alsa-devel@alsa-project.org"
+ <alsa-devel@alsa-project.org>
+Date: Sat, 25 Apr 2020 22:50:03 +0300
+In-Reply-To: <3a44ca23-f0ed-af54-3e63-8bf77d833c8f@ivitera.com>
+References: <ee53ad0d-2d61-545b-7afd-64a5ed37c702@ivitera.com>
+ <548c8312bd8ad65993c3169faf30054fdfa83558.camel@tsoy.me>
+ <3a44ca23-f0ed-af54-3e63-8bf77d833c8f@ivitera.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.34.4 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: de-AT
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -99,38 +82,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+В Сб, 25/04/2020 в 20:06 +0200, Pavel Hofman пишет:
+> Dne 25. 04. 20 v 14:06 Alexander Tsoy napsal(a):
+> > В Пт, 24/04/2020 в 11:42 +0200, Pavel Hofman пишет:
+> > > Hi,
+> > > 
+> > > Please does the current USB audio driver support multiple
+> > > transactions
+> > > per microframe (high-bandwidth mode)? I could not find it in
+> > > endpoint.c
+> > > but it may be there or somewhere else :-)
+> > 
+> > This should be transparent for the driver. See usb_submit_urb()
+> > function from drivers/usb/core/urb.c. It allows packets larger than
+> > 1024 for isochronous transfers over High Speed and Super Speed
+> > buses.
+> 
+> Alexander, thanks a lot for the info and hint, indeed at
+> https://github.com/torvalds/linux/blob/master/drivers/usb/core/urb.c#L444
+> 
 
-I'm using a MOTU M2 as an audio interface for my headset and after upgrading to kernel 5.5 (from 5.4)
-the interface stopped working in full duplex mode, means it does not work anymore for me with a headset at all.
-(The headset is a sennheiser hmdc27)
+And I just noticed that USB-audio driver can't properly parse max
+packet size for SuperSpeed and SuperSpeed+ devices yet. See
+audio_format_alloc_init().
 
-If i go back to kernel 5.4 everything works (also without any cracks in the audio output).
-
-It's a bit unfortunate that a working audio interface is suddenly disabled by software.
-Is there any way this can be made working again?
-
-I suspect c249177944b650816069f6c49b769baaa94339dc to be the reason for this
-"ALSA: usb-audio: add implicit fb quirk for MOTU M Series"
-
-With kernel 5.5 i also get numerous warnings in kernel log like:
-
-| Apr 25 20:23:16 localhost kernel: [ 2631.701391] usb 5-2.3.2: Unable to change format on ep #81: already in use
-| Apr 25 20:23:16 localhost kernel: [ 2631.701694] usb 5-2.3.2: Unable to change format on ep #81: already in use
-| Apr 25 20:23:16 localhost kernel: [ 2631.701951] usb 5-2.3.2: Unable to change format on ep #81: already in use
-| Apr 25 20:23:16 localhost kernel: [ 2631.705521] usb 5-2.3.2: Unable to change format on ep #81: already in use
-| ...
-
-For audio output i've used pulseaudio with the following settings in daemon.conf:
-| resample-method = src-sinc-best-quality
-| default-sample-format = s24le
-| default-sample-rate = 96000
-| alternate-sample-rate = 48000
-
-And for jack to not produce cracks i've used:
-| sample rate: 96khz
-| Frames/periode: 256
-| Periodes/buffer: 25
-
-greets,
-gebi

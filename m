@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE3911B86EB
-	for <lists+alsa-devel@lfdr.de>; Sat, 25 Apr 2020 16:07:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 362351B86F0
+	for <lists+alsa-devel@lfdr.de>; Sat, 25 Apr 2020 16:14:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 334E71699;
-	Sat, 25 Apr 2020 16:06:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 334E71699
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1DBA168B;
+	Sat, 25 Apr 2020 16:13:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1DBA168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587823643;
-	bh=dxqBVpddA3C7Z+EQvFDadf6RrRuDX8J8Vkdks5x8/G8=;
+	s=default; t=1587824046;
+	bh=1QpwKdE73VdGmWbybDMOwAJnfx2Em6MiVTWII2BAsCE=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pAXcNXUEGMGXdpf8BBrOs4ndTSamC40ORU2b7Mo5T0CJYiNpxNodAYPhO3XpO1Lnd
-	 GJH6km6GE/Mho+DIDY6O3PfSErtCISmYYfYt0jNh32V5ON0ksHLY61s7mk6jaSGBOQ
-	 p+W9KQqegs/v4r4NhPjV+fAKI/z4Q0Djl56epb8g=
+	b=lvBr7I1CdMedOcVlQUBhgQn2Bte2o+koqN0gx1twRV/l+6n3Eo4uTQOdrsWyQmO8t
+	 8xvPulZ7eSsaM8FhIdVjSs+owgpvZGgrt0wFWksypbC6dxiM2LkHkOehLX0mZXa5Bu
+	 2yu+41A9jog1AMmSpJSVml86llQREu+9aaBnPglA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18069F801ED;
-	Sat, 25 Apr 2020 16:05:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A187EF801ED;
+	Sat, 25 Apr 2020 16:12:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 201B3F80105; Sat, 25 Apr 2020 16:05:39 +0200 (CEST)
+ id 73ED6F800BE; Sat, 25 Apr 2020 16:12:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
  SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
  [104.130.122.26])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1521DF80159
- for <alsa-devel@alsa-project.org>; Sat, 25 Apr 2020 16:05:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1521DF80159
+ by alsa1.perex.cz (Postfix) with ESMTPS id 71221F800BE
+ for <alsa-devel@alsa-project.org>; Sat, 25 Apr 2020 16:12:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71221F800BE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="XmO3sWTJ"
+ header.i=@mg.codeaurora.org header.b="VXMAX5xn"
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1587823533; h=Content-Transfer-Encoding: Content-Type:
+ s=smtp; t=1587823927; h=Content-Transfer-Encoding: Content-Type:
  In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
- Subject: Sender; bh=oICXBIpep/D27htpZFSqCDakeFrEc4RwdE0UEWchpXA=;
- b=XmO3sWTJNZsEzQEw/MiEPfj2ou1mtwyYlxc4K7NqS5Flp10bcGbeyMUur22ry646zGnHJCKw
- sbIaCGJ9BuiifFaLZHftOHmg9qsjfMaltrSWApk86L21eyOlzw+baGwkfIXTqfVVD/hqqZOQ
- hpFt4rOTbfibaiMG+v+pvc3QJds=
+ Subject: Sender; bh=59LAOBTPIFuKk6qKf2sBdbTynIFRJNDeQyblJDnDHDA=;
+ b=VXMAX5xnLC2FLfESeSlBZN20VXtmfSZotk6x03BNsGwUjJgtWl1U7Ud1g7c3jghp3XCIkHxc
+ q8FMVbktTPlTd1BQo8wLw5qcdBfwYkhTNrv0G2ncbPIFX1hqx/kuEastIb6S0xArWvWnqMdJ
+ D3jWhfoJ0m6vukGOrRAgumR/zCQ=
 X-Mailgun-Sending-Ip: 104.130.122.26
 X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5ea443a3.7fb1f6723a78-smtp-out-n04;
- Sat, 25 Apr 2020 14:05:23 -0000 (UTC)
+ by mxa.mailgun.org with ESMTP id 5ea44535.7fa4ea452148-smtp-out-n02;
+ Sat, 25 Apr 2020 14:12:05 -0000 (UTC)
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 02B18C433CB; Sat, 25 Apr 2020 14:05:23 +0000 (UTC)
+ id 9BFF2C433F2; Sat, 25 Apr 2020 14:12:04 +0000 (UTC)
 Received: from [10.86.13.83]
  (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: ajitp)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id E854CC433D2;
- Sat, 25 Apr 2020 14:05:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org E854CC433D2
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id AD5CAC433CB;
+ Sat, 25 Apr 2020 14:12:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org AD5CAC433CB
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  spf=none smtp.mailfrom=ajitp@codeaurora.org
-Subject: Re: [PATCH 01/11] Documentation: device-tree: sound: Update lpass-cpu
- driver binding
+Subject: Re: [PATCH 02/11] ASoC: qcom: lpass: Add struct lpass_dai to store
+ dai clocks pointer
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  alsa-devel@alsa-project.org, broonie@kernel.org, devicetree@vger.kernel.org,
  plai@codeaurora.org, bgoswami@codeaurora.org
 References: <1586592171-31644-1-git-send-email-ajitp@codeaurora.org>
- <1586592171-31644-2-git-send-email-ajitp@codeaurora.org>
- <f0ce184d-ad24-fe4a-8ad1-b9a9bf47f33b@linaro.org>
+ <1586592171-31644-3-git-send-email-ajitp@codeaurora.org>
+ <3b6fb5bf-c580-a543-ab70-d08113193a34@linaro.org>
 From: Ajit Pandey <ajitp@codeaurora.org>
-Message-ID: <05b9ba59-5361-be93-d4d9-e5b52708f151@codeaurora.org>
-Date: Sat, 25 Apr 2020 19:35:16 +0530
+Message-ID: <d4a9d02a-5dcf-dd63-7563-bd141549267b@codeaurora.org>
+Date: Sat, 25 Apr 2020 19:41:58 +0530
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <f0ce184d-ad24-fe4a-8ad1-b9a9bf47f33b@linaro.org>
+In-Reply-To: <3b6fb5bf-c580-a543-ab70-d08113193a34@linaro.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
@@ -101,337 +101,216 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 4/16/2020 1:23 PM, Srinivas Kandagatla wrote:
+On 4/16/2020 1:26 PM, Srinivas Kandagatla wrote:
 >
 >
 > On 11/04/2020 09:02, Ajit Pandey wrote:
->> Done the required cleanups to update lpass-cpu binding with newer
->> yaml formats.
+>> lpass_dai will store clocks related to respective dai's and it will
+>> be initialized during probe based on variant clock names.
 >>
 >> Signed-off-by: Ajit Pandey <ajitp@codeaurora.org>
 >
+> I dont understand why do we need this change? What is the advantage of 
+> doing this way vs the existing one?
 >
+>
+> --srini
+>
+> Actually I've kept this in chain to add dai modes properties later in 
+> chain in this struct but with adoption of Stephen patch now , i guess 
+> we don't have any significant advantage now. I'll probably drop this 
+> patch during v2 submission.      --Ajit
 >> ---
->>   .../devicetree/bindings/sound/qcom,lpass-cpu.txt   | 158 
->> ---------------------
->>   .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  | 103 
->> ++++++++++++++
->>   2 files changed, 103 insertions(+), 158 deletions(-)
->>   delete mode 100644 
->> Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
->>   create mode 100644 
->> Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+>>   sound/soc/qcom/lpass-cpu.c | 89 
+>> ++++++++++++++++++++++++++--------------------
+>>   sound/soc/qcom/lpass.h     | 18 +++++-----
+>>   2 files changed, 61 insertions(+), 46 deletions(-)
 >>
->> diff --git 
->> a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt 
->> b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
->> deleted file mode 100644
->> index a49b878..00000000
->> --- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
->> +++ /dev/null
->> @@ -1,158 +0,0 @@
->> -* Qualcomm Technologies LPASS CPU DAI binding
+>> diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+>> index dbce7e9..492f27b 100644
+>> --- a/sound/soc/qcom/lpass-cpu.c
+>> +++ b/sound/soc/qcom/lpass-cpu.c
+>> @@ -23,13 +23,15 @@ static int lpass_cpu_daiops_set_sysclk(struct 
+>> snd_soc_dai *dai, int clk_id,
+>>           unsigned int freq, int dir)
+>>   {
+>>       struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
+>> -    int ret;
 >> -
->> -Low-Power Audio SubSystem (LPASS) consist of MI2S interfaces for 
->> audio data
->> -transfer on external codec. LPASS cpu driver is a common code to 
->> configure
->> -MI2S related CPU dai's across different version of LPASS architecture.
->> -
->> -- compatible:
->> -    Usage: required
->> -    Value type: <stringlist>
->> -    Definition: compatible string corresponds to lpass variants driver
->> -            must be "qcom, lpass-cpu-sc7180" for sc7180 lpass
-> This patch will not apply on mainline, looks like this was done on top 
-> of your local repo, please fix this!
->
-> Best thing would be rebase patches top of 
-> https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git/log/?h=for-next
-Sure I'll rebase on top of mentioned tip during v2 patch chain submission
->
-> Secondly, Split this patch into two,
-> 1> converting in to yaml
-> 2> adding new changes
-> so that it will be easy to see what exactly changed.
->
-> thanks,
-> srini
->
-I've not added any newer properties here just changed it to yaml format only
-
-Thanks & Regards
-
-Ajit
-
->> -            must be "qcom,apq8016-lpass-cpu" for apq8016 lpass
->> -- reg:
->> -    Usage: required
->> -    Value type: <prop-encoded-array>
->> -    Definition: must specify the base address and size of the LPAIF 
->> CORE
->> -            region of lpass variant.
->> -- reg-names:
->> -    Usage: required
->> -    Value type: <stringlist>
->> -    Definition: must be "lpass-lpaif"
->> -
->> -- iommus:
->> -        Usage: required for "qcom, lpass-cpu-sc7180" compatible string
->> -        Value type: <prop-encoded-array>
->> -        Definition: sid mask for lpaif memory region to apps_smmu
->> -                    must be <&apps_smmu 0x1020 0>
->> -
->> -- power-domains:
->> -    Usage: required for "qcom, lpass-cpu-sc7180" compatible string
->> -    Value type: <phandle>
->> -    Definition: reference to power-domains
->> -            must be <&lpass_hm LPASS_CORE_HM_GDSCR>
->> -
->> -- clocks:
->> -        Usage: required
->> -    Value type: <phandle>
->> -    Definition: reference to the clocks that match clock-names
->> -
->> -- clock-names:
->> -    Usage: required
->> -    Value type: <stringlist>
->> -    Definition: The clocks needed depend on the compatible string:
->> -    qcom,lpass-cpu-apq8016:
->> -        must be "ahbix-clk", "mi2s-osr-clk", "mi2s-bit-clk0",
->> -        mi2s-bit-clk1", "mi2s-bit-clk2", "mi2s-bit-clk3",
->> -        "pcnoc-mport-clk", "pcnoc-sway-clk"
->> -    qcom, lpass-cpu-sc7180:
->> -        must be "noc", "audio-core", "mclk0", "sysnoc_mport",
->> -        "pri_ibit", "sec_ibit"
->> -
->> -- #sound-dai-cells
->> -    Usage: required
->> -    Value type: <u32>
->> -    Definition: Must be 1
->> -
->> -- interrupts:
->> -    Usage: required
->> -    Value type: <prop-encoded-array>
->> -    Definition: reference to the interrupts that match interrupt-names
->> -
->> -- interrupt-names:
->> -    Usage: required
->> -    Value type: <stringlist>
->> -    Definition: must be "lpass-irq-lpaif"
->> -
->> -- qcom,adsp:
->> -        Usage: optional
->> -        Value type: <phandle>
->> -    Definition: Phandle for the audio DSP node
->> -
->> -= MI2S DAIs (Digial Audio Interface)
->> -"dais" child node of the lpass node. It represents mi2s dais, each 
->> mi2s dai is
->> -subnode of "dais" representing board specific dai setup & required 
->> dai clocks.
->> -"dais" node should have following properties.
->> -
->> -- id:
->> -    Usage: required for mi2s interface
->> -    Value type: <u32>
->> -    Definition: Must be dai id defined in lpass bindings like 
->> MI2S_PRIMARY
->> -
->> -- qcom,bitclk-name:
->> -    Usage: required for mi2s interface
->> -    Value type: <stringlist>
->> -    Definition: bitclk name corresponds to MI2S of lpass version
->> -
->> -- qcom,mclk-name:
->> -        Usage: optional for mi2s interface
->> -        Value type: <stringlist>
->> -        Definition: external mclk name corresponds to MI2S of lpass 
->> version
->> -
->> -- qcom,osrclk-name:
->> -        Usage: optional for mi2s interface
->> -        Value type: <stringlist>
->> -        Definition: osrclk name corresponds to MI2S of lpass version
->> -
->> -- qcom,spkmode-mask:
->> -        Usage: optional for mi2s interface
->> -        Value type: <u32>
->> -        Definition: board specific property to change default 
->> spkmode mask
->> -                    of MI2S dai based on dataline connection on board.
->> -
->> -- qcom,micmode-mask:
->> -        Usage: optional for mi2s interface
->> -        Value type: <u32>
->> -        Definition: board specific property to change default 
->> micmode mask
->> -                    of MI2S dai based on dataline connection on board.
->> -
->> -- qcom,loopback-mask:
->> -        Usage: optional for mi2s interface
->> -        Value type: <u32>
->> -        Definition: board specific property to change default 
->> loopback mask
->> -                    of MI2S dai as per requirement.
->> -
->> -- qcom,wssrc-mask:
->> -        Usage: optional for mi2s interface
->> -        Value type: <u32>
->> -        Definition: board specific property to change default wssrc 
->> mask
->> -                    of MI2S dai based as per requirement.
->> -
->> -Example:
->> -
->> -lpass_cpu: lpass {
->> -    compatible = "qcom, lpass-cpu-sc7180";
->> -
->> -    reg = <0 0x62F00000 0 0x29000>;
->> -    reg-names = "lpass-lpaif";
->> -
->> -    iommus = <&apps_smmu 0x1020 0>;
->> -
->> -    power-domains = <&lpass_hm LPASS_CORE_HM_GDSCR>;
->> -
->> -    clocks = <&gcc GCC_LPASS_CFG_NOC_SWAY_CLK>,
->> -         <&lpasscorecc LPASS_AUDIO_CORE_CORE_CLK>,
->> -         <&lpasscorecc LPASS_AUDIO_CORE_EXT_MCLK0_CLK>,
->> -         <&lpasscorecc LPASS_AUDIO_CORE_SYSNOC_MPORT_CORE_CLK>,
->> -         <&lpasscorecc LPASS_AUDIO_CORE_LPAIF_PRI_IBIT_CLK>,
->> -         <&lpasscorecc LPASS_AUDIO_CORE_LPAIF_SEC_IBIT_CLK>;
->> -
->> -    clock-names = "noc", "audio-core", "mclk0", "sysnoc_mport",
->> -              "pri_ibit", "sec_ibit";
->> -
->> -    #sound-dai-cells = <1>;
->> -
->> -    interrupts = <0 160 IRQ_TYPE_LEVEL_HIGH>;
->> -    interrupt-names = "lpass-irq-lpaif";
->> -
->> -    prim-mi2s@0 {
->> -        id = <MI2S_PRIMARY>;
->> -        qcom,bitclk-name = "pri_ibit";
->> -        qcom,mclk-name = "mclk0";
->> -    };
->> -
->> -    sec-mi2s@1 {
->> -        id = <MI2S_SECONDARY>;
->> -        qcom,bitclk-name = "sec_ibit";
->> -    };
->> -};
->> diff --git 
->> a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml 
->> b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
->> new file mode 100644
->> index 00000000..a87a406
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
->> @@ -0,0 +1,103 @@
->> +# SPDX-License-Identifier: GPL-2.0-only
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/sound/qcom,lpass-cpu.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> -    ret = clk_set_rate(drvdata->mi2s_osr_clk[dai->driver->id], freq);
+>> -    if (ret)
+>> -        dev_err(dai->dev, "error setting mi2s osrclk to %u: %d\n",
+>> -            freq, ret);
+>> +    struct lpass_dai *dai_data = drvdata->dai_priv[dai->driver->id];
+>> +    int ret = 0;
+>>   +    if (dai_data->osr_clk != NULL) {
+>> +        ret = clk_set_rate(dai_data->osr_clk, freq);
+>> +        if (ret)
+>> +            dev_err(dai->dev, "error setting mi2s osrclk to %u:%d\n",
+>> +                freq, ret);
+>> +    }
+>>       return ret;
+>>   }
+>>   @@ -37,18 +39,22 @@ static int lpass_cpu_daiops_startup(struct 
+>> snd_pcm_substream *substream,
+>>           struct snd_soc_dai *dai)
+>>   {
+>>       struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
+>> +    struct lpass_dai *dai_data = drvdata->dai_priv[dai->driver->id];
+>>       int ret;
+>>   -    ret = clk_prepare_enable(drvdata->mi2s_osr_clk[dai->driver->id]);
+>> -    if (ret) {
+>> -        dev_err(dai->dev, "error in enabling mi2s osr clk: %d\n", ret);
+>> -        return ret;
+>> +    if (dai_data->osr_clk != NULL) {
+>> +        ret = clk_prepare_enable(dai_data->osr_clk);
+>> +        if (ret) {
+>> +            dev_err(dai->dev,
+>> +                "error in enabling mi2s osr clk: %d\n", ret);
+>> +            return ret;
+>> +        }
+>>       }
+>>   -    ret = clk_prepare_enable(drvdata->mi2s_bit_clk[dai->driver->id]);
+>> +    ret = clk_prepare_enable(dai_data->bit_clk);
+>>       if (ret) {
+>>           dev_err(dai->dev, "error in enabling mi2s bit clk: %d\n", 
+>> ret);
+>> - clk_disable_unprepare(drvdata->mi2s_osr_clk[dai->driver->id]);
+>> +        clk_disable_unprepare(dai_data->osr_clk);
+>>           return ret;
+>>       }
+>>   @@ -59,16 +65,18 @@ static void lpass_cpu_daiops_shutdown(struct 
+>> snd_pcm_substream *substream,
+>>           struct snd_soc_dai *dai)
+>>   {
+>>       struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
+>> +    struct lpass_dai *dai_data = drvdata->dai_priv[dai->driver->id];
+>>   - clk_disable_unprepare(drvdata->mi2s_bit_clk[dai->driver->id]);
+>> +    clk_disable_unprepare(dai_data->bit_clk);
+>>   - clk_disable_unprepare(drvdata->mi2s_osr_clk[dai->driver->id]);
+>> +    clk_disable_unprepare(dai_data->osr_clk);
+>>   }
+>>     static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream 
+>> *substream,
+>>           struct snd_pcm_hw_params *params, struct snd_soc_dai *dai)
+>>   {
+>>       struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
+>> +    struct lpass_dai *dai_data = drvdata->dai_priv[dai->driver->id];
+>>       snd_pcm_format_t format = params_format(params);
+>>       unsigned int channels = params_channels(params);
+>>       unsigned int rate = params_rate(params);
+>> @@ -163,8 +171,7 @@ static int lpass_cpu_daiops_hw_params(struct 
+>> snd_pcm_substream *substream,
+>>           return ret;
+>>       }
+>>   -    ret = clk_set_rate(drvdata->mi2s_bit_clk[dai->driver->id],
+>> -               rate * bitwidth * 2);
+>> +    ret = clk_set_rate(dai_data->bit_clk, rate * bitwidth * 2);
+>>       if (ret) {
+>>           dev_err(dai->dev, "error setting mi2s bitclk to %u: %d\n",
+>>               rate * bitwidth * 2, ret);
+>> @@ -413,6 +420,25 @@ static bool lpass_cpu_regmap_volatile(struct 
+>> device *dev, unsigned int reg)
+>>       .cache_type = REGCACHE_FLAT,
+>>   };
+>>   +static int lpass_init_dai_clocks(struct device *dev,
+>> +               struct lpass_data *drvdata)
+>> +{
+>> +    struct lpass_dai *dai;
+>> +    struct lpass_variant *v = drvdata->variant;
+>> +    int i;
 >> +
->> +title: Qualcomm LPASS CPU dai driver bindings
+>> +    for (i = 0; i < v->num_dai; i++) {
 >> +
->> +maintainers:
->> +  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
->> +  - Ajit Pandey <ajitp@codeaurora.org>
+>> +        dai = drvdata->dai_priv[i];
 >> +
->> +description: |
->> +  Qualcomm SOC Low-Power Audio SubSystem (LPASS) that consist of 
->> MI2S interface
->> +  for audio data transfer on external codecs. LPASS cpu driver is a 
->> module to
->> +  configure Low-Power Audio Interface(LPAIF) core registers across 
->> different
->> +  IP versions.
+>> +        dai->osr_clk = devm_clk_get_optional(dev,
+>> +                             v->dai_osr_clk_names[i]);
+>> +        dai->bit_clk = devm_clk_get(dev, v->dai_bit_clk_names[i]);
+>> +    }
 >> +
->> +properties:
->> +  compatible:
->> +    enum:
->> +      - qcom,lpass-cpu
->> +      - qcom,apq8016-lpass-cpu
+>> +    return 0;
+>> +}
 >> +
->> +  reg:
->> +    items:
->> +      - description: LPAIF core registers
+>>   int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
+>>   {
+>>       struct lpass_data *drvdata;
+>> @@ -421,7 +447,7 @@ int asoc_qcom_lpass_cpu_platform_probe(struct 
+>> platform_device *pdev)
+>>       struct lpass_variant *variant;
+>>       struct device *dev = &pdev->dev;
+>>       const struct of_device_id *match;
+>> -    int ret, i, dai_id;
+>> +    int ret, i;
+>>         dsp_of_node = of_parse_phandle(pdev->dev.of_node, 
+>> "qcom,adsp", 0);
+>>       if (dsp_of_node) {
+>> @@ -467,28 +493,15 @@ int asoc_qcom_lpass_cpu_platform_probe(struct 
+>> platform_device *pdev)
+>>           variant->init(pdev);
+>>         for (i = 0; i < variant->num_dai; i++) {
+>> -        dai_id = variant->dai_driver[i].id;
+>> -        drvdata->mi2s_osr_clk[dai_id] = devm_clk_get(&pdev->dev,
+>> -                         variant->dai_osr_clk_names[i]);
+>> -        if (IS_ERR(drvdata->mi2s_osr_clk[dai_id])) {
+>> -            dev_warn(&pdev->dev,
+>> -                "%s() error getting optional %s: %ld\n",
+>> -                __func__,
+>> -                variant->dai_osr_clk_names[i],
+>> -                PTR_ERR(drvdata->mi2s_osr_clk[dai_id]));
+>> -
+>> -            drvdata->mi2s_osr_clk[dai_id] = NULL;
+>> -        }
+>> +        drvdata->dai_priv[i] = devm_kzalloc(dev,
+>> +                        sizeof(struct lpass_dai),
+>> +                        GFP_KERNEL);
+>> +    }
+>>   -        drvdata->mi2s_bit_clk[dai_id] = devm_clk_get(&pdev->dev,
+>> -                        variant->dai_bit_clk_names[i]);
+>> -        if (IS_ERR(drvdata->mi2s_bit_clk[dai_id])) {
+>> -            dev_err(&pdev->dev,
+>> -                "error getting %s: %ld\n",
+>> -                variant->dai_bit_clk_names[i],
+>> -                PTR_ERR(drvdata->mi2s_bit_clk[dai_id]));
+>> -            return PTR_ERR(drvdata->mi2s_bit_clk[dai_id]);
+>> -        }
+>> +    ret = lpass_init_dai_clocks(dev, drvdata);
+>> +    if (ret) {
+>> +        dev_err(&pdev->dev, "error intializing dai clock: %d\n", ret);
+>> +        return ret;
+>>       }
+>>         drvdata->ahbix_clk = devm_clk_get(&pdev->dev, "ahbix-clk");
+>> diff --git a/sound/soc/qcom/lpass.h b/sound/soc/qcom/lpass.h
+>> index 17113d3..b729686 100644
+>> --- a/sound/soc/qcom/lpass.h
+>> +++ b/sound/soc/qcom/lpass.h
+>> @@ -13,9 +13,14 @@
+>>   #include <linux/platform_device.h>
+>>   #include <linux/regmap.h>
+>>   -#define LPASS_AHBIX_CLOCK_FREQUENCY        131072000
+>> -#define LPASS_MAX_MI2S_PORTS            (8)
+>> -#define LPASS_MAX_DMA_CHANNELS            (8)
+>> +#define LPASS_AHBIX_CLOCK_FREQUENCY            131072000
+>> +#define LPASS_MAX_MI2S_PORTS                   (8)
+>> +#define LPASS_MAX_DMA_CHANNELS                 (8)
 >> +
->> +  reg-names:
->> +    items:
->> +      - const: lpass-lpaif
->> +
->> +  clocks:
->> +    items:
->> +      - description: AHBIX core clock for IPQ806X
->> +      - description: oscillator clock for MI2S external interfaces
->> +      - description: Bit clock for single MI2S dai in IPQ806X
->> +      - description: Bit clock for MI2S_PRIMARY dai interface
->> +      - description: Bit clock for MI2S_SECONDARY dai interface
->> +      - description: Bit clock for MI2S_TERTIARY dai interface
->> +      - description: Bit clock for MI2S_QUATERNARY dai interface
->> +      - description: NOC MPORT clock of LPASS core
->> +      - description: NOC SWAY clock of LPASS core
->> +
->> +  clock-names:
->> +    items:
->> +      - const: ahbix-clk
->> +      - const: mi2s-osr-clk
->> +      - const: mi2s-bit-clk
->> +      - const: mi2s-bit-clk0
->> +      - const: mi2s-bit-clk1
->> +      - const: mi2s-bit-clk2
->> +      - const: mi2s-bit-clk3
->> +      - const: pcnoc-mport-clk
->> +      - const: pcnoc-sway-clk
->> +
->> +  interrupts:
->> +    items:
->> +      - description: LPAIF DMA buffer interrupt
->> +
->> +  interrupt-names:
->> +    items:
->> +      - const: lpass-irq-lpaif
->> +
->> +  qcom,adsp:
->> +    maxItems: 1
->> +    description: Phandle for the audio DSP node
->> +
->> +  '#sound-dai-cells':
->> +    const: 1
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - reg-names
->> +  - clocks
->> +  - clock-names
->> +  - interrupts
->> +  - interrupt-names
->> +  - sound-dai-cells
->> +
->> +optional:
->> +  - qcom,adsp
->> +
->> +examples:
->> +  lpass@28100000 {
->> +    compatible = "qcom,lpass-cpu";
->> +    clocks = <&lcc AHBIX_CLK>,
->> +         <&lcc MI2S_OSR_CLK>,
->> +         <&lcc MI2S_BIT_CLK>;
->> +
->> +    clock-names = "ahbix-clk",
->> +              "mi2s-osr-clk",
->> +              "mi2s-bit-clk";
->> +
->> +    interrupts = <0 85 1>;
->> +    interrupt-names = "lpass-irq-lpaif";
->> +
->> +    reg = <0x28100000 0x10000>;
->> +    reg-names = "lpass-lpaif";
->> +    #sound-dai-cells = <1>;
->> +    qcom,adsp = <&adsp>;
->> +
+>> +struct lpass_dai {
+>> +    struct clk *osr_clk;
+>> +    struct clk *bit_clk;
+>> +};
+>>     /* Both the CPU DAI and platform drivers will access this data */
+>>   struct lpass_data {
+>> @@ -23,11 +28,8 @@ struct lpass_data {
+>>       /* AHB-I/X bus clocks inside the low-power audio subsystem 
+>> (LPASS) */
+>>       struct clk *ahbix_clk;
+>>   -    /* MI2S system clock */
+>> -    struct clk *mi2s_osr_clk[LPASS_MAX_MI2S_PORTS];
+>> -
+>> -    /* MI2S bit clock (derived from system clock by a divider */
+>> -    struct clk *mi2s_bit_clk[LPASS_MAX_MI2S_PORTS];
+>> +    /* MI2S dai specific configuration */
+>> +    struct lpass_dai *dai_priv[LPASS_MAX_MI2S_PORTS];
+>>         /* low-power audio interface (LPAIF) registers */
+>>       void __iomem *lpaif;
 >>

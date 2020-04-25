@@ -2,91 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49A251B89A2
-	for <lists+alsa-devel@lfdr.de>; Sat, 25 Apr 2020 23:41:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 756001B8A32
+	for <lists+alsa-devel@lfdr.de>; Sun, 26 Apr 2020 01:56:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D3C4C169C;
-	Sat, 25 Apr 2020 23:41:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3C4C169C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 175BF16A2;
+	Sun, 26 Apr 2020 01:55:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 175BF16A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587850917;
-	bh=nRlaIvVMdHAEoNGBpAtsuVmF07sXLd9RmQDsfwy0E8E=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Ahda3noKRsRqvKcK4dt/3dhbQmoL+o+68CPbfdm3bJXBuECzmXzzPDjrtZIOkYL6d
-	 TlRb8gyLLfNaq3ugin/EsPR1lu5jUXnFP8bkEx7pGyZZteGfmAoOji7ZmjkHg/6pFT
-	 jseu4wcStlgflJoAI0EApi6+ygcC8yTtNvCOubpI=
+	s=default; t=1587859009;
+	bh=laet9lG5pNC7nqpoDAQ0Z2lc0FcaQaBbeKa8MBDAujg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=SpRW/AG6VGG2RRNFValx7iPCruYUzjyAQ4ew1KLOL8c+DdeX87CRGa0O47Wmq03qz
+	 ncEVwZvl+XKn42wNawQNR50Rm06c2D9FR1mh1BmA0feaVyfM9S6xUX90pbFhKnkKau
+	 ltZooq8Hx4vBHPhhOOI3Mg7n7a6s6gMLnDNAoe/4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1440F801ED;
-	Sat, 25 Apr 2020 23:40:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31ACCF80159;
+	Sun, 26 Apr 2020 01:55:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 77524F801EC; Sat, 25 Apr 2020 23:40:13 +0200 (CEST)
+ id 50FBEF801EC; Sun, 26 Apr 2020 01:55:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+X-Spam-Level: *
+X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODYSUB_5,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail.mgeb.org (mail.mgeb.org [178.63.91.126])
- by alsa1.perex.cz (Postfix) with ESMTP id A616CF800BE
- for <alsa-devel@alsa-project.org>; Sat, 25 Apr 2020 23:40:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A616CF800BE
-Subject: Re: MOTU M2 stopped working after upgrade to 5.5
-To: alsa-devel@alsa-project.org
-References: <b07c3b1b-dbc7-32d5-77bc-a2d9ef80db3c@mgeb.org>
-From: Michael Gebetsroither <michael@mgeb.org>
-Autocrypt: addr=michael@mgeb.org; prefer-encrypt=mutual; keydata=
- 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 sQ==
-Message-ID: <e214ccb3-9e9a-13e5-e7b0-148e74bbc078@mgeb.org>
-Date: Sat, 25 Apr 2020 23:40:04 +0200
-MIME-Version: 1.0
-In-Reply-To: <b07c3b1b-dbc7-32d5-77bc-a2d9ef80db3c@mgeb.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: de-AT
-Content-Transfer-Encoding: 8bit
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4AD1CF80116
+ for <alsa-devel@alsa-project.org>; Sun, 26 Apr 2020 01:54:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AD1CF80116
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="HZAznOdR"
+Received: by mail-wm1-x344.google.com with SMTP id e26so15506000wmk.5
+ for <alsa-devel@alsa-project.org>; Sat, 25 Apr 2020 16:54:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=kIF3Ha6AYtF1LF/TcQJoOGghWoQ3P/dbZp/m08LM174=;
+ b=HZAznOdRkWHcoD8g5JCei5bVBsT1NPftaaC9tjiIJmMhUcPwweKTLoa/qam0jU5LZn
+ ipC6GIOCoIJCJRpyrDryP61fpLhvjTiIa2nDyUo0fdUkXirVGUr6bf41le9zK13zwKqH
+ sdAbwGgJLCAEHvSrz3BLFPEc4rsIJG9RPIiiUZp6JOLkMmuXqwrzJ34uTxEKAgTTbylX
+ tdDhJWMD92D4g1wDmOpqWvc0kTU3rfFaOGA9DZvK15vG7sR9jiBZOvfnQu98KazP9e7M
+ FOoPivK+0aT+j3FUc8Zd4zCMDruhEBhdovUuUvr3wVL0PlE++IJfsFCLF0b09OU6R5tU
+ U+TQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=kIF3Ha6AYtF1LF/TcQJoOGghWoQ3P/dbZp/m08LM174=;
+ b=aG7B5NfJ6MxIQOcZb4c0+bPFL4n6wc7i9upb/Vmpib+QLS5KkCJCTERgt/601N6zfJ
+ YK12/uH/qZHvQpHzuhPGBWZyXqj99DrMe5IOoGmcH6gyzwKKXn2nUnv9fWU18hb3MCI4
+ PnFYABzb8+eDRXWY8K+f37TMvf3X4jdxOVg+rtsV1ZVJJD3kifHN+hb2hmBIKwc1vXzW
+ Ix2qHpWXEsaQxW+CQN03dpGGViXwS8MmI4q6a+uugXy1Qojy/89oEYYUhJMdsg0Kpujz
+ M98Rxn+J23ODpAMiPdPlXYf/4R+xUb+GBibvlD5tY/FfhENAnhj5PmUXskqW/6UzxTah
+ 5r7A==
+X-Gm-Message-State: AGi0Pubg7ps9jve6swdkvuVTLzY+xLv1MXl+EX0w/1nVLKmCMIC9YaW9
+ U3yYPsZU6bkKYz3FxOxP+Yk=
+X-Google-Smtp-Source: APiQypK/wShvy0FpwtkXE6nfjCogbfBy0VzPVy606nMddpf2hdyc+NEUMEkRaYasZpK1LpqzhKj59Q==
+X-Received: by 2002:a1c:9a81:: with SMTP id
+ c123mr17298439wme.115.1587858890068; 
+ Sat, 25 Apr 2020 16:54:50 -0700 (PDT)
+Received: from debian.lan (host-84-13-17-86.opaltelecom.net. [84.13.17.86])
+ by smtp.gmail.com with ESMTPSA id g74sm9140037wme.44.2020.04.25.16.54.49
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Sat, 25 Apr 2020 16:54:49 -0700 (PDT)
+From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>, Sanyog Kale <sanyog.r.kale@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH v2] soundwire: intel: Remove unused function
+Date: Sun, 26 Apr 2020 00:54:48 +0100
+Message-Id: <20200425235448.3946-1-sudipm.mukherjee@gmail.com>
+X-Mailer: git-send-email 2.11.0
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Sudip Mukherjee <sudipm.mukherjee@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,41 +95,195 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 25.04.20 21:29, Michael Gebetsroither wrote:
-Hi,
+The function sdw_intel_init() is not used anywhere, remove it for now.
+And that makes sdw_intel_add_controller(), sdw_intel_acpi_cb() and
+link_mask unused, so remove them as well.
 
-> I suspect c249177944b650816069f6c49b769baaa94339dc to be the reason for this
-> "ALSA: usb-audio: add implicit fb quirk for MOTU M Series"
+Signed-off-by: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+---
+ drivers/soundwire/intel_init.c | 162 -----------------------------------------
+ 1 file changed, 162 deletions(-)
 
-Confirmed, if i revert this commit my Motu M2 interface works again as expected.
-With full sound quality (no audio drops or cracks in either in or output).
-And with the headset fully working again.
+diff --git a/drivers/soundwire/intel_init.c b/drivers/soundwire/intel_init.c
+index ad7053463889..d90929a5043b 100644
+--- a/drivers/soundwire/intel_init.c
++++ b/drivers/soundwire/intel_init.c
+@@ -23,10 +23,6 @@
+ #define SDW_LINK_BASE		0x30000
+ #define SDW_LINK_SIZE		0x10000
+ 
+-static int link_mask;
+-module_param_named(sdw_link_mask, link_mask, int, 0444);
+-MODULE_PARM_DESC(sdw_link_mask, "Intel link mask (one bit per link)");
+-
+ static int sdw_intel_cleanup_pdev(struct sdw_intel_ctx *ctx)
+ {
+ 	struct sdw_intel_link_res *link = ctx->links;
+@@ -47,164 +43,6 @@ static int sdw_intel_cleanup_pdev(struct sdw_intel_ctx *ctx)
+ 	return 0;
+ }
+ 
+-static struct sdw_intel_ctx
+-*sdw_intel_add_controller(struct sdw_intel_res *res)
+-{
+-	struct platform_device_info pdevinfo;
+-	struct platform_device *pdev;
+-	struct sdw_intel_link_res *link;
+-	struct sdw_intel_ctx *ctx;
+-	struct acpi_device *adev;
+-	int ret, i;
+-	u8 count;
+-	u32 caps;
+-
+-	if (acpi_bus_get_device(res->handle, &adev))
+-		return NULL;
+-
+-	/* Found controller, find links supported */
+-	count = 0;
+-	ret = fwnode_property_read_u8_array(acpi_fwnode_handle(adev),
+-					    "mipi-sdw-master-count", &count, 1);
+-
+-	/* Don't fail on error, continue and use hw value */
+-	if (ret) {
+-		dev_err(&adev->dev,
+-			"Failed to read mipi-sdw-master-count: %d\n", ret);
+-		count = SDW_MAX_LINKS;
+-	}
+-
+-	/* Check SNDWLCAP.LCOUNT */
+-	caps = ioread32(res->mmio_base + SDW_SHIM_BASE + SDW_SHIM_LCAP);
+-	caps &= GENMASK(2, 0);
+-
+-	/* Check HW supported vs property value and use min of two */
+-	count = min_t(u8, caps, count);
+-
+-	/* Check count is within bounds */
+-	if (count > SDW_MAX_LINKS) {
+-		dev_err(&adev->dev, "Link count %d exceeds max %d\n",
+-			count, SDW_MAX_LINKS);
+-		return NULL;
+-	} else if (!count) {
+-		dev_warn(&adev->dev, "No SoundWire links detected\n");
+-		return NULL;
+-	}
+-
+-	dev_dbg(&adev->dev, "Creating %d SDW Link devices\n", count);
+-
+-	ctx = kzalloc(sizeof(*ctx), GFP_KERNEL);
+-	if (!ctx)
+-		return NULL;
+-
+-	ctx->count = count;
+-	ctx->links = kcalloc(ctx->count, sizeof(*ctx->links), GFP_KERNEL);
+-	if (!ctx->links)
+-		goto link_err;
+-
+-	link = ctx->links;
+-
+-	/* Create SDW Master devices */
+-	for (i = 0; i < count; i++) {
+-		if (link_mask && !(link_mask & BIT(i))) {
+-			dev_dbg(&adev->dev,
+-				"Link %d masked, will not be enabled\n", i);
+-			link++;
+-			continue;
+-		}
+-
+-		link->registers = res->mmio_base + SDW_LINK_BASE
+-					+ (SDW_LINK_SIZE * i);
+-		link->shim = res->mmio_base + SDW_SHIM_BASE;
+-		link->alh = res->mmio_base + SDW_ALH_BASE;
+-
+-		link->ops = res->ops;
+-		link->dev = res->dev;
+-
+-		memset(&pdevinfo, 0, sizeof(pdevinfo));
+-
+-		pdevinfo.parent = res->parent;
+-		pdevinfo.name = "int-sdw";
+-		pdevinfo.id = i;
+-		pdevinfo.fwnode = acpi_fwnode_handle(adev);
+-
+-		pdev = platform_device_register_full(&pdevinfo);
+-		if (IS_ERR(pdev)) {
+-			dev_err(&adev->dev,
+-				"platform device creation failed: %ld\n",
+-				PTR_ERR(pdev));
+-			goto pdev_err;
+-		}
+-
+-		link->pdev = pdev;
+-		link++;
+-	}
+-
+-	return ctx;
+-
+-pdev_err:
+-	sdw_intel_cleanup_pdev(ctx);
+-link_err:
+-	kfree(ctx);
+-	return NULL;
+-}
+-
+-static acpi_status sdw_intel_acpi_cb(acpi_handle handle, u32 level,
+-				     void *cdata, void **return_value)
+-{
+-	struct sdw_intel_res *res = cdata;
+-	struct acpi_device *adev;
+-	acpi_status status;
+-	u64 adr;
+-
+-	status = acpi_evaluate_integer(handle, METHOD_NAME__ADR, NULL, &adr);
+-	if (ACPI_FAILURE(status))
+-		return AE_OK; /* keep going */
+-
+-	if (acpi_bus_get_device(handle, &adev)) {
+-		pr_err("%s: Couldn't find ACPI handle\n", __func__);
+-		return AE_NOT_FOUND;
+-	}
+-
+-	res->handle = handle;
+-
+-	/*
+-	 * On some Intel platforms, multiple children of the HDAS
+-	 * device can be found, but only one of them is the SoundWire
+-	 * controller. The SNDW device is always exposed with
+-	 * Name(_ADR, 0x40000000), with bits 31..28 representing the
+-	 * SoundWire link so filter accordingly
+-	 */
+-	if ((adr & GENMASK(31, 28)) >> 28 != SDW_LINK_TYPE)
+-		return AE_OK; /* keep going */
+-
+-	/* device found, stop namespace walk */
+-	return AE_CTRL_TERMINATE;
+-}
+-
+-/**
+- * sdw_intel_init() - SoundWire Intel init routine
+- * @parent_handle: ACPI parent handle
+- * @res: resource data
+- *
+- * This scans the namespace and creates SoundWire link controller devices
+- * based on the info queried.
+- */
+-static void *sdw_intel_init(acpi_handle *parent_handle,
+-			    struct sdw_intel_res *res)
+-{
+-	acpi_status status;
+-
+-	status = acpi_walk_namespace(ACPI_TYPE_DEVICE,
+-				     parent_handle, 1,
+-				     sdw_intel_acpi_cb,
+-				     NULL, res, NULL);
+-	if (ACPI_FAILURE(status))
+-		return NULL;
+-
+-	return sdw_intel_add_controller(res);
+-}
+-
+ /**
+  * sdw_intel_exit() - SoundWire Intel exit
+  * @arg: callback context
+-- 
+2.11.0
 
-Patch i'm running no ontop 5.5
-
-commit 0224cb66ca86863d527c0c93a2052ca663cb2c29 (HEAD -> master)
-Author: Michael Gebetsroither <michael@mgeb.org>
-Date:   Sat Apr 25 23:33:10 2020 +0200
-
-    Revert "ALSA: usb-audio: add implicit fb quirk for MOTU M Series"
-
-    This reverts commit c249177944b650816069f6c49b769baaa94339dc.
-
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index a4e4064f9aee..80a6a53b48e7 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -366,10 +366,6 @@ static int set_sync_ep_implicit_fb_quirk(struct snd_usb_substream *subs,
-                ep = 0x84;
-                ifnum = 0;
-                goto add_sync_ep_from_ifnum;
--       case USB_ID(0x07fd, 0x0008): /* MOTU M Series */
--               ep = 0x81;
--               ifnum = 2;
--               goto add_sync_ep_from_ifnum;
-        case USB_ID(0x0582, 0x01d8): /* BOSS Katana */
-                /* BOSS Katana amplifiers do not need quirks */
-                return 0;
-
-greets,
-gebi

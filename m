@@ -2,79 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA5631B9202
-	for <lists+alsa-devel@lfdr.de>; Sun, 26 Apr 2020 19:14:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADA291B92C4
+	for <lists+alsa-devel@lfdr.de>; Sun, 26 Apr 2020 20:25:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C1DA1665;
-	Sun, 26 Apr 2020 19:13:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C1DA1665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 44DC11665;
+	Sun, 26 Apr 2020 20:24:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44DC11665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587921271;
-	bh=T6ML7LJuHfxjJ2TuAy9/ZNmGqUafir6GTNH4Ff5QcM4=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1587925510;
+	bh=18p5QP8uxOVNqgPVsFClFTg/z60KvMd0FUr+S2U9heY=;
+	h=From:To:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YfG/sKqpKCBu7Q6y07HGSWG6XdKZOS3jwPNDBH3mBZ3z9xPgud82R8TFlpxQ3BmMm
-	 61uazU+IH7BoQZ0mwVaW+/MIPOd7Mp49gxJiMTBdUxnT7sa+C1ZIOEH28ZIeZ+ZXHy
-	 +OR/5TA3hUJy9uZa0Z7SjS7Qmj0xLUrHhd2JF/Kw=
+	b=tjSDVJpEsuLMEAWykS1HayNk0Q5sRrGu9ZT/xMZOD0hUDHWiX6AEIwkGsgo0lqE2Z
+	 Gq745ijepNEa0oyS80PRx/mauMNH9OhfaDBMt8tltOVO0MxpZHnkZtw/guyk3sqjq7
+	 Apy/5F3EZvxh3ZRU5H0kXvG4foVvwiSEX17MXEKI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47ED4F801EB;
-	Sun, 26 Apr 2020 19:12:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 661DEF80105;
+	Sun, 26 Apr 2020 20:23:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C7F1F801DB; Sun, 26 Apr 2020 19:12:47 +0200 (CEST)
+ id 7B21BF80136; Sun, 26 Apr 2020 20:23:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05olkn2085.outbound.protection.outlook.com [40.92.90.85])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 75CD9F8010A
- for <alsa-devel@alsa-project.org>; Sun, 26 Apr 2020 19:12:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75CD9F8010A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 597BAF80105
+ for <alsa-devel@alsa-project.org>; Sun, 26 Apr 2020 20:23:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 597BAF80105
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=tsoy.me header.i=@tsoy.me
- header.b="Wf/Jdi2U"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
- s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Content-Type:
- References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Reply-To:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
- :List-Post:List-Owner:List-Archive;
- bh=CisUH6eGkTeggNHF+/J5wuamJ1TVJe9GUisz+CNdN9I=; b=Wf/Jdi2UW7h4l9EiSET1qKzWeI
- kwhTFMOnqdMZb51iwGU7K0AJQW0hLY6HekplA+sW5YyYieDunlg8axEBV3j3fFxHeselhfWKt63zJ
- xTkudJb/BuYBG1AUDtIQ32ThssmEaV2yW/7bkoZ/G25eypD8ItiS9QC8CQ4MkEDl/FSM=;
-Received: from [2a00:1370:8125:3f98:890:f100:d37d:7ada] (helo=home)
- by puleglot.ru with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.92.3) (envelope-from <puleglot@puleglot.ru>)
- id 1jSkpd-000AM0-W9; Sun, 26 Apr 2020 20:12:42 +0300
-Message-ID: <55d78d082f97aa70cb9bb0b90c7a48b8de72f9c5.camel@tsoy.me>
-Subject: Re: [PATCH] ALSA: usb-audio: Apply async workaround for Scarlett
- 2i4 2nd gen
-From: Alexander Tsoy <alexander@tsoy.me>
-To: Takashi Iwai <tiwai@suse.de>
-Date: Sun, 26 Apr 2020 20:12:41 +0300
-In-Reply-To: <ac1a28783cfc4e6f5d2109da411a1372158f3ad7.camel@tsoy.me>
-References: <7190177d62f349eea7a5d1056924a63fc4270d43.camel@tsoy.me>
- <20200422185522.3347-1-grpintar@gmail.com>
- <a45d18d7922d780f29f89cff855eb30fbdd1fce8.camel@tsoy.me>
- <s5heesfxo2o.wl-tiwai@suse.de>
- <c0cb78664e3acd94f07e59f3a4216c16ab9f497d.camel@tsoy.me>
- <s5hy2qmwts3.wl-tiwai@suse.de> <s5heesewip1.wl-tiwai@suse.de>
- <470d034599514e83454663f389bad30fd98ad3e2.camel@tsoy.me>
- <99bb394ff162a16442fd83c0ab56a9d8c0055877.camel@tsoy.me>
- <s5htv1at8kb.wl-tiwai@suse.de> <s5hr1wet8a6.wl-tiwai@suse.de>
- <ac1a28783cfc4e6f5d2109da411a1372158f3ad7.camel@tsoy.me>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.34.4 
+ dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com
+ header.b="kYKTpGng"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KaRz4DvJDZBVQT1aCeQT65UhSrMWNkSowx5SPSZ1O4pBcpqtYNz8Z8hkGowFxjUMuCR3vGscS8/KriFjc5En10JdIk4PpynRK+yhjDACI/MVaxRpywBzidFqrUb5Vzukg8vBXl6YbAKTetf2f3s5P+hlNL8+HSlQMFZ4LBhKiLrC+AKUFFYiGAYboJEMbHmWBUSnj0Ej1CJDC8h6WXnelPZb/ZtXfQcJvdV2C7v0vCZwH4qKxG/iJvbDIKs6+Xg7+X7YYwcprL/1yoIgs41+w5G8IrfCiLtJXsU2NBrc0gjqBPYO5PKnEldwJpfOVz/W9DJfWwKTGYRzYIxF8o35+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=S962swYfiCZNj43Tig6/WpUjBTwzCSbrJxf34TgP+b0=;
+ b=JEigHXsxhP7xvAMYpb94lP3k9zr6YsBUtoWx0hQXr6ibduJrbMt4x4SgJgVYOUuuz7IihLsoGvA7WwgRQPSYdhaYQuCbxrRjI1h/TtxSso18PwHNmy7ElQ/9vnaD2R5yd5q6IICysZ7Ro8AVyAX1RElcYk9SUfaKGXQIuW2iA9ZLJzl8/PaNfHwHTy9LOt2zRQVthb8/AFMYzQvLaGYGeQPv09evLqUC7DocD64egit7MoxCtDWPwOjBTTR+oJjyzWJBZ2OPAvobY4XJmg5ckIvwh2uPxAzboOndjwtkuG+xURKZevVBM8MVIWwvXddXoPFc4btXoLZH8mZQAm5q5Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=S962swYfiCZNj43Tig6/WpUjBTwzCSbrJxf34TgP+b0=;
+ b=kYKTpGngMmLY4yDWO4EM4UtYmmPQ4nmTTualXYhmmrYwXuoMA6JteUl7m/0GCdNw3srNmc8rgsPEHZEGRwH4TUl2jo9T7pZKSjhBCO5Fi++JuAC8kTOZFSq+b1LKXGeV/CZd/WKf7uoNeyW6iJMUxp8M03V8aZzdljt0OxllS8ZqTPqBdd4VEFMaJmR6x3Jpi9m4tZ5TSd2WQn4BVOqK+sonvrlwwT852BAyDnfBSEhIjoTzBWwvlE9eDczMZoxegCGUDRI5z6BP2YANcq/nssUBncL9yqtzcCaDrNZ85F6mE/NSlfwh4N9NHMvIm0YWnZjqTXUCXpFiaqFMy6nXbg==
+Received: from AM6EUR05FT044.eop-eur05.prod.protection.outlook.com
+ (2a01:111:e400:fc11::52) by
+ AM6EUR05HT192.eop-eur05.prod.protection.outlook.com (2a01:111:e400:fc11::88)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2937.15; Sun, 26 Apr
+ 2020 18:23:21 +0000
+Received: from DB8P191MB0998.EURP191.PROD.OUTLOOK.COM (2a01:111:e400:fc11::4d)
+ by AM6EUR05FT044.mail.protection.outlook.com
+ (2a01:111:e400:fc11::425) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2937.15 via Frontend
+ Transport; Sun, 26 Apr 2020 18:23:21 +0000
+Received: from DB8P191MB0998.EURP191.PROD.OUTLOOK.COM
+ ([fe80::c8f9:cb6f:e324:3847]) by DB8P191MB0998.EURP191.PROD.OUTLOOK.COM
+ ([fe80::c8f9:cb6f:e324:3847%4]) with mapi id 15.20.2937.020; Sun, 26 Apr 2020
+ 18:23:21 +0000
+From: Stuart Naylor <stuartiannaylor@outlook.com>
+To: " alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Subject: FW: Does the SpeexDSP plugin work?
+Thread-Topic: Does the SpeexDSP plugin work?
+Thread-Index: AQHWG/LWRWscNqb4pUK7md09aXRgmaiLtuX3
+Date: Sun, 26 Apr 2020 18:23:21 +0000
+Message-ID: <DB8P191MB09980A2D349568F0083F716EA8AE0@DB8P191MB0998.EURP191.PROD.OUTLOOK.COM>
+References: <20200412043143.epf7wwoxlmnnukeb@fastmail.com>
+ <26185986-cc09-c6fa-505e-e36490a86058@googlemail.com>
+ <20200421181941.lmqq3bxlw7ifyiaa@fastmail.com>,
+ <20200421204953.6sdbhbfc2jcmi43j@fastmail.com>,
+ <DB8P191MB0998910E9863EACF5EEA16B7A8AE0@DB8P191MB0998.EURP191.PROD.OUTLOOK.COM>
+In-Reply-To: <DB8P191MB0998910E9863EACF5EEA16B7A8AE0@DB8P191MB0998.EURP191.PROD.OUTLOOK.COM>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-incomingtopheadermarker: OriginalChecksum:04AF5D71DE73FEFC3E9A5904395E12F19775A3B3AF02C29C4492958785354B04;
+ UpperCasedChecksum:8AF4E355D9582AE629ECFFA93FC09566B9E920CAE2100161BDC46EF0B15AA0E8;
+ SizeAsReceived:7077; Count:44
+x-tmn: [aTfHkR/CvgYiEBNsGtlcpvnePykCrjRy]
+x-ms-publictraffictype: Email
+x-incomingheadercount: 44
+x-eopattributedmessage: 0
+x-ms-office365-filtering-correlation-id: b10470fe-6b00-4224-34f3-08d7ea0ee6cf
+x-ms-traffictypediagnostic: AM6EUR05HT192:
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: mTkSRhqJsrm0/WicOpAcvejEj0QBAK60mdjYFT8cT2s7lB4FOz8ceCEcqbTdb+c39F6pdZohYRpLhlqoo4MkFaOy4rVWhfwbFslyncfb2xtU95aMFkvPLlxC4pGb2TTr58pLlOaOUYdohZY9iQK5Hq/OU4mNQO6Pp7AB/DEnfYsoDjHJrBWT+7yWKI0ge5I+q4qFo9sA2nQLjmWT3MnahqTs1DAoAsKSYxhLIXKZKBYSWNvIssKbHGQ0bDCDEuyG
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:0; SRV:;
+ IPV:NLI; SFV:NSPM; H:DB8P191MB0998.EURP191.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFTY:; SFS:; DIR:OUT; SFP:1901; 
+x-ms-exchange-antispam-messagedata: C31JzdnhY4knM417S7FEsAir+HIvkQCpVPkBgl2JeX1RADLMfbGg4pa1VoEm83CyWNJqyPM5E7hkjZ8TMhJ15m9ecOy3gNaWxJQVx4QhjcEOnNCy07Wf7r3ekJWc6KxLsfgxsSWv3Cl7oEUfHfGCzg==
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Gregor Pintar <grpintar@gmail.com>, alsa-devel@alsa-project.org
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: b10470fe-6b00-4224-34f3-08d7ea0ee6cf
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Apr 2020 18:23:21.7860 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Internet
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6EUR05HT192
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,48 +130,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-В Чт, 23/04/2020 в 21:24 +0300, Alexander Tsoy пишет:
-> В Чт, 23/04/2020 в 19:35 +0200, Takashi Iwai пишет:
-> > On Thu, 23 Apr 2020 19:29:08 +0200,
-> > Takashi Iwai wrote:
-> > > On Thu, 23 Apr 2020 18:57:34 +0200,
-> > > Alexander Tsoy wrote:
-> > > > And some further notes:
-> > > > 
-> > > > - I removed locking from snd_usb_endpoint_next_packet_size()
-> > > > and
-> > > > this
-> > > > seems completely fixed an issue with large URBs I reported
-> > > > here:
-> > > > 
-> > > > https://bugzilla.kernel.org/show_bug.cgi?id=199327#c28
-> > > > 
-> > > > So playing at 96 kHz, driver packs 48 frames per URB and no
-> > > > more
-> > > > audio
-> > > > discontinuities.
-> > > 
-> > > Hmm, that's weird.
-> > > 
-> > > If removing the lock from snd_usb_endpoint_next_packet_size()
-> > > really
-> > > fixes the problem, it implies the lock contention.  But as far as
-> > > I
-> > > see the code performed in this lock isn't conflicting so
-> > > much.  The
-> > > URB processing shouldn't happen in parallel for the same EP.
-> > 
-> > BTW, one potential racy code I found while looking at the code is
-> > the
-> > list management in queue_pending_output_urbs().  The fix patch is
-> > below.
-> 
-> OK, it seems like it was just a luck. I'm still getting clicking
-> artifacts with and without your patch, with and without locking. Will
-> investigate further.
+I have been playing with this repo and the results are actually quite good.
 
-After more testing, it seems that with large URBs the transfer size is
-too large for timer-based scheduling to work correctly in pulseaudio.
-And looks like pulseaudio sometimes fail to adjust tsched watermark or
-something like that. And it is not 100% reproducible.
+https://github.com/voice-engine/ec
+
+I have been using exactly the same parameters with the following.
+I have sent this to you guys because I am sure something is very much wrong=
+ with the plugin itself.
+SpeexDSP works OK, the above repo works ok, alsa-plugin speex works excepti=
+onally badly that in terms of audio quality it doesn=92t work at all?
+
+# The IPC key of dmix or dsnoop plugin must be unique
+# If 555555 or 666666 is used by other processes, use another one
+# use samplerate to resample as speexdsp resample is bad
+#defaults.pcm.rate_converter "samplerate"
+pcm.!default {
+    type asym
+    playback.pcm "playback"
+    capture.pcm "echo"
+}
+
+pcm.playback {
+    type plug
+    slave.pcm "dmixed"
+}
+pcm.echo {
+type speex
+slave.pcm "agc"
+echo yes
+frames 128
+filter_length 4096
+}
+pcm.agc {
+type speex
+slave.pcm "capture"
+agc 1
+}
+pcm.capture {
+    type plug
+    slave.pcm "array"
+    route_policy sum
+}
+pcm.dmixed {
+    type dmix
+    slave.pcm "hw:seeed2micvoicec"
+    ipc_key 555555
+}
+pcm.array {
+    type dsnoop
+    slave {
+        pcm "hw:seeed2micvoicec"
+        channels 2
+    }
+    ipc_key 666666
+}
+
+I really don=92t understand how the above repo can do such and excellent jo=
+b and then with alsa-plugins it can provide zero EC and also vocode the rec=
+ording so badly?
+Surely there is something wrong with the implementation?
+Its doesn=92t make and sense unless I have the above asound.conf wrong?
+But https://github.com/voice-engine/ec works quite effectively?
+Stuart
+
+Sent from Mail<https://go.microsoft.com/fwlink/?LinkId=3D550986> for Window=
+s 10
+
 

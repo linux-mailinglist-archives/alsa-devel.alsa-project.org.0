@@ -2,60 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C9801B921E
-	for <lists+alsa-devel@lfdr.de>; Sun, 26 Apr 2020 19:36:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B27FF1B91EB
+	for <lists+alsa-devel@lfdr.de>; Sun, 26 Apr 2020 19:00:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C3EE21669;
-	Sun, 26 Apr 2020 19:35:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3EE21669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 265061663;
+	Sun, 26 Apr 2020 18:59:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 265061663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587922604;
-	bh=XrIHlGlfSi011eOxwM5TdLhyWsSAIFjbEoqh3Ynepf0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=EvzJQL/4sAxGIk46NkWye3iikZOhfmrNRcF3onmW/l+5KtAb4JZDIKLwPH7ba//iF
-	 DmOF4lOZNuPKr35jf8bVtET1o8GmNUSSTggxXAIHSDjulbtxwx2HacTZGXXyqIcYaU
-	 sIOGvL783JLHv4+ujcxBEnFF517NrFBaMMPLo0tw=
+	s=default; t=1587920405;
+	bh=r/a9ps6OO2xqur2E0ceIyULKGI5sit5lN+svIDj9O9Y=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=bixTqYqiR0AZwDDWMroi7OPU8mYkzBQF6tJWCdqo7Tf5V/95AaUe/HaGFYQ4t+9PC
+	 yd25MFN99ZBNOrRDHSBD5rek1i4fl1d2PyELGU6GFycpIqU5vtFSi/Gj6vIKFDGuy5
+	 lEY2bkW+kromy3PxAsado+DI1cHrs72/kfhex9mc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D80CEF80136;
-	Sun, 26 Apr 2020 19:35:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3511AF80136;
+	Sun, 26 Apr 2020 18:58:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 93BD0F801DB; Sun, 26 Apr 2020 15:18:33 +0200 (CEST)
+ id B78E2F801DB; Sun, 26 Apr 2020 18:58:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
+X-Spam-Status: No, score=0.3 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bitmer.com (50-87-157-213.static.tentacle.fi [213.157.87.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B02D7F80105
- for <alsa-devel@alsa-project.org>; Sun, 26 Apr 2020 15:18:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B02D7F80105
-Received: from DGGEMS409-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id F0527690B6900E72B260;
- Sun, 26 Apr 2020 21:18:22 +0800 (CST)
-Received: from huawei.com (10.175.105.27) by DGGEMS409-HUB.china.huawei.com
- (10.3.19.209) with Microsoft SMTP Server id 14.3.487.0; Sun, 26 Apr 2020
- 21:18:13 +0800
-From: Wu Bo <wubo40@huawei.com>
-To: <perex@perex.cz>, <tiwai@suse.com>, <libin.yang@linux.intel.com>,
- <kai.vehmanen@linux.intel.com>, <nmahale@nvidia.com>, <aplattner@nvidia.com>, 
- <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH] sound:hdmi:fix without unlocked before return
-Date: Sun, 26 Apr 2020 21:17:22 +0800
-Message-ID: <1587907042-694161-1-git-send-email-wubo40@huawei.com>
-X-Mailer: git-send-email 1.8.3.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2FD66F8010A
+ for <alsa-devel@alsa-project.org>; Sun, 26 Apr 2020 18:58:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FD66F8010A
+Received: from 88-114-185-20.elisa-laajakaista.fi ([88.114.185.20]
+ helo=[192.168.1.42])
+ by bitmer.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.89) (envelope-from <jarkko.nikula@bitmer.com>)
+ id 1jSkbS-0003UA-FT; Sun, 26 Apr 2020 19:58:02 +0300
+Subject: Re: [PATCH] ASoC: ti: remove comparison to bool in
+ omap_mcbsp_dai_set_dai_fmt()
+To: Jason Yan <yanaijie@huawei.com>, peter.ujfalusi@ti.com,
+ lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ rafael.j.wysocki@intel.com, tglx@linutronix.de, alsa-devel@alsa-project.org,
+ linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20200426094238.23914-1-yanaijie@huawei.com>
+From: Jarkko Nikula <jarkko.nikula@bitmer.com>
+Message-ID: <718c9a90-b5ff-f538-1152-c9b585095f3c@bitmer.com>
+Date: Sun, 26 Apr 2020 19:57:59 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.175.105.27]
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Sun, 26 Apr 2020 19:34:58 +0200
-Cc: linfeilong@huawei.com, wubo40@huawei.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, liuzhiqiang26@huawei.com
+In-Reply-To: <20200426094238.23914-1-yanaijie@huawei.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,34 +73,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix the following coccicheck warning:
-sound/pci/hda/patch_hdmi.c:1852:2-8: preceding lock on line 1846
-
-After add sanity check to pass klockwork check,
-The spdif_mutex should be unlock before return true
-in check_non_pcm_per_cvt().
-
-Signed-off-by: Wu Bo <wubo40@huawei.com>
----
- sound/pci/hda/patch_hdmi.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index 4eff1605..c24832b 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -1848,8 +1848,10 @@ static bool check_non_pcm_per_cvt(struct hda_codec *codec, hda_nid_t cvt_nid)
- 	/* Add sanity check to pass klockwork check.
- 	 * This should never happen.
- 	 */
--	if (WARN_ON(spdif == NULL))
-+	if (WARN_ON(spdif == NULL)) {
-+		mutex_unlock(&codec->spdif_mutex);
- 		return true;
-+	}
- 	non_pcm = !!(spdif->status & IEC958_AES0_NONAUDIO);
- 	mutex_unlock(&codec->spdif_mutex);
- 	return non_pcm;
--- 
-1.8.3.1
-
+On 4/26/20 12:42 PM, Jason Yan wrote:
+> Fix the following coccicheck warning:
+> 
+> sound/soc/ti/omap-mcbsp.c:1188:5-11: WARNING: Comparison to bool
+> 
+> Signed-off-by: Jason Yan <yanaijie@huawei.com>
+> ---
+>  sound/soc/ti/omap-mcbsp.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/ti/omap-mcbsp.c b/sound/soc/ti/omap-mcbsp.c
+> index 3d41ca2238d4..0348963f4df7 100644
+> --- a/sound/soc/ti/omap-mcbsp.c
+> +++ b/sound/soc/ti/omap-mcbsp.c
+> @@ -1185,7 +1185,7 @@ static int omap_mcbsp_dai_set_dai_fmt(struct snd_soc_dai *cpu_dai,
+>  	default:
+>  		return -EINVAL;
+>  	}
+> -	if (inv_fs == true)
+> +	if (inv_fs)
+>  		regs->pcr0 ^= FSXP | FSRP;
+>  
+Acked-by: Jarkko Nikula <jarkko.nikula@bitmer.com>

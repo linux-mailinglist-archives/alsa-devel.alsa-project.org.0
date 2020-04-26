@@ -2,67 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6560C1B8E14
-	for <lists+alsa-devel@lfdr.de>; Sun, 26 Apr 2020 10:57:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E38471B8E8E
+	for <lists+alsa-devel@lfdr.de>; Sun, 26 Apr 2020 11:45:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F292F167E;
-	Sun, 26 Apr 2020 10:56:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F292F167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8BC6E167B;
+	Sun, 26 Apr 2020 11:44:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8BC6E167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587891455;
-	bh=BS1fN1DNCOOGWEVK8AV8fRFLvuOb44Ub1tmQZyFB6zA=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=uhKJnbKTU9Ze649xoeVxHgsudmHcyhL7EIp/lYbi9/yssR3CzmIBW58bRR6+gaTrE
-	 WkzAB88ljzQvWKP9o+safgn0SA+ycl/RHdMqRw+85OFwyRIfnwWJM1Yd5VniiviSqX
-	 bLnizzTOZkueqYiQFOMWdOuQCCN9xBla8q1oH14I=
+	s=default; t=1587894316;
+	bh=JE+hIohGPFutDF/qYzcPfWeQCdVzPS1Ant0MMGiRhgY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=TUrs1rYG0c9qzWHpTbnhSoZTdU6uR/K8DxWIuRfIwOsidZwbhPL6vyBujMCrMRStk
+	 q20O9feIBhvm1hpMqphdr9bnZ79gn1xB/3cWPaRhwYcSkOxzRATsd65aDAYf9JLL7o
+	 Vz6QskT3tYs+lLhWEXzHxc3FBB3p/oTFX8Rbod7c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 11056F801EB;
-	Sun, 26 Apr 2020 10:55:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6315CF80105;
+	Sun, 26 Apr 2020 11:43:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6D172F801DB; Sun, 26 Apr 2020 10:55:51 +0200 (CEST)
+ id 9D5B1F80105; Sun, 26 Apr 2020 11:43:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from cable.insite.cz (cable.insite.cz [84.242.75.189])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81A1FF8010A
- for <alsa-devel@alsa-project.org>; Sun, 26 Apr 2020 10:55:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81A1FF8010A
-Received: from localhost (localhost [127.0.0.1])
- by cable.insite.cz (Postfix) with ESMTP id 12049A1F2C731;
- Sun, 26 Apr 2020 10:55:43 +0200 (CEST)
-Received: from cable.insite.cz ([84.242.75.189])
- by localhost (server.insite.cz [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id OmA7wK9_Nxo0; Sun, 26 Apr 2020 10:55:37 +0200 (CEST)
-Received: from [192.168.105.191] (ip28.insite.cz [81.0.237.28])
- (Authenticated sender: pavel)
- by cable.insite.cz (Postfix) with ESMTPSA id E0589A1F2BCF8;
- Sun, 26 Apr 2020 10:55:36 +0200 (CEST)
-Subject: Re: High-bandwidth/multiple transactions per microframe in usb audio?
-To: Alexander Tsoy <alexander@tsoy.me>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-References: <ee53ad0d-2d61-545b-7afd-64a5ed37c702@ivitera.com>
- <548c8312bd8ad65993c3169faf30054fdfa83558.camel@tsoy.me>
- <3a44ca23-f0ed-af54-3e63-8bf77d833c8f@ivitera.com>
- <253259a4ef8a2bcfa0568982b8fd23d5e2d0937a.camel@tsoy.me>
-From: Pavel Hofman <pavel.hofman@ivitera.com>
-Message-ID: <dbaba3f0-88b8-21f2-b7dc-5e1c5fadc675@ivitera.com>
-Date: Sun, 26 Apr 2020 10:55:32 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3F3F0F80105
+ for <alsa-devel@alsa-project.org>; Sun, 26 Apr 2020 11:43:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F3F0F80105
+Received: from DGGEMS407-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id B569892C8BB359192DCB;
+ Sun, 26 Apr 2020 17:43:20 +0800 (CST)
+Received: from huawei.com (10.175.124.28) by DGGEMS407-HUB.china.huawei.com
+ (10.3.19.207) with Microsoft SMTP Server id 14.3.487.0; Sun, 26 Apr 2020
+ 17:43:11 +0800
+From: Jason Yan <yanaijie@huawei.com>
+To: <peter.ujfalusi@ti.com>, <jarkko.nikula@bitmer.com>,
+ <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <rafael.j.wysocki@intel.com>, <tglx@linutronix.de>,
+ <alsa-devel@alsa-project.org>, <linux-omap@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: [PATCH] ASoC: ti: remove comparison to bool in
+ omap_mcbsp_dai_set_dai_fmt()
+Date: Sun, 26 Apr 2020 17:42:38 +0800
+Message-ID: <20200426094238.23914-1-yanaijie@huawei.com>
+X-Mailer: git-send-email 2.21.1
 MIME-Version: 1.0
-In-Reply-To: <253259a4ef8a2bcfa0568982b8fd23d5e2d0937a.camel@tsoy.me>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.175.124.28]
+X-CFilter-Loop: Reflected
+Cc: Jason Yan <yanaijie@huawei.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,26 +73,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 25. 04. 20 v 21:50 Alexander Tsoy napsal(a):
-> В Сб, 25/04/2020 в 20:06 +0200, Pavel Hofman пишет:
-> 
-> And I just noticed that USB-audio driver can't properly parse max
-> packet size for SuperSpeed and SuperSpeed+ devices yet. See
-> audio_format_alloc_init().
+Fix the following coccicheck warning:
 
-Very good catch. IIUC there are two basically equivalent calculations
-for HighSpeed -
+sound/soc/ti/omap-mcbsp.c:1188:5-11: WARNING: Comparison to bool
 
-https://elixir.bootlin.com/linux/v5.6.7/source/drivers/usb/core/urb.c#L445
+Signed-off-by: Jason Yan <yanaijie@huawei.com>
+---
+ sound/soc/ti/omap-mcbsp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/sound/soc/ti/omap-mcbsp.c b/sound/soc/ti/omap-mcbsp.c
+index 3d41ca2238d4..0348963f4df7 100644
+--- a/sound/soc/ti/omap-mcbsp.c
++++ b/sound/soc/ti/omap-mcbsp.c
+@@ -1185,7 +1185,7 @@ static int omap_mcbsp_dai_set_dai_fmt(struct snd_soc_dai *cpu_dai,
+ 	default:
+ 		return -EINVAL;
+ 	}
+-	if (inv_fs == true)
++	if (inv_fs)
+ 		regs->pcr0 ^= FSXP | FSRP;
+ 
+ 	return 0;
+-- 
+2.21.1
 
-https://elixir.bootlin.com/linux/v5.6.7/source/sound/usb/stream.c#L691
-
-
-And audio_format_alloc_init missing the sections for SS, SS+ in
-usb_submit_urb . Perhpas a common method to make the calculation for all
-cases would make it more robust?
-
-Thanks,
-
-Pavel.

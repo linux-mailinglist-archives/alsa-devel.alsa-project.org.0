@@ -2,67 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A55E1BA32A
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Apr 2020 14:08:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BCCB1BA36C
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Apr 2020 14:15:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A027B1689;
-	Mon, 27 Apr 2020 14:07:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A027B1689
+	by alsa0.perex.cz (Postfix) with ESMTPS id 37909169B;
+	Mon, 27 Apr 2020 14:15:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37909169B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587989321;
-	bh=1m16fC0Omj/UN4RkPHjzbywpoiVoVofm7ryYwBegEAM=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1587989751;
+	bh=yGzhsU6WhWm7uamQy2CRWWpAW8P1mXU8LbyMHZ1Xkk8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nEDY5wZHi1zRWhqmJfNWz6XlnTX8SiTH6v/YfWRpEZZbvoG61dwoRPai+wOVGxxuH
-	 GZioY3wtmIs4aPyRSprVDSiJFImVlFS5UktpxCx0OQ7P5emFOARdI06Qz0uCVgFtdz
-	 CvqIgdacjzsekiWRoDlxcFcgDNn9/AGEv3iy6vtM=
+	b=GU8vS4k3Z2g+qSOiwyIhaikCXWPYeZ8W/IpteVLPno21DdFOK9k2+jzWgZY4FQYcg
+	 B4JV4z2tJeoJpfjsqWNOXTC4RJdbRjvvwq66O3ZBBN9h7Iq1byJzbMSp/GNOpCTnD4
+	 a8Fb7LWrbR97vP4pSZPADi2XNSh57YBEJxhkRf5g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93491F80232;
-	Mon, 27 Apr 2020 14:07:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52506F80217;
+	Mon, 27 Apr 2020 14:14:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B0AAF80112; Mon, 27 Apr 2020 14:06:57 +0200 (CEST)
+ id C7C26F8022B; Mon, 27 Apr 2020 14:14:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D2D83F80112
- for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 14:06:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2D83F80112
+ by alsa1.perex.cz (Postfix) with ESMTPS id E07EAF80113
+ for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 14:14:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E07EAF80113
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jN69zCDJ"
+ header.b="cAA15cIG"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2234020656;
- Mon, 27 Apr 2020 12:06:47 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7107020656;
+ Mon, 27 Apr 2020 12:14:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587989208;
- bh=1m16fC0Omj/UN4RkPHjzbywpoiVoVofm7ryYwBegEAM=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=jN69zCDJKrqExjNLOR8Cbwymi5eN2AbzM0CHbDsx9suR47QUg2Kmq/xQtMCIrmouI
- A0hNeOLjfGU7p+9Tp0NrRed2toBUVtjjfiYffuiLdgIthDizhLhHZmoi3knnz3ly0/
- orJbiLE9HH6OSI5kbYpwwJT2Cu+9wth6kcm+Lu0A=
-Date: Mon, 27 Apr 2020 13:06:46 +0100
+ s=default; t=1587989644;
+ bh=yGzhsU6WhWm7uamQy2CRWWpAW8P1mXU8LbyMHZ1Xkk8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=cAA15cIGfhTDviM32WxhxH4Hh0HAkfBnu4l1HNP7cuvmkoGYnafEZblFVU1gnicG2
+ PcPRm4/rYzZlafSmiLQrgWmzCdnc+0b66R9DrHhx2+uyHJtAIAJhgeqi8Azoc+dmYJ
+ OH0xnjQ6ZPpW3wbblrf0kej6S6EfW8Wi3mYOftHc=
+Date: Mon, 27 Apr 2020 13:14:01 +0100
 From: Mark Brown <broonie@kernel.org>
-To: festevam@gmail.com, Xiubo.Lee@gmail.com, nicoleotsuka@gmail.com,
- timur@kernel.org, Shengjiu Wang <shengjiu.wang@nxp.com>,
- alsa-devel@alsa-project.org, tiwai@suse.com, perex@perex.cz
-In-Reply-To: <a8f2ad955aac9e52587beedc1133b3efbe746895.1587968824.git.shengjiu.wang@nxp.com>
-References: <a8f2ad955aac9e52587beedc1133b3efbe746895.1587968824.git.shengjiu.wang@nxp.com>
-Subject: Re: [PATCH v2] ASoC: fsl_esai: Disable exception interrupt before
- scheduling tasklet
-Message-Id: <158798920600.35547.13024845856873705018.b4-ty@kernel.org>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+To: Mateusz Gorski <mateusz.gorski@linux.intel.com>
+Subject: Re: [PATCH v5 1/3] ASoC: Intel: Skylake: Add alternative topology
+ binary name
+Message-ID: <20200427121401.GB4383@sirena.org.uk>
+References: <20200427111520.12076-1-mateusz.gorski@linux.intel.com>
+ <20200427111520.12076-2-mateusz.gorski@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="gatW/ieO32f1wygP"
+Content-Disposition: inline
+In-Reply-To: <20200427111520.12076-2-mateusz.gorski@linux.intel.com>
+X-Cookie: If your bread is stale, make toast.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: cezary.rojewski@intel.com, alsa-devel@alsa-project.org, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,41 +84,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 27 Apr 2020 14:23:21 +0800, Shengjiu Wang wrote:
-> Disable exception interrupt before scheduling tasklet, otherwise if
-> the tasklet isn't handled immediately, there will be endless xrun
-> interrupt.
-> 
-> Fixes: 7ccafa2b3879 ("ASoC: fsl_esai: recover the channel swap after xrun")
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
-> 
-> [...]
 
-Applied to
+--gatW/ieO32f1wygP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.7
+On Mon, Apr 27, 2020 at 01:15:18PM +0200, Mateusz Gorski wrote:
+> Add alternative topology binary file name based on used machine driver
+> and fallback to use this name after failed attempt to load topology file
+> with name based on NHLT.
+> This change addresses multiple issues with current mechanism, for
+> example - there are devices without NHLT table, and that currently
+> results in tplg_name being empty.
+>=20
+> Changes in v2:
+> - added <sound/soc-acpi.h> include
+> - machine driver name is now read from different field
 
-Thanks!
+As covered in submitting-patches.rst the changelog should go after the
+--- so it doesn't end up in the git changelog.
 
-[1/1] ASoC: fsl_esai: Disable exception interrupt before scheduling tasklet
-      commit: 1fecbb71fe0e46b886f84e3b6decca6643c3af6d
+--gatW/ieO32f1wygP
+Content-Type: application/pgp-signature; name="signature.asc"
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-----BEGIN PGP SIGNATURE-----
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6mzIgACgkQJNaLcl1U
+h9BGZgf+NETZ6FUopPy2Olqhoo9KcENfg42ZV6fmDySSU8m/nXJ+0BCy93M3mEqc
+Y7AGoL3eHaM7F5zCB2EcD3WDcszkNcWwiqCPyGAEJ8TwC6xf7WN3+jotBrlU0AzC
+V+DvpWOwZR2vpj7bUWR1Emig30R1S3Fb4RtJnBRAJ84zd+zFXMUvYUG4H0TCW994
++zvxzW0MONUzqnjq2nrn1AK9AHZZNIsf5N8n2TivgFd5YV4wV1ZgrARikRCMx2CK
++qBc+CXrbvvXoQ2bElC8UaGphcP7bRVK/2FLNTC+p9EEVUOFnqXNdYtUP2RvkTaK
+MX8f4IgAhbKwB6Bgf928bU8jtOWBcw==
+=HLKN
+-----END PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+--gatW/ieO32f1wygP--

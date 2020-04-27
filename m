@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A67A1BA457
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Apr 2020 15:13:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 105F11BA459
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Apr 2020 15:14:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D291116A2;
-	Mon, 27 Apr 2020 15:12:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D291116A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id A0B501690;
+	Mon, 27 Apr 2020 15:13:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0B501690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587993217;
-	bh=RMGtcuq9poVdZOs8i7AlANrnvmz1YVBx+61b4lQ+NlU=;
-	h=Date:From:To:In-Reply-To:References:Subject:List-Id:
+	s=default; t=1587993260;
+	bh=uUImpmvEx491O9ztYoJkf0f+0HuJG0KG4PbPfXnRmi4=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Rj2cCi9i1pKu+Sef8x1cjNpqgBhLQ1vZKDhsifFgndTTlxv5oxdN02cW2wPgOu+Pm
-	 obYgv+75EZ2TrwfaW+UDF+aPr5LG8GAqGqXfyINXyfztP/n0NHOTTfkQeaD6r/jTww
-	 y/6+0CeOk4JNT2JJmYlx47dN9MihDpZymSZ14Lhs=
+	b=O5K2NeTuj7oIepULOV5IKEAynJNzj7EQ0hOD1jTvpQUiMYba2ioNduJB2N6oHRldJ
+	 4OpmfOa181l/Duvsup0vjM3cTkoCeB1lpKTAb9ii6bF1DwX+yZv4ghQyF9YpbG1KAJ
+	 wL66oJgVEfSmLmX3wJna+xKkC291FYxFe0lTf1WM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CAC9EF8028D;
-	Mon, 27 Apr 2020 15:10:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B985DF8029B;
+	Mon, 27 Apr 2020 15:10:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 15E77F8022B; Mon, 27 Apr 2020 15:09:28 +0200 (CEST)
+ id E8179F8022B; Mon, 27 Apr 2020 15:09:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,35 +34,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4D83FF80112
- for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 15:09:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D83FF80112
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2C43AF80112
+ for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 15:09:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C43AF80112
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="18PqGg0U"
+ header.b="xoIA2sNe"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4AB032072D;
- Mon, 27 Apr 2020 13:09:19 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 297D520775;
+ Mon, 27 Apr 2020 13:09:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587992959;
- bh=RMGtcuq9poVdZOs8i7AlANrnvmz1YVBx+61b4lQ+NlU=;
+ s=default; t=1587992965;
+ bh=uUImpmvEx491O9ztYoJkf0f+0HuJG0KG4PbPfXnRmi4=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=18PqGg0U4x8bsr3mYRoxNY2EOchx4rM0d4uMWf33pwI2Mrnf+PB6I93E023rf+xBc
- v4e5SaKR30XDPNYw7TYhvyfFG1Dl1E85Odlw5MQltqiknTLUb+eWR7Ynz/+JOR3jjj
- X4ga4Tn+VQ/uh8xTkbEoZHOCq1dIkyh1NO0sUBX4=
-Date: Mon, 27 Apr 2020 14:09:17 +0100
+ b=xoIA2sNepM5pdACYDbTVdBPPnjWOfPu9z8vuKssI6nAKxpX2oS7RW3HW61zf5Z//p
+ FQv33tczriYeH9bqz4+w5lzySf3c8tyt7Y8WecEnrRh/l90tP7F/YjCDiTH9d8J6tU
+ fO1MgDlWltbMMTNm0bkkv0H1xX0qrI3WZGEsT2po=
+Date: Mon, 27 Apr 2020 14:09:23 +0100
 From: Mark Brown <broonie@kernel.org>
-To: rafael.j.wysocki@intel.com, peter.ujfalusi@ti.com, perex@perex.cz,
- alsa-devel@alsa-project.org, tglx@linutronix.de, tiwai@suse.com,
- Jason Yan <yanaijie@huawei.com>, linux-omap@vger.kernel.org,
- jarkko.nikula@bitmer.com, linux-kernel@vger.kernel.org, lgirdwood@gmail.com
-In-Reply-To: <20200426094238.23914-1-yanaijie@huawei.com>
-References: <20200426094238.23914-1-yanaijie@huawei.com>
-Subject: Re: [PATCH] ASoC: ti: remove comparison to bool in
- omap_mcbsp_dai_set_dai_fmt()
-Message-Id: <158799293954.30174.6898589997938617808.b4-ty@kernel.org>
+To: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>
+In-Reply-To: <20200419183509.4134-1-yung-chuan.liao@linux.intel.com>
+References: <20200419183509.4134-1-yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH] ASoC: Intel: sof_sdw: add amp number in components string
+ for ucm
+Message-Id: <158799293954.30174.17553763332925149533.b4-ty@kernel.org>
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,13 +77,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 26 Apr 2020 17:42:38 +0800, Jason Yan wrote:
-> Fix the following coccicheck warning:
+On Mon, 20 Apr 2020 02:35:09 +0800, Bard Liao wrote:
+> From: randerwang <rander.wang@linux.intel.com>
 > 
-> sound/soc/ti/omap-mcbsp.c:1188:5-11: WARNING: Comparison to bool
-> 
-> Signed-off-by: Jason Yan <yanaijie@huawei.com>
-> Acked-by: Jarkko Nikula <jarkko.nikula@bitmer.com>
+> The number of speaker amplifiers may vary between platforms. UCM
+> needs to check amp number to include different configuration files.
+> This patch keeps track of the number of speaker amplifiers and
+> stores it in components string of the card.
 > 
 > [...]
 
@@ -94,8 +93,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: ti: remove comparison to bool in omap_mcbsp_dai_set_dai_fmt()
-      commit: 1597bfbfdb3c6e97ad0f63abedc2a26d6c1850c7
+[1/1] ASoC: Intel: sof_sdw: add amp number in components string for ucm
+      commit: b1ca2f63e20b471e8f86e35b4b5f9407f8cb3021
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

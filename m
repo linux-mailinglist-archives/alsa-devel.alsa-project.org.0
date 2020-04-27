@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 105F11BA459
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Apr 2020 15:14:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FAE91BA45A
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Apr 2020 15:14:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A0B501690;
-	Mon, 27 Apr 2020 15:13:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0B501690
+	by alsa0.perex.cz (Postfix) with ESMTPS id CFC4116A8;
+	Mon, 27 Apr 2020 15:13:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFC4116A8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587993260;
-	bh=uUImpmvEx491O9ztYoJkf0f+0HuJG0KG4PbPfXnRmi4=;
+	s=default; t=1587993278;
+	bh=oLAkO5I8sHm5bFau0W6wglLolrcnVrPC69eOGnt+QRI=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=O5K2NeTuj7oIepULOV5IKEAynJNzj7EQ0hOD1jTvpQUiMYba2ioNduJB2N6oHRldJ
-	 4OpmfOa181l/Duvsup0vjM3cTkoCeB1lpKTAb9ii6bF1DwX+yZv4ghQyF9YpbG1KAJ
-	 wL66oJgVEfSmLmX3wJna+xKkC291FYxFe0lTf1WM=
+	b=QoE/0rCkxN5D2+XJiCPFfOgKst0mr+nqYxpnkkFBDb8gwLaXAnTQ3zIocaEdvXRSp
+	 bC5Hv+Byu+cy5OKH7wSdI/RXIj8c3SNeDPTI8bgq9/8qMSkbIm//gwhCkRYsL9RxRq
+	 fYfsLAFOIUJbLX5g5RcVN0AJsiIO2l8K/6PenopU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B985DF8029B;
-	Mon, 27 Apr 2020 15:10:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92770F802A0;
+	Mon, 27 Apr 2020 15:10:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E8179F8022B; Mon, 27 Apr 2020 15:09:33 +0200 (CEST)
+ id 4595DF8022B; Mon, 27 Apr 2020 15:09:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,34 +34,35 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2C43AF80112
- for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 15:09:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C43AF80112
+ by alsa1.perex.cz (Postfix) with ESMTPS id 22753F8010A
+ for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 15:09:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22753F8010A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="xoIA2sNe"
+ header.b="q8QVKDZ2"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 297D520775;
- Mon, 27 Apr 2020 13:09:24 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1C8B92076A;
+ Mon, 27 Apr 2020 13:09:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587992965;
- bh=uUImpmvEx491O9ztYoJkf0f+0HuJG0KG4PbPfXnRmi4=;
+ s=default; t=1587992971;
+ bh=oLAkO5I8sHm5bFau0W6wglLolrcnVrPC69eOGnt+QRI=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=xoIA2sNepM5pdACYDbTVdBPPnjWOfPu9z8vuKssI6nAKxpX2oS7RW3HW61zf5Z//p
- FQv33tczriYeH9bqz4+w5lzySf3c8tyt7Y8WecEnrRh/l90tP7F/YjCDiTH9d8J6tU
- fO1MgDlWltbMMTNm0bkkv0H1xX0qrI3WZGEsT2po=
-Date: Mon, 27 Apr 2020 14:09:23 +0100
+ b=q8QVKDZ2XFWhQVe8XrBElgPdWbNSB/mPsB/EtEAY/fsNZUWHkGoSwNxNgCpFdzXuX
+ A77egwRNVRGTk6YcumRlqeC/pd0sFhQsh72VkAG47P+3Tccru9bvrEX+5FvtUSl4iu
+ lFCjr8QtrWI+DQzbGYlTHol8cWJjr0ckRxoiVTJI=
+Date: Mon, 27 Apr 2020 14:09:28 +0100
 From: Mark Brown <broonie@kernel.org>
-To: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>
-In-Reply-To: <20200419183509.4134-1-yung-chuan.liao@linux.intel.com>
-References: <20200419183509.4134-1-yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH] ASoC: Intel: sof_sdw: add amp number in components string
- for ucm
-Message-Id: <158799293954.30174.17553763332925149533.b4-ty@kernel.org>
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- bard.liao@intel.com
+To: Tang Bin <tangbin@cmss.chinamobile.com>, perex@perex.cz, tiwai@suse.com,
+ lgirdwood@gmail.com
+In-Reply-To: <20200427091145.4268-1-tangbin@cmss.chinamobile.com>
+References: <20200427091145.4268-1-tangbin@cmss.chinamobile.com>
+Subject: Re: [PATCH] ASoC: hisilicon: Use IS_ERR() instead of IS_ERR_OR_NULL()
+Message-Id: <158799293954.30174.15623611340968433375.b4-ty@kernel.org>
+Cc: alsa-devel@alsa-project.org,
+ Zhang Shengju <zhangshengju@cmss.chinamobile.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,13 +78,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 20 Apr 2020 02:35:09 +0800, Bard Liao wrote:
-> From: randerwang <rander.wang@linux.intel.com>
+On Mon, 27 Apr 2020 17:11:45 +0800, Tang Bin wrote:
+> In the function hi6210_i2s_probe(), devm_clk_get() doesn't return NULL.
+> Thus use IS_ERR() to validate the return value instead of IS_ERR_OR_NULL().
 > 
-> The number of speaker amplifiers may vary between platforms. UCM
-> needs to check amp number to include different configuration files.
-> This patch keeps track of the number of speaker amplifiers and
-> stores it in components string of the card.
+> Signed-off-by: Zhang Shengju <zhangshengju@cmss.chinamobile.com>
+> Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
+> ---
+>  sound/soc/hisilicon/hi6210-i2s.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
 > [...]
 
@@ -93,8 +96,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Intel: sof_sdw: add amp number in components string for ucm
-      commit: b1ca2f63e20b471e8f86e35b4b5f9407f8cb3021
+[1/1] ASoC: hisilicon: Use IS_ERR() instead of IS_ERR_OR_NULL()
+      commit: e782ddbb0873d4d96bda890b295130696e0739fc
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

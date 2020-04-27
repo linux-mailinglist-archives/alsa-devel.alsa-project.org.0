@@ -2,58 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C7461BABA7
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Apr 2020 19:49:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FC1B1BAB65
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Apr 2020 19:34:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D75F716A6;
-	Mon, 27 Apr 2020 19:48:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D75F716A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6C7CF1690;
+	Mon, 27 Apr 2020 19:21:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C7CF1690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588009746;
-	bh=t+RGM9iDzBTdnt2bN/GEb/rfuNjjVAgFC+ZWaqVJ+Kk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=A7kqsTNrYD819t4iC4pPwBtD6fRjsmloZpuNZzMaL4OHXr0x6pX133w01ZDGfwYIb
-	 D8F3tMo1RvoD6W7iwdazYIbHUVe/E2yyBSGtoNv4Tq8pDH5ZUV2l2GVndH/fUyaxov
-	 zJbaqE7K8sfLzG/TSZ5A83SLeADd3vy/bYrsTy3E=
+	s=default; t=1588008121;
+	bh=2hGgR+Vn1tbJY41BKAe5uMNh0xtH3oCoq7fcWgC/WN8=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=iKX5uYuw0QHQ5LoUyQGey0Y9KFvZjLhxhrXY+o/uRhIm3T8mDtw08jPC88mtwT7tU
+	 WV9CsxaAzUoA4V27ZABp+rU7ZdxntUvNo/hNJUVD5+U8y8Kc95yFZ0Gjr4M6jP2laZ
+	 ia6fPI+Me8zBmpaEgzGrnLaqrsXhxm1/uvG8wKgA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C02FFF80217;
-	Mon, 27 Apr 2020 19:20:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A8E8F80245;
+	Mon, 27 Apr 2020 19:19:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A8AC7F8022B; Mon, 27 Apr 2020 19:19:49 +0200 (CEST)
+ id 5C662F80113; Mon, 27 Apr 2020 19:19:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E3079F80113
- for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 19:19:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3079F80113
-IronPort-SDR: 2oQPc9fLVMpIj+pE+wxo23nZajTPVl0w7CFRhym1lhfhNZ0Mu6C2PCNIq/omARgIhcSwSyGh29
- M709W0agX/vA==
+ by alsa1.perex.cz (Postfix) with ESMTPS id BE7E2F80113
+ for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 19:19:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE7E2F80113
+IronPort-SDR: TJHq7tCaxjbEpNRWCOkmlzbmz+sbAo3pNvd5pq0fpulyQNncYuGt1+1FnpJRQdwrudXMQCh3iN
+ ymr6JUuJ2hnw==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Apr 2020 10:19:37 -0700
-IronPort-SDR: jD3RywuxRGpJyIx//YURsX+NblkmEcMB1+ljm2BF1Z5scQR8yCB5T79BYSoFVDEuNJz98JclyA
- gXsgZd/Zaj9g==
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Apr 2020 10:19:44 -0700
+IronPort-SDR: 7x+DqS0p6CcaWJ/Cv1lcV6Ed/gksC/EqyUwzT6uz8SjWGM6zxoDs1Kcr2QdeczYir23wssxVvd
+ sz9Atbo6dP0A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,324,1583222400"; d="scan'208";a="458932248"
+X-IronPort-AV: E=Sophos;i="5.73,324,1583222400"; d="scan'208";a="458932321"
 Received: from brentlu-desk0.itwn.intel.com ([10.5.253.11])
- by fmsmga006.fm.intel.com with ESMTP; 27 Apr 2020 10:19:34 -0700
+ by fmsmga006.fm.intel.com with ESMTP; 27 Apr 2020 10:19:42 -0700
 From: Brent Lu <brent.lu@intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 0/3] add channel constraint for BDW machine drivers
-Date: Tue, 28 Apr 2020 01:13:31 +0800
-Message-Id: <1588007614-25061-1-git-send-email-brent.lu@intel.com>
+Subject: [PATCH v2 1/3] ASoC: bdw-rt5677: add channel constraint
+Date: Tue, 28 Apr 2020 01:13:32 +0800
+Message-Id: <1588007614-25061-2-git-send-email-brent.lu@intel.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1588007614-25061-1-git-send-email-brent.lu@intel.com>
+References: <1588007614-25061-1-git-send-email-brent.lu@intel.com>
 Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
  Cezary Rojewski <cezary.rojewski@intel.com>,
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
@@ -78,30 +82,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The machine driver bdw-rt5650 (for Google buddy) supports 2 or 4-channel
-recording while other two drivers support only 2-channel recording. HW
-constraints are implemented to reflect the hardware limitation on BDW
-platform.
+BDW boards using this machine driver supports only stereo capture and
+playback. Implement a constraint to enforce it.
 
-Changes since v1:
-- Change the patch title.
-- Remove the DUAL_CHANNEL and QUAD_CHANNEL macros which are too obvious.
-- Follow the naming convertion, using 'bdw_rt5650_' and 'bdw_rt5677_' to
-  name startup functions.
-- Refine the comments in startup functions.
-- Redesign the bdw_rt5650_fe_startup() function for readability.
-- Add an assignment to initialize runtime->hw.channels_max variable.
-
-Brent Lu (3):
-  ASoC: bdw-rt5677: add channel constraint
-  ASoC: bdw-rt5650: add channel constraint
-  ASoC: broadwell: add channel constraint
-
- sound/soc/intel/boards/bdw-rt5650.c | 29 +++++++++++++++++++++++++++++
+Signed-off-by: Brent Lu <brent.lu@intel.com>
+---
  sound/soc/intel/boards/bdw-rt5677.c | 26 ++++++++++++++++++++++++++
- sound/soc/intel/boards/broadwell.c  | 26 ++++++++++++++++++++++++++
- 3 files changed, 81 insertions(+)
+ 1 file changed, 26 insertions(+)
 
+diff --git a/sound/soc/intel/boards/bdw-rt5677.c b/sound/soc/intel/boards/bdw-rt5677.c
+index cc41a34..5f96d7a 100644
+--- a/sound/soc/intel/boards/bdw-rt5677.c
++++ b/sound/soc/intel/boards/bdw-rt5677.c
+@@ -222,6 +222,31 @@ static int bdw_rt5677_rtd_init(struct snd_soc_pcm_runtime *rtd)
+ }
+ #endif
+ 
++static const unsigned int channels[] = {
++	2,
++};
++
++static const struct snd_pcm_hw_constraint_list constraints_channels = {
++	.count = ARRAY_SIZE(channels),
++	.list = channels,
++	.mask = 0,
++};
++
++static int bdw_rt5677_fe_startup(struct snd_pcm_substream *substream)
++{
++	struct snd_pcm_runtime *runtime = substream->runtime;
++
++	/* Board supports stereo configuration only */
++	runtime->hw.channels_max = 2;
++	return snd_pcm_hw_constraint_list(runtime, 0,
++					  SNDRV_PCM_HW_PARAM_CHANNELS,
++					  &constraints_channels);
++}
++
++static const struct snd_soc_ops bdw_rt5677_fe_ops = {
++	.startup = bdw_rt5677_fe_startup,
++};
++
+ static int bdw_rt5677_init(struct snd_soc_pcm_runtime *rtd)
+ {
+ 	struct bdw_rt5677_priv *bdw_rt5677 =
+@@ -321,6 +346,7 @@ static struct snd_soc_dai_link bdw_rt5677_dais[] = {
+ 		},
+ 		.dpcm_capture = 1,
+ 		.dpcm_playback = 1,
++		.ops = &bdw_rt5677_fe_ops,
+ 		SND_SOC_DAILINK_REG(fe, dummy, platform),
+ 	},
+ 
 -- 
 2.7.4
 

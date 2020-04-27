@@ -2,125 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 263451B990C
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Apr 2020 09:52:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEBE01B990A
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Apr 2020 09:52:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B9C1F844;
-	Mon, 27 Apr 2020 09:52:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9C1F844
+	by alsa0.perex.cz (Postfix) with ESMTPS id 195B11673;
+	Mon, 27 Apr 2020 09:51:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 195B11673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587973974;
-	bh=w0gzh38Mzzxj6qXw1iDmS8eJ/8huiQYk39LMjyYO4Xw=;
+	s=default; t=1587973933;
+	bh=dwTgMWggxybGhUaxmzERGzidc5sYlSSeMYQ0lJ5n8cc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HBs8qEpAlbwowBQuS4TmUuTKWTLjvunKaRKnwf4SB/kdjP8B2crrhHPvkV7cif1UQ
-	 hEAL9EKNPRLnagR9JziB6z6RUuknvZ6EL7yWEWjt80cSAQY8ldRWnvx3k2pzDPsyes
-	 5X+bGLoqhS3T5XNK9G9bJb4lnJmuo/9TaMSQ7QnA=
+	b=KJ9Nb/MNoxknRcFFF24FZBU4eURZ7++GkVTMSrFA+FDSQyQHAxQm/H8RHHvtEbBeC
+	 KQgQA3xHlzH3ZneppQBSki/Wzi/KCtV/mAdSQWCo5eNK2uAk+A/3iBbyol42p23WSH
+	 P30ICQFXeGVqZmYMigXJQLxrtyvOTJP80FHRcbMY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E4038F8029B;
-	Mon, 27 Apr 2020 09:49:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6189F8028D;
+	Mon, 27 Apr 2020 09:48:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4D387F8025F; Mon, 27 Apr 2020 09:48:52 +0200 (CEST)
+ id 5BECFF8022B; Mon, 27 Apr 2020 09:48:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
  SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AFDADF80232
+ by alsa1.perex.cz (Postfix) with ESMTPS id EE314F8023E
  for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 09:48:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFDADF80232
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE314F8023E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="dUK2UyZD"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20200427074843euoutp01592de71039439b5b46e70889161644ff~JnbA_ia_C0944409444euoutp01D
- for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 07:48:43 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20200427074843euoutp01592de71039439b5b46e70889161644ff~JnbA_ia_C0944409444euoutp01D
+ header.b="uJwbz9XH"
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20200427074844euoutp0254f9c2b84e7c9181ddc3785532c18140~JnbBgHhKI3072330723euoutp02z
+ for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 07:48:44 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20200427074844euoutp0254f9c2b84e7c9181ddc3785532c18140~JnbBgHhKI3072330723euoutp02z
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1587973723;
- bh=Jk8KR55ncQLtd1sMYYkwZP6VPLr+D89pm+J/YGxp7hs=;
+ s=mail20170921; t=1587973724;
+ bh=16c85UL1fH0B0UINKqjhEjmvKTup4PQjtl3nu9iR4gE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dUK2UyZDlHqTlOJ7XpC2ZvCYG5mZ4UjgnO/qA15CUCNEWsDAV5ycLTRj7gkCVPIIl
- k6rucn06EeijyTO2OSHUwHuol772PPcc2+kQOo064ydmSjr/GDZHct98OH946jxVwa
- PJHqxbLHyhD/3F71bGoRRKJt2zSKi+3lh+NGK7A0=
-Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
+ b=uJwbz9XH0NT6euuoozLt4Dcs4V3dR/lDByWmmaSTMT6U0FhxUtVHBC7ktHoZ3RpjF
+ 2TNvR293uiqlsEBOXHXEYwBvT6nez9Lq2JXibsLzsgBmtEfizay2dAzkX/+wQOpdaN
+ 6WDBOzKyofBrxwOZd7ywJxB5OTUPPpK6YJWpenSs=
+Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
  eucas1p2.samsung.com (KnoxPortal) with ESMTP id
- 20200427074843eucas1p2c6da8cc2a13539bab1759a84d64e981f~JnbAxujPh3203632036eucas1p2S;
- Mon, 27 Apr 2020 07:48:43 +0000 (GMT)
-Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
- eusmges1new.samsung.com (EUCPMTA) with SMTP id 23.91.61286.B5E86AE5; Mon, 27
+ 20200427074844eucas1p2981455a070a5aef8fc15b3eb848297a3~JnbBIjM0x0183601836eucas1p2I;
+ Mon, 27 Apr 2020 07:48:44 +0000 (GMT)
+Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
+ eusmges2new.samsung.com (EUCPMTA) with SMTP id FB.1D.60679.B5E86AE5; Mon, 27
  Apr 2020 08:48:43 +0100 (BST)
 Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20200427074843eucas1p2235840d80cfa81a1e1eee513ed88c794~JnbAX-qwJ0174601746eucas1p2Y;
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20200427074843eucas1p1a3a265df0c7f14b0aaec25eb65daf606~JnbA3Z4u90341903419eucas1p1w;
  Mon, 27 Apr 2020 07:48:43 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
+Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
  eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20200427074843eusmtrp113284b063e7a36afe361aedb0bab002b~JnbAXWKOc0061900619eusmtrp1R;
+ 20200427074843eusmtrp156023f0b462c0cae30620ccbf6e281a7~JnbA2Rm4C0061900619eusmtrp1U;
  Mon, 27 Apr 2020 07:48:43 +0000 (GMT)
-X-AuditID: cbfec7f2-ef1ff7000001ef66-76-5ea68e5b7820
+X-AuditID: cbfec7f4-0e5ff7000001ed07-4e-5ea68e5b3882
 Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id AD.7D.08375.B5E86AE5; Mon, 27
+ eusmgms2.samsung.com (EUCPMTA) with SMTP id C9.1A.07950.B5E86AE5; Mon, 27
  Apr 2020 08:48:43 +0100 (BST)
 Received: from AMDC2765.digital.local (unknown [106.120.51.73]) by
  eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20200427074842eusmtip2ae1ad5e8b5313373f2cc7a04a4f3c0bc~Jna-5gTiu0962309623eusmtip2M;
- Mon, 27 Apr 2020 07:48:42 +0000 (GMT)
+ 20200427074843eusmtip2032e3d382bbc91c2a1b6d85dc80f4046~JnbAVdxcK0786807868eusmtip2S;
+ Mon, 27 Apr 2020 07:48:43 +0000 (GMT)
 From: Marek Szyprowski <m.szyprowski@samsung.com>
 To: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 3/4] mfd: wm8994: Silence warning about supplies during
- deferred probe
-Date: Mon, 27 Apr 2020 09:48:31 +0200
-Message-Id: <20200427074832.22134-4-m.szyprowski@samsung.com>
+Subject: [PATCH 4/4] ASoC: wm8994: Silence warnings during deferred probe
+Date: Mon, 27 Apr 2020 09:48:32 +0200
+Message-Id: <20200427074832.22134-5-m.szyprowski@samsung.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200427074832.22134-1-m.szyprowski@samsung.com>
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprAKsWRmVeSWpSXmKPExsWy7djPc7rRfcviDFb3q1hcuXiIyWLqwyds
- FldaNzFa3P96lNHi25UOJovLu+awWaw9cpfd4vP7/awWh9+0szpwemz43MTmsXPWXXaPTas6
- 2TzuXNvD5jF9zn9Gj74tqxg9Pm+SC2CP4rJJSc3JLEst0rdL4Mp4t2QtY8EBtoo9HzexNjCu
- Ye1i5OSQEDCRaLi8AMjm4hASWMEo8binkR3C+cIosW7aKqjMZ0aJ6ZtnwLVsb9jECJFYzigx
- b8pbFriWO5eWMIJUsQkYSnS97WIDsUUE4iSWL17ABFLELPCLUeLzp01MIAlhgQiJFStawWwW
- AVWJqTt3sIDYvAK2Esve74VaJy+xesMB5i5GDg5OATuJhdPdQOZICPSzS3Sdv8oIEpcQcJFo
- m8ALUS4s8er4FnYIW0bi9OQeFoj6ZkaJh+fWskM4PYwSl5tmMEJUWUvcOfeLDWQQs4CmxPpd
- +hBhR4m7e/9CzeeTuPFWECTMDGRO2jadGSLMK9HRJgRRrSYx6/g6uLUHL1xihrA9JFZc+sQG
- CZ+JjBKNTY9YJzDKz0JYtoCRcRWjeGppcW56arFhXmq5XnFibnFpXrpecn7uJkZgOjn97/in
- HYxfLyUdYhTgYFTi4eXYvjROiDWxrLgy9xCjBAezkgjvo4xlcUK8KYmVValF+fFFpTmpxYcY
- pTlYlMR5jRe9jBUSSE8sSc1OTS1ILYLJMnFwSjUwSjqVGTM+PPi0yI1/xo9HjWpvThjVTBAz
- fOHw5nzLisIt2t6TFiv/zVyws9iK6cYj3rmb3/wO9bscyL5tRfBnjs7nf440vtm6tS9EbWvq
- C9/U6qUbYlZ8ZLDfVrfd+k/+mvoZJptmVars2RhuGHM69oHJvTcKyofVNxbZOxy2btlrIPnz
- lVHnTiWW4oxEQy3mouJEAIOk0D8jAwAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrILMWRmVeSWpSXmKPExsVy+t/xe7rRfcviDBb081hcuXiIyWLqwyds
- FldaNzFa3P96lNHi25UOJovLu+awWaw9cpfd4vP7/awWh9+0szpwemz43MTmsXPWXXaPTas6
- 2TzuXNvD5jF9zn9Gj74tqxg9Pm+SC2CP0rMpyi8tSVXIyC8usVWKNrQw0jO0tNAzMrHUMzQ2
- j7UyMlXSt7NJSc3JLEst0rdL0Mt4t2QtY8EBtoo9HzexNjCuYe1i5OSQEDCR2N6wibGLkYtD
- SGApo8Sn7fsZIRIyEienNUAVCUv8udbFBlH0iVHiXcsqdpAEm4ChRNdbkAQnh4hAgsSh5S3M
- IEXMAv+Aih7dZAZJCAuESSxcsw9sEouAqsTUnTtYQGxeAVuJZe/3Qm2Ql1i94QBQPQcHp4Cd
- xMLpbiBhIaCSj9/fMk9g5FvAyLCKUSS1tDg3PbfYUK84Mbe4NC9dLzk/dxMjMLi3Hfu5eQfj
- pY3BhxgFOBiVeHg5ti+NE2JNLCuuzD3EKMHBrCTC+yhjWZwQb0piZVVqUX58UWlOavEhRlOg
- myYyS4km5wMjL68k3tDU0NzC0tDc2NzYzEJJnLdD4GCMkEB6YklqdmpqQWoRTB8TB6dUA2PF
- Tzb2bw5bK0vqBH7faWWwMmyw8GErOHqtp+XAxlROC08vB90rp3svSf6NmGS4/NPM9GnZ8rcT
- 3VxkT36s2/vixWO1488kZPq2WSi2SXWxZypevGWm7ztL6N/lbWxb9op83Hj3gVfP+bTrrgtc
- zj85Fvb8f/gMFU6BNWVrT/sXqptdXrQvnVWJpTgj0VCLuag4EQChyMHkhAIAAA==
-X-CMS-MailID: 20200427074843eucas1p2235840d80cfa81a1e1eee513ed88c794
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFupmleLIzCtJLcpLzFFi42LZduzned2YvmVxBsdYLK5cPMRkMfXhEzaL
+ K62bGC3ufz3KaPHtSgeTxeVdc9gs1h65y27x+f1+VovDb9pZHTg9NnxuYvPYOesuu8emVZ1s
+ Hneu7WHzmD7nP6NH35ZVjB6fN8kFsEdx2aSk5mSWpRbp2yVwZSy+e5m1YBdbxZ6bJ5gaGNew
+ djFyckgImEi8f/OPvYuRi0NIYAWjxK85DWwQzhdGiUnb+hkhnM+MEt9fzgRq4QBrefDDGyK+
+ nFFiz7ZFrHAdp/8fZwSZyyZgKNH1tosNxBYRiJNYvngBE0gRs8AvRonPnzYxgUwSFvCUWD43
+ EaSGRUBV4lTrNhYQm1fAVuL+xXYmiPvkJVZvOMAMUs4pYCexcLobyBgJgX52iZcnpzNBHOQi
+ 8fJwCES5sMSr41vYIWwZidOTe1gg6psZJR6eW8sO4fQwSlxumsEIUWUtcefcLzaQQcwCmhLr
+ d+lDhB0lNr/dxw4xn0/ixltBkDAzkDlp23RmiDCvREebEES1msSs4+vg1h68cAmqxENi+uxI
+ kLCQwERGifl/iicwys9CWLWAkXEVo3hqaXFuemqxUV5quV5xYm5xaV66XnJ+7iZGYBI5/e/4
+ lx2Mu/4kHWIU4GBU4uHl2L40Tog1say4MvcQowQHs5II76OMZXFCvCmJlVWpRfnxRaU5qcWH
+ GKU5WJTEeY0XvYwVEkhPLEnNTk0tSC2CyTJxcEo1MEYaXeUPldGVPpY09YaC75YeIR51xQ/K
+ TWHhLJEetqeyZtz5xKXQZRx8Mp5x8a7uVXc+iDgXyR5u1Hm37J/4UkOdJBZrt2MnNi1vUJ14
+ yCjKZX1CR1tLmb+XWk71c2YW+Z0p015b/rZlXXvomk6y6BJzobULz0XPTV9jvyFSN+Tnxuzu
+ 5OvXlViKMxINtZiLihMBFCEqlB4DAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrHLMWRmVeSWpSXmKPExsVy+t/xe7rRfcviDN5v07G4cvEQk8XUh0/Y
+ LK60bmK0uP/1KKPFtysdTBaXd81hs1h75C67xef3+1ktDr9pZ3Xg9NjwuYnNY+esu+wem1Z1
+ snncubaHzWP6nP+MHn1bVjF6fN4kF8AepWdTlF9akqqQkV9cYqsUbWhhpGdoaaFnZGKpZ2hs
+ HmtlZKqkb2eTkpqTWZZapG+XoJex+O5l1oJdbBV7bp5gamBcw9rFyMEhIWAi8eCHdxcjF4eQ
+ wFJGiX2PdrB1MXICxWUkTk5rYIWwhSX+XOsCiwsJfGKUOPxOGMRmEzCU6HoLERcRSJA4tLyF
+ GWQQs8A/Rol3j24ygywQFvCUWD43EaSGRUBV4lTrNhYQm1fAVuL+xXYmiPnyEqs3HAAr5xSw
+ k1g43Q1ila3Ex+9vmScw8i1gZFjFKJJaWpybnltspFecmFtcmpeul5yfu4kRGNbbjv3csoOx
+ 613wIUYBDkYlHl6O7UvjhFgTy4orcw8xSnAwK4nwPspYFifEm5JYWZValB9fVJqTWnyI0RTo
+ ponMUqLJ+cCYyyuJNzQ1NLewNDQ3Njc2s1AS5+0QOBgjJJCeWJKanZpakFoE08fEwSnVwJhm
+ Xft1alvU5r0FH/JT7mwSu1CSuo+jZmnoxDUP5KXdZdOBfuDYkDAjm/WoaUu+1b9vzKn5ew6H
+ rq9tU30U1aj9b26e5QPzz1X619f1Tc6VWBHx78dPm2ffF8R9aK6SenD0u9ur13v3aXvv3qv3
+ c8W1k2qTP255k7rxEsc+vZSlb64s+F48XUGJpTgj0VCLuag4EQAAPcU/gQIAAA==
+X-CMS-MailID: 20200427074843eucas1p1a3a265df0c7f14b0aaec25eb65daf606
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20200427074843eucas1p2235840d80cfa81a1e1eee513ed88c794
+X-RootMTR: 20200427074843eucas1p1a3a265df0c7f14b0aaec25eb65daf606
 X-EPHeader: CA
 CMS-TYPE: 201P
-X-CMS-RootMailID: 20200427074843eucas1p2235840d80cfa81a1e1eee513ed88c794
+X-CMS-RootMailID: 20200427074843eucas1p1a3a265df0c7f14b0aaec25eb65daf606
 References: <20200427074832.22134-1-m.szyprowski@samsung.com>
- <CGME20200427074843eucas1p2235840d80cfa81a1e1eee513ed88c794@eucas1p2.samsung.com>
+ <CGME20200427074843eucas1p1a3a265df0c7f14b0aaec25eb65daf606@eucas1p1.samsung.com>
 Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Lee Jones <lee.jones@linaro.org>, Marek Szyprowski <m.szyprowski@samsung.com>
@@ -140,26 +139,25 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Don't confuse user with meaningless warning about the failure in getting
-supplies in case of deferred probe.
+clocks in case of deferred probe.
 
 Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
 ---
- drivers/mfd/wm8994-core.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/codecs/wm8994.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/mfd/wm8994-core.c b/drivers/mfd/wm8994-core.c
-index 69d973ec42bf..3b2b93c5bbcb 100644
---- a/drivers/mfd/wm8994-core.c
-+++ b/drivers/mfd/wm8994-core.c
-@@ -393,7 +393,9 @@ static int wm8994_device_init(struct wm8994 *wm8994, int irq)
- 	ret = regulator_bulk_get(wm8994->dev, wm8994->num_supplies,
- 				 wm8994->supplies);
- 	if (ret != 0) {
--		dev_err(wm8994->dev, "Failed to get supplies: %d\n", ret);
+diff --git a/sound/soc/codecs/wm8994.c b/sound/soc/codecs/wm8994.c
+index 55d0b9be6ff0..7426df1f806c 100644
+--- a/sound/soc/codecs/wm8994.c
++++ b/sound/soc/codecs/wm8994.c
+@@ -4593,7 +4593,8 @@ static int wm8994_probe(struct platform_device *pdev)
+ 	ret = devm_clk_bulk_get_optional(pdev->dev.parent, ARRAY_SIZE(wm8994->mclk),
+ 					 wm8994->mclk);
+ 	if (ret < 0) {
+-		dev_err(&pdev->dev, "Failed to get clocks: %d\n", ret);
 +		if (ret != -EPROBE_DEFER)
-+			dev_err(wm8994->dev, "Failed to get supplies: %d\n",
-+				ret);
- 		goto err;
++			dev_err(&pdev->dev, "Failed to get clocks: %d\n", ret);
+ 		return ret;
  	}
  
 -- 

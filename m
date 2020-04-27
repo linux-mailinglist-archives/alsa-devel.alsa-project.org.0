@@ -2,65 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79A101BAB8A
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Apr 2020 19:44:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47E431BAD3B
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Apr 2020 20:52:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 63F6816B5;
-	Mon, 27 Apr 2020 19:43:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63F6816B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA324168E;
+	Mon, 27 Apr 2020 20:51:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA324168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588009441;
-	bh=KkbaosToRHBWEpGwKtm4KXDZRpl+0WDnkcPNCaseRVM=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1588013528;
+	bh=ZVQCp/SFnBPmSLWaR0/P4hpecsJkiyChWCtrVvt8wSQ=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ChdjHggiuYa47YnWKv2dKEWgmz4Qxed5yN+eEHgTi5hCkkB9XKRlfidQ1mHXO5dof
-	 Wm9OL4/fElRi1a1J3wgxiQPfVNYCXGGZ0EyN2mVVCOf0lII5Gk1XRWgH5UaHvEWyxn
-	 LmQSXW5JmhruLaWOas8jhOMIpIgAeIwwKuEC6+xQ=
+	b=mBxRVjYOIyDJ5490PJyX/Af8RCHziiJBR8DD8bBNJBOKMXAqEZumHBGkyoRAjk8pP
+	 Z88zl+mWPbqegn25usunkSBupn9WvPgTLYWx1+PoUji+lPI/zTG8FJ/eCgJjjAVLnt
+	 sq/yIfe82n4bdzAUPETzkbng3qFw6Xi8ZBFmtKkw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89215F802F9;
-	Mon, 27 Apr 2020 19:30:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB3B1F80217;
+	Mon, 27 Apr 2020 20:50:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85D20F802EA; Mon, 27 Apr 2020 19:30:00 +0200 (CEST)
+ id A4DFAF8022B; Mon, 27 Apr 2020 20:50:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0FC01F802DC
- for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 19:29:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FC01F802DC
-IronPort-SDR: 4IECd9F2UniqMIlyHQkcZCIQqclMK/qLNcPqM8O1WgJu1LBZdFgANCotarL/1Hi6QPC6Yd2pXf
- MThd56Fs0uZg==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5DF7BF80113
+ for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 20:50:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DF7BF80113
+IronPort-SDR: GErLBPhUHKYZotpEOioHWlazfLWU44P/pI9O2jyGu+rgm1CCwngnSDYvOUW69rzDH+7Ja6tVLQ
+ oNBNnoJ4Aqcw==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Apr 2020 10:29:40 -0700
-IronPort-SDR: AGkkGpDJobXofbSL9P+f2mXgvr0jsQ8DgljSef+Js+tam8FPIJM3g/e1vF+LdzJIFNTcLU93lW
- VmU38KlKil/w==
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Apr 2020 11:50:14 -0700
+IronPort-SDR: k6fGQjY5zDoVnhEwniGYbb5hHv7BMpYDJiTB4hMuK7siOIKOgQvYOh0kpULwb/lg/JW5wfE90S
+ R6n1X0moitBA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,324,1583222400"; d="scan'208";a="458935999"
-Received: from dbombien-mobl.amr.corp.intel.com (HELO localhost.localdomain)
- ([10.254.51.189])
- by fmsmga006.fm.intel.com with ESMTP; 27 Apr 2020 10:29:40 -0700
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 4/4] ASoC: SOF: Intel: change trigger sequence to fix pop
- noise when stopping playback on sdw platforms
-Date: Mon, 27 Apr 2020 10:29:39 -0700
-Message-Id: <20200427172939.25848-5-ranjani.sridharan@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200427172939.25848-1-ranjani.sridharan@linux.intel.com>
-References: <20200427172939.25848-1-ranjani.sridharan@linux.intel.com>
-Cc: tiwai@suse.de, broonie@kernel.org, pierre-louis.bossart@linux.intel.com,
- kai.vehmanen@linux.intel.com, randerwang <rander.wang@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="5.73,325,1583222400"; d="scan'208";a="281866779"
+Received: from unknown (HELO [10.254.177.143]) ([10.254.177.143])
+ by fmsmga004.fm.intel.com with ESMTP; 27 Apr 2020 11:50:14 -0700
+Subject: Re: [PATCH v2 0/3] add channel constraint for BDW machine drivers
+To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
+References: <1588007614-25061-1-git-send-email-brent.lu@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <866ef71f-8794-558b-bd4d-c491ab4effc4@linux.intel.com>
+Date: Mon, 27 Apr 2020 12:59:20 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
+MIME-Version: 1.0
+In-Reply-To: <1588007614-25061-1-git-send-email-brent.lu@intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Jie Yang <yang.jie@linux.intel.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Ben Zhang <benzh@chromium.org>, Mac Chiang <mac.chiang@intel.com>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,82 +85,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: randerwang <rander.wang@linux.intel.com>
 
-Now the trigger sequence is set to SND_SOC_DPCM_TRIGGER_POST for
-SOF. This means FE will be stopped before BE, so BE will consume
-invalid data and this generates huge pop noise. This sequence is
-introduced for HDA DAI which requires SND_SOC_DPCM_TRIGGER_POST for
-some reasons. Now set default trigger sequence to SND_SOC_DPCM_TRIGGER_PRE
-for playback with all DAI and fix sequence only for HDA DAI.
 
-Fully tested on Comet Lake for a few cycles.
+On 4/27/20 12:13 PM, Brent Lu wrote:
+> The machine driver bdw-rt5650 (for Google buddy) supports 2 or 4-channel
+> recording while other two drivers support only 2-channel recording. HW
+> constraints are implemented to reflect the hardware limitation on BDW
+> platform.
+> 
+> Changes since v1:
+> - Change the patch title.
+> - Remove the DUAL_CHANNEL and QUAD_CHANNEL macros which are too obvious.
+> - Follow the naming convertion, using 'bdw_rt5650_' and 'bdw_rt5677_' to
+>    name startup functions.
+> - Refine the comments in startup functions.
+> - Redesign the bdw_rt5650_fe_startup() function for readability.
+> - Add an assignment to initialize runtime->hw.channels_max variable.
 
-Signed-off-by: randerwang <rander.wang@linux.intel.com>
-Reviewed-by: Clarex Zhou <clarex.zhou@intel.com>
-Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
----
- sound/soc/sof/pcm.c      | 12 +++++++++++-
- sound/soc/sof/topology.c | 14 +++++++++++---
- 2 files changed, 22 insertions(+), 4 deletions(-)
+For the series
 
-diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
-index 0885826adb6c..e9679fcba428 100644
---- a/sound/soc/sof/pcm.c
-+++ b/sound/soc/sof/pcm.c
-@@ -639,6 +639,7 @@ static int sof_pcm_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
- 		snd_soc_rtdcom_lookup(rtd, SOF_AUDIO_PCM_DRV_NAME);
- 	struct snd_sof_dai *dai =
- 		snd_sof_find_dai(component, (char *)rtd->dai_link->name);
-+	struct snd_soc_dpcm *dpcm;
- 
- 	/* no topology exists for this BE, try a common configuration */
- 	if (!dai) {
-@@ -702,7 +703,16 @@ static int sof_pcm_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
- 		}
- 		break;
- 	case SOF_DAI_INTEL_HDA:
--		/* do nothing for HDA dai_link */
-+		/*
-+		 * HDaudio does not follow the default trigger
-+		 * sequence due to firmware implementation
-+		 */
-+		for_each_dpcm_fe(rtd, SNDRV_PCM_STREAM_PLAYBACK, dpcm) {
-+			struct snd_soc_pcm_runtime *fe = dpcm->fe;
-+
-+			fe->dai_link->trigger[SNDRV_PCM_STREAM_PLAYBACK] =
-+				SND_SOC_DPCM_TRIGGER_POST;
-+		}
- 		break;
- 	case SOF_DAI_INTEL_ALH:
- 		/* do nothing for ALH dai_link */
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index 6fd75fe9f699..8ab0fc558054 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -3111,9 +3111,17 @@ static int sof_link_load(struct snd_soc_component *scomp, int index,
- 	if (!link->no_pcm) {
- 		link->nonatomic = true;
- 
--		/* set trigger order */
--		link->trigger[0] = SND_SOC_DPCM_TRIGGER_POST;
--		link->trigger[1] = SND_SOC_DPCM_TRIGGER_POST;
-+		/*
-+		 * set default trigger order for all links. Exceptions to
-+		 * the rule will be handled in sof_pcm_dai_link_fixup()
-+		 * For playback, the sequence is the following: start FE,
-+		 * start BE, stop BE, stop FE; for Capture the sequence is
-+		 * inverted start BE, start FE, stop FE, stop BE
-+		 */
-+		link->trigger[SNDRV_PCM_STREAM_PLAYBACK] =
-+					SND_SOC_DPCM_TRIGGER_PRE;
-+		link->trigger[SNDRV_PCM_STREAM_CAPTURE] =
-+					SND_SOC_DPCM_TRIGGER_POST;
- 
- 		/* nothing more to do for FE dai links */
- 		return 0;
--- 
-2.17.1
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
+> Brent Lu (3):
+>    ASoC: bdw-rt5677: add channel constraint
+>    ASoC: bdw-rt5650: add channel constraint
+>    ASoC: broadwell: add channel constraint
+> 
+>   sound/soc/intel/boards/bdw-rt5650.c | 29 +++++++++++++++++++++++++++++
+>   sound/soc/intel/boards/bdw-rt5677.c | 26 ++++++++++++++++++++++++++
+>   sound/soc/intel/boards/broadwell.c  | 26 ++++++++++++++++++++++++++
+>   3 files changed, 81 insertions(+)
+> 

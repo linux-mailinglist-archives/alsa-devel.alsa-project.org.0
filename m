@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16C591BA454
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Apr 2020 15:12:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BF991BA451
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Apr 2020 15:11:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B33BB168C;
-	Mon, 27 Apr 2020 15:12:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B33BB168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA985169C;
+	Mon, 27 Apr 2020 15:11:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA985169C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587993177;
-	bh=bV1PKM7KpCxCRZJEtuGqiJ04oyD1/g2gNseB/UP8fgI=;
+	s=default; t=1587993116;
+	bh=pB4iFyAh9VaSFr6AV9fX9xSoxAlH6RoVnNZL7aR2xwQ=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=s3zAd/WanwzZHpusd1VGi9HzqS6VPLEnVT2hBXtuU+Uy6e8rEPmsAMCsGIBRPf/7I
-	 GPNrO9qUTsCrqLX4vsTW16xtlurtYOgpU1otqdxExwW2FapUupXbxNhnq/MY2KKzHd
-	 RbvLoH6Am3PPbW+WBvs+5dlQqUpIKO3STSKJx6KQ=
+	b=lf2WsL+TYuqPVRpkJ/OduxCUZjq7Jtu5wLhcjdr+Tszh4qcrFyhIl5k+9J8Z/UaQu
+	 CX4nyj1Y8V0vIQ8LsJd4r/OO8/crvzTgo9Jvv/4IM3qv5iIoDrguuXCN1NxfniEQX/
+	 P5kRq7bOHXl5AjAa8pplOQMnrUb+2zFvr2n1LS4k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38E55F8028C;
-	Mon, 27 Apr 2020 15:10:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F20ADF80112;
+	Mon, 27 Apr 2020 15:10:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E83E1F80232; Mon, 27 Apr 2020 15:09:12 +0200 (CEST)
+ id 7FA1FF8022B; Mon, 27 Apr 2020 15:09:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,35 +34,35 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D53F3F8010A
- for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 15:09:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D53F3F8010A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6AADFF80112
+ for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 15:09:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AADFF80112
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="CjJmlxt9"
+ header.b="dXYMY5LR"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id AD0B52064C;
- Mon, 27 Apr 2020 13:09:01 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 89E21206E2;
+ Mon, 27 Apr 2020 13:09:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587992942;
- bh=bV1PKM7KpCxCRZJEtuGqiJ04oyD1/g2gNseB/UP8fgI=;
+ s=default; t=1587992948;
+ bh=pB4iFyAh9VaSFr6AV9fX9xSoxAlH6RoVnNZL7aR2xwQ=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=CjJmlxt9kCyLciLtehj1y6LsYtD7lEt182QGWIwd/60V5xjHrGMZAsfukZmihBSFA
- auMg1SAA7kev7CyJJclpfr2WF1wWU9qfEgz6PQKoCKZ2tPlRXp+Szv/TJaHiEtAHHc
- JCVJD2kv55UWmkiuNJLLDGIFI7XiuOy5tXQQgIH0=
-Date: Mon, 27 Apr 2020 14:08:59 +0100
+ b=dXYMY5LRP9lCqOlKe+8ZzEqIF6K5e4ylgXZsWft2JC5j+3SY17/h2MjQwmIqigQs0
+ hpCpul3RZ5cz1g7kDs3LmLWOL9z0rNntSuybiYLbf+lRlIgB9HQws/eEgkxl8CP4sW
+ 8NzzFmglg2U3O0z50QKwMbekeI8BXysCPdik3Stk=
+Date: Mon, 27 Apr 2020 14:09:05 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Tang Bin <tangbin@cmss.chinamobile.com>, s.hauer@pengutronix.de,
- shawnguo@kernel.org, perex@perex.cz, tiwai@suse.com, lgirdwood@gmail.com
-In-Reply-To: <20200420142509.9728-1-tangbin@cmss.chinamobile.com>
-References: <20200420142509.9728-1-tangbin@cmss.chinamobile.com>
-Subject: Re: [PATCH] ASoC: mxs-saif: Avoid unnecessary check
-Message-Id: <158799293954.30174.3525396439519252505.b4-ty@kernel.org>
+To: Tang Bin <tangbin@cmss.chinamobile.com>, perex@perex.cz, tiwai@suse.com,
+ lgirdwood@gmail.com
+In-Reply-To: <20200427091520.12412-1-tangbin@cmss.chinamobile.com>
+References: <20200427091520.12412-1-tangbin@cmss.chinamobile.com>
+Subject: Re: [PATCH] ASoC: hisilicon: Use the defined variable to clean code
+Message-Id: <158799293954.30174.17557167078734797875.b4-ty@kernel.org>
 Cc: alsa-devel@alsa-project.org,
- Shengju Zhang <zhangshengju@cmss.chinamobile.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+ Zhang Shengju <zhangshengju@cmss.chinamobile.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,13 +78,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 20 Apr 2020 22:25:09 +0800, Tang Bin wrote:
-> The function mxs_saif_probe() is only called with an
-> openfirmware platform device. Therefore there is no
-> need to check that it has an openfirmware node.
+On Mon, 27 Apr 2020 17:15:20 +0800, Tang Bin wrote:
+> Use the defined variable "dev" to make the code cleaner.
 > 
-> Signed-off-by: Shengju Zhang <zhangshengju@cmss.chinamobile.com>
+> Signed-off-by: Zhang Shengju <zhangshengju@cmss.chinamobile.com>
 > Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
+> ---
+>  sound/soc/hisilicon/hi6210-i2s.c | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
 > 
 > [...]
 
@@ -94,8 +95,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: mxs-saif: Avoid unnecessary check
-      commit: e66f385354b3bd29b713d8ab8556aa889723928f
+[1/1] ASoC: hisilicon: Use the defined variable to clean code
+      commit: 77060f4f71dfb08309f461766d2e7453ce68aa76
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

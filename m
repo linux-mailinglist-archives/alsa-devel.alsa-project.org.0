@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87DF41BA4C4
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Apr 2020 15:31:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B1331BA4B5
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Apr 2020 15:29:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2582316A8;
-	Mon, 27 Apr 2020 15:30:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2582316A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2E6E21690;
+	Mon, 27 Apr 2020 15:28:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E6E21690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587994269;
-	bh=PMU3YBXyht3LAgGm5uDFSU6V1AMNjwJT/UPxFla0b0A=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=S7VW75+zYAhG/dfQi6owF7oqIyhmtNK7ygWZnbDcl+0agXz/sPXXbevy8gEoaudb1
-	 GCXhtwZal/EhWL17ry/2fvD3ic40fZpsUC+SSQ21vYYcOD6RNzmkogtnTtCUJSbrpu
-	 uVTDx91hbmMTwM0JcjPO/77gztej2d6FJXg3Drm8=
+	s=default; t=1587994168;
+	bh=mysuHGtNlVze4lJL0JPP+ukt9AFJ8sdO0zF6bDEMHnA=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=jHCuoTlJ8nyO7epfEcCCUUi06V58Dd5xvHGQoVI4D7xBVmKbbPrlzVz61qz+RFIHd
+	 Clfz9CCHDNZBxK2nUzOUuLzXpa9lExwhpF3rEgCiIeC3qNpr9w8E4S0goxMqnM1AvD
+	 fk7uC9IWqcwEb0GBjlUTENM56ZGYUSDk3/Mt77Io=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 35FBBF80290;
-	Mon, 27 Apr 2020 15:27:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 077BEF80232;
+	Mon, 27 Apr 2020 15:27:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 20C6DF8010A; Mon, 27 Apr 2020 15:27:44 +0200 (CEST)
+ id 017B2F80245; Mon, 27 Apr 2020 15:27:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -32,28 +33,31 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A0365F8010A
- for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 15:27:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0365F8010A
-IronPort-SDR: kgkNDhmYIqCEkWqoEnkSC0yICH4rvJkYCf2JEvfDx0hbVQ4e6gzeS2kMb2S4+vFZ4skAE09KUE
- zeyox25T8qug==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4066CF80217
+ for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 15:27:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4066CF80217
+IronPort-SDR: fhuU5nayKU1UbidMkLZnfS/M8dFu6m+q7tgR/ZotmdvD60WlclMX3+jJkaCYbijLuzrgL73+BT
+ 3MGSaBZREP0Q==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Apr 2020 06:27:33 -0700
-IronPort-SDR: W9O6UrsqzuUQJRNlfTjwUI5dEJvtAFgzAS0TMwVF5vJVlPaBv5e1tzH7OC9QfYu0Ts5/sCcbKT
- GEvC9Na+d5Cw==
+ 27 Apr 2020 06:27:35 -0700
+IronPort-SDR: YieW0qC/nAqW7E10bYLLH1NQcP3XquWAUnnKRVTa2aorF8LYMI2BxXa+HX7YKkuM3M73jFZCvI
+ zqTKG683n7yg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,324,1583222400"; d="scan'208";a="458856198"
+X-IronPort-AV: E=Sophos;i="5.73,324,1583222400"; d="scan'208";a="458856204"
 Received: from mgorski-all-series.igk.intel.com ([10.237.149.201])
- by fmsmga006.fm.intel.com with ESMTP; 27 Apr 2020 06:27:32 -0700
+ by fmsmga006.fm.intel.com with ESMTP; 27 Apr 2020 06:27:33 -0700
 From: Mateusz Gorski <mateusz.gorski@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v6 0/3] Add support for different DMIC configurations
-Date: Mon, 27 Apr 2020 15:27:24 +0200
-Message-Id: <20200427132727.24942-1-mateusz.gorski@linux.intel.com>
+Subject: [PATCH v6 1/3] ASoC: Intel: Skylake: Add alternative topology binary
+ name
+Date: Mon, 27 Apr 2020 15:27:25 +0200
+Message-Id: <20200427132727.24942-2-mateusz.gorski@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200427132727.24942-1-mateusz.gorski@linux.intel.com>
+References: <20200427132727.24942-1-mateusz.gorski@linux.intel.com>
 Cc: Mateusz Gorski <mateusz.gorski@linux.intel.com>, cezary.rojewski@intel.com,
  broonie@kernel.org, tiwai@suse.com, pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
@@ -71,50 +75,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Set of patches to enable DMIC capture on different hardware
-configurations.
-Information about supported DMIC configuration is read from NHLT and
-correct pipeline configuration is selected automatically.
-Also, adding additional option for topology binary name which is
-based on used machine driver.
+Add alternative topology binary file name based on used machine driver
+and fallback to use this name after failed attempt to load topology file
+with name based on NHLT.
+This change addresses multiple issues with current mechanism, for
+example - there are devices without NHLT table, and that currently
+results in tplg_name being empty.
 
+Signed-off-by: Mateusz Gorski <mateusz.gorski@linux.intel.com>
 Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
-
-Mateusz Gorski (3):
-  ASoC: Intel: Skylake: Add alternative topology binary name
-  ASoC: Intel: Multiple I/O PCM format support for pipe
-  ASoC: Intel: Skylake: Automatic DMIC format configuration according to
-    information from NHLT
+---
 
 Changes in v2:
-- removed patch 1/4 swapping machine device and platform device
-  registration order
-- alt_tplg_name creation now uses different field to read machine driver
-  name
-- including of <sound/soc-acpi.h> moved to different patch
+- added <sound/soc-acpi.h> include
+- machine driver name is now read from different field
 
 Changes in v3:
-- cosmetic changes in skl-topology.c file
+- deleted additional newline after component_load:
 
 Changes in v4:
-- refactored patch 2/3 to use one common helper function to deal with both
-  set and get pipe configuration operations, as suggested by Pierre
-- adjusted patch 3/3 to also use this helper function for DMIC pipes
-- added comment in patch 3/3 explaining the change of access rights for
-  DMIC enums
+--none--
 
 Changes in v5:
-- fixed alignment issue in patch 2/3
-- addressed "checkpatch.pl --strict" warnings in patches
+- addressed "checkpatch.pl --strict" warnings
 
 Changes in v6:
-- fixed commit message in patch 2/3
+--none--
 
- include/uapi/sound/skl-tplg-interface.h |   2 +
- sound/soc/intel/skylake/skl-topology.c  | 178 +++++++++++++++++++++++-
- sound/soc/intel/skylake/skl-topology.h  |   1 +
- 3 files changed, 176 insertions(+), 5 deletions(-)
+ sound/soc/intel/skylake/skl-topology.c | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
 
+diff --git a/sound/soc/intel/skylake/skl-topology.c b/sound/soc/intel/skylake/skl-topology.c
+index 69cd7a81bf2a..4b114ece58c6 100644
+--- a/sound/soc/intel/skylake/skl-topology.c
++++ b/sound/soc/intel/skylake/skl-topology.c
+@@ -14,6 +14,7 @@
+ #include <linux/uuid.h>
+ #include <sound/intel-nhlt.h>
+ #include <sound/soc.h>
++#include <sound/soc-acpi.h>
+ #include <sound/soc-topology.h>
+ #include <uapi/sound/snd_sst_tokens.h>
+ #include <uapi/sound/skl-tplg-interface.h>
+@@ -3565,8 +3566,20 @@ int skl_tplg_init(struct snd_soc_component *component, struct hdac_bus *bus)
+ 
+ 	ret = request_firmware(&fw, skl->tplg_name, bus->dev);
+ 	if (ret < 0) {
+-		dev_info(bus->dev, "tplg fw %s load failed with %d, falling back to dfw_sst.bin",
+-				skl->tplg_name, ret);
++		char alt_tplg_name[64];
++
++		snprintf(alt_tplg_name, sizeof(alt_tplg_name), "%s-tplg.bin",
++			 skl->mach->drv_name);
++		dev_info(bus->dev, "tplg fw %s load failed with %d, trying alternative tplg name %s",
++			 skl->tplg_name, ret, alt_tplg_name);
++
++		ret = request_firmware(&fw, alt_tplg_name, bus->dev);
++		if (!ret)
++			goto component_load;
++
++		dev_info(bus->dev, "tplg %s failed with %d, falling back to dfw_sst.bin",
++			 alt_tplg_name, ret);
++
+ 		ret = request_firmware(&fw, "dfw_sst.bin", bus->dev);
+ 		if (ret < 0) {
+ 			dev_err(bus->dev, "Fallback tplg fw %s load failed with %d\n",
+@@ -3575,6 +3588,8 @@ int skl_tplg_init(struct snd_soc_component *component, struct hdac_bus *bus)
+ 		}
+ 	}
+ 
++component_load:
++
+ 	/*
+ 	 * The complete tplg for SKL is loaded as index 0, we don't use
+ 	 * any other index
 -- 
 2.17.1
 

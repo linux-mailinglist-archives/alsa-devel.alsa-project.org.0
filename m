@@ -2,147 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A051C1BA77F
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Apr 2020 17:12:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC4B71BA785
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Apr 2020 17:13:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 484A41687;
-	Mon, 27 Apr 2020 17:11:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 484A41687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D25916A5;
+	Mon, 27 Apr 2020 17:12:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D25916A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588000361;
-	bh=Ax/xBl4graRX2ZEgZ6kL7Mjyd2V6IbAxhIRJkNxS5jw=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1588000410;
+	bh=lO245DByOcspDbBLGi9jOiUIPSScoFIYi+WLnYHJ0PI=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aYXRbHxhRofwT1BJFGmgjQ3/wIeL4clVt9BjwgVKV7T1GJEP8rkG39gXyqXZuK0e5
-	 sVxO6JJgC0JU5I7qBr4q4lxGjNXV7YIb7sVmofBbWuw/IAWE0JOhHLbSknd4Z7UvF4
-	 F0y5yfBTia70ZOPNizLFAXsphZXqJRyNCabeXZKc=
+	b=vpK3ag/cyEv1qVP90bSWvWSIb/k1zyqNelgQv5ZB5kkac03cvfA8WdGwBolciWuY5
+	 Y6JS2Z/tnifZEAOxWeGkQ43vmIlvnDg/lO0ekIk5pzfhMZxUotY8nF96yzm/5RZ1mw
+	 VehEC6Hd1tUS57OrVtyT3ercNDTuNJnTgEbM/uLc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DA556F80232;
-	Mon, 27 Apr 2020 17:10:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0829BF8023E;
+	Mon, 27 Apr 2020 17:12:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9F4E1F8022B; Mon, 27 Apr 2020 17:10:55 +0200 (CEST)
+ id C8F04F80113; Mon, 27 Apr 2020 17:12:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 18A85F8010A
- for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 17:10:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18A85F8010A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=intel.onmicrosoft.com
- header.i=@intel.onmicrosoft.com header.b="jpEv9qVT"
-IronPort-SDR: /06lJnUUCYscgg+2oB90mZKpwUEccmLD8Il9wAlMUqn3jSuE0RvhTGSTJyL1Aspe5B2NZcvoVZ
- rk1v0jR07uBw==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Apr 2020 08:10:48 -0700
-IronPort-SDR: wdlmObYwbkVYGyiD0n1ilmUGHOfipKS5vDbXzPE36zk6DX6VbyLkBjM50VZh2W1kEHVWrzvwaf
- 5lZMufc/E9lA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,324,1583222400"; d="scan'208";a="257295815"
-Received: from orsmsx101.amr.corp.intel.com ([10.22.225.128])
- by orsmga003.jf.intel.com with ESMTP; 27 Apr 2020 08:10:35 -0700
-Received: from orsmsx126.amr.corp.intel.com (10.22.240.126) by
- ORSMSX101.amr.corp.intel.com (10.22.225.128) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Mon, 27 Apr 2020 08:10:35 -0700
-Received: from ORSEDG002.ED.cps.intel.com (10.7.248.5) by
- ORSMSX126.amr.corp.intel.com (10.22.240.126) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Mon, 27 Apr 2020 08:10:35 -0700
-Received: from NAM02-CY1-obe.outbound.protection.outlook.com (104.47.37.56) by
- edgegateway.intel.com (134.134.137.101) with Microsoft SMTP Server
- (TLS) id 14.3.439.0; Mon, 27 Apr 2020 08:10:35 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WiHEzJBHA5G2tw/AINJhTgAB4iVFF+nYzKiiHnO27ngj4DnmuBTtYz1ITg5NjRoHSdlcAA/5Jr0owJX3C0506XhW8lW0phbayy+JZrNfBp0UR5HWFYraVUYFVLWernxFu6esPHbqFDncoV2spb9sg/gE33ZL7s6jQxSPaYylezJKOWmxPOSWkQlxwuEQBfI6a0cJfrfIipuqshhWEFJCSeORA6gb5BeQMLHCI3PbjAkV244YzVp76hnoQ++Rvx/5LYqRoEK/cmFYfW9jU0vPx3+jOzDcgQC7FJq4tJsH5rYuNahRRYNF0dcLHyir86pK/6+9NVhJr9BUmIEcvwfsXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ax/xBl4graRX2ZEgZ6kL7Mjyd2V6IbAxhIRJkNxS5jw=;
- b=PHdU+ARvXaeMs9jd7+IYB35aMZwzZbrOEfF2kLz5W3HznFe4ToPki+pp3n3KCue3oQhxvnivvyFOXmngSuzcWiBgrnwv4qN1l5RSLv5je+NmQa0WB98yzM1/ZyDInSVMgMR39pdDaqjF6uXuWxW7BgLLstpa0LW8VKjoukKCbdNp8sge+1KRcVgbJm3N+oPCOfB1Kx0/TqnjZnfCRt+ZkDWm7DX4OYtbX/Qq/zR2+C9ZMBtzQTJYjGIf83f9rZa3EQTLNNJcNiLQfdjsGfoqTjq2h2322HvgwnXdtiocVbueCXGUDNez4uDsMgyTZPDRH+utTJmo2OwsgLAIWw+PtQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
- s=selector2-intel-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ax/xBl4graRX2ZEgZ6kL7Mjyd2V6IbAxhIRJkNxS5jw=;
- b=jpEv9qVTLBu9jitelSidTsfxfuc2WecyTG19nfjLv48ygRvCeRcYfpFhkhHLhUxPKIKYTmmJaDJdgrzWrxwmPrlaDUmjN57VsgluLqGDjhdbJdyAFRwlmKRVMJdcNL0Nrz+Wr3WSr6TdRRrrOHmbxetVHsb3y6X1WwkGfoC+SXU=
-Received: from BN6PR1101MB2132.namprd11.prod.outlook.com
- (2603:10b6:405:5b::22) by BN6PR1101MB2307.namprd11.prod.outlook.com
- (2603:10b6:405:53::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2937.22; Mon, 27 Apr
- 2020 15:10:33 +0000
-Received: from BN6PR1101MB2132.namprd11.prod.outlook.com
- ([fe80::344b:59bc:1455:37a6]) by BN6PR1101MB2132.namprd11.prod.outlook.com
- ([fe80::344b:59bc:1455:37a6%11]) with mapi id 15.20.2937.023; Mon, 27 Apr
- 2020 15:10:33 +0000
-From: "Lu, Brent" <brent.lu@intel.com>
-To: "Rojewski, Cezary" <cezary.rojewski@intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Subject: RE: [PATCH 0/3] add channel constraint for BDW machine drivers
-Thread-Topic: [PATCH 0/3] add channel constraint for BDW machine drivers
-Thread-Index: AQHWHG/538arzRVuVUW0WV5CErDv0qiMzXUAgAAD8ICAAD9FwA==
-Date: Mon, 27 Apr 2020 15:10:32 +0000
-Message-ID: <BN6PR1101MB2132DEC140145F90645BF2B997AF0@BN6PR1101MB2132.namprd11.prod.outlook.com>
-References: <1587976638-29806-1-git-send-email-brent.lu@intel.com>
- <1375d0b1-fafa-95b5-9a06-eefb1897ca42@intel.com>
- <1bcd3310-34c3-7d90-cb18-f474d9e30c25@intel.com>
-In-Reply-To: <1bcd3310-34c3-7d90-cb18-f474d9e30c25@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-version: 11.2.0.6
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=brent.lu@intel.com; 
-x-originating-ip: [111.248.248.241]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 4ae111be-8b38-4db1-0b75-08d7eabd21ba
-x-ms-traffictypediagnostic: BN6PR1101MB2307:
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BN6PR1101MB230755E768D41036F3A2578497AF0@BN6PR1101MB2307.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6430;
-x-forefront-prvs: 0386B406AA
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN6PR1101MB2132.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(346002)(376002)(39860400002)(366004)(396003)(136003)(66556008)(66476007)(81156014)(7696005)(66446008)(8676002)(316002)(86362001)(33656002)(66946007)(8936002)(76116006)(64756008)(186003)(9686003)(6506007)(55016002)(26005)(5660300002)(2906002)(71200400001)(7416002)(4744005)(52536014)(110136005)(54906003)(478600001)(4326008);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: vQWn1bK5cuv+u+nzAYOmsXP6ivxfP8FvBoeYcWA58zlfqn996mNuhzCsK407GHHszwWaTejOFQgMH4meLoHhPSeXDRsdBlkWJRu/nET9nE3mpbEXWUb7Cr6qsxCQWwsaGsjzSOZHz6lkwIDIYOFyutl22G+hYtXnFLcc14PFzw/tI0NP1yYtqn5D3Q5oMY2m0NqA7AeSW1Hc4NOG78yZWjoIHaICgYCc1I03mKAlv7r+U/pvYsLOKD3Ezh2gp5hP8je9UVvIBMhJ2JA8MBH10Tt8+zkJUUapDepXdEXXli471nry1Le6LQIozsgPoArU42FgsWpvkB05phQa4ezgV509FL3q5ZnwHg2GEG3BKstY8C5XtpA2K/cpc/8wfVqBfFPLp6tmJ8J677wt0CWQXAodv/AujLRleWcmSJzzN/LuokzYKOIX6uK03uPAXhjw
-x-ms-exchange-antispam-messagedata: XpOSEn6tZw/pWvGFoz+KWrycC2vXqPr0vRVqTlQIgatCOUqssMe6DKdxjFkyqfASjgkSE3YQoL/2KZftvwM0kMKHkPkh+kC9ISJE5Ax6oOfaQkdX2gyn30cuk2Mb7OmyBhoMkb94Dyc/WGzbcw9tCqcDoySVXdGqp07RJ4ETJUoLOrSKaCmdlhUvqZHvIZXJ/oub8Bqi4pZ50Es7HT5n94wA9U7l2iPS4Ps1jkkbt+kCTT716RpMPGY/fe0NkqXBFDgWo/WKQ819aMCE7NogNq7bVSL0CFT/Y99RmFmdsd9R3D/NB9NJ18Si1mocTBcWvFihos5bbDzb6c5NclKT92Kq8Xj41bUQ+md4wNBI5ACCnh8idbpo1tqw1cWKlg1EtEM3dNxJeU2Gjsjwm/Q2wSEzpO7XilVaxuHlfOAIg6qDWNXI+WVVkNBluwnqr1eWhZYv+8SK+561+0LZk9cbaHSX+6pF3vSix5SO4+ktlOSddvFjfFnDzCIpGjrwWYDP/hyzJTOuw49dxB1SjRjdrG3vZ+qubyicXQx9LM86rPDlq6RwG1NnBM75oGAKfyN97JLNY2QxRvY55a5EB6yDV2j+NWZ0E8RUDCpmt2saYr28f/bi2cC720+EkIuk65BEuIsqD/T3IZPs7Jxr/HqCPKlOwbtpi6Oyw3Z2XF6XdOH8HT7x3KH4Z6it04eTXbmFYTNSfxQEKw7bozBwGIFwzYtWXTIzxFjsmvoJOejRTFsohf/9HBGgEB37STtP3/36uoA7FQAXNkJ9HN0ZKJfHMIPvoa9eYIkNsKO3ODMNwn0qyIi3zIea25OKl6mjH2oS
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ae111be-8b38-4db1-0b75-08d7eabd21ba
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Apr 2020 15:10:32.8165 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: aep+3UsY6J1dZ5JKfedwjKQiv10g/qAqC5qVCKVcRuUIamM6FUvxQ06K2FPy0IJB/noBfxeqND+q/33snXwIwA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1101MB2307
-X-OriginatorOrg: intel.com
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Ben Zhang <benzh@chromium.org>, "Chiang, Mac" <mac.chiang@intel.com>,
- Mark Brown <broonie@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7492AF80113
+ for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 17:12:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7492AF80113
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 7AB9BABCF;
+ Mon, 27 Apr 2020 15:12:28 +0000 (UTC)
+Date: Mon, 27 Apr 2020 17:12:28 +0200
+Message-ID: <s5hr1w9nesj.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: =?UTF-8?B?RlLDiUTDiVJJQw==?= RECOULES
+ <frederic.recoules@univ-grenoble-alpes.fr>
+Subject: Re: [PATCH] [inline assembly] fix pcm_dmix_i386.h assembly chunk
+ interfaces
+In-Reply-To: <1871992915.6898305.1587998132827.JavaMail.zimbra@univ-grenoble-alpes.fr>
+References: <20200427073604.26662-1-frederic.recoules@univ-grenoble-alpes.fr>
+ <s5h1ro9oxbd.wl-tiwai@suse.de>
+ <1871992915.6898305.1587998132827.JavaMail.zimbra@univ-grenoble-alpes.fr>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -158,21 +74,392 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-PiA+DQo+ID4gQXBhcnQgZnJvbSByZXZpZXcgZ2l2ZW4gZm9yIGVhY2ggYW5kIGV2ZXJ5IHBhdGNo
-IChhbHRob3VnaCBtb3N0IGlzc3Vlcw0KPiA+IGFyZSBzaGFyZWQgc28gdGhlcmUgaXMgbm90IGFz
-IG11Y2ggdG8gYWRkcmVzcykgbXkgcXVlc3Rpb24gaXM6DQo+ID4gLSBhcmUgdGhlc2UgaHcgbGlt
-aXRhdGlvbnMgb3Igc29mdHdhcmUgKG1hY2hpbmUgYm9hcmQpIGxpbWl0YXRpb25zPw0KDQpUaGUg
-bGltaXRhdGlvbiBjb21lcyBmcm9tIGJvYXJkLiBCZHctcnQ1Njc3IGFuZCBCcm9hZHdlbGwgYXJl
-IHVzaW5nIEkyUyB3aXRoDQoyIG1pY3JvcGhvbmVzIHdoaWxlIEJkdy1ydDU2NTAgaXMgdXNpbmcg
-UENNIFRETSB3aXRoIDQgbWljcm9waG9uZXMuIE91cg0KRFNQIHN1cHBvcnRzIHN0ZXJlbyBwbGF5
-YmFjayBhbmQgMiBvciA0LWNoYW5uZWwgY2FwdHVyZSAoaGFzd2VsbC9zc3QtaGFzd2VsbC1wY20u
-YykuDQoNCg0KPiA+DQo+ID4gQ3phcmVrDQo+ID4NCj4gPj4gQnJlbnQgTHUgKDMpOg0KPiA+PiDC
-oMKgIEFTb0M6IGJkdy1ydDU2Nzc6IGNoYW5uZWwgY29uc3RyYWludCBzdXBwb3J0DQo+ID4+IMKg
-wqAgQVNvQzogYmR3LXJ0NTY1MDogY2hhbm5lbCBjb25zdHJhaW50IHN1cHBvcnQNCj4gPj4gwqDC
-oCBBU29DOiBicm9hZHdlbGw6IGNoYW5uZWwgY29uc3RyYWludCBzdXBwb3J0DQo+ID4+DQo+ID4+
-IMKgIHNvdW5kL3NvYy9pbnRlbC9ib2FyZHMvYmR3LXJ0NTY1MC5jIHwgMzQNCj4gPj4gKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKw0KPiA+PiDCoCBzb3VuZC9zb2MvaW50ZWwvYm9h
-cmRzL2Jkdy1ydDU2NzcuYyB8IDMzDQo+ID4+ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKw0KPiA+PiDCoCBzb3VuZC9zb2MvaW50ZWwvYm9hcmRzL2Jyb2Fkd2VsbC5jwqAgfCAzMw0K
-PiA+PiArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysNCj4gPj4gwqAgMyBmaWxlcyBj
-aGFuZ2VkLCAxMDAgaW5zZXJ0aW9ucygrKQ0KPiA+Pg0K
+Please don't drop Cc to ML.
+
+And about the comments:
+
+On Mon, 27 Apr 2020 16:35:32 +0200,
+FRÉDÉRIC RECOULES wrote:
+> 
+> I wrongly assumed that the option -mmmx was passed when compiling (re)
+> mix_areas_16_mmx.
+> I know how to fix it (inspired of ffmpeg):
+>  - the configure test if mmx is supported by the compiler option and set a
+> macro HAVE_MMX accordingly (maybe something already exist?).
+
+Actually the mmx support isn't about whether the compiler supports it
+or not.  With inline asm, the MMX-enabled code is always included in
+alsa-lib as well as the code without MMX, then which one to be
+executed is dynamically switched at runtime by probing the CPU
+capability.
+
+
+thanks,
+
+Takashi
+
+>  - declare a macro MMX_CLOBBERS(list) that will output the list when HAVE_MMX
+> is true and nothing otherwise.
+> I will resubmit a patch soon.
+> 
+> Regards,
+> Frédéric Recoules
+> 
+> ------------------------------------------------------------------------------
+> De: "tiwai" <tiwai@suse.de>
+> À: "frederic recoules" <frederic.recoules@univ-grenoble-alpes.fr>
+> Cc: "alsa-devel" <alsa-devel@alsa-project.org>, "frederic recoules"
+> <frederic.recoules@orange.fr>
+> Envoyé: Lundi 27 Avril 2020 15:47:02
+> Objet: Re: [PATCH] [inline assembly] fix pcm_dmix_i386.h assembly chunk
+> interfaces
+> 
+> On Mon, 27 Apr 2020 09:36:04 +0200,
+> frederic.recoules@univ-grenoble-alpes.fr wrote:
+> >
+> > From: Frédéric Recoules <frederic.recoules@orange.fr>
+> >
+> > Main changes are:
+> >   - move 'size' and 'old_ebx' to the output list since they are clobbered
+> >   - add the "memory" keyword since input pointers are dereferenced
+> >   - add mmx registers in the clobber list and add an initialization for mm1
+> >   - add ebx in clobbers via a set of macro when GCC is newer than 5.0
+> >     (it will work for other compilers or non-PIC mode too)
+> >
+> > Minor changes are:
+> >   - keep consistent the token numbering in the template
+> >   - remove the manual save/restore ebx when it is in the clobber list
+> >   - allows 'dst_step', 'src_step' and 'sum_step' to be given by immediates
+> >   - allows 'size' to be given by register (e.g. ebp)
+> >   - add "cc" keyword since the eflag register is clobbered
+> >
+> > Signed-off-by: Frédéric Recoules <frederic.recoules@orange.fr>
+> 
+> When I apply this and build for i386 with gcc9, I got the following
+> error:
+>  pcm_dmix_i386.h: In function 'mix_areas_16_mmx':
+>  pcm_dmix_i386.h:180:2: error: unknown register name 'mm1' in 'asm'
+>    180 |  __asm__ __volatile__ (
+>        |  ^~~~~~~
+>  pcm_dmix_i386.h:180:2: error: unknown register name 'mm0' in 'asm'
+>  In file included from pcm_dmix_i386.c:31,
+>                   from pcm_dmix.c:144:
+>  pcm_dmix_i386.h: In function 'remix_areas_16_mmx':
+>  pcm_dmix_i386.h:180:2: error: unknown register name 'mm1' in 'asm'
+>    180 |  __asm__ __volatile__ (
+>        |  ^~~~~~~
+> ....
+> 
+> Could you check those errors?
+> 
+> thanks,
+> 
+> Takashi
+> 
+> > ---
+> >  src/pcm/pcm_dmix_i386.h | 168 ++++++++++++++++++++++------------------
+> >  1 file changed, 93 insertions(+), 75 deletions(-)
+> >
+> > diff --git a/src/pcm/pcm_dmix_i386.h b/src/pcm/pcm_dmix_i386.h
+> > index 2778cb1d..af2f4630 100644
+> > --- a/src/pcm/pcm_dmix_i386.h
+> > +++ b/src/pcm/pcm_dmix_i386.h
+> > @@ -26,6 +26,13 @@
+> >   *
+> >   */
+> >  
+> > +#define COMMA ,
+> > +#if __GNUC__ < 5 && defined(__PIC__)
+> > +#  define GCC_PIC_SWITCH(before,after) before
+> > +#else
+> > +#  define GCC_PIC_SWITCH(before,after) after
+> > +#endif
+> > +
+> >  /*
+> >   *  for plain i386
+> >   */
+> > @@ -47,13 +54,14 @@ static void MIX_AREAS_16(unsigned int size,
+> >          __asm__ __volatile__ (
+> >                  "\n"
+> >  
+> > -                "\tmovl %%ebx, %7\n"        /* ebx is GOT pointer (-fPIC) *
+> /
+> > +                /* ebx is GOT pointer (-fPIC) */
+> > +                GCC_PIC_SWITCH("\tmovl %%ebx, %1\n",)
+> >                  /*
+> >                   *  initialization, load ESI, EDI, EBX registers
+> >                   */
+> > -                "\tmovl %1, %%edi\n"
+> > -                "\tmovl %2, %%esi\n"
+> > -                "\tmovl %3, %%ebx\n"
+> > +                "\tmovl %2, %%edi\n"
+> > +                "\tmovl %3, %%esi\n"
+> > +                "\tmovl %4, %%ebx\n"
+> >                  "\tcmpl $0, %0\n"
+> >                  "\tjnz 2f\n"
+> >                  "\tjmp 7f\n"
+> > @@ -64,9 +72,9 @@ static void MIX_AREAS_16(unsigned int size,
+> >                   */
+> >                  "\t.p2align 4,,15\n"
+> >                  "1:"
+> > -                "\tadd %4, %%edi\n"
+> > -                "\tadd %5, %%esi\n"
+> > -                "\tadd %6, %%ebx\n"
+> > +                "\tadd %5, %%edi\n"
+> > +                "\tadd %6, %%esi\n"
+> > +                "\tadd %7, %%ebx\n"
+> >  
+> >                  /*
+> >                   *   sample = *src;
+> > @@ -138,15 +146,16 @@ static void MIX_AREAS_16(unsigned int size,
+> >                  "\tjnz 4b\n"
+> >                  "\tdecl %0\n"
+> >                  "\tjnz 1b\n"
+> > -                
+> > -                "7:"
+> > -                "\tmovl %7, %%ebx\n"        /* ebx is GOT pointer (-fPIC) *
+> /
+> >  
+> > -                : /* no output regs */
+> > -                : "m" (size), "m" (dst), "m" (src),
+> > -                  "m" (sum), "m" (dst_step), "m" (src_step),
+> > -                  "m" (sum_step), "m" (old_ebx)
+> > -                : "esi", "edi", "edx", "ecx", "eax"
+> > +                "7:"
+> > +                /* ebx is GOT pointer (-fPIC) */
+> > +                GCC_PIC_SWITCH("\tmovl %1, %%ebx\n",)
+> > +
+> > +                : "+&rm" (size), GCC_PIC_SWITCH("=m","=X") (old_ebx)
+> > +                : "m" (dst), "m" (src), "m" (sum),
+> > +                  "im" (dst_step), "im" (src_step), "im" (sum_step)
+> > +                : "esi", "edi", "edx", "ecx", GCC_PIC_SWITCH(,"ebx"COMMA)
+> "eax",
+> > +                  "memory", "cc"
+> >          );
+> >  }
+> >  
+> > @@ -171,22 +180,24 @@ static void MIX_AREAS_16_MMX(unsigned int size,
+> >          __asm__ __volatile__ (
+> >                  "\n"
+> >  
+> > -                "\tmovl %%ebx, %7\n"        /* ebx is GOT pointer (-fPIC) *
+> /
+> > +                /* ebx is GOT pointer (-fPIC) */
+> > +                GCC_PIC_SWITCH("\tmovl %%ebx, %1\n",)
+> >                  /*
+> > -                 *  initialization, load ESI, EDI, EBX registers
+> > +                 *  initialization, load ESI, EDI, EBX registers, clear MM1
+> >                   */
+> > -                "\tmovl %1, %%edi\n"
+> > -                "\tmovl %2, %%esi\n"
+> > -                "\tmovl %3, %%ebx\n"
+> > +                "\tpxor %%mm1, %%mm1\n"
+> > +                "\tmovl %2, %%edi\n"
+> > +                "\tmovl %3, %%esi\n"
+> > +                "\tmovl %4, %%ebx\n"
+> >                  "\tcmpl $0, %0\n"
+> >                  "\tjnz 2f\n"
+> >                  "\tjmp 5f\n"
+> >  
+> >                  "\t.p2align 4,,15\n"
+> >                  "1:"
+> > -                "\tadd %4, %%edi\n"
+> > -                "\tadd %5, %%esi\n"
+> > -                "\tadd %6, %%ebx\n"
+> > +                "\tadd %5, %%edi\n"
+> > +                "\tadd %6, %%esi\n"
+> > +                "\tadd %7, %%ebx\n"
+> >  
+> >                  "2:"
+> >                  /*
+> > @@ -230,13 +241,14 @@ static void MIX_AREAS_16_MMX(unsigned int size,
+> >                  "\tjnz 1b\n"
+> >                  "\temms\n"
+> >                  "5:"
+> > -                "\tmovl %7, %%ebx\n"        /* ebx is GOT pointer (-fPIC) *
+> /
+> > -
+> > -                : /* no output regs */
+> > -                : "m" (size), "m" (dst), "m" (src),
+> > -                  "m" (sum), "m" (dst_step), "m" (src_step),
+> > -                  "m" (sum_step), "m" (old_ebx)
+> > -                : "esi", "edi", "edx", "ecx", "eax"
+> > +                /* ebx is GOT pointer (-fPIC) */
+> > +                GCC_PIC_SWITCH("\tmovl %1, %%ebx\n",)
+> > +
+> > +                : "+&rm" (size), GCC_PIC_SWITCH("=m","=X") (old_ebx)
+> > +                : "m" (dst), "m" (src), "m" (sum),
+> > +                  "im" (dst_step), "im" (src_step), "im" (sum_step)
+> > +                : "esi", "edi", "edx", "ecx", GCC_PIC_SWITCH(,"ebx"COMMA)
+> "eax",
+> > +                  "mm0", "mm1", "memory", "cc"
+> >          );
+> >  }
+> >  
+> > @@ -261,13 +273,14 @@ static void MIX_AREAS_32(unsigned int size,
+> >          __asm__ __volatile__ (
+> >                  "\n"
+> >  
+> > -                "\tmovl %%ebx, %7\n"        /* ebx is GOT pointer (-fPIC) *
+> /
+> > +                /* ebx is GOT pointer (-fPIC) */
+> > +                GCC_PIC_SWITCH("\tmovl %%ebx, %1\n",)
+> >                  /*
+> >                   *  initialization, load ESI, EDI, EBX registers
+> >                   */
+> > -                "\tmovl %1, %%edi\n"
+> > -                "\tmovl %2, %%esi\n"
+> > -                "\tmovl %3, %%ebx\n"
+> > +                "\tmovl %2, %%edi\n"
+> > +                "\tmovl %3, %%esi\n"
+> > +                "\tmovl %4, %%ebx\n"
+> >                  "\tcmpl $0, %0\n"
+> >                  "\tjnz 1f\n"
+> >                  "\tjmp 6f\n"
+> > @@ -337,19 +350,20 @@ static void MIX_AREAS_32(unsigned int size,
+> >                   */
+> >                  "\tdecl %0\n"
+> >                  "\tjz 6f\n"
+> > -                "\tadd %4, %%edi\n"
+> > -                "\tadd %5, %%esi\n"
+> > -                "\tadd %6, %%ebx\n"
+> > +                "\tadd %5, %%edi\n"
+> > +                "\tadd %6, %%esi\n"
+> > +                "\tadd %7, %%ebx\n"
+> >                  "\tjmp 1b\n"
+> > -                
+> > -                "6:"
+> > -                "\tmovl %7, %%ebx\n"        /* ebx is GOT pointer (-fPIC) *
+> /
+> >  
+> > -                : /* no output regs */
+> > -                : "m" (size), "m" (dst), "m" (src),
+> > -                  "m" (sum), "m" (dst_step), "m" (src_step),
+> > -                  "m" (sum_step), "m" (old_ebx)
+> > -                : "esi", "edi", "edx", "ecx", "eax"
+> > +                "6:"
+> > +                /* ebx is GOT pointer (-fPIC) */
+> > +                GCC_PIC_SWITCH("\tmovl %1, %%ebx\n",)
+> > +
+> > +                : "+&rm" (size), GCC_PIC_SWITCH("=m","=X") (old_ebx)
+> > +                : "m" (dst), "m" (src), "m" (sum),
+> > +                  "im" (dst_step), "im" (src_step), "im" (sum_step)
+> > +                : "esi", "edi", "edx", "ecx", GCC_PIC_SWITCH(,"ebx"COMMA)
+> "eax",
+> > +                  "memory", "cc"
+> >          );
+> >  }
+> >  
+> > @@ -374,13 +388,14 @@ static void MIX_AREAS_24(unsigned int size,
+> >          __asm__ __volatile__ (
+> >                  "\n"
+> >  
+> > -                "\tmovl %%ebx, %7\n"        /* ebx is GOT pointer (-fPIC) *
+> /
+> > +                /* ebx is GOT pointer (-fPIC) */
+> > +                GCC_PIC_SWITCH("\tmovl %%ebx, %1\n",)
+> >                  /*
+> >                   *  initialization, load ESI, EDI, EBX registers
+> >                   */
+> > -                "\tmovl %1, %%edi\n"
+> > -                "\tmovl %2, %%esi\n"
+> > -                "\tmovl %3, %%ebx\n"
+> > +                "\tmovl %2, %%edi\n"
+> > +                "\tmovl %3, %%esi\n"
+> > +                "\tmovl %4, %%ebx\n"
+> >                  "\tcmpl $0, %0\n"
+> >                  "\tjnz 1f\n"
+> >                  "\tjmp 6f\n"
+> > @@ -443,19 +458,20 @@ static void MIX_AREAS_24(unsigned int size,
+> >                   */
+> >                  "\tdecl %0\n"
+> >                  "\tjz 6f\n"
+> > -                "\tadd %4, %%edi\n"
+> > -                "\tadd %5, %%esi\n"
+> > -                "\tadd %6, %%ebx\n"
+> > +                "\tadd %5, %%edi\n"
+> > +                "\tadd %6, %%esi\n"
+> > +                "\tadd %7, %%ebx\n"
+> >                  "\tjmp 1b\n"
+> > -                
+> > -                "6:"
+> > -                "\tmovl %7, %%ebx\n"        /* ebx is GOT pointer (-fPIC) *
+> /
+> >  
+> > -                : /* no output regs */
+> > -                : "m" (size), "m" (dst), "m" (src),
+> > -                  "m" (sum), "m" (dst_step), "m" (src_step),
+> > -                  "m" (sum_step), "m" (old_ebx)
+> > -                : "esi", "edi", "edx", "ecx", "eax"
+> > +                "6:"
+> > +                /* ebx is GOT pointer (-fPIC) */
+> > +                GCC_PIC_SWITCH("\tmovl %1, %%ebx\n",)
+> > +
+> > +                : "+&rm" (size), GCC_PIC_SWITCH("=m","=X") (old_ebx)
+> > +                : "m" (dst), "m" (src), "m" (sum),
+> > +                  "im" (dst_step), "im" (src_step), "im" (sum_step)
+> > +                : "esi", "edi", "edx", "ecx", GCC_PIC_SWITCH(,"ebx"COMMA)
+> "eax",
+> > +                  "memory", "cc"
+> >          );
+> >  }
+> >  
+> > @@ -480,13 +496,14 @@ static void MIX_AREAS_24_CMOV(unsigned int size,
+> >          __asm__ __volatile__ (
+> >                  "\n"
+> >  
+> > -                "\tmovl %%ebx, %7\n"        /* ebx is GOT pointer (-fPIC) *
+> /
+> > +                /* ebx is GOT pointer (-fPIC) */
+> > +                GCC_PIC_SWITCH("\tmovl %%ebx, %1\n",)
+> >                  /*
+> >                   *  initialization, load ESI, EDI, EBX registers
+> >                   */
+> > -                "\tmovl %1, %%edi\n"
+> > -                "\tmovl %2, %%esi\n"
+> > -                "\tmovl %3, %%ebx\n"
+> > +                "\tmovl %2, %%edi\n"
+> > +                "\tmovl %3, %%esi\n"
+> > +                "\tmovl %4, %%ebx\n"
+> >                  "\tcmpl $0, %0\n"
+> >                  "\tjz 6f\n"
+> >  
+> > @@ -541,19 +558,20 @@ static void MIX_AREAS_24_CMOV(unsigned int size,
+> >                  /*
+> >                   * while (size-- > 0)
+> >                   */
+> > -                "\tadd %4, %%edi\n"
+> > -                "\tadd %5, %%esi\n"
+> > -                "\tadd %6, %%ebx\n"
+> > +                "\tadd %5, %%edi\n"
+> > +                "\tadd %6, %%esi\n"
+> > +                "\tadd %7, %%ebx\n"
+> >                  "\tdecl %0\n"
+> >                  "\tjnz 1b\n"
+> > -                
+> > -                "6:"
+> > -                "\tmovl %7, %%ebx\n"        /* ebx is GOT pointer (-fPIC) *
+> /
+> >  
+> > -                : /* no output regs */
+> > -                : "m" (size), "m" (dst), "m" (src),
+> > -                  "m" (sum), "m" (dst_step), "m" (src_step),
+> > -                  "m" (sum_step), "m" (old_ebx)
+> > -                : "esi", "edi", "edx", "ecx", "eax"
+> > +                "6:"
+> > +                /* ebx is GOT pointer (-fPIC) */
+> > +                GCC_PIC_SWITCH("\tmovl %1, %%ebx\n",)
+> > +
+> > +                : "+&rm" (size), GCC_PIC_SWITCH("=m","=X") (old_ebx)
+> > +                : "m" (dst), "m" (src), "m" (sum),
+> > +                  "im" (dst_step), "im" (src_step), "im" (sum_step)
+> > +                : "esi", "edi", "edx", "ecx", GCC_PIC_SWITCH(,"ebx"COMMA)
+> "eax",
+> > +                  "memory", "cc"
+> >          );
+> >  }
+> > --
+> > 2.17.1
+> >
+> 
+> 

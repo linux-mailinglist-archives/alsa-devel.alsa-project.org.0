@@ -2,124 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E81FE1B9903
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Apr 2020 09:50:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D511B1B9908
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Apr 2020 09:51:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 894F015F9;
-	Mon, 27 Apr 2020 09:49:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 894F015F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72B0B15E5;
+	Mon, 27 Apr 2020 09:50:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72B0B15E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587973832;
-	bh=tnMKI0rc1V9SPpyUv/UwwdA+8Ww1BIlzpRK1gC7SLwU=;
+	s=default; t=1587973893;
+	bh=ktXHeGZsW7T4i8lX4Uk9VmtQ7zXAE8V3ol4x7CnIiRI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NZay8Ba5trMsFeOH4d0sVbgd5+rJO9Jas0v0eCbSfLeyfRsYIDUrqzhLi8HuifBU3
-	 S/vu07xDPxF1Fhr7WEijuOaMK4pNR14l4oX/2jQdqLjzRDWUpyWmCFJe7ocX0ENXWK
-	 5ML/mJdxUgX9HKCgBPQ5dd9U3aPoUM55l1s9YJ7g=
+	b=MGk1iBPPtKJpM57B4wszKjhZQ4xPwyUB5GujSj59NhdTolg5GHNNdlXYxeQEUbdTz
+	 hpySYTkYsF/uv8QzHMIJVI8lJ5RVphn8zpIP2DGm1Emr4B3L8j7wUmxQG8X4vaC54y
+	 eUBaVU/2P9Nnhi3JySDgLoa95N1szfpor/ZEcgqY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5FA43F80247;
-	Mon, 27 Apr 2020 09:48:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1E767F8028C;
+	Mon, 27 Apr 2020 09:48:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 83BE5F80257; Mon, 27 Apr 2020 09:48:48 +0200 (CEST)
+ id 80D14F80257; Mon, 27 Apr 2020 09:48:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
  SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 14E22F80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id ADD4AF8022B
  for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 09:48:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14E22F80217
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADD4AF8022B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="nSMCkTkz"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20200427074843euoutp020a324b6bd967e00ab79bfdb7c393e6b1~JnbAQbUox3069530695euoutp02y
+ header.b="X9uPTP7l"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20200427074843euoutp015ecee6cbe834796dd114a312fac8e6e4~JnbAc-Fl90841708417euoutp015
  for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 07:48:43 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20200427074843euoutp020a324b6bd967e00ab79bfdb7c393e6b1~JnbAQbUox3069530695euoutp02y
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20200427074843euoutp015ecee6cbe834796dd114a312fac8e6e4~JnbAc-Fl90841708417euoutp015
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
  s=mail20170921; t=1587973723;
- bh=BlPYhTkuuXU4W6a42ZfvT9Z3Mq0rbD+ikTxhs9HG92s=;
+ bh=NptijK1/HIp0K38QzwoqJLRCsrX1u62GvzSFR9MY2Hc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nSMCkTkzQtZmvXbrn/G6oOM0rxcDX7tEQC1Sc1n2hMo07eHmfmWZw+Z/YJ5z/m3l/
- BWteAOFEwQZTmRZf2EgnfYrSuNQh/YoohSPBrTxCEf5T7ekaee6g0Lff2v0f24let+
- 5jom3z45TS4w9GdydRUU+pm/sNMKG9JDKq31JOdY=
-Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20200427074842eucas1p18e2d11e1a88a255d8a5bb2b512a77c16~JnbAB8qU92249322493eucas1p1a;
- Mon, 27 Apr 2020 07:48:42 +0000 (GMT)
+ b=X9uPTP7ldpn19CynyMU/nxnSZ6C3S9p1+LaWoROUeAckWkQPfEx2x9bPkDjn4ZkY9
+ E4J1b/CyCoMVMmctTFyRVj89btcKTOKJkrN5e3khXnlnWxHXCfNjxPN8kDwwkzhZ+C
+ IgGWQMpssoyTLwgVFfUsk+Rlspe9Ng3KIu/AEs9c=
+Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTP id
+ 20200427074843eucas1p25a1b709dfa8a5fd6bf5d00cce4f28125~JnbAOBbkV0174601746eucas1p2W;
+ Mon, 27 Apr 2020 07:48:43 +0000 (GMT)
 Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges1new.samsung.com (EUCPMTA) with SMTP id B1.91.61286.A5E86AE5; Mon, 27
- Apr 2020 08:48:42 +0100 (BST)
+ eusmges2new.samsung.com (EUCPMTA) with SMTP id 69.1D.60679.B5E86AE5; Mon, 27
+ Apr 2020 08:48:43 +0100 (BST)
 Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20200427074842eucas1p1abfb9af74f0d898ba381700f37820318~Jna-joXJD2249322493eucas1p1Z;
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20200427074842eucas1p2a37c7f854188cccf3b103b221a84e9f2~Jna-5r4pF0174701747eucas1p2f;
  Mon, 27 Apr 2020 07:48:42 +0000 (GMT)
 Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
  eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20200427074842eusmtrp270ef1508ddad3aed8dbc553636c99585~Jna-i8Qa00599405994eusmtrp2g;
+ 20200427074842eusmtrp2f2f204876347a6b32634ed5989e0a5ad~Jna-5FsVD0599405994eusmtrp2i;
  Mon, 27 Apr 2020 07:48:42 +0000 (GMT)
-X-AuditID: cbfec7f2-ef1ff7000001ef66-72-5ea68e5af15d
+X-AuditID: cbfec7f4-0e5ff7000001ed07-48-5ea68e5b46ef
 Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
- eusmgms2.samsung.com (EUCPMTA) with SMTP id 46.1A.07950.A5E86AE5; Mon, 27
+ eusmgms2.samsung.com (EUCPMTA) with SMTP id 07.1A.07950.A5E86AE5; Mon, 27
  Apr 2020 08:48:42 +0100 (BST)
 Received: from AMDC2765.digital.local (unknown [106.120.51.73]) by
  eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20200427074841eusmtip210ac6e5be1c4cc1e11973682146daa84~Jna-GsUfA0961909619eusmtip2K;
- Mon, 27 Apr 2020 07:48:41 +0000 (GMT)
+ 20200427074842eusmtip245117b9499a9d31819a03e43b3b48d0d~Jna-gCziC0786807868eusmtip2R;
+ Mon, 27 Apr 2020 07:48:42 +0000 (GMT)
 From: Marek Szyprowski <m.szyprowski@samsung.com>
 To: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 1/4] mfd: wm8994: Fix driver operation if loaded as modules
-Date: Mon, 27 Apr 2020 09:48:29 +0200
-Message-Id: <20200427074832.22134-2-m.szyprowski@samsung.com>
+Subject: [PATCH 2/4] mfd: wm8994: Fix unbalanced calls to
+ regulator_bulk_disable()
+Date: Mon, 27 Apr 2020 09:48:30 +0200
+Message-Id: <20200427074832.22134-3-m.szyprowski@samsung.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200427074832.22134-1-m.szyprowski@samsung.com>
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFuphleLIzCtJLcpLzFFi42LZduzned2ovmVxBp9OG1tcuXiIyWLqwyds
- FldaNzFa3P96lNHi25UOJovLu+awWaw9cpfd4vP7/awWh9+0szpwemz43MTmsXPWXXaPTas6
- 2TzuXNvD5jF9zn9Gj74tqxg9Pm+SC2CP4rJJSc3JLEst0rdL4MpYP6GyYA1nxa1Jr9gbGLs4
- uhg5OSQETCTeHWpn6WLk4hASWMEoMf9XIxOE84VRYnvfAWaQKiGBz4wSnSvqYDq2f53IDFG0
- nFHi+YTLbHAd84/sYwepYhMwlOh628UGYosIxEksX7wAbCyzwC9Gic+fNjGBJIQFvCWOrTzE
- CGKzCKhKnOjoBIvzCthKzJo7hx1inbzE6g0gZ3BwcArYSSyc7gYyR0Kgn11i8d85rCBxCQEX
- if7r/hDlwhKvjm+BapWR+L9zPhNEfTOjxMNza9khnB5GictNMxghqqwl7pz7xQYyiFlAU2L9
- Ln2ImY4SnZOsIEw+iRtvBUGKmYHMSdumM0OEeSU62oQgZqhJzDq+Dm7rwQuXoEo8JA5cDoaE
- zkRGiVuPv7FNYJSfhbBqASPjKkbx1NLi3PTUYsO81HK94sTc4tK8dL3k/NxNjMA0cvrf8U87
- GL9eSjrEKMDBqMTDy7F9aZwQa2JZcWXuIUYJDmYlEd5HGcvihHhTEiurUovy44tKc1KLDzFK
- c7AoifMaL3oZKySQnliSmp2aWpBaBJNl4uCUamDcqSDMf9EtR+ZRX5vmveVeJl4tZvv/Gpcs
- M1ZdX79i0Z3NKwysYsS7FfYvL+v482rb/k1rc1seGs7JtVvMd1mL+8n30KNNC8t+Lz84J/4D
- o8aWXRFLZ57ZuNsu8lxzkOZfNzET+btLj9ese/+cJ0ov/m//4lI7p+7PWuukQ50aume5egfN
- u+evxFKckWioxVxUnAgA6i009x8DAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrALMWRmVeSWpSXmKPExsVy+t/xe7pRfcviDJpuCllcuXiIyWLqwyds
- FldaNzFa3P96lNHi25UOJovLu+awWaw9cpfd4vP7/awWh9+0szpwemz43MTmsXPWXXaPTas6
- 2TzuXNvD5jF9zn9Gj74tqxg9Pm+SC2CP0rMpyi8tSVXIyC8usVWKNrQw0jO0tNAzMrHUMzQ2
- j7UyMlXSt7NJSc3JLEst0rdL0MtYP6GyYA1nxa1Jr9gbGLs4uhg5OSQETCS2f53I3MXIxSEk
- sJRR4unquWwQCRmJk9MaWCFsYYk/17rYIIo+MUrcaTzMApJgEzCU6HrbBdYgIpAgcWh5C9gk
- ZoF/jBLvHt1kBkkIC3hLHFt5iBHEZhFQlTjR0ckEYvMK2ErMmjuHHWKDvMTqDQeA6jk4OAXs
- JBZOdwMJCwGVfPz+lnkCI98CRoZVjCKppcW56bnFRnrFibnFpXnpesn5uZsYgaG97djPLTsY
- u94FH2IU4GBU4uHl2L40Tog1say4MvcQowQHs5II76OMZXFCvCmJlVWpRfnxRaU5qcWHGE2B
- bprILCWanA+Mu7ySeENTQ3MLS0NzY3NjMwslcd4OgYMxQgLpiSWp2ampBalFMH1MHJxSDYzz
- bou0WIhmHz/+6M7NWzatJbzmP6y7Njxedzq/+fbJTDex7R+DZPXT5eZE1bxfNls7783mGYva
- MpbumJB84JQPy8nuL//KTk95o3Egwph3S1vdpp3HSvYv0GVdMqnahTvaZumtm0I7pPk/2764
- sfPI7k3bKx2rxMX2H/1kzZbW61G6kjnZ56i/EktxRqKhFnNRcSIALGsBtIMCAAA=
-X-CMS-MailID: 20200427074842eucas1p1abfb9af74f0d898ba381700f37820318
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprIKsWRmVeSWpSXmKPExsWy7djP87rRfcviDPa+Y7a4cvEQk8XUh0/Y
+ LK60bmK0uP/1KKPFtysdTBaXd81hs1h75C67xef3+1ktDr9pZ3Xg9NjwuYnNY+esu+wem1Z1
+ snncubaHzWP6nP+MHn1bVjF6fN4kF8AexWWTkpqTWZZapG+XwJXxeuEk9oKdPBXbjq1kbWA8
+ y9XFyMkhIWAicW75AZYuRi4OIYEVjBITn91nh3C+MEqcvb4DKvOZUeLRxylMMC2rzqyHSixn
+ lNh6sxmhZfGF62wgVWwChhJdb7vAbBGBOInlixcwgRQxC/xilPj8aRPYKGGBEImeqW9ZQWwW
+ AVWJnWd7WUBsXgFbiQ/9k9kg1slLrN5wgLmLkYODU8BOYuF0N5A5EgL97BJ9rx+wQtS4SGzr
+ a4Y6T1ji1fEt7BC2jMT/nfOZIBqaGSUenlvLDuH0MEpcbprBCFFlLXHn3C82kA3MApoS63fp
+ Q4QdJb637GEBCUsI8EnceCsIEmYGMidtm84MEeaV6GgTgqhWk5h1fB3c2oMXLjFD2B4STSf3
+ MUMCaCKjRMeKL2wTGOVnISxbwMi4ilE8tbQ4Nz212CgvtVyvODG3uDQvXS85P3cTIzChnP53
+ /MsOxl1/kg4xCnAwKvHwcmxfGifEmlhWXJl7iFGCg1lJhPdRxrI4Id6UxMqq1KL8+KLSnNTi
+ Q4zSHCxK4rzGi17GCgmkJ5akZqemFqQWwWSZODilGhjVFZY/6V0btvvaovYZBU9D3laat0Ul
+ rt3y9vzKSvmbE3PMq1duDd0kIbvpn4if1OnidPuu0xEXpnqdeLf/kad3zezG/2xNQVHl1QLr
+ lLPeeCqeLrmcOPPSPf7n779c0rvSdtpg25zJx+OnTjg8bVLhTCGjLdJt8nOKjA1WWc1z232f
+ X1vAu3CLEktxRqKhFnNRcSIAFxfygCQDAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrILMWRmVeSWpSXmKPExsVy+t/xe7pRfcviDF481LG4cvEQk8XUh0/Y
+ LK60bmK0uP/1KKPFtysdTBaXd81hs1h75C67xef3+1ktDr9pZ3Xg9NjwuYnNY+esu+wem1Z1
+ snncubaHzWP6nP+MHn1bVjF6fN4kF8AepWdTlF9akqqQkV9cYqsUbWhhpGdoaaFnZGKpZ2hs
+ HmtlZKqkb2eTkpqTWZZapG+XoJfxeuEk9oKdPBXbjq1kbWA8y9XFyMkhIWAiserMepYuRi4O
+ IYGljBJHpi1nhkjISJyc1sAKYQtL/LnWxQZR9IlRYvXxJrAiNgFDia63IAlODhGBBIlDy1uY
+ QYqYBf4xSrx7dBOsSFggSOJo/3VGEJtFQFVi59leFhCbV8BW4kP/ZDaIDfISqzccAKrn4OAU
+ sJNYON0NJCwEVPLx+1vmCYx8CxgZVjGKpJYW56bnFhvpFSfmFpfmpesl5+duYgQG97ZjP7fs
+ YOx6F3yIUYCDUYmHl2P70jgh1sSy4srcQ4wSHMxKIryPMpbFCfGmJFZWpRblxxeV5qQWH2I0
+ BbppIrOUaHI+MPLySuINTQ3NLSwNzY3Njc0slMR5OwQOxggJpCeWpGanphakFsH0MXFwSjUw
+ qlzeG/DZ547DtEvyKw52tHyPnrZp+4YXfhft6/cnPtr9MER5fRj78r6oSNnLU9dHtBxaMp/V
+ 7/mpj7+NjPoDuD4+PtosFBJ4u4d5Q9nL0zM/Tm1YGCPGcElMtdzwwGR5CeVVl5zZpI5yxTv+
+ 2f3x5pPE7ludL3oM+zTuaq7muqCxI6TgsM5/HiWW4oxEQy3mouJEAEjG7p+EAgAA
+X-CMS-MailID: 20200427074842eucas1p2a37c7f854188cccf3b103b221a84e9f2
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20200427074842eucas1p1abfb9af74f0d898ba381700f37820318
+X-RootMTR: 20200427074842eucas1p2a37c7f854188cccf3b103b221a84e9f2
 X-EPHeader: CA
 CMS-TYPE: 201P
-X-CMS-RootMailID: 20200427074842eucas1p1abfb9af74f0d898ba381700f37820318
+X-CMS-RootMailID: 20200427074842eucas1p2a37c7f854188cccf3b103b221a84e9f2
 References: <20200427074832.22134-1-m.szyprowski@samsung.com>
- <CGME20200427074842eucas1p1abfb9af74f0d898ba381700f37820318@eucas1p1.samsung.com>
+ <CGME20200427074842eucas1p2a37c7f854188cccf3b103b221a84e9f2@eucas1p2.samsung.com>
 Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Lee Jones <lee.jones@linaro.org>, Marek Szyprowski <m.szyprowski@samsung.com>
@@ -138,30 +139,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-WM8994 chip has built-in regulators, which might be used for chip
-operation. They are controlled by a separate wm8994-regulator driver,
-which should be loaded before this driver calls regulator_get(), because
-that driver also provides consumer-supply mapping for the them. If that
-driver is not yet loaded, regulator core substitute them with dummy
-regulator, what breaks chip operation, because the built-in regulators are
-never enabled. Fix this by annotating this driver with MODULE_SOFTDEP()
-"pre" dependency to "wm8994_regulator" module.
+When runtime PM is enabled, regulators are being controlled by the
+driver's suspend and resume callbacks. They are also unconditionally
+enabled at driver's probe(), and disabled in remove() functions. Add
+more calls to runtime PM framework to ensure that the device's runtime
+PM state matches the regulators state:
+1. at the end of probe() function: set runtime PM state to active, so
+there will be no spurious call to resume();
+2. in remove(), ensure that resume() is called before disabling runtime PM
+management and unconditionally disabling the regulators.
 
 Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
 Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- drivers/mfd/wm8994-core.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/mfd/wm8994-core.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/mfd/wm8994-core.c b/drivers/mfd/wm8994-core.c
-index 1e9fe7d92597..737dede4a95c 100644
+index 737dede4a95c..69d973ec42bf 100644
 --- a/drivers/mfd/wm8994-core.c
 +++ b/drivers/mfd/wm8994-core.c
-@@ -690,3 +690,4 @@ module_i2c_driver(wm8994_i2c_driver);
- MODULE_DESCRIPTION("Core support for the WM8994 audio CODEC");
- MODULE_LICENSE("GPL");
- MODULE_AUTHOR("Mark Brown <broonie@opensource.wolfsonmicro.com>");
-+MODULE_SOFTDEP("pre: wm8994_regulator");
+@@ -584,6 +584,7 @@ static int wm8994_device_init(struct wm8994 *wm8994, int irq)
+ 		goto err_irq;
+ 	}
+ 
++	pm_runtime_set_active(wm8994->dev);
+ 	pm_runtime_enable(wm8994->dev);
+ 	pm_runtime_idle(wm8994->dev);
+ 
+@@ -603,7 +604,9 @@ static int wm8994_device_init(struct wm8994 *wm8994, int irq)
+ 
+ static void wm8994_device_exit(struct wm8994 *wm8994)
+ {
++	pm_runtime_get_sync(wm8994->dev);
+ 	pm_runtime_disable(wm8994->dev);
++	pm_runtime_put_noidle(wm8994->dev);
+ 	wm8994_irq_exit(wm8994);
+ 	regulator_bulk_disable(wm8994->num_supplies, wm8994->supplies);
+ 	regulator_bulk_free(wm8994->num_supplies, wm8994->supplies);
 -- 
 2.17.1
 

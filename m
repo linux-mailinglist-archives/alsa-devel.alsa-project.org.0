@@ -2,61 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5FD11B977E
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Apr 2020 08:34:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AB611B97ED
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Apr 2020 09:01:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 50EFF1669;
-	Mon, 27 Apr 2020 08:33:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50EFF1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 28EEB1669;
+	Mon, 27 Apr 2020 09:00:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28EEB1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1587969240;
-	bh=GAPHN0R7qiB55A7RcPV44YH0qQTRU2z35rbCZeV5bXA=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Nv0hS5nPo/kKYdkC1Stgr0LajmHDLZmTM9+LmAQzHVi0ns5yWN+fCEfsmYP96E2CJ
-	 ZxoBdWToNwO9oDWw7NUnf+zNxk4YVYERbvOznd2FJvfo4oH8IpHF0v3cE9KIzcj6FY
-	 ZxztWl3L1g/Oc7rUivK5E6hby5NRihygtLTICm4c=
+	s=default; t=1587970893;
+	bh=tQa8lkDTSXiJX97GClHGLKQ34P045c93GRDfYkb3SxI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=HoP+X7bYxI2v2k+Q8NxsZMNr4sD8ecUMTudrIjy/hjakFewrSze9wmcc6yGIADBos
+	 AEYeLDyk6pdi91DD3AD2Odri54Ix+2Hq61Whpx/TiE3rSgqLYq6yoOrUX1MakeS3My
+	 TMQmdIJkFgvUzMXMUK41REhvwAQZCIhdQXpTHcyU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69ED0F80232;
-	Mon, 27 Apr 2020 08:32:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56545F80217;
+	Mon, 27 Apr 2020 08:59:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B57E1F8022B; Mon, 27 Apr 2020 08:32:15 +0200 (CEST)
+ id E4F38F8022B; Mon, 27 Apr 2020 08:59:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
+ [IPv6:2607:f8b0:4864:20::1044])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B36C7F80112
- for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 08:32:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B36C7F80112
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id CC6CE200E40;
- Mon, 27 Apr 2020 08:32:08 +0200 (CEST)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id A391F200F97;
- Mon, 27 Apr 2020 08:32:04 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 881D4402E6;
- Mon, 27 Apr 2020 14:31:59 +0800 (SGT)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org
-Subject: [PATCH v2] ASoC: fsl_esai: Disable exception interrupt before
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5EE5F8010A
+ for <alsa-devel@alsa-project.org>; Mon, 27 Apr 2020 08:59:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5EE5F8010A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="IL2IJv0C"
+Received: by mail-pj1-x1044.google.com with SMTP id fu13so6466210pjb.5
+ for <alsa-devel@alsa-project.org>; Sun, 26 Apr 2020 23:59:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=WNj7owPD+ZbRnStugkoSGfUDDLECau6V6cMguxLHseM=;
+ b=IL2IJv0CwAvaTDLiqlc/43W1WRn+mgpJHcQ8lcGu5IP5LESVReGp34dPTQGf6e0LZa
+ 3rCwR8nNmXOAEkd7Qzy7NviBN1004OJr8Pb5pMjqmfp3qpJihUZhwd7nyTcdErdOInIe
+ uT/acoJunK3/lzcWSYlr70GlAd1cL4+5aQRsO6ogXJBgfPAl7j9pz2uqOwVdBWbYe0q6
+ lbHRELStH3w+8HvL6IraAq8odymfgvcnvKnG15I3pwiOqF/UTkx28z5RWu01Jb8zRX6u
+ 8N7Ya3TKyfDwMXJcwDdk6fA1JUwRLmFDLFLl41eCmhPhg6qDStbEFse06rD8j62TGsit
+ h9Ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=WNj7owPD+ZbRnStugkoSGfUDDLECau6V6cMguxLHseM=;
+ b=A78N1uyEal/PeXbkmtyR4pW+767Pnq6kmzGvlO17B6CcmD/plJZFvzw2JxnYPMILBn
+ NFaCOu6JhGHQ8EVgunOJcEmasKpxkk1G5pcjofPOw3ETzDN2mBYqLte8Ty9ERk/utHtQ
+ cGEjUv8aC9q8/cy3Nkdv6Wfvac2IMCXHEnEMpANT4ssMfqXOCxlJxoqASlWJ1LFBXRVz
+ F391lOGyzy3ePGQgbjJ8YQywODTi8KwpeO9xhMnr1l3zxrd77i/z2WDkuOxDVl4Kc2qp
+ H+F1lMDAc7gmSSme8NqGN9iAa0p10mNkURBJmneYKcIBUPep8W9QOQPB1ozWwUvAXUwq
+ +LNA==
+X-Gm-Message-State: AGi0PuaRLHEEEldKGnhNZQwn+yeMOlrlJtdQ7IjpIuAvPMSrsWB+s1ya
+ OkUuZv4u5u8vHKhTiD2/fEA=
+X-Google-Smtp-Source: APiQypK642idgdGmw8QuDMMdid04wPSy9FsGffFOvsU2o0XwcfqVKE56jYsP/DglCL+LJ7YRbhEZMA==
+X-Received: by 2002:a17:902:9895:: with SMTP id
+ s21mr249837plp.158.1587970781619; 
+ Sun, 26 Apr 2020 23:59:41 -0700 (PDT)
+Received: from Asurada (c-73-162-191-63.hsd1.ca.comcast.net. [73.162.191.63])
+ by smtp.gmail.com with ESMTPSA id
+ h9sm11317108pfo.129.2020.04.26.23.59.40
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Sun, 26 Apr 2020 23:59:41 -0700 (PDT)
+Date: Sun, 26 Apr 2020 23:59:34 -0700
+From: Nicolin Chen <nicoleotsuka@gmail.com>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Subject: Re: [PATCH v2] ASoC: fsl_esai: Disable exception interrupt before
  scheduling tasklet
-Date: Mon, 27 Apr 2020 14:23:21 +0800
-Message-Id: <a8f2ad955aac9e52587beedc1133b3efbe746895.1587968824.git.shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Message-ID: <20200427065934.GA2236@Asurada>
+References: <a8f2ad955aac9e52587beedc1133b3efbe746895.1587968824.git.shengjiu.wang@nxp.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a8f2ad955aac9e52587beedc1133b3efbe746895.1587968824.git.shengjiu.wang@nxp.com>
+User-Agent: Mutt/1.5.22 (2013-10-16)
+Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
+ linuxppc-dev@lists.ozlabs.org, tiwai@suse.com, broonie@kernel.org,
+ festevam@gmail.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,34 +105,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Disable exception interrupt before scheduling tasklet, otherwise if
-the tasklet isn't handled immediately, there will be endless xrun
-interrupt.
+On Mon, Apr 27, 2020 at 02:23:21PM +0800, Shengjiu Wang wrote:
+> Disable exception interrupt before scheduling tasklet, otherwise if
+> the tasklet isn't handled immediately, there will be endless xrun
+> interrupt.
+> 
+> Fixes: 7ccafa2b3879 ("ASoC: fsl_esai: recover the channel swap after xrun")
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-Fixes: 7ccafa2b3879 ("ASoC: fsl_esai: recover the channel swap after xrun")
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
-changes in v2
-- Disable exception interrupt instead of remove tasklet.
-
- sound/soc/fsl/fsl_esai.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
-index c7a49d03463a..84290be778f0 100644
---- a/sound/soc/fsl/fsl_esai.c
-+++ b/sound/soc/fsl/fsl_esai.c
-@@ -87,6 +87,10 @@ static irqreturn_t esai_isr(int irq, void *devid)
- 	if ((saisr & (ESAI_SAISR_TUE | ESAI_SAISR_ROE)) &&
- 	    esai_priv->reset_at_xrun) {
- 		dev_dbg(&pdev->dev, "reset module for xrun\n");
-+		regmap_update_bits(esai_priv->regmap, REG_ESAI_TCR,
-+				   ESAI_xCR_xEIE_MASK, 0);
-+		regmap_update_bits(esai_priv->regmap, REG_ESAI_RCR,
-+				   ESAI_xCR_xEIE_MASK, 0);
- 		tasklet_schedule(&esai_priv->task);
- 	}
- 
--- 
-2.21.0
-
+Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>

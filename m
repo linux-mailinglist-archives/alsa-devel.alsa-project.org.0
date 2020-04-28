@@ -2,76 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67CD51BBC28
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Apr 2020 13:16:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C96251BBCA6
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Apr 2020 13:42:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 193C31690;
-	Tue, 28 Apr 2020 13:15:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 193C31690
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5527D169C;
+	Tue, 28 Apr 2020 13:41:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5527D169C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588072564;
-	bh=6DTJndgItc1WFWhpZyZ1xM0bC2J9mb3KRo6Obnb4WmI=;
+	s=default; t=1588074155;
+	bh=Kjm23SZJiJ+3VY7y6c1gvwu8cJZSxZpJO5YS0Gs4qhs=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nw6FyAzWAapuRz0BBIu/rJl9B1Mjc05XwySa01lFy9doa6bVb12qHdMIvjLFXYmOg
-	 xO5GvPrGnVaAi9d/FmI7Y/WoNK2z9/0Lmy8U5tV+Tyjb6jPIf7QNlqB7Vlhnu7wAOR
-	 qU05HdDsl0jATxR6ewni0nDXZJd03QyEVi8ooq/8=
+	b=AHjJyXB/Ff5RA6ofbRNFmhal+y5KhTQMYBuKFd3PxD5hKzbOhVbt4vTzRlKZSTAy6
+	 9zwCTq3yp0DKFDRQvopXjytrJkuhnYTdB9UG04Rq6+0G2YkpagTruPrImNAWhtqCA4
+	 TwBtv6P/18yKp8m2wPyrf+FK6uEIhr33JI50iCKs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B107F801DB;
-	Tue, 28 Apr 2020 13:14:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 72B81F80136;
+	Tue, 28 Apr 2020 13:40:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E4E4CF8010A; Tue, 28 Apr 2020 13:14:21 +0200 (CEST)
+ id A237FF801DB; Tue, 28 Apr 2020 13:40:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3F82AF8010A
- for <alsa-devel@alsa-project.org>; Tue, 28 Apr 2020 13:14:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F82AF8010A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 22331F8010A
+ for <alsa-devel@alsa-project.org>; Tue, 28 Apr 2020 13:40:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22331F8010A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Q3qb34E4"
+ header.b="wv+0koz2"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4BC04206F0;
- Tue, 28 Apr 2020 11:14:15 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9EC65206A1;
+ Tue, 28 Apr 2020 11:40:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588072455;
- bh=6DTJndgItc1WFWhpZyZ1xM0bC2J9mb3KRo6Obnb4WmI=;
+ s=default; t=1588074047;
+ bh=Kjm23SZJiJ+3VY7y6c1gvwu8cJZSxZpJO5YS0Gs4qhs=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Q3qb34E4bp44JWa6pDDT90Gk7LeUH02t8lh2VwWR1c9Oaw66ERl/dzd5ezZl4DCtW
- iQ7bTY9xXuwovratP2T6vv33tNHxFYnVfCJtej/koTp/bP7CscKrtfOXwKt0MfSfKv
- P6BAeAhkD7oshYsng08lhA2nUgKNAdqTdFkr9aZs=
-Date: Tue, 28 Apr 2020 12:14:13 +0100
+ b=wv+0koz2d8FuCTwTLv7oTUrTUcRw1GwWUG21VkFpTbOuvBzFlGsj06C6f0Iwv5S46
+ QaevCB31Jcoj/nu9F606+R5hT20GAdVm99e5zj0y66ns00YcBPQYutax+yQuJrNoYV
+ HJQqekEdjkpddpsxDhlPhwmkTykOdF26dgdMZBB4=
+Date: Tue, 28 Apr 2020 12:40:44 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Lee Jones <lee.jones@linaro.org>
-Subject: Re: [PATCH 4/4] ASoC: wm8994: Silence warnings during deferred probe
-Message-ID: <20200428111413.GD5677@sirena.org.uk>
-References: <20200427074832.22134-1-m.szyprowski@samsung.com>
- <CGME20200427074843eucas1p1a3a265df0c7f14b0aaec25eb65daf606@eucas1p1.samsung.com>
- <20200427074832.22134-5-m.szyprowski@samsung.com>
- <20200427112202.GB4272@sirena.org.uk> <20200428103638.GP3559@dell>
+To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Subject: Re: [PATCH] ASoC: core: Make sure component driver names are unique
+Message-ID: <20200428114044.GF5677@sirena.org.uk>
+References: <20200427193306.31198-1-ranjani.sridharan@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="M38YqGLZlgb6RLPS"
+ protocol="application/pgp-signature"; boundary="/aVve/J9H4Wl5yVO"
 Content-Disposition: inline
-In-Reply-To: <20200428103638.GP3559@dell>
+In-Reply-To: <20200427193306.31198-1-ranjani.sridharan@linux.intel.com>
 X-Cookie: Eschew obfuscation.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,38 +82,33 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---M38YqGLZlgb6RLPS
+--/aVve/J9H4Wl5yVO
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, Apr 28, 2020 at 11:36:38AM +0100, Lee Jones wrote:
-> On Mon, 27 Apr 2020, Mark Brown wrote:
+On Mon, Apr 27, 2020 at 12:33:06PM -0700, Ranjani Sridharan wrote:
 
-> > This completely eliminates the diagnostics which means that if the clock
-> > isn't there the user is a bit stuck trying to work out what's missing.
-> > There should still be a diagnostic.
+> When registering a component, make sure that the driver names
+> are unique. This will ensure that the snd_soc_rtdcom_lookup()
+> function returns the right component based on the name.
 
-> The driver won't defer forever though.  The final pass should fail
-> with a different error.  At which point the error will be released to
-> the system log, no?
+I would not expect driver names to be unique, you can have multiple
+instances of the same device on a board for example when two mono
+speaker drivers are used for stereo playback.
 
-One of the really common cases is that someone forgot to build the
-driver for the dependency so it'll just defer forever waiting for
-something that never loads.
-
---M38YqGLZlgb6RLPS
+--/aVve/J9H4Wl5yVO
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6oEAQACgkQJNaLcl1U
-h9BdrQf+NCklPpWwravEIRIAH1rwyigfjx2trNsyl7yEA2AwXk8z7UPMlVo/5tAx
-U6MrMNyYDvWsAgZVED3Xd20d7R/7M9+E7vg/73nnG4GIsQSbx1CGxfkaovbmWGWl
-jGsqydTS7K3eMMSq2WiwiwfJW6qtX2ah3KWNM/hOkxzzxfkYoBY4whG+0AMJzwzZ
-X+ciwLknAY2GiigH3viTy0t9vrAJZq8JpsbLrxzlh55YYPmM9sCfwN9Vi5bCfuet
-pbGBfCGj4puRpt9bXB0fcO9q34kGsmGVG0cz/BcNc/hGM4y5xSYbGGeBTAPB0Qg0
-3VfbJLNHhewSONj2A74OCuxVJqG47A==
-=4bNe
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6oFjsACgkQJNaLcl1U
+h9ABowf+Lkdik/y6wUtdwlKBCxU39myfe+GmZR07pnqs57X3vRTa8e9ZmXWFMCm8
+K1gkzK3B2q0OVcMHnRvdCaLzl8lKa9VBMVqdLzEXIkk863GaYJ9rH7jQzYdiFvxM
+Q92whCfuIPB2ZcWXe0opwDgu0n3oJ3VoKnj8hoBpN/hLyROF9XFeIEStBHX5GofM
+mSF1O0H+vvTrk9tPiIQhreGA6fZViG9uyZreOeMyScwBBP9m/gAA67p7xdlKJSEC
+flRI60yprF+MUr2CE7TEz8S/s5P6NVeUyb6g4njGlNNu+R0NSL9PGsByszM9F/ph
+HstVw7IzY6lxKe0gIqzm5MB/k1iB1w==
+=3CVe
 -----END PGP SIGNATURE-----
 
---M38YqGLZlgb6RLPS--
+--/aVve/J9H4Wl5yVO--

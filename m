@@ -2,74 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C155F1BC557
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Apr 2020 18:36:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2F0B1BC5C4
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Apr 2020 18:51:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 67C591690;
-	Tue, 28 Apr 2020 18:35:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67C591690
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A23D1676;
+	Tue, 28 Apr 2020 18:50:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A23D1676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588091792;
-	bh=QYN+AI2dUA6ujirR6L84dRez4kCOvTZCAAYMp7oPUxE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1588092676;
+	bh=c14in/XGNFlMNn026ml7lFp93DVtu2l85+bugZpBtZk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=X7nT2QpPI0cgM5LYqYoyekdwlAEasU9CFY/2uA/s8FTqnD/7h3+oF1bMjBmPb68Wk
-	 sfEWCQMmpE+8tFm12mDLaO4as4HbPCiw+tDYhM2ILA8IvU7PxAGtp3Z2egtgzNMvYS
-	 uKUqvzhTZVf1JUMK8kIjOxRAUIOE2ULxk+faNDpw=
+	b=g5VeYMtRnE8wVYSZAK0IdLhXdNM2rXrer884NduCuRvC1k0zM30/Qt1MWTOBGmVHO
+	 ZuXdhWil8dMbMeFpPHdD7/3jr8GekcZ2enuBx86UAEUkoK7b1Dq9ESrTpA66spodfh
+	 Yyvd+44wJz95BcXqVlH0tRvQzDG2znz0pQp1an4Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4EE35F801EB;
-	Tue, 28 Apr 2020 18:34:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CBEC5F800D2;
+	Tue, 28 Apr 2020 18:49:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AF119F801DB; Tue, 28 Apr 2020 18:34:48 +0200 (CEST)
+ id 71A93F801DB; Tue, 28 Apr 2020 18:49:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-io1-xd32.google.com (mail-io1-xd32.google.com
+ [IPv6:2607:f8b0:4864:20::d32])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CA4A7F8010A
- for <alsa-devel@alsa-project.org>; Tue, 28 Apr 2020 18:34:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA4A7F8010A
+ by alsa1.perex.cz (Postfix) with ESMTPS id A284FF800D2
+ for <alsa-devel@alsa-project.org>; Tue, 28 Apr 2020 18:49:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A284FF800D2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="KvORqMuI"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1861B206D6;
- Tue, 28 Apr 2020 16:34:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588091683;
- bh=QYN+AI2dUA6ujirR6L84dRez4kCOvTZCAAYMp7oPUxE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KvORqMuI+YGMJiC/8mKkh/+Mjnlf1Ib8I6qnItvy6ncRVXdOcBC0QGNwjt340/52g
- 9GUq48SJebbO+sJYynAAuxdWQcS+imx3hDb0FXnTp+jkbI4cj3ieDfuT0PxooSndRx
- 22SLNGi3PnVbT5O7kYsF5S9v+coa9S/z1B9Urs4M=
-Date: Tue, 28 Apr 2020 17:34:40 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Subject: Re: [PATCH] ASoC: core: Make sure component driver names are unique
-Message-ID: <20200428163440.GL5677@sirena.org.uk>
-References: <20200427193306.31198-1-ranjani.sridharan@linux.intel.com>
- <20200428114044.GF5677@sirena.org.uk>
- <e5116a2b2be975f07ba29ea438f100bbe93ded76.camel@linux.intel.com>
- <20200428161451.GK5677@sirena.org.uk>
- <71d8350edafd266eb1db63709e8c3ea7075b3566.camel@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="V2Zm63dU"
+Received: by mail-io1-xd32.google.com with SMTP id w4so23695131ioc.6
+ for <alsa-devel@alsa-project.org>; Tue, 28 Apr 2020 09:49:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=JS/Zae/slzX90tyUKT8r1SH4RG9V4TT4VPt705M4mKg=;
+ b=V2Zm63dUiV3TTv4NusICrNtW9C+4hSQl0AvbqXXwN9RUmiI2qh/MP3EwePMMaD6a3H
+ kFLvQEXGLfR1WPfk4I0a9Y2RxpET6/nFUP4Ft4xTMJcAII5++HFxk1cCU3ABcP0WGCBv
+ nndZMG95rXNmP//mN3kFoluvP77qYaq7X9cyIGn8PEzpTldV/jmN3iYRV7+m55+o0q8V
+ q07b1GUUU5enXKzG3nfwrzvw+qOQ73O7dRelONAy1hj+91aCmG8VWR4zYfgXV/fjDWx6
+ sMJi9jhhaPpWcMWsBcS3Gue2AI67aQf4styimAP23+ASIOpa5fzTd70raNY04b0R9qT2
+ ibjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=JS/Zae/slzX90tyUKT8r1SH4RG9V4TT4VPt705M4mKg=;
+ b=F4s6JbPi36Xwn5LzGTTX9gtqsz5sL4NHDWuTmqSNFU8FVPnfYepYkhwzI1kP3Z2FLj
+ CBsfeSUi9iYN2pZcKFWxekq2mCMwUgmoxCtOZUrFN2B1xqI1+DBuAoJ/QvSuqIb5MiQl
+ 1qhUYk42PrCAHUBnmUnjaWtGIhR7wxkE5/mSxGqBfzMFYeMO2zhUWrxMjRjYAd2qndn2
+ otde3Ktm6A3gsGSm0JtwUnSA24ZDkQJGvJIddkSAmMXhP72KvnFlR6Rk5YlsGtqbI0gd
+ X5gMOASwH02nGa3EGc1ROSZBaYLpWn5ae83JLMY49jXU1ysRTmtafS6jiBXU+w0cVnUO
+ JmKg==
+X-Gm-Message-State: AGi0PubKI5N7UefXblTCyvc7kCQmEqgxWQXRStmUxMcHwkakFYeE9ZPa
+ 6jH0vUV3aTd696ptar8cyUivcL5XQTt8gZpgMII=
+X-Google-Smtp-Source: APiQypKVVDj4+SrA1Wh3npapyS8is6Ny7tWN7gGRKKd2wbPbADnpfEAZaApyWXCE8Ach3PRxG824Bn1lotSb4OuXfiE=
+X-Received: by 2002:a5d:9494:: with SMTP id v20mr26961821ioj.101.1588092561434; 
+ Tue, 28 Apr 2020 09:49:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="CqfQkoYPE/jGoa5Q"
-Content-Disposition: inline
-In-Reply-To: <71d8350edafd266eb1db63709e8c3ea7075b3566.camel@linux.intel.com>
-X-Cookie: Eschew obfuscation.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com
+References: <20200426120442.11560-1-peron.clem@gmail.com>
+ <20200426120442.11560-5-peron.clem@gmail.com>
+ <20200428080020.35qcuylwq2ylmubu@gilmour.lan>
+ <CAJiuCcc2LQ4L36KSfO8iLVFBUO6k+zsZFX+_Ovm_10PoWO4AsA@mail.gmail.com>
+ <20200428160417.6q5oab2guaumhhwi@gilmour.lan>
+In-Reply-To: <20200428160417.6q5oab2guaumhhwi@gilmour.lan>
+From: =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
+Date: Tue, 28 Apr 2020 18:49:10 +0200
+Message-ID: <CAJiuCccFFUJJzXwygLQbDK4fGJ61p72Hv7vj3WVP-=z=J1Yj0Q@mail.gmail.com>
+Subject: Audio sound card name [was [PATCH 4/7] arm64: dts: allwinner: a64:
+ Add HDMI audio]
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: devicetree <devicetree@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ linux-sunxi <linux-sunxi@googlegroups.com>,
+ Jernej Skrabec <jernej.skrabec@siol.net>, Takashi Iwai <tiwai@suse.com>,
+ Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Ripard <maxime@cerno.tech>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,38 +107,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Mark, Rob,
 
---CqfQkoYPE/jGoa5Q
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Tue, 28 Apr 2020 at 18:04, Maxime Ripard <maxime@cerno.tech> wrote:
+>
+> On Tue, Apr 28, 2020 at 10:54:00AM +0200, Cl=C3=A9ment P=C3=A9ron wrote:
+> > Hi Maxime,
+> >
+> > On Tue, 28 Apr 2020 at 10:00, Maxime Ripard <maxime@cerno.tech> wrote:
+> > >
+> > > On Sun, Apr 26, 2020 at 02:04:39PM +0200, Cl=C3=A9ment P=C3=A9ron wro=
+te:
+> > > > From: Marcus Cooper <codekipper@gmail.com>
+> > > >
+> > > > Add a simple-soundcard to link audio between HDMI and I2S.
+> > > >
+> > > > Signed-off-by: Jernej Skrabec <jernej.skrabec@siol.net>
+> > > > Signed-off-by: Marcus Cooper <codekipper@gmail.com>
+> > > > Signed-off-by: Cl=C3=A9ment P=C3=A9ron <peron.clem@gmail.com>
+> > > > ---
+> > > >  arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi | 21 +++++++++++++++=
+++++
+> > > >  1 file changed, 21 insertions(+)
+> > > >
+> > > > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi b/arch/a=
+rm64/boot/dts/allwinner/sun50i-a64.dtsi
+> > > > index e56e1e3d4b73..08ab6b5e72a5 100644
+> > > > --- a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
+> > > > +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
+> > > > @@ -102,6 +102,25 @@
+> > > >               status =3D "disabled";
+> > > >       };
+> > > >
+> > > > +     hdmi_sound: hdmi-sound {
+> > > > +             compatible =3D "simple-audio-card";
+> > > > +             simple-audio-card,format =3D "i2s";
+> > > > +             simple-audio-card,name =3D "allwinner,hdmi";
+> > >
+> > > I'm not sure what the usual card name should be like though. I would =
+assume that
+> > > this should be something specific enough so that you're able to diffe=
+rentiate
+> > > between boards / SoC so that the userspace can choose a different con=
+figuration
+> > > based on it?
+> >
+> > I really don't know what we should use here,
+> > I just have a look at other SoC:
+> > rk3328: "HDMI"
+> > rk3399: "hdmi-sound"
+> > r8a774c0-cat874: "CAT874 HDMI sound"
+> >
+> > But maybe it's time to introduce proper name:
+> > What about :
+> > pat
+> > sun50i-h6-hdmi
+>
+> It's pretty much what we've been using for the other sound cards we have,=
+ so it
+> makes sense to me.
 
-On Tue, Apr 28, 2020 at 09:26:13AM -0700, Ranjani Sridharan wrote:
-> On Tue, 2020-04-28 at 17:14 +0100, Mark Brown wrote:
+I have a question regarding the simple-audio-card,name.
+In this patch, I would like to introduce a simple-audio-card for the
+Allwinner A64 HDMI.
 
-> > That was in the context of a single DAI link, not the system as a
-> > whole,
-> > and only for platform drivers not DAIs.
+What should be the preferred name for this sound card?
+"sun50i-a64-hdmi" ? "allwinner, sun50i-a64-hdmi" ?
 
-> Ahh, got it. So, maybe I should add this check when adding platform
-> components to the pcm runtime for the DAI link?
+Thanks for your tips,
+Clement
 
-Yes, checking to see if there's any platform component already would be
-good - perhaps we might have to relax that in future but right now
-there's no clear use case.
-
---CqfQkoYPE/jGoa5Q
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6oWyAACgkQJNaLcl1U
-h9Chcwf/davATNCPWMUbQMoD3gxCrWZwrlLldAI2HsL9DKaGwAVIrjc1/yNoMcwJ
-lZcZmLnqpB08epV5CnZK5bDZMzB16kvy6NNbxBxn4ST4Yi0IXIV9VhlR8veRGr0O
-67fonTQMRS8azO5B4TKCklGnCMeFe6wSdaNB8CaRU3RvTRfalWyFHSqPcQ5Rh0Pd
-all0/5S8Qjcmpt6Ws8SuFbiDHfuuOy/ZiMExUgrpUHjaiWO4KjY4Re0S956h3IaP
-l/7n2tYfpFOeFVOpCSkubLXyZFOxRAGyuocZje30XACr3j91GBPKdl/T8E3eErUs
-v8fyhGMYuuJcEvzpaP2FhSN3sM6s6Q==
-=kqqb
------END PGP SIGNATURE-----
-
---CqfQkoYPE/jGoa5Q--
+>
+> > How should we handle this with h3 / h5 ?
+> > settings the simple-audio-card,name in each SoC dts?
+> > Or using sun50i-h3-hdmi as they are both identical?
+>
+> Yeah, we can do the latter
+>
+> Maxime

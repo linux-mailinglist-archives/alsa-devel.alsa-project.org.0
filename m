@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B25B31BC4E5
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Apr 2020 18:16:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F4531BC501
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Apr 2020 18:21:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 494FD168E;
-	Tue, 28 Apr 2020 18:15:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 494FD168E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D6F51669;
+	Tue, 28 Apr 2020 18:20:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D6F51669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588090606;
-	bh=Yu5rOt8UvDrqMgRxGBjron5p4MO36vWB5qX6Yt5qCtM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1588090872;
+	bh=J4YLk98EXyq1O55m8ZiQphNNiSGmIhyk/ddmN++HfZg=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JEjgFOOk1y3p9/lwntK0HQs7M5Mvo0nY2OPd6qszbICsjBIskyxM8dbpT4zxEf2bm
-	 KuvvXxk/9A7AT987cAXGOjwev1lRkiXQ9qGOsn613rOO5NivDdYGMEmOSLBA+zuRjv
-	 SzZRehHjfv4/UrrIOD56AyEnCJ6B3qVSbtVxNdNA=
+	b=WU6/j6onm5HdbPoQ5M0jsoTJJrBvAkXHMPlSpuw+F+85ENILBuQLLwSwnxH0JNBDc
+	 NNIA9V+vdnbxhRawcptQDoLRbVEO24qIKg/wjF5z1CGe2CnDR3oeq++kgRxoTUoee1
+	 XkhMgLrANBv/O8hLj1ydNkcBjUPOrCa/KDiBgddM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 568C8F801EB;
-	Tue, 28 Apr 2020 18:15:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B9AEF800D2;
+	Tue, 28 Apr 2020 18:19:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9BA3CF801DB; Tue, 28 Apr 2020 18:15:02 +0200 (CEST)
+ id 60590F801DB; Tue, 28 Apr 2020 18:19:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6829FF8010A
- for <alsa-devel@alsa-project.org>; Tue, 28 Apr 2020 18:14:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6829FF8010A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="et165nRK"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CE3D32054F;
- Tue, 28 Apr 2020 16:14:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588090494;
- bh=Yu5rOt8UvDrqMgRxGBjron5p4MO36vWB5qX6Yt5qCtM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=et165nRKumn6cmjPtjcP1Mdc23LoHzzKGn9dt4y7zH7Z2eYvBSfTtBGB3Hy3Q3wHq
- rcJ2lSdvwbWPM/JkOdUnvQDxpMT3slJ+LRR11up7MjMYihIip7dQT4TZOsie7ITkoF
- LOXm3hbMPVals3cVnweUZNNVVSAGLKP9BKFn1R98=
-Date: Tue, 28 Apr 2020 17:14:51 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Subject: Re: [PATCH] ASoC: core: Make sure component driver names are unique
-Message-ID: <20200428161451.GK5677@sirena.org.uk>
-References: <20200427193306.31198-1-ranjani.sridharan@linux.intel.com>
- <20200428114044.GF5677@sirena.org.uk>
- <e5116a2b2be975f07ba29ea438f100bbe93ded76.camel@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 12F99F800D2
+ for <alsa-devel@alsa-project.org>; Tue, 28 Apr 2020 18:19:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12F99F800D2
+IronPort-SDR: lfEB6wVBOD8T9v+YJkzrZDywdXIFi+pILDrwxQ/iULTTq0FV7n7oBVHGKeloUEEJEVtBL+CxrM
+ 8/I+dj1SfKNg==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2020 09:19:20 -0700
+IronPort-SDR: ViEGs8AdAv4MZyPCMT3TUjdchrkkWfUDLP7Y0NymWxGrVaFtOlihlzpCDZZjZgFm44XYCn+0el
+ qMYrHEodlh7g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,328,1583222400"; d="scan'208";a="282195847"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by fmsmga004.fm.intel.com with ESMTP; 28 Apr 2020 09:19:19 -0700
+Date: Tue, 28 Apr 2020 19:19:18 +0300 (EEST)
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+X-X-Sender: kvehmane@eliteleevi.tm.intel.com
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: Functionality of pcm_notify in snd-aloop?
+In-Reply-To: <s5hmu6vlin9.wl-tiwai@suse.de>
+Message-ID: <alpine.DEB.2.21.2004281910520.2957@eliteleevi.tm.intel.com>
+References: <b4af9071-f8d7-5b47-4d7a-c5743bd67394@ivitera.com>
+ <61d837f1-de1a-7aa6-ca8f-d0cfaa36ea69@perex.cz>
+ <28a05a44-55bf-1831-aa3c-875e0499caea@ivitera.com>
+ <28063dd1-71ab-a313-04b8-f4d97312b1b5@ivitera.com>
+ <a325c165-5ced-618b-0b71-c0c4381473a1@perex.cz>
+ <s5hmu6vlin9.wl-tiwai@suse.de>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="VJJoKLVEFXdmHQwR"
-Content-Disposition: inline
-In-Reply-To: <e5116a2b2be975f07ba29ea438f100bbe93ded76.camel@linux.intel.com>
-X-Cookie: Eschew obfuscation.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com
+Content-Type: text/plain; charset=US-ASCII
+Cc: Pavel Hofman <pavel.hofman@ivitera.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,42 +83,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hey,
 
---VJJoKLVEFXdmHQwR
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Tue, 28 Apr 2020, Takashi Iwai wrote:
 
-On Tue, Apr 28, 2020 at 09:07:04AM -0700, Ranjani Sridharan wrote:
-> On Tue, 2020-04-28 at 12:40 +0100, Mark Brown wrote:
+> I believe the missing piece here is a generic way to tell user-space
+> that the stream got invalidated.  This would be useful not only for
+> aloop but can be applied in general when a stream becomes temporarily
+> unavailable (e.g. the HDMI monitor disconnected or the DSP route
+> switched).
 
-> > I would not expect driver names to be unique, you can have multiple
-> > instances of the same device on a board for example when two mono
-> > speaker drivers are used for stereo playback.
+ack on that. I've been preparing this patch to add -ENODATA to alsa-lib 
+documentation:
+"[RFC] pcm: add documentation for -ENODATA error code handling"
+https://github.com/kv2019i/alsa-lib/commit/87b298106e04054489ee93b26a610e37f99a3171
 
-> Maybe I misunderstood your comment in the previous thread then, Mark.
+Have not yet had time to send a proper version to the list, but it's 
+addressing specifically this need. This would serve as the interface for 
+SOF DSP to tell that a given PCM node will not be providing data (as the 
+DSP topology is not fully connected) [1].
 
-> https://mailman.alsa-project.org/pipermail/alsa-devel/2020-April/166665.html
+To test the above, I've used a small hack to aplay/arecord that keeps 
+trying to restart the PCM after a delay, in case -ENODATA is returned:
+https://github.com/kv2019i/alsa-utils/commit/a2ba541ea0b3e86a65687de88a41f10cf0a8ddc2
 
-> Did you mean to say that the individual drivers should do this check
-> before registering multiple platform components to make sure they are
-> unique?
+[1] https://github.com/thesofproject/sof/issues/2564
 
-That was in the context of a single DAI link, not the system as a whole,
-and only for platform drivers not DAIs.
-
---VJJoKLVEFXdmHQwR
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6oVnoACgkQJNaLcl1U
-h9DEUQf/dcSmwqs67ASJxjKqHjXzbis6y7YoRIHPI1xaZd0vJm14j+lgswXO5B6Q
-TejfPUURHy7twm7YU/qDVvQ8LALmByfKETIcUS1sLzzrxuZ03t3gi5XbCIYZaoMc
-np1EqB7eVzaSuyPu2+vfFXpnLrmvi52amHRG4HlelINoB9zVy+G/O+SrgvnirS4Z
-+NDN+HcruGOq2wXm+uR45BFgYyHtykioJkVIH//vAr2GwwgIOTmf0nVJjCTx663k
-H/OPDCWGw2+BdW+I5WN/zaeyWVvPIP+siuZDnUCK3hWrWO0Mp9gTjaLzt5mRsmXM
-kZlUfoEKriX+i4PvBgmuHwT8OUsrMA==
-=4Fze
------END PGP SIGNATURE-----
-
---VJJoKLVEFXdmHQwR--
+Br, Kai

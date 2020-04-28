@@ -2,68 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7BB61BC3F2
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Apr 2020 17:43:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A6A61BC3F3
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Apr 2020 17:43:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 82D9D1682;
-	Tue, 28 Apr 2020 17:42:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82D9D1682
+	by alsa0.perex.cz (Postfix) with ESMTPS id B1DFA167D;
+	Tue, 28 Apr 2020 17:42:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1DFA167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588088610;
-	bh=m3hQm8gosMVcEzwy0eRzhmbhb9xpXvL9MpTX2D3IkBg=;
+	s=default; t=1588088624;
+	bh=YTmkEeh0V9t31v30Qf9a/Bf0gPGvc6k9LnAqYb5SHLA=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=N0EgoYPr7kNOox4dv0tMb3izGIEAKSMiRsxZvFAiQoIH4myp7CXnjLKHFvTE48kOz
-	 MTVyzfLdr9X2cT+MiNjJ4LmhFwFtSJ21L4IF1MDzOghjyMrenQgHu1LZx4tDHP6Hz5
-	 zWFuG1Zm8+qBWYd0C2R611SVpJuFvtoYezSGRPWs=
+	b=ELjyNn+s5hvLaZDBkHFPaqBzC0lbotCdNsWd7Npj4xAHUn1ASDZhW8Mx4RRQRsM9e
+	 JBQ6DtM3ZJyjJ6h8IWbxK7blZHs06ONuV24bdURuXWgM/J8TftrD9BZNb2i+PY8rev
+	 Kp/5z14p3AlUJGPUWZubQDmFNgjYJNdAAm/+4/BI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ED1EEF8024A;
-	Tue, 28 Apr 2020 17:41:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3D8EF8028F;
+	Tue, 28 Apr 2020 17:41:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A1B79F801F7; Tue, 28 Apr 2020 17:41:05 +0200 (CEST)
+ id 30AF8F8028C; Tue, 28 Apr 2020 17:41:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2C6D1F801EB
- for <alsa-devel@alsa-project.org>; Tue, 28 Apr 2020 17:41:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C6D1F801EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 27381F80268
+ for <alsa-devel@alsa-project.org>; Tue, 28 Apr 2020 17:41:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27381F80268
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lxqkJh4c"
+ header.b="tEK/xzzS"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 21E21206D7;
- Tue, 28 Apr 2020 15:41:00 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 17B62206D9;
+ Tue, 28 Apr 2020 15:41:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588088461;
- bh=m3hQm8gosMVcEzwy0eRzhmbhb9xpXvL9MpTX2D3IkBg=;
+ s=default; t=1588088476;
+ bh=YTmkEeh0V9t31v30Qf9a/Bf0gPGvc6k9LnAqYb5SHLA=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=lxqkJh4chgjEtNIOCO5x/UqvWUOjcx7z/KGvdDrwKEPx5xYj89TjLuQtxgx9vSnf3
- JQpSUSWGQCA4GNDypq6TfgEbaSst2iifF5p6g6iGna7Hc6dNofOzy33E5pUF6cGRau
- OoOM72nLdxg0zm7JV5OwUMd4A9CE+CduxQtzEB4c=
-Date: Tue, 28 Apr 2020 16:40:59 +0100
+ b=tEK/xzzSnuP34Iqa/c3Rr4apqerXPegbJea5YBI6IlIMmDk6c8fM6L45PQPv1jMu+
+ YwcLPB71FnKXn+nPGxfidsjfgW9t7YBBZgCx5sa//uqjpHPmWqX+wf8rFXbu4LyE5h
+ IEYNeHsfDb0kXBleFgWb8pbJEg6TE/Cd1F1kankQ=
+Date: Tue, 28 Apr 2020 16:41:13 +0100
 From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Peter Ujfalusi <peter.ujfalusi@ti.com>, Xiyu Yang <xiyuyang19@fudan.edu.cn>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- alsa-devel@alsa-project.org
-In-Reply-To: <1587818916-38730-1-git-send-email-xiyuyang19@fudan.edu.cn>
-References: <1587818916-38730-1-git-send-email-xiyuyang19@fudan.edu.cn>
-Subject: Re: [PATCH] ASoC: davinci-mcasp: Fix dma_chan refcnt leak when
- getting dma type
-Message-Id: <158808845301.38316.4295335202430928614.b4-ty@kernel.org>
-Cc: Xin Tan <tanxin.ctf@gmail.com>, yuanxzhang@fudan.edu.cn, kjlu@umn.edu
+To: Jonathan Hunter <jonathanh@nvidia.com>, Takashi Iwai <tiwai@suse.com>,
+ Jaroslav Kysela <perex@perex.cz>, Wei Yongjun <weiyongjun1@huawei.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>
+In-Reply-To: <20200428110742.110335-1-weiyongjun1@huawei.com>
+References: <20200428110742.110335-1-weiyongjun1@huawei.com>
+Subject: Re: [PATCH -next] ASoC: tegra: tegra_wm8903: Use
+ devm_snd_soc_register_card()
+Message-Id: <158808847385.38342.17859489811900791487.b4-ty@kernel.org>
+Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
+ kernel-janitors@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,24 +79,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 25 Apr 2020 20:48:35 +0800, Xiyu Yang wrote:
-> davinci_mcasp_get_dma_type() invokes dma_request_chan(), which returns a
-> reference of the specified dma_chan object to "chan" with increased
-> refcnt.
+On Tue, 28 Apr 2020 11:07:42 +0000, Wei Yongjun wrote:
+> Using devm_snd_soc_register_card() can make the code
+> shorter and cleaner.
 > 
-> When davinci_mcasp_get_dma_type() returns, local variable "chan" becomes
-> invalid, so the refcount should be decreased to keep refcount balanced.
+> Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
+> ---
+>  sound/soc/tegra/tegra_wm8903.c | 14 ++------------
+>  1 file changed, 2 insertions(+), 12 deletions(-)
 > 
 > [...]
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.7
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.8
 
 Thanks!
 
-[1/1] ASoC: davinci-mcasp: Fix dma_chan refcnt leak when getting dma type
-      commit: a697ae6ea56e23397341b027098c1b11d9ab13da
+[1/1] ASoC: tegra: tegra_wm8903: Use devm_snd_soc_register_card()
+      commit: ac3367442d9e5971e32014c6fea41ca1662c0e2d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,79 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A31A1BB820
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Apr 2020 09:53:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5517F1BB845
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Apr 2020 09:59:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 48373168C;
-	Tue, 28 Apr 2020 09:52:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48373168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE0E51683;
+	Tue, 28 Apr 2020 09:58:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE0E51683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588060420;
-	bh=fYRsuc0Ae0dKiL0d6kjd3W201rSLRhC7uULkGPtVblQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1588060755;
+	bh=FsPfqvhMCmARNgpfq+/ij75faMs2cfikvCu/c2iUoMM=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fb24ciV/ZGEr+tKqAME+NPxNKGWALQ8epTdCN0FhuwfT/k2Ov3G7DSE+EWRLH2Us8
-	 Y8SeQW4jmI4x84VDNbJe8n1reTtHDiMoUvWAvh7kblnAHCRarid3LquE6DoCHl4a6K
-	 LvQmLjlGqqWEE20M1BQet6+wiA9GYDOF/LMx82b4=
+	b=BGLR7qf4k5tkKK8lVzgvvtfJrSiGfI9aDcY3quibgz9/s9lQfvjNsIsplXcbwT4O0
+	 5eihsO0utlxHrPVAlq0vf8jTmV9X33CbETal3/nUcoq/zMEuRZWO1BHay59KOQAR07
+	 zaMYZ8hJS/QYIYtYn7/g1vJveKNf8z5fdYQB0ARE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D12CF80136;
-	Tue, 28 Apr 2020 09:51:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB529F801EB;
+	Tue, 28 Apr 2020 09:57:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 049F7F801DB; Tue, 28 Apr 2020 09:51:55 +0200 (CEST)
+ id EC53FF801DB; Tue, 28 Apr 2020 09:57:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=PRX_BODY_14,PRX_BODY_30,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 490E1F800B8
- for <alsa-devel@alsa-project.org>; Tue, 28 Apr 2020 09:51:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 490E1F800B8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="xa4C6Ee2"
-Received: from localhost (unknown [106.51.110.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9A0172053B;
- Tue, 28 Apr 2020 07:51:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588060309;
- bh=fYRsuc0Ae0dKiL0d6kjd3W201rSLRhC7uULkGPtVblQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=xa4C6Ee2WJE5lMYYAI6Nn3sH1L9ucDYkdIzacdVf5sF2lXs9EdxQBqTlbSeNaTlFO
- OXnkLbdkGycxF4puebuZ8D/zeB464DqRdApxT3eSB0bZ/K1AXLolmE+WP5TcVhS0n+
- JqxDs7oVxp95HZcQ7ugMPro7yxFItSwuXSZE4ITU=
-Date: Tue, 28 Apr 2020 13:21:45 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Greg KH <gregkh@linuxfoundation.org>
-Subject: Re: [RFC 1/5] soundwire: bus_type: add sdw_master_device support
-Message-ID: <20200428075145.GB56386@vkoul-mobl.Dlink>
-References: <20200416205524.2043-1-yung-chuan.liao@linux.intel.com>
- <20200416205524.2043-2-yung-chuan.liao@linux.intel.com>
- <20200420072631.GW72691@vkoul-mobl>
- <20200423142451.GA4181720@kroah.com>
- <20200428043144.GU56386@vkoul-mobl.Dlink>
- <20200428063736.GB990431@kroah.com>
- <20200428064951.GA56386@vkoul-mobl.Dlink>
- <20200428065524.GA992087@kroah.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200428065524.GA992087@kroah.com>
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- tiwai@suse.de, mengdong.lin@intel.com, linux-kernel@vger.kernel.org,
- ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
- sanyog.r.kale@intel.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
- rander.wang@linux.intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id DF87CF8010A
+ for <alsa-devel@alsa-project.org>; Tue, 28 Apr 2020 09:57:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF87CF8010A
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 775A0B16B;
+ Tue, 28 Apr 2020 07:57:24 +0000 (UTC)
+Date: Tue, 28 Apr 2020 09:57:24 +0200
+Message-ID: <s5hv9lkm49n.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH 0/1] Fiji GPU audio register timeout when in BACO state
+In-Reply-To: <CADnq5_MMQ5_MjEg=bkJJGMJP53RjB3yxvOW0nUDeWxzg3Q0pVQ@mail.gmail.com>
+References: <PSXP216MB0438D2AF96CE0D4F83F48C4D80AE0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+ <MN2PR12MB4488E4909C1488FB507E0BF5F7AF0@MN2PR12MB4488.namprd12.prod.outlook.com>
+ <s5ho8rdnems.wl-tiwai@suse.de>
+ <PSXP216MB04387BF6B5F8DA84749E5D6F80AF0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+ <CADnq5_M=QEqxuCKjb_qZvFSvwM5eLEFfsepxYYXoouFoe5bn7A@mail.gmail.com>
+ <s5h4kt4ojrf.wl-tiwai@suse.de>
+ <CADnq5_MMQ5_MjEg=bkJJGMJP53RjB3yxvOW0nUDeWxzg3Q0pVQ@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: "Zhou, David\(ChunMing\)" <David1.Zhou@amd.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Nicholas Johnson <nicholas.johnson-opensource@outlook.com.au>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Takashi Iwai <tiwai@suse.com>, Lukas Wunner <lukas@wunner.de>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,54 +82,166 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 28-04-20, 08:55, Greg KH wrote:
-> On Tue, Apr 28, 2020 at 12:19:51PM +0530, Vinod Koul wrote:
-> > On 28-04-20, 08:37, Greg KH wrote:
-> > > On Tue, Apr 28, 2020 at 10:01:44AM +0530, Vinod Koul wrote:
-> > > > > > That is not true for everyone, it is only true for Intel, pls call that
-> > > > > > out as well...
-> > > > > 
-> > > > > Why is it not true for everyone?  How else do you get the pm stuff back
-> > > > > to your hardware?
-> > > > 
-> > > > The rest of the world would do using the real controller device. For
-> > > > example the soundwire controller on Qualcomm devices is enumerated as a
-> > > > DT device and is using these...
-> > > > 
-> > > > If Intel had a standalone controller or enumerated as individual
-> > > > functions, it would have been a PCI device and would manage as such
-> > > 
-> > > If it is not a standalone controller, what exactly is it?  I thought it
-> > > was an acpi device, am I mistaken?
-> > > 
-> > > What is the device that the proper soundwire controller driver binds to
-> > > on an Intel-based system?
-> > 
-> > The HDA controller which is a PCI device. The device represent HDA
-> > function, DSP and Soundwire controller instances (yes it is typically
-> > more than one instance)
+On Mon, 27 Apr 2020 20:43:54 +0200,
+Alex Deucher wrote:
 > 
-> Then those "instances" should be split up into individual devices that a
-> driver can bind to.  See the work happening on the "virtual" bus for
-> examples of how that can be done.
+> On Mon, Apr 27, 2020 at 2:39 PM Takashi Iwai <tiwai@suse.de> wrote:
+> >
+> > On Mon, 27 Apr 2020 20:28:12 +0200,
+> > Alex Deucher wrote:
+> > >
+> > > On Mon, Apr 27, 2020 at 2:07 PM Nicholas Johnson
+> > > <nicholas.johnson-opensource@outlook.com.au> wrote:
+> > > >
+> > > > On Mon, Apr 27, 2020 at 05:15:55PM +0200, Takashi Iwai wrote:
+> > > > > On Mon, 27 Apr 2020 16:22:21 +0200,
+> > > > > Deucher, Alexander wrote:
+> > > > > >
+> > > > > > [AMD Public Use]
+> > > > > >
+> > > > > > > -----Original Message-----
+> > > > > > > From: Nicholas Johnson <nicholas.johnson-opensource@outlook.com.au>
+> > > > > > > Sent: Sunday, April 26, 2020 12:02 PM
+> > > > > > > To: linux-kernel@vger.kernel.org
+> > > > > > > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> > > > > > > <Christian.Koenig@amd.com>; Zhou, David(ChunMing)
+> > > > > > > <David1.Zhou@amd.com>; Nicholas Johnson <nicholas.johnson-
+> > > > > > > opensource@outlook.com.au>
+> > > > > > > Subject: [PATCH 0/1] Fiji GPU audio register timeout when in BACO state
+> > > > > > >
+> > > > > > > Hi all,
+> > > > > > >
+> > > > > > > Since Linux v5.7-rc1 / commit 4fdda2e66de0 ("drm/amdgpu/runpm: enable
+> > > > > > > runpm on baco capable VI+ asics"), my AMD R9 Nano has been using runpm /
+> > > > > > > BACO. You can tell visually when it sleeps, because the fan on the graphics
+> > > > > > > card is switched off to save power. It did not spin down the fan in v5.6.x.
+> > > > > > >
+> > > > > > > This is great (I love it), except that when it is sleeping, the PCIe audio function
+> > > > > > > of the GPU has issues if anything tries to access it. You get dmesg errors such
+> > > > > > > as these:
+> > > > > > >
+> > > > > > > snd_hda_intel 0000:08:00.1: spurious response 0x0:0x0, last cmd=0x170500
+> > > > > > > snd_hda_intel 0000:08:00.1: azx_get_response timeout, switching to polling
+> > > > > > > mode: last cmd=0x001f0500 snd_hda_intel 0000:08:00.1: No response from
+> > > > > > > codec, disabling MSI: last cmd=0x001f0500 snd_hda_intel 0000:08:00.1: No
+> > > > > > > response from codec, resetting bus: last cmd=0x001f0500
+> > > > > > > snd_hda_codec_hdmi hdaudioC1D0: Unable to sync register 0x2f0d00. -11
+> > > > > > >
+> > > > > > > The above is with the Fiji XT GPU at 0000:08:00.0 in a Thunderbolt enclosure
+> > > > > > > (not that Thunderbolt should affect it, but I feel I should mention it just in
+> > > > > > > case). I dropped a lot of duplicate dmesg lines, as some of them repeated a
+> > > > > > > lot of times before the driver gave up.
+> > > > > > >
+> > > > > > > I offer this patch to disable runpm for Fiji while a fix is found, if you decide
+> > > > > > > that is the best approach. Regardless, I will gladly test any patches you come
+> > > > > > > up with instead and confirm that the above issue has been fixed.
+> > > > > > >
+> > > > > > > I cannot tell if any other GPUs are affected. The only other cards to which I
+> > > > > > > have access are a couple of AMD R9 280X (Tahiti XT), which use radeon driver
+> > > > > > > instead of amdgpu driver.
+> > > > > >
+> > > > > > Adding a few more people.  Do you know what is accessing the audio?  The audio should have a dependency on the GPU device.  The GPU won't enter runtime pm until the audio has entered runtime pm and vice versa on resume. Please attach a copy of your dmesg output and lspci output.
+> > > >
+> > > > pci 0000:08:00.1: D0 power state depends on 0000:08:00.0
+> > > > The above must be the dependency of which you speak from dmesg.
+> > > >
+> > > > Accessing the audio? I did not have a single method for triggering it.
+> > > > Sometimes it happened on shutdown. Sometimes when restarting gdm.
+> > > > Sometimes when playing with audio settings in Cinnamon Desktop. But most
+> > > > often when changing displays. It might have something to do with the
+> > > > audio device associated with a monitor being created when the monitor is
+> > > > found. If an audio device is created, then pulseaudio might touch it.
+> > > > Sorry, this is a very verbose "not quite sure".
+> > > >
+> > > > To trigger the bug, this time I did the following:
+> > > >
+> > > > 1. Boot laptop without Fiji and log in
+> > > >
+> > > > 2. Attach Fiji via Thunderbolt (no displays attached to Fiji) and
+> > > > approve Thunderbolt device
+> > > >
+> > > > 3. Log in again because the session gets killed when GPU is hot-added
+> > > >
+> > > > 4. Wait for Fiji to fall asleep (fan stops)
+> > > >
+> > > > 5. Open "dmesg -w" on laptop display
+> > > >
+> > > > 6. Attach display to DisplayPort on Fiji (it should still stay asleep)
+> > > >
+> > > > 7. Do WindowsKey+P to activate external display. The error appears in
+> > > > dmesg window that instant.
+> > > >
+> > > > Could it be a race condition when waking the card up?
+> > > >
+> > > > I cannot get the graphics card fan to spin down if the Thunderbolt
+> > > > enclosure is attached at boot time. It only does it if hot-added.
+> > > >
+> > > > If you think it will help, I can take out the Fiji and put it in a test
+> > > > rig and try to replicate the issue without Thunderbolt, but it looks
+> > > > like it will not spin the fan down if Fiji is attached at boot time.
+> > > >
+> > > > Question, why would the fan not spin down if Fiji is attached at boot
+> > > > time, and how would one make the said fan turn off? Aside from being
+> > > > useful for pinning down the audio register issue, I would like to make
+> > > > sure the power savings are realised whenever the GPU is not being used.
+> > >
+> > > Presumably something is using the device.  Maybe a framebuffer console
+> > > or X?  Or maybe the something like tlp has disabled runtime pm on your
+> > > device?  You can see the current status by reading the files in
+> > > /sys/class/drm/cardX/device/power/ .  Replace cardX with card0, card1,
+> > > etc. depending on which device is the radeon card.
+> > >
+> > > FWIW, I have a fiji board in a desktop system and it worked fine when
+> > > this code was enabled.
+> >
+> > Is the new DC code used for Fiji boards?  IIRC, the audio component
+> > binding from amdgpu is enabled only for DC, and without the audio
+> > component binding the runtime PM won't be linked up, hence you can't
+> > power up GPU from the audio side access automatically.
+> >
+> 
+> Yes, DC is enabled by default for all cards with runtime pm enabled.
 
-Yes removing platform devices is the goal for Intel now :) Pierre & Bard
-have been diligently trying to solve this.
+OK, thanks, I found that amdgpu got bound via component in the dmesg
+output, too:
 
-Only difference is the means to end goal. I am not convinced that this
-should be in soundwire subsystem.
+[   21.294927] snd_hda_intel 0000:08:00.1: bound 0000:08:00.0 (ops amdgpu_dm_audio_component_bind_ops [amdgpu])
 
-Looks like folks are trying to review and port to use this bus. Makes
-sense to me..
-https://lore.kernel.org/netdev/c5197d2f-3840-d304-6b09-d334cae81294@linux.intel.com/
+This is the place soon after amdgpu driver gets initialized.
+Then we see later another initialization phase:
 
-> A platform device better not be being used here, I'm afraid to look at
-> the code now...
+[   26.904127] rfkill: input handler enabled
+[   37.264152] [drm] PCIE GART of 1024M enabled (table at 0x000000F400000000).
 
-Well if the plan for 'virtual-bus' goes well, it should be  a simple
-replacement of platform->virtual for Intel driver. Rest of the driver
-should not be impacted :)
+here shows 10 seconds between them.  Then, it complained something:
 
-Thanks
--- 
-~Vinod
+
+[   37.363287] [drm] UVD initialized successfully.
+[   37.473340] [drm] VCE initialized successfully.
+[   37.477942] amdgpu 0000:08:00.0: [drm] Cannot find any crtc or sizes
+
+... and go further, and hitting HD-audio error:
+
+
+[   38.936624] [drm] fb mappable at 0x4B0696000
+[   38.936626] [drm] vram apper at 0x4B0000000
+[   38.936626] [drm] size 33177600
+[   38.936627] [drm] fb depth is 24
+[   38.936627] [drm]    pitch is 15360
+[   38.936673] amdgpu 0000:08:00.0: fb1: amdgpudrmfb frame buffer device
+[   40.092223] snd_hda_intel 0000:08:00.1: azx_get_response timeout, switching to polling mode: last cmd=0x00170500
+
+After this point, HD-audio communication was screwed up.
+
+This lastcmd in the above message is AC_SET_POWER_STATE verb for the
+root node to D0, so the very first command to power up the codec. 
+The rest commands are also about the power up of each node, so the
+whole error indicate that the power up at runtime resume failed.
+
+So, this looks to me as if the device gets runtime-resumed at the bad
+moment?
+
+
+thanks,
+
+Takashi

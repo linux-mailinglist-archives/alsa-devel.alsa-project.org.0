@@ -2,100 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 950CF1BB8A3
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Apr 2020 10:15:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C80B41BB8A4
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Apr 2020 10:15:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 38C4916A2;
-	Tue, 28 Apr 2020 10:14:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38C4916A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3368A16B0;
+	Tue, 28 Apr 2020 10:14:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3368A16B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588061732;
-	bh=tHPWYD5NKX8gVZvLw67gLKlMuitCO/zrqdKCrZibUNY=;
+	s=default; t=1588061746;
+	bh=lyI9lFku9vkYS1yKZ+kqHIQk/BGmnbjmlEcJbr8Xhgw=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QJ/ueJ6ez0sk9J76uy0lQaC2GbcxYef11aCBhQmCLFubfTnSFhZHVHXwSp6YUelxI
-	 w3dfgMdahUo+njEfQH1vtI+ftBbMdKYZNP7coDqCGAredox6N0ahkyNBh4l+F2dblh
-	 i0xgaAAGKuyXu7A9Tn+5uFzKXriUNS84w6IhdFIQ=
+	b=h6TFrlpTGbD5PK8V/dlRo6Vo9VslwnHXP4CKca8N+yVKrFYBc9g8QLX2Lrd+GnmaU
+	 fA3NNv11EWbt05uG0E/25wSspmiIbUidExw7G270AOU4y/JA8aKtp3lqgdbVH36l8s
+	 lk8l7b4tykrtRdDKKS83nz+EfBgZjNMRwbiQlVVg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7247AF8024A;
-	Tue, 28 Apr 2020 10:13:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BA8B6F801F7;
+	Tue, 28 Apr 2020 10:14:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 35662F8021C; Tue, 28 Apr 2020 10:13:29 +0200 (CEST)
+ id D179FF801DB; Tue, 28 Apr 2020 10:14:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_26,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
  [66.111.4.221])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0CE14F801EB
- for <alsa-devel@alsa-project.org>; Tue, 28 Apr 2020 10:13:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CE14F801EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 17EE4F800B8
+ for <alsa-devel@alsa-project.org>; Tue, 28 Apr 2020 10:14:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17EE4F800B8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="Ow9QCQxH"; 
+ header.b="V7lGextH"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="QILMzCzy"
+ header.i=@messagingengine.com header.b="0KR9/7Z4"
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.nyi.internal (Postfix) with ESMTP id A17D25800D6;
- Tue, 28 Apr 2020 04:13:24 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Tue, 28 Apr 2020 04:13:24 -0400
+ by mailnew.nyi.internal (Postfix) with ESMTP id EC5E25800DA;
+ Tue, 28 Apr 2020 04:14:46 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Tue, 28 Apr 2020 04:14:46 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
  date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm2; bh=aNL6gNiksq4r4UbKFxC+u35ZMwz
- PjR4FLCxhPYO1ZHQ=; b=Ow9QCQxHMFqXBKP/9h6hzsznq8rDy5fQ9VO1YndVbr2
- a2Wm5YZ1aD4n8/JWVtd6i9LOavWI2m0lzfAPVQehZBo9TdQ1JbyWPb/wke5DIWCw
- k4RngA6/Wet2p7sMEfz5Ubwh96s4UuTXcolqQsqCUeSr/d1lWzYBd8FQtyxZwrbN
- CP8SOiJjdkP0xUs7zWO4iDG0X7bqRFJQR3ujI6P3298oywHmT5XLg6x3iYXMWezf
- 5HAG/8drt6KTqjuqofDo0BZAaGf5whP2XHKJ2o+BYz6eZETWsuJz7BFOfy07Ey/C
- P2JjxdBHPrtglVT2hDcV1aWNjtXtP8754ANHLDV6kSw==
+ :content-type:in-reply-to; s=fm2; bh=Rl2dKFp212hN23zX63f+C/P6dfS
+ tbQu0uWJ4H7pCcec=; b=V7lGextHwtaxIFTLlazW3bKC48l9uSC2as9K94BLlMN
+ z+AIrtVYMgFeI5s1fzR2vZJLTgCYuMiBHXX8XjwKg40/GBOj9YbDA8X3/9dtlL2p
+ Ej2qudOwnoPoD9HGVJLJ8dtKa7sjd/lGCFZcVV8/0BYE+V4Gw1pSyKcpfTroKhkf
+ KwRym875pnQhhDJwsEA7HoCRGs+5gYjlAisfoxfEoDdudnOXt9J8mFNU/VNRKi9H
+ ae0dMzVTUQpVx/8162Z2XjOeCVGYggcWGm1Z92aTlEUDLmUxdFlyHdO2VWBzGMqi
+ ic9o79CB86xGTeVdfrkOBgE+nJARcul+d1ZZceJiOAA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=aNL6gN
- iksq4r4UbKFxC+u35ZMwzPjR4FLCxhPYO1ZHQ=; b=QILMzCzyEaCrJJhYtR1Zps
- H/3ckqluppkUdd/xt9zDocbPx7ZFeUa0AWxWGSet25a3HWuuHvFnVjVTeNfMx4FS
- XcFP/6b1JeBk2AYVPiMiDHMCxcM/z/3pbWZ6pLFpCnUXzeyQ2KqDj1S2pS8KdN1r
- mfLa7g+CXY9pA5mIbbo/+TzpAOi3aoDbM8d42qX3tJl3YjNTKKIHQ9fLByPf7llQ
- M0tO59Qc6fzFSbgIoYvGheDzZp+f469p+7/bvSnOZcst1Qy2n7v8h4KVQQh2QTe4
- W+PSYNiAcOPF/C/FupRh/RtCp5ex4o5NaS8SO0eHPH2k26IlkfXQwbY0bVxdjLog
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=Rl2dKF
+ p212hN23zX63f+C/P6dfStbQu0uWJ4H7pCcec=; b=0KR9/7Z4PvGy27sTQOgVhj
+ fGBAcavBXb62ROKnUOLF+FhaTXS1GLunRIez5dtgmzfkV37pamU2rRkRFGMSVzpL
+ 9flAOJrM3Xg9COKeQPuLSHSw8gwvwjQ9zWKuCLxiXWDdrGuxQ/rVVkzMBg4KSOXn
+ 6TlxnGOu3BsGNZ89VLacYb9DB+bll6azrrXztMMNlwksskTU/cC1HtY2ZjW7Tk6p
+ OdosNU7dG2H61smxEyfMxjjLcLOKqIHFAMA3CNthGapohsg2TmBAzu2hZ29P2idq
+ W74I9/CgUDRPa56fZZ7sxMSLHirhyUyXf3U1jUdVkLPFWRamKxx/JUM0z2SJ3RFA
  ==
-X-ME-Sender: <xms:o-WnXloq0ZC0sxFTMmAjuGzZHSppskXtXJGzTpYnNhIA_LxoTSKTig>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedriedugddtudcutefuodetggdotefrodftvf
+X-ME-Sender: <xms:9uWnXsCpwV72yiqvxhE4nlArD6ON2JmAIoGATUy4T4viAwDmIL002Q>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedriedugddtvdcutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
  fjughrpeffhffvuffkfhggtggujgesghdtreertddtudenucfhrhhomhepofgrgihimhgv
  ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucfkphepledtrd
  ekledrieekrdejieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhl
  fhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:o-WnXj_Rvm0CbMeCkMsaC4ldOE2sJQTnHXqhLW6uEL94k6TMeHE68w>
- <xmx:o-WnXk-7UMGZwzPs2zSwi-YSGziaoWNibn7ZWWHYEx2M1zPq7Oew7A>
- <xmx:o-WnXitaEN9iqXogA8et9-gamTdv22Fg51U40qpYXV3sGXMFiZnreg>
- <xmx:pOWnXlxbTY2BlSQh_Rqc6-znSdCS9T2adHEgLupYOgqxTXUcxi0jWw>
+X-ME-Proxy: <xmx:9uWnXgYfvH5yydUG2zNGQbmZvHRp1Jgmr6I2BlxSAswQCOVr9Hd72Q>
+ <xmx:9uWnXkvL3rjW4j_ePDEEF4RS3SbMxrhRIp6P0PFVwJegIDnkOFqqrw>
+ <xmx:9uWnXi9ad555hJxDt44hBAfwSzBHkpTsqqS5RQnRq1C3b-mP-reWIg>
+ <xmx:9uWnXgFEU8EeGc3Pciue44v7fhSNlZ52z06WyNWJc36pdBh_avXZxQ>
 Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
  [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id C214D3280068;
- Tue, 28 Apr 2020 04:13:22 -0400 (EDT)
-Date: Tue, 28 Apr 2020 10:13:21 +0200
+ by mail.messagingengine.com (Postfix) with ESMTPA id BBFA13065E8D;
+ Tue, 28 Apr 2020 04:14:45 -0400 (EDT)
+Date: Tue, 28 Apr 2020 10:14:44 +0200
 From: Maxime Ripard <maxime@cerno.tech>
 To: =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
-Subject: Re: [PATCH v3 3/7] ASoC: sun4i-i2s: Add support for H6 I2S
-Message-ID: <20200428081321.ht3el26yqhsnyfm4@gilmour.lan>
+Subject: Re: [PATCH v3 7/7] arm64: dts: sun50i-h6: Add HDMI audio to H6 DTSI
+Message-ID: <20200428081444.vddwswsorl5tf7yp@gilmour.lan>
 References: <20200426104115.22630-1-peron.clem@gmail.com>
- <20200426104115.22630-4-peron.clem@gmail.com>
+ <20200426104115.22630-8-peron.clem@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="7bvfzopuk76upvmv"
+ protocol="application/pgp-signature"; boundary="34tj5oypfixbg5ni"
 Content-Disposition: inline
-In-Reply-To: <20200426104115.22630-4-peron.clem@gmail.com>
+In-Reply-To: <20200426104115.22630-8-peron.clem@gmail.com>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, Jernej Skrabec <jernej.skrabec@siol.net>,
  Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
@@ -118,155 +118,51 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---7bvfzopuk76upvmv
+--34tj5oypfixbg5ni
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
-
-On Sun, Apr 26, 2020 at 12:41:11PM +0200, Cl=E9ment P=E9ron wrote:
+On Sun, Apr 26, 2020 at 12:41:15PM +0200, Cl=E9ment P=E9ron wrote:
 > From: Jernej Skrabec <jernej.skrabec@siol.net>
 >=20
-> H6 I2S is very similar to that in H3, except it supports up to 16
-> channels.
+> Add a simple-soundcard to link audio between HDMI and I2S.
 >=20
 > Signed-off-by: Jernej Skrabec <jernej.skrabec@siol.net>
 > Signed-off-by: Marcus Cooper <codekipper@gmail.com>
 > Signed-off-by: Cl=E9ment P=E9ron <peron.clem@gmail.com>
 > ---
->  sound/soc/sunxi/sun4i-i2s.c | 227 ++++++++++++++++++++++++++++++++++++
->  1 file changed, 227 insertions(+)
+>  arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi | 31 ++++++++++++++++++++
+>  1 file changed, 31 insertions(+)
 >=20
-> diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
-> index 4198a5410bf9..a23c9f2a3f8c 100644
-> --- a/sound/soc/sunxi/sun4i-i2s.c
-> +++ b/sound/soc/sunxi/sun4i-i2s.c
-> @@ -124,6 +124,21 @@
->  #define SUN8I_I2S_RX_CHAN_SEL_REG	0x54
->  #define SUN8I_I2S_RX_CHAN_MAP_REG	0x58
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi b/arch/arm64/bo=
+ot/dts/allwinner/sun50i-h6.dtsi
+> index a5ee68388bd3..558fe63739cb 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
+> @@ -88,6 +88,24 @@
+>  			(GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_HIGH)>;
+>  	};
 > =20
-> +/* Defines required for sun50i-h6 support */
-> +#define SUN50I_H6_I2S_TX_CHAN_SEL_OFFSET_MASK	GENMASK(21, 20)
-> +#define SUN50I_H6_I2S_TX_CHAN_SEL_OFFSET(offset)	((offset) << 20)
-> +#define SUN50I_H6_I2S_TX_CHAN_SEL_MASK		GENMASK(19, 16)
-> +#define SUN50I_H6_I2S_TX_CHAN_SEL(chan)		((chan - 1) << 16)
-> +#define SUN50I_H6_I2S_TX_CHAN_EN_MASK		GENMASK(15, 0)
-> +#define SUN50I_H6_I2S_TX_CHAN_EN(num_chan)	(((1 << num_chan) - 1))
-> +
-> +#define SUN50I_H6_I2S_TX_CHAN_MAP0_REG	0x44
-> +#define SUN50I_H6_I2S_TX_CHAN_MAP1_REG	0x48
-> +
-> +#define SUN50I_H6_I2S_RX_CHAN_SEL_REG	0x64
-> +#define SUN50I_H6_I2S_RX_CHAN_MAP0_REG	0x68
-> +#define SUN50I_H6_I2S_RX_CHAN_MAP1_REG	0x6C
-> +
->  struct sun4i_i2s;
-> =20
->  /**
-> @@ -469,6 +484,65 @@ static int sun8i_i2s_set_chan_cfg(const struct sun4i=
-_i2s *i2s,
->  	return 0;
->  }
-> =20
-> +static int sun50i_i2s_set_chan_cfg(const struct sun4i_i2s *i2s,
-> +				   const struct snd_pcm_hw_params *params)
-> +{
-> +	unsigned int channels =3D params_channels(params);
-> +	unsigned int slots =3D channels;
-> +	unsigned int lrck_period;
-> +
-> +	if (i2s->slots)
-> +		slots =3D i2s->slots;
-> +
-> +	/* Map the channels for playback and capture */
-> +	regmap_write(i2s->regmap, SUN50I_H6_I2S_TX_CHAN_MAP1_REG, 0x76543210);
-> +	regmap_write(i2s->regmap, SUN50I_H6_I2S_RX_CHAN_MAP1_REG, 0x76543210);
-> +
-> +	/* Configure the channels */
-> +	regmap_update_bits(i2s->regmap, SUN8I_I2S_TX_CHAN_SEL_REG,
-> +			   SUN50I_H6_I2S_TX_CHAN_SEL_MASK,
-> +			   SUN50I_H6_I2S_TX_CHAN_SEL(channels));
-> +	regmap_update_bits(i2s->regmap, SUN50I_H6_I2S_RX_CHAN_SEL_REG,
-> +			   SUN50I_H6_I2S_TX_CHAN_SEL_MASK,
-> +			   SUN50I_H6_I2S_TX_CHAN_SEL(channels));
-> +
-> +	regmap_update_bits(i2s->regmap, SUN8I_I2S_CHAN_CFG_REG,
-> +			   SUN8I_I2S_CHAN_CFG_TX_SLOT_NUM_MASK,
-> +			   SUN8I_I2S_CHAN_CFG_TX_SLOT_NUM(channels));
-> +	regmap_update_bits(i2s->regmap, SUN8I_I2S_CHAN_CFG_REG,
-> +			   SUN8I_I2S_CHAN_CFG_RX_SLOT_NUM_MASK,
-> +			   SUN8I_I2S_CHAN_CFG_RX_SLOT_NUM(channels));
-> +
-> +	switch (i2s->format & SND_SOC_DAIFMT_FORMAT_MASK) {
-> +	case SND_SOC_DAIFMT_DSP_A:
-> +	case SND_SOC_DAIFMT_DSP_B:
-> +	case SND_SOC_DAIFMT_LEFT_J:
-> +	case SND_SOC_DAIFMT_RIGHT_J:
-> +		lrck_period =3D params_physical_width(params) * slots;
-> +		break;
-> +
-> +	case SND_SOC_DAIFMT_I2S:
-> +		lrck_period =3D params_physical_width(params);
-> +		break;
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (i2s->slot_width)
-> +		lrck_period =3D i2s->slot_width;
-> +
-> +	regmap_update_bits(i2s->regmap, SUN4I_I2S_FMT0_REG,
-> +			   SUN8I_I2S_FMT0_LRCK_PERIOD_MASK,
-> +			   SUN8I_I2S_FMT0_LRCK_PERIOD(lrck_period));
-> +
-> +	regmap_update_bits(i2s->regmap, SUN8I_I2S_TX_CHAN_SEL_REG,
-> +			   SUN50I_H6_I2S_TX_CHAN_EN_MASK,
-> +			   SUN50I_H6_I2S_TX_CHAN_EN(channels));
-> +
-> +	return 0;
-> +}
-> +
->  static int sun4i_i2s_hw_params(struct snd_pcm_substream *substream,
->  			       struct snd_pcm_hw_params *params,
->  			       struct snd_soc_dai *dai)
-> @@ -694,6 +768,108 @@ static int sun8i_i2s_set_soc_fmt(const struct sun4i=
-_i2s *i2s,
->  	return 0;
->  }
-> =20
-> +static int sun50i_i2s_set_soc_fmt(const struct sun4i_i2s *i2s,
-> +				 unsigned int fmt)
+> +	sound_hdmi: sound {
+> +		compatible =3D "simple-audio-card";
+> +		simple-audio-card,format =3D "i2s";
+> +		simple-audio-card,name =3D "allwinner-hdmi";
 
-The alignment is off here
+It doesn't seem to be on purpose, but the name is different from the other
+series you sent.
 
-> +{
-> +	u32 mode, val;
-> +	u8 offset;
-> +
-> +	/*
-> +	 * DAI clock polarity
-> +	 *
-> +	 * The setup for LRCK contradicts the datasheet, but under a
-> +	 * scope it's clear that the LRCK polarity is reversed
-> +	 * compared to the expected polarity on the bus.
-> +	 */
-
-Did you check this or has it been copy-pasted?
-
-Thanks!
 Maxime
 
---7bvfzopuk76upvmv
+--34tj5oypfixbg5ni
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXqfloQAKCRDj7w1vZxhR
-xbV7AQCtzcyuXWod6ueBp9bCOgBmzvi9IbRXyMUpg8mupkFJzQD/YCKUuoTYmeh+
-WHfw3z1Sgn4sv5c7EKyNffkPSqGpeQA=
-=uH8m
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXqfl9AAKCRDj7w1vZxhR
+xSzfAQCyUP2gys2O31vFV8nbzG01R6D7k8xImWeYCJji+veaSgEA8v2gBNki9GaR
++i4rWPFMYJfnRvxQOzIiQzMgStA4hQ4=
+=PQem
 -----END PGP SIGNATURE-----
 
---7bvfzopuk76upvmv--
+--34tj5oypfixbg5ni--

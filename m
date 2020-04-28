@@ -2,70 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E0021BC3F4
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Apr 2020 17:44:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE6A01BC3FC
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Apr 2020 17:46:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B05C01683;
-	Tue, 28 Apr 2020 17:43:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B05C01683
+	by alsa0.perex.cz (Postfix) with ESMTPS id 902CE1685;
+	Tue, 28 Apr 2020 17:45:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 902CE1685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588088664;
-	bh=BKDKvSn8LUzBEdgCRA0cYEIBFBCWglHXGBbtNkpxGq8=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1588088779;
+	bh=SkOI/F8Tnpf6EJuQuEMm3KWINvfVbiD4kIGZh78mXE4=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vM5Kq5vqLQ4zvXCWaS2KGWueO5fzeNHH/FjvZP8OLQzJUTzdLfU9SNuC6aDB57leb
-	 FnUmjvrsAYicxlUrjXNu4MsfZ11VSdbQM52+Az2HYD9z5BucAWF+RXG4q3bQvG/EHD
-	 7zX4I2uCqwkE8ychjwR67Tsgda19OLfckVsCUiIg=
+	b=sXqPJC3TBxOX1/ioptW9lWJDeOSLKlbaos4D2REfO+1vxC1hO5LwVmZVPS+2AYJSG
+	 LgSQp5mD6GltyzXztGg2IyQvz1bE1w1SFkKvhCcG0pBjxX5+vtzQgIt6ci5dPyeGih
+	 lZayah0Kx0yC7L9HjmxNBT6xbh//3OWMx7gUSfGk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75864F8028C;
-	Tue, 28 Apr 2020 17:41:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA68AF8010A;
+	Tue, 28 Apr 2020 17:44:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 394A4F8028C; Tue, 28 Apr 2020 17:41:27 +0200 (CEST)
+ id 164EFF801DB; Tue, 28 Apr 2020 17:44:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5C2E2F8028C
- for <alsa-devel@alsa-project.org>; Tue, 28 Apr 2020 17:41:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C2E2F8028C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="aapNIP/E"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 5196D20746;
- Tue, 28 Apr 2020 15:41:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588088482;
- bh=BKDKvSn8LUzBEdgCRA0cYEIBFBCWglHXGBbtNkpxGq8=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=aapNIP/EMASZ2QIesqJaqb1QgQeGZ9IFVIohyszfgsnkCN2v1/oXbhMOlNOPW3tgJ
- jZ0C81LjMBuvEIOz6NBAMs4PMlLGRh9Fe4SWx0a5PyCcyqMhRX1mLWOEIGGMerOicg
- vN+3/pHkBMtuApknJSHk8ZPsCTEUvQhI5ua/4b9M=
-Date: Tue, 28 Apr 2020 16:41:20 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
-In-Reply-To: <1588007614-25061-1-git-send-email-brent.lu@intel.com>
-References: <1588007614-25061-1-git-send-email-brent.lu@intel.com>
-Subject: Re: [PATCH v2 0/3] add channel constraint for BDW machine drivers
-Message-Id: <158808847385.38342.17676813183484650913.b4-ty@kernel.org>
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- linux-kernel@vger.kernel.org, Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Ben Zhang <benzh@chromium.org>, Mac Chiang <mac.chiang@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9F770F8010A
+ for <alsa-devel@alsa-project.org>; Tue, 28 Apr 2020 17:44:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F770F8010A
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 9E01CAFB7;
+ Tue, 28 Apr 2020 15:44:26 +0000 (UTC)
+Date: Tue, 28 Apr 2020 17:44:26 +0200
+Message-ID: <s5hmu6vlin9.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: Functionality of pcm_notify in snd-aloop?
+In-Reply-To: <a325c165-5ced-618b-0b71-c0c4381473a1@perex.cz>
+References: <b4af9071-f8d7-5b47-4d7a-c5743bd67394@ivitera.com>
+ <61d837f1-de1a-7aa6-ca8f-d0cfaa36ea69@perex.cz>
+ <28a05a44-55bf-1831-aa3c-875e0499caea@ivitera.com>
+ <28063dd1-71ab-a313-04b8-f4d97312b1b5@ivitera.com>
+ <a325c165-5ced-618b-0b71-c0c4381473a1@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: Pavel Hofman <pavel.hofman@ivitera.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,51 +74,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 28 Apr 2020 01:13:31 +0800, Brent Lu wrote:
-> The machine driver bdw-rt5650 (for Google buddy) supports 2 or 4-channel
-> recording while other two drivers support only 2-channel recording. HW
-> constraints are implemented to reflect the hardware limitation on BDW
-> platform.
+On Mon, 30 Mar 2020 17:09:58 +0200,
+Jaroslav Kysela wrote:
 > 
-> Changes since v1:
-> - Change the patch title.
-> - Remove the DUAL_CHANNEL and QUAD_CHANNEL macros which are too obvious.
-> - Follow the naming convertion, using 'bdw_rt5650_' and 'bdw_rt5677_' to
->   name startup functions.
-> - Refine the comments in startup functions.
-> - Redesign the bdw_rt5650_fe_startup() function for readability.
-> - Add an assignment to initialize runtime->hw.channels_max variable.
+> Dne 30. 03. 20 v 16:43 Pavel Hofman napsal(a):
+> >
+> > Dne 26. 03. 20 v 18:59 Pavel Hofman napsal(a):
+> >> Dne 26. 03. 20 v 18:44 Jaroslav Kysela napsal(a):
+> >>> Dne 26. 03. 20 v 18:19 Pavel Hofman napsal(a):
+> >>>> Hi,
+> >>>>
+> >>>> Please how is the module params pcm_notify supposed to be used, to do
+> >>>> what the documentation says: Break capture when PCM format/rate/channels
+> >>>> changes?
+> >>>>
+> >>>> Breaking capture side operation when the playback side changes the
+> >>>> params is very useful, but I cannot find a way to use this param
+> >>>> properly. When the capture side is open, the playback side cannot use a
+> >>>> different parameter than the one currently used by the capture side (the
+> >>>> configuration space is limited)
+> >>>
+> >>> Really? Then it's a bug introduced by the last changes.
+> >>>
+> >>> If you look to sources:
+> >>>
+> >>>        if (get_notify(dpcm))
+> >>>                  runtime->hw = loopback_pcm_hardware;
+> >>>          else
+> >>>                  runtime->hw = cable->hw;
+> >>>
+> >>> And:
+> >>>
+> >>>        if (!(cable->valid & ~(1 << substream->stream)) ||
+> >>>              (get_setup(dpcm)->notify &&
+> >>>               substream->stream == SNDRV_PCM_STREAM_PLAYBACK))
+> >>>                  params_change(substream);
+> >>>
+> >>> So the functionality should be there.
+> >>
+> >> I am using older kernels (4.15 and 3.16), but this is an old functionality.
+> >>
+> >> modprobe snd-aloop pcm_substreams=1 pcm_notify=1,1
+> >>
+> >
+> > Please is there any way to solve this issue? Thanks a lot for your patience.
 > 
-> [...]
+> I can reproduce this. It appears that the driver should be fixed, but
+> I don't have a solution at the moment.
+> 
+> It seems that 898dfe4687f460ba337a01c11549f87269a13fa2 from Takashi
+> broke this functionality (tied the cable parameters more strictly, so
+> the playback cannot set freely own parameters for the pcm_notify=1
+> case). We need to find another way to detach capture stream in this
+> case.
 
-Applied to
+I believe the missing piece here is a generic way to tell user-space
+that the stream got invalidated.  This would be useful not only for
+aloop but can be applied in general when a stream becomes temporarily
+unavailable (e.g. the HDMI monitor disconnected or the DSP route
+switched).
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.8
+Currently we may return -EPIPE for xrun, but this doesn't really tell
+the situation correctly.  The xrun should be recoverable by simple
+PREPARE call, but the case like aloop would need the complete re-setup
+or reopen of the stream.
 
-Thanks!
 
-[1/3] ASoC: bdw-rt5677: add channel constraint
-      commit: e241f8e77958de2b7708e72d7159952d2bd1f0fe
-[2/3] ASoC: bdw-rt5650: add channel constraint
-      commit: 08d6713a4056cab5b29eb135eecb2e97492fc8d8
-[3/3] ASoC: broadwell: add channel constraint
-      commit: ad18763f46835b768714ac6de6dcf42384a261ca
+thanks,
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Takashi

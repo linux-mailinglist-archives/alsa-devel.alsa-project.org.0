@@ -2,98 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E9B01BD493
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Apr 2020 08:26:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81E881BD58A
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Apr 2020 09:17:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 058C5168C;
-	Wed, 29 Apr 2020 08:25:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 058C5168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 21DE9168C;
+	Wed, 29 Apr 2020 09:16:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21DE9168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588141562;
-	bh=2h/bB9HhSa6zaeckNKxUcAcERDl9vxU7G56M+NgCEc0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1588144668;
+	bh=RAKuoQIfdcc/UC82IjYmcHsu5QvOicE6iClMRB3G2X4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ugo8ARLHA0A621oNdyhKZD9Yg756vLi6xMf0ttBVGfj7sZhWcwSlaIalPe43R9V65
-	 xHQQRybJhxls32F7R4QMvKn0dT+TEyYVN+gkQWiw/L0tkG4EVCv88/ErofWziSGv8d
-	 7vFkfh5Mcnxq3ZLBvSI/cuNMBXAsAPWnVeD3GItk=
+	b=IWTvsq0h6QlYb3X9ccgUJX7vfEFiVfZ8ZiVAvBmWGjdIFj0ZHWcNhr5alnaaEnhtg
+	 WKiuhosluuWiitarkoCofPHSu7jnctXl9cAvQgmXgyCIEKTRAXgT3JJMP74m5e7D7G
+	 uTaVkZRokXqx9ovDxzJqNHd1MHioxcuuT+owqm4o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2627CF80232;
-	Wed, 29 Apr 2020 08:24:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 43A33F80217;
+	Wed, 29 Apr 2020 09:16:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3EBBBF8022B; Wed, 29 Apr 2020 08:24:17 +0200 (CEST)
+ id 2D3D5F8022B; Wed, 29 Apr 2020 09:16:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- PRX_BODY_26,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Level: 
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-lf1-f67.google.com (mail-lf1-f67.google.com
- [209.85.167.67])
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B3FDBF800D2
- for <alsa-devel@alsa-project.org>; Wed, 29 Apr 2020 08:24:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3FDBF800D2
-Received: by mail-lf1-f67.google.com with SMTP id u10so643936lfo.8
- for <alsa-devel@alsa-project.org>; Tue, 28 Apr 2020 23:24:13 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6BE1FF80109
+ for <alsa-devel@alsa-project.org>; Wed, 29 Apr 2020 09:15:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BE1FF80109
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="GH4EWzGO"
+Received: by mail-wr1-x444.google.com with SMTP id b11so1163116wrs.6
+ for <alsa-devel@alsa-project.org>; Wed, 29 Apr 2020 00:15:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=s7R4+bePxKlabVPpFBITsjKfStI3nEAUf2UOkiFno54=;
+ b=GH4EWzGOe8RRh5tsgYno8jCZAkddtKCXTHS1m3yl7fQ+4NKt0g+PrVGf82frmw8iKl
+ N+q3vfWwP5PPUHwsk2gmo0T9I2o6XsARZCFVfKvS/4aBlPYhYe5FUf0u1OEnHFZLBK/p
+ lNnshae4PeebL2my9Ocn2J+xDhwX7Gz1iPlLmud/ZMAcUGVFJFYF6evbchwm8iwt9/mb
+ /nYVCjFYkssRhdu3+25LC63wxryG7yABZ1eqhs5FZlPU3fQ5VtJGxyhzVFYohtLda3gP
+ 1RNGshKrilDAUMU5OM7CCY6EigpKYcz4EoqqyJa0e/41tylu2QZY/OOA5jup8cdqyh/I
+ x7cQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=UMvE1bKhgPMPyH5g6riW7cDoy79w0qtcoyNsyUsk4iA=;
- b=PIudWSbOgGl9sMUnrPZcof5q5adhNclrgLVOeRgr7aZNon3vG4oRaJzLN/pOUZ91fX
- o9AH+FadeLA7EE607Uo+60zz0I1/LivRy5tAbtRq8lOzg9dnpR82yncoINEw7WPyIiar
- d2bsAupnHQPlB2ZPTEGa6DFS9Gvf8j6iqkCPgBWX+4F/35MYd8R10j6aTESXIvJdGBVi
- 3KCodOKR+opr5Vn/hTqzSuaKkyQrqQx/TllkomGmLUL22WHAt8tvRcgNThYtnhIe9ADA
- lWEfIWxt1zNKrz/tCxc0d7QLhrpiMfoiqUFoc26ZkoB7oWxv67VwvoonNuBJ3I6v+dDs
- udQA==
-X-Gm-Message-State: AGi0PuboUMlxEo7rNhazNO2mTuMVaGmEG9+77FvPs9Wowlj2vEh1BwOo
- Pm0+2W3z6a9eXlCYG851glagZG8AX5foag==
-X-Google-Smtp-Source: APiQypJewK2QMrtahs90F4wjXscxfK7lNGP7C265A/naJrlsWHIGQPpAdKjPpKkP0F12U2tqmKxMCg==
-X-Received: by 2002:a05:6512:d1:: with SMTP id
- c17mr21833017lfp.167.1588141452257; 
- Tue, 28 Apr 2020 23:24:12 -0700 (PDT)
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com.
- [209.85.167.49])
- by smtp.gmail.com with ESMTPSA id a5sm152272lfi.20.2020.04.28.23.24.11
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Apr 2020 23:24:11 -0700 (PDT)
-Received: by mail-lf1-f49.google.com with SMTP id d25so634677lfi.11
- for <alsa-devel@alsa-project.org>; Tue, 28 Apr 2020 23:24:11 -0700 (PDT)
-X-Received: by 2002:ac2:5238:: with SMTP id i24mr5157585lfl.7.1588141451325;
- Tue, 28 Apr 2020 23:24:11 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=s7R4+bePxKlabVPpFBITsjKfStI3nEAUf2UOkiFno54=;
+ b=nLGmwoIgTzKnZOwEm2l7wTcu85jLYYgjkCi09eQD7uqVARdydxzWVHia5qMKEN/41j
+ C0RpRaq504dk+2qXAvIVcXJkHyE6ccRDf1mynuREYGudCowaVjajyawLekfOrZhWyizb
+ O9gNw4yKquYYSl8wFkt1WKoCEFT1KUJzz6yFxJAKFguPXWnCfibs6NSgdAsLdXjtXPNa
+ DVqiEMLeCShVSUYN9Eb5unwDITvgEU+KDxt+GVCkS5fk5K07m87b5nTA3JK8plzyzGOD
+ UZXPuTFwvY3RkjVdAL2ol+++4DfGIY/MYewe9izyjW930nQHlE0iECucDyyTyrNsKg2w
+ mfWw==
+X-Gm-Message-State: AGi0Pubu+O7hYGUTQiQYLXhMTyesJHivrJD6A/BoPEehlNIrVu1b1ljC
+ CsjNljvHxdZ3hUwlW3Hq0A+VYw==
+X-Google-Smtp-Source: APiQypIxPrWKn+sWAYVxC4qIaHDqaWSjaUEw9shmYSoUSX1typND6hX5WdtJ3rxd3akJze/lgOcvxw==
+X-Received: by 2002:adf:e944:: with SMTP id m4mr36984777wrn.366.1588144556218; 
+ Wed, 29 Apr 2020 00:15:56 -0700 (PDT)
+Received: from dell ([2.31.163.63])
+ by smtp.gmail.com with ESMTPSA id h1sm6924529wme.42.2020.04.29.00.15.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 29 Apr 2020 00:15:55 -0700 (PDT)
+Date: Wed, 29 Apr 2020 08:15:53 +0100
+From: Lee Jones <lee.jones@linaro.org>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 4/4] ASoC: wm8994: Silence warnings during deferred probe
+Message-ID: <20200429071553.GW3559@dell>
+References: <20200427074832.22134-1-m.szyprowski@samsung.com>
+ <CGME20200427074843eucas1p1a3a265df0c7f14b0aaec25eb65daf606@eucas1p1.samsung.com>
+ <20200427074832.22134-5-m.szyprowski@samsung.com>
+ <20200427112202.GB4272@sirena.org.uk> <20200428103638.GP3559@dell>
+ <20200428111413.GD5677@sirena.org.uk>
 MIME-Version: 1.0
-References: <20200426120442.11560-1-peron.clem@gmail.com>
- <20200426120442.11560-5-peron.clem@gmail.com>
- <20200428080020.35qcuylwq2ylmubu@gilmour.lan>
- <CAJiuCcc2LQ4L36KSfO8iLVFBUO6k+zsZFX+_Ovm_10PoWO4AsA@mail.gmail.com>
- <20200428160417.6q5oab2guaumhhwi@gilmour.lan>
- <CAJiuCccFFUJJzXwygLQbDK4fGJ61p72Hv7vj3WVP-=z=J1Yj0Q@mail.gmail.com>
- <031ee5d3-8a30-82ee-76db-c0e8a1073046@arm.com>
-In-Reply-To: <031ee5d3-8a30-82ee-76db-c0e8a1073046@arm.com>
-From: Chen-Yu Tsai <wens@csie.org>
-Date: Wed, 29 Apr 2020 14:24:00 +0800
-X-Gmail-Original-Message-ID: <CAGb2v65rRbRpUTdkTF3hd5LnLQQt19YVOyVzM5te5XNVhQQH=A@mail.gmail.com>
-Message-ID: <CAGb2v65rRbRpUTdkTF3hd5LnLQQt19YVOyVzM5te5XNVhQQH=A@mail.gmail.com>
-Subject: Re: [linux-sunxi] Re: Audio sound card name [was [PATCH 4/7] arm64:
- dts: allwinner: a64: Add HDMI audio]
-To: =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: devicetree <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>, Takashi Iwai <tiwai@suse.com>,
- Jernej Skrabec <jernej.skrabec@siol.net>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>,
- Marcus Cooper <codekipper@gmail.com>,
- linux-sunxi <linux-sunxi@googlegroups.com>, Mark Brown <broonie@kernel.org>,
- Maxime Ripard <maxime@cerno.tech>, Robin Murphy <robin.murphy@arm.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200428111413.GD5677@sirena.org.uk>
+Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,86 +108,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Apr 29, 2020 at 1:11 AM Robin Murphy <robin.murphy@arm.com> wrote:
->
-> On 2020-04-28 5:49 pm, Cl=C3=A9ment P=C3=A9ron wrote:
-> > Hi Mark, Rob,
-> >
-> > On Tue, 28 Apr 2020 at 18:04, Maxime Ripard <maxime@cerno.tech> wrote:
-> >>
-> >> On Tue, Apr 28, 2020 at 10:54:00AM +0200, Cl=C3=A9ment P=C3=A9ron wrot=
-e:
-> >>> Hi Maxime,
-> >>>
-> >>> On Tue, 28 Apr 2020 at 10:00, Maxime Ripard <maxime@cerno.tech> wrote=
-:
-> >>>>
-> >>>> On Sun, Apr 26, 2020 at 02:04:39PM +0200, Cl=C3=A9ment P=C3=A9ron wr=
-ote:
-> >>>>> From: Marcus Cooper <codekipper@gmail.com>
-> >>>>>
-> >>>>> Add a simple-soundcard to link audio between HDMI and I2S.
-> >>>>>
-> >>>>> Signed-off-by: Jernej Skrabec <jernej.skrabec@siol.net>
-> >>>>> Signed-off-by: Marcus Cooper <codekipper@gmail.com>
-> >>>>> Signed-off-by: Cl=C3=A9ment P=C3=A9ron <peron.clem@gmail.com>
-> >>>>> ---
-> >>>>>   arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi | 21 ++++++++++++++=
-+++++
-> >>>>>   1 file changed, 21 insertions(+)
-> >>>>>
-> >>>>> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi b/arch/a=
-rm64/boot/dts/allwinner/sun50i-a64.dtsi
-> >>>>> index e56e1e3d4b73..08ab6b5e72a5 100644
-> >>>>> --- a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
-> >>>>> +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
-> >>>>> @@ -102,6 +102,25 @@
-> >>>>>                status =3D "disabled";
-> >>>>>        };
-> >>>>>
-> >>>>> +     hdmi_sound: hdmi-sound {
-> >>>>> +             compatible =3D "simple-audio-card";
-> >>>>> +             simple-audio-card,format =3D "i2s";
-> >>>>> +             simple-audio-card,name =3D "allwinner,hdmi";
-> >>>>
-> >>>> I'm not sure what the usual card name should be like though. I would=
- assume that
-> >>>> this should be something specific enough so that you're able to diff=
-erentiate
-> >>>> between boards / SoC so that the userspace can choose a different co=
-nfiguration
-> >>>> based on it?
-> >>>
-> >>> I really don't know what we should use here,
-> >>> I just have a look at other SoC:
-> >>> rk3328: "HDMI"
-> >>> rk3399: "hdmi-sound"
-> >>> r8a774c0-cat874: "CAT874 HDMI sound"
-> >>>
-> >>> But maybe it's time to introduce proper name:
-> >>> What about :
-> >>> pat
-> >>> sun50i-h6-hdmi
-> >>
-> >> It's pretty much what we've been using for the other sound cards we ha=
-ve, so it
-> >> makes sense to me.
-> >
-> > I have a question regarding the simple-audio-card,name.
-> > In this patch, I would like to introduce a simple-audio-card for the
-> > Allwinner A64 HDMI.
-> >
-> > What should be the preferred name for this sound card?
-> > "sun50i-a64-hdmi" ? "allwinner, sun50i-a64-hdmi" ?
->
-> I can at least speak for RK3328, and the reasoning there was that as the
-> user looking at what `aplay -l` says, I don't give a hoot about what the
-> SoC may be called, I see two cards and I want to know, with the least
-> amount of uncertainty, which one will make the sound come out of the
-> port that's labelled "HDMI" on the box ;)
+On Tue, 28 Apr 2020, Mark Brown wrote:
 
-I agree. The user really doesn't care what SoC the system uses. The only
-real requirement is to be able to tell which output the card is related
-to, i.e. is it onboard or an external DAC, is it analog or HDMI, etc..
+> On Tue, Apr 28, 2020 at 11:36:38AM +0100, Lee Jones wrote:
+> > On Mon, 27 Apr 2020, Mark Brown wrote:
+> 
+> > > This completely eliminates the diagnostics which means that if the clock
+> > > isn't there the user is a bit stuck trying to work out what's missing.
+> > > There should still be a diagnostic.
+> 
+> > The driver won't defer forever though.  The final pass should fail
+> > with a different error.  At which point the error will be released to
+> > the system log, no?
+> 
+> One of the really common cases is that someone forgot to build the
+> driver for the dependency so it'll just defer forever waiting for
+> something that never loads.
 
-ChenYu
+Need to find another way to identify these failures.  There are 10's
+if not 100's of cases of silently returning if -EPROBE_DEFER is
+caught.
+
+-- 
+Lee Jones [李琼斯]
+Linaro Services Technical Lead
+Linaro.org │ Open source software for ARM SoCs
+Follow Linaro: Facebook | Twitter | Blog

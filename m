@@ -2,96 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 750D71BE3F2
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Apr 2020 18:35:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 613CE1BE4B9
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Apr 2020 19:05:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 251CB1689;
-	Wed, 29 Apr 2020 18:34:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 251CB1689
+	by alsa0.perex.cz (Postfix) with ESMTPS id D8B5F1689;
+	Wed, 29 Apr 2020 19:04:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8B5F1689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588178103;
-	bh=y50DCgBitWHhx0CGvNoomImelZf8QjK5ddr/H8+4TqA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1588179936;
+	bh=7jC9IDuFARUTSjXTY+0/VvRprFL9zCdJIskFeQ3UjIc=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=em+1xiA70/kS9zqac2tstwyAm8IS7V5Y48R2iHa2GO9kbpP+9F8KN+e3hsEq4aF9S
-	 KrLMY3LNJ/wwu3poIOAYUzEdOYhUa56UsHQCXOm6fP8aBitASMu0i2iNrTQZwF/1SQ
-	 SN6rbCRaKPsefybZjo3HLa4FU8n+gLbjIfJI6ycM=
+	b=lG99Ya5ffIbcGtkYqzoHY1hT8xkZ6f83asL16rwCLczW1irMo4p+r20kk/WaCqTT7
+	 D9ePY3RhY2JuCOdzlWdQK2gdv8h/6/UGDdMBjkFvE48/L7uHjxp5xRdxOr259jn2ks
+	 S67IVQZGh3T6JCqezQHSI2nw8ZCPyb7NEIyIHXWk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47CCEF80232;
-	Wed, 29 Apr 2020 18:33:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E7B63F80232;
+	Wed, 29 Apr 2020 19:03:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 11BFEF8022B; Wed, 29 Apr 2020 18:33:20 +0200 (CEST)
+ id 88A31F8022B; Wed, 29 Apr 2020 19:03:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
- [IPv6:2607:f8b0:4864:20::d42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DAF8EF800D2
- for <alsa-devel@alsa-project.org>; Wed, 29 Apr 2020 18:33:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAF8EF800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id C0332F800D2
+ for <alsa-devel@alsa-project.org>; Wed, 29 Apr 2020 19:03:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0332F800D2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Mc66UOQw"
-Received: by mail-io1-xd42.google.com with SMTP id 19so2866992ioz.10
- for <alsa-devel@alsa-project.org>; Wed, 29 Apr 2020 09:33:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=xrYwlO7xNNj9fkAP9oHGsbabPQftzUzMxzOAeS45YvA=;
- b=Mc66UOQw3PSrCzfUt6SnAmBJoNfERd9Wgtuu4ajltmzI21Ad5iqV7T71c8OI9Ovx1v
- UxxzA7h0TGO5GWL2VglyGBffnr0d9cScTY/ANtdLj0LwQo17VUHpUGaHhYFzDP/1b7BU
- BfZr9vzg7bEQgtQESFGg168Xj7ZbCChxBeJCm2xCHo5xHMwqcMWh7EjbdDjwYLXpiWdZ
- WTO4n9KOYAOMQ2e2FzTKWPrQn/hqw7ZzpvEdmn8h8jKEvVkwydzGC1PJkMhEo1I34irb
- w4g4l2QH3Po8cb4YZCx2yMeR8mEoalay7vXdec9wI4PhU7O8tihJA0koPXKOOtxaarIq
- JCOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=xrYwlO7xNNj9fkAP9oHGsbabPQftzUzMxzOAeS45YvA=;
- b=MtNNF09bJwb6syiT3IlP0Qo80Tti4neDVhWuxvMl/GWoPvySPI/Yky+Z18rpS1JBbF
- 8gvSYHv1vSi3tf1o7uar5xb7T/orFsSArD/6l6Eofay9Z6TC+NdHBZhadh/Z/6ibaOYW
- DS78BpJNTH1aCWjsAyAhDRl+eWx5Vk2EbWWFUBPMEuy7mdHI+OY4rTG/oZqciPQUQt3R
- LRlTJJdh8rjAVAJt8jopecgsn3FSEMNAW/PgePOzeCGfXGJIPMlS1ayPBs+07stcg+Gf
- lqZ6/uROBtnHvNOOgrZDRZoCO/0pas1DsndBDygqoWi5GpGzoiuPtH+7wpj5Svov2CNC
- HrkA==
-X-Gm-Message-State: AGi0PuaT9xdXKsj5UynWwpYxaRoIrhxWzMH46Blag6P0fJtYV5sDdTfq
- d7WPOMQrzNinRuj5GrFOkdz3soxXpn8KUuynBvA=
-X-Google-Smtp-Source: APiQypKu3/he3vcgwJi5RApDarGi5QWrtRiRJCHqu6zQTJlBLBWHScAvv0k9XsP7FCPb/0GQhJgoWCNAfwSwS562ako=
-X-Received: by 2002:a05:6602:2fcd:: with SMTP id
- v13mr30928449iow.124.1588177991512; 
- Wed, 29 Apr 2020 09:33:11 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200426104115.22630-1-peron.clem@gmail.com>
- <20200426104115.22630-4-peron.clem@gmail.com>
- <20200428081321.ht3el26yqhsnyfm4@gilmour.lan>
- <CAJiuCcdVs_drs40Q6537BYfz24F7NmC6B8S5-Lt4V4ggs-FXWA@mail.gmail.com>
- <20200429123529.y24dpy63wxq7uvkt@gilmour.lan>
-In-Reply-To: <20200429123529.y24dpy63wxq7uvkt@gilmour.lan>
-From: =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
-Date: Wed, 29 Apr 2020 18:33:00 +0200
-Message-ID: <CAJiuCcfXqizcq_JuXRCsqEqM2562cr1SGJ0pmy07jcJxAXojOw@mail.gmail.com>
-Subject: Re: [PATCH v3 3/7] ASoC: sun4i-i2s: Add support for H6 I2S
-To: Maxime Ripard <maxime@cerno.tech>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: devicetree <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Jernej Skrabec <jernej.skrabec@siol.net>, Takashi Iwai <tiwai@suse.com>,
- Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Mark Brown <broonie@kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Xt40PtfY"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 6387920B80;
+ Wed, 29 Apr 2020 17:03:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1588179826;
+ bh=7jC9IDuFARUTSjXTY+0/VvRprFL9zCdJIskFeQ3UjIc=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=Xt40PtfYySz0xeIL+8IivMPM0lRD3l7gpSEYrvsExi31y37cjrYA4+1YQDXT+l2YA
+ tC4cTzIHqVc3UWA8EyOlUUIRGwkLmq7qTk3CZUvmKayYQMG+rumNEdZ4Hy9sqQP2Ph
+ wY20WMpsdwnL8CZdqmlMtd3GjEGTumGkgSU+ZUj0=
+Date: Wed, 29 Apr 2020 18:03:44 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87sghovzwb.wl-kuninori.morimoto.gx@renesas.com>
+References: <87sghovzwb.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH v4] ASoC: dt-bindings: simple-card: switch to yaml base
+ Documentation
+Message-Id: <158817982434.15847.3216748804713168341.b4-ty@kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,47 +79,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Maxime,
+On 01 Apr 2020 09:00:04 +0900, Kuninori Morimoto wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> 
+> This patch switches from .txt base to .yaml base Document.
+> 
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> Reviewed-by: Rob Herring <robh@kernel.org>
+> 
+> [...]
 
-On Wed, 29 Apr 2020 at 14:35, Maxime Ripard <maxime@cerno.tech> wrote:
->
-> On Tue, Apr 28, 2020 at 10:55:47AM +0200, Cl=C3=A9ment P=C3=A9ron wrote:
-> > > > +static int sun50i_i2s_set_soc_fmt(const struct sun4i_i2s *i2s,
-> > > > +                              unsigned int fmt)
-> > >
-> > > The alignment is off here
-> > >
-> > > > +{
-> > > > +     u32 mode, val;
-> > > > +     u8 offset;
-> > > > +
-> > > > +     /*
-> > > > +      * DAI clock polarity
-> > > > +      *
-> > > > +      * The setup for LRCK contradicts the datasheet, but under a
-> > > > +      * scope it's clear that the LRCK polarity is reversed
-> > > > +      * compared to the expected polarity on the bus.
-> > > > +      */
-> > >
-> > > Did you check this or has it been copy-pasted?
-> >
-> > copy-pasted, I will check this.
->
-> It's not going to be easy to do this if you only have a board with HDMI. =
-If you
-> can't test that easily, just remove the comment (or make it explicit that=
- you
-> copy pasted it?), no comment is better than a wrong one.
+Applied to
 
-I have talked with Marcus Cooper it may be able to test this this week-end.
-Also this can explain why we need the "
-simple-audio-card,frame-inversion;" in the device-tree.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.8
 
-If think this fix has been introduced by you, correct? Could you say
-on which SoC did you see this issue?
+Thanks!
 
-Thanks
-Clement
+[1/1] ASoC: dt-bindings: simple-card: switch to yaml base Documentation
+      commit: 79149fb835d762493db6b8b545527069d592d51b
 
->
-> Maxime
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

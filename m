@@ -2,52 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 023881BDB45
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Apr 2020 14:01:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B238F1BDB65
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Apr 2020 14:07:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B908168A;
-	Wed, 29 Apr 2020 14:00:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B908168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 317B5168A;
+	Wed, 29 Apr 2020 14:06:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 317B5168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588161671;
-	bh=BgnRDvH0v+mwFV2bQMaOm32xO8CrlW+ib13/SVKJU6Y=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1588162026;
+	bh=BHx6Adc582HX/EI7gEWPQT8miSuzlW266b32vPCYeME=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h0AceAOe7ir2JSN1077+mVLIYiZy0BeEe1GlyFQUrQJGNYHRLcGIWf0c/2t96dPf2
-	 IKfZaHHbXnJZx6DXROMQ4Sz5pz1xTbDWAzn+iuobYYJDbRy+7AftZIF/ggxQuRh4kf
-	 9t0pAA2RVYwOkrzj+Wh8T/8qWWkaKoKJjJhBnSuI=
+	b=X2zkzLtPmR8hI9b3IsVJDF/BpAweNg8Il1jK4WJYjGMOfY6YLRDm3iF80qssTZ8E9
+	 7nOqDyoh7KBmEmiUKN6DLrOJmIGWjU/PXwVW13Pwe9B8RUBch7OyCmWYiK4Bbd3Jg7
+	 RJD5mqL+hiljAjGeJuH69pxF4AT6suZuISQe7xq8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A4FF9F800B6;
-	Wed, 29 Apr 2020 13:59:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38299F80232;
+	Wed, 29 Apr 2020 14:05:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7EF56F8022B; Wed, 29 Apr 2020 13:59:27 +0200 (CEST)
+ id 623E6F8022B; Wed, 29 Apr 2020 14:05:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_26, RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_26,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9796AF80109
- for <alsa-devel@alsa-project.org>; Wed, 29 Apr 2020 13:59:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9796AF80109
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 87199B167;
- Wed, 29 Apr 2020 11:59:21 +0000 (UTC)
-Date: Wed, 29 Apr 2020 13:59:21 +0200
-Message-ID: <s5hwo5yjyee.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25B10F800B6
+ for <alsa-devel@alsa-project.org>; Wed, 29 Apr 2020 14:05:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25B10F800B6
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="StwkJngH"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 27F8B208FE;
+ Wed, 29 Apr 2020 12:05:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1588161914;
+ bh=BHx6Adc582HX/EI7gEWPQT8miSuzlW266b32vPCYeME=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=StwkJngH70s5roDZrk0Vd0cSxaoWgkq9/v/SdRm0VsfveIt/PScZ4eGrr0cCqV5Yi
+ bgXyOwH5HMG8tiQL2kbbdS1mALhVuxn6iUOzJd9DzIKPw4LwXeyZ8XdAOiDFocEt5O
+ rfDMpk4aRr6mied40vjSshkkuH1tA5VSghN9ckWA=
+Date: Wed, 29 Apr 2020 13:05:11 +0100
+From: Mark Brown <broonie@kernel.org>
 To: Robin Murphy <robin.murphy@arm.com>
 Subject: Re: [linux-sunxi] Re: Audio sound card name [was [PATCH 4/7] arm64:
  dts: allwinner: a64: Add HDMI audio]
-In-Reply-To: <f9b701d9-0c4e-6e41-1ce8-52adf0f59a2a@arm.com>
+Message-ID: <20200429120511.GG4201@sirena.org.uk>
 References: <20200426120442.11560-1-peron.clem@gmail.com>
  <20200426120442.11560-5-peron.clem@gmail.com>
  <20200428080020.35qcuylwq2ylmubu@gilmour.lan>
@@ -58,20 +68,21 @@ References: <20200426120442.11560-1-peron.clem@gmail.com>
  <CAGb2v65rRbRpUTdkTF3hd5LnLQQt19YVOyVzM5te5XNVhQQH=A@mail.gmail.com>
  <20200429081729.qa3gqtl5sof2jhem@gilmour.lan>
  <f9b701d9-0c4e-6e41-1ce8-52adf0f59a2a@arm.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="RMedoP2+Pr6Rq0N2"
+Content-Disposition: inline
+In-Reply-To: <f9b701d9-0c4e-6e41-1ce8-52adf0f59a2a@arm.com>
+X-Cookie: I know how to do SPECIAL EFFECTS!!
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: devicetree <devicetree@vger.kernel.org>,
  Linux-ALSA <alsa-devel@alsa-project.org>,
  linux-sunxi <linux-sunxi@googlegroups.com>, Takashi Iwai <tiwai@suse.com>,
  Jernej Skrabec <jernej.skrabec@siol.net>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
  Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Mark Brown <broonie@kernel.org>,
- =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ =?iso-8859-1?Q?Cl=E9ment_P=E9ron?= <peron.clem@gmail.com>,
  Maxime Ripard <maxime@cerno.tech>,
  linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -89,112 +100,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 29 Apr 2020 12:43:06 +0200,
-Robin Murphy wrote:
-> 
+
+--RMedoP2+Pr6Rq0N2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Wed, Apr 29, 2020 at 11:43:06AM +0100, Robin Murphy wrote:
 > On 2020-04-29 9:17 am, Maxime Ripard wrote:
 > > On Wed, Apr 29, 2020 at 02:24:00PM +0800, Chen-Yu Tsai wrote:
-> >> On Wed, Apr 29, 2020 at 1:11 AM Robin Murphy <robin.murphy@arm.com> wrote:
-> >>>
-> >>> On 2020-04-28 5:49 pm, Clément Péron wrote:
-> >>>> Hi Mark, Rob,
-> >>>>
-> >>>> On Tue, 28 Apr 2020 at 18:04, Maxime Ripard <maxime@cerno.tech> wrote:
-> >>>>>
-> >>>>> On Tue, Apr 28, 2020 at 10:54:00AM +0200, Clément Péron wrote:
-> >>>>>> Hi Maxime,
-> >>>>>>
-> >>>>>> On Tue, 28 Apr 2020 at 10:00, Maxime Ripard <maxime@cerno.tech> wrote:
-> >>>>>>>
-> >>>>>>> On Sun, Apr 26, 2020 at 02:04:39PM +0200, Clément Péron wrote:
-> >>>>>>>> From: Marcus Cooper <codekipper@gmail.com>
-> >>>>>>>>
-> >>>>>>>> Add a simple-soundcard to link audio between HDMI and I2S.
-> >>>>>>>>
-> >>>>>>>> Signed-off-by: Jernej Skrabec <jernej.skrabec@siol.net>
-> >>>>>>>> Signed-off-by: Marcus Cooper <codekipper@gmail.com>
-> >>>>>>>> Signed-off-by: Clément Péron <peron.clem@gmail.com>
-> >>>>>>>> ---
-> >>>>>>>>    arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi | 21 +++++++++++++++++++
-> >>>>>>>>    1 file changed, 21 insertions(+)
-> >>>>>>>>
-> >>>>>>>> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
-> >>>>>>>> index e56e1e3d4b73..08ab6b5e72a5 100644
-> >>>>>>>> --- a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
-> >>>>>>>> +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
-> >>>>>>>> @@ -102,6 +102,25 @@
-> >>>>>>>>                 status = "disabled";
-> >>>>>>>>         };
-> >>>>>>>>
-> >>>>>>>> +     hdmi_sound: hdmi-sound {
-> >>>>>>>> +             compatible = "simple-audio-card";
-> >>>>>>>> +             simple-audio-card,format = "i2s";
-> >>>>>>>> +             simple-audio-card,name = "allwinner,hdmi";
-> >>>>>>>
-> >>>>>>> I'm not sure what the usual card name should be like though. I would assume that
-> >>>>>>> this should be something specific enough so that you're able to differentiate
-> >>>>>>> between boards / SoC so that the userspace can choose a different configuration
-> >>>>>>> based on it?
-> >>>>>>
-> >>>>>> I really don't know what we should use here,
-> >>>>>> I just have a look at other SoC:
-> >>>>>> rk3328: "HDMI"
-> >>>>>> rk3399: "hdmi-sound"
-> >>>>>> r8a774c0-cat874: "CAT874 HDMI sound"
-> >>>>>>
-> >>>>>> But maybe it's time to introduce proper name:
-> >>>>>> What about :
-> >>>>>> pat
-> >>>>>> sun50i-h6-hdmi
-> >>>>>
-> >>>>> It's pretty much what we've been using for the other sound cards we have, so it
-> >>>>> makes sense to me.
-> >>>>
-> >>>> I have a question regarding the simple-audio-card,name.
-> >>>> In this patch, I would like to introduce a simple-audio-card for the
-> >>>> Allwinner A64 HDMI.
-> >>>>
-> >>>> What should be the preferred name for this sound card?
-> >>>> "sun50i-a64-hdmi" ? "allwinner, sun50i-a64-hdmi" ?
-> >>>
-> >>> I can at least speak for RK3328, and the reasoning there was that as the
-> >>> user looking at what `aplay -l` says, I don't give a hoot about what the
-> >>> SoC may be called, I see two cards and I want to know, with the least
-> >>> amount of uncertainty, which one will make the sound come out of the
-> >>> port that's labelled "HDMI" on the box ;)
-> >>
-> >> I agree. The user really doesn't care what SoC the system uses. The only
-> >> real requirement is to be able to tell which output the card is related
-> >> to, i.e. is it onboard or an external DAC, is it analog or HDMI, etc..
-> >
-> > Yeah, but it's exactly the point.
-> >
+
+Please delete unneeded context from mails when replying.  Doing this
+makes it much easier to find your reply in the message, helping ensure
+it won't be missed by people scrolling through the irrelevant quoted
+material.
+
 > > If we also end up with "HDMI" as our card name, then the userspace has no way to
 > > tell anymore if it's running from an rk3328 or an allwinner SoC, or something
 > > else entirely. And therefore it cannot really configure anything to work out of
 > > the box anymore.
-> 
-> OK, you're a userspace audio application - enlighten me as to what
-> exact chip you're running on here, and why you need to know:
-> 
+
+> OK, you're a userspace audio application - enlighten me as to what exact
+> chip you're running on here, and why you need to know:
+
 > card 0: HDMI [HDA ATI HDMI]
-> 
+
 > or how about here?
-> 
+
 > card 0: Intel [HDA Intel]
 
-Heh, those are bad examples.  Although the single HD-audio driver
-supports (literally) thousands of different models and hardware
-configurations, it's more or less self-contained; i.e. it needs
-neither UCM nor exotic setups.  IOW, user-space don't need much to
-care about the difference of the hardware.  (Admittedly there are
-subtle things to be done for HD-audio, too, but PA can handle it in a
-generic way, for example.)
+In the case of HDMI for embedded platforms since there is generally no
+control in the audio path it is unlikely to make a *huge* difference,
+though if there are expansion buses or multiple HDMI ports it can be
+useful to help people identify which particular HDMI port it is.  For
+other cards the names are part of userspace working out which config
+file to apply to the card so deduplication can help, and also the
+plastics tend to matter.
 
-OTOH, in general, ASoC drivers do need the individual setups; that's
-almost unavoidable from its design perspective.  Hence, unless the
-identical configuration is needed, it'd be wiser to provide different
-driver names to identify which setup to be applied.
+> With simple-audio-card we're talking about trivial interfaces that often
+> don't expose any controls at all, so there's unlikely to be much
+> 'configuration' for userspace to do beyond choosing which card to output to.
 
+This is a reasonable assumption for HDMI but it is not at all a
+reasonable assumption for simple-audio-card in general - just because
+the links between the SoC and the external components are simple that
+doesn't mean that any of those components are simple, and even if the
+hardware is simple that does not mean that configuration is unimportant
+- the difference between full scale output and appropriate headphone
+volumes is for example *extremely* important.
 
-Takashi
+--RMedoP2+Pr6Rq0N2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6pbXcACgkQJNaLcl1U
+h9Bzugf/c28iLtVw25sffS7FxnwHu5kFpEMA6AESU/nbib3pIGkMPZg+yn69tK3S
+bdnoVTnaJl2n84nFz/STXBtafZ0xebeAN+eZu0Gd7vtygVQlVGBP0QqPBo04u2Ko
+xSfYbaycfHROmTbbL5xIoJ0XaxNOgnZd0epZRpcvNDkDZJ8YvlwoR5Ooi8C/SR9E
+xqmpX9gmh59QtZf3NS5mQ+4PIHwxw35rxIgA1P6mIFRaseuz6njlFAlpKpCfWHy8
+ZOYQ79RmdZDUSkqlOtUToBxkOrVCPHHmr5YoblVd3P3olP4ZBcmpnRuB4+QkxifA
+7T5xU5H+PZPzUMBmDu6Mtx6P+4INhA==
+=xohR
+-----END PGP SIGNATURE-----
+
+--RMedoP2+Pr6Rq0N2--

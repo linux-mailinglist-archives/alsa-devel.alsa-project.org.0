@@ -2,68 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B65781BF091
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 08:50:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 809761BE6E6
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Apr 2020 21:04:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D490168E;
-	Thu, 30 Apr 2020 08:49:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D490168E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08C9D1689;
+	Wed, 29 Apr 2020 21:03:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08C9D1689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588229401;
-	bh=Zrb3iGUulkD3L3a88P9F6EZpZAUS2j3LGLQ/W6XfbZk=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=riV6WLD24+pT71ErWh8tu/CG03ozhkbxB5LBEq9ZsHZQwGIG1O/vNUdlgaWynjGeb
-	 u8YxtZguoALWqLs/7Y4W/bDEPFfAyf66sBaYVGm+248r97S7GQkKptNtCW/sLUnvzX
-	 qrLFplAYNlaegho5JbyUBqHi0Y+ihmkmwfbud88g=
+	s=default; t=1588187062;
+	bh=k1c7skf26uck2a+94CZdd64alO29RBND7c74GvqRTck=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=CsM16tCHcgwQ1QbVHhPr3emh77Ywz88M4HdplZRzZW6C0bFFwXLnH7XoI3NS2dV92
+	 Jcmp8OpCHfE2DhSyy8iUpvP1nRQ8mZdr+7V0GmjJAvo50uSzbaUqGymakLlMzLmFKP
+	 +evX547pv+sEKuyQwqRgcJaN1Wt1DX07HJN5qZZ0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 99E16F802A2;
-	Thu, 30 Apr 2020 08:46:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 035A7F80232;
+	Wed, 29 Apr 2020 21:02:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04014F80290; Thu, 30 Apr 2020 08:46:54 +0200 (CEST)
+ id F2B58F8022B; Wed, 29 Apr 2020 21:02:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.134])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3528EF80292
- for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 08:46:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3528EF80292
-IronPort-SDR: 0eFZin9D8Gf4/4Op/G3zkoDjFCPcjoUVAJ1ww2pCoseLFFQabTwu7vCnsBinq9t6Znj6mWHaTI
- 1jRepMn1Otcw==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Apr 2020 23:46:45 -0700
-IronPort-SDR: sWE2BURnu8GLHMTvnWamUpSzLF+VZi1DlhV/vvPMm0TWLYsDzgmnT+cBoQN30/PGxHZBXdE62Q
- RSHMjAoe9P/A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,334,1583222400"; d="scan'208";a="249662792"
-Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
- by fmsmga008.fm.intel.com with ESMTP; 29 Apr 2020 23:46:41 -0700
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	vkoul@kernel.org
-Subject: [PATCH 3/3] soundwire: bus_type: add sdw_master_device support
-Date: Thu, 30 Apr 2020 02:51:45 +0800
-Message-Id: <20200429185145.12891-4-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200429185145.12891-1-yung-chuan.liao@linux.intel.com>
-References: <20200429185145.12891-1-yung-chuan.liao@linux.intel.com>
-Cc: pierre-louis.bossart@linux.intel.com, tiwai@suse.de,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, mengdong.lin@intel.com,
- slawomir.blauciak@intel.com, sanyog.r.kale@intel.com,
- rander.wang@linux.intel.com, bard.liao@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 18381F800B6
+ for <alsa-devel@alsa-project.org>; Wed, 29 Apr 2020 21:02:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18381F800B6
+Received: from threadripper.lan ([149.172.19.189]) by mrelayeu.kundenserver.de
+ (mreue011 [212.227.15.129]) with ESMTPA (Nemesis) id
+ 1MLRDv-1jlfhp0Uz5-00IWDA; Wed, 29 Apr 2020 21:02:18 +0200
+From: Arnd Bergmann <arnd@arndb.de>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH] ALSA: opti9xx: shut up gcc-10 range warning
+Date: Wed, 29 Apr 2020 21:02:03 +0200
+Message-Id: <20200429190216.85919-1-arnd@arndb.de>
+X-Mailer: git-send-email 2.26.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Provags-ID: V03:K1:+pDqwisosq8IRMVZs9c7qvMueRcXlRjdnVdd/4nRecwJrh6oDHT
+ Hk2Bj3hLCzMNMvJv5ipHRa0YzqmfJVD5xHFL8KaWvVWN35+kdWmb2gpK+sePVacbkQrr5nQ
+ azKLanUlr1s5veUtSELmvDYCpNSUPW+dn4tPimfRra0N/Z9W2M4XSn4ht86XufpMjpB89bo
+ t3GO9kGViXWXGNMtR4J0A==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:9cO2hF9lnlU=:/v7dR+GNPbFvFEJ1vkKpKS
+ wxaE29IFQ8i4X/RNJk3qQBnKMPsfw/dBIykU/RpE94huZCjxIuEuI8mHvmuK2A64sS9lY7e+W
+ Jxlo1vrWI930gBbR1qIPvdrYE8NiO8QadB+yGE4O2+JCydkw20/yYxaH11nx4uQjwMrjl3Rag
+ 39Lo/vbX9R97KI3FwOQWKsrAZBUZ60WUwBeGbEGdNU/SNOcazbQgMw0C3tWHX4yJoIJPgzACE
+ GsoGOZl/n0aatAENgvTvMG+/FGzWW1m5c418qVK+SgMaFghvMW81tvdjb9BT57+OaKC1m604g
+ q98VuycwUTnCuakAqKnq3vTLZ40xyyd9KIwinX6jPsh1nN1TTOG8Pz9EOCx4qK/Ur1oZOwSRf
+ nuFBmgxE/HqGMKgysxqvmjXHGwReXx4TwVp32rjONRbu5Zk7L19npgclts1BK0AVdtJwVpV6Q
+ u8QugluZn0yPwQKDdlp8mh75jl4ZTw63snCWBRbSPbWKdNwaJ+KHT08mUYHdrpkXaZNuLKyAi
+ aimjTmHuxsAJ7iTfh7gFTdrH4+mTbYmFkdS6IcnGPxHmQe1/4K/RvtodHCMM57IoCiHhlfkll
+ mqYO7OfuQQKH6ycavc4CG07pDLpDDnXNwYiEUkFIvPh8cKTjASTutzEyTW4bbE3pcNzVSqagg
+ uww/RNxxMa1dMWT+WXiuGcE5SEr2UFNP4y8+d4Vlp01XdQ3AFUZVBOlJtXw3XQ62oIfhpy/m5
+ ABbnFWBCQOqT/C6YwkzrKHSVxIvQfWYd3H7yHHg0RvvDdGEFLi2I2OYc7SQEN+y9134fL5KMW
+ fxqRVo5+RVqiKAT4u/lJbm522qA9y/kzNsE3oAOHPuCMQnGOmg=
+Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,241 +81,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+gcc-10 points out a few instances of suspicious integer arithmetic
+leading to value truncation:
 
-In the existing SoundWire code, Master Devices are not explicitly
-represented - only SoundWire Slave Devices are exposed (the use of
-capital letters follows the SoundWire specification conventions).
+sound/isa/opti9xx/opti92x-ad1848.c: In function 'snd_opti9xx_configure':
+sound/isa/opti9xx/opti92x-ad1848.c:322:43: error: overflow in conversion from 'int' to 'unsigned char' changes value from '(int)snd_opti9xx_read(chip, 3) & -256 | 240' to '240' [-Werror=overflow]
+  322 |   (snd_opti9xx_read(chip, reg) & ~(mask)) | ((value) & (mask)))
+      |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+sound/isa/opti9xx/opti92x-ad1848.c:351:3: note: in expansion of macro 'snd_opti9xx_write_mask'
+  351 |   snd_opti9xx_write_mask(chip, OPTi9XX_MC_REG(3), 0xf0, 0xff);
+      |   ^~~~~~~~~~~~~~~~~~~~~~
+sound/isa/opti9xx/miro.c: In function 'snd_miro_configure':
+sound/isa/opti9xx/miro.c:873:40: error: overflow in conversion from 'int' to 'unsigned char' changes value from '(int)snd_miro_read(chip, 3) & -256 | 240' to '240' [-Werror=overflow]
+  873 |   (snd_miro_read(chip, reg) & ~(mask)) | ((value) & (mask)))
+      |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+sound/isa/opti9xx/miro.c:1010:3: note: in expansion of macro 'snd_miro_write_mask'
+ 1010 |   snd_miro_write_mask(chip, OPTi9XX_MC_REG(3), 0xf0, 0xff);
+      |   ^~~~~~~~~~~~~~~~~~~
 
-The SoundWire Master Device provides the clock, synchronization
-information and command/control channels. When multiple links are
-supported, a Controller may expose more than one Master Device; they
-are typically embedded inside a larger audio cluster (be it in an
-SOC/chipset or an external audio codec), and we need to describe it
-using the Linux device and driver model.
+These are all harmless here as only the low 8 bit are passed down
+anyway. Change the macros to inline functions to make the code
+more readable and also avoid the warning.
 
-This transition will avoid abusing platform devices and allow for
-better sysfs support without the reference count issues mentioned in
-the initial reviews.
+Strictly speaking those functions also need locking to make the
+read/write pair atomic, but it seems unlikely that anyone would
+still run into that issue.
 
-The sdw_master_device addition is done with minimal internal plumbing
-and not exposed externally. The existing API based on
-sdw_bus_master_add() and sdw_bus_master_delete() will deal with the
-sdw_master_device life cycle, which minimizes changes to existing
-drivers.
-
-Note that the Intel code will be modified in follow-up patches (no
-impact on any platform since the connection with ASoC is not supported
-upstream so far).
-
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Fixes: 1841f613fd2e ("[ALSA] Add snd-miro driver")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- drivers/soundwire/Makefile    |  2 +-
- drivers/soundwire/bus.c       | 12 ++++--
- drivers/soundwire/bus.h       |  3 ++
- drivers/soundwire/master.c    | 79 +++++++++++++++++++++++++++++++++++
- drivers/soundwire/qcom.c      |  1 -
- include/linux/soundwire/sdw.h | 17 +++++++-
- 6 files changed, 108 insertions(+), 6 deletions(-)
- create mode 100644 drivers/soundwire/master.c
+ sound/isa/opti9xx/miro.c           | 9 ++++++---
+ sound/isa/opti9xx/opti92x-ad1848.c | 9 ++++++---
+ 2 files changed, 12 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/soundwire/Makefile b/drivers/soundwire/Makefile
-index e2cdff990e9f..7319918e0aec 100644
---- a/drivers/soundwire/Makefile
-+++ b/drivers/soundwire/Makefile
-@@ -4,7 +4,7 @@
- #
- 
- #Bus Objs
--soundwire-bus-objs := bus_type.o bus.o slave.o mipi_disco.o stream.o
-+soundwire-bus-objs := bus_type.o bus.o master.o slave.o mipi_disco.o stream.o
- obj-$(CONFIG_SOUNDWIRE) += soundwire-bus.o
- 
- ifdef CONFIG_DEBUG_FS
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index 18024ff770f8..7eb1e6efd567 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -24,9 +24,14 @@ int sdw_bus_master_add(struct sdw_bus *bus, struct device *parent,
- 	struct sdw_master_prop *prop = NULL;
- 	int ret;
- 
--	if (!bus->dev) {
--		pr_err("SoundWire bus has no device\n");
--		return -ENODEV;
-+	if (!bus)
-+		return -EINVAL;
-+
-+	ret = sdw_master_device_add(bus, parent, fwnode);
-+	if (ret) {
-+		dev_err(parent, "Failed to add master device at link %d\n",
-+			bus->link_id);
-+		return ret;
- 	}
- 
- 	if (!bus->ops) {
-@@ -142,6 +147,7 @@ static int sdw_delete_slave(struct device *dev, void *data)
- void sdw_bus_master_delete(struct sdw_bus *bus)
- {
- 	device_for_each_child(bus->dev, NULL, sdw_delete_slave);
-+	sdw_master_device_del(bus);
- 
- 	sdw_bus_debugfs_exit(bus);
+diff --git a/sound/isa/opti9xx/miro.c b/sound/isa/opti9xx/miro.c
+index e764816a8f7a..b039429e6871 100644
+--- a/sound/isa/opti9xx/miro.c
++++ b/sound/isa/opti9xx/miro.c
+@@ -867,10 +867,13 @@ static void snd_miro_write(struct snd_miro *chip, unsigned char reg,
+ 	spin_unlock_irqrestore(&chip->lock, flags);
  }
-diff --git a/drivers/soundwire/bus.h b/drivers/soundwire/bus.h
-index 204204a26db8..93ab0234a491 100644
---- a/drivers/soundwire/bus.h
-+++ b/drivers/soundwire/bus.h
-@@ -19,6 +19,9 @@ static inline int sdw_acpi_find_slaves(struct sdw_bus *bus)
- int sdw_of_find_slaves(struct sdw_bus *bus);
- void sdw_extract_slave_id(struct sdw_bus *bus,
- 			  u64 addr, struct sdw_slave_id *id);
-+int sdw_master_device_add(struct sdw_bus *bus, struct device *parent,
-+			  struct fwnode_handle *fwnode);
-+int sdw_master_device_del(struct sdw_bus *bus);
  
- #ifdef CONFIG_DEBUG_FS
- void sdw_bus_debugfs_init(struct sdw_bus *bus);
-diff --git a/drivers/soundwire/master.c b/drivers/soundwire/master.c
-new file mode 100644
-index 000000000000..2eeb2d7f56e0
---- /dev/null
-+++ b/drivers/soundwire/master.c
-@@ -0,0 +1,79 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+// Copyright(c) 2019-2020 Intel Corporation.
-+
-+#include <linux/device.h>
-+#include <linux/acpi.h>
-+#include <linux/soundwire/sdw.h>
-+#include <linux/soundwire/sdw_type.h>
-+#include "bus.h"
-+
-+/* nothing to free but this function is mandatory */
-+static void sdw_master_device_release(struct device *dev)
++static inline void snd_miro_write_mask(struct snd_miro *chip,
++		unsigned char reg, unsigned char value, unsigned char mask)
 +{
++	unsigned char oldval = snd_miro_read(chip, reg);
+ 
+-#define snd_miro_write_mask(chip, reg, value, mask)	\
+-	snd_miro_write(chip, reg,			\
+-		(snd_miro_read(chip, reg) & ~(mask)) | ((value) & (mask)))
++	snd_miro_write(chip, reg, (oldval & ~mask) | (value & mask));
 +}
-+
-+struct device_type sdw_master_type = {
-+	.name =		"soundwire_master",
-+	.release =	sdw_master_device_release,
-+};
-+
-+/**
-+ * sdw_master_device_add() - create a Linux Master Device representation.
-+ * @bus: SDW bus instance
-+ * @parent: parent device
-+ * @fwnode: firmware node handle
-+ */
-+int sdw_master_device_add(struct sdw_bus *bus, struct device *parent,
-+			  struct fwnode_handle *fwnode)
+ 
+ /*
+  *  Proc Interface
+diff --git a/sound/isa/opti9xx/opti92x-ad1848.c b/sound/isa/opti9xx/opti92x-ad1848.c
+index d06b29693c85..0e6d20e49158 100644
+--- a/sound/isa/opti9xx/opti92x-ad1848.c
++++ b/sound/isa/opti9xx/opti92x-ad1848.c
+@@ -317,10 +317,13 @@ static void snd_opti9xx_write(struct snd_opti9xx *chip, unsigned char reg,
+ }
+ 
+ 
+-#define snd_opti9xx_write_mask(chip, reg, value, mask)	\
+-	snd_opti9xx_write(chip, reg,			\
+-		(snd_opti9xx_read(chip, reg) & ~(mask)) | ((value) & (mask)))
++static inline void snd_opti9xx_write_mask(struct snd_opti9xx *chip,
++		unsigned char reg, unsigned char value, unsigned char mask)
 +{
-+	struct sdw_master_device *md;
-+	int ret;
-+
-+	if (!bus)
-+		return -EINVAL;
-+
-+	/*
-+	 * Unlike traditional devices, there's no allocation here since the
-+	 * sdw_master_device is embedded in the bus structure.
-+	 */
-+	md = &bus->md;
-+	md->dev.bus = &sdw_bus_type;
-+	md->dev.type = &sdw_master_type;
-+	md->dev.parent = parent;
-+	md->dev.of_node = parent->of_node;
-+	md->dev.fwnode = fwnode;
-+	md->dev.dma_mask = parent->dma_mask;
-+
-+	dev_set_name(&md->dev, "sdw-master-%d", bus->link_id);
-+
-+	ret = device_register(&md->dev);
-+	if (ret) {
-+		dev_err(parent, "Failed to add master: ret %d\n", ret);
-+		/*
-+		 * On err, don't free but drop ref as this will be freed
-+		 * when release method is invoked.
-+		 */
-+		put_device(&md->dev);
-+		goto device_register_err;
-+	}
-+
-+	/* add shortcuts to improve code readability/compactness */
-+	md->bus = bus;
-+	bus->dev = &md->dev;
-+
-+device_register_err:
-+	return ret;
++	unsigned char oldval = snd_opti9xx_read(chip, reg);
+ 
++	snd_opti9xx_write(chip, reg, (oldval & ~mask) | (value & mask));
 +}
-+
-+/**
-+ * sdw_master_device_del() - delete a Linux Master Device representation.
-+ * @bus: bus handle
-+ *
-+ * This function is the dual of sdw_master_device_add()
-+ */
-+int sdw_master_device_del(struct sdw_bus *bus)
-+{
-+	device_unregister(bus->dev);
-+
-+	return 0;
-+}
-diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-index 401811d6627e..1c335ab1cd3f 100644
---- a/drivers/soundwire/qcom.c
-+++ b/drivers/soundwire/qcom.c
-@@ -784,7 +784,6 @@ static int qcom_swrm_probe(struct platform_device *pdev)
- 	mutex_init(&ctrl->port_lock);
- 	INIT_WORK(&ctrl->slave_work, qcom_swrm_slave_wq);
  
--	ctrl->bus.dev = dev;
- 	ctrl->bus.ops = &qcom_swrm_ops;
- 	ctrl->bus.port_ops = &qcom_swrm_port_ops;
- 	ctrl->bus.compute_params = &qcom_swrm_compute_params;
-diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
-index 2003e8c55538..071adf2b463f 100644
---- a/include/linux/soundwire/sdw.h
-+++ b/include/linux/soundwire/sdw.h
-@@ -632,6 +632,19 @@ struct sdw_slave {
- 
- #define dev_to_sdw_dev(_dev) container_of(_dev, struct sdw_slave, dev)
- 
-+/**
-+ * struct sdw_master_device - SoundWire 'Master Device' representation
-+ * @dev: Linux device for this Master
-+ * @bus: Bus handle shortcut to improve readability (same as container_of)
-+ */
-+struct sdw_master_device {
-+	struct device dev;
-+	struct sdw_bus *bus;
-+};
-+
-+#define dev_to_sdw_master_device(d)	\
-+	container_of(d, struct sdw_master_device, dev)
-+
- struct sdw_driver {
- 	const char *name;
- 
-@@ -787,7 +800,8 @@ struct sdw_master_ops {
- 
- /**
-  * struct sdw_bus - SoundWire bus
-- * @dev: Master linux device
-+ * @dev: shortcut to &md->dev to improve readability
-+ * @md: Master device
-  * @link_id: Link id number, can be 0 to N, unique for each Master
-  * @slaves: list of Slaves on this bus
-  * @assigned: Bitmap for Slave device numbers.
-@@ -812,6 +826,7 @@ struct sdw_master_ops {
-  */
- struct sdw_bus {
- 	struct device *dev;
-+	struct sdw_master_device md;
- 	unsigned int link_id;
- 	struct list_head slaves;
- 	DECLARE_BITMAP(assigned, SDW_MAX_DEVICES);
+ static int snd_opti9xx_configure(struct snd_opti9xx *chip,
+ 					   long port,
 -- 
-2.17.1
+2.26.0
 

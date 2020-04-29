@@ -2,72 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D7F81BD72C
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Apr 2020 10:23:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF94C1BD740
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Apr 2020 10:26:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA3ED1688;
-	Wed, 29 Apr 2020 10:22:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA3ED1688
+	by alsa0.perex.cz (Postfix) with ESMTPS id 63491168E;
+	Wed, 29 Apr 2020 10:26:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63491168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588148618;
-	bh=9YrQOHDbmJnPKKTvmQG5p/Lai5qrrvsqVUCdrarGgC0=;
+	s=default; t=1588148813;
+	bh=OTU0kOM/tUnBBBQ8muGmJxS9Z5B+0RvHXGJT9Bp+z2I=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=khQ6h0tbor5hQnQXNRaC4ArHiXLv2ns/as2YO7Vq+raIG6OzdCM3vKe6ToFnQHMV/
-	 bGoqd8G1mfc1Pj1hbEKxIvZ5x2VfJdGsjAtfPEq2LgB/OSs4+opsHrP07b1EXyTYdV
-	 cAweIgnTVqmf7wbGmJCknGjvz6xY0YYRhgZpzf4k=
+	b=m2uprIEcYLtsrWzz5GaxsY+Ryk0AEqEjeZMpdax3wVwC4SaN4jRKtRrpsD1z+STam
+	 9JEs9QbDeHrKbXsvA2sbs3Kuo1fPFEoNbRKFKO6YlLJAGy1UrjQGc1vr0eO18tB3r1
+	 FoN2eq4637whbUd+ZjqTpNJDTJhG6ERzcJuUhpqs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 762B1F80232;
-	Wed, 29 Apr 2020 10:21:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9AB21F800D2;
+	Wed, 29 Apr 2020 10:25:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DF932F8022B; Wed, 29 Apr 2020 10:21:55 +0200 (CEST)
+ id BE0A9F8022B; Wed, 29 Apr 2020 10:25:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96907F800D2;
- Wed, 29 Apr 2020 10:21:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96907F800D2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="I9pcgC8T"
-Received: by mail-wm1-x342.google.com with SMTP id h4so979210wmb.4;
- Wed, 29 Apr 2020 01:21:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=9YrQOHDbmJnPKKTvmQG5p/Lai5qrrvsqVUCdrarGgC0=;
- b=I9pcgC8TZZt5Kg0A7T7Sj2GX1f3NndD9VL3+SitseYmNYZCHbW4qyQbSaIhgJ2k8F9
- A4I/PYoz9MXS1mMf5mMtKKa8odnpWVMfBdSeYkjsmyccvPIjsyDG2KvoZckg84yWXCAT
- Y6BibMgeLOuRP5/QlCmQbtJbOwX2chmzcYD+0bKcOGgb2Jv2xrHxrCh8hYEH2YHJ6vF/
- 6YBdsXb5KcdSrNCXK005EXZs+/4NDKa0kcEOmgHV35NNBcB18QblhsCRsehmWumsgBh4
- CE+724OEI0a1mlv9maOUA39PwHvLs1bBqHnYrym3q5oe0JXZlwl/nIpAO6g3UoDq/rNh
- SFsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=9YrQOHDbmJnPKKTvmQG5p/Lai5qrrvsqVUCdrarGgC0=;
- b=QlPC0rUVKVRFb6+dO/Bft+iw1J8m44eMtlMSE9faGIckgjOHF8RGc8qM/wdIKuCQuC
- X6z0ozgYqWiB4RaG8K0lCNzUkeA5sj+ir2KDxgwxLzUi7oP3ZynJ9yjDeugGh91fBgki
- wltc8NGkkn0FoGfKAKGuIVTd+0rhVdy1QWKnNIdF4qtfyfhDBuvZ0llHSpmob3aSLRgT
- 1F+hSU/7cnJH9ox0T2HDNHpdUP4989Rb9kHhrPE8QRKpZ93MPY4XBsu0NPCp0x1gHauf
- mTbfuApgl8YLkPJ/sYD20RBp8q/qFTedB+P8zX6ciO+GIaFPZ6VNiPI+JtvdYtb2mOsp
- b+Kw==
-X-Gm-Message-State: AGi0PuZgh89VFBIusRpT3dT5vhbOt5ebHxrzxfoT8onH6eAEGmkOeuJp
- bdwAOSH+YXSu6PrRg06OAp4wtYYrzCwdWPCOZlc=
-X-Google-Smtp-Source: APiQypKGkoXSNV8IrqXx0pbjTev2ByLg0A0Y8YCXnburHa1C62WyWY3/obBJqfCR72hvN1/GNuPReGW+qHxhMBIIIcs=
-X-Received: by 2002:a1c:9948:: with SMTP id b69mr1828574wme.44.1588148507074; 
- Wed, 29 Apr 2020 01:21:47 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1D428F800D2;
+ Wed, 29 Apr 2020 10:25:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D428F800D2
+Received: from mail-lf1-f45.google.com ([209.85.167.45]) by
+ mrelayeu.kundenserver.de (mreue109 [212.227.15.145]) with ESMTPSA (Nemesis)
+ id 1M5wTt-1jW9vZ2RJb-007SmK; Wed, 29 Apr 2020 10:25:02 +0200
+Received: by mail-lf1-f45.google.com with SMTP id d25so890401lfi.11;
+ Wed, 29 Apr 2020 01:25:02 -0700 (PDT)
+X-Gm-Message-State: AGi0Pub8F3ok0XqfISraTP9SuHcJxk2r7OJn37gFkw5jLv15WWvHqTOc
+ rnSecIpK7dxcZ0l3E37EjDblIKdyXmHL4qvJi1w=
+X-Google-Smtp-Source: APiQypKYwuif1CT2TpVka5FFL7aLnwCZS2moXiiZbTlODTEUY1BIra8wbAmWai01XE2gYsYojcCm4wCdH9lAq0wmfsY=
+X-Received: by 2002:a19:505b:: with SMTP id z27mr4237553lfj.123.1588148702030; 
+ Wed, 29 Apr 2020 01:25:02 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200428212752.2901778-1-arnd@arndb.de>
  <6b39fbba-c65d-2c02-14bf-11c2d00547af@linux.intel.com>
@@ -75,25 +53,41 @@ References: <20200428212752.2901778-1-arnd@arndb.de>
  <f91c9a68-7641-beb8-a23e-bd1b9b8d0acb@linux.intel.com>
  <b784c008-7094-05cb-6200-6b246ff39bb8@linux.intel.com>
 In-Reply-To: <b784c008-7094-05cb-6200-6b246ff39bb8@linux.intel.com>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Wed, 29 Apr 2020 11:21:35 +0300
-Message-ID: <CAEnQRZCr0NAfx4UGcd3v6Cr5bZpUmQg5VCG9OA=aj=4uJX0qOg@mail.gmail.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Wed, 29 Apr 2020 10:24:45 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a3vri_-tdEy3x6tRGUjb_k-+Mc+Jt9bQpgFvqm2RN+cJA@mail.gmail.com>
+Message-ID: <CAK8P3a3vri_-tdEy3x6tRGUjb_k-+Mc+Jt9bQpgFvqm2RN+cJA@mail.gmail.com>
 Subject: Re: [PATCH] ASoC: SOF: sort out Kconfig, again
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Arnd Bergmann <arnd@arndb.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"
-Cc: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Stephen Rothwell <sfr@canb.auug.org.au>,
+X-Provags-ID: V03:K1:8GjoymyJvrTILrh1hmjiAkHJHlLo16/3L5AjmIYXKnlbg4KtwHB
+ qkCLeqV7Xn/yA3dLz0l8l5uRNVElSwO99kQDcvHMXfCRyjWgsUdAA5Vq1QeyY48gztteDLM
+ /LIBX7LeH/je3mw6VQa24Kntmjbp5QT0NBQp7sx+SUbKtj9X/W0mc5l6rjGiMblkqhiP4KD
+ xY+wSlu5OrpVnOLd1S4Vg==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:m6LbrjjgReg=:B7CUXe3m5D+2HRNOK0gWZQ
+ fuEz3PpSPDhm2eAEygUhc2Hz3eXbTBZGNjU3cJ3JNJpJgX99hw+6lM/h8zPY3XYGe2vMgYLxv
+ +u2y1UCLRaZMD+iY1L6nuvFFiHOJM5eZyjrcorLiZ0VScy0HyT0a6l8HdiAVOXk0mwQGcopRQ
+ jIpKz8N7FD7l10cFaMU1eDCjZjiOg22IKQRkRZrSCpyA9xgAa4JdBj3LoGO85kCSxaAq+kh0Y
+ HjKA2KhZMMoxSA/QptrufFCdo6kvwueUIOLfeURQoh2pqyfT76ZbhWH9UK/ccHvtHQ7Nv+amA
+ Wc9BB59OvpJbz7UUval/jD31HkUqQh0GZdQAuIU8/hIyQB0b4+/k8vzqkoi5OlmgLQnWAmh+i
+ kQRE2Sz4bgkKMGBbXwEibgoOjcTDpeq7bRDjb9axYpfRAD3K0I3PRGhYx56qT7wfsVmlfoe3P
+ hzNd4Qee7uY5N/uvfk0aDQo02JRZRz0a4GJ1sOGfPeZHH0q2rnJhKhKAW0ZrSSRon3yn8sEMk
+ B7/FR2mHeaXG4X5bJybpQ6H8tYanrRZNU3y1XRvZCIYjiiZGwURVtCFs6wemcmzb6Zl1qk8AM
+ nQjczX3Ot/B++VXtXA4/k+uRQbp4oZzdNbq+WVcdljv0WxZmWDRnrY8/W+2oGfLUdfRYV9EHA
+ noW3jWaWO7WMSX+EX4GjqXeMVAJWWay8D6A1bwM+xYu1l3W1rg33GDFnw7gdtKSZ9IzM5D4yR
+ 6bfXOs87ndG0nCWbDF9YWN5cXUOA7mO4KdY3TiYJn73o0lGt6AT0D440sNeXEU5exq94nTAs/
+ uyMhjxN1v6V5U/vhXCMauEyrH0l4SDIi5J6vB3WcKFMBG0HeeI=
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
  ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Fabio Estevam <festevam@gmail.com>,
  Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Takashi Iwai <tiwai@suse.com>, YueHaibing <yuehaibing@huawei.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Krzysztof Kozlowski <krzk@kernel.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, YueHaibing <yuehaibing@huawei.com>,
- Takashi Iwai <tiwai@suse.com>, Krzysztof Kozlowski <krzk@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
- Shawn Guo <shawnguo@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>,
+ Shawn Guo <shawnguo@kernel.org>, Fabio Estevam <festevam@gmail.com>,
  Linux ARM <linux-arm-kernel@lists.infradead.org>,
  sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
@@ -111,10 +105,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Arnd, Pierre,
-
-Thanks for looking at this.
-
+On Wed, Apr 29, 2020 at 1:00 AM Pierre-Louis Bossart
+<pierre-louis.bossart@linux.intel.com> wrote:
 > >>> Thanks Arnd, do you mind sharing your config?
 > >>
 > >> https://pastebin.com/HRX5xi3R
@@ -143,20 +135,31 @@ Thanks for looking at this.
 > something else. My proposal looks simpler but I will agree it's not
 > necessarily super elegant to move the dependency on IMX_BOX into SOF, so
 > no sustained objection from me on Arnd's proposal.
->
-> Daniel, this is your part of SOF, please chime in.
 
-I would go in favor of Arnd's patch as it gets rid of exposing
-IMX_MBOX into SOF.
-The code will be fine even IMX_DSP=n, because the exported functions
-used by SOF have dummy implementations in case IMX_DSP is not selected.
+Ok, thanks for testing!
 
-One concern is that we could end up in a case where IMX_DSP={y|m} but
-IMX_MBOX=n.
+I looked at the bigger picture again and found that the more fundamental
+problem is the dependency reversal in sound/soc/sof/sof-of-dev.c, where
+you have common code that knows about and links against a hardware
+specific driver. This is something we try hard do avoid in general in the
+kernel, as it causes all kinds of problems:
 
-Technically this is not possible because IMX_DSP depends on IMX_MBOX. So,
-one cannot generate such a .config file from menuconfig interface.
+- Expressing the Kconfig dependencies is rather unnatural and error-prone,
+  as you found
 
-You can add my:
+- Adding multiple new drivers at the same time leads to merge conflicts
 
-Acked-by: Daniel Baluta <daniel.baluta@nxp.com>
+- A kernel that supports multiple SoC families, like all general-purpose
+  distros do, and Android is going to do in the future means that you have
+  to load every hardware specific module in order to just use one of them.
+
+- In Android's case, it also breaks the model of having one vendor provide
+  support for a new SoC by enabling additional modules they ship in
+  their vendor specific partition
+
+I think this is all solved by moving the "module_platform_driver()"
+and of_device_id array for each driver into the module that defines
+the corresponding sof_dev_desc structure, and have those drivers
+call the exported sof_of_probe() and sof_of_remove() functions.
+
+      Arnd

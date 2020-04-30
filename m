@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 901A21BFD98
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 16:14:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9315A1BFD9E
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 16:15:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2AEE616D0;
-	Thu, 30 Apr 2020 16:13:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AEE616D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D6041665;
+	Thu, 30 Apr 2020 16:14:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D6041665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588256055;
-	bh=hdhau5x237LBx7BVJYuRDozB3xA1U7LTwu5kqngl8TY=;
+	s=default; t=1588256122;
+	bh=ofC+s2rpOOXSYWluYL+/aP6SMzxLfIP2anHBiVYKQ9s=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RNueXnDStRZDE1HlCZgB+jNYT/yuvRZB/UP9jb1Pk/uR4EvlmFylkisRlrRYwR1tk
-	 +5ia1vocZ3toeRzuLd3qKUacZMVow+1K/wJqWYNcRTZS0v1Cr1INLYybOpJVWj9lX1
-	 JJkiI9AASd3iQHBqnRLLJgwGO0f72i3YuTQTpPW4=
+	b=go5HZmLQh9or508fn5mjzoltjtd50YC6F/NixRPiGbNdQpNbCGyoS4KkyW9bZkE89
+	 MjMPcn3k36+En/y2yvOUjPoNky11/t2FOYv4mu4SxOhPijFrF1Gqojw5Lg9NBE1IQa
+	 //v+fikgvqPe4qYsVkQI5JZLZG/pcDKlAtlFeEqw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7288FF801F7;
-	Thu, 30 Apr 2020 15:53:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5808EF8043C;
+	Thu, 30 Apr 2020 15:53:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 28B80F8041D; Thu, 30 Apr 2020 15:53:36 +0200 (CEST)
+ id E68E5F80299; Thu, 30 Apr 2020 15:53:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,31 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6CD8EF800E5
- for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 15:53:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CD8EF800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7F052F801F7
+ for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 15:53:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F052F801F7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="xYcEI7v0"
+ header.b="gcGkurw7"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 5302024953;
- Thu, 30 Apr 2020 13:53:31 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 6DCA72072A;
+ Thu, 30 Apr 2020 13:53:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588254812;
- bh=hdhau5x237LBx7BVJYuRDozB3xA1U7LTwu5kqngl8TY=;
+ s=default; t=1588254813;
+ bh=ofC+s2rpOOXSYWluYL+/aP6SMzxLfIP2anHBiVYKQ9s=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=xYcEI7v0i1SZUk6yKOosiJiBX9qxIJ07Ke0F+1FXnuyZ7PyzyAJcKK4Ge8llBtbU+
- txqM1aQRlp0x03mFhX51cNT3bznsg5ppdu8ui938kDztpp/i6xaMAXP6OdGe5CmEHl
- ZwayrALOuW391lL6vCDN3jhXwn4bLeYOU3YLNgpE=
+ b=gcGkurw7+f2DA/X5R/STGiqKJdO6UGCVWcUcDrWC5dAg6c7w9Vu8vncxPMnq5TnTQ
+ sq1343eCZvODng9Hz0J9VfGudvS+qPORJKwinazTet2sfr2Q8MYg8GjrnFHdZHCmDF
+ xL+wFasiZ6vHA7co1r35ZMjtkcFeFGTtECs9ETwU=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 05/30] ASoC: sgtl5000: Fix VAG power-on handling
-Date: Thu, 30 Apr 2020 09:53:00 -0400
-Message-Id: <20200430135325.20762-5-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 06/30] ASoC: q6dsp6: q6afe-dai: add missing
+ channels to MI2S DAIs
+Date: Thu, 30 Apr 2020 09:53:01 -0400
+Message-Id: <20200430135325.20762-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200430135325.20762-1-sashal@kernel.org>
 References: <20200430135325.20762-1-sashal@kernel.org>
@@ -67,8 +68,9 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Fabio Estevam <festivem@gmail.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>
+ Mark Brown <broonie@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Stephan Gerhold <stephan@gerhold.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,87 +86,121 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
+From: Stephan Gerhold <stephan@gerhold.net>
 
-[ Upstream commit aa7812737f2877e192d57626cbe8825cc7cf6de9 ]
+[ Upstream commit 0c824ec094b5cda766c80d88c2036e28c24a4cb1 ]
 
-As mentioned slightly out of patch context in the code, there
-is no reset routine for the chip. On boards where the chip is
-supplied by a fixed regulator, it might not even be resetted
-during (e.g. watchdog) reboot and can be in any state.
+For some reason, the MI2S DAIs do not have channels_min/max defined.
+This means that snd_soc_dai_stream_valid() returns false,
+i.e. the DAIs have neither valid playback nor capture stream.
 
-If the device is probed with VAG enabled, the driver's probe
-routine will generate a loud pop sound when ANA_POWER is
-being programmed. Avoid this by properly disabling just the
-VAG bit and waiting the required power down time.
+It's quite surprising that this ever worked correctly,
+but in 5.7-rc1 this is now failing badly: :)
 
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Reviewed-by: Fabio Estevam <festivem@gmail.com>
-Link: https://lore.kernel.org/r/20200414181140.145825-1-sebastian.reichel@collabora.com
+Commit 0e9cf4c452ad ("ASoC: pcm: check if cpu-dai supports a given stream")
+introduced a check for snd_soc_dai_stream_valid() before calling
+hw_params(), which means that the q6i2s_hw_params() function
+was never called, eventually resulting in:
+
+    qcom-q6afe aprsvc:q6afe:4:4: no line is assigned
+
+... even though "qcom,sd-lines" is set in the device tree.
+
+Commit 9b5db059366a ("ASoC: soc-pcm: dpcm: Only allow playback/capture if supported")
+now even avoids creating PCM devices if the stream is not supported,
+which means that it is failing even earlier with e.g.:
+
+    Primary MI2S: ASoC: no backend playback stream
+
+Avoid all that trouble by adding channels_min/max for the MI2S DAIs.
+
+Fixes: 24c4cbcfac09 ("ASoC: qdsp6: q6afe: Add q6afe dai driver")
+Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Link: https://lore.kernel.org/r/20200415150050.616392-1-stephan@gerhold.net
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/sgtl5000.c | 34 ++++++++++++++++++++++++++++++++++
- sound/soc/codecs/sgtl5000.h |  1 +
- 2 files changed, 35 insertions(+)
+ sound/soc/qcom/qdsp6/q6afe-dai.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/sound/soc/codecs/sgtl5000.c b/sound/soc/codecs/sgtl5000.c
-index 896412d11a31c..7c0a06b487f74 100644
---- a/sound/soc/codecs/sgtl5000.c
-+++ b/sound/soc/codecs/sgtl5000.c
-@@ -1633,6 +1633,40 @@ static int sgtl5000_i2c_probe(struct i2c_client *client,
- 		dev_err(&client->dev,
- 			"Error %d initializing CHIP_CLK_CTRL\n", ret);
- 
-+	/* Mute everything to avoid pop from the following power-up */
-+	ret = regmap_write(sgtl5000->regmap, SGTL5000_CHIP_ANA_CTRL,
-+			   SGTL5000_CHIP_ANA_CTRL_DEFAULT);
-+	if (ret) {
-+		dev_err(&client->dev,
-+			"Error %d muting outputs via CHIP_ANA_CTRL\n", ret);
-+		goto disable_clk;
-+	}
-+
-+	/*
-+	 * If VAG is powered-on (e.g. from previous boot), it would be disabled
-+	 * by the write to ANA_POWER in later steps of the probe code. This
-+	 * may create a loud pop even with all outputs muted. The proper way
-+	 * to circumvent this is disabling the bit first and waiting the proper
-+	 * cool-down time.
-+	 */
-+	ret = regmap_read(sgtl5000->regmap, SGTL5000_CHIP_ANA_POWER, &value);
-+	if (ret) {
-+		dev_err(&client->dev, "Failed to read ANA_POWER: %d\n", ret);
-+		goto disable_clk;
-+	}
-+	if (value & SGTL5000_VAG_POWERUP) {
-+		ret = regmap_update_bits(sgtl5000->regmap,
-+					 SGTL5000_CHIP_ANA_POWER,
-+					 SGTL5000_VAG_POWERUP,
-+					 0);
-+		if (ret) {
-+			dev_err(&client->dev, "Error %d disabling VAG\n", ret);
-+			goto disable_clk;
-+		}
-+
-+		msleep(SGTL5000_VAG_POWERDOWN_DELAY);
-+	}
-+
- 	/* Follow section 2.2.1.1 of AN3663 */
- 	ana_pwr = SGTL5000_ANA_POWER_DEFAULT;
- 	if (sgtl5000->num_supplies <= VDDD) {
-diff --git a/sound/soc/codecs/sgtl5000.h b/sound/soc/codecs/sgtl5000.h
-index 18cae08bbd3a6..066517e352a70 100644
---- a/sound/soc/codecs/sgtl5000.h
-+++ b/sound/soc/codecs/sgtl5000.h
-@@ -233,6 +233,7 @@
- /*
-  * SGTL5000_CHIP_ANA_CTRL
-  */
-+#define SGTL5000_CHIP_ANA_CTRL_DEFAULT		0x0133
- #define SGTL5000_LINE_OUT_MUTE			0x0100
- #define SGTL5000_HP_SEL_MASK			0x0040
- #define SGTL5000_HP_SEL_SHIFT			6
+diff --git a/sound/soc/qcom/qdsp6/q6afe-dai.c b/sound/soc/qcom/qdsp6/q6afe-dai.c
+index 8f6c8fc073a93..1fc1939b90c2f 100644
+--- a/sound/soc/qcom/qdsp6/q6afe-dai.c
++++ b/sound/soc/qcom/qdsp6/q6afe-dai.c
+@@ -899,6 +899,8 @@ static struct snd_soc_dai_driver q6afe_dais[] = {
+ 				 SNDRV_PCM_RATE_16000,
+ 			.formats = SNDRV_PCM_FMTBIT_S16_LE |
+ 				   SNDRV_PCM_FMTBIT_S24_LE,
++			.channels_min = 1,
++			.channels_max = 8,
+ 			.rate_min =     8000,
+ 			.rate_max =     48000,
+ 		},
+@@ -914,6 +916,8 @@ static struct snd_soc_dai_driver q6afe_dais[] = {
+ 				 SNDRV_PCM_RATE_16000,
+ 			.formats = SNDRV_PCM_FMTBIT_S16_LE |
+ 				   SNDRV_PCM_FMTBIT_S24_LE,
++			.channels_min = 1,
++			.channels_max = 8,
+ 			.rate_min =     8000,
+ 			.rate_max =     48000,
+ 		},
+@@ -928,6 +932,8 @@ static struct snd_soc_dai_driver q6afe_dais[] = {
+ 			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
+ 				 SNDRV_PCM_RATE_16000,
+ 			.formats = SNDRV_PCM_FMTBIT_S16_LE,
++			.channels_min = 1,
++			.channels_max = 8,
+ 			.rate_min =     8000,
+ 			.rate_max =     48000,
+ 		},
+@@ -943,6 +949,8 @@ static struct snd_soc_dai_driver q6afe_dais[] = {
+ 				 SNDRV_PCM_RATE_16000,
+ 			.formats = SNDRV_PCM_FMTBIT_S16_LE |
+ 				   SNDRV_PCM_FMTBIT_S24_LE,
++			.channels_min = 1,
++			.channels_max = 8,
+ 			.rate_min =     8000,
+ 			.rate_max =     48000,
+ 		},
+@@ -957,6 +965,8 @@ static struct snd_soc_dai_driver q6afe_dais[] = {
+ 			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
+ 				 SNDRV_PCM_RATE_16000,
+ 			.formats = SNDRV_PCM_FMTBIT_S16_LE,
++			.channels_min = 1,
++			.channels_max = 8,
+ 			.rate_min =     8000,
+ 			.rate_max =     48000,
+ 		},
+@@ -972,6 +982,8 @@ static struct snd_soc_dai_driver q6afe_dais[] = {
+ 				 SNDRV_PCM_RATE_16000,
+ 			.formats = SNDRV_PCM_FMTBIT_S16_LE |
+ 				   SNDRV_PCM_FMTBIT_S24_LE,
++			.channels_min = 1,
++			.channels_max = 8,
+ 			.rate_min =     8000,
+ 			.rate_max =     48000,
+ 		},
+@@ -986,6 +998,8 @@ static struct snd_soc_dai_driver q6afe_dais[] = {
+ 			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
+ 				 SNDRV_PCM_RATE_16000,
+ 			.formats = SNDRV_PCM_FMTBIT_S16_LE,
++			.channels_min = 1,
++			.channels_max = 8,
+ 			.rate_min =     8000,
+ 			.rate_max =     48000,
+ 		},
+@@ -1001,6 +1015,8 @@ static struct snd_soc_dai_driver q6afe_dais[] = {
+ 				 SNDRV_PCM_RATE_16000,
+ 			.formats = SNDRV_PCM_FMTBIT_S16_LE |
+ 				   SNDRV_PCM_FMTBIT_S24_LE,
++			.channels_min = 1,
++			.channels_max = 8,
+ 			.rate_min =     8000,
+ 			.rate_max =     48000,
+ 		},
 -- 
 2.20.1
 

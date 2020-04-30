@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80BB21BFC98
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 16:07:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 400E31BFCBC
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 16:08:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 360B2836;
-	Thu, 30 Apr 2020 16:06:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 360B2836
+	by alsa0.perex.cz (Postfix) with ESMTPS id DEAB31686;
+	Thu, 30 Apr 2020 16:07:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEAB31686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588255649;
-	bh=LNu0u4m1TpX1W4ZZjSTKvd48EX1thU7V29jKjQvWTMc=;
+	s=default; t=1588255688;
+	bh=8zk+QF+qhgskiuTgcQ5ftCBfM2M46oQfz0+/HdbgpwY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rcBWZi6C3xKmfqNLsCkvQ3WDugOVVp33XB32tbWSjsMoBnxNmpL74616kZg3qG7u5
-	 rhuMkC5VTBKjw6bR6QLmCzPOykwajISJYb7WCxYQn0eCTD4omTEi4ISnFtzH9FXGfa
-	 11kCV3YBkei7n9SfXtHepxidy1Pul+F9g+jXgjfM=
+	b=KUHr+7K7SUFrpAa41PgpXKxYLfhVMmg/98qy1N9NxsR3YVs8A+AQ2POudYQILKzMb
+	 WgtEBbVmhwzuPaIyVybLj3I6mhMRIgfNpW39ORrDAgvEjlik7peFnn94e/FJr+KLeG
+	 T6kDQtYXG1d8mo3RksjAbaynI7xEAYmHFbQe2N3M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4191FF8038F;
-	Thu, 30 Apr 2020 15:52:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5017DF803A6;
+	Thu, 30 Apr 2020 15:53:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F37CF80384; Thu, 30 Apr 2020 15:52:52 +0200 (CEST)
+ id 91781F80384; Thu, 30 Apr 2020 15:52:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,42 +34,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99864F8035E
- for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 15:52:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99864F8035E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3134EF80368
+ for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 15:52:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3134EF80368
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="vIKSmQad"
+ header.b="ytZhzZN7"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 89E7024956;
- Thu, 30 Apr 2020 13:52:33 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id E9E8D208D5;
+ Thu, 30 Apr 2020 13:52:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588254754;
- bh=LNu0u4m1TpX1W4ZZjSTKvd48EX1thU7V29jKjQvWTMc=;
+ s=default; t=1588254757;
+ bh=8zk+QF+qhgskiuTgcQ5ftCBfM2M46oQfz0+/HdbgpwY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=vIKSmQad2MdmAkFHv0XEozlv8HCZJ/6BBbb6YhQxu3ZKqUraDsWRGFrMekBjR5EcD
- LAp5n9Be9atpTacv4CvjO/M7iU4lQCSW0lzyfs13/KaWDw/RVJ+9jXdG208vWE2W5E
- pGEmpE4ueNCWqTHu3MLYlleteRMYlT2ubojI9W7g=
+ b=ytZhzZN7MC1SSruLQyzq0j9mDwKSRssuLrkGgLXLhVgM+s0aSzjEYNEBHhQ6ncUrI
+ obgFWGOIHS9YFf/XHyp2ANfCXJRP3KXchQzd8VwNVOpNCA/BPKLkmT6u4q+JoJWZwA
+ GW2QAj+EZS0R56/RCk+9dubd8Zep5X5W0reN+tkk=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 13/57] ASoC: topology: Fix endianness issue
-Date: Thu, 30 Apr 2020 09:51:34 -0400
-Message-Id: <20200430135218.20372-13-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 16/57] ASoC: rsnd: Fix parent SSI start/stop in
+ multi-SSI mode
+Date: Thu, 30 Apr 2020 09:51:37 -0400
+Message-Id: <20200430135218.20372-16-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200430135218.20372-1-sashal@kernel.org>
 References: <20200430135218.20372-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
+Cc: Matthias Blankertz <matthias.blankertz@cetitec.com>,
+ Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,34 +86,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+From: Matthias Blankertz <matthias.blankertz@cetitec.com>
 
-[ Upstream commit 26d87881590fd55ccdd8f829498d7b3033f81990 ]
+[ Upstream commit a09fb3f28a60ba3e928a1fa94b0456780800299d ]
 
-As done in already existing cases, we should use le32_to_cpu macro while
-accessing hdr->magic. Found with sparse.
+The parent SSI of a multi-SSI setup must be fully setup, started and
+stopped since it is also part of the playback/capture setup. So only
+skip the SSI (as per commit 203cdf51f288 ("ASoC: rsnd: SSI parent cares
+SWSP bit") and commit 597b046f0d99 ("ASoC: rsnd: control SSICR::EN
+correctly")) if the SSI is parent outside of a multi-SSI setup.
 
-Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-Link: https://lore.kernel.org/r/20200415162435.31859-2-amadeuszx.slawinski@linux.intel.com
+Signed-off-by: Matthias Blankertz <matthias.blankertz@cetitec.com>
+Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Link: https://lore.kernel.org/r/20200415141017.384017-2-matthias.blankertz@cetitec.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/soc-topology.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/sh/rcar/ssi.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
-index 2d4a5a3058c41..65c91abb9462f 100644
---- a/sound/soc/soc-topology.c
-+++ b/sound/soc/soc-topology.c
-@@ -2559,7 +2559,7 @@ static int soc_valid_header(struct soc_tplg *tplg,
- 	}
+diff --git a/sound/soc/sh/rcar/ssi.c b/sound/soc/sh/rcar/ssi.c
+index fc5d089868dfc..d51fb3a394486 100644
+--- a/sound/soc/sh/rcar/ssi.c
++++ b/sound/soc/sh/rcar/ssi.c
+@@ -407,7 +407,7 @@ static void rsnd_ssi_config_init(struct rsnd_mod *mod,
+ 	 * We shouldn't exchange SWSP after running.
+ 	 * This means, parent needs to care it.
+ 	 */
+-	if (rsnd_ssi_is_parent(mod, io))
++	if (rsnd_ssi_is_parent(mod, io) && !rsnd_ssi_multi_slaves(io))
+ 		goto init_end;
  
- 	/* big endian firmware objects not supported atm */
--	if (hdr->magic == SOC_TPLG_MAGIC_BIG_ENDIAN) {
-+	if (le32_to_cpu(hdr->magic) == SOC_TPLG_MAGIC_BIG_ENDIAN) {
- 		dev_err(tplg->dev,
- 			"ASoC: pass %d big endian not supported header got %x at offset 0x%lx size 0x%zx.\n",
- 			tplg->pass, hdr->magic,
+ 	if (rsnd_io_is_play(io))
+@@ -559,7 +559,7 @@ static int rsnd_ssi_start(struct rsnd_mod *mod,
+ 	 * EN is for data output.
+ 	 * SSI parent EN is not needed.
+ 	 */
+-	if (rsnd_ssi_is_parent(mod, io))
++	if (rsnd_ssi_is_parent(mod, io) && !rsnd_ssi_multi_slaves(io))
+ 		return 0;
+ 
+ 	ssi->cr_en = EN;
+@@ -582,7 +582,7 @@ static int rsnd_ssi_stop(struct rsnd_mod *mod,
+ 	if (!rsnd_ssi_is_run_mods(mod, io))
+ 		return 0;
+ 
+-	if (rsnd_ssi_is_parent(mod, io))
++	if (rsnd_ssi_is_parent(mod, io) && !rsnd_ssi_multi_slaves(io))
+ 		return 0;
+ 
+ 	cr  =	ssi->cr_own	|
+@@ -620,7 +620,7 @@ static int rsnd_ssi_irq(struct rsnd_mod *mod,
+ 	if (rsnd_is_gen1(priv))
+ 		return 0;
+ 
+-	if (rsnd_ssi_is_parent(mod, io))
++	if (rsnd_ssi_is_parent(mod, io) && !rsnd_ssi_multi_slaves(io))
+ 		return 0;
+ 
+ 	if (!rsnd_ssi_is_run_mods(mod, io))
 -- 
 2.20.1
 

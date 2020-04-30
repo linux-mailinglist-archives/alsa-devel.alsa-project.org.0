@@ -2,113 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B02551BF362
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 10:47:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F01921BF3E4
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 11:14:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 58DB51669;
-	Thu, 30 Apr 2020 10:47:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58DB51669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6CDFD1689;
+	Thu, 30 Apr 2020 11:13:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6CDFD1689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588236478;
-	bh=qTaP5yhmQowEtGy14MQc85aZDBi5Bq9e1gjpJn+SN+M=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=HYK85XQvJou+mfI7/+yim1q5cR/dyWxD/2d6uDzgvj8jZ2hfRXCg7K5XPC1Bw/ja6
-	 dFkWZTgZfk4GXJ23onahQ0rySxOLriQ//Kobbd3nXzjRROmlURpJY68bCJsSaxYROJ
-	 O2JpbF296B1+KnfIfmsjB0MjRcP/xBn7DD8iyzac=
+	s=default; t=1588238040;
+	bh=jS0UA7cZFS3kupniVJuY8uhyLsjwypKlMjRPqEYNIlQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=R9Kq/t/LIaov5E6xpWGHlxCG8Dh77Rc9PQyUh2oPaKnWcrWFiv1hzrKO5MEG5cw10
+	 ANfKIQllF0w7AvrUO/d+tzOLxYF9MQ3Okw8h4MQwED30H9M1N6SIfQFVlspvPIr+IV
+	 2gzhCQhksNVsAcJmK2TpsppSFTJhzoRe+tgpX79c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 076BCF801EB;
-	Thu, 30 Apr 2020 10:46:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B99CF801EB;
+	Thu, 30 Apr 2020 11:12:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 70DEAF801DB; Thu, 30 Apr 2020 10:46:14 +0200 (CEST)
+ id E2A43F801DB; Thu, 30 Apr 2020 11:12:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from wnew3-smtp.messagingengine.com (wnew3-smtp.messagingengine.com
- [64.147.123.17])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=AC_FROM_MANY_DOTS,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C7D39F800B6
- for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 10:46:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7D39F800B6
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="Crn54lkB"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="MfacvNZm"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.west.internal (Postfix) with ESMTP id 941B190D;
- Thu, 30 Apr 2020 04:46:05 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Thu, 30 Apr 2020 04:46:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm2; bh=fpjtGZf8AqSI48exIlo8OnF8z0r
- obzEYf4a720y11JI=; b=Crn54lkBtd00EaqOJspktSUBCz50ahh6oNvAj45B9nN
- Iwl59n8WUN4O2OGxKJz0cNVwsmE3RdYV+3VrQAcA7L7umKCCt2/DUlTmNUBMr56Q
- BxuwEjBk4fF/pEj8TJOyPTUbKDBAkAxpha/IstRwOrsXiHC+nn78wQf7BVCXC8HC
- gRpC2Ih4tLzOA5KnczD36BWaZL6SuZQTuoggbyx8ySwZWqhfeRqjGqznqCne+QIq
- fES7oWLLnLoImdP9lHX0evFtLflOksq9e9Z+1A3dQhGjo+HAPhAQC1voptWLQyUv
- eKp6xf83V69RUKxIEV6G9GTJtNnN3VcfNvpxQPHuc0A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=fpjtGZ
- f8AqSI48exIlo8OnF8z0robzEYf4a720y11JI=; b=MfacvNZm1+/+qJ2z+cBQh9
- CWx/PNOje+aXmEZyXakBvlexfUNKWaee4mYIFb4WPcefbzxemjkRDc6nBp4MOoz4
- k4PmL1Flr7D9pvwoY8BiDFGOki1p61NVDqiezlvuKoOoamyRc02v40H2jxlNrfSH
- p35tV48BXr+yHhgL6RNwaDFQcGW+o2mxWIIrDBvLe2ZJkF2cqLh3deifsMOxWXZ6
- TxHjUoJjnji88vysO/jHChZtcWA0V1YRJNM/h1leuNuCrgGlfxMzjGFCN+7+a5bO
- 0BDRiH+2y82LZUMIhvbK3dCeWTQU+GRMMcVangrSLfvoYzivKhm5alewsSNa2JFg
- ==
-X-ME-Sender: <xms:SpCqXhoWXIPqto5Zw9q9kGy8eExsyYKiFCJs7MvLNuhXR9-EWk8Ryw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrieehgddtkecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesghdtreertddtudenucfhrhhomhepofgrgihimhgv
- ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
- gvrhhnpeduvdduhfekkeehgffftefflefgffdtheffudffgeevteffheeuiedvvdejvdfg
- veenucfkphepledtrdekledrieekrdejieenucevlhhushhtvghrufhiiigvpedtnecurf
- grrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:SpCqXt8_Xg_kmJW_z9vDfQNvzkNt0Qy2S24GmNMmKFQqiZAiOHBRvw>
- <xmx:SpCqXmYF-MTqX7R7WKqDvEh1JI1fs8uIYh1nZDFpPLjek26B8d0uNQ>
- <xmx:SpCqXn0MbOxK1PQtCxaoNwCyZulXcZPqOBUhbdCAXq3jAvkcAXmQIQ>
- <xmx:TZCqXsEDR3SBul6X-zgv3p3lwGz03BsnL8RlEu8Btqu5aDV62mGCvDcSyRU>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id 3765C3280067;
- Thu, 30 Apr 2020 04:46:02 -0400 (EDT)
-Date: Thu, 30 Apr 2020 10:46:00 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
-Subject: Re: [PATCH v3 3/7] ASoC: sun4i-i2s: Add support for H6 I2S
-Message-ID: <20200430084600.samghw4zxb5zdbez@gilmour.lan>
-References: <20200426104115.22630-1-peron.clem@gmail.com>
- <20200426104115.22630-4-peron.clem@gmail.com>
- <20200428081321.ht3el26yqhsnyfm4@gilmour.lan>
- <CAJiuCcdVs_drs40Q6537BYfz24F7NmC6B8S5-Lt4V4ggs-FXWA@mail.gmail.com>
- <20200429123529.y24dpy63wxq7uvkt@gilmour.lan>
- <CAJiuCcfXqizcq_JuXRCsqEqM2562cr1SGJ0pmy07jcJxAXojOw@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="y3cvvuhxye45tbpz"
-Content-Disposition: inline
-In-Reply-To: <CAJiuCcfXqizcq_JuXRCsqEqM2562cr1SGJ0pmy07jcJxAXojOw@mail.gmail.com>
-Cc: devicetree <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Jernej Skrabec <jernej.skrabec@siol.net>, Takashi Iwai <tiwai@suse.com>,
- Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Mark Brown <broonie@kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2EFA3F80123;
+ Thu, 30 Apr 2020 11:12:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2EFA3F80123
+Received: from 61-220-137-37.hinet-ip.hinet.net ([61.220.137.37]
+ helo=localhost) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <kai.heng.feng@canonical.com>)
+ id 1jU5EZ-00063O-A0; Thu, 30 Apr 2020 09:11:56 +0000
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+To: pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ daniel.baluta@nxp.com
+Subject: [PATCH] ASoC: SOF: Update correct LED status at the first time usage
+ of update_mute_led()
+Date: Thu, 30 Apr 2020 17:11:39 +0800
+Message-Id: <20200430091139.7003-1-kai.heng.feng@canonical.com>
+X-Mailer: git-send-email 2.17.1
+Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, open list <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
+ Jaska Uimonen <jaska.uimonen@linux.intel.com>,
+ "moderated list:SOUND - SOUND OPEN FIRMWARE SOF DRIVERS"
+ <sound-open-firmware@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -124,66 +73,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+At the first time update_mute_led() gets called, if channels are already
+muted, the temp value equals to led_value as 0, skipping the following
+LED setting.
 
---y3cvvuhxye45tbpz
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+So set led_value to -1 as an uninitialized state, to update the correct
+LED status at first time usage.
 
-Hi,
+Fixes: 5d43001ae436 ("ASoC: SOF: acpi led support for switch controls")
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+---
+ sound/soc/sof/control.c   | 4 ++--
+ sound/soc/sof/sof-audio.h | 2 +-
+ sound/soc/sof/topology.c  | 2 ++
+ 3 files changed, 5 insertions(+), 3 deletions(-)
 
-On Wed, Apr 29, 2020 at 06:33:00PM +0200, Cl=E9ment P=E9ron wrote:
-> On Wed, 29 Apr 2020 at 14:35, Maxime Ripard <maxime@cerno.tech> wrote:
-> >
-> > On Tue, Apr 28, 2020 at 10:55:47AM +0200, Cl=E9ment P=E9ron wrote:
-> > > > > +static int sun50i_i2s_set_soc_fmt(const struct sun4i_i2s *i2s,
-> > > > > +                              unsigned int fmt)
-> > > >
-> > > > The alignment is off here
-> > > >
-> > > > > +{
-> > > > > +     u32 mode, val;
-> > > > > +     u8 offset;
-> > > > > +
-> > > > > +     /*
-> > > > > +      * DAI clock polarity
-> > > > > +      *
-> > > > > +      * The setup for LRCK contradicts the datasheet, but under a
-> > > > > +      * scope it's clear that the LRCK polarity is reversed
-> > > > > +      * compared to the expected polarity on the bus.
-> > > > > +      */
-> > > >
-> > > > Did you check this or has it been copy-pasted?
-> > >
-> > > copy-pasted, I will check this.
-> >
-> > It's not going to be easy to do this if you only have a board with HDMI=
-=2E If you
-> > can't test that easily, just remove the comment (or make it explicit th=
-at you
-> > copy pasted it?), no comment is better than a wrong one.
->=20
-> I have talked with Marcus Cooper it may be able to test this this week-en=
-d.
-> Also this can explain why we need the "
-> simple-audio-card,frame-inversion;" in the device-tree.
->=20
-> If think this fix has been introduced by you, correct? Could you say
-> on which SoC did you see this issue?
+diff --git a/sound/soc/sof/control.c b/sound/soc/sof/control.c
+index dfc412e2d956..6d63768d42aa 100644
+--- a/sound/soc/sof/control.c
++++ b/sound/soc/sof/control.c
+@@ -19,8 +19,8 @@ static void update_mute_led(struct snd_sof_control *scontrol,
+ 			    struct snd_kcontrol *kcontrol,
+ 			    struct snd_ctl_elem_value *ucontrol)
+ {
+-	unsigned int temp = 0;
+-	unsigned int mask;
++	int temp = 0;
++	int mask;
+ 	int i;
+ 
+ 	mask = 1U << snd_ctl_get_ioffidx(kcontrol, &ucontrol->id);
+diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
+index bf65f31af858..875a5fc13297 100644
+--- a/sound/soc/sof/sof-audio.h
++++ b/sound/soc/sof/sof-audio.h
+@@ -56,7 +56,7 @@ struct snd_sof_pcm {
+ struct snd_sof_led_control {
+ 	unsigned int use_led;
+ 	unsigned int direction;
+-	unsigned int led_value;
++	int led_value;
+ };
+ 
+ /* ALSA SOF Kcontrol device */
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index fe8ba3e05e08..ab2b69de1d4d 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -1203,6 +1203,8 @@ static int sof_control_load(struct snd_soc_component *scomp, int index,
+ 		return ret;
+ 	}
+ 
++	scontrol->led_ctl.led_value = -1;
++
+ 	dobj->private = scontrol;
+ 	list_add(&scontrol->list, &sdev->kcontrol_list);
+ 	return ret;
+-- 
+2.17.1
 
-This was seen on an H3
-
-Maxime
-
---y3cvvuhxye45tbpz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXqqQRwAKCRDj7w1vZxhR
-xc06AP4quZAf2DNrCglxI3FnGicJEvn/UCQlNMdBjtAZiNt6NAEAklrbdL9EUUv6
-PaDu07BZiJ7iqnqxZPn5egwCTM/O1Ac=
-=jFs3
------END PGP SIGNATURE-----
-
---y3cvvuhxye45tbpz--

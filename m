@@ -2,65 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C11EC1BF653
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 13:16:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F2281BF6D3
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 13:28:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 332CD168C;
-	Thu, 30 Apr 2020 13:15:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 332CD168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA9261688;
+	Thu, 30 Apr 2020 13:27:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA9261688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588245392;
-	bh=II0LpP8LYtwM0znscVzxdltbyyXpa1FjNHfRIaR6KLo=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1588246105;
+	bh=fM1oToogOF4WJCAaPL+YG1iYXk8nDsvrJMs1qB7ybqQ=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=D9nSZQ7PvfWvZHgkaVj76QDUc1xWuiOcQ7ddSS2la98dAGLEm1Bdtl2BfsafLNKos
-	 qfQujW7Kdjo0uxUBnpcYLRGaVMRMcHLqmHiT8oUnPJqOTlVGF+JHUw4yc4HiEKYcDK
-	 4XyDvYEoXjH7k112M1AF56AtZfUZkBGRMFBgCWgs=
+	b=T2rN5pQGwQpismZKIzDlIhz3m5w7o5JIcU/E+CVxo51Y8kRPEeT3eOzb2JEsWOAxG
+	 ArKo+wyruEGS79HEQhcZzsk6eVpiWcSZa6pIc3s355b0AZQZ95XUR/ry6888uL/n3r
+	 N/YSBTRLDwBHSb1bLUlP6JVjWw506wRYU9PTIco0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50645F80123;
-	Thu, 30 Apr 2020 13:14:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB5F2F800E5;
+	Thu, 30 Apr 2020 13:26:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04AA1F801DB; Thu, 30 Apr 2020 13:14:48 +0200 (CEST)
+ id 369BEF801DB; Thu, 30 Apr 2020 13:26:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C9982F800E5
- for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 13:14:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9982F800E5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HuaAOGtK"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E82912076D;
- Thu, 30 Apr 2020 11:14:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588245279;
- bh=II0LpP8LYtwM0znscVzxdltbyyXpa1FjNHfRIaR6KLo=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=HuaAOGtKcX8V628RxxiH3HxbVIeCa2COTXcza5mkgLkCdXDRiV9fdWDgniV8dH2yv
- Lvz7RZQZhBhsEQO6JKFi6PcGO8lP7rj8voFIoonMoqlrDun9MAAXEQJdcDaD21qbey
- Vt2Xmq8Fo3LF8KiPvCnPlxs/10mkDW6AfPMSHu7A=
-Date: Thu, 30 Apr 2020 12:14:36 +0100
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-In-Reply-To: <20200427162953.21107-1-ranjani.sridharan@linux.intel.com>
-References: <20200427162953.21107-1-ranjani.sridharan@linux.intel.com>
-Subject: Re: [PATCH] ASoC: Intel: broadwell: Fix oops during module removal
-Message-Id: <158824527683.22336.7315911008650322110.b4-ty@kernel.org>
-Cc: tiwai@suse.de, pierre-louis.bossart@linux.intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id BC457F800E5
+ for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 13:26:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC457F800E5
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 52181ACB1;
+ Thu, 30 Apr 2020 11:26:35 +0000 (UTC)
+Date: Thu, 30 Apr 2020 13:26:34 +0200
+Message-ID: <s5hd07pi591.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Subject: Re: [PATCH 3/3] ALSA: hda/realtek - Add LED class support for micmute
+ LED
+In-Reply-To: <20200430083255.5093-3-kai.heng.feng@canonical.com>
+References: <20200430083255.5093-1-kai.heng.feng@canonical.com>
+ <20200430083255.5093-3-kai.heng.feng@canonical.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Kailang Yang <kailang@realtek.com>, Tomas Espeleta <tomas.espeleta@gmail.com>,
+ open list <linux-kernel@vger.kernel.org>, tiwai@suse.com,
+ Hui Wang <hui.wang@canonical.com>, Thomas Hebb <tommyhebb@gmail.com>,
+ Jian-Hong Pan <jian-hong@endlessm.com>,
+ =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,42 +76,90 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 27 Apr 2020 09:29:53 -0700, Ranjani Sridharan wrote:
-> When removing the SOF module, the RT286 jack detect
-> handler will oops if jack detection is not disabled.
-> Disable the jack in the machine driver remove callback
-> to prevent this. This fix is only for SOF support and is
-> not needed for earlier versions.
+On Thu, 30 Apr 2020 10:32:53 +0200,
+Kai-Heng Feng wrote:
 > 
-> Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Currently DMIC controls micmute LED via "audio mute LED trigger".
 > 
-> [...]
+> However, unlike Dell and Lenovo platforms, HP platforms don't provide a
+> way to control micmute LED via ACPI, it's controlled by HDA codec
+> instead.
+> 
+> So let's register an LED class for micmute so other subsystems like DMIC
+> can facilitate the codec-controlled LED.
+> 
+> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
 
-Applied to
+I guess this requires the Kconfig change to select CONFIG_LEDS_*
+or make the code conditionally built.  So far the latter strategy is
+taken for the code in hda_generic.c.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.7
 
-Thanks!
+thanks,
 
-[1/1] ASoC: Intel: broadwell: Fix oops during module removal
-      commit: 8382f2949a0def8e9519603b77b3c26f81a66576
+Takashi
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+> ---
+>  sound/pci/hda/patch_realtek.c | 25 +++++++++++++++++++++++++
+>  1 file changed, 25 insertions(+)
+> 
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index 6f164ccddde3..82eb7624bbba 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -17,6 +17,7 @@
+>  #include <linux/dmi.h>
+>  #include <linux/module.h>
+>  #include <linux/input.h>
+> +#include <linux/leds.h>
+>  #include <sound/core.h>
+>  #include <sound/jack.h>
+>  #include <sound/hda_codec.h>
+> @@ -4103,6 +4104,24 @@ static void alc_gpio_micmute_update(struct hda_codec *codec)
+>  			    spec->gen.micmute_led.led_value);
+>  }
+>  
+> +static int micmute_led_set(struct led_classdev *led_cdev,
+> +			   enum led_brightness brightness)
+> +{
+> +	struct hda_codec *codec = dev_to_hda_codec(led_cdev->dev->parent);
+> +	struct alc_spec *spec = codec->spec;
+> +
+> +	alc_update_gpio_led(codec, spec->gpio_mic_led_mask,
+> +			    spec->micmute_led_polarity, !!brightness);
+> +	return 0;
+> +}
+> +
+> +static struct led_classdev micmute_led_cdev = {
+> +	.name = "hda::micmute",
+> +	.max_brightness = 1,
+> +	.brightness_set_blocking = micmute_led_set,
+> +	.default_trigger = "audio-micmute",
+> +};
+> +
+>  /* setup mute and mic-mute GPIO bits, add hooks appropriately */
+>  static void alc_fixup_hp_gpio_led(struct hda_codec *codec,
+>  				  int action,
+> @@ -4110,6 +4129,7 @@ static void alc_fixup_hp_gpio_led(struct hda_codec *codec,
+>  				  unsigned int micmute_mask)
+>  {
+>  	struct alc_spec *spec = codec->spec;
+> +	int err;
+>  
+>  	alc_fixup_gpio(codec, action, mute_mask | micmute_mask);
+>  
+> @@ -4122,6 +4142,11 @@ static void alc_fixup_hp_gpio_led(struct hda_codec *codec,
+>  	if (micmute_mask) {
+>  		spec->gpio_mic_led_mask = micmute_mask;
+>  		snd_hda_gen_add_micmute_led(codec, alc_gpio_micmute_update);
+> +
+> +		micmute_led_cdev.brightness = ledtrig_audio_get(LED_AUDIO_MICMUTE);
+> +		err = devm_led_classdev_register(&codec->core.dev, &micmute_led_cdev);
+> +		if (err)
+> +			codec_warn(codec, "failed to register micmute LED\n");
+>  	}
+>  }
+>  
+> -- 
+> 2.17.1
+> 

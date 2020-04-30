@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 782711BFAB1
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 15:55:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E27431BFAC6
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 15:56:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2340D1671;
-	Thu, 30 Apr 2020 15:54:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2340D1671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9102C1693;
+	Thu, 30 Apr 2020 15:55:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9102C1693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588254925;
-	bh=cI6v8CZuocD6h+XIZMxcmeIiHC1Q3wA6Tn75/oE61No=;
+	s=default; t=1588254963;
+	bh=j7EesqpJdFMIiohM4Zu86JeArWKo8byoEHxcvBmIFJs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MOUf5Hk7e5HImSV1WXz3uUGXyK0LUMIUM4wz2rsZ8/yrgb4bM4NDvVIZAcYe15a/F
-	 V4n3qsjmfkit3jV6r15LZl3kSPwO+pzoweUg/F3b/xiPy4evAUF2JFUhZ75OV0KAoG
-	 Qgw4xitLEQuChULTp6wCnGitgttQ2oOBm0/pFwew=
+	b=AxXuJ3f/slK62pWHmGMVUpiclEgCaxeGGiFoyEAgaq+m4B5YyStfwRNsyJOonk075
+	 CymP243H6vOMNFUR8+2uvtNoZUy561jFRGT+R5GAOmQhZvOnR1ZbWJKjBCFD4h9o31
+	 M2C35rtsyMWjutk03Q+SmWpVC0xyGJDQfmCpsHmI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6BFBF802A8;
-	Thu, 30 Apr 2020 15:51:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24E21F802BE;
+	Thu, 30 Apr 2020 15:51:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9CE77F80292; Thu, 30 Apr 2020 15:51:07 +0200 (CEST)
+ id E7E5EF8028F; Thu, 30 Apr 2020 15:51:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 56034F80271
- for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 15:51:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56034F80271
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31F7EF8021C
+ for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 15:51:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31F7EF8021C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="anfkZfAB"
+ header.b="HRBWvn2S"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id F1440208DB;
- Thu, 30 Apr 2020 13:50:57 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id BE44120873;
+ Thu, 30 Apr 2020 13:51:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588254658;
- bh=cI6v8CZuocD6h+XIZMxcmeIiHC1Q3wA6Tn75/oE61No=;
+ s=default; t=1588254664;
+ bh=j7EesqpJdFMIiohM4Zu86JeArWKo8byoEHxcvBmIFJs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=anfkZfAB52YBspmkpI2JaJAWFCdzfTJh+wRerDWKKmNAalvNSof+/rNLASLVezVH7
- qArGvDNVF12cdAkxSKyH7FZsKP5k6yjyrNjSKJrYnKsdlHA+jScgnQAaV3d+zsGQ4d
- 0h4gWzYvG1mtRK3Ql/z9cBWonYk1n1QXnWkgoYuU=
+ b=HRBWvn2SU5htasFxi1UM7LtEFOkn8Wa2dca9nph9ekjzsLKnACh/JSgog1kP2qsAO
+ DPN0tXGA8wNV5OZ6bs5ZJTs+ky59j5YrizkZdENcviIjidXbyvhb3cuAZXoD8tlC74
+ 6yFsxExFP0oX0+mxx+EZqXRn1aOKagxTsDd5MTsY=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.6 12/79] ASoC: topology: Check return value of
- soc_tplg_dai_config
-Date: Thu, 30 Apr 2020 09:49:36 -0400
-Message-Id: <20200430135043.19851-12-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.6 17/79] ASoC: samsung: s3c24xx-i2s: Fix build after
+ removal of DAI suspend/resume
+Date: Thu, 30 Apr 2020 09:49:41 -0400
+Message-Id: <20200430135043.19851-17-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200430135043.19851-1-sashal@kernel.org>
 References: <20200430135043.19851-1-sashal@kernel.org>
@@ -69,10 +69,9 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
+ linux-samsung-soc@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Mark Brown <broonie@kernel.org>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,50 +87,186 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 
-[ Upstream commit dd8e871d4e560eeb8d22af82dde91457ad835a63 ]
+[ Upstream commit ec21bdc6dd16d74b3674ef1fd12ae8e4e7418603 ]
 
-Function soc_tplg_dai_config can fail, check for and handle possible
-failure.
+Commit 450312b640f9 ("ASoC: soc-core: remove DAI suspend/resume")
+removed the DAI side suspend/resume hooks and switched entirely to
+component suspend/resume.  However the Samsung SoC s3c-i2s-v2 driver was
+not updated.
 
-Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200327204729.397-7-amadeuszx.slawinski@linux.intel.com
+Move the suspend/resume hooks from s3c-i2s-v2.c to s3c2412-i2s.c while
+changing dai to component which allows to keep the struct
+snd_soc_component_driver const.
+
+This fixes build errors:
+
+    sound/soc/samsung/s3c-i2s-v2.c: In function ‘s3c_i2sv2_register_component’:
+    sound/soc/samsung/s3c-i2s-v2.c:730:9: error: ‘struct snd_soc_dai_driver’ has no member named ‘suspend’
+      dai_drv->suspend = s3c2412_i2s_suspend;
+
+Reported-by: Arnd Bergmann <arnd@arndb.de>
+Fixes: 450312b640f9 ("ASoC: soc-core: remove DAI suspend/resume")
+Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+
+Link: https://lore.kernel.org/r/20200413124548.28197-1-krzk@kernel.org
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/soc-topology.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ sound/soc/samsung/s3c-i2s-v2.c  | 57 ---------------------------------
+ sound/soc/samsung/s3c2412-i2s.c | 56 ++++++++++++++++++++++++++++++++
+ 2 files changed, 56 insertions(+), 57 deletions(-)
 
-diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
-index ca0ac5372b293..e6a17ab433eea 100644
---- a/sound/soc/soc-topology.c
-+++ b/sound/soc/soc-topology.c
-@@ -2524,7 +2524,7 @@ static int soc_tplg_dai_elems_load(struct soc_tplg *tplg,
- {
- 	struct snd_soc_tplg_dai *dai;
- 	int count;
--	int i;
-+	int i, ret;
+diff --git a/sound/soc/samsung/s3c-i2s-v2.c b/sound/soc/samsung/s3c-i2s-v2.c
+index 593be1b668d64..b3e12d6a78a19 100644
+--- a/sound/soc/samsung/s3c-i2s-v2.c
++++ b/sound/soc/samsung/s3c-i2s-v2.c
+@@ -656,60 +656,6 @@ void s3c_i2sv2_cleanup(struct snd_soc_dai *dai,
+ }
+ EXPORT_SYMBOL_GPL(s3c_i2sv2_cleanup);
  
- 	count = le32_to_cpu(hdr->count);
+-#ifdef CONFIG_PM
+-static int s3c2412_i2s_suspend(struct snd_soc_dai *dai)
+-{
+-	struct s3c_i2sv2_info *i2s = to_info(dai);
+-	u32 iismod;
+-
+-	if (dai->active) {
+-		i2s->suspend_iismod = readl(i2s->regs + S3C2412_IISMOD);
+-		i2s->suspend_iiscon = readl(i2s->regs + S3C2412_IISCON);
+-		i2s->suspend_iispsr = readl(i2s->regs + S3C2412_IISPSR);
+-
+-		/* some basic suspend checks */
+-
+-		iismod = readl(i2s->regs + S3C2412_IISMOD);
+-
+-		if (iismod & S3C2412_IISCON_RXDMA_ACTIVE)
+-			pr_warn("%s: RXDMA active?\n", __func__);
+-
+-		if (iismod & S3C2412_IISCON_TXDMA_ACTIVE)
+-			pr_warn("%s: TXDMA active?\n", __func__);
+-
+-		if (iismod & S3C2412_IISCON_IIS_ACTIVE)
+-			pr_warn("%s: IIS active\n", __func__);
+-	}
+-
+-	return 0;
+-}
+-
+-static int s3c2412_i2s_resume(struct snd_soc_dai *dai)
+-{
+-	struct s3c_i2sv2_info *i2s = to_info(dai);
+-
+-	pr_info("dai_active %d, IISMOD %08x, IISCON %08x\n",
+-		dai->active, i2s->suspend_iismod, i2s->suspend_iiscon);
+-
+-	if (dai->active) {
+-		writel(i2s->suspend_iiscon, i2s->regs + S3C2412_IISCON);
+-		writel(i2s->suspend_iismod, i2s->regs + S3C2412_IISMOD);
+-		writel(i2s->suspend_iispsr, i2s->regs + S3C2412_IISPSR);
+-
+-		writel(S3C2412_IISFIC_RXFLUSH | S3C2412_IISFIC_TXFLUSH,
+-		       i2s->regs + S3C2412_IISFIC);
+-
+-		ndelay(250);
+-		writel(0x0, i2s->regs + S3C2412_IISFIC);
+-	}
+-
+-	return 0;
+-}
+-#else
+-#define s3c2412_i2s_suspend NULL
+-#define s3c2412_i2s_resume  NULL
+-#endif
+-
+ int s3c_i2sv2_register_component(struct device *dev, int id,
+ 			   const struct snd_soc_component_driver *cmp_drv,
+ 			   struct snd_soc_dai_driver *dai_drv)
+@@ -727,9 +673,6 @@ int s3c_i2sv2_register_component(struct device *dev, int id,
+ 	if (!ops->delay)
+ 		ops->delay = s3c2412_i2s_delay;
  
-@@ -2539,7 +2539,12 @@ static int soc_tplg_dai_elems_load(struct soc_tplg *tplg,
- 			return -EINVAL;
- 		}
+-	dai_drv->suspend = s3c2412_i2s_suspend;
+-	dai_drv->resume = s3c2412_i2s_resume;
+-
+ 	return devm_snd_soc_register_component(dev, cmp_drv, dai_drv, 1);
+ }
+ EXPORT_SYMBOL_GPL(s3c_i2sv2_register_component);
+diff --git a/sound/soc/samsung/s3c2412-i2s.c b/sound/soc/samsung/s3c2412-i2s.c
+index 787a3f6e9f242..b35d828c1cfe9 100644
+--- a/sound/soc/samsung/s3c2412-i2s.c
++++ b/sound/soc/samsung/s3c2412-i2s.c
+@@ -117,6 +117,60 @@ static int s3c2412_i2s_hw_params(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
  
--		soc_tplg_dai_config(tplg, dai);
-+		ret = soc_tplg_dai_config(tplg, dai);
-+		if (ret < 0) {
-+			dev_err(tplg->dev, "ASoC: failed to configure DAI\n");
-+			return ret;
-+		}
++#ifdef CONFIG_PM
++static int s3c2412_i2s_suspend(struct snd_soc_component *component)
++{
++	struct s3c_i2sv2_info *i2s = snd_soc_component_get_drvdata(component);
++	u32 iismod;
 +
- 		tplg->pos += (sizeof(*dai) + le32_to_cpu(dai->priv.size));
- 	}
++	if (component->active) {
++		i2s->suspend_iismod = readl(i2s->regs + S3C2412_IISMOD);
++		i2s->suspend_iiscon = readl(i2s->regs + S3C2412_IISCON);
++		i2s->suspend_iispsr = readl(i2s->regs + S3C2412_IISPSR);
++
++		/* some basic suspend checks */
++
++		iismod = readl(i2s->regs + S3C2412_IISMOD);
++
++		if (iismod & S3C2412_IISCON_RXDMA_ACTIVE)
++			pr_warn("%s: RXDMA active?\n", __func__);
++
++		if (iismod & S3C2412_IISCON_TXDMA_ACTIVE)
++			pr_warn("%s: TXDMA active?\n", __func__);
++
++		if (iismod & S3C2412_IISCON_IIS_ACTIVE)
++			pr_warn("%s: IIS active\n", __func__);
++	}
++
++	return 0;
++}
++
++static int s3c2412_i2s_resume(struct snd_soc_component *component)
++{
++	struct s3c_i2sv2_info *i2s = snd_soc_component_get_drvdata(component);
++
++	pr_info("component_active %d, IISMOD %08x, IISCON %08x\n",
++		component->active, i2s->suspend_iismod, i2s->suspend_iiscon);
++
++	if (component->active) {
++		writel(i2s->suspend_iiscon, i2s->regs + S3C2412_IISCON);
++		writel(i2s->suspend_iismod, i2s->regs + S3C2412_IISMOD);
++		writel(i2s->suspend_iispsr, i2s->regs + S3C2412_IISPSR);
++
++		writel(S3C2412_IISFIC_RXFLUSH | S3C2412_IISFIC_TXFLUSH,
++		       i2s->regs + S3C2412_IISFIC);
++
++		ndelay(250);
++		writel(0x0, i2s->regs + S3C2412_IISFIC);
++	}
++
++	return 0;
++}
++#else
++#define s3c2412_i2s_suspend NULL
++#define s3c2412_i2s_resume  NULL
++#endif
++
+ #define S3C2412_I2S_RATES \
+ 	(SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_11025 | SNDRV_PCM_RATE_16000 | \
+ 	SNDRV_PCM_RATE_22050 | SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 | \
+@@ -146,6 +200,8 @@ static struct snd_soc_dai_driver s3c2412_i2s_dai = {
  
+ static const struct snd_soc_component_driver s3c2412_i2s_component = {
+ 	.name		= "s3c2412-i2s",
++	.suspend	= s3c2412_i2s_suspend,
++	.resume		= s3c2412_i2s_resume,
+ };
+ 
+ static int s3c2412_iis_dev_probe(struct platform_device *pdev)
 -- 
 2.20.1
 

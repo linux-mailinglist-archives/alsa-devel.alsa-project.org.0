@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 634351BFDBD
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 16:18:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33E2F1BFDD2
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 16:20:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 17DF416D0;
-	Thu, 30 Apr 2020 16:18:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17DF416D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id CEFAE16AF;
+	Thu, 30 Apr 2020 16:19:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEFAE16AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588256335;
-	bh=/n8bR6qEQEFiWRHggcyYjAzLLFE0mHLo93NI3PBUp94=;
+	s=default; t=1588256441;
+	bh=3/POyiqtelTVhdORwpZ36G6ZaXCF8YcncynUzPf+djo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=A6EeJ+qJeAwDn8F04VlhitjzVw10jq7JQdpRGhzsGgoPOddDvSIN2WWDGH912gBZe
-	 QXI9fN9DGwxvJRsbip1kHpq6AzI1A1UxyNkuOw9z8/4HIKfx999f3cObEMvVdT4lrp
-	 /ZH+3V0hxp8ph+W7oh91aBn7UFxd3q4OCW0DZKNw=
+	b=W4zJkx1Tbho4Wmk6mjObz+Mww0chdxas+5iWb8Hhw2K79c+qYKjyLwX/RRSj0/Z0a
+	 7v+SXrC+Z1cXYRwMnHnyltYFqEWLQbwAJ8ctDsT1punFKzvMwNKKHEtD9FxWJ16TUz
+	 67j2afJwzStTksLBUPT+BnlI76AqZ5VM1gCP0Hb4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EA2DAF8047E;
-	Thu, 30 Apr 2020 15:54:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3388EF8028F;
+	Thu, 30 Apr 2020 15:54:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 73913F8047A; Thu, 30 Apr 2020 15:54:10 +0200 (CEST)
+ id 58735F80491; Thu, 30 Apr 2020 15:54:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,45 +34,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E2C8AF80476
- for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 15:54:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2C8AF80476
+ by alsa1.perex.cz (Postfix) with ESMTPS id 685D2F80292
+ for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 15:54:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 685D2F80292
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Ni2iPzzr"
+ header.b="Ry3UICEl"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 94F8C20870;
- Thu, 30 Apr 2020 13:54:05 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id E6C4820873;
+ Thu, 30 Apr 2020 13:54:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588254846;
- bh=/n8bR6qEQEFiWRHggcyYjAzLLFE0mHLo93NI3PBUp94=;
+ s=default; t=1588254849;
+ bh=3/POyiqtelTVhdORwpZ36G6ZaXCF8YcncynUzPf+djo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Ni2iPzzrpZ/UJf7ECKctGB0/oUgKpdFD5AnZpcbQ1uOMHKu/hcLK/kc5tXkE1cVK7
- NeHkj+9TJkoiKwu3GF0Y/OEFkkcgXsdS/XSLH8om6/EochF8PNNAOigSaBNbtpyTON
- zjnYTDjnw7cecenV9lFeOsOSGCLSAbTHG0jWvUQ0=
+ b=Ry3UICElTD3yXk1nXxgz7xENlenctsToLfzc+lw0e5XPeRl9j+YAm43+2tRrIQwB4
+ 6XsIjACQ2zzC3O24fA+QKjRl76TqEEMZyGCbi1XalGS7jOSBy2XqNif1gumktuJ5wQ
+ rW3ZmN0i/4sukD2Bnn9Bpmtmc/4RrC/G0ceaBkoU=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.14 03/27] ASoC: topology: Check return value of
- pcm_new_ver
-Date: Thu, 30 Apr 2020 09:53:38 -0400
-Message-Id: <20200430135402.20994-3-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.14 06/27] ASoC: sgtl5000: Fix VAG power-on handling
+Date: Thu, 30 Apr 2020 09:53:41 -0400
+Message-Id: <20200430135402.20994-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200430135402.20994-1-sashal@kernel.org>
 References: <20200430135402.20994-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
+ Mark Brown <broonie@kernel.org>, Fabio Estevam <festivem@gmail.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,38 +84,87 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-[ Upstream commit b3677fc3d68dd942c92de52f0bd9dd8b472a40e6 ]
+[ Upstream commit aa7812737f2877e192d57626cbe8825cc7cf6de9 ]
 
-Function pcm_new_ver can fail, so we should check it's return value and
-handle possible error.
+As mentioned slightly out of patch context in the code, there
+is no reset routine for the chip. On boards where the chip is
+supplied by a fixed regulator, it might not even be resetted
+during (e.g. watchdog) reboot and can be in any state.
 
-Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200327204729.397-6-amadeuszx.slawinski@linux.intel.com
+If the device is probed with VAG enabled, the driver's probe
+routine will generate a loud pop sound when ANA_POWER is
+being programmed. Avoid this by properly disabling just the
+VAG bit and waiting the required power down time.
+
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Reviewed-by: Fabio Estevam <festivem@gmail.com>
+Link: https://lore.kernel.org/r/20200414181140.145825-1-sebastian.reichel@collabora.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/soc-topology.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/codecs/sgtl5000.c | 34 ++++++++++++++++++++++++++++++++++
+ sound/soc/codecs/sgtl5000.h |  1 +
+ 2 files changed, 35 insertions(+)
 
-diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
-index a215b9ad148c4..50aa45525be5a 100644
---- a/sound/soc/soc-topology.c
-+++ b/sound/soc/soc-topology.c
-@@ -1954,7 +1954,9 @@ static int soc_tplg_pcm_elems_load(struct soc_tplg *tplg,
- 			_pcm = pcm;
- 		} else {
- 			abi_match = false;
--			pcm_new_ver(tplg, pcm, &_pcm);
-+			ret = pcm_new_ver(tplg, pcm, &_pcm);
-+			if (ret < 0)
-+				return ret;
- 		}
+diff --git a/sound/soc/codecs/sgtl5000.c b/sound/soc/codecs/sgtl5000.c
+index ca8a70ab22a82..d64cb28e8dc5c 100644
+--- a/sound/soc/codecs/sgtl5000.c
++++ b/sound/soc/codecs/sgtl5000.c
+@@ -1563,6 +1563,40 @@ static int sgtl5000_i2c_probe(struct i2c_client *client,
+ 		dev_err(&client->dev,
+ 			"Error %d initializing CHIP_CLK_CTRL\n", ret);
  
- 		/* create the FE DAIs and DAI links */
++	/* Mute everything to avoid pop from the following power-up */
++	ret = regmap_write(sgtl5000->regmap, SGTL5000_CHIP_ANA_CTRL,
++			   SGTL5000_CHIP_ANA_CTRL_DEFAULT);
++	if (ret) {
++		dev_err(&client->dev,
++			"Error %d muting outputs via CHIP_ANA_CTRL\n", ret);
++		goto disable_clk;
++	}
++
++	/*
++	 * If VAG is powered-on (e.g. from previous boot), it would be disabled
++	 * by the write to ANA_POWER in later steps of the probe code. This
++	 * may create a loud pop even with all outputs muted. The proper way
++	 * to circumvent this is disabling the bit first and waiting the proper
++	 * cool-down time.
++	 */
++	ret = regmap_read(sgtl5000->regmap, SGTL5000_CHIP_ANA_POWER, &value);
++	if (ret) {
++		dev_err(&client->dev, "Failed to read ANA_POWER: %d\n", ret);
++		goto disable_clk;
++	}
++	if (value & SGTL5000_VAG_POWERUP) {
++		ret = regmap_update_bits(sgtl5000->regmap,
++					 SGTL5000_CHIP_ANA_POWER,
++					 SGTL5000_VAG_POWERUP,
++					 0);
++		if (ret) {
++			dev_err(&client->dev, "Error %d disabling VAG\n", ret);
++			goto disable_clk;
++		}
++
++		msleep(SGTL5000_VAG_POWERDOWN_DELAY);
++	}
++
+ 	/* Follow section 2.2.1.1 of AN3663 */
+ 	ana_pwr = SGTL5000_ANA_POWER_DEFAULT;
+ 	if (sgtl5000->num_supplies <= VDDD) {
+diff --git a/sound/soc/codecs/sgtl5000.h b/sound/soc/codecs/sgtl5000.h
+index 22f3442af9826..9ea41749d0375 100644
+--- a/sound/soc/codecs/sgtl5000.h
++++ b/sound/soc/codecs/sgtl5000.h
+@@ -236,6 +236,7 @@
+ /*
+  * SGTL5000_CHIP_ANA_CTRL
+  */
++#define SGTL5000_CHIP_ANA_CTRL_DEFAULT		0x0133
+ #define SGTL5000_LINE_OUT_MUTE			0x0100
+ #define SGTL5000_HP_SEL_MASK			0x0040
+ #define SGTL5000_HP_SEL_SHIFT			6
 -- 
 2.20.1
 

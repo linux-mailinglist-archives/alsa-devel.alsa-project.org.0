@@ -2,67 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 134E21BEF5A
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 06:39:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F7CE1BEF7D
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 06:59:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9DCAE168A;
-	Thu, 30 Apr 2020 06:38:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DCAE168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id E92E7168E;
+	Thu, 30 Apr 2020 06:58:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E92E7168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588221553;
-	bh=XSXNcCr0terLDfi5inwDmW5oYC/XTGW3L/60DeL5lcI=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1588222741;
+	bh=yoriY86hMfyLChk7+O8Pq9vQXhmNjQfWOXeoqFqvspU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZuoqH4DvReXmDTkEoP+0RtY36FnDQubP8hQ9Cii2LMd61zaL16F4h+/YOVDMeX2cQ
-	 eZS2q32QjdeOgtXR3Y8YLW576XYY83+qFJpSyjPlWjSQU4X6Mm5+BpnrTAmzL8UiDi
-	 vFxkbQzJAswHsPrXGIKxeHvz+iwzr9PVbznZp46c=
+	b=m6dnaZk8v/rhZdJSzC0Atjh0ryBa3nUk128ty1t12z1ieeqG0RniRf59YveMkfE/O
+	 1II3ElT32P2y6bNuR0dJ7LnYaolE5vlIAZhf+pQNNeNcnWqAeolm/ZJZ1PnDs00+TB
+	 AS8bGMDqIPrfJ9lwwRTYDkcz0l2iEzmW7pC+aShg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D696F80136;
-	Thu, 30 Apr 2020 06:37:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED5B3F801EB;
+	Thu, 30 Apr 2020 06:57:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1761F801DB; Thu, 30 Apr 2020 06:37:29 +0200 (CEST)
+ id AD0EBF801DB; Thu, 30 Apr 2020 06:57:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 41B18F80123
+ for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 06:57:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41B18F80123
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Ysa2ipNS"
+Received: from localhost (unknown [122.182.217.38])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 70910F800E5
- for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 06:37:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70910F800E5
-Received: from DGGEMS408-HUB.china.huawei.com (unknown [172.30.72.60])
- by Forcepoint Email with ESMTP id E51716A03AB502A31410;
- Thu, 30 Apr 2020 12:37:16 +0800 (CST)
-Received: from [127.0.0.1] (10.166.215.100) by DGGEMS408-HUB.china.huawei.com
- (10.3.19.208) with Microsoft SMTP Server id 14.3.487.0;
- Thu, 30 Apr 2020 12:37:08 +0800
-Subject: Re: [PATCH] sound:hdmi:fix without unlocked before return
-To: Takashi Iwai <tiwai@suse.de>
-References: <1587907042-694161-1-git-send-email-wubo40@huawei.com>
- <s5hees6lpja.wl-tiwai@suse.de>
-From: Wu Bo <wubo40@huawei.com>
-Message-ID: <42f1f263-6f96-e1f2-6ecc-5a16ca6c828b@huawei.com>
-Date: Thu, 30 Apr 2020 12:37:07 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+ by mail.kernel.org (Postfix) with ESMTPSA id 3CB1D2073E;
+ Thu, 30 Apr 2020 04:57:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1588222630;
+ bh=yoriY86hMfyLChk7+O8Pq9vQXhmNjQfWOXeoqFqvspU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Ysa2ipNSLD4vWzkghDmrZ0BEfgg4itAl/PLwwvcGuNQeGKTkDgyffoTNme0uNgoQp
+ oFApdhT2vDyJnrJYykiGPy53vZyVxVhHjv4oiIwcCwhNUrmW+uNJSSCLZuzwRtdO9t
+ LHmcDYhuT4iuSybZ0GxkLPMVE7KrVb/I62rJP7mI=
+Date: Thu, 30 Apr 2020 10:27:01 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Bard liao <yung-chuan.liao@linux.intel.com>
+Subject: Re: [RFC 1/5] soundwire: bus_type: add sdw_master_device support
+Message-ID: <20200430045701.GC948789@vkoul-mobl.Dlink>
+References: <20200416205524.2043-1-yung-chuan.liao@linux.intel.com>
+ <20200416205524.2043-2-yung-chuan.liao@linux.intel.com>
+ <20200420072631.GW72691@vkoul-mobl>
+ <20200423142451.GA4181720@kroah.com>
+ <20200428043144.GU56386@vkoul-mobl.Dlink>
+ <20200428063736.GB990431@kroah.com>
+ <20200428064951.GA56386@vkoul-mobl.Dlink>
+ <20200428065524.GA992087@kroah.com>
+ <20200428075145.GB56386@vkoul-mobl.Dlink>
+ <4ecfa01e-4ef4-5368-3a70-2bd57407d2ad@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <s5hees6lpja.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.166.215.100]
-X-CFilter-Loop: Reflected
-Cc: pierre-louis.bossart@linux.intel.com, nmahale@nvidia.com,
- kai.vehmanen@linux.intel.com, aplattner@nvidia.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, linfeilong@huawei.com,
- libin.yang@linux.intel.com, alsa-devel@alsa-project.org,
- liuzhiqiang26@huawei.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4ecfa01e-4ef4-5368-3a70-2bd57407d2ad@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
+ Greg KH <gregkh@linuxfoundation.org>, pierre-louis.bossart@linux.intel.com,
+ linux-kernel@vger.kernel.org, hui.wang@canonical.com, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, ranjani.sridharan@linux.intel.com,
+ jank@cadence.com, mengdong.lin@intel.com, slawomir.blauciak@intel.com,
+ sanyog.r.kale@intel.com, rander.wang@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,35 +92,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020/4/29 15:27, Takashi Iwai wrote:
-> On Sun, 26 Apr 2020 15:17:22 +0200,
-> Wu Bo wrote:
->>
->> Fix the following coccicheck warning:
->> sound/pci/hda/patch_hdmi.c:1852:2-8: preceding lock on line 1846
->>
->> After add sanity check to pass klockwork check,
->> The spdif_mutex should be unlock before return true
->> in check_non_pcm_per_cvt().
->>
->> Signed-off-by: Wu Bo <wubo40@huawei.com>
+On 30-04-20, 11:24, Bard liao wrote:
 > 
-> Applied now with the correction of subject and Fixes tag as well as
-> Cc-to-stable tag.
+> On 4/28/2020 3:51 PM, Vinod Koul wrote:
+> > On 28-04-20, 08:55, Greg KH wrote:
+> > > On Tue, Apr 28, 2020 at 12:19:51PM +0530, Vinod Koul wrote:
+> > > > On 28-04-20, 08:37, Greg KH wrote:
+> > > > > On Tue, Apr 28, 2020 at 10:01:44AM +0530, Vinod Koul wrote:
+> > > > > > > > That is not true for everyone, it is only true for Intel, pls call that
+> > > > > > > > out as well...
+> > > > > > > Why is it not true for everyone?  How else do you get the pm stuff back
+> > > > > > > to your hardware?
+> > > > > > The rest of the world would do using the real controller device. For
+> > > > > > example the soundwire controller on Qualcomm devices is enumerated as a
+> > > > > > DT device and is using these...
+> > > > > > 
+> > > > > > If Intel had a standalone controller or enumerated as individual
+> > > > > > functions, it would have been a PCI device and would manage as such
+> > > > > If it is not a standalone controller, what exactly is it?  I thought it
+> > > > > was an acpi device, am I mistaken?
+> > > > > 
+> > > > > What is the device that the proper soundwire controller driver binds to
+> > > > > on an Intel-based system?
+> > > > The HDA controller which is a PCI device. The device represent HDA
+> > > > function, DSP and Soundwire controller instances (yes it is typically
+> > > > more than one instance)
+> > > Then those "instances" should be split up into individual devices that a
+> > > driver can bind to.  See the work happening on the "virtual" bus for
+> > > examples of how that can be done.
+> > Yes removing platform devices is the goal for Intel now :) Pierre & Bard
+> > have been diligently trying to solve this.
+> > 
+> > Only difference is the means to end goal. I am not convinced that this
+> > should be in soundwire subsystem.
+> > 
+> > Looks like folks are trying to review and port to use this bus. Makes
+> > sense to me..
+> > https://lore.kernel.org/netdev/c5197d2f-3840-d304-6b09-d334cae81294@linux.intel.com/
+> > 
+> > > A platform device better not be being used here, I'm afraid to look at
+> > > the code now...
+> > Well if the plan for 'virtual-bus' goes well, it should be  a simple
+> > replacement of platform->virtual for Intel driver. Rest of the driver
+> > should not be impacted :)
 > 
-> 
-> thanks,
-> 
-> Takashi
-> 
-> .
-> 
+> We can't expect when will 'virtual-bus' be upstream and it's not feasible
+> to wait forever. Can we move forward with current solution and switch to
+> 'virtual-bus' whenever it is upstream?
 
-Thank you, I am sorry to forget to modify the V2 Patch version in time.
+the move from platform-device to virtual-device should happen once
+the virtual-bus' is accepted upstream. till then imo you should continue
+with current platform device and once you have virtual-bus upstream,
+replace it with virtual-device. Note: I am going to hold you on that :)
 
-thanks,
-Wu Bo
+Rest of the pieces like sdw_master_device and sysfs parts are not
+dependent upon this and should be sent for review and we can merge when
+ready, hopefully for 5.8.
 
-
-
-
+Thanks
+-- 
+~Vinod

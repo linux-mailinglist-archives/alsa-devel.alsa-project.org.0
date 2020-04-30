@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 387921BFA63
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 15:53:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DB181BFA31
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 15:52:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E452C1669;
-	Thu, 30 Apr 2020 15:52:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E452C1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4AD741694;
+	Thu, 30 Apr 2020 15:51:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AD741694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588254808;
-	bh=V8mornNvh3gvp/ggw/EEbCBaN2cEIA1Pmm4A05Vn8uM=;
+	s=default; t=1588254763;
+	bh=wKg3mdRc7QvO4DqaiEtjwc6EMIbVoFS3vQY/Sg+NFzU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZFUzX8vGD+N8Ine0NApWT6Cz/Rp7n3ytihv7Gca2amCHnJOcPLjWfGNRq3iTJhFXd
-	 j3YRm6KOth6wQ4TuPEQ594AASWbtOqcrnA+YWwyqbxd4+/GwsOLH/b4UIkI+DC0oGN
-	 HvHxnu112lThy2Z6hsUHycPAtIrFZm7wZVdIwPJA=
+	b=rKHSwNVmdljD7oDZ/l0fuCbyaFM/O3vUIBbfWJN6Ohn0tJZvdTxstvNZPelsxUBST
+	 H9zWTjYjaPjd2iaVxczvmkM+DJrN2eSS7rq5Nnh3al+ph49xwz1OIRkHSUXJxnA7ar
+	 7rBRfLD8OyrwZZScA8BXa58BzbIr+P0ZbhqCQYRI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61C03F801F7;
-	Thu, 30 Apr 2020 15:51:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46ED9F80266;
+	Thu, 30 Apr 2020 15:51:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 42695F8021C; Thu, 30 Apr 2020 15:51:01 +0200 (CEST)
+ id 651D0F801F7; Thu, 30 Apr 2020 15:50:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,31 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1DE4F800E5
- for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 15:50:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1DE4F800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78B3EF80136
+ for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 15:50:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78B3EF80136
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Rf5jTpt/"
+ header.b="l4/PrBrn"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0F323217BA;
- Thu, 30 Apr 2020 13:50:51 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 41FBC208DB;
+ Thu, 30 Apr 2020 13:50:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588254652;
- bh=V8mornNvh3gvp/ggw/EEbCBaN2cEIA1Pmm4A05Vn8uM=;
+ s=default; t=1588254654;
+ bh=wKg3mdRc7QvO4DqaiEtjwc6EMIbVoFS3vQY/Sg+NFzU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Rf5jTpt/JwbfIHusZjmeQ0sNq4P982xMKIeWmj2i5BBfslQpGHGfZUU+0yfpcw6o4
- H+A7lXwtZop68gW+so/XsbXvsnlJ4T+wSpU3E5F+mtNtY7d00UkDWfBqHM94TEQYFH
- EjXT/PSXs4iGUw/bA2Qiqayj9emIG8K8TIMB29a4=
+ b=l4/PrBrnxcRrBqTBfo4gDYySKSHAvnz87UzGngk+yBUjTG1klCP9+5ioXdTcaHf3v
+ NWBGsBBtCYLV2+Um86ePCy9wG8NDl8qtJTp8+eArWieUtgiyiK+i/y4Tc6zbdQwyIe
+ QGJILX35lt8QoJ9bOZHo1mJK788zyVIr9OiDow6c=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.6 07/79] ASoC: topology: Add missing memory checks
-Date: Thu, 30 Apr 2020 09:49:31 -0400
-Message-Id: <20200430135043.19851-7-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.6 08/79] ASoC: topology: Check return value of
+ soc_tplg_create_tlv
+Date: Thu, 30 Apr 2020 09:49:32 -0400
+Message-Id: <20200430135043.19851-8-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200430135043.19851-1-sashal@kernel.org>
 References: <20200430135043.19851-1-sashal@kernel.org>
@@ -89,173 +90,55 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 
-[ Upstream commit abc3caac24501008465fdb55c5e89e16d58d5a3d ]
+[ Upstream commit 482db55ae87f3749db05810a38b1d618dfd4407c ]
 
-kstrdup is an allocation function and it can fail, so its return value
-should be checked and handled appropriately.
-
-In order to check all cases, we need to modify set_stream_info to return
-a value, so check that everything went correctly when doing kstrdup().
-Later add proper checks and error handlers.
+Function soc_tplg_create_tlv can fail, so we should check if it succeded
+or not and proceed appropriately.
 
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200327204729.397-2-amadeuszx.slawinski@linux.intel.com
+Link: https://lore.kernel.org/r/20200327204729.397-3-amadeuszx.slawinski@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/soc-topology.c | 62 +++++++++++++++++++++++++++++++---------
- 1 file changed, 49 insertions(+), 13 deletions(-)
+ sound/soc/soc-topology.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
-index a152409e8746e..7a7c427de95d6 100644
+index 7a7c427de95d6..5d974a36cdc92 100644
 --- a/sound/soc/soc-topology.c
 +++ b/sound/soc/soc-topology.c
-@@ -1766,10 +1766,13 @@ static int soc_tplg_dapm_complete(struct soc_tplg *tplg)
- 	return 0;
- }
+@@ -894,7 +894,13 @@ static int soc_tplg_dmixer_create(struct soc_tplg *tplg, unsigned int count,
+ 		}
  
--static void set_stream_info(struct snd_soc_pcm_stream *stream,
-+static int set_stream_info(struct snd_soc_pcm_stream *stream,
- 	struct snd_soc_tplg_stream_caps *caps)
- {
- 	stream->stream_name = kstrdup(caps->name, GFP_KERNEL);
-+	if (!stream->stream_name)
-+		return -ENOMEM;
-+
- 	stream->channels_min = le32_to_cpu(caps->channels_min);
- 	stream->channels_max = le32_to_cpu(caps->channels_max);
- 	stream->rates = le32_to_cpu(caps->rates);
-@@ -1777,6 +1780,8 @@ static void set_stream_info(struct snd_soc_pcm_stream *stream,
- 	stream->rate_max = le32_to_cpu(caps->rate_max);
- 	stream->formats = le64_to_cpu(caps->formats);
- 	stream->sig_bits = le32_to_cpu(caps->sig_bits);
-+
-+	return 0;
- }
- 
- static void set_dai_flags(struct snd_soc_dai_driver *dai_drv,
-@@ -1812,20 +1817,29 @@ static int soc_tplg_dai_create(struct soc_tplg *tplg,
- 	if (dai_drv == NULL)
- 		return -ENOMEM;
- 
--	if (strlen(pcm->dai_name))
-+	if (strlen(pcm->dai_name)) {
- 		dai_drv->name = kstrdup(pcm->dai_name, GFP_KERNEL);
-+		if (!dai_drv->name) {
-+			ret = -ENOMEM;
-+			goto err;
+ 		/* create any TLV data */
+-		soc_tplg_create_tlv(tplg, &kc, &mc->hdr);
++		err = soc_tplg_create_tlv(tplg, &kc, &mc->hdr);
++		if (err < 0) {
++			dev_err(tplg->dev, "ASoC: failed to create TLV %s\n",
++				mc->hdr.name);
++			kfree(sm);
++			continue;
 +		}
-+	}
- 	dai_drv->id = le32_to_cpu(pcm->dai_id);
  
- 	if (pcm->playback) {
- 		stream = &dai_drv->playback;
- 		caps = &pcm->caps[SND_SOC_TPLG_STREAM_PLAYBACK];
--		set_stream_info(stream, caps);
-+		ret = set_stream_info(stream, caps);
-+		if (ret < 0)
-+			goto err;
- 	}
+ 		/* pass control to driver for optional further init */
+ 		err = soc_tplg_init_kcontrol(tplg, &kc,
+@@ -1355,7 +1361,13 @@ static struct snd_kcontrol_new *soc_tplg_dapm_widget_dmixer_create(
+ 		}
  
- 	if (pcm->capture) {
- 		stream = &dai_drv->capture;
- 		caps = &pcm->caps[SND_SOC_TPLG_STREAM_CAPTURE];
--		set_stream_info(stream, caps);
-+		ret = set_stream_info(stream, caps);
-+		if (ret < 0)
-+			goto err;
- 	}
- 
- 	if (pcm->compress)
-@@ -1835,11 +1849,7 @@ static int soc_tplg_dai_create(struct soc_tplg *tplg,
- 	ret = soc_tplg_dai_load(tplg, dai_drv, pcm, NULL);
- 	if (ret < 0) {
- 		dev_err(tplg->comp->dev, "ASoC: DAI loading failed\n");
--		kfree(dai_drv->playback.stream_name);
--		kfree(dai_drv->capture.stream_name);
--		kfree(dai_drv->name);
--		kfree(dai_drv);
--		return ret;
-+		goto err;
- 	}
- 
- 	dai_drv->dobj.index = tplg->index;
-@@ -1860,6 +1870,14 @@ static int soc_tplg_dai_create(struct soc_tplg *tplg,
- 		return ret;
- 	}
- 
-+	return 0;
-+
-+err:
-+	kfree(dai_drv->playback.stream_name);
-+	kfree(dai_drv->capture.stream_name);
-+	kfree(dai_drv->name);
-+	kfree(dai_drv);
-+
- 	return ret;
- }
- 
-@@ -1916,11 +1934,20 @@ static int soc_tplg_fe_link_create(struct soc_tplg *tplg,
- 	if (strlen(pcm->pcm_name)) {
- 		link->name = kstrdup(pcm->pcm_name, GFP_KERNEL);
- 		link->stream_name = kstrdup(pcm->pcm_name, GFP_KERNEL);
-+		if (!link->name || !link->stream_name) {
-+			ret = -ENOMEM;
-+			goto err;
+ 		/* create any TLV data */
+-		soc_tplg_create_tlv(tplg, &kc[i], &mc->hdr);
++		err = soc_tplg_create_tlv(tplg, &kc[i], &mc->hdr);
++		if (err < 0) {
++			dev_err(tplg->dev, "ASoC: failed to create TLV %s\n",
++				mc->hdr.name);
++			kfree(sm);
++			continue;
 +		}
- 	}
- 	link->id = le32_to_cpu(pcm->pcm_id);
  
--	if (strlen(pcm->dai_name))
-+	if (strlen(pcm->dai_name)) {
- 		link->cpus->dai_name = kstrdup(pcm->dai_name, GFP_KERNEL);
-+		if (!link->cpus->dai_name) {
-+			ret = -ENOMEM;
-+			goto err;
-+		}
-+	}
- 
- 	link->codecs->name = "snd-soc-dummy";
- 	link->codecs->dai_name = "snd-soc-dummy-dai";
-@@ -2436,13 +2463,17 @@ static int soc_tplg_dai_config(struct soc_tplg *tplg,
- 	if (d->playback) {
- 		stream = &dai_drv->playback;
- 		caps = &d->caps[SND_SOC_TPLG_STREAM_PLAYBACK];
--		set_stream_info(stream, caps);
-+		ret = set_stream_info(stream, caps);
-+		if (ret < 0)
-+			goto err;
- 	}
- 
- 	if (d->capture) {
- 		stream = &dai_drv->capture;
- 		caps = &d->caps[SND_SOC_TPLG_STREAM_CAPTURE];
--		set_stream_info(stream, caps);
-+		ret = set_stream_info(stream, caps);
-+		if (ret < 0)
-+			goto err;
- 	}
- 
- 	if (d->flag_mask)
-@@ -2454,10 +2485,15 @@ static int soc_tplg_dai_config(struct soc_tplg *tplg,
- 	ret = soc_tplg_dai_load(tplg, dai_drv, NULL, dai);
- 	if (ret < 0) {
- 		dev_err(tplg->comp->dev, "ASoC: DAI loading failed\n");
--		return ret;
-+		goto err;
- 	}
- 
- 	return 0;
-+
-+err:
-+	kfree(dai_drv->playback.stream_name);
-+	kfree(dai_drv->capture.stream_name);
-+	return ret;
- }
- 
- /* load physical DAI elements */
+ 		/* pass control to driver for optional further init */
+ 		err = soc_tplg_init_kcontrol(tplg, &kc[i],
 -- 
 2.20.1
 

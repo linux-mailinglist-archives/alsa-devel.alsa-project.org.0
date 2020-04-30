@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E27431BFAC6
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 15:56:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E2F21BFAE9
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 15:56:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9102C1693;
-	Thu, 30 Apr 2020 15:55:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9102C1693
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B13D1696;
+	Thu, 30 Apr 2020 15:55:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B13D1696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588254963;
-	bh=j7EesqpJdFMIiohM4Zu86JeArWKo8byoEHxcvBmIFJs=;
+	s=default; t=1588255009;
+	bh=bQT96VQvGrM0SnF9nv2ZHHxC/VoVHwjpVFK5h8byZS8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AxXuJ3f/slK62pWHmGMVUpiclEgCaxeGGiFoyEAgaq+m4B5YyStfwRNsyJOonk075
-	 CymP243H6vOMNFUR8+2uvtNoZUy561jFRGT+R5GAOmQhZvOnR1ZbWJKjBCFD4h9o31
-	 M2C35rtsyMWjutk03Q+SmWpVC0xyGJDQfmCpsHmI=
+	b=Fw1vYuo1aI0eTNQi7coWhbTE/y5aFNP/jgRYsZf0CUuqbXQafQgwGVjAZGsXVdBSi
+	 IyoGUrkfhIXpG+29/dycmfqzb0Uw7QUlvgzLwT1pyJil009lhs6Pbvg2A1duI/uzTG
+	 m5KW3J6fZn76m/b7DoRCdshVdhJgxrMLi8TmjRcY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24E21F802BE;
-	Thu, 30 Apr 2020 15:51:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 272B7F802E1;
+	Thu, 30 Apr 2020 15:51:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7E5EF8028F; Thu, 30 Apr 2020 15:51:09 +0200 (CEST)
+ id BFCF4F802DC; Thu, 30 Apr 2020 15:51:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,44 +34,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 31F7EF8021C
- for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 15:51:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31F7EF8021C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9683AF802A9
+ for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 15:51:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9683AF802A9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HRBWvn2S"
+ header.b="iRtC68YE"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BE44120873;
- Thu, 30 Apr 2020 13:51:03 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 5FCB820870;
+ Thu, 30 Apr 2020 13:51:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588254664;
- bh=j7EesqpJdFMIiohM4Zu86JeArWKo8byoEHxcvBmIFJs=;
+ s=default; t=1588254672;
+ bh=bQT96VQvGrM0SnF9nv2ZHHxC/VoVHwjpVFK5h8byZS8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HRBWvn2SU5htasFxi1UM7LtEFOkn8Wa2dca9nph9ekjzsLKnACh/JSgog1kP2qsAO
- DPN0tXGA8wNV5OZ6bs5ZJTs+ky59j5YrizkZdENcviIjidXbyvhb3cuAZXoD8tlC74
- 6yFsxExFP0oX0+mxx+EZqXRn1aOKagxTsDd5MTsY=
+ b=iRtC68YEUPX8t0bcOeTzeaPjyZIjgk65aRNginuH0JQ3enG50hlkw+vLqdDVTt3EV
+ X6Ja2AfVRPsP6nUTECuwO6aTGDf7KT8L7uPeLCKuB1/XblomicfomCIMRGhJV9ypuB
+ UzQXVEGB2/YmY5lFvqlRbcmwfpBSTqZ+odAgrB8g=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.6 17/79] ASoC: samsung: s3c24xx-i2s: Fix build after
- removal of DAI suspend/resume
-Date: Thu, 30 Apr 2020 09:49:41 -0400
-Message-Id: <20200430135043.19851-17-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.6 24/79] ASoC: sgtl5000: Fix VAG power-on handling
+Date: Thu, 30 Apr 2020 09:49:48 -0400
+Message-Id: <20200430135043.19851-24-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200430135043.19851-1-sashal@kernel.org>
 References: <20200430135043.19851-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- linux-samsung-soc@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
- Krzysztof Kozlowski <krzk@kernel.org>, Mark Brown <broonie@kernel.org>,
- linux-arm-kernel@lists.infradead.org
+ Mark Brown <broonie@kernel.org>, Fabio Estevam <festivem@gmail.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,186 +84,87 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Krzysztof Kozlowski <krzk@kernel.org>
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-[ Upstream commit ec21bdc6dd16d74b3674ef1fd12ae8e4e7418603 ]
+[ Upstream commit aa7812737f2877e192d57626cbe8825cc7cf6de9 ]
 
-Commit 450312b640f9 ("ASoC: soc-core: remove DAI suspend/resume")
-removed the DAI side suspend/resume hooks and switched entirely to
-component suspend/resume.  However the Samsung SoC s3c-i2s-v2 driver was
-not updated.
+As mentioned slightly out of patch context in the code, there
+is no reset routine for the chip. On boards where the chip is
+supplied by a fixed regulator, it might not even be resetted
+during (e.g. watchdog) reboot and can be in any state.
 
-Move the suspend/resume hooks from s3c-i2s-v2.c to s3c2412-i2s.c while
-changing dai to component which allows to keep the struct
-snd_soc_component_driver const.
+If the device is probed with VAG enabled, the driver's probe
+routine will generate a loud pop sound when ANA_POWER is
+being programmed. Avoid this by properly disabling just the
+VAG bit and waiting the required power down time.
 
-This fixes build errors:
-
-    sound/soc/samsung/s3c-i2s-v2.c: In function ‘s3c_i2sv2_register_component’:
-    sound/soc/samsung/s3c-i2s-v2.c:730:9: error: ‘struct snd_soc_dai_driver’ has no member named ‘suspend’
-      dai_drv->suspend = s3c2412_i2s_suspend;
-
-Reported-by: Arnd Bergmann <arnd@arndb.de>
-Fixes: 450312b640f9 ("ASoC: soc-core: remove DAI suspend/resume")
-Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
-
-Link: https://lore.kernel.org/r/20200413124548.28197-1-krzk@kernel.org
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Reviewed-by: Fabio Estevam <festivem@gmail.com>
+Link: https://lore.kernel.org/r/20200414181140.145825-1-sebastian.reichel@collabora.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/samsung/s3c-i2s-v2.c  | 57 ---------------------------------
- sound/soc/samsung/s3c2412-i2s.c | 56 ++++++++++++++++++++++++++++++++
- 2 files changed, 56 insertions(+), 57 deletions(-)
+ sound/soc/codecs/sgtl5000.c | 34 ++++++++++++++++++++++++++++++++++
+ sound/soc/codecs/sgtl5000.h |  1 +
+ 2 files changed, 35 insertions(+)
 
-diff --git a/sound/soc/samsung/s3c-i2s-v2.c b/sound/soc/samsung/s3c-i2s-v2.c
-index 593be1b668d64..b3e12d6a78a19 100644
---- a/sound/soc/samsung/s3c-i2s-v2.c
-+++ b/sound/soc/samsung/s3c-i2s-v2.c
-@@ -656,60 +656,6 @@ void s3c_i2sv2_cleanup(struct snd_soc_dai *dai,
- }
- EXPORT_SYMBOL_GPL(s3c_i2sv2_cleanup);
+diff --git a/sound/soc/codecs/sgtl5000.c b/sound/soc/codecs/sgtl5000.c
+index d5130193b4a2f..e8a8bf7b4ffed 100644
+--- a/sound/soc/codecs/sgtl5000.c
++++ b/sound/soc/codecs/sgtl5000.c
+@@ -1653,6 +1653,40 @@ static int sgtl5000_i2c_probe(struct i2c_client *client,
+ 		dev_err(&client->dev,
+ 			"Error %d initializing CHIP_CLK_CTRL\n", ret);
  
--#ifdef CONFIG_PM
--static int s3c2412_i2s_suspend(struct snd_soc_dai *dai)
--{
--	struct s3c_i2sv2_info *i2s = to_info(dai);
--	u32 iismod;
--
--	if (dai->active) {
--		i2s->suspend_iismod = readl(i2s->regs + S3C2412_IISMOD);
--		i2s->suspend_iiscon = readl(i2s->regs + S3C2412_IISCON);
--		i2s->suspend_iispsr = readl(i2s->regs + S3C2412_IISPSR);
--
--		/* some basic suspend checks */
--
--		iismod = readl(i2s->regs + S3C2412_IISMOD);
--
--		if (iismod & S3C2412_IISCON_RXDMA_ACTIVE)
--			pr_warn("%s: RXDMA active?\n", __func__);
--
--		if (iismod & S3C2412_IISCON_TXDMA_ACTIVE)
--			pr_warn("%s: TXDMA active?\n", __func__);
--
--		if (iismod & S3C2412_IISCON_IIS_ACTIVE)
--			pr_warn("%s: IIS active\n", __func__);
--	}
--
--	return 0;
--}
--
--static int s3c2412_i2s_resume(struct snd_soc_dai *dai)
--{
--	struct s3c_i2sv2_info *i2s = to_info(dai);
--
--	pr_info("dai_active %d, IISMOD %08x, IISCON %08x\n",
--		dai->active, i2s->suspend_iismod, i2s->suspend_iiscon);
--
--	if (dai->active) {
--		writel(i2s->suspend_iiscon, i2s->regs + S3C2412_IISCON);
--		writel(i2s->suspend_iismod, i2s->regs + S3C2412_IISMOD);
--		writel(i2s->suspend_iispsr, i2s->regs + S3C2412_IISPSR);
--
--		writel(S3C2412_IISFIC_RXFLUSH | S3C2412_IISFIC_TXFLUSH,
--		       i2s->regs + S3C2412_IISFIC);
--
--		ndelay(250);
--		writel(0x0, i2s->regs + S3C2412_IISFIC);
--	}
--
--	return 0;
--}
--#else
--#define s3c2412_i2s_suspend NULL
--#define s3c2412_i2s_resume  NULL
--#endif
--
- int s3c_i2sv2_register_component(struct device *dev, int id,
- 			   const struct snd_soc_component_driver *cmp_drv,
- 			   struct snd_soc_dai_driver *dai_drv)
-@@ -727,9 +673,6 @@ int s3c_i2sv2_register_component(struct device *dev, int id,
- 	if (!ops->delay)
- 		ops->delay = s3c2412_i2s_delay;
- 
--	dai_drv->suspend = s3c2412_i2s_suspend;
--	dai_drv->resume = s3c2412_i2s_resume;
--
- 	return devm_snd_soc_register_component(dev, cmp_drv, dai_drv, 1);
- }
- EXPORT_SYMBOL_GPL(s3c_i2sv2_register_component);
-diff --git a/sound/soc/samsung/s3c2412-i2s.c b/sound/soc/samsung/s3c2412-i2s.c
-index 787a3f6e9f242..b35d828c1cfe9 100644
---- a/sound/soc/samsung/s3c2412-i2s.c
-+++ b/sound/soc/samsung/s3c2412-i2s.c
-@@ -117,6 +117,60 @@ static int s3c2412_i2s_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
-+#ifdef CONFIG_PM
-+static int s3c2412_i2s_suspend(struct snd_soc_component *component)
-+{
-+	struct s3c_i2sv2_info *i2s = snd_soc_component_get_drvdata(component);
-+	u32 iismod;
-+
-+	if (component->active) {
-+		i2s->suspend_iismod = readl(i2s->regs + S3C2412_IISMOD);
-+		i2s->suspend_iiscon = readl(i2s->regs + S3C2412_IISCON);
-+		i2s->suspend_iispsr = readl(i2s->regs + S3C2412_IISPSR);
-+
-+		/* some basic suspend checks */
-+
-+		iismod = readl(i2s->regs + S3C2412_IISMOD);
-+
-+		if (iismod & S3C2412_IISCON_RXDMA_ACTIVE)
-+			pr_warn("%s: RXDMA active?\n", __func__);
-+
-+		if (iismod & S3C2412_IISCON_TXDMA_ACTIVE)
-+			pr_warn("%s: TXDMA active?\n", __func__);
-+
-+		if (iismod & S3C2412_IISCON_IIS_ACTIVE)
-+			pr_warn("%s: IIS active\n", __func__);
++	/* Mute everything to avoid pop from the following power-up */
++	ret = regmap_write(sgtl5000->regmap, SGTL5000_CHIP_ANA_CTRL,
++			   SGTL5000_CHIP_ANA_CTRL_DEFAULT);
++	if (ret) {
++		dev_err(&client->dev,
++			"Error %d muting outputs via CHIP_ANA_CTRL\n", ret);
++		goto disable_clk;
 +	}
 +
-+	return 0;
-+}
++	/*
++	 * If VAG is powered-on (e.g. from previous boot), it would be disabled
++	 * by the write to ANA_POWER in later steps of the probe code. This
++	 * may create a loud pop even with all outputs muted. The proper way
++	 * to circumvent this is disabling the bit first and waiting the proper
++	 * cool-down time.
++	 */
++	ret = regmap_read(sgtl5000->regmap, SGTL5000_CHIP_ANA_POWER, &value);
++	if (ret) {
++		dev_err(&client->dev, "Failed to read ANA_POWER: %d\n", ret);
++		goto disable_clk;
++	}
++	if (value & SGTL5000_VAG_POWERUP) {
++		ret = regmap_update_bits(sgtl5000->regmap,
++					 SGTL5000_CHIP_ANA_POWER,
++					 SGTL5000_VAG_POWERUP,
++					 0);
++		if (ret) {
++			dev_err(&client->dev, "Error %d disabling VAG\n", ret);
++			goto disable_clk;
++		}
 +
-+static int s3c2412_i2s_resume(struct snd_soc_component *component)
-+{
-+	struct s3c_i2sv2_info *i2s = snd_soc_component_get_drvdata(component);
-+
-+	pr_info("component_active %d, IISMOD %08x, IISCON %08x\n",
-+		component->active, i2s->suspend_iismod, i2s->suspend_iiscon);
-+
-+	if (component->active) {
-+		writel(i2s->suspend_iiscon, i2s->regs + S3C2412_IISCON);
-+		writel(i2s->suspend_iismod, i2s->regs + S3C2412_IISMOD);
-+		writel(i2s->suspend_iispsr, i2s->regs + S3C2412_IISPSR);
-+
-+		writel(S3C2412_IISFIC_RXFLUSH | S3C2412_IISFIC_TXFLUSH,
-+		       i2s->regs + S3C2412_IISFIC);
-+
-+		ndelay(250);
-+		writel(0x0, i2s->regs + S3C2412_IISFIC);
++		msleep(SGTL5000_VAG_POWERDOWN_DELAY);
 +	}
 +
-+	return 0;
-+}
-+#else
-+#define s3c2412_i2s_suspend NULL
-+#define s3c2412_i2s_resume  NULL
-+#endif
-+
- #define S3C2412_I2S_RATES \
- 	(SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_11025 | SNDRV_PCM_RATE_16000 | \
- 	SNDRV_PCM_RATE_22050 | SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 | \
-@@ -146,6 +200,8 @@ static struct snd_soc_dai_driver s3c2412_i2s_dai = {
- 
- static const struct snd_soc_component_driver s3c2412_i2s_component = {
- 	.name		= "s3c2412-i2s",
-+	.suspend	= s3c2412_i2s_suspend,
-+	.resume		= s3c2412_i2s_resume,
- };
- 
- static int s3c2412_iis_dev_probe(struct platform_device *pdev)
+ 	/* Follow section 2.2.1.1 of AN3663 */
+ 	ana_pwr = SGTL5000_ANA_POWER_DEFAULT;
+ 	if (sgtl5000->num_supplies <= VDDD) {
+diff --git a/sound/soc/codecs/sgtl5000.h b/sound/soc/codecs/sgtl5000.h
+index a4bf4bca95bf7..56ec5863f2507 100644
+--- a/sound/soc/codecs/sgtl5000.h
++++ b/sound/soc/codecs/sgtl5000.h
+@@ -233,6 +233,7 @@
+ /*
+  * SGTL5000_CHIP_ANA_CTRL
+  */
++#define SGTL5000_CHIP_ANA_CTRL_DEFAULT		0x0133
+ #define SGTL5000_LINE_OUT_MUTE			0x0100
+ #define SGTL5000_HP_SEL_MASK			0x0040
+ #define SGTL5000_HP_SEL_SHIFT			6
 -- 
 2.20.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA9A01BFB67
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 16:00:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E63CB1BFBDA
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 16:02:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 434FA1686;
-	Thu, 30 Apr 2020 15:59:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 434FA1686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9971116B9;
+	Thu, 30 Apr 2020 16:01:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9971116B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588255211;
-	bh=QGgBuhCejrKHWkiFI7PYpRXxjE0O37C7d1JbVO32/Jk=;
+	s=default; t=1588255350;
+	bh=HvgQtozXPajYVnHS90k19ocaTh/Mfax+KW0Y9WIaGKY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ddv4JwlEjDkDmA4iqjJ/hBmJSdY4Si4KBFHbcXegS+CnOquYgJqH+RV4CFfCaklFP
-	 y8lTFuC031IVITOdNWwE2uexWZu5jEAl6+ZrgXd1tv1Bo5cThTtDIfl6ce9BtJP66C
-	 0D4oyeLyr8v3y94wOpEF1jPmU0ty16uEgzuUvagk=
+	b=dEewTpzTYlBRsZ3uKhg2MxU4oQUeLR3OmltOsquSyCCjITd6jLGHRX2orTGC70oOP
+	 AT98MStw/3747XfwmRHQFk9y1NXmnmUzjz/H/GJv9ISqzoK43SDP0qVG8AH8hFJThn
+	 W+eDuFDk5wlvvVjKfkKUGMjWO6lnDgLYY8+Esino=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3BED6F80329;
-	Thu, 30 Apr 2020 15:51:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EFFE5F80344;
+	Thu, 30 Apr 2020 15:51:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AD32CF80305; Thu, 30 Apr 2020 15:51:34 +0200 (CEST)
+ id B6B65F8033D; Thu, 30 Apr 2020 15:51:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D67F9F802E2
- for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 15:51:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D67F9F802E2
+ by alsa1.perex.cz (Postfix) with ESMTPS id EEDD2F80321
+ for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 15:51:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEDD2F80321
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="NdS40gdu"
+ header.b="e8Zbt/oL"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A0AA8208DB;
- Thu, 30 Apr 2020 13:51:25 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id CCBC4208D5;
+ Thu, 30 Apr 2020 13:51:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588254686;
- bh=QGgBuhCejrKHWkiFI7PYpRXxjE0O37C7d1JbVO32/Jk=;
+ s=default; t=1588254695;
+ bh=HvgQtozXPajYVnHS90k19ocaTh/Mfax+KW0Y9WIaGKY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=NdS40gdu+saW+Ys2C9NiJfSTepvNtJiJn6gbvzpJdhp+YCid/6risoYpgftm8UC+A
- OrspS5T1njaMHlueskVr8w4iJuAXicJj017dNAG2Ud2daE60aNMpkoXjkeQZLT1qyY
- 8MXf21LSK6CTEWkxRkW9QCH3rAsRT1IwQP1t0Wb8=
+ b=e8Zbt/oLXNVBN2tX4ubBEhZrbuDKcIdIEq5nxPtFk+ke+xT65NV2sBELAoDSQIBDu
+ 34W3r8M4KwSSTWhII08tvhy8Z4wSf59kXnSN/Okix6fUD5Rkv+FPmAzzV7v/dwcmpb
+ lRE7p4kXVl7U0VvZaZ8NmImJJxPxwnXWL4+Ftees=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.6 37/79] ASoC: SOF: Intel: add min/max channels for
- SSP on Baytrail/Broadwell
-Date: Thu, 30 Apr 2020 09:50:01 -0400
-Message-Id: <20200430135043.19851-37-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.6 45/79] ASoC: meson: axg-card: fix codec-to-codec
+ link setup
+Date: Thu, 30 Apr 2020 09:50:09 -0400
+Message-Id: <20200430135043.19851-45-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200430135043.19851-1-sashal@kernel.org>
 References: <20200430135043.19851-1-sashal@kernel.org>
@@ -68,10 +68,7 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
+ Mark Brown <broonie@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,139 +84,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+From: Jerome Brunet <jbrunet@baylibre.com>
 
-[ Upstream commit 8c05246c0b58cbe80580ea4be05f6d51228af8a9 ]
+[ Upstream commit 1164284270779e1865cc2046a2a01b58a1e858a9 ]
 
-Major regressions were detected by SOF CI on CherryTrail and Broadwell:
+Since the addition of commit 9b5db059366a ("ASoC: soc-pcm: dpcm: Only allow
+playback/capture if supported"), meson-axg cards which have codec-to-codec
+links fail to init and Oops:
 
-[   25.705750]  SSP2-Codec: ASoC: no backend playback stream
-[   27.923378]  SSP2-Codec: ASoC: no users playback at close - state
+  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000128
+  Internal error: Oops: 96000044 [#1] PREEMPT SMP
+  CPU: 3 PID: 1582 Comm: arecord Not tainted 5.7.0-rc1
+  pc : invalidate_paths_ep+0x30/0xe0
+  lr : snd_soc_dapm_dai_get_connected_widgets+0x170/0x1a8
+  Call trace:
+   invalidate_paths_ep+0x30/0xe0
+   snd_soc_dapm_dai_get_connected_widgets+0x170/0x1a8
+   dpcm_path_get+0x38/0xd0
+   dpcm_fe_dai_open+0x70/0x920
+   snd_pcm_open_substream+0x564/0x840
+   snd_pcm_open+0xfc/0x228
+   snd_pcm_capture_open+0x4c/0x78
+   snd_open+0xac/0x1a8
+   ...
 
-This is root-caused to the introduction of the DAI capability checks
-with snd_soc_dai_stream_valid(). Its use in soc-pcm.c makes it a
-requirement for all DAIs to report at least a non-zero min_channels
-field.
+While initiliazing the links, ASoC treats the codec-to-codec links of this
+card type as a DPCM backend. This error eventually leads to the Oops.
 
-For some reason the SSP structures used for SKL+ did provide this
-information but legacy platforms didn't.
+Most of the card driver code is shared between DPCM backends and
+codec-to-codec links. The property "no_pcm" marking DCPM BE was left set on
+codec-to-codec links, leading to this problem. This commit fixes that.
 
-Fixes: 9b5db059366ae2 ("ASoC: soc-pcm: dpcm: Only allow playback/capture if supported")
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Link: https://lore.kernel.org/r/20200417172014.11760-1-pierre-louis.bossart@linux.intel.com
+Fixes: 0a8f1117a680 ("ASoC: meson: axg-card: add basic codec-to-codec link support")
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+Link: https://lore.kernel.org/r/20200420114511.450560-2-jbrunet@baylibre.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sof/intel/bdw.c | 16 +++++++++++++
- sound/soc/sof/intel/byt.c | 48 +++++++++++++++++++++++++++++++++++++++
- 2 files changed, 64 insertions(+)
+ sound/soc/meson/axg-card.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/intel/bdw.c b/sound/soc/sof/intel/bdw.c
-index 6c23c57693309..a32a3ef78ec5d 100644
---- a/sound/soc/sof/intel/bdw.c
-+++ b/sound/soc/sof/intel/bdw.c
-@@ -567,9 +567,25 @@ static void bdw_set_mach_params(const struct snd_soc_acpi_mach *mach,
- static struct snd_soc_dai_driver bdw_dai[] = {
- {
- 	.name = "ssp0-port",
-+	.playback = {
-+		.channels_min = 1,
-+		.channels_max = 8,
-+	},
-+	.capture = {
-+		.channels_min = 1,
-+		.channels_max = 8,
-+	},
- },
- {
- 	.name = "ssp1-port",
-+	.playback = {
-+		.channels_min = 1,
-+		.channels_max = 8,
-+	},
-+	.capture = {
-+		.channels_min = 1,
-+		.channels_max = 8,
-+	},
- },
- };
+diff --git a/sound/soc/meson/axg-card.c b/sound/soc/meson/axg-card.c
+index 1f698adde506c..2b04ac3d8fd3b 100644
+--- a/sound/soc/meson/axg-card.c
++++ b/sound/soc/meson/axg-card.c
+@@ -586,8 +586,10 @@ static int axg_card_add_link(struct snd_soc_card *card, struct device_node *np,
  
-diff --git a/sound/soc/sof/intel/byt.c b/sound/soc/sof/intel/byt.c
-index f84391294f12c..29fd1d86156ce 100644
---- a/sound/soc/sof/intel/byt.c
-+++ b/sound/soc/sof/intel/byt.c
-@@ -459,21 +459,69 @@ static void byt_set_mach_params(const struct snd_soc_acpi_mach *mach,
- static struct snd_soc_dai_driver byt_dai[] = {
- {
- 	.name = "ssp0-port",
-+	.playback = {
-+		.channels_min = 1,
-+		.channels_max = 8,
-+	},
-+	.capture = {
-+		.channels_min = 1,
-+		.channels_max = 8,
-+	},
- },
- {
- 	.name = "ssp1-port",
-+	.playback = {
-+		.channels_min = 1,
-+		.channels_max = 8,
-+	},
-+	.capture = {
-+		.channels_min = 1,
-+		.channels_max = 8,
-+	},
- },
- {
- 	.name = "ssp2-port",
-+	.playback = {
-+		.channels_min = 1,
-+		.channels_max = 8,
-+	},
-+	.capture = {
-+		.channels_min = 1,
-+		.channels_max = 8,
+ 	if (axg_card_cpu_is_tdm_iface(dai_link->cpus->of_node))
+ 		ret = axg_card_parse_tdm(card, np, index);
+-	else if (axg_card_cpu_is_codec(dai_link->cpus->of_node))
++	else if (axg_card_cpu_is_codec(dai_link->cpus->of_node)) {
+ 		dai_link->params = &codec_params;
++		dai_link->no_pcm = 0; /* link is not a DPCM BE */
 +	}
- },
- {
- 	.name = "ssp3-port",
-+	.playback = {
-+		.channels_min = 1,
-+		.channels_max = 8,
-+	},
-+	.capture = {
-+		.channels_min = 1,
-+		.channels_max = 8,
-+	},
- },
- {
- 	.name = "ssp4-port",
-+	.playback = {
-+		.channels_min = 1,
-+		.channels_max = 8,
-+	},
-+	.capture = {
-+		.channels_min = 1,
-+		.channels_max = 8,
-+	},
- },
- {
- 	.name = "ssp5-port",
-+	.playback = {
-+		.channels_min = 1,
-+		.channels_max = 8,
-+	},
-+	.capture = {
-+		.channels_min = 1,
-+		.channels_max = 8,
-+	},
- },
- };
  
+ 	return ret;
+ }
 -- 
 2.20.1
 

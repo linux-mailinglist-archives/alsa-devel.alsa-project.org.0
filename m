@@ -2,81 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F7CE1BEF7D
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 06:59:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B77741BF00F
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 08:14:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E92E7168E;
-	Thu, 30 Apr 2020 06:58:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E92E7168E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 36540168A;
+	Thu, 30 Apr 2020 08:13:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36540168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588222741;
-	bh=yoriY86hMfyLChk7+O8Pq9vQXhmNjQfWOXeoqFqvspU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1588227240;
+	bh=xB84wgX5umCVyQXJtkubbANC9Puu6cCB8BPdy0q8CX0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=m6dnaZk8v/rhZdJSzC0Atjh0ryBa3nUk128ty1t12z1ieeqG0RniRf59YveMkfE/O
-	 1II3ElT32P2y6bNuR0dJ7LnYaolE5vlIAZhf+pQNNeNcnWqAeolm/ZJZ1PnDs00+TB
-	 AS8bGMDqIPrfJ9lwwRTYDkcz0l2iEzmW7pC+aShg=
+	b=fWi5tMvpKsc6PsjHk7uDOWOrPzg1f4U577l+g0c0rMCSmyWu8n9alAAqKmYlC6+IG
+	 D99lAp2paK+a6QBhmUDIXUw7loov2q5xc9qE4XhxCDMwT6hGmZ/UawSgdQ/lk/sWDw
+	 0t6vSfM+OnQw7AMEXcL7uzbf1BbeuqHd/YmpTvcI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ED5B3F801EB;
-	Thu, 30 Apr 2020 06:57:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4201FF801EB;
+	Thu, 30 Apr 2020 08:12:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AD0EBF801DB; Thu, 30 Apr 2020 06:57:16 +0200 (CEST)
+ id DED4CF801DB; Thu, 30 Apr 2020 08:12:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41B18F80123
- for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 06:57:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41B18F80123
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Ysa2ipNS"
-Received: from localhost (unknown [122.182.217.38])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3CB1D2073E;
- Thu, 30 Apr 2020 04:57:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588222630;
- bh=yoriY86hMfyLChk7+O8Pq9vQXhmNjQfWOXeoqFqvspU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Ysa2ipNSLD4vWzkghDmrZ0BEfgg4itAl/PLwwvcGuNQeGKTkDgyffoTNme0uNgoQp
- oFApdhT2vDyJnrJYykiGPy53vZyVxVhHjv4oiIwcCwhNUrmW+uNJSSCLZuzwRtdO9t
- LHmcDYhuT4iuSybZ0GxkLPMVE7KrVb/I62rJP7mI=
-Date: Thu, 30 Apr 2020 10:27:01 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Bard liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [RFC 1/5] soundwire: bus_type: add sdw_master_device support
-Message-ID: <20200430045701.GC948789@vkoul-mobl.Dlink>
-References: <20200416205524.2043-1-yung-chuan.liao@linux.intel.com>
- <20200416205524.2043-2-yung-chuan.liao@linux.intel.com>
- <20200420072631.GW72691@vkoul-mobl>
- <20200423142451.GA4181720@kroah.com>
- <20200428043144.GU56386@vkoul-mobl.Dlink>
- <20200428063736.GB990431@kroah.com>
- <20200428064951.GA56386@vkoul-mobl.Dlink>
- <20200428065524.GA992087@kroah.com>
- <20200428075145.GB56386@vkoul-mobl.Dlink>
- <4ecfa01e-4ef4-5368-3a70-2bd57407d2ad@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4ecfa01e-4ef4-5368-3a70-2bd57407d2ad@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
- Greg KH <gregkh@linuxfoundation.org>, pierre-louis.bossart@linux.intel.com,
- linux-kernel@vger.kernel.org, hui.wang@canonical.com, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, ranjani.sridharan@linux.intel.com,
- jank@cadence.com, mengdong.lin@intel.com, slawomir.blauciak@intel.com,
- sanyog.r.kale@intel.com, rander.wang@linux.intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3EC2F800E5
+ for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 08:12:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3EC2F800E5
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 880C3AC58;
+ Thu, 30 Apr 2020 06:12:07 +0000 (UTC)
+Date: Thu, 30 Apr 2020 08:12:07 +0200
+Message-ID: <s5hv9lhijt4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [PATCH] ALSA: opti9xx: shut up gcc-10 range warning
+In-Reply-To: <20200429190216.85919-1-arnd@arndb.de>
+References: <20200429190216.85919-1-arnd@arndb.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,63 +70,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 30-04-20, 11:24, Bard liao wrote:
+On Wed, 29 Apr 2020 21:02:03 +0200,
+Arnd Bergmann wrote:
 > 
-> On 4/28/2020 3:51 PM, Vinod Koul wrote:
-> > On 28-04-20, 08:55, Greg KH wrote:
-> > > On Tue, Apr 28, 2020 at 12:19:51PM +0530, Vinod Koul wrote:
-> > > > On 28-04-20, 08:37, Greg KH wrote:
-> > > > > On Tue, Apr 28, 2020 at 10:01:44AM +0530, Vinod Koul wrote:
-> > > > > > > > That is not true for everyone, it is only true for Intel, pls call that
-> > > > > > > > out as well...
-> > > > > > > Why is it not true for everyone?  How else do you get the pm stuff back
-> > > > > > > to your hardware?
-> > > > > > The rest of the world would do using the real controller device. For
-> > > > > > example the soundwire controller on Qualcomm devices is enumerated as a
-> > > > > > DT device and is using these...
-> > > > > > 
-> > > > > > If Intel had a standalone controller or enumerated as individual
-> > > > > > functions, it would have been a PCI device and would manage as such
-> > > > > If it is not a standalone controller, what exactly is it?  I thought it
-> > > > > was an acpi device, am I mistaken?
-> > > > > 
-> > > > > What is the device that the proper soundwire controller driver binds to
-> > > > > on an Intel-based system?
-> > > > The HDA controller which is a PCI device. The device represent HDA
-> > > > function, DSP and Soundwire controller instances (yes it is typically
-> > > > more than one instance)
-> > > Then those "instances" should be split up into individual devices that a
-> > > driver can bind to.  See the work happening on the "virtual" bus for
-> > > examples of how that can be done.
-> > Yes removing platform devices is the goal for Intel now :) Pierre & Bard
-> > have been diligently trying to solve this.
-> > 
-> > Only difference is the means to end goal. I am not convinced that this
-> > should be in soundwire subsystem.
-> > 
-> > Looks like folks are trying to review and port to use this bus. Makes
-> > sense to me..
-> > https://lore.kernel.org/netdev/c5197d2f-3840-d304-6b09-d334cae81294@linux.intel.com/
-> > 
-> > > A platform device better not be being used here, I'm afraid to look at
-> > > the code now...
-> > Well if the plan for 'virtual-bus' goes well, it should be  a simple
-> > replacement of platform->virtual for Intel driver. Rest of the driver
-> > should not be impacted :)
+> gcc-10 points out a few instances of suspicious integer arithmetic
+> leading to value truncation:
 > 
-> We can't expect when will 'virtual-bus' be upstream and it's not feasible
-> to wait forever. Can we move forward with current solution and switch to
-> 'virtual-bus' whenever it is upstream?
+> sound/isa/opti9xx/opti92x-ad1848.c: In function 'snd_opti9xx_configure':
+> sound/isa/opti9xx/opti92x-ad1848.c:322:43: error: overflow in conversion from 'int' to 'unsigned char' changes value from '(int)snd_opti9xx_read(chip, 3) & -256 | 240' to '240' [-Werror=overflow]
+>   322 |   (snd_opti9xx_read(chip, reg) & ~(mask)) | ((value) & (mask)))
+>       |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+> sound/isa/opti9xx/opti92x-ad1848.c:351:3: note: in expansion of macro 'snd_opti9xx_write_mask'
+>   351 |   snd_opti9xx_write_mask(chip, OPTi9XX_MC_REG(3), 0xf0, 0xff);
+>       |   ^~~~~~~~~~~~~~~~~~~~~~
+> sound/isa/opti9xx/miro.c: In function 'snd_miro_configure':
+> sound/isa/opti9xx/miro.c:873:40: error: overflow in conversion from 'int' to 'unsigned char' changes value from '(int)snd_miro_read(chip, 3) & -256 | 240' to '240' [-Werror=overflow]
+>   873 |   (snd_miro_read(chip, reg) & ~(mask)) | ((value) & (mask)))
+>       |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+> sound/isa/opti9xx/miro.c:1010:3: note: in expansion of macro 'snd_miro_write_mask'
+>  1010 |   snd_miro_write_mask(chip, OPTi9XX_MC_REG(3), 0xf0, 0xff);
+>       |   ^~~~~~~~~~~~~~~~~~~
+> 
+> These are all harmless here as only the low 8 bit are passed down
+> anyway. Change the macros to inline functions to make the code
+> more readable and also avoid the warning.
+> 
+> Strictly speaking those functions also need locking to make the
+> read/write pair atomic, but it seems unlikely that anyone would
+> still run into that issue.
+> 
+> Fixes: 1841f613fd2e ("[ALSA] Add snd-miro driver")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-the move from platform-device to virtual-device should happen once
-the virtual-bus' is accepted upstream. till then imo you should continue
-with current platform device and once you have virtual-bus upstream,
-replace it with virtual-device. Note: I am going to hold you on that :)
+Applied now, thanks.
 
-Rest of the pieces like sdw_master_device and sysfs parts are not
-dependent upon this and should be sent for review and we can merge when
-ready, hopefully for 5.8.
 
-Thanks
--- 
-~Vinod
+Takashi

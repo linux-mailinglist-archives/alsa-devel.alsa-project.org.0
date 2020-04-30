@@ -2,75 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 456111BFD58
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 16:12:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37D521BFCDD
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 16:09:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD110169C;
-	Thu, 30 Apr 2020 16:11:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD110169C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6A4B16CB;
+	Thu, 30 Apr 2020 16:08:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6A4B16CB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588255957;
-	bh=dOA8n0tJWKHGY0ZgO52Pl8gFZpj1lU4mNQIpj3C22lk=;
+	s=default; t=1588255749;
+	bh=nBlhKQjcs3efVi4NZcBbisDbhZVPXk9x/PpK2fTGE28=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=O2E27a9iCSWNMsCXOOcbFTHvghDDPi+UJ06Nt8bzdFTpKoTktFj6gqT42skC2GesX
-	 BWSCGtycMf6X++GG8DyzGLWU2eqOs128QqXvqQqc4US4+7SxcS3oNpjqkDMPQUamHL
-	 gbNMCqELNFsKm0wj9q/yJTutzZVm6K4YzscbdaKo=
+	b=qkSQovaQT7zz0cOR0bghC6209NPeWUmeZ11dSw8CVqCmSvgw1f36VZmzA8SN2Fd8Z
+	 tu9OCrKWKGrfTZoot/urzVSxGuXdbQ5oTY+ekY3FMIDuB1RYWeGMtBcCA6nwVumYPA
+	 s5HNjErO6gf4RSY4yB1wdrM0yiwpPhAt6Z96TFvo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF3B0F803F5;
-	Thu, 30 Apr 2020 15:53:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A34DFF803B1;
+	Thu, 30 Apr 2020 15:53:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 53142F803C9; Thu, 30 Apr 2020 15:53:08 +0200 (CEST)
+ id 7238BF80376; Thu, 30 Apr 2020 15:52:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B71ABF803B2
- for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 15:53:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B71ABF803B2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="M1CDCvIZ"
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
- [73.47.72.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 61BFF208D5;
- Thu, 30 Apr 2020 13:53:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588254783;
- bh=dOA8n0tJWKHGY0ZgO52Pl8gFZpj1lU4mNQIpj3C22lk=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=M1CDCvIZyX+tx7W1ErS9kDZNWFUJO6E4QaKgHV8oLXOyNYA9ZEH3Byk6xZJwYjJzv
- YnnznaqliV1miJKBq/rSnuJ7Xkgt/Rr4zu+Aq6DVTUw2Xx/wRBkeqlJieaxyr52axH
- qnCb+jL8yoE73YWaAgZnHnCJLHlD8WAp90v87USE=
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 39/57] ASoC: wm8960: Fix wrong clock after suspend
- & resume
-Date: Thu, 30 Apr 2020 09:52:00 -0400
-Message-Id: <20200430135218.20372-39-sashal@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200430135218.20372-1-sashal@kernel.org>
-References: <20200430135218.20372-1-sashal@kernel.org>
-MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Shengjiu Wang <shengjiu.wang@nxp.com>, patches@opensource.wolfsonmicro.com,
- Mark Brown <broonie@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id BEE68F80369
+ for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 15:52:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEE68F80369
+Received: from 61-220-137-37.hinet-ip.hinet.net ([61.220.137.37]
+ helo=localhost) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <kai.heng.feng@canonical.com>)
+ id 1jU9bs-0004lc-NW; Thu, 30 Apr 2020 13:52:17 +0000
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+To: tiwai@suse.com
+Subject: [PATCH v2 3/3] ALSA: hda/realtek - Add LED class support for micmute
+ LED
+Date: Thu, 30 Apr 2020 21:52:07 +0800
+Message-Id: <20200430135209.14703-1-kai.heng.feng@canonical.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200430083255.5093-3-kai.heng.feng@canonical.com>
+References: <20200430083255.5093-3-kai.heng.feng@canonical.com>
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Kailang Yang <kailang@realtek.com>, Tomas Espeleta <tomas.espeleta@gmail.com>,
+ Thomas Hebb <tommyhebb@gmail.com>, open list <linux-kernel@vger.kernel.org>,
+ Hui Wang <hui.wang@canonical.com>, Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Jian-Hong Pan <jian-hong@endlessm.com>,
+ =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,42 +73,84 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
+Currently DMIC controls micmute LED via "audio mute LED trigger".
 
-[ Upstream commit 1e060a453c8604311fb45ae2f84f67ed673329b4 ]
+However, unlike Dell and Lenovo platforms, HP platforms don't provide a
+way to control micmute LED via ACPI, it's controlled by HDA codec
+instead.
 
-After suspend & resume, wm8960_hw_params may be called when
-bias_level is not SND_SOC_BIAS_ON, then wm8960_configure_clocking
-is not called. But if sample rate is changed at that time, then
-the output clock rate will be not correct.
+So let's register an LED class for micmute so other subsystems like DMIC
+can facilitate the codec-controlled LED.
 
-So judgement of bias_level is SND_SOC_BIAS_ON in wm8960_hw_params
-is not necessary and it causes above issue.
-
-Fixes: 3176bf2d7ccd ("ASoC: wm8960: update pll and clock setting function")
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/1587468525-27514-1-git-send-email-shengjiu.wang@nxp.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
 ---
- sound/soc/codecs/wm8960.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+v2:
+ - Only compile the code when CONFIG_LEDS_TRIGGER_AUDIO is reachable.
 
-diff --git a/sound/soc/codecs/wm8960.c b/sound/soc/codecs/wm8960.c
-index 55112c1bba5e7..6cf0f6612bdaf 100644
---- a/sound/soc/codecs/wm8960.c
-+++ b/sound/soc/codecs/wm8960.c
-@@ -860,8 +860,7 @@ static int wm8960_hw_params(struct snd_pcm_substream *substream,
+ sound/pci/hda/patch_realtek.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
+
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 6f164ccddde3..eae672cb6118 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -17,6 +17,7 @@
+ #include <linux/dmi.h>
+ #include <linux/module.h>
+ #include <linux/input.h>
++#include <linux/leds.h>
+ #include <sound/core.h>
+ #include <sound/jack.h>
+ #include <sound/hda_codec.h>
+@@ -4103,6 +4104,26 @@ static void alc_gpio_micmute_update(struct hda_codec *codec)
+ 			    spec->gen.micmute_led.led_value);
+ }
  
- 	wm8960->is_stream_in_use[tx] = true;
++#if IS_REACHABLE(CONFIG_LEDS_TRIGGER_AUDIO)
++static int micmute_led_set(struct led_classdev *led_cdev,
++			   enum led_brightness brightness)
++{
++	struct hda_codec *codec = dev_to_hda_codec(led_cdev->dev->parent);
++	struct alc_spec *spec = codec->spec;
++
++	alc_update_gpio_led(codec, spec->gpio_mic_led_mask,
++			    spec->micmute_led_polarity, !!brightness);
++	return 0;
++}
++
++static struct led_classdev micmute_led_cdev = {
++	.name = "hda::micmute",
++	.max_brightness = 1,
++	.brightness_set_blocking = micmute_led_set,
++	.default_trigger = "audio-micmute",
++};
++#endif
++
+ /* setup mute and mic-mute GPIO bits, add hooks appropriately */
+ static void alc_fixup_hp_gpio_led(struct hda_codec *codec,
+ 				  int action,
+@@ -4110,6 +4131,7 @@ static void alc_fixup_hp_gpio_led(struct hda_codec *codec,
+ 				  unsigned int micmute_mask)
+ {
+ 	struct alc_spec *spec = codec->spec;
++	int err;
  
--	if (snd_soc_component_get_bias_level(component) == SND_SOC_BIAS_ON &&
--	    !wm8960->is_stream_in_use[!tx])
-+	if (!wm8960->is_stream_in_use[!tx])
- 		return wm8960_configure_clocking(component);
+ 	alc_fixup_gpio(codec, action, mute_mask | micmute_mask);
  
- 	return 0;
+@@ -4122,6 +4144,13 @@ static void alc_fixup_hp_gpio_led(struct hda_codec *codec,
+ 	if (micmute_mask) {
+ 		spec->gpio_mic_led_mask = micmute_mask;
+ 		snd_hda_gen_add_micmute_led(codec, alc_gpio_micmute_update);
++
++#if IS_REACHABLE(CONFIG_LEDS_TRIGGER_AUDIO)
++		micmute_led_cdev.brightness = ledtrig_audio_get(LED_AUDIO_MICMUTE);
++		err = devm_led_classdev_register(&codec->core.dev, &micmute_led_cdev);
++		if (err)
++			codec_warn(codec, "failed to register micmute LED\n");
++#endif
+ 	}
+ }
+ 
 -- 
-2.20.1
+2.17.1
 

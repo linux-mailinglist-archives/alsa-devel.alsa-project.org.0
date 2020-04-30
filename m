@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A9DC1C03DA
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 19:24:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04F1E1C03DB
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 19:24:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ADB981695;
-	Thu, 30 Apr 2020 19:23:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADB981695
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6D59167D;
+	Thu, 30 Apr 2020 19:23:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6D59167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588267451;
-	bh=iCbe1e1dTJ3nWh9+g2VcfnVclAcSqGzxnKhRp4rweTg=;
+	s=default; t=1588267467;
+	bh=ZJOZY/9i6hT7JP1gKkaf4LtZ6CFAvovibTfQsVczr3I=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DBO37WNbDeDWJhzleHFUUrEEc9XeNKzTIDhwmq2bh2mEK3wM/DZYCVqCF7xDZH2kQ
-	 WP+5Iyzh1yhDyotB9hmg7egpXWEfRRvMLGcjoHkApGB3w2rUmDsZzH8ClfDgW9lqQW
-	 UrgHjfT/1KSYgAexzzl3hIt7W5tGfXFmY1wQ1l88=
-Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1367FF8024A;
-	Thu, 30 Apr 2020 19:22:31 +0200 (CEST)
+	b=S6vGBddpt21fqRKXUtU9BVLudhfer5qhugJdLeGlqi1p3gxbNhys8XrNxak7uJ4/a
+	 +UifEFmv+mvGLD/z74jbnfhonfi4yeiyEh6bo7uqUzfRCVjumuUbNhoxSWdC+PU3qQ
+	 fH4cBRnVor9xWHTyXg50DUJskKmqYGh+83N/8pTw=
+Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id 1793FF80271;
+	Thu, 30 Apr 2020 19:22:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09C7EF8021C; Thu, 30 Apr 2020 19:22:29 +0200 (CEST)
+ id 2B0EAF80136; Thu, 30 Apr 2020 19:22:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,22 +34,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C9387F80123
- for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 19:22:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9387F80123
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5A50EF801EB
+ for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 19:22:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A50EF801EB
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 91D27ABC2;
- Thu, 30 Apr 2020 17:22:25 +0000 (UTC)
-Date: Thu, 30 Apr 2020 19:22:25 +0200
-Message-ID: <s5hbln8khwu.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 25C96AC64;
+ Thu, 30 Apr 2020 17:22:44 +0000 (UTC)
+Date: Thu, 30 Apr 2020 19:22:44 +0200
+Message-ID: <s5ha72skhwb.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Subject: Re: [PATCH 2/3] ALSA: hda/realtek - Enable micmute LED on and HP
- system
-In-Reply-To: <20200430083255.5093-2-kai.heng.feng@canonical.com>
-References: <20200430083255.5093-1-kai.heng.feng@canonical.com>
- <20200430083255.5093-2-kai.heng.feng@canonical.com>
+Subject: Re: [PATCH v2 3/3] ALSA: hda/realtek - Add LED class support for
+ micmute LED
+In-Reply-To: <20200430135209.14703-1-kai.heng.feng@canonical.com>
+References: <20200430083255.5093-3-kai.heng.feng@canonical.com>
+ <20200430135209.14703-1-kai.heng.feng@canonical.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -76,16 +76,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 30 Apr 2020 10:32:52 +0200,
+On Thu, 30 Apr 2020 15:52:07 +0200,
 Kai-Heng Feng wrote:
 > 
-> Though the system uses DMIC, headset mic still uses the HDA, let's use
-> GPIO 0x1 to control the micmute LED.
+> Currently DMIC controls micmute LED via "audio mute LED trigger".
 > 
-> The micmute LED GPIO has a different polarity to the mute LED GPIO, we
-> can use the newly added micmute_led_polarity to indicate that.
+> However, unlike Dell and Lenovo platforms, HP platforms don't provide a
+> way to control micmute LED via ACPI, it's controlled by HDA codec
+> instead.
+> 
+> So let's register an LED class for micmute so other subsystems like DMIC
+> can facilitate the codec-controlled LED.
 > 
 > Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> ---
+> v2:
+>  - Only compile the code when CONFIG_LEDS_TRIGGER_AUDIO is reachable.
 
 Applied to for-next branch.  Thanks.
 

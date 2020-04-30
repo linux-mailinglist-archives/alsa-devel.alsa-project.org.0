@@ -2,83 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9C601BF2C4
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 10:28:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEA5A1BF2A6
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 10:24:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D0C01680;
-	Thu, 30 Apr 2020 10:27:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D0C01680
+	by alsa0.perex.cz (Postfix) with ESMTPS id 521C31692;
+	Thu, 30 Apr 2020 10:23:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 521C31692
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588235310;
-	bh=5fB3+K47H7NlKHeXFfwi1dM8Q0oNd8xdDPgWa4m/H54=;
-	h=Date:In-Reply-To:References:Subject:From:To:Cc:List-Id:
+	s=default; t=1588235062;
+	bh=2rrI+UCw9wFH85yJsb/vU/GyVMrHrR1Y7R38yZiqDvg=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Obrk2DUZerSj9aVUrlv67De17OMCBm9U100moI5RvGJ/Q+KTYoRdcbiaX//VdzbNL
-	 ARUxjXrKXqDGo4o8pXBbsGaxsEJNbi1DgDSO0Q8xC2p6bo0Z5ys1lCv93RrhFY/5Bf
-	 rsBdGxevvluRuMDiw4+Vk4wWydg4F4Q2iqFCNkwI=
+	b=Ptoxg7jogGygAkiyL6XuyDE1aRxB+TT+IO+jZX1oaeLVkkceKk/vxzbnZ3ekHWsCt
+	 okpJs/mFtTVCp/u8W4aClDpTNNdnkdKUd0b09Vbq6IwKHCV7rM0WrPislu7i26/57J
+	 MGT9P1Wg02YyQEEY5eCsixgP6LK1uqb/P2Aphats=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9F87F802E1;
-	Thu, 30 Apr 2020 10:23:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 698BFF80136;
+	Thu, 30 Apr 2020 10:22:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 443E0F802E0; Thu, 30 Apr 2020 10:23:09 +0200 (CEST)
+ id 3FDF4F801DB; Thu, 30 Apr 2020 10:22:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,USER_IN_DEF_DKIM_WL
- autolearn=disabled version=3.4.0
-Received: from mail-qv1-xf4a.google.com (mail-qv1-xf4a.google.com
- [IPv6:2607:f8b0:4864:20::f4a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 90D20F802BC
- for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 10:23:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90D20F802BC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="bV+QKGRA"
-Received: by mail-qv1-xf4a.google.com with SMTP id bm3so5674943qvb.0
- for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 01:23:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc; bh=XVssmcUVddcBidhvz5kFSAVQSpL+gm7QgTGDD8dkeuQ=;
- b=bV+QKGRAgD3aTwZRxOJpx3+9xfL9bC88uaMWDnd9v4pn2gNkJRF/bautGarRcwtA23
- non5+DCQWOabmRRz4IGKFh0upYvXOl92UNQgid7P0K9U8aFexNEUFqZkVYDeE+yBNGk2
- 1UlqKBU6c7xQ46pDM8/8fgjLpq+WPF4ewv2ly/QNKt3hkY8GYphOtMjogV1L4kh3Z78B
- eNZf1KEirM+r6saILEIQITdHxmOhEbJPAcaJnm/I9VfU7Hg07Alo+ZZax94FhG+JeFiE
- bm4cVSwGuzPuj/dESojXrL2kTzsOSuDQknPwVbnNKT/6smsLuIjYhsYEE8TqrFCPQ3ln
- W2PA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:in-reply-to:message-id:mime-version
- :references:subject:from:to:cc;
- bh=XVssmcUVddcBidhvz5kFSAVQSpL+gm7QgTGDD8dkeuQ=;
- b=ssuGm72EQalDYSaAZVC2O+EiIhnq4hV3U99TehstNrO7nu88x77V9sznsAuhg4Wprr
- wZH67RRiETYq9DqmUpNJk6nrXsyoPaHQwLA2D/oxx/GY12ofBUgs2ubD/qOOpegDqOVk
- BIHEAFgDrhCyuj4L0ohsmj++YSsNdKtfeHjNESifYLcdUhiLElC3wU3D1nhMXETe4VKT
- g/k510yatgVZMzE8nB07y3KqYsU5lqOr+L6bfrFUAWezdh8fpoy1R4nq+d1wim5n8+/9
- XQDH5ns4Fsr1XILPyEW+rfzWhi0YvnFLyL5KCx6Qh676SSsxc26ameuD9AIXQENalOyq
- +8Ug==
-X-Gm-Message-State: AGi0PuaWoFPiwquT7oQES9bcwKDu/BdLz9KGMduET4ziXTchXwATgabG
- L6z+ydRWIEhHtEweJvbRRww0FTG7eau+
-X-Google-Smtp-Source: APiQypLxXBaRVULdlxMtwVhZe0TJmdqYrYQDwkLoSJiaL4kVNuo+i6gaQe0cDELTFhIaZnSenPmb1wUGeGen
-X-Received: by 2002:a0c:f1d1:: with SMTP id u17mr1870971qvl.146.1588234981615; 
- Thu, 30 Apr 2020 01:23:01 -0700 (PDT)
-Date: Thu, 30 Apr 2020 16:22:31 +0800
-In-Reply-To: <20200430082231.151127-1-tzungbi@google.com>
-Message-Id: <20200430082231.151127-7-tzungbi@google.com>
-Mime-Version: 1.0
-References: <20200430082231.151127-1-tzungbi@google.com>
-X-Mailer: git-send-email 2.26.2.303.gf8c07b1a785-goog
-Subject: [PATCH 6/6] ASoC: rt5682: remove unwanted btn_type assignment
-From: Tzung-Bi Shih <tzungbi@google.com>
-To: broonie@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Cc: tzungbi@google.com, alsa-devel@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id A2ADFF800B6
+ for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 10:22:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2ADFF800B6
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 73FCFABB2;
+ Thu, 30 Apr 2020 08:22:34 +0000 (UTC)
+Date: Thu, 30 Apr 2020 10:22:34 +0200
+Message-ID: <s5hlfmdidrp.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [PATCH] ALSA: opti9xx: shut up gcc-10 range warning
+In-Reply-To: <s5hv9lhijt4.wl-tiwai@suse.de>
+References: <20200429190216.85919-1-arnd@arndb.de>
+ <s5hv9lhijt4.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,26 +71,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The following dev_err() is intended to print unexpected btn_type.
-Removes the unwanted btn_type assignment.
+On Thu, 30 Apr 2020 08:12:07 +0200,
+Takashi Iwai wrote:
+> 
+> On Wed, 29 Apr 2020 21:02:03 +0200,
+> Arnd Bergmann wrote:
+> > 
+> > gcc-10 points out a few instances of suspicious integer arithmetic
+> > leading to value truncation:
+> > 
+> > sound/isa/opti9xx/opti92x-ad1848.c: In function 'snd_opti9xx_configure':
+> > sound/isa/opti9xx/opti92x-ad1848.c:322:43: error: overflow in conversion from 'int' to 'unsigned char' changes value from '(int)snd_opti9xx_read(chip, 3) & -256 | 240' to '240' [-Werror=overflow]
+> >   322 |   (snd_opti9xx_read(chip, reg) & ~(mask)) | ((value) & (mask)))
+> >       |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+> > sound/isa/opti9xx/opti92x-ad1848.c:351:3: note: in expansion of macro 'snd_opti9xx_write_mask'
+> >   351 |   snd_opti9xx_write_mask(chip, OPTi9XX_MC_REG(3), 0xf0, 0xff);
+> >       |   ^~~~~~~~~~~~~~~~~~~~~~
+> > sound/isa/opti9xx/miro.c: In function 'snd_miro_configure':
+> > sound/isa/opti9xx/miro.c:873:40: error: overflow in conversion from 'int' to 'unsigned char' changes value from '(int)snd_miro_read(chip, 3) & -256 | 240' to '240' [-Werror=overflow]
+> >   873 |   (snd_miro_read(chip, reg) & ~(mask)) | ((value) & (mask)))
+> >       |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+> > sound/isa/opti9xx/miro.c:1010:3: note: in expansion of macro 'snd_miro_write_mask'
+> >  1010 |   snd_miro_write_mask(chip, OPTi9XX_MC_REG(3), 0xf0, 0xff);
+> >       |   ^~~~~~~~~~~~~~~~~~~
+> > 
+> > These are all harmless here as only the low 8 bit are passed down
+> > anyway. Change the macros to inline functions to make the code
+> > more readable and also avoid the warning.
+> > 
+> > Strictly speaking those functions also need locking to make the
+> > read/write pair atomic, but it seems unlikely that anyone would
+> > still run into that issue.
+> > 
+> > Fixes: 1841f613fd2e ("[ALSA] Add snd-miro driver")
+> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> 
+> Applied now, thanks.
 
-Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
----
- sound/soc/codecs/rt5682.c | 1 -
- 1 file changed, 1 deletion(-)
+BTW, the lack of locking is no problem in this code.
+Those lines are called only at the initialization in the probe
+function, so can't race.
 
-diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
-index 19fb9f1d8f49..5d3b11756a34 100644
---- a/sound/soc/codecs/rt5682.c
-+++ b/sound/soc/codecs/rt5682.c
-@@ -1134,7 +1134,6 @@ static void rt5682_jack_detect_handler(struct work_struct *work)
- 			case 0x0000: /* unpressed */
- 				break;
- 			default:
--				btn_type = 0;
- 				dev_err(rt5682->component->dev,
- 					"Unexpected button code 0x%04x\n",
- 					btn_type);
--- 
-2.26.2.303.gf8c07b1a785-goog
 
+thanks,
+
+Takashi

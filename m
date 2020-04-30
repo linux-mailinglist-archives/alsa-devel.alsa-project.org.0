@@ -2,97 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 675371BFDDB
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 16:22:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4F731BFFEE
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 17:16:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 19EF616D6;
-	Thu, 30 Apr 2020 16:21:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19EF616D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0CC2F1693;
+	Thu, 30 Apr 2020 17:15:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0CC2F1693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588256539;
-	bh=Shh8Hi6+q10K6dQe13kwf19fcf48z4r+Eq/hYrd3uw4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1588259809;
+	bh=DSu3KzzLY27H3nHYL+K3eoK6hcu3k6filOGFtyhfzFw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sktT+xL2/prbAF00sXHj+9gvdF/dWegikdVhWVcLn6R7W6xXcwCQrEIS3t0NLsqrW
-	 qbyXvSLnjL5CyaDgWBc8MPcxYQRL3zqNYLyDAGreLr2S0AoEc47d4EyG7oJUdRwBsE
-	 FUa60qJWQDDl68z4BDyi2HzRNF9ABGTjQ3wl8o6M=
+	b=ukgbGyfPLHQ72mDhi6C4w+/FmOLxtkQ7iTMZhr7JFsgRhCwsyDC3jF0v46M6K4zON
+	 BmZAy8OYcf9r7vZ6yZU0ihg9uiSjbx/UqqrFqKK2ra2p6Qqj47w+elXgLH+6VJcUjq
+	 nWsO+Vi/TUBbMCVknvvMhq8rUgQ2gbdDx4Qf7VVY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 34FE7F802BC;
-	Thu, 30 Apr 2020 16:00:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 11817F801EB;
+	Thu, 30 Apr 2020 17:15:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5498CF802A9; Thu, 30 Apr 2020 16:00:32 +0200 (CEST)
+ id 8A76AF80123; Thu, 30 Apr 2020 17:15:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com
- [IPv6:2607:f8b0:4864:20::d43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1F077F802A1
- for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 16:00:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F077F802A1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Wxsmkjon"
-Received: by mail-io1-xd43.google.com with SMTP id w4so1548071ioc.6
- for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 07:00:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=nz4EYudAGnRAka2sLpxAUHkI/tIzbc4FpKMb2iD2HGI=;
- b=WxsmkjonITcLJ97YhEvjgmBobJxYhdcS0FMYbI0ha9eAYIbOvVa++0B/N61OFuA+vq
- TZYJoOOK1ZCNtDRuUb0+F6GjgICAVNM5rw4vEuVnM80xd3VkxSFGCpu0bX2tf4mdswgH
- D8T/Hct4kccVa1z5uGmKgC3cbV8W5/BGPIlISHzo6yjyI6Yd84kp1sl1eFHyPTD6GGmH
- 0Q1F1IZODwzZhcHFUAcQpScBz+tK/gV6IwRa2pAu8aiuKxSgJ9XM9CrOeEgOUpJR6Mg0
- 6oYATFOQutPCYugnCrV+5/HZ8KiRd7lgTda3lkj13rjmdcAeGR16UBPZIBdRZZnJts6f
- Vuww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=nz4EYudAGnRAka2sLpxAUHkI/tIzbc4FpKMb2iD2HGI=;
- b=aKdak2lXDJDJ/eGCvJRNqTK6BGshMoNUQmdQgl8oAUqHDYQWxjV6ArL7utwPexpY4a
- 6giFesLsNQBt5fL1jRwLW42+SJe34dpI9YMkrLl7Q2aHt5Td/ageI86KZpoPqm5VA8ml
- GFZoHCX6TIPWfp5Va2F54Shfoi1er5BeX9qyxiIbz4CqjkYSXIfb75+AErMAbL0aqQrd
- vTW4gvv+QVQtUeNztCMfblVTydsE6dm3IAGb+93AWD9P3CbHaug83ScxeEWQCl2vlUCR
- bJbW9ocx0MnyK4FlLLhXkpOqp0moa4N2W89zQTLzfMtbVHGyIT3GpwoXQGyAimSczAFn
- 6DpQ==
-X-Gm-Message-State: AGi0PuYEasFC7sJpvkZ7QJdLKAQoB+fg5R1IyOIOMcu2Guf8b/2FgmlS
- nukV3ZFGyYhluCqv1hnMPpOQVd0xvvwn2qweRPU=
-X-Google-Smtp-Source: APiQypL/hGXbUxNw4AVM3ITxY+bWgZQNGgI8BdvnXtQMrcBmjvMtXdgrG7Lhm8mMQi0TVyWgoYz+zdbaXKGpRu9prEA=
-X-Received: by 2002:a6b:b8d6:: with SMTP id i205mr2058871iof.123.1588255225316; 
- Thu, 30 Apr 2020 07:00:25 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200426104115.22630-1-peron.clem@gmail.com>
- <20200426104115.22630-4-peron.clem@gmail.com>
- <20200428081321.ht3el26yqhsnyfm4@gilmour.lan>
- <CAJiuCcdVs_drs40Q6537BYfz24F7NmC6B8S5-Lt4V4ggs-FXWA@mail.gmail.com>
- <20200429123529.y24dpy63wxq7uvkt@gilmour.lan>
- <CAJiuCcfXqizcq_JuXRCsqEqM2562cr1SGJ0pmy07jcJxAXojOw@mail.gmail.com>
- <20200430084600.samghw4zxb5zdbez@gilmour.lan>
-In-Reply-To: <20200430084600.samghw4zxb5zdbez@gilmour.lan>
-From: =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
-Date: Thu, 30 Apr 2020 16:00:14 +0200
-Message-ID: <CAJiuCcf_LHrJ6QdZgH8HyN6TRiT+GiD+t4UggFCrz-VwVHXV6w@mail.gmail.com>
-Subject: Re: [PATCH v3 3/7] ASoC: sun4i-i2s: Add support for H6 I2S
-To: Maxime Ripard <maxime@cerno.tech>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: devicetree <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Jernej Skrabec <jernej.skrabec@siol.net>, Takashi Iwai <tiwai@suse.com>,
- Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Mark Brown <broonie@kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 82FA0F800B6
+ for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 17:14:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82FA0F800B6
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 4D3B8AE39;
+ Thu, 30 Apr 2020 15:14:56 +0000 (UTC)
+Date: Thu, 30 Apr 2020 17:14:56 +0200
+Message-ID: <s5hwo5xj98v.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH 0/1] Fiji GPU audio register timeout when in BACO state
+In-Reply-To: <CADnq5_Mjb_FnNOzjUfJZ7GSDzi-+Cfc1ZTuqm7UWCWVvY6DU_w@mail.gmail.com>
+References: <PSXP216MB0438D2AF96CE0D4F83F48C4D80AE0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+ <MN2PR12MB4488E4909C1488FB507E0BF5F7AF0@MN2PR12MB4488.namprd12.prod.outlook.com>
+ <s5ho8rdnems.wl-tiwai@suse.de>
+ <PSXP216MB04387BF6B5F8DA84749E5D6F80AF0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+ <CADnq5_M=QEqxuCKjb_qZvFSvwM5eLEFfsepxYYXoouFoe5bn7A@mail.gmail.com>
+ <s5h4kt4ojrf.wl-tiwai@suse.de>
+ <CADnq5_MMQ5_MjEg=bkJJGMJP53RjB3yxvOW0nUDeWxzg3Q0pVQ@mail.gmail.com>
+ <s5hv9lkm49n.wl-tiwai@suse.de>
+ <PSXP216MB043899DC52E6C6BF728D77CD80AC0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+ <s5ha72ulp2y.wl-tiwai@suse.de>
+ <PSXP216MB043822350CDE9E7EEA37730880AD0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+ <CADnq5_MCQ7xHY=yhNtRW=ze0LRPzxuu-Mm7pD4kFa5R52UrGSw@mail.gmail.com>
+ <s5h1ro6jn0v.wl-tiwai@suse.de>
+ <CADnq5_Mjb_FnNOzjUfJZ7GSDzi-+Cfc1ZTuqm7UWCWVvY6DU_w@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: "Zhou, David\(ChunMing\)" <David1.Zhou@amd.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Nicholas Johnson <nicholas.johnson-opensource@outlook.com.au>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Takashi Iwai <tiwai@suse.com>, Lukas Wunner <lukas@wunner.de>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,69 +89,82 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Maxime,
+On Wed, 29 Apr 2020 18:19:57 +0200,
+Alex Deucher wrote:
+> 
+> On Wed, Apr 29, 2020 at 12:05 PM Takashi Iwai <tiwai@suse.de> wrote:
+> > Well, but the code path there is the runtime PM resume of the audio
+> > device and it means that GPU must have been runtime-resumed again
+> > beforehand via the device link.  So, it should have worked from the
+> > beginning but in reality not -- that is, apparently some inconsistency
+> > is found in the initial attempt of the runtime resume...
+> 
+> Yeah, it should be covered, but I wonder if there is something in the
+> ELD update sequence that needs to call pm_runtime_get_sync()?  The ELD
+> sequence on AMD GPUs doesn't work the same as on other vendors.  The
+> GPU driver has a backdoor into the HDA device's verbs to set update
+> the audio state rather than doing it via an ELD buffer update.  We
+> still update the ELD buffer for consistency.  Maybe when the GPU
+> driver sets the audio state at monitor detection time that triggers an
+> interrupt or something on the HDA side which races with the CPU and
+> the power down of the GPU.  That still seems unlikely though since the
+> runtime pm on the GPU side defaults to a 5 second suspend timer.
 
-On Thu, 30 Apr 2020 at 10:46, Maxime Ripard <maxime@cerno.tech> wrote:
->
-> Hi,
->
-> On Wed, Apr 29, 2020 at 06:33:00PM +0200, Cl=C3=A9ment P=C3=A9ron wrote:
-> > On Wed, 29 Apr 2020 at 14:35, Maxime Ripard <maxime@cerno.tech> wrote:
-> > >
-> > > On Tue, Apr 28, 2020 at 10:55:47AM +0200, Cl=C3=A9ment P=C3=A9ron wro=
-te:
-> > > > > > +static int sun50i_i2s_set_soc_fmt(const struct sun4i_i2s *i2s,
-> > > > > > +                              unsigned int fmt)
-> > > > >
-> > > > > The alignment is off here
-> > > > >
-> > > > > > +{
-> > > > > > +     u32 mode, val;
-> > > > > > +     u8 offset;
-> > > > > > +
-> > > > > > +     /*
-> > > > > > +      * DAI clock polarity
-> > > > > > +      *
-> > > > > > +      * The setup for LRCK contradicts the datasheet, but unde=
-r a
-> > > > > > +      * scope it's clear that the LRCK polarity is reversed
-> > > > > > +      * compared to the expected polarity on the bus.
-> > > > > > +      */
-> > > > >
-> > > > > Did you check this or has it been copy-pasted?
-> > > >
-> > > > copy-pasted, I will check this.
-> > >
-> > > It's not going to be easy to do this if you only have a board with HD=
-MI. If you
-> > > can't test that easily, just remove the comment (or make it explicit =
-that you
-> > > copy pasted it?), no comment is better than a wrong one.
-> >
-> > I have talked with Marcus Cooper it may be able to test this this week-=
-end.
-> > Also this can explain why we need the "
-> > simple-audio-card,frame-inversion;" in the device-tree.
-> >
-> > If think this fix has been introduced by you, correct? Could you say
-> > on which SoC did you see this issue?
->
-> This was seen on an H3
+I'm not sure whether it's the race between runtime suspend of GPU vs
+runtime resume of audio.  My wild guess is rather that it's the timing
+GPU notifies to the audio; then the audio driver notifies to
+user-space and user-space opens the stream, which in turn invokes the
+runtime resume of GPU. But in GPU side, it's still under processing,
+so it proceeds before the GPU finishes its initialization job.
 
-Just two more questions:
-- Did you observe this issue on both TDM and I2S mode?
-- On which DAI node?
+Nicholas, could you try the patch below and see whether the problem
+still appears?  The patch artificially delays the notification and ELD
+update for 300msec.  If this works, it means the timing problem.
 
-Since recent change in sun4i-i2s.c, we had to introduce the
-"simple-audio-card,frame-inversion" in LibreElec tree.
-H3 boards are quite common in LibreElec community so I think:
- - This fix is only needed in TDM mode
- - Or this fix is not required for the HDMI DAI node (HDMI DAI is a
-little bit different compare to other DAI but I think the first guess
-is more likely)
 
-Regards,
-Clement
+thanks,
 
->
-> Maxime
+Takashi
+
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -767,6 +767,7 @@ static void check_presence_and_report(struct hda_codec *codec, hda_nid_t nid,
+ 	if (pin_idx < 0)
+ 		return;
+ 	mutex_lock(&spec->pcm_lock);
++	get_pin(spec, pin_idx)->repoll_count = 1;
+ 	hdmi_present_sense(get_pin(spec, pin_idx), 1);
+ 	mutex_unlock(&spec->pcm_lock);
+ }
+@@ -1647,7 +1648,10 @@ static void sync_eld_via_acomp(struct hda_codec *codec,
+ 				      per_pin->dev_id, &eld->monitor_present,
+ 				      eld->eld_buffer, ELD_MAX_SIZE);
+ 	eld->eld_valid = (eld->eld_size > 0);
+-	update_eld(codec, per_pin, eld, 0);
++	if (per_pin->repoll_count)
++		schedule_delayed_work(&per_pin->work, msecs_to_jiffies(300));
++	else
++		update_eld(codec, per_pin, eld, 0);
+ 	mutex_unlock(&per_pin->lock);
+ }
+ 
+@@ -1669,6 +1673,11 @@ static void hdmi_repoll_eld(struct work_struct *work)
+ 	struct hdmi_spec *spec = codec->spec;
+ 	struct hda_jack_tbl *jack;
+ 
++	if (codec_has_acomp(codec)) {
++		per_pin->repoll_count = 0;
++		goto check;
++	}
++
+ 	jack = snd_hda_jack_tbl_get_mst(codec, per_pin->pin_nid,
+ 					per_pin->dev_id);
+ 	if (jack)
+@@ -1677,6 +1686,7 @@ static void hdmi_repoll_eld(struct work_struct *work)
+ 	if (per_pin->repoll_count++ > 6)
+ 		per_pin->repoll_count = 0;
+ 
++ check:
+ 	mutex_lock(&spec->pcm_lock);
+ 	hdmi_present_sense(per_pin, per_pin->repoll_count);
+ 	mutex_unlock(&spec->pcm_lock);

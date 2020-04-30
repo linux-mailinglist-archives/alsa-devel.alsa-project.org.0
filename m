@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49F731BF2BD
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 10:26:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A65841BF2BF
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 10:27:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EFD89168E;
-	Thu, 30 Apr 2020 10:25:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFD89168E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 567CD1669;
+	Thu, 30 Apr 2020 10:26:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 567CD1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588235210;
-	bh=+/6KpuAI5OnaH1+1INwZBtm3jDTuiqntf9j7SGav3go=;
+	s=default; t=1588235246;
+	bh=r7QPJFsBmb5bBMH5TAYZgtgR/TJ+H0D0gtfu6SMYTKI=;
 	h=Date:In-Reply-To:References:Subject:From:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PjBqJ3UB+loCbFYcje/onykx0myEOX4wk8lhhicnWdAEbx6Ah6HaJwtchUa9tVx+t
-	 muRRMRu9aIT+h25lIgLle1YoLmRHbFR+PjiEzLTPzOkeR06FoYauV+uTNwSv6iC+G0
-	 MMhdDziCN7cDP4YKq6iefq83wgHyzusNVJSKFefU=
+	b=HJt6qYXPXJ2jsnFRASNY6Tv80KqpV+bTWl3Ec39OPyCTdxH5HLf/yGezueNKf5T6r
+	 yrFL4fcJEp5EW6MjJNqyn038XQ+4kVH3y7gAfkhW7oEXsTx6YUVWoe1nnqvt8FLiIn
+	 h3nfOpFPILeQ3KnOd/+J7zMoyjxeHTQ+IED9Wzxw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0910DF802A9;
-	Thu, 30 Apr 2020 10:23:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C8B69F802C4;
+	Thu, 30 Apr 2020 10:23:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0AC4CF802A0; Thu, 30 Apr 2020 10:22:57 +0200 (CEST)
+ id DAD18F802A0; Thu, 30 Apr 2020 10:22:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
@@ -35,46 +35,47 @@ Received: from mail-yb1-xb4a.google.com (mail-yb1-xb4a.google.com
  [IPv6:2607:f8b0:4864:20::b4a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C8AF5F80299
- for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 10:22:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8AF5F80299
+ by alsa1.perex.cz (Postfix) with ESMTPS id ECF35F8029A
+ for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 10:22:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECF35F8029A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="uJ9oa9vq"
-Received: by mail-yb1-xb4a.google.com with SMTP id i13so6783948ybl.13
- for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 01:22:53 -0700 (PDT)
+ header.b="rRGqA7JZ"
+Received: by mail-yb1-xb4a.google.com with SMTP id h185so6859280ybg.6
+ for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 01:22:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc; bh=QAhamvk4O2Zfa+EjtB3QZix8CErM5lewhJjCrqGiG5U=;
- b=uJ9oa9vq1OeIFOfRXkMQzsWiPrjME2C//jSl5p+G95D9I3FqA+0s/BJRZPwQ8VyClm
- 9rvLixnHU3Ed+Iq3mvcFA9nB+n/rSm0LPNr4PQJw5UVXD0mGQDKXuthzBMQwgpnw5oHE
- 1cKVwYtZ/h1z9dZZ5HD3OQJPO8NRj9LH5Y4yodBCLuS0v1DYvZu6a9iQ0wLd8Vc2wJkA
- vjBmwppc8sTrIgi4S+Nu/zgRyNcy6jeTbiZIqo35eMUnTKmQYs2cxJr8mpKXQlOqHy+p
- X+ksrAG1Xh4ooNAwsbQHd2KkRvk+yynB6X16dnNriTNgt/3TFp9m61hGNSzHFjZwwdpE
- atFg==
+ :cc; bh=grXX/zNEQT8tX1//Vo8J6acH4d/plf8sUJ7kVimoPtU=;
+ b=rRGqA7JZ80BLPpljGg6xDSzjLfY2GYLObc0fSocJNhoZD5zamqZQUCT8dTUOV47Ms9
+ xsB5TU30rlWWs8w5jkn25Bg2AK5SXg2B07UDcnFUhaUp32nYgTfpD7D2eNiEGNs5XaB0
+ xdSoJYqVmtH/l6qzUI+HgwrwOeoFQIkh58bIX1W9oqKj1YJP+BmniCbNPuONgtxHRa/J
+ wZ29oooArGCoNK+0X7E1hXB6FPOpPOfoLuryBbQWVODKf9uQA1Kj0F+wrbIOCuKzRJNz
+ KsT/V9Bc9okXuP+RAGAM5+yF4oFpcgjs69C4Srztc0bifQOhMK55XfrerJRuMGWKiAs4
+ 7BCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:in-reply-to:message-id:mime-version
  :references:subject:from:to:cc;
- bh=QAhamvk4O2Zfa+EjtB3QZix8CErM5lewhJjCrqGiG5U=;
- b=Ptv3LdO0vVI7C5Nhs7N08lepL46xSRsVxhWPOjhV//13FgrELcmLctU88NVjTZVPnf
- Qkted2xcAP07C7eAJ93xctfrgJ5IqVPrcAKZrONOHg2+gXyEgvNTJ4uzvG0bEpfEc6St
- MrrEVfT4AAXWIgakITXisnAoE4NmQedzkK5GH8Qk7y6Va6w0foqd6fLiEZ11Er54GdIN
- dNkGEhTdREhmZpj4bTcTZF43ycn2GJr7kXm7QpfkUzjj7akZIepZr73fTMDXUam9HrSi
- LTcbBQzrGnzN2ye0Xnj2i/+NdmyO8Qw31DyglbYW/mLYFKvjYh6xd4eYqKZ089rM0TnA
- fn7w==
-X-Gm-Message-State: AGi0PuacK6nbQ9eoysjcS9MjzQrmOXQX0tEcpjZGmjY9c6s2YeA6Ydrk
- /rPK3ggSnyMFbmPxfY4ioL4WvwtBeXo5
-X-Google-Smtp-Source: APiQypIQo7EcrMYmhrDQCSdNkKaR4g+3RNIhpbhobADhH4JEuN8CHqCIhP3spY4twrMnzqP/VZnh+Q1G6o5B
-X-Received: by 2002:a25:ced3:: with SMTP id x202mr4048625ybe.164.1588234970687; 
- Thu, 30 Apr 2020 01:22:50 -0700 (PDT)
-Date: Thu, 30 Apr 2020 16:22:28 +0800
+ bh=grXX/zNEQT8tX1//Vo8J6acH4d/plf8sUJ7kVimoPtU=;
+ b=QYGy+aA+7sf7O11pXjw7eubZeACsEzCoJPKmUhpBfxZN/Iwq2hAfy8keVlvXhRMa+B
+ BupbKiqcSj75Et7jsWdIYaDIpGlvL6feu2nDeemrkVNtOsY4yRU+YAe32imgcaIC1Fsw
+ DYKniLdrJx2mF4XZTNlDzLEPb3qgb5p5UCfZgtQevZXl0AN/+4Bk2GXY4jzUWIULlSqT
+ pHQQT46yH2HYQgLbY7AJJWJXNHz+hJ2AMjh8x4F3Lo+9j+uDraoZwmW5q03m7iH+r3qr
+ EsfKrF5VEUbpx/9rpQ1PEDsyH0AWHKGhR/mQQppTgyLmu83rTEQW4hcWfgZA3mVXm/fK
+ m+pw==
+X-Gm-Message-State: AGi0PuZLr6QHPfjIyWNUOh0GK07KOcNs41rRMUpT3uaVV/ZFhOqjxWPl
+ QSq7zohh5OolSl9ZvdhSW2s2+pQdqhm7
+X-Google-Smtp-Source: APiQypIE+KmbkbjcwYJQHKCqulNArhl3h+VK26SxchorERYvcF+2jZ38L4ju+VGSkCWK2NXGu3a2yYp9H4Ra
+X-Received: by 2002:a25:af4a:: with SMTP id c10mr4175960ybj.270.1588234974300; 
+ Thu, 30 Apr 2020 01:22:54 -0700 (PDT)
+Date: Thu, 30 Apr 2020 16:22:29 +0800
 In-Reply-To: <20200430082231.151127-1-tzungbi@google.com>
-Message-Id: <20200430082231.151127-4-tzungbi@google.com>
+Message-Id: <20200430082231.151127-5-tzungbi@google.com>
 Mime-Version: 1.0
 References: <20200430082231.151127-1-tzungbi@google.com>
 X-Mailer: git-send-email 2.26.2.303.gf8c07b1a785-goog
-Subject: [PATCH 3/6] ASoC: rt5682: remove empty default case
+Subject: [PATCH 4/6] ASoC: rt5682: replace message printing from pr_() to
+ dev_()
 From: Tzung-Bi Shih <tzungbi@google.com>
 To: broonie@kernel.org
 Content-Type: text/plain; charset="UTF-8"
@@ -94,78 +95,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Removes empty default case.  Also adds a missing break statement.
+Replaces message printing from pr_() to dev_().
 
 Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
 ---
- sound/soc/codecs/rt5682.c | 19 ++-----------------
- 1 file changed, 2 insertions(+), 17 deletions(-)
+ sound/soc/codecs/rt5682.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
 diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
-index 7a38028f5e10..d38b2e8a7f43 100644
+index d38b2e8a7f43..bfe542dcc7ba 100644
 --- a/sound/soc/codecs/rt5682.c
 +++ b/sound/soc/codecs/rt5682.c
-@@ -950,6 +950,7 @@ static int rt5682_headset_detect(struct snd_soc_component *component,
- 			break;
- 		default:
- 			rt5682->jack_type = SND_JACK_HEADPHONE;
-+			break;
- 		}
- 	} else {
- 		rt5682_enable_push_button_irq(component, false);
-@@ -1526,9 +1527,6 @@ static int rt5682_hp_event(struct snd_soc_dapm_widget *w,
- 		snd_soc_component_update_bits(component,
- 			RT5682_DAC_ADC_DIG_VOL1, 0x00c0, 0x0000);
- 		break;
--
--	default:
--		return 0;
+@@ -857,7 +857,7 @@ static int rt5682_button_detect(struct snd_soc_component *component)
+ 	val = snd_soc_component_read32(component, RT5682_4BTN_IL_CMD_1);
+ 	btn_type = val & 0xfff0;
+ 	snd_soc_component_write(component, RT5682_4BTN_IL_CMD_1, val);
+-	pr_debug("%s btn_type=%x\n", __func__, btn_type);
++	dev_dbg(component->dev, "%s btn_type=%x\n", __func__, btn_type);
+ 	snd_soc_component_update_bits(component,
+ 		RT5682_SAR_IL_CMD_2, 0x10, 0x10);
+ 
+@@ -1189,7 +1189,8 @@ static int rt5682_div_sel(struct rt5682_priv *rt5682,
+ 	int i;
+ 
+ 	if (rt5682->sysclk < target) {
+-		pr_err("sysclk rate %d is too low\n", rt5682->sysclk);
++		dev_err(rt5682->component->dev,
++			"sysclk rate %d is too low\n", rt5682->sysclk);
+ 		return 0;
  	}
  
- 	return 0;
-@@ -1550,9 +1548,6 @@ static int set_dmic_power(struct snd_soc_dapm_widget *w,
- 		/*Add delay to avoid pop noise*/
- 		msleep(delay);
- 		break;
--
--	default:
--		return 0;
+@@ -1206,7 +1207,8 @@ static int rt5682_div_sel(struct rt5682_priv *rt5682,
  	}
  
- 	return 0;
-@@ -1576,9 +1571,6 @@ static int rt5682_set_verf(struct snd_soc_dapm_widget *w,
- 			snd_soc_component_update_bits(component,
- 				RT5682_PWR_ANLG_1, RT5682_PWR_FV2, 0);
- 			break;
--
--		default:
--			break;
- 		}
- 		break;
+ 	if (target * div[i] < rt5682->sysclk)
+-		pr_err("sysclk rate %d is too high\n", rt5682->sysclk);
++		dev_err(rt5682->component->dev,
++			"sysclk rate %d is too high\n", rt5682->sysclk);
  
-@@ -1596,14 +1588,8 @@ static int rt5682_set_verf(struct snd_soc_dapm_widget *w,
- 				RT5682_PWR_ANLG_1, RT5682_PWR_FV2,
- 				RT5682_PWR_FV2);
- 			break;
--
--		default:
--			break;
- 		}
- 		break;
--
--	default:
--		return 0;
+ 	return size - 1;
+ }
+@@ -3272,7 +3274,7 @@ static void rt5682_calibrate(struct rt5682_priv *rt5682)
  	}
  
- 	return 0;
-@@ -2483,8 +2469,7 @@ static int rt5682_set_bias_level(struct snd_soc_component *component,
- 		regmap_update_bits(rt5682->regmap, RT5682_PWR_ANLG_1,
- 			RT5682_PWR_BG, 0);
- 		break;
--
--	default:
-+	case SND_SOC_BIAS_ON:
- 		break;
+ 	if (count >= 60)
+-		pr_err("HP Calibration Failure\n");
++		dev_err(rt5682->component->dev, "HP Calibration Failure\n");
+ 
+ 	/* restore settings */
+ 	regmap_write(rt5682->regmap, RT5682_PWR_ANLG_1, 0x02af);
+@@ -3391,7 +3393,7 @@ int rt5682_io_init(struct device *dev, struct sdw_slave *slave)
+ 
+ 	regmap_read(rt5682->regmap, RT5682_DEVICE_ID, &val);
+ 	if (val != DEVICE_ID) {
+-		pr_err("Device with ID register %x is not rt5682\n", val);
++		dev_err(dev, "Device with ID register %x is not rt5682\n", val);
+ 		return -ENODEV;
+ 	}
+ 
+@@ -3562,7 +3564,8 @@ static int rt5682_i2c_probe(struct i2c_client *i2c,
+ 
+ 	regmap_read(rt5682->regmap, RT5682_DEVICE_ID, &val);
+ 	if (val != DEVICE_ID) {
+-		pr_err("Device with ID register %x is not rt5682\n", val);
++		dev_err(&i2c->dev,
++			"Device with ID register %x is not rt5682\n", val);
+ 		return -ENODEV;
  	}
  
 -- 

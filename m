@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6609A1BFD9C
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 16:14:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C8AD1BFDA3
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 16:15:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C79816A6;
-	Thu, 30 Apr 2020 16:14:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C79816A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id CCA4716E0;
+	Thu, 30 Apr 2020 16:15:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCA4716E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588256090;
-	bh=dUI/gqqz5X+jR1udD0N8RtQtkFl5ejhA8YncUXES4cY=;
+	s=default; t=1588256154;
+	bh=Sx41FBhcBsKfKIEdv8SMAjV1JZRwxuUoFx2o7Y1WM7k=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FkWzEEzX2G+YQhn4Q8pWkamatEFU3VwgGJ6dCTVp2sx6AexWF1iWwk6aJJsy0kuyW
-	 XSrqWw2Kg+kCPkY21Tfh2rz0kbKHEBeTUbHcT822x33fr2mID2CL13Abs73InCgALx
-	 VecpgRU7lqGqbYooOKqlblExZkjyENhX4bRkRRCQ=
+	b=kO11YXiEZAV8G3jAvO/XG8Jlm5TuR7kq/36CbBzIZIXb+6bh5pUL3icBzr+qJ+rFF
+	 XM+tQmzn4UfZu3NphtdBQEt7ZMq+846sqXkwEZp7RaSIU+cZoMia3d2AwmkiNnZEye
+	 mK3G0wf976u9Cy5boJRYFKCLFOqBGV3Qu/kttdnE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72215F80435;
-	Thu, 30 Apr 2020 15:53:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF0CDF80443;
+	Thu, 30 Apr 2020 15:53:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9D2F4F80405; Thu, 30 Apr 2020 15:53:40 +0200 (CEST)
+ id 17F39F80299; Thu, 30 Apr 2020 15:53:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1689DF800E5
- for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 15:53:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1689DF800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 07E6AF8028C
+ for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 15:53:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07E6AF8028C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="NmEyc8SH"
+ header.b="BsOBzYqu"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id DB7EC2063A;
- Thu, 30 Apr 2020 13:53:35 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id EDECB21775;
+ Thu, 30 Apr 2020 13:53:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588254816;
- bh=dUI/gqqz5X+jR1udD0N8RtQtkFl5ejhA8YncUXES4cY=;
+ s=default; t=1588254817;
+ bh=Sx41FBhcBsKfKIEdv8SMAjV1JZRwxuUoFx2o7Y1WM7k=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=NmEyc8SH2CgiJ3SV+7jR0XsSbsPQXiRG8aYOMgKf9CbYoTdz+gSLEYXWzoVX5D0eA
- E1v/xmgMRDF+KWNCwSr3BCwshSyMMqs2ozXTPku4nKQZfcUwRDfWkB33rl5IzqB1PV
- bs3VtzMUJDrrqImmtSek0iZxzpnBj0t9yc5XydQ8=
+ b=BsOBzYquiUQeAU/fvbuJrQw6jCxchsQiTryD1b5MuNRem4wsIm0xShVYvoCN78Axl
+ YfjUI8BiNwiPtWJocG1jQf+OA+fAAvDa2+IWNzp/9MbmDJkF16Wnk8zr6YE8VOd3+r
+ azV71IzPn3qtSDmyIuL+Bbr/ywppc+9A24bZJl9I=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 09/30] ASoC: rsnd: Fix parent SSI start/stop in
+Subject: [PATCH AUTOSEL 4.19 10/30] ASoC: rsnd: Fix HDMI channel mapping for
  multi-SSI mode
-Date: Thu, 30 Apr 2020 09:53:04 -0400
-Message-Id: <20200430135325.20762-9-sashal@kernel.org>
+Date: Thu, 30 Apr 2020 09:53:05 -0400
+Message-Id: <20200430135325.20762-10-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200430135325.20762-1-sashal@kernel.org>
 References: <20200430135325.20762-1-sashal@kernel.org>
@@ -88,63 +88,45 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Matthias Blankertz <matthias.blankertz@cetitec.com>
 
-[ Upstream commit a09fb3f28a60ba3e928a1fa94b0456780800299d ]
+[ Upstream commit b94e164759b82d0c1c80d4b1c8f12c9bee83f11d ]
 
-The parent SSI of a multi-SSI setup must be fully setup, started and
-stopped since it is also part of the playback/capture setup. So only
-skip the SSI (as per commit 203cdf51f288 ("ASoC: rsnd: SSI parent cares
-SWSP bit") and commit 597b046f0d99 ("ASoC: rsnd: control SSICR::EN
-correctly")) if the SSI is parent outside of a multi-SSI setup.
+The HDMI?_SEL register maps up to four stereo SSI data lanes onto the
+sdata[0..3] inputs of the HDMI output block. The upper half of the
+register contains four blocks of 4 bits, with the most significant
+controlling the sdata3 line and the least significant the sdata0 line.
+
+The shift calculation has an off-by-one error, causing the parent SSI to
+be mapped to sdata3, the first multi-SSI child to sdata0 and so forth.
+As the parent SSI transmits the stereo L/R channels, and the HDMI core
+expects it on the sdata0 line, this causes no audio to be output when
+playing stereo audio on a multichannel capable HDMI out, and
+multichannel audio has permutated channels.
+
+Fix the shift calculation to map the parent SSI to sdata0, the first
+child to sdata1 etc.
 
 Signed-off-by: Matthias Blankertz <matthias.blankertz@cetitec.com>
 Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/20200415141017.384017-2-matthias.blankertz@cetitec.com
+Link: https://lore.kernel.org/r/20200415141017.384017-3-matthias.blankertz@cetitec.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sh/rcar/ssi.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ sound/soc/sh/rcar/ssiu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/sh/rcar/ssi.c b/sound/soc/sh/rcar/ssi.c
-index 33dc8d6ad35b2..3fe88f7743824 100644
---- a/sound/soc/sh/rcar/ssi.c
-+++ b/sound/soc/sh/rcar/ssi.c
-@@ -375,7 +375,7 @@ static void rsnd_ssi_config_init(struct rsnd_mod *mod,
- 	 * We shouldn't exchange SWSP after running.
- 	 * This means, parent needs to care it.
- 	 */
--	if (rsnd_ssi_is_parent(mod, io))
-+	if (rsnd_ssi_is_parent(mod, io) && !rsnd_ssi_multi_slaves(io))
- 		goto init_end;
+diff --git a/sound/soc/sh/rcar/ssiu.c b/sound/soc/sh/rcar/ssiu.c
+index 016fbf5ac242c..7b5eb316c3665 100644
+--- a/sound/soc/sh/rcar/ssiu.c
++++ b/sound/soc/sh/rcar/ssiu.c
+@@ -172,7 +172,7 @@ static int rsnd_ssiu_init_gen2(struct rsnd_mod *mod,
+ 			i;
  
- 	if (rsnd_io_is_play(io))
-@@ -531,7 +531,7 @@ static int rsnd_ssi_start(struct rsnd_mod *mod,
- 	 * EN is for data output.
- 	 * SSI parent EN is not needed.
- 	 */
--	if (rsnd_ssi_is_parent(mod, io))
-+	if (rsnd_ssi_is_parent(mod, io) && !rsnd_ssi_multi_slaves(io))
- 		return 0;
- 
- 	ssi->cr_en = EN;
-@@ -554,7 +554,7 @@ static int rsnd_ssi_stop(struct rsnd_mod *mod,
- 	if (!rsnd_ssi_is_run_mods(mod, io))
- 		return 0;
- 
--	if (rsnd_ssi_is_parent(mod, io))
-+	if (rsnd_ssi_is_parent(mod, io) && !rsnd_ssi_multi_slaves(io))
- 		return 0;
- 
- 	cr  =	ssi->cr_own	|
-@@ -592,7 +592,7 @@ static int rsnd_ssi_irq(struct rsnd_mod *mod,
- 	if (rsnd_is_gen1(priv))
- 		return 0;
- 
--	if (rsnd_ssi_is_parent(mod, io))
-+	if (rsnd_ssi_is_parent(mod, io) && !rsnd_ssi_multi_slaves(io))
- 		return 0;
- 
- 	if (!rsnd_ssi_is_run_mods(mod, io))
+ 		for_each_rsnd_mod_array(i, pos, io, rsnd_ssi_array) {
+-			shift	= (i * 4) + 16;
++			shift	= (i * 4) + 20;
+ 			val	= (val & ~(0xF << shift)) |
+ 				rsnd_mod_id(pos) << shift;
+ 		}
 -- 
 2.20.1
 

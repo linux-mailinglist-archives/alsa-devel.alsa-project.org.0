@@ -2,61 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FCE91BF2FB
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 10:36:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B02551BF362
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Apr 2020 10:47:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D3F801686;
-	Thu, 30 Apr 2020 10:35:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3F801686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 58DB51669;
+	Thu, 30 Apr 2020 10:47:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58DB51669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588235770;
-	bh=m8zIYKkfg6r8qePBZA3Hsb9knlVOFBcZzw7vifeh/ks=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1588236478;
+	bh=qTaP5yhmQowEtGy14MQc85aZDBi5Bq9e1gjpJn+SN+M=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vSlU5gNIUtO9OOLSgihXCg31BDnD2jjz17bD9Hd1lgk0qdt1BsX6vVWV+wzn4EDPz
-	 GocvWmZRTWrOfG3KRtpoDxEZWcD4lDjKo1BuvKkqq7+QPPMp+RozucCdZA+vtRhhIg
-	 PPHCXMA6yKyyXPdJYrA9JN03DCQj7IlLrDFfpd+s=
+	b=HYK85XQvJou+mfI7/+yim1q5cR/dyWxD/2d6uDzgvj8jZ2hfRXCg7K5XPC1Bw/ja6
+	 dFkWZTgZfk4GXJ23onahQ0rySxOLriQ//Kobbd3nXzjRROmlURpJY68bCJsSaxYROJ
+	 O2JpbF296B1+KnfIfmsjB0MjRcP/xBn7DD8iyzac=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2460AF8028D;
-	Thu, 30 Apr 2020 10:33:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 076BCF801EB;
+	Thu, 30 Apr 2020 10:46:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 57363F80136; Thu, 30 Apr 2020 10:33:25 +0200 (CEST)
+ id 70DEAF801DB; Thu, 30 Apr 2020 10:46:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Received: from wnew3-smtp.messagingengine.com (wnew3-smtp.messagingengine.com
+ [64.147.123.17])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 775C5F801DB
- for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 10:33:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 775C5F801DB
-Received: from 61-220-137-37.hinet-ip.hinet.net ([61.220.137.37]
- helo=localhost) by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <kai.heng.feng@canonical.com>)
- id 1jU4d5-0002xY-Dn; Thu, 30 Apr 2020 08:33:12 +0000
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-To: tiwai@suse.com
-Subject: [PATCH 3/3] ALSA: hda/realtek - Add LED class support for micmute LED
-Date: Thu, 30 Apr 2020 16:32:53 +0800
-Message-Id: <20200430083255.5093-3-kai.heng.feng@canonical.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200430083255.5093-1-kai.heng.feng@canonical.com>
-References: <20200430083255.5093-1-kai.heng.feng@canonical.com>
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, Tomas Espeleta <tomas.espeleta@gmail.com>,
- Thomas Hebb <tommyhebb@gmail.com>, open list <linux-kernel@vger.kernel.org>,
- Hui Wang <hui.wang@canonical.com>, Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Jian-Hong Pan <jian-hong@endlessm.com>,
- =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C7D39F800B6
+ for <alsa-devel@alsa-project.org>; Thu, 30 Apr 2020 10:46:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7D39F800B6
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
+ header.b="Crn54lkB"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="MfacvNZm"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailnew.west.internal (Postfix) with ESMTP id 941B190D;
+ Thu, 30 Apr 2020 04:46:05 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Thu, 30 Apr 2020 04:46:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm2; bh=fpjtGZf8AqSI48exIlo8OnF8z0r
+ obzEYf4a720y11JI=; b=Crn54lkBtd00EaqOJspktSUBCz50ahh6oNvAj45B9nN
+ Iwl59n8WUN4O2OGxKJz0cNVwsmE3RdYV+3VrQAcA7L7umKCCt2/DUlTmNUBMr56Q
+ BxuwEjBk4fF/pEj8TJOyPTUbKDBAkAxpha/IstRwOrsXiHC+nn78wQf7BVCXC8HC
+ gRpC2Ih4tLzOA5KnczD36BWaZL6SuZQTuoggbyx8ySwZWqhfeRqjGqznqCne+QIq
+ fES7oWLLnLoImdP9lHX0evFtLflOksq9e9Z+1A3dQhGjo+HAPhAQC1voptWLQyUv
+ eKp6xf83V69RUKxIEV6G9GTJtNnN3VcfNvpxQPHuc0A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=fpjtGZ
+ f8AqSI48exIlo8OnF8z0robzEYf4a720y11JI=; b=MfacvNZm1+/+qJ2z+cBQh9
+ CWx/PNOje+aXmEZyXakBvlexfUNKWaee4mYIFb4WPcefbzxemjkRDc6nBp4MOoz4
+ k4PmL1Flr7D9pvwoY8BiDFGOki1p61NVDqiezlvuKoOoamyRc02v40H2jxlNrfSH
+ p35tV48BXr+yHhgL6RNwaDFQcGW+o2mxWIIrDBvLe2ZJkF2cqLh3deifsMOxWXZ6
+ TxHjUoJjnji88vysO/jHChZtcWA0V1YRJNM/h1leuNuCrgGlfxMzjGFCN+7+a5bO
+ 0BDRiH+2y82LZUMIhvbK3dCeWTQU+GRMMcVangrSLfvoYzivKhm5alewsSNa2JFg
+ ==
+X-ME-Sender: <xms:SpCqXhoWXIPqto5Zw9q9kGy8eExsyYKiFCJs7MvLNuhXR9-EWk8Ryw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrieehgddtkecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggujgesghdtreertddtudenucfhrhhomhepofgrgihimhgv
+ ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
+ gvrhhnpeduvdduhfekkeehgffftefflefgffdtheffudffgeevteffheeuiedvvdejvdfg
+ veenucfkphepledtrdekledrieekrdejieenucevlhhushhtvghrufhiiigvpedtnecurf
+ grrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:SpCqXt8_Xg_kmJW_z9vDfQNvzkNt0Qy2S24GmNMmKFQqiZAiOHBRvw>
+ <xmx:SpCqXmYF-MTqX7R7WKqDvEh1JI1fs8uIYh1nZDFpPLjek26B8d0uNQ>
+ <xmx:SpCqXn0MbOxK1PQtCxaoNwCyZulXcZPqOBUhbdCAXq3jAvkcAXmQIQ>
+ <xmx:TZCqXsEDR3SBul6X-zgv3p3lwGz03BsnL8RlEu8Btqu5aDV62mGCvDcSyRU>
+Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
+ [90.89.68.76])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 3765C3280067;
+ Thu, 30 Apr 2020 04:46:02 -0400 (EDT)
+Date: Thu, 30 Apr 2020 10:46:00 +0200
+From: Maxime Ripard <maxime@cerno.tech>
+To: =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
+Subject: Re: [PATCH v3 3/7] ASoC: sun4i-i2s: Add support for H6 I2S
+Message-ID: <20200430084600.samghw4zxb5zdbez@gilmour.lan>
+References: <20200426104115.22630-1-peron.clem@gmail.com>
+ <20200426104115.22630-4-peron.clem@gmail.com>
+ <20200428081321.ht3el26yqhsnyfm4@gilmour.lan>
+ <CAJiuCcdVs_drs40Q6537BYfz24F7NmC6B8S5-Lt4V4ggs-FXWA@mail.gmail.com>
+ <20200429123529.y24dpy63wxq7uvkt@gilmour.lan>
+ <CAJiuCcfXqizcq_JuXRCsqEqM2562cr1SGJ0pmy07jcJxAXojOw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="y3cvvuhxye45tbpz"
+Content-Disposition: inline
+In-Reply-To: <CAJiuCcfXqizcq_JuXRCsqEqM2562cr1SGJ0pmy07jcJxAXojOw@mail.gmail.com>
+Cc: devicetree <devicetree@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ Jernej Skrabec <jernej.skrabec@siol.net>, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Mark Brown <broonie@kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,77 +124,66 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Currently DMIC controls micmute LED via "audio mute LED trigger".
 
-However, unlike Dell and Lenovo platforms, HP platforms don't provide a
-way to control micmute LED via ACPI, it's controlled by HDA codec
-instead.
+--y3cvvuhxye45tbpz
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-So let's register an LED class for micmute so other subsystems like DMIC
-can facilitate the codec-controlled LED.
+Hi,
 
-Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
----
- sound/pci/hda/patch_realtek.c | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+On Wed, Apr 29, 2020 at 06:33:00PM +0200, Cl=E9ment P=E9ron wrote:
+> On Wed, 29 Apr 2020 at 14:35, Maxime Ripard <maxime@cerno.tech> wrote:
+> >
+> > On Tue, Apr 28, 2020 at 10:55:47AM +0200, Cl=E9ment P=E9ron wrote:
+> > > > > +static int sun50i_i2s_set_soc_fmt(const struct sun4i_i2s *i2s,
+> > > > > +                              unsigned int fmt)
+> > > >
+> > > > The alignment is off here
+> > > >
+> > > > > +{
+> > > > > +     u32 mode, val;
+> > > > > +     u8 offset;
+> > > > > +
+> > > > > +     /*
+> > > > > +      * DAI clock polarity
+> > > > > +      *
+> > > > > +      * The setup for LRCK contradicts the datasheet, but under a
+> > > > > +      * scope it's clear that the LRCK polarity is reversed
+> > > > > +      * compared to the expected polarity on the bus.
+> > > > > +      */
+> > > >
+> > > > Did you check this or has it been copy-pasted?
+> > >
+> > > copy-pasted, I will check this.
+> >
+> > It's not going to be easy to do this if you only have a board with HDMI=
+=2E If you
+> > can't test that easily, just remove the comment (or make it explicit th=
+at you
+> > copy pasted it?), no comment is better than a wrong one.
+>=20
+> I have talked with Marcus Cooper it may be able to test this this week-en=
+d.
+> Also this can explain why we need the "
+> simple-audio-card,frame-inversion;" in the device-tree.
+>=20
+> If think this fix has been introduced by you, correct? Could you say
+> on which SoC did you see this issue?
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 6f164ccddde3..82eb7624bbba 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -17,6 +17,7 @@
- #include <linux/dmi.h>
- #include <linux/module.h>
- #include <linux/input.h>
-+#include <linux/leds.h>
- #include <sound/core.h>
- #include <sound/jack.h>
- #include <sound/hda_codec.h>
-@@ -4103,6 +4104,24 @@ static void alc_gpio_micmute_update(struct hda_codec *codec)
- 			    spec->gen.micmute_led.led_value);
- }
- 
-+static int micmute_led_set(struct led_classdev *led_cdev,
-+			   enum led_brightness brightness)
-+{
-+	struct hda_codec *codec = dev_to_hda_codec(led_cdev->dev->parent);
-+	struct alc_spec *spec = codec->spec;
-+
-+	alc_update_gpio_led(codec, spec->gpio_mic_led_mask,
-+			    spec->micmute_led_polarity, !!brightness);
-+	return 0;
-+}
-+
-+static struct led_classdev micmute_led_cdev = {
-+	.name = "hda::micmute",
-+	.max_brightness = 1,
-+	.brightness_set_blocking = micmute_led_set,
-+	.default_trigger = "audio-micmute",
-+};
-+
- /* setup mute and mic-mute GPIO bits, add hooks appropriately */
- static void alc_fixup_hp_gpio_led(struct hda_codec *codec,
- 				  int action,
-@@ -4110,6 +4129,7 @@ static void alc_fixup_hp_gpio_led(struct hda_codec *codec,
- 				  unsigned int micmute_mask)
- {
- 	struct alc_spec *spec = codec->spec;
-+	int err;
- 
- 	alc_fixup_gpio(codec, action, mute_mask | micmute_mask);
- 
-@@ -4122,6 +4142,11 @@ static void alc_fixup_hp_gpio_led(struct hda_codec *codec,
- 	if (micmute_mask) {
- 		spec->gpio_mic_led_mask = micmute_mask;
- 		snd_hda_gen_add_micmute_led(codec, alc_gpio_micmute_update);
-+
-+		micmute_led_cdev.brightness = ledtrig_audio_get(LED_AUDIO_MICMUTE);
-+		err = devm_led_classdev_register(&codec->core.dev, &micmute_led_cdev);
-+		if (err)
-+			codec_warn(codec, "failed to register micmute LED\n");
- 	}
- }
- 
--- 
-2.17.1
+This was seen on an H3
 
+Maxime
+
+--y3cvvuhxye45tbpz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXqqQRwAKCRDj7w1vZxhR
+xc06AP4quZAf2DNrCglxI3FnGicJEvn/UCQlNMdBjtAZiNt6NAEAklrbdL9EUUv6
+PaDu07BZiJ7iqnqxZPn5egwCTM/O1Ac=
+=jFs3
+-----END PGP SIGNATURE-----
+
+--y3cvvuhxye45tbpz--

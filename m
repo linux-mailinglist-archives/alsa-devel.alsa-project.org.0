@@ -2,63 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E2131C11BE
-	for <lists+alsa-devel@lfdr.de>; Fri,  1 May 2020 13:59:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CE791C11F0
+	for <lists+alsa-devel@lfdr.de>; Fri,  1 May 2020 14:16:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 26AD616A2;
-	Fri,  1 May 2020 13:58:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26AD616A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB4F716A3;
+	Fri,  1 May 2020 14:15:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB4F716A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588334362;
-	bh=QCH5NVPbBHWenJ+ynedkmmKWd74Mf/bjc3PmxhEqk9Y=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1588335365;
+	bh=q0oVt3xVQyA3X46V8bTqUytRBVFyNTw00wAR0tddYCg=;
+	h=To:References:Subject:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=quIoL97FwKxNp3gKznTnuDaG2nNXFVNEX8y6VK/uclMRGpe5ak6O9oeEQRWyeWLjl
-	 08SefxLDrIv1kszjYEpvvN0YArrnO+spor8TlLCu0tNnceh2rHpNSLHe/ImCGjG3UW
-	 weTYxclHv2rWJzPXSCxBeABegvx/Rci4mCvLgZK0=
+	b=DeWLyLLK68btTO2GulIZjv4zY1rqEyYaEMw1km/gNKztxA0xw63FiA2Y/DMq3lED+
+	 Sq2j8LI2UU6qzLgfCuGi+cESlEjf2bBGt4ogG9ui51yL/x+tiIuSVFvUpRYXL7Rwsw
+	 COlwkNbGVrKSngONcRqBeZNqJYo9FhEgbMkF4c0Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1B4E3F800B6;
-	Fri,  1 May 2020 13:57:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E76F9F80217;
+	Fri,  1 May 2020 14:14:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 29837F8022B; Fri,  1 May 2020 13:57:38 +0200 (CEST)
+ id DCC91F8022B; Fri,  1 May 2020 14:14:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A8BEAF800B6
- for <alsa-devel@alsa-project.org>; Fri,  1 May 2020 13:57:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8BEAF800B6
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: gtucker) with ESMTPSA id DD19F2A2F63
-Subject: Re: stable-rc/linux-5.4.y bisection: baseline.dmesg.alert on
- meson-g12a-x96-max
-To: Jerome Brunet <jbrunet@baylibre.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Mark Brown <broonie@kernel.org>
-References: <5eabecbf.1c69fb81.2c617.628f@mx.google.com>
-From: Guillaume Tucker <guillaume.tucker@collabora.com>
-Message-ID: <cc10812b-19bd-6bd1-75da-32082241640a@collabora.com>
-Date: Fri, 1 May 2020 12:57:27 +0100
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_DYNAMIC,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.d-sys.org (70-31-180-213.sta.estpak.ee [213.180.31.70])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9CECBF800E5
+ for <alsa-devel@alsa-project.org>; Fri,  1 May 2020 14:14:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CECBF800E5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=d-systems.ee header.i=@d-systems.ee
+ header.b="RYc13EI/"
+Received: from [10.255.10.40] (GW.ds.local [10.255.0.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (Client did not present a certificate)
+ (Authenticated sender: dmitry@d-systems.ee)
+ by mail.d-sys.org (Postfix) with ESMTPSA id 426E360533;
+ Fri,  1 May 2020 15:06:19 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=d-systems.ee; s=mail;
+ t=1588334779; bh=q0oVt3xVQyA3X46V8bTqUytRBVFyNTw00wAR0tddYCg=;
+ h=To:Cc:References:Subject:From:Date:In-Reply-To;
+ b=RYc13EI/mU6zpvsBw6IAslRSpMSrzg5csxZ25di2ZGslVDBpATeQjE9d+MBuFY10Z
+ dh5ffj+sTcylh4nrpRAK1xnWXbUIEtUs4JgZ40P4ykzQJFyVWIupAcwy5cd4H5N5Sa
+ u70ONxhqp4KMOBOWvdW6/aiJ47eqaU8b3cWBdGp372tdQ2x/ENU5zhWqDx0h7AFouM
+ uj4HKIVba2RhLUY3fKWFFnOV/mpAqgrn8EcqNXSmZaey8JwaAsICZd23rD7U0c4sGS
+ Kw8/POizCn9VSS8DzrpxDBkzeghCNmjnBm8z6YRGPeTJh9WwonBQvhl5JSlMKGm8aT
+ VD+s2fxF7DQJA==
+To: dmitry@d-systems.ee
+References: <b1f8414d-81d3-3f8b-e2c7-d536858d1bb6@d-systems.ee>
+Subject: Re: Pioneer DJ DJM-900NXS2 support patches
+From: Dmitry Panchenko | d-Systems <dmitry@d-systems.ee>
+Message-ID: <13d0e6b3-2066-e67e-3499-a72291ce4348@d-systems.ee>
+Date: Fri, 1 May 2020 15:14:11 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <5eabecbf.1c69fb81.2c617.628f@mx.google.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Kevin Hilman <khilman@baylibre.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, stable@vger.kernel.org,
- linux-amlogic@lists.infradead.org, kernelci@groups.io,
- linux-arm-kernel@lists.infradead.org
+In-Reply-To: <b1f8414d-81d3-3f8b-e2c7-d536858d1bb6@d-systems.ee>
+Content-Type: multipart/mixed; boundary="------------09144056ABDB4220D61DB557"
+Content-Language: en-GB
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,173 +83,173 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Please see the bisection report below about a kernel Oops.
+This is a multi-part message in MIME format.
+--------------09144056ABDB4220D61DB557
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Reports aren't automatically sent to the public while we're
-trialing new bisection features on kernelci.org but this one
-looks valid.
+Takashi and Alexander, thanks for feedback! The updated patches are 
+attached.
 
-The log shows a kernel NULL pointer dereference:
+Signed-off-by: Dmitry Panchenko <dmitry@d-systems.ee>
 
-  https://storage.kernelci.org/stable-rc/linux-5.4.y/v5.4.36-52-g35bbc55d9e29/arm64/defconfig/gcc-8/lab-baylibre/baseline-meson-g12a-x96-max.html#L1113
+--
+Kind regards,
+Dmitry Panchenko
 
-The call stack is not the same as in the commit message found by
-the bisection, so maybe it only fixed part of the problem:
+d-Systems Ltd
+Lai 6, Tartu 51005, Estonia
+www.d-systems.ee
 
-<1>[   16.007376] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000010
-<1>[   16.016300] Mem abort info:
-<1>[   16.019269]   ESR = 0x96000006
-<1>[   16.022571]   EC = 0x25: DABT (current EL), IL = 32 bits
-<1>[   16.028075]   SET = 0, FnV = 0
-<1>[   16.031356]   EA = 0, S1PTW = 0
-<1>[   16.034705] Data abort info:
-<1>[   16.037837]   ISV = 0, ISS = 0x00000006
-<1>[   16.041876]   CM = 0, WnR = 0
-<1>[   16.045128] user pgtable: 4k pages, 48-bit VAs, pgdp=00000000be0f0000
-<1>[   16.051702] [0000000000000010] pgd=00000000be117003, pud=00000000be118003, pmd=0000000000000000
-<0>[   16.051709] Internal error: Oops: 96000006 [#1] PREEMPT SMP
-<4>[   16.133466] CPU: 2 PID: 33 Comm: kworker/2:1 Tainted: G        W         5.4.37-rc1 #1
-<4>[   16.141566] Hardware name: Shenzhen Amediatech Technology Co., Ltd X96 Max (DT)
-<4>[   16.149087] Workqueue: events deferred_probe_work_func
-<4>[   16.154419] pstate: 20000005 (nzCv daif -PAN -UAO)
-<4>[   16.159428] pc : snd_soc_dapm_new_dai+0x3c/0x1b0
-<4>[   16.164252] lr : snd_soc_dapm_connect_dai_link_widgets+0x114/0x268
-<4>[   16.256970] Call trace:
-<4>[   16.259647]  snd_soc_dapm_new_dai+0x3c/0x1b0
-<4>[   16.264129]  snd_soc_dapm_connect_dai_link_widgets+0x114/0x268
-<4>[   16.270167]  snd_soc_instantiate_card+0x858/0xb88
-<4>[   16.275083]  snd_soc_register_card+0xf8/0x120
-<4>[   16.279656]  devm_snd_soc_register_card+0x40/0x90
-<4>[   16.284575]  axg_card_probe+0x9dc/0xaf0 [snd_soc_meson_axg_sound_card]
-<4>[   16.291299]  platform_drv_probe+0x50/0xa0
-<4>[   16.295524]  really_probe+0xd4/0x328
-<4>[   16.299319]  driver_probe_device+0x54/0xe8
-...
+--------------09144056ABDB4220D61DB557
+Content-Type: text/x-patch; charset=UTF-8;
+ name="pcm.c.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="pcm.c.patch"
 
+--- sound/usb/pcm.c	2020-04-23 11:38:27.000000000 +0300
++++ /root/linux-5.6.7/sound/usb/pcm.c	2020-05-01 14:17:54.785566648 +0300
+@@ -365,6 +365,10 @@
+ 		ep = 0x81;
+ 		ifnum = 2;
+ 		goto add_sync_ep_from_ifnum;
++	case USB_ID(0x2b73, 0x000a): /* Pioneer DJ DJM-900NXS2 */
++		ep = 0x82;
++		ifnum = 0;
++		goto add_sync_ep_from_ifnum;
+ 	case USB_ID(0x0582, 0x01d8): /* BOSS Katana */
+ 		/* BOSS Katana amplifiers do not need quirks */
+ 		return 0;
 
-Guillaume
+--------------09144056ABDB4220D61DB557
+Content-Type: text/x-patch; charset=UTF-8;
+ name="quirks.c.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="quirks.c.patch"
 
+--- sound/usb/quirks.c	2020-04-23 11:38:27.000000000 +0300
++++ /root/linux-5.6.7/sound/usb/quirks.c	2020-05-01 14:45:57.545650031 +0300
+@@ -1414,6 +1414,30 @@
+ 	subs->pkt_offset_adj = (emu_samplerate_id >= EMU_QUIRK_SR_176400HZ) ? 4 : 0;
+ }
+ 
++
++/*
++ * Pioneer DJ DJM-900NXS2
++ * Device needs to know the sample rate each time substream is started
++ */
++static int pioneer_djm_set_format_quirk(struct snd_usb_substream *subs)
++{
++
++	/* Convert sample rate value to little endian */
++	u8 sr[3];
++
++	sr[0] = subs->cur_rate&0xff;
++	sr[1] = (subs->cur_rate>>8)&0xff;
++	sr[2] = (subs->cur_rate>>16)&0xff;
++
++	/* Configure device */
++	usb_set_interface(subs->dev, 0, 1);
++	snd_usb_ctl_msg(subs->stream->chip->dev,
++		usb_rcvctrlpipe(subs->stream->chip->dev, 0),
++		0x01, 0x22, 0x0100, 0x0082, &sr, 0x0003);
++
++	return 0;
++}
++
+ void snd_usb_set_format_quirk(struct snd_usb_substream *subs,
+ 			      struct audioformat *fmt)
+ {
+@@ -1424,6 +1448,9 @@
+ 	case USB_ID(0x041e, 0x3f19): /* E-Mu 0204 USB */
+ 		set_format_emu_quirk(subs, fmt);
+ 		break;
++	case USB_ID(0x2b73, 0x000a): /* Pioneer DJ DJM-900NXS2 */
++		pioneer_djm_set_format_quirk(subs);
++		break;
+ 	}
+ }
+ 
 
-On 01/05/2020 10:32, kernelci.org bot wrote:
-> * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-> * This automated bisection report was sent to you on the basis  *
-> * that you may be involved with the breaking commit it has      *
-> * found.  No manual investigation has been done to verify it,   *
-> * and the root cause of the problem may be somewhere else.      *
-> *                                                               *
-> * If you do send a fix, please include this trailer:            *
-> *   Reported-by: "kernelci.org bot" <bot@kernelci.org>          *
-> *                                                               *
-> * Hope this helps!                                              *
-> * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-> 
-> stable-rc/linux-5.4.y bisection: baseline.dmesg.alert on meson-g12a-x96-max
-> 
-> Summary:
->   Start:      35bbc55d9e296 Linux 5.4.37-rc1
->   Plain log:  https://storage.kernelci.org/stable-rc/linux-5.4.y/v5.4.36-52-g35bbc55d9e29/arm64/defconfig/gcc-8/lab-baylibre/baseline-meson-g12a-x96-max.txt
->   HTML log:   https://storage.kernelci.org/stable-rc/linux-5.4.y/v5.4.36-52-g35bbc55d9e29/arm64/defconfig/gcc-8/lab-baylibre/baseline-meson-g12a-x96-max.html
->   Result:     09f4294793bd3 ASoC: meson: axg-card: fix codec-to-codec link setup
-> 
-> Checks:
->   revert:     PASS
->   verify:     PASS
-> 
-> Parameters:
->   Tree:       stable-rc
->   URL:        https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
->   Branch:     linux-5.4.y
->   Target:     meson-g12a-x96-max
->   CPU arch:   arm64
->   Lab:        lab-baylibre
->   Compiler:   gcc-8
->   Config:     defconfig
->   Test case:  baseline.dmesg.alert
-> 
-> Breaking commit found:
-> 
-> -------------------------------------------------------------------------------
-> commit 09f4294793bd3e70d68fdab5b392dff18bff62ca
-> Author: Jerome Brunet <jbrunet@baylibre.com>
-> Date:   Mon Apr 20 13:45:10 2020 +0200
-> 
->     ASoC: meson: axg-card: fix codec-to-codec link setup
->     
->     commit 1164284270779e1865cc2046a2a01b58a1e858a9 upstream.
->     
->     Since the addition of commit 9b5db059366a ("ASoC: soc-pcm: dpcm: Only allow
->     playback/capture if supported"), meson-axg cards which have codec-to-codec
->     links fail to init and Oops:
->     
->       Unable to handle kernel NULL pointer dereference at virtual address 0000000000000128
->       Internal error: Oops: 96000044 [#1] PREEMPT SMP
->       CPU: 3 PID: 1582 Comm: arecord Not tainted 5.7.0-rc1
->       pc : invalidate_paths_ep+0x30/0xe0
->       lr : snd_soc_dapm_dai_get_connected_widgets+0x170/0x1a8
->       Call trace:
->        invalidate_paths_ep+0x30/0xe0
->        snd_soc_dapm_dai_get_connected_widgets+0x170/0x1a8
->        dpcm_path_get+0x38/0xd0
->        dpcm_fe_dai_open+0x70/0x920
->        snd_pcm_open_substream+0x564/0x840
->        snd_pcm_open+0xfc/0x228
->        snd_pcm_capture_open+0x4c/0x78
->        snd_open+0xac/0x1a8
->        ...
->     
->     While initiliazing the links, ASoC treats the codec-to-codec links of this
->     card type as a DPCM backend. This error eventually leads to the Oops.
->     
->     Most of the card driver code is shared between DPCM backends and
->     codec-to-codec links. The property "no_pcm" marking DCPM BE was left set on
->     codec-to-codec links, leading to this problem. This commit fixes that.
->     
->     Fixes: 0a8f1117a680 ("ASoC: meson: axg-card: add basic codec-to-codec link support")
->     Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
->     Link: https://lore.kernel.org/r/20200420114511.450560-2-jbrunet@baylibre.com
->     Signed-off-by: Mark Brown <broonie@kernel.org>
->     Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> 
-> diff --git a/sound/soc/meson/axg-card.c b/sound/soc/meson/axg-card.c
-> index 1f698adde506c..2b04ac3d8fd3b 100644
-> --- a/sound/soc/meson/axg-card.c
-> +++ b/sound/soc/meson/axg-card.c
-> @@ -586,8 +586,10 @@ static int axg_card_add_link(struct snd_soc_card *card, struct device_node *np,
->  
->  	if (axg_card_cpu_is_tdm_iface(dai_link->cpus->of_node))
->  		ret = axg_card_parse_tdm(card, np, index);
-> -	else if (axg_card_cpu_is_codec(dai_link->cpus->of_node))
-> +	else if (axg_card_cpu_is_codec(dai_link->cpus->of_node)) {
->  		dai_link->params = &codec_params;
-> +		dai_link->no_pcm = 0; /* link is not a DPCM BE */
-> +	}
->  
->  	return ret;
->  }
-> -------------------------------------------------------------------------------
-> 
-> 
-> Git bisection log:
-> 
-> -------------------------------------------------------------------------------
-> git bisect start
-> # good: [aa73bcc376865c23e61dcebd467697b527901be8] Linux 5.4.36
-> git bisect good aa73bcc376865c23e61dcebd467697b527901be8
-> # bad: [35bbc55d9e296d37cf01555d415338b84a70d4c5] Linux 5.4.37-rc1
-> git bisect bad 35bbc55d9e296d37cf01555d415338b84a70d4c5
-> # bad: [924f1d37852ff357658c205dd114c70862865fc9] svcrdma: Fix trace point use-after-free race
-> git bisect bad 924f1d37852ff357658c205dd114c70862865fc9
-> # good: [b848f65436665b5fe675fd3f645c1a458e49f60a] counter: 104-quad-8: Add lock guards - generic interface
-> git bisect good b848f65436665b5fe675fd3f645c1a458e49f60a
-> # bad: [04b53ed855129c1703d00d8494e4c61309714a99] drivers: soc: xilinx: fix firmware driver Kconfig dependency
-> git bisect bad 04b53ed855129c1703d00d8494e4c61309714a99
-> # good: [ae886eae0318c71a6125347d6810a1578a83d262] ASoC: tas571x: disable regulators on failed probe
-> git bisect good ae886eae0318c71a6125347d6810a1578a83d262
-> # bad: [2c0990070379284dda0b51304ce19c2b96e083a2] ASoC: wm8960: Fix wrong clock after suspend & resume
-> git bisect bad 2c0990070379284dda0b51304ce19c2b96e083a2
-> # bad: [09f4294793bd3e70d68fdab5b392dff18bff62ca] ASoC: meson: axg-card: fix codec-to-codec link setup
-> git bisect bad 09f4294793bd3e70d68fdab5b392dff18bff62ca
-> # first bad commit: [09f4294793bd3e70d68fdab5b392dff18bff62ca] ASoC: meson: axg-card: fix codec-to-codec link setup
-> -------------------------------------------------------------------------------
-> 
+--------------09144056ABDB4220D61DB557
+Content-Type: text/x-patch; charset=UTF-8;
+ name="quirks-table.h.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="quirks-table.h.patch"
 
+--- sound/usb/quirks-table.h	2020-04-23 11:38:27.000000000 +0300
++++ /root/linux-5.6.7/sound/usb/quirks-table.h	2020-05-01 14:48:44.665672833 +0300
+@@ -3592,5 +3592,68 @@
+ 		}
+ 	}
+ },
++{
++	/*
++	 * Pioneer DJ DJM-900NXS2
++	 * 10 channels playback & 12 channels capture @ 44.1/48/96kHz S24LE
++	 */
++	USB_DEVICE_VENDOR_SPEC(0x2b73, 0x000a),
++	.driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
++		.ifnum = QUIRK_ANY_INTERFACE,
++		.type = QUIRK_COMPOSITE,
++		.data = (const struct snd_usb_audio_quirk[]) {
++			{
++				.ifnum = 0,
++				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
++				.data = &(const struct audioformat) {
++					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
++					.channels = 10,
++					.iface = 0,
++					.altsetting = 1,
++					.altset_idx = 1,
++					.endpoint = 0x01,
++					.ep_attr = USB_ENDPOINT_XFER_ISOC|
++					    USB_ENDPOINT_SYNC_ASYNC,
++					.rates = SNDRV_PCM_RATE_44100|
++					    SNDRV_PCM_RATE_48000|
++					    SNDRV_PCM_RATE_96000,
++					.rate_min = 44100,
++					.rate_max = 96000,
++					.nr_rates = 3,
++					.rate_table = (unsigned int[]) {
++						44100, 48000, 96000
++					}
++				}
++			},
++			{
++				.ifnum = 0,
++				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
++				.data = &(const struct audioformat) {
++					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
++					.channels = 12,
++					.iface = 0,
++					.altsetting = 1,
++					.altset_idx = 1,
++					.endpoint = 0x82,
++					.ep_attr = USB_ENDPOINT_XFER_ISOC|
++					    USB_ENDPOINT_SYNC_ASYNC|
++					    USB_ENDPOINT_USAGE_IMPLICIT_FB,
++					.rates = SNDRV_PCM_RATE_44100|
++					    SNDRV_PCM_RATE_48000|
++					    SNDRV_PCM_RATE_96000,
++					.rate_min = 44100,
++					.rate_max = 96000,
++					.nr_rates = 3,
++					.rate_table = (unsigned int[]) {
++						44100, 48000, 96000
++					}
++				}
++			},
++			{
++				.ifnum = -1
++			}
++		}
++	}
++},
+ 
+ #undef USB_DEVICE_VENDOR_SPEC
+
+--------------09144056ABDB4220D61DB557--

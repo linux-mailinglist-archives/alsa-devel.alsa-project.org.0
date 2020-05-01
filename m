@@ -2,83 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2202E1C1E44
-	for <lists+alsa-devel@lfdr.de>; Fri,  1 May 2020 22:15:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 967061C1E4B
+	for <lists+alsa-devel@lfdr.de>; Fri,  1 May 2020 22:18:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 06B5616BA;
-	Fri,  1 May 2020 22:15:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06B5616BA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3DAA816BA;
+	Fri,  1 May 2020 22:17:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DAA816BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588364158;
-	bh=TevFkjb5rNexzQ+5edWV1jKKHFVOqDomhs7zDWXFj/s=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1588364309;
+	bh=DN9HjXtyNPMNzV33tIb75OYQOuAzSYlobJjZO16qERw=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=M9wMqvyBMXzRRxiGif/Zj0PSJ0Y9UaDMGMAniuzK4GcfS1lBDacpgJGhfSx8VdJf1
-	 E7xXvXMtxc1wc6V3rRqsa1jI1TZenOZNzX79bL+OTVYJ4A7mgQwkNc/WrQgDRyrRJr
-	 frdlJHc9iv/9a4JgU3nBDMF/zUWJACwmjus0XNP4=
+	b=HuyNR3HjNXVnTdPcF6lUuFSTQ0dx3JzDlnwTZVRINefhyVh4QUA6mqnar2GsBOsMT
+	 adiZkRfVuqw5RgluKqDCKauRI5prsOp46jQwGsZDWUUo2+atA91bhT3pnMVI0Fj4q4
+	 FtxWlbcDgdNzZ1uQLdzqd26BJpN7HMrfmfGMpnN8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E4D27F80232;
-	Fri,  1 May 2020 22:14:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EEEC6F80217;
+	Fri,  1 May 2020 22:16:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5E588F8022B; Fri,  1 May 2020 22:14:14 +0200 (CEST)
+ id A9588F8022B; Fri,  1 May 2020 22:16:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
- [209.85.210.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E999FF800E5
- for <alsa-devel@alsa-project.org>; Fri,  1 May 2020 22:14:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E999FF800E5
-Received: by mail-ot1-f67.google.com with SMTP id g14so3470634otg.10
- for <alsa-devel@alsa-project.org>; Fri, 01 May 2020 13:14:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=2xG6LfTRRj7zxxC5OOjRbiExVAKfImflfttUoxbE6Wk=;
- b=C0RrA5lYGm6FTmxiheoTNrrOYoPYA1ff79QAKKE3uZ2bT14F+RI7BTYDrMYMG1mLxC
- wbcD74S6NKD8WpJSQM7zubM/o+uZhhPoowwTTc32Yg3xuJ0wY2HN9EaIutLwQB4/9reO
- RXgcm2Z+uqdq8UcdaYNMVvpGvWyoO0pUx1LXsGnuKqd4lcS27rApU5aSsq0TnaJi4ffC
- tCvVYepK4KfiWZEeYrUnokKjWiXpsK/2PCXqI6W5yguFirKspy9VHn5Unz/0u7pOicJV
- kYhAbcaFKsoJKSTjVD/htnKpOmhy+ae3mCM8Q6agZDKAauqnzUWDQr+dXm06G0CNdNa2
- YheQ==
-X-Gm-Message-State: AGi0Pub4eR+Hy5h/Endpi4rrEB1RSAHIsxv9iqY8t+cGQkcHDjAomsPl
- eQtTK2+06IXfmREB7I8hjA==
-X-Google-Smtp-Source: APiQypK5652+F+YPF+Qn5GQulTJDVC1+CGSNJ8JQC4ySwrNbIYJVtWlnY9BlUtvjDv0XE2FcIET1+g==
-X-Received: by 2002:a9d:6e3:: with SMTP id 90mr5124784otx.261.1588364044458;
- Fri, 01 May 2020 13:14:04 -0700 (PDT)
-Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id d61sm1065978otb.58.2020.05.01.13.14.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 May 2020 13:14:03 -0700 (PDT)
-Received: (nullmailer pid 26942 invoked by uid 1000);
- Fri, 01 May 2020 20:14:02 -0000
-Date: Fri, 1 May 2020 15:14:02 -0500
-From: Rob Herring <robh@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH] ASoC: dt-bindings: audio-graph-card: switch to yaml base
- Documentation
-Message-ID: <20200501201402.GA8603@bogus>
-References: <87ftcxv2lk.wl-kuninori.morimoto.gx@renesas.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1D779F800B6
+ for <alsa-devel@alsa-project.org>; Fri,  1 May 2020 22:16:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D779F800B6
+IronPort-SDR: j0AIjFIhykOvblOETk10pFt/5DLu8pG6fCb/rehpFmP4nccjmupMQ3liU+Df0DLP403h9kPIRt
+ RCOfCiNFyiyw==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 May 2020 13:16:37 -0700
+IronPort-SDR: 1GzbZ0PLz8ewGXbhrI0UK885C79CRjvVf7gZORcwqO/LIVMBQf1s9CM8kxn22edyQqKkH8TQnh
+ F4Um4u0bLAMg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,340,1583222400"; d="scan'208";a="276914737"
+Received: from srodrig5-mobl2.amr.corp.intel.com (HELO [10.254.111.158])
+ ([10.254.111.158])
+ by orsmga002.jf.intel.com with ESMTP; 01 May 2020 13:16:35 -0700
+Subject: Re: [PATCH V2] ASoC: Intel: boards: Use FS as nau8825 sysclk in
+ nau88125_* machine
+To: Radoslaw Biernacki <rad@semihalf.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+References: <20200501193141.30293-1-rad@semihalf.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <3ad44b75-387f-da75-d7b2-3a16ed00550c@linux.intel.com>
+Date: Fri, 1 May 2020 15:16:35 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87ftcxv2lk.wl-kuninori.morimoto.gx@renesas.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
+In-Reply-To: <20200501193141.30293-1-rad@semihalf.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Lech Betlej <Lech.Betlej@intel.com>, alsa-devel@alsa-project.org,
+ Todd Broch <tbroch@google.com>, Harshapriya <harshapriya.n@intel.com>,
+ Alex Levin <levinale@google.com>, John Hsu <KCHSU0@nuvoton.com>,
+ linux-kernel@vger.kernel.org, michal.sienkiewicz@intel.com,
+ Ben Zhang <benzh@chromium.org>, Mac Chiang <mac.chiang@intel.com>,
+ Marcin Wojtas <mw@semihalf.com>,
+ Vamshi Krishna <vamshi.krishna.gopal@intel.com>, Yong Zhi <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,27 +89,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Apr 21, 2020 at 02:18:15PM +0900, Kuninori Morimoto wrote:
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+
+
+On 5/1/20 2:31 PM, Radoslaw Biernacki wrote:
+> This single fix address two issues on machines with nau88125:
+> 1) Audio distortion, due to lack of required clock rate on MCLK line
+> 2) Loud audible "pops" on headphones if there is no sysclk during nau8825
+>     playback power up sequence
 > 
-> This patch switches from .txt base to .yaml base Document.
+> Explanation for:
+> 1) Due to Skylake HW limitation, MCLK pin can only output 24MHz clk
+>     rate (it can be only connected to XTAL parent clk). The BCLK pin
+>     can be driven by dividers and therefore FW is able to set it to rate
+>     required by chosen audio format. According to nau8825 datasheet, 256*FS
+>     sysclk gives the best audio quality and the only way to achieve this
+>     (taking into account the above limitations) its to regenerate the MCLK
+>     from BCLK on nau8825 side by FFL. Without required clk rate, audio is
+>     distorted by added harmonics.
+
+The BCLK is going to be a multiple of 50 * Fs due to clocking 
+restrictions. Can the codec regenerate a good-enough sysclk from this?
 > 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
->  .../bindings/sound/audio-graph-card.txt       | 337 --------------
->  .../bindings/sound/audio-graph-card.yaml      | 416 ++++++++++++++++++
->  2 files changed, 416 insertions(+), 337 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/audio-graph-card.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/audio-graph-card.yaml
+> 2) Currently Skylake does not output MCLK/FS when the back-end DAI op
+>     hw_param is called, so we cannot switch to MCLK/FS in hw_param.  This
+>     patch reduces pop by letting nau8825 keep using its internal VCO clock
+>     during widget power up sequence, until SNDRV_PCM_TRIGGER_START when
+>     MCLK/FS is available. Once device resumes, the system will only enable
+>     power sequence for playback without doing hardware parameter, audio
+>     format, and PLL configure. In the mean time, the jack detecion sequence
+>     has changed PLL parameters and switched to internal clock. Thus, the
+>     playback signal distorted without correct PLL parameters.  That is why
+>     we need to configure the PLL again in SNDRV_PCM_TRIGGER_RESUME case.
 
-This needs to be a series, so they are applied together and don't break 
-the tools if only the ak4613 patch is applied.
+IIRC the FS can be controlled with the clk_ api with the Skylake driver, 
+as done for some KBL platforms. Or is this not supported by the firmware 
+used by this machine?
 
-As mentioned in the other patch, I think this needs to be broken up to 
-multiple schemas and avoid definitions.
+> -static int skylake_nau8825_hw_params(struct snd_pcm_substream *substream,
+> -	struct snd_pcm_hw_params *params)
+> +static int skylake_nau8825_trigger(struct snd_pcm_substream *substream, int cmd)
+>   {
+>   	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+> +	struct snd_pcm_runtime *runtime = substream->runtime;
+>   	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+> -	int ret;
+> -
+> -	ret = snd_soc_dai_set_sysclk(codec_dai,
+> -			NAU8825_CLK_MCLK, 24000000, SND_SOC_CLOCK_IN);
+> +	int ret = 0;
+>   
+> -	if (ret < 0)
+> -		dev_err(rtd->dev, "snd_soc_dai_set_sysclk err = %d\n", ret);
+> +	switch (cmd) {
+> +	case SNDRV_PCM_TRIGGER_START:
+> +		ret = snd_soc_dai_set_sysclk(codec_dai, NAU8825_CLK_FLL_FS, 0,
+> +					     SND_SOC_CLOCK_IN);
+> +		if (ret < 0) {
+> +			dev_err(codec_dai->dev, "can't set FS clock %d\n", ret);
+> +			break;
+> +		}
+> +		ret = snd_soc_dai_set_pll(codec_dai, 0, 0, runtime->rate,
+> +					  runtime->rate * 256);
+> +		if (ret < 0)
+> +			dev_err(codec_dai->dev, "can't set FLL: %d\n", ret);
+> +		break;
+> +	case SNDRV_PCM_TRIGGER_RESUME:
+> +		ret = snd_soc_dai_set_pll(codec_dai, 0, 0, runtime->rate,
+> +					  runtime->rate * 256);
+> +		if (ret < 0)
+> +			dev_err(codec_dai->dev, "can't set FLL: %d\n", ret);
+> +		msleep(20);
 
-I'd really like to see either simple-card deprecated to use the 
-graph-card or drop the 'simple-card,' prefix to align the property 
-names.
-
-Rob
+is there a reason why you'd need a msleep for resume and not for start?

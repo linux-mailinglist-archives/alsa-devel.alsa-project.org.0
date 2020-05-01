@@ -2,72 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A568B1C117F
-	for <lists+alsa-devel@lfdr.de>; Fri,  1 May 2020 13:29:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E2131C11BE
+	for <lists+alsa-devel@lfdr.de>; Fri,  1 May 2020 13:59:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3DEED16A4;
-	Fri,  1 May 2020 13:28:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DEED16A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 26AD616A2;
+	Fri,  1 May 2020 13:58:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26AD616A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588332558;
-	bh=UH6cTiMh0sv5Uy7J2+m2eO6ibhJIWZOkBT9Uo7gNtjE=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1588334362;
+	bh=QCH5NVPbBHWenJ+ynedkmmKWd74Mf/bjc3PmxhEqk9Y=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cgKNhvXHLvIcCNTrVo7QH2iNULh2nPhr1wYcgE6ry372/6caNlT+DbLqrnwYJbCca
-	 JhS+2Wu6LwnkYCbAiSlTBgDXhhNes9ZopidrqTv55arEl3j6/bjgyCdsbmzfxXa8eO
-	 FS0zAE0FAYlTT/zMPwXwZCgnlh5+uzaw9xOAujHk=
+	b=quIoL97FwKxNp3gKznTnuDaG2nNXFVNEX8y6VK/uclMRGpe5ak6O9oeEQRWyeWLjl
+	 08SefxLDrIv1kszjYEpvvN0YArrnO+spor8TlLCu0tNnceh2rHpNSLHe/ImCGjG3UW
+	 weTYxclHv2rWJzPXSCxBeABegvx/Rci4mCvLgZK0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C359F800B9;
-	Fri,  1 May 2020 13:27:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B4E3F800B6;
+	Fri,  1 May 2020 13:57:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8F1D5F8022B; Fri,  1 May 2020 13:27:34 +0200 (CEST)
+ id 29837F8022B; Fri,  1 May 2020 13:57:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 15298F800B9;
- Fri,  1 May 2020 13:27:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15298F800B9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="elpgVYOX"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A167120787;
- Fri,  1 May 2020 11:27:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588332447;
- bh=UH6cTiMh0sv5Uy7J2+m2eO6ibhJIWZOkBT9Uo7gNtjE=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=elpgVYOXj6j3U2dToXz5PGIE7ixbJugnDAw13DbcaZMBI/kD8DsbeurAAFxgyu9eU
- YKyW7NlKD+rX/Mw9nMAt5n8nIsgXxfh3Sv/v9yU26hx80y+JsXJ/Rk+YGG4VyzuUVY
- mv5ej7bWO0eJUo/RUJ/bjJSNYOzloYCBrGUrFhY4=
-Date: Fri, 01 May 2020 12:27:23 +0100
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com,
- daniel.baluta@nxp.com, kai.vehmanen@linux.intel.com,
- Kai-Heng Feng <kai.heng.feng@canonical.com>, ranjani.sridharan@linux.intel.com
-In-Reply-To: <20200430091139.7003-1-kai.heng.feng@canonical.com>
-References: <20200430091139.7003-1-kai.heng.feng@canonical.com>
-Subject: Re: [PATCH] ASoC: SOF: Update correct LED status at the first time
- usage of update_mute_led()
-Message-Id: <158833244366.11565.11159142364410757346.b4-ty@kernel.org>
-Cc: open list <linux-kernel@vger.kernel.org>,
- "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>,
- "moderated list:SOUND - SOUND OPEN FIRMWARE SOF DRIVERS"
- <sound-open-firmware@alsa-project.org>, Takashi Iwai <tiwai@suse.com>,
- Jaska Uimonen <jaska.uimonen@linux.intel.com>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8BEAF800B6
+ for <alsa-devel@alsa-project.org>; Fri,  1 May 2020 13:57:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8BEAF800B6
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: gtucker) with ESMTPSA id DD19F2A2F63
+Subject: Re: stable-rc/linux-5.4.y bisection: baseline.dmesg.alert on
+ meson-g12a-x96-max
+To: Jerome Brunet <jbrunet@baylibre.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Mark Brown <broonie@kernel.org>
+References: <5eabecbf.1c69fb81.2c617.628f@mx.google.com>
+From: Guillaume Tucker <guillaume.tucker@collabora.com>
+Message-ID: <cc10812b-19bd-6bd1-75da-32082241640a@collabora.com>
+Date: Fri, 1 May 2020 12:57:27 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
+MIME-Version: 1.0
+In-Reply-To: <5eabecbf.1c69fb81.2c617.628f@mx.google.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Kevin Hilman <khilman@baylibre.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, stable@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, kernelci@groups.io,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,40 +74,173 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 30 Apr 2020 17:11:39 +0800, Kai-Heng Feng wrote:
-> At the first time update_mute_led() gets called, if channels are already
-> muted, the temp value equals to led_value as 0, skipping the following
-> LED setting.
+Please see the bisection report below about a kernel Oops.
+
+Reports aren't automatically sent to the public while we're
+trialing new bisection features on kernelci.org but this one
+looks valid.
+
+The log shows a kernel NULL pointer dereference:
+
+  https://storage.kernelci.org/stable-rc/linux-5.4.y/v5.4.36-52-g35bbc55d9e29/arm64/defconfig/gcc-8/lab-baylibre/baseline-meson-g12a-x96-max.html#L1113
+
+The call stack is not the same as in the commit message found by
+the bisection, so maybe it only fixed part of the problem:
+
+<1>[   16.007376] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000010
+<1>[   16.016300] Mem abort info:
+<1>[   16.019269]   ESR = 0x96000006
+<1>[   16.022571]   EC = 0x25: DABT (current EL), IL = 32 bits
+<1>[   16.028075]   SET = 0, FnV = 0
+<1>[   16.031356]   EA = 0, S1PTW = 0
+<1>[   16.034705] Data abort info:
+<1>[   16.037837]   ISV = 0, ISS = 0x00000006
+<1>[   16.041876]   CM = 0, WnR = 0
+<1>[   16.045128] user pgtable: 4k pages, 48-bit VAs, pgdp=00000000be0f0000
+<1>[   16.051702] [0000000000000010] pgd=00000000be117003, pud=00000000be118003, pmd=0000000000000000
+<0>[   16.051709] Internal error: Oops: 96000006 [#1] PREEMPT SMP
+<4>[   16.133466] CPU: 2 PID: 33 Comm: kworker/2:1 Tainted: G        W         5.4.37-rc1 #1
+<4>[   16.141566] Hardware name: Shenzhen Amediatech Technology Co., Ltd X96 Max (DT)
+<4>[   16.149087] Workqueue: events deferred_probe_work_func
+<4>[   16.154419] pstate: 20000005 (nzCv daif -PAN -UAO)
+<4>[   16.159428] pc : snd_soc_dapm_new_dai+0x3c/0x1b0
+<4>[   16.164252] lr : snd_soc_dapm_connect_dai_link_widgets+0x114/0x268
+<4>[   16.256970] Call trace:
+<4>[   16.259647]  snd_soc_dapm_new_dai+0x3c/0x1b0
+<4>[   16.264129]  snd_soc_dapm_connect_dai_link_widgets+0x114/0x268
+<4>[   16.270167]  snd_soc_instantiate_card+0x858/0xb88
+<4>[   16.275083]  snd_soc_register_card+0xf8/0x120
+<4>[   16.279656]  devm_snd_soc_register_card+0x40/0x90
+<4>[   16.284575]  axg_card_probe+0x9dc/0xaf0 [snd_soc_meson_axg_sound_card]
+<4>[   16.291299]  platform_drv_probe+0x50/0xa0
+<4>[   16.295524]  really_probe+0xd4/0x328
+<4>[   16.299319]  driver_probe_device+0x54/0xe8
+...
+
+
+Guillaume
+
+
+On 01/05/2020 10:32, kernelci.org bot wrote:
+> * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+> * This automated bisection report was sent to you on the basis  *
+> * that you may be involved with the breaking commit it has      *
+> * found.  No manual investigation has been done to verify it,   *
+> * and the root cause of the problem may be somewhere else.      *
+> *                                                               *
+> * If you do send a fix, please include this trailer:            *
+> *   Reported-by: "kernelci.org bot" <bot@kernelci.org>          *
+> *                                                               *
+> * Hope this helps!                                              *
+> * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 > 
-> So set led_value to -1 as an uninitialized state, to update the correct
-> LED status at first time usage.
+> stable-rc/linux-5.4.y bisection: baseline.dmesg.alert on meson-g12a-x96-max
 > 
-> [...]
+> Summary:
+>   Start:      35bbc55d9e296 Linux 5.4.37-rc1
+>   Plain log:  https://storage.kernelci.org/stable-rc/linux-5.4.y/v5.4.36-52-g35bbc55d9e29/arm64/defconfig/gcc-8/lab-baylibre/baseline-meson-g12a-x96-max.txt
+>   HTML log:   https://storage.kernelci.org/stable-rc/linux-5.4.y/v5.4.36-52-g35bbc55d9e29/arm64/defconfig/gcc-8/lab-baylibre/baseline-meson-g12a-x96-max.html
+>   Result:     09f4294793bd3 ASoC: meson: axg-card: fix codec-to-codec link setup
+> 
+> Checks:
+>   revert:     PASS
+>   verify:     PASS
+> 
+> Parameters:
+>   Tree:       stable-rc
+>   URL:        https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+>   Branch:     linux-5.4.y
+>   Target:     meson-g12a-x96-max
+>   CPU arch:   arm64
+>   Lab:        lab-baylibre
+>   Compiler:   gcc-8
+>   Config:     defconfig
+>   Test case:  baseline.dmesg.alert
+> 
+> Breaking commit found:
+> 
+> -------------------------------------------------------------------------------
+> commit 09f4294793bd3e70d68fdab5b392dff18bff62ca
+> Author: Jerome Brunet <jbrunet@baylibre.com>
+> Date:   Mon Apr 20 13:45:10 2020 +0200
+> 
+>     ASoC: meson: axg-card: fix codec-to-codec link setup
+>     
+>     commit 1164284270779e1865cc2046a2a01b58a1e858a9 upstream.
+>     
+>     Since the addition of commit 9b5db059366a ("ASoC: soc-pcm: dpcm: Only allow
+>     playback/capture if supported"), meson-axg cards which have codec-to-codec
+>     links fail to init and Oops:
+>     
+>       Unable to handle kernel NULL pointer dereference at virtual address 0000000000000128
+>       Internal error: Oops: 96000044 [#1] PREEMPT SMP
+>       CPU: 3 PID: 1582 Comm: arecord Not tainted 5.7.0-rc1
+>       pc : invalidate_paths_ep+0x30/0xe0
+>       lr : snd_soc_dapm_dai_get_connected_widgets+0x170/0x1a8
+>       Call trace:
+>        invalidate_paths_ep+0x30/0xe0
+>        snd_soc_dapm_dai_get_connected_widgets+0x170/0x1a8
+>        dpcm_path_get+0x38/0xd0
+>        dpcm_fe_dai_open+0x70/0x920
+>        snd_pcm_open_substream+0x564/0x840
+>        snd_pcm_open+0xfc/0x228
+>        snd_pcm_capture_open+0x4c/0x78
+>        snd_open+0xac/0x1a8
+>        ...
+>     
+>     While initiliazing the links, ASoC treats the codec-to-codec links of this
+>     card type as a DPCM backend. This error eventually leads to the Oops.
+>     
+>     Most of the card driver code is shared between DPCM backends and
+>     codec-to-codec links. The property "no_pcm" marking DCPM BE was left set on
+>     codec-to-codec links, leading to this problem. This commit fixes that.
+>     
+>     Fixes: 0a8f1117a680 ("ASoC: meson: axg-card: add basic codec-to-codec link support")
+>     Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+>     Link: https://lore.kernel.org/r/20200420114511.450560-2-jbrunet@baylibre.com
+>     Signed-off-by: Mark Brown <broonie@kernel.org>
+>     Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> 
+> diff --git a/sound/soc/meson/axg-card.c b/sound/soc/meson/axg-card.c
+> index 1f698adde506c..2b04ac3d8fd3b 100644
+> --- a/sound/soc/meson/axg-card.c
+> +++ b/sound/soc/meson/axg-card.c
+> @@ -586,8 +586,10 @@ static int axg_card_add_link(struct snd_soc_card *card, struct device_node *np,
+>  
+>  	if (axg_card_cpu_is_tdm_iface(dai_link->cpus->of_node))
+>  		ret = axg_card_parse_tdm(card, np, index);
+> -	else if (axg_card_cpu_is_codec(dai_link->cpus->of_node))
+> +	else if (axg_card_cpu_is_codec(dai_link->cpus->of_node)) {
+>  		dai_link->params = &codec_params;
+> +		dai_link->no_pcm = 0; /* link is not a DPCM BE */
+> +	}
+>  
+>  	return ret;
+>  }
+> -------------------------------------------------------------------------------
+> 
+> 
+> Git bisection log:
+> 
+> -------------------------------------------------------------------------------
+> git bisect start
+> # good: [aa73bcc376865c23e61dcebd467697b527901be8] Linux 5.4.36
+> git bisect good aa73bcc376865c23e61dcebd467697b527901be8
+> # bad: [35bbc55d9e296d37cf01555d415338b84a70d4c5] Linux 5.4.37-rc1
+> git bisect bad 35bbc55d9e296d37cf01555d415338b84a70d4c5
+> # bad: [924f1d37852ff357658c205dd114c70862865fc9] svcrdma: Fix trace point use-after-free race
+> git bisect bad 924f1d37852ff357658c205dd114c70862865fc9
+> # good: [b848f65436665b5fe675fd3f645c1a458e49f60a] counter: 104-quad-8: Add lock guards - generic interface
+> git bisect good b848f65436665b5fe675fd3f645c1a458e49f60a
+> # bad: [04b53ed855129c1703d00d8494e4c61309714a99] drivers: soc: xilinx: fix firmware driver Kconfig dependency
+> git bisect bad 04b53ed855129c1703d00d8494e4c61309714a99
+> # good: [ae886eae0318c71a6125347d6810a1578a83d262] ASoC: tas571x: disable regulators on failed probe
+> git bisect good ae886eae0318c71a6125347d6810a1578a83d262
+> # bad: [2c0990070379284dda0b51304ce19c2b96e083a2] ASoC: wm8960: Fix wrong clock after suspend & resume
+> git bisect bad 2c0990070379284dda0b51304ce19c2b96e083a2
+> # bad: [09f4294793bd3e70d68fdab5b392dff18bff62ca] ASoC: meson: axg-card: fix codec-to-codec link setup
+> git bisect bad 09f4294793bd3e70d68fdab5b392dff18bff62ca
+> # first bad commit: [09f4294793bd3e70d68fdab5b392dff18bff62ca] ASoC: meson: axg-card: fix codec-to-codec link setup
+> -------------------------------------------------------------------------------
+> 
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.7
-
-Thanks!
-
-[1/1] ASoC: SOF: Update correct LED status at the first time usage of update_mute_led()
-      commit: 49c22696348d6e7c8a2ecfd7e60fddfe188ded82
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

@@ -2,93 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC1031C280A
-	for <lists+alsa-devel@lfdr.de>; Sat,  2 May 2020 21:34:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0940E1C280D
+	for <lists+alsa-devel@lfdr.de>; Sat,  2 May 2020 21:35:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F50416B8;
-	Sat,  2 May 2020 21:33:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F50416B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id A247516D7;
+	Sat,  2 May 2020 21:34:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A247516D7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588448063;
-	bh=L01Znag3i0jZqV5e6GFhujAAYklgof58nc6RYVaK/gA=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=rIK1Ph7P3LCbN1IFT5LqEp6TaDqLgZozRnprSOt5myL6Y2+l67wCSW0ti7WQogu5X
-	 oXaBVn5VCpqHmrg1SoGBTZp8raUoVft6deqbfTkQiXFTJzTsdZwXaMnx3QA+VMkV9d
-	 vx4dx9PlliCulkzxIeUa0OBytkBrzJSkvemPmQwQ=
+	s=default; t=1588448123;
+	bh=PpsN8tdSqqhhshK11VdrusLVzcHPVOnMSjw0sMJyzdo=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=FazSwCiaiSZABhurZiGXaVpYfkEnSJsGrQYy+5kWtyibmm9dPQXiohM5SqhSPeJm7
+	 ZBkqt7Gjz8qmxa3fqKDgDMmuaX9cA/xIb8jms63O+nKpDpPlngq+Q2hguEJ9pAaMFC
+	 VJrYpWLUf2L/JUDCCuX3KfloFb3lPogmgLvu2iU4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61BECF801EB;
-	Sat,  2 May 2020 21:31:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2978F80292;
+	Sat,  2 May 2020 21:33:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DFCBAF801F7; Sat,  2 May 2020 21:31:53 +0200 (CEST)
+ id C506BF80291; Sat,  2 May 2020 21:33:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com
- [IPv6:2607:f8b0:4864:20::1043])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 564C1F80087
- for <alsa-devel@alsa-project.org>; Sat,  2 May 2020 21:31:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 564C1F80087
+ by alsa1.perex.cz (Postfix) with ESMTPS id 50CBFF801F7
+ for <alsa-devel@alsa-project.org>; Sat,  2 May 2020 21:33:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50CBFF801F7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="b4TQAU3l"
-Received: by mail-pj1-x1043.google.com with SMTP id a7so1688359pju.2
- for <alsa-devel@alsa-project.org>; Sat, 02 May 2020 12:31:49 -0700 (PDT)
+ header.b="ASvk0P7U"
+Received: by mail-wr1-x436.google.com with SMTP id d15so16016378wrx.3
+ for <alsa-devel@alsa-project.org>; Sat, 02 May 2020 12:33:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=TIL2KbMxRtnATvJqUzPTFDCNwLrdBpSmmIc1wV1dEHA=;
- b=b4TQAU3lmiD8PQG+dwxpbXSHwlgPMje9VEnlG+Q/yWnaPXzbs0+oWvYmWyh9wIevPh
- hkznabwuMxJkrTsq0vpbyApI+jsejbYLhfj4JnIG/l7FH5aS1bn+B0ypxAIZ+LZs4IP/
- sh0wlwEQJ67L/Jp7OFw4xghqClyuUOd6sGPKj1SIAinSKZaANfpHRS1eELWe/DZ3iTWk
- nnC6CNSBJ2Le/CYvy1FQPX/Dp3eudXxq1UqepnRbMvp5e/9MjDPJOlACjGrBZ3nT/rvi
- u58TJt7z1vBVnh1wXZAHG8wI7Xij5SfUCBzKeP9XDiMkYE1vduykLcjPOu0L6DDTZO6p
- GARg==
+ h=date:from:to:subject:message-id:mime-version:content-disposition
+ :user-agent; bh=RqPjJqg5XXAuzSwCC7dMIjWDW9y7al4LtNMzbGoOIIg=;
+ b=ASvk0P7U/PEK45DEam3Vf8z9Q/aMeWnAwFc+T+KVby37VEGKSFaExKJiSsI5X3v8fP
+ ohBS+MkuP9sUQ9K2GD+fY48I+xGnehf9FBxdGF3d2EYtR7B5SJXWaPM2H7gu3co5ikKF
+ 9aJEX+R9H3YuKahj5a1RQszc0mRDwcszSz6S8dOQGpu18z1ivrmgc6ctvS8Tyl4v6gOb
+ ALBSVF4thLr/Na9K0RXMZTq9kZjiv6+C61gH37Tc5BIlS3oQgdNFopSMYi+dGhRJsBVL
+ /kKjPoiLFjf9ain2qYAJp/lBYvSHAuFEZHP3o2ercavj7ZOSs1Rfy8b/fWkpO5WQLJUY
+ Lk3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=TIL2KbMxRtnATvJqUzPTFDCNwLrdBpSmmIc1wV1dEHA=;
- b=lKI91nOKimhuipLEv3sJ9JQ4a3Zh46j62xEuI6C0YXbXZVLwA8+4magBYIj13+AI6R
- 3X1wkL0fs2pvOPPbsL9LDbvVyNzchOr9wmMiOaDD54Z0y6YjHr5v37I/CHoyW3WtAqxH
- MwEAilPqVc7TiLL5F52Ixao0vJlDthg3qbZZjPJma/xfEE/hbY6BwYnAzezjvP0EhGBC
- JLjhq/nnZLE5VKCk6L3q8a05xtumCPapN4cAWotpqq7U7nr+I1cUJEhKWvW3wGol7g/s
- sQLSmM3Mq9vcSeotQNrRaAsU7tBheHi6cErDf6ALrrslgRPCwQ5l74ni1DrP8MW+WLXa
- hLYw==
-X-Gm-Message-State: AGi0PuZgI1EHM5HrMmVUPKlplfoOLYwTUaC0HDV2/X1SXOlgyuct/R75
- pRpbxD8ZNPOGRaYw4hClAgw=
-X-Google-Smtp-Source: APiQypLfNhHJHoTSTVVXkhevMfz86rU1oxpinZmTVTbPaayaoFIvld11z1VAQAQw+UFyVHFSEcorpw==
-X-Received: by 2002:a17:90b:8c4:: with SMTP id
- ds4mr7545166pjb.133.1588447907181; 
- Sat, 02 May 2020 12:31:47 -0700 (PDT)
-Received: from anarsoul-thinkpad.lan (216-71-213-236.dyn.novuscom.net.
- [216.71.213.236])
- by smtp.gmail.com with ESMTPSA id 138sm5034358pfz.31.2020.05.02.12.31.46
+ h=x-gm-message-state:date:from:to:subject:message-id:mime-version
+ :content-disposition:user-agent;
+ bh=RqPjJqg5XXAuzSwCC7dMIjWDW9y7al4LtNMzbGoOIIg=;
+ b=EAtafy5EIWBwAUgGcqwm4Xt3hK5ekWG1vbtLiw9fatplSNwCrM6fGmYi74BTWnG9jh
+ OtulPLRhHr58vIL013XgDKAFJ1Kud5HPCdo222wGpcYFsOnwhELb+JRf3Bn11acAcaho
+ l3Ol1SDceUfV9KI8z6Y7HQWGrKFvyy8E2v2S46u4ginX5EvjAropH4Heo8N7t/vk0fQV
+ l2PC1ajScxhO2IJT7etbJvOLm9mtV2FtwRH80m2IC6bJbEmL5SWIvrfKDCSXZWW+A5Mc
+ /Rh2TXilXpJkeLdhpxDiIxWUF7ju2S19PTk8wRzOwc5a1cMcYqgTO1HjNeKsVBiWBetH
+ JAew==
+X-Gm-Message-State: AGi0PuZbU4k0K4WD4TgwwLUT48vIZC6qWXgQiQvSnwFFJdQfrKtoudLW
+ cFPLu6PezqdzHJME8oA/MAY/bKfZ
+X-Google-Smtp-Source: APiQypI38/WiwHIqlimZx0Oj19v4vV0l3vhc06+KCN/H3GJnKuHncMReK+GPMb4ipDcbVwE4LT8Hxg==
+X-Received: by 2002:adf:efcb:: with SMTP id i11mr10037083wrp.278.1588448004038; 
+ Sat, 02 May 2020 12:33:24 -0700 (PDT)
+Received: from localhost (108.78.124.78.rev.sfr.net. [78.124.78.108])
+ by smtp.gmail.com with ESMTPSA id i1sm10298718wrx.22.2020.05.02.12.33.23
+ for <alsa-devel@alsa-project.org>
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 May 2020 12:31:46 -0700 (PDT)
-From: Vasily Khoruzhick <anarsoul@gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Thomas Gleixner <tglx@linutronix.de>, Pavel Machek <pavel@denx.de>,
- Allison Randal <allison@lohutok.net>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] ALSA: line6: Add poll callback for hwdep
-Date: Sat,  2 May 2020 12:31:20 -0700
-Message-Id: <20200502193120.79115-3-anarsoul@gmail.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200502193120.79115-1-anarsoul@gmail.com>
-References: <20200502193120.79115-1-anarsoul@gmail.com>
+ Sat, 02 May 2020 12:33:23 -0700 (PDT)
+Date: Sat, 2 May 2020 19:33:11 +0000
+From: sylvain.bertrand@gmail.com
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] fix snd_pcm_drain() excluding SETUP state from valid states
+Message-ID: <20200502193311.GA19340@freedom>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Vasily Khoruzhick <anarsoul@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+User-Agent: Mutt/ (2018-04-13)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,47 +96,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-At least POD HD500 uses message-based communication, both sides can
-send messages. Add poll callback so application can wait for device
-messages without using busy loop.
+once draining is done, the pcm enters the SETUP state, which ought to
+be valid for snd_pcm_drain()
 
-Signed-off-by: Vasily Khoruzhick <anarsoul@gmail.com>
+signed-off-by: Sylvain BERTRAND <sylvain.bertrand@legeek.net>
 ---
- sound/usb/line6/driver.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
 
-diff --git a/sound/usb/line6/driver.c b/sound/usb/line6/driver.c
-index 86adf87d57f0..7629116f570e 100644
---- a/sound/usb/line6/driver.c
-+++ b/sound/usb/line6/driver.c
-@@ -630,11 +630,27 @@ line6_hwdep_write(struct snd_hwdep *hwdep, const char __user *data, long count,
- 	return rv;
- }
- 
-+static __poll_t
-+line6_hwdep_poll(struct snd_hwdep *hwdep, struct file *file, poll_table *wait)
-+{
-+	__poll_t rv;
-+	struct usb_line6 *line6 = hwdep->private_data;
-+
-+	poll_wait(file, &line6->messages.wait_queue, wait);
-+
-+	mutex_lock(&line6->messages.read_lock);
-+	rv = kfifo_len(&line6->messages.fifo) == 0 ? 0 : EPOLLIN | EPOLLRDNORM;
-+	mutex_unlock(&line6->messages.read_lock);
-+
-+	return rv;
-+}
-+
- static const struct snd_hwdep_ops hwdep_ops = {
- 	.open    = line6_hwdep_open,
- 	.release = line6_hwdep_release,
- 	.read    = line6_hwdep_read,
- 	.write   = line6_hwdep_write,
-+	.poll    = line6_hwdep_poll,
- };
- 
- /* Insert into circular buffer */
--- 
-2.26.2
+I missed this one in my previous patch because exiting with or without
+an error once draining is done was producing the same result.
 
+--- a/src/pcm/pcm.c
++++ b/src/pcm/pcm.c
+@@ -1329,7 +1329,7 @@ int snd_pcm_drain(snd_pcm_t *pcm)
+ 		SNDMSG("PCM not set up");
+ 		return -EIO;
+ 	}
+-	err = bad_pcm_state(pcm, P_STATE_RUNNABLE);
++	err = bad_pcm_state(pcm, P_STATE_RUNNABLE | P_STATE(SETUP));
+ 	if (err < 0)
+ 		return err;
+ 	/* lock handled in the callback */

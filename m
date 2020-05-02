@@ -2,55 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E77971C23BE
-	for <lists+alsa-devel@lfdr.de>; Sat,  2 May 2020 09:14:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF0BB1C23D1
+	for <lists+alsa-devel@lfdr.de>; Sat,  2 May 2020 09:19:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7CED916B8;
-	Sat,  2 May 2020 09:13:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CED916B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6FD6216BE;
+	Sat,  2 May 2020 09:18:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FD6216BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588403644;
-	bh=NNG+rgERDObDXq/WY+OFTyky1L0jyCY36y++aYVODDc=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1588403959;
+	bh=lZhGwg/AhC5IAJXwPaJMh1EYsTnOZsEQnGpF1SMSdUk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bp4/RDjMtQhs2jfOlCY5EQg9tLe7z7My8b3anmvFROE1LsC5ZuICralV+ZADONRKQ
-	 Dmlv1Ax4DQmGUhY5IRenGeH4AjwTpA7tt/DJ3P32PYmYu5KMwyoQMsE227H2TDO2dX
-	 L7TKK0PHOoXyGpINkLIH7DkxXifH9sA0jttCx+B8=
+	b=BNo6E+IGdmzThx9ILBSRnvCfC/7YP8MBsIp9XNFW8ZRojHRA0akw2zuiYXAqhwyJ8
+	 dDkyVChAyH6NJvXkW1awmfdAcwQvK9VutXjcSYYCpF8lpY9/ysZmi6Bagfcph7zEUH
+	 iG52rajQ6ZAcltHp21yxGxsRIApfi4v2uMHp2Trw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 36463F800C5;
-	Sat,  2 May 2020 09:12:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8FF2DF80087;
+	Sat,  2 May 2020 09:17:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E2F9F801F7; Sat,  2 May 2020 09:12:19 +0200 (CEST)
+ id 47A04F800C5; Sat,  2 May 2020 09:17:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from bmailout3.hostsharing.net (bmailout3.hostsharing.net
+ [IPv6:2a01:4f8:150:2161:1:b009:f23e:0])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2B083F800C5
- for <alsa-devel@alsa-project.org>; Sat,  2 May 2020 09:12:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B083F800C5
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 54861AF2B;
- Sat,  2 May 2020 07:11:59 +0000 (UTC)
-Date: Sat, 02 May 2020 09:11:58 +0200
-Message-ID: <s5h7dxuizep.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Nicholas Johnson <nicholas.johnson-opensource@outlook.com.au>
+ by alsa1.perex.cz (Postfix) with ESMTPS id DF601F800C5
+ for <alsa-devel@alsa-project.org>; Sat,  2 May 2020 09:17:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF601F800C5
+Received: from h08.hostsharing.net (h08.hostsharing.net
+ [IPv6:2a01:37:1000::53df:5f1c:0])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client CN "*.hostsharing.net",
+ Issuer "COMODO RSA Domain Validation Secure Server CA" (not verified))
+ by bmailout3.hostsharing.net (Postfix) with ESMTPS id 4BDD71003CE02;
+ Sat,  2 May 2020 09:17:29 +0200 (CEST)
+Received: by h08.hostsharing.net (Postfix, from userid 100393)
+ id B7EEC3F76B2; Sat,  2 May 2020 09:17:28 +0200 (CEST)
+Date: Sat, 2 May 2020 09:17:28 +0200
+From: Lukas Wunner <lukas@wunner.de>
+To: Takashi Iwai <tiwai@suse.de>
 Subject: Re: [PATCH 0/1] Fiji GPU audio register timeout when in BACO state
-In-Reply-To: <s5h1ro4kgog.wl-tiwai@suse.de>
-References: <s5hv9lkm49n.wl-tiwai@suse.de>
- <PSXP216MB043899DC52E6C6BF728D77CD80AC0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
- <s5ha72ulp2y.wl-tiwai@suse.de>
- <PSXP216MB043822350CDE9E7EEA37730880AD0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+Message-ID: <20200502071728.fn2fcqvt6aies3zu@wunner.de>
+References: <PSXP216MB043822350CDE9E7EEA37730880AD0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
  <CADnq5_MCQ7xHY=yhNtRW=ze0LRPzxuu-Mm7pD4kFa5R52UrGSw@mail.gmail.com>
  <s5h1ro6jn0v.wl-tiwai@suse.de>
  <CADnq5_Mjb_FnNOzjUfJZ7GSDzi-+Cfc1ZTuqm7UWCWVvY6DU_w@mail.gmail.com>
@@ -58,20 +59,20 @@ References: <s5hv9lkm49n.wl-tiwai@suse.de>
  <PSXP216MB0438FE3E1CA577805BEC23C880AA0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
  <s5hh7x0kiwb.wl-tiwai@suse.de>
  <PSXP216MB04381A30909F66867E6B6BCC80AA0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
- <s5h1ro4kgog.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
+ <s5h1ro4kgog.wl-tiwai@suse.de> <s5h7dxuizep.wl-tiwai@suse.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <s5h7dxuizep.wl-tiwai@suse.de>
+User-Agent: NeoMutt/20170113 (1.7.2)
 Cc: "Zhou, David\(ChunMing\)" <David1.Zhou@amd.com>,
  "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Nicholas Johnson <nicholas.johnson-opensource@outlook.com.au>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
  Takashi Iwai <tiwai@suse.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, Lukas Wunner <lukas@wunner.de>,
- Alex Deucher <alexdeucher@gmail.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+ Alexander" <Alexander.Deucher@amd.com>, Alex Deucher <alexdeucher@gmail.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,166 +88,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 30 Apr 2020 19:49:03 +0200,
-Takashi Iwai wrote:
-> 
-> On Thu, 30 Apr 2020 19:38:16 +0200,
-> Nicholas Johnson wrote:
-> > 
-> > On Thu, Apr 30, 2020 at 07:01:08PM +0200, Takashi Iwai wrote:
-> > > On Thu, 30 Apr 2020 18:52:20 +0200,
-> > > Nicholas Johnson wrote:
-> > > > 
-> > > > On Thu, Apr 30, 2020 at 05:14:56PM +0200, Takashi Iwai wrote:
-> > > > > On Wed, 29 Apr 2020 18:19:57 +0200,
-> > > > > Alex Deucher wrote:
-> > > > > > 
-> > > > > > On Wed, Apr 29, 2020 at 12:05 PM Takashi Iwai <tiwai@suse.de> wrote:
-> > > > > > > Well, but the code path there is the runtime PM resume of the audio
-> > > > > > > device and it means that GPU must have been runtime-resumed again
-> > > > > > > beforehand via the device link.  So, it should have worked from the
-> > > > > > > beginning but in reality not -- that is, apparently some inconsistency
-> > > > > > > is found in the initial attempt of the runtime resume...
-> > > > > > 
-> > > > > > Yeah, it should be covered, but I wonder if there is something in the
-> > > > > > ELD update sequence that needs to call pm_runtime_get_sync()?  The ELD
-> > > > > > sequence on AMD GPUs doesn't work the same as on other vendors.  The
-> > > > > > GPU driver has a backdoor into the HDA device's verbs to set update
-> > > > > > the audio state rather than doing it via an ELD buffer update.  We
-> > > > > > still update the ELD buffer for consistency.  Maybe when the GPU
-> > > > > > driver sets the audio state at monitor detection time that triggers an
-> > > > > > interrupt or something on the HDA side which races with the CPU and
-> > > > > > the power down of the GPU.  That still seems unlikely though since the
-> > > > > > runtime pm on the GPU side defaults to a 5 second suspend timer.
-> > > > > 
-> > > > > I'm not sure whether it's the race between runtime suspend of GPU vs
-> > > > > runtime resume of audio.  My wild guess is rather that it's the timing
-> > > > > GPU notifies to the audio; then the audio driver notifies to
-> > > > > user-space and user-space opens the stream, which in turn invokes the
-> > > > > runtime resume of GPU. But in GPU side, it's still under processing,
-> > > > > so it proceeds before the GPU finishes its initialization job.
-> > > > > 
-> > > > > Nicholas, could you try the patch below and see whether the problem
-> > > > > still appears?  The patch artificially delays the notification and ELD
-> > > > > update for 300msec.  If this works, it means the timing problem.
-> > > > The bug still occurred after applying the patch.
-> > > > 
-> > > > But you were absolutely correct - it just needed to be increased to 
-> > > > 3000ms - then the bug stopped.
-> > > 
-> > > Interesting.  3 seconds are too long, but I guess 1 second would work
-> > > as well?
-> > 1000ms indeed worked as well.
-> > 
-> > > 
-> > > In anyway, the success with a long delay means that the sound setup
-> > > after the full runtime resume of GPU seems working.
-> > > 
-> > > > Now the question is, what do we do now that we know this?
-> > > > 
-> > > > Also, are you still interested in the contents of the ELD# files? I can 
-> > > > dump them all into a file at some specific moment in time which you 
-> > > > request, if needed.
-> > > 
-> > > Yes, please take the snapshot before plugging, right after plugging
-> > > and right after enabling.  I'm not sure whether your monitor supports
-> > > the audio, and ELD contents should show that, at least.
-> > The monitor supports the audio. There is 3.5mm audio out jack. No 
-> > inbuilt speakers, although Samsung did sell a sound bar to suit it. The 
-> > sound bar, which I do not own, presumably attaches via 3.5mm jack.
-> > 
-> > I am not sure if by plugging, you mean hot-adding Thunderbolt GPU or 
-> > plugging the monitor to the GPU, so I have covered extra cases to be 
-> > sure. I have taken the eld# files with the 1000ms patch applied, so the 
-> > error is not triggered.
-> 
-> OK, thanks.  If I understand correctly...
-> 
-> > ####
-> > Before hot-adding the Thunderbolt GPU:
-> > /proc/asound/card1 not present
-> > ####
-> > ####
-> > After hot-adding the GPU with no monitor attached:
-> > 
-> > /proc/asound/card1 contains:
-> > eld#0.0  eld#0.1  eld#0.2  eld#0.3  eld#0.4  eld#0.5
-> > 
-> > All of the above have the same contents:
-> > 
-> > monitor_present         0
-> > eld_valid               0
-> > ####
-> > ####
-> > Monitor attached to Fiji GPU but not enabled:
-> > 
-> > Same as above
-> > ####
-> > ####
-> > Monitor enabled:
-> 
-> ... the error is triggered at this moment, right?
-> 
-> 
-> > All files with same contents except for eld#0.1 which looks like:
-> > 
-> > monitor_present         1
-> > eld_valid               1
-> > monitor_name            U32E850
-> > connection_type         DisplayPort
-> > eld_version             [0x2] CEA-861D or below
-> > edid_version            [0x3] CEA-861-B, C or D
-> > manufacture_id          0x2d4c
-> > product_id              0xce3
-> > port_id                 0x0
-> > support_hdcp            0
-> > support_ai              0
-> > audio_sync_delay        0
-> > speakers                [0x1] FL/FR
-> > sad_count               1
-> > sad0_coding_type        [0x1] LPCM
-> > sad0_channels           2
-> > sad0_rates              [0xe0] 32000 44100 48000
-> > sad0_bits               [0xe0000] 16 20 24
-> 
-> So your monitor supports the audio :)
+On Sat, May 02, 2020 at 09:11:58AM +0200, Takashi Iwai wrote:
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -673,6 +673,12 @@ static int amdgpu_dm_audio_component_bind(struct device *kdev,
+>  	struct amdgpu_device *adev = dev->dev_private;
+>  	struct drm_audio_component *acomp = data;
+>  
+> +	if (!device_link_add(hda_kdev, kdev, DL_FLAG_STATELESS |
+> +			     DL_FLAG_PM_RUNTIME)) {
+> +		DRM_ERROR("DM: cannot add device link to audio device\n");
+> +		return -ENOMEM;
+> +	}
+> +
 
-Now I took a look at the actual code again, and I found that I
-remembered wrongly.  Namely, the device link isn't created in the
-audio component framework but only in the graphics side, so currently
-only i915 has it.
-
-Could you try the patch below?
-
-Note that i915 binding has no DL_FLAG_PM_RUNTIME as it manages the
-power via get_power/put_power ops pair.
-
-
-thanks,
-
-Takashi
-
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -673,6 +673,12 @@ static int amdgpu_dm_audio_component_bind(struct device *kdev,
- 	struct amdgpu_device *adev = dev->dev_private;
- 	struct drm_audio_component *acomp = data;
- 
-+	if (!device_link_add(hda_kdev, kdev, DL_FLAG_STATELESS |
-+			     DL_FLAG_PM_RUNTIME)) {
-+		DRM_ERROR("DM: cannot add device link to audio device\n");
-+		return -ENOMEM;
-+	}
-+
- 	acomp->ops = &amdgpu_dm_audio_component_ops;
- 	acomp->dev = kdev;
- 	adev->dm.audio_component = acomp;
-@@ -690,6 +696,8 @@ static void amdgpu_dm_audio_component_unbind(struct device *kdev,
- 	acomp->ops = NULL;
- 	acomp->dev = NULL;
- 	adev->dm.audio_component = NULL;
-+
-+	device_link_remove(hda_kdev, kdev);
- }
- 
- static const struct component_ops amdgpu_dm_audio_component_bind_ops = {
+Doesn't this duplicate drivers/pci/quirks.c:quirk_gpu_hda() ?

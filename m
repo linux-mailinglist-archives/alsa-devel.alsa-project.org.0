@@ -2,91 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A8DE1C2BE5
-	for <lists+alsa-devel@lfdr.de>; Sun,  3 May 2020 13:44:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36AB01C2CFA
+	for <lists+alsa-devel@lfdr.de>; Sun,  3 May 2020 16:18:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 99B2D16B9;
-	Sun,  3 May 2020 13:43:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99B2D16B9
+	by alsa0.perex.cz (Postfix) with ESMTPS id CDAAA16C8;
+	Sun,  3 May 2020 16:18:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDAAA16C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588506283;
-	bh=7gprFFWdremyo0aHzQswjzxgcmi9q4ecbEzPJ1IXjgE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=rChPAF8yf6Sy1j6FhAPVmwTuam1oT1U8HJiGjDWd5oscfd75+7iABQJNMkysKvywJ
-	 i5GSKDDqiaurOSP6RZG+4lUtwR32GzK0wMIM9hLRNQn/fnnejRUAFbQxWR2YMQo8vk
-	 UqDFWX72hBCTBwNCxG5UZC7ZR95vnbVlmRwUcm+c=
+	s=default; t=1588515530;
+	bh=YW2eU7aBfIFLN+ExVvzDFTNHndgDO/OiXnwGLv3Lv3Y=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lrhxsD3pgO6+WWm2llgSW9hrckjoGVTqGsPgre7mdNj7cCTPsWZqvtMAnbP1sCnub
+	 3JIR4Y1Lp5X8ysYaOhu1TJKZb5v/tdNaNWGqcDDfqcLDy8daEnATBJbvphsNT1L7j5
+	 fMfFEgr3dxXKnSzHN9kbz62oXhtQfRVbQrZNCfq4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ACAA5F800DA;
-	Sun,  3 May 2020 13:43:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77167F80162;
+	Sun,  3 May 2020 16:17:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D7839F8015F; Sun,  3 May 2020 13:42:53 +0200 (CEST)
+ id B05EDF8015F; Sun,  3 May 2020 16:17:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
- [IPv6:2607:f8b0:4864:20::d44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from adoakley.name (adoakley.name [IPv6:2a01:4f8:c17:1310::2])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2A567F800DA
- for <alsa-devel@alsa-project.org>; Sun,  3 May 2020 13:42:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A567F800DA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 803B9F800EE
+ for <alsa-devel@alsa-project.org>; Sun,  3 May 2020 16:16:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 803B9F800EE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="B/VeyKDZ"
-Received: by mail-io1-xd44.google.com with SMTP id i19so9360124ioh.12
- for <alsa-devel@alsa-project.org>; Sun, 03 May 2020 04:42:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=CswbDbzRoY7hOaMpKGQ7lTgkmEKRA2Ia8858GzcpRyQ=;
- b=B/VeyKDZ4SLuIY7xHuxpXOzOskfvZKU+A5FK81ESN3wNpQDFeg5YMMn10lN8K1HlzU
- ucNQI44nZ0RuaN9V467tsqNfMHZxbuNPptiUAsaVg3KYYzH75VV4unRSTt+NsACNb4lc
- dmcvbKyaOxB31ly2JwulyTgFbdifyHm56KvXnfOHErfj5UVE7YK2+skEdePVFu+BR44B
- uhVpDPvmnRDtBvfnAqrbUU5KLt9w1767QhJPPXsDn7tZknjhE++fAPu4TrDilwXBU/d1
- P2CRaRavJOqCiQE5DwlZs5i9VhlFSnNBdt72/1BGc2EAlaYKKm0a8lAz8UeYwOT07Ide
- HpOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=CswbDbzRoY7hOaMpKGQ7lTgkmEKRA2Ia8858GzcpRyQ=;
- b=cdedwV0bUxLd+qdAkz7sNb+tnzYX44IvVJY+GHzNy7JvbH+met4ajsiDMNJ0mSbexq
- D4n3v6PcZucTi6JQyiOWWMakLPOryAFiE4ojpK0xPZ615iqnjoi7hlkYqK7xK46XDyXt
- 9uIQl1IAS5XNBxRctIb/n4YH5iFKdygGSXRSs3Suka9+MKlyQN0ujdLeD3WxoUDxTE6U
- Eu1xDSvnOfACw0HmILtoGLEs1zF10EKc5r+kirC7EEvgoE2iYBvCvDOc0js/mca+29fN
- FfYab8DT5l7n4tyuceHsi1ZrISvGnF06THofYv5aAZEh2K0NcDP7mUDEzpE/kYDKPmY6
- sSRg==
-X-Gm-Message-State: AGi0PubMXLdOHxdMTfExulpr3i7wd5p/7xgHhkixVexkLaTOzH13PTza
- rYpiFn5QOwoLp4niEq/rONJn4gt7L2DwF+X3G5U=
-X-Google-Smtp-Source: APiQypK7bQYFFm90yVaM++6A1mWUH1dHV3MQb0qbIp+ohH4OaxgHO6pX+nd1tdial7Rn5XJUxQbfqsSdn1DrT9htlVU=
-X-Received: by 2002:a02:3f44:: with SMTP id c4mr10593844jaf.144.1588506164909; 
- Sun, 03 May 2020 04:42:44 -0700 (PDT)
+ dkim=pass (1024-bit key) header.d=adoakley.name header.i=@adoakley.name
+ header.b="LVuWgceZ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=adoakley.name; s=2018; h=Content-Transfer-Encoding:MIME-Version:Message-Id:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=i5qyWzie2YUEYBq6MlE0gghXLVMPc0sHLd8NDaB0YPc=; b=LVuWgceZ3vGKfxP4KXCT6mE6oJ
+ 4YzqCG3igDvAqnCOcvlnRLTvV2HB9OSNECAdp/7jGp/ng2u5nosiVynxtk/5ieQYiEFwJn/CHnZq6
+ KUOSFYBYseEbj8pe4VKcQylJxzBhlBBw95CxKV56OHqiL2aJnGjiEa9+A2vQwIC36G0E=;
+Received: from [2001:8b0:14bb:e93b:5435:c2c0:635c:9b55]
+ (helo=ado-tr.ado-tr.lan)
+ by adoakley.name with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ (Exim 4.92.2) (envelope-from <andrew@adoakley.name>)
+ id 1jVFQK-0001Pn-O6; Sun, 03 May 2020 14:16:52 +0000
+From: Andrew Oakley <andrew@adoakley.name>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: usb-audio: add mapping for ASRock TRX40 Creator
+Date: Sun,  3 May 2020 15:16:39 +0100
+Message-Id: <20200503141639.35519-1-andrew@adoakley.name>
+X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
-References: <20200426104115.22630-1-peron.clem@gmail.com>
- <20200426104115.22630-7-peron.clem@gmail.com>
- <CAGb2v66TFzpEmzdqxmjqGvVONkPEhaDMHNA4tRUvrX_Mg8w=tA@mail.gmail.com>
-In-Reply-To: <CAGb2v66TFzpEmzdqxmjqGvVONkPEhaDMHNA4tRUvrX_Mg8w=tA@mail.gmail.com>
-From: =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
-Date: Sun, 3 May 2020 13:42:33 +0200
-Message-ID: <CAJiuCcfpk=9E2dQnE+QeZrDHG7EqCBWqbEbnpBvhn-uvWuRV2w@mail.gmail.com>
-Subject: Re: [PATCH v3 6/7] ASoC: sun4i-i2s: Adjust regmap settings
-To: Chen-Yu Tsai <wens@csie.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: devicetree <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>, Marcus Cooper <codekipper@gmail.com>,
- linux-kernel <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Maxime Ripard <mripard@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Content-Transfer-Encoding: 8bit
+Cc: Andrew Oakley <andrew@adoakley.name>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,26 +77,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+This is another TRX40 based motherboard with ALC1220-VB USB-audio
+that requires a static mapping table.
 
-On Mon, 27 Apr 2020 at 13:03, Chen-Yu Tsai <wens@csie.org> wrote:
->
-> On Sun, Apr 26, 2020 at 6:41 PM Cl=C3=A9ment P=C3=A9ron <peron.clem@gmail=
-.com> wrote:
-> >
-> > From: Marcus Cooper <codekipper@gmail.com>
-> >
-> > Bypass the regmap cache when flushing or reading the i2s FIFOs.
-> >
-> > Signed-off-by: Marcus Cooper <codekipper@gmail.com>
-> > Signed-off-by: Cl=C3=A9ment P=C3=A9ron <peron.clem@gmail.com>
->
-> Acked-by: Chen-Yu Tsai <wens@csie.org>
+This motherboard also has a PCI device which advertises no codecs.  The
+PCI ID is 1022:1487 and PCI SSID is 1022:d102.  As this is using the AMD
+vendor ID, don't blacklist for now in case other boards have a working
+audio device with the same ssid.
 
-The  SUN4I_I2S_FIFO_CTRL_REG is also missing.
-As some bits can self-clear by themselves.
+alsa-info.sh report for this board:
+http://alsa-project.org/db/?f=0a742f89066527497b77ce16bca486daccf8a70c
 
-I will fix this in v4.
+Signed-off-by: Andrew Oakley <andrew@adoakley.name>
+---
+ sound/usb/mixer_maps.c   | 5 +++++
+ sound/usb/quirks-table.h | 1 +
+ 2 files changed, 6 insertions(+)
 
-Regards,
-Clement
+diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
+index 0260c750e156..bfdc6ad52785 100644
+--- a/sound/usb/mixer_maps.c
++++ b/sound/usb/mixer_maps.c
+@@ -549,6 +549,11 @@ static const struct usbmix_ctl_map usbmix_ctl_maps[] = {
+ 		.map = trx40_mobo_map,
+ 		.connector_map = trx40_mobo_connector_map,
+ 	},
++	{	/* Asrock TRX40 Creator */
++		.id = USB_ID(0x26ce, 0x0a01),
++		.map = trx40_mobo_map,
++		.connector_map = trx40_mobo_connector_map,
++	},
+ 	{ 0 } /* terminator */
+ };
+ 
+diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+index a1df4c5b4f8c..6313c30f5c85 100644
+--- a/sound/usb/quirks-table.h
++++ b/sound/usb/quirks-table.h
+@@ -3563,6 +3563,7 @@ AU0828_DEVICE(0x2040, 0x7270, "Hauppauge", "HVR-950Q"),
+ ALC1220_VB_DESKTOP(0x0414, 0xa002), /* Gigabyte TRX40 Aorus Pro WiFi */
+ ALC1220_VB_DESKTOP(0x0db0, 0x0d64), /* MSI TRX40 Creator */
+ ALC1220_VB_DESKTOP(0x0db0, 0x543d), /* MSI TRX40 */
++ALC1220_VB_DESKTOP(0x26ce, 0x0a01), /* Asrock TRX40 Creator */
+ #undef ALC1220_VB_DESKTOP
+ 
+ #undef USB_DEVICE_VENDOR_SPEC
+-- 
+2.24.1
+

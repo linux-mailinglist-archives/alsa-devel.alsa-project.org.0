@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 027D21C2EAD
-	for <lists+alsa-devel@lfdr.de>; Sun,  3 May 2020 21:04:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D2281C2EAE
+	for <lists+alsa-devel@lfdr.de>; Sun,  3 May 2020 21:04:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9783E16CF;
-	Sun,  3 May 2020 21:03:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9783E16CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id D621C16D0;
+	Sun,  3 May 2020 21:03:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D621C16D0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588532641;
-	bh=uPnMDiAkFm/AktGlifSunli3fraVlrpKm+e9+V5i3O0=;
+	s=default; t=1588532687;
+	bh=QbN0I1zGglkSoU4AXC8kFqgpbArmrPwdMXk1Xxk2NNE=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Qtie2x3B8PIBztX1Ycq/QEIcppet7FBqthdJSrZaNiPvQIh0IcQ3rgEcvWpX1OUbA
-	 uSaUYOASboN8BpGkwX+2ODWo1yMazxpIF1cHAx9dp/ImNmI1PKYTt5KIn8mn+XZ+jq
-	 +SRgPQuiPeqm2dnG5QuYXYRe/vJtZEttlHL2Z9GY=
+	b=R8lpwdcwhaqdu6uu/J8ENM5GbyKod4evNr8pNkwCKYAOsCf01kvkJWr1RZjQSSjcm
+	 JkySkcj6pyRwY3Rho6khOpu7zdTgLX/JLGSoYQEX5CbBGBb379nF4LDj6hfCNUqVsH
+	 jGLZdUS8i0vSV4W+xHpT8PsNh1psd40KuV6JkmKw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2DCCF800DA;
-	Sun,  3 May 2020 21:02:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 00BE8F8025E;
+	Sun,  3 May 2020 21:02:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 43941F8015F; Sun,  3 May 2020 21:02:17 +0200 (CEST)
+ id 83663F801D9; Sun,  3 May 2020 21:02:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,20 +34,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 486DAF800DA
- for <alsa-devel@alsa-project.org>; Sun,  3 May 2020 21:02:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 486DAF800DA
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8CFBF80162
+ for <alsa-devel@alsa-project.org>; Sun,  3 May 2020 21:02:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8CFBF80162
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 2EF28AC68;
- Sun,  3 May 2020 19:02:09 +0000 (UTC)
-Date: Sun, 03 May 2020 21:02:06 +0200
-Message-ID: <s5hbln4hmfl.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id CA185ADE2;
+ Sun,  3 May 2020 19:02:26 +0000 (UTC)
+Date: Sun, 03 May 2020 21:02:25 +0200
+Message-ID: <s5ha72ohmf2.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Subject: Re: [PATCH 1/2] Revert "ALSA: hda/realtek: Fix pop noise on ALC225"
-In-Reply-To: <20200503152449.22761-1-kai.heng.feng@canonical.com>
+Subject: Re: [PATCH 2/2] ALSA: hda/realtek - Fix S3 pop noise on Dell Wyse
+In-Reply-To: <20200503152449.22761-2-kai.heng.feng@canonical.com>
 References: <20200503152449.22761-1-kai.heng.feng@canonical.com>
+ <20200503152449.22761-2-kai.heng.feng@canonical.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -74,19 +75,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 03 May 2020 17:24:46 +0200,
+On Sun, 03 May 2020 17:24:47 +0200,
 Kai-Heng Feng wrote:
 > 
-> This reverts commit 3b36b13d5e69d6f51ff1c55d1b404a74646c9757.
+> Commit 317d9313925c ("ALSA: hda/realtek - Set default power save node to
+> 0") makes the ALC225 have pop noise on S3 resume and cold boot.
 > 
-> Enable power save node breaks some systems with ACL225. Revert the patch
-> and use a platform specific quirk for the original issue isntead.
+> The previous fix enable power save node universally for ALC225, however
+> it makes some ALC225 systems unable to produce any sound.
 > 
-> Fixes: 3b36b13d5e69 ("ALSA: hda/realtek: Fix pop noise on ALC225")
-> BugLink: https://bugs.launchpad.net/bugs/1875916
+> So let's only enable power save node for the affected Dell Wyse
+> platform.
+> 
+> Fixes: 317d9313925c ("ALSA: hda/realtek - Set default power save node to 0")
+> BugLink: https://bugs.launchpad.net/bugs/1866357
 > Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
 
-Applied now.  Thanks.
+Applied, thanks.
 
 
 Takashi

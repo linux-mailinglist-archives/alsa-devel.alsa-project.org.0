@@ -2,87 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD0141C36D9
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 May 2020 12:25:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CBC91C363E
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 May 2020 11:55:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E6AA1702;
-	Mon,  4 May 2020 12:24:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E6AA1702
+	by alsa0.perex.cz (Postfix) with ESMTPS id BB07016D7;
+	Mon,  4 May 2020 11:54:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB07016D7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588587900;
-	bh=+BYu54UZb1Hn39wdF2PjZDNEdRe0NffuWafcZDhnJco=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Wquk9aMZB+Tg8TeBoIt8M3LTUaRJR2S2vayIQppDKJkommjk4rLus9JmDgMC2ZxsT
-	 3Vh2sl2jClN3jtUoBZt2Ea8JnuneCgDCouc0jxzesB7yhc6P8c86HnD8bJVV4e17Ag
-	 OlevRnkaCcD/qeZBWriXZqzc/DOrepb1aVyKjcfE=
+	s=default; t=1588586133;
+	bh=4qS3UcFPparHTec+wIFpSUv/p8kLzCgO7t+0CRsiHQk=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=owLrjdHipQ3FiwqrB+uzfRDGSSjAXdOLefaXewmJgwZRMrX2lE0RXixKfw9uxxNjZ
+	 K77WS6aielL63dOjknnFhgJcx1YWn6M4VI1aCHQlYxSPTEeT31hy3B7BcPkt/zkDCh
+	 Gx+AHHNjYRT96ngq1Ekh7RWDAUrAKaDBV1aDjFSs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2183BF8029A;
-	Mon,  4 May 2020 12:21:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DBEC1F800EE;
+	Mon,  4 May 2020 11:53:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 813BAF80249; Mon,  4 May 2020 11:30:36 +0200 (CEST)
+ id B8338F80249; Mon,  4 May 2020 11:53:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_65,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30, RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 76F33F800DE
- for <alsa-devel@alsa-project.org>; Mon,  4 May 2020 11:30:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76F33F800DE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="uPyrpH8/"
-Received: from mail.kernel.org (ip5f5ad5c5.dynamic.kabel-deutschland.de
- [95.90.213.197])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 97460206D9;
- Mon,  4 May 2020 09:30:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588584627;
- bh=+BYu54UZb1Hn39wdF2PjZDNEdRe0NffuWafcZDhnJco=;
- h=From:To:Cc:Subject:Date:From;
- b=uPyrpH8/aA7GlqYfmtmKUC8nrR1WumCxFk2ou/QWK9N2hkKoSg0yEQpbVqpwcwurd
- ECe3PSkwSzkdtBsbJy91NWmjMJse+5jSs6v70glXNnurUP3J1NZI2APJkZSNxFDGMZ
- ILP+atlr2SJ4Rqo/DCPWbsePjXXw2B9aIjLHm0zI=
-Received: from mchehab by mail.kernel.org with local (Exim 4.92.3)
- (envelope-from <mchehab@kernel.org>)
- id 1jVXQf-000K77-18; Mon, 04 May 2020 11:30:25 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>
-Subject: [PATCH] docs: dt: fix broken links due to txt->yaml renames
-Date: Mon,  4 May 2020 11:30:20 +0200
-Message-Id: <967df5c3303b478b76199d4379fe40f5094f3f9b.1588584538.git.mchehab+huawei@kernel.org>
-X-Mailer: git-send-email 2.25.4
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4FDF3F800EE
+ for <alsa-devel@alsa-project.org>; Mon,  4 May 2020 11:53:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FDF3F800EE
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 4E576AEF9;
+ Mon,  4 May 2020 09:53:46 +0000 (UTC)
+Date: Mon, 04 May 2020 11:53:44 +0200
+Message-ID: <s5hk11sf2l3.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Sameer Pujar <spujar@nvidia.com>
+Subject: Re: [PATCH 0/3] Tegra194 HW Fixes
+In-Reply-To: <2828495a-d27a-a69b-37f5-fd3fb714188b@nvidia.com>
+References: <1588580176-2801-1-git-send-email-spujar@nvidia.com>
+ <s5ho8r4f6hx.wl-tiwai@suse.de>
+ <124d4a5c-e198-d8c0-5fb7-65d008852e32@nvidia.com>
+ <2828495a-d27a-a69b-37f5-fd3fb714188b@nvidia.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 04 May 2020 12:21:36 +0200
-Cc: alsa-devel@alsa-project.org, Olivier Moysan <olivier.moysan@st.com>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- Sandy Huang <hjc@rock-chips.com>, Andrzej Hajda <a.hajda@samsung.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Jonathan Corbet <corbet@lwn.net>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- linux-rockchip@lists.infradead.org, linux-mips@vger.kernel.org,
- devicetree@vger.kernel.org, Sean Wang <sean.wang@mediatek.com>,
- Jyri Sarha <jsarha@ti.com>, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
- linux-arm-kernel@lists.infradead.org,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Arnaud Pouliquen <arnaud.pouliquen@st.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ jonathanh@nvidia.com, viswanathl@nvidia.com, sharadg@nvidia.com,
+ thierry.reding@gmail.com, atalambedu@nvidia.com, linux-tegra@vger.kernel.org,
+ rlokhande@nvidia.com, mkumard@nvidia.com, dramesh@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,137 +75,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There are some new broken doc links due to yaml renames
-at DT. Developers should really run:
+On Mon, 04 May 2020 10:48:46 +0200,
+Sameer Pujar wrote:
+> 
+> 
+> 
+> On 5/4/2020 2:05 PM, Sameer Pujar wrote:
+> >
+> >
+> > On 5/4/2020 1:59 PM, Takashi Iwai wrote:
+> >> External email: Use caution opening links or attachments
+> >>
+> >>
+> >> On Mon, 04 May 2020 10:16:13 +0200,
+> >> Sameer Pujar wrote:
+> >>> This series proposes SW workarounds for Tegra194 HDA HW bugs.
+> >>> Following are the two issues seen:
+> >>>   1. GCAP register does not reflect true capability.
+> >>>      The actual number of SDO lines is "4", where as it reflects "2".
+> >>>   2. With 4 SDO line configuration playback fails for,
+> >>>      44.1K/48K, 2-channel, 16-bps audio stream.
+> >>>
+> >>> After fixing [1], issue [2] is uncovered.
+> >>> As per recommendation by Tegra HW team the workarounds are pushed.
+> >>>
+> >>> Testing done
+> >>> ============
+> >>>   * Verify GCAP register after registering HDA sound card
+> >>>   * Verify audio playback for 44.1K/48K, 2-channel, 16-bps.
+> >>>
+> >>> Sameer Pujar (3):
+> >>>    ALSA: hda/tegra: correct number of SDO lines for Tegra194
+> >>>    ALSA: hda: add member to store ratio for stripe control
+> >>>    ALSA: hda/tegra: workaround playback failure on Tegra194
+> >> Through a quick glance, all changes look good.
+> >>
+> >> Is the device already in market, i.e. it had hit users?  If yes, I'm
+> >> going to merge for 5.7, otherwise for 5.8.
+> >
+> > Yes the device is in the market. But has not been reported by end users.
+> > During internal resting this has been discovered. I am fine with
+> > merging this to 5.8.
+> 
+> To add, end users currently won't see this problem because things work
+> fine with 2-SDO lines. The issue is seen when Tegra194 is allowed to
+> utilize its actual capability of 4-SDO lines.
 
-	./scripts/documentation-file-ref-check
-
-in order to solve those issues while submitting patches.
-This tool can even fix most of the issues with:
-
-	./scripts/documentation-file-ref-check --fix
-
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
----
-
-PS.: This patch is against today's linux-next.
+Thanks for the information.  Then I queued all three patches now to
+for-next branch destined for 5.8.
 
 
- .../devicetree/bindings/display/bridge/sii902x.txt          | 2 +-
- .../devicetree/bindings/display/rockchip/rockchip-drm.yaml  | 2 +-
- .../devicetree/bindings/net/mediatek-bluetooth.txt          | 2 +-
- .../devicetree/bindings/sound/audio-graph-card.txt          | 2 +-
- .../devicetree/bindings/sound/st,sti-asoc-card.txt          | 2 +-
- Documentation/mips/ingenic-tcu.rst                          | 2 +-
- MAINTAINERS                                                 | 6 +++---
- 7 files changed, 9 insertions(+), 9 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/display/bridge/sii902x.txt b/Documentation/devicetree/bindings/display/bridge/sii902x.txt
-index 6e14e087c0d0..0d1db3f9da84 100644
---- a/Documentation/devicetree/bindings/display/bridge/sii902x.txt
-+++ b/Documentation/devicetree/bindings/display/bridge/sii902x.txt
-@@ -37,7 +37,7 @@ Optional properties:
- 	simple-card or audio-graph-card binding. See their binding
- 	documents on how to describe the way the sii902x device is
- 	connected to the rest of the audio system:
--	Documentation/devicetree/bindings/sound/simple-card.txt
-+	Documentation/devicetree/bindings/sound/simple-card.yaml
- 	Documentation/devicetree/bindings/sound/audio-graph-card.txt
- 	Note: In case of the audio-graph-card binding the used port
- 	index should be 3.
-diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip-drm.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip-drm.yaml
-index ec8ae742d4da..7204da5eb4c5 100644
---- a/Documentation/devicetree/bindings/display/rockchip/rockchip-drm.yaml
-+++ b/Documentation/devicetree/bindings/display/rockchip/rockchip-drm.yaml
-@@ -24,7 +24,7 @@ properties:
-     description: |
-       Should contain a list of phandles pointing to display interface port
-       of vop devices. vop definitions as defined in
--      Documentation/devicetree/bindings/display/rockchip/rockchip-vop.txt
-+      Documentation/devicetree/bindings/display/rockchip/rockchip-vop.yaml
- 
- required:
-   - compatible
-diff --git a/Documentation/devicetree/bindings/net/mediatek-bluetooth.txt b/Documentation/devicetree/bindings/net/mediatek-bluetooth.txt
-index 219bcbd0d344..9ef5bacda8c1 100644
---- a/Documentation/devicetree/bindings/net/mediatek-bluetooth.txt
-+++ b/Documentation/devicetree/bindings/net/mediatek-bluetooth.txt
-@@ -3,7 +3,7 @@ MediaTek SoC built-in Bluetooth Devices
- 
- This device is a serial attached device to BTIF device and thus it must be a
- child node of the serial node with BTIF. The dt-bindings details for BTIF
--device can be known via Documentation/devicetree/bindings/serial/8250.txt.
-+device can be known via Documentation/devicetree/bindings/serial/8250.yaml.
- 
- Required properties:
- 
-diff --git a/Documentation/devicetree/bindings/sound/audio-graph-card.txt b/Documentation/devicetree/bindings/sound/audio-graph-card.txt
-index 269682619a70..d5f6919a2d69 100644
---- a/Documentation/devicetree/bindings/sound/audio-graph-card.txt
-+++ b/Documentation/devicetree/bindings/sound/audio-graph-card.txt
-@@ -5,7 +5,7 @@ It is based on common bindings for device graphs.
- see ${LINUX}/Documentation/devicetree/bindings/graph.txt
- 
- Basically, Audio Graph Card property is same as Simple Card.
--see ${LINUX}/Documentation/devicetree/bindings/sound/simple-card.txt
-+see ${LINUX}/Documentation/devicetree/bindings/sound/simple-card.yaml
- 
- Below are same as Simple-Card.
- 
-diff --git a/Documentation/devicetree/bindings/sound/st,sti-asoc-card.txt b/Documentation/devicetree/bindings/sound/st,sti-asoc-card.txt
-index 4d51f3f5ea98..a6ffcdec6f6a 100644
---- a/Documentation/devicetree/bindings/sound/st,sti-asoc-card.txt
-+++ b/Documentation/devicetree/bindings/sound/st,sti-asoc-card.txt
-@@ -5,7 +5,7 @@ codec or external codecs.
- 
- sti sound drivers allows to expose sti SoC audio interface through the
- generic ASoC simple card. For details about sound card declaration please refer to
--Documentation/devicetree/bindings/sound/simple-card.txt.
-+Documentation/devicetree/bindings/sound/simple-card.yaml.
- 
- 1) sti-uniperiph-dai: audio dai device.
- ---------------------------------------
-diff --git a/Documentation/mips/ingenic-tcu.rst b/Documentation/mips/ingenic-tcu.rst
-index c5a646b14450..2b75760619b4 100644
---- a/Documentation/mips/ingenic-tcu.rst
-+++ b/Documentation/mips/ingenic-tcu.rst
-@@ -68,4 +68,4 @@ and frameworks can be controlled from the same registers, all of these
- drivers access their registers through the same regmap.
- 
- For more information regarding the devicetree bindings of the TCU drivers,
--have a look at Documentation/devicetree/bindings/timer/ingenic,tcu.txt.
-+have a look at Documentation/devicetree/bindings/timer/ingenic,tcu.yaml.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index b6ec0b3c3125..b70842425302 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -3911,7 +3911,7 @@ L:	linux-crypto@vger.kernel.org
- S:	Supported
- F:	drivers/char/hw_random/cctrng.c
- F:	drivers/char/hw_random/cctrng.h
--F:	Documentation/devicetree/bindings/rng/arm-cctrng.txt
-+F:	Documentation/devicetree/bindings/rng/arm-cctrng.yaml
- W:	https://developer.arm.com/products/system-ip/trustzone-cryptocell/cryptocell-700-family
- 
- CEC FRAMEWORK
-@@ -5446,7 +5446,7 @@ F:	include/uapi/drm/r128_drm.h
- DRM DRIVER FOR RAYDIUM RM67191 PANELS
- M:	Robert Chiras <robert.chiras@nxp.com>
- S:	Maintained
--F:	Documentation/devicetree/bindings/display/panel/raydium,rm67191.txt
-+F:	Documentation/devicetree/bindings/display/panel/raydium,rm67191.yaml
- F:	drivers/gpu/drm/panel/panel-raydium-rm67191.c
- 
- DRM DRIVER FOR ROCKTECH JH057N00900 PANELS
-@@ -16294,7 +16294,7 @@ M:	Hoan Tran <hoan@os.amperecomputing.com>
- M:	Serge Semin <fancer.lancer@gmail.com>
- L:	linux-gpio@vger.kernel.org
- S:	Maintained
--F:	Documentation/devicetree/bindings/gpio/snps-dwapb-gpio.txt
-+F:	Documentation/devicetree/bindings/gpio/snps,dw-apb-gpio.yaml
- F:	drivers/gpio/gpio-dwapb.c
- 
- SYNOPSYS DESIGNWARE AXI DMAC DRIVER
--- 
-2.25.4
-
+Takashi

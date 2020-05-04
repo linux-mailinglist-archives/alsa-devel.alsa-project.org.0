@@ -2,87 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 206F81C3582
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 May 2020 11:25:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD0141C36D9
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 May 2020 12:25:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BFA9816F5;
-	Mon,  4 May 2020 11:24:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFA9816F5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7E6AA1702;
+	Mon,  4 May 2020 12:24:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E6AA1702
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588584342;
-	bh=NewRAtZXp7UoUYEVXKnaDn1HTkwLJmgmye2c+dhlcFY=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ioJLmtoW2TT4jaVEjmRtN+2oKc6fT1fZX3OjkVCMNFEQcaNrqoCuNrx7oN1wGo4k+
-	 rGlIRznIVxaeEZT17TYNieSQQbEf8L90cexppGrLGU9iY4JsNTzuMmsSGvfvPxyrgp
-	 M6B88rvzF4bF+VwbuqEWXOV0WX+5EQxJALkrx5m8=
+	s=default; t=1588587900;
+	bh=+BYu54UZb1Hn39wdF2PjZDNEdRe0NffuWafcZDhnJco=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Wquk9aMZB+Tg8TeBoIt8M3LTUaRJR2S2vayIQppDKJkommjk4rLus9JmDgMC2ZxsT
+	 3Vh2sl2jClN3jtUoBZt2Ea8JnuneCgDCouc0jxzesB7yhc6P8c86HnD8bJVV4e17Ag
+	 OlevRnkaCcD/qeZBWriXZqzc/DOrepb1aVyKjcfE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BDB51F800DE;
-	Mon,  4 May 2020 11:24:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2183BF8029A;
+	Mon,  4 May 2020 12:21:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 217A0F80249; Mon,  4 May 2020 11:23:59 +0200 (CEST)
+ id 813BAF80249; Mon,  4 May 2020 11:30:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_65,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 76F33F800DE
+ for <alsa-devel@alsa-project.org>; Mon,  4 May 2020 11:30:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76F33F800DE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="uPyrpH8/"
+Received: from mail.kernel.org (ip5f5ad5c5.dynamic.kabel-deutschland.de
+ [95.90.213.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B301FF800DE
- for <alsa-devel@alsa-project.org>; Mon,  4 May 2020 11:23:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B301FF800DE
-IronPort-SDR: fvsk9YbzwPJxKl5CaTqt7wrKiVfzrsV3sKKjxeO4VwJCYPt2MT4iQcgGHb3//eBjkd6/m8HsdH
- BLEIgGxyPFUw==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2020 02:23:49 -0700
-IronPort-SDR: J1Cu5dy96mFd8lt0e95yC5aH2xOFfUGHqnzHJD6rhtCYkV88/ylCCYoTfZ9K3hG60rnEgIxdrj
- BMqyUlnNnE8g==
-X-IronPort-AV: E=Sophos;i="5.73,351,1583222400"; d="scan'208";a="434044101"
-Received: from aslawinx-mobl1.ger.corp.intel.com (HELO [10.249.151.177])
- ([10.249.151.177])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2020 02:23:45 -0700
-Subject: Re: [PATCH] ASoC: Intel: sst: ipc command timeout
-To: "Lu, Brent" <brent.lu@intel.com>,
- "Rojewski, Cezary" <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-References: <1586506705-3194-1-git-send-email-brent.lu@intel.com>
- <4f495cf1-4740-cf3b-196f-cc850c503b43@linux.intel.com>
- <BN6PR1101MB21328B6F4147640D07F9E40A97DA0@BN6PR1101MB2132.namprd11.prod.outlook.com>
- <c8309abf-cbfb-a3db-5aa7-2e2f748a6d34@intel.com>
- <BN6PR1101MB21328C54E66082227B9F497A97D50@BN6PR1101MB2132.namprd11.prod.outlook.com>
- <5e84c48c-a5d1-b2ff-c197-5efa478c5916@linux.intel.com>
- <BN6PR1101MB2132D23B042284DDA667642A97AC0@BN6PR1101MB2132.namprd11.prod.outlook.com>
- <9d003948-a651-9920-86b6-307e912dd8ed@linux.intel.com>
- <BN6PR1101MB21325FA4FB1446DC2CAF6C6797AA0@BN6PR1101MB2132.namprd11.prod.outlook.com>
-From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-Message-ID: <a0648aff-1c85-cc76-650c-1880381c026f@linux.intel.com>
-Date: Mon, 4 May 2020 11:23:41 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ by mail.kernel.org (Postfix) with ESMTPSA id 97460206D9;
+ Mon,  4 May 2020 09:30:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1588584627;
+ bh=+BYu54UZb1Hn39wdF2PjZDNEdRe0NffuWafcZDhnJco=;
+ h=From:To:Cc:Subject:Date:From;
+ b=uPyrpH8/aA7GlqYfmtmKUC8nrR1WumCxFk2ou/QWK9N2hkKoSg0yEQpbVqpwcwurd
+ ECe3PSkwSzkdtBsbJy91NWmjMJse+5jSs6v70glXNnurUP3J1NZI2APJkZSNxFDGMZ
+ ILP+atlr2SJ4Rqo/DCPWbsePjXXw2B9aIjLHm0zI=
+Received: from mchehab by mail.kernel.org with local (Exim 4.92.3)
+ (envelope-from <mchehab@kernel.org>)
+ id 1jVXQf-000K77-18; Mon, 04 May 2020 11:30:25 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>
+Subject: [PATCH] docs: dt: fix broken links due to txt->yaml renames
+Date: Mon,  4 May 2020 11:30:20 +0200
+Message-Id: <967df5c3303b478b76199d4379fe40f5094f3f9b.1588584538.git.mchehab+huawei@kernel.org>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-In-Reply-To: <BN6PR1101MB21325FA4FB1446DC2CAF6C6797AA0@BN6PR1101MB2132.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Kate Stewart <kstewart@linuxfoundation.org>,
- "clang-built-linux@googlegroups.com" <clang-built-linux@googlegroups.com>,
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 04 May 2020 12:21:36 +0200
+Cc: alsa-devel@alsa-project.org, Olivier Moysan <olivier.moysan@st.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Sandy Huang <hjc@rock-chips.com>, Andrzej Hajda <a.hajda@samsung.com>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ linux-rockchip@lists.infradead.org, linux-mips@vger.kernel.org,
+ devicetree@vger.kernel.org, Sean Wang <sean.wang@mediatek.com>,
+ Jyri Sarha <jsarha@ti.com>, Mark Brown <broonie@kernel.org>,
+ linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Richard Fontana <rfontana@redhat.com>, Mark Brown <broonie@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Allison Randal <allison@lohutok.net>
+ Arnaud Pouliquen <arnaud.pouliquen@st.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-bluetooth@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,74 +98,137 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+There are some new broken doc links due to yaml renames
+at DT. Developers should really run:
+
+	./scripts/documentation-file-ref-check
+
+in order to solve those issues while submitting patches.
+This tool can even fix most of the issues with:
+
+	./scripts/documentation-file-ref-check --fix
+
+Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+---
+
+PS.: This patch is against today's linux-next.
 
 
-On 4/30/2020 5:38 PM, Lu, Brent wrote:
->>
->> Hi,
->> yes that seems bit weird. It is bit better as it does not modify common code,
->> but still... Maybe going back to your original idea of replacing memcpy, try
->> replacing it with readq? It should generate one instruction read (although it is
->> only for x64_64, for 32 bit kernel we would still need to do something else).
->>
->> Thanks,
->> Amadeusz
-> 
-> Hi,
-> 
-> I've compared the assembly to see if there is clue. Both kernels are using 64-bit
-> mov to read register and the only difference is optimized or not. Both
-> implementations are looking good to me. Currently I don't have answer why
-> slower kernel hits the problem while optimized one survived.
-> 
-> 1. Old kernel. Code is optimized and not able to reproduce the issue on this kernel.
-> 
-> (gdb) disas sst_shim32_read64
-> Dump of assembler code for function sst_shim32_read64:
->     0x000000000000096c <+0>:     call   0x971 <sst_shim32_read64+5>
-> => call __fentry__
->     0x0000000000000971 <+5>:     push   rbp
->     0x0000000000000972 <+6>:     mov    rbp,rsp
->     0x0000000000000975 <+9>:     mov    eax,esi
->     0x0000000000000977 <+11>:    mov    rax,QWORD PTR [rdi+rax*1]
-> => perform 64-bit mov
->     0x000000000000097b <+15>:    pop    rbp
->     0x000000000000097c <+16>:    ret
-> End of assembler dump.
-> 
+ .../devicetree/bindings/display/bridge/sii902x.txt          | 2 +-
+ .../devicetree/bindings/display/rockchip/rockchip-drm.yaml  | 2 +-
+ .../devicetree/bindings/net/mediatek-bluetooth.txt          | 2 +-
+ .../devicetree/bindings/sound/audio-graph-card.txt          | 2 +-
+ .../devicetree/bindings/sound/st,sti-asoc-card.txt          | 2 +-
+ Documentation/mips/ingenic-tcu.rst                          | 2 +-
+ MAINTAINERS                                                 | 6 +++---
+ 7 files changed, 9 insertions(+), 9 deletions(-)
 
-Hi,
+diff --git a/Documentation/devicetree/bindings/display/bridge/sii902x.txt b/Documentation/devicetree/bindings/display/bridge/sii902x.txt
+index 6e14e087c0d0..0d1db3f9da84 100644
+--- a/Documentation/devicetree/bindings/display/bridge/sii902x.txt
++++ b/Documentation/devicetree/bindings/display/bridge/sii902x.txt
+@@ -37,7 +37,7 @@ Optional properties:
+ 	simple-card or audio-graph-card binding. See their binding
+ 	documents on how to describe the way the sii902x device is
+ 	connected to the rest of the audio system:
+-	Documentation/devicetree/bindings/sound/simple-card.txt
++	Documentation/devicetree/bindings/sound/simple-card.yaml
+ 	Documentation/devicetree/bindings/sound/audio-graph-card.txt
+ 	Note: In case of the audio-graph-card binding the used port
+ 	index should be 3.
+diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip-drm.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip-drm.yaml
+index ec8ae742d4da..7204da5eb4c5 100644
+--- a/Documentation/devicetree/bindings/display/rockchip/rockchip-drm.yaml
++++ b/Documentation/devicetree/bindings/display/rockchip/rockchip-drm.yaml
+@@ -24,7 +24,7 @@ properties:
+     description: |
+       Should contain a list of phandles pointing to display interface port
+       of vop devices. vop definitions as defined in
+-      Documentation/devicetree/bindings/display/rockchip/rockchip-vop.txt
++      Documentation/devicetree/bindings/display/rockchip/rockchip-vop.yaml
+ 
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/net/mediatek-bluetooth.txt b/Documentation/devicetree/bindings/net/mediatek-bluetooth.txt
+index 219bcbd0d344..9ef5bacda8c1 100644
+--- a/Documentation/devicetree/bindings/net/mediatek-bluetooth.txt
++++ b/Documentation/devicetree/bindings/net/mediatek-bluetooth.txt
+@@ -3,7 +3,7 @@ MediaTek SoC built-in Bluetooth Devices
+ 
+ This device is a serial attached device to BTIF device and thus it must be a
+ child node of the serial node with BTIF. The dt-bindings details for BTIF
+-device can be known via Documentation/devicetree/bindings/serial/8250.txt.
++device can be known via Documentation/devicetree/bindings/serial/8250.yaml.
+ 
+ Required properties:
+ 
+diff --git a/Documentation/devicetree/bindings/sound/audio-graph-card.txt b/Documentation/devicetree/bindings/sound/audio-graph-card.txt
+index 269682619a70..d5f6919a2d69 100644
+--- a/Documentation/devicetree/bindings/sound/audio-graph-card.txt
++++ b/Documentation/devicetree/bindings/sound/audio-graph-card.txt
+@@ -5,7 +5,7 @@ It is based on common bindings for device graphs.
+ see ${LINUX}/Documentation/devicetree/bindings/graph.txt
+ 
+ Basically, Audio Graph Card property is same as Simple Card.
+-see ${LINUX}/Documentation/devicetree/bindings/sound/simple-card.txt
++see ${LINUX}/Documentation/devicetree/bindings/sound/simple-card.yaml
+ 
+ Below are same as Simple-Card.
+ 
+diff --git a/Documentation/devicetree/bindings/sound/st,sti-asoc-card.txt b/Documentation/devicetree/bindings/sound/st,sti-asoc-card.txt
+index 4d51f3f5ea98..a6ffcdec6f6a 100644
+--- a/Documentation/devicetree/bindings/sound/st,sti-asoc-card.txt
++++ b/Documentation/devicetree/bindings/sound/st,sti-asoc-card.txt
+@@ -5,7 +5,7 @@ codec or external codecs.
+ 
+ sti sound drivers allows to expose sti SoC audio interface through the
+ generic ASoC simple card. For details about sound card declaration please refer to
+-Documentation/devicetree/bindings/sound/simple-card.txt.
++Documentation/devicetree/bindings/sound/simple-card.yaml.
+ 
+ 1) sti-uniperiph-dai: audio dai device.
+ ---------------------------------------
+diff --git a/Documentation/mips/ingenic-tcu.rst b/Documentation/mips/ingenic-tcu.rst
+index c5a646b14450..2b75760619b4 100644
+--- a/Documentation/mips/ingenic-tcu.rst
++++ b/Documentation/mips/ingenic-tcu.rst
+@@ -68,4 +68,4 @@ and frameworks can be controlled from the same registers, all of these
+ drivers access their registers through the same regmap.
+ 
+ For more information regarding the devicetree bindings of the TCU drivers,
+-have a look at Documentation/devicetree/bindings/timer/ingenic,tcu.txt.
++have a look at Documentation/devicetree/bindings/timer/ingenic,tcu.yaml.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index b6ec0b3c3125..b70842425302 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -3911,7 +3911,7 @@ L:	linux-crypto@vger.kernel.org
+ S:	Supported
+ F:	drivers/char/hw_random/cctrng.c
+ F:	drivers/char/hw_random/cctrng.h
+-F:	Documentation/devicetree/bindings/rng/arm-cctrng.txt
++F:	Documentation/devicetree/bindings/rng/arm-cctrng.yaml
+ W:	https://developer.arm.com/products/system-ip/trustzone-cryptocell/cryptocell-700-family
+ 
+ CEC FRAMEWORK
+@@ -5446,7 +5446,7 @@ F:	include/uapi/drm/r128_drm.h
+ DRM DRIVER FOR RAYDIUM RM67191 PANELS
+ M:	Robert Chiras <robert.chiras@nxp.com>
+ S:	Maintained
+-F:	Documentation/devicetree/bindings/display/panel/raydium,rm67191.txt
++F:	Documentation/devicetree/bindings/display/panel/raydium,rm67191.yaml
+ F:	drivers/gpu/drm/panel/panel-raydium-rm67191.c
+ 
+ DRM DRIVER FOR ROCKTECH JH057N00900 PANELS
+@@ -16294,7 +16294,7 @@ M:	Hoan Tran <hoan@os.amperecomputing.com>
+ M:	Serge Semin <fancer.lancer@gmail.com>
+ L:	linux-gpio@vger.kernel.org
+ S:	Maintained
+-F:	Documentation/devicetree/bindings/gpio/snps-dwapb-gpio.txt
++F:	Documentation/devicetree/bindings/gpio/snps,dw-apb-gpio.yaml
+ F:	drivers/gpio/gpio-dwapb.c
+ 
+ SYNOPSYS DESIGNWARE AXI DMAC DRIVER
+-- 
+2.25.4
 
-That's why I would suggest trying with readq, it should also generate 
-one instruction read x86_64 platforms, I looked a bit more and there is 
-fallback to generate two 32 bit reads on 32bit platforms, so my previous 
-concern about having to write separate handling for those platforms was 
-unneeded. So I would recommend checking using it.
-
-diff --git a/sound/soc/intel/common/sst-dsp.c 
-b/sound/soc/intel/common/sst-dsp.c
-index ec66be269b69..e96f636387d9 100644
---- a/sound/soc/intel/common/sst-dsp.c
-+++ b/sound/soc/intel/common/sst-dsp.c
-@@ -34,16 +34,13 @@ EXPORT_SYMBOL_GPL(sst_shim32_read);
-
-  void sst_shim32_write64(void __iomem *addr, u32 offset, u64 value)
-  {
--       memcpy_toio(addr + offset, &value, sizeof(value));
-+       writeq(value, addr + offset);
-  }
-  EXPORT_SYMBOL_GPL(sst_shim32_write64);
-
-  u64 sst_shim32_read64(void __iomem *addr, u32 offset)
-  {
--       u64 val;
--
--       memcpy_fromio(&val, addr + offset, sizeof(val));
--       return val;
-+       return readq(addr + offset);
-  }
-  EXPORT_SYMBOL_GPL(sst_shim32_read64);
-
-
-Thanks,
-Amadeusz

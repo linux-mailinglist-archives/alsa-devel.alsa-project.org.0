@@ -2,71 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9225A1C3816
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 May 2020 13:29:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BABC41C3818
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 May 2020 13:29:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1D6DA170C;
-	Mon,  4 May 2020 13:28:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D6DA170C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 600461714;
+	Mon,  4 May 2020 13:29:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 600461714
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588591749;
-	bh=1fpjgMGytAN6CHMwPuvksWBl9foQbSpLbXlPr5VeXEM=;
+	s=default; t=1588591795;
+	bh=8dnHAlveF8oSzyRI/bshOeUXvAOZ3zOI0uKOwMIafSU=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cYL64IMcGUPnVdER4r2dZwaTI/q+deGc9TksIdTwVh6MvcUeY6d0tSxW+JhnmnD6B
-	 ht5DtBEYuI30fQGmxgdYCccMZnT5OSz9cE8bKhltCX8N2FFr3BTc3UOPi3S/eYi4G3
-	 R1hf3J7crYXc0w9lp7KFRf9q5ZTuXiL58Wm5LSpk=
+	b=s07TKFkg2/DIhYJOllCquYP/24cQ+wMNBSwjdn6V1GErKrO9MH9CcCkdqUYQgt2Gw
+	 E5Yl8J18qD/hFLEYFbC/abIC5IoHBxfKRQS2ZYRTCtUUzocZLuZpX1ySgGH+8vIFke
+	 Y191TMoCHIIEZS7Qw5NG7gOT6mpXsQnNTPWtchuU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 33BB9F800E5;
-	Mon,  4 May 2020 13:27:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6DB49F800DE;
+	Mon,  4 May 2020 13:28:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F1C4F80249; Mon,  4 May 2020 13:27:26 +0200 (CEST)
+ id D27E4F80259; Mon,  4 May 2020 13:28:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3B4DDF800EE
- for <alsa-devel@alsa-project.org>; Mon,  4 May 2020 13:27:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B4DDF800EE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0A24EF800DE
+ for <alsa-devel@alsa-project.org>; Mon,  4 May 2020 13:28:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A24EF800DE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="wbVkCUgG"
+ header.b="V5QRijKO"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CA03220721;
- Mon,  4 May 2020 11:27:17 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id F190A20721;
+ Mon,  4 May 2020 11:28:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588591638;
- bh=1fpjgMGytAN6CHMwPuvksWBl9foQbSpLbXlPr5VeXEM=;
+ s=default; t=1588591720;
+ bh=8dnHAlveF8oSzyRI/bshOeUXvAOZ3zOI0uKOwMIafSU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=wbVkCUgGNR49IYOIYQp3LeIZ9alKsVhZD5jJKIMgh5CWgKgHhRKen7JpEla3Sjb89
- eK3GbIZQlbMCNwEzjPMaYUQ+J2N3kKwIfTEhcby7Hhhh84YmGZE7qLNEKBHGxkzsd7
- EGZXxrXhHydtxwdI1jMQkZ+Y/6aaOcarKHI4H+wI=
-Date: Mon, 4 May 2020 12:27:15 +0100
+ b=V5QRijKOE29Jo+EKAdkh+ewKNtgdqP49U526Q2Sfxi2stgSeoXwYEeo4vzFwII7Nb
+ JAqhvbWO3/mpTHvBOlkjefENX/UF/jjBUXzuHtCj1Zw4IYC4e3oA8UZbPwN0f569Yx
+ 3hRVp5IdHkMViNHlTTIoUmfezAB+MvoUejMxdi6w=
+Date: Mon, 4 May 2020 12:28:37 +0100
 From: Mark Brown <broonie@kernel.org>
-To: chris.d.garren@gmail.com
-Subject: Re: [PATCH] Mark the ADAU7118 reset register as volatile.
-Message-ID: <20200504112715.GC5491@sirena.org.uk>
-References: <1588365034-59198-1-git-send-email-cdgarren@indesign-llc.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: stable-rc/linux-5.4.y bisection: baseline.dmesg.alert on
+ meson-g12a-x96-max
+Message-ID: <20200504112837.GD5491@sirena.org.uk>
+References: <5eabecbf.1c69fb81.2c617.628f@mx.google.com>
+ <cc10812b-19bd-6bd1-75da-32082241640a@collabora.com>
+ <20200501122536.GA38314@sirena.org.uk>
+ <20200502134721.GH13035@sasha-vm>
+ <20200502140908.GA10998@kroah.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Izn7cH1Com+I3R9J"
+ protocol="application/pgp-signature"; boundary="HWvPVVuAAfuRc6SZ"
 Content-Disposition: inline
-In-Reply-To: <1588365034-59198-1-git-send-email-cdgarren@indesign-llc.com>
+In-Reply-To: <20200502140908.GA10998@kroah.com>
 X-Cookie: My life is a patio of fun!
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Lars-Peter Clausen <lars@metafoo.de>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+ Guillaume Tucker <guillaume.tucker@collabora.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ stable@vger.kernel.org, kernelci@groups.io,
+ Kevin Hilman <khilman@baylibre.com>, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Jerome Brunet <jbrunet@baylibre.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,35 +93,41 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---Izn7cH1Com+I3R9J
+--HWvPVVuAAfuRc6SZ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, May 01, 2020 at 04:30:06PM -0400, chris.d.garren@gmail.com wrote:
-> From: Chris Garren <cdgarren@indesign-llc.com>
->=20
-> Without this the previously written value was written to this reg,
-> which caused the different configuration registers to be reset.
-> ---
+On Sat, May 02, 2020 at 04:09:08PM +0200, Greg Kroah-Hartman wrote:
+> On Sat, May 02, 2020 at 09:47:21AM -0400, Sasha Levin wrote:
 
-I can't do anything with this, you've not provided a Signed-off-by -
-please see submitting-patches.rst for details on what that means and why
-it's important.
+> > > > >   Result:     09f4294793bd3 ASoC: meson: axg-card: fix codec-to-codec link setup
 
---Izn7cH1Com+I3R9J
+> > > | This clearly describes the issue as only being present after the above
+> > > | commit which is not in v5.6.
+
+> > > Probably best that this not be backported.
+
+> > Hrm... But I never queued that commit... I wonder what's up.
+
+> I saw the Fixes: tag, but missed the changelog text.  My fault.
+
+> I'll go drop it from everywhere, sorry about that.
+
+Ah, that explains it - thanks for sorting this out.
+
+--HWvPVVuAAfuRc6SZ
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6v/BMACgkQJNaLcl1U
-h9BS2Qf6A0xJSBBUeONbY0mGEU5U2SBR2LYqNZclY3BNcDVBht83P61pooW8Ush4
-kgn0SJpuqNJob8E7Ib5weNc8Y/CQ6Kyg0CrsCAUy+ICzBv5OBbXa3YRZsKfNNUzN
-P8d3nVHvnwNnDMVWiYuHr4BqfVPaMkZMyryvmMp4thwtbBldd9q2/aTLrANpgk0q
-6piy7Jv6PaRrTc0gKzC/rSRwormK4H4hKEVWebLIPQqc8wzSCatt4dIt8lO5V8SU
-MX42SBe3oBsAPWmpHFml7+C33r5M9BfZsQyfVnd7WK1JepyAF35IeA/hceK2fs3s
-lzitI6cvTMQcylq+POq4ujQ4DF3GkQ==
-=42fM
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6v/GUACgkQJNaLcl1U
+h9DTqQf+J1WhHhwnr86jT/LtdmuYxn4YhdfaaW+RFSBKmakNZhXZ9BKok8utln+p
+PkdIEGrfr8QfsSuhz4WYKDcN6K72tM+U3j0c4UFrYlm9kEfpuDr5AqJrdAclL76T
+Ns2oaZFZEnIpHnkajK6KCa1Ss4Ka7AvQNuVJfZ+/d4DdAVDSUl3H9TM+1yJyR4Cz
+FjMXYnlw+kp4LGSLCUy2yMEZ6YR1dzgDi7PIae1IYwwourTFOVjsox1CQPmE2bYv
+32U+RLyE6qxAlFRwVqmhMqBWYr/ZUEmV8W026fEQWprg7jCq2oPCQxALfanL9f/X
+rKflgftgFph+o3Rxz/MB0jHdsT/FbQ==
+=KlPi
 -----END PGP SIGNATURE-----
 
---Izn7cH1Com+I3R9J--
+--HWvPVVuAAfuRc6SZ--

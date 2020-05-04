@@ -2,86 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7DDE1C3B8D
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 May 2020 15:46:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 386721C3D42
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 May 2020 16:38:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 436431717;
-	Mon,  4 May 2020 15:45:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 436431717
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC0C7171D;
+	Mon,  4 May 2020 16:38:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC0C7171D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588599985;
-	bh=SE9mgX2cVxfHH9O3cBjLROz83EJFEYiEW37CpvRMQHc=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=NCjaPn1KG1oig5r1gImKaeIk0ELFgvTvFT79TS4488ga0H+nE6TN0P8Ft8PwpyRtj
-	 ZP1ZS2pnJlDJqDHWZsLEiYJAiPVl01OWzbYeCY79jQ6XwfY+Xid27zU5uavg4XyII7
-	 ntzOw7C4dzkgw6KTF/T6dJfGss/jIdm715kHt5mk=
+	s=default; t=1588603135;
+	bh=NohOeRtNeFL0lR06T1iUMWsfGmgd9V5Dape+sY5k6V8=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ORMwRStiLBvuSd//rrTyPFcapEWzgKpOOIuH0cuB6mgF0pwBn7aGmj+ysTAu8OBPe
+	 u72vdiG9F8hfY3k7WIzKMmWrtrMHPXdBWn2aRHDgkXKnmf1S18lGgIXmkbqaIIjVTq
+	 bW1wfKIP/gg8+4iNQ0pPk53d8lO4u8Py821dJegg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B0F9F80258;
-	Mon,  4 May 2020 15:44:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5655F800DE;
+	Mon,  4 May 2020 16:37:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 24BAAF80249; Mon,  4 May 2020 15:44:42 +0200 (CEST)
+ id E3FCDF80249; Mon,  4 May 2020 16:37:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-oi1-x242.google.com (mail-oi1-x242.google.com
- [IPv6:2607:f8b0:4864:20::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F6A4F800EE
- for <alsa-devel@alsa-project.org>; Mon,  4 May 2020 15:44:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F6A4F800EE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8C3F1F800E5
+ for <alsa-devel@alsa-project.org>; Mon,  4 May 2020 16:37:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C3F1F800E5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="SJ2RAe0h"
-Received: by mail-oi1-x242.google.com with SMTP id i13so6615820oie.9
- for <alsa-devel@alsa-project.org>; Mon, 04 May 2020 06:44:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=fKmW+1ZOOw5yEYVWDgFJz125CSW4gCA3lXH+BFydT68=;
- b=SJ2RAe0hmehcElOi7VI7CyUX9d4WnhNKKhIjne5pwD4fw4Lu4JOxO6+BDaSAGrtpKA
- kBmWuwnP+KoGnjQcPuFUtKXUzFz3/LwU2HaQc4coxRIb/Z7HSV5tksbEFN0wv+fNcSnI
- 2RBJF4EnUh0+HgDk1QcDr0FgDm/cvgpJKkkv5cxfnOyGbz5OKl7cpGPBMx2IzL+3ix6m
- 6fn8v0aO4g4GiDEKYlBowaxpj1Gq4d/WGZZP5dsDQttRAM/d8GVQLDkXXpDVkVR/hEhp
- otlZrXzz3FRGcVAPFCU8nWY1WtoHu+mD4ByL8i6zrqFk4N9mK5nwOb1j2Q44NXEVdkXy
- IwUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=fKmW+1ZOOw5yEYVWDgFJz125CSW4gCA3lXH+BFydT68=;
- b=WFF0dI4lf/vzd5dpJ4uHtiW7566a6sqcxxoQwUhHnFKg8bIHWs8bfpyFOzlgNYOqpe
- s9ePbhpUDucKpfhaRAIulglnFOO09jlE7IMyKKrL90qlrVlFD8uSIuh4llXfC3Axe+Zj
- y12ex6HvKMlE7JfX2K/tl221KWozn2XlFO8djmBfJ+4JVzn+wEgCGW9HEZa5NLuEBicD
- 7sNHprYlzMnz3emUEMIn/2+26IhBK8Sm7H1inKLcsoS+tZjrQfj1mO4v4bynjfZ8dw4c
- FtstKE+mJywFx/9RMPlvp8mrm69Do2hBai6Ug690fnoMXfUsyWseRVzn7yNLWHO2r33p
- nOJA==
-X-Gm-Message-State: AGi0Pubh5YLmc8ecGhN7bD3BU+1XXXyZjfVgxy0/mxz25uPW2MBxfLUe
- LIMVk9NZUIndcu7/dQSSrQrPJsa3BeTUBg==
-X-Google-Smtp-Source: APiQypIbLIzDkhan5aCP77GaAlUOeWaUCWbbr8gyOm+5O/2rWXlap4fC48/dQsS5aloiGS/l0ZFlPQ==
-X-Received: by 2002:a05:6808:24f:: with SMTP id
- m15mr9285435oie.152.1588599876677; 
- Mon, 04 May 2020 06:44:36 -0700 (PDT)
-Received: from cdgarren-ubuntu.attlocal.net
- (99-145-188-157.lightspeed.iplsin.sbcglobal.net. [99.145.188.157])
- by smtp.gmail.com with ESMTPSA id c13sm3314649oos.14.2020.05.04.06.44.35
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 04 May 2020 06:44:36 -0700 (PDT)
-From: chris.d.garren@gmail.com
-X-Google-Original-From: cdgarren@indesign-llc.com
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] Mark the ADAU7118 reset register as volatile.
-Date: Mon,  4 May 2020 09:43:20 -0400
-Message-Id: <1588599820-57994-1-git-send-email-cdgarren@indesign-llc.com>
-X-Mailer: git-send-email 2.7.4
-Cc: Lars-Peter Clausen <lars@metafoo.de>, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- Chris Garren <cdgarren@indesign-llc.com>
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Ej0s0UsM"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1645F2078C;
+ Mon,  4 May 2020 14:36:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1588603020;
+ bh=NohOeRtNeFL0lR06T1iUMWsfGmgd9V5Dape+sY5k6V8=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=Ej0s0UsMGR4QmPEzFKoy08PdT82NkplV0WJj+jiheFp1GR4IdpbzaF8WaE1Krkt3l
+ FPpDrR65A7PtYbt1gkvNhDoiO5LJa34+AGifQMJ23xsrUIHPu4+JKSTQrAMNIwoRJt
+ eESr4Ps+6TN4454QCVy/2G+0sa11B2UD7gd7CIhU=
+Date: Mon, 04 May 2020 15:36:58 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "chris.d.garren@gmail.com" <chris.d.garren@gmail.com>,
+ alsa-devel@alsa-project.org
+In-Reply-To: <1588599820-57994-1-git-send-email-cdgarren@indesign-llc.com>
+References: <1588599820-57994-1-git-send-email-cdgarren@indesign-llc.com>
+Subject: Re: [PATCH] Mark the ADAU7118 reset register as volatile.
+Message-Id: <158860301792.1354.15832150395972220632.b4-ty@kernel.org>
+Cc: Takashi Iwai <tiwai@suse.com>, Lars-Peter Clausen <lars@metafoo.de>,
+ Liam Girdwood <lgirdwood@gmail.com>, Chris Garren <cdgarren@indesign-llc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,41 +77,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Chris Garren <cdgarren@indesign-llc.com>
+On Mon, 4 May 2020 09:43:20 -0400, chris.d.garren@gmail.com wrote:
+> From: Chris Garren <cdgarren@indesign-llc.com>
+> 
+> Without this the previously written value was written to this reg,
+> which caused the different configuration registers to be reset.
+> 
+> Signed-off-by: Chris Garren <cdgarren@indesign-llc.com>
+> 
+> [...]
 
-Without this the previously written value was written to this reg,
-which caused the different configuration registers to be reset.
+Applied to
 
-Signed-off-by: Chris Garren <cdgarren@indesign-llc.com>
----
- sound/soc/codecs/adau7118-i2c.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.7
 
-diff --git a/sound/soc/codecs/adau7118-i2c.c b/sound/soc/codecs/adau7118-i2c.c
-index a821136..aa7afb3 100644
---- a/sound/soc/codecs/adau7118-i2c.c
-+++ b/sound/soc/codecs/adau7118-i2c.c
-@@ -32,6 +32,12 @@ static const struct reg_default adau7118_reg_defaults[] = {
- 	{ ADAU7118_REG_RESET, 0x00 },
- };
- 
-+static bool adau7118_volatile(struct device *dev, unsigned int reg)
-+{
-+	return (reg == ADAU7118_REG_RESET);
-+}
-+
-+
- static const struct regmap_config adau7118_regmap_config = {
- 	.reg_bits = 8,
- 	.val_bits = 8,
-@@ -39,6 +45,7 @@ static const struct regmap_config adau7118_regmap_config = {
- 	.num_reg_defaults = ARRAY_SIZE(adau7118_reg_defaults),
- 	.cache_type = REGCACHE_RBTREE,
- 	.max_register = ADAU7118_REG_RESET,
-+	.volatile_reg = adau7118_volatile,
- };
- 
- static int adau7118_probe_i2c(struct i2c_client *i2c,
--- 
-2.7.4
+Thanks!
 
+[1/1] ASoC: adau7118: Mark the ADAU7118 reset register as volatile
+      commit: f2b1e1cbd352129cfdbc1af52059482d74b4e81a
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

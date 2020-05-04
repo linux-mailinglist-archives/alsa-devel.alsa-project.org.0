@@ -2,94 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D02941C34DE
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 May 2020 10:50:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 206F81C3582
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 May 2020 11:25:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D35716F8;
-	Mon,  4 May 2020 10:49:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D35716F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id BFA9816F5;
+	Mon,  4 May 2020 11:24:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFA9816F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588582249;
-	bh=xiDrW6haIdvy6rCVGujT/G3u13Xs2ovPuZDWJxjsDA0=;
+	s=default; t=1588584342;
+	bh=NewRAtZXp7UoUYEVXKnaDn1HTkwLJmgmye2c+dhlcFY=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TYdsat895DJ5OSuxmgs7iZtcx30vLKPSWJEuynGdnJ2LNoDEjcgp1qij+2IDyMDTa
-	 OsUlftAW5XOVgrtAqPIpVKRk0I5NKS9YS3I/kq4Z+fVCAmyF4i0zE3ljEjJC2TEKsf
-	 BP3c5lP2ZvgoSefvQtVwwKkFvptcAbNTtmZLEUQU=
+	b=ioJLmtoW2TT4jaVEjmRtN+2oKc6fT1fZX3OjkVCMNFEQcaNrqoCuNrx7oN1wGo4k+
+	 rGlIRznIVxaeEZT17TYNieSQQbEf8L90cexppGrLGU9iY4JsNTzuMmsSGvfvPxyrgp
+	 M6B88rvzF4bF+VwbuqEWXOV0WX+5EQxJALkrx5m8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77D90F80258;
-	Mon,  4 May 2020 10:49:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BDB51F800DE;
+	Mon,  4 May 2020 11:24:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1A5FFF80249; Mon,  4 May 2020 10:49:07 +0200 (CEST)
+ id 217A0F80249; Mon,  4 May 2020 11:23:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
- [216.228.121.143])
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C422F800E5
- for <alsa-devel@alsa-project.org>; Mon,  4 May 2020 10:49:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C422F800E5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="XSW34aqj"
-Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5eafd67e0000>; Mon, 04 May 2020 01:46:54 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate101.nvidia.com (PGP Universal service);
- Mon, 04 May 2020 01:49:02 -0700
-X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Mon, 04 May 2020 01:49:02 -0700
-Received: from DRHQMAIL107.nvidia.com (10.27.9.16) by HQMAIL101.nvidia.com
- (172.20.187.10) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 4 May
- 2020 08:49:01 +0000
-Received: from [10.25.97.23] (10.124.1.5) by DRHQMAIL107.nvidia.com
- (10.27.9.16) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 4 May 2020
- 08:48:51 +0000
-Subject: Re: [PATCH 0/3] Tegra194 HW Fixes
-To: Takashi Iwai <tiwai@suse.de>
-References: <1588580176-2801-1-git-send-email-spujar@nvidia.com>
- <s5ho8r4f6hx.wl-tiwai@suse.de>
- <124d4a5c-e198-d8c0-5fb7-65d008852e32@nvidia.com>
-From: Sameer Pujar <spujar@nvidia.com>
-Message-ID: <2828495a-d27a-a69b-37f5-fd3fb714188b@nvidia.com>
-Date: Mon, 4 May 2020 14:18:46 +0530
+ by alsa1.perex.cz (Postfix) with ESMTPS id B301FF800DE
+ for <alsa-devel@alsa-project.org>; Mon,  4 May 2020 11:23:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B301FF800DE
+IronPort-SDR: fvsk9YbzwPJxKl5CaTqt7wrKiVfzrsV3sKKjxeO4VwJCYPt2MT4iQcgGHb3//eBjkd6/m8HsdH
+ BLEIgGxyPFUw==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 May 2020 02:23:49 -0700
+IronPort-SDR: J1Cu5dy96mFd8lt0e95yC5aH2xOFfUGHqnzHJD6rhtCYkV88/ylCCYoTfZ9K3hG60rnEgIxdrj
+ BMqyUlnNnE8g==
+X-IronPort-AV: E=Sophos;i="5.73,351,1583222400"; d="scan'208";a="434044101"
+Received: from aslawinx-mobl1.ger.corp.intel.com (HELO [10.249.151.177])
+ ([10.249.151.177])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 May 2020 02:23:45 -0700
+Subject: Re: [PATCH] ASoC: Intel: sst: ipc command timeout
+To: "Lu, Brent" <brent.lu@intel.com>,
+ "Rojewski, Cezary" <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+References: <1586506705-3194-1-git-send-email-brent.lu@intel.com>
+ <4f495cf1-4740-cf3b-196f-cc850c503b43@linux.intel.com>
+ <BN6PR1101MB21328B6F4147640D07F9E40A97DA0@BN6PR1101MB2132.namprd11.prod.outlook.com>
+ <c8309abf-cbfb-a3db-5aa7-2e2f748a6d34@intel.com>
+ <BN6PR1101MB21328C54E66082227B9F497A97D50@BN6PR1101MB2132.namprd11.prod.outlook.com>
+ <5e84c48c-a5d1-b2ff-c197-5efa478c5916@linux.intel.com>
+ <BN6PR1101MB2132D23B042284DDA667642A97AC0@BN6PR1101MB2132.namprd11.prod.outlook.com>
+ <9d003948-a651-9920-86b6-307e912dd8ed@linux.intel.com>
+ <BN6PR1101MB21325FA4FB1446DC2CAF6C6797AA0@BN6PR1101MB2132.namprd11.prod.outlook.com>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Message-ID: <a0648aff-1c85-cc76-650c-1880381c026f@linux.intel.com>
+Date: Mon, 4 May 2020 11:23:41 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <124d4a5c-e198-d8c0-5fb7-65d008852e32@nvidia.com>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
- DRHQMAIL107.nvidia.com (10.27.9.16)
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-GB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1588582014; bh=xiDrW6haIdvy6rCVGujT/G3u13Xs2ovPuZDWJxjsDA0=;
- h=X-PGP-Universal:CC:Subject:To:References:From:Message-ID:Date:
- User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
- X-ClientProxiedBy:Content-Type:Content-Transfer-Encoding:
- Content-Language;
- b=XSW34aqjeSFsT0o3jXEMorJsHtWtjtOhegjVVBJaXr7olh/Kt9O77q0+2ik/wQRDB
- VIAQSBHXUnYk/Brz2/dqszVESGy83flQiiwu/7O1jteP2J/FUKt3+HKhX0Pb2DomIV
- 559UZehTseejIZzpKZwYzg6vVPExXLPFwrbS6kOxy0NAL/oo5nyPsOShmSxQfkgzvc
- Shu4JE8lJD6eGqEf397vAgXOmK1CJ2Z+BwmZigfP3wKBEki9zvbQecdU9QWXZrsejd
- b/owOgzIX6n9IWpIkeZMaLikAQ0YuyTd5fNbtkeQPSIn2DXFzY9MXYEBkOzhkbSafr
- SPLLYPUTI24Cg==
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- spujar@nvidia.com, tiwai@suse.com, jonathanh@nvidia.com, viswanathl@nvidia.com,
- sharadg@nvidia.com, thierry.reding@gmail.com, atalambedu@nvidia.com,
- linux-tegra@vger.kernel.org, rlokhande@nvidia.com, mkumard@nvidia.com,
- dramesh@nvidia.com
+In-Reply-To: <BN6PR1101MB21325FA4FB1446DC2CAF6C6797AA0@BN6PR1101MB2132.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Kate Stewart <kstewart@linuxfoundation.org>,
+ "clang-built-linux@googlegroups.com" <clang-built-linux@googlegroups.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Richard Fontana <rfontana@redhat.com>, Mark Brown <broonie@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Allison Randal <allison@lohutok.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,55 +100,72 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 5/4/2020 2:05 PM, Sameer Pujar wrote:
->
->
-> On 5/4/2020 1:59 PM, Takashi Iwai wrote:
->> External email: Use caution opening links or attachments
+On 4/30/2020 5:38 PM, Lu, Brent wrote:
 >>
+>> Hi,
+>> yes that seems bit weird. It is bit better as it does not modify common code,
+>> but still... Maybe going back to your original idea of replacing memcpy, try
+>> replacing it with readq? It should generate one instruction read (although it is
+>> only for x64_64, for 32 bit kernel we would still need to do something else).
 >>
->> On Mon, 04 May 2020 10:16:13 +0200,
->> Sameer Pujar wrote:
->>> This series proposes SW workarounds for Tegra194 HDA HW bugs.
->>> Following are the two issues seen:
->>> =C2=A0 1. GCAP register does not reflect true capability.
->>> =C2=A0=C2=A0=C2=A0=C2=A0 The actual number of SDO lines is "4", where a=
-s it reflects "2".
->>> =C2=A0 2. With 4 SDO line configuration playback fails for,
->>> =C2=A0=C2=A0=C2=A0=C2=A0 44.1K/48K, 2-channel, 16-bps audio stream.
->>>
->>> After fixing [1], issue [2] is uncovered.
->>> As per recommendation by Tegra HW team the workarounds are pushed.
->>>
->>> Testing done
->>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->>> =C2=A0 * Verify GCAP register after registering HDA sound card
->>> =C2=A0 * Verify audio playback for 44.1K/48K, 2-channel, 16-bps.
->>>
->>> Sameer Pujar (3):
->>> =C2=A0=C2=A0 ALSA: hda/tegra: correct number of SDO lines for Tegra194
->>> =C2=A0=C2=A0 ALSA: hda: add member to store ratio for stripe control
->>> =C2=A0=C2=A0 ALSA: hda/tegra: workaround playback failure on Tegra194
->> Through a quick glance, all changes look good.
->>
->> Is the device already in market, i.e. it had hit users?=C2=A0 If yes, I'=
-m
->> going to merge for 5.7, otherwise for 5.8.
->
-> Yes the device is in the market. But has not been reported by end users.
-> During internal resting this has been discovered. I am fine with=20
-> merging this to 5.8.
+>> Thanks,
+>> Amadeusz
+> 
+> Hi,
+> 
+> I've compared the assembly to see if there is clue. Both kernels are using 64-bit
+> mov to read register and the only difference is optimized or not. Both
+> implementations are looking good to me. Currently I don't have answer why
+> slower kernel hits the problem while optimized one survived.
+> 
+> 1. Old kernel. Code is optimized and not able to reproduce the issue on this kernel.
+> 
+> (gdb) disas sst_shim32_read64
+> Dump of assembler code for function sst_shim32_read64:
+>     0x000000000000096c <+0>:     call   0x971 <sst_shim32_read64+5>
+> => call __fentry__
+>     0x0000000000000971 <+5>:     push   rbp
+>     0x0000000000000972 <+6>:     mov    rbp,rsp
+>     0x0000000000000975 <+9>:     mov    eax,esi
+>     0x0000000000000977 <+11>:    mov    rax,QWORD PTR [rdi+rax*1]
+> => perform 64-bit mov
+>     0x000000000000097b <+15>:    pop    rbp
+>     0x000000000000097c <+16>:    ret
+> End of assembler dump.
+> 
 
-To add, end users currently won't see this problem because things work=20
-fine with 2-SDO lines. The issue is seen when Tegra194 is allowed to=20
-utilize its actual capability of 4-SDO lines.
->
-> Thanks,
-> Sameer.
->>
->>
->> thanks,
->>
->> Takashi
->
+Hi,
 
+That's why I would suggest trying with readq, it should also generate 
+one instruction read x86_64 platforms, I looked a bit more and there is 
+fallback to generate two 32 bit reads on 32bit platforms, so my previous 
+concern about having to write separate handling for those platforms was 
+unneeded. So I would recommend checking using it.
+
+diff --git a/sound/soc/intel/common/sst-dsp.c 
+b/sound/soc/intel/common/sst-dsp.c
+index ec66be269b69..e96f636387d9 100644
+--- a/sound/soc/intel/common/sst-dsp.c
++++ b/sound/soc/intel/common/sst-dsp.c
+@@ -34,16 +34,13 @@ EXPORT_SYMBOL_GPL(sst_shim32_read);
+
+  void sst_shim32_write64(void __iomem *addr, u32 offset, u64 value)
+  {
+-       memcpy_toio(addr + offset, &value, sizeof(value));
++       writeq(value, addr + offset);
+  }
+  EXPORT_SYMBOL_GPL(sst_shim32_write64);
+
+  u64 sst_shim32_read64(void __iomem *addr, u32 offset)
+  {
+-       u64 val;
+-
+-       memcpy_fromio(&val, addr + offset, sizeof(val));
+-       return val;
++       return readq(addr + offset);
+  }
+  EXPORT_SYMBOL_GPL(sst_shim32_read64);
+
+
+Thanks,
+Amadeusz

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B5131C32B3
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 May 2020 08:25:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 454E11C32BD
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 May 2020 08:26:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4DD5616D5;
-	Mon,  4 May 2020 08:24:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4DD5616D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB88A16E4;
+	Mon,  4 May 2020 08:25:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB88A16E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588573518;
-	bh=REEYUk6yOXLhHEpXJDh6W0NPk9NUDe0BujaG6Wg34Xs=;
+	s=default; t=1588573564;
+	bh=zqN9lLfnvtoxX4juIdgUfGqpPTAWJ3W6D/MN7FDiJps=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QHzPJJz6OEZzfdPFQRI2JW/4lnyLsq5zMFkNLd/bIJfDh20okOpgIPtMur44k6gGK
-	 fy0616qTP8LfStfKqYB9vhtDpQjGTNa8Aaq+XxxLLoCK5+wdlfnlVqyygMr+Tb6oEu
-	 XwQrOHBtd5e7PNU/JfRwMADd+lreg9830QEH0g9Y=
+	b=a97gEXSRcFCos/cpkbf9aAhmWHkjUbIz26c3XPxTDW/shAHkp/PRv+/QUVxcYeDn7
+	 Pp7lwMzJSTrbQ1E+IXCgwYKqSm5coT+W6t8zOwffl+J0sMEjKhMkfchxogH/bENCev
+	 +spczoJXpllJAoOg7cIR0621M3++bWOh0fbXQ1WA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22FB3F800DE;
-	Mon,  4 May 2020 08:23:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 36382F80234;
+	Mon,  4 May 2020 08:25:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3911BF800DE; Mon,  4 May 2020 08:23:34 +0200 (CEST)
+ id 8BEEAF8026F; Mon,  4 May 2020 08:25:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,20 +34,21 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1B4E8F800DE
- for <alsa-devel@alsa-project.org>; Mon,  4 May 2020 08:23:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B4E8F800DE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 58B7EF80234
+ for <alsa-devel@alsa-project.org>; Mon,  4 May 2020 08:25:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58B7EF80234
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id BD9BCAE5E;
- Mon,  4 May 2020 06:23:29 +0000 (UTC)
-Date: Mon, 04 May 2020 08:23:27 +0200
-Message-ID: <s5h5zdcgqw0.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 9AE5DABBD;
+ Mon,  4 May 2020 06:25:04 +0000 (UTC)
+Date: Mon, 04 May 2020 08:25:02 +0200
+Message-ID: <s5h368ggqtd.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Andrew Oakley <andrew@adoakley.name>
 Subject: Re: [PATCH] ALSA: usb-audio: add mapping for ASRock TRX40 Creator
-In-Reply-To: <20200503141639.35519-1-andrew@adoakley.name>
+In-Reply-To: <s5h5zdcgqw0.wl-tiwai@suse.de>
 References: <20200503141639.35519-1-andrew@adoakley.name>
+ <s5h5zdcgqw0.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -69,23 +70,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 03 May 2020 16:16:39 +0200,
-Andrew Oakley wrote:
+On Mon, 04 May 2020 08:23:27 +0200,
+Takashi Iwai wrote:
 > 
-> This is another TRX40 based motherboard with ALC1220-VB USB-audio
-> that requires a static mapping table.
+> On Sun, 03 May 2020 16:16:39 +0200,
+> Andrew Oakley wrote:
+> > 
+> > This is another TRX40 based motherboard with ALC1220-VB USB-audio
+> > that requires a static mapping table.
+> > 
+> > This motherboard also has a PCI device which advertises no codecs.  The
+> > PCI ID is 1022:1487 and PCI SSID is 1022:d102.  As this is using the AMD
+> > vendor ID, don't blacklist for now in case other boards have a working
+> > audio device with the same ssid.
+> > 
+> > alsa-info.sh report for this board:
+> > http://alsa-project.org/db/?f=0a742f89066527497b77ce16bca486daccf8a70c
+> > 
+> > Signed-off-by: Andrew Oakley <andrew@adoakley.name>
 > 
-> This motherboard also has a PCI device which advertises no codecs.  The
-> PCI ID is 1022:1487 and PCI SSID is 1022:d102.  As this is using the AMD
-> vendor ID, don't blacklist for now in case other boards have a working
-> audio device with the same ssid.
-> 
-> alsa-info.sh report for this board:
-> http://alsa-project.org/db/?f=0a742f89066527497b77ce16bca486daccf8a70c
-> 
-> Signed-off-by: Andrew Oakley <andrew@adoakley.name>
+> Applied now with Cc-to-stable.  Thanks.
 
-Applied now with Cc-to-stable.  Thanks.
+Fingers slipped, this wasn't with Cc to stable.
+Applied to for-linus branch as is for merging to the next pull request
+to 5.7-rc.
 
 
 Takashi

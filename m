@@ -2,94 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 378FB1C492E
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 May 2020 23:41:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7962F1C4C79
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 May 2020 05:06:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD67D1727;
-	Mon,  4 May 2020 23:40:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD67D1727
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9370E1729;
+	Tue,  5 May 2020 05:05:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9370E1729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588628500;
-	bh=DA5IZogXxw5gV+EURxm60nayzCw1t7VubxBI5r4X8c4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=I/6jeerHGQb5sMDlyv1jQrkGoaxrUBRwqpDTZZlBRXOMI0Ad1lVc9S3/oDWqn1iUX
-	 dwsysBeEY8SKE6a5+dW/zI4dK+wPMW16mj1121fToWSo88uZqtVAzJzewM4jDYwAYt
-	 i64r34FZQNkYdZ0QuAolK0Ziomz8Lce5OIkIA+8Y=
-Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD7FCF800EE;
-	Mon,  4 May 2020 23:39:59 +0200 (CEST)
+	s=default; t=1588647981;
+	bh=YJqjCEqSRZO6VjgE6/Jb5f1/63y0zqlxxpUFhYqa71E=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ELHsE+IYHq4lpNf4SxwQxorGlsN/BHFtPV63aG7qRSHgE82wjYZKIiBcWcyEZoY5m
+	 vyhRRlF5RpfqvUpqDfRyl6J+nMDC8j0skFRxl9m2khH4UDg/L5doxFozGgzcn0yH/A
+	 bnaGMDNGiFOftD1eGpBRhQ2r88M3+WWWY674ipPM=
+Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id BF993F8015F;
+	Tue,  5 May 2020 05:04:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9E0E5F80249; Mon,  4 May 2020 23:39:51 +0200 (CEST)
+ id C961BF8015F; Tue,  5 May 2020 05:04:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.0 required=5.0 tests=AC_FROM_MANY_DOTS,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
- [IPv6:2607:f8b0:4864:20::641])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 37192F800EE
- for <alsa-devel@alsa-project.org>; Mon,  4 May 2020 23:39:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37192F800EE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="AynCMGGq"
-Received: by mail-pl1-x641.google.com with SMTP id x10so328140plr.4
- for <alsa-devel@alsa-project.org>; Mon, 04 May 2020 14:39:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=dnKlsTHwnnFXazn7zzxGnzLza7yEGHj+jI4fWn0tS74=;
- b=AynCMGGq0W5VEIeiqAdRi99uVamrPcFWpeWEkJSSFpofFC9z+cTdg2BqY7IQs4bIPZ
- GSqk0NDj1De6v3E6B8hD69oAQTlbDvt1Lx9cjx93XUcfEwcebbSsgHRMtF4qhLb0jzZX
- itI0Q8Kr1odj5D/nJN/BpvPDndUDGVSMkPUzjR5fkCIsZ0cHYIyF0GBIi0buzkkIVTYX
- vyMUc8KMOGVroi9h+Rt1Zocd5gnzZOxcPjMnShu3prz33cm7yAKqGlvhXPLfJHUQyMp3
- L/RalKi4lfErm0MP9laMKgQi1WBfOL73oLxLBoIMe2Umoj52vUyX7Fb2Vn9QenyLud+5
- JzTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=dnKlsTHwnnFXazn7zzxGnzLza7yEGHj+jI4fWn0tS74=;
- b=YmxC4Hd6fdRTA3pGumCUjlcr2CI084QjCOaGRvlnPdXia7ZOzfCUbIMszXM5EnAw81
- YD/fZu7u6yfiaoRv7ZGTk80CH8yCzT+phL0Ny6P++mZqHabRGmwL4418QmI/6WQyZiGv
- afu+O4zkzczrs3LWxT4QOfKuO/4/gCXF8wqczJkH55xL+8SBj1t5e2g/k/F1qiU1lwMt
- iRvS2awAXIoFhi5U22AEKkQHgoIKOSGqGJ/VgVFfYTMc8ISDY5bSSFUx7wgdaOw/npjY
- nSYaSpDx8R7XFmgndaHxSuhZPqAseH6tyiswnik0LI1v0NFUWDnorzN2xQ7IxlBe0BS9
- d7Yg==
-X-Gm-Message-State: AGi0PuafT3DlBBUP8CqHvrxbBYSgur9RyZOjFDd7wXvsgc6+Q+UJQhZO
- 4VREcjRTlZTyEByv0ZQ+HFA=
-X-Google-Smtp-Source: APiQypJ0HAeQTPu2DzaLtYV63srcvAmn2r4FeBJuSk32vuYutJBixLjLmYsfLjkggFKUUIZHiN62KQ==
-X-Received: by 2002:a17:90b:3017:: with SMTP id
- hg23mr171014pjb.150.1588628381874; 
- Mon, 04 May 2020 14:39:41 -0700 (PDT)
-Received: from Asurada-Nvidia (searspoint.nvidia.com. [216.228.112.21])
- by smtp.gmail.com with ESMTPSA id a12sm44947pfr.28.2020.05.04.14.39.41
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 04 May 2020 14:39:41 -0700 (PDT)
-Date: Mon, 4 May 2020 14:39:05 -0700
-From: Nicolin Chen <nicoleotsuka@gmail.com>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [PATCH 1/3] ASoC: fsl_esai: introduce SoC specific data
-Message-ID: <20200504213905.GA21292@Asurada-Nvidia>
-References: <cover.1588320655.git.shengjiu.wang@nxp.com>
- <27af074e47bf2b81e2dce67ea66a9f7301dfcb07.1588320656.git.shengjiu.wang@nxp.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <27af074e47bf2b81e2dce67ea66a9f7301dfcb07.1588320656.git.shengjiu.wang@nxp.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, timur@kernel.org,
- Xiubo.Lee@gmail.com, lgirdwood@gmail.com, linuxppc-dev@lists.ozlabs.org,
- tiwai@suse.com, robh+dt@kernel.org, broonie@kernel.org, festevam@gmail.com,
- linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 768E6F800AD
+ for <alsa-devel@alsa-project.org>; Tue,  5 May 2020 05:04:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 768E6F800AD
+Received: from 61-220-137-37.hinet-ip.hinet.net ([61.220.137.37]
+ helo=localhost) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <kai.heng.feng@canonical.com>)
+ id 1jVnsJ-0003LT-4I; Tue, 05 May 2020 03:04:03 +0000
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+To: tiwai@suse.com
+Subject: [PATCH 1/2] ALSA: hda: Use dev_to_hdac_dev macro
+Date: Tue,  5 May 2020 11:03:52 +0800
+Message-Id: <20200505030357.28004-1-kai.heng.feng@canonical.com>
+X-Mailer: git-send-email 2.17.1
+Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Keyon Jie <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Evan Green <evgreen@chromium.org>, Mark Brown <broonie@kernel.org>,
+ =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, Thomas Gleixner <tglx@linutronix.de>,
+ open list <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,16 +72,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, May 01, 2020 at 04:12:04PM +0800, Shengjiu Wang wrote:
-> Introduce a SoC specific data structure which contains the
-> differences between the different SoCs.
-> This makes it easier to support more differences without having
-> to introduce a new if/else each time.
-> 
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Use dev_to_hdac_dev() instead of container_of().
 
-Though the 2nd patch is having comments to address, this one
-looks fine to me and should be able to merge as long as Mark
-is okay with this too:
+No functional change intended.
 
-Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+---
+ sound/hda/ext/hdac_ext_bus.c | 2 +-
+ sound/hda/hdac_device.c      | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sound/hda/ext/hdac_ext_bus.c b/sound/hda/ext/hdac_ext_bus.c
+index 73bfa71845f6..d0a604c939df 100644
+--- a/sound/hda/ext/hdac_ext_bus.c
++++ b/sound/hda/ext/hdac_ext_bus.c
+@@ -62,7 +62,7 @@ EXPORT_SYMBOL_GPL(snd_hdac_ext_bus_exit);
+ 
+ static void default_release(struct device *dev)
+ {
+-	snd_hdac_ext_bus_device_exit(container_of(dev, struct hdac_device, dev));
++	snd_hdac_ext_bus_device_exit(dev_to_hdac_dev(dev));
+ }
+ 
+ /**
+diff --git a/sound/hda/hdac_device.c b/sound/hda/hdac_device.c
+index e3119f5cb0d5..333220f0f8af 100644
+--- a/sound/hda/hdac_device.c
++++ b/sound/hda/hdac_device.c
+@@ -20,7 +20,7 @@ static int get_codec_vendor_name(struct hdac_device *codec);
+ 
+ static void default_release(struct device *dev)
+ {
+-	snd_hdac_device_exit(container_of(dev, struct hdac_device, dev));
++	snd_hdac_device_exit(dev_to_hdac_dev(dev));
+ }
+ 
+ /**
+-- 
+2.17.1
+

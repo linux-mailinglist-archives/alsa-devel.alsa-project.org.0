@@ -2,91 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6F0E1C65E5
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 May 2020 04:35:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 942641C65E8
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 May 2020 04:36:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 756261778;
-	Wed,  6 May 2020 04:34:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 756261778
+	by alsa0.perex.cz (Postfix) with ESMTPS id 419721784;
+	Wed,  6 May 2020 04:35:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 419721784
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588732526;
-	bh=gcP618iUXG0oqvLPr7DNo5hRWczpuu2twtPmXxdhVpw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1588732572;
+	bh=+gOO1e9hHO2FP1HrANjKGPZwkNMLWpSS+vx1iL0x/hw=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gBOeqDnAa4u5Zd7z4ES6iJi1E7jLV87D0ZhfXNQpXKz2qeZZ+KJ4y2cOiTo6PqhP3
-	 dRaMRRROPrNJChBoG2BQT/7MtsqqX055V67af9nZtNjsDxlRWquVGTn1Vh+QEz00XS
-	 ugP2UsooIoFZ+3c9tVxdWqJElGMK2JgOj0eCGWSk=
+	b=RN+j4RO+s94nS6vGGhICAveZ83Gqs7fv+Fd4iDYUidrs9BKlk1OmF8qD+09Dv5wMg
+	 /IM9uz/sq/8GYt4ggZc7QatCFC+3jPMJDNgPrI2Apc/HY5qNb7kIrdPdFvn61kSXjA
+	 6lzNrN9kTL0OI8G8l+PeFaogswhcY6ePEKeE6UIo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F5AAF80253;
-	Wed,  6 May 2020 04:33:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7A22F800AD;
+	Wed,  6 May 2020 04:34:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B027CF80253; Wed,  6 May 2020 04:33:39 +0200 (CEST)
+ id 83C71F80259; Wed,  6 May 2020 04:34:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
- [IPv6:2607:f8b0:4864:20::742])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0EF77F800DE
- for <alsa-devel@alsa-project.org>; Wed,  6 May 2020 04:33:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0EF77F800DE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="R1384l/6"
-Received: by mail-qk1-x742.google.com with SMTP id c10so526201qka.4
- for <alsa-devel@alsa-project.org>; Tue, 05 May 2020 19:33:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=gcP618iUXG0oqvLPr7DNo5hRWczpuu2twtPmXxdhVpw=;
- b=R1384l/6yWHB4ooeXERU+zst6yVVl4qdVKUOLKPDL0IFR5k6aI6g7gRjbAuwT4BzKA
- Z6KH+95F2q4yXt//grj2uZFTWLNoNm8Lu5dIBlqAf5q0PVULxKpDhwpgZFvf7hcM1z7o
- JWEEw5dFLm4KLFcz3u7lzAjqWTBHjwaPx8OKXuovGeWFo+iTfTDqNgZ8cVEmx2m0Vs6k
- EANIs7E1P/Hmi/gKrN2ZVtZbqWaVt+JTnGqrK3+DtfWnoQ9itU1GBE/rj7qiUUNBnx8m
- YJeMGceUIQe7nPht9WV59pnmBnFXycdSyUqerr4PwnHuvfUnVMkw7uFBR3BIpqH5dNjA
- mXwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=gcP618iUXG0oqvLPr7DNo5hRWczpuu2twtPmXxdhVpw=;
- b=tTt5z8ccthJMP2NBE1C/ovLE11QQl9y6ZRPv1EBkBHN7SY97IHG0p+jDolN4YZsnb+
- lxfasjMANvSyPkNBeEty8fGoA8Z3J7HWERwDmkphk8gUnfDrKf2Jkx8IQ7TgpzCpoBG/
- QgWfUBshaegxR5NlO0zbc+320T2dclxIkQ5I2z3nUPBhShHXTHYaAYqA5kGkN521e45w
- 0VBP/IHs6l0tcHEfuFMMYOaeEtU0ZRaY75NbsI75r3ViAfhMQ7ElS6SS1+4uTkFWgufk
- T0jtTK5rLKmqVkLgpRUZIMVbpqLDuykq3s/oxNr541Fe4hBfGke/p9aPtjYd/JFt/TWE
- fpgQ==
-X-Gm-Message-State: AGi0Pub18m2qaqNBJ/yj9m8Hyq+c6DmCNqJ5WhL6S4TNmdVPOAY3lWDa
- WvvVUzVispw9LVkGO3+EcS6ZGSG4EAFGe8ITdSA=
-X-Google-Smtp-Source: APiQypKPqLRAV/6/dDdwBHpa1YXOYCMpbodQ4y1LcTQnjLMmx87XtQKGZI8fOwO9Tnx5Ay5TOzZj8htcdEBmp+Z16mI=
-X-Received: by 2002:a05:620a:89d:: with SMTP id
- b29mr6804070qka.103.1588732414259; 
- Tue, 05 May 2020 19:33:34 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id BF66FF80258
+ for <alsa-devel@alsa-project.org>; Wed,  6 May 2020 04:34:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF66FF80258
+IronPort-SDR: 6kfMk5HotNtsIhJXEZ8cBrCYO6mFBaeCsQ+bz+aT6i7H4LJJRRQEaAZdV2fA9BMKSM8+1WNh2b
+ 2tYMPM6diGTA==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 May 2020 19:34:28 -0700
+IronPort-SDR: zyDBtX2S7VPVpvrTqzdmbBJHTOdw/2LBbG6F2vT1/GmoNDTnEYfNNw4D+Q2se78qNDxVnJn81L
+ +Sjg6JTn6qMQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,357,1583222400"; d="scan'208";a="338853107"
+Received: from nxiao-mobl.ccr.corp.intel.com (HELO [10.254.215.171])
+ ([10.254.215.171])
+ by orsmga001.jf.intel.com with ESMTP; 05 May 2020 19:34:24 -0700
+Subject: Re: [PATCH] ASoC: Intel: sst: ipc command timeout
+To: "Lu, Brent" <brent.lu@intel.com>,
+ "Rojewski, Cezary" <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+References: <1586506705-3194-1-git-send-email-brent.lu@intel.com>
+ <4f495cf1-4740-cf3b-196f-cc850c503b43@linux.intel.com>
+ <BN6PR1101MB21328B6F4147640D07F9E40A97DA0@BN6PR1101MB2132.namprd11.prod.outlook.com>
+ <c8309abf-cbfb-a3db-5aa7-2e2f748a6d34@intel.com>
+ <BN6PR1101MB21328C54E66082227B9F497A97D50@BN6PR1101MB2132.namprd11.prod.outlook.com>
+From: Keyon Jie <yang.jie@linux.intel.com>
+Message-ID: <4623d6b9-8dc6-b301-c8ff-74dfb6baf2a3@linux.intel.com>
+Date: Wed, 6 May 2020 10:35:10 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-References: <cover.1588320655.git.shengjiu.wang@nxp.com>
- <a933bafd2d6a60a69f840d9d4b613337efcf2816.1588320656.git.shengjiu.wang@nxp.com>
- <20200501102158.GA5276@sirena.org.uk>
-In-Reply-To: <20200501102158.GA5276@sirena.org.uk>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Wed, 6 May 2020 10:33:23 +0800
-Message-ID: <CAA+D8ANDHHejFD1rYmFOG24yivpEJa+xO-WpVr=Vzfz9yW9H7g@mail.gmail.com>
-Subject: Re: [PATCH 2/3] ASoC: fsl_esai: Add support for imx8qm
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>,
- Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel <linux-kernel@vger.kernel.org>
+In-Reply-To: <BN6PR1101MB21328C54E66082227B9F497A97D50@BN6PR1101MB2132.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Kate Stewart <kstewart@linuxfoundation.org>,
+ Richard Fontana <rfontana@redhat.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ "clang-built-linux@googlegroups.com" <clang-built-linux@googlegroups.com>,
+ Mark Brown <broonie@kernel.org>,
+ "amadeuszx.slawinski@linux.intel.com" <amadeuszx.slawinski@linux.intel.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Allison Randal <allison@lohutok.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,23 +95,102 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi
 
-On Fri, May 1, 2020 at 6:23 PM Mark Brown <broonie@kernel.org> wrote:
->
-> On Fri, May 01, 2020 at 04:12:05PM +0800, Shengjiu Wang wrote:
-> > The difference for esai on imx8qm is that DMA device is EDMA.
-> >
-> > EDMA requires the period size to be multiple of maxburst. Otherwise
-> > the remaining bytes are not transferred and thus noise is produced.
->
-> If this constraint comes from the DMA controller then normally you'd
-> expect the DMA controller integration to be enforcing this - is there no
-> information in the DMA API that lets us know that this constraint is
-> there?
 
-No, I can't find one API for this.
-Do you have a recommendation?
+On 4/22/20 12:16 AM, Lu, Brent wrote:
+>>
+>> Regs width difference between BDW and BYT comes from specification. BDW
+>> has IPC registers which are 32 wide. This fact ain't exactly the reason to modify
+>> sst_shim32_read64.
+>>
+>> I'm sharing Amadeo's point of view. Your change should slow down execution a
+>> bit - but that might be just what handlers needed to make everything work again.
+>> Debug prints also slow down the execution what could have prevented you from
+>> spotting the real problem.
+>> Let's ignore the memcpy stuff for a moment - could you focus on elaborating
+>> the scenario where such issue occurs? Your initial commit message also skips
+>> important bits such as platform used when reproducing and so on, please add
+>> them.
+>>
+>> Thanks,
+>> Czarek
+> 
+> This issue is reported to happen on BYT Chrome book (rambi) on Chrome-v4.4
+> branch after changing toolchain from clang10 to clang11.
+> 
+> The reproduce step is simple. Just run arecord multiple times (<10) then you will
+> see error message for hw_params ioctl failure.
+> 
+> $ arecord -D hw:1,0 -f S16_LE -c 2 /dev/null
+> $ ctrl+c
+> 
+> The error message suggests the stream commit (IPC_IA_ALLOC_STREAM, 0x20) IPC
+> command failed due to timeout but the msg id field of ipcd read after the timeout is
+> also 0x20. It seems to me that the command is success but the host driver does not
+> know it for some reason.
+> 
+> 2020-03-15T23:02:06.614151+00:00 ERR kernel: [  852.023766] baytrail-pcm-audio baytrail-pcm-audio: ipc: --message timeout-- ipcx 0x2220 isr 0xf0020 ipcd 0x2220 imrx 0x0
+> 2020-03-15T23:02:06.614209+00:00 ERR kernel: [  852.023796] baytrail-pcm-audio baytrail-pcm-audio: ipc: error stream commit failed
+> 2020-03-15T23:02:06.614218+00:00 ERR kernel: [  852.023813]  Baytrail Audio: PCM: failed stream commit -110
+> 2020-03-15T23:02:06.614225+00:00 ERR kernel: [  852.023832] baytrail-pcm-audio baytrail-pcm-audio: ASoC: baytrail-pcm-audio hw params failed: -110
+> 
+> I add some messages to make the log easier to read. You can check the gerrit link if you
+> are interested:
+> https://chromium-review.googlesource.com/c/chromiumos/third_party/kernel/+/2131507
+> 
+> In the test patch I read the SST_IPCD register in sst_byt_irq_thread() twice and found
+> the value could be different. The IPC_IA_FREE_STREAM(0x21) seems to be the last IPC
+> command sent in the pcm_release of previous arecord command.
+> 
+> [  125.009724] sound pcmC1D0c: snd_pcm_release:
+> [  125.009732] baytrail-pcm-audio baytrail-pcm-audio: ipc_tx_message: header 0x8000000000000221 wait 1
+> [  125.009760] baytrail-pcm-audio baytrail-pcm-audio: byt_tx_msg: header 0x8000000000000226
+> [  125.009803] baytrail-pcm-audio baytrail-pcm-audio: sst_byt_irq_thread: header 0x297
+> [  125.009823] baytrail-pcm-audio baytrail-pcm-audio: byt_tx_msg: header 0x8000000000000221
+> [  125.009872] baytrail-pcm-audio baytrail-pcm-audio: sst_byt_irq_thread: header 0x297
+> [  125.010442] baytrail-pcm-audio baytrail-pcm-audio: sst_byt_irq_thread: header 0x80000000000c2226
+> [  125.010456] baytrail-pcm-audio baytrail-pcm-audio: sst_ipc_reply_find_msg: not match, msg header 0x8000000000000221
+> [  125.010511] baytrail-pcm-audio baytrail-pcm-audio: sst_byt_irq_thread: header 0x8000000000000221
+> [  125.011355] baytrail-pcm-audio baytrail-pcm-audio: tx_wait_done: ipc success, header 0x8000000000000221
+> [  125.380506] sound pcmC1D0c: snd_pcm_capture_open:
+> [  125.380544] sound pcmC1D0c: snd_pcm_capture_ioctl1: INFO
+> [  125.380554] sound pcmC1D0c: snd_pcm_capture_ioctl1: PVERSION
+> [  125.380561] sound pcmC1D0c: snd_pcm_capture_ioctl1: TTSTAMP
+> [  125.380581] sound pcmC1D0c: snd_pcm_mmap:
+> [  125.380622] sound pcmC1D0c: snd_pcm_mmap:
+> [  125.380648] sound pcmC1D0c: snd_pcm_capture_ioctl1: INFO
+> [  125.380717] sound pcmC1D0c: snd_pcm_capture_ioctl1: HW_REFINE
+> [  125.380737] sound pcmC1D0c: snd_pcm_capture_ioctl1: HW_REFINE
+> [  125.380766] sound pcmC1D0c: snd_pcm_capture_ioctl1: HW_REFINE
+> [  125.380779] sound pcmC1D0c: snd_pcm_capture_ioctl1: HW_REFINE
+> [  125.380789] sound pcmC1D0c: snd_pcm_capture_ioctl1: HW_REFINE
+> [  125.380799] sound pcmC1D0c: snd_pcm_capture_ioctl1: HW_REFINE
+> [  125.380808] sound pcmC1D0c: snd_pcm_capture_ioctl1: HW_REFINE
+> [  125.380815] sound pcmC1D0c: snd_pcm_capture_ioctl1: HW_PARAMS
+> [  125.380839] baytrail-pcm-audio baytrail-pcm-audio: ipc_tx_message: header 0x8000000000642220 wait 1
+> [  125.380854] baytrail-pcm-audio baytrail-pcm-audio: byt_tx_msg: header 0x8000000000642220
+> => write IPC_IA_ALLOC_STREAM message (0x20) to SST_IPCX
+> [  125.380931] baytrail-pcm-audio baytrail-pcm-audio: sst_byt_irq_thread: header 0x8000000000000221
+> => read message reply from SST_IPCD and an IPC_IA_FREE_STREAM(0x21) is returned
+> [  125.380942] baytrail-pcm-audio baytrail-pcm-audio: sst_byt_irq_thread: ipcd 0x8000000000602220
+> => read SST_IPCD again, this time the message id is what we are expected (0x20)
 
-best regards
-wang shengjiu
+Looks there is race between the previous stream stop and the current 
+stream start here. Can you help try changing the 
+sst_byt_stream_start/stop() from 'nowait' mode to 'wait' mode, and see 
+if the issue can be reproduced with it?
+
+
+Thanks,
+~Keyon
+
+> [  125.380948] baytrail-pcm-audio baytrail-pcm-audio: sst_ipc_reply_find_msg: not match, msg header 0x8000000000642220
+> [  125.681171] baytrail-pcm-audio baytrail-pcm-audio: tx_wait_done: ipc timeout, header 0x8000000000642220
+> [  125.681204] baytrail-pcm-audio baytrail-pcm-audio: ipc: --message timeout-- ipcx 0x2220 isr 0x50020 ipcd 0x2220 imrx 0x0
+> [  125.681212] baytrail-pcm-audio baytrail-pcm-audio: ipc: error stream commit failed
+> [  125.681217]  Baytrail Audio: PCM: failed stream commit -110
+> [  125.681223] baytrail-pcm-audio baytrail-pcm-audio: ASoC: baytrail-pcm-audio hw params failed: -110
+> 
+> Regards,
+> Brent
+> 

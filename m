@@ -2,39 +2,39 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34E491C722F
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 May 2020 15:53:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A7E11C725F
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 May 2020 16:01:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D730F1769;
-	Wed,  6 May 2020 15:52:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D730F1769
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6A3D176F;
+	Wed,  6 May 2020 16:01:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6A3D176F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588773221;
+	s=default; t=1588773714;
 	bh=SaTRJmncX82wFSMrqphyE078f2w5q3BVMnYuWCNrrVc=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Gb4+rr2/oOC5Dwh2nYmeGyCjObkYuM/ywwTfJs3v9xdzz70z583aoLa+d1Y7op421
-	 WWOYuct2CcaqE5KrIkyIgK++nSafBCCZi2UEOBC9ULdGM3Z3QkHa7rhQdLZt/frJnP
-	 SbYFruvPlg/sj2nDqwSdBOgE7nZY7Vr6eOwk5chI=
+	b=rMFkJ1NhsXku8cGry66oq2e7XFhQ9U4YTQd88NaE8QhvToOdyL73uMljhdVfww+uH
+	 DYUpYdSc4NvOGPhGfzZ3RA2oiTjPi0wXr9zkqnvr1yKjlJrbcQdCBIQGrCSpYgvtSO
+	 NRRNULJY1C/C4e7ua4qvsmLL6gS+ytKH7k2hWO0Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 043E8F80234;
-	Wed,  6 May 2020 15:52:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3DF0F80253;
+	Wed,  6 May 2020 16:00:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 07447F80249; Wed,  6 May 2020 15:51:58 +0200 (CEST)
+ id E4D55F80249; Wed,  6 May 2020 16:00:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from cmccmta3.chinamobile.com (cmccmta3.chinamobile.com
  [221.176.66.81])
- by alsa1.perex.cz (Postfix) with ESMTP id 6E7F9F800DE
- for <alsa-devel@alsa-project.org>; Wed,  6 May 2020 15:48:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E7F9F800DE
+ by alsa1.perex.cz (Postfix) with ESMTP id A9B59F800DE
+ for <alsa-devel@alsa-project.org>; Wed,  6 May 2020 15:59:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9B59F800DE
 Received: from spf.mail.chinamobile.com (unknown[172.16.121.13]) by
  rmmx-syy-dmz-app12-12012 (RichMail) with SMTP id 2eec5eb2c0061b9-275fb;
  Wed, 06 May 2020 21:47:50 +0800 (CST)

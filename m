@@ -2,69 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03B991C7608
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 May 2020 18:14:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEDE11C762F
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 May 2020 18:23:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8759C1773;
-	Wed,  6 May 2020 18:13:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8759C1773
+	by alsa0.perex.cz (Postfix) with ESMTPS id 727C2177B;
+	Wed,  6 May 2020 18:22:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 727C2177B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588781659;
-	bh=aH3Q0WQnmtzDKh0GuRVgXgBeVz1l5BCk0k5umGqU6/E=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	s=default; t=1588782204;
+	bh=6ody89kj779DuishSNc4WgF9or+Kp0PLl0WI/a3+U/A=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=etLDyp5u3hGBgndibpHPDib3n7rrkebjimWxYBwy6O4uYIrjpFCL4/47rHg6CsEbQ
-	 R3DLgOSDDiIUATgaFhQ8SVtj4lcxZH+WJaUJptyNrhN1zrPapzia1eju/qQEYZqbZE
-	 MZb97ToWoo/Tyy/h6cpSZkR/kBTO1+2N+URV4mKg=
+	b=PDxVni5iFV18DaLujd5W43vICJh2aexOMX1W28QMFJbqzAY1C0RIyUfNe6Hm/Na+B
+	 /oH4tlMsa7svUEMv0Aj35OUAQ5qWTg+1GNAw/fdQ8J4+rjKR1dRjl8XKb+kbFS5Wgl
+	 4zoMsYsEHJC5JD8Rb1gm9U8hJK9/8r6jUvtVEgbo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC9ABF800DE;
-	Wed,  6 May 2020 18:12:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E0A4F800DE;
+	Wed,  6 May 2020 18:21:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 26A5DF80249; Wed,  6 May 2020 18:12:36 +0200 (CEST)
+ id 32BAAF80249; Wed,  6 May 2020 18:21:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3B3E2F800DE
+ for <alsa-devel@alsa-project.org>; Wed,  6 May 2020 18:21:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B3E2F800DE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="RGE2eW/C"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C12FFF800AD
- for <alsa-devel@alsa-project.org>; Wed,  6 May 2020 18:12:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C12FFF800AD
-IronPort-SDR: v1E3CLSUFGwonLD6RWplKF6KLrWZk2j7zp4eOS2EinixqyfCv8oYYlWZVaPEe5x6wB5ziadyfw
- rzQad0unfypw==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2020 09:12:23 -0700
-IronPort-SDR: NOAfkdK19OS7XIm55yw+N3YrPpwhcapAGB/PmXnxZmF2WpE2OENiFtWDlIx77Q426IB3UvryWD
- PLm0HZxEFWdQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,359,1583222400"; d="scan'208";a="249808805"
-Received: from sbhat1-mobl.amr.corp.intel.com (HELO [10.251.3.11])
- ([10.251.3.11])
- by fmsmga007.fm.intel.com with ESMTP; 06 May 2020 09:12:21 -0700
-Subject: Re: Keeping the codec running at all times
-To: Jaroslav Kysela <perex@perex.cz>, Ricard Wanderlof <ricardw@axis.com>,
- alsa-devel <alsa-devel@alsa-project.org>
-References: <alpine.DEB.2.20.2005061709110.12526@lnxricardw1.se.axis.com>
- <7a54134e-ce30-d7d5-bcf3-31269f1103f1@perex.cz>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <73594637-b978-aca8-e81e-be72a5075ae8@linux.intel.com>
-Date: Wed, 6 May 2020 11:12:20 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <7a54134e-ce30-d7d5-bcf3-31269f1103f1@perex.cz>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ by mail.kernel.org (Postfix) with ESMTPSA id E66FC206B9;
+ Wed,  6 May 2020 16:21:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1588782092;
+ bh=6ody89kj779DuishSNc4WgF9or+Kp0PLl0WI/a3+U/A=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=RGE2eW/Cz9xWNS1o5nnQYukGWNJcSMJfUsYggG+0/vYsv6z34wu6QBkuIkz4wnCf/
+ EKrJmh4wz5E6nomgBilmxcDZttODl3Qz7c7Hhd/gbhpfju9+D/v8T+D7ud9S0b4+Go
+ medJkHZ+WxBZInnfINiQGI6Jmsr/53YJfggmvroU=
+Date: Wed, 06 May 2020 17:21:29 +0100
+From: Mark Brown <broonie@kernel.org>
+To: perex@perex.cz, matthias.bgg@gmail.com,
+ Tang Bin <tangbin@cmss.chinamobile.com>, lgirdwood@gmail.com
+In-Reply-To: <20200506143009.13368-1-tangbin@cmss.chinamobile.com>
+References: <20200506143009.13368-1-tangbin@cmss.chinamobile.com>
+Subject: Re: [PATCH] ASoC: mediatek: Fix error handling
+Message-Id: <158878208991.2264.6627359892180140797.b4-ty@kernel.org>
+Cc: alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Zhang Shengju <zhangshengju@cmss.chinamobile.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,40 +78,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
->> In certain system-on-chip systems, with separate ADCs and DACs for
->> instance, the ADC could generate clocks for the DAC, where it not for the
->> fact that ALSA shuts down whatever device is not being used in order to
->> conserve power. Is it possible to instruct ALSA not to do this, i.e. once
->> a codec has been configured to operate at a given sample rate, it will
->> continue to do so, even after all streams have stopped.
->>
->> I suppose one way to do this would be to change the codec 
->> set_bias_level()
->> callback so that the BIAS_OFF and BIAS_STANDBY cases don't do anything 
->> but
->> leave the codec running. But it doesn't sound like a clean way of doing
->> this.
->>
->> Of course, one complication is that at system startup, before any capture
->> or playback operations have been attempted, ALSA doesn't know which 
->> sample
->> rate should be configured, as there is no concept of a 'default sample
->> rate'; the sample rate is always set when a stream is opened.
+On Wed, 6 May 2020 22:30:09 +0800, Tang Bin wrote:
+> If the function platform_get_irq() failed, the negative value
+> returned will not be detected here. So fix error handling in
+> mt6797_afe_pcm_dev_probe(). And when get irq failed, the function
+> platform_get_irq() logs an error message, so remove redundant
+> message here.
 > 
-> The driver may limit the available rates (thus it may be possible to set 
-> the one accepted rate via the module parameter or so which may be used 
-> for the codec initialization before an application uses the PCM device).
+> Signed-off-by: Zhang Shengju <zhangshengju@cmss.chinamobile.com>
+> Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
+> 
+> [...]
 
-It's a valid request, some platforms want to avoid any glitches due to 
-clocks and require that they remain active, even if it means writing-off 
-power optimizations.
+Applied to
 
-If your codec exposes a clock object then you could have e.g. a board or 
-machine driver configure the clock 
-(clk_get/clk_set_rate/clk_prepare_enable) and leave it on regardless of 
-the streaming usages. You would still need to make sure that the clock 
-rates are compatible with the hw_params when streaming does happen.
-that's what e.g. was done for Intel to make sure the MCLK, BCLK and 
-FSYNC could be enabled even when the DSP was idle.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.8
+
+Thanks!
+
+[1/1] ASoC: mediatek: Fix error handling
+      commit: adb69968074a22376074aaa7f7971d93636b4332
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

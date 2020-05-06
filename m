@@ -2,58 +2,133 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB49D1C758F
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 May 2020 17:58:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 158A51C75A4
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 May 2020 18:03:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 39E9916C0;
-	Wed,  6 May 2020 17:57:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39E9916C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 988191740;
+	Wed,  6 May 2020 18:02:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 988191740
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588780711;
-	bh=b9d1J/Z04fO1DuHviDd0mCvQLX7g4TZqGjaznF1ojwE=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1588780992;
+	bh=/5NOtECoJe0hAoKDnDnSqKuPSxPF0eD5BmLrkCFfUoQ=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Reply-To:From;
-	b=QDIFPD0EnfGvLACFlfpUn/MVFfVe5HxuSwAg8KUnx0V9NzylQdaVz4SU03uWA7VyC
-	 dwOBSTaNPa/1d36FjCXMQzfwAlRKztiA2q2wYLU82WLTqJ4wGR13ud6oWnl8t+IRI5
-	 XqBba7hS9KOnmQ0RjfzALszdkL5zhq9lZ7TpK93o=
+	 From;
+	b=bTu4NvDgIbiDOcezOTH74Yf3h+ozRkg0d9hjva0EBINhhFrC/t1DGTsCT+znRqCrs
+	 whBThfuU2Ii+RXkYoT51KAg1z7sABfUCy4OkJGv/ZhAK22BmArRMHJkex7htEamMMy
+	 6f45E5/775ZBgEiZJFIM1XcBw3BajSaZgQy2yxS0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 577A8F80253;
-	Wed,  6 May 2020 17:56:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7284F800DF;
+	Wed,  6 May 2020 18:01:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 127A8F80249; Wed,  6 May 2020 17:56:48 +0200 (CEST)
+ id 18203F80249; Wed,  6 May 2020 18:01:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_14, RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ FORGED_SPF_HELO,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2067.outbound.protection.outlook.com [40.107.94.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 47929F800DF
- for <alsa-devel@alsa-project.org>; Wed,  6 May 2020 17:56:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47929F800DF
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id B6765ABB2;
- Wed,  6 May 2020 15:56:40 +0000 (UTC)
-Message-ID: <28e3762c1a5bc5959d90e1c34d281eeac1dce528.camel@suse.com>
-Subject: Re: snd_dice: Clicking artifacts with TC StudioKonnekt 48
-From: Scott Bahling <sbahling@suse.com>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Date: Wed, 06 May 2020 17:56:37 +0200
-In-Reply-To: <20200222012510.GA4883@laptop>
-References: <921a3b13-b44e-3300-bb72-84cbc9e3dd88@apparatus.de>
- <20200222012510.GA4883@laptop>
-Organization: SUSE Software Solutions Germany GmbH
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.34.4 
+ by alsa1.perex.cz (Postfix) with ESMTPS id DD083F800DF
+ for <alsa-devel@alsa-project.org>; Wed,  6 May 2020 18:01:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD083F800DF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
+ header.i=@amdcloud.onmicrosoft.com header.b="yUQhH2gZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=H5S3VtyGSvC05GD+bsqLaQyUV+euE9SeT70qwkPFpLd+otnlDB1KXTL9yymuM8KBneqxecirpgWXvyo0zA7UdiOby3JQ15INMzGuZ/nw1fBIMDvTShp4vrbM51nV8TuThH5Sq7MQ9su7e+sNXGj6mi8tz+SetcCgLSVcrZUp1zrro20YrjQ3gVSDO67ye/1y3GP27Aman3PrHKSvPDyrLYQTleTt6Q88yZRE7KqbN0fnA1dYnPTnLhiwkoqwndW8dohfFjfnQvrxPf9As8i2QRHrCCKbOY/TAqrCaYK3pAFk4zwl/1CBr+nh1JakT4JTCv71hTZangZcIGDZtKZmTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/5NOtECoJe0hAoKDnDnSqKuPSxPF0eD5BmLrkCFfUoQ=;
+ b=aNQYtXgBH9cczca9B2HirGx2k6BzYnfFexWdLslBqEAQGnZTq6St5DDqkarjrbh10MlyEU507TidJVZjugf2DG+vACd2eTOwV+j5M5BFdAvcTw29R1RBeTRJYkSzgA+6T1ZfogDkrv8l2clgatx/nrK6fmKfhTxHpm1IHKG+/OLN2lRjBGeFt9a5mNzTaaQr6pRkY04z+gyNGp37Gr/s1/Y2nCMY3qZajLhxufXvLoNlAW7stYTe9VPFukaNO0IUTFPggrGZvQjsPrYkDUGwzdTTiHes28PCHAyZRq5Ol3c6mUtMpImiILEWXVcvkJGvwLSAk/FHrSaBL7+MKuP6aQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/5NOtECoJe0hAoKDnDnSqKuPSxPF0eD5BmLrkCFfUoQ=;
+ b=yUQhH2gZgcAYXF6dJ1GkAXD9sFKg+RFYJJ4+mMwDGxWfkwZas20mRxKJJdxD1Cir+GaR9O8UVReNaRganU/0+/Q6DSFankTsCRKPOaAxZFxmNwlq+22gQ5JmRyhBrAlyl6ECDKeciPtT6V3/I/8rimw5tFcxZZl8xTlUdfj7lp0=
+Received: from DM6PR12MB2633.namprd12.prod.outlook.com (2603:10b6:5:50::11) by
+ DM6PR12MB3178.namprd12.prod.outlook.com (2603:10b6:5:18d::11) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2958.20; Wed, 6 May 2020 16:01:14 +0000
+Received: from DM6PR12MB2633.namprd12.prod.outlook.com
+ ([fe80::ecbc:404f:23ae:616b]) by DM6PR12MB2633.namprd12.prod.outlook.com
+ ([fe80::ecbc:404f:23ae:616b%5]) with mapi id 15.20.2958.029; Wed, 6 May 2020
+ 16:01:14 +0000
+From: "Mukunda, Vijendar" <Vijendar.Mukunda@amd.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Alex Deucher
+ <alexdeucher@gmail.com>, "alsa-devel@alsa-project.org"
+ <alsa-devel@alsa-project.org>, "broonie@kernel.org" <broonie@kernel.org>,
+ "tiwai@suse.de" <tiwai@suse.de>
+Subject: RE: [PATCH 13/14] ASoC: amd: RN machine driver using dmic
+Thread-Topic: [PATCH 13/14] ASoC: amd: RN machine driver using dmic
+Thread-Index: AQHWIx9MQcElWEzBPU2eqB4LfO1DtKiaBJEAgAEyfmA=
+Date: Wed, 6 May 2020 16:01:14 +0000
+Message-ID: <DM6PR12MB263388F37A0A99C2D1B96F2797A40@DM6PR12MB2633.namprd12.prod.outlook.com>
+References: <20200505205327.642282-1-alexander.deucher@amd.com>
+ <20200505205327.642282-14-alexander.deucher@amd.com>
+ <262fb234-f940-d3be-4a9b-9f3263cced54@linux.intel.com>
+In-Reply-To: <262fb234-f940-d3be-4a9b-9f3263cced54@linux.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_Enabled=true;
+ MSIP_Label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_SetDate=2020-05-06T15:58:46Z; 
+ MSIP_Label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_Method=Privileged;
+ MSIP_Label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_Name=Non-Business;
+ MSIP_Label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_ActionId=1029e71c-adf2-4573-b4d8-0000de8fe5a5;
+ MSIP_Label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_ContentBits=0
+msip_label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_enabled: true
+msip_label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_setdate: 2020-05-06T16:01:10Z
+msip_label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_method: Privileged
+msip_label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_name: Non-Business
+msip_label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_actionid: 45fe6cba-6ce6-4405-a662-00004d6d3e78
+msip_label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_contentbits: 0
+authentication-results: linux.intel.com; dkim=none (message not signed)
+ header.d=none;linux.intel.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [165.204.159.242]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 98be9d83-9380-4f74-d219-08d7f1d6b43f
+x-ms-traffictypediagnostic: DM6PR12MB3178:|DM6PR12MB3178:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB31781986DB46445B581A2B5F97A40@DM6PR12MB3178.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:158;
+x-forefront-prvs: 03950F25EC
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: kqsYlEbPZm9QElFo8qIaSnVcv4z3JP7/vngsgxKNmZer8zIGxbQWxkgsET4E/oy1fI7Wq+7CPgJDifz4QG78Ve1zIx3zUkNkZpNTAw2KJFXRZPeIuJPRlN34/NX39L1WWmFF7gigxldb4AO7eH81il3eIJeaJO/gtISg5fqUCTFsS81cGG1cOBJ3wzifh+lqfXq7+mZttDCuJl74YfgsmpMWrT7/Ag88tl1keg3IVqmFpR2/lQT5Mgm47KpVbsCgO2fcaimuOlhTJHm9+H4e8Q/PrktBeNXbVWmUr+btGvVXXSVM50p4S5Xf0kOwDrvaLTAn2/IkXcRgSaYznW3SMomEoElo8VGgvD4y3RfPc6a2hjPyPsbbURU5wzH4vFdHPf+Lbh5E42QGJEM0bM+A+2QFPHVf3u1Fmx5dsizjGlSaYq0qYY0uvcITArZvAigcso3RYZ9N9DGOxuLb9x2AaNTWA2sVI+8TERMh/lfEGfHbO5TEFiwS+TOwSL0u/56HqjE08bt1u83I170xyZGUcw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2633.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(346002)(366004)(39860400002)(376002)(136003)(396003)(33430700001)(66946007)(76116006)(52536014)(64756008)(8936002)(26005)(66556008)(66446008)(66476007)(33440700001)(316002)(33656002)(71200400001)(110136005)(8676002)(5660300002)(86362001)(4326008)(478600001)(55016002)(9686003)(186003)(7696005)(2906002)(53546011)(6506007);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: FEVotl0maRMOJTXGQT21W/aHbPK/7qIiZyPqH3b9pOOsFRzd0ayZBi4s2Wx4UrVB50hA0aH2xM8OUCG8XxQD86PGStosrJUiw9QkfREszZFXV5KqwIiZUgMrUfnnT5g5YuzeqlSHVTYXjlc+xA7dJCeC32QwSZXbouI+FsuZlJbd0A0NRCgX3LUUkOcGYCKggo7fhADi5w4BC7s3cYoT9UaZ7hU4xbYsgTYf1zCFcK1/agk7sfXVAwskZzvlbBIt92qIkjjBa5hZLb99wckBlMWFup4nIbliEiW2fc25QtKm/HmH8pnA7Yl9x9uzkPgz5mhJtiZ6k2RMiJ5PNnfSYRvfK2Ekml9WK9OF58/pOZvfCi2JmJY5yDnt71lLc9MgDc4tNEa/oLLKF+zriMuiakhKE38/dRnHVg4v3HH2JWy3im+M2zZbS5bwnOmkGHrlecboBpIm+ESG8W5RUenW0884aJRh5usWGWVWmm5YfUoZfk3jQL5B3KTXm7QlpyZJ8IEVhU6bbFdgqhJCZ7zvUvQkUyMHrTA98Ip1cn3EGUfSM+YJ3f1FZ1UJRIX+RYDTLi1sPNduCVNNYgMi4VTUXdnQUQV2aEHnjGMbfca8LfnhMW8b3kubwaIcm6Luo2SeDJ75Uv/nFeAXJZ10qknG7wd4co9iY/Bevw7S/NYDJt0IXEV3uT7poCLSiqgJQl1Ea5dX4lbm0OLhR5Z+PFAuie/lHvPOWuHlNMPsBJLYOjZlmFjSydVJzZHExBJaKuW5ezkRpF+TfxagvpfZT1a3esporTCoJEicQkdlkuKhdDui8BwS/kkTzAZxwDiXvxbi
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: "\(alsa-devel@alsa-project.org\)" <alsa-devel@alsa-project.org>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98be9d83-9380-4f74-d219-08d7f1d6b43f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 May 2020 16:01:14.3892 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: X/R/uVQfs5DlpY+t/KYz4zRUggbxSzB697f5AFYIK40o2DybvAEbg8xcV7h31/K/hx6ioTtztZMrizsmqbhbhw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3178
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,92 +141,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Reply-To: sbahling@suse.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Takashi,
-
-On Sat, 2020-02-22 at 10:25 +0900, Takashi Sakamoto wrote:
-> Hi,
-> 
-> On Thu, Feb 20, 2020 at 09:34:02PM +0100, Mathias Buhr wrote:
-> > Hi,
-> > 
-> > thanks to this group, both of my firewire interfaces are (almost)
-> > working! Big thank you!
-> > 
-> > While the TC Konnekt 24D works fine (playback and recording), the
-> > StudioKonnekt 48 produces clicking artifacts during playback when using
-> > snd_dice. This interface is working flawless on Windows and on a
-> > Jack/FFADO combination. This artifact occurs in all use cases (alsa via
-> > aplay, pulseaudio and jack) and does not seem to be in recorded streams.
-> > After recording the playback with another device, it looks like the
-> > level of the artifact is scaling with the signal and its interval is
-> > interestingly 256ms. Is there anything I can do to further debug this
-> > issue? Capture firewire packets? I would love to get this device fully
-> > working.
-> > 
-> > I'm using kernel version 5.5.4 but this issue has been there for a long
-> > time.
-> > 
-> > Thanks,
-> > 
-> > Mathias
-> 
-> Yes. ALSA dice driver brings the issue to your unit regardless of XRUNs.
-> I can see this issue for recent 5 years (so long time).
-> 
-> At present, ALSA dice driver is designed with the expectation that the
-> devices performs 'clock-recovery' with timestamp in isochronous packets
-> transmitted by the driver. The driver transfers PCM frames with
-> timestamps as exactly the same number as configured sampling rate; e.g.
-> 48,000 frames/sec or 44,096/44,104 frames/sec.
-> 
-> However, many devices including yours don't perform it actually. For
-> example, all of devices from TC Electronics don't perform it:
-> 
->  - Konnekt 24D (Dice II STD ASIC)
->  - Konnekt 8 (Dice II STD ASIC)
->  - Konnkt Live (Dice II STD ASIC)
->  - Studio Konnekt 48 (DICE II STD and DICE Mini ASICs)
->  - Impact Twin (DICE II STD ASIC)
->  - Desktop Konnekt 6 (DICE Mini ASIC)
->  - Digital Konnekt 32 (DICE II STD)
-> 
-> 
-> They work with sampling clock independent of the timestamp from driver.
-> Thus it's not possible to synchronize multiple devices on the same
-> IEEE 1394 bus (this is against the 'myth' that the devices can be
-> synchronized for its internal sampling, but it's the fact).
-> 
-> Instead, the device expects the driver to perform the 'clock-recovery'
-> and transfer PCM frames as mostly the same as the calculated sampling
-> rate. Even if the device is configured to handle 48,000 PCM frames per
-> second, the device actually handles less or more PCM frames; e.g.
-> 47,988, 47,992 or 48,008, 48,016. Unfortunately, current ALSA dice
-> driver is not designed to work for it. In device internal, it handles
-> surplus PCM frames or the lack of PCM frames for several seconds, then
-> causes noisy sound I guess.
-
-I was just about to start a thread related to a very similar issue I'm
-seeing with my Tascam FW-1884. But in my case I'm only running one
-device/clock source. Could the clock-recovery issue also be affecting a
-single FW-1884 device?
-
-In my case I'm witnessing exactly one frame being dropped at a consistent
-interval of about 240ms at 96000 frames per second and 480ms at 48000 frames
-per second.
-
-> The libffado2 is programmed for the 'clock-recovery'. On the other hand,
-> it includes design mistake to aggregate several types of devices and give
-> abstracted device to applications such as jackd. When considering the
-> above design of actual hardware, the design is not good since each actual
-> hardware works independent sampling clocks.
-
-I have not tried FFADO yet. I will see if the issue goes away with FFADO.
-
-Best Regards,
-
-Scott
-
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogUGllcnJlLUxvdWlzIEJv
+c3NhcnQgPHBpZXJyZS1sb3Vpcy5ib3NzYXJ0QGxpbnV4LmludGVsLmNvbT4NCj4gU2VudDogV2Vk
+bmVzZGF5LCBNYXkgNiwgMjAyMCAzOjA4IEFNDQo+IFRvOiBBbGV4IERldWNoZXIgPGFsZXhkZXVj
+aGVyQGdtYWlsLmNvbT47IGFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZzsNCj4gYnJvb25pZUBr
+ZXJuZWwub3JnOyBNdWt1bmRhLCBWaWplbmRhciA8VmlqZW5kYXIuTXVrdW5kYUBhbWQuY29tPjsN
+Cj4gdGl3YWlAc3VzZS5kZQ0KPiBDYzogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1
+Y2hlckBhbWQuY29tPg0KPiBTdWJqZWN0OiBSZTogW1BBVENIIDEzLzE0XSBBU29DOiBhbWQ6IFJO
+IG1hY2hpbmUgZHJpdmVyIHVzaW5nIGRtaWMNCj4gDQo+IA0KPiANCj4gPiArc3RhdGljIGludCBh
+Y3BfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikNCj4gPiArew0KPiA+ICsJaW50
+IHJldDsNCj4gPiArCXN0cnVjdCBhY3BfcGRtICptYWNoaW5lID0gTlVMTDsNCj4gPiArCXN0cnVj
+dCBzbmRfc29jX2NhcmQgKmNhcmQ7DQo+ID4gKw0KPiA+ICsJY2FyZCA9ICZhY3BfY2FyZDsNCj4g
+PiArCWFjcF9jYXJkLmRldiA9ICZwZGV2LT5kZXY7DQo+ID4gKw0KPiA+ICsJcGxhdGZvcm1fc2V0
+X2RydmRhdGEocGRldiwgY2FyZCk7DQo+ID4gKwlzbmRfc29jX2NhcmRfc2V0X2RydmRhdGEoY2Fy
+ZCwgbWFjaGluZSk7DQo+ID4gKwlyZXQgPSBkZXZtX3NuZF9zb2NfcmVnaXN0ZXJfY2FyZCgmcGRl
+di0+ZGV2LCBjYXJkKTsNCj4gPiArCWlmIChyZXQpIHsNCj4gPiArCQlkZXZfZXJyKCZwZGV2LT5k
+ZXYsDQo+ID4gKwkJCSJzbmRfc29jX3JlZ2lzdGVyX2NhcmQoJXMpIGZhaWxlZDogJWRcbiIsDQo+
+ID4gKwkJCWFjcF9jYXJkLm5hbWUsIHJldCk7DQo+ID4gKwkJcmV0dXJuIHJldDsNCj4gPiArCX0N
+Cj4gPiArCWlmIChyZXQpIHsNCj4gPiArCQlkZXZfZXJyKCZwZGV2LT5kZXYsDQo+ID4gKwkJCSJz
+bmRfc29jX3JlZ2lzdGVyX2NhcmQoJXMpIGZhaWxlZDogJWRcbiIsDQo+ID4gKwkJCWFjcF9jYXJk
+Lm5hbWUsIHJldCk7DQo+ID4gKwkJcmV0dXJuIHJldDsNCj4gPiArCX0NCj4gDQo+IGNvcHktcGFz
+dGUgbWlzdGFrZSBoZXJlLCB0aGUgc2FtZSBibG9jayBhcHBlYXJzIHR3aWNlPw0KDQpXaWxsIGZp
+eCBpdCBhbmQgc2hhcmUgdXBkYXRlZCBwYXRjaC4NCg0KLVZpamVuZGFyDQo+IA0KPiA+ICsJcmV0
+dXJuIDA7DQo+ID4gK30NCj4gPiArDQo+ID4gK3N0YXRpYyBzdHJ1Y3QgcGxhdGZvcm1fZHJpdmVy
+IGFjcF9tYWNoX2RyaXZlciA9IHsNCj4gPiArCS5kcml2ZXIgPSB7DQo+ID4gKwkJLm5hbWUgPSAi
+YWNwX3BkbV9tYWNoIiwNCj4gPiArCQkucG0gPSAmc25kX3NvY19wbV9vcHMsDQo+ID4gKwl9LA0K
+PiA+ICsJLnByb2JlID0gYWNwX3Byb2JlLA0KPiA+ICt9Ow0KPiA+ICsNCj4gPiArc3RhdGljIGlu
+dCBfX2luaXQgYWNwX2F1ZGlvX2luaXQodm9pZCkNCj4gPiArew0KPiA+ICsJcGxhdGZvcm1fZHJp
+dmVyX3JlZ2lzdGVyKCZhY3BfbWFjaF9kcml2ZXIpOw0KPiA+ICsJcmV0dXJuIDA7DQo+ID4gK30N
+Cj4gPiArDQo+ID4gK3N0YXRpYyB2b2lkIF9fZXhpdCBhY3BfYXVkaW9fZXhpdCh2b2lkKQ0KPiA+
+ICt7DQo+ID4gKwlwbGF0Zm9ybV9kcml2ZXJfdW5yZWdpc3RlcigmYWNwX21hY2hfZHJpdmVyKTsN
+Cj4gPiArfQ0KPiA+ICsNCj4gPiArbW9kdWxlX2luaXQoYWNwX2F1ZGlvX2luaXQpOw0KPiA+ICtt
+b2R1bGVfZXhpdChhY3BfYXVkaW9fZXhpdCk7DQo+IA0KPiBtb2R1bGVfcGxhdGZvcm1fZHJpdmVy
+KGFjcF9tYWNoX2RyaXZlcikgZG9lcyBhbGwgdGhpcyBfX2luaXQgYW5kIF9fZXhpdA0KPiBmb3Ig
+eW91Lg0KPiANCj4gPiArDQo+ID4gK01PRFVMRV9BVVRIT1IoIlZpamVuZGFyLk11a3VuZGFAYW1k
+LmNvbSIpOw0KPiA+ICtNT0RVTEVfTElDRU5TRSgiR1BMIHYyIik7DQo+ID4gK01PRFVMRV9BTElB
+UygicGxhdGZvcm06IiBEUlZfTkFNRSk7DQo+ID4NCg==

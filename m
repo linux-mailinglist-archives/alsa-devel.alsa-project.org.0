@@ -2,95 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 147FD1C75F6
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 May 2020 18:12:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03B991C7608
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 May 2020 18:14:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9200F1773;
-	Wed,  6 May 2020 18:11:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9200F1773
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8759C1773;
+	Wed,  6 May 2020 18:13:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8759C1773
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588781526;
-	bh=i1dJW1MbmpMVT4xAbM0x5B5et6ZG7XvSlF8vMqLYk2Q=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1588781659;
+	bh=aH3Q0WQnmtzDKh0GuRVgXgBeVz1l5BCk0k5umGqU6/E=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LaIEvBPXpFa9bqBFPVqxi8mAtOSt0p3FY5Y9KTElc4A8moawKfoikr02nNJ0EPUwG
-	 ME2hL6PYwHZEctnnQcxXwjbWStnJ1RKid5aY1ga6SIFcF23TGQMbLAcVpWf4HcSLRT
-	 oL+vI1SBlA4BADFyuA7BWQeqYT/Nk2DB9/NpLTfY=
+	b=etLDyp5u3hGBgndibpHPDib3n7rrkebjimWxYBwy6O4uYIrjpFCL4/47rHg6CsEbQ
+	 R3DLgOSDDiIUATgaFhQ8SVtj4lcxZH+WJaUJptyNrhN1zrPapzia1eju/qQEYZqbZE
+	 MZb97ToWoo/Tyy/h6cpSZkR/kBTO1+2N+URV4mKg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6A43F80253;
-	Wed,  6 May 2020 18:10:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC9ABF800DE;
+	Wed,  6 May 2020 18:12:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67DE7F80249; Wed,  6 May 2020 18:10:20 +0200 (CEST)
+ id 26A5DF80249; Wed,  6 May 2020 18:12:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
- [216.228.121.143])
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 04426F800AD
- for <alsa-devel@alsa-project.org>; Wed,  6 May 2020 18:10:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04426F800AD
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="a9mOjW6R"
-Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5eb2e0e00000>; Wed, 06 May 2020 09:08:00 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate102.nvidia.com (PGP Universal service);
- Wed, 06 May 2020 09:10:10 -0700
-X-PGP-Universal: processed;
- by hqpgpgate102.nvidia.com on Wed, 06 May 2020 09:10:10 -0700
-Received: from [10.25.100.73] (172.20.13.39) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 6 May
- 2020 16:10:01 +0000
-Subject: Re: Re: [RFC] DPCM for Tegra
-To: Mark Brown <broonie@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>
-References: <1588250483-10014-1-git-send-email-spujar@nvidia.com>
- <1jzhalffhh.fsf@starbuckisacylon.baylibre.com>
- <fe842d81-22da-fbbe-b5e2-9872cefb9d8b@nvidia.com>
- <1jwo5pf7de.fsf@starbuckisacylon.baylibre.com>
- <20200506155311.GG5299@sirena.org.uk>
-From: Sameer Pujar <spujar@nvidia.com>
-Message-ID: <74e724ec-72c9-e06a-cada-85110c9b145b@nvidia.com>
-Date: Wed, 6 May 2020 21:39:58 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ by alsa1.perex.cz (Postfix) with ESMTPS id C12FFF800AD
+ for <alsa-devel@alsa-project.org>; Wed,  6 May 2020 18:12:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C12FFF800AD
+IronPort-SDR: v1E3CLSUFGwonLD6RWplKF6KLrWZk2j7zp4eOS2EinixqyfCv8oYYlWZVaPEe5x6wB5ziadyfw
+ rzQad0unfypw==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2020 09:12:23 -0700
+IronPort-SDR: NOAfkdK19OS7XIm55yw+N3YrPpwhcapAGB/PmXnxZmF2WpE2OENiFtWDlIx77Q426IB3UvryWD
+ PLm0HZxEFWdQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,359,1583222400"; d="scan'208";a="249808805"
+Received: from sbhat1-mobl.amr.corp.intel.com (HELO [10.251.3.11])
+ ([10.251.3.11])
+ by fmsmga007.fm.intel.com with ESMTP; 06 May 2020 09:12:21 -0700
+Subject: Re: Keeping the codec running at all times
+To: Jaroslav Kysela <perex@perex.cz>, Ricard Wanderlof <ricardw@axis.com>,
+ alsa-devel <alsa-devel@alsa-project.org>
+References: <alpine.DEB.2.20.2005061709110.12526@lnxricardw1.se.axis.com>
+ <7a54134e-ce30-d7d5-bcf3-31269f1103f1@perex.cz>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <73594637-b978-aca8-e81e-be72a5075ae8@linux.intel.com>
+Date: Wed, 6 May 2020 11:12:20 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200506155311.GG5299@sirena.org.uk>
-X-Originating-IP: [172.20.13.39]
-X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
- HQMAIL107.nvidia.com (172.20.187.13)
-Content-Type: text/plain; charset="utf-8"; format=flowed
+In-Reply-To: <7a54134e-ce30-d7d5-bcf3-31269f1103f1@perex.cz>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1588781280; bh=luEZbp/2pQikNm6FKyeutAkc6bT22MBQsDLNbbelIrA=;
- h=X-PGP-Universal:CC:Subject:To:References:From:Message-ID:Date:
- User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
- X-ClientProxiedBy:Content-Type:Content-Transfer-Encoding:
- Content-Language;
- b=a9mOjW6RuG26hYzX7UOGzVEZDVrreu3mqV6fw12xry5J1FudrZ+vEg9ndnajwE97Q
- UvxZTMPsQg6LlL2Db0Z+bSoHxp2ygtUeO2JxAJauQRWWKt44llawNCjfCIBKFs3gV9
- LWQi1aF3m7ewByj1PsniavquSAbPLxtrLslPRveM122li9gSihnjFuLY6zgfQU7cWR
- 9q3+wy/DGpzQCGvM4l5dJxVFoXIXiw/xbo1bnfP7ib1tdfL8cHi5vn8CSW7DXzO6k4
- FdsOiiYA7EtaQXVOjkZW0TCMFSHgwUH8fBYjN60WgW/unKVFhREP9lKoGw470ibQFw
- mhwElpSkq9KhQ==
-Cc: viswanathl@nvidia.com, alsa-devel@alsa-project.org, swarren@nvidia.com,
- kuninori.morimoto.gx@renesas.com, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, spujar@nvidia.com, linux-tegra@vger.kernel.org,
- tiwai@suse.com, nicoleotsuka@gmail.com, atalambedu@nvidia.com,
- nwartikar@nvidia.com, thierry.reding@gmail.com, sharadg@nvidia.com,
- digetx@gmail.com, jonathanh@nvidia.com, rlokhande@nvidia.com,
- mkumard@nvidia.com, dramesh@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,28 +82,38 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 5/6/2020 9:23 PM, Mark Brown wrote:
-> On Wed, May 06, 2020 at 04:47:09PM +0200, Jerome Brunet wrote:
->> On Wed 06 May 2020 at 16:12, Sameer Pujar <spujar@nvidia.com> wrote:
->>> XBAR currently exports all routing widgets which can be used to
->>> interconnect multiple components and thus implements Mux widgets. Fixing
->>> the routing paths in driver would limit anyone to try a different
->>> combination as per the need, unless driver is modified.
->> I did not mean that you should restrict the routing ability of your SoC,
->> quite the opposite actually.
+>> In certain system-on-chip systems, with separate ADCs and DACs for
+>> instance, the ADC could generate clocks for the DAC, where it not for the
+>> fact that ALSA shuts down whatever device is not being used in order to
+>> conserve power. Is it possible to instruct ALSA not to do this, i.e. once
+>> a codec has been configured to operate at a given sample rate, it will
+>> continue to do so, even after all streams have stopped.
+>>
+>> I suppose one way to do this would be to change the codec 
+>> set_bias_level()
+>> callback so that the BIAS_OFF and BIAS_STANDBY cases don't do anything 
+>> but
+>> leave the codec running. But it doesn't sound like a clean way of doing
+>> this.
+>>
+>> Of course, one complication is that at system startup, before any capture
+>> or playback operations have been attempted, ALSA doesn't know which 
+>> sample
+>> rate should be configured, as there is no concept of a 'default sample
+>> rate'; the sample rate is always set when a stream is opened.
+> 
+> The driver may limit the available rates (thus it may be possible to set 
+> the one accepted rate via the module parameter or so which may be used 
+> for the codec initialization before an application uses the PCM device).
 
->> You should just expose it correctly
-> Yes, it's going to be less effort in the long run if nothing else.
+It's a valid request, some platforms want to avoid any glitches due to 
+clocks and require that they remain active, even if it means writing-off 
+power optimizations.
 
-This is what below reference tried to achieve in the original series, 
-where all Mux widgets and corresponding kcontrols were exposed.
-[1] 
-http://patchwork.ozlabs.org/project/linux-tegra/patch/1582180492-25297-6-git-send-email-spujar@nvidia.com/
-
-However it has DAI declarations too, that was mainly because 
-codec-to-codec links were used to connect multiple components. DT would 
-expose all these links (please note that machine driver was not sent as 
-part of the original series). May be with DPCM these additional DAIs can 
-be avoided, but it comes with few challenges highlighted in this RFC patch.
-
-
+If your codec exposes a clock object then you could have e.g. a board or 
+machine driver configure the clock 
+(clk_get/clk_set_rate/clk_prepare_enable) and leave it on regardless of 
+the streaming usages. You would still need to make sure that the clock 
+rates are compatible with the hw_params when streaming does happen.
+that's what e.g. was done for Intel to make sure the MCLK, BCLK and 
+FSYNC could be enabled even when the DSP was idle.

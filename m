@@ -2,66 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED10D1C8A72
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 May 2020 14:20:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 832511C8A8D
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 May 2020 14:20:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F3801814;
-	Thu,  7 May 2020 14:19:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F3801814
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1A1D1812;
+	Thu,  7 May 2020 14:20:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1A1D1812
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588854006;
-	bh=MSkChxFZqIspRLCauSd0CqP4IKv9LrIyPZ388vIuY7k=;
+	s=default; t=1588854052;
+	bh=I5hKmcE5mcDLVhZaWDRwI64U3QpiZUFmJdDuCE+vXmE=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=p7O4Gd7dkAEQzrBZ1xZo/XXwTxSsBtNJhykaI+6dwZVQyc0wWtFki2cGBcneicWRw
-	 bOyJWdIWuCSTLDs1V3hrjwZ0+VylpK9RUabUvmca9b0GCJ+Frdnn8eJThOTAbw+y4D
-	 OGRfSQFU7MNqu+tH1nZ3vJYiGj8RvtP3ne01FyCM=
+	b=aAJLvdP1arh/XN6pvni1bfrMUWMgNIF4cn1b0sze2UGKzLYGHp0xaaAvd/F+7rKGd
+	 fTKsAj3JlBcjTcOKfw/R7F60ihu7AjG+cLx/9NJM3ribHUSpeQ9ucV54LZI4VVK8Dz
+	 j9fbp6Kks1QyyKZeQ5EekPq71uKWsGIqL6qCPKQ8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B65E3F8015F;
-	Thu,  7 May 2020 14:18:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 225F8F8026F;
+	Thu,  7 May 2020 14:18:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EADDAF8015F; Thu,  7 May 2020 14:18:22 +0200 (CEST)
+ id B4B55F801D9; Thu,  7 May 2020 14:18:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E484AF8011C
- for <alsa-devel@alsa-project.org>; Thu,  7 May 2020 14:18:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E484AF8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id B7ABAF800F6
+ for <alsa-devel@alsa-project.org>; Thu,  7 May 2020 14:18:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7ABAF800F6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HdHgVWug"
+ header.b="fwpyh3Lq"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7AA23208E4;
- Thu,  7 May 2020 12:18:15 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 618C320CC7;
+ Thu,  7 May 2020 12:18:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588853896;
- bh=MSkChxFZqIspRLCauSd0CqP4IKv9LrIyPZ388vIuY7k=;
+ s=default; t=1588853901;
+ bh=I5hKmcE5mcDLVhZaWDRwI64U3QpiZUFmJdDuCE+vXmE=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=HdHgVWug8sOeiIUH0XthCnuDAbPqcWRNCMQy+00dXYQ/3BGhDowdVJCi+5oT+fiVi
- 2j8PCk9mYTnbPiHxkicqfuuDr3evannnwYXnw8zrjlcmKlad4XgzqzD/9OAAfuvUeN
- EqP19g+z2+/OzJq7BVp4kT05T+biuRQ1l5d8vP7g=
-Date: Thu, 07 May 2020 13:18:13 +0100
+ b=fwpyh3Lq9mAdWayXxnmENOvUYSaL7jTt72sbM3RezkaGAhPeWB5n+kBGgYIECnHHg
+ rhiZgbOKFBvTWslJBreJjVlcVftxMHR2R4WhmM/Nw82hu5LE/J7/Urhwcxr4qSjXac
+ 6D73eceh/8FZ9DbaTnhzg6b6Wmx87GdNx1gwhibg=
+Date: Thu, 07 May 2020 13:18:19 +0100
 From: Mark Brown <broonie@kernel.org>
-To: perex@perex.cz, tiwai@suse.com, ChenTao <chentao107@huawei.com>,
- Xiubo.Lee@gmail.com, timur@kernel.org, nicoleotsuka@gmail.com
-In-Reply-To: <20200507022959.183739-1-chentao107@huawei.com>
-References: <20200507022959.183739-1-chentao107@huawei.com>
-Subject: Re: [PATCH -next] soc: fsl_asrc: Make some functions static
-Message-Id: <158885389338.38935.7126937131103152522.b4-ty@kernel.org>
-Cc: linuxppc-dev@lists.ozlabs.org, alsa-devel@alsa-project.org,
- festevam@gmail.com, linux-kernel@vger.kernel.org
+To: Wei Yongjun <weiyongjun1@huawei.com>, Takashi Iwai <tiwai@suse.com>,
+ Oder Chiou <oder_chiou@realtek.com>, Jaroslav Kysela <perex@perex.cz>,
+ Liam Girdwood <lgirdwood@gmail.com>
+In-Reply-To: <20200507094335.14302-1-weiyongjun1@huawei.com>
+References: <20200507094335.14302-1-weiyongjun1@huawei.com>
+Subject: Re: [PATCH -next] ASoC: rt5677: Use devm_snd_soc_register_component()
+Message-Id: <158885389338.38935.14311915230086603146.b4-ty@kernel.org>
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,13 +78,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 7 May 2020 10:29:59 +0800, ChenTao wrote:
-> Fix the following warning:
+On Thu, 7 May 2020 09:43:35 +0000, Wei Yongjun wrote:
+> Using devm_snd_soc_register_component() can make the code
+> shorter and cleaner.
 > 
-> sound/soc/fsl/fsl_asrc.c:157:5: warning:
-> symbol 'fsl_asrc_request_pair' was not declared. Should it be static?
-> sound/soc/fsl/fsl_asrc.c:200:6: warning:
-> symbol 'fsl_asrc_release_pair' was not declared. Should it be static?
+> Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
+> ---
+>  sound/soc/codecs/rt5677-spi.c | 12 +++---------
+>  1 file changed, 3 insertions(+), 9 deletions(-)
 > 
 > [...]
 
@@ -93,8 +95,8 @@ Applied to
 
 Thanks!
 
-[1/1] soc: fsl_asrc: Make some functions static
-      commit: c16e923dd635d383026a306acea540b8e0706c88
+[1/1] ASoC: rt5677: Use devm_snd_soc_register_component()
+      commit: 9558ad215509b75c72c84f4f7691f1bd80fda42a
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

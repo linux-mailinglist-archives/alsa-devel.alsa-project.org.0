@@ -2,76 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55A731C9D79
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 May 2020 23:36:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3A661C9E2E
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 May 2020 00:05:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5157182F;
-	Thu,  7 May 2020 23:35:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5157182F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3CF72182F;
+	Fri,  8 May 2020 00:04:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3CF72182F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588887370;
-	bh=W0s/DxhIFMC/gizNbGryGXEQxCscmhXtowbIp8aKQQA=;
+	s=default; t=1588889139;
+	bh=IVcCT69rtJnizGhyHC4tg8FJEC0dbteTHQhZd2x4LwA=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=PMQM4l9YOjMuMqPslinSVzyjI1w3DCD3Tos1Orb1XG5VoBfqruwT919JVC0lzYA3e
-	 JJ0JzmhYfw3+DByoGgC4nT5WIq/sZb5wHanUVA3fFiFAcsKDzFe47612xnkpOPaxs3
-	 yyv/16NjqVyY4nvHn0JPhXQYd9oPbF0vglVQrcX4=
+	b=niiGQ30tPncO4I7rcM9Lr6ARULjSpEqYAq9kHBdJ4JiYSwtXi0jaZw4SMQghI8dN4
+	 2Rt8C94c6XOKCNMoY4siHTnu+QYujx4kl6c9iBVS8BzPspliuwhB0Ox96o3Gl48sbq
+	 kfc7M+xHnl3b/rOchCrIiqpU5BaqIimFjgWGV3QQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB7EEF80162;
-	Thu,  7 May 2020 23:34:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E521F8011C;
+	Fri,  8 May 2020 00:03:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2AD4FF8015F; Thu,  7 May 2020 23:34:27 +0200 (CEST)
+ id 198C3F8011C; Fri,  8 May 2020 00:03:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.10])
+X-Spam-Status: No, score=0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-lj1-x244.google.com (mail-lj1-x244.google.com
+ [IPv6:2a00:1450:4864:20::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6BD32F800F6
- for <alsa-devel@alsa-project.org>; Thu,  7 May 2020 23:34:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BD32F800F6
-Received: from localhost.localdomain ([149.172.19.189]) by
- mrelayeu.kundenserver.de (mreue106 [212.227.15.145]) with ESMTPA (Nemesis) id
- 1M42Ss-1jWo9f1xCq-0004Xr; Thu, 07 May 2020 23:34:07 +0200
-From: Arnd Bergmann <arnd@arndb.de>
-To: Cheng-Yi Chiang <cychiang@chromium.org>,
-	Mark Brown <broonie@kernel.org>
-Subject: [PATCH] ASoC: cros_ec_codec: allocate shash_desc dynamically
-Date: Thu,  7 May 2020 23:33:51 +0200
-Message-Id: <20200507213405.1869430-1-arnd@arndb.de>
-X-Mailer: git-send-email 2.26.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Provags-ID: V03:K1:mP81ucRfJ0n2J5vksalKCXqnqjJ2Qyi7rUxUi+Qw5uBcwTowcbw
- i4m5Hv6OHNLto24ko3XxR5xHOB/S08y9gc/fl6B4hMFSideVdmA+s9jO6bt2XjI9ckPQVHW
- a0BuPYhrCl89Hl1V4BKX941bK0n9qyEWWdIbAjh3hqak4MlQciGt4WGj1qMnC4WuCem81/5
- q1TyibN00u3zbdg47U1lQ==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:YlYAs++/TXg=:+/xJSWcjlOALQmASEKD+mM
- yE28stKlsO0l0oYH+yhPbxVPfRZki9ANaZmbRNEn0yVjhj16CnJSim2c857PjGt14hQYgPgkp
- k5APNe8omUP9RjBt7FuD8RnUvoCvnfFB6c9xFQWnymlWIjc29Ino8gqkY9Hxo7dIgxZ44pjVY
- Ierqf0RnUqWiPqlfb3qkMHqa9AM52UHzdjj+Wz7L2LzoDgVrON5iOf99LyVQ5h1wX82YvndCQ
- f/nWAUfncfUMg5TSoL69r87E7PzMf99DQ6e5MxTDZRgW+jT780zp1/ezpiHbiWYRYaYBRRuLK
- 5r7+09VMTHG5vhPgizR+alHKZU+A/ZpVmhd9xhgDsE0WKV6ygg6FrlA87mjgj620TNb9NHDSc
- mByk1MtGAjpUVP75mbbUP4YJd3v3fVrXFhlNi6gvAX0h/JJLtGcrJOsLUabzJy/jH/Xw4mjgw
- wL1GMyikEC48LiEH/mR7kzXv651QWh2Yq7lKkZLX48X2dbukfkawGM/4SEMoeo9IlAhFwIb6e
- OMx3gzs9vyik72WDGU9WX8YX99gf7U2c5DdubkVP8ilLqK6z16NWgPFHQGFY82FwmJaDTxLR5
- ceOO4/wrmqg/L3IAJEv+BEX7a73dTDoULgQlIQdTuwfi+quO5940TK2xLMYXDDEyFJ10wnYBr
- oA9VmhZiTDFDkHmL1affrKaOyB6ZIxfVSNIq45GrNIQiCikuo9ZHI3DskR6ReMp5m1dXqcUb/
- u8DKMoa1c8zAHWJASwBF/MIYpH8XOIv64i15hjgjbQyVdSm3eVK3sQQYmcZ3ZmGhW6vaJGJju
- eWYfe+m33ifu3xeMhlQHaryqPW20krpS9URANAtmLjFORH1Dsk=
-Cc: alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Tzung-Bi Shih <tzungbi@google.com>,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Guenter Roeck <groeck@chromium.org>, Benson Leung <bleung@chromium.org>,
- Yu-Hsuan Hsu <yuhsuan@chromium.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D044EF8011C
+ for <alsa-devel@alsa-project.org>; Fri,  8 May 2020 00:03:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D044EF8011C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=semihalf-com.20150623.gappssmtp.com
+ header.i=@semihalf-com.20150623.gappssmtp.com header.b="jjnN0Drm"
+Received: by mail-lj1-x244.google.com with SMTP id f18so8002978lja.13
+ for <alsa-devel@alsa-project.org>; Thu, 07 May 2020 15:03:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=semihalf-com.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id;
+ bh=wUuNuaJIglL+Kx5ApW0YvQ2BpX31cdZYGLJ2BUr4Tvs=;
+ b=jjnN0DrmtBzX5eCaj5CLxE3x/6tX8xc+xUqp7+sjt26xKKaixfXPpZTbSSbc/kGCDL
+ 1GmTHBJ23lXZm2Bx5sy4NBd+9MNy1KyQ6SBfhIiQ9N8Elg3BVT12iXakMMVFe/tYlwmo
+ 8AdCHMohcZt6/OugywymC2rIyNOEKrf3kvNa4HJz+7POopF+wtHjrR43HRO0nhKX6Os3
+ o9j0Wpw6JVwng7qk1MTXH/+YTIcQH9CmQTxD0O8LlEgLqagzAqwDrcWWed7/6cdeY9fh
+ tnMczF33SvTguEIfSP8JMHvpxfzyfebE6iN8oOmq7RaLTfMJqFSDEjcoaPafnbzoc1yN
+ 8/gA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=wUuNuaJIglL+Kx5ApW0YvQ2BpX31cdZYGLJ2BUr4Tvs=;
+ b=FpiWsbjkYb4LWXsF6EqR6zpiCLOEkjGRfQsifpBphEoi4TV7w1fm3jPaxJWXb6IZ2k
+ HpVChphGqgqS7CASS+HZ3JThlJo+vIjCa+xT6aB4iNCPHGiL0WG0qE8dlDzf7MBC2vSD
+ yiM6VsdP2hJJGV/iwFrT0YHX0986gOXCCPDovU7GgSMUkdQzzYqRGbHL9r0rCoBlj17D
+ qjB0mwhIMXZjytLoE+dX30AftG86uKjU/qJlml3Z7WDzX3FDhKX+HTcNdxoIgHZvlB/9
+ +U63AMF1vJBRhhI9PF2Gux++Vk6gvNMjdg/xAzjVfKUwvE0GvRtETpP8yBLnlVhRC8sm
+ syKA==
+X-Gm-Message-State: AGi0PuahgFAb/utIHD1XMaCM9ipMOa2qftb0RhwkU5kQDTIEAPmuUgCv
+ a9WYJ7GuxuKqkB+FdUrpVJAHoA==
+X-Google-Smtp-Source: APiQypLfjpW+TsQ8WZmwmd/fpl1/0cAj9W9AWHktmin9enHLmhIo3KDk1ZXJ6X2Heb2MyqGmrKXyfg==
+X-Received: by 2002:a2e:9691:: with SMTP id q17mr9599037lji.116.1588889025769; 
+ Thu, 07 May 2020 15:03:45 -0700 (PDT)
+Received: from rad-H81M-S1.semihalf.local
+ (193-106-246-138.noc.fibertech.net.pl. [193.106.246.138])
+ by smtp.gmail.com with ESMTPSA id a13sm4095267ljm.25.2020.05.07.15.03.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 May 2020 15:03:44 -0700 (PDT)
+From: Radoslaw Biernacki <rad@semihalf.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH] ASoC: Intel: Boards: Support headset button function for
+ nau88l25max and nau88l25ssm
+Date: Fri,  8 May 2020 00:03:32 +0200
+Message-Id: <20200507220332.24686-1-rad@semihalf.com>
+X-Mailer: git-send-email 2.17.1
+Cc: Chinyue Chen <chinyue@chromium.org>, alsa-devel@alsa-project.org,
+ Radoslaw Biernacki <rad@semihalf.com>, linux-kernel@vger.kernel.org,
+ Ben Zhang <benzh@chromium.org>, Marcin Wojtas <mw@semihalf.com>,
+ Benson Leung <bleung@chromium.org>, Alex Levin <levinale@google.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,60 +101,89 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The wov_hotword_model_put() function has multiple large variables on
-its stack, the largest of which is the result of SHASH_DESC_ON_STACK().
-In total, this exceeds the warning limit for 32-bit architectures:
+Map the buttons from the Android reference headset to
+KEY_PLAYPAUSE, KEY_VOICECOMMAND, KEY_VOLUMEUP, and KEY_VOLUMEDOWN.
+KEY_PLAYPAUSE is used instead of KEY_MEDIA for BTN_0 as it is more
+logical and have much broader userspace support. Like Chrome OS
+use it to play/pause of video and audio. KEY_PLAYPAUSE is also
+supported by Android (USB headset spec requires KEY_PLAYPAUSE
+for BTN_0.)
+https://source.android.com/devices/accessories/headset/usb-headset-spec
 
-sound/soc/codecs/cros_ec_codec.c:776:12: error: stack frame size of 1152 bytes in function 'wov_hotword_model_put' [-Werror,-Wframe-larger-than=]
-
-The function already has a dynamic crypto_alloc_shash() allocation, so
-using kmalloc() for the descriptor is correct as well and does not
-introduce any additional failure scenarios. With this, the stack usage
-of wov_hotword_model_put() gets reduced to 480 bytes in my test
-configuration.
-
-Fixes: b6bc07d4360d ("ASoC: cros_ec_codec: support WoV")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Chinyue Chen <chinyue@chromium.org>
+Signed-off-by: Benson Leung <bleung@chromium.org>
+Signed-off-by: Radoslaw Biernacki <rad@semihalf.com>
 ---
- sound/soc/codecs/cros_ec_codec.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+ sound/soc/intel/boards/skl_nau88l25_max98357a.c | 7 +++++++
+ sound/soc/intel/boards/skl_nau88l25_ssm4567.c   | 7 +++++++
+ 2 files changed, 14 insertions(+)
 
-diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros_ec_codec.c
-index d3dc42aa6825..1948bc6971f6 100644
---- a/sound/soc/codecs/cros_ec_codec.c
-+++ b/sound/soc/codecs/cros_ec_codec.c
-@@ -108,22 +108,23 @@ static int calculate_sha256(struct cros_ec_codec_priv *priv,
- 			    uint8_t *buf, uint32_t size, uint8_t *digest)
+diff --git a/sound/soc/intel/boards/skl_nau88l25_max98357a.c b/sound/soc/intel/boards/skl_nau88l25_max98357a.c
+index d7b8154c43a4..103ea94c3bd1 100644
+--- a/sound/soc/intel/boards/skl_nau88l25_max98357a.c
++++ b/sound/soc/intel/boards/skl_nau88l25_max98357a.c
+@@ -6,6 +6,7 @@
+  * Copyright (C) 2015, Intel Corporation. All rights reserved.
+  */
+ 
++#include <linux/input.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+ #include <sound/core.h>
+@@ -158,6 +159,7 @@ static int skylake_nau8825_codec_init(struct snd_soc_pcm_runtime *rtd)
  {
- 	struct crypto_shash *tfm;
-+	struct shash_desc *desc;
+ 	int ret;
+ 	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
++	struct snd_soc_jack *jack;
  
- 	tfm = crypto_alloc_shash("sha256", CRYPTO_ALG_TYPE_SHASH, 0);
- 	if (IS_ERR(tfm)) {
- 		dev_err(priv->dev, "can't alloc shash\n");
- 		return PTR_ERR(tfm);
+ 	/*
+ 	 * Headset buttons map to the google Reference headset.
+@@ -172,6 +174,11 @@ static int skylake_nau8825_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 		return ret;
  	}
--
--	{
--		SHASH_DESC_ON_STACK(desc, tfm);
--
--		desc->tfm = tfm;
--
--		crypto_shash_digest(desc, buf, size, digest);
--		shash_desc_zero(desc);
-+	desc = kmalloc(sizeof(*desc) + crypto_shash_descsize(tfm), GFP_KERNEL);
-+	if (!desc) {
-+		crypto_free_shash(tfm);
-+		return -ENOMEM;
+ 
++	jack = &skylake_headset;
++	snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
++	snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
++	snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
++	snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
+ 	nau8825_enable_jack_detect(component, &skylake_headset);
+ 
+ 	snd_soc_dapm_ignore_suspend(&rtd->card->dapm, "SoC DMIC");
+diff --git a/sound/soc/intel/boards/skl_nau88l25_ssm4567.c b/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
+index 4b317bcf6ea0..1528e72c3a11 100644
+--- a/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
++++ b/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
+@@ -10,6 +10,7 @@
+  *   Copyright (C) 2015, Intel Corporation. All rights reserved.
+  */
+ 
++#include <linux/input.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+ #include <sound/core.h>
+@@ -177,6 +178,7 @@ static int skylake_nau8825_codec_init(struct snd_soc_pcm_runtime *rtd)
+ {
+ 	int ret;
+ 	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
++	struct snd_soc_jack *jack;
+ 
+ 	/*
+ 	 * 4 buttons here map to the google Reference headset
+@@ -191,6 +193,11 @@ static int skylake_nau8825_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 		return ret;
  	}
-+	desc->tfm = tfm;
-+	crypto_shash_digest(desc, buf, size, digest);
-+	shash_desc_zero(desc);
  
-+	kfree(desc);
- 	crypto_free_shash(tfm);
++	jack = &skylake_headset;
++	snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
++	snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
++	snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
++	snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
+ 	nau8825_enable_jack_detect(component, &skylake_headset);
  
- #ifdef DEBUG
+ 	snd_soc_dapm_ignore_suspend(&rtd->card->dapm, "SoC DMIC");
+
+base-commit: f8729a41aa17f5eb5291a0e78926154e948bb4ad
 -- 
-2.26.0
+2.17.1
 

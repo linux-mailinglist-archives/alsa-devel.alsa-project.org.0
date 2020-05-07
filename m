@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E31AA1C8EEB
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 May 2020 16:31:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A53A1C8EED
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 May 2020 16:31:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F2A1180C;
-	Thu,  7 May 2020 16:30:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F2A1180C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D161F1819;
+	Thu,  7 May 2020 16:31:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D161F1819
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588861883;
-	bh=KQII8MNasLBxLsIQPhEplSuFHAqYHyRYa/rGvyPtqCs=;
+	s=default; t=1588861916;
+	bh=oPYa4mGFQqu4Mr9qc87Q9R80YXItQ+Gvzchp6QANak0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=onnWJAoiVNo0e4UUn4igh5B8/m0JEZmNPM0ZPD1AHt117mJWv2qilcFuVw8FKCnAq
-	 6hJbxkvgiedg77zVrxN6g8svTNqtaOP5aYmd5Thu4uMH1pqSi1CuMCQs40u/dCoXSM
-	 F58OROmh2pCJfCW/3bJW+2pGBOcDs4hhX+orDWTg=
+	b=dMnAt/MMTzrJUswyPWgPwDxyuFIskqpRbWKmMI99cCUxK6BKIOhDlc5qHp39O1FJF
+	 QAYb/3eGkJk69oKWHheNXEyj2OvMRe7CI13Do1yMEbsesrWwZx1g+3P8hjrb+/xvJ4
+	 /hkd1FUFcPmSkpzNSkZJj3K1LzFp/fDyZ8auMG8s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9BFEF802A8;
-	Thu,  7 May 2020 16:28:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DE847F802A9;
+	Thu,  7 May 2020 16:28:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A5070F802A7; Thu,  7 May 2020 16:28:26 +0200 (CEST)
+ id D5AA4F802A7; Thu,  7 May 2020 16:28:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,40 +34,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61A74F802A1
- for <alsa-devel@alsa-project.org>; Thu,  7 May 2020 16:28:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61A74F802A1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 05DADF8011C
+ for <alsa-devel@alsa-project.org>; Thu,  7 May 2020 16:28:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05DADF8011C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="UnXO/kvK"
+ header.b="ZBTFOdxr"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 140E120B1F;
- Thu,  7 May 2020 14:28:16 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 549392145D;
+ Thu,  7 May 2020 14:28:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588861697;
- bh=KQII8MNasLBxLsIQPhEplSuFHAqYHyRYa/rGvyPtqCs=;
+ s=default; t=1588861729;
+ bh=oPYa4mGFQqu4Mr9qc87Q9R80YXItQ+Gvzchp6QANak0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=UnXO/kvKAhpvG5iRPrO07SPmqWj/dqlAmFRnV44HBN9cjcVm6pVvIoM8vlKf+UtBK
- 9sNFKYIDlmehhnmmTxuOVRYeAQNPs7MIaC77wG5idgSCTuLHOVy8H04txwNMo0KChR
- OcWD7cWEPqeDW4Vurxvn6PNzvnQUb60YTfvmltdI=
+ b=ZBTFOdxrkO7Biw2cr0RyIN/z33ScBDcOEe4kVUg+BJWeajC9Kxn3FQ60DNAcKx6mD
+ hJ982dyvHYJ77fJ/5KnGRX6ozWT/IZ8eC0LgBD1fCesqQanFzQQ920BYJCx15sUgtQ
+ 2j+BGAzFUtXzhk3W2AAKo9mZAQzn8K4MjuRcNyEE=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.6 40/50] ALSA: opti9xx: shut up gcc-10 range warning
-Date: Thu,  7 May 2020 10:27:16 -0400
-Message-Id: <20200507142726.25751-40-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 15/35] ALSA: hda: Match both PCI ID and SSID for
+ driver blacklist
+Date: Thu,  7 May 2020 10:28:09 -0400
+Message-Id: <20200507142830.26239-15-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200507142726.25751-1-sashal@kernel.org>
-References: <20200507142726.25751-1-sashal@kernel.org>
+In-Reply-To: <20200507142830.26239-1-sashal@kernel.org>
+References: <20200507142830.26239-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,88 +84,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 5ce00760a84848d008554c693ceb6286f4d9c509 ]
+[ Upstream commit 977dfef40c8996b69afe23a9094d184049efb7bb ]
 
-gcc-10 points out a few instances of suspicious integer arithmetic
-leading to value truncation:
+The commit 3c6fd1f07ed0 ("ALSA: hda: Add driver blacklist") added a
+new blacklist for the devices that are known to have empty codecs, and
+one of the entries was ASUS ROG Zenith II (PCI SSID 1043:874f).
+However, it turned out that the very same PCI SSID is used for the
+previous model that does have the valid HD-audio codecs and the change
+broke the sound on it.
 
-sound/isa/opti9xx/opti92x-ad1848.c: In function 'snd_opti9xx_configure':
-sound/isa/opti9xx/opti92x-ad1848.c:322:43: error: overflow in conversion from 'int' to 'unsigned char' changes value from '(int)snd_opti9xx_read(chip, 3) & -256 | 240' to '240' [-Werror=overflow]
-  322 |   (snd_opti9xx_read(chip, reg) & ~(mask)) | ((value) & (mask)))
-      |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
-sound/isa/opti9xx/opti92x-ad1848.c:351:3: note: in expansion of macro 'snd_opti9xx_write_mask'
-  351 |   snd_opti9xx_write_mask(chip, OPTi9XX_MC_REG(3), 0xf0, 0xff);
-      |   ^~~~~~~~~~~~~~~~~~~~~~
-sound/isa/opti9xx/miro.c: In function 'snd_miro_configure':
-sound/isa/opti9xx/miro.c:873:40: error: overflow in conversion from 'int' to 'unsigned char' changes value from '(int)snd_miro_read(chip, 3) & -256 | 240' to '240' [-Werror=overflow]
-  873 |   (snd_miro_read(chip, reg) & ~(mask)) | ((value) & (mask)))
-      |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
-sound/isa/opti9xx/miro.c:1010:3: note: in expansion of macro 'snd_miro_write_mask'
- 1010 |   snd_miro_write_mask(chip, OPTi9XX_MC_REG(3), 0xf0, 0xff);
-      |   ^~~~~~~~~~~~~~~~~~~
+Since the empty codec problem appear on the certain AMD platform (PCI
+ID 1022:1487), this patch changes the blacklist matching to both PCI
+ID and SSID using pci_match_id().  Also, the entry that was removed by
+the previous fix for ASUS ROG Zenigh II is re-added.
 
-These are all harmless here as only the low 8 bit are passed down
-anyway. Change the macros to inline functions to make the code
-more readable and also avoid the warning.
-
-Strictly speaking those functions also need locking to make the
-read/write pair atomic, but it seems unlikely that anyone would
-still run into that issue.
-
-Fixes: 1841f613fd2e ("[ALSA] Add snd-miro driver")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-Link: https://lore.kernel.org/r/20200429190216.85919-1-arnd@arndb.de
+Link: https://lore.kernel.org/r/20200424061222.19792-1-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/isa/opti9xx/miro.c           | 9 ++++++---
- sound/isa/opti9xx/opti92x-ad1848.c | 9 ++++++---
- 2 files changed, 12 insertions(+), 6 deletions(-)
+ sound/pci/hda/hda_intel.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/sound/isa/opti9xx/miro.c b/sound/isa/opti9xx/miro.c
-index e764816a8f7a1..b039429e68717 100644
---- a/sound/isa/opti9xx/miro.c
-+++ b/sound/isa/opti9xx/miro.c
-@@ -867,10 +867,13 @@ static void snd_miro_write(struct snd_miro *chip, unsigned char reg,
- 	spin_unlock_irqrestore(&chip->lock, flags);
- }
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index 1673479b4eef3..612441508e80a 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -2023,9 +2023,10 @@ static void pcm_mmap_prepare(struct snd_pcm_substream *substream,
+  * some HD-audio PCI entries are exposed without any codecs, and such devices
+  * should be ignored from the beginning.
+  */
+-static const struct snd_pci_quirk driver_blacklist[] = {
+-	SND_PCI_QUIRK(0x1462, 0xcb59, "MSI TRX40 Creator", 0),
+-	SND_PCI_QUIRK(0x1462, 0xcb60, "MSI TRX40", 0),
++static const struct pci_device_id driver_blacklist[] = {
++	{ PCI_DEVICE_SUB(0x1022, 0x1487, 0x1043, 0x874f) }, /* ASUS ROG Zenith II / Strix */
++	{ PCI_DEVICE_SUB(0x1022, 0x1487, 0x1462, 0xcb59) }, /* MSI TRX40 Creator */
++	{ PCI_DEVICE_SUB(0x1022, 0x1487, 0x1462, 0xcb60) }, /* MSI TRX40 */
+ 	{}
+ };
  
-+static inline void snd_miro_write_mask(struct snd_miro *chip,
-+		unsigned char reg, unsigned char value, unsigned char mask)
-+{
-+	unsigned char oldval = snd_miro_read(chip, reg);
+@@ -2064,7 +2065,7 @@ static int azx_probe(struct pci_dev *pci,
+ 	bool schedule_probe;
+ 	int err;
  
--#define snd_miro_write_mask(chip, reg, value, mask)	\
--	snd_miro_write(chip, reg,			\
--		(snd_miro_read(chip, reg) & ~(mask)) | ((value) & (mask)))
-+	snd_miro_write(chip, reg, (oldval & ~mask) | (value & mask));
-+}
- 
- /*
-  *  Proc Interface
-diff --git a/sound/isa/opti9xx/opti92x-ad1848.c b/sound/isa/opti9xx/opti92x-ad1848.c
-index d06b29693c85f..0e6d20e491585 100644
---- a/sound/isa/opti9xx/opti92x-ad1848.c
-+++ b/sound/isa/opti9xx/opti92x-ad1848.c
-@@ -317,10 +317,13 @@ static void snd_opti9xx_write(struct snd_opti9xx *chip, unsigned char reg,
- }
- 
- 
--#define snd_opti9xx_write_mask(chip, reg, value, mask)	\
--	snd_opti9xx_write(chip, reg,			\
--		(snd_opti9xx_read(chip, reg) & ~(mask)) | ((value) & (mask)))
-+static inline void snd_opti9xx_write_mask(struct snd_opti9xx *chip,
-+		unsigned char reg, unsigned char value, unsigned char mask)
-+{
-+	unsigned char oldval = snd_opti9xx_read(chip, reg);
- 
-+	snd_opti9xx_write(chip, reg, (oldval & ~mask) | (value & mask));
-+}
- 
- static int snd_opti9xx_configure(struct snd_opti9xx *chip,
- 					   long port,
+-	if (snd_pci_quirk_lookup(pci, driver_blacklist)) {
++	if (pci_match_id(driver_blacklist, pci)) {
+ 		dev_info(&pci->dev, "Skipping the blacklisted device\n");
+ 		return -ENODEV;
+ 	}
 -- 
 2.20.1
 

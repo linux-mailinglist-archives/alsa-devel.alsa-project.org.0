@@ -2,66 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 459561C82DD
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 May 2020 08:51:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97B2E1C833B
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 May 2020 09:08:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D371317DE;
-	Thu,  7 May 2020 08:51:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D371317DE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32B0117E0;
+	Thu,  7 May 2020 09:07:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32B0117E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588834311;
-	bh=77qSUYCM+3iENrJTafQWQ68ZThzBUhdoBDElgwNBMGM=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1588835302;
+	bh=MUu/s2Xus/TlH5r4JBIr+auC06dYRwAJ25PKznkakJY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ulaxa93btHRhaIQhewUItlx/jKwBgkYMjp7Bngulcd/C4DexTyP0dtyxwxkr4PI0/
-	 UnXYXYlQqBh5Q75Bb1LwJNzaxhT81qlbkG7AOaY2bdsMa26d6rTLG2AsPNX+pQiyPu
-	 qqokFLeimOo3XLlLihzMphDFkwtZRpp6Ixg4uLGY=
+	b=CBWZSNgknTgUwXrV96XwiKJvrqHdizuTeB3abdE27e408sVPmfq4vtwilk0xV73wh
+	 u8pjCfISOMU/2NgOiezJcj1Mzvi7KWBjhgJSk50X7tzgrt1p04I2EOf4tRa+4EZGw0
+	 8eNeWoOAgY7HZCmP50151EqMEqCr0NURyt9D7Cko=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D5CC5F80162;
-	Thu,  7 May 2020 08:50:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58422F800AD;
+	Thu,  7 May 2020 09:06:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2FE86F8015F; Thu,  7 May 2020 08:50:06 +0200 (CEST)
+ id 52F72F8015F; Thu,  7 May 2020 09:06:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtprelay.hostedemail.com (smtprelay0244.hostedemail.com
- [216.40.44.244])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C3D3AF800AD
- for <alsa-devel@alsa-project.org>; Thu,  7 May 2020 08:49:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3D3AF800AD
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay07.hostedemail.com (Postfix) with ESMTP id 427BF1803950B;
- Thu,  7 May 2020 06:49:52 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-HE-Tag: burst17_1bd6e369c792e
-X-Filterd-Recvd-Size: 1816
-Received: from XPS-9350.home (unknown [47.151.136.130])
- (Authenticated sender: joe@perches.com)
- by omf18.hostedemail.com (Postfix) with ESMTPA;
- Thu,  7 May 2020 06:49:51 +0000 (UTC)
-Message-ID: <5f2d179c35de8e7705f82a8c9a540dbd204bb978.camel@perches.com>
-Subject: Re: [PATCH -next] ALSA: portman2x4: Use bitwise instead of
- arithmetic operator for flags
-From: Joe Perches <joe@perches.com>
-To: Samuel Zou <zou_wei@huawei.com>, perex@perex.cz, tiwai@suse.com
-Date: Wed, 06 May 2020 23:49:50 -0700
-In-Reply-To: <1588834135-14842-1-git-send-email-zou_wei@huawei.com>
-References: <1588834135-14842-1-git-send-email-zou_wei@huawei.com>
-Content-Type: text/plain; charset="ISO-8859-1"
-User-Agent: Evolution 3.36.1-2 
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id AAE6DF800F6
+ for <alsa-devel@alsa-project.org>; Thu,  7 May 2020 09:06:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAE6DF800F6
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id E9F11AAC7;
+ Thu,  7 May 2020 07:06:31 +0000 (UTC)
+Date: Thu, 07 May 2020 09:06:27 +0200
+Message-ID: <s5h1rnw6x70.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Samuel Zou <zou_wei@huawei.com>
+Subject: Re: [PATCH -next] ALSA: sound/ppc: Use bitwise instead of arithmetic
+ operator for flags
+In-Reply-To: <1588823647-12480-1-git-send-email-zou_wei@huawei.com>
+References: <1588823647-12480-1-git-send-email-zou_wei@huawei.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, mpe@ellerman.id.au, tiwai@suse.com,
+ paulus@samba.org, benh@kernel.crashing.org, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,30 +72,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 2020-05-07 at 14:48 +0800, Samuel Zou wrote:
-> Fix the following coccinelle warning:
+On Thu, 07 May 2020 05:54:07 +0200,
+Samuel Zou wrote:
 > 
-> sound/drivers/portman2x4.c:460:34-35: WARNING: sum of probable bitmasks, consider |
-
-This one is reasonable.
-
+> Fix the following coccinelle warnings:
+> 
+> sound/ppc/pmac.c:729:57-58: WARNING: sum of probable bitmasks, consider |
+> sound/ppc/pmac.c:229:37-38: WARNING: sum of probable bitmasks, consider |
+> 
 > Reported-by: Hulk Robot <hulkci@huawei.com>
 > Signed-off-by: Samuel Zou <zou_wei@huawei.com>
-> ---
->  sound/drivers/portman2x4.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/drivers/portman2x4.c b/sound/drivers/portman2x4.c
-> index ecefa7c..38603cb 100644
-> --- a/sound/drivers/portman2x4.c
-> +++ b/sound/drivers/portman2x4.c
-> @@ -457,7 +457,7 @@ static int portman_probe(struct parport *p)
->  
->  	/* Set for RXDATA0 where no damage will be done. */
->  	/* 5 */
-> -	parport_write_control(p, RXDATA0 + STROBE);	/* Write Strobe=1 to command reg. */
-> +	parport_write_control(p, RXDATA0 | STROBE);	/* Write Strobe=1 to command reg. */
->  
->  	/* 6 */
->  	if ((parport_read_status(p) & ESTB) != ESTB)
 
+Applied, thanks.
+
+
+Takashi

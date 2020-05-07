@@ -2,60 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06A241C862F
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 May 2020 11:58:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 939401CA53D
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 May 2020 09:34:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8790817FC;
-	Thu,  7 May 2020 11:57:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8790817FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id E6B601848;
+	Fri,  8 May 2020 09:33:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6B601848
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588845494;
-	bh=zFzXxCTzl1RGgiDD54mFSLizO6uVG4GrTL7Z7PNrD2Q=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1588923289;
+	bh=ASu/ieS8Y72mpl8mKOef8GWmIcaZP5JCToPvddluXvk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HSgGDIQkQTNcPHYz+TFmL0Lp36oMrC+gXJjcdGT+hLQOGhd9CoPQiY6NKL++Lj85V
-	 HNahx9tbqB5OnCVdzWOLnT52PF5LrHRRCGV6S/ktfaE4xgyb0exKQMxyF/EDtBufru
-	 EbZtO1WaAAbRdYTfAUqiykx+NGXq21b1g2oBidiw=
+	b=BUiPNV9x06Cl0O20spG+evj0vltrJm5X8jscF3p5HhVOMIIbQXBixXKKY7WympzQ0
+	 v6UdV9zzPgin/QAFLTm/J8RVWEJ5+IGbDho/NE5j4PUBZlzLd6S5QAIo3KGYFuwsm5
+	 fAkvnmaWnoRMuj2mxYuIf+xHf094LzZTrOlBh7OU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF0B5F80162;
-	Thu,  7 May 2020 11:56:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 04B11F80249;
+	Fri,  8 May 2020 09:33:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C118DF8015F; Thu,  7 May 2020 11:56:31 +0200 (CEST)
+ id DCC78F8015F; Thu,  7 May 2020 12:01:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
+ [IPv6:2a00:1450:4864:20::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 048BAF800AD
- for <alsa-devel@alsa-project.org>; Thu,  7 May 2020 11:56:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 048BAF800AD
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 6C14CB23A;
- Thu,  7 May 2020 09:56:27 +0000 (UTC)
-Date: Thu, 07 May 2020 11:56:22 +0200
-Message-ID: <s5h8si45ard.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0A5BBF800AD
+ for <alsa-devel@alsa-project.org>; Thu,  7 May 2020 12:01:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A5BBF800AD
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="JkHuSfml"
+Received: by mail-lj1-x241.google.com with SMTP id l19so5614854lje.10
+ for <alsa-devel@alsa-project.org>; Thu, 07 May 2020 03:01:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=P1Be+iELEaGBQtXonCwj1c6TNB0kDNwS6v3vYCB59a0=;
+ b=JkHuSfml3EgARYC8FMpEd3gAeS1UEfhzcr3L/FFfyBwuVYzu5arGB1JQrQVXCSAx8o
+ dKj87Um3DMpdj2UhEhYv0n8z452mqoRtxpaVW0E/fr1g7tBZfAleLPgSyfvZ6Y7sKaEn
+ rn5SbK5SLZynH8v8mbhmPoALXMC7dpaJJYpjTYAk+CjTcBSjfE7yd8301n7XrNeUxLdr
+ zF1yv/Hc6WbIS26fNfBbnEvCGXAOBRG3RrRvIEc+y993L6zgPv1ojRknB0PiyQIQPbD6
+ qKGLrrK9SLGbfuLliVSEEOmc+oZcGGnDtpGmfi3YJ9sVVkm8TAMoUAijxsqkJEwajuJY
+ 6/bA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=P1Be+iELEaGBQtXonCwj1c6TNB0kDNwS6v3vYCB59a0=;
+ b=nP0QZOYgKynrVY0o6EboYWqKTkXMu/uAeFQXDp1HrYPZ9T39ajh9vUr6IYhwyN03iD
+ oXUgQTipLObAexD8oKc/HXqYZrYCQwIJsOKm6fDYCiPo6j5ETe96wlGJtETVournFnUX
+ Dn1NnKCAzJhDfugdsD6G/0JHV1AEG7sjjDdh68A/lta6UdQfBO2+HEKQdSyZYtPB8XtC
+ WsatA6I6nOSyrLsk3uzjsx367aHelLo9XH+dhDu/iwxAMNN1Ege7MwYIbXOxhicyUL/s
+ HBAVTAze6HYcpoAbuvK9m+iF8+zpbukuc5heAqGLTEBFJzN0sTe1QObpsh4UdPzQgADa
+ bKWQ==
+X-Gm-Message-State: AGi0PuZo1RzdFaYm3vcR92yEW9LfneId9FAwY/93M106yqHZUWnuqifG
+ ZlBVd3JPaF8KmcDG09gNIlDG2UyIvv5mEOmokOY=
+X-Google-Smtp-Source: APiQypK+mPvbELrXTbvTW39d/VBur7XHkX0v6bjIPELwPCrK3R3hHWSWXKncrvOzzO8clbdIJ6FHXDpwpK9eVZWrUqI=
+X-Received: by 2002:a2e:8949:: with SMTP id b9mr8109025ljk.108.1588845682372; 
+ Thu, 07 May 2020 03:01:22 -0700 (PDT)
+MIME-Version: 1.0
+References: <CAFcO6XMWpUVK_yzzCpp8_XP7+=oUpQvuBeCbMffEDkpe8jWrfg@mail.gmail.com>
+ <s5hbln05b1h.wl-tiwai@suse.de>
+In-Reply-To: <s5hbln05b1h.wl-tiwai@suse.de>
+From: butt3rflyh4ck <butterflyhuangxx@gmail.com>
+Date: Thu, 7 May 2020 18:01:11 +0800
+Message-ID: <CAFcO6XMitGEYHYykgmzWc4NWME+O+1KTXfmf2zaeN147c2y4_A@mail.gmail.com>
 Subject: Re: KASAN: use-after-free Write in snd_rawmidi_kernel_write1
-In-Reply-To: <20200507082302.GF1024567@kroah.com>
-References: <CAFcO6XMGT42wFBxEa01Ee5Msuecm+WiXnn4rc-VWkC4vTzycPg@mail.gmail.com>
- <20200507082302.GF1024567@kroah.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Fri, 08 May 2020 09:33:05 +0200
 Cc: security@kernel.org, alsa-devel@alsa-project.org,
- butt3rflyh4ck <butterflyhuangxx@gmail.com>, tiwai@suse.com,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, tiwai@suse.com,
  linux-kernel@vger.kernel.org, syzkaller <syzkaller@googlegroups.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -72,172 +97,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 07 May 2020 10:23:02 +0200,
-Greg Kroah-Hartman wrote:
-> 
-> On Thu, May 07, 2020 at 04:04:25PM +0800, butt3rflyh4ck wrote:
+No, it's not.
+
+Regards,
+  butt3rflyh4ck.
+
+
+On Thu, May 7, 2020 at 5:50 PM Takashi Iwai <tiwai@suse.de> wrote:
+>
+> On Thu, 07 May 2020 09:54:34 +0200,
+> butt3rflyh4ck wrote:
+> >
 > > I report a bug (in linux-5.7-rc1) found by syzkaller.
-> > 
-> > kernel config: https://github.com/butterflyhack/syzkaller-fuzz/blob/master/v5.7.0-rc1.config
-> > reproducer: https://github.com/butterflyhack/syzkaller-fuzz/blob/master/repro.cprog
-> > 
-> > I test the reproducer in linux-5.7-rc4 and crash too.
-> 
-> Great, care to create a fix for this and send it to the proper
-> maintainers?  That's the best way to get it fixed, otherwise it just
-> goes in the file with the rest of the syzbot reports we are burried
-> under.
-
-Don't worry, I already prepared a fix patch below :)
-
-
-thanks,
-
-Takashi
-
--- 8< --
-From: Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH] ALSA: rawmidi: Fix racy buffer resize under concurrent
- accesses
-
-The rawmidi core allows user to resize the runtime buffer via ioctl,
-and this may lead to UAF when performed during concurrent reads or
-writes.
-
-This patch fixes the race by introducing a reference counter for the
-runtime buffer access and returns -EBUSY error when the resize is
-performed concurrently.
-
-Reported-by: butt3rflyh4ck <butterflyhuangxx@gmail.com>
-Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/r/CAFcO6XMWpUVK_yzzCpp8_XP7+=oUpQvuBeCbMffEDkpe8jWrfg@mail.gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- include/sound/rawmidi.h |  1 +
- sound/core/rawmidi.c    | 29 ++++++++++++++++++++++++++++-
- 2 files changed, 29 insertions(+), 1 deletion(-)
-
-diff --git a/include/sound/rawmidi.h b/include/sound/rawmidi.h
-index a36b7227a15a..334842daa904 100644
---- a/include/sound/rawmidi.h
-+++ b/include/sound/rawmidi.h
-@@ -61,6 +61,7 @@ struct snd_rawmidi_runtime {
- 	size_t avail_min;	/* min avail for wakeup */
- 	size_t avail;		/* max used buffer for wakeup */
- 	size_t xruns;		/* over/underruns counter */
-+	int buffer_ref;		/* buffer reference count */
- 	/* misc */
- 	spinlock_t lock;
- 	wait_queue_head_t sleep;
-diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
-index 20dd08e1f675..4185d9e81e3c 100644
---- a/sound/core/rawmidi.c
-+++ b/sound/core/rawmidi.c
-@@ -120,6 +120,17 @@ static void snd_rawmidi_input_event_work(struct work_struct *work)
- 		runtime->event(runtime->substream);
- }
- 
-+/* buffer refcount management: call with runtime->lock held */
-+static inline void snd_rawmidi_buffer_ref(struct snd_rawmidi_runtime *runtime)
-+{
-+	runtime->buffer_ref++;
-+}
-+
-+static inline void snd_rawmidi_buffer_unref(struct snd_rawmidi_runtime *runtime)
-+{
-+	runtime->buffer_ref--;
-+}
-+
- static int snd_rawmidi_runtime_create(struct snd_rawmidi_substream *substream)
- {
- 	struct snd_rawmidi_runtime *runtime;
-@@ -669,6 +680,11 @@ static int resize_runtime_buffer(struct snd_rawmidi_runtime *runtime,
- 		if (!newbuf)
- 			return -ENOMEM;
- 		spin_lock_irq(&runtime->lock);
-+		if (runtime->buffer_ref) {
-+			spin_unlock_irq(&runtime->lock);
-+			kvfree(newbuf);
-+			return -EBUSY;
-+		}
- 		oldbuf = runtime->buffer;
- 		runtime->buffer = newbuf;
- 		runtime->buffer_size = params->buffer_size;
-@@ -962,6 +978,7 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
- 		return -EINVAL;
- 	}
- 	spin_lock_irqsave(&runtime->lock, flags);
-+	snd_rawmidi_buffer_ref(runtime);
- 	if (count == 1) {	/* special case, faster code */
- 		substream->bytes++;
- 		if (runtime->avail < runtime->buffer_size) {
-@@ -1006,6 +1023,7 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
- 		else if (snd_rawmidi_ready(substream))
- 			wake_up(&runtime->sleep);
- 	}
-+	snd_rawmidi_buffer_unref(runtime);
- 	spin_unlock_irqrestore(&runtime->lock, flags);
- 	return result;
- }
-@@ -1021,6 +1039,7 @@ static long snd_rawmidi_kernel_read1(struct snd_rawmidi_substream *substream,
- 	unsigned long appl_ptr;
- 
- 	spin_lock_irqsave(&runtime->lock, flags);
-+	snd_rawmidi_buffer_ref(runtime);
- 	while (count > 0 && runtime->avail) {
- 		count1 = runtime->buffer_size - runtime->appl_ptr;
- 		if (count1 > count)
-@@ -1040,13 +1059,17 @@ static long snd_rawmidi_kernel_read1(struct snd_rawmidi_substream *substream,
- 			spin_unlock_irqrestore(&runtime->lock, flags);
- 			if (copy_to_user(userbuf + result,
- 					 runtime->buffer + appl_ptr, count1)) {
--				return result > 0 ? result : -EFAULT;
-+				if (!result)
-+					result = -EFAULT;
-+				goto out;
- 			}
- 			spin_lock_irqsave(&runtime->lock, flags);
- 		}
- 		result += count1;
- 		count -= count1;
- 	}
-+ out:
-+	snd_rawmidi_buffer_unref(runtime);
- 	spin_unlock_irqrestore(&runtime->lock, flags);
- 	return result;
- }
-@@ -1156,6 +1179,7 @@ int __snd_rawmidi_transmit_peek(struct snd_rawmidi_substream *substream,
- 		return -EINVAL;
- 	}
- 	result = 0;
-+	snd_rawmidi_buffer_ref(runtime);
- 	if (runtime->avail >= runtime->buffer_size) {
- 		/* warning: lowlevel layer MUST trigger down the hardware */
- 		goto __skip;
-@@ -1180,6 +1204,7 @@ int __snd_rawmidi_transmit_peek(struct snd_rawmidi_substream *substream,
- 		}
- 	}
-       __skip:
-+	snd_rawmidi_buffer_unref(runtime);
- 	return result;
- }
- EXPORT_SYMBOL(__snd_rawmidi_transmit_peek);
-@@ -1342,6 +1367,7 @@ static long snd_rawmidi_kernel_write1(struct snd_rawmidi_substream *substream,
- 			return -EAGAIN;
- 		}
- 	}
-+	snd_rawmidi_buffer_ref(runtime);
- 	while (count > 0 && runtime->avail > 0) {
- 		count1 = runtime->buffer_size - runtime->appl_ptr;
- 		if (count1 > count)
-@@ -1373,6 +1399,7 @@ static long snd_rawmidi_kernel_write1(struct snd_rawmidi_substream *substream,
- 	}
-       __end:
- 	count1 = runtime->avail < runtime->buffer_size;
-+	snd_rawmidi_buffer_unref(runtime);
- 	spin_unlock_irqrestore(&runtime->lock, flags);
- 	if (count1)
- 		snd_rawmidi_output_trigger(substream, 1);
--- 
-2.25.0
-
+> >
+> > kernel config:
+> > https://github.com/butterflyhack/syzkaller-fuzz/blob/master/v5.7.0-rc1.config
+> > reproducer:
+> > https://github.com/butterflyhack/syzkaller-fuzz/blob/master/repro.cprog
+>
+> Is this report different from your another one?
+>   https://lore.kernel.org/r/CAFcO6XMGT42wFBxEa01Ee5Msuecm+WiXnn4rc-VWkC4vTzycPg@mail.gmail.com
+>
+>
+> thanks,
+>
+> Takashi

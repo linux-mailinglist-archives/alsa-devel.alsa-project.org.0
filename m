@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 475E11CA542
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 May 2020 09:35:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46A061CA547
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 May 2020 09:36:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB8231841;
-	Fri,  8 May 2020 09:35:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB8231841
+	by alsa0.perex.cz (Postfix) with ESMTPS id EAAC1185B;
+	Fri,  8 May 2020 09:35:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAAC1185B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588923352;
-	bh=a3Iyd0AtJyoc/jnDu0wU+xUacgHz++uvOIDW/S793sI=;
+	s=default; t=1588923390;
+	bh=b1/YLFC+l6epGRK0csxeBGfOSfYmlenINjpg49VDwYs=;
 	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=PGDi+VbGE0Ch93bJIh5Kte640N7uAGB8x2cJBdLo5TCPVK2G5KevbiQBYnk6uqcTu
-	 kSTd/DWkenHamTgzS4Em0fg6pEcl6Kh2VW+0dZbcHx9QMDKqv+Fz71QFwgBJAFfSxZ
-	 ft0be+pK3EWnZ1atRrNo0niKVYIvf5Gp6Tx8MTGM=
+	b=kt+CEHjZ3sz9ZfoGypeRJyPo0Ff1wIeIaNmYwM3Ciph8OsAoww7/fkyQMp4putuO0
+	 rDUqgASFXByIUhd3qsqvb3yot3yGvpcB9f52RKesD6ccavGapTROKojngmrxTgQ/nS
+	 o5/iDOJHNjMtwMwZ6VFjUZcOccpIYATR2mZaXK1Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C29CF8028F;
-	Fri,  8 May 2020 09:33:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF0ADF80299;
+	Fri,  8 May 2020 09:33:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F988F8015F; Thu,  7 May 2020 20:49:38 +0200 (CEST)
+ id 1DFE6F80162; Thu,  7 May 2020 21:18:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,33 +33,29 @@ X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 12D9DF8011C
- for <alsa-devel@alsa-project.org>; Thu,  7 May 2020 20:49:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12D9DF8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id A0E4FF8011C
+ for <alsa-devel@alsa-project.org>; Thu,  7 May 2020 21:17:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0E4FF8011C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GoTy1TOO"
+ header.b="F4e/oI0N"
 Received: from embeddedor (unknown [189.207.59.248])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1064C24957;
- Thu,  7 May 2020 18:49:29 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 94100208D6;
+ Thu,  7 May 2020 19:17:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588877370;
- bh=a3Iyd0AtJyoc/jnDu0wU+xUacgHz++uvOIDW/S793sI=;
+ s=default; t=1588879077;
+ bh=b1/YLFC+l6epGRK0csxeBGfOSfYmlenINjpg49VDwYs=;
  h=Date:From:To:Cc:Subject:From;
- b=GoTy1TOOPExw6zZPQfNFko/iNKt1k/z1i5fqjYdX7JdD14SrzN9+b7Mp+XiIjR011
- +/M0SSI5ZmpPdxy2WwlifmM7c1mb6OYiHPqcxpXS0GB6nnh9tffKTcmbIPBCIPO9f7
- amcb8R2XiuBEUYCPw9e1pEBO6Ib7g/K0MkcpieYw=
-Date: Thu, 7 May 2020 13:53:56 -0500
+ b=F4e/oI0NaaKvrBApNt24/dZC1saXWd8uYNKxsmU5yUG+byaspmcBnOEtx5MGTrRTT
+ D+SWYBU9d7o55LtwkRevIdSjZlA3cqxe9Yn3Jhph1oHpckG7n8ViaUUFsKnsYQ48TJ
+ 0cGOJmJEepFSp37TN2BJZaM0vAUxKx2e+gdet7rs=
+Date: Thu, 7 May 2020 14:22:23 -0500
 From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>
-Subject: [PATCH] ASoC: Intel: Skylake: Replace zero-length array with
- flexible-array
-Message-ID: <20200507185356.GA14539@embeddedor>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH] ALSA: Replace zero-length array with flexible-array
+Message-ID: <20200507192223.GA16335@embeddedor>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
@@ -118,71 +114,80 @@ This issue was found with the help of Coccinelle.
 
 Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
 ---
- sound/soc/intel/atom/sst-atom-controls.h |    2 +-
- sound/soc/intel/skylake/skl-i2s.h        |    2 +-
- sound/soc/intel/skylake/skl-topology.h   |    4 ++--
- sound/soc/intel/skylake/skl.h            |    2 +-
- 4 files changed, 5 insertions(+), 5 deletions(-)
+ include/sound/control.h     |    2 +-
+ include/sound/intel-nhlt.h  |    6 +++---
+ sound/core/oss/pcm_plugin.h |    2 +-
+ sound/usb/usx2y/usbusx2y.h  |    2 +-
+ 4 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/intel/atom/sst-atom-controls.h b/sound/soc/intel/atom/sst-atom-controls.h
-index 5356e954a732..620b48d2a064 100644
---- a/sound/soc/intel/atom/sst-atom-controls.h
-+++ b/sound/soc/intel/atom/sst-atom-controls.h
-@@ -410,7 +410,7 @@ struct sst_cmd_set_gain_dual {
- struct sst_cmd_set_params {
- 	struct sst_destination_id dst;
- 	u16 command_id;
--	char params[0];
-+	char params[];
- } __packed;
- 
- 
-diff --git a/sound/soc/intel/skylake/skl-i2s.h b/sound/soc/intel/skylake/skl-i2s.h
-index d7c15873c0d4..dfce91e11be1 100644
---- a/sound/soc/intel/skylake/skl-i2s.h
-+++ b/sound/soc/intel/skylake/skl-i2s.h
-@@ -46,7 +46,7 @@ struct skl_i2s_config_mclk {
- struct skl_i2s_config_mclk_ext {
- 	u32 mdivctrl;
- 	u32 mdivr_count;
--	u32 mdivr[0];
-+	u32 mdivr[];
- } __packed;
- 
- struct skl_i2s_config_blob_signature {
-diff --git a/sound/soc/intel/skylake/skl-topology.h b/sound/soc/intel/skylake/skl-topology.h
-index e967800dbb62..d2cd8ef8e97f 100644
---- a/sound/soc/intel/skylake/skl-topology.h
-+++ b/sound/soc/intel/skylake/skl-topology.h
-@@ -119,7 +119,7 @@ struct skl_cpr_gtw_cfg {
- struct skl_dma_control {
- 	u32 node_id;
- 	u32 config_length;
--	u32 config_data[0];
-+	u32 config_data[];
- } __packed;
- 
- struct skl_cpr_cfg {
-@@ -152,7 +152,7 @@ struct skl_up_down_mixer_cfg {
- 
- struct skl_algo_cfg {
- 	struct skl_base_cfg  base_cfg;
--	char params[0];
-+	char params[];
- } __packed;
- 
- struct skl_base_outfmt_cfg {
-diff --git a/sound/soc/intel/skylake/skl.h b/sound/soc/intel/skylake/skl.h
-index 2bfbf59277c4..26057f38a014 100644
---- a/sound/soc/intel/skylake/skl.h
-+++ b/sound/soc/intel/skylake/skl.h
-@@ -49,7 +49,7 @@ struct skl_astate_param {
- 
- struct skl_astate_config {
- 	u32 count;
--	struct skl_astate_param astate_table[0];
-+	struct skl_astate_param astate_table[];
+diff --git a/include/sound/control.h b/include/sound/control.h
+index 11feeee31e35..aeaed2a05bae 100644
+--- a/include/sound/control.h
++++ b/include/sound/control.h
+@@ -75,7 +75,7 @@ struct snd_kcontrol {
+ 	unsigned long private_value;
+ 	void *private_data;
+ 	void (*private_free)(struct snd_kcontrol *kcontrol);
+-	struct snd_kcontrol_volatile vd[0];	/* volatile data */
++	struct snd_kcontrol_volatile vd[];	/* volatile data */
  };
  
- struct skl_fw_config {
+ #define snd_kcontrol(n) list_entry(n, struct snd_kcontrol, list)
+diff --git a/include/sound/intel-nhlt.h b/include/sound/intel-nhlt.h
+index f657fd8fc0ad..743c2f442280 100644
+--- a/include/sound/intel-nhlt.h
++++ b/include/sound/intel-nhlt.h
+@@ -50,7 +50,7 @@ enum nhlt_device_type {
+ 
+ struct nhlt_specific_cfg {
+ 	u32 size;
+-	u8 caps[0];
++	u8 caps[];
+ } __packed;
+ 
+ struct nhlt_fmt_cfg {
+@@ -60,7 +60,7 @@ struct nhlt_fmt_cfg {
+ 
+ struct nhlt_fmt {
+ 	u8 fmt_count;
+-	struct nhlt_fmt_cfg fmt_config[0];
++	struct nhlt_fmt_cfg fmt_config[];
+ } __packed;
+ 
+ struct nhlt_endpoint {
+@@ -80,7 +80,7 @@ struct nhlt_endpoint {
+ struct nhlt_acpi_table {
+ 	struct acpi_table_header header;
+ 	u8 endpoint_count;
+-	struct nhlt_endpoint desc[0];
++	struct nhlt_endpoint desc[];
+ } __packed;
+ 
+ struct nhlt_resource_desc  {
+diff --git a/sound/core/oss/pcm_plugin.h b/sound/core/oss/pcm_plugin.h
+index 8d2f7a4e3ab6..46e273bd4a78 100644
+--- a/sound/core/oss/pcm_plugin.h
++++ b/sound/core/oss/pcm_plugin.h
+@@ -64,7 +64,7 @@ struct snd_pcm_plugin {
+ 	char *buf;
+ 	snd_pcm_uframes_t buf_frames;
+ 	struct snd_pcm_plugin_channel *buf_channels;
+-	char extra_data[0];
++	char extra_data[];
+ };
+ 
+ int snd_pcm_plugin_build(struct snd_pcm_substream *handle,
+diff --git a/sound/usb/usx2y/usbusx2y.h b/sound/usb/usx2y/usbusx2y.h
+index e0f77172ce8f..144b85f57bd2 100644
+--- a/sound/usb/usx2y/usbusx2y.h
++++ b/sound/usb/usx2y/usbusx2y.h
+@@ -18,7 +18,7 @@ struct snd_usX2Y_AsyncSeq {
+ struct snd_usX2Y_urbSeq {
+ 	int	submitted;
+ 	int	len;
+-	struct urb	*urb[0];
++	struct urb	*urb[];
+ };
+ 
+ #include "usx2yhwdeppcm.h"
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC90C1C88F6
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 May 2020 13:53:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED10D1C8A72
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 May 2020 14:20:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7392917CF;
-	Thu,  7 May 2020 13:52:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7392917CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8F3801814;
+	Thu,  7 May 2020 14:19:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F3801814
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588852420;
-	bh=aQfoRTL+03GAIlVMFqFOQVntNI2o67UPHaZ7kUx0kjY=;
+	s=default; t=1588854006;
+	bh=MSkChxFZqIspRLCauSd0CqP4IKv9LrIyPZ388vIuY7k=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JFSUK4XvE4DPv72dYBRJDyyeWDg9i+H9hv0vuVR5b9fP1/1ZVK/rfbV5ffcvvaMvV
-	 oflRtxECQZSeF6tEuF+UrxSx6qw4XwfXCQaS/fSszUPpeJMJ2R2l1B62CNtctFx9Fu
-	 1V4NRo/iCW3/AKFrOJJeWIXv43o6IBdSxna2GyCA=
+	b=p7O4Gd7dkAEQzrBZ1xZo/XXwTxSsBtNJhykaI+6dwZVQyc0wWtFki2cGBcneicWRw
+	 bOyJWdIWuCSTLDs1V3hrjwZ0+VylpK9RUabUvmca9b0GCJ+Frdnn8eJThOTAbw+y4D
+	 OGRfSQFU7MNqu+tH1nZ3vJYiGj8RvtP3ne01FyCM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F349F8015B;
-	Thu,  7 May 2020 13:51:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B65E3F8015F;
+	Thu,  7 May 2020 14:18:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C6C3BF8015F; Thu,  7 May 2020 13:51:56 +0200 (CEST)
+ id EADDAF8015F; Thu,  7 May 2020 14:18:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,33 +34,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 433EAF8011C
- for <alsa-devel@alsa-project.org>; Thu,  7 May 2020 13:51:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 433EAF8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id E484AF8011C
+ for <alsa-devel@alsa-project.org>; Thu,  7 May 2020 14:18:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E484AF8011C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="d1RFNlgC"
+ header.b="HdHgVWug"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BE78820735;
- Thu,  7 May 2020 11:51:43 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7AA23208E4;
+ Thu,  7 May 2020 12:18:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588852304;
- bh=aQfoRTL+03GAIlVMFqFOQVntNI2o67UPHaZ7kUx0kjY=;
+ s=default; t=1588853896;
+ bh=MSkChxFZqIspRLCauSd0CqP4IKv9LrIyPZ388vIuY7k=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=d1RFNlgC50Hge2FiWLjq+y65XWKt40zVW/xNbbBYlAPcguCUdS+P9qSRAAW7QpSkj
- nz5pWbMZGNOXsORPhkS8z+ER6zySlV3p5d2R5CnroD9uBHid9O+C1GDpPWT9JX4HJp
- vfTxzQDs1Lf5tNF9nJQO9NPa4xgto6jzuh4/uCoI=
-Date: Thu, 07 May 2020 12:51:41 +0100
+ b=HdHgVWug8sOeiIUH0XthCnuDAbPqcWRNCMQy+00dXYQ/3BGhDowdVJCi+5oT+fiVi
+ 2j8PCk9mYTnbPiHxkicqfuuDr3evannnwYXnw8zrjlcmKlad4XgzqzD/9OAAfuvUeN
+ EqP19g+z2+/OzJq7BVp4kT05T+biuRQ1l5d8vP7g=
+Date: Thu, 07 May 2020 13:18:13 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Tzung-Bi Shih <tzungbi@google.com>
-In-Reply-To: <20200507015442.191336-1-tzungbi@google.com>
-References: <20200507015442.191336-1-tzungbi@google.com>
-Subject: Re: [PATCH] ASoC: mediatek: mt8183: fix error handling of
- platform_get_irq()
-Message-Id: <158885230163.13599.13759878447141400028.b4-ty@kernel.org>
-Cc: alsa-devel@alsa-project.org
+To: perex@perex.cz, tiwai@suse.com, ChenTao <chentao107@huawei.com>,
+ Xiubo.Lee@gmail.com, timur@kernel.org, nicoleotsuka@gmail.com
+In-Reply-To: <20200507022959.183739-1-chentao107@huawei.com>
+References: <20200507022959.183739-1-chentao107@huawei.com>
+Subject: Re: [PATCH -next] soc: fsl_asrc: Make some functions static
+Message-Id: <158885389338.38935.7126937131103152522.b4-ty@kernel.org>
+Cc: linuxppc-dev@lists.ozlabs.org, alsa-devel@alsa-project.org,
+ festevam@gmail.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,24 +77,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 7 May 2020 09:54:42 +0800, Tzung-Bi Shih wrote:
-> platform_get_irq() returns negative value on error instead of 0.
+On Thu, 7 May 2020 10:29:59 +0800, ChenTao wrote:
+> Fix the following warning:
 > 
-> Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
-> ---
->  sound/soc/mediatek/mt8183/mt8183-afe-pcm.c | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
+> sound/soc/fsl/fsl_asrc.c:157:5: warning:
+> symbol 'fsl_asrc_request_pair' was not declared. Should it be static?
+> sound/soc/fsl/fsl_asrc.c:200:6: warning:
+> symbol 'fsl_asrc_release_pair' was not declared. Should it be static?
 > 
 > [...]
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.7
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.8
 
 Thanks!
 
-[1/1] ASoC: mediatek: mt8183: fix error handling of platform_get_irq()
-      commit: fe944625194515e99fcbfb0d190d50986e2b6480
+[1/1] soc: fsl_asrc: Make some functions static
+      commit: c16e923dd635d383026a306acea540b8e0706c88
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

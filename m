@@ -2,72 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 779DA1C879F
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 May 2020 13:09:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91FDE1C885F
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 May 2020 13:34:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F1103180B;
-	Thu,  7 May 2020 13:08:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1103180B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 456841814;
+	Thu,  7 May 2020 13:33:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 456841814
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588849774;
-	bh=/mtZ5WGXzOosl2v22r9XjAbR7pSmnQHFt3goB++zb3s=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=BJsQ65WRNsR76+0eDOpDJ6/twwlvLYoMnv+4PXu0V6Dogx+sUSbhwK7NZ2x7ZrhFd
-	 2fWqNvHfzDwZn5yqJb3bFMEQy1SFBCPrTpJdUUSvF1/NinQIKgAqXSZWbf4/1y5inr
-	 cqhO8mk69kKbzFgVhFsk37RDtt2auX4i4aeZGGb4=
+	s=default; t=1588851272;
+	bh=LkCRN2RVTW6bV8u2IxPJzAzzlOrbqz4YbHN97fAEQ/4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LrdvOrYUJNEQhSSOgAzukLalAuBuTYopbV/p/ZUjdgOTA6RFeI/ejaSDiYHdJM6Wn
+	 HZZLm4NMmX1ybMdaTMhdfEtvn9vqQyprAd9vwlc3vBQU0k3bdYNC+6+14rnQH2Qm9q
+	 5XJmVVJyAQ7GOBubnHKoc2q81YAsAcuLu1sNt0Rk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23684F80162;
-	Thu,  7 May 2020 13:07:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61A92F8015B;
+	Thu,  7 May 2020 13:32:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 853FDF8015F; Thu,  7 May 2020 13:07:50 +0200 (CEST)
+ id 80EC9F8015F; Thu,  7 May 2020 13:32:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4CB6FF800AD
- for <alsa-devel@alsa-project.org>; Thu,  7 May 2020 13:07:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CB6FF800AD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0D06EF8011C
+ for <alsa-devel@alsa-project.org>; Thu,  7 May 2020 13:32:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D06EF8011C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="KNeNNF7Y"
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BA76D20736;
- Thu,  7 May 2020 11:07:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588849656;
- bh=/mtZ5WGXzOosl2v22r9XjAbR7pSmnQHFt3goB++zb3s=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KNeNNF7Y/NCRmE8u/rkprCOAGhY4BJOCn/v4MIRqiuzP7rCLNghrnwhUffiou7oME
- +clc7XtcOH+NxDRlmbGawLwFU/3RNWps/8ZA6fjah+/ViKzbjSpjlIb/UQbu0275yl
- Ij9NRdR7oOID00T9O3tkqpI1oHNsAbughyNfs2Uk=
-Date: Thu, 7 May 2020 13:07:34 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: KASAN: use-after-free Write in snd_rawmidi_kernel_write1
-Message-ID: <20200507110734.GA1490467@kroah.com>
-References: <CAFcO6XMGT42wFBxEa01Ee5Msuecm+WiXnn4rc-VWkC4vTzycPg@mail.gmail.com>
- <20200507082302.GF1024567@kroah.com> <s5h8si45ard.wl-tiwai@suse.de>
- <20200507101310.GA1311017@kroah.com> <s5hsggc3v4p.wl-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <s5hsggc3v4p.wl-tiwai@suse.de>
-Cc: security@kernel.org, alsa-devel@alsa-project.org,
- butt3rflyh4ck <butterflyhuangxx@gmail.com>, tiwai@suse.com,
- linux-kernel@vger.kernel.org, syzkaller <syzkaller@googlegroups.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ezklgun3"
+Received: by mail-wr1-x442.google.com with SMTP id i15so5512126wrx.10
+ for <alsa-devel@alsa-project.org>; Thu, 07 May 2020 04:32:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=miVjUF+kU459Gr4P0bFX33XFzImTaFGt5nwVSljspPk=;
+ b=ezklgun3NG8L1ZLbd0I/M8AZkRmb1NVMMIzZtOYA91JKlr7sDY4h8dRsT8fHiZr5sc
+ 2sKrYYkfWy7mm6Dop7KFiE7THZONbRDESBN5SaxRJyxxPlV75OGFN5EwIeHYNMfcUs+7
+ WHfoMElCdA+YwRMYWk7eDqMnoBRVoOdWHVwFqlgVvXodrb/6OyPVetautl0IkOlR0lSd
+ bhoqGy1Uwk+sx7DQBfov++lxLzCGHj2VbAqkaGnjQyqRWtZU9QeEENpE13pjwZsSlp0c
+ prbBP2cwXGsLBVjkN2TnjXD2QppwjO/pDiBiyJtvIxq1e2LCMS0YGWJdTZe2otTlprTs
+ k33Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=miVjUF+kU459Gr4P0bFX33XFzImTaFGt5nwVSljspPk=;
+ b=d1YX3So/OB/slEzk2csySGiO9jt/T/UpMD1XW0x3qZXbJi6BLd4BUnuD1XLDbPTbdg
+ ou9hUyBAFQUaVwbUwHTIc1abjGbyjaajDDo+xMe1JsYNGz3hGNgA0nvMSr+yvS5K6AdR
+ outRdR2jl3NH5Il36czSrVMcA8mrky/miC4yw+mwLzaNka37sxBPESziVpQaZtjs7TjF
+ sJlOalQJrVJR4oUzsZJfnHQYpjWco1kP6PXO4PkRHFr6x72fCFRCvLBedkN76ykvbLNb
+ ydu+o/0jKrwL+bHfx6PtjyFnUttK+ikyiRyZ3dd0xOkZG06Imh+f9xPNiIYiq30S+vlq
+ jv/A==
+X-Gm-Message-State: AGi0PuYO9a9YyNOXk6FrFZ0F1pOAdQRQLhfhJzrgFcMO/K7v6Mi+MJMn
+ p5iDyDkZq7ZwUT/5RN5OA5A=
+X-Google-Smtp-Source: APiQypKZOjvXEiIprA5Ny63FeE9kMmGQs4HOWplnvTx4gD1ekq4zG5NManY4iny4mcyhjAje3EfW1Q==
+X-Received: by 2002:a5d:6712:: with SMTP id o18mr16171936wru.115.1588851165984; 
+ Thu, 07 May 2020 04:32:45 -0700 (PDT)
+Received: from debian.home (ip51ccf9cd.speed.planet.nl. [81.204.249.205])
+ by smtp.gmail.com with ESMTPSA id e21sm7745787wrc.1.2020.05.07.04.32.44
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 07 May 2020 04:32:45 -0700 (PDT)
+From: Johan Jonker <jbx6244@gmail.com>
+To: heiko@sntech.de
+Subject: [PATCH v1] ASoC: rockchip-i2s: add description for rk3308
+Date: Thu,  7 May 2020 13:32:38 +0200
+Message-Id: <20200507113238.7904-1-jbx6244@gmail.com>
+X-Mailer: git-send-email 2.11.0
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, robh+dt@kernel.org, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, broonie@kernel.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,96 +95,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, May 07, 2020 at 12:19:18PM +0200, Takashi Iwai wrote:
-> On Thu, 07 May 2020 12:13:10 +0200,
-> Greg Kroah-Hartman wrote:
-> > 
-> > On Thu, May 07, 2020 at 11:56:22AM +0200, Takashi Iwai wrote:
-> > > On Thu, 07 May 2020 10:23:02 +0200,
-> > > Greg Kroah-Hartman wrote:
-> > > > 
-> > > > On Thu, May 07, 2020 at 04:04:25PM +0800, butt3rflyh4ck wrote:
-> > > > > I report a bug (in linux-5.7-rc1) found by syzkaller.
-> > > > > 
-> > > > > kernel config: https://github.com/butterflyhack/syzkaller-fuzz/blob/master/v5.7.0-rc1.config
-> > > > > reproducer: https://github.com/butterflyhack/syzkaller-fuzz/blob/master/repro.cprog
-> > > > > 
-> > > > > I test the reproducer in linux-5.7-rc4 and crash too.
-> > > > 
-> > > > Great, care to create a fix for this and send it to the proper
-> > > > maintainers?  That's the best way to get it fixed, otherwise it just
-> > > > goes in the file with the rest of the syzbot reports we are burried
-> > > > under.
-> > > 
-> > > Don't worry, I already prepared a fix patch below :)
-> > > 
-> > > 
-> > > thanks,
-> > > 
-> > > Takashi
-> > > 
-> > > -- 8< --
-> > > From: Takashi Iwai <tiwai@suse.de>
-> > > Subject: [PATCH] ALSA: rawmidi: Fix racy buffer resize under concurrent
-> > >  accesses
-> > > 
-> > > The rawmidi core allows user to resize the runtime buffer via ioctl,
-> > > and this may lead to UAF when performed during concurrent reads or
-> > > writes.
-> > > 
-> > > This patch fixes the race by introducing a reference counter for the
-> > > runtime buffer access and returns -EBUSY error when the resize is
-> > > performed concurrently.
-> > > 
-> > > Reported-by: butt3rflyh4ck <butterflyhuangxx@gmail.com>
-> > > Cc: <stable@vger.kernel.org>
-> > > Link: https://lore.kernel.org/r/CAFcO6XMWpUVK_yzzCpp8_XP7+=oUpQvuBeCbMffEDkpe8jWrfg@mail.gmail.com
-> > > Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> > > ---
-> > >  include/sound/rawmidi.h |  1 +
-> > >  sound/core/rawmidi.c    | 29 ++++++++++++++++++++++++++++-
-> > >  2 files changed, 29 insertions(+), 1 deletion(-)
-> > > 
-> > > diff --git a/include/sound/rawmidi.h b/include/sound/rawmidi.h
-> > > index a36b7227a15a..334842daa904 100644
-> > > --- a/include/sound/rawmidi.h
-> > > +++ b/include/sound/rawmidi.h
-> > > @@ -61,6 +61,7 @@ struct snd_rawmidi_runtime {
-> > >  	size_t avail_min;	/* min avail for wakeup */
-> > >  	size_t avail;		/* max used buffer for wakeup */
-> > >  	size_t xruns;		/* over/underruns counter */
-> > > +	int buffer_ref;		/* buffer reference count */
-> > >  	/* misc */
-> > >  	spinlock_t lock;
-> > >  	wait_queue_head_t sleep;
-> > > diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
-> > > index 20dd08e1f675..4185d9e81e3c 100644
-> > > --- a/sound/core/rawmidi.c
-> > > +++ b/sound/core/rawmidi.c
-> > > @@ -120,6 +120,17 @@ static void snd_rawmidi_input_event_work(struct work_struct *work)
-> > >  		runtime->event(runtime->substream);
-> > >  }
-> > >  
-> > > +/* buffer refcount management: call with runtime->lock held */
-> > > +static inline void snd_rawmidi_buffer_ref(struct snd_rawmidi_runtime *runtime)
-> > > +{
-> > > +	runtime->buffer_ref++;
-> > > +}
-> > > +
-> > > +static inline void snd_rawmidi_buffer_unref(struct snd_rawmidi_runtime *runtime)
-> > > +{
-> > > +	runtime->buffer_ref--;
-> > > +}
-> > 
-> > Why not use the reference count structure?
-> 
-> The context accessing the buffer is always with the spinlock, so we
-> don't need expensive atomic ops there.
-> 
-> Usually this kind of check can be a simple boolean flag, but in this
-> case, there is one place that goes out of lock due to
-> copy_from/to_user, so a refcount is used in this patch instead.
+The description below is already in use for rk3308.dtsi,
+but was somehow never added to a document, so add
+"rockchip,rk3308-i2s", "rockchip,rk3066-i2s"
+for i2s nodes on a rk3308 platform to rockchip-i2s.yaml.
+One of the rk3308 i2s nodes also has a different dma layout,
+so change that as well.
 
-Ah, ok, thanks for the explanation.
+Signed-off-by: Johan Jonker <jbx6244@gmail.com>
+---
+The rk3308 i2s nodes also contain the properties
+"reset-names" and "resets". Code in the manufacturer tree is
+not yet applied in the mainline kernel, so skip them for now.
+---
+ Documentation/devicetree/bindings/sound/rockchip-i2s.yaml | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-greg k-h
+diff --git a/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml b/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml
+index a3ba2186d..10f9d3ad0 100644
+--- a/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml
++++ b/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml
+@@ -24,6 +24,7 @@ properties:
+             - rockchip,rk3188-i2s
+             - rockchip,rk3228-i2s
+             - rockchip,rk3288-i2s
++            - rockchip,rk3308-i2s
+             - rockchip,rk3328-i2s
+             - rockchip,rk3366-i2s
+             - rockchip,rk3368-i2s
+@@ -47,14 +48,15 @@ properties:
+       - const: i2s_hclk
+ 
+   dmas:
+-    items:
+-      - description: TX DMA Channel
+-      - description: RX DMA Channel
++    minItems: 1
++    maxItems: 2
+ 
+   dma-names:
+-    items:
+-      - const: tx
++    oneOf:
+       - const: rx
++      - items:
++        - const: tx
++        - const: rx
+ 
+   power-domains:
+     maxItems: 1
+-- 
+2.11.0
+

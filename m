@@ -2,84 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91FDE1C885F
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 May 2020 13:34:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 065FA1C88C0
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 May 2020 13:46:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 456841814;
-	Thu,  7 May 2020 13:33:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 456841814
+	by alsa0.perex.cz (Postfix) with ESMTPS id A097416D9;
+	Thu,  7 May 2020 13:45:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A097416D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588851272;
-	bh=LkCRN2RVTW6bV8u2IxPJzAzzlOrbqz4YbHN97fAEQ/4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=LrdvOrYUJNEQhSSOgAzukLalAuBuTYopbV/p/ZUjdgOTA6RFeI/ejaSDiYHdJM6Wn
-	 HZZLm4NMmX1ybMdaTMhdfEtvn9vqQyprAd9vwlc3vBQU0k3bdYNC+6+14rnQH2Qm9q
-	 5XJmVVJyAQ7GOBubnHKoc2q81YAsAcuLu1sNt0Rk=
+	s=default; t=1588852008;
+	bh=nNKMLbEUWV/owUbjYbB39sZV/GJseHU62ctp+eqLtYw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=AvnPEswajyFw6b/ChYpPQC84RmJk3oBZn1cSqFOICG2DPoEYW1Qjm8YomNNAmIOfU
+	 hYAbnQ6QroJ371Bd+Gp5PdvJrQ7wUD3mdIS/9/DByH9xWPg6j7cfrldOwkiwJklySv
+	 YWmqF/whL50evckkaCrA9N1vEGx3sKaSGeBf7M4k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61A92F8015B;
-	Thu,  7 May 2020 13:32:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8EBADF8015B;
+	Thu,  7 May 2020 13:45:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 80EC9F8015F; Thu,  7 May 2020 13:32:49 +0200 (CEST)
+ id 76FABF8015F; Thu,  7 May 2020 13:45:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0D06EF8011C
- for <alsa-devel@alsa-project.org>; Thu,  7 May 2020 13:32:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D06EF8011C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ezklgun3"
-Received: by mail-wr1-x442.google.com with SMTP id i15so5512126wrx.10
- for <alsa-devel@alsa-project.org>; Thu, 07 May 2020 04:32:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=miVjUF+kU459Gr4P0bFX33XFzImTaFGt5nwVSljspPk=;
- b=ezklgun3NG8L1ZLbd0I/M8AZkRmb1NVMMIzZtOYA91JKlr7sDY4h8dRsT8fHiZr5sc
- 2sKrYYkfWy7mm6Dop7KFiE7THZONbRDESBN5SaxRJyxxPlV75OGFN5EwIeHYNMfcUs+7
- WHfoMElCdA+YwRMYWk7eDqMnoBRVoOdWHVwFqlgVvXodrb/6OyPVetautl0IkOlR0lSd
- bhoqGy1Uwk+sx7DQBfov++lxLzCGHj2VbAqkaGnjQyqRWtZU9QeEENpE13pjwZsSlp0c
- prbBP2cwXGsLBVjkN2TnjXD2QppwjO/pDiBiyJtvIxq1e2LCMS0YGWJdTZe2otTlprTs
- k33Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=miVjUF+kU459Gr4P0bFX33XFzImTaFGt5nwVSljspPk=;
- b=d1YX3So/OB/slEzk2csySGiO9jt/T/UpMD1XW0x3qZXbJi6BLd4BUnuD1XLDbPTbdg
- ou9hUyBAFQUaVwbUwHTIc1abjGbyjaajDDo+xMe1JsYNGz3hGNgA0nvMSr+yvS5K6AdR
- outRdR2jl3NH5Il36czSrVMcA8mrky/miC4yw+mwLzaNka37sxBPESziVpQaZtjs7TjF
- sJlOalQJrVJR4oUzsZJfnHQYpjWco1kP6PXO4PkRHFr6x72fCFRCvLBedkN76ykvbLNb
- ydu+o/0jKrwL+bHfx6PtjyFnUttK+ikyiRyZ3dd0xOkZG06Imh+f9xPNiIYiq30S+vlq
- jv/A==
-X-Gm-Message-State: AGi0PuYO9a9YyNOXk6FrFZ0F1pOAdQRQLhfhJzrgFcMO/K7v6Mi+MJMn
- p5iDyDkZq7ZwUT/5RN5OA5A=
-X-Google-Smtp-Source: APiQypKZOjvXEiIprA5Ny63FeE9kMmGQs4HOWplnvTx4gD1ekq4zG5NManY4iny4mcyhjAje3EfW1Q==
-X-Received: by 2002:a5d:6712:: with SMTP id o18mr16171936wru.115.1588851165984; 
- Thu, 07 May 2020 04:32:45 -0700 (PDT)
-Received: from debian.home (ip51ccf9cd.speed.planet.nl. [81.204.249.205])
- by smtp.gmail.com with ESMTPSA id e21sm7745787wrc.1.2020.05.07.04.32.44
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 07 May 2020 04:32:45 -0700 (PDT)
-From: Johan Jonker <jbx6244@gmail.com>
-To: heiko@sntech.de
-Subject: [PATCH v1] ASoC: rockchip-i2s: add description for rk3308
-Date: Thu,  7 May 2020 13:32:38 +0200
-Message-Id: <20200507113238.7904-1-jbx6244@gmail.com>
-X-Mailer: git-send-email 2.11.0
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, robh+dt@kernel.org, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org, broonie@kernel.org,
- linux-arm-kernel@lists.infradead.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6E2DBF800F6
+ for <alsa-devel@alsa-project.org>; Thu,  7 May 2020 13:44:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E2DBF800F6
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 54958ABE6;
+ Thu,  7 May 2020 11:44:59 +0000 (UTC)
+Date: Thu, 07 May 2020 13:44:56 +0200
+Message-ID: <s5heerw3r5z.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: butt3rflyh4ck <butterflyhuangxx@gmail.com>
+Subject: Re: KASAN: use-after-free Write in snd_rawmidi_kernel_write1
+In-Reply-To: <s5hmu6k3u24.wl-tiwai@suse.de>
+References: <CAFcO6XMGT42wFBxEa01Ee5Msuecm+WiXnn4rc-VWkC4vTzycPg@mail.gmail.com>
+ <20200507082302.GF1024567@kroah.com> <s5h8si45ard.wl-tiwai@suse.de>
+ <ecc5f76f-2e87-f634-b98c-9fbcad177d72@linux.intel.com>
+ <s5hpnbg3uch.wl-tiwai@suse.de> <s5hmu6k3u24.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: security@kernel.org, alsa-devel@alsa-project.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, syzkaller <syzkaller@googlegroups.com>,
+ Amadeusz SX2awiX4ski <amadeuszx.slawinski@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,55 +75,164 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The description below is already in use for rk3308.dtsi,
-but was somehow never added to a document, so add
-"rockchip,rk3308-i2s", "rockchip,rk3066-i2s"
-for i2s nodes on a rk3308 platform to rockchip-i2s.yaml.
-One of the rk3308 i2s nodes also has a different dma layout,
-so change that as well.
+On Thu, 07 May 2020 12:42:27 +0200,
+Takashi Iwai wrote:
+> 
+> On Thu, 07 May 2020 12:36:14 +0200,
+> Takashi Iwai wrote:
+> > 
+> > On Thu, 07 May 2020 12:27:41 +0200,
+> > Amadeusz SX2awiX4ski wrote:
+> > > 
+> > > So if I follow this correctly, you call spin_unlock_irqrestore twice
+> > > in case of error?
+> > 
+> > Erm no, this is obviously wrong.  The error path needs re-lock.
+> > Will respin the fix.
+> 
+> ... and below is the revised patch.
 
-Signed-off-by: Johan Jonker <jbx6244@gmail.com>
----
-The rk3308 i2s nodes also contain the properties
-"reset-names" and "resets". Code in the manufacturer tree is
-not yet applied in the mainline kernel, so skip them for now.
----
- Documentation/devicetree/bindings/sound/rockchip-i2s.yaml | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+and yet more brush up, with a slightly better description.
+This seems working on my local machine, but let me know if something
+still goes wrong.
 
-diff --git a/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml b/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml
-index a3ba2186d..10f9d3ad0 100644
---- a/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml
-+++ b/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml
-@@ -24,6 +24,7 @@ properties:
-             - rockchip,rk3188-i2s
-             - rockchip,rk3228-i2s
-             - rockchip,rk3288-i2s
-+            - rockchip,rk3308-i2s
-             - rockchip,rk3328-i2s
-             - rockchip,rk3366-i2s
-             - rockchip,rk3368-i2s
-@@ -47,14 +48,15 @@ properties:
-       - const: i2s_hclk
+
+thanks,
+
+Takashi
+
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH v3] ALSA: rawmidi: Fix racy buffer resize under concurrent
+ accesses
+
+The rawmidi core allows user to resize the runtime buffer via ioctl,
+and this may lead to UAF when performed during concurrent reads or
+writes: the read/write functions unlock the runtime lock temporarily
+during copying form/to user-space, and that's the race window.
+
+This patch fixes the hole by introducing a reference counter for the
+runtime buffer read/write access and returns -EBUSY error when the
+resize is performed concurrently against read/write.
+
+Note that the ref count field is a simple integer instead of
+refcount_t here, since the all contexts accessing the buffer is
+basically protected with a spinlock, hence we need no expensive atomic
+ops.  Also, note that this busy check is needed only against read /
+write functions, and not in receive/transmit callbacks; the race can
+happen only at the spinlock hole mentioned in the above, while the
+whole function is protected for receive / transmit callbacks.
+
+Reported-by: butt3rflyh4ck <butterflyhuangxx@gmail.com>
+Cc: <stable@vger.kernel.org>
+Link: https://lore.kernel.org/r/CAFcO6XMWpUVK_yzzCpp8_XP7+=oUpQvuBeCbMffEDkpe8jWrfg@mail.gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+v1->v2: Fix spinlock unbalance at error path of snd_rawmidi_kernel_read1()    
+v2->v3: Remove superfluous ref in receive/transmit; more detailed
+	patch description
+
+ include/sound/rawmidi.h |  1 +
+ sound/core/rawmidi.c    | 31 +++++++++++++++++++++++++++----
+ 2 files changed, 28 insertions(+), 4 deletions(-)
+
+diff --git a/include/sound/rawmidi.h b/include/sound/rawmidi.h
+index a36b7227a15a..334842daa904 100644
+--- a/include/sound/rawmidi.h
++++ b/include/sound/rawmidi.h
+@@ -61,6 +61,7 @@ struct snd_rawmidi_runtime {
+ 	size_t avail_min;	/* min avail for wakeup */
+ 	size_t avail;		/* max used buffer for wakeup */
+ 	size_t xruns;		/* over/underruns counter */
++	int buffer_ref;		/* buffer reference count */
+ 	/* misc */
+ 	spinlock_t lock;
+ 	wait_queue_head_t sleep;
+diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
+index 20dd08e1f675..2a688b711a9a 100644
+--- a/sound/core/rawmidi.c
++++ b/sound/core/rawmidi.c
+@@ -120,6 +120,17 @@ static void snd_rawmidi_input_event_work(struct work_struct *work)
+ 		runtime->event(runtime->substream);
+ }
  
-   dmas:
--    items:
--      - description: TX DMA Channel
--      - description: RX DMA Channel
-+    minItems: 1
-+    maxItems: 2
++/* buffer refcount management: call with runtime->lock held */
++static inline void snd_rawmidi_buffer_ref(struct snd_rawmidi_runtime *runtime)
++{
++	runtime->buffer_ref++;
++}
++
++static inline void snd_rawmidi_buffer_unref(struct snd_rawmidi_runtime *runtime)
++{
++	runtime->buffer_ref--;
++}
++
+ static int snd_rawmidi_runtime_create(struct snd_rawmidi_substream *substream)
+ {
+ 	struct snd_rawmidi_runtime *runtime;
+@@ -669,6 +680,11 @@ static int resize_runtime_buffer(struct snd_rawmidi_runtime *runtime,
+ 		if (!newbuf)
+ 			return -ENOMEM;
+ 		spin_lock_irq(&runtime->lock);
++		if (runtime->buffer_ref) {
++			spin_unlock_irq(&runtime->lock);
++			kvfree(newbuf);
++			return -EBUSY;
++		}
+ 		oldbuf = runtime->buffer;
+ 		runtime->buffer = newbuf;
+ 		runtime->buffer_size = params->buffer_size;
+@@ -1019,8 +1035,10 @@ static long snd_rawmidi_kernel_read1(struct snd_rawmidi_substream *substream,
+ 	long result = 0, count1;
+ 	struct snd_rawmidi_runtime *runtime = substream->runtime;
+ 	unsigned long appl_ptr;
++	int err = 0;
  
-   dma-names:
--    items:
--      - const: tx
-+    oneOf:
-       - const: rx
-+      - items:
-+        - const: tx
-+        - const: rx
+ 	spin_lock_irqsave(&runtime->lock, flags);
++	snd_rawmidi_buffer_ref(runtime);
+ 	while (count > 0 && runtime->avail) {
+ 		count1 = runtime->buffer_size - runtime->appl_ptr;
+ 		if (count1 > count)
+@@ -1039,16 +1057,19 @@ static long snd_rawmidi_kernel_read1(struct snd_rawmidi_substream *substream,
+ 		if (userbuf) {
+ 			spin_unlock_irqrestore(&runtime->lock, flags);
+ 			if (copy_to_user(userbuf + result,
+-					 runtime->buffer + appl_ptr, count1)) {
+-				return result > 0 ? result : -EFAULT;
+-			}
++					 runtime->buffer + appl_ptr, count1))
++				err = -EFAULT;
+ 			spin_lock_irqsave(&runtime->lock, flags);
++			if (err)
++				goto out;
+ 		}
+ 		result += count1;
+ 		count -= count1;
+ 	}
++ out:
++	snd_rawmidi_buffer_unref(runtime);
+ 	spin_unlock_irqrestore(&runtime->lock, flags);
+-	return result;
++	return result > 0 ? result : err;
+ }
  
-   power-domains:
-     maxItems: 1
+ long snd_rawmidi_kernel_read(struct snd_rawmidi_substream *substream,
+@@ -1342,6 +1363,7 @@ static long snd_rawmidi_kernel_write1(struct snd_rawmidi_substream *substream,
+ 			return -EAGAIN;
+ 		}
+ 	}
++	snd_rawmidi_buffer_ref(runtime);
+ 	while (count > 0 && runtime->avail > 0) {
+ 		count1 = runtime->buffer_size - runtime->appl_ptr;
+ 		if (count1 > count)
+@@ -1373,6 +1395,7 @@ static long snd_rawmidi_kernel_write1(struct snd_rawmidi_substream *substream,
+ 	}
+       __end:
+ 	count1 = runtime->avail < runtime->buffer_size;
++	snd_rawmidi_buffer_unref(runtime);
+ 	spin_unlock_irqrestore(&runtime->lock, flags);
+ 	if (count1)
+ 		snd_rawmidi_output_trigger(substream, 1);
 -- 
-2.11.0
+2.25.0
 

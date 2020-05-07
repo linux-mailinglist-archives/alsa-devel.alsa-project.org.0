@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A53A1C8EED
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 May 2020 16:31:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E07B1C8EEF
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 May 2020 16:32:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D161F1819;
-	Thu,  7 May 2020 16:31:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D161F1819
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4FEF1828;
+	Thu,  7 May 2020 16:31:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4FEF1828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588861916;
-	bh=oPYa4mGFQqu4Mr9qc87Q9R80YXItQ+Gvzchp6QANak0=;
+	s=default; t=1588861938;
+	bh=mEmtLHs1NDv9zuIsYLPG4t4VA1VthP+g89wF5PD8Z2A=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dMnAt/MMTzrJUswyPWgPwDxyuFIskqpRbWKmMI99cCUxK6BKIOhDlc5qHp39O1FJF
-	 QAYb/3eGkJk69oKWHheNXEyj2OvMRe7CI13Do1yMEbsesrWwZx1g+3P8hjrb+/xvJ4
-	 /hkd1FUFcPmSkpzNSkZJj3K1LzFp/fDyZ8auMG8s=
+	b=PbqCDU3QCpsdWRFQ2le7puWEdvSIaOT1JunRa5bvWyNuj6tThDmFSE8Ty/4pY7VJ9
+	 ymLJ2EVY0ZKJfepM3MGPDlhkUb+M9jyH26TI0njSLMyRJDWBXftw6ObiMqOxVEmtvO
+	 65HOXZ9nREbSXSeI/ygXiSdrpOSME/MC4kIZOGEE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE847F802A9;
-	Thu,  7 May 2020 16:28:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14498F802BD;
+	Thu,  7 May 2020 16:29:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D5AA4F802A7; Thu,  7 May 2020 16:28:57 +0200 (CEST)
+ id A6BC3F802BE; Thu,  7 May 2020 16:29:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 05DADF8011C
- for <alsa-devel@alsa-project.org>; Thu,  7 May 2020 16:28:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05DADF8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 727A6F802A7
+ for <alsa-devel@alsa-project.org>; Thu,  7 May 2020 16:29:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 727A6F802A7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ZBTFOdxr"
+ header.b="1P6sq5A4"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 549392145D;
- Thu,  7 May 2020 14:28:49 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2DDCE20870;
+ Thu,  7 May 2020 14:28:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588861729;
- bh=oPYa4mGFQqu4Mr9qc87Q9R80YXItQ+Gvzchp6QANak0=;
+ s=default; t=1588861739;
+ bh=mEmtLHs1NDv9zuIsYLPG4t4VA1VthP+g89wF5PD8Z2A=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ZBTFOdxrkO7Biw2cr0RyIN/z33ScBDcOEe4kVUg+BJWeajC9Kxn3FQ60DNAcKx6mD
- hJ982dyvHYJ77fJ/5KnGRX6ozWT/IZ8eC0LgBD1fCesqQanFzQQ920BYJCx15sUgtQ
- 2j+BGAzFUtXzhk3W2AAKo9mZAQzn8K4MjuRcNyEE=
+ b=1P6sq5A4z+Zo9QMcYEJD//9oaTBxeGzEE97IivzEMF/hYRy8WV53bTzsbtVsfe4fW
+ gyBzCvUGN0LB8K9i/J8JgNJ1s+rOKUhUdADrw2xzMKyJC79T8RhWuS29myOUCokk4m
+ EQjHDf+Gfh9QLEgo/YnHrYc9sdJ0+BlEAOO570zA=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 15/35] ALSA: hda: Match both PCI ID and SSID for
- driver blacklist
-Date: Thu,  7 May 2020 10:28:09 -0400
-Message-Id: <20200507142830.26239-15-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 23/35] ALSA: hda/hdmi: fix race in monitor
+ detection during probe
+Date: Thu,  7 May 2020 10:28:17 -0400
+Message-Id: <20200507142830.26239-23-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200507142830.26239-1-sashal@kernel.org>
 References: <20200507142830.26239-1-sashal@kernel.org>
@@ -68,7 +68,7 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org
+ alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,56 +84,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Takashi Iwai <tiwai@suse.de>
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-[ Upstream commit 977dfef40c8996b69afe23a9094d184049efb7bb ]
+[ Upstream commit ca76282b6faffc83601c25bd2a95f635c03503ef ]
 
-The commit 3c6fd1f07ed0 ("ALSA: hda: Add driver blacklist") added a
-new blacklist for the devices that are known to have empty codecs, and
-one of the entries was ASUS ROG Zenith II (PCI SSID 1043:874f).
-However, it turned out that the very same PCI SSID is used for the
-previous model that does have the valid HD-audio codecs and the change
-broke the sound on it.
+A race exists between build_pcms() and build_controls() phases of codec
+setup. Build_pcms() sets up notifier for jack events. If a monitor event
+is received before build_controls() is run, the initial jack state is
+lost and never reported via mixer controls.
 
-Since the empty codec problem appear on the certain AMD platform (PCI
-ID 1022:1487), this patch changes the blacklist matching to both PCI
-ID and SSID using pci_match_id().  Also, the entry that was removed by
-the previous fix for ASUS ROG Zenigh II is re-added.
+The problem can be hit at least with SOF as the controller driver. SOF
+calls snd_hda_codec_build_controls() in its workqueue-based probe and
+this can be delayed enough to hit the race condition.
 
-Link: https://lore.kernel.org/r/20200424061222.19792-1-tiwai@suse.de
+Fix the issue by invalidating the per-pin ELD information when
+build_controls() is called. The existing call to hdmi_present_sense()
+will update the ELD contents. This ensures initial monitor state is
+correctly reflected via mixer controls.
+
+BugLink: https://github.com/thesofproject/linux/issues/1687
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Link: https://lore.kernel.org/r/20200428123836.24512-1-kai.vehmanen@linux.intel.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/hda_intel.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ sound/pci/hda/patch_hdmi.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index 1673479b4eef3..612441508e80a 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -2023,9 +2023,10 @@ static void pcm_mmap_prepare(struct snd_pcm_substream *substream,
-  * some HD-audio PCI entries are exposed without any codecs, and such devices
-  * should be ignored from the beginning.
-  */
--static const struct snd_pci_quirk driver_blacklist[] = {
--	SND_PCI_QUIRK(0x1462, 0xcb59, "MSI TRX40 Creator", 0),
--	SND_PCI_QUIRK(0x1462, 0xcb60, "MSI TRX40", 0),
-+static const struct pci_device_id driver_blacklist[] = {
-+	{ PCI_DEVICE_SUB(0x1022, 0x1487, 0x1043, 0x874f) }, /* ASUS ROG Zenith II / Strix */
-+	{ PCI_DEVICE_SUB(0x1022, 0x1487, 0x1462, 0xcb59) }, /* MSI TRX40 Creator */
-+	{ PCI_DEVICE_SUB(0x1022, 0x1487, 0x1462, 0xcb60) }, /* MSI TRX40 */
- 	{}
- };
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index f1febfc47ba60..4493427f324e4 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -2232,7 +2232,9 @@ static int generic_hdmi_build_controls(struct hda_codec *codec)
  
-@@ -2064,7 +2065,7 @@ static int azx_probe(struct pci_dev *pci,
- 	bool schedule_probe;
- 	int err;
+ 	for (pin_idx = 0; pin_idx < spec->num_pins; pin_idx++) {
+ 		struct hdmi_spec_per_pin *per_pin = get_pin(spec, pin_idx);
++		struct hdmi_eld *pin_eld = &per_pin->sink_eld;
  
--	if (snd_pci_quirk_lookup(pci, driver_blacklist)) {
-+	if (pci_match_id(driver_blacklist, pci)) {
- 		dev_info(&pci->dev, "Skipping the blacklisted device\n");
- 		return -ENODEV;
++		pin_eld->eld_valid = false;
+ 		hdmi_present_sense(per_pin, 0);
  	}
+ 
 -- 
 2.20.1
 

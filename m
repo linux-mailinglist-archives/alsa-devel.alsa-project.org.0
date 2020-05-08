@@ -2,90 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16CCA1CB1A8
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 May 2020 16:23:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1ABA1CB24E
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 May 2020 16:52:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B5261861;
-	Fri,  8 May 2020 16:22:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B5261861
+	by alsa0.perex.cz (Postfix) with ESMTPS id 932671694;
+	Fri,  8 May 2020 16:51:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 932671694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588947806;
-	bh=q7BFc7khny71hhq3GM3vWfbL0yPeBXM2+3dXhEGhZdE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1588949532;
+	bh=wrVoMXITvCB52FY9wn1E/4JkYJp/a6J+1YCmq/DRliE=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Me/kK9AppwlAAWdSyFpIBhh2tUKIZkDqyZOJcX5PUzKN+69XEwSPyfmQoaERhjiaJ
-	 RR7X9SO2RojNnCs/OEQCv8etF8Is/3w4VIwwpgRQwqQ8SNiHL3ouE2XGp/ojU/UNqx
-	 Zh3eV3jXLhqqTH3xLC+/XTqvkMMijmvw94dpQ44c=
+	b=NFICJT5zBOQUH+kR/f3goP4mcChq946OKnYEH1GXqcyQZbTyRYdRmeJO5WfKHJzo+
+	 pBPeWjWKtSxDVz0GgTBfV2Dp06GzzvQRdBJrf0byt9VWiQcmQoPxfVWxykeuZPwkFa
+	 f/K+usl8KfJcwDmSVIbS/yDBZ0zL+iwHNwgy2pU8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AFA7BF800AD;
-	Fri,  8 May 2020 16:21:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C7255F8023E;
+	Fri,  8 May 2020 16:50:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7C7CCF8023E; Fri,  8 May 2020 16:21:42 +0200 (CEST)
+ id BB32BF80249; Fri,  8 May 2020 16:50:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
- version=3.4.0
-Received: from mail-il1-x142.google.com (mail-il1-x142.google.com
- [IPv6:2607:f8b0:4864:20::142])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_13,SPF_HELO_PASS,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 288EBF800AD
- for <alsa-devel@alsa-project.org>; Fri,  8 May 2020 16:21:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 288EBF800AD
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="fpYauYeq"
-Received: by mail-il1-x142.google.com with SMTP id e8so1539369ilm.7
- for <alsa-devel@alsa-project.org>; Fri, 08 May 2020 07:21:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Sa2y3Vsz+nSSLviY6v0J1Z5uZej9gf62ErMnBZQNmgc=;
- b=fpYauYeqMsxG1c9KBx3mvZ4WY30g6xzonh5CRRzMyitgtYpfvVnXYFRt/SWssct/dB
- yZ7Nzzf7rskACjYW76Bl+hRNV3VmMiln/EvuuTiuSmBh/60gm67z/o9EHfb6BPvE3EEl
- sUFhvV4JJncAKrYPCOzxVgRyD0oElBcch572SAJNF1TV6sm6g9yOA4/p0+C4KTTYVw8v
- hceyf6qy5SCv43536lzHTkKkGfEbkmQdmxf894Cp1rgpsb58FSSmbHKVJEhyVuyszDy+
- GHCflZiqx69Uvgp37gJAQ4oS8FpR0FD8dJ33wWc+YlpWPiMpl7PvdfvlInLYqsOd2CAY
- MVAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Sa2y3Vsz+nSSLviY6v0J1Z5uZej9gf62ErMnBZQNmgc=;
- b=ke8h15tRpdLI/mDXfL+UUrstWFYGySpcpTWKWCfYAsRTPKUTCtiiO5cCbpCm59teNk
- 0rK/QSNcaxo63uPlemTh0v7rzsmXe0eR+WIFNbTyoSmJRbP1ftYehuqgnKj9BLLJOHnG
- h8MwMsC6J030mwxCY8MKLZJExuV6Fn1nARb/ClEeserrODQIUalEaG2bJAxss53/QWoV
- hCvr9W6xRQ2VQuxLS1ZKUwoVgYRlmbJghb/VHM2B65S/cMsERsq5gmwBlLHq5X6ysxXk
- t08TmPHX9wcWu1WsX5zN5wM9UV99V9HurlojRePAojnz1YEL5A3zVdzUffBqCPNMibgV
- agNQ==
-X-Gm-Message-State: AGi0Pubq/9txDwq4PwJj+R8xa9EuJ26pnETIUfxvbIqD3yqlNpie45T8
- 97Iu20nwUeZBgnf+LujNdqN3okiG9t+n+5z7i2UDng==
-X-Google-Smtp-Source: APiQypK68Y7JBW5h/XyV80owNQq+vD5J11YiWs5xFaln8HLPwuTdMvXcZnWkZdNUdfERvAr7jiy3rcNpoDx0AqYX/hI=
-X-Received: by 2002:a92:1d4e:: with SMTP id d75mr3111178ild.235.1588947692733; 
- Fri, 08 May 2020 07:21:32 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8BE2DF80234
+ for <alsa-devel@alsa-project.org>; Fri,  8 May 2020 16:50:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BE2DF80234
+IronPort-SDR: DYnoC/GYmEXW6kiOqtvyFIq1bUt3zOlGCB51nq/fjjEpNdhDft8Hs0oEz3a4ph1FzH0WGP6dnb
+ XW2buaxgXlJA==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 May 2020 07:50:17 -0700
+IronPort-SDR: XN15M4RZFAHyjTWmo7AtUbiSDyZx81DyK5bKtQiRsCXpzx/sNnNOgIdU1OG0jfg4rvR24YVvk2
+ JtBq1K2Ceo0g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,367,1583222400"; d="scan'208";a="462307831"
+Received: from cstrong-mobl6.amr.corp.intel.com (HELO [10.254.74.61])
+ ([10.254.74.61])
+ by fmsmga005.fm.intel.com with ESMTP; 08 May 2020 07:50:16 -0700
+Subject: Re: [PATCH] ASoC: Intel: Boards: Support headset button function for
+ nau88l25max and nau88l25ssm
+To: Radoslaw Biernacki <rad@semihalf.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+References: <20200507220332.24686-1-rad@semihalf.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <39aed974-ee2c-a0e7-9228-304cce275289@linux.intel.com>
+Date: Fri, 8 May 2020 09:45:41 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-References: <20200507213405.1869430-1-arnd@arndb.de>
-In-Reply-To: <20200507213405.1869430-1-arnd@arndb.de>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Fri, 8 May 2020 22:21:21 +0800
-Message-ID: <CA+Px+wWPi7bNWm9UaO3K8Lt9n-XxPjVGAD2N9XQYq6KM5DCqRg@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: cros_ec_codec: allocate shash_desc dynamically
-To: Arnd Bergmann <arnd@arndb.de>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Guenter Roeck <groeck@chromium.org>, Mark Brown <broonie@kernel.org>,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Benson Leung <bleung@chromium.org>, Yu-Hsuan Hsu <yuhsuan@chromium.org>,
- Cheng-Yi Chiang <cychiang@chromium.org>
+In-Reply-To: <20200507220332.24686-1-rad@semihalf.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Chinyue Chen <chinyue@chromium.org>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Ben Zhang <benzh@chromium.org>,
+ Marcin Wojtas <mw@semihalf.com>, Benson Leung <bleung@chromium.org>,
+ Alex Levin <levinale@google.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,9 +86,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, May 8, 2020 at 5:34 AM Arnd Bergmann <arnd@arndb.de> wrote:
-> Fixes: b6bc07d4360d ("ASoC: cros_ec_codec: support WoV")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-Reviewed-by: Tzung-Bi Shih <tzungbi@google.com>
 
-LGTM.  Thanks for the fix.
+
+On 5/7/20 5:03 PM, Radoslaw Biernacki wrote:
+> Map the buttons from the Android reference headset to
+> KEY_PLAYPAUSE, KEY_VOICECOMMAND, KEY_VOLUMEUP, and KEY_VOLUMEDOWN.
+> KEY_PLAYPAUSE is used instead of KEY_MEDIA for BTN_0 as it is more
+> logical and have much broader userspace support. Like Chrome OS
+> use it to play/pause of video and audio. KEY_PLAYPAUSE is also
+> supported by Android (USB headset spec requires KEY_PLAYPAUSE
+> for BTN_0.)
+> https://source.android.com/devices/accessories/headset/usb-headset-spec
+> 
+> Signed-off-by: Chinyue Chen <chinyue@chromium.org>
+> Signed-off-by: Benson Leung <bleung@chromium.org>
+> Signed-off-by: Radoslaw Biernacki <rad@semihalf.com>
+
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>

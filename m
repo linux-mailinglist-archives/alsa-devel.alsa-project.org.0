@@ -2,94 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 391641CA25C
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 May 2020 06:42:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2D821CA254
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 May 2020 06:39:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E10391839;
-	Fri,  8 May 2020 06:41:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E10391839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 48BFE1813;
+	Fri,  8 May 2020 06:38:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48BFE1813
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588912963;
-	bh=MbRlY5GwIrZ1jGso6H+LWS31icLDJsdyQfmqQg5X27Y=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=cXvYk1YVqzsxhvzGNUw+E36wb3040i4S20JT8e2y+5I9JDOmL/wCYYmgMTjcDvoL1
-	 wT4IqRdwmUDy2LIW5eZwV2CeiovfQifVbin1SVYBrwUXhknJNa+hDT1UrCHAG139Xu
-	 UFSbCucP9DNdlzclEy/QjPmMpwxLR7gCq6bGv/V8=
+	s=default; t=1588912779;
+	bh=tTwUP+oNI8qEM30IAWQV4xCKRHdAwAJ1Bfpx8Iujh5M=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=mLJq1/WziQqzGyKShWF6YgZZcPW0T7hsV29OjTOn8jboXVgL9yQvImwPymg+yX5Es
+	 +YgNjQlkJv5ikjnTDRXeown1pVRnRiW+nsT0d+FXGtrSe+3D0cssKTQTbdKT0djmLH
+	 w1CGN81/A9zOslP2dCBYAPoaeJ61wlbptBW6LmwA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D5FE5F802E2;
-	Fri,  8 May 2020 06:37:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD016F80253;
+	Fri,  8 May 2020 06:37:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 20B80F802A2; Fri,  8 May 2020 06:37:05 +0200 (CEST)
+ id 5C2B4F8029B; Fri,  8 May 2020 06:36:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
  [64.147.123.20])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C5AC6F800E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id C8082F80234
  for <alsa-devel@alsa-project.org>; Fri,  8 May 2020 06:36:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5AC6F800E7
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8082F80234
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="z0Ct10FL"; 
+ header.b="x4HkNO6s"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="g9cwiAJa"
+ header.i=@messagingengine.com header.b="aeqakyPb"
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.west.internal (Postfix) with ESMTP id C7787ACC;
+ by mailout.west.internal (Postfix) with ESMTP id F1B1FAD1;
  Fri,  8 May 2020 00:36:39 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
  by compute2.internal (MEProxy); Fri, 08 May 2020 00:36:40 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm1; bh=DtA2gpTxRLjF9J5mCLsDviUbnk
- pDPgT919YwbFtV6ws=; b=z0Ct10FLaL77FqodD2sf9m0aXPXI1EaxZ6AJ7s4pfB
- Vd12lCSuOk3OR/uALD0PjRCpMUAwoxLV5fwfIKqdsedk4bfg7RjyhW9DJuClQAQJ
- LilizuwDaAnxC+Gh3dKy5GfqWcDDFh2xiRquGWrRnsnRLAKrUUdrord+j6lOGU4q
- fpAM4b84eq11EIoZRaJDOdQH1B/C4oZUR56SMfhE69Uyr6mfa163yGqord9aODqI
- NPjuP6uTZQ7RG7tqTR/p1Yr/P/mD8k+qsYWo8mjJbs2u/JXNNSVV55XOT+Fre5sM
- niJsmfrI1r+rngGq8uQpqVQom7RwuUrgmXGIBoNKjnmQ==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=fm1; bh=uyTTTCuEZksc/
+ f8Yik1bj3I3cUjckh478A7A0tLZt04=; b=x4HkNO6sMOYZjF3mk3NhvJdnaFyhA
+ +ilVgyhz64upW0UaoS257zQCs7ooAeV3trLF7Pb+DM4hDIGiTETISDkwDKsGsCC3
+ IXERt5BxOcG5Rd9ZgWLYj6JqdxsLqCZK+w++3i/rrYaUexbCNHmekraQDGup1Maq
+ k2K88z0a7YpGVrmtZPhrqyH7gordBj4vTvMAiuAnpA9VJKKup+xyKP9Tx4Hm6rpc
+ eq4qE9/gFFzBSv0LgObse6MOarRGNq6IOOq2EHMtRedcMcUdj459/NcbYqWcfQnT
+ CsJLfw4332JEiJM3QibX2LmjH3VkmDBOZC/4q1/sCqLPtC47g7PafRDjw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=DtA2gpTxRLjF9J5mC
- LsDviUbnkpDPgT919YwbFtV6ws=; b=g9cwiAJaKBXDB7lj4tZaGoAWFS9lICpDn
- uM6aV8Mn7Bh8Rm6Zr98UmqxF6wuBPoe2uThg4hTBvuTrYhH9/AtVRydxRyAFEoLM
- Grs9jFhJbp1BSL/rG7x5GnVbZp/kFZwGVCYRl8T6O2/7zyOiWDGZORGiU2y1jt0d
- oxeI/JpdU5QvFOIPsD2xE9vUjniccd9ALYp9ctOrkRk5HOtg7gulVWmzmIEIlbJ7
- Sk1i6gTU0dUrkE4PmyQ2l9ePpCr6bdyACBr+ho1KSob6ucb00U2zC5TaQUz94UsW
- i3FFEWTFszI1/4dhBGKNeN/QPVwC19JLgASwsI0jdUOoltDLi324A==
-X-ME-Sender: <xms:1uG0XnZJEPN68xnh14SunPWtBV9E1imzf8C7K4TRiIgT5BFkAHbgsQ>
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm2; bh=uyTTTCuEZksc/f8Yik1bj3I3cUjckh478A7A0tLZt04=; b=aeqakyPb
+ 8i5B9lLTbJ8EeGVoMiEqnxnnOhcmOYgSEnKzMx7SLVVVhdAbxE3HbM+r6SfKdUhm
+ tCDoXmx4s0LHsWTzGvJuOIXA3DD9Rb/qdt5PW51j8d+UVo/p7FgGOU6wxVfSzzaH
+ eka7Bfdgrl5UzOLpmTUO/hH5sBI2pa+Kgyuv0qTe/3q6R+Lq79vBGB6ZZs17eBsV
+ +x6g7Zfp9BrZtjIF7z/RPfByoReK3zbqN2cA8iQRjEUR4WvNSUYRCL/hKM0rs7oS
+ V0M3rFAI3mncY7lVeXnju6e5FHRs0+SjjSlD2Ut9s32QkcpvLl0nEJ2Q58oujxOp
+ Js2hxbx4Sg/BPg==
+X-ME-Sender: <xms:1-G0XjxL6ZifXF5b3IIK0DFNA0lbfpU_lmrcz9eJTnPHrsYGYVSZOQ>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrkedugdekvdcutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertdertd
- dtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhi
- sehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpedujeetlefhtddtke
- fgtdeuieelhffgteejjeehkeegveduvdevgeeiheeuueekjeenucfkphepudektddrvdef
- hedrfedrheegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrh
- homhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:1uG0XppTNWEni0sLk-dnXLn-3CAWhpOi5kRBrskHG7snPogJKUeKCg>
- <xmx:1uG0XjZ4k9OqgXHHu6Jovj2Gf5DLyUp0EaznbMU4Vu5Pc424tQfl0g>
- <xmx:1uG0XpQu9KOZNyOwg8qRMI3yrm5soUxy8DISzPRa2tezkpFo3trHzQ>
- <xmx:1-G0Xj0-Z3EzmUpsTPaImMpOVB0IUuiYSElXrUJkDuX1TP69TEBftA>
+ uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertd
+ ertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
+ hhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpeevfefffeekte
+ fgveegfeelheffhfeujedtjeevtefhkeevkedtjeejvddtjefhjeenucfkphepudektddr
+ vdefhedrfedrheegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
+ hfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:1-G0XrcjZpw0jvjaBD2atbpflH0EjHmsqGV9NNfbOeSHjCbbKNoEcA>
+ <xmx:1-G0XrqttpdfPqpZcuxzeaE0NC5wQ266iv9NkGWJcGqmdGj0z7-Tlg>
+ <xmx:1-G0XrRjL0xz6R9j5V0ZLHelRPkU_HuCwGkE2VsCP4IwQ4Es57TIVw>
+ <xmx:1-G0XhJI-ggAKH75rBr-cr50N06w5FIRjQK4rliRwwclC-6NzuMPgQ>
 Received: from workstation.flets-east.jp (ad003054.dynamic.ppp.asahi-net.or.jp
  [180.235.3.54])
- by mail.messagingengine.com (Postfix) with ESMTPA id 884D9328005E;
- Fri,  8 May 2020 00:36:37 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id A170E3280063;
+ Fri,  8 May 2020 00:36:38 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Subject: [PATCH 00/10] ALSA: firewire-lib: pool sequence of syt offset and
- data blocks in AMDTP domain structure
-Date: Fri,  8 May 2020 13:36:25 +0900
-Message-Id: <20200508043635.349339-1-o-takashi@sakamocchi.jp>
+Subject: [PATCH 01/10] ALSA: firewire-lib: fix invalid assignment to union
+ data for directional parameter
+Date: Fri,  8 May 2020 13:36:26 +0900
+Message-Id: <20200508043635.349339-2-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200508043635.349339-1-o-takashi@sakamocchi.jp>
+References: <20200508043635.349339-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: alsa-devel@alsa-project.org
@@ -108,44 +113,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Although the value of FDF is used just for outgoing stream, the assignment
+to union member is done for both directions of stream. At present this
+causes no issue because the value of same position is reassigned later for
+opposite stream. However, it's better to add if statement.
 
-In current implementation, the packets for outgoing AMDTP streams are
-processed by per-stream calculation of syt offset and the number of data
-blocks per packet.
+Fixes: d3d10a4a1b19 ("ALSA: firewire-lib: use union for directional parameters")
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ sound/firewire/amdtp-am824.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-This patchset is a preparation for future extension that the packets for
-outgoing AMDTP streams are processed according to the result of 'sampling
-clock recovery' in IEC 61883-6:2005 from selected incoming AMDTP stream.
-The preparation is to process packets for outgoing AMDTP streams by pool
-in AMDTP domain structure for the sequence of syt offset and the number
-of data blocks. The way to generate sequence is still the same as the
-current implementation, which generates by ideal sampling transmission
-frequency against IEEE 1394 bus clock.
-
-Takashi Sakamoto (10):
-  ALSA: firewire-lib: fix invalid assignment to union data for
-    directional parameter
-  ALSA: firewire-lib: use macro for maximum value of second in 1394 OHCI
-    isoc descriptor
-  ALSA: firewire-lib: add reference to domain structure from stream
-    structure
-  ALSA: firewire-lib: code refactoring for parameters of packet queue
-    and IRQ timing
-  ALSA: firewire-lib: code refactoring for syt computation
-  ALSA: firewire-lib: code refactoring for syt offset calculation
-  ALSA: firewire-lib: code refactoring for data block calculation
-  ALSA: firewire-lib: add cache for packet sequence to AMDTP domain
-    structure
-  ALSA: firewire-lib: pool ideal sequence of syt offset and data block
-  ALSA: firewire-lib: use sequence of syt offset and data block on pool
-    in AMDTP domain
-
- sound/firewire/amdtp-am824.c  |   3 +-
- sound/firewire/amdtp-stream.c | 326 ++++++++++++++++++++--------------
- sound/firewire/amdtp-stream.h |  20 ++-
- 3 files changed, 209 insertions(+), 140 deletions(-)
-
+diff --git a/sound/firewire/amdtp-am824.c b/sound/firewire/amdtp-am824.c
+index 67d735e9a6a4..fea92e148790 100644
+--- a/sound/firewire/amdtp-am824.c
++++ b/sound/firewire/amdtp-am824.c
+@@ -82,7 +82,8 @@ int amdtp_am824_set_parameters(struct amdtp_stream *s, unsigned int rate,
+ 	if (err < 0)
+ 		return err;
+ 
+-	s->ctx_data.rx.fdf = AMDTP_FDF_AM824 | s->sfc;
++	if (s->direction == AMDTP_OUT_STREAM)
++		s->ctx_data.rx.fdf = AMDTP_FDF_AM824 | s->sfc;
+ 
+ 	p->pcm_channels = pcm_channels;
+ 	p->midi_ports = midi_ports;
 -- 
 2.25.1
 

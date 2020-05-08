@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09F051CA5CC
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 May 2020 10:12:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 248F81CA5D1
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 May 2020 10:16:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 844971850;
-	Fri,  8 May 2020 10:12:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 844971850
+	by alsa0.perex.cz (Postfix) with ESMTPS id C68AA17BA;
+	Fri,  8 May 2020 10:15:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C68AA17BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1588925573;
-	bh=Ax4gOsSUmQ3LfnqBIG0e4MzRT9Dcv+qD5APm5u68qms=;
+	s=default; t=1588925783;
+	bh=qpNlytDCVn5uNL5HK5jEjtDPEY8Q4Yxis3aEGsc+TBc=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=j7OIlPyCEpMOlgFJpy9ToUB+pcLnUIrOIoC1kOApv975hrh0qjEpy30t2RoX6WkDt
-	 y17RzY+Fp1mQATVVVc/ziZKqEUihum6hYH1VHQ+wRscXUWxzOitUbC+A6D7hpPf84c
-	 PznztvqIPZN1b8luDTX+rN7WwrWLy8hfVmXG5onY=
+	b=Yr3D8IhX+6l+2PBLQRbSPc6rpPotPlDJFVMqOFKclcMycP2NyvyAHagDt0UqaaDVZ
+	 deyxbUhL7omCSKOEXZj1o+q7bjEUJhh91BpdYeGlHGg6St8Ax6Kx68ViR7HbIE3ouR
+	 abF9GtR+fLcfmcEiTER9QoVdiCFMl6/zQpft9CkY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9EC31F8023E;
-	Fri,  8 May 2020 10:11:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A139F80234;
+	Fri,  8 May 2020 10:14:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A91E7F8023E; Fri,  8 May 2020 10:11:09 +0200 (CEST)
+ id 63511F8023E; Fri,  8 May 2020 10:14:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: **
 X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id E67EBF800F6
- for <alsa-devel@alsa-project.org>; Fri,  8 May 2020 10:11:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E67EBF800F6
+ by alsa1.perex.cz (Postfix) with ESMTP id C9FBFF800E7
+ for <alsa-devel@alsa-project.org>; Fri,  8 May 2020 10:14:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9FBFF800E7
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1588925461132916927-webhooks-bot@alsa-project.org>
-References: <1588925461132916927-webhooks-bot@alsa-project.org>
+In-Reply-To: <1588925673549724102-webhooks-bot@alsa-project.org>
+References: <1588925673549724102-webhooks-bot@alsa-project.org>
 Subject: crackling microphone
-Message-Id: <20200508081109.A91E7F8023E@alsa1.perex.cz>
-Date: Fri,  8 May 2020 10:11:09 +0200 (CEST)
+Message-Id: <20200508081439.63511F8023E@alsa1.perex.cz>
+Date: Fri,  8 May 2020 10:14:39 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,7 +59,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-plugins issue #10 was opened from riddicc:
+alsa-project/alsa-plugins issue #10 was edited from riddicc:
 
 Hi!
 
@@ -74,7 +74,7 @@ twinkle makes even bigger gaps, when I let it use pcm.micend as microphone...
 But with hw:Generic,0,0 as mic device twinkle works fine...
 https://github.com/LubosD/twinkle/issues/207
 
-"samplerate_best" and "samplerate_order" sees to make it worse...
+"samplerate_best" and "samplerate_order" seems to make it worse...
 
 How can I fix that?
 

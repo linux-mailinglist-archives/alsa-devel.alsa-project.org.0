@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00E7A1CD180
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 May 2020 08:00:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F3C81CD181
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 May 2020 08:00:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AAAE686E;
-	Mon, 11 May 2020 07:59:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAAE686E
+	by alsa0.perex.cz (Postfix) with ESMTPS id E422D886;
+	Mon, 11 May 2020 07:59:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E422D886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589176812;
-	bh=nYJjJXvjfERVpcWWt9AAjG3hd2Vw/2wDpweiNRm1p5I=;
+	s=default; t=1589176832;
+	bh=YB5Iim2XpEeBDF/P6/4Rh2xiOIvseNdxti6SVGdAc3I=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bWNnKBzAvwkH3U/XLdCNDDXc538fn94331wrxaXq8+8gItU/ROu3HeVl5yrIcC3aC
-	 t3IGDiRgX1p0lMz6ILp49M1X8nAUxU1Xpeuvk6ELEySElqK2XjPnO6HxTjLblifRLA
-	 bNyFqXuSd9w8TFJjT2Juf0ZdHs/DpP/P0at2dR8Y=
+	b=Ga4hKaMpyndqATg9rlSkWeWJK8pzCXrIscmf+s4/lD5RnpfoFE6dV9C7VYdtlw6Xi
+	 hJQG9qhIM7ST2eqmVlP2hxtktHFWmrZmZKGipFQvLIUNNHAQKdz/n2LvatZw5D6X3j
+	 oNHLtYd3FSY6mxOKP6ACZzNVDvNcgvgwzn7VuCAM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15398F802A1;
-	Mon, 11 May 2020 07:57:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37B0EF802A0;
+	Mon, 11 May 2020 07:57:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AF4A7F8029B; Mon, 11 May 2020 07:57:02 +0200 (CEST)
+ id B30C0F802A7; Mon, 11 May 2020 07:57:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id EB175F80291
- for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 07:56:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB175F80291
-Date: 11 May 2020 14:56:54 +0900
-X-IronPort-AV: E=Sophos;i="5.73,378,1583161200"; d="scan'208";a="46743730"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 11 May 2020 14:56:54 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id A5E64F80299
+ for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 07:56:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5E64F80299
+Date: 11 May 2020 14:56:59 +0900
+X-IronPort-AV: E=Sophos;i="5.73,378,1583161200"; d="scan'208";a="46743735"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 11 May 2020 14:56:59 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id B34084196E5C;
- Mon, 11 May 2020 14:56:54 +0900 (JST)
-Message-ID: <87zhaf815l.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 2F02D4007F55;
+ Mon, 11 May 2020 14:56:59 +0900 (JST)
+Message-ID: <87y2pz815g.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 04/17] ASoC: atomel: use snd_soc_dai/component_activity()
+Subject: [PATCH 05/17] ASoC: bcm: use snd_soc_dai/component_activity()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <875zd39frp.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,31 +72,63 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/atmel/atmel_ssc_dai.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/bcm/bcm2835-i2s.c | 6 +++---
+ sound/soc/bcm/cygnus-ssp.c  | 4 ++--
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/atmel/atmel_ssc_dai.c b/sound/soc/atmel/atmel_ssc_dai.c
-index 1073f468f21f..eecf1a71f1e2 100644
---- a/sound/soc/atmel/atmel_ssc_dai.c
-+++ b/sound/soc/atmel/atmel_ssc_dai.c
-@@ -765,7 +765,7 @@ static int atmel_ssc_suspend(struct snd_soc_component *component)
- 	struct atmel_ssc_info *ssc_p;
- 	struct platform_device *pdev = to_platform_device(component->dev);
+diff --git a/sound/soc/bcm/bcm2835-i2s.c b/sound/soc/bcm/bcm2835-i2s.c
+index e6a12e271b07..b30d77ba1671 100644
+--- a/sound/soc/bcm/bcm2835-i2s.c
++++ b/sound/soc/bcm/bcm2835-i2s.c
+@@ -653,7 +653,7 @@ static void bcm2835_i2s_stop(struct bcm2835_i2s_dev *dev,
+ 			BCM2835_I2S_CS_A_REG, mask, 0);
  
--	if (!component->active)
-+	if (!snd_soc_component_activity(component))
+ 	/* Stop also the clock when not SND_SOC_DAIFMT_CONT */
+-	if (!dai->active && !(dev->fmt & SND_SOC_DAIFMT_CONT))
++	if (!snd_soc_dai_activity(dai) && !(dev->fmt & SND_SOC_DAIFMT_CONT))
+ 		bcm2835_i2s_stop_clock(dev);
+ }
+ 
+@@ -695,7 +695,7 @@ static int bcm2835_i2s_startup(struct snd_pcm_substream *substream,
+ {
+ 	struct bcm2835_i2s_dev *dev = snd_soc_dai_get_drvdata(dai);
+ 
+-	if (dai->active)
++	if (snd_soc_dai_activity(dai))
  		return 0;
  
- 	ssc_p = &ssc_info[pdev->id];
-@@ -793,7 +793,7 @@ static int atmel_ssc_resume(struct snd_soc_component *component)
- 	struct platform_device *pdev = to_platform_device(component->dev);
- 	u32 cr;
+ 	/* Should this still be running stop it */
+@@ -723,7 +723,7 @@ static void bcm2835_i2s_shutdown(struct snd_pcm_substream *substream,
+ 	bcm2835_i2s_stop(dev, substream, dai);
  
--	if (!component->active)
-+	if (!snd_soc_component_activity(component))
+ 	/* If both streams are stopped, disable module and clock */
+-	if (dai->active)
++	if (snd_soc_dai_activity(dai))
+ 		return;
+ 
+ 	/* Disable the module */
+diff --git a/sound/soc/bcm/cygnus-ssp.c b/sound/soc/bcm/cygnus-ssp.c
+index 257f5048061e..2251b9f46803 100644
+--- a/sound/soc/bcm/cygnus-ssp.c
++++ b/sound/soc/bcm/cygnus-ssp.c
+@@ -1056,7 +1056,7 @@ static int __cygnus_ssp_suspend(struct snd_soc_dai *cpu_dai)
+ {
+ 	struct cygnus_aio_port *aio = cygnus_dai_get_portinfo(cpu_dai);
+ 
+-	if (!cpu_dai->active)
++	if (!snd_soc_dai_activity(cpu_dai))
  		return 0;
  
- 	ssc_p = &ssc_info[pdev->id];
+ 	if (!aio->is_slave) {
+@@ -1097,7 +1097,7 @@ static int __cygnus_ssp_resume(struct snd_soc_dai *cpu_dai)
+ 	struct cygnus_aio_port *aio = cygnus_dai_get_portinfo(cpu_dai);
+ 	int error;
+ 
+-	if (!cpu_dai->active)
++	if (!snd_soc_dai_activity(cpu_dai))
+ 		return 0;
+ 
+ 	if (!aio->is_slave) {
 -- 
 2.17.1
 

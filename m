@@ -2,59 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FEC11CE9FD
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 May 2020 03:09:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E0E51CEA08
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 May 2020 03:14:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD25E1664;
-	Tue, 12 May 2020 03:08:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD25E1664
+	by alsa0.perex.cz (Postfix) with ESMTPS id C121C1615;
+	Tue, 12 May 2020 03:13:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C121C1615
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589245754;
-	bh=DxxpdMl79VYbx+SgaOMiVE7IDgspORmyROAZzQwFhVs=;
+	s=default; t=1589246054;
+	bh=Z/TcNKEa/6NcIaZq/U4IeraE28alwIBzAINMxlTm1hE=;
 	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=n0ilmkH9LlsUA0KU0sWgs+qCdZ8DhHEg17fY9wiAYdsrYYQ3I2bPFM3BxSK3dY+9D
-	 KFbCmMW2//dNpVt4lcVYfX4kkqkYgjuDWScKvIoDLW9qUwKouvOKwaLZcmAi6Bk0Nx
-	 YhlNQKPNqWgrXu9eFUJsKaCO+wizO5bxprWCSTUg=
+	b=oRf7mH4aPpy26LakSwSu6bkQVZUY6lY2RHFfQxN6/ArQl5xUJtkYN7g5qy2ytDUHB
+	 clqqXe3qZTYmGDooV9aBJsdkhJO7nZroLSRz/OpySfPbzKUU3bKkF7+4GKT+t8GdkE
+	 W5lGjNCMqXL48bLAL2aVek6B6SNaffLSmD0gDlBc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C462DF802A7;
-	Tue, 12 May 2020 00:38:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C91F3F802C4;
+	Tue, 12 May 2020 00:42:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9F638F802A2; Tue, 12 May 2020 00:38:11 +0200 (CEST)
+ id DF342F802DB; Tue, 12 May 2020 00:42:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 631CEF80299
- for <alsa-devel@alsa-project.org>; Tue, 12 May 2020 00:38:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 631CEF80299
-IronPort-SDR: o2F7zg3cKB/XgLtajoRwzyICTGBdz6M5lFNYikZWOvlnmyFAQR5nmpO2UPQ/2kiD7zHtJhANlK
- XAPQTkcSZfhw==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4CAEFF802C4
+ for <alsa-devel@alsa-project.org>; Tue, 12 May 2020 00:42:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CAEFF802C4
+IronPort-SDR: ZbRo9fLKFIvZRre4GWOsP1YaT3LW9gU+aYkSbMWBirXFUZH10y/TPhXIHB8EAC6n6klpDsyAhg
+ UD5eHrysAS2g==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2020 15:37:59 -0700
-IronPort-SDR: geL5zwfkE4JqI1eI48r4KVBrmBOqKv6SrGjWvqfwO1KrR7YxuNrxkJzTbDRbeoA3IgmW75sDDu
- YH16frUvhBXg==
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 May 2020 15:42:48 -0700
+IronPort-SDR: Semr7xDKJaeLTFp2AMVnyxcmV69e7biQ7dXaxkuU7uSBw/32lRc8+/lTlJPkIKfrpmx6lQ2Jxz
+ AxiJTpquCm6g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,381,1583222400"; d="scan'208";a="463329359"
+X-IronPort-AV: E=Sophos;i="5.73,381,1583222400"; d="scan'208";a="252718118"
 Received: from ajgalle-mobl.amr.corp.intel.com ([10.254.179.28])
- by fmsmga005.fm.intel.com with ESMTP; 11 May 2020 15:37:58 -0700
-Message-ID: <eaa4bd3a140ccfd150953bfd46615fb8de967387.camel@linux.intel.com>
+ by fmsmga008.fm.intel.com with ESMTP; 11 May 2020 15:42:48 -0700
+Message-ID: <8c0e4cc5f7e63e1cd379c3a39f6721ee0cf4c06a.camel@linux.intel.com>
 Subject: Re: [PATCH 01/17] ASoC: soc-dai: add snd_soc_dai_activity()
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown
  <broonie@kernel.org>
-Date: Mon, 11 May 2020 15:37:58 -0700
+Date: Mon, 11 May 2020 15:42:47 -0700
 In-Reply-To: <874ksn9fqf.wl-kuninori.morimoto.gx@renesas.com>
 References: <875zd39frp.wl-kuninori.morimoto.gx@renesas.com>
  <874ksn9fqf.wl-kuninori.morimoto.gx@renesas.com>
@@ -131,8 +132,26 @@ On Mon, 2020-05-11 at 14:56 +0900, Kuninori Morimoto wrote:
 >  EXPORT_SYMBOL_GPL(snd_soc_dai_digital_mute);
 >  
 > +int snd_soc_dai_activity(struct snd_soc_dai *dai)
-I think snd_soc_dai_active() is a better name than activity.
+> +{
+> +	int stream, active;
+> +
+> +	active = 0;
+> +	for_each_pcm_streams(stream)
+> +		active += dai->stream_active[stream];
+Morimoto-san,
+
+snd_soc_dai has both stream_active and active. In this function, you're
+checking stream_active. Do you think, snd_soc_dai_stream_usage_count()
+makes for a better name?
 
 Thanks,
 Ranjani
+> +
+> +	return active;
+> +}
+> +EXPORT_SYMBOL_GPL(snd_soc_dai_activity);
+> +
+>  int snd_soc_dai_hw_params(struct snd_soc_dai *dai,
+>  			  struct snd_pcm_substream *substream,
+>  			  struct snd_pcm_hw_params *params)
 

@@ -2,83 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24F571CD5A5
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 May 2020 11:47:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA0361CD5DA
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 May 2020 12:06:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6DAFC15F9;
-	Mon, 11 May 2020 11:47:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DAFC15F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 347011654;
+	Mon, 11 May 2020 12:05:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 347011654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589190470;
-	bh=BXs7FJ9C1BI9Kt+P8Lko43T/0KI0eBkcVF4mZ1PgP5Y=;
+	s=default; t=1589191579;
+	bh=66xRIyAxt0rW52Yz/ExCPgLlqTP8C6fNrSUCrv7y3+k=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=JOYhNSOLuZJfK2+L7l+gOJF61CmURsHTXkSljVq/rj6bbDffQgZ3YHsZsNz6OKxdQ
-	 f6lxaaPjnyNktoatM6VP3Tyk3f74lQ7G82Kx0STE02r4Ynmz3h9GTrnkcp5f5A4enK
-	 Zf/19FpQ18DLWY0fZZN4RVVPZUlr7KYaPr0gnUdk=
+	b=hMvPegNQkNXwZM5NhQlPWyeZJ8XM8CWnMmcE4D54onEpUUIvc3AiqbLL/k/Z1v9vz
+	 hDNe/Lh43QS/um2MO+1OSGyLEbQuH2kkDdX9WVlTzBGECUNF1dpVYW3T0OF3/5eyAS
+	 QV941RdmCF+3StSd89Ibrhz1kGfzXXVCDyVV5DAM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3FD01F80107;
-	Mon, 11 May 2020 11:46:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C223F80157;
+	Mon, 11 May 2020 12:04:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AD388F80157; Mon, 11 May 2020 11:46:06 +0200 (CEST)
+ id 94629F80157; Mon, 11 May 2020 12:04:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
  SPF_PASS, URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com
- [IPv6:2607:f8b0:4864:20::1043])
+Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
+ [IPv6:2607:f8b0:4864:20::441])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1ECE9F80107
- for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 11:45:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1ECE9F80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3FE2AF80107
+ for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 12:04:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FE2AF80107
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="VVK7xaej"
-Received: by mail-pj1-x1043.google.com with SMTP id mq3so7601783pjb.1
- for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 02:45:59 -0700 (PDT)
+ header.b="aV4EhMc7"
+Received: by mail-pf1-x441.google.com with SMTP id z1so4531895pfn.3
+ for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 03:04:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=vcK4SfwbcLr+s8byI3BvwLALcx36TKx0SQI4h58vtQ0=;
- b=VVK7xaej2/0RPV3c4V4ArF7OVCfQ4fH9AkRwZhFkkBH+6+glMD4+/ZXpzVGLto+KqP
- ablwhPYEpXojQgHEixGyehvIvKOPCi89nHLe5TjtBlPtR0Qh2jSwLD5r0ukFeAJAI2Tn
- Q6igwr0nIKhx9hIiw/3ixpR/+r5RBE2S0G0V/KHUCyx0d9/Od1kxu6HpwPv3hJJgvg6D
- YHNgbgQvea0pvEf4nUaF6IpSe6pttQB3c4DsNF1a5Nx54y7XmZKBPQF0biYL1y4ugoQr
- Vv9D8FexwQAQ77uVRuMyW+Se8iCoTQw4kwdJ01T6We8WyR2Sn3qoQEYIRixnfM2v74XW
- 7NTA==
+ bh=Y6HT+D8qGn5FQvMIC1CwK3hsMFH61xpFNDbWjTu3VMM=;
+ b=aV4EhMc7Ex2nZyKOnKYis3JOGkQ6hJ7bimcFJGgcCvzYbateTJvRhV4bM62Qr4EMvp
+ ffy+ofog7ncjWMiELxAu0sp8ACiCD/oLCH9ApDT9RBmsrH5UEmpq74gwRlKIXHq/mVI3
+ bSfxDTmiMhCSBFMv+lLqFpWgAnsbY6/i6xiUKZs3K4KTuObwrnBxvwpNinH8Ae1CuCbY
+ Gv18Nz/cdjraGtTLUKi/md6SQqAP5wsXjoeLb3ZTmwGPSIFRUnPKPODLopLwioUdCKit
+ KscshjVaP1MYFXpBcIz/wXtS0ezMw5Z00cZrXUqgxpIUve0NclYB1sT+GRASla6dL+8u
+ w9OA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=vcK4SfwbcLr+s8byI3BvwLALcx36TKx0SQI4h58vtQ0=;
- b=FNiLb58rQPeU0Fx/jwpfpQp0qn+ZZOaG4uwGQqFJy2pmaKBDng4j3TMi0p/brDYNNJ
- MRvLdlZ8qjAqaq8+LTWOu+PWYhr+oO+gOEY7fgbOzqti3FOguAYRZBy0j3/+HDY+yOrL
- 31bkdhlaPAD+mRSD/fGtgi++0rBVLzbr4LUblZpwhmHrC2+U2pLN+4HykfE7ntO4cBfX
- AXVq4fhlVbl8oj5UOJNFCEIfwz7eO3u5mN8V3vVHf9umP8lSTnNs+6MHKP3Iq7W7mKuS
- EfLhu++OJumEyVkAbOi5bci1gpsrn/aHuhZeJwnysynPyigUhuBodoCLarRaB1A/1gUf
- aJNg==
-X-Gm-Message-State: AGi0Pua7KppDVLH4m5s5T91e3hTmykArw8lnl3e7i915IP9nvTxf8+rk
- 3U0vHcOQJqgISAvcB6/vOF0//WNi
-X-Google-Smtp-Source: APiQypLAsE8fvF5iJDqhY9NuQzwixWxZrqAfTfhheqUAorPs61gCHf4xVs9ll7wFXFHfN+38W/ZlAQ==
-X-Received: by 2002:a17:90a:c293:: with SMTP id
- f19mr19714450pjt.96.1589190357257; 
- Mon, 11 May 2020 02:45:57 -0700 (PDT)
+ bh=Y6HT+D8qGn5FQvMIC1CwK3hsMFH61xpFNDbWjTu3VMM=;
+ b=YT0oFSSrIbdgONpsK8YyAeSK3myWrsV7uw4WK2e752na/fg54CUhnGzL9r9Et3vDUU
+ LwhrKTlbilH/Gr9t42MJiPKja8Lju9PxzqvutAkBlIPSpQKC/JNnsk/xiFPUMz7AjyhM
+ pK/bkzCIHDJ5aP9SC/6nX+KTKdN/tA9vQZHOFu20dM+r83CUZq59H64UsXaY81cfXqxl
+ 6dcXnd2yQgX3NejTQBzxqYCGqs3MhBS1UFg/YdFEZpUBwJsl/Nz/WNHyNhKBZRnv3bQR
+ cWuvx6lBYvc/HlO94ykeYBetLursBTY3qfNuGQN4umNiNx4Kh7dmkY+vLS8YAcGonCdg
+ p24w==
+X-Gm-Message-State: AGi0PuZWcvHvczy7sZxPdGAcOQfNj8J/O6LTcUXyR8OpFn7cyTB9UwWn
+ g5/Xrx4zHmtQNJmzjh/wjD8=
+X-Google-Smtp-Source: APiQypJRT688lN+LkhYtMoC8Y+XZooe5DzxiOdeQOKkorCqUrZivoS4hIBDf/JO62tX33ylrqZDiGQ==
+X-Received: by 2002:a63:dd51:: with SMTP id g17mr12657061pgj.2.1589191466154; 
+ Mon, 11 May 2020 03:04:26 -0700 (PDT)
 Received: from localhost.localdomain ([124.156.210.110])
- by smtp.gmail.com with ESMTPSA id i3sm623798pfe.44.2020.05.11.02.45.53
+ by smtp.gmail.com with ESMTPSA id s136sm9015319pfc.29.2020.05.11.03.04.22
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 11 May 2020 02:45:56 -0700 (PDT)
+ Mon, 11 May 2020 03:04:25 -0700 (PDT)
 From: Yongbo Zhang <giraffesnn123@gmail.com>
 To: broonie@kernel.org,
 	lgirdwood@gmail.com
 Subject: [PATCH v1] ASoC: rsnd: add interrupt support for SSI BUSIF buffer
-Date: Mon, 11 May 2020 17:45:20 +0800
-Message-Id: <20200511094520.4648-1-giraffesnn123@gmail.com>
+Date: Mon, 11 May 2020 18:04:15 +0800
+Message-Id: <20200511100415.12502-1-giraffesnn123@gmail.com>
 X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -110,6 +109,9 @@ Reported-by: Chen Li <licheng0822@thundersoft.com>
 Signed-off-by: Yongbo Zhang <giraffesnn123@gmail.com>
 Tested-by: Chen Li <licheng0822@thundersoft.com>
 Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+
+Changes since v0 (thanks for the feedback Morimoto):
+- Replace the value of a register variable
 ---
  sound/soc/sh/rcar/gen.c  |   8 +++
  sound/soc/sh/rcar/rsnd.h |   9 +++

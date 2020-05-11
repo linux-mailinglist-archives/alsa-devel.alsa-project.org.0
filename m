@@ -2,88 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79C001CD8B4
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 May 2020 13:43:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1428E1CDB2A
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 May 2020 15:27:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 200EA1607;
-	Mon, 11 May 2020 13:42:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 200EA1607
+	by alsa0.perex.cz (Postfix) with ESMTPS id A39AF1612;
+	Mon, 11 May 2020 15:26:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A39AF1612
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589197388;
-	bh=qVA+9DJ79+6bkSsk8R/e1V4bMq1lEKRjniVj/AiExgc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=TIuo4dLNIsWiI0Q4hV6xMwQXITfRe+4rgt7OawKDJdmkGQiZDjBOZkTMFkjIj6av1
-	 GLEnHSbqIegDzgybQq7sTTWfAqesV16XpZKNoaAcq/iv5sgxLYB5+uAcT2J0LuvajR
-	 lb56bXC7p1IsgczcGzuAVxL1Ex+aKuk0DorJ2aMk=
+	s=default; t=1589203660;
+	bh=5KSnyFMDYBLMBK8a+N2ZS9MXpTzBZtGAIOmDLjzfsGU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=B6gAgXC+MG0mjdpMMSd/Ua7cR4UvsaGcO/wWRLSGyjFEV0S3zcEwnZ9tK0ZI5UBbb
+	 M0boHn+qGkjaYRqKqsZfpGy1p82BXgHQGJthZcn3SFU/2f9Hexfs2FTENAPXpislsd
+	 8HSlzeLNr7WUwOUw+5SBzPXxfa5NfzdlTcpZJuVo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3ABA9F801F2;
-	Mon, 11 May 2020 13:41:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6E9BF8027D;
+	Mon, 11 May 2020 15:25:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4842AF80157; Mon, 11 May 2020 13:41:24 +0200 (CEST)
+ id AF487F80107; Mon, 11 May 2020 15:25:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 38727F80107
- for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 13:41:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38727F80107
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="x7dILyMr"
-Received: from localhost (unknown [122.167.117.121])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0B16420708;
- Mon, 11 May 2020 11:41:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589197274;
- bh=qVA+9DJ79+6bkSsk8R/e1V4bMq1lEKRjniVj/AiExgc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=x7dILyMr6XdHySREvLDzpe5C5AhgDfkT6/IMWHn2goMLLn6acGj+pM7k7VtP6x9wZ
- 77xc7BrxSSdZVjRgeXF/VDqfoKD3OJm0qYs8Pk6e7juqTbh3aZLFziSplI0QZ/GYLc
- ihYC1C3Ls3rqC5Vnqc8S5a+qrhBv1/9gn6Dpo3q8=
-Date: Mon, 11 May 2020 17:11:08 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: "Liao, Bard" <bard.liao@intel.com>
-Subject: Re: [PATCH 3/3] soundwire: bus_type: add sdw_master_device support
-Message-ID: <20200511114108.GU1375924@vkoul-mobl>
-References: <20200429185145.12891-1-yung-chuan.liao@linux.intel.com>
- <20200429185145.12891-4-yung-chuan.liao@linux.intel.com>
- <20200511063227.GS1375924@vkoul-mobl>
- <DM6PR11MB40748EA6346831A67BD218C7FFA10@DM6PR11MB4074.namprd11.prod.outlook.com>
- <20200511090003.GT1375924@vkoul-mobl>
- <DM6PR11MB407432225D0DA6E671DBAF67FFA10@DM6PR11MB4074.namprd11.prod.outlook.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C1906F80107
+ for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 15:25:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1906F80107
+Received: from [127.0.0.1] (localhost [127.0.0.1]) (Authenticated sender: sre)
+ with ESMTPSA id A82692A13E8
+Received: by jupiter.universe (Postfix, from userid 1000)
+ id D7B7D480100; Mon, 11 May 2020 15:25:45 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Support Opensource <support.opensource@diasemi.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Subject: [PATCHv3 0/5] ASoC: da7213: support for usage with simple-card
+Date: Mon, 11 May 2020 15:25:39 +0200
+Message-Id: <20200511132544.82364-1-sebastian.reichel@collabora.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <DM6PR11MB407432225D0DA6E671DBAF67FFA10@DM6PR11MB4074.namprd11.prod.outlook.com>
-Cc: "pierre-louis.bossart@linux.intel.com"
- <pierre-louis.bossart@linux.intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "tiwai@suse.de" <tiwai@suse.de>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
- "hui.wang@canonical.com" <hui.wang@canonical.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "srinivas.kandagatla@linaro.org" <srinivas.kandagatla@linaro.org>,
- "jank@cadence.com" <jank@cadence.com>, "Lin,
- Mengdong" <mengdong.lin@intel.com>, "Blauciak,
- Slawomir" <slawomir.blauciak@intel.com>, "Kale,
- Sanyog R" <sanyog.r.kale@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- "rander.wang@linux.intel.com" <rander.wang@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>,
+ Adam Thomson <Adam.Thomson.Opensource@diasemi.com>, kernel@collabora.com,
+ Sebastian Reichel <sebastian.reichel@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,96 +68,92 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 11-05-20, 11:34, Liao, Bard wrote:
-> 
-> 
-> > -----Original Message-----
-> > From: Vinod Koul <vkoul@kernel.org>
-> > Sent: Monday, May 11, 2020 5:00 PM
-> > To: Liao, Bard <bard.liao@intel.com>
-> > Cc: Bard Liao <yung-chuan.liao@linux.intel.com>; alsa-devel@alsa-project.org;
-> > linux-kernel@vger.kernel.org; tiwai@suse.de; broonie@kernel.org;
-> > gregkh@linuxfoundation.org; jank@cadence.com;
-> > srinivas.kandagatla@linaro.org; rander.wang@linux.intel.com;
-> > ranjani.sridharan@linux.intel.com; hui.wang@canonical.com; pierre-
-> > louis.bossart@linux.intel.com; Kale, Sanyog R <sanyog.r.kale@intel.com>;
-> > Blauciak, Slawomir <slawomir.blauciak@intel.com>; Lin, Mengdong
-> > <mengdong.lin@intel.com>
-> > Subject: Re: [PATCH 3/3] soundwire: bus_type: add sdw_master_device support
-> > 
-> > On 11-05-20, 08:04, Liao, Bard wrote:
-> > > > -----Original Message-----
-> > > > From: Vinod Koul <vkoul@kernel.org>
-> > > > Sent: Monday, May 11, 2020 2:32 PM
-> > > > To: Bard Liao <yung-chuan.liao@linux.intel.com>
-> > > > Cc: alsa-devel@alsa-project.org; linux-kernel@vger.kernel.org;
-> > > > tiwai@suse.de; broonie@kernel.org; gregkh@linuxfoundation.org;
-> > > > jank@cadence.com; srinivas.kandagatla@linaro.org;
-> > > > rander.wang@linux.intel.com; ranjani.sridharan@linux.intel.com;
-> > > > hui.wang@canonical.com; pierre- louis.bossart@linux.intel.com; Kale,
-> > > > Sanyog R <sanyog.r.kale@intel.com>; Blauciak, Slawomir
-> > > > <slawomir.blauciak@intel.com>; Lin, Mengdong
-> > > > <mengdong.lin@intel.com>; Liao, Bard <bard.liao@intel.com>
-> > > > Subject: Re: [PATCH 3/3] soundwire: bus_type: add sdw_master_device
-> > > > support
-> > > >
-> > > > On 30-04-20, 02:51, Bard Liao wrote:
-> > > > > @@ -24,9 +24,14 @@ int sdw_bus_master_add(struct sdw_bus *bus,
-> > > > > struct
-> > > > device *parent,
-> > > > >  	struct sdw_master_prop *prop = NULL;
-> > > > >  	int ret;
-> > > > >
-> > > > > -	if (!bus->dev) {
-> > > > > -		pr_err("SoundWire bus has no device\n");
-> > > > > -		return -ENODEV;
-> > > >
-> > > > This check is removed and not moved into sdw_master_device_add()
-> > > > either, can you add here or in patch 1 and keep checking the parent
-> > > > device please
-> > >
-> > > We will set bus->dev = &md->dev in the end of sdw_master_device_add().
-> > 
-> > We need to test if this is valid or not :)
-> > 
-> > > That's why we remove the test. But now I am wandering does it make
-> > > sense to set bus->dev = &md->dev? Maybe it makes more sense to set
-> > > bus->dev = sdw control device.
-> > > A follow up question is that should slave device a child of bus device
-> > > or master device? I would prefer bus device if it makes sense.
-> > > I will check bus->dev and parent and remove bus->dev = &md->dev in the
-> > > next version.
-> > 
-> > the parent is bus->dev and sdw_master_device created would be child of this
-> > and should be set as such. You can remove it from bus object and keep in
-> > sdw_master_device object, that is fine by me.
-> 
-> Looks like we don't need the parent and fwnode parameter since we can
-> get them from bus->dev 😊
+Hi,
 
-Quite right
+This extends the da7213 driver to be used with simple-audio-card in
+combination with a fixed clock. Here is a snippet of the downstream
+board's DT, that is supposed to be supported by this patchset.
 
-> > The sdw_slave is child of sdw_master_device now and looks to be set correct.
-> 
-> So, it will be
-> bus device
->     -> master device
->          -> slave device
-> right?
+---------------------------------------------------------------------
+/ {
+	sound {
+		compatible = "simple-audio-card";
+		simple-audio-card,name = "audio-card";
+		simple-audio-card,format = "i2s";
+		simple-audio-card,bitclock-master = <&dailink_master>;
+		simple-audio-card,frame-master = <&dailink_master>;
 
-yes
+		simple-audio-card,widgets = "Speaker", "Ext Spk";
+		simple-audio-card,audio-routing = "Ext Spk", "LINE";
 
-> 
-> I have a question here. We have pm supported on bus and slave devices,
-> but not master device. Will pm work with this architecture?
-> Can it be
-> bus device
->     -> master device & slave device?
+		simple-audio-card,cpu {
+			sound-dai = <&ssi1>;
+		};
 
-yes it would and you should check it out. The pm (runtime_pm) works well
-with child devices and parents, so we need to ensure that parents are
-set properly.
+		dailink_master: simple-audio-card,codec {
+			sound-dai = <&codec>;
+		};
+	};
 
-Thanks
+
+	clk_ext_audio_codec: clock-codec {
+		compatible = "fixed-clock";
+		#clock-cells = <0>;
+		clock-frequency = <12288000>;
+	};
+};
+
+&i2c1 {
+	codec: audio-codec@1a {
+		compatible = "dlg,da7212";
+		reg = <0x1a>;
+		#sound-dai-cells = <0>;
+		VDDA-supply = <&reg_2v5_audio>;
+		VDDSP-supply = <&reg_5v0_audio>;
+		VDDMIC-supply = <&reg_3v3_audio>;
+		VDDIO-supply = <&reg_3v3_audio>;
+		clocks = <&clk_ext_audio_codec>;
+		clock-names = "mclk";
+	};
+};
+---------------------------------------------------------------------
+
+This is mostly a resend of PATCHv2. There was quite a bit of discussion
+for the last patch. As far as I can see no better solution was found and
+the patch is fine as is. Sorry for the delay in sending another revision.
+
+Changes since PATCHv2:
+ * https://lore.kernel.org/alsa-devel/20191120152406.2744-1-sebastian.reichel@collabora.com/
+ * dropped patch converting DA7213 into selectable Kconfig option (merged)
+ * fix compatible string in patch 1 (DT binding) as pointed out by Adam Thomson
+ * collected Reviewed-by from Adam Thomson for patch 2-4
+
+Changes since PATCHv1:
+ * https://lore.kernel.org/alsa-devel/20191108174843.11227-1-sebastian.reichel@collabora.com/
+ * add patch adding da7212 compatible to DT bindings
+ * update regulator patch, so that VDDA is enabled together with VDDIO
+   while the device is enabled to avoid device reset
+ * update clock patch, so that automatic PLL handling is not enabled
+   when PLL is configured manually
+ * update clock patch, so that automatic PLL is disabled when the device
+   is suspended
+ * update clock patch, so that automatic PLL is configured into bypass
+   mode when possible
+
+-- Sebastian
+
+Sebastian Reichel (5):
+  ASoC: da7213: Add da7212 DT compatible
+  ASoC: da7213: Add regulator support
+  ASoC: da7213: move set_sysclk to codec level
+  ASoC: da7213: move set_pll to codec level
+  ASoC: da7213: add default clock handling
+
+ .../devicetree/bindings/sound/da7213.txt      |   8 +-
+ sound/soc/codecs/da7213.c                     | 172 ++++++++++++++++--
+ sound/soc/codecs/da7213.h                     |  11 ++
+ 3 files changed, 175 insertions(+), 16 deletions(-)
+
 -- 
-~Vinod
+2.26.2
+

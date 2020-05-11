@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D41DC1CDB35
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 May 2020 15:30:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2910F1CDB2E
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 May 2020 15:29:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 804F21662;
-	Mon, 11 May 2020 15:29:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 804F21662
+	by alsa0.perex.cz (Postfix) with ESMTPS id C67421662;
+	Mon, 11 May 2020 15:28:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C67421662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589203825;
-	bh=jLpmSvklUD2HfWotAuyKot2fnueUuh5VbINc3AfA1Eg=;
+	s=default; t=1589203763;
+	bh=f1D0Z9klPWaWOzx83bi+5cfojfJjMnrLE5TaweyoZOs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dWrutUkyEOwUmUjFY0Nij28buksUc6qxEGKuOoCYtG7dTif4jRgA5VK/AFO9rcZdo
-	 dM0/ICKdK/6NAuglAGmWYiz6g7W2goKgcBNH2rQmajxatFcZPHLs3nMl71Kgp/XEBb
-	 SGRQ0UBPpXTu/o/w8ytQCqbfwkVGFNUwkwdvdoYI=
+	b=ZIW/lfoLqnOqrAM81eoikkXu+2WJRHsTpgrSYdjo8lux8PqoNqoSlLmiCG+EN2lvj
+	 4WeGiUVRPEMuApoKROnv0vklTJ6wECZx0ff0RbDglnYRzBJjdLwqdMuhNvyBT6AvOy
+	 XKtBAc8nx5Tusicx3VcjfeMH5FwfVl2jVz2M03bQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6BD0AF802BE;
-	Mon, 11 May 2020 15:26:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3315F802A7;
+	Mon, 11 May 2020 15:26:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E6BE7F800E3; Mon, 11 May 2020 15:26:01 +0200 (CEST)
+ id 81797F80292; Mon, 11 May 2020 15:26:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
@@ -33,19 +33,19 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 25789F80254
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25170F80157
  for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 15:25:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25789F80254
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25170F80157
 Received: from [127.0.0.1] (localhost [127.0.0.1]) (Authenticated sender: sre)
- with ESMTPSA id E39392A15EF
+ with ESMTPSA id 184F72A1629
 Received: by jupiter.universe (Postfix, from userid 1000)
- id E472C480104; Mon, 11 May 2020 15:25:45 +0200 (CEST)
+ id E7BA7480105; Mon, 11 May 2020 15:25:45 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 To: Support Opensource <support.opensource@diasemi.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Subject: [PATCHv3 4/5] ASoC: da7213: move set_pll to codec level
-Date: Mon, 11 May 2020 15:25:43 +0200
-Message-Id: <20200511132544.82364-5-sebastian.reichel@collabora.com>
+Subject: [PATCHv3 5/5] ASoC: da7213: add default clock handling
+Date: Mon, 11 May 2020 15:25:44 +0200
+Message-Id: <20200511132544.82364-6-sebastian.reichel@collabora.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200511132544.82364-1-sebastian.reichel@collabora.com>
 References: <20200511132544.82364-1-sebastian.reichel@collabora.com>
@@ -70,49 +70,204 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Move set_pll function to component level, so that it can be used at
-both component and DAI level.
+This adds default clock/PLL configuration to the driver
+for usage with generic drivers like simple-card for usage
+with a fixed rate clock.
 
-Reviewed-by: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- sound/soc/codecs/da7213.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ sound/soc/codecs/da7213.c | 76 ++++++++++++++++++++++++++++++++++++---
+ sound/soc/codecs/da7213.h |  2 ++
+ 2 files changed, 73 insertions(+), 5 deletions(-)
 
 diff --git a/sound/soc/codecs/da7213.c b/sound/soc/codecs/da7213.c
-index 9686948b16ea..3e6ad996741b 100644
+index 3e6ad996741b..4a0edd3b7f83 100644
 --- a/sound/soc/codecs/da7213.c
 +++ b/sound/soc/codecs/da7213.c
-@@ -1392,10 +1392,10 @@ static int da7213_set_component_sysclk(struct snd_soc_component *component,
+@@ -1156,6 +1156,7 @@ static int da7213_hw_params(struct snd_pcm_substream *substream,
+ 			    struct snd_soc_dai *dai)
+ {
+ 	struct snd_soc_component *component = dai->component;
++	struct da7213_priv *da7213 = snd_soc_component_get_drvdata(component);
+ 	u8 dai_ctrl = 0;
+ 	u8 fs;
+ 
+@@ -1181,33 +1182,43 @@ static int da7213_hw_params(struct snd_pcm_substream *substream,
+ 	switch (params_rate(params)) {
+ 	case 8000:
+ 		fs = DA7213_SR_8000;
++		da7213->out_rate = DA7213_PLL_FREQ_OUT_98304000;
+ 		break;
+ 	case 11025:
+ 		fs = DA7213_SR_11025;
++		da7213->out_rate = DA7213_PLL_FREQ_OUT_90316800;
+ 		break;
+ 	case 12000:
+ 		fs = DA7213_SR_12000;
++		da7213->out_rate = DA7213_PLL_FREQ_OUT_98304000;
+ 		break;
+ 	case 16000:
+ 		fs = DA7213_SR_16000;
++		da7213->out_rate = DA7213_PLL_FREQ_OUT_98304000;
+ 		break;
+ 	case 22050:
+ 		fs = DA7213_SR_22050;
++		da7213->out_rate = DA7213_PLL_FREQ_OUT_90316800;
+ 		break;
+ 	case 32000:
+ 		fs = DA7213_SR_32000;
++		da7213->out_rate = DA7213_PLL_FREQ_OUT_98304000;
+ 		break;
+ 	case 44100:
+ 		fs = DA7213_SR_44100;
++		da7213->out_rate = DA7213_PLL_FREQ_OUT_90316800;
+ 		break;
+ 	case 48000:
+ 		fs = DA7213_SR_48000;
++		da7213->out_rate = DA7213_PLL_FREQ_OUT_98304000;
+ 		break;
+ 	case 88200:
+ 		fs = DA7213_SR_88200;
++		da7213->out_rate = DA7213_PLL_FREQ_OUT_90316800;
+ 		break;
+ 	case 96000:
+ 		fs = DA7213_SR_96000;
++		da7213->out_rate = DA7213_PLL_FREQ_OUT_98304000;
+ 		break;
+ 	default:
+ 		return -EINVAL;
+@@ -1392,9 +1403,9 @@ static int da7213_set_component_sysclk(struct snd_soc_component *component,
  }
  
  /* Supported PLL input frequencies are 32KHz, 5MHz - 54MHz. */
--static int da7213_set_dai_pll(struct snd_soc_dai *codec_dai, int pll_id,
--			      int source, unsigned int fref, unsigned int fout)
+-static int da7213_set_component_pll(struct snd_soc_component *component,
+-				    int pll_id, int source,
+-				    unsigned int fref, unsigned int fout)
++static int _da7213_set_component_pll(struct snd_soc_component *component,
++				     int pll_id, int source,
++				     unsigned int fref, unsigned int fout)
+ {
+ 	struct da7213_priv *da7213 = snd_soc_component_get_drvdata(component);
+ 
+@@ -1503,6 +1514,16 @@ static int da7213_set_component_pll(struct snd_soc_component *component,
+ 	return 0;
+ }
+ 
 +static int da7213_set_component_pll(struct snd_soc_component *component,
 +				    int pll_id, int source,
 +				    unsigned int fref, unsigned int fout)
- {
--	struct snd_soc_component *component = codec_dai->component;
- 	struct da7213_priv *da7213 = snd_soc_component_get_drvdata(component);
- 
- 	u8 pll_ctrl, indiv_bits, indiv;
-@@ -1507,7 +1507,6 @@ static int da7213_set_dai_pll(struct snd_soc_dai *codec_dai, int pll_id,
++{
++	struct da7213_priv *da7213 = snd_soc_component_get_drvdata(component);
++	da7213->fixed_clk_auto_pll = false;
++
++	return _da7213_set_component_pll(component, pll_id, source, fref, fout);
++}
++
+ /* DAI operations */
  static const struct snd_soc_dai_ops da7213_dai_ops = {
  	.hw_params	= da7213_hw_params,
- 	.set_fmt	= da7213_set_dai_fmt,
--	.set_pll	= da7213_set_dai_pll,
- 	.digital_mute	= da7213_mute,
+@@ -1532,6 +1553,43 @@ static struct snd_soc_dai_driver da7213_dai = {
+ 	.symmetric_rates = 1,
  };
  
-@@ -1845,6 +1844,7 @@ static const struct snd_soc_component_driver soc_component_dev_da7213 = {
- 	.dapm_routes		= da7213_audio_map,
- 	.num_dapm_routes	= ARRAY_SIZE(da7213_audio_map),
- 	.set_sysclk		= da7213_set_component_sysclk,
-+	.set_pll		= da7213_set_component_pll,
- 	.idle_bias_on		= 1,
- 	.use_pmdown_time	= 1,
- 	.endianness		= 1,
++static int da7213_set_auto_pll(struct snd_soc_component *component, bool enable)
++{
++	struct da7213_priv *da7213 = snd_soc_component_get_drvdata(component);
++	int mode;
++
++	if (!da7213->fixed_clk_auto_pll)
++		return 0;
++
++	da7213->mclk_rate = clk_get_rate(da7213->mclk);
++
++	if (enable)
++		mode = DA7213_SYSCLK_PLL;
++	else
++		mode = DA7213_SYSCLK_MCLK;
++
++	switch (da7213->out_rate) {
++	case DA7213_PLL_FREQ_OUT_90316800:
++		if (da7213->mclk_rate == 11289600 ||
++		    da7213->mclk_rate == 22579200 ||
++		    da7213->mclk_rate == 45158400)
++			mode = DA7213_SYSCLK_MCLK;
++		break;
++	case DA7213_PLL_FREQ_OUT_98304000:
++		if (da7213->mclk_rate == 12288000 ||
++		    da7213->mclk_rate == 24576000 ||
++		    da7213->mclk_rate == 49152000)
++			mode = DA7213_SYSCLK_MCLK;
++
++		break;
++	default:
++		return -1;
++	}
++
++	return _da7213_set_component_pll(component, 0, mode,
++					 da7213->mclk_rate, da7213->out_rate);
++}
++
+ static int da7213_set_bias_level(struct snd_soc_component *component,
+ 				 enum snd_soc_bias_level level)
+ {
+@@ -1551,6 +1609,8 @@ static int da7213_set_bias_level(struct snd_soc_component *component,
+ 						"Failed to enable mclk\n");
+ 					return ret;
+ 				}
++
++				da7213_set_auto_pll(component, true);
+ 			}
+ 		}
+ 		break;
+@@ -1562,8 +1622,10 @@ static int da7213_set_bias_level(struct snd_soc_component *component,
+ 					    DA7213_VMID_EN | DA7213_BIAS_EN);
+ 		} else {
+ 			/* Remove MCLK */
+-			if (da7213->mclk)
++			if (da7213->mclk) {
++				da7213_set_auto_pll(component, false);
+ 				clk_disable_unprepare(da7213->mclk);
++			}
+ 		}
+ 		break;
+ 	case SND_SOC_BIAS_OFF:
+@@ -1693,7 +1755,6 @@ static struct da7213_platform_data
+ 	return pdata;
+ }
+ 
+-
+ static int da7213_probe(struct snd_soc_component *component)
+ {
+ 	struct da7213_priv *da7213 = snd_soc_component_get_drvdata(component);
+@@ -1829,6 +1890,11 @@ static int da7213_probe(struct snd_soc_component *component)
+ 			return PTR_ERR(da7213->mclk);
+ 		else
+ 			da7213->mclk = NULL;
++	} else {
++		/* Do automatic PLL handling assuming fixed clock until
++		 * set_pll() has been called. This makes the codec usable
++		 * with the simple-audio-card driver. */
++		da7213->fixed_clk_auto_pll = true;
+ 	}
+ 
+ 	return 0;
+diff --git a/sound/soc/codecs/da7213.h b/sound/soc/codecs/da7213.h
+index 3890829dfb6e..97ccf0ddd2be 100644
+--- a/sound/soc/codecs/da7213.h
++++ b/sound/soc/codecs/da7213.h
+@@ -535,10 +535,12 @@ struct da7213_priv {
+ 	struct regulator_bulk_data supplies[DA7213_NUM_SUPPLIES];
+ 	struct clk *mclk;
+ 	unsigned int mclk_rate;
++	unsigned int out_rate;
+ 	int clk_src;
+ 	bool master;
+ 	bool alc_calib_auto;
+ 	bool alc_en;
++	bool fixed_clk_auto_pll;
+ 	struct da7213_platform_data *pdata;
+ };
+ 
 -- 
 2.26.2
 

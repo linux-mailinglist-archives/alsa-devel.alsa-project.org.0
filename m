@@ -2,83 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41ECC1CE7DF
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 May 2020 00:00:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2F961CE9FA
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 May 2020 03:08:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C34691614;
-	Mon, 11 May 2020 23:59:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C34691614
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4D03A1655;
+	Tue, 12 May 2020 03:07:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D03A1655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589234433;
-	bh=gmEJmAAKb7NfmazgVlK0v6PRA8Af0GstNhHuJvVCAbE=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=U74bbd0vncu3AU6PVJaZhR+E8sPjJlgy4yeiF/ssQzuJ9Ny7btDxQnA5Ti/haFIi4
-	 7uSzeEEuKmrAI96gXIcZyIG3veOTAXpKdo/1VP0oT7g7rlKBMne9kOuRlFq+AlGmxN
-	 drhHXWRqr8DOWigKBzJn+BJq9vsbkkmn20PSGDgA=
+	s=default; t=1589245714;
+	bh=PIpK/m6MHqp35xcHk6gTQLjNyzx+pajofjvxkVXj8I8=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=IbZKGwBoqeTk2XAUgf26054BhqCCJN3Z3I97Et00WzeKE3eEs1gn8n+D4BRlrOx2u
+	 F2L9WrKCVTEBtNEwqx9yjR/xtstxuwPHtHSEHLzEqMyrBkyE+tfa977htgnpep22zX
+	 rcObUbVzbKMVRx3pp2yDBFt90McFfuUuiRW0DJ+s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CFC6AF800E3;
-	Mon, 11 May 2020 23:58:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B0DCF8022D;
+	Tue, 12 May 2020 00:37:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 98E09F800E3; Mon, 11 May 2020 23:58:50 +0200 (CEST)
+ id F08D3F8027D; Tue, 12 May 2020 00:37:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6BE77F800E3
- for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 23:58:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BE77F800E3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gateworks-com.20150623.gappssmtp.com
- header.i=@gateworks-com.20150623.gappssmtp.com header.b="ZQGkawJ+"
-Received: by mail-oi1-x229.google.com with SMTP id c12so15503986oic.1
- for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 14:58:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gateworks-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=eEUSptk1GatKrb0a1iAqXIYXFqLE7lyAa5MT51v2rEE=;
- b=ZQGkawJ+jCjW6LAc5nZbI2Hr3u1bb0evG0HJ+xnqivYPVBTS4Qs9vVa8/SVlYqXeFX
- /wZzus1KOuKPCfftdhrQe5RMrWDs+oO6dLwHYRWGu44xkbtmuC4S6Oe9bYPfv9Kp0QV9
- cYkeIasfgyUoIn7khMCr70L70Un6oAt6SA0gDCSOim2TPjF7Q1u+3ZCt5i4wD7CATncI
- zulryfGTq4OqZDjsg+gyl2HuN+M/hKtQwNOaFiyIYM9zepVH99T8rfD3ok7Jefr0E5R8
- CT9DnSftCl01LMIL10nW5EH2WhxMuZKHMbpfK+anGB3Ha7KZ/SpRCHm6ndyDrx1qmTJN
- /ISA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=eEUSptk1GatKrb0a1iAqXIYXFqLE7lyAa5MT51v2rEE=;
- b=Ik6LaWjtNVXyRHj8Ve3QhvOnTjSOzjGPcfUbUBsPhpKE0fwwPDXBODhGDvgZrTsdDc
- GcRGBjPxj2Lcrbss8i/+hrrznZ/ZJIem0KetPw/6aWh8FHDxVTsWIJtQ11XFuuBO52iR
- dP09tAkbLUVMJsoermnLLRvx8FQ/MdIISLLlzC2YuSg2Y1AYHIusvOetlP7zmIH/CSvs
- eq6jfcULdtGzqWes0YBTe0ToAAIzE0rxlAg3D14mdcBFGTZ+FB7RsKaxEcMpHRStdldj
- sxDoSEM8IaGPH2IHRU9YuH6xD7aZZpFulKAf6pSOV9P7QD1C7B9zafY1MxhqdRzklHtR
- cxKA==
-X-Gm-Message-State: AGi0PubTgKtDW8OFi1dWvSulWhr5htFbrtv3UoEQJSRw1cthF7BoQqnj
- UFu6W/7g+1iLeBRnKqtYj7Va/MViLL4xsV4CypWaTw==
-X-Google-Smtp-Source: APiQypKBmcPK3Tp+dq6iwzDU5unntOJmkUm5O97uAC3f7qE2HTD5E2iFWazH8ubwfBYVgDux3eDNzQFv4SyyWP0VK6M=
-X-Received: by 2002:aca:4f09:: with SMTP id d9mr22211179oib.172.1589234315608; 
- Mon, 11 May 2020 14:58:35 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id CE96AF8022D
+ for <alsa-devel@alsa-project.org>; Tue, 12 May 2020 00:37:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE96AF8022D
+IronPort-SDR: stvGxck6sG8Qq4qQcE2gcuj8wPBq7sYB+fYinSgfG9QorvC6qs9b8l5NUpkB4idyJkBJJ+qPY/
+ nsEtf+WQbcJA==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 May 2020 15:37:44 -0700
+IronPort-SDR: MFmjZQYDIjRfgpqbGvXERom4jAnx7w529KtW0ZGWI6v9ScsgpwtNqjJ1uJ0QbqHs9avsQjI8oO
+ 5FUJLwlvMR/A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,381,1583222400"; d="scan'208";a="252717103"
+Received: from xshi16-mobl2.amr.corp.intel.com (HELO [10.254.96.249])
+ ([10.254.96.249])
+ by fmsmga008.fm.intel.com with ESMTP; 11 May 2020 15:37:44 -0700
+Subject: Re: [PATCH v2 08/14] ASoC: amd: add ACP PDM DMA driver dai ops
+To: Alex Deucher <alexdeucher@gmail.com>, alsa-devel@alsa-project.org,
+ broonie@kernel.org, vijendar.mukunda@amd.com, tiwai@suse.de
+References: <20200511212014.2359225-1-alexander.deucher@amd.com>
+ <20200511212014.2359225-9-alexander.deucher@amd.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <3c1a08a0-31e8-dc0c-a903-190861b7fa11@linux.intel.com>
+Date: Mon, 11 May 2020 17:12:18 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-From: Tim Harvey <tharvey@gateworks.com>
-Date: Mon, 11 May 2020 14:58:24 -0700
-Message-ID: <CAJ+vNU3ekA76nXE7UV+kxA1DtbSMiRCnhTOy6RwixOrj1AoJug@mail.gmail.com>
-Subject: imx8mm fsl_sai clock config failing
-To: Timur Tabi <timur@kernel.org>, Nicolin Chen <nicoleotsuka@gmail.com>, 
- Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>, 
- Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- NXP Linux Team <linux-imx@nxp.com>, Peng Fan <peng.fan@nxp.com>,
- Anson Huang <Anson.Huang@nxp.com>, Abel Vesa <abel.vesa@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+In-Reply-To: <20200511212014.2359225-9-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Alex Deucher <alexander.deucher@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,164 +81,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Greetings,
 
-I'm trying to get imx8mm sai working with a tlv320aic3x codec on a new
-board and am finding that the sai3 bus clock is getting derived from
-the wrong source leading hw_params() to fail with 'fsl-sai
-30030000.sai: failed to derive required Tx rate: 3072000'
 
-In comparison to the imx8mm-evk I find it's clock gets configured as
-desired yet I have the same device-tree configuration for sai3.
 
-Here is my board's dts:
-/ {
-...
-        sound {
-                compatible = "simple-audio-card";
-                simple-audio-card,name = "tlv320-audio";
-                simple-audio-card,format = "i2s";
-                simple-audio-card,frame-master = <&cpudai>;
-                simple-audio-card,bitclock-master = <&cpudai>;
-                simple-audio-card,widgets =
-                        "Line", "Left Line Out Jack",
-                        "Line", "Right Line Out Jack";
-                simple-audio-card,routing =
-                        "Left Line Out Jack", "LLOUT",
-                        "Right Line Out Jack", "RLOUT";
+> +static int start_pdm_dma(void __iomem *acp_base)
+> +{
+> +	u32 pdm_enable;
+> +	u32 pdm_dma_enable;
+> +	int timeout;
+> +
+> +	pdm_enable = 0x01;
+> +	pdm_dma_enable  = 0x01;
+> +
+> +	enable_pdm_clock(acp_base);
+> +	rn_writel(pdm_enable, acp_base + ACP_WOV_PDM_ENABLE);
+> +	rn_writel(pdm_dma_enable, acp_base + ACP_WOV_PDM_DMA_ENABLE);
+> +	pdm_dma_enable = 0x00;
+> +	timeout = 0;
+> +	while (++timeout < ACP_COUNTER) {
+> +		pdm_dma_enable = rn_readl(acp_base + ACP_WOV_PDM_DMA_ENABLE);
+> +		if ((pdm_dma_enable & 0x02) == ACP_PDM_DMA_EN_STATUS)
+> +			return 0;
+> +		udelay(DELAY_US);
+> +	}
+> +	return -ETIMEDOUT;
+> +}
+> +
+> +static int stop_pdm_dma(void __iomem *acp_base)
+> +{
+> +	u32 pdm_enable, pdm_dma_enable, pdm_fifo_flush;
+> +	int timeout;
+> +
+> +	pdm_enable = 0x00;
+> +	pdm_dma_enable  = 0x00;
+> +	pdm_fifo_flush = 0x00;
+> +
+> +	pdm_enable = rn_readl(acp_base + ACP_WOV_PDM_ENABLE);
+> +	pdm_dma_enable = rn_readl(acp_base + ACP_WOV_PDM_DMA_ENABLE);
+> +	if (pdm_dma_enable & 0x01) {
+> +		pdm_dma_enable = 0x02;
+> +		rn_writel(pdm_dma_enable, acp_base + ACP_WOV_PDM_DMA_ENABLE);
+> +		pdm_dma_enable = 0x00;
+> +		timeout = 0;
+> +		while (++timeout < ACP_COUNTER) {
+> +			pdm_dma_enable = rn_readl(acp_base +
+> +						  ACP_WOV_PDM_DMA_ENABLE);
+> +			if ((pdm_dma_enable & 0x02) == 0x00)
+> +				break;
+> +			udelay(DELAY_US);
+> +		}
+> +		if (timeout == ACP_COUNTER)
 
-                cpudai: simple-audio-card,cpu {
-                        sound-dai = <&sai3>;
-                        dai-tdm-slot-num = <2>;
-                        dai-tdm-slot-width = <32>;
-                };
+if you reach this point, timeout is by construction equal to ACP_COUNTER 
+so this test is useless
 
-                simple-audio-card,codec {
-                        sound-dai = <&tlv320aic3105>;
-                        clocks = <&clk IMX8MM_CLK_SAI3_ROOT>;
-                };
-        };
-};
+You could also use a helper where you check if the value is 
+ACP_PDM_DMA_EN_STATUS or zero so that you don't copy the same logic twice.
 
-&i2c2 {
-...
-        tlv320aic3105: codec@18 {
-                #sound-dai-cells = <0>;
-                pinctrl-names = "default";
-                pinctrl-0 = <&pinctrl_tlv>;
-                compatible = "ti,tlv320aic3x";
-                reg = <0x18>;
-                reset-gpios = <&gpio4 4 GPIO_ACTIVE_LOW>;
-                ai3x-micbias-vg = <2>; /* MICBIAS_2_5V */
-                /* Regulators */
-                DRVDD-supply = <&reg_3p3v>;
-                AVDD-supply = <&reg_3p3v>;
-                IOVDD-supply = <&reg_3p3v>;
-                DVDD-supply = <&reg_1p8v>;
-        };
-}
-
-&sai3 {
-        pinctrl-names = "default";
-        pinctrl-0 = <&pinctrl_sai3>;
-        assigned-clocks = <&clk IMX8MM_CLK_SAI3>;
-        assigned-clock-parents = <&clk IMX8MM_AUDIO_PLL1_OUT>;
-        assigned-clock-rates = <24576000>;
-        status = "okay";
-};
-
-and /sys/kernel/debug/clk/clk_summary from my board:
- osc_24m                              7       10        0    24000000
-        0     0  50000
-...
-    audio_pll1_ref_sel                0        0        0    24000000
-        0     0  50000
-       audio_pll1                     0        0        0   650000000
-        0     0  50000
-          audio_pll1_bypass           0        0        0   650000000
-        0     0  50000
-             audio_pll1_out           0        0        0   650000000
-        0     0  50000
-                sai3                  0        0        0    25000000
-        0     0  50000
-                   sai3_root_clk       0        0        0    25000000
-         0     0  50000
-^^^^ note 25000000 instead of requested 24576000
-
-And Here is the imx8mm-evk dts:
-/ {
-...
-        wm8524: audio-codec {
-                #sound-dai-cells = <0>;
-                compatible = "wlf,wm8524";
-                pinctrl-names = "default";
-                pinctrl-0 = <&pinctrl_gpio_wlf>;
-                wlf,mute-gpios = <&gpio5 21 GPIO_ACTIVE_LOW>;
-        };
-
-        sound-wm8524 {
-                compatible = "simple-audio-card";
-                simple-audio-card,name = "wm8524-audio";
-                simple-audio-card,format = "i2s";
-                simple-audio-card,frame-master = <&cpudai>;
-                simple-audio-card,bitclock-master = <&cpudai>;
-                simple-audio-card,widgets =
-                        "Line", "Left Line Out Jack",
-                        "Line", "Right Line Out Jack";
-                simple-audio-card,routing =
-                        "Left Line Out Jack", "LINEVOUTL",
-                        "Right Line Out Jack", "LINEVOUTR";
-
-                cpudai: simple-audio-card,cpu {
-                        sound-dai = <&sai3>;
-                        dai-tdm-slot-num = <2>;
-                        dai-tdm-slot-width = <32>;
-                };
-
-                simple-audio-card,codec {
-                        sound-dai = <&wm8524>;
-                        clocks = <&clk IMX8MM_CLK_SAI3_ROOT>;
-                };
-        };
-};
-
-&sai3 {
-        pinctrl-names = "default";
-        pinctrl-0 = <&pinctrl_sai3>;
-        assigned-clocks = <&clk IMX8MM_CLK_SAI3>;
-        assigned-clock-parents = <&clk IMX8MM_AUDIO_PLL1_OUT>;
-        assigned-clock-rates = <24576000>;
-        status = "okay";
-};
-
-and /sys/kernel/debug/clk/clk_summary from imx8mm_evk:
- osc_24m                              7       10        0    24000000
-        0     0  50000
-...
-    audio_pll1_ref_sel                0        0        0    24000000
-        0     0  50000
-       audio_pll1                     0        0        0   393215995
-        0     0  50000
-          audio_pll1_bypass           0        0        0   393215995
-        0     0  50000
-             audio_pll1_out           0        0        0   393215995
-        0     0  50000
-                sai3                  0        0        0    24576000
-        0     0  50000
-                   sai3_root_clk       0        0        0    24576000
-         0     0  50000
-^^^^ note 24576000 as requested
-
-Any ideas what I'm doing wrong here?
-
-Note that even though the imx8mm-evk appears to configure its clock
-correctly I still have not been able to play audio out the wm8524 and
-the system appears to hang during playback as if BCLK/MCLK were not
-clocking.
-
-Perhaps there is something not supported yet upstream with regards to
-IMX8MM SAI?
-
-Best Regards,
-
-Tim

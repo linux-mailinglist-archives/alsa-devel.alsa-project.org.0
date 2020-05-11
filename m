@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63F351CD17E
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 May 2020 07:59:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00E7A1CD180
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 May 2020 08:00:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 189B71662;
-	Mon, 11 May 2020 07:58:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 189B71662
+	by alsa0.perex.cz (Postfix) with ESMTPS id AAAE686E;
+	Mon, 11 May 2020 07:59:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAAE686E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589176770;
-	bh=1u2eCkEsYyL8fycHt/8paWNAaKT4sY2VfLHoVEh7Ka0=;
+	s=default; t=1589176812;
+	bh=nYJjJXvjfERVpcWWt9AAjG3hd2Vw/2wDpweiNRm1p5I=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Foip3HyVWh/Q3/EavqcqA/Q82xNG5z6SnbZ6nzpVv3ccBHq33Pz0SguyN64+bvyf2
-	 ug80kNbJNqftEbkyoZbPRZT2m7xtdvN9bVTbsFP3CbMo0F03n1oao4jqAsVAMuHLKm
-	 Se3KCjvCN5CiM6PfGCVhDWiAjINxlhEGBg5uAKys=
+	b=bWNnKBzAvwkH3U/XLdCNDDXc538fn94331wrxaXq8+8gItU/ROu3HeVl5yrIcC3aC
+	 t3IGDiRgX1p0lMz6ILp49M1X8nAUxU1Xpeuvk6ELEySElqK2XjPnO6HxTjLblifRLA
+	 bNyFqXuSd9w8TFJjT2Juf0ZdHs/DpP/P0at2dR8Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7EF54F8028F;
-	Mon, 11 May 2020 07:57:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15398F802A1;
+	Mon, 11 May 2020 07:57:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3F2A5F80292; Mon, 11 May 2020 07:56:58 +0200 (CEST)
+ id AF4A7F8029B; Mon, 11 May 2020 07:57:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 34ACBF8022D
- for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 07:56:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34ACBF8022D
-Date: 11 May 2020 14:56:50 +0900
-X-IronPort-AV: E=Sophos;i="5.73,378,1583161200"; d="scan'208";a="46530012"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id EB175F80291
+ for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 07:56:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB175F80291
+Date: 11 May 2020 14:56:54 +0900
+X-IronPort-AV: E=Sophos;i="5.73,378,1583161200"; d="scan'208";a="46743730"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 11 May 2020 14:56:50 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 11 May 2020 14:56:54 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id ED8704197FC3;
- Mon, 11 May 2020 14:56:49 +0900 (JST)
-Message-ID: <871rnr9fq5.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id B34084196E5C;
+ Mon, 11 May 2020 14:56:54 +0900 (JST)
+Message-ID: <87zhaf815l.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 03/17] ASoC: soc-dai: add snd_soc_component_activity()
+Subject: [PATCH 04/17] ASoC: atomel: use snd_soc_dai/component_activity()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <875zd39frp.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,35 +72,31 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc-component.h | 1 +
- sound/soc/soc-pcm.c           | 2 +-
- 2 files changed, 2 insertions(+), 1 deletion(-)
+ sound/soc/atmel/atmel_ssc_dai.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-index 864983b09846..29b0c2c1d2db 100644
---- a/include/sound/soc-component.h
-+++ b/include/sound/soc-component.h
-@@ -358,6 +358,7 @@ int snd_soc_component_stream_event(struct snd_soc_component *component,
- 				   int event);
- int snd_soc_component_set_bias_level(struct snd_soc_component *component,
- 				     enum snd_soc_bias_level level);
-+#define snd_soc_component_activity(component)	((component)->active)
+diff --git a/sound/soc/atmel/atmel_ssc_dai.c b/sound/soc/atmel/atmel_ssc_dai.c
+index 1073f468f21f..eecf1a71f1e2 100644
+--- a/sound/soc/atmel/atmel_ssc_dai.c
++++ b/sound/soc/atmel/atmel_ssc_dai.c
+@@ -765,7 +765,7 @@ static int atmel_ssc_suspend(struct snd_soc_component *component)
+ 	struct atmel_ssc_info *ssc_p;
+ 	struct platform_device *pdev = to_platform_device(component->dev);
  
- #ifdef CONFIG_REGMAP
- void snd_soc_component_init_regmap(struct snd_soc_component *component,
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index e923e3746fec..420595356111 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -267,7 +267,7 @@ static void snd_soc_runtime_action(struct snd_soc_pcm_runtime *rtd,
- 	for_each_rtd_dais(rtd, i, dai) {
- 		dai->stream_active[stream] += action;
- 		dai->active += action;
--		dai->component->active += action;
-+		snd_soc_component_activity(dai->component) += action;
- 	}
- }
+-	if (!component->active)
++	if (!snd_soc_component_activity(component))
+ 		return 0;
  
+ 	ssc_p = &ssc_info[pdev->id];
+@@ -793,7 +793,7 @@ static int atmel_ssc_resume(struct snd_soc_component *component)
+ 	struct platform_device *pdev = to_platform_device(component->dev);
+ 	u32 cr;
+ 
+-	if (!component->active)
++	if (!snd_soc_component_activity(component))
+ 		return 0;
+ 
+ 	ssc_p = &ssc_info[pdev->id];
 -- 
 2.17.1
 

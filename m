@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 947401CEA02
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 May 2020 03:10:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 030A71CE9F9
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 May 2020 03:07:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 433D486E;
-	Tue, 12 May 2020 03:09:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 433D486E
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6D5886F;
+	Tue, 12 May 2020 03:06:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6D5886F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589245815;
-	bh=SLII3i8Y40eOzVmCGKb5aD3inDMUGlkZaLUK1lBO4Qs=;
+	s=default; t=1589245653;
+	bh=dXiaKbBRlDP7/MIfltARTPNfmH3L+CaAbKR5BTYym9M=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HnPwqgp1omYzIgdv+wDwk+1eaA3gNvJjHwsCOUJlpDOEy84hCOF60cuGvj6EHijWQ
-	 CM1Uh/isoiqBjOc6I95ywQLduQgs9bk26IJk4xqBqq+LBHTPs4rm7pu4pN1xUeznjX
-	 yqSnCPXTv6VIHKEffu7hP853SuSWxk9jGSFsukUU=
+	b=B7icY7wzlMHj8lYB2M1X2gdbEPbCcz4wCJol6Ss/8p100OxGv+CplzHacIHaEGoJO
+	 06HIjmUBV2lHEBbYu+i1Bx8FDY6ggKoQeuQt+JJ2KmVE87rp8Moj3oIpER0ViN9WeZ
+	 pTDdIbEwEEoquKi5Twe6NKDpGEtXukxlxPg3dTu8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9290F80290;
-	Tue, 12 May 2020 00:38:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1E8F7F802A0;
+	Tue, 12 May 2020 00:38:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3B2B7F80157; Tue, 12 May 2020 00:37:55 +0200 (CEST)
+ id 3B5A2F8028E; Tue, 12 May 2020 00:37:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,35 +33,35 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B284CF80157
- for <alsa-devel@alsa-project.org>; Tue, 12 May 2020 00:37:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B284CF80157
-IronPort-SDR: u6IKjYxRXIwKEVp4qRJg61TxbsSV5pDOYHSXY3IletM3+SzKfcSAqcJPs5l4gTkk+1S45Uf49p
- 1ArIy7CKUBDg==
+ by alsa1.perex.cz (Postfix) with ESMTPS id DA894F8022D
+ for <alsa-devel@alsa-project.org>; Tue, 12 May 2020 00:37:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA894F8022D
+IronPort-SDR: l+PyI0lUVodGN7peRfo17eMmxY2E4GWThMqOdZvy8hQAALz6Cl7sw9rRLUz8MeRAIvmRpltRh4
+ VsxgR1QgpOUQ==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2020 15:37:46 -0700
-IronPort-SDR: 6zRhe0n0QgcQSTZ2KaLDGKYgrAvY/3jflOaAwo2NZOfN952ukN19yMri4zOi6cnt83t0zIO4Wj
- znoQz/IIGejg==
+ 11 May 2020 15:37:48 -0700
+IronPort-SDR: FpyUbbhO7b+rTkUsWdnC4dDRLIseVni1y0nhUT4jYNMZHhJ3zTqFPV4c4MFriYwleXaddBTjes
+ 21Kb2FIMwBJw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,381,1583222400"; d="scan'208";a="252717104"
+X-IronPort-AV: E=Sophos;i="5.73,381,1583222400"; d="scan'208";a="252717114"
 Received: from xshi16-mobl2.amr.corp.intel.com (HELO [10.254.96.249])
  ([10.254.96.249])
- by fmsmga008.fm.intel.com with ESMTP; 11 May 2020 15:37:45 -0700
-Subject: Re: [PATCH v2 09/14] ASoC: amd: add Renoir ACP PCI driver PM ops
+ by fmsmga008.fm.intel.com with ESMTP; 11 May 2020 15:37:47 -0700
+Subject: Re: [PATCH v2 13/14] ASoC: amd: RN machine driver using dmic
 To: Alex Deucher <alexdeucher@gmail.com>, alsa-devel@alsa-project.org,
  broonie@kernel.org, vijendar.mukunda@amd.com, tiwai@suse.de
 References: <20200511212014.2359225-1-alexander.deucher@amd.com>
- <20200511212014.2359225-10-alexander.deucher@amd.com>
+ <20200511212014.2359225-14-alexander.deucher@amd.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <3c131eb1-9f5c-fd37-687c-182888774e08@linux.intel.com>
-Date: Mon, 11 May 2020 17:28:41 -0500
+Message-ID: <c6b037b5-ef02-8919-a3c9-6b1a53f1cc0c@linux.intel.com>
+Date: Mon, 11 May 2020 17:37:08 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200511212014.2359225-10-alexander.deucher@amd.com>
+In-Reply-To: <20200511212014.2359225-14-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -82,61 +82,50 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-> @@ -233,6 +234,11 @@ static int snd_rn_acp_probe(struct pci_dev *pci,
->   		ret = PTR_ERR(adata->pdev);
->   		goto unregister_devs;
->   	}
-> +	pm_runtime_set_autosuspend_delay(&pci->dev, ACP_SUSPEND_DELAY_MS);
-> +	pm_runtime_use_autosuspend(&pci->dev);
-> +	pm_runtime_allow(&pci->dev);
-> +	pm_runtime_mark_last_busy(&pci->dev);
-> +	pm_runtime_put_autosuspend(&pci->dev);
-
-usually there is a pm_runtime_put_noidle() here?
-
-[...]
-
->   static void snd_rn_acp_remove(struct pci_dev *pci)
->   {
->   	struct acp_dev_data *adata;
-> @@ -260,6 +302,9 @@ static void snd_rn_acp_remove(struct pci_dev *pci)
->   	ret = rn_acp_deinit(adata->acp_base);
->   	if (ret)
->   		dev_err(&pci->dev, "ACP de-init failed\n");
-> +	pm_runtime_put_noidle(&pci->dev);
-> +	pm_runtime_get_sync(&pci->dev);
-> +	pm_runtime_forbid(&pci->dev);
-
-doing a put_noidle() followed by a get_sync() and immediately forbid() 
-is very odd at best.
-Isn't the recommendation to call get_noresume() here?
 
 
+> +static int acp_pdm_hw_params(struct snd_pcm_substream *substream,
+> +			     struct snd_pcm_hw_params *hw_params)
+> +{
+> +	return 0;
+> +}
 
->   	pci_disable_msi(pci);
->   	pci_release_regions(pci);
->   	pci_disable_device(pci);
-> @@ -278,6 +323,9 @@ static struct pci_driver rn_acp_driver  = {
->   	.id_table = snd_rn_acp_ids,
->   	.probe = snd_rn_acp_probe,
->   	.remove = snd_rn_acp_remove,
+is this needed?
+
+> +
+> +static struct snd_soc_ops acp_pdm_ops = {
+> +	.hw_params = acp_pdm_hw_params,
+> +};
+> +
+> +static int acp_init(struct snd_soc_pcm_runtime *rtd)
+> +{
+> +	return 0;
+> +}
+
+is this needed?
+
+
+> +static struct platform_driver acp_mach_driver = {
 > +	.driver = {
-> +		.pm = &rn_acp_pm,
-> +	}
->   };
->   
->   module_pci_driver(rn_acp_driver);
-> diff --git a/sound/soc/amd/renoir/rn_acp3x.h b/sound/soc/amd/renoir/rn_acp3x.h
-> index a4f654cf2df0..6e1888167fb3 100644
-> --- a/sound/soc/amd/renoir/rn_acp3x.h
-> +++ b/sound/soc/amd/renoir/rn_acp3x.h
-> @@ -40,6 +40,8 @@
->   #define TWO_CH 0x02
->   #define DELAY_US 5
->   #define ACP_COUNTER 20000
-> +/* time in ms for runtime suspend delay */
-> +#define ACP_SUSPEND_DELAY_MS	2000
->   
->   #define ACP_SRAM_PTE_OFFSET	0x02050000
->   #define PAGE_SIZE_4K_ENABLE     0x2
-> 
+> +		.name = "acp_pdm_mach",
+> +		.pm = &snd_soc_pm_ops,
+> +	},
+> +	.probe = acp_probe,
+> +};
+> +
+> +static int __init acp_audio_init(void)
+> +{
+> +	platform_driver_register(&acp_mach_driver);
+> +	return 0;
+> +}
+> +
+> +static void __exit acp_audio_exit(void)
+> +{
+> +	platform_driver_unregister(&acp_mach_driver);
+> +}
+> +
+> +module_init(acp_audio_init);
+> +module_exit(acp_audio_exit);
+
+use module_platform_driver() - was already feedback on v1...
+

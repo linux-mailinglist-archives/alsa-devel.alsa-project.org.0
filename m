@@ -2,70 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA2321CE479
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 May 2020 21:29:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCD511CE757
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 May 2020 23:22:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 58EB815E0;
-	Mon, 11 May 2020 21:28:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58EB815E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4417B1654;
+	Mon, 11 May 2020 23:21:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4417B1654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589225365;
-	bh=ABKN5sqFpH68locdV7euyltO2S3aon0EoBNdyexb3Jw=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=bP8fSG6egfsO9HvmqtY74kCSweJMqF7iThvrkKVthZiXHZQ9BG+8wcPGo9Dyc+XK4
-	 dhPTWVxzORIbLbbqVz+7eAsSe4p9c6PIw5JENSozSXVmwwjsTOobLfOIvtGQQ9SRS5
-	 +hPlTC9rheWvfAk0Q4CJojA+tixb05l+5ZXeI+pg=
+	s=default; t=1589232141;
+	bh=BfTwPcipFiqnhg7ufGjFiaBac6BsJriju+tYCnXUG6Y=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=eZeBLqdThNSW/2Kkcidh+gmpvLessIkDRQSeR2KUjzU1WNgNA9d+aWtppCpm1hCYh
+	 wjcDMsB2fnEcr2+25qZuvcvxjDgCcCrg4x9C5Q1FGSOUywp7M9exei/h7MB/f1s5su
+	 IlLwkl6pQ9S5joy+YsxktJzTIs/Zm3XIBjED+lEI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B7842F8027D;
-	Mon, 11 May 2020 21:26:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10BEAF80157;
+	Mon, 11 May 2020 23:20:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1F5BF8027B; Mon, 11 May 2020 21:26:43 +0200 (CEST)
+ id B3E5CF8022D; Mon, 11 May 2020 23:20:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-qt1-x834.google.com (mail-qt1-x834.google.com
+ [IPv6:2607:f8b0:4864:20::834])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2A3E8F80157
- for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 21:26:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A3E8F80157
-IronPort-SDR: 0Mo6ouQX6wJXlB+3gu4eI/4wEjBRHcGwdcWN4Ogsz6P8RYWIRkf2+T24axO9fie9i8RpDTZZDh
- gPDJLaF2u+Og==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2020 12:26:31 -0700
-IronPort-SDR: jmuhnsGt0RS+NQepeqNFAduCHEerajBUOr3mRyDfpuZmg7ePOuChOXF5zQjTi3qumXA/2uIZqg
- VkZlP5j+KxUg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,381,1583222400"; d="scan'208";a="297786529"
-Received: from mlamm-mobl1.amr.corp.intel.com (HELO [10.255.230.116])
- ([10.255.230.116])
- by orsmga008.jf.intel.com with ESMTP; 11 May 2020 12:26:31 -0700
-Subject: Re: [PATCH 03/17] ASoC: soc-dai: add snd_soc_component_activity()
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Mark Brown <broonie@kernel.org>
-References: <875zd39frp.wl-kuninori.morimoto.gx@renesas.com>
- <871rnr9fq5.wl-kuninori.morimoto.gx@renesas.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <f9c8f3c6-a47e-dfa5-0d01-d2eca666ce29@linux.intel.com>
-Date: Mon, 11 May 2020 14:07:56 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8CD2F800E3
+ for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 23:20:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8CD2F800E3
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="VhCC0Nc2"
+Received: by mail-qt1-x834.google.com with SMTP id l1so5826772qtp.6
+ for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 14:20:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=SOp/PvUAQ79zE2VgsXIub+73HA2DusUSaX7tCxIhgho=;
+ b=VhCC0Nc2qG3b8TP+bVtIUcSCUnuXGdNE83cmOz28VggRR09mdVtawRiDgL65Uh+MO6
+ UNiK1jKZ7GntsBj68kSgbBjG+zRg/pnO9BD4cXipyavj1evyTcQ+uiI5WDCw+aAW+vLb
+ 1LojI1mUr3qbA6T+AzmVR/OWUUdMVXWwrSKsCDWrvTujhtghym1IgavGoQJ7gpVYvk1M
+ ACD6NkQc6V2yGWVq9UwvfeFfOzk//UP98kmryWes6edmhwoSHYh9TSh1uxDuKmaSgcMX
+ +AsWoG9IkrABMGh9ZfuvjHDKzkh2+sYDNm2axXMik2ER+iYbUavmttCi6L8VFpRcgp5u
+ 5pBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=SOp/PvUAQ79zE2VgsXIub+73HA2DusUSaX7tCxIhgho=;
+ b=sVD1Pji6fj3CDH/F73NhFYJwCLjp5fHsqkIVO3Gyn4s4U56HHuJ2rlDuwLqrI5py04
+ KvwefeF4pKMUB+/DbJwOzbGdyeRNyDPgAuXbSkUsu85iwAwMUve4O+n3E7fwvRRGO/nb
+ 3t2zBsrJjTF5VCMqG6YR6DDHx8pLIf9ypkoUmEOeaFs8gds/5WaNZ8nvGlX1DfF8oJ6n
+ QnGKy7L/Vx9dm+lt7+TXMQcem0Rz5NuhGICQNXKv5oCuZBMGnyuaxmovnNPdTRJW03xi
+ VTmo0rlI2b3Bn7/t8txH9vYeVI0ruO77E2149+EqNWYJDe3qx8XKwuK7WupnL7Ss7yVK
+ Ehpg==
+X-Gm-Message-State: AGi0PuYEmD2IamL3yoUZ6yeJTcG8L7imwNEdyuj/lPZQhTqGOo0IaDAB
+ gD0cVAmQo7GpbNz1o4INZEr+lkrr
+X-Google-Smtp-Source: APiQypJDEVAFwSdTDsJ9rvqZ55lhhPX8leCJUExNME1SM9OztxrelOY/bKirgeQEF3fXcPEilxT5Yg==
+X-Received: by 2002:ac8:4f53:: with SMTP id i19mr19094630qtw.195.1589232023408; 
+ Mon, 11 May 2020 14:20:23 -0700 (PDT)
+Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
+ by smtp.gmail.com with ESMTPSA id c26sm9148691qkm.98.2020.05.11.14.20.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 11 May 2020 14:20:22 -0700 (PDT)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: alsa-devel@alsa-project.org, broonie@kernel.org, vijendar.mukunda@amd.com,
+ tiwai@suse.de
+Subject: [PATCH v2 00/14] Add Renoir ACP driver
+Date: Mon, 11 May 2020 17:20:00 -0400
+Message-Id: <20200511212014.2359225-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-In-Reply-To: <871rnr9fq5.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Content-Transfer-Encoding: 8bit
+Cc: Alex Deucher <alexander.deucher@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,45 +98,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This adds an ASoC driver for the ACP (Audio CoProcessor)
+block on AMD Renoir APUs.
 
+The full series can also be pulled from here:
+https://cgit.freedesktop.org/~agd5f/linux/log/?h=renoir-acp-2
 
-On 5/11/20 12:56 AM, Kuninori Morimoto wrote:
-> 
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
->   include/sound/soc-component.h | 1 +
->   sound/soc/soc-pcm.c           | 2 +-
->   2 files changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-> index 864983b09846..29b0c2c1d2db 100644
-> --- a/include/sound/soc-component.h
-> +++ b/include/sound/soc-component.h
-> @@ -358,6 +358,7 @@ int snd_soc_component_stream_event(struct snd_soc_component *component,
->   				   int event);
->   int snd_soc_component_set_bias_level(struct snd_soc_component *component,
->   				     enum snd_soc_bias_level level);
-> +#define snd_soc_component_activity(component)	((component)->active)
+V2:
+- Removed empty declaration of dai_ops
+- Removed SNDRV_PCM_INFO_BATCH flag
+- Defined Macros for delay and counter and corrected dma stop sequence.
+- Changed PCI driver pm runtime sequence
+- Removed redundant code
 
-this patch would need to be added as patch2, before 
-snd_soc_component_activity() is used to avoid breaking bisection
+Vijendar Mukunda (14):
+  ASoC: amd: add Renoir ACP3x IP register header
+  ASoC: amd: add Renoir ACP PCI driver
+  ASoC: amd: add acp init/de-init functions
+  ASoC: amd: create acp3x pdm platform device
+  ASoC: amd: add ACP3x PDM platform driver
+  ASoC: amd: irq handler changes for ACP3x PDM dma driver
+  ASoC: amd: add acp3x pdm driver dma ops
+  ASoC: amd: add ACP PDM DMA driver dai ops
+  ASoC: amd: add Renoir ACP PCI driver PM ops
+  ASoC: amd: add ACP PDM DMA driver pm ops
+  ASoC: amd: enable Renoir acp3x drivers build
+  ASoC: amd: create platform devices for Renoir
+  ASoC: amd: RN machine driver using dmic
+  ASoC: amd: enable build for RN machine driver
 
->   
->   #ifdef CONFIG_REGMAP
->   void snd_soc_component_init_regmap(struct snd_soc_component *component,
-> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-> index e923e3746fec..420595356111 100644
-> --- a/sound/soc/soc-pcm.c
-> +++ b/sound/soc/soc-pcm.c
-> @@ -267,7 +267,7 @@ static void snd_soc_runtime_action(struct snd_soc_pcm_runtime *rtd,
->   	for_each_rtd_dais(rtd, i, dai) {
->   		dai->stream_active[stream] += action;
->   		dai->active += action;
-> -		dai->component->active += action;
-> +		snd_soc_component_activity(dai->component) += action;
->   	}
->   }
->   
-> 
+ sound/soc/amd/Kconfig                      |  13 +
+ sound/soc/amd/Makefile                     |   1 +
+ sound/soc/amd/renoir/Makefile              |   7 +
+ sound/soc/amd/renoir/acp3x-pdm-dma.c       | 530 +++++++++++++++++++++
+ sound/soc/amd/renoir/acp3x-rn.c            | 106 +++++
+ sound/soc/amd/renoir/rn-pci-acp3x.c        | 346 ++++++++++++++
+ sound/soc/amd/renoir/rn_acp3x.h            |  88 ++++
+ sound/soc/amd/renoir/rn_chip_offset_byte.h | 349 ++++++++++++++
+ 8 files changed, 1440 insertions(+)
+ create mode 100644 sound/soc/amd/renoir/Makefile
+ create mode 100644 sound/soc/amd/renoir/acp3x-pdm-dma.c
+ create mode 100644 sound/soc/amd/renoir/acp3x-rn.c
+ create mode 100644 sound/soc/amd/renoir/rn-pci-acp3x.c
+ create mode 100644 sound/soc/amd/renoir/rn_acp3x.h
+ create mode 100644 sound/soc/amd/renoir/rn_chip_offset_byte.h
+
+-- 
+2.25.4
+

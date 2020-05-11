@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70EF01CD192
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 May 2020 08:05:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB0F81CD194
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 May 2020 08:05:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 20B0E1614;
-	Mon, 11 May 2020 08:04:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20B0E1614
+	by alsa0.perex.cz (Postfix) with ESMTPS id 55302166A;
+	Mon, 11 May 2020 08:05:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55302166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589177114;
-	bh=5SwB0gFun2xIi1ztX+nAHGlDh7Wqb0654gtq8LkvCqk=;
+	s=default; t=1589177151;
+	bh=c7w+ypCCtEKbzoCQpUDY/QC2sSPt8r6RLm8TZjbVy3s=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kxCIs8E0e7ZvR0wkmqZcBQLUxAShFNPiptlGapk45NlT9VABdBWXD9dOEp8kT2Few
-	 fNrVsRunlbDDgDgGCSdjtct4VItlgeQkEQ4FB+R+vY7yAniaCKDOipcBLOpWtE9zct
-	 xWUFUxwlTJuKj2P5a1Sgjy1wanqgfMHc+KMFDhaU=
+	b=MGss3SJtmubr2/ozDXpJypqVDLFC/PHbroundeKLEY/vi2WoCVgpJj+ybNZBzdni/
+	 x7O55S4ksb1xE8g0djnYk30Z6ugebuMPHVwIEXKEnt26xZroZ5Pu/C4pemPgeXx+YN
+	 3KKrU4q3mNZhbYkdsp59vZzKLj2KGIlSbPuaYXYk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C313EF80157;
-	Mon, 11 May 2020 07:57:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0964FF80332;
+	Mon, 11 May 2020 07:57:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F6BFF80315; Mon, 11 May 2020 07:57:45 +0200 (CEST)
+ id A7AD8F8028C; Mon, 11 May 2020 07:57:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 37FB8F802F9
- for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 07:57:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37FB8F802F9
-Date: 11 May 2020 14:57:37 +0900
-X-IronPort-AV: E=Sophos;i="5.73,378,1583161200"; d="scan'208";a="46743806"
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 366F6F802E7
+ for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 07:57:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 366F6F802E7
+Date: 11 May 2020 14:57:42 +0900
+X-IronPort-AV: E=Sophos;i="5.73,378,1583161200"; d="scan'208";a="46530094"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 11 May 2020 14:57:37 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 11 May 2020 14:57:42 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id B233A400854B;
- Mon, 11 May 2020 14:57:37 +0900 (JST)
-Message-ID: <87mu6f814e.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 04E394007F55;
+ Mon, 11 May 2020 14:57:42 +0900 (JST)
+Message-ID: <87lflz8149.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 13/17] ASoC: pxa: use snd_soc_dai/component_activity()
+Subject: [PATCH 14/17] ASoC: ti: use snd_soc_dai/component_activity()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <875zd39frp.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,63 +72,109 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/pxa/pxa-ssp.c    | 8 ++++----
- sound/soc/pxa/pxa2xx-i2s.c | 2 +-
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ sound/soc/ti/davinci-mcasp.c | 2 +-
+ sound/soc/ti/omap-dmic.c     | 4 ++--
+ sound/soc/ti/omap-mcbsp.c    | 4 ++--
+ sound/soc/ti/omap-mcpdm.c    | 8 ++++----
+ 4 files changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/sound/soc/pxa/pxa-ssp.c b/sound/soc/pxa/pxa-ssp.c
-index e615acaa0199..75aa390d4649 100644
---- a/sound/soc/pxa/pxa-ssp.c
-+++ b/sound/soc/pxa/pxa-ssp.c
-@@ -94,7 +94,7 @@ static int pxa_ssp_startup(struct snd_pcm_substream *substream,
- 	struct snd_dmaengine_dai_dma_data *dma;
- 	int ret = 0;
+diff --git a/sound/soc/ti/davinci-mcasp.c b/sound/soc/ti/davinci-mcasp.c
+index 734ffe925c4d..14e75b6c2644 100644
+--- a/sound/soc/ti/davinci-mcasp.c
++++ b/sound/soc/ti/davinci-mcasp.c
+@@ -1577,7 +1577,7 @@ static void davinci_mcasp_shutdown(struct snd_pcm_substream *substream,
+ 	if (mcasp->op_mode == DAVINCI_MCASP_DIT_MODE)
+ 		return;
  
 -	if (!cpu_dai->active) {
 +	if (!snd_soc_dai_activity(cpu_dai)) {
- 		clk_prepare_enable(ssp->clk);
- 		pxa_ssp_disable(ssp);
+ 		mcasp->channels = 0;
+ 		mcasp->max_format_width = 0;
  	}
-@@ -119,7 +119,7 @@ static void pxa_ssp_shutdown(struct snd_pcm_substream *substream,
- 	struct ssp_priv *priv = snd_soc_dai_get_drvdata(cpu_dai);
- 	struct ssp_device *ssp = priv->ssp;
+diff --git a/sound/soc/ti/omap-dmic.c b/sound/soc/ti/omap-dmic.c
+index 913579c43e9d..42b61bbfd060 100644
+--- a/sound/soc/ti/omap-dmic.c
++++ b/sound/soc/ti/omap-dmic.c
+@@ -95,7 +95,7 @@ static int omap_dmic_dai_startup(struct snd_pcm_substream *substream,
  
--	if (!cpu_dai->active) {
-+	if (!snd_soc_dai_activity(cpu_dai)) {
- 		pxa_ssp_disable(ssp);
- 		clk_disable_unprepare(ssp->clk);
- 	}
-@@ -138,7 +138,7 @@ static int pxa_ssp_suspend(struct snd_soc_component *component)
- 	struct ssp_priv *priv = snd_soc_component_get_drvdata(component);
- 	struct ssp_device *ssp = priv->ssp;
+ 	mutex_lock(&dmic->mutex);
  
--	if (!component->active)
-+	if (!snd_soc_component_activity(component))
- 		clk_prepare_enable(ssp->clk);
- 
- 	priv->cr0 = __raw_readl(ssp->mmio_base + SSCR0);
-@@ -165,7 +165,7 @@ static int pxa_ssp_resume(struct snd_soc_component *component)
- 	__raw_writel(priv->to,  ssp->mmio_base + SSTO);
- 	__raw_writel(priv->psp, ssp->mmio_base + SSPSP);
- 
--	if (component->active)
-+	if (snd_soc_component_activity(component))
- 		pxa_ssp_enable(ssp);
+-	if (!dai->active)
++	if (!snd_soc_dai_activity(dai))
+ 		dmic->active = 1;
  	else
- 		clk_disable_unprepare(ssp->clk);
-diff --git a/sound/soc/pxa/pxa2xx-i2s.c b/sound/soc/pxa/pxa2xx-i2s.c
-index 9a32bf72127a..ec0a2ee5bd78 100644
---- a/sound/soc/pxa/pxa2xx-i2s.c
-+++ b/sound/soc/pxa/pxa2xx-i2s.c
-@@ -101,7 +101,7 @@ static int pxa2xx_i2s_startup(struct snd_pcm_substream *substream,
- 	if (IS_ERR(clk_i2s))
- 		return PTR_ERR(clk_i2s);
+ 		ret = -EBUSY;
+@@ -114,7 +114,7 @@ static void omap_dmic_dai_shutdown(struct snd_pcm_substream *substream,
+ 
+ 	cpu_latency_qos_remove_request(&dmic->pm_qos_req);
+ 
+-	if (!dai->active)
++	if (!snd_soc_dai_activity(dai))
+ 		dmic->active = 0;
+ 
+ 	mutex_unlock(&dmic->mutex);
+diff --git a/sound/soc/ti/omap-mcbsp.c b/sound/soc/ti/omap-mcbsp.c
+index 0348963f4df7..685f7add6379 100644
+--- a/sound/soc/ti/omap-mcbsp.c
++++ b/sound/soc/ti/omap-mcbsp.c
+@@ -788,7 +788,7 @@ static int omap_mcbsp_dai_startup(struct snd_pcm_substream *substream,
+ 	struct omap_mcbsp *mcbsp = snd_soc_dai_get_drvdata(cpu_dai);
+ 	int err = 0;
  
 -	if (!cpu_dai->active)
 +	if (!snd_soc_dai_activity(cpu_dai))
- 		SACR0 = 0;
+ 		err = omap_mcbsp_request(mcbsp);
  
- 	return 0;
+ 	/*
+@@ -843,7 +843,7 @@ static void omap_mcbsp_dai_shutdown(struct snd_pcm_substream *substream,
+ 
+ 	mcbsp->latency[stream1] = 0;
+ 
+-	if (!cpu_dai->active) {
++	if (!snd_soc_dai_activity(cpu_dai)) {
+ 		omap_mcbsp_free(mcbsp);
+ 		mcbsp->configured = 0;
+ 	}
+diff --git a/sound/soc/ti/omap-mcpdm.c b/sound/soc/ti/omap-mcpdm.c
+index f2dbadea33bb..ef5786f9a840 100644
+--- a/sound/soc/ti/omap-mcpdm.c
++++ b/sound/soc/ti/omap-mcpdm.c
+@@ -253,7 +253,7 @@ static int omap_mcpdm_dai_startup(struct snd_pcm_substream *substream,
+ 
+ 	mutex_lock(&mcpdm->mutex);
+ 
+-	if (!dai->active)
++	if (!snd_soc_dai_activity(dai))
+ 		omap_mcpdm_open_streams(mcpdm);
+ 
+ 	mutex_unlock(&mcpdm->mutex);
+@@ -271,7 +271,7 @@ static void omap_mcpdm_dai_shutdown(struct snd_pcm_substream *substream,
+ 
+ 	mutex_lock(&mcpdm->mutex);
+ 
+-	if (!dai->active) {
++	if (!snd_soc_dai_activity(dai)) {
+ 		if (omap_mcpdm_active(mcpdm)) {
+ 			omap_mcpdm_stop(mcpdm);
+ 			omap_mcpdm_close_streams(mcpdm);
+@@ -462,7 +462,7 @@ static int omap_mcpdm_suspend(struct snd_soc_component *component)
+ {
+ 	struct omap_mcpdm *mcpdm = snd_soc_component_get_drvdata(component);
+ 
+-	if (component->active) {
++	if (snd_soc_component_activity(component)) {
+ 		omap_mcpdm_stop(mcpdm);
+ 		omap_mcpdm_close_streams(mcpdm);
+ 	}
+@@ -484,7 +484,7 @@ static int omap_mcpdm_resume(struct snd_soc_component *component)
+ 		while (mcpdm->pm_active_count--)
+ 			pm_runtime_get_sync(mcpdm->dev);
+ 
+-		if (component->active) {
++		if (snd_soc_component_activity(component)) {
+ 			omap_mcpdm_open_streams(mcpdm);
+ 			omap_mcpdm_start(mcpdm);
+ 		}
 -- 
 2.17.1
 

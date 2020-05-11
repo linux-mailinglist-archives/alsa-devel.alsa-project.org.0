@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00E171CD191
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 May 2020 08:04:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70EF01CD192
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 May 2020 08:05:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A4CA71655;
-	Mon, 11 May 2020 08:03:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4CA71655
+	by alsa0.perex.cz (Postfix) with ESMTPS id 20B0E1614;
+	Mon, 11 May 2020 08:04:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20B0E1614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589177075;
-	bh=B0EQggqSV4+4UqlOhflat9a2CcQaXO4abd79ZDJva24=;
+	s=default; t=1589177114;
+	bh=5SwB0gFun2xIi1ztX+nAHGlDh7Wqb0654gtq8LkvCqk=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CUUJ+9PBKDnnDD3xgGGFr5qq+8t1DhkGl0MjqEhK3QWMdPzuMKSfyo3JCL2Alsfby
-	 ib76cC4RWij/lgETy8E9DlIdm1uDCOBnQ5Wvx15DYPvJW4bH3dVJqv36rVwu8D4Ue6
-	 c8qdFpO2AWbU51e0eD22Yn960hstuKVqkUzq8oHI=
+	b=kxCIs8E0e7ZvR0wkmqZcBQLUxAShFNPiptlGapk45NlT9VABdBWXD9dOEp8kT2Few
+	 fNrVsRunlbDDgDgGCSdjtct4VItlgeQkEQ4FB+R+vY7yAniaCKDOipcBLOpWtE9zct
+	 xWUFUxwlTJuKj2P5a1Sgjy1wanqgfMHc+KMFDhaU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92076F802F9;
-	Mon, 11 May 2020 07:57:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C313EF80157;
+	Mon, 11 May 2020 07:57:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 188A2F80306; Mon, 11 May 2020 07:57:43 +0200 (CEST)
+ id 1F6BFF80315; Mon, 11 May 2020 07:57:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id C5EF9F802F8
- for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 07:57:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5EF9F802F8
-Date: 11 May 2020 14:57:33 +0900
-X-IronPort-AV: E=Sophos;i="5.73,378,1583161200"; d="scan'208";a="46743801"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 11 May 2020 14:57:33 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 37FB8F802F9
+ for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 07:57:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37FB8F802F9
+Date: 11 May 2020 14:57:37 +0900
+X-IronPort-AV: E=Sophos;i="5.73,378,1583161200"; d="scan'208";a="46743806"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 11 May 2020 14:57:37 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 3D45C4197FF1;
- Mon, 11 May 2020 14:57:33 +0900 (JST)
-Message-ID: <87o8qv814i.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id B233A400854B;
+ Mon, 11 May 2020 14:57:37 +0900 (JST)
+Message-ID: <87mu6f814e.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 12/17] ASoC: meson: use snd_soc_dai/component_activity()
+Subject: [PATCH 13/17] ASoC: pxa: use snd_soc_dai/component_activity()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <875zd39frp.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,22 +72,63 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/meson/axg-tdm-interface.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/pxa/pxa-ssp.c    | 8 ++++----
+ sound/soc/pxa/pxa2xx-i2s.c | 2 +-
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/meson/axg-tdm-interface.c b/sound/soc/meson/axg-tdm-interface.c
-index d51f3344be7c..3dea935826de 100644
---- a/sound/soc/meson/axg-tdm-interface.c
-+++ b/sound/soc/meson/axg-tdm-interface.c
-@@ -149,7 +149,7 @@ static int axg_tdm_iface_startup(struct snd_pcm_substream *substream,
- 	}
+diff --git a/sound/soc/pxa/pxa-ssp.c b/sound/soc/pxa/pxa-ssp.c
+index e615acaa0199..75aa390d4649 100644
+--- a/sound/soc/pxa/pxa-ssp.c
++++ b/sound/soc/pxa/pxa-ssp.c
+@@ -94,7 +94,7 @@ static int pxa_ssp_startup(struct snd_pcm_substream *substream,
+ 	struct snd_dmaengine_dai_dma_data *dma;
+ 	int ret = 0;
  
- 	/* Apply component wide rate symmetry */
--	if (dai->component->active) {
-+	if (snd_soc_component_activity(dai->component)) {
- 		ret = snd_pcm_hw_constraint_single(substream->runtime,
- 						   SNDRV_PCM_HW_PARAM_RATE,
- 						   iface->rate);
+-	if (!cpu_dai->active) {
++	if (!snd_soc_dai_activity(cpu_dai)) {
+ 		clk_prepare_enable(ssp->clk);
+ 		pxa_ssp_disable(ssp);
+ 	}
+@@ -119,7 +119,7 @@ static void pxa_ssp_shutdown(struct snd_pcm_substream *substream,
+ 	struct ssp_priv *priv = snd_soc_dai_get_drvdata(cpu_dai);
+ 	struct ssp_device *ssp = priv->ssp;
+ 
+-	if (!cpu_dai->active) {
++	if (!snd_soc_dai_activity(cpu_dai)) {
+ 		pxa_ssp_disable(ssp);
+ 		clk_disable_unprepare(ssp->clk);
+ 	}
+@@ -138,7 +138,7 @@ static int pxa_ssp_suspend(struct snd_soc_component *component)
+ 	struct ssp_priv *priv = snd_soc_component_get_drvdata(component);
+ 	struct ssp_device *ssp = priv->ssp;
+ 
+-	if (!component->active)
++	if (!snd_soc_component_activity(component))
+ 		clk_prepare_enable(ssp->clk);
+ 
+ 	priv->cr0 = __raw_readl(ssp->mmio_base + SSCR0);
+@@ -165,7 +165,7 @@ static int pxa_ssp_resume(struct snd_soc_component *component)
+ 	__raw_writel(priv->to,  ssp->mmio_base + SSTO);
+ 	__raw_writel(priv->psp, ssp->mmio_base + SSPSP);
+ 
+-	if (component->active)
++	if (snd_soc_component_activity(component))
+ 		pxa_ssp_enable(ssp);
+ 	else
+ 		clk_disable_unprepare(ssp->clk);
+diff --git a/sound/soc/pxa/pxa2xx-i2s.c b/sound/soc/pxa/pxa2xx-i2s.c
+index 9a32bf72127a..ec0a2ee5bd78 100644
+--- a/sound/soc/pxa/pxa2xx-i2s.c
++++ b/sound/soc/pxa/pxa2xx-i2s.c
+@@ -101,7 +101,7 @@ static int pxa2xx_i2s_startup(struct snd_pcm_substream *substream,
+ 	if (IS_ERR(clk_i2s))
+ 		return PTR_ERR(clk_i2s);
+ 
+-	if (!cpu_dai->active)
++	if (!snd_soc_dai_activity(cpu_dai))
+ 		SACR0 = 0;
+ 
+ 	return 0;
 -- 
 2.17.1
 

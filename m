@@ -2,92 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F069E1CE771
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 May 2020 23:29:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F0E61CE788
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 May 2020 23:36:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 989653E;
-	Mon, 11 May 2020 23:28:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 989653E
+	by alsa0.perex.cz (Postfix) with ESMTPS id F05D71661;
+	Mon, 11 May 2020 23:35:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F05D71661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589232552;
-	bh=ljoaQHBwZRHu55eF9o/cNmQXpqSs9ovlhMoT1Q+dd6M=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1589232968;
+	bh=t9E+zQZhFkb0os8ZvYyTkZuaKKcEmnobBlRdjDhPC0E=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mCzE3uwzRgdhMxEtTSkI+v7V5ijegCEDilwkCdTspN+k4B5hHWYrSYixD24H3OyZA
-	 tzcYjbbSaRbP6c8mks50m7NfG/ilNz3qzPl7iivf+iuwgxPm9Yyxto5ytBZL3RDHMF
-	 aD0DDa74s1suwecJtrU/UElPPswDujNQPR2a3m/U=
+	b=G94G5p5ENZ9BgaJQAXD9ewWOnPnylQtFvFwDsyuthEGVThVkGiQcV0ANLDNvEzj74
+	 RBt/OJ+fNqidKFlp9/YEcYKlBysaSSbkIkov57nzROVg8wnixP7Qjgv90K5aE4YYtE
+	 4NAasW4S7X+epleKRTCDYq9kY9NwnBTQdeqzhgJE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D6ADF80329;
-	Mon, 11 May 2020 23:21:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E5D7F801F2;
+	Mon, 11 May 2020 23:34:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E408DF802A2; Mon, 11 May 2020 23:20:56 +0200 (CEST)
+ id 351C2F80157; Mon, 11 May 2020 23:34:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-qv1-xf2c.google.com (mail-qv1-xf2c.google.com
- [IPv6:2607:f8b0:4864:20::f2c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61018F801F2
- for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 23:20:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61018F801F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 39B96F800E3
+ for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 23:34:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39B96F800E3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Ep7G1d5S"
-Received: by mail-qv1-xf2c.google.com with SMTP id di6so5291933qvb.10
- for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 14:20:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=O6yBAiNRwLbkpZxa9KOV+ZDmKElx0U2cviHhXRUQNGw=;
- b=Ep7G1d5SttpTIYNaaMFt4Yt/l8e3A6Vbk7N/7wBzcfTqg7G2O2JkhosknzHXjmgTva
- MYajep/fZH/13JRuuJNDp5CTOQUSo0j81bajvKE+AkVSbmp3WHdpZ/PdafRo4U6XTVAX
- uLY4xPdTCnZu720jpiMz6+CXhiYuTg1+vzV+Q1wlSkqYtTC0NB0VHbP7kpUu/0A1uMUR
- gpR98TisNS65622ijCI6ZJ0Vz1AdSagbtKHGNkg17Qdyixl4bLOM1imqOnLSViEKV+QH
- c7BlnEoogNMCZzcSatPf/Iit51MehGMjXgypn8n1DJ0slVN1+hho+wpzduHav+5z0cxB
- S91g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=O6yBAiNRwLbkpZxa9KOV+ZDmKElx0U2cviHhXRUQNGw=;
- b=TJMEE/QzZWqY5SlTFM6+PUal88R2duDj6C1I0sahsAVBvOH1xZhgKHEaTKCkYIdPuX
- CsC/CC4XJ09xZJWy14Z8WZuYpsi5gAcIF4T2VgQpK/gRAGrrzbaIjt0Lm55+c+0CUrIK
- hVbJ7mGF86DRU+7qmmZ3KYwUOZmjME24wf1J8+6bGWtNpzcTRjHkJDEyR87GLNLF2Rto
- UT6xn04Xo/7IU0XvYWVW05Xyt9eatO2TU7Cfel7kZdRx6eBwhsQZrAPUWe27FCs8jrr7
- xvhMdq2YFB2yo6Ggyjkax/ZI5ukuHM2SckPMwuY9WjC53z9fP4ZTehouPsHWpHSpCwqk
- lNcg==
-X-Gm-Message-State: AGi0PubeI8c1zrIw79Rdx4dmAnzuFPYjwTGPYPIV6z+Wp4J3tWzNRULw
- UxDuAxjpjlTjoj2tgE3tDgdiSVaI
-X-Google-Smtp-Source: APiQypJOEP19nfM64wYRSD+Jiq58dgSsCQKiNrOXKs7WqX0sCv3wm631LWi/RRtl8qnEreoF9xtmkg==
-X-Received: by 2002:a05:6214:1152:: with SMTP id
- b18mr5498493qvt.13.1589232040696; 
- Mon, 11 May 2020 14:20:40 -0700 (PDT)
-Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id c26sm9148691qkm.98.2020.05.11.14.20.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 May 2020 14:20:40 -0700 (PDT)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: alsa-devel@alsa-project.org, broonie@kernel.org, vijendar.mukunda@amd.com,
- tiwai@suse.de
-Subject: [PATCH v2 14/14] ASoC: amd: enable build for RN machine driver
-Date: Mon, 11 May 2020 17:20:14 -0400
-Message-Id: <20200511212014.2359225-15-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
-In-Reply-To: <20200511212014.2359225-1-alexander.deucher@amd.com>
-References: <20200511212014.2359225-1-alexander.deucher@amd.com>
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="QncDUzyO"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 84B82206D9;
+ Mon, 11 May 2020 21:34:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1589232854;
+ bh=t9E+zQZhFkb0os8ZvYyTkZuaKKcEmnobBlRdjDhPC0E=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QncDUzyOZeBFybgBiX9gsjwe87Qx6LUTJw0s553WmO/CNx3eWsWgCnTZvgKzMyeu8
+ Au0L9d5eGaPtHcWP919KDAT1DDcN9RHkBmT1iNlxCyq6VVi26jJrck4ziCNBycSwBA
+ BpKlLkwPCOA1QdqdsZ5BOA8C4McPoyoKHXK7ICYM=
+Date: Mon, 11 May 2020 22:34:11 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Johannes Krude <johannes@krude.de>, alsa-devel@alsa-project.org
+Subject: Re: [PATCH] sound/soc: only first codec is master in multicodec setup
+Message-ID: <20200511213411.GC23852@sirena.org.uk>
+References: <20191120202334.GA4579@phlox.h.transitiv.net>
+ <158895800278.30774.7135029343990319515.b4-ty@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="QRj9sO5tAVLaXnSD"
+Content-Disposition: inline
+In-Reply-To: <158895800278.30774.7135029343990319515.b4-ty@kernel.org>
+X-Cookie: APL hackers do it in the quad.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,41 +82,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 
-This patch enables build for RN machine driver.
+--QRj9sO5tAVLaXnSD
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- sound/soc/amd/Kconfig         | 7 +++++++
- sound/soc/amd/renoir/Makefile | 1 +
- 2 files changed, 8 insertions(+)
+On Fri, May 08, 2020 at 06:13:43PM +0100, Mark Brown wrote:
+> On Wed, 20 Nov 2019 21:23:34 +0100, Johannes Krude wrote:
+> > When using multiple codecs, at most one codec should generate the master
+> > clock. All codecs except the first are therefore configured for slave
+> > mode. Before this patch all codecs in a multicodec setup had to be=20
+> > slaves. This is needed when e.g., connecting multiple sound hats for=20
+> > simultaneous playback to the raspberry pi I2S output and one of the=20
+> > sound hats generates the I2S clocks=20
+> > (https://github.com/raspberrypi/linux/pull/3337).
+> >=20
+> > [...]
+>=20
+> Applied to
+>=20
+>    local tree regulator/for-5.7
+>=20
+> Thanks!
+>=20
+> [1/1] sound/soc: only first codec is master in multicodec setup
+>       (no commit info)
 
-diff --git a/sound/soc/amd/Kconfig b/sound/soc/amd/Kconfig
-index 5f57a47382b4..77ffdb41bee5 100644
---- a/sound/soc/amd/Kconfig
-+++ b/sound/soc/amd/Kconfig
-@@ -42,3 +42,10 @@ config SND_SOC_AMD_RENOIR
- 	depends on X86 && PCI
- 	help
- 	 This option enables ACP support for Renoir platform
-+
-+config SND_SOC_AMD_RENOIR_MACH
-+	tristate "AMD Renoir support for DMIC"
-+	select SND_SOC_DMIC
-+	depends on SND_SOC_AMD_RENOIR
-+	help
-+	 This option enables machine driver for DMIC
-diff --git a/sound/soc/amd/renoir/Makefile b/sound/soc/amd/renoir/Makefile
-index 43100515c7db..e4371932a55a 100644
---- a/sound/soc/amd/renoir/Makefile
-+++ b/sound/soc/amd/renoir/Makefile
-@@ -4,3 +4,4 @@ snd-rn-pci-acp3x-objs	:= rn-pci-acp3x.o
- snd-acp3x-pdm-dma-objs	:= acp3x-pdm-dma.o
- obj-$(CONFIG_SND_SOC_AMD_RENOIR)	 += snd-rn-pci-acp3x.o
- obj-$(CONFIG_SND_SOC_AMD_RENOIR)	 += snd-acp3x-pdm-dma.o
-+obj-$(CONFIG_SND_SOC_AMD_RENOIR_MACH)	+= acp3x-rn.o
--- 
-2.25.4
+Sorry, this was sent in error - the patch wasn't applied.
 
+--QRj9sO5tAVLaXnSD
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl65xNIACgkQJNaLcl1U
+h9A/vAf/bTil+xw+i7XxXf85X4We7tSvylK1EnQWIYEKR23tvIucSQKvl4g8Rvm4
+Yw4/zpKrVL1jltkLIpTl8EZA229fTEPSbktJhDbBwBU48paI89gTe+4wo7n6uX3D
+y/vGtlsbWGf5AtT8wOUJM9w0D+XleaMAPK0+QHfzL9/xaMHEH0CL0VEALWWLjKM9
+uzbLJ+wNW5iaC8eUk2Hlg20UgOTBFbNrgzqcpPinwX5zbJgdhorc8V6v40cYfuUZ
+A7+hTEOH44ItlglyvFkD1f+qfMTlsodn9QWzcMFS3QcSIcykzg2xb9J4lULJJ03U
+//YVYse0B6z/RPKqFzpCSK6fLWTv/Q==
+=Cb1C
+-----END PGP SIGNATURE-----
+
+--QRj9sO5tAVLaXnSD--

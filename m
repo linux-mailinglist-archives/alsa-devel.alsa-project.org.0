@@ -2,84 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FEC61CE75B
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 May 2020 23:23:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2899A1CE75E
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 May 2020 23:24:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6398165F;
-	Mon, 11 May 2020 23:22:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6398165F
+	by alsa0.perex.cz (Postfix) with ESMTPS id C73EB166B;
+	Mon, 11 May 2020 23:23:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C73EB166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589232185;
-	bh=ROwtKVd8GbeikVXqx9Pl525jmsKE4NJeFJ+2Ruxs6BU=;
+	s=default; t=1589232243;
+	bh=0EYbdopYj6alxs/Dfd4us8F1i/ks4MyrmgyUM/6xaxY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=myND+Tqr72TKbF7zcrTJlXSpiP+u21uYS9OoAqCuEWLG13kN0DY9VdLM5j4dwp8EI
-	 fF6kpbA9MOIhCs1yD1RolrfKm+uBHRsYW21+2JktycQlitw9PsvO2RiDKWzrgtoQcs
-	 kGlmFMcuf0CHfIsAypLPx+Z5zHpQHMmt4yZMH+34=
+	b=YKMhMAfN56qlyeHcad3y091FrUaUKD+kIOPhEQik9AqMYGfWQOnWAPNFgez59C9qa
+	 HODfsSNj7lGT55L0azN6ZwrOdioMuAZOMkNmQscCiIvU2Nhk1juiR603STmSITK1Vs
+	 O1licBfnVyq3x4V7UbPot1+rkD67M+FNh/4dgjo4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4EE59F802A0;
-	Mon, 11 May 2020 23:20:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8623CF802A2;
+	Mon, 11 May 2020 23:20:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C179AF80292; Mon, 11 May 2020 23:20:39 +0200 (CEST)
+ id 607BAF802A0; Mon, 11 May 2020 23:20:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
- [IPv6:2607:f8b0:4864:20::842])
+Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
+ [IPv6:2607:f8b0:4864:20::743])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A74BF80157
- for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 23:20:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A74BF80157
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4534FF801F2
+ for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 23:20:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4534FF801F2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="QrSE7gCs"
-Received: by mail-qt1-x842.google.com with SMTP id p12so9308554qtn.13
- for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 14:20:27 -0700 (PDT)
+ header.b="bmTlDGNW"
+Received: by mail-qk1-x743.google.com with SMTP id c64so11436293qkf.12
+ for <alsa-devel@alsa-project.org>; Mon, 11 May 2020 14:20:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=C5T0qnI2z1bxkyAKqDn4v988108KSakkB8A7lVyq4P8=;
- b=QrSE7gCs90mt9VFno+ftBbYs70rzyYbVdkX1SaiVna7xegJF0VlLEGSafY1aF2whk/
- +BepdMonNiAcXmG10V3+uGDE7B3iOX7kXiJGfsV9Ate5lLYSlmy7/3hZ8yKKJoZNycLI
- JGqx+m8MDd/8mQ9rmXIUyUJKaE5FlWF32wQKzqnnte6d3DLhxdwf9ldeYL2DZyPSfPqt
- NpRffutQ2CVPoD9x5oC5sUqC+4Z2VnOGpbsmnbsD5SrbUz9wUbYtDdT7bWL4Po8tW6cc
- 1e+FegFeQ09mBdibUv6hZpZTMoClbdW55AjvBr0lvxKeTCMy0TxlpZEEG2hY3tLzgiHJ
- KWYw==
+ bh=Vrfbre8KV9oiNRLUqxXtQBOjfj6UL9MsuDVhs+DbU3E=;
+ b=bmTlDGNWrEQ2U7M4t07zCzRiQwjyR1f30zjTHvhLKzA4LdbrgH0AFPRXj/0J1bNLSP
+ d1WfSriAXSQlIUH5CVZX0ny9ftP14tJ0PXVpp6sOFTDgm+LRGG11xt+Z3o4mc2eYHqip
+ 2tg0LfRg4SMWbudTF7LyCeoi4R19tL2dK+YQ7Mq58nEUqvMPygffklOjVaadTOCBNKAy
+ l8pSJEQe8CF76pEcuSSyGEheXVSWSt3oa4cunO3xtPz3i9QTyOkjZNMI2mqB5LJRi7Qu
+ 5fAt2xJoMYsSGDAUecAAgIG0EjHl8+5drsHU4pBsqIWpPn2MmS/jb+WukhmPwG8Muzpk
+ 28fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=C5T0qnI2z1bxkyAKqDn4v988108KSakkB8A7lVyq4P8=;
- b=YaXFMZUQ/KlVW9Ahxcq/z/QytREhkHVEikOj1S4PeBFCF7NRO/aNJKaDoxEU/mYqKX
- wukvVbrEIFLnTa0vNJriVAPyipNQByRwlklMH97+8YE1dbf8KYKP/3+gDgdyQ5fWsLsE
- pv/WDomGJUygVMpFzoGg78hgZf+jKyV2/dSFdlJUjGOtLgH8DTI2/M+Ommb7b9rwQK6I
- 6h6C6wrn0rl4Qps+ZtVdMjqyySDdl9nPUdiTgk3bQtrIjT+oLqM9FBnI+lHz0eGzEGQw
- s42dL1f14xzeoBBGoi+sVjeudtzLiBOn8eSjMi183RKdimKKc+5aA8Im66vxcDcGW6OI
- dEDg==
-X-Gm-Message-State: AGi0PuYi4gCLvh6v/3GJqliuyY0TH4lagg+AvjMNsSQCRyo8AV9o5geE
- XrwPHXKtKbJZ4xQSkg/It9cH63YZ
-X-Google-Smtp-Source: APiQypLPMen8dn7ZUWzcA4M2eyVEy7TrJU364jxGE0CjNjpntI1h+3dMcsTNWFUxTUQfnoa+Eoo1Rw==
-X-Received: by 2002:ac8:3383:: with SMTP id c3mr18520786qtb.220.1589232025779; 
- Mon, 11 May 2020 14:20:25 -0700 (PDT)
+ bh=Vrfbre8KV9oiNRLUqxXtQBOjfj6UL9MsuDVhs+DbU3E=;
+ b=Fwkm16OJufajajwDgZrD75aZSr6YAMxzT5vvCGjMwqqgTVJuJeFZ9Dk7XEuvJHNq/S
+ UPw7hXyt000ZxbceoaA/rrKV4WwjFwo6bjS8p0w+kT+h9zuZVS7WBdFf/vAk8OPpWP1+
+ lOc/DGxvGfNKiRR+QZ5oIuw3tYgytFPJnQoPZbfmOar3fDSgF7rMkFeYp41AOZ5n7eJJ
+ Dzs6CloOyhXjRVGyQ2iq8JioAwKBitI/dBbX8rWOUM4mZ140VM8UtLhADfagA0vgpXmq
+ gtsxfJvVW/lQyBqRSqxPOexN0uh8eYoFb1ev/vr2RuaKC3Dm7HkCxpKxGr7IOXvFFf3b
+ vk1A==
+X-Gm-Message-State: AOAM533izAtPRoGZa9GoSxNGq4PxS+jVItqXFDLwhOjgPkGdXfPIh9nE
+ 7ZeZ662H06csKCftY4S7mdZVvqlI
+X-Google-Smtp-Source: ABdhPJxm2raXlDDr5pcAaZN9BzWEz2ubOCDp6RAIILSAMsl6tGG0dOazKiP5uwW3ye6CbTw4+j4B3A==
+X-Received: by 2002:a37:628a:: with SMTP id w132mr3864309qkb.294.1589232027210; 
+ Mon, 11 May 2020 14:20:27 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id c26sm9148691qkm.98.2020.05.11.14.20.24
+ by smtp.gmail.com with ESMTPSA id c26sm9148691qkm.98.2020.05.11.14.20.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 May 2020 14:20:25 -0700 (PDT)
+ Mon, 11 May 2020 14:20:26 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: alsa-devel@alsa-project.org, broonie@kernel.org, vijendar.mukunda@amd.com,
  tiwai@suse.de
-Subject: [PATCH v2 02/14] ASoC: amd: add Renoir ACP PCI driver
-Date: Mon, 11 May 2020 17:20:02 -0400
-Message-Id: <20200511212014.2359225-3-alexander.deucher@amd.com>
+Subject: [PATCH v2 03/14] ASoC: amd: add acp init/de-init functions
+Date: Mon, 11 May 2020 17:20:03 -0400
+Message-Id: <20200511212014.2359225-4-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200511212014.2359225-1-alexander.deucher@amd.com>
 References: <20200511212014.2359225-1-alexander.deucher@amd.com>
@@ -104,139 +104,217 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 
-ACP is a PCI audio device.
-This patch adds PCI driver to bind to this device and get
-PCI resources.
+Add Renoir ACP PCI driver init/deinit functions.
 
 Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- sound/soc/amd/renoir/rn-pci-acp3x.c | 87 +++++++++++++++++++++++++++++
- sound/soc/amd/renoir/rn_acp3x.h     | 21 +++++++
- 2 files changed, 108 insertions(+)
- create mode 100644 sound/soc/amd/renoir/rn-pci-acp3x.c
- create mode 100644 sound/soc/amd/renoir/rn_acp3x.h
+ sound/soc/amd/renoir/rn-pci-acp3x.c | 143 ++++++++++++++++++++++++++++
+ sound/soc/amd/renoir/rn_acp3x.h     |  16 ++++
+ 2 files changed, 159 insertions(+)
 
 diff --git a/sound/soc/amd/renoir/rn-pci-acp3x.c b/sound/soc/amd/renoir/rn-pci-acp3x.c
-new file mode 100644
-index 000000000000..56b76e355cd4
---- /dev/null
+index 56b76e355cd4..429813f6ba1c 100644
+--- a/sound/soc/amd/renoir/rn-pci-acp3x.c
 +++ b/sound/soc/amd/renoir/rn-pci-acp3x.c
-@@ -0,0 +1,87 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+//
-+// AMD Renoir ACP PCI Driver
-+//
-+//Copyright 2020 Advanced Micro Devices, Inc.
+@@ -7,13 +7,146 @@
+ #include <linux/pci.h>
+ #include <linux/module.h>
+ #include <linux/io.h>
++#include <linux/delay.h>
+ 
+ #include "rn_acp3x.h"
+ 
++static int acp_power_gating;
++module_param(acp_power_gating, int, 0644);
++MODULE_PARM_DESC(acp_power_gating, "Enable acp power gating");
 +
-+#include <linux/pci.h>
-+#include <linux/module.h>
-+#include <linux/io.h>
-+
-+#include "rn_acp3x.h"
-+
-+struct acp_dev_data {
-+	void __iomem *acp_base;
-+};
-+
-+static int snd_rn_acp_probe(struct pci_dev *pci,
-+			    const struct pci_device_id *pci_id)
+ struct acp_dev_data {
+ 	void __iomem *acp_base;
+ };
+ 
++static int rn_acp_power_on(void __iomem *acp_base)
 +{
++	u32 val;
++	int timeout;
++
++	val = rn_readl(acp_base + ACP_PGFSM_STATUS);
++
++	if (val == 0)
++		return val;
++
++	if ((val & ACP_PGFSM_STATUS_MASK) !=
++				ACP_POWER_ON_IN_PROGRESS)
++		rn_writel(ACP_PGFSM_CNTL_POWER_ON_MASK,
++			  acp_base + ACP_PGFSM_CONTROL);
++	timeout = 0;
++	while (++timeout < 500) {
++		val = rn_readl(acp_base + ACP_PGFSM_STATUS);
++		if (!val)
++			return 0;
++		udelay(1);
++	}
++	return -ETIMEDOUT;
++}
++
++static int rn_acp_power_off(void __iomem *acp_base)
++{
++	u32 val;
++	int timeout;
++
++	rn_writel(ACP_PGFSM_CNTL_POWER_OFF_MASK,
++		  acp_base + ACP_PGFSM_CONTROL);
++	timeout = 0;
++	while (++timeout < 500) {
++		val = rn_readl(acp_base + ACP_PGFSM_STATUS);
++		if ((val & ACP_PGFSM_STATUS_MASK) == ACP_POWERED_OFF)
++			return 0;
++		udelay(1);
++	}
++	return -ETIMEDOUT;
++}
++
++static int rn_acp_reset(void __iomem *acp_base)
++{
++	u32 val;
++	int timeout;
++
++	rn_writel(1, acp_base + ACP_SOFT_RESET);
++	timeout = 0;
++	while (++timeout < 500) {
++		val = rn_readl(acp_base + ACP_SOFT_RESET);
++		if (val & ACP_SOFT_RESET_SOFTRESET_AUDDONE_MASK)
++			break;
++		cpu_relax();
++	}
++	rn_writel(0, acp_base + ACP_SOFT_RESET);
++	timeout = 0;
++	while (++timeout < 500) {
++		val = rn_readl(acp_base + ACP_SOFT_RESET);
++		if (!val)
++			return 0;
++		cpu_relax();
++	}
++	return -ETIMEDOUT;
++}
++
++static void rn_acp_enable_interrupts(void __iomem *acp_base)
++{
++	u32 ext_intr_ctrl;
++
++	rn_writel(0x01, acp_base + ACP_EXTERNAL_INTR_ENB);
++	ext_intr_ctrl = rn_readl(acp_base + ACP_EXTERNAL_INTR_CNTL);
++	ext_intr_ctrl |= ACP_ERROR_MASK;
++	rn_writel(ext_intr_ctrl, acp_base + ACP_EXTERNAL_INTR_CNTL);
++}
++
++static void rn_acp_disable_interrupts(void __iomem *acp_base)
++{
++	rn_writel(ACP_EXT_INTR_STAT_CLEAR_MASK, acp_base +
++		  ACP_EXTERNAL_INTR_STAT);
++	rn_writel(0x00, acp_base + ACP_EXTERNAL_INTR_ENB);
++}
++
++static int rn_acp_init(void __iomem *acp_base)
++{
++	int ret;
++
++	/* power on */
++	ret = rn_acp_power_on(acp_base);
++	if (ret) {
++		pr_err("ACP power on failed\n");
++		return ret;
++	}
++	rn_writel(0x01, acp_base + ACP_CONTROL);
++	/* Reset */
++	ret = rn_acp_reset(acp_base);
++	if (ret) {
++		pr_err("ACP reset failed\n");
++		return ret;
++	}
++	rn_writel(0x03, acp_base + ACP_CLKMUX_SEL);
++	rn_acp_enable_interrupts(acp_base);
++	return 0;
++}
++
++static int rn_acp_deinit(void __iomem *acp_base)
++{
++	int ret;
++
++	rn_acp_disable_interrupts(acp_base);
++	/* Reset */
++	ret = rn_acp_reset(acp_base);
++	if (ret) {
++		pr_err("ACP reset failed\n");
++		return ret;
++	}
++	rn_writel(0x00, acp_base + ACP_CLKMUX_SEL);
++	rn_writel(0x00, acp_base + ACP_CONTROL);
++	/* power off */
++	if (acp_power_gating) {
++		ret = rn_acp_power_off(acp_base);
++		if (ret) {
++			pr_err("ACP power off failed\n");
++			return ret;
++		}
++	}
++	return 0;
++}
++
+ static int snd_rn_acp_probe(struct pci_dev *pci,
+ 			    const struct pci_device_id *pci_id)
+ {
+@@ -48,6 +181,9 @@ static int snd_rn_acp_probe(struct pci_dev *pci,
+ 	}
+ 	pci_set_master(pci);
+ 	pci_set_drvdata(pci, adata);
++	ret = rn_acp_init(adata->acp_base);
++	if (ret)
++		goto release_regions;
+ 	return 0;
+ 
+ release_regions:
+@@ -60,6 +196,13 @@ static int snd_rn_acp_probe(struct pci_dev *pci,
+ 
+ static void snd_rn_acp_remove(struct pci_dev *pci)
+ {
 +	struct acp_dev_data *adata;
 +	int ret;
-+	u32 addr;
 +
-+	if (pci_enable_device(pci)) {
-+		dev_err(&pci->dev, "pci_enable_device failed\n");
-+		return -ENODEV;
-+	}
-+
-+	ret = pci_request_regions(pci, "AMD ACP3x audio");
-+	if (ret < 0) {
-+		dev_err(&pci->dev, "pci_request_regions failed\n");
-+		goto disable_pci;
-+	}
-+
-+	adata = devm_kzalloc(&pci->dev, sizeof(struct acp_dev_data),
-+			     GFP_KERNEL);
-+	if (!adata) {
-+		ret = -ENOMEM;
-+		goto release_regions;
-+	}
-+
-+	addr = pci_resource_start(pci, 0);
-+	adata->acp_base = devm_ioremap(&pci->dev, addr,
-+				       pci_resource_len(pci, 0));
-+	if (!adata->acp_base) {
-+		ret = -ENOMEM;
-+		goto release_regions;
-+	}
-+	pci_set_master(pci);
-+	pci_set_drvdata(pci, adata);
-+	return 0;
-+
-+release_regions:
-+	pci_release_regions(pci);
-+disable_pci:
-+	pci_disable_device(pci);
-+
-+	return ret;
-+}
-+
-+static void snd_rn_acp_remove(struct pci_dev *pci)
-+{
-+	pci_disable_msi(pci);
-+	pci_release_regions(pci);
-+	pci_disable_device(pci);
-+}
-+
-+static const struct pci_device_id snd_rn_acp_ids[] = {
-+	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, ACP_DEVICE_ID),
-+	.class = PCI_CLASS_MULTIMEDIA_OTHER << 8,
-+	.class_mask = 0xffffff },
-+	{ 0, },
-+};
-+MODULE_DEVICE_TABLE(pci, snd_rn_acp_ids);
-+
-+static struct pci_driver rn_acp_driver  = {
-+	.name = KBUILD_MODNAME,
-+	.id_table = snd_rn_acp_ids,
-+	.probe = snd_rn_acp_probe,
-+	.remove = snd_rn_acp_remove,
-+};
-+
-+module_pci_driver(rn_acp_driver);
-+
-+MODULE_AUTHOR("Vijendar.Mukunda@amd.com");
-+MODULE_DESCRIPTION("AMD ACP Renoir PCI driver");
-+MODULE_LICENSE("GPL v2");
++	adata = pci_get_drvdata(pci);
++	ret = rn_acp_deinit(adata->acp_base);
++	if (ret)
++		dev_err(&pci->dev, "ACP de-init failed\n");
+ 	pci_disable_msi(pci);
+ 	pci_release_regions(pci);
+ 	pci_disable_device(pci);
 diff --git a/sound/soc/amd/renoir/rn_acp3x.h b/sound/soc/amd/renoir/rn_acp3x.h
-new file mode 100644
-index 000000000000..da5715759646
---- /dev/null
+index da5715759646..ec2a85085163 100644
+--- a/sound/soc/amd/renoir/rn_acp3x.h
 +++ b/sound/soc/amd/renoir/rn_acp3x.h
-@@ -0,0 +1,21 @@
-+/* SPDX-License-Identifier: GPL-2.0+ */
-+/*
-+ * AMD ALSA SoC PDM Driver
-+ *
-+ * Copyright 2020 Advanced Micro Devices, Inc.
-+ */
+@@ -9,6 +9,22 @@
+ 
+ #define ACP_PHY_BASE_ADDRESS 0x1240000
+ #define ACP_DEVICE_ID 0x15E2
++#define ACP_POWER_ON 0x00
++#define ACP_POWER_ON_IN_PROGRESS 0x01
++#define ACP_POWER_OFF 0x02
++#define ACP_POWER_OFF_IN_PROGRESS 0x03
++#define ACP_SOFT_RESET_SOFTRESET_AUDDONE_MASK	0x00010001
 +
-+#include "rn_chip_offset_byte.h"
++#define ACP_PGFSM_CNTL_POWER_ON_MASK    0x01
++#define ACP_PGFSM_CNTL_POWER_OFF_MASK   0x00
++#define ACP_PGFSM_STATUS_MASK           0x03
++#define ACP_POWERED_ON                  0x00
++#define ACP_POWER_ON_IN_PROGRESS        0x01
++#define ACP_POWERED_OFF                 0x02
++#define ACP_POWER_OFF_IN_PROGRESS       0x03
 +
-+#define ACP_PHY_BASE_ADDRESS 0x1240000
-+#define ACP_DEVICE_ID 0x15E2
-+
-+static inline u32 rn_readl(void __iomem *base_addr)
-+{
-+	return readl(base_addr - ACP_PHY_BASE_ADDRESS);
-+}
-+
-+static inline void rn_writel(u32 val, void __iomem *base_addr)
-+{
-+	writel(val, base_addr - ACP_PHY_BASE_ADDRESS);
-+}
++#define ACP_ERROR_MASK 0x20000000
++#define ACP_EXT_INTR_STAT_CLEAR_MASK 0xFFFFFFFF
+ 
+ static inline u32 rn_readl(void __iomem *base_addr)
+ {
 -- 
 2.25.4
 

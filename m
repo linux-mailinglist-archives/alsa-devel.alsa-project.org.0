@@ -2,101 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B8E51CFB66
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 May 2020 18:55:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5A991CFB85
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 May 2020 19:03:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1136216CF;
-	Tue, 12 May 2020 18:55:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1136216CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3743116D3;
+	Tue, 12 May 2020 19:02:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3743116D3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589302555;
-	bh=/8ly33Evp4/EJF23ZWG6y3umA1CwgFhXWcJXjkFc83M=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1589302995;
+	bh=+FgrVYwsFl7EL1gSkB/aeZnEL+nuiARcPD/rSP79HN0=;
+	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DvCXoRTo3o3jZZOb3bSdW0X5tBwyi+MNHCjNOCGNwUO8zj84MyPCQvK1RhxieMVcd
-	 fNOMbMExZqEIzhcnRrsjD2afnj1W1QKY51q9uOTcGqIi33S4ztw9dXRSN7wQYT1MLf
-	 ft5wNk++LVHSLofe9zl5ONigmto52fKWjROZH+Ug=
+	b=jt+P35brE6OC0TMNlgmXAA92aMKCysR1Axk6TDUeof4x2veWt+LwRaBYN/6ogRGeJ
+	 ZGk470ftOKwwMoSS6UAp3WKegisfS3+1HTPyWCNAdU/jKGySRhJYCKCLqB2EX1CbsT
+	 whRujCWSvz5FAKvokfeCAnzmvxCts4Kc4V4nRqYo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 074B9F80158;
-	Tue, 12 May 2020 18:54:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A749F800AA;
+	Tue, 12 May 2020 19:01:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A282F8014C; Tue, 12 May 2020 18:54:11 +0200 (CEST)
+ id E9338F8014C; Tue, 12 May 2020 19:01:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81E9BF800AA
- for <alsa-devel@alsa-project.org>; Tue, 12 May 2020 18:54:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81E9BF800AA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com
- header.b="pr6Oisbs"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="2VMtpSwv"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id D0ADF5C019F;
- Tue, 12 May 2020 12:54:01 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Tue, 12 May 2020 12:54:01 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=4/tfq2igpNuxv4aA+nGHYw22FQD
- X91w+d5HmJd7P4yY=; b=pr6OisbsjLrafXSJjIFsCqzm6M4bSSkNq1GFb/shoIi
- I39/9DDoEmUbaOoBSp6dWU+2ysB3sNvwthZqBF7GMJB4PBcZylWkb+pyvTkFKNRG
- RFhGg5G6BrnYydK2ZmRTSkQ0aqvsstAQrebW2WW3TBqWLwcJjjjQZSYUFnx8d0LR
- BWsl1JVZpHUbi3lfli0xna+kgdJ14URDLpH8ropBEAGghc5svn3kFOdHFXSd6Gtd
- 9vX3em9br1TArrbw8uoFtaJ0dhtk80If9VQY9R6GUv5cP2RYH4QWLowdoxItx7i6
- RXwDpF46bpE1XMCJcTAX8dI7ItkKIGBalNQWkc93plg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=4/tfq2
- igpNuxv4aA+nGHYw22FQDX91w+d5HmJd7P4yY=; b=2VMtpSwvhgd0V2Fm8szaXO
- IrsuvVrSNAjEef/5hdxkJz9SRijfsO/dluBW/gs7mNgvg3kH5ZScSadJv40uJ1JV
- 6dvBb9cnlGuMEzuZgulSGgshPdR12On6PjwAQ0WsObEch2ZF5ThiYoM1UVd1J062
- dDRquyBVK+ygDYGLmajlBNEQ5hGhFAZ/N+sfcc2Zf4NBGVDHrnFNtcufoge6Qnlb
- qe6XpYcovxWxRbUObQxQNAdruTG6GR9jbo2ovbR809otYy7UfyOnK/0J40U/vcE1
- 0YFOM78XoiWYeGJDRS7s0XBAy9wTw8odvuOlDBZPlmBeRJXS8ZmbDdF/2/kggVdQ
- ==
-X-ME-Sender: <xms:qdS6XmNhKN5cYz-Mz5c5i_LqBthO0UD_8LFX9dY8ESLzIsr3F--EpQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrledvgddutdefucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefirhgvghcu
- mffjuceoghhrvghgsehkrhhorghhrdgtohhmqeenucggtffrrghtthgvrhhnpeevueehje
- fgfffgiedvudekvdektdelleelgefhleejieeugeegveeuuddukedvteenucfkphepkeef
- rdekiedrkeelrddutdejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrg
- hilhhfrhhomhepghhrvghgsehkrhhorghhrdgtohhm
-X-ME-Proxy: <xmx:qdS6Xk-F6scWqGnbgZtNJKLZi5gxyZwrDi9Jp6g7Od_chYomSnPukw>
- <xmx:qdS6XtQU1DAuyBmdaAl33Qx12vjeOnd1mqTVJ4KkbMCsflJDM_iOFw>
- <xmx:qdS6XmvCVqWbr44hj0JnWMFAnMO69gZl8-er3qMhskptqh-pfj9b4Q>
- <xmx:qdS6Xml4N9tLozPCz_quaHcMszOrkOgh0GhYlSlXXi7bQQdCFDRd6A>
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
- by mail.messagingengine.com (Postfix) with ESMTPA id DD5B530662D6;
- Tue, 12 May 2020 12:54:00 -0400 (EDT)
-Date: Tue, 12 May 2020 18:53:59 +0200
-From: Greg KH <greg@kroah.com>
-To: Subhashini Rao Beerisetty <subhashbeerisetty@gmail.com>
-Subject: Re: sound over USB
-Message-ID: <20200512165359.GA702234@kroah.com>
-References: <CAPY=qRRFV4SpNO5pb9vF=U95dbA_gN2ngP+vm34884NMk5q8gQ@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 30232F800AA
+ for <alsa-devel@alsa-project.org>; Tue, 12 May 2020 19:01:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30232F800AA
+IronPort-SDR: XeUTXGaJgL07V9SpQX6LFxF1a3bHY1xMGtesr/ieZKMEQud8Ig9UVU/57/dFlk63C+ss4QIagv
+ yDYM5l9axJTQ==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2020 10:01:07 -0700
+IronPort-SDR: Db+r0AcSc4+ThFSgLvogNxTh85ziDyrWydS9TnmqFaUWvjWYYVYlI8AICp5miq0ISGU+OqX1/u
+ /dUoFeYTtoWQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,384,1583222400"; d="scan'208";a="297371105"
+Received: from bbian-mobl3.amr.corp.intel.com (HELO [10.254.96.32])
+ ([10.254.96.32])
+ by fmsmga002.fm.intel.com with ESMTP; 12 May 2020 10:01:05 -0700
+Subject: Re: [PATCH 3/3] soundwire: bus_type: add sdw_master_device support
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: Vinod Koul <vkoul@kernel.org>
+References: <20200429185145.12891-1-yung-chuan.liao@linux.intel.com>
+ <20200429185145.12891-4-yung-chuan.liao@linux.intel.com>
+ <20200511063227.GS1375924@vkoul-mobl>
+ <e214d308-1b92-a7a5-3c76-da05dca99cc5@linux.intel.com>
+ <20200512033035.GV1375924@vkoul-mobl>
+ <84f09843-3245-5fa4-530f-c915b28e9bc5@linux.intel.com>
+ <20200512155927.GA4297@vkoul-mobl>
+ <79ee2b4a-c2e3-aba7-8b67-b1a01922d089@linux.intel.com>
+Message-ID: <86d45af8-93db-d284-64d4-efa22ccc0908@linux.intel.com>
+Date: Tue, 12 May 2020 12:01:04 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAPY=qRRFV4SpNO5pb9vF=U95dbA_gN2ngP+vm34884NMk5q8gQ@mail.gmail.com>
-Cc: alsa-devel@alsa-project.org, linux-usb@vger.kernel.org,
- kernelnewbies <kernelnewbies@kernelnewbies.org>
+In-Reply-To: <79ee2b4a-c2e3-aba7-8b67-b1a01922d089@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, ranjani.sridharan@linux.intel.com,
+ hui.wang@canonical.com, broonie@kernel.org, srinivas.kandagatla@linaro.org,
+ jank@cadence.com, mengdong.lin@intel.com, slawomir.blauciak@intel.com,
+ sanyog.r.kale@intel.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ rander.wang@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,67 +91,69 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, May 12, 2020 at 10:13:10PM +0530, Subhashini Rao Beerisetty wrote:
->  Hi all,
-> 
-> In my Linux machine, I connected the plantronics usb headset with mic
-> and I see(with the help of dmesg) that this device detected.
-> 
-> 
-> 
-> [116676.507868] usb 2-2: new full-speed USB device number 5 using xhci_hcd
-> [116676.923445] usb 2-2: New USB device found, idVendor=047f, idProduct=c012
->  [116676.927091] usb 2-2: New USB device strings: Mfr=1, Product=2,
-> SerialNumber=0
->  [116676.934252] usb 2-2: Product: Plantronics .Audio 628 USB
->  [116676.941445] usb 2-2: Manufacturer: Plantronics
->  [116676.945731] usb 2-2: ep 0x84 - rounding interval to 64
-> microframes, ep desc says 80 microframes
->  [116677.078071] hidraw: raw HID events driver (C) Jiri Kosina
->  [116677.159669] usbcore: registered new interface driver usbhid
->  [116677.161686] usbhid: USB HID core driver
->  [116677.175458] input: Plantronics Plantronics .Audio 628 USB as
-> /devices/pci0000:00/0000:00:14.0/usb2/2-2/2-2:1.3/0003:047F:C012.0001/input/input4
->  [116677.234588] plantronics 0003:047F:C012.0001:
-> input,hiddev0,hidraw0: USB HID v1.00 Device [Plantronics Plantronics
-> .Audio 628 USB] on usb-0000:00:14.0-2/input3
->  [116677.281756] usbcore: registered new interface driver snd-usb-audio
-> 
->  The following nodes are present in the /dev/snd
-> 
-> $ ls -l /dev/snd/
-> 
-> total 0
-> 
-> drwxr-xr-x 2 root root       60 May 12 11:32 by-id
-> 
-> drwxr-xr-x 2 root root       60 May 12 11:32 by-path
-> 
-> crw-rw---- 1 root audio 116,  2 May 12 11:32 controlC1
-> 
-> crw-rw---- 1 root audio 116,  4 May 12 11:32 pcmC1D0c
-> 
-> crw-rw---- 1 root audio 116,  3 May 12 11:32 pcmC1D0p
-> 
-> crw-rw---- 1 root audio 116,  1 May 12 11:32 seq
-> 
-> crw-rw---- 1 root audio 116, 33 May 12 11:32 timer
-> 
-> 
-> 
-> What are all these devices present in /dev/snd
-> 
-> How do I use it for playing and recording an audio?
-> 
-> Basically first I want to gain knowledge on set of test cases I can
-> run on ALSA and then learn ALSA kernel modules stuff including
-> snd_usb_audio mdule.
-> 
-> So please guide me by providing related documentation/Steps.
 
-ALSA should "just work" with this device, no need to do anything to the
-kernel driver.  Does it not work properly for you as-is?
 
-thanks,
+On 5/12/20 11:08 AM, Pierre-Louis Bossart wrote:
+> 
+> 
+> On 5/12/20 10:59 AM, Vinod Koul wrote:
+>> On 12-05-20, 09:36, Pierre-Louis Bossart wrote:
+>>> On 5/11/20 10:30 PM, Vinod Koul wrote:
+>>>> On 11-05-20, 14:00, Pierre-Louis Bossart wrote:
+>>>>>>> +    md = &bus->md;
+>>>>>>> +    md->dev.bus = &sdw_bus_type;
+>>>>>>> +    md->dev.type = &sdw_master_type;
+>>>>>>> +    md->dev.parent = parent;
+>>>>>>> +    md->dev.of_node = parent->of_node;
+>>>>>>> +    md->dev.fwnode = fwnode;
+>>>>>>> +    md->dev.dma_mask = parent->dma_mask;
+>>>>>>> +
+>>>>>>> +    dev_set_name(&md->dev, "sdw-master-%d", bus->link_id);
+>>>>>>
+>>>>>> This give nice sdw-master-0. In DT this comes from reg property. I 
+>>>>>> dont
+>>>>>> seem to recall if the ACPI/Disco spec treats link_id as unique across
+>>>>>> the system, can you check that please, if not we would need to update
+>>>>>> this.
+>>>>> Table 3 in the Disco for Soundwire 1.0 spec: "all LinkID values are 
+>>>>> relative
+>>>>> to the immediate parent Device."
+>>>>>
+>>>>> There isn't any known implementation with more than one controller.
+>>>>
+>>>> But then it can come in "future" right. So lets try to make it future
+>>>> proof by not using the link_id (we can expose that as a sysfs if people
+>>>> want to know). So a global unique id needs to allocated (hint: idr or
+>>>> equivalent) and used as master_id
+>>>
+>>> Can you clarify if you are asking for a global ID for Intel/ACPI 
+>>> platforms,
+>>> or for DT as well? I can't figure out from the soundwire-controller.yaml
+>>> definitions if there is already a notion of unique ID.
+>>
+>> If ACPI was unique, then I was planning to update the definition below
+>> to include that. Given that it is not the case, let's make it agnostic to
+>> underlying firmware.
+> 
+> I am not sure I understand how this would be done.
+> 
+> The call sequence is
+> 
+> sdw_bus_master_add(bus)
+>      sdw_master_device_add(bus, parent, fw_node)
+> 
+> At the bus level, we don't have any information on which controller the 
+> bus is related to.
+> 
+> We'd need to add an argument to sdw_bus_master_add() and have the 
+> controller unique ID be allocated outside of the SoundWire core, hence 
+> my question on whether the DT definition should not be extended.
 
-greg k-h
+And btw I don't think it makes sense to add a new definition for Intel. 
+We already have a notion of HDaudio bus->idx that's set to zero since we 
+don't have a case for multiple HDaudio controllers.
+
+if we ever do have more than once controller, then we should rely on 
+HDaudio bus->idx as the identifier and not create one specifically for 
+SoundWire - which means as I mentioned above passing an argument and not 
+defining a controller ID in the SoundWire core.

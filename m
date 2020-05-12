@@ -2,67 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9BAC1CF25F
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 May 2020 12:30:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A5D51CF29A
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 May 2020 12:35:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 729A9168D;
-	Tue, 12 May 2020 12:29:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 729A9168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC7041697;
+	Tue, 12 May 2020 12:34:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC7041697
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589279407;
-	bh=uUUBbP8EaZMPnIIp30nshyT98I1oZwm7gc2V5X55qwM=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1589279714;
+	bh=iOtZ2eVyp6uykbgj4qii/+7h1t5fhrWXPOp64vb39Pk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XC8uSNyqkpffDFOZDC3+xSRM0RYgD8rMLkt7z50t58Nr8S0KUxayzxVyu5zMPJqrk
-	 MrHEyHwe8WVShwXTjhvfMI2X6PHgH5Jy0axK5S/xoI7qT/w3+zxBtvwBc98uiZYor4
-	 G3axYB3Uk9Znlf/yqvMluKMNr3g1JgZ+85D2z5Sc=
+	b=NB/iPCiPatUtz14aDhiWyC7aDHA1Alrr4r+WVy22WpOpjQzem13WIu8TV95LNwNZ3
+	 5iUcU7b55jVMP3hxp5AbuZlMLvsCCWDwYyU3t8Skxd31m/lCoGcVor7u+1LhFtV/Hi
+	 gOBgS83vzv3WRCPFw1xAQ46z0R76hidEgSJ7fgnQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84F29F80158;
-	Tue, 12 May 2020 12:28:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3FC81F801F2;
+	Tue, 12 May 2020 12:33:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1EF25F8014C; Tue, 12 May 2020 12:28:21 +0200 (CEST)
+ id E3390F801DB; Tue, 12 May 2020 12:33:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 21B20F800AA
- for <alsa-devel@alsa-project.org>; Tue, 12 May 2020 12:28:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21B20F800AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 445E4F8014C
+ for <alsa-devel@alsa-project.org>; Tue, 12 May 2020 12:33:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 445E4F8014C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="gxn8SyvA"
+ header.b="lUBRFPsW"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 79873206A3;
- Tue, 12 May 2020 10:28:09 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1D009206DD;
+ Tue, 12 May 2020 10:33:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589279290;
- bh=uUUBbP8EaZMPnIIp30nshyT98I1oZwm7gc2V5X55qwM=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=gxn8SyvAfBlFzIgPrZCy4c8NABKRXC2ezSM7qka0kxq/wAqzD6aPu0VACynXnIdQj
- JgwLs8oz7XctyGrHluBZ+gUVaGDEvEYytJGQr7DtByCJE/OdNMwKpXpH/Xj8RAiNhm
- hYyRXQzqX3hexI48WFaiCl81HLS1lcBn2naCGnKo=
-Date: Tue, 12 May 2020 11:28:07 +0100
+ s=default; t=1589279598;
+ bh=iOtZ2eVyp6uykbgj4qii/+7h1t5fhrWXPOp64vb39Pk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=lUBRFPsWwF1B/9EwmQHd1AszTkgFtKc1UlbdnkEZkL8PWqW/9u4peAjCF+tt6E6/k
+ E2WpIRHdC4aCOqXDTK9uUqPZlo4WtTgZZUCSs3QizExQM/zrBSNpO0mlLX1X4Nxi/Y
+ nxYlTjJe8u1e3cUxYpbX6qxs71/8IbdwTgrMks64=
+Date: Tue, 12 May 2020 11:33:16 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Yongbo Zhang <giraffesnn123@gmail.com>
-In-Reply-To: <20200512093003.28332-1-giraffesnn123@gmail.com>
-References: <20200511160731.GA3618@sirena.org.uk>
- <20200512093003.28332-1-giraffesnn123@gmail.com>
-Subject: Re: [PATCH v2] SoC: rsnd: add interrupt support for SSI BUSIF buffer
-Message-Id: <158927928738.28481.10666315188457403591.b4-ty@kernel.org>
-Cc: Chen Li <licheng0822@thundersoft.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Steve Lee <steves.lee.maxim@gmail.com>
+Subject: Re: [PATCH 2/2] ASoC: max98390: Added Amplifier Driver
+Message-ID: <20200512103316.GB5110@sirena.org.uk>
+References: <20200509031919.9006-1-steves.lee@maximintegrated.com>
+ <20200511110346.GE8216@sirena.org.uk>
+ <CABff4NQXs622x1X6ZvNABHNZoTMS57f4Y5sdo1Cng3JeTgboCw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="gatW/ieO32f1wygP"
+Content-Disposition: inline
+In-Reply-To: <CABff4NQXs622x1X6ZvNABHNZoTMS57f4Y5sdo1Cng3JeTgboCw@mail.gmail.com>
+X-Cookie: The only perfect science is hind-sight.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: jack.yu@realtek.com, alsa-devel@alsa-project.org, ryan.lee.maxim@gmail.com,
+ ckeepax@opensource.cirrus.com, steves.lee@maximintegrated.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, krzk@kernel.org,
+ lgirdwood@gmail.com, nuno.sa@analog.com, geert@linux-m68k.org, dmurphy@ti.com,
+ shumingf@realtek.com, Srini Kandagatla <srinivas.kandagatla@linaro.org>,
+ rf@opensource.wolfsonmicro.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,44 +88,64 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 12 May 2020 17:30:03 +0800, Yongbo Zhang wrote:
-> SSI BUSIF buffer is possible to overflow or underflow, especially in a
-> hypervisor environment. If there is no interrupt support, it will eventually
-> lead to errors in pcm data.
-> This patch adds overflow and underflow interrupt support for SSI BUSIF buffer.
-> 
-> Reported-by: Chen Li <licheng0822@thundersoft.com>
-> Signed-off-by: Yongbo Zhang <giraffesnn123@gmail.com>
-> Tested-by: Chen Li <licheng0822@thundersoft.com>
-> Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> Acked-by: Mark Brown <broonie@kernel.org>
-> 
-> [...]
 
-Applied to
+--gatW/ieO32f1wygP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.8
+On Tue, May 12, 2020 at 06:13:05PM +0900, Steve Lee wrote:
+> On Mon, May 11, 2020 at 8:03 PM Mark Brown <broonie@kernel.org> wrote:
 
-Thanks!
+> > > +static const char * const max98390_current_limit_text[] = {
+> > > +     "0.00A", "0.50A", "1.00A", "1.05A", "1.10A", "1.15A", "1.20A", "1.25A",
+> > > +     "1.30A", "1.35A", "1.40A", "1.45A", "1.50A", "1.55A", "1.60A", "1.65A",
 
-[1/1] SoC: rsnd: add interrupt support for SSI BUSIF buffer
-      commit: 66c705d07d784fb6b4622c6e47b6acae357472db
+> > This looks like it should be in DT too.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+> Since this control  is needed while running system according to system
+> battery situation.
+> I'd keep this mixer for further use.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+That's...  interesting for a current limit, and sounds like it would
+have issues for the common case use of current limits to protect the
+hardware.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+> > > +static int max98390_dsm_calib_get(struct snd_kcontrol *kcontrol,
+> > > +             struct snd_ctl_elem_value *ucontrol)
+> > > +{
+> > > +     struct snd_soc_component *component =
+> > > +             snd_soc_kcontrol_component(kcontrol);
+> > > +
+> > > +     dev_warn(component->dev, "Get dsm_calib_get not supported\n");
+> > > +
+> > > +     return 0;
+> > > +}
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+> > Just don't implement the operation if you can't implement it.
 
-Thanks,
-Mark
+> If this not exist as dummy operation and all mixer was not working and
+> could not implement better idea.
+
+Could you be more specific about what you mean by "not working" or how
+simply not initializing the value returned fixes things please?
+
+> Could you consider it as with warn message ?
+
+No, if there's a problem here we should fix it properly.
+
+--gatW/ieO32f1wygP
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl66e2sACgkQJNaLcl1U
+h9CQogf/R4loaD+oS7rnJp6kgm9vB0jnWzpi3rqYFNStSnuHqRBItJeYQU5jCjuT
+A+pMPMF6GX70+4mnWRA7Lj54J5JDWqGX39pARZYckUdT82q/xwi5EJdjPN18wqQn
+sP/GFgc+qi8It3N+2HJOXtHuUO+MhG12PpRVJ87lH3JVzM1pmOFsBjsb82DXTQL0
+lmq8EqokSzxiY4M1b7bNjIyEqI6Lm53IGo16zfqapaNdjbvN14Y7/Ma4oVcBUhXA
+0fezppgi5AzD8HgWAVhPHxfaCCUrIjW2mE8c31K6oHma6SkvXT+Ys045NXX4YUJw
+qz/dy7x/0rIvjJKMcOFFXHYU/KPRPw==
+=msPs
+-----END PGP SIGNATURE-----
+
+--gatW/ieO32f1wygP--

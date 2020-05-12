@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A21251CFB48
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 May 2020 18:47:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F1281CFB4A
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 May 2020 18:48:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 57B1116BC;
-	Tue, 12 May 2020 18:46:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57B1116BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0FFF916CE;
+	Tue, 12 May 2020 18:47:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FFF916CE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589302064;
-	bh=D90eSYBg2xnKg1Y3zuRGdIZjdvgJi5Ph7kADh9s7i7A=;
+	s=default; t=1589302103;
+	bh=PoU1PDlU8EtoqlFaKH81yByCt0mWPcBR7YxQuQ0TaeM=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZVRWNaZf8uVNoP/CUn4cHR8kRHuFpRRFBa6a2KBcc+yJ8MzgZ0fwHn0T22EHDIgCg
-	 H+sV1NOXryKY5UZ3O1cO0By1jpg4GmgyKfNrvdenOVjY/tPvVmft1bZgU0tk3tfC8P
-	 dKV5v9F4jMz5cDyst6Qchk0/l4VwXpwjEX+XwUEk=
+	b=fq/j5YkuquhL+/Q8yLDvcff5AOmNQbfIRsIFp+nrf9uhjWdnmmFUI8DrWU0bWqc2r
+	 VfYdeWAyhZJ27pD+L27NmEIQtZZMONHMV1lAcuCWMu1KWv75dSJM2QlrHRgoyTtHQA
+	 sFICGvRu4VRG+GLCaJecQjUM6wn9nrnxshWByzA0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F970F80292;
-	Tue, 12 May 2020 18:45:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79872F802A0;
+	Tue, 12 May 2020 18:45:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 292FFF80291; Tue, 12 May 2020 18:45:09 +0200 (CEST)
+ id 66846F8021D; Tue, 12 May 2020 18:45:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,33 +34,36 @@ X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7B137F80255
- for <alsa-devel@alsa-project.org>; Tue, 12 May 2020 18:45:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B137F80255
+ by alsa1.perex.cz (Postfix) with ESMTPS id 69724F800E3
+ for <alsa-devel@alsa-project.org>; Tue, 12 May 2020 18:45:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69724F800E3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="1wfzbSZT"
+ header.b="NSaEkz8h"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6F98E20714;
- Tue, 12 May 2020 16:45:04 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 62A0C20714;
+ Tue, 12 May 2020 16:45:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589301905;
- bh=D90eSYBg2xnKg1Y3zuRGdIZjdvgJi5Ph7kADh9s7i7A=;
+ s=default; t=1589301916;
+ bh=PoU1PDlU8EtoqlFaKH81yByCt0mWPcBR7YxQuQ0TaeM=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=1wfzbSZTZfumNeUNSD0ZZHH08oKAGW6/RPchxUTxL+b4CMYbqZVNPp/Mkv7C/ufxz
- BOmRHV2KL8Adau74IoZkvGK5P4x7VHriX5yD6FhR8QSLANSCRCdVXEcofp6iOtIw1p
- YWzeJyXtYNnJDH3nkfzc0+hN9dSPDM2jzYjHgg1w=
-Date: Tue, 12 May 2020 17:45:02 +0100
+ b=NSaEkz8h2XIJ8DYvcW+GtWUn+dfGp8KHikaeRgwfWw+GuNqwXRCGo6uvX1n1qdaqj
+ aYvwlYOaCdchKoByZK89nXSFA9Wi7EWCZlE5VFn2ZNoopKxEtc22z07QIf+mzobT+t
+ x8doeUp+oESQWVCEq76ZJzNwrZT0rFcvBzelPO+s=
+Date: Tue, 12 May 2020 17:45:14 +0100
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <20200506212114.8502-1-cezary.rojewski@intel.com>
-References: <20200506212114.8502-1-cezary.rojewski@intel.com>
-Subject: Re: [PATCH v3] ASoC: Intel: Skylake: Update description for HDaudio
- kconfig
-Message-Id: <158930188455.55827.3626760795244051754.b4-ty@kernel.org>
-Cc: tiwai@suse.com, pierre-louis.bossart@linux.intel.com
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>, lgirdwood@gmail.com,
+ linux-omap@vger.kernel.org, perex@perex.cz, tiwai@suse.com,
+ jarkko.nikula@bitmer.com, peter.ujfalusi@ti.com
+In-Reply-To: <20200512134325.252073-1-christophe.jaillet@wanadoo.fr>
+References: <20200512134325.252073-1-christophe.jaillet@wanadoo.fr>
+Subject: Re: [PATCH] ASoC: ti: omap-mcbsp: Fix an error handling path in
+ 'asoc_mcbsp_probe()'
+Message-Id: <158930188456.55827.1765769472470838223.b4-ty@kernel.org>
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,9 +79,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 6 May 2020 23:21:14 +0200, Cezary Rojewski wrote:
-> With 'ASoC: Intel: Skylake: Fix HDaudio and Dmic' series applied,
-> warning is no longer true. Remove it and update the description.
+On Tue, 12 May 2020 15:43:25 +0200, Christophe JAILLET wrote:
+> If an error occurs after the call to 'omap_mcbsp_init()', the reference to
+> 'mcbsp->fclk' must be decremented, as already done in the remove function.
+> 
+> This can be achieved easily by using the devm_ variant of 'clk_get()'
+> when the reference is taken in 'omap_mcbsp_init()'
+> 
+> This fixes the leak in the probe and has the side effect to simplify both
+> the error handling path of 'omap_mcbsp_init()' and the remove function.
 
 Applied to
 
@@ -86,8 +95,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Intel: Skylake: Update description for HDaudio kconfig
-      commit: cc2d025a81a9f9ed4d05f4f65f43a183d6f18c0c
+[1/1] ASoC: ti: omap-mcbsp: Fix an error handling path in 'asoc_mcbsp_probe()'
+      commit: 03990fd58d2b7c8f7d53e514ba9b8749fac260f9
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

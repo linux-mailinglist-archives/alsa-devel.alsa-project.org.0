@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96E261D0F91
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 May 2020 12:18:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F8631D104D
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 May 2020 12:53:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 29B9B1666;
-	Wed, 13 May 2020 12:17:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29B9B1666
+	by alsa0.perex.cz (Postfix) with ESMTPS id A813F165E;
+	Wed, 13 May 2020 12:52:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A813F165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589365120;
-	bh=3vuvhwtAZpnS66RSuG8LddV1to4ZKi+d7n0imn7UJ8s=;
+	s=default; t=1589367217;
+	bh=FL+28LkNQoD75GVysexp8B1GX+IVYhv26EcjeQpqLJQ=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=De55fRH5VV1y5SeEZ7qGsfik5Yk+ShK1YYvLr/drgtIwaVKNDoGUzk77pfpVFWGgN
-	 /hq6o8PzaSeXe+I4kJH+PfcPmxwNxtz4Rs9xgi9Kfi87d2xHAvVADOoA659VZKDyJz
-	 HxmptafK3PvDQPwPp/Uw4dJUWxBM24Qanh7hdPic=
+	b=Oz+xeGsVPWkSHJ8W5BOR8yOXXOzZxnvy1j9UpCM6p8UziQoG1JT1A3p2QgBRq1cGH
+	 xovQzgXjfiowCEfgylMuCHecoB7dxpSNX6dre1AGG9eBDCVeP2PakcOj0+9O64lDWg
+	 r9CAPWhlMZJGmnbhMc1Abx7tKlHQYNxMGyOoRbLg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4EA1AF80253;
-	Wed, 13 May 2020 12:16:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C9BC9F800E3;
+	Wed, 13 May 2020 12:51:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 28285F80247; Wed, 13 May 2020 12:16:57 +0200 (CEST)
+ id 39B47F80247; Wed, 13 May 2020 12:51:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,49 +34,43 @@ X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 285D4F800B7
- for <alsa-devel@alsa-project.org>; Wed, 13 May 2020 12:16:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 285D4F800B7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5F051F800E3
+ for <alsa-devel@alsa-project.org>; Wed, 13 May 2020 12:51:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F051F800E3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="y9Az8Mqj"
-Received: from localhost (unknown [106.200.233.149])
+ header.b="k+bv5PN8"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 54E2B205ED;
- Wed, 13 May 2020 10:16:50 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 351AF20675;
+ Wed, 13 May 2020 10:51:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589365011;
- bh=3vuvhwtAZpnS66RSuG8LddV1to4ZKi+d7n0imn7UJ8s=;
+ s=default; t=1589367106;
+ bh=FL+28LkNQoD75GVysexp8B1GX+IVYhv26EcjeQpqLJQ=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=y9Az8Mqjykr3Mhl7wM309gFo2qfAjdPDU03RauVflr7mQkhW9Ko8eerqxCst0CnUs
- c8ku8Nch4qUA2Q+oiyz2IzxqcU/f1Oc96tyhG2Cz66g5d6inR81Dur7d3pj/sYHcmO
- qerEBvI2kgWjPFORlIOrec/oiIoSDVR/9Ap6UHJ0=
-Date: Wed, 13 May 2020 15:46:42 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 3/3] soundwire: bus_type: add sdw_master_device support
-Message-ID: <20200513101642.GC14092@vkoul-mobl>
-References: <20200429185145.12891-1-yung-chuan.liao@linux.intel.com>
- <20200429185145.12891-4-yung-chuan.liao@linux.intel.com>
- <20200511063227.GS1375924@vkoul-mobl>
- <e214d308-1b92-a7a5-3c76-da05dca99cc5@linux.intel.com>
- <20200512033035.GV1375924@vkoul-mobl>
- <84f09843-3245-5fa4-530f-c915b28e9bc5@linux.intel.com>
- <20200512155927.GA4297@vkoul-mobl>
- <79ee2b4a-c2e3-aba7-8b67-b1a01922d089@linux.intel.com>
- <86d45af8-93db-d284-64d4-efa22ccc0908@linux.intel.com>
+ b=k+bv5PN8O7fdV9WyaB3O2NkdA5XTQcKoJ1dPJV95CqgXoiC4lch8+CW2PhlDX0GJg
+ P+xgomodWAWLKo566SxMQf3LryNQj27sl5X8fCWDYHe1gMrAKl0qO2CJ57f2AnC2Hs
+ i/Wv4HZmNXs0qreisS/ojZ20AVgYV1r+QDfYM9rk=
+Date: Wed, 13 May 2020 11:51:44 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Steve Lee <steves.lee.maxim@gmail.com>
+Subject: Re: [V3 PATCH 2/2] ASoC: max98390: Added Amplifier Driver
+Message-ID: <20200513105144.GC4803@sirena.org.uk>
+References: <20200513074523.21086-1-steves.lee@maximintegrated.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="c3bfwLpm8qysLVxt"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <86d45af8-93db-d284-64d4-efa22ccc0908@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, ranjani.sridharan@linux.intel.com,
- hui.wang@canonical.com, broonie@kernel.org, srinivas.kandagatla@linaro.org,
- jank@cadence.com, mengdong.lin@intel.com, slawomir.blauciak@intel.com,
- sanyog.r.kale@intel.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
- rander.wang@linux.intel.com, bard.liao@intel.com
+In-Reply-To: <20200513074523.21086-1-steves.lee@maximintegrated.com>
+X-Cookie: Long life is in store for you.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: jack.yu@realtek.com, alsa-devel@alsa-project.org, ryan.lee.maxim@gmail.com,
+ ckeepax@opensource.cirrus.com, ryans.lee@maximintegrated.com,
+ steves.lee@maximintegrated.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ krzk@kernel.org, lgirdwood@gmail.com, nuno.sa@analog.com, geert@linux-m68k.org,
+ dmurphy@ti.com, shumingf@realtek.com, srinivas.kandagatla@linaro.org,
+ rf@opensource.wolfsonmicro.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,83 +86,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 12-05-20, 12:01, Pierre-Louis Bossart wrote:
-> > > > > > 
-> > > > > > There isn't any known implementation with more than one controller.
-> > > > > 
-> > > > > But then it can come in "future" right. So lets try to make it future
-> > > > > proof by not using the link_id (we can expose that as a sysfs if people
-> > > > > want to know). So a global unique id needs to allocated (hint: idr or
-> > > > > equivalent) and used as master_id
-> > > > 
-> > > > Can you clarify if you are asking for a global ID for Intel/ACPI
-> > > > platforms,
-> > > > or for DT as well? I can't figure out from the soundwire-controller.yaml
-> > > > definitions if there is already a notion of unique ID.
-> > > 
-> > > If ACPI was unique, then I was planning to update the definition below
-> > > to include that. Given that it is not the case, let's make it agnostic to
-> > > underlying firmware.
-> > 
-> > I am not sure I understand how this would be done.
-> > 
-> > The call sequence is
-> > 
-> > sdw_bus_master_add(bus)
-> >      sdw_master_device_add(bus, parent, fw_node)
-> > 
-> > At the bus level, we don't have any information on which controller the
-> > bus is related to.
 
-This should be done inside the sdw_bus. controller should not care about
-this IMO.
+--c3bfwLpm8qysLVxt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> > We'd need to add an argument to sdw_bus_master_add() and have the
-> > controller unique ID be allocated outside of the SoundWire core, hence
-> > my question on whether the DT definition should not be extended.
-> 
-> And btw I don't think it makes sense to add a new definition for Intel. We
-> already have a notion of HDaudio bus->idx that's set to zero since we don't
-> have a case for multiple HDaudio controllers.
-> 
-> if we ever do have more than once controller, then we should rely on HDaudio
-> bus->idx as the identifier and not create one specifically for SoundWire -
-> which means as I mentioned above passing an argument and not defining a
-> controller ID in the SoundWire core.
+On Wed, May 13, 2020 at 04:45:23PM +0900, Steve Lee wrote:
 
-I was thinking of following code in bus.c
+> Changes since V2:
+> 	* Removed warn massage in max98390_dsm_calib_get func=20
+> 	  and add comment.
 
-static DEFINE_IDA(sdw_ida);
+The problem isn't the warning, the problem is that you have an empty
+operation.  You should either implement the function (eg, by caching the
+value written) or remove it and fix whatever problems you were running
+into further up the stack when it's missing.
 
-static sdw_get_id(struct sdw_bus *bus)
-{
-        int rc = ida_alloc(&sdw_ida, GFP_KERNEL);
+--c3bfwLpm8qysLVxt
+Content-Type: application/pgp-signature; name="signature.asc"
 
-        if (rc < 0)
-                return rc;
+-----BEGIN PGP SIGNATURE-----
 
-        bus->id = rc;
-        return 0;
-}
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl670T8ACgkQJNaLcl1U
+h9AjZQf8DB8kAssj3tu4IkLMijV1aFweTzAeMyn08L7i45ykX2//t7+LU7aFgxPF
+AI0vHc3UxL9odhba6fd4B0NjK5tMcNcw8x5HFrpNaOOv12q4qxTdqksEs//iiy6W
+gP0Vpvgd1FlxXkVRyKN5CbbyiVMpM6wml100f7e8pFtxvOCy0m7J/C38iqre+NX1
+rwiqCuQsAlN88+lYzGumpUkWioo4SXLOWkxd5KrtOj6E2X0iJ91x98661CSIZ+1F
+bINPSn2bRMJFg6md27V9DiVf3qzkWimna3uLD+GKaT6lyRi4kCMJ0G0jp7LY8h4t
+GDMtTt4CQ0iORk0Ep+rD17LsJNuAzw==
+=wU/c
+-----END PGP SIGNATURE-----
 
-int sdw_add_bus_master(struct sdw_bus *bus)
-{
-        ...
-
-        ret = sdw_get_id(bus);
-
-        ...
-}
-
-void sdw_delete_bus_master(struct sdw_bus *bus)
-{
-        da_free(&sdw_ida, bus->id);
-}
-
-This way you get a unique master number across all devices and this has
-nothing to do with link/of ids and is used for numbering masters in
-sysfs uniquely.
-
-HTH
--- 
-~Vinod
+--c3bfwLpm8qysLVxt--

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 934341D1981
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 May 2020 17:34:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAB4A1D1AC7
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 May 2020 18:15:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2ECE11663;
-	Wed, 13 May 2020 17:33:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2ECE11663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 725E01665;
+	Wed, 13 May 2020 18:14:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 725E01665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589384086;
-	bh=C/N9FIfCZHMh9EGxSyQqk1iZZmo+/7mzHg2e3Ia0L1w=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1589386523;
+	bh=FZ1M3OZRM7jW9vqDsr/RzhwezaAUizYn3SALLQyOYSQ=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=roCahauqW9AXcSvufA589N3MSXwlM6yDZkpBaMKjmUBrETWj6WTMZKh0ul+ElsJqC
-	 jyQWcgr+erEoMDChQtJYtXnRzTO5wOvPJiR5FQIWUsl6IGgMHmGe7W4bqM8txGiWwi
-	 3UkND6GVY3H58InS3truCwpu/yP6AWr3Az3jVKBo=
+	b=du6a/3P39kI/F76V/4Lio6Op8zYu8GYpDEBCooyVLb3EiSwOtBgi5hbjCCd+bOS2h
+	 fQbB+9XDJrGl939Sr30ZbTK/QnWxC5cWIkOKElAbBW37mi4Sxvny9DtIjP3H1yQQrg
+	 l2muvyKiB37F3HLjA8opJZwxsU/7VCo2lt+LCchM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4CB16F8022D;
-	Wed, 13 May 2020 17:33:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92085F800B7;
+	Wed, 13 May 2020 18:13:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 856DCF80247; Wed, 13 May 2020 17:32:53 +0200 (CEST)
+ id 46D6FF80247; Wed, 13 May 2020 18:13:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,39 +34,33 @@ X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B6F72F800BD
- for <alsa-devel@alsa-project.org>; Wed, 13 May 2020 17:32:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6F72F800BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3E608F800E3
+ for <alsa-devel@alsa-project.org>; Wed, 13 May 2020 18:13:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E608F800E3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="n+9kSdXR"
+ header.b="xntG21/I"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 45EF520671;
- Wed, 13 May 2020 15:32:46 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 42DA1204EC;
+ Wed, 13 May 2020 16:13:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589383966;
- bh=C/N9FIfCZHMh9EGxSyQqk1iZZmo+/7mzHg2e3Ia0L1w=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=n+9kSdXRBx0dDZtEKjZGv+Ow0KyRX21TIcUGnkTr1KCuxteg0DhsOusf2FJrjyKp1
- YyHEYc/jYpi7s3nxCpF3LuZpjY8K1BilGi2VUQlNmoaNN3/QQbdvsyAOEwtZy1oruu
- fc0to2v+l7mTA4oAkS2STP57F8VP99saKHxtXRQc=
-Date: Wed, 13 May 2020 16:32:43 +0100
+ s=default; t=1589386413;
+ bh=FZ1M3OZRM7jW9vqDsr/RzhwezaAUizYn3SALLQyOYSQ=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=xntG21/I7Ay8cOTAJfy7iyCU1UqELUJvsfSS2XB/cjC05nvuQp0mSZAePVM3mXpnn
+ C0bU+iTfDiyqtBqHpW1KYEMTH/lMw/KQmpUKqIKC7zK20xtlUeWigXFmt/WrpPNgQn
+ 9ndkSa4hVk/WU72qg9yg2lKthIPbRHIpPxypHSjc=
+Date: Wed, 13 May 2020 17:13:30 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Dan Murphy <dmurphy@ti.com>
-Subject: Re: [PATCH] ASoC: tlv320adcx140: Add controls for PDM clk and edge
-Message-ID: <20200513153243.GO4803@sirena.org.uk>
-References: <20200513144746.14337-1-dmurphy@ti.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="gqEssfNGWsEa4HfM"
-Content-Disposition: inline
-In-Reply-To: <20200513144746.14337-1-dmurphy@ti.com>
-X-Cookie: Long life is in store for you.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
- lgirdwood@gmail.com
+To: perex@perex.cz, tiwai@suse.com, lgirdwood@gmail.com,
+ Dan Murphy <dmurphy@ti.com>
+In-Reply-To: <20200513142807.11802-1-dmurphy@ti.com>
+References: <20200513142807.11802-1-dmurphy@ti.com>
+Subject: Re: [PATCH] ASoC: tlv320adcx140: Fix bias config values
+Message-Id: <158938641090.28795.1473298461328605544.b4-ty@kernel.org>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,45 +76,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 13 May 2020 09:28:07 -0500, Dan Murphy wrote:
+> The device tree binding declares the ti,mic-bias-source and the
+> ti,vref-source properties as u32.  The code reads them as u8 which is
+> incorrect.  Since the device tree binding indicates them as u32 the
+> conde needs to be updated to read u32.
+> 
+> In addition the bias source needs to be shifted 4 bits to
+> correctly write the register.
+> 
+> [...]
 
---gqEssfNGWsEa4HfM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Wed, May 13, 2020 at 09:47:46AM -0500, Dan Murphy wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.7
 
-> +static const char * const pdmclk_text[] = {
-> +	"2.8224 MHz", "1.4112 MHz", "705.6 kHz", "5.6448 MHz"
-> +};
-> +
-> +static SOC_ENUM_SINGLE_DECL(pdmclk_select_enum, ADCX140_PDMCLK_CFG, 0,
-> +			    pdmclk_text);
-> +
-> +static const struct snd_kcontrol_new pdmclk_div_controls[] = {
-> +	SOC_DAPM_ENUM("PDM Clk Divider Select", pdmclk_select_enum),
-> +};
-> +
-> +static const char * const pdm_edge_text[] = {
-> +	"Negative", "Positive"
-> +};
+Thanks!
 
-Are these (especially the clock and polarity) things that are going to
-vary at runtime?  I'd have expected these to come from the hardware
-rather than being something that could usefully change.
+[1/1] ASoC: tlv320adcx140: Fix bias config values
+      commit: 0e36f32f6b6c4c86a6bf3d6f0940831691b0a3b0
 
---gqEssfNGWsEa4HfM
-Content-Type: application/pgp-signature; name="signature.asc"
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
------BEGIN PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl68ExsACgkQJNaLcl1U
-h9AYXwf8CDQMAxRVDvKQhd4vXEmLmaggMSdkYS9R7GwjxYhFwSWmXTNjDbM2lgot
-uBF+G/YhxOy96eCpN+DenbicG+no7Vu/JmzeyrlPGVH7Oks9mdENb63rvnLjnyLg
-GWM3GCrqbCwEN2IWbuQvytenhGLwliYh8tFSSoEk/y7nhc0n8uVHK+ifBnBk3sBs
-8Hs4KO+LIP+Q2DOjSJmTmbbNrZY8X5nIYtMdvbLPNSYSjAsutzCFlMi151V514sP
-f0Ui1rhafy5ekQkFRZRCrPjs6Zg4MtMmYN245ROgnuD/UuPi6g1ZSnzohkXB9A3g
-JP04uB7C/9qlvOJkktKcLRWEhifElA==
-=Ts3k
------END PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---gqEssfNGWsEa4HfM--
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

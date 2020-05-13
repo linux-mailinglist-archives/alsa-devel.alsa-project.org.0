@@ -2,104 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECF931D1772
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 May 2020 16:21:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B75D61D17C3
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 May 2020 16:39:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 91AB51666;
-	Wed, 13 May 2020 16:20:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91AB51666
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D03F1666;
+	Wed, 13 May 2020 16:38:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D03F1666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589379689;
-	bh=6fjHlyOTOqWxHSt4RPRb8GVZ91ZqD9TrDEJsn//PCGI=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=J1yLy3pGheXXfYNzVMt+KK0OE8rf1PW561EDVaCzZs3oZ58gdN50RGfk3kz1ZnRWg
-	 0PF86NKirkkRn/IlPjBW1f4mkWnKWVLu42TVzaIQYlH8y8XSREV1nFatiz2g5AXyVu
-	 5DViF0nTB5Cfv6VLnu47l09NHDgtDsJ5PwL16cao=
+	s=default; t=1589380771;
+	bh=h+SoyBekSKISkqys7t9OLIbUrQYEV2mRE86BLHJBVU0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=YFNtFw8KwiRUvYy7hqy2E1OhKNlBpAzmxwyU3MJc97VCEidzg+W8ImvjTLlKAnSRl
+	 KccGdIgSos3HCyTWcnDY/WMlwyVirR4m36RTSfDLLfKVLqjp0sQUosb03XM6mSj4mC
+	 NfN2tIIJS5ilvqQcMStpuMzcMV3nBYLajDvslT2A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7BC9F800B7;
-	Wed, 13 May 2020 16:19:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57AF9F800E3;
+	Wed, 13 May 2020 16:37:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9BCEF800B7; Wed, 13 May 2020 16:19:35 +0200 (CEST)
+ id BCB31F80247; Wed, 13 May 2020 16:37:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C0B6AF800B7
- for <alsa-devel@alsa-project.org>; Wed, 13 May 2020 16:19:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0B6AF800B7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 39E76F800B7
+ for <alsa-devel@alsa-project.org>; Wed, 13 May 2020 16:37:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39E76F800B7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="ZJO7lWSA"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="XZDh0kLB"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id A7DB55C01D6;
- Wed, 13 May 2020 10:19:27 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Wed, 13 May 2020 10:19:27 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm2; bh=6fjHlyOTOqWxHSt4RPRb8GVZ91Z
- qD9TrDEJsn//PCGI=; b=ZJO7lWSA1pGZWi77jHrq32z7Kh+jSm15JVHlGSRHKvV
- O8MQzeqo6gFi4DzkkOXBXHxXEkqP9u79WIBJNeDQYstbGM4IF/DZB2GD79jDc+KM
- k+Qi05829aHju0opokmObn9us4YjjRWajf7z71yrjSpqsAPaj9BSceGGuz6CV1AM
- 7vWCksQe0Z9CD55EJ2OjatiODXhZ58TM76WhqjwzfJDNw4yxWRtJgWeCsAmygv2L
- sajikkBNZn3mNWSGzrlQcG8rfXPiUm2g3VmPSA/Ar1cejeOAtgwsu0JjKN9XHoy3
- 9OqSOehjuOQ9MhSwa8vpjn8xj9FUkF7GZ3oDlQae98g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=6fjHly
- OTOqWxHSt4RPRb8GVZ91ZqD9TrDEJsn//PCGI=; b=XZDh0kLBcHH9Yt+8i992CH
- MpLJEFE1lYT8xfl94OHJ880u0bFQ0lJ+IVl3ckcXz3q1TeNVfLQv1vOjU/dE2a9n
- FdrZrk+II/hDrdIElcYWzrq/8xXVaTW694NbBA+q8FKDr/mVmp9gSnNSqU7jOJLu
- VCdjn/RW2jtmRl7fkemUcv/y7CWqTWk9KNJpk7exYVVugZCyLQ2ukYwtohiQMTdY
- vwjdwPr7/7Lx1JSQHeJjtY39rKODDR/9eP5nccwH3vIgsaZrMYTSkZwC5SyH+Jj9
- 4hIMK5omIlFttPIRo+NRdCiDuI6Is7IqIA+RFJguZsMPed3Y/L1lgJBAAeogGr1Q
- ==
-X-ME-Sender: <xms:7gG8Xjc1-jAmWs4zidapqSMWKH7xX_IUOGlynmyyAVa6ZOPYFNSfKQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrleeggdejgecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfhfgggtuggjsehgtderre
- dttddvnecuhfhrohhmpeforgigihhmvgcutfhiphgrrhguuceomhgrgihimhgvsegtvghr
- nhhordhtvggthheqnecuggftrfgrthhtvghrnhepleekgeehhfdutdeljefgleejffehff
- fgieejhffgueefhfdtveetgeehieehgedunecukfhppeeltddrkeelrdeikedrjeeinecu
- vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrgihimh
- gvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:7gG8XpMuAq-TjdugyqsUGqR86HcwnlTEnvMEal0lOwP8NEC0ypq19A>
- <xmx:7gG8Xsg-qtpBZoJgCZt1nuy1Azyv0dDsAE5l_xgTKelL_hcNw4tgoA>
- <xmx:7gG8Xk_XJ6S60gRhpBm2Onla_uzS5xavcTtCGVdUkod7E3DEP8ZYzw>
- <xmx:7wG8XlXXbyVi5ickxuVV-yGc1SgXk66YGaZ5WLjily-gjjZMet4rRA>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id DD500328005D;
- Wed, 13 May 2020 10:19:25 -0400 (EDT)
-Date: Wed, 13 May 2020 16:19:23 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Samuel Zou <zou_wei@huawei.com>
-Subject: Re: [PATCH -next] ASoC: sun4i-i2s: Use PTR_ERR_OR_ZERO() to simplify
- code
-Message-ID: <20200513141923.klp2omelhawzxy4d@gilmour.lan>
-References: <1588752912-37596-1-git-send-email-zou_wei@huawei.com>
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="U14KrHHU"
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+ by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 04DEbZsx007038;
+ Wed, 13 May 2020 09:37:35 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1589380655;
+ bh=y/YaegT2DGD/8Lmf/IfgyqvQ89iKHw+Iptrkg/MbCp8=;
+ h=From:To:CC:Subject:Date;
+ b=U14KrHHUWdqyXt9cQFRAWWnBCTwWA3fq1gBPyh6YvsRL/TQ8LZHwL39ZpFxTepJ2x
+ mQRD+DuxYXLhuWxqp3cvq6KkUKbw5Tp/DmZV5c4k+G5O58YdpMHd4BAw+cPU6oefGn
+ CdqyoXHULLcn46pyVoZx12+YCgkMesPkjM+PO3DI=
+Received: from DFLE115.ent.ti.com (dfle115.ent.ti.com [10.64.6.36])
+ by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 04DEbYoG129497
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 13 May 2020 09:37:34 -0500
+Received: from DFLE113.ent.ti.com (10.64.6.34) by DFLE115.ent.ti.com
+ (10.64.6.36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Wed, 13
+ May 2020 09:37:34 -0500
+Received: from fllv0039.itg.ti.com (10.64.41.19) by DFLE113.ent.ti.com
+ (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
+ Frontend Transport; Wed, 13 May 2020 09:37:34 -0500
+Received: from localhost (ileax41-snat.itg.ti.com [10.172.224.153])
+ by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id 04DEbYNx077984;
+ Wed, 13 May 2020 09:37:34 -0500
+From: Dan Murphy <dmurphy@ti.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>
+Subject: [PATCH] ASoC: tlv320adcx140: Fix bias config values
+Date: Wed, 13 May 2020 09:28:07 -0500
+Message-ID: <20200513142807.11802-1-dmurphy@ti.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="6ttmhlo4bwfcw7it"
-Content-Disposition: inline
-In-Reply-To: <1588752912-37596-1-git-send-email-zou_wei@huawei.com>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, wens@csie.org, broonie@kernel.org,
- linux-arm-kernel@lists.infradead.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Dan Murphy <dmurphy@ti.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,35 +91,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The device tree binding declares the ti,mic-bias-source and the
+ti,vref-source properties as u32.  The code reads them as u8 which is
+incorrect.  Since the device tree binding indicates them as u32 the
+conde needs to be updated to read u32.
 
---6ttmhlo4bwfcw7it
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In addition the bias source needs to be shifted 4 bits to
+correctly write the register.
 
+Fixes: 37bde5acf040 ("ASoC: tlv320adcx140: Add the tlv320adcx140 codec
+driver family")
+Signed-off-by: Dan Murphy <dmurphy@ti.com>
+---
+ sound/soc/codecs/tlv320adcx140.c | 13 +++++++------
+ sound/soc/codecs/tlv320adcx140.h |  1 +
+ 2 files changed, 8 insertions(+), 6 deletions(-)
 
+diff --git a/sound/soc/codecs/tlv320adcx140.c b/sound/soc/codecs/tlv320adcx140.c
+index 0f713efde046..1d7d7b34a46e 100644
+--- a/sound/soc/codecs/tlv320adcx140.c
++++ b/sound/soc/codecs/tlv320adcx140.c
+@@ -739,11 +739,12 @@ static int adcx140_codec_probe(struct snd_soc_component *component)
+ {
+ 	struct adcx140_priv *adcx140 = snd_soc_component_get_drvdata(component);
+ 	int sleep_cfg_val = ADCX140_WAKE_DEV;
+-	u8 bias_source;
+-	u8 vref_source;
++	u32 bias_source;
++	u32 vref_source;
++	u8 bias_cfg;
+ 	int ret;
+ 
+-	ret = device_property_read_u8(adcx140->dev, "ti,mic-bias-source",
++	ret = device_property_read_u32(adcx140->dev, "ti,mic-bias-source",
+ 				      &bias_source);
+ 	if (ret)
+ 		bias_source = ADCX140_MIC_BIAS_VAL_VREF;
+@@ -754,7 +755,7 @@ static int adcx140_codec_probe(struct snd_soc_component *component)
+ 		return -EINVAL;
+ 	}
+ 
+-	ret = device_property_read_u8(adcx140->dev, "ti,vref-source",
++	ret = device_property_read_u32(adcx140->dev, "ti,vref-source",
+ 				      &vref_source);
+ 	if (ret)
+ 		vref_source = ADCX140_MIC_BIAS_VREF_275V;
+@@ -765,7 +766,7 @@ static int adcx140_codec_probe(struct snd_soc_component *component)
+ 		return -EINVAL;
+ 	}
+ 
+-	bias_source |= vref_source;
++	bias_cfg = bias_source << ADCX140_MIC_BIAS_SHIFT | vref_source;
+ 
+ 	ret = adcx140_reset(adcx140);
+ 	if (ret)
+@@ -785,7 +786,7 @@ static int adcx140_codec_probe(struct snd_soc_component *component)
+ 
+ 	ret = regmap_update_bits(adcx140->regmap, ADCX140_BIAS_CFG,
+ 				ADCX140_MIC_BIAS_VAL_MSK |
+-				ADCX140_MIC_BIAS_VREF_MSK, bias_source);
++				ADCX140_MIC_BIAS_VREF_MSK, bias_cfg);
+ 	if (ret)
+ 		dev_err(adcx140->dev, "setting MIC bias failed %d\n", ret);
+ out:
+diff --git a/sound/soc/codecs/tlv320adcx140.h b/sound/soc/codecs/tlv320adcx140.h
+index 6d055e55909e..69de52d473f4 100644
+--- a/sound/soc/codecs/tlv320adcx140.h
++++ b/sound/soc/codecs/tlv320adcx140.h
+@@ -116,6 +116,7 @@
+ #define ADCX140_MIC_BIAS_VAL_VREF_1096	1
+ #define ADCX140_MIC_BIAS_VAL_AVDD	6
+ #define ADCX140_MIC_BIAS_VAL_MSK GENMASK(6, 4)
++#define ADCX140_MIC_BIAS_SHIFT		4
+ 
+ #define ADCX140_MIC_BIAS_VREF_275V	0
+ #define ADCX140_MIC_BIAS_VREF_25V	1
+-- 
+2.26.2
 
-On Wed, May 06, 2020 at 04:15:12PM +0800, Samuel Zou wrote:
-> Fixes coccicheck warning:
->=20
-> sound/soc/sunxi/sun4i-i2s.c:1177:1-3: WARNING: PTR_ERR_OR_ZERO can be used
->=20
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Signed-off-by: Samuel Zou <zou_wei@huawei.com>
-
-Didn't we remove that coccicheck test?
-
-Maxime
-
---6ttmhlo4bwfcw7it
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXrwB6wAKCRDj7w1vZxhR
-xbWmAP0Wl+mfUFUgVS86noXlYchEz4RTpXjy5YY+CO73b7vL5wEA4PceZeiROH26
-wMKoHBBgjpNbCBfMKyOwfraY1MTy1AM=
-=crja
------END PGP SIGNATURE-----
-
---6ttmhlo4bwfcw7it--

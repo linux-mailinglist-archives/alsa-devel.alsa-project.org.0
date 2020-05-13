@@ -2,65 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAB4A1D1AC7
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 May 2020 18:15:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 478EE1D1C3E
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 May 2020 19:27:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 725E01665;
-	Wed, 13 May 2020 18:14:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 725E01665
+	by alsa0.perex.cz (Postfix) with ESMTPS id B5E341665;
+	Wed, 13 May 2020 19:26:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5E341665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589386523;
-	bh=FZ1M3OZRM7jW9vqDsr/RzhwezaAUizYn3SALLQyOYSQ=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1589390859;
+	bh=OAYW1/kKp1XWDgzrpZuwLukMSsmthAR6AIk8NwqEdYA=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=du6a/3P39kI/F76V/4Lio6Op8zYu8GYpDEBCooyVLb3EiSwOtBgi5hbjCCd+bOS2h
-	 fQbB+9XDJrGl939Sr30ZbTK/QnWxC5cWIkOKElAbBW37mi4Sxvny9DtIjP3H1yQQrg
-	 l2muvyKiB37F3HLjA8opJZwxsU/7VCo2lt+LCchM=
+	b=nHhkotvglCskLvDwuPl59rqElyGUu7/1jIBScyriXfxKWyeaN4XNlHeXz7MvrMFSr
+	 PWQL0BNpV7+/1dSGZJnXUD/HjrQVJl/cAJZ43DuQ/HAmP9D0UZG4JDA0kUcpu0s1nn
+	 Oa6wO6QYgZ7tLnKF5pFNPbJqYD/BYKEbK+uC/GaQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92085F800B7;
-	Wed, 13 May 2020 18:13:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA086F80253;
+	Wed, 13 May 2020 19:25:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 46D6FF80247; Wed, 13 May 2020 18:13:39 +0200 (CEST)
+ id 44DAEF80247; Wed, 13 May 2020 19:25:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3E608F800E3
- for <alsa-devel@alsa-project.org>; Wed, 13 May 2020 18:13:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E608F800E3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="xntG21/I"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 42DA1204EC;
- Wed, 13 May 2020 16:13:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589386413;
- bh=FZ1M3OZRM7jW9vqDsr/RzhwezaAUizYn3SALLQyOYSQ=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=xntG21/I7Ay8cOTAJfy7iyCU1UqELUJvsfSS2XB/cjC05nvuQp0mSZAePVM3mXpnn
- C0bU+iTfDiyqtBqHpW1KYEMTH/lMw/KQmpUKqIKC7zK20xtlUeWigXFmt/WrpPNgQn
- 9ndkSa4hVk/WU72qg9yg2lKthIPbRHIpPxypHSjc=
-Date: Wed, 13 May 2020 17:13:30 +0100
-From: Mark Brown <broonie@kernel.org>
-To: perex@perex.cz, tiwai@suse.com, lgirdwood@gmail.com,
- Dan Murphy <dmurphy@ti.com>
-In-Reply-To: <20200513142807.11802-1-dmurphy@ti.com>
-References: <20200513142807.11802-1-dmurphy@ti.com>
-Subject: Re: [PATCH] ASoC: tlv320adcx140: Fix bias config values
-Message-Id: <158938641090.28795.1473298461328605544.b4-ty@kernel.org>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 38837F800BD
+ for <alsa-devel@alsa-project.org>; Wed, 13 May 2020 19:25:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38837F800BD
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="oU+zYpSz"
+Received: from fllv0034.itg.ti.com ([10.64.40.246])
+ by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 04DHPnEH109727;
+ Wed, 13 May 2020 12:25:49 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1589390749;
+ bh=duOsfIS+tq7+J/oq9NmLkFabkw0gD0IE1GYQRhOX5qg=;
+ h=Subject:To:CC:References:From:Date:In-Reply-To;
+ b=oU+zYpSz2npoUF8TOdFjvAo6oy3TDlzNxjM9OTYFYFveOmiCLMOlLpGap3JuPIkW2
+ R87XXmuprnHmGwGDf4VYlncFRBLlcIUsKM9oX+ThnhFpkmGK+OlH2oC34bzBnHrCnR
+ TJQ4vS/AiA2e4RwVCjmaSw9t804bdBoor0IFSQVc=
+Received: from DLEE111.ent.ti.com (dlee111.ent.ti.com [157.170.170.22])
+ by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 04DHPnSd123155
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 13 May 2020 12:25:49 -0500
+Received: from DLEE115.ent.ti.com (157.170.170.26) by DLEE111.ent.ti.com
+ (157.170.170.22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Wed, 13
+ May 2020 12:25:49 -0500
+Received: from fllv0040.itg.ti.com (10.64.41.20) by DLEE115.ent.ti.com
+ (157.170.170.26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
+ Frontend Transport; Wed, 13 May 2020 12:25:49 -0500
+Received: from [10.250.52.63] (ileax41-snat.itg.ti.com [10.172.224.153])
+ by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 04DHPnc9115992;
+ Wed, 13 May 2020 12:25:49 -0500
+Subject: Re: [PATCH] ASoC: tlv320adcx140: Add controls for PDM clk and edge
+To: Mark Brown <broonie@kernel.org>
+References: <20200513144746.14337-1-dmurphy@ti.com>
+ <20200513153243.GO4803@sirena.org.uk>
+From: Dan Murphy <dmurphy@ti.com>
+Message-ID: <d2e3741e-ba06-7578-b5f3-2af75e1e33c7@ti.com>
+Date: Wed, 13 May 2020 12:16:03 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
+MIME-Version: 1.0
+In-Reply-To: <20200513153243.GO4803@sirena.org.uk>
+Content-Type: text/plain; charset="windows-1252"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,41 +96,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 13 May 2020 09:28:07 -0500, Dan Murphy wrote:
-> The device tree binding declares the ti,mic-bias-source and the
-> ti,vref-source properties as u32.  The code reads them as u8 which is
-> incorrect.  Since the device tree binding indicates them as u32 the
-> conde needs to be updated to read u32.
-> 
-> In addition the bias source needs to be shifted 4 bits to
-> correctly write the register.
-> 
-> [...]
-
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.7
-
-Thanks!
-
-[1/1] ASoC: tlv320adcx140: Fix bias config values
-      commit: 0e36f32f6b6c4c86a6bf3d6f0940831691b0a3b0
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
 Mark
+
+On 5/13/20 10:32 AM, Mark Brown wrote:
+> On Wed, May 13, 2020 at 09:47:46AM -0500, Dan Murphy wrote:
+>
+>> +static const char * const pdmclk_text[] = {
+>> +	"2.8224 MHz", "1.4112 MHz", "705.6 kHz", "5.6448 MHz"
+>> +};
+>> +
+>> +static SOC_ENUM_SINGLE_DECL(pdmclk_select_enum, ADCX140_PDMCLK_CFG, 0,
+>> +			    pdmclk_text);
+>> +
+>> +static const struct snd_kcontrol_new pdmclk_div_controls[] = {
+>> +	SOC_DAPM_ENUM("PDM Clk Divider Select", pdmclk_select_enum),
+>> +};
+>> +
+>> +static const char * const pdm_edge_text[] = {
+>> +	"Negative", "Positive"
+>> +};
+> Are these (especially the clock and polarity) things that are going to
+> vary at runtime?  I'd have expected these to come from the hardware
+> rather than being something that could usefully change.
+Some microphone support low power modes that use a slower clock.
+Polarity will probably not change at run-time, but clock speed can 
+change to move mics from low power/low-resolution to higher 
+power/high-resolution mode.
+
+So polarity can be made hardware specific but clocks should be configurable.
+
+I can break these out into separate patches if you want.
+
+Dan
+

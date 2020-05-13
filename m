@@ -2,83 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 478EE1D1C3E
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 May 2020 19:27:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81C391D1C58
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 May 2020 19:34:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B5E341665;
-	Wed, 13 May 2020 19:26:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5E341665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0EE6C1666;
+	Wed, 13 May 2020 19:33:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EE6C1666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589390859;
-	bh=OAYW1/kKp1XWDgzrpZuwLukMSsmthAR6AIk8NwqEdYA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1589391266;
+	bh=c5W9rpD2+UW166Uji2V1vo4DwDd8jq/A5/RA+lqaeOA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nHhkotvglCskLvDwuPl59rqElyGUu7/1jIBScyriXfxKWyeaN4XNlHeXz7MvrMFSr
-	 PWQL0BNpV7+/1dSGZJnXUD/HjrQVJl/cAJZ43DuQ/HAmP9D0UZG4JDA0kUcpu0s1nn
-	 Oa6wO6QYgZ7tLnKF5pFNPbJqYD/BYKEbK+uC/GaQ=
+	b=D8TGZFQBYjlxh8NQSOkQbh9XsNlJoVPLJsYwONZIK3Zb/n4z5xkqUj/XApwUJ/VLB
+	 h2gqbK7F5P+Bx5QuqUwnbfomF5b6kHsx08dwuvMf18vskF8ltQOaCib1P03h3U3oi0
+	 d+v2dmj07GgApcuaiehAVorlSrmF9u8u/Y3g29S4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DA086F80253;
-	Wed, 13 May 2020 19:25:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EE7C9F80253;
+	Wed, 13 May 2020 19:32:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 44DAEF80247; Wed, 13 May 2020 19:25:56 +0200 (CEST)
+ id F3644F80247; Wed, 13 May 2020 19:32:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 17DE1F800BD
+ for <alsa-devel@alsa-project.org>; Wed, 13 May 2020 19:32:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17DE1F800BD
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="xEvS/dWb"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 38837F800BD
- for <alsa-devel@alsa-project.org>; Wed, 13 May 2020 19:25:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38837F800BD
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="oU+zYpSz"
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
- by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 04DHPnEH109727;
- Wed, 13 May 2020 12:25:49 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1589390749;
- bh=duOsfIS+tq7+J/oq9NmLkFabkw0gD0IE1GYQRhOX5qg=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=oU+zYpSz2npoUF8TOdFjvAo6oy3TDlzNxjM9OTYFYFveOmiCLMOlLpGap3JuPIkW2
- R87XXmuprnHmGwGDf4VYlncFRBLlcIUsKM9oX+ThnhFpkmGK+OlH2oC34bzBnHrCnR
- TJQ4vS/AiA2e4RwVCjmaSw9t804bdBoor0IFSQVc=
-Received: from DLEE111.ent.ti.com (dlee111.ent.ti.com [157.170.170.22])
- by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 04DHPnSd123155
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 13 May 2020 12:25:49 -0500
-Received: from DLEE115.ent.ti.com (157.170.170.26) by DLEE111.ent.ti.com
- (157.170.170.22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Wed, 13
- May 2020 12:25:49 -0500
-Received: from fllv0040.itg.ti.com (10.64.41.20) by DLEE115.ent.ti.com
- (157.170.170.26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Wed, 13 May 2020 12:25:49 -0500
-Received: from [10.250.52.63] (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 04DHPnc9115992;
- Wed, 13 May 2020 12:25:49 -0500
+ by mail.kernel.org (Postfix) with ESMTPSA id CEC622053B;
+ Wed, 13 May 2020 17:32:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1589391154;
+ bh=c5W9rpD2+UW166Uji2V1vo4DwDd8jq/A5/RA+lqaeOA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=xEvS/dWbRyHtWlK3l/oGbVdx56XevYH1jTt0hMLnyX4/m+Aow4Q38GA3cw5/TY5c3
+ k3EPy/1b02NyJiPHWx6bctoA6uFOD9fMnVNzJ3Kc/HCOMrHSugXPypnW2YbhsfqXbp
+ cbujCVqTMXaI4vg+JpFD8prueEPyO5ecgFVIpKYI=
+Date: Wed, 13 May 2020 18:32:30 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Dan Murphy <dmurphy@ti.com>
 Subject: Re: [PATCH] ASoC: tlv320adcx140: Add controls for PDM clk and edge
-To: Mark Brown <broonie@kernel.org>
+Message-ID: <20200513173230.GQ4803@sirena.org.uk>
 References: <20200513144746.14337-1-dmurphy@ti.com>
  <20200513153243.GO4803@sirena.org.uk>
-From: Dan Murphy <dmurphy@ti.com>
-Message-ID: <d2e3741e-ba06-7578-b5f3-2af75e1e33c7@ti.com>
-Date: Wed, 13 May 2020 12:16:03 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ <d2e3741e-ba06-7578-b5f3-2af75e1e33c7@ti.com>
 MIME-Version: 1.0
-In-Reply-To: <20200513153243.GO4803@sirena.org.uk>
-Content-Type: text/plain; charset="windows-1252"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="5AmtYbcgdBTTPS58"
+Content-Disposition: inline
+In-Reply-To: <d2e3741e-ba06-7578-b5f3-2af75e1e33c7@ti.com>
+X-Cookie: Long life is in store for you.
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
  lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
@@ -96,36 +84,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Mark
 
-On 5/13/20 10:32 AM, Mark Brown wrote:
-> On Wed, May 13, 2020 at 09:47:46AM -0500, Dan Murphy wrote:
->
->> +static const char * const pdmclk_text[] = {
->> +	"2.8224 MHz", "1.4112 MHz", "705.6 kHz", "5.6448 MHz"
->> +};
->> +
->> +static SOC_ENUM_SINGLE_DECL(pdmclk_select_enum, ADCX140_PDMCLK_CFG, 0,
->> +			    pdmclk_text);
->> +
->> +static const struct snd_kcontrol_new pdmclk_div_controls[] = {
->> +	SOC_DAPM_ENUM("PDM Clk Divider Select", pdmclk_select_enum),
->> +};
->> +
->> +static const char * const pdm_edge_text[] = {
->> +	"Negative", "Positive"
->> +};
-> Are these (especially the clock and polarity) things that are going to
-> vary at runtime?  I'd have expected these to come from the hardware
-> rather than being something that could usefully change.
-Some microphone support low power modes that use a slower clock.
-Polarity will probably not change at run-time, but clock speed can 
-change to move mics from low power/low-resolution to higher 
-power/high-resolution mode.
+--5AmtYbcgdBTTPS58
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-So polarity can be made hardware specific but clocks should be configurable.
+On Wed, May 13, 2020 at 12:16:03PM -0500, Dan Murphy wrote:
+> On 5/13/20 10:32 AM, Mark Brown wrote:
 
-I can break these out into separate patches if you want.
+> > Are these (especially the clock and polarity) things that are going to
+> > vary at runtime?  I'd have expected these to come from the hardware
+> > rather than being something that could usefully change.
 
-Dan
+> Some microphone support low power modes that use a slower clock.
+> Polarity will probably not change at run-time, but clock speed can change to
+> move mics from low power/low-resolution to higher power/high-resolution
+> mode.
 
+> So polarity can be made hardware specific but clocks should be configurable.
+
+> I can break these out into separate patches if you want.
+
+Please, and make the bits that can't usefully vary DT properties.
+
+--5AmtYbcgdBTTPS58
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl68Ly4ACgkQJNaLcl1U
+h9CN9gf+LkILaGICghjpyYtgNi8Z1pw1uWaWndqzZEEguZbVV7lq3S55zJEgKHkG
+SEmCM4aDbuFfodDBs0RVwFZMfdCik6RgsT5rZCUev3geNx/uUGF/XiQ9xFCAXuLM
+PMuhkRked9SPFeJB0sYEJMkYMJxqkCciMNP33zmgr+zCSQeUPwhBCy0OSi8rf8wn
+LViBXCeaSV894LtQGThe+I+KPvI8kQTGW8O1nIZu+fedQqy8bi3YDy0O/Xh/s+7u
+qDUpYHACSE4fxtBAWvgEUVKVcd5oCapyixQ46e6RbsGStKUdpHhdF3VpVBOcq6jt
+g1i790FIk3cQ/QxupbQEmwo62lvntg==
+=tAtH
+-----END PGP SIGNATURE-----
+
+--5AmtYbcgdBTTPS58--

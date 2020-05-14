@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 902CF1D2A7B
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 May 2020 10:41:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 755BA1D2A7D
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 May 2020 10:42:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D4371658;
-	Thu, 14 May 2020 10:41:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D4371658
+	by alsa0.perex.cz (Postfix) with ESMTPS id 20E7A167F;
+	Thu, 14 May 2020 10:41:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20E7A167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589445713;
-	bh=bnTbpgnUVrozQXbUylXzdBk5A203mj0Y45knhN1sMWM=;
+	s=default; t=1589445749;
+	bh=lg2tOzTZx/aNOr6jm4cB3ommrkuav1Zf4hv8jQruBYs=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YJLmXDG2lUWQrM2dUKKlXw8k9jCYQnv/gc3vn3AMdSW0z4ScU2yOkDy3pKKdoUHBQ
-	 JkH7IHOOfPt7lx8zC+cEeY3G/mJqyUPRWKOKWAr4zOam+pyWZ1aKUycHYpSBxzPXef
-	 jV4OOws85u/F/ejAB8aPFrLE+ItpUYt1Ugu0eHB8=
+	b=de+9SMmw0GLFjaklCnQUJ+HGBR98c43wSa8Lb/UzpShlqargeu8KcogmsNEvZ5MDj
+	 tZuuCK7y5ku2A3PGrLaRb29R+3QBRt4EHwUxUda8mvDmDvEXT2NspQNVrDuJrqUnLL
+	 PGdeLlCgYvkNazojN6Zq6TYkR7TQwXs9Jw6fEPL8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E898CF8027D;
-	Thu, 14 May 2020 10:40:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B3E3F80274;
+	Thu, 14 May 2020 10:40:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 35DC8F8027B; Thu, 14 May 2020 10:40:26 +0200 (CEST)
+ id 09794F801F2; Thu, 14 May 2020 10:40:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id B9978F8015A
- for <alsa-devel@alsa-project.org>; Thu, 14 May 2020 10:40:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9978F8015A
-Date: 14 May 2020 17:40:18 +0900
-X-IronPort-AV: E=Sophos;i="5.73,390,1583161200"; d="scan'208";a="46855699"
+ by alsa1.perex.cz (Postfix) with ESMTP id 92556F800E3
+ for <alsa-devel@alsa-project.org>; Thu, 14 May 2020 10:40:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92556F800E3
+Date: 14 May 2020 17:40:48 +0900
+X-IronPort-AV: E=Sophos;i="5.73,390,1583161200"; d="scan'208";a="46855775"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 14 May 2020 17:40:18 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 14 May 2020 17:40:48 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 8D16F41EA10C;
- Thu, 14 May 2020 17:40:18 +0900 (JST)
-Message-ID: <8736829afh.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 0D7B041EA10B;
+ Thu, 14 May 2020 17:40:48 +0900 (JST)
+Message-ID: <871rnm9aen.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 06/21] ASoC: soc-dai: add snd_soc_dai_stream_active()
+Subject: [PATCH v2 07/21] ASoC: use snd_soc_xxx_active()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87blmq9alx.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,40 +70,167 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
+We have snd_soc_dai/dai_stream/component_active() macro
+This patch uses it.
+
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
 v1 -> v2
-	- new patch
-	- not update dai->active via macro
+	- adjust to latest patch-set
 
- include/sound/soc-dai.h | 1 +
- sound/soc/soc-dai.c     | 1 +
- 2 files changed, 2 insertions(+)
+ sound/soc/soc-compress.c |  4 ++--
+ sound/soc/soc-core.c     | 11 ++++++-----
+ sound/soc/soc-pcm.c      | 20 ++++++++++----------
+ 3 files changed, 18 insertions(+), 17 deletions(-)
 
-diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
-index e651c62636ab..d55dd0474096 100644
---- a/include/sound/soc-dai.h
-+++ b/include/sound/soc-dai.h
-@@ -166,6 +166,7 @@ void snd_soc_dai_action(struct snd_soc_dai *dai,
- #define snd_soc_dai_activate(dai, stream)   snd_soc_dai_action(dai, stream,  1)
- #define snd_soc_dai_deactivate(dai, stream) snd_soc_dai_action(dai, stream, -1)
- int snd_soc_dai_active(struct snd_soc_dai *dai);
-+#define snd_soc_dai_stream_active(dai, stream) ((dai)->stream_active[stream])
+diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
+index def3ae78b4a7..62ece729e425 100644
+--- a/sound/soc/soc-compress.c
++++ b/sound/soc/soc-compress.c
+@@ -231,10 +231,10 @@ static int soc_compr_free(struct snd_compr_stream *cstream)
  
- int snd_soc_pcm_dai_probe(struct snd_soc_pcm_runtime *rtd, int order);
- int snd_soc_pcm_dai_remove(struct snd_soc_pcm_runtime *rtd, int order);
-diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
-index bb771302fd6f..8172ff42d796 100644
---- a/sound/soc/soc-dai.c
-+++ b/sound/soc/soc-dai.c
-@@ -391,6 +391,7 @@ bool snd_soc_dai_stream_valid(struct snd_soc_dai *dai, int dir)
- void snd_soc_dai_action(struct snd_soc_dai *dai,
- 			int stream, int action)
- {
-+	/* see snd_soc_dai_stream_active() */
- 	dai->stream_active[stream]	+= action;
- 	dai->active			+= action;
- 	/* see snd_soc_component_active() */
+ 	snd_soc_dai_digital_mute(codec_dai, 1, cstream->direction);
+ 
+-	if (!cpu_dai->active)
++	if (!snd_soc_dai_active(cpu_dai))
+ 		cpu_dai->rate = 0;
+ 
+-	if (!codec_dai->active)
++	if (!snd_soc_dai_active(codec_dai))
+ 		codec_dai->rate = 0;
+ 
+ 	if (rtd->dai_link->compr_ops && rtd->dai_link->compr_ops->shutdown)
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 95d8189e45ab..e697258d2ffc 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -372,7 +372,8 @@ void snd_soc_close_delayed_work(struct snd_soc_pcm_runtime *rtd)
+ 	dev_dbg(rtd->dev,
+ 		"ASoC: pop wq checking: %s status: %s waiting: %s\n",
+ 		codec_dai->driver->playback.stream_name,
+-		codec_dai->stream_active[playback] ? "active" : "inactive",
++		snd_soc_dai_stream_active(codec_dai, playback) ?
++		"active" : "inactive",
+ 		rtd->pop_wait ? "yes" : "no");
+ 
+ 	/* are we waiting on this codec DAI stream */
+@@ -546,7 +547,7 @@ int snd_soc_suspend(struct device *dev)
+ 			continue;
+ 
+ 		for_each_rtd_codec_dais(rtd, i, dai) {
+-			if (dai->stream_active[playback])
++			if (snd_soc_dai_stream_active(dai, playback))
+ 				snd_soc_dai_digital_mute(dai, 1, playback);
+ 		}
+ 	}
+@@ -688,7 +689,7 @@ static void soc_resume_deferred(struct work_struct *work)
+ 			continue;
+ 
+ 		for_each_rtd_codec_dais(rtd, i, dai) {
+-			if (dai->stream_active[playback])
++			if (snd_soc_dai_stream_active(dai, playback))
+ 				snd_soc_dai_digital_mute(dai, 0, playback);
+ 		}
+ 	}
+@@ -718,7 +719,7 @@ int snd_soc_resume(struct device *dev)
+ 
+ 	/* activate pins from sleep state */
+ 	for_each_card_components(card, component)
+-		if (component->active)
++		if (snd_soc_component_active(component))
+ 			pinctrl_pm_select_default_state(component->dev);
+ 
+ 	dev_dbg(dev, "ASoC: Scheduling resume work\n");
+@@ -1943,7 +1944,7 @@ static int snd_soc_bind_card(struct snd_soc_card *card)
+ 
+ 	/* deactivate pins to sleep state */
+ 	for_each_card_components(card, component)
+-		if (!component->active)
++		if (!snd_soc_component_active(component))
+ 			pinctrl_pm_select_sleep_state(component->dev);
+ 
+ probe_end:
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 8d414f0ae2f9..b7899da4217e 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -750,7 +750,7 @@ static int soc_pcm_close(struct snd_pcm_substream *substream)
+ 	}
+ 
+ 	for_each_rtd_components(rtd, i, component)
+-		if (!component->active)
++		if (!snd_soc_component_active(component))
+ 			pinctrl_pm_select_sleep_state(component->dev);
+ 
+ 	return 0;
+@@ -844,7 +844,7 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
+ 
+ 	/* Symmetry only applies if we've already got an active stream. */
+ 	for_each_rtd_dais(rtd, i, dai) {
+-		if (dai->active) {
++		if (snd_soc_dai_active(dai)) {
+ 			ret = soc_pcm_apply_symmetry(substream, dai);
+ 			if (ret != 0)
+ 				goto config_err;
+@@ -882,7 +882,7 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
+ 	}
+ 
+ 	for_each_rtd_components(rtd, i, component)
+-		if (!component->active)
++		if (!snd_soc_component_active(component))
+ 			pinctrl_pm_select_sleep_state(component->dev);
+ 
+ 	return ret;
+@@ -1136,9 +1136,9 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
+ 
+ 	/* clear the corresponding DAIs parameters when going to be inactive */
+ 	for_each_rtd_dais(rtd, i, dai) {
+-		int active = dai->stream_active[substream->stream];
++		int active = snd_soc_dai_stream_active(dai, substream->stream);
+ 
+-		if (dai->active == 1) {
++		if (snd_soc_dai_active(dai) == 1) {
+ 			dai->rate = 0;
+ 			dai->channels = 0;
+ 			dai->sample_bits = 0;
+@@ -1907,7 +1907,7 @@ static int dpcm_apply_symmetry(struct snd_pcm_substream *fe_substream,
+ 
+ 	for_each_rtd_cpu_dais (fe, i, fe_cpu_dai) {
+ 		/* Symmetry only applies if we've got an active stream. */
+-		if (fe_cpu_dai->active) {
++		if (snd_soc_dai_active(fe_cpu_dai)) {
+ 			err = soc_pcm_apply_symmetry(fe_substream, fe_cpu_dai);
+ 			if (err < 0)
+ 				return err;
+@@ -1936,7 +1936,7 @@ static int dpcm_apply_symmetry(struct snd_pcm_substream *fe_substream,
+ 
+ 		/* Symmetry only applies if we've got an active stream. */
+ 		for_each_rtd_dais(rtd, i, dai) {
+-			if (dai->active) {
++			if (snd_soc_dai_active(dai)) {
+ 				err = soc_pcm_apply_symmetry(fe_substream, dai);
+ 				if (err < 0)
+ 					return err;
+@@ -2709,7 +2709,7 @@ static int soc_dpcm_fe_runtime_update(struct snd_soc_pcm_runtime *fe, int new)
+ 		return 0;
+ 
+ 	/* only check active links */
+-	if (!asoc_rtd_to_cpu(fe, 0)->active)
++	if (!snd_soc_dai_active(asoc_rtd_to_cpu(fe, 0)))
+ 		return 0;
+ 
+ 	/* DAPM sync will call this to update DSP paths */
+@@ -2724,8 +2724,8 @@ static int soc_dpcm_fe_runtime_update(struct snd_soc_pcm_runtime *fe, int new)
+ 			continue;
+ 
+ 		/* skip if FE isn't currently playing/capturing */
+-		if (!asoc_rtd_to_cpu(fe, 0)->stream_active[stream] ||
+-		    !asoc_rtd_to_codec(fe, 0)->stream_active[stream])
++		if (!snd_soc_dai_stream_active(asoc_rtd_to_cpu(fe, 0), stream) ||
++		    !snd_soc_dai_stream_active(asoc_rtd_to_codec(fe, 0), stream))
+ 			continue;
+ 
+ 		paths = dpcm_path_get(fe, stream, &list);
 -- 
 2.17.1
 

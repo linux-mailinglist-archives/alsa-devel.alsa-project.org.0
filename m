@@ -2,96 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAA061D3677
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 May 2020 18:28:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B246E1D36AE
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 May 2020 18:40:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 271D81664;
-	Thu, 14 May 2020 18:27:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 271D81664
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5BF1A1664;
+	Thu, 14 May 2020 18:40:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BF1A1664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589473691;
-	bh=3tQMkHhoVztKkKRRVF5ZVpYwB1FwS5ftr57Y2afh9zk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1589474452;
+	bh=+xEWlR784BhRsg4ynhQQLxjbrgb4RL6hT2eX7I4GlPo=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kxtXmxDiB+RccliUMBu5nb/E0d0yxkXicT4PurmTO4kXBJ2curxp5fzvofg36BIQ2
-	 A7/mVQj1fTXhWdgOc3BYTDN7rD/sszllvT1Qsj5f1tw/25hhqHGsGRV1qSfGys7HmH
-	 JBPuua6VSnxcd/CQ/v4sBTU1ut3BUbJ5EqGU/XEM=
+	b=BiCN/CvMYPikmieR8kMx8KLYk7OqP5y7VgmnoPkChzsWfSdW5apnIOjbxZ1ug/MWR
+	 2X+3yLNxAy+yD7t+IxqMWtPv3Ee5BEAXLRLyp5mo/rwjOhYGDXJYE/NFoG7/kOEOII
+	 OiDDxVbHKRM9InKIchSD3nF79Z8DJ0GDT7YPxtMI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4AC37F8015A;
-	Thu, 14 May 2020 18:26:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75B4BF8014C;
+	Thu, 14 May 2020 18:39:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 743DAF80158; Thu, 14 May 2020 18:26:16 +0200 (CEST)
+ id 23E61F8014C; Thu, 14 May 2020 18:38:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
- version=3.4.0
-Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
- [IPv6:2607:f8b0:4864:20::1044])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_MSPIKE_H4, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail27.static.mailgun.info (mail27.static.mailgun.info
+ [104.130.122.27])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66C85F800BD
- for <alsa-devel@alsa-project.org>; Thu, 14 May 2020 18:26:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66C85F800BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id A632EF800E3
+ for <alsa-devel@alsa-project.org>; Thu, 14 May 2020 18:38:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A632EF800E3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="EhfQsBlW"
-Received: by mail-pj1-x1044.google.com with SMTP id ms17so12666475pjb.0
- for <alsa-devel@alsa-project.org>; Thu, 14 May 2020 09:26:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=W4XvXtxke+lkFw8YZgubPXEhN0ECtCJuhCB6hnz9mNE=;
- b=EhfQsBlWH2MLjxrrlmnGGUCb3XEHUHj9vd9gidlZQlONXFzF0Ft6PJeF0xG8MaSIZ0
- VzJSt4gMrdCE+aWMvJzDsjPVQNUOtr73C/1pndt8Qspz+o/7xXJFDmWe18acX37cw0+P
- bQj9AYmc6HrarSF4OpJ92uXwUu7JoYrY+p+cMK9wYRSCzDg/nP5YkNlITU1/neTC6Ln+
- fo62L9y4QhvhCON4mlY3aW9VZYpceNb+faQYidVvCd8b/HJYlcUu21J4DIf33CnKPCMP
- bUmBXNlvFkER/oKK6jz1wzP98qlJcgO8s0xxP0W32o0IBfJP4CxJIE9LCSf/QvF4nEv7
- XgOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=W4XvXtxke+lkFw8YZgubPXEhN0ECtCJuhCB6hnz9mNE=;
- b=rRR9UiKY6Ddtaa07bZtfRgoIUngoCqN5iNlwAj5+1UYuYmb3riA8y2WchXYwcg/3JJ
- WgxV5y0cvGTPclC7BBHUPsSQ/CPS5zfeVvw/tMhA2Zirqy+8guhS8FndxAwbso77z8Bf
- DQ07Y1luFSkWXuH3Yp4d6PZ1H5DqENwWSeoDxzeQYdA7bjtdBy6PyJq/Ef43eLZBqJuT
- pele6sFkZ3PA/Ukde1vAQce6gw65QPD6V93H5OgHLPUvkqtMxKb4LKw1/Oh6YpdgvVEq
- r0jIRZOBpjudeNxzZggvsUN2FrBhwteL/N4WYtKS8MH+1LO6JhDnUQ+u8jScBgxkOuLl
- Tl0A==
-X-Gm-Message-State: AGi0PuZIqLtPEEAl4IfVjHAMMwcPIif0WF/8PwDBLxe9Aq77ajf1jWuI
- Mm/rtCSX6R3FYVvbyeYlRUTdNA==
-X-Google-Smtp-Source: APiQypLPWQUYjiu3Whv0kH/7282+rbP9bEmz66yea12ZTjwnuVDBCwCM/A2XBVKch9fwZZzdYMjd4A==
-X-Received: by 2002:a17:90a:7065:: with SMTP id
- f92mr40510489pjk.160.1589473557884; 
- Thu, 14 May 2020 09:25:57 -0700 (PDT)
-Received: from google.com ([2620:15c:202:201:bc61:d85d:eb16:9036])
- by smtp.gmail.com with ESMTPSA id a2sm2646045pfl.28.2020.05.14.09.25.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 May 2020 09:25:54 -0700 (PDT)
-Date: Thu, 14 May 2020 09:25:48 -0700
-From: Benson Leung <bleung@google.com>
-To: Ard Biesheuvel <ardb@kernel.org>, tzungbi@google.com
-Subject: Re: [PATCH] SoC: cros_ec_codec: switch to library API for SHA-256
-Message-ID: <20200514162548.GA141824@google.com>
-References: <20200514161847.6240-1-ardb@kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Nq2Wo0NMKNjxTN9z"
-Content-Disposition: inline
-In-Reply-To: <20200514161847.6240-1-ardb@kernel.org>
-Cc: alsa-devel@alsa-project.org, Herbert Xu <herbert@gondor.apana.org.au>,
- Arnd Bergmann <arnd@arndb.de>, Liam Girdwood <lgirdwood@gmail.com>,
- Eric Biggers <ebiggers@kernel.org>, Guenter Roeck <groeck@chromium.org>,
- Mark Brown <broonie@kernel.org>,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Benson Leung <bleung@chromium.org>, Cheng-Yi Chiang <cychiang@chromium.org>
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="n1GosyLU"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1589474332; h=References: In-Reply-To: Message-Id: Date:
+ Subject: Cc: To: From: Sender;
+ bh=XtijKa57sDu7SGNlekBLq6pKnJsPytXBb8GduvE5HTM=;
+ b=n1GosyLUlx/rL98/VYzE/9TkH4Ygp0JKOQksdUtDqKxLf9Va71RbV8jvBhqWx7gPcrC4kb86
+ n7k3OcKuziRYSTwFCsdppnb+SmH0DwbyLqkR3PckLdnnACLKnB4NOgn3prjUJ+BYv21ObCOS
+ y382U/0LVzteSVyqKlj7Pw68quw=
+X-Mailgun-Sending-Ip: 104.130.122.27
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5ebd7419.7fa2382add18-smtp-out-n03;
+ Thu, 14 May 2020 16:38:49 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 55D5BC432C2; Thu, 14 May 2020 16:38:49 +0000 (UTC)
+Received: from c-ajitp-linux.qualcomm.com
+ (blr-c-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.19.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: ajitp)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 589B1C433D2;
+ Thu, 14 May 2020 16:38:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 589B1C433D2
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=ajitp@codeaurora.org
+From: Ajit Pandey <ajitp@codeaurora.org>
+To: broonie@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
+ srinivas.kandagatla@linaro.org
+Subject: [PATCH v2 0/7] ASoC: QCOM: Add support for SC7180 lpass variant
+Date: Thu, 14 May 2020 22:08:11 +0530
+Message-Id: <1589474298-29437-1-git-send-email-ajitp@codeaurora.org>
+X-Mailer: git-send-email 1.9.1
+In-Reply-To: <“1586592171-31644-1-git-send-email-ajitp@codeaurora.org”>
+References: <“1586592171-31644-1-git-send-email-ajitp@codeaurora.org”>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Ajit Pandey <ajitp@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,124 +94,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+We've common ASoC cpu driver for QCOM LPASS soc varaints. This patch chain add support for new variant SC7180 soc by doing the required
+modification in existing common lpass-cpu driver. Below is a brief summary of patch series:
 
---Nq2Wo0NMKNjxTN9z
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+PATCH v2 0001 ... 0004: Update lpass-cpu driver and documentation to make it more generic and support newer soc registers configuration.
+PATCH v2 0005 ... 0007: Add documentation and platform driver for newer SC7180 SOC variant.
 
-Hi Ard,
+Ajit Pandey (7):
+  Documentation: device-tree: sound: Update lpass-cpu driver binding
+  ASoC: qcom: Add common array to initialize soc based core clocks
+  ASoC: qcom: lpass-cpu: Make "ahbix-clk" an optional clock.
+  ASoC: qcom: lpass: Use regmap_field for i2sctl and dmactl registers
+  include: dt-bindings: sound: Add sc7180-lpass bindings header
+  device-tree: bindings: sound: lpass-cpu: Add new compatible soc
+  ASoC: qcom: lpass-sc7180: Add platform driver for lpass audio
 
-On Thu, May 14, 2020 at 06:18:47PM +0200, Ard Biesheuvel wrote:
-> The CrOS EC codec driver uses SHA-256 explicitly, and not in a
-> performance critical manner, so there is really no point in using
-> the dynamic SHASH crypto API here. Let's switch to the library API
-> instead.
->=20
-> Cc: Cheng-Yi Chiang <cychiang@chromium.org>=20
-> Cc: Enric Balletbo i Serra <enric.balletbo@collabora.com>
-> Cc: Guenter Roeck <groeck@chromium.org>
-> Cc: Benson Leung <bleung@chromium.org>
-> Cc: Liam Girdwood <lgirdwood@gmail.com>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Arnd Bergmann <arnd@arndb.de>
-> Cc: Eric Biggers <ebiggers@kernel.org>
-> Cc: Herbert Xu <herbert@gondor.apana.org.au>
-> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
-> ---
-> Looking at the code, I was wondering if the SHA-256 is really required
-> here? It looks like it is using it as some kind of fingerprint to decide
-> whether the provided file is identical to the one that has already been
-> loaded. If this is the case, we should probably just use CRC32 instead.
->=20
-> Also, do we really need to wipe the context struct? Is there any security
-> sensitive data in there?
->=20
+ .../devicetree/bindings/sound/qcom,lpass-cpu.txt   |  79 -------
+ .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  | 154 +++++++++++++
+ include/dt-bindings/sound/sc7180-lpass.h           |  10 +
+ sound/soc/qcom/Kconfig                             |   5 +
+ sound/soc/qcom/Makefile                            |   2 +
+ sound/soc/qcom/lpass-apq8016.c                     | 100 ++++++--
+ sound/soc/qcom/lpass-cpu.c                         | 116 ++++++----
+ sound/soc/qcom/lpass-lpaif-reg.h                   | 203 ++++++++++-------
+ sound/soc/qcom/lpass-platform.c                    |  86 ++++---
+ sound/soc/qcom/lpass-sc7180.c                      | 252 +++++++++++++++++++++
+ sound/soc/qcom/lpass.h                             |  40 +++-
+ 11 files changed, 790 insertions(+), 257 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+ create mode 100644 include/dt-bindings/sound/sc7180-lpass.h
+ create mode 100644 sound/soc/qcom/lpass-sc7180.c
 
-Adding Tzung-Bi Shih <tzungbi@google.com> to help answer these, as these
-were added as a part of his change here:
- b6bc07d4360d  ASoC: cros_ec_codec: support WoV
-
-
-Thanks,
-Benson
-
->  sound/soc/codecs/Kconfig         |  3 +--
->  sound/soc/codecs/cros_ec_codec.c | 21 +++++---------------
->  2 files changed, 6 insertions(+), 18 deletions(-)
->=20
-> diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-> index e6a0c5d05fa5..c7ce4cc658cf 100644
-> --- a/sound/soc/codecs/Kconfig
-> +++ b/sound/soc/codecs/Kconfig
-> @@ -537,8 +537,7 @@ config SND_SOC_CQ0093VC
->  config SND_SOC_CROS_EC_CODEC
->  	tristate "codec driver for ChromeOS EC"
->  	depends on CROS_EC
-> -	select CRYPTO
-> -	select CRYPTO_SHA256
-> +	select CRYPTO_LIB_SHA256
->  	help
->  	  If you say yes here you will get support for the
->  	  ChromeOS Embedded Controller's Audio Codec.
-> diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros_ec_=
-codec.c
-> index d3dc42aa6825..6bc02c485ab2 100644
-> --- a/sound/soc/codecs/cros_ec_codec.c
-> +++ b/sound/soc/codecs/cros_ec_codec.c
-> @@ -107,24 +107,13 @@ static int send_ec_host_command(struct cros_ec_devi=
-ce *ec_dev, uint32_t cmd,
->  static int calculate_sha256(struct cros_ec_codec_priv *priv,
->  			    uint8_t *buf, uint32_t size, uint8_t *digest)
->  {
-> -	struct crypto_shash *tfm;
-> +	struct sha256_state sctx;
-> =20
-> -	tfm =3D crypto_alloc_shash("sha256", CRYPTO_ALG_TYPE_SHASH, 0);
-> -	if (IS_ERR(tfm)) {
-> -		dev_err(priv->dev, "can't alloc shash\n");
-> -		return PTR_ERR(tfm);
-> -	}
-> -
-> -	{
-> -		SHASH_DESC_ON_STACK(desc, tfm);
-> -
-> -		desc->tfm =3D tfm;
-> -
-> -		crypto_shash_digest(desc, buf, size, digest);
-> -		shash_desc_zero(desc);
-> -	}
-> +	sha256_init(&sctx);
-> +	sha256_update(&sctx, buf, size);
-> +	sha256_final(&sctx, digest);
-> =20
-> -	crypto_free_shash(tfm);
-> +	memzero_explicit(&sctx, sizeof(sctx));
-> =20
->  #ifdef DEBUG
->  	{
-> --=20
-> 2.17.1
->=20
-
---=20
-Benson Leung
-Staff Software Engineer
-Chrome OS Kernel
-Google Inc.
-bleung@google.com
-Chromium OS Project
-bleung@chromium.org
-
---Nq2Wo0NMKNjxTN9z
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQQCtZK6p/AktxXfkOlzbaomhzOwwgUCXr1xDAAKCRBzbaomhzOw
-wm2jAP4kO1FFCCXNgm5NyDP1DEpmvIyrkpCH7e2fuQJNJW96bQEArMH8F8xDXc5f
-O3B2FNvv5cSrcQ/XjqWIPfh+9//g7Qg=
-=1okQ
------END PGP SIGNATURE-----
-
---Nq2Wo0NMKNjxTN9z--
+-- 
+('The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,\na Linux Foundation Collaborative Project')

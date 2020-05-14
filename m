@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E59A51D36F6
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 May 2020 18:50:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A8701D3790
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 May 2020 19:07:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9A1EA165F;
-	Thu, 14 May 2020 18:49:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A1EA165F
+	by alsa0.perex.cz (Postfix) with ESMTPS id D7D441665;
+	Thu, 14 May 2020 19:06:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7D441665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589475023;
-	bh=13YkInzwmfXC+4uzSMHtTHtxogyvUnuzvUSpaRaQf+o=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1589476039;
+	bh=HwjC0mdEpvRNfNDbCJoWOZLsIFufbVD8D3rudxfe4kU=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=C5v7TneVxAVk1VJJC+2iSWPi3lDxoE5Os5957pyjvf6q1yQGEloFLT6sG9LM0AxI9
-	 v2+2/pga9dfntiQr0JNG9ja0VYsrS2n34YGCqpdWYdybfxeAZlkqRhxrAY8WJxGai9
-	 4EMCKL7dV9lKrJzXe3OfbZ2SFYmsyJ26INMfOom0=
+	b=hyuTQHT6mvN33AfIiwsOhidQIFL8XNvzb6y3qk3xYx4sIY+Eo5cJ21a4jnXQcF7Ri
+	 us8j0Q+GkFb984WY8DbqTOk7LjB4l8olw8wZSEmT980wFwpZ1FEx4km3HOmNTTqEIW
+	 UcdEB8zbSPGdRWaJDLsj/FUessZ4fLIpknkneuOQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C61CDF800BD;
-	Thu, 14 May 2020 18:48:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AFE3F80101;
+	Thu, 14 May 2020 19:05:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 834E0F8014C; Thu, 14 May 2020 18:48:35 +0200 (CEST)
+ id 785E0F8014C; Thu, 14 May 2020 19:05:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,43 +34,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B1637F800BD
- for <alsa-devel@alsa-project.org>; Thu, 14 May 2020 18:48:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1637F800BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 76FC6F800BD
+ for <alsa-devel@alsa-project.org>; Thu, 14 May 2020 19:05:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76FC6F800BD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="iJrNK5O9"
+ header.b="zvXKgrNa"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4BC4A2065F;
- Thu, 14 May 2020 16:48:30 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 6FFBB206D8;
+ Thu, 14 May 2020 17:05:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589474910;
- bh=13YkInzwmfXC+4uzSMHtTHtxogyvUnuzvUSpaRaQf+o=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=iJrNK5O9NGBmk6t6rSC7WEqyFG1fOoKm8+OcSJQupftkmzlhIteluJEB5LQwdY0fO
- ZIHJaxDy5hj5S17FYWM6fM/6fCxO0xYDN8U9l1/Vdgm9ZNLPgdkJq3XI+FDjcIOXWx
- 95Lx82Ub54w+uY7PFfrkVcjw1DcNsnckmKEl/CIo=
-Date: Thu, 14 May 2020 17:48:28 +0100
+ s=default; t=1589475931;
+ bh=HwjC0mdEpvRNfNDbCJoWOZLsIFufbVD8D3rudxfe4kU=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=zvXKgrNaAp32PZfFs9VQf/nQ7ByZSBe3Ae03TO+khlKVpIC4iaO9jb5IgyPVu75Nl
+ jkYdPhh7ADAoWxClOF3x29zKbi67UV1NgDUxbscmNnJMkBqiH4+6jplbSUyygnv1vx
+ GgV6nnjdV4AWUnfgBBMPelbjfwak7zi4IfTfXmWg=
+Date: Thu, 14 May 2020 18:05:28 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Ajit Pandey <ajitp@codeaurora.org>
-Subject: Re: [PATCH v2 5/7] include: dt-bindings: sound: Add sc7180-lpass
- bindings header
-Message-ID: <20200514164828.GL5127@sirena.org.uk>
-References: <“1586592171-31644-1-git-send-email-ajitp@codeaurora.org”>
- <1589474298-29437-1-git-send-email-ajitp@codeaurora.org>
- <1589474298-29437-6-git-send-email-ajitp@codeaurora.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="aiCxlS1GuupXjEh3"
-Content-Disposition: inline
-In-Reply-To: <1589474298-29437-6-git-send-email-ajitp@codeaurora.org>
-X-Cookie: I think we're in trouble.
-User-Agent: Mutt/1.10.1 (2018-07-13)
+To: lgirdwood@gmail.com, tiwai@suse.com, Dan Murphy <dmurphy@ti.com>,
+ perex@perex.cz
+In-Reply-To: <20200514123338.20392-1-dmurphy@ti.com>
+References: <20200514123338.20392-1-dmurphy@ti.com>
+Subject: Re: [PATCH v3 1/3] ASoC: tlv320adcx140: Add controls for PDM clk
+Message-Id: <158947592846.11145.11012655309437023343.b4-ty@kernel.org>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, plai@codeaurora.org, linux-kernel@vger.kernel.org,
- srinivas.kandagatla@linaro.org
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,34 +77,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, 14 May 2020 07:33:36 -0500, Dan Murphy wrote:
+> Add ALSA controls to configure the PDM clocks.
+> The clocks need to be configurable to accommodate various microphones
+> that use clocks for low power/low resolution modes to high power/high
+> resolution modes.
 
---aiCxlS1GuupXjEh3
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Thu, May 14, 2020 at 10:08:16PM +0530, Ajit Pandey wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.8
 
-> +#define MI2S_PRIMARY	0
-> +#define MI2S_SECONDARY	1
-> +
-> +#define LPASS_MCLK0	0
+Thanks!
 
-These look like they could use namespacing.  Is primary/secondary
-perhaps something that could be a boolean property?
+[1/3] ASoC: tlv320adcx140: Add controls for PDM clk
+      commit: 7cfa610205d95357f9eface292dc70fce7571f65
+[2/3] ASoC: tlv320adcx140: Add device tree property for PDM edges
+      commit: 75b0adbb0806a141b0b5f074cd6bd58bb9870c0d
+[3/3] ASoC: tlv320adcx140: Configure PDM sampling edge
+      commit: 79fc48e41e39d7a98c5f8ae37f613d7ff9953c86
 
---aiCxlS1GuupXjEh3
-Content-Type: application/pgp-signature; name="signature.asc"
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
------BEGIN PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl69dlsACgkQJNaLcl1U
-h9BZHQf+NnNftIV3+H/9OLXdIMRFWRkbvO60/+gaZMAkfPciHgKoXQwNANjs+MS6
-KkCRShohQWebjaBfakB8D1jqe1Iu8mX7RJ5ZC7h9nNAtZvFCHYjyysX7T+pmmrxE
-dkTnm7jCPzlqk3WNGH+eenvXfTkYKecvRlyDUgsHAE3nbwucemebf4CIs4PsjEbG
-h0bKFNL2kRgr/AH9QTbSllcmDbD/V+WF0SOO5+kOixYg5lO6iHW8bW2pnh49qp/D
-rDCTgGclFkQobmTltDgySlc3T2aIm838esjcculKOrQ4ZRZeYa+UdTCyo/1/UVPd
-DvP3oL7jfacTv63JwDQN9IyQq/cZVw==
-=lTr1
------END PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---aiCxlS1GuupXjEh3--
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

@@ -2,66 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58DDA1D3827
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 May 2020 19:28:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 493A41D3864
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 May 2020 19:35:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD6451665;
-	Thu, 14 May 2020 19:27:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD6451665
+	by alsa0.perex.cz (Postfix) with ESMTPS id B9CFC1666;
+	Thu, 14 May 2020 19:34:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9CFC1666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589477306;
-	bh=6eyy38OkQeJpGAoVdxA2g1JF4/n6/riGZJslo9Y0psE=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1589477727;
+	bh=KaeRnwISk4xJsr2+yYWljcRz6x8l52wFZXH8fnEbFI0=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Q8hyUTwkmikHftTu0ANYMHYPB+VCq5nWamBGOafPb/jzgs1u9Zo+C5f6yK6IW81Oc
-	 fLVT6J2h02dl6wM8rQrCToEL0B3SWsyFZqiop24j/Opm04kmocZYlmzzhpMz8Frrep
-	 OjkL5P/KFnm6yLBD1w7OqXJ+AvvzahJBaVOi4NSE=
+	b=W593K+fHI2aJUgt/Fut4hhZf/NadWhET1VmbK0YJVyoQYPJ/EioYZwuhOaK/XSFXE
+	 iTGRHkj72ORCHaDD1X8oPK8nMuKl+WxJ1UlnBMFx776H39Gckgn68IyZxHqsQa7cAl
+	 pCcH3UO8KJmKxdLoxKTxxXMkUXIHilam7PHxL1Bg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CF1C4F80101;
-	Thu, 14 May 2020 19:26:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF65EF80158;
+	Thu, 14 May 2020 19:33:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4E30CF8014C; Thu, 14 May 2020 19:26:42 +0200 (CEST)
+ id 08F5BF8014C; Thu, 14 May 2020 19:33:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from zm-mta-out-3.u-ga.fr (zm-mta-out-3.u-ga.fr [152.77.200.56])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2FEAAF800BD
- for <alsa-devel@alsa-project.org>; Thu, 14 May 2020 19:26:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FEAAF800BD
-IronPort-SDR: cW2P89DlaZ7MSM0GzGGGja32xhe/lBPM8/kMhxdlT4s4GHPv/xMm8tVyPKgOByLjpQfz8MvzIo
- A5sftiNyJ4kQ==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2020 10:26:30 -0700
-IronPort-SDR: /nJxLbz7E7SgzEp8Y0H/gvtvm1lkpoiPHaGAsMss53RJOFEHUxaW9mDt4UJSY/kdM5a8PmEB0/
- 5wtzSZ9Pw4BQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,392,1583222400"; d="scan'208";a="252136227"
-Received: from mathayi-mobl.amr.corp.intel.com ([10.254.177.108])
- by fmsmga007.fm.intel.com with ESMTP; 14 May 2020 10:26:30 -0700
-Message-ID: <3d132bbcd985c450c3ac8cd406eb51893535b238.camel@linux.intel.com>
-Subject: Re: [PATCH v2 00/21] ASoC: cleanup DAI/Component activity
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown
- <broonie@kernel.org>
-Date: Thu, 14 May 2020 10:26:30 -0700
-In-Reply-To: <87blmq9alx.wl-kuninori.morimoto.gx@renesas.com>
-References: <87blmq9alx.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7F578F800E3
+ for <alsa-devel@alsa-project.org>; Thu, 14 May 2020 19:33:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F578F800E3
+Received: from zm-mta-out.u-ga.fr (zm-mta-out.u-ga.fr [152.77.200.53])
+ by zm-mta-out-3.u-ga.fr (Postfix) with ESMTP id 35DD640E19;
+ Thu, 14 May 2020 19:33:33 +0200 (CEST)
+Received: from zm-mbx05.u-ga.fr (zm-mbx05.u-ga.fr [152.77.200.19])
+ by zm-mta-out.u-ga.fr (Postfix) with ESMTP id 2E1F780474;
+ Thu, 14 May 2020 19:33:33 +0200 (CEST)
+Date: Thu, 14 May 2020 19:33:33 +0200 (CEST)
+From: =?utf-8?B?RlLDiUTDiVJJQw==?= RECOULES
+ <frederic.recoules@univ-grenoble-alpes.fr>
+To: tiwai <tiwai@suse.de>
+Message-ID: <1131275890.17479572.1589477613169.JavaMail.zimbra@univ-grenoble-alpes.fr>
+In-Reply-To: <s5h5zd87qcq.wl-tiwai@suse.de>
+References: <20200506171924.2644-1-frederic.recoules@univ-grenoble-alpes.fr>
+ <s5h5zd87qcq.wl-tiwai@suse.de>
+Subject: Re: [PATCH v3 1/5] pcm_dmix assembly: change the token by symbolic
+ names
+MIME-Version: 1.0
+X-Originating-IP: [92.184.112.140]
+X-Mailer: Zimbra 8.8.15_GA_3928 (ZimbraWebClient - FF72 (Linux)/8.8.15_GA_3928)
+Thread-Topic: pcm_dmix assembly: change the token by symbolic names
+Thread-Index: 8F1b9jE7vDb80Ap4CLmSCALzXdxPXQ==
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel <alsa-devel@alsa-project.org>,
+ frederic recoules <frederic.recoules@orange.fr>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,48 +77,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 2020-05-14 at 17:36 +0900, Kuninori Morimoto wrote:
-> Hi Mark
-> 
-> These are v2 of DAI/Component activity cleanup.
-> 
-> This patch-set exchanges soc-dapm.c :: snd_soc_dai_link_event_xxx()
-> behavior which updates dai->active but not cares other actives.
-> But I think original code was wrong.
-> So, I believe these works correctly, but maybe need some tests or
-> deep review.
-> 
-> v1 patch-set used "activity", but v2 is using "active" for each
-> function/macro naming.
-> 
-> Link: 
-> https://lore.kernel.org/r/875zd39frp.wl-kuninori.morimoto.gx@renesas.com
-> 
-> Kuninori Morimoto (21):
->   ASoC: soc-pcm: replace snd_soc_runtime_activate()/deactivate() to
-> macro
->   ASoC: soc-dai: add snd_soc_dai_action()
->   ASoC: soc-dapm: use snd_soc_dai_activate()/deactivate()
->   ASoC: soc-dai: add snd_soc_dai_active()
->   ASoC: soc-component: add snd_soc_component_active()
->   ASoC: soc-dai: add snd_soc_dai_stream_active()
->   ASoC: use snd_soc_xxx_active()
->   ASoC: atomel: use snd_soc_xxx_active()
->   ASoC: bcm: use snd_soc_xxx_active()
->   ASoC: cirrus: use snd_soc_xxx_active()
->   ASoC: codecs: use snd_soc_xxx_active()
->   ASoC: fsl: use snd_soc_xxx_active()
->   ASoC: intel: use snd_soc_xxx_active()
->   ASoC: jz4740: use snd_soc_xxx_active()
->   ASoC: mediatek: use snd_soc_xxx_active()
->   ASoC: meson: use snd_soc_xxx_active()
->   ASoC: pxa: use snd_soc_xxx_active()
->   ASoC: ti: use snd_soc_xxx_active()
->   ASoC: uniphier: use snd_soc_xxx_active()
->   ASoC: dwc: use snd_soc_xxx_active()
->   ASoC: cleanup dai / component active code
+Hi Takashi,=20
 
-V2 looks good, Morimoto-san. Thanks!
+I am quite late (I was very busy these days) but thank you for applying the=
+ patches.=20
 
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+I wish you well,=20
+Regards,=20
 
+Fr=C3=A9d=C3=A9ric=20
+
+
+De: "tiwai" <tiwai@suse.de>=20
+=C3=80: "frederic recoules" <frederic.recoules@univ-grenoble-alpes.fr>=20
+Cc: "alsa-devel" <alsa-devel@alsa-project.org>, "frederic recoules" <freder=
+ic.recoules@orange.fr>=20
+Envoy=C3=A9: Mercredi 6 Mai 2020 22:36:37=20
+Objet: Re: [PATCH v3 1/5] pcm_dmix assembly: change the token by symbolic n=
+ames=20
+
+On Wed, 06 May 2020 19:19:20 +0200,=20
+frederic.recoules@univ-grenoble-alpes.fr wrote:=20
+>=20
+> From: Fr=C3=A9d=C3=A9ric Recoules <frederic.recoules@orange.fr>=20
+>=20
+> It eases the refactoring of assembly chunk since we can now=20
+> add/remove/move entries without worrying about maintaining=20
+> the token numbering in the template.=20
+>=20
+> Note: does not impact the binary output.=20
+>=20
+> Signed-off-by: Fr=C3=A9d=C3=A9ric Recoules <frederic.recoules@orange.fr>=
+=20
+
+Now I applied all five patches.=20
+Thanks!=20
+
+Takashi=20

@@ -2,84 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 891A41D29BD
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 May 2020 10:11:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8DFA1D2A55
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 May 2020 10:38:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1DAB71661;
-	Thu, 14 May 2020 10:10:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DAB71661
+	by alsa0.perex.cz (Postfix) with ESMTPS id 65AFE1669;
+	Thu, 14 May 2020 10:37:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65AFE1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589443882;
-	bh=/duuv5ML1Vve1WSyYtwM7QMNV+1Rwn/7CujwCqJIkcs=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=e3nVNNPhjGP/9SQRNAqQVz2Y3w9t/bPdRmdscAQwGHWE7GL3EQN6JtJWixwsH+FLy
-	 OoJEoUZw4LxLtbvS5ygzy60wq1kHDc9P2cr9MZmppFvKOplMxcP9swkK65sDrHNXod
-	 zsDqx7Vk7D6hpW/y+Tq0NbGYM0j8GMHwSmxdesIc=
+	s=default; t=1589445501;
+	bh=5wlpqZ6EetJJe1QYADax9UN0ScQ6esWuVAU/NtPiB/8=;
+	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=WMv1IM05u/kIoyW37nfh0cMThaPzRcLoX1B2dqKHIb77XmeAa3vnA8NAqcit1no3/
+	 1mDySyrFldJdQoODZdCppZMyYEGTjSK14HuSw8PR5VLU0xAGGFTVesoz0iPFmn5OY3
+	 ZWbh04DpcCeNNkZTBZ6DQYQMtIoC4CCdQZqARAYo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2C636F800BD;
-	Thu, 14 May 2020 10:09:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B3B5F8015A;
+	Thu, 14 May 2020 10:36:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 75F30F80158; Thu, 14 May 2020 10:09:38 +0200 (CEST)
+ id 3C7D0F80158; Thu, 14 May 2020 10:36:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp1.axis.com (smtp1.axis.com [195.60.68.17])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5189DF800BD
- for <alsa-devel@alsa-project.org>; Thu, 14 May 2020 10:09:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5189DF800BD
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=axis.com header.i=@axis.com
- header.b="Qvc1apOZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=axis.com; l=1901; q=dns/txt; s=axis-central1;
- t=1589443773; x=1620979773;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version:content-transfer-encoding;
- bh=lawWfUyOQrdLpw+zeoVZeDBdYrpx8vxSo3sYmVlA0eI=;
- b=Qvc1apOZbjN/kTLLzoosRfWlvtYTJglHMC4sFpmWnQTdFcSgVty3L5J8
- NA+6hXfX7RWp96camOH87OtVUED+dxsQozYxAXDnhwkNvUVW786VVPbYc
- VLtTEmvRkDrlvVziZ/kDM/0TZ11XarcA3b3hnzctu2ZQVxbrAIDwsUPf9
- PMYbR4AdhyO36jCL+zjL98zFM+Ku9oN3shsng+Jevepb5dk8b5hAcsysq
- FIasl/kz3CvJJmXPkiAmA0WMDgrtK2a8szbFiZhf/GHrS++uxA0kfpo/k
- zbXCehhuvVwxwLLrOvVPZElZjiC7tjdWX6d6WT11BNVW3XsUermhEs8Tn w==;
-IronPort-SDR: 0Y3Pv7UCp3mAT5TEROn3U+48T2Mv/N55yt1fR9rJQRmJlK/PMkWzNEGKvJysBdH929zw56q+Jy
- N7QO8c+FdD2bF5b7dpsE62No91JOJpywRYEMMESqLi2y1RQ90MnAKtCckp4RBFCTA7ttAepP5/
- 0bAwdvgvngpCTIr7RzS0YSFqJAVJ3M/VnXbs4vJW0yjhm2D7k24LETC3/qvfRVQ9MVTTl4Phfh
- SQcT8z4jiQSK6sfC+bQVbgvZhoNFCRFXCepH8H0QdPtKWRc2D2Xd3gJUEqERAsMM7B2xGFEzFz
- IRg=
-X-IronPort-AV: E=Sophos;i="5.73,390,1583190000"; 
-   d="scan'208";a="8713783"
-Date: Thu, 14 May 2020 10:09:23 +0200
-From: Ricard Wanderlof <ricardw@axis.com>
-X-X-Sender: ricardw@lnxricardw1.se.axis.com
-To: Dan Murphy <dmurphy@ti.com>
-Subject: Re: [PATCH v2 2/3] ASoC: tlv320adcx140: Add device tree property
- for PDM edges
-In-Reply-To: <20200513200549.12213-2-dmurphy@ti.com>
-Message-ID: <alpine.DEB.2.20.2005141006450.30387@lnxricardw1.se.axis.com>
-References: <20200513200549.12213-1-dmurphy@ti.com>
- <20200513200549.12213-2-dmurphy@ti.com>
-User-Agent: Alpine 2.20 (DEB 67 2015-01-07)
-MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: 8BIT
-X-Originating-IP: [10.0.5.60]
-X-ClientProxiedBy: XBOX03.axis.com (10.0.5.17) To XBOX03.axis.com (10.0.5.17)
-Cc: Rob Herring <robh@kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "broonie@kernel.org" <broonie@kernel.org>
+X-Spam-Status: No, score=0.0 required=5.0 tests=AC_FROM_MANY_DOTS,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 9BC1FF80101
+ for <alsa-devel@alsa-project.org>; Thu, 14 May 2020 10:36:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BC1FF80101
+Date: 14 May 2020 17:36:26 +0900
+X-IronPort-AV: E=Sophos;i="5.73,390,1583161200"; d="scan'208";a="46855263"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 14 May 2020 17:36:26 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id EC87C41E8BA4;
+ Thu, 14 May 2020 17:36:26 +0900 (JST)
+Message-ID: <87blmq9alx.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH v2 00/21] ASoC: cleanup DAI/Component activity
+User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
+To: Mark Brown <broonie@kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,59 +65,82 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-On Wed, 13 May 2020, Dan Murphy wrote:
+Hi Mark
 
-> Add a device tree property to configure the PDM sampling edge for each
-> digital microphone.
-> 
-> CC: Rob Herring <robh@kernel.org>
-> Signed-off-by: Dan Murphy <dmurphy@ti.com>
-> ---
->  .../devicetree/bindings/sound/tlv320adcx140.yaml   | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml
-> b/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml
-> index ab2268c0ee67..55668c7d261d 100644
-> --- a/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml
-> +++ b/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml
-> @@ -63,6 +63,19 @@ properties:
->        - $ref: /schemas/types.yaml#/definitions/uint32
->        - enum: [0, 1, 2]
->  
-> +  ti,pdm-edge-select:
-> +    description: |
-> +       Defines the sampling edge configuration for the PDM inputs.  This is
-> an
-> +       array defined as <PDMIN1 PDMIN2 PDMIN3 PDMIN4>. 0 (default) is
-> negative
-> +       sampling edge and 1 is positive sampling edge.
+These are v2 of DAI/Component activity cleanup.
 
-A bit of a nitpick, but I would think of the edges as 
-negative-going/positive-going, or rising/falling. Not sure if anyone would 
-misunderstand 'negative edge' in practice though.
+This patch-set exchanges soc-dapm.c :: snd_soc_dai_link_event_xxx()
+behavior which updates dai->active but not cares other actives.
+But I think original code was wrong.
+So, I believe these works correctly, but maybe need some tests or deep review.
 
-> +    allOf:
-> +      - $ref: /schemas/types.yaml#/definitions/uint32-array
-> +      - minItems: 1
-> +        maxItems: 4
-> +        items:
-> +          maximum: 1
-> +        default: [0, 0, 0, 0]
-> +
->  required:
->    - compatible
->    - reg
-> @@ -77,6 +90,7 @@ examples:
->          compatible = "ti,tlv320adc5140";
->          reg = <0x4c>;
->          ti,mic-bias-source = <6>;
-> +        ti,pdm-edge-select = < 0 1 0 1>;
+v1 patch-set used "activity", but v2 is using "active" for each
+function/macro naming.
 
-Should there really be a space between < and 0 ?
+Link: https://lore.kernel.org/r/875zd39frp.wl-kuninori.morimoto.gx@renesas.com
 
-/Ricard
+Kuninori Morimoto (21):
+  ASoC: soc-pcm: replace snd_soc_runtime_activate()/deactivate() to macro
+  ASoC: soc-dai: add snd_soc_dai_action()
+  ASoC: soc-dapm: use snd_soc_dai_activate()/deactivate()
+  ASoC: soc-dai: add snd_soc_dai_active()
+  ASoC: soc-component: add snd_soc_component_active()
+  ASoC: soc-dai: add snd_soc_dai_stream_active()
+  ASoC: use snd_soc_xxx_active()
+  ASoC: atomel: use snd_soc_xxx_active()
+  ASoC: bcm: use snd_soc_xxx_active()
+  ASoC: cirrus: use snd_soc_xxx_active()
+  ASoC: codecs: use snd_soc_xxx_active()
+  ASoC: fsl: use snd_soc_xxx_active()
+  ASoC: intel: use snd_soc_xxx_active()
+  ASoC: jz4740: use snd_soc_xxx_active()
+  ASoC: mediatek: use snd_soc_xxx_active()
+  ASoC: meson: use snd_soc_xxx_active()
+  ASoC: pxa: use snd_soc_xxx_active()
+  ASoC: ti: use snd_soc_xxx_active()
+  ASoC: uniphier: use snd_soc_xxx_active()
+  ASoC: dwc: use snd_soc_xxx_active()
+  ASoC: cleanup dai / component active code
+
+ include/sound/soc-component.h                |  6 +-
+ include/sound/soc-dai.h                      |  8 ++-
+ include/sound/soc.h                          |  9 ++-
+ sound/soc/atmel/atmel_ssc_dai.c              |  4 +-
+ sound/soc/bcm/bcm2835-i2s.c                  |  6 +-
+ sound/soc/bcm/cygnus-ssp.c                   |  4 +-
+ sound/soc/cirrus/ep93xx-i2s.c                |  4 +-
+ sound/soc/codecs/adav80x.c                   |  4 +-
+ sound/soc/codecs/arizona.c                   |  2 +-
+ sound/soc/codecs/cs4271.c                    |  4 +-
+ sound/soc/codecs/madera.c                    |  2 +-
+ sound/soc/codecs/max98090.c                  |  6 +-
+ sound/soc/codecs/tlv320aic23.c               |  2 +-
+ sound/soc/codecs/tlv320dac33.c               |  2 +-
+ sound/soc/codecs/uda1380.c                   |  2 +-
+ sound/soc/codecs/wl1273.c                    |  2 +-
+ sound/soc/codecs/wm8711.c                    |  2 +-
+ sound/soc/codecs/wm8753.c                    |  4 +-
+ sound/soc/dwc/dwc-i2s.c                      |  2 +-
+ sound/soc/fsl/fsl_esai.c                     |  2 +-
+ sound/soc/fsl/fsl_spdif.c                    |  4 +-
+ sound/soc/intel/atom/sst-mfld-platform-pcm.c | 14 ++--
+ sound/soc/jz4740/jz4740-i2s.c                |  8 +--
+ sound/soc/mediatek/mt8173/mt8173-afe-pcm.c   |  8 +--
+ sound/soc/meson/axg-tdm-interface.c          |  2 +-
+ sound/soc/pxa/pxa-ssp.c                      |  8 +--
+ sound/soc/pxa/pxa2xx-i2s.c                   |  2 +-
+ sound/soc/soc-compress.c                     |  4 +-
+ sound/soc/soc-core.c                         | 11 +--
+ sound/soc/soc-dai.c                          | 23 +++++++
+ sound/soc/soc-dapm.c                         |  8 +--
+ sound/soc/soc-pcm.c                          | 70 +++++++-------------
+ sound/soc/ti/davinci-mcasp.c                 |  2 +-
+ sound/soc/ti/omap-dmic.c                     |  4 +-
+ sound/soc/ti/omap-mcbsp.c                    |  4 +-
+ sound/soc/ti/omap-mcpdm.c                    |  8 +--
+ sound/soc/uniphier/aio-cpu.c                 |  4 +-
+ 37 files changed, 134 insertions(+), 127 deletions(-)
+
 -- 
-Ricard Wolf Wanderlof                           ricardw(at)axis.com
-Axis Communications AB, Lund, Sweden            www.axis.com
-Phone +46 46 272 2016                           Fax +46 46 13 61 30
+2.17.1
+

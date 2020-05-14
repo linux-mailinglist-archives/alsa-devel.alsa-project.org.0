@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ED4D1D2A72
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 May 2020 10:40:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C6371D2A75
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 May 2020 10:41:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 247B2166D;
-	Thu, 14 May 2020 10:39:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 247B2166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 469911615;
+	Thu, 14 May 2020 10:40:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 469911615
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589445648;
-	bh=DqTi7DW1YennmmhixC7/KZW/m77cdlu3qXwya5MptoE=;
+	s=default; t=1589445679;
+	bh=AiQvLJ5mA/0aW747yKQ2wcio5KVb7mQxvY+1Pba4bCk=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AYQhw+NpFI5BTdpi7B65cUuEf8NoL9uFBf6xkBY5selYphYAoQAjzHgZj2Kiqni/y
-	 5NpO+BkI8/nuaiDYGhR5+O9fM6wo9C3JPICu9fJC9BUq9dUEJbP+0d79P5oyvXmVTP
-	 rQgy1Qg981OO7eN0fn4BkKxs7LL4hm1Qmc5og7lo=
+	b=TeRZA2gjX7ORg7VZmzXr1ubKl1hJ88DLYcVs3pNdKw7UoW0HtvHvs018vD8sPcWXl
+	 NFRJvOdjyv8lH3Vu3WDsrscxYg2wqWWxm9nrUaFoDrSefmzCkbCZgz0TELWxlh3pQb
+	 5j5bGi2BWFhHGfhAMhOZ9wM2dAJR0OhXrCaKaymI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1C9A5F801F2;
-	Thu, 14 May 2020 10:39:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BBF79F80227;
+	Thu, 14 May 2020 10:39:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9D53AF801DB; Thu, 14 May 2020 10:39:15 +0200 (CEST)
+ id 280E9F8015A; Thu, 14 May 2020 10:39:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 4EB6BF80101
- for <alsa-devel@alsa-project.org>; Thu, 14 May 2020 10:39:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4EB6BF80101
-Date: 14 May 2020 17:39:08 +0900
-X-IronPort-AV: E=Sophos;i="5.73,390,1583161200"; d="scan'208";a="47069270"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 14 May 2020 17:39:08 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id ABB3DF80158
+ for <alsa-devel@alsa-project.org>; Thu, 14 May 2020 10:39:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABB3DF80158
+Date: 14 May 2020 17:39:48 +0900
+X-IronPort-AV: E=Sophos;i="5.73,390,1583161200"; d="scan'208";a="47069365"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 14 May 2020 17:39:48 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 1DC3B400966E;
- Thu, 14 May 2020 17:39:08 +0900 (JST)
-Message-ID: <875zcy9ahf.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 1FA2241E9704;
+ Thu, 14 May 2020 17:39:48 +0900 (JST)
+Message-ID: <874ksi9agb.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 04/21] ASoC: soc-dai: add snd_soc_dai_active()
+Subject: [PATCH v2 05/21] ASoC: soc-component: add snd_soc_component_active()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87blmq9alx.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,68 +70,39 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Current snd_soc_dai_action() is updating
-dai->stream_active for Playback/Capture (A),
-dai->active        for DAI (B)
-
-	void snd_soc_dai_action(struct snd_soc_dai *dai,
-				int stream, int action)
-	{
-(A)		dai->stream_active[stream]	+= action;
-(B)		dai->active			+= action;
-		dai->component->active		+= action;
-	}
-
-But, these are very verbose, because we can calculate
-DAI active from stream_active.
-
-This patch adds snd_soc_dai_active() which calculate
-DAI active from DAI stream_active.
-
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
 v1 -> v2
-	- function name "xxx_activity" -> "xxx_active"
+	- not update component->active via macro
 
- include/sound/soc-dai.h |  1 +
- sound/soc/soc-dai.c     | 12 ++++++++++++
- 2 files changed, 13 insertions(+)
+ include/sound/soc-component.h | 1 +
+ sound/soc/soc-dai.c           | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
-index 019c222a0b0d..e651c62636ab 100644
---- a/include/sound/soc-dai.h
-+++ b/include/sound/soc-dai.h
-@@ -165,6 +165,7 @@ void snd_soc_dai_action(struct snd_soc_dai *dai,
- 			int stream, int action);
- #define snd_soc_dai_activate(dai, stream)   snd_soc_dai_action(dai, stream,  1)
- #define snd_soc_dai_deactivate(dai, stream) snd_soc_dai_action(dai, stream, -1)
-+int snd_soc_dai_active(struct snd_soc_dai *dai);
+diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
+index 864983b09846..820b9b618f97 100644
+--- a/include/sound/soc-component.h
++++ b/include/sound/soc-component.h
+@@ -394,6 +394,7 @@ static inline bool snd_soc_component_is_active(
+ {
+ 	return component->active != 0;
+ }
++#define snd_soc_component_active(component)  ((component)->active)
  
- int snd_soc_pcm_dai_probe(struct snd_soc_pcm_runtime *rtd, int order);
- int snd_soc_pcm_dai_remove(struct snd_soc_pcm_runtime *rtd, int order);
+ /* component pin */
+ int snd_soc_component_enable_pin(struct snd_soc_component *component,
 diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
-index 3208f244c1b8..de2981fa5372 100644
+index de2981fa5372..bb771302fd6f 100644
 --- a/sound/soc/soc-dai.c
 +++ b/sound/soc/soc-dai.c
-@@ -397,6 +397,18 @@ void snd_soc_dai_action(struct snd_soc_dai *dai,
+@@ -393,6 +393,7 @@ void snd_soc_dai_action(struct snd_soc_dai *dai,
+ {
+ 	dai->stream_active[stream]	+= action;
+ 	dai->active			+= action;
++	/* see snd_soc_component_active() */
+ 	dai->component->active		+= action;
  }
  EXPORT_SYMBOL_GPL(snd_soc_dai_action);
- 
-+int snd_soc_dai_active(struct snd_soc_dai *dai)
-+{
-+	int stream, active;
-+
-+	active = 0;
-+	for_each_pcm_streams(stream)
-+		active += dai->stream_active[stream];
-+
-+	return active;
-+}
-+EXPORT_SYMBOL_GPL(snd_soc_dai_active);
-+
- int snd_soc_pcm_dai_probe(struct snd_soc_pcm_runtime *rtd, int order)
- {
- 	struct snd_soc_dai *dai;
 -- 
 2.17.1
 

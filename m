@@ -2,65 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A04D1D3799
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 May 2020 19:08:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26C901D37D3
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 May 2020 19:18:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1FCEB166F;
-	Thu, 14 May 2020 19:07:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FCEB166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7B951665;
+	Thu, 14 May 2020 19:17:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7B951665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589476086;
-	bh=YW9wuTxuRvYF57tgugoM+Q4D773LEH8szJcXifA1DpU=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=MKSGSdThaGOtxEw2hTRI9dE8ZX7pNa9NsAv+VLnvHweQqc6FELEranuSOLYi4cU9b
-	 ahR6JXSSTzMG53u8r5LDRSahte9HjNiNFbq4kJ/JEQjoLopRkZc74weii6HfOa4aC1
-	 jeFUuc/imoI7b/t+4k+oJfYF3ZHv9rX5l1/P2Ddg=
+	s=default; t=1589476681;
+	bh=RzP41wEsqF8mMwOpkEaIF0uN3BHIfrOA/9yFdDm/t/o=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RziHPDrpYNWjQK3xoQ+++uqqvOLDSQN2MJVRjJBKnKBkIug8oXSxW/C3YsJYjXoP0
+	 zc/Z9NhJfIGnI274yWXg34sn3AkoqLPIwq4tIyFQ4Cj3nu++T5i9N3Y2pNIT7weXLz
+	 oCbYxypGIZUfGMekP6x+KH9Fm0C5bZRzR7Cf3x8c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC58CF800E3;
-	Thu, 14 May 2020 19:05:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E0834F8015A;
+	Thu, 14 May 2020 19:16:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F339AF80227; Thu, 14 May 2020 19:05:40 +0200 (CEST)
+ id 26658F8014C; Thu, 14 May 2020 19:16:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bollie.ca9.eu (bollie.ca9.eu [81.169.254.190])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8022BF801DB
- for <alsa-devel@alsa-project.org>; Thu, 14 May 2020 19:05:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8022BF801DB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="VSFr/FWR"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 72C112065F;
- Thu, 14 May 2020 17:05:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589475937;
- bh=YW9wuTxuRvYF57tgugoM+Q4D773LEH8szJcXifA1DpU=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=VSFr/FWRfpW8XQKjLi8GnhOj6GcgNR7W+29Dzelr7M0k1jsiDgAk9uIOU4Pkp/Dp3
- fEYyM1iEqQ7k6I8TTt/jksD5k4X2P079gge+Dgp6Q4MD5NGSyFLZpgWXdwk9FHb5Kt
- VoLhw+BQcMLEWny2kTBy6kxBuljDquTHDq1RjzJ4=
-Date: Thu, 14 May 2020 18:05:34 +0100
-From: Mark Brown <broonie@kernel.org>
-To: tiwai@suse.com, lgirdwood@gmail.com, Dan Murphy <dmurphy@ti.com>,
- perex@perex.cz
-In-Reply-To: <20200513200549.12213-1-dmurphy@ti.com>
-References: <20200513200549.12213-1-dmurphy@ti.com>
-Subject: Re: [PATCH v2 1/3] ASoC: tlv320adcx140: Add controls for PDM clk
-Message-Id: <158947592846.11145.4394826289935781391.b4-ty@kernel.org>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 11701F800E3
+ for <alsa-devel@alsa-project.org>; Thu, 14 May 2020 19:16:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11701F800E3
+Received: by bollie.ca9.eu (Postfix, from userid 1000)
+ id EB113C043A; Thu, 14 May 2020 19:16:07 +0200 (CEST)
+Date: Thu, 14 May 2020 19:16:07 +0200
+From: Thomas Ebeling <penguins@bollie.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2] RME Babyface Pro mixer patch: Fixing max vol
+Message-ID: <20200514171555.67rqof74ubns3dmx@bollie.ca9.eu>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: NeoMutt/20180716
+Cc: tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,40 +63,452 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 13 May 2020 15:05:47 -0500, Dan Murphy wrote:
-> Add ALSA controls to configure the PDM clocks.
-> The clocks need to be configurable to accommodate various microphones
-> that use clocks for low power/low resolution modes to high power/high
-> resolution modes.
+Added mixer quirks to allow controlling the internal DSP of the
+RME Babyface Pro and its successor Babyface Pro FS.
 
-Applied to
+v2 fixes the initially wrong upper limit of the volume control.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.8
+Signed-off-by: Thomas Ebeling <penguins@bollie.de>
+---
+ sound/usb/mixer_quirks.c | 418 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 418 insertions(+)
 
-Thanks!
+diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
+index a5f65a9a0254..aad2683ff793 100644
+--- a/sound/usb/mixer_quirks.c
++++ b/sound/usb/mixer_quirks.c
+@@ -2185,6 +2185,421 @@ static int snd_rme_controls_create(struct usb_mixer_interface *mixer)
+ 	return 0;
+ }
+ 
++/*
++ * RME Babyface Pro (FS)
++ *
++ * These devices exposes a couple of DSP functions via request to EP0.
++ * Switches are available via control registers, while routing is controlled
++ * by controlling the volume on each possible crossing point.
++ * Volume control is linear, from -inf (dec. 0) to +6dB (dec. 65536) with
++ * 0dB being at dec. 32768.
++ */
++enum {
++	SND_BBFPRO_CTL_REG1 = 0,
++	SND_BBFPRO_CTL_REG2
++};
++
++#define SND_BBFPRO_CTL_REG_MASK 1
++#define SND_BBFPRO_CTL_IDX_MASK 0xff
++#define SND_BBFPRO_CTL_IDX_SHIFT 1
++#define SND_BBFPRO_CTL_VAL_MASK 1
++#define SND_BBFPRO_CTL_VAL_SHIFT 9
++#define SND_BBFPRO_CTL_REG1_CLK_MASTER 0
++#define SND_BBFPRO_CTL_REG1_CLK_OPTICAL 1
++#define SND_BBFPRO_CTL_REG1_SPDIF_PRO 7
++#define SND_BBFPRO_CTL_REG1_SPDIF_EMPH 8
++#define SND_BBFPRO_CTL_REG1_SPDIF_OPTICAL 10
++#define SND_BBFPRO_CTL_REG2_48V_AN1 0
++#define SND_BBFPRO_CTL_REG2_48V_AN2 1
++#define SND_BBFPRO_CTL_REG2_SENS_IN3 2
++#define SND_BBFPRO_CTL_REG2_SENS_IN4 3
++#define SND_BBFPRO_CTL_REG2_PAD_AN1 4
++#define SND_BBFPRO_CTL_REG2_PAD_AN2 5
++
++#define SND_BBFPRO_MIXER_IDX_MASK 0x1ff
++#define SND_BBFPRO_MIXER_VAL_MASK 0x3ffff
++#define SND_BBFPRO_MIXER_VAL_SHIFT 9
++#define SND_BBFPRO_MIXER_VAL_MIN 0 // -inf
++#define SND_BBFPRO_MIXER_VAL_MAX 65536 // +6dB
++
++#define SND_BBFPRO_USBREQ_CTL_REG1 0x10
++#define SND_BBFPRO_USBREQ_CTL_REG2 0x17
++#define SND_BBFPRO_USBREQ_MIXER 0x12
++
++static int snd_bbfpro_ctl_update(struct usb_mixer_interface *mixer, u8 reg,
++				 u8 index, u8 value)
++{
++	int err;
++	u16 usb_req, usb_idx, usb_val;
++	struct snd_usb_audio *chip = mixer->chip;
++
++	err = snd_usb_lock_shutdown(chip);
++	if (err < 0)
++		return err;
++
++	if (reg == SND_BBFPRO_CTL_REG1) {
++		usb_req = SND_BBFPRO_USBREQ_CTL_REG1;
++		if (index == SND_BBFPRO_CTL_REG1_CLK_OPTICAL) {
++			usb_idx = 3;
++			usb_val = value ? 3 : 0;
++		} else {
++			usb_idx = 1 << index;
++			usb_val = value ? usb_idx : 0;
++		}
++	} else {
++		usb_req = SND_BBFPRO_USBREQ_CTL_REG2;
++		usb_idx = 1 << index;
++		usb_val = value ? usb_idx : 0;
++	}
++
++	err = snd_usb_ctl_msg(chip->dev,
++			      usb_sndctrlpipe(chip->dev, 0), usb_req,
++			      USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
++			      usb_val, usb_idx, 0, 0);
++
++	snd_usb_unlock_shutdown(chip);
++	return err;
++}
++
++static int snd_bbfpro_ctl_get(struct snd_kcontrol *kcontrol,
++			      struct snd_ctl_elem_value *ucontrol)
++{
++	u8 reg, idx, val;
++	int pv;
++
++	pv = kcontrol->private_value;
++	reg = pv & SND_BBFPRO_CTL_REG_MASK;
++	idx = (pv >> SND_BBFPRO_CTL_IDX_SHIFT) & SND_BBFPRO_CTL_IDX_MASK;
++	val = kcontrol->private_value >> SND_BBFPRO_CTL_VAL_SHIFT;
++
++	if ((reg == SND_BBFPRO_CTL_REG1 &&
++	     idx == SND_BBFPRO_CTL_REG1_CLK_OPTICAL) ||
++	    (reg == SND_BBFPRO_CTL_REG2 &&
++	    (idx == SND_BBFPRO_CTL_REG2_SENS_IN3 ||
++	     idx == SND_BBFPRO_CTL_REG2_SENS_IN4))) {
++		ucontrol->value.enumerated.item[0] = val;
++	} else {
++		ucontrol->value.integer.value[0] = val;
++	}
++	return 0;
++}
++
++static int snd_bbfpro_ctl_info(struct snd_kcontrol *kcontrol,
++			       struct snd_ctl_elem_info *uinfo)
++{
++	u8 reg, idx;
++	int pv;
++
++	pv = kcontrol->private_value;
++	reg = pv & SND_BBFPRO_CTL_REG_MASK;
++	idx = (pv >> SND_BBFPRO_CTL_IDX_SHIFT) & SND_BBFPRO_CTL_IDX_MASK;
++
++	if (reg == SND_BBFPRO_CTL_REG1 &&
++	    idx == SND_BBFPRO_CTL_REG1_CLK_OPTICAL) {
++		static const char * const texts[2] = {
++			"AutoSync",
++			"Internal"
++		};
++		return snd_ctl_enum_info(uinfo, 1, 2, texts);
++	} else if (reg == SND_BBFPRO_CTL_REG2 &&
++		   (idx == SND_BBFPRO_CTL_REG2_SENS_IN3 ||
++		    idx == SND_BBFPRO_CTL_REG2_SENS_IN4)) {
++		static const char * const texts[2] = {
++			"-10dBV",
++			"+4dBu"
++		};
++		return snd_ctl_enum_info(uinfo, 1, 2, texts);
++	}
++
++	uinfo->count = 1;
++	uinfo->value.integer.min = 0;
++	uinfo->value.integer.max = 1;
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_BOOLEAN;
++	return 0;
++}
++
++static int snd_bbfpro_ctl_put(struct snd_kcontrol *kcontrol,
++			      struct snd_ctl_elem_value *ucontrol)
++{
++	int err;
++	u8 reg, idx;
++	int old_value, pv, val;
++
++	struct usb_mixer_elem_list *list = snd_kcontrol_chip(kcontrol);
++	struct usb_mixer_interface *mixer = list->mixer;
++
++	pv = kcontrol->private_value;
++	reg = pv & SND_BBFPRO_CTL_REG_MASK;
++	idx = (pv >> SND_BBFPRO_CTL_IDX_SHIFT) & SND_BBFPRO_CTL_IDX_MASK;
++	old_value = (pv >> SND_BBFPRO_CTL_VAL_SHIFT) & SND_BBFPRO_CTL_VAL_MASK;
++
++	if ((reg == SND_BBFPRO_CTL_REG1 &&
++	     idx == SND_BBFPRO_CTL_REG1_CLK_OPTICAL) ||
++	    (reg == SND_BBFPRO_CTL_REG2 &&
++	    (idx == SND_BBFPRO_CTL_REG2_SENS_IN3 ||
++	     idx == SND_BBFPRO_CTL_REG2_SENS_IN4))) {
++		val = ucontrol->value.enumerated.item[0];
++	} else {
++		val = ucontrol->value.integer.value[0];
++	}
++
++	if (val > 1)
++		return -EINVAL;
++
++	if (val == old_value)
++		return 0;
++
++	kcontrol->private_value = reg
++		| ((idx & SND_BBFPRO_CTL_IDX_MASK) << SND_BBFPRO_CTL_IDX_SHIFT)
++		| ((val & SND_BBFPRO_CTL_VAL_MASK) << SND_BBFPRO_CTL_VAL_SHIFT);
++
++	err = snd_bbfpro_ctl_update(mixer, reg, idx, val);
++	return err < 0 ? err : 1;
++}
++
++static int snd_bbfpro_ctl_resume(struct usb_mixer_elem_list *list)
++{
++	u8 reg, idx;
++	int value, pv;
++
++	pv = list->kctl->private_value;
++	reg = pv & SND_BBFPRO_CTL_REG_MASK;
++	idx = (pv >> SND_BBFPRO_CTL_IDX_SHIFT) & SND_BBFPRO_CTL_IDX_MASK;
++	value = (pv >> SND_BBFPRO_CTL_VAL_SHIFT) & SND_BBFPRO_CTL_VAL_MASK;
++
++	return snd_bbfpro_ctl_update(list->mixer, reg, idx, value);
++}
++
++static int snd_bbfpro_vol_update(struct usb_mixer_interface *mixer, u16 index,
++				 u32 value)
++{
++	struct snd_usb_audio *chip = mixer->chip;
++	int err;
++	u16 idx;
++	u16 usb_idx, usb_val;
++	u32 v;
++
++	err = snd_usb_lock_shutdown(chip);
++	if (err < 0)
++		return err;
++
++	idx = index & SND_BBFPRO_MIXER_IDX_MASK;
++	// 18 bit linear volume, split so 2 bits end up in index.
++	v = value & SND_BBFPRO_MIXER_VAL_MASK;
++	usb_idx = idx | (v & 0x3) << 14;
++	usb_val = (v >> 2) & 0xffff;
++
++	err = snd_usb_ctl_msg(chip->dev,
++			      usb_sndctrlpipe(chip->dev, 0),
++			      SND_BBFPRO_USBREQ_MIXER,
++			      USB_DIR_OUT | USB_TYPE_VENDOR |
++			      USB_RECIP_DEVICE,
++			      usb_val, usb_idx, 0, 0);
++
++	snd_usb_unlock_shutdown(chip);
++	return err;
++}
++
++static int snd_bbfpro_vol_get(struct snd_kcontrol *kcontrol,
++			      struct snd_ctl_elem_value *ucontrol)
++{
++	ucontrol->value.integer.value[0] =
++		kcontrol->private_value >> SND_BBFPRO_MIXER_VAL_SHIFT;
++	return 0;
++}
++
++static int snd_bbfpro_vol_info(struct snd_kcontrol *kcontrol,
++			       struct snd_ctl_elem_info *uinfo)
++{
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
++	uinfo->count = 1;
++	uinfo->value.integer.min = SND_BBFPRO_MIXER_VAL_MIN;
++	uinfo->value.integer.max = SND_BBFPRO_MIXER_VAL_MAX;
++	return 0;
++}
++
++static int snd_bbfpro_vol_put(struct snd_kcontrol *kcontrol,
++			      struct snd_ctl_elem_value *ucontrol)
++{
++	int err;
++	u16 idx;
++	u32 new_val, old_value, uvalue;
++	struct usb_mixer_elem_list *list = snd_kcontrol_chip(kcontrol);
++	struct usb_mixer_interface *mixer = list->mixer;
++
++	uvalue = ucontrol->value.integer.value[0];
++	idx = kcontrol->private_value & SND_BBFPRO_MIXER_IDX_MASK;
++	old_value = kcontrol->private_value >> SND_BBFPRO_MIXER_VAL_SHIFT;
++
++	if (uvalue > SND_BBFPRO_MIXER_VAL_MAX)
++		return -EINVAL;
++
++	if (uvalue == old_value)
++		return 0;
++
++	new_val = uvalue & SND_BBFPRO_MIXER_VAL_MASK;
++
++	kcontrol->private_value = idx
++		| (new_val << SND_BBFPRO_MIXER_VAL_SHIFT);
++
++	err = snd_bbfpro_vol_update(mixer, idx, new_val);
++	return err < 0 ? err : 1;
++}
++
++static int snd_bbfpro_vol_resume(struct usb_mixer_elem_list *list)
++{
++	int pv = list->kctl->private_value;
++	u16 idx = pv & SND_BBFPRO_MIXER_IDX_MASK;
++	u32 val = (pv >> SND_BBFPRO_MIXER_VAL_SHIFT)
++		& SND_BBFPRO_MIXER_VAL_MASK;
++	return snd_bbfpro_vol_update(list->mixer, idx, val);
++}
++
++// Predfine elements
++static const struct snd_kcontrol_new snd_bbfpro_ctl_control = {
++	.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++	.access = SNDRV_CTL_ELEM_ACCESS_READWRITE,
++	.index = 0,
++	.info = snd_bbfpro_ctl_info,
++	.get = snd_bbfpro_ctl_get,
++	.put = snd_bbfpro_ctl_put
++};
++
++static const struct snd_kcontrol_new snd_bbfpro_vol_control = {
++	.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++	.access = SNDRV_CTL_ELEM_ACCESS_READWRITE,
++	.index = 0,
++	.info = snd_bbfpro_vol_info,
++	.get = snd_bbfpro_vol_get,
++	.put = snd_bbfpro_vol_put
++};
++
++static int snd_bbfpro_ctl_add(struct usb_mixer_interface *mixer, u8 reg,
++			      u8 index, char *name)
++{
++	struct snd_kcontrol_new knew = snd_bbfpro_ctl_control;
++
++	knew.name = name;
++	knew.private_value = (reg & SND_BBFPRO_CTL_REG_MASK)
++		| ((index & SND_BBFPRO_CTL_IDX_MASK)
++			<< SND_BBFPRO_CTL_IDX_SHIFT);
++
++	return add_single_ctl_with_resume(mixer, 0, snd_bbfpro_ctl_resume,
++		&knew, NULL);
++}
++
++static int snd_bbfpro_vol_add(struct usb_mixer_interface *mixer, u16 index,
++			      char *name)
++{
++	struct snd_kcontrol_new knew = snd_bbfpro_vol_control;
++
++	knew.name = name;
++	knew.private_value = index & SND_BBFPRO_MIXER_IDX_MASK;
++
++	return add_single_ctl_with_resume(mixer, 0, snd_bbfpro_vol_resume,
++		&knew, NULL);
++}
++
++static int snd_bbfpro_controls_create(struct usb_mixer_interface *mixer)
++{
++	int err, i, o;
++	char name[48];
++
++	static const char * const input[] = {
++		"AN1", "AN2", "IN3", "IN4", "AS1", "AS2", "ADAT3",
++		"ADAT4", "ADAT5", "ADAT6", "ADAT7", "ADAT8"};
++
++	static const char * const output[] = {
++		"AN1", "AN2", "PH3", "PH4", "AS1", "AS2", "ADAT3", "ADAT4",
++		"ADAT5", "ADAT6", "ADAT7", "ADAT8"};
++
++	for (o = 0 ; o < 12 ; ++o) {
++		for (i = 0 ; i < 12 ; ++i) {
++			// Line routing
++			snprintf(name, sizeof(name),
++				 "%s-%s-%s Playback Volume",
++				 (i < 2 ? "Mic" : "Line"),
++				 input[i], output[o]);
++			err = snd_bbfpro_vol_add(mixer, (26 * o + i), name);
++			if (err < 0)
++				return err;
++
++			// PCM routing... yes, it is output remapping
++			snprintf(name, sizeof(name),
++				 "PCM-%s-%s Playback Volume",
++				 output[i], output[o]);
++			err = snd_bbfpro_vol_add(mixer, (26 * o + 12 + i),
++						 name);
++			if (err < 0)
++				return err;
++		}
++	}
++
++	// Control Reg 1
++	err = snd_bbfpro_ctl_add(mixer, SND_BBFPRO_CTL_REG1,
++				 SND_BBFPRO_CTL_REG1_CLK_OPTICAL,
++				 "Sample Clock Source");
++	if (err < 0)
++		return err;
++
++	err = snd_bbfpro_ctl_add(mixer, SND_BBFPRO_CTL_REG1,
++				 SND_BBFPRO_CTL_REG1_SPDIF_PRO,
++				 "IEC958 Pro Mask");
++	if (err < 0)
++		return err;
++
++	err = snd_bbfpro_ctl_add(mixer, SND_BBFPRO_CTL_REG1,
++				 SND_BBFPRO_CTL_REG1_SPDIF_EMPH,
++				 "IEC958 Emphasis");
++	if (err < 0)
++		return err;
++
++	err = snd_bbfpro_ctl_add(mixer, SND_BBFPRO_CTL_REG1,
++				 SND_BBFPRO_CTL_REG1_SPDIF_OPTICAL,
++				 "IEC958 Switch");
++	if (err < 0)
++		return err;
++
++	// Control Reg 2
++	err = snd_bbfpro_ctl_add(mixer, SND_BBFPRO_CTL_REG2,
++				 SND_BBFPRO_CTL_REG2_48V_AN1,
++				 "Mic-AN1 48V");
++	if (err < 0)
++		return err;
++
++	err = snd_bbfpro_ctl_add(mixer, SND_BBFPRO_CTL_REG2,
++				 SND_BBFPRO_CTL_REG2_48V_AN2,
++				 "Mic-AN2 48V");
++	if (err < 0)
++		return err;
++
++	err = snd_bbfpro_ctl_add(mixer, SND_BBFPRO_CTL_REG2,
++				 SND_BBFPRO_CTL_REG2_SENS_IN3,
++				 "Line-IN3 Sens.");
++	if (err < 0)
++		return err;
++
++	err = snd_bbfpro_ctl_add(mixer, SND_BBFPRO_CTL_REG2,
++				 SND_BBFPRO_CTL_REG2_SENS_IN4,
++				 "Line-IN4 Sens.");
++	if (err < 0)
++		return err;
++
++	err = snd_bbfpro_ctl_add(mixer, SND_BBFPRO_CTL_REG2,
++				 SND_BBFPRO_CTL_REG2_PAD_AN1,
++				 "Mic-AN1 PAD");
++	if (err < 0)
++		return err;
++
++	err = snd_bbfpro_ctl_add(mixer, SND_BBFPRO_CTL_REG2,
++				 SND_BBFPRO_CTL_REG2_PAD_AN2,
++				 "Mic-AN2 PAD");
++	if (err < 0)
++		return err;
++
++	return 0;
++}
++
+ int snd_usb_mixer_apply_create_quirk(struct usb_mixer_interface *mixer)
+ {
+ 	int err = 0;
+@@ -2286,6 +2701,9 @@ int snd_usb_mixer_apply_create_quirk(struct usb_mixer_interface *mixer)
+ 	case USB_ID(0x0194f, 0x010c): /* Presonus Studio 1810c */
+ 		err = snd_sc1810_init_mixer(mixer);
+ 		break;
++	case USB_ID(0x2a39, 0x3fb0): /* RME Babyface Pro FS */
++		err = snd_bbfpro_controls_create(mixer);
++		break;
+ 	}
+ 
+ 	return err;
+-- 
+2.26.2
 
-[1/3] ASoC: tlv320adcx140: Add controls for PDM clk
-      commit: 7cfa610205d95357f9eface292dc70fce7571f65
-[2/3] ASoC: tlv320adcx140: Add device tree property for PDM edges
-      commit: 75b0adbb0806a141b0b5f074cd6bd58bb9870c0d
-[3/3] ASoC: tlv320adcx140: Configure PDM sampling edge
-      commit: 79fc48e41e39d7a98c5f8ae37f613d7ff9953c86
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

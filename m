@@ -2,68 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B5031D5B44
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 May 2020 23:14:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 110B71D5B4E
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 May 2020 23:17:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BDB761661;
-	Fri, 15 May 2020 23:13:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDB761661
+	by alsa0.perex.cz (Postfix) with ESMTPS id 905DB166A;
+	Fri, 15 May 2020 23:16:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 905DB166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589577243;
-	bh=iZ15tE0C99I+7z2un/LSIRw4IIO4V+NX8Rc8GRJBs9Y=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=a5cEf7RyFZt17Btde+nPrgLWCH4xuhk1EGBpCxQ9GWOswrnALQv0EyMhiBGU8DH3c
-	 CZZ0ynFwjkeFMneJ6jDgJ6YW6VBow2p7iRh9lhY13WgIeQf+kkU0RyGMkiEnuTBnTV
-	 VTtHYfdP8qe669gg64hjoLqw0hHRZCHbp78qreoM=
+	s=default; t=1589577455;
+	bh=2yacj7lXigeQfd0d8EIUwA773RhwNUC5ae04EGbR79s=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Xs9TVbPdQOyzKSOpKJl2qVCrzlnIEKD4YrJAX+cvai+8KoL1rD5S9V1LXE3BfdvTq
+	 w+yNadrD29GoxSlEn+b3d3z9KgrTQ6+5hK1B0GX6x8ylkYl6dyLWG3e2ANNiKG9bbj
+	 cQkG8PkqolFAwj9Q1XHhxgS/LToxSEQbnHakgN1k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1EBFFF8029A;
-	Fri, 15 May 2020 23:10:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A8558F80253;
+	Fri, 15 May 2020 23:15:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5C48BF80247; Fri, 15 May 2020 23:08:34 +0200 (CEST)
+ id C20E6F800B8; Fri, 15 May 2020 23:15:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7D5EBF80255
- for <alsa-devel@alsa-project.org>; Fri, 15 May 2020 23:08:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D5EBF80255
-IronPort-SDR: HkWarjFdYYEs2pKtt+xZ7Fcg/9y2eDOU02qiCwSoCrRpzG+/jL8HOK9eN0WacY/CxVon9fSX5X
- dZbj+/oAWItA==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9BA1DF800B8
+ for <alsa-devel@alsa-project.org>; Fri, 15 May 2020 23:15:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BA1DF800B8
+IronPort-SDR: tC4y/y0nte+6fYLHG32XwgIHca2D/GQFYO4WKTey4vsJPC5B1pqTa7IaQG1fQ9783lbmcQWA2J
+ t/RPT3UBuoNA==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2020 14:07:59 -0700
-IronPort-SDR: GqADlirwmizZJtWwJ5n61Pj0UcGpsPO0VVAeY8TRQ5uNplfkU0CaAE/ZhpmQWDqOUrfwk6My/z
- /8artqDgZnGQ==
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 May 2020 14:15:46 -0700
+IronPort-SDR: Ok7XX4KIah8nE6TOF2o5QuSP45BhWbADsaNNIF1ItyHXQIeXu8a/CZHjFbapGXRgROQPLtw9wz
+ CTFhsuxll0wg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,396,1583222400"; d="scan'208";a="410589939"
+X-IronPort-AV: E=Sophos;i="5.73,396,1583222400"; d="scan'208";a="438454469"
 Received: from btchambe-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.254.66.225])
- by orsmga004.jf.intel.com with ESMTP; 15 May 2020 14:07:58 -0700
+ by orsmga005.jf.intel.com with ESMTP; 15 May 2020 14:15:46 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 5/5] ASoC: Intel: cht_bsw_nau8824: remap BTN_0 as KEY_PLAYPAUSE
-Date: Fri, 15 May 2020 16:07:31 -0500
-Message-Id: <20200515210731.10942-6-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 0/3] ASoC: codecs: rt*-sdw: memory leaks and simplifications
+Date: Fri, 15 May 2020 16:15:28 -0500
+Message-Id: <20200515211531.11416-1-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200515210731.10942-1-pierre-louis.bossart@linux.intel.com>
-References: <20200515210731.10942-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: tiwai@suse.de, broonie@kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Rander Wang <rander.wang@intel.com>
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,42 +74,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Use same mapping as in all other machine drivers:
+While debugging unrelated memory corruption errors, I detected issues
+related to the interaction with the SoundWire and ASoC cores, here are
+3 small patches to fix all this.
 
-BTN_0 : KEY_PLAYPAUSE
-BTN_1 : KEY_VOICECOMMAND
-BTN_2 : KEY_VOLUMEUP
-BTN_3 : KEY_VOLUMEDOWN
+Pierre-Louis Bossart (3):
+  ASoC: codecs: rt*-sdw: don't assign slave_ops
+  ASoC: codecs: rt*-sdw: fix memory leak in set_sdw_stream()
+  ASoC: codecs: rt1308-sdw: remove duplicate allocation
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
----
- sound/soc/intel/boards/cht_bsw_nau8824.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/codecs/rt1308-sdw.c | 11 +++--------
+ sound/soc/codecs/rt5682-sdw.c |  3 ---
+ sound/soc/codecs/rt5682.c     |  3 +++
+ sound/soc/codecs/rt700-sdw.c  |  3 ---
+ sound/soc/codecs/rt700.c      |  3 +++
+ sound/soc/codecs/rt711-sdw.c  |  3 ---
+ sound/soc/codecs/rt711.c      |  3 +++
+ sound/soc/codecs/rt715-sdw.c  |  3 ---
+ sound/soc/codecs/rt715.c      |  3 +++
+ 9 files changed, 15 insertions(+), 20 deletions(-)
 
-diff --git a/sound/soc/intel/boards/cht_bsw_nau8824.c b/sound/soc/intel/boards/cht_bsw_nau8824.c
-index f456150f89c2..67b46de2f088 100644
---- a/sound/soc/intel/boards/cht_bsw_nau8824.c
-+++ b/sound/soc/intel/boards/cht_bsw_nau8824.c
-@@ -108,7 +108,7 @@ static int cht_codec_init(struct snd_soc_pcm_runtime *runtime)
- 	}
- 
- 	/* NAU88L24 supports 4 butons headset detection
--	 * KEY_MEDIA
-+	 * KEY_PLAYPAUSE
- 	 * KEY_VOICECOMMAND
- 	 * KEY_VOLUMEUP
- 	 * KEY_VOLUMEDOWN
-@@ -122,7 +122,7 @@ static int cht_codec_init(struct snd_soc_pcm_runtime *runtime)
- 			"Headset Jack creation failed %d\n", ret);
- 		return ret;
- 	}
--	snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_MEDIA);
-+	snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
- 	snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
- 	snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
- 	snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
+
+base-commit: d731c1a0f935dbebf4a851e072f8c7309eb2b8c5
 -- 
 2.20.1
 

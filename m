@@ -2,78 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 758EF1D4D52
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 May 2020 14:04:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A408D1D7AF2
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 May 2020 16:19:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D4FE51661;
-	Fri, 15 May 2020 14:03:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4FE51661
+	by alsa0.perex.cz (Postfix) with ESMTPS id 25AF116EF;
+	Mon, 18 May 2020 16:19:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25AF116EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589544240;
-	bh=Y7uB1bIleNW6mFx/+hFe9NbEEizMHc/2/XgSGrEcb88=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=WMsqE9o4O5se4dAu0grEUXsmVm3zFG6Lyi6aNhvD3JNFfzELzOa6E2BUVVk+yjaJ/
-	 1K+6c4OpKb1/txiA42DdYNn5o391gpN3cFaY2j8i++JEANSODoDBVOzdubZL5e9MDy
-	 YdFNaSFJyBs5mJQdj3BDV8yjMsZIFyvViuCQCGf0=
+	s=default; t=1589811594;
+	bh=bCjOyNRKUkTpcOLhAepu3z2mXkjIylErXdaWaUYvqIM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=fPPX5qgdaOBH/YrclNPLkeYQEVLXIPfsNNBUZUgw0iM2C1DjUtpyxrtNzC7dMTeel
+	 gaF/oKpID87huTNupO+rXpQSdEEZB00IKV9ZGvELEJByZn/3r6qs5IYMSnZ1xy1xer
+	 D3uuC05tS2pIPsYNj6oaunl7jFTxSpchTKvqsmj4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DAF5DF8022D;
-	Fri, 15 May 2020 14:02:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49F83F801F9;
+	Mon, 18 May 2020 16:18:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E6593F80247; Fri, 15 May 2020 14:02:16 +0200 (CEST)
+ id D1A85F80247; Fri, 15 May 2020 14:08:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1BFBFF80101
- for <alsa-devel@alsa-project.org>; Fri, 15 May 2020 14:02:09 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 17599A004B;
- Fri, 15 May 2020 14:02:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 17599A004B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1589544129; bh=BSPQw7ZsQTM9qcuNnNNGa3TUk61bcBxmr+5Zb7SXb3k=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=H1CM5bvnktpNfAz3IAga9bNh/b2OcwZBtSlsVek+Ha8mJPsdnpDNGE801xj1Pdu+g
- IIFKpDBjbeD8swsnCxKfR7+K++XN9kzm18xEUl/OtM9U4rM03tPINQBhjvFPCNHzwO
- 17LkqcYiTTVRKQWLO+74MYTVT/6QMdTSUP5JXt0U=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Fri, 15 May 2020 14:01:57 +0200 (CEST)
-Subject: Re: [PATCH] ALSA: pcm: fix incorrect hw_base increase
-To: Takashi Iwai <tiwai@suse.de>
-References: <1589515779-20987-1-git-send-email-brent.lu@intel.com>
- <20200515070446.GA1226131@kroah.com>
- <BN6PR1101MB21327687327440F1DB7CB75F97BD0@BN6PR1101MB2132.namprd11.prod.outlook.com>
- <ce215f76-89c3-3543-c6ed-bc9b81af50a0@perex.cz>
- <s5hk11dmqhn.wl-tiwai@suse.de>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <6f98358d-99f1-3b54-ae1a-5e938d383c32@perex.cz>
-Date: Fri, 15 May 2020 14:01:57 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 142E6F80101
+ for <alsa-devel@alsa-project.org>; Fri, 15 May 2020 14:08:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 142E6F80101
+IronPort-SDR: q9alwId5W8m0r9X2VOQUlpwyRooVztQwp8kEj22x64xLioJSvH0oU9PTSIJmOt001z9J3gns2R
+ bi3WqNJ1GDiwVWCtLA6Xn+XxtZYWQ/4ZvXpSP6iAPqtDbdun4ctIOkrgUkvF579vaQdZFySchY
+ VH/bUzqGrCHgHs29SMfgAK2w18Vt1ApHMa4+kAP2A7Sz610QfIjUkyXOBUlK5mjv7lEfxaIsf0
+ aBN+pOEMc/UcV9EwkQBQF+SxOSc6LUafm5/uvZN5YlkfUexYmPrt/fNinD39hozDVIbjPgNV3n
+ IvQ=
+X-IronPort-AV: E=Sophos;i="5.73,395,1583190000"; 
+   d="scan'208";a="8523670"
+From: Pavel Dobias <dobias@2n.cz>
+To: <alsa-devel@alsa-project.org>
+Subject: [PATCH] ASoC: max9867: fix volume controls
+Date: Fri, 15 May 2020 14:07:57 +0200
+Message-ID: <20200515120757.24669-1-dobias@2n.cz>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <s5hk11dmqhn.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Arnd Bergmann <arnd@arndb.de>, Baolin Wang <baolin.wang@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Richard Fontana <rfontana@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
- paulhsia <paulhsia@chromium.org>, "Lu, Brent" <brent.lu@intel.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.0.5.60]
+X-ClientProxiedBy: XBOX03.axis.com (10.0.5.17) To XBOX02.axis.com (10.0.5.16)
+X-Mailman-Approved-At: Mon, 18 May 2020 16:18:11 +0200
+Cc: ladis@linux-mips.org, broonie@kernel.org, lgirdwood@gmail.com,
+ Pavel Dobias <dobias@2n.cz>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,67 +71,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 15. 05. 20 v 12:39 Takashi Iwai napsal(a):
-> On Fri, 15 May 2020 11:30:54 +0200,
-> Jaroslav Kysela wrote:
->>
->> Dne 15. 05. 20 v 11:04 Lu, Brent napsal(a):
->>>>
->>>> Is this a bugfix needed for older kernels as well?  When did this issue show
->>>> up?
->>>>
->>>> thanks,
->>>>
->>>> greg k-h
->>>
->>> It happens when DMA stop moving data from host to DSP/DAI for a long time
->>> (> half of buffer time). I know host driver should do something about it. But if
->>> not, the HWSYNC will keep increasing the hw_base and hw_ptr and confuses
->>> user space program.
->>
->> I'm afraid, but with this code, you turn off the hw_ptr jiffies
->> code. It would be better to fix the driver in this case (return the
->> updated / estimated DMA pointer, increase DMA buffer size etc.). This
->> "lag" is unacceptable.
-> 
-> The problem is obviously in the driver's side and it's best to be
-> addressed there.  But, I think it's still worth to apply this change.
-> 
-> The hw_ptr jiffies check is performed basically in two places: one is
-> snd_pcm_period_elapsed() call from ISR, and another is with the
-> no_period_wakeup flag.  In both cases, it calculates the diff of
-> jiffies from the previous update, and corrects the hw_ptr_base if that
-> exceeds the threshold.
-> 
-> And the bug here is that the "previous" jiffies is kept as long as the
-> hwptr itself is updated.  What we need is the correction of the base
-> when it really has processed the period size; i.e. hwptr got the same
-> value (with no_period_wakeup) and yet the jiffies diff is big.  For
-> this check, it's correct to update hw_ptr_jiffies at each call no
-> matter whether hwptr moved or not; we need to evaluate from the
-> previous update, after all.
-> 
-> But I might overlook something.  Jaroslav, could you check it again?
-> The jiffies check code is your black magic :)
+The xmax values for Master Playback Volume and Mic Boost
+Capture Volume are specified incorrectly (one greater)
+which results in the wrong dB gain being shown to the user
+in the case of Master Playback Volume.
 
-I tried to imagine a negative impact for this hw_ptr_jiffies update when the 
-DMA position is not updated from the driver and I haven't found any so far.
+Signed-off-by: Pavel Dobias <dobias@2n.cz>
+---
+ sound/soc/codecs/max9867.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Let's apply this and we'll see in future :-)
-
-And yes, the patch description should be improved (DMA ptr is not updated / 
-streaming is inactive).
-
-Reviewed-by: Jaroslav Kysela <perex@perex.cz>
-
-> 
-> 
-> thanks,
-> 
-> Takashi
-> 
-
-
+diff --git a/sound/soc/codecs/max9867.c b/sound/soc/codecs/max9867.c
+index 8600c5439e1e..2e4aa23b5a60 100644
+--- a/sound/soc/codecs/max9867.c
++++ b/sound/soc/codecs/max9867.c
+@@ -46,13 +46,13 @@ static const SNDRV_CTL_TLVD_DECLARE_DB_RANGE(max9867_micboost_tlv,
+ 
+ static const struct snd_kcontrol_new max9867_snd_controls[] = {
+ 	SOC_DOUBLE_R_TLV("Master Playback Volume", MAX9867_LEFTVOL,
+-			MAX9867_RIGHTVOL, 0, 41, 1, max9867_master_tlv),
++			MAX9867_RIGHTVOL, 0, 40, 1, max9867_master_tlv),
+ 	SOC_DOUBLE_R_TLV("Line Capture Volume", MAX9867_LEFTLINELVL,
+ 			MAX9867_RIGHTLINELVL, 0, 15, 1, max9867_line_tlv),
+ 	SOC_DOUBLE_R_TLV("Mic Capture Volume", MAX9867_LEFTMICGAIN,
+ 			MAX9867_RIGHTMICGAIN, 0, 20, 1, max9867_mic_tlv),
+ 	SOC_DOUBLE_R_TLV("Mic Boost Capture Volume", MAX9867_LEFTMICGAIN,
+-			MAX9867_RIGHTMICGAIN, 5, 4, 0, max9867_micboost_tlv),
++			MAX9867_RIGHTMICGAIN, 5, 3, 0, max9867_micboost_tlv),
+ 	SOC_SINGLE("Digital Sidetone Volume", MAX9867_SIDETONE, 0, 31, 1),
+ 	SOC_SINGLE_TLV("Digital Playback Volume", MAX9867_DACLEVEL, 0, 15, 1,
+ 			max9867_dac_tlv),
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.20.1
+

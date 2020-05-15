@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 098611D4B31
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 May 2020 12:41:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E08EC1D4B36
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 May 2020 12:42:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 927AD1664;
-	Fri, 15 May 2020 12:40:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 927AD1664
+	by alsa0.perex.cz (Postfix) with ESMTPS id 94E841666;
+	Fri, 15 May 2020 12:41:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94E841666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589539290;
-	bh=LPQG/IV+N66jJBgu71XNh4Ljeej9hD6+dy7HxLqcWC8=;
+	s=default; t=1589539336;
+	bh=q4oUMRonaJ1268s6uNCPOePICSto8iZ7BZgEMfT3SSQ=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OySmF+Mvlnxbe6C19CODemD1KEAAevxiDUT7cHyxcgRHowCT6GNCDEIaSU9xpFG9P
-	 muYzI5QmwM+yaZ4jocy6V9NbFQtK7te5SvXnVEf9d2YFkLmSyTK2oU/Ri8Kyzmonmo
-	 9deqHdklNJB5tARt+Q4QTonDFOBCuwLoPTtuGXFA=
+	b=Kb5r5d9JdMu+Jjn+aLf9wlYOpJWenlczwVVXJ3PpEvFWSjJJ86TrT17FdX2uouIa3
+	 7rtHXiUeApdTqKUktQE95bfKg9aWXW62kFn2GwJ/79gxSkQL0Fsmame8cZkcxM33V3
+	 OHSqyNceQpecL3UkHL/reqNrIIiZf6S3wcdOaEOI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ACAFDF8022D;
-	Fri, 15 May 2020 12:39:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15992F80274;
+	Fri, 15 May 2020 12:40:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 726D7F80247; Fri, 15 May 2020 12:39:47 +0200 (CEST)
+ id 53A3CF80255; Fri, 15 May 2020 12:40:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -33,23 +33,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1347DF800B8
- for <alsa-devel@alsa-project.org>; Fri, 15 May 2020 12:39:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1347DF800B8
+ by alsa1.perex.cz (Postfix) with ESMTPS id F3784F80253
+ for <alsa-devel@alsa-project.org>; Fri, 15 May 2020 12:40:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3784F80253
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id D4CD4AC5F;
- Fri, 15 May 2020 10:39:35 +0000 (UTC)
-Date: Fri, 15 May 2020 12:39:32 +0200
-Message-ID: <s5hk11dmqhn.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id A5267AC5F;
+ Fri, 15 May 2020 10:40:45 +0000 (UTC)
+Date: Fri, 15 May 2020 12:40:42 +0200
+Message-ID: <s5himgxmqfp.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Jaroslav Kysela <perex@perex.cz>
+To: "Lu, Brent" <brent.lu@intel.com>
 Subject: Re: [PATCH] ALSA: pcm: fix incorrect hw_base increase
-In-Reply-To: <ce215f76-89c3-3543-c6ed-bc9b81af50a0@perex.cz>
+In-Reply-To: <BN6PR1101MB213283BD74AA4477B18C96CD97BD0@BN6PR1101MB2132.namprd11.prod.outlook.com>
 References: <1589515779-20987-1-git-send-email-brent.lu@intel.com>
- <20200515070446.GA1226131@kroah.com>
- <BN6PR1101MB21327687327440F1DB7CB75F97BD0@BN6PR1101MB2132.namprd11.prod.outlook.com>
- <ce215f76-89c3-3543-c6ed-bc9b81af50a0@perex.cz>
+ <s5htv0hoe8p.wl-tiwai@suse.de>
+ <BN6PR1101MB213283BD74AA4477B18C96CD97BD0@BN6PR1101MB2132.namprd11.prod.outlook.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -58,9 +57,9 @@ Content-Type: text/plain; charset=US-ASCII
 Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
  Arnd Bergmann <arnd@arndb.de>, Baolin Wang <baolin.wang@linaro.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
  Richard Fontana <rfontana@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
- paulhsia <paulhsia@chromium.org>, "Lu, Brent" <brent.lu@intel.com>
+ paulhsia <paulhsia@chromium.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,47 +75,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 15 May 2020 11:30:54 +0200,
-Jaroslav Kysela wrote:
+On Fri, 15 May 2020 11:36:19 +0200,
+Lu, Brent wrote:
 > 
-> Dne 15. 05. 20 v 11:04 Lu, Brent napsal(a):
-> >>
-> >> Is this a bugfix needed for older kernels as well?  When did this issue show
-> >> up?
-> >>
-> >> thanks,
-> >>
-> >> greg k-h
-> >
-> > It happens when DMA stop moving data from host to DSP/DAI for a long time
-> > (> half of buffer time). I know host driver should do something about it. But if
-> > not, the HWSYNC will keep increasing the hw_base and hw_ptr and confuses
-> > user space program.
+> > 
+> > Updating hw_ptr_jiffies at that code path looks correct, but it still leaves the
+> > question why this condition happens.  It means that the actual hwptr isn't
+> > changed and yet only jiffies increase significantly; it means that the hardware
+> > can't report proper pointer, and it should have set
+> > SNDRV_PCM_INFO_BATCH flag, then the jiffies check is skipped.
+> > 
+> > With which hardware and under which situation did it happen (and the patch
+> > fixed)?
+> > 
+> > 
+> > thanks,
+> > 
+> > Takashi
+> > 
 > 
-> I'm afraid, but with this code, you turn off the hw_ptr jiffies
-> code. It would be better to fix the driver in this case (return the
-> updated / estimated DMA pointer, increase DMA buffer size etc.). This
-> "lag" is unacceptable.
+> >From time to time we got questions from google about why sometimes the
+> snd_pcm_avail() returns a value larger than buffer size. Recently we finally
+> found reliable reproduce steps: it's on Intel GLK Chromebook Fleex with
+> SOF firmware. There is a 1/20 chance the audio playback to HDMI fails.
+> 
+> >From the FW side we observe a buffer runderrun, the FW is not able to
+> recover it for some reason and stops the pipe.
+> 
+> >From the Linux side we see the pos does not increase because the FW stops
+> receiving data but suddenly the hw_prt is increased by buffer_size (16368).
+> It could make snd_pcm_avail() reporting a false underrun to the caller like
+> following log:
+> 
+> 2020-05-09T16:08:32.712042+08:00 DEBUG kernel: [  418.510086] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 4096 avail 12368
+> 2020-05-09T16:08:32.712043+08:00 DEBUG kernel: [  418.510149] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 6910 avail 9554
+> ...
+> 2020-05-09T16:08:32.883095+08:00 DEBUG kernel: [  418.680868] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 15102 avail 1362
+> 2020-05-09T16:08:32.883104+08:00 DEBUG kernel: [  418.681052] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 15102 avail 1362
+> 2020-05-09T16:08:32.883109+08:00 DEBUG kernel: [  418.681130] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 16464 avail 0
+> 2020-05-09T16:08:32.929330+08:00 DEBUG kernel: [  418.726515] sound pcmC0D5p: pos 96 hw_ptr 16464 appl_ptr 16464 avail 16368
+> 2020-05-09T16:08:32.929512+08:00 DEBUG kernel: [  418.727041] sound pcmC0D5p: pos 96 hw_ptr 16464 appl_ptr 16464 avail 16368
+> 
+> Or it could make snd_pcm_avail() returns an invalid number and confuses the
+> Caller like following log:
+> 
+> 2020-05-09T16:08:33.054039+08:00 DEBUG kernel: [  418.851755] sound pcmC0D5p: pos 96 hw_ptr 16464 appl_ptr 27390 avail 5442
+> 2020-05-09T16:08:33.129552+08:00 DEBUG kernel: [  418.926491] sound pcmC0D5p: pos 96 hw_ptr 32832 appl_ptr 27390 avail 21810
+> 2020-05-09T16:08:33.131746+08:00 ERR cras_server[1907]: pcm_avail returned frames larger than buf_size: sof-glkda7219max: :0,5: 21810 > 16368
+> 
+> I've submitted a patch to fix the issue in SOF side. However, I think it's also good
+> to fix the incorrect hw_base increasement in Linux side.
+> 
+> https://github.com/thesofproject/sof/pull/2926
 
-The problem is obviously in the driver's side and it's best to be
-addressed there.  But, I think it's still worth to apply this change.
+Oh this whole information (at least some digested version) should have
+been included in the patch description.  Otherwise we have no idea why
+it's needed and what actually means.
 
-The hw_ptr jiffies check is performed basically in two places: one is
-snd_pcm_period_elapsed() call from ISR, and another is with the
-no_period_wakeup flag.  In both cases, it calculates the diff of
-jiffies from the previous update, and corrects the hw_ptr_base if that
-exceeds the threshold.
-
-And the bug here is that the "previous" jiffies is kept as long as the
-hwptr itself is updated.  What we need is the correction of the base
-when it really has processed the period size; i.e. hwptr got the same
-value (with no_period_wakeup) and yet the jiffies diff is big.  For
-this check, it's correct to update hw_ptr_jiffies at each call no
-matter whether hwptr moved or not; we need to evaluate from the
-previous update, after all.
-
-But I might overlook something.  Jaroslav, could you check it again?
-The jiffies check code is your black magic :)
+Let's wait for Jaroslav's review, and if it's OK, could you resubmit
+with more description?
 
 
 thanks,

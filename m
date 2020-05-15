@@ -2,66 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D12F21D5000
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 May 2020 16:06:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C05B81D50A6
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 May 2020 16:36:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 831E21665;
-	Fri, 15 May 2020 16:06:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 831E21665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 626611669;
+	Fri, 15 May 2020 16:36:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 626611669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589551612;
-	bh=F+yr955C7MQOALiyhkLrkEOW5AWxB+3ROt+ULrK0Y24=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1589553418;
+	bh=mbmrutEZIcXpKlw2O/bH/VhUmWiH25OO+Uifgd0UpTQ=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cBOwXeCQ5eiMgqIVXR/DeE+haD+Sss3I+l/YhJYedtPqlUSIVIayRRe9Q2MF0dRYD
-	 RCbkfONKpiJW/uHrrRXLo6BCH9Qh/kbl0X3qVkGOOPmA2eHzaESoWdUg7c8ADngzdN
-	 UhkJsBvDxXHxv2UFK88tf/JjNE0a6qytwSfOpxfo=
+	b=dmYKZ2wQNTVozYnW/70+kd1h4vIkKEfzvQ5mHwR/Q5w3p8NqnZWU19Pd6X9SdZL3X
+	 ln3AY/vWYiTVxZBNycTWnJsnP3fvd/BboQ9pO8S2SuwAAc8fEhhIoWcB6M9ah1SeUz
+	 MzzKchIvV+KsFrBMFkDMmCB32IhP7zlzzYlafyqw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19AD6F802EA;
-	Fri, 15 May 2020 16:01:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 86786F80101;
+	Fri, 15 May 2020 16:35:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B174F802E8; Fri, 15 May 2020 16:01:00 +0200 (CEST)
+ id 9F096F80247; Fri, 15 May 2020 16:35:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D293EF800B8
- for <alsa-devel@alsa-project.org>; Fri, 15 May 2020 16:00:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D293EF800B8
-IronPort-SDR: qox9ViTW3DeavCyxzJnTYiFKxGivOjH32jcejSPXH/UnAZXAJtr6x2YBXop5TtnQez7JpefjyP
- wPNsbl741fbg==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2020 07:00:49 -0700
-IronPort-SDR: 1e0r0X+muLS71O7pG/3dxsWBqcIv59ulzu2tR3rNfBkBY4AvyfqpCXJS6OFqkQaoAlb8MHeSVE
- lX0NLUudWIyA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,395,1583222400"; d="scan'208";a="266611190"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga006.jf.intel.com with ESMTP; 15 May 2020 07:00:48 -0700
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Subject: [PATCH 8/8] ASoC: SOF: imx: make imx8m_dsp_ops static
-Date: Fri, 15 May 2020 16:59:58 +0300
-Message-Id: <20200515135958.17511-9-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.26.0
-In-Reply-To: <20200515135958.17511-1-kai.vehmanen@linux.intel.com>
-References: <20200515135958.17511-1-kai.vehmanen@linux.intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: daniel.baluta@nxp.com, pierre-louis.bossart@linux.intel.com,
- kai.vehmanen@linux.intel.com, ranjani.sridharan@linux.intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id A7E22F800B8
+ for <alsa-devel@alsa-project.org>; Fri, 15 May 2020 16:35:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7E22F800B8
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 3D19FABCE;
+ Fri, 15 May 2020 14:35:05 +0000 (UTC)
+Date: Fri, 15 May 2020 16:35:01 +0200
+Message-ID: <s5h3681mfl6.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Dexter Travis <dexter.travis@precisionplanting.com>
+Subject: Re: core: snd_card_disconnect/snd_card_free: hang when card
+ unregistered
+In-Reply-To: <CAOyfbRVwrjFHzDhim1dXgOHgGQkWJ5Czn4ANWe+L4JWwqnrq8g@mail.gmail.com>
+References: <CAOyfbRXsKi-7bvnRNhoR6Vu7ET1oM5CJ6tEKwcDchy48ExpFvQ@mail.gmail.com>
+ <s5hsgg1odpw.wl-tiwai@suse.de>
+ <CAOyfbRVwrjFHzDhim1dXgOHgGQkWJ5Czn4ANWe+L4JWwqnrq8g@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,30 +72,89 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+On Fri, 15 May 2020 15:30:25 +0200,
+Dexter Travis wrote:
+> 
+> Takashi,
+> 
+> Thank you.  That is helpful.  In my case we are embedded deeply enough
+> that there is only one application playing sounds so it may be
+> possible to improve our user space side to properly close down the
+> sound.
+> 
+> When power comes back I do not need to resume playing the previous
+> sound.  From the kernel side is it possible to force the sound to
+> abort or stop?
 
-This was in the SOF tree but lost in upstream contributions.
+That can be done by calling snd_pcm_stop().  The function needs the
+stream locking.  You can use snd_pcm_stop_xrun() instead, although
+it's no XRUN, strictly speaking. 
 
-Fixes: afb93d716533dd ("ASoC: SOF: imx: Add i.MX8M HW support")
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
- sound/soc/sof/imx/imx8m.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> How do more easily removed sound devices handle this?  For example a
+> USB or other hot-pluggable sound device?
 
-diff --git a/sound/soc/sof/imx/imx8m.c b/sound/soc/sof/imx/imx8m.c
-index f83581041cf3..fa86a9e2990f 100644
---- a/sound/soc/sof/imx/imx8m.c
-+++ b/sound/soc/sof/imx/imx8m.c
-@@ -92,7 +92,7 @@ static void imx8m_dsp_handle_request(struct imx_dsp_ipc *ipc)
- 	snd_sof_ipc_msgs_rx(priv->sdev);
- }
- 
--struct imx_dsp_ops imx8m_dsp_ops = {
-+static struct imx_dsp_ops imx8m_dsp_ops = {
- 	.handle_reply		= imx8m_dsp_handle_reply,
- 	.handle_request		= imx8m_dsp_handle_request,
- };
--- 
-2.26.0
+In the case of actually removed device, the whole device is gone, and
+at re-plugging, a new device gets created, hence no conflicts between
+them.  They are two different devices, after all.
 
+
+Takashi
+
+> 
+> 
+> 
+> Regards,
+> 
+> 
+> Dexter
+> 
+> On Fri, May 15, 2020 at 2:32 AM Takashi Iwai <tiwai@suse.de> wrote:
+> >
+> > On Thu, 14 May 2020 23:04:09 +0200,
+> > Dexter Travis wrote:
+> > >
+> > > In my system during certain power events the power rail for the
+> > > TLV320AIC3120 goes away and may come back.
+> > >
+> > > To accommodate this I have added a call to snd_soc_unregister_card as
+> > > soon as I notice via GPIO that this power has been removed.  I then
+> > > call snd_soc_register_card to re-install the sound card after power is
+> > > restored.
+> > >
+> > > If no sound is playing when the asynchronous power removal occurs this
+> > > works fine.
+> > >
+> > > If a sound is playing one of two things will occur.  In the first case
+> > > the sound driver comes back and sound is restored when power is
+> > > restored. In the second case my deferred work function which calls the
+> > > snd_soc_unregister_card function gets hung and does not return.
+> > >
+> > > I have traced the difference to the wait_for_completion call in
+> > > snd_card_free.  if snd_card_disconnect adds files to shutdown_files
+> > > list then wait_for_completion will hang forever.
+> > >
+> > > Any suggestions on how to further debug this?
+> > >
+> > > How to force the immediate unregister of the card even if a sound is playing?
+> >
+> > You can unregister the devices, i.e. they disappear from the
+> > user-space.  However, the old stream and the belonging objects are
+> > still alive, hence you can't release the resources entirely until the
+> > user-space closes and drops the remaining one.  The completion is
+> > waiting for the release of those remaining handles.  So, if you try to
+> > register again the same objects, it'll conflict.
+> >
+> > IOW, it'll be really messy if you try to disconnect and release the
+> > whole resources temporarily and restore again.  I guess the current
+> > best would be to limit a part of components somehow during the
+> > temporary absence.
+> >
+> > The temporary stop of a stream isn't well handled in the core API,
+> > admittedly, it's a known problem.  We're considering to introduce a
+> > new state, but it's still under evaluation.
+> >
+> >
+> > thanks,
+> >
+> > Takashi
+> 

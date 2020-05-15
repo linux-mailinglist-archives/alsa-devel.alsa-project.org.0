@@ -2,82 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CBF71D48BF
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 May 2020 10:44:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34DD31D48CE
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 May 2020 10:51:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F24751669;
-	Fri, 15 May 2020 10:43:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F24751669
+	by alsa0.perex.cz (Postfix) with ESMTPS id BCB8A1669;
+	Fri, 15 May 2020 10:50:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCB8A1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589532270;
-	bh=+wlsUC7AekfE9cPMQivKTfEw+c/Vi1tbnbrhUvLkjic=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Eiw0ekmfRq5fmGjL5EgNcP29oaTKWEWCthsyhqSa6ncQZMPeb88rN+YKg8KtWcFLd
-	 pkJiPkm51t0cAyI90sRL6ne8hhEc6c9PkxFRxJbDCZc8hZluM9J3b2HVlLO8cBNshh
-	 JIL5JgQPRrf59zAUN5mujH4wknoU2rJHoPBtvjLI=
+	s=default; t=1589532692;
+	bh=InNyj8kGCCBtWFyqJs1adkUjnVVrLbLTIhoKQrd7C5E=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=dA4OzZgMBVaHNt0cZykFAE0BUaszvGwbuKbKEIrfLygL1o/04+igQY0BkAHRf91qe
+	 Rm0u9EoiaJVkPjMjdVCB6bSxVjbbTGDRQmSy6b3eVkv04j/PzfaiZmrpA2B/yl6m0M
+	 wUF4k4TWx4ZPAjbXbddGqIPtj+CajqxhDBv4KGvY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19098F80253;
-	Fri, 15 May 2020 10:42:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E451CF80253;
+	Fri, 15 May 2020 10:49:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 35F09F80247; Fri, 15 May 2020 10:42:47 +0200 (CEST)
+ id F1375F80247; Fri, 15 May 2020 10:49:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7866AF800B8
- for <alsa-devel@alsa-project.org>; Fri, 15 May 2020 10:42:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7866AF800B8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="YvfODXaG"
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id EE6602076A
- for <alsa-devel@alsa-project.org>; Fri, 15 May 2020 08:42:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589532158;
- bh=+wlsUC7AekfE9cPMQivKTfEw+c/Vi1tbnbrhUvLkjic=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=YvfODXaG/5LnxsITe7hu9FrWkUcI2KANLVHkcrvI3dwQ877NLgobtrwJ073/j0xZn
- 8GyvYBC9HjGYHjjPTsPImO0KYlmi7R2MxvDB5EssFZ6foDBv3zZP/DNU9znV9CYyrI
- FvNPLylAw9gdI6xdCEbBxDojXG4YFfF+G6+1vC6Y=
-Received: by mail-lf1-f53.google.com with SMTP id e125so356270lfd.1
- for <alsa-devel@alsa-project.org>; Fri, 15 May 2020 01:42:37 -0700 (PDT)
-X-Gm-Message-State: AOAM5305uxSQBoPfZVaFdFnrxGvQ5pHdOjLMg/8lp8ElfFRV1KjzdOvs
- E+m0cTyXMhfCl+dSoXsBTuONBH6oJzZqGlu5uHA=
-X-Google-Smtp-Source: ABdhPJxrOJjUeXqe4EQxacNb+3MBPLLyw3JMQa80YtUpWVmkGjh1BatCzeFvu4HIEtk1kIKuuWsxa7DPBFcoY1SZeO0=
-X-Received: by 2002:a05:6512:44d:: with SMTP id
- y13mr1616831lfk.118.1589532156020; 
- Fri, 15 May 2020 01:42:36 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200515070742.14151-1-steves.lee@maximintegrated.com>
-In-Reply-To: <20200515070742.14151-1-steves.lee@maximintegrated.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Date: Fri, 15 May 2020 10:42:24 +0200
-X-Gmail-Original-Message-ID: <CAJKOXPf-Q-e_K-puR-N2NRwQCmaKD=EczzON4rBymvV2CyoiTg@mail.gmail.com>
-Message-ID: <CAJKOXPf-Q-e_K-puR-N2NRwQCmaKD=EczzON4rBymvV2CyoiTg@mail.gmail.com>
-Subject: Re: [V5 PATCH 2/2] ASoC: max98390: Added Amplifier Driver
-To: Steve Lee <steves.lee.maxim@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: jack.yu@realtek.com, alsa-devel@alsa-project.org, ryan.lee.maxim@gmail.com,
- ckeepax@opensource.cirrus.com, ryans.lee@maximintegrated.com,
- steves.lee@maximintegrated.com,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, tiwai@suse.com,
- lgirdwood@gmail.com, nuno.sa@analog.com, broonie@kernel.org,
- geert@linux-m68k.org, dmurphy@ti.com, shumingf@realtek.com,
- srinivas.kandagatla@linaro.org, rf@opensource.wolfsonmicro.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id CA2CEF800B8
+ for <alsa-devel@alsa-project.org>; Fri, 15 May 2020 10:49:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA2CEF800B8
+IronPort-SDR: awcDyll+mKp8/m/KIlwyojfCKRqbcELe5Iw/qHCdOQf13qWpI8HrjV6r+Q/fQSvB8rwz+yHKlK
+ lAqRS0U6Qr/g==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 May 2020 01:49:40 -0700
+IronPort-SDR: oDrUNPbiHd/M5RFS0gAHOqivJNzKipyo93L7ifXNQUPET25SufIABw1/kVHAxn1mOrtFP+aEm5
+ 3ySBv+VoT+hQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,394,1583222400"; d="scan'208";a="464838016"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by fmsmga006.fm.intel.com with ESMTP; 15 May 2020 01:49:38 -0700
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [RESEND PATCH v2] ALSA: hda: Allow SST driver on SKL and KBL
+ platforms with DMIC
+Date: Fri, 15 May 2020 10:49:34 +0200
+Message-Id: <20200515084934.28156-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, broonie@kernel.org,
+ tiwai@suse.com, pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,16 +72,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 15 May 2020 at 09:08, Steve Lee <steves.lee.maxim@gmail.com> wrote:
->
-> This is the initial amplifier driver for max98390.
->
-> Signed-off-by: Steve Lee <steves.lee@maximintegrated.com>
+Update intel-dspcfg with FLAG_SST_ONLY_IF_DMIC option and use it for
+Skylake and Kabylake platforms when DMIC is present.
 
-Hi,
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
 
-Your "From" address still does not match the Signed-off-by. Set the
-author of commit to the signed-off person.
+Changes in v2:
+- no functional changes, just rebased to fix conflicts
 
-Best regards,
-Krzysztof
+ sound/hda/intel-dsp-config.c | 22 ++++++++++++++++++++--
+ 1 file changed, 20 insertions(+), 2 deletions(-)
+
+diff --git a/sound/hda/intel-dsp-config.c b/sound/hda/intel-dsp-config.c
+index 1c1fdab2a55f..20b8f6cb3ff8 100644
+--- a/sound/hda/intel-dsp-config.c
++++ b/sound/hda/intel-dsp-config.c
+@@ -19,6 +19,7 @@ MODULE_PARM_DESC(dsp_driver, "Force the DSP driver for Intel DSP (0=auto, 1=lega
+ 
+ #define FLAG_SST			BIT(0)
+ #define FLAG_SOF			BIT(1)
++#define FLAG_SST_ONLY_IF_DMIC		BIT(15)
+ #define FLAG_SOF_ONLY_IF_DMIC		BIT(16)
+ #define FLAG_SOF_ONLY_IF_SOUNDWIRE	BIT(17)
+ 
+@@ -107,6 +108,10 @@ static const struct config_entry config_table[] = {
+ 			{}
+ 		}
+ 	},
++	{
++		.flags = FLAG_SST | FLAG_SST_ONLY_IF_DMIC,
++		.device = 0x9d70,
++	},
+ #endif
+ /* Kabylake-LP */
+ #if IS_ENABLED(CONFIG_SND_SOC_INTEL_KBL)
+@@ -123,6 +128,10 @@ static const struct config_entry config_table[] = {
+ 			{}
+ 		}
+ 	},
++	{
++		.flags = FLAG_SST | FLAG_SST_ONLY_IF_DMIC,
++		.device = 0x9d71,
++	},
+ #endif
+ 
+ /*
+@@ -410,8 +419,17 @@ int snd_intel_dsp_driver_probe(struct pci_dev *pci)
+ 			return SND_INTEL_DSP_DRIVER_SOF;
+ 	}
+ 
+-	if (cfg->flags & FLAG_SST)
+-		return SND_INTEL_DSP_DRIVER_SST;
++
++	if (cfg->flags & FLAG_SST) {
++		if (cfg->flags & FLAG_SST_ONLY_IF_DMIC) {
++			if (snd_intel_dsp_check_dmic(pci)) {
++				dev_info(&pci->dev, "Digital mics found on Skylake+ platform, using SST driver\n");
++				return SND_INTEL_DSP_DRIVER_SST;
++			}
++		} else {
++			return SND_INTEL_DSP_DRIVER_SST;
++		}
++	}
+ 
+ 	return SND_INTEL_DSP_DRIVER_LEGACY;
+ }
+-- 
+2.17.1
+

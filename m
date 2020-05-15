@@ -2,89 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABDD91D4AB3
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 May 2020 12:18:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C04841D4ACD
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 May 2020 12:23:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 44A08166B;
-	Fri, 15 May 2020 12:17:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44A08166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 779551672;
+	Fri, 15 May 2020 12:23:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 779551672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589537912;
-	bh=YOHyHt/9yJ9cIXM0YEkb8saEuSaYaNven2d/oO5FvgM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1589538239;
+	bh=06PaDN0YfES/tKcWyvhoD2EMscQX7+wCcP00Uos8faE=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=S9QdVrA1LiF2K/GRCct8h+kKsYUx5/bhaCsCX6pYP6ndAikMBNAHjMhF4p8DmyZrF
-	 2eIVHgiJhDm3/k3TqJVeOMZqGKR93tdhv9uZYPysfdccW6J9LzZm3CJfuvbNJhEobQ
-	 qXwivQ2PfvOpaw+ma+i+GuUgf+joS717rFMBLIvY=
+	b=Cvm28U+pIn9ax4lKcHfoMfPp1aaZ5LYbVgs/zgXmbylzNE61aWI6foc0fq1kYC5Qv
+	 iLt5EMzCvAb21RXaArQP6uB2v0IOAF4nb9IdR+/02L9/5A8Smx3t3GiWoEUyILkz/t
+	 t22dn4DG00/BsvpW+MBd8k/qGhrc38v/4Csb/FtA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44720F80247;
-	Fri, 15 May 2020 12:16:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 511FDF8028F;
+	Fri, 15 May 2020 12:21:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C4BE1F80247; Fri, 15 May 2020 12:16:48 +0200 (CEST)
+ id 60A21F80292; Fri, 15 May 2020 12:21:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
- version=3.4.0
-Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com
- [IPv6:2607:f8b0:4864:20::d41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CE8DFF800B8
- for <alsa-devel@alsa-project.org>; Fri, 15 May 2020 12:16:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE8DFF800B8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="hg8+Jv48"
-Received: by mail-io1-xd41.google.com with SMTP id k18so2116006ion.0
- for <alsa-devel@alsa-project.org>; Fri, 15 May 2020 03:16:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=YOHyHt/9yJ9cIXM0YEkb8saEuSaYaNven2d/oO5FvgM=;
- b=hg8+Jv48vda0Q8CZa2JDbMP8vSVn32fmSqcGjARW4yCuPto2xFDzdwKNtA3q3AIttp
- XSQhMJqQueKD1ZkeBC0odnJ0V7mpZz9zR8vmnalLwcCvAf/K92vZvLXbL1MMUxUMqpMk
- ESb6mA5GlcQK83l9KnaZP/NMpAZH80ruDkNVbhrdAVto5cqOTrpAJszC47Z71MbLXCDo
- 1HNejEbIpSJGcnV9iURjgATgodSrQ2hyqau6JnvqboR6wrozUvGUMU86el1IPQ56Z3Tq
- 6zzFpN0zUqoRnwthRH5o2Ne+0YHPJh8tdJ3UIW5QwO32kejr2uxnHEpucWNXvfe9ahPn
- ysuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=YOHyHt/9yJ9cIXM0YEkb8saEuSaYaNven2d/oO5FvgM=;
- b=swM4hBkzIVF0hZ0Zme5QbAkvI6ZEahJ7UFnX65vewwEZiLnHgb35AX1IkQ5Pp//piv
- 6I4FJ8pIWCowxfRpvuA9m0WfCCKZWXgCK7UbRdiWK+wsqrZF0vSgvXXQjAUWMjPhJLiW
- T+fK/IvQblukofd32JTTbeMLP9mWE0qIOjqQlN/NcalwImLDHjS3E4MmIV5+8DqdZ/qB
- Z6lcnXmTE4b8qispMlC4gWfN5jBws7nmXld/O+hpcHHu4tu3+0n0IXtTUJLbjs6ZQd03
- kWyQL+QKGyTJLhqkfYx031K/i28wdxxVDGdTNKFlWD4+A53e9tTrmjifaqEjIHho45Yq
- itrg==
-X-Gm-Message-State: AOAM5335Oc7905IqmrWTQZvn5TMpUSWsR6vehnlFQqBq12UeAnrtaFPv
- QMY90s85PmN1jaeuSu4orX0RmP9HQ4aowJGrUW5g3A==
-X-Google-Smtp-Source: ABdhPJzWEWhgqRkp/Sy2dUm7FKBpIXJpWVCJjh9m0xPKXm1nMlvygEJKrNNynHVhI1/J0v07SlNpwMzJFFD5cEsF8+c=
-X-Received: by 2002:a05:6638:1014:: with SMTP id
- r20mr2446737jab.29.1589537797461; 
- Fri, 15 May 2020 03:16:37 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200515100309.20795-1-ardb@kernel.org>
-In-Reply-To: <20200515100309.20795-1-ardb@kernel.org>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Fri, 15 May 2020 18:16:26 +0800
-Message-ID: <CA+Px+wUpYaUfA1saEWePuy+CmCX8mPiH+-Mg23P6c+jhM_yxHQ@mail.gmail.com>
-Subject: Re: [PATCH v2] ASoC: cros_ec_codec: switch to library API for SHA-256
-To: Ard Biesheuvel <ardb@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Herbert Xu <herbert@gondor.apana.org.au>, Arnd Bergmann <arnd@arndb.de>,
- Liam Girdwood <lgirdwood@gmail.com>, Eric Biggers <ebiggers@kernel.org>,
- Guenter Roeck <groeck@chromium.org>, Mark Brown <broonie@kernel.org>,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Benson Leung <bleung@chromium.org>, Cheng-Yi Chiang <cychiang@chromium.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 76D3CF8028F
+ for <alsa-devel@alsa-project.org>; Fri, 15 May 2020 12:21:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76D3CF8028F
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 5B867AB89;
+ Fri, 15 May 2020 10:21:25 +0000 (UTC)
+Date: Fri, 15 May 2020 12:21:22 +0200
+Message-ID: <s5ho8qpmrbx.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Thomas Ebeling <penguins@bollie.de>
+Subject: Re: [PATCH v2] RME Babyface Pro mixer patch: Fixing max vol
+In-Reply-To: <741e37a9-013f-4f90-2c16-6f388b624f35@bollie.de>
+References: <20200514171555.67rqof74ubns3dmx@bollie.ca9.eu>
+ <s5hftc1objb.wl-tiwai@suse.de>
+ <741e37a9-013f-4f90-2c16-6f388b624f35@bollie.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,22 +70,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, May 15, 2020 at 6:03 PM Ard Biesheuvel <ardb@kernel.org> wrote:
->
-> The CrOS EC codec driver uses SHA-256 explicitly, and not in a
-> performance critical manner, so there is really no point in using
-> the SHASH crypto API here. Let's switch to the library API instead.
->
-> Cc: Cheng-Yi Chiang <cychiang@chromium.org>
-> Cc: Enric Balletbo i Serra <enric.balletbo@collabora.com>
-> Cc: Guenter Roeck <groeck@chromium.org>
-> Cc: Benson Leung <bleung@chromium.org>
-> Cc: Liam Girdwood <lgirdwood@gmail.com>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Arnd Bergmann <arnd@arndb.de>
-> Cc: Eric Biggers <ebiggers@kernel.org>
-> Cc: Herbert Xu <herbert@gondor.apana.org.au>
-> Cc: Tzung-Bi Shih <tzungbi@google.com>
-> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+On Fri, 15 May 2020 11:45:44 +0200,
+Thomas Ebeling wrote:
+> 
+> 
+> On 15.05.20 10:19, Takashi Iwai wrote:
+> > The v1 patch has been already merged to for-next branch.  Could you
+> > submit an incremental patch to just correct the max value?
+> 
+> Sure. Shall I keep alsa-devel as recipient?
 
-Reviewed-by: Tzung-Bi Shih <tzungbi@google.com>
+Yes, and put me to Cc as usual.
+
+
+Takashi

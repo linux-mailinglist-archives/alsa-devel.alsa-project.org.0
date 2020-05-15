@@ -2,77 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 411731D4DB1
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 May 2020 14:31:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C5091D4F49
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 May 2020 15:32:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C821B1669;
-	Fri, 15 May 2020 14:30:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C821B1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id D20361663;
+	Fri, 15 May 2020 15:31:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D20361663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589545908;
-	bh=TSw0eQ4WFON1EfGnsaXykmfInnksvvWfn5CeBUYDKZ8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1589549552;
+	bh=xKSRvgkS7o8TiZ3PKuU3Q7gAdmGM1gzawdcUnNqG5Vw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ASxgIOQauC92QcK5yoF2LjLCY/mH7IQGQz7VXCfY63KfTqTiybadBrIH+A8N+y9t/
-	 N2beIZoPGlkox9oLdv2EP9frHloSmqGBBybhmUC97/y+owopkbhlcAB1Iv3SKdwf4v
-	 Ic632GSfA+Yc6iTXFvDTVUUsWes3Kl5S0W3x+g5A=
+	b=TL+uTjoyrCaCiY76rOPd+pq0UEINYgliYYoVOKzxVAlacav8+cQkDncfTCYM7OIV9
+	 vVnc+DjcvHI14Dc5cNerHHNgY7mHvP+vSLXX5lbC0RjWdZoTAoJa2z2c3qSEHTx+tl
+	 9Y18zN/81p6/aGgBVbBfF87ODBd3Yt2Ywj23gIIU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC7B2F8022D;
-	Fri, 15 May 2020 14:30:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E09E4F80253;
+	Fri, 15 May 2020 15:30:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 113AAF80247; Fri, 15 May 2020 14:30:00 +0200 (CEST)
+ id 436EDF80247; Fri, 15 May 2020 15:30:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [IPv6:2a00:1450:4864:20::229])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 054B5F80101
- for <alsa-devel@alsa-project.org>; Fri, 15 May 2020 14:29:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 054B5F80101
+ by alsa1.perex.cz (Postfix) with ESMTPS id 24F1AF800B8
+ for <alsa-devel@alsa-project.org>; Fri, 15 May 2020 15:30:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24F1AF800B8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="0zrjkXD5"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D5F1C20709;
- Fri, 15 May 2020 12:29:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589545791;
- bh=TSw0eQ4WFON1EfGnsaXykmfInnksvvWfn5CeBUYDKZ8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=0zrjkXD5prKmI21EFxcPboIH8No7ixNf15Rsmdnc2qtfHdsB/Hp0ApaqPdfJYJi81
- 6dNOLkRVMEi53mRtc+X0lelK5wpjUInjMNu6VJS3Sypur771BaG9XXE6emWPQfPcM3
- Dvh1O3AFYAGqoE+WXqTPU6yT1aYhcQjX8HFTzhVc=
-Date: Fri, 15 May 2020 13:29:48 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [V5 PATCH 2/2] ASoC: max98390: Added Amplifier Driver
-Message-ID: <20200515122948.GD5066@sirena.org.uk>
-References: <20200515070742.14151-1-steves.lee@maximintegrated.com>
- <CAJKOXPf-Q-e_K-puR-N2NRwQCmaKD=EczzON4rBymvV2CyoiTg@mail.gmail.com>
+ dkim=pass (1024-bit key) header.d=precisionplanting.com
+ header.i=@precisionplanting.com header.b="WefS8Yr2"
+Received: by mail-lj1-x229.google.com with SMTP id w10so2274147ljo.0
+ for <alsa-devel@alsa-project.org>; Fri, 15 May 2020 06:30:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=precisionplanting.com; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Kl876/BdSn9RYxcTJT3LSQEtfYDYRnHoZtHgwfFJNqI=;
+ b=WefS8Yr2Z2puEIwrjS69yuD8OYhAJEeTjOiC4QCEVTPGQTXfls9hK7njYaBi1c/M2i
+ u95g2OP9vhE26Gbs/EnygIHWHengbgMSc9LMw4ODRWCDLJQS+T5F6yuWVgafRWUOAGv9
+ MwvP6HEl+nal7Qe8OMEROpXNxv7hgyQtRCkD0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Kl876/BdSn9RYxcTJT3LSQEtfYDYRnHoZtHgwfFJNqI=;
+ b=OCVSPOf7C4bP2B3cw8QjQhCpQd3l6gEEt4f9i1rcta0GxjVvbxnYuMZQo3zXyh7WJR
+ enemoljU/1v7Vii2mSWfOvnO86P7sef3NF4ODuWjCqHQ2Tr8chHxS472XSh1mv0hoqGo
+ QPekqiIbbQOnAkHISYTAKk/cGoPKOYfq1j52ucoY931+90myJ5ZS9o8QqExGM5fcRqjv
+ lYL3/D98wXnAkoAlOlLZVOuaNcyaRGWf8JGkDxHMfIrvurzbow6XHTWOE6+eg6iL3sh9
+ A1BflpY73G+fzREKhIj7sOadBs842FgobeCc9qlAGuS1UBkNgHptkfrK5hmTiWHBTBME
+ 0EFw==
+X-Gm-Message-State: AOAM532EgXcRYyetEF2H+WcZnr22GDLRJy7hykd+Go42Kfm6/Gcw14s7
+ cYLhoc5Ga8rYVxt1Wndgq5dn4mZbpy/5qGRXPWHFgQ==
+X-Google-Smtp-Source: ABdhPJwGUZfw5nP6185CYbJgXkdO0SMZO6b4G8qv3V3k7xqT5vQVOynj59RMuXSsjdP6LrmzoZObb7EwMo3jazC1D7U=
+X-Received: by 2002:a2e:b4d0:: with SMTP id r16mr2379718ljm.129.1589549436506; 
+ Fri, 15 May 2020 06:30:36 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="F8dlzb82+Fcn6AgP"
-Content-Disposition: inline
-In-Reply-To: <CAJKOXPf-Q-e_K-puR-N2NRwQCmaKD=EczzON4rBymvV2CyoiTg@mail.gmail.com>
-X-Cookie: Avoid contact with eyes.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: jack.yu@realtek.com, alsa-devel@alsa-project.org, ryan.lee.maxim@gmail.com,
- ckeepax@opensource.cirrus.com, ryans.lee@maximintegrated.com,
- lgirdwood@gmail.com, steves.lee@maximintegrated.com,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Steve Lee <steves.lee.maxim@gmail.com>, tiwai@suse.com, geert@linux-m68k.org,
- dmurphy@ti.com, shumingf@realtek.com, srinivas.kandagatla@linaro.org,
- nuno.sa@analog.com, rf@opensource.wolfsonmicro.com
+References: <CAOyfbRXsKi-7bvnRNhoR6Vu7ET1oM5CJ6tEKwcDchy48ExpFvQ@mail.gmail.com>
+ <s5hsgg1odpw.wl-tiwai@suse.de>
+In-Reply-To: <s5hsgg1odpw.wl-tiwai@suse.de>
+From: Dexter Travis <dexter.travis@precisionplanting.com>
+Date: Fri, 15 May 2020 08:30:25 -0500
+Message-ID: <CAOyfbRVwrjFHzDhim1dXgOHgGQkWJ5Czn4ANWe+L4JWwqnrq8g@mail.gmail.com>
+Subject: Re: core: snd_card_disconnect/snd_card_free: hang when card
+ unregistered
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,31 +93,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Takashi,
 
---F8dlzb82+Fcn6AgP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thank you.  That is helpful.  In my case we are embedded deeply enough
+that there is only one application playing sounds so it may be
+possible to improve our user space side to properly close down the
+sound.
 
-On Fri, May 15, 2020 at 10:42:24AM +0200, Krzysztof Kozlowski wrote:
+When power comes back I do not need to resume playing the previous
+sound.  From the kernel side is it possible to force the sound to
+abort or stop?
 
-> Your "From" address still does not match the Signed-off-by. Set the
-> author of commit to the signed-off person.
+How do more easily removed sound devices handle this?  For example a
+USB or other hot-pluggable sound device?
 
-git commit --amend --author='foo <foo@example.com>'
 
---F8dlzb82+Fcn6AgP
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+Regards,
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl6+izwACgkQJNaLcl1U
-h9CR8gf+O5UGnkbhnV4MHHRYgchqTnJBXc/DysgCP0lEx+qj2ycTVhqvpCK0662l
-RTBrIQ7JkSbGhHji7PzXkwjd/R8mr9eFuyxA7SkHzzR3q+cdChWg8kkKthwpp0FT
-3LZItFkIDVziTwPVtZH0WYQLbAeesYTeGHg46c6WiZScn0IOUclODGkOs6lhXVBT
-HctDZoXRtP8muMUOwEmaprVOdJXM6rlJNUS1uYJVBSSuN7gvyKhkmDkX0En/l0IC
-u5UJacONloOu5ZYcutPJM/oqanR7dLkRX34VKru20jaXUYXvrO+P1lwtcfFeT10D
-rvWdiGqqPMdak6i5Ej4HnPpXNvup1w==
-=UNQm
------END PGP SIGNATURE-----
 
---F8dlzb82+Fcn6AgP--
+Dexter
+
+On Fri, May 15, 2020 at 2:32 AM Takashi Iwai <tiwai@suse.de> wrote:
+>
+> On Thu, 14 May 2020 23:04:09 +0200,
+> Dexter Travis wrote:
+> >
+> > In my system during certain power events the power rail for the
+> > TLV320AIC3120 goes away and may come back.
+> >
+> > To accommodate this I have added a call to snd_soc_unregister_card as
+> > soon as I notice via GPIO that this power has been removed.  I then
+> > call snd_soc_register_card to re-install the sound card after power is
+> > restored.
+> >
+> > If no sound is playing when the asynchronous power removal occurs this
+> > works fine.
+> >
+> > If a sound is playing one of two things will occur.  In the first case
+> > the sound driver comes back and sound is restored when power is
+> > restored. In the second case my deferred work function which calls the
+> > snd_soc_unregister_card function gets hung and does not return.
+> >
+> > I have traced the difference to the wait_for_completion call in
+> > snd_card_free.  if snd_card_disconnect adds files to shutdown_files
+> > list then wait_for_completion will hang forever.
+> >
+> > Any suggestions on how to further debug this?
+> >
+> > How to force the immediate unregister of the card even if a sound is playing?
+>
+> You can unregister the devices, i.e. they disappear from the
+> user-space.  However, the old stream and the belonging objects are
+> still alive, hence you can't release the resources entirely until the
+> user-space closes and drops the remaining one.  The completion is
+> waiting for the release of those remaining handles.  So, if you try to
+> register again the same objects, it'll conflict.
+>
+> IOW, it'll be really messy if you try to disconnect and release the
+> whole resources temporarily and restore again.  I guess the current
+> best would be to limit a part of components somehow during the
+> temporary absence.
+>
+> The temporary stop of a stream isn't well handled in the core API,
+> admittedly, it's a known problem.  We're considering to introduce a
+> new state, but it's still under evaluation.
+>
+>
+> thanks,
+>
+> Takashi

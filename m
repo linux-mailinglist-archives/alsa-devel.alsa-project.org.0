@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8347C1D4FE3
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 May 2020 16:04:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12FC41D4FDE
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 May 2020 16:03:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 307E81671;
-	Fri, 15 May 2020 16:03:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 307E81671
+	by alsa0.perex.cz (Postfix) with ESMTPS id A7E561678;
+	Fri, 15 May 2020 16:03:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7E561678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589551477;
-	bh=K39MD2Y2X6r+sFZ+bbpatK0QtUToD4sHNqBWCYZOY6w=;
+	s=default; t=1589551434;
+	bh=CR1mbUST0xnzRSEtk9BjrCTNnNZ0Etz2f5v6MjpYWAk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CMEEjSOoBSlabaitJkdkwkd+OwCiajcubIQuYVmlu+J5PcBMOOJkgjC7NbnI8z1Gl
-	 Ggx1NPBYwtuSRhXzdndK8+Ex4eoH02jQgH/fJw618rC2IhXYysVQjCjJvShtu/CvYw
-	 VbNrq8bFz7yJZLsgaUl2Ce12BxxVd5nye3rbVRio=
+	b=aiyuoaQ9CFa/CGcKtzs1iotf2FKnkO7A9dcgkCdxUemLGTF0+MLindLGWH1fdT3QD
+	 JEkEjrT2bUJkomXgkGXmiPDmGCTw7CskQp6r53P0dANRqgywwX3ym5BCvVflquYxat
+	 baiMOYzt6v+c96Fywd2pBbBUUBmUSb+Sg39+0Fis=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C1E42F802A7;
-	Fri, 15 May 2020 16:00:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A77B6F8029B;
+	Fri, 15 May 2020 16:00:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3F509F802A7; Fri, 15 May 2020 16:00:52 +0200 (CEST)
+ id E1F64F80254; Fri, 15 May 2020 16:00:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,34 +33,34 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B2582F800B8
- for <alsa-devel@alsa-project.org>; Fri, 15 May 2020 16:00:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2582F800B8
-IronPort-SDR: Dq6OGCZDpo9Ohgkhy4vhnd7MlfUuFGX6thw6hT0xk1QooFo4ZSisuFyFvaGG3oaiBDf0hEUiX+
- ffHoxkvSrQyg==
+ by alsa1.perex.cz (Postfix) with ESMTPS id EC2E1F8022D
+ for <alsa-devel@alsa-project.org>; Fri, 15 May 2020 16:00:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC2E1F8022D
+IronPort-SDR: 7o/giA17gbBlw6HNZKART0sOtETztodFrxlNS3Gc6yzhjQIZCNnPth2c7sLMHLEstec1jaOVzU
+ 1JiQ6gOri8AA==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2020 07:00:32 -0700
-IronPort-SDR: +Q9S9sTZOTqnfTEgml1y9z3Q3imTgEoT5l9P1Bst014MTTfW2lwOvLhEQdfX86nahQnbi9CJcg
- 0h2lhx65VysA==
+ 15 May 2020 07:00:35 -0700
+IronPort-SDR: M0gDuCwr2lfFETuyCe3p+Or6GgyIL36GE4F0uWmoU76tdhvJrWvkf1FRFQt1SFBEYCZliVxWX0
+ XMmtntiLzwQQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,395,1583222400"; d="scan'208";a="266611077"
+X-IronPort-AV: E=Sophos;i="5.73,395,1583222400"; d="scan'208";a="266611095"
 Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga006.jf.intel.com with ESMTP; 15 May 2020 07:00:30 -0700
+ by orsmga006.jf.intel.com with ESMTP; 15 May 2020 07:00:33 -0700
 From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH 3/8] ASoC: SOF: inform DSP that driver is going to be removed
-Date: Fri, 15 May 2020 16:59:53 +0300
-Message-Id: <20200515135958.17511-4-kai.vehmanen@linux.intel.com>
+Subject: [PATCH 4/8] ASoC: SOF: topology: add support to smart amplifier
+Date: Fri, 15 May 2020 16:59:54 +0300
+Message-Id: <20200515135958.17511-5-kai.vehmanen@linux.intel.com>
 X-Mailer: git-send-email 2.26.0
 In-Reply-To: <20200515135958.17511-1-kai.vehmanen@linux.intel.com>
 References: <20200515135958.17511-1-kai.vehmanen@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Marcin Rajwa <marcin.rajwa@linux.intel.com>, daniel.baluta@nxp.com,
+Cc: Keyon Jie <yang.jie@linux.intel.com>, daniel.baluta@nxp.com,
  pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com,
  ranjani.sridharan@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
@@ -78,43 +78,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Marcin Rajwa <marcin.rajwa@linux.intel.com>
+From: Keyon Jie <yang.jie@linux.intel.com>
 
-This patch invokes the DSP power down notifier to inform
-DSP that driver is going to be removed.
-The module removal entails DSP power down, disabling of
-IRQs and more. Therefore it is highly recommended to inform
-the DSP about this upcoming event.
+Add smart amplifier component support, which is designed as another new
+type of process component and used for speaker protection algorithm
+integration.
 
-Due to hardware limitations on some Intel platforms it is necessary
-to power gate all LPSRAM banks that were enabled prior to controller
-reset. Otherwise, an attempt to write LPSRAM control registers may
-have no effect.
-
-Signed-off-by: Marcin Rajwa <marcin.rajwa@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- sound/soc/sof/core.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ include/sound/sof/topology.h | 2 ++
+ sound/soc/sof/topology.c     | 1 +
+ 2 files changed, 3 insertions(+)
 
-diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
-index ef9be4f45e27..339c4930b0c0 100644
---- a/sound/soc/sof/core.c
-+++ b/sound/soc/sof/core.c
-@@ -343,6 +343,12 @@ int snd_sof_device_remove(struct device *dev)
- {
- 	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
- 	struct snd_sof_pdata *pdata = sdev->pdata;
-+	int ret;
-+
-+	ret = snd_sof_dsp_power_down_notify(sdev);
-+	if (ret < 0)
-+		dev_warn(dev, "error: %d failed to prepare DSP for device removal",
-+			 ret);
+diff --git a/include/sound/sof/topology.h b/include/sound/sof/topology.h
+index 872de52b3144..f56e80d09b32 100644
+--- a/include/sound/sof/topology.h
++++ b/include/sound/sof/topology.h
+@@ -38,6 +38,7 @@ enum sof_comp_type {
+ 	SOF_COMP_DEMUX,
+ 	SOF_COMP_ASRC,		/**< Asynchronous sample rate converter */
+ 	SOF_COMP_DCBLOCK,
++	SOF_COMP_SMART_AMP,             /**< smart amplifier component */
+ 	/* keep FILEREAD/FILEWRITE as the last ones */
+ 	SOF_COMP_FILEREAD = 10000,	/**< host test based file IO */
+ 	SOF_COMP_FILEWRITE = 10001,	/**< host test based file IO */
+@@ -220,6 +221,7 @@ enum sof_ipc_process_type {
+ 	SOF_PROCESS_MUX,
+ 	SOF_PROCESS_DEMUX,
+ 	SOF_PROCESS_DCBLOCK,
++	SOF_PROCESS_SMART_AMP,	/**< Smart Amplifier */
+ };
  
- 	if (IS_ENABLED(CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE))
- 		cancel_work_sync(&sdev->probe_work);
+ /* generic "effect", "codec" or proprietary processing component */
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index 0259537d3740..6a9703e5ff60 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -431,6 +431,7 @@ static const struct sof_process_types sof_process[] = {
+ 	{"MUX", SOF_PROCESS_MUX, SOF_COMP_MUX},
+ 	{"DEMUX", SOF_PROCESS_DEMUX, SOF_COMP_DEMUX},
+ 	{"DCBLOCK", SOF_PROCESS_DCBLOCK, SOF_COMP_DCBLOCK},
++	{"SMART_AMP", SOF_PROCESS_SMART_AMP, SOF_COMP_SMART_AMP},
+ };
+ 
+ static enum sof_ipc_process_type find_process(const char *name)
 -- 
 2.26.0
 

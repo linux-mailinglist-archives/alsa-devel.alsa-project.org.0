@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12FC41D4FDE
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 May 2020 16:03:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E35051D4FE8
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 May 2020 16:04:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7E561678;
-	Fri, 15 May 2020 16:03:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7E561678
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D5F0166C;
+	Fri, 15 May 2020 16:04:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D5F0166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589551434;
-	bh=CR1mbUST0xnzRSEtk9BjrCTNnNZ0Etz2f5v6MjpYWAk=;
+	s=default; t=1589551495;
+	bh=3LO6iBYoQ+nsor7BZrvRRlxgT4Ss8h8MCS1F0TuriU8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aiyuoaQ9CFa/CGcKtzs1iotf2FKnkO7A9dcgkCdxUemLGTF0+MLindLGWH1fdT3QD
-	 JEkEjrT2bUJkomXgkGXmiPDmGCTw7CskQp6r53P0dANRqgywwX3ym5BCvVflquYxat
-	 baiMOYzt6v+c96Fywd2pBbBUUBmUSb+Sg39+0Fis=
+	b=sjokPhVf68b/Hf+DNHrsFwrqvq+Hruxf9j5A48AbhTUBfFeGPgtXR8VB5Vrkscr5e
+	 TgJiYJAUUB4zjUTlfjbX+ggkFYfvFJz80LzTvnFqhZBF/vwgBijywATRoqhllMgNOh
+	 HyFp4Jmrebwm9ROcj9o0SUjxygpHmAnEBZ7VO9K8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A77B6F8029B;
-	Fri, 15 May 2020 16:00:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D8A2BF802BC;
+	Fri, 15 May 2020 16:00:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E1F64F80254; Fri, 15 May 2020 16:00:45 +0200 (CEST)
+ id 5F7B7F802A2; Fri, 15 May 2020 16:00:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,36 +33,38 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EC2E1F8022D
- for <alsa-devel@alsa-project.org>; Fri, 15 May 2020 16:00:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC2E1F8022D
-IronPort-SDR: 7o/giA17gbBlw6HNZKART0sOtETztodFrxlNS3Gc6yzhjQIZCNnPth2c7sLMHLEstec1jaOVzU
- 1JiQ6gOri8AA==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 65481F8027B
+ for <alsa-devel@alsa-project.org>; Fri, 15 May 2020 16:00:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65481F8027B
+IronPort-SDR: NhQeDLRHFchRnUDjCFS+lQZj68gJAe8aUETfQlTGMix7DVUTx+uOveiZ7lxA7y2inm7DP9A8fx
+ ZyW48gjI6oIw==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2020 07:00:35 -0700
-IronPort-SDR: M0gDuCwr2lfFETuyCe3p+Or6GgyIL36GE4F0uWmoU76tdhvJrWvkf1FRFQt1SFBEYCZliVxWX0
- XMmtntiLzwQQ==
+ 15 May 2020 07:00:39 -0700
+IronPort-SDR: /vCn2Y9gA5i4duLwbH2DkSJekbmMOAbU0ys/wnZzCDxlPMa3DRlGTHNo+YSXfc46QQV4AMcBog
+ T6DseWOVjXkQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,395,1583222400"; d="scan'208";a="266611095"
+X-IronPort-AV: E=Sophos;i="5.73,395,1583222400"; d="scan'208";a="266611117"
 Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga006.jf.intel.com with ESMTP; 15 May 2020 07:00:33 -0700
+ by orsmga006.jf.intel.com with ESMTP; 15 May 2020 07:00:38 -0700
 From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH 4/8] ASoC: SOF: topology: add support to smart amplifier
-Date: Fri, 15 May 2020 16:59:54 +0300
-Message-Id: <20200515135958.17511-5-kai.vehmanen@linux.intel.com>
+Subject: [PATCH 5/8] ASoC: SOF: Intel: sdw: relax sdw machine select
+ constraints
+Date: Fri, 15 May 2020 16:59:55 +0300
+Message-Id: <20200515135958.17511-6-kai.vehmanen@linux.intel.com>
 X-Mailer: git-send-email 2.26.0
 In-Reply-To: <20200515135958.17511-1-kai.vehmanen@linux.intel.com>
 References: <20200515135958.17511-1-kai.vehmanen@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Keyon Jie <yang.jie@linux.intel.com>, daniel.baluta@nxp.com,
- pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com,
- ranjani.sridharan@linux.intel.com
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ kai.vehmanen@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com,
+ randerwang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,52 +80,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Keyon Jie <yang.jie@linux.intel.com>
+From: randerwang <rander.wang@linux.intel.com>
 
-Add smart amplifier component support, which is designed as another new
-type of process component and used for speaker protection algorithm
-integration.
+On some platforms such as Up Extreme all links are enabled but only one
+link can be used by external codec. Instead of exact match of two masks,
+first check whether link_mask of mach is subset of link_mask supported
+by hw and then go on searching link_adr.
 
-Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: randerwang <rander.wang@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- include/sound/sof/topology.h | 2 ++
- sound/soc/sof/topology.c     | 1 +
- 2 files changed, 3 insertions(+)
+ sound/soc/sof/intel/hda.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/include/sound/sof/topology.h b/include/sound/sof/topology.h
-index 872de52b3144..f56e80d09b32 100644
---- a/include/sound/sof/topology.h
-+++ b/include/sound/sof/topology.h
-@@ -38,6 +38,7 @@ enum sof_comp_type {
- 	SOF_COMP_DEMUX,
- 	SOF_COMP_ASRC,		/**< Asynchronous sample rate converter */
- 	SOF_COMP_DCBLOCK,
-+	SOF_COMP_SMART_AMP,             /**< smart amplifier component */
- 	/* keep FILEREAD/FILEWRITE as the last ones */
- 	SOF_COMP_FILEREAD = 10000,	/**< host test based file IO */
- 	SOF_COMP_FILEWRITE = 10001,	/**< host test based file IO */
-@@ -220,6 +221,7 @@ enum sof_ipc_process_type {
- 	SOF_PROCESS_MUX,
- 	SOF_PROCESS_DEMUX,
- 	SOF_PROCESS_DCBLOCK,
-+	SOF_PROCESS_SMART_AMP,	/**< Smart Amplifier */
- };
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 578ac7b036b0..63ca920c8e6e 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -1107,7 +1107,15 @@ static int hda_sdw_machine_select(struct snd_sof_dev *sdev)
+ 	if (link_mask && !pdata->machine) {
+ 		for (mach = pdata->desc->alt_machines;
+ 		     mach && mach->link_mask; mach++) {
+-			if (mach->link_mask != link_mask)
++			/*
++			 * On some platforms such as Up Extreme all links
++			 * are enabled but only one link can be used by
++			 * external codec. Instead of exact match of two masks,
++			 * first check whether link_mask of mach is subset of
++			 * link_mask supported by hw and then go on searching
++			 * link_adr
++			 */
++			if (~link_mask & mach->link_mask)
+ 				continue;
  
- /* generic "effect", "codec" or proprietary processing component */
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index 0259537d3740..6a9703e5ff60 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -431,6 +431,7 @@ static const struct sof_process_types sof_process[] = {
- 	{"MUX", SOF_PROCESS_MUX, SOF_COMP_MUX},
- 	{"DEMUX", SOF_PROCESS_DEMUX, SOF_COMP_DEMUX},
- 	{"DCBLOCK", SOF_PROCESS_DCBLOCK, SOF_COMP_DCBLOCK},
-+	{"SMART_AMP", SOF_PROCESS_SMART_AMP, SOF_COMP_SMART_AMP},
- };
- 
- static enum sof_ipc_process_type find_process(const char *name)
+ 			/* No need to match adr if there is no links defined */
 -- 
 2.26.0
 

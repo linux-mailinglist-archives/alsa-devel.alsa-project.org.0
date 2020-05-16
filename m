@@ -2,91 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 142FE1D631E
-	for <lists+alsa-devel@lfdr.de>; Sat, 16 May 2020 19:40:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A23C31D7AF8
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 May 2020 16:20:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 819D3166C;
-	Sat, 16 May 2020 19:39:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 819D3166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 985F116FB;
+	Mon, 18 May 2020 16:19:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 985F116FB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589650807;
-	bh=Xo1Ui/w572m9j3PtmZkH4jr1w/wS0gomkDqY/DcPoUs=;
-	h=Subject:To:References:From:Date:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=qk9sKKyKkJ9N5nOpOSzODTfNoLgZztjD/Rxmt8KvzmgJpuYRIMe5SPCJS6NqjJXKI
-	 VspSnVnok7iEvF5q043x4IKo1uQWZyYzs9ZfuXw3K+MXX4IZI19hhuMsZwSyT/34B4
-	 ufPW9yC8TGr4IWtToYqg8r2HHm38TKrrd6f7ytrk=
+	s=default; t=1589811639;
+	bh=svKHqIihi2LkFyIclqBrhHmmZ5pFgZhV4k/M5HUfvYU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=sQOf4GbzRzpfo6M56UGFzKrD/Qn4ngAq/uLiw6l3dCO24UQ5J10QzYsin75rBJbq1
+	 876QN2jNkvFl5pW425qu4Hd5Qskf1NbmBI4UpA06R7kERQcQtbhiwRD7Ps/AUYHQOB
+	 mt89Z7sx3pPu2jSXEPK4fwhRXprnxeAr9BVzZskg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 95669F8015A;
-	Sat, 16 May 2020 19:38:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59BF8F80273;
+	Mon, 18 May 2020 16:18:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 915D1F80158; Sat, 16 May 2020 19:38:24 +0200 (CEST)
+ id E0507F80158; Sat, 16 May 2020 19:40:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- PRX_BODY_30,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ FREEMAIL_FROM,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail27.static.mailgun.info (mail27.static.mailgun.info
- [104.130.122.27])
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B996BF800FE
- for <alsa-devel@alsa-project.org>; Sat, 16 May 2020 19:38:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B996BF800FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 20A02F800E3
+ for <alsa-devel@alsa-project.org>; Sat, 16 May 2020 19:40:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20A02F800E3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="ldulsfD6"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1589650701; h=Content-Transfer-Encoding: Content-Type:
- MIME-Version: Date: Message-ID: From: References: Cc: To: Subject:
- Sender; bh=NYMrMgeMq1+R7gwZnu89mZGOyvi5jlE2jtoptn1SMUM=;
- b=ldulsfD673IElVBHPd3Bog0OgB6WdRx2VS1TgRgMkFt6tyMl6p2BaqbolO0Xm02m64nUh36B
- eyOX3lfY8vY8BqsR5jsoHZ4OeJ3D7Ncf5o3sS7hqqxNFIlnzBEt2vNS+ICIgeCoBLR01bUai
- Nttds1LXMviuZkAWHT0Kb4m59bk=
-X-Mailgun-Sending-Ip: 104.130.122.27
-X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5ec024fc.7ff1a5ed27a0-smtp-out-n04;
- Sat, 16 May 2020 17:38:04 -0000 (UTC)
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id E8B49C43636; Sat, 16 May 2020 17:38:03 +0000 (UTC)
-Received: from [10.86.13.83]
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: ajitp)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id CEFB4C433D2;
- Sat, 16 May 2020 17:38:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org CEFB4C433D2
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=ajitp@codeaurora.org
-Subject: Re: [PATCH v2 1/7] Documentation: device-tree: sound: Update
- lpass-cpu driver binding
-To: Mark Brown <broonie@kernel.org>
-References: =?UTF-8?Q?=3c=1c1586592171-31644-1-git-send-email-ajitp=40codeau?=
- =?UTF-8?Q?rora=2eorg=ef=bf=bd=3e_=3c1589474298-29437-1-git-send-email-ajitp?=
- =?UTF-8?Q?=40codeaurora=2eorg=3e_=3c1589474298-29437-2-git-send-email-ajitp?=
- =?UTF-8?Q?=40codeaurora=2eorg=3e_=3c20200514164429=2eGJ5127=40sirena=2eorg?=
- =?UTF-8?Q?=2euk=3e?=
-From: Ajit Pandey <ajitp@codeaurora.org>
-Message-ID: <c4268ee7-fa5d-74d3-52bf-2f6d3635758f@codeaurora.org>
-Date: Sat, 16 May 2020 23:07:58 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ dkim=pass (1024-bit key) header.d=gmx.net header.i=@gmx.net
+ header.b="FXjHxhzY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1589650815;
+ bh=svKHqIihi2LkFyIclqBrhHmmZ5pFgZhV4k/M5HUfvYU=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
+ b=FXjHxhzYuLfDPeHoOSl8KdP/2H/oEV1gx2+L9gpUXLjLGjxWkccTx9/mx26V9FEYa
+ cfSZoisNDFsngWkijMGJlyl5OCrdmpoFKraPFP1wrR0t1Mo0Ee3Utva0bju2q6o3g/
+ tmNEadccqmsCVV0M24D2eBhu72QkC/OHBbIJQytc=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from localhost.localdomain ([83.52.229.196]) by mail.gmx.com
+ (mrgmx004 [212.227.17.184]) with ESMTPSA (Nemesis) id
+ 1MxDkw-1iq2yN1Rd2-00xZgd; Sat, 16 May 2020 19:40:15 +0200
+From: Oscar Carter <oscar.carter@gmx.com>
+To: Kees Cook <keescook@chromium.org>,
+ Stefan Richter <stefanr@s5r6.in-berlin.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Clemens Ladisch <clemens@ladisch.de>,
+ Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH] firewire: Remove function callback casts
+Date: Sat, 16 May 2020 19:39:34 +0200
+Message-Id: <20200516173934.31527-1-oscar.carter@gmx.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, plai@codeaurora.org, linux-kernel@vger.kernel.org,
- srinivas.kandagatla@linaro.org
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:Z020tf5rikbggnvyzosr6a5IroYYLf6i6PImziyyhMDKJreRBv3
+ J6x+WEMYBuxsPg+zaxBztvueMsWrrxOb6z9Rl5cWZZ6k9S3L1BanWm5EYrdWJnbDu/OpuLr
+ 5WoAfBWfS7ZYrKSz/olxYdYvmhM5Rj2n8pTBsAwKmVdvQlAuXT/SspC41BOVZKDWHX3MdA7
+ J+3U+3IOiEw268GJbmSzw==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:mYbgd0+L8Xc=:YQl0HwCgvkxUMu9varvTRd
+ u2RfVdPLHpnzJXIOSiAHRqeJDCG60SEuLvrsNxiAQj7Y425W8k7uMc5Mm+YCrX6yZ/cocchmJ
+ HGcVX6fND2Z+4+KJN063+pzY+rVK3K49N2SJTDpvE3Au4fhkJhhtIQf9vSLk5WrT0rUaRYcNQ
+ DgML1I82o4GZ48Ju8XDbdKJY7fiaCx8SaJj5nHUjujGQssZ5PwgcGZmoViBv2z/vZDleydOuS
+ eoWK5ygziYB9Xk8RNMLz2vS2aA41NqCkwkiqHtPzfA0Hx4o0+dUUySgR54bJI6kImhow9EAqt
+ G0ZE8EdouUvXcO2w9akffLmTksTkYY4GD8FjuFHi1hpXtq8pib9Qp6cme8vYYfqA7KSUHYwjC
+ Np2zIIduA4SEQdiZBVLzHOUA0ECRAs3WC3ucmGjfqHw+9L8U0foLmF0fQ/wORUKqsj5oKlfV+
+ /N/3mCIvvnV4putlQkIrRYXSnlhlc4rLs/tUFvH6q2IhMtzDMhbZi5xE7mv/rQ/mrl0XtSw8q
+ JqSc3px/bHicpR0zAjMZ3jH1V/ZzCPSWaUwFQrdHye84r15z4TwAYjKnVElWoqkWDB57RjJ09
+ 0O0pWjxTn5LNiUDfiRtjju/xDmQaI7tVC8w+jDXvRidj5fkxGKLWS32rvaCQ5uSeT+oHFRuhS
+ 0wC/MOCwiMU+78UJhVjXoxuxI9NUZopY/PTCLuGSrlCJfrW5JbTG5mTTnQGLNnYASqrMt7x9W
+ olpJc+Bvok5ulc8jZ+hqIxTDeRXXPal/Xb5KsssA4m+gTCtRjtjzk5G0WlgyclzRohht6e5D+
+ Ut2+ZbT2is3OBWavvhP6eLIV3VSdRr9yRygEV/I9LhvVL+Q24ZUbCRLLcnTZeiHNAfUHdiWKj
+ hgPISRPnTZFybcW+eyCIuOT1E71yu3PPCfwQ+0RPYQge5rUc0o6kHshI7Rj/7RJmTyj38HCHn
+ 9QhW8hKVchkuk8MXQxR3D2D51JhJ//uGzAzYN+SuIJrBZsdkLi/47icuTlCBIE6WwPHiM+TVP
+ 6bdp6Am9h+gN7QxMK8YTC5S2lKjBB/LfNgqPie1aSfYWeDn43Qlm5/1FRFp+HsK6npPDAScrS
+ /V3MxT8VWchryli2IlfKRW6WrAOo0oYPuEv28KGxIwdjl5SUSSj2SHznrOetBz4TrgY0CG3Yh
+ mTCQubmLj/3ycoNnEfqEshwy/NCYlnB47LiZrBd07q/Sa2ayuQyvYkx4p3/Q9E++07q0YCh3b
+ 1ERrb8OOhuGpJJ+5O
+X-Mailman-Approved-At: Mon, 18 May 2020 16:18:11 +0200
+Cc: alsa-devel@alsa-project.org, Oscar Carter <oscar.carter@gmx.com>,
+ kernel-hardening@lists.openwall.com, linux-kernel@vger.kernel.org,
+ linux1394-devel@lists.sourceforge.net, linux-media@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,22 +105,181 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 5/14/2020 10:14 PM, Mark Brown wrote:
-> On Thu, May 14, 2020 at 10:08:12PM +0530, Ajit Pandey wrote:
->> Done the required cleanups to update lpass-cpu binding with newer
->> yaml formats.
-> Please do YAML conversions as the last thing in any patch series, there
-> is quite a big backlog of reviews of YAML conversions so they can slow
-> down the code development.  It's good to do them, just try to make sure
-> other patches don't depend on them.
->
-> Please submit patches using subject lines reflecting the style for the
-> subsystem, this makes it easier for people to identify relevant patches.
-> Look at what existing commits in the area you're changing are doing and
-> make sure your subject lines visually resemble what they're doing.
-> There's no need to resubmit to fix this alone.
+In an effort to enable -Wcast-function-type in the top-level Makefile to
+support Control Flow Integrity builds, remove all the function callback
+casts.
 
-Ok.. we'll do the yaml conversion as a separate patch chain so that it 
-won't block
+To do this, modify the "fw_iso_context_create" function prototype adding
+a new parameter for the multichannel callback. Also, fix all the
+function calls accordingly.
 
-merging of this feature in ASoC core.
+Signed-off-by: Oscar Carter <oscar.carter@gmx.com>
+=2D--
+ drivers/firewire/core-cdev.c        | 12 +++++++-----
+ drivers/firewire/core-iso.c         | 10 ++++++++--
+ drivers/firewire/net.c              |  2 +-
+ drivers/media/firewire/firedtv-fw.c |  3 ++-
+ include/linux/firewire.h            |  3 ++-
+ sound/firewire/amdtp-stream.c       |  2 +-
+ sound/firewire/isight.c             |  4 ++--
+ 7 files changed, 23 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/firewire/core-cdev.c b/drivers/firewire/core-cdev.c
+index 6e291d8f3a27..cc368b35be2e 100644
+=2D-- a/drivers/firewire/core-cdev.c
++++ b/drivers/firewire/core-cdev.c
+@@ -957,7 +957,8 @@ static int ioctl_create_iso_context(struct client *cli=
+ent, union ioctl_arg *arg)
+ {
+ 	struct fw_cdev_create_iso_context *a =3D &arg->create_iso_context;
+ 	struct fw_iso_context *context;
+-	fw_iso_callback_t cb;
++	fw_iso_callback_t cb_sc =3D NULL;
++	fw_iso_mc_callback_t cb_mc =3D NULL;
+ 	int ret;
+
+ 	BUILD_BUG_ON(FW_CDEV_ISO_CONTEXT_TRANSMIT !=3D FW_ISO_CONTEXT_TRANSMIT |=
+|
+@@ -970,7 +971,7 @@ static int ioctl_create_iso_context(struct client *cli=
+ent, union ioctl_arg *arg)
+ 		if (a->speed > SCODE_3200 || a->channel > 63)
+ 			return -EINVAL;
+
+-		cb =3D iso_callback;
++		cb_sc =3D iso_callback;
+ 		break;
+
+ 	case FW_ISO_CONTEXT_RECEIVE:
+@@ -978,11 +979,11 @@ static int ioctl_create_iso_context(struct client *c=
+lient, union ioctl_arg *arg)
+ 		    a->channel > 63)
+ 			return -EINVAL;
+
+-		cb =3D iso_callback;
++		cb_sc =3D iso_callback;
+ 		break;
+
+ 	case FW_ISO_CONTEXT_RECEIVE_MULTICHANNEL:
+-		cb =3D (fw_iso_callback_t)iso_mc_callback;
++		cb_mc =3D iso_mc_callback;
+ 		break;
+
+ 	default:
+@@ -990,7 +991,8 @@ static int ioctl_create_iso_context(struct client *cli=
+ent, union ioctl_arg *arg)
+ 	}
+
+ 	context =3D fw_iso_context_create(client->device->card, a->type,
+-			a->channel, a->speed, a->header_size, cb, client);
++			a->channel, a->speed, a->header_size, cb_sc, cb_mc,
++			client);
+ 	if (IS_ERR(context))
+ 		return PTR_ERR(context);
+ 	if (client->version < FW_CDEV_VERSION_AUTO_FLUSH_ISO_OVERFLOW)
+diff --git a/drivers/firewire/core-iso.c b/drivers/firewire/core-iso.c
+index 185b0b78b3d6..3b8e349704f8 100644
+=2D-- a/drivers/firewire/core-iso.c
++++ b/drivers/firewire/core-iso.c
+@@ -131,7 +131,8 @@ size_t fw_iso_buffer_lookup(struct fw_iso_buffer *buff=
+er, dma_addr_t completed)
+
+ struct fw_iso_context *fw_iso_context_create(struct fw_card *card,
+ 		int type, int channel, int speed, size_t header_size,
+-		fw_iso_callback_t callback, void *callback_data)
++		fw_iso_callback_t cb_sc, fw_iso_mc_callback_t cb_mc,
++		void *callback_data)
+ {
+ 	struct fw_iso_context *ctx;
+
+@@ -145,7 +146,12 @@ struct fw_iso_context *fw_iso_context_create(struct f=
+w_card *card,
+ 	ctx->channel =3D channel;
+ 	ctx->speed =3D speed;
+ 	ctx->header_size =3D header_size;
+-	ctx->callback.sc =3D callback;
++
++	if (cb_sc)
++		ctx->callback.sc =3D cb_sc;
++	else
++		ctx->callback.mc =3D cb_mc;
++
+ 	ctx->callback_data =3D callback_data;
+
+ 	return ctx;
+diff --git a/drivers/firewire/net.c b/drivers/firewire/net.c
+index 715e491dfbc3..c5cc0a311aa0 100644
+=2D-- a/drivers/firewire/net.c
++++ b/drivers/firewire/net.c
+@@ -1136,7 +1136,7 @@ static int fwnet_broadcast_start(struct fwnet_device=
+ *dev)
+ 	context =3D fw_iso_context_create(dev->card, FW_ISO_CONTEXT_RECEIVE,
+ 					IEEE1394_BROADCAST_CHANNEL,
+ 					dev->card->link_speed, 8,
+-					fwnet_receive_broadcast, dev);
++					fwnet_receive_broadcast, NULL, dev);
+ 	if (IS_ERR(context)) {
+ 		retval =3D PTR_ERR(context);
+ 		goto failed;
+diff --git a/drivers/media/firewire/firedtv-fw.c b/drivers/media/firewire/=
+firedtv-fw.c
+index 97144734eb05..d2940adefd8c 100644
+=2D-- a/drivers/media/firewire/firedtv-fw.c
++++ b/drivers/media/firewire/firedtv-fw.c
+@@ -141,7 +141,8 @@ int fdtv_start_iso(struct firedtv *fdtv)
+
+ 	ctx->context =3D fw_iso_context_create(device->card,
+ 			FW_ISO_CONTEXT_RECEIVE, fdtv->isochannel,
+-			device->max_speed, ISO_HEADER_SIZE, handle_iso, fdtv);
++			device->max_speed, ISO_HEADER_SIZE,
++			handle_iso, NULL, fdtv);
+ 	if (IS_ERR(ctx->context)) {
+ 		err =3D PTR_ERR(ctx->context);
+ 		goto fail_free;
+diff --git a/include/linux/firewire.h b/include/linux/firewire.h
+index aec8f30ab200..3a0b5e18e140 100644
+=2D-- a/include/linux/firewire.h
++++ b/include/linux/firewire.h
+@@ -452,7 +452,8 @@ struct fw_iso_context {
+
+ struct fw_iso_context *fw_iso_context_create(struct fw_card *card,
+ 		int type, int channel, int speed, size_t header_size,
+-		fw_iso_callback_t callback, void *callback_data);
++		fw_iso_callback_t cb_sc, fw_iso_mc_callback_t cb_mc,
++		void *callback_data);
+ int fw_iso_context_set_channels(struct fw_iso_context *ctx, u64 *channels=
+);
+ int fw_iso_context_queue(struct fw_iso_context *ctx,
+ 			 struct fw_iso_packet *packet,
+diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
+index 37d38efb4c87..8629ab3e2c64 100644
+=2D-- a/sound/firewire/amdtp-stream.c
++++ b/sound/firewire/amdtp-stream.c
+@@ -1093,7 +1093,7 @@ static int amdtp_stream_start(struct amdtp_stream *s=
+, int channel, int speed,
+
+ 	s->context =3D fw_iso_context_create(fw_parent_device(s->unit)->card,
+ 					  type, channel, speed, ctx_header_size,
+-					  ctx_cb, ctx_data);
++					  ctx_cb, NULL, ctx_data);
+ 	if (IS_ERR(s->context)) {
+ 		err =3D PTR_ERR(s->context);
+ 		if (err =3D=3D -EBUSY)
+diff --git a/sound/firewire/isight.c b/sound/firewire/isight.c
+index 6655af53b367..51cc37fca736 100644
+=2D-- a/sound/firewire/isight.c
++++ b/sound/firewire/isight.c
+@@ -361,8 +361,8 @@ static int isight_start_streaming(struct isight *isigh=
+t)
+ 	isight->context =3D fw_iso_context_create(isight->device->card,
+ 						FW_ISO_CONTEXT_RECEIVE,
+ 						isight->resources.channel,
+-						isight->device->max_speed,
+-						4, isight_packet, isight);
++						isight->device->max_speed, 4,
++						isight_packet, NULL, isight);
+ 	if (IS_ERR(isight->context)) {
+ 		err =3D PTR_ERR(isight->context);
+ 		isight->context =3D NULL;
+=2D-
+2.20.1
+

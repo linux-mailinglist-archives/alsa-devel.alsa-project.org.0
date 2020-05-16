@@ -2,53 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B8AA1D5F23
-	for <lists+alsa-devel@lfdr.de>; Sat, 16 May 2020 08:31:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 033941D5FD7
+	for <lists+alsa-devel@lfdr.de>; Sat, 16 May 2020 11:01:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C848B165E;
-	Sat, 16 May 2020 08:31:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C848B165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 708F31669;
+	Sat, 16 May 2020 11:00:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 708F31669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589610712;
-	bh=tTaMOxHcWP+vYlSETwWDiNryXSA7xvtYMSFacDwwaG4=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1589619686;
+	bh=OgtivipS20HJEi3FJ7/5nyGHYRDk5WjwQT7nWsbsJrc=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=T7rV+xwd74KbyfwleGLB1WDjvbHZTtOL1DAZwk3AoQ/A6xgqSS+2tzbm37LrfXYJk
-	 7vlorFEto6S2ugq/wwrsfczaNlyJttBi1yf4zVHHWIp0Yma8j2QEIgTipVg9UJVUjq
-	 QNF5hZQZNxMMSAmHzsOKUg9ac86ar2eqleD2pAwI=
+	b=ihlsFFPIJ7FRp08xw+KP3ZW35+Chu8qJk3p/vOlJBwQJSI+SkBLNXu8Qel3AqwsHy
+	 Gp7wUckejs/uZknYxA4oC/sIvyqwx63/a9bGdRDf/MfqOFQEDPpuhwWfarVX5TR1PU
+	 up18554/SYfZbAN+kwyCC3E6bFVfqQgPuj77XEyY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0EE09F80269;
-	Sat, 16 May 2020 08:29:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8A5D5F8015A;
+	Sat, 16 May 2020 10:59:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 445ABF8014C; Sat, 16 May 2020 08:29:06 +0200 (CEST)
+ id D72B6F80158; Sat, 16 May 2020 10:59:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85CB0F800FE
- for <alsa-devel@alsa-project.org>; Sat, 16 May 2020 08:28:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85CB0F800FE
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id D8382AD68
- for <alsa-devel@alsa-project.org>; Sat, 16 May 2020 06:29:00 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 95479F800E3
+ for <alsa-devel@alsa-project.org>; Sat, 16 May 2020 10:59:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95479F800E3
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/2] ALSA: hda: Unexport some local helper functions
-Date: Sat, 16 May 2020 08:28:54 +0200
-Message-Id: <20200516062854.22141-3-tiwai@suse.de>
-X-Mailer: git-send-email 2.16.4
-In-Reply-To: <20200516062854.22141-1-tiwai@suse.de>
-References: <20200516062854.22141-1-tiwai@suse.de>
+In-Reply-To: <1589619578566054106-webhooks-bot@alsa-project.org>
+References: <1589619578566054106-webhooks-bot@alsa-project.org>
+Subject: ucm: initialize mgr->once_list
+Message-Id: <20200516085942.D72B6F80158@alsa1.perex.cz>
+Date: Sat, 16 May 2020 10:59:42 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,80 +59,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-snd_hdac_bus_queue_event() and snd_hdac_bus_exec_verb() are used only
-internally in HD-audio core.  Let's drop the exports and move the
-declarations into local.h.
+alsa-project/alsa-lib pull request #50 was opened from asavah:
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- include/sound/hdaudio.h     | 3 ---
- sound/hda/hdac_bus.c        | 2 --
- sound/hda/hdac_controller.c | 1 +
- sound/hda/local.h           | 3 +++
- 4 files changed, 4 insertions(+), 5 deletions(-)
+Initiliaze mgr->once_list otherwise eg `alsactl restore 0` will segfault in https://github.com/alsa-project/alsa-lib/blob/master/src/ucm/utils.c#L570 in case that  `/var/lib/alsa/alsa.state` is not present.
 
-diff --git a/include/sound/hdaudio.h b/include/sound/hdaudio.h
-index 10945963d727..c1f78d9a6e47 100644
---- a/include/sound/hdaudio.h
-+++ b/include/sound/hdaudio.h
-@@ -372,11 +372,8 @@ struct hdac_bus {
- int snd_hdac_bus_init(struct hdac_bus *bus, struct device *dev,
- 		      const struct hdac_bus_ops *ops);
- void snd_hdac_bus_exit(struct hdac_bus *bus);
--int snd_hdac_bus_exec_verb(struct hdac_bus *bus, unsigned int addr,
--			   unsigned int cmd, unsigned int *res);
- int snd_hdac_bus_exec_verb_unlocked(struct hdac_bus *bus, unsigned int addr,
- 				    unsigned int cmd, unsigned int *res);
--void snd_hdac_bus_queue_event(struct hdac_bus *bus, u32 res, u32 res_ex);
- 
- static inline void snd_hdac_codec_link_up(struct hdac_device *codec)
- {
-diff --git a/sound/hda/hdac_bus.c b/sound/hda/hdac_bus.c
-index dee04792ca86..09ddab5f5cae 100644
---- a/sound/hda/hdac_bus.c
-+++ b/sound/hda/hdac_bus.c
-@@ -81,7 +81,6 @@ int snd_hdac_bus_exec_verb(struct hdac_bus *bus, unsigned int addr,
- 	mutex_unlock(&bus->cmd_mutex);
- 	return err;
- }
--EXPORT_SYMBOL_GPL(snd_hdac_bus_exec_verb);
- 
- /**
-  * snd_hdac_bus_exec_verb_unlocked - unlocked version
-@@ -150,7 +149,6 @@ void snd_hdac_bus_queue_event(struct hdac_bus *bus, u32 res, u32 res_ex)
- 
- 	schedule_work(&bus->unsol_work);
- }
--EXPORT_SYMBOL_GPL(snd_hdac_bus_queue_event);
- 
- /*
-  * process queued unsolicited events
-diff --git a/sound/hda/hdac_controller.c b/sound/hda/hdac_controller.c
-index ac15aa357fbd..011b17cc1efa 100644
---- a/sound/hda/hdac_controller.c
-+++ b/sound/hda/hdac_controller.c
-@@ -9,6 +9,7 @@
- #include <sound/core.h>
- #include <sound/hdaudio.h>
- #include <sound/hda_register.h>
-+#include "local.h"
- 
- /* clear CORB read pointer properly */
- static void azx_clear_corbrp(struct hdac_bus *bus)
-diff --git a/sound/hda/local.h b/sound/hda/local.h
-index 5b935219352f..896ba142e8bc 100644
---- a/sound/hda/local.h
-+++ b/sound/hda/local.h
-@@ -36,6 +36,9 @@ void hda_widget_sysfs_exit(struct hdac_device *codec);
- int snd_hdac_bus_add_device(struct hdac_bus *bus, struct hdac_device *codec);
- void snd_hdac_bus_remove_device(struct hdac_bus *bus,
- 				struct hdac_device *codec);
-+void snd_hdac_bus_queue_event(struct hdac_bus *bus, u32 res, u32 res_ex);
-+int snd_hdac_bus_exec_verb(struct hdac_bus *bus, unsigned int addr,
-+			   unsigned int cmd, unsigned int *res);
- 
- int snd_hdac_exec_verb(struct hdac_device *codec, unsigned int cmd,
- 		       unsigned int flags, unsigned int *res);
--- 
-2.16.4
-
+Request URL   : https://github.com/alsa-project/alsa-lib/pull/50
+Patch URL     : https://github.com/alsa-project/alsa-lib/pull/50.patch
+Repository URL: https://github.com/alsa-project/alsa-lib

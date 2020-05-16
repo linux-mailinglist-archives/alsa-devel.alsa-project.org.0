@@ -2,87 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A16E1D636F
-	for <lists+alsa-devel@lfdr.de>; Sat, 16 May 2020 20:08:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDBCD1D637A
+	for <lists+alsa-devel@lfdr.de>; Sat, 16 May 2020 20:16:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1BA681662;
-	Sat, 16 May 2020 20:07:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BA681662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6C28F1662;
+	Sat, 16 May 2020 20:15:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C28F1662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589652516;
-	bh=Q7z2HErbBslP4+6ShlCksHLgbDmDoCqP9OuQmF6bU58=;
+	s=default; t=1589652987;
+	bh=eaBb0tvFdGUN0HDnvVOBc9VcDBN6Hdp1PCcG71na2mU=;
 	h=Subject:To:References:From:Date:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=XUvST/3A3mXFrtxQXN524MJZv3atnPzVdT1Gfo6AxfsJBoyViLAHulZTpKFmWesmS
-	 5wNDwEEJJmClc31fM0tsyRJB+rC74LIwoL7JObqFOrXk4m+yg9rJuRn0l0T71bhe+Z
-	 tztjCgrWzwUqBPLuDiIDWhkKWlR28QwzMua14vB0=
+	b=eUDE1aSo6qFoWM8Qv1kHYa1wA3MG7GPwvQDT0kBSbX+0mboeIVC/tBUyxOW0aBcfT
+	 MLeT0EOlOijBh4zqWnVEwxSvR8Edl8Z6ZRCDLBH6X0rx6FRRhtehCCpXJv0M6KerV6
+	 lkLZ7iFH2eEl2+NSrsKgi8q5vvDzIvztfJqTcK6o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 330F0F80158;
-	Sat, 16 May 2020 20:06:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80781F800DD;
+	Sat, 16 May 2020 20:14:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2671BF80158; Sat, 16 May 2020 20:06:52 +0200 (CEST)
+ id 4B863F80158; Sat, 16 May 2020 20:14:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_MSPIKE_H4, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
+ RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
  SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail27.static.mailgun.info (mail27.static.mailgun.info
- [104.130.122.27])
+Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
+ [104.130.122.26])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CB205F800E3
- for <alsa-devel@alsa-project.org>; Sat, 16 May 2020 20:06:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB205F800E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id E3211F800E3
+ for <alsa-devel@alsa-project.org>; Sat, 16 May 2020 20:14:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3211F800E3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="rx9FBAhg"
+ header.i=@mg.codeaurora.org header.b="wFadF8/B"
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1589652409; h=Content-Transfer-Encoding: Content-Type:
+ s=smtp; t=1589652880; h=Content-Transfer-Encoding: Content-Type:
  MIME-Version: Date: Message-ID: From: References: Cc: To: Subject:
- Sender; bh=PUhHaL8byAHsraSTMCjlU45f45jhPMUm8voesvF7xDo=;
- b=rx9FBAhgBHukgzNIJG6dQUSSFYt8xqGO779hca4Yz68UQVZ0to5ylA5P/A/wMKdMu1j7vu4j
- 1cMNXOxHQl8PQSr9GGP9rIPH24Ff6OxiVEi9YrAQubKWgCF9fYeX7z3CwJzMah/ffXMI0UFm
- mzEwVzDt5r9/N7TIUQ7wFP1Ev68=
-X-Mailgun-Sending-Ip: 104.130.122.27
+ Sender; bh=vHhfQLbmGkqdEq+nyD31PZJUA6mXrkeSkvttzWXp73g=;
+ b=wFadF8/Bd4a3AYkVpsmOO0yLzn/fo0V9mI9PqkieVCYbqf+GPeufyYi+lyI4MFejO7iJsfAE
+ 1JQqBD6FuXESoDkFgxH5wcD59rCqIEqfEFuePLmJHer06+iPnBsMUStALUKCKO2/wxhaU5W+
+ nzTrXajdYImZ8ZCRLVzts9tuMgQ=
+X-Mailgun-Sending-Ip: 104.130.122.26
 X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5ec02ba8.7f808f674618-smtp-out-n04;
- Sat, 16 May 2020 18:06:32 -0000 (UTC)
+ by mxa.mailgun.org with ESMTP id 5ec02d8d.7f3ee3d7ea78-smtp-out-n03;
+ Sat, 16 May 2020 18:14:37 -0000 (UTC)
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id BF1E1C432C2; Sat, 16 May 2020 18:06:31 +0000 (UTC)
+ id 9D23CC432C2; Sat, 16 May 2020 18:14:37 +0000 (UTC)
 Received: from [10.86.13.83]
  (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: ajitp)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 7FF84C433D2;
- Sat, 16 May 2020 18:06:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 7FF84C433D2
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 5641BC433D2;
+ Sat, 16 May 2020 18:14:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 5641BC433D2
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  spf=none smtp.mailfrom=ajitp@codeaurora.org
-Subject: Re: [PATCH v2 2/7] ASoC: qcom: Add common array to initialize soc
- based core clocks
+Subject: Re: [PATCH v2 5/7] include: dt-bindings: sound: Add sc7180-lpass
+ bindings header
 To: Mark Brown <broonie@kernel.org>
 References: =?UTF-8?Q?=3c=1c1586592171-31644-1-git-send-email-ajitp=40codeau?=
  =?UTF-8?Q?rora=2eorg=ef=bf=bd=3e_=3c1589474298-29437-1-git-send-email-ajitp?=
- =?UTF-8?Q?=40codeaurora=2eorg=3e_=3c1589474298-29437-4-git-send-email-ajitp?=
- =?UTF-8?Q?=40codeaurora=2eorg=3e_=3c20200514164532=2eGK5127=40sirena=2eorg?=
+ =?UTF-8?Q?=40codeaurora=2eorg=3e_=3c1589474298-29437-6-git-send-email-ajitp?=
+ =?UTF-8?Q?=40codeaurora=2eorg=3e_=3c20200514164828=2eGL5127=40sirena=2eorg?=
  =?UTF-8?Q?=2euk=3e?=
 From: Ajit Pandey <ajitp@codeaurora.org>
-Message-ID: <1d47fad3-54bc-1b95-8608-d5846e4b9c83@codeaurora.org>
-Date: Sat, 16 May 2020 23:36:27 +0530
+Message-ID: <9b02abcd-23a0-8edb-674a-44358a516015@codeaurora.org>
+Date: Sat, 16 May 2020 23:44:32 +0530
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Content-Language: en-US
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  bgoswami@codeaurora.org, plai@codeaurora.org, linux-kernel@vger.kernel.org,
@@ -102,15 +102,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 5/14/2020 10:15 PM, Mark Brown wrote:
-> On Thu, May 14, 2020 at 10:08:14PM +0530, Ajit Pandey wrote:
->> AHB-I/X bus clocks inside LPASS coreis not a mandatory clocks for
->> SC7180 soc lpass variants, hence make it an optional one.
-> Do we need to improve the checks in the rest of the code so that if the
-> clock is missing on a SoC where it is actually mandatory we don't end up
-> trying to start without it?  Perhaps it's more trouble than it's worth
-> though.
-> Agreed.. adding a case check with soc id or name definately make sense 
-> to avoid issue with soc where it's  a mandatory one, I'll also look if 
-> this "ahbix-clk" can also be moved with other soc-based clocks array ? 
-> and can be enabled in soc specific driver.
+On 5/14/2020 10:18 PM, Mark Brown wrote:
+> On Thu, May 14, 2020 at 10:08:16PM +0530, Ajit Pandey wrote:
+>
+>> +#define MI2S_PRIMARY	0
+>> +#define MI2S_SECONDARY	1
+>> +
+>> +#define LPASS_MCLK0	0
+> These look like they could use namespacing.  Is primary/secondary
+> perhaps something that could be a boolean property?
+
+Primary/secondary is a dai id and can be from 0-4 (SC7180 soc driver 
+support only 0-1 at present). Such id is mainly used in dtsi and machine 
+driver to do dai id based configuration for a soc hence we placed them 
+in dt headers file for now.

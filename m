@@ -2,48 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 033941D5FD7
-	for <lists+alsa-devel@lfdr.de>; Sat, 16 May 2020 11:01:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 142FE1D631E
+	for <lists+alsa-devel@lfdr.de>; Sat, 16 May 2020 19:40:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 708F31669;
-	Sat, 16 May 2020 11:00:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 708F31669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 819D3166C;
+	Sat, 16 May 2020 19:39:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 819D3166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589619686;
-	bh=OgtivipS20HJEi3FJ7/5nyGHYRDk5WjwQT7nWsbsJrc=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ihlsFFPIJ7FRp08xw+KP3ZW35+Chu8qJk3p/vOlJBwQJSI+SkBLNXu8Qel3AqwsHy
-	 Gp7wUckejs/uZknYxA4oC/sIvyqwx63/a9bGdRDf/MfqOFQEDPpuhwWfarVX5TR1PU
-	 up18554/SYfZbAN+kwyCC3E6bFVfqQgPuj77XEyY=
+	s=default; t=1589650807;
+	bh=Xo1Ui/w572m9j3PtmZkH4jr1w/wS0gomkDqY/DcPoUs=;
+	h=Subject:To:References:From:Date:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=qk9sKKyKkJ9N5nOpOSzODTfNoLgZztjD/Rxmt8KvzmgJpuYRIMe5SPCJS6NqjJXKI
+	 VspSnVnok7iEvF5q043x4IKo1uQWZyYzs9ZfuXw3K+MXX4IZI19hhuMsZwSyT/34B4
+	 ufPW9yC8TGr4IWtToYqg8r2HHm38TKrrd6f7ytrk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A5D5F8015A;
-	Sat, 16 May 2020 10:59:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95669F8015A;
+	Sat, 16 May 2020 19:38:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D72B6F80158; Sat, 16 May 2020 10:59:42 +0200 (CEST)
+ id 915D1F80158; Sat, 16 May 2020 19:38:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 95479F800E3
- for <alsa-devel@alsa-project.org>; Sat, 16 May 2020 10:59:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95479F800E3
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ PRX_BODY_30,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail27.static.mailgun.info (mail27.static.mailgun.info
+ [104.130.122.27])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B996BF800FE
+ for <alsa-devel@alsa-project.org>; Sat, 16 May 2020 19:38:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B996BF800FE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="ldulsfD6"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1589650701; h=Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Date: Message-ID: From: References: Cc: To: Subject:
+ Sender; bh=NYMrMgeMq1+R7gwZnu89mZGOyvi5jlE2jtoptn1SMUM=;
+ b=ldulsfD673IElVBHPd3Bog0OgB6WdRx2VS1TgRgMkFt6tyMl6p2BaqbolO0Xm02m64nUh36B
+ eyOX3lfY8vY8BqsR5jsoHZ4OeJ3D7Ncf5o3sS7hqqxNFIlnzBEt2vNS+ICIgeCoBLR01bUai
+ Nttds1LXMviuZkAWHT0Kb4m59bk=
+X-Mailgun-Sending-Ip: 104.130.122.27
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5ec024fc.7ff1a5ed27a0-smtp-out-n04;
+ Sat, 16 May 2020 17:38:04 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id E8B49C43636; Sat, 16 May 2020 17:38:03 +0000 (UTC)
+Received: from [10.86.13.83]
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: ajitp)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id CEFB4C433D2;
+ Sat, 16 May 2020 17:38:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org CEFB4C433D2
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=ajitp@codeaurora.org
+Subject: Re: [PATCH v2 1/7] Documentation: device-tree: sound: Update
+ lpass-cpu driver binding
+To: Mark Brown <broonie@kernel.org>
+References: =?UTF-8?Q?=3c=1c1586592171-31644-1-git-send-email-ajitp=40codeau?=
+ =?UTF-8?Q?rora=2eorg=ef=bf=bd=3e_=3c1589474298-29437-1-git-send-email-ajitp?=
+ =?UTF-8?Q?=40codeaurora=2eorg=3e_=3c1589474298-29437-2-git-send-email-ajitp?=
+ =?UTF-8?Q?=40codeaurora=2eorg=3e_=3c20200514164429=2eGJ5127=40sirena=2eorg?=
+ =?UTF-8?Q?=2euk=3e?=
+From: Ajit Pandey <ajitp@codeaurora.org>
+Message-ID: <c4268ee7-fa5d-74d3-52bf-2f6d3635758f@codeaurora.org>
+Date: Sat, 16 May 2020 23:07:58 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1589619578566054106-webhooks-bot@alsa-project.org>
-References: <1589619578566054106-webhooks-bot@alsa-project.org>
-Subject: ucm: initialize mgr->once_list
-Message-Id: <20200516085942.D72B6F80158@alsa1.perex.cz>
-Date: Sat, 16 May 2020 10:59:42 +0200 (CEST)
+Content-Language: en-US
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, plai@codeaurora.org, linux-kernel@vger.kernel.org,
+ srinivas.kandagatla@linaro.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,10 +102,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib pull request #50 was opened from asavah:
+On 5/14/2020 10:14 PM, Mark Brown wrote:
+> On Thu, May 14, 2020 at 10:08:12PM +0530, Ajit Pandey wrote:
+>> Done the required cleanups to update lpass-cpu binding with newer
+>> yaml formats.
+> Please do YAML conversions as the last thing in any patch series, there
+> is quite a big backlog of reviews of YAML conversions so they can slow
+> down the code development.  It's good to do them, just try to make sure
+> other patches don't depend on them.
+>
+> Please submit patches using subject lines reflecting the style for the
+> subsystem, this makes it easier for people to identify relevant patches.
+> Look at what existing commits in the area you're changing are doing and
+> make sure your subject lines visually resemble what they're doing.
+> There's no need to resubmit to fix this alone.
 
-Initiliaze mgr->once_list otherwise eg `alsactl restore 0` will segfault in https://github.com/alsa-project/alsa-lib/blob/master/src/ucm/utils.c#L570 in case that  `/var/lib/alsa/alsa.state` is not present.
+Ok.. we'll do the yaml conversion as a separate patch chain so that it 
+won't block
 
-Request URL   : https://github.com/alsa-project/alsa-lib/pull/50
-Patch URL     : https://github.com/alsa-project/alsa-lib/pull/50.patch
-Repository URL: https://github.com/alsa-project/alsa-lib
+merging of this feature in ASoC core.

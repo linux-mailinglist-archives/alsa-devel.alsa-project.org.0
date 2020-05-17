@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1CF71D689C
-	for <lists+alsa-devel@lfdr.de>; Sun, 17 May 2020 17:29:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E1841D68AE
+	for <lists+alsa-devel@lfdr.de>; Sun, 17 May 2020 17:46:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6311E1686;
-	Sun, 17 May 2020 17:28:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6311E1686
+	by alsa0.perex.cz (Postfix) with ESMTPS id B21BC167C;
+	Sun, 17 May 2020 17:45:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B21BC167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589729342;
-	bh=T+UngzXS4i3hcfZyjq5S9AeHtozg1cq3YZZIjxxCTdc=;
+	s=default; t=1589730374;
+	bh=BzxrJSXN73kjuujkKZKTwobTsLSIi3r9e8FXxzrgmTo=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gxQ4BDN2BGe1yCAdg0E3r7uH237Iid6R4inewkGEBIToFFgL7QcixBNRt4qU+ppj8
-	 d6P7Iz4tpBxX66Z8/QQ68qDzUPQ2qp8vLRolIRkJGnjevuhgemD36NU8GCSaZBJ1LN
-	 qs/ti2GLqDM4lZTCshJgQT+aKG8GgBUymwpUewig=
+	b=r2SNDhvhBzDCyDbGRQIlBBrWcqOxI6wEBpd32BMmH0xEFRmkR4WD6jXpIbMkmis6h
+	 +C6IJY5/tB56YyYklMK50ue8ylOoMJ9w8mqzWGG/8n3nr+viLTXAADN5MSaUCE1D/8
+	 o75bEaWv3rAlmHflZ1L5COVNeJmHJ8bONQ8FpRr4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A2A8F801F8;
-	Sun, 17 May 2020 17:27:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CE905F801F8;
+	Sun, 17 May 2020 17:44:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85CE6F801A3; Sun, 17 May 2020 17:27:18 +0200 (CEST)
+ id EA875F800E3; Sun, 17 May 2020 17:44:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: **
 X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id B2422F800C9
- for <alsa-devel@alsa-project.org>; Sun, 17 May 2020 17:27:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2422F800C9
+ by alsa1.perex.cz (Postfix) with ESMTP id E1D20F800E3
+ for <alsa-devel@alsa-project.org>; Sun, 17 May 2020 17:44:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1D20F800E3
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1589729231742917061-webhooks-bot@alsa-project.org>
-References: <1589729231742917061-webhooks-bot@alsa-project.org>
+In-Reply-To: <1589730260290796995-webhooks-bot@alsa-project.org>
+References: <1589730260290796995-webhooks-bot@alsa-project.org>
 Subject: no audio when using the dshare plugin with ALSA driver using indirect
  PCM data transfer
-Message-Id: <20200517152718.85CE6F801A3@alsa1.perex.cz>
-Date: Sun, 17 May 2020 17:27:18 +0200 (CEST)
+Message-Id: <20200517154426.EA875F800E3@alsa1.perex.cz>
+Date: Sun, 17 May 2020 17:44:26 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,19 +72,48 @@ The driver is working properly when used directly but not when it's used via the
 See issue [No sound using dshare in asound.conf](https://github.com/bondagit/aes67-linux-daemon/issues/7) in the AES67 Linux daemon project.
 
 For all my tests I used the **Linux Kernel 5.3.0-51** and the **alsa-lib v1.1.9** but I get same results with most recent kernel and with the **alsa-lib** on the master branch.
+My _.asoundrc_ configuration is the following:
+```
+pcm.aes67 {
+        type hw
+        card 1
+        device 0
+        #sync_ptr_ioctl true
+}
+
+pcm_slave.nforce {
+    pcm "aes67"
+    channels 2
+    rate 48000
+    buffer_size 24576  
+    period_size 48
+    format S24_3LE
+    periods 0
+    period_time 1000
+}
+
+pcm.ch12 {
+   type dshare
+   ipc_key 47110815
+   slave nforce
+   bindings.0 0
+   bindings.1 1
+   #slowptr true
+}
+```
 
 Basically when I playback a sample PCM audio using the ALSA RAVENNA/AES67 HW device directly via mmap I get a proper playout. 
 Ex: `aplay -D hw:1 sample.raw -M`
 But if I do the same using the dshare plugin I do always get no audio (silence):
-Ex: `aplay -D mydshare sample.raw -M`
+Ex: `aplay -D ch12 sample.raw -M`
 
-After a number of tests trying to compare the behavior of the **alsa-lib** when using the ALSA driver directly (aplay -D hw:1) and when using the plugin (aplay -D mydshare) I realized that in the second case the  **SNDRV_PCM_IOCTL_SYNC_PTR ioctl**  is never triggered in the audio loop by the **alsa-lib** . (I could easily capture this by using strace).
+After a number of tests trying to compare the behavior of the **alsa-lib** when using the ALSA driver directly (aplay -D hw:1) and when using the plugin (aplay -D ch12) I realized that in the second case the  **SNDRV_PCM_IOCTL_SYNC_PTR ioctl**  is never triggered in the audio loop by the **alsa-lib** . (I could easily capture this by using strace).
 I would expect the `snd_pcm_dshare_mmap_commit() `function of **alsa-lib** to invoke the above ioctl but this is not happening.
 The result is that in the ALSA driver the **ack()** callback is not called to indicate that the **appl_ptr** is updated and this causes the problem we have.
 
 In the Linux kernel when the ioctl SNDRV_PCM_IOCTL_SYNC_PTR is called the following functions are called: 
 `snd_pcm_sync_ptr() -> pcm_lib_apply_appl_ptr() -> substream->ops->ack() `
-but as stated above this is happening only if the ALSA driver is used directly (aplay -D hw:1) and not when it's used via the plugin (aplay -D mydshare).
+but as stated above this is happening only if the ALSA driver is used directly (aplay -D hw:1) and not when it's used via the plugin (aplay -D ch12).
 
 I could fix the issue applying the following temporary fix to the `alsa-lib`:
 ```

@@ -2,48 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C3B21D6891
-	for <lists+alsa-devel@lfdr.de>; Sun, 17 May 2020 17:21:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0AAC1D6892
+	for <lists+alsa-devel@lfdr.de>; Sun, 17 May 2020 17:22:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3030A167B;
-	Sun, 17 May 2020 17:21:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3030A167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB9431671;
+	Sun, 17 May 2020 17:21:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB9431671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589728911;
-	bh=aFXWYb07I9HTFf34JgetxNBAIMOU1D+n7XAGG6v/R/Q=;
+	s=default; t=1589728957;
+	bh=TD3Yffju96qiwFC9PDPZ5kEQesZD1g96j4cTkne1x8g=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qVBr7d2U73AQkZ10hDW2fJyCzaJb2veQu5zs4x/+fCXYz4l/Mff4oDTNR9XCAE1k6
-	 RHFU60QpfYzjlY84wBzJOYedxx5rvCiPDmKEj9foPDHzTTEVl3lXPT2r0YTXP54xaf
-	 j/SCCkCDST/em+IFa7+ZRdPETCrDpo+Y+RgAJSjU=
+	b=lem2ZaCyp0WpQ1uekukiliJwOTwHOHgVYpp5uIPG2/hnGtIhet9LmVowJ9u8Y+ISI
+	 HSJ3iQL8ZvVSYbuT4YU9DlgvxpjkiotBAJRUgC191vojxbDwQEaKXfYeJ0UUasI08b
+	 ILCMBDC31yzOqqsnTpd4719dHj9gsSwZUawbTZE4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49BADF800C9;
-	Sun, 17 May 2020 17:20:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B1D9F8025E;
+	Sun, 17 May 2020 17:20:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E1168F801A3; Sun, 17 May 2020 17:20:06 +0200 (CEST)
+ id 06757F80256; Sun, 17 May 2020 17:20:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: **
 X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 2847CF800E3
- for <alsa-devel@alsa-project.org>; Sun, 17 May 2020 17:19:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2847CF800E3
+ by alsa1.perex.cz (Postfix) with ESMTP id ED3CFF800E3
+ for <alsa-devel@alsa-project.org>; Sun, 17 May 2020 17:20:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED3CFF800E3
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1589728798821706057-webhooks-bot@alsa-project.org>
-References: <1589728798821706057-webhooks-bot@alsa-project.org>
-Subject: no audio when using the dshare plugin
-Message-Id: <20200517152006.E1168F801A3@alsa1.perex.cz>
-Date: Sun, 17 May 2020 17:20:06 +0200 (CEST)
+In-Reply-To: <1589728829700229883-webhooks-bot@alsa-project.org>
+References: <1589728829700229883-webhooks-bot@alsa-project.org>
+Subject: no audio when using the dshare plugin with a ALSA driver using
+ indirect PCM data transfer
+Message-Id: <20200517152033.06757F80256@alsa1.perex.cz>
+Date: Sun, 17 May 2020 17:20:33 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,7 +60,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #51 was opened from bondagit:
+alsa-project/alsa-lib issue #51 was edited from bondagit:
 
 Hi all,
 

@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A03A01D6893
-	for <lists+alsa-devel@lfdr.de>; Sun, 17 May 2020 17:22:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1CF71D689C
+	for <lists+alsa-devel@lfdr.de>; Sun, 17 May 2020 17:29:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 50BC21675;
-	Sun, 17 May 2020 17:22:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50BC21675
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6311E1686;
+	Sun, 17 May 2020 17:28:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6311E1686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589728972;
-	bh=TD3Yffju96qiwFC9PDPZ5kEQesZD1g96j4cTkne1x8g=;
+	s=default; t=1589729342;
+	bh=T+UngzXS4i3hcfZyjq5S9AeHtozg1cq3YZZIjxxCTdc=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QP0puyleumO4oaDYovPQjObnpJSuEtOXrDKpX8DmFgtZFgpABYMIBDbmzJjw1Vdi8
-	 PaFZuk5hlgKyhE8FD9vOb2ecDcTORGaJBLd2nPXSjcNcMUrDDONNQ7By5uP20bDYyU
-	 WQ0LUIJdo+nIvNiuUQj6d9sXboxvuiTyTdaf9ysY=
+	b=gxQ4BDN2BGe1yCAdg0E3r7uH237Iid6R4inewkGEBIToFFgL7QcixBNRt4qU+ppj8
+	 d6P7Iz4tpBxX66Z8/QQ68qDzUPQ2qp8vLRolIRkJGnjevuhgemD36NU8GCSaZBJ1LN
+	 qs/ti2GLqDM4lZTCshJgQT+aKG8GgBUymwpUewig=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7082EF8028E;
-	Sun, 17 May 2020 17:20:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A2A8F801F8;
+	Sun, 17 May 2020 17:27:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 999C9F8027D; Sun, 17 May 2020 17:20:44 +0200 (CEST)
+ id 85CE6F801A3; Sun, 17 May 2020 17:27:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: **
 X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 122BCF801F8
- for <alsa-devel@alsa-project.org>; Sun, 17 May 2020 17:20:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 122BCF801F8
+ by alsa1.perex.cz (Postfix) with ESMTP id B2422F800C9
+ for <alsa-devel@alsa-project.org>; Sun, 17 May 2020 17:27:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2422F800C9
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1589728841897551060-webhooks-bot@alsa-project.org>
-References: <1589728841897551060-webhooks-bot@alsa-project.org>
+In-Reply-To: <1589729231742917061-webhooks-bot@alsa-project.org>
+References: <1589729231742917061-webhooks-bot@alsa-project.org>
 Subject: no audio when using the dshare plugin with ALSA driver using indirect
  PCM data transfer
-Message-Id: <20200517152044.999C9F8027D@alsa1.perex.cz>
-Date: Sun, 17 May 2020 17:20:44 +0200 (CEST)
+Message-Id: <20200517152718.85CE6F801A3@alsa1.perex.cz>
+Date: Sun, 17 May 2020 17:27:18 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,9 +64,9 @@ alsa-project/alsa-lib issue #51 was edited from bondagit:
 
 Hi all,
 
-I am currently working on an open source project on GitHub [AES67 Linux daemon implementation](https://github.com/bondagit/aes67-linux-daemon).
+I am currently working on an open source project on GitHub [AES67 Linux daemon with WebUI](https://github.com/bondagit/aes67-linux-daemon).
 This project uses the [Merging Technologies ALSA RAVENNA/AES67 Linux Driver](https://bitbucket.org/MergingTechnologies/ravenna-alsa-lkm/src/master).
-This ALSA driver does support the mmap access using the indirect PCM data transfer.
+This ALSA driver does support the mmap access using indirect PCM data transfer.
 
 The driver is working properly when used directly but not when it's used via the **dshare** plugin.
 See issue [No sound using dshare in asound.conf](https://github.com/bondagit/aes67-linux-daemon/issues/7) in the AES67 Linux daemon project.

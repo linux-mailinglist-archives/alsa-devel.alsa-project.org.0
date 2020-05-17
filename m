@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0AAC1D6892
-	for <lists+alsa-devel@lfdr.de>; Sun, 17 May 2020 17:22:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A03A01D6893
+	for <lists+alsa-devel@lfdr.de>; Sun, 17 May 2020 17:22:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB9431671;
-	Sun, 17 May 2020 17:21:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB9431671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 50BC21675;
+	Sun, 17 May 2020 17:22:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50BC21675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589728957;
+	s=default; t=1589728972;
 	bh=TD3Yffju96qiwFC9PDPZ5kEQesZD1g96j4cTkne1x8g=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lem2ZaCyp0WpQ1uekukiliJwOTwHOHgVYpp5uIPG2/hnGtIhet9LmVowJ9u8Y+ISI
-	 HSJ3iQL8ZvVSYbuT4YU9DlgvxpjkiotBAJRUgC191vojxbDwQEaKXfYeJ0UUasI08b
-	 ILCMBDC31yzOqqsnTpd4719dHj9gsSwZUawbTZE4=
+	b=QP0puyleumO4oaDYovPQjObnpJSuEtOXrDKpX8DmFgtZFgpABYMIBDbmzJjw1Vdi8
+	 PaFZuk5hlgKyhE8FD9vOb2ecDcTORGaJBLd2nPXSjcNcMUrDDONNQ7By5uP20bDYyU
+	 WQ0LUIJdo+nIvNiuUQj6d9sXboxvuiTyTdaf9ysY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B1D9F8025E;
-	Sun, 17 May 2020 17:20:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7082EF8028E;
+	Sun, 17 May 2020 17:20:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 06757F80256; Sun, 17 May 2020 17:20:33 +0200 (CEST)
+ id 999C9F8027D; Sun, 17 May 2020 17:20:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: **
 X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id ED3CFF800E3
- for <alsa-devel@alsa-project.org>; Sun, 17 May 2020 17:20:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED3CFF800E3
+ by alsa1.perex.cz (Postfix) with ESMTP id 122BCF801F8
+ for <alsa-devel@alsa-project.org>; Sun, 17 May 2020 17:20:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 122BCF801F8
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1589728829700229883-webhooks-bot@alsa-project.org>
-References: <1589728829700229883-webhooks-bot@alsa-project.org>
-Subject: no audio when using the dshare plugin with a ALSA driver using
- indirect PCM data transfer
-Message-Id: <20200517152033.06757F80256@alsa1.perex.cz>
-Date: Sun, 17 May 2020 17:20:33 +0200 (CEST)
+In-Reply-To: <1589728841897551060-webhooks-bot@alsa-project.org>
+References: <1589728841897551060-webhooks-bot@alsa-project.org>
+Subject: no audio when using the dshare plugin with ALSA driver using indirect
+ PCM data transfer
+Message-Id: <20200517152044.999C9F8027D@alsa1.perex.cz>
+Date: Sun, 17 May 2020 17:20:44 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list

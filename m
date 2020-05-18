@@ -2,68 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99B191D7EBB
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 May 2020 18:40:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DDFA1D7ECA
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 May 2020 18:42:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DED151709;
-	Mon, 18 May 2020 18:39:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DED151709
+	by alsa0.perex.cz (Postfix) with ESMTPS id B93D31712;
+	Mon, 18 May 2020 18:42:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B93D31712
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589820021;
-	bh=RMKLM85Pvxf0nf2z4++GpDIdz6S2+rbp4vVTJmqTsMU=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1589820175;
+	bh=1mORd+n7+hjWf6dF3uFh+kuCN5qO/5gF28hOZXdPev4=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oMf3EH17dHAlHYmPocMvbUnrxrLV9JUOPrqQ0TmqQvikc5Y4YJwFCNTMOxdZLLk4R
-	 VbhAuYbRT0AsE6EucsBwv7fgCWZpQv7tb4kk2KWQlldnVMAmawylyNC2hBV8IDjC2a
-	 5zF3Xc/S63OZ2toGOlhbKlAUDeI0/Tuu/khHuWcQ=
+	b=WggyV2CGTG/ODkeXeciEh7MwIack08p6eNYDvKKUo+v+nNlqjvTrUaOgJUXFEIBsn
+	 JplSo+X60EgLOt62ZLa7XtMYI4NTquXVntHioJYBfVEl2Vr73mz+Ukg78+KTKzjNRP
+	 L++oXxiqo+GG+yFe1OIL4/xxt7eXXv+dtVZOO11A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18689F800C9;
-	Mon, 18 May 2020 18:38:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7393F801F9;
+	Mon, 18 May 2020 18:41:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BC81CF801DA; Mon, 18 May 2020 18:38:36 +0200 (CEST)
+ id 97F64F80213; Mon, 18 May 2020 18:41:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6BDCDF800C9
+ for <alsa-devel@alsa-project.org>; Mon, 18 May 2020 18:41:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BDCDF800C9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="PLjQYaj4"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C8605F800C9
- for <alsa-devel@alsa-project.org>; Mon, 18 May 2020 18:38:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8605F800C9
-IronPort-SDR: MDKOzBm1MjfvCcGUtgDH490rto5LHFYI3kbvt8AgbT3nBEqSGSXRzlYxbpX0Z/gLJi2HxmCvIq
- paiEtf5p6IFg==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2020 09:38:26 -0700
-IronPort-SDR: cqdHRSJMnXQmW0DNXB9GS9Fw4+88yLQ8t+QFY3/hxfektuqq63+K4fClyngsDIkVtEzkswCL4L
- lVaaDinjNJtA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,407,1583222400"; d="scan'208";a="465641504"
-Received: from iremsen-mobl1.amr.corp.intel.com (HELO [10.254.66.150])
- ([10.254.66.150])
- by fmsmga005.fm.intel.com with ESMTP; 18 May 2020 09:38:25 -0700
-Subject: Re: [PATCH v2 0/4] ASoC: Intel: Add KeemBay ASoC driver
-To: Sia Jee Heng <jee.heng.sia@intel.com>, alsa-devel@alsa-project.org
-References: <1589768242-4594-1-git-send-email-jee.heng.sia@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <66d7e059-c132-f04d-5dfd-4771b4aafc5e@linux.intel.com>
-Date: Mon, 18 May 2020 11:38:25 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <1589768242-4594-1-git-send-email-jee.heng.sia@intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: liam.r.girdwood@linux.intel.com, broonie@kernel.org, tiwai@suse.com
+ by mail.kernel.org (Postfix) with ESMTPSA id C254720758;
+ Mon, 18 May 2020 16:41:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1589820061;
+ bh=1mORd+n7+hjWf6dF3uFh+kuCN5qO/5gF28hOZXdPev4=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=PLjQYaj4MViTn37+76iGdU40xkyJk1/SYPFw4+6dY/7V8Bt3C/U71wT9JTVk41hKj
+ xSW3uB2LQMi82GfX8JYYHIktkXifXD/GEAGpPcsDOtyuDOLFP/fVt9Htwmrsjkx0si
+ Pd8J5UG/+7+OmsSXVIlMhfgy1EgmVU76qawvc8yg=
+Date: Mon, 18 May 2020 17:40:58 +0100
+From: Mark Brown <broonie@kernel.org>
+To: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
+In-Reply-To: <20200515135958.17511-1-kai.vehmanen@linux.intel.com>
+References: <20200515135958.17511-1-kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH 0/8] ASoC: SOF: Intel and IMX updates for 5.8
+Message-Id: <158982005876.28736.6270537965994775713.b4-ty@kernel.org>
+Cc: daniel.baluta@nxp.com, ranjani.sridharan@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,54 +76,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 5/17/20 9:17 PM, Sia Jee Heng wrote:
-> The below series of patches support the KeemBay ASoC driver.
-> It enabled the tlv320aic3204 machine driver and the platform driver initialize
-> the i2s to capture and playback the pcm data on the ARM. The i2s is running
-> in polling mode.
+On Fri, 15 May 2020 16:59:50 +0300, Kai Vehmanen wrote:
+> here's a series of minor fixes and improvements to SOF. Add support
+> for smart amplifier component type. Cover more systems by relaxing
+> match rules for the generic Soundwire machine driver. Fix issues with
+> driver unload and address a few compiler warnings.
 > 
-> There is no DSP in the KeemBay SoC. Users are rely on the Gstreamer plugin
-> to perform some Audio preprocessing.
-
-This patch series matches what was reviewed internally at Intel by Andy 
-Shevchenko, Cezary and I, so for patches 1..3:
-
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
-Note that my review is mostly high-level, I don't personally have any 
-knowledge or detailed information on this IP and architecture.
-
+> Daniel Baluta (2):
+>   ASoC: SOF: Do nothing when DSP PM callbacks are not set
+>   ASoC: SOF: define INFO_ flags in dsp_ops
 > 
-> Change History:
-> v2:
-> - Corrected I2S naming for DT binding.
->    
-> v1:
-> - Initial version.
-> 
-> Sia Jee Heng (4):
->    ASoC: Intel: Add KeemBay platform driver
->    ASoC: Intel: Boards: Add KeemBay machine driver
->    ASoC: Intel: Add makefiles and kconfig changes for KeemBay
->    dt-bindings: sound: Add documentation for KeemBay sound card and i2s
-> 
->   .../bindings/sound/intel,keembay-i2s.yaml          |  57 ++
->   .../bindings/sound/intel,keembay-sound-card.yaml   |  30 +
->   sound/soc/intel/Kconfig                            |   7 +
->   sound/soc/intel/Makefile                           |   1 +
->   sound/soc/intel/boards/Kconfig                     |  15 +
->   sound/soc/intel/boards/Makefile                    |   4 +
->   sound/soc/intel/boards/kmb_tlv3204.c               | 144 ++++
->   sound/soc/intel/keembay/Makefile                   |   4 +
->   sound/soc/intel/keembay/kmb_platform.c             | 746 +++++++++++++++++++++
->   sound/soc/intel/keembay/kmb_platform.h             | 145 ++++
->   10 files changed, 1153 insertions(+)
->   create mode 100644 Documentation/devicetree/bindings/sound/intel,keembay-i2s.yaml
->   create mode 100644 Documentation/devicetree/bindings/sound/intel,keembay-sound-card.yaml
->   create mode 100644 sound/soc/intel/boards/kmb_tlv3204.c
->   create mode 100644 sound/soc/intel/keembay/Makefile
->   create mode 100644 sound/soc/intel/keembay/kmb_platform.c
->   create mode 100644 sound/soc/intel/keembay/kmb_platform.h
-> 
+> [...]
+
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.8
+
+Thanks!
+
+[1/8] ASoC: SOF: Do nothing when DSP PM callbacks are not set
+      commit: c26fde3b15ed41f5f452f1da727795f787833287
+[2/8] ASoC: SOF: add a power_down_notify method
+      commit: 3541aef1b83fa3a13e9c4ecc0919156ff2ec9c22
+[3/8] ASoC: SOF: inform DSP that driver is going to be removed
+      commit: 9f369f7e4660d05b5318aa413db199a70dfb2c4f
+[4/8] ASoC: SOF: topology: add support to smart amplifier
+      commit: 82e8c00fa18a3ef0ad3087dcad1d82637a738e30
+[5/8] ASoC: SOF: Intel: sdw: relax sdw machine select constraints
+      commit: 7d1952bceb8a1a2372a1cb86ab109c6ec8772c5c
+[6/8] ASoC: SOF: define INFO_ flags in dsp_ops
+      commit: 5c2c3cb1ca7875a2685c8cc65f08a1238e00cedb
+[7/8] ASoC: SOF: imx: make dsp_ops static
+      commit: 35e7c09d1edd6c60bfa98070b657986500819fd6
+[8/8] ASoC: SOF: imx: make imx8m_dsp_ops static
+      commit: 99cb681e7b8eec917ddb34b76e303aa20b2d1c1a
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

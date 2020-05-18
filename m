@@ -2,73 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 000F91D743A
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 May 2020 11:41:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06CAB1D745E
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 May 2020 11:51:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 89E5F16CB;
-	Mon, 18 May 2020 11:40:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89E5F16CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7FDFD16CE;
+	Mon, 18 May 2020 11:50:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FDFD16CE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589794877;
-	bh=3CkG4isjVZAbr5KOOm7UHFCy5maIMe9iqihSuBd6/3U=;
-	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=DCOzeD/88CXPPa1NhKyJu+Orh1dFOmZ9NHOeFGa6BAgk0G5ckCSHnKLhTBHGROvdT
-	 sKxHDzSqEUqcst0yvU818BrHBe/lTie+Y8cZAKrqy3Ug8LhRtNdcZJHs9DuhZ0KqHy
-	 CSkBr9Nd9xn2Lci1itXoL1/R+DHC/EZY8YAPaZxw=
+	s=default; t=1589795491;
+	bh=th4/YmylM3TpoWfXXlSk+HbmJ5ijq7G/PoyxjWf7/cI=;
+	h=Subject:To:References:From:Date:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=YMTfYS6QxaodTEanAtkmfgGI8oQ5E2vZPiEILo2u+Wx5/NuBe6dwX0IkzdQY7RCbG
+	 EfB/obWc0cVjxdQrpmtW6alzetH9McswyMWTO4bvspwrrvrd90as6GcS7X9izZfbud
+	 MI0JzUK2pSMUR9bQPQe0Yuxw9go2srI86A0K1wkM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A906BF8015C;
-	Mon, 18 May 2020 11:39:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B71AAF801F9;
+	Mon, 18 May 2020 11:49:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94BDDF801DA; Mon, 18 May 2020 11:39:34 +0200 (CEST)
+ id C3886F801DA; Mon, 18 May 2020 11:49:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 18CBFF80086
- for <alsa-devel@alsa-project.org>; Mon, 18 May 2020 11:39:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18CBFF80086
-IronPort-SDR: 3ck/GjnIE+28RtOaLBJ4uJaj5RB5OxV6F15VSk2tKED7HPG2+qqR/aimamuaBRdlV+bNQSoG7I
- ytfDvYd7j3vw==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2020 02:39:21 -0700
-IronPort-SDR: ecaAiU+TlufokoGoDCKm2KOk9IoSuewertOzEKjx7Zqeezg4WYM0Mr3OdtQHtVvNUCkowPG54Z
- eySDQBaDa6Vg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,406,1583222400"; d="scan'208";a="342741058"
-Received: from penghaos-mobl.ccr.corp.intel.com (HELO [10.254.215.93])
- ([10.254.215.93])
- by orsmga001.jf.intel.com with ESMTP; 18 May 2020 02:39:18 -0700
-Subject: Re: [PATCH 2/2] ASoC: topology: remove the redundant pass checks
-From: Keyon Jie <yang.jie@linux.intel.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-References: <20200512182319.118995-1-yang.jie@linux.intel.com>
- <20200512182319.118995-2-yang.jie@linux.intel.com>
- <99807efc-000b-d94d-e972-19894d7c028f@linux.intel.com>
- <beb62a8f-6796-c7ff-6361-ea22b29ebd07@linux.intel.com>
-Message-ID: <d74321e7-7c2b-2856-db21-03ab5cfa0018@linux.intel.com>
-Date: Mon, 18 May 2020 17:40:08 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4E10F8015C
+ for <alsa-devel@alsa-project.org>; Mon, 18 May 2020 11:49:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4E10F8015C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="chu9Reaj"
+Received: by mail-wr1-x443.google.com with SMTP id s8so11031788wrt.9
+ for <alsa-devel@alsa-project.org>; Mon, 18 May 2020 02:49:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:content-language:content-transfer-encoding;
+ bh=ENajwhYLgh6sOiUIP9e6Xj0EhfOD2GHJT5X8M/vf8Bk=;
+ b=chu9ReajW6HqxpiFU5X/Xq7ycdbAJTYXqrXhd/98jAkFWbBicg3eCnxNwkS81jVo1d
+ 9qXWhcMySsBbOn0orMwWV6SbBNZclVKmJ5S22Avx1W8yBWJO9mB3RQYfp/P7zaKT44ht
+ PhyEImaP0Bc0xSGqE3OpaU0M1c34EndgWocJ7zSYMIQmKoTLIKET/bH1Td/X8hT/g9Jn
+ aoZfyWIDZgBc7ZIVrctUbu/HP4PjDd9l/aYVkmv6enQioY8Ms7J6TbY8n/cH8XnKGoEf
+ XO/VKcTbXghBNlFDxM+yYD4Y/i/sHc3sfjjx3kqTG973fFRXDcveox2xsDCoWD70wYfV
+ agUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:content-language:content-transfer-encoding;
+ bh=ENajwhYLgh6sOiUIP9e6Xj0EhfOD2GHJT5X8M/vf8Bk=;
+ b=eT2g6doSFb/MenqgW5CkEJXtaIyHJloS0bqlkOPDLDYhh4f1oMKoUksPKumQsnHPAj
+ qoY00o+IeIiiIlFYoc3etlKhekM2dwHVvh50w445aUTW3ji+8kKV62UJtpUiDq8neTIT
+ ZDYuYk5siDAdfbuGQoet/hxoBWZeNVZTEFOBkLnqLSYyPIAa4INdkg7bQYA43OrFMuGu
+ /aTK+PXsvwECgpSv3RrdXC2TaDynVuwykC7tBazamTtvIOtdJyBbaYEWugLDPdeDahRS
+ yVNUyL+xOmAzqRRasS0mmfFOynhzECvKSFNpI+Mi6MtQH6n8lB5lEu5gX7kJl7OYMNII
+ f9Yg==
+X-Gm-Message-State: AOAM533XwklXXwZ6M/Diz/uouELF5zah18Quz9uYYvkbRKWZg7Dwk1tY
+ RtX9xYOygRRX0Gpt4gDxIeGm5FiyRgw=
+X-Google-Smtp-Source: ABdhPJx2XKbq7KkL41aumny2mb2gN4FSdUPlh42S2nUjjgI6dDC3vnddICzIiSo0P7gUCnJZQXDTsA==
+X-Received: by 2002:a5d:4ed0:: with SMTP id s16mr20122647wrv.166.1589795377819; 
+ Mon, 18 May 2020 02:49:37 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.googlemail.com with ESMTPSA id f128sm16679392wme.1.2020.05.18.02.49.36
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 18 May 2020 02:49:37 -0700 (PDT)
+Subject: Re: [PATCH v2 4/7] ASoC: qcom: lpass: Use regmap_field for i2sctl and
+ dmactl registers
+To: Ajit Pandey <ajitp@codeaurora.org>, broonie@kernel.org,
+ plai@codeaurora.org, bgoswami@codeaurora.org
+References: =?UTF-8?Q?=3c=1c1586592171-31644-1-git-send-email-ajitp=40codeau?=
+ =?UTF-8?Q?rora=2eorg=1d=3e_=3c1589474298-29437-1-git-send-email-ajitp=40cod?=
+ =?UTF-8?Q?eaurora=2eorg=3e_=3c1589474298-29437-5-git-send-email-ajitp=40cod?=
+ =?UTF-8?Q?eaurora=2eorg=3e?=
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <a3527251-cafd-6d8f-3f96-0549b220af09@linaro.org>
+Date: Mon, 18 May 2020 10:49:36 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <beb62a8f-6796-c7ff-6361-ea22b29ebd07@linux.intel.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Cezary Rojewski <cezary.rojewski@intel.com>,
- broonie@kernel.org
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,183 +109,111 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 5/13/20 10:36 AM, Keyon Jie wrote:
+On 14/05/2020 17:38, Ajit Pandey wrote:
+> I2SCTL and DMACTL registers has different bits alignment for newer
+> LPASS variants of SC7180 soc. Instead of adding extra overhead for
+> calculating masks and shifts for newer variants registers layout we
+> changed the approach to use regmap_field_write() API to update bit.
+> Such API's will internally do the required bit shift and mask based
+> on reg_field struct defined for bit fields. We'll define REG_FIELD()
+> macros with bit layout for both lpass variants and use such macros
+> to initialize register fields in variant specific driver callbacks.
+> Also added new bitfieds values for I2SCTL and DMACTL registers and
+> removed shifts and mask macros for such registers from header file.
 > 
+> Signed-off-by: Ajit Pandey <ajitp@codeaurora.org>
+> ---
+>   sound/soc/qcom/lpass-apq8016.c   |  61 ++++++++++++
+>   sound/soc/qcom/lpass-cpu.c       | 114 +++++++++++++---------
+>   sound/soc/qcom/lpass-lpaif-reg.h | 203 ++++++++++++++++++++++++---------------
+>   sound/soc/qcom/lpass-platform.c  |  86 +++++++++++------
+>   sound/soc/qcom/lpass.h           |  30 ++++++
+>   5 files changed, 340 insertions(+), 154 deletions(-)
 > 
-> On 5/13/20 3:40 AM, Pierre-Louis Bossart wrote:
->>
->>
->> On 5/12/20 1:23 PM, Keyon Jie wrote:
->>> As we have check the 'pass' in the soc_elem_pass_load(), so no need to
->>> check it again in each specific elem_load function, at the same time,
->>> the tplg->pos will be reset to the next header base when the pass is
->>> mismatched, so the increasing of the tplg->pos in these cases made no
->>> sense. Here remove all of them.
->>
->> Sorry Keyon, I am not comfortable with the changes. This started as a 
->> removal of a debug log and we ended-up changing the execution flow in 
->> one of the more complex parts of the ASoC framework.
->> I spent 30mn looking at the code and I don't have a feeling all corner 
->> cases are covered. The bar for core changes is higher, it'd help to 
->> have additional explanations or evidence that your proposal was tested 
->> extensively. You may be right but we should be careful with topology 
->> changes.
-> 
-> Maybe I should send these 2 patches separately, this 2nd one is actually 
-> fix for a long existed issue and it is exposed to me when writing the 
-> 1st commit:
-> 1. the check of "if (tplg->pass != SOC_TPLG_PASS_xxx" was good and it 
-> acted as the correct filter of the pass, but
-> 2. the increment "tplg->pos += le32_to_cpu(hdr->size) + 
-> le32_to_cpu(hdr->payload_size);" was actually wrong when it the pass is 
-> unmatched in #1, it should be "tplg->pos += 
-> le32_to_cpu(hdr->payload_size);" as the "hdr->size" was already 
-> calculated in the upper layer in soc_tplg_load_header():
-> "tplg->pos = tplg->hdr_pos + sizeof(struct snd_soc_tplg_hdr);".
-> 3. the exited mistake described in #2 didn't triggered any real problems 
-> as the "tplg->pos" will be reset to new value in soc_tplg_load_header() 
-> when the next header comes, so increasing the "tplg->pos" here at the 
-> end of the current header check actually make no sense, we can just 
-> remove them.
-> 
-> The code changes here might make you nervous but the logic here is not 
-> that complicated, if you rule out the issue I mentioned above in #2 and 
-> #3, the remained changes here is only removing the checks "if 
-> (tplg->pass != SOC_TPLG_PASS_xxx" as they are already covered by the 1st 
-> commit.
-> 
-> I have tested these changes with 3 typical SOF topology files (nocodec, 
-> tgl i2s + dsm, hda-generic) and it works all fine there and the correct 
-> header information are logged with the changes, agree we should test 
-> more extensively and widely, so tests on SST driver are very welcomed.
 
-+ Cezary from the SST driver side.
+Thanks for moving this to regmap fields, looks clean!
+However this patch just removed support to lpass-ipq806x.c variant, 
+which should to be taken care of while doing patches that apply to all 
+variants.
 
-Hi Cezary, can you help to check this from the SST driver side?
 
-Thanks,
-~Keyon
+> diff --git a/sound/soc/qcom/lpass-apq8016.c b/sound/soc/qcom/lpass-apq8016.c
+> index 8210e37..3149645 100644
+> --- a/sound/soc/qcom/lpass-apq8016.c
+> +++ b/sound/soc/qcom/lpass-apq8016.c
+> @@ -124,6 +124,32 @@
+>   	},
+>   };
+>   
+> +static int apq8016_init_dmactl_bitfields(struct lpaif_dmactl *dmactl,
+> +					 struct regmap *map,
+> +					 unsigned int reg)
+> +{
+> +	struct reg_field bursten = DMACTL_BURSTEN_FLD(reg);
+> +	struct reg_field wpscnt = DMACTL_WPSCNT_FLD(reg);
+> +	struct reg_field fifowm = DMACTL_FIFOWM_FLD(reg);
+> +	struct reg_field intf = DMACTL_AUDINTF_FLD(reg);
+> +	struct reg_field enable = DMACTL_ENABLE_FLD(reg);
+> +	struct reg_field dyncclk = DMACTL_DYNCLK_FLD(reg);
+> +
+> +	dmactl->bursten = regmap_field_alloc(map, bursten);
+> +	dmactl->wpscnt = regmap_field_alloc(map, wpscnt);
+> +	dmactl->fifowm = regmap_field_alloc(map, fifowm);
+> +	dmactl->intf = regmap_field_alloc(map, intf);
+> +	dmactl->enable = regmap_field_alloc(map, enable);
+> +	dmactl->dyncclk = regmap_field_alloc(map, dyncclk);
+
+My idea was to move this all regmap fields to variant structure and 
+common code will do the regmap_filed_alloc rather than each variant 
+duplicating the same code for each variant, also am guessing some of the 
+members in the lpass_variant structure tp become redundant due to regmap 
+field which can be removed as well.
+
+ex :
+
+struct lpass_variant {
+	...
+	struct reg_field bursten
+	...
+};
+
+in lpass-apq8016.c
+
+we do
+static struct lpass_variant apq8016_data = {
+
+	.bursten = REG_FIELD(reg, 11, 11),
+	...
+}
+
+in lpass-cpu.c we can do the real regmap_field_alloc	
+asoc_qcom_lpass_cpu_platform_probe
+
+
+
+> +
+> +	if (IS_ERR(dmactl->bursten) || IS_ERR(dmactl->wpscnt) ||
+> +	    IS_ERR(dmactl->fifowm) || IS_ERR(dmactl->intf) ||
+> +	    IS_ERR(dmactl->enable) || IS_ERR(dmactl->dyncclk))
+> +		return -EINVAL;
+> +
+> +	return 0;
+> +}
+> +
+>   static int apq8016_lpass_alloc_dma_channel(struct lpass_data *drvdata,
+>   					   int direction)
+>   {
+> @@ -158,6 +184,39 @@ static int apq8016_lpass_free_dma_channel(struct lpass_data *drvdata, int chan)
+>   	return 0;
+>   }
+>   
+> +static int sc7180_init_i2sctl_bitfields(struct lpaif_i2sctl *i2sctl,
+> +					struct regmap *map, unsigned int reg)
+> +{
+Should this be apq8016_init_i2sctl_bitfields
+
+Please make sure that you compile the code before sending it out!
+
+--srini
 
 > 
-> So in short, I did these changes together since I am already here, but 
-> if you and Mark preferred, I can split out the fix for the "tplg->pos" 
-> increment and send it ahead.
-> 
-> Thanks,
-> ~Keyon
-> 
->>
->>>
->>> Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
->>> ---
->>>   sound/soc/soc-topology.c | 46 ++--------------------------------------
->>>   1 file changed, 2 insertions(+), 44 deletions(-)
->>>
->>> diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
->>> index b3dae319c108..682ffaa85e9e 100644
->>> --- a/sound/soc/soc-topology.c
->>> +++ b/sound/soc/soc-topology.c
->>> @@ -246,8 +246,8 @@ static inline void soc_control_err(struct 
->>> soc_tplg *tplg,
->>>   }
->>>   /* pass vendor data to component driver for processing */
->>> -static int soc_tplg_vendor_load_(struct soc_tplg *tplg,
->>> -    struct snd_soc_tplg_hdr *hdr)
->>> +static int soc_tplg_vendor_load(struct soc_tplg *tplg,
->>> +                struct snd_soc_tplg_hdr *hdr)
->>>   {
->>>       int ret = 0;
->>> @@ -268,16 +268,6 @@ static int soc_tplg_vendor_load_(struct soc_tplg 
->>> *tplg,
->>>       return ret;
->>>   }
->>> -/* pass vendor data to component driver for processing */
->>> -static int soc_tplg_vendor_load(struct soc_tplg *tplg,
->>> -    struct snd_soc_tplg_hdr *hdr)
->>> -{
->>> -    if (tplg->pass != SOC_TPLG_PASS_VENDOR)
->>> -        return 0;
->>> -
->>> -    return soc_tplg_vendor_load_(tplg, hdr);
->>> -}
->>> -
->>>   /* optionally pass new dynamic widget to component driver. This is 
->>> mainly for
->>>    * external widgets where we can assign private data/ops */
->>>   static int soc_tplg_widget_load(struct soc_tplg *tplg,
->>> @@ -1127,12 +1117,6 @@ static int soc_tplg_kcontrol_elems_load(struct 
->>> soc_tplg *tplg,
->>>       int ret;
->>>       int i;
->>> -    if (tplg->pass != SOC_TPLG_PASS_MIXER) {
->>> -        tplg->pos += le32_to_cpu(hdr->size) +
->>> -            le32_to_cpu(hdr->payload_size);
->>> -        return 0;
->>> -    }
->>> -
->>>       dev_dbg(tplg->dev, "ASoC: adding %d kcontrols at 0x%lx\n", 
->>> hdr->count,
->>>           soc_tplg_get_offset(tplg));
->>> @@ -1204,14 +1188,6 @@ static int 
->>> soc_tplg_dapm_graph_elems_load(struct soc_tplg *tplg,
->>>       count = le32_to_cpu(hdr->count);
->>> -    if (tplg->pass != SOC_TPLG_PASS_GRAPH) {
->>> -        tplg->pos +=
->>> -            le32_to_cpu(hdr->size) +
->>> -            le32_to_cpu(hdr->payload_size);
->>> -
->>> -        return 0;
->>> -    }
->>> -
->>>       if (soc_tplg_check_elem_count(tplg,
->>>           sizeof(struct snd_soc_tplg_dapm_graph_elem),
->>>           count, le32_to_cpu(hdr->payload_size), "graph")) {
->>> @@ -1741,9 +1717,6 @@ static int 
->>> soc_tplg_dapm_widget_elems_load(struct soc_tplg *tplg,
->>>       count = le32_to_cpu(hdr->count);
->>> -    if (tplg->pass != SOC_TPLG_PASS_WIDGET)
->>> -        return 0;
->>> -
->>>       dev_dbg(tplg->dev, "ASoC: adding %d DAPM widgets\n", count);
->>>       for (i = 0; i < count; i++) {
->>> @@ -2101,9 +2074,6 @@ static int soc_tplg_pcm_elems_load(struct 
->>> soc_tplg *tplg,
->>>       count = le32_to_cpu(hdr->count);
->>> -    if (tplg->pass != SOC_TPLG_PASS_PCM_DAI)
->>> -        return 0;
->>> -
->>>       /* check the element size and count */
->>>       pcm = (struct snd_soc_tplg_pcm *)tplg->pos;
->>>       size = le32_to_cpu(pcm->size);
->>> @@ -2386,12 +2356,6 @@ static int soc_tplg_link_elems_load(struct 
->>> soc_tplg *tplg,
->>>       count = le32_to_cpu(hdr->count);
->>> -    if (tplg->pass != SOC_TPLG_PASS_LINK) {
->>> -        tplg->pos += le32_to_cpu(hdr->size) +
->>> -            le32_to_cpu(hdr->payload_size);
->>> -        return 0;
->>> -    }
->>> -
->>>       /* check the element size and count */
->>>       link = (struct snd_soc_tplg_link_config *)tplg->pos;
->>>       size = le32_to_cpu(link->size);
->>> @@ -2528,9 +2492,6 @@ static int soc_tplg_dai_elems_load(struct 
->>> soc_tplg *tplg,
->>>       count = le32_to_cpu(hdr->count);
->>> -    if (tplg->pass != SOC_TPLG_PASS_BE_DAI)
->>> -        return 0;
->>> -
->>>       /* config the existing BE DAIs */
->>>       for (i = 0; i < count; i++) {
->>>           dai = (struct snd_soc_tplg_dai *)tplg->pos;
->>> @@ -2610,9 +2571,6 @@ static int soc_tplg_manifest_load(struct 
->>> soc_tplg *tplg,
->>>       bool abi_match;
->>>       int ret = 0;
->>> -    if (tplg->pass != SOC_TPLG_PASS_MANIFEST)
->>> -        return 0;
->>> -
->>>       manifest = (struct snd_soc_tplg_manifest *)tplg->pos;
->>>       /* check ABI version by size, create a new manifest if abi not 
->>> match */
->>>

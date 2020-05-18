@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEC561D6EE6
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 May 2020 04:32:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 034251D6EF6
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 May 2020 04:34:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B5221696;
-	Mon, 18 May 2020 04:32:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B5221696
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC83E16AB;
+	Mon, 18 May 2020 04:33:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC83E16AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589769175;
-	bh=Ojb5OZTn5Gr964vyDtvqMzIpwjx6CBl0hzIKtklUhmE=;
+	s=default; t=1589769278;
+	bh=OCnoVpjZuzeyPykHwK9AlEwcRpV7E9uMuT6f2cxq7+4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cEavk3haY2piY1nvp4XZS8BTETqCDQ8GofgkVua6X0hoc0OqSMeciWTdq9lFtVk2I
-	 RjLpFqfTgzDUNk9P/tMN6DGdVC7LzO/+dZIS+zlBI469hFtctX4NSGIlTWzH6EwUlY
-	 UJaqaZGUGKXqN8eUPzcGIGSh+M5Erbhy8nMwzSBE=
+	b=RRJ6KVzAdMW66KM+Hyo40jVUanTdx7YekbWdJ1uk5P2jFOU2iuLiTw5JvGEeWnhfY
+	 aZUyT+YZnUiKaGarpSq6rE16LBeH1i0Ut7DJ7c201NenNpCws3y+0qQY7Ye3v9CyY0
+	 9nOC7cK+LJRgtnqC9vY3X8zXTnoHn1GlFx1SD6U0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 594C9F8028E;
-	Mon, 18 May 2020 04:30:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1842FF802BD;
+	Mon, 18 May 2020 04:30:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9AD4BF801D8; Mon, 18 May 2020 04:30:25 +0200 (CEST)
+ id DCFEDF8029A; Mon, 18 May 2020 04:30:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,28 +34,28 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 013CDF801D8
- for <alsa-devel@alsa-project.org>; Mon, 18 May 2020 04:30:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 013CDF801D8
-IronPort-SDR: BZkRE7vROteFlKidO4CTsFx59aqwgh9xkHLpCX6GIIsad17bFiV3hFCN9oWfy3XGGaIDQ/rytP
- Y133+pm16tiw==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1E4A8F801F9
+ for <alsa-devel@alsa-project.org>; Mon, 18 May 2020 04:30:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E4A8F801F9
+IronPort-SDR: +H3bJS5STBvDb3D21mmgKujyu3qkJvhcDAFDGlVbHvmOReYzogxmclwsh9HMfpb0wjV936Qi8/
+ sTRiTt+UpJxQ==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 May 2020 19:30:12 -0700
-IronPort-SDR: ED+kHOMpe+Jnk9X8aM7qsLTtd/EP34XbwqklXoDjRVQPY+f5YCiVlMDU3UskJAgJw3biluKqCF
- KndGwAcPN3kg==
+ 17 May 2020 19:30:14 -0700
+IronPort-SDR: LSR6v/7S7NQt2Un6EZNjsJNa2kXG+2ALNqBkciF93i7C5Nl98u+Y//rZAC3Oy76A9oNrXIgYJI
+ eDJahwe3jeNQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,405,1583222400"; d="scan'208";a="307972076"
+X-IronPort-AV: E=Sophos;i="5.73,405,1583222400"; d="scan'208";a="307972089"
 Received: from unknown (HELO jsia-HP-Z620-Workstation.png.intel.com)
  ([10.221.118.135])
- by FMSMGA003.fm.intel.com with ESMTP; 17 May 2020 19:30:10 -0700
+ by FMSMGA003.fm.intel.com with ESMTP; 17 May 2020 19:30:13 -0700
 From: Sia Jee Heng <jee.heng.sia@intel.com>
 To: <alsa-devel@alsa-project.org>
-Subject: [PATCH v2 1/4] ASoC: Intel: Add KeemBay platform driver
-Date: Mon, 18 May 2020 10:17:19 +0800
-Message-Id: <1589768242-4594-2-git-send-email-jee.heng.sia@intel.com>
+Subject: [PATCH v2 2/4] ASoC: Intel: Boards: Add KeemBay machine driver
+Date: Mon, 18 May 2020 10:17:20 +0800
+Message-Id: <1589768242-4594-3-git-send-email-jee.heng.sia@intel.com>
 X-Mailer: git-send-email 1.9.1
 In-Reply-To: <1589768242-4594-1-git-send-email-jee.heng.sia@intel.com>
 References: <1589768242-4594-1-git-send-email-jee.heng.sia@intel.com>
@@ -76,934 +76,166 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add KeemBay ASoC platform driver which initialize the i2s controller
-and uses i2s to capture and transmit pcm data to external codec.
-The i2s is running in polling mode.
+Add KeemBay machine driver which glues the tlv320aic3204 codec driver
+and kmb_platform driver to form the asoc sound driver.
 
 Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
 Signed-off-by: Sia Jee Heng <jee.heng.sia@intel.com>
 ---
- sound/soc/intel/keembay/Makefile       |   4 +
- sound/soc/intel/keembay/kmb_platform.c | 746 +++++++++++++++++++++++++++++++++
- sound/soc/intel/keembay/kmb_platform.h | 145 +++++++
- 3 files changed, 895 insertions(+)
- create mode 100644 sound/soc/intel/keembay/Makefile
- create mode 100644 sound/soc/intel/keembay/kmb_platform.c
- create mode 100644 sound/soc/intel/keembay/kmb_platform.h
+ sound/soc/intel/boards/kmb_tlv3204.c | 144 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 144 insertions(+)
+ create mode 100644 sound/soc/intel/boards/kmb_tlv3204.c
 
-diff --git a/sound/soc/intel/keembay/Makefile b/sound/soc/intel/keembay/Makefile
+diff --git a/sound/soc/intel/boards/kmb_tlv3204.c b/sound/soc/intel/boards/kmb_tlv3204.c
 new file mode 100644
-index 0000000..9084e8c
+index 0000000..813c291
 --- /dev/null
-+++ b/sound/soc/intel/keembay/Makefile
-@@ -0,0 +1,4 @@
-+snd-soc-kmb_platform-objs := \
-+	        kmb_platform.o
-+
-+obj-$(CONFIG_SND_SOC_INTEL_KEEMBAY) += snd-soc-kmb_platform.o
-diff --git a/sound/soc/intel/keembay/kmb_platform.c b/sound/soc/intel/keembay/kmb_platform.c
-new file mode 100644
-index 0000000..49a5b0d
---- /dev/null
-+++ b/sound/soc/intel/keembay/kmb_platform.c
-@@ -0,0 +1,746 @@
++++ b/sound/soc/intel/boards/kmb_tlv3204.c
+@@ -0,0 +1,144 @@
 +// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ *  Intel KeemBay Platform driver
++/*  KeemBay ASOC Machine driver
 + *
 + *  Copyright (C) 2020 Intel Corporation.
 + *
 + */
 +
-+#include <linux/clk.h>
-+#include <linux/io.h>
 +#include <linux/module.h>
-+#include <sound/pcm.h>
-+#include <sound/pcm_params.h>
++#include <sound/dmaengine_pcm.h>
 +#include <sound/soc.h>
-+#include "kmb_platform.h"
++#include "../../codecs/tlv320aic32x4.h"
 +
-+#define PERIODS_MIN		2
-+#define PERIODS_MAX		48
-+#define PERIOD_BYTES_MIN	4096
-+#define BUFFER_BYTES_MAX	(PERIODS_MAX * PERIOD_BYTES_MIN)
-+#define TDM_OPERATION		1
-+#define I2S_OPERATION		0
-+#define DATA_WIDTH_CONFIG_BIT	6
-+#define TDM_CHANNEL_CONFIG_BIT	3
-+#define I2S_SAMPLE_RATES	(SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_48000)
-+
-+/* Array subscript */
-+#define I2S_MASTER_MODE		0
-+#define I2S_SLAVE_MODE		1
-+
-+static const char * const i2s_mode_name[] = {"master", "slave"};
-+
-+/* Maximum bit resolution of a channel - not uniformly spaced */
-+static const u32 fifo_width[COMP_MAX_WORDSIZE] = {12, 16, 20, 24, 32,};
-+
-+/* PCM format to support channel resolution */
-+static const u32 formats[COMP_MAX_WORDSIZE] = {
-+	SNDRV_PCM_FMTBIT_S16_LE,
-+	SNDRV_PCM_FMTBIT_S16_LE,
-+	SNDRV_PCM_FMTBIT_S24_LE,
-+	SNDRV_PCM_FMTBIT_S24_LE,
-+	SNDRV_PCM_FMTBIT_S32_LE,
++static unsigned int channels[] = {
++	2,
 +};
 +
-+static const struct snd_pcm_hardware kmb_pcm_hardware = {
-+	.info = SNDRV_PCM_INFO_INTERLEAVED |
-+		SNDRV_PCM_INFO_MMAP |
-+		SNDRV_PCM_INFO_MMAP_VALID |
-+		SNDRV_PCM_INFO_BATCH |
-+		SNDRV_PCM_INFO_BLOCK_TRANSFER,
-+	.rates = I2S_SAMPLE_RATES,
-+	.rate_min = 16000,
-+	.rate_max = 48000,
-+	.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+		   SNDRV_PCM_FMTBIT_S24_LE |
-+		   SNDRV_PCM_FMTBIT_S32_LE,
-+	.channels_min = 2,
-+	.channels_max = 2,
-+	.buffer_bytes_max = BUFFER_BYTES_MAX,
-+	.period_bytes_min = PERIOD_BYTES_MIN,
-+	.period_bytes_max = BUFFER_BYTES_MAX / PERIODS_MIN,
-+	.periods_min = PERIODS_MIN,
-+	.periods_max = PERIODS_MAX,
-+	.fifo_size = 16,
++static struct snd_pcm_hw_constraint_list constraints_ch = {
++	.count	= ARRAY_SIZE(channels),
++	.list	= channels,
 +};
 +
-+static unsigned int pcm_tx_fn(struct kmb_i2s_info *dev,
-+			      struct snd_pcm_runtime *runtime,
-+			      unsigned int tx_ptr, bool *period_elapsed)
++static unsigned int rates[] = {
++	16000,
++	48000,
++};
++
++static struct snd_pcm_hw_constraint_list constraints_rates = {
++	.count	= ARRAY_SIZE(rates),
++	.list	= rates,
++};
++
++static int kmb_mach_hw_params(struct snd_pcm_substream *substream,
++			      struct snd_pcm_hw_params *params)
 +{
-+	unsigned int period_pos = tx_ptr % runtime->period_size;
-+	u16(*p16)[2];
-+	u32(*p32)[2];
-+	int i;
-+
-+	if (dev->config.data_width == 16)
-+		p16 = (void *)runtime->dma_area;
-+	else
-+		p32 = (void *)runtime->dma_area;
-+	/* KMB i2s uses two separate L/R FIFO */
-+	for (i = 0; i < dev->fifo_th; i++) {
-+		if (dev->config.data_width == 16) {
-+			writel(p16[tx_ptr][0], dev->i2s_base + LRBR_LTHR(0));
-+			writel(p16[tx_ptr][1], dev->i2s_base + RRBR_RTHR(0));
-+		} else {
-+			writel(p32[tx_ptr][0], dev->i2s_base + LRBR_LTHR(0));
-+			writel(p32[tx_ptr][1], dev->i2s_base + RRBR_RTHR(0));
-+		}
-+
-+		period_pos++;
-+
-+		if (++tx_ptr >= runtime->buffer_size)
-+			tx_ptr = 0;
-+	}
-+
-+	*period_elapsed = period_pos >= runtime->period_size;
-+
-+	return tx_ptr;
-+}
-+
-+static unsigned int pcm_rx_fn(struct kmb_i2s_info *dev,
-+			      struct snd_pcm_runtime *runtime,
-+			      unsigned int rx_ptr, bool *period_elapsed)
-+{
-+	unsigned int period_pos = rx_ptr % runtime->period_size;
-+	u16(*p16)[2];
-+	u32(*p32)[2];
-+	int i;
-+
-+	if (dev->config.data_width == 16)
-+		p16 = (void *)runtime->dma_area;
-+	else
-+		p32 = (void *)runtime->dma_area;
-+	/* KMB i2s uses two separate L/R FIFO */
-+	for (i = 0; i < dev->fifo_th; i++) {
-+		if (dev->config.data_width == 16) {
-+			p16[rx_ptr][0] = readl(dev->i2s_base + LRBR_LTHR(0));
-+			p16[rx_ptr][1] = readl(dev->i2s_base + RRBR_RTHR(0));
-+		} else {
-+			p32[rx_ptr][0] = readl(dev->i2s_base + LRBR_LTHR(0));
-+			p32[rx_ptr][1] = readl(dev->i2s_base + RRBR_RTHR(0));
-+		}
-+
-+		period_pos++;
-+
-+		if (++rx_ptr >= runtime->buffer_size)
-+			rx_ptr = 0;
-+	}
-+
-+	*period_elapsed = period_pos >= runtime->period_size;
-+
-+	return rx_ptr;
-+}
-+
-+static inline void i2s_disable_channels(struct kmb_i2s_info *kmb_i2s,
-+					u32 stream)
-+{
-+	struct i2s_clk_config_data *config = &kmb_i2s->config;
-+	u32 i;
-+
-+	if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+		for (i = 0; i < config->chan_nr / 2; i++)
-+			writel(0, kmb_i2s->i2s_base + TER(i));
-+	} else {
-+		for (i = 0; i < config->chan_nr / 2; i++)
-+			writel(0, kmb_i2s->i2s_base + RER(i));
-+	}
-+}
-+
-+static inline void i2s_clear_irqs(struct kmb_i2s_info *kmb_i2s, u32 stream)
-+{
-+	struct i2s_clk_config_data *config = &kmb_i2s->config;
-+	u32 i;
-+
-+	if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+		for (i = 0; i < config->chan_nr / 2; i++)
-+			readl(kmb_i2s->i2s_base + TOR(i));
-+	} else {
-+		for (i = 0; i < config->chan_nr / 2; i++)
-+			readl(kmb_i2s->i2s_base + ROR(i));
-+	}
-+}
-+
-+static inline void i2s_irq_trigger(struct kmb_i2s_info *kmb_i2s, u32 stream,
-+				   int chan_nr, bool trigger)
-+{
-+	u32 i, irq;
-+	u32 flag;
-+
-+	if (stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		flag = TX_INT_FLAG;
-+	else
-+		flag = RX_INT_FLAG;
-+
-+	for (i = 0; i < chan_nr / 2; i++) {
-+		irq = readl(kmb_i2s->i2s_base + IMR(i));
-+		irq = trigger ? irq & ~flag : irq | flag;
-+		writel(irq, kmb_i2s->i2s_base + IMR(i));
-+	}
-+}
-+
-+static void pcm_operation(struct kmb_i2s_info *kmb_i2s, bool playback)
-+{
-+	struct snd_pcm_substream *substream;
-+	bool active, period_elapsed;
-+
-+	if (playback)
-+		substream = kmb_i2s->tx_substream;
-+	else
-+		substream = kmb_i2s->rx_substream;
-+
-+	active = substream && snd_pcm_running(substream);
-+
-+	if (active) {
-+		unsigned int ptr;
-+		unsigned int new_ptr;
-+
-+		if (playback) {
-+			ptr = kmb_i2s->tx_ptr;
-+			new_ptr = pcm_tx_fn(kmb_i2s, substream->runtime,
-+					    ptr, &period_elapsed);
-+			cmpxchg(&kmb_i2s->tx_ptr, ptr, new_ptr);
-+		} else {
-+			ptr = kmb_i2s->rx_ptr;
-+			new_ptr = pcm_rx_fn(kmb_i2s, substream->runtime,
-+					    ptr, &period_elapsed);
-+			cmpxchg(&kmb_i2s->rx_ptr, ptr, new_ptr);
-+		}
-+
-+		if (period_elapsed)
-+			snd_pcm_period_elapsed(substream);
-+	}
-+}
-+
-+static int kmb_pcm_open(struct snd_soc_component *component,
-+			struct snd_pcm_substream *substream)
-+{
-+	struct snd_pcm_runtime *runtime = substream->runtime;
 +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct kmb_i2s_info *kmb_i2s;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
++	int ret;
++	unsigned int sysclk;
 +
-+	kmb_i2s = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
-+	snd_soc_set_runtime_hwparams(substream, &kmb_pcm_hardware);
-+	snd_pcm_hw_constraint_integer(runtime, SNDRV_PCM_HW_PARAM_PERIODS);
-+	runtime->private_data = kmb_i2s;
++	/* As per codec datasheet Sysclk = 256 * fs */
++	sysclk = 12288000;
 +
-+	return 0;
-+}
-+
-+static int kmb_pcm_trigger(struct snd_soc_component *component,
-+			   struct snd_pcm_substream *substream, int cmd)
-+{
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	struct kmb_i2s_info *kmb_i2s = runtime->private_data;
-+
-+	switch (cmd) {
-+	case SNDRV_PCM_TRIGGER_START:
-+		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+			kmb_i2s->tx_ptr = 0;
-+			kmb_i2s->tx_substream = substream;
-+		} else {
-+			kmb_i2s->rx_ptr = 0;
-+			kmb_i2s->rx_substream = substream;
-+		}
-+		break;
-+	case SNDRV_PCM_TRIGGER_STOP:
-+		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+			kmb_i2s->tx_substream = NULL;
-+		else
-+			kmb_i2s->rx_substream = NULL;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static irqreturn_t i2s_irq_handler(int irq, void *dev_id)
-+{
-+	struct kmb_i2s_info *kmb_i2s = dev_id;
-+	struct i2s_clk_config_data *config = &kmb_i2s->config;
-+	irqreturn_t ret = IRQ_NONE;
-+	u32 isr[4];
-+	int i;
-+
-+	for (i = 0; i < config->chan_nr / 2; i++)
-+		isr[i] = readl(kmb_i2s->i2s_base + ISR(i));
-+
-+	i2s_clear_irqs(kmb_i2s, SNDRV_PCM_STREAM_PLAYBACK);
-+	i2s_clear_irqs(kmb_i2s, SNDRV_PCM_STREAM_CAPTURE);
-+
-+	for (i = 0; i < config->chan_nr / 2; i++) {
-+		/*
-+		 * Check if TX fifo is empty. If empty fill FIFO with samples
-+		 */
-+		if ((isr[i] & ISR_TXFE)) {
-+			pcm_operation(kmb_i2s, true);
-+			ret = IRQ_HANDLED;
-+		}
-+		/*
-+		 * Data available. Retrieve samples from FIFO
-+		 */
-+		if ((isr[i] & ISR_RXDA)) {
-+			pcm_operation(kmb_i2s, false);
-+			ret = IRQ_HANDLED;
-+		}
-+		/* Error Handling: TX */
-+		if (isr[i] & ISR_TXFO) {
-+			dev_dbg(kmb_i2s->dev, "TX overrun (ch_id=%d)\n", i);
-+			ret = IRQ_HANDLED;
-+		}
-+		/* Error Handling: RX */
-+		if (isr[i] & ISR_RXFO) {
-+			dev_dbg(kmb_i2s->dev, "RX overrun (ch_id=%d)\n", i);
-+			ret = IRQ_HANDLED;
-+		}
-+	}
++	/* set the codec system clock */
++	ret = snd_soc_dai_set_sysclk(codec_dai, 1, sysclk, SND_SOC_CLOCK_IN);
++	if (ret < 0)
++		dev_err(rtd->dev, "snd_soc_dai_set_sysclk err = %d\n", ret);
 +
 +	return ret;
 +}
 +
-+static int kmb_platform_pcm_new(struct snd_soc_component *component,
-+				struct snd_soc_pcm_runtime *soc_runtime)
++static int kmb_mach_dai_link_startup(struct snd_pcm_substream *substream)
 +{
-+	size_t size = kmb_pcm_hardware.buffer_bytes_max;
-+	/* Use SNDRV_DMA_TYPE_CONTINUOUS as KMB doesn't use PCI sg buffer */
-+	snd_pcm_set_managed_buffer_all(soc_runtime->pcm,
-+				       SNDRV_DMA_TYPE_CONTINUOUS,
-+				       NULL, size, size);
++	struct snd_pcm_runtime *str_runtime;
++
++	str_runtime = substream->runtime;
++
++	snd_pcm_hw_constraint_list(str_runtime, 0,
++				   SNDRV_PCM_HW_PARAM_CHANNELS,
++				   &constraints_ch);
++
++	snd_pcm_hw_constraint_list(str_runtime, 0,
++				   SNDRV_PCM_HW_PARAM_RATE,
++				   &constraints_rates);
++
 +	return 0;
 +}
 +
-+static snd_pcm_uframes_t kmb_pcm_pointer(struct snd_soc_component *component,
-+					 struct snd_pcm_substream *substream)
-+{
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	struct kmb_i2s_info *kmb_i2s = runtime->private_data;
-+	snd_pcm_uframes_t pos;
-+
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		pos = kmb_i2s->tx_ptr;
-+	else
-+		pos = kmb_i2s->rx_ptr;
-+
-+	return pos < runtime->buffer_size ? pos : 0;
-+}
-+
-+static const struct snd_soc_component_driver kmb_component = {
-+	.name		= "kmb",
-+	.pcm_construct	= kmb_platform_pcm_new,
-+	.open		= kmb_pcm_open,
-+	.trigger	= kmb_pcm_trigger,
-+	.pointer	= kmb_pcm_pointer,
++static const struct snd_soc_ops kmb_mach_dai_link_ops = {
++	.startup = kmb_mach_dai_link_startup,
++	.hw_params = kmb_mach_hw_params,
 +};
 +
-+static void i2s_start(struct kmb_i2s_info *kmb_i2s,
-+		      struct snd_pcm_substream *substream)
-+{
-+	struct i2s_clk_config_data *config = &kmb_i2s->config;
-+
-+	/* I2S Programming sequence in Keem_Bay_VPU_DB_v1.1 */
-+	writel(1, kmb_i2s->i2s_base + IER);
-+
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		writel(1, kmb_i2s->i2s_base + ITER);
-+	else
-+		writel(1, kmb_i2s->i2s_base + IRER);
-+
-+	i2s_irq_trigger(kmb_i2s, substream->stream, config->chan_nr, true);
-+
-+	if (kmb_i2s->master)
-+		writel(1, kmb_i2s->i2s_base + CER);
-+	else
-+		writel(0, kmb_i2s->i2s_base + CER);
-+}
-+
-+static void i2s_stop(struct kmb_i2s_info *kmb_i2s,
-+		     struct snd_pcm_substream *substream)
-+{
-+	/* I2S Programming sequence in Keem_Bay_VPU_DB_v1.1 */
-+	i2s_clear_irqs(kmb_i2s, substream->stream);
-+
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		writel(0, kmb_i2s->i2s_base + ITER);
-+	else
-+		writel(0, kmb_i2s->i2s_base + IRER);
-+
-+	i2s_irq_trigger(kmb_i2s, substream->stream, 8, false);
-+
-+	if (!kmb_i2s->active) {
-+		writel(0, kmb_i2s->i2s_base + CER);
-+		writel(0, kmb_i2s->i2s_base + IER);
-+	}
-+}
-+
-+static int kmb_dai_trigger(struct snd_pcm_substream *substream,
-+			   int cmd, struct snd_soc_dai *cpu_dai)
-+{
-+	struct kmb_i2s_info *kmb_i2s  = snd_soc_dai_get_drvdata(cpu_dai);
-+
-+	switch (cmd) {
-+	case SNDRV_PCM_TRIGGER_START:
-+		/* Keep track of i2s activity before turn off
-+		 * the i2s interface
-+		 */
-+		kmb_i2s->active++;
-+		i2s_start(kmb_i2s, substream);
-+		break;
-+	case SNDRV_PCM_TRIGGER_STOP:
-+		kmb_i2s->active--;
-+		i2s_stop(kmb_i2s, substream);
-+		break;
-+	default:
-+		return  -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static void i2s_config(struct kmb_i2s_info *kmb_i2s, int stream)
-+{
-+	struct i2s_clk_config_data *config = &kmb_i2s->config;
-+	u32 ch_reg;
-+
-+	i2s_disable_channels(kmb_i2s, stream);
-+
-+	for (ch_reg = 0; ch_reg < config->chan_nr / 2; ch_reg++) {
-+		if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+			writel(kmb_i2s->xfer_resolution,
-+			       kmb_i2s->i2s_base + TCR(ch_reg));
-+
-+			writel(kmb_i2s->fifo_th - 1,
-+			       kmb_i2s->i2s_base + TFCR(ch_reg));
-+
-+			writel(1, kmb_i2s->i2s_base + TER(ch_reg));
-+		} else {
-+			writel(kmb_i2s->xfer_resolution,
-+			       kmb_i2s->i2s_base + RCR(ch_reg));
-+
-+			writel(kmb_i2s->fifo_th - 1,
-+			       kmb_i2s->i2s_base + RFCR(ch_reg));
-+
-+			writel(1, kmb_i2s->i2s_base + RER(ch_reg));
-+		}
-+	}
-+}
-+
-+static int kmb_dai_hw_params(struct snd_pcm_substream *substream,
-+			     struct snd_pcm_hw_params *hw_params,
-+			     struct snd_soc_dai *cpu_dai)
-+{
-+	struct kmb_i2s_info *kmb_i2s = snd_soc_dai_get_drvdata(cpu_dai);
-+	struct i2s_clk_config_data *config = &kmb_i2s->config;
-+	u32 register_val, write_val;
-+	int ret;
-+
-+	switch (params_format(hw_params)) {
-+	case SNDRV_PCM_FORMAT_S16_LE:
-+		config->data_width = 16;
-+		kmb_i2s->ccr = 0x00;
-+		kmb_i2s->xfer_resolution = 0x02;
-+		break;
-+	case SNDRV_PCM_FORMAT_S24_LE:
-+		config->data_width = 24;
-+		kmb_i2s->ccr = 0x08;
-+		kmb_i2s->xfer_resolution = 0x04;
-+		break;
-+	case SNDRV_PCM_FORMAT_S32_LE:
-+		config->data_width = 32;
-+		kmb_i2s->ccr = 0x10;
-+		kmb_i2s->xfer_resolution = 0x05;
-+		break;
-+	default:
-+		dev_err(kmb_i2s->dev, "kmb: unsupported PCM fmt");
-+		return -EINVAL;
-+	}
-+
-+	config->chan_nr = params_channels(hw_params);
-+
-+	switch (config->chan_nr) {
-+	/* TODO: This switch case will handle up to TDM8 in the near future */
-+	case TWO_CHANNEL_SUPPORT:
-+		write_val = ((config->chan_nr / 2) << TDM_CHANNEL_CONFIG_BIT) |
-+				(config->data_width << DATA_WIDTH_CONFIG_BIT) |
-+				MASTER_MODE | I2S_OPERATION;
-+
-+		writel(write_val, kmb_i2s->pss_base + I2S_GEN_CFG_0);
-+
-+		register_val = readl(kmb_i2s->pss_base + I2S_GEN_CFG_0);
-+		dev_dbg(kmb_i2s->dev, "pss register = 0x%X", register_val);
-+		break;
-+	default:
-+		dev_dbg(kmb_i2s->dev, "channel not supported\n");
-+		return -EINVAL;
-+	}
-+
-+	i2s_config(kmb_i2s, substream->stream);
-+
-+	writel(kmb_i2s->ccr, kmb_i2s->i2s_base + CCR);
-+
-+	config->sample_rate = params_rate(hw_params);
-+
-+	if (kmb_i2s->master) {
-+		/* Only 2 ch supported in Master mode */
-+		u32 bitclk = config->sample_rate * config->data_width * 2;
-+
-+		ret = clk_set_rate(kmb_i2s->clk_i2s, bitclk);
-+		if (ret) {
-+			dev_err(kmb_i2s->dev,
-+				"Can't set I2S clock rate: %d\n", ret);
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static int kmb_dai_prepare(struct snd_pcm_substream *substream,
-+			   struct snd_soc_dai *cpu_dai)
-+{
-+	struct kmb_i2s_info *kmb_i2s = snd_soc_dai_get_drvdata(cpu_dai);
-+
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		writel(1, kmb_i2s->i2s_base + TXFFR);
-+	else
-+		writel(1, kmb_i2s->i2s_base + RXFFR);
-+
-+	return 0;
-+}
-+
-+static struct snd_soc_dai_ops kmb_dai_ops = {
-+	.trigger	= kmb_dai_trigger,
-+	.hw_params	= kmb_dai_hw_params,
-+	.prepare	= kmb_dai_prepare,
++static const struct snd_soc_dapm_widget aic32x4_dapm_widgets[] = {
++	SND_SOC_DAPM_MIC("External Mic", NULL),
++	SND_SOC_DAPM_HP("Headphone", NULL),
 +};
 +
-+static struct snd_soc_dai_driver intel_kmb_platform_dai[] = {
++static const struct snd_soc_dapm_route aic32x4_dapm_routes[] = {
++	{"Headphone", NULL, "HPL"},
++	{"Headphone", NULL, "HPR"},
++	{"IN3_R", NULL, "External Mic"},
++	{"IN3_L", NULL, "External Mic"},
++};
++
++/* Linking platform to the codec-drivers  */
++SND_SOC_DAILINK_DEFS(link1,
++	DAILINK_COMP_ARRAY(COMP_CPU("20140000.i2s")),
++	DAILINK_COMP_ARRAY(COMP_CODEC("tlv320aic32x4.2-0018",
++					"tlv320aic32x4-hifi")),
++	DAILINK_COMP_ARRAY(COMP_PLATFORM("20140000.i2s")));
++
++/* kmb digital audio interface glue */
++static struct snd_soc_dai_link kmb_mach_dais[] = {
 +	{
-+		.name = "kmb-plat-dai",
-+		.playback = {
-+			.channels_min = 2,
-+			.channels_max = 2,
-+			.rates = I2S_SAMPLE_RATES,
-+			.rate_min = 16000,
-+			.rate_max = 48000,
-+			.formats = (SNDRV_PCM_FMTBIT_S32_LE |
-+				    SNDRV_PCM_FMTBIT_S24_LE |
-+				    SNDRV_PCM_FMTBIT_S16_LE),
-+		},
-+		.capture = {
-+			.channels_min = 2,
-+			.channels_max = 2,
-+			.rates = I2S_SAMPLE_RATES,
-+			.rate_min = 16000,
-+			.rate_max = 48000,
-+			.formats = (SNDRV_PCM_FMTBIT_S32_LE |
-+				    SNDRV_PCM_FMTBIT_S24_LE |
-+				    SNDRV_PCM_FMTBIT_S16_LE),
-+		},
-+		.ops = &kmb_dai_ops,
++		.name		= "tlv320aic32x4",
++		.stream_name	= "TLV320AIC32X4",
++		.ops = &kmb_mach_dai_link_ops,
++		.dai_fmt = SND_SOC_DAIFMT_I2S |
++				SND_SOC_DAIFMT_NB_NF |
++				SND_SOC_DAIFMT_CBS_CFS,
++		SND_SOC_DAILINK_REG(link1),
 +	},
 +};
 +
-+static int kmb_configure_dai(struct kmb_i2s_info *kmb_i2s,
-+			     struct snd_soc_dai_driver *kmb_i2s_dai,
-+			     unsigned int rates)
++/* kmb audio machine driver */
++static struct snd_soc_card kmb_mach = {
++	.name = "kmb_audio_card",
++	.dai_link = kmb_mach_dais,
++	.num_links = ARRAY_SIZE(kmb_mach_dais),
++	.dapm_routes = aic32x4_dapm_routes,
++	.num_dapm_routes = ARRAY_SIZE(aic32x4_dapm_routes),
++	.dapm_widgets = aic32x4_dapm_widgets,
++	.num_dapm_widgets =  ARRAY_SIZE(aic32x4_dapm_widgets),
++	.fully_routed = true,
++};
++
++static int kmb_mach_audio_probe(struct platform_device *pdev)
 +{
-+	/*
-+	 * Read component parameter registers to extract
-+	 * the I2S block's configuration.
-+	 */
-+	u32 comp1 = readl(kmb_i2s->i2s_base + kmb_i2s->i2s_reg_comp1);
-+	u32 comp2 = readl(kmb_i2s->i2s_base + kmb_i2s->i2s_reg_comp2);
-+	u32 fifo_depth = 1 << COMP1_FIFO_DEPTH(comp1);
-+	u32 idx;
++	kmb_mach.dev = &pdev->dev;
 +
-+	if (COMP1_TX_ENABLED(comp1)) {
-+		idx = COMP1_TX_WORDSIZE_0(comp1);
-+		kmb_i2s_dai->playback.channels_min = MIN_CHANNEL_NUM;
-+		kmb_i2s_dai->playback.channels_max =
-+				1 << COMP1_TX_CHANNELS(comp1);
-+		kmb_i2s_dai->playback.formats = formats[idx];
-+		kmb_i2s_dai->playback.rates = rates;
-+	}
-+
-+	if (COMP1_RX_ENABLED(comp1)) {
-+		idx = COMP2_RX_WORDSIZE_0(comp2);
-+		kmb_i2s_dai->capture.channels_min = MIN_CHANNEL_NUM;
-+		kmb_i2s_dai->capture.channels_max =
-+				1 << COMP1_RX_CHANNELS(comp1);
-+		kmb_i2s_dai->capture.formats = formats[idx];
-+		kmb_i2s_dai->capture.rates = rates;
-+	}
-+
-+	if (COMP1_MODE_EN(comp1)) {
-+		dev_dbg(kmb_i2s->dev, "kmb: i2s master mode supported\n");
-+		kmb_i2s->capability |= DW_I2S_MASTER;
-+	} else {
-+		dev_dbg(kmb_i2s->dev, "kmb: i2s slave mode supported\n");
-+		kmb_i2s->capability |= DW_I2S_SLAVE;
-+	}
-+
-+	kmb_i2s->fifo_th = fifo_depth / 2;
-+
-+	return 0;
++	return devm_snd_soc_register_card(&pdev->dev, &kmb_mach);
 +}
 +
-+static int kmb_configure_dai_by_dt(struct kmb_i2s_info *kmb_i2s,
-+				   struct snd_soc_dai_driver *kmb_i2s_dai)
-+{
-+	u32 comp1 = readl(kmb_i2s->i2s_base + I2S_COMP_PARAM_1);
-+
-+	if (COMP1_TX_ENABLED(comp1))
-+		kmb_i2s->capability |= DWC_I2S_PLAY;
-+
-+	if (COMP1_RX_ENABLED(comp1))
-+		kmb_i2s->capability |= DWC_I2S_RECORD;
-+
-+	return kmb_configure_dai(kmb_i2s, kmb_i2s_dai,
-+		I2S_SAMPLE_RATES);
-+}
-+
-+static void kmb_disable_clk(void *data)
-+{
-+	clk_disable_unprepare(data);
-+}
-+
-+static int kmb_plat_dai_probe(struct platform_device *pdev)
-+{
-+	struct snd_soc_dai_driver *kmb_i2s_dai;
-+	struct device *dev = &pdev->dev;
-+	struct kmb_i2s_info *kmb_i2s;
-+	const char *i2s_mode;
-+	int ret, irq;
-+
-+	kmb_i2s = devm_kzalloc(dev, sizeof(*kmb_i2s), GFP_KERNEL);
-+	if (!kmb_i2s)
-+		return -ENOMEM;
-+
-+	kmb_i2s_dai = devm_kzalloc(dev, sizeof(*kmb_i2s_dai), GFP_KERNEL);
-+	if (!kmb_i2s_dai)
-+		return -ENOMEM;
-+
-+	kmb_i2s_dai->ops = &kmb_dai_ops;
-+
-+	kmb_i2s->clk_apb = devm_clk_get(dev, "apb_clk");
-+	if (IS_ERR(kmb_i2s->clk_apb)) {
-+		dev_err(dev, "Failed to get apb clock\n");
-+		return PTR_ERR(kmb_i2s->clk_apb);
-+	}
-+
-+	/* Enable apb clk prior to access to the registers */
-+	ret = clk_prepare_enable(kmb_i2s->clk_apb);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = devm_add_action_or_reset(dev, kmb_disable_clk, kmb_i2s->clk_apb);
-+	if (ret) {
-+		dev_err(dev, "Failed to add clk_apb reset action\n");
-+		return ret;
-+	}
-+
-+	kmb_i2s->i2s_base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(kmb_i2s->i2s_base))
-+		return PTR_ERR(kmb_i2s->i2s_base);
-+
-+	kmb_i2s->pss_base = devm_platform_ioremap_resource(pdev, 1);
-+	if (IS_ERR(kmb_i2s->pss_base))
-+		return PTR_ERR(kmb_i2s->pss_base);
-+
-+	kmb_i2s->dev = &pdev->dev;
-+
-+	irq = platform_get_irq_optional(pdev, 0);
-+	if (irq > 0) {
-+		ret = devm_request_irq(dev, irq, i2s_irq_handler, 0,
-+				       pdev->name, kmb_i2s);
-+		if (ret < 0) {
-+			dev_err(dev, "failed to request irq\n");
-+			return ret;
-+		}
-+	}
-+
-+	ret = of_property_read_string(dev->of_node, "mode", &i2s_mode);
-+	if (ret < 0) {
-+		dev_err(dev, "Couldn't find the entry\n");
-+		return -EINVAL;
-+	}
-+
-+	dev_dbg(kmb_i2s->dev, "Mode = %s", i2s_mode);
-+
-+	ret = match_string(i2s_mode_name, ARRAY_SIZE(i2s_mode_name), i2s_mode);
-+
-+	switch (ret) {
-+	case I2S_MASTER_MODE:
-+		kmb_i2s->master = true;
-+		/* Set the mode prior to access to the rest of the register */
-+		writel(MASTER_MODE, kmb_i2s->pss_base + I2S_GEN_CFG_0);
-+		break;
-+	case I2S_SLAVE_MODE:
-+		kmb_i2s->master = false;
-+		break;
-+	default:
-+		dev_err(dev, "invalid i2s mode '%s'\n", i2s_mode);
-+		return ret;
-+	}
-+
-+	kmb_i2s->i2s_reg_comp1 = I2S_COMP_PARAM_1;
-+	kmb_i2s->i2s_reg_comp2 = I2S_COMP_PARAM_2;
-+
-+	ret = kmb_configure_dai_by_dt(kmb_i2s, kmb_i2s_dai);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = devm_snd_soc_register_component(dev, &kmb_component,
-+					      intel_kmb_platform_dai,
-+				ARRAY_SIZE(intel_kmb_platform_dai));
-+	if (ret) {
-+		dev_err(dev, "not able to register dai\n");
-+		return ret;
-+	}
-+
-+	if (kmb_i2s->master) {
-+		kmb_i2s->clk_i2s = devm_clk_get(dev, "osc");
-+		if (IS_ERR(kmb_i2s->clk_i2s)) {
-+			dev_err(dev, "Failed to get osc clock\n");
-+			return PTR_ERR(kmb_i2s->clk_i2s);
-+		}
-+
-+		ret = clk_prepare_enable(kmb_i2s->clk_i2s);
-+		if (ret < 0)
-+			return ret;
-+
-+		ret = devm_add_action_or_reset(dev, kmb_disable_clk,
-+					       kmb_i2s->clk_i2s);
-+		if (ret) {
-+			dev_err(dev, "Failed to add clk_i2s reset action\n");
-+			return ret;
-+		}
-+	}
-+
-+	dev_set_drvdata(dev, kmb_i2s);
-+
-+	return ret;
-+}
-+
-+static const struct of_device_id kmb_plat_of_match[] = {
-+	{ .compatible = "intel,keembay-i2s", },
++static const struct of_device_id kmb_mach_of_match[] = {
++	{ .compatible = "intel,kmb-snd-asoc", },
 +	{}
 +};
 +
-+static struct platform_driver kmb_plat_dai_driver = {
-+	.driver		= {
-+		.name		= "kmb-plat-dai",
-+		.of_match_table = kmb_plat_of_match,
++static struct platform_driver kmb_mach_audio = {
++	.probe = kmb_mach_audio_probe,
++	.driver = {
++		.name = "kmb_tlv3204",
++		.of_match_table = kmb_mach_of_match,
 +	},
-+	.probe		= kmb_plat_dai_probe,
 +};
 +
-+module_platform_driver(kmb_plat_dai_driver);
++module_platform_driver(kmb_mach_audio)
 +
-+MODULE_DESCRIPTION("ASoC Intel KeemBay Platform driver");
++/* Module information */
++MODULE_DESCRIPTION("Intel Audio tlv3204 machine driver for KeemBay");
 +MODULE_AUTHOR("Sia Jee Heng <jee.heng.sia@intel.com>");
 +MODULE_AUTHOR("Sit, Michael Wei Hong <michael.wei.hong.sit@intel.com>");
 +MODULE_LICENSE("GPL v2");
-+MODULE_ALIAS("platform:kmb_platform");
-diff --git a/sound/soc/intel/keembay/kmb_platform.h b/sound/soc/intel/keembay/kmb_platform.h
-new file mode 100644
-index 0000000..2960065
---- /dev/null
-+++ b/sound/soc/intel/keembay/kmb_platform.h
-@@ -0,0 +1,145 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ *  Intel KeemBay Platform driver
-+ *
-+ *  Copyright (C) 2020 Intel Corporation.
-+ *
-+ */
-+
-+#ifndef KMB_PLATFORM_H_
-+#define KMB_PLATFORMP_H_
-+
-+#include <linux/bits.h>
-+#include <linux/bitfield.h>
-+#include <linux/types.h>
-+
-+/* Register values with reference to KMB databook v1.1 */
-+/* common register for all channel */
-+#define IER		0x000
-+#define IRER		0x004
-+#define ITER		0x008
-+#define CER		0x00C
-+#define CCR		0x010
-+#define RXFFR		0x014
-+#define TXFFR		0x018
-+
-+/* Interrupt status register fields */
-+#define ISR_TXFO	BIT(5)
-+#define ISR_TXFE	BIT(4)
-+#define ISR_RXFO	BIT(1)
-+#define ISR_RXDA	BIT(0)
-+
-+/* I2S Tx Rx Registers for all channels */
-+#define LRBR_LTHR(x)	(0x40 * (x) + 0x020)
-+#define RRBR_RTHR(x)	(0x40 * (x) + 0x024)
-+#define RER(x)		(0x40 * (x) + 0x028)
-+#define TER(x)		(0x40 * (x) + 0x02C)
-+#define RCR(x)		(0x40 * (x) + 0x030)
-+#define TCR(x)		(0x40 * (x) + 0x034)
-+#define ISR(x)		(0x40 * (x) + 0x038)
-+#define IMR(x)		(0x40 * (x) + 0x03C)
-+#define ROR(x)		(0x40 * (x) + 0x040)
-+#define TOR(x)		(0x40 * (x) + 0x044)
-+#define RFCR(x)		(0x40 * (x) + 0x048)
-+#define TFCR(x)		(0x40 * (x) + 0x04C)
-+#define RFF(x)		(0x40 * (x) + 0x050)
-+#define TFF(x)		(0x40 * (x) + 0x054)
-+
-+/* I2S COMP Registers */
-+#define I2S_COMP_PARAM_2	0x01F0
-+#define I2S_COMP_PARAM_1	0x01F4
-+#define I2S_COMP_VERSION	0x01F8
-+#define I2S_COMP_TYPE		0x01FC
-+
-+/* PSS_GEN_CTRL_I2S_GEN_CFG_0 Registers */
-+#define I2S_GEN_CFG_0		0x000
-+#define PSS_CPR_RST_EN		0x010
-+#define PSS_CPR_RST_SET		0x014
-+#define PSS_CPR_CLK_CLR		0x000
-+#define PSS_CPR_AUX_RST_EN	0x070
-+
-+#define MASTER_MODE		BIT(13)
-+
-+/* Interrupt Flag */
-+#define TX_INT_FLAG		GENMASK(5, 4)
-+#define RX_INT_FLAG		GENMASK(1, 0)
-+/*
-+ * Component parameter register fields - define the I2S block's
-+ * configuration.
-+ */
-+#define	COMP1_TX_WORDSIZE_3(r)		FIELD_GET(GENMASK(27, 25), (r))
-+#define	COMP1_TX_WORDSIZE_2(r)		FIELD_GET(GENMASK(24, 22), (r))
-+#define	COMP1_TX_WORDSIZE_1(r)		FIELD_GET(GENMASK(21, 19), (r))
-+#define	COMP1_TX_WORDSIZE_0(r)		FIELD_GET(GENMASK(18, 16), (r))
-+#define	COMP1_RX_ENABLED(r)		FIELD_GET(BIT(6), (r))
-+#define	COMP1_TX_ENABLED(r)		FIELD_GET(BIT(5), (r))
-+#define	COMP1_MODE_EN(r)		FIELD_GET(BIT(4), (r))
-+#define	COMP1_APB_DATA_WIDTH(r)		FIELD_GET(GENMASK(1, 0), (r))
-+#define	COMP2_RX_WORDSIZE_3(r)		FIELD_GET(GENMASK(12, 10), (r))
-+#define	COMP2_RX_WORDSIZE_2(r)		FIELD_GET(GENMASK(9, 7), (r))
-+#define	COMP2_RX_WORDSIZE_1(r)		FIELD_GET(GENMASK(5, 3), (r))
-+#define	COMP2_RX_WORDSIZE_0(r)		FIELD_GET(GENMASK(2, 0), (r))
-+
-+/* Add 1 to the below registers to indicate the actual size */
-+#define	COMP1_TX_CHANNELS(r)	(FIELD_GET(GENMASK(10, 9), (r)) + 1)
-+#define	COMP1_RX_CHANNELS(r)	(FIELD_GET(GENMASK(8, 7), (r)) + 1)
-+#define	COMP1_FIFO_DEPTH(r)	(FIELD_GET(GENMASK(3, 2), (r)) + 1)
-+
-+/* Number of entries in WORDSIZE and DATA_WIDTH parameter registers */
-+#define	COMP_MAX_WORDSIZE	8	/* 3 bits register width */
-+
-+#define MAX_CHANNEL_NUM		8
-+#define MIN_CHANNEL_NUM		2
-+
-+#define TWO_CHANNEL_SUPPORT	2	/* up to 2.0 */
-+#define FOUR_CHANNEL_SUPPORT	4	/* up to 3.1 */
-+#define SIX_CHANNEL_SUPPORT	6	/* up to 5.1 */
-+#define EIGHT_CHANNEL_SUPPORT	8	/* up to 7.1 */
-+
-+#define DWC_I2S_PLAY	BIT(0)
-+#define DWC_I2S_RECORD	BIT(1)
-+#define DW_I2S_SLAVE	BIT(2)
-+#define DW_I2S_MASTER	BIT(3)
-+
-+#define I2S_RXDMA	0x01C0
-+#define I2S_TXDMA	0x01C8
-+
-+/*
-+ * struct i2s_clk_config_data - represent i2s clk configuration data
-+ * @chan_nr: number of channel
-+ * @data_width: number of bits per sample (8/16/24/32 bit)
-+ * @sample_rate: sampling frequency (8Khz, 16Khz, 48Khz)
-+ */
-+struct i2s_clk_config_data {
-+	int chan_nr;
-+	u32 data_width;
-+	u32 sample_rate;
-+};
-+
-+struct kmb_i2s_info {
-+	void __iomem *i2s_base;
-+	void __iomem *pss_base;
-+	struct clk *clk_i2s;
-+	struct clk *clk_apb;
-+	int active;
-+	unsigned int capability;
-+	unsigned int i2s_reg_comp1;
-+	unsigned int i2s_reg_comp2;
-+	struct device *dev;
-+	u32 ccr;
-+	u32 xfer_resolution;
-+	u32 fifo_th;
-+	bool master;
-+
-+	struct i2s_clk_config_data config;
-+	int (*i2s_clk_cfg)(struct i2s_clk_config_data *config);
-+
-+	/* data related to PIO transfers */
-+	bool use_pio;
-+	struct snd_pcm_substream *tx_substream;
-+	struct snd_pcm_substream *rx_substream;
-+	unsigned int tx_ptr;
-+	unsigned int rx_ptr;
-+};
-+
-+#endif /* KMB_PLATFORM_H_ */
++MODULE_ALIAS("platform:kmb_tlv3204");
 -- 
 1.9.1
 

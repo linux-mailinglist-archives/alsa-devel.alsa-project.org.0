@@ -2,59 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFA371D7227
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 May 2020 09:45:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1B9E1D7253
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 May 2020 09:55:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85B4516BA;
-	Mon, 18 May 2020 09:44:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85B4516BA
+	by alsa0.perex.cz (Postfix) with ESMTPS id C25CC16C9;
+	Mon, 18 May 2020 09:54:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C25CC16C9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589787947;
-	bh=kj1jSqmNTHK0ojll/+E7HIcqt0p1MTJaKryenJxHlC4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=npAfRo09SetSi4DNh3zUMIUfEgtmoduL9ThxC8Lu75FvjD3z0cI8MXWfacYQTNc2m
-	 VviaM0IMOrB29aUtgEWnhWPawiM1DInPmM9FP9MBXSSNlsX2ke918QxqBSTzt9eAq+
-	 I7XiIcHUAMybhxtx3rfUCG2WZkHIFbQU8vvsWGP8=
+	s=default; t=1589788514;
+	bh=toRNgYL9zszUCvNYiNqBkp1HFH/VYzuJJQqVCMWScSY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=I2kTpXKrrueSYG1gXc4yfHOlsj18phlwMBPWelgZDvbvkqgNTqWxM6jYBZ5QFmbLO
+	 cI/qf7+d/48efD/y31lqImg3TVTDfnGJi83Pg9x4Cw7NRLrpjY6KQj9F+QIvcKXtmS
+	 11kFhYQe803v8NHCZKLhhjlZ6H8XrR8kAVmaYtgg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9E872F801F9;
-	Mon, 18 May 2020 09:44:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2534F80086;
+	Mon, 18 May 2020 09:53:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 31756F801DA; Mon, 18 May 2020 09:44:04 +0200 (CEST)
+ id 1B5CDF801DA; Mon, 18 May 2020 09:53:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from cmccmta1.chinamobile.com (cmccmta1.chinamobile.com
- [221.176.66.79])
- by alsa1.perex.cz (Postfix) with ESMTP id 58EF8F8015C
- for <alsa-devel@alsa-project.org>; Mon, 18 May 2020 09:43:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58EF8F8015C
-Received: from spf.mail.chinamobile.com (unknown[172.16.121.5]) by
- rmmx-syy-dmz-app02-12002 (RichMail) with SMTP id 2ee25ec23ca1b1c-31209;
- Mon, 18 May 2020 15:43:29 +0800 (CST)
-X-RM-TRANSID: 2ee25ec23ca1b1c-31209
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG: 00000000
-Received: from localhost.localdomain (unknown[112.25.154.146])
- by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee35ec23c9ef8a-3723f;
- Mon, 18 May 2020 15:43:29 +0800 (CST)
-X-RM-TRANSID: 2ee35ec23c9ef8a-3723f
-From: Tang Bin <tangbin@cmss.chinamobile.com>
-To: broonie@kernel.org, timur@kernel.org, nicoleotsuka@gmail.com,
- Xiubo.Lee@gmail.com, perex@perex.cz
-Subject: [PATCH] ASoC: fsl_micfil: Fix format and unused assignment
-Date: Mon, 18 May 2020 15:44:05 +0800
-Message-Id: <20200518074405.14880-1-tangbin@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.20.1.windows.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, Tang Bin <tangbin@cmss.chinamobile.com>
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3B40F80086
+ for <alsa-devel@alsa-project.org>; Mon, 18 May 2020 09:53:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3B40F80086
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id DE496AE67;
+ Mon, 18 May 2020 07:53:25 +0000 (UTC)
+Date: Mon, 18 May 2020 09:53:21 +0200
+Message-ID: <s5hv9ktk7bi.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Brent Lu <brent.lu@intel.com>
+Subject: Re: [PATCH v2] ALSA: pcm: fix incorrect hw_base increase
+In-Reply-To: <1589776238-23877-1-git-send-email-brent.lu@intel.com>
+References: <1589776238-23877-1-git-send-email-brent.lu@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
+ Baolin Wang <baolin.wang@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
+ Richard Fontana <rfontana@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
+ paulhsia <paulhsia@chromium.org>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,41 +73,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In the function fsl_micfil_startup(), the two lines of dev_err()
-can be shortened to one line. And delete unused initialized value
-of 'ret', because it will be assigned by the function
-fsl_micfil_set_mclk_rate().
+On Mon, 18 May 2020 06:30:38 +0200,
+Brent Lu wrote:
+> 
+> There is a corner case that ALSA keeps increasing the hw_ptr but DMA
+> already stop working/updating the position for a long time.
+> 
+> In following log we can see the position returned from DMA driver does
+> not move at all but the hw_ptr got increased at some point of time so
+> snd_pcm_avail() will return a large number which seems to be a buffer
+> underrun event from user space program point of view. The program
+> thinks there is space in the buffer and fill more data.
+> 
+> [  418.510086] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 4096 avail 12368
+> [  418.510149] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 6910 avail 9554
+> ...
+> [  418.681052] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 15102 avail 1362
+> [  418.681130] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 16464 avail 0
+> [  418.726515] sound pcmC0D5p: pos 96 hw_ptr 16464 appl_ptr 16464 avail 16368
+> 
+> This is because the hw_base will be increased by runtime->buffer_size
+> frames unconditionally if the hw_ptr is not updated for over half of
+> buffer time. As the hw_base increases, so does the hw_ptr increased
+> by the same number.
+> 
+> The avail value returned from snd_pcm_avail() could exceed the limit
+> (buffer_size) easily becase the hw_ptr itself got increased by same
+> buffer_size samples when the corner case happens. In following log,
+> the buffer_size is 16368 samples but the avail is 21810 samples so
+> CRAS server complains about it.
+> 
+> [  418.851755] sound pcmC0D5p: pos 96 hw_ptr 16464 appl_ptr 27390 avail 5442
+> [  418.926491] sound pcmC0D5p: pos 96 hw_ptr 32832 appl_ptr 27390 avail 21810
+> 
+> cras_server[1907]: pcm_avail returned frames larger than buf_size:
+> sof-glkda7219max: :0,5: 21810 > 16368
+> 
+> By updating runtime->hw_ptr_jiffies each time the HWSYNC is called,
+> the hw_base will keep the same when buffer stall happens at long as
+> the interval between each HWSYNC call is shorter than half of buffer
+> time.
+> 
+> Following is a log captured by a patched kernel. The hw_base/hw_ptr
+> value is fixed in this corner case and user space program should be
+> aware of the buffer stall and handle it.
+> 
+> [  293.525543] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 4096 avail 12368
+> [  293.525606] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 6880 avail 9584
+> [  293.525975] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 10976 avail 5488
+> [  293.611178] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 15072 avail 1392
+> [  293.696429] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 16464 avail 0
+> ...
+> [  381.139517] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 16464 avail 0
+> 
+> Signed-off-by: Brent Lu <brent.lu@intel.com>
 
-Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
----
- sound/soc/fsl/fsl_micfil.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/sound/soc/fsl/fsl_micfil.c b/sound/soc/fsl/fsl_micfil.c
-index f7f2d29f1..a7a6118be 100644
---- a/sound/soc/fsl/fsl_micfil.c
-+++ b/sound/soc/fsl/fsl_micfil.c
-@@ -217,8 +217,7 @@ static int fsl_micfil_startup(struct snd_pcm_substream *substream,
- 	struct fsl_micfil *micfil = snd_soc_dai_get_drvdata(dai);
- 
- 	if (!micfil) {
--		dev_err(dai->dev,
--			"micfil dai priv_data not set\n");
-+		dev_err(dai->dev, "micfil dai priv_data not set\n");
- 		return -EINVAL;
- 	}
- 
-@@ -296,7 +295,7 @@ static int fsl_set_clock_params(struct device *dev, unsigned int rate)
- {
- 	struct fsl_micfil *micfil = dev_get_drvdata(dev);
- 	int clk_div;
--	int ret = 0;
-+	int ret;
- 
- 	ret = fsl_micfil_set_mclk_rate(micfil, rate);
- 	if (ret < 0)
--- 
-2.20.1.windows.1
+Thanks, applied now with Reviewed-by tag from Jaroslav.
+I also put Cc to stable, as it can fix the actual issues.
 
 
-
+Takashi

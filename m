@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DDFA1D7ECA
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 May 2020 18:42:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E6261D7ED4
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 May 2020 18:43:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B93D31712;
-	Mon, 18 May 2020 18:42:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B93D31712
+	by alsa0.perex.cz (Postfix) with ESMTPS id A56BC170C;
+	Mon, 18 May 2020 18:42:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A56BC170C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589820175;
-	bh=1mORd+n7+hjWf6dF3uFh+kuCN5qO/5gF28hOZXdPev4=;
+	s=default; t=1589820221;
+	bh=jRbpGL6pqSTPo5yiSCfss3nZLr8Rmj8NTRgHNTYXRHU=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WggyV2CGTG/ODkeXeciEh7MwIack08p6eNYDvKKUo+v+nNlqjvTrUaOgJUXFEIBsn
-	 JplSo+X60EgLOt62ZLa7XtMYI4NTquXVntHioJYBfVEl2Vr73mz+Ukg78+KTKzjNRP
-	 L++oXxiqo+GG+yFe1OIL4/xxt7eXXv+dtVZOO11A=
+	b=P8t18XDD3W6ajzxEzZt95MNxtbK+Uj20nZmsrbkV/tS05tPcD7nWTIHZa277btzLH
+	 LIeXjpIPBO71a/KH5tvNV7MwtBxkyelTXwbwsPsaQFkSU+zG4qVQGDUfoNVq/i7KN0
+	 CWd7ZhUJnHRPxc7Pz2I2KnnldcoNQei/UXebGEoo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D7393F801F9;
-	Mon, 18 May 2020 18:41:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6497F80273;
+	Mon, 18 May 2020 18:41:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 97F64F80213; Mon, 18 May 2020 18:41:12 +0200 (CEST)
+ id A58EEF80086; Mon, 18 May 2020 18:41:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,33 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6BDCDF800C9
- for <alsa-devel@alsa-project.org>; Mon, 18 May 2020 18:41:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BDCDF800C9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 59F2BF80086
+ for <alsa-devel@alsa-project.org>; Mon, 18 May 2020 18:41:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59F2BF80086
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="PLjQYaj4"
+ header.b="2LIzKnkE"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C254720758;
- Mon, 18 May 2020 16:41:00 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id F08B4207D8;
+ Mon, 18 May 2020 16:41:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589820061;
- bh=1mORd+n7+hjWf6dF3uFh+kuCN5qO/5gF28hOZXdPev4=;
+ s=default; t=1589820067;
+ bh=jRbpGL6pqSTPo5yiSCfss3nZLr8Rmj8NTRgHNTYXRHU=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=PLjQYaj4MViTn37+76iGdU40xkyJk1/SYPFw4+6dY/7V8Bt3C/U71wT9JTVk41hKj
- xSW3uB2LQMi82GfX8JYYHIktkXifXD/GEAGpPcsDOtyuDOLFP/fVt9Htwmrsjkx0si
- Pd8J5UG/+7+OmsSXVIlMhfgy1EgmVU76qawvc8yg=
-Date: Mon, 18 May 2020 17:40:58 +0100
+ b=2LIzKnkEMKZvLrbEbUuIWtqnqk64hhSkpe0BUbMyiZR9SvmbOkGkGnZCAA2hScimr
+ o/wDOKDVMRlCbALLIUoVB+3SUnXEc6eAOzKlICpHnx/w0dJ9mADeSA2ESYcg2B3LUM
+ Kzt66ANlAtSjIVLQCjr1YycUeDHF+P/CjzGOrMGw=
+Date: Mon, 18 May 2020 17:41:04 +0100
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
-In-Reply-To: <20200515135958.17511-1-kai.vehmanen@linux.intel.com>
-References: <20200515135958.17511-1-kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH 0/8] ASoC: SOF: Intel and IMX updates for 5.8
-Message-Id: <158982005876.28736.6270537965994775713.b4-ty@kernel.org>
-Cc: daniel.baluta@nxp.com, ranjani.sridharan@linux.intel.com,
- pierre-louis.bossart@linux.intel.com
+To: Akshu Agrawal <akshu.agrawal@amd.com>
+In-Reply-To: <20200518043913.40646-1-akshu.agrawal@amd.com>
+References: <20200518043913.40646-1-akshu.agrawal@amd.com>
+Subject: Re: [PATCH] ASoC: amd: raven: Make the driver name consistent across
+ files
+Message-Id: <158982005877.28736.13490689793680227152.b4-ty@kernel.org>
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ open list <linux-kernel@vger.kernel.org>, Wei Yongjun <weiyongjun1@huawei.com>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
+ Colin Ian King <colin.king@canonical.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,17 +83,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 15 May 2020 16:59:50 +0300, Kai Vehmanen wrote:
-> here's a series of minor fixes and improvements to SOF. Add support
-> for smart amplifier component type. Cover more systems by relaxing
-> match rules for the generic Soundwire machine driver. Fix issues with
-> driver unload and address a few compiler warnings.
+On Mon, 18 May 2020 10:09:05 +0530, Akshu Agrawal wrote:
+> This fixes the issue of driver not getting auto loaded with
+> MODULE_ALIAS.
 > 
-> Daniel Baluta (2):
->   ASoC: SOF: Do nothing when DSP PM callbacks are not set
->   ASoC: SOF: define INFO_ flags in dsp_ops
-> 
-> [...]
+> With this patch:
+> $find /sys/devices -name modalias -print0 | xargs -0 grep -i acp3x
+> /sys/devices/pci0000:00/0000:00:08.1/0000:03:00.5/acp3x_i2s_playcap.2/
+> modalias:platform:acp3x_i2s_playcap
+> /sys/devices/pci0000:00/0000:00:08.1/0000:03:00.5/acp3x_i2s_playcap.0/
+> modalias:platform:acp3x_i2s_playcap
+> /sys/devices/pci0000:00/0000:00:08.1/0000:03:00.5/acp3x_rv_i2s_dma.0/
+> modalias:platform:acp3x_rv_i2s_dma
+> /sys/devices/pci0000:00/0000:00:08.1/0000:03:00.5/acp3x_i2s_playcap.1/
+> modalias:platform:acp3x_i2s_playcap
 
 Applied to
 
@@ -94,22 +104,8 @@ Applied to
 
 Thanks!
 
-[1/8] ASoC: SOF: Do nothing when DSP PM callbacks are not set
-      commit: c26fde3b15ed41f5f452f1da727795f787833287
-[2/8] ASoC: SOF: add a power_down_notify method
-      commit: 3541aef1b83fa3a13e9c4ecc0919156ff2ec9c22
-[3/8] ASoC: SOF: inform DSP that driver is going to be removed
-      commit: 9f369f7e4660d05b5318aa413db199a70dfb2c4f
-[4/8] ASoC: SOF: topology: add support to smart amplifier
-      commit: 82e8c00fa18a3ef0ad3087dcad1d82637a738e30
-[5/8] ASoC: SOF: Intel: sdw: relax sdw machine select constraints
-      commit: 7d1952bceb8a1a2372a1cb86ab109c6ec8772c5c
-[6/8] ASoC: SOF: define INFO_ flags in dsp_ops
-      commit: 5c2c3cb1ca7875a2685c8cc65f08a1238e00cedb
-[7/8] ASoC: SOF: imx: make dsp_ops static
-      commit: 35e7c09d1edd6c60bfa98070b657986500819fd6
-[8/8] ASoC: SOF: imx: make imx8m_dsp_ops static
-      commit: 99cb681e7b8eec917ddb34b76e303aa20b2d1c1a
+[1/1] ASoC: amd: raven: Make the driver name consistent across files
+      commit: f0a77d2b0e1ccad7e4086094f67d138e8c3050a2
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

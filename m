@@ -2,82 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C66261D71C0
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 May 2020 09:26:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFA371D7227
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 May 2020 09:45:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C82316C0;
-	Mon, 18 May 2020 09:25:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C82316C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 85B4516BA;
+	Mon, 18 May 2020 09:44:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85B4516BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589786782;
-	bh=T/zPTn3R5Hk9r7+Roi+ssx8zO4szdr8zvi9dGNgBqbQ=;
+	s=default; t=1589787947;
+	bh=kj1jSqmNTHK0ojll/+E7HIcqt0p1MTJaKryenJxHlC4=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Zv25T1SZirQLwI3mnePPJ9kXUU26o7i3wztT/6pcTkV/CSQ9+h0DcUKP79X2iyXCB
-	 I6v/UuaHkWOIKZzX1KEsgTiDaksEbEmUK4uA427WyMI1m8iydLhnlZZlYNOeA5fV4g
-	 nJplw1kXJd5nIn3kWzKJlrYxPT0H1XdFokQiqb+I=
+	b=npAfRo09SetSi4DNh3zUMIUfEgtmoduL9ThxC8Lu75FvjD3z0cI8MXWfacYQTNc2m
+	 VviaM0IMOrB29aUtgEWnhWPawiM1DInPmM9FP9MBXSSNlsX2ke918QxqBSTzt9eAq+
+	 I7XiIcHUAMybhxtx3rfUCG2WZkHIFbQU8vvsWGP8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69025F801F9;
-	Mon, 18 May 2020 09:24:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E872F801F9;
+	Mon, 18 May 2020 09:44:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7DF11F801DA; Mon, 18 May 2020 09:24:27 +0200 (CEST)
+ id 31756F801DA; Mon, 18 May 2020 09:44:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6FFD6F80086
- for <alsa-devel@alsa-project.org>; Mon, 18 May 2020 09:24:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FFD6F80086
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="TdwZyOg3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1589786662;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=BsvRL8aNEV3jwshk3ut+ho39MFlr1pt30UwSpQfa4PE=;
- b=TdwZyOg3XfrI6J6sYkwJj3VYpH31ljITtYqul5eiX17aW+Xk5wMYM2bx/XIAnP4PCkqIG1
- xihakjAuK2MNTMc5wUJQmZI6o7dVBnGWyiAhm9CQjLyjGbvF2r0wBq0Co3loF4PDahXVjy
- Ck+fcxp8eewzbugZtL1nO2tQsSoMa1U=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-416-TFvHrFxIMvChPfHD_a7qsQ-1; Mon, 18 May 2020 03:24:20 -0400
-X-MC-Unique: TFvHrFxIMvChPfHD_a7qsQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 266B2107ACCA;
- Mon, 18 May 2020 07:24:19 +0000 (UTC)
-Received: from x1.localdomain.com (ovpn-114-73.ams2.redhat.com [10.36.114.73])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 8620C5D9DC;
- Mon, 18 May 2020 07:24:17 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
-Subject: [PATCH] ASoC: Intel: bytcr_rt5640: Add quirk for Toshiba Encore WT8-A
- tablet
-Date: Mon, 18 May 2020 09:24:16 +0200
-Message-Id: <20200518072416.5348-1-hdegoede@redhat.com>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from cmccmta1.chinamobile.com (cmccmta1.chinamobile.com
+ [221.176.66.79])
+ by alsa1.perex.cz (Postfix) with ESMTP id 58EF8F8015C
+ for <alsa-devel@alsa-project.org>; Mon, 18 May 2020 09:43:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58EF8F8015C
+Received: from spf.mail.chinamobile.com (unknown[172.16.121.5]) by
+ rmmx-syy-dmz-app02-12002 (RichMail) with SMTP id 2ee25ec23ca1b1c-31209;
+ Mon, 18 May 2020 15:43:29 +0800 (CST)
+X-RM-TRANSID: 2ee25ec23ca1b1c-31209
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG: 00000000
+Received: from localhost.localdomain (unknown[112.25.154.146])
+ by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee35ec23c9ef8a-3723f;
+ Mon, 18 May 2020 15:43:29 +0800 (CST)
+X-RM-TRANSID: 2ee35ec23c9ef8a-3723f
+From: Tang Bin <tangbin@cmss.chinamobile.com>
+To: broonie@kernel.org, timur@kernel.org, nicoleotsuka@gmail.com,
+ Xiubo.Lee@gmail.com, perex@perex.cz
+Subject: [PATCH] ASoC: fsl_micfil: Fix format and unused assignment
+Date: Mon, 18 May 2020 15:44:05 +0800
+Message-Id: <20200518074405.14880-1-tangbin@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.20.1.windows.1
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 8bit
-Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, Tang Bin <tangbin@cmss.chinamobile.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,42 +70,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The Toshiba Encore WT8-A tablet almost fully works with the default
-settings for non-CR Bay Trail devices. The only problem is that its
-jack-detect switch is not inverted (it is active high instead of
-the normal active low).
+In the function fsl_micfil_startup(), the two lines of dev_err()
+can be shortened to one line. And delete unused initialized value
+of 'ret', because it will be assigned by the function
+fsl_micfil_set_mclk_rate().
 
-Add a quirk for this model using the default settings +
-BYT_RT5640_JD_NOT_INV.
-
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
 ---
- sound/soc/intel/boards/bytcr_rt5640.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ sound/soc/fsl/fsl_micfil.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index 08f4ae964b02..fbfd53874b47 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -742,6 +742,18 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
- 					BYT_RT5640_SSP0_AIF1 |
- 					BYT_RT5640_MCLK_EN),
- 	},
-+	{	/* Toshiba Encore WT8-A */
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "TOSHIBA"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "TOSHIBA WT8-A"),
-+		},
-+		.driver_data = (void *)(BYT_RT5640_DMIC1_MAP |
-+					BYT_RT5640_JD_SRC_JD2_IN4N |
-+					BYT_RT5640_OVCD_TH_2000UA |
-+					BYT_RT5640_OVCD_SF_0P75 |
-+					BYT_RT5640_JD_NOT_INV |
-+					BYT_RT5640_MCLK_EN),
-+	},
- 	{	/* Catch-all for generic Insyde tablets, must be last */
- 		.matches = {
- 			DMI_MATCH(DMI_SYS_VENDOR, "Insyde"),
+diff --git a/sound/soc/fsl/fsl_micfil.c b/sound/soc/fsl/fsl_micfil.c
+index f7f2d29f1..a7a6118be 100644
+--- a/sound/soc/fsl/fsl_micfil.c
++++ b/sound/soc/fsl/fsl_micfil.c
+@@ -217,8 +217,7 @@ static int fsl_micfil_startup(struct snd_pcm_substream *substream,
+ 	struct fsl_micfil *micfil = snd_soc_dai_get_drvdata(dai);
+ 
+ 	if (!micfil) {
+-		dev_err(dai->dev,
+-			"micfil dai priv_data not set\n");
++		dev_err(dai->dev, "micfil dai priv_data not set\n");
+ 		return -EINVAL;
+ 	}
+ 
+@@ -296,7 +295,7 @@ static int fsl_set_clock_params(struct device *dev, unsigned int rate)
+ {
+ 	struct fsl_micfil *micfil = dev_get_drvdata(dev);
+ 	int clk_div;
+-	int ret = 0;
++	int ret;
+ 
+ 	ret = fsl_micfil_set_mclk_rate(micfil, rate);
+ 	if (ret < 0)
 -- 
-2.26.2
+2.20.1.windows.1
+
+
 

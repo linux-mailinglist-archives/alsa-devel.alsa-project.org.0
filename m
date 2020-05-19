@@ -2,49 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EACDF1D8CD2
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 May 2020 03:03:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2310E1D8CD6
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 May 2020 03:03:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 93D0917A0;
-	Tue, 19 May 2020 03:02:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93D0917A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id C891C17B0;
+	Tue, 19 May 2020 03:02:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C891C17B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589850197;
-	bh=LNyJ8StakOi/6U/eogqhvXKmoFM3WRihiY9uRKGaztw=;
+	s=default; t=1589850213;
+	bh=61XpkSWFZ7n8mH7dVq38y9xHL9lVxGZAanDfeaeJ/Vg=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KxucZkD/wo1Se0TPpkCPqoBXBl2Yppvp8m258/GaBsRQpOI9fZs/TjKaID4Rn+AaP
-	 2mXxgWuy+40t2F6xeziksZ4/DwsvMNgNp1YOAYi50IskEGUMQ9qLCUjxi0wjW7mjV3
-	 9BTgacLmsu+bLqtEseGmFKIcgJhTin1970uSV6Sk=
+	b=DW7EuDksddxYna1O1yPNp8AKNRDgqOyjrgPWXO8BMKjRMvuQV7KMmIcFx+E3qp28y
+	 V7X1W2ko/t8s+O2y8TKrLjfsQnty2IoYFmIpb5HMCKqXMOthmjeMf1VMj1RmLoLSTE
+	 TNlk2wPobU4sCzU69jJYzUz3XvLb+S532OYolNPw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2361F80216;
-	Tue, 19 May 2020 03:01:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40BCEF80274;
+	Tue, 19 May 2020 03:02:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F2F49F80273; Tue, 19 May 2020 03:01:44 +0200 (CEST)
+ id 48D8CF80274; Tue, 19 May 2020 03:01:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 9D8A0F80216
- for <alsa-devel@alsa-project.org>; Tue, 19 May 2020 03:01:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D8A0F80216
-Date: 19 May 2020 10:01:39 +0900
-X-IronPort-AV: E=Sophos;i="5.73,408,1583161200"; d="scan'208";a="47413183"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 19 May 2020 10:01:39 +0900
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id B5E54F80086
+ for <alsa-devel@alsa-project.org>; Tue, 19 May 2020 03:01:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5E54F80086
+Date: 19 May 2020 10:01:53 +0900
+X-IronPort-AV: E=Sophos;i="5.73,408,1583161200"; d="scan'208";a="47200247"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 19 May 2020 10:01:53 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id CC3434008C42;
- Tue, 19 May 2020 10:01:39 +0900 (JST)
-Message-ID: <874ksc68lo.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 1B5C5416355B;
+ Tue, 19 May 2020 10:01:53 +0900 (JST)
+Message-ID: <87367w68la.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 2/7] ASoC: soc-link: move soc_rtd_xxx()
+Subject: [PATCH 3/7] ASoC: soc-link: remove unneeded parameter from
+ snd_soc_link_xxx()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <877dx868op.wl-kuninori.morimoto.gx@renesas.com>
@@ -67,258 +68,204 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-dai_link related function should be implemented at soc-link.c.
-This patch moves soc-pcm soc_rtd_xxx() to soc-link as snd_soc_link_xxx()
+"rtd" can be created from "substream".
+Let's cleanup snd_soc_link_xxx().
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc-link.h | 13 ++++++++
- sound/soc/soc-link.c     | 65 ++++++++++++++++++++++++++++++++++++
- sound/soc/soc-pcm.c      | 72 +++++-----------------------------------
- 3 files changed, 87 insertions(+), 63 deletions(-)
+ include/sound/soc-link.h | 18 ++++++------------
+ sound/soc/soc-link.c     | 26 ++++++++++++++------------
+ sound/soc/soc-pcm.c      | 18 +++++++++---------
+ 3 files changed, 29 insertions(+), 33 deletions(-)
 
 diff --git a/include/sound/soc-link.h b/include/sound/soc-link.h
-index 7fc5cead5942..689aa93be78e 100644
+index 689aa93be78e..2a81dca945cd 100644
 --- a/include/sound/soc-link.h
 +++ b/include/sound/soc-link.h
-@@ -9,5 +9,18 @@
+@@ -9,18 +9,12 @@
  #define __SOC_LINK_H
  
  int snd_soc_link_init(struct snd_soc_pcm_runtime *rtd);
-+int snd_soc_link_startup(struct snd_soc_pcm_runtime *rtd,
-+			 struct snd_pcm_substream *substream);
-+void snd_soc_link_shutdown(struct snd_soc_pcm_runtime *rtd,
-+			   struct snd_pcm_substream *substream);
-+int snd_soc_link_prepare(struct snd_soc_pcm_runtime *rtd,
-+			 struct snd_pcm_substream *substream);
-+int snd_soc_link_hw_params(struct snd_soc_pcm_runtime *rtd,
-+			   struct snd_pcm_substream *substream,
-+			   struct snd_pcm_hw_params *params);
-+void snd_soc_link_hw_free(struct snd_soc_pcm_runtime *rtd,
-+			  struct snd_pcm_substream *substream);
-+int snd_soc_link_trigger(struct snd_soc_pcm_runtime *rtd,
-+			 struct snd_pcm_substream *substream, int cmd);
+-int snd_soc_link_startup(struct snd_soc_pcm_runtime *rtd,
+-			 struct snd_pcm_substream *substream);
+-void snd_soc_link_shutdown(struct snd_soc_pcm_runtime *rtd,
+-			   struct snd_pcm_substream *substream);
+-int snd_soc_link_prepare(struct snd_soc_pcm_runtime *rtd,
+-			 struct snd_pcm_substream *substream);
+-int snd_soc_link_hw_params(struct snd_soc_pcm_runtime *rtd,
+-			   struct snd_pcm_substream *substream,
++int snd_soc_link_startup(struct snd_pcm_substream *substream);
++void snd_soc_link_shutdown(struct snd_pcm_substream *substream);
++int snd_soc_link_prepare(struct snd_pcm_substream *substream);
++int snd_soc_link_hw_params(struct snd_pcm_substream *substream,
+ 			   struct snd_pcm_hw_params *params);
+-void snd_soc_link_hw_free(struct snd_soc_pcm_runtime *rtd,
+-			  struct snd_pcm_substream *substream);
+-int snd_soc_link_trigger(struct snd_soc_pcm_runtime *rtd,
+-			 struct snd_pcm_substream *substream, int cmd);
++void snd_soc_link_hw_free(struct snd_pcm_substream *substream);
++int snd_soc_link_trigger(struct snd_pcm_substream *substream, int cmd);
  
  #endif /* __SOC_LINK_H */
 diff --git a/sound/soc/soc-link.c b/sound/soc/soc-link.c
-index 4bdd8d0dd93a..be6a6ecfc9dc 100644
+index be6a6ecfc9dc..691910e82bff 100644
 --- a/sound/soc/soc-link.c
 +++ b/sound/soc/soc-link.c
-@@ -34,3 +34,68 @@ int snd_soc_link_init(struct snd_soc_pcm_runtime *rtd)
- 
+@@ -35,9 +35,9 @@ int snd_soc_link_init(struct snd_soc_pcm_runtime *rtd)
  	return soc_link_ret(rtd, ret);
  }
+ 
+-int snd_soc_link_startup(struct snd_soc_pcm_runtime *rtd,
+-			 struct snd_pcm_substream *substream)
++int snd_soc_link_startup(struct snd_pcm_substream *substream)
+ {
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 	int ret = 0;
+ 
+ 	if (rtd->dai_link->ops &&
+@@ -47,17 +47,18 @@ int snd_soc_link_startup(struct snd_soc_pcm_runtime *rtd,
+ 	return soc_link_ret(rtd, ret);
+ }
+ 
+-void snd_soc_link_shutdown(struct snd_soc_pcm_runtime *rtd,
+-			   struct snd_pcm_substream *substream)
++void snd_soc_link_shutdown(struct snd_pcm_substream *substream)
+ {
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +
-+int snd_soc_link_startup(struct snd_soc_pcm_runtime *rtd,
-+			 struct snd_pcm_substream *substream)
-+{
-+	int ret = 0;
+ 	if (rtd->dai_link->ops &&
+ 	    rtd->dai_link->ops->shutdown)
+ 		rtd->dai_link->ops->shutdown(substream);
+ }
+ 
+-int snd_soc_link_prepare(struct snd_soc_pcm_runtime *rtd,
+-			 struct snd_pcm_substream *substream)
++int snd_soc_link_prepare(struct snd_pcm_substream *substream)
+ {
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 	int ret = 0;
+ 
+ 	if (rtd->dai_link->ops &&
+@@ -67,10 +68,10 @@ int snd_soc_link_prepare(struct snd_soc_pcm_runtime *rtd,
+ 	return soc_link_ret(rtd, ret);
+ }
+ 
+-int snd_soc_link_hw_params(struct snd_soc_pcm_runtime *rtd,
+-			   struct snd_pcm_substream *substream,
++int snd_soc_link_hw_params(struct snd_pcm_substream *substream,
+ 			   struct snd_pcm_hw_params *params)
+ {
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 	int ret = 0;
+ 
+ 	if (rtd->dai_link->ops &&
+@@ -80,17 +81,18 @@ int snd_soc_link_hw_params(struct snd_soc_pcm_runtime *rtd,
+ 	return soc_link_ret(rtd, ret);
+ }
+ 
+-void snd_soc_link_hw_free(struct snd_soc_pcm_runtime *rtd,
+-			  struct snd_pcm_substream *substream)
++void snd_soc_link_hw_free(struct snd_pcm_substream *substream)
+ {
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +
-+	if (rtd->dai_link->ops &&
-+	    rtd->dai_link->ops->startup)
-+		ret = rtd->dai_link->ops->startup(substream);
-+
-+	return soc_link_ret(rtd, ret);
-+}
-+
-+void snd_soc_link_shutdown(struct snd_soc_pcm_runtime *rtd,
-+			   struct snd_pcm_substream *substream)
-+{
-+	if (rtd->dai_link->ops &&
-+	    rtd->dai_link->ops->shutdown)
-+		rtd->dai_link->ops->shutdown(substream);
-+}
-+
-+int snd_soc_link_prepare(struct snd_soc_pcm_runtime *rtd,
-+			 struct snd_pcm_substream *substream)
-+{
-+	int ret = 0;
-+
-+	if (rtd->dai_link->ops &&
-+	    rtd->dai_link->ops->prepare)
-+		ret = rtd->dai_link->ops->prepare(substream);
-+
-+	return soc_link_ret(rtd, ret);
-+}
-+
-+int snd_soc_link_hw_params(struct snd_soc_pcm_runtime *rtd,
-+			   struct snd_pcm_substream *substream,
-+			   struct snd_pcm_hw_params *params)
-+{
-+	int ret = 0;
-+
-+	if (rtd->dai_link->ops &&
-+	    rtd->dai_link->ops->hw_params)
-+		ret = rtd->dai_link->ops->hw_params(substream, params);
-+
-+	return soc_link_ret(rtd, ret);
-+}
-+
-+void snd_soc_link_hw_free(struct snd_soc_pcm_runtime *rtd,
-+			  struct snd_pcm_substream *substream)
-+{
-+	if (rtd->dai_link->ops &&
-+	    rtd->dai_link->ops->hw_free)
-+		rtd->dai_link->ops->hw_free(substream);
-+}
-+
-+int snd_soc_link_trigger(struct snd_soc_pcm_runtime *rtd,
-+			 struct snd_pcm_substream *substream, int cmd)
-+{
-+	int ret = 0;
-+
-+	if (rtd->dai_link->ops &&
-+	    rtd->dai_link->ops->trigger)
-+		ret = rtd->dai_link->ops->trigger(substream, cmd);
-+
-+	return soc_link_ret(rtd, ret);
-+}
+ 	if (rtd->dai_link->ops &&
+ 	    rtd->dai_link->ops->hw_free)
+ 		rtd->dai_link->ops->hw_free(substream);
+ }
+ 
+-int snd_soc_link_trigger(struct snd_soc_pcm_runtime *rtd,
+-			 struct snd_pcm_substream *substream, int cmd)
++int snd_soc_link_trigger(struct snd_pcm_substream *substream, int cmd)
+ {
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 	int ret = 0;
+ 
+ 	if (rtd->dai_link->ops &&
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index b7899da4217e..20857145bd6d 100644
+index 20857145bd6d..2b5068001efb 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -202,60 +202,6 @@ static inline void dpcm_remove_debugfs_state(struct snd_soc_dpcm *dpcm)
- }
- #endif
- 
--static int soc_rtd_startup(struct snd_soc_pcm_runtime *rtd,
--			   struct snd_pcm_substream *substream)
--{
--	if (rtd->dai_link->ops &&
--	    rtd->dai_link->ops->startup)
--		return rtd->dai_link->ops->startup(substream);
--	return 0;
--}
--
--static void soc_rtd_shutdown(struct snd_soc_pcm_runtime *rtd,
--			     struct snd_pcm_substream *substream)
--{
--	if (rtd->dai_link->ops &&
--	    rtd->dai_link->ops->shutdown)
--		rtd->dai_link->ops->shutdown(substream);
--}
--
--static int soc_rtd_prepare(struct snd_soc_pcm_runtime *rtd,
--			   struct snd_pcm_substream *substream)
--{
--	if (rtd->dai_link->ops &&
--	    rtd->dai_link->ops->prepare)
--		return rtd->dai_link->ops->prepare(substream);
--	return 0;
--}
--
--static int soc_rtd_hw_params(struct snd_soc_pcm_runtime *rtd,
--			     struct snd_pcm_substream *substream,
--			     struct snd_pcm_hw_params *params)
--{
--	if (rtd->dai_link->ops &&
--	    rtd->dai_link->ops->hw_params)
--		return rtd->dai_link->ops->hw_params(substream, params);
--	return 0;
--}
--
--static void soc_rtd_hw_free(struct snd_soc_pcm_runtime *rtd,
--			    struct snd_pcm_substream *substream)
--{
--	if (rtd->dai_link->ops &&
--	    rtd->dai_link->ops->hw_free)
--		rtd->dai_link->ops->hw_free(substream);
--}
--
--static int soc_rtd_trigger(struct snd_soc_pcm_runtime *rtd,
--			   struct snd_pcm_substream *substream,
--			   int cmd)
--{
--	if (rtd->dai_link->ops &&
--	    rtd->dai_link->ops->trigger)
--		return rtd->dai_link->ops->trigger(substream, cmd);
--	return 0;
--}
--
- /**
-  * snd_soc_runtime_action() - Increment/Decrement active count for
-  * PCM runtime components
-@@ -736,7 +682,7 @@ static int soc_pcm_close(struct snd_pcm_substream *substream)
+@@ -682,7 +682,7 @@ static int soc_pcm_close(struct snd_pcm_substream *substream)
  	for_each_rtd_dais(rtd, i, dai)
  		snd_soc_dai_shutdown(dai, substream);
  
--	soc_rtd_shutdown(rtd, substream);
-+	snd_soc_link_shutdown(rtd, substream);
+-	snd_soc_link_shutdown(rtd, substream);
++	snd_soc_link_shutdown(substream);
  
  	soc_pcm_components_close(substream);
  
-@@ -783,7 +729,7 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
+@@ -729,7 +729,7 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
  	if (ret < 0)
  		goto component_err;
  
--	ret = soc_rtd_startup(rtd, substream);
-+	ret = snd_soc_link_startup(rtd, substream);
+-	ret = snd_soc_link_startup(rtd, substream);
++	ret = snd_soc_link_startup(substream);
  	if (ret < 0) {
  		pr_err("ASoC: %s startup failed: %d\n",
  		       rtd->dai_link->name, ret);
-@@ -870,7 +816,7 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
+@@ -816,7 +816,7 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
  	for_each_rtd_dais(rtd, i, dai)
  		snd_soc_dai_shutdown(dai, substream);
  
--	soc_rtd_shutdown(rtd, substream);
-+	snd_soc_link_shutdown(rtd, substream);
+-	snd_soc_link_shutdown(rtd, substream);
++	snd_soc_link_shutdown(substream);
  rtd_startup_err:
  	soc_pcm_components_close(substream);
  component_err:
-@@ -912,7 +858,7 @@ static int soc_pcm_prepare(struct snd_pcm_substream *substream)
+@@ -858,7 +858,7 @@ static int soc_pcm_prepare(struct snd_pcm_substream *substream)
  
  	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
  
--	ret = soc_rtd_prepare(rtd, substream);
-+	ret = snd_soc_link_prepare(rtd, substream);
+-	ret = snd_soc_link_prepare(rtd, substream);
++	ret = snd_soc_link_prepare(substream);
  	if (ret < 0) {
  		dev_err(rtd->card->dev,
  			"ASoC: machine prepare error: %d\n", ret);
-@@ -1002,7 +948,7 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
+@@ -948,7 +948,7 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
  	if (ret)
  		goto out;
  
--	ret = soc_rtd_hw_params(rtd, substream, params);
-+	ret = snd_soc_link_hw_params(rtd, substream, params);
+-	ret = snd_soc_link_hw_params(rtd, substream, params);
++	ret = snd_soc_link_hw_params(substream, params);
  	if (ret < 0) {
  		dev_err(rtd->card->dev,
  			"ASoC: machine hw_params failed: %d\n", ret);
-@@ -1117,7 +1063,7 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
+@@ -1063,7 +1063,7 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
  		codec_dai->rate = 0;
  	}
  
--	soc_rtd_hw_free(rtd, substream);
-+	snd_soc_link_hw_free(rtd, substream);
+-	snd_soc_link_hw_free(rtd, substream);
++	snd_soc_link_hw_free(substream);
  
  	mutex_unlock(&rtd->card->pcm_mutex);
  	return ret;
-@@ -1149,7 +1095,7 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
+@@ -1095,7 +1095,7 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
  	}
  
  	/* free any machine hw params */
--	soc_rtd_hw_free(rtd, substream);
-+	snd_soc_link_hw_free(rtd, substream);
+-	snd_soc_link_hw_free(rtd, substream);
++	snd_soc_link_hw_free(substream);
  
  	/* free any component resources */
  	soc_pcm_components_hw_free(substream, NULL);
-@@ -1172,7 +1118,7 @@ static int soc_pcm_trigger_start(struct snd_pcm_substream *substream, int cmd)
+@@ -1118,7 +1118,7 @@ static int soc_pcm_trigger_start(struct snd_pcm_substream *substream, int cmd)
  	struct snd_soc_component *component;
  	int i, ret;
  
--	ret = soc_rtd_trigger(rtd, substream, cmd);
-+	ret = snd_soc_link_trigger(rtd, substream, cmd);
+-	ret = snd_soc_link_trigger(rtd, substream, cmd);
++	ret = snd_soc_link_trigger(substream, cmd);
  	if (ret < 0)
  		return ret;
  
-@@ -1201,7 +1147,7 @@ static int soc_pcm_trigger_stop(struct snd_pcm_substream *substream, int cmd)
+@@ -1147,7 +1147,7 @@ static int soc_pcm_trigger_stop(struct snd_pcm_substream *substream, int cmd)
  			return ret;
  	}
  
--	ret = soc_rtd_trigger(rtd, substream, cmd);
-+	ret = snd_soc_link_trigger(rtd, substream, cmd);
+-	ret = snd_soc_link_trigger(rtd, substream, cmd);
++	ret = snd_soc_link_trigger(substream, cmd);
  	if (ret < 0)
  		return ret;
  

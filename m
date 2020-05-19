@@ -2,72 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F0DE1D90E8
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 May 2020 09:22:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0DE11D918D
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 May 2020 10:00:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A54E417BE;
-	Tue, 19 May 2020 09:21:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A54E417BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3E81E16EA;
+	Tue, 19 May 2020 10:00:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E81E16EA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589872919;
-	bh=1jT1W/ydU3BqDCVDDCoHvLnrD4Q3FZCE3wKld24qVyc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=A9oEU9rxul8pUapbK0NfnmY/MR1E43twUQlJEbSo+NdUQx6zUp6Z2t3RzlmNj2V/9
-	 HynEm/yobeQTPP30RS7uMevNwOqjGaOk55vaBwsPdvY/u3uE2wJF8yqQdFdOKgz/Eg
-	 Ln1eK/XQf27yB+usBUv9gzusBrr5agJJuEUPQxrA=
+	s=default; t=1589875257;
+	bh=pNDRucgqsWo1fVOYO5dsjLxD1n8btBNndmCA4h8hGvo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Ms9WxxzrrsftXOCoObz2N7eOdHI6Zw9EEAq1TuOIgF0rsnBX+0kNLnEe0nIkt5/hO
+	 VK5mAG9Egxd5g9mNbjCwndexUY0rrDXLSkb3MLT165oHpFLLs2XkiuzRx3OzZZkX0e
+	 Tu9BUsDcmhJBINAEgF903wwLrJZFfNyHuiwrtTII=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C3ACFF801F8;
-	Tue, 19 May 2020 09:20:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44815F800C9;
+	Tue, 19 May 2020 09:59:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2559F801A3; Tue, 19 May 2020 09:20:16 +0200 (CEST)
+ id A7EA5F801A3; Tue, 19 May 2020 09:59:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from baptiste.telenet-ops.be (baptiste.telenet-ops.be
+ [IPv6:2a02:1800:120:4::f00:13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9C15DF80132
- for <alsa-devel@alsa-project.org>; Tue, 19 May 2020 09:20:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C15DF80132
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ezelM7YR"
-Received: from localhost (unknown [122.182.207.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 078DF2070A;
- Tue, 19 May 2020 07:20:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589872802;
- bh=1jT1W/ydU3BqDCVDDCoHvLnrD4Q3FZCE3wKld24qVyc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ezelM7YRbWjKGsyjoXVM4BMEeOFteFw61AqTzP6YRmQ8uAVepkgKUD9zMj+sPd8eC
- quTaErEsn9RcpPmrFRXzz4SK8W98ocgbGVj1x0QoraK7CNWX485vAA6ZBaPwnCrjLb
- PcI6ovYqwax9tAWHyUVga4J3dnNGF3DWMx4mNfbg=
-Date: Tue, 19 May 2020 12:49:58 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH v2 0/5] soundwire: bus_type: add sdw_master_device support
-Message-ID: <20200519071958.GL374218@vkoul-mobl.Dlink>
-References: <20200518174322.31561-1-yung-chuan.liao@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200518174322.31561-1-yung-chuan.liao@linux.intel.com>
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, mengdong.lin@intel.com,
- slawomir.blauciak@intel.com, sanyog.r.kale@intel.com,
- rander.wang@linux.intel.com, bard.liao@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5560CF80132
+ for <alsa-devel@alsa-project.org>; Tue, 19 May 2020 09:59:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5560CF80132
+Received: from ramsan ([IPv6:2a02:1810:ac12:ed60:918e:b928:22c1:d715])
+ by baptiste.telenet-ops.be with bizsmtp
+ id gXyz2200Q4CPMDc01XyzuV; Tue, 19 May 2020 09:59:01 +0200
+Received: from rox.of.borg ([192.168.97.57]) by ramsan with esmtp (Exim 4.90_1)
+ (envelope-from <geert@linux-m68k.org>)
+ id 1jax9P-0000ML-Fx; Tue, 19 May 2020 09:58:59 +0200
+Received: from geert by rox.of.borg with local (Exim 4.90_1)
+ (envelope-from <geert@linux-m68k.org>)
+ id 1jax9P-0007GE-EB; Tue, 19 May 2020 09:58:59 +0200
+From: Geert Uytterhoeven <geert+renesas@glider.be>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>
+Subject: [PATCH] ASoC: fsi: Add missing properties to DT bindings
+Date: Tue, 19 May 2020 09:58:58 +0200
+Message-Id: <20200519075858.27869-1-geert+renesas@glider.be>
+X-Mailer: git-send-email 2.17.1
+Cc: linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, Geert Uytterhoeven <geert+renesas@glider.be>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,18 +71,94 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 19-05-20, 01:43, Bard Liao wrote:
-> This series adds sdw master devices support.
-> 
-> changes in v2:
->  - Allocate sdw_master_device dynamically
->  - Use unique bus id as master id
->  - Keep checking parent devices
->  - Enable runtime_pm on Master device
+make dtbs_check:
 
-I tested on RB3 board and it looks good to me, Applied all now.
+    arch/arm/boot/dts/r8a7740-armadillo800eva.dt.yaml: sound@fe1f0000: '#sound-dai-cells', 'clocks', 'power-domains' do not match any of the regexes: 'pinctrl-[0-9]+'
 
-Thanks for the good cleanup :)
+Fix this by documenting the missing properties.
+Update the example to match reality.
+While at it, improve the document title, and comment the various
+compatible values with the corresponding SoC names.
 
+Fixes: 7f464532b05dadc8 ("dt-bindings: Add missing 'additionalProperties: false'")
+Fixes: 2f52475bac7e1572 ("ASoC: fsi: switch to yaml base Documentation")
+Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+---
+For a clean "make dtbs_check", this depends on "ARM: dts: sh73a0: Add
+missing clocks to sound node"
+(http://lore.kernel.org/r/20200519075525.24742-1-geert+renesas@glider.be).
+---
+ .../bindings/sound/renesas,fsi.yaml           | 29 +++++++++++++++----
+ 1 file changed, 23 insertions(+), 6 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/renesas,fsi.yaml b/Documentation/devicetree/bindings/sound/renesas,fsi.yaml
+index 91cf4176abd5f78f..8a4406be387a6b61 100644
+--- a/Documentation/devicetree/bindings/sound/renesas,fsi.yaml
++++ b/Documentation/devicetree/bindings/sound/renesas,fsi.yaml
+@@ -4,7 +4,7 @@
+ $id: http://devicetree.org/schemas/sound/renesas,fsi.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Renesas FSI Sound Driver Device Tree Bindings
++title: Renesas FIFO-buffered Serial Interface (FSI)
+ 
+ maintainers:
+   - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+@@ -18,8 +18,8 @@ properties:
+       # for FSI2 SoC
+       - items:
+           - enum:
+-              - renesas,fsi2-sh73a0
+-              - renesas,fsi2-r8a7740
++              - renesas,fsi2-sh73a0  # SH-Mobile AG5
++              - renesas,fsi2-r8a7740 # R-Mobile A1
+           - enum:
+               - renesas,sh_fsi2
+       # for Generic
+@@ -34,6 +34,15 @@ properties:
+   interrupts:
+     maxItems: 1
+ 
++  clocks:
++    maxItems: 1
++
++  power-domains:
++    maxItems: 1
++
++  '#sound-dai-cells':
++    const: 1
++
+   fsia,spdif-connection:
+     $ref: /schemas/types.yaml#/definitions/flag
+     description: FSI is connected by S/PDIF
+@@ -62,16 +71,24 @@ required:
+   - compatible
+   - reg
+   - interrupts
++  - clocks
++  - power-domains
++  - '#sound-dai-cells'
+ 
+ additionalProperties: false
+ 
+ examples:
+   - |
+-    sh_fsi2: sound@ec230000 {
++    #include <dt-bindings/clock/r8a7740-clock.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    sh_fsi2: sound@fe1f0000 {
+             compatible = "renesas,fsi2-r8a7740", "renesas,sh_fsi2";
+-            reg = <0xec230000 0x400>;
+-            interrupts = <0 146 0x4>;
++            reg = <0xfe1f0000 0x400>;
++            interrupts = <GIC_SPI 9 0x4>;
++            clocks = <&mstp3_clks R8A7740_CLK_FSI>;
++            power-domains = <&pd_a4mp>;
+ 
++            #sound-dai-cells = <1>;
+             fsia,spdif-connection;
+             fsia,stream-mode-support;
+             fsia,use-internal-clock;
 -- 
-~Vinod
+2.17.1
+

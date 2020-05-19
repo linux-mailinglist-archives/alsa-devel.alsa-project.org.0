@@ -2,134 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D16C1D94F3
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 May 2020 13:11:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65EF31D9518
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 May 2020 13:18:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F015F1716;
-	Tue, 19 May 2020 13:11:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F015F1716
+	by alsa0.perex.cz (Postfix) with ESMTPS id E08211713;
+	Tue, 19 May 2020 13:17:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E08211713
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589886716;
-	bh=QJDezwTdATk108/9JMPYE2BqZ9gkPmKGxudSFQSSkPY=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nTnkBrIbNcB/ldxAInRybld+xBOqlyLbExe1VBJ3PLsDv5viayzUPFAdFtajF0b02
-	 QJOMDUS37ddNjhTbIWf92EQ2PBtXgHnnKIMUP/XM2o8mHH//9HzO+8NheFTK7vxzZV
-	 G1JklNYUy7IH4OCAr30ivlwueFT+nTawuB3EK4p0=
+	s=default; t=1589887123;
+	bh=8oTGgv1hDQW2C0dYCjhhhPuWjgeNbAgvb1uW2fI668Q=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=opwftSSs5pLO+o/mMPs5Yr/a1IINNVki9Tu046Z7qP7E+QKs0J5imQib7aXRfQ9IN
+	 dBWI624kRXopKplNaULpADsvCord2QhsT1iiGY4fhf9PdbvnRgHsel5jevl2WtPHT1
+	 uHxSYLYOzuP//TXwVJtiyq2i3bWzZGhQIJdRhRb8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18B7BF801F8;
-	Tue, 19 May 2020 13:10:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98B37F80291;
+	Tue, 19 May 2020 13:17:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9F077F801A3; Tue, 19 May 2020 13:10:12 +0200 (CEST)
+ id B3A0FF8025E; Tue, 19 May 2020 13:16:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FORGED_SPF_HELO,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2043.outbound.protection.outlook.com [40.107.223.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3BA67F800C9
- for <alsa-devel@alsa-project.org>; Tue, 19 May 2020 13:10:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BA67F800C9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3F21CF80110
+ for <alsa-devel@alsa-project.org>; Tue, 19 May 2020 13:16:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F21CF80110
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
- header.i=@amdcloud.onmicrosoft.com header.b="tnV/QR3R"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RerZyvxrnK82X/chsiZRdYr6bsHJecBy3g5K/hb4bhQivSOg1yYZ3sNbGxbL65gOCNsVeTYv4wMffMvAxR4F3J/x2hLSdkBEE3Shk2UTCA4r4a5JUD71N6C6t/DRqpQYo0MpPHRgnb7Y6lag06mYE1VvaOLi0SbJs4HI6UEg334X5Tg/n3Vyzw/RAExLF/KdXadM2s98tKkMNMhcPtaJECWsYyJNNO2nCxRtm/bR+hAdg5uKH4XfHdbQ3rM5t1zyiSsLGslLmL3sFXoZGwGOZVFwdE7sNHv0ZSbRgNclS5ll7hhSHDhFqVqgm6PF6MFyZwL+Bx/BT+P5fImF8TvKRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dXq1B0KxrI4pdHJvm1+nDc9o58bFUWqUNpGSYzWiLII=;
- b=kGgmNDkVqaMUlqMB5J+XILgIGkjMkYY3GyLclDqP8oyAOLFi4XA7N/SQxi4ASJun1+w5uwDM+QDw09CDCWUnt2lNN7jzo3flo6++GZTfif2YLK5Kueg2yjUvmXbXlUYfuM2IbE7drG5sDOPDzMCtGYVN8fpSjhfYqoos8qdLwKeroNMj5JqA7N7p0Kq0OW7IXk8XFm6AsBI96PpvJSRQuCiFwBzZ9fXme73ve/cpNwWAfIKNOBh25Hl/bHlSeKTGJZvaOat084t8B/M0zqm3OT2x8y19ZFR2iI+YNHkbXBYlSmmrQ3b+DiaB0BGwIEN2FME0q++nRVJRj+X1EzIFLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dXq1B0KxrI4pdHJvm1+nDc9o58bFUWqUNpGSYzWiLII=;
- b=tnV/QR3RC4+ErJ58w96LmOFxXIYVZUn3NFsuxXhOeJkc1RPCyOlD7ZjerfQGWNoLf+YWAaeCXDfyBKGgFimnWpEJIGo0e0ErNZGcF4g2QE+GDU5h7ZrOCS6PDG+LC69PYUAr7qfvrBxOZhrXZmUEFpQv1RgpOSKq0ABuWFL3o3o=
-Received: from DM6PR12MB2633.namprd12.prod.outlook.com (2603:10b6:5:50::11) by
- DM6PR12MB4011.namprd12.prod.outlook.com (2603:10b6:5:1c5::28) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3000.27; Tue, 19 May 2020 11:10:00 +0000
-Received: from DM6PR12MB2633.namprd12.prod.outlook.com
- ([fe80::ecbc:404f:23ae:616b]) by DM6PR12MB2633.namprd12.prod.outlook.com
- ([fe80::ecbc:404f:23ae:616b%5]) with mapi id 15.20.3000.034; Tue, 19 May 2020
- 11:10:00 +0000
-From: "Mukunda, Vijendar" <Vijendar.Mukunda@amd.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: RE: [PATCH v3 05/14] ASoC: amd: add ACP3x PDM platform driver
-Thread-Topic: [PATCH v3 05/14] ASoC: amd: add ACP3x PDM platform driver
-Thread-Index: AQHWLTgyQxPCOAim/EGy5OQCT+WGMaivPVIAgAACvmA=
-Date: Tue, 19 May 2020 11:10:00 +0000
-Message-ID: <DM6PR12MB26335F2ABFBE88629334FD9A97B90@DM6PR12MB2633.namprd12.prod.outlook.com>
-References: <20200518171704.24999-1-Vijendar.Mukunda@amd.com>
- <20200518171704.24999-6-Vijendar.Mukunda@amd.com>
- <20200519105434.GC4611@sirena.org.uk>
-In-Reply-To: <20200519105434.GC4611@sirena.org.uk>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-05-19T11:09:58Z; 
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
- Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=390eb4d2-4d3a-4dba-989a-00004ba04003;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-05-19T11:09:58Z
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
- Unrestricted
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 9fed69cf-70c0-474e-88e4-0000d73702fe
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
-authentication-results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [124.123.31.218]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 867b66dd-b6c7-4fdc-84b0-08d7fbe52c3f
-x-ms-traffictypediagnostic: DM6PR12MB4011:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB4011986431B4109BC37F17BE97B90@DM6PR12MB4011.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3044;
-x-forefront-prvs: 040866B734
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: /ThdqieuYp2XI8IbMZlAs5NsJ6VgQc7xmsPe3ZmqAR7N5BOEve79YjisE3nJTUB8oEn/Pokn3UcfbYFGMmJfJ4ZqTNwRRStjwFF+P39kk2R/XC2sm65Ry+AyyIIEGgnXb7+rnltpCY1JyTrqO4GGlepc0uzVYHP4HfTsez+yEPNJDwOHzqee1y8b4iCw4Yz3zULsBGOoji6jyp7B6Lc03qbOPGBs3ziY96MjmZPsT5Xq9U+05ML/q0+CtlDrKuODHWlLWm1Z1T+HiQ9MO30L0299LroFia48z11A2+Ynb+UJthB3OlGufDvo7quIZckgX3SV0+6UbaYTqkui1Sd85JoXgaEmC1kFHbz+zotxeAdGHhRC7V2Qg+UXgem7fEXNGOdVy+QMZCTvDK8MXaCL/H6aURi7Pdu7uxf34WW8OUFIsdG7ibAr8BEWpkBmiA8QBJX1SQfbM3wo1ADdSQVUD0Es3UoghkhX8JwttdK7Pps=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2633.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(366004)(346002)(136003)(376002)(39860400002)(396003)(33656002)(54906003)(9686003)(316002)(8676002)(66446008)(66556008)(4744005)(52536014)(76116006)(8936002)(66476007)(66946007)(64756008)(7696005)(186003)(478600001)(6916009)(71200400001)(55016002)(26005)(5660300002)(86362001)(4326008)(53546011)(2906002)(6506007)(32563001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: qbdTkPTsoMphkD3I7AFgXipzPkgicA9JAMTAvehXY/PWupy9jDpnUh+s+rHStl/1mBNQnLhPT96dXsd7+CgmrlrF1hj+Xv6YRZe5kxm/GqZD4p9xWq4sQmg4/IgeYGvopk6qym0p7ef4Q7nus5t7CBTpOSspDwCebd1nTyOpdF9SedxoIXZht1sr/m97Vpg7+J58nZtXxn0l28gX3bzQjW1FHK0dcLcJfUdYO4cUamUP6TR2MbU7CtyEpWq66FtKZ+Ble9wUS+TyUu2zIufzaJ1XIxlmrkUc7eHW/r9R0rVdJjSt8gnKH6tHXWJhOo7+HeipV9SXkUlUKDY5KBy9U2mcdeQBq2WbuXHVpLcuj3Gli8pfFslaYVI4kP8VhVgKCYYPPH20tgwxpIIX71416BsdlJVR8/QxXJIVfOb66cUyv1MrfpTwiCSpWfmqa3uG/V/Pt597/+XEDXNy5KQyG4+ZBXNKCMWIjC3yDlbe8sGzp77mDOJwGVesUmHQkw7j
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="ov++DuWd"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="r1wv5MPg"
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.nyi.internal (Postfix) with ESMTP id 2B0965C00FC;
+ Tue, 19 May 2020 07:16:47 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Tue, 19 May 2020 07:16:47 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm1; bh=pJhCfD1Ug2ySmc5JWrmaps9Qlz
+ f4K6BEuthxHBTuzCs=; b=ov++DuWdQoiMPgqFs1HuhS3SmcIPIGtl9fnXLi+7/m
+ pv9y5criDbt/xFsMJtgFY115tJhfh+MEdUG2M+5Vk6bDs+H7W2uiCZeehickJUUr
+ 26UpfuH7/93u2V3ro7pzM5zlwuFAbMMV+kCIk5ueg0UXFX1vlzaw352QakaN/D0x
+ 5h7/hM7kBG130Xd3i0YoYqiY1/YUUvgxuL9qQ8o1kkVxPymKYqBU1tDV5J3v7sNd
+ Ciah3o6oLVBmEwq8zcMCuQzXCAy9AINmMxtpXe3BXS9noEE4/mEL8TMEm2P2Y5NP
+ iHKzAxHRSbh96FJB3Gcuh3d7BZX7kfARa5bS6GQYjRmg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=pJhCfD1Ug2ySmc5JW
+ rmaps9Qlzf4K6BEuthxHBTuzCs=; b=r1wv5MPg1wfdSkOw01Hqk9xPDHI7dXw6o
+ rd1WuMeu0op0iVeHv6+YXbano7LekmJFKoQagE8LGVc40nrcLQKsa6hcuWDWg2Ol
+ ZKz96+y+fhsrolYkrYVMMWPuIeLR9POBsdKsfieYwWqdLkHYLIwAeJvIZbpZmMkd
+ PfcARAlWcmV/fqwnz3J+rjsEQbwj9bzU8PCI/HPfZu18RqL217lM2/Lyp8+hn+z3
+ QNKJdGhcBEjIMXcWLwR8LpdfGS/4vUYd2nK1ek3297eT+A7xTpUMmdnSFwzj/KEg
+ EHChiTnpIHoqO+ZJaHJfokBmBvVnXcEMHikUqNfXBYS3Qe0ICJSPg==
+X-ME-Sender: <xms:HsDDXktk-4OJtl6lMUgXR07Qm4NMZbCiTKzHwpOj4zYhzvt9h3enJg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedruddtjedgfeejucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
+ dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
+ ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepudejteelhfdttd
+ ekgfdtueeilefhgfetjeejheekgeevuddvveegieehueeukeejnecukfhppedukedtrddv
+ feehrdefrdehgeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfh
+ hrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:HsDDXhcyP9X9v7KYqL7rEcS7Sok_5VRyCM1mkWhlnvgCNndX_d_SPA>
+ <xmx:HsDDXvxVfanEVexKBbF2Mwq4nJ_Lx-uES0vixccnAvqQlI_vXqmRBA>
+ <xmx:HsDDXnNw0dZegYXsYmWGnxruim2KQYZe3MizZwuUPivbAoGDiBsFiw>
+ <xmx:H8DDXtLwWLOlQS6_AqfgRI-kCtj_XX7Fs--7cZyQP293pDKquCYIHg>
+Received: from workstation.flets-east.jp (ad003054.dynamic.ppp.asahi-net.or.jp
+ [180.235.3.54])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 3E1A73280060;
+ Tue, 19 May 2020 07:16:45 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: clemens@ladisch.de,
+	tiwai@suse.de
+Subject: [PATCH 00/14] ALSA: firewire-motu: code refactoring to obsolete
+ protocol structure
+Date: Tue, 19 May 2020 20:16:27 +0900
+Message-Id: <20200519111641.123211-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 867b66dd-b6c7-4fdc-84b0-08d7fbe52c3f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2020 11:10:00.3258 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: sfwmpt50vJ6zxvZMUs9V2pe6G6GlfIhZuIWvmPiLZ3LSlABZl0OtmrNojcAgLEockuda6g2/D070LOE9ZBJIAg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4011
-Cc: "tiwai@suse.de" <tiwai@suse.de>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -145,27 +109,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+Hi,
 
+ALSA firewire-motu driver becomes to support more models since its first
+commit 2017. As a result, the original structure for generation-dependent
+protocol is not suitable for differences between models in some cases.
 
+This patchset is for refactoring the driver to obsolete the protocol
+structure. Some helper functions are added with condition statement for
+protocol version so that the function calls protocol-dependent function.
+Instead of the protocol structure, specification structure is used to
+represent model information and to choose model-dependent operation so
+that it's easy to handle model-dependent quirks.
 
-> -----Original Message-----
-> From: Mark Brown <broonie@kernel.org>
-> Sent: Tuesday, May 19, 2020 4:25 PM
-> To: Mukunda, Vijendar <Vijendar.Mukunda@amd.com>
-> Cc: alsa-devel@alsa-project.org; tiwai@suse.de; Deucher, Alexander
-> <Alexander.Deucher@amd.com>
-> Subject: Re: [PATCH v3 05/14] ASoC: amd: add ACP3x PDM platform driver
->=20
-> On Tue, May 19, 2020 at 01:16:55AM +0800, Vijendar Mukunda wrote:
->=20
-> > +static int acp_pdm_audio_remove(struct platform_device *pdev)
-> > +{
-> > +	return 0;
-> > +}
->
-> This is empty so can be removed.
+Additionally, this patchset changes the way to calculate the number of
+chunks in data block. Current implementation calculates by the fixed
+number of analog input/output ports and flags in the specification
+structure. Although the flags can represent any physical input/output
+of the model, it's difficult to debug for supported model and to add
+support new models, especially for model-dependent quirks. This
+patchset adds each table for the fixed number of chunks of each model.
+The calculation is just done for differed part of chunks.
 
-It gets filled in future patch.
-Below is the patch reference.
-[PATCH v3 10/14] ASoC: amd: add ACP PDM DMA driver pm ops
+Takashi Sakamoto (14):
+  ALSA: firewire-motu: move spec data to v2 protocol file
+  ALSA: firewire-motu: move spec data to v3 protocol file
+  ALSA: firewire-motu: localize protocol data
+  ALSA: firewire-motu: add wrapper functions for protocol-dependent
+    operations
+  ALSA: firewire-motu: drop protocol structure
+  ALSA: firewire-motu: add model-specific table of chunk count
+  ALSA: firewire-motu: add alternative functions to detect packet format
+    for protocol v2
+  ALSA: firewire-motu: add alternative functions to detect packet format
+    for protocol v3
+  ALSA: firewire-motu: use table-based calculation of packet formats for
+    proc
+  ALSA: firewire-motu: use table-based calculation of packet formats for
+    stream management
+  ALSA: firewire-motu: remove obsoleted codes
+  ALSA: firewire-motu: refactoring protocol v2 for clock source getter
+  ALSA: firewire-motu: refactoring protocol v3 for clock source getter
+  ALSA: firewire-motu: refactoring protocol v2 for fetching mode switch
+
+ sound/firewire/motu/amdtp-motu.c       |  19 +-
+ sound/firewire/motu/motu-pcm.c         |  14 +-
+ sound/firewire/motu/motu-proc.c        |  20 +-
+ sound/firewire/motu/motu-protocol-v2.c | 314 +++++++++++++++----------
+ sound/firewire/motu/motu-protocol-v3.c | 303 ++++++++++++------------
+ sound/firewire/motu/motu-stream.c      |  16 +-
+ sound/firewire/motu/motu.c             | 113 +--------
+ sound/firewire/motu/motu.h             | 124 +++++++---
+ 8 files changed, 463 insertions(+), 460 deletions(-)
+
+-- 
+2.25.1
+

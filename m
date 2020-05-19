@@ -2,94 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B92B51D9DFC
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 May 2020 19:37:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E4271DA001
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 May 2020 20:51:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2008B1760;
-	Tue, 19 May 2020 19:36:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2008B1760
+	by alsa0.perex.cz (Postfix) with ESMTPS id 073D31791;
+	Tue, 19 May 2020 20:51:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 073D31791
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589909827;
-	bh=DgbBuBEeKKy1VO87kSEW0EfBt/LUFOXV9iYEYjJW4vA=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=WkIEcdzVMgyVb0ekl58OJ8hWv9b8W0K1bFNTCnVkP0bT/jJmj/kDNnZfa3qSEiuX7
-	 gNeo8yeFf6IxAqJZcisxUeEjjHnLR3n2Qx0GQyan/3n1q+aSahEY9nuBNtmFZeS0T9
-	 UL/pWjjy94KgXAKAAh3DT8oZiF802Vj6K4n7iTRo=
+	s=default; t=1589914318;
+	bh=hYhLKTyLYVF17Qo0xM51fWzt8ALOPUds4/7KAuVkMSY=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=pMqQOm8JmGRUbqvyZfu/PYuuN1vCyXr9XUpwB+/KEcvt5KTt7gsexsV7g+AT0B2t4
+	 F+qxpfGFTD1EvDGZtnzI03dsL5I+rp5/9iLqfLGrvTViH3KQhfKFugZIQg0fM0mO0u
+	 dnPCSpIh8IADvhPj8A1KleGFJXxHqjBbpQrOvc/s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D267F800C9;
-	Tue, 19 May 2020 19:35:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A35EF80110;
+	Tue, 19 May 2020 20:50:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 801DFF801A3; Tue, 19 May 2020 19:35:23 +0200 (CEST)
+ id 18469F801A3; Tue, 19 May 2020 20:50:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FREEMAIL_FROM,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2D667F80110
- for <alsa-devel@alsa-project.org>; Tue, 19 May 2020 19:35:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D667F80110
+ by alsa1.perex.cz (Postfix) with ESMTPS id A693AF80110
+ for <alsa-devel@alsa-project.org>; Tue, 19 May 2020 20:50:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A693AF80110
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=gmx.net header.i=@gmx.net
- header.b="EP+82QhN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1589909694;
- bh=DgbBuBEeKKy1VO87kSEW0EfBt/LUFOXV9iYEYjJW4vA=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
- b=EP+82QhNJACUlQvurDeOJTMEwaPWg+3xbfgIBLZ3/mdGTOuGjGT7oJAk9qQuNHuuO
- SOUyYBkIbIBUXbQRDK+asRCbGaDHI+mSzmIfA+CSAf9SiO8tUJ1bO5MA9qMt0PV/hB
- a8inNDO23VnAr+Ldzola26chTigT6zDTv2hkeq+c=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from localhost.localdomain ([83.52.229.196]) by mail.gmx.com
- (mrgmx104 [212.227.17.174]) with ESMTPSA (Nemesis) id
- 1MHXFx-1joael00sT-00DYwM; Tue, 19 May 2020 19:34:54 +0200
-From: Oscar Carter <oscar.carter@gmx.com>
-To: Kees Cook <keescook@chromium.org>,
- Stefan Richter <stefanr@s5r6.in-berlin.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Clemens Ladisch <clemens@ladisch.de>,
- Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v2] firewire: Remove function callback casts
-Date: Tue, 19 May 2020 19:34:25 +0200
-Message-Id: <20200519173425.4724-1-oscar.carter@gmx.com>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:JERmYwVR/+/X41rnFajkmiC9+7JlbZf76Grrn9CSDh2nu36nSrt
- QsYyRBaK8uHHcyvNDxMnmApVIJ8rQLCx0jmwBpBNk3u/IEwjZ4DejN0Il9GsxPU+7oRX63I
- LGZVMXiKfG+Vly80USax8iHCxaZ6mOz1ARWvdlYYldbsBqbthmSdHBjK2UPnCHkCg5YX85B
- Mj+Tx+041242IvqNHFwPw==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:1bE5D8caT6A=:KuncZfHcp0wPHvJPAREd1+
- eS5TwfOzwtbWlraCGyAQbvu5S+8ab8J0PJfdXHgId3dWreEoyAyCrwRJ889cx4Sjz9uC4NpcK
- dKqOcG+Ncy0E9sdnnF8W9F7Mn1bFvIuiGFTmaNS0uzHbzqgzPBGnPdMCkhOvIWABwOj4PyJ2n
- QdUt7whypGsZPVFUY9TjsgIaR5wYJO9ZpI+v/J/A06CshyTSBMZUxJD6BeCBUHZfBYXtG1bCs
- EGDW5upNRdYLz+JsR6CjbfVNtSuIm+ATzZ19NS5Z2M6rMFfn/JLgiZ+Jd2enb5qneu1sC95mC
- LSGrI72VpRIFAya1j6WL/2P+Vvw+1CzWAV6iLcyvcR6+r37jWVN1Pu0KaY6Vz2/abr9oC9HAY
- CO/8s4PByS8w47V+7ImpAcUi0xW+rDQUwU67kPTftlqirffH1TCiKnSdx/cgW8hajQWO8/bRY
- W3KiAzBF4cvd6QXxVEMkJYxessY/8RgcvrPNa4ALwWm4cnCJ9k9byWpYEfajV0KIYJIvGHude
- OT2mY1hrNboOBk6TiFDW1NTXRf912WMIZ+F702JAedMPeA/RqDMvT5XF36f8gcNZ/eJE0IshW
- URsY/I27dOUmFyBOP+FwY9D1t/vD9ZYH+8AeOdDksAI+Jc18Z0cXejhCi9I6AiWr+GT4dPP2m
- fEsKnSgTCk16NvhTwxFMiX32DtpOZPlKTc3FfNuPqvVWTxQaLg6cEEjKdDgeinMnfhFWkztpl
- s5ng/jhG7p3AaDpSjYBn8D/8Otxl8K99x9oQjdVkTm0rzrHJ8HyUT6BfDywNYrWWaQ8AGTzwM
- oWrgNpsIW2zV+mBKpwAXdtk1ZXlCEHpDH29CC3X3nfcB37NaHfrKtUpOBVJoJgi+YKwgNZL/F
- bia+PF1ZZ7kSWv/YLRjHg96l4AnPIeivv4Bhobf5WpD5+lRHpC5pE4c8kbze6wx2pqUn/X7Ib
- ydqxMiHiNDawDfMdrmjv8jmTzdifJl/nuxEWTo4DIp+FgTW1gwZ0Xa6stbkEJpcxXVnpD61ZL
- P4wNiUL6OeoQMFold+5gvKhtNK1w8q5fzO27sonijkVqXpG6pMK0wPOZxsWyCJhtkHNmYXZfd
- uJa02I0zg6C9NpavS1sWdT5rllsguA5+xyghmUsnv3knOgROvSkAIcs1tK2oslIGv7JD8hfHR
- pth7ndb1TdYuYLFnZTKNnJdHu2EfDZmQi9vRVjYXn9Z/zzKJ0mwxqbh5p1hOy1VURihi4gPvY
- B9ntdw3zY1aZYwy/3
-Cc: alsa-devel@alsa-project.org, Oscar Carter <oscar.carter@gmx.com>,
- kernel-hardening@lists.openwall.com, linux-kernel@vger.kernel.org,
- "Lev R . Oshvang ." <levonshe@gmail.com>,
- linux1394-devel@lists.sourceforge.net, linux-media@vger.kernel.org
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="f5421wRF"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id D30E720758;
+ Tue, 19 May 2020 18:50:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1589914206;
+ bh=hYhLKTyLYVF17Qo0xM51fWzt8ALOPUds4/7KAuVkMSY=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=f5421wRFsJH/4ozKSSVbpraDC5aZq2JkeyrHX7JS/4gZNS7B0y25/CP5AVE9A7C8h
+ PHc/M4gL/i8IRyjdFs+b+80BbLAMSSzvdhHjW5WuMSfNYuWF6H7RaIUzSk5gEeBnoA
+ 0fdMGjneReEL7G1b6QPVmK8qL+e6c/bcnuz4Yj6Y=
+Date: Tue, 19 May 2020 19:50:03 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, alsa-devel@alsa-project.org,
+ tiwai@suse.de
+In-Reply-To: <20200519143422.18255-1-Vijendar.Mukunda@amd.com>
+References: <20200519143422.18255-1-Vijendar.Mukunda@amd.com>
+Subject: Re: [PATCH 1/3] ASoC: amd: fix kernel warning
+Message-Id: <158991420371.37024.9299760374538804911.b4-ty@kernel.org>
+Cc: Alexander.Deucher@amd.com, kbuild test robot <lkp@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,197 +76,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In an effort to enable -Wcast-function-type in the top-level Makefile to
-support Control Flow Integrity builds, remove all the function callback
-casts.
+On Tue, 19 May 2020 22:34:20 +0800, Vijendar Mukunda wrote:
+> Removed unused variable from code to fix the kernel warning.
 
-To do this, modify the "fw_iso_context_create" function prototype adding
-a new parameter for the multichannel callback. Also, fix all the
-function calls accordingly.
+Applied to
 
-In the "fw_iso_context_create" function return an error code if both
-callback parameters are NULL and also set the "ctx->callback.sc"
-explicity to NULL in this case. It is not necessary set to NULL the
-"ctx->callback.mc" variable because this and "ctx->callback.sc" are an
-union and setting one implies setting the other one to the same value.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.8
 
-Signed-off-by: Oscar Carter <oscar.carter@gmx.com>
-=2D--
-Changelog v1->v2
--Set explicity to NULL the "ctx->callback.sc" variable and return an error
- code in "fw_iso_context_create" function if both callback parameters are
- NULL as Lev R. Oshvang suggested.
--Modify the commit changelog accordingly.
+Thanks!
 
- drivers/firewire/core-cdev.c        | 12 +++++++-----
- drivers/firewire/core-iso.c         | 14 ++++++++++++--
- drivers/firewire/net.c              |  2 +-
- drivers/media/firewire/firedtv-fw.c |  3 ++-
- include/linux/firewire.h            |  3 ++-
- sound/firewire/amdtp-stream.c       |  2 +-
- sound/firewire/isight.c             |  4 ++--
- 7 files changed, 27 insertions(+), 13 deletions(-)
+[1/3] ASoC: amd: fix kernel warning
+      commit: fdae433e5129c4ca87716de08fdcc0034d5aabc8
+[2/3] ASoC: amd: refactoring dai_hw_params() callback
+      commit: 19cc20bd644f7baf279671c0647ef79c36f259a3
+[3/3] ASoC: amd: return error when acp de-init fails
+      commit: ce5955866d971864a6cd8d012411ec96b048a696
 
-diff --git a/drivers/firewire/core-cdev.c b/drivers/firewire/core-cdev.c
-index 6e291d8f3a27..cc368b35be2e 100644
-=2D-- a/drivers/firewire/core-cdev.c
-+++ b/drivers/firewire/core-cdev.c
-@@ -957,7 +957,8 @@ static int ioctl_create_iso_context(struct client *cli=
-ent, union ioctl_arg *arg)
- {
- 	struct fw_cdev_create_iso_context *a =3D &arg->create_iso_context;
- 	struct fw_iso_context *context;
--	fw_iso_callback_t cb;
-+	fw_iso_callback_t cb_sc =3D NULL;
-+	fw_iso_mc_callback_t cb_mc =3D NULL;
- 	int ret;
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
- 	BUILD_BUG_ON(FW_CDEV_ISO_CONTEXT_TRANSMIT !=3D FW_ISO_CONTEXT_TRANSMIT |=
-|
-@@ -970,7 +971,7 @@ static int ioctl_create_iso_context(struct client *cli=
-ent, union ioctl_arg *arg)
- 		if (a->speed > SCODE_3200 || a->channel > 63)
- 			return -EINVAL;
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
--		cb =3D iso_callback;
-+		cb_sc =3D iso_callback;
- 		break;
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
- 	case FW_ISO_CONTEXT_RECEIVE:
-@@ -978,11 +979,11 @@ static int ioctl_create_iso_context(struct client *c=
-lient, union ioctl_arg *arg)
- 		    a->channel > 63)
- 			return -EINVAL;
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
--		cb =3D iso_callback;
-+		cb_sc =3D iso_callback;
- 		break;
-
- 	case FW_ISO_CONTEXT_RECEIVE_MULTICHANNEL:
--		cb =3D (fw_iso_callback_t)iso_mc_callback;
-+		cb_mc =3D iso_mc_callback;
- 		break;
-
- 	default:
-@@ -990,7 +991,8 @@ static int ioctl_create_iso_context(struct client *cli=
-ent, union ioctl_arg *arg)
- 	}
-
- 	context =3D fw_iso_context_create(client->device->card, a->type,
--			a->channel, a->speed, a->header_size, cb, client);
-+			a->channel, a->speed, a->header_size, cb_sc, cb_mc,
-+			client);
- 	if (IS_ERR(context))
- 		return PTR_ERR(context);
- 	if (client->version < FW_CDEV_VERSION_AUTO_FLUSH_ISO_OVERFLOW)
-diff --git a/drivers/firewire/core-iso.c b/drivers/firewire/core-iso.c
-index 185b0b78b3d6..1d28a98c08b2 100644
-=2D-- a/drivers/firewire/core-iso.c
-+++ b/drivers/firewire/core-iso.c
-@@ -131,7 +131,8 @@ size_t fw_iso_buffer_lookup(struct fw_iso_buffer *buff=
-er, dma_addr_t completed)
-
- struct fw_iso_context *fw_iso_context_create(struct fw_card *card,
- 		int type, int channel, int speed, size_t header_size,
--		fw_iso_callback_t callback, void *callback_data)
-+		fw_iso_callback_t cb_sc, fw_iso_mc_callback_t cb_mc,
-+		void *callback_data)
- {
- 	struct fw_iso_context *ctx;
-
-@@ -145,7 +146,16 @@ struct fw_iso_context *fw_iso_context_create(struct f=
-w_card *card,
- 	ctx->channel =3D channel;
- 	ctx->speed =3D speed;
- 	ctx->header_size =3D header_size;
--	ctx->callback.sc =3D callback;
-+
-+	if (cb_sc) {
-+		ctx->callback.sc =3D cb_sc;
-+	} else if (cb_mc) {
-+		ctx->callback.mc =3D cb_mc;
-+	} else {
-+		ctx->callback.sc =3D NULL;
-+		return ERR_PTR(-EINVAL);
-+	}
-+
- 	ctx->callback_data =3D callback_data;
-
- 	return ctx;
-diff --git a/drivers/firewire/net.c b/drivers/firewire/net.c
-index 715e491dfbc3..c5cc0a311aa0 100644
-=2D-- a/drivers/firewire/net.c
-+++ b/drivers/firewire/net.c
-@@ -1136,7 +1136,7 @@ static int fwnet_broadcast_start(struct fwnet_device=
- *dev)
- 	context =3D fw_iso_context_create(dev->card, FW_ISO_CONTEXT_RECEIVE,
- 					IEEE1394_BROADCAST_CHANNEL,
- 					dev->card->link_speed, 8,
--					fwnet_receive_broadcast, dev);
-+					fwnet_receive_broadcast, NULL, dev);
- 	if (IS_ERR(context)) {
- 		retval =3D PTR_ERR(context);
- 		goto failed;
-diff --git a/drivers/media/firewire/firedtv-fw.c b/drivers/media/firewire/=
-firedtv-fw.c
-index 97144734eb05..d2940adefd8c 100644
-=2D-- a/drivers/media/firewire/firedtv-fw.c
-+++ b/drivers/media/firewire/firedtv-fw.c
-@@ -141,7 +141,8 @@ int fdtv_start_iso(struct firedtv *fdtv)
-
- 	ctx->context =3D fw_iso_context_create(device->card,
- 			FW_ISO_CONTEXT_RECEIVE, fdtv->isochannel,
--			device->max_speed, ISO_HEADER_SIZE, handle_iso, fdtv);
-+			device->max_speed, ISO_HEADER_SIZE,
-+			handle_iso, NULL, fdtv);
- 	if (IS_ERR(ctx->context)) {
- 		err =3D PTR_ERR(ctx->context);
- 		goto fail_free;
-diff --git a/include/linux/firewire.h b/include/linux/firewire.h
-index aec8f30ab200..3a0b5e18e140 100644
-=2D-- a/include/linux/firewire.h
-+++ b/include/linux/firewire.h
-@@ -452,7 +452,8 @@ struct fw_iso_context {
-
- struct fw_iso_context *fw_iso_context_create(struct fw_card *card,
- 		int type, int channel, int speed, size_t header_size,
--		fw_iso_callback_t callback, void *callback_data);
-+		fw_iso_callback_t cb_sc, fw_iso_mc_callback_t cb_mc,
-+		void *callback_data);
- int fw_iso_context_set_channels(struct fw_iso_context *ctx, u64 *channels=
-);
- int fw_iso_context_queue(struct fw_iso_context *ctx,
- 			 struct fw_iso_packet *packet,
-diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-index 37d38efb4c87..8629ab3e2c64 100644
-=2D-- a/sound/firewire/amdtp-stream.c
-+++ b/sound/firewire/amdtp-stream.c
-@@ -1093,7 +1093,7 @@ static int amdtp_stream_start(struct amdtp_stream *s=
-, int channel, int speed,
-
- 	s->context =3D fw_iso_context_create(fw_parent_device(s->unit)->card,
- 					  type, channel, speed, ctx_header_size,
--					  ctx_cb, ctx_data);
-+					  ctx_cb, NULL, ctx_data);
- 	if (IS_ERR(s->context)) {
- 		err =3D PTR_ERR(s->context);
- 		if (err =3D=3D -EBUSY)
-diff --git a/sound/firewire/isight.c b/sound/firewire/isight.c
-index 6655af53b367..51cc37fca736 100644
-=2D-- a/sound/firewire/isight.c
-+++ b/sound/firewire/isight.c
-@@ -361,8 +361,8 @@ static int isight_start_streaming(struct isight *isigh=
-t)
- 	isight->context =3D fw_iso_context_create(isight->device->card,
- 						FW_ISO_CONTEXT_RECEIVE,
- 						isight->resources.channel,
--						isight->device->max_speed,
--						4, isight_packet, isight);
-+						isight->device->max_speed, 4,
-+						isight_packet, NULL, isight);
- 	if (IS_ERR(isight->context)) {
- 		err =3D PTR_ERR(isight->context);
- 		isight->context =3D NULL;
-=2D-
-2.20.1
-
+Thanks,
+Mark

@@ -2,65 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E4271DA001
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 May 2020 20:51:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6936E1DABC0
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 May 2020 09:15:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 073D31791;
-	Tue, 19 May 2020 20:51:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 073D31791
+	by alsa0.perex.cz (Postfix) with ESMTPS id B0D5F17AC;
+	Wed, 20 May 2020 09:14:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0D5F17AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589914318;
-	bh=hYhLKTyLYVF17Qo0xM51fWzt8ALOPUds4/7KAuVkMSY=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=pMqQOm8JmGRUbqvyZfu/PYuuN1vCyXr9XUpwB+/KEcvt5KTt7gsexsV7g+AT0B2t4
-	 F+qxpfGFTD1EvDGZtnzI03dsL5I+rp5/9iLqfLGrvTViH3KQhfKFugZIQg0fM0mO0u
-	 dnPCSpIh8IADvhPj8A1KleGFJXxHqjBbpQrOvc/s=
+	s=default; t=1589958941;
+	bh=U2uj/DgKwauLR6IhGfQia8fsZv3t2oBm+JAvAC4qHnY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=G1pZ2p1++gS10enMtnC1MLly1gAPtfwKgzy9eC35MLCc1p0snKfd8XdJXbsc1EcIi
+	 B+0iac9WDa/tTwGlAkYmRebY3l2EPJHpbv3lgVcoA/1aleULp+94odHxu1rz4i3OWm
+	 L6Z8OYqfF6xJ1o2KrmF18mN+hH/pOcIKKnVqGlMQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1A35EF80110;
-	Tue, 19 May 2020 20:50:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8289F801DA;
+	Wed, 20 May 2020 09:14:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 18469F801A3; Tue, 19 May 2020 20:50:13 +0200 (CEST)
+ id 629F4F80132; Wed, 20 May 2020 09:13:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A693AF80110
- for <alsa-devel@alsa-project.org>; Tue, 19 May 2020 20:50:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A693AF80110
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="f5421wRF"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D30E720758;
- Tue, 19 May 2020 18:50:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589914206;
- bh=hYhLKTyLYVF17Qo0xM51fWzt8ALOPUds4/7KAuVkMSY=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=f5421wRFsJH/4ozKSSVbpraDC5aZq2JkeyrHX7JS/4gZNS7B0y25/CP5AVE9A7C8h
- PHc/M4gL/i8IRyjdFs+b+80BbLAMSSzvdhHjW5WuMSfNYuWF6H7RaIUzSk5gEeBnoA
- 0fdMGjneReEL7G1b6QPVmK8qL+e6c/bcnuz4Yj6Y=
-Date: Tue, 19 May 2020 19:50:03 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, alsa-devel@alsa-project.org,
- tiwai@suse.de
-In-Reply-To: <20200519143422.18255-1-Vijendar.Mukunda@amd.com>
-References: <20200519143422.18255-1-Vijendar.Mukunda@amd.com>
-Subject: Re: [PATCH 1/3] ASoC: amd: fix kernel warning
-Message-Id: <158991420371.37024.9299760374538804911.b4-ty@kernel.org>
-Cc: Alexander.Deucher@amd.com, kbuild test robot <lkp@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E69DDF80132
+ for <alsa-devel@alsa-project.org>; Wed, 20 May 2020 09:13:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E69DDF80132
+IronPort-SDR: Umekako9Jw88mjzKUj6csSnXpQDceM9cORsp4wGmkoYTAXAoKCVnUiACw1OChCho2cl5t1pJ7C
+ 6Qjpar0Nng1A==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 May 2020 00:13:46 -0700
+IronPort-SDR: 1I4Md1o/u325pnWQMRQ3X79EeTBosykvzJPYwMnXYMhD0Jvyg9TpV494VcD529MpfSn6Je8ttg
+ MPYvcYD4VoQA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,413,1583222400"; d="scan'208";a="253596937"
+Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
+ by fmsmga007.fm.intel.com with ESMTP; 20 May 2020 00:13:43 -0700
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	vkoul@kernel.org
+Subject: [PATCH 1/2] soundwire: intel: use a single module
+Date: Wed, 20 May 2020 03:19:02 +0800
+Message-Id: <20200519191903.6557-1-yung-chuan.liao@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: pierre-louis.bossart@linux.intel.com, vinod.koul@linaro.org, tiwai@suse.de,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, mengdong.lin@intel.com,
+ slawomir.blauciak@intel.com, sanyog.r.kale@intel.com,
+ rander.wang@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,37 +76,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 19 May 2020 22:34:20 +0800, Vijendar Mukunda wrote:
-> Removed unused variable from code to fix the kernel warning.
+From: Rander Wang <rander.wang@intel.com>
 
-Applied to
+It's not clear why we have two modules for the Intel controller/master
+support when there is a single Kconfig. This adds complexity for no
+good reason, the two parts need to work together anyways.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.8
+Signed-off-by: Rander Wang <rander.wang@intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+---
+ drivers/soundwire/Makefile | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-Thanks!
+diff --git a/drivers/soundwire/Makefile b/drivers/soundwire/Makefile
+index 7319918e0aec..4f6094767212 100644
+--- a/drivers/soundwire/Makefile
++++ b/drivers/soundwire/Makefile
+@@ -16,12 +16,9 @@ soundwire-cadence-objs := cadence_master.o
+ obj-$(CONFIG_SOUNDWIRE_CADENCE) += soundwire-cadence.o
+ 
+ #Intel driver
+-soundwire-intel-objs :=	intel.o
++soundwire-intel-objs :=	intel.o intel_init.o
+ obj-$(CONFIG_SOUNDWIRE_INTEL) += soundwire-intel.o
+ 
+-soundwire-intel-init-objs := intel_init.o
+-obj-$(CONFIG_SOUNDWIRE_INTEL) += soundwire-intel-init.o
+-
+ #Qualcomm driver
+ soundwire-qcom-objs :=	qcom.o
+ obj-$(CONFIG_SOUNDWIRE_QCOM) += soundwire-qcom.o
+-- 
+2.17.1
 
-[1/3] ASoC: amd: fix kernel warning
-      commit: fdae433e5129c4ca87716de08fdcc0034d5aabc8
-[2/3] ASoC: amd: refactoring dai_hw_params() callback
-      commit: 19cc20bd644f7baf279671c0647ef79c36f259a3
-[3/3] ASoC: amd: return error when acp de-init fails
-      commit: ce5955866d971864a6cd8d012411ec96b048a696
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

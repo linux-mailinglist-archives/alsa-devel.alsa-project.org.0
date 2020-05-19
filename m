@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 423AE1D9520
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 May 2020 13:19:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F160D1D9528
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 May 2020 13:21:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA35E4E;
-	Tue, 19 May 2020 13:18:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA35E4E
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4170170B;
+	Tue, 19 May 2020 13:20:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4170170B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589887185;
-	bh=OS6oMXQuF5dD+nd+oz3Kd4VzpjGtBpMwu/VtXJ/0mLM=;
+	s=default; t=1589887285;
+	bh=p2pWQvMYTa1or3xbYR9l+KdbDEVtYn9QdFqrsJsjQBA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=q0AAeyzuvca9qO2oZ6apzyExphzAT8NVEq5rTDcaO1wlW85qrahE6M/cfjSiBlKAd
-	 61ZALz6VDkMGl4NKw4dQx6d3QF/LUphpheYVq0EE8OXbqBKYKzwBqXIxQxDbO2JxzS
-	 PnPDuNxXmmLmdQcKu/rKMPirTBMQXpKbmRR9bDJw=
+	b=LKQzDDWQsrhuXz5S9ViGdmnrBS4dfiLgYuhC8lBjjW8VvfIevrsnbU5T9n4g+XWNu
+	 JTuBp6HxjqGS8v5dg3MPMIevZQr6KumZWN5U1vPylJraKped9Ei+HQKMC13tbK/Uy5
+	 vL6ZcmNuJdi08IjgTH6AIxvxpwmi0oMtps0I87I4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 37DC5F802A1;
-	Tue, 19 May 2020 13:17:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B813AF802A7;
+	Tue, 19 May 2020 13:17:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9AF73F80292; Tue, 19 May 2020 13:17:03 +0200 (CEST)
+ id 03844F8029A; Tue, 19 May 2020 13:17:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,40 +35,40 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EF09DF801F8
- for <alsa-devel@alsa-project.org>; Tue, 19 May 2020 13:16:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF09DF801F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 63B73F800C9
+ for <alsa-devel@alsa-project.org>; Tue, 19 May 2020 13:16:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63B73F800C9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="pY4fj4w1"; 
+ header.b="eDOrFKZD"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="2GOmq1Y4"
+ header.i=@messagingengine.com header.b="nR9L9RI2"
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id 274FE5C0074;
- Tue, 19 May 2020 07:16:54 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 9220C5C0132;
+ Tue, 19 May 2020 07:16:55 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Tue, 19 May 2020 07:16:54 -0400
+ by compute2.internal (MEProxy); Tue, 19 May 2020 07:16:55 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=xktxFm8m/Fj/j
- JD7lUcLzk/3gKuGumFHttuJlHB+HQc=; b=pY4fj4w1IJzcu663qozozFgvlLJWL
- 8k3mcmIt8yJdtqjYSfgdXJB2azbzAtxAJJUUzHSaC1mT9Q3rMTpiIs70MqKhpPq8
- fHCBN56FgdA7LfTsTpNa8WvWN8kMrje1EZcNhy3CDFMrLmKxoIQk4daJ/ikuwse2
- TtUTc15miWhtT2j/aNXMTm/hWAR15nsG5Q21h1ovnq9fdQwpBXhq5oDZsh6kb8oa
- E9r+xsXXGxjIOm4hluuYtpYe+6DuO1o5AXkZrODN6kaKu+EyeRYWUa169u9aYEqu
- x5mtEpXsTrOwfJwrSy0GIorEFYc86qp+tCkAdEaCbCqfMpePcptUSEC0A==
+ :mime-version:content-transfer-encoding; s=fm1; bh=02z9KJEPcMiW6
+ D4zcPtuipaedn7zRDaK0tBe7ykdR0Q=; b=eDOrFKZDT+E5+C20aXzpV4f2OzbWS
+ HUhbpYZUTcKWulJ0IEs2fZhtIS/DSkGHK4v7G0mQMRqpLjfKcFhUOTFYDtqX6NpN
+ e3V8nN6u6hTeDRkDJhUAFr3OXhGj+EM5CSaiUHrj05H88iHnZc69TwIl6JwKPGjT
+ yWuzKNhDEcl9vYuk8dLSb29yVBPGXHrypEoJmEiIeIYkjwVhWzCtzNJyOsSkzdVW
+ H1HoT3rIOLVTC/5d+le2IBq/3INRSI2cUukwJzHR19SX74UYGoZLi89gzdSFF42Y
+ 56OcHBrZdBfZqFNVlf7YHyHghV6AilOppeofagnsSwnjpE8nA94DsL+lA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=xktxFm8m/Fj/jJD7lUcLzk/3gKuGumFHttuJlHB+HQc=; b=2GOmq1Y4
- o083XEWpphAJ/zYE/Z0di4FJy/47aMn8lrarvK7RkTRV4jVOsHhnfdJ9aqun9vhi
- ITc2cMzNIaXqPWLkOlHsmTPhbOJt82/qUOP/395AuBUA+6FbVRSEiZXnGm3Ebcol
- SXmuNoUbgetDFVD6BHf9lQpbcOf7uruvH+3IsKo1qEcAImhk+eNE32xhKsQxQ2N6
- R9TY5DQdie2JlYheMfUaF0lQ26PxwIhdIAQtITxmPfb4WigMK4oDwXRsNrYuQFDB
- VhSN9fXYAr8WgowBl4d8TVhL4sNjKg7pI8zAhG597pjy4FjJrNnMVQeIWr/h6q3q
- N68Pu2nMIEOCDw==
-X-ME-Sender: <xms:JsDDXnonbThz1t60vroD3peNkpBt5eLCGzWDYdPbtrzD5kNQWWsAog>
+ fm2; bh=02z9KJEPcMiW6D4zcPtuipaedn7zRDaK0tBe7ykdR0Q=; b=nR9L9RI2
+ dyCGoD0fqrMdpaYg8kND4fNO8flmg1u3CDSH2xUOMmHlfo4fYHSZecyHJ4FHN174
+ NbEKabRglnL99bMSwGhQlwmUKUgaMyRy27Gu9z0MHxkSiaOYuqVSB4yA9mSn00Eq
+ 9v+HBKBH1jUOMKUx3C2S65Jz8KkiGtiuV94BHeFWI4mHgDCJ9YG2eNag1b+1Nls4
+ QKb/I02P9LA5z2KkJaTPlE/JcIh5IHbVPOlIO1veOK66KFIQKpqcC8bLYs3qQw1U
+ f/KU1imYpb27ZeI7pQJ3ATgAuv6MZ1HIvMlC7w+xIhRRkkQUMRvmsJ/U8zfxhpDt
+ PlLZbDPH8a66sA==
+X-ME-Sender: <xms:J8DDXluiMgFhymTh_KNQMELrQ5EBKyoIPYMjfc-qowaMBQQbnHfNeA>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedruddtjedgfeejucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
@@ -77,20 +77,21 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedruddtjedgfeejucetufdoteggod
  etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecukfhppedukedt
  rddvfeehrdefrdehgeenucevlhhushhtvghrufhiiigvpeegnecurfgrrhgrmhepmhgrih
  hlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:JsDDXhqHX5BFfDIDAu4kbMs1qJMdXijv7KaXmCDym9Ho1Rv5N2jYow>
- <xmx:JsDDXkM6ZltEOKQ9N10eR_EznTA1Ww_Zzq2h_DXQWkz1J4LMdtICFQ>
- <xmx:JsDDXq5shtcxm2lCLYPwarx-V07naO0-QM2JIBaQjT4E7-aA-dLptw>
- <xmx:JsDDXjXDvw3kJk55pe-GsFjEkarkQIL99LkAreVqdji4VUyuLbZ9jA>
+X-ME-Proxy: <xmx:J8DDXuf-Rt6h2ZM3jGbgbfF1j8WjkCW2xK_iB-JyZPnMWOD0_gmSPA>
+ <xmx:J8DDXoxqkrMMvSMa877w1VdTP06ytQH6BaLWI9SJ3Wb3DHzEYio6Yg>
+ <xmx:J8DDXsORBOe-5m3mkbu0OGOOE05Zf9Pmoy0sBw9tuSMI-ehN0aHY4w>
+ <xmx:J8DDXqKHn3-0TA0DusU3-XBUXfKdDS6pFE0Kz3nGyu-D5o1nRENLoQ>
 Received: from workstation.flets-east.jp (ad003054.dynamic.ppp.asahi-net.or.jp
  [180.235.3.54])
- by mail.messagingengine.com (Postfix) with ESMTPA id 2270D3280060;
- Tue, 19 May 2020 07:16:52 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 692A03280060;
+ Tue, 19 May 2020 07:16:54 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Subject: [PATCH 05/14] ALSA: firewire-motu: drop protocol structure
-Date: Tue, 19 May 2020 20:16:32 +0900
-Message-Id: <20200519111641.123211-6-o-takashi@sakamocchi.jp>
+Subject: [PATCH 06/14] ALSA: firewire-motu: add model-specific table of chunk
+ count
+Date: Tue, 19 May 2020 20:16:33 +0900
+Message-Id: <20200519111641.123211-7-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200519111641.123211-1-o-takashi@sakamocchi.jp>
 References: <20200519111641.123211-1-o-takashi@sakamocchi.jp>
@@ -112,120 +113,114 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Now protocol structure becomes useless. This commit drops it.
+In MOTU protocol, data block consists of SPH and 24-bit chunks
+aligned to quadlet. The number of chunks per data block is specific
+to model. For models with optical interface, the number differs
+depending on I/O settings for the interface (ADAT, TOSLINK).
+
+Currently the number is calculated from flags in model-specific
+data. However this is weak in the case that the model has quirks.
+Actually, for quirks of some models, flags are used against their
+original meanings.
+
+This commit adds model-specific table of chunk count. For future
+integration, this table is based on the calculation.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/motu/motu-protocol-v2.c |  7 -------
- sound/firewire/motu/motu-protocol-v3.c |  5 -----
- sound/firewire/motu/motu.h             | 11 -----------
- 3 files changed, 23 deletions(-)
+ sound/firewire/motu/motu-protocol-v2.c | 10 ++++++++--
+ sound/firewire/motu/motu-protocol-v3.c |  7 ++++++-
+ sound/firewire/motu/motu.h             |  3 +++
+ 3 files changed, 17 insertions(+), 3 deletions(-)
 
 diff --git a/sound/firewire/motu/motu-protocol-v2.c b/sound/firewire/motu/motu-protocol-v2.c
-index 26534ed97fbc..e2913cb54da8 100644
+index e2913cb54da8..6cd7a5f1f46c 100644
 --- a/sound/firewire/motu/motu-protocol-v2.c
 +++ b/sound/firewire/motu/motu-protocol-v2.c
-@@ -296,13 +296,9 @@ int snd_motu_protocol_v2_cache_packet_formats(struct snd_motu *motu)
- 	return 0;
- }
- 
--static const struct snd_motu_protocol snd_motu_protocol_v2 = {
--};
+@@ -306,7 +306,8 @@ const struct snd_motu_spec snd_motu_spec_828mk2 = {
+ 		 SND_MOTU_SPEC_HAS_OPT_IFACE_A |
+ 		 SND_MOTU_SPEC_RX_MIDI_2ND_Q |
+ 		 SND_MOTU_SPEC_TX_MIDI_2ND_Q,
 -
- const struct snd_motu_spec snd_motu_spec_828mk2 = {
- 	.name = "828mk2",
- 	.protocol_version = SND_MOTU_PROTOCOL_V2,
--	.protocol = &snd_motu_protocol_v2,
- 	.flags = SND_MOTU_SPEC_SUPPORT_CLOCK_X2 |
- 		 SND_MOTU_SPEC_TX_MICINST_CHUNK |
- 		 SND_MOTU_SPEC_TX_RETURN_CHUNK |
-@@ -317,7 +313,6 @@ const struct snd_motu_spec snd_motu_spec_828mk2 = {
- 
- const struct snd_motu_spec snd_motu_spec_traveler = {
- 	.name = "Traveler",
--	.protocol = &snd_motu_protocol_v2,
- 	.protocol_version = SND_MOTU_PROTOCOL_V2,
- 	.flags = SND_MOTU_SPEC_SUPPORT_CLOCK_X2 |
- 		 SND_MOTU_SPEC_SUPPORT_CLOCK_X4 |
-@@ -334,7 +329,6 @@ const struct snd_motu_spec snd_motu_spec_traveler = {
- const struct snd_motu_spec snd_motu_spec_ultralite = {
- 	.name = "UltraLite",
- 	.protocol_version = SND_MOTU_PROTOCOL_V2,
--	.protocol = &snd_motu_protocol_v2,
- 	.flags = SND_MOTU_SPEC_SUPPORT_CLOCK_X2 |
- 		 SND_MOTU_SPEC_TX_MICINST_CHUNK | // padding.
- 		 SND_MOTU_SPEC_TX_RETURN_CHUNK |
-@@ -348,7 +342,6 @@ const struct snd_motu_spec snd_motu_spec_ultralite = {
- const struct snd_motu_spec snd_motu_spec_8pre = {
- 	.name = "8pre",
- 	.protocol_version = SND_MOTU_PROTOCOL_V2,
--	.protocol = &snd_motu_protocol_v2,
- 	// In tx, use coax chunks for mix-return 1/2. In rx, use coax chunks for
- 	// dummy 1/2.
- 	.flags = SND_MOTU_SPEC_SUPPORT_CLOCK_X2 |
++	.tx_fixed_pcm_chunks = {14, 14, 0},
++	.rx_fixed_pcm_chunks = {14, 14, 0},
+ 	.analog_in_ports = 8,
+ 	.analog_out_ports = 8,
+ };
+@@ -321,7 +322,8 @@ const struct snd_motu_spec snd_motu_spec_traveler = {
+ 		 SND_MOTU_SPEC_HAS_OPT_IFACE_A |
+ 		 SND_MOTU_SPEC_RX_MIDI_2ND_Q |
+ 		 SND_MOTU_SPEC_TX_MIDI_2ND_Q,
+-
++	.tx_fixed_pcm_chunks = {14, 14, 8},
++	.rx_fixed_pcm_chunks = {14, 14, 8},
+ 	.analog_in_ports = 8,
+ 	.analog_out_ports = 8,
+ };
+@@ -335,6 +337,8 @@ const struct snd_motu_spec snd_motu_spec_ultralite = {
+ 		 SND_MOTU_SPEC_RX_MIDI_2ND_Q |
+ 		 SND_MOTU_SPEC_TX_MIDI_2ND_Q |
+ 		 SND_MOTU_SPEC_RX_SEPARATED_MAIN,
++	.tx_fixed_pcm_chunks = {14, 14, 0},
++	.rx_fixed_pcm_chunks = {14, 14, 0},
+ 	.analog_in_ports = 8,
+ 	.analog_out_ports = 8,
+ };
+@@ -349,6 +353,8 @@ const struct snd_motu_spec snd_motu_spec_8pre = {
+ 		 SND_MOTU_SPEC_HAS_OPT_IFACE_B |
+ 		 SND_MOTU_SPEC_RX_MIDI_2ND_Q |
+ 		 SND_MOTU_SPEC_TX_MIDI_2ND_Q,
++	.tx_fixed_pcm_chunks = {10, 6, 0},
++	.rx_fixed_pcm_chunks = {10, 6, 0},
+ 	.analog_in_ports = 8,
+ 	.analog_out_ports = 2,
+ };
 diff --git a/sound/firewire/motu/motu-protocol-v3.c b/sound/firewire/motu/motu-protocol-v3.c
-index d8b42d28304a..8192bcdd1b37 100644
+index 8192bcdd1b37..370d22da276e 100644
 --- a/sound/firewire/motu/motu-protocol-v3.c
 +++ b/sound/firewire/motu/motu-protocol-v3.c
-@@ -310,13 +310,10 @@ int snd_motu_protocol_v3_cache_packet_formats(struct snd_motu *motu)
- 	return 0;
- }
- 
--static const struct snd_motu_protocol snd_motu_protocol_v3 = {
--};
- 
- const struct snd_motu_spec snd_motu_spec_828mk3 = {
- 	.name = "828mk3",
- 	.protocol_version = SND_MOTU_PROTOCOL_V3,
--	.protocol = &snd_motu_protocol_v3,
- 	.flags = SND_MOTU_SPEC_SUPPORT_CLOCK_X2 |
- 		 SND_MOTU_SPEC_SUPPORT_CLOCK_X4 |
- 		 SND_MOTU_SPEC_TX_MICINST_CHUNK |
-@@ -335,7 +332,6 @@ const struct snd_motu_spec snd_motu_spec_828mk3 = {
- const struct snd_motu_spec snd_motu_spec_audio_express = {
- 	.name = "AudioExpress",
- 	.protocol_version = SND_MOTU_PROTOCOL_V3,
--	.protocol = &snd_motu_protocol_v3,
- 	.flags = SND_MOTU_SPEC_SUPPORT_CLOCK_X2 |
- 		 SND_MOTU_SPEC_TX_MICINST_CHUNK |
- 		 SND_MOTU_SPEC_TX_RETURN_CHUNK |
-@@ -349,7 +345,6 @@ const struct snd_motu_spec snd_motu_spec_audio_express = {
- const struct snd_motu_spec snd_motu_spec_4pre = {
- 	.name = "4pre",
- 	.protocol_version = SND_MOTU_PROTOCOL_V3,
--	.protocol = &snd_motu_protocol_v3,
- 	.flags = SND_MOTU_SPEC_SUPPORT_CLOCK_X2 |
+@@ -324,7 +324,8 @@ const struct snd_motu_spec snd_motu_spec_828mk3 = {
+ 		 SND_MOTU_SPEC_HAS_OPT_IFACE_B |
+ 		 SND_MOTU_SPEC_RX_MIDI_3RD_Q |
+ 		 SND_MOTU_SPEC_TX_MIDI_3RD_Q,
+-
++	.tx_fixed_pcm_chunks = {18, 18, 14},
++	.rx_fixed_pcm_chunks = {14, 14, 10},
+ 	.analog_in_ports = 8,
+ 	.analog_out_ports = 8,
+ };
+@@ -338,6 +339,8 @@ const struct snd_motu_spec snd_motu_spec_audio_express = {
+ 		 SND_MOTU_SPEC_RX_SEPARATED_MAIN |
+ 		 SND_MOTU_SPEC_RX_MIDI_2ND_Q |
+ 		 SND_MOTU_SPEC_TX_MIDI_3RD_Q,
++	.tx_fixed_pcm_chunks = {10, 10, 0},
++	.rx_fixed_pcm_chunks = {10, 10, 0},
+ 	.analog_in_ports = 2,
+ 	.analog_out_ports = 4,
+ };
+@@ -349,6 +352,8 @@ const struct snd_motu_spec snd_motu_spec_4pre = {
  		 SND_MOTU_SPEC_TX_MICINST_CHUNK |
  		 SND_MOTU_SPEC_TX_RETURN_CHUNK |
+ 		 SND_MOTU_SPEC_RX_SEPARATED_MAIN,
++	.tx_fixed_pcm_chunks = {10, 10, 0},
++	.rx_fixed_pcm_chunks = {10, 10, 0},
+ 	.analog_in_ports = 2,
+ 	.analog_out_ports = 2,
+ };
 diff --git a/sound/firewire/motu/motu.h b/sound/firewire/motu/motu.h
-index d59841677596..f8274ed94766 100644
+index f8274ed94766..790aa34d396f 100644
 --- a/sound/firewire/motu/motu.h
 +++ b/sound/firewire/motu/motu.h
-@@ -113,15 +113,6 @@ enum snd_motu_protocol_version {
- 	SND_MOTU_PROTOCOL_V3,
- };
- 
--struct snd_motu_protocol {
--	int (*get_clock_rate)(struct snd_motu *motu, unsigned int *rate);
--	int (*set_clock_rate)(struct snd_motu *motu, unsigned int rate);
--	int (*get_clock_source)(struct snd_motu *motu,
--				enum snd_motu_clock_source *source);
--	int (*switch_fetching_mode)(struct snd_motu *motu, bool enable);
--	int (*cache_packet_formats)(struct snd_motu *motu);
--};
--
- struct snd_motu_spec {
- 	const char *const name;
+@@ -118,6 +118,9 @@ struct snd_motu_spec {
  	enum snd_motu_protocol_version protocol_version;
-@@ -129,8 +120,6 @@ struct snd_motu_spec {
+ 	enum snd_motu_spec_flags flags;
  
++	unsigned char tx_fixed_pcm_chunks[3];
++	unsigned char rx_fixed_pcm_chunks[3];
++
  	unsigned char analog_in_ports;
  	unsigned char analog_out_ports;
--
--	const struct snd_motu_protocol *const protocol;
  };
- 
- extern const struct snd_motu_spec snd_motu_spec_828mk2;
 -- 
 2.25.1
 

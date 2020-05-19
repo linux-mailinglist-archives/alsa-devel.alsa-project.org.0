@@ -2,60 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0DE11D918D
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 May 2020 10:00:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C95041D93D4
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 May 2020 11:53:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E81E16EA;
-	Tue, 19 May 2020 10:00:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E81E16EA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7086A16F9;
+	Tue, 19 May 2020 11:52:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7086A16F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589875257;
-	bh=pNDRucgqsWo1fVOYO5dsjLxD1n8btBNndmCA4h8hGvo=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1589882017;
+	bh=PP4y8+Rpcsg4M6eCxnK6dps1RPAKYaiiRWSGxZR1jd4=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Ms9WxxzrrsftXOCoObz2N7eOdHI6Zw9EEAq1TuOIgF0rsnBX+0kNLnEe0nIkt5/hO
-	 VK5mAG9Egxd5g9mNbjCwndexUY0rrDXLSkb3MLT165oHpFLLs2XkiuzRx3OzZZkX0e
-	 Tu9BUsDcmhJBINAEgF903wwLrJZFfNyHuiwrtTII=
+	b=iMIDBs/m9vwj/XFMfLeBmPK6fkI11F6FdYMY3M+jBMdN0+Fh55vJiKY+e1UDO4Ent
+	 bOInlQ1syyXd1TS2bLsOERrnUirWCfIkdf0EC1xrp2jQToujUhU3UuIuZoIr10VO/A
+	 cLFjtcU8sD1vdmY0f4yUgN9Z/DjWGAInDl8jb8jU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44815F800C9;
-	Tue, 19 May 2020 09:59:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 785E4F80161;
+	Tue, 19 May 2020 11:51:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7EA5F801A3; Tue, 19 May 2020 09:59:12 +0200 (CEST)
+ id C2755F80110; Tue, 19 May 2020 11:51:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_NONE,
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from baptiste.telenet-ops.be (baptiste.telenet-ops.be
- [IPv6:2a02:1800:120:4::f00:13])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5560CF80132
- for <alsa-devel@alsa-project.org>; Tue, 19 May 2020 09:59:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5560CF80132
-Received: from ramsan ([IPv6:2a02:1810:ac12:ed60:918e:b928:22c1:d715])
- by baptiste.telenet-ops.be with bizsmtp
- id gXyz2200Q4CPMDc01XyzuV; Tue, 19 May 2020 09:59:01 +0200
-Received: from rox.of.borg ([192.168.97.57]) by ramsan with esmtp (Exim 4.90_1)
- (envelope-from <geert@linux-m68k.org>)
- id 1jax9P-0000ML-Fx; Tue, 19 May 2020 09:58:59 +0200
-Received: from geert by rox.of.borg with local (Exim 4.90_1)
- (envelope-from <geert@linux-m68k.org>)
- id 1jax9P-0007GE-EB; Tue, 19 May 2020 09:58:59 +0200
-From: Geert Uytterhoeven <geert+renesas@glider.be>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>
-Subject: [PATCH] ASoC: fsi: Add missing properties to DT bindings
-Date: Tue, 19 May 2020 09:58:58 +0200
-Message-Id: <20200519075858.27869-1-geert+renesas@glider.be>
-X-Mailer: git-send-email 2.17.1
-Cc: linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Geert Uytterhoeven <geert+renesas@glider.be>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4BA5DF80132
+ for <alsa-devel@alsa-project.org>; Tue, 19 May 2020 11:51:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BA5DF80132
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id A83D62000E1;
+ Tue, 19 May 2020 11:51:45 +0200 (CEST)
+Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
+ [165.114.16.14])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id A0AA62000DB;
+ Tue, 19 May 2020 11:51:37 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id DF866402B3;
+ Tue, 19 May 2020 17:51:27 +0800 (SGT)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, shawnguo@kernel.org,
+ s.hauer@pengutronix.de, kernel@pengutronix.de, linux-imx@nxp.com,
+ sumit.semwal@linaro.org, alsa-devel@alsa-project.org,
+ linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
+Subject: [PATCH] ASoC: fsl: imx-pcm-dma: Don't request dma channel in probe
+Date: Tue, 19 May 2020 17:41:41 +0800
+Message-Id: <1589881301-4143-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,94 +75,241 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-make dtbs_check:
+There are two requirements that we need to move the request
+of dma channel from probe to open.
 
-    arch/arm/boot/dts/r8a7740-armadillo800eva.dt.yaml: sound@fe1f0000: '#sound-dai-cells', 'clocks', 'power-domains' do not match any of the regexes: 'pinctrl-[0-9]+'
+- When dma device binds with power-domains, the power will
+be enabled when we request dma channel. If the request of dma
+channel happen on probe, then the power-domains will be always
+enabled after kernel boot up,  which is not good for power
+saving,  so we need to move the request of dma channel to .open();
 
-Fix this by documenting the missing properties.
-Update the example to match reality.
-While at it, improve the document title, and comment the various
-compatible values with the corresponding SoC names.
+- With FE-BE case, if the dma channel is requested in probe,
+then there will be below issue, which is caused by that the
+dma channel will be requested duplicately
 
-Fixes: 7f464532b05dadc8 ("dt-bindings: Add missing 'additionalProperties: false'")
-Fixes: 2f52475bac7e1572 ("ASoC: fsi: switch to yaml base Documentation")
-Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+[  638.906268] sysfs: cannot create duplicate filename '/devices/soc0/soc/2000000.bus/2000000.spba-bus/2024000.esai/dma:tx'
+[  638.919061] CPU: 1 PID: 673 Comm: aplay Not tainted 5.7.0-rc1-12956-gfc64b2585593 #287
+[  638.927113] Hardware name: Freescale i.MX6 Quad/DualLite (Device Tree)
+[  638.933690] [<c0110dd8>] (unwind_backtrace) from [<c010b8ec>] (show_stack+0x10/0x14)
+[  638.941464] [<c010b8ec>] (show_stack) from [<c0557fc0>] (dump_stack+0xe4/0x118)
+[  638.948808] [<c0557fc0>] (dump_stack) from [<c032aeb4>] (sysfs_warn_dup+0x50/0x64)
+[  638.956406] [<c032aeb4>] (sysfs_warn_dup) from [<c032b1a8>] (sysfs_do_create_link_sd+0xc8/0xd4)
+[  638.965134] [<c032b1a8>] (sysfs_do_create_link_sd) from [<c05dc668>] (dma_request_chan+0xb0/0x210)
+[  638.974120] [<c05dc668>] (dma_request_chan) from [<c05dc7d0>] (dma_request_slave_channel+0x8/0x14)
+[  638.983111] [<c05dc7d0>] (dma_request_slave_channel) from [<c09d5548>] (fsl_asrc_dma_hw_params+0x1e0/0x438)
+[  638.992881] [<c09d5548>] (fsl_asrc_dma_hw_params) from [<c09c1654>] (soc_pcm_hw_params+0x4a0/0x6a8)
+[  639.001952] [<c09c1654>] (soc_pcm_hw_params) from [<c09c39d4>] (dpcm_fe_dai_hw_params+0x70/0xe4)
+[  639.010765] [<c09c39d4>] (dpcm_fe_dai_hw_params) from [<c099b274>] (snd_pcm_hw_params+0x158/0x418)
+[  639.019750] [<c099b274>] (snd_pcm_hw_params) from [<c099c5a0>] (snd_pcm_ioctl+0x734/0x183c)
+[  639.028129] [<c099c5a0>] (snd_pcm_ioctl) from [<c029ff94>] (ksys_ioctl+0x2ac/0xb98)
+[  639.035812] [<c029ff94>] (ksys_ioctl) from [<c0100080>] (ret_fast_syscall+0x0/0x28)
+[  639.043490] Exception stack(0xec529fa8 to 0xec529ff0)
+[  639.048565] 9fa0:                   bee84650 01321870 00000004 c25c4111 bee84650 0002000f
+[  639.056766] 9fc0: bee84650 01321870 01321820 00000036 00001f40 00000000 0002c2f8 00000003
+[  639.064964] 9fe0: b6f483fc bee8451c b6ee2655 b6e1dcf8
+[  639.070339] fsl-esai-dai 2024000.esai: Cannot create DMA dma:tx symlink
+
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 ---
-For a clean "make dtbs_check", this depends on "ARM: dts: sh73a0: Add
-missing clocks to sound node"
-(http://lore.kernel.org/r/20200519075525.24742-1-geert+renesas@glider.be).
----
- .../bindings/sound/renesas,fsi.yaml           | 29 +++++++++++++++----
- 1 file changed, 23 insertions(+), 6 deletions(-)
+ sound/soc/fsl/imx-pcm-dma.c | 173 +++++++++++++++++++++++++++++++++---
+ 1 file changed, 159 insertions(+), 14 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/renesas,fsi.yaml b/Documentation/devicetree/bindings/sound/renesas,fsi.yaml
-index 91cf4176abd5f78f..8a4406be387a6b61 100644
---- a/Documentation/devicetree/bindings/sound/renesas,fsi.yaml
-+++ b/Documentation/devicetree/bindings/sound/renesas,fsi.yaml
-@@ -4,7 +4,7 @@
- $id: http://devicetree.org/schemas/sound/renesas,fsi.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/sound/soc/fsl/imx-pcm-dma.c b/sound/soc/fsl/imx-pcm-dma.c
+index 04a9bc749016..dae53b384df4 100644
+--- a/sound/soc/fsl/imx-pcm-dma.c
++++ b/sound/soc/fsl/imx-pcm-dma.c
+@@ -11,6 +11,7 @@
+ #include <linux/dmaengine.h>
+ #include <linux/types.h>
+ #include <linux/module.h>
++#include <linux/dma-mapping.h>
  
--title: Renesas FSI Sound Driver Device Tree Bindings
-+title: Renesas FIFO-buffered Serial Interface (FSI)
+ #include <sound/core.h>
+ #include <sound/pcm.h>
+@@ -29,24 +30,168 @@ static bool filter(struct dma_chan *chan, void *param)
+ 	return true;
+ }
  
- maintainers:
-   - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-@@ -18,8 +18,8 @@ properties:
-       # for FSI2 SoC
-       - items:
-           - enum:
--              - renesas,fsi2-sh73a0
--              - renesas,fsi2-r8a7740
-+              - renesas,fsi2-sh73a0  # SH-Mobile AG5
-+              - renesas,fsi2-r8a7740 # R-Mobile A1
-           - enum:
-               - renesas,sh_fsi2
-       # for Generic
-@@ -34,6 +34,15 @@ properties:
-   interrupts:
-     maxItems: 1
+-static const struct snd_dmaengine_pcm_config imx_dmaengine_pcm_config = {
+-	.prepare_slave_config = snd_dmaengine_pcm_prepare_slave_config,
+-	.compat_filter_fn = filter,
+-};
++static int imx_pcm_hw_params(struct snd_soc_component *component,
++			     struct snd_pcm_substream *substream,
++			     struct snd_pcm_hw_params *params)
++{
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
++	struct snd_dmaengine_dai_dma_data *dma_data;
++	struct dma_slave_config config;
++	struct dma_chan *chan;
++	int ret = 0;
  
-+  clocks:
-+    maxItems: 1
+-int imx_pcm_dma_init(struct platform_device *pdev, size_t size)
++	snd_pcm_set_runtime_buffer(substream, &substream->dma_buffer);
++	runtime->dma_bytes = params_buffer_bytes(params);
 +
-+  power-domains:
-+    maxItems: 1
++	chan = snd_dmaengine_pcm_get_chan(substream);
++	if (!chan)
++		return -EINVAL;
 +
-+  '#sound-dai-cells':
-+    const: 1
++	ret = snd_hwparams_to_dma_slave_config(substream, params, &config);
++	if (ret)
++		return ret;
 +
-   fsia,spdif-connection:
-     $ref: /schemas/types.yaml#/definitions/flag
-     description: FSI is connected by S/PDIF
-@@ -62,16 +71,24 @@ required:
-   - compatible
-   - reg
-   - interrupts
-+  - clocks
-+  - power-domains
-+  - '#sound-dai-cells'
++	dma_data = snd_soc_dai_get_dma_data(cpu_dai, substream);
++	if (!dma_data)
++		return -EINVAL;
++
++	snd_dmaengine_pcm_set_config_from_dai_data(substream,
++						   dma_data,
++						   &config);
++	return dmaengine_slave_config(chan, &config);
++}
++
++static int imx_pcm_hw_free(struct snd_soc_component *component,
++			   struct snd_pcm_substream *substream)
+ {
+-	struct snd_dmaengine_pcm_config *config;
++	snd_pcm_set_runtime_buffer(substream, NULL);
++	return 0;
++}
++
++static snd_pcm_uframes_t imx_pcm_pointer(struct snd_soc_component *component,
++					 struct snd_pcm_substream *substream)
++{
++	return snd_dmaengine_pcm_pointer(substream);
++}
++
++static int imx_pcm_trigger(struct snd_soc_component *component,
++			   struct snd_pcm_substream *substream, int cmd)
++{
++	return snd_dmaengine_pcm_trigger(substream, cmd);
++}
++
++static int imx_pcm_open(struct snd_soc_component *component,
++			struct snd_pcm_substream *substream)
++{
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
++	struct snd_dmaengine_dai_dma_data *dma_data;
++	struct device *dev = component->dev;
++	struct snd_pcm_hardware hw;
++	struct dma_chan *chan;
++	int ret;
++
++	ret = snd_pcm_hw_constraint_integer(substream->runtime,
++					    SNDRV_PCM_HW_PARAM_PERIODS);
++	if (ret < 0) {
++		dev_err(dev, "failed to set pcm hw params periods\n");
++		return ret;
++	}
++
++	dma_data = snd_soc_dai_get_dma_data(cpu_dai, substream);
++	if (!dma_data)
++		return -EINVAL;
++
++	chan = dma_request_slave_channel(cpu_dai->dev, tx ? "tx" : "rx");
++	if (!chan) {
++		/* Try to request channel using compat_filter_fn */
++		chan = snd_dmaengine_pcm_request_channel(filter,
++							 dma_data->filter_data);
++		if (!chan)
++			return -ENXIO;
++	}
  
- additionalProperties: false
+-	config = devm_kzalloc(&pdev->dev,
+-			sizeof(struct snd_dmaengine_pcm_config), GFP_KERNEL);
+-	if (!config)
+-		return -ENOMEM;
+-	*config = imx_dmaengine_pcm_config;
++	ret = snd_dmaengine_pcm_open(substream, chan);
++	if (ret)
++		goto pcm_open_fail;
  
- examples:
-   - |
--    sh_fsi2: sound@ec230000 {
-+    #include <dt-bindings/clock/r8a7740-clock.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    sh_fsi2: sound@fe1f0000 {
-             compatible = "renesas,fsi2-r8a7740", "renesas,sh_fsi2";
--            reg = <0xec230000 0x400>;
--            interrupts = <0 146 0x4>;
-+            reg = <0xfe1f0000 0x400>;
-+            interrupts = <GIC_SPI 9 0x4>;
-+            clocks = <&mstp3_clks R8A7740_CLK_FSI>;
-+            power-domains = <&pd_a4mp>;
+-	return devm_snd_dmaengine_pcm_register(&pdev->dev,
+-		config,
+-		SND_DMAENGINE_PCM_FLAG_COMPAT);
++	memset(&hw, 0, sizeof(hw));
++	hw.info = SNDRV_PCM_INFO_MMAP | SNDRV_PCM_INFO_MMAP_VALID |
++			SNDRV_PCM_INFO_INTERLEAVED;
++	hw.periods_min = 2;
++	hw.periods_max = UINT_MAX;
++	hw.period_bytes_min = 256;
++	hw.period_bytes_max = dma_get_max_seg_size(chan->device->dev);
++	hw.buffer_bytes_max = IMX_DEFAULT_DMABUF_SIZE;
++	hw.fifo_size = dma_data->fifo_size;
++
++	/* Refine the hw according to caps of DMA. */
++	ret = snd_dmaengine_pcm_refine_runtime_hwparams(substream,
++							dma_data,
++							&hw,
++							chan);
++	if (ret < 0)
++		goto refine_runtime_hwparams_fail;
++
++	snd_soc_set_runtime_hwparams(substream, &hw);
++
++	/* Support allocate memory from IRAM */
++	ret = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV_IRAM,
++				  chan->device->dev,
++				  hw.buffer_bytes_max,
++				  &substream->dma_buffer);
++	if (ret < 0)
++		goto alloc_pagas_fail;
++
++	return 0;
++
++alloc_pagas_fail:
++refine_runtime_hwparams_fail:
++	snd_dmaengine_pcm_close(substream);
++pcm_open_fail:
++	dma_release_channel(chan);
++
++	return ret;
++}
++
++static int imx_pcm_close(struct snd_soc_component *component,
++			 struct snd_pcm_substream *substream)
++{
++	if (substream) {
++		snd_dma_free_pages(&substream->dma_buffer);
++		substream->dma_buffer.area = NULL;
++		substream->dma_buffer.addr = 0;
++	}
++
++	return snd_dmaengine_pcm_close_release_chan(substream);
++}
++
++static int imx_pcm_new(struct snd_soc_component *component,
++		       struct snd_soc_pcm_runtime *rtd)
++{
++	struct snd_card *card = rtd->card->snd_card;
++
++	return dma_coerce_mask_and_coherent(card->dev, DMA_BIT_MASK(32));
++}
++
++static const struct snd_soc_component_driver imx_pcm_component = {
++	.name           = "imx-pcm-dma",
++	.pcm_construct	= imx_pcm_new,
++	.open		= imx_pcm_open,
++	.close		= imx_pcm_close,
++	.hw_params	= imx_pcm_hw_params,
++	.hw_free	= imx_pcm_hw_free,
++	.trigger	= imx_pcm_trigger,
++	.pointer	= imx_pcm_pointer,
++};
++
++int imx_pcm_dma_init(struct platform_device *pdev, size_t size)
++{
++	return devm_snd_soc_register_component(&pdev->dev,
++					       &imx_pcm_component, NULL, 0);
+ }
+ EXPORT_SYMBOL_GPL(imx_pcm_dma_init);
  
-+            #sound-dai-cells = <1>;
-             fsia,spdif-connection;
-             fsia,stream-mode-support;
-             fsia,use-internal-clock;
 -- 
-2.17.1
+2.21.0
 

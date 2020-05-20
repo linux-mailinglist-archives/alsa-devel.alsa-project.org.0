@@ -2,72 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EADB1DB5C7
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 May 2020 15:57:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FF5A1DB9DA
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 May 2020 18:40:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1B3717F7;
-	Wed, 20 May 2020 15:56:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1B3717F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C13317FA;
+	Wed, 20 May 2020 18:39:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C13317FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589983027;
-	bh=77eBqGPO9oS6IAJe/Q1U2VGxJbTGtULUpvt12elCIEE=;
+	s=default; t=1589992830;
+	bh=LZOGKwLI3IWtFd9wd6qu3MEDiLjckvl8XQSWR0je3tQ=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=W7NbMHmSFE/noXUq+yP7WT47m5Uz04/0uyq+t87ErhnL4bUJ4xwUnfCLWEReLRTfu
-	 ydCNyliDteyS0IBO81zxGIok4F8li2X5dzWMvsMjPzHU4+rmKQodf2cuVy7YcHBvti
-	 eNo+LxUiqfHz5KmcGUIMLAC43l2VQQ1RNhs8fJKk=
+	b=NTbYydN7+2ILBbi2awhXMiaoZvaDO/SdGM3ffBdirPPsyg+/dzQXSzdqqTkzVNgG7
+	 byUQPkDZ/FyqJboR49AXqEgsIlEmOsrByb2sT70KWuqBDLOcKE1iOjlwWwiAJn2/E8
+	 PeBL00hkg+KPBee4EYilKlclDiWMTHUf2pD62jE0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3A3BF8026F;
-	Wed, 20 May 2020 15:55:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 315B1F80213;
+	Wed, 20 May 2020 18:38:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C85CF8025E; Wed, 20 May 2020 15:55:25 +0200 (CEST)
+ id 7CCDFF80132; Wed, 20 May 2020 18:38:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 67DE2F80132
- for <alsa-devel@alsa-project.org>; Wed, 20 May 2020 15:55:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67DE2F80132
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="MDVoSJtm"
-Received: from localhost (unknown [122.178.227.40])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1FEB6206C3;
- Wed, 20 May 2020 13:55:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589982917;
- bh=77eBqGPO9oS6IAJe/Q1U2VGxJbTGtULUpvt12elCIEE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=MDVoSJtml/vZvPY+QL93DOKrAz8b2rx0MEzt0MpJSeplTEHUtTelisIA5A49pwfqN
- OGfnznwwcy3P5ERnzc8tsw1WuOnvrsfrm/LMe9Cju45/aJ3WiPmWC6M9nHMJTdbOQj
- gtw87WVzkIHsiXScRyFyXtT4Jktbt1UD/9phXEeQ=
-Date: Wed, 20 May 2020 19:25:09 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH 1/2] soundwire: intel: use a single module
-Message-ID: <20200520135509.GY374218@vkoul-mobl.Dlink>
-References: <20200519191903.6557-1-yung-chuan.liao@linux.intel.com>
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from netrider.rowland.org (netrider.rowland.org [192.131.102.5])
+ by alsa1.perex.cz (Postfix) with SMTP id 4BFE6F80132
+ for <alsa-devel@alsa-project.org>; Wed, 20 May 2020 18:38:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BFE6F80132
+Received: (qmail 12889 invoked by uid 1000); 20 May 2020 12:38:40 -0400
+Date: Wed, 20 May 2020 12:38:40 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Rik van Riel <riel@surriel.com>
+Subject: Re: XHCI vs PCM2903B/PCM2904 part 2
+Message-ID: <20200520163840.GA11084@rowland.harvard.edu>
+References: <273cc1c074cc4a4058f31afe487fb233f5cf0351.camel@surriel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200519191903.6557-1-yung-chuan.liao@linux.intel.com>
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, mengdong.lin@intel.com,
- slawomir.blauciak@intel.com, sanyog.r.kale@intel.com,
- rander.wang@linux.intel.com, bard.liao@intel.com
+In-Reply-To: <273cc1c074cc4a4058f31afe487fb233f5cf0351.camel@surriel.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, Mathias Nyman <mathias.nyman@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-usb <linux-usb@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,14 +66,117 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 20-05-20, 03:19, Bard Liao wrote:
-> From: Rander Wang <rander.wang@intel.com>
+On Wed, May 20, 2020 at 07:26:57AM -0400, Rik van Riel wrote:
+> After a few more weeks of digging, I have come to the tentative
+> conclusion that either the XHCI driver, or the USB sound driver,
+> or both, fail to handle USB errors correctly.
 > 
-> It's not clear why we have two modules for the Intel controller/master
-> support when there is a single Kconfig. This adds complexity for no
-> good reason, the two parts need to work together anyways.
+> I have some questions at the bottom, after a (brief-ish) explanation
+> of exactly what seems to go wrong.
+> 
+> TL;DR: arecord from a misbehaving device can hang forever
+> after a USB error, due to poll on /dev/snd/timer never returning.
+> 
+> The details: under some mysterious circumstances, the PCM290x
+> family sound chips can send more data than expected during an
+> isochronous transfer, leading to a babble error. Those
 
-Applied, thanks
+Do these chips connect as USB-3 devices or as USB-2?  (I wouldn't expect 
+an audio device to use USB-3; it shouldn't need the higher bandwidth.)
 
--- 
-~Vinod
+> circumstances seem to in part depend on the USB host controller
+> and/or the electrical environment, since the chips work just
+> fine for most people.
+> 
+> Receiving data past the end of the isochronous transfer window
+> scheduled for a device results in the XHCI controller throwing
+> a babble error, which moves the endpoint into halted state.
+> 
+> This is followed by the host controller software sending a
+> reset endpoint command, and moving the endpoint into stopped
+> state, as specified on pages 164-165 of the XHCI specification.
+
+In general, errors such as babble are not supposed to stop isochronous 
+endpoints.
+
+> However, the USB sound driver seems to have no idea that this
+> error happened. The function retire_capture_urb looks at the
+> status of each isochronous frame, but seems to be under the
+> assumption that the sound device just keeps on running.
+
+This is appropriate, for the reason mentioned above.
+
+> The function snd_complete_urb seems to only detect that the
+> device is not running if usb_submit_urb returns a failure.
+> 
+>         err = usb_submit_urb(urb, GFP_ATOMIC);
+>         if (err == 0)
+>                 return;
+> 
+>         usb_audio_err(ep->chip, "cannot submit urb (err = %d)\n", err);
+> 
+>         if (ep->data_subs && ep->data_subs->pcm_substream) {
+>                 substream = ep->data_subs->pcm_substream;
+>                 snd_pcm_stop_xrun(substream);
+>         }
+> 
+> However, the XHCI driver will happily submit an URB to a
+> stopped device.
+
+Do you mean "stopped device" or "stopped endpoint"?
+
+>  Looking at the call trace usb_submit_urb ->
+> xhci_urb_enqueue -> xhci_queue_isoc_tx_prepare -> prepare_ring,
+> you can see this code:
+> 
+>         /* Make sure the endpoint has been added to xHC schedule */
+>         switch (ep_state) {
+> ...
+>         case EP_STATE_HALTED:
+>                 xhci_dbg(xhci, "WARN halted endpoint, queueing URB anyway.\n");
+>         case EP_STATE_STOPPED:
+>         case EP_STATE_RUNNING:
+>                 break;
+> 
+> This leads me to a few questions:
+> - should retire_capture_urb call snd_pcm_stop_xrun,
+>   or another function like it, if it sees certain
+>   errors in the iso frame in the URB?
+
+No.  Isochronous endpoints are expected to encounter errors from time to 
+time; that is the nature of isochronous communications.  You're supposed 
+to ignore the errors (skip over any bad data) and keep going.
+
+> - should snd_complete_urb do something with these
+>   errors, too, in case they happen on the sync frames
+>   and not the data frames?
+> - does the XHCI code need to ring the doorbell when
+>   submitting an URB to a stopped device, or is it
+>   always up to the higher-level driver to fully reset
+>   the device before it can do anything useful?
+
+In this case it is not up to the higher-level driver.
+
+> - if a device in stopped state does not do anything
+>   useful, should usb_submit_urb return an error?
+
+The notion of "stopped state" is not part of USB-2.  As a result, it 
+should be handled entirely within the xhci-hcd driver.
+
+(A non-isochronous endpoint can be in the "halted" state.  But obviously 
+this isn't what you're talking about.)
+
+> - how should the USB sound driver recover from these
+>   occasional and/or one-off errors? stop the sound
+>   stream, or try to reinitialize the device and start
+>   recording again?
+
+As far as I know, it should do its best to continue (perhaps fill in 
+missing data with zeros).
+
+Alan Stern
+
+> I am willing to write patches and can test with my
+> setup, but both the sound code and the USB code are
+> new to me so I would like to know what direction I
+> should go in :)

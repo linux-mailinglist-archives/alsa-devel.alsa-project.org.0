@@ -2,80 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A69711DA4DF
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 May 2020 00:44:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2646F1DA7F1
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 May 2020 04:27:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2442E17A3;
-	Wed, 20 May 2020 00:43:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2442E17A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F41517AD;
+	Wed, 20 May 2020 04:26:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F41517AD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589928246;
-	bh=Z+yhUkb54ncq98pdzZqCBEveIFtHrDMflLjR/7kU9Eg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nzc8/hAotPhdp7LvrvhfAaCvG0DKFJp5h7dfz9hYC7AUeP9A2PShccj+O8yXUNs1D
-	 FVF0f8zQ/W4V2P5JZNayT9dcQ0oyKQrTbUf3ZOaEeGLjE4JG8cviThdor++KZpdHTv
-	 MfiFXpItpWQR+1EeAJQj3luSBGmulVWOgQGJ6IeQ=
+	s=default; t=1589941650;
+	bh=kBp0gnvL0avBhyCJvNEf2+/Y38T1A1TsAqkn+CiRxz4=;
+	h=To:From:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=DeLbmsy3nW/y3O2WLp+61bBPqxJxCNDX4GhJGHd5SOhcexWapAqWQDQgHwKT1HOEt
+	 NCicjQ1mpmGSXEnM2+O6a8+gyIsOp6y1DqUChv/sRNafEfxZ8WJgJbAS3daBdH2nR5
+	 Qqj77lSgyidjh2du39mcQQOQCAO9Iq4cU8DHJPHI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 33370F801F8;
-	Wed, 20 May 2020 00:42:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 60454F801DA;
+	Wed, 20 May 2020 04:25:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3CDC1F801A3; Wed, 20 May 2020 00:42:23 +0200 (CEST)
+ id 456A6F801F9; Wed, 20 May 2020 04:25:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-io1-f65.google.com (mail-io1-f65.google.com
- [209.85.166.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5779BF800C9
- for <alsa-devel@alsa-project.org>; Wed, 20 May 2020 00:42:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5779BF800C9
-Received: by mail-io1-f65.google.com with SMTP id f4so986330iov.11
- for <alsa-devel@alsa-project.org>; Tue, 19 May 2020 15:42:18 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=qgFe2xy8/2xQB5QWY3CO3CsIleZgaMC14NjFZj3FgiM=;
- b=AQVeaGj00QhNYsVZJs11/BDdioCFSs2WT2vMeqjWYIhQTWVRdzwOhSctDHBuRYHIMc
- wf4/eulY+3WLcNV5qcAI6y/VTXohsPrFjWD/OPvG7iR/XQahaMcigzhEZnFUT9bY6Xfx
- rtyPX0BouFYv4pvjNaYFx/vZEDQrU5FgJjNU11i0oI11gfueK0mN7K+NlCfS+MnkOYmr
- Z+oBw3dr4k0hAFOHKnTaz1V2YEpNMf8L9cphgLEqJsuYMOIJNlTh8fQmM9E0LQG7gFgT
- 3ywuSXHQLR2MF+aY6ZQNdnhq9CXTZuQk94/2tEpXgxXBOm+FucYG035fRgYLgl06AFKR
- u5gg==
-X-Gm-Message-State: AOAM531m6TqKt39B6ld7EDtCePVbQHSCTj0CCKCfUmO9QdVJmajIVlw3
- Ad/X20B/gcfHH/DODlKZTQ==
-X-Google-Smtp-Source: ABdhPJytDRwoiZt9xLZNqCqKB1TxQKbXQJnN0x8nPz/zWntjyvp5bG6L19VYqss8zFDavc6WNxSe4Q==
-X-Received: by 2002:a6b:700a:: with SMTP id l10mr1152861ioc.170.1589928136705; 
- Tue, 19 May 2020 15:42:16 -0700 (PDT)
-Received: from xps15 ([64.188.179.252])
- by smtp.gmail.com with ESMTPSA id q75sm398796ili.11.2020.05.19.15.42.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 May 2020 15:42:16 -0700 (PDT)
-Received: (nullmailer pid 824100 invoked by uid 1000);
- Tue, 19 May 2020 22:42:15 -0000
-Date: Tue, 19 May 2020 16:42:15 -0600
-From: Rob Herring <robh@kernel.org>
-To: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Subject: Re: [PATCH v2 2/3] bindings: sound: Add documentation for TI j721e
- EVM (CPB and IVI)
-Message-ID: <20200519224215.GB488519@bogus>
-References: <20200512131633.32668-1-peter.ujfalusi@ti.com>
- <20200512131633.32668-3-peter.ujfalusi@ti.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id F397AF80111
+ for <alsa-devel@alsa-project.org>; Wed, 20 May 2020 04:25:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F397AF80111
+IronPort-SDR: 5+S80L+lKp632uVHwvAARw5PgfALqUxIJ6i7iOxGjNgVdGCGo7UKmMKVEBv/K6BO7zNSwZa4Nw
+ gPmS1q1MXWrA==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2020 19:25:33 -0700
+IronPort-SDR: 95UxJTGXRtihLoFhcFvnCoMsN+T5ke9Dhcd61Q4ctVRDM47ILpNA0DbRnKW8bpROTiFyRw3Ywq
+ lYPXNYbaN3fw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,412,1583222400"; d="scan'208";a="466355705"
+Received: from akkong-mobl1.amr.corp.intel.com (HELO [10.254.67.75])
+ ([10.254.67.75])
+ by fmsmga006.fm.intel.com with ESMTP; 19 May 2020 19:25:32 -0700
+To: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: ASoC dailink capture/playback flags
+Message-ID: <b8b658b5-9c9b-5174-c2df-31ce34a66d75@linux.intel.com>
+Date: Tue, 19 May 2020 21:25:31 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200512131633.32668-3-peter.ujfalusi@ti.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, broonie@kernel.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+Cc: Stephan Gerhold <stephan@gerhold.net>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.de>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, "Wang,
+ Rander" <rander.wang@intel.com>, Mark Brown <broonie@kernel.org>,
+ Bard liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,16 +82,77 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, May 12, 2020 at 04:16:32PM +0300, Peter Ujfalusi wrote:
-> The audio support on the Common Processor Board board is using
-> pcm3168a codec connected to McASP10 serializers in parallel setup.
-> 
-> The Infotainment board plugs into the Common Processor Board, the support
-> of the extension board is extending the CPB audio support by adding
-> the two codecs on the expansion board.
-> 
-> The audio support on the Infotainment Expansion Board consists of McASP0
-> connected to two pcm3168a codecs with dedicated set of serializers to each.
-> The SCKI for pcm3168a is sourced from j721e AUDIO_REFCLK0 pin.
+Hi,
 
-Would the audio graph card work for you on this? 
+Some of us at Intel are confused with multiple definitions of 
+capture/playback dailink flags (credits to Rander Wang for reporting 
+this in https://github.com/thesofproject/linux/pull/2070).
+
+struct snd_soc_dai_link {
+[...]
+
+     /* For unidirectional dai links */
+     unsigned int playback_only:1;
+     unsigned int capture_only:1;
+
+[...]
+
+     /* DPCM capture and Playback support */
+     unsigned int dpcm_capture:1;
+     unsigned int dpcm_playback:1;
+[...]
+
+};
+
+And of course when you start looking at some machine drivers, there are 
+confusions, e.g. below with DPCM front-ends using one or the other set, 
+and with copy-paste and partial diffs, this propagates without being 
+consistent or being noticed:
+
+     [GLK_DPCM_AUDIO_HS_PB] = {
+         .name = "Glk Audio Headset Playback",
+         .stream_name = "Headset Audio",
+         .dpcm_playback = 1, <<<<
+         .nonatomic = 1,
+         .dynamic = 1,
+         SND_SOC_DAILINK_REG(system2, dummy, platform),
+     },
+     [GLK_DPCM_AUDIO_ECHO_REF_CP] = {
+         .name = "Glk Audio Echo Reference cap",
+         .stream_name = "Echoreference Capture",
+         .init = NULL,
+         .capture_only = 1, <<<< should this be .dpcm_capture = 1?
+         .nonatomic = 1,
+         .dynamic = 1,
+         SND_SOC_DAILINK_REG(echoref, dummy, platform),
+     },
+     [GLK_DPCM_AUDIO_REF_CP] = {
+         .name = "Glk Audio Reference cap",
+         .stream_name = "Refcap",
+         .init = NULL,
+         .dpcm_capture = 1, <<<<
+         .nonatomic = 1,
+         .dynamic = 1,
+         .ops = &geminilake_refcap_ops,
+         SND_SOC_DAILINK_REG(reference, dummy, platform),
+     },
+
+So here are the questions:
+
+- when using DPCM, is there an expectation to use dpcm_ flags only?
+
+- should we instead use playback/capture_only when only one of the two 
+dpcm_ flags is set?
+
+- should we flags errors if we ever encounter cases with e.g. 
+dpcm_playback = true and capture_only = true?
+
+- do we actually need two sets of definitions? There are very few users 
+of the .playback_only and .capture_only flags and only a single place 
+where it's checked in soc-pcm.c
+
+Thanks for your feedback
+
+-Pierre
+
+

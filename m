@@ -2,55 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF4521DB24C
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 May 2020 13:52:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D25F1DB12E
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 May 2020 13:13:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F43517DD;
-	Wed, 20 May 2020 13:51:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F43517DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id E4EBE17D3;
+	Wed, 20 May 2020 13:12:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4EBE17D3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589975530;
-	bh=D3Fkn151Kd850inf1kFwTDY74KV2AL1RkzRv1fI6bbY=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=DbpImY20pE8rREeqBD+XY0TVfymZt83oDINgo7Osu37ppxCwa1W7FOAkP1MQgI6WL
-	 cdGI9gQ7vjnbqt2cWSyfCaBOlFLPJKXe0YdGuUgZvjUEZ15RV5ddXi5rLisnO05SUg
-	 Z0CiUboYSO0hUXOcQcherM3avCFvJDCIKAPrmYlI=
+	s=default; t=1589973209;
+	bh=6ozR0OxZpqLqVOxjJ4XgfJUKaeZH5d8B9D9ETwTk4BQ=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Kuvfa7RRL+7xh8kGii4TWXajxKjOkC0c4Td3+5Y4KkRglO6h4tr5GNbeXIJS6TbN5
+	 g3hU59gkdMiEiQEAlDx5w1IHW93BAWVtCIRa5O33A5w+O+EocAcRgXVoBls1DbawL2
+	 zFhtjCvgIzMGo+Dy2N1kpJ/Ht6TJiutUo4Hy9CzU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87903F8026F;
-	Wed, 20 May 2020 13:50:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DF5F7F80132;
+	Wed, 20 May 2020 13:11:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 34E09F801F9; Wed, 20 May 2020 13:00:08 +0200 (CEST)
+ id 54E73F801F9; Wed, 20 May 2020 13:11:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-Received: from ozlabs.org (bilbo.ozlabs.org [IPv6:2401:3900:2:1::2])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1CFD1F80090
- for <alsa-devel@alsa-project.org>; Wed, 20 May 2020 13:00:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CFD1F80090
-Received: by ozlabs.org (Postfix, from userid 1034)
- id 49RqX81vz0z9sT3; Wed, 20 May 2020 20:59:52 +1000 (AEST)
-From: Michael Ellerman <patch-notifications@ellerman.id.au>
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Christophe Leroy <christophe.leroy@c-s.fr>, Paul Mackerras <paulus@samba.org>
-In-Reply-To: <a5945463f86c984151962a475a3ee56a2893e85d.1587407777.git.christophe.leroy@c-s.fr>
-References: <a5945463f86c984151962a475a3ee56a2893e85d.1587407777.git.christophe.leroy@c-s.fr>
-Subject: Re: [PATCH 1/5] drivers/powerpc: Replace _ALIGN_UP() by ALIGN()
-Message-Id: <158997212813.943180.8258248178215435632.b4-ty@ellerman.id.au>
-Date: Wed, 20 May 2020 20:59:52 +1000 (AEST)
-X-Mailman-Approved-At: Wed, 20 May 2020 13:50:17 +0200
-Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
- alsa-devel@alsa-project.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 56AEFF80132
+ for <alsa-devel@alsa-project.org>; Wed, 20 May 2020 13:11:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56AEFF80132
+Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
+ id 75A641C028F; Wed, 20 May 2020 13:11:37 +0200 (CEST)
+Date: Wed, 20 May 2020 13:11:37 +0200
+From: Pavel Machek <pavel@ucw.cz>
+To: kernel list <linux-kernel@vger.kernel.org>, perex@perex.cz,
+ tiwai@suse.com, alsa-devel@alsa-project.org, tglx@linutronix.de,
+ mingo@redhat.com, bp@alien8.de, x86@kernel.org, hpa@zytor.com
+Subject: next-0519 on thinkpad x60: sound related? window manager crash
+Message-ID: <20200520111136.GA3802@amd>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature"; boundary="C7zPtVaVf+AK4Oqc"
+Content-Disposition: inline
+User-Agent: Mutt/1.5.23 (2014-03-12)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,23 +64,284 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 20 Apr 2020 18:36:34 +0000 (UTC), Christophe Leroy wrote:
-> _ALIGN_UP() is specific to powerpc
-> ALIGN() is generic and does the same
-> 
-> Replace _ALIGN_UP() by ALIGN()
 
-Applied to powerpc/next.
+--C7zPtVaVf+AK4Oqc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-[1/5] drivers/powerpc: Replace _ALIGN_UP() by ALIGN()
-      https://git.kernel.org/powerpc/c/7bfc3c84cbf5167d943cff9b3d2619dab0b7894c
-[2/5] powerpc: Replace _ALIGN_DOWN() by ALIGN_DOWN()
-      https://git.kernel.org/powerpc/c/e96d904ede6756641563d27daa746875b478a6c8
-[3/5] powerpc: Replace _ALIGN_UP() by ALIGN()
-      https://git.kernel.org/powerpc/c/b711531641038f3ff3723914f3d5ba79848d347e
-[4/5] powerpc: Replace _ALIGN() by ALIGN()
-      https://git.kernel.org/powerpc/c/d3f3d3bf76cfb04e73436a15e3987d3573e7523a
-[5/5] powerpc: Remove _ALIGN_UP(), _ALIGN_DOWN() and _ALIGN()
-      https://git.kernel.org/powerpc/c/4cdb2da654033d76e1b1cb4ac427d9193dce816b
+Hi!
 
-cheers
+My window manager stopped responding. I was able to recover machine
+using sysrq-k.
+
+I started writing nice report, when session failed second time. And
+then third time on next attempt.
+
+Any ideas?
+
+I'll send this out before this locks up...
+
+Best regards,
+								Pavel
+
+[ 2801.147411] sdhci-pci 0000:15:00.2: Will use DMA mode even though HW doe=
+sn't fully claim to support it.
+[ 2801.187449] sdhci-pci 0000:15:00.2: Will use DMA mode even though HW doe=
+sn't fully claim to support it.
+[ 2801.192260] usb 1-2: new high-speed USB device number 5 using ehci-pci
+[ 2801.240241] sdhci-pci 0000:15:00.2: Will use DMA mode even though HW doe=
+sn't fully claim to support it.
+[ 2801.300663] sdhci-pci 0000:15:00.2: Will use DMA mode even though HW doe=
+sn't fully claim to support it.
+[ 2801.352181] usb 1-2: New USB device found, idVendor=3D0525, idProduct=3D=
+a4a1, bcdDevice=3D 5.07
+[ 2801.352192] usb 1-2: New USB device strings: Mfr=3D1, Product=3D2, Seria=
+lNumber=3D0
+[ 2801.352200] usb 1-2: Product: Ethernet Gadget
+[ 2801.352207] usb 1-2: Manufacturer: Linux 5.7.0-rc4-00046-g6d7c0f75a522 w=
+ith musb-hdrc
+[ 2801.419872] e1000e 0000:02:00.0 eth1: NIC Link is Down
+[ 2801.428760] cdc_ether 1-2:1.0 usb0: register 'cdc_ether' at usb-0000:00:=
+1d.7-2, CDC Ethernet Device, 72:ed:12:23:c9:c2
+[ 2804.020289] wlan0: authenticate with 5c:f4:ab:10:d2:bb
+[ 2804.020451] wlan0: send auth to 5c:f4:ab:10:d2:bb (try 1/3)
+[ 2804.022385] wlan0: authenticated
+[ 2804.024243] wlan0: associate with 5c:f4:ab:10:d2:bb (try 1/3)
+[ 2804.026985] wlan0: RX AssocResp from 5c:f4:ab:10:d2:bb (capab=3D0x411 st=
+atus=3D0 aid=3D2)
+[ 2804.028961] wlan0: associated
+[ 2874.520955] perf: interrupt took too long (2507 > 2500), lowering kernel=
+=2Eperf_event_max_sample_rate to 79750
+[ 3730.016148] perf: interrupt took too long (3135 > 3133), lowering kernel=
+=2Eperf_event_max_sample_rate to 63750
+[ 4274.984810] BUG: unable to handle page fault for address: f8600000
+[ 4274.984821] #PF: supervisor write access in kernel mode
+[ 4274.984827] #PF: error_code(0x0002) - not-present page
+[ 4274.984833] *pdpt =3D 000000002c0b2001 *pde =3D 0000000000000000=20
+[ 4274.984843] Oops: 0002 [#1] PREEMPT SMP PTI
+[ 4274.984853] CPU: 1 PID: 3351 Comm: marco Not tainted 5.7.0-rc6-next-2020=
+0519+ #115
+[ 4274.984859] Hardware name: LENOVO 17097HU/17097HU, BIOS 7BETD8WW (2.19 )=
+ 03/31/2011
+[ 4274.984871] EIP: memset+0xb/0x20
+[ 4274.984878] Code: f9 01 72 0b 8a 0e 88 0f 8d b4 26 00 00 00 00 8b 45 f0 =
+83 c4 04 5b 5e 5f 5d c3 8d 74 26 00 90 55 89 e5 57 89 c7 53 89 c3 89 d0 <f3=
+> aa 89 d8 5b 5f 5d c3 cc cc cc cc cc cc cc cc cc cc cc cc cc 89
+[ 4274.984885] EAX: 00000000 EBX: f85fe000 ECX: 0001e000 EDX: 00000000
+[ 4274.984892] ESI: ed158400 EDI: f8600000 EBP: edcc9e6c ESP: edcc9e64
+[ 4274.984898] DS: 007b ES: 007b FS: 00d8 GS: 00e0 SS: 0068 EFLAGS: 00210246
+[ 4274.984905] CR0: 80050033 CR2: f8600000 CR3: 2c114000 CR4: 000006b0
+[ 4274.984910] Call Trace:
+[ 4274.984923]  snd_pcm_hw_params+0x38d/0x400
+[ 4274.984930]  snd_pcm_ioctl+0x187/0xe80
+[ 4274.984940]  ? __fget_files+0x86/0xc0
+[ 4274.984947]  ? __fget_light+0x6b/0x80
+[ 4274.984954]  ? snd_pcm_status_user64+0x90/0x90
+[ 4274.984962]  ksys_ioctl+0x1cd/0x880
+[ 4274.984971]  ? ksys_mmap_pgoff+0x81/0xc0
+[ 4274.984978]  ? fput+0xd/0x10
+[ 4274.984984]  ? ksys_mmap_pgoff+0x8d/0xc0
+[ 4274.984991]  __ia32_sys_ioctl+0x10/0x12
+[ 4274.985000]  do_int80_syscall_32+0x3c/0x100
+[ 4274.985010]  entry_INT80_32+0x116/0x116
+[ 4274.985016] EIP: 0xb7f17092
+[ 4274.985023] Code: 00 00 00 e9 90 ff ff ff ff a3 24 00 00 00 68 30 00 00 =
+00 e9 80 ff ff ff ff a3 e8 ff ff ff 66 90 00 00 00 00 00 00 00 00 cd 80 <c3=
+> 8d b4 26 00 00 00 00 8d b6 00 00 00 00 8b 1c 24 c3 8d b4 26 00
+[ 4274.985030] EAX: ffffffda EBX: 00000011 ECX: c25c4111 EDX: bf8d5280
+[ 4274.985036] ESI: 08250880 EDI: bf8d5280 EBP: 082a4150 ESP: bf8d50a4
+[ 4274.985042] DS: 007b ES: 007b FS: 0000 GS: 0033 SS: 007b EFLAGS: 00200292
+[ 4274.985051]  ? nmi+0xcc/0x2bc
+[ 4274.985055] Modules linked in:
+[ 4274.985063] CR2: 00000000f8600000
+[ 4274.985072] ---[ end trace 61b0852711d6de1d ]---
+[ 4274.985079] EIP: memset+0xb/0x20
+[ 4274.985086] Code: f9 01 72 0b 8a 0e 88 0f 8d b4 26 00 00 00 00 8b 45 f0 =
+83 c4 04 5b 5e 5f 5d c3 8d 74 26 00 90 55 89 e5 57 89 c7 53 89 c3 89 d0 <f3=
+> aa 89 d8 5b 5f 5d c3 cc cc cc cc cc cc cc cc cc cc cc cc cc 89
+[ 4274.985092] EAX: 00000000 EBX: f85fe000 ECX: 0001e000 EDX: 00000000
+[ 4274.985099] ESI: ed158400 EDI: f8600000 EBP: edcc9e6c ESP: edcc9e64
+[ 4274.985105] DS: 007b ES: 007b FS: 00d8 GS: 00e0 SS: 0068 EFLAGS: 00210246
+[ 4274.985112] CR0: 80050033 CR2: f8600000 CR3: 2c114000 CR4: 000006b0
+[ 4337.396551] sysrq: SAK
+[ 4337.397010] tty tty7: SAK: killed process 2963 (Xorg): by session
+[ 4337.397282] tty tty7: SAK: killed process 2963 (Xorg): by controlling tty
+[ 4337.397621] tty tty7: SAK: killed process 3484 (console-kit-dae): by fd#9
+[ 4337.397934] tty tty7: SAK: killed process 3485 (console-kit-dae): by fd#9
+[ 4337.397940] tty tty7: SAK: killed process 3486 (console-kit-dae): by fd#9
+[ 4337.397945] tty tty7: SAK: killed process 3487 (console-kit-dae): by fd#9
+[ 4337.397951] tty tty7: SAK: killed process 3488 (console-kit-dae): by fd#9
+[ 4337.397956] tty tty7: SAK: killed process 3489 (console-kit-dae): by fd#9
+[ 4337.397961] tty tty7: SAK: killed process 3490 (console-kit-dae): by fd#9
+[ 4337.397967] tty tty7: SAK: killed process 3491 (console-kit-dae): by fd#9
+[ 4337.397972] tty tty7: SAK: killed process 3492 (console-kit-dae): by fd#9
+[ 4337.397978] tty tty7: SAK: killed process 3493 (console-kit-dae): by fd#9
+[ 4337.397983] tty tty7: SAK: killed process 3494 (console-kit-dae): by fd#9
+[ 4337.397989] tty tty7: SAK: killed process 3495 (console-kit-dae): by fd#9
+[ 4337.397994] tty tty7: SAK: killed process 3496 (console-kit-dae): by fd#9
+[ 4337.397999] tty tty7: SAK: killed process 3497 (console-kit-dae): by fd#9
+[ 4337.398005] tty tty7: SAK: killed process 3498 (console-kit-dae): by fd#9
+[ 4337.398010] tty tty7: SAK: killed process 3499 (console-kit-dae): by fd#9
+[ 4337.398015] tty tty7: SAK: killed process 3500 (console-kit-dae): by fd#9
+[ 4337.398021] tty tty7: SAK: killed process 3501 (console-kit-dae): by fd#9
+[ 4337.398026] tty tty7: SAK: killed process 3502 (console-kit-dae): by fd#9
+[ 4337.398032] tty tty7: SAK: killed process 3503 (console-kit-dae): by fd#9
+[ 4337.398037] tty tty7: SAK: killed process 3504 (console-kit-dae): by fd#9
+[ 4337.398042] tty tty7: SAK: killed process 3505 (console-kit-dae): by fd#9
+[ 4337.398048] tty tty7: SAK: killed process 3506 (console-kit-dae): by fd#9
+[ 4337.398053] tty tty7: SAK: killed process 3507 (console-kit-dae): by fd#9
+[ 4337.398059] tty tty7: SAK: killed process 3508 (console-kit-dae): by fd#9
+[ 4337.398064] tty tty7: SAK: killed process 3509 (console-kit-dae): by fd#9
+[ 4337.398070] tty tty7: SAK: killed process 3510 (console-kit-dae): by fd#9
+[ 4337.398075] tty tty7: SAK: killed process 3511 (console-kit-dae): by fd#9
+[ 4337.398080] tty tty7: SAK: killed process 3512 (console-kit-dae): by fd#9
+[ 4337.398086] tty tty7: SAK: killed process 3513 (console-kit-dae): by fd#9
+[ 4337.398091] tty tty7: SAK: killed process 3514 (console-kit-dae): by fd#9
+[ 4337.398097] tty tty7: SAK: killed process 3515 (console-kit-dae): by fd#9
+[ 4337.398102] tty tty7: SAK: killed process 3516 (console-kit-dae): by fd#9
+[ 4337.398107] tty tty7: SAK: killed process 3517 (console-kit-dae): by fd#9
+[ 4337.398113] tty tty7: SAK: killed process 3518 (console-kit-dae): by fd#9
+[ 4337.398118] tty tty7: SAK: killed process 3519 (console-kit-dae): by fd#9
+[ 4337.398124] tty tty7: SAK: killed process 3520 (console-kit-dae): by fd#9
+[ 4337.398129] tty tty7: SAK: killed process 3521 (console-kit-dae): by fd#9
+[ 4337.398135] tty tty7: SAK: killed process 3522 (console-kit-dae): by fd#9
+[ 4337.398141] tty tty7: SAK: killed process 3523 (console-kit-dae): by fd#9
+[ 4337.398146] tty tty7: SAK: killed process 3524 (console-kit-dae): by fd#9
+[ 4337.398151] tty tty7: SAK: killed process 3525 (console-kit-dae): by fd#9
+[ 4337.398157] tty tty7: SAK: killed process 3526 (console-kit-dae): by fd#9
+[ 4337.398162] tty tty7: SAK: killed process 3527 (console-kit-dae): by fd#9
+[ 4337.398168] tty tty7: SAK: killed process 3528 (console-kit-dae): by fd#9
+[ 4337.398173] tty tty7: SAK: killed process 3529 (console-kit-dae): by fd#9
+[ 4337.398178] tty tty7: SAK: killed process 3530 (console-kit-dae): by fd#9
+[ 4337.398184] tty tty7: SAK: killed process 3531 (console-kit-dae): by fd#9
+[ 4337.398189] tty tty7: SAK: killed process 3532 (console-kit-dae): by fd#9
+[ 4337.398194] tty tty7: SAK: killed process 3533 (console-kit-dae): by fd#9
+[ 4337.398200] tty tty7: SAK: killed process 3534 (console-kit-dae): by fd#9
+[ 4337.398205] tty tty7: SAK: killed process 3535 (console-kit-dae): by fd#9
+[ 4337.398210] tty tty7: SAK: killed process 3536 (console-kit-dae): by fd#9
+[ 4337.398216] tty tty7: SAK: killed process 3537 (console-kit-dae): by fd#9
+[ 4337.398221] tty tty7: SAK: killed process 3538 (console-kit-dae): by fd#9
+[ 4337.398227] tty tty7: SAK: killed process 3539 (console-kit-dae): by fd#9
+[ 4337.398232] tty tty7: SAK: killed process 3540 (console-kit-dae): by fd#9
+[ 4337.398237] tty tty7: SAK: killed process 3541 (console-kit-dae): by fd#9
+[ 4337.398243] tty tty7: SAK: killed process 3542 (console-kit-dae): by fd#9
+[ 4337.398248] tty tty7: SAK: killed process 3543 (console-kit-dae): by fd#9
+[ 4337.398253] tty tty7: SAK: killed process 3544 (console-kit-dae): by fd#9
+[ 4337.398260] tty tty7: SAK: killed process 3545 (console-kit-dae): by fd#9
+[ 4337.398265] tty tty7: SAK: killed process 3546 (console-kit-dae): by fd#9
+[ 4337.398270] tty tty7: SAK: killed process 3548 (gmain): by fd#9
+[ 4337.398276] tty tty7: SAK: killed process 3549 (gdbus): by fd#9
+[ 4337.743402] wlan0: deauthenticating from 5c:f4:ab:10:d2:bb by local choi=
+ce (Reason: 3=3DDEAUTH_LEAVING)
+[ 4349.750345] traps: clock-applet[7160] trap int3 ip:b71bafc0 sp:bffdd3b0 =
+error:0 in libglib-2.0.so.0.5000.3[b716e000+12a000]
+[ 4349.751834] traps: mateweather-app[7164] trap int3 ip:b729ffc0 sp:bfc45b=
+f0 error:0 in libglib-2.0.so.0.5000.3[b7253000+12a000]
+[ 4352.181317] wlan0: authenticate with 5c:f4:ab:10:d2:bb
+[ 4352.183330] wlan0: send auth to 5c:f4:ab:10:d2:bb (try 1/3)
+[ 4352.187927] wlan0: authenticated
+[ 4352.192203] wlan0: associate with 5c:f4:ab:10:d2:bb (try 1/3)
+[ 4352.194932] wlan0: RX AssocResp from 5c:f4:ab:10:d2:bb (capab=3D0x411 st=
+atus=3D0 aid=3D2)
+[ 4352.199395] wlan0: associated
+[ 4688.523006] sysrq: SAK
+[ 4688.523318] tty tty7: SAK: killed process 6791 (Xorg): by session
+[ 4688.523683] tty tty7: SAK: killed process 6791 (Xorg): by controlling tty
+[ 4688.523930] tty tty7: SAK: killed process 7017 (console-kit-dae): by fd#9
+[ 4688.524330] tty tty7: SAK: killed process 7018 (console-kit-dae): by fd#9
+[ 4688.524337] tty tty7: SAK: killed process 7019 (console-kit-dae): by fd#9
+[ 4688.524342] tty tty7: SAK: killed process 7020 (console-kit-dae): by fd#9
+[ 4688.524347] tty tty7: SAK: killed process 7021 (console-kit-dae): by fd#9
+[ 4688.524353] tty tty7: SAK: killed process 7022 (console-kit-dae): by fd#9
+[ 4688.524358] tty tty7: SAK: killed process 7023 (console-kit-dae): by fd#9
+[ 4688.524363] tty tty7: SAK: killed process 7024 (console-kit-dae): by fd#9
+[ 4688.524369] tty tty7: SAK: killed process 7025 (console-kit-dae): by fd#9
+[ 4688.524374] tty tty7: SAK: killed process 7026 (console-kit-dae): by fd#9
+[ 4688.524380] tty tty7: SAK: killed process 7027 (console-kit-dae): by fd#9
+[ 4688.524385] tty tty7: SAK: killed process 7028 (console-kit-dae): by fd#9
+[ 4688.524391] tty tty7: SAK: killed process 7029 (console-kit-dae): by fd#9
+[ 4688.524396] tty tty7: SAK: killed process 7030 (console-kit-dae): by fd#9
+[ 4688.524402] tty tty7: SAK: killed process 7031 (console-kit-dae): by fd#9
+[ 4688.524407] tty tty7: SAK: killed process 7032 (console-kit-dae): by fd#9
+[ 4688.524412] tty tty7: SAK: killed process 7033 (console-kit-dae): by fd#9
+[ 4688.524419] tty tty7: SAK: killed process 7034 (console-kit-dae): by fd#9
+[ 4688.524424] tty tty7: SAK: killed process 7035 (console-kit-dae): by fd#9
+[ 4688.524429] tty tty7: SAK: killed process 7036 (console-kit-dae): by fd#9
+[ 4688.524435] tty tty7: SAK: killed process 7037 (console-kit-dae): by fd#9
+[ 4688.524440] tty tty7: SAK: killed process 7038 (console-kit-dae): by fd#9
+[ 4688.524446] tty tty7: SAK: killed process 7039 (console-kit-dae): by fd#9
+[ 4688.524451] tty tty7: SAK: killed process 7040 (console-kit-dae): by fd#9
+[ 4688.524456] tty tty7: SAK: killed process 7041 (console-kit-dae): by fd#9
+[ 4688.524462] tty tty7: SAK: killed process 7042 (console-kit-dae): by fd#9
+[ 4688.524467] tty tty7: SAK: killed process 7043 (console-kit-dae): by fd#9
+[ 4688.524473] tty tty7: SAK: killed process 7044 (console-kit-dae): by fd#9
+[ 4688.524478] tty tty7: SAK: killed process 7045 (console-kit-dae): by fd#9
+[ 4688.524483] tty tty7: SAK: killed process 7046 (console-kit-dae): by fd#9
+[ 4688.524489] tty tty7: SAK: killed process 7047 (console-kit-dae): by fd#9
+[ 4688.524494] tty tty7: SAK: killed process 7048 (console-kit-dae): by fd#9
+[ 4688.524500] tty tty7: SAK: killed process 7049 (console-kit-dae): by fd#9
+[ 4688.524505] tty tty7: SAK: killed process 7050 (console-kit-dae): by fd#9
+[ 4688.524511] tty tty7: SAK: killed process 7051 (console-kit-dae): by fd#9
+[ 4688.524516] tty tty7: SAK: killed process 7052 (console-kit-dae): by fd#9
+[ 4688.524521] tty tty7: SAK: killed process 7053 (console-kit-dae): by fd#9
+[ 4688.524527] tty tty7: SAK: killed process 7054 (console-kit-dae): by fd#9
+[ 4688.524532] tty tty7: SAK: killed process 7055 (console-kit-dae): by fd#9
+[ 4688.524538] tty tty7: SAK: killed process 7056 (console-kit-dae): by fd#9
+[ 4688.524543] tty tty7: SAK: killed process 7057 (console-kit-dae): by fd#9
+[ 4688.524549] tty tty7: SAK: killed process 7058 (console-kit-dae): by fd#9
+[ 4688.524554] tty tty7: SAK: killed process 7059 (console-kit-dae): by fd#9
+[ 4688.524560] tty tty7: SAK: killed process 7060 (console-kit-dae): by fd#9
+[ 4688.524565] tty tty7: SAK: killed process 7061 (console-kit-dae): by fd#9
+[ 4688.524570] tty tty7: SAK: killed process 7062 (console-kit-dae): by fd#9
+[ 4688.524576] tty tty7: SAK: killed process 7063 (console-kit-dae): by fd#9
+[ 4688.524581] tty tty7: SAK: killed process 7064 (console-kit-dae): by fd#9
+[ 4688.524587] tty tty7: SAK: killed process 7065 (console-kit-dae): by fd#9
+[ 4688.524593] tty tty7: SAK: killed process 7066 (console-kit-dae): by fd#9
+[ 4688.524598] tty tty7: SAK: killed process 7067 (console-kit-dae): by fd#9
+[ 4688.524603] tty tty7: SAK: killed process 7068 (console-kit-dae): by fd#9
+[ 4688.524609] tty tty7: SAK: killed process 7069 (console-kit-dae): by fd#9
+[ 4688.524614] tty tty7: SAK: killed process 7070 (console-kit-dae): by fd#9
+[ 4688.524620] tty tty7: SAK: killed process 7071 (console-kit-dae): by fd#9
+[ 4688.524625] tty tty7: SAK: killed process 7072 (console-kit-dae): by fd#9
+[ 4688.524631] tty tty7: SAK: killed process 7073 (console-kit-dae): by fd#9
+[ 4688.524636] tty tty7: SAK: killed process 7074 (console-kit-dae): by fd#9
+[ 4688.524642] tty tty7: SAK: killed process 7075 (console-kit-dae): by fd#9
+[ 4688.524648] tty tty7: SAK: killed process 7076 (console-kit-dae): by fd#9
+[ 4688.524653] tty tty7: SAK: killed process 7077 (console-kit-dae): by fd#9
+[ 4688.524659] tty tty7: SAK: killed process 7078 (console-kit-dae): by fd#9
+[ 4688.524664] tty tty7: SAK: killed process 7079 (console-kit-dae): by fd#9
+[ 4688.524670] tty tty7: SAK: killed process 7083 (gmain): by fd#9
+[ 4688.524675] tty tty7: SAK: killed process 7085 (gdbus): by fd#9
+[ 4688.780517] wlan0: deauthenticating from 5c:f4:ab:10:d2:bb by local choi=
+ce (Reason: 3=3DDEAUTH_LEAVING)
+[ 4698.601308] traps: clock-applet[7813] trap int3 ip:b71e9fc0 sp:bf901050 =
+error:0 in libglib-2.0.so.0.5000.3[b719d000+12a000]
+[ 4698.676549] traps: mateweather-app[7814] trap int3 ip:b7260fc0 sp:bfcfb9=
+d0 error:0 in libglib-2.0.so.0.5000.3[b7214000+12a000]
+[ 4700.456620] wlan0: authenticate with 5c:f4:ab:10:d2:bb
+[ 4700.456710] wlan0: send auth to 5c:f4:ab:10:d2:bb (try 1/3)
+[ 4700.459606] wlan0: authenticated
+[ 4700.460449] wlan0: associate with 5c:f4:ab:10:d2:bb (try 1/3)
+[ 4700.463153] wlan0: RX AssocResp from 5c:f4:ab:10:d2:bb (capab=3D0x411 st=
+atus=3D0 aid=3D2)
+[ 4700.465007] wlan0: associated
+
+--=20
+(english) http://www.livejournal.com/~pavelmachek
+(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blo=
+g.html
+
+--C7zPtVaVf+AK4Oqc
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iEYEARECAAYFAl7FEGgACgkQMOfwapXb+vIs8gCgiH64NadMFT0rmNF2jTGsurlx
+VCQAmQG8Jtbh4YzjmyxQjqfSgGemqKpI
+=Vqp4
+-----END PGP SIGNATURE-----
+
+--C7zPtVaVf+AK4Oqc--

@@ -2,53 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D25F1DB12E
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 May 2020 13:13:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D304F1DB16F
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 May 2020 13:24:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4EBE17D3;
-	Wed, 20 May 2020 13:12:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4EBE17D3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2D79F17D4;
+	Wed, 20 May 2020 13:23:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D79F17D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589973209;
-	bh=6ozR0OxZpqLqVOxjJ4XgfJUKaeZH5d8B9D9ETwTk4BQ=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Kuvfa7RRL+7xh8kGii4TWXajxKjOkC0c4Td3+5Y4KkRglO6h4tr5GNbeXIJS6TbN5
-	 g3hU59gkdMiEiQEAlDx5w1IHW93BAWVtCIRa5O33A5w+O+EocAcRgXVoBls1DbawL2
-	 zFhtjCvgIzMGo+Dy2N1kpJ/Ht6TJiutUo4Hy9CzU=
+	s=default; t=1589973873;
+	bh=saXS62aM5DoR6XRhBW8l0McmytiX79WnVlfDhs1aKSI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Qts121LLtsSy7gW1feTUcUqGZINCf/r3Iv/6eaVeVGYVsRNLqAtjvV/SysXZx1t/I
+	 h667Qg0FHjwkdh2/sqCcyjdYnvlLUHoUGzYasU/sqS0sAg1vnFXzYpvHO+/JuHtxpJ
+	 t+mYd1d6MpImaTV6mtjpNuUar1cD7NLJDqOzCdPg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF5F7F80132;
-	Wed, 20 May 2020 13:11:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E318F80090;
+	Wed, 20 May 2020 13:22:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 54E73F801F9; Wed, 20 May 2020 13:11:45 +0200 (CEST)
+ id 22EC3F801F9; Wed, 20 May 2020 13:22:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
+ [IPv6:2607:f8b0:4864:20::741])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 56AEFF80132
- for <alsa-devel@alsa-project.org>; Wed, 20 May 2020 13:11:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56AEFF80132
-Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
- id 75A641C028F; Wed, 20 May 2020 13:11:37 +0200 (CEST)
-Date: Wed, 20 May 2020 13:11:37 +0200
-From: Pavel Machek <pavel@ucw.cz>
-To: kernel list <linux-kernel@vger.kernel.org>, perex@perex.cz,
- tiwai@suse.com, alsa-devel@alsa-project.org, tglx@linutronix.de,
- mingo@redhat.com, bp@alien8.de, x86@kernel.org, hpa@zytor.com
-Subject: next-0519 on thinkpad x60: sound related? window manager crash
-Message-ID: <20200520111136.GA3802@amd>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 26D6EF80132
+ for <alsa-devel@alsa-project.org>; Wed, 20 May 2020 13:22:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26D6EF80132
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="LzRhD8IV"
+Received: by mail-qk1-x741.google.com with SMTP id m11so3118372qka.4
+ for <alsa-devel@alsa-project.org>; Wed, 20 May 2020 04:22:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=ZjqVhvVauJwxzdubRCxzpwyDgNZsr/jK/zmF2UGqkm0=;
+ b=LzRhD8IVgnmIVQzzoYcQc9SGvryKW9AvjBv+5xt1U5TlXPqkgWZYhhLZ+fDOiIMJVE
+ j8fn5+fABxBNdukYPVM+l0vF16UvWxzpEJBJLKCW56Z4DkC5xa0rvUGkgFzj9G0Agcbl
+ CR4ePEwCrdO65XTKv1Q7qKPo1V5T2jQjs+MOPyTun845of6hg3kQqItmtboNDlREjJcu
+ Z2pKrl+oLt5umJH0Z+pIMp+EXFb7tOaN6BDew0UWwQ+/7bg+moQfUGPSduuzZJPyI5/X
+ 2YFdC3nAFQopV7V8BMDEMRy8CAn1JlcOebH4yDfMrImRBq3nMNW49Dcoe93t2TjTRQsi
+ 5qvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=ZjqVhvVauJwxzdubRCxzpwyDgNZsr/jK/zmF2UGqkm0=;
+ b=QQYSf7XhF3WneYwk9wpiMPYDVDKA9nnhhENGMuvRaNoeNtJo7tZzWaTK60y4TN/s5Z
+ FhDcK5CaeIUqQT7ohtFugkVaPzX1DzcSavgkK6hrRAOvKqsJE9tA4jG5doLKau8orTln
+ rCqVbb7dohXA2zM1/hRL3QikZJC9COcxz40jNt4B5uCZuXlhzQ594bY32IM+laHx9Fbt
+ 0gYKN7eftDCfZuZx2FviBeWoDy3ObOy4WiewdC6itSMLTh7Gka56Xhp/xxWTCZXXLtd1
+ AJi8L73bIBBuO263vCb5CeJD7MV0Lxk4n0iYuuwOdRQld4KJ95FpGcKEy+6kAddMPP8F
+ oKFw==
+X-Gm-Message-State: AOAM532ZUN797x7CmSBNQUMTfAILZQd6VXZrq3gkTsaOriYBkMUiuaPz
+ VlvE4GwOj/ECvwYODDDxxFzOn5kBZw+heuIbmHY=
+X-Google-Smtp-Source: ABdhPJxBdmgJNCR88xlbXPGclNlO2GaIwRkfV+dyapGMbu4Q9RuUthOHvMqPP4yv8y1KdCvdCmqnj7BHtLVZZI62f64=
+X-Received: by 2002:a37:a50d:: with SMTP id o13mr4087174qke.121.1589973760794; 
+ Wed, 20 May 2020 04:22:40 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature"; boundary="C7zPtVaVf+AK4Oqc"
-Content-Disposition: inline
-User-Agent: Mutt/1.5.23 (2014-03-12)
+References: <1589881301-4143-1-git-send-email-shengjiu.wang@nxp.com>
+ <0866cd8cdb0c22f0b2a6814c4dafa29202aad5f3.camel@pengutronix.de>
+ <CAA+D8APhHvA39wmCayeCsAEKmOJ0n7qOQiT1tZmFHr4+yASgTw@mail.gmail.com>
+ <53258cd99caaf1199036737f8fad6cc097939567.camel@pengutronix.de>
+In-Reply-To: <53258cd99caaf1199036737f8fad6cc097939567.camel@pengutronix.de>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Wed, 20 May 2020 19:22:19 +0800
+Message-ID: <CAA+D8APAMRwtVneqFsuBgAhozmQo3R0AQi0bVdUCQO4Af4xVfw@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: fsl: imx-pcm-dma: Don't request dma channel in probe
+To: Lucas Stach <l.stach@pengutronix.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: sumit.semwal@linaro.org, linaro-mm-sig@lists.linaro.org,
+ Linux-ALSA <alsa-devel@alsa-project.org>, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel <linux-kernel@vger.kernel.org>, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, shawnguo@kernel.org,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, dri-devel@lists.freedesktop.org,
+ Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
+ linux-imx@nxp.com, kernel@pengutronix.de, Fabio Estevam <festevam@gmail.com>,
+ s.hauer@pengutronix.de, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,284 +107,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi
 
---C7zPtVaVf+AK4Oqc
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Wed, May 20, 2020 at 5:42 PM Lucas Stach <l.stach@pengutronix.de> wrote:
+>
+> Am Mittwoch, den 20.05.2020, 16:20 +0800 schrieb Shengjiu Wang:
+> > Hi
+> >
+> > On Tue, May 19, 2020 at 6:04 PM Lucas Stach <l.stach@pengutronix.de> wr=
+ote:
+> > > Am Dienstag, den 19.05.2020, 17:41 +0800 schrieb Shengjiu Wang:
+> > > > There are two requirements that we need to move the request
+> > > > of dma channel from probe to open.
+> > >
+> > > How do you handle -EPROBE_DEFER return code from the channel request =
+if
+> > > you don't do it in probe?
+> >
+> > I use the dma_request_slave_channel or dma_request_channel instead
+> > of dmaengine_pcm_request_chan_of. so there should be not -EPROBE_DEFER
+> > return code.
+>
+> This is a pretty weak argument. The dmaengine device might probe after
+> you try to get the channel. Using a function to request the channel
+> that doesn't allow you to handle probe deferral is IMHO a bug and
+> should be fixed, instead of building even more assumptions on top of
+> it.
+>
 
-Hi!
+I see some driver also request dma channel in open() or hw_params().
+how can they avoid the defer probe issue?
+for example=EF=BC=9A
+sound/arm/pxa2xx-pcm-lib.c
+sound/soc/sprd/sprd-pcm-dma.c
 
-My window manager stopped responding. I was able to recover machine
-using sysrq-k.
+> > > > - When dma device binds with power-domains, the power will
+> > > > be enabled when we request dma channel. If the request of dma
+> > > > channel happen on probe, then the power-domains will be always
+> > > > enabled after kernel boot up,  which is not good for power
+> > > > saving,  so we need to move the request of dma channel to .open();
+> > >
+> > > This is certainly something which could be fixed in the dmaengine
+> > > driver.
+> >
+> > Dma driver always call the pm_runtime_get_sync in
+> > device_alloc_chan_resources, the device_alloc_chan_resources is
+> > called when channel is requested. so power is enabled on channel
+> > request.
+>
+> So why can't you fix the dmaengine driver to do that RPM call at a
+> later time when the channel is actually going to be used? This will
+> allow further power savings with other slave devices than the audio
+> PCM.
+>
+> Regards,
+> Lucas
+>
 
-I started writing nice report, when session failed second time. And
-then third time on next attempt.
+It seems the best place for calling pm_runtime_get_sync is the
+device_alloc_chan_resources, and calling pm_runtime_put_sync
+in the .device_free_chan_resources
 
-Any ideas?
+For the slave_sg mode, the .device_prep_slave_sg and
+.device_issue_pending  will be called many times after
+.device_alloc_chan_resources. so it is not good to call
+pm_runtime_get_sync in .device_prep_slave_sg or
+.device_issue_pending
 
-I'll send this out before this locks up...
-
-Best regards,
-								Pavel
-
-[ 2801.147411] sdhci-pci 0000:15:00.2: Will use DMA mode even though HW doe=
-sn't fully claim to support it.
-[ 2801.187449] sdhci-pci 0000:15:00.2: Will use DMA mode even though HW doe=
-sn't fully claim to support it.
-[ 2801.192260] usb 1-2: new high-speed USB device number 5 using ehci-pci
-[ 2801.240241] sdhci-pci 0000:15:00.2: Will use DMA mode even though HW doe=
-sn't fully claim to support it.
-[ 2801.300663] sdhci-pci 0000:15:00.2: Will use DMA mode even though HW doe=
-sn't fully claim to support it.
-[ 2801.352181] usb 1-2: New USB device found, idVendor=3D0525, idProduct=3D=
-a4a1, bcdDevice=3D 5.07
-[ 2801.352192] usb 1-2: New USB device strings: Mfr=3D1, Product=3D2, Seria=
-lNumber=3D0
-[ 2801.352200] usb 1-2: Product: Ethernet Gadget
-[ 2801.352207] usb 1-2: Manufacturer: Linux 5.7.0-rc4-00046-g6d7c0f75a522 w=
-ith musb-hdrc
-[ 2801.419872] e1000e 0000:02:00.0 eth1: NIC Link is Down
-[ 2801.428760] cdc_ether 1-2:1.0 usb0: register 'cdc_ether' at usb-0000:00:=
-1d.7-2, CDC Ethernet Device, 72:ed:12:23:c9:c2
-[ 2804.020289] wlan0: authenticate with 5c:f4:ab:10:d2:bb
-[ 2804.020451] wlan0: send auth to 5c:f4:ab:10:d2:bb (try 1/3)
-[ 2804.022385] wlan0: authenticated
-[ 2804.024243] wlan0: associate with 5c:f4:ab:10:d2:bb (try 1/3)
-[ 2804.026985] wlan0: RX AssocResp from 5c:f4:ab:10:d2:bb (capab=3D0x411 st=
-atus=3D0 aid=3D2)
-[ 2804.028961] wlan0: associated
-[ 2874.520955] perf: interrupt took too long (2507 > 2500), lowering kernel=
-=2Eperf_event_max_sample_rate to 79750
-[ 3730.016148] perf: interrupt took too long (3135 > 3133), lowering kernel=
-=2Eperf_event_max_sample_rate to 63750
-[ 4274.984810] BUG: unable to handle page fault for address: f8600000
-[ 4274.984821] #PF: supervisor write access in kernel mode
-[ 4274.984827] #PF: error_code(0x0002) - not-present page
-[ 4274.984833] *pdpt =3D 000000002c0b2001 *pde =3D 0000000000000000=20
-[ 4274.984843] Oops: 0002 [#1] PREEMPT SMP PTI
-[ 4274.984853] CPU: 1 PID: 3351 Comm: marco Not tainted 5.7.0-rc6-next-2020=
-0519+ #115
-[ 4274.984859] Hardware name: LENOVO 17097HU/17097HU, BIOS 7BETD8WW (2.19 )=
- 03/31/2011
-[ 4274.984871] EIP: memset+0xb/0x20
-[ 4274.984878] Code: f9 01 72 0b 8a 0e 88 0f 8d b4 26 00 00 00 00 8b 45 f0 =
-83 c4 04 5b 5e 5f 5d c3 8d 74 26 00 90 55 89 e5 57 89 c7 53 89 c3 89 d0 <f3=
-> aa 89 d8 5b 5f 5d c3 cc cc cc cc cc cc cc cc cc cc cc cc cc 89
-[ 4274.984885] EAX: 00000000 EBX: f85fe000 ECX: 0001e000 EDX: 00000000
-[ 4274.984892] ESI: ed158400 EDI: f8600000 EBP: edcc9e6c ESP: edcc9e64
-[ 4274.984898] DS: 007b ES: 007b FS: 00d8 GS: 00e0 SS: 0068 EFLAGS: 00210246
-[ 4274.984905] CR0: 80050033 CR2: f8600000 CR3: 2c114000 CR4: 000006b0
-[ 4274.984910] Call Trace:
-[ 4274.984923]  snd_pcm_hw_params+0x38d/0x400
-[ 4274.984930]  snd_pcm_ioctl+0x187/0xe80
-[ 4274.984940]  ? __fget_files+0x86/0xc0
-[ 4274.984947]  ? __fget_light+0x6b/0x80
-[ 4274.984954]  ? snd_pcm_status_user64+0x90/0x90
-[ 4274.984962]  ksys_ioctl+0x1cd/0x880
-[ 4274.984971]  ? ksys_mmap_pgoff+0x81/0xc0
-[ 4274.984978]  ? fput+0xd/0x10
-[ 4274.984984]  ? ksys_mmap_pgoff+0x8d/0xc0
-[ 4274.984991]  __ia32_sys_ioctl+0x10/0x12
-[ 4274.985000]  do_int80_syscall_32+0x3c/0x100
-[ 4274.985010]  entry_INT80_32+0x116/0x116
-[ 4274.985016] EIP: 0xb7f17092
-[ 4274.985023] Code: 00 00 00 e9 90 ff ff ff ff a3 24 00 00 00 68 30 00 00 =
-00 e9 80 ff ff ff ff a3 e8 ff ff ff 66 90 00 00 00 00 00 00 00 00 cd 80 <c3=
-> 8d b4 26 00 00 00 00 8d b6 00 00 00 00 8b 1c 24 c3 8d b4 26 00
-[ 4274.985030] EAX: ffffffda EBX: 00000011 ECX: c25c4111 EDX: bf8d5280
-[ 4274.985036] ESI: 08250880 EDI: bf8d5280 EBP: 082a4150 ESP: bf8d50a4
-[ 4274.985042] DS: 007b ES: 007b FS: 0000 GS: 0033 SS: 007b EFLAGS: 00200292
-[ 4274.985051]  ? nmi+0xcc/0x2bc
-[ 4274.985055] Modules linked in:
-[ 4274.985063] CR2: 00000000f8600000
-[ 4274.985072] ---[ end trace 61b0852711d6de1d ]---
-[ 4274.985079] EIP: memset+0xb/0x20
-[ 4274.985086] Code: f9 01 72 0b 8a 0e 88 0f 8d b4 26 00 00 00 00 8b 45 f0 =
-83 c4 04 5b 5e 5f 5d c3 8d 74 26 00 90 55 89 e5 57 89 c7 53 89 c3 89 d0 <f3=
-> aa 89 d8 5b 5f 5d c3 cc cc cc cc cc cc cc cc cc cc cc cc cc 89
-[ 4274.985092] EAX: 00000000 EBX: f85fe000 ECX: 0001e000 EDX: 00000000
-[ 4274.985099] ESI: ed158400 EDI: f8600000 EBP: edcc9e6c ESP: edcc9e64
-[ 4274.985105] DS: 007b ES: 007b FS: 00d8 GS: 00e0 SS: 0068 EFLAGS: 00210246
-[ 4274.985112] CR0: 80050033 CR2: f8600000 CR3: 2c114000 CR4: 000006b0
-[ 4337.396551] sysrq: SAK
-[ 4337.397010] tty tty7: SAK: killed process 2963 (Xorg): by session
-[ 4337.397282] tty tty7: SAK: killed process 2963 (Xorg): by controlling tty
-[ 4337.397621] tty tty7: SAK: killed process 3484 (console-kit-dae): by fd#9
-[ 4337.397934] tty tty7: SAK: killed process 3485 (console-kit-dae): by fd#9
-[ 4337.397940] tty tty7: SAK: killed process 3486 (console-kit-dae): by fd#9
-[ 4337.397945] tty tty7: SAK: killed process 3487 (console-kit-dae): by fd#9
-[ 4337.397951] tty tty7: SAK: killed process 3488 (console-kit-dae): by fd#9
-[ 4337.397956] tty tty7: SAK: killed process 3489 (console-kit-dae): by fd#9
-[ 4337.397961] tty tty7: SAK: killed process 3490 (console-kit-dae): by fd#9
-[ 4337.397967] tty tty7: SAK: killed process 3491 (console-kit-dae): by fd#9
-[ 4337.397972] tty tty7: SAK: killed process 3492 (console-kit-dae): by fd#9
-[ 4337.397978] tty tty7: SAK: killed process 3493 (console-kit-dae): by fd#9
-[ 4337.397983] tty tty7: SAK: killed process 3494 (console-kit-dae): by fd#9
-[ 4337.397989] tty tty7: SAK: killed process 3495 (console-kit-dae): by fd#9
-[ 4337.397994] tty tty7: SAK: killed process 3496 (console-kit-dae): by fd#9
-[ 4337.397999] tty tty7: SAK: killed process 3497 (console-kit-dae): by fd#9
-[ 4337.398005] tty tty7: SAK: killed process 3498 (console-kit-dae): by fd#9
-[ 4337.398010] tty tty7: SAK: killed process 3499 (console-kit-dae): by fd#9
-[ 4337.398015] tty tty7: SAK: killed process 3500 (console-kit-dae): by fd#9
-[ 4337.398021] tty tty7: SAK: killed process 3501 (console-kit-dae): by fd#9
-[ 4337.398026] tty tty7: SAK: killed process 3502 (console-kit-dae): by fd#9
-[ 4337.398032] tty tty7: SAK: killed process 3503 (console-kit-dae): by fd#9
-[ 4337.398037] tty tty7: SAK: killed process 3504 (console-kit-dae): by fd#9
-[ 4337.398042] tty tty7: SAK: killed process 3505 (console-kit-dae): by fd#9
-[ 4337.398048] tty tty7: SAK: killed process 3506 (console-kit-dae): by fd#9
-[ 4337.398053] tty tty7: SAK: killed process 3507 (console-kit-dae): by fd#9
-[ 4337.398059] tty tty7: SAK: killed process 3508 (console-kit-dae): by fd#9
-[ 4337.398064] tty tty7: SAK: killed process 3509 (console-kit-dae): by fd#9
-[ 4337.398070] tty tty7: SAK: killed process 3510 (console-kit-dae): by fd#9
-[ 4337.398075] tty tty7: SAK: killed process 3511 (console-kit-dae): by fd#9
-[ 4337.398080] tty tty7: SAK: killed process 3512 (console-kit-dae): by fd#9
-[ 4337.398086] tty tty7: SAK: killed process 3513 (console-kit-dae): by fd#9
-[ 4337.398091] tty tty7: SAK: killed process 3514 (console-kit-dae): by fd#9
-[ 4337.398097] tty tty7: SAK: killed process 3515 (console-kit-dae): by fd#9
-[ 4337.398102] tty tty7: SAK: killed process 3516 (console-kit-dae): by fd#9
-[ 4337.398107] tty tty7: SAK: killed process 3517 (console-kit-dae): by fd#9
-[ 4337.398113] tty tty7: SAK: killed process 3518 (console-kit-dae): by fd#9
-[ 4337.398118] tty tty7: SAK: killed process 3519 (console-kit-dae): by fd#9
-[ 4337.398124] tty tty7: SAK: killed process 3520 (console-kit-dae): by fd#9
-[ 4337.398129] tty tty7: SAK: killed process 3521 (console-kit-dae): by fd#9
-[ 4337.398135] tty tty7: SAK: killed process 3522 (console-kit-dae): by fd#9
-[ 4337.398141] tty tty7: SAK: killed process 3523 (console-kit-dae): by fd#9
-[ 4337.398146] tty tty7: SAK: killed process 3524 (console-kit-dae): by fd#9
-[ 4337.398151] tty tty7: SAK: killed process 3525 (console-kit-dae): by fd#9
-[ 4337.398157] tty tty7: SAK: killed process 3526 (console-kit-dae): by fd#9
-[ 4337.398162] tty tty7: SAK: killed process 3527 (console-kit-dae): by fd#9
-[ 4337.398168] tty tty7: SAK: killed process 3528 (console-kit-dae): by fd#9
-[ 4337.398173] tty tty7: SAK: killed process 3529 (console-kit-dae): by fd#9
-[ 4337.398178] tty tty7: SAK: killed process 3530 (console-kit-dae): by fd#9
-[ 4337.398184] tty tty7: SAK: killed process 3531 (console-kit-dae): by fd#9
-[ 4337.398189] tty tty7: SAK: killed process 3532 (console-kit-dae): by fd#9
-[ 4337.398194] tty tty7: SAK: killed process 3533 (console-kit-dae): by fd#9
-[ 4337.398200] tty tty7: SAK: killed process 3534 (console-kit-dae): by fd#9
-[ 4337.398205] tty tty7: SAK: killed process 3535 (console-kit-dae): by fd#9
-[ 4337.398210] tty tty7: SAK: killed process 3536 (console-kit-dae): by fd#9
-[ 4337.398216] tty tty7: SAK: killed process 3537 (console-kit-dae): by fd#9
-[ 4337.398221] tty tty7: SAK: killed process 3538 (console-kit-dae): by fd#9
-[ 4337.398227] tty tty7: SAK: killed process 3539 (console-kit-dae): by fd#9
-[ 4337.398232] tty tty7: SAK: killed process 3540 (console-kit-dae): by fd#9
-[ 4337.398237] tty tty7: SAK: killed process 3541 (console-kit-dae): by fd#9
-[ 4337.398243] tty tty7: SAK: killed process 3542 (console-kit-dae): by fd#9
-[ 4337.398248] tty tty7: SAK: killed process 3543 (console-kit-dae): by fd#9
-[ 4337.398253] tty tty7: SAK: killed process 3544 (console-kit-dae): by fd#9
-[ 4337.398260] tty tty7: SAK: killed process 3545 (console-kit-dae): by fd#9
-[ 4337.398265] tty tty7: SAK: killed process 3546 (console-kit-dae): by fd#9
-[ 4337.398270] tty tty7: SAK: killed process 3548 (gmain): by fd#9
-[ 4337.398276] tty tty7: SAK: killed process 3549 (gdbus): by fd#9
-[ 4337.743402] wlan0: deauthenticating from 5c:f4:ab:10:d2:bb by local choi=
-ce (Reason: 3=3DDEAUTH_LEAVING)
-[ 4349.750345] traps: clock-applet[7160] trap int3 ip:b71bafc0 sp:bffdd3b0 =
-error:0 in libglib-2.0.so.0.5000.3[b716e000+12a000]
-[ 4349.751834] traps: mateweather-app[7164] trap int3 ip:b729ffc0 sp:bfc45b=
-f0 error:0 in libglib-2.0.so.0.5000.3[b7253000+12a000]
-[ 4352.181317] wlan0: authenticate with 5c:f4:ab:10:d2:bb
-[ 4352.183330] wlan0: send auth to 5c:f4:ab:10:d2:bb (try 1/3)
-[ 4352.187927] wlan0: authenticated
-[ 4352.192203] wlan0: associate with 5c:f4:ab:10:d2:bb (try 1/3)
-[ 4352.194932] wlan0: RX AssocResp from 5c:f4:ab:10:d2:bb (capab=3D0x411 st=
-atus=3D0 aid=3D2)
-[ 4352.199395] wlan0: associated
-[ 4688.523006] sysrq: SAK
-[ 4688.523318] tty tty7: SAK: killed process 6791 (Xorg): by session
-[ 4688.523683] tty tty7: SAK: killed process 6791 (Xorg): by controlling tty
-[ 4688.523930] tty tty7: SAK: killed process 7017 (console-kit-dae): by fd#9
-[ 4688.524330] tty tty7: SAK: killed process 7018 (console-kit-dae): by fd#9
-[ 4688.524337] tty tty7: SAK: killed process 7019 (console-kit-dae): by fd#9
-[ 4688.524342] tty tty7: SAK: killed process 7020 (console-kit-dae): by fd#9
-[ 4688.524347] tty tty7: SAK: killed process 7021 (console-kit-dae): by fd#9
-[ 4688.524353] tty tty7: SAK: killed process 7022 (console-kit-dae): by fd#9
-[ 4688.524358] tty tty7: SAK: killed process 7023 (console-kit-dae): by fd#9
-[ 4688.524363] tty tty7: SAK: killed process 7024 (console-kit-dae): by fd#9
-[ 4688.524369] tty tty7: SAK: killed process 7025 (console-kit-dae): by fd#9
-[ 4688.524374] tty tty7: SAK: killed process 7026 (console-kit-dae): by fd#9
-[ 4688.524380] tty tty7: SAK: killed process 7027 (console-kit-dae): by fd#9
-[ 4688.524385] tty tty7: SAK: killed process 7028 (console-kit-dae): by fd#9
-[ 4688.524391] tty tty7: SAK: killed process 7029 (console-kit-dae): by fd#9
-[ 4688.524396] tty tty7: SAK: killed process 7030 (console-kit-dae): by fd#9
-[ 4688.524402] tty tty7: SAK: killed process 7031 (console-kit-dae): by fd#9
-[ 4688.524407] tty tty7: SAK: killed process 7032 (console-kit-dae): by fd#9
-[ 4688.524412] tty tty7: SAK: killed process 7033 (console-kit-dae): by fd#9
-[ 4688.524419] tty tty7: SAK: killed process 7034 (console-kit-dae): by fd#9
-[ 4688.524424] tty tty7: SAK: killed process 7035 (console-kit-dae): by fd#9
-[ 4688.524429] tty tty7: SAK: killed process 7036 (console-kit-dae): by fd#9
-[ 4688.524435] tty tty7: SAK: killed process 7037 (console-kit-dae): by fd#9
-[ 4688.524440] tty tty7: SAK: killed process 7038 (console-kit-dae): by fd#9
-[ 4688.524446] tty tty7: SAK: killed process 7039 (console-kit-dae): by fd#9
-[ 4688.524451] tty tty7: SAK: killed process 7040 (console-kit-dae): by fd#9
-[ 4688.524456] tty tty7: SAK: killed process 7041 (console-kit-dae): by fd#9
-[ 4688.524462] tty tty7: SAK: killed process 7042 (console-kit-dae): by fd#9
-[ 4688.524467] tty tty7: SAK: killed process 7043 (console-kit-dae): by fd#9
-[ 4688.524473] tty tty7: SAK: killed process 7044 (console-kit-dae): by fd#9
-[ 4688.524478] tty tty7: SAK: killed process 7045 (console-kit-dae): by fd#9
-[ 4688.524483] tty tty7: SAK: killed process 7046 (console-kit-dae): by fd#9
-[ 4688.524489] tty tty7: SAK: killed process 7047 (console-kit-dae): by fd#9
-[ 4688.524494] tty tty7: SAK: killed process 7048 (console-kit-dae): by fd#9
-[ 4688.524500] tty tty7: SAK: killed process 7049 (console-kit-dae): by fd#9
-[ 4688.524505] tty tty7: SAK: killed process 7050 (console-kit-dae): by fd#9
-[ 4688.524511] tty tty7: SAK: killed process 7051 (console-kit-dae): by fd#9
-[ 4688.524516] tty tty7: SAK: killed process 7052 (console-kit-dae): by fd#9
-[ 4688.524521] tty tty7: SAK: killed process 7053 (console-kit-dae): by fd#9
-[ 4688.524527] tty tty7: SAK: killed process 7054 (console-kit-dae): by fd#9
-[ 4688.524532] tty tty7: SAK: killed process 7055 (console-kit-dae): by fd#9
-[ 4688.524538] tty tty7: SAK: killed process 7056 (console-kit-dae): by fd#9
-[ 4688.524543] tty tty7: SAK: killed process 7057 (console-kit-dae): by fd#9
-[ 4688.524549] tty tty7: SAK: killed process 7058 (console-kit-dae): by fd#9
-[ 4688.524554] tty tty7: SAK: killed process 7059 (console-kit-dae): by fd#9
-[ 4688.524560] tty tty7: SAK: killed process 7060 (console-kit-dae): by fd#9
-[ 4688.524565] tty tty7: SAK: killed process 7061 (console-kit-dae): by fd#9
-[ 4688.524570] tty tty7: SAK: killed process 7062 (console-kit-dae): by fd#9
-[ 4688.524576] tty tty7: SAK: killed process 7063 (console-kit-dae): by fd#9
-[ 4688.524581] tty tty7: SAK: killed process 7064 (console-kit-dae): by fd#9
-[ 4688.524587] tty tty7: SAK: killed process 7065 (console-kit-dae): by fd#9
-[ 4688.524593] tty tty7: SAK: killed process 7066 (console-kit-dae): by fd#9
-[ 4688.524598] tty tty7: SAK: killed process 7067 (console-kit-dae): by fd#9
-[ 4688.524603] tty tty7: SAK: killed process 7068 (console-kit-dae): by fd#9
-[ 4688.524609] tty tty7: SAK: killed process 7069 (console-kit-dae): by fd#9
-[ 4688.524614] tty tty7: SAK: killed process 7070 (console-kit-dae): by fd#9
-[ 4688.524620] tty tty7: SAK: killed process 7071 (console-kit-dae): by fd#9
-[ 4688.524625] tty tty7: SAK: killed process 7072 (console-kit-dae): by fd#9
-[ 4688.524631] tty tty7: SAK: killed process 7073 (console-kit-dae): by fd#9
-[ 4688.524636] tty tty7: SAK: killed process 7074 (console-kit-dae): by fd#9
-[ 4688.524642] tty tty7: SAK: killed process 7075 (console-kit-dae): by fd#9
-[ 4688.524648] tty tty7: SAK: killed process 7076 (console-kit-dae): by fd#9
-[ 4688.524653] tty tty7: SAK: killed process 7077 (console-kit-dae): by fd#9
-[ 4688.524659] tty tty7: SAK: killed process 7078 (console-kit-dae): by fd#9
-[ 4688.524664] tty tty7: SAK: killed process 7079 (console-kit-dae): by fd#9
-[ 4688.524670] tty tty7: SAK: killed process 7083 (gmain): by fd#9
-[ 4688.524675] tty tty7: SAK: killed process 7085 (gdbus): by fd#9
-[ 4688.780517] wlan0: deauthenticating from 5c:f4:ab:10:d2:bb by local choi=
-ce (Reason: 3=3DDEAUTH_LEAVING)
-[ 4698.601308] traps: clock-applet[7813] trap int3 ip:b71e9fc0 sp:bf901050 =
-error:0 in libglib-2.0.so.0.5000.3[b719d000+12a000]
-[ 4698.676549] traps: mateweather-app[7814] trap int3 ip:b7260fc0 sp:bfcfb9=
-d0 error:0 in libglib-2.0.so.0.5000.3[b7214000+12a000]
-[ 4700.456620] wlan0: authenticate with 5c:f4:ab:10:d2:bb
-[ 4700.456710] wlan0: send auth to 5c:f4:ab:10:d2:bb (try 1/3)
-[ 4700.459606] wlan0: authenticated
-[ 4700.460449] wlan0: associate with 5c:f4:ab:10:d2:bb (try 1/3)
-[ 4700.463153] wlan0: RX AssocResp from 5c:f4:ab:10:d2:bb (capab=3D0x411 st=
-atus=3D0 aid=3D2)
-[ 4700.465007] wlan0: associated
-
---=20
-(english) http://www.livejournal.com/~pavelmachek
-(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blo=
-g.html
-
---C7zPtVaVf+AK4Oqc
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
-
-iEYEARECAAYFAl7FEGgACgkQMOfwapXb+vIs8gCgiH64NadMFT0rmNF2jTGsurlx
-VCQAmQG8Jtbh4YzjmyxQjqfSgGemqKpI
-=Vqp4
------END PGP SIGNATURE-----
-
---C7zPtVaVf+AK4Oqc--
+best regards
+wang shengjiu

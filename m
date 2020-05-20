@@ -2,52 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 154B01DABF9
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 May 2020 09:25:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 570371DABF1
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 May 2020 09:24:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B71B9179C;
-	Wed, 20 May 2020 09:24:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B71B9179C
+	by alsa0.perex.cz (Postfix) with ESMTPS id F3CD017B8;
+	Wed, 20 May 2020 09:23:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3CD017B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589959547;
-	bh=/nvDptrW6xQYifOimPO0gVr6oGUy3wRz9ku5uobLDp4=;
+	s=default; t=1589959486;
+	bh=86UqdHarucCAnlJEZGFY34/eN4yMg0qC+nkN10Sir0w=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LmCAtTFDUDQY9ioYV9ROA+FLfzzwtP/xz9Fatbjf9s76npPH3cs3QJUqFsDdzP24X
-	 WnsHJXfnRXQUrvGKtY/uaO1NRRWTo7t1/sgUR2LGiFEaDiYhw+hvepa2REB5hF/UP1
-	 hl1CxOSD3UcqU++nW6lLbFFJWe75qWVwe+wyMOoo=
+	b=aKJTfIAYLJed225UpPrRALHVzAMEKS8RJZXhHm5LtKcjzc6MHzkCNv5aBGyQVocq/
+	 05LidtjP+raEWh/jPEmYyrY5vxwiKpEzjSnAktGea0Y6Ukg07qeLnW2NsaSQ5Msxeg
+	 UrGoGCLcSYmd5jq3sLrqRk0TGARv3SuqaDxHvbIU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 796A1F802A9;
-	Wed, 20 May 2020 09:21:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69E78F8028F;
+	Wed, 20 May 2020 09:21:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D601CF801F9; Wed, 20 May 2020 09:21:28 +0200 (CEST)
+ id 9A4B2F8028F; Wed, 20 May 2020 09:21:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
+Received: from smtp1.axis.com (smtp1.axis.com [195.60.68.17])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A9CFF80216
+ by alsa1.perex.cz (Postfix) with ESMTPS id 34810F80213
  for <alsa-devel@alsa-project.org>; Wed, 20 May 2020 09:21:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A9CFF80216
-IronPort-SDR: dLMg8gaCAchjvYn9j1QQijXoiTYkY1LkXq+Mef/f5gFBJVniu9c+L1SmChvbT7MVcWpT3USqnw
- avH02B95TUpWAiDdHWL2+gi4XrDtPUJB8NR+0U7FsAOkyl96v+d739/+MEmnIzpqK8qvOvAIh/
- S5gprgG1PoGaLYsa3aHPpnY42Wglu84ljAL8r39e/hTupe1uAO2Uk84VXYzHZMkvReU03fFoQJ
- nZDS9SwtcPtZrG24LdvRX31Z+pk7n01qIvRpasRgEc8OGkvOFioIqS2gQzpO5DQgpft1NB2Qhh
- Bc4=
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34810F80213
+IronPort-SDR: d5Qcz4RE0Ijv+ViZ7b3ze/SnGsRl7oYPEOroYadehCk9ocPVGAvFCv4ggJSQh4vkOeyA8gd4DP
+ jIbQNrVNRPj/arPe3qA3hDRuaszinOPcGk3Xt8+aE77sP8zTFR4u+kqbpTASWTURtZjO1nyQRy
+ pM1qaf8SmqbI3Ymo8JHqnYA2pPuLgUTGXy/Ut7fLBOpQ/SohvV0j6wNGWk6pPRJpMzCrlOcBb8
+ G9vgPWaLB0iXypCA4v1gffet+ZcWnjJJLf3PongImwUomvZsDzJ0M9oO2MDOS/iQ/7kTd23lf5
+ LW0=
 X-IronPort-AV: E=Sophos;i="5.73,413,1583190000"; 
-   d="scan'208";a="8662021"
+   d="scan'208";a="8907989"
 From: Pavel Dobias <dobias@2n.cz>
 To: <alsa-devel@alsa-project.org>
-Subject: [PATCH 5/6] ASoC: max9867: add mono playback switch
-Date: Wed, 20 May 2020 09:19:03 +0200
-Message-ID: <20200520071904.15801-5-dobias@2n.cz>
+Subject: [PATCH 6/6] ASoC: max9867: add digital microphone controls
+Date: Wed, 20 May 2020 09:19:04 +0200
+Message-ID: <20200520071904.15801-6-dobias@2n.cz>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200520071904.15801-1-dobias@2n.cz>
 References: <20200520071904.15801-1-dobias@2n.cz>
@@ -72,36 +72,69 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add Mono Playback switch to codec controls which enables codec's
-capability of mixing left and right channel at the DAC output.
+MAX9867 codec has a possibility of connecting digital microphones.
+Add DAPM controls to be able to enable them.
 
 Signed-off-by: Pavel Dobias <dobias@2n.cz>
 ---
- sound/soc/codecs/max9867.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/codecs/max9867.c | 26 ++++++++++++++++++++++++--
+ 1 file changed, 24 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/codecs/max9867.c b/sound/soc/codecs/max9867.c
-index 9fa2acc73e18..902b1387b797 100644
+index 902b1387b797..1946dcfa48e1 100644
 --- a/sound/soc/codecs/max9867.c
 +++ b/sound/soc/codecs/max9867.c
-@@ -79,6 +79,7 @@ static const struct snd_kcontrol_new max9867_snd_controls[] = {
- 	SOC_ENUM("DSP Filter", max9867_filter),
- 	SOC_ENUM("ADC Filter", max9867_adc_filter),
- 	SOC_ENUM("DAC Filter", max9867_dac_filter),
-+	SOC_SINGLE("Mono Playback Switch", MAX9867_IFC1B, 3, 1, 0),
- };
+@@ -104,10 +104,24 @@ static const struct snd_kcontrol_new max9867_line_out_control =
+ 	SOC_DAPM_DOUBLE_R("Switch",
+ 			  MAX9867_LEFTVOL, MAX9867_RIGHTVOL, 6, 1, 1);
  
- /* Input mixer */
-@@ -361,7 +362,8 @@ static int max9867_dai_set_fmt(struct snd_soc_dai *codec_dai,
- 	}
++/* DMIC mux */
++static const char *const dmic_mux_text[] = {
++	"ADC", "DMIC"
++};
++static SOC_ENUM_SINGLE_DECL(left_dmic_mux_enum,
++			    MAX9867_MICCONFIG, 5, dmic_mux_text);
++static SOC_ENUM_SINGLE_DECL(right_dmic_mux_enum,
++			    MAX9867_MICCONFIG, 4, dmic_mux_text);
++static const struct snd_kcontrol_new max9867_left_dmic_mux =
++	SOC_DAPM_ENUM("DMICL Mux", left_dmic_mux_enum);
++static const struct snd_kcontrol_new max9867_right_dmic_mux =
++	SOC_DAPM_ENUM("DMICR Mux", right_dmic_mux_enum);
  
- 	regmap_write(max9867->regmap, MAX9867_IFC1A, iface1A);
--	regmap_write(max9867->regmap, MAX9867_IFC1B, iface1B);
-+	regmap_update_bits(max9867->regmap, MAX9867_IFC1B,
-+			   MAX9867_IFC1B_BCLK_MASK, iface1B);
+ static const struct snd_soc_dapm_widget max9867_dapm_widgets[] = {
+ 	SND_SOC_DAPM_INPUT("MICL"),
+ 	SND_SOC_DAPM_INPUT("MICR"),
++	SND_SOC_DAPM_INPUT("DMICL"),
++	SND_SOC_DAPM_INPUT("DMICR"),
+ 	SND_SOC_DAPM_INPUT("LINL"),
+ 	SND_SOC_DAPM_INPUT("LINR"),
  
- 	return 0;
- }
+@@ -116,6 +130,10 @@ static const struct snd_soc_dapm_widget max9867_dapm_widgets[] = {
+ 	SND_SOC_DAPM_MIXER_NAMED_CTL("Input Mixer", SND_SOC_NOPM, 0, 0,
+ 				     max9867_input_mixer_controls,
+ 				     ARRAY_SIZE(max9867_input_mixer_controls)),
++	SND_SOC_DAPM_MUX("DMICL Mux", SND_SOC_NOPM, 0, 0,
++			 &max9867_left_dmic_mux),
++	SND_SOC_DAPM_MUX("DMICR Mux", SND_SOC_NOPM, 0, 0,
++			 &max9867_right_dmic_mux),
+ 	SND_SOC_DAPM_ADC("ADCL", "HiFi Capture", SND_SOC_NOPM, 0, 0),
+ 	SND_SOC_DAPM_ADC("ADCR", "HiFi Capture", SND_SOC_NOPM, 0, 0),
+ 
+@@ -140,8 +158,12 @@ static const struct snd_soc_dapm_route max9867_audio_map[] = {
+ 	{"Input Mixer", "Mic Capture Switch", "MICR"},
+ 	{"Input Mixer", "Line Capture Switch", "Left Line Input"},
+ 	{"Input Mixer", "Line Capture Switch", "Right Line Input"},
+-	{"ADCL", NULL, "Input Mixer"},
+-	{"ADCR", NULL, "Input Mixer"},
++	{"DMICL Mux", "DMIC", "DMICL"},
++	{"DMICR Mux", "DMIC", "DMICR"},
++	{"DMICL Mux", "ADC", "Input Mixer"},
++	{"DMICR Mux", "ADC", "Input Mixer"},
++	{"ADCL", NULL, "DMICL Mux"},
++	{"ADCR", NULL, "DMICR Mux"},
+ 
+ 	{"Digital", "Sidetone Switch", "ADCL"},
+ 	{"Digital", "Sidetone Switch", "ADCR"},
 -- 
 2.20.1
 

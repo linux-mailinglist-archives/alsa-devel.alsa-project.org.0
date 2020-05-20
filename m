@@ -2,64 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D75F1DBB0E
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 May 2020 19:19:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4ADF11DBDEF
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 May 2020 21:23:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 423A51812;
-	Wed, 20 May 2020 19:19:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 423A51812
+	by alsa0.perex.cz (Postfix) with ESMTPS id B7D0D180C;
+	Wed, 20 May 2020 21:23:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7D0D180C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589995191;
-	bh=IF7mBuk7hlUj+8Y2d8voF/ENe1gpZEcH2MG/8xI3a9Q=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1590002630;
+	bh=JR3DHteZFRLghvgAIzGvyIx1cD/oWpGs2nrfFT4GNvU=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FiwkhJ2QCzgXlPCXoS0fI5JC++B/g2bSmra6PofYp7I+TjSc1g2hT6FFdLimbqT2u
-	 X9kFNoVbkmQWTJSKAtebOanOQdzirFXnaV1Jb6wvkWtqlcyjP7gYt360SAxc6P0hOq
-	 zbi9aV4uFxTztvVf4zEw0FL3u/L2x0fXWq54yt10=
+	b=dSg4OR/fXwsls48psGzD8KaBiIzk9w7SBYSM2uWcyomHa7f8xdeZ2JSXFl18xsGHH
+	 gEHB9eiwxhhSuXYcaqU8g3lib+Jhq602J0RXxJd7dtuSt6BqpvGBzeYNEYRPUBxG/S
+	 9XcfWO8l3M+ZYKK1UEQivXGBWBuaREGedaMT82/Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A757DF80132;
-	Wed, 20 May 2020 19:17:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CEDFAF80213;
+	Wed, 20 May 2020 21:22:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21FF8F8026F; Wed, 20 May 2020 19:17:26 +0200 (CEST)
+ id 8DB16F801F9; Wed, 20 May 2020 21:22:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8EF50F80216
- for <alsa-devel@alsa-project.org>; Wed, 20 May 2020 19:17:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EF50F80216
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="pQ2jGo2q"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8A852206B6;
- Wed, 20 May 2020 17:17:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589995042;
- bh=IF7mBuk7hlUj+8Y2d8voF/ENe1gpZEcH2MG/8xI3a9Q=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=pQ2jGo2qMb0VGrJoBb4Znp/E2AwKc/VKl5O5/y8O0hIaSwvCeXvrfx8l/pHechlzY
- Ttv78Y0U3ec7bW0snbxcFSk1+u4UKOH3Lrx8y6R3dQTP8fLNJz4AisWONE0BbhZgMI
- m/Kk5gGM9kV+9muQMN5tyOIJadyaGTi1o93u56R8=
-Date: Wed, 20 May 2020 18:17:19 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pavel Dobias <dobias@2n.cz>, alsa-devel@alsa-project.org
-In-Reply-To: <20200520071904.15801-1-dobias@2n.cz>
-References: <20200520071904.15801-1-dobias@2n.cz>
-Subject: Re: [PATCH 1/6] ASoC: max9867: fix ADC level control
-Message-Id: <158999503367.4807.9375424664001249891.b4-ty@kernel.org>
-Cc: ladis@linux-mips.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id B60E2F80132
+ for <alsa-devel@alsa-project.org>; Wed, 20 May 2020 21:21:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B60E2F80132
+Received: from imladris.surriel.com ([96.67.55.152])
+ by shelob.surriel.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
+ (envelope-from <riel@shelob.surriel.com>)
+ id 1jbUHh-0005vw-19; Wed, 20 May 2020 15:21:45 -0400
+Message-ID: <667d8d156fa5d8420ef1c3b1d08b94a10d2398cc.camel@surriel.com>
+Subject: Re: XHCI vs PCM2903B/PCM2904 part 2
+From: Rik van Riel <riel@surriel.com>
+To: Alan Stern <stern@rowland.harvard.edu>
+Date: Wed, 20 May 2020 15:21:44 -0400
+In-Reply-To: <20200520163840.GA11084@rowland.harvard.edu>
+References: <273cc1c074cc4a4058f31afe487fb233f5cf0351.camel@surriel.com>
+ <20200520163840.GA11084@rowland.harvard.edu>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-kor7JAH8v80RgB55+Ksv"
+User-Agent: Evolution 3.34.4 (3.34.4-1.fc31) 
+MIME-Version: 1.0
+Cc: alsa-devel@alsa-project.org, Mathias Nyman <mathias.nyman@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-usb <linux-usb@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,41 +73,107 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 20 May 2020 09:18:59 +0200, Pavel Dobias wrote:
-> Fix swapped channels in ADC level control.
 
-Applied to
+--=-kor7JAH8v80RgB55+Ksv
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Wed, 2020-05-20 at 12:38 -0400, Alan Stern wrote:
+> On Wed, May 20, 2020 at 07:26:57AM -0400, Rik van Riel wrote:
+> > After a few more weeks of digging, I have come to the tentative
+> > conclusion that either the XHCI driver, or the USB sound driver,
+> > or both, fail to handle USB errors correctly.
+> >=20
+> > I have some questions at the bottom, after a (brief-ish)
+> > explanation
+> > of exactly what seems to go wrong.
+> >=20
+> > TL;DR: arecord from a misbehaving device can hang forever
+> > after a USB error, due to poll on /dev/snd/timer never returning.
+> >=20
+> > The details: under some mysterious circumstances, the PCM290x
+> > family sound chips can send more data than expected during an
+> > isochronous transfer, leading to a babble error. Those
+>=20
+> Do these chips connect as USB-3 devices or as USB-2?  (I wouldn't
+> expect=20
+> an audio device to use USB-3; it shouldn't need the higher
+> bandwidth.)
 
-Thanks!
+USB-2
 
-[1/5] ASoC: max9867: fix ADC level control
-      commit: 53a58bf96bcdd47c670a957920f3a1bcf7215b39
-[2/5] ASoC: max9867: don't use regmap defaults
-      commit: d0de8c69f90196fb872f1739756bb0348144d18c
-[3/5] ASoC: max9867: add filter controls
-      commit: af53d5738cb0fd61da0bc3f5a884df7af237d20d
-[4/5] ASoC: max9867: add mono playback switch
-      commit: 80b9fa4dead406f9a0aef5b364eb237872986c2c
-[5/5] ASoC: max9867: add digital microphone controls
-      (no commit info)
+> In general, errors such as babble are not supposed to stop
+> isochronous=20
+> endpoints.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+However, it seems that they do. The urb never
+gets an answer after snd_complete_urb refiles
+it with usb_submit_urb.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> > However, the USB sound driver seems to have no idea that this
+> > error happened. The function retire_capture_urb looks at the
+> > status of each isochronous frame, but seems to be under the
+> > assumption that the sound device just keeps on running.
+>=20
+> This is appropriate, for the reason mentioned above.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Having arecord get stuck forever does not seem like
+the right behavior, though :)
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+> > This leads me to a few questions:
+> > - should retire_capture_urb call snd_pcm_stop_xrun,
+> >   or another function like it, if it sees certain
+> >   errors in the iso frame in the URB?
+>=20
+> No.  Isochronous endpoints are expected to encounter errors from time
+> to=20
+> time; that is the nature of isochronous communications.  You're
+> supposed=20
+> to ignore the errors (skip over any bad data) and keep going.
 
-Thanks,
-Mark
+...
+
+> The notion of "stopped state" is not part of USB-2.  As a result, it=20
+> should be handled entirely within the xhci-hcd driver.
+
+Interesting. That makes me really curious why things are
+getting stuck, now...
+
+> > - how should the USB sound driver recover from these
+> >   occasional and/or one-off errors? stop the sound
+> >   stream, or try to reinitialize the device and start
+> >   recording again?
+>=20
+> As far as I know, it should do its best to continue (perhaps fill in=20
+> missing data with zeros).
+
+That was my first intuition as well, given the documented
+behavior of isochronous frames.
+
+However, given that the device appears to stop sending
+frames after that error, at least usbmon is not seeing
+any, I am not sure what needs to happen in order to get
+that behavior.
+
+--=20
+All Rights Reversed.
+
+--=-kor7JAH8v80RgB55+Ksv
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCAAdFiEEKR73pCCtJ5Xj3yADznnekoTE3oMFAl7Fg0gACgkQznnekoTE
+3oP6nAf/ela41PoyQHGOBVNUyLcwbl0jNWe/6JBUdk+jwh0wI/tP+dy5CLR6IOzG
+Fu1aDqLgUXF/gGLcFvNUl9LBz5kf9UDRrCflmFEAEgeViLuO1eIV+DOoaoogdclh
+X8L/tL4rv3fpK7lIRdx14Knwtpy2wTkmvFGyiTBQAtKs1FG00t+jRuYjYNKs6KNA
+o8MyPBYtp4QE0XMua9pEBvVRm+fjh8bJCXcFYYJw88e4o+MhBkfnZWA6Xrnl5YGw
+jwyfCSGWvNWCi8zKuJfkSWhsSOJk5a+TCGhIY7yhHNT3tUacLORRNEJ+8cbucpQ9
+mdwQnjU9EBX+UB+99OwQCSlzTECYAQ==
+=4YvF
+-----END PGP SIGNATURE-----
+
+--=-kor7JAH8v80RgB55+Ksv--
+

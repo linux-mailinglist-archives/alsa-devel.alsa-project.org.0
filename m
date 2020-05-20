@@ -2,52 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B66A1DABE5
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 May 2020 09:23:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 545FC1DABEC
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 May 2020 09:24:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B014F17C4;
-	Wed, 20 May 2020 09:23:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B014F17C4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 029C817A2;
+	Wed, 20 May 2020 09:23:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 029C817A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1589959431;
-	bh=qXr5uimdM1mHbGHEtiEl0HeyUn/TC6zdn426tINDyB0=;
+	s=default; t=1589959447;
+	bh=iKnQ6WniAQDfiZkwQJr7n0j37WFzYZWpatpymbNfGWA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vVEfVYws5fFbrX6xqHRItfpPUN0a9WSCGSzJriy+YX03fncdQWoBqT/7HcoyCoJUC
-	 9GAxseyrb1RWapyFFhhbGwr3PF1OmDtKBZyWVr2ZKYJKDagNtORCtx4HY5Rdtqgzml
-	 odNfj4sglNhW0A3XB8Ge/m4lWxr6T32AsGF/S42c=
+	b=WwfOLEb9YK5Nw+fREtrEbvKHnYJMwcVzhr25pOFTfMV5x3JPND5PefWJgMxTiclCt
+	 aR+O8LkPnywcBo39o2dmxACDx/Elm7gSFvgvTHkmt08dBfwFEVUrXmj3boa4Lgfkx3
+	 wxJLGXy1qQQkGH1qEOD/huv4vXq+jr2Brptasi6E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A839F8028E;
-	Wed, 20 May 2020 09:21:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58641F80216;
+	Wed, 20 May 2020 09:21:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 43DC3F8026F; Wed, 20 May 2020 09:21:22 +0200 (CEST)
+ id 7E90CF80291; Wed, 20 May 2020 09:21:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtp1.axis.com (smtp1.axis.com [195.60.68.17])
+Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F2172F801DA
- for <alsa-devel@alsa-project.org>; Wed, 20 May 2020 09:21:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2172F801DA
-IronPort-SDR: O2A7XhfDbkH3yLGAs+Ql+z1ljHuxMCaIwWLTyHK/SvzWG0no3JovrMLMvPwxupWofTIdKzrQvI
- ToyZjDeRofQZ4zKVlFPEwna6xB8aiaeZ22aNX1A/ACcMfVDgI4h8bk8DHiRbvLfmqfq19KmJnZ
- t+VKStUjg6tw57sLcJwWGIBqn9usThNtXdwPpWj0N4EakW8UbEOu8Okw/tvRjrIKyEDzUTkQEO
- UgGspdxStyOC1gY0L0dIm9ngXaC8YiL3Gfo+TM638chFH1XVnz3840eeiJ0tCTUk5VvSPoqTG2
- sW8=
+ by alsa1.perex.cz (Postfix) with ESMTPS id 27CE6F801F9
+ for <alsa-devel@alsa-project.org>; Wed, 20 May 2020 09:21:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27CE6F801F9
+IronPort-SDR: OiX85362V+TEYz7ZNladsQpjjtV6cG1C2L+Q9mj3Au0WW2EIa+RgOKSPwHd0avkbs/EsMsAqeD
+ xzE4DaiV9RlaFpfQLDe6PbVGMmmnUra92VMZCQ2TH+gVX97rl16Gw/xQnDpGW3LISJWKF4DMEA
+ ZjJkelHuwUVeARsgnY5riqU8U4Vn5i4g2nZ3E6mjd/O3By2h+scJf23k9m0UqbSzMn+OLBWuy3
+ AuTFSh55QojFnzixF2PyQXSB/1Dw6R+cuqHk0OWxddwUVitYLaf6sI1lkAosG9nNfk6+ZX1POG
+ NcI=
 X-IronPort-AV: E=Sophos;i="5.73,413,1583190000"; 
-   d="scan'208";a="8907986"
+   d="scan'208";a="8662018"
 From: Pavel Dobias <dobias@2n.cz>
 To: <alsa-devel@alsa-project.org>
-Subject: [PATCH 2/6] ASoC: max9867: don't use regmap defaults
-Date: Wed, 20 May 2020 09:19:00 +0200
-Message-ID: <20200520071904.15801-2-dobias@2n.cz>
+Subject: [PATCH 3/6] ASoC: max9867: add filter controls
+Date: Wed, 20 May 2020 09:19:01 +0200
+Message-ID: <20200520071904.15801-3-dobias@2n.cz>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200520071904.15801-1-dobias@2n.cz>
 References: <20200520071904.15801-1-dobias@2n.cz>
@@ -72,57 +72,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-MAX9867 codec doesn't have reset pin, so the registers don't
-have default values in the case of reboot without powering off.
-Remove the reg_defaults struct and let the regmap read initial
-state of the registers at startup instead of taking them from
-reg_defaults struct.
+Adding missing codec controls - ADC/DAC IIR filter selection.
 
 Signed-off-by: Pavel Dobias <dobias@2n.cz>
 ---
- sound/soc/codecs/max9867.c | 25 -------------------------
- 1 file changed, 25 deletions(-)
+ sound/soc/codecs/max9867.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
 diff --git a/sound/soc/codecs/max9867.c b/sound/soc/codecs/max9867.c
-index 6d49a1cc98c6..93431646f2c7 100644
+index 93431646f2c7..535cfea6bcde 100644
 --- a/sound/soc/codecs/max9867.c
 +++ b/sound/soc/codecs/max9867.c
-@@ -463,35 +463,10 @@ static bool max9867_volatile_register(struct device *dev, unsigned int reg)
- 	}
- }
- 
--static const struct reg_default max9867_reg[] = {
--	{ 0x04, 0x00 },
--	{ 0x05, 0x00 },
--	{ 0x06, 0x00 },
--	{ 0x07, 0x00 },
--	{ 0x08, 0x00 },
--	{ 0x09, 0x00 },
--	{ 0x0A, 0x00 },
--	{ 0x0B, 0x00 },
--	{ 0x0C, 0x00 },
--	{ 0x0D, 0x00 },
--	{ 0x0E, 0x40 },
--	{ 0x0F, 0x40 },
--	{ 0x10, 0x00 },
--	{ 0x11, 0x00 },
--	{ 0x12, 0x00 },
--	{ 0x13, 0x00 },
--	{ 0x14, 0x00 },
--	{ 0x15, 0x00 },
--	{ 0x16, 0x00 },
--	{ 0x17, 0x00 },
--};
--
- static const struct regmap_config max9867_regmap = {
- 	.reg_bits	= 8,
- 	.val_bits	= 8,
- 	.max_register	= MAX9867_REVISION,
--	.reg_defaults	= max9867_reg,
--	.num_reg_defaults = ARRAY_SIZE(max9867_reg),
- 	.volatile_reg	= max9867_volatile_register,
- 	.cache_type	= REGCACHE_RBTREE,
+@@ -23,8 +23,21 @@ static const char *const max9867_spmode[] = {
  };
+ static const char *const max9867_filter_text[] = {"IIR", "FIR"};
+ 
++static const char *const max9867_adc_dac_filter_text[] = {
++	"Disabled",
++	"Elliptical/16/256",
++	"Butterworth/16/500",
++	"Elliptical/8/256",
++	"Butterworth/8/500",
++	"Butterworth/8-24"
++};
++
+ static SOC_ENUM_SINGLE_DECL(max9867_filter, MAX9867_CODECFLTR, 7,
+ 	max9867_filter_text);
++static SOC_ENUM_SINGLE_DECL(max9867_dac_filter, MAX9867_CODECFLTR, 0,
++	max9867_adc_dac_filter_text);
++static SOC_ENUM_SINGLE_DECL(max9867_adc_filter, MAX9867_CODECFLTR, 4,
++	max9867_adc_dac_filter_text);
+ static SOC_ENUM_SINGLE_DECL(max9867_spkmode, MAX9867_MODECONFIG, 0,
+ 	max9867_spmode);
+ static const SNDRV_CTL_TLVD_DECLARE_DB_RANGE(max9867_master_tlv,
+@@ -64,6 +77,8 @@ static const struct snd_kcontrol_new max9867_snd_controls[] = {
+ 	SOC_SINGLE("Volume Smoothing Switch", MAX9867_MODECONFIG, 6, 1, 0),
+ 	SOC_SINGLE("Line ZC Switch", MAX9867_MODECONFIG, 5, 1, 0),
+ 	SOC_ENUM("DSP Filter", max9867_filter),
++	SOC_ENUM("ADC Filter", max9867_adc_filter),
++	SOC_ENUM("DAC Filter", max9867_dac_filter),
+ };
+ 
+ /* Input mixer */
 -- 
 2.20.1
 

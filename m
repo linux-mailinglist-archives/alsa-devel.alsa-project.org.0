@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D69661DD5C3
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 May 2020 20:12:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C1F51DD5C4
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 May 2020 20:12:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D2321851;
-	Thu, 21 May 2020 20:11:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D2321851
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9C971854;
+	Thu, 21 May 2020 20:12:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9C971854
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590084733;
-	bh=IN+009K1m1n4J1xIxafqQzYjfpoiH25ewOSdl3+3yRg=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1590084778;
+	bh=5Yh1eNhRVpfBeCqP/LhxxzL+7ozJTGLC0hWHIKO40jg=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hzJKoSxOd4DBwqnu+S8dBoZ6EbdosyttUQ6Ppo3ONnRM+ujOY0gqD9Afl3iGdGK7E
-	 pYjnIVV5/JFFa4NgjS2B0gJNcnokc2CUu6MSY9pl6awT/MBsO0TySr2E0Yh/t3WE/W
-	 lryJF1t4SjT0u9ua8Ao0mtffXG/riixHXmiEzP8Y=
+	b=WFEQnPnozBHQNCNI/3f+3TrEKNy+UblLQhiDlaeVCjDnJl3MUfUnbJGux57FzvFZE
+	 aoOlJChdMVYW8kPMTgsnZ6PPw0bAXvc23+lQS3JY8M4Itxn9jhJfrT47fdT6mdZnFK
+	 PjQY/WPHK41bEXOvFQxaOWt5FLM2aOI3exy5nbzo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 51F5FF801F8;
-	Thu, 21 May 2020 20:10:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94060F80161;
+	Thu, 21 May 2020 20:11:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 750D5F801D8; Thu, 21 May 2020 20:10:29 +0200 (CEST)
+ id E55E8F80256; Thu, 21 May 2020 20:11:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,36 +33,46 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2817EF80161
- for <alsa-devel@alsa-project.org>; Thu, 21 May 2020 20:10:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2817EF80161
-IronPort-SDR: a0mAVGYSLr68raTVMFMKIDgY3ZLk8Osg04b62wqNZH7kj77hrBoqxFWM0C9Q284oaoc9I65/OA
- aJV6CR4HiFng==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 34FC7F80161
+ for <alsa-devel@alsa-project.org>; Thu, 21 May 2020 20:10:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34FC7F80161
+IronPort-SDR: ETlsU9xsvSIpjVwfLn6kgk5W7vmleEvs8zNwq6ZZfdOtuW/2yKLW5KO59X2fMVaKExdkWENJ1c
+ 9hXn5XFiUKkg==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2020 11:10:19 -0700
-IronPort-SDR: htoi4CB0pCVOPuU4kwhQWLSl1Wz/45wrjQKN5OCS+8NDCnis3VS+b5F92frtW0VWH0KPCkmV86
- S65apwhRhCUQ==
+ 21 May 2020 11:10:55 -0700
+IronPort-SDR: JCuh9H/hp4YFzm3n4ukF0/9cPkRoVB2FWwSZl79U6XjFPyn3ZlfO784xWpxfyjmANOsbTNVHqS
+ zGY1qBPYO/7g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,418,1583222400"; d="scan'208";a="289837888"
-Received: from dclifton-mobl.amr.corp.intel.com ([10.251.134.247])
- by fmsmga004.fm.intel.com with ESMTP; 21 May 2020 11:10:19 -0700
-Message-ID: <51622f63fdde93142e5df1867b8fd0a3676654db.camel@linux.intel.com>
-Subject: Re: [PATCH v2 1/7] ASoC: add soc-link.c
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown
- <broonie@kernel.org>
-Date: Thu, 21 May 2020 11:10:19 -0700
-In-Reply-To: <87367u59ve.wl-kuninori.morimoto.gx@renesas.com>
-References: <874ksa59wc.wl-kuninori.morimoto.gx@renesas.com>
- <87367u59ve.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+X-IronPort-AV: E=Sophos;i="5.73,418,1583222400"; d="scan'208";a="254062243"
+Received: from dsrao-mobl.amr.corp.intel.com (HELO [10.255.229.80])
+ ([10.255.229.80])
+ by orsmga007.jf.intel.com with ESMTP; 21 May 2020 11:10:54 -0700
+Subject: Re: [PATCH v3] ASoC: Intel: kbl_rt5663_rt5514_max98927: Split
+ be_hw_params_fixup function
+To: =?UTF-8?Q?=c5=81ukasz_Majczak?= <lma@semihalf.com>
+References: <20200521162518.1809995-1-lma@semihalf.com>
+ <3c89e614-81f5-ba87-19a9-fbe9f5c73925@linux.intel.com>
+ <CAFJ_xbr8TN3ynfELJ3NQnkuRg0VRbkjB7=Cyb8yu2L==JGXJiw@mail.gmail.com>
+ <475fb5c0-9b26-a8f6-c102-25c7775bc2ca@linux.intel.com>
+ <CAFJ_xbq-QotvPG=AxSp7=Etc5P5f4ePRWLCvSNnTkzUO9o_qjQ@mail.gmail.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <268b11b6-9f4c-d769-a7f9-536d77198705@linux.intel.com>
+Date: Thu, 21 May 2020 13:10:54 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
+MIME-Version: 1.0
+In-Reply-To: <CAFJ_xbq-QotvPG=AxSp7=Etc5P5f4ePRWLCvSNnTkzUO9o_qjQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Harsha Priya <harshapriya.n@intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Radoslaw Biernacki <rad@semihalf.com>,
+ Ross Zwisler <zwisler@google.com>, linux-kernel@vger.kernel.org,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>, Bob Brandt <brndt@google.com>,
+ Marcin Wojtas <mw@semihalf.com>, Alex Levin <levinale@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,109 +88,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 2020-05-21 at 10:56 +0900, Kuninori Morimoto wrote:
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> 
-> Current ALSA SoC has many dai_link->xxx() functions.
-> But, it is implemented randomly at random place.
-> 
-> This patch creats new soc-link.c and collect dai_link related
-> operation into it.
-> 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
->  include/sound/soc-link.h | 13 +++++++++++++
->  sound/soc/Makefile       |  2 +-
->  sound/soc/soc-core.c     | 12 ++++--------
->  sound/soc/soc-link.c     | 36 ++++++++++++++++++++++++++++++++++++
->  4 files changed, 54 insertions(+), 9 deletions(-)
->  create mode 100644 include/sound/soc-link.h
->  create mode 100644 sound/soc/soc-link.c
-> 
-> diff --git a/include/sound/soc-link.h b/include/sound/soc-link.h
-> new file mode 100644
-> index 000000000000..7fc5cead5942
-> --- /dev/null
-> +++ b/include/sound/soc-link.h
-> @@ -0,0 +1,13 @@
-> +/* SPDX-License-Identifier: GPL-2.0
-> + *
-> + * soc-link.h
-> + *
-> + * Copyright (C) 2019 Renesas Electronics Corp.
-> + * Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> + */
-> +#ifndef __SOC_LINK_H
-> +#define __SOC_LINK_H
-> +
-> +int snd_soc_link_init(struct snd_soc_pcm_runtime *rtd);
-> +
-> +#endif /* __SOC_LINK_H */
-> diff --git a/sound/soc/Makefile b/sound/soc/Makefile
-> index 861a21b79484..70a5f19ea3a1 100644
-> --- a/sound/soc/Makefile
-> +++ b/sound/soc/Makefile
-> @@ -1,6 +1,6 @@
->  # SPDX-License-Identifier: GPL-2.0
->  snd-soc-core-objs := soc-core.o soc-dapm.o soc-jack.o soc-utils.o
-> soc-dai.o soc-component.o
-> -snd-soc-core-objs += soc-pcm.o soc-io.o soc-devres.o soc-ops.o
-> +snd-soc-core-objs += soc-pcm.o soc-io.o soc-devres.o soc-ops.o soc-
-> link.o
->  snd-soc-core-$(CONFIG_SND_SOC_COMPRESS) += soc-compress.o
->  
->  ifneq ($(CONFIG_SND_SOC_TOPOLOGY),)
-> diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-> index e697258d2ffc..955e175643d7 100644
-> --- a/sound/soc/soc-core.c
-> +++ b/sound/soc/soc-core.c
-> @@ -38,6 +38,7 @@
->  #include <sound/soc.h>
->  #include <sound/soc-dpcm.h>
->  #include <sound/soc-topology.h>
-> +#include <sound/soc-link.h>
->  #include <sound/initval.h>
->  
->  #define CREATE_TRACE_POINTS
-> @@ -1049,14 +1050,9 @@ static int soc_init_pcm_runtime(struct
-> snd_soc_card *card,
->  	rtd->pmdown_time = pmdown_time;
->  
->  	/* do machine specific initialization */
-> -	if (dai_link->init) {
-> -		ret = dai_link->init(rtd);
-> -		if (ret < 0) {
-> -			dev_err(card->dev, "ASoC: failed to init %s:
-> %d\n",
-> -				dai_link->name, ret);
-> -			return ret;
-> -		}
-> -	}
-> +	ret = snd_soc_link_init(rtd);
-> +	if (ret < 0)
-> +		return ret;
->  
->  	if (dai_link->dai_fmt) {
->  		ret = snd_soc_runtime_set_dai_fmt(rtd, dai_link-
-> >dai_fmt);
-> diff --git a/sound/soc/soc-link.c b/sound/soc/soc-link.c
-> new file mode 100644
-> index 000000000000..4bdd8d0dd93a
-> --- /dev/null
-> +++ b/sound/soc/soc-link.c
-> @@ -0,0 +1,36 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +//
-> +// soc-link.c
-> +//
-> +// Copyright (C) 2019 Renesas Electronics Corp.
-> +// Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> +//
-> +#include <sound/soc.h>
-Morimoto-san,
 
-Dont we also need to include soc-link.h in soc-link.c?
 
-Thanks,
-Ranjani
+On 5/21/20 12:30 PM, Łukasz Majczak wrote:
+> Hi Pierre
+> 
+> If you will take a look at the original kabylake_ssp_fixup() you will
+> see that it is checking whether the related FE is "Kbl Audio Port",
+> "Kbl Audio Headset Playback", "Kbl Audio Capture Port" or "Kbl Audio
+> DMIC cap" - then for the first 3 cases it sets min/max channels to 2
+> while for the "Kbl DMIC cap" it can be 2 or 4, that's is why I'm
+> trying to split this, but maybe I'm missing here something.
 
+I don't understand this code either.
+
+I believe the intent is that for all SSP1-RT5663 usages, we should use
+
+  		rate->min = rate->max = 48000;
+		chan->min = chan->max = 2;
+		snd_mask_none(fmt);
+		snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S24_LE);
+
+That is pretty easy to move to a dedicated ssp1 fixup.
+
+for SSP0, we have RT5514 for capture and max98927 for playback, but the 
+existing code does not explicitly deal with rate/channels/format for all 
+cases, so it's not clear what should happen.
+
+Harsha, can you help here?
+
+> 
+> Best regards,
+> Lukasz
+> 
+> czw., 21 maj 2020 o 19:17 Pierre-Louis Bossart
+> <pierre-louis.bossart@linux.intel.com> napisał(a):
+>>
+>>
+>>
+>> On 5/21/20 12:08 PM, Łukasz Majczak wrote:
+>>>>
+>>>> don't add a new dailink, this is not right.
+>>>>
+>>> Can you advise a better solution how to assign different fixup
+>>> functions to mic and to speakers? I was looking at "dmic01" dailink in
+>>> skl_nau88l25_max98357a.c as an example.
+>>
+>> I am not sure I follow. the DMICs are handled on a shared SSP, so how
+>> would one set a different fixup? The word length have to be the same.

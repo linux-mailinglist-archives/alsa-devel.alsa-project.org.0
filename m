@@ -2,86 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 365B01DCFF5
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 May 2020 16:35:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B5071DD02E
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 May 2020 16:38:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D9E6B183B;
-	Thu, 21 May 2020 16:34:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9E6B183B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6FCE31840;
+	Thu, 21 May 2020 16:37:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FCE31840
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590071731;
-	bh=41Vd5+qlW7Onr7z9xNhsD8HVN+0Z9c5fMFmKCmbSZno=;
+	s=default; t=1590071886;
+	bh=0YRe8B028sDyHK484M3kTiPf5k5oWKlqVPrPhSe7f7g=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jhY1Lhm+vE0NyK6xDcqFcEzcKdhQUHgUN/bmbipMFXozaZKuhTbCUaxUQanf15mg/
-	 sDmyRBBokGOs+5HNOeBpqGwfhSY+GWeOzegmJc79stbDM5kxLSZ5l62QzzVJzqshjg
-	 IuuNnNXpAYdZLMJdNmP91qmG5NaygCmguDRb7yBk=
+	b=WFLBAVo6LnbBlLyy5T9mcJ/ONlKAwfL5HCv/f7UGf6NeNstjrT4ZnC8yGr8freqkY
+	 WaivnJlKTC2chppEt72x7Ce0mxjUUL6CDXQHLRBPTjeW3h8IyzGFNVMtsULWVzN0G+
+	 GnvRjXzX4scN9e8G5hM6EIAWK5x643ZsqqpGNxUI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC65BF80111;
-	Thu, 21 May 2020 16:33:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A21EDF80111;
+	Thu, 21 May 2020 16:36:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 49599F801D8; Thu, 21 May 2020 16:33:48 +0200 (CEST)
+ id BD4FDF801D8; Thu, 21 May 2020 16:36:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
- [IPv6:2607:f8b0:4864:20::842])
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
+ [IPv6:2607:f8b0:4864:20::843])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C097DF80111
- for <alsa-devel@alsa-project.org>; Thu, 21 May 2020 16:33:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C097DF80111
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6A1FAF80111
+ for <alsa-devel@alsa-project.org>; Thu, 21 May 2020 16:36:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A1FAF80111
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=semihalf-com.20150623.gappssmtp.com
- header.i=@semihalf-com.20150623.gappssmtp.com header.b="071seI5D"
-Received: by mail-qt1-x842.google.com with SMTP id z18so5642045qto.2
- for <alsa-devel@alsa-project.org>; Thu, 21 May 2020 07:33:40 -0700 (PDT)
+ header.i=@semihalf-com.20150623.gappssmtp.com header.b="xz9QkOuQ"
+Received: by mail-qt1-x843.google.com with SMTP id c24so5613644qtw.7
+ for <alsa-devel@alsa-project.org>; Thu, 21 May 2020 07:36:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=semihalf-com.20150623.gappssmtp.com; s=20150623;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=sCzzvP9QnEYLhgQp97Wni8J2YlJOvvmtWkoAZwV34Gw=;
- b=071seI5DVCO2GIsLX01XQzxR3xG94SwXSkKOjm/KvypxzEW2ZwEUjv2rEP+vQXvuuu
- 0tWrBRDU4qTG68JPq2t/16hUzKbfi52jx2G5trg/LDoC27AtKu7ZanFFg3v6tGQUXQmD
- WK7isgrAgxWV9OrrjaAEjvYN1QO1wGw6c7FvbC9QHKMrCJCoKpAR76cXQw3CCPDP6efl
- ZXyQALx3z5kulOHB8u4PrM20OgNPejbZPLo4DhJwnTHoQeTNfkryB7SZjl7SASXBpd6M
- Wt1VQu0bFxENQOM4AoV3vR8XnSqs/ateHW/XYpQFyol7aFWepB6z4AphhhT2LQSYhqLx
- Dlkw==
+ :cc:content-transfer-encoding;
+ bh=Kw4C3gxn8nitVjQ3C7bclCDQ0fRWgJ+lkwu0bdyxrak=;
+ b=xz9QkOuQC1KMGJAC++z2mUxICPWVJoB3D7Vwbn2CjACOCry8vurx7rVdJEP9+a+2gZ
+ YuMYk0KlhQQArEnLQ4VdYGiuD5HpuQE9tBlIJ/NmFUgCitmvLoiu9LS0xqE4vM/BC9T2
+ vftpmWknPyPDLALgy+WVqzbpAPMZCb8zD98N+XuZMLEuQ8vgiOsK4KGjTX7lrne/IHZE
+ QlSInfeLLMTHToaNrLFM4ZZ0jNLtGGmd6joPZdL7qQrO8/ad7yxqOUxEZUBUpLMlpSvk
+ eOQILiX1umlP82iOIj8kocVQiN6OYzt6ee8P86Ogj/9ucQLPfWbbwcMXgl/Oz1UX5/EG
+ e8Ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=sCzzvP9QnEYLhgQp97Wni8J2YlJOvvmtWkoAZwV34Gw=;
- b=G35N6P9CS2Js9fMMW4do3glDE8ioCJLdhg0al1AY6xfiz1Qq7h9uMNT/CtBPukgdF3
- GjF+dYE+ADqBmQWU31V0MptdigtyecnzYaqQMq2jQOr5Msz5k1R/psbZT4Zr080Kb/fH
- TnjFuPXHJsS4HQ4HPzmyrKu1xvRDhMyPStB37irOh59HjKXLLOsLAnDP/kyz0uwKrLW/
- SnMfGjTKdSHCc4EjVXaJ/xH+ykLkj6nfy0OleuYipooNCrB44kkXIyyUyy6hEyxgh+XX
- V1Ufd8FstEivyYsfL27oKURtTzTwoxZJlCIZhl2qZ34/33mGniC+CkaqMGfe+pCPx3Vv
- zUfg==
-X-Gm-Message-State: AOAM530RU/SHfCFYt3CWrZ0wmQjdx//4WaugTZqAjUPllckVzBbCF7LN
- SrK95Hnh8bVEJ3Ycp6g1Kw5SA36LWFDnzOD5vVZx0A==
-X-Google-Smtp-Source: ABdhPJxTLe5oNPga0nIfaUtOIUK+t8ATZ0HcYmAu9sBkEr/ZSMhvMTZRlTgPzA+WOGYhZDTu7QXjsyunpVnP3m4sI7c=
-X-Received: by 2002:ac8:6159:: with SMTP id d25mr11047512qtm.70.1590071618903; 
- Thu, 21 May 2020 07:33:38 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=Kw4C3gxn8nitVjQ3C7bclCDQ0fRWgJ+lkwu0bdyxrak=;
+ b=VyZlOJMMpsIKcnouNUUXPzUl9BTdcAgxsloyyl+ssgC9nArATL6ImlIz+3qZbFPDOH
+ 8wfBqTdvrc+SQFE4bPLynatmbPKEZpd37X69qkQWhkNubMzohnaRihUT9KkYiairpBJi
+ 7bQ7B0KwFlPSfqGfJoOvi+8nKaWnLqCxOhI6x55l//P2rA5ZJ2V9dgJiBK1OthxNdiMj
+ jrO0ChhQmngcKEqQ5Hrt5jVmJsronM0cRem8vyR+4/MfdnsYdWk88PsWixY6tBZ6EELJ
+ 7lPYivszlAzETDzIsnCnQ7kU58od3hnI5EfqJPuDz40WoHd+VyzkRnVwm08HLmHn4zCe
+ NvWw==
+X-Gm-Message-State: AOAM532iUhkx0Hmz/D0fJltGVGyIUKv8Ormss5Pit6o6hFuGXg0TZA+D
+ BAdEYj5tG56xicoj9tu7yb9SF3168WbcpL/gxkM3Pg==
+X-Google-Smtp-Source: ABdhPJzLgTwIZzIg8Goc2vslQuxQGv0CwhAksKkC4SNan+k8quEDwXb3+/3ixr8xV7pt/342sGW1vu4qHIZBPgqY8Go=
+X-Received: by 2002:ac8:6159:: with SMTP id d25mr11060756qtm.70.1590071774186; 
+ Thu, 21 May 2020 07:36:14 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200521134700.1035657-1-lma@semihalf.com>
  <964af231-0bce-1bb2-ea0c-b8bc423eb916@linux.intel.com>
 In-Reply-To: <964af231-0bce-1bb2-ea0c-b8bc423eb916@linux.intel.com>
 From: =?UTF-8?Q?=C5=81ukasz_Majczak?= <lma@semihalf.com>
-Date: Thu, 21 May 2020 16:33:27 +0200
-Message-ID: <CAFJ_xbobmyw+f9BOz-bonmOJWr12i8GZz=F=G+iw9bDeakfjtw@mail.gmail.com>
+Date: Thu, 21 May 2020 16:36:03 +0200
+Message-ID: <CAFJ_xbp+0-q0ntKfwsoKH2CMocdjYQRR1_sU8-JvupiJa9wrgw@mail.gmail.com>
 Subject: Re: [PATCH] ASoC: Intel: kbl_rt5663_rt5514_max98927: Split
  be_hw_params_fixup function
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 Cc: alsa-devel@alsa-project.org, Jie Yang <yang.jie@linux.intel.com>,
  Radoslaw Biernacki <rad@semihalf.com>, Ross Zwisler <zwisler@google.com>,
  linux-kernel@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
@@ -109,17 +108,18 @@ it should be:
 
 The whole idea of taking the mic for SSP0 definition is that each BE
 should have its own fixup. Before there was one fixup function, which
-checked inside which BE is connected to which FE and applied the proper
-fix, it was using the fact that "params" were part of snd_soc_dpcm. That
-has changed and know params are "orphaned" so each BE has to apply a
-specific fixup.
+checked inside which BE is connected to which FE and applied the
+proper fix, it was using the fact that "params" were part of
+snd_soc_dpcm. That has changed and now params are "orphaned" so each
+BE has to apply a specific fixup for itself.
 
 Best regards,
 Lukasz
 
-czw., 21 maj 2020 o 16:25 Pierre-Louis Bossart <
-pierre-louis.bossart@linux.intel.com> napisa=C5=82(a):
 
+czw., 21 maj 2020 o 16:25 Pierre-Louis Bossart
+<pierre-louis.bossart@linux.intel.com> napisa=C5=82(a):
+>
 >
 >
 > On 5/21/20 8:47 AM, Lukasz Majczak wrote:
@@ -143,13 +143,13 @@ is
 -
 > >   1 file changed, 85 insertions(+), 45 deletions(-)
 > >
-> > diff --git a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
-> b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+> > diff --git a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c b/soun=
+d/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
 > > index 1b1f8d7a4ea3..12a9983979e0 100644
 > > --- a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
 > > +++ b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
-> > @@ -171,8 +171,8 @@ static const struct snd_soc_dapm_route
-> kabylake_map[] =3D {
+> > @@ -171,8 +171,8 @@ static const struct snd_soc_dapm_route kabylake_map=
+[] =3D {
 > >       { "hs_in", NULL, "ssp1 Rx" },
 > >       { "ssp1 Rx", NULL, "AIF Capture" },
 > >
@@ -168,8 +168,8 @@ is
 > >
 > >       /* IV feedback path */
 > >       { "codec0_fb_in", NULL, "ssp0 Rx"},
-> > @@ -328,42 +328,52 @@ static const struct snd_soc_ops
-> kabylake_rt5663_fe_ops =3D {
+> > @@ -328,42 +328,52 @@ static const struct snd_soc_ops kabylake_rt5663_f=
+e_ops =3D {
 > >       .startup =3D kbl_fe_startup,
 > >   };
 > >
@@ -183,8 +183,8 @@ is
 > > -     struct snd_interval *chan =3D hw_param_interval(params,
 > > +     struct snd_interval *channels =3D hw_param_interval(params,
 > >                       SNDRV_PCM_HW_PARAM_CHANNELS);
-> >       struct snd_mask *fmt =3D hw_param_mask(params,
-> SNDRV_PCM_HW_PARAM_FORMAT);
+> >       struct snd_mask *fmt =3D hw_param_mask(params, SNDRV_PCM_HW_PARAM=
+_FORMAT);
 > > -     struct snd_soc_dpcm *dpcm =3D container_of(
 > > -                     params, struct snd_soc_dpcm, hw_params);
 > > -     struct snd_soc_dai_link *fe_dai_link =3D dpcm->fe->dai_link;
@@ -247,45 +247,42 @@ is
 > >
 > >       return 0;
 > >   }
-> > @@ -400,20 +410,6 @@ static int kabylake_ssp0_hw_params(struct
-> snd_pcm_substream *substream,
+> > @@ -400,20 +410,6 @@ static int kabylake_ssp0_hw_params(struct snd_pcm_=
+substream *substream,
 > >       int ret =3D 0, j;
 > >
 > >       for_each_rtd_codec_dais(rtd, j, codec_dai) {
 > > -             if (!strcmp(codec_dai->component->name, RT5514_DEV_NAME))=
  {
 > > -                     ret =3D snd_soc_dai_set_tdm_slot(codec_dai, 0xF, =
-0,
-> 8, 16);
+0, 8, 16);
 > > -                     if (ret < 0) {
 > > -                             dev_err(rtd->dev, "set TDM slot err:%d\n"=
-,
-> ret);
+, ret);
 > > -                             return ret;
 > > -                     }
 > > -
 > > -                     ret =3D snd_soc_dai_set_sysclk(codec_dai,
-> > -                             RT5514_SCLK_S_MCLK, 24576000,
-> SND_SOC_CLOCK_IN);
+> > -                             RT5514_SCLK_S_MCLK, 24576000, SND_SOC_CLO=
+CK_IN);
 > > -                     if (ret < 0) {
-> > -                             dev_err(rtd->dev, "set sysclk err: %d\n",
-> ret);
+> > -                             dev_err(rtd->dev, "set sysclk err: %d\n",=
+ ret);
 > > -                             return ret;
 > > -                     }
 > > -             }
 > >               if (!strcmp(codec_dai->component->name, MAXIM_DEV0_NAME))=
  {
 > >                       ret =3D snd_soc_dai_set_tdm_slot(codec_dai, 0x30,=
- 3,
-> 8, 16);
+ 3, 8, 16);
 > >                       if (ret < 0) {
-> > @@ -433,10 +429,37 @@ static int kabylake_ssp0_hw_params(struct
-> snd_pcm_substream *substream,
+> > @@ -433,10 +429,37 @@ static int kabylake_ssp0_hw_params(struct snd_pcm=
+_substream *substream,
 > >       return ret;
 > >   }
 > >
-> > +static int kabylake_dmic01_hw_params(struct snd_pcm_substream
-> *substream,
+> > +static int kabylake_dmic01_hw_params(struct snd_pcm_substream *substre=
+am,
 > > +     struct snd_pcm_hw_params *params)
 > > +{
 > > +     struct snd_soc_pcm_runtime *rtd =3D substream->private_data;
@@ -324,15 +321,15 @@ is
 > >       DAILINK_COMP_ARRAY(
 > >       /* Left */ COMP_CODEC(MAXIM_DEV0_NAME, KBL_MAXIM_CODEC_DAI),
 > > -     /* Right */COMP_CODEC(MAXIM_DEV1_NAME, KBL_MAXIM_CODEC_DAI),
-> > -     /* dmic */ COMP_CODEC(RT5514_DEV_NAME,
-> KBL_REALTEK_DMIC_CODEC_DAI)));
+> > -     /* dmic */ COMP_CODEC(RT5514_DEV_NAME, KBL_REALTEK_DMIC_CODEC_DAI=
+)));
 > > +     /* Right */COMP_CODEC(MAXIM_DEV1_NAME, KBL_MAXIM_CODEC_DAI)));
 > >
 > >   SND_SOC_DAILINK_DEF(ssp1_pin,
 > >       DAILINK_COMP_ARRAY(COMP_CPU("SSP1 Pin")));
 > >   SND_SOC_DAILINK_DEF(ssp1_codec,
-> >       DAILINK_COMP_ARRAY(COMP_CODEC(RT5663_DEV_NAME,
-> KBL_REALTEK_CODEC_DAI)));
+> >       DAILINK_COMP_ARRAY(COMP_CODEC(RT5663_DEV_NAME, KBL_REALTEK_CODEC_=
+DAI)));
 > >
 > > +SND_SOC_DAILINK_DEF(dmic01_pin,
 > > +     DAILINK_COMP_ARRAY(COMP_CPU("DMIC01 Pin")));
@@ -387,4 +384,3 @@ is
 > >
 > > base-commit: a4f6fc98cd2fa1774bcaeb248c67156ef9402a56
 > >
->

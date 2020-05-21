@@ -2,66 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 755111DD5F0
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 May 2020 20:27:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B39081DD65F
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 May 2020 20:55:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DE9641852;
-	Thu, 21 May 2020 20:26:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE9641852
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51A371832;
+	Thu, 21 May 2020 20:54:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51A371832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590085634;
-	bh=B4ShNZgO5goC/dtaFT/PFGIWmqsvBiKHxtDUUxMlllc=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=fGFcjDCHxd1vkcSQZu+pead6ucGK5yzX5dJ6vsy9DQVOVcdu6N/9RA1QMmfrL4X61
-	 msjnSuqwJGLcGG0FPArnNniKIU5BDn6MT1yfyW0cHl6xMW6qTCC4TEwLrWuDYNTb+j
-	 TtEDlp/UMSniiiQ79pg5ErS8wif+lFTy4wtC9WWQ=
+	s=default; t=1590087307;
+	bh=7fkyEYkIg2BorlmKdnPHvhxaccUp9pZHceJNxWrg0Hw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=UmlE5kLGL8sZgYicybHC4cToouQ/SUlGanAKfWcmu9Tb5howzWK+lHLAMTYybr9bF
+	 6+WVvMLA54o7bgDZZW8/fSxZCxGvHRLgXXF0t5iNWT1iAP6vmPy+f2iJtwDieD4UhV
+	 cYH68aQcaPk+CwWd186xNapLpAdMZdZOgo7rzxt8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9B30F80111;
-	Thu, 21 May 2020 20:25:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9CF82F80274;
+	Thu, 21 May 2020 20:52:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BF931F801D8; Thu, 21 May 2020 20:25:29 +0200 (CEST)
+ id 9505EF80111; Thu, 21 May 2020 20:52:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+X-Spam-Level: **
+X-Spam-Status: No, score=2.9 required=5.0 tests=FREEMAIL_FROM, KHOP_HELO_FCRDNS,
+ PRX_BODY_13,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE,SPOOFED_FREEMAIL,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp.smtpout.orange.fr (smtp05.smtpout.orange.fr
+ [80.12.242.127])
+ (using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 881EAF80111
- for <alsa-devel@alsa-project.org>; Thu, 21 May 2020 20:25:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 881EAF80111
-IronPort-SDR: i64rkLd26RRFg1PkZNrOUCI+zFHKMJ6TH7IzJQ6HEX6ED8IZQWdcYmnAcoTJNWIqV+DS12kmM8
- 3Ytn4ZnDfUrA==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2020 11:25:18 -0700
-IronPort-SDR: ihzWGxkf5YDH3NuBOKUq0UMm3JkoogHCO8ioRw1kXo+aK2z0s0uhdJOyijtX/MxFIqdnpnVUGw
- biR0wSiQ2NYQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,418,1583222400"; d="scan'208";a="466895369"
-Received: from dclifton-mobl.amr.corp.intel.com ([10.251.134.247])
- by fmsmga005.fm.intel.com with ESMTP; 21 May 2020 11:25:18 -0700
-Message-ID: <7626c159ca13b65d6caf87f7d195ade69586e4ff.camel@linux.intel.com>
-Subject: Re: [PATCH v2 0/7] ASoC: add soc-link
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown
- <broonie@kernel.org>
-Date: Thu, 21 May 2020 11:25:17 -0700
-In-Reply-To: <874ksa59wc.wl-kuninori.morimoto.gx@renesas.com>
-References: <874ksa59wc.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C21C1F80111
+ for <alsa-devel@alsa-project.org>; Thu, 21 May 2020 20:52:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C21C1F80111
+Received: from belgarion.home ([86.210.245.36]) by mwinf5d28 with ME
+ id hWsG220030nqnCN03WsKJe; Thu, 21 May 2020 20:52:30 +0200
+X-ME-Helo: belgarion.home
+X-ME-Auth: amFyem1pay5yb2JlcnRAb3JhbmdlLmZy
+X-ME-Date: Thu, 21 May 2020 20:52:30 +0200
+X-ME-IP: 86.210.245.36
+From: Robert Jarzmik <robert.jarzmik@free.fr>
+To: Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>,
+ Robert Jarzmik <robert.jarzmik@free.fr>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ soc@kernel.org
+Subject: [PATCH v3 1/3] ARM: pxa: remove Compulab pxa2xx boards
+Date: Thu, 21 May 2020 20:51:37 +0200
+Message-Id: <20200521185140.27276-1-robert.jarzmik@free.fr>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Arnd Bergmann <arnd@arndb.de>, alsa-devel@alsa-project.org,
+ Mike Rapoport <rppt@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,39 +73,3216 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 2020-05-21 at 10:55 +0900, Kuninori Morimoto wrote:
-> Hi Mark
-> 
-> Current ALSA SoC is handling dai_link related operation,
-> but it is implmemented directly without using function/macro,
-> and at random place.
-> 
-> This v2 patch-set creates new snd_soc_link_xxx() functions
-> which handles dai_link related operation,
-> and implmement these at new soc-link.c.
-> 
-> v1 -> v2
-> 	- #include <sound/soc-link.h> is added on each c source file
-> 	  instead of soc.h
-> 	- not have extra error message after snd_soc_link_xxx(),
-> 	  because it already indicate it via snc_link_ret()
-> 	- snd_soc_link_compr_xxx() doesn't have rtd parameter,
-> 	  because it can be created from cstream
-> 
-> Link: 
-> https://lore.kernel.org/r/877dx868op.wl-kuninori.morimoto.gx@renesas.com
-> 
-> Kuninori Morimoto (7):
->   ASoC: add soc-link.c
->   ASoC: soc-link: move soc_rtd_xxx()
->   ASoC: soc-link: remove unneeded parameter from snd_soc_link_xxx()
->   ASoC: soc-link: add snd_soc_link_be_hw_params_fixup()
->   ASoC: soc-link: add snd_soc_link_compr_startup()
->   ASoC: soc-link: add snd_soc_link_compr_shutdown()
->   ASoC: soc-link: add snd_soc_link_compr_set_params()
+As these boards have no more users nor testers, and patching them has
+become a burden, be that because of the PCI part or the MTD NAND
+support, let's remove them.
 
-The series LGTM except for the missing include for soc-link.h in soc-
-link.c. Thanks, Morimoto-san.
+The cm-x300 will for now remain and represent Compulab boards at its
+best in the PXA department.
 
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Signed-off-by: Robert Jarzmik <robert.jarzmik@free.fr>
+Acked-by: Mike Rapoport <rppt@kernel.org>
+Acked-by: Arnd Bergmann <arnd@arndb.de>
+---
+Since v1: Arnd's comments
+Since v2: Acks
+---
+ arch/arm/configs/cm_x2xx_defconfig  |  173 ----
+ arch/arm/configs/em_x270_defconfig  |  178 ----
+ arch/arm/configs/pxa_defconfig      |    2 -
+ arch/arm/mach-pxa/Kconfig           |   17 -
+ arch/arm/mach-pxa/Makefile          |    5 -
+ arch/arm/mach-pxa/cm-x255.c         |  240 -----
+ arch/arm/mach-pxa/cm-x270.c         |  419 ---------
+ arch/arm/mach-pxa/cm-x2xx-pci.c     |  196 ----
+ arch/arm/mach-pxa/cm-x2xx-pci.h     |   14 -
+ arch/arm/mach-pxa/cm-x2xx.c         |  538 -----------
+ arch/arm/mach-pxa/em-x270.c         | 1286 ---------------------------
+ arch/arm/mach-pxa/include/mach/io.h |   18 -
+ 12 files changed, 3086 deletions(-)
+ delete mode 100644 arch/arm/configs/cm_x2xx_defconfig
+ delete mode 100644 arch/arm/configs/em_x270_defconfig
+ delete mode 100644 arch/arm/mach-pxa/cm-x255.c
+ delete mode 100644 arch/arm/mach-pxa/cm-x270.c
+ delete mode 100644 arch/arm/mach-pxa/cm-x2xx-pci.c
+ delete mode 100644 arch/arm/mach-pxa/cm-x2xx-pci.h
+ delete mode 100644 arch/arm/mach-pxa/cm-x2xx.c
+ delete mode 100644 arch/arm/mach-pxa/em-x270.c
+ delete mode 100644 arch/arm/mach-pxa/include/mach/io.h
+
+diff --git a/arch/arm/configs/cm_x2xx_defconfig b/arch/arm/configs/cm_x2xx_defconfig
+deleted file mode 100644
+index fa997ae2673e..000000000000
+--- a/arch/arm/configs/cm_x2xx_defconfig
++++ /dev/null
+@@ -1,173 +0,0 @@
+-# CONFIG_LOCALVERSION_AUTO is not set
+-CONFIG_SYSVIPC=y
+-CONFIG_IKCONFIG=y
+-CONFIG_IKCONFIG_PROC=y
+-CONFIG_LOG_BUF_SHIFT=14
+-CONFIG_SYSFS_DEPRECATED_V2=y
+-CONFIG_BLK_DEV_INITRD=y
+-CONFIG_EXPERT=y
+-# CONFIG_VM_EVENT_COUNTERS is not set
+-# CONFIG_SLUB_DEBUG is not set
+-# CONFIG_COMPAT_BRK is not set
+-CONFIG_MODULES=y
+-CONFIG_MODULE_UNLOAD=y
+-# CONFIG_BLK_DEV_BSG is not set
+-CONFIG_ARCH_PXA=y
+-CONFIG_MACH_ARMCORE=y
+-CONFIG_PCI=y
+-CONFIG_PCCARD=m
+-CONFIG_YENTA=m
+-# CONFIG_YENTA_O2 is not set
+-# CONFIG_YENTA_RICOH is not set
+-# CONFIG_YENTA_ENE_TUNE is not set
+-# CONFIG_YENTA_TOSHIBA is not set
+-CONFIG_PCMCIA_PXA2XX=m
+-CONFIG_NO_HZ=y
+-CONFIG_AEABI=y
+-CONFIG_ZBOOT_ROM_TEXT=0x0
+-CONFIG_ZBOOT_ROM_BSS=0x0
+-CONFIG_CMDLINE="root=1f03 mem=32M"
+-CONFIG_FPE_NWFPE=y
+-CONFIG_PM=y
+-CONFIG_APM_EMULATION=m
+-CONFIG_NET=y
+-CONFIG_PACKET=y
+-CONFIG_UNIX=y
+-CONFIG_INET=y
+-CONFIG_IP_MULTICAST=y
+-CONFIG_IP_PNP=y
+-CONFIG_IP_PNP_DHCP=y
+-CONFIG_IP_PNP_BOOTP=y
+-# CONFIG_INET_DIAG is not set
+-# CONFIG_IPV6 is not set
+-CONFIG_BT=m
+-CONFIG_BT_RFCOMM=m
+-CONFIG_BT_BNEP=m
+-CONFIG_BT_HIDP=m
+-CONFIG_LIB80211=m
+-CONFIG_FW_LOADER=m
+-CONFIG_MTD=y
+-CONFIG_MTD_CMDLINE_PARTS=y
+-CONFIG_MTD_BLOCK=y
+-CONFIG_MTD_CFI=y
+-CONFIG_MTD_JEDECPROBE=y
+-CONFIG_MTD_CFI_ADV_OPTIONS=y
+-CONFIG_MTD_CFI_INTELEXT=y
+-CONFIG_MTD_CFI_AMDSTD=y
+-CONFIG_MTD_CFI_STAA=y
+-CONFIG_MTD_PHYSMAP=y
+-CONFIG_MTD_PXA2XX=y
+-CONFIG_MTD_RAW_NAND=y
+-CONFIG_MTD_NAND_GPIO=m
+-CONFIG_MTD_NAND_CM_X270=y
+-CONFIG_MTD_NAND_PLATFORM=y
+-CONFIG_BLK_DEV_LOOP=y
+-CONFIG_BLK_DEV_RAM=y
+-CONFIG_SCSI=y
+-CONFIG_BLK_DEV_SD=y
+-CONFIG_ATA=m
+-# CONFIG_SATA_PMP is not set
+-CONFIG_PATA_PCMCIA=m
+-CONFIG_NETDEVICES=y
+-CONFIG_NET_ETHERNET=y
+-CONFIG_DM9000=y
+-CONFIG_DM9000_DEBUGLEVEL=1
+-CONFIG_NET_PCI=y
+-CONFIG_8139TOO=m
+-# CONFIG_8139TOO_PIO is not set
+-CONFIG_PPP=m
+-CONFIG_PPP_MULTILINK=y
+-CONFIG_PPP_FILTER=y
+-CONFIG_PPP_ASYNC=m
+-CONFIG_PPP_DEFLATE=m
+-CONFIG_PPP_BSDCOMP=m
+-CONFIG_INPUT_EVDEV=y
+-CONFIG_KEYBOARD_PXA27x=m
+-# CONFIG_INPUT_MOUSE is not set
+-CONFIG_INPUT_TOUCHSCREEN=y
+-CONFIG_TOUCHSCREEN_UCB1400=m
+-# CONFIG_SERIO_SERPORT is not set
+-CONFIG_SERIAL_PXA=y
+-CONFIG_SERIAL_PXA_CONSOLE=y
+-CONFIG_LEGACY_PTY_COUNT=16
+-# CONFIG_HW_RANDOM is not set
+-CONFIG_I2C=y
+-CONFIG_I2C_CHARDEV=m
+-CONFIG_I2C_PXA=y
+-CONFIG_SPI=y
+-CONFIG_SPI_PXA2XX=m
+-# CONFIG_HWMON is not set
+-CONFIG_UCB1400_CORE=m
+-CONFIG_FB=y
+-CONFIG_FB_PXA=y
+-CONFIG_FB_PXA_PARAMETERS=y
+-CONFIG_FB_MBX=m
+-# CONFIG_LCD_CLASS_DEVICE is not set
+-# CONFIG_BACKLIGHT_CLASS_DEVICE is not set
+-# CONFIG_VGA_CONSOLE is not set
+-CONFIG_FRAMEBUFFER_CONSOLE=y
+-CONFIG_LOGO=y
+-CONFIG_SOUND=m
+-CONFIG_SND=m
+-CONFIG_SND_MIXER_OSS=m
+-CONFIG_SND_PCM_OSS=m
+-# CONFIG_SND_DRIVERS is not set
+-# CONFIG_SND_PCI is not set
+-CONFIG_SND_PXA2XX_AC97=m
+-# CONFIG_SND_SPI is not set
+-# CONFIG_SND_USB is not set
+-# CONFIG_SND_PCMCIA is not set
+-CONFIG_HID_A4TECH=y
+-CONFIG_HID_APPLE=y
+-CONFIG_HID_BELKIN=y
+-CONFIG_HID_CHERRY=y
+-CONFIG_HID_CHICONY=y
+-CONFIG_HID_CYPRESS=y
+-CONFIG_HID_EZKEY=y
+-CONFIG_HID_GYRATION=y
+-CONFIG_HID_LOGITECH=y
+-CONFIG_HID_MICROSOFT=y
+-CONFIG_HID_MONTEREY=y
+-CONFIG_HID_PANTHERLORD=y
+-CONFIG_HID_PETALYNX=y
+-CONFIG_HID_SAMSUNG=y
+-CONFIG_HID_SONY=y
+-CONFIG_HID_SUNPLUS=y
+-CONFIG_USB=y
+-CONFIG_USB_MON=y
+-CONFIG_USB_OHCI_HCD=y
+-CONFIG_USB_STORAGE=y
+-CONFIG_MMC=m
+-CONFIG_MMC_PXA=m
+-CONFIG_NEW_LEDS=y
+-CONFIG_LEDS_CLASS=y
+-CONFIG_LEDS_GPIO=m
+-CONFIG_LEDS_TRIGGERS=y
+-CONFIG_LEDS_TRIGGER_HEARTBEAT=y
+-CONFIG_RTC_CLASS=y
+-CONFIG_RTC_DRV_V3020=y
+-CONFIG_RTC_DRV_PXA=y
+-CONFIG_EXT2_FS=y
+-CONFIG_EXT3_FS=y
+-CONFIG_VFAT_FS=m
+-# CONFIG_PROC_PAGE_MONITOR is not set
+-CONFIG_TMPFS=y
+-CONFIG_JFFS2_FS=y
+-CONFIG_JFFS2_SUMMARY=y
+-CONFIG_NFS_FS=y
+-CONFIG_NFS_V3=y
+-CONFIG_ROOT_NFS=y
+-CONFIG_CIFS=m
+-CONFIG_PARTITION_ADVANCED=y
+-CONFIG_NLS_CODEPAGE_437=m
+-CONFIG_NLS_ISO8859_1=m
+-CONFIG_NLS_UTF8=m
+-CONFIG_FRAME_WARN=0
+-CONFIG_DEBUG_KERNEL=y
+-# CONFIG_DETECT_SOFTLOCKUP is not set
+-# CONFIG_SCHED_DEBUG is not set
+-# CONFIG_DEBUG_BUGVERBOSE is not set
+-CONFIG_DEBUG_USER=y
+-CONFIG_DEBUG_LL=y
+-# CONFIG_CRYPTO_ANSI_CPRNG is not set
+-# CONFIG_CRYPTO_HW is not set
+diff --git a/arch/arm/configs/em_x270_defconfig b/arch/arm/configs/em_x270_defconfig
+deleted file mode 100644
+index d08f02014755..000000000000
+--- a/arch/arm/configs/em_x270_defconfig
++++ /dev/null
+@@ -1,178 +0,0 @@
+-# CONFIG_LOCALVERSION_AUTO is not set
+-CONFIG_SYSVIPC=y
+-CONFIG_IKCONFIG=y
+-CONFIG_IKCONFIG_PROC=y
+-CONFIG_LOG_BUF_SHIFT=14
+-CONFIG_SYSFS_DEPRECATED_V2=y
+-CONFIG_BLK_DEV_INITRD=y
+-CONFIG_EXPERT=y
+-# CONFIG_VM_EVENT_COUNTERS is not set
+-# CONFIG_SLUB_DEBUG is not set
+-# CONFIG_COMPAT_BRK is not set
+-CONFIG_MODULES=y
+-CONFIG_MODULE_UNLOAD=y
+-# CONFIG_BLK_DEV_BSG is not set
+-CONFIG_ARCH_PXA=y
+-CONFIG_MACH_EM_X270=y
+-CONFIG_MACH_EXEDA=y
+-CONFIG_NO_HZ=y
+-CONFIG_AEABI=y
+-CONFIG_ZBOOT_ROM_TEXT=0x0
+-CONFIG_ZBOOT_ROM_BSS=0x0
+-CONFIG_CMDLINE="root=1f03 mem=32M"
+-CONFIG_CPU_FREQ=y
+-CONFIG_CPU_FREQ_GOV_USERSPACE=m
+-CONFIG_FPE_NWFPE=y
+-CONFIG_PM=y
+-CONFIG_APM_EMULATION=y
+-CONFIG_NET=y
+-CONFIG_PACKET=y
+-CONFIG_UNIX=y
+-CONFIG_INET=y
+-CONFIG_IP_MULTICAST=y
+-CONFIG_IP_PNP=y
+-CONFIG_IP_PNP_DHCP=y
+-CONFIG_IP_PNP_BOOTP=y
+-# CONFIG_INET_DIAG is not set
+-# CONFIG_IPV6 is not set
+-CONFIG_BT=m
+-CONFIG_BT_RFCOMM=m
+-CONFIG_BT_BNEP=m
+-CONFIG_BT_HIDP=m
+-CONFIG_BT_HCIBTUSB=m
+-CONFIG_LIB80211=m
+-CONFIG_FW_LOADER=m
+-CONFIG_MTD=y
+-CONFIG_MTD_CMDLINE_PARTS=y
+-CONFIG_MTD_BLOCK=y
+-CONFIG_MTD_CFI=y
+-CONFIG_MTD_JEDECPROBE=y
+-CONFIG_MTD_CFI_ADV_OPTIONS=y
+-CONFIG_MTD_CFI_INTELEXT=y
+-CONFIG_MTD_CFI_AMDSTD=y
+-CONFIG_MTD_CFI_STAA=y
+-CONFIG_MTD_PHYSMAP=y
+-CONFIG_MTD_PXA2XX=y
+-CONFIG_MTD_RAW_NAND=y
+-CONFIG_MTD_NAND_PLATFORM=y
+-CONFIG_BLK_DEV_LOOP=y
+-CONFIG_BLK_DEV_RAM=y
+-CONFIG_SCSI=y
+-CONFIG_BLK_DEV_SD=y
+-# CONFIG_SCSI_LOWLEVEL is not set
+-CONFIG_NETDEVICES=y
+-CONFIG_NET_ETHERNET=y
+-CONFIG_DM9000=y
+-CONFIG_DM9000_DEBUGLEVEL=1
+-CONFIG_PPP=m
+-CONFIG_PPP_MULTILINK=y
+-CONFIG_PPP_FILTER=y
+-CONFIG_PPP_ASYNC=m
+-CONFIG_PPP_DEFLATE=m
+-CONFIG_PPP_BSDCOMP=m
+-CONFIG_INPUT_EVDEV=y
+-CONFIG_INPUT_APMPOWER=y
+-CONFIG_KEYBOARD_GPIO=y
+-CONFIG_KEYBOARD_PXA27x=y
+-# CONFIG_INPUT_MOUSE is not set
+-CONFIG_INPUT_TOUCHSCREEN=y
+-# CONFIG_TOUCHSCREEN_DA9034 is not set
+-CONFIG_TOUCHSCREEN_WM97XX=m
+-# CONFIG_TOUCHSCREEN_WM9705 is not set
+-# CONFIG_TOUCHSCREEN_WM9713 is not set
+-# CONFIG_SERIO_SERPORT is not set
+-CONFIG_SERIAL_PXA=y
+-CONFIG_SERIAL_PXA_CONSOLE=y
+-CONFIG_LEGACY_PTY_COUNT=16
+-# CONFIG_HW_RANDOM is not set
+-CONFIG_I2C=y
+-CONFIG_I2C_CHARDEV=m
+-CONFIG_I2C_PXA=y
+-CONFIG_SPI=y
+-CONFIG_SPI_PXA2XX=y
+-CONFIG_POWER_SUPPLY=y
+-CONFIG_BATTERY_DA9030=y
+-# CONFIG_HWMON is not set
+-CONFIG_PMIC_DA903X=y
+-CONFIG_REGULATOR=y
+-CONFIG_REGULATOR_DA903X=y
+-CONFIG_FB=y
+-CONFIG_FB_PXA=y
+-CONFIG_FB_PXA_PARAMETERS=y
+-CONFIG_FB_MBX=m
+-CONFIG_LCD_CLASS_DEVICE=y
+-CONFIG_LCD_TDO24M=y
+-# CONFIG_BACKLIGHT_GENERIC is not set
+-CONFIG_BACKLIGHT_DA903X=m
+-# CONFIG_VGA_CONSOLE is not set
+-CONFIG_FRAMEBUFFER_CONSOLE=y
+-CONFIG_LOGO=y
+-CONFIG_SOUND=m
+-CONFIG_SND=m
+-CONFIG_SND_MIXER_OSS=m
+-CONFIG_SND_PCM_OSS=m
+-# CONFIG_SND_DRIVERS is not set
+-# CONFIG_SND_SPI is not set
+-# CONFIG_SND_USB is not set
+-CONFIG_SND_SOC=m
+-CONFIG_SND_PXA2XX_SOC=m
+-CONFIG_SND_PXA2XX_SOC_EM_X270=m
+-CONFIG_HID_A4TECH=y
+-CONFIG_HID_APPLE=y
+-CONFIG_HID_BELKIN=y
+-CONFIG_HID_CHERRY=y
+-CONFIG_HID_CHICONY=y
+-CONFIG_HID_CYPRESS=y
+-CONFIG_HID_EZKEY=y
+-CONFIG_HID_GYRATION=y
+-CONFIG_HID_LOGITECH=y
+-CONFIG_HID_MICROSOFT=y
+-CONFIG_HID_MONTEREY=y
+-CONFIG_HID_PANTHERLORD=y
+-CONFIG_HID_PETALYNX=y
+-CONFIG_HID_SAMSUNG=y
+-CONFIG_HID_SONY=y
+-CONFIG_HID_SUNPLUS=y
+-CONFIG_USB=y
+-CONFIG_USB_MON=y
+-CONFIG_USB_OHCI_HCD=y
+-CONFIG_USB_STORAGE=y
+-CONFIG_MMC=m
+-CONFIG_MMC_PXA=m
+-CONFIG_NEW_LEDS=y
+-CONFIG_LEDS_CLASS=y
+-CONFIG_LEDS_DA903X=y
+-CONFIG_LEDS_TRIGGERS=y
+-CONFIG_LEDS_TRIGGER_HEARTBEAT=y
+-CONFIG_RTC_CLASS=y
+-CONFIG_RTC_DRV_V3020=y
+-CONFIG_RTC_DRV_PXA=y
+-CONFIG_EXT2_FS=y
+-CONFIG_EXT3_FS=y
+-CONFIG_VFAT_FS=m
+-# CONFIG_PROC_PAGE_MONITOR is not set
+-CONFIG_TMPFS=y
+-CONFIG_JFFS2_FS=y
+-CONFIG_JFFS2_SUMMARY=y
+-CONFIG_NFS_FS=y
+-CONFIG_NFS_V3=y
+-CONFIG_ROOT_NFS=y
+-CONFIG_CIFS=m
+-CONFIG_PARTITION_ADVANCED=y
+-CONFIG_NLS_CODEPAGE_437=m
+-CONFIG_NLS_ISO8859_1=m
+-CONFIG_NLS_UTF8=m
+-CONFIG_FRAME_WARN=0
+-CONFIG_DEBUG_FS=y
+-CONFIG_DEBUG_KERNEL=y
+-# CONFIG_DETECT_SOFTLOCKUP is not set
+-# CONFIG_SCHED_DEBUG is not set
+-# CONFIG_DEBUG_BUGVERBOSE is not set
+-CONFIG_DEBUG_USER=y
+-CONFIG_DEBUG_LL=y
+-CONFIG_CRYPTO_ECB=m
+-CONFIG_CRYPTO_MICHAEL_MIC=m
+-CONFIG_CRYPTO_AES=m
+-CONFIG_CRYPTO_ARC4=m
+-# CONFIG_CRYPTO_ANSI_CPRNG is not set
+-# CONFIG_CRYPTO_HW is not set
+diff --git a/arch/arm/configs/pxa_defconfig b/arch/arm/configs/pxa_defconfig
+index b817c57f05f1..e6559e3350e6 100644
+--- a/arch/arm/configs/pxa_defconfig
++++ b/arch/arm/configs/pxa_defconfig
+@@ -38,8 +38,6 @@ CONFIG_MACH_ARCOM_ZEUS=y
+ CONFIG_MACH_BALLOON3=y
+ CONFIG_MACH_CSB726=y
+ CONFIG_CSB726_CSB701=y
+-CONFIG_MACH_ARMCORE=y
+-CONFIG_MACH_EM_X270=y
+ CONFIG_MACH_EXEDA=y
+ CONFIG_MACH_CM_X300=y
+ CONFIG_MACH_CAPC7117=y
+diff --git a/arch/arm/mach-pxa/Kconfig b/arch/arm/mach-pxa/Kconfig
+index f60bc29aef68..f7520a6cc7d4 100644
+--- a/arch/arm/mach-pxa/Kconfig
++++ b/arch/arm/mach-pxa/Kconfig
+@@ -123,23 +123,6 @@ config CSB726_CSB701
+ 	bool "Enable support for CSB701 baseboard"
+ 	depends on MACH_CSB726
+ 
+-config MACH_ARMCORE
+-	bool "CompuLab CM-X255/CM-X270 modules"
+-	select ARCH_HAS_DMA_SET_COHERENT_MASK if PCI
+-	select IWMMXT
+-	select HAVE_PCI
+-	select NEED_MACH_IO_H if PCI
+-	select PXA25x
+-	select PXA27x
+-
+-config MACH_EM_X270
+-	bool "CompuLab EM-x270 platform"
+-	select PXA27x
+-
+-config MACH_EXEDA
+-	bool "CompuLab eXeda platform"
+-	select PXA27x
+-
+ config MACH_CM_X300
+ 	bool "CompuLab CM-X300 modules"
+ 	select CPU_PXA300
+diff --git a/arch/arm/mach-pxa/Makefile b/arch/arm/mach-pxa/Makefile
+index f70728930c4f..177abe584dd5 100644
+--- a/arch/arm/mach-pxa/Makefile
++++ b/arch/arm/mach-pxa/Makefile
+@@ -40,11 +40,6 @@ obj-$(CONFIG_MACH_ARCOM_ZEUS)	+= zeus.o
+ obj-$(CONFIG_MACH_BALLOON3)	+= balloon3.o
+ obj-$(CONFIG_MACH_CSB726)	+= csb726.o
+ obj-$(CONFIG_CSB726_CSB701)	+= csb701.o
+-obj-$(CONFIG_MACH_ARMCORE)      += cm-x2xx.o cm-x255.o cm-x270.o
+-ifeq ($(CONFIG_PCI),y)
+-obj-$(CONFIG_MACH_ARMCORE)	+= cm-x2xx-pci.o
+-endif
+-obj-$(CONFIG_MACH_EM_X270)	+= em-x270.o
+ obj-$(CONFIG_MACH_CM_X300)      += cm-x300.o
+ obj-$(CONFIG_MACH_CAPC7117)     += capc7117.o mxm8x10.o
+ obj-$(CONFIG_ARCH_GUMSTIX)	+= gumstix.o
+diff --git a/arch/arm/mach-pxa/cm-x255.c b/arch/arm/mach-pxa/cm-x255.c
+deleted file mode 100644
+index ea1e85775759..000000000000
+--- a/arch/arm/mach-pxa/cm-x255.c
++++ /dev/null
+@@ -1,240 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- * linux/arch/arm/mach-pxa/cm-x255.c
+- *
+- * Copyright (C) 2007, 2008 CompuLab, Ltd.
+- * Mike Rapoport <mike@compulab.co.il>
+- */
+-
+-#include <linux/platform_device.h>
+-#include <linux/irq.h>
+-#include <linux/mtd/partitions.h>
+-#include <linux/mtd/physmap.h>
+-#include <linux/mtd/nand-gpio.h>
+-#include <linux/gpio/machine.h>
+-#include <linux/spi/spi.h>
+-#include <linux/spi/pxa2xx_spi.h>
+-
+-#include <asm/mach/arch.h>
+-#include <asm/mach-types.h>
+-#include <asm/mach/map.h>
+-
+-#include "pxa25x.h"
+-
+-#include "generic.h"
+-
+-#define GPIO_NAND_CS	(5)
+-#define GPIO_NAND_ALE	(4)
+-#define GPIO_NAND_CLE	(3)
+-#define GPIO_NAND_RB	(10)
+-
+-static unsigned long cmx255_pin_config[] = {
+-	/* AC'97 */
+-	GPIO28_AC97_BITCLK,
+-	GPIO29_AC97_SDATA_IN_0,
+-	GPIO30_AC97_SDATA_OUT,
+-	GPIO31_AC97_SYNC,
+-
+-	/* BTUART */
+-	GPIO42_BTUART_RXD,
+-	GPIO43_BTUART_TXD,
+-	GPIO44_BTUART_CTS,
+-	GPIO45_BTUART_RTS,
+-
+-	/* STUART */
+-	GPIO46_STUART_RXD,
+-	GPIO47_STUART_TXD,
+-
+-	/* LCD */
+-	GPIOxx_LCD_TFT_16BPP,
+-
+-	/* SSP1 */
+-	GPIO23_SSP1_SCLK,
+-	GPIO24_SSP1_SFRM,
+-	GPIO25_SSP1_TXD,
+-	GPIO26_SSP1_RXD,
+-
+-	/* SSP2 */
+-	GPIO81_SSP2_CLK_OUT,
+-	GPIO82_SSP2_FRM_OUT,
+-	GPIO83_SSP2_TXD,
+-	GPIO84_SSP2_RXD,
+-
+-	/* PC Card */
+-	GPIO48_nPOE,
+-	GPIO49_nPWE,
+-	GPIO50_nPIOR,
+-	GPIO51_nPIOW,
+-	GPIO52_nPCE_1,
+-	GPIO53_nPCE_2,
+-	GPIO54_nPSKTSEL,
+-	GPIO55_nPREG,
+-	GPIO56_nPWAIT,
+-	GPIO57_nIOIS16,
+-
+-	/* SDRAM and local bus */
+-	GPIO15_nCS_1,
+-	GPIO78_nCS_2,
+-	GPIO79_nCS_3,
+-	GPIO80_nCS_4,
+-	GPIO33_nCS_5,
+-	GPIO18_RDY,
+-
+-	/* GPIO */
+-	GPIO0_GPIO	| WAKEUP_ON_EDGE_BOTH,
+-	GPIO9_GPIO,				/* PC card reset */
+-
+-	/* NAND controls */
+-	GPIO5_GPIO	| MFP_LPM_DRIVE_HIGH,	/* NAND CE# */
+-	GPIO4_GPIO	| MFP_LPM_DRIVE_LOW,	/* NAND ALE */
+-	GPIO3_GPIO	| MFP_LPM_DRIVE_LOW,	/* NAND CLE */
+-	GPIO10_GPIO,				/* NAND Ready/Busy */
+-
+-	/* interrupts */
+-	GPIO22_GPIO,	/* DM9000 interrupt */
+-};
+-
+-#if defined(CONFIG_SPI_PXA2XX)
+-static struct pxa2xx_spi_controller pxa_ssp_master_info = {
+-	.num_chipselect	= 1,
+-};
+-
+-static struct spi_board_info spi_board_info[] __initdata = {
+-	[0] = {
+-		.modalias	= "rtc-max6902",
+-		.max_speed_hz	= 1000000,
+-		.bus_num	= 1,
+-		.chip_select	= 0,
+-	},
+-};
+-
+-static void __init cmx255_init_rtc(void)
+-{
+-	pxa2xx_set_spi_info(1, &pxa_ssp_master_info);
+-	spi_register_board_info(ARRAY_AND_SIZE(spi_board_info));
+-}
+-#else
+-static inline void cmx255_init_rtc(void) {}
+-#endif
+-
+-#if defined(CONFIG_MTD_PHYSMAP) || defined(CONFIG_MTD_PHYSMAP_MODULE)
+-static struct mtd_partition cmx255_nor_partitions[] = {
+-	{
+-		.name		= "ARMmon",
+-		.size		= 0x00030000,
+-		.offset		= 0,
+-		.mask_flags	= MTD_WRITEABLE  /* force read-only */
+-	} , {
+-		.name		= "ARMmon setup block",
+-		.size		= 0x00010000,
+-		.offset		= MTDPART_OFS_APPEND,
+-		.mask_flags	= MTD_WRITEABLE  /* force read-only */
+-	} , {
+-		.name		= "kernel",
+-		.size		= 0x00160000,
+-		.offset		= MTDPART_OFS_APPEND,
+-	} , {
+-		.name		= "ramdisk",
+-		.size		= MTDPART_SIZ_FULL,
+-		.offset		= MTDPART_OFS_APPEND
+-	}
+-};
+-
+-static struct physmap_flash_data cmx255_nor_flash_data[] = {
+-	{
+-		.width		= 2,	/* bankwidth in bytes */
+-		.parts		= cmx255_nor_partitions,
+-		.nr_parts	= ARRAY_SIZE(cmx255_nor_partitions)
+-	}
+-};
+-
+-static struct resource cmx255_nor_resource = {
+-	.start	= PXA_CS0_PHYS,
+-	.end	= PXA_CS0_PHYS + SZ_8M - 1,
+-	.flags	= IORESOURCE_MEM,
+-};
+-
+-static struct platform_device cmx255_nor = {
+-	.name	= "physmap-flash",
+-	.id	= -1,
+-	.dev	= {
+-		.platform_data = cmx255_nor_flash_data,
+-	},
+-	.resource = &cmx255_nor_resource,
+-	.num_resources = 1,
+-};
+-
+-static void __init cmx255_init_nor(void)
+-{
+-	platform_device_register(&cmx255_nor);
+-}
+-#else
+-static inline void cmx255_init_nor(void) {}
+-#endif
+-
+-#if defined(CONFIG_MTD_NAND_GPIO) || defined(CONFIG_MTD_NAND_GPIO_MODULE)
+-
+-static struct gpiod_lookup_table cmx255_nand_gpiod_table = {
+-	.dev_id         = "gpio-nand",
+-	.table          = {
+-		GPIO_LOOKUP("gpio-pxa", GPIO_NAND_CS, "nce", GPIO_ACTIVE_HIGH),
+-		GPIO_LOOKUP("gpio-pxa", GPIO_NAND_CLE, "cle", GPIO_ACTIVE_HIGH),
+-		GPIO_LOOKUP("gpio-pxa", GPIO_NAND_ALE, "ale", GPIO_ACTIVE_HIGH),
+-		GPIO_LOOKUP("gpio-pxa", GPIO_NAND_RB, "rdy", GPIO_ACTIVE_HIGH),
+-	},
+-};
+-
+-static struct resource cmx255_nand_resource[] = {
+-	[0] = {
+-		.start = PXA_CS1_PHYS,
+-		.end   = PXA_CS1_PHYS + 11,
+-		.flags = IORESOURCE_MEM,
+-	},
+-	[1] = {
+-		.start = PXA_CS5_PHYS,
+-		.end   = PXA_CS5_PHYS + 3,
+-		.flags = IORESOURCE_MEM,
+-	},
+-};
+-
+-static struct mtd_partition cmx255_nand_parts[] = {
+-	[0] = {
+-		.name	= "cmx255-nand",
+-		.size	= MTDPART_SIZ_FULL,
+-		.offset	= 0,
+-	},
+-};
+-
+-static struct gpio_nand_platdata cmx255_nand_platdata = {
+-	.parts = cmx255_nand_parts,
+-	.num_parts = ARRAY_SIZE(cmx255_nand_parts),
+-	.chip_delay = 25,
+-};
+-
+-static struct platform_device cmx255_nand = {
+-	.name		= "gpio-nand",
+-	.num_resources	= ARRAY_SIZE(cmx255_nand_resource),
+-	.resource	= cmx255_nand_resource,
+-	.id		= -1,
+-	.dev		= {
+-		.platform_data = &cmx255_nand_platdata,
+-	}
+-};
+-
+-static void __init cmx255_init_nand(void)
+-{
+-	gpiod_add_lookup_table(&cmx255_nand_gpiod_table);
+-	platform_device_register(&cmx255_nand);
+-}
+-#else
+-static inline void cmx255_init_nand(void) {}
+-#endif
+-
+-void __init cmx255_init(void)
+-{
+-	pxa2xx_mfp_config(ARRAY_AND_SIZE(cmx255_pin_config));
+-
+-	cmx255_init_rtc();
+-	cmx255_init_nor();
+-	cmx255_init_nand();
+-}
+diff --git a/arch/arm/mach-pxa/cm-x270.c b/arch/arm/mach-pxa/cm-x270.c
+deleted file mode 100644
+index 9baad11314f2..000000000000
+--- a/arch/arm/mach-pxa/cm-x270.c
++++ /dev/null
+@@ -1,419 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- * linux/arch/arm/mach-pxa/cm-x270.c
+- *
+- * Copyright (C) 2007, 2008 CompuLab, Ltd.
+- * Mike Rapoport <mike@compulab.co.il>
+- */
+-
+-#include <linux/platform_device.h>
+-#include <linux/irq.h>
+-#include <linux/gpio.h>
+-#include <linux/gpio/machine.h>
+-#include <linux/delay.h>
+-
+-#include <linux/platform_data/rtc-v3020.h>
+-#include <video/mbxfb.h>
+-
+-#include <linux/spi/spi.h>
+-#include <linux/spi/pxa2xx_spi.h>
+-#include <linux/spi/libertas_spi.h>
+-
+-#include "pxa27x.h"
+-#include <linux/platform_data/usb-ohci-pxa27x.h>
+-#include <linux/platform_data/mmc-pxamci.h>
+-
+-#include "generic.h"
+-
+-/* physical address if local-bus attached devices */
+-#define RTC_PHYS_BASE		(PXA_CS1_PHYS + (5 << 22))
+-
+-/* GPIO IRQ usage */
+-#define GPIO83_MMC_IRQ		(83)
+-
+-#define CMX270_MMC_IRQ		PXA_GPIO_TO_IRQ(GPIO83_MMC_IRQ)
+-
+-/* MMC power enable */
+-#define GPIO105_MMC_POWER	(105)
+-
+-/* WLAN GPIOS */
+-#define GPIO19_WLAN_STRAP	(19)
+-#define GPIO102_WLAN_RST	(102)
+-
+-static unsigned long cmx270_pin_config[] = {
+-	/* AC'97 */
+-	GPIO28_AC97_BITCLK,
+-	GPIO29_AC97_SDATA_IN_0,
+-	GPIO30_AC97_SDATA_OUT,
+-	GPIO31_AC97_SYNC,
+-	GPIO98_AC97_SYSCLK,
+-	GPIO113_AC97_nRESET,
+-
+-	/* BTUART */
+-	GPIO42_BTUART_RXD,
+-	GPIO43_BTUART_TXD,
+-	GPIO44_BTUART_CTS,
+-	GPIO45_BTUART_RTS,
+-
+-	/* STUART */
+-	GPIO46_STUART_RXD,
+-	GPIO47_STUART_TXD,
+-
+-	/* MCI controller */
+-	GPIO32_MMC_CLK,
+-	GPIO112_MMC_CMD,
+-	GPIO92_MMC_DAT_0,
+-	GPIO109_MMC_DAT_1,
+-	GPIO110_MMC_DAT_2,
+-	GPIO111_MMC_DAT_3,
+-
+-	/* LCD */
+-	GPIOxx_LCD_TFT_16BPP,
+-
+-	/* I2C */
+-	GPIO117_I2C_SCL,
+-	GPIO118_I2C_SDA,
+-
+-	/* SSP1 */
+-	GPIO23_SSP1_SCLK,
+-	GPIO24_SSP1_SFRM,
+-	GPIO25_SSP1_TXD,
+-	GPIO26_SSP1_RXD,
+-
+-	/* SSP2 */
+-	GPIO19_GPIO,	/* SSP2 clock is used as GPIO for Libertas pin-strap */
+-	GPIO14_GPIO,
+-	GPIO87_SSP2_TXD,
+-	GPIO88_SSP2_RXD,
+-
+-	/* PC Card */
+-	GPIO48_nPOE,
+-	GPIO49_nPWE,
+-	GPIO50_nPIOR,
+-	GPIO51_nPIOW,
+-	GPIO85_nPCE_1,
+-	GPIO54_nPCE_2,
+-	GPIO55_nPREG,
+-	GPIO56_nPWAIT,
+-	GPIO57_nIOIS16,
+-
+-	/* SDRAM and local bus */
+-	GPIO15_nCS_1,
+-	GPIO78_nCS_2,
+-	GPIO79_nCS_3,
+-	GPIO80_nCS_4,
+-	GPIO33_nCS_5,
+-	GPIO49_nPWE,
+-	GPIO18_RDY,
+-
+-	/* GPIO */
+-	GPIO0_GPIO	| WAKEUP_ON_EDGE_BOTH,
+-	GPIO105_GPIO	| MFP_LPM_DRIVE_HIGH,	/* MMC/SD power */
+-	GPIO53_GPIO,				/* PC card reset */
+-	GPIO102_GPIO,				/* WLAN reset */
+-
+-	/* NAND controls */
+-	GPIO11_GPIO	| MFP_LPM_DRIVE_HIGH,	/* NAND CE# */
+-	GPIO89_GPIO,				/* NAND Ready/Busy */
+-
+-	/* interrupts */
+-	GPIO10_GPIO,	/* DM9000 interrupt */
+-	GPIO83_GPIO,	/* MMC card detect */
+-	GPIO95_GPIO,	/* WLAN interrupt */
+-};
+-
+-/* V3020 RTC */
+-#if defined(CONFIG_RTC_DRV_V3020) || defined(CONFIG_RTC_DRV_V3020_MODULE)
+-static struct resource cmx270_v3020_resource[] = {
+-	[0] = {
+-		.start = RTC_PHYS_BASE,
+-		.end   = RTC_PHYS_BASE + 4,
+-		.flags = IORESOURCE_MEM,
+-	},
+-};
+-
+-struct v3020_platform_data cmx270_v3020_pdata = {
+-	.leftshift = 16,
+-};
+-
+-static struct platform_device cmx270_rtc_device = {
+-	.name		= "v3020",
+-	.num_resources	= ARRAY_SIZE(cmx270_v3020_resource),
+-	.resource	= cmx270_v3020_resource,
+-	.id		= -1,
+-	.dev		= {
+-		.platform_data = &cmx270_v3020_pdata,
+-	}
+-};
+-
+-static void __init cmx270_init_rtc(void)
+-{
+-	platform_device_register(&cmx270_rtc_device);
+-}
+-#else
+-static inline void cmx270_init_rtc(void) {}
+-#endif
+-
+-/* 2700G graphics */
+-#if defined(CONFIG_FB_MBX) || defined(CONFIG_FB_MBX_MODULE)
+-static u64 fb_dma_mask = ~(u64)0;
+-
+-static struct resource cmx270_2700G_resource[] = {
+-	/* frame buffer memory including ODFB and External SDRAM */
+-	[0] = {
+-		.start = PXA_CS2_PHYS,
+-		.end   = PXA_CS2_PHYS + 0x01ffffff,
+-		.flags = IORESOURCE_MEM,
+-	},
+-	/* Marathon registers */
+-	[1] = {
+-		.start = PXA_CS2_PHYS + 0x03fe0000,
+-		.end   = PXA_CS2_PHYS + 0x03ffffff,
+-		.flags = IORESOURCE_MEM,
+-	},
+-};
+-
+-static unsigned long cmx270_marathon_on[] = {
+-	GPIO58_GPIO,
+-	GPIO59_GPIO,
+-	GPIO60_GPIO,
+-	GPIO61_GPIO,
+-	GPIO62_GPIO,
+-	GPIO63_GPIO,
+-	GPIO64_GPIO,
+-	GPIO65_GPIO,
+-	GPIO66_GPIO,
+-	GPIO67_GPIO,
+-	GPIO68_GPIO,
+-	GPIO69_GPIO,
+-	GPIO70_GPIO,
+-	GPIO71_GPIO,
+-	GPIO72_GPIO,
+-	GPIO73_GPIO,
+-	GPIO74_GPIO,
+-	GPIO75_GPIO,
+-	GPIO76_GPIO,
+-	GPIO77_GPIO,
+-};
+-
+-static unsigned long cmx270_marathon_off[] = {
+-	GPIOxx_LCD_TFT_16BPP,
+-};
+-
+-static int cmx270_marathon_probe(struct fb_info *fb)
+-{
+-	int gpio, err;
+-
+-	for (gpio = 58; gpio <= 77; gpio++) {
+-		err = gpio_request(gpio, "LCD");
+-		if (err)
+-			return err;
+-		gpio_direction_input(gpio);
+-	}
+-
+-	pxa2xx_mfp_config(ARRAY_AND_SIZE(cmx270_marathon_on));
+-	return 0;
+-}
+-
+-static int cmx270_marathon_remove(struct fb_info *fb)
+-{
+-	int gpio;
+-
+-	pxa2xx_mfp_config(ARRAY_AND_SIZE(cmx270_marathon_off));
+-
+-	for (gpio = 58; gpio <= 77; gpio++)
+-		gpio_free(gpio);
+-
+-	return 0;
+-}
+-
+-static struct mbxfb_platform_data cmx270_2700G_data = {
+-	.xres = {
+-		.min = 240,
+-		.max = 1200,
+-		.defval = 640,
+-	},
+-	.yres = {
+-		.min = 240,
+-		.max = 1200,
+-		.defval = 480,
+-	},
+-	.bpp = {
+-		.min = 16,
+-		.max = 32,
+-		.defval = 16,
+-	},
+-	.memsize = 8*1024*1024,
+-	.probe = cmx270_marathon_probe,
+-	.remove = cmx270_marathon_remove,
+-};
+-
+-static struct platform_device cmx270_2700G = {
+-	.name		= "mbx-fb",
+-	.dev		= {
+-		.platform_data	= &cmx270_2700G_data,
+-		.dma_mask	= &fb_dma_mask,
+-		.coherent_dma_mask = 0xffffffff,
+-	},
+-	.num_resources	= ARRAY_SIZE(cmx270_2700G_resource),
+-	.resource	= cmx270_2700G_resource,
+-	.id		= -1,
+-};
+-
+-static void __init cmx270_init_2700G(void)
+-{
+-	platform_device_register(&cmx270_2700G);
+-}
+-#else
+-static inline void cmx270_init_2700G(void) {}
+-#endif
+-
+-/* PXA27x OHCI controller setup */
+-#if defined(CONFIG_USB_OHCI_HCD) || defined(CONFIG_USB_OHCI_HCD_MODULE)
+-static struct pxaohci_platform_data cmx270_ohci_platform_data = {
+-	.port_mode	= PMM_PERPORT_MODE,
+-	.flags		= ENABLE_PORT1 | ENABLE_PORT2 | POWER_CONTROL_LOW,
+-};
+-
+-static void __init cmx270_init_ohci(void)
+-{
+-	pxa_set_ohci_info(&cmx270_ohci_platform_data);
+-}
+-#else
+-static inline void cmx270_init_ohci(void) {}
+-#endif
+-
+-#if defined(CONFIG_MMC) || defined(CONFIG_MMC_MODULE)
+-static struct pxamci_platform_data cmx270_mci_platform_data = {
+-	.ocr_mask		= MMC_VDD_32_33|MMC_VDD_33_34,
+-};
+-
+-static struct gpiod_lookup_table cmx270_mci_gpio_table = {
+-	.dev_id = "pxa2xx-mci.0",
+-	.table = {
+-		/* Card detect on GPIO 83 */
+-		GPIO_LOOKUP("gpio-pxa", GPIO83_MMC_IRQ, "cd", GPIO_ACTIVE_LOW),
+-		/* Power on GPIO 105 */
+-		GPIO_LOOKUP("gpio-pxa", GPIO105_MMC_POWER,
+-			    "power", GPIO_ACTIVE_LOW),
+-		{ },
+-	},
+-};
+-
+-static void __init cmx270_init_mmc(void)
+-{
+-	gpiod_add_lookup_table(&cmx270_mci_gpio_table);
+-	pxa_set_mci_info(&cmx270_mci_platform_data);
+-}
+-#else
+-static inline void cmx270_init_mmc(void) {}
+-#endif
+-
+-#if defined(CONFIG_SPI_PXA2XX) || defined(CONFIG_SPI_PXA2XX_MODULE)
+-static struct pxa2xx_spi_controller cm_x270_spi_info = {
+-	.num_chipselect	= 1,
+-	.enable_dma	= 1,
+-};
+-
+-static struct pxa2xx_spi_chip cm_x270_libertas_chip = {
+-	.rx_threshold	= 1,
+-	.tx_threshold	= 1,
+-	.timeout	= 1000,
+-	.gpio_cs	= 14,
+-};
+-
+-static unsigned long cm_x270_libertas_pin_config[] = {
+-	/* SSP2 */
+-	GPIO19_SSP2_SCLK,
+-	GPIO14_GPIO,
+-	GPIO87_SSP2_TXD,
+-	GPIO88_SSP2_RXD,
+-
+-};
+-
+-static int cm_x270_libertas_setup(struct spi_device *spi)
+-{
+-	int err = gpio_request(GPIO19_WLAN_STRAP, "WLAN STRAP");
+-	if (err)
+-		return err;
+-
+-	err = gpio_request(GPIO102_WLAN_RST, "WLAN RST");
+-	if (err)
+-		goto err_free_strap;
+-
+-	err = gpio_direction_output(GPIO102_WLAN_RST, 0);
+-	if (err)
+-		goto err_free_strap;
+-	msleep(100);
+-
+-	err = gpio_direction_output(GPIO19_WLAN_STRAP, 1);
+-	if (err)
+-		goto err_free_strap;
+-	msleep(100);
+-
+-	pxa2xx_mfp_config(ARRAY_AND_SIZE(cm_x270_libertas_pin_config));
+-
+-	gpio_set_value(GPIO102_WLAN_RST, 1);
+-	msleep(100);
+-
+-	spi->bits_per_word = 16;
+-	spi_setup(spi);
+-
+-	return 0;
+-
+-err_free_strap:
+-	gpio_free(GPIO19_WLAN_STRAP);
+-
+-	return err;
+-}
+-
+-static int cm_x270_libertas_teardown(struct spi_device *spi)
+-{
+-	gpio_set_value(GPIO102_WLAN_RST, 0);
+-	gpio_free(GPIO102_WLAN_RST);
+-	gpio_free(GPIO19_WLAN_STRAP);
+-
+-	return 0;
+-}
+-
+-struct libertas_spi_platform_data cm_x270_libertas_pdata = {
+-	.use_dummy_writes	= 1,
+-	.setup			= cm_x270_libertas_setup,
+-	.teardown		= cm_x270_libertas_teardown,
+-};
+-
+-static struct spi_board_info cm_x270_spi_devices[] __initdata = {
+-	{
+-		.modalias		= "libertas_spi",
+-		.max_speed_hz		= 13000000,
+-		.bus_num		= 2,
+-		.irq			= PXA_GPIO_TO_IRQ(95),
+-		.chip_select		= 0,
+-		.controller_data	= &cm_x270_libertas_chip,
+-		.platform_data		= &cm_x270_libertas_pdata,
+-	},
+-};
+-
+-static void __init cmx270_init_spi(void)
+-{
+-	pxa2xx_set_spi_info(2, &cm_x270_spi_info);
+-	spi_register_board_info(ARRAY_AND_SIZE(cm_x270_spi_devices));
+-}
+-#else
+-static inline void cmx270_init_spi(void) {}
+-#endif
+-
+-void __init cmx270_init(void)
+-{
+-	pxa2xx_mfp_config(ARRAY_AND_SIZE(cmx270_pin_config));
+-
+-#ifdef CONFIG_PM
+-	pxa27x_set_pwrmode(PWRMODE_DEEPSLEEP);
+-#endif
+-
+-	cmx270_init_rtc();
+-	cmx270_init_mmc();
+-	cmx270_init_ohci();
+-	cmx270_init_2700G();
+-	cmx270_init_spi();
+-}
+diff --git a/arch/arm/mach-pxa/cm-x2xx-pci.c b/arch/arm/mach-pxa/cm-x2xx-pci.c
+deleted file mode 100644
+index f1c61c6b5610..000000000000
+--- a/arch/arm/mach-pxa/cm-x2xx-pci.c
++++ /dev/null
+@@ -1,196 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- * linux/arch/arm/mach-pxa/cm-x2xx-pci.c
+- *
+- * PCI bios-type initialisation for PCI machines
+- *
+- * Bits taken from various places.
+- *
+- * Copyright (C) 2007, 2008 Compulab, Ltd.
+- * Mike Rapoport <mike@compulab.co.il>
+- */
+-
+-#include <linux/kernel.h>
+-#include <linux/pci.h>
+-#include <linux/init.h>
+-#include <linux/device.h>
+-#include <linux/platform_device.h>
+-#include <linux/irq.h>
+-#include <linux/gpio.h>
+-
+-#include <asm/mach/pci.h>
+-#include <asm/mach-types.h>
+-
+-#include <asm/hardware/it8152.h>
+-
+-void __iomem *it8152_base_address;
+-static int cmx2xx_it8152_irq_gpio;
+-
+-static void cmx2xx_it8152_irq_demux(struct irq_desc *desc)
+-{
+-	/* clear our parent irq */
+-	desc->irq_data.chip->irq_ack(&desc->irq_data);
+-
+-	it8152_irq_demux(desc);
+-}
+-
+-void __cmx2xx_pci_init_irq(int irq_gpio)
+-{
+-	it8152_init_irq();
+-
+-	cmx2xx_it8152_irq_gpio = irq_gpio;
+-
+-	irq_set_irq_type(gpio_to_irq(irq_gpio), IRQ_TYPE_EDGE_RISING);
+-
+-	irq_set_chained_handler(gpio_to_irq(irq_gpio),
+-				cmx2xx_it8152_irq_demux);
+-}
+-
+-#ifdef CONFIG_PM
+-static unsigned long sleep_save_ite[10];
+-
+-void __cmx2xx_pci_suspend(void)
+-{
+-	/* save ITE state */
+-	sleep_save_ite[0] = __raw_readl(IT8152_INTC_PDCNIMR);
+-	sleep_save_ite[1] = __raw_readl(IT8152_INTC_LPCNIMR);
+-	sleep_save_ite[2] = __raw_readl(IT8152_INTC_LPNIAR);
+-
+-	/* Clear ITE IRQ's */
+-	__raw_writel((0), IT8152_INTC_PDCNIRR);
+-	__raw_writel((0), IT8152_INTC_LPCNIRR);
+-}
+-
+-void __cmx2xx_pci_resume(void)
+-{
+-	/* restore IT8152 state */
+-	__raw_writel((sleep_save_ite[0]), IT8152_INTC_PDCNIMR);
+-	__raw_writel((sleep_save_ite[1]), IT8152_INTC_LPCNIMR);
+-	__raw_writel((sleep_save_ite[2]), IT8152_INTC_LPNIAR);
+-}
+-#else
+-void cmx2xx_pci_suspend(void) {}
+-void cmx2xx_pci_resume(void) {}
+-#endif
+-
+-/* PCI IRQ mapping*/
+-static int __init cmx2xx_pci_map_irq(const struct pci_dev *dev, u8 slot, u8 pin)
+-{
+-	int irq;
+-
+-	dev_dbg(&dev->dev, "%s: slot=%x, pin=%x\n", __func__, slot, pin);
+-
+-	irq = it8152_pci_map_irq(dev, slot, pin);
+-	if (irq)
+-		return irq;
+-
+-	/*
+-	  Here comes the ugly part. The routing is baseboard specific,
+-	  but defining a platform for each possible base of CM-X2XX is
+-	  unrealistic. Here we keep mapping for ATXBase and SB-X2XX.
+-	*/
+-	/* ATXBASE PCI slot */
+-	if (slot == 7)
+-		return IT8152_PCI_INTA;
+-
+-	/* ATXBase/SB-X2XX CardBus */
+-	if (slot == 8 || slot == 0)
+-		return IT8152_PCI_INTB;
+-
+-	/* ATXBase Ethernet */
+-	if (slot == 9)
+-		return IT8152_PCI_INTA;
+-
+-	/* CM-x255 Onboard Ethernet */
+-	if (slot == 15)
+-		return IT8152_PCI_INTC;
+-
+-	/* SB-x2xx Ethernet */
+-	if (slot == 16)
+-		return IT8152_PCI_INTA;
+-
+-	/* PC104+ interrupt routing */
+-	if ((slot == 17) || (slot == 19))
+-		return IT8152_PCI_INTA;
+-	if ((slot == 18) || (slot == 20))
+-		return IT8152_PCI_INTB;
+-
+-	return(0);
+-}
+-
+-static void cmx2xx_pci_preinit(void)
+-{
+-	pr_info("Initializing CM-X2XX PCI subsystem\n");
+-
+-	pcibios_min_io = 0;
+-	pcibios_min_mem = 0;
+-
+-	__raw_writel(0x800, IT8152_PCI_CFG_ADDR);
+-	if (__raw_readl(IT8152_PCI_CFG_DATA) == 0x81521283) {
+-		pr_info("PCI Bridge found.\n");
+-
+-		/* set PCI I/O base at 0 */
+-		writel(0x848, IT8152_PCI_CFG_ADDR);
+-		writel(0, IT8152_PCI_CFG_DATA);
+-
+-		/* set PCI memory base at 0 */
+-		writel(0x840, IT8152_PCI_CFG_ADDR);
+-		writel(0, IT8152_PCI_CFG_DATA);
+-
+-		writel(0x20, IT8152_GPIO_GPDR);
+-
+-		/* CardBus Controller on ATXbase baseboard */
+-		writel(0x4000, IT8152_PCI_CFG_ADDR);
+-		if (readl(IT8152_PCI_CFG_DATA) == 0xAC51104C) {
+-			pr_info("CardBus Bridge found.\n");
+-
+-			/* Configure socket 0 */
+-			writel(0x408C, IT8152_PCI_CFG_ADDR);
+-			writel(0x1022, IT8152_PCI_CFG_DATA);
+-
+-			writel(0x4080, IT8152_PCI_CFG_ADDR);
+-			writel(0x3844d060, IT8152_PCI_CFG_DATA);
+-
+-			writel(0x4090, IT8152_PCI_CFG_ADDR);
+-			writel(((readl(IT8152_PCI_CFG_DATA) & 0xffff) |
+-				0x60440000),
+-			       IT8152_PCI_CFG_DATA);
+-
+-			writel(0x4018, IT8152_PCI_CFG_ADDR);
+-			writel(0xb0000000, IT8152_PCI_CFG_DATA);
+-
+-			/* Configure socket 1 */
+-			writel(0x418C, IT8152_PCI_CFG_ADDR);
+-			writel(0x1022, IT8152_PCI_CFG_DATA);
+-
+-			writel(0x4180, IT8152_PCI_CFG_ADDR);
+-			writel(0x3844d060, IT8152_PCI_CFG_DATA);
+-
+-			writel(0x4190, IT8152_PCI_CFG_ADDR);
+-			writel(((readl(IT8152_PCI_CFG_DATA) & 0xffff) |
+-				0x60440000),
+-			       IT8152_PCI_CFG_DATA);
+-
+-			writel(0x4118, IT8152_PCI_CFG_ADDR);
+-			writel(0xb0000000, IT8152_PCI_CFG_DATA);
+-		}
+-	}
+-}
+-
+-static struct hw_pci cmx2xx_pci __initdata = {
+-	.map_irq	= cmx2xx_pci_map_irq,
+-	.nr_controllers	= 1,
+-	.ops		= &it8152_ops,
+-	.setup		= it8152_pci_setup,
+-	.preinit	= cmx2xx_pci_preinit,
+-};
+-
+-static int __init cmx2xx_init_pci(void)
+-{
+-	if (machine_is_armcore())
+-		pci_common_init(&cmx2xx_pci);
+-
+-	return 0;
+-}
+-
+-subsys_initcall(cmx2xx_init_pci);
+diff --git a/arch/arm/mach-pxa/cm-x2xx-pci.h b/arch/arm/mach-pxa/cm-x2xx-pci.h
+deleted file mode 100644
+index 93ffaaee75d7..000000000000
+--- a/arch/arm/mach-pxa/cm-x2xx-pci.h
++++ /dev/null
+@@ -1,14 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
+-extern void __cmx2xx_pci_init_irq(int irq_gpio);
+-extern void __cmx2xx_pci_suspend(void);
+-extern void __cmx2xx_pci_resume(void);
+-
+-#ifdef CONFIG_PCI
+-#define cmx2xx_pci_init_irq(x) __cmx2xx_pci_init_irq(x)
+-#define cmx2xx_pci_suspend(x) __cmx2xx_pci_suspend(x)
+-#define cmx2xx_pci_resume(x) __cmx2xx_pci_resume(x)
+-#else
+-#define cmx2xx_pci_init_irq(x) do {} while (0)
+-#define cmx2xx_pci_suspend(x) do {} while (0)
+-#define cmx2xx_pci_resume(x) do {} while (0)
+-#endif
+diff --git a/arch/arm/mach-pxa/cm-x2xx.c b/arch/arm/mach-pxa/cm-x2xx.c
+deleted file mode 100644
+index ff976d1217eb..000000000000
+--- a/arch/arm/mach-pxa/cm-x2xx.c
++++ /dev/null
+@@ -1,538 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- * linux/arch/arm/mach-pxa/cm-x2xx.c
+- *
+- * Copyright (C) 2008 CompuLab, Ltd.
+- * Mike Rapoport <mike@compulab.co.il>
+- */
+-
+-#include <linux/platform_device.h>
+-#include <linux/syscore_ops.h>
+-#include <linux/irq.h>
+-#include <linux/gpio.h>
+-#include <linux/regulator/machine.h>
+-
+-#include <linux/dm9000.h>
+-#include <linux/leds.h>
+-
+-#include <asm/mach/arch.h>
+-#include <asm/mach-types.h>
+-#include <asm/mach/map.h>
+-
+-#include "pxa25x.h"
+-#undef GPIO24_SSP1_SFRM
+-#undef GPIO86_GPIO
+-#undef GPIO87_GPIO
+-#undef GPIO88_GPIO
+-#undef GPIO89_GPIO
+-#include "pxa27x.h"
+-#undef GPIO24_SSP1_SFRM
+-#undef GPIO86_GPIO
+-#undef GPIO87_GPIO
+-#undef GPIO88_GPIO
+-#undef GPIO89_GPIO
+-#include <mach/audio.h>
+-#include <linux/platform_data/video-pxafb.h>
+-#include <mach/smemc.h>
+-
+-#include <asm/hardware/it8152.h>
+-
+-#include "generic.h"
+-#include "cm-x2xx-pci.h"
+-
+-extern void cmx255_init(void);
+-extern void cmx270_init(void);
+-
+-/* reserve IRQs for IT8152 */
+-#define CMX2XX_NR_IRQS		(IRQ_BOARD_START + 40)
+-
+-/* virtual addresses for statically mapped regions */
+-#define CMX2XX_VIRT_BASE	(void __iomem *)(0xe8000000)
+-#define CMX2XX_IT8152_VIRT	(CMX2XX_VIRT_BASE)
+-
+-/* physical address if local-bus attached devices */
+-#define CMX255_DM9000_PHYS_BASE (PXA_CS1_PHYS + (8 << 22))
+-#define CMX270_DM9000_PHYS_BASE	(PXA_CS1_PHYS + (6 << 22))
+-
+-/* leds */
+-#define CMX255_GPIO_RED		(27)
+-#define CMX255_GPIO_GREEN	(32)
+-#define CMX270_GPIO_RED		(93)
+-#define CMX270_GPIO_GREEN	(94)
+-
+-/* GPIO IRQ usage */
+-#define GPIO22_ETHIRQ		(22)
+-#define GPIO10_ETHIRQ		(10)
+-#define CMX255_GPIO_IT8152_IRQ	(0)
+-#define CMX270_GPIO_IT8152_IRQ	(22)
+-
+-#define CMX255_ETHIRQ		PXA_GPIO_TO_IRQ(GPIO22_ETHIRQ)
+-#define CMX270_ETHIRQ		PXA_GPIO_TO_IRQ(GPIO10_ETHIRQ)
+-
+-#if defined(CONFIG_DM9000) || defined(CONFIG_DM9000_MODULE)
+-static struct resource cmx255_dm9000_resource[] = {
+-	[0] = {
+-		.start = CMX255_DM9000_PHYS_BASE,
+-		.end   = CMX255_DM9000_PHYS_BASE + 3,
+-		.flags = IORESOURCE_MEM,
+-	},
+-	[1] = {
+-		.start = CMX255_DM9000_PHYS_BASE + 4,
+-		.end   = CMX255_DM9000_PHYS_BASE + 4 + 500,
+-		.flags = IORESOURCE_MEM,
+-	},
+-	[2] = {
+-		.start = CMX255_ETHIRQ,
+-		.end   = CMX255_ETHIRQ,
+-		.flags = IORESOURCE_IRQ | IORESOURCE_IRQ_HIGHEDGE,
+-	}
+-};
+-
+-static struct resource cmx270_dm9000_resource[] = {
+-	[0] = {
+-		.start = CMX270_DM9000_PHYS_BASE,
+-		.end   = CMX270_DM9000_PHYS_BASE + 3,
+-		.flags = IORESOURCE_MEM,
+-	},
+-	[1] = {
+-		.start = CMX270_DM9000_PHYS_BASE + 8,
+-		.end   = CMX270_DM9000_PHYS_BASE + 8 + 500,
+-		.flags = IORESOURCE_MEM,
+-	},
+-	[2] = {
+-		.start = CMX270_ETHIRQ,
+-		.end   = CMX270_ETHIRQ,
+-		.flags = IORESOURCE_IRQ | IORESOURCE_IRQ_HIGHEDGE,
+-	}
+-};
+-
+-static struct dm9000_plat_data cmx270_dm9000_platdata = {
+-	.flags		= DM9000_PLATF_32BITONLY | DM9000_PLATF_NO_EEPROM,
+-};
+-
+-static struct platform_device cmx2xx_dm9000_device = {
+-	.name		= "dm9000",
+-	.id		= 0,
+-	.num_resources	= ARRAY_SIZE(cmx270_dm9000_resource),
+-	.dev		= {
+-		.platform_data = &cmx270_dm9000_platdata,
+-	}
+-};
+-
+-static void __init cmx2xx_init_dm9000(void)
+-{
+-	if (cpu_is_pxa25x())
+-		cmx2xx_dm9000_device.resource = cmx255_dm9000_resource;
+-	else
+-		cmx2xx_dm9000_device.resource = cmx270_dm9000_resource;
+-	platform_device_register(&cmx2xx_dm9000_device);
+-}
+-#else
+-static inline void cmx2xx_init_dm9000(void) {}
+-#endif
+-
+-/* UCB1400 touchscreen controller */
+-#if defined(CONFIG_TOUCHSCREEN_UCB1400) || defined(CONFIG_TOUCHSCREEN_UCB1400_MODULE)
+-static struct platform_device cmx2xx_ts_device = {
+-	.name		= "ucb1400_core",
+-	.id		= -1,
+-};
+-
+-static void __init cmx2xx_init_touchscreen(void)
+-{
+-	platform_device_register(&cmx2xx_ts_device);
+-}
+-#else
+-static inline void cmx2xx_init_touchscreen(void) {}
+-#endif
+-
+-/* CM-X270 LEDs */
+-#if defined(CONFIG_LEDS_GPIO) || defined(CONFIG_LEDS_GPIO_MODULE)
+-static struct gpio_led cmx2xx_leds[] = {
+-	[0] = {
+-		.name = "cm-x2xx:red",
+-		.default_trigger = "nand-disk",
+-		.active_low = 1,
+-	},
+-	[1] = {
+-		.name = "cm-x2xx:green",
+-		.default_trigger = "heartbeat",
+-		.active_low = 1,
+-	},
+-};
+-
+-static struct gpio_led_platform_data cmx2xx_gpio_led_pdata = {
+-	.num_leds = ARRAY_SIZE(cmx2xx_leds),
+-	.leds = cmx2xx_leds,
+-};
+-
+-static struct platform_device cmx2xx_led_device = {
+-	.name		= "leds-gpio",
+-	.id		= -1,
+-	.dev		= {
+-		.platform_data = &cmx2xx_gpio_led_pdata,
+-	},
+-};
+-
+-static void __init cmx2xx_init_leds(void)
+-{
+-	if (cpu_is_pxa25x()) {
+-		cmx2xx_leds[0].gpio = CMX255_GPIO_RED;
+-		cmx2xx_leds[1].gpio = CMX255_GPIO_GREEN;
+-	} else {
+-		cmx2xx_leds[0].gpio = CMX270_GPIO_RED;
+-		cmx2xx_leds[1].gpio = CMX270_GPIO_GREEN;
+-	}
+-	platform_device_register(&cmx2xx_led_device);
+-}
+-#else
+-static inline void cmx2xx_init_leds(void) {}
+-#endif
+-
+-#if defined(CONFIG_FB_PXA) || defined(CONFIG_FB_PXA_MODULE)
+-/*
+-  Display definitions
+-  keep these for backwards compatibility, although symbolic names (as
+-  e.g. in lpd270.c) looks better
+-*/
+-#define MTYPE_STN320x240	0
+-#define MTYPE_TFT640x480	1
+-#define MTYPE_CRT640x480	2
+-#define MTYPE_CRT800x600	3
+-#define MTYPE_TFT320x240	6
+-#define MTYPE_STN640x480	7
+-
+-static struct pxafb_mode_info generic_stn_320x240_mode = {
+-	.pixclock	= 76923,
+-	.bpp		= 8,
+-	.xres		= 320,
+-	.yres		= 240,
+-	.hsync_len	= 3,
+-	.vsync_len	= 2,
+-	.left_margin	= 3,
+-	.upper_margin	= 0,
+-	.right_margin	= 3,
+-	.lower_margin	= 0,
+-	.sync		= (FB_SYNC_HOR_HIGH_ACT |
+-			   FB_SYNC_VERT_HIGH_ACT),
+-	.cmap_greyscale = 0,
+-};
+-
+-static struct pxafb_mach_info generic_stn_320x240 = {
+-	.modes		= &generic_stn_320x240_mode,
+-	.num_modes	= 1,
+-	.lcd_conn	= LCD_COLOR_STN_8BPP | LCD_PCLK_EDGE_FALL |\
+-			  LCD_AC_BIAS_FREQ(0xff),
+-	.cmap_inverse	= 0,
+-	.cmap_static	= 0,
+-};
+-
+-static struct pxafb_mode_info generic_tft_640x480_mode = {
+-	.pixclock	= 38461,
+-	.bpp		= 8,
+-	.xres		= 640,
+-	.yres		= 480,
+-	.hsync_len	= 60,
+-	.vsync_len	= 2,
+-	.left_margin	= 70,
+-	.upper_margin	= 10,
+-	.right_margin	= 70,
+-	.lower_margin	= 5,
+-	.sync		= 0,
+-	.cmap_greyscale = 0,
+-};
+-
+-static struct pxafb_mach_info generic_tft_640x480 = {
+-	.modes		= &generic_tft_640x480_mode,
+-	.num_modes	= 1,
+-	.lcd_conn	= LCD_COLOR_TFT_8BPP | LCD_PCLK_EDGE_FALL |\
+-			  LCD_AC_BIAS_FREQ(0xff),
+-	.cmap_inverse	= 0,
+-	.cmap_static	= 0,
+-};
+-
+-static struct pxafb_mode_info generic_crt_640x480_mode = {
+-	.pixclock	= 38461,
+-	.bpp		= 8,
+-	.xres		= 640,
+-	.yres		= 480,
+-	.hsync_len	= 63,
+-	.vsync_len	= 2,
+-	.left_margin	= 81,
+-	.upper_margin	= 33,
+-	.right_margin	= 16,
+-	.lower_margin	= 10,
+-	.sync		= (FB_SYNC_HOR_HIGH_ACT |
+-			   FB_SYNC_VERT_HIGH_ACT),
+-	.cmap_greyscale = 0,
+-};
+-
+-static struct pxafb_mach_info generic_crt_640x480 = {
+-	.modes		= &generic_crt_640x480_mode,
+-	.num_modes	= 1,
+-	.lcd_conn	= LCD_COLOR_TFT_8BPP | LCD_AC_BIAS_FREQ(0xff),
+-	.cmap_inverse	= 0,
+-	.cmap_static	= 0,
+-};
+-
+-static struct pxafb_mode_info generic_crt_800x600_mode = {
+-	.pixclock	= 28846,
+-	.bpp		= 8,
+-	.xres		= 800,
+-	.yres	  	= 600,
+-	.hsync_len	= 63,
+-	.vsync_len	= 2,
+-	.left_margin	= 26,
+-	.upper_margin	= 21,
+-	.right_margin	= 26,
+-	.lower_margin	= 11,
+-	.sync		= (FB_SYNC_HOR_HIGH_ACT |
+-			   FB_SYNC_VERT_HIGH_ACT),
+-	.cmap_greyscale = 0,
+-};
+-
+-static struct pxafb_mach_info generic_crt_800x600 = {
+-	.modes		= &generic_crt_800x600_mode,
+-	.num_modes	= 1,
+-	.lcd_conn	= LCD_COLOR_TFT_8BPP | LCD_AC_BIAS_FREQ(0xff),
+-	.cmap_inverse	= 0,
+-	.cmap_static	= 0,
+-};
+-
+-static struct pxafb_mode_info generic_tft_320x240_mode = {
+-	.pixclock	= 134615,
+-	.bpp		= 16,
+-	.xres		= 320,
+-	.yres		= 240,
+-	.hsync_len	= 63,
+-	.vsync_len	= 7,
+-	.left_margin	= 75,
+-	.upper_margin	= 0,
+-	.right_margin	= 15,
+-	.lower_margin	= 15,
+-	.sync		= 0,
+-	.cmap_greyscale = 0,
+-};
+-
+-static struct pxafb_mach_info generic_tft_320x240 = {
+-	.modes		= &generic_tft_320x240_mode,
+-	.num_modes	= 1,
+-	.lcd_conn	= LCD_COLOR_TFT_16BPP | LCD_AC_BIAS_FREQ(0xff),
+-	.cmap_inverse	= 0,
+-	.cmap_static	= 0,
+-};
+-
+-static struct pxafb_mode_info generic_stn_640x480_mode = {
+-	.pixclock	= 57692,
+-	.bpp		= 8,
+-	.xres		= 640,
+-	.yres		= 480,
+-	.hsync_len	= 4,
+-	.vsync_len	= 2,
+-	.left_margin	= 10,
+-	.upper_margin	= 5,
+-	.right_margin	= 10,
+-	.lower_margin	= 5,
+-	.sync		= (FB_SYNC_HOR_HIGH_ACT |
+-			   FB_SYNC_VERT_HIGH_ACT),
+-	.cmap_greyscale = 0,
+-};
+-
+-static struct pxafb_mach_info generic_stn_640x480 = {
+-	.modes		= &generic_stn_640x480_mode,
+-	.num_modes	= 1,
+-	.lcd_conn	= LCD_COLOR_STN_8BPP | LCD_AC_BIAS_FREQ(0xff),
+-	.cmap_inverse	= 0,
+-	.cmap_static	= 0,
+-};
+-
+-static struct pxafb_mach_info *cmx2xx_display = &generic_crt_640x480;
+-
+-static int __init cmx2xx_set_display(char *str)
+-{
+-	int disp_type = simple_strtol(str, NULL, 0);
+-	switch (disp_type) {
+-	case MTYPE_STN320x240:
+-		cmx2xx_display = &generic_stn_320x240;
+-		break;
+-	case MTYPE_TFT640x480:
+-		cmx2xx_display = &generic_tft_640x480;
+-		break;
+-	case MTYPE_CRT640x480:
+-		cmx2xx_display = &generic_crt_640x480;
+-		break;
+-	case MTYPE_CRT800x600:
+-		cmx2xx_display = &generic_crt_800x600;
+-		break;
+-	case MTYPE_TFT320x240:
+-		cmx2xx_display = &generic_tft_320x240;
+-		break;
+-	case MTYPE_STN640x480:
+-		cmx2xx_display = &generic_stn_640x480;
+-		break;
+-	default: /* fallback to CRT 640x480 */
+-		cmx2xx_display = &generic_crt_640x480;
+-		break;
+-	}
+-	return 1;
+-}
+-
+-/*
+-   This should be done really early to get proper configuration for
+-   frame buffer.
+-   Indeed, pxafb parameters can be used istead, but CM-X2XX bootloader
+-   has limitied line length for kernel command line, and also it will
+-   break compatibitlty with proprietary releases already in field.
+-*/
+-__setup("monitor=", cmx2xx_set_display);
+-
+-static void __init cmx2xx_init_display(void)
+-{
+-	pxa_set_fb_info(NULL, cmx2xx_display);
+-}
+-#else
+-static inline void cmx2xx_init_display(void) {}
+-#endif
+-
+-#ifdef CONFIG_PM
+-static unsigned long sleep_save_msc[10];
+-
+-static int cmx2xx_suspend(void)
+-{
+-	cmx2xx_pci_suspend();
+-
+-	/* save MSC registers */
+-	sleep_save_msc[0] = __raw_readl(MSC0);
+-	sleep_save_msc[1] = __raw_readl(MSC1);
+-	sleep_save_msc[2] = __raw_readl(MSC2);
+-
+-	/* setup power saving mode registers */
+-	PCFR = 0x0;
+-	PSLR = 0xff400000;
+-	PMCR  = 0x00000005;
+-	PWER  = 0x80000000;
+-	PFER  = 0x00000000;
+-	PRER  = 0x00000000;
+-	PGSR0 = 0xC0018800;
+-	PGSR1 = 0x004F0002;
+-	PGSR2 = 0x6021C000;
+-	PGSR3 = 0x00020000;
+-
+-	return 0;
+-}
+-
+-static void cmx2xx_resume(void)
+-{
+-	cmx2xx_pci_resume();
+-
+-	/* restore MSC registers */
+-	__raw_writel(sleep_save_msc[0], MSC0);
+-	__raw_writel(sleep_save_msc[1], MSC1);
+-	__raw_writel(sleep_save_msc[2], MSC2);
+-}
+-
+-static struct syscore_ops cmx2xx_pm_syscore_ops = {
+-	.resume = cmx2xx_resume,
+-	.suspend = cmx2xx_suspend,
+-};
+-
+-static int __init cmx2xx_pm_init(void)
+-{
+-	register_syscore_ops(&cmx2xx_pm_syscore_ops);
+-
+-	return 0;
+-}
+-#else
+-static int __init cmx2xx_pm_init(void) { return 0; }
+-#endif
+-
+-#if defined(CONFIG_SND_PXA2XX_AC97) || defined(CONFIG_SND_PXA2XX_AC97_MODULE)
+-static void __init cmx2xx_init_ac97(void)
+-{
+-	pxa_set_ac97_info(NULL);
+-}
+-#else
+-static inline void cmx2xx_init_ac97(void) {}
+-#endif
+-
+-static void __init cmx2xx_init(void)
+-{
+-	pxa_set_ffuart_info(NULL);
+-	pxa_set_btuart_info(NULL);
+-	pxa_set_stuart_info(NULL);
+-
+-	cmx2xx_pm_init();
+-
+-	if (cpu_is_pxa25x())
+-		cmx255_init();
+-	else
+-		cmx270_init();
+-
+-	cmx2xx_init_dm9000();
+-	cmx2xx_init_display();
+-	cmx2xx_init_ac97();
+-	cmx2xx_init_touchscreen();
+-	cmx2xx_init_leds();
+-
+-	regulator_has_full_constraints();
+-}
+-
+-static void __init cmx2xx_init_irq(void)
+-{
+-	if (cpu_is_pxa25x()) {
+-		pxa25x_init_irq();
+-		cmx2xx_pci_init_irq(CMX255_GPIO_IT8152_IRQ);
+-	} else {
+-		pxa27x_init_irq();
+-		cmx2xx_pci_init_irq(CMX270_GPIO_IT8152_IRQ);
+-	}
+-}
+-
+-#ifdef CONFIG_PCI
+-/* Map PCI companion statically */
+-static struct map_desc cmx2xx_io_desc[] __initdata = {
+-	[0] = { /* PCI bridge */
+-		.virtual	= (unsigned long)CMX2XX_IT8152_VIRT,
+-		.pfn		= __phys_to_pfn(PXA_CS4_PHYS),
+-		.length		= SZ_64M,
+-		.type		= MT_DEVICE
+-	},
+-};
+-
+-static void __init cmx2xx_map_io(void)
+-{
+-	if (cpu_is_pxa25x())
+-		pxa25x_map_io();
+-
+-	if (cpu_is_pxa27x())
+-		pxa27x_map_io();
+-
+-	iotable_init(cmx2xx_io_desc, ARRAY_SIZE(cmx2xx_io_desc));
+-
+-	it8152_base_address = CMX2XX_IT8152_VIRT;
+-}
+-#else
+-static void __init cmx2xx_map_io(void)
+-{
+-	if (cpu_is_pxa25x())
+-		pxa25x_map_io();
+-
+-	if (cpu_is_pxa27x())
+-		pxa27x_map_io();
+-}
+-#endif
+-
+-MACHINE_START(ARMCORE, "Compulab CM-X2XX")
+-	.atag_offset	= 0x100,
+-	.map_io		= cmx2xx_map_io,
+-	.nr_irqs	= CMX2XX_NR_IRQS,
+-	.init_irq	= cmx2xx_init_irq,
+-	/* NOTE: pxa25x_handle_irq() works on PXA27x w/o camera support */
+-	.handle_irq	= pxa25x_handle_irq,
+-	.init_time	= pxa_timer_init,
+-	.init_machine	= cmx2xx_init,
+-#ifdef CONFIG_PCI
+-	.dma_zone_size	= SZ_64M,
+-#endif
+-	.restart	= pxa_restart,
+-MACHINE_END
+diff --git a/arch/arm/mach-pxa/em-x270.c b/arch/arm/mach-pxa/em-x270.c
+deleted file mode 100644
+index d8681a331030..000000000000
+--- a/arch/arm/mach-pxa/em-x270.c
++++ /dev/null
+@@ -1,1286 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- * Support for CompuLab EM-X270 platform
+- *
+- * Copyright (C) 2007, 2008 CompuLab, Ltd.
+- * Author: Mike Rapoport <mike@compulab.co.il>
+- */
+-
+-#include <linux/irq.h>
+-#include <linux/platform_device.h>
+-#include <linux/delay.h>
+-
+-#include <linux/dm9000.h>
+-#include <linux/platform_data/rtc-v3020.h>
+-#include <linux/mtd/platnand.h>
+-#include <linux/mtd/physmap.h>
+-#include <linux/input.h>
+-#include <linux/gpio_keys.h>
+-#include <linux/gpio.h>
+-#include <linux/gpio/machine.h>
+-#include <linux/mfd/da903x.h>
+-#include <linux/regulator/machine.h>
+-#include <linux/regulator/fixed.h>
+-#include <linux/spi/spi.h>
+-#include <linux/spi/tdo24m.h>
+-#include <linux/spi/libertas_spi.h>
+-#include <linux/spi/pxa2xx_spi.h>
+-#include <linux/power_supply.h>
+-#include <linux/apm-emulation.h>
+-#include <linux/i2c.h>
+-#include <linux/platform_data/pca953x.h>
+-#include <linux/platform_data/i2c-pxa.h>
+-#include <linux/regulator/userspace-consumer.h>
+-
+-#include <asm/mach-types.h>
+-#include <asm/mach/arch.h>
+-
+-#include "pxa27x.h"
+-#include "pxa27x-udc.h"
+-#include <mach/audio.h>
+-#include <linux/platform_data/video-pxafb.h>
+-#include <linux/platform_data/usb-ohci-pxa27x.h>
+-#include <linux/platform_data/mmc-pxamci.h>
+-#include <linux/platform_data/keypad-pxa27x.h>
+-#include <linux/platform_data/media/camera-pxa.h>
+-
+-#include "generic.h"
+-#include "devices.h"
+-
+-/* EM-X270 specific GPIOs */
+-#define GPIO13_MMC_CD		(13)
+-#define GPIO95_MMC_WP		(95)
+-#define GPIO56_NAND_RB		(56)
+-#define GPIO93_CAM_RESET	(93)
+-#define GPIO16_USB_HUB_RESET	(16)
+-
+-/* eXeda specific GPIOs */
+-#define GPIO114_MMC_CD		(114)
+-#define GPIO20_NAND_RB		(20)
+-#define GPIO38_SD_PWEN		(38)
+-#define GPIO37_WLAN_RST		(37)
+-#define GPIO95_TOUCHPAD_INT	(95)
+-#define GPIO130_CAM_RESET	(130)
+-#define GPIO10_USB_HUB_RESET	(10)
+-
+-/* common  GPIOs */
+-#define GPIO11_NAND_CS		(11)
+-#define GPIO41_ETHIRQ		(41)
+-#define EM_X270_ETHIRQ		PXA_GPIO_TO_IRQ(GPIO41_ETHIRQ)
+-#define GPIO115_WLAN_PWEN	(115)
+-#define GPIO19_WLAN_STRAP	(19)
+-#define GPIO9_USB_VBUS_EN	(9)
+-
+-static int mmc_cd;
+-static int nand_rb;
+-static int dm9000_flags;
+-static int cam_reset;
+-static int usb_hub_reset;
+-
+-static unsigned long common_pin_config[] = {
+-	/* AC'97 */
+-	GPIO28_AC97_BITCLK,
+-	GPIO29_AC97_SDATA_IN_0,
+-	GPIO30_AC97_SDATA_OUT,
+-	GPIO31_AC97_SYNC,
+-	GPIO98_AC97_SYSCLK,
+-	GPIO113_AC97_nRESET,
+-
+-	/* BTUART */
+-	GPIO42_BTUART_RXD,
+-	GPIO43_BTUART_TXD,
+-	GPIO44_BTUART_CTS,
+-	GPIO45_BTUART_RTS,
+-
+-	/* STUART */
+-	GPIO46_STUART_RXD,
+-	GPIO47_STUART_TXD,
+-
+-	/* MCI controller */
+-	GPIO32_MMC_CLK,
+-	GPIO112_MMC_CMD,
+-	GPIO92_MMC_DAT_0,
+-	GPIO109_MMC_DAT_1,
+-	GPIO110_MMC_DAT_2,
+-	GPIO111_MMC_DAT_3,
+-
+-	/* LCD */
+-	GPIOxx_LCD_TFT_16BPP,
+-
+-	/* QCI */
+-	GPIO84_CIF_FV,
+-	GPIO25_CIF_LV,
+-	GPIO53_CIF_MCLK,
+-	GPIO54_CIF_PCLK,
+-	GPIO81_CIF_DD_0,
+-	GPIO55_CIF_DD_1,
+-	GPIO51_CIF_DD_2,
+-	GPIO50_CIF_DD_3,
+-	GPIO52_CIF_DD_4,
+-	GPIO48_CIF_DD_5,
+-	GPIO17_CIF_DD_6,
+-	GPIO12_CIF_DD_7,
+-
+-	/* I2C */
+-	GPIO117_I2C_SCL,
+-	GPIO118_I2C_SDA,
+-
+-	/* Keypad */
+-	GPIO100_KP_MKIN_0	| WAKEUP_ON_LEVEL_HIGH,
+-	GPIO101_KP_MKIN_1	| WAKEUP_ON_LEVEL_HIGH,
+-	GPIO102_KP_MKIN_2	| WAKEUP_ON_LEVEL_HIGH,
+-	GPIO34_KP_MKIN_3	| WAKEUP_ON_LEVEL_HIGH,
+-	GPIO39_KP_MKIN_4	| WAKEUP_ON_LEVEL_HIGH,
+-	GPIO99_KP_MKIN_5	| WAKEUP_ON_LEVEL_HIGH,
+-	GPIO91_KP_MKIN_6	| WAKEUP_ON_LEVEL_HIGH,
+-	GPIO36_KP_MKIN_7	| WAKEUP_ON_LEVEL_HIGH,
+-	GPIO103_KP_MKOUT_0,
+-	GPIO104_KP_MKOUT_1,
+-	GPIO105_KP_MKOUT_2,
+-	GPIO106_KP_MKOUT_3,
+-	GPIO107_KP_MKOUT_4,
+-	GPIO108_KP_MKOUT_5,
+-	GPIO96_KP_MKOUT_6,
+-	GPIO22_KP_MKOUT_7,
+-
+-	/* SSP1 */
+-	GPIO26_SSP1_RXD,
+-	GPIO23_SSP1_SCLK,
+-	GPIO24_SSP1_SFRM,
+-	GPIO57_SSP1_TXD,
+-
+-	/* SSP2 */
+-	GPIO19_GPIO,	/* SSP2 clock is used as GPIO for Libertas pin-strap */
+-	GPIO14_GPIO,
+-	GPIO89_SSP2_TXD,
+-	GPIO88_SSP2_RXD,
+-
+-	/* SDRAM and local bus */
+-	GPIO15_nCS_1,
+-	GPIO78_nCS_2,
+-	GPIO79_nCS_3,
+-	GPIO80_nCS_4,
+-	GPIO49_nPWE,
+-	GPIO18_RDY,
+-
+-	/* GPIO */
+-	GPIO1_GPIO | WAKEUP_ON_EDGE_BOTH,	/* sleep/resume button */
+-
+-	/* power controls */
+-	GPIO20_GPIO	| MFP_LPM_DRIVE_LOW,	/* GPRS_PWEN */
+-	GPIO115_GPIO	| MFP_LPM_DRIVE_LOW,	/* WLAN_PWEN */
+-
+-	/* NAND controls */
+-	GPIO11_GPIO	| MFP_LPM_DRIVE_HIGH,	/* NAND CE# */
+-
+-	/* interrupts */
+-	GPIO41_GPIO,	/* DM9000 interrupt */
+-};
+-
+-static unsigned long em_x270_pin_config[] = {
+-	GPIO13_GPIO,				/* MMC card detect */
+-	GPIO16_GPIO,				/* USB hub reset */
+-	GPIO56_GPIO,				/* NAND Ready/Busy */
+-	GPIO93_GPIO	| MFP_LPM_DRIVE_LOW,	/* Camera reset */
+-	GPIO95_GPIO,				/* MMC Write protect */
+-};
+-
+-static unsigned long exeda_pin_config[] = {
+-	GPIO10_GPIO,				/* USB hub reset */
+-	GPIO20_GPIO,				/* NAND Ready/Busy */
+-	GPIO38_GPIO	| MFP_LPM_DRIVE_LOW,	/* SD slot power */
+-	GPIO95_GPIO,				/* touchpad IRQ */
+-	GPIO114_GPIO,				/* MMC card detect */
+-};
+-
+-#if defined(CONFIG_DM9000) || defined(CONFIG_DM9000_MODULE)
+-static struct resource em_x270_dm9000_resource[] = {
+-	[0] = {
+-		.start = PXA_CS2_PHYS,
+-		.end   = PXA_CS2_PHYS + 3,
+-		.flags = IORESOURCE_MEM,
+-	},
+-	[1] = {
+-		.start = PXA_CS2_PHYS + 8,
+-		.end   = PXA_CS2_PHYS + 8 + 0x3f,
+-		.flags = IORESOURCE_MEM,
+-	},
+-	[2] = {
+-		.start = EM_X270_ETHIRQ,
+-		.end   = EM_X270_ETHIRQ,
+-		.flags = IORESOURCE_IRQ | IORESOURCE_IRQ_HIGHEDGE,
+-	}
+-};
+-
+-static struct dm9000_plat_data em_x270_dm9000_platdata = {
+-	.flags		= DM9000_PLATF_NO_EEPROM,
+-};
+-
+-static struct platform_device em_x270_dm9000 = {
+-	.name		= "dm9000",
+-	.id		= 0,
+-	.num_resources	= ARRAY_SIZE(em_x270_dm9000_resource),
+-	.resource	= em_x270_dm9000_resource,
+-	.dev		= {
+-		.platform_data = &em_x270_dm9000_platdata,
+-	}
+-};
+-
+-static void __init em_x270_init_dm9000(void)
+-{
+-	em_x270_dm9000_platdata.flags |= dm9000_flags;
+-	platform_device_register(&em_x270_dm9000);
+-}
+-#else
+-static inline void em_x270_init_dm9000(void) {}
+-#endif
+-
+-/* V3020 RTC */
+-#if defined(CONFIG_RTC_DRV_V3020) || defined(CONFIG_RTC_DRV_V3020_MODULE)
+-static struct resource em_x270_v3020_resource[] = {
+-	[0] = {
+-		.start = PXA_CS4_PHYS,
+-		.end   = PXA_CS4_PHYS + 3,
+-		.flags = IORESOURCE_MEM,
+-	},
+-};
+-
+-static struct v3020_platform_data em_x270_v3020_platdata = {
+-	.leftshift = 0,
+-};
+-
+-static struct platform_device em_x270_rtc = {
+-	.name		= "v3020",
+-	.num_resources	= ARRAY_SIZE(em_x270_v3020_resource),
+-	.resource	= em_x270_v3020_resource,
+-	.id		= -1,
+-	.dev		= {
+-		.platform_data = &em_x270_v3020_platdata,
+-	}
+-};
+-
+-static void __init em_x270_init_rtc(void)
+-{
+-	platform_device_register(&em_x270_rtc);
+-}
+-#else
+-static inline void em_x270_init_rtc(void) {}
+-#endif
+-
+-/* NAND flash */
+-#if defined(CONFIG_MTD_NAND_PLATFORM) || defined(CONFIG_MTD_NAND_PLATFORM_MODULE)
+-static inline void nand_cs_on(void)
+-{
+-	gpio_set_value(GPIO11_NAND_CS, 0);
+-}
+-
+-static void nand_cs_off(void)
+-{
+-	dsb();
+-
+-	gpio_set_value(GPIO11_NAND_CS, 1);
+-}
+-
+-/* hardware specific access to control-lines */
+-static void em_x270_nand_cmd_ctl(struct nand_chip *this, int dat,
+-				 unsigned int ctrl)
+-{
+-	unsigned long nandaddr = (unsigned long)this->legacy.IO_ADDR_W;
+-
+-	dsb();
+-
+-	if (ctrl & NAND_CTRL_CHANGE) {
+-		if (ctrl & NAND_ALE)
+-			nandaddr |=  (1 << 3);
+-		else
+-			nandaddr &= ~(1 << 3);
+-		if (ctrl & NAND_CLE)
+-			nandaddr |=  (1 << 2);
+-		else
+-			nandaddr &= ~(1 << 2);
+-		if (ctrl & NAND_NCE)
+-			nand_cs_on();
+-		else
+-			nand_cs_off();
+-	}
+-
+-	dsb();
+-	this->legacy.IO_ADDR_W = (void __iomem *)nandaddr;
+-	if (dat != NAND_CMD_NONE)
+-		writel(dat, this->legacy.IO_ADDR_W);
+-
+-	dsb();
+-}
+-
+-/* read device ready pin */
+-static int em_x270_nand_device_ready(struct nand_chip *this)
+-{
+-	dsb();
+-
+-	return gpio_get_value(nand_rb);
+-}
+-
+-static struct mtd_partition em_x270_partition_info[] = {
+-	[0] = {
+-		.name	= "em_x270-0",
+-		.offset	= 0,
+-		.size	= SZ_4M,
+-	},
+-	[1] = {
+-		.name	= "em_x270-1",
+-		.offset	= MTDPART_OFS_APPEND,
+-		.size	= MTDPART_SIZ_FULL
+-	},
+-};
+-
+-struct platform_nand_data em_x270_nand_platdata = {
+-	.chip = {
+-		.nr_chips = 1,
+-		.chip_offset = 0,
+-		.nr_partitions = ARRAY_SIZE(em_x270_partition_info),
+-		.partitions = em_x270_partition_info,
+-		.chip_delay = 20,
+-	},
+-	.ctrl = {
+-		.dev_ready = em_x270_nand_device_ready,
+-		.select_chip = 0,
+-		.cmd_ctrl = em_x270_nand_cmd_ctl,
+-	},
+-};
+-
+-static struct resource em_x270_nand_resource[] = {
+-	[0] = {
+-		.start = PXA_CS1_PHYS,
+-		.end   = PXA_CS1_PHYS + 12,
+-		.flags = IORESOURCE_MEM,
+-	},
+-};
+-
+-static struct platform_device em_x270_nand = {
+-	.name		= "gen_nand",
+-	.num_resources	= ARRAY_SIZE(em_x270_nand_resource),
+-	.resource	= em_x270_nand_resource,
+-	.id		= -1,
+-	.dev		= {
+-		.platform_data = &em_x270_nand_platdata,
+-	}
+-};
+-
+-static void __init em_x270_init_nand(void)
+-{
+-	int err;
+-
+-	err = gpio_request(GPIO11_NAND_CS, "NAND CS");
+-	if (err) {
+-		pr_warn("EM-X270: failed to request NAND CS gpio\n");
+-		return;
+-	}
+-
+-	gpio_direction_output(GPIO11_NAND_CS, 1);
+-
+-	err = gpio_request(nand_rb, "NAND R/B");
+-	if (err) {
+-		pr_warn("EM-X270: failed to request NAND R/B gpio\n");
+-		gpio_free(GPIO11_NAND_CS);
+-		return;
+-	}
+-
+-	gpio_direction_input(nand_rb);
+-
+-	platform_device_register(&em_x270_nand);
+-}
+-#else
+-static inline void em_x270_init_nand(void) {}
+-#endif
+-
+-#if defined(CONFIG_MTD_PHYSMAP) || defined(CONFIG_MTD_PHYSMAP_MODULE)
+-static struct mtd_partition em_x270_nor_parts[] = {
+-	{
+-		.name =		"Bootloader",
+-		.offset =	0x00000000,
+-		.size =		0x00050000,
+-		.mask_flags =	MTD_WRITEABLE  /* force read-only */
+-	}, {
+-		.name =		"Environment",
+-		.offset =	0x00050000,
+-		.size =		0x00010000,
+-	}, {
+-		.name =		"Reserved",
+-		.offset =	0x00060000,
+-		.size =		0x00050000,
+-		.mask_flags =	MTD_WRITEABLE  /* force read-only */
+-	}, {
+-		.name =		"Splashscreen",
+-		.offset =	0x000b0000,
+-		.size =		0x00050000,
+-	}
+-};
+-
+-static struct physmap_flash_data em_x270_nor_data[] = {
+-	[0] = {
+-		.width = 2,
+-		.parts = em_x270_nor_parts,
+-		.nr_parts = ARRAY_SIZE(em_x270_nor_parts),
+-	},
+-};
+-
+-static struct resource em_x270_nor_flash_resource = {
+-	.start	= PXA_CS0_PHYS,
+-	.end	= PXA_CS0_PHYS + SZ_1M - 1,
+-	.flags	= IORESOURCE_MEM,
+-};
+-
+-static struct platform_device em_x270_physmap_flash = {
+-	.name		= "physmap-flash",
+-	.id		= 0,
+-	.num_resources	= 1,
+-	.resource	= &em_x270_nor_flash_resource,
+-	.dev		= {
+-		.platform_data	= &em_x270_nor_data,
+-	},
+-};
+-
+-static void __init em_x270_init_nor(void)
+-{
+-	platform_device_register(&em_x270_physmap_flash);
+-}
+-#else
+-static inline void em_x270_init_nor(void) {}
+-#endif
+-
+-/* PXA27x OHCI controller setup */
+-#if defined(CONFIG_USB_OHCI_HCD) || defined(CONFIG_USB_OHCI_HCD_MODULE)
+-static struct regulator *em_x270_usb_ldo;
+-
+-static int em_x270_usb_hub_init(void)
+-{
+-	int err;
+-
+-	em_x270_usb_ldo = regulator_get(NULL, "vcc usb");
+-	if (IS_ERR(em_x270_usb_ldo))
+-		return PTR_ERR(em_x270_usb_ldo);
+-
+-	err = gpio_request(GPIO9_USB_VBUS_EN, "vbus en");
+-	if (err)
+-		goto err_free_usb_ldo;
+-
+-	err = gpio_request(usb_hub_reset, "hub rst");
+-	if (err)
+-		goto err_free_vbus_gpio;
+-
+-	/* USB Hub power-on and reset */
+-	gpio_direction_output(usb_hub_reset, 1);
+-	gpio_direction_output(GPIO9_USB_VBUS_EN, 0);
+-	err = regulator_enable(em_x270_usb_ldo);
+-	if (err)
+-		goto err_free_rst_gpio;
+-
+-	gpio_set_value(usb_hub_reset, 0);
+-	gpio_set_value(usb_hub_reset, 1);
+-	regulator_disable(em_x270_usb_ldo);
+-	err = regulator_enable(em_x270_usb_ldo);
+-	if (err)
+-		goto err_free_rst_gpio;
+-
+-	gpio_set_value(usb_hub_reset, 0);
+-	gpio_set_value(GPIO9_USB_VBUS_EN, 1);
+-
+-	return 0;
+-
+-err_free_rst_gpio:
+-	gpio_free(usb_hub_reset);
+-err_free_vbus_gpio:
+-	gpio_free(GPIO9_USB_VBUS_EN);
+-err_free_usb_ldo:
+-	regulator_put(em_x270_usb_ldo);
+-
+-	return err;
+-}
+-
+-static int em_x270_ohci_init(struct device *dev)
+-{
+-	int err;
+-
+-	/* we don't want to entirely disable USB if the HUB init failed */
+-	err = em_x270_usb_hub_init();
+-	if (err)
+-		pr_err("USB Hub initialization failed: %d\n", err);
+-
+-	/* enable port 2 transiever */
+-	UP2OCR = UP2OCR_HXS | UP2OCR_HXOE;
+-
+-	return 0;
+-}
+-
+-static void em_x270_ohci_exit(struct device *dev)
+-{
+-	gpio_free(usb_hub_reset);
+-	gpio_free(GPIO9_USB_VBUS_EN);
+-
+-	if (!IS_ERR(em_x270_usb_ldo)) {
+-		if (regulator_is_enabled(em_x270_usb_ldo))
+-			regulator_disable(em_x270_usb_ldo);
+-
+-		regulator_put(em_x270_usb_ldo);
+-	}
+-}
+-
+-static struct pxaohci_platform_data em_x270_ohci_platform_data = {
+-	.port_mode	= PMM_PERPORT_MODE,
+-	.flags		= ENABLE_PORT1 | ENABLE_PORT2 | POWER_CONTROL_LOW,
+-	.init		= em_x270_ohci_init,
+-	.exit		= em_x270_ohci_exit,
+-};
+-
+-static void __init em_x270_init_ohci(void)
+-{
+-	pxa_set_ohci_info(&em_x270_ohci_platform_data);
+-}
+-#else
+-static inline void em_x270_init_ohci(void) {}
+-#endif
+-
+-/* MCI controller setup */
+-#if defined(CONFIG_MMC) || defined(CONFIG_MMC_MODULE)
+-static struct regulator *em_x270_sdio_ldo;
+-
+-static struct gpiod_lookup_table em_x270_mci_wp_gpio_table = {
+-	.dev_id = "pxa2xx-mci.0",
+-	.table = {
+-		/* Write protect on GPIO 95 */
+-		GPIO_LOOKUP("gpio-pxa", GPIO95_MMC_WP, "wp", GPIO_ACTIVE_LOW),
+-		{ },
+-	},
+-};
+-
+-static int em_x270_mci_init(struct device *dev,
+-			    irq_handler_t em_x270_detect_int,
+-			    void *data)
+-{
+-	int err;
+-
+-	em_x270_sdio_ldo = regulator_get(dev, "vcc sdio");
+-	if (IS_ERR(em_x270_sdio_ldo)) {
+-		dev_err(dev, "can't request SDIO power supply: %ld\n",
+-			PTR_ERR(em_x270_sdio_ldo));
+-		return PTR_ERR(em_x270_sdio_ldo);
+-	}
+-
+-	err = request_irq(gpio_to_irq(mmc_cd), em_x270_detect_int,
+-			      IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING,
+-			      "MMC card detect", data);
+-	if (err) {
+-		dev_err(dev, "can't request MMC card detect IRQ: %d\n", err);
+-		goto err_irq;
+-	}
+-
+-	if (!machine_is_em_x270()) {
+-		err = gpio_request(GPIO38_SD_PWEN, "sdio power");
+-		if (err) {
+-			dev_err(dev, "can't request MMC power control : %d\n",
+-				err);
+-			goto err_gpio_wp;
+-		}
+-		gpio_direction_output(GPIO38_SD_PWEN, 1);
+-	}
+-
+-	return 0;
+-
+-err_gpio_wp:
+-	free_irq(gpio_to_irq(mmc_cd), data);
+-err_irq:
+-	regulator_put(em_x270_sdio_ldo);
+-
+-	return err;
+-}
+-
+-static int em_x270_mci_setpower(struct device *dev, unsigned int vdd)
+-{
+-	struct pxamci_platform_data* p_d = dev->platform_data;
+-
+-	if ((1 << vdd) & p_d->ocr_mask) {
+-		int vdd_uV = (2000 + (vdd - __ffs(MMC_VDD_20_21)) * 100) * 1000;
+-
+-		regulator_set_voltage(em_x270_sdio_ldo, vdd_uV, vdd_uV);
+-		return regulator_enable(em_x270_sdio_ldo);
+-	} else {
+-		regulator_disable(em_x270_sdio_ldo);
+-	}
+-	return 0;
+-}
+-
+-static void em_x270_mci_exit(struct device *dev, void *data)
+-{
+-	free_irq(gpio_to_irq(mmc_cd), data);
+-	regulator_put(em_x270_sdio_ldo);
+-
+-	if (!machine_is_em_x270())
+-		gpio_free(GPIO38_SD_PWEN);
+-}
+-
+-static struct pxamci_platform_data em_x270_mci_platform_data = {
+-	.detect_delay_ms	= 250,
+-	.ocr_mask		= MMC_VDD_20_21|MMC_VDD_21_22|MMC_VDD_22_23|
+-				  MMC_VDD_24_25|MMC_VDD_25_26|MMC_VDD_26_27|
+-				  MMC_VDD_27_28|MMC_VDD_28_29|MMC_VDD_29_30|
+-				  MMC_VDD_30_31|MMC_VDD_31_32,
+-	.init 			= em_x270_mci_init,
+-	.setpower 		= em_x270_mci_setpower,
+-	.exit			= em_x270_mci_exit,
+-};
+-
+-static void __init em_x270_init_mmc(void)
+-{
+-	if (machine_is_em_x270())
+-		gpiod_add_lookup_table(&em_x270_mci_wp_gpio_table);
+-
+-	pxa_set_mci_info(&em_x270_mci_platform_data);
+-}
+-#else
+-static inline void em_x270_init_mmc(void) {}
+-#endif
+-
+-/* LCD */
+-#if defined(CONFIG_FB_PXA) || defined(CONFIG_FB_PXA_MODULE)
+-static struct pxafb_mode_info em_x270_lcd_modes[] = {
+-	[0] = {
+-		.pixclock	= 38250,
+-		.bpp		= 16,
+-		.xres		= 480,
+-		.yres		= 640,
+-		.hsync_len	= 8,
+-		.vsync_len	= 2,
+-		.left_margin	= 8,
+-		.upper_margin	= 2,
+-		.right_margin	= 24,
+-		.lower_margin	= 4,
+-		.sync		= 0,
+-	},
+-	[1] = {
+-		.pixclock       = 153800,
+-		.bpp		= 16,
+-		.xres		= 240,
+-		.yres		= 320,
+-		.hsync_len	= 8,
+-		.vsync_len	= 2,
+-		.left_margin	= 8,
+-		.upper_margin	= 2,
+-		.right_margin	= 88,
+-		.lower_margin	= 2,
+-		.sync		= 0,
+-	},
+-};
+-
+-static struct pxafb_mach_info em_x270_lcd = {
+-	.modes		= em_x270_lcd_modes,
+-	.num_modes	= 2,
+-	.lcd_conn	= LCD_COLOR_TFT_16BPP,
+-};
+-
+-static void __init em_x270_init_lcd(void)
+-{
+-	pxa_set_fb_info(NULL, &em_x270_lcd);
+-}
+-#else
+-static inline void em_x270_init_lcd(void) {}
+-#endif
+-
+-#if defined(CONFIG_SPI_PXA2XX) || defined(CONFIG_SPI_PXA2XX_MODULE)
+-static struct pxa2xx_spi_controller em_x270_spi_info = {
+-	.num_chipselect	= 1,
+-};
+-
+-static struct pxa2xx_spi_chip em_x270_tdo24m_chip = {
+-	.rx_threshold	= 1,
+-	.tx_threshold	= 1,
+-	.gpio_cs	= -1,
+-};
+-
+-static struct tdo24m_platform_data em_x270_tdo24m_pdata = {
+-	.model = TDO35S,
+-};
+-
+-static struct pxa2xx_spi_controller em_x270_spi_2_info = {
+-	.num_chipselect	= 1,
+-	.enable_dma	= 1,
+-};
+-
+-static struct pxa2xx_spi_chip em_x270_libertas_chip = {
+-	.rx_threshold	= 1,
+-	.tx_threshold	= 1,
+-	.timeout	= 1000,
+-	.gpio_cs	= 14,
+-};
+-
+-static unsigned long em_x270_libertas_pin_config[] = {
+-	/* SSP2 */
+-	GPIO19_SSP2_SCLK,
+-	GPIO14_GPIO,
+-	GPIO89_SSP2_TXD,
+-	GPIO88_SSP2_RXD,
+-};
+-
+-static int em_x270_libertas_setup(struct spi_device *spi)
+-{
+-	int err = gpio_request(GPIO115_WLAN_PWEN, "WLAN PWEN");
+-	if (err)
+-		return err;
+-
+-	err = gpio_request(GPIO19_WLAN_STRAP, "WLAN STRAP");
+-	if (err)
+-		goto err_free_pwen;
+-
+-	if (machine_is_exeda()) {
+-		err = gpio_request(GPIO37_WLAN_RST, "WLAN RST");
+-		if (err)
+-			goto err_free_strap;
+-
+-		gpio_direction_output(GPIO37_WLAN_RST, 1);
+-		msleep(100);
+-	}
+-
+-	gpio_direction_output(GPIO19_WLAN_STRAP, 1);
+-	msleep(100);
+-
+-	pxa2xx_mfp_config(ARRAY_AND_SIZE(em_x270_libertas_pin_config));
+-
+-	gpio_direction_output(GPIO115_WLAN_PWEN, 0);
+-	msleep(100);
+-	gpio_set_value(GPIO115_WLAN_PWEN, 1);
+-	msleep(100);
+-
+-	spi->bits_per_word = 16;
+-	spi_setup(spi);
+-
+-	return 0;
+-
+-err_free_strap:
+-	gpio_free(GPIO19_WLAN_STRAP);
+-err_free_pwen:
+-	gpio_free(GPIO115_WLAN_PWEN);
+-
+-	return err;
+-}
+-
+-static int em_x270_libertas_teardown(struct spi_device *spi)
+-{
+-	gpio_set_value(GPIO115_WLAN_PWEN, 0);
+-	gpio_free(GPIO115_WLAN_PWEN);
+-	gpio_free(GPIO19_WLAN_STRAP);
+-
+-	if (machine_is_exeda()) {
+-		gpio_set_value(GPIO37_WLAN_RST, 0);
+-		gpio_free(GPIO37_WLAN_RST);
+-	}
+-
+-	return 0;
+-}
+-
+-struct libertas_spi_platform_data em_x270_libertas_pdata = {
+-	.use_dummy_writes	= 1,
+-	.setup			= em_x270_libertas_setup,
+-	.teardown		= em_x270_libertas_teardown,
+-};
+-
+-static struct spi_board_info em_x270_spi_devices[] __initdata = {
+-	{
+-		.modalias		= "tdo24m",
+-		.max_speed_hz		= 1000000,
+-		.bus_num		= 1,
+-		.chip_select		= 0,
+-		.controller_data	= &em_x270_tdo24m_chip,
+-		.platform_data		= &em_x270_tdo24m_pdata,
+-	},
+-	{
+-		.modalias		= "libertas_spi",
+-		.max_speed_hz		= 13000000,
+-		.bus_num		= 2,
+-		.irq			= PXA_GPIO_TO_IRQ(116),
+-		.chip_select		= 0,
+-		.controller_data	= &em_x270_libertas_chip,
+-		.platform_data		= &em_x270_libertas_pdata,
+-	},
+-};
+-
+-static void __init em_x270_init_spi(void)
+-{
+-	pxa2xx_set_spi_info(1, &em_x270_spi_info);
+-	pxa2xx_set_spi_info(2, &em_x270_spi_2_info);
+-	spi_register_board_info(ARRAY_AND_SIZE(em_x270_spi_devices));
+-}
+-#else
+-static inline void em_x270_init_spi(void) {}
+-#endif
+-
+-#if defined(CONFIG_SND_PXA2XX_LIB_AC97)
+-static pxa2xx_audio_ops_t em_x270_ac97_info = {
+-	.reset_gpio = 113,
+-};
+-
+-static void __init em_x270_init_ac97(void)
+-{
+-	pxa_set_ac97_info(&em_x270_ac97_info);
+-}
+-#else
+-static inline void em_x270_init_ac97(void) {}
+-#endif
+-
+-#if defined(CONFIG_KEYBOARD_PXA27x) || defined(CONFIG_KEYBOARD_PXA27x_MODULE)
+-static const unsigned int em_x270_module_matrix_keys[] = {
+-	KEY(0, 0, KEY_A), KEY(1, 0, KEY_UP), KEY(2, 1, KEY_B),
+-	KEY(0, 2, KEY_LEFT), KEY(1, 1, KEY_ENTER), KEY(2, 0, KEY_RIGHT),
+-	KEY(0, 1, KEY_C), KEY(1, 2, KEY_DOWN), KEY(2, 2, KEY_D),
+-};
+-
+-static struct matrix_keymap_data em_x270_matrix_keymap_data = {
+-	.keymap			= em_x270_module_matrix_keys,
+-	.keymap_size		= ARRAY_SIZE(em_x270_module_matrix_keys),
+-};
+-
+-struct pxa27x_keypad_platform_data em_x270_module_keypad_info = {
+-	/* code map for the matrix keys */
+-	.matrix_key_rows	= 3,
+-	.matrix_key_cols	= 3,
+-	.matrix_keymap_data	= &em_x270_matrix_keymap_data,
+-};
+-
+-static const unsigned int em_x270_exeda_matrix_keys[] = {
+-	KEY(0, 0, KEY_RIGHTSHIFT), KEY(0, 1, KEY_RIGHTCTRL),
+-	KEY(0, 2, KEY_RIGHTALT), KEY(0, 3, KEY_SPACE),
+-	KEY(0, 4, KEY_LEFTALT), KEY(0, 5, KEY_LEFTCTRL),
+-	KEY(0, 6, KEY_ENTER), KEY(0, 7, KEY_SLASH),
+-
+-	KEY(1, 0, KEY_DOT), KEY(1, 1, KEY_M),
+-	KEY(1, 2, KEY_N), KEY(1, 3, KEY_B),
+-	KEY(1, 4, KEY_V), KEY(1, 5, KEY_C),
+-	KEY(1, 6, KEY_X), KEY(1, 7, KEY_Z),
+-
+-	KEY(2, 0, KEY_LEFTSHIFT), KEY(2, 1, KEY_SEMICOLON),
+-	KEY(2, 2, KEY_L), KEY(2, 3, KEY_K),
+-	KEY(2, 4, KEY_J), KEY(2, 5, KEY_H),
+-	KEY(2, 6, KEY_G), KEY(2, 7, KEY_F),
+-
+-	KEY(3, 0, KEY_D), KEY(3, 1, KEY_S),
+-	KEY(3, 2, KEY_A), KEY(3, 3, KEY_TAB),
+-	KEY(3, 4, KEY_BACKSPACE), KEY(3, 5, KEY_P),
+-	KEY(3, 6, KEY_O), KEY(3, 7, KEY_I),
+-
+-	KEY(4, 0, KEY_U), KEY(4, 1, KEY_Y),
+-	KEY(4, 2, KEY_T), KEY(4, 3, KEY_R),
+-	KEY(4, 4, KEY_E), KEY(4, 5, KEY_W),
+-	KEY(4, 6, KEY_Q), KEY(4, 7, KEY_MINUS),
+-
+-	KEY(5, 0, KEY_0), KEY(5, 1, KEY_9),
+-	KEY(5, 2, KEY_8), KEY(5, 3, KEY_7),
+-	KEY(5, 4, KEY_6), KEY(5, 5, KEY_5),
+-	KEY(5, 6, KEY_4), KEY(5, 7, KEY_3),
+-
+-	KEY(6, 0, KEY_2), KEY(6, 1, KEY_1),
+-	KEY(6, 2, KEY_ENTER), KEY(6, 3, KEY_END),
+-	KEY(6, 4, KEY_DOWN), KEY(6, 5, KEY_UP),
+-	KEY(6, 6, KEY_MENU), KEY(6, 7, KEY_F1),
+-
+-	KEY(7, 0, KEY_LEFT), KEY(7, 1, KEY_RIGHT),
+-	KEY(7, 2, KEY_BACK), KEY(7, 3, KEY_HOME),
+-	KEY(7, 4, 0), KEY(7, 5, 0),
+-	KEY(7, 6, 0), KEY(7, 7, 0),
+-};
+-
+-static struct matrix_keymap_data em_x270_exeda_matrix_keymap_data = {
+-	.keymap			= em_x270_exeda_matrix_keys,
+-	.keymap_size		= ARRAY_SIZE(em_x270_exeda_matrix_keys),
+-};
+-
+-struct pxa27x_keypad_platform_data em_x270_exeda_keypad_info = {
+-	/* code map for the matrix keys */
+-	.matrix_key_rows	= 8,
+-	.matrix_key_cols	= 8,
+-	.matrix_keymap_data	= &em_x270_exeda_matrix_keymap_data,
+-};
+-
+-static void __init em_x270_init_keypad(void)
+-{
+-	if (machine_is_em_x270())
+-		pxa_set_keypad_info(&em_x270_module_keypad_info);
+-	else
+-		pxa_set_keypad_info(&em_x270_exeda_keypad_info);
+-}
+-#else
+-static inline void em_x270_init_keypad(void) {}
+-#endif
+-
+-#if defined(CONFIG_KEYBOARD_GPIO) || defined(CONFIG_KEYBOARD_GPIO_MODULE)
+-static struct gpio_keys_button gpio_keys_button[] = {
+-	[0] = {
+-		.desc	= "sleep/wakeup",
+-		.code	= KEY_SUSPEND,
+-		.type	= EV_PWR,
+-		.gpio	= 1,
+-		.wakeup	= 1,
+-	},
+-};
+-
+-static struct gpio_keys_platform_data em_x270_gpio_keys_data = {
+-	.buttons	= gpio_keys_button,
+-	.nbuttons	= 1,
+-};
+-
+-static struct platform_device em_x270_gpio_keys = {
+-	.name		= "gpio-keys",
+-	.id		= -1,
+-	.dev		= {
+-		.platform_data	= &em_x270_gpio_keys_data,
+-	},
+-};
+-
+-static void __init em_x270_init_gpio_keys(void)
+-{
+-	platform_device_register(&em_x270_gpio_keys);
+-}
+-#else
+-static inline void em_x270_init_gpio_keys(void) {}
+-#endif
+-
+-/* Quick Capture Interface and sensor setup */
+-#if defined(CONFIG_VIDEO_PXA27x) || defined(CONFIG_VIDEO_PXA27x_MODULE)
+-static int em_x270_sensor_init(void)
+-{
+-	int ret;
+-
+-	ret = gpio_request(cam_reset, "camera reset");
+-	if (ret)
+-		return ret;
+-
+-	gpio_direction_output(cam_reset, 0);
+-	gpio_set_value(cam_reset, 1);
+-
+-	return 0;
+-}
+-
+-static struct regulator_consumer_supply camera_dummy_supplies[] = {
+-	REGULATOR_SUPPLY("vdd", "0-005d"),
+-};
+-
+-static struct regulator_init_data camera_dummy_initdata = {
+-	.consumer_supplies = camera_dummy_supplies,
+-	.num_consumer_supplies = ARRAY_SIZE(camera_dummy_supplies),
+-	.constraints = {
+-		.valid_ops_mask = REGULATOR_CHANGE_STATUS,
+-	},
+-};
+-
+-static struct fixed_voltage_config camera_dummy_config = {
+-	.supply_name		= "camera_vdd",
+-	.input_supply		= "vcc cam",
+-	.microvolts		= 2800000,
+-	.init_data		= &camera_dummy_initdata,
+-};
+-
+-static struct platform_device camera_supply_dummy_device = {
+-	.name	= "reg-fixed-voltage",
+-	.id	= 1,
+-	.dev	= {
+-		.platform_data = &camera_dummy_config,
+-	},
+-};
+-
+-struct pxacamera_platform_data em_x270_camera_platform_data = {
+-	.flags  = PXA_CAMERA_MASTER | PXA_CAMERA_DATAWIDTH_8 |
+-		PXA_CAMERA_PCLK_EN | PXA_CAMERA_MCLK_EN,
+-	.mclk_10khz = 2600,
+-	.sensor_i2c_adapter_id = 0,
+-	.sensor_i2c_address = 0x5d,
+-};
+-
+-static void  __init em_x270_init_camera(void)
+-{
+-	if (em_x270_sensor_init() == 0)
+-		pxa_set_camera_info(&em_x270_camera_platform_data);
+-	platform_device_register(&camera_supply_dummy_device);
+-}
+-#else
+-static inline void em_x270_init_camera(void) {}
+-#endif
+-
+-static struct regulator_bulk_data em_x270_gps_consumer_supply = {
+-	.supply		= "vcc gps",
+-};
+-
+-static struct regulator_userspace_consumer_data em_x270_gps_consumer_data = {
+-	.name		= "vcc gps",
+-	.num_supplies	= 1,
+-	.supplies	= &em_x270_gps_consumer_supply,
+-};
+-
+-static struct platform_device em_x270_gps_userspace_consumer = {
+-	.name		= "reg-userspace-consumer",
+-	.id		= 0,
+-	.dev		= {
+-		.platform_data = &em_x270_gps_consumer_data,
+-	},
+-};
+-
+-static struct regulator_bulk_data em_x270_gprs_consumer_supply = {
+-	.supply		= "vcc gprs",
+-};
+-
+-static struct regulator_userspace_consumer_data em_x270_gprs_consumer_data = {
+-	.name		= "vcc gprs",
+-	.num_supplies	= 1,
+-	.supplies	= &em_x270_gprs_consumer_supply
+-};
+-
+-static struct platform_device em_x270_gprs_userspace_consumer = {
+-	.name		= "reg-userspace-consumer",
+-	.id		= 1,
+-	.dev		= {
+-		.platform_data = &em_x270_gprs_consumer_data,
+-	}
+-};
+-
+-static struct platform_device *em_x270_userspace_consumers[] = {
+-	&em_x270_gps_userspace_consumer,
+-	&em_x270_gprs_userspace_consumer,
+-};
+-
+-static void __init em_x270_userspace_consumers_init(void)
+-{
+-	platform_add_devices(ARRAY_AND_SIZE(em_x270_userspace_consumers));
+-}
+-
+-/* DA9030 related initializations */
+-#define REGULATOR_CONSUMER(_name, _dev_name, _supply)		        \
+-	static struct regulator_consumer_supply _name##_consumers[] = {	\
+-		REGULATOR_SUPPLY(_supply, _dev_name),			\
+-	}
+-
+-REGULATOR_CONSUMER(ldo3, "reg-userspace-consumer.0", "vcc gps");
+-REGULATOR_CONSUMER(ldo5, NULL, "vcc cam");
+-REGULATOR_CONSUMER(ldo10, "pxa2xx-mci", "vcc sdio");
+-REGULATOR_CONSUMER(ldo12, NULL, "vcc usb");
+-REGULATOR_CONSUMER(ldo19, "reg-userspace-consumer.1", "vcc gprs");
+-REGULATOR_CONSUMER(buck2, NULL, "vcc_core");
+-
+-#define REGULATOR_INIT(_ldo, _min_uV, _max_uV, _ops_mask)		\
+-	static struct regulator_init_data _ldo##_data = {		\
+-		.constraints = {					\
+-			.min_uV = _min_uV,				\
+-			.max_uV = _max_uV,				\
+-			.state_mem = {					\
+-				.enabled = 0,				\
+-			},						\
+-			.valid_ops_mask = _ops_mask,			\
+-			.apply_uV = 1,					\
+-		},							\
+-		.num_consumer_supplies = ARRAY_SIZE(_ldo##_consumers),	\
+-		.consumer_supplies = _ldo##_consumers,			\
+-	};
+-
+-REGULATOR_INIT(ldo3, 3200000, 3200000, REGULATOR_CHANGE_STATUS);
+-REGULATOR_INIT(ldo5, 3000000, 3000000, REGULATOR_CHANGE_STATUS);
+-REGULATOR_INIT(ldo10, 2000000, 3200000,
+-	       REGULATOR_CHANGE_STATUS | REGULATOR_CHANGE_VOLTAGE);
+-REGULATOR_INIT(ldo12, 3000000, 3000000, REGULATOR_CHANGE_STATUS);
+-REGULATOR_INIT(ldo19, 3200000, 3200000, REGULATOR_CHANGE_STATUS);
+-REGULATOR_INIT(buck2, 1000000, 1650000, REGULATOR_CHANGE_VOLTAGE);
+-
+-struct led_info em_x270_led_info = {
+-	.name = "em-x270:orange",
+-	.default_trigger = "battery-charging-or-full",
+-};
+-
+-struct power_supply_info em_x270_psy_info = {
+-	.name = "battery",
+-	.technology = POWER_SUPPLY_TECHNOLOGY_LIPO,
+-	.voltage_max_design = 4200000,
+-	.voltage_min_design = 3000000,
+-	.use_for_apm = 1,
+-};
+-
+-static void em_x270_battery_low(void)
+-{
+-#if defined(CONFIG_APM_EMULATION)
+-	apm_queue_event(APM_LOW_BATTERY);
+-#endif
+-}
+-
+-static void em_x270_battery_critical(void)
+-{
+-#if defined(CONFIG_APM_EMULATION)
+-	apm_queue_event(APM_CRITICAL_SUSPEND);
+-#endif
+-}
+-
+-struct da9030_battery_info em_x270_batterty_info = {
+-	.battery_info = &em_x270_psy_info,
+-
+-	.charge_milliamp = 1000,
+-	.charge_millivolt = 4200,
+-
+-	.vbat_low = 3600,
+-	.vbat_crit = 3400,
+-	.vbat_charge_start = 4100,
+-	.vbat_charge_stop = 4200,
+-	.vbat_charge_restart = 4000,
+-
+-	.vcharge_min = 3200,
+-	.vcharge_max = 5500,
+-
+-	.tbat_low = 197,
+-	.tbat_high = 78,
+-	.tbat_restart = 100,
+-
+-	.batmon_interval = 0,
+-
+-	.battery_low = em_x270_battery_low,
+-	.battery_critical = em_x270_battery_critical,
+-};
+-
+-#define DA9030_SUBDEV(_name, _id, _pdata)	\
+-	{					\
+-		.name = "da903x-" #_name,	\
+-		.id = DA9030_ID_##_id,		\
+-		.platform_data = _pdata,	\
+-	}
+-
+-#define DA9030_LDO(num)	DA9030_SUBDEV(regulator, LDO##num, &ldo##num##_data)
+-
+-struct da903x_subdev_info em_x270_da9030_subdevs[] = {
+-	DA9030_LDO(3),
+-	DA9030_LDO(5),
+-	DA9030_LDO(10),
+-	DA9030_LDO(12),
+-	DA9030_LDO(19),
+-
+-	DA9030_SUBDEV(regulator, BUCK2, &buck2_data),
+-
+-	DA9030_SUBDEV(led, LED_PC, &em_x270_led_info),
+-	DA9030_SUBDEV(backlight, WLED, &em_x270_led_info),
+-	DA9030_SUBDEV(battery, BAT, &em_x270_batterty_info),
+-};
+-
+-static struct da903x_platform_data em_x270_da9030_info = {
+-	.num_subdevs = ARRAY_SIZE(em_x270_da9030_subdevs),
+-	.subdevs = em_x270_da9030_subdevs,
+-};
+-
+-static struct i2c_board_info em_x270_i2c_pmic_info = {
+-	I2C_BOARD_INFO("da9030", 0x49),
+-	.irq = PXA_GPIO_TO_IRQ(0),
+-	.platform_data = &em_x270_da9030_info,
+-};
+-
+-static struct i2c_pxa_platform_data em_x270_pwr_i2c_info = {
+-	.use_pio = 1,
+-};
+-
+-static void __init em_x270_init_da9030(void)
+-{
+-	pxa27x_set_i2c_power_info(&em_x270_pwr_i2c_info);
+-	i2c_register_board_info(1, &em_x270_i2c_pmic_info, 1);
+-}
+-
+-static struct pca953x_platform_data exeda_gpio_ext_pdata = {
+-	.gpio_base = 128,
+-};
+-
+-static struct i2c_board_info exeda_i2c_info[] = {
+-	{
+-		I2C_BOARD_INFO("pca9555", 0x21),
+-		.platform_data = &exeda_gpio_ext_pdata,
+-	},
+-};
+-
+-static struct i2c_pxa_platform_data em_x270_i2c_info = {
+-	.fast_mode = 1,
+-};
+-
+-static void __init em_x270_init_i2c(void)
+-{
+-	pxa_set_i2c_info(&em_x270_i2c_info);
+-
+-	if (machine_is_exeda())
+-		i2c_register_board_info(0, ARRAY_AND_SIZE(exeda_i2c_info));
+-}
+-
+-static void __init em_x270_module_init(void)
+-{
+-	pxa2xx_mfp_config(ARRAY_AND_SIZE(em_x270_pin_config));
+-
+-	mmc_cd = GPIO13_MMC_CD;
+-	nand_rb = GPIO56_NAND_RB;
+-	dm9000_flags = DM9000_PLATF_32BITONLY;
+-	cam_reset = GPIO93_CAM_RESET;
+-	usb_hub_reset = GPIO16_USB_HUB_RESET;
+-}
+-
+-static void __init em_x270_exeda_init(void)
+-{
+-	pxa2xx_mfp_config(ARRAY_AND_SIZE(exeda_pin_config));
+-
+-	mmc_cd = GPIO114_MMC_CD;
+-	nand_rb = GPIO20_NAND_RB;
+-	dm9000_flags = DM9000_PLATF_16BITONLY;
+-	cam_reset = GPIO130_CAM_RESET;
+-	usb_hub_reset = GPIO10_USB_HUB_RESET;
+-}
+-
+-static void __init em_x270_init(void)
+-{
+-	pxa2xx_mfp_config(ARRAY_AND_SIZE(common_pin_config));
+-
+-	pxa_set_ffuart_info(NULL);
+-	pxa_set_btuart_info(NULL);
+-	pxa_set_stuart_info(NULL);
+-
+-#ifdef CONFIG_PM
+-	pxa27x_set_pwrmode(PWRMODE_DEEPSLEEP);
+-#endif
+-
+-	if (machine_is_em_x270())
+-		em_x270_module_init();
+-	else if (machine_is_exeda())
+-		em_x270_exeda_init();
+-	else
+-		panic("Unsupported machine: %d\n", machine_arch_type);
+-
+-	em_x270_init_da9030();
+-	em_x270_init_dm9000();
+-	em_x270_init_rtc();
+-	em_x270_init_nand();
+-	em_x270_init_nor();
+-	em_x270_init_lcd();
+-	em_x270_init_mmc();
+-	em_x270_init_ohci();
+-	em_x270_init_keypad();
+-	em_x270_init_gpio_keys();
+-	em_x270_init_ac97();
+-	em_x270_init_spi();
+-	em_x270_init_i2c();
+-	em_x270_init_camera();
+-	em_x270_userspace_consumers_init();
+-
+-	regulator_has_full_constraints();
+-}
+-
+-MACHINE_START(EM_X270, "Compulab EM-X270")
+-	.atag_offset	= 0x100,
+-	.map_io		= pxa27x_map_io,
+-	.nr_irqs	= PXA_NR_IRQS,
+-	.init_irq	= pxa27x_init_irq,
+-	.handle_irq	= pxa27x_handle_irq,
+-	.init_time	= pxa_timer_init,
+-	.init_machine	= em_x270_init,
+-	.restart	= pxa_restart,
+-MACHINE_END
+-
+-MACHINE_START(EXEDA, "Compulab eXeda")
+-	.atag_offset	= 0x100,
+-	.map_io		= pxa27x_map_io,
+-	.nr_irqs	= PXA_NR_IRQS,
+-	.init_irq	= pxa27x_init_irq,
+-	.handle_irq	= pxa27x_handle_irq,
+-	.init_time	= pxa_timer_init,
+-	.init_machine	= em_x270_init,
+-	.restart	= pxa_restart,
+-MACHINE_END
+diff --git a/arch/arm/mach-pxa/include/mach/io.h b/arch/arm/mach-pxa/include/mach/io.h
+deleted file mode 100644
+index d54031c4f3df..000000000000
+--- a/arch/arm/mach-pxa/include/mach/io.h
++++ /dev/null
+@@ -1,18 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
+-/*
+- * arch/arm/mach-pxa/include/mach/io.h
+- *
+- * Copied from asm/arch/sa1100/io.h
+- */
+-#ifndef __ASM_ARM_ARCH_IO_H
+-#define __ASM_ARM_ARCH_IO_H
+-
+-#define IO_SPACE_LIMIT 0xffffffff
+-
+-/*
+- * We don't actually have real ISA nor PCI buses, but there is so many
+- * drivers out there that might just work if we fake them...
+- */
+-#define __io(a)		__typesafe_io(a)
+-
+-#endif
+-- 
+2.26.2
 

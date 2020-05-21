@@ -2,98 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 612831DCC27
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 May 2020 13:32:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42A131DCE8D
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 May 2020 15:50:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D56D91815;
-	Thu, 21 May 2020 13:31:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D56D91815
+	by alsa0.perex.cz (Postfix) with ESMTPS id B619E1834;
+	Thu, 21 May 2020 15:49:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B619E1834
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590060736;
-	bh=jcaWu+akgBksgemcnhImuWq+XQDwj7Yn5GhLPQnDb/M=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=pBOCKZAr8tuTroHwhXs7OykOgOiNw39ggp49Db4dNH5YGgHQoF8QHE8zRpuDKkJfR
-	 28Xo8kVffKBhROPHY17esE0agut83NPe7zKwSmfsWSB+JCvLpwwy8QzIKO8BodUyI4
-	 jj2ybUVxbVuQkNCPgL8t5pCsQB/uPulkfO+yyEqo=
+	s=default; t=1590069013;
+	bh=VPz0HNeyR3W0Jay0unv8igXkIStaOcHgJOpe7GpRSds=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=HJYt7rt/A51iG5sIW5diuV97bH0kofL6UOovtMD1lWluzLVtU0oF/wyhI3PaxAX9F
+	 ElVFwLmutSYbIN4sd2BRDJALUJrTlFgUOd1pK8y01iKvBR8GH9VwsWb2waXizU+BM2
+	 XDUE/1UURhIPgF8n4uk0hrCyux+y3zTgDlG1Bhyo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ECF1FF801F8;
-	Thu, 21 May 2020 13:30:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B9C7CF80111;
+	Thu, 21 May 2020 15:48:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D382FF801D8; Thu, 21 May 2020 13:30:32 +0200 (CEST)
+ id BE795F801D8; Thu, 21 May 2020 15:48:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
- [IPv6:2607:f8b0:4864:20::744])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
+ [IPv6:2a00:1450:4864:20::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 973C3F80111
- for <alsa-devel@alsa-project.org>; Thu, 21 May 2020 13:30:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 973C3F80111
+ by alsa1.perex.cz (Postfix) with ESMTPS id C23EFF80161
+ for <alsa-devel@alsa-project.org>; Thu, 21 May 2020 15:48:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C23EFF80161
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="MqYN+vMi"
-Received: by mail-qk1-x744.google.com with SMTP id f189so6812790qkd.5
- for <alsa-devel@alsa-project.org>; Thu, 21 May 2020 04:30:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=mVnGuA/c41po031/Zyo9z05iki6LpXCl3bw26UlV5Og=;
- b=MqYN+vMiHTEaW4UwLRy16WRoYfu+LJ4pOncpItD4O1GRnxH8TmktN6T6b2PcHxyEwB
- /Ls2IApWVfXgN0RNquNulhQ49MIzfMO2KbQlpew/gmesTLhSAFACIhd9NN5hvF8aTXrJ
- 9dGZyhMELfyMK2fbiMTxbSKpZ8EVlDN75FSZjN4lYOI29EfHTi0l6te+3DGNqlishUcI
- ufFCYzDFtCRCTDhyOG4tSbItgT3oIdpuWbG9YF8aGWnFAtPl3K8qizsCVOk3/weuXndt
- nd8yUP/5mHGC7HDR1cjV9fJCWbl4EUH4bqfDeIq+Fhmmrdj99nMfB4lAH2i7rVf5TT9v
- sLsQ==
+ dkim=pass (2048-bit key) header.d=semihalf-com.20150623.gappssmtp.com
+ header.i=@semihalf-com.20150623.gappssmtp.com header.b="pUnYvjpk"
+Received: by mail-lj1-x242.google.com with SMTP id g1so8314505ljk.7
+ for <alsa-devel@alsa-project.org>; Thu, 21 May 2020 06:48:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=semihalf-com.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=pH9cEzMdlBdBgEDMA64UL6IXOcAleJWuFP5XbwVBWW8=;
+ b=pUnYvjpky687oTNF+PI0bZNl2QXyeVUsYn9IJxV4LbmZ/MhP20YPv0s7DebCtnu1gb
+ YUbzJuLR/gYEJawwZeKJGl7Dnqpyzp5RWFs07Abu/72iY0fTXwl16zneURCgg8VbB2sK
+ Nj2dyxchZQimc6HyVMnJ3cmrApG2+lM4FsNR2UzHl9yv3RdjawSs6WT3t5L5CPL68Dww
+ FqCYvhIol2L9rKpD/6equ0evP9TTowuJU084xdt4pfqc/KgzI0z0MAguqc1KfP1D+GuU
+ kcjn55wrug9DO++Od+48KimpVd1agoEHwEnKqjw+ECRKnlewlzep8pGGcMmqy+AY+nPu
+ zr6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=mVnGuA/c41po031/Zyo9z05iki6LpXCl3bw26UlV5Og=;
- b=FQsG4BJVoNuYrhD3fZwV0SWNGc2l2llY7rZgdwQfEzGuWeJ8ibwnRF9yKfJ7QudHor
- OUCvdqtlJ4eb3aMNxlb+4zvmjqC8qisuYj9S28tquEJRGTxx+YYbf10YjVytFUpPuLVa
- dqcwiLOyUj6az3ruFwYiCa3PeFxW2NNR3bz18UQfqaBPGAdsA8uBHUr/f5dnuIG9Ndcd
- 5alUWFHBF4nDcxEDGN0x/Z3WqfIU3InvYXDRDL0ABBlQdOrsD4k3cpuAAbuX4JlY4KEI
- wk0iRCpkRFuIilmlbEKniokNyLCzO3SzFM2ow8Y4X3bCbdrsjpZJFKTsd3QNQGXS/6X5
- H2gg==
-X-Gm-Message-State: AOAM531fMhk3bdwcFR5DdBq0Rkw+v1pZ32mLVutbuQIMfK2YeH1CkVwi
- o2c2wfkmimwNRWDuMKoC1rfF5FqAOVfsg0VuL0k=
-X-Google-Smtp-Source: ABdhPJyt/PrPu0HyLCBNIAlcBPVwQP3EdSaZpX3l0+ThMZQ3Nc11G0djVdAg3aM+jm8BukBsG/8Iq0VgME50WXdM3Aw=
-X-Received: by 2002:a37:a50d:: with SMTP id o13mr9327701qke.121.1590060626064; 
- Thu, 21 May 2020 04:30:26 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=pH9cEzMdlBdBgEDMA64UL6IXOcAleJWuFP5XbwVBWW8=;
+ b=kqQhaJyf1RvpeUpWIegScEGsn4umo0CeMd9e+gNoMBSdqDuzghKDEik9wyBPgY7Ecr
+ ATZDF5RJ2LG5K8Cf2cilxt3zgplbp3SNJ6WLvhTYmrP/ggGDo5l+9Ul7Btz/B0nUOYTq
+ 2PWBzajOdW5CsjegDpbVk8PKruzalgYiZ1A7HWl7uSuixSk9pIzIzW6FpX0J5kW64lWy
+ yA6bz//4KpJyrVGhFWSw28p7HvS4BKrRu3tuCPZWfl1tBLhhzkgqRrmS+sfZOtfENZif
+ Ae6uzrW8FkXmJqJCpk8sMI2WoSsMlo4aAfvfXOIsJYPc0rTRHUF/UApDEP2qMgXu2t0x
+ Nm0g==
+X-Gm-Message-State: AOAM530Kc443PI+L0GLS2kM1QmsupO5n5uCjooFf+B4K9GyJtbMQqqku
+ Qleiv4orK2VvyFCkCIRAbk4jng==
+X-Google-Smtp-Source: ABdhPJxSxqohXgZnn2+rsti3PBkelUMnlJeOoi1UXIyDlSkZzQ9GX+HCb3JD/nBXCcy1Eo5OmTj63g==
+X-Received: by 2002:a2e:b891:: with SMTP id r17mr5007635ljp.58.1590068900985; 
+ Thu, 21 May 2020 06:48:20 -0700 (PDT)
+Received: from localhost.localdomain (89-70-221-122.dynamic.chello.pl.
+ [89.70.221.122])
+ by smtp.gmail.com with ESMTPSA id w144sm1806574lff.67.2020.05.21.06.48.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 May 2020 06:48:20 -0700 (PDT)
+From: Lukasz Majczak <lma@semihalf.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>
+Subject: [PATCH] ASoC: Intel: kbl_rt5663_rt5514_max98927: Split
+ be_hw_params_fixup function
+Date: Thu, 21 May 2020 15:47:00 +0200
+Message-Id: <20200521134700.1035657-1-lma@semihalf.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <1589881301-4143-1-git-send-email-shengjiu.wang@nxp.com>
- <0866cd8cdb0c22f0b2a6814c4dafa29202aad5f3.camel@pengutronix.de>
- <CAA+D8APhHvA39wmCayeCsAEKmOJ0n7qOQiT1tZmFHr4+yASgTw@mail.gmail.com>
- <53258cd99caaf1199036737f8fad6cc097939567.camel@pengutronix.de>
- <CAA+D8APAMRwtVneqFsuBgAhozmQo3R0AQi0bVdUCQO4Af4xVfw@mail.gmail.com>
- <20200520123850.GE4823@sirena.org.uk>
-In-Reply-To: <20200520123850.GE4823@sirena.org.uk>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Thu, 21 May 2020 19:30:04 +0800
-Message-ID: <CAA+D8AOiVVi3B4dzU8r=rCMz=6w9R=wxBkzAQ=0=RAQLKCWy8Q@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: fsl: imx-pcm-dma: Don't request dma channel in probe
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org,
- Linux-ALSA <alsa-devel@alsa-project.org>, linuxppc-dev@lists.ozlabs.org,
- linux-kernel <linux-kernel@vger.kernel.org>, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, shawnguo@kernel.org,
- Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, dri-devel@lists.freedesktop.org,
- Nicolin Chen <nicoleotsuka@gmail.com>, linux-imx@nxp.com,
- kernel@pengutronix.de, linux-media@vger.kernel.org,
- Fabio Estevam <festevam@gmail.com>, s.hauer@pengutronix.de,
- linux-arm-kernel@lists.infradead.org, Lucas Stach <l.stach@pengutronix.de>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Radoslaw Biernacki <rad@semihalf.com>,
+ Ross Zwisler <zwisler@google.com>, linux-kernel@vger.kernel.org,
+ Bob Brandt <brndt@google.com>, Marcin Wojtas <mw@semihalf.com>,
+ Alex Levin <levinale@chromium.org>, Lukasz Majczak <lma@semihalf.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,30 +103,236 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, May 20, 2020 at 8:38 PM Mark Brown <broonie@kernel.org> wrote:
->
-> On Wed, May 20, 2020 at 07:22:19PM +0800, Shengjiu Wang wrote:
->
-> > I see some driver also request dma channel in open() or hw_params().
-> > how can they avoid the defer probe issue?
-> > for example=EF=BC=9A
-> > sound/arm/pxa2xx-pcm-lib.c
-> > sound/soc/sprd/sprd-pcm-dma.c
->
-> Other drivers having problems means those drivers should be fixed, not
-> that we should copy the problems.  In the case of the PXA driver that's
-> very old code which predates deferred probe by I'd guess a decade.
+Split be_hw_params_fixup function for different codecs as current common
+function, leads to crash while trying to get snd_soc_dpcm with
+container_of() macro in kabylake_ssp_fixup().
+The crash call path looks as below:
+soc_pcm_hw_params()
+snd_soc_dai_hw_params(codec_dai, substream, &codec_params);
+rtd->dai_link->be_hw_params_fixup(rtd, params)
+kabylake_ssp_fixup()
+In this case, codec_params is just a copy of an internal structure and is
+not embedded into struct snd_soc_dpcm thus we cannot use
+container_of() on it.
 
-Thanks.
+Signed-off-by: Lukasz Majczak <lma@semihalf.com>
+---
+ .../intel/boards/kbl_rt5663_rt5514_max98927.c | 130 ++++++++++++------
+ 1 file changed, 85 insertions(+), 45 deletions(-)
 
-For the FE-BE case, do you have any suggestion for how fix it?
+diff --git a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+index 1b1f8d7a4ea3..12a9983979e0 100644
+--- a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
++++ b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+@@ -171,8 +171,8 @@ static const struct snd_soc_dapm_route kabylake_map[] = {
+ 	{ "hs_in", NULL, "ssp1 Rx" },
+ 	{ "ssp1 Rx", NULL, "AIF Capture" },
+ 
+-	{ "codec1_in", NULL, "ssp0 Rx" },
+-	{ "ssp0 Rx", NULL, "AIF1 Capture" },
++	{ "codec1_in", NULL, "DMIC01 Rx" },
++	{ "DMIC01 Rx", NULL, "AIF1 Capture" },
+ 
+ 	/* IV feedback path */
+ 	{ "codec0_fb_in", NULL, "ssp0 Rx"},
+@@ -328,42 +328,52 @@ static const struct snd_soc_ops kabylake_rt5663_fe_ops = {
+ 	.startup = kbl_fe_startup,
+ };
+ 
+-static int kabylake_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
+-					struct snd_pcm_hw_params *params)
++static void kabylake_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
++	struct snd_pcm_hw_params *params, snd_pcm_format_t pcm_fmt)
+ {
+ 	struct snd_interval *rate = hw_param_interval(params,
+ 			SNDRV_PCM_HW_PARAM_RATE);
+-	struct snd_interval *chan = hw_param_interval(params,
++	struct snd_interval *channels = hw_param_interval(params,
+ 			SNDRV_PCM_HW_PARAM_CHANNELS);
+ 	struct snd_mask *fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
+-	struct snd_soc_dpcm *dpcm = container_of(
+-			params, struct snd_soc_dpcm, hw_params);
+-	struct snd_soc_dai_link *fe_dai_link = dpcm->fe->dai_link;
+-	struct snd_soc_dai_link *be_dai_link = dpcm->be->dai_link;
+ 
+ 	/*
+ 	 * The ADSP will convert the FE rate to 48k, stereo, 24 bit
+ 	 */
+-	if (!strcmp(fe_dai_link->name, "Kbl Audio Port") ||
+-	    !strcmp(fe_dai_link->name, "Kbl Audio Headset Playback") ||
+-	    !strcmp(fe_dai_link->name, "Kbl Audio Capture Port")) {
+-		rate->min = rate->max = 48000;
+-		chan->min = chan->max = 2;
+-		snd_mask_none(fmt);
+-		snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S24_LE);
+-	} else if (!strcmp(fe_dai_link->name, "Kbl Audio DMIC cap")) {
++
++	rate->min = rate->max = 48000;
++	channels->min = channels->max = 2;
++
++	snd_mask_none(fmt);
++	snd_mask_set_format(fmt, pcm_fmt);
++}
++
++static int kabylake_ssp0_fixup(struct snd_soc_pcm_runtime *rtd,
++	struct snd_pcm_hw_params *params)
++{
++	kabylake_ssp_fixup(rtd, params, SNDRV_PCM_FORMAT_S16_LE);
++	return 0;
++}
++
++static int kabylake_ssp1_fixup(struct snd_soc_pcm_runtime *rtd,
++	struct snd_pcm_hw_params *params)
++{
++
++	kabylake_ssp_fixup(rtd, params, SNDRV_PCM_FORMAT_S24_LE);
++	return 0;
++}
++
++static int kabylake_dmic_fixup(struct snd_soc_pcm_runtime *rtd,
++					struct snd_pcm_hw_params *params)
++{
++	struct snd_interval *channels = hw_param_interval(params,
++			SNDRV_PCM_HW_PARAM_CHANNELS);
++
+ 		if (params_channels(params) == 2 ||
+ 				DMIC_CH(dmic_constraints) == 2)
+-			chan->min = chan->max = 2;
++			channels->min = channels->max = 2;
+ 		else
+-			chan->min = chan->max = 4;
+-	}
+-	/*
+-	 * The speaker on the SSP0 supports S16_LE and not S24_LE.
+-	 * thus changing the mask here
+-	 */
+-	if (!strcmp(be_dai_link->name, "SSP0-Codec"))
+-		snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S16_LE);
++			channels->min = channels->max = 4;
+ 
+ 	return 0;
+ }
+@@ -400,20 +410,6 @@ static int kabylake_ssp0_hw_params(struct snd_pcm_substream *substream,
+ 	int ret = 0, j;
+ 
+ 	for_each_rtd_codec_dais(rtd, j, codec_dai) {
+-		if (!strcmp(codec_dai->component->name, RT5514_DEV_NAME)) {
+-			ret = snd_soc_dai_set_tdm_slot(codec_dai, 0xF, 0, 8, 16);
+-			if (ret < 0) {
+-				dev_err(rtd->dev, "set TDM slot err:%d\n", ret);
+-				return ret;
+-			}
+-
+-			ret = snd_soc_dai_set_sysclk(codec_dai,
+-				RT5514_SCLK_S_MCLK, 24576000, SND_SOC_CLOCK_IN);
+-			if (ret < 0) {
+-				dev_err(rtd->dev, "set sysclk err: %d\n", ret);
+-				return ret;
+-			}
+-		}
+ 		if (!strcmp(codec_dai->component->name, MAXIM_DEV0_NAME)) {
+ 			ret = snd_soc_dai_set_tdm_slot(codec_dai, 0x30, 3, 8, 16);
+ 			if (ret < 0) {
+@@ -433,10 +429,37 @@ static int kabylake_ssp0_hw_params(struct snd_pcm_substream *substream,
+ 	return ret;
+ }
+ 
++static int kabylake_dmic01_hw_params(struct snd_pcm_substream *substream,
++	struct snd_pcm_hw_params *params)
++{
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	int ret = 0;
++
++	ret = snd_soc_dai_set_tdm_slot(rtd->codec_dai, 0xF, 0, 8, 16);
++	if (ret < 0) {
++		dev_err(rtd->dev, "set TDM slot err:%d\n", ret);
++		return ret;
++	}
++
++	ret = snd_soc_dai_set_sysclk(rtd->codec_dai,
++		RT5514_SCLK_S_MCLK, 24576000, SND_SOC_CLOCK_IN);
++	if (ret < 0) {
++		dev_err(rtd->dev, "set sysclk err: %d\n", ret);
++		return ret;
++	}
++
++	return ret;
++}
++
+ static struct snd_soc_ops kabylake_ssp0_ops = {
+ 	.hw_params = kabylake_ssp0_hw_params,
+ };
+ 
++static struct snd_soc_ops kabylake_dmic01_ops = {
++	.hw_params = kabylake_dmic01_hw_params,
++};
++
++
+ static const unsigned int channels_dmic[] = {
+ 	4,
+ };
+@@ -507,14 +530,19 @@ SND_SOC_DAILINK_DEF(ssp0_pin,
+ SND_SOC_DAILINK_DEF(ssp0_codec,
+ 	DAILINK_COMP_ARRAY(
+ 	/* Left */ COMP_CODEC(MAXIM_DEV0_NAME, KBL_MAXIM_CODEC_DAI),
+-	/* Right */COMP_CODEC(MAXIM_DEV1_NAME, KBL_MAXIM_CODEC_DAI),
+-	/* dmic */ COMP_CODEC(RT5514_DEV_NAME, KBL_REALTEK_DMIC_CODEC_DAI)));
++	/* Right */COMP_CODEC(MAXIM_DEV1_NAME, KBL_MAXIM_CODEC_DAI)));
+ 
+ SND_SOC_DAILINK_DEF(ssp1_pin,
+ 	DAILINK_COMP_ARRAY(COMP_CPU("SSP1 Pin")));
+ SND_SOC_DAILINK_DEF(ssp1_codec,
+ 	DAILINK_COMP_ARRAY(COMP_CODEC(RT5663_DEV_NAME, KBL_REALTEK_CODEC_DAI)));
+ 
++SND_SOC_DAILINK_DEF(dmic01_pin,
++	DAILINK_COMP_ARRAY(COMP_CPU("DMIC01 Pin")));
++SND_SOC_DAILINK_DEF(dmic01_codec,
++	DAILINK_COMP_ARRAY(
++		COMP_CODEC(RT5514_DEV_NAME, KBL_REALTEK_DMIC_CODEC_DAI)));
++
+ SND_SOC_DAILINK_DEF(idisp1_pin,
+ 	DAILINK_COMP_ARRAY(COMP_CPU("iDisp1 Pin")));
+ SND_SOC_DAILINK_DEF(idisp1_codec,
+@@ -618,9 +646,8 @@ static struct snd_soc_dai_link kabylake_dais[] = {
+ 			SND_SOC_DAIFMT_NB_NF |
+ 			SND_SOC_DAIFMT_CBS_CFS,
+ 		.ignore_pmdown_time = 1,
+-		.be_hw_params_fixup = kabylake_ssp_fixup,
++		.be_hw_params_fixup = kabylake_ssp0_fixup,
+ 		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.ops = &kabylake_ssp0_ops,
+ 		SND_SOC_DAILINK_REG(ssp0_pin, ssp0_codec, platform),
+ 	},
+@@ -632,12 +659,25 @@ static struct snd_soc_dai_link kabylake_dais[] = {
+ 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
+ 			SND_SOC_DAIFMT_CBS_CFS,
+ 		.ignore_pmdown_time = 1,
+-		.be_hw_params_fixup = kabylake_ssp_fixup,
++		.be_hw_params_fixup = kabylake_ssp1_fixup,
+ 		.ops = &kabylake_rt5663_ops,
+ 		.dpcm_playback = 1,
+ 		.dpcm_capture = 1,
+ 		SND_SOC_DAILINK_REG(ssp1_pin, ssp1_codec, platform),
+ 	},
++	{
++		.name = "dmic01",
++		.id = 2,
++		.no_pcm = 1,
++		.dai_fmt = SND_SOC_DAIFMT_DSP_B |
++			SND_SOC_DAIFMT_NB_NF |
++			SND_SOC_DAIFMT_CBS_CFS,
++		.ignore_pmdown_time = 1,
++		.be_hw_params_fixup = kabylake_dmic_fixup,
++		.dpcm_capture = 1,
++		.ops = &kabylake_dmic01_ops,
++		SND_SOC_DAILINK_REG(dmic01_pin, dmic01_codec, platform),
++	},
+ 	{
+ 		.name = "iDisp1",
+ 		.id = 3,
 
-With DMA1->ASRC->DMA2->ESAI case, the DMA1->ASRC->DMA2
-is in FE,  ESAI is in BE.  When ESAI drvier probe,  DMA3 channel is
-created with ESAI's "dma:tx" (DMA3 channel
-is not used in this FE-BE case).    When FE-BE startup, DMA2
-channel is created, it needs the ESAI's "dma:tx", so the warning
-comes out.
+base-commit: a4f6fc98cd2fa1774bcaeb248c67156ef9402a56
+-- 
+2.25.1
 
-best regards
-wang shengjiu

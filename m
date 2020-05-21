@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FD831DC4FD
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 May 2020 04:00:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBDF01DC4FE
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 May 2020 04:00:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0213A181A;
-	Thu, 21 May 2020 03:59:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0213A181A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 618D61820;
+	Thu, 21 May 2020 03:59:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 618D61820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590026409;
-	bh=pI+QexgbFBkQXdNpjF6QhQFM0z+yayp9PDlp/79LAA4=;
+	s=default; t=1590026448;
+	bh=Je+PXRW45+vtYdGed1U33dg9VijJXohHKwF13OE+TaQ=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=H83yPhoAe/SU+8svKu+b7LWzDxT6dy8ikvjjH5QcOsODoAYAPxF9pNeza/tjKonps
-	 cCNFaJsOmb3CZavRSgXKWRu2YEWkRaUYVzfKYJzg/tG3/XFMDLsM4QkXvN4S4V3rZe
-	 OM8ntIH+uPPh2/0Vfg+XNlAugmWrcw6Hvh9FhRQw=
+	b=oM+AEgRrpgVc2pYzPfTDUzTXsiak2Pf1kNbiF9eE2mo/EBlCTPcVMmehTCp3ljtC4
+	 yDVHNImfB/0jdbrWfUp7UKslNEAeBqXjAouOd07nn/ZQHHzmv3sl6xd0sJtHg0/107
+	 cBqj0IRm3HK6zFr/ymOODTxL3MABKG9wc1YE7e/o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47101F802A9;
-	Thu, 21 May 2020 03:57:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BCBA9F801F8;
+	Thu, 21 May 2020 03:57:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BB5B7F802A8; Thu, 21 May 2020 03:57:32 +0200 (CEST)
+ id 0427CF802BE; Thu, 21 May 2020 03:57:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 0DABEF802A2
- for <alsa-devel@alsa-project.org>; Thu, 21 May 2020 03:57:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DABEF802A2
-Date: 21 May 2020 10:57:24 +0900
-X-IronPort-AV: E=Sophos;i="5.73,416,1583161200"; d="scan'208";a="47622575"
+ by alsa1.perex.cz (Postfix) with ESMTP id 68A38F802A8
+ for <alsa-devel@alsa-project.org>; Thu, 21 May 2020 03:57:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68A38F802A8
+Date: 21 May 2020 10:57:36 +0900
+X-IronPort-AV: E=Sophos;i="5.73,416,1583161200"; d="scan'208";a="47622591"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 21 May 2020 10:57:24 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 21 May 2020 10:57:36 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id D4359400C44F;
- Thu, 21 May 2020 10:57:24 +0900 (JST)
-Message-ID: <87y2pm3v97.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 39F1C400C448;
+ Thu, 21 May 2020 10:57:36 +0900 (JST)
+Message-ID: <87wo563v8v.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 4/7] ASoC: soc-link: add snd_soc_link_be_hw_params_fixup()
+Subject: [PATCH v2 5/7] ASoC: soc-link: add snd_soc_link_compr_startup()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <874ksa59wc.wl-kuninori.morimoto.gx@renesas.com>
@@ -71,121 +71,96 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 dai_link related function should be implemented at soc-link.c.
-This patch adds snd_soc_link_be_hw_params_fixup().
+This patch adds snd_soc_link_compr_startup().
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc-link.h |  3 +++
- sound/soc/soc-core.c     |  6 +++++-
- sound/soc/soc-dai.c      |  9 ++++-----
- sound/soc/soc-link.c     | 11 +++++++++++
- sound/soc/soc-pcm.c      | 13 +++----------
- 5 files changed, 26 insertions(+), 16 deletions(-)
+ include/sound/soc-link.h |  2 ++
+ sound/soc/soc-compress.c | 24 +++++++-----------------
+ sound/soc/soc-link.c     | 13 +++++++++++++
+ 3 files changed, 22 insertions(+), 17 deletions(-)
 
 diff --git a/include/sound/soc-link.h b/include/sound/soc-link.h
-index 2a81dca945cd..aae72f668de6 100644
+index aae72f668de6..20fe46f31e33 100644
 --- a/include/sound/soc-link.h
 +++ b/include/sound/soc-link.h
-@@ -9,6 +9,9 @@
- #define __SOC_LINK_H
+@@ -20,4 +20,6 @@ int snd_soc_link_hw_params(struct snd_pcm_substream *substream,
+ void snd_soc_link_hw_free(struct snd_pcm_substream *substream);
+ int snd_soc_link_trigger(struct snd_pcm_substream *substream, int cmd);
  
- int snd_soc_link_init(struct snd_soc_pcm_runtime *rtd);
-+int snd_soc_link_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
-+				    struct snd_pcm_hw_params *params);
++int snd_soc_link_compr_startup(struct snd_compr_stream *cstream);
 +
- int snd_soc_link_startup(struct snd_pcm_substream *substream);
- void snd_soc_link_shutdown(struct snd_pcm_substream *substream);
- int snd_soc_link_prepare(struct snd_pcm_substream *substream);
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 955e175643d7..e1b65059c0c4 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -1656,7 +1656,11 @@ static void soc_check_tplg_fes(struct snd_soc_card *card)
- 			dai_link->dpcm_playback = 1;
- 			dai_link->dpcm_capture = 1;
- 
--			/* override any BE fixups */
-+			/*
-+			 * override any BE fixups
-+			 * see
-+			 *	snd_soc_link_be_hw_params_fixup()
-+			 */
- 			dai_link->be_hw_params_fixup =
- 				component->driver->be_hw_params_fixup;
- 
-diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
-index ce4e1fd1ab79..2c6ac3b0afa5 100644
---- a/sound/soc/soc-dai.c
-+++ b/sound/soc/soc-dai.c
-@@ -8,6 +8,7 @@
- 
+ #endif /* __SOC_LINK_H */
+diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
+index 62ece729e425..ddc6c6f69d2f 100644
+--- a/sound/soc/soc-compress.c
++++ b/sound/soc/soc-compress.c
+@@ -19,6 +19,7 @@
  #include <sound/soc.h>
- #include <sound/soc-dai.h>
+ #include <sound/initval.h>
+ #include <sound/soc-dpcm.h>
 +#include <sound/soc-link.h>
+ #include <linux/pm_runtime.h>
  
- #define soc_dai_ret(dai, ret) _soc_dai_ret(dai, __func__, ret)
- static inline int _soc_dai_ret(struct snd_soc_dai *dai,
-@@ -313,11 +314,9 @@ int snd_soc_dai_hw_params(struct snd_soc_dai *dai,
- 	int ret = 0;
+ static int soc_compr_components_open(struct snd_compr_stream *cstream,
+@@ -95,15 +96,9 @@ static int soc_compr_open(struct snd_compr_stream *cstream)
+ 	if (ret < 0)
+ 		goto machine_err;
  
- 	/* perform any topology hw_params fixups before DAI  */
--	if (rtd->dai_link->be_hw_params_fixup) {
--		ret = rtd->dai_link->be_hw_params_fixup(rtd, params);
--		if (ret < 0)
--			goto end;
+-	if (rtd->dai_link->compr_ops && rtd->dai_link->compr_ops->startup) {
+-		ret = rtd->dai_link->compr_ops->startup(cstream);
+-		if (ret < 0) {
+-			dev_err(rtd->dev,
+-				"Compress ASoC: %s startup failed: %d\n",
+-				rtd->dai_link->name, ret);
+-			goto machine_err;
+-		}
 -	}
-+	ret = snd_soc_link_be_hw_params_fixup(rtd, params);
++	ret = snd_soc_link_compr_startup(cstream);
 +	if (ret < 0)
-+		goto end;
++		goto machine_err;
  
- 	if (dai->driver->ops &&
- 	    dai->driver->ops->hw_params)
+ 	snd_soc_runtime_activate(rtd, cstream->direction);
+ 
+@@ -179,14 +174,9 @@ static int soc_compr_open_fe(struct snd_compr_stream *cstream)
+ 	if (ret < 0)
+ 		goto open_err;
+ 
+-	if (fe->dai_link->compr_ops && fe->dai_link->compr_ops->startup) {
+-		ret = fe->dai_link->compr_ops->startup(cstream);
+-		if (ret < 0) {
+-			pr_err("Compress ASoC: %s startup failed: %d\n",
+-			       fe->dai_link->name, ret);
+-			goto machine_err;
+-		}
+-	}
++	ret = snd_soc_link_compr_startup(cstream);
++	if (ret < 0)
++		goto machine_err;
+ 
+ 	dpcm_clear_pending_state(fe, stream);
+ 	dpcm_path_put(&list);
 diff --git a/sound/soc/soc-link.c b/sound/soc/soc-link.c
-index 691910e82bff..a735b3ba2385 100644
+index a735b3ba2385..9e1c524db3d6 100644
 --- a/sound/soc/soc-link.c
 +++ b/sound/soc/soc-link.c
-@@ -35,6 +35,17 @@ int snd_soc_link_init(struct snd_soc_pcm_runtime *rtd)
+@@ -112,3 +112,16 @@ int snd_soc_link_trigger(struct snd_pcm_substream *substream, int cmd)
+ 
  	return soc_link_ret(rtd, ret);
  }
- 
-+int snd_soc_link_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
-+				    struct snd_pcm_hw_params *params)
++
++int snd_soc_link_compr_startup(struct snd_compr_stream *cstream)
 +{
++	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
 +	int ret = 0;
 +
-+	if (rtd->dai_link->be_hw_params_fixup)
-+		ret = rtd->dai_link->be_hw_params_fixup(rtd, params);
++	if (rtd->dai_link->compr_ops &&
++	    rtd->dai_link->compr_ops->startup)
++		ret = rtd->dai_link->compr_ops->startup(cstream);
 +
 +	return soc_link_ret(rtd, ret);
 +}
-+
- int snd_soc_link_startup(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 0204a3ecfc8b..80dd3cf6200c 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -2079,16 +2079,9 @@ int dpcm_be_dai_hw_params(struct snd_soc_pcm_runtime *fe, int stream)
- 				sizeof(struct snd_pcm_hw_params));
- 
- 		/* perform any hw_params fixups */
--		if (be->dai_link->be_hw_params_fixup) {
--			ret = be->dai_link->be_hw_params_fixup(be,
--					&dpcm->hw_params);
--			if (ret < 0) {
--				dev_err(be->dev,
--					"ASoC: hw_params BE fixup failed %d\n",
--					ret);
--				goto unwind;
--			}
--		}
-+		ret = snd_soc_link_be_hw_params_fixup(be, &dpcm->hw_params);
-+		if (ret < 0)
-+			goto unwind;
- 
- 		/* copy the fixed-up hw params for BE dai */
- 		memcpy(&be->dpcm[stream].hw_params, &dpcm->hw_params,
++EXPORT_SYMBOL_GPL(snd_soc_link_compr_startup);
 -- 
 2.17.1
 

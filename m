@@ -2,61 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAA8B1DE3B7
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 May 2020 12:09:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D5E91DE4FF
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 May 2020 13:02:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 60DC01882;
-	Fri, 22 May 2020 12:08:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60DC01882
+	by alsa0.perex.cz (Postfix) with ESMTPS id E39421882;
+	Fri, 22 May 2020 13:01:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E39421882
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590142155;
-	bh=Xre8tCINf9cnmeDWMIevh6PjJ6PYRNDtDsP3/Y4V6W0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=guFkIIm46UErXY+jTteFb2Qt2qC7xoXNsHWiQj/Qi0kOMWrTkWDUBcMJJgAqlPRUF
-	 AJ4xCQKj6OrvUrCg9IelMD63DXiY60ytstkFRtTNe6dxLn4IYTBS5EDKwQ3OY994LK
-	 xMyWlg/4hbuydTChX2/ApGbWiZyqrnrbenHX92Tg=
+	s=default; t=1590145340;
+	bh=tfBbqScwZyNvJWHpGRHVjG8LGXJ7tH0t1I8qXOHhuyI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=eHNlJqWD2e9ghVKvUxYGITaxZhhDmtdwsMXcXDgeMx8hlYbRWP6OLAivoptkygAjq
+	 w2Bkgfe1rGwO0vdAx+b/odG+i9Idwyt+UsZJGyZXCFsrR8hCgEAK8X3ZPJxw9OFJIy
+	 pTwk6AXaoO6RHfgtqJ143iaQz3JBC0ouCVu9beAY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 81509F801DA;
-	Fri, 22 May 2020 12:07:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E667EF80213;
+	Fri, 22 May 2020 13:00:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5267DF801F9; Fri, 22 May 2020 12:07:31 +0200 (CEST)
+ id 42932F801F9; Fri, 22 May 2020 13:00:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 77D51F80111
+ for <alsa-devel@alsa-project.org>; Fri, 22 May 2020 13:00:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77D51F80111
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="sj4dVWdG"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5332EF80111
- for <alsa-devel@alsa-project.org>; Fri, 22 May 2020 12:07:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5332EF80111
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 56EFF1A324F;
- Fri, 22 May 2020 12:07:23 +0200 (CEST)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 9A8B21A3239;
- Fri, 22 May 2020 12:07:18 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 0A9A740318;
- Fri, 22 May 2020 18:07:12 +0800 (SGT)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, broonie@kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com
-Subject: [PATCH] ASoC: fsl_asrc: Merge suspend/resume function to
- runtime_suspend/resume
-Date: Fri, 22 May 2020 17:57:24 +0800
-Message-Id: <1590141444-28668-1-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+ by mail.kernel.org (Postfix) with ESMTPSA id E117820679;
+ Fri, 22 May 2020 11:00:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1590145229;
+ bh=tfBbqScwZyNvJWHpGRHVjG8LGXJ7tH0t1I8qXOHhuyI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=sj4dVWdGvA+RNyt8m7etvr9KpPIAtsxLZfRSLzM6F+7Y+TffmS8FFGuA13r7NMnSs
+ eu1gWYyoP94VaO7WYwatQuG6S9iOAmgmPFH1IG7Kdx64nnwQZ4uHGBwBor9W6mDxMU
+ Cn+OTtj0jCTx5g3auftvJE4HEaFsEqxWwOZhWScs=
+Date: Fri, 22 May 2020 12:00:26 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Hui Wang <hui.wang@canonical.com>
+Subject: Re: [PATCH for-5.8] ASoC: amd: doesn't print error log if the return
+ value is EPROBE_DEFER
+Message-ID: <20200522110026.GA5801@sirena.org.uk>
+References: <20200521144434.14442-1-hui.wang@canonical.com>
+ <20200521154356.GD4770@sirena.org.uk>
+ <9062728e-cd0b-ec1c-e001-f191f3a351bc@canonical.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="rwEMma7ioTxnRzrJ"
+Content-Disposition: inline
+In-Reply-To: <9062728e-cd0b-ec1c-e001-f191f3a351bc@canonical.com>
+X-Cookie: C for yourself.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,128 +84,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-With dedicated power domain for asrc, power can be disabled after
-probe and pm runtime suspend, then the value of all registers need to
-be restored in pm runtime resume. So we can merge suspend/resume function
-to runtime_suspend/resume function and enable regcache only in end of
-probe.
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
- sound/soc/fsl/fsl_asrc.c | 70 ++++++++++++++++------------------------
- 1 file changed, 27 insertions(+), 43 deletions(-)
+--rwEMma7ioTxnRzrJ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-index 432936039de4..3ebbe15ac378 100644
---- a/sound/soc/fsl/fsl_asrc.c
-+++ b/sound/soc/fsl/fsl_asrc.c
-@@ -1100,6 +1100,7 @@ static int fsl_asrc_probe(struct platform_device *pdev)
- 	platform_set_drvdata(pdev, asrc);
- 	pm_runtime_enable(&pdev->dev);
- 	spin_lock_init(&asrc->lock);
-+	regcache_cache_only(asrc->regmap, true);
- 
- 	ret = devm_snd_soc_register_component(&pdev->dev, &fsl_asrc_component,
- 					      &fsl_asrc_dai, 1);
-@@ -1117,6 +1118,7 @@ static int fsl_asrc_runtime_resume(struct device *dev)
- 	struct fsl_asrc *asrc = dev_get_drvdata(dev);
- 	struct fsl_asrc_priv *asrc_priv = asrc->private;
- 	int i, ret;
-+	u32 asrctr;
- 
- 	ret = clk_prepare_enable(asrc->mem_clk);
- 	if (ret)
-@@ -1135,6 +1137,24 @@ static int fsl_asrc_runtime_resume(struct device *dev)
- 			goto disable_asrck_clk;
- 	}
- 
-+	/* Stop all pairs provisionally */
-+	regmap_read(asrc->regmap, REG_ASRCTR, &asrctr);
-+	regmap_update_bits(asrc->regmap, REG_ASRCTR,
-+			   ASRCTR_ASRCEi_ALL_MASK, 0);
-+
-+	/* Restore all registers */
-+	regcache_cache_only(asrc->regmap, false);
-+	regcache_mark_dirty(asrc->regmap);
-+	regcache_sync(asrc->regmap);
-+
-+	regmap_update_bits(asrc->regmap, REG_ASRCFG,
-+			   ASRCFG_NDPRi_ALL_MASK | ASRCFG_POSTMODi_ALL_MASK |
-+			   ASRCFG_PREMODi_ALL_MASK, asrc_priv->regcache_cfg);
-+
-+	/* Restart enabled pairs */
-+	regmap_update_bits(asrc->regmap, REG_ASRCTR,
-+			   ASRCTR_ASRCEi_ALL_MASK, asrctr);
-+
- 	return 0;
- 
- disable_asrck_clk:
-@@ -1155,6 +1175,11 @@ static int fsl_asrc_runtime_suspend(struct device *dev)
- 	struct fsl_asrc_priv *asrc_priv = asrc->private;
- 	int i;
- 
-+	regmap_read(asrc->regmap, REG_ASRCFG,
-+		    &asrc_priv->regcache_cfg);
-+
-+	regcache_cache_only(asrc->regmap, true);
-+
- 	for (i = 0; i < ASRC_CLK_MAX_NUM; i++)
- 		clk_disable_unprepare(asrc_priv->asrck_clk[i]);
- 	if (!IS_ERR(asrc->spba_clk))
-@@ -1166,51 +1191,10 @@ static int fsl_asrc_runtime_suspend(struct device *dev)
- }
- #endif /* CONFIG_PM */
- 
--#ifdef CONFIG_PM_SLEEP
--static int fsl_asrc_suspend(struct device *dev)
--{
--	struct fsl_asrc *asrc = dev_get_drvdata(dev);
--	struct fsl_asrc_priv *asrc_priv = asrc->private;
--
--	regmap_read(asrc->regmap, REG_ASRCFG,
--		    &asrc_priv->regcache_cfg);
--
--	regcache_cache_only(asrc->regmap, true);
--	regcache_mark_dirty(asrc->regmap);
--
--	return 0;
--}
--
--static int fsl_asrc_resume(struct device *dev)
--{
--	struct fsl_asrc *asrc = dev_get_drvdata(dev);
--	struct fsl_asrc_priv *asrc_priv = asrc->private;
--	u32 asrctr;
--
--	/* Stop all pairs provisionally */
--	regmap_read(asrc->regmap, REG_ASRCTR, &asrctr);
--	regmap_update_bits(asrc->regmap, REG_ASRCTR,
--			   ASRCTR_ASRCEi_ALL_MASK, 0);
--
--	/* Restore all registers */
--	regcache_cache_only(asrc->regmap, false);
--	regcache_sync(asrc->regmap);
--
--	regmap_update_bits(asrc->regmap, REG_ASRCFG,
--			   ASRCFG_NDPRi_ALL_MASK | ASRCFG_POSTMODi_ALL_MASK |
--			   ASRCFG_PREMODi_ALL_MASK, asrc_priv->regcache_cfg);
--
--	/* Restart enabled pairs */
--	regmap_update_bits(asrc->regmap, REG_ASRCTR,
--			   ASRCTR_ASRCEi_ALL_MASK, asrctr);
--
--	return 0;
--}
--#endif /* CONFIG_PM_SLEEP */
--
- static const struct dev_pm_ops fsl_asrc_pm = {
- 	SET_RUNTIME_PM_OPS(fsl_asrc_runtime_suspend, fsl_asrc_runtime_resume, NULL)
--	SET_SYSTEM_SLEEP_PM_OPS(fsl_asrc_suspend, fsl_asrc_resume)
-+	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-+				pm_runtime_force_resume)
- };
- 
- static const struct fsl_asrc_soc_data fsl_asrc_imx35_data = {
--- 
-2.21.0
+On Fri, May 22, 2020 at 03:47:22PM +0800, Hui Wang wrote:
 
+> There are many modules in the kernel, no other modules print the -517 error
+
+This is quite simply not true.
+
+> or warning, so if this driver prints it, it really confuses users (according
+> to my test, the audio works but the kernel prints this error with 100%
+> chance, and within ubuntu, the error message is read color, it is very
+> easily caught by users).
+
+> How about we put off the registering the machine device, this can guarantee
+> everything is ready when machine driver's probe is called. I will send a V2
+> according to this idea.
+
+You could also lower the severity of the message when deferring.
+
+--rwEMma7ioTxnRzrJ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7HsMoACgkQJNaLcl1U
+h9ArMwf+LaC2zjWEnFPDcpxtlHJfUsYrioyY+4cwuvdVtDTJUDaljGgt5WWTukZC
+jQgmq2eLyBKoU+0ILrY+PSihkuEP5LZ86f3KXFPhD7JmuEGRtfAijfXBsMlkePmJ
+//X450rZIv6LY5R8kWMNM+ZJES5PPAueVlayDXZ+1gwnSeWIHfN8RTZNUJaXxdoE
+NrHH4rtLC8YX0KEHj0XbmKfB5+3uQkhL9qUBaIU7mrGf5uwwTjkOPd92Rp3Z0I/9
+nfqb5jTxn9C/aNtGud5K8I04mMvq4av5LCuw/VHu63AOGOZhGl3Rjsh7XxmEsHj4
+8C4tB3ZjSHpJhqbzBk7ujYBacbKvEA==
+=8b+d
+-----END PGP SIGNATURE-----
+
+--rwEMma7ioTxnRzrJ--

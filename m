@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 431591DDC0D
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 May 2020 02:19:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A14B1DDC0A
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 May 2020 02:18:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E63AD1865;
-	Fri, 22 May 2020 02:18:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E63AD1865
+	by alsa0.perex.cz (Postfix) with ESMTPS id 18692184F;
+	Fri, 22 May 2020 02:17:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18692184F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590106740;
-	bh=rIHrQPeO9wo1lLMVbRT3bHd5Nqh0t7x2+q4sIoR1sdU=;
+	s=default; t=1590106696;
+	bh=77X7rujsAMO7fcMKTBNXyKnLCUWDb32T6IzSDBIrLeo=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Rre9V4EG6J6hzGjciEASANzBAW87oHbaY5yeH1GR42CnU4enDIy9m99K2YfHxlDIC
-	 iRmhQeRuwR7TcA5f1rk24QgSsVjV4R1C4zan8R9gA16h+364o6DeQSNPOvX2pVwcNW
-	 jUzaHz5+JqLqesZw+rmvnPYsSWty8OCa7MqKxEa0=
+	b=NxLIKm2mwP2tJ9fJrkomoVUQD9Abyk5tWuQs8JI7+3yvE+JRPibfCyRLsRbXz1N26
+	 M8YDEJ0Z20+Hw9VQzYvGLtXlKqKn47U/D6KH6G32C1vgPelhp+IhWFKqoNIl+IDnSY
+	 K5i7ZHzyPFtaGnojZZIogo5Cd3Y8pdolkMtUgbA4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 60055F802E1;
-	Fri, 22 May 2020 02:14:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 265F7F802A9;
+	Fri, 22 May 2020 02:14:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 037F3F802C4; Fri, 22 May 2020 02:14:26 +0200 (CEST)
+ id BE457F802DC; Fri, 22 May 2020 02:14:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id B5E60F802A9
- for <alsa-devel@alsa-project.org>; Fri, 22 May 2020 02:14:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5E60F802A9
-Date: 22 May 2020 09:14:18 +0900
-X-IronPort-AV: E=Sophos;i="5.73,419,1583161200"; d="scan'208";a="47501910"
+ by alsa1.perex.cz (Postfix) with ESMTP id F2443F802C4
+ for <alsa-devel@alsa-project.org>; Fri, 22 May 2020 02:14:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2443F802C4
+Date: 22 May 2020 09:14:23 +0900
+X-IronPort-AV: E=Sophos;i="5.73,419,1583161200"; d="scan'208";a="47501914"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 22 May 2020 09:14:18 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 22 May 2020 09:14:23 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 9CAAF4142B65;
- Fri, 22 May 2020 09:14:18 +0900 (JST)
-Message-ID: <87d06w4yhx.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 94E994142B69;
+ Fri, 22 May 2020 09:14:23 +0900 (JST)
+Message-ID: <87blmg4yhs.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v3 6/7] ASoC: soc-link: add snd_soc_link_compr_shutdown()
+Subject: [PATCH v3 7/7] ASoC: soc-link: add snd_soc_link_compr_set_params()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87lflk4yk3.wl-kuninori.morimoto.gx@renesas.com>
@@ -71,68 +71,81 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 dai_link related function should be implemented at soc-link.c.
-This patch adds snd_soc_link_compr_shutdown().
+This patch adds snd_soc_link_compr_set_params().
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
  include/sound/soc-link.h |  1 +
- sound/soc/soc-compress.c |  6 ++----
- sound/soc/soc-link.c     | 10 ++++++++++
- 3 files changed, 13 insertions(+), 4 deletions(-)
+ sound/soc/soc-compress.c | 16 ++++++----------
+ sound/soc/soc-link.c     | 13 +++++++++++++
+ 3 files changed, 20 insertions(+), 10 deletions(-)
 
 diff --git a/include/sound/soc-link.h b/include/sound/soc-link.h
-index 20fe46f31e33..9ada62f8186f 100644
+index 9ada62f8186f..3dd6e33e94ec 100644
 --- a/include/sound/soc-link.h
 +++ b/include/sound/soc-link.h
-@@ -21,5 +21,6 @@ void snd_soc_link_hw_free(struct snd_pcm_substream *substream);
- int snd_soc_link_trigger(struct snd_pcm_substream *substream, int cmd);
+@@ -22,5 +22,6 @@ int snd_soc_link_trigger(struct snd_pcm_substream *substream, int cmd);
  
  int snd_soc_link_compr_startup(struct snd_compr_stream *cstream);
-+void snd_soc_link_compr_shutdown(struct snd_compr_stream *cstream);
+ void snd_soc_link_compr_shutdown(struct snd_compr_stream *cstream);
++int snd_soc_link_compr_set_params(struct snd_compr_stream *cstream);
  
  #endif /* __SOC_LINK_H */
 diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
-index ddc6c6f69d2f..327bec052954 100644
+index 327bec052954..4984b6a2c370 100644
 --- a/sound/soc/soc-compress.c
 +++ b/sound/soc/soc-compress.c
-@@ -227,8 +227,7 @@ static int soc_compr_free(struct snd_compr_stream *cstream)
- 	if (!snd_soc_dai_active(codec_dai))
- 		codec_dai->rate = 0;
+@@ -439,11 +439,9 @@ static int soc_compr_set_params(struct snd_compr_stream *cstream,
+ 	if (ret < 0)
+ 		goto err;
  
--	if (rtd->dai_link->compr_ops && rtd->dai_link->compr_ops->shutdown)
--		rtd->dai_link->compr_ops->shutdown(cstream);
-+	snd_soc_link_compr_shutdown(cstream);
+-	if (rtd->dai_link->compr_ops && rtd->dai_link->compr_ops->set_params) {
+-		ret = rtd->dai_link->compr_ops->set_params(cstream);
+-		if (ret < 0)
+-			goto err;
+-	}
++	ret = snd_soc_link_compr_set_params(cstream);
++	if (ret < 0)
++		goto err;
  
- 	soc_compr_components_free(cstream, NULL);
+ 	if (cstream->direction == SND_COMPRESS_PLAYBACK)
+ 		snd_soc_dapm_stream_event(rtd, SNDRV_PCM_STREAM_PLAYBACK,
+@@ -507,11 +505,9 @@ static int soc_compr_set_params_fe(struct snd_compr_stream *cstream,
+ 	if (ret < 0)
+ 		goto out;
  
-@@ -283,8 +282,7 @@ static int soc_compr_free_fe(struct snd_compr_stream *cstream)
+-	if (fe->dai_link->compr_ops && fe->dai_link->compr_ops->set_params) {
+-		ret = fe->dai_link->compr_ops->set_params(cstream);
+-		if (ret < 0)
+-			goto out;
+-	}
++	ret = snd_soc_link_compr_set_params(cstream);
++	if (ret < 0)
++		goto out;
  
- 	fe->dpcm[stream].runtime = NULL;
- 
--	if (fe->dai_link->compr_ops && fe->dai_link->compr_ops->shutdown)
--		fe->dai_link->compr_ops->shutdown(cstream);
-+	snd_soc_link_compr_shutdown(cstream);
- 
- 	soc_compr_components_free(cstream, NULL);
- 
+ 	dpcm_dapm_stream_event(fe, stream, SND_SOC_DAPM_STREAM_START);
+ 	fe->dpcm[stream].state = SND_SOC_DPCM_STATE_PREPARE;
 diff --git a/sound/soc/soc-link.c b/sound/soc/soc-link.c
-index 7f0fb53c435a..2cfe7f88b809 100644
+index 2cfe7f88b809..248e1be4e1eb 100644
 --- a/sound/soc/soc-link.c
 +++ b/sound/soc/soc-link.c
-@@ -126,3 +126,13 @@ int snd_soc_link_compr_startup(struct snd_compr_stream *cstream)
- 	return soc_link_ret(rtd, ret);
+@@ -136,3 +136,16 @@ void snd_soc_link_compr_shutdown(struct snd_compr_stream *cstream)
+ 		rtd->dai_link->compr_ops->shutdown(cstream);
  }
- EXPORT_SYMBOL_GPL(snd_soc_link_compr_startup);
+ EXPORT_SYMBOL_GPL(snd_soc_link_compr_shutdown);
 +
-+void snd_soc_link_compr_shutdown(struct snd_compr_stream *cstream)
++int snd_soc_link_compr_set_params(struct snd_compr_stream *cstream)
 +{
 +	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
++	int ret = 0;
 +
 +	if (rtd->dai_link->compr_ops &&
-+	    rtd->dai_link->compr_ops->shutdown)
-+		rtd->dai_link->compr_ops->shutdown(cstream);
++	    rtd->dai_link->compr_ops->set_params)
++		ret = rtd->dai_link->compr_ops->set_params(cstream);
++
++	return soc_link_ret(rtd, ret);
 +}
-+EXPORT_SYMBOL_GPL(snd_soc_link_compr_shutdown);
++EXPORT_SYMBOL_GPL(snd_soc_link_compr_set_params);
 -- 
 2.17.1
 

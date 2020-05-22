@@ -2,72 +2,132 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F75C1DE549
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 May 2020 13:24:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 611FB1DE562
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 May 2020 13:30:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8B781887;
-	Fri, 22 May 2020 13:23:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8B781887
+	by alsa0.perex.cz (Postfix) with ESMTPS id C2563188F;
+	Fri, 22 May 2020 13:29:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2563188F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590146659;
-	bh=s2PbnFXR5D0z57uDHVfARP9meCSlYB6AJ0WXeKcoSoc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1590147022;
+	bh=Gg6pm27zJmanKrXUk9rAuGGmwWfiIRnBf/LwfsagsRY=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lInRAoAybYsAb2YYThsWwlpJdY/8xteJSSfoP1Aniosl6UTSqgGDUcMeXhfTCqu6z
-	 wk3ez9D5HNkLx3mzZQje4GRlu+k/MafrbhWzB/sDFy+4JpW/JExuTWaRsleR4Pm3hu
-	 MLg2WNSQnfyU3neSqGfBFkffm9sQZDFwgZePVCYM=
+	b=t8l2mFWZOWmweShjD8t+FTpgidoNNF7KYDZQJQBDsr/D6fWcc101F+uqVb3VedtDn
+	 0Z0xjhpjj9lhBQ1sElXo+zZb5Sh+OP2losJL2dvyHp1f6V51Z7k9BcWRPEGL8TY8SY
+	 bD+/VNdtirAfdTHgB8OE4TlW7LZMizZ1ItbF6Sp0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D8697F80213;
-	Fri, 22 May 2020 13:22:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B0702F801F9;
+	Fri, 22 May 2020 13:28:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC5D7F801F9; Fri, 22 May 2020 13:22:35 +0200 (CEST)
+ id 3FD63F801F9; Fri, 22 May 2020 13:28:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 781B7F80140
- for <alsa-devel@alsa-project.org>; Fri, 22 May 2020 13:22:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 781B7F80140
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="CP36g9MH"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ FORGED_SPF_HELO,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2049.outbound.protection.outlook.com [40.107.94.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 08B202065C;
- Fri, 22 May 2020 11:22:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1590146551;
- bh=s2PbnFXR5D0z57uDHVfARP9meCSlYB6AJ0WXeKcoSoc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CP36g9MHFaJmUJNiwIPzCzxPKCz/NrJx7v4us/UKXY8jn+rT2EZSmNW41l+GoC1Qt
- cvsS12TSffV1C8LLDHssy2IBIpPUe9AZKCZI/vcJlO19bpz7yyCXZaQtk1DpHeNvXH
- Jqnv9mdap+yqF8W3mkFGI3cCP8XD+C7QrwA1nPXQ=
-Date: Fri, 22 May 2020 12:22:28 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Mukunda, Vijendar" <Vijendar.Mukunda@amd.com>
-Subject: Re: [PATCH v2] ASoC: amd: put off registering mach platform_dev to
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4A177F80111
+ for <alsa-devel@alsa-project.org>; Fri, 22 May 2020 13:28:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A177F80111
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
+ header.i=@amdcloud.onmicrosoft.com header.b="vPJ0yBjW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=c+QUMPL9+Aww0yghpgbtln0kSvWcUGX5T1ZjSk8aa7YeJ74qykTh82R97hTyriAmLGOl9Gn6Qb/TSafI17m8ddvkuVZGzlZ/VWIbtG98LaeDif4ZmP1jkHu1RCDy9oMllYXgHn7coA6++C/hkfmPqZ2KaV9SeYvh1T+GA1905WXTLfYBIovVSgsJeCsyERibfH+A6ZKo4qusTYASPcG7MQWoXKgqDBJj5XktXKXIxFjIcXVNSquaX6+R2NF9y3haadcmzD9OhAKd+TTaVStKBJEO5Kk+UYz/GmdWQ8aCIykhYD81bw8+9X9SOPMIvulxwq37lSnG/OrIOcAwB+GsKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LldDpptiq3/aKxcp5b5P+APtPt1iRLkXD7O5YqaMHGw=;
+ b=Howg/DG3LkLed2N9Olo4PcV2NeYmLu3nJDW/y7daeMWYfnQXGWSZvI/zGGuazkEPjgTEHrHqBgTMME4Y/d71RrKJl93DYQCpHhQuyFyDqX2HTqX+eT6rrpmkJBDZzsZVhdf0PcCR8lNRcpkoab1bbodeUazNTBT3CqFLrCqAP3cQzBB5/g9DVNBdMEsD0wog5jHFa9c2ssoJhhCwmuQ+xo//JpZVnluC2PbyQKgeYzjUILtmyGKu/GXysf+obixg9KyXfBGful/uPvoTZSOVmRVXcdiA/yHOMYarTOjlaqZ6BKIqXXPt6oD2xMNfCJvIlAG5Y0vjLMd9vCH8vKiTbQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LldDpptiq3/aKxcp5b5P+APtPt1iRLkXD7O5YqaMHGw=;
+ b=vPJ0yBjWfsGkxk2F/NBmluRAKGCjX4AhEldHERBXWHiW5bf636tddflAPYVt63G3qwdqSNiokGOQ7enidE8b1J4yOuXYUTGmNHSqueIhhHG6fcduIjeWtvgM4O4laZdFlDgmGVAVSz1DWnr2g3bEkGUjgJO+qRxTFm97R3BjScQ=
+Received: from DM6PR12MB2633.namprd12.prod.outlook.com (2603:10b6:5:50::11) by
+ DM6PR12MB3323.namprd12.prod.outlook.com (2603:10b6:5:11f::19) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3021.24; Fri, 22 May 2020 11:28:24 +0000
+Received: from DM6PR12MB2633.namprd12.prod.outlook.com
+ ([fe80::ecbc:404f:23ae:616b]) by DM6PR12MB2633.namprd12.prod.outlook.com
+ ([fe80::ecbc:404f:23ae:616b%5]) with mapi id 15.20.3000.034; Fri, 22 May 2020
+ 11:28:24 +0000
+From: "Mukunda, Vijendar" <Vijendar.Mukunda@amd.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: RE: [PATCH v2] ASoC: amd: put off registering mach platform_dev to
  avoid -517 err
-Message-ID: <20200522112228.GD5801@sirena.org.uk>
+Thread-Topic: [PATCH v2] ASoC: amd: put off registering mach platform_dev to
+ avoid -517 err
+Thread-Index: AQHWMBGAxjoSFfw9qEKCikUbd/uKQqiz8myAgAAAyuCAAAM0AIAAADWg
+Date: Fri, 22 May 2020 11:28:24 +0000
+Message-ID: <DM6PR12MB26337FD48A99D14814EB32F097B40@DM6PR12MB2633.namprd12.prod.outlook.com>
 References: <20200522081738.11636-1-hui.wang@canonical.com>
  <20200522110811.GB5801@sirena.org.uk>
  <DM6PR12MB2633D541378EB715AC18531C97B40@DM6PR12MB2633.namprd12.prod.outlook.com>
+ <20200522112228.GD5801@sirena.org.uk>
+In-Reply-To: <20200522112228.GD5801@sirena.org.uk>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_Enabled=true;
+ MSIP_Label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_SetDate=2020-05-22T11:27:23Z; 
+ MSIP_Label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_Method=Privileged;
+ MSIP_Label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_Name=Non-Business;
+ MSIP_Label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_ActionId=9f95cebf-7030-4acd-8f1d-000010077c09;
+ MSIP_Label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_ContentBits=0
+msip_label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_enabled: true
+msip_label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_setdate: 2020-05-22T11:28:21Z
+msip_label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_method: Privileged
+msip_label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_name: Non-Business
+msip_label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_actionid: f382d32d-4c59-4007-be4c-0000bd2be8bf
+msip_label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_contentbits: 0
+authentication-results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [165.204.159.242]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: bf0758c0-b3f8-41aa-7ae1-08d7fe433d6c
+x-ms-traffictypediagnostic: DM6PR12MB3323:
+x-microsoft-antispam-prvs: <DM6PR12MB3323828306D652D902D5DEC297B40@DM6PR12MB3323.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5516;
+x-forefront-prvs: 04111BAC64
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ZIu7bKVs9n44uvHUf8nkuJLhNbsgj03r2UNmeWASNZX/D361FJZwO+WTTNYeo2qn9XQOhpb3Q7dcZBKfbb66WFh0jZ7J/PF3qj9wlfuHdH8FoYeToQ2JyFE2zvykYgrppD1oqPkJ7VDPHdQbC2Xp2wfFnd+cZgxt5cfCxr5SOO9UstuNdQBzSDZ3RmL/9Kc+WZDqB9VLq0q2wLgAxJzD/xXiWDUjHaQlZcp+JNKcfFZrwsPYalGVJZ82k74GtveQ52cT/EDDfxI11XkvcmVBLmsJWS+XidZUswnRplD0W7iImhpHEDfgYnvyO1uVe7R1Jhs9sLZlWEpFfoXf/Dj7XA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2633.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(39860400002)(136003)(366004)(376002)(346002)(396003)(8676002)(9686003)(55016002)(8936002)(6916009)(52536014)(478600001)(86362001)(66446008)(64756008)(66476007)(53546011)(71200400001)(2906002)(316002)(4744005)(54906003)(76116006)(4326008)(33656002)(6506007)(66556008)(26005)(66946007)(186003)(7696005)(5660300002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: rgdtsKZcBSpqed2Vuhq+IHfOdr9oMhhUVHz+niqpgzvg1AzNrZ5tJcoPYWwd8bWWA0XP5snEZEb16yPsvkC4FESUtqGhyZSNonTFCDG7kgmpUFqk54+2/vXBJx5QKfAbgC8ViI91gPbbkP53mLxn/7rlLHyECsY0cXCBYFBHClWKYUR2Xq7NAMRCPMdQQ0Y30vCadDhSicfv6DswTd0H8KLtw/mNeldOnzH23SdGkiKXMi+11JMsnlFWTVexoiG4eyKCMRFJsuQyl8YnN/xdWfEbPEM3w6EeuWdjXW7r7fiR9KsET0GTdhGK3bTT4uqOgL9Ooudu4A6vqp8CbYy+D2dBArNXjsnPDseiFTmL7GgQpUEc8lTXO6Qxxgm6cE0YActqRvaHCrfHTyLyfu9n8KM2B0mhyaj0csAyVspZEQwKC35eutHkYdcXgp1OPvFeKoOht5JjCdFzTTIc2nuJJRL5JKyBbudx0V6C08TIHWwPQWhQjimKbXgCqF7G0UzN
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="4zI0WCX1RcnW9Hbu"
-Content-Disposition: inline
-In-Reply-To: <DM6PR12MB2633D541378EB715AC18531C97B40@DM6PR12MB2633.namprd12.prod.outlook.com>
-X-Cookie: C for yourself.
-User-Agent: Mutt/1.10.1 (2018-07-13)
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf0758c0-b3f8-41aa-7ae1-08d7fe433d6c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 May 2020 11:28:24.2038 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: sTf1qoHJxkUjKKG0T/X8U4pbqSKRn/HZewqRtDpEB+Cqz/53D5vih0I0lWQldeTuqai/pz1j6LPVbCdh/7Vgeg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3323
 Cc: Hui Wang <hui.wang@canonical.com>,
  "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -86,30 +146,33 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---4zI0WCX1RcnW9Hbu
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Fri, May 22, 2020 at 11:13:43AM +0000, Mukunda, Vijendar wrote:
+> -----Original Message-----
+> From: Mark Brown <broonie@kernel.org>
+> Sent: Friday, May 22, 2020 4:52 PM
+> To: Mukunda, Vijendar <Vijendar.Mukunda@amd.com>
+> Cc: Hui Wang <hui.wang@canonical.com>; alsa-devel@alsa-project.org
+> Subject: Re: [PATCH v2] ASoC: amd: put off registering mach platform_dev =
+to
+> avoid -517 err
+>=20
+> On Fri, May 22, 2020 at 11:13:43AM +0000, Mukunda, Vijendar wrote:
+>=20
+> > Does sound card registration failure at boot time due to modules loadin=
+g
+> order can be considered as bug ?
+>=20
+> No, this is totally normal.  If it failed to bind ever then that'd be a
+> problem but this is just deferring.
 
-> Does sound card registration failure at boot time due to modules loading order can be considered as bug ?
+In that case, we don't need this work around I guess.
+At maximum during boot time, we may see few sound card registration failure=
+ logs,
+Which is normal.
 
-No, this is totally normal.  If it failed to bind ever then that'd be a
-problem but this is just deferring.
+With this change, our concept of ACP parent device which will create platfo=
+rm devices
+for DMA driver, Generic DMIC driver and Machine driver will be changed.
+We implemented same design for Raven I2S driver as well which got productiz=
+ed.
 
---4zI0WCX1RcnW9Hbu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7HtfQACgkQJNaLcl1U
-h9Boywf/Qmaf22wtjebIYiWhHpEVH0AdzFdTtUY9Xl5bWAgnklGD5b8FEdzeC0pC
-4g1iVadT2ErY8fxi2G3QmbxVkFSGRcynRGEZ6racwGMLMnTucHUPeDVLZhf2ecN0
-JOONhsfiTQPdy0SGqGvYn91oT0amyG1yQDJXNeu++7oS4D8iX1Ah8EQC8ykupDMW
-/PbodZYM68r9reayp9toYzXLAW4QL9FKO4Iw3cmH4Zm2Jn0ZeUz2PCmZFeE0WsAM
-+NJ99B9qdgyDhdZke0zBR/s8rebemD6/SjUcxt20Cv7WiZxCqFMyKWY3hYf1E1iO
-8ao2X8fy3K7OrT/N8KE3l4KbXYvgIA==
-=rZX7
------END PGP SIGNATURE-----
-
---4zI0WCX1RcnW9Hbu--

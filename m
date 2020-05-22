@@ -2,95 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CE5B1DE191
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 May 2020 10:09:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73C631DE197
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 May 2020 10:12:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 216DA186E;
-	Fri, 22 May 2020 10:08:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 216DA186E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 244BB188C;
+	Fri, 22 May 2020 10:11:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 244BB188C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590134985;
-	bh=IagtkNysS8SZLN9nlw0QfwKfVrnhdCmQxeUODQ1rmtc=;
+	s=default; t=1590135166;
+	bh=hPWa5eapB7RD7Tu9J3LNdMHf6hhCC/xBR/Jyh9jI7yo=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sZWFoavTDJPUo/m3245ecj+jvzx8doEWO4wHuMhOZt/K3oXBv4Nfn29Yd6rlEYlPU
-	 f8m2acmTrt4D4qRtVHSfSwOjc6tr3/RVl9GO13aA8zSwOouNCqrGkwwXRF+2Gh5dxg
-	 dgV1vsNv2sB16vMG8MpgAurgn+xWuCS7jJKtkf6s=
+	b=I3tJnXWxViugwTf6YF0iMKkaA1OR/D1pXMisdq04QNelE41AB+ijO/GqKkJLk619z
+	 8XzMYg+RT1t4d8g0J063UjeG6tcOUVnJ/iW2UwFiSw0rhOgoR8J8hAnwKyNXKVlAIW
+	 oXHT81pVm+ykkwMrykFRTEOZMmZgPS6NkAxSfCxE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B201F8028E;
-	Fri, 22 May 2020 10:07:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 54741F80121;
+	Fri, 22 May 2020 10:11:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8085CF8027D; Fri, 22 May 2020 10:07:54 +0200 (CEST)
+ id 71FE2F801F9; Fri, 22 May 2020 10:11:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7E3EAF80216
- for <alsa-devel@alsa-project.org>; Fri, 22 May 2020 10:07:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E3EAF80216
+ by alsa1.perex.cz (Postfix) with ESMTPS id 04B94F80121
+ for <alsa-devel@alsa-project.org>; Fri, 22 May 2020 10:10:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04B94F80121
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="G/dNHTQ3"
-Received: by mail-wr1-x441.google.com with SMTP id g12so8046972wrw.1
- for <alsa-devel@alsa-project.org>; Fri, 22 May 2020 01:07:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="0j5VXpgG"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="fKvywATN"
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.west.internal (Postfix) with ESMTP id 79DECB26;
+ Fri, 22 May 2020 04:10:51 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Fri, 22 May 2020 04:10:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=O8d7KRaVnTOYXbysuI91JxBTkFpRwhQV9rw+72hpaS8=;
- b=G/dNHTQ35mXQKHenUhOBnQl4YBjCar5Smta1ZVS05OfG3JnGXyUgOMqTTIFecZ4RpJ
- QVs8IH21VCyyv8jJe05KrL0dOHZToLB/p9dUWi9V4IRoIJaFis5g1Y8G80/oUMzh67wS
- JkZIsiAgncGU8tB3eFwpuqToHAxb4oxryfOjUe+zIXUVeBDVU/MKN2J0Nupve/6mLuXL
- 5cNSxXsCHnR+qot00GbqlO+TzdGzgsUpAfQYyjT/VbETx+WawHBJGNm94sRcppuI1tv4
- jy4KjLXauJ951srf059okjvTOFbBHwEP5F1Wa0L/fbL5kefaK75OpkJO3xC2/aNbKQ34
- DBAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=O8d7KRaVnTOYXbysuI91JxBTkFpRwhQV9rw+72hpaS8=;
- b=hgRoljA2UUY2sXaL9Crkuwh9t9u8VNcQF2riQb/50+ddvXU9054VjiK42zIXLzr+MR
- EM9EaFehadb0NkLU+HRIWQD0Lu3YZVtkJVYUM0PqW/7KLkcKRQC9WZSIlpmIThtdkC/K
- 8+jbeERBcRXdB34cLDRw5x9IpI8a94vz3TUlm20GKzu1oU88T7Bo+aTLYAgCKh0wohn2
- UToDFsFuGHeKDp1fohQsVlA35T4+dn4UcEAGIJ9LO6brYyDc4IyczmLihGDGJNhfSvwB
- nxhJBkDaHmh9HtxPruabtPtGqlRnCiCwLCaXXRSRxTt8lWmYpswf6WO8nY8lcK9FHjYv
- 4Ikw==
-X-Gm-Message-State: AOAM5337KMZ0K2eyQwkYRIZeeDb6m1e4+X7C5pqn1Z+9i1DA6cZ20qSg
- aj+Gwx5FM4+EezN/Tmyt4PFqDQ==
-X-Google-Smtp-Source: ABdhPJzK2pPNBTiomUPCXFOUqiKwd1QeBg43v4ZVNsVsWWhj1zS52qpTGnmcOXW17aVaF5waVx03yA==
-X-Received: by 2002:a5d:5449:: with SMTP id w9mr2412511wrv.106.1590134868149; 
- Fri, 22 May 2020 01:07:48 -0700 (PDT)
-Received: from dell ([95.149.164.102])
- by smtp.gmail.com with ESMTPSA id s19sm5119770wmj.21.2020.05.22.01.07.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 May 2020 01:07:47 -0700 (PDT)
-Date: Fri, 22 May 2020 09:07:46 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [PATCH 3/4] mfd: wm8994: Silence warning about supplies during
- deferred probe
-Message-ID: <20200522080746.GT271301@dell>
-References: <20200427074832.22134-1-m.szyprowski@samsung.com>
- <CGME20200427074843eucas1p2235840d80cfa81a1e1eee513ed88c794@eucas1p2.samsung.com>
- <20200427074832.22134-4-m.szyprowski@samsung.com>
+ :content-type:in-reply-to; s=fm1; bh=Wi95KCu2EEyD22g6RskRwb+g0sg
+ CGAbgjklKXitHffU=; b=0j5VXpgGGAJyyX9Mrz2MO4SZBX7WnWfqaP3vTnWwKUq
+ fLC80pXDxoelRr3F3L6zeBE2hrGC7guDjOpDtYbwsabrBJffJg/A9DzY56si0low
+ XzKrcwyipj5VhlbLnWdD441u031xDdMzwZST4HSCloOjlfeJLHvOZNCIy9WC4qF7
+ wrHqnAGE6TMlvS37QbMIJHKfPS0p1xiyu1YFi+CVeB85LXofAw3lkmLGSX8rxhOo
+ tSvHejM2vieX5+aZySJGCzLjlz5HuEVWFaqdiTD0PZG0pzYPlGGLjRGnmkmYSIft
+ wdI5g17EOet4cKtutMOGm2W8PLqo1FAhA+2Ypjuft/A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=Wi95KC
+ u2EEyD22g6RskRwb+g0sgCGAbgjklKXitHffU=; b=fKvywATNAwRnE4YKjayH6M
+ b1k2bxvg3+TYYyaueHGGYy9V877RG0ypbPJE433H8JniuLtOa1dyI8yiwMQwbHsS
+ Y3OhuR/JkocaqZSoFWTN9XRsbO120Nsd5BMcemBub0WYZvtfg0nAURVRQJsguBC4
+ bfwRgv3ntWo5UvbhaaYvFuGcH8EK3J+xjh55rxtu8a4WqvDLhvS7wvjzAULkQ7/x
+ J9ngM5YIjrb40/5+S4oG/f5UtfMs6iqzvKnU2WX5wYS/hI9PLr/7wvXzVfBEVesr
+ Fuu6vGO8ccVpHWNw10ll++YcRNcLU4m7bh+gAkwKD0XQyHh0TNu9BmFG51wzO+jQ
+ ==
+X-ME-Sender: <xms:ConHXjFTaYSkJLnqXmpPTAxypxaDa2IQq7GAuwFgzMaMBh8XQaXiIQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedruddufecutefuodetggdotefrodftvfcurf
+ hrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecuuegr
+ ihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfhfgggtuggjsehttdertddttd
+ dvnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhi
+ sehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpeehueeuiefhveefhe
+ ehudekfeffueevheelueduiefhffejieffieduffejieevffenucffohhmrghinheprghl
+ shgrqdhprhhojhgvtghtrdhorhhgnecukfhppedukedtrddvfeehrdefrdehgeenucevlh
+ hushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghs
+ hhhisehsrghkrghmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:ConHXgWOuHgFRv_xwa83-9dBoU9uAAElx1y337Jy02aZap1E6zNuTw>
+ <xmx:ConHXlJOKXBiTf-rojnHa9RiiJLiOgCsaJgnu7jOXsudAyCQIwAr9w>
+ <xmx:ConHXhFxb3LeFmrXx_DoFGYzw6eMXrDWcimYLAbaeUaqmWjcdmm4Kw>
+ <xmx:C4nHXoCcfEGNhT88yfp1tvTEPqCv0wJ9XsfC1iYg2-AFCabzq6Fv_Q>
+Received: from workstation (ad003054.dynamic.ppp.asahi-net.or.jp
+ [180.235.3.54])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 80B2E3280065;
+ Fri, 22 May 2020 04:10:49 -0400 (EDT)
+Date: Fri, 22 May 2020 17:10:47 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: bomelp@gmail.com
+Subject: Re: Dice firewire support
+Message-ID: <20200522081047.GA105169@workstation>
+Mail-Followup-To: bomelp@gmail.com, alsa-devel@alsa-project.org, mail@mel.vin
+References: <276893435.728967.1590133905081.JavaMail.administrator@n7.nabble.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200427074832.22134-4-m.szyprowski@samsung.com>
-Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+In-Reply-To: <276893435.728967.1590133905081.JavaMail.administrator@n7.nabble.com>
+Cc: alsa-devel@alsa-project.org, mail@mel.vin
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,20 +113,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 27 Apr 2020, Marek Szyprowski wrote:
+Hi Pascal,
 
-> Don't confuse user with meaningless warning about the failure in getting
-> supplies in case of deferred probe.
+On Fri, May 22, 2020 at 12:51:45AM -0700, bomelp@gmail.com wrote:
+> Hi Takashi,
 > 
-> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> ---
->  drivers/mfd/wm8994-core.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+> Sorry if i bother you about my mail.
+> Actually, i try to enable a mytek  dsd-192 dac via its firewire port on a debian 4.9.12.
+> I saw you worked on snd-dice module.Do you have a step-by-step documentation to help me do that ?
+> 
+> Best regards
+> Pascal
+> France
 
-Applied, thanks.
+Although I don't test the device, Melvin Vermeeren added support for
+Mytek Stereo 192 DSD-DAC in Linux kernel v4.18 firstly. It's not
+available in your kernel.
+https://www.alsa-project.org/pipermail/alsa-devel/2018-May/136194.html
 
--- 
-Lee Jones [李琼斯]
-Linaro Services Technical Lead
-Linaro.org │ Open source software for ARM SoCs
-Follow Linaro: Facebook | Twitter | Blog
+If you can't work with the device just by loading snd-dice module in
+recent Linux kernel, please contact to me or Melvin ;)
+
+
+Regards
+
+Takashi Sakamoto

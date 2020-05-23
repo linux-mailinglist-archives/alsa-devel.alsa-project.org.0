@@ -2,61 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 078FD1DF74D
-	for <lists+alsa-devel@lfdr.de>; Sat, 23 May 2020 14:57:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C23F41DF9B3
+	for <lists+alsa-devel@lfdr.de>; Sat, 23 May 2020 19:41:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 97FE71832;
-	Sat, 23 May 2020 14:56:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97FE71832
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B98E1747;
+	Sat, 23 May 2020 19:40:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B98E1747
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590238627;
-	bh=nfsKUJ9v/DE8lBXRk1jCpoSHeDVSLHAb6O/9dWHzoLM=;
+	s=default; t=1590255681;
+	bh=GUDsZgg7D95V70EZuNVDPbvUcildyD3qTQXNHFgrLYs=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ey1rT6HhP0MYaVrtbQD9KcPHu2O5VRmdjvlDL5CRZvkeatW0vHr9S1vGwuTTuFo47
-	 SvPtPyKcYDUVHQMpSZZwUREbVAXTlegYPDulk2n/UwDHFMowaiNR+3aqoHk4F2VKiH
-	 3Ic0u63k+D6XIgo3mDt7NbTIUSU7afwh5cSLSsRo=
+	b=HFtbLKV6B9VULa4eTnu3M1Zqlj5NrAmOJ4mhHNaIfgsXMkBXYgPP6eGBJMspj+Ell
+	 lyf/trs0P0iPCqhZI9nHrU+0I3aI9zW0NPMdg+fdu0UU8DJnokXclq85yV6si11Ygb
+	 IygsjIpEkNrsJlxJzSpIp8KNALpi/NZm5yOykVTg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD02FF80121;
-	Sat, 23 May 2020 14:55:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5C32EF800EE;
+	Sat, 23 May 2020 19:39:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DAC51F801D8; Sat, 23 May 2020 14:55:23 +0200 (CEST)
+ id A0B84F801D8; Sat, 23 May 2020 19:39:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from crapouillou.net (outils.crapouillou.net [89.234.176.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5C9DCF80121
- for <alsa-devel@alsa-project.org>; Sat, 23 May 2020 14:55:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C9DCF80121
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9223AF800EE
+ for <alsa-devel@alsa-project.org>; Sat, 23 May 2020 19:39:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9223AF800EE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
- header.b="nfJBLKFe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
- s=mail; t=1590238514; h=from:from:sender:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-transfer-encoding:content-transfer-encoding:
- in-reply-to:references; bh=4H5s0QFOM5/H2soQZqt1IUyUDqpcpHgzFYC6TqO7StY=;
- b=nfJBLKFeNz7AabXPcYV/iLwDNAeQUj/6xCxsDCCRKt3OSHSMIUupJDDSQlBbUS+U1DjbLZ
- tB8K6KJJx62eRqHW88tCAyP3Uujqhvc2pieS9RjRUbTeCKOu9stEHYCl0/gQi1WfobKKyx
- V9rmQNUwJR45bjLUZm0MK9TFHbpRZUc=
-From: Paul Cercueil <paul@crapouillou.net>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH] ASoC: ingenic: Unconditionally depend on devicetree
-Date: Sat, 23 May 2020 14:54:55 +0200
-Message-Id: <20200523125455.12392-1-paul@crapouillou.net>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="bRbNmxsz"
+Received: by mail-pl1-x642.google.com with SMTP id q16so5698161plr.2
+ for <alsa-devel@alsa-project.org>; Sat, 23 May 2020 10:39:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Pf6Ugn99es2SlmyB0AGFZh8SoF73A0fGWtO9ESLW5e0=;
+ b=bRbNmxszfYMnCYRjwizdd0HeFOcouozdSx2Wf1APoyo/4Y8wO1f5p7jr2AgKB7IDg7
+ iBGnBragMuIj0T7DKPFh8FAYFfvGimWWEW1le30L2fbMYSC1O5K0uZZWCg4hP+xtH7Kj
+ e/kGqVD2xR30jANPA6etuaczAt/oWX+OWBRr56nI+aWjlEs66mYdb6mFAMgGHlMF2NsO
+ VrdXSsnR2sLJWqMfibkyOTncmZ7JucGlK0JKYHzP9O0VOW2zithVy70pQbhlH+Ul9B+q
+ Q9O3NbFN0LzNafl/nNnJHJzNuIotK2n3D7yfo7BbUupLLr+ozs0+oWdqOoTyjb30G3sU
+ oQnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Pf6Ugn99es2SlmyB0AGFZh8SoF73A0fGWtO9ESLW5e0=;
+ b=EHtVITq0UbT+hdfzKhhS9v8eyRjwPV9CbJzJqkGATAJr/oqXYGUwO2vwXzWLLB8CSj
+ nmouC4qpzsy0vnLGqinXIugcEkJizIUc0hdjGT/c/dld/voOBZ6+bkMIcKKvjyiTQtak
+ aexbN6Hn+rGVqgcfVJ9lqb8+4yjiJfjmMgv0JBi9X/AOj3tfdWFltXL5ufWhGmVmS377
+ 0LRkw3Jsqaoafcn5+jW0d1MPmIq9aYrc69qJuWhnuWL+/OD4wz70T0SPvq08DqkIh6VS
+ dgu3tFfqKEw8JDP1vhGJ18Qo8cL7m2xfGyDmJvYGTPHVSMPdcIfaBORz2DIfewSjLSTJ
+ gZNA==
+X-Gm-Message-State: AOAM531eWMdFk5V15M4IO6ZgYa5VGVMgO9zJnZ/xOEvCnX9pJ0C/DN4T
+ S7NdZR88zsr8eyI+6RGgPjk=
+X-Google-Smtp-Source: ABdhPJx/1pJNxzdRaiXn/UpjbE0w0k+lcmbZsHc2nwu/BGZY0WaYGL1vkQP63oTa3X2l+RDBHucIFA==
+X-Received: by 2002:a17:90a:264c:: with SMTP id
+ l70mr11733707pje.18.1590255566631; 
+ Sat, 23 May 2020 10:39:26 -0700 (PDT)
+Received: from anarsoul-thinkpad.lan (216-71-213-236.dyn.novuscom.net.
+ [216.71.213.236])
+ by smtp.gmail.com with ESMTPSA id m4sm9840866pje.47.2020.05.23.10.39.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 23 May 2020 10:39:25 -0700 (PDT)
+From: Vasily Khoruzhick <anarsoul@gmail.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Allison Randal <allison@lohutok.net>, Pavel Machek <pavel@denx.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Thomas Gleixner <tglx@linutronix.de>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: line6: add hw monitor volume control for POD HD500
+Date: Sat, 23 May 2020 10:39:03 -0700
+Message-Id: <20200523173903.5136-1-anarsoul@gmail.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Paul Cercueil <paul@crapouillou.net>, alsa-devel@alsa-project.org,
- od@zcrc.me, linux-kernel@vger.kernel.org, kbuild test robot <lkp@intel.com>
+Cc: Vasily Khoruzhick <anarsoul@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,156 +102,222 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-All boards with Ingenic SoCs probe with devicetree already, we have no
-use for a non-devicetree path.
+Add hw monitor volume control for POD HD500. The same change may
+work for HD500X but I don't have it to test.
 
-This solves some compilation warnings that were caused by unused
-variables in the case where CONFIG_OF was disabled.
-
-Signed-off-by: Paul Cercueil <paul@crapouillou.net>
-Reported-by: kbuild test robot <lkp@intel.com>
+Signed-off-by: Vasily Khoruzhick <anarsoul@gmail.com>
 ---
- sound/soc/codecs/Kconfig      | 3 +++
- sound/soc/codecs/jz4725b.c    | 4 +---
- sound/soc/codecs/jz4740.c     | 4 +---
- sound/soc/codecs/jz4770.c     | 2 +-
- sound/soc/jz4740/Kconfig      | 2 +-
- sound/soc/jz4740/jz4740-i2s.c | 4 +---
- 6 files changed, 8 insertions(+), 11 deletions(-)
+ sound/usb/line6/driver.c |   3 +-
+ sound/usb/line6/driver.h |   4 ++
+ sound/usb/line6/podhd.c  | 124 ++++++++++++++++++++++++++++++++++++++-
+ 3 files changed, 129 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index e60e0b6a689c..3a0a6824e278 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -681,6 +681,7 @@ config SND_SOC_CX2072X
- 
- config SND_SOC_JZ4740_CODEC
- 	depends on MIPS || COMPILE_TEST
-+	depends on OF
- 	select REGMAP_MMIO
- 	tristate "Ingenic JZ4740 internal CODEC"
- 	help
-@@ -692,6 +693,7 @@ config SND_SOC_JZ4740_CODEC
- 
- config SND_SOC_JZ4725B_CODEC
- 	depends on MIPS || COMPILE_TEST
-+	depends on OF
- 	select REGMAP
- 	tristate "Ingenic JZ4725B internal CODEC"
- 	help
-@@ -703,6 +705,7 @@ config SND_SOC_JZ4725B_CODEC
- 
- config SND_SOC_JZ4770_CODEC
- 	depends on MIPS || COMPILE_TEST
-+	depends on OF
- 	select REGMAP
- 	tristate "Ingenic JZ4770 internal CODEC"
- 	help
-diff --git a/sound/soc/codecs/jz4725b.c b/sound/soc/codecs/jz4725b.c
-index 2567a5d15b55..e49374c72e70 100644
---- a/sound/soc/codecs/jz4725b.c
-+++ b/sound/soc/codecs/jz4725b.c
-@@ -574,19 +574,17 @@ static int jz4725b_codec_probe(struct platform_device *pdev)
- 	return ret;
- }
- 
--#ifdef CONFIG_OF
- static const struct of_device_id jz4725b_codec_of_matches[] = {
- 	{ .compatible = "ingenic,jz4725b-codec", },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, jz4725b_codec_of_matches);
--#endif
- 
- static struct platform_driver jz4725b_codec_driver = {
- 	.probe = jz4725b_codec_probe,
- 	.driver = {
- 		.name = "jz4725b-codec",
--		.of_match_table = of_match_ptr(jz4725b_codec_of_matches),
-+		.of_match_table = jz4725b_codec_of_matches,
- 	},
- };
- module_platform_driver(jz4725b_codec_driver);
-diff --git a/sound/soc/codecs/jz4740.c b/sound/soc/codecs/jz4740.c
-index 460aa1fd1efe..c9900d1cd5c2 100644
---- a/sound/soc/codecs/jz4740.c
-+++ b/sound/soc/codecs/jz4740.c
-@@ -344,19 +344,17 @@ static int jz4740_codec_probe(struct platform_device *pdev)
- 	return ret;
- }
- 
--#ifdef CONFIG_OF
- static const struct of_device_id jz4740_codec_of_matches[] = {
- 	{ .compatible = "ingenic,jz4740-codec", },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, jz4740_codec_of_matches);
--#endif
- 
- static struct platform_driver jz4740_codec_driver = {
- 	.probe = jz4740_codec_probe,
- 	.driver = {
- 		.name = "jz4740-codec",
--		.of_match_table = of_match_ptr(jz4740_codec_of_matches),
-+		.of_match_table = jz4740_codec_of_matches,
- 	},
- };
- 
-diff --git a/sound/soc/codecs/jz4770.c b/sound/soc/codecs/jz4770.c
-index e7cf2c107607..34775aa62402 100644
---- a/sound/soc/codecs/jz4770.c
-+++ b/sound/soc/codecs/jz4770.c
-@@ -937,7 +937,7 @@ static struct platform_driver jz4770_codec_driver = {
- 	.probe			= jz4770_codec_probe,
- 	.driver			= {
- 		.name		= "jz4770-codec",
--		.of_match_table = of_match_ptr(jz4770_codec_of_matches),
-+		.of_match_table = jz4770_codec_of_matches,
- 	},
- };
- module_platform_driver(jz4770_codec_driver);
-diff --git a/sound/soc/jz4740/Kconfig b/sound/soc/jz4740/Kconfig
-index e72f826062e9..29144720cb62 100644
---- a/sound/soc/jz4740/Kconfig
-+++ b/sound/soc/jz4740/Kconfig
-@@ -2,7 +2,7 @@
- config SND_JZ4740_SOC_I2S
- 	tristate "SoC Audio (I2S protocol) for Ingenic JZ4740 SoC"
- 	depends on MIPS || COMPILE_TEST
--	depends on HAS_IOMEM
-+	depends on OF && HAS_IOMEM
- 	select SND_SOC_GENERIC_DMAENGINE_PCM
- 	help
- 	  Say Y if you want to use I2S protocol and I2S codec on Ingenic JZ4740
-diff --git a/sound/soc/jz4740/jz4740-i2s.c b/sound/soc/jz4740/jz4740-i2s.c
-index 6f6f8dad0356..52460adf6ca1 100644
---- a/sound/soc/jz4740/jz4740-i2s.c
-+++ b/sound/soc/jz4740/jz4740-i2s.c
-@@ -504,7 +504,6 @@ static const struct snd_soc_component_driver jz4740_i2s_component = {
- 	.resume		= jz4740_i2s_resume,
- };
- 
--#ifdef CONFIG_OF
- static const struct of_device_id jz4740_of_matches[] = {
- 	{ .compatible = "ingenic,jz4740-i2s", .data = &jz4740_i2s_soc_info },
- 	{ .compatible = "ingenic,jz4760-i2s", .data = &jz4760_i2s_soc_info },
-@@ -513,7 +512,6 @@ static const struct of_device_id jz4740_of_matches[] = {
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, jz4740_of_matches);
--#endif
- 
- static int jz4740_i2s_dev_probe(struct platform_device *pdev)
+diff --git a/sound/usb/line6/driver.c b/sound/usb/line6/driver.c
+index 7629116f570e..597a36c0a51d 100644
+--- a/sound/usb/line6/driver.c
++++ b/sound/usb/line6/driver.c
+@@ -97,7 +97,7 @@ static void line6_stop_listen(struct usb_line6 *line6)
+ /*
+ 	Send raw message in pieces of wMaxPacketSize bytes.
+ */
+-static int line6_send_raw_message(struct usb_line6 *line6, const char *buffer,
++int line6_send_raw_message(struct usb_line6 *line6, const char *buffer,
+ 				  int size)
  {
-@@ -558,7 +556,7 @@ static struct platform_driver jz4740_i2s_driver = {
- 	.probe = jz4740_i2s_dev_probe,
- 	.driver = {
- 		.name = "jz4740-i2s",
--		.of_match_table = of_match_ptr(jz4740_of_matches)
-+		.of_match_table = jz4740_of_matches,
- 	},
+ 	int i, done = 0;
+@@ -132,6 +132,7 @@ static int line6_send_raw_message(struct usb_line6 *line6, const char *buffer,
+ 
+ 	return done;
+ }
++EXPORT_SYMBOL(line6_send_raw_message);
+ 
+ /*
+ 	Notification of completion of asynchronous request transmission.
+diff --git a/sound/usb/line6/driver.h b/sound/usb/line6/driver.h
+index 1a4e3700c80c..62c686bed0ca 100644
+--- a/sound/usb/line6/driver.h
++++ b/sound/usb/line6/driver.h
+@@ -108,6 +108,8 @@ enum {
+ 	LINE6_CAP_CONTROL_MIDI = 1 << 4,
+ 	/* device provides low-level information */
+ 	LINE6_CAP_CONTROL_INFO = 1 << 5,
++	/* device provides hardware monitoring volume control */
++	LINE6_CAP_HWMON_CTL =	1 << 6,
  };
  
+ /*
+@@ -185,6 +187,8 @@ extern int line6_read_data(struct usb_line6 *line6, unsigned address,
+ 			   void *data, unsigned datalen);
+ extern int line6_read_serial_number(struct usb_line6 *line6,
+ 				    u32 *serial_number);
++extern int line6_send_raw_message(struct usb_line6 *line6,
++					const char *buffer, int size);
+ extern int line6_send_raw_message_async(struct usb_line6 *line6,
+ 					const char *buffer, int size);
+ extern int line6_send_sysex_message(struct usb_line6 *line6,
+diff --git a/sound/usb/line6/podhd.c b/sound/usb/line6/podhd.c
+index e39dc85c355a..a40115625c01 100644
+--- a/sound/usb/line6/podhd.c
++++ b/sound/usb/line6/podhd.c
+@@ -11,6 +11,7 @@
+ #include <linux/slab.h>
+ #include <linux/module.h>
+ #include <sound/core.h>
++#include <sound/control.h>
+ #include <sound/pcm.h>
+ 
+ #include "driver.h"
+@@ -37,6 +38,9 @@ struct usb_line6_podhd {
+ 
+ 	/* Firmware version */
+ 	int firmware_version;
++
++	/* Monitor level */
++	int monitor_level;
+ };
+ 
+ #define line6_to_podhd(x)	container_of(x, struct usb_line6_podhd, line6)
+@@ -250,6 +254,115 @@ static void podhd_disconnect(struct usb_line6 *line6)
+ 	}
+ }
+ 
++static const unsigned int float_zero_to_one_lookup[] = {
++0x00000000, 0x3C23D70A, 0x3CA3D70A, 0x3CF5C28F, 0x3D23D70A, 0x3D4CCCCD,
++0x3D75C28F, 0x3D8F5C29, 0x3DA3D70A, 0x3DB851EC, 0x3DCCCCCD, 0x3DE147AE,
++0x3DF5C28F, 0x3E051EB8, 0x3E0F5C29, 0x3E19999A, 0x3E23D70A, 0x3E2E147B,
++0x3E3851EC, 0x3E428F5C, 0x3E4CCCCD, 0x3E570A3D, 0x3E6147AE, 0x3E6B851F,
++0x3E75C28F, 0x3E800000, 0x3E851EB8, 0x3E8A3D71, 0x3E8F5C29, 0x3E947AE1,
++0x3E99999A, 0x3E9EB852, 0x3EA3D70A, 0x3EA8F5C3, 0x3EAE147B, 0x3EB33333,
++0x3EB851EC, 0x3EBD70A4, 0x3EC28F5C, 0x3EC7AE14, 0x3ECCCCCD, 0x3ED1EB85,
++0x3ED70A3D, 0x3EDC28F6, 0x3EE147AE, 0x3EE66666, 0x3EEB851F, 0x3EF0A3D7,
++0x3EF5C28F, 0x3EFAE148, 0x3F000000, 0x3F028F5C, 0x3F051EB8, 0x3F07AE14,
++0x3F0A3D71, 0x3F0CCCCD, 0x3F0F5C29, 0x3F11EB85, 0x3F147AE1, 0x3F170A3D,
++0x3F19999A, 0x3F1C28F6, 0x3F1EB852, 0x3F2147AE, 0x3F23D70A, 0x3F266666,
++0x3F28F5C3, 0x3F2B851F, 0x3F2E147B, 0x3F30A3D7, 0x3F333333, 0x3F35C28F,
++0x3F3851EC, 0x3F3AE148, 0x3F3D70A4, 0x3F400000, 0x3F428F5C, 0x3F451EB8,
++0x3F47AE14, 0x3F4A3D71, 0x3F4CCCCD, 0x3F4F5C29, 0x3F51EB85, 0x3F547AE1,
++0x3F570A3D, 0x3F59999A, 0x3F5C28F6, 0x3F5EB852, 0x3F6147AE, 0x3F63D70A,
++0x3F666666, 0x3F68F5C3, 0x3F6B851F, 0x3F6E147B, 0x3F70A3D7, 0x3F733333,
++0x3F75C28F, 0x3F7851EC, 0x3F7AE148, 0x3F7D70A4, 0x3F800000
++};
++
++static void podhd_set_monitor_level(struct usb_line6_podhd *podhd, int value)
++{
++	unsigned int fl;
++	static const unsigned char msg[16] = {
++		/* Chunk is 0xc bytes (without first word) */
++		0x0c, 0x00,
++		/* First chunk in the message */
++		0x01, 0x00,
++		/* Message size is 2 4-byte words */
++		0x02, 0x00,
++		/* Unknown */
++		0x04, 0x41,
++		/* Unknown */
++		0x04, 0x00, 0x13, 0x00,
++		/* Volume, LE float32, 0.0 - 1.0 */
++		0x00, 0x00, 0x00, 0x00
++	};
++	unsigned char *buf;
++
++	buf = kmalloc(sizeof(msg), GFP_ATOMIC);
++	memcpy(buf, msg, sizeof(msg));
++
++	if (value < 0)
++		value = 0;
++
++	if (value > ARRAY_SIZE(float_zero_to_one_lookup))
++		value = ARRAY_SIZE(float_zero_to_one_lookup);
++
++	fl = float_zero_to_one_lookup[value];
++
++	buf[12] = (fl >> 0) & 0xff;
++	buf[13] = (fl >> 8) & 0xff;
++	buf[14] = (fl >> 16) & 0xff;
++	buf[15] = (fl >> 24) & 0xff;
++
++	line6_send_raw_message(&podhd->line6, buf, sizeof(msg));
++	kfree(buf);
++
++	podhd->monitor_level = value;
++}
++
++/* control info callback */
++static int snd_podhd_control_monitor_info(struct snd_kcontrol *kcontrol,
++					struct snd_ctl_elem_info *uinfo)
++{
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
++	uinfo->count = 1;
++	uinfo->value.integer.min = 0;
++	uinfo->value.integer.max = 100;
++	uinfo->value.integer.step = 1;
++	return 0;
++}
++
++/* control get callback */
++static int snd_podhd_control_monitor_get(struct snd_kcontrol *kcontrol,
++				       struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_line6_pcm *line6pcm = snd_kcontrol_chip(kcontrol);
++	struct usb_line6_podhd *podhd = line6_to_podhd(line6pcm->line6);
++
++	ucontrol->value.integer.value[0] = podhd->monitor_level;
++	return 0;
++}
++
++/* control put callback */
++static int snd_podhd_control_monitor_put(struct snd_kcontrol *kcontrol,
++				       struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_line6_pcm *line6pcm = snd_kcontrol_chip(kcontrol);
++	struct usb_line6_podhd *podhd = line6_to_podhd(line6pcm->line6);
++
++	if (ucontrol->value.integer.value[0] == podhd->monitor_level)
++		return 0;
++
++	podhd_set_monitor_level(podhd, ucontrol->value.integer.value[0]);
++	return 1;
++}
++
++/* control definition */
++static const struct snd_kcontrol_new podhd_control_monitor = {
++	.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++	.name = "Monitor Playback Volume",
++	.index = 0,
++	.access = SNDRV_CTL_ELEM_ACCESS_READWRITE,
++	.info = snd_podhd_control_monitor_info,
++	.get = snd_podhd_control_monitor_get,
++	.put = snd_podhd_control_monitor_put
++};
++
+ /*
+ 	Try to init POD HD device.
+ */
+@@ -298,6 +411,15 @@ static int podhd_init(struct usb_line6 *line6,
+ 			return err;
+ 	}
+ 
++	if (pod->line6.properties->capabilities & LINE6_CAP_HWMON_CTL) {
++		podhd_set_monitor_level(pod, 100);
++		err = snd_ctl_add(line6->card,
++				  snd_ctl_new1(&podhd_control_monitor,
++					       line6->line6pcm));
++		if (err < 0)
++			return err;
++	}
++
+ 	if (!(pod->line6.properties->capabilities & LINE6_CAP_CONTROL_INFO)) {
+ 		/* register USB audio system directly */
+ 		return snd_card_register(line6->card);
+@@ -354,7 +476,7 @@ static const struct line6_properties podhd_properties_table[] = {
+ 		.id = "PODHD500",
+ 		.name = "POD HD500",
+ 		.capabilities	= LINE6_CAP_PCM | LINE6_CAP_CONTROL
+-				| LINE6_CAP_HWMON,
++				| LINE6_CAP_HWMON | LINE6_CAP_HWMON_CTL,
+ 		.altsetting = 1,
+ 		.ctrl_if = 1,
+ 		.ep_ctrl_r = 0x81,
 -- 
 2.26.2
 

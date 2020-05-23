@@ -2,92 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03EEB1DF9C7
-	for <lists+alsa-devel@lfdr.de>; Sat, 23 May 2020 19:52:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E87A71DF9C9
+	for <lists+alsa-devel@lfdr.de>; Sat, 23 May 2020 19:55:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7961417D6;
-	Sat, 23 May 2020 19:51:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7961417D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9043417F4;
+	Sat, 23 May 2020 19:54:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9043417F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590256361;
-	bh=VWvzrpvMwEUHzP2cgpCTHyN7QQF+heh7EtXshtbl+mQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=qY8lxpqYfSapEEqm7tbtfmGLLgmbqFZYFfttmJYocvMATmyu/moa4PBURJArrtJ7L
-	 qpT7VkzdB9Wzw67y8soayAgbzRjHC+r6TftQzxAOkvS8nrd1ZEgXZZe/GLM3UB5Gxi
-	 +30p6YGiSbymX+CZ4bTJrE95kjdxr77FrTUrHvUI=
+	s=default; t=1590256539;
+	bh=UtOCSqeGuPPLNF/qQHqpsGOANPHxr0b2ZdT5h6yVX8Q=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=QEaF7KGzb2WkfWMa1hz8h86uKBSYOMV559KdQlvA9vP1TjCEu0G27SFUBvqPzVhTo
+	 ZNFgzv/R9oH1Xh+fvpXQP/7pQ0VEQrJ4hKmz8L0NKQjwQ0FRxtukfS9Y32sO//qM/8
+	 gmNthq/Jn+9bfHTaJPp4VXRnWNSo0bAoIxosrBOQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 941C0F801F8;
-	Sat, 23 May 2020 19:51:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C422CF801D8;
+	Sat, 23 May 2020 19:53:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DA1D9F801D8; Sat, 23 May 2020 19:50:58 +0200 (CEST)
+ id 26B56F801D8; Sat, 23 May 2020 19:53:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
- [IPv6:2607:f8b0:4864:20::644])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EFF0BF800EE
- for <alsa-devel@alsa-project.org>; Sat, 23 May 2020 19:50:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFF0BF800EE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 61DFFF800EE
+ for <alsa-devel@alsa-project.org>; Sat, 23 May 2020 19:53:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61DFFF800EE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="bfdmdlqZ"
-Received: by mail-pl1-x644.google.com with SMTP id bg4so402985plb.3
- for <alsa-devel@alsa-project.org>; Sat, 23 May 2020 10:50:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=7rAsbsFjKvADQxp7gVY0yj90b5gUSHeVbBmW5NgSAhg=;
- b=bfdmdlqZIoDtSCYlbBCRMbBHLLE6XmHzoDbsWKmN7Ofh991N8IkjS5m5XbOPy5bj0Y
- 2RbVtKHSx8mCfnqK6AX+6dTo56Ls3v0dawNxfUq8dvu0fOaNIKh9tBrmxaHLeGClVGdA
- wJBZHlt/A7q6M+NRUoI4TzTgpnPlg4OYzFCkciUFe1KWJj1lOzfkImXGHmefJvRmEc4S
- QFTNuSBr8wc3+YBkn8RKszJei3/m4O7lVS3wRfcOIqFQ47Mqe+rK0+YSJVY/ymvAUSp6
- 4tkGnrge/vZ5JJfOWZmVbKqVU3fYfQ7cpGY8xhnpy7q5/RD90xOOQphEhJQxkMGlT+9k
- +Dhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=7rAsbsFjKvADQxp7gVY0yj90b5gUSHeVbBmW5NgSAhg=;
- b=etCOTPTQln3O0HvfCwYM937d43YB+4prWBXCyhJzq74pYhtEFPIsk6gQDYcXgIrDWe
- v8yMNhKQvJ5/0X3y4FgqFmYX8m0Z/xbtxOxh07flzQ54QWHhJKSkMo1kvk1W1v49LuCQ
- pHJUWKWiqrsWYj8z8TPHNKn3FnqGQaBkQ1LAE/dCcUAXHmLjH6bxqO/tE2wdirQxkTO2
- 2S+DQ/ArkFdQdzMCQGr/IVcs0qYbjKtTD7k5WwWu88SCM7nIV0KlIgGVoLqXrZpINVSm
- h0r5EZPP4u/VAUAe3IBcjNHIL7eLapqVy9xZDKQK2qfLugDNRjZahx5YdX6sL8IoDXUh
- cuew==
-X-Gm-Message-State: AOAM533N2qgdmqQBV9zXwSrL+t3ooJaeBHh/MEm2eBZaR6iWjPtMgW6z
- IiGN75wWz0NukNPnN3iIF/o=
-X-Google-Smtp-Source: ABdhPJxxUz1g3inXhPtrIenPErXwphy65YgK/0owteQBxP1LsjTaRi5Q07yGnK1007rrr455h0tJwg==
-X-Received: by 2002:a17:90a:35a7:: with SMTP id
- r36mr12365068pjb.117.1590256252885; 
- Sat, 23 May 2020 10:50:52 -0700 (PDT)
-Received: from anarsoul-thinkpad.lan (216-71-213-236.dyn.novuscom.net.
- [216.71.213.236])
- by smtp.gmail.com with ESMTPSA id i184sm8730357pgc.36.2020.05.23.10.50.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 23 May 2020 10:50:52 -0700 (PDT)
-From: Vasily Khoruzhick <anarsoul@gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Allison Randal <allison@lohutok.net>, Pavel Machek <pavel@denx.de>,
- Thomas Gleixner <tglx@linutronix.de>,
- Kai-Heng Feng <kai.heng.feng@canonical.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v2] ALSA: line6: add hw monitor volume control for POD HD500
-Date: Sat, 23 May 2020 10:49:57 -0700
-Message-Id: <20200523174957.6294-1-anarsoul@gmail.com>
-X-Mailer: git-send-email 2.26.2
+ dkim=pass (1024-bit key) header.d=tsoy.me header.i=@tsoy.me
+ header.b="kRsFl5XG"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
+ s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Content-Type:
+ References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Reply-To:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
+ :List-Post:List-Owner:List-Archive;
+ bh=2KmcLnJLq7l+mv7yF1+HMYS1OZTVXQor2OE7YC09yx4=; b=kRsFl5XGQWDqLRXkfUM3hgWDEh
+ R05txLzZKMjs/FVTKTt/J6JoiCqPwgVejfn+NFjzKb+43ni65K6/3qlk+xn7tVaVNZMFG7AZ84AYh
+ JQuUO6YLjgaPkQSlLbh+kpfpLY9JzqD6C/MaIdr26lAQfQEu8r2n5s2sNhsbknpegIiQ=;
+Received: from [2a00:1370:8125:3f98:890:f100:d37d:7ada] (helo=home)
+ by puleglot.ru with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.93.0.4) (envelope-from <puleglot@puleglot.ru>)
+ id 1jcYLG-001220-GH; Sat, 23 May 2020 20:53:50 +0300
+Message-ID: <6103f3aba91020ea345e9146da82e52823b7c298.camel@tsoy.me>
+Subject: Re: [PATCH] Add duplex sound support for USB devices using implicit
+ feedback
+From: Alexander Tsoy <alexander@tsoy.me>
+To: Erwin Burema <e.burema@freedom.nl>, alsa-devel@alsa-project.org
+Date: Sat, 23 May 2020 20:53:49 +0300
+In-Reply-To: <2410739.SCZni40SNb@alpha-wolf>
+References: <2410739.SCZni40SNb@alpha-wolf>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.34.4 
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Vasily Khoruzhick <anarsoul@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,225 +81,78 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add hw monitor volume control for POD HD500. The same change may
-work for HD500X but I don't have it to test.
+В Вс, 10/05/2020 в 20:29 +0200, Erwin Burema пишет:
+> For USB sound devices using implicit feedback the endpoint used for
+> this feedback should be able to be opened twice, once for required
+> feedback and second time for audio data. This way these devices can
+> be put in duplex audio mode. Since this only works if the settings of
+> the endpoint don't change a check is included for this.
+> 
+> This fixes bug 207023 ("MOTU M2 regression on duplex audio") and
+> should also fix bug 103751 ("M-Audio Fast Track Ultra usb audio
+> device will not operate full-duplex")
+> 
+> Signed-off-by: Erwin Burema <e.burema@gmail.com>
+> ---
 
-Signed-off-by: Vasily Khoruzhick <anarsoul@gmail.com>
----
-v2: clamp volume value to [0, ARRAY_SIZE() -1] in
-    podhd_set_monitor_level()
+This patch seems to cause kernel panic on my system. This happens
+during boot when gdm (with pulseaudio) is starting up.
 
- sound/usb/line6/driver.c |   3 +-
- sound/usb/line6/driver.h |   4 ++
- sound/usb/line6/podhd.c  | 124 ++++++++++++++++++++++++++++++++++++++-
- 3 files changed, 129 insertions(+), 2 deletions(-)
+$ grep CONFIG_IRQ_FORCED_THREADING /boot/config-5.4.42-gentoo 
+CONFIG_IRQ_FORCED_THREADING=y
 
-diff --git a/sound/usb/line6/driver.c b/sound/usb/line6/driver.c
-index 7629116f570e..597a36c0a51d 100644
---- a/sound/usb/line6/driver.c
-+++ b/sound/usb/line6/driver.c
-@@ -97,7 +97,7 @@ static void line6_stop_listen(struct usb_line6 *line6)
- /*
- 	Send raw message in pieces of wMaxPacketSize bytes.
- */
--static int line6_send_raw_message(struct usb_line6 *line6, const char *buffer,
-+int line6_send_raw_message(struct usb_line6 *line6, const char *buffer,
- 				  int size)
- {
- 	int i, done = 0;
-@@ -132,6 +132,7 @@ static int line6_send_raw_message(struct usb_line6 *line6, const char *buffer,
- 
- 	return done;
- }
-+EXPORT_SYMBOL(line6_send_raw_message);
- 
- /*
- 	Notification of completion of asynchronous request transmission.
-diff --git a/sound/usb/line6/driver.h b/sound/usb/line6/driver.h
-index 1a4e3700c80c..62c686bed0ca 100644
---- a/sound/usb/line6/driver.h
-+++ b/sound/usb/line6/driver.h
-@@ -108,6 +108,8 @@ enum {
- 	LINE6_CAP_CONTROL_MIDI = 1 << 4,
- 	/* device provides low-level information */
- 	LINE6_CAP_CONTROL_INFO = 1 << 5,
-+	/* device provides hardware monitoring volume control */
-+	LINE6_CAP_HWMON_CTL =	1 << 6,
- };
- 
- /*
-@@ -185,6 +187,8 @@ extern int line6_read_data(struct usb_line6 *line6, unsigned address,
- 			   void *data, unsigned datalen);
- extern int line6_read_serial_number(struct usb_line6 *line6,
- 				    u32 *serial_number);
-+extern int line6_send_raw_message(struct usb_line6 *line6,
-+					const char *buffer, int size);
- extern int line6_send_raw_message_async(struct usb_line6 *line6,
- 					const char *buffer, int size);
- extern int line6_send_sysex_message(struct usb_line6 *line6,
-diff --git a/sound/usb/line6/podhd.c b/sound/usb/line6/podhd.c
-index e39dc85c355a..7cc2f1540c7c 100644
---- a/sound/usb/line6/podhd.c
-+++ b/sound/usb/line6/podhd.c
-@@ -11,6 +11,7 @@
- #include <linux/slab.h>
- #include <linux/module.h>
- #include <sound/core.h>
-+#include <sound/control.h>
- #include <sound/pcm.h>
- 
- #include "driver.h"
-@@ -37,6 +38,9 @@ struct usb_line6_podhd {
- 
- 	/* Firmware version */
- 	int firmware_version;
-+
-+	/* Monitor level */
-+	int monitor_level;
- };
- 
- #define line6_to_podhd(x)	container_of(x, struct usb_line6_podhd, line6)
-@@ -250,6 +254,115 @@ static void podhd_disconnect(struct usb_line6 *line6)
- 	}
- }
- 
-+static const unsigned int float_zero_to_one_lookup[] = {
-+0x00000000, 0x3C23D70A, 0x3CA3D70A, 0x3CF5C28F, 0x3D23D70A, 0x3D4CCCCD,
-+0x3D75C28F, 0x3D8F5C29, 0x3DA3D70A, 0x3DB851EC, 0x3DCCCCCD, 0x3DE147AE,
-+0x3DF5C28F, 0x3E051EB8, 0x3E0F5C29, 0x3E19999A, 0x3E23D70A, 0x3E2E147B,
-+0x3E3851EC, 0x3E428F5C, 0x3E4CCCCD, 0x3E570A3D, 0x3E6147AE, 0x3E6B851F,
-+0x3E75C28F, 0x3E800000, 0x3E851EB8, 0x3E8A3D71, 0x3E8F5C29, 0x3E947AE1,
-+0x3E99999A, 0x3E9EB852, 0x3EA3D70A, 0x3EA8F5C3, 0x3EAE147B, 0x3EB33333,
-+0x3EB851EC, 0x3EBD70A4, 0x3EC28F5C, 0x3EC7AE14, 0x3ECCCCCD, 0x3ED1EB85,
-+0x3ED70A3D, 0x3EDC28F6, 0x3EE147AE, 0x3EE66666, 0x3EEB851F, 0x3EF0A3D7,
-+0x3EF5C28F, 0x3EFAE148, 0x3F000000, 0x3F028F5C, 0x3F051EB8, 0x3F07AE14,
-+0x3F0A3D71, 0x3F0CCCCD, 0x3F0F5C29, 0x3F11EB85, 0x3F147AE1, 0x3F170A3D,
-+0x3F19999A, 0x3F1C28F6, 0x3F1EB852, 0x3F2147AE, 0x3F23D70A, 0x3F266666,
-+0x3F28F5C3, 0x3F2B851F, 0x3F2E147B, 0x3F30A3D7, 0x3F333333, 0x3F35C28F,
-+0x3F3851EC, 0x3F3AE148, 0x3F3D70A4, 0x3F400000, 0x3F428F5C, 0x3F451EB8,
-+0x3F47AE14, 0x3F4A3D71, 0x3F4CCCCD, 0x3F4F5C29, 0x3F51EB85, 0x3F547AE1,
-+0x3F570A3D, 0x3F59999A, 0x3F5C28F6, 0x3F5EB852, 0x3F6147AE, 0x3F63D70A,
-+0x3F666666, 0x3F68F5C3, 0x3F6B851F, 0x3F6E147B, 0x3F70A3D7, 0x3F733333,
-+0x3F75C28F, 0x3F7851EC, 0x3F7AE148, 0x3F7D70A4, 0x3F800000
-+};
-+
-+static void podhd_set_monitor_level(struct usb_line6_podhd *podhd, int value)
-+{
-+	unsigned int fl;
-+	static const unsigned char msg[16] = {
-+		/* Chunk is 0xc bytes (without first word) */
-+		0x0c, 0x00,
-+		/* First chunk in the message */
-+		0x01, 0x00,
-+		/* Message size is 2 4-byte words */
-+		0x02, 0x00,
-+		/* Unknown */
-+		0x04, 0x41,
-+		/* Unknown */
-+		0x04, 0x00, 0x13, 0x00,
-+		/* Volume, LE float32, 0.0 - 1.0 */
-+		0x00, 0x00, 0x00, 0x00
-+	};
-+	unsigned char *buf;
-+
-+	buf = kmalloc(sizeof(msg), GFP_ATOMIC);
-+	memcpy(buf, msg, sizeof(msg));
-+
-+	if (value < 0)
-+		value = 0;
-+
-+	if (value >= ARRAY_SIZE(float_zero_to_one_lookup))
-+		value = ARRAY_SIZE(float_zero_to_one_lookup) - 1;
-+
-+	fl = float_zero_to_one_lookup[value];
-+
-+	buf[12] = (fl >> 0) & 0xff;
-+	buf[13] = (fl >> 8) & 0xff;
-+	buf[14] = (fl >> 16) & 0xff;
-+	buf[15] = (fl >> 24) & 0xff;
-+
-+	line6_send_raw_message(&podhd->line6, buf, sizeof(msg));
-+	kfree(buf);
-+
-+	podhd->monitor_level = value;
-+}
-+
-+/* control info callback */
-+static int snd_podhd_control_monitor_info(struct snd_kcontrol *kcontrol,
-+					struct snd_ctl_elem_info *uinfo)
-+{
-+	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-+	uinfo->count = 1;
-+	uinfo->value.integer.min = 0;
-+	uinfo->value.integer.max = 100;
-+	uinfo->value.integer.step = 1;
-+	return 0;
-+}
-+
-+/* control get callback */
-+static int snd_podhd_control_monitor_get(struct snd_kcontrol *kcontrol,
-+				       struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_line6_pcm *line6pcm = snd_kcontrol_chip(kcontrol);
-+	struct usb_line6_podhd *podhd = line6_to_podhd(line6pcm->line6);
-+
-+	ucontrol->value.integer.value[0] = podhd->monitor_level;
-+	return 0;
-+}
-+
-+/* control put callback */
-+static int snd_podhd_control_monitor_put(struct snd_kcontrol *kcontrol,
-+				       struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_line6_pcm *line6pcm = snd_kcontrol_chip(kcontrol);
-+	struct usb_line6_podhd *podhd = line6_to_podhd(line6pcm->line6);
-+
-+	if (ucontrol->value.integer.value[0] == podhd->monitor_level)
-+		return 0;
-+
-+	podhd_set_monitor_level(podhd, ucontrol->value.integer.value[0]);
-+	return 1;
-+}
-+
-+/* control definition */
-+static const struct snd_kcontrol_new podhd_control_monitor = {
-+	.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
-+	.name = "Monitor Playback Volume",
-+	.index = 0,
-+	.access = SNDRV_CTL_ELEM_ACCESS_READWRITE,
-+	.info = snd_podhd_control_monitor_info,
-+	.get = snd_podhd_control_monitor_get,
-+	.put = snd_podhd_control_monitor_put
-+};
-+
- /*
- 	Try to init POD HD device.
- */
-@@ -298,6 +411,15 @@ static int podhd_init(struct usb_line6 *line6,
- 			return err;
- 	}
- 
-+	if (pod->line6.properties->capabilities & LINE6_CAP_HWMON_CTL) {
-+		podhd_set_monitor_level(pod, 100);
-+		err = snd_ctl_add(line6->card,
-+				  snd_ctl_new1(&podhd_control_monitor,
-+					       line6->line6pcm));
-+		if (err < 0)
-+			return err;
-+	}
-+
- 	if (!(pod->line6.properties->capabilities & LINE6_CAP_CONTROL_INFO)) {
- 		/* register USB audio system directly */
- 		return snd_card_register(line6->card);
-@@ -354,7 +476,7 @@ static const struct line6_properties podhd_properties_table[] = {
- 		.id = "PODHD500",
- 		.name = "POD HD500",
- 		.capabilities	= LINE6_CAP_PCM | LINE6_CAP_CONTROL
--				| LINE6_CAP_HWMON,
-+				| LINE6_CAP_HWMON | LINE6_CAP_HWMON_CTL,
- 		.altsetting = 1,
- 		.ctrl_if = 1,
- 		.ep_ctrl_r = 0x81,
--- 
-2.26.2
+$ grep threadirqs /proc/cmdline 
+BOOT_IMAGE=/vmlinuz-5.4.42-gentoo root=/dev/mapper/vg_system-root ro rd.md.uuid=cdf11511:cf0ca8c5:cc165dc3:3d3d248f rd.luks.uuid=a5a6e532-af4e-49b2-8178-95e54c293799 rd.lvm.lv=vg_system/root rd.lvm.lv=vg_system/swap rd.lvm.lv=vg_system/usr resume=/dev/mapper/vg_system-swap rootflags=relatime,logbufs=8,logbsize=256k rootfstype=xfs init=/lib/systemd/systemd noautogroup loglevel=5 console=ttyS1,115200 console=tty0 threadirqs mgag200.modeset=1
+
+[   60.563598] BUG: unable to handle page fault for address: ffffb80602983ff0
+[   60.570478] #PF: supervisor write access in kernel mode
+[   60.575701] #PF: error_code(0x0002) - not-present page
+[   60.580833] PGD 813498067 P4D 813498067 PUD 813499067 PMD 80e0e0067 PTE 0
+[   60.587619] Oops: 0002 [#1] PREEMPT SMP NOPTI
+[   60.591979] CPU: 4 PID: 242 Comm: irq/34-xhci_hcd Tainted: G           O    T 5.4.42-gentoo #1
+[   60.600585] Hardware name: Supermicro H8SCM/H8SCM, BIOS 3.5b       03/18/2016
+[   60.607723] RIP: 0010:__memcpy+0x12/0x20
+[   60.611646] Code: c1 e2 20 48 09 c2 48 31 d3 e9 71 ff ff ff 90 90 90 90 90 90 90 90 90 90 0f 1f 44 00 00 48 89 f8 48 89 d1 48 c1 e9 03 83 e2 07 <f3> 48 a5 89 d1 f3 a4 c3 66 0f 1f 44 00 00 48 89 f8 48 89 d1 f3 a4
+[   60.630401] RSP: 0018:ffffb806004a3c80 EFLAGS: 00010046
+[   60.635628] RAX: ffffb80602983ff0 RBX: 0000000000000010 RCX: 000000000000000a
+[   60.642759] RDX: 0000000000000000 RSI: ffff9d5f6659b000 RDI: ffffb80602983ff0
+[   60.649883] RBP: ffff9d5f62c38c00 R08: 0000000000000002 R09: 0000000000000000
+[   60.657017] R10: 0000000000000002 R11: 0000000000000001 R12: 0000000000000050
+[   60.664160] R13: 0000000000000000 R14: 0000000000079ff0 R15: ffff9d608c1d4908
+[   60.671293] FS:  0000000000000000(0000) GS:ffff9d6096b00000(0000) knlGS:0000000000000000
+[   60.679380] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   60.685125] CR2: ffffb80602983ff0 CR3: 000000080f55c000 CR4: 00000000000406e0
+[   60.692258] Call Trace:
+[   60.694719]  retire_capture_urb+0x201/0x270 [snd_usb_audio]
+[   60.700288]  snd_complete_urb+0x1b7/0x270 [snd_usb_audio]
+[   60.705686]  __usb_hcd_giveback_urb+0x77/0xe0
+[   60.710054]  xhci_giveback_urb_in_irq.isra.0+0x6d/0x100
+[   60.715278]  xhci_td_cleanup+0xc4/0xe0
+[   60.719032]  xhci_irq+0x825/0x1780
+[   60.722438]  ? __schedule+0x2c3/0x650
+[   60.726105]  ? irq_finalize_oneshot.part.0+0xd0/0xd0
+[   60.731071]  irq_forced_thread_fn+0x25/0x70
+[   60.735257]  irq_thread+0xea/0x170
+[   60.738672]  ? wake_threads_waitq+0x30/0x30
+[   60.742859]  kthread+0xf8/0x130
+[   60.746005]  ? irq_thread_check_affinity+0x90/0x90
+[   60.750805]  ? kthread_park+0x90/0x90
+[   60.754473]  ret_from_fork+0x22/0x40
+[   60.758053] Modules linked in: ebtable_filter ebtables bridge stp llc netconsole wireguard ip6_udp_tunnel udp_tunnel xt_limit xt_comment xt_recent xt_multiport xt_MASQUERADE iptable_nat nf_nat nf_conntrack_netbios_ns nf_conntrack_broadcast xt_CT ip6table_raw iptable_raw snd_seq_midi snd_seq_midi_event amd64_edac_mod kvm_amd kvm pcspkr irqbypass uvcvideo videobuf2_vmalloc videobuf2_memops videobuf2_v4l2 videodev snd_hda_codec_hdmi videobuf2_common snd_hda_intel joydev snd_intel_nhlt snd_hda_codec snd_usb_audio sp5100_tco snd_usbmidi_lib snd_rawmidi snd_hwdep e1000e snd_hda_core snd_pcm nfsd tcp_yeah tcp_vegas sch_fq_codel uas amdgpu crc32c_intel mgag200 drm_vram_helper gpu_sched ttm vhost_scsi target_core_mod configfs vhost_net tun tap vhost vhba(O) jc42 ipmi_si ipmi_devintf ipmi_msghandler fuse eeprom
+[   60.828924] CR2: ffffb80602983ff0
+[   60.832245] ---[ end trace 1945ea8b50798a03 ]---
+[   60.836862] RIP: 0010:__memcpy+0x12/0x20
+[   60.840797] Code: c1 e2 20 48 09 c2 48 31 d3 e9 71 ff ff ff 90 90 90 90 90 90 90 90 90 90 0f 1f 44 00 00 48 89 f8 48 89 d1 48 c1 e9 03 83 e2 07 <f3> 48 a5 89 d1 f3 a4 c3 66 0f 1f 44 00 00 48 89 f8 48 89 d1 f3 a4
+[   60.859553] RSP: 0018:ffffb806004a3c80 EFLAGS: 00010046
+[   60.864778] RAX: ffffb80602983ff0 RBX: 0000000000000010 RCX: 000000000000000a
+[   60.871911] RDX: 0000000000000000 RSI: ffff9d5f6659b000 RDI: ffffb80602983ff0
+[   60.879036] RBP: ffff9d5f62c38c00 R08: 0000000000000002 R09: 0000000000000000
+[   60.886168] R10: 0000000000000002 R11: 0000000000000001 R12: 0000000000000050
+[   60.893301] R13: 0000000000000000 R14: 0000000000079ff0 R15: ffff9d608c1d4908
+[   60.900453] FS:  0000000000000000(0000) GS:ffff9d6096b00000(0000) knlGS:0000000000000000
+[   60.908538] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   60.914276] CR2: ffffb80602983ff0 CR3: 000000080f55c000 CR4: 00000000000406e0
+[   60.921411] Kernel panic - not syncing: Fatal exception in interrupt
+[   60.927783] Kernel Offset: 0x21000000 from 0xffffffff81000000 (relocation range: 0xffffffff80000000-0xffffffffbfffffff)
+[   60.938554] ---[ end Kernel panic - not syncing: Fatal exception in interrupt ]---
 

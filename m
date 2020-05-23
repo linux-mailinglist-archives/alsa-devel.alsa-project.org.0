@@ -2,121 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89A9F1DF5E2
-	for <lists+alsa-devel@lfdr.de>; Sat, 23 May 2020 10:00:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 078FD1DF74D
+	for <lists+alsa-devel@lfdr.de>; Sat, 23 May 2020 14:57:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 310B21873;
-	Sat, 23 May 2020 10:00:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 310B21873
+	by alsa0.perex.cz (Postfix) with ESMTPS id 97FE71832;
+	Sat, 23 May 2020 14:56:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97FE71832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590220858;
-	bh=HZxkaD1E5jYXlzH7DRwnRQfcG1Qhb3qPGW+J3IHahcM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=sF+fL5zOQK5Q/qP4oB/ve+SkJ/Rlrxuwp+W/Zi8ipPKIBmOkrxn4QP/xsYJoIVtEx
-	 n99isxYiTRwJ6bWiliDjwrXrKcay5pHtn7ZgmnSPbypAFXxeZLu3DBByPI6bG6DTTJ
-	 KxXqv4iv5KjcZVu71eWrkOorgshY8/7UfwY9eB64=
+	s=default; t=1590238627;
+	bh=nfsKUJ9v/DE8lBXRk1jCpoSHeDVSLHAb6O/9dWHzoLM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ey1rT6HhP0MYaVrtbQD9KcPHu2O5VRmdjvlDL5CRZvkeatW0vHr9S1vGwuTTuFo47
+	 SvPtPyKcYDUVHQMpSZZwUREbVAXTlegYPDulk2n/UwDHFMowaiNR+3aqoHk4F2VKiH
+	 3Ic0u63k+D6XIgo3mDt7NbTIUSU7afwh5cSLSsRo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F405F801F8;
-	Sat, 23 May 2020 09:59:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD02FF80121;
+	Sat, 23 May 2020 14:55:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B09E5F801D8; Sat, 23 May 2020 09:59:13 +0200 (CEST)
+ id DAC51F801D8; Sat, 23 May 2020 14:55:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from wnew1-smtp.messagingengine.com (wnew1-smtp.messagingengine.com
- [64.147.123.26])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from crapouillou.net (outils.crapouillou.net [89.234.176.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7E646F80121
- for <alsa-devel@alsa-project.org>; Sat, 23 May 2020 09:59:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E646F80121
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C9DCF80121
+ for <alsa-devel@alsa-project.org>; Sat, 23 May 2020 14:55:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C9DCF80121
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="H3rWb5HU"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="CcVRcc9i"
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailnew.west.internal (Postfix) with ESMTP id A0D13874;
- Sat, 23 May 2020 03:59:01 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Sat, 23 May 2020 03:59:02 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=K9bdneoooJ1uSBw5jkomBqz3iW0
- HsoKgOxHBuN88dzA=; b=H3rWb5HUYcQn7iZXb7kBxoSo164u2D2hVvlNCeXfw33
- vPfXrucVHEPaNFgPKynsNfLu9sswkct6TBU+ulxNIaw6VejbT3wIjZSh1SBgRWed
- 37G/3vgYwnuytM7AUt8VmRelj55JNfHGl1DFJBnkktNp8gbthsSgRqUD1vb3Dioo
- oApBMjnbaUmoQHmdsXR/FXiAtvFI3xc/C56alJZluumRtFOFuQWhJ6VtYXGn29mx
- /uHQLUxc7EcEWeJSmD0RVHQVwxL4y6E+vJ36WC4ktDt+GWzQYna8G67frcbar58V
- WkkaAGX9eKQ7ZdE0czbjq4KF00ZmXPj+KX9G9WSf7qA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=K9bdne
- oooJ1uSBw5jkomBqz3iW0HsoKgOxHBuN88dzA=; b=CcVRcc9iulo5FrFWsvMwNI
- lnO1f6CwgY494tKBtmumqn8rFALyNsIivbS9xjEuFDxNvieYN9l7bH8WRLr+piIR
- Hj1jylf3k9X9SMeOYOzEMKd1s/EJHu1VdQ7/+FqtPUVATE/KUoEHME8/ctLx+itm
- eagXQ48TrSjcTD6En5e10/SVYN8DPtqRQZIwzDFDZ6T4+ggwg+Z5pKCf5SwFjZNy
- H1xpeXO1XhBuis4MzAWZOClWQIJIggq4HU8TTMcNqQr+dMJbbRE/O5YaYggluu+v
- hkouwGdlZiV8+Gw6yhghDLUytmFQ+kUM8upUDnJlv3Gq1dPGRi5Cmr7Q6VFMCqQA
- ==
-X-ME-Sender: <xms:xNfIXpIYAmfqIChvyJM_rKIA0yUIxHG6Z0AgyhTnotb0mwkBuTquYA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedruddugedguddvvdcutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgr
- shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
- hjpheqnecuggftrfgrthhtvghrnhephfefleekfeevgffhhfehudetkeeivdeuvdelgeej
- jefhffegkeffffdugfevudetnecuffhomhgrihhnpehgihhthhhusgdrtghomhdprghlsh
- grqdhprhhojhgvtghtrdhorhhgnecukfhppedukedtrddvfeehrdefrdehgeenucevlhhu
- shhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshh
- hisehsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:xNfIXlK-hUj2c_B-TJAeEP4Nv8ItDjNR79jB0y4kcSeRYV0cYVe9Ng>
- <xmx:xNfIXhsN6JBRk4ydpuWG_Wqdcl1Uy2vhIKaqbVVFOHa-B7fcj_lI2w>
- <xmx:xNfIXqZCW_JuSxoblr1zefmM5ZBES2YNtOCd4SmdkHLQMAoGY4rc-Q>
- <xmx:xdfIXqDiHCJPhSs3amiBVLQ9b3oEfEyPZLCS9vGA9sPVJvr-kmK65UXOCtI>
-Received: from workstation (ad003054.dynamic.ppp.asahi-net.or.jp
- [180.235.3.54])
- by mail.messagingengine.com (Postfix) with ESMTPA id 747FB328005E;
- Sat, 23 May 2020 03:58:56 -0400 (EDT)
-Date: Sat, 23 May 2020 16:58:54 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Greg KH <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH v2] firewire: Remove function callback casts
-Message-ID: <20200523075854.GA170441@workstation>
-Mail-Followup-To: Greg KH <gregkh@linuxfoundation.org>,
- Oscar Carter <oscar.carter@gmx.com>,
- stable <stable@vger.kernel.org>, Kees Cook <keescook@chromium.org>,
- Stefan Richter <stefanr@s5r6.in-berlin.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Clemens Ladisch <clemens@ladisch.de>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- kernel-hardening@lists.openwall.com,
- linux1394-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, alsa-devel@alsa-project.org,
- "Lev R . Oshvang ." <levonshe@gmail.com>
-References: <20200519173425.4724-1-oscar.carter@gmx.com>
- <20200520061624.GA25690@workstation> <20200522174308.GB3059@ubuntu>
- <20200523061033.GB3131938@kroah.com>
+ dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
+ header.b="nfJBLKFe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
+ s=mail; t=1590238514; h=from:from:sender:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:references; bh=4H5s0QFOM5/H2soQZqt1IUyUDqpcpHgzFYC6TqO7StY=;
+ b=nfJBLKFeNz7AabXPcYV/iLwDNAeQUj/6xCxsDCCRKt3OSHSMIUupJDDSQlBbUS+U1DjbLZ
+ tB8K6KJJx62eRqHW88tCAyP3Uujqhvc2pieS9RjRUbTeCKOu9stEHYCl0/gQi1WfobKKyx
+ V9rmQNUwJR45bjLUZm0MK9TFHbpRZUc=
+From: Paul Cercueil <paul@crapouillou.net>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH] ASoC: ingenic: Unconditionally depend on devicetree
+Date: Sat, 23 May 2020 14:54:55 +0200
+Message-Id: <20200523125455.12392-1-paul@crapouillou.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200523061033.GB3131938@kroah.com>
-Cc: alsa-devel@alsa-project.org, linux1394-devel@lists.sourceforge.net,
- Oscar Carter <oscar.carter@gmx.com>, Kees Cook <keescook@chromium.org>,
- kernel-hardening@lists.openwall.com, linux-kernel@vger.kernel.org,
- Clemens Ladisch <clemens@ladisch.de>, Takashi Iwai <tiwai@suse.com>,
- stable <stable@vger.kernel.org>, Stefan Richter <stefanr@s5r6.in-berlin.de>,
- "Lev R . Oshvang ." <levonshe@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Cc: Paul Cercueil <paul@crapouillou.net>, alsa-devel@alsa-project.org,
+ od@zcrc.me, linux-kernel@vger.kernel.org, kbuild test robot <lkp@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -132,48 +72,156 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Greg,
+All boards with Ingenic SoCs probe with devicetree already, we have no
+use for a non-devicetree path.
 
-On Sat, May 23, 2020 at 08:10:33AM +0200, Greg KH wrote:
-> On Fri, May 22, 2020 at 07:43:08PM +0200, Oscar Carter wrote:
-> > Hi,
-> > 
-> > On Wed, May 20, 2020 at 03:16:24PM +0900, Takashi Sakamoto wrote:
-> > > Hi,
-> > >
-> > > I'm an author of ALSA firewire stack and thanks for the patch. I agree with
-> > > your intention to remove the cast of function callback toward CFI build.
-> > >
-> > > Practically, the isochronous context with FW_ISO_CONTEXT_RECEIVE_MULTICHANNEL
-> > > is never used by in-kernel drivers. Here, I propose to leave current
-> > > kernel API (fw_iso_context_create() with fw_iso_callback_t) as is.
-> 
-> If it's not used by anyone, why is it still there?  Can't we just delete
-> it?
+This solves some compilation warnings that were caused by unused
+variables in the case where CONFIG_OF was disabled.
 
-For this patchset, I followed to the theory to keep backward compatibility
-when adding any change, and it's what I'd like to discuss.
+Signed-off-by: Paul Cercueil <paul@crapouillou.net>
+Reported-by: kbuild test robot <lkp@intel.com>
+---
+ sound/soc/codecs/Kconfig      | 3 +++
+ sound/soc/codecs/jz4725b.c    | 4 +---
+ sound/soc/codecs/jz4740.c     | 4 +---
+ sound/soc/codecs/jz4770.c     | 2 +-
+ sound/soc/jz4740/Kconfig      | 2 +-
+ sound/soc/jz4740/jz4740-i2s.c | 4 +---
+ 6 files changed, 8 insertions(+), 11 deletions(-)
 
-The isoc context of multichannel mode is also available for userspace
-applications, and libhinoko[1] uses it. In a point of backward
-compatibility for userspace, we can't delete the mode.
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index e60e0b6a689c..3a0a6824e278 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -681,6 +681,7 @@ config SND_SOC_CX2072X
+ 
+ config SND_SOC_JZ4740_CODEC
+ 	depends on MIPS || COMPILE_TEST
++	depends on OF
+ 	select REGMAP_MMIO
+ 	tristate "Ingenic JZ4740 internal CODEC"
+ 	help
+@@ -692,6 +693,7 @@ config SND_SOC_JZ4740_CODEC
+ 
+ config SND_SOC_JZ4725B_CODEC
+ 	depends on MIPS || COMPILE_TEST
++	depends on OF
+ 	select REGMAP
+ 	tristate "Ingenic JZ4725B internal CODEC"
+ 	help
+@@ -703,6 +705,7 @@ config SND_SOC_JZ4725B_CODEC
+ 
+ config SND_SOC_JZ4770_CODEC
+ 	depends on MIPS || COMPILE_TEST
++	depends on OF
+ 	select REGMAP
+ 	tristate "Ingenic JZ4770 internal CODEC"
+ 	help
+diff --git a/sound/soc/codecs/jz4725b.c b/sound/soc/codecs/jz4725b.c
+index 2567a5d15b55..e49374c72e70 100644
+--- a/sound/soc/codecs/jz4725b.c
++++ b/sound/soc/codecs/jz4725b.c
+@@ -574,19 +574,17 @@ static int jz4725b_codec_probe(struct platform_device *pdev)
+ 	return ret;
+ }
+ 
+-#ifdef CONFIG_OF
+ static const struct of_device_id jz4725b_codec_of_matches[] = {
+ 	{ .compatible = "ingenic,jz4725b-codec", },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, jz4725b_codec_of_matches);
+-#endif
+ 
+ static struct platform_driver jz4725b_codec_driver = {
+ 	.probe = jz4725b_codec_probe,
+ 	.driver = {
+ 		.name = "jz4725b-codec",
+-		.of_match_table = of_match_ptr(jz4725b_codec_of_matches),
++		.of_match_table = jz4725b_codec_of_matches,
+ 	},
+ };
+ module_platform_driver(jz4725b_codec_driver);
+diff --git a/sound/soc/codecs/jz4740.c b/sound/soc/codecs/jz4740.c
+index 460aa1fd1efe..c9900d1cd5c2 100644
+--- a/sound/soc/codecs/jz4740.c
++++ b/sound/soc/codecs/jz4740.c
+@@ -344,19 +344,17 @@ static int jz4740_codec_probe(struct platform_device *pdev)
+ 	return ret;
+ }
+ 
+-#ifdef CONFIG_OF
+ static const struct of_device_id jz4740_codec_of_matches[] = {
+ 	{ .compatible = "ingenic,jz4740-codec", },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, jz4740_codec_of_matches);
+-#endif
+ 
+ static struct platform_driver jz4740_codec_driver = {
+ 	.probe = jz4740_codec_probe,
+ 	.driver = {
+ 		.name = "jz4740-codec",
+-		.of_match_table = of_match_ptr(jz4740_codec_of_matches),
++		.of_match_table = jz4740_codec_of_matches,
+ 	},
+ };
+ 
+diff --git a/sound/soc/codecs/jz4770.c b/sound/soc/codecs/jz4770.c
+index e7cf2c107607..34775aa62402 100644
+--- a/sound/soc/codecs/jz4770.c
++++ b/sound/soc/codecs/jz4770.c
+@@ -937,7 +937,7 @@ static struct platform_driver jz4770_codec_driver = {
+ 	.probe			= jz4770_codec_probe,
+ 	.driver			= {
+ 		.name		= "jz4770-codec",
+-		.of_match_table = of_match_ptr(jz4770_codec_of_matches),
++		.of_match_table = jz4770_codec_of_matches,
+ 	},
+ };
+ module_platform_driver(jz4770_codec_driver);
+diff --git a/sound/soc/jz4740/Kconfig b/sound/soc/jz4740/Kconfig
+index e72f826062e9..29144720cb62 100644
+--- a/sound/soc/jz4740/Kconfig
++++ b/sound/soc/jz4740/Kconfig
+@@ -2,7 +2,7 @@
+ config SND_JZ4740_SOC_I2S
+ 	tristate "SoC Audio (I2S protocol) for Ingenic JZ4740 SoC"
+ 	depends on MIPS || COMPILE_TEST
+-	depends on HAS_IOMEM
++	depends on OF && HAS_IOMEM
+ 	select SND_SOC_GENERIC_DMAENGINE_PCM
+ 	help
+ 	  Say Y if you want to use I2S protocol and I2S codec on Ingenic JZ4740
+diff --git a/sound/soc/jz4740/jz4740-i2s.c b/sound/soc/jz4740/jz4740-i2s.c
+index 6f6f8dad0356..52460adf6ca1 100644
+--- a/sound/soc/jz4740/jz4740-i2s.c
++++ b/sound/soc/jz4740/jz4740-i2s.c
+@@ -504,7 +504,6 @@ static const struct snd_soc_component_driver jz4740_i2s_component = {
+ 	.resume		= jz4740_i2s_resume,
+ };
+ 
+-#ifdef CONFIG_OF
+ static const struct of_device_id jz4740_of_matches[] = {
+ 	{ .compatible = "ingenic,jz4740-i2s", .data = &jz4740_i2s_soc_info },
+ 	{ .compatible = "ingenic,jz4760-i2s", .data = &jz4760_i2s_soc_info },
+@@ -513,7 +512,6 @@ static const struct of_device_id jz4740_of_matches[] = {
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, jz4740_of_matches);
+-#endif
+ 
+ static int jz4740_i2s_dev_probe(struct platform_device *pdev)
+ {
+@@ -558,7 +556,7 @@ static struct platform_driver jz4740_i2s_driver = {
+ 	.probe = jz4740_i2s_dev_probe,
+ 	.driver = {
+ 		.name = "jz4740-i2s",
+-		.of_match_table = of_match_ptr(jz4740_of_matches)
++		.of_match_table = jz4740_of_matches,
+ 	},
+ };
+ 
+-- 
+2.26.2
 
-(Practically, the mode is useful for the purpose of packet sniffing in
-bus and helpful to my work for development of ALSA firewire stack[2].)
-
-On the other hand, there's no unit driver to use the mode in upstream
-kernel. It's unlikely to use the mode for unit driver since the mode is
-not specific to unit functionality. In my opinion, it's reasonable to
-lose backward compatibility slightly by hiding the multichannel mode
-from in-kernel unit driver.
-
-I'll post v2 patchset later and I'd like you to merge them if no
-objections from the others for the loss of backward compatibility.
-
-[1] https://github.com/takaswie/libhinoko
-[2] https://mailman.alsa-project.org/pipermail/alsa-devel/2019-April/147862.html
-
-
-Regards
-
-Takashi Sakamoto

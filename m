@@ -2,60 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B8EE1E0A8E
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 May 2020 11:30:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55E911DFD82
+	for <lists+alsa-devel@lfdr.de>; Sun, 24 May 2020 09:01:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A2913845;
-	Mon, 25 May 2020 11:30:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2913845
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BD3E1751;
+	Sun, 24 May 2020 09:00:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BD3E1751
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590399058;
-	bh=Jq+ZUX4P7qhaQ9O/zuOBnGnGSC3SaDtCUaDHM8Fw+CI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1590303675;
+	bh=V6cbEejH+b4+NKgxwjb3COMDMnFTSAy/JSOvQ4aJLO8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BJol9oYaZ/PDJELmPVjsfdbjlGj+sGX+ER+SUiWKQwABkcWJfHhd5UQUT/L9ltODb
-	 YHZbTB79u+SerCYe0bxLYCXawp6i4VGuPsOYyBgt29Dwe7c41BEX1Z6mzHahbBQnn+
-	 EuxyT8QaHGp+k4ymjzLmAxJnWTeux3PdYsscgg+0=
+	b=srAa88XekGw9gIVpgMuSB66mBmsDz1eRLgTVeDOnx0nWmjwoTDPGQVXrb2gnS5kpe
+	 1jZkZ0/eRJp32ovqHfdMw42/5EucsZTSdpWkhJCXh0A4FRPr3yLS7WBPnw2FZgXs4d
+	 LiFwHMKievCkfK55bTeZ8GjCwGKW3AHZ2kXsX5/U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D775F802DD;
-	Mon, 25 May 2020 11:25:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 939ACF8013C;
+	Sun, 24 May 2020 08:59:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3734FF801D8; Sun, 24 May 2020 02:24:52 +0200 (CEST)
+ id BABE6F8015C; Sun, 24 May 2020 08:59:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.141])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3CE16F80140
- for <alsa-devel@alsa-project.org>; Sun, 24 May 2020 02:24:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CE16F80140
-Received: from submission (posteo.de [89.146.220.130]) 
- by mout01.posteo.de (Postfix) with ESMTPS id 3704C16005C
- for <alsa-devel@alsa-project.org>; Sun, 24 May 2020 02:24:42 +0200 (CEST)
-Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 49V1FQ2TN6z6tmP;
- Sun, 24 May 2020 02:24:41 +0200 (CEST)
-From: Melvin Vermeeren <mail@mel.vin>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: Dice firewire support
-Date: Sun, 24 May 2020 02:24:33 +0200
-Message-ID: <2204634.7cJeLMavbB@verm-r4e>
-In-Reply-To: <4243350.MNUmLrt7UK@verm-r4e>
-References: <276893435.728967.1590133905081.JavaMail.administrator@n7.nabble.com>
- <CALic0i3=qUMQxK_E1oFA_=K0+ABk0LJwF3hGZumA0nU8PQV4tw@mail.gmail.com>
- <4243350.MNUmLrt7UK@verm-r4e>
-MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart1875152.F0jBVD7ps7";
- micalg="pgp-sha512"; protocol="application/pgp-signature"
-X-Mailman-Approved-At: Mon, 25 May 2020 11:25:08 +0200
-Cc: alsa-devel@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 50682F8013C
+ for <alsa-devel@alsa-project.org>; Sun, 24 May 2020 08:59:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50682F8013C
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 5E24BB04F;
+ Sun, 24 May 2020 06:59:28 +0000 (UTC)
+Date: Sun, 24 May 2020 08:59:22 +0200
+Message-ID: <s5hftbpx1h1.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Vasily Khoruzhick <anarsoul@gmail.com>
+Subject: Re: [PATCH v2] ALSA: line6: add hw monitor volume control for POD
+ HD500
+In-Reply-To: <20200523174957.6294-1-anarsoul@gmail.com>
+References: <20200523174957.6294-1-anarsoul@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Pavel Machek <pavel@denx.de>, Takashi Iwai <tiwai@suse.com>,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Allison Randal <allison@lohutok.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,60 +73,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---nextPart1875152.F0jBVD7ps7
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+On Sat, 23 May 2020 19:49:57 +0200,
+Vasily Khoruzhick wrote:
+> 
+> Add hw monitor volume control for POD HD500. The same change may
+> work for HD500X but I don't have it to test.
+> 
+> Signed-off-by: Vasily Khoruzhick <anarsoul@gmail.com>
+> ---
+> v2: clamp volume value to [0, ARRAY_SIZE() -1] in
+>     podhd_set_monitor_level()
 
-Hi Takashi,
+Thanks for the patch.
+The basic implementation looks good, but I see a few issues.
+Below are the comments:
 
-On Friday, 22 May 2020 13:36:13 CEST Melvin Vermeeren wrote:
-> Since I am running 5.5.17
-> (buster-backports) kernel right now I will do some testing later today to
-> see if there are still any issues in this version, the Mytek is still used
-> daily.
+> @@ -132,6 +132,7 @@ static int line6_send_raw_message(struct usb_line6 *line6, const char *buffer,
+>  
+>  	return done;
+>  }
+> +EXPORT_SYMBOL(line6_send_raw_message);
 
-I have just tested it with 5.5.17 and can confirm this issue still exists. It 
-is not very noticeable when playing music but it instantly apparent when 
-playing a 500hz tone for a few seconds. It sounds there is some small ticking 
-in the background instead of a pure tone. Happens every few hundred 
-milliseconds or so and is fully consistent, as if a timing or cycle issue.
-
-Next I checked with current master v5.7-rc2-1808-g40e1763b6246 (snd_dice and 
-snd_firewire_lib) with the same results. I believe the status is the same 
-posted in 2018[1][2]. The old out-of-tree have served me well throughout the 
-years, so I will probably keep using them for now. Perhaps this final issue 
-will be found one day, if I can help you with anything please let me know.
-
-[1] https://www.alsa-project.org/pipermail/alsa-devel/2018-June/136829.html
-[2] https://www.alsa-project.org/pipermail/alsa-devel/2018-June/137160.html
-
-Thanks,
-
--- 
-Melvin Vermeeren
---nextPart1875152.F0jBVD7ps7
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEETnzUjuV5O+rCrz6nRiwQnTrHuFkFAl7JvsEACgkQRiwQnTrH
-uFmDRw//eM+1QB0bYeDbDQHHhuxqqUp5fnu/UWfCsfFzvCBvegCOcpjj20Fzjm8T
-J17PZsj4kTSGhtfzjsrXUkdZ3ismVssJCyDdNyOlCGnc5zLOr3mT7uNP/q2dtT/E
-JByZyqqwR2maDlHXaeKRUa57W5giLy4ui8xJ+P47HEtW42VcjPFxYfOsd6JgI3IS
-6I+JoHRtvPgnuiPKEelFcUNaF/ppDPUTiKXc1gLruQdMHIbbSHsAltzlBu51sbee
-w/mWqaSTKkoikPRsE71YYtwd+5IyqJxvrJpE0Lr9lQ963Uy03QvpIeq+zY1g2Jza
-gs5MNF/5AQhI8pjxBtwTfYCJZB0xEFvSpYqHaajcIO0wX+XUsKSCuLTkiNGQ5owk
-QX7zyQ8sZWRQ5T2KzrV3C08wlfgf+GXJ4dsiMkjTAj3YBQjJZgNqXSJkuTgYMbnf
-beKLNekambyH4zJNGjiltk/z+fhwnr7ZL1rvS08COddqHhEYrw/fH5MtwVJL2YNE
-bcEZlt7nF9ZyN4d7id4BiHgdp3igDxYD0XdZ94tffTy4YS+TM5BXHMrVPe2MEkg/
-RtYNZWq5WABZT886UPodhk7FcUhsZ0XFqFPw6gNSQsD2HGpelI/LHgy2p/1tEG4B
-eTZ3qiWwOF0Ltn5hunF+zCznDuunWhM3Qt0rrjwvbfWcLxcm8Co=
-=efdP
------END PGP SIGNATURE-----
-
---nextPart1875152.F0jBVD7ps7--
+Let's use EXPORT_SYMBOL_GPL() instead.
 
 
+> +static const unsigned int float_zero_to_one_lookup[] = {
+> +0x00000000, 0x3C23D70A, 0x3CA3D70A, 0x3CF5C28F, 0x3D23D70A, 0x3D4CCCCD,
+> +0x3D75C28F, 0x3D8F5C29, 0x3DA3D70A, 0x3DB851EC, 0x3DCCCCCD, 0x3DE147AE,
+> +0x3DF5C28F, 0x3E051EB8, 0x3E0F5C29, 0x3E19999A, 0x3E23D70A, 0x3E2E147B,
+> +0x3E3851EC, 0x3E428F5C, 0x3E4CCCCD, 0x3E570A3D, 0x3E6147AE, 0x3E6B851F,
+> +0x3E75C28F, 0x3E800000, 0x3E851EB8, 0x3E8A3D71, 0x3E8F5C29, 0x3E947AE1,
+> +0x3E99999A, 0x3E9EB852, 0x3EA3D70A, 0x3EA8F5C3, 0x3EAE147B, 0x3EB33333,
+> +0x3EB851EC, 0x3EBD70A4, 0x3EC28F5C, 0x3EC7AE14, 0x3ECCCCCD, 0x3ED1EB85,
+> +0x3ED70A3D, 0x3EDC28F6, 0x3EE147AE, 0x3EE66666, 0x3EEB851F, 0x3EF0A3D7,
+> +0x3EF5C28F, 0x3EFAE148, 0x3F000000, 0x3F028F5C, 0x3F051EB8, 0x3F07AE14,
+> +0x3F0A3D71, 0x3F0CCCCD, 0x3F0F5C29, 0x3F11EB85, 0x3F147AE1, 0x3F170A3D,
+> +0x3F19999A, 0x3F1C28F6, 0x3F1EB852, 0x3F2147AE, 0x3F23D70A, 0x3F266666,
+> +0x3F28F5C3, 0x3F2B851F, 0x3F2E147B, 0x3F30A3D7, 0x3F333333, 0x3F35C28F,
+> +0x3F3851EC, 0x3F3AE148, 0x3F3D70A4, 0x3F400000, 0x3F428F5C, 0x3F451EB8,
+> +0x3F47AE14, 0x3F4A3D71, 0x3F4CCCCD, 0x3F4F5C29, 0x3F51EB85, 0x3F547AE1,
+> +0x3F570A3D, 0x3F59999A, 0x3F5C28F6, 0x3F5EB852, 0x3F6147AE, 0x3F63D70A,
+> +0x3F666666, 0x3F68F5C3, 0x3F6B851F, 0x3F6E147B, 0x3F70A3D7, 0x3F733333,
+> +0x3F75C28F, 0x3F7851EC, 0x3F7AE148, 0x3F7D70A4, 0x3F800000
 
+Just nitpick: better to align with lower hex letters (a-f).
+
+
+> +};
+> +
+> +static void podhd_set_monitor_level(struct usb_line6_podhd *podhd, int value)
+> +{
+> +	unsigned int fl;
+> +	static const unsigned char msg[16] = {
+> +		/* Chunk is 0xc bytes (without first word) */
+> +		0x0c, 0x00,
+> +		/* First chunk in the message */
+> +		0x01, 0x00,
+> +		/* Message size is 2 4-byte words */
+> +		0x02, 0x00,
+> +		/* Unknown */
+> +		0x04, 0x41,
+> +		/* Unknown */
+> +		0x04, 0x00, 0x13, 0x00,
+> +		/* Volume, LE float32, 0.0 - 1.0 */
+> +		0x00, 0x00, 0x00, 0x00
+> +	};
+> +	unsigned char *buf;
+> +
+> +	buf = kmalloc(sizeof(msg), GFP_ATOMIC);
+
+Is this function called from the irq context like the urb callback?
+I saw that it's called from the mixer put callback, and it's in the
+normal sleepable context, hence GFP_KERNEL can be used safely.
+
+
+thanks,
+
+Takashi

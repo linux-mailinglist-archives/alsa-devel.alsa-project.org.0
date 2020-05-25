@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 248D61E111F
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 May 2020 16:58:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF6641E1126
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 May 2020 16:59:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D3771723;
-	Mon, 25 May 2020 16:57:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D3771723
+	by alsa0.perex.cz (Postfix) with ESMTPS id 81AA316EC;
+	Mon, 25 May 2020 16:58:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81AA316EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590418727;
-	bh=KUD5v/8iqTQSgXiFTVlORVRzIUIUeWtTUfR97FkOp4o=;
+	s=default; t=1590418774;
+	bh=Ctqv3ya/JDXgtykAo8WZs08uuRycHSfinm3Xrkt3T5Y=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HPOEW5PM3NP+vAKykQlzjCwBEWO5AS3mC4QGlVloZ1xDyprcTtsjPUJeEzzBcaa1i
-	 VNWdT0Cku35gxynR3lTN3aoasKMFncB/xRLfzFC9OwOSTVX3I5vNQjjaHeanBN8wSW
-	 XcHfl8he6K+GMsOjV/WDaAjlZiMFW7d1T1tAgADk=
+	b=CMAPdUNLo+E7oJ2hmuXnPZDzhGaXkGvxlvg6OHIAJY9CAKfGheujaxbH86fGB3RZ8
+	 53ioqMQXVdCLiji7LUo/VVEHvD5O29rFdT65JchpXxGEW9gQQqN9Oi4rtZH3Igc5rv
+	 4/+erLj0LB14J1hsGUuEWYdNoUeWdcpXuBjqcIr4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9FF22F8014E;
-	Mon, 25 May 2020 16:57:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA9E1F8026F;
+	Mon, 25 May 2020 16:57:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1168F8016F; Mon, 25 May 2020 16:57:04 +0200 (CEST)
+ id BACEAF80240; Mon, 25 May 2020 16:57:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42D78F80149
- for <alsa-devel@alsa-project.org>; Mon, 25 May 2020 16:57:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42D78F80149
+ by alsa1.perex.cz (Postfix) with ESMTPS id E8EC4F80227
+ for <alsa-devel@alsa-project.org>; Mon, 25 May 2020 16:57:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8EC4F80227
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="sYlkYugr"
+ header.b="NMJ+bE6V"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 17ACD20888;
- Mon, 25 May 2020 14:56:58 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id DAE8C20888;
+ Mon, 25 May 2020 14:57:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1590418619;
- bh=KUD5v/8iqTQSgXiFTVlORVRzIUIUeWtTUfR97FkOp4o=;
+ s=default; t=1590418625;
+ bh=Ctqv3ya/JDXgtykAo8WZs08uuRycHSfinm3Xrkt3T5Y=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=sYlkYugrMQR3OWNSa97SKssOXXYqYuOLQr8joG3XafpgIC01C7WBJ8bZugzAQ7raI
- tSSMJsvBAS/U2tuE7YeMlWZ3dGkStLhB/v9HNW2wKzLKvzr92NRfKYCeA2UqGoLhPS
- j4ejl8KUyFcQg2XXrq/hw0ure62xD9z3E8lr1jf0=
-Date: Mon, 25 May 2020 15:56:57 +0100
+ b=NMJ+bE6VHLlLeWCgfHfuAZbRLQGIJG7CGPLvTSD+PXkiwPhInY0+p0ug8Q5txKiFT
+ L19ttQjmRtbd1QoCxTNaLSQtGQ5jdBf6RKkKcEovHh8M7Jn7bWtFXjtfUHKdj3zwK9
+ 8hRTPp1lg9umTtk4bxF7dLoo68ZJsoCNFAZFhM64=
+Date: Mon, 25 May 2020 15:57:02 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20200520165911.21696-1-kai.vehmanen@linux.intel.com>
-References: <20200520165911.21696-1-kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH 0/5] ASoC: SOF: extended manifest support for 5.8
-Message-Id: <159041861697.1370.3489834756209033478.b4-ty@kernel.org>
-Cc: pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87lflk4yk3.wl-kuninori.morimoto.gx@renesas.com>
+References: <87lflk4yk3.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH v3 0/7] ASoC: add soc-link
+Message-Id: <159041861696.1370.17557110050681200377.b4-ty@kernel.org>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,15 +75,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 20 May 2020 19:59:06 +0300, Kai Vehmanen wrote:
-> extended firmware manifest is a method to retrieve capabilities
-> directly from the firmware file instead of routing the information via
-> the DSP and reading it back via IPC (latter mechanism still supported
-> but will be deprecated).
+On 22 May 2020 09:13:00 +0900, Kuninori Morimoto wrote:
+> Current ALSA SoC is handling dai_link related operation,
+> but it is implmemented directly without using function/macro,
+> and at random place.
 > 
-> This feature was briefly merged to 5.8 with the series sent on
-> 2020-Apr-15, but due to a regression hit with exporting uapi headers,
-> the patches got dropped.
+> This v3 patch-set creates new snd_soc_link_xxx() functions
+> which handles dai_link related operation,
+> and implmement these at new soc-link.c.
 > 
 > [...]
 
@@ -93,16 +92,20 @@ Applied to
 
 Thanks!
 
-[1/5] ASoC: SOF: loader: Adjust validation condition for fw_offset
-      commit: 523773b9ea9f430810332aa117ea48f8feafce9a
-[2/5] ASoC: SOF: Introduce extended manifest
-      commit: a80cf1987a6e728b4d5c8e5041132d46e89c7a45
-[3/5] ASoC: SOF: ext_manifest: parse firmware version
-      commit: 3e2a89d3ee052ef5346ba933e557c807333ced11
-[4/5] ASoC: SOF: ext_manifest: parse windows
-      commit: 8d809c15acf23bb2863ec08578ab72de860b3abc
-[5/5] ASoC: SOF: ext_manifest: parse compiler version
-      commit: 4c4a975178ef06324c80baef0e95209f431645a5
+[1/7] ASoC: add soc-link.c
+      commit: 02e756363fc936917bed7320199c80729b2a825c
+[2/7] ASoC: soc-link: move soc_rtd_xxx()
+      commit: a5e6c1090001b8a14e797364dde7c84236465fc7
+[3/7] ASoC: soc-link: remove unneeded parameter from snd_soc_link_xxx()
+      commit: 7cf3c5b4a04f4b27d964089630290beccc115f9f
+[4/7] ASoC: soc-link: add snd_soc_link_be_hw_params_fixup()
+      commit: 0cbbf8a0399518e5b865f9a1320d704c1d621703
+[5/7] ASoC: soc-link: add snd_soc_link_compr_startup()
+      commit: 9ab711cb84d4b77fb3929fabc5e3756d5010af14
+[6/7] ASoC: soc-link: add snd_soc_link_compr_shutdown()
+      commit: 0e532c99b468d6e4fc4e1d29b45ffe2749db6d07
+[7/7] ASoC: soc-link: add snd_soc_link_compr_set_params()
+      commit: eab810f37ff5fd76172ac903e5e732d6b72fc834
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

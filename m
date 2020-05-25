@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF6641E1126
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 May 2020 16:59:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3CD51E112E
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 May 2020 17:00:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 81AA316EC;
-	Mon, 25 May 2020 16:58:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81AA316EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 855001724;
+	Mon, 25 May 2020 16:59:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 855001724
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590418774;
-	bh=Ctqv3ya/JDXgtykAo8WZs08uuRycHSfinm3Xrkt3T5Y=;
+	s=default; t=1590418817;
+	bh=lNQnpMwKOSsceTf5wn8YZ0Kyu+yOL0dohR21xmwWsI0=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CMAPdUNLo+E7oJ2hmuXnPZDzhGaXkGvxlvg6OHIAJY9CAKfGheujaxbH86fGB3RZ8
-	 53ioqMQXVdCLiji7LUo/VVEHvD5O29rFdT65JchpXxGEW9gQQqN9Oi4rtZH3Igc5rv
-	 4/+erLj0LB14J1hsGUuEWYdNoUeWdcpXuBjqcIr4=
+	b=dYLrBwbLfW8UtlI8QFrMoAM/CCu/n421MQUYCjPpdcrc+U/HSZL87+SC28JcJiZC3
+	 9ZH4RUf3kPvB+II12Be3dp+iYEJRdD0bwq86QGR6GaQJ0sG9jD+kaCoXmMMqZWsQw2
+	 7YW/BWKzAxzFjDmi2+9jeX5OOZLmphHG01mg1Vt4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DA9E1F8026F;
-	Mon, 25 May 2020 16:57:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 800B0F802A0;
+	Mon, 25 May 2020 16:57:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BACEAF80240; Mon, 25 May 2020 16:57:10 +0200 (CEST)
+ id 8AC13F80240; Mon, 25 May 2020 16:57:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,35 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E8EC4F80227
- for <alsa-devel@alsa-project.org>; Mon, 25 May 2020 16:57:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8EC4F80227
+ by alsa1.perex.cz (Postfix) with ESMTPS id C0F9BF80240
+ for <alsa-devel@alsa-project.org>; Mon, 25 May 2020 16:57:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0F9BF80240
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="NMJ+bE6V"
+ header.b="J5NUkowx"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id DAE8C20888;
- Mon, 25 May 2020 14:57:04 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id B68CC20890;
+ Mon, 25 May 2020 14:57:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1590418625;
- bh=Ctqv3ya/JDXgtykAo8WZs08uuRycHSfinm3Xrkt3T5Y=;
+ s=default; t=1590418631;
+ bh=lNQnpMwKOSsceTf5wn8YZ0Kyu+yOL0dohR21xmwWsI0=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=NMJ+bE6VHLlLeWCgfHfuAZbRLQGIJG7CGPLvTSD+PXkiwPhInY0+p0ug8Q5txKiFT
- L19ttQjmRtbd1QoCxTNaLSQtGQ5jdBf6RKkKcEovHh8M7Jn7bWtFXjtfUHKdj3zwK9
- 8hRTPp1lg9umTtk4bxF7dLoo68ZJsoCNFAZFhM64=
-Date: Mon, 25 May 2020 15:57:02 +0100
+ b=J5NUkowxAWg9OxdwePf3UF19YTawnWizamkm7d6fmxY2wta0uJBJI6eSNgo6MDmHM
+ FalRaOQw1DgxDia/roPZviZdXE794l6vKEsjY93Oy50RE5K/IkFAFI1tJVvw+PZXjI
+ YgDzeBFLncu4YxWAVZiqhkjamNT9N/AXKNbWA1E0=
+Date: Mon, 25 May 2020 15:57:08 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87lflk4yk3.wl-kuninori.morimoto.gx@renesas.com>
-References: <87lflk4yk3.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH v3 0/7] ASoC: add soc-link
-Message-Id: <159041861696.1370.17557110050681200377.b4-ty@kernel.org>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+To: Xiubo.Lee@gmail.com, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ lgirdwood@gmail.com, festevam@gmail.com, timur@kernel.org, perex@perex.cz,
+ alsa-devel@alsa-project.org, nicoleotsuka@gmail.com, tiwai@suse.com
+In-Reply-To: <1590141444-28668-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1590141444-28668-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: fsl_asrc: Merge suspend/resume function to
+ runtime_suspend/resume
+Message-Id: <159041861696.1370.11311962714558356940.b4-ty@kernel.org>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,16 +78,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 22 May 2020 09:13:00 +0900, Kuninori Morimoto wrote:
-> Current ALSA SoC is handling dai_link related operation,
-> but it is implmemented directly without using function/macro,
-> and at random place.
-> 
-> This v3 patch-set creates new snd_soc_link_xxx() functions
-> which handles dai_link related operation,
-> and implmement these at new soc-link.c.
-> 
-> [...]
+On Fri, 22 May 2020 17:57:24 +0800, Shengjiu Wang wrote:
+> With dedicated power domain for asrc, power can be disabled after
+> probe and pm runtime suspend, then the value of all registers need to
+> be restored in pm runtime resume. So we can merge suspend/resume function
+> to runtime_suspend/resume function and enable regcache only in end of
+> probe.
 
 Applied to
 
@@ -92,20 +91,8 @@ Applied to
 
 Thanks!
 
-[1/7] ASoC: add soc-link.c
-      commit: 02e756363fc936917bed7320199c80729b2a825c
-[2/7] ASoC: soc-link: move soc_rtd_xxx()
-      commit: a5e6c1090001b8a14e797364dde7c84236465fc7
-[3/7] ASoC: soc-link: remove unneeded parameter from snd_soc_link_xxx()
-      commit: 7cf3c5b4a04f4b27d964089630290beccc115f9f
-[4/7] ASoC: soc-link: add snd_soc_link_be_hw_params_fixup()
-      commit: 0cbbf8a0399518e5b865f9a1320d704c1d621703
-[5/7] ASoC: soc-link: add snd_soc_link_compr_startup()
-      commit: 9ab711cb84d4b77fb3929fabc5e3756d5010af14
-[6/7] ASoC: soc-link: add snd_soc_link_compr_shutdown()
-      commit: 0e532c99b468d6e4fc4e1d29b45ffe2749db6d07
-[7/7] ASoC: soc-link: add snd_soc_link_compr_set_params()
-      commit: eab810f37ff5fd76172ac903e5e732d6b72fc834
+[1/1] ASoC: fsl_asrc: Merge suspend/resume function to runtime_suspend/resume
+      commit: 393dc21d0f25e8fcde8baca78b8a38afe61db2a7
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

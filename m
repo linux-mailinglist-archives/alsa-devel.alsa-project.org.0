@@ -2,82 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EC691E1035
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 May 2020 16:15:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D4E91E110B
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 May 2020 16:55:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DDAF8171F;
-	Mon, 25 May 2020 16:14:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDAF8171F
+	by alsa0.perex.cz (Postfix) with ESMTPS id C710E16B5;
+	Mon, 25 May 2020 16:54:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C710E16B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590416131;
-	bh=q40MkSKsZf71XHZa2w0uIP/73llafXv8aTl2LbLROGM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1590418505;
+	bh=65CJ+DbAipukWjylk2xV+eb63JN4JNyOUaRoqB9I72Y=;
+	h=To:From:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=cISnuwQO5bmv0MB/RWo6VJHstsWVaDGs/A6ZtGg6HHrRGWR2CZcKlNWY38I0EvWZy
-	 mgYK4LSk+b1t6WeadeQCizhHrW0sUblFkfD/e4JNn6p/AfRf6AkUCNOuyAkwNMk9yP
-	 vjbndzZU7De5UTdMK9+V6/hgiPDhD7SEDW2h+Ubs=
+	b=p/Y2KdJZ75Qjw9q8Guzu1aPHTDvqoDldH2fQ3V8xxc7PP6uhwIpAvf+D/d+Frb7B2
+	 ZrWE29/KC69guhWvS6+nVWA7wHOmL1Qftu0wg6jOOoy06XeRi3jsFYV992uEptCsdN
+	 2B/X7JKoQuOWdYXFZjn5Dj58qZWLZ8Bu4S0Q/VJ8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B5CCF80149;
-	Mon, 25 May 2020 16:13:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D6244F80100;
+	Mon, 25 May 2020 16:53:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B4DDF80149; Mon, 25 May 2020 16:13:49 +0200 (CEST)
+ id 5710CF8016F; Mon, 25 May 2020 16:53:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HK_RANDOM_ENVFROM,HK_RANDOM_FROM,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from fudan.edu.cn (mail.fudan.edu.cn [202.120.224.73])
- by alsa1.perex.cz (Postfix) with ESMTP id 38295F80149
- for <alsa-devel@alsa-project.org>; Mon, 25 May 2020 16:13:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38295F80149
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8D210F80100
+ for <alsa-devel@alsa-project.org>; Mon, 25 May 2020 16:53:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D210F80100
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=fudan.edu.cn header.i=@fudan.edu.cn
- header.b="vr25gmg4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fudan.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
- Message-Id; bh=jjl3+oli5pGJqLVTivxSZM0ZQQ2sMqgs051h5Kwq758=; b=v
- r25gmg4PpwrSFeC1XnleuloZOVBgVYTxlt4gM7dwkz+JPXVDOoT+TfmnSEv+r+J2
- iNisbQi218odFdWFe5VxJcnwRoEP3+kz4eyPg5AcwC+qo2I01+L7DQQIkSPCgb6e
- MIiL+Le0e/zN2HuIEfUNAMTCpKEs2UaJPtHxpLQ/90=
-Received: from localhost.localdomain (unknown [223.73.184.21])
- by app2 (Coremail) with SMTP id XQUFCgCHjPyJ0steaA6pAg--.26484S3;
- Mon, 25 May 2020 22:13:30 +0800 (CST)
-From: Xiyu Yang <xiyuyang19@fudan.edu.cn>
-To: Timur Tabi <timur@kernel.org>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: fsl_asrc_dma: Fix dma_chan leak when config DMA channel
- failed
-Date: Mon, 25 May 2020 22:12:46 +0800
-Message-Id: <1590415966-52416-1-git-send-email-xiyuyang19@fudan.edu.cn>
-X-Mailer: git-send-email 2.7.4
-X-CM-TRANSID: XQUFCgCHjPyJ0steaA6pAg--.26484S3
-X-Coremail-Antispam: 1UD129KBjvJXoW7tF45trW7uw1UZF1kXF17GFg_yoW8JFy3p3
- ykJrWqgryYyF43GFsxJws5Xr1UXrWakr4ft3y0kay3Z3s8Jr93CF1aqw109FyjvrW8Ar10
- gFWYqF1F93W3GrJanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9E14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4U
- JVW0owA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
- Cq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr
- 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IE
- rcIFxwACI402YVCY1x02628vn2kIc2xKxwCY02Avz4vE14v_Xryl42xK82IYc2Ij64vIr4
- 1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
- 67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
- 8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAv
- wI8IcIk0rVW3JVWrJr1lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267
- AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU189N7UUUUU==
-X-CM-SenderInfo: irzsiiysuqikmy6i3vldqovvfxof0/
-Cc: Xin Tan <tanxin.ctf@gmail.com>, yuanxzhang@fudan.edu.cn, kjlu@umn.edu,
- Xiyu Yang <xiyuyang19@fudan.edu.cn>
+ dkim=pass (1024-bit key) header.d=gmx.net header.i=@gmx.net
+ header.b="INezxxTc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1590418400;
+ bh=65CJ+DbAipukWjylk2xV+eb63JN4JNyOUaRoqB9I72Y=;
+ h=X-UI-Sender-Class:To:From:Subject:Date;
+ b=INezxxTcGyM0eAZNjZddeEe8ZenYlhiwieK1V59xkhZ9vkE4x5bXfEP/8dRlYoJmk
+ jXOWccvk4qvq6TCjVxAe1jrtM3noz617gbOCH8k6qf+84WW0AwuyREtrtQY7Heq5uH
+ NE+g10d3tAzKoLYcPgSAf03sywCVueze0x8Kwthg=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [192.168.178.20] ([188.195.215.33]) by mail.gmx.com (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1M5wLT-1jeZuu3UmR-007UjC for
+ <alsa-devel@alsa-project.org>; Mon, 25 May 2020 16:53:19 +0200
+To: alsa-devel@alsa-project.org
+From: Clemens Koller <clemens.ml@gmx.net>
+Subject: BUG: aplay (arecord) vu-meter overwrites /dev/null
+Message-ID: <f61154a3-b211-5f50-ef9b-365ec864d0a2@gmx.net>
+Date: Mon, 25 May 2020 16:53:19 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.1
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US-large
+X-Provags-ID: V03:K1:CATrMSUIvd/DOY74GOh96wAZn7I1VZXeKI7aFvISh70qN7ocXgg
+ MoBH7YMVh8KA+A4EAjnsC/KDnwFiTLN4WVUCXHVnFD7nJXCWQ3oF7gwzud7mHJpdN9mPEqy
+ AYUPBS3KkQX5RLXDLItqaEJrHSMxO/h9sabJ00tmVTqTiY7u3d/kqHO7PYewJf3ZFcu8NeT
+ zS6sOgL/Ap9CFAH9mQ6zQ==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:7rPajMbUTPs=:5LjzbfcUEQiNJ1ZUQ/+GQV
+ tv5UtjKoSeIxrJDa8drXCRQEJDvDKJcaNiRabpQv+UnVY77uTzseY4JlFTjP9oNUcJ1oePns1
+ jQwHovx0e/kSQSpdFMxbZiPt6uZzA1qVgY8wFomgGWgTUHCWPEJ3qnSNQTroIDCXwvV08+9Wk
+ jVF2hfOAN475FIfClsnWI5cFziIUFQ0Ikk/cqaE/PvemLNaYU6BWzbCeX46Ff/gRBavNJETmb
+ fIcJ3lQsX8uthsy9AwSrhbQhGEgYkCAhS7EG7UMnR4zXSZiJDa6EviiBG/82jiEd80+nl1fgK
+ x4HBa6bvhq3B9oXXILZnT/dt6YtVYYt1GJKUNkArNs2dfE8fMZbxiET+wMydOBFlMTsMK7ybZ
+ f/z/1vq2I1rBb4kzJ5SOEsKlhw79Ovb2fUhHeqnbEf9YiIHpcXRD2n//qNn8q90ZjURtMbbRi
+ xRiQEjXVQW+PZ0N6uDaXUQqO0YJ/3MxWEr5Aiv37PvqF5WqUvU65CMYQYulqjtXBvZBXJP/IZ
+ NNKUDjxKjD+CXrQ6WdQcYn3IFHGA2e6n+d1NG6PQDqnfieTvE07X24M6e8MMzZhZv7JcyTiWi
+ PyZK+cI1L0aAFBMSD1YAFl+rN10Mw0AsImQXPQVS4ic5jfmodKG03dl5ZwMrxOz7jXc0fnOSF
+ HH5zICYzuX5dkHunZIjEpIlk1LbEoz2y+5t/eDh2Z8Ljl/Wih2pNQCSgPB6XcwyF5rK8ZGbJY
+ TXdJoP1ZRcsqnze//brcLJv12q3m79kVtPe1VfsnTtx+ig7571G1eK3f2yezJNJJbyYTle4Wz
+ SNZvhTruwkbU4AaBL11SinzpARSkaCehOiE/YVIq3ICZq5cLD4K4v3US33ZcORKdKivkpJX6Q
+ K1K9hJ+Cm9AnxDITnrc8ypQZrPYH8F6ejMKebhyKbbnx/7rQOyZqC1mW5MvAEOlJPy+STBgiQ
+ R0H92AqpR2E7AMsFB4XBt1c/1qhmOdV8z7ykr/V7RavjbPDOWy3n4dAjBDp+fQ37ZVi9FYety
+ y1IavdqZipfiU9kBunxdXIiQV1AbxFWuAElZ+KUEHyJ6beMHZPljXB+bU4kaidt7rUsAT/ruK
+ izcHYVbM9JxiOT4qaXOE7v3aZW/v+PvblAyjgDoFzPA98v9mQChXv7Mv5Uc40gQYi0cNka5wO
+ huhnxhHgBb1koEzFPuUi9DcgPs4W9bIqnAs2MAYD3YXXtQBXygWqLejIn4ltP+QuIYd//gfTZ
+ V91tINcWGRpqoYmEf
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,37 +98,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-fsl_asrc_dma_hw_params() invokes dma_request_channel() or
-fsl_asrc_get_dma_channel(), which returns a reference of the specified
-dma_chan object to "pair->dma_chan[dir]" with increased refcnt.
+Hello!
 
-The reference counting issue happens in one exception handling path of
-fsl_asrc_dma_hw_params(). When config DMA channel failed for Back-End,
-the function forgets to decrease the refcnt increased by
-dma_request_channel() or fsl_asrc_get_dma_channel(), causing a refcnt
-leak.
+I am using the vu-meter of arecord v1.2.2 for monitoring remote computers audio input, which is usually (according to web search) done as:
 
-Fix this issue by calling dma_release_channel() when config DMA channel
-failed.
+$ arecord -f S16_LE -r 44100 -c 2 --vumeter=stereo /dev/null
 
-Signed-off-by: Xiyu Yang <xiyuyang19@fudan.edu.cn>
-Signed-off-by: Xin Tan <tanxin.ctf@gmail.com>
----
- sound/soc/fsl/fsl_asrc_dma.c | 1 +
- 1 file changed, 1 insertion(+)
+This command was run as root, which is obviously not good, but still... every once in a while, I ran into some state, where /dev/null gets overwritten with (corrupted) audio data immediately upon start or after a long time (i.e. when max_filesize is reached).
+I would expect that this is not the desired behaviour.
 
-diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
-index e7178817d7a7..1ee10eafe3e6 100644
---- a/sound/soc/fsl/fsl_asrc_dma.c
-+++ b/sound/soc/fsl/fsl_asrc_dma.c
-@@ -252,6 +252,7 @@ static int fsl_asrc_dma_hw_params(struct snd_soc_component *component,
- 	ret = dmaengine_slave_config(pair->dma_chan[dir], &config_be);
- 	if (ret) {
- 		dev_err(dev, "failed to config DMA channel for Back-End\n");
-+		dma_release_channel(pair->dma_chan[dir]);
- 		return ret;
- 	}
- 
--- 
-2.7.4
+I was reading some code at: https://github.com/alsa-project/alsa-utils/blob/master/aplay/aplay.c#L3152
 
+So I guess I could use:
+$ arecord -f S16_LE -r 44100 -c 2 --vumeter=stereo - /dev/null
+
+instead. But I am still not sure not to corrupt /dev/null when
+* max_filesize is reached or
+* we get a SIGUSR1 which will trigger recycle_capture_file
+
+Can somebody shed some light on how this is supposed to work? This code is very old and the documentation is still missing some bits and pieces there.
+There are also some commits trying to fix this behaviour - i.e.
+https://github.com/alsa-project/alsa-utils/commit/85827fbb642463ab724a9471a7a88f93fa2a217d
+
+I am able to assist with further debugging if necessary or dig deeper into the code. But I am not too familiar with this grown piece.
+
+
+Thank you very much!
+
+Clemens Koller

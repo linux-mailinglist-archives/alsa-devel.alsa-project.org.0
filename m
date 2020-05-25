@@ -2,56 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CE431E0B86
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 May 2020 12:15:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0A6F1E0B87
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 May 2020 12:16:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B61821730;
-	Mon, 25 May 2020 12:14:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B61821730
+	by alsa0.perex.cz (Postfix) with ESMTPS id 883CB173B;
+	Mon, 25 May 2020 12:15:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 883CB173B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590401734;
+	s=default; t=1590401780;
 	bh=jW2dkR8LHX1jA4hheuvq7XJZySLePpqH0ysHXt/+Br0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=jF7BXntiuuJNYPA6N92TQpJHLt+2gZTHDPo+Mxm3hDMymfbnguT6jf94Xdt9fPqFZ
-	 qCZvrDvAz9lSRVemP1nQJQrbQWszJeF4QyahbGwftZJc14g43/YQf8LpNKLjMaW4V4
-	 kpqSQpJEJw9lep0nxDfg6K8ZRxwN65dPOBmK3CJk=
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=r93h2QULwtkGYVTwy+Y52bEK5giiqg0rwD+wY+znxtQAAQzZaQ7jhHZvITc+ehJX2
+	 kri5bTCbeqlUwLm4q3De3CWHXNrKwep+VkT0LIoCXxOKHGiWkpuvgZfHGkdw92fskF
+	 h6b0/aW2q9BP8ppvTxyd6uIsz+XajW+W2UUoEetU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6221F80227;
-	Mon, 25 May 2020 12:13:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2FD0DF8026F;
+	Mon, 25 May 2020 12:13:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AEDCBF8021E; Mon, 25 May 2020 12:13:51 +0200 (CEST)
+ id 32519F80240; Mon, 25 May 2020 12:13:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from maillog.nuvoton.com (maillog.nuvoton.com [202.39.227.15])
- by alsa1.perex.cz (Postfix) with ESMTP id 6FD3EF80149
- for <alsa-devel@alsa-project.org>; Mon, 25 May 2020 12:13:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FD3EF80149
-Received: from NTHCCAS04.nuvoton.com (nthccas04.nuvoton.com [10.1.8.28])
- by maillog.nuvoton.com (Postfix) with ESMTP id B4DC71C80CD8;
- Mon, 25 May 2020 18:13:38 +0800 (CST)
-Received: from NTHCCAS01.nuvoton.com (10.1.9.121) by NTHCCAS04.nuvoton.com
- (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Mon, 25
- May 2020 18:13:38 +0800
-Received: from NTHCCAS04.nuvoton.com (10.1.8.28) by NTHCCAS01.nuvoton.com
- (10.1.9.121) with Microsoft SMTP Server (TLS) id 15.0.1130.7; Mon, 25 May
- 2020 18:13:38 +0800
+ by alsa1.perex.cz (Postfix) with ESMTP id CC954F8014E
+ for <alsa-devel@alsa-project.org>; Mon, 25 May 2020 12:13:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC954F8014E
+Received: from NTHCCAS02.nuvoton.com (nthccas02.nuvoton.com [10.1.8.29])
+ by maillog.nuvoton.com (Postfix) with ESMTP id 752AE1C804BA;
+ Mon, 25 May 2020 18:13:48 +0800 (CST)
+Received: from NTHCCAS04.nuvoton.com (10.1.8.28) by NTHCCAS02.nuvoton.com
+ (10.1.8.29) with Microsoft SMTP Server (TLS) id 15.0.1130.7; Mon, 25 May 2020
+ 18:13:48 +0800
 Received: from localhost.localdomain (10.4.36.27) by NTHCCAS04.nuvoton.com
  (10.1.12.25) with Microsoft SMTP Server id 15.1.1847.3 via Frontend
- Transport; Mon, 25 May 2020 18:13:38 +0800
+ Transport; Mon, 25 May 2020 18:13:48 +0800
 From: Seven Lee <wtli@nuvoton.com>
 To: <broonie@kernel.org>
 Subject: [PATCH] add I2C device and compatible ID
-Date: Mon, 25 May 2020 18:13:34 +0800
-Message-ID: <20200525101335.29130-1-wtli@nuvoton.com>
+Date: Mon, 25 May 2020 18:13:35 +0800
+Message-ID: <20200525101335.29130-2-wtli@nuvoton.com>
 X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20200525101335.29130-1-wtli@nuvoton.com>
+References: <20200525101335.29130-1-wtli@nuvoton.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain

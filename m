@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BF4E1E1914
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 May 2020 03:27:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44BCA1E1915
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 May 2020 03:27:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C32AC176B;
-	Tue, 26 May 2020 03:26:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C32AC176B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E15DF1766;
+	Tue, 26 May 2020 03:26:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E15DF1766
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590456431;
-	bh=+DdDTBaxAy0an5kKzvfkjdrV6DRgNaV65VesTocojAc=;
+	s=default; t=1590456461;
+	bh=Z+GuLQgborPa0Qtvz4WAdZDfC4uoMGnsb7MS91kSHdc=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=thKWntYR3qpVrvpZvbvVuFUfOfwkyShB0rFLTPAOWOk0xAnJAil5T5cxeerUHoVzs
-	 oTHnEk/tIjEMZgtoLx1tdILWT1pDV/SQbmkQ7Hu8iT06Hsy4z4TgUpm/rjyvmcTquQ
-	 4HDUOx10fj01YjLVAXHiYAJYy2Auih893G9dXxQc=
+	b=qJ838tDu2rTxU+SOMlDSEzq2zZTzEYhf0Dk2yELz2Xfsn2Tc1rwA7+rQXHOKSxfxw
+	 Lv2dgfbRDgo1trT4p10x1C4QFpKa2nBHpwthCdmcc3piP68W16bbp9EX+2/iY2/d2o
+	 Qwn8+G4tv7Wx2j9kPSUzMoHzunz035Sx4QCK1kUo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70CFDF80331;
-	Tue, 26 May 2020 03:19:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BEDECF80336;
+	Tue, 26 May 2020 03:19:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4B7D2F80332; Tue, 26 May 2020 03:19:15 +0200 (CEST)
+ id DBF22F80335; Tue, 26 May 2020 03:19:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id A471FF80292
- for <alsa-devel@alsa-project.org>; Tue, 26 May 2020 03:19:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A471FF80292
-Date: 26 May 2020 10:19:07 +0900
-X-IronPort-AV: E=Sophos;i="5.73,435,1583161200"; d="scan'208";a="47788541"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 98E1FF80332
+ for <alsa-devel@alsa-project.org>; Tue, 26 May 2020 03:19:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98E1FF80332
+Date: 26 May 2020 10:19:15 +0900
+X-IronPort-AV: E=Sophos;i="5.73,435,1583161200"; d="scan'208";a="48000724"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 26 May 2020 10:19:07 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 26 May 2020 10:19:15 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 7CF91412D823;
- Tue, 26 May 2020 10:19:07 +0900 (JST)
-Message-ID: <87sgfn1oj8.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 6A673412D824;
+ Tue, 26 May 2020 10:19:15 +0900 (JST)
+Message-ID: <87r1v71oj0.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 17/19] ASoC: soc-card: add snd_soc_card_set_bias_level_post()
+Subject: [PATCH 18/19] ASoC: soc-card: add snd_soc_card_add_dai_link()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87h7w3339l.wl-kuninori.morimoto.gx@renesas.com>
@@ -77,58 +77,59 @@ Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
  include/sound/soc-card.h |  3 +++
  sound/soc/soc-card.c     | 12 ++++++++++++
- sound/soc/soc-dapm.c     |  4 ++--
- 3 files changed, 17 insertions(+), 2 deletions(-)
+ sound/soc/soc-core.c     |  5 +++--
+ 3 files changed, 18 insertions(+), 2 deletions(-)
 
 diff --git a/include/sound/soc-card.h b/include/sound/soc-card.h
-index 4bcdc1d382bf..54341e4d818a 100644
+index 54341e4d818a..501d3d5b6efb 100644
 --- a/include/sound/soc-card.h
 +++ b/include/sound/soc-card.h
-@@ -31,6 +31,9 @@ int snd_soc_card_remove(struct snd_soc_card *card);
- int snd_soc_card_set_bias_level(struct snd_soc_card *card,
- 				struct snd_soc_dapm_context *dapm,
- 				enum snd_soc_bias_level level);
-+int snd_soc_card_set_bias_level_post(struct snd_soc_card *card,
-+				     struct snd_soc_dapm_context *dapm,
-+				     enum snd_soc_bias_level level);
+@@ -35,6 +35,9 @@ int snd_soc_card_set_bias_level_post(struct snd_soc_card *card,
+ 				     struct snd_soc_dapm_context *dapm,
+ 				     enum snd_soc_bias_level level);
  
++int snd_soc_card_add_dai_link(struct snd_soc_card *card,
++			      struct snd_soc_dai_link *dai_link);
++
  /* device driver data */
  static inline void snd_soc_card_set_drvdata(struct snd_soc_card *card,
+ 					    void *data)
 diff --git a/sound/soc/soc-card.c b/sound/soc/soc-card.c
-index a9f25b6a4c67..8db3b98d1c80 100644
+index 8db3b98d1c80..3886e6f2dbc3 100644
 --- a/sound/soc/soc-card.c
 +++ b/sound/soc/soc-card.c
-@@ -184,3 +184,15 @@ int snd_soc_card_set_bias_level(struct snd_soc_card *card,
+@@ -196,3 +196,15 @@ int snd_soc_card_set_bias_level_post(struct snd_soc_card *card,
  
  	return soc_card_ret(card, ret);
  }
 +
-+int snd_soc_card_set_bias_level_post(struct snd_soc_card *card,
-+				     struct snd_soc_dapm_context *dapm,
-+				     enum snd_soc_bias_level level)
++int snd_soc_card_add_dai_link(struct snd_soc_card *card,
++			      struct snd_soc_dai_link *dai_link)
 +{
 +	int ret = 0;
 +
-+	if (card->set_bias_level_post)
-+		ret = card->set_bias_level_post(card, dapm, level);
++	if (card->add_dai_link)
++		ret = card->add_dai_link(card, dai_link);
 +
 +	return soc_card_ret(card, ret);
 +}
-diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index add39d24a583..af457ee5ef83 100644
---- a/sound/soc/soc-dapm.c
-+++ b/sound/soc/soc-dapm.c
-@@ -736,8 +736,8 @@ static int snd_soc_dapm_set_bias_level(struct snd_soc_dapm_context *dapm,
- 	if (ret != 0)
- 		goto out;
++EXPORT_SYMBOL_GPL(snd_soc_card_add_dai_link);
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 136ff7237a80..d238b47252a5 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -978,8 +978,9 @@ int snd_soc_add_pcm_runtime(struct snd_soc_card *card,
+ 	/*
+ 	 * Notify the machine driver for extra initialization
+ 	 */
+-	if (card->add_dai_link)
+-		card->add_dai_link(card, dai_link);
++	ret = snd_soc_card_add_dai_link(card, dai_link);
++	if (ret < 0)
++		return ret;
  
--	if (card && card->set_bias_level_post)
--		ret = card->set_bias_level_post(card, dapm, level);
-+	if (card)
-+		ret = snd_soc_card_set_bias_level_post(card, dapm, level);
- out:
- 	trace_snd_soc_bias_level_done(card, level);
- 
+ 	if (dai_link->ignore)
+ 		return 0;
 -- 
 2.17.1
 

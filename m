@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43D4C1E18F9
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 May 2020 03:18:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0201B1E18FA
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 May 2020 03:18:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D778016E9;
-	Tue, 26 May 2020 03:17:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D778016E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id A925F171F;
+	Tue, 26 May 2020 03:17:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A925F171F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590455894;
-	bh=hbkK8SEZAaxdFPa8uMh6h+DsO2j5oZH+rK25Jm7oZA8=;
+	s=default; t=1590455910;
+	bh=MEvNlv3CglkFKCFaYqpKZ4gv7toz1Cx/a8aYJZGTny4=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XRIA3jPNTqJT010WcpCuBoJoe1ZfJEhSQ8YhBmBOyUvniHUn+709kx1jD4i4IDxJg
-	 gOsyQLmiT3WDRFXwPJAz66Smn20FkkHfFzP4pPRINMmaEQZgsVSuCiAeCkd2OcoUu3
-	 9wLI8sffSTwaX0TcgRDLiE+x9RbTKwg+0lCRyb2U=
+	b=bW/6IwFmC6I9SH0hERamSzy3ocVfdTVPUGRYB+rxXXybxDqOI1w+P/0Y6t5e7an5M
+	 7Hq3goQSKrPcjIuInViM2MYNa+k89CGvBI/CgIHo9k9utIigsCWsbzle5LwjSGVfod
+	 IfiIePv8Y09vVAEn2j4zg+hKeyju8NWpzg3/x5s4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC5AEF8026F;
-	Tue, 26 May 2020 03:16:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48328F8014E;
+	Tue, 26 May 2020 03:17:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A051FF80240; Tue, 26 May 2020 03:16:32 +0200 (CEST)
+ id F2775F8028E; Tue, 26 May 2020 03:17:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id D989AF80100
- for <alsa-devel@alsa-project.org>; Tue, 26 May 2020 03:16:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D989AF80100
-Date: 26 May 2020 10:16:23 +0900
-X-IronPort-AV: E=Sophos;i="5.73,435,1583161200"; d="scan'208";a="47788338"
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 79789F80100
+ for <alsa-devel@alsa-project.org>; Tue, 26 May 2020 03:16:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79789F80100
+Date: 26 May 2020 10:16:50 +0900
+X-IronPort-AV: E=Sophos;i="5.73,435,1583161200"; d="scan'208";a="48000518"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 26 May 2020 10:16:23 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 26 May 2020 10:16:50 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 19F874003ED0;
- Tue, 26 May 2020 10:16:23 +0900 (JST)
-Message-ID: <87ftbn3388.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id D624C4003ED6;
+ Tue, 26 May 2020 10:16:50 +0900 (JST)
+Message-ID: <87eer7337h.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 01/19] ASoC: soc.h: convert bool to bit field for snd_soc_card
+Subject: [PATCH 02/19] ASoC: add soc-card.c
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87h7w3339l.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,58 +70,95 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-snd_soc_card has many bool, but it can be bit field.
+Current ALSA SoC has some snd_soc_card_xxx() functions,
+and card->xxx() callbacks.
+But, it is implemented randomly at random place.
+
+To collect all card related functions into one place,
+this patch creats new soc-card.c.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc.h | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ include/sound/soc-card.h | 11 +++++++++++
+ include/sound/soc.h      |  1 +
+ sound/soc/Makefile       |  2 +-
+ sound/soc/soc-card.c     | 26 ++++++++++++++++++++++++++
+ 4 files changed, 39 insertions(+), 1 deletion(-)
+ create mode 100644 include/sound/soc-card.h
+ create mode 100644 sound/soc/soc-card.c
 
+diff --git a/include/sound/soc-card.h b/include/sound/soc-card.h
+new file mode 100644
+index 000000000000..997809bb3afb
+--- /dev/null
++++ b/include/sound/soc-card.h
+@@ -0,0 +1,11 @@
++/* SPDX-License-Identifier: GPL-2.0
++ *
++ * soc-card.h
++ *
++ * Copyright (C) 2019 Renesas Electronics Corp.
++ * Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
++ */
++#ifndef __SOC_CARD_H
++#define __SOC_CARD_H
++
++#endif /* __SOC_CARD_H */
 diff --git a/include/sound/soc.h b/include/sound/soc.h
-index a7fa64260108..11ee3ed87aa1 100644
+index 11ee3ed87aa1..5b880e29d106 100644
 --- a/include/sound/soc.h
 +++ b/include/sound/soc.h
-@@ -820,7 +820,7 @@ struct snd_soc_dai_link {
- 	const struct snd_soc_compr_ops *compr_ops;
+@@ -1450,5 +1450,6 @@ static inline void snd_soc_dapm_mutex_unlock(struct snd_soc_dapm_context *dapm)
+ }
  
- 	/* Mark this pcm with non atomic ops */
--	bool nonatomic;
-+	unsigned int nonatomic:1;
+ #include <sound/soc-component.h>
++#include <sound/soc-card.h>
  
- 	/* For unidirectional dai links */
- 	unsigned int playback_only:1;
-@@ -1016,9 +1016,6 @@ struct snd_soc_card {
- 
- 	spinlock_t dpcm_lock;
- 
--	bool instantiated;
--	bool topology_shortname_created;
--
- 	int (*probe)(struct snd_soc_card *card);
- 	int (*late_probe)(struct snd_soc_card *card);
- 	int (*remove)(struct snd_soc_card *card);
-@@ -1079,8 +1076,6 @@ struct snd_soc_card {
- 	int num_of_dapm_widgets;
- 	const struct snd_soc_dapm_route *of_dapm_routes;
- 	int num_of_dapm_routes;
--	bool fully_routed;
--	bool disable_route_checks;
- 
- 	/* lists of probed devices belonging to this card */
- 	struct list_head component_dev_list;
-@@ -1107,6 +1102,12 @@ struct snd_soc_card {
  #endif
- 	u32 pop_time;
+diff --git a/sound/soc/Makefile b/sound/soc/Makefile
+index 70a5f19ea3a1..7f1747518e79 100644
+--- a/sound/soc/Makefile
++++ b/sound/soc/Makefile
+@@ -1,6 +1,6 @@
+ # SPDX-License-Identifier: GPL-2.0
+ snd-soc-core-objs := soc-core.o soc-dapm.o soc-jack.o soc-utils.o soc-dai.o soc-component.o
+-snd-soc-core-objs += soc-pcm.o soc-io.o soc-devres.o soc-ops.o soc-link.o
++snd-soc-core-objs += soc-pcm.o soc-io.o soc-devres.o soc-ops.o soc-link.o soc-card.o
+ snd-soc-core-$(CONFIG_SND_SOC_COMPRESS) += soc-compress.o
  
-+	/* bit field */
-+	unsigned int instantiated:1;
-+	unsigned int topology_shortname_created:1;
-+	unsigned int fully_routed:1;
-+	unsigned int disable_route_checks:1;
+ ifneq ($(CONFIG_SND_SOC_TOPOLOGY),)
+diff --git a/sound/soc/soc-card.c b/sound/soc/soc-card.c
+new file mode 100644
+index 000000000000..4bc6f26ea8cb
+--- /dev/null
++++ b/sound/soc/soc-card.c
+@@ -0,0 +1,26 @@
++// SPDX-License-Identifier: GPL-2.0
++//
++// soc-card.c
++//
++// Copyright (C) 2019 Renesas Electronics Corp.
++// Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
++//
++#include <sound/soc.h>
 +
- 	void *drvdata;
- };
- #define for_each_card_prelinks(card, i, link)				\
++#define soc_card_ret(dai, ret) _soc_card_ret(dai, __func__, ret)
++static inline int _soc_card_ret(struct snd_soc_card *card,
++				const char *func, int ret)
++{
++	switch (ret) {
++	case -EPROBE_DEFER:
++	case -ENOTSUPP:
++	case 0:
++		break;
++	default:
++		dev_err(card->dev,
++			"ASoC: error at %s on %s: %d\n",
++			func, card->name, ret);
++	}
++
++	return ret;
++}
 -- 
 2.17.1
 

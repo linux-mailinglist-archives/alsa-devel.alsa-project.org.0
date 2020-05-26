@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCA331E276D
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 May 2020 18:47:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96E761E276F
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 May 2020 18:48:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1CC7A176B;
-	Tue, 26 May 2020 18:46:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CC7A176B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D5D39177B;
+	Tue, 26 May 2020 18:47:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5D39177B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590511653;
-	bh=tJ9FbVqns1orYj2OI8Q7PaS75f7ujA0N3F+MvNp0aag=;
+	s=default; t=1590511699;
+	bh=Ripo3t/xVmH8+iFAL8FuIwTTOrZyYscu1vfd6QDL+zI=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pUhjUQiGgqsu1k7x/z/8tgD6+lh0KMoOxLwo9XRsiKfQC9FCG1bBv4waBeq9Oy58V
-	 qzE3TDRuBpL7GiDMh+7wGLz7Va654XTUg9GkeDjgNQMOANZ98qo6jobMTqdYWZP19c
-	 Wy6jNY5fnVKZpqx1jFh/as3TW2gnG9DIUxiP81C0=
+	b=uKiZlznVTcnAMTnK4iNYC9ZfgzAz4Lon5XSpnsKU1AU/2oqBOPsy3XskpImMve8ys
+	 N6mqsTxOdIG+DhnHGGJ+ORLPmMFajpKcPRmWlR/wuBibUSie9BtNbHS2o/h2DThCIc
+	 VYNpSn5gT0ydjYOLTyXiH41tzlfxRsTmJiR21SFs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B8DBF80150;
-	Tue, 26 May 2020 18:45:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09C43F80131;
+	Tue, 26 May 2020 18:45:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E0B8F80150; Tue, 26 May 2020 18:45:49 +0200 (CEST)
+ id D344DF80161; Tue, 26 May 2020 18:45:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,36 +34,35 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 436ADF80100
- for <alsa-devel@alsa-project.org>; Tue, 26 May 2020 18:45:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 436ADF80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id DB708F8015D
+ for <alsa-devel@alsa-project.org>; Tue, 26 May 2020 18:45:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB708F8015D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="L9g8ieFH"
+ header.b="Y4OVwlxA"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6E92B20787;
- Tue, 26 May 2020 16:45:44 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id E0F4C207D8;
+ Tue, 26 May 2020 16:45:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1590511544;
- bh=tJ9FbVqns1orYj2OI8Q7PaS75f7ujA0N3F+MvNp0aag=;
+ s=default; t=1590511550;
+ bh=Ripo3t/xVmH8+iFAL8FuIwTTOrZyYscu1vfd6QDL+zI=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=L9g8ieFH0Pb6ZBWYqWQd/yGSizqsM5DJN0FSi0OrEfmDKAgXYhZUBdUqeM0GCkXVn
- E5Z8hXAqOzvbIOnnfR5fGbwU+X258jz3bV3qhqTGLTwy3QICgNsJnFDRpPeiLfvCRs
- JwFoxLxKFYtm+7bvo2drNZoGpZcDg9lySg+PFzJ0=
-Date: Tue, 26 May 2020 17:45:42 +0100
+ b=Y4OVwlxAymCKH5oHpf4jHgQdCWz0OrLFioS7ZaBONslts0/dz93OVEoXmMCgG1L61
+ 2tQ50KEYIBQtjpUAaoU3LtRisqc+Pc5c27lghG8J3iY8JS3HT2ZNfChhUwbW7r4OQi
+ UB/xQLtjtyBPGSBzQuNISbB3O6eugjRQMfZwy1d0=
+Date: Tue, 26 May 2020 17:45:48 +0100
 From: Mark Brown <broonie@kernel.org>
-To: kjlu@umn.edu, Dinghao Liu <dinghao.liu@zju.edu.cn>
-In-Reply-To: <20200525071732.5887-1-dinghao.liu@zju.edu.cn>
-References: <20200525071732.5887-1-dinghao.liu@zju.edu.cn>
-Subject: Re: [PATCH] ASoC: tas2552: Fix runtime PM imbalance in
- tas2552_component_probe
-Message-Id: <159051153753.36309.16172218299424026187.b4-ty@kernel.org>
-Cc: Kate Stewart <kstewart@linuxfoundation.org>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Richard Fontana <rfontana@redhat.com>,
- Thomas Gleixner <tglx@linutronix.de>, Allison Randal <allison@lohutok.net>
+To: Sven Van Asbroeck <thesven73@gmail.com>, kbuild test robot <lkp@intel.com>
+In-Reply-To: <20200525184351.GA37386@5cf39b9a5cc3>
+References: <202005260227.no1AzpN2%lkp@intel.com>
+ <20200525184351.GA37386@5cf39b9a5cc3>
+Subject: Re: [PATCH] ASoC: fix semicolon.cocci warnings
+Message-Id: <159051153752.36309.2468107234405716165.b4-ty@kernel.org>
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ kbuild-all@lists.01.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,10 +78,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 25 May 2020 15:17:30 +0800, Dinghao Liu wrote:
-> pm_runtime_get_sync() increments the runtime PM usage counter even
-> when it returns an error code. Thus a pairing decrement is needed on
-> the error handling path to keep the counter balanced.
+On Tue, 26 May 2020 02:43:51 +0800, kbuild test robot wrote:
+> sound/soc/codecs/zl38060.c:298:2-3: Unneeded semicolon
+> 
+> 
+>  Remove unneeded semicolon.
+> 
+> Generated by: scripts/coccinelle/misc/semicolon.cocci
 
 Applied to
 
@@ -90,8 +92,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: tas2552: Fix runtime PM imbalance in tas2552_component_probe
-      commit: 0d71a5cf691a8226151ceeb79fb872925f053df5
+[1/1] ASoC: fix semicolon.cocci warnings
+      commit: edc475bee00b18f6de16ce3e6da8fdec8b476302
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

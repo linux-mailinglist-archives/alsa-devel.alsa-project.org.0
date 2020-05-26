@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A00F21E2595
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 May 2020 17:37:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE0481E2596
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 May 2020 17:37:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4E51E1757;
-	Tue, 26 May 2020 17:36:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E51E1757
+	by alsa0.perex.cz (Postfix) with ESMTPS id 874A41759;
+	Tue, 26 May 2020 17:37:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 874A41759
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590507459;
-	bh=13yozKs4fkr1khrYCFz/6acH8xiHLt4YNeX3MoEbEv4=;
+	s=default; t=1590507473;
+	bh=JbgoX9Vsm0jGxmMvbPKGkAKFtsH3r0KdAIIAhIuy6f8=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GQKA/rtlXfW8yz5cZ+2WAuB/5AaQyhpwtpNdrwsMl4JMT+sb2BKrVT3Bq12l9QnE7
-	 xwvwqXAEtrj9BjDa+qqmQhEfBBo/YTrII44OiozAVxdJkshwrCf3EJxvKgpNxOJNg0
-	 r6caMcF3BL3a6e1+E8BtC33Ln5IqKN9C98b3HIeI=
+	b=R+tyFtDqpmcjKc8MZ1ysAcxd3TjmPrul0Cp7cWdBVGECC5/XetKj9Ery1a4X50M9W
+	 ApbIoQwJvApoFS4pGjMTdLc+Z7GB5JcWCSVnMME0DPBujOBoYb3QYE8gJNS3YevoOa
+	 IHX5Ef4OhRKB+A50ZQ2TZScA6Nr/e3oslei2dG0c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 557EAF8028C;
-	Tue, 26 May 2020 17:35:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 83072F80290;
+	Tue, 26 May 2020 17:35:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 87BFFF8015C; Tue, 26 May 2020 17:35:09 +0200 (CEST)
+ id 5D207F8028F; Tue, 26 May 2020 17:35:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,38 +34,38 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 27C99F80146
- for <alsa-devel@alsa-project.org>; Tue, 26 May 2020 17:35:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27C99F80146
-IronPort-SDR: JmMRg6i+/fDz7cHRBOgYycD+NXAfiob/j7Bx5ypTbvszQTKgTiIVYqFBBCW6NxNqqTDO0eT80m
- GnM6XO5jeSZw==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E883F8014A
+ for <alsa-devel@alsa-project.org>; Tue, 26 May 2020 17:35:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E883F8014A
+IronPort-SDR: Md+Id5Tm5UywUBhqnNgJBP+ZXdo8RtIjuBvOmqWmVKWP9o66/1ALiaIyTCTf9J0gGLPOM4OQSN
+ gv/y4XHn1cxA==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2020 08:34:59 -0700
-IronPort-SDR: EpfK93zYIqkHW+IzTlQzYrYr6z2Rj+/eStk4ucL7m3V39F2ZQ4ljs2gkAPB6qIKyXHL3UWjXK2
- QrgdTHhfCxUg==
+ 26 May 2020 08:35:00 -0700
+IronPort-SDR: pjPHKxd/P5T7xeu4lzneg9Arje37jbdhiP6STCXGEhF9l/OP0m4zX1CDnBX/FnXgXrMrpL0To0
+ g2FhOqZ2gcOw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,437,1583222400"; d="scan'208";a="291234620"
+X-IronPort-AV: E=Sophos;i="5.73,437,1583222400"; d="scan'208";a="291234633"
 Received: from unknown (HELO [10.254.102.121]) ([10.254.102.121])
- by fmsmga004.fm.intel.com with ESMTP; 26 May 2020 08:34:58 -0700
-Subject: Re: [PATCH v2 0/2] ASoC topology header parsing refinement
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Keyon Jie <yang.jie@linux.intel.com>, alsa-devel@alsa-project.org
-References: <20200521074847.71406-1-yang.jie@linux.intel.com>
- <32df1cf8-8a57-7fc8-c694-6ddcc03fffca@intel.com>
+ by fmsmga004.fm.intel.com with ESMTP; 26 May 2020 08:35:00 -0700
+Subject: Re: [PATCH 12/19] ASoC: soc-card: add probed bit field to snd_soc_card
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>
+References: <87h7w3339l.wl-kuninori.morimoto.gx@renesas.com>
+ <87zh9v1okl.wl-kuninori.morimoto.gx@renesas.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <00e9e16f-87be-5585-3751-d605a2ceb326@linux.intel.com>
-Date: Tue, 26 May 2020 08:29:21 -0500
+Message-ID: <9d5d8e40-c39e-5533-5ccc-8d79fafc1168@linux.intel.com>
+Date: Tue, 26 May 2020 09:08:05 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <32df1cf8-8a57-7fc8-c694-6ddcc03fffca@intel.com>
+In-Reply-To: <87zh9v1okl.wl-kuninori.morimoto.gx@renesas.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, broonie@kernel.org, ranjani.sridharan@linux.intel.com
+Content-Transfer-Encoding: 7bit
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,36 +83,111 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 5/26/20 7:40 AM, Cezary Rojewski wrote:
-> On 2020-05-21 9:48 AM, Keyon Jie wrote:
->> This small series is to optimize the header logging during the topology
->> parsing. This is verified work fine on both SOF and SST drivers
->> (bxt_rt298 with dfw_sst.bin).
->>
->> Change History:
->> v2:
->> - Change the internal used array to be 'static' to fix the issue
->>    reported by: kbuild test robot <lkp@intel.com>
->> - Add testing coverage including Intel SST driver also.
->>
->> v1:
->> - Initial version.
->>
->> Keyon Jie (2):
->>    ASoC: topology: refine and log the header in the correct pass
->>    ASoC: topology: remove the redundant pass checks
->>
->>   sound/soc/soc-topology.c | 99 ++++++++++++++++++----------------------
->>   1 file changed, 44 insertions(+), 55 deletions(-)
->>
+On 5/25/20 8:18 PM, Kuninori Morimoto wrote:
 > 
-> No regression after applying these and running through SST CI on cAVS 
-> 1.5+ (GLK) and 1.8 (CNL).
-
-Can the tests be run on SKL/KBL? That's where the cAVS driver will be 
-used and where this patchset will have an impact.
-Thanks!
-
-> Given some comments on 1/2 though, believe it could be simplified.
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > 
-> Czarek
+> We have bit field to control snd_soc_card.
+> Let's add probed field on it instead of local variable.
+> 
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+>   include/sound/soc.h  |  1 +
+>   sound/soc/soc-core.c | 18 ++++++++----------
+>   2 files changed, 9 insertions(+), 10 deletions(-)
+> 
+> diff --git a/include/sound/soc.h b/include/sound/soc.h
+> index 060c01c32547..74868436ac79 100644
+> --- a/include/sound/soc.h
+> +++ b/include/sound/soc.h
+> @@ -1096,6 +1096,7 @@ struct snd_soc_card {
+>   	unsigned int topology_shortname_created:1;
+>   	unsigned int fully_routed:1;
+>   	unsigned int disable_route_checks:1;
+> +	unsigned int probed:1;
+>   
+>   	void *drvdata;
+>   };
+> diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+> index 02147acf6547..7cfb3ee6ff4f 100644
+> --- a/sound/soc/soc-core.c
+> +++ b/sound/soc/soc-core.c
+> @@ -1723,8 +1723,7 @@ static void __soc_setup_card_name(char *name, int len,
+>   	}
+>   }
+>   
+> -static void soc_cleanup_card_resources(struct snd_soc_card *card,
+> -				       int card_probed)
+> +static void soc_cleanup_card_resources(struct snd_soc_card *card)
+>   {
+>   	struct snd_soc_pcm_runtime *rtd, *n;
+>   
+> @@ -1748,8 +1747,9 @@ static void soc_cleanup_card_resources(struct snd_soc_card *card,
+>   	soc_cleanup_card_debugfs(card);
+>   
+>   	/* remove the card */
+> -	if (card_probed && card->remove)
+> +	if (card->probed && card->remove)
+>   		card->remove(card);
+> +	card->probed = 0;
+>   
+>   	if (card->snd_card) {
+>   		snd_card_free(card->snd_card);
+> @@ -1760,12 +1760,10 @@ static void soc_cleanup_card_resources(struct snd_soc_card *card,
+>   static void snd_soc_unbind_card(struct snd_soc_card *card, bool unregister)
+>   {
+>   	if (card->instantiated) {
+> -		int card_probed = 1;
+> -
+
+This looks like a change, now soc_cleanup_card_resources() is called 
+without setting the card_probed bitfield?
+
+everywhere else I see a 1:1 mapping between variable and bitfield usage, 
+not here, is this intentional?
+
+>   		card->instantiated = false;
+>   		snd_soc_flush_all_delayed_work(card);
+>   
+> -		soc_cleanup_card_resources(card, card_probed);
+> +		soc_cleanup_card_resources(card);
+>   		if (!unregister)
+>   			list_add(&card->list, &unbind_card_list);
+>   	} else {
+> @@ -1779,7 +1777,7 @@ static int snd_soc_bind_card(struct snd_soc_card *card)
+>   	struct snd_soc_pcm_runtime *rtd;
+>   	struct snd_soc_component *component;
+>   	struct snd_soc_dai_link *dai_link;
+> -	int ret, i, card_probed = 0;
+> +	int ret, i;
+>   
+>   	mutex_lock(&client_mutex);
+>   	mutex_lock_nested(&card->mutex, SND_SOC_CARD_CLASS_INIT);
+> @@ -1831,7 +1829,7 @@ static int snd_soc_bind_card(struct snd_soc_card *card)
+>   		ret = card->probe(card);
+>   		if (ret < 0)
+>   			goto probe_end;
+> -		card_probed = 1;
+> +		card->probed = 1;
+>   	}
+>   
+>   	/* probe all components used by DAI links on this card */
+> @@ -1923,7 +1921,7 @@ static int snd_soc_bind_card(struct snd_soc_card *card)
+>   			goto probe_end;
+>   		}
+>   	}
+> -	card_probed = 1;
+> +	card->probed = 1;
+>   
+>   	snd_soc_dapm_new_widgets(card);
+>   
+> @@ -1945,7 +1943,7 @@ static int snd_soc_bind_card(struct snd_soc_card *card)
+>   
+>   probe_end:
+>   	if (ret < 0)
+> -		soc_cleanup_card_resources(card, card_probed);
+> +		soc_cleanup_card_resources(card);
+>   
+>   	mutex_unlock(&card->mutex);
+>   	mutex_unlock(&client_mutex);
+> 

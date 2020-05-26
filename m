@@ -2,73 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55C821E2582
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 May 2020 17:32:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C1621E2681
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 May 2020 18:07:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE6ED1752;
-	Tue, 26 May 2020 17:32:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE6ED1752
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8F9621759;
+	Tue, 26 May 2020 18:07:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F9621759
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590507174;
-	bh=PzvdI7jmPjHBr8bUlCRIYHkWNDT5lYSS4y0PbSoOHcs=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1590509277;
+	bh=xI+PVp/LpKRT4FzzU9cQkQrWVpPGqdjJetfOZSyHJOQ=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lqfndqTyjmxUYLuqs0kkExKJCDrh31n8JLTmq6HZUtWRO8A4qXJ6duNn1FNqxmqU8
-	 3gneKstTuo3EHTD3I2j175T+pdMsEj1ClGn626fRlnqZlY29jdvsNhynXqnwIm8BXm
-	 1kMfuPmknY4JGnSjw7NJA0ntIsx/nk6a6nh65PIg=
-Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5A5CF8015C;
-	Tue, 26 May 2020 17:31:13 +0200 (CEST)
+	b=RA+Wz4Pn4UkXsT0dnc1Lt8skD1tX28fLR4D1x7S7/WLuZo3xyCYf5rjg73xMf9hGc
+	 UgFxxdhzLXzUgv0FDADVfIh/9CDXZ+XCl6v4aV/xevqQn4gy4NrtbhQn5+6Xb8+76X
+	 WBgTvSCd4MlzftpsZn23qxXuDaMjP96r33pGDJoM=
+Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id B5636F8015C;
+	Tue, 26 May 2020 18:06:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A6E5F80150; Tue, 26 May 2020 17:31:06 +0200 (CEST)
+ id 452B0F80150; Tue, 26 May 2020 18:06:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2137.outbound.protection.outlook.com [40.107.220.137])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 35947F80131
- for <alsa-devel@alsa-project.org>; Tue, 26 May 2020 17:31:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35947F80131
-IronPort-SDR: KkLugT4FzE+N9ghXSxyxFCQ79v53klID1ZFHXxiKPtPU9E8CS2wYOAVu+RNJBG7vGJBYDdKJTq
- o7MQR1MoHxMg==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2020 08:30:57 -0700
-IronPort-SDR: vGeyyTBP5rAJ1KE0o0sHbkVasD0gSxCDYuY7s4p9MfCwJ7S5E3odZfKYF0ZUbP8PBnIPXrnLZq
- Aw1EI7earHCQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,437,1583222400"; d="scan'208";a="255443356"
-Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.213.10.59])
- ([10.213.10.59])
- by orsmga007.jf.intel.com with ESMTP; 26 May 2020 08:30:50 -0700
-Subject: Re: [PATCH v2 1/2] ASoC: topology: refine and log the header in the
- correct pass
-To: Keyon Jie <yang.jie@linux.intel.com>, alsa-devel@alsa-project.org
-References: <20200521074847.71406-1-yang.jie@linux.intel.com>
- <20200521074847.71406-2-yang.jie@linux.intel.com>
- <4c05fcc4-2f94-1ca0-2148-af70ef739d00@intel.com>
- <faa1db0c-75ed-2482-9482-4ad329346bf4@linux.intel.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <e81515c4-84b6-7544-6f33-d88781c96496@intel.com>
-Date: Tue, 26 May 2020 17:30:49 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.1
-MIME-Version: 1.0
-In-Reply-To: <faa1db0c-75ed-2482-9482-4ad329346bf4@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1C205F80131
+ for <alsa-devel@alsa-project.org>; Tue, 26 May 2020 18:06:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C205F80131
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=northeastern.edu header.i=@northeastern.edu
+ header.b="c1OVKVrC"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Z/iYPvxMdeGd9qui/5pxDQMZPEYcN4EUNCJ0rBiVUkSMz6uunI3PFRWrAinAGrXnaYTDpaov3amQI8TYiUyO4YmAR5mBUwRVZk58DNOj2pR3qRuOP92Rl7fheeimVoVg4ksPkxt/8DSjNqQ+6FmRmxE2bBP7ypvpivj4GEarDMlu5i+3Pin8WtO3TvnHPTW8o4bfxzXy5t+m/3tNO85O6vWa0yr1hrYE0oh3KXA7oITjcaAHi7NZhWVDi2E1zzjvrU1yF4XN2gk7+S1cwQWrPgEw6+x5vtwBqtGKiu6wndigfrrsikUHb0B15AhE9cCtkg8X8lBGb/RvqtmF6J1bOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ng5g/gSdRtVGN9s89ut8hzRp3qbI+CGG9FAcNiZJmX8=;
+ b=OJVmTmyJXC1uY9LgMgvzJ9oh17qrzzaVjzEYEfqjsCX8tLVFajY8XrH8kp8C5uGtJNeMVD3RgRlLbOJr7s7IjIlriW6qpYBDWYSRNf9BfLTfBMegs+9Jum5z3dmfiZrSaTz2chJLgAPS4UEta4TLuOmbeqnosq7kJfwdko3CXilZNMwcRaM7UZN67D6CvOan5LoT9dY+BAdqwrxYC+UDhSAhzNbJKs7ROiBO8+LeRpAD2YBHr9h3r6Z4I3lVTXw0TxZ1GbnSOChOgQE62tOLFKJTFakFnA+SBEg6BNfXLjr/WY6u3I1drytDUUpCvYbGHvIHkZZ7cJ1Gfk6bL7TTng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=northeastern.edu; dmarc=pass action=none
+ header.from=northeastern.edu; dkim=pass header.d=northeastern.edu; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=northeastern.edu;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ng5g/gSdRtVGN9s89ut8hzRp3qbI+CGG9FAcNiZJmX8=;
+ b=c1OVKVrCsQ856b5vu2kZFRVYiaEzaXAK0FtlmCRit87B56hfAWMddFzW/grvMsjfAq/EhCd9hR/R3LAVIA2KYy+6e2QeG0PPcAj6dNaeRZ8wn8I9vEuFViepl5TGDgbT8PZoddHQoy35geWqmKce2q4LZvmQwCt2I4Zi2oaLD/4=
+Received: from BL0PR06MB4548.namprd06.prod.outlook.com (2603:10b6:208:56::26)
+ by BL0PR06MB4500.namprd06.prod.outlook.com (2603:10b6:208:52::27)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3021.27; Tue, 26 May
+ 2020 16:06:02 +0000
+Received: from BL0PR06MB4548.namprd06.prod.outlook.com
+ ([fe80::fd87:3891:70a2:bc5d]) by BL0PR06MB4548.namprd06.prod.outlook.com
+ ([fe80::fd87:3891:70a2:bc5d%3]) with mapi id 15.20.3021.029; Tue, 26 May 2020
+ 16:06:02 +0000
+From: Changming Liu <liu.changm@northeastern.edu>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: RE: [PATCH] ALSA: hwdep: fix a left shifting 1 by 31 UB bug
+Thread-Topic: [PATCH] ALSA: hwdep: fix a left shifting 1 by 31 UB bug
+Thread-Index: AdYy9F48QYRXqNjTTWulqJQ/P/wZiQAMZrcAABQkmzA=
+Date: Tue, 26 May 2020 16:06:02 +0000
+Message-ID: <BL0PR06MB4548B6B3A1109920AAC7422CE5B00@BL0PR06MB4548.namprd06.prod.outlook.com>
+References: <BL0PR06MB4548170B842CB055C9AF695DE5B00@BL0PR06MB4548.namprd06.prod.outlook.com>
+ <s5ha71vtdv7.wl-tiwai@suse.de>
+In-Reply-To: <s5ha71vtdv7.wl-tiwai@suse.de>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, broonie@kernel.org, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: suse.de; dkim=none (message not signed)
+ header.d=none;suse.de; dmarc=none action=none header.from=northeastern.edu;
+x-originating-ip: [128.227.216.118]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 613ac0ea-0d80-49e6-2fa9-08d8018eb00b
+x-ms-traffictypediagnostic: BL0PR06MB4500:
+x-microsoft-antispam-prvs: <BL0PR06MB4500FEF2B1FA42DD69EDF0BFE5B00@BL0PR06MB4500.namprd06.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-forefront-prvs: 041517DFAB
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: CxAWoDzSHErcNe64FETgugIKYkUsfWccnuz1Rjf7jZ4aR7X/4DwN6FRNkh0cvvBMGD2C8X/75j0V2j379i6tfsL/raKLfli9N/E7tMW8FlrD43YmzAXBowORYUhQ+7UgqkcUxk/iuQkOsIltNydRKpLUsgfeTDtSYtH1E6HM8wLvJmMDvdoAGolvAgCNuREgTgDAYE/JXVZOv3LbO32FwpF8KIl8/7LA/Z0HlBdHjiWLkbgk1gUvEXBo5Af7IVSPonoLZ5BUTkuT0u9LpLAEGwUYW6iS2wdi4lO3L8dS0MIuECyCAsMgrpTvGtr7MlRDIcHyQ1XWk3LjpelX/c3l6Q==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR06MB4548.namprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(136003)(376002)(366004)(396003)(39860400002)(346002)(2906002)(8676002)(71200400001)(7696005)(8936002)(55016002)(9686003)(52536014)(4326008)(33656002)(186003)(5660300002)(26005)(316002)(786003)(54906003)(75432002)(66446008)(64756008)(66556008)(76116006)(478600001)(66476007)(66946007)(86362001)(6506007)(53546011)(6916009);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: zfEcZIiKm44Dq+q0KzfTswr/0Iusb7hjIKTun4+9LfsR3s80RMCJPzPDSSq+MXhlsaG2qlOIYRsHzBeNSeEO9rG751AHDZeExKLPKuUlufHJ67pMa6biZzhJ4XkirOD+sJqPBg2l4QC3dQgqw47qQYeD+AWxC6UGJHg/SRJ/cET42ndKfhVs46h6/MEJMIUP3rO4t4+6U+bhsxYKwuEh9WAMCJ8McB0NXFXaqEW31ghfw21HpXe1A6XonObXC49GSG+bhmrRxJGjzND2opGjRhguEdMiShV0/EKfavZ3f3oeDuzBljXcf4SDFfM86dYxYGv+aS1A/1Y80JaYQ1cl3ReepyE615Q5aQRfcECVn6rDUVcx1tIymU5uW3jLmIe4VuplX13isV4dgyujLT3SoveW7XktXjHYZOXf+F1Ergw9nHAbCKUBZAbNIZtA+c/Tb3cGI28OKjCyw4HGmnURu/qn3Kuqb4FxKwI3fqwk/b50AuNbzDDHvX6rFcgue9bo
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: northeastern.edu
+X-MS-Exchange-CrossTenant-Network-Message-Id: 613ac0ea-0d80-49e6-2fa9-08d8018eb00b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 May 2020 16:06:02.2942 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a8eec281-aaa3-4dae-ac9b-9a398b9215e7
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: jNmLAs5TdGcib5CEqUi5UQn5l/HUN/LSHjL6NY3NpU4wtEIyZWVdTo1tDDVUNv16qhSscNyNZAumIMo95qVAkqFGb6gU46LKzWXnVzTRHuw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR06MB4500
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,107 +125,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-05-26 4:45 PM, Keyon Jie wrote:
-> On 5/26/20 8:38 PM, Cezary Rojewski wrote:
->> On 2020-05-21 9:48 AM, Keyon Jie wrote:
+> From: Takashi Iwai <tiwai@suse.de>
+> Sent: Tuesday, May 26, 2020 2:22 AM
+> To: Changming Liu <liu.changm@northeastern.edu>
+> Cc: perex@perex.cz; alsa-devel@alsa-project.org
+> Subject: Re: [PATCH] ALSA: hwdep: fix a left shifting 1 by 31 UB bug
+>=20
+> On Tue, 26 May 2020 02:39:21 +0200,
+> Changming Liu wrote:
+> >
+> > The "info.index" variable can be 31 in "1 << info.index".
+> > This might trigger an undefined behavior since 1 is signed.
+> >
+> > Fix this by casting 1 to 1u just to be sure "1u << 31" is defined.
+> >
+> > Signed-off-by: Changming Liu <liu.changm@northeastern.edu>
+>=20
+> Thanks for the patch.
+>=20
+> Unfortunately it seems that your MUA modified in quoted-printable and
+> inapplicable with git-am as is.  Since the changes are so small, I
+> manually applied it now.
+>
+I see, thank you very much for pointing out this problem,=20
+I'll never use my MUA to send patch again.
+Also thank you for this manual modification.=20
 
->> By having "log" code here we have one place for hdr validation, rather 
->> than two (the second being just an "if" to be fair..) and private 
->> array is no longer necessary. Local func ptr variable would take care 
->> of storing adequate function to call.
-> 
-> Hi Cezary, so what you suggested above is changing the 
-> soc_tplg_load_header() to be something like this, right?
-> 
-> 
-> static int soc_tplg_load_header(struct soc_tplg *tplg,
->      struct snd_soc_tplg_hdr *hdr)
-> {
->      unsigned int hdr_pass;
->      int (*elem_load)(struct soc_tplg *, struct snd_soc_tplg_hdr *);
-> 
->      tplg->pos = tplg->hdr_pos + sizeof(struct snd_soc_tplg_hdr);
-> 
->      /* check for matching ID */
->      if (le32_to_cpu(hdr->index) != tplg->req_index &&
->          tplg->req_index != SND_SOC_TPLG_INDEX_ALL)
->          return 0;
-> 
->      tplg->index = le32_to_cpu(hdr->index);
-> 
->      switch (le32_to_cpu(hdr->type)) {
->      case SND_SOC_TPLG_TYPE_MIXER:
->      case SND_SOC_TPLG_TYPE_ENUM:
->      case SND_SOC_TPLG_TYPE_BYTES:
->          hdr_pass = SOC_TPLG_PASS_MIXER;
->          elem_load = soc_tplg_kcontrol_elems_load;
->          break;
->      case SND_SOC_TPLG_TYPE_DAPM_GRAPH:
->          hdr_pass = SOC_TPLG_PASS_GRAPH;
->          elem_load = soc_tplg_dapm_graph_elems_load;
->          break;
->      case SND_SOC_TPLG_TYPE_DAPM_WIDGET:
->          hdr_pass = SOC_TPLG_PASS_WIDGET;
->          elem_load = soc_tplg_dapm_widget_elems_load;
->          break;
->      case SND_SOC_TPLG_TYPE_PCM:
->          hdr_pass = SOC_TPLG_PASS_PCM_DAI;
->          elem_load = soc_tplg_pcm_elems_load;
->          break;
->      case SND_SOC_TPLG_TYPE_DAI:
->          hdr_pass = SOC_TPLG_PASS_BE_DAI;
->          elem_load = soc_tplg_dai_elems_load;
->          break;
->      case SND_SOC_TPLG_TYPE_DAI_LINK:
->      case SND_SOC_TPLG_TYPE_BACKEND_LINK:
->          /* physical link configurations */
->          hdr_pass = SOC_TPLG_PASS_LINK;
->          elem_load = soc_tplg_link_elems_load;
->          break;
->      case SND_SOC_TPLG_TYPE_MANIFEST:
->          hdr_pass = SOC_TPLG_PASS_MANIFEST;
->          elem_load = soc_tplg_manifest_load;
->          break;
->      default:
->          /* bespoke vendor data object */
->          hdr_pass = SOC_TPLG_PASS_VENDOR;
->          elem_load = soc_tplg_vendor_load;
->          break;
->      }
-> 
->      if (tplg->pass == hdr_pass) {
->          dev_dbg(tplg->dev,
->              "ASoC: Got 0x%x bytes of type %d version %d vendor %d at 
-> pass %d\n",
->              hdr->payload_size, hdr->type, hdr->version,
->              hdr->vendor_type, tplg->pass);
->          return elem_load(tplg, hdr);
->      }
-> 
->      return 0;
-> }
-> 
-> 
-> I am also fine with this, though I thought my previous version looks 
-> more organized and not so error-prone as we need 8 more assignation here.
-> 
-> Mark, Pierre, preference about this?
-> 
-> Thanks,
-> ~Keyon
-> 
-
-Another option, if you want to reduce assignment count, is to keep 
-soc_pass_load while still removing the private map. Said soc_pass_load 
-would require declaration update to accept function ptr on top of what's 
-already there.
-
-In consequence, soc_tplg_load_header becomes a switch-case with a bunch of
-case X:
-	return soc_pass_load(tplg, hdr,
-			pass=_MY_PASS
-				(e.g. SOC_TPLG_PASS_VENDOR),
-			elem_load=_MY_LOAD_FUNC
-				(e.g. soc_tplg_vendor_load))
-
-Czarek
+> Please fix the setup of your MUA at the next time, or better to try
+> git-send-email to submit directly.
+>=20
+Sorry that I cannot configure my university email to work on git-send-email=
+,
+I'll use my gmail to send patch via git next time.
+=20
+> > ---
+> >  sound/core/hwdep.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/sound/core/hwdep.c b/sound/core/hwdep.c
+> > index b412d3b3d5ff..21edb8ac95eb 100644
+> > --- a/sound/core/hwdep.c
+> > +++ b/sound/core/hwdep.c
+> > @@ -216,12 +216,12 @@ static int snd_hwdep_dsp_load(struct snd_hwdep
+> *hw,
+> >         if (info.index >=3D 32)
+> >                 return -EINVAL;
+> >         /* check whether the dsp was already loaded */
+> > -       if (hw->dsp_loaded & (1 << info.index))
+> > +       if (hw->dsp_loaded & (1u << info.index))
+> >                 return -EBUSY;
+> >         err =3D hw->ops.dsp_load(hw, &info);
+> >         if (err < 0)
+> >                 return err;
+> > -       hw->dsp_loaded |=3D (1 << info.index);
+> > +       hw->dsp_loaded |=3D (1u << info.index);
+> >         return 0;
+> >  }
+> >
+> > --
+> > 2.17.1
+> >

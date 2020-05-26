@@ -2,49 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0201B1E18FA
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 May 2020 03:18:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E80B1E18FD
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 May 2020 03:19:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A925F171F;
-	Tue, 26 May 2020 03:17:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A925F171F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0FC81172B;
+	Tue, 26 May 2020 03:18:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FC81172B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590455910;
-	bh=MEvNlv3CglkFKCFaYqpKZ4gv7toz1Cx/a8aYJZGTny4=;
+	s=default; t=1590455949;
+	bh=X9uH+c+URNeClthUz6nEAfq2EAmVMR7yG42Xd3XcN6o=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bW/6IwFmC6I9SH0hERamSzy3ocVfdTVPUGRYB+rxXXybxDqOI1w+P/0Y6t5e7an5M
-	 7Hq3goQSKrPcjIuInViM2MYNa+k89CGvBI/CgIHo9k9utIigsCWsbzle5LwjSGVfod
-	 IfiIePv8Y09vVAEn2j4zg+hKeyju8NWpzg3/x5s4=
+	b=XIv46EGS+pBxuQx9Va6zp2sPwVKtCFXY+WkoSVvLrDLYP+crGndBLURCaQWWf6n8v
+	 dCS8W2LTY8fWso0cfLcKZxD5p2cW0wXkmYEf1RjO9TWNDH1v4AGDg1AFZNknJxgAhw
+	 sPUHJlKm1+K3clMxqtEmNfDdgpwhxgsPo15CqO/A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48328F8014E;
-	Tue, 26 May 2020 03:17:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B372AF80292;
+	Tue, 26 May 2020 03:17:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F2775F8028E; Tue, 26 May 2020 03:17:00 +0200 (CEST)
+ id 7486CF8014E; Tue, 26 May 2020 03:17:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 79789F80100
- for <alsa-devel@alsa-project.org>; Tue, 26 May 2020 03:16:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79789F80100
-Date: 26 May 2020 10:16:50 +0900
-X-IronPort-AV: E=Sophos;i="5.73,435,1583161200"; d="scan'208";a="48000518"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 26 May 2020 10:16:50 +0900
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 803A7F8014E
+ for <alsa-devel@alsa-project.org>; Tue, 26 May 2020 03:16:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 803A7F8014E
+Date: 26 May 2020 10:16:55 +0900
+X-IronPort-AV: E=Sophos;i="5.73,435,1583161200"; d="scan'208";a="47788365"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 26 May 2020 10:16:55 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id D624C4003ED6;
- Tue, 26 May 2020 10:16:50 +0900 (JST)
-Message-ID: <87eer7337h.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 55454412CB67;
+ Tue, 26 May 2020 10:16:55 +0900 (JST)
+Message-ID: <87d06r337c.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 02/19] ASoC: add soc-card.c
+Subject: [PATCH 03/19] ASoC: soc-card: move snd_soc_card_get_kcontrol() to
+ soc-card
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87h7w3339l.wl-kuninori.morimoto.gx@renesas.com>
@@ -67,98 +68,95 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Current ALSA SoC has some snd_soc_card_xxx() functions,
-and card->xxx() callbacks.
-But, it is implemented randomly at random place.
-
-To collect all card related functions into one place,
-this patch creats new soc-card.c.
+Card related function should be implemented at soc-card now.
+This patch moves it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc-card.h | 11 +++++++++++
- include/sound/soc.h      |  1 +
- sound/soc/Makefile       |  2 +-
- sound/soc/soc-card.c     | 26 ++++++++++++++++++++++++++
- 4 files changed, 39 insertions(+), 1 deletion(-)
- create mode 100644 include/sound/soc-card.h
- create mode 100644 sound/soc/soc-card.c
+ include/sound/soc-card.h |  3 +++
+ include/sound/soc.h      |  2 --
+ sound/soc/soc-card.c     | 16 ++++++++++++++++
+ sound/soc/soc-core.c     | 16 ----------------
+ 4 files changed, 19 insertions(+), 18 deletions(-)
 
 diff --git a/include/sound/soc-card.h b/include/sound/soc-card.h
-new file mode 100644
-index 000000000000..997809bb3afb
---- /dev/null
+index 997809bb3afb..c601eddf0975 100644
+--- a/include/sound/soc-card.h
 +++ b/include/sound/soc-card.h
-@@ -0,0 +1,11 @@
-+/* SPDX-License-Identifier: GPL-2.0
-+ *
-+ * soc-card.h
-+ *
-+ * Copyright (C) 2019 Renesas Electronics Corp.
-+ * Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-+ */
-+#ifndef __SOC_CARD_H
-+#define __SOC_CARD_H
+@@ -8,4 +8,7 @@
+ #ifndef __SOC_CARD_H
+ #define __SOC_CARD_H
+ 
++struct snd_kcontrol *snd_soc_card_get_kcontrol(struct snd_soc_card *soc_card,
++					       const char *name);
 +
-+#endif /* __SOC_CARD_H */
+ #endif /* __SOC_CARD_H */
 diff --git a/include/sound/soc.h b/include/sound/soc.h
-index 11ee3ed87aa1..5b880e29d106 100644
+index 5b880e29d106..f93827c6be51 100644
 --- a/include/sound/soc.h
 +++ b/include/sound/soc.h
-@@ -1450,5 +1450,6 @@ static inline void snd_soc_dapm_mutex_unlock(struct snd_soc_dapm_context *dapm)
+@@ -582,8 +582,6 @@ static inline int snd_soc_set_ac97_ops(struct snd_ac97_bus_ops *ops)
+ struct snd_kcontrol *snd_soc_cnew(const struct snd_kcontrol_new *_template,
+ 				  void *data, const char *long_name,
+ 				  const char *prefix);
+-struct snd_kcontrol *snd_soc_card_get_kcontrol(struct snd_soc_card *soc_card,
+-					       const char *name);
+ int snd_soc_add_component_controls(struct snd_soc_component *component,
+ 	const struct snd_kcontrol_new *controls, unsigned int num_controls);
+ int snd_soc_add_card_controls(struct snd_soc_card *soc_card,
+diff --git a/sound/soc/soc-card.c b/sound/soc/soc-card.c
+index 4bc6f26ea8cb..340ab682cc76 100644
+--- a/sound/soc/soc-card.c
++++ b/sound/soc/soc-card.c
+@@ -24,3 +24,19 @@ static inline int _soc_card_ret(struct snd_soc_card *card,
+ 
+ 	return ret;
+ }
++
++struct snd_kcontrol *snd_soc_card_get_kcontrol(struct snd_soc_card *soc_card,
++					       const char *name)
++{
++	struct snd_card *card = soc_card->snd_card;
++	struct snd_kcontrol *kctl;
++
++	if (unlikely(!name))
++		return NULL;
++
++	list_for_each_entry(kctl, &card->controls, list)
++		if (!strncmp(kctl->id.name, name, sizeof(kctl->id.name)))
++			return kctl;
++	return NULL;
++}
++EXPORT_SYMBOL_GPL(snd_soc_card_get_kcontrol);
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index e1b65059c0c4..b6105b92f589 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -2096,22 +2096,6 @@ static int snd_soc_add_controls(struct snd_card *card, struct device *dev,
+ 	return 0;
  }
  
- #include <sound/soc-component.h>
-+#include <sound/soc-card.h>
- 
- #endif
-diff --git a/sound/soc/Makefile b/sound/soc/Makefile
-index 70a5f19ea3a1..7f1747518e79 100644
---- a/sound/soc/Makefile
-+++ b/sound/soc/Makefile
-@@ -1,6 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0
- snd-soc-core-objs := soc-core.o soc-dapm.o soc-jack.o soc-utils.o soc-dai.o soc-component.o
--snd-soc-core-objs += soc-pcm.o soc-io.o soc-devres.o soc-ops.o soc-link.o
-+snd-soc-core-objs += soc-pcm.o soc-io.o soc-devres.o soc-ops.o soc-link.o soc-card.o
- snd-soc-core-$(CONFIG_SND_SOC_COMPRESS) += soc-compress.o
- 
- ifneq ($(CONFIG_SND_SOC_TOPOLOGY),)
-diff --git a/sound/soc/soc-card.c b/sound/soc/soc-card.c
-new file mode 100644
-index 000000000000..4bc6f26ea8cb
---- /dev/null
-+++ b/sound/soc/soc-card.c
-@@ -0,0 +1,26 @@
-+// SPDX-License-Identifier: GPL-2.0
-+//
-+// soc-card.c
-+//
-+// Copyright (C) 2019 Renesas Electronics Corp.
-+// Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-+//
-+#include <sound/soc.h>
-+
-+#define soc_card_ret(dai, ret) _soc_card_ret(dai, __func__, ret)
-+static inline int _soc_card_ret(struct snd_soc_card *card,
-+				const char *func, int ret)
-+{
-+	switch (ret) {
-+	case -EPROBE_DEFER:
-+	case -ENOTSUPP:
-+	case 0:
-+		break;
-+	default:
-+		dev_err(card->dev,
-+			"ASoC: error at %s on %s: %d\n",
-+			func, card->name, ret);
-+	}
-+
-+	return ret;
-+}
+-struct snd_kcontrol *snd_soc_card_get_kcontrol(struct snd_soc_card *soc_card,
+-					       const char *name)
+-{
+-	struct snd_card *card = soc_card->snd_card;
+-	struct snd_kcontrol *kctl;
+-
+-	if (unlikely(!name))
+-		return NULL;
+-
+-	list_for_each_entry(kctl, &card->controls, list)
+-		if (!strncmp(kctl->id.name, name, sizeof(kctl->id.name)))
+-			return kctl;
+-	return NULL;
+-}
+-EXPORT_SYMBOL_GPL(snd_soc_card_get_kcontrol);
+-
+ /**
+  * snd_soc_add_component_controls - Add an array of controls to a component.
+  *
 -- 
 2.17.1
 

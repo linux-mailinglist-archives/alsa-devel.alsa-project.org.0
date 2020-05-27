@@ -2,72 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 454A51E50D2
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 May 2020 00:00:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AF261E50F0
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 May 2020 00:09:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E375717D4;
-	Wed, 27 May 2020 23:59:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E375717D4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 36A5717CC;
+	Thu, 28 May 2020 00:08:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36A5717CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590616826;
-	bh=JBeTUKI3wmtjK4sltywOn0ZqwscTvJc6WCSk7BsGLXY=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1590617360;
+	bh=+Cuqp2vRj8HoAOVtvgOP/wR/ttfy/UKTWBrirkVhb0E=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ENX0OP1GA8lmICZoI4ABc/Bd0L841qG1alOqVvEBKvd/jF7o7v6kjkEu3Xx4PmVRp
-	 +KB9UrmtpTSEoqiy0+UpDUs7S6Q3XUW3D2Efm3zzQyO1XwYfdOLcVnACN/zgrw3jnc
-	 uBwL/Sue3cblJ/hL3IsILwwwqnjZdyIyzCof4aoA=
+	b=JH+zjECE6UYv16iJSg6/QARBZCoOBUgQzOZHoxig+64n/8DsrWDLh5LqvzMfaX0G/
+	 /Iw4qF45QplXU1S35GWJkAwEtHGUGzCPAy4HjyF/Me5vY2Kd5A1sVWs3CBXbKqku2Y
+	 v9Y/zf7VyUR3tyPO0Old2mI8d/QWdrG9UU8HcJMs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2C10AF8026F;
-	Wed, 27 May 2020 23:58:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 642F2F800FF;
+	Thu, 28 May 2020 00:07:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F60DF8021E; Wed, 27 May 2020 23:58:00 +0200 (CEST)
+ id 20142F8014E; Thu, 28 May 2020 00:07:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 61F7EF80146
+ for <alsa-devel@alsa-project.org>; Thu, 28 May 2020 00:07:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61F7EF80146
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="o7R9IjOT"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2007EF80149
- for <alsa-devel@alsa-project.org>; Wed, 27 May 2020 23:57:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2007EF80149
-IronPort-SDR: pCDxBonnd+phyMFTc099saqtMe55USDG1ILTRJEM2A5gRtalNkUOB+pgQ8w6AZt0d0YIKoS4Fw
- Db8ZgVtFhwIw==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 May 2020 14:57:49 -0700
-IronPort-SDR: Dn6Nms0lbpwzDVjf1y1V182yGLNUKnB/z6J3wwYmISMjOh/yb/HE810zjdkcIVv0NMWoedQxOu
- gUXTc13nIEjg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,442,1583222400"; d="scan'208";a="376161975"
-Received: from truongmi-mobl1.amr.corp.intel.com (HELO [10.255.229.101])
- ([10.255.229.101])
- by fmsmga001.fm.intel.com with ESMTP; 27 May 2020 14:57:48 -0700
+ by mail.kernel.org (Postfix) with ESMTPSA id D3DE0207D8;
+ Wed, 27 May 2020 22:07:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1590617249;
+ bh=+Cuqp2vRj8HoAOVtvgOP/wR/ttfy/UKTWBrirkVhb0E=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=o7R9IjOTJVIiCOMXCZRMz6SffB/0LnacUY83H+OZIjhI7LihmaYai6wFkDVJYvkxt
+ ph3MtvXFOwBqlVuBnJzqAgF/p7/yQT1XSlxIPrrQNr29zMvj38NjnW2ijSdJQsIDZi
+ P2axskdIa+XHDfu/bZBqJhEyABCZL+qTSp+N55DI=
+Date: Wed, 27 May 2020 23:07:26 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Arnd Bergmann <arnd@arndb.de>
 Subject: Re: [PATCH] ASoC: rt5682: split i2c driver into separate module
-To: Arnd Bergmann <arnd@arndb.de>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>
+Message-ID: <20200527220726.GN5308@sirena.org.uk>
 References: <20200527193730.930412-1-arnd@arndb.de>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <d4b437f7-f078-3b56-b405-82a31e2ef00d@linux.intel.com>
-Date: Wed, 27 May 2020 16:57:47 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ <20200527205658.GM5308@sirena.org.uk>
+ <CAK8P3a2WrCGFtYx52sMu2rsWQFq6kKhEFWGEk2Tn+4gEQTLxBw@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20200527193730.930412-1-arnd@arndb.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="PZYVFYZbFYjzBslI"
+Content-Disposition: inline
+In-Reply-To: <CAK8P3a2WrCGFtYx52sMu2rsWQFq6kKhEFWGEk2Tn+4gEQTLxBw@mail.gmail.com>
+X-Cookie: Drop in any mailbox.
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: Oder Chiou <oder_chiou@realtek.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Akshu Agrawal <akshu.agrawal@amd.com>
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Akshu Agrawal <akshu.agrawal@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,31 +90,68 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--PZYVFYZbFYjzBslI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 5/27/20 2:34 PM, Arnd Bergmann wrote:
-> With SND_SOC_AMD_RV_RT5682_MACH using the i2c version of the
-> driver, we can easily get a build failure when I2C is built-in
-> but soundwire is not:
-> 
->   WARNING: unmet direct dependencies detected for SND_SOC_RT5682
->     Depends on [m]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && (I2C [=y] || SOUNDWIRE [=m]) && (SOUNDWIRE [=m] || !SOUNDWIRE [=m]) && (I2C [=y] || !I2C [=y])
->     Selected by [y]:
->     - SND_SOC_AMD_RV_RT5682_MACH [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_AMD_ACP3x [=y] && I2C [=y] && CROS_EC [=y]
->     Selected by [m]:
->     - SND_SOC_RT5682_SDW [=m] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SOUNDWIRE [=m] && (I2C [=y] || !I2C [=y])
-> 
-> Rework the driver to have three separate modules, with the
-> main driver just dealing with the common bits and the actual
-> initialization as part of i2c and sdw specific modules.
-> 
-> The conversion is fairly mechanical to keep it easy to review,
-> i.e. it moves code around with the minimal required renaming
-> and changes.
-> 
-> Fixes: 6b8e4e7db3cd ("ASoC: amd: Add machine driver for Raven based platform")
-> Fixes: fd443a20c2f0 ("ASoC: rt5682: fix I2C/Soundwire dependencies")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+On Wed, May 27, 2020 at 11:57:33PM +0200, Arnd Bergmann wrote:
+> On Wed, May 27, 2020 at 10:57 PM Mark Brown <broonie@kernel.org> wrote:
+> > On Wed, May 27, 2020 at 09:34:13PM +0200, Arnd Bergmann wrote:
 
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> > > +static const char *rt5682_supply_names[RT5682_NUM_SUPPLIES] = {
+> > > +     "AVDD",
+> > > +     "MICVDD",
+> > > +     "VBAT",
+> > > +};
 
-Thanks for this cleanup.
+> > I'm *fairly* sure the device needs power even with Soundwire?
+
+> I have no idea how this is done with ACPI. I'm moving it
+
+There are non-ACPI SoundWire systems - Qualcomm have some systems
+upstream.
+
+> back as an exported symbol. There should probably be
+> some abstraction that handles this in the common part of
+> the driver along with some of the other bits of
+> rt5682_i2c_probe, but really don't want to shake things up
+> too much and would let this be done by whoever needs to add
+> DT support to the soundwire driver in the future and is able
+> to test the changes.
+
+Like I say the abstraction is generally just setting up the very basic
+stuff and calling into a common init function with a few parameters.
+
+> > This doesn't look very I2C specific either, nor do chunks of the rest of
+> > the code.  The usual pattern with this stuff is to have the bus specific
+> > code do bus specific stuff like setting up the regmap and then call into
+> > a common init function for the shared parts of the chip.  I'd expect a
+> > bit more unshared code here but not this much.
+
+> Right, I was surprised the soundwire portion does not tie into
+> device tree at all, and none of the other soundwire codecs seem
+> to either and no dts files reference it, though there is some code
+> for the subsystem and a binding.
+
+The stuff that's upstream for DT platforms is for Qualcomm systems where
+the reference designs are generally fully integrated with Qualcomm
+components so there's limited overlap.  IIRC they also have a fairly
+unusual system design with a mix of SoundWire and Slimbus usually (that
+was the case for a while at least).
+
+--PZYVFYZbFYjzBslI
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7O5J0ACgkQJNaLcl1U
+h9Aj+Qf/X4InksadO2XemtJetQPDlC78XcmQm2rlx0qZkAscN5csrmw7PXarB24l
+HLrG69XfBt6+e7q7025R+xxJkYrlVDTrDq5XNdrDE+bHm1jgkQWRk+/FlsEmaaj1
+kJfa5dE4CKMXKrE0k+4irNdQkNyWSfwD2knP6Ta+xaTVkSi2QON9A0gvRAUwRvaR
+w5lt/HLQasP/afDGeSS9QfhsFoC5l9s99LFNYc0cWQtcoAxpmDIp4uGFXZNh8rBj
+GXWexajLTUjcoH+aJ91Ec20yCjG7KpD5i0JT1Q2S/9j5FXePCWpl0verMCYuUYXq
+33tGyzZ75qY6Zde6HBGvqH3/7hD3vg==
+=gbu2
+-----END PGP SIGNATURE-----
+
+--PZYVFYZbFYjzBslI--

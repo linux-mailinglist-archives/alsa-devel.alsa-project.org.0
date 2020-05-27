@@ -2,63 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0E4D1E3407
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 May 2020 02:26:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69FDC1E3408
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 May 2020 02:27:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 982411791;
-	Wed, 27 May 2020 02:25:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 982411791
+	by alsa0.perex.cz (Postfix) with ESMTPS id 139361789;
+	Wed, 27 May 2020 02:27:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 139361789
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590539165;
-	bh=IQKwHcxyrmhTHdV+Oe2Q3QLIW3rTj974qIBS8GN0NEw=;
+	s=default; t=1590539276;
+	bh=m7xEY3oMG8iAUInoNtcvof7Rkqkh7/KC6FVQPDTw9RQ=;
 	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=r8TeajtkHlTk6IZIJV3QcuKKqG3UeC7N5RMyHNiaCS8Fhhy94bg0/KicEBWh+z6cn
-	 QmHhObb8rBprJKgdk5ndApGUwEUiI/Sm/nhq344Z4fSMhGYWIfqXYNzjxFDfDFjwCN
-	 4MAVttu/Ujzn2jFrLOwBDN6Tc5C43QbT/Nk9VCXc=
+	b=iStSD5QfwSgolEq8EA7XDN21CvDSf1+pP3P4ruO8x5LzMsrgqRZzrLkiaaiAztWvP
+	 wjgpc/DKylioS67Cq4+TNIrvc2d1IwrIcjJ2zzAuwpVTEzK+jJDS4jn/CGWFOSV8SJ
+	 mEfTTb2nuFDu34vcgz2t7fD8EDUlMgZitbBEwen4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0491AF8026A;
-	Wed, 27 May 2020 02:24:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31DF9F8015C;
+	Wed, 27 May 2020 02:26:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BA6E8F80161; Wed, 27 May 2020 02:24:13 +0200 (CEST)
+ id 7C63FF8015C; Wed, 27 May 2020 02:26:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 30941F8015C
- for <alsa-devel@alsa-project.org>; Wed, 27 May 2020 02:24:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30941F8015C
-IronPort-SDR: hoIAiwHip7XqBCeJT+SGqb6kPxHiTIKa9BkAOsyIWuz8xAJDIgLm+s+U+alE9tvVVCI2p5xN+G
- NRy9u41xxItQ==
+ by alsa1.perex.cz (Postfix) with ESMTPS id AA127F80131
+ for <alsa-devel@alsa-project.org>; Wed, 27 May 2020 02:26:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA127F80131
+IronPort-SDR: oCb+JP5u3R93AtxSn0IDpfi3AP4kK5an7XjdJ8bMvlYQVsLs3VTdjW07auY9JNS9hb17jEPHv9
+ hUyjqdtd1qhw==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2020 17:24:00 -0700
-IronPort-SDR: C6YNHlcba1CAfRo/eNVqvYJwh88RWqgWa9Nhyd92i79MMlb1JD/aG3hckpbfCRC7FUzizhBQBs
- q2t5CVxJ4B2A==
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2020 17:26:03 -0700
+IronPort-SDR: ObYCgt1MtabYB00HYWdkN+76K5Kh3aF4Ii3DgdAVqXx8tg4TSG42x1cd2ZfYzKL0hTX7lnqQKF
+ GO+TCruwE7WA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,439,1583222400"; d="scan'208";a="255312065"
+X-IronPort-AV: E=Sophos;i="5.73,439,1583222400"; d="scan'208";a="255312584"
 Received: from vivienne-mobl.ger.corp.intel.com ([10.251.132.190])
- by fmsmga007.fm.intel.com with ESMTP; 26 May 2020 17:24:00 -0700
-Message-ID: <8fde36670a1f1801e2efca30315d6934661e3620.camel@linux.intel.com>
-Subject: Re: [PATCH 17/19] ASoC: soc-card: add
- snd_soc_card_set_bias_level_post()
+ by fmsmga007.fm.intel.com with ESMTP; 26 May 2020 17:26:02 -0700
+Message-ID: <c8f57c0ff243997075769f67761708e8bad45e8e.camel@linux.intel.com>
+Subject: Re: [PATCH 02/19] ASoC: add soc-card.c
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown
  <broonie@kernel.org>
-Date: Tue, 26 May 2020 17:24:00 -0700
-In-Reply-To: <87sgfn1oj8.wl-kuninori.morimoto.gx@renesas.com>
+Date: Tue, 26 May 2020 17:26:02 -0700
+In-Reply-To: <87eer7337h.wl-kuninori.morimoto.gx@renesas.com>
 References: <87h7w3339l.wl-kuninori.morimoto.gx@renesas.com>
- <87sgfn1oj8.wl-kuninori.morimoto.gx@renesas.com>
+ <87eer7337h.wl-kuninori.morimoto.gx@renesas.com>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
 Mime-Version: 1.0
@@ -79,71 +79,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 2020-05-26 at 10:19 +0900, Kuninori Morimoto wrote:
+On Tue, 2020-05-26 at 10:16 +0900, Kuninori Morimoto wrote:
 > From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > 
-> Card related function should be implemented at soc-card now.
-> This patch adds it.
+> Current ALSA SoC has some snd_soc_card_xxx() functions,
+> and card->xxx() callbacks.
+> But, it is implemented randomly at random place.
+> 
+> To collect all card related functions into one place,
+> this patch creats new soc-card.c.
 > 
 > Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > ---
->  include/sound/soc-card.h |  3 +++
->  sound/soc/soc-card.c     | 12 ++++++++++++
->  sound/soc/soc-dapm.c     |  4 ++--
->  3 files changed, 17 insertions(+), 2 deletions(-)
+>  include/sound/soc-card.h | 11 +++++++++++
+>  include/sound/soc.h      |  1 +
+>  sound/soc/Makefile       |  2 +-
+>  sound/soc/soc-card.c     | 26 ++++++++++++++++++++++++++
+>  4 files changed, 39 insertions(+), 1 deletion(-)
+>  create mode 100644 include/sound/soc-card.h
+>  create mode 100644 sound/soc/soc-card.c
 > 
 > diff --git a/include/sound/soc-card.h b/include/sound/soc-card.h
-> index 4bcdc1d382bf..54341e4d818a 100644
-> --- a/include/sound/soc-card.h
+> new file mode 100644
+> index 000000000000..997809bb3afb
+> --- /dev/null
 > +++ b/include/sound/soc-card.h
-> @@ -31,6 +31,9 @@ int snd_soc_card_remove(struct snd_soc_card *card);
->  int snd_soc_card_set_bias_level(struct snd_soc_card *card,
->  				struct snd_soc_dapm_context *dapm,
->  				enum snd_soc_bias_level level);
-> +int snd_soc_card_set_bias_level_post(struct snd_soc_card *card,
-> +				     struct snd_soc_dapm_context *dapm,
-> +				     enum snd_soc_bias_level level);
->  
->  /* device driver data */
->  static inline void snd_soc_card_set_drvdata(struct snd_soc_card
-> *card,
-> diff --git a/sound/soc/soc-card.c b/sound/soc/soc-card.c
-> index a9f25b6a4c67..8db3b98d1c80 100644
-> --- a/sound/soc/soc-card.c
-> +++ b/sound/soc/soc-card.c
-> @@ -184,3 +184,15 @@ int snd_soc_card_set_bias_level(struct
-> snd_soc_card *card,
->  
->  	return soc_card_ret(card, ret);
+> @@ -0,0 +1,11 @@
+> +/* SPDX-License-Identifier: GPL-2.0
+> + *
+> + * soc-card.h
+> + *
+> + * Copyright (C) 2019 Renesas Electronics Corp.
+> + * Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> + */
+> +#ifndef __SOC_CARD_H
+> +#define __SOC_CARD_H
+> +
+> +#endif /* __SOC_CARD_H */
+> diff --git a/include/sound/soc.h b/include/sound/soc.h
+> index 11ee3ed87aa1..5b880e29d106 100644
+> --- a/include/sound/soc.h
+> +++ b/include/sound/soc.h
+> @@ -1450,5 +1450,6 @@ static inline void
+> snd_soc_dapm_mutex_unlock(struct snd_soc_dapm_context *dapm)
 >  }
-> +
-> +int snd_soc_card_set_bias_level_post(struct snd_soc_card *card,
-> +				     struct snd_soc_dapm_context *dapm,
-> +				     enum snd_soc_bias_level level)
-> +{
-> +	int ret = 0;
-> +
-> +	if (card->set_bias_level_post)
-> +		ret = card->set_bias_level_post(card, dapm, level);
-> +
-> +	return soc_card_ret(card, ret);
-> +}
-> diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-> index add39d24a583..af457ee5ef83 100644
-> --- a/sound/soc/soc-dapm.c
-> +++ b/sound/soc/soc-dapm.c
-> @@ -736,8 +736,8 @@ static int snd_soc_dapm_set_bias_level(struct
-> snd_soc_dapm_context *dapm,
->  	if (ret != 0)
->  		goto out;
 >  
-> -	if (card && card->set_bias_level_post)
-> -		ret = card->set_bias_level_post(card, dapm, level);
-> +	if (card)
-> +		ret = snd_soc_card_set_bias_level_post(card, dapm,
-> level);
-same here too. We can move the check to
-snd_soc_card_set_bias_level_post() and remove the first parameter?
+>  #include <sound/soc-component.h>
+> +#include <sound/soc-card.h>
+Morimoto-san,
+
+soc-card.h should be added where it is needed. For example, in this
+patch, it should be included in soc-card.c and in the following
+patches, it should be included in soc-core.c, soc-dapm.c etc where it
+is needed.
 
 Thanks,
 Ranjani

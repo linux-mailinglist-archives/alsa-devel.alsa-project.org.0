@@ -2,82 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 768801E3471
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 May 2020 03:09:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1E2D1E349F
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 May 2020 03:19:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 21BD81785;
-	Wed, 27 May 2020 03:08:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21BD81785
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4D95B1786;
+	Wed, 27 May 2020 03:18:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D95B1786
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590541783;
-	bh=gt/T8fJRy9zc5ZIiAq99M+iyJqPMeHLiRxcb5NqQszw=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1590542352;
+	bh=wXiIZEPgA+o+gtexV3R/og++K1+zsumzx+CVsLYigm0=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iwgIVZzJ9znyvaaDtm9q9rKKYj2yY5Apwq3CuAKDpd1ciPN8gtZREOreesgecSmHT
-	 8a6sHVIxlJu/GfdJ646QAycaPqhWeEfGysjCXf1Gco40KybJld2ivkpIZXY6KCyx/K
-	 7/ZOO5I1SAtXvdUKKX46yzg66HdqQNl4MUWFEN8c=
+	b=r5XpKHBdKoaV7vn9cyMQdGKmucWXlRpLBpyJRtdw+xDQb+I7ZYgDE76oruP9a93oU
+	 Iy/efLgS5Y753EiZZUFrKfqndjgatlgWC1065RuL0pCDDui2UJvQ+HsKVsF/CQt7+4
+	 uRWdf0psYbLrFVR5WbAAoSaCOa2LwIr5O2+WKQ+k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62227F8014A;
-	Wed, 27 May 2020 03:08:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84593F80100;
+	Wed, 27 May 2020 03:17:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 66A96F8015C; Wed, 27 May 2020 03:07:59 +0200 (CEST)
+ id 10456F80150; Wed, 27 May 2020 03:17:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from zju.edu.cn (mail.zju.edu.cn [61.164.42.155])
- by alsa1.perex.cz (Postfix) with ESMTP id CFC8CF80146
- for <alsa-devel@alsa-project.org>; Wed, 27 May 2020 03:07:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFC8CF80146
-Received: by ajax-webmail-mail-app2 (Coremail) ; Wed, 27 May 2020 09:07:40
- +0800 (GMT+08:00)
-X-Originating-IP: [222.205.60.151]
-Date: Wed, 27 May 2020 09:07:40 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: dinghao.liu@zju.edu.cn
-To: "Pierre-Louis Bossart" <pierre-louis.bossart@linux.intel.com>
-Subject: Re: Re: [PATCH] ASoC: Intel: sst: Fix runtime PM imbalance in
- sst_power_control
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version XT5.0.10 build 20190906(84e8bf8f)
- Copyright (c) 2002-2020 www.mailtech.cn zju.edu.cn
-In-Reply-To: <922ac37c-0a5a-dff7-0cd7-d3487cf9ff00@linux.intel.com>
-References: <20200525070701.3888-1-dinghao.liu@zju.edu.cn>
- <922ac37c-0a5a-dff7-0cd7-d3487cf9ff00@linux.intel.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 59199F80100
+ for <alsa-devel@alsa-project.org>; Wed, 27 May 2020 03:17:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59199F80100
+IronPort-SDR: 0HqTfDJrA/0kWQQYYOL49O0Cdq4B/pPbMzvLbnladKCAHj5FCpLSlrX1hTYoivhD5YcU0mNJdA
+ +5e7TUCoKERw==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2020 18:17:21 -0700
+IronPort-SDR: yGjtoHow/qvLRoXWui+jdWENt1JP375Wm5kR8NkxXI9AFbZoEvjlnQnQDzwvynT24ZuDuT+LOk
+ Ckt36L2ctO1Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,439,1583222400"; d="scan'208";a="345363727"
+Received: from xgu17-mobl.ccr.corp.intel.com (HELO [10.254.210.123])
+ ([10.254.210.123])
+ by orsmga001.jf.intel.com with ESMTP; 26 May 2020 18:17:19 -0700
+Subject: Re: [PATCH v2 1/2] ASoC: topology: refine and log the header in the
+ correct pass
+To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
+References: <20200521074847.71406-1-yang.jie@linux.intel.com>
+ <20200521074847.71406-2-yang.jie@linux.intel.com>
+ <4c05fcc4-2f94-1ca0-2148-af70ef739d00@intel.com>
+ <faa1db0c-75ed-2482-9482-4ad329346bf4@linux.intel.com>
+ <e81515c4-84b6-7544-6f33-d88781c96496@intel.com>
+From: Keyon Jie <yang.jie@linux.intel.com>
+Message-ID: <f4ffd0cd-6066-423e-9ba2-357d85d6ddcc@linux.intel.com>
+Date: Wed, 27 May 2020 09:17:19 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Message-ID: <73fef900.d8158.17253abb08c.Coremail.dinghao.liu@zju.edu.cn>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: by_KCgCnEbxcvc1eVVkcAA--.3818W
-X-CM-SenderInfo: qrrzjiaqtzq6lmxovvfxof0/1tbiAg0MBlZdtOUT6wAGsh
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJTRUUUbuCS07vEb7Iv0x
- C_Xr1lV2xY67kC6x804xWlV2xY67CY07I20VC2zVCF04k26cxKx2IYs7xG6rWj6s0DMIAI
- bVAFxVCF77xC64kEw24lV2xY67C26IkvcIIF6IxKo4kEV4ylV2xY628lY4IE4IxF12IF4w
- CS07vE84x0c7CEj48ve4kI8wCS07vE84ACjcxK6xIIjxv20xvE14v26w1j6s0DMIAIbVA2
- z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW0oVCq3wCS07vE84ACjcxK6I8E87Iv67AKxVW0oV
- Cq3wCS07vE84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DMIAIbVAS0I0E0xvYzxvE52x0
- 82IY62kv0487MIAIbVAqx4xG64xvF2IEw4CE5I8CrVC2j2WlV2xY6cIj6xIIjxv20xvE14
- v26r1j6r18MIAIbVAv7VC2z280aVAFwI0_Jr0_Gr1lV2xY6cvjeVCFs4IE7xkEbVWUJVW8
- JwCS07vEFIxGxcIEc7CjxVA2Y2ka0xkIwI1lV2xY6x02cVAKzwCS07vEc2xSY4AK67AK6w
- 4lV2xY6xkI7II2jI8vz4vEwIxGrwCS07vE42xK82IY6x8ErcxFaVAv8VW8uw4UJr1UMIAI
- bVCF72vE77IF4wCS07vE4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lV2xY6I8I3I0E5I8CrVAFwI
- 0_Jr0_Jr4lV2xY6I8I3I0E7480Y4vE14v26r106r1rMIAIbVC2zVAF1VAY17CE14v26r1q
- 6r43MIAIbVCI42IY6xIIjxv20xvE14v26r1j6r1xMIAIbVCI42IY6xIIjxv20xvEc7CjxV
- AFwI0_Gr0_Cr1lV2xY6IIF0xvE42xK8VAvwI8IcIk0rVWrZr1j6s0DMIAIbVCI42IY6I8E
- 87Iv67AKxVWUJVW8JwCS07vEIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2Kf
- nxnUU==
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, kjlu@umn.edu, Jie Yang <yang.jie@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Alexios Zavras <alexios.zavras@intel.com>, Mark Brown <broonie@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Thomas Gleixner <tglx@linutronix.de>, Allison Randal <allison@lohutok.net>
+In-Reply-To: <e81515c4-84b6-7544-6f33-d88781c96496@intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de, broonie@kernel.org, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,10 +85,116 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-PiAKPiB0aGlzIGNoYW5nZSBkb2Vzbid0IHNlZW0gcXVpdGUgcmlnaHQsIGlmIHlvdSBsb29rIHRo
-ZSBjb2RlIGJlbG93IHRoZXJlIAo+IGlzIG5vIFBNIGltYmFsYW5jZSwgaXMgdGhlcmU/Cj4gCj4g
-aW50IHNzdF9wbV9ydW50aW1lX3B1dChzdHJ1Y3QgaW50ZWxfc3N0X2RydiAqc3N0X2RydikKPiB7
-Cj4gCWludCByZXQ7Cj4gCj4gCXBtX3J1bnRpbWVfbWFya19sYXN0X2J1c3koc3N0X2Rydi0+ZGV2
-KTsKPiAJcmV0ID0gcG1fcnVudGltZV9wdXRfYXV0b3N1c3BlbmQoc3N0X2Rydi0+ZGV2KTsKPiAJ
-aWYgKHJldCA8IDApCj4gCQlyZXR1cm4gcmV0Owo+IAlyZXR1cm4gMDsKPiB9CgpZb3UgYXJlIHJp
-Z2h0LiBUaGFuayB5b3UgZm9yIHlvdXIgY29ycmVjdGlvbiEKClJlZ2FyZHMsCkRpbmdoYW8K
+
+
+On 5/26/20 11:30 PM, Cezary Rojewski wrote:
+> On 2020-05-26 4:45 PM, Keyon Jie wrote:
+>> On 5/26/20 8:38 PM, Cezary Rojewski wrote:
+>>> On 2020-05-21 9:48 AM, Keyon Jie wrote:
+> 
+>>> By having "log" code here we have one place for hdr validation, 
+>>> rather than two (the second being just an "if" to be fair..) and 
+>>> private array is no longer necessary. Local func ptr variable would 
+>>> take care of storing adequate function to call.
+>>
+>> Hi Cezary, so what you suggested above is changing the 
+>> soc_tplg_load_header() to be something like this, right?
+>>
+>>
+>> static int soc_tplg_load_header(struct soc_tplg *tplg,
+>>      struct snd_soc_tplg_hdr *hdr)
+>> {
+>>      unsigned int hdr_pass;
+>>      int (*elem_load)(struct soc_tplg *, struct snd_soc_tplg_hdr *);
+>>
+>>      tplg->pos = tplg->hdr_pos + sizeof(struct snd_soc_tplg_hdr);
+>>
+>>      /* check for matching ID */
+>>      if (le32_to_cpu(hdr->index) != tplg->req_index &&
+>>          tplg->req_index != SND_SOC_TPLG_INDEX_ALL)
+>>          return 0;
+>>
+>>      tplg->index = le32_to_cpu(hdr->index);
+>>
+>>      switch (le32_to_cpu(hdr->type)) {
+>>      case SND_SOC_TPLG_TYPE_MIXER:
+>>      case SND_SOC_TPLG_TYPE_ENUM:
+>>      case SND_SOC_TPLG_TYPE_BYTES:
+>>          hdr_pass = SOC_TPLG_PASS_MIXER;
+>>          elem_load = soc_tplg_kcontrol_elems_load;
+>>          break;
+>>      case SND_SOC_TPLG_TYPE_DAPM_GRAPH:
+>>          hdr_pass = SOC_TPLG_PASS_GRAPH;
+>>          elem_load = soc_tplg_dapm_graph_elems_load;
+>>          break;
+>>      case SND_SOC_TPLG_TYPE_DAPM_WIDGET:
+>>          hdr_pass = SOC_TPLG_PASS_WIDGET;
+>>          elem_load = soc_tplg_dapm_widget_elems_load;
+>>          break;
+>>      case SND_SOC_TPLG_TYPE_PCM:
+>>          hdr_pass = SOC_TPLG_PASS_PCM_DAI;
+>>          elem_load = soc_tplg_pcm_elems_load;
+>>          break;
+>>      case SND_SOC_TPLG_TYPE_DAI:
+>>          hdr_pass = SOC_TPLG_PASS_BE_DAI;
+>>          elem_load = soc_tplg_dai_elems_load;
+>>          break;
+>>      case SND_SOC_TPLG_TYPE_DAI_LINK:
+>>      case SND_SOC_TPLG_TYPE_BACKEND_LINK:
+>>          /* physical link configurations */
+>>          hdr_pass = SOC_TPLG_PASS_LINK;
+>>          elem_load = soc_tplg_link_elems_load;
+>>          break;
+>>      case SND_SOC_TPLG_TYPE_MANIFEST:
+>>          hdr_pass = SOC_TPLG_PASS_MANIFEST;
+>>          elem_load = soc_tplg_manifest_load;
+>>          break;
+>>      default:
+>>          /* bespoke vendor data object */
+>>          hdr_pass = SOC_TPLG_PASS_VENDOR;
+>>          elem_load = soc_tplg_vendor_load;
+>>          break;
+>>      }
+>>
+>>      if (tplg->pass == hdr_pass) {
+>>          dev_dbg(tplg->dev,
+>>              "ASoC: Got 0x%x bytes of type %d version %d vendor %d at 
+>> pass %d\n",
+>>              hdr->payload_size, hdr->type, hdr->version,
+>>              hdr->vendor_type, tplg->pass);
+>>          return elem_load(tplg, hdr);
+>>      }
+>>
+>>      return 0;
+>> }
+>>
+>>
+>> I am also fine with this, though I thought my previous version looks 
+>> more organized and not so error-prone as we need 8 more assignation here.
+>>
+>> Mark, Pierre, preference about this?
+>>
+>> Thanks,
+>> ~Keyon
+>>
+> 
+> Another option, if you want to reduce assignment count, is to keep 
+> soc_pass_load while still removing the private map. Said soc_pass_load 
+> would require declaration update to accept function ptr on top of what's 
+> already there.
+> 
+> In consequence, soc_tplg_load_header becomes a switch-case with a bunch of
+> case X:
+>      return soc_pass_load(tplg, hdr,
+>              pass=_MY_PASS
+>                  (e.g. SOC_TPLG_PASS_VENDOR),
+>              elem_load=_MY_LOAD_FUNC
+>                  (e.g. soc_tplg_vendor_load))
+
+I would prefer to use the assignment one, let me update the series now.
+
+Thanks,
+~Keyon
+
+> 
+> Czarek

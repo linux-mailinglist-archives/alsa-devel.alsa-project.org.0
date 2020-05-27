@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 052BB1E3FFE
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 May 2020 13:27:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8B0F1E4010
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 May 2020 13:30:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 94E8A17B4;
-	Wed, 27 May 2020 13:26:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94E8A17B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8A25C17B5;
+	Wed, 27 May 2020 13:29:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A25C17B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590578861;
-	bh=oU0Y/5u25huOd72JaBmNFl5U1KrJrZttts86TRQdAFc=;
+	s=default; t=1590579000;
+	bh=ef/jJPV9ByXtDirUxMky79f/X31SPpgZBquKZf4ExGg=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=i6NZMVWafI6q9Zeezz7mLUUA3S3PVP3aLwFtq1hJyol7IVNRgjTR8QtrPWXKqY51P
-	 SEPLdp97bo0ISgoC34dyYg16huJ/G8BFAxu0MEEdR6Hni9fwvZgxXcK9FMRtwQR59N
-	 MJXgdIG/vs5C/tDfg4cQAZ1Rq+eilB9RrZBgujAA=
+	b=FW0Y2BjThf4VgcZdZXsI0VIQ1awkiOQkNOtOlhqo7aiBxmaHRP+tSfwyAQmXPoAh/
+	 Ply3FjgufkbT6kplLKFnKeEE5S+Bz197NJa7/CJeYueXoYvCOciawhmtIGxZ8VI4A0
+	 lrSoxBNkD2kyVWpzuqqX5EGM1WrmsRz9TGctGsmo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A5077F80149;
-	Wed, 27 May 2020 13:26:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA1ECF800FF;
+	Wed, 27 May 2020 13:28:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6365AF8014E; Wed, 27 May 2020 13:25:58 +0200 (CEST)
+ id 7BC04F8014E; Wed, 27 May 2020 13:28:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,43 +34,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 816FAF80146
- for <alsa-devel@alsa-project.org>; Wed, 27 May 2020 13:25:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 816FAF80146
+ by alsa1.perex.cz (Postfix) with ESMTPS id 64261F800FF
+ for <alsa-devel@alsa-project.org>; Wed, 27 May 2020 13:28:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64261F800FF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="NXm3eC/7"
+ header.b="RJY9LUFf"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id AD7D6206DF;
- Wed, 27 May 2020 11:25:50 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id DE186207D3;
+ Wed, 27 May 2020 11:28:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1590578751;
- bh=oU0Y/5u25huOd72JaBmNFl5U1KrJrZttts86TRQdAFc=;
+ s=default; t=1590578881;
+ bh=ef/jJPV9ByXtDirUxMky79f/X31SPpgZBquKZf4ExGg=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=NXm3eC/74XUS9k/zL2j5RrjTjlWlgrAMk2dRRne6SHvHh6vaV0IhcqR+WOSBg6g1u
- IiI7B9chF7Hd/V77ZpvINKa+B1SfRn0AI/7Ihl+avmo5G1yjFPXHczozSdNUc6inBF
- ZZLsgYDSrWG5OgQeNVFaqM/GCZEQUbJ37YjQUa7w=
-Date: Wed, 27 May 2020 12:25:48 +0100
+ b=RJY9LUFfHCypglbuznceow9Hw1fql7iGoKCpk7ydeFGTRHjnp11jxf5g4owd2Cu3g
+ itrvhN5P5c8PfdjW2ak56F3khIJ3z4UQGG+M3pUr/L7g6iSO6FfO5WP9i5dUxNfm6W
+ IQzLRr9RP7/vfapSeVgVqbwwy2Ix4404Ii47l1IU=
+Date: Wed, 27 May 2020 12:27:59 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH 1/2] dt-bindings: ASoC: renesas,rsnd: Add r8a7742 support
-Message-ID: <20200527112548.GD5308@sirena.org.uk>
-References: <1590526904-13855-1-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <1590526904-13855-2-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Akshu Agrawal <akshu.agrawal@amd.com>
+Subject: Re: [PATCH] ASoC: AMD: Use mixer control to switch between DMICs
+Message-ID: <20200527112758.GE5308@sirena.org.uk>
+References: <20200527014023.2781-1-akshu.agrawal@amd.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="zbGR4y+acU1DwHSi"
+ protocol="application/pgp-signature"; boundary="imjhCm/Pyz7Rq5F2"
 Content-Disposition: inline
-In-Reply-To: <1590526904-13855-2-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20200527014023.2781-1-akshu.agrawal@amd.com>
 X-Cookie: Drop in any mailbox.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Prabhakar <prabhakar.csengg@gmail.com>, Rob Herring <robh+dt@kernel.org>
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
+ YueHaibing <yuehaibing@huawei.com>, Takashi Iwai <tiwai@suse.com>,
+ yuhsuan@chromium.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,33 +87,31 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---zbGR4y+acU1DwHSi
+--imjhCm/Pyz7Rq5F2
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, May 26, 2020 at 10:01:43PM +0100, Lad Prabhakar wrote:
+On Wed, May 27, 2020 at 07:10:16AM +0530, Akshu Agrawal wrote:
 
->  				  Examples with soctypes are:
-> +				    - "renesas,rcar_sound-r8a7742" (RZ/G1H)
->  				    - "renesas,rcar_sound-r8a7743" (RZ/G1M)
->  				    - "renesas,rcar_sound-r8a7744" (RZ/G1N)
->  				    - "renesas,rcar_sound-r8a7745" (RZ/G1E)
+> +	SOC_SINGLE_BOOL_EXT("Front Mic", 0, front_mic_get, front_mic_set),
 
-I'd expect a matching patch adding this compatible to the driver.
+This should probably be a mux with two labelled options, or if it's a
+boolean control it should end in Switch.  A mux definitely seems like a
+better option though.
 
---zbGR4y+acU1DwHSi
+--imjhCm/Pyz7Rq5F2
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7OTjsACgkQJNaLcl1U
-h9DwwQf/f7ybVQEernStDVG3TFsQK7/YunjNpnQ29AOR0oZ8z5Rx4bOF8GWRtBLh
-NooWHgqGXUTPz33IDGptxlvTEwjH3GL+z8EW72NAnagxLCl1bs0IOjMvbDMLX0CG
-qhvcgAr3oR+PVOZDB8BXvotNJ/hcF6M6kvdPd1LWTa2usE52u0dg1Zb/8uoYCWyq
-calyH03qZW/1HxVgpjJRNmpeGrroXofyxLo5SSQQR1laFQgRxyxwiWAIWl5n1yO5
-tcc80ocEq1fipR69xRCkQU0VrEFBHZIZwm1prHIxWD6PRfn/W9/0P50tLMfko5ut
-fTPwT7eahVymkQkdtM++bNorrkfusg==
-=BGUJ
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7OTr4ACgkQJNaLcl1U
+h9DRYgf/akrvrra3kUeV1yqD3LwP+z/Awi1I/4x2sgSYHYzVEF60MkdDjY8+nYNZ
+YMvWIEcZYxu7AuOR6dKmzK6ogV0E2dTfiy4IaiftYE+FpFjVQSLml2E258WF4Fyl
+5Uz7BzoBvRT/t3YseDiZ1MPR/PiA/RbA38oiE//OKqLNQvEo+TZFf6Z/mzh6v7Fy
+BhN9D7wbAIWk9LNzvlx/F4w+W9oOc822A573binK00Ye7oTZGz1jr1hZ16nzOTha
+BmwljhOAM2VQW9Lly8uz3DfHP/P8z1X/Y09/EoTiEiH83v59zVL3vh3s4GrcFX/m
+JUsmP5670wkUeRvmMe4muY+0ReOj7w==
+=YKkv
 -----END PGP SIGNATURE-----
 
---zbGR4y+acU1DwHSi--
+--imjhCm/Pyz7Rq5F2--

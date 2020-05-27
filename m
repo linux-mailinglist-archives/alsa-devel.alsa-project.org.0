@@ -2,74 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EBF81E4FB8
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 May 2020 22:58:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9766D1E50BF
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 May 2020 23:56:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EFF5317BE;
-	Wed, 27 May 2020 22:57:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFF5317BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2ADB616BD;
+	Wed, 27 May 2020 23:55:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2ADB616BD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590613129;
-	bh=PJaX6a/wG4EogZDDlFWqXVNgTe80YNLiDmSRl+38vz4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1590616577;
+	bh=CaMvZyTMEdjJ90+35/IZlx6kPVbif4rLHOQcy0F73c8=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tidMYkfC1W8bg286jsTsKRoxYolAU8Q+5IQR2ZISfs+s1QAHj9LlpANgA1tFJ7072
-	 TZijj1dwLQZkwjlhhrKsq5FPF88bDaFggEKOaASIHTLN2cXleArfwubFUrHiL4LgGk
-	 dtG8OEzjuJAC1zAifqbhn8Ory6dq1fB1Em0ONw3c=
+	b=VBmjrRahDe45wmJS4DyXz1tQkcqMVXJf0TbW16DbbY5y3XVa2SrmepiQ7LQ4ZjKJX
+	 Qk8BHc1YXxwRnprfkY5xY2D2EEAbJ12KfltWXXBZtZqEz6e4amH66A2PTrDFFM5ztg
+	 hhwgCdZlqgAn9jdUEovbeagV3I9L1HJ+gS9eN1ds=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 174FFF80146;
-	Wed, 27 May 2020 22:57:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6C400F8016F;
+	Wed, 27 May 2020 23:54:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A5908F8014E; Wed, 27 May 2020 22:57:06 +0200 (CEST)
+ id 07B29F8014E; Wed, 27 May 2020 23:54:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C98F0F80146
- for <alsa-devel@alsa-project.org>; Wed, 27 May 2020 22:57:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C98F0F80146
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="tEierfJl"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 5111320899;
- Wed, 27 May 2020 20:57:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1590613020;
- bh=PJaX6a/wG4EogZDDlFWqXVNgTe80YNLiDmSRl+38vz4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=tEierfJlg9cjxL5kZCo+ruC44RyQE9GccF6rbeEjdIDkyVyxkl5iLTG1UeskiTz1U
- qsGoFAK/Rr0QPGHHpdbKOB0cjCpARvKOAYI6QPlfg4KVgAKiXLXeUjyusnJ2OuzyJB
- wVoerKThgLwGnz4i9g5oRhiduWKlCufSs35IGBtc=
-Date: Wed, 27 May 2020 21:56:58 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Subject: Re: [PATCH] ASoC: rt5682: split i2c driver into separate module
-Message-ID: <20200527205658.GM5308@sirena.org.uk>
-References: <20200527193730.930412-1-arnd@arndb.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id BC17CF800CD
+ for <alsa-devel@alsa-project.org>; Wed, 27 May 2020 23:54:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC17CF800CD
+IronPort-SDR: Wo1T2EKlNxSYt4df787QnHORDqo8AwNvxYvAG2DDzrEjjJpzkCaI/LQeed7dQS3sI6a8BJgd04
+ JUQjc1wMn18Q==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 May 2020 14:54:20 -0700
+IronPort-SDR: reMdfE92fWFz7ETpYiHsghYvufmPqi//lrcgAa4ke28Mr1S7+E2fnkPnrUZIRS3o8u2UIERAX0
+ WKAA7TDtHQ9A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,442,1583222400"; d="scan'208";a="376161389"
+Received: from truongmi-mobl1.amr.corp.intel.com (HELO [10.255.229.101])
+ ([10.255.229.101])
+ by fmsmga001.fm.intel.com with ESMTP; 27 May 2020 14:54:19 -0700
+Subject: Re: [PATCH 0/4] Kconfig updates for DMIC and SOF HDMI support
+To: Mark Brown <broonie@kernel.org>
+References: <20200427165211.23463-1-ranjani.sridharan@linux.intel.com>
+ <00d4ea9242cad11b7aab10326b7430f6106d63e3.camel@linux.intel.com>
+ <d9931fc5-56a2-5626-5cee-aeadc7cc976a@linux.intel.com>
+ <20200527204944.GL5308@sirena.org.uk>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <5bc72558-1a6a-e92b-5390-fee7980f3945@linux.intel.com>
+Date: Wed, 27 May 2020 16:54:19 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="37nyS7qXrnu4wN2o"
-Content-Disposition: inline
-In-Reply-To: <20200527193730.930412-1-arnd@arndb.de>
-X-Cookie: Drop in any mailbox.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Oder Chiou <oder_chiou@realtek.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Akshu Agrawal <akshu.agrawal@amd.com>
+In-Reply-To: <20200527204944.GL5308@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,63 +85,17 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---37nyS7qXrnu4wN2o
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Wed, May 27, 2020 at 09:34:13PM +0200, Arnd Bergmann wrote:
+On 5/27/20 3:49 PM, Mark Brown wrote:
+> On Wed, May 27, 2020 at 03:17:27PM -0500, Pierre-Louis Bossart wrote:
+> 
+>> Mark, is there any issue with this patchset? This series posted last month
+>> will conflict with Arnd's RT5682 cleanups (just tried, see below). I don't
+>> mind re-sending the patches on top of Arnd's, please let us know what's
+>> easiest for you. Thanks!
+> 
+> I don't know what's going on with this patch set is any more, I was
+> expecting Ranjani to resend it if things had got lost (like my "no
+> pings, please resend" form letter says).
 
-> index 000000000000..c891aa80757f
-> --- /dev/null
-> +++ b/sound/soc/codecs/rt5682-i2c.c
-> @@ -0,0 +1,341 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * rt5682.c  --  RT5682 ALSA SoC audio component driver
-> + *
-
-Please keep the entire comment C++ so things look more intentional.
-
-> +static const char *rt5682_supply_names[RT5682_NUM_SUPPLIES] = {
-> +	"AVDD",
-> +	"MICVDD",
-> +	"VBAT",
-> +};
-
-I'm *fairly* sure the device needs power even with Soundwire?
-
-> +static void rt5682_jd_check_handler(struct work_struct *work)
-> +{
-> +	struct rt5682_priv *rt5682 = container_of(work, struct rt5682_priv,
-> +		jd_check_work.work);
-
-> +static int rt5682_parse_dt(struct rt5682_priv *rt5682, struct device *dev)
-> +{
-> +
-> +	device_property_read_u32(dev, "realtek,dmic1-data-pin",
-> +		&rt5682->pdata.dmic1_data_pin);
-> +	device_property_read_u32(dev, "realtek,dmic1-clk-pin",
-> +		&rt5682->pdata.dmic1_clk_pin);
-
-This doesn't look very I2C specific either, nor do chunks of the rest of
-the code.  The usual pattern with this stuff is to have the bus specific
-code do bus specific stuff like setting up the regmap and then call into
-a common init function for the shared parts of the chip.  I'd expect a
-bit more unshared code here but not this much.
-
---37nyS7qXrnu4wN2o
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7O1BkACgkQJNaLcl1U
-h9A0nwf8D3oDJJ7yA5/9c9tZA3Ugn5+YbfRc5KWxk7tChsSTmOaXja9l3B3yoHEh
-FB0bDc5yyUL6+iQxUkNzGe9Q//DhUeJTnDYH+FaBS+YyG3NNSqaTlD1JCjC0de6g
-JMqaRXuOohN2sW2IX3fVcOnCUUfuJl0c7J6g64mxi/pv5LQTiUuuRWPz7DuIFSr7
-ZlqkxNLBnt/U5/kiCZY3RGu1Ol7vPXFQYCOeWnlx5G0q2yrng4/bxpeWxkS0tNUy
-SZY4IyOiT++Vqyj6JnPm/B7NQaWjs/xnl7JLKecmXDHmbPMNQUifdJw3+FzsvJwW
-4RD1aq7FoWTMXR/LdkmkSw+QhT3MMA==
-=1e2i
------END PGP SIGNATURE-----
-
---37nyS7qXrnu4wN2o--
+no worries, we will resend after Arnd's fix goes in.

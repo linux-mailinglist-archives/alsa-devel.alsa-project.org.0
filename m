@@ -2,78 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AF261E50F0
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 May 2020 00:09:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D13CD1E5110
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 May 2020 00:16:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 36A5717CC;
-	Thu, 28 May 2020 00:08:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36A5717CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B7A117CB;
+	Thu, 28 May 2020 00:15:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B7A117CB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590617360;
-	bh=+Cuqp2vRj8HoAOVtvgOP/wR/ttfy/UKTWBrirkVhb0E=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JH+zjECE6UYv16iJSg6/QARBZCoOBUgQzOZHoxig+64n/8DsrWDLh5LqvzMfaX0G/
-	 /Iw4qF45QplXU1S35GWJkAwEtHGUGzCPAy4HjyF/Me5vY2Kd5A1sVWs3CBXbKqku2Y
-	 v9Y/zf7VyUR3tyPO0Old2mI8d/QWdrG9UU8HcJMs=
+	s=default; t=1590617795;
+	bh=h9Keft9rxq8QEdeI6xkE1rOwePFqbTe1qDlzIjvngMo=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=EauO9APZB7b7MD09ae177g2oVz11Ak1MTFWdYcyC9Tu85wmSVXXXXmBVRag/KJxhk
+	 IdosQHY6Ue7Q6eLOK4p0Q6qEWOguZ9aAVoiay8+8WWNrP3W3hrMGiNaY5l+G/o8ZLx
+	 7dUVEDKXSEmANBRA/0fQby54XBqi0iUUDfSzenmA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 642F2F800FF;
-	Thu, 28 May 2020 00:07:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92899F80146;
+	Thu, 28 May 2020 00:14:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 20142F8014E; Thu, 28 May 2020 00:07:35 +0200 (CEST)
+ id 374C6F8014E; Thu, 28 May 2020 00:14:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61F7EF80146
- for <alsa-devel@alsa-project.org>; Thu, 28 May 2020 00:07:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61F7EF80146
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="o7R9IjOT"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from jazz.pogo.org.uk (jazz.pogo.org.uk [213.138.114.167])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D3DE0207D8;
- Wed, 27 May 2020 22:07:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1590617249;
- bh=+Cuqp2vRj8HoAOVtvgOP/wR/ttfy/UKTWBrirkVhb0E=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=o7R9IjOTJVIiCOMXCZRMz6SffB/0LnacUY83H+OZIjhI7LihmaYai6wFkDVJYvkxt
- ph3MtvXFOwBqlVuBnJzqAgF/p7/yQT1XSlxIPrrQNr29zMvj38NjnW2ijSdJQsIDZi
- P2axskdIa+XHDfu/bZBqJhEyABCZL+qTSp+N55DI=
-Date: Wed, 27 May 2020 23:07:26 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Subject: Re: [PATCH] ASoC: rt5682: split i2c driver into separate module
-Message-ID: <20200527220726.GN5308@sirena.org.uk>
-References: <20200527193730.930412-1-arnd@arndb.de>
- <20200527205658.GM5308@sirena.org.uk>
- <CAK8P3a2WrCGFtYx52sMu2rsWQFq6kKhEFWGEk2Tn+4gEQTLxBw@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 79EC3F80146
+ for <alsa-devel@alsa-project.org>; Thu, 28 May 2020 00:14:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79EC3F80146
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=pogo.org.uk header.i=@pogo.org.uk
+ header.b="dp4TY0Xm"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=pogo.org.uk
+ ; s=a;
+ h=Content-Type:MIME-Version:Message-ID:Subject:To:From:Date:Sender:
+ Reply-To:Cc:Content-Transfer-Encoding:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=N6QHx9jPI4eQBojV9Nn3Cu/F3pf2O6BvRqMRwDc0Hoc=; b=dp4TY0XmIhSV8PIlGEAEmh6r0o
+ VKhGlw/tc5lvIKQ69zVHV2kXnm2vw8JpyBdr2L5X0ANHBgkq3QHMx6leWQfx0QymOSAgxTlsscYfk
+ x2WjQlxDumrwgY0MZfMVlRA1O8sEsRsqdD/Fl4E+b6rUMsj34kBlRr0VdV5BjrYX8nSzVDcGJcbGf
+ 111MRGOmkrDz+juybXettlXWvof39yylvbjlrkkFFlp8yInBEZoU+u9RyD5fE7dq70vbRPy2f3YH9
+ FAQJBZlHO8Rk6xRkFRd8bhRgBHkaQNXOIubH6J8bXBNdrGRAeHTvGhvKPIYxE2s5MzQTiZabWqx3B
+ 9j+7zJYw==;
+Received: from cpc1-hari17-2-0-cust102.20-2.cable.virginm.net ([86.18.4.103]
+ helo=stax.localdomain) by jazz.pogo.org.uk with esmtps (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93.0.4 (FreeBSD))
+ (envelope-from <mark@xwax.org>) id 1je4Jy-000GMv-2z
+ for alsa-devel@alsa-project.org; Wed, 27 May 2020 23:14:46 +0100
+Received: from mark (helo=localhost)
+ by stax.localdomain with local-esmtp (Exim 4.84)
+ (envelope-from <mark@xwax.org>) id 1je4Jx-0000al-Q4
+ for alsa-devel@alsa-project.org; Wed, 27 May 2020 23:14:45 +0100
+Date: Wed, 27 May 2020 23:14:45 +0100 (BST)
+From: Mark Hills <mark@xwax.org>
+To: alsa-devel@alsa-project.org
+Subject: alsa-lib: mmap API disables blocking I/O or sw_params
+Message-ID: <2005272214510.31320@stax.localdomain>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="PZYVFYZbFYjzBslI"
-Content-Disposition: inline
-In-Reply-To: <CAK8P3a2WrCGFtYx52sMu2rsWQFq6kKhEFWGEk2Tn+4gEQTLxBw@mail.gmail.com>
-X-Cookie: Drop in any mailbox.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Oder Chiou <oder_chiou@realtek.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Akshu Agrawal <akshu.agrawal@amd.com>
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,69 +82,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+I'm swapping out a vanilla loop based on RW_INTERLEAVED for 
+MMAP_INTERLEAVED, to reduce memory copies:
 
---PZYVFYZbFYjzBslI
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+The equivalent code becomes:
 
-On Wed, May 27, 2020 at 11:57:33PM +0200, Arnd Bergmann wrote:
-> On Wed, May 27, 2020 at 10:57 PM Mark Brown <broonie@kernel.org> wrote:
-> > On Wed, May 27, 2020 at 09:34:13PM +0200, Arnd Bergmann wrote:
+  snd_pcm_avail_update()
+  snd_pcm_mmap_begin()
+  snd_pcm_mmap_commit()
 
-> > > +static const char *rt5682_supply_names[RT5682_NUM_SUPPLIES] = {
-> > > +     "AVDD",
-> > > +     "MICVDD",
-> > > +     "VBAT",
-> > > +};
+but what I find no longer works:
 
-> > I'm *fairly* sure the device needs power even with Soundwire?
+* Blocking I/O: it's necessary to make explicit calls to snd_pcm_wait()  
+  with syscall overhead of poll()
 
-> I have no idea how this is done with ACPI. I'm moving it
+* Automatic start (and perhaps others): so I have to count the frames 
+  committed and call snd_pcm_start() explicitly.
 
-There are non-ACPI SoundWire systems - Qualcomm have some systems
-upstream.
+I don't think these are conceptually incompatible with mmap, so is this 
+the intended behaviour and an important omission from the docs? Or is the 
+mmap API not widely used and I'm stumbling on bugs?
 
-> back as an exported symbol. There should probably be
-> some abstraction that handles this in the common part of
-> the driver along with some of the other bits of
-> rt5682_i2c_probe, but really don't want to shake things up
-> too much and would let this be done by whoever needs to add
-> DT support to the soundwire driver in the future and is able
-> to test the changes.
-
-Like I say the abstraction is generally just setting up the very basic
-stuff and calling into a common init function with a few parameters.
-
-> > This doesn't look very I2C specific either, nor do chunks of the rest of
-> > the code.  The usual pattern with this stuff is to have the bus specific
-> > code do bus specific stuff like setting up the regmap and then call into
-> > a common init function for the shared parts of the chip.  I'd expect a
-> > bit more unshared code here but not this much.
-
-> Right, I was surprised the soundwire portion does not tie into
-> device tree at all, and none of the other soundwire codecs seem
-> to either and no dts files reference it, though there is some code
-> for the subsystem and a binding.
-
-The stuff that's upstream for DT platforms is for Qualcomm systems where
-the reference designs are generally fully integrated with Qualcomm
-components so there's limited overlap.  IIRC they also have a fairly
-unusual system design with a mix of SoundWire and Slimbus usually (that
-was the case for a while at least).
-
---PZYVFYZbFYjzBslI
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7O5J0ACgkQJNaLcl1U
-h9Aj+Qf/X4InksadO2XemtJetQPDlC78XcmQm2rlx0qZkAscN5csrmw7PXarB24l
-HLrG69XfBt6+e7q7025R+xxJkYrlVDTrDq5XNdrDE+bHm1jgkQWRk+/FlsEmaaj1
-kJfa5dE4CKMXKrE0k+4irNdQkNyWSfwD2knP6Ta+xaTVkSi2QON9A0gvRAUwRvaR
-w5lt/HLQasP/afDGeSS9QfhsFoC5l9s99LFNYc0cWQtcoAxpmDIp4uGFXZNh8rBj
-GXWexajLTUjcoH+aJ91Ec20yCjG7KpD5i0JT1Q2S/9j5FXePCWpl0verMCYuUYXq
-33tGyzZ75qY6Zde6HBGvqH3/7hD3vg==
-=gbu2
------END PGP SIGNATURE-----
-
---PZYVFYZbFYjzBslI--
+-- 
+Mark

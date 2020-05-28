@@ -2,88 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DAA91E5CA2
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 May 2020 12:04:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F4221E5D08
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 May 2020 12:22:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5AC317C4;
-	Thu, 28 May 2020 12:03:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5AC317C4
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB4CD1791;
+	Thu, 28 May 2020 12:21:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB4CD1791
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590660282;
-	bh=fXSocfTm3yw99S3IGKnf7I3Cdhbz/cy68M5rE7V9gKM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=UABnJEkfmJ08w2ftKYFtnbXQcGVDTW1udFmkWEqKp0zLPdJt5vw//JA2XeiRCcvop
-	 0BEKOTkkQBDjuJFrm9cwh2A9b4CGDhbrhG/eOGdhZKDJy1Wb1sks5NrDIq+3jt2xBQ
-	 prrRMzWieZPlN8PG+X0D6urZy6TG9Ci73vrHwo5g=
+	s=default; t=1590661325;
+	bh=I9xjtLDSSEu3YHWuIRwxrjixFmFWxjTzm0+X8eMVGkA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=vbWbZwGAFgrndlBv06EWTlg3mVE5Ot572KcpqDi5hcSs0LlgfWoJPvHLrJ1ZIakFR
+	 B0OPZn3DNQBfci9cZSLGbb8XcehNaJhktNn4TyHKlopr0DeizNkcPepKqY4MzEDGIt
+	 FPoNwMKTCY2J+qwoVFjV6K8qOTpjMR7YcKp6gCS4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9CB8F80107;
-	Thu, 28 May 2020 12:03:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 143F8F8014A;
+	Thu, 28 May 2020 12:20:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D4FF3F80150; Thu, 28 May 2020 12:02:58 +0200 (CEST)
+ id CF04CF80150; Thu, 28 May 2020 12:20:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
- [IPv6:2a00:1450:4864:20::242])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,RCVD_IN_SORBS_WEB,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
+ [IPv6:2607:f8b0:4864:20::542])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E2900F800FF
- for <alsa-devel@alsa-project.org>; Thu, 28 May 2020 12:02:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2900F800FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id B6B51F800FF
+ for <alsa-devel@alsa-project.org>; Thu, 28 May 2020 12:20:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6B51F800FF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="WJpSZTSo"
-Received: by mail-lj1-x242.google.com with SMTP id z13so22949340ljn.7
- for <alsa-devel@alsa-project.org>; Thu, 28 May 2020 03:02:52 -0700 (PDT)
+ header.b="fine7BNp"
+Received: by mail-pg1-x542.google.com with SMTP id t11so13270286pgg.2
+ for <alsa-devel@alsa-project.org>; Thu, 28 May 2020 03:20:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=I/h3gNMyb53kQmKAThGHtCMjDN3Ct7BvAp2TJgMXdZA=;
- b=WJpSZTSoXxOoQNFiNdn06UQLrPFVP7QspnEg1drKRgsC5f8Nx1hiN8zz9Z2vyNHKdn
- ITNwk3XNuaSbSVUe0EXZEmi7i50HofTw9v+2R5yRgBMmXkDGFGCMvvHubV4yBLyR16GL
- FP4oUpJVYVMfaKfVW8+s4LSpLZlmjsY8fgCxYYsOVDlHHl9nLEQxbl4830z8gHZMMJv/
- AWxk6I60V+gGP8EmM9PChMkBxBbWXuPoaOksra8i9XEzslhMxoX0mhOsZ0a/xgKQEGXx
- P0yYH6cE97WBgGOyrLTF+pXyBYBnlbUWi/+LV910wzbJzzhssmqPUjOrMmj2oIlNc0z9
- nTpQ==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=e4iqIqjqfcu2jYuHJ8gHDSAYpn6BV5cK7NWla5/OpCc=;
+ b=fine7BNps1tLaqQpOkYNnOzDQ8/3ewTYSNJNWmUlgZB+nOK9oFRr6YO+6eNAYgefpj
+ 3toBPNdcodrpawwGpPOxJ/z7QtFW2O/syKMeDQ33u37dXb9HNvsJ4JdVhtqhlARAbems
+ IP0PMiW9mI132tXfYZwvp2J1KqunBZ+zIewl6NoNpa6ltMsEgdwpBSNEj7U9rWm2ggqX
+ +H5YPpSRz7ZT2uI6l8AJlBai98juS7J36UFJIX1NAwkWUTzrhFTv4eit7R0S1zfkhWgb
+ QMPW7sCxJLGoelFNNXt4TdFb8eM/oWBAWa8tblL/cnU1h/zqN/meyLpK/M0FT3Xxeunl
+ NgfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=I/h3gNMyb53kQmKAThGHtCMjDN3Ct7BvAp2TJgMXdZA=;
- b=LbIxQldaq1IXdfhCGcJXslXIzWVL61bVl3pFPJgN6BxswNJ2YQEq6MXj5fxVbPIztQ
- /+FiowVedQNZ1B57IlAFPRiLYfWlFPbi9i+Nuk6U2alzMyhPKezIO5Hkatphfft3T5US
- 07ZxSShaXjWkODY1tHAZAcXc/PaVDDvOWWhHQr+mKHNTXHn4kMBg0yFLQPZ7BW2rOjzK
- i/p5KC/SEH4J1RtjrnP0gIOi4mlfW8emTACxh+EZ0jx6ox2LF0l+Zk7v600dG2RaBboI
- 7v/9mwrQKwxe+sRKfex8XYTH66cxuIgOSSQYbtwChUfl1SyUcPjmU8hPgv0f0lCfzJbs
- j3fw==
-X-Gm-Message-State: AOAM531gaCXn1Fpe054d9yew9DjrgHHYq35lR2Urss2BXtna7QA1srPO
- DLCzZeL/g00CV7B/V5VlWGq21AHGYKU55cDaa6g=
-X-Google-Smtp-Source: ABdhPJyZid/lyuqY1E3XF3MpNA5pp/s7NOjWjcLahYBAhDGX3VlzICBAygFi9yx1WwgtsGZ7kz96rCT/FdXyTiDgFzo=
-X-Received: by 2002:a2e:711c:: with SMTP id m28mr1088182ljc.104.1590660171385; 
- Thu, 28 May 2020 03:02:51 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=e4iqIqjqfcu2jYuHJ8gHDSAYpn6BV5cK7NWla5/OpCc=;
+ b=g3dDuxdmWUmq8wq5rfGSVRh0pC8TN8TOqVFd7wCBC2IZY09CEHKQpX64eUqVkBSOfN
+ CKP1gsM38Yvd/xwnXPQ9Uhh/Vm6TaBkgLbJXvEA3r1VujOGx/Ht6wvsrm4D7eAfNXF5i
+ Rd4mUWVhE30Zwpbk+bjfin5a+FpUbYRXFB89CymTB7SSxIKTCwRiTOgh0Jy56M5YjqkO
+ hIOcCu5tjh/XIiJH6qKZXNSF9cDPlBZTGX03S2RLAulwoSSzTGrXW40DitV3vP7VoOYd
+ fO0MRxwig+HPKMC6JBXqC37BGLhwRzBgL9C5d2r/iyEYMPd0vrQ135+wmNNPHuxxji5R
+ 8T0Q==
+X-Gm-Message-State: AOAM530Is7g4rEHvNjYeJ1LUIjvTZXchivT/xS2uOk8EEfNervytANX7
+ U2hRND8wxd+8vWqSmFMKVe4=
+X-Google-Smtp-Source: ABdhPJwZuzNh6gjiqrMSHdQWV+rwqRu9NqCxiEoWpsPOyQ89Kk024C4ub7WOXC3CrVTFr3XeFqJzFQ==
+X-Received: by 2002:a63:d307:: with SMTP id b7mr2317587pgg.219.1590661214793; 
+ Thu, 28 May 2020 03:20:14 -0700 (PDT)
+Received: from suzukaze.ipads-lab.se.sjtu.edu.cn ([202.120.40.82])
+ by smtp.gmail.com with ESMTPSA id o201sm4643579pfd.115.2020.05.28.03.20.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 May 2020 03:20:14 -0700 (PDT)
+From: Chuhong Yuan <hslester96@gmail.com>
+To: 
+Subject: [PATCH] ASoC: sta32x: add missed function calls in error paths
+Date: Thu, 28 May 2020 18:20:04 +0800
+Message-Id: <20200528102004.911653-1-hslester96@gmail.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-References: <20200518004930.20973-1-steves.lee@maximintegrated.com>
- <20200526223642.GA506893@bogus>
-In-Reply-To: <20200526223642.GA506893@bogus>
-From: Steve Lee <steves.lee.maxim@gmail.com>
-Date: Thu, 28 May 2020 19:02:38 +0900
-Message-ID: <CABff4NR7MJM8VmM_gXnspEh2h+MEwv9WDW_Ra6t_Tv2SjrHSFQ@mail.gmail.com>
-Subject: Re: [RESEND][V5 PATCH 1/2] dt-bindings: Added device tree binding for
- max98390
-To: Rob Herring <robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: devicetree@vger.kernel.org, ALSA development <alsa-devel@alsa-project.org>,
- ryan.lee.maxim@gmail.com, Steve Lee <steves.lee@maximintegrated.com>,
- ryans.lee@maximintegrated.com, Liam Girdwood <lgirdwood@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Chuhong Yuan <hslester96@gmail.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,83 +98,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, May 27, 2020 at 7:36 AM Rob Herring <robh@kernel.org> wrote:
->
-> On Mon, May 18, 2020 at 09:49:30AM +0900, Steve Lee wrote:
-> > Add documentation for DT binding of max98390 amplifier driver.
-> >
-> > Signed-off-by: Steve Lee <steves.lee@maximintegrated.com>
-> > ---
-> >
-> >
-> > Changed since V4:
-> >       * No changes.
-> > Changed since V3:
-> >       * No changes.
-> > Changed since V2:
-> >       * No changes.
-> > Changed since V1:
-> >       * Modified sample text in example
->
-> You are obviously sending patches too quickly. Give folks a chance to
-> review.
+sta32x_probe() forgets to call undo functions when it fails, add
+the missed function calls to fix it.
 
- Thanks for your feedback !.
+Signed-off-by: Chuhong Yuan <hslester96@gmail.com>
+---
+ sound/soc/codecs/sta32x.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
->
-> >
-> >  .../devicetree/bindings/sound/max98390.txt    | 26 +++++++++++++++++++
->
-> Bindings are now in DT schema format. Please convert this. See
-> Documentation/devicetree/writing-schema.rst
+diff --git a/sound/soc/codecs/sta32x.c b/sound/soc/codecs/sta32x.c
+index db4b3ec55311..e9ccebbc31e4 100644
+--- a/sound/soc/codecs/sta32x.c
++++ b/sound/soc/codecs/sta32x.c
+@@ -893,13 +893,13 @@ static int sta32x_probe(struct snd_soc_component *component)
+ 				    sta32x->supplies);
+ 	if (ret != 0) {
+ 		dev_err(component->dev, "Failed to enable supplies: %d\n", ret);
+-		return ret;
++		goto err_clk_disable_unprepare;
+ 	}
+ 
+ 	ret = sta32x_startup_sequence(sta32x);
+ 	if (ret < 0) {
+ 		dev_err(component->dev, "Failed to startup device\n");
+-		return ret;
++		goto err_regulator_bulk_disable;
+ 	}
+ 
+ 	/* CONFA */
+@@ -983,6 +983,13 @@ static int sta32x_probe(struct snd_soc_component *component)
+ 	regulator_bulk_disable(ARRAY_SIZE(sta32x->supplies), sta32x->supplies);
+ 
+ 	return 0;
++
++err_regulator_bulk_disable:
++	regulator_bulk_disable(ARRAY_SIZE(sta32x->supplies), sta32x->supplies);
++err_clk_disable_unprepare:
++	if (sta32x->xti_clk)
++		clk_disable_unprepare(sta32x->xti_clk);
++	return ret;
+ }
+ 
+ static void sta32x_remove(struct snd_soc_component *component)
+-- 
+2.26.2
 
- Thanks for review. I will change txt to yaml version.
-
->
-> >  1 file changed, 26 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/sound/max98390.txt
-> >
-> > diff --git a/Documentation/devicetree/bindings/sound/max98390.txt b/Documentation/devicetree/bindings/sound/max98390.txt
-> > new file mode 100644
-> > index 000000000000..0ddd4c6ae55e
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/sound/max98390.txt
-> > @@ -0,0 +1,26 @@
-> > +Maxim Integrated MAX98390 Speaker Amplifier
-> > +
-> > +This device supports I2C.
-> > +
-> > +Required properties:
-> > +
-> > + - compatible : "maxim,max98390"
-> > +
-> > + - reg : the I2C address of the device.
-> > +
-> > +Optional properties:
-> > +
-> > +- maxim,temperature_calib
-> > +  u32. The calculated temperature data was measured while doing the calibration. Data : Temp / 100 * 2^12
-> > +
-> > +- maxim,r0_calib
-> > +  u32. This is r0 calibration data which was measured in factory mode.
->
-> Unless these are shared already with other Maxim chips, s/_/-/.
->
-> > +
-> > +Example:
-> > +
-> > +codec: max98390@38 {
->
-> amplifier@38
-
- I will change example as you advise.
-
->
-> > +     compatible = "maxim,max98390";
-> > +     reg = <0x38>;
-> > +     maxim,temperature_calib = <1024>;
-> > +     maxim,r0_calib = <100232>;
-> > +};
-> > --
-> > 2.17.1
-> >

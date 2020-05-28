@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B94F01E5363
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 May 2020 03:54:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 379871E536A
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 May 2020 03:54:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6478317E0;
-	Thu, 28 May 2020 03:53:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6478317E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id DAEBA17E8;
+	Thu, 28 May 2020 03:54:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAEBA17E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590630852;
-	bh=6nq/dnfpiBs5n84EizETx0TBxZ5f3RPbnPzxXzKYCY8=;
+	s=default; t=1590630892;
+	bh=vxG+1EBpIqJDXNPGoxUidPe4WxlNtf14Y3Yl8/IHBkU=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nSZCOFrY9VDob8ueahJWhydZlNMo+Fct0gdcq7ODkycmqq3u580xbB93Fsu+NovjX
-	 +oHzxuLhkEXJE2M+7U/OUWWu7Z5+ZmYFHq1LUUa7v58eDmEL91kHx4iAXQk4Gtx5z4
-	 fagomR9I4gUJBl0IXR9H0mc4klWl6Q17sgwIEtVM=
+	b=DgHn+YxGch7p9LL2QqwvWa9RzNf1VB/NK829N37u1RG5HENKhDZwqIrltvIJQZsds
+	 bZT3I5xkOyF6Bg6SSZZ/zicEoz8Yl0RWkyTMFb0tfrxmXN/HAYDOKYXW/VTqtuXbwf
+	 MC8uSEWXlHbEkjDBdmXPIPz62oaluelm1soBk3Ig=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B2DA5F802FF;
-	Thu, 28 May 2020 03:48:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B26BF80305;
+	Thu, 28 May 2020 03:49:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CDB96F802FE; Thu, 28 May 2020 03:48:53 +0200 (CEST)
+ id 390CDF80305; Thu, 28 May 2020 03:48:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 399BAF802F9
- for <alsa-devel@alsa-project.org>; Thu, 28 May 2020 03:48:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 399BAF802F9
-Date: 28 May 2020 10:48:48 +0900
-X-IronPort-AV: E=Sophos;i="5.73,443,1583161200"; d="scan'208";a="47985177"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 28 May 2020 10:48:48 +0900
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 9FA72F802FE
+ for <alsa-devel@alsa-project.org>; Thu, 28 May 2020 03:48:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FA72F802FE
+Date: 28 May 2020 10:48:55 +0900
+X-IronPort-AV: E=Sophos;i="5.73,443,1583161200"; d="scan'208";a="48197484"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 28 May 2020 10:48:55 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 829C8400D0D2;
- Thu, 28 May 2020 10:48:48 +0900 (JST)
-Message-ID: <871rn425j3.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 7461E416EFC7;
+ Thu, 28 May 2020 10:48:55 +0900 (JST)
+Message-ID: <87zh9szv5k.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 09/19] ASoC: soc-card: add snd_soc_card_suspend_post()
+Subject: [PATCH v2 10/19] ASoC: soc-card: add snd_soc_card_resume_pre()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87eer425lw.wl-kuninori.morimoto.gx@renesas.com>
@@ -81,49 +81,49 @@ Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
  3 files changed, 12 insertions(+), 2 deletions(-)
 
 diff --git a/include/sound/soc-card.h b/include/sound/soc-card.h
-index 58b6958c0f8b..55f15120d7db 100644
+index 55f15120d7db..23490df0f189 100644
 --- a/include/sound/soc-card.h
 +++ b/include/sound/soc-card.h
-@@ -20,6 +20,7 @@ int snd_soc_card_jack_new(struct snd_soc_card *card, const char *id, int type,
- 			  struct snd_soc_jack_pin *pins, unsigned int num_pins);
+@@ -21,6 +21,7 @@ int snd_soc_card_jack_new(struct snd_soc_card *card, const char *id, int type,
  
  int snd_soc_card_suspend_pre(struct snd_soc_card *card);
-+int snd_soc_card_suspend_post(struct snd_soc_card *card);
+ int snd_soc_card_suspend_post(struct snd_soc_card *card);
++int snd_soc_card_resume_pre(struct snd_soc_card *card);
  
  /* device driver data */
  static inline void snd_soc_card_set_drvdata(struct snd_soc_card *card,
 diff --git a/sound/soc/soc-card.c b/sound/soc/soc-card.c
-index 710684c030bc..d196103225ba 100644
+index d196103225ba..78dc30568416 100644
 --- a/sound/soc/soc-card.c
 +++ b/sound/soc/soc-card.c
-@@ -89,3 +89,13 @@ int snd_soc_card_suspend_pre(struct snd_soc_card *card)
+@@ -99,3 +99,13 @@ int snd_soc_card_suspend_post(struct snd_soc_card *card)
  
  	return soc_card_ret(card, ret);
  }
 +
-+int snd_soc_card_suspend_post(struct snd_soc_card *card)
++int snd_soc_card_resume_pre(struct snd_soc_card *card)
 +{
 +	int ret = 0;
 +
-+	if (card->suspend_post)
-+		ret = card->suspend_post(card);
++	if (card->resume_pre)
++		ret = card->resume_pre(card);
 +
 +	return soc_card_ret(card, ret);
 +}
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 52d09fa495c3..c0327995efc1 100644
+index c0327995efc1..540ee055a1e8 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -631,8 +631,7 @@ int snd_soc_suspend(struct device *dev)
- 		}
- 	}
+@@ -660,8 +660,7 @@ static void soc_resume_deferred(struct work_struct *work)
+ 	/* Bring us up into D2 so that DAPM starts enabling things */
+ 	snd_power_change_state(card->snd_card, SNDRV_CTL_POWER_D2);
  
--	if (card->suspend_post)
--		card->suspend_post(card);
-+	snd_soc_card_suspend_post(card);
+-	if (card->resume_pre)
+-		card->resume_pre(card);
++	snd_soc_card_resume_pre(card);
  
- 	return 0;
- }
+ 	for_each_card_components(card, component) {
+ 		if (snd_soc_component_is_suspended(component))
 -- 
 2.17.1
 

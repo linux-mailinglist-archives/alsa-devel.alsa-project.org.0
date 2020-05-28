@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE3611E619D
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 May 2020 15:04:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C90D1E619E
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 May 2020 15:04:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2104F17D6;
-	Thu, 28 May 2020 15:03:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2104F17D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2810817B8;
+	Thu, 28 May 2020 15:04:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2810817B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590671079;
-	bh=F7jtwIuneGRzrzC8hmnOou8rcUKR1aHQAK/XGsUDTOM=;
+	s=default; t=1590671093;
+	bh=VoSQzKYtLCUTsa0AKZn5+payN+7CBZ4eEixg97++jr4=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Wmdq7PyWe1VXq670ret5MJ+/RFsyS6b4UWASj4oKcgbY3Txgeb9mB5OTYI4RUxmUT
-	 747QHWHCaBg2j/mSDilXL766xs60tzbu+t8FjQSNO2tmgBXkFk8K46gfWfx6bYzE7A
-	 17oqFDfGyMWwGaoUQRUb/VO63EuwallY7OrY8A4k=
+	b=RaYp1Dv3reUdDn24F6B+WhSc1Z+dZFoerLvLZJ59aqyN2sobSy155OJB3wCI0YM34
+	 C/n/hpyB4xZlUj5TuXURtUXqMw9AiUMUm0hhRZiTEbz+VhEYRbb4VqAtF+LSurdDW3
+	 MKkiPmfRxMykEf7j3k2kqNnt5xzsv3j5OSKhAGCU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3A22F80240;
-	Thu, 28 May 2020 15:02:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6B3AFF80290;
+	Thu, 28 May 2020 15:02:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A6A4EF80161; Thu, 28 May 2020 15:02:13 +0200 (CEST)
+ id 91836F8028F; Thu, 28 May 2020 15:02:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,34 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8BF35F8015D
- for <alsa-devel@alsa-project.org>; Thu, 28 May 2020 15:02:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BF35F8015D
+ by alsa1.perex.cz (Postfix) with ESMTPS id F2E0BF8015C
+ for <alsa-devel@alsa-project.org>; Thu, 28 May 2020 15:02:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2E0BF8015C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ozGZ5r2Z"
+ header.b="R4sSAYEa"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 610DA206F1;
- Thu, 28 May 2020 13:02:08 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id A36C720814;
+ Thu, 28 May 2020 13:02:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1590670929;
- bh=F7jtwIuneGRzrzC8hmnOou8rcUKR1aHQAK/XGsUDTOM=;
+ s=default; t=1590670936;
+ bh=VoSQzKYtLCUTsa0AKZn5+payN+7CBZ4eEixg97++jr4=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=ozGZ5r2ZCATYyVZy+ziSJzRmfOFenTjiKn9Tf5mHyyCS8e7cnxp/h8jyVN7z0zdrT
- /jlKcYkmOmcpM95n6bMnLtZzkj+PTyIE2lDPgF5uvGTIwaLi2WZcT4h8rHWqoPw88A
- LJMryBYJ4b58HL+fl6vTce2f9lS+KmR4XvilPRjs=
-Date: Thu, 28 May 2020 14:02:06 +0100
+ b=R4sSAYEaKJLFNGTOX08qI/mjhEJsSTgRZ3OWq7Ck/1tZe0E89BphMRX+W1ueVgIe4
+ BKwJdlOKJDBX/w1oH9ibA6cBsLeo7p9v4dC8se/xD5M2DIWjVMczIE2FhzILoXvMv8
+ UKhZYwKnS+Y9FCj8cMjbOvf/5Ax87l21qHWKQI7E=
+Date: Thu, 28 May 2020 14:02:12 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Paul Cercueil <paul@crapouillou.net>,
- Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <20200523125455.12392-1-paul@crapouillou.net>
-References: <20200523125455.12392-1-paul@crapouillou.net>
-Subject: Re: [PATCH] ASoC: ingenic: Unconditionally depend on devicetree
-Message-Id: <159067091851.53762.14414848344217836155.b4-ty@kernel.org>
-Cc: alsa-devel@alsa-project.org, od@zcrc.me, linux-kernel@vger.kernel.org,
- kbuild test robot <lkp@intel.com>
+To: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+In-Reply-To: <1590652337-21587-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+References: <1590652337-21587-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+Subject: Re: [PATCH] ASoC: amd: Removing unnecessary instance initialization
+Message-Id: <159067091851.53762.1508093910500624788.b4-ty@kernel.org>
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Takashi Iwai <tiwai@suse.com>, open list <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com,
+ Colin Ian King <colin.king@canonical.com>,
+ Akshu Agrawal <akshu.agrawal@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,12 +82,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 23 May 2020 14:54:55 +0200, Paul Cercueil wrote:
-> All boards with Ingenic SoCs probe with devicetree already, we have no
-> use for a non-devicetree path.
-> 
-> This solves some compilation warnings that were caused by unused
-> variables in the case where CONFIG_OF was disabled.
+On Thu, 28 May 2020 13:22:16 +0530, Ravulapati Vishnu vardhan rao wrote:
+> In DMA pointer the initialzation of instance is of no use.
+> In fact it will reinitialize the instance variable which is already
+> opened and functional.
 
 Applied to
 
@@ -90,8 +93,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: ingenic: Unconditionally depend on devicetree
-      commit: e6825bae26812e981c4d6f93214f0259ca9a4977
+[1/1] ASoC: amd: Removing unnecessary instance initialization
+      commit: 4a0434502191347ba8f99468f2fb2cdddc20d381
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,75 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 083C41E5EC5
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 May 2020 13:56:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D64D41E6199
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 May 2020 15:03:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC0B917D0;
-	Thu, 28 May 2020 13:55:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC0B917D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3507717D5;
+	Thu, 28 May 2020 15:03:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3507717D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590666962;
-	bh=Jq88qShvPLUl1jSHeV+HkTpQ/DEqP0CcIR4U0/qY5Wc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1590671032;
+	bh=OhUaEkY53jp+eyO234rsoLAU6beLI62cCo0jIkv6StU=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VGRjo9gvPGxyXvkl0pXzopAPZQQ6s6gWnhbyD+OLVhX+xNX9t4ETGajjbx335BFSq
-	 m6Eot7dyRNdMdVnw9aFqkvJLvsafT+fl6d3Q97aFJbkJPSY9IFGT64D1Uy3WeL6nbc
-	 fnEGTS32jodE1jYB2zlx+BeaDaXKkaseLe24GICM=
+	b=PtT9EBVud7sZAry1h0SmTVt6ZiwNddPP6MbKH6buJlEV4CDDN5BuGx4V0Eeb3RMa6
+	 1vyOEsAa9ckWBRHYL7KZ/zwp2ZjtwMwUjwbuK33JGW2GHV7oECYQg0LXV/EaKoFEmV
+	 yVaTg0vVVE6GvgVs/evVFxAB/66MvrvsBLP9/m/M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0E15F8015C;
-	Thu, 28 May 2020 13:54:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48121F8014A;
+	Thu, 28 May 2020 15:02:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 474D2F80150; Thu, 28 May 2020 13:54:19 +0200 (CEST)
+ id 45EFAF80150; Thu, 28 May 2020 15:02:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5CDFAF800E4
- for <alsa-devel@alsa-project.org>; Thu, 28 May 2020 13:54:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CDFAF800E4
+ by alsa1.perex.cz (Postfix) with ESMTPS id F23D3F800FF
+ for <alsa-devel@alsa-project.org>; Thu, 28 May 2020 15:02:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F23D3F800FF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="zSCuC/Gd"
+ header.b="XnoMXWa0"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 19208207D3;
- Thu, 28 May 2020 11:54:11 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 5E1C4205CB;
+ Thu, 28 May 2020 13:02:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1590666851;
- bh=Jq88qShvPLUl1jSHeV+HkTpQ/DEqP0CcIR4U0/qY5Wc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=zSCuC/GdyC1xvDEeZtfH+KztwBTdusP9Jn9Qo081KnVeRTifE5bbwKgpfgvzGSOJB
- f8Wwi4S/afpXabkNBcAdx3VHGl6PyOmuz8dIWERfvBq/PiUr32VXziW9Ur6rgCOUcG
- +ZxAYFkTLlaMc9+RxpO/60q0FEId87wu16JU96Do=
-Date: Thu, 28 May 2020 12:54:08 +0100
+ s=default; t=1590670922;
+ bh=OhUaEkY53jp+eyO234rsoLAU6beLI62cCo0jIkv6StU=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=XnoMXWa04hz/rw5kA+KDLOKNwwu+2vpToTj1o3OHDpMSEBRZWEBJbcIO9w1KlgugU
+ +Ks2txyM2Md0XcJlPmKSkXNtOFj38mIz2Dv/L3ZSgF/Gp+gki0sLwJbxY/AtFdLDFv
+ yFIVlJe8E8WweINkcBTfD9Xry7d6tQ/SRafJfhok=
+Date: Thu, 28 May 2020 14:01:58 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Steve Lee <steves.lee@maximintegrated.com>
-Subject: Re: [V6 PATCH 2/2] ASoC: max98390: Added Amplifier Driver
-Message-ID: <20200528115408.GA15800@sirena.org.uk>
-References: <20200528103942.17432-1-steves.lee@maximintegrated.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="7JfCtLOvnd9MIVvH"
-Content-Disposition: inline
-In-Reply-To: <20200528103942.17432-1-steves.lee@maximintegrated.com>
-X-Cookie: It is your destiny.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: jack.yu@realtek.com, alsa-devel@alsa-project.org, ryan.lee.maxim@gmail.com,
- ckeepax@opensource.cirrus.com, ryans.lee@maximintegrated.com,
- steves.lee.maxim@gmail.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
- krzk@kernel.org, lgirdwood@gmail.com, nuno.sa@analog.com, geert@linux-m68k.org,
- dmurphy@ti.com, shumingf@realtek.com, srinivas.kandagatla@linaro.org,
- rf@opensource.wolfsonmicro.com
+To: Arnd Bergmann <arnd@arndb.de>
+In-Reply-To: <20200528091851.2889754-1-arnd@arndb.de>
+References: <20200528091851.2889754-1-arnd@arndb.de>
+Subject: Re: [PATCH v2] ASoC: rt5682: split i2c driver into separate module
+Message-Id: <159067091851.53762.13288841825484181405.b4-ty@kernel.org>
+Cc: Oder Chiou <oder_chiou@realtek.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Derek Fang <derek.fang@realtek.com>,
+ Shuming Fan <shumingf@realtek.com>, Akshu Agrawal <akshu.agrawal@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,37 +80,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, 28 May 2020 11:17:17 +0200, Arnd Bergmann wrote:
+> With SND_SOC_AMD_RV_RT5682_MACH using the i2c version of the
+> driver, we can easily get a build failure when I2C is built-in
+> but soundwire is not:
+> 
+>  WARNING: unmet direct dependencies detected for SND_SOC_RT5682
+>    Depends on [m]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && (I2C [=y] || SOUNDWIRE [=m]) && (SOUNDWIRE [=m] || !SOUNDWIRE [=m]) && (I2C [=y] || !I2C [=y])
+>    Selected by [y]:
+>    - SND_SOC_AMD_RV_RT5682_MACH [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_AMD_ACP3x [=y] && I2C [=y] && CROS_EC [=y]
+>    Selected by [m]:
+>    - SND_SOC_RT5682_SDW [=m] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SOUNDWIRE [=m] && (I2C [=y] || !I2C [=y])
+> 
+> [...]
 
---7JfCtLOvnd9MIVvH
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Thu, May 28, 2020 at 07:39:42PM +0900, Steve Lee wrote:
-> This is the initial amplifier driver for max98390.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Please do not submit new versions of already applied patches, please
-submit incremental updates to the existing code.  Modifying existing
-commits creates problems for other users building on top of those
-commits so it's best practice to only change pubished git commits if
-absolutely essential.
+Thanks!
 
-> Reported-by: kbuild test robot <lkp@intel.com>
+[1/1] ASoC: rt5682: split i2c driver into separate module
+      commit: a50067d4f3c1d60d3fa07584aa6a0f897c1ac5b6
 
-Don't think the lkp bot asked for this driver! :P
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
---7JfCtLOvnd9MIVvH
-Content-Type: application/pgp-signature; name="signature.asc"
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
------BEGIN PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7Ppl8ACgkQJNaLcl1U
-h9D2Cwf/Qy+1GYjYeCfDvjmqMPaI3X7St5/fWnywllbLp9VBVpQfpvVVblIm5kSv
-ar+TVL9TRPLG0Za0y2udP4JxjHivDO+BJRInFTtl+8E2sP81BF+iz0nAjO073vFR
-9+zoiZK+Y0XqH6j7cjFw0XRjkBduft6iQ/X9oeCT6Bhe5o0XTJz9yQO5GVgNvl3g
-hDj5sh+bwDgGblV+LfavnqbzYe1jchiqa9kwFokig7mE6AURsV0XmPgxKig3gCvC
-fXxEwkORlUh3VFAIoSmT7FEI2qqECkrvpPY4KiVuxIlbzJmkJgPwwzgI4n2AcBRu
-VcM7W+rLl8wX4LwTvE6YjNvXWGxssQ==
-=ieAp
------END PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---7JfCtLOvnd9MIVvH--
+Thanks,
+Mark

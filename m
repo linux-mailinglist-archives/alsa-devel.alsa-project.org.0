@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 079681E5358
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 May 2020 03:50:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACABD1E535A
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 May 2020 03:51:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB7CC17EB;
-	Thu, 28 May 2020 03:49:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB7CC17EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6318C17D2;
+	Thu, 28 May 2020 03:50:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6318C17D2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590630646;
-	bh=X9uH+c+URNeClthUz6nEAfq2EAmVMR7yG42Xd3XcN6o=;
+	s=default; t=1590630691;
+	bh=ks7ngGWESlfi1nvZWbfvht3v3QupPPQQSCjMsu+MOiE=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YYhu0LZi/YeX+uCMuI/QM32zYB+PrJJgT9td96fo+1r+/ZM/ap+YLWONv7Lp4wLXF
-	 vhwLCZ3SUx+tAQWMYT4NJUP3ktc8clBYmZ52Tqu6qfpuVRzSJIkAtIoiP5GlyN7Adu
-	 zXP1t9grAyXbsPeWkGssmG2bjULtOUFaD7xivdbQ=
+	b=ArqLkz0xs378uqADzvnXbp+3SHmldB3u874Ygi0EmC0butY02Ge1FDEDqKb/io9PQ
+	 WmwLdJmBNik/TuijvFuFrQKjtVTj5HQ92JeLf7ZYR83oa6295Cs0xHNMcb+216ppsp
+	 nqoIP09HROwQYNhUZ7OWf+PUBvU9NLP9b130DEhQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 156A5F802A8;
-	Thu, 28 May 2020 03:48:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9572CF802BC;
+	Thu, 28 May 2020 03:48:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1695EF802A7; Thu, 28 May 2020 03:48:03 +0200 (CEST)
+ id 92C2CF802BC; Thu, 28 May 2020 03:48:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id C538AF802A0
- for <alsa-devel@alsa-project.org>; Thu, 28 May 2020 03:47:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C538AF802A0
-Date: 28 May 2020 10:47:56 +0900
-X-IronPort-AV: E=Sophos;i="5.73,443,1583161200"; d="scan'208";a="48197407"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 28 May 2020 10:47:56 +0900
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 81D46F802A7
+ for <alsa-devel@alsa-project.org>; Thu, 28 May 2020 03:48:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81D46F802A7
+Date: 28 May 2020 10:48:03 +0900
+X-IronPort-AV: E=Sophos;i="5.73,443,1583161200"; d="scan'208";a="47985112"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 28 May 2020 10:48:03 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id EF5CF4006CA5;
- Thu, 28 May 2020 10:47:55 +0900 (JST)
-Message-ID: <87a71s25kj.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id C7AC5416EE9B;
+ Thu, 28 May 2020 10:48:03 +0900 (JST)
+Message-ID: <878shc25kc.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 03/19] ASoC: soc-card: move snd_soc_card_get_kcontrol() to
+Subject: [PATCH v2 04/19] ASoC: soc-card: move snd_soc_card_jack_new() to
  soc-card
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -76,86 +76,141 @@ This patch moves it.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
  include/sound/soc-card.h |  3 +++
- include/sound/soc.h      |  2 --
- sound/soc/soc-card.c     | 16 ++++++++++++++++
- sound/soc/soc-core.c     | 16 ----------------
- 4 files changed, 19 insertions(+), 18 deletions(-)
+ include/sound/soc.h      |  4 ----
+ sound/soc/soc-card.c     | 39 +++++++++++++++++++++++++++++++++++++++
+ sound/soc/soc-jack.c     | 38 --------------------------------------
+ 4 files changed, 42 insertions(+), 42 deletions(-)
 
 diff --git a/include/sound/soc-card.h b/include/sound/soc-card.h
-index 997809bb3afb..c601eddf0975 100644
+index c601eddf0975..775c08d056ae 100644
 --- a/include/sound/soc-card.h
 +++ b/include/sound/soc-card.h
-@@ -8,4 +8,7 @@
- #ifndef __SOC_CARD_H
- #define __SOC_CARD_H
+@@ -10,5 +10,8 @@
  
-+struct snd_kcontrol *snd_soc_card_get_kcontrol(struct snd_soc_card *soc_card,
-+					       const char *name);
-+
+ struct snd_kcontrol *snd_soc_card_get_kcontrol(struct snd_soc_card *soc_card,
+ 					       const char *name);
++int snd_soc_card_jack_new(struct snd_soc_card *card, const char *id, int type,
++			  struct snd_soc_jack *jack,
++			  struct snd_soc_jack_pin *pins, unsigned int num_pins);
+ 
  #endif /* __SOC_CARD_H */
 diff --git a/include/sound/soc.h b/include/sound/soc.h
-index 5b880e29d106..f93827c6be51 100644
+index f93827c6be51..38b21e815a28 100644
 --- a/include/sound/soc.h
 +++ b/include/sound/soc.h
-@@ -582,8 +582,6 @@ static inline int snd_soc_set_ac97_ops(struct snd_ac97_bus_ops *ops)
- struct snd_kcontrol *snd_soc_cnew(const struct snd_kcontrol_new *_template,
- 				  void *data, const char *long_name,
- 				  const char *prefix);
--struct snd_kcontrol *snd_soc_card_get_kcontrol(struct snd_soc_card *soc_card,
--					       const char *name);
- int snd_soc_add_component_controls(struct snd_soc_component *component,
- 	const struct snd_kcontrol_new *controls, unsigned int num_controls);
- int snd_soc_add_card_controls(struct snd_soc_card *soc_card,
+@@ -509,10 +509,6 @@ int snd_soc_set_runtime_hwparams(struct snd_pcm_substream *substream,
+ 	const struct snd_pcm_hardware *hw);
+ 
+ /* Jack reporting */
+-int snd_soc_card_jack_new(struct snd_soc_card *card, const char *id, int type,
+-	struct snd_soc_jack *jack, struct snd_soc_jack_pin *pins,
+-	unsigned int num_pins);
+-
+ void snd_soc_jack_report(struct snd_soc_jack *jack, int status, int mask);
+ int snd_soc_jack_add_pins(struct snd_soc_jack *jack, int count,
+ 			  struct snd_soc_jack_pin *pins);
 diff --git a/sound/soc/soc-card.c b/sound/soc/soc-card.c
-index 4bc6f26ea8cb..340ab682cc76 100644
+index 340ab682cc76..aa9dbb89f8a1 100644
 --- a/sound/soc/soc-card.c
 +++ b/sound/soc/soc-card.c
-@@ -24,3 +24,19 @@ static inline int _soc_card_ret(struct snd_soc_card *card,
+@@ -6,6 +6,7 @@
+ // Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+ //
+ #include <sound/soc.h>
++#include <sound/jack.h>
  
- 	return ret;
+ #define soc_card_ret(dai, ret) _soc_card_ret(dai, __func__, ret)
+ static inline int _soc_card_ret(struct snd_soc_card *card,
+@@ -40,3 +41,41 @@ struct snd_kcontrol *snd_soc_card_get_kcontrol(struct snd_soc_card *soc_card,
+ 	return NULL;
  }
+ EXPORT_SYMBOL_GPL(snd_soc_card_get_kcontrol);
 +
-+struct snd_kcontrol *snd_soc_card_get_kcontrol(struct snd_soc_card *soc_card,
-+					       const char *name)
++/**
++ * snd_soc_card_jack_new - Create a new jack
++ * @card:  ASoC card
++ * @id:    an identifying string for this jack
++ * @type:  a bitmask of enum snd_jack_type values that can be detected by
++ *         this jack
++ * @jack:  structure to use for the jack
++ * @pins:  Array of jack pins to be added to the jack or NULL
++ * @num_pins: Number of elements in the @pins array
++ *
++ * Creates a new jack object.
++ *
++ * Returns zero if successful, or a negative error code on failure.
++ * On success jack will be initialised.
++ */
++int snd_soc_card_jack_new(struct snd_soc_card *card, const char *id, int type,
++			  struct snd_soc_jack *jack,
++			  struct snd_soc_jack_pin *pins, unsigned int num_pins)
 +{
-+	struct snd_card *card = soc_card->snd_card;
-+	struct snd_kcontrol *kctl;
++	int ret;
 +
-+	if (unlikely(!name))
-+		return NULL;
++	mutex_init(&jack->mutex);
++	jack->card = card;
++	INIT_LIST_HEAD(&jack->pins);
++	INIT_LIST_HEAD(&jack->jack_zones);
++	BLOCKING_INIT_NOTIFIER_HEAD(&jack->notifier);
 +
-+	list_for_each_entry(kctl, &card->controls, list)
-+		if (!strncmp(kctl->id.name, name, sizeof(kctl->id.name)))
-+			return kctl;
-+	return NULL;
++	ret = snd_jack_new(card->snd_card, id, type, &jack->jack, false, false);
++	if (ret)
++		goto end;
++
++	if (num_pins)
++		ret = snd_soc_jack_add_pins(jack, num_pins, pins);
++end:
++	return soc_card_ret(card, ret);
 +}
-+EXPORT_SYMBOL_GPL(snd_soc_card_get_kcontrol);
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index e1b65059c0c4..b6105b92f589 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -2096,22 +2096,6 @@ static int snd_soc_add_controls(struct snd_card *card, struct device *dev,
- 	return 0;
- }
++EXPORT_SYMBOL_GPL(snd_soc_card_jack_new);
+diff --git a/sound/soc/soc-jack.c b/sound/soc/soc-jack.c
+index b5748dcd490f..0f1820f36b4d 100644
+--- a/sound/soc/soc-jack.c
++++ b/sound/soc/soc-jack.c
+@@ -23,44 +23,6 @@ struct jack_gpio_tbl {
+ 	struct snd_soc_jack_gpio *gpios;
+ };
  
--struct snd_kcontrol *snd_soc_card_get_kcontrol(struct snd_soc_card *soc_card,
--					       const char *name)
+-/**
+- * snd_soc_card_jack_new - Create a new jack
+- * @card:  ASoC card
+- * @id:    an identifying string for this jack
+- * @type:  a bitmask of enum snd_jack_type values that can be detected by
+- *         this jack
+- * @jack:  structure to use for the jack
+- * @pins:  Array of jack pins to be added to the jack or NULL
+- * @num_pins: Number of elements in the @pins array
+- *
+- * Creates a new jack object.
+- *
+- * Returns zero if successful, or a negative error code on failure.
+- * On success jack will be initialised.
+- */
+-int snd_soc_card_jack_new(struct snd_soc_card *card, const char *id, int type,
+-	struct snd_soc_jack *jack, struct snd_soc_jack_pin *pins,
+-	unsigned int num_pins)
 -{
--	struct snd_card *card = soc_card->snd_card;
--	struct snd_kcontrol *kctl;
+-	int ret;
 -
--	if (unlikely(!name))
--		return NULL;
+-	mutex_init(&jack->mutex);
+-	jack->card = card;
+-	INIT_LIST_HEAD(&jack->pins);
+-	INIT_LIST_HEAD(&jack->jack_zones);
+-	BLOCKING_INIT_NOTIFIER_HEAD(&jack->notifier);
 -
--	list_for_each_entry(kctl, &card->controls, list)
--		if (!strncmp(kctl->id.name, name, sizeof(kctl->id.name)))
--			return kctl;
--	return NULL;
+-	ret = snd_jack_new(card->snd_card, id, type, &jack->jack, false, false);
+-	if (ret)
+-		return ret;
+-
+-	if (num_pins)
+-		return snd_soc_jack_add_pins(jack, num_pins, pins);
+-
+-	return 0;
 -}
--EXPORT_SYMBOL_GPL(snd_soc_card_get_kcontrol);
+-EXPORT_SYMBOL_GPL(snd_soc_card_jack_new);
 -
  /**
-  * snd_soc_add_component_controls - Add an array of controls to a component.
+  * snd_soc_jack_report - Report the current status for a jack
   *
 -- 
 2.17.1

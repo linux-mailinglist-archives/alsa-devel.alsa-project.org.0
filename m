@@ -2,92 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB7621E77DB
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 May 2020 10:06:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3488A1E77E3
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 May 2020 10:08:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5256017BC;
-	Fri, 29 May 2020 10:05:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5256017BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC70017BC;
+	Fri, 29 May 2020 10:07:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC70017BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590739598;
-	bh=LKZzrM+l9OMB4esFD8ZN4IW1RFKvKR/dJC1crxtDzaM=;
+	s=default; t=1590739707;
+	bh=qtbvRgQ992/6DwUv85jCmgMKyL1TTshvKHnzn3SRoxk=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=e/ar1fVbKuaooV9Clgo3ZX6YWUhixwxG/fpn1T8DjOOnh44qDrRuSXMx1E2fX9BEE
-	 V2KD8RCPvl9Ln6NnrSO3mBAX3kLmaWU3R8sdeK18MT3gNfYC9coIjYAGI2q1ykalJe
-	 adW7+JWE7zhYllAqSXwRDcSCEkxQEo/98yRUlfIA=
+	b=Z8DKgT0ALz71lR6Lc4KppRtc8Ixl00tdhneZOdYPjbbw5wVnzgjm61PnCzPRi31/Y
+	 r2dhrjSYEGNSF31aHJwU9Pabv+X7k8Sy3um6Ze66QM9H9Lb1uDaEc6nh1HqC7f+bG8
+	 LtPxsq0x9sgKlRO5tS91z4v+StGd/kSdAJrgKZZI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E4BAF80107;
-	Fri, 29 May 2020 10:04:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2132FF8021E;
+	Fri, 29 May 2020 10:06:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 30837F8014E; Fri, 29 May 2020 10:04:55 +0200 (CEST)
+ id 63A5FF8016F; Fri, 29 May 2020 10:06:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-lj1-x244.google.com (mail-lj1-x244.google.com
- [IPv6:2a00:1450:4864:20::244])
+Received: from mail-lf1-x144.google.com (mail-lf1-x144.google.com
+ [IPv6:2a00:1450:4864:20::144])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 13655F80107
- for <alsa-devel@alsa-project.org>; Fri, 29 May 2020 10:04:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13655F80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id AE07FF80125
+ for <alsa-devel@alsa-project.org>; Fri, 29 May 2020 10:06:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE07FF80125
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="MQJ/t30z"
-Received: by mail-lj1-x244.google.com with SMTP id z6so1425330ljm.13
- for <alsa-devel@alsa-project.org>; Fri, 29 May 2020 01:04:48 -0700 (PDT)
+ header.b="ARuHTCHv"
+Received: by mail-lf1-x144.google.com with SMTP id u16so751515lfl.8
+ for <alsa-devel@alsa-project.org>; Fri, 29 May 2020 01:06:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=1Xro8I38WGB1vy4pn7r6IuOsUYoevHSF9a+82U3l5yY=;
- b=MQJ/t30zQcK6C9mw2k6k+xRtyvza3+g5NHHI4THl99n7ec9e17BtB1OzrvB3OB0g1z
- hjHnr9kYPJ2ZERhidkb3XANBk69T4Rko1VbwMrvGx8fLS0Ic+tvmb0XpEAk9YY6rQMTY
- ayDFinZWg5ZRmGs2MuOFArBSEAHcGNiI+u/6lGC+OLJ/mTmJEu88Be1AauOpQagHG+0C
- GNRD+wA8yFdvgTABgxdXFOlwvwnVh45gZH8raON/pp/zqqua/DgS0gO6J7XKsX1NiQzE
- jJoqqT4wAD3c6YO+T+InW1bDZsZpU/7PVAVAV7K1j+Y3YI41CVPPUeKGZbsJIY2iZ0KN
- U+HA==
+ :cc; bh=sOxRbojjekNIVLIANuIbdPZ8vuRLDilJnBU5D6z6Gc0=;
+ b=ARuHTCHvzl5pI1r2ksiKnlv/XQf2ZuP2puBHRogWZpZ+JSDk6spsZ6+Mi0HStWbjXp
+ RwKrapD/bAonIza1jawgeaHmEp75nantmy/WX1mK7jeJZz6C56ATAKBtO11qN7BECv7Z
+ D0rYzXDzvdn8VtHfMOuCM8Wyun1eLSue6t6iIBOvoh6D+6PifhHsutIgZ9GyWHfHcZL/
+ ZsM9igl7Uohtzye+ZVK+DQr9vz/lSscpBm3Q+fPjhFde3yFgzTtQLjWyEn0ZQr/E/Dt+
+ 5QRGtr2efv0o59DkZlGinPFhE2tiD4eTO6cAOT07rMGXA8a+2uMjgRXCX2Aeyfmg3j8G
+ 2DPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=1Xro8I38WGB1vy4pn7r6IuOsUYoevHSF9a+82U3l5yY=;
- b=GcfhWvLXQYGgzmTBZDwamsas8fuEzyhxcLkLMJ4Dtpsego1qOEpSE0QtlfB+fWXhmB
- BEIhYW9A1jhvNBhLVCPSY0pdhu2E0m0H2YvPtfZPQo8AHz+R6a9vXSXv0iVTTeB3Q3Xr
- +4hvpcS7M+vkQYY+6gRmV8951XZq3kF8kjOdvWS7B2O+dspx7/OQZy5p1XlXQkU+mdpy
- v3/drADR4q+F7o3z8e/J2gMXCegkUvxQJON+nnSnDdHTSqcwTJ6LQTHRGWHIlo+RH/D/
- FEuPUm1f9jexsFQcTI4Q6numEa/aRM9gwBu4y+WQLk+ZxZCtYBCNwILH0F5KqtiIqdqP
- YB3w==
-X-Gm-Message-State: AOAM533ZokbsaYX4+sHWAMGe/Wo1HF/8ZEZ7cddLT53wHSCa6egfIXqJ
- Jrd/nyZm0V6vAHPdHcEovDHCWnvWbmNcPEj/k18=
-X-Google-Smtp-Source: ABdhPJwyA+BHbVbYT1WVanqisX6tqpuXN2oOqrt/1LkU+5dRO5m92sc1wnozuX8q5uyeHHTICQA6kmzYrqyxuhrwL84=
-X-Received: by 2002:a2e:5712:: with SMTP id l18mr1246986ljb.87.1590739487819; 
- Fri, 29 May 2020 01:04:47 -0700 (PDT)
+ bh=sOxRbojjekNIVLIANuIbdPZ8vuRLDilJnBU5D6z6Gc0=;
+ b=LB1Deltg+ZF6L6qnMqA1Qbl4ubgZsTRaWjM22IfAfV1PA8+0Nm8LvLgMlUX2wW+nU2
+ aIthGsd39F/2V4r7tPsNMv6i6DcmPSlypjvvXjAxCRHPR64d46IUIQd0WkE2HL3r+6qg
+ 4jpb47e16Il2a7TzUY2ACidGzm1TaIvN2liulXNLPmuFf5jANAUiZKKIjwPaS8sewXXj
+ TGTVRm979qs/vhfw+xH5x4XK9y0tgGNAt0Xd123a30HuC7IHp0aivZmDqABh8u7vMz9e
+ kz/yG2KdLZqalkkUBn1OYcmBqwIH/zJLP2oiCPbRgNlEWYdffplm0idJtX5Tx6Nbzu8d
+ WpZw==
+X-Gm-Message-State: AOAM530CtnB0svqUw0f3R8E+jS418fV+Bqoc4uu/K28lWJFf7SmgK1W6
+ j2hBqpfpn6uYpknjo9fP9S6n1SsbyDRcf37zpSs=
+X-Google-Smtp-Source: ABdhPJwNGmSiyiqlfKOfqM6p+BHUruML1hsN7pjim5eRRpQvgIZUZhgXAjo9nWuTkMHvfN6OZzHb0HtACLwONLoR4Lg=
+X-Received: by 2002:a19:6a09:: with SMTP id u9mr3726110lfu.65.1590739596512;
+ Fri, 29 May 2020 01:06:36 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200528103942.17432-1-steves.lee@maximintegrated.com>
- <20200528115408.GA15800@sirena.org.uk>
-In-Reply-To: <20200528115408.GA15800@sirena.org.uk>
+References: <20200528103755.17381-1-steves.lee@maximintegrated.com>
+ <20200528141542.GA4186430@bogus>
+In-Reply-To: <20200528141542.GA4186430@bogus>
 From: Steve Lee <steves.lee.maxim@gmail.com>
-Date: Fri, 29 May 2020 17:04:36 +0900
-Message-ID: <CABff4NSc6oW9dt-2VbdKUnk=+8Tc52m8f2irr1P4_cGyXNq41A@mail.gmail.com>
-Subject: Re: [V6 PATCH 2/2] ASoC: max98390: Added Amplifier Driver
-To: Mark Brown <broonie@kernel.org>
+Date: Fri, 29 May 2020 17:06:24 +0900
+Message-ID: <CABff4NRCfxo7MFvk72bOjPN5iJg5HaQk_U1nFpdPrJZ9nm5Jhw@mail.gmail.com>
+Subject: Re: [V6 PATCH 1/2] dt-bindings: Added device tree binding for max98390
+To: Rob Herring <robh@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Cc: jack.yu@realtek.com, ALSA development <alsa-devel@alsa-project.org>,
- ryan.lee.maxim@gmail.com, ckeepax@opensource.cirrus.com,
- ryans.lee@maximintegrated.com,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Krzysztof Kozlowski <krzk@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, nuno.sa@analog.com,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>, geert@linux-m68k.org,
- dmurphy@ti.com,
- =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
- Steve Lee <steves.lee@maximintegrated.com>, rf@opensource.wolfsonmicro.com
+Cc: devicetree@vger.kernel.org, ALSA development <alsa-devel@alsa-project.org>,
+ ryan.lee.maxim@gmail.com, Steve Lee <steves.lee@maximintegrated.com>,
+ ryans.lee@maximintegrated.com, Liam Girdwood <lgirdwood@gmail.com>,
+ robh+dt@kernel.org, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,22 +98,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, May 28, 2020 at 8:54 PM Mark Brown <broonie@kernel.org> wrote:
+On Thu, May 28, 2020 at 11:15 PM Rob Herring <robh@kernel.org> wrote:
 >
-> On Thu, May 28, 2020 at 07:39:42PM +0900, Steve Lee wrote:
-> > This is the initial amplifier driver for max98390.
+> On Thu, 28 May 2020 19:37:55 +0900, Steve Lee wrote:
+> > Add DT binding of max98390 amplifier driver.
+> >
+> > Signed-off-by: Steve Lee <steves.lee@maximintegrated.com>
+> > ---
+> > Changed since V5:
+> >       * Change txt to yaml and fix up the examples.
+> > Changed since V4:
+> >       * No changes.
+> > Changed since V3:
+> >       * No changes.
+> > Changed since V2:
+> >       * No changes.
+> > Changed since V1:
+> >       * Modified sample text in example
+> >
+> >  .../bindings/sound/maxim,max98390.yaml        | 39 +++++++++++++++++++
+> >  1 file changed, 39 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/sound/maxim,max98390.yaml
+> >
 >
-> Please do not submit new versions of already applied patches, please
-> submit incremental updates to the existing code.  Modifying existing
-> commits creates problems for other users building on top of those
-> commits so it's best practice to only change pubished git commits if
-> absolutely essential.
 >
-
-  Thanks for feedback. I will send incremental patches.
-
-> > Reported-by: kbuild test robot <lkp@intel.com>
+> My bot found errors running 'make dt_binding_check' on your patch:
 >
-> Don't think the lkp bot asked for this driver! :P
-
-  Thanks, I will send split patch for this.
+> Documentation/devicetree/bindings/sound/maxim,max98390.yaml:  mapping values are not allowed in this context
+>   in "<unicode string>", line 22, column 97
+> Documentation/devicetree/bindings/Makefile:12: recipe for target 'Documentation/devicetree/bindings/sound/maxim,max98390.example.dts' failed
+> make[1]: *** [Documentation/devicetree/bindings/sound/maxim,max98390.example.dts] Error 1
+> make[1]: *** Waiting for unfinished jobs....
+> /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/maxim,max98390.yaml: ignoring, error parsing file
+> warning: no schema found in file: ./Documentation/devicetree/bindings/sound/maxim,max98390.yaml
+> /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/maxim,max98390.yaml: ignoring, error parsing file
+> warning: no schema found in file: ./Documentation/devicetree/bindings/sound/maxim,max98390.yaml
+> Makefile:1300: recipe for target 'dt_binding_check' failed
+> make: *** [dt_binding_check] Error 2
+>
+> See https://patchwork.ozlabs.org/patch/1299651
+>
+> If you already ran 'make dt_binding_check' and didn't see the above
+> error(s), then make sure dt-schema is up to date:
+>
+> pip3 install git+https://github.com/devicetree-org/dt-schema.git@master --upgrade
+>
+> Please check and re-submit.
+>
+ Thanks for feedback. I re-submit with after dt binding check again.

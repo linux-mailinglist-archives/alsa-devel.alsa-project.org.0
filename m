@@ -2,65 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AF851E7D40
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 May 2020 14:31:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF1D11E7D52
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 May 2020 14:34:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A74516BC;
-	Fri, 29 May 2020 14:30:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A74516BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 908CA17B7;
+	Fri, 29 May 2020 14:33:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 908CA17B7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590755480;
-	bh=vXKgcKQ3VbOwPAiItOzLM2wwZpavU6Lj2xH1O7qNplY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1590755673;
+	bh=YxEeR08Nzk+RQntp3v1ECLc70Itjhyu7P0okAGRbMEc=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DdFDljtl3E26Qjtk6vDItwVCXszgLTKxv/LpLd3Ia5ApVlibcqEnY3+1zp2MLqfo8
-	 XCBkrLCgENtSdctXiPfCePSB581GTwG9zKPeG9czt4yAC9eaM+LboKuypXhe7XwvR4
-	 0APvXpLm9hAPrD5wZH7ayukRfIB84DqvxJEKhOvI=
+	b=C3qZES53ONGD/VrtTfmtFrE/lX+/FXkVVes+c0jmPOWWx9xnmeB4n+/LCKwFJ97PZ
+	 iRJ5kpkQ/i9qmBNtIbpPHZePtKgu7oPnBvvTqyAF5VChp2Xl0j4hzscS8vyAp9TDJW
+	 lMaJYXHv89EyMnFMo2EnPo+DUGp4B087VcFv7l8A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0FE0BF80290;
-	Fri, 29 May 2020 14:28:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9CC5F8016F;
+	Fri, 29 May 2020 14:32:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C4842F80227; Fri, 29 May 2020 14:28:37 +0200 (CEST)
+ id 786BAF8014E; Fri, 29 May 2020 14:32:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B8297F80107
- for <alsa-devel@alsa-project.org>; Fri, 29 May 2020 14:28:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8297F80107
-IronPort-SDR: sw6bmpwyIN2IVAIzp8fiqOThEBAmGLj73NptzkWZ8YDplXnsOC43F7FMXFP+cq7Bh4cuu/j2PT
- RvCKDACWaKYw==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 03F43F800FF
+ for <alsa-devel@alsa-project.org>; Fri, 29 May 2020 14:32:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03F43F800FF
+IronPort-SDR: /E47R5oRlAPd7CDOJQmNdxYv9aBEr3JX93m9RqX3O7/sTiv3EKyz0htM95D5vCzzDwkLPLHZHe
+ JHMRMM6ZvaLA==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2020 05:28:25 -0700
-IronPort-SDR: KbxoTM9RwstSf7PN/RfQ0ujhgeAIpproeH86Vz/uo9vODa6vAvAvPzQiAA7GMYxtinyPPdY3CN
- nZGz2kx+a0JA==
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 May 2020 05:32:44 -0700
+IronPort-SDR: OIZtGt19dZho+R6Y8OiL2JruPoGEu4+Y2eTnw+q9aLPKKW0NO22WtBotyrh1CGLBThN2osBTzY
+ TIRwa9OnHh2w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,448,1583222400"; d="scan'208";a="469491468"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmsmga006.fm.intel.com with ESMTP; 29 May 2020 05:28:24 -0700
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	perex@perex.cz
-Subject: [PATCH 2/2] pcm: fix spelling in documentation for -EBADFD
-Date: Fri, 29 May 2020 15:28:17 +0300
-Message-Id: <20200529122817.1198-3-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200529122817.1198-1-kai.vehmanen@linux.intel.com>
-References: <20200529122817.1198-1-kai.vehmanen@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="5.73,448,1583222400"; d="scan'208";a="271201578"
+Received: from snizamud-mobl2.amr.corp.intel.com (HELO [10.251.8.208])
+ ([10.251.8.208])
+ by orsmga006.jf.intel.com with ESMTP; 29 May 2020 05:32:43 -0700
+Subject: Re: [PATCH] ASoC: reduce verbosity of error messages for sof-dai and
+ sof-link
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+References: <20200529001526.3013-1-pierre-louis.bossart@linux.intel.com>
+ <87h7vzz1xm.wl-kuninori.morimoto.gx@renesas.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <d8fd9b8b-74ff-6090-132e-a123696585b8@linux.intel.com>
+Date: Fri, 29 May 2020 07:32:43 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: kai.vehmanen@linux.intel.com
+In-Reply-To: <87h7vzz1xm.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,24 +81,64 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
- src/pcm/pcm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/src/pcm/pcm.c b/src/pcm/pcm.c
-index 488a8dd0493d..79322b4eab0d 100644
---- a/src/pcm/pcm.c
-+++ b/src/pcm/pcm.c
-@@ -284,7 +284,7 @@ supports resume and the snd_pcm_prepare() call can be ommited.
- \par -EBADFD
- 
- This error means that the device is in a bad state. It means that
--the handskahe between application and alsa-lib is corrupted.
-+the handshake between application and alsa-lib is corrupted.
- 
- \par -ENOTTY, -ENODEV
- 
--- 
-2.26.2
 
+On 5/29/20 1:32 AM, Kuninori Morimoto wrote:
+> 
+> Hi Pierre-Louis
+> 
+>> Recent changes result in multiple dmesg traces such as:
+>>
+>> [ 14.410435] Audio Port: ASoC: error at snd_soc_link_startup on Audio
+>> Port: 1
+>>
+>> [ 14.410446] sst-mfld-platform sst-mfld-platform: ASoC: error at
+>> snd_soc_dai_startup on media-cpu-dai: 1
+>>
+>> These messages are not really errors, when dai and dai-link callbacks
+>> return the value of e.g. snd_pcm_hw_constraint_single() the result is
+>> "Positive if the value is changed, zero if it's not changed, or a
+>> negative error code"
+>>
+>> Add a simple test to only log errors when the result is
+>> negative.
+>>
+>> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>> ---
+> 
+> Thank you for pointing it.
+> Some functions which has above rule isn't use soc_xxx_ret() actually.
+> Anyway, more simply, how about this ?
+
+Sounds good, will send a v2 with your suggestion.
+
+> 
+> ----------
+> diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
+> index ae8b2c93cb66..da83059faf4e 100644
+> --- a/sound/soc/soc-dai.c
+> +++ b/sound/soc/soc-dai.c
+> @@ -14,10 +14,14 @@
+>   static inline int _soc_dai_ret(struct snd_soc_dai *dai,
+>   			       const char *func, int ret)
+>   {
+> +	/* Positive, Zero are not error */
+> +	if (ret >= 0)
+> +		return ret;
+> +
+> +	/* Negative might be error */
+>   	switch (ret) {
+>   	case -EPROBE_DEFER:
+>   	case -ENOTSUPP:
+> -	case 0:
+>   		break;
+>   	default:
+>   		dev_err(dai->dev,
+> ----------
+> 
+> Thank you for your help !!
+> 
+> Best regards
+> ---
+> Kuninori Morimoto
+> 

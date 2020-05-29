@@ -2,76 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B193A1E8BB3
-	for <lists+alsa-devel@lfdr.de>; Sat, 30 May 2020 01:04:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EC861E8BD7
+	for <lists+alsa-devel@lfdr.de>; Sat, 30 May 2020 01:19:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C8311768;
-	Sat, 30 May 2020 01:03:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C8311768
+	by alsa0.perex.cz (Postfix) with ESMTPS id 03E8B179D;
+	Sat, 30 May 2020 01:18:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03E8B179D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590793468;
-	bh=n6ke17m7zdty2XbznaUf/ImP7/BQ3BkiDpHS+eIcMCI=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1590794371;
+	bh=0nzKXha9ahCK3hp9GABydjoZeoPkJ8bmPcn8dOW+6OY=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dd8Bye0p1HwRFq2W8DnttEKqvYr22iprmyRbqwWILWCDLYCK2vVaL+8mXYgft2HiE
-	 O3Zopi96GYBSeQDy1ivNyrVcnzj7kksulICcP5ecXZSqG4ycHx/LicyKpNm4xiKorM
-	 FoO6o7L76sG+amu5cAYfxnSr0Yf6mJUH4RvjveEY=
+	b=E3bgbewha5RtzUNjIOjvqY8Vj3ntn5lSnyJ7u5pZZeHpa9C1EROJFsm/JG1/smqVk
+	 VcmB2RrclQd147cg67XUqcQlpwMsdaE5mbNttVfZ2Om9iIqfgP0G+LxsA2lPh7uxf6
+	 e8FFdKqeWXkANAfklBRB7ZTAvyJ/vFddqyX0/t1k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71E9CF8014E;
-	Sat, 30 May 2020 01:02:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 13AEBF80107;
+	Sat, 30 May 2020 01:17:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5C8A2F8014E; Sat, 30 May 2020 01:02:45 +0200 (CEST)
+ id 7E093F8014E; Sat, 30 May 2020 01:17:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 33914F80125;
- Sat, 30 May 2020 01:02:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33914F80125
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="m1BS4OVe"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C987820897;
- Fri, 29 May 2020 23:02:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1590793358;
- bh=n6ke17m7zdty2XbznaUf/ImP7/BQ3BkiDpHS+eIcMCI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=m1BS4OVeiGDlr/H54DvJ7vBi6oNU5RfNNAOxReGvn0xII0B8BNWF35D+LZ80Ov9ah
- HUamGoO9AKV20Z5Vb/D7CFZYdSG0we65B7EAyvlmPPydqCRHIHy5WhmRriFExGGiLM
- VmpmUU8UjQ6xcls3wIVKYxZ1jjBoVWVtBfD5ljzs=
-Date: Sat, 30 May 2020 00:02:35 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Subject: Re: [PATCH] ASoC: SOF: Intel: byt: fix unused-function warnings
-Message-ID: <20200529230234.GZ4610@sirena.org.uk>
-References: <20200529200433.19068-1-arnd@arndb.de>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="NJ3GtppTlf/130kA"
-Content-Disposition: inline
-In-Reply-To: <20200529200433.19068-1-arnd@arndb.de>
-X-Cookie: The Killer Ducks are coming!!!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, YueHaibing <yuehaibing@huawei.com>,
- Takashi Iwai <tiwai@suse.com>, Keyon Jie <yang.jie@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, linux-kernel@vger.kernel.org,
- sound-open-firmware@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 52A81F80125
+ for <alsa-devel@alsa-project.org>; Sat, 30 May 2020 01:17:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52A81F80125
+IronPort-SDR: DyqHJBNr6ymM6BZzjc+Al+1KWp40hZHHfxFqZyaod+HDj518bMU2ieW8nsConRUYe4LP+boo4k
+ 0BzUNROaD9Aw==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 May 2020 16:17:37 -0700
+IronPort-SDR: YuQRfU79fYgxTG+sPiBk6JIUDKY653XaQUnh8Pp2ORqUadZJHg6PrgHKd9pB71T7gxJnStsUHA
+ mCHL8ECH8w3A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,450,1583222400"; d="scan'208";a="303276221"
+Received: from kthorak-mobl.amr.corp.intel.com ([10.251.132.216])
+ by orsmga008.jf.intel.com with ESMTP; 29 May 2020 16:17:37 -0700
+Message-ID: <45c9ab01725eedef21ecebe1038b56bd163fa063.camel@linux.intel.com>
+Subject: Re: [PATCH v2 00/19] ASoC: add soc-card
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown
+ <broonie@kernel.org>
+Date: Fri, 29 May 2020 16:17:36 -0700
+In-Reply-To: <87eer425lw.wl-kuninori.morimoto.gx@renesas.com>
+References: <87eer425lw.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,32 +77,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, 2020-05-28 at 10:47 +0900, Kuninori Morimoto wrote:
+> Hi Mark
+> 
+> Current ALSA SoC is handling snd_soc_card related operation,
+> but it is implmemented directly without using function/macro,
+> and at random place.
+> 
+> This v2 patch-set creates new snd_soc_card_xxx() functions
+> which handles snd_soc_card related operation,
+> and implmement these at new soc-card.c.
+> 
+> v1 -> v2
+> 
+> 	- careed scripts/checkpatch.pl except for MAINTAINERS file
+> update
+> 	- added detail log at git-log, and/or comment at file.
+> 	- cares "if (card)" under snd_soc_card_xxx()
+> 
+> Link: 
+> https://lore.kernel.org/r/87h7w3339l.wl-kuninori.morimoto.gx@renesas.com
+> 
+> Kuninori Morimoto (19):
+>    1 ASoC: soc.h: convert bool to bit field for snd_soc_card
+>    2 ASoC: add soc-card.c
+>    3 ASoC: soc-card: move snd_soc_card_get_kcontrol() to soc-card
+>    4 ASoC: soc-card: move snd_soc_card_jack_new() to soc-card
+>    5 ASoC: soc-card: move snd_soc_card_set/get_drvdata() to soc-card
+>    6 ASoC: soc-card: move snd_soc_card_get_codec_dai() to soc-card
+>    7 ASoC: soc-card: move snd_soc_card_subclass to soc-card
+>    8 ASoC: soc-card: add snd_soc_card_suspend_pre()
+>    9 ASoC: soc-card: add snd_soc_card_suspend_post()
+>   10 ASoC: soc-card: add snd_soc_card_resume_pre()
+>   11 ASoC: soc-card: add snd_soc_card_resume_post()
+>   12 ASoC: soc-card: add probed bit field to snd_soc_card
+>   13 ASoC: soc-card: add snd_soc_card_probe()
+>   14 ASoC: soc-card: add snd_soc_card_late_probe()
+>   15 ASoC: soc-card: add snd_soc_card_remove()
+>   16 ASoC: soc-card: add snd_soc_card_set_bias_level()
+>   17 ASoC: soc-card: add snd_soc_card_set_bias_level_post()
+>   18 ASoC: soc-card: add snd_soc_card_add_dai_link()
+>   19 ASoC: soc-card: add snd_soc_card_remove_dai_link()
+LGTM, Morimoto-san.
 
---NJ3GtppTlf/130kA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-On Fri, May 29, 2020 at 10:04:17PM +0200, Arnd Bergmann wrote:
-
-> Several functions in this driver are only referenced for baytrail-class
-> configurations and building configurations with only merrifield enabled
-> causes a warning:
-
-Pierre fixed this earlier today.
-
---NJ3GtppTlf/130kA
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7RlIoACgkQJNaLcl1U
-h9C0egf/S/FcGFYqxnk1QAy8ZfP+uCdN65yW0o7yJJ92rF4YUb7W8lUJvhS+8IHr
-Kwjwa8+hIOUAUGSOol/q3HsK6rG7NtKXwa//CnX9oXdHAz0hwXEMwx+eVFBSb322
-Nt2T3F6786OaYc10Yd30HrNzJHlOk7hJxJ5APKFrjvjX/21sgbt1f6aAEY2FEo9h
-ngZcmmzAANLl6rhMkrgLax97gckP84jE1hr4Y4iKJTSa7mUQ+jDk3znz12IOu/Rr
-6PTjhlapK/GjaODdubROW6i4QCxK3z2S/yaVP34NM/r8aZW+BZ5/NEfdviO/5NsI
-ewCdBudt31j34yevaZDZNVWLZy2P2Q==
-=dPCM
------END PGP SIGNATURE-----
-
---NJ3GtppTlf/130kA--

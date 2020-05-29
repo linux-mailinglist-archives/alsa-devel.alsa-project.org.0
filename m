@@ -2,75 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5A011E8887
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 May 2020 22:06:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 410671E897F
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 May 2020 23:07:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 49CF4178D;
-	Fri, 29 May 2020 22:05:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49CF4178D
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8423179D;
+	Fri, 29 May 2020 23:06:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8423179D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590782806;
-	bh=rshrMWFxhctd2BrBBIppSogAD3BxbyiW8l8TgwQEE2c=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=noZMgXCjSTDUI44W/0augCXA+2j4yiDm0le5TDQwu1EzLYMg9Oy7dx5La2gHPTi2J
-	 lv6ZH1SsMCJIV3y8mcT0m/DDQXRFgs7Xpz0vYp76lDCJL9tnV43N7PhGvLYKadprZD
-	 hznaGid+IDZcFS/2vLeCnVfEUY4ApfON0Y0EXkOs=
+	s=default; t=1590786461;
+	bh=ZhoPxZNiXL+AQDGrZ56/Eh1rqFwGtkwqOoMFHEMEkjo=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=hHvY9lMKx0IjGenevXoq/D+tfXpHC7OzYmfV52EEEloRK8acR1kWmht64VjAt+B+v
+	 yknlnxho3XEdvlI2YBaG8I+aX0Dve48GnaiYArWt86H729MZz6gw8mVeriwdlrC/NI
+	 ShedTSpKYmZpJvpJQsU9QYbIC8M2KtMN3qgzRlIs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7AF2FF80149;
-	Fri, 29 May 2020 22:05:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D8911F80149;
+	Fri, 29 May 2020 23:06:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5C25AF8014E; Fri, 29 May 2020 22:05:03 +0200 (CEST)
+ id D3DD3F8014E; Fri, 29 May 2020 23:05:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.133])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id ED6ABF80107
+ for <alsa-devel@alsa-project.org>; Fri, 29 May 2020 23:05:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED6ABF80107
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="QUwlPBQf"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7AEEEF800FF;
- Fri, 29 May 2020 22:04:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7AEEEF800FF
-Received: from threadripper.lan ([149.172.98.151]) by mrelayeu.kundenserver.de
- (mreue010 [212.227.15.129]) with ESMTPA (Nemesis) id
- 1M2w0K-1ji3Z20ocG-003PJQ; Fri, 29 May 2020 22:04:36 +0200
-From: Arnd Bergmann <arnd@arndb.de>
+ by mail.kernel.org (Postfix) with ESMTPSA id 2E0012071A;
+ Fri, 29 May 2020 21:05:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1590786351;
+ bh=ZhoPxZNiXL+AQDGrZ56/Eh1rqFwGtkwqOoMFHEMEkjo=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=QUwlPBQfvcFrzT/A63LczRwP7Xe0q/CKz5jMrl6dWlQSDO9cYiVS9X6CUTE57f1nn
+ N3QbZgaW1U+NuyyBOBJ+BC7FjSQe8gy0tm52j3mv3gAhNJUbDPX9bm7nVxGWiY3yb5
+ K9cJP9uCYr3YJTGU/akpfQbrqJInTcG8ehkykDRo=
+Date: Fri, 29 May 2020 22:05:48 +0100
+From: Mark Brown <broonie@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Mark Brown <broonie@kernel.org>
-Subject: [PATCH] ASoC: SOF: Intel: byt: fix unused-function warnings
-Date: Fri, 29 May 2020 22:04:17 +0200
-Message-Id: <20200529200433.19068-1-arnd@arndb.de>
-X-Mailer: git-send-email 2.26.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Provags-ID: V03:K1:jUReMJwwaY6kcLP8d5WAviKG5ZhIsqMuAyesMGtOt6TbqQ87Iry
- /dlkch7Ztvq4+lIzXoPe+JZcvA4RWdudO1zp4JkU3ktEl47OROaHsjby1O7osP4W4PFHPg0
- Z0wHJj852iT/cckPWhvLM0sJcrMjOw6OdjS/mCzFJ+l5Ad7dFZaFxRey7r23PGqXKd2Fvvf
- zjRuHhYDVoYTm4Sxc29ow==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:Y2JjzO58DcQ=:CcBshmwd0gDiOaTjoTIVio
- cYoDJ7AS356b9uCyDbDo/LhroWRbaz1A/aztPCHPKDvUhXmg6P4GxWvZ9ELfEqknGp2+sqtDP
- BEFqX3p2qu69HU0KWGbP67ycwwFYd4vPVf6iryxNhnIThfGosFWHBRHyCoZ9Tx3kCCtMKOeLu
- G2pSWz4b/j73vk7hsWOVRMX8Ejm/2GEyuhQQrmKN7XGvVEw0Ep0UTPzs2triyvUN/JUts90Dm
- GAkaWYdg+lbouIWCrxyN9BLnpJH4RQtd8Y24MsepID1Bmc+ownmXx0oC60bj6rJ2IyzdvWss8
- BXgnd1h+elHw2259j/BusKGWwIaFBXeBHVupmQ7P0rMDQJSRLa2ZPBVWhFu9yhnV6q+MMjgeR
- cRfoSSAK0deHw6Z9XuS2AwBjhTmc0lFJ/udBcqMkgVjwfvVUHVS1HK6KUQc1CMKZqmWdBWHKi
- hfjCz5ghmk93tkMhhBUlVzV1A5T4rliw1ot81PXtk3TKxqqtYrjW0cCEJwyU5uupKLJqD2qYM
- pkndx+Ym7skK6TRA/1krKSzlACmXeNpJ7nYifGEdWzCDJQoG/geJTD6ez1UZgKO/MoegriaR6
- NGNnh5xmQ03ySybtGGbKJn6tGxYonmgD3SNQ/XhwjRuGhHRtmm4zHUFssoh9MA6/E1MO93N56
- zRznCHbcYzoOmE8gQNWZYbYlaBEUr6I+Qf4HxU2XxvPic8lq035+sKpwmYL+c9HFCd7pFLQsf
- RDBt68PnJAEr36AEbPcO+PHbefSXwX+7cRqz07OuJQR9jL8A24E+P2nIe0bftostOjzlTEd3m
- PvZahy2dEOq46iv0CxnWJ3ktYHlXllBM/yQh1RqAfIKmWTN9cg=
-Cc: alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
- Keyon Jie <yang.jie@linux.intel.com>, YueHaibing <yuehaibing@huawei.com>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- sound-open-firmware@alsa-project.org
+ alsa-devel@alsa-project.org
+In-Reply-To: <20200529193547.6077-1-pierre-louis.bossart@linux.intel.com>
+References: <20200529193547.6077-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v2 0/3] Kconfig updates for DMIC and SOF HDMI support
+Message-Id: <159078634846.20958.15437315861391675834.b4-ty@kernel.org>
+Cc: tiwai@suse.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,48 +76,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Several functions in this driver are only referenced for baytrail-class
-configurations and building configurations with only merrifield enabled
-causes a warning:
+On Fri, 29 May 2020 14:35:44 -0500, Pierre-Louis Bossart wrote:
+> This series provides the following updates to the Intel machine driver
+> Kconfig:
+> 
+> 1. The first patch adds the explicit dependency on GPIOLIB when
+> SND_SOC_DMIC is selected.
+> 
+> 2. SND_SOC_SOF_HDA_AUDIO_CODEC is required for using the legacy
+> HDA codec driver for HDMI support in SOF. The last 3 three patches
+> make the required changes to account for this.
+> 
+> [...]
 
-sound/soc/sof/intel/byt.c:447:12: error: unused function 'byt_suspend' [-Werror,-Wunused-function]
-static int byt_suspend(struct snd_sof_dev *sdev, u32 target_state)
-           ^
-sound/soc/sof/intel/byt.c:454:12: error: unused function 'byt_resume' [-Werror,-Wunused-function]
-static int byt_resume(struct snd_sof_dev *sdev)
-           ^
-sound/soc/sof/intel/byt.c:464:12: error: unused function 'byt_remove' [-Werror,-Wunused-function]
-static int byt_remove(struct snd_sof_dev *sdev)
+Applied to
 
-Move these into a corresponding #ifdef section.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Fixes: c691f0c6e267 ("ASoC: SOF: Intel: BYT: add .remove op")
-Fixes: ddcccd543f5d ("ASoC: SOF: Intel: byt: Add PM callbacks")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- sound/soc/sof/intel/byt.c | 2 ++
- 1 file changed, 2 insertions(+)
+Thanks!
 
-diff --git a/sound/soc/sof/intel/byt.c b/sound/soc/sof/intel/byt.c
-index e6ba8382b1de..6ae62a8a9daf 100644
---- a/sound/soc/sof/intel/byt.c
-+++ b/sound/soc/sof/intel/byt.c
-@@ -432,6 +432,7 @@ static void byt_set_mach_params(const struct snd_soc_acpi_mach *mach,
- 	mach_params->platform = dev_name(dev);
- }
- 
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_BAYTRAIL)
- static void byt_reset_dsp_disable_int(struct snd_sof_dev *sdev)
- {
- 	/* Disable Interrupt from both sides */
-@@ -467,6 +468,7 @@ static int byt_remove(struct snd_sof_dev *sdev)
- 
- 	return 0;
- }
-+#endif
- 
- /* Baytrail DAIs */
- static struct snd_soc_dai_driver byt_dai[] = {
--- 
-2.26.2
+[1/3] ASoC: intel: add depends on SND_SOC_SOF_HDA_AUDIO_CODEC for common hdmi
+      commit: 8f529f0175aa02266542714a569b885dd145b61c
+[2/3] ASoC: sof-sdw: remove CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC condition
+      commit: 38acab2d61073ed4a684533d46505feba3eecf67
+[3/3] ASoC: sof_pcm512x: remove CONFIG_SND_HDA_CODEC_HDMI condition
+      commit: 1e7cb64b0ab5a810b05ed49dd263605add41ac5d
 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

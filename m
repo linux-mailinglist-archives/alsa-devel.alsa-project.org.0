@@ -2,69 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37A601E8802
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 May 2020 21:39:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5A011E8887
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 May 2020 22:06:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D8B2217BC;
-	Fri, 29 May 2020 21:38:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8B2217BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 49CF4178D;
+	Fri, 29 May 2020 22:05:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49CF4178D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590781170;
-	bh=B2pBpGPI8+0rwg8BVdlnHxFgLlKdJPl82Q1v0rPp1TI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=kYFZ9ubn1UjxSm1OWfaqqsLMEfzA5/ksjVVYYDIQHHnB628W8PNEU2l+tME4M1mC2
-	 AV0CglYFQvIW1re+PX1b2KsVrwsc/DXCA6tsRP35DC8RzjqtUOG4jFcy+msslY4yPZ
-	 vthny3ayUXcp+er08yGZzHbZcyG5ZU0/DBACvkgQ=
+	s=default; t=1590782806;
+	bh=rshrMWFxhctd2BrBBIppSogAD3BxbyiW8l8TgwQEE2c=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=noZMgXCjSTDUI44W/0augCXA+2j4yiDm0le5TDQwu1EzLYMg9Oy7dx5La2gHPTi2J
+	 lv6ZH1SsMCJIV3y8mcT0m/DDQXRFgs7Xpz0vYp76lDCJL9tnV43N7PhGvLYKadprZD
+	 hznaGid+IDZcFS/2vLeCnVfEUY4ApfON0Y0EXkOs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 563F1F80292;
-	Fri, 29 May 2020 21:36:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7AF2FF80149;
+	Fri, 29 May 2020 22:05:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6EDCFF80107; Fri, 29 May 2020 21:36:11 +0200 (CEST)
+ id 5C25AF8014E; Fri, 29 May 2020 22:05:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 50A98F80149
- for <alsa-devel@alsa-project.org>; Fri, 29 May 2020 21:36:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50A98F80149
-IronPort-SDR: sv/aAkghHubNVuahc8rn4SdJW85s/yzmq1KT+lsMi1hkQAE/6zJhkKkzZ3PBhUaxRPuN9V85ey
- JYWK2Xdn3Fjw==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2020 12:35:54 -0700
-IronPort-SDR: Kdnq67r54CqwjRr4BBVW232KXlVqFFIBmBpVN3ek1CeZ18XOI0g0yxicMwAurB9PQWuZyc0FSs
- UNmmLaBzx+WQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,449,1583222400"; d="scan'208";a="469605875"
-Received: from jbrayton-mobl.amr.corp.intel.com (HELO
- pbossart-mobl3.amr.corp.intel.com) ([10.254.97.254])
- by fmsmga006.fm.intel.com with ESMTP; 29 May 2020 12:35:53 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 3/3] ASoC: sof_pcm512x: remove CONFIG_SND_HDA_CODEC_HDMI
- condition
-Date: Fri, 29 May 2020 14:35:47 -0500
-Message-Id: <20200529193547.6077-4-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200529193547.6077-1-pierre-louis.bossart@linux.intel.com>
-References: <20200529193547.6077-1-pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7AEEEF800FF;
+ Fri, 29 May 2020 22:04:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7AEEEF800FF
+Received: from threadripper.lan ([149.172.98.151]) by mrelayeu.kundenserver.de
+ (mreue010 [212.227.15.129]) with ESMTPA (Nemesis) id
+ 1M2w0K-1ji3Z20ocG-003PJQ; Fri, 29 May 2020 22:04:36 +0200
+From: Arnd Bergmann <arnd@arndb.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Mark Brown <broonie@kernel.org>
+Subject: [PATCH] ASoC: SOF: Intel: byt: fix unused-function warnings
+Date: Fri, 29 May 2020 22:04:17 +0200
+Message-Id: <20200529200433.19068-1-arnd@arndb.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>, tiwai@suse.de,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org, Libin Yang <libin.yang@linux.intel.com>
+X-Provags-ID: V03:K1:jUReMJwwaY6kcLP8d5WAviKG5ZhIsqMuAyesMGtOt6TbqQ87Iry
+ /dlkch7Ztvq4+lIzXoPe+JZcvA4RWdudO1zp4JkU3ktEl47OROaHsjby1O7osP4W4PFHPg0
+ Z0wHJj852iT/cckPWhvLM0sJcrMjOw6OdjS/mCzFJ+l5Ad7dFZaFxRey7r23PGqXKd2Fvvf
+ zjRuHhYDVoYTm4Sxc29ow==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:Y2JjzO58DcQ=:CcBshmwd0gDiOaTjoTIVio
+ cYoDJ7AS356b9uCyDbDo/LhroWRbaz1A/aztPCHPKDvUhXmg6P4GxWvZ9ELfEqknGp2+sqtDP
+ BEFqX3p2qu69HU0KWGbP67ycwwFYd4vPVf6iryxNhnIThfGosFWHBRHyCoZ9Tx3kCCtMKOeLu
+ G2pSWz4b/j73vk7hsWOVRMX8Ejm/2GEyuhQQrmKN7XGvVEw0Ep0UTPzs2triyvUN/JUts90Dm
+ GAkaWYdg+lbouIWCrxyN9BLnpJH4RQtd8Y24MsepID1Bmc+ownmXx0oC60bj6rJ2IyzdvWss8
+ BXgnd1h+elHw2259j/BusKGWwIaFBXeBHVupmQ7P0rMDQJSRLa2ZPBVWhFu9yhnV6q+MMjgeR
+ cRfoSSAK0deHw6Z9XuS2AwBjhTmc0lFJ/udBcqMkgVjwfvVUHVS1HK6KUQc1CMKZqmWdBWHKi
+ hfjCz5ghmk93tkMhhBUlVzV1A5T4rliw1ot81PXtk3TKxqqtYrjW0cCEJwyU5uupKLJqD2qYM
+ pkndx+Ym7skK6TRA/1krKSzlACmXeNpJ7nYifGEdWzCDJQoG/geJTD6ez1UZgKO/MoegriaR6
+ NGNnh5xmQ03ySybtGGbKJn6tGxYonmgD3SNQ/XhwjRuGhHRtmm4zHUFssoh9MA6/E1MO93N56
+ zRznCHbcYzoOmE8gQNWZYbYlaBEUr6I+Qf4HxU2XxvPic8lq035+sKpwmYL+c9HFCd7pFLQsf
+ RDBt68PnJAEr36AEbPcO+PHbefSXwX+7cRqz07OuJQR9jL8A24E+P2nIe0bftostOjzlTEd3m
+ PvZahy2dEOq46iv0CxnWJ3ktYHlXllBM/yQh1RqAfIKmWTN9cg=
+Cc: alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
+ Keyon Jie <yang.jie@linux.intel.com>, YueHaibing <yuehaibing@huawei.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,60 +86,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Libin Yang <libin.yang@linux.intel.com>
+Several functions in this driver are only referenced for baytrail-class
+configurations and building configurations with only merrifield enabled
+causes a warning:
 
-As CONFIG_SND_HDA_CODEC_HDMI is always enabled in sof_pcm512x,
-let's remove the test of CONFIG_SND_HDA_CODEC_HDMI in the
-sof_pcm512x driver.
+sound/soc/sof/intel/byt.c:447:12: error: unused function 'byt_suspend' [-Werror,-Wunused-function]
+static int byt_suspend(struct snd_sof_dev *sdev, u32 target_state)
+           ^
+sound/soc/sof/intel/byt.c:454:12: error: unused function 'byt_resume' [-Werror,-Wunused-function]
+static int byt_resume(struct snd_sof_dev *sdev)
+           ^
+sound/soc/sof/intel/byt.c:464:12: error: unused function 'byt_remove' [-Werror,-Wunused-function]
+static int byt_remove(struct snd_sof_dev *sdev)
 
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Signed-off-by: Libin Yang <libin.yang@linux.intel.com>
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Move these into a corresponding #ifdef section.
+
+Fixes: c691f0c6e267 ("ASoC: SOF: Intel: BYT: add .remove op")
+Fixes: ddcccd543f5d ("ASoC: SOF: Intel: byt: Add PM callbacks")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- sound/soc/intel/boards/sof_pcm512x.c | 9 ---------
- 1 file changed, 9 deletions(-)
+ sound/soc/sof/intel/byt.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/intel/boards/sof_pcm512x.c b/sound/soc/intel/boards/sof_pcm512x.c
-index f983c7fbb1d1..9fa8a4911276 100644
---- a/sound/soc/intel/boards/sof_pcm512x.c
-+++ b/sound/soc/intel/boards/sof_pcm512x.c
-@@ -126,7 +126,6 @@ static struct snd_soc_dai_link_component platform_component[] = {
- 	}
- };
- 
--#if IS_ENABLED(CONFIG_SND_HDA_CODEC_HDMI)
- static int sof_card_late_probe(struct snd_soc_card *card)
- {
- 	struct sof_card_private *ctx = snd_soc_card_get_drvdata(card);
-@@ -146,12 +145,6 @@ static int sof_card_late_probe(struct snd_soc_card *card)
- 
- 	return hda_dsp_hdmi_build_controls(card, pcm->codec_dai->component);
+diff --git a/sound/soc/sof/intel/byt.c b/sound/soc/sof/intel/byt.c
+index e6ba8382b1de..6ae62a8a9daf 100644
+--- a/sound/soc/sof/intel/byt.c
++++ b/sound/soc/sof/intel/byt.c
+@@ -432,6 +432,7 @@ static void byt_set_mach_params(const struct snd_soc_acpi_mach *mach,
+ 	mach_params->platform = dev_name(dev);
  }
--#else
--static int sof_card_late_probe(struct snd_soc_card *card)
--{
--	return 0;
--}
--#endif
  
- static const struct snd_kcontrol_new sof_controls[] = {
- 	SOC_DAPM_PIN_SWITCH("Ext Spk"),
-@@ -374,14 +367,12 @@ static int sof_audio_probe(struct platform_device *pdev)
- 		sof_pcm512x_quirk = SOF_PCM512X_SSP_CODEC(2);
- 	} else {
- 		dmic_be_num = 2;
--#if IS_ENABLED(CONFIG_SND_HDA_CODEC_HDMI)
- 		if (mach->mach_params.common_hdmi_codec_drv &&
- 		    (mach->mach_params.codec_mask & IDISP_CODEC_MASK))
- 			ctx->idisp_codec = true;
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_BAYTRAIL)
+ static void byt_reset_dsp_disable_int(struct snd_sof_dev *sdev)
+ {
+ 	/* Disable Interrupt from both sides */
+@@ -467,6 +468,7 @@ static int byt_remove(struct snd_sof_dev *sdev)
  
- 		/* links are always present in topology */
- 		hdmi_num = 3;
--#endif
- 	}
+ 	return 0;
+ }
++#endif
  
- 	dmi_check_system(sof_pcm512x_quirk_table);
+ /* Baytrail DAIs */
+ static struct snd_soc_dai_driver byt_dai[] = {
 -- 
-2.20.1
+2.26.2
 

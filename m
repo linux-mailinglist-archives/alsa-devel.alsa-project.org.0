@@ -2,64 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 569A51E8CD1
-	for <lists+alsa-devel@lfdr.de>; Sat, 30 May 2020 03:21:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4159F1E9055
+	for <lists+alsa-devel@lfdr.de>; Sat, 30 May 2020 11:58:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF9471770;
-	Sat, 30 May 2020 03:20:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF9471770
+	by alsa0.perex.cz (Postfix) with ESMTPS id CD72B16FF;
+	Sat, 30 May 2020 11:57:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD72B16FF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590801662;
-	bh=Jl+bXnMdegLoXStXN0nD2I8tIoK0J/fWyL927jdsvRo=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=jKGP4ZLi+Nlozc4WGT+udkfdzZh4BLK0ERBMZSjJf6oizOMMI0GRuVQfcOeDfdKd6
-	 YnSxuevgygLqocmGYhqX32QT0GwS3kvnwDw8Xf5gx/8vKC1aKpEVJnutdfnVLUyjQA
-	 zYnU2InaReQYlAmPKGbmkKXzjfisV44sihOV09WY=
+	s=default; t=1590832681;
+	bh=OaTL199Iq+bUXZdJrH3gJi0biXLxJpkr4G3tsMZ2XMc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=HD4I/K29UUPQ+smUQc7o+5p6VkhNlKAC1xB1qoWacb4SZHG6HEDljuZyXFLtLHQG5
+	 PTLyZjViypZ7/Y8N18649+swCw8kTv173u0bSGiSHl//hZAI7fpnnCVDZE4wFoWL8b
+	 37me7+9UkGPGCx/+R5eha2znKIlH+bmm+pmtTKfM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EAAD4F8016F;
-	Sat, 30 May 2020 03:19:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 085E9F80130;
+	Sat, 30 May 2020 11:56:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7DF98F8014E; Sat, 30 May 2020 03:18:26 +0200 (CEST)
+ id C5BADF8014A; Sat, 30 May 2020 11:56:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3CE96F80125
- for <alsa-devel@alsa-project.org>; Sat, 30 May 2020 03:18:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CE96F80125
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="2Ibk6qmk"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ FORGED_SPF_HELO,MSGID_FROM_MTA_HEADER,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750074.outbound.protection.outlook.com [40.107.75.74])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4A643206C3;
- Sat, 30 May 2020 01:18:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1590801499;
- bh=Jl+bXnMdegLoXStXN0nD2I8tIoK0J/fWyL927jdsvRo=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=2Ibk6qmkzzR/A+e9dofejhob/1c0vk19XiRndDM4/gvXEvMgoq/y8xGUP/68A14T2
- VHq1QJGXbhSajSjFJGb9agva6KV84kyl9ndHT8dOoeV9q6a2iP1jp2QC+bmu0omSRp
- fIHB4tTXK0VhiPGZ5gNSDf+ab13C8pD4LlB4QCEo=
-Date: Sat, 30 May 2020 02:18:17 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87eer425lw.wl-kuninori.morimoto.gx@renesas.com>
-References: <87eer425lw.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH v2 00/19] ASoC: add soc-card
-Message-Id: <159080149750.42480.1254696461539698376.b4-ty@kernel.org>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5A843F80130
+ for <alsa-devel@alsa-project.org>; Sat, 30 May 2020 11:56:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A843F80130
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
+ header.i=@amdcloud.onmicrosoft.com header.b="XHf2SQyy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SIJOATr6hLov9lU+qs7xTel/285V5bjsUmypwqS0Q8+JUQcsHRp3csZ2eYEDRt3Es/2CjnCmANnfQYsBn5e7/Dy6T2exAhvSbfIiYSkVG0DQ7yiTFv7aLKWvcUvtc+AixNp6uxcPKkmCdnkLcG8pgRYSBqyRu7CreRvZX5yHykYA9UMLbnmRznbusAm++aNteZ9pfAWq0DTcpM9Ahre1DjSEz0BWoWfc/QPnArk1RSmPMek5TK0E+uYgbJr8qlGqqRtttWNzFT/e1pkhHVqoQfnVZPd0nZ7AIj3G5XQZFo1m/4w55yAz7hYc1PP2BoVG8zW7rVgZd9CwQEX/xkbHDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HzXGt3Xfl1NAPn54lr88VqscXYwrQKq5RtVaKyYaKcc=;
+ b=k5rdJ4quuFhyy5BX0PR19efboTWLx2uFXK7BEbYHOPLz/aHWY7aK0DgrPy6sOvejrX14ZwJKSNUOuDWs5ubM0qtmijjVeXtY65Q3jhEI5RCpS7B4GgFMoBV4LHEzGF5yXufXueZlJGSbKo3lSoY51glv2g+fEPyFPzLtqpV4B3V33KIf0OEnlVnL857tooXNcjaaoYgBP9wjfb605/Uhce92l+dV/g1ube94AV7SZ9j5y8hc2BE8jdlPE7k6BoXy6fcDElGEALpPHar1jxPwhRAAwtUMv0CERS0ThLuI6Uhoz+WIbdW8inL/HaSMybu53AcysE936oreg7RYpp79Fw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HzXGt3Xfl1NAPn54lr88VqscXYwrQKq5RtVaKyYaKcc=;
+ b=XHf2SQyySEv+T8bRChrrJcmfVztBIsGt70N4C743Vq7ypXP+r+5oFQ83hVloGm4v/PEZCUrOoJ3o6rHXgDC7aRuCTx/HsIWjC+Q4vJNeQaLh45RVtqeZKIHOzQVqLk5l1jHSp9FQl+svVZEv9W5PnMcqpFqSq2aUmFVfKIcUeIY=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from MWHPR12MB1855.namprd12.prod.outlook.com (2603:10b6:300:10e::23)
+ by MWHPR12MB1933.namprd12.prod.outlook.com (2603:10b6:300:10b::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3045.17; Sat, 30 May
+ 2020 09:56:02 +0000
+Received: from MWHPR12MB1855.namprd12.prod.outlook.com
+ ([fe80::25ab:aac8:ecf3:59a0]) by MWHPR12MB1855.namprd12.prod.outlook.com
+ ([fe80::25ab:aac8:ecf3:59a0%5]) with mapi id 15.20.3045.018; Sat, 30 May 2020
+ 09:56:02 +0000
+From: Akshu Agrawal <akshu.agrawal@amd.com>
+To: 
+Subject: [v3] ASoC: AMD: Use mixer control to switch between DMICs
+Date: Sat, 30 May 2020 15:25:06 +0530
+Message-Id: <20200530095519.24324-1-akshu.agrawal@amd.com>
+X-Mailer: git-send-email 2.20.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MAXPR0101CA0032.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a00:d::18) To MWHPR12MB1855.namprd12.prod.outlook.com
+ (2603:10b6:300:10e::23)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from akshu-HP-EliteBook-745-G4.dlink.router (122.171.58.15) by
+ MAXPR0101CA0032.INDPRD01.PROD.OUTLOOK.COM (2603:1096:a00:d::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3045.17 via Frontend
+ Transport; Sat, 30 May 2020 09:55:52 +0000
+X-Mailer: git-send-email 2.20.1
+X-Originating-IP: [122.171.58.15]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 129375e5-3f8b-4388-0fa5-08d8047fa951
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1933:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MWHPR12MB1933D87A48EC071116A93597F88C0@MWHPR12MB1933.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
+X-Forefront-PRVS: 041963B986
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ZWU+3yCy77/cYOO7gJ5TAktD1779HslHSpXUVCpSXtg3LaTDbcslfHSK2Ig/Mz9H35sgp2/5OTgSUBK0phTfK8tt6kVsAI0/aU7qMzBfNMSIFwjvOc6W1ZAU2PutglLkz+6ytOnqW7XfJafW4XG+2DGg4SmPVCwRK0HDaXyRtFPpYTQu+Q7MhyC16grDhVezBzFeNhwPXTohHObLqDLcVcKcCdUbqAZVSS6ppfmDecRCrAGi+uXIyf8ov39r0lv6q/rfQqKVaWN47Kdq5I89/AYQ+X5o9vthelMPNc0r+JLUTVGEzouHz+PLTdGg0tuwVxRYH5/1stxr/rAmBuJTVGBQ/m/QsU68otdMYcZDBFHbbesL7Cg9PA66kNKiBsdr
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR12MB1855.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(346002)(376002)(39860400002)(396003)(366004)(136003)(36756003)(4326008)(109986005)(44832011)(8936002)(956004)(66476007)(66946007)(66556008)(6486002)(8676002)(2616005)(86362001)(6512007)(6506007)(1076003)(478600001)(316002)(6666004)(54906003)(2906002)(26005)(5660300002)(186003)(83380400001)(16526019)(52116002)(266003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: R2obk1I+Bi6JQzV0nCkf34Beqc57vubg30q0yStSddIUUkCvvdusopYWcRwYxOawnMP7K+MykJ0Wa5THNeHoCl5eLS/ebrd6g62vBcglB0otc2ETJ+tWZwRBs3q6SUCvtkVL2EBqlrmB3dx7Va82OD2fralT6excxlCrF0szTnsyjYIuL7NZXB8NEV8rLsF+6MoLNUhs+g6yKkLmW3hq2/HhKUiWO/+b7lv2aMJTr34+bXiRGk0PZsOnxtFRR8ikXw+NxGf8f+e1PxlIwBHXPi7XYcmcULMN03NJwW18zvqpOlGUI6MIl/aUvAXJwTyUC+v4kEcKmBaeD1PRJ67J+PtWb+25qv/pWtefJQYLs6/2rtFFN7vw8yVvaxCVHrP7NzObPihRo73KPuyFEO1vox+gW5452Pl3buSx8tMdMqBZJvVu5ZMebvPNWqHDf6ZBBrvsz9HwGbgp+jP+CsFgE09fDCic3UZI4Sgj4rifqb8=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 129375e5-3f8b-4388-0fa5-08d8047fa951
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 May 2020 09:56:02.3843 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3IbRy67xXBvQrKEN+4G4q9/av3YNe2PjBlh69wolqcudNVG/0v62m84/+nODGfRxXN/ku+gEjHz5o0i7IHYuHA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1933
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ YueHaibing <yuehaibing@huawei.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, akshu.agrawal@amd.com, yuhsuan@chromium.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,77 +132,121 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 28 May 2020 10:47:07 +0900, Kuninori Morimoto wrote:
-> Current ALSA SoC is handling snd_soc_card related operation,
-> but it is implmemented directly without using function/macro,
-> and at random place.
-> 
-> This v2 patch-set creates new snd_soc_card_xxx() functions
-> which handles snd_soc_card related operation,
-> and implmement these at new soc-card.c.
-> 
-> [...]
+Having mixer control to switch between DMICs prevents user to
+initiate capture simultaneously on both the DMIcs.
+Earlier 2 separate devices, one for each DMIC, gave an option of
+using them simultaneously, which is not supported.
 
-Applied to
+Signed-off-by: Akshu Agrawal <akshu.agrawal@amd.com>
+---
+v2: Modified "Front Mic" to "DMIC Switch"
+v3: Changed to using of Mux
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+ sound/soc/amd/acp3x-rt5682-max9836.c | 58 +++++++++++++++-------------
+ 1 file changed, 31 insertions(+), 27 deletions(-)
 
-Thanks!
+diff --git a/sound/soc/amd/acp3x-rt5682-max9836.c b/sound/soc/amd/acp3x-rt5682-max9836.c
+index e499c00e0c66..f745b42dfd23 100644
+--- a/sound/soc/amd/acp3x-rt5682-max9836.c
++++ b/sound/soc/amd/acp3x-rt5682-max9836.c
+@@ -188,25 +188,27 @@ static int acp3x_ec_dmic0_startup(struct snd_pcm_substream *substream)
+ 
+ 	machine->cap_i2s_instance = I2S_BT_INSTANCE;
+ 	snd_soc_dai_set_bclk_ratio(codec_dai, 64);
+-	if (dmic_sel)
+-		gpiod_set_value(dmic_sel, 0);
+ 
+ 	return rt5682_clk_enable(substream);
+ }
+ 
+-static int acp3x_ec_dmic1_startup(struct snd_pcm_substream *substream)
+-{
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_card *card = rtd->card;
+-	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+-	struct acp3x_platform_info *machine = snd_soc_card_get_drvdata(card);
++static int dmic_switch;
+ 
+-	machine->cap_i2s_instance = I2S_BT_INSTANCE;
+-	snd_soc_dai_set_bclk_ratio(codec_dai, 64);
+-	if (dmic_sel)
+-		gpiod_set_value(dmic_sel, 1);
++static int dmic_get(struct snd_kcontrol *kcontrol,
++			 struct snd_ctl_elem_value *ucontrol)
++{
++	ucontrol->value.integer.value[0] = dmic_switch;
++	return 0;
++}
+ 
+-	return rt5682_clk_enable(substream);
++static int dmic_set(struct snd_kcontrol *kcontrol,
++			 struct snd_ctl_elem_value *ucontrol)
++{
++	if (dmic_sel) {
++		dmic_switch = ucontrol->value.integer.value[0];
++		gpiod_set_value(dmic_sel, dmic_switch);
++	}
++	return 0;
+ }
+ 
+ static void rt5682_shutdown(struct snd_pcm_substream *substream)
+@@ -229,11 +231,6 @@ static const struct snd_soc_ops acp3x_ec_cap0_ops = {
+ 	.shutdown = rt5682_shutdown,
+ };
+ 
+-static const struct snd_soc_ops acp3x_ec_cap1_ops = {
+-	.startup = acp3x_ec_dmic1_startup,
+-	.shutdown = rt5682_shutdown,
+-};
+-
+ SND_SOC_DAILINK_DEF(acp3x_i2s,
+ 	DAILINK_COMP_ARRAY(COMP_CPU("acp3x_i2s_playcap.0")));
+ SND_SOC_DAILINK_DEF(acp3x_bt,
+@@ -279,21 +276,26 @@ static struct snd_soc_dai_link acp3x_dai_5682_98357[] = {
+ 		.ops = &acp3x_ec_cap0_ops,
+ 		SND_SOC_DAILINK_REG(acp3x_bt, cros_ec, platform),
+ 	},
+-	{
+-		.name = "acp3x-ec-dmic1-capture",
+-		.stream_name = "Capture DMIC1",
+-		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
+-				| SND_SOC_DAIFMT_CBS_CFS,
+-		.dpcm_capture = 1,
+-		.ops = &acp3x_ec_cap1_ops,
+-		SND_SOC_DAILINK_REG(acp3x_bt, cros_ec, platform),
+-	},
+ };
+ 
++static const char * const dmic_mux_text[] = {
++	"Front Mic",
++	"Rear Mic",
++};
++
++static SOC_ENUM_SINGLE_DECL(
++		acp3x_dmic_enum, SND_SOC_NOPM, 0, dmic_mux_text);
++
++static const struct snd_kcontrol_new acp3x_dmic_mux_control =
++	SOC_DAPM_ENUM_EXT("DMIC Select Mux", acp3x_dmic_enum,
++			  dmic_get, dmic_set);
++
+ static const struct snd_soc_dapm_widget acp3x_widgets[] = {
+ 	SND_SOC_DAPM_HP("Headphone Jack", NULL),
+ 	SND_SOC_DAPM_SPK("Spk", NULL),
+ 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
++	SND_SOC_DAPM_MUX("Dmic Mux", SND_SOC_NOPM, 0, 0,
++			 &acp3x_dmic_mux_control),
+ };
+ 
+ static const struct snd_soc_dapm_route acp3x_audio_route[] = {
+@@ -301,6 +303,8 @@ static const struct snd_soc_dapm_route acp3x_audio_route[] = {
+ 	{"Headphone Jack", NULL, "HPOR"},
+ 	{"IN1P", NULL, "Headset Mic"},
+ 	{"Spk", NULL, "Speaker"},
++	{"Dmic Mux", "Front Mic", "DMIC"},
++	{"Dmic Mux", "Rear Mic", "DMIC"},
+ };
+ 
+ static const struct snd_kcontrol_new acp3x_mc_controls[] = {
+-- 
+2.20.1
 
-[01/19] ASoC: soc.h: convert bool to bit field for snd_soc_card
-        commit: 317ec67593100f0ef0d017bcd73d42704d73fdb6
-[02/19] ASoC: add soc-card.c
-        commit: 1793936bc9081d541da2ecd2af83eded7e6212a7
-[03/19] ASoC: soc-card: move snd_soc_card_get_kcontrol() to soc-card
-        commit: 209c6cdfd28360f030f88ae9adb69f633e6bcd2d
-[04/19] ASoC: soc-card: move snd_soc_card_jack_new() to soc-card
-        commit: 3359e9b6fa3eafeeb79d5f0ec8a04f3fe6986db1
-[05/19] ASoC: soc-card: move snd_soc_card_set/get_drvdata() to soc-card
-        commit: 63efed582cc346c098adf6f5c852e2d5b0753783
-[06/19] ASoC: soc-card: move snd_soc_card_get_codec_dai() to soc-card
-        commit: 65a75718d68ea338b918328d471eff6f472192fc
-[07/19] ASoC: soc-card: move snd_soc_card_subclass to soc-card
-        commit: bf5bb8db5bf07b0a82cdcdc44e4494e55aaa4ed7
-[08/19] ASoC: soc-card: add snd_soc_card_suspend_pre()
-        commit: 130dc08c827db76f4a32fe7867075029fe9071d1
-[09/19] ASoC: soc-card: add snd_soc_card_suspend_post()
-        commit: d17b60b2c46750ebfb6ea39a2b02d988b97484eb
-[10/19] ASoC: soc-card: add snd_soc_card_resume_pre()
-        commit: 934c752c38b751663fe3dc18413db13e73b8b2b2
-[11/19] ASoC: soc-card: add snd_soc_card_resume_post()
-        commit: 739443d1f162ce80eb717c695e58302958b51239
-[12/19] ASoC: soc-card: add probed bit field to snd_soc_card
-        commit: 27f07cacc9f1ddf955b85e5746f967351ab0b40b
-[13/19] ASoC: soc-card: add snd_soc_card_probe()
-        commit: 73de4b026850da432b8bcfb73fc4af94674a8102
-[14/19] ASoC: soc-card: add snd_soc_card_late_probe()
-        commit: 5c0eac036dfd3e20dd09ab86343c3b2fb2a1ac86
-[15/19] ASoC: soc-card: add snd_soc_card_remove()
-        commit: b0275d956fab05a5088e20244c8d1eb433b7b90f
-[16/19] ASoC: soc-card: add snd_soc_card_set_bias_level()
-        commit: 39caefda0a30cac8284264e5031a0dd478510ced
-[17/19] ASoC: soc-card: add snd_soc_card_set_bias_level_post()
-        commit: d41278ea0579a8c1e216c5321e2d207705ab3b54
-[18/19] ASoC: soc-card: add snd_soc_card_add_dai_link()
-        commit: cbc7a6b5a87a129084c643455d16699ea490fd2f
-[19/19] ASoC: soc-card: add snd_soc_card_remove_dai_link()
-        commit: fcbbcc325bc2dd90212de19b520c190b6fbeddae
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

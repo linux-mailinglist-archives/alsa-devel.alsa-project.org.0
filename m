@@ -2,61 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3ED4C1EB100
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jun 2020 23:38:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5D071EB208
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jun 2020 01:14:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C217B1665;
-	Mon,  1 Jun 2020 23:37:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C217B1665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 27CD9165D;
+	Tue,  2 Jun 2020 01:13:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27CD9165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591047479;
-	bh=4TMfWyEQYpMNuEPlWphIzxfEIjjGWs595HYxkZNjCJY=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1591053247;
+	bh=+eBspv4iNfzLNn5eJaOLWbuOfTsnl4KzsYrTGEH7Gb4=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MUKMjDbXq95ZxQ3uwkckRa+iK+FnVl/C+vmzhzTEjKFJ4IcXRxKnW8R31+4DId9f4
-	 eWAiQrlKkhPYCd00hwWzRBTqDqiivKxaWeGgvxTFOWi8YZ0LAbnLr4OSE8TWAlWEv1
-	 OmIyY9X1/r5E9pmPUltMzLRx/dXiFFz6DiK1RZPk=
+	b=U/njQOBhp5WcgHQkZzMkTLfj22ES5Gxe78UUNFM0fvOoYS1kE5HDG36mIiTwv2eOf
+	 12vnlFFq39MwiB/KAybSbXppcDdWOPC8o2ToUe4q1fd0T4cWuea2oJJlzVR7e/Oh0p
+	 nMe6/FHP/rWkVSeKQdtCW505FtHWlOLS36ynb3YE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB914F801ED;
-	Mon,  1 Jun 2020 23:36:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5099FF801F5;
+	Tue,  2 Jun 2020 01:12:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D2C51F801ED; Mon,  1 Jun 2020 23:36:15 +0200 (CEST)
+ id 8983DF801ED; Tue,  2 Jun 2020 01:12:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mx.slunecnicejitka.cz (rosemary.pkrn.net [31.31.72.173])
- by alsa1.perex.cz (Postfix) with ESMTP id 99B11F800B8
- for <alsa-devel@alsa-project.org>; Mon,  1 Jun 2020 23:36:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99B11F800B8
-Received: from [172.31.0.131] (ip-94-112-38-60.net.upcbroadband.cz
- [94.112.38.60])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: poki@poki.me)
- by mx.slunecnicejitka.cz (Postfix) with ESMTPSA id CB19041540;
- Mon,  1 Jun 2020 23:36:08 +0200 (CEST)
-Subject: Re: Lenovo P520/Realtek ALC662 - front jack & mic in
-To: alsa-devel@alsa-project.org
-References: <ebbabedc-195b-afb7-d1e6-ce5523f92530@poki.me>
- <e523ea58-892d-4ab7-58aa-beb3c94a10a3@poki.me>
-From: Jan Pokorny <lists@t.poki.me>
-Message-ID: <b25fc548-981e-5ae6-2895-ef9eb85912e1@poki.me>
-Date: Mon, 1 Jun 2020 23:36:10 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <e523ea58-892d-4ab7-58aa-beb3c94a10a3@poki.me>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: Kailang Yang <kailang@realtek.com>, Mark Pearson <mpearson@lenovo.com>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id F1271F80159
+ for <alsa-devel@alsa-project.org>; Tue,  2 Jun 2020 01:12:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1271F80159
+Date: 02 Jun 2020 08:12:10 +0900
+X-IronPort-AV: E=Sophos;i="5.73,462,1583161200"; d="scan'208";a="48359249"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 02 Jun 2020 08:12:10 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id DCE03413163E;
+ Tue,  2 Jun 2020 08:12:10 +0900 (JST)
+Message-ID: <87a71mxtx1.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Subject: Re: [PATCH 05/24] ASoC: soc-component: add
+ snd_soc_pcm_component_prepare()
+In-Reply-To: <b5420b0e0f33a8bfa1b9b625afa0b429d97fa9c5.camel@linux.intel.com>
+References: <87a71nzhy2.wl-kuninori.morimoto.gx@renesas.com>
+ <87367fzhwx.wl-kuninori.morimoto.gx@renesas.com>
+ <b5420b0e0f33a8bfa1b9b625afa0b429d97fa9c5.camel@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,34 +70,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 5/31/20 6:07 PM, Jan Pokorny wrote:
-> So, what can be done about getting these work?
-> 
-> * front panel headset jack
->    - headphones mode only
->    - headset
-> 
-> * rear mic jack for the mic
-> 
-> * internal speaker without said noise, just in case it is
->    ever needed as a backup ... it definitely worked rather
->    well under Windows
 
-Ah, this last one can be marked as checked, suddenly noticed
-that graphical terminal generated "nice" alarm just resounded
-unexpectedly :-)
+Hi Ranjani
 
-Sadly, this snd_pcsp appears to be a prerequisite and it is
-not loaded automatically in this Fedora Rawhide installation
-and with this audio HW (~ no out of the box experience,
-not sure where to forward this after more testing, cannot
-immediately as it cannot be unloaded for being in use).
+Thank you for reviewing
 
-The noisy sound will only appear when a separate (not
-present unless snd_pcsp is loaded) PC-Speaker (Master)
-channel gets unmuted.  Maybe I even confused cause and
-effect about this, it's all, well, confusing, so sorry
-if that was the case.
+> > From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> > 
+> > We have 2 type of component functions
+> > snd_soc_component_xxx()     is focusing to component itself,
+> > snd_soc_pcm_component_xxx() is focusing to rtd related component.
+> > 
+> > Now we can update snd_soc_component_prepare() to
+> > snd_soc_pcm_component_prepare(). This patch do it.
+> > 
+> > Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> > ---
+(snip)
+> > -	for_each_rtd_components(rtd, i, component) {
+> > -		ret = snd_soc_component_prepare(component, substream);
+> > -		if (ret < 0) {
+> > -			dev_err(component->dev,
+> > -				"ASoC: platform prepare error: %d\n",
+> > ret);
+> > -			goto out;
+> > -		}
+> > +	ret = snd_soc_pcm_component_prepare(substream);
+> > +	if (ret < 0) {
+> > +		dev_err(rtd->dev,
+> > +			"ASoC: platform prepare error: %d\n", ret);
+> Morimoto-san,
+> We should remove this. This will be a duplicate error message as
+> snd_soc_pcm_component_prepare() would already print the error before
+> returning.
 
--- 
-Jan
+Ohh, yes.
+will fix in v2
+
+Thank you for your help !!
+
+Best regards
+---
+Kuninori Morimoto

@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A40221E9B79
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jun 2020 03:50:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E55961E9B7A
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jun 2020 03:50:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 573F316E8;
-	Mon,  1 Jun 2020 03:49:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 573F316E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84A2F1709;
+	Mon,  1 Jun 2020 03:49:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84A2F1709
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590976208;
-	bh=nXJCLID+XsUzUdJqTE7yMPjMRpbkxCxl7txRAf8oeeI=;
+	s=default; t=1590976244;
+	bh=Nk2Qzzh69mxEJerBHIA4tnn1g00f7bzFvysoVdKWxzc=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Vw8Ny9Z2PKoMDGcd1SY+2J3icO87DloR9+KBKmVejsgPXe1zmdg2Us+d4AiAOV4bH
-	 vUoG3GG/XT9hsSw8nYi++2znEfsNjZyp6YBcb8Mbwb5Mv4dBRZgaeTRH3y9u86ILWW
-	 7eC6BghSov3ICZmlwfL9A3nNwcV/ut51yuITLV1k=
+	b=WYOkvmn/vRNyEdCWyLcXur61l3CF1/sajXRmPZ09SVeNR7rDQd+lr+ZPOC17suTvn
+	 rKRDDlt3di+hp3qQiesvjRObpsM/8bv0RfD0Yqad/a5RWj6g9OxAKHw3LSPCiaG54V
+	 pQFHkOmovDvDMXf92QjNi8nzEaQf4u7ZBAW33qpk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A3F3F8036F;
-	Mon,  1 Jun 2020 03:37:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A4C1F80377;
+	Mon,  1 Jun 2020 03:37:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3B544F80370; Mon,  1 Jun 2020 03:37:43 +0200 (CEST)
+ id 4BE2CF80370; Mon,  1 Jun 2020 03:37:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 689AAF80367
- for <alsa-devel@alsa-project.org>; Mon,  1 Jun 2020 03:37:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 689AAF80367
-Date: 01 Jun 2020 10:37:35 +0900
-X-IronPort-AV: E=Sophos;i="5.73,458,1583161200"; d="scan'208";a="48486801"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 01 Jun 2020 10:37:35 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 2E7A0F8036E
+ for <alsa-devel@alsa-project.org>; Mon,  1 Jun 2020 03:37:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E7A0F8036E
+Date: 01 Jun 2020 10:37:38 +0900
+X-IronPort-AV: E=Sophos;i="5.73,458,1583161200"; d="scan'208";a="48486819"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 01 Jun 2020 10:37:38 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id E7C8B40083F3;
- Mon,  1 Jun 2020 10:37:34 +0900 (JST)
-Message-ID: <87eeqzy3a9.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id AEF9C414CAE8;
+ Mon,  1 Jun 2020 10:37:38 +0900 (JST)
+Message-ID: <87d06jy3a5.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 22/24] ASoC: soc-component: merge soc-io.c into soc-component.c
+Subject: [PATCH 23/24] ASoC: soc-component: merge soc_pcm_trigger_start/stop()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87a71nzhy2.wl-kuninori.morimoto.gx@renesas.com>
@@ -67,456 +67,98 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-soc-io.c has snd_soc_component_xxx() functions for I/O.
-We have soc-componennt.c for it.
-Let's merge soc-io.c into soc-component.c
-
-By this patch, original soc-io.c functions start to use
-soc_component_err() when error case.
+Now, soc_pcm_trigger_start/stop() are simple enough.
+Let's merge these into soc_pcm_trigger().
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/Makefile        |   2 +-
- sound/soc/soc-component.c | 194 ++++++++++++++++++++++++++++++++++++
- sound/soc/soc-io.c        | 202 --------------------------------------
- 3 files changed, 195 insertions(+), 203 deletions(-)
- delete mode 100644 sound/soc/soc-io.c
+ sound/soc/soc-pcm.c | 58 +++++++++++++++------------------------------
+ 1 file changed, 19 insertions(+), 39 deletions(-)
 
-diff --git a/sound/soc/Makefile b/sound/soc/Makefile
-index 7f1747518e79..ddbac3a2169f 100644
---- a/sound/soc/Makefile
-+++ b/sound/soc/Makefile
-@@ -1,6 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0
- snd-soc-core-objs := soc-core.o soc-dapm.o soc-jack.o soc-utils.o soc-dai.o soc-component.o
--snd-soc-core-objs += soc-pcm.o soc-io.o soc-devres.o soc-ops.o soc-link.o soc-card.o
-+snd-soc-core-objs += soc-pcm.o soc-devres.o soc-ops.o soc-link.o soc-card.o
- snd-soc-core-$(CONFIG_SND_SOC_COMPRESS) += soc-compress.o
- 
- ifneq ($(CONFIG_SND_SOC_TOPOLOGY),)
-diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index f1707b05505e..c7394adda8f4 100644
---- a/sound/soc/soc-component.c
-+++ b/sound/soc/soc-component.c
-@@ -2,7 +2,10 @@
- //
- // soc-component.c
- //
-+// Copyright 2009-2011 Wolfson Microelectronics PLC.
- // Copyright (C) 2019 Renesas Electronics Corp.
-+//
-+// Mark Brown <broonie@opensource.wolfsonmicro.com>
- // Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
- //
- #include <linux/module.h>
-@@ -646,6 +649,197 @@ int snd_soc_component_compr_get_metadata(struct snd_compr_stream *cstream,
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index a68c9b0f2b8a..e36d6eec19e8 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -1075,57 +1075,37 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
+ 	return 0;
  }
- EXPORT_SYMBOL_GPL(snd_soc_component_compr_get_metadata);
  
-+/**
-+ * snd_soc_component_read() - Read register value
-+ * @component: Component to read from
-+ * @reg: Register to read
-+ * @val: Pointer to where the read value is stored
-+ *
-+ * Return: 0 on success, a negative error code otherwise.
-+ */
-+int snd_soc_component_read(struct snd_soc_component *component,
-+			   unsigned int reg, unsigned int *val)
-+{
-+	int ret;
-+
-+	if (component->regmap)
-+		ret = regmap_read(component->regmap, reg, val);
-+	else if (component->driver->read) {
-+		*val = component->driver->read(component, reg);
-+		ret = 0;
-+	}
-+	else
-+		ret = -EIO;
-+
-+	return soc_component_ret(component, ret);
-+}
-+EXPORT_SYMBOL_GPL(snd_soc_component_read);
-+
-+unsigned int snd_soc_component_read32(struct snd_soc_component *component,
-+				      unsigned int reg)
-+{
-+	unsigned int val;
-+	int ret;
-+
-+	ret = snd_soc_component_read(component, reg, &val);
-+	if (ret < 0)
-+		return soc_component_ret(component, -1);
-+
-+	return val;
-+}
-+EXPORT_SYMBOL_GPL(snd_soc_component_read32);
-+
-+/**
-+ * snd_soc_component_write() - Write register value
-+ * @component: Component to write to
-+ * @reg: Register to write
-+ * @val: Value to write to the register
-+ *
-+ * Return: 0 on success, a negative error code otherwise.
-+ */
-+int snd_soc_component_write(struct snd_soc_component *component,
-+			    unsigned int reg, unsigned int val)
-+{
-+	int ret = -EIO;
-+
-+	if (component->regmap)
-+		ret = regmap_write(component->regmap, reg, val);
-+	else if (component->driver->write)
-+		ret = component->driver->write(component, reg, val);
-+
-+	return soc_component_ret(component, ret);
-+}
-+EXPORT_SYMBOL_GPL(snd_soc_component_write);
-+
-+static int snd_soc_component_update_bits_legacy(
-+	struct snd_soc_component *component, unsigned int reg,
-+	unsigned int mask, unsigned int val, bool *change)
-+{
-+	unsigned int old, new;
-+	int ret;
-+
-+	mutex_lock(&component->io_mutex);
-+
-+	ret = snd_soc_component_read(component, reg, &old);
-+	if (ret < 0)
-+		goto out_unlock;
-+
-+	new = (old & ~mask) | (val & mask);
-+	*change = old != new;
-+	if (*change)
-+		ret = snd_soc_component_write(component, reg, new);
-+out_unlock:
-+	mutex_unlock(&component->io_mutex);
-+
-+	return soc_component_ret(component, ret);
-+}
-+
-+/**
-+ * snd_soc_component_update_bits() - Perform read/modify/write cycle
-+ * @component: Component to update
-+ * @reg: Register to update
-+ * @mask: Mask that specifies which bits to update
-+ * @val: New value for the bits specified by mask
-+ *
-+ * Return: 1 if the operation was successful and the value of the register
-+ * changed, 0 if the operation was successful, but the value did not change.
-+ * Returns a negative error code otherwise.
-+ */
-+int snd_soc_component_update_bits(struct snd_soc_component *component,
-+				  unsigned int reg, unsigned int mask, unsigned int val)
-+{
-+	bool change;
-+	int ret;
-+
-+	if (component->regmap)
-+		ret = regmap_update_bits_check(component->regmap, reg, mask,
-+					       val, &change);
-+	else
-+		ret = snd_soc_component_update_bits_legacy(component, reg,
-+							   mask, val, &change);
-+
-+	if (ret < 0)
-+		return soc_component_ret(component, ret);
-+	return change;
-+}
-+EXPORT_SYMBOL_GPL(snd_soc_component_update_bits);
-+
-+/**
-+ * snd_soc_component_update_bits_async() - Perform asynchronous
-+ *  read/modify/write cycle
-+ * @component: Component to update
-+ * @reg: Register to update
-+ * @mask: Mask that specifies which bits to update
-+ * @val: New value for the bits specified by mask
-+ *
-+ * This function is similar to snd_soc_component_update_bits(), but the update
-+ * operation is scheduled asynchronously. This means it may not be completed
-+ * when the function returns. To make sure that all scheduled updates have been
-+ * completed snd_soc_component_async_complete() must be called.
-+ *
-+ * Return: 1 if the operation was successful and the value of the register
-+ * changed, 0 if the operation was successful, but the value did not change.
-+ * Returns a negative error code otherwise.
-+ */
-+int snd_soc_component_update_bits_async(struct snd_soc_component *component,
-+					unsigned int reg, unsigned int mask, unsigned int val)
-+{
-+	bool change;
-+	int ret;
-+
-+	if (component->regmap)
-+		ret = regmap_update_bits_check_async(component->regmap, reg,
-+						     mask, val, &change);
-+	else
-+		ret = snd_soc_component_update_bits_legacy(component, reg,
-+							   mask, val, &change);
-+
-+	if (ret < 0)
-+		return soc_component_ret(component, ret);
-+	return change;
-+}
-+EXPORT_SYMBOL_GPL(snd_soc_component_update_bits_async);
-+
-+/**
-+ * snd_soc_component_async_complete() - Ensure asynchronous I/O has completed
-+ * @component: Component for which to wait
-+ *
-+ * This function blocks until all asynchronous I/O which has previously been
-+ * scheduled using snd_soc_component_update_bits_async() has completed.
-+ */
-+void snd_soc_component_async_complete(struct snd_soc_component *component)
-+{
-+	if (component->regmap)
-+		regmap_async_complete(component->regmap);
-+}
-+EXPORT_SYMBOL_GPL(snd_soc_component_async_complete);
-+
-+/**
-+ * snd_soc_component_test_bits - Test register for change
-+ * @component: component
-+ * @reg: Register to test
-+ * @mask: Mask that specifies which bits to test
-+ * @value: Value to test against
-+ *
-+ * Tests a register with a new value and checks if the new value is
-+ * different from the old value.
-+ *
-+ * Return: 1 for change, otherwise 0.
-+ */
-+int snd_soc_component_test_bits(struct snd_soc_component *component,
-+				unsigned int reg, unsigned int mask, unsigned int value)
-+{
-+	unsigned int old, new;
-+	int ret;
-+
-+	ret = snd_soc_component_read(component, reg, &old);
-+	if (ret < 0)
-+		return soc_component_ret(component, ret);
-+	new = (old & ~mask) | value;
-+	return old != new;
-+}
-+EXPORT_SYMBOL_GPL(snd_soc_component_test_bits);
-+
- int snd_soc_pcm_component_pointer(struct snd_pcm_substream *substream)
+-static int soc_pcm_trigger_start(struct snd_pcm_substream *substream, int cmd)
+-{
+-	int ret;
+-
+-	ret = snd_soc_link_trigger(substream, cmd);
+-	if (ret < 0)
+-		return ret;
+-
+-	ret = snd_soc_pcm_component_trigger(substream, cmd);
+-	if (ret < 0)
+-		return ret;
+-
+-	return snd_soc_pcm_dai_trigger(substream, cmd);
+-}
+-
+-static int soc_pcm_trigger_stop(struct snd_pcm_substream *substream, int cmd)
+-{
+-	int ret;
+-
+-	ret = snd_soc_pcm_dai_trigger(substream, cmd);
+-	if (ret < 0)
+-		return ret;
+-
+-	ret = snd_soc_pcm_component_trigger(substream, cmd);
+-	if (ret < 0)
+-		return ret;
+-
+-	ret = snd_soc_link_trigger(substream, cmd);
+-	if (ret < 0)
+-		return ret;
+-
+-	return 0;
+-}
+-
+ static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
  {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-diff --git a/sound/soc/soc-io.c b/sound/soc/soc-io.c
-deleted file mode 100644
-index 1ff9175e9d5e..000000000000
---- a/sound/soc/soc-io.c
-+++ /dev/null
-@@ -1,202 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0+
--//
--// soc-io.c  --  ASoC register I/O helpers
--//
--// Copyright 2009-2011 Wolfson Microelectronics PLC.
--//
--// Author: Mark Brown <broonie@opensource.wolfsonmicro.com>
--
--#include <linux/i2c.h>
--#include <linux/spi/spi.h>
--#include <linux/regmap.h>
--#include <linux/export.h>
--#include <sound/soc.h>
--
--/**
-- * snd_soc_component_read() - Read register value
-- * @component: Component to read from
-- * @reg: Register to read
-- * @val: Pointer to where the read value is stored
-- *
-- * Return: 0 on success, a negative error code otherwise.
-- */
--int snd_soc_component_read(struct snd_soc_component *component,
--	unsigned int reg, unsigned int *val)
--{
 -	int ret;
--
--	if (component->regmap)
--		ret = regmap_read(component->regmap, reg, val);
--	else if (component->driver->read) {
--		*val = component->driver->read(component, reg);
--		ret = 0;
--	}
--	else
--		ret = -EIO;
--
--	return ret;
--}
--EXPORT_SYMBOL_GPL(snd_soc_component_read);
--
--unsigned int snd_soc_component_read32(struct snd_soc_component *component,
--				      unsigned int reg)
--{
--	unsigned int val;
--	int ret;
--
--	ret = snd_soc_component_read(component, reg, &val);
--	if (ret < 0)
--		return -1;
--
--	return val;
--}
--EXPORT_SYMBOL_GPL(snd_soc_component_read32);
--
--/**
-- * snd_soc_component_write() - Write register value
-- * @component: Component to write to
-- * @reg: Register to write
-- * @val: Value to write to the register
-- *
-- * Return: 0 on success, a negative error code otherwise.
-- */
--int snd_soc_component_write(struct snd_soc_component *component,
--	unsigned int reg, unsigned int val)
--{
--	if (component->regmap)
--		return regmap_write(component->regmap, reg, val);
--	else if (component->driver->write)
--		return component->driver->write(component, reg, val);
--	else
--		return -EIO;
--}
--EXPORT_SYMBOL_GPL(snd_soc_component_write);
--
--static int snd_soc_component_update_bits_legacy(
--	struct snd_soc_component *component, unsigned int reg,
--	unsigned int mask, unsigned int val, bool *change)
--{
--	unsigned int old, new;
--	int ret;
--
--	mutex_lock(&component->io_mutex);
--
--	ret = snd_soc_component_read(component, reg, &old);
--	if (ret < 0)
--		goto out_unlock;
--
--	new = (old & ~mask) | (val & mask);
--	*change = old != new;
--	if (*change)
--		ret = snd_soc_component_write(component, reg, new);
--out_unlock:
--	mutex_unlock(&component->io_mutex);
--
--	return ret;
--}
--
--/**
-- * snd_soc_component_update_bits() - Perform read/modify/write cycle
-- * @component: Component to update
-- * @reg: Register to update
-- * @mask: Mask that specifies which bits to update
-- * @val: New value for the bits specified by mask
-- *
-- * Return: 1 if the operation was successful and the value of the register
-- * changed, 0 if the operation was successful, but the value did not change.
-- * Returns a negative error code otherwise.
-- */
--int snd_soc_component_update_bits(struct snd_soc_component *component,
--	unsigned int reg, unsigned int mask, unsigned int val)
--{
--	bool change;
--	int ret;
--
--	if (component->regmap)
--		ret = regmap_update_bits_check(component->regmap, reg, mask,
--			val, &change);
--	else
--		ret = snd_soc_component_update_bits_legacy(component, reg,
--			mask, val, &change);
--
--	if (ret < 0)
--		return ret;
--	return change;
--}
--EXPORT_SYMBOL_GPL(snd_soc_component_update_bits);
--
--/**
-- * snd_soc_component_update_bits_async() - Perform asynchronous
-- *  read/modify/write cycle
-- * @component: Component to update
-- * @reg: Register to update
-- * @mask: Mask that specifies which bits to update
-- * @val: New value for the bits specified by mask
-- *
-- * This function is similar to snd_soc_component_update_bits(), but the update
-- * operation is scheduled asynchronously. This means it may not be completed
-- * when the function returns. To make sure that all scheduled updates have been
-- * completed snd_soc_component_async_complete() must be called.
-- *
-- * Return: 1 if the operation was successful and the value of the register
-- * changed, 0 if the operation was successful, but the value did not change.
-- * Returns a negative error code otherwise.
-- */
--int snd_soc_component_update_bits_async(struct snd_soc_component *component,
--	unsigned int reg, unsigned int mask, unsigned int val)
--{
--	bool change;
--	int ret;
--
--	if (component->regmap)
--		ret = regmap_update_bits_check_async(component->regmap, reg,
--			mask, val, &change);
--	else
--		ret = snd_soc_component_update_bits_legacy(component, reg,
--			mask, val, &change);
--
--	if (ret < 0)
--		return ret;
--	return change;
--}
--EXPORT_SYMBOL_GPL(snd_soc_component_update_bits_async);
--
--/**
-- * snd_soc_component_async_complete() - Ensure asynchronous I/O has completed
-- * @component: Component for which to wait
-- *
-- * This function blocks until all asynchronous I/O which has previously been
-- * scheduled using snd_soc_component_update_bits_async() has completed.
-- */
--void snd_soc_component_async_complete(struct snd_soc_component *component)
--{
--	if (component->regmap)
--		regmap_async_complete(component->regmap);
--}
--EXPORT_SYMBOL_GPL(snd_soc_component_async_complete);
--
--/**
-- * snd_soc_component_test_bits - Test register for change
-- * @component: component
-- * @reg: Register to test
-- * @mask: Mask that specifies which bits to test
-- * @value: Value to test against
-- *
-- * Tests a register with a new value and checks if the new value is
-- * different from the old value.
-- *
-- * Return: 1 for change, otherwise 0.
-- */
--int snd_soc_component_test_bits(struct snd_soc_component *component,
--	unsigned int reg, unsigned int mask, unsigned int value)
--{
--	unsigned int old, new;
--	int ret;
--
--	ret = snd_soc_component_read(component, reg, &old);
--	if (ret < 0)
--		return ret;
--	new = (old & ~mask) | value;
--	return old != new;
--}
--EXPORT_SYMBOL_GPL(snd_soc_component_test_bits);
++	int ret = -EINVAL;
+ 
+ 	switch (cmd) {
+ 	case SNDRV_PCM_TRIGGER_START:
+ 	case SNDRV_PCM_TRIGGER_RESUME:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+-		ret = soc_pcm_trigger_start(substream, cmd);
++		ret = snd_soc_link_trigger(substream, cmd);
++		if (ret < 0)
++			break;
++
++		ret = snd_soc_pcm_component_trigger(substream, cmd);
++		if (ret < 0)
++			break;
++
++		ret = snd_soc_pcm_dai_trigger(substream, cmd);
+ 		break;
+ 	case SNDRV_PCM_TRIGGER_STOP:
+ 	case SNDRV_PCM_TRIGGER_SUSPEND:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+-		ret = soc_pcm_trigger_stop(substream, cmd);
++		ret = snd_soc_pcm_dai_trigger(substream, cmd);
++		if (ret < 0)
++			break;
++
++		ret = snd_soc_pcm_component_trigger(substream, cmd);
++		if (ret < 0)
++			break;
++
++		ret = snd_soc_link_trigger(substream, cmd);
+ 		break;
+-	default:
+-		return -EINVAL;
+ 	}
+ 
+ 	return ret;
 -- 
 2.17.1
 

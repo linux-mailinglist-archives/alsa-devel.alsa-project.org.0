@@ -2,65 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DF691EA196
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jun 2020 12:10:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDC411EA1CD
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jun 2020 12:24:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CFA671717;
-	Mon,  1 Jun 2020 12:09:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFA671717
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67DD61704;
+	Mon,  1 Jun 2020 12:23:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67DD61704
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591006200;
-	bh=B3V3MTZHqGT81Zv4orLaAJOEuGuR6fQ42kTD4gHq38s=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1591007056;
+	bh=pxUo/UXpvCuM3yCtTeIf3XVFRFIqqkiDSKklJ8IwXnU=;
+	h=Subject:References:To:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aPlaBjwxUrJjzwXzOxBocoC7avGqcXPW9r14g6cWq1IyDXbd6d1v0TQB8hGehRGdf
-	 lDdzlTOi3lBgDyAplOJEoEHHTZReBh0jTV/5zMGsinufgEc6wJIZ2CNeaYaP/mDJhq
-	 2rbOv9ekWVPbMExd1DdPjLkwfaf0Kri3VJaNxzvs=
+	b=G6xsvLjkud/bmS8Db4DF0KI9zP9pT6/qhGcjEcyIz9GuZ6IbDbB9DCfaxokXuXTUG
+	 zMJUWgOVJlQBhLPIHZQXZqbA2P8u0zBKIQOply99CpPoGVbXDjy3HngscUKZgnFCpO
+	 HRME/E8tay8Zo9HdTpf0lcEfm+h4zErpiP3PrW4k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DDB2BF8013D;
-	Mon,  1 Jun 2020 12:06:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 949D8F801F5;
+	Mon,  1 Jun 2020 12:22:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94990F802A9; Mon,  1 Jun 2020 12:06:42 +0200 (CEST)
+ id 901B7F801ED; Mon,  1 Jun 2020 12:22:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_DYNAMIC,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.d-sys.org (70-31-180-213.sta.estpak.ee [213.180.31.70])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C69ACF8013D
- for <alsa-devel@alsa-project.org>; Mon,  1 Jun 2020 12:06:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C69ACF8013D
-IronPort-SDR: v8TF8A/pWf8OucV6ep/LERwwXLiiYYfh37g/o3dSl0+HG57z5MaAeg6wBphzNThASAab50DqG0
- 6BKbEIxjn3Wg==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2020 03:06:33 -0700
-IronPort-SDR: cZ7POQhtJoKoWD2dce4XJJo+qHl8EMZROXKKTquMb5gUvraDjON1TWsSh7wlJEcjFboVFSrbMo
- D8xuSbVVF1Vw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,460,1583222400"; d="scan'208";a="415758451"
-Received: from unknown (HELO jsia-HP-Z620-Workstation.png.intel.com)
- ([10.221.118.135])
- by orsmga004.jf.intel.com with ESMTP; 01 Jun 2020 03:06:32 -0700
-From: Sia Jee Heng <jee.heng.sia@intel.com>
-To: <alsa-devel@alsa-project.org>
-Subject: [PATCH v3 3/3] dt-bindings: sound: Add documentation for KeemBay i2s
-Date: Mon,  1 Jun 2020 17:53:21 +0800
-Message-Id: <1591005201-31704-4-git-send-email-jee.heng.sia@intel.com>
-X-Mailer: git-send-email 1.9.1
-In-Reply-To: <1591005201-31704-1-git-send-email-jee.heng.sia@intel.com>
-References: <1591005201-31704-1-git-send-email-jee.heng.sia@intel.com>
-Cc: liam.r.girdwood@linux.intel.com, broonie@kernel.org, tiwai@suse.com,
- pierre-louis.bossart@linux.intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 63E9EF80159
+ for <alsa-devel@alsa-project.org>; Mon,  1 Jun 2020 12:22:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63E9EF80159
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=d-systems.ee header.i=@d-systems.ee
+ header.b="VfGpT0wZ"
+Received: from [10.255.10.40] (GW.ds.local [10.255.0.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (Client did not present a certificate)
+ (Authenticated sender: dmitry@d-systems.ee)
+ by mail.d-sys.org (Postfix) with ESMTPSA id 0742E6052E;
+ Mon,  1 Jun 2020 13:12:16 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=d-systems.ee; s=mail;
+ t=1591006336; bh=pxUo/UXpvCuM3yCtTeIf3XVFRFIqqkiDSKklJ8IwXnU=;
+ h=Subject:References:To:From:Cc:Date:In-Reply-To;
+ b=VfGpT0wZttJ+O4FdRtEnz6QaQSfIZNzFvDu+j2V0lQEOj5s3Kh1pbI4FpFF2s8FHd
+ z/Npznxu6b8MZXoZO48/kJApyNvRCRHnRAtnqJQ95skH5DnwIAJdCAlly5dtsQrlX3
+ EofaW5OGLmFOJlY9XdqXgx6BQpOdaJy54e9bzK4qN9NCdN0+WQHPaUUk8/WzQTwl2V
+ j9VAKxM6aybbfvO1lPLQ71HpBIvVG7P9O26qowrOr876EMc5DmsMhvTJTQdC+do5k3
+ DXedUUupMekSvIfVM8H4axf1BWo8pzl9L4zpY6chyC5GgB6B5PO1aBGQkFVNvVIYDk
+ m+wI2GKSwMvrw==
+Subject: ALSA: usb-audio: Add Pioneer DJ DJM-900NXS2 support
+References: <13d0e6b3-2066-e67e-3499-a72291ce4348@d-systems.ee>
+To: alsa-devel@alsa-project.org
+From: Dmitry Panchenko | d-Systems <dmitry@d-systems.ee>
+X-Forwarded-Message-Id: <13d0e6b3-2066-e67e-3499-a72291ce4348@d-systems.ee>
+Message-ID: <48ab19ff-3303-9bf8-ed0e-bcb31d8537eb@d-systems.ee>
+Date: Mon, 1 Jun 2020 13:22:24 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
+MIME-Version: 1.0
+In-Reply-To: <13d0e6b3-2066-e67e-3499-a72291ce4348@d-systems.ee>
+Content-Type: multipart/mixed; boundary="------------E80A878A99469FD876630927"
+Content-Language: en-GB
+Cc: tiwai@suse.de, alexander@tsoy.me
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,88 +84,180 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Document Intel KeemBay i2s DT bindings.
+This is a multi-part message in MIME format.
+--------------E80A878A99469FD876630927
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Sia Jee Heng <jee.heng.sia@intel.com>
----
- .../bindings/sound/intel,keembay-i2s.yaml          | 68 ++++++++++++++++++++++
- 1 file changed, 68 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/intel,keembay-i2s.yaml
+Pioneer DJ DJM-900NXS2 is a widely used DJ mixer with 2 audio USB
+interfaces. Both have a MIDI controller, 10 playback and 12 capture
+channels. Audio endpoints are vendor-specific and 3 files need to be
+patched. All playback and capture channels work fine with all supported
+sample rates (44.1k, 48k, 96k). Patches are attached.
 
-diff --git a/Documentation/devicetree/bindings/sound/intel,keembay-i2s.yaml b/Documentation/devicetree/bindings/sound/intel,keembay-i2s.yaml
-new file mode 100644
-index 0000000..175e4fb
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/intel,keembay-i2s.yaml
-@@ -0,0 +1,68 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+# Copyright 2020 Intel Corporation
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/intel,keembay-i2s.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Intel KeemBay I2S Device Tree Bindings
-+
-+maintainers:
-+  - Sia, Jee Heng <jee.heng.sia@intel.com>
-+
-+description: |
-+ Intel KeemBay I2S
-+
-+properties:
-+  compatible:
-+    enum:
-+      - intel,keembay-i2s
-+
-+  "#sound-dai-cells":
-+    const: 0
-+
-+  reg:
-+    items:
-+      - description: I2S configuration
-+
-+  reg-names:
-+    items:
-+      - const: i2s-regs
-+      - const: i2s_gen_cfg
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: Bus Clock
-+      - description: Module Clock
-+
-+  clock-names:
-+    items:
-+      - const: osc
-+      - const: apb_clk
-+
-+required:
-+  - compatible
-+  - "#sound-dai-cells"
-+  - reg
-+  - clocks
-+  - clock-names
-+  - interrupts
-+
-+examples:
-+  - |
-+     #include <dt-bindings/interrupt-controller/arm-gic.h>
-+     #include <dt-bindings/interrupt-controller/irq.h>
-+     #define KEEM_BAY_PSS_AUX_I2S3
-+     #define KEEM_BAY_PSS_I2S3
-+     i2s3: i2s@20140000 {
-+         compatible = "intel,keembay-i2s";
-+         #sound-dai-cells = <0>;
-+         reg = <0x20140000 0x200 0x202a00a4 0x4>;
-+         reg-names = "i2s-regs", "i2s_gen_cfg";
-+         interrupts = <GIC_SPI 120 IRQ_TYPE_LEVEL_HIGH>;
-+         clock-names = "osc", "apb_clk";
-+         clocks = <&scmi_clk KEEM_BAY_PSS_AUX_I2S3>, <&scmi_clk KEEM_BAY_PSS_I2S3>;
-+     };
--- 
-1.9.1
+Signed-off-by: Dmitry Panchenko <dmitry@d-systems.ee>
 
+--
+Kind regards,
+Dmitry Panchenko
+
+d-Systems Ltd
+Lai 6, Tartu 51005, Estonia
+www.d-systems.ee
+
+
+--------------E80A878A99469FD876630927
+Content-Type: text/x-patch; charset=UTF-8;
+ name="pcm.c.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="pcm.c.patch"
+
+--- sound/usb/pcm.c	2020-04-23 11:38:27.000000000 +0300
++++ /root/linux-5.6.7/sound/usb/pcm.c	2020-05-01 14:17:54.785566648 +0300
+@@ -365,6 +365,10 @@
+ 		ep = 0x81;
+ 		ifnum = 2;
+ 		goto add_sync_ep_from_ifnum;
++	case USB_ID(0x2b73, 0x000a): /* Pioneer DJ DJM-900NXS2 */
++		ep = 0x82;
++		ifnum = 0;
++		goto add_sync_ep_from_ifnum;
+ 	case USB_ID(0x0582, 0x01d8): /* BOSS Katana */
+ 		/* BOSS Katana amplifiers do not need quirks */
+ 		return 0;
+
+
+--------------E80A878A99469FD876630927
+Content-Type: text/x-patch; charset=UTF-8;
+ name="quirks.c.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="quirks.c.patch"
+
+--- sound/usb/quirks.c	2020-04-23 11:38:27.000000000 +0300
++++ /root/linux-5.6.7/sound/usb/quirks.c	2020-05-01 14:45:57.545650031 +0300
+@@ -1414,6 +1414,30 @@
+ 	subs->pkt_offset_adj = (emu_samplerate_id >= EMU_QUIRK_SR_176400HZ) ? 4 : 0;
+ }
+ 
++
++/*
++ * Pioneer DJ DJM-900NXS2
++ * Device needs to know the sample rate each time substream is started
++ */
++static int pioneer_djm_set_format_quirk(struct snd_usb_substream *subs)
++{
++
++	/* Convert sample rate value to little endian */
++	u8 sr[3];
++
++	sr[0] = subs->cur_rate&0xff;
++	sr[1] = (subs->cur_rate>>8)&0xff;
++	sr[2] = (subs->cur_rate>>16)&0xff;
++
++	/* Configure device */
++	usb_set_interface(subs->dev, 0, 1);
++	snd_usb_ctl_msg(subs->stream->chip->dev,
++		usb_rcvctrlpipe(subs->stream->chip->dev, 0),
++		0x01, 0x22, 0x0100, 0x0082, &sr, 0x0003);
++
++	return 0;
++}
++
+ void snd_usb_set_format_quirk(struct snd_usb_substream *subs,
+ 			      struct audioformat *fmt)
+ {
+@@ -1424,6 +1448,9 @@
+ 	case USB_ID(0x041e, 0x3f19): /* E-Mu 0204 USB */
+ 		set_format_emu_quirk(subs, fmt);
+ 		break;
++	case USB_ID(0x2b73, 0x000a): /* Pioneer DJ DJM-900NXS2 */
++		pioneer_djm_set_format_quirk(subs);
++		break;
+ 	}
+ }
+ 
+
+
+--------------E80A878A99469FD876630927
+Content-Type: text/x-patch; charset=UTF-8;
+ name="quirks-table.h.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="quirks-table.h.patch"
+
+--- sound/usb/quirks-table.h	2020-04-23 11:38:27.000000000 +0300
++++ /root/linux-5.6.7/sound/usb/quirks-table.h	2020-05-01 14:48:44.665672833 +0300
+@@ -3592,5 +3592,68 @@
+ 		}
+ 	}
+ },
++{
++	/*
++	 * Pioneer DJ DJM-900NXS2
++	 * 10 channels playback & 12 channels capture @ 44.1/48/96kHz S24LE
++	 */
++	USB_DEVICE_VENDOR_SPEC(0x2b73, 0x000a),
++	.driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
++		.ifnum = QUIRK_ANY_INTERFACE,
++		.type = QUIRK_COMPOSITE,
++		.data = (const struct snd_usb_audio_quirk[]) {
++			{
++				.ifnum = 0,
++				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
++				.data = &(const struct audioformat) {
++					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
++					.channels = 10,
++					.iface = 0,
++					.altsetting = 1,
++					.altset_idx = 1,
++					.endpoint = 0x01,
++					.ep_attr = USB_ENDPOINT_XFER_ISOC|
++					    USB_ENDPOINT_SYNC_ASYNC,
++					.rates = SNDRV_PCM_RATE_44100|
++					    SNDRV_PCM_RATE_48000|
++					    SNDRV_PCM_RATE_96000,
++					.rate_min = 44100,
++					.rate_max = 96000,
++					.nr_rates = 3,
++					.rate_table = (unsigned int[]) {
++						44100, 48000, 96000
++					}
++				}
++			},
++			{
++				.ifnum = 0,
++				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
++				.data = &(const struct audioformat) {
++					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
++					.channels = 12,
++					.iface = 0,
++					.altsetting = 1,
++					.altset_idx = 1,
++					.endpoint = 0x82,
++					.ep_attr = USB_ENDPOINT_XFER_ISOC|
++					    USB_ENDPOINT_SYNC_ASYNC|
++					    USB_ENDPOINT_USAGE_IMPLICIT_FB,
++					.rates = SNDRV_PCM_RATE_44100|
++					    SNDRV_PCM_RATE_48000|
++					    SNDRV_PCM_RATE_96000,
++					.rate_min = 44100,
++					.rate_max = 96000,
++					.nr_rates = 3,
++					.rate_table = (unsigned int[]) {
++						44100, 48000, 96000
++					}
++				}
++			},
++			{
++				.ifnum = -1
++			}
++		}
++	}
++},
+ 
+ #undef USB_DEVICE_VENDOR_SPEC
+
+
+--------------E80A878A99469FD876630927--

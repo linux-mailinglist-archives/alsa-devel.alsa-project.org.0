@@ -2,71 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B2AB1EA633
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jun 2020 16:47:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7E741EA7E5
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jun 2020 18:39:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BBB5616ED;
-	Mon,  1 Jun 2020 16:46:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBB5616ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F87A16E1;
+	Mon,  1 Jun 2020 18:38:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F87A16E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591022823;
-	bh=WlamRrbO5g3mcokof7870OEB6/IsRbOzYOLHmUQKzwk=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1591029572;
+	bh=UyJbAYexcGhpnKCjKt3eUGiqVBwGopzeNLtGF6X9TRw=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=l5Xhu/B6sL/gDjBj+0TEcody+mKAU4etd5C6EESSw8VTDO1fCtitcz3AKzNPyWp9U
-	 dJHw4OGPBOpS0sq+kNbIjlHNG858GYKRqdWJa2l0NNdoGy133XN2nIW674HxSaKxwn
-	 v8fMq99ytd0kOmtVFPATU/+ej6cmj6Pgptr2Tg6c=
+	b=UMLXp/2YFdoPN3OMqSb/S50v8PmXGBdX/JEMSl0q4IStpBBFdE/ScBVWi3SsiGsFg
+	 yoHxfvCagjaftHUMnt+OvfTUar/ueHKEAx2VfSb33wKg1QCiFvpuAg/kbfjdT7YSYF
+	 m/fIHZerUz9EPHwkVWWIv1BNOkBJAUqPtFVkMblA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DDCB5F801F5;
-	Mon,  1 Jun 2020 16:45:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98976F800B8;
+	Mon,  1 Jun 2020 18:37:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6FD14F801ED; Mon,  1 Jun 2020 16:45:18 +0200 (CEST)
+ id 1C19EF801ED; Mon,  1 Jun 2020 18:37:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 11748F800B8
- for <alsa-devel@alsa-project.org>; Mon,  1 Jun 2020 16:45:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11748F800B8
-IronPort-SDR: XOcnKY0qdhd8hiaBPT/TiOtenYB9ou3JzdpvrIaVxmRzijplzECGzRfozjXZ0rIKMAYCSOASMd
- 2iY5aEugf7Pw==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2020 07:45:05 -0700
-IronPort-SDR: j7gGGeL34XJQjhIrz+UaxtPiBQ8+KzF6NEj4fknFgvjU9ZZWhUZa/jn7NyZexEcY9XWRuRuTbD
- fPyMHEPhKerw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,461,1583222400"; d="scan'208";a="268340625"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga003.jf.intel.com with ESMTP; 01 Jun 2020 07:45:04 -0700
-Date: Mon, 1 Jun 2020 17:45:03 +0300 (EEST)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: SOF 1.5 release on FTP server
-In-Reply-To: <15e6517a-6be2-d5cd-c5d7-37a5122bd96e@perex.cz>
-Message-ID: <alpine.DEB.2.21.2006011723250.3787@eliteleevi.tm.intel.com>
-References: <CALZj-VpLECyDaBeHcowTnCcufLVaPyr7Xxii+PbkrwGn9kYU+w@mail.gmail.com>
- <bc8420df-3fbe-2d7c-3c3a-dcf7455eeca8@perex.cz>
- <CALZj-VoLtoNbPZ1evLYqTxEg7XaTiEjgdB+WLE7duLfxF2ohLA@mail.gmail.com>
- <15e6517a-6be2-d5cd-c5d7-37a5122bd96e@perex.cz>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+ by alsa1.perex.cz (Postfix) with ESMTPS id C208DF80159
+ for <alsa-devel@alsa-project.org>; Mon,  1 Jun 2020 18:37:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C208DF80159
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=tsoy.me header.i=@tsoy.me
+ header.b="Ei1Xra89"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
+ s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Content-Type:
+ References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Reply-To:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
+ :List-Post:List-Owner:List-Archive;
+ bh=fyeWbAXZpotnbgyrcchlxVCJsEmrKLH86r3K+GuvsrM=; b=Ei1Xra89Ve7wDiv0Dn0Yweyylu
+ vge0HhoepngnYRCf7RH7pVPHX1nNvw74xNomE8uuVpm0R8o9OT33f0Kebxzx+ijKdU/m2GBDOHzES
+ 2xOIF0POvhpYdx2xtJnGNKDV4OCdaAVAos/aO56U5SJ0IlciX16+/O+Ej4+zG0UjsHvs=;
+Received: from [2a00:1370:8125:3f98:890:f100:d37d:7ada] (helo=home)
+ by puleglot.ru with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.93.0.4) (envelope-from <puleglot@puleglot.ru>)
+ id 1jfnRT-002eIm-Ef; Mon, 01 Jun 2020 19:37:39 +0300
+Message-ID: <91ff53c08ddbb84ca0fcf9f16c86d890f8e06277.camel@tsoy.me>
+Subject: Re: [PATCH] Add duplex sound support for USB devices using implicit
+ feedback
+From: Alexander Tsoy <alexander@tsoy.me>
+To: Takashi Iwai <tiwai@suse.de>, Erwin Burema <e.burema@freedom.nl>
+Date: Mon, 01 Jun 2020 19:37:38 +0300
+In-Reply-To: <s5ha71xwwxd.wl-tiwai@suse.de>
+References: <2410739.SCZni40SNb@alpha-wolf>
+ <6103f3aba91020ea345e9146da82e52823b7c298.camel@tsoy.me>
+ <1674042.U9NR2fmVFg@alpha-wolf> <s5ha71xwwxd.wl-tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.34.4 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Pierre-louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Paul Dann <pdgiddie@gmail.com>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,37 +83,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hey,
-
-On Mon, 1 Jun 2020, Jaroslav Kysela wrote:
-
-> Dne 01. 06. 20 v 10:14 Paul Dann napsal(a):
-> > Hi Jaroslav; many thanks for the fast response. It does seem that the
-> > Github version is missing a number of files that are present in your
-> > FTP version. I'd just like to check this doesn't represent a loss of
-> > functionality?
+В Вс, 24/05/2020 в 10:37 +0200, Takashi Iwai пишет:
+> On Sat, 23 May 2020 20:09:31 +0200,
+> Erwin Burema wrote:
+> > On zaterdag 23 mei 2020 19:53:49 CEST Alexander Tsoy wrote:
+> > > В Вс, 10/05/2020 в 20:29 +0200, Erwin Burema пишет:
+> > > > For USB sound devices using implicit feedback the endpoint used
+> > > > for
+> > > > this feedback should be able to be opened twice, once for
+> > > > required
+> > > > feedback and second time for audio data. This way these devices
+> > > > can
+> > > > be put in duplex audio mode. Since this only works if the
+> > > > settings of
+> > > > the endpoint don't change a check is included for this.
+> > > > 
+> > > > This fixes bug 207023 ("MOTU M2 regression on duplex audio")
+> > > > and
+> > > > should also fix bug 103751 ("M-Audio Fast Track Ultra usb audio
+> > > > device will not operate full-duplex")
+> > > > 
+> > > > Signed-off-by: Erwin Burema <e.burema@gmail.com>
+> > > > ---
+> > > 
+> > > This patch seems to cause kernel panic on my system. This happens
+> > > during boot when gdm (with pulseaudio) is starting up.
+> > > 
+> > 
+> > That's interesting, not running gnome (and thus also not running
+> > gdm, 
+> > currently KDE with SDDM) here so would need to take some time
+> > troubleshooting. 
+> > Suspect I missed something in the check if both input and output
+> > are similarly 
+> > configured.
+> > 
+> > Will see if I can reproduce it and where exactly it goes wrong, in
+> > the 
+> > meantime would it be possible to test if 5.6 or later show the same
+> > issue 
+> > since I intially developed the patch against that release?
 > 
-> My FTP packages also include all unsigned firmware files compiled with gcc.
-> They are unusable for the most Intel platforms where only signed firmware
-> files can be loaded to DSP (security).
-
-Paul, I can confirm the sof-bin is the definitive location to get
-the SOF binaries.
-
-> BTW: Fixed topology files for v1.5 (generic sof hda):
+> Judging from the point triggering the bug (memset()), this can be a
+> leftover URB handling that is performed even after the capture stream
+> is closed.  If so, the procedure would be:
+>  - start capture
+>  - start playback
+>  - stop capture while keeping playback running
 > 
-> https://www.alsa-project.org/files/pub/misc/sof/sof-bin-topology-1.5-dmic-20db-fix.tar.gz
-> 
-> Use this on top of the sof-bin repo / v1.5 branch if you like. It seems that
-> the fix in sof-bin is delayed.
+> If my guess is correct, can the patch below work around the issue?
 
-We also now have a stable release 1.4.3 available:
-https://github.com/thesofproject/sof-bin/tree/stable-v1.4.3
+Unfortunately, I can no longer reproduce kernel panic, so can't really
+test this patch. That's interesting, because it was 100% reproducible
+on my hw a week ago.
 
-... this helps to fix the freeze issue seen on some laptops with SOF 1.4.2 
-(e.g. https://github.com/thesofproject/linux/issues/1917 Paul you've 
-reported).
-
-1.5.1 is indeed delayed. We are trying to expedite the process.
-
-Br, Kai

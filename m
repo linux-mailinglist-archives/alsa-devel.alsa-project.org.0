@@ -2,50 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17C641E9B73
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jun 2020 03:48:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 895AC1E9B76
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jun 2020 03:49:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B359116E6;
-	Mon,  1 Jun 2020 03:47:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B359116E6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3744716ED;
+	Mon,  1 Jun 2020 03:48:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3744716ED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590976107;
-	bh=Ed1LEtrR6y6IDUG1Y5/ByIZRYVheYHiV91r8FoZyDAQ=;
+	s=default; t=1590976171;
+	bh=96G7aBLJBLS98T0t5bOuVinfMkKIdEriZtZmyCNWVUQ=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=q3X7UL2wamwyyRDsFiLDW+Oq8Z3fG24XMXjKAPSAVF3X5gloSzQy6KuuyXsC451SW
-	 lgHpSOUvvSA7GmE90zw47A411nmmjijzaQojcHSBAk9Kv+imuuuZSHpc7Y0P2FQbbO
-	 dyxZd1sXaJqZkArWg9OT5HB+vULwAdwcVarNJ1dQ=
+	b=qg0HK4ZUyiJ+82xJ6wDrx7RzOhGQwGp9eHwIX1XzlV2DRShyg2Iyvp+YTHiHpT8X8
+	 1RWeZQU2h67jBC2Kf5Ilk11nPm3axYTo6HIsgONfubhZmQimn9nONb1gd2AEErIpBt
+	 pOyPS1JrqgOLqv4toRjfy4WNNCWWBOWs0SnsHAFs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80C7EF80363;
-	Mon,  1 Jun 2020 03:37:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D788F8036C;
+	Mon,  1 Jun 2020 03:37:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BE7C4F80361; Mon,  1 Jun 2020 03:37:31 +0200 (CEST)
+ id DEAE0F80368; Mon,  1 Jun 2020 03:37:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 9187FF8035F
- for <alsa-devel@alsa-project.org>; Mon,  1 Jun 2020 03:37:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9187FF8035F
-Date: 01 Jun 2020 10:37:27 +0900
-X-IronPort-AV: E=Sophos;i="5.73,458,1583161200"; d="scan'208";a="48274814"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 90CEAF8023F
+ for <alsa-devel@alsa-project.org>; Mon,  1 Jun 2020 03:37:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90CEAF8023F
+Date: 01 Jun 2020 10:37:31 +0900
+X-IronPort-AV: E=Sophos;i="5.73,458,1583161200"; d="scan'208";a="48486788"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 01 Jun 2020 10:37:27 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 01 Jun 2020 10:37:31 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 56EDE40061AE;
- Mon,  1 Jun 2020 10:37:27 +0900 (JST)
-Message-ID: <87h7vvy3ag.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 209B640083F6;
+ Mon,  1 Jun 2020 10:37:31 +0900 (JST)
+Message-ID: <87ftbfy3ac.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 20/24] ASoC: soc-component: add
- snd_soc_component_compr_get_metadata()
+Subject: [PATCH 21/24] ASoC: soc-component: add snd_soc_component_init()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87a71nzhy2.wl-kuninori.morimoto.gx@renesas.com>
@@ -68,93 +67,109 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-component related function should be implemented at
-soc-component.c.
-This patch adds snd_soc_component_compr_get_metadata().
+we wantn't to directly access to component related parameter
+as much as possible to keep encapsulation.
+This patch adds snd_soc_component_init() for it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc-component.h |  2 ++
- sound/soc/soc-component.c     | 18 ++++++++++++++++++
- sound/soc/soc-compress.c      | 14 +++-----------
- 3 files changed, 23 insertions(+), 11 deletions(-)
+ include/sound/soc-component.h |  3 +++
+ sound/soc/soc-component.c     | 16 ++++++++++++++++
+ sound/soc/soc-core.c          | 23 ++++++++++++-----------
+ 3 files changed, 31 insertions(+), 11 deletions(-)
 
 diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-index ce1df96bb274..5b8a4d847089 100644
+index 5b8a4d847089..8edc5ee5bd16 100644
 --- a/include/sound/soc-component.h
 +++ b/include/sound/soc-component.h
-@@ -456,6 +456,8 @@ int snd_soc_component_compr_copy(struct snd_compr_stream *cstream,
- 				 char __user *buf, size_t count);
- int snd_soc_component_compr_set_metadata(struct snd_compr_stream *cstream,
- 					 struct snd_compr_metadata *metadata);
-+int snd_soc_component_compr_get_metadata(struct snd_compr_stream *cstream,
-+					 struct snd_compr_metadata *metadata);
+@@ -327,6 +327,9 @@ static inline int snd_soc_component_cache_sync(
+ int snd_soc_component_initialize(struct snd_soc_component *component,
+ 				 const struct snd_soc_component_driver *driver,
+ 				 struct device *dev, const char *name);
++void snd_soc_component_set_aux(struct snd_soc_component *component,
++			       struct snd_soc_aux_dev *aux);
++int snd_soc_component_init(struct snd_soc_component *component);
  
- int snd_soc_pcm_component_pointer(struct snd_pcm_substream *substream);
- int snd_soc_pcm_component_ioctl(struct snd_pcm_substream *substream,
+ /* component IO */
+ int snd_soc_component_read(struct snd_soc_component *component,
 diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index 1ac353cf48c5..45a5c496454a 100644
+index 45a5c496454a..f1707b05505e 100644
 --- a/sound/soc/soc-component.c
 +++ b/sound/soc/soc-component.c
-@@ -612,6 +612,24 @@ int snd_soc_component_compr_set_metadata(struct snd_compr_stream *cstream,
+@@ -46,6 +46,22 @@ int snd_soc_component_initialize(struct snd_soc_component *component,
+ 	return 0;
  }
- EXPORT_SYMBOL_GPL(snd_soc_component_compr_set_metadata);
  
-+int snd_soc_component_compr_get_metadata(struct snd_compr_stream *cstream,
-+					 struct snd_compr_metadata *metadata)
++void snd_soc_component_set_aux(struct snd_soc_component *component,
++			       struct snd_soc_aux_dev *aux)
 +{
-+	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
-+	struct snd_soc_component *component;
-+	int i;
-+
-+	for_each_rtd_components(rtd, i, component) {
-+		if (component->driver->compress_ops &&
-+		    component->driver->compress_ops->get_metadata)
-+			return component->driver->compress_ops->get_metadata(
-+				component, cstream, metadata);
-+	}
-+
-+	return 0;
++	component->init = (aux) ? aux->init : NULL;
 +}
-+EXPORT_SYMBOL_GPL(snd_soc_component_compr_get_metadata);
 +
- int snd_soc_pcm_component_pointer(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
-index 62925adb1042..475722adb2a5 100644
---- a/sound/soc/soc-compress.c
-+++ b/sound/soc/soc-compress.c
-@@ -546,24 +546,16 @@ static int soc_compr_get_metadata(struct snd_compr_stream *cstream,
- 				  struct snd_compr_metadata *metadata)
- {
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
--	struct snd_soc_component *component;
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
--	int i, ret;
-+	int ret;
++int snd_soc_component_init(struct snd_soc_component *component)
++{
++	int ret = 0;
++
++	if (component->init)
++		ret = component->init(component);
++
++	return soc_component_ret(component, ret);
++}
++
+ /**
+  * snd_soc_component_set_sysclk - configure COMPONENT system or master clock.
+  * @component: COMPONENT
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 7e22facf14ea..73f2decfc2fe 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -1207,15 +1207,14 @@ static int soc_probe_component(struct snd_soc_card *card,
+ 	     component->name);
+ 	probed = 1;
  
- 	ret = snd_soc_dai_compr_get_metadata(cpu_dai, cstream, metadata);
- 	if (ret < 0)
- 		return ret;
- 
--	for_each_rtd_components(rtd, i, component) {
--		if (!component->driver->compress_ops ||
--		    !component->driver->compress_ops->get_metadata)
--			continue;
-+	ret = snd_soc_component_compr_get_metadata(cstream, metadata);
- 
--		return component->driver->compress_ops->get_metadata(
--			component, cstream, metadata);
+-	/* machine specific init */
+-	if (component->init) {
+-		ret = component->init(component);
+-		if (ret < 0) {
+-			dev_err(component->dev,
+-				"Failed to do machine specific init %d\n", ret);
+-			goto err_probe;
+-		}
 -	}
--
--	return 0;
-+	return ret;
- }
++	/*
++	 * machine specific init
++	 * see
++	 *	snd_soc_component_set_aux()
++	 */
++	ret = snd_soc_component_init(component);
++	if (ret < 0)
++		goto err_probe;
  
- /* ASoC Compress operations */
+ 	ret = snd_soc_add_component_controls(component,
+ 					     component->driver->controls,
+@@ -1329,7 +1328,8 @@ static void soc_unbind_aux_dev(struct snd_soc_card *card)
+ 	struct snd_soc_component *component, *_component;
+ 
+ 	for_each_card_auxs_safe(card, component, _component) {
+-		component->init = NULL;
++		/* for snd_soc_component_init() */
++		snd_soc_component_set_aux(component, NULL);
+ 		list_del(&component->card_aux_list);
+ 	}
+ }
+@@ -1346,7 +1346,8 @@ static int soc_bind_aux_dev(struct snd_soc_card *card)
+ 		if (!component)
+ 			return -EPROBE_DEFER;
+ 
+-		component->init = aux->init;
++		/* for snd_soc_component_init() */
++		snd_soc_component_set_aux(component, aux);
+ 		/* see for_each_card_auxs */
+ 		list_add(&component->card_aux_list, &card->aux_comp_list);
+ 	}
 -- 
 2.17.1
 

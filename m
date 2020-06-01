@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E3C21E9B50
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jun 2020 03:38:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 452C71E9B53
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jun 2020 03:39:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D258A16B0;
-	Mon,  1 Jun 2020 03:37:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D258A16B0
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE05516BC;
+	Mon,  1 Jun 2020 03:38:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE05516BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590975494;
-	bh=utXQX0LcoW3WPA1pQxKa3ob4fkMSGVc4kI3b/iJvAdw=;
+	s=default; t=1590975548;
+	bh=hRe+XMzIPsPHjWIRvfVVzDgHFtPs0h0dLLFMTjZ05+A=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=H+h9VkVyLryzblngjjD9/KV5kIyPugrjssljMR+FrmtmVuHwNcljc9oy3t95heKFq
-	 6uMjNcBxKHLfuDF6wfiI1AwjTapwqZfXlsQi+CohyHqXoNsruFbh+3WW9Ty9OzEmGP
-	 QqccAr9p1+JMsCzw/b5jomt081l1+6GZy8bTtX8c=
+	b=IZxyugEI86t1zGFRS2PBROgdNRygfsHJTzZoFjSwwB5YxE4S1Zn/DUDqsWupD0xAL
+	 S0g5700evgl5ziJaT8sAjOndVXpvTaueNHqa0Os+44YO3JuRTZ77TjRAVXf86xVRkF
+	 TqtcRmkUDRxsaYy24fKGMBN2dyD2/LyS2qo35Kwg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F38DCF80273;
-	Mon,  1 Jun 2020 03:36:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5ADA3F8029A;
+	Mon,  1 Jun 2020 03:36:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95A8AF80259; Mon,  1 Jun 2020 03:36:06 +0200 (CEST)
+ id 058FEF80259; Mon,  1 Jun 2020 03:36:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 373D6F801ED
- for <alsa-devel@alsa-project.org>; Mon,  1 Jun 2020 03:35:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 373D6F801ED
-Date: 01 Jun 2020 10:35:57 +0900
-X-IronPort-AV: E=Sophos;i="5.73,458,1583161200"; d="scan'208";a="48274493"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 5E8BAF80212
+ for <alsa-devel@alsa-project.org>; Mon,  1 Jun 2020 03:36:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E8BAF80212
+Date: 01 Jun 2020 10:36:02 +0900
+X-IronPort-AV: E=Sophos;i="5.73,458,1583161200"; d="scan'208";a="48486468"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 01 Jun 2020 10:35:57 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 01 Jun 2020 10:36:02 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id BB29440083F3;
- Mon,  1 Jun 2020 10:35:57 +0900 (JST)
-Message-ID: <878sh7zhxe.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 34EB840083F3;
+ Mon,  1 Jun 2020 10:36:02 +0900 (JST)
+Message-ID: <877dwrzhx9.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 01/24] ASoC: soc-component: add soc_component_pin() and share
- code
+Subject: [PATCH 02/24] ASoC: soc-component: move
+ snd_soc_component_xxx_regmap() to soc-component
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87a71nzhy2.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,243 +70,150 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-soc-component has too many snd_soc_component_xxx_pin_xxx() functions.
-The difference between these functions are used function name and
-enable/disable.
-This patch adds common soc_component_pin() and share code.
+soc-component is handling snd_soc_component_xxx().
+Move snd_soc_component_xxx_regmap() to it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-component.c | 152 +++++---------------------------------
- 1 file changed, 20 insertions(+), 132 deletions(-)
+ include/sound/soc-component.h |  1 +
+ sound/soc/soc-component.c     | 50 +++++++++++++++++++++++++++++++++++
+ sound/soc/soc-core.c          | 50 -----------------------------------
+ 3 files changed, 51 insertions(+), 50 deletions(-)
 
+diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
+index 5663891148e3..481132141dc2 100644
+--- a/include/sound/soc-component.h
++++ b/include/sound/soc-component.h
+@@ -359,6 +359,7 @@ int snd_soc_component_stream_event(struct snd_soc_component *component,
+ int snd_soc_component_set_bias_level(struct snd_soc_component *component,
+ 				     enum snd_soc_bias_level level);
+ 
++void snd_soc_component_setup_regmap(struct snd_soc_component *component);
+ #ifdef CONFIG_REGMAP
+ void snd_soc_component_init_regmap(struct snd_soc_component *component,
+ 				   struct regmap *regmap);
 diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index 785a0385cc7f..76f4b953563c 100644
+index 76f4b953563c..3c96a1adaa8b 100644
 --- a/sound/soc/soc-component.c
 +++ b/sound/soc/soc-component.c
-@@ -77,8 +77,10 @@ int snd_soc_component_set_bias_level(struct snd_soc_component *component,
+@@ -302,6 +302,56 @@ int snd_soc_component_of_xlate_dai_name(struct snd_soc_component *component,
+ 	return -ENOTSUPP;
+ }
+ 
++void snd_soc_component_setup_regmap(struct snd_soc_component *component)
++{
++	int val_bytes = regmap_get_val_bytes(component->regmap);
++
++	/* Errors are legitimate for non-integer byte multiples */
++	if (val_bytes > 0)
++		component->val_bytes = val_bytes;
++}
++
++#ifdef CONFIG_REGMAP
++
++/**
++ * snd_soc_component_init_regmap() - Initialize regmap instance for the
++ *                                   component
++ * @component: The component for which to initialize the regmap instance
++ * @regmap: The regmap instance that should be used by the component
++ *
++ * This function allows deferred assignment of the regmap instance that is
++ * associated with the component. Only use this if the regmap instance is not
++ * yet ready when the component is registered. The function must also be called
++ * before the first IO attempt of the component.
++ */
++void snd_soc_component_init_regmap(struct snd_soc_component *component,
++				   struct regmap *regmap)
++{
++	component->regmap = regmap;
++	snd_soc_component_setup_regmap(component);
++}
++EXPORT_SYMBOL_GPL(snd_soc_component_init_regmap);
++
++/**
++ * snd_soc_component_exit_regmap() - De-initialize regmap instance for the
++ *                                   component
++ * @component: The component for which to de-initialize the regmap instance
++ *
++ * Calls regmap_exit() on the regmap instance associated to the component and
++ * removes the regmap instance from the component.
++ *
++ * This function should only be used if snd_soc_component_init_regmap() was used
++ * to initialize the regmap instance.
++ */
++void snd_soc_component_exit_regmap(struct snd_soc_component *component)
++{
++	regmap_exit(component->regmap);
++	component->regmap = NULL;
++}
++EXPORT_SYMBOL_GPL(snd_soc_component_exit_regmap);
++
++#endif
++
+ int snd_soc_pcm_component_pointer(struct snd_pcm_substream *substream)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index b07eca2c6ccc..8e90426d2770 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -2381,56 +2381,6 @@ static int snd_soc_component_initialize(struct snd_soc_component *component,
  	return 0;
  }
  
--int snd_soc_component_enable_pin(struct snd_soc_component *component,
--				 const char *pin)
-+static int soc_component_pin(struct snd_soc_component *component,
-+			     const char *pin,
-+			     int (*pin_func)(struct snd_soc_dapm_context *dapm,
-+					     const char *pin))
- {
- 	struct snd_soc_dapm_context *dapm =
- 		snd_soc_component_get_dapm(component);
-@@ -86,170 +88,71 @@ int snd_soc_component_enable_pin(struct snd_soc_component *component,
- 	int ret;
- 
- 	if (!component->name_prefix)
--		return snd_soc_dapm_enable_pin(dapm, pin);
-+		return pin_func(dapm, pin);
- 
- 	full_name = kasprintf(GFP_KERNEL, "%s %s", component->name_prefix, pin);
- 	if (!full_name)
- 		return -ENOMEM;
- 
--	ret = snd_soc_dapm_enable_pin(dapm, full_name);
-+	ret = pin_func(dapm, full_name);
- 	kfree(full_name);
- 
- 	return ret;
- }
-+
-+int snd_soc_component_enable_pin(struct snd_soc_component *component,
-+				 const char *pin)
-+{
-+	return soc_component_pin(component, pin, snd_soc_dapm_enable_pin);
-+}
- EXPORT_SYMBOL_GPL(snd_soc_component_enable_pin);
- 
- int snd_soc_component_enable_pin_unlocked(struct snd_soc_component *component,
- 					  const char *pin)
- {
--	struct snd_soc_dapm_context *dapm =
--		snd_soc_component_get_dapm(component);
--	char *full_name;
--	int ret;
+-static void snd_soc_component_setup_regmap(struct snd_soc_component *component)
+-{
+-	int val_bytes = regmap_get_val_bytes(component->regmap);
 -
--	if (!component->name_prefix)
--		return snd_soc_dapm_enable_pin_unlocked(dapm, pin);
+-	/* Errors are legitimate for non-integer byte multiples */
+-	if (val_bytes > 0)
+-		component->val_bytes = val_bytes;
+-}
 -
--	full_name = kasprintf(GFP_KERNEL, "%s %s", component->name_prefix, pin);
--	if (!full_name)
--		return -ENOMEM;
+-#ifdef CONFIG_REGMAP
 -
--	ret = snd_soc_dapm_enable_pin_unlocked(dapm, full_name);
--	kfree(full_name);
+-/**
+- * snd_soc_component_init_regmap() - Initialize regmap instance for the
+- *                                   component
+- * @component: The component for which to initialize the regmap instance
+- * @regmap: The regmap instance that should be used by the component
+- *
+- * This function allows deferred assignment of the regmap instance that is
+- * associated with the component. Only use this if the regmap instance is not
+- * yet ready when the component is registered. The function must also be called
+- * before the first IO attempt of the component.
+- */
+-void snd_soc_component_init_regmap(struct snd_soc_component *component,
+-	struct regmap *regmap)
+-{
+-	component->regmap = regmap;
+-	snd_soc_component_setup_regmap(component);
+-}
+-EXPORT_SYMBOL_GPL(snd_soc_component_init_regmap);
 -
--	return ret;
-+	return soc_component_pin(component, pin, snd_soc_dapm_enable_pin_unlocked);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_enable_pin_unlocked);
- 
- int snd_soc_component_disable_pin(struct snd_soc_component *component,
- 				  const char *pin)
- {
--	struct snd_soc_dapm_context *dapm =
--		snd_soc_component_get_dapm(component);
--	char *full_name;
--	int ret;
+-/**
+- * snd_soc_component_exit_regmap() - De-initialize regmap instance for the
+- *                                   component
+- * @component: The component for which to de-initialize the regmap instance
+- *
+- * Calls regmap_exit() on the regmap instance associated to the component and
+- * removes the regmap instance from the component.
+- *
+- * This function should only be used if snd_soc_component_init_regmap() was used
+- * to initialize the regmap instance.
+- */
+-void snd_soc_component_exit_regmap(struct snd_soc_component *component)
+-{
+-	regmap_exit(component->regmap);
+-	component->regmap = NULL;
+-}
+-EXPORT_SYMBOL_GPL(snd_soc_component_exit_regmap);
 -
--	if (!component->name_prefix)
--		return snd_soc_dapm_disable_pin(dapm, pin);
+-#endif
 -
--	full_name = kasprintf(GFP_KERNEL, "%s %s", component->name_prefix, pin);
--	if (!full_name)
--		return -ENOMEM;
--
--	ret = snd_soc_dapm_disable_pin(dapm, full_name);
--	kfree(full_name);
--
--	return ret;
-+	return soc_component_pin(component, pin, snd_soc_dapm_disable_pin);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_disable_pin);
- 
- int snd_soc_component_disable_pin_unlocked(struct snd_soc_component *component,
- 					   const char *pin)
- {
--	struct snd_soc_dapm_context *dapm =
--		snd_soc_component_get_dapm(component);
--	char *full_name;
--	int ret;
--
--	if (!component->name_prefix)
--		return snd_soc_dapm_disable_pin_unlocked(dapm, pin);
--
--	full_name = kasprintf(GFP_KERNEL, "%s %s", component->name_prefix, pin);
--	if (!full_name)
--		return -ENOMEM;
--
--	ret = snd_soc_dapm_disable_pin_unlocked(dapm, full_name);
--	kfree(full_name);
--
--	return ret;
-+	return soc_component_pin(component, pin, snd_soc_dapm_disable_pin_unlocked);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_disable_pin_unlocked);
- 
- int snd_soc_component_nc_pin(struct snd_soc_component *component,
- 			     const char *pin)
- {
--	struct snd_soc_dapm_context *dapm =
--		snd_soc_component_get_dapm(component);
--	char *full_name;
--	int ret;
--
--	if (!component->name_prefix)
--		return snd_soc_dapm_nc_pin(dapm, pin);
--
--	full_name = kasprintf(GFP_KERNEL, "%s %s", component->name_prefix, pin);
--	if (!full_name)
--		return -ENOMEM;
--
--	ret = snd_soc_dapm_nc_pin(dapm, full_name);
--	kfree(full_name);
--
--	return ret;
-+	return soc_component_pin(component, pin, snd_soc_dapm_nc_pin);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_nc_pin);
- 
- int snd_soc_component_nc_pin_unlocked(struct snd_soc_component *component,
- 				      const char *pin)
- {
--	struct snd_soc_dapm_context *dapm =
--		snd_soc_component_get_dapm(component);
--	char *full_name;
--	int ret;
--
--	if (!component->name_prefix)
--		return snd_soc_dapm_nc_pin_unlocked(dapm, pin);
--
--	full_name = kasprintf(GFP_KERNEL, "%s %s", component->name_prefix, pin);
--	if (!full_name)
--		return -ENOMEM;
--
--	ret = snd_soc_dapm_nc_pin_unlocked(dapm, full_name);
--	kfree(full_name);
--
--	return ret;
-+	return soc_component_pin(component, pin, snd_soc_dapm_nc_pin_unlocked);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_nc_pin_unlocked);
- 
- int snd_soc_component_get_pin_status(struct snd_soc_component *component,
- 				     const char *pin)
- {
--	struct snd_soc_dapm_context *dapm =
--		snd_soc_component_get_dapm(component);
--	char *full_name;
--	int ret;
--
--	if (!component->name_prefix)
--		return snd_soc_dapm_get_pin_status(dapm, pin);
--
--	full_name = kasprintf(GFP_KERNEL, "%s %s", component->name_prefix, pin);
--	if (!full_name)
--		return -ENOMEM;
--
--	ret = snd_soc_dapm_get_pin_status(dapm, full_name);
--	kfree(full_name);
--
--	return ret;
-+	return soc_component_pin(component, pin, snd_soc_dapm_get_pin_status);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_get_pin_status);
- 
- int snd_soc_component_force_enable_pin(struct snd_soc_component *component,
- 				       const char *pin)
- {
--	struct snd_soc_dapm_context *dapm =
--		snd_soc_component_get_dapm(component);
--	char *full_name;
--	int ret;
--
--	if (!component->name_prefix)
--		return snd_soc_dapm_force_enable_pin(dapm, pin);
--
--	full_name = kasprintf(GFP_KERNEL, "%s %s", component->name_prefix, pin);
--	if (!full_name)
--		return -ENOMEM;
--
--	ret = snd_soc_dapm_force_enable_pin(dapm, full_name);
--	kfree(full_name);
--
--	return ret;
-+	return soc_component_pin(component, pin, snd_soc_dapm_force_enable_pin);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_force_enable_pin);
- 
-@@ -257,22 +160,7 @@ int snd_soc_component_force_enable_pin_unlocked(
- 	struct snd_soc_component *component,
- 	const char *pin)
- {
--	struct snd_soc_dapm_context *dapm =
--		snd_soc_component_get_dapm(component);
--	char *full_name;
--	int ret;
--
--	if (!component->name_prefix)
--		return snd_soc_dapm_force_enable_pin_unlocked(dapm, pin);
--
--	full_name = kasprintf(GFP_KERNEL, "%s %s", component->name_prefix, pin);
--	if (!full_name)
--		return -ENOMEM;
--
--	ret = snd_soc_dapm_force_enable_pin_unlocked(dapm, full_name);
--	kfree(full_name);
--
--	return ret;
-+	return soc_component_pin(component, pin, snd_soc_dapm_force_enable_pin_unlocked);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_force_enable_pin_unlocked);
- 
+ #define ENDIANNESS_MAP(name) \
+ 	(SNDRV_PCM_FMTBIT_##name##LE | SNDRV_PCM_FMTBIT_##name##BE)
+ static u64 endianness_format_map[] = {
 -- 
 2.17.1
 

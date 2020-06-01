@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A4391E9B67
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jun 2020 03:44:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42E561E9B6C
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jun 2020 03:45:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0325F16BB;
-	Mon,  1 Jun 2020 03:43:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0325F16BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id EEBC216D4;
+	Mon,  1 Jun 2020 03:44:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEBC216D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590975868;
-	bh=DYHYT0sYVILk81VrD+fP16JGbwHNtGrFD7EbLgPgXP4=;
+	s=default; t=1590975941;
+	bh=sY4tWiNlpV0g0z9z/baMhlqi0WC7W8yd8dzt1zzB5tg=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LGVs/ORReGagdaIhKCRnDCPCJa4EwPye5Dz2QozndcGPk0RQk9UKobuvYIQK7+mSQ
-	 xZiyS26yu0Laew4KtJ6dH5VukC9vOYvqJsMlNh4CFoS3leHnS6Wywcm6JrRIUC6Aps
-	 7xCatUG99tykQKvWy8/gE1XvB3TgHVcN1DU6J0mk=
+	b=j8JZzw+NzkcKIQzFiPwNqa0cJdewfXMnB5uTXJQqZWAcKsBRs+OAjSvCrbXGN0cjO
+	 f40yx0jeLXE2P+t9JpShOiZz8ONKyHwpLT70RHr9him4hPDZ/AUrSFqgbKOKf0pfuF
+	 oNgVCGz1Te4Bj4Cst/SnjMCqACAR0pJgozY+KZLM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9777BF80333;
-	Mon,  1 Jun 2020 03:37:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A7050F8033F;
+	Mon,  1 Jun 2020 03:37:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C8E59F8031A; Mon,  1 Jun 2020 03:36:49 +0200 (CEST)
+ id CD6C4F80338; Mon,  1 Jun 2020 03:37:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id BEC0DF800B8
- for <alsa-devel@alsa-project.org>; Mon,  1 Jun 2020 03:36:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEC0DF800B8
-Date: 01 Jun 2020 10:36:44 +0900
-X-IronPort-AV: E=Sophos;i="5.73,458,1583161200"; d="scan'208";a="48486590"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 01 Jun 2020 10:36:44 +0900
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 04F96F80335
+ for <alsa-devel@alsa-project.org>; Mon,  1 Jun 2020 03:36:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04F96F80335
+Date: 01 Jun 2020 10:36:59 +0900
+X-IronPort-AV: E=Sophos;i="5.73,458,1583161200"; d="scan'208";a="48274714"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 01 Jun 2020 10:36:59 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 86724414C0C3;
- Mon,  1 Jun 2020 10:36:44 +0900 (JST)
-Message-ID: <87sgffy3bn.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 0A22D40083F3;
+ Mon,  1 Jun 2020 10:36:59 +0900 (JST)
+Message-ID: <87r1uzy3b8.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 12/24] ASoC: soc-component: add
- snd_soc_component_compr_set_params()
+Subject: [PATCH 13/24] ASoC: soc-component: add
+ snd_soc_component_compr_get_params()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87a71nzhy2.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,39 +72,38 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 component related function should be implemented at
 soc-component.c.
-This patch moves soc-compress soc_compr_components_set_params()
-to soc-component as snd_soc_component_compr_set_params().
+This patch adds snd_soc_component_compr_get_params().
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
  include/sound/soc-component.h |  2 ++
  sound/soc/soc-component.c     | 21 +++++++++++++++++++++
- sound/soc/soc-compress.c      | 25 ++-----------------------
- 3 files changed, 25 insertions(+), 23 deletions(-)
+ sound/soc/soc-compress.c      | 14 ++------------
+ 3 files changed, 25 insertions(+), 12 deletions(-)
 
 diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-index e09cd7627ce9..92a6c3ac18e7 100644
+index 92a6c3ac18e7..0af759187b24 100644
 --- a/include/sound/soc-component.h
 +++ b/include/sound/soc-component.h
-@@ -441,6 +441,8 @@ int snd_soc_component_compr_open(struct snd_compr_stream *cstream,
- void snd_soc_component_compr_free(struct snd_compr_stream *cstream,
- 				  struct snd_soc_component *last);
+@@ -443,6 +443,8 @@ void snd_soc_component_compr_free(struct snd_compr_stream *cstream,
  int snd_soc_component_compr_trigger(struct snd_compr_stream *cstream, int cmd);
-+int snd_soc_component_compr_set_params(struct snd_compr_stream *cstream,
-+				       struct snd_compr_params *params);
+ int snd_soc_component_compr_set_params(struct snd_compr_stream *cstream,
+ 				       struct snd_compr_params *params);
++int snd_soc_component_compr_get_params(struct snd_compr_stream *cstream,
++				       struct snd_codec *params);
  
  int snd_soc_pcm_component_pointer(struct snd_pcm_substream *substream);
  int snd_soc_pcm_component_ioctl(struct snd_pcm_substream *substream,
 diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index 99f3ecfef4ab..bba6ef645282 100644
+index bba6ef645282..8ab3fe0e142a 100644
 --- a/sound/soc/soc-component.c
 +++ b/sound/soc/soc-component.c
-@@ -445,6 +445,27 @@ int snd_soc_component_compr_trigger(struct snd_compr_stream *cstream, int cmd)
+@@ -466,6 +466,27 @@ int snd_soc_component_compr_set_params(struct snd_compr_stream *cstream,
  }
- EXPORT_SYMBOL_GPL(snd_soc_component_compr_trigger);
+ EXPORT_SYMBOL_GPL(snd_soc_component_compr_set_params);
  
-+int snd_soc_component_compr_set_params(struct snd_compr_stream *cstream,
-+				       struct snd_compr_params *params)
++int snd_soc_component_compr_get_params(struct snd_compr_stream *cstream,
++				       struct snd_codec *params)
 +{
 +	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
 +	struct snd_soc_component *component;
@@ -112,8 +111,8 @@ index 99f3ecfef4ab..bba6ef645282 100644
 +
 +	for_each_rtd_components(rtd, i, component) {
 +		if (component->driver->compress_ops &&
-+		    component->driver->compress_ops->set_params) {
-+			ret = component->driver->compress_ops->set_params(
++		    component->driver->compress_ops->get_params) {
++			ret = component->driver->compress_ops->get_params(
 +				component, cstream, params);
 +			if (ret < 0)
 +				return soc_component_ret(component, ret);
@@ -122,61 +121,44 @@ index 99f3ecfef4ab..bba6ef645282 100644
 +
 +	return 0;
 +}
-+EXPORT_SYMBOL_GPL(snd_soc_component_compr_set_params);
++EXPORT_SYMBOL_GPL(snd_soc_component_compr_get_params);
 +
  int snd_soc_pcm_component_pointer(struct snd_pcm_substream *substream)
  {
  	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
-index 7a989d0bb369..a2d693603119 100644
+index a2d693603119..cefb60cd48d8 100644
 --- a/sound/soc/soc-compress.c
 +++ b/sound/soc/soc-compress.c
-@@ -325,27 +325,6 @@ static int soc_compr_trigger_fe(struct snd_compr_stream *cstream, int cmd)
- 	return ret;
- }
- 
--static int soc_compr_components_set_params(struct snd_compr_stream *cstream,
--					   struct snd_compr_params *params)
--{
--	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+@@ -432,9 +432,8 @@ static int soc_compr_get_params(struct snd_compr_stream *cstream,
+ 				struct snd_codec *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
 -	struct snd_soc_component *component;
--	int i, ret;
--
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+-	int i, ret = 0;
++	int ret = 0;
+ 
+ 	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
+ 
+@@ -442,16 +441,7 @@ static int soc_compr_get_params(struct snd_compr_stream *cstream,
+ 	if (ret < 0)
+ 		goto err;
+ 
 -	for_each_rtd_components(rtd, i, component) {
 -		if (!component->driver->compress_ops ||
--		    !component->driver->compress_ops->set_params)
+-		    !component->driver->compress_ops->get_params)
 -			continue;
 -
--		ret = component->driver->compress_ops->set_params(
+-		ret = component->driver->compress_ops->get_params(
 -			component, cstream, params);
--		if (ret < 0)
--			return ret;
+-		break;
 -	}
 -
--	return 0;
--}
--
- static int soc_compr_set_params(struct snd_compr_stream *cstream,
- 				struct snd_compr_params *params)
- {
-@@ -366,7 +345,7 @@ static int soc_compr_set_params(struct snd_compr_stream *cstream,
- 	if (ret < 0)
- 		goto err;
- 
--	ret = soc_compr_components_set_params(cstream, params);
-+	ret = snd_soc_component_compr_set_params(cstream, params);
- 	if (ret < 0)
- 		goto err;
- 
-@@ -432,7 +411,7 @@ static int soc_compr_set_params_fe(struct snd_compr_stream *cstream,
- 	if (ret < 0)
- 		goto out;
- 
--	ret = soc_compr_components_set_params(cstream, params);
-+	ret = snd_soc_component_compr_set_params(cstream, params);
- 	if (ret < 0)
- 		goto out;
- 
++	ret = snd_soc_component_compr_get_params(cstream, params);
+ err:
+ 	mutex_unlock(&rtd->card->pcm_mutex);
+ 	return ret;
 -- 
 2.17.1
 

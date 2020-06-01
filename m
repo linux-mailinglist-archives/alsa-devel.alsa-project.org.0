@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9E151E9B60
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jun 2020 03:42:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E6921E9B64
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jun 2020 03:43:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7CAF215E0;
-	Mon,  1 Jun 2020 03:41:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CAF215E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id DAFC416CE;
+	Mon,  1 Jun 2020 03:42:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAFC416CE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1590975753;
-	bh=Kes0DswGoUQIC+PPZpqnYpUQ9Fq+Zv3c8TrYWzK77ec=;
+	s=default; t=1590975790;
+	bh=vQemIix529Y9FjsaB033svcZ2iD++turtJISNf6XbjM=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=b52LeLwBY1fEp8Q/34RPm2dai4iaSYZNq/Noc0EHwhn+IePHjPwTG2UcDDYhAakCd
-	 JL3TURQRUqajYDWPvGz/72ixfg9cxPvxVuix+so49/A3V4XiTpIVCeeUVjpgkaxF9J
-	 jIZlDvz0WBCwdaCHme9jUsVD5klQ7fd32s9574dM=
+	b=Nc3kcBIyJKsZdhW0nVMEpFsE32typs0cppQdSAktObdPDFJ4TUltWLT9Ueb8Vimyu
+	 n1soOG1OgFD+v8mCTEWRNFMH96BiQseDExs5x+SC6fKdqBSr/6fyO1yxMw3WrD00fq
+	 r7fZ6plebfiI3ASv0sI+7sjbmHPiFOaxFQ7Lmuhc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E838F802FF;
-	Mon,  1 Jun 2020 03:36:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1007F80306;
+	Mon,  1 Jun 2020 03:36:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A41ACF801EC; Mon,  1 Jun 2020 03:36:40 +0200 (CEST)
+ id 5C967F802EA; Mon,  1 Jun 2020 03:36:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id D3985F802E1
- for <alsa-devel@alsa-project.org>; Mon,  1 Jun 2020 03:36:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3985F802E1
-Date: 01 Jun 2020 10:36:32 +0900
-X-IronPort-AV: E=Sophos;i="5.73,458,1583161200"; d="scan'208";a="48274568"
+ by alsa1.perex.cz (Postfix) with ESMTP id 4E34BF802EA
+ for <alsa-devel@alsa-project.org>; Mon,  1 Jun 2020 03:36:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E34BF802EA
+Date: 01 Jun 2020 10:36:36 +0900
+X-IronPort-AV: E=Sophos;i="5.73,458,1583161200"; d="scan'208";a="48274587"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 01 Jun 2020 10:36:32 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 01 Jun 2020 10:36:36 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 65DAF414C597;
- Mon,  1 Jun 2020 10:36:32 +0900 (JST)
-Message-ID: <87wo4ry3bz.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 840BA414C0C3;
+ Mon,  1 Jun 2020 10:36:36 +0900 (JST)
+Message-ID: <87v9kby3bv.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 09/24] ASoC: soc-component: add snd_soc_component_compr_open()
+Subject: [PATCH 10/24] ASoC: soc-component: add snd_soc_component_compr_free()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87a71nzhy2.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,118 +72,125 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 component related function should be implemented at
 soc-component.c.
-This patch moves soc-compress soc_compr_components_open()
-to soc-component as snd_soc_component_compr_open().
+This patch moves soc-compress soc_compr_components_free()
+to soc-component as snd_soc_component_compr_free().
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
  include/sound/soc-component.h |  2 ++
- sound/soc/soc-component.c     | 23 +++++++++++++++++++++++
- sound/soc/soc-compress.c      | 31 ++-----------------------------
- 3 files changed, 27 insertions(+), 29 deletions(-)
+ sound/soc/soc-component.c     | 18 ++++++++++++++++++
+ sound/soc/soc-compress.c      | 29 ++++-------------------------
+ 3 files changed, 24 insertions(+), 25 deletions(-)
 
 diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-index bb26d55a9289..4f82839948d6 100644
+index 4f82839948d6..090ea500d11d 100644
 --- a/include/sound/soc-component.h
 +++ b/include/sound/soc-component.h
-@@ -436,6 +436,8 @@ int snd_soc_component_of_xlate_dai_id(struct snd_soc_component *component,
- int snd_soc_component_of_xlate_dai_name(struct snd_soc_component *component,
- 					struct of_phandle_args *args,
+@@ -438,6 +438,8 @@ int snd_soc_component_of_xlate_dai_name(struct snd_soc_component *component,
  					const char **dai_name);
-+int snd_soc_component_compr_open(struct snd_compr_stream *cstream,
-+				 struct snd_soc_component **last);
+ int snd_soc_component_compr_open(struct snd_compr_stream *cstream,
+ 				 struct snd_soc_component **last);
++void snd_soc_component_compr_free(struct snd_compr_stream *cstream,
++				  struct snd_soc_component *last);
  
  int snd_soc_pcm_component_pointer(struct snd_pcm_substream *substream);
  int snd_soc_pcm_component_ioctl(struct snd_pcm_substream *substream,
 diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index 150b02be0219..c2a6046a6380 100644
+index c2a6046a6380..375319142305 100644
 --- a/sound/soc/soc-component.c
 +++ b/sound/soc/soc-component.c
-@@ -384,6 +384,29 @@ EXPORT_SYMBOL_GPL(snd_soc_component_exit_regmap);
+@@ -407,6 +407,24 @@ int snd_soc_component_compr_open(struct snd_compr_stream *cstream,
+ }
+ EXPORT_SYMBOL_GPL(snd_soc_component_compr_open);
  
- #endif
- 
-+int snd_soc_component_compr_open(struct snd_compr_stream *cstream,
-+				 struct snd_soc_component **last)
++void snd_soc_component_compr_free(struct snd_compr_stream *cstream,
++				  struct snd_soc_component *last)
 +{
 +	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
 +	struct snd_soc_component *component;
-+	int i, ret;
++	int i;
 +
 +	for_each_rtd_components(rtd, i, component) {
-+		if (component->driver->compress_ops &&
-+		    component->driver->compress_ops->open) {
-+			ret = component->driver->compress_ops->open(component, cstream);
-+			if (ret < 0) {
-+				*last = component;
-+				return soc_component_ret(component, ret);
-+			}
-+		}
-+	}
++		if (component == last)
++			break;
 +
-+	*last = NULL;
-+	return 0;
++		if (component->driver->compress_ops &&
++		    component->driver->compress_ops->free)
++			component->driver->compress_ops->free(component, cstream);
++	}
 +}
-+EXPORT_SYMBOL_GPL(snd_soc_component_compr_open);
++EXPORT_SYMBOL_GPL(snd_soc_component_compr_free);
 +
  int snd_soc_pcm_component_pointer(struct snd_pcm_substream *substream)
  {
  	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
-index 4984b6a2c370..2a0d554013a4 100644
+index 2a0d554013a4..c164b93c8a0e 100644
 --- a/sound/soc/soc-compress.c
 +++ b/sound/soc/soc-compress.c
-@@ -22,33 +22,6 @@
+@@ -22,27 +22,6 @@
  #include <sound/soc-link.h>
  #include <linux/pm_runtime.h>
  
--static int soc_compr_components_open(struct snd_compr_stream *cstream,
--				     struct snd_soc_component **last)
+-static int soc_compr_components_free(struct snd_compr_stream *cstream,
+-				     struct snd_soc_component *last)
 -{
 -	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
 -	struct snd_soc_component *component;
--	int i, ret;
+-	int i;
 -
 -	for_each_rtd_components(rtd, i, component) {
+-		if (component == last)
+-			break;
+-
 -		if (!component->driver->compress_ops ||
--		    !component->driver->compress_ops->open)
+-		    !component->driver->compress_ops->free)
 -			continue;
 -
--		ret = component->driver->compress_ops->open(component, cstream);
--		if (ret < 0) {
--			dev_err(component->dev,
--				"Compress ASoC: can't open platform %s: %d\n",
--				component->name, ret);
--
--			*last = component;
--			return ret;
--		}
+-		component->driver->compress_ops->free(component, cstream);
 -	}
 -
--	*last = NULL;
 -	return 0;
 -}
 -
- static int soc_compr_components_free(struct snd_compr_stream *cstream,
- 				     struct snd_soc_component *last)
+ static int soc_compr_open(struct snd_compr_stream *cstream)
  {
-@@ -92,7 +65,7 @@ static int soc_compr_open(struct snd_compr_stream *cstream)
- 	if (ret < 0)
- 		goto out;
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+@@ -80,7 +59,7 @@ static int soc_compr_open(struct snd_compr_stream *cstream)
+ 	return 0;
  
--	ret = soc_compr_components_open(cstream, &component);
-+	ret = snd_soc_component_compr_open(cstream, &component);
- 	if (ret < 0)
- 		goto machine_err;
+ machine_err:
+-	soc_compr_components_free(cstream, component);
++	snd_soc_component_compr_free(cstream, component);
  
-@@ -170,7 +143,7 @@ static int soc_compr_open_fe(struct snd_compr_stream *cstream)
- 	if (ret < 0)
- 		goto out;
+ 	snd_soc_dai_compr_shutdown(cpu_dai, cstream);
+ out:
+@@ -164,7 +143,7 @@ static int soc_compr_open_fe(struct snd_compr_stream *cstream)
+ 	return 0;
  
--	ret = soc_compr_components_open(cstream, &component);
-+	ret = snd_soc_component_compr_open(cstream, &component);
- 	if (ret < 0)
- 		goto open_err;
+ machine_err:
+-	soc_compr_components_free(cstream, component);
++	snd_soc_component_compr_free(cstream, component);
+ open_err:
+ 	snd_soc_dai_compr_shutdown(cpu_dai, cstream);
+ out:
+@@ -202,7 +181,7 @@ static int soc_compr_free(struct snd_compr_stream *cstream)
+ 
+ 	snd_soc_link_compr_shutdown(cstream);
+ 
+-	soc_compr_components_free(cstream, NULL);
++	snd_soc_component_compr_free(cstream, NULL);
+ 
+ 	snd_soc_dai_compr_shutdown(cpu_dai, cstream);
+ 
+@@ -257,7 +236,7 @@ static int soc_compr_free_fe(struct snd_compr_stream *cstream)
+ 
+ 	snd_soc_link_compr_shutdown(cstream);
+ 
+-	soc_compr_components_free(cstream, NULL);
++	snd_soc_component_compr_free(cstream, NULL);
+ 
+ 	snd_soc_dai_compr_shutdown(cpu_dai, cstream);
  
 -- 
 2.17.1

@@ -2,98 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBDE41EBCDC
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jun 2020 15:16:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22E051EBCE0
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jun 2020 15:16:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7C86A1674;
-	Tue,  2 Jun 2020 15:15:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C86A1674
+	by alsa0.perex.cz (Postfix) with ESMTPS id CCF7E168E;
+	Tue,  2 Jun 2020 15:16:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCF7E168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591103789;
-	bh=9KxOLlluPq4qhlOeAcber6SPypPP6AjBrJQ46LKI+nQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=sKdI7EqNfAblYLyabPNVZ2gc2RGPZTJSGF05rqDnEMvXGVLKnRsHRh6LPDq88bKPF
-	 oFMay7EtpPeZLL0j8Z9j2cUFO7wvu9swSnQ/XMZixf3GAw8/KWQL0aKcMul+Bebzta
-	 16kaYJGZ/k3vUqbW7xLzkPfmH30PdQt2VvT1wwM8=
+	s=default; t=1591103811;
+	bh=THVPnciWNL8ypd3jmXnRplLJiScM5XfBkjxr89+92Is=;
+	h=To:Subject:From:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Mg8Rx+kIT0cejvby+zZZZfeOElCoowzfDOOGNp79SmADljn6EFMW366OdBQFE7uun
+	 cpxs/aMLcnDGiBbECoHyLq1gQCIureRRgaUGgExXisR4OOe+7tdvDpZuDWYUwoNDoe
+	 uFpZMBDlQmewJMtJyLHrB22/zF0yNGFm6Pczjv2o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3D11F802E0;
-	Tue,  2 Jun 2020 15:10:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D886EF802E7;
+	Tue,  2 Jun 2020 15:10:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 46F73F8026F; Tue,  2 Jun 2020 07:22:49 +0200 (CEST)
+ id 6F014F8026F; Tue,  2 Jun 2020 11:48:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.5 required=5.0 tests=MSGID_FROM_MTA_HEADER,
+ PDS_BTC_ID,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
- [IPv6:2607:f8b0:4864:20::1041])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m176150.mail.qiye.163.com (m176150.mail.qiye.163.com
+ [59.111.176.150])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1D668F8013D
- for <alsa-devel@alsa-project.org>; Tue,  2 Jun 2020 07:22:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D668F8013D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="kdnedtkU"
-Received: by mail-pj1-x1041.google.com with SMTP id m2so892891pjv.2
- for <alsa-devel@alsa-project.org>; Mon, 01 Jun 2020 22:22:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=SxRa6VcY2LMBz3zcWZQ3W5R2LRvt5t09mwNFn3RdLfA=;
- b=kdnedtkUWGH0EgiiSkOM6lz6ez0QnNlc8zFGS7E1FXfVPHfLGSWGwMOnK4MTDMgets
- 49gpArFoPZY7hatliqTT9EBVVETbW/eUQgLO/MxWMlqiG1otNOmKV8PkRGZ5kbBjNKCt
- kYU+8WfieLU8FeTewg7zVMqcqqjl/d+eisprHQAveG+vgAhTZgONgmVeFXZwrBFdwQi0
- iVhvgadIyJGh9PVswSu+cJOMvzUKESCQJhXKEUvfc9/fx/+eIuWpoNXrrYqcj/Ph0MT4
- +C+zrdrcExdLdysSWFXC+ikhjahhSGBLqXVJmdMuhH7+MA8bQGZYmdWxfq6WSCYyd6Jb
- eLPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=SxRa6VcY2LMBz3zcWZQ3W5R2LRvt5t09mwNFn3RdLfA=;
- b=KtNSd0T8O1/hTWS/Y91Ys/hcs/2pcOMo3ns6Ns8B4fhCHroUli0AYZw0p7wjwDphEB
- x88d+sJnjUY9uWZP53YtKD91fBHP8NKSQdBDfDJ4baNwJSGnizpqKGe4mHG+7bHWeGgl
- K1EPnlyArpwEYAKtyxYLvHxWS4Pmqhv/uH2Uzx4dZkbePtYLEz31woKBZsbFJiZ06Lm+
- 8WfBgpUuV4qEd1lPPCeBch7A/uzrHVUs5F6DZ7/WmasXlsHTFoQMq02INLlDq/c4iQXy
- VCE1egL9udW/7UVVIITZ+2r25Em76r6J2EK0P8wzxMQ3oYP1iOlWoQsGof1LR0fmnBob
- m/VQ==
-X-Gm-Message-State: AOAM532aTYSF5ogSvZ9N6gNzqK+HVHW6spYaNhKSappJtZIcNhMdQ50R
- kBPNxdbsZfQlOyj77VbSzS5kuS67er6KKnF6
-X-Google-Smtp-Source: ABdhPJyvOPpNZ5sQza/sxtxZPtqR21/AwrWkuze4ajZeTe84L9t4Y1EK8depRG0U3GJcQvnI7YurYg==
-X-Received: by 2002:a17:90a:32ee:: with SMTP id
- l101mr3564174pjb.213.1591075362317; 
- Mon, 01 Jun 2020 22:22:42 -0700 (PDT)
-Received: from cvds-vagarw7.iind.intel.com ([192.55.55.41])
- by smtp.googlemail.com with ESMTPSA id f18sm1004764pga.75.2020.06.01.22.22.31
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 01 Jun 2020 22:22:41 -0700 (PDT)
-From: Vaibhav Agarwal <vaibhav.sr@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alex Elder <elder@kernel.org>, Johan Hovold <johan@kernel.org>,
- Mark Greer <mgreer@animalcreek.com>, Takashi Iwai <tiwai@suse.com>,
- Jaroslav Kysela <perex@perex.cz>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>
-Subject: [RESEND PATCH v1 6/6] staging: greybus: audio: Enable GB codec,
- audio module compilation.
-Date: Tue,  2 Jun 2020 10:51:15 +0530
-Message-Id: <77cfc355b87ee21636430f787764700de1983f38.1591040859.git.vaibhav.sr@gmail.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <cover.1591040859.git.vaibhav.sr@gmail.com>
-References: <cover.1591040859.git.vaibhav.sr@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4FB31F800BC
+ for <alsa-devel@alsa-project.org>; Tue,  2 Jun 2020 11:48:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FB31F800BC
+Received: from vivo.com (wm-10.qy.internal [127.0.0.1])
+ by m176150.mail.qiye.163.com (Hmail) with ESMTP id B33C11A31FD;
+ Tue,  2 Jun 2020 17:48:04 +0800 (CST)
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+Message-ID: <AL2AMwDwCA5eGEO341Qckarq.1.1591091284601.Hmail.zhucancan@vivo.com>
+To: tiwai@suse.com, perex@perex.cz, alsa-devel@alsa-project.org, 
+ linux-kernel@vger.kernel.org
+Subject: =?UTF-8?B?W1BBVENIXSBBTFNBOiBjb3JlOiBGaXggY29udHJvbCBkZXZpY2UgcmVsZWFzZSBpc3N1ZQ==?=
+X-Priority: 3
+X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com
+X-Originating-IP: 58.251.74.227
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from zhucancan@vivo.com( [58.251.74.227) ] by ajax-webmail (
+ [127.0.0.1] ) ; Tue, 2 Jun 2020 17:48:04 +0800 (GMT+08:00)
+From: =?UTF-8?B?5pyx54G/54G/?= <zhucancan@vivo.com>
+Date: Tue, 2 Jun 2020 17:48:04 +0800 (GMT+08:00)
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZTlVKSU1CQkJDTk5LT0pOWVdZKFlBSE
+ 83V1ktWUFJV1kPCRoVCBIfWUFZLRYpTzgcPxU1Ok4uMjUhHk4XMks6OlZWVUhLTyhJWVdZCQ4XHg
+ hZQVk1NCk2OjckKS43PllXWRYaDxIVHRRZQVk0MFkG
+X-HM-Sender-Digest: e1kMHhlZQQ8JDh5XWRIfHhUPWUFZRzo3STo2DD8MODpOHjw#NEhPSioY
+ EBoJClVKVUpOQkpLQkpJQ09DSE9VMxYaEhdVARMOGBoVGBoVOw0SDRRVGBQWRVlXWRILWUFZTkNV
+ SU5KVUxPVUlJTFlXWQgBWUFMSE5PNwY+
+X-HM-Tid: 0a72746e4b0d93b4kuwsb33c11a31fd
 X-Mailman-Approved-At: Tue, 02 Jun 2020 15:10:44 +0200
-Cc: devel@driverdev.osuosl.org, alsa-devel@alsa-project.org,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Vaibhav Agarwal <vaibhav.sr@gmail.com>, linux-kernel@vger.kernel.org,
- greybus-dev@lists.linaro.org
+Cc: kernel <kernel@vivo.com>, wenhu wang <wenhu.wang@vivo.com>,
+ cancan zhu <zhucancan@vivo.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,68 +79,79 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Currently, GB codec and audio module is conditionally compiled based on
-GREYBUS_AUDIO_MSM8994. However, audio module is not dependent on MSM8994
-platform and can be used generically with any platform that follows
-GB Audio class specification.
-
-Also, GB codec driver corresponds to dummy codec represented by I2S port
-available on Toshiba AP Bridge. Added config option for the same in
-kconfig file and accordingly updated Makefile.
-
-Signed-off-by: Vaibhav Agarwal <vaibhav.sr@gmail.com>
----
- drivers/staging/greybus/Kconfig  | 14 +++++++++++++-
- drivers/staging/greybus/Makefile |  4 ++--
- 2 files changed, 15 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/staging/greybus/Kconfig b/drivers/staging/greybus/Kconfig
-index d4777f5a8b90..cbcfcbba239b 100644
---- a/drivers/staging/greybus/Kconfig
-+++ b/drivers/staging/greybus/Kconfig
-@@ -3,7 +3,7 @@ if GREYBUS
- 
- config GREYBUS_AUDIO
- 	tristate "Greybus Audio Class driver"
--	depends on SOUND
-+	depends on SOUND && SND_SOC
- 	---help---
- 	  Select this option if you have a device that follows the
- 	  Greybus Audio Class specification.
-@@ -11,6 +11,18 @@ config GREYBUS_AUDIO
- 	  To compile this code as a module, chose M here: the module
- 	  will be called gb-audio.ko
- 
-+config GREYBUS_AUDIO_APB_CODEC
-+	tristate "Greybus APBridge Audio codec driver"
-+	depends on SND_SOC && GREYBUS_AUDIO
-+	help
-+	  Select this option if you have a Toshiba APB device that has I2S
-+          ports and acts as a Greybus "Dummy codec". This device is a
-+          bridge from an APB-I2S port to a Unipro network.
-+
-+	  To compile this code as a module, chose M here: the module
-+	  will be called gb-audio-codec.ko
-+
-+
- config GREYBUS_BOOTROM
- 	tristate "Greybus Bootrom Class driver"
- 	---help---
-diff --git a/drivers/staging/greybus/Makefile b/drivers/staging/greybus/Makefile
-index 3b4b6cabff19..7c5e89622334 100644
---- a/drivers/staging/greybus/Makefile
-+++ b/drivers/staging/greybus/Makefile
-@@ -40,8 +40,8 @@ gb-audio-manager-y	:= audio_manager.o audio_manager_module.o
- #ccflags-y += -DGB_AUDIO_MANAGER_SYSFS
- #endif
- 
--obj-$(CONFIG_GREYBUS_AUDIO_MSM8994)	+= gb-audio-codec.o
--obj-$(CONFIG_GREYBUS_AUDIO_MSM8994)	+= gb-audio-module.o
-+obj-$(CONFIG_GREYBUS_AUDIO_APB_CODEC)  	+= gb-audio-codec.o
-+obj-$(CONFIG_GREYBUS_AUDIO_APB_CODEC)	+= gb-audio-module.o
- obj-$(CONFIG_GREYBUS_AUDIO)		+= gb-audio-gb.o
- obj-$(CONFIG_GREYBUS_AUDIO)		+= gb-audio-apbridgea.o
- obj-$(CONFIG_GREYBUS_AUDIO)		+= gb-audio-manager.o
--- 
-2.26.2
-
+RnJvbTogemh1Y2FuY2FuIDx6aHVjYW5jYW5Adml2by5jb20+CkRhdGU6IFR1ZSwgMiBKdW4gMjAy
+MCAxNjoyMjo1NyArMDgwMApTdWJqZWN0OiBbUEFUQ0hdIEFMU0E6IGNvcmU6IEZpeCBjb250cm9s
+IGRldmljZSByZWxlYXNlIGlzc3VlCgpXZSB1c2Ugc25kX3BjbV9hZGRfdXNyX2N0bHMoKSBpbiBj
+b21wb25lbnQncyAucGNtX25ldygpLAp1bmZvcnR1bmF0ZWx5IHNuZF9zb2NfZGFwbV9hZGRfcm91
+dGVzKCkgbWVldHMgZXJyb3IgZHVyaW5nCmFkZGluZyBjYXJkLT5kYXBtX3JvdXRlcy9vZl9kYXBt
+X3JvdXRlcywgaXQgd2lsbCBnb3RvIHByb2JlX2VuZAp0byBjYWxsIHNvY19jbGVhbnVwX2NhcmRf
+cmVzb3VyY2VzKCkuCgpUaGUgY29tbWl0IGRjODJlNTI0OTJmNiAoIkFMU0E6IGNvcmU6IEFzc3Vy
+ZSBjb250cm9sIGRldmljZQp0byBiZSByZWdpc3RlcmVkIGF0IGxhc3QiKSB3aWxsIG1ha2UgcGNt
+IGRldmljZSByZWxlYXNlIGlzCnByaW9yIHRvIGNvbnRyb2wgZGV2aWNlIHJlbGVhc2UsIGJ1dCB0
+aGUgY29udHJvbCBkZXZpY2UgbmVlZHMKdG8gdXNlIHBjbSBwb2ludG9yLCB3aGljaCBpcyBhbHJl
+YWR5IGZyZWVkIGJ5IHBjbSBkZXZpY2UgcmVsZWFzZS4KClsgICA3MC4wNTYwMDBdIFVuYWJsZSB0
+byBoYW5kbGUga2VybmVsIHBhZ2luZyByZXF1ZXN0IGF0IHZpcnR1YWwgYWRkcmVzcyBmZmZmZmY4
+MGYyZDJjNDgwClsgICA3MC4wNjYxMzldIGluaXQ6IHByb2Nlc3NpbmcgYWN0aW9uIChpbml0LnN2
+Yy5tZWRpYT0qKSBmcm9tICgvc3lzdGVtL2V0Yy9pbml0L21lZGlhc2VydmVyLnJjOjEpClsgICA3
+MC4wNzYzMTFdIE1lbSBhYm9ydCBpbmZvOgpbICAgNzAuMTI2Njc5XSAgIEVTUiA9IDB4OTYwMDAw
+NDcKWyAgIDcwLjEyNjY4NV0gICBFQyA9IDB4MjU6IERBQlQgKGN1cnJlbnQgRUwpLCBJTCA9IDMy
+IGJpdHMKWyAgIDcwLjEyNjY4OV0gICBTRVQgPSAwLCBGblYgPSAwClsgICA3MC4xMjY2OTNdICAg
+RUEgPSAwLCBTMVBUVyA9IDAKWyAgIDcwLjEyNjY5Nl0gRGF0YSBhYm9ydCBpbmZvOgpbICAgNzAu
+MTI2NzAwXSAgIElTViA9IDAsIElTUyA9IDB4MDAwMDAwNDcKWyAgIDcwLjEyNjcwNF0gICBDTSA9
+IDAsIFduUiA9IDEKWyAgIDcwLjEyNjcxMF0gc3dhcHBlciBwZ3RhYmxlOiA0ayBwYWdlcywgMzkt
+Yml0IFZBcywgcGdkcD0wMDAwMDAwMGEyMTZiMDAwClsgICA3MC4xMjY3MTVdIFtmZmZmZmY4MGYy
+ZDJjNDgwXSBwZ2Q9MDAwMDAwMDFmZmI3ZjAwMywgcHVkPTAwMDAwMDAxZmZiN2YwMDMsIHBtZD0w
+MDAwMDAwMWZmOWU4MDAzLCBwdGU9MDA2ODAwMDE3MmQyY2YxMgpbICAgNzAuMTI2NzMxXSBJbnRl
+cm5hbCBlcnJvcjogT29wczogOTYwMDAwNDcgWyMxXSBQUkVFTVBUIFNNUApbICAgNzAuMTI2ODIx
+XSBDUFU6IDAgUElEOiA1IENvbW06IGt3b3JrZXIvMDowIFRhaW50ZWQ6IEcgICAgICAgIFcgIE8g
+ICAgICA1LjQuMTItcWdraS1kZWJ1Zy1nNGM3Y2E5ZjIwICMxMApbICAgNzAuMTI2ODQwXSBXb3Jr
+cXVldWU6IGV2ZW50cyBkZWZlcnJlZF9wcm9iZV93b3JrX2Z1bmMkMmI1MDBlODUyY2VhZDY5ZmRl
+MDVhMmI5OGNlYjJmYTYuY2ZpX2p0ClsgICA3MC4xMjY4NDVdIHBzdGF0ZTogODBjMDAwMDUgKE56
+Y3YgZGFpZiArUEFOICtVQU8pClsgICA3MC4xMjY4NTRdIHBjIDogcGNtX3Vzcl9jdGxfcHJpdmF0
+ZV9mcmVlJDE2NWY0NDAwZWU2NzMyYzdjOGM4MTU3YmUwZjcyNTE4KzB4MjAvMHgzNApbICAgNzAu
+MTI2ODYxXSBsciA6IHNuZF9jdGxfcmVtb3ZlKzB4ZjQvMHgxNTQKWyAgIDcwLjEyNjg2Ml0gc3Ag
+OiBmZmZmZmZjMDEwMDdiNzUwClsgICA3MC4xMjY4NjVdIHgyOTogZmZmZmZmYzAxMDA3Yjc1MCB4
+Mjg6IGZmZmZmZmQ5NzNjMmJiMmMKWyAgIDcwLjEyNjg2OF0geDI3OiBmZmZmZmY4MTA3Yjc0MWEw
+IHgyNjogZGVhZDAwMDAwMDAwMDEwMApbICAgNzAuMTI2ODc0XSB4MjU6IDAwMDAwMDAwMDAwMDAw
+MDIgeDI0OiBmZmZmZmZkOTczYzJiYjhjClsgICA3MC4xMjY4NzddIHgyMzogZmZmZmZmZDk3NTAy
+N2M4MCB4MjI6IGZmZmZmZmQ5NzQxNTQzN2YKWyAgIDcwLjEyNjg4MF0geDIxOiAwMDAwMDAwMDAw
+MDAwMDAxIHgyMDogZmZmZmZmZDk3M2MzN2UxMApbICAgNzAuMTI2ODgzXSB4MTk6IGZmZmZmZjgw
+ZjJkNTVkMDAgeDE4OiBmZmZmZmY4MDQ1MWRlNGQwClsgICA3MC4xMjY4ODZdIHgxNzogZmZmZmZm
+ODBmMmQ1ODAwMCB4MTY6IDAwMDAwMDAwMDAwMDA0MDAKWyAgIDcwLjEyNjg4OV0geDE1OiBhNmZl
+NGU5YmRjNWE2YjA1IHgxNDogMDAwMDAwMDAwMDAwMDAwMApbICAgNzAuMTI2ODkyXSB4MTM6IGZm
+ZmZmZmZmMDNhYjU0MDggeDEyOiAwMDAwMDAwMDAwMDAwMDAxClsgICA3MC4xMjY4OTZdIHgxMTog
+NzA3OTU0MjA3MDcwNDEyMCB4MTA6IDAwMDAwMDAwMDAwMDAzOTgKWyAgIDcwLjEyNjg5OV0geDkg
+OiAwMDAwMDAwMDAwMDAwMDAxIHg4IDogZmZmZmZmODBmMmQyYzM5OApbICAgNzAuMTI2OTAyXSB4
+NyA6IDAwMDAwMDAwMDAwMDAwMDAgeDYgOiBmZmZmZmY4MGY2YjRkMTc4ClsgICA3MC4xMjY5MDVd
+IHg1IDogZmZmZmZmZDk3MzM1ZmU4YyB4NCA6IDAwMDAwMDAwMDAwMDAwMDAKWyAgIDcwLjEyNjkw
+OF0geDMgOiBmZmZmZmZjMDEwMDdiNjUwIHgyIDogZmZmZmZmYzAxMDA3Yjc2OApbICAgNzAuMTI2
+OTExXSB4MSA6IDAwMDAwMDAwZmZmZmZmZmYgeDAgOiBmZmZmZmY4MTFmZjQxNDgwClsgICA3MC4x
+MjY5MTZdIENhbGwgdHJhY2U6ClsgICA3MC4xMjY5MjBdICBwY21fdXNyX2N0bF9wcml2YXRlX2Zy
+ZWUkMTY1ZjQ0MDBlZTY3MzJjN2M4YzgxNTdiZTBmNzI1MTgrMHgyMC8weDM0ClsgICA3MC4xMjY5
+MjNdICBzbmRfY3RsX3JlbW92ZSsweGY0LzB4MTU0ClsgICA3MC4xMjY5MjddICBzbmRfY3RsX2Rl
+dl9mcmVlJDFiOGVmZWE0OTE4NmI3OWU2ZTRhMzljYWM1NzQ4ZjFjKzB4M2MvMHg3MApbICAgNzAu
+MTI2OTMwXSAgc25kX2RldmljZV9mcmVlX2FsbCsweDIzNC8weDJjOApbICAgNzAuMTI2OTM0XSAg
+cmVsZWFzZV9jYXJkX2RldmljZSRmYjczMjgzODZjYWMwYmRmMWIzZjJmODhkYTc5NTIxZisweDI0
+LzB4Y2MKWyAgIDcwLjEyNjk0MV0gIGRldmljZV9yZWxlYXNlJGQyZmRkODkxMmJlYjcxZjljY2M3
+Y2E3MmZjZWIwNTIyKzB4NDgvMHgxMTgKWyAgIDcwLjEyNjk0OV0gIGtvYmplY3RfY2xlYW51cCsw
+eDEzOC8weDI1YwpbICAgNzAuMTI2OTUyXSAga29iamVjdF9wdXQrMHg1MC8weDYwClsgICA3MC4x
+MjY5NTVdICBwdXRfZGV2aWNlKzB4MTQvMHgyMApbICAgNzAuMTI2OTU3XSAgc25kX2NhcmRfZnJl
+ZSsweDYwLzB4OTgKWyAgIDcwLjEyNjk2M10gIHNvY19jbGVhbnVwX2NhcmRfcmVzb3VyY2VzKzB4
+MmMvMHg0MjAKWyAgIDcwLjEyNjk2Nl0gIHNuZF9zb2NfYmluZF9jYXJkKzB4Y2MwLzB4ZmE4Clsg
+ICA3MC4xMjY5NjhdICBzbmRfc29jX3JlZ2lzdGVyX2NhcmQrMHgxMTAvMHgxMjgKWyAgIDcwLjEy
+Njk3NF0gIGRldm1fc25kX3NvY19yZWdpc3Rlcl9jYXJkKzB4NGMvMHg5MAoKRml4ZXM6IGRjODJl
+NTI0OTJmNiAoIkFMU0E6IGNvcmU6IEFzc3VyZSBjb250cm9sIGRldmljZSB0byBiZSByZWdpc3Rl
+cmVkIGF0IGxhc3QiKQpTaWduZWQtb2ZmLWJ5OiB6aHVjYW5jYW4gPHpodWNhbmNhbkB2aXZvLmNv
+bT4KLS0tCiBzb3VuZC9jb3JlL2RldmljZS5jIHwgOCAtLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQs
+IDggZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvc291bmQvY29yZS9kZXZpY2UuYyBiL3NvdW5k
+L2NvcmUvZGV2aWNlLmMKaW5kZXggYmYwYjA0YTdlZTc5Li4xYWVlMGY1NjIzYTIgMTAwNjQ0Ci0t
+LSBhL3NvdW5kL2NvcmUvZGV2aWNlLmMKKysrIGIvc291bmQvY29yZS9kZXZpY2UuYwpAQCAtMjI1
+LDE0ICsyMjUsNiBAQCB2b2lkIHNuZF9kZXZpY2VfZnJlZV9hbGwoc3RydWN0IHNuZF9jYXJkICpj
+YXJkKQogCiAJaWYgKHNuZF9CVUdfT04oIWNhcmQpKQogCQlyZXR1cm47Ci0JbGlzdF9mb3JfZWFj
+aF9lbnRyeV9zYWZlX3JldmVyc2UoZGV2LCBuZXh0LCAmY2FyZC0+ZGV2aWNlcywgbGlzdCkgewot
+CQkvKiBleGNlcHRpb246IGZyZWUgY3RsIGFuZCBsb3dsZXZlbCBzdHVmZiBsYXRlciAqLwotCQlp
+ZiAoZGV2LT50eXBlID09IFNORFJWX0RFVl9DT05UUk9MIHx8Ci0JCSAgICBkZXYtPnR5cGUgPT0g
+U05EUlZfREVWX0xPV0xFVkVMKQotCQkJY29udGludWU7Ci0JCV9fc25kX2RldmljZV9mcmVlKGRl
+dik7Ci0JfQotCiAJLyogZnJlZSBhbGwgKi8KIAlsaXN0X2Zvcl9lYWNoX2VudHJ5X3NhZmVfcmV2
+ZXJzZShkZXYsIG5leHQsICZjYXJkLT5kZXZpY2VzLCBsaXN0KQogCQlfX3NuZF9kZXZpY2VfZnJl
+ZShkZXYpOwotLSAKMi4yMS4wCgoKCgoKCgoNCg0K

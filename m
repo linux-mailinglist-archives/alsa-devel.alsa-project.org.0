@@ -2,124 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 664611EDCC2
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jun 2020 07:50:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D0581EDCF8
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jun 2020 08:11:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E7791166F;
-	Thu,  4 Jun 2020 07:49:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7791166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 980E1166E;
+	Thu,  4 Jun 2020 08:10:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 980E1166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591249804;
-	bh=Iq6+hu0xhHv4MWnO8BAG8/q/NTjbZQcfEKIL2NPK81M=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1591251091;
+	bh=ldY1mE+QvUO1VBGmaibNyPQm291wFIieZnzk/Lim9hw=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=PlYCflumDqw80d6P9RfUhSeu+oTP5Mm0oQatjV0uV2eSZw59CJcdoix9PSC6vknvq
-	 sHQwWpoQotN2e2zELGNu8/WAMZcA7VJlnhdP4BJWVvduRJP8sjqR3y9uPBgttyeG7w
-	 BticIiMnA4Lx5stxh9bqu1hAtKnPv91c9PS9H3m8=
+	b=XL6cZFjPqWfF/WaHlN9XOvqAmApT3CSU/vw/osR0vkJR/Z3csuQwP/HehZ78JhRZU
+	 33EtChY3yx2yuOhVATlx9Mu+DrrnP0d1tdSQmFRbJtXVgxvM4EeW+jvHQak52RuJ1r
+	 u4vt/mBv8ZgaFR+8svTmiMTxMKnMeAXbdx9XY+Kc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2DB0CF80260;
-	Thu,  4 Jun 2020 07:48:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E0CCAF8013C;
+	Thu,  4 Jun 2020 08:09:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5357FF80254; Thu,  4 Jun 2020 07:48:18 +0200 (CEST)
+ id 1243AF8026F; Tue,  2 Jun 2020 20:59:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- MSGID_FROM_MTA_HEADER,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2102.outbound.protection.outlook.com [40.107.236.102])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FORGED_HOTMAIL_RCVD2,FREEMAIL_FROM,HTML_MESSAGE,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05olkn2044.outbound.protection.outlook.com [40.92.91.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D68E9F80108
- for <alsa-devel@alsa-project.org>; Thu,  4 Jun 2020 07:48:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D68E9F80108
+ by alsa1.perex.cz (Postfix) with ESMTPS id 80195F8013D
+ for <alsa-devel@alsa-project.org>; Tue,  2 Jun 2020 20:59:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80195F8013D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=maximintegrated.onmicrosoft.com
- header.i=@maximintegrated.onmicrosoft.com header.b="hO14UI19"
+ dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com
+ header.b="HA+VlhL4"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=juK1PDugEsbEztneHnUtZgaBThRH2hWcyaOquc2ojkqK+dkG/QajtXSigr1CbffavSYbyfcpuwnZl9iJwT2PvVVXZcXO6cr+8nTg5q1FLGRn2CRRGJMazUrDt80JXcqGwaWSS6CwOA8x1y4W23C0tCjMuwcsUdw5x3X3jmkqKkyVLB16m5YBwYprPk3fjs8XzoHjmEtQRf1GrGIo6jEPKqcaWpvFG89Zs9LgOWqjZFB0oWRWtdxsEKUwIqvCZIFJET4ikIKezJCNuXhWcDNJtFaA3oGawaH851yOfofXFDQvwz9pvOugCq+Av834S2Nm6LNwX95zE/wdeu8JsMwBzA==
+ b=OXX/amd0zjSz95ZAuONToz8iRh0ldRcj+RxhYG/VZVdgnkx1M/kpK8vs3R0TmYkzxLRDUzJm8g/WjAAQzagwDOu0o4p87DzghxI6eWQkBDfyLFFnhMmzvf0eTEGIzfmIo3rP7lL+36pLUjgEup3d5RLZfkDNhzEvYVyi238ZgYU+HUkeNcBVnxaEJBy/cPAoozeQpD0RnzMPiWFeMR27dYeiTJAAYB3XEaF1Lj15sQqM+w8hk6GtXwDES+Nyz6VFA/XGSyeuJkpcjfv4Tyx2qYrio1r8sESFudq9bp7qjkQRBYdTwTPaRcllbKXMwLter049f0F+N7sq99DndpASww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vc+zknLvdPhgXi6ikB0cvs+Wx+AShXJvSY7GeUphE5o=;
- b=iiSmUD06XpADupUXrUDJM3B2qrVcSreovzoKznopCFvYhE9qPcfQ+mza7rU19j9vP3LJMggrdWtj1oaGYdA17ZIgVIR7/JRnhCWL0UzT5qFJfZZW/z/1oNJ7W3+NCL/pajeo/Kf/PdTk0bEKXuFtPZ303rP5ej08duk0FPkaTe3Xp/4hsku1A2NhcLRpQu7QC5LVIC22wWEFmSEefa1h5AgcYhMfomM26hw1bWjBn+CjyUi81eMsp8hzehnLeU0iwzjyyOXhNXethMPjjYYM3mdcOQb8S8cgURks9Mk1xUggqUv6dk3EGfk6eDC0QjrOl2/Ft6N/fBXi+6XISahSwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=maximintegrated.com; dmarc=pass action=none
- header.from=maximintegrated.com; dkim=pass header.d=maximintegrated.com;
- arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=maximintegrated.onmicrosoft.com;
- s=selector2-maximintegrated-onmicrosoft-com;
+ bh=QrlPRszgZqmhFjHvw5g7k/1YQ/nEXqC9YuIhGXMSbac=;
+ b=Z16z88VuWCcarF5mz/M5zfqgTMMobD1NqSAOEPpdCoRD5eFHqu6VyocAjkKWFTjHY/hyY8g1LDMthI0g4cG3VSUHsXotK2+ZMbjjEiQ0QlT2V+tJSg/zX11qfV/iUieul5RK/qHvb+WSa6HtRRPvrClFXDX/jH9hzdc7t/DDFOFMSlnPk+HGyCgdX4XABpNJv+4OGVT0C1EwDVELtbpCUJ3roZaKm7I7dlu8CLf311bGHEO7D7r/X8RU13YnxxolTYsJpqLatA/M2ktKReb6rTsO8wDJ0h7nMZdNb8jOe46tE9PpS9BKMMZPQtaMzvVb4z5OkjEDv0Gb/yWeyQap2g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vc+zknLvdPhgXi6ikB0cvs+Wx+AShXJvSY7GeUphE5o=;
- b=hO14UI19WbPCBQlZ64JzIQWzw4GL4scQEQd4R0JLg46J/6vrNx2TrWNWHfYMY7yjaDK9Wovf2Y0HLRv71KOzCnEDaFqsLVvFHbDq706/AqjtodOO04dJAz5kbhJ7yvzaPmv5Lk6qejWb8cCqO90dSnL1+clHSbCR4nAaXvd6xV0=
-Authentication-Results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none
- header.from=maximintegrated.com;
-Received: from MWHPR11MB2047.namprd11.prod.outlook.com (2603:10b6:300:2a::12)
- by MWHPR11MB1344.namprd11.prod.outlook.com (2603:10b6:300:23::10)
+ bh=QrlPRszgZqmhFjHvw5g7k/1YQ/nEXqC9YuIhGXMSbac=;
+ b=HA+VlhL4E7v1l0qlh1yeD9edFKUJHBxrJXi05NStE8dsCDGqhCuOkHkYhYCfGP1LgkZxLAn3+WTTpmArIfXrTTvSaTCjw5FtH90Uio468LOv2n+YF0gLf2n8xBO4LEIMr6368R5hDBLmyFTguR//Yau4lvXQd7hLf+qN7yRdjNmB9U4jRo/klaTyBgGv0C26J9w6lIJ+YLcV7zD/nmAKOhGQ+q74P0qMoLTsx0qVy779Q8Y9qQjaCyIqSjh1AAxdzNOvpotTugVAGgBGizPmUiVDPkplCQYUKIablIy9YbZLpdYyhPkBPo3jZ16rs/OC3ksBhvFtfmtQ0kqe9/AE4A==
+Received: from VI1EUR05FT010.eop-eur05.prod.protection.outlook.com
+ (2a01:111:e400:fc12::45) by
+ VI1EUR05HT023.eop-eur05.prod.protection.outlook.com (2a01:111:e400:fc12::311)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3066.18; Thu, 4 Jun
- 2020 05:48:01 +0000
-Received: from MWHPR11MB2047.namprd11.prod.outlook.com
- ([fe80::994e:6a48:f660:f363]) by MWHPR11MB2047.namprd11.prod.outlook.com
- ([fe80::994e:6a48:f660:f363%5]) with mapi id 15.20.3066.018; Thu, 4 Jun 2020
- 05:48:01 +0000
-From: Steve Lee <steves.lee@maximintegrated.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- ckeepax@opensource.cirrus.com, geert@linux-m68k.org,
- rf@opensource.wolfsonmicro.com, shumingf@realtek.com,
- srinivas.kandagatla@linaro.org, krzk@kernel.org, dmurphy@ti.com,
- jack.yu@realtek.com, nuno.sa@analog.com, steves.lee@maximintegrated.com,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
-Subject: [v2 PATCH] ASoC: max98390: Fix potential crash during param fw loading
-Date: Thu,  4 Jun 2020 14:47:31 +0900
-Message-Id: <20200604054731.21140-1-steves.lee@maximintegrated.com>
-X-Mailer: git-send-email 2.17.1
-Content-Type: text/plain
-X-ClientProxiedBy: SL2P216CA0019.KORP216.PROD.OUTLOOK.COM
- (2603:1096:100:18::29) To MWHPR11MB2047.namprd11.prod.outlook.com
- (2603:10b6:300:2a::12)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3045.17; Tue, 2 Jun
+ 2020 18:59:30 +0000
+Received: from AM0P191MB0643.EURP191.PROD.OUTLOOK.COM (2a01:111:e400:fc12::53)
+ by VI1EUR05FT010.mail.protection.outlook.com
+ (2a01:111:e400:fc12::159) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3045.17 via Frontend
+ Transport; Tue, 2 Jun 2020 18:59:30 +0000
+Received: from AM0P191MB0643.EURP191.PROD.OUTLOOK.COM
+ ([fe80::f17e:9463:b40b:bad4]) by AM0P191MB0643.EURP191.PROD.OUTLOOK.COM
+ ([fe80::f17e:9463:b40b:bad4%4]) with mapi id 15.20.3045.024; Tue, 2 Jun 2020
+ 18:59:30 +0000
+From: Tony Dijksterhuis <tony.dijksterhuis@hotmail.com>
+To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Subject: Cmi8888 iommu fix
+Thread-Topic: Cmi8888 iommu fix
+Thread-Index: AQHWOQ8REAxcl1+tVEGkvqr+hx8T3Q==
+Date: Tue, 2 Jun 2020 18:59:30 +0000
+Message-ID: <AM0P191MB06437F8A12EFEB1319324DEFF68B0@AM0P191MB0643.EURP191.PROD.OUTLOOK.COM>
+Accept-Language: nl-NL, en-US
+Content-Language: nl-NL
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-incomingtopheadermarker: OriginalChecksum:6F962992EF29454D44AC6E6B9A11E3E183E6C2C12BA386ED431CEEA448E9B969;
+ UpperCasedChecksum:4B0504AA480587854C18DD4C494A3347E66C35260106482D9C4B028A16DCEB48;
+ SizeAsReceived:6660; Count:42
+x-tmn: [2j8xYjMqzcdcYrmRC5cLQCv1iu1N+37W]
+x-ms-publictraffictype: Email
+x-incomingheadercount: 42
+x-eopattributedmessage: 0
+x-ms-office365-filtering-correlation-id: 60ced9f5-feaa-4d64-b065-08d8072714c5
+x-ms-traffictypediagnostic: VI1EUR05HT023:
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: vhkfEkMCISUMTOR/wbFW36Kb2XFhFrmc6HOvCxpNIEeCLCPBUjUu/3wpdx/KKB010hymT4F2D0ATHoDQMIAv8QcKX/jRY8x6I1il+EiZdTmXVWs8KTGwN+4Bs7RxwZMIZuj1HsWuVFENBgJXbpyyZguWNq8E8kUDXObT/24PJlJ6Zb3olX7EtY4VZ4t+C/V/QT06brxIxQDLb5oYievvfGV0fh0XrI9T7m/ax0TPt1l5ZnhE91adJ7noFkcfnRIo
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:0; SRV:;
+ IPV:NLI; SFV:NSPM; H:AM0P191MB0643.EURP191.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFTY:; SFS:; DIR:OUT; SFP:1901; 
+x-ms-exchange-antispam-messagedata: mrqg5VDe/qWX6OBuXrJ4Ixca4w6i61ezbFa2HAPD8Wk9zJpUXzMXdf8IX2ow+aNwP0X1SK+/XV/zdVMhA3wg8ZD9Iyu9ZehBPjRVGT2F/gzGd0bb70QqZS9wI/jpc/mJ7bu26QJhtRJoWKslOWrzCA==
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from localhost.localdomain (2001:2d8:e99b:e5ac:d447:7247:839:5c8e)
- by SL2P216CA0019.KORP216.PROD.OUTLOOK.COM (2603:1096:100:18::29) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3066.18 via Frontend
- Transport; Thu, 4 Jun 2020 05:47:56 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [2001:2d8:e99b:e5ac:d447:7247:839:5c8e]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 9abf8731-5286-4192-1e58-08d8084ad7d7
-X-MS-TrafficTypeDiagnostic: MWHPR11MB1344:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MWHPR11MB1344D68C87B22DA20BCEAED892890@MWHPR11MB1344.namprd11.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:663;
-X-Forefront-PRVS: 04244E0DC5
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: YrujvaBmEEafSvE73lhwaU8xYZJbpFJbaIC/oNQ1lIQamqOUfqNqSXNOzQ4zemelBzqHvXmrwFMFLR0kY6yQOWG6hjXC7YYrPJonwx0gUblNE8ebPoRfvGKYJIopSmctUJBP3C6YdX8JsLvSMVWYf+SricCillwisESMGV0j6LxhuV/bwkB/2X1J/MFhWuavVYf/IFoSV2Jbu4lz6U3c0yMDUyFookKbfdXvvbBMzWKdDvaTiFuW3OYPcljqdDGoZg5pEKLcgTd60VF9i9Hf8P4K6NK9qJB+OCEYL82Gv/NMAoqORSQZxgbqsNIRTw2WRMVy4IhvaPzMrGjrJWf2OuTmvrlmZ9cZ8JuD241LFBy6Lrhb/PA00xK7eIJ5kyMSLhVzSJevMjFtQAHn4R1+Pg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR11MB2047.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(39860400002)(396003)(376002)(346002)(136003)(366004)(52116002)(4326008)(7416002)(478600001)(16526019)(2906002)(186003)(69590400007)(6666004)(1076003)(5660300002)(6486002)(86362001)(2616005)(36756003)(316002)(66946007)(6506007)(8936002)(66556008)(6512007)(66476007)(8676002)(83380400001)(921003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData: zeQfNQwgKkVvbo1/NO+oWPY7vDCII+7T2U8CiPYe7CvA/3ithh5vRAlnJKUb5/VQE3k88TAwsdwoWWhje8TC+NM2aPYQt9gZ+VgJZELeRIYJmZxUhN2xN6I8M73Lr0+3+8Tzh+TpeKXQmhBCBfvA1cgbh2kJFH4QdcGHqT+TR8A1Yj95YFmlPyQN6skXLavKqOW0nWgZFbKwLmPP0PqiEjOo4IqOQf1zeAufnCQi+yTuOHLSv6wBEfjwYhmS2BP3vEcC5g07/WkvXhWtaf0L361WwkWLkNq6dM7nUPPEOdKQDExpB+N2LZUXeFTxPJCXaxy++dzfLnndW1bwJSrmjvU5lZjwnaGrKDhzmf+Z/OvFu6ly+6pBE7LL2WbDjYk7+oYAVpyhu/WvmBnH1j6OJTFu3Uf/96WVgDB7PT0jZTafne4e8kUSoysxxmKybwB3C3YVY8IRYE05liXHIXjfSgG2ZPUit6UTfs6TP366mWH9bkKMK+nPXABb4GbIBbJaMy6Ox4lH51RvWOjKr1CCe0YbHTXoWztFrq2TNErdU+E=
-X-OriginatorOrg: maximintegrated.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9abf8731-5286-4192-1e58-08d8084ad7d7
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2020 05:48:01.7115 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd909df-ea69-4788-a554-f24b7854ad03
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TlOAgVwHNq58OnbmesxImYglRls+j2ejrJMwsP/73dKEiTj4P+8eCkK5a+ijhVcOsc4ch1/3PBn7wykZJHcWqgX9tNbXToon/VoPVC7Gojg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR11MB1344
-Cc: ryan.lee.maxim@gmail.com, ryans.lee@maximintegrated.com,
- steves.lee.maxim@gmail.com
+X-OriginatorOrg: hotmail.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 60ced9f5-feaa-4d64-b065-08d8072714c5
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jun 2020 18:59:30.6026 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Internet
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1EUR05HT023
+X-Mailman-Approved-At: Thu, 04 Jun 2020 08:09:48 +0200
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -135,85 +125,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
- malformed firmware file can cause out-of-bound access and crash
- during dsm_param bin loading.
-  - add MIN/MAX param size to avoid out-of-bound access.
-  - read start addr and size of param and check bound.
-  - add condition that fw->size > param_size + _PAYLOAD_OFFSET
-    to confirm enough data.
+Hi everyone.
 
-Signed-off-by: Steve Lee <steves.lee@maximintegrated.com>
----
+I am using a pink faun i2s (CMI8888) card with a x470 board and amd ryzen c=
+pu.
 
-Change log v2:
-	* add condtion that param_size + _PAYLOAD_OFFSET is less than fw->size
-	  to confirm enough data
-	* remove unintended code
+From the first day using this card i was not able to get or working. Al i g=
+ot was stuttering sound.
 
- sound/soc/codecs/max98390.c | 24 ++++++++++++++++++++----
- sound/soc/codecs/max98390.h |  3 ++-
- 2 files changed, 22 insertions(+), 5 deletions(-)
+After many hours searching i found the thread below
 
-diff --git a/sound/soc/codecs/max98390.c b/sound/soc/codecs/max98390.c
-index be7cd0aeb6a6..0d63ebfbff2f 100644
---- a/sound/soc/codecs/max98390.c
-+++ b/sound/soc/codecs/max98390.c
-@@ -754,6 +754,7 @@ static struct snd_soc_dai_driver max98390_dai[] = {
- static int max98390_dsm_init(struct snd_soc_component *component)
- {
- 	int ret;
-+	int param_size, param_start_addr;
- 	char filename[128];
- 	const char *vendor, *product;
- 	struct max98390_priv *max98390 =
-@@ -780,14 +781,29 @@ static int max98390_dsm_init(struct snd_soc_component *component)
- 	dev_dbg(component->dev,
- 		"max98390: param fw size %zd\n",
- 		fw->size);
-+	if (fw->size < MAX98390_DSM_PARAM_MIN_SIZE) {
-+		dev_err(component->dev,
-+			"param fw is invalid.\n");
-+		goto err_alloc;
-+	}
- 	dsm_param = (char *)fw->data;
-+	param_start_addr = (dsm_param[0] & 0xff) | (dsm_param[1] & 0xff) << 8;
-+	param_size = (dsm_param[2] & 0xff) | (dsm_param[3] & 0xff) << 8;
-+	if (param_size > MAX98390_DSM_PARAM_MAX_SIZE ||
-+		param_start_addr < DSM_STBASS_HPF_B0_BYTE0 ||
-+		fw->size < param_size + MAX98390_DSM_PAYLOAD_OFFSET) {
-+		dev_err(component->dev,
-+			"param fw is invalid.\n");
-+		goto err_alloc;
-+	}
-+	regmap_write(max98390->regmap, MAX98390_R203A_AMP_EN, 0x80);
- 	dsm_param += MAX98390_DSM_PAYLOAD_OFFSET;
--	regmap_bulk_write(max98390->regmap, DSM_EQ_BQ1_B0_BYTE0,
--		dsm_param,
--		fw->size - MAX98390_DSM_PAYLOAD_OFFSET);
--	release_firmware(fw);
-+	regmap_bulk_write(max98390->regmap, param_start_addr,
-+		dsm_param, param_size);
- 	regmap_write(max98390->regmap, MAX98390_R23E1_DSP_GLOBAL_EN, 0x01);
- 
-+err_alloc:
-+	release_firmware(fw);
- err:
- 	return ret;
- }
-diff --git a/sound/soc/codecs/max98390.h b/sound/soc/codecs/max98390.h
-index f59cb114d957..5f444e7779b0 100644
---- a/sound/soc/codecs/max98390.h
-+++ b/sound/soc/codecs/max98390.h
-@@ -650,7 +650,8 @@
- 
- /* DSM register offset */
- #define MAX98390_DSM_PAYLOAD_OFFSET 16
--#define MAX98390_DSM_PAYLOAD_OFFSET_2 495
-+#define MAX98390_DSM_PARAM_MAX_SIZE 770
-+#define MAX98390_DSM_PARAM_MIN_SIZE 670
- 
- struct max98390_priv {
- 	struct regmap *regmap;
--- 
-2.17.1
+https://www.alsa-project.org/pipermail/alsa-devel/2013-December/069753.html
 
+Enabling iommu in my bios fixed indeed this issue. However i'm wondering wa=
+s there ever being a kernel patch fixing this?.
+
+Regards Tony Dijksterhuis.
+
+Outlook voor Android downloaden<https://aka.ms/ghei36>

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5980E1EC9D7
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jun 2020 08:57:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B73A01ECBD2
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jun 2020 10:47:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F35C6845;
-	Wed,  3 Jun 2020 08:56:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F35C6845
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A0F21665;
+	Wed,  3 Jun 2020 10:46:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A0F21665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591167424;
-	bh=+sMfCNOpC7mMXtJIf5gPZBJ47SjrpDZXLCxLRsTABg8=;
+	s=default; t=1591174051;
+	bh=n9w9ORwApA/8x/dYuNowh98IrjSTn6cYNMs6+LqglyE=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=j66DKJhIgYAoZ0R/Eur1xSUceHFdPGU6Hwe2u4LIyT+LBhzg7RAnWbteiIbiTdK0a
-	 Q0VmgqPmCks44Xkgtw/klL9AA7UhqjYD6cGu+Z9uUYMGgmBXWK3B5CIZ7o7Yy0U38j
-	 6nlsvDkuggoxt1Tr05JPGJ57fxjU+z+oyzt4UTgY=
+	b=h0aJ5raS85YAfy2Mb4qxIwBCr1rdLfwsP7oqwms5f3xVA9tylFN6QIJpp0uq+vzY7
+	 lfm87OYLZYtwjkDKLTN/fKAKe5uW3sAFHdTrNg6LavHwg7dYejstNe4eQoNJGevokm
+	 cGZ25JTiExnPAot6kml/ofecPywhR65MRa0isN5M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E980F8027C;
-	Wed,  3 Jun 2020 08:55:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 42092F801F5;
+	Wed,  3 Jun 2020 10:45:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09376F80292; Wed,  3 Jun 2020 08:55:28 +0200 (CEST)
+ id 637B5F801ED; Wed,  3 Jun 2020 10:45:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -33,23 +33,23 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 464FEF80291
- for <alsa-devel@alsa-project.org>; Wed,  3 Jun 2020 08:54:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 464FEF80291
+ by alsa1.perex.cz (Postfix) with ESMTPS id F102EF800BC
+ for <alsa-devel@alsa-project.org>; Wed,  3 Jun 2020 10:45:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F102EF800BC
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 46BC7ABCF;
- Wed,  3 Jun 2020 06:54:55 +0000 (UTC)
-Date: Wed, 03 Jun 2020 08:54:51 +0200
-Message-ID: <s5hblm0fxl0.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 77D98ACCC;
+ Wed,  3 Jun 2020 08:45:45 +0000 (UTC)
+Date: Wed, 03 Jun 2020 10:45:41 +0200
+Message-ID: <s5h367cfsga.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Macpaul Lin <macpaul.lin@mediatek.com>
 Subject: Re: [PATCH] sound: usb: pcm: fix incorrect power state when playing
  sound after PM_AUTO suspend
-In-Reply-To: <s5heeqwfyti.wl-tiwai@suse.de>
+In-Reply-To: <s5hblm0fxl0.wl-tiwai@suse.de>
 References: <s5hpnahhbz8.wl-tiwai@suse.de>
  <1591153515.23525.50.camel@mtkswgap22>
- <s5heeqwfyti.wl-tiwai@suse.de>
+ <s5heeqwfyti.wl-tiwai@suse.de> <s5hblm0fxl0.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -80,17 +80,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 03 Jun 2020 08:28:09 +0200,
+On Wed, 03 Jun 2020 08:54:51 +0200,
 Takashi Iwai wrote:
 > 
-> And, the most suspicious case is the last one,
-> chip->num_suspended-intf.  It means that the device has multiple
-> USB interfaces and they went to suspend, while the resume isn't
-> performed for the all suspended interfaces in return.
+> On Wed, 03 Jun 2020 08:28:09 +0200,
+> Takashi Iwai wrote:
+> > 
+> > And, the most suspicious case is the last one,
+> > chip->num_suspended-intf.  It means that the device has multiple
+> > USB interfaces and they went to suspend, while the resume isn't
+> > performed for the all suspended interfaces in return.
+> 
+> If this is the cause, a patch like below might help.
+> It gets/puts the all assigned interfaced instead of only the primary
+> one.
 
-If this is the cause, a patch like below might help.
-It gets/puts the all assigned interfaced instead of only the primary
-one.
+... and considering of the problem again, rather the patch below might
+be the right answer.  Now the driver tries to remember at which state
+it entered into the system-suspend.  Upon resume, in return, when the
+state reaches back to that point, set the card state to D0.
+
+The previous patch can be applied on the top, too, and it might be
+worth to apply both.
+
+Let me know if any of those actually helps.
 
 
 Takashi
@@ -99,92 +112,66 @@ Takashi
 diff --git a/sound/usb/card.c b/sound/usb/card.c
 --- a/sound/usb/card.c
 +++ b/sound/usb/card.c
-@@ -634,7 +634,6 @@ static int usb_audio_probe(struct usb_interface *intf,
- 								   id, &chip);
- 					if (err < 0)
- 						goto __error;
--					chip->pm_intf = intf;
- 					break;
- 				} else if (vid[i] != -1 || pid[i] != -1) {
- 					dev_info(&dev->dev,
-@@ -651,6 +650,13 @@ static int usb_audio_probe(struct usb_interface *intf,
- 			goto __error;
- 		}
- 	}
-+
-+	if (chip->num_interfaces >= MAX_CARD_INTERFACES) {
-+		dev_info(&dev->dev, "Too many interfaces assigned to the single USB-audio card\n");
-+		err = -EINVAL;
-+		goto __error;
-+	}
-+
- 	dev_set_drvdata(&dev->dev, chip);
+@@ -843,9 +843,6 @@ static int usb_audio_suspend(struct usb_interface *intf, pm_message_t message)
+ 	if (chip == (void *)-1L)
+ 		return 0;
  
- 	/*
-@@ -703,6 +709,7 @@ static int usb_audio_probe(struct usb_interface *intf,
+-	chip->autosuspended = !!PMSG_IS_AUTO(message);
+-	if (!chip->autosuspended)
+-		snd_power_change_state(chip->card, SNDRV_CTL_POWER_D3hot);
+ 	if (!chip->num_suspended_intf++) {
+ 		list_for_each_entry(as, &chip->pcm_list, list) {
+ 			snd_usb_pcm_suspend(as);
+@@ -858,6 +855,11 @@ static int usb_audio_suspend(struct usb_interface *intf, pm_message_t message)
+ 			snd_usb_mixer_suspend(mixer);
  	}
  
- 	usb_chip[chip->index] = chip;
-+	chip->intf[chip->num_interfaces] = intf;
- 	chip->num_interfaces++;
- 	usb_set_intfdata(intf, chip);
- 	atomic_dec(&chip->active);
-@@ -818,19 +825,36 @@ void snd_usb_unlock_shutdown(struct snd_usb_audio *chip)
- 
- int snd_usb_autoresume(struct snd_usb_audio *chip)
- {
-+	int i, err;
-+
- 	if (atomic_read(&chip->shutdown))
- 		return -EIO;
--	if (atomic_inc_return(&chip->active) == 1)
--		return usb_autopm_get_interface(chip->pm_intf);
-+	if (atomic_inc_return(&chip->active) != 1)
-+		return 0;
-+
-+	for (i = 0; i < chip->num_interfaces; i++) {
-+		err = usb_autopm_get_interface(chip->intf[i]);
-+		if (err < 0) {
-+			/* rollback */
-+			while (--i >= 0)
-+				usb_autopm_put_interface(chip->intf[i]);
-+			return err;
-+		}
++	if (!PMSG_IS_AUTO(message) && !chip->system_suspend) {
++		snd_power_change_state(chip->card, SNDRV_CTL_POWER_D3hot);
++		chip->system_suspend = chip->num_suspended_intf;
 +	}
++
  	return 0;
  }
  
- void snd_usb_autosuspend(struct snd_usb_audio *chip)
- {
-+	int i;
-+
- 	if (atomic_read(&chip->shutdown))
- 		return;
--	if (atomic_dec_and_test(&chip->active))
--		usb_autopm_put_interface(chip->pm_intf);
-+	if (!atomic_dec_and_test(&chip->active))
-+		return;
-+
-+	for (i = 0; i < chip->num_interfaces; i++)
-+		usb_autopm_put_interface(chip->intf[i]);
- }
+@@ -871,10 +873,10 @@ static int __usb_audio_resume(struct usb_interface *intf, bool reset_resume)
  
- static int usb_audio_suspend(struct usb_interface *intf, pm_message_t message)
+ 	if (chip == (void *)-1L)
+ 		return 0;
+-	if (--chip->num_suspended_intf)
+-		return 0;
+ 
+ 	atomic_inc(&chip->active); /* avoid autopm */
++	if (chip->num_suspended_intf > 1)
++		goto out;
+ 
+ 	list_for_each_entry(as, &chip->pcm_list, list) {
+ 		err = snd_usb_pcm_resume(as);
+@@ -896,9 +898,12 @@ static int __usb_audio_resume(struct usb_interface *intf, bool reset_resume)
+ 		snd_usbmidi_resume(p);
+ 	}
+ 
+-	if (!chip->autosuspended)
++ out:
++	if (chip->num_suspended_intf == chip->system_suspend) {
+ 		snd_power_change_state(chip->card, SNDRV_CTL_POWER_D0);
+-	chip->autosuspended = 0;
++		chip->system_suspend = 0;
++	}
++	chip->num_suspended_intf--;
+ 
+ err_out:
+ 	atomic_dec(&chip->active); /* allow autopm after this point */
 diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
+index 1c892c7f14d7..e0ebfb25fbd5 100644
 --- a/sound/usb/usbaudio.h
 +++ b/sound/usb/usbaudio.h
-@@ -19,11 +19,13 @@
- struct media_device;
- struct media_intf_devnode;
- 
-+#define MAX_CARD_INTERFACES	16
-+
- struct snd_usb_audio {
- 	int index;
- 	struct usb_device *dev;
- 	struct snd_card *card;
--	struct usb_interface *pm_intf;
-+	struct usb_interface *intf[MAX_CARD_INTERFACES];
+@@ -26,7 +26,7 @@ struct snd_usb_audio {
+ 	struct usb_interface *pm_intf;
  	u32 usb_id;
  	struct mutex mutex;
- 	unsigned int autosuspended:1;	
+-	unsigned int autosuspended:1;	
++	unsigned int system_suspend;
+ 	atomic_t active;
+ 	atomic_t shutdown;
+ 	atomic_t usage_count;

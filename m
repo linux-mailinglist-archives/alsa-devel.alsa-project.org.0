@@ -2,72 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 304FF1ED48E
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jun 2020 18:52:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C3B61ED49A
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jun 2020 18:57:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B5A171661;
-	Wed,  3 Jun 2020 18:51:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5A171661
+	by alsa0.perex.cz (Postfix) with ESMTPS id C77701664;
+	Wed,  3 Jun 2020 18:56:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C77701664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591203137;
-	bh=hVep/pKd7sRgajtjutDwXuCKsgPQfHsxvFvDJaD/csE=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1591203466;
+	bh=Ttn9hgjcpTRzYSdTVbKH9PW3tS6WUW0z+ZBBzTvqYac=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JQPazdmkiHT7b59sQFQK8T6gqJLO7xD7DcZBBnvszTnkULCVe9w+1mM3CGkYfJzlO
-	 W3veB95alxOR1TFHUJgSva7zE+HRjbCrMjdDx37I9LWbTVBlZ4lBfloUWDFJdQ16xO
-	 SnyCfgj2KXoJKAK3CO+RZOgxSj7hsDJP9M9om8wk=
+	b=pK0GDgXUtRJ6519iA/gXXsgNC7xpEKVnBQOt34c++y3YXPEBncNvDjrnGY+b+IsV9
+	 n2zH4uYkrGRtWUNHdeiuzVgKxWkBZxP2I0O4aYKUW5hUCZidmPf9Bj+Zo2O/XoX1Eo
+	 6fIRiFnLWzjsuKxU2dRp6/lVUQYvvMydtZtTcMg8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D7E2AF801F5;
-	Wed,  3 Jun 2020 18:50:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 021C3F800BC;
+	Wed,  3 Jun 2020 18:56:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 60892F801ED; Wed,  3 Jun 2020 18:50:33 +0200 (CEST)
+ id 2678EF801ED; Wed,  3 Jun 2020 18:56:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 83F84F800BC
- for <alsa-devel@alsa-project.org>; Wed,  3 Jun 2020 18:50:25 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 13B60A003F;
- Wed,  3 Jun 2020 18:50:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 13B60A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1591203023; bh=JzJZph8lmYpDDybe2A71AkjgaUXIM4zblZa5P8AGja8=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=5RwFWBFhHuJwXfONMf1dQQSHquHNB2xvyRlRDbcJq7eNDEZ+X92OIiaK8w5JoJ9Qd
- bnGIOFtB8gIFJJg9lK8AxBqw82K9zYHFN1hloywj0U+BSws/ig+XPn8QuKUiexD5+j
- NwbEgChSdl21rlkyCsoX4icEAQHigPiuUG3EWwCI=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Wed,  3 Jun 2020 18:50:20 +0200 (CEST)
-Subject: Re: [PATCH] fix snd_pcm_drain() excluding SETUP state from valid
- states
-To: sylvain.bertrand@gmail.com
-References: <20200502193311.GA19340@freedom>
- <47281cd6-2ae5-309e-f1a9-8906ff50c9cc@perex.cz>
- <20200514210607.GA6081@freedom>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <881317ca-1180-6217-1dcd-dc75713c6f1e@perex.cz>
-Date: Wed, 3 Jun 2020 18:50:20 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <20200514210607.GA6081@freedom>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7348FF800D0
+ for <alsa-devel@alsa-project.org>; Wed,  3 Jun 2020 18:55:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7348FF800D0
+IronPort-SDR: uM4lm53Au4fnljRA1CpdSZy+MAnCUA9D6feot3t0V/i1tCSVzM4jh9cJPNZcwX0sgLfn+vPc1Q
+ pSI6L4o0XbDg==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jun 2020 09:55:52 -0700
+IronPort-SDR: wgQaeNhJaUc68GmLFF+DBGvVOkFIW2CLn41MPYdHJoxaC73zKXrEYdka66Ez773o2yJlEwpE7r
+ 4q/lH2r7cP5g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,468,1583222400"; d="scan'208";a="471202298"
+Received: from unknown (HELO ranjani-desktop) ([10.254.43.45])
+ by fmsmga005.fm.intel.com with ESMTP; 03 Jun 2020 09:55:52 -0700
+Message-ID: <86ef3a145dec2c08bce4fa0218e25af56b94fda3.camel@linux.intel.com>
+Subject: Re: [PATCH 09/24] ASoC: soc-component: add
+ snd_soc_component_compr_open()
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown
+ <broonie@kernel.org>
+Date: Wed, 03 Jun 2020 09:55:52 -0700
+In-Reply-To: <87wo4ry3bz.wl-kuninori.morimoto.gx@renesas.com>
+References: <87a71nzhy2.wl-kuninori.morimoto.gx@renesas.com>
+ <87wo4ry3bz.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,46 +79,129 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 14. 05. 20 v 23:06 sylvain.bertrand@gmail.com napsal(a):
-> On Thu, May 14, 2020 at 03:52:25PM +0200, Jaroslav Kysela wrote:
->> NAK: You should not call drain when the PCM handle is in the SETUP field.
->> It's an obvious caller problem. The streaming should be active somehow.
+On Mon, 2020-06-01 at 10:36 +0900, Kuninori Morimoto wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > 
-> The pb here is the non-blocking calls of the drain function: in my test case,
-> the first call to the drain function switches the pcm in draining state, but
-> the pcm will be switched to the setup state somewhen in between 2 drain function
-> calls! Naively, I was calling the drain function on a regular time basis to see
-> if the draining was finished, namely expecting 0 to be returned.
+> component related function should be implemented at
+> soc-component.c.
+> This patch moves soc-compress soc_compr_components_open()
+> to soc-component as snd_soc_component_compr_open().
 > 
-> Then if I understood you well, the right way(tm) to use the drain function in
-> non-block mode, is to call only once the drain function, then inspect the state
-> of the pcm till it not anymore in the draining state.
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+>  include/sound/soc-component.h |  2 ++
+>  sound/soc/soc-component.c     | 23 +++++++++++++++++++++++
+>  sound/soc/soc-compress.c      | 31 ++-----------------------------
+>  3 files changed, 27 insertions(+), 29 deletions(-)
 > 
-> Am I right? Or did I miss something again?
+> diff --git a/include/sound/soc-component.h b/include/sound/soc-
+> component.h
+> index bb26d55a9289..4f82839948d6 100644
+> --- a/include/sound/soc-component.h
+> +++ b/include/sound/soc-component.h
+> @@ -436,6 +436,8 @@ int snd_soc_component_of_xlate_dai_id(struct
+> snd_soc_component *component,
+>  int snd_soc_component_of_xlate_dai_name(struct snd_soc_component
+> *component,
+>  					struct of_phandle_args *args,
+>  					const char **dai_name);
+> +int snd_soc_component_compr_open(struct snd_compr_stream *cstream,
+> +				 struct snd_soc_component **last);
+>  
+>  int snd_soc_pcm_component_pointer(struct snd_pcm_substream
+> *substream);
+>  int snd_soc_pcm_component_ioctl(struct snd_pcm_substream *substream,
+> diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
+> index 150b02be0219..c2a6046a6380 100644
+> --- a/sound/soc/soc-component.c
+> +++ b/sound/soc/soc-component.c
+> @@ -384,6 +384,29 @@
+> EXPORT_SYMBOL_GPL(snd_soc_component_exit_regmap);
+>  
+>  #endif
+>  
+> +int snd_soc_component_compr_open(struct snd_compr_stream *cstream,
+> +				 struct snd_soc_component **last)
+> +{
+> +	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+> +	struct snd_soc_component *component;
+> +	int i, ret;
+> +
+> +	for_each_rtd_components(rtd, i, component) {
+> +		if (component->driver->compress_ops &&
+> +		    component->driver->compress_ops->open) {
+> +			ret = component->driver->compress_ops-
+> >open(component, cstream);
+> +			if (ret < 0) {
+> +				*last = component;
+> +				return soc_component_ret(component,
+> ret);
+> +			}
+> +		}
+> +	}
+> +
+> +	*last = NULL;
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(snd_soc_component_compr_open);
+> +
+>  int snd_soc_pcm_component_pointer(struct snd_pcm_substream
+> *substream)
+>  {
+>  	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+> diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
+> index 4984b6a2c370..2a0d554013a4 100644
+> --- a/sound/soc/soc-compress.c
+> +++ b/sound/soc/soc-compress.c
+> @@ -22,33 +22,6 @@
+>  #include <sound/soc-link.h>
+>  #include <linux/pm_runtime.h>
+>  
+> -static int soc_compr_components_open(struct snd_compr_stream
+> *cstream,
+> -				     struct snd_soc_component **last)
+> -{
+> -	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+> -	struct snd_soc_component *component;
+> -	int i, ret;
+> -
+> -	for_each_rtd_components(rtd, i, component) {
+> -		if (!component->driver->compress_ops ||
+> -		    !component->driver->compress_ops->open)
+> -			continue;
+> -
+> -		ret = component->driver->compress_ops->open(component,
+> cstream);
+> -		if (ret < 0) {
+> -			dev_err(component->dev,
+> -				"Compress ASoC: can't open platform %s:
+> %d\n",
+> -				component->name, ret);
+> -
+> -			*last = component;
+> -			return ret;
+> -		}
+> -	}
+> -
+> -	*last = NULL;
+> -	return 0;
+> -}
+> -
+>  static int soc_compr_components_free(struct snd_compr_stream
+> *cstream,
+>  				     struct snd_soc_component *last)
+>  {
+> @@ -92,7 +65,7 @@ static int soc_compr_open(struct snd_compr_stream
+> *cstream)
+>  	if (ret < 0)
+>  		goto out;
+>  
+> -	ret = soc_compr_components_open(cstream, &component);
+> +	ret = snd_soc_component_compr_open(cstream, &component);
+If you do decide to keep your changes to move all these functions to
+soc-component.c, we need to include soc-component.h in soc-compress.c
+isnt it?
 
-I looked to this problem again and the original patch seems more appropriate. 
-The snd_pcm_drain() should return zero, if the state is SETUP, because there 
-is no further work.
+Thanks,
+Ranjani
 
-I applied your patch:
-
-https://github.com/alsa-project/alsa-lib/commit/1b9104b5ff10be7f60441f622436d4f14a2a97d1
-
-with the (sanity) optimization in:
-
-https://github.com/alsa-project/alsa-lib/commit/0b7f1441bb82903d45a29bf83c849ca94c5b7d7e
-
-It basically doesn't allow to call the plugin callback (otherwise we need to 
-review all plugin drain callbacks, if the SETUP state is handled properly).
-
-			Thank you for your suggestion,
-						Jaroslav
-
-> 
-> regards,
-> 
-
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

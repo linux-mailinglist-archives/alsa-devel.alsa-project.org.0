@@ -2,66 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C93791EC80E
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jun 2020 05:53:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 984CF1EC986
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jun 2020 08:30:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 744C3167D;
-	Wed,  3 Jun 2020 05:52:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 744C3167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 220B31665;
+	Wed,  3 Jun 2020 08:29:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 220B31665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591156428;
-	bh=510Aet9W3d+VExnUCtDHBKtRWr9rmHDgxOfHNdKLduA=;
-	h=From:To:Subject:Date:In-Reply-To:References:In-Reply-To:
-	 References:Cc:List-Id:List-Unsubscribe:List-Archive:List-Post:
-	 List-Help:List-Subscribe:From;
-	b=TOepa4hOH+Ilg8G/69TvxG3LQdiMLkbmwlKq2xMx6sC1EdlyAus6gkJub+EJwDOZy
-	 nb9DQdE2pBOLj+Mes5moxNt91rQmUTkflT7SzoOhZFz/xfqh+nWwXHwT7G5UjQSQ75
-	 YdgxY4Qu2qogfIpeZESJGHi3VQrxkak2Sotz+dKg=
+	s=default; t=1591165806;
+	bh=zP0WjWeNMfh0CCGDUxu9wRgO5CDZ6Mgz3AbNEMyCtaM=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=CJfmrYN8N7m8IJFVH9+bTvLyrryX3zJuxpudammCjRvyir3HdMrMQnmRylCDkMxDq
+	 gFIkVFaHr/llgNYwgWSCBFB46wLKAFNKZcySP6/rMwYDC79lnqe2xYT/cZ40ZkCe18
+	 g3QzszqsuFznk6Oco2XRUQQfP3DYa+b8xLfRGfUU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7C083F802BC;
-	Wed,  3 Jun 2020 05:50:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 365C1F800BC;
+	Wed,  3 Jun 2020 08:28:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5FB79F801F5; Wed,  3 Jun 2020 05:50:28 +0200 (CEST)
+ id B4245F801ED; Wed,  3 Jun 2020 08:28:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5050EF801F5
- for <alsa-devel@alsa-project.org>; Wed,  3 Jun 2020 05:50:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5050EF801F5
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id F3CCF1A0054;
- Wed,  3 Jun 2020 05:50:16 +0200 (CEST)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 7304E1A0F20;
- Wed,  3 Jun 2020 05:50:12 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 9461840323;
- Wed,  3 Jun 2020 11:50:06 +0800 (SGT)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, broonie@kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com
-Subject: [PATCH 3/3] ASoC: fsl_easrc: Fix "Function parameter not described"
- warnings
-Date: Wed,  3 Jun 2020 11:39:41 +0800
-Message-Id: <d166b868e6d294de47a89857be03758ec82a0a61.1591155860.git.shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <cover.1591155860.git.shengjiu.wang@nxp.com>
-References: <cover.1591155860.git.shengjiu.wang@nxp.com>
-In-Reply-To: <cover.1591155860.git.shengjiu.wang@nxp.com>
-References: <cover.1591155860.git.shengjiu.wang@nxp.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id BF010F800BC
+ for <alsa-devel@alsa-project.org>; Wed,  3 Jun 2020 08:28:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF010F800BC
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id C4442AD10;
+ Wed,  3 Jun 2020 06:28:13 +0000 (UTC)
+Date: Wed, 03 Jun 2020 08:28:09 +0200
+Message-ID: <s5heeqwfyti.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Macpaul Lin <macpaul.lin@mediatek.com>
+Subject: Re: [PATCH] sound: usb: pcm: fix incorrect power state when playing
+ sound after PM_AUTO suspend
+In-Reply-To: <1591153515.23525.50.camel@mtkswgap22>
+References: <s5hpnahhbz8.wl-tiwai@suse.de>
+ <1591153515.23525.50.camel@mtkswgap22>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org,
+ Mediatek WSD Upstream <wsd_upstream@mediatek.com>,
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ Johan Hovold <johan@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Hui Wang <hui.wang@canonical.com>, Alexander Tsoy <alexander@tsoy.me>,
+ linux-mediatek@lists.infradead.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Macpaul Lin <macpaul.lin@gmail.com>,
+ Szabolcs =?UTF-8?B?U3rFkWtl?= <szszoke.code@gmail.com>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,41 +79,124 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Obtained with:
-$ make W=1
+On Wed, 03 Jun 2020 05:05:15 +0200,
+Macpaul Lin wrote:
+> 
+> On Tue, 2020-06-02 at 14:46 +0200, Takashi Iwai wrote:
+> > On Tue, 02 Jun 2020 13:53:41 +0200,
+> > Macpaul Lin wrote:
+> > > 
+> > > This patch fix incorrect power state changed by usb_audio_suspend()
+> > > when CONFIG_PM is enabled.
+> > > 
+> > > After receiving suspend PM message with auto flag, usb_audio_suspend()
+> > > change card's power state to SNDRV_CTL_POWER_D3hot. Only when the other
+> > > resume PM message with auto flag can change power state to
+> > > SNDRV_CTL_POWER_D0 in __usb_audio_resume().
+> > > 
+> > > However, when system is not under auto suspend, resume PM message with
+> > > auto flag might not be able to receive on time which cause the power
+> > > state was incorrect. At this time, if a player starts to play sound,
+> > > will cause snd_usb_pcm_open() to access the card and setup_hw_info() will
+> > > resume the card.
+> > > 
+> > > But even the card is back to work and all function normal, the power
+> > > state is still in SNDRV_CTL_POWER_D3hot.
+> > 
+> > Hm, in exactly which situation does this happen?  I still don't get
+> > it.  Could you elaborate how to trigger this?
+> 
+> I'm not sure if this will happen on laptop or on PC.
+> We've found this issue on Android phone (I'm not sure if each Android
+> phone can reproduce this.).
+> 
+> After booting the android phone, insert type-c headset without charging
+> and play music at any duration, say, 1 second, then stop. Put phone away
+> to idle about 17~18 minutes. Wait auto pm happened and the power state
+> change to SNDRV_CTL_POWER_D3hot in sound/usb/card.c. Then wake up the
+> phone, play music again. Then you'll probably found the music was not
+> playing and the progress bar keep at the same position. It only happen 
+> when power state is SNDRV_CTL_POWER_D3hot. If not (the power state is
+> SNDRV_CTL_POWER_D0), repeat the steps for several times, then it will be
+> produced at some time.
+> 
+> When it happened, sound_usb_pcm_open() will wake up the sound card by 
+> setup_hw_info()->__usb_audio_resume(). However, the card and the
+> interface is function properly right now, the power state keeps remain
+> SNDRV_CTL_POWER_D3hot.
 
-sound/soc/fsl/fsl_easrc.c:403: warning: Function parameter or member 'easrc' not described in 'fsl_easrc_normalize_filter'
-sound/soc/fsl/fsl_easrc.c:403: warning: Function parameter or member 'infilter' not described in 'fsl_easrc_normalize_filter'
-sound/soc/fsl/fsl_easrc.c:403: warning: Function parameter or member 'outfilter' not described in 'fsl_easrc_normalize_filter'
-sound/soc/fsl/fsl_easrc.c:403: warning: Function parameter or member 'shift' not described in 'fsl_easrc_normalize_filter'
+And at this point it's already something wrong.  We need to check why
+SNDRV_CTL_POWER_D3hot is kept there, instead of working around the
+rest behavior.
 
-Fixes: 955ac624058f ("ASoC: fsl_easrc: Add EASRC ASoC CPU DAI drivers")
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-Reported-by: kbuild test robot <lkp@intel.com>
----
- sound/soc/fsl/fsl_easrc.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+> The suggestive parameter settings from upper
+> sound request will be pending since later snd_power_wait() call will
+> still wait the card awaken. Ideally, auto PM should be recovered by
+> sound card itself. But once the card is awaken at this circumstance, it
+> looks like there are not more auto pm event. And the sound system of
+> this interface will stuck here forever until user plug out the headset
+> (reset the hardware).
+> 
+> The root cause is that once the card has been resumed, it should inform
+> auto pm change the state back into SNDRV_CTL_POWER_D0 and mark the
+> device is using by some one.
+> 
+> > > Which cause the infinite loop
+> > > happened in snd_power_wait() to check the power state. Thus the
+> > > successive setting ioctl cannot be passed to card.
+> > > 
+> > > Hence we suggest to change power state to SNDRV_CTL_POWER_D0 when card
+> > > has been resumed successfully.
+> > 
+> > This doesn't look like a right solution for the problem, sorry.
+> > The card PM status must be recovered to D0 when the autoresume
+> > succeeds.  If not, something is broken there, and it must be fixed
+> > instead of fiddling the status flag externally.
+> 
+> Yes, I agreed, but after checking the code in sound drivers, 
+> it looks like there is only chance that auto pm triggered by low-level
+> code in sound/usb/card.c. In kernel 4.14, auto pm suspend is triggered
+> by snd_pcm_suspend_all(). In later kernel, it is triggered by
+> snd_usb_pcm_suspend(). However, it looks like there are no any resume
+> trigger to recover auto pm state when the card has been waken by
+> sound_usb_pcm_open().
 
-diff --git a/sound/soc/fsl/fsl_easrc.c b/sound/soc/fsl/fsl_easrc.c
-index 7d8bf9d47842..2f6b3d8bfcfc 100644
---- a/sound/soc/fsl/fsl_easrc.c
-+++ b/sound/soc/fsl/fsl_easrc.c
-@@ -389,11 +389,11 @@ static int fsl_easrc_resampler_config(struct fsl_asrc *easrc)
-  *  For input int[16, 24, 32] -> output float32
-  *      scale it by multiplying filter coefficients by 2^-15, 2^-23, 2^-31
-  *  input:
-- *      asrc:  Structure pointer of fsl_asrc
-- *      infilter : Pointer to non-scaled input filter
-- *      shift:  The multiply factor
-+ *      @easrc:  Structure pointer of fsl_asrc
-+ *      @infilter : Pointer to non-scaled input filter
-+ *      @shift:  The multiply factor
-  *  output:
-- *      outfilter: scaled filter
-+ *      @outfilter: scaled filter
-  */
- static int fsl_easrc_normalize_filter(struct fsl_asrc *easrc,
- 				      u64 *infilter,
--- 
-2.21.0
+If a running PCM stream has been suspended, the stream needs to be
+resumed manually by user-space.  There is no automatic resume.  You
+can forget about it and skip scratching that surface.
 
+Again, the point to be checked is why D3hot is kept after
+snd_usb_autoresume() is called.
+
+It's Android, and I wonder whether the system does the system-suspend
+(S3), or it's all runtime PM?  Basically D3hot is set only for the
+former, the system suspend, where the driver's PM callback is called
+with PMSG_SUSPEND.  Please check this at first.  That is,
+usb_audio_suspend() receives PMSG_SUSPEND or such, which makes
+chip->autosuspended=1.  The D3hot flag is set only in this condition.
+
+Then, check the resume patterns.  The usb-audio suspend/resume has
+multiple refcounts.  One is the Linux device PM refcount, and
+chip->active refcount, and chip->num_suspended_intf refcount.
+
+The first one (PM refount) is the primary refcount to manage the whole
+system, and this is incremented / decremented by the standard PM
+calls.  The second one, chip->active, is a temporary flag to avoid the
+re-entrance of the PM callbacks, and incremented at the probe enter
+and __usb_audio_resume(), and decremented at the probe exit and
+__usb_audio_resume() exist.  The last one, chip->num_suspended_intf is
+a refcount for the multiple interfaces assigned to a single card.
+
+And, the most suspicious case is the last one,
+chip->num_suspended-intf.  It means that the device has multiple
+USB interfaces and they went to suspend, while the resume isn't
+performed for the all suspended interfaces in return.
+
+If that's the case, you need to check where the suspend gets called to
+which USB-interface (and which pm_message_t) and whether the resume
+gets called for those.
+
+
+thanks,
+
+Takashi

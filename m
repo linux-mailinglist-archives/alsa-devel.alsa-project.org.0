@@ -2,78 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3CE91ED069
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jun 2020 15:00:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 393C41ED16C
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jun 2020 15:52:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 48E871657;
-	Wed,  3 Jun 2020 14:59:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48E871657
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE5831665;
+	Wed,  3 Jun 2020 15:51:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE5831665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591189219;
-	bh=QQFbSwdfmHH7QjqPqGqKeNPKYjaAA4mdvyIkDxV87KQ=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1591192338;
+	bh=jwnn3BpiVJ43Pjm9A4aConW48lY8yM/F4kKqerAKBTc=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LCVw0U/cm2Z71p+doN0Pzo30lkyf36xVwntkk/Zlk48LKiz98f+61vKAsjqLnndLb
-	 i+xPxxOxM9zc0euuLN1NX9nILapl/Cp/OLzdrYd7xYMcuz7DHKwAcKIhLCPoGRfBfG
-	 o39/gn8fXU22+1kjh3hmGocjzxxcObNtWed4dKGw=
+	b=tNUGIakzN8V8GNJ4YXmmuDTEEQCFQS7QqhuGvUoWbo5REwieoKViiHkLUe/9yAZeO
+	 vhwKfOwzFUNL52TwG53hn30nFHoSULCFRim5NRTYYRctjFnoqqM6G0ubLBjNwTf1Pd
+	 XWSI6yKynquMUzqiwdrNfYUgBvnKFo01sWAOi1mI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70F99F800D0;
-	Wed,  3 Jun 2020 14:58:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD701F800BC;
+	Wed,  3 Jun 2020 15:50:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 614B8F801ED; Wed,  3 Jun 2020 14:58:35 +0200 (CEST)
+ id BCE84F801ED; Wed,  3 Jun 2020 15:50:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5E160F800BC
- for <alsa-devel@alsa-project.org>; Wed,  3 Jun 2020 14:58:25 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 15FA0A003F;
- Wed,  3 Jun 2020 14:58:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 15FA0A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1591189103; bh=fXL+Jez9lqTi1puhrtt9P87RUkf6ljmH2Y85QmCDa5w=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=k0IE3qKc/xNzV5sDsCtUxmwIAam8mb87D/lIyCHORro8xPjv0oRFepd+94zJcxLl5
- nRsno8c0CbZaWxABQu1Iidhn0ynkdRlKKMhCWEMc+4mby7qu34zTPb74Iqhg9xDkNc
- skFXZPSbsPwuT1aVtzEzQdVXlC9sf0Q1G/wcAj9w=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Wed,  3 Jun 2020 14:58:18 +0200 (CEST)
-Subject: Re: alsa-project alsa-ucm : Audio endpoint is not switching when
- external mic connected
-To: "Mukunda, Vijendar" <Vijendar.Mukunda@amd.com>,
- Takashi Iwai <tiwai@suse.de>
-References: <DM6PR12MB26332026A8F345F742B5E9FF978B0@DM6PR12MB2633.namprd12.prod.outlook.com>
- <d149204b-1e2d-1ee9-fbb4-c6f8874e369a@perex.cz>
- <da8b6e1e-fd29-fb99-07a7-d5fd8c7b78f9@canonical.com>
- <s5htuzsebm9.wl-tiwai@suse.de>
- <DM6PR12MB263397E76403D68BA6FE383E97880@DM6PR12MB2633.namprd12.prod.outlook.com>
- <s5hftbce8si.wl-tiwai@suse.de>
- <DM6PR12MB2633A59C90974B547BD0FDBC97880@DM6PR12MB2633.namprd12.prod.outlook.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <c1d060ab-0ad2-91dc-7df3-fad59a2287b9@perex.cz>
-Date: Wed, 3 Jun 2020 14:58:18 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,RDNS_NONE,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY
+ autolearn=disabled version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ by alsa1.perex.cz (Postfix) with ESMTP id 4A68AF8013D
+ for <alsa-devel@alsa-project.org>; Wed,  3 Jun 2020 15:50:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A68AF8013D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="LhGZIho9"
+X-UUID: f02de469bbed45d2965093fe4b35b54b-20200603
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
+ bh=jwnn3BpiVJ43Pjm9A4aConW48lY8yM/F4kKqerAKBTc=; 
+ b=LhGZIho9jN0hDjOABgQ8qTYDj9w5Iyvxpas89RSIL8YaBplgybUe38w+Wtt1TMK4LRXLjE7c7IKX9Fnqwd2Sou1EHmdf05KEUSNlIdlIgiHncoMYI/aRlVufxEX8pH0aVYaMquBjDMt+fH5zix3Ue4Q0zNXiLA5JhD8jJshexIA=;
+X-UUID: f02de469bbed45d2965093fe4b35b54b-20200603
+Received: from mtkcas06.mediatek.inc [(172.21.101.30)] by mailgw02.mediatek.com
+ (envelope-from <macpaul.lin@mediatek.com>)
+ (Cellopoint E-mail Firewall v4.1.10 Build 0809 with TLS)
+ with ESMTP id 201727731; Wed, 03 Jun 2020 21:50:18 +0800
+Received: from mtkcas07.mediatek.inc (172.21.101.84) by
+ mtkmbs01n2.mediatek.inc (172.21.101.79) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Wed, 3 Jun 2020 21:50:13 +0800
+Received: from [172.21.77.33] (172.21.77.33) by mtkcas07.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Wed, 3 Jun 2020 21:50:12 +0800
+Message-ID: <1591192216.23525.72.camel@mtkswgap22>
+Subject: Re: [PATCH] sound: usb: pcm: fix incorrect power state when playing
+ sound after PM_AUTO suspend
+From: Macpaul Lin <macpaul.lin@mediatek.com>
+To: Takashi Iwai <tiwai@suse.de>
+Date: Wed, 3 Jun 2020 21:50:16 +0800
+In-Reply-To: <s5hr1uwco4c.wl-tiwai@suse.de>
+References: <s5hpnahhbz8.wl-tiwai@suse.de>
+ <1591153515.23525.50.camel@mtkswgap22>	<s5heeqwfyti.wl-tiwai@suse.de>
+ <s5hblm0fxl0.wl-tiwai@suse.de>	<s5h367cfsga.wl-tiwai@suse.de>
+ <1591187964.23525.61.camel@mtkswgap22> <s5hr1uwco4c.wl-tiwai@suse.de>
+Content-Type: text/plain; charset="ISO-8859-1"
+X-Mailer: Evolution 3.2.3-0ubuntu6 
 MIME-Version: 1.0
-In-Reply-To: <DM6PR12MB2633A59C90974B547BD0FDBC97880@DM6PR12MB2633.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: Hui Wang <hui.wang@canonical.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+X-TM-SNTS-SMTP: 1B7292D25D0CC9D9E834BBB7EEEB79C45CDBB9BDCEBA293A96ABF504C88603DA2000:8
+X-MTK: N
+Content-Transfer-Encoding: base64
+Cc: alsa-devel@alsa-project.org,
+ Szabolcs =?UTF-8?Q?Sz=C5=91ke?= <szszoke.code@gmail.com>,
+ Mediatek WSD Upstream <wsd_upstream@mediatek.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Hui Wang <hui.wang@canonical.com>,
+ Alexander Tsoy <alexander@tsoy.me>, linux-mediatek@lists.infradead.org,
+ Matthias Brugger <matthias.bgg@gmail.com>, Johan Hovold <johan@kernel.org>,
+ Macpaul Lin <macpaul.lin@gmail.com>, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,121 +96,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 03. 06. 20 v 12:58 Mukunda, Vijendar napsal(a):
-> 
-> 
->> -----Original Message-----
->> From: Takashi Iwai <tiwai@suse.de>
->> Sent: Wednesday, June 3, 2020 4:06 PM
->> To: Mukunda, Vijendar <Vijendar.Mukunda@amd.com>
->> Cc: Hui Wang <hui.wang@canonical.com>; Jaroslav Kysela <perex@perex.cz>;
->> alsa-devel@alsa-project.org
->> Subject: Re: alsa-project alsa-ucm : Audio endpoint is not switching when
->> external mic connected
->>
->> On Wed, 03 Jun 2020 12:32:41 +0200,
->> Mukunda, Vijendar wrote:
->>>
->>>
->>>
->>>> -----Original Message-----
->>>> From: Takashi Iwai <tiwai@suse.de>
->>>> Sent: Wednesday, June 3, 2020 3:05 PM
->>>> To: Hui Wang <hui.wang@canonical.com>
->>>> Cc: Jaroslav Kysela <perex@perex.cz>; Mukunda, Vijendar
->>>> <Vijendar.Mukunda@amd.com>; alsa-devel@alsa-project.org
->>>> Subject: Re: alsa-project alsa-ucm : Audio endpoint is not switching when
->>>> external mic connected
->>>>
->>>> On Wed, 03 Jun 2020 02:36:25 +0200,
->>>> Hui Wang wrote:
->>>>>
->>>>>
->>>>> On 2020/6/3 上午3:39, Jaroslav Kysela wrote:
->>>>>> Dne 02. 06. 20 v 19:57 Mukunda, Vijendar napsal(a):
->>>>>>> We recently up streamed ACP PDM driver for Renoir APU.
->>>>>>>
->>>>>>> Our ACP IP has an internal PDM Decoder block where DMIC is directly
->>>>>>> connected.
->>>>>>> There are no KControls defined for PDM Driver.
->>>>>>>
->>>>>>> Our platform supports on board DMIC and South bridge Azalia (HD
->>>>>>> Audio ) endpoint .
->>>>>>> By default, DMIC endpoint is used as audio input device.
->>>>>>> When Headset Mic jack connected, it's not switching to External Mic.
->>>>>>
->>>>>> Make sure that the Headset Mic priority port in pulseaudio is is
->>>>>> greater than the one for DMIC.
->>>>>>
->>>>>>> How does audio endpoint will switch in gnome when external mic is
->>>>>>> connected?
->>>>>>>>  From our understanding, UCM conf file for HDA driver is also
->>>>>>>> required for
->>>>>>> configuring mixer controls for HD Audio capture device.
->>>>>>> Similarly when External Mic is removed , it has to switch to
->>>>>>> internal dmic .
->>>>>>
->>>>>> An configuration example for UCM (DMIC connected to DSP, HDA codec
->>>>>> for rest):
->>>>>>
->>>>>>
->>>>
->> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub
->>>> .com%2Falsa-project%2Falsa-ucm-conf%2Ftree%2Fmaster%2Fucm2%2Fsof-
->>>> hda-
->>>>
->> dsp&amp;data=02%7C01%7CVijendar.Mukunda%40amd.com%7C5fbb3a516d5
->>>>
->> 24c73568d08d807a157a1%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C
->>>>
->> 0%7C637267736827671946&amp;sdata=0aO7dbLATuW%2BIeJsjWoWCGOaYEO
->>>> WQaVwI9izppB3v7k%3D&amp;reserved=0
->>>>>>
->>>>>> If you need a help to create a new configuration for your hardware,
->>>>>> show the output from the alsa-info.sh script, please.
->>>>>>
->>>>>>                      Jaroslav
->>>>>
->>>>> This audio design is  a bit different from sof-hda-dsp, the dmic is on
->>>>> a standalone sound card. Please see the alsa-info.txt:
->>>>>
->>>>>
->>>>
->> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fpasteb
->>>>
->> in.ubuntu.com%2Fp%2F4kprhDZYbg%2F&amp;data=02%7C01%7CVijendar.Mu
->>>>
->> kunda%40amd.com%7C5fbb3a516d524c73568d08d807a157a1%7C3dd8961fe4
->>>>
->> 884e608e11a82d994e183d%7C0%7C0%7C637267736827671946&amp;sdata=Q
->>>> 50xNbF1KSqasNa0UyKzUFAzOc9KPIguBjgYHr1XSbg%3D&amp;reserved=0
->>>>
->>>> And that's an interesting case.  Can we manage multiple cards in a
->>>> single UCM profile?
->>>>
->>>>
->>>> Takashi
->>>
->>> I am not much familiar with UCM files creation.
->>> As per my understanding, UCM entries will program the mixer controls
->>> depending up on the use case and selected device.
->>
->> UCM is more than that.  It manages which PCM device is chosen, which
->> jack control corresponds, etc, too.
->>
->>
->> Takashi
-> 
-> Got it. Could you help us to get the UCM file which will work for both sound cards for our platform.
+T24gV2VkLCAyMDIwLTA2LTAzIGF0IDE0OjQ3ICswMjAwLCBUYWthc2hpIEl3YWkgd3JvdGU6DQo+
+IE9uIFdlZCwgMDMgSnVuIDIwMjAgMTQ6Mzk6MjQgKzAyMDAsDQo+IE1hY3BhdWwgTGluIHdyb3Rl
+Og0KPiA+IA0KPiA+IE9uIFdlZCwgMjAyMC0wNi0wMyBhdCAxMDo0NSArMDIwMCwgVGFrYXNoaSBJ
+d2FpIHdyb3RlOg0KPiA+ID4gT24gV2VkLCAwMyBKdW4gMjAyMCAwODo1NDo1MSArMDIwMCwNCj4g
+PiA+IFRha2FzaGkgSXdhaSB3cm90ZToNCj4gPiA+ID4gDQo+ID4gPiA+IE9uIFdlZCwgMDMgSnVu
+IDIwMjAgMDg6Mjg6MDkgKzAyMDAsDQo+ID4gPiA+IFRha2FzaGkgSXdhaSB3cm90ZToNCj4gPiA+
+ID4gPiANCj4gPiA+ID4gPiBBbmQsIHRoZSBtb3N0IHN1c3BpY2lvdXMgY2FzZSBpcyB0aGUgbGFz
+dCBvbmUsDQo+ID4gPiA+ID4gY2hpcC0+bnVtX3N1c3BlbmRlZC1pbnRmLiAgSXQgbWVhbnMgdGhh
+dCB0aGUgZGV2aWNlIGhhcyBtdWx0aXBsZQ0KPiA+ID4gPiA+IFVTQiBpbnRlcmZhY2VzIGFuZCB0
+aGV5IHdlbnQgdG8gc3VzcGVuZCwgd2hpbGUgdGhlIHJlc3VtZSBpc24ndA0KPiA+ID4gPiA+IHBl
+cmZvcm1lZCBmb3IgdGhlIGFsbCBzdXNwZW5kZWQgaW50ZXJmYWNlcyBpbiByZXR1cm4uDQo+ID4g
+PiA+IA0KPiA+ID4gPiBJZiB0aGlzIGlzIHRoZSBjYXVzZSwgYSBwYXRjaCBsaWtlIGJlbG93IG1p
+Z2h0IGhlbHAuDQo+ID4gPiA+IEl0IGdldHMvcHV0cyB0aGUgYWxsIGFzc2lnbmVkIGludGVyZmFj
+ZWQgaW5zdGVhZCBvZiBvbmx5IHRoZSBwcmltYXJ5DQo+ID4gPiA+IG9uZS4NCj4gPiA+IA0KPiA+
+ID4gLi4uIGFuZCBjb25zaWRlcmluZyBvZiB0aGUgcHJvYmxlbSBhZ2FpbiwgcmF0aGVyIHRoZSBw
+YXRjaCBiZWxvdyBtaWdodA0KPiA+ID4gYmUgdGhlIHJpZ2h0IGFuc3dlci4gIE5vdyB0aGUgZHJp
+dmVyIHRyaWVzIHRvIHJlbWVtYmVyIGF0IHdoaWNoIHN0YXRlDQo+ID4gPiBpdCBlbnRlcmVkIGlu
+dG8gdGhlIHN5c3RlbS1zdXNwZW5kLiAgVXBvbiByZXN1bWUsIGluIHJldHVybiwgd2hlbiB0aGUN
+Cj4gPiA+IHN0YXRlIHJlYWNoZXMgYmFjayB0byB0aGF0IHBvaW50LCBzZXQgdGhlIGNhcmQgc3Rh
+dGUgdG8gRDAuDQo+ID4gPiANCj4gPiA+IFRoZSBwcmV2aW91cyBwYXRjaCBjYW4gYmUgYXBwbGll
+ZCBvbiB0aGUgdG9wLCB0b28sIGFuZCBpdCBtaWdodCBiZQ0KPiA+ID4gd29ydGggdG8gYXBwbHkg
+Ym90aC4NCj4gPiA+IA0KPiA+ID4gTGV0IG1lIGtub3cgaWYgYW55IG9mIHRob3NlIGFjdHVhbGx5
+IGhlbHBzLg0KPiA+ID4gDQo+ID4gPiANCj4gPiA+IFRha2FzaGkNCj4gPiANCj4gPiBUaGFua3Mg
+Zm9yIHlvdXIgcmVzcG9uc2Ugc28gcXVpY2tseS4NCj4gPiBJJ3ZlIGp1c3QgdGVzdCB0aGlzIHBh
+dGNoIHNpbmNlIGl0IGxvb2tzIGxpa2UgZW5vdWdoIGZvciB0aGUgaXNzdWUuDQo+IA0KPiBHb29k
+IHRvIGhlYXIhDQo+IA0KPiA+IFRoaXMgcGF0Y2ggd29ya2VkIHNpbmNlIHRoZSBmbGFnIHN5c3Rl
+bV9zdXNwZW5kIHdpbGwgYmUgc2V0IGF0IHRoZSBzYW1lDQo+ID4gdGltZSB3aGVuIHBvd2VyIHN0
+YXRlIGhhcyBiZWVuIGNoYW5nZWQuIEkgaGF2ZSAyIGludGVyZmFjZSB3aXRoIHRoZSBoZWFkDQo+
+ID4gc2V0LiBCdXQgYWN0dWFsbHkgdGhlIHByb2JsZW0gaGFwcGVuZWQgd2hlbiBwcmltYXJ5IG9u
+ZSBpcyBzdXNwZW5kZWQuDQo+IA0KPiBDdXJyZW50bHkgdGhlIGF1dG9zdXNwZW5kIGlzIHNldCBv
+bmx5IHRvIHRoZSBwcmltYXJ5IGludGVyZmFjZTsgSU9XLA0KPiB0aGUgb3RoZXIgaW50ZXJmYWNl
+cyB3aWxsIG5ldmVyIGdldCBhdXRvc3VzcGVuZCwgYW5kIHRoZSBhbm90aGVyDQo+IHN1c3BlbmQt
+YWxsLWludGYgcGF0Y2ggc2hvdWxkIGltcHJvdmUgdGhhdCBzaXR1YXRpb24uICBCdXQgaXQgd29u
+J3QNCj4gZml4IHlvdXIgYWN0dWFsIGJ1Zywgb2J2aW91c2x5IDopDQo+IA0KPiA+IFNvIEkgZGlk
+bid0IHRlc3QgdGhlIGVhcmxpZXIgcGF0Y2ggInN1c3BlbmQgYWxsIGludGVyZmFjZSBpbnN0ZWFk
+IG9mDQo+ID4gb25seSB0aGUgcHJpbWFyeSBvbmUuIg0KPiANCj4gQ291bGQgeW91IHRyeSBpdCBv
+bmUgb24gdG9wIG9mIHRoZSBsYXN0IHBhdGNoPyAgQXQgbGVhc3QgSSdkIGxpa2UgdG8NCj4gc2Vl
+IHdoZXRoZXIgaXQgY2F1c2VzIGFueSByZWdyZXNzaW9uLg0KDQpJJ3ZlIHRyaWVkIGJvdGggb2Yg
+dGhlc2UgMiBwYXRjaGVzIHRvZ2V0aGVyLCBhbmQgaXQgbG9va3Mgb2theS4NCg0KPiA+IFdpbGwg
+eW91IHJlc2VuZCB0aGlzIHBhdGNoIG9mZmljaWFsbHkgbGF0ZXI/IEkgdGhpbmsgdGhpcyBzb2x1
+dGlvbiBpcw0KPiA+IHJlcXVpcmVkIHRvIHNlbmQgdG8gc3RhYmxlLCB0b28uIEl0J3MgYmV0dGVy
+IHRvIGhhdmUgaXQgZm9yIG90aGVyIHN0YWJsZQ0KPiA+IGtlcm5lbCB2ZXJzaW9ucyBpbmNsdWRl
+IGFuZHJvaWQncy4NCj4gDQo+IFllcywgdGhhdCdzIGEgZ2VuZXJhbCBidWcgYW5kIHdvcnRoIHRv
+IGJlIG1lcmdlZCBxdWlja2x5Lg0KPiBJJ20gZ29pbmcgdG8gc3VibWl0IGEgcHJvcGVyIHBhdGNo
+IHNvb24gbGF0ZXIuDQo+IA0KPiANCj4gdGhhbmtzLA0KPiANCj4gVGFrYXNoaQ0KPiANCg0KVGhh
+bmtzIQ0KTWFjcGF1bCBMaW4NCg==
 
-Please, create a new issue with the mentioned alsa-info URL at github:
-
-https://github.com/alsa-project/alsa-ucm-conf/issues
-
-I'll give a look when my time permits.
-
-					Jaroslav
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

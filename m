@@ -2,87 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3E171ECEC2
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jun 2020 13:44:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 762F11ECFF9
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jun 2020 14:41:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4736A1665;
-	Wed,  3 Jun 2020 13:43:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4736A1665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 03AAE828;
+	Wed,  3 Jun 2020 14:40:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03AAE828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591184672;
-	bh=TIfw/cANrvleb6jHvANTUGWscgbEhvD0pcSy7/RQYAM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1591188083;
+	bh=yGhEBSj32ppLHggwGolq9ctveMSRJ1bICjDVz+fhRnY=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bu1KFrYD+Japr5qT4Wa7oCRYPIZUExHc7VyJfFSAI9kJNKX+/zp4xDFNe8S5GOjzP
-	 vTzw39Ox6mF1DTsiva21eHghJZ+bkkYvIb43URLsXCTdW2m4btrcZqKKfjbya3Y6Ct
-	 m5vAgthFY3WB+R9Rka6uOYO773+NZyoWP2KlrX8Y=
+	b=AWj4xztnb8/w4c75hVw4rm5MpCEIOv4n+Gr3rm/WZp2e5qGmO5l5hugjFtz6GJMqq
+	 2+M54dByBlAxzvdkT+JT9PVopOkKG7Y3GgvqrLD+DM8+0ooOyKFcSwjrNyrLmtTwkR
+	 wT/VnOvgP7HblBLTYP0xaesIsYxhKgu9lliNIAKY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5CA32F8013D;
-	Wed,  3 Jun 2020 13:42:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B38BF800D0;
+	Wed,  3 Jun 2020 14:39:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E8615F801ED; Wed,  3 Jun 2020 13:42:48 +0200 (CEST)
+ id 031ADF801ED; Wed,  3 Jun 2020 14:39:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 21464F8013D
- for <alsa-devel@alsa-project.org>; Wed,  3 Jun 2020 13:42:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21464F8013D
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY
+ autolearn=disabled version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [210.61.82.183])
+ by alsa1.perex.cz (Postfix) with ESMTP id 0CD1BF800D0
+ for <alsa-devel@alsa-project.org>; Wed,  3 Jun 2020 14:39:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CD1BF800D0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jsCZ6tqK"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3CB0020738;
- Wed,  3 Jun 2020 11:42:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591184563;
- bh=TIfw/cANrvleb6jHvANTUGWscgbEhvD0pcSy7/RQYAM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jsCZ6tqKbRWecCFSn/LSHN1jRnCENNTbqogGNkeSCseQG0/CEOEwI2jJlEeB0HISW
- s4vQFI5lnW+0BBE86acH6ViTn2LnaqLi6qnVBmEuVhweUuBCIyQCJNL1XRznU0wji/
- 99vYDogaIDn1m5CJAww0lubymqby2iDYMDdlmMj8=
-Date: Wed, 3 Jun 2020 12:42:41 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Steve Lee <SteveS.Lee@maximintegrated.com>
-Subject: Re: [PATCH] ASoC: max98390: Fix potential crash during param fw
- loading
-Message-ID: <20200603114241.GD5327@sirena.org.uk>
-References: <20200603111819.5824-1-steves.lee@maximintegrated.com>
- <20200603113145.GC5327@sirena.org.uk>
- <MWHPR11MB2047B58F4B5E395CB76CCB2392880@MWHPR11MB2047.namprd11.prod.outlook.com>
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="hegUAZBR"
+X-UUID: 1993c3ddeb4148aa96669f9c1f46b448-20200603
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
+ bh=yGhEBSj32ppLHggwGolq9ctveMSRJ1bICjDVz+fhRnY=; 
+ b=hegUAZBRX2s60lSecAyLBURD/bAzfG67+p2avShJo+0B4ctRdAv243tcJNqGCY4nACX96hujB458lAOTelcceeGRE0seBkA3ed2eTPmVy8khTI38enrjDpJv5jQmLZzn3WfZDEdyWcbZGipcbKOfTqwEq8KCEvl2CoNHafIfEdU=;
+X-UUID: 1993c3ddeb4148aa96669f9c1f46b448-20200603
+Received: from mtkcas06.mediatek.inc [(172.21.101.30)] by mailgw01.mediatek.com
+ (envelope-from <macpaul.lin@mediatek.com>)
+ (Cellopoint E-mail Firewall v4.1.10 Build 0809 with TLS)
+ with ESMTP id 1683903012; Wed, 03 Jun 2020 20:39:26 +0800
+Received: from mtkcas07.mediatek.inc (172.21.101.84) by
+ mtkmbs01n1.mediatek.inc (172.21.101.68) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Wed, 3 Jun 2020 20:39:21 +0800
+Received: from [172.21.77.33] (172.21.77.33) by mtkcas07.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Wed, 3 Jun 2020 20:39:23 +0800
+Message-ID: <1591187964.23525.61.camel@mtkswgap22>
+Subject: Re: [PATCH] sound: usb: pcm: fix incorrect power state when playing
+ sound after PM_AUTO suspend
+From: Macpaul Lin <macpaul.lin@mediatek.com>
+To: Takashi Iwai <tiwai@suse.de>
+Date: Wed, 3 Jun 2020 20:39:24 +0800
+In-Reply-To: <s5h367cfsga.wl-tiwai@suse.de>
+References: <s5hpnahhbz8.wl-tiwai@suse.de>
+ <1591153515.23525.50.camel@mtkswgap22> <s5heeqwfyti.wl-tiwai@suse.de>
+ <s5hblm0fxl0.wl-tiwai@suse.de> <s5h367cfsga.wl-tiwai@suse.de>
+Content-Type: text/plain; charset="ISO-8859-1"
+X-Mailer: Evolution 3.2.3-0ubuntu6 
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="TybLhxa8M7aNoW+V"
-Content-Disposition: inline
-In-Reply-To: <MWHPR11MB2047B58F4B5E395CB76CCB2392880@MWHPR11MB2047.namprd11.prod.outlook.com>
-X-Cookie: Your supervisor is thinking about you.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "jack.yu@realtek.com" <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "ryan.lee.maxim@gmail.com" <ryan.lee.maxim@gmail.com>,
- "ckeepax@opensource.cirrus.com" <ckeepax@opensource.cirrus.com>,
- Ryan Lee <RyanS.Lee@maximintegrated.com>,
- "steves.lee.maxim@gmail.com" <steves.lee.maxim@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "tiwai@suse.com" <tiwai@suse.com>, "krzk@kernel.org" <krzk@kernel.org>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "nuno.sa@analog.com" <nuno.sa@analog.com>,
- "geert@linux-m68k.org" <geert@linux-m68k.org>,
- "dmurphy@ti.com" <dmurphy@ti.com>,
- "shumingf@realtek.com" <shumingf@realtek.com>,
- "srinivas.kandagatla@linaro.org" <srinivas.kandagatla@linaro.org>,
- "rf@opensource.wolfsonmicro.com" <rf@opensource.wolfsonmicro.com>
+X-MTK: N
+Content-Transfer-Encoding: base64
+Cc: alsa-devel@alsa-project.org,
+ Szabolcs =?UTF-8?Q?Sz=C5=91ke?= <szszoke.code@gmail.com>,
+ Mediatek WSD Upstream <wsd_upstream@mediatek.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Hui Wang <hui.wang@canonical.com>,
+ Alexander Tsoy <alexander@tsoy.me>, linux-mediatek@lists.infradead.org,
+ Matthias Brugger <matthias.bgg@gmail.com>, Johan Hovold <johan@kernel.org>,
+ Macpaul Lin <macpaul.lin@gmail.com>, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,44 +94,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+T24gV2VkLCAyMDIwLTA2LTAzIGF0IDEwOjQ1ICswMjAwLCBUYWthc2hpIEl3YWkgd3JvdGU6DQo+
+IE9uIFdlZCwgMDMgSnVuIDIwMjAgMDg6NTQ6NTEgKzAyMDAsDQo+IFRha2FzaGkgSXdhaSB3cm90
+ZToNCj4gPiANCj4gPiBPbiBXZWQsIDAzIEp1biAyMDIwIDA4OjI4OjA5ICswMjAwLA0KPiA+IFRh
+a2FzaGkgSXdhaSB3cm90ZToNCj4gPiA+IA0KPiA+ID4gQW5kLCB0aGUgbW9zdCBzdXNwaWNpb3Vz
+IGNhc2UgaXMgdGhlIGxhc3Qgb25lLA0KPiA+ID4gY2hpcC0+bnVtX3N1c3BlbmRlZC1pbnRmLiAg
+SXQgbWVhbnMgdGhhdCB0aGUgZGV2aWNlIGhhcyBtdWx0aXBsZQ0KPiA+ID4gVVNCIGludGVyZmFj
+ZXMgYW5kIHRoZXkgd2VudCB0byBzdXNwZW5kLCB3aGlsZSB0aGUgcmVzdW1lIGlzbid0DQo+ID4g
+PiBwZXJmb3JtZWQgZm9yIHRoZSBhbGwgc3VzcGVuZGVkIGludGVyZmFjZXMgaW4gcmV0dXJuLg0K
+PiA+IA0KPiA+IElmIHRoaXMgaXMgdGhlIGNhdXNlLCBhIHBhdGNoIGxpa2UgYmVsb3cgbWlnaHQg
+aGVscC4NCj4gPiBJdCBnZXRzL3B1dHMgdGhlIGFsbCBhc3NpZ25lZCBpbnRlcmZhY2VkIGluc3Rl
+YWQgb2Ygb25seSB0aGUgcHJpbWFyeQ0KPiA+IG9uZS4NCj4gDQo+IC4uLiBhbmQgY29uc2lkZXJp
+bmcgb2YgdGhlIHByb2JsZW0gYWdhaW4sIHJhdGhlciB0aGUgcGF0Y2ggYmVsb3cgbWlnaHQNCj4g
+YmUgdGhlIHJpZ2h0IGFuc3dlci4gIE5vdyB0aGUgZHJpdmVyIHRyaWVzIHRvIHJlbWVtYmVyIGF0
+IHdoaWNoIHN0YXRlDQo+IGl0IGVudGVyZWQgaW50byB0aGUgc3lzdGVtLXN1c3BlbmQuICBVcG9u
+IHJlc3VtZSwgaW4gcmV0dXJuLCB3aGVuIHRoZQ0KPiBzdGF0ZSByZWFjaGVzIGJhY2sgdG8gdGhh
+dCBwb2ludCwgc2V0IHRoZSBjYXJkIHN0YXRlIHRvIEQwLg0KPiANCj4gVGhlIHByZXZpb3VzIHBh
+dGNoIGNhbiBiZSBhcHBsaWVkIG9uIHRoZSB0b3AsIHRvbywgYW5kIGl0IG1pZ2h0IGJlDQo+IHdv
+cnRoIHRvIGFwcGx5IGJvdGguDQo+IA0KPiBMZXQgbWUga25vdyBpZiBhbnkgb2YgdGhvc2UgYWN0
+dWFsbHkgaGVscHMuDQo+IA0KPiANCj4gVGFrYXNoaQ0KDQpUaGFua3MgZm9yIHlvdXIgcmVzcG9u
+c2Ugc28gcXVpY2tseS4NCkkndmUganVzdCB0ZXN0IHRoaXMgcGF0Y2ggc2luY2UgaXQgbG9va3Mg
+bGlrZSBlbm91Z2ggZm9yIHRoZSBpc3N1ZS4NCg0KVGhpcyBwYXRjaCB3b3JrZWQgc2luY2UgdGhl
+IGZsYWcgc3lzdGVtX3N1c3BlbmQgd2lsbCBiZSBzZXQgYXQgdGhlIHNhbWUNCnRpbWUgd2hlbiBw
+b3dlciBzdGF0ZSBoYXMgYmVlbiBjaGFuZ2VkLiBJIGhhdmUgMiBpbnRlcmZhY2Ugd2l0aCB0aGUg
+aGVhZA0Kc2V0LiBCdXQgYWN0dWFsbHkgdGhlIHByb2JsZW0gaGFwcGVuZWQgd2hlbiBwcmltYXJ5
+IG9uZSBpcyBzdXNwZW5kZWQuDQpTbyBJIGRpZG4ndCB0ZXN0IHRoZSBlYXJsaWVyIHBhdGNoICJz
+dXNwZW5kIGFsbCBpbnRlcmZhY2UgaW5zdGVhZCBvZg0Kb25seSB0aGUgcHJpbWFyeSBvbmUuIg0K
+DQpXaWxsIHlvdSByZXNlbmQgdGhpcyBwYXRjaCBvZmZpY2lhbGx5IGxhdGVyPyBJIHRoaW5rIHRo
+aXMgc29sdXRpb24gaXMNCnJlcXVpcmVkIHRvIHNlbmQgdG8gc3RhYmxlLCB0b28uIEl0J3MgYmV0
+dGVyIHRvIGhhdmUgaXQgZm9yIG90aGVyIHN0YWJsZQ0Ka2VybmVsIHZlcnNpb25zIGluY2x1ZGUg
+YW5kcm9pZCdzLg0KDQo+IC0tLQ0KPiBkaWZmIC0tZ2l0IGEvc291bmQvdXNiL2NhcmQuYyBiL3Nv
+dW5kL3VzYi9jYXJkLmMNCj4gLS0tIGEvc291bmQvdXNiL2NhcmQuYw0KPiArKysgYi9zb3VuZC91
+c2IvY2FyZC5jDQo+IEBAIC04NDMsOSArODQzLDYgQEAgc3RhdGljIGludCB1c2JfYXVkaW9fc3Vz
+cGVuZChzdHJ1Y3QgdXNiX2ludGVyZmFjZSAqaW50ZiwgcG1fbWVzc2FnZV90IG1lc3NhZ2UpDQo+
+ICAJaWYgKGNoaXAgPT0gKHZvaWQgKiktMUwpDQo+ICAJCXJldHVybiAwOw0KPiAgDQo+IC0JY2hp
+cC0+YXV0b3N1c3BlbmRlZCA9ICEhUE1TR19JU19BVVRPKG1lc3NhZ2UpOw0KPiAtCWlmICghY2hp
+cC0+YXV0b3N1c3BlbmRlZCkNCj4gLQkJc25kX3Bvd2VyX2NoYW5nZV9zdGF0ZShjaGlwLT5jYXJk
+LCBTTkRSVl9DVExfUE9XRVJfRDNob3QpOw0KPiAgCWlmICghY2hpcC0+bnVtX3N1c3BlbmRlZF9p
+bnRmKyspIHsNCj4gIAkJbGlzdF9mb3JfZWFjaF9lbnRyeShhcywgJmNoaXAtPnBjbV9saXN0LCBs
+aXN0KSB7DQo+ICAJCQlzbmRfdXNiX3BjbV9zdXNwZW5kKGFzKTsNCj4gQEAgLTg1OCw2ICs4NTUs
+MTEgQEAgc3RhdGljIGludCB1c2JfYXVkaW9fc3VzcGVuZChzdHJ1Y3QgdXNiX2ludGVyZmFjZSAq
+aW50ZiwgcG1fbWVzc2FnZV90IG1lc3NhZ2UpDQo+ICAJCQlzbmRfdXNiX21peGVyX3N1c3BlbmQo
+bWl4ZXIpOw0KPiAgCX0NCj4gIA0KPiArCWlmICghUE1TR19JU19BVVRPKG1lc3NhZ2UpICYmICFj
+aGlwLT5zeXN0ZW1fc3VzcGVuZCkgew0KPiArCQlzbmRfcG93ZXJfY2hhbmdlX3N0YXRlKGNoaXAt
+PmNhcmQsIFNORFJWX0NUTF9QT1dFUl9EM2hvdCk7DQo+ICsJCWNoaXAtPnN5c3RlbV9zdXNwZW5k
+ID0gY2hpcC0+bnVtX3N1c3BlbmRlZF9pbnRmOw0KPiArCX0NCj4gKw0KPiAgCXJldHVybiAwOw0K
+PiAgfQ0KPiAgDQo+IEBAIC04NzEsMTAgKzg3MywxMCBAQCBzdGF0aWMgaW50IF9fdXNiX2F1ZGlv
+X3Jlc3VtZShzdHJ1Y3QgdXNiX2ludGVyZmFjZSAqaW50ZiwgYm9vbCByZXNldF9yZXN1bWUpDQo+
+ICANCj4gIAlpZiAoY2hpcCA9PSAodm9pZCAqKS0xTCkNCj4gIAkJcmV0dXJuIDA7DQo+IC0JaWYg
+KC0tY2hpcC0+bnVtX3N1c3BlbmRlZF9pbnRmKQ0KPiAtCQlyZXR1cm4gMDsNCj4gIA0KPiAgCWF0
+b21pY19pbmMoJmNoaXAtPmFjdGl2ZSk7IC8qIGF2b2lkIGF1dG9wbSAqLw0KPiArCWlmIChjaGlw
+LT5udW1fc3VzcGVuZGVkX2ludGYgPiAxKQ0KPiArCQlnb3RvIG91dDsNCj4gIA0KPiAgCWxpc3Rf
+Zm9yX2VhY2hfZW50cnkoYXMsICZjaGlwLT5wY21fbGlzdCwgbGlzdCkgew0KPiAgCQllcnIgPSBz
+bmRfdXNiX3BjbV9yZXN1bWUoYXMpOw0KPiBAQCAtODk2LDkgKzg5OCwxMiBAQCBzdGF0aWMgaW50
+IF9fdXNiX2F1ZGlvX3Jlc3VtZShzdHJ1Y3QgdXNiX2ludGVyZmFjZSAqaW50ZiwgYm9vbCByZXNl
+dF9yZXN1bWUpDQo+ICAJCXNuZF91c2JtaWRpX3Jlc3VtZShwKTsNCj4gIAl9DQo+ICANCj4gLQlp
+ZiAoIWNoaXAtPmF1dG9zdXNwZW5kZWQpDQo+ICsgb3V0Og0KPiArCWlmIChjaGlwLT5udW1fc3Vz
+cGVuZGVkX2ludGYgPT0gY2hpcC0+c3lzdGVtX3N1c3BlbmQpIHsNCj4gIAkJc25kX3Bvd2VyX2No
+YW5nZV9zdGF0ZShjaGlwLT5jYXJkLCBTTkRSVl9DVExfUE9XRVJfRDApOw0KPiAtCWNoaXAtPmF1
+dG9zdXNwZW5kZWQgPSAwOw0KPiArCQljaGlwLT5zeXN0ZW1fc3VzcGVuZCA9IDA7DQo+ICsJfQ0K
+PiArCWNoaXAtPm51bV9zdXNwZW5kZWRfaW50Zi0tOw0KPiAgDQo+ICBlcnJfb3V0Og0KPiAgCWF0
+b21pY19kZWMoJmNoaXAtPmFjdGl2ZSk7IC8qIGFsbG93IGF1dG9wbSBhZnRlciB0aGlzIHBvaW50
+ICovDQo+IGRpZmYgLS1naXQgYS9zb3VuZC91c2IvdXNiYXVkaW8uaCBiL3NvdW5kL3VzYi91c2Jh
+dWRpby5oDQo+IGluZGV4IDFjODkyYzdmMTRkNy4uZTBlYmZiMjVmYmQ1IDEwMDY0NA0KPiAtLS0g
+YS9zb3VuZC91c2IvdXNiYXVkaW8uaA0KPiArKysgYi9zb3VuZC91c2IvdXNiYXVkaW8uaA0KPiBA
+QCAtMjYsNyArMjYsNyBAQCBzdHJ1Y3Qgc25kX3VzYl9hdWRpbyB7DQo+ICAJc3RydWN0IHVzYl9p
+bnRlcmZhY2UgKnBtX2ludGY7DQo+ICAJdTMyIHVzYl9pZDsNCj4gIAlzdHJ1Y3QgbXV0ZXggbXV0
+ZXg7DQo+IC0JdW5zaWduZWQgaW50IGF1dG9zdXNwZW5kZWQ6MTsJDQo+ICsJdW5zaWduZWQgaW50
+IHN5c3RlbV9zdXNwZW5kOw0KPiAgCWF0b21pY190IGFjdGl2ZTsNCj4gIAlhdG9taWNfdCBzaHV0
+ZG93bjsNCj4gIAlhdG9taWNfdCB1c2FnZV9jb3VudDsNCj4gDQo+IF9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQoNClRoYW5rIHlvdSB2ZXJ5IG11Y2ghDQoN
+CkJlc3QgcmVnYXJkcywNCk1hY3BhdWwgTGluDQoNCg0K
 
---TybLhxa8M7aNoW+V
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Wed, Jun 03, 2020 at 11:37:44AM +0000, Steve Lee wrote:
-
-> > This is now reading the size out of the header of the file which is good but it
-> > should also validate that the file is big enough to have this much data in it,
-> > otherwise it's possible to read beyond the end of the firmware file (eg, if it got
-> > truncated somehow).  Previously the code used the size of the file read from disk
-> > so that wasn't an issue.
-
->  Thanks for quick comment. Can this case cover by below line?
-> +	if (fw->size < MAX98390_DSM_PARAM_MIN_SIZE) {
-> +		dev_err(component->dev,
-> +			"param fw is invalid.\n");
-> +		goto err_alloc;
-> +	}
-
-No, that doesn't cover all of it - the case I'm concerned about is the
-case where we've got enough data for the header but the payload is
-truncated.  You need a check that param_size + _PAYLOAD_OFFSET is less
-than fw->size as well.
-
---TybLhxa8M7aNoW+V
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEyBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7XjLAACgkQJNaLcl1U
-h9CS4gf3SoiQPyfuvGkPPhzguKoHriVvRp+AFejSxVitcpSHlK+guzMZ7TbsUahq
-mT9724QlmWXhv3pWStaiWn5BblXL1cw/jLwbWOB9g6J0JoH21c8LsfnaUe1ez9Lm
-xfwqJWF6TXjUIU/EVTsB8U1Ic0Sedxz/+QwDUkkxGNKy9JjfB4BhFsci7v4x0nz4
-euUPfTgLFjm9iDUkZeNWkz35EPGmcBTW7PcC+uWTw6WTPamU8ilUzFWvJHJ988WL
-FdesETMKsTr06Yr1q8raecZPBmeRcQqpdBYiE8Q9JyC/gGRGXlOpC4V8/zTrMzg4
-q0nSFTDhbYsZwNROBUbavgArgCVK
-=FYh1
------END PGP SIGNATURE-----
-
---TybLhxa8M7aNoW+V--

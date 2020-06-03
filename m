@@ -2,54 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E17B81ED390
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jun 2020 17:39:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 304FF1ED48E
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jun 2020 18:52:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 96C061675;
-	Wed,  3 Jun 2020 17:39:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96C061675
+	by alsa0.perex.cz (Postfix) with ESMTPS id B5A171661;
+	Wed,  3 Jun 2020 18:51:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5A171661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591198791;
-	bh=2snlq0cxZ8iQD2X1xm5OuJ+TZ+Z3SU4BlQvn/tXn+WM=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1591203137;
+	bh=hVep/pKd7sRgajtjutDwXuCKsgPQfHsxvFvDJaD/csE=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SDkxRP+htN8lMUAVL/IgPxA9b0RbcVp3IPUnWzQh8kbCqDsq2/CbkmrZgZcMh4spg
-	 CKKJ7zPdZPrhQwaTH2gxm2/uMeYliqVtwRrURj+5BrWc8ixbCYO3e0bYxMBr1vhf4w
-	 M0J8zsT8qJZATR4yrvaEsjbc85FLUrT0dOeTmBLo=
+	b=JQPazdmkiHT7b59sQFQK8T6gqJLO7xD7DcZBBnvszTnkULCVe9w+1mM3CGkYfJzlO
+	 W3veB95alxOR1TFHUJgSva7zE+HRjbCrMjdDx37I9LWbTVBlZ4lBfloUWDFJdQ16xO
+	 SnyCfgj2KXoJKAK3CO+RZOgxSj7hsDJP9M9om8wk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15BB0F8027C;
-	Wed,  3 Jun 2020 17:37:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7E2AF801F5;
+	Wed,  3 Jun 2020 18:50:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B684AF80212; Wed,  3 Jun 2020 17:37:20 +0200 (CEST)
+ id 60892F801ED; Wed,  3 Jun 2020 18:50:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9BCDDF800D0
- for <alsa-devel@alsa-project.org>; Wed,  3 Jun 2020 17:37:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BCDDF800D0
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 48BA7B12D;
- Wed,  3 Jun 2020 15:37:15 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/2] ALSA: usb-audio: Manage auto-pm of all bundled interfaces
-Date: Wed,  3 Jun 2020 17:37:09 +0200
-Message-Id: <20200603153709.6293-2-tiwai@suse.de>
-X-Mailer: git-send-email 2.16.4
-In-Reply-To: <20200603153709.6293-1-tiwai@suse.de>
-References: <20200603153709.6293-1-tiwai@suse.de>
-Cc: Macpaul Lin <macpaul.lin@mediatek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 83F84F800BC
+ for <alsa-devel@alsa-project.org>; Wed,  3 Jun 2020 18:50:25 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 13B60A003F;
+ Wed,  3 Jun 2020 18:50:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 13B60A003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1591203023; bh=JzJZph8lmYpDDybe2A71AkjgaUXIM4zblZa5P8AGja8=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=5RwFWBFhHuJwXfONMf1dQQSHquHNB2xvyRlRDbcJq7eNDEZ+X92OIiaK8w5JoJ9Qd
+ bnGIOFtB8gIFJJg9lK8AxBqw82K9zYHFN1hloywj0U+BSws/ig+XPn8QuKUiexD5+j
+ NwbEgChSdl21rlkyCsoX4icEAQHigPiuUG3EWwCI=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Wed,  3 Jun 2020 18:50:20 +0200 (CEST)
+Subject: Re: [PATCH] fix snd_pcm_drain() excluding SETUP state from valid
+ states
+To: sylvain.bertrand@gmail.com
+References: <20200502193311.GA19340@freedom>
+ <47281cd6-2ae5-309e-f1a9-8906ff50c9cc@perex.cz>
+ <20200514210607.GA6081@freedom>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <881317ca-1180-6217-1dcd-dc75713c6f1e@perex.cz>
+Date: Wed, 3 Jun 2020 18:50:20 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
+MIME-Version: 1.0
+In-Reply-To: <20200514210607.GA6081@freedom>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,117 +83,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Currently USB-audio driver manages the auto-pm of the primary
-interface although a card may consist of multiple interfaces.
-This may leave the secondary and other interfaces left running
-unnecessarily after the auto-suspend.
+Dne 14. 05. 20 v 23:06 sylvain.bertrand@gmail.com napsal(a):
+> On Thu, May 14, 2020 at 03:52:25PM +0200, Jaroslav Kysela wrote:
+>> NAK: You should not call drain when the PCM handle is in the SETUP field.
+>> It's an obvious caller problem. The streaming should be active somehow.
+> 
+> The pb here is the non-blocking calls of the drain function: in my test case,
+> the first call to the drain function switches the pcm in draining state, but
+> the pcm will be switched to the setup state somewhen in between 2 drain function
+> calls! Naively, I was calling the drain function on a regular time basis to see
+> if the draining was finished, namely expecting 0 to be returned.
+> 
+> Then if I understood you well, the right way(tm) to use the drain function in
+> non-block mode, is to call only once the drain function, then inspect the state
+> of the pcm till it not anymore in the draining state.
+> 
+> Am I right? Or did I miss something again?
 
-This patch allows the driver managing the auto-pm of all bundled
-interfaces per card.  The chip->pm_intf field is extended as
-chip->intf[] to contain the array of assigned interfaces, and the
-runtime-PM is performed to all those interfaces.
+I looked to this problem again and the original patch seems more appropriate. 
+The snd_pcm_drain() should return zero, if the state is SETUP, because there 
+is no further work.
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/card.c     | 35 ++++++++++++++++++++++++++++++-----
- sound/usb/usbaudio.h |  4 +++-
- 2 files changed, 33 insertions(+), 6 deletions(-)
+I applied your patch:
 
-diff --git a/sound/usb/card.c b/sound/usb/card.c
-index 359f7a04be1c..f648587d2342 100644
---- a/sound/usb/card.c
-+++ b/sound/usb/card.c
-@@ -634,7 +634,6 @@ static int usb_audio_probe(struct usb_interface *intf,
- 								   id, &chip);
- 					if (err < 0)
- 						goto __error;
--					chip->pm_intf = intf;
- 					break;
- 				} else if (vid[i] != -1 || pid[i] != -1) {
- 					dev_info(&dev->dev,
-@@ -651,6 +650,13 @@ static int usb_audio_probe(struct usb_interface *intf,
- 			goto __error;
- 		}
- 	}
-+
-+	if (chip->num_interfaces >= MAX_CARD_INTERFACES) {
-+		dev_info(&dev->dev, "Too many interfaces assigned to the single USB-audio card\n");
-+		err = -EINVAL;
-+		goto __error;
-+	}
-+
- 	dev_set_drvdata(&dev->dev, chip);
- 
- 	/*
-@@ -703,6 +709,7 @@ static int usb_audio_probe(struct usb_interface *intf,
- 	}
- 
- 	usb_chip[chip->index] = chip;
-+	chip->intf[chip->num_interfaces] = intf;
- 	chip->num_interfaces++;
- 	usb_set_intfdata(intf, chip);
- 	atomic_dec(&chip->active);
-@@ -818,19 +825,37 @@ void snd_usb_unlock_shutdown(struct snd_usb_audio *chip)
- 
- int snd_usb_autoresume(struct snd_usb_audio *chip)
- {
-+	int i, err;
-+
- 	if (atomic_read(&chip->shutdown))
- 		return -EIO;
--	if (atomic_inc_return(&chip->active) == 1)
--		return usb_autopm_get_interface(chip->pm_intf);
-+	if (atomic_inc_return(&chip->active) != 1)
-+		return 0;
-+
-+	for (i = 0; i < chip->num_interfaces; i++) {
-+		err = usb_autopm_get_interface(chip->intf[i]);
-+		if (err < 0) {
-+			/* rollback */
-+			while (--i >= 0)
-+				usb_autopm_put_interface(chip->intf[i]);
-+			atomic_dec(&chip->active))
-+			return err;
-+		}
-+	}
- 	return 0;
- }
- 
- void snd_usb_autosuspend(struct snd_usb_audio *chip)
- {
-+	int i;
-+
- 	if (atomic_read(&chip->shutdown))
- 		return;
--	if (atomic_dec_and_test(&chip->active))
--		usb_autopm_put_interface(chip->pm_intf);
-+	if (!atomic_dec_and_test(&chip->active))
-+		return;
-+
-+	for (i = 0; i < chip->num_interfaces; i++)
-+		usb_autopm_put_interface(chip->intf[i]);
- }
- 
- static int usb_audio_suspend(struct usb_interface *intf, pm_message_t message)
-diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
-index e0ebfb25fbd5..b91c4c0807ec 100644
---- a/sound/usb/usbaudio.h
-+++ b/sound/usb/usbaudio.h
-@@ -19,11 +19,13 @@
- struct media_device;
- struct media_intf_devnode;
- 
-+#define MAX_CARD_INTERFACES	16
-+
- struct snd_usb_audio {
- 	int index;
- 	struct usb_device *dev;
- 	struct snd_card *card;
--	struct usb_interface *pm_intf;
-+	struct usb_interface *intf[MAX_CARD_INTERFACES];
- 	u32 usb_id;
- 	struct mutex mutex;
- 	unsigned int system_suspend;
+https://github.com/alsa-project/alsa-lib/commit/1b9104b5ff10be7f60441f622436d4f14a2a97d1
+
+with the (sanity) optimization in:
+
+https://github.com/alsa-project/alsa-lib/commit/0b7f1441bb82903d45a29bf83c849ca94c5b7d7e
+
+It basically doesn't allow to call the plugin callback (otherwise we need to 
+review all plugin drain callbacks, if the SETUP state is handled properly).
+
+			Thank you for your suggestion,
+						Jaroslav
+
+> 
+> regards,
+> 
+
+
 -- 
-2.25.0
-
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

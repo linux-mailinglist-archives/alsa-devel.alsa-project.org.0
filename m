@@ -2,76 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 762F11ECFF9
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jun 2020 14:41:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62A661ED027
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jun 2020 14:49:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 03AAE828;
-	Wed,  3 Jun 2020 14:40:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03AAE828
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE0371665;
+	Wed,  3 Jun 2020 14:48:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE0371665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591188083;
-	bh=yGhEBSj32ppLHggwGolq9ctveMSRJ1bICjDVz+fhRnY=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1591188562;
+	bh=n7ILkXbXp1MW9a6MoDWj7q32wvi4j1aKgnkqQjmmehU=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AWj4xztnb8/w4c75hVw4rm5MpCEIOv4n+Gr3rm/WZp2e5qGmO5l5hugjFtz6GJMqq
-	 2+M54dByBlAxzvdkT+JT9PVopOkKG7Y3GgvqrLD+DM8+0ooOyKFcSwjrNyrLmtTwkR
-	 wT/VnOvgP7HblBLTYP0xaesIsYxhKgu9lliNIAKY=
+	b=oNowencDuVO8FV+EdtwzmjxB3fL129DAVsTPZosnAVtd0WANW2iRTJgqmv0bgPXQz
+	 ZVr0uO2X9tKe+E8wSWI421mvf4SRFezMLDUCnr9LcaxK7jWKUbh4EShedrg+IH8tQO
+	 EKfdvaEFgAJd00DtdrQE0KYm6fiRO02oHlz/44uk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B38BF800D0;
-	Wed,  3 Jun 2020 14:39:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0381DF800BC;
+	Wed,  3 Jun 2020 14:47:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 031ADF801ED; Wed,  3 Jun 2020 14:39:39 +0200 (CEST)
+ id DE846F801ED; Wed,  3 Jun 2020 14:47:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY
- autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [210.61.82.183])
- by alsa1.perex.cz (Postfix) with ESMTP id 0CD1BF800D0
- for <alsa-devel@alsa-project.org>; Wed,  3 Jun 2020 14:39:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CD1BF800D0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
- header.b="hegUAZBR"
-X-UUID: 1993c3ddeb4148aa96669f9c1f46b448-20200603
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
- bh=yGhEBSj32ppLHggwGolq9ctveMSRJ1bICjDVz+fhRnY=; 
- b=hegUAZBRX2s60lSecAyLBURD/bAzfG67+p2avShJo+0B4ctRdAv243tcJNqGCY4nACX96hujB458lAOTelcceeGRE0seBkA3ed2eTPmVy8khTI38enrjDpJv5jQmLZzn3WfZDEdyWcbZGipcbKOfTqwEq8KCEvl2CoNHafIfEdU=;
-X-UUID: 1993c3ddeb4148aa96669f9c1f46b448-20200603
-Received: from mtkcas06.mediatek.inc [(172.21.101.30)] by mailgw01.mediatek.com
- (envelope-from <macpaul.lin@mediatek.com>)
- (Cellopoint E-mail Firewall v4.1.10 Build 0809 with TLS)
- with ESMTP id 1683903012; Wed, 03 Jun 2020 20:39:26 +0800
-Received: from mtkcas07.mediatek.inc (172.21.101.84) by
- mtkmbs01n1.mediatek.inc (172.21.101.68) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Wed, 3 Jun 2020 20:39:21 +0800
-Received: from [172.21.77.33] (172.21.77.33) by mtkcas07.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Wed, 3 Jun 2020 20:39:23 +0800
-Message-ID: <1591187964.23525.61.camel@mtkswgap22>
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30, RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 11310F800BC
+ for <alsa-devel@alsa-project.org>; Wed,  3 Jun 2020 14:47:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11310F800BC
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 8C9F0AE38;
+ Wed,  3 Jun 2020 12:47:35 +0000 (UTC)
+Date: Wed, 03 Jun 2020 14:47:31 +0200
+Message-ID: <s5hr1uwco4c.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Macpaul Lin <macpaul.lin@mediatek.com>
 Subject: Re: [PATCH] sound: usb: pcm: fix incorrect power state when playing
  sound after PM_AUTO suspend
-From: Macpaul Lin <macpaul.lin@mediatek.com>
-To: Takashi Iwai <tiwai@suse.de>
-Date: Wed, 3 Jun 2020 20:39:24 +0800
-In-Reply-To: <s5h367cfsga.wl-tiwai@suse.de>
+In-Reply-To: <1591187964.23525.61.camel@mtkswgap22>
 References: <s5hpnahhbz8.wl-tiwai@suse.de>
- <1591153515.23525.50.camel@mtkswgap22> <s5heeqwfyti.wl-tiwai@suse.de>
- <s5hblm0fxl0.wl-tiwai@suse.de> <s5h367cfsga.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="ISO-8859-1"
-X-Mailer: Evolution 3.2.3-0ubuntu6 
-MIME-Version: 1.0
-X-MTK: N
-Content-Transfer-Encoding: base64
+ <1591153515.23525.50.camel@mtkswgap22>
+ <s5heeqwfyti.wl-tiwai@suse.de> <s5hblm0fxl0.wl-tiwai@suse.de>
+ <s5h367cfsga.wl-tiwai@suse.de>
+ <1591187964.23525.61.camel@mtkswgap22>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
 Cc: alsa-devel@alsa-project.org,
- Szabolcs =?UTF-8?Q?Sz=C5=91ke?= <szszoke.code@gmail.com>,
+ Szabolcs =?UTF-8?B?U3rFkWtl?= <szszoke.code@gmail.com>,
  Mediatek WSD Upstream <wsd_upstream@mediatek.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
  Takashi Iwai <tiwai@suse.com>, stable@vger.kernel.org,
@@ -94,75 +81,145 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gV2VkLCAyMDIwLTA2LTAzIGF0IDEwOjQ1ICswMjAwLCBUYWthc2hpIEl3YWkgd3JvdGU6DQo+
-IE9uIFdlZCwgMDMgSnVuIDIwMjAgMDg6NTQ6NTEgKzAyMDAsDQo+IFRha2FzaGkgSXdhaSB3cm90
-ZToNCj4gPiANCj4gPiBPbiBXZWQsIDAzIEp1biAyMDIwIDA4OjI4OjA5ICswMjAwLA0KPiA+IFRh
-a2FzaGkgSXdhaSB3cm90ZToNCj4gPiA+IA0KPiA+ID4gQW5kLCB0aGUgbW9zdCBzdXNwaWNpb3Vz
-IGNhc2UgaXMgdGhlIGxhc3Qgb25lLA0KPiA+ID4gY2hpcC0+bnVtX3N1c3BlbmRlZC1pbnRmLiAg
-SXQgbWVhbnMgdGhhdCB0aGUgZGV2aWNlIGhhcyBtdWx0aXBsZQ0KPiA+ID4gVVNCIGludGVyZmFj
-ZXMgYW5kIHRoZXkgd2VudCB0byBzdXNwZW5kLCB3aGlsZSB0aGUgcmVzdW1lIGlzbid0DQo+ID4g
-PiBwZXJmb3JtZWQgZm9yIHRoZSBhbGwgc3VzcGVuZGVkIGludGVyZmFjZXMgaW4gcmV0dXJuLg0K
-PiA+IA0KPiA+IElmIHRoaXMgaXMgdGhlIGNhdXNlLCBhIHBhdGNoIGxpa2UgYmVsb3cgbWlnaHQg
-aGVscC4NCj4gPiBJdCBnZXRzL3B1dHMgdGhlIGFsbCBhc3NpZ25lZCBpbnRlcmZhY2VkIGluc3Rl
-YWQgb2Ygb25seSB0aGUgcHJpbWFyeQ0KPiA+IG9uZS4NCj4gDQo+IC4uLiBhbmQgY29uc2lkZXJp
-bmcgb2YgdGhlIHByb2JsZW0gYWdhaW4sIHJhdGhlciB0aGUgcGF0Y2ggYmVsb3cgbWlnaHQNCj4g
-YmUgdGhlIHJpZ2h0IGFuc3dlci4gIE5vdyB0aGUgZHJpdmVyIHRyaWVzIHRvIHJlbWVtYmVyIGF0
-IHdoaWNoIHN0YXRlDQo+IGl0IGVudGVyZWQgaW50byB0aGUgc3lzdGVtLXN1c3BlbmQuICBVcG9u
-IHJlc3VtZSwgaW4gcmV0dXJuLCB3aGVuIHRoZQ0KPiBzdGF0ZSByZWFjaGVzIGJhY2sgdG8gdGhh
-dCBwb2ludCwgc2V0IHRoZSBjYXJkIHN0YXRlIHRvIEQwLg0KPiANCj4gVGhlIHByZXZpb3VzIHBh
-dGNoIGNhbiBiZSBhcHBsaWVkIG9uIHRoZSB0b3AsIHRvbywgYW5kIGl0IG1pZ2h0IGJlDQo+IHdv
-cnRoIHRvIGFwcGx5IGJvdGguDQo+IA0KPiBMZXQgbWUga25vdyBpZiBhbnkgb2YgdGhvc2UgYWN0
-dWFsbHkgaGVscHMuDQo+IA0KPiANCj4gVGFrYXNoaQ0KDQpUaGFua3MgZm9yIHlvdXIgcmVzcG9u
-c2Ugc28gcXVpY2tseS4NCkkndmUganVzdCB0ZXN0IHRoaXMgcGF0Y2ggc2luY2UgaXQgbG9va3Mg
-bGlrZSBlbm91Z2ggZm9yIHRoZSBpc3N1ZS4NCg0KVGhpcyBwYXRjaCB3b3JrZWQgc2luY2UgdGhl
-IGZsYWcgc3lzdGVtX3N1c3BlbmQgd2lsbCBiZSBzZXQgYXQgdGhlIHNhbWUNCnRpbWUgd2hlbiBw
-b3dlciBzdGF0ZSBoYXMgYmVlbiBjaGFuZ2VkLiBJIGhhdmUgMiBpbnRlcmZhY2Ugd2l0aCB0aGUg
-aGVhZA0Kc2V0LiBCdXQgYWN0dWFsbHkgdGhlIHByb2JsZW0gaGFwcGVuZWQgd2hlbiBwcmltYXJ5
-IG9uZSBpcyBzdXNwZW5kZWQuDQpTbyBJIGRpZG4ndCB0ZXN0IHRoZSBlYXJsaWVyIHBhdGNoICJz
-dXNwZW5kIGFsbCBpbnRlcmZhY2UgaW5zdGVhZCBvZg0Kb25seSB0aGUgcHJpbWFyeSBvbmUuIg0K
-DQpXaWxsIHlvdSByZXNlbmQgdGhpcyBwYXRjaCBvZmZpY2lhbGx5IGxhdGVyPyBJIHRoaW5rIHRo
-aXMgc29sdXRpb24gaXMNCnJlcXVpcmVkIHRvIHNlbmQgdG8gc3RhYmxlLCB0b28uIEl0J3MgYmV0
-dGVyIHRvIGhhdmUgaXQgZm9yIG90aGVyIHN0YWJsZQ0Ka2VybmVsIHZlcnNpb25zIGluY2x1ZGUg
-YW5kcm9pZCdzLg0KDQo+IC0tLQ0KPiBkaWZmIC0tZ2l0IGEvc291bmQvdXNiL2NhcmQuYyBiL3Nv
-dW5kL3VzYi9jYXJkLmMNCj4gLS0tIGEvc291bmQvdXNiL2NhcmQuYw0KPiArKysgYi9zb3VuZC91
-c2IvY2FyZC5jDQo+IEBAIC04NDMsOSArODQzLDYgQEAgc3RhdGljIGludCB1c2JfYXVkaW9fc3Vz
-cGVuZChzdHJ1Y3QgdXNiX2ludGVyZmFjZSAqaW50ZiwgcG1fbWVzc2FnZV90IG1lc3NhZ2UpDQo+
-ICAJaWYgKGNoaXAgPT0gKHZvaWQgKiktMUwpDQo+ICAJCXJldHVybiAwOw0KPiAgDQo+IC0JY2hp
-cC0+YXV0b3N1c3BlbmRlZCA9ICEhUE1TR19JU19BVVRPKG1lc3NhZ2UpOw0KPiAtCWlmICghY2hp
-cC0+YXV0b3N1c3BlbmRlZCkNCj4gLQkJc25kX3Bvd2VyX2NoYW5nZV9zdGF0ZShjaGlwLT5jYXJk
-LCBTTkRSVl9DVExfUE9XRVJfRDNob3QpOw0KPiAgCWlmICghY2hpcC0+bnVtX3N1c3BlbmRlZF9p
-bnRmKyspIHsNCj4gIAkJbGlzdF9mb3JfZWFjaF9lbnRyeShhcywgJmNoaXAtPnBjbV9saXN0LCBs
-aXN0KSB7DQo+ICAJCQlzbmRfdXNiX3BjbV9zdXNwZW5kKGFzKTsNCj4gQEAgLTg1OCw2ICs4NTUs
-MTEgQEAgc3RhdGljIGludCB1c2JfYXVkaW9fc3VzcGVuZChzdHJ1Y3QgdXNiX2ludGVyZmFjZSAq
-aW50ZiwgcG1fbWVzc2FnZV90IG1lc3NhZ2UpDQo+ICAJCQlzbmRfdXNiX21peGVyX3N1c3BlbmQo
-bWl4ZXIpOw0KPiAgCX0NCj4gIA0KPiArCWlmICghUE1TR19JU19BVVRPKG1lc3NhZ2UpICYmICFj
-aGlwLT5zeXN0ZW1fc3VzcGVuZCkgew0KPiArCQlzbmRfcG93ZXJfY2hhbmdlX3N0YXRlKGNoaXAt
-PmNhcmQsIFNORFJWX0NUTF9QT1dFUl9EM2hvdCk7DQo+ICsJCWNoaXAtPnN5c3RlbV9zdXNwZW5k
-ID0gY2hpcC0+bnVtX3N1c3BlbmRlZF9pbnRmOw0KPiArCX0NCj4gKw0KPiAgCXJldHVybiAwOw0K
-PiAgfQ0KPiAgDQo+IEBAIC04NzEsMTAgKzg3MywxMCBAQCBzdGF0aWMgaW50IF9fdXNiX2F1ZGlv
-X3Jlc3VtZShzdHJ1Y3QgdXNiX2ludGVyZmFjZSAqaW50ZiwgYm9vbCByZXNldF9yZXN1bWUpDQo+
-ICANCj4gIAlpZiAoY2hpcCA9PSAodm9pZCAqKS0xTCkNCj4gIAkJcmV0dXJuIDA7DQo+IC0JaWYg
-KC0tY2hpcC0+bnVtX3N1c3BlbmRlZF9pbnRmKQ0KPiAtCQlyZXR1cm4gMDsNCj4gIA0KPiAgCWF0
-b21pY19pbmMoJmNoaXAtPmFjdGl2ZSk7IC8qIGF2b2lkIGF1dG9wbSAqLw0KPiArCWlmIChjaGlw
-LT5udW1fc3VzcGVuZGVkX2ludGYgPiAxKQ0KPiArCQlnb3RvIG91dDsNCj4gIA0KPiAgCWxpc3Rf
-Zm9yX2VhY2hfZW50cnkoYXMsICZjaGlwLT5wY21fbGlzdCwgbGlzdCkgew0KPiAgCQllcnIgPSBz
-bmRfdXNiX3BjbV9yZXN1bWUoYXMpOw0KPiBAQCAtODk2LDkgKzg5OCwxMiBAQCBzdGF0aWMgaW50
-IF9fdXNiX2F1ZGlvX3Jlc3VtZShzdHJ1Y3QgdXNiX2ludGVyZmFjZSAqaW50ZiwgYm9vbCByZXNl
-dF9yZXN1bWUpDQo+ICAJCXNuZF91c2JtaWRpX3Jlc3VtZShwKTsNCj4gIAl9DQo+ICANCj4gLQlp
-ZiAoIWNoaXAtPmF1dG9zdXNwZW5kZWQpDQo+ICsgb3V0Og0KPiArCWlmIChjaGlwLT5udW1fc3Vz
-cGVuZGVkX2ludGYgPT0gY2hpcC0+c3lzdGVtX3N1c3BlbmQpIHsNCj4gIAkJc25kX3Bvd2VyX2No
-YW5nZV9zdGF0ZShjaGlwLT5jYXJkLCBTTkRSVl9DVExfUE9XRVJfRDApOw0KPiAtCWNoaXAtPmF1
-dG9zdXNwZW5kZWQgPSAwOw0KPiArCQljaGlwLT5zeXN0ZW1fc3VzcGVuZCA9IDA7DQo+ICsJfQ0K
-PiArCWNoaXAtPm51bV9zdXNwZW5kZWRfaW50Zi0tOw0KPiAgDQo+ICBlcnJfb3V0Og0KPiAgCWF0
-b21pY19kZWMoJmNoaXAtPmFjdGl2ZSk7IC8qIGFsbG93IGF1dG9wbSBhZnRlciB0aGlzIHBvaW50
-ICovDQo+IGRpZmYgLS1naXQgYS9zb3VuZC91c2IvdXNiYXVkaW8uaCBiL3NvdW5kL3VzYi91c2Jh
-dWRpby5oDQo+IGluZGV4IDFjODkyYzdmMTRkNy4uZTBlYmZiMjVmYmQ1IDEwMDY0NA0KPiAtLS0g
-YS9zb3VuZC91c2IvdXNiYXVkaW8uaA0KPiArKysgYi9zb3VuZC91c2IvdXNiYXVkaW8uaA0KPiBA
-QCAtMjYsNyArMjYsNyBAQCBzdHJ1Y3Qgc25kX3VzYl9hdWRpbyB7DQo+ICAJc3RydWN0IHVzYl9p
-bnRlcmZhY2UgKnBtX2ludGY7DQo+ICAJdTMyIHVzYl9pZDsNCj4gIAlzdHJ1Y3QgbXV0ZXggbXV0
-ZXg7DQo+IC0JdW5zaWduZWQgaW50IGF1dG9zdXNwZW5kZWQ6MTsJDQo+ICsJdW5zaWduZWQgaW50
-IHN5c3RlbV9zdXNwZW5kOw0KPiAgCWF0b21pY190IGFjdGl2ZTsNCj4gIAlhdG9taWNfdCBzaHV0
-ZG93bjsNCj4gIAlhdG9taWNfdCB1c2FnZV9jb3VudDsNCj4gDQo+IF9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQoNClRoYW5rIHlvdSB2ZXJ5IG11Y2ghDQoN
-CkJlc3QgcmVnYXJkcywNCk1hY3BhdWwgTGluDQoNCg0K
+On Wed, 03 Jun 2020 14:39:24 +0200,
+Macpaul Lin wrote:
+> 
+> On Wed, 2020-06-03 at 10:45 +0200, Takashi Iwai wrote:
+> > On Wed, 03 Jun 2020 08:54:51 +0200,
+> > Takashi Iwai wrote:
+> > > 
+> > > On Wed, 03 Jun 2020 08:28:09 +0200,
+> > > Takashi Iwai wrote:
+> > > > 
+> > > > And, the most suspicious case is the last one,
+> > > > chip->num_suspended-intf.  It means that the device has multiple
+> > > > USB interfaces and they went to suspend, while the resume isn't
+> > > > performed for the all suspended interfaces in return.
+> > > 
+> > > If this is the cause, a patch like below might help.
+> > > It gets/puts the all assigned interfaced instead of only the primary
+> > > one.
+> > 
+> > ... and considering of the problem again, rather the patch below might
+> > be the right answer.  Now the driver tries to remember at which state
+> > it entered into the system-suspend.  Upon resume, in return, when the
+> > state reaches back to that point, set the card state to D0.
+> > 
+> > The previous patch can be applied on the top, too, and it might be
+> > worth to apply both.
+> > 
+> > Let me know if any of those actually helps.
+> > 
+> > 
+> > Takashi
+> 
+> Thanks for your response so quickly.
+> I've just test this patch since it looks like enough for the issue.
 
+Good to hear!
+
+> This patch worked since the flag system_suspend will be set at the same
+> time when power state has been changed. I have 2 interface with the head
+> set. But actually the problem happened when primary one is suspended.
+
+Currently the autosuspend is set only to the primary interface; IOW,
+the other interfaces will never get autosuspend, and the another
+suspend-all-intf patch should improve that situation.  But it won't
+fix your actual bug, obviously :)
+
+> So I didn't test the earlier patch "suspend all interface instead of
+> only the primary one."
+
+Could you try it one on top of the last patch?  At least I'd like to
+see whether it causes any regression.
+
+> Will you resend this patch officially later? I think this solution is
+> required to send to stable, too. It's better to have it for other stable
+> kernel versions include android's.
+
+Yes, that's a general bug and worth to be merged quickly.
+I'm going to submit a proper patch soon later.
+
+
+thanks,
+
+Takashi
+
+
+> 
+> > ---
+> > diff --git a/sound/usb/card.c b/sound/usb/card.c
+> > --- a/sound/usb/card.c
+> > +++ b/sound/usb/card.c
+> > @@ -843,9 +843,6 @@ static int usb_audio_suspend(struct usb_interface *intf, pm_message_t message)
+> >  	if (chip == (void *)-1L)
+> >  		return 0;
+> >  
+> > -	chip->autosuspended = !!PMSG_IS_AUTO(message);
+> > -	if (!chip->autosuspended)
+> > -		snd_power_change_state(chip->card, SNDRV_CTL_POWER_D3hot);
+> >  	if (!chip->num_suspended_intf++) {
+> >  		list_for_each_entry(as, &chip->pcm_list, list) {
+> >  			snd_usb_pcm_suspend(as);
+> > @@ -858,6 +855,11 @@ static int usb_audio_suspend(struct usb_interface *intf, pm_message_t message)
+> >  			snd_usb_mixer_suspend(mixer);
+> >  	}
+> >  
+> > +	if (!PMSG_IS_AUTO(message) && !chip->system_suspend) {
+> > +		snd_power_change_state(chip->card, SNDRV_CTL_POWER_D3hot);
+> > +		chip->system_suspend = chip->num_suspended_intf;
+> > +	}
+> > +
+> >  	return 0;
+> >  }
+> >  
+> > @@ -871,10 +873,10 @@ static int __usb_audio_resume(struct usb_interface *intf, bool reset_resume)
+> >  
+> >  	if (chip == (void *)-1L)
+> >  		return 0;
+> > -	if (--chip->num_suspended_intf)
+> > -		return 0;
+> >  
+> >  	atomic_inc(&chip->active); /* avoid autopm */
+> > +	if (chip->num_suspended_intf > 1)
+> > +		goto out;
+> >  
+> >  	list_for_each_entry(as, &chip->pcm_list, list) {
+> >  		err = snd_usb_pcm_resume(as);
+> > @@ -896,9 +898,12 @@ static int __usb_audio_resume(struct usb_interface *intf, bool reset_resume)
+> >  		snd_usbmidi_resume(p);
+> >  	}
+> >  
+> > -	if (!chip->autosuspended)
+> > + out:
+> > +	if (chip->num_suspended_intf == chip->system_suspend) {
+> >  		snd_power_change_state(chip->card, SNDRV_CTL_POWER_D0);
+> > -	chip->autosuspended = 0;
+> > +		chip->system_suspend = 0;
+> > +	}
+> > +	chip->num_suspended_intf--;
+> >  
+> >  err_out:
+> >  	atomic_dec(&chip->active); /* allow autopm after this point */
+> > diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
+> > index 1c892c7f14d7..e0ebfb25fbd5 100644
+> > --- a/sound/usb/usbaudio.h
+> > +++ b/sound/usb/usbaudio.h
+> > @@ -26,7 +26,7 @@ struct snd_usb_audio {
+> >  	struct usb_interface *pm_intf;
+> >  	u32 usb_id;
+> >  	struct mutex mutex;
+> > -	unsigned int autosuspended:1;	
+> > +	unsigned int system_suspend;
+> >  	atomic_t active;
+> >  	atomic_t shutdown;
+> >  	atomic_t usage_count;
+> > 
+> > _______________________________________________
+> 
+> Thank you very much!
+> 
+> Best regards,
+> Macpaul Lin
+> 
+> 

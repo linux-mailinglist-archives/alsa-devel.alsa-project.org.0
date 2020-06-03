@@ -2,63 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C3B61ED49A
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jun 2020 18:57:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C51EA1ED511
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jun 2020 19:37:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C77701664;
-	Wed,  3 Jun 2020 18:56:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C77701664
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3EF7E1664;
+	Wed,  3 Jun 2020 19:36:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EF7E1664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591203466;
-	bh=Ttn9hgjcpTRzYSdTVbKH9PW3tS6WUW0z+ZBBzTvqYac=;
+	s=default; t=1591205864;
+	bh=nxsv91YZ1f6yIdqc/jstEYWMXL8RqTOBWwlCy/hGDns=;
 	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pK0GDgXUtRJ6519iA/gXXsgNC7xpEKVnBQOt34c++y3YXPEBncNvDjrnGY+b+IsV9
-	 n2zH4uYkrGRtWUNHdeiuzVgKxWkBZxP2I0O4aYKUW5hUCZidmPf9Bj+Zo2O/XoX1Eo
-	 6fIRiFnLWzjsuKxU2dRp6/lVUQYvvMydtZtTcMg8=
+	b=mui8IEAmPpjRQXgMolaaZfyIfupSSrQCbNmy2tPOrqQj/5YxyMMN9SScezXL3rDKk
+	 4vFeuaBoV2fDZEDLjKnzCt/lveysws7rF3eq4bLy7pBdtc6R4anSmY2uv8WlzZ3+Z4
+	 W8tIcr9c2oFLWmKXnEcXN2H8pbfM8kJeWzhljyFQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 021C3F800BC;
-	Wed,  3 Jun 2020 18:56:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77E9FF8013D;
+	Wed,  3 Jun 2020 19:36:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2678EF801ED; Wed,  3 Jun 2020 18:56:03 +0200 (CEST)
+ id 315FBF801ED; Wed,  3 Jun 2020 19:36:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7348FF800D0
- for <alsa-devel@alsa-project.org>; Wed,  3 Jun 2020 18:55:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7348FF800D0
-IronPort-SDR: uM4lm53Au4fnljRA1CpdSZy+MAnCUA9D6feot3t0V/i1tCSVzM4jh9cJPNZcwX0sgLfn+vPc1Q
- pSI6L4o0XbDg==
+ by alsa1.perex.cz (Postfix) with ESMTPS id EC41FF800D0
+ for <alsa-devel@alsa-project.org>; Wed,  3 Jun 2020 19:35:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC41FF800D0
+IronPort-SDR: 36D1XSQvOS6W9XyjLvWHAeNml6iU9exJqqRS177bupFanFEwi2Bfc7RGC0a/SIZSUgqJxBgPLi
+ mLN4+CTbTmKQ==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2020 09:55:52 -0700
-IronPort-SDR: wgQaeNhJaUc68GmLFF+DBGvVOkFIW2CLn41MPYdHJoxaC73zKXrEYdka66Ez773o2yJlEwpE7r
- 4q/lH2r7cP5g==
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jun 2020 10:35:47 -0700
+IronPort-SDR: 1s/hq7IMP2nQvcTHpEhunyq7Kpl7lKy/DVPQPHuP0DvOUWt4VEeGRfy/ZvOmt/uYimVsEKJli5
+ h8B9a8La7SsA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,468,1583222400"; d="scan'208";a="471202298"
+X-IronPort-AV: E=Sophos;i="5.73,468,1583222400"; d="scan'208";a="445192654"
 Received: from unknown (HELO ranjani-desktop) ([10.254.43.45])
- by fmsmga005.fm.intel.com with ESMTP; 03 Jun 2020 09:55:52 -0700
-Message-ID: <86ef3a145dec2c08bce4fa0218e25af56b94fda3.camel@linux.intel.com>
-Subject: Re: [PATCH 09/24] ASoC: soc-component: add
- snd_soc_component_compr_open()
+ by orsmga005.jf.intel.com with ESMTP; 03 Jun 2020 10:35:47 -0700
+Message-ID: <af9426ea89afc8ab987c7e6f21846cf3cc13b775.camel@linux.intel.com>
+Subject: Re: [PATCH 17/24] ASoC: soc-component: add
+ snd_soc_component_compr_pointer()
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown
  <broonie@kernel.org>
-Date: Wed, 03 Jun 2020 09:55:52 -0700
-In-Reply-To: <87wo4ry3bz.wl-kuninori.morimoto.gx@renesas.com>
+Date: Wed, 03 Jun 2020 10:35:47 -0700
+In-Reply-To: <87lfl7y3as.wl-kuninori.morimoto.gx@renesas.com>
 References: <87a71nzhy2.wl-kuninori.morimoto.gx@renesas.com>
- <87wo4ry3bz.wl-kuninori.morimoto.gx@renesas.com>
+ <87lfl7y3as.wl-kuninori.morimoto.gx@renesas.com>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
 Mime-Version: 1.0
@@ -79,49 +80,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 2020-06-01 at 10:36 +0900, Kuninori Morimoto wrote:
+On Mon, 2020-06-01 at 10:37 +0900, Kuninori Morimoto wrote:
 > From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > 
 > component related function should be implemented at
 > soc-component.c.
-> This patch moves soc-compress soc_compr_components_open()
-> to soc-component as snd_soc_component_compr_open().
+> This patch adds snd_soc_component_compr_pointer().
 > 
 > Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > ---
 >  include/sound/soc-component.h |  2 ++
->  sound/soc/soc-component.c     | 23 +++++++++++++++++++++++
->  sound/soc/soc-compress.c      | 31 ++-----------------------------
->  3 files changed, 27 insertions(+), 29 deletions(-)
+>  sound/soc/soc-component.c     | 21 +++++++++++++++++++++
+>  sound/soc/soc-compress.c      | 13 ++-----------
+>  3 files changed, 25 insertions(+), 11 deletions(-)
 > 
 > diff --git a/include/sound/soc-component.h b/include/sound/soc-
 > component.h
-> index bb26d55a9289..4f82839948d6 100644
+> index da1d89d0b476..0e05aedaee05 100644
 > --- a/include/sound/soc-component.h
 > +++ b/include/sound/soc-component.h
-> @@ -436,6 +436,8 @@ int snd_soc_component_of_xlate_dai_id(struct
-> snd_soc_component *component,
->  int snd_soc_component_of_xlate_dai_name(struct snd_soc_component
-> *component,
->  					struct of_phandle_args *args,
->  					const char **dai_name);
-> +int snd_soc_component_compr_open(struct snd_compr_stream *cstream,
-> +				 struct snd_soc_component **last);
+> @@ -450,6 +450,8 @@ int snd_soc_component_compr_get_caps(struct
+> snd_compr_stream *cstream,
+>  int snd_soc_component_compr_get_codec_caps(struct snd_compr_stream
+> *cstream,
+>  					   struct snd_compr_codec_caps
+> *codec);
+>  int snd_soc_component_compr_ack(struct snd_compr_stream *cstream,
+> size_t bytes);
+> +int snd_soc_component_compr_pointer(struct snd_compr_stream
+> *cstream,
+> +				    struct snd_compr_tstamp *tstamp);
 >  
 >  int snd_soc_pcm_component_pointer(struct snd_pcm_substream
 > *substream);
 >  int snd_soc_pcm_component_ioctl(struct snd_pcm_substream *substream,
 > diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-> index 150b02be0219..c2a6046a6380 100644
+> index 8f223dd060e8..8a24d6f3572a 100644
 > --- a/sound/soc/soc-component.c
 > +++ b/sound/soc/soc-component.c
-> @@ -384,6 +384,29 @@
-> EXPORT_SYMBOL_GPL(snd_soc_component_exit_regmap);
+> @@ -549,6 +549,27 @@ int snd_soc_component_compr_ack(struct
+> snd_compr_stream *cstream, size_t bytes)
+>  }
+>  EXPORT_SYMBOL_GPL(snd_soc_component_compr_ack);
 >  
->  #endif
->  
-> +int snd_soc_component_compr_open(struct snd_compr_stream *cstream,
-> +				 struct snd_soc_component **last)
+> +int snd_soc_component_compr_pointer(struct snd_compr_stream
+> *cstream,
+> +				    struct snd_compr_tstamp *tstamp)
 > +{
 > +	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
 > +	struct snd_soc_component *component;
@@ -129,78 +133,17 @@ On Mon, 2020-06-01 at 10:36 +0900, Kuninori Morimoto wrote:
 > +
 > +	for_each_rtd_components(rtd, i, component) {
 > +		if (component->driver->compress_ops &&
-> +		    component->driver->compress_ops->open) {
-> +			ret = component->driver->compress_ops-
-> >open(component, cstream);
-> +			if (ret < 0) {
-> +				*last = component;
+> +		    component->driver->compress_ops->pointer) {
+> +			ret = component->driver->compress_ops->pointer(
+> +				component, cstream, tstamp);
+> +			if (ret < 0)
 > +				return soc_component_ret(component,
 > ret);
-> +			}
-> +		}
-> +	}
-> +
-> +	*last = NULL;
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(snd_soc_component_compr_open);
-> +
->  int snd_soc_pcm_component_pointer(struct snd_pcm_substream
-> *substream)
->  {
->  	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-> diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
-> index 4984b6a2c370..2a0d554013a4 100644
-> --- a/sound/soc/soc-compress.c
-> +++ b/sound/soc/soc-compress.c
-> @@ -22,33 +22,6 @@
->  #include <sound/soc-link.h>
->  #include <linux/pm_runtime.h>
->  
-> -static int soc_compr_components_open(struct snd_compr_stream
-> *cstream,
-> -				     struct snd_soc_component **last)
-> -{
-> -	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
-> -	struct snd_soc_component *component;
-> -	int i, ret;
-> -
-> -	for_each_rtd_components(rtd, i, component) {
-> -		if (!component->driver->compress_ops ||
-> -		    !component->driver->compress_ops->open)
-> -			continue;
-> -
-> -		ret = component->driver->compress_ops->open(component,
-> cstream);
-> -		if (ret < 0) {
-> -			dev_err(component->dev,
-> -				"Compress ASoC: can't open platform %s:
-> %d\n",
-> -				component->name, ret);
-> -
-> -			*last = component;
-> -			return ret;
-> -		}
-> -	}
-> -
-> -	*last = NULL;
-> -	return 0;
-> -}
-> -
->  static int soc_compr_components_free(struct snd_compr_stream
-> *cstream,
->  				     struct snd_soc_component *last)
->  {
-> @@ -92,7 +65,7 @@ static int soc_compr_open(struct snd_compr_stream
-> *cstream)
->  	if (ret < 0)
->  		goto out;
->  
-> -	ret = soc_compr_components_open(cstream, &component);
-> +	ret = snd_soc_component_compr_open(cstream, &component);
-If you do decide to keep your changes to move all these functions to
-soc-component.c, we need to include soc-component.h in soc-compress.c
-isnt it?
+Morimoto-san,
+
+This seems slightly different from the original loop in
+soc_compr_pointer() where we break as soon as the condition is true. So
+should we return irrespective of the return value here?
 
 Thanks,
 Ranjani

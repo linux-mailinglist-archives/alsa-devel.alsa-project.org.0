@@ -2,71 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD8351EC2FC
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jun 2020 21:42:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40F5E1EC650
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jun 2020 02:38:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 63EE7165D;
-	Tue,  2 Jun 2020 21:41:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63EE7165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95F711665;
+	Wed,  3 Jun 2020 02:37:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95F711665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591126922;
-	bh=sOm24cOmxxzEhnvZ6YiMek5r7wQg33WJCM8D62E4hvA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1591144708;
+	bh=kPpxDGE0vgcxRDGmwfpNYYgjRENjwfwaS9372OPV4MM=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kt+lIBkFMD9sIUxIwZHiU21uUOzsd3HzxQoPz9elCk3SksOMsNZ8s9ne7ZXsdTDqj
-	 AjPzY/YreJjvlyPs+aK/DwZW9W03zVF+zaZVeNSy4KH0U1zkSJMsFLN8An0e8kziZR
-	 3eXnRzD/Cr54tnm6fccUX0mnse6vJJATlrAwCVTQ=
+	b=kAVeysakrykp5LlYauJDMFHCiRlZIn/PLOPwtRCxg65j/ArCLPVMfadwVhBhQPz+q
+	 4WhbeTeNr3YC+DZi0BfZYIfFkdcRVdyca5js+kQJzv71NGgsUAKkD8EJHZ3fqdSIxT
+	 t5HDzlha/y8ykVTTPRPp9mQnYjhNMiruGSoj1MeM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD611F800B8;
-	Tue,  2 Jun 2020 21:40:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BBE63F80260;
+	Wed,  3 Jun 2020 02:36:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3ADD4F8026F; Tue,  2 Jun 2020 21:40:10 +0200 (CEST)
+ id 5CC38F8026F; Wed,  3 Jun 2020 02:36:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B6EA6F8013D
- for <alsa-devel@alsa-project.org>; Tue,  2 Jun 2020 21:39:56 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id A4F73A003F;
- Tue,  2 Jun 2020 21:39:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz A4F73A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1591126793; bh=k7UgsCID/aLiq6VrJjg7DzcBS6fxtQXpN1hJoa346Ew=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=vYkq/9rIekVQvml4tORl5BDjgIBAySS20xKIyjAGvaZRL2rqOSZQpy75X3aXQxAw7
- LGQ44D/g51KiLNIL94yN+did/9lAG9/XtzgYtpk0goTv2XlGt6G7UAHJokaVv4Z7/1
- VLIbS3j1FA6aqx/RxnmwTG8A7/xe1a5jj8I5Lbiw=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Tue,  2 Jun 2020 21:39:50 +0200 (CEST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3681BF800BC
+ for <alsa-devel@alsa-project.org>; Wed,  3 Jun 2020 02:36:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3681BF800BC
+Received: from [114.253.255.123] (helo=[192.168.2.109])
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <hui.wang@canonical.com>)
+ id 1jgHOS-0005mw-8X; Wed, 03 Jun 2020 00:36:32 +0000
 Subject: Re: alsa-project alsa-ucm : Audio endpoint is not switching when
  external mic connected
-To: "Mukunda, Vijendar" <Vijendar.Mukunda@amd.com>,
+To: Jaroslav Kysela <perex@perex.cz>,
+ "Mukunda, Vijendar" <Vijendar.Mukunda@amd.com>,
  "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
 References: <DM6PR12MB26332026A8F345F742B5E9FF978B0@DM6PR12MB2633.namprd12.prod.outlook.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <d149204b-1e2d-1ee9-fbb4-c6f8874e369a@perex.cz>
-Date: Tue, 2 Jun 2020 21:39:49 +0200
+ <d149204b-1e2d-1ee9-fbb4-c6f8874e369a@perex.cz>
+From: Hui Wang <hui.wang@canonical.com>
+Message-ID: <da8b6e1e-fd29-fb99-07a7-d5fd8c7b78f9@canonical.com>
+Date: Wed, 3 Jun 2020 08:36:25 +0800
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <DM6PR12MB26332026A8F345F742B5E9FF978B0@DM6PR12MB2633.namprd12.prod.outlook.com>
+In-Reply-To: <d149204b-1e2d-1ee9-fbb4-c6f8874e369a@perex.cz>
 Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Hui Wang <hui.wang@canonical.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,42 +75,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 02. 06. 20 v 19:57 Mukunda, Vijendar napsal(a):
-> We recently up streamed ACP PDM driver for Renoir APU.
-> 
-> Our ACP IP has an internal PDM Decoder block where DMIC is directly connected.
-> There are no KControls defined for PDM Driver.
-> 
-> Our platform supports on board DMIC and South bridge Azalia (HD Audio ) endpoint .
-> By default, DMIC endpoint is used as audio input device.
-> When Headset Mic jack connected, it's not switching to External Mic.
 
-Make sure that the Headset Mic priority port in pulseaudio is is greater than 
-the one for DMIC.
+On 2020/6/3 上午3:39, Jaroslav Kysela wrote:
+> Dne 02. 06. 20 v 19:57 Mukunda, Vijendar napsal(a):
+>> We recently up streamed ACP PDM driver for Renoir APU.
+>>
+>> Our ACP IP has an internal PDM Decoder block where DMIC is directly 
+>> connected.
+>> There are no KControls defined for PDM Driver.
+>>
+>> Our platform supports on board DMIC and South bridge Azalia (HD Audio 
+>> ) endpoint .
+>> By default, DMIC endpoint is used as audio input device.
+>> When Headset Mic jack connected, it's not switching to External Mic.
+>
+> Make sure that the Headset Mic priority port in pulseaudio is is 
+> greater than the one for DMIC.
+>
+>> How does audio endpoint will switch in gnome when external mic is 
+>> connected?
+>>> From our understanding, UCM conf file for HDA driver is also 
+>>> required for 
+>> configuring mixer controls for HD Audio capture device.
+>> Similarly when External Mic is removed , it has to switch to internal 
+>> dmic .
+>
+> An configuration example for UCM (DMIC connected to DSP, HDA codec for 
+> rest):
+>
+> https://github.com/alsa-project/alsa-ucm-conf/tree/master/ucm2/sof-hda-dsp
+>
+> If you need a help to create a new configuration for your hardware, 
+> show the output from the alsa-info.sh script, please.
+>
+>                     Jaroslav
 
-> How does audio endpoint will switch in gnome when external mic is connected?
->>From our understanding, UCM conf file for HDA driver is also required for 
-> configuring mixer controls for HD Audio capture device.
-> Similarly when External Mic is removed , it has to switch to internal dmic .
+This audio design is  a bit different from sof-hda-dsp, the dmic is on a 
+standalone sound card. Please see the alsa-info.txt:
 
-An configuration example for UCM (DMIC connected to DSP, HDA codec for rest):
+https://pastebin.ubuntu.com/p/4kprhDZYbg/
 
-   https://github.com/alsa-project/alsa-ucm-conf/tree/master/ucm2/sof-hda-dsp
+Thanks,
 
-If you need a help to create a new configuration for your hardware, show the 
-output from the alsa-info.sh script, please.
-
-					Jaroslav
-
-> 
-> Need help in resolving this issue.
-> 
-> Thanks,
-> Vijendar
-> 
-> 
+Hui.
 
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+>
+>>
+>> Need help in resolving this issue.
+>>
+>> Thanks,
+>> Vijendar
+>>
+>>
+>
+>

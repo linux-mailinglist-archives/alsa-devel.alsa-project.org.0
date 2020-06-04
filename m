@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 475B81EDDA4
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jun 2020 09:07:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F34D41EDDCA
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jun 2020 09:12:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CC047166F;
-	Thu,  4 Jun 2020 09:06:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC047166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E5E21660;
+	Thu,  4 Jun 2020 09:11:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E5E21660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591254440;
-	bh=jvgWG8H1/AVFmHwyU3Mc8Klff9M2pWgvnDdBnLggufA=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=lAtkpaTRB4kAYA7By4DG4yGGYACECKB6q1KtyTT6DC4Npf1Vkpv539kgvfDnCJUVT
-	 10IHbIzn0mr5C/u9LRdsQxtC8DtLnHb6NTFi6nsO0bQkweRsGYdGx7PoabjSgoT8MI
-	 QsiZwo4Iei2VdWCoMOxqb+Z5k5jbLgT4aT9ObXRI=
+	s=default; t=1591254759;
+	bh=OmQBG9FFsoMy+UajODaCoqs7dDQufDqizO+vsvAaIns=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=NH32Kau6TZlSPQ/x/Qvf3M7VjP2SETNelEt/jOsironr5VrNXrSa/hiWWiRh/eS3j
+	 ygm1loxEcU75jmqXDFZ3jqZJcEEZKDGiQgyZtdFFw4sTCHK5GcfPSAoH7t1yFMDvPa
+	 V2gOUp+5sAASnKb5LOcN9nmRLgingKSX2mU51OvI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02250F800BC;
-	Thu,  4 Jun 2020 09:05:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB23CF80260;
+	Thu,  4 Jun 2020 09:10:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 53A9CF80254; Thu,  4 Jun 2020 09:05:32 +0200 (CEST)
+ id D2A8EF80254; Thu,  4 Jun 2020 09:10:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -33,47 +32,39 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B0DE7F8013C
- for <alsa-devel@alsa-project.org>; Thu,  4 Jun 2020 09:05:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0DE7F8013C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 258F6F800BC
+ for <alsa-devel@alsa-project.org>; Thu,  4 Jun 2020 09:10:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 258F6F800BC
 Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.69 with qID 05475DHU0029908,
+X-SpamFilter-By: ArmorX SpamTrap 5.69 with qID 0547AjRT2031084,
  This message is accepted by code: ctloc85258
 Received: from mail.realtek.com (rtexmb06.realtek.com.tw[172.21.6.99])
- by rtits2.realtek.com.tw (8.15.2/2.66/5.86) with ESMTPS id 05475DHU0029908
+ by rtits2.realtek.com.tw (8.15.2/2.66/5.86) with ESMTPS id 0547AjRT2031084
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 4 Jun 2020 15:05:13 +0800
-Received: from RTEXMB02.realtek.com.tw (172.21.6.95) by
+ Thu, 4 Jun 2020 15:10:45 +0800
+Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
  RTEXMB06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Thu, 4 Jun 2020 15:05:12 +0800
-Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
- RTEXMB02.realtek.com.tw (172.21.6.95) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Thu, 4 Jun 2020 15:05:12 +0800
-Received: from RTEXMB01.realtek.com.tw ([fe80::d53a:d9a5:318:7cd8]) by
- RTEXMB01.realtek.com.tw ([fe80::d53a:d9a5:318:7cd8%5]) with mapi id
- 15.01.1779.005; Thu, 4 Jun 2020 15:05:12 +0800
-From: Kailang <kailang@realtek.com>
-To: Takashi Iwai <tiwai@suse.de>, Hans de Goede <hdegoede@redhat.com>
-Subject: RE: Fixing sound on Asus UX534F / some UX533 models
-Thread-Topic: Fixing sound on Asus UX534F / some UX533 models
-Thread-Index: AQHWONs22CJOa0S3f0amUcGxmmQQZKjICpOg
-Date: Thu, 4 Jun 2020 07:05:12 +0000
-Message-ID: <e8f566b59e38494ea8bc58669ac148be@realtek.com>
-References: <808c7b46-c86f-a3de-b645-c47e658e8abb@redhat.com>
- <s5hr1uxhc6k.wl-tiwai@suse.de>
-In-Reply-To: <s5hr1uxhc6k.wl-tiwai@suse.de>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.22.105.171]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 15.1.1779.2; Thu, 4 Jun 2020 15:10:45 +0800
+Received: from localhost.localdomain (172.22.102.1) by RTEXMB01.realtek.com.tw
+ (172.21.6.94) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1779.2; Thu, 4 Jun 2020
+ 15:10:45 +0800
+From: Oder Chiou <oder_chiou@realtek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: rl6231: Modify the target DMIC clock rate
+Date: Thu, 4 Jun 2020 15:10:16 +0800
+Message-ID: <20200604071016.3981-1-oder_chiou@realtek.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- c <kai.heng.feng@canonical.com>, "nuno.dias@gmail.com" <nuno.dias@gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.22.102.1]
+X-ClientProxiedBy: RTEXMB06.realtek.com.tw (172.21.6.99) To
+ RTEXMB01.realtek.com.tw (172.21.6.94)
+Cc: Oder Chiou <oder_chiou@realtek.com>, jack.yu@realtek.com,
+ alsa-devel@alsa-project.org, cychiang@google.com, albertchen@realtek.com,
+ derek.fang@realtek.com, shumingf@realtek.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,60 +80,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Takashi,
+Some DMIC components will not work correctly in the clock rate 3.072MHz.
+We recommend the clock rate 1.536MHz in the gerenal case.
 
-hda-verb /dev/snd/hwC0D0 0x20 0x500 0xf
-hda-verb /dev/snd/hwC0D0 0x20 0x400 0x7774
+Signed-off-by: Oder Chiou <oder_chiou@realtek.com>
+---
+ sound/soc/codecs/rl6231.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-This will enable HP out. Asus more platform use this.
+diff --git a/sound/soc/codecs/rl6231.c b/sound/soc/codecs/rl6231.c
+index 2586d1cafc0c..8c9daf32bab8 100644
+--- a/sound/soc/codecs/rl6231.c
++++ b/sound/soc/codecs/rl6231.c
+@@ -80,8 +80,8 @@ int rl6231_calc_dmic_clk(int rate)
+ 	for (i = 0; i < ARRAY_SIZE(div); i++) {
+ 		if ((div[i] % 3) == 0)
+ 			continue;
+-		/* find divider that gives DMIC frequency below 3.072MHz */
+-		if (3072000 * div[i] >= rate)
++		/* find divider that gives DMIC frequency below 1.536MHz */
++		if (1536000 * div[i] >= rate)
+ 			return i;
+ 	}
+ 
+-- 
+2.25.1
 
-BR,
-Kailang
-
-> -----Original Message-----
-> From: Takashi Iwai <tiwai@suse.de>
-> Sent: Tuesday, June 2, 2020 8:42 PM
-> To: Hans de Goede <hdegoede@redhat.com>
-> Cc: Kailang <kailang@realtek.com>; c <kai.heng.feng@canonical.com>;
-> alsa-devel@alsa-project.org; nuno.dias@gmail.com
-> Subject: Re: Fixing sound on Asus UX534F / some UX533 models
->=20
-> On Tue, 02 Jun 2020 11:51:49 +0200,
-> Hans de Goede wrote:
-> >
-> > Hi Kai-Heng Feng, Takashi,
-> >
-> > I see that you are on the notification list for this bug:
-> > https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1850439
-> >
-> > So you may have already seen this. Some owners of affected laptops
-> > (which have non working speakers / headphone output atm), have done
-> > some heroic debugging work and come up with a set of
-> > 2 hda-verb commands which fix this.
-> >
-> > I'm not all that familiar with writing hda quirks, so I was hoping
-> > that one of you 2 can come up with a patch to fix this at the kernel
-> > level.
-> >
-> > This would also resolve these 2 bugs, which I believe are the same bug
-> > really:
-> >
-> > https://bugzilla.kernel.org/show_bug.cgi?id=3D206289
-> > https://bugzilla.redhat.com/show_bug.cgi?id=3D1834751
->=20
-> Adding verbs are trivial and it can be done even without patching kernel =
-but
-> providing by a patch via patch module option of snd-hda-intel driver.
->=20
-> But, before moving forward, I'd like to confirm about the correctness (an=
-d the
-> safeness) of those verbs.
->=20
-> Kailang, could you check the COEF verbs mentioned in the bug entry above?
->=20
->=20
-> thanks,
->=20
-> Takashi
->=20
-> ------Please consider the environment before printing this e-mail.

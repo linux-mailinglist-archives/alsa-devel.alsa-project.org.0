@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C58A51EE655
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jun 2020 16:07:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C04621EE656
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jun 2020 16:08:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3EEAB1676;
-	Thu,  4 Jun 2020 16:07:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EEAB1676
+	by alsa0.perex.cz (Postfix) with ESMTPS id 600031663;
+	Thu,  4 Jun 2020 16:07:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 600031663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591279675;
-	bh=rE8aAOiPtU8yD/qqa4h0pT5TUBIYMvSrikKyYxDXOx4=;
+	s=default; t=1591279690;
+	bh=puRP5BmHybku3S6uqSnFGQ4cJaKeECmJKij/ujNAxQY=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UGB94b3A7i10zaA4ZqIowmS7Rtyv5xkdf2W5/v6rFjCjEM/E1GynGUw0/hjKG93eM
-	 ClDEqDTl83ByRRd29+mvCNoHEUQ1NSAH1TCQ6DlDZZYtFYUeafroEZ61p3bG/VNqBl
-	 BFIm3bFNg+cTIi5z4A5GBGBc90XRFdOqxm1dulTw=
+	b=hzSZNBiZ5fkfc0sHQMvDWhaJ2gdHhEGUsbvYbt0aDQwBEmTp8ZV+ndoNXRlo7AVp8
+	 ianB+yvvHFGya3rswZ0cooYfag+Cxoh2oFkiQ+B5lpNCPL1ZU/djmA7v67JvZwAB8C
+	 w4UusscqKhYbqJDl2O4Isx2CMc6r9LgUTzlVjkrI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 433A4F800BC;
-	Thu,  4 Jun 2020 16:05:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4EC24F80292;
+	Thu,  4 Jun 2020 16:05:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CD82CF8013C; Thu,  4 Jun 2020 16:05:25 +0200 (CEST)
+ id 5528EF800BC; Thu,  4 Jun 2020 16:05:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 01CC8F8013C
- for <alsa-devel@alsa-project.org>; Thu,  4 Jun 2020 16:05:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01CC8F8013C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31060F800BC
+ for <alsa-devel@alsa-project.org>; Thu,  4 Jun 2020 16:05:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31060F800BC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fjV8DTBY"
+ header.b="wLMQLIkj"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 30604207D8;
- Thu,  4 Jun 2020 14:05:21 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 3413F20772;
+ Thu,  4 Jun 2020 14:05:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591279521;
- bh=rE8aAOiPtU8yD/qqa4h0pT5TUBIYMvSrikKyYxDXOx4=;
+ s=default; t=1591279526;
+ bh=puRP5BmHybku3S6uqSnFGQ4cJaKeECmJKij/ujNAxQY=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=fjV8DTBYXuw8JkuCq50bbkuPqgA3hAMXcJbp05ldtOMKAOZvHQsEE+C0KtMIuB/PB
- 7yPo3iQBQ4Kt6ObTzaBm/LC4myiQdWe1+qt8xxuE75MLekTlvQyZZ+Ed4tvQtF6dGN
- Pg7BeAij4fgCe7Prl3ZZyBP0K7dLkrUpuoqJFKOI=
-Date: Thu, 04 Jun 2020 15:05:19 +0100
+ b=wLMQLIkjJMbFT1zlo1Jy8DZU6PmmZS+cMO8DG4VrDuPyqfNe3DwaKUSTQeHlRMItz
+ pqDY8ORRWyKY+2RACCHgrP3CG8jr+/fU2qNPMA35SZFmoFpGd5876fOgopi4n2FwmG
+ Qm5aI8iGSomjw/G1eGl8im511lsAungElS87HrfM=
+Date: Thu, 04 Jun 2020 15:05:24 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-In-Reply-To: <20200602164453.29925-1-tiwai@suse.de>
-References: <20200602164453.29925-1-tiwai@suse.de>
-Subject: Re: [PATCH] ASoC: max98390: Fix incorrect printf qualifier
-Message-Id: <159127951452.54171.3413134466723891598.b4-ty@kernel.org>
-Cc: alsa-devel@alsa-project.org, Steve Lee <steves.lee@maximintegrated.com>
+To: Oder Chiou <oder_chiou@realtek.com>, lgirdwood@gmail.com
+In-Reply-To: <20200604071016.3981-1-oder_chiou@realtek.com>
+References: <20200604071016.3981-1-oder_chiou@realtek.com>
+Subject: Re: [PATCH] ASoC: rl6231: Modify the target DMIC clock rate
+Message-Id: <159127951452.54171.4011264535234053661.b4-ty@kernel.org>
+Cc: jack.yu@realtek.com, alsa-devel@alsa-project.org, cychiang@google.com,
+ albertchen@realtek.com, derek.fang@realtek.com, shumingf@realtek.com,
+ flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,9 +77,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 2 Jun 2020 18:44:53 +0200, Takashi Iwai wrote:
-> This patch addresses a compile warning:
->   sound/soc/codecs/max98390.c:781:3: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 4 has type ‘size_t {aka const unsigned int}’ [-Wformat=]
+On Thu, 4 Jun 2020 15:10:16 +0800, Oder Chiou wrote:
+> Some DMIC components will not work correctly in the clock rate 3.072MHz.
+> We recommend the clock rate 1.536MHz in the gerenal case.
 
 Applied to
 
@@ -85,8 +87,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: max98390: Fix incorrect printf qualifier
-      commit: 678916ec54f38406032462dc466fd36cdfea4e3c
+[1/1] ASoC: rl6231: Modify the target DMIC clock rate
+      commit: d605cbb64252071d6a74b4fbb626e1473d91838d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

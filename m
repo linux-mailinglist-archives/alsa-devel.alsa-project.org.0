@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 551CF1EDF0D
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jun 2020 10:09:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35FE21EDF0E
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jun 2020 10:09:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 028301664;
-	Thu,  4 Jun 2020 10:08:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 028301664
+	by alsa0.perex.cz (Postfix) with ESMTPS id D65F71660;
+	Thu,  4 Jun 2020 10:08:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D65F71660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591258144;
-	bh=hRe+XMzIPsPHjWIRvfVVzDgHFtPs0h0dLLFMTjZ05+A=;
+	s=default; t=1591258159;
+	bh=LTj2rliggAUBQ2GLHIgN07jb5eNjbMtfOIVgtJAizds=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KzM3bxaFEybk60/JFW2mAui3MCAmnywkccUBhy65j0HBmnuWsWahtFLd+8sjPeruw
-	 JEf2YuSsi8cqPfz6uSlq6zRX/Arrvn2vZIBnAU5AaFaaeXCLSrXxwzd/ckpPx5mW4b
-	 nz42myPBN7WBmtbWztif3FbowkpONfKjpZzBFAew=
+	b=bKDNwQXxSbhncCdkrIMmmtYAIUX/U4ZHfeheZuU0TeEZZ7xhglcnEpv1dHbXd7DaA
+	 Tf81IPoEbcecnizElfBrTckxX/RUxHdhmA9RtAuW7twptXpWDq393wTHVVwHYJLxN8
+	 B886op8dBR3zwO/2wj/WZqrLq+wtTshzlOdIZfH0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F571F802A2;
-	Thu,  4 Jun 2020 10:06:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1558F802A8;
+	Thu,  4 Jun 2020 10:06:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 54CB8F802A1; Thu,  4 Jun 2020 10:06:31 +0200 (CEST)
+ id 1E696F802A9; Thu,  4 Jun 2020 10:06:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 19C81F8029B
- for <alsa-devel@alsa-project.org>; Thu,  4 Jun 2020 10:06:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19C81F8029B
-Date: 04 Jun 2020 17:06:22 +0900
-X-IronPort-AV: E=Sophos;i="5.73,471,1583161200"; d="scan'208";a="48819258"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 04 Jun 2020 17:06:22 +0900
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 6DAE0F802A0
+ for <alsa-devel@alsa-project.org>; Thu,  4 Jun 2020 10:06:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DAE0F802A0
+Date: 04 Jun 2020 17:06:32 +0900
+X-IronPort-AV: E=Sophos;i="5.73,471,1583161200"; d="scan'208";a="48607838"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 04 Jun 2020 17:06:32 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 9AA0F400A887;
- Thu,  4 Jun 2020 17:06:22 +0900 (JST)
-Message-ID: <87sgfbw8zl.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 3211E41D4004;
+ Thu,  4 Jun 2020 17:06:32 +0900 (JST)
+Message-ID: <87r1uvw8zb.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 02/12] ASoC: soc-component: move
- snd_soc_component_xxx_regmap() to soc-component
+Subject: [PATCH v2 03/12] ASoC: soc-component: move
+ snd_soc_component_initialize() to soc-component.c
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87v9k7w90s.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,150 +70,109 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-soc-component is handling snd_soc_component_xxx().
-Move snd_soc_component_xxx_regmap() to it.
+snd_soc_component_xxx() should be implemented at soc-component.c
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc-component.h |  1 +
- sound/soc/soc-component.c     | 50 +++++++++++++++++++++++++++++++++++
- sound/soc/soc-core.c          | 50 -----------------------------------
- 3 files changed, 51 insertions(+), 50 deletions(-)
+ include/sound/soc-component.h |  4 ++++
+ sound/soc/soc-component.c     | 16 ++++++++++++++++
+ sound/soc/soc-core.c          | 29 ++++++++---------------------
+ 3 files changed, 28 insertions(+), 21 deletions(-)
 
 diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-index 5663891148e3..481132141dc2 100644
+index 481132141dc2..cb0d34fa77c6 100644
 --- a/include/sound/soc-component.h
 +++ b/include/sound/soc-component.h
-@@ -359,6 +359,7 @@ int snd_soc_component_stream_event(struct snd_soc_component *component,
- int snd_soc_component_set_bias_level(struct snd_soc_component *component,
- 				     enum snd_soc_bias_level level);
+@@ -324,6 +324,10 @@ static inline int snd_soc_component_cache_sync(
+ 	return regcache_sync(component->regmap);
+ }
  
-+void snd_soc_component_setup_regmap(struct snd_soc_component *component);
- #ifdef CONFIG_REGMAP
- void snd_soc_component_init_regmap(struct snd_soc_component *component,
- 				   struct regmap *regmap);
++int snd_soc_component_initialize(struct snd_soc_component *component,
++				 const struct snd_soc_component_driver *driver,
++				 struct device *dev, const char *name);
++
+ /* component IO */
+ int snd_soc_component_read(struct snd_soc_component *component,
+ 			   unsigned int reg, unsigned int *val);
 diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index 76f4b953563c..3c96a1adaa8b 100644
+index 3c96a1adaa8b..5bf2e71d3d83 100644
 --- a/sound/soc/soc-component.c
 +++ b/sound/soc/soc-component.c
-@@ -302,6 +302,56 @@ int snd_soc_component_of_xlate_dai_name(struct snd_soc_component *component,
- 	return -ENOTSUPP;
- }
+@@ -8,6 +8,22 @@
+ #include <linux/module.h>
+ #include <sound/soc.h>
  
-+void snd_soc_component_setup_regmap(struct snd_soc_component *component)
++int snd_soc_component_initialize(struct snd_soc_component *component,
++				 const struct snd_soc_component_driver *driver,
++				 struct device *dev, const char *name)
 +{
-+	int val_bytes = regmap_get_val_bytes(component->regmap);
++	INIT_LIST_HEAD(&component->dai_list);
++	INIT_LIST_HEAD(&component->dobj_list);
++	INIT_LIST_HEAD(&component->card_list);
++	mutex_init(&component->io_mutex);
 +
-+	/* Errors are legitimate for non-integer byte multiples */
-+	if (val_bytes > 0)
-+		component->val_bytes = val_bytes;
++	component->name		= name;
++	component->dev		= dev;
++	component->driver	= driver;
++
++	return 0;
 +}
 +
-+#ifdef CONFIG_REGMAP
-+
-+/**
-+ * snd_soc_component_init_regmap() - Initialize regmap instance for the
-+ *                                   component
-+ * @component: The component for which to initialize the regmap instance
-+ * @regmap: The regmap instance that should be used by the component
-+ *
-+ * This function allows deferred assignment of the regmap instance that is
-+ * associated with the component. Only use this if the regmap instance is not
-+ * yet ready when the component is registered. The function must also be called
-+ * before the first IO attempt of the component.
-+ */
-+void snd_soc_component_init_regmap(struct snd_soc_component *component,
-+				   struct regmap *regmap)
-+{
-+	component->regmap = regmap;
-+	snd_soc_component_setup_regmap(component);
-+}
-+EXPORT_SYMBOL_GPL(snd_soc_component_init_regmap);
-+
-+/**
-+ * snd_soc_component_exit_regmap() - De-initialize regmap instance for the
-+ *                                   component
-+ * @component: The component for which to de-initialize the regmap instance
-+ *
-+ * Calls regmap_exit() on the regmap instance associated to the component and
-+ * removes the regmap instance from the component.
-+ *
-+ * This function should only be used if snd_soc_component_init_regmap() was used
-+ * to initialize the regmap instance.
-+ */
-+void snd_soc_component_exit_regmap(struct snd_soc_component *component)
-+{
-+	regmap_exit(component->regmap);
-+	component->regmap = NULL;
-+}
-+EXPORT_SYMBOL_GPL(snd_soc_component_exit_regmap);
-+
-+#endif
-+
- int snd_soc_pcm_component_pointer(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ /**
+  * snd_soc_component_set_sysclk - configure COMPONENT system or master clock.
+  * @component: COMPONENT
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index b07eca2c6ccc..8e90426d2770 100644
+index 8e90426d2770..7e22facf14ea 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -2381,56 +2381,6 @@ static int snd_soc_component_initialize(struct snd_soc_component *component,
- 	return 0;
+@@ -2361,26 +2361,6 @@ static int snd_soc_register_dais(struct snd_soc_component *component,
+ 	return ret;
  }
  
--static void snd_soc_component_setup_regmap(struct snd_soc_component *component)
+-static int snd_soc_component_initialize(struct snd_soc_component *component,
+-	const struct snd_soc_component_driver *driver, struct device *dev)
 -{
--	int val_bytes = regmap_get_val_bytes(component->regmap);
+-	INIT_LIST_HEAD(&component->dai_list);
+-	INIT_LIST_HEAD(&component->dobj_list);
+-	INIT_LIST_HEAD(&component->card_list);
+-	mutex_init(&component->io_mutex);
 -
--	/* Errors are legitimate for non-integer byte multiples */
--	if (val_bytes > 0)
--		component->val_bytes = val_bytes;
+-	component->name = fmt_single_name(dev, &component->id);
+-	if (!component->name) {
+-		dev_err(dev, "ASoC: Failed to allocate name\n");
+-		return -ENOMEM;
+-	}
+-
+-	component->dev = dev;
+-	component->driver = driver;
+-
+-	return 0;
 -}
--
--#ifdef CONFIG_REGMAP
--
--/**
-- * snd_soc_component_init_regmap() - Initialize regmap instance for the
-- *                                   component
-- * @component: The component for which to initialize the regmap instance
-- * @regmap: The regmap instance that should be used by the component
-- *
-- * This function allows deferred assignment of the regmap instance that is
-- * associated with the component. Only use this if the regmap instance is not
-- * yet ready when the component is registered. The function must also be called
-- * before the first IO attempt of the component.
-- */
--void snd_soc_component_init_regmap(struct snd_soc_component *component,
--	struct regmap *regmap)
--{
--	component->regmap = regmap;
--	snd_soc_component_setup_regmap(component);
--}
--EXPORT_SYMBOL_GPL(snd_soc_component_init_regmap);
--
--/**
-- * snd_soc_component_exit_regmap() - De-initialize regmap instance for the
-- *                                   component
-- * @component: The component for which to de-initialize the regmap instance
-- *
-- * Calls regmap_exit() on the regmap instance associated to the component and
-- * removes the regmap instance from the component.
-- *
-- * This function should only be used if snd_soc_component_init_regmap() was used
-- * to initialize the regmap instance.
-- */
--void snd_soc_component_exit_regmap(struct snd_soc_component *component)
--{
--	regmap_exit(component->regmap);
--	component->regmap = NULL;
--}
--EXPORT_SYMBOL_GPL(snd_soc_component_exit_regmap);
--
--#endif
 -
  #define ENDIANNESS_MAP(name) \
  	(SNDRV_PCM_FMTBIT_##name##LE | SNDRV_PCM_FMTBIT_##name##BE)
  static u64 endianness_format_map[] = {
+@@ -2443,12 +2423,19 @@ int snd_soc_add_component(struct device *dev,
+ 			struct snd_soc_dai_driver *dai_drv,
+ 			int num_dai)
+ {
++	const char *name = fmt_single_name(dev, &component->id);
+ 	int ret;
+ 	int i;
+ 
++	if (!name) {
++		dev_err(dev, "ASoC: Failed to allocate name\n");
++		return -ENOMEM;
++	}
++
+ 	mutex_lock(&client_mutex);
+ 
+-	ret = snd_soc_component_initialize(component, component_driver, dev);
++	ret = snd_soc_component_initialize(component, component_driver,
++					   dev, name);
+ 	if (ret)
+ 		goto err_free;
+ 
 -- 
 2.17.1
 

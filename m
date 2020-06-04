@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37D761EE652
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jun 2020 16:07:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C58A51EE655
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jun 2020 16:07:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7AD43166E;
-	Thu,  4 Jun 2020 16:06:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7AD43166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3EEAB1676;
+	Thu,  4 Jun 2020 16:07:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EEAB1676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591279628;
-	bh=yoZ+4NGxMSMul3HfyneR0IDhwul9qnZTStsDEn2Zgu4=;
-	h=Date:From:To:In-Reply-To:References:Subject:List-Id:
+	s=default; t=1591279675;
+	bh=rE8aAOiPtU8yD/qqa4h0pT5TUBIYMvSrikKyYxDXOx4=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jgNMaCXiuP28mj489i6tFDUC1b3YfCSteipeOe4SF+6IpiCmS2EkUWPFLdrTGsAHs
-	 vh2iguKZLC/iOT/KwE8HSebKZ/TIF7mI/JkKzUFL0lNQYT3ViDdTaz7ku6IOpsOkjD
-	 g4yjpPSe9twBckunq+m0O8/BbPQZ2fqfT1cQx6Ww=
+	b=UGB94b3A7i10zaA4ZqIowmS7Rtyv5xkdf2W5/v6rFjCjEM/E1GynGUw0/hjKG93eM
+	 ClDEqDTl83ByRRd29+mvCNoHEUQ1NSAH1TCQ6DlDZZYtFYUeafroEZ61p3bG/VNqBl
+	 BFIm3bFNg+cTIi5z4A5GBGBc90XRFdOqxm1dulTw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A04CF8023F;
-	Thu,  4 Jun 2020 16:05:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 433A4F800BC;
+	Thu,  4 Jun 2020 16:05:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B4F92F80254; Thu,  4 Jun 2020 16:05:22 +0200 (CEST)
+ id CD82CF8013C; Thu,  4 Jun 2020 16:05:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,35 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00588F800BC
- for <alsa-devel@alsa-project.org>; Thu,  4 Jun 2020 16:05:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00588F800BC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 01CC8F8013C
+ for <alsa-devel@alsa-project.org>; Thu,  4 Jun 2020 16:05:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01CC8F8013C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="oeFc3hPL"
+ header.b="fjV8DTBY"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2478D2063A;
- Thu,  4 Jun 2020 14:05:15 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 30604207D8;
+ Thu,  4 Jun 2020 14:05:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591279516;
- bh=yoZ+4NGxMSMul3HfyneR0IDhwul9qnZTStsDEn2Zgu4=;
+ s=default; t=1591279521;
+ bh=rE8aAOiPtU8yD/qqa4h0pT5TUBIYMvSrikKyYxDXOx4=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=oeFc3hPLn/eJQ8jT52aunzJxLu4etI3QaAS0voXxIyWb+xCQUXFs6CYPnG7kZSz4Z
- W02MtBf5aUl1PlWgDlyRlA8VcIuklXBwBcu1xxB/A88NyMLvcvI+DXZTmdPNF/jxy6
- d/80c9Z2fGRqsih7m2/4sskqDpGkrXcAosf72Ip4=
-Date: Thu, 04 Jun 2020 15:05:14 +0100
+ b=fjV8DTBYXuw8JkuCq50bbkuPqgA3hAMXcJbp05ldtOMKAOZvHQsEE+C0KtMIuB/PB
+ 7yPo3iQBQ4Kt6ObTzaBm/LC4myiQdWe1+qt8xxuE75MLekTlvQyZZ+Ed4tvQtF6dGN
+ Pg7BeAij4fgCe7Prl3ZZyBP0K7dLkrUpuoqJFKOI=
+Date: Thu, 04 Jun 2020 15:05:19 +0100
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, tiwai@suse.com, perex@perex.cz, nicoleotsuka@gmail.com,
- Xiubo.Lee@gmail.com, timur@kernel.org, Shengjiu Wang <shengjiu.wang@nxp.com>,
- linuxppc-dev@lists.ozlabs.org, festevam@gmail.com,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
-In-Reply-To: <1591251930-4111-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1591251930-4111-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH] ASoC: fsl-asoc-card: Defer probe when fail to find codec
- device
-Message-Id: <159127951451.54171.5112369332405594522.b4-ty@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+In-Reply-To: <20200602164453.29925-1-tiwai@suse.de>
+References: <20200602164453.29925-1-tiwai@suse.de>
+Subject: Re: [PATCH] ASoC: max98390: Fix incorrect printf qualifier
+Message-Id: <159127951452.54171.3413134466723891598.b4-ty@kernel.org>
+Cc: alsa-devel@alsa-project.org, Steve Lee <steves.lee@maximintegrated.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,9 +75,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 4 Jun 2020 14:25:30 +0800, Shengjiu Wang wrote:
-> Defer probe when fail to find codec device, because the codec
-> device maybe probed later than machine driver.
+On Tue, 2 Jun 2020 18:44:53 +0200, Takashi Iwai wrote:
+> This patch addresses a compile warning:
+>   sound/soc/codecs/max98390.c:781:3: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 4 has type ‘size_t {aka const unsigned int}’ [-Wformat=]
 
 Applied to
 
@@ -88,8 +85,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl-asoc-card: Defer probe when fail to find codec device
-      commit: e396dec46c5600d426b2ca8a01a877928b50d1d9
+[1/1] ASoC: max98390: Fix incorrect printf qualifier
+      commit: 678916ec54f38406032462dc466fd36cdfea4e3c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

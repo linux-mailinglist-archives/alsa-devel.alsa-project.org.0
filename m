@@ -2,50 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D05F51EDF8D
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jun 2020 10:14:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9ED651EDF93
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jun 2020 10:14:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85A511660;
-	Thu,  4 Jun 2020 10:13:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85A511660
+	by alsa0.perex.cz (Postfix) with ESMTPS id 507D61664;
+	Thu,  4 Jun 2020 10:13:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 507D61664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591258451;
-	bh=LcpqEWUDQQQ15EGW9buprjkFTa3JMAIwNBFF3kHGmK0=;
+	s=default; t=1591258478;
+	bh=jfDuiLK8qb7z7WoNHo/Une5gkgXgyARLYcUNBH2PG4I=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NV40hXHJNlSFQsKqa7+e8bCGBuONipzTC9/7+d8rHFreupjhto8lXvbnSUm6n1E93
-	 DE56dSWQv60a5jo5i5T/tvu12W3iUOHsUIQLG7Stylybl1wNfsJdEgCL7NhKgwTDIR
-	 HOgjicS8nH/Lz5zkdWFig22Y6+KabwYEvMqIuAlc=
+	b=OmGqwU153WzzuTGJuNIfHq5FEIL/IXwniPUBzsiTOKxFo9vATwnEctYFaKTY7ZBqi
+	 XRngFCJvf19LPuMby0Fj661h34X2/Uurgy2wrVvNUwR/Bcu6meW3LjW/zeT/FF8wVv
+	 xTpb1l6wuJDsIM8jJQnezr4H5MhcFx5aW2TFJcL4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 766C2F80316;
-	Thu,  4 Jun 2020 10:08:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B408F80260;
+	Thu,  4 Jun 2020 10:08:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B4B3F802F7; Thu,  4 Jun 2020 10:08:16 +0200 (CEST)
+ id 6F1B3F802A7; Thu,  4 Jun 2020 10:08:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 3D8FAF802F7
- for <alsa-devel@alsa-project.org>; Thu,  4 Jun 2020 10:08:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D8FAF802F7
-Date: 04 Jun 2020 17:08:12 +0900
-X-IronPort-AV: E=Sophos;i="5.73,471,1583161200"; d="scan'208";a="48607993"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id A047CF80299
+ for <alsa-devel@alsa-project.org>; Thu,  4 Jun 2020 10:08:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A047CF80299
+Date: 04 Jun 2020 17:08:24 +0900
+X-IronPort-AV: E=Sophos;i="5.73,471,1583161200"; d="scan'208";a="48819449"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 04 Jun 2020 17:08:12 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 04 Jun 2020 17:08:24 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id C848741D45B0;
- Thu,  4 Jun 2020 17:08:12 +0900 (JST)
-Message-ID: <87ftbbw8wj.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id AF80541D4581;
+ Thu,  4 Jun 2020 17:08:23 +0900 (JST)
+Message-ID: <87eeqvw8w8.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 11/12] ASoC: soc-component: merge
- soc_pcm_trigger_start/stop()
+Subject: [PATCH v2 12/12] ASoC: soc-component: tidyup Copyright
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87v9k7w90s.wl-kuninori.morimoto.gx@renesas.com>
@@ -68,97 +67,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Now, soc_pcm_trigger_start/stop() are simple enough.
-Let's merge these into soc_pcm_trigger().
+This patch add missing company copyright
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 58 +++++++++++++++------------------------------
- 1 file changed, 19 insertions(+), 39 deletions(-)
+ include/sound/soc-component.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index a52fe33670f6..a745e2acefa1 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -1072,57 +1072,37 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
- 	return 0;
- }
- 
--static int soc_pcm_trigger_start(struct snd_pcm_substream *substream, int cmd)
--{
--	int ret;
--
--	ret = snd_soc_link_trigger(substream, cmd);
--	if (ret < 0)
--		return ret;
--
--	ret = snd_soc_pcm_component_trigger(substream, cmd);
--	if (ret < 0)
--		return ret;
--
--	return snd_soc_pcm_dai_trigger(substream, cmd);
--}
--
--static int soc_pcm_trigger_stop(struct snd_pcm_substream *substream, int cmd)
--{
--	int ret;
--
--	ret = snd_soc_pcm_dai_trigger(substream, cmd);
--	if (ret < 0)
--		return ret;
--
--	ret = snd_soc_pcm_component_trigger(substream, cmd);
--	if (ret < 0)
--		return ret;
--
--	ret = snd_soc_link_trigger(substream, cmd);
--	if (ret < 0)
--		return ret;
--
--	return 0;
--}
--
- static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
- {
--	int ret;
-+	int ret = -EINVAL;
- 
- 	switch (cmd) {
- 	case SNDRV_PCM_TRIGGER_START:
- 	case SNDRV_PCM_TRIGGER_RESUME:
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
--		ret = soc_pcm_trigger_start(substream, cmd);
-+		ret = snd_soc_link_trigger(substream, cmd);
-+		if (ret < 0)
-+			break;
-+
-+		ret = snd_soc_pcm_component_trigger(substream, cmd);
-+		if (ret < 0)
-+			break;
-+
-+		ret = snd_soc_pcm_dai_trigger(substream, cmd);
- 		break;
- 	case SNDRV_PCM_TRIGGER_STOP:
- 	case SNDRV_PCM_TRIGGER_SUSPEND:
- 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
--		ret = soc_pcm_trigger_stop(substream, cmd);
-+		ret = snd_soc_pcm_dai_trigger(substream, cmd);
-+		if (ret < 0)
-+			break;
-+
-+		ret = snd_soc_pcm_component_trigger(substream, cmd);
-+		if (ret < 0)
-+			break;
-+
-+		ret = snd_soc_link_trigger(substream, cmd);
- 		break;
--	default:
--		return -EINVAL;
- 	}
- 
- 	return ret;
+diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
+index aea0eb0c3fcc..4a4bb723ca9f 100644
+--- a/include/sound/soc-component.h
++++ b/include/sound/soc-component.h
+@@ -2,7 +2,8 @@
+  *
+  * soc-component.h
+  *
+- * Copyright (c) 2019 Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
++ * Copyright (C) 2019 Renesas Electronics Corp.
++ * Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+  */
+ #ifndef __SOC_COMPONENT_H
+ #define __SOC_COMPONENT_H
 -- 
 2.17.1
 

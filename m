@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA9781EE28D
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jun 2020 12:35:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37D761EE652
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jun 2020 16:07:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 36BB6166F;
-	Thu,  4 Jun 2020 12:35:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36BB6166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7AD43166E;
+	Thu,  4 Jun 2020 16:06:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7AD43166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591266954;
-	bh=ml0TSme6cwPJFcsMzPbSkhZNqOuWYZXZIbIdkDTqu0M=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1591279628;
+	bh=yoZ+4NGxMSMul3HfyneR0IDhwul9qnZTStsDEn2Zgu4=;
+	h=Date:From:To:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=P0tuHlB99dVTK/VbcLAthl1n0ZhKimKcOJach7+h8wW31cvMGx+X3OjT9ux3whGM2
-	 bNu7CgpYpMOEnIU92AUma0+F+OhPguZ3TjGg2nCOROxcxwrQdjwGtFMzCtDqD+Q+K8
-	 3yQ5z3vKa+olblWPS8xdaZzQthLkxE4SrgCskOoI=
+	b=jgNMaCXiuP28mj489i6tFDUC1b3YfCSteipeOe4SF+6IpiCmS2EkUWPFLdrTGsAHs
+	 vh2iguKZLC/iOT/KwE8HSebKZ/TIF7mI/JkKzUFL0lNQYT3ViDdTaz7ku6IOpsOkjD
+	 g4yjpPSe9twBckunq+m0O8/BbPQZ2fqfT1cQx6Ww=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 653EFF80260;
-	Thu,  4 Jun 2020 12:34:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8A04CF8023F;
+	Thu,  4 Jun 2020 16:05:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9608DF80254; Thu,  4 Jun 2020 12:34:10 +0200 (CEST)
+ id B4F92F80254; Thu,  4 Jun 2020 16:05:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,40 +34,35 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E77C4F8013C
- for <alsa-devel@alsa-project.org>; Thu,  4 Jun 2020 12:34:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E77C4F8013C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 00588F800BC
+ for <alsa-devel@alsa-project.org>; Thu,  4 Jun 2020 16:05:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00588F800BC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ib7SHA56"
+ header.b="oeFc3hPL"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 835622074B;
- Thu,  4 Jun 2020 10:34:00 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2478D2063A;
+ Thu,  4 Jun 2020 14:05:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591266841;
- bh=ml0TSme6cwPJFcsMzPbSkhZNqOuWYZXZIbIdkDTqu0M=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ib7SHA56hnoNxXEB3RVG+tQ4oeiz2yi+hrv6ZKVV+AWSJx+cpfoz+WeKC4o4na5LR
- ZT4TZ+MzCY2GnYNX1KDwgvV+6vBj5/QnFBLwnHEmU5vxPKOwVWU+lfdl7dqqa317dq
- 4k6cEBdwgIjmijZ6EdTn8Rk2Joecbln7Eg2V3q1g=
-Date: Thu, 4 Jun 2020 11:33:58 +0100
+ s=default; t=1591279516;
+ bh=yoZ+4NGxMSMul3HfyneR0IDhwul9qnZTStsDEn2Zgu4=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=oeFc3hPLn/eJQ8jT52aunzJxLu4etI3QaAS0voXxIyWb+xCQUXFs6CYPnG7kZSz4Z
+ W02MtBf5aUl1PlWgDlyRlA8VcIuklXBwBcu1xxB/A88NyMLvcvI+DXZTmdPNF/jxy6
+ d/80c9Z2fGRqsih7m2/4sskqDpGkrXcAosf72Ip4=
+Date: Thu, 04 Jun 2020 15:05:14 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Xiaoming Ni <nixiaoming@huawei.com>
-Subject: Re: [PATCH] ASoC: max98390: fix build warning detected by -Wformat
-Message-ID: <20200604103358.GA6644@sirena.org.uk>
-References: <1591260574-12717-1-git-send-email-nixiaoming@huawei.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="6c2NcOVqGQ03X4Wi"
-Content-Disposition: inline
-In-Reply-To: <1591260574-12717-1-git-send-email-nixiaoming@huawei.com>
-X-Cookie: VMS version 2.0 ==>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, steves.lee@maximintegrated.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
- alex.huangjianhui@huawei.com, dylix.dailei@huawei.com
+To: lgirdwood@gmail.com, tiwai@suse.com, perex@perex.cz, nicoleotsuka@gmail.com,
+ Xiubo.Lee@gmail.com, timur@kernel.org, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ linuxppc-dev@lists.ozlabs.org, festevam@gmail.com,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+In-Reply-To: <1591251930-4111-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1591251930-4111-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: fsl-asoc-card: Defer probe when fail to find codec
+ device
+Message-Id: <159127951451.54171.5112369332405594522.b4-ty@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,32 +78,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, 4 Jun 2020 14:25:30 +0800, Shengjiu Wang wrote:
+> Defer probe when fail to find codec device, because the codec
+> device maybe probed later than machine driver.
 
---6c2NcOVqGQ03X4Wi
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Thu, Jun 04, 2020 at 04:49:34PM +0800, Xiaoming Ni wrote:
-> Fix build warning:
-> 	sound/soc/codecs/max98390.c:781:3: warning: format '%ld' expects
-> 	argument of type 'long int', but argument 4 has type 'size_t {aka
-> 	const unsigned int}' [-Wformat=]
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Thanks but this was already fixed.
+Thanks!
 
---6c2NcOVqGQ03X4Wi
-Content-Type: application/pgp-signature; name="signature.asc"
+[1/1] ASoC: fsl-asoc-card: Defer probe when fail to find codec device
+      commit: e396dec46c5600d426b2ca8a01a877928b50d1d9
 
------BEGIN PGP SIGNATURE-----
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7YzhMACgkQJNaLcl1U
-h9A53wf8DLWNHAYxxJtyck1M+jV6nQK+GVYUrVtteiTM0qIor6RzV2EFpLde1I1P
-gWa5qE5gs36x9WZRwUVfqrRyxATRWNDBDXVGr1yi1Nr1uRiMxRa2OBH6AIUeeKVQ
-Py5pUwDCLokOkWu5OoMraUubXIBC7mMTDO639djf4TLUdN3iVo7ZvNZuzYPWzLPd
-siuQIuJR0slgTIRVrv4ILKKQnFUvfoGZ7E1n/h0327qhZsSDzofHO1E2b/h5vKuE
-jJ7raMnK1kS6tzy0ekKYAOHb8xR+B7hBUDlPox83eAKbIKJk+6J/kFFtE6VOr+Jy
-ypnhcWmJymrH7PP7xd7tbJfD0zCn5w==
-=mHCk
------END PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
---6c2NcOVqGQ03X4Wi--
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74DBB1F017A
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jun 2020 23:21:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 215F41F029A
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jun 2020 23:45:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 14282166C;
-	Fri,  5 Jun 2020 23:20:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14282166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id A231E166C;
+	Fri,  5 Jun 2020 23:45:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A231E166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591392086;
-	bh=a8KgyCdUeH5MWdxFf2G9xjVGo66WtQw3Mzoh4VFTFpY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=hi641eHMZkedR7/U2D1c1VIhwRvduTHTCqDefS/DfBF4dFdQHKt1wyDv3kkgPOTEa
-	 uhLlUYvZxO9ZSNs+bXwvsE+BByiSrkGIt7r/p+JmkrcGebz6n0cAjwXaaiYsxTiwgm
-	 PlxBTVQqwBYajB889gbqpmAFQXqgEvqz+xHoOTBg=
+	s=default; t=1591393555;
+	bh=u7vrFLbpJQAV1cQ0kbQVK9ZLFY1aWi9nsqpax6+qOtQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=MDyXFsM8HccOugp5JArB0dH7AGfNj9gUOYSP619JgTFhe+Bj8qmZ3WkjTpcNJMng4
+	 4q5Wlw9ClC7m1iT3Nc1sThdi9RlPt7PMvUdJWw8CrUfWgvlg57iFG69s5YJWdg8o36
+	 vjdsHrh9mpjy756IoSufq8Jex4+ii2vYtcEv/aOE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6FDBF801EC;
-	Fri,  5 Jun 2020 23:19:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A66B1F80108;
+	Fri,  5 Jun 2020 23:44:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7006F801ED; Fri,  5 Jun 2020 23:19:41 +0200 (CEST)
+ id 4BCC5F801ED; Fri,  5 Jun 2020 23:44:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
  version=3.4.0
-Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
- [IPv6:2607:f8b0:4864:20::643])
+Received: from mail-ot1-x341.google.com (mail-ot1-x341.google.com
+ [IPv6:2607:f8b0:4864:20::341])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B4CDAF80132
- for <alsa-devel@alsa-project.org>; Fri,  5 Jun 2020 23:19:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4CDAF80132
+ by alsa1.perex.cz (Postfix) with ESMTPS id 35B71F80108
+ for <alsa-devel@alsa-project.org>; Fri,  5 Jun 2020 23:44:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35B71F80108
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="D0W/A4TI"
-Received: by mail-pl1-x643.google.com with SMTP id g12so4189403pll.10
- for <alsa-devel@alsa-project.org>; Fri, 05 Jun 2020 14:19:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id;
- bh=/DT8KaqdvTHpY2pdkwC/qpDtPEs0oqYy0DlmoYI6060=;
- b=D0W/A4TIxeMbHVU7mcGxqr9tmsLnd9fwjOIfXwwAiqDbXhQKlm82IeqQVIAKcBM3aj
- 8CxseH4wDPHoMGwc86GrKxUEwfF6dr8VVVl0l1GusyAqeJqTF8M+jHpLpdsloiYHIxDo
- EXkgKHYsBGFvSZ3EQw+G1l47XUh7kJgE58QFvsGHY+uQv7EiE/9enrDAuDqIXiAUbOfS
- 1J7Y7ryh6pXGHV4AagqtrHQAopBw4F3zmOa6GK3H0+DLuJMUHiMMsn+Z97CmBnEbs/sc
- 7JDKhCu/EmG1hQkwct5nYnEFnw2fBNsOSPgXfqG4BaFYmx9BkUuKQqmcQe5AJuHg6aNd
- dGvg==
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="g2Pa/sks"
+Received: by mail-ot1-x341.google.com with SMTP id s13so8788420otd.7
+ for <alsa-devel@alsa-project.org>; Fri, 05 Jun 2020 14:44:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=u7vrFLbpJQAV1cQ0kbQVK9ZLFY1aWi9nsqpax6+qOtQ=;
+ b=g2Pa/sksz/aYmEqxoJrzi8zsTy59HbDtq07j/fkreeSaJe3dQOsO526DKGeQaw0yPm
+ 9AnGaueO42FfatnAKl4P9xpq+EvS/6yZKuVn9jTUA1yzzqBSoag7Qnti6NiJXTrEu38E
+ U9gEoKN7o0Oq9W2lOJNNppm6wgniFrffmaebApav2KRi5cSExINsz1PN+ZEqp05XzSpK
+ FwkPU3yyVUV7fucokyE3BLb1vo+pxXGN7b3n4sJfGa4sIM3nyqeZ5DIhr0HIEC8LG4Ce
+ uJqsElJiNcSkRj6JO05c7uQ1hHZkQCmXuyvvyPaFLCcN94CtOXKDvp6IhikkDR8afowM
+ nzXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=/DT8KaqdvTHpY2pdkwC/qpDtPEs0oqYy0DlmoYI6060=;
- b=GznKzZN4kFJ4duzmh16kZ9oAICOTyirB8CW1+m1mxKmHnn6OtyWJp/ltCFkjlvAyd7
- jTabKwg7HjdQ+SNx5TbDwaHK903stz9YwOIDGI/0x+N9jO+fjKHPPMoRBc3M+pAJxrKy
- o/ReANvY48nWVnK1WBIp+0wP05wyTJwCqlXAIDJVw0F2O1n6jbvUb/mNpitUbVOnvPZ8
- 0OVvr8nylNcDJdOyU+adc3rL6ENvSkwmDIdbPaqpcxUvruyy7hwiyU4ZwdqAUDBQzrqU
- tWToieMJS/r294Jw72cwq+bibTcKWtk31urBg6bpwPr0inIoIYZ1VuAGc6cq5X7WLiYL
- L87w==
-X-Gm-Message-State: AOAM533K+jR9ZkExTxhetgJRJZaEbEgP9jibRJ074r82ol0Xt3nkFAB9
- OgO5WNPwY6lQAmpqq4VepK1poQ==
-X-Google-Smtp-Source: ABdhPJzJZXzNp787muuA7EB3j0sZ07R24oGZ7ooutcPi22eAqHT6ton+M88dLERu90HuIw9ZOFDMgA==
-X-Received: by 2002:a17:90b:19ce:: with SMTP id
- nm14mr4929980pjb.23.1591391971562; 
- Fri, 05 Jun 2020 14:19:31 -0700 (PDT)
-Received: from localhost.localdomain ([2601:1c2:680:1319:692:26ff:feda:3a81])
- by smtp.gmail.com with ESMTPSA id
- k126sm472302pfd.129.2020.06.05.14.19.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Jun 2020 14:19:30 -0700 (PDT)
-From: John Stultz <john.stultz@linaro.org>
-To: lkml <linux-kernel@vger.kernel.org>
-Subject: [RFC][PATCH] slimbus: core: Set fwnode for a device when setting
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=u7vrFLbpJQAV1cQ0kbQVK9ZLFY1aWi9nsqpax6+qOtQ=;
+ b=kitmcJ08E0qxVgdjHtYTc5inCXrjYTjmVXm8VEMlOeOWyKg5YJbodC0lRbYjU8/DG6
+ g3F1bVdkbf9dXTIGLGLaeMPqrryQ/9fuIMLBeeLAH1OFZiqJjdTn+ObW3J0V293bL7nh
+ K3ZPt6HnTmQQZaffbJTX2ZuNUyQQNzmM6LGNbtVJkR+lpZ9rnoXmGw7WM/uomIbDx42R
+ /gAOQFsOdHWlR7TKNza9Km+upWei+jlbbw8tR/xuNNv0IA5qbCs0eFZYDOQcdu9N8OPs
+ yZ0T3vZ6Qkdi/aHp2boZbNyzt35x+95segiOvmUZgUeREPaqV522W5gehT+lIzG0KpCw
+ jSIg==
+X-Gm-Message-State: AOAM531KgDGNubH0fQG75otDxYx3WxhNE3pdIPMimTKs2Zaqw/YuVo4p
+ f4ml+gbStSXRf/DS+UXOOBRycUiIFtkrp5i4nRF6AQ==
+X-Google-Smtp-Source: ABdhPJwGmnxfoPiUbeKtyigW8TXtBuxy9Ingfhpbpr0TlDgmdeKUKLB60VrpSFlnEVS0oTCt4mU9IQZtiti2l2eVbxE=
+X-Received: by 2002:a9d:4c0b:: with SMTP id l11mr9559158otf.139.1591393441466; 
+ Fri, 05 Jun 2020 14:44:01 -0700 (PDT)
+MIME-Version: 1.0
+References: <20200605211925.87873-1-john.stultz@linaro.org>
+In-Reply-To: <20200605211925.87873-1-john.stultz@linaro.org>
+From: Saravana Kannan <saravanak@google.com>
+Date: Fri, 5 Jun 2020 14:43:25 -0700
+Message-ID: <CAGETcx_-ZknGcGJQMesLFWAwUyidK00-6bqF6ZZPbyyYtSPcew@mail.gmail.com>
+Subject: Re: [RFC][PATCH] slimbus: core: Set fwnode for a device when setting
  of_node
-Date: Fri,  5 Jun 2020 21:19:25 +0000
-Message-Id: <20200605211925.87873-1-john.stultz@linaro.org>
-X-Mailer: git-send-email 2.17.1
-Cc: John Stultz <john.stultz@linaro.org>, alsa-devel@alsa-project.org,
+To: John Stultz <john.stultz@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Saravana Kannan <saravanak@google.com>
+ lkml <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,35 +97,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Saravana Kannan <saravanak@google.com>
+Hi John,
 
-When setting the of_node for a newly created device, also set the
-fwnode. This allows fw_devlink to work for slimbus devices.
+On Fri, Jun 5, 2020 at 2:19 PM John Stultz <john.stultz@linaro.org> wrote:
+>
+> From: Saravana Kannan <saravanak@google.com>
+>
+> When setting the of_node for a newly created device, also set the
+> fwnode. This allows fw_devlink to work for slimbus devices.
+>
+> Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> Cc: alsa-devel@alsa-project.org
+> Signed-off-by: Saravana Kannan <saravanak@google.com>
+> Signed-off-by: John Stultz <john.stultz@linaro.org>
 
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Cc: alsa-devel@alsa-project.org
-Signed-off-by: Saravana Kannan <saravanak@google.com>
-Signed-off-by: John Stultz <john.stultz@linaro.org>
----
- drivers/slimbus/core.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+I thought Srinivas already picked this up and sent it to Greg.
+https://lore.kernel.org/lkml/20200511151334.362-1-srinivas.kandagatla@linaro.org/
 
-diff --git a/drivers/slimbus/core.c b/drivers/slimbus/core.c
-index 526e3215d8fe..44228a5b246d 100644
---- a/drivers/slimbus/core.c
-+++ b/drivers/slimbus/core.c
-@@ -163,8 +163,10 @@ static int slim_add_device(struct slim_controller *ctrl,
- 	INIT_LIST_HEAD(&sbdev->stream_list);
- 	spin_lock_init(&sbdev->stream_list_lock);
- 
--	if (node)
-+	if (node) {
- 		sbdev->dev.of_node = of_node_get(node);
-+		sbdev->dev.fwnode = of_fwnode_handle(node);
-+	}
- 
- 	dev_set_name(&sbdev->dev, "%x:%x:%x:%x",
- 				  sbdev->e_addr.manf_id,
--- 
-2.17.1
+Am I missing something?
 
+-Saravana

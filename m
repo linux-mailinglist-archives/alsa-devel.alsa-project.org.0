@@ -2,72 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84C861EF8A8
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jun 2020 15:09:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE4231EFD1A
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jun 2020 17:58:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1CFF1166C;
-	Fri,  5 Jun 2020 15:08:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CFF1166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 56F651666;
+	Fri,  5 Jun 2020 17:58:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56F651666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591362559;
-	bh=Zvi1VITg0zTrnMSUkB94IxJNCCxZoNnm5mXka2JSVAU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1591372734;
+	bh=UXQS0jMV/6KDFhbVw5BdNgAoYMlQjrhHpb3BSGGj8Zg=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QxFwcXxyr7lcEMsnAvNUDDZ8vouhRmrGjXfjMdpawXTFYpeTl1Ghej/1C/oHsfK+n
-	 VbFxmi2AJRfSr8pMtF9w1J2pOQB/wgqm8ZkHQ/vTdetGqaaqmx6gHqdvllDHMjbowS
-	 ULzavyyiiZhP0qzVr3LZJGxdq/bRiZJEw0epLukc=
+	b=C3shehpimUk5g9ZOyig/WgF3pWi5uCQFDmnLAMCHLOXgdCGf5/NpwmxdjeOEZ5akd
+	 yzrxERCx7UybRrmzk1+bc/P3rBSAwmozDU14zcbpZ6wh+92X5PI+IPv9JAxQ6upbm6
+	 fwOnDpyce/wanNv/pXQEBJBrtPI6kYlj4ioRjRno=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D009CF801EC;
-	Fri,  5 Jun 2020 15:07:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64FBAF801EC;
+	Fri,  5 Jun 2020 17:57:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94019F801ED; Fri,  5 Jun 2020 15:07:33 +0200 (CEST)
+ id DF6BFF801ED; Fri,  5 Jun 2020 17:57:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BCB80F80140
- for <alsa-devel@alsa-project.org>; Fri,  5 Jun 2020 15:07:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCB80F80140
-IronPort-SDR: OqNSB8PEobaC/xtJKtuG3qISZz2jGFtb4TYy1XbzImvaO7YneM6LxWMjhr2pY1FyPacdOQK8yw
- oVGQhXSPpKPQ==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2020 06:07:25 -0700
-IronPort-SDR: B9Urxri045zINYcRS/tuAAVd/PC1vEtnxjc/iRjOJRIEGo209A67NSqcVv2HTV4ZEpfp4XgpDz
- N7BvDQa6pZtw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,476,1583222400"; d="scan'208";a="313194971"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by FMSMGA003.fm.intel.com with ESMTP; 05 Jun 2020 06:07:23 -0700
-Received: from andy by smile with local (Exim 4.93)
- (envelope-from <andriy.shevchenko@intel.com>)
- id 1jhC4E-00B26k-3c; Fri, 05 Jun 2020 16:07:26 +0300
-Date: Fri, 5 Jun 2020 16:07:26 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Sia Jee Heng <jee.heng.sia@intel.com>
-Subject: Re: [PATCH v4 2/3] ASoC: Intel: Add makefiles and kconfig changes
- for KeemBay
-Message-ID: <20200605130726.GJ2428291@smile.fi.intel.com>
-References: <1591333737-3231-1-git-send-email-jee.heng.sia@intel.com>
- <1591333737-3231-3-git-send-email-jee.heng.sia@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1591333737-3231-3-git-send-email-jee.heng.sia@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Cc: pierre-louis.bossart@linux.intel.com, cezary.rojewski@intel.com,
- alsa-devel@alsa-project.org, tiwai@suse.com, liam.r.girdwood@linux.intel.com,
- broonie@kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id A7802F80108
+ for <alsa-devel@alsa-project.org>; Fri,  5 Jun 2020 17:57:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7802F80108
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 68FB1ACB8;
+ Fri,  5 Jun 2020 15:57:08 +0000 (UTC)
+Date: Fri, 05 Jun 2020 17:57:04 +0200
+Message-ID: <s5hbllx7bfz.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [PATCH] ALSA: emu10k1: delete an unnecessary condition
+In-Reply-To: <20200605110134.GC978434@mwanda>
+References: <20200605110134.GC978434@mwanda>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Hariprasad Kelam <hariprasad.kelam@gmail.com>,
+ kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,23 +70,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jun 05, 2020 at 01:08:56PM +0800, Sia Jee Heng wrote:
-> Add makefile and kconfig changes for Intel KeemBay platform driver.
+On Fri, 05 Jun 2020 13:01:34 +0200,
+Dan Carpenter wrote:
+> 
+> The "val" variable is an unsigned int so it's always <= UINT_MAX.  This
+> check is always true so it can be removed.
+> 
+> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
 
-> +config SND_SOC_INTEL_KEEMBAY
-> +	tristate "Keembay Platforms"
-
-> +	depends on OF && (ARM64 || COMPILE_TEST)
-
-You can't compile test w/o OF?
-
-> +	depends on COMMON_CLK
-> +	help
-> +	  If you have a Intel Keembay platform then enable this option
-> +	  by saying Y or m.
-
--- 
-With Best Regards,
-Andy Shevchenko
+Applied, thanks.
 
 
+Takashi

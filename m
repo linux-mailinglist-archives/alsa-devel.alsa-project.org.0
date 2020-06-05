@@ -2,83 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D82BF1EF019
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jun 2020 05:52:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35A821EF0DD
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jun 2020 07:27:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 76C7A166C;
-	Fri,  5 Jun 2020 05:52:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76C7A166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id A2A071671;
+	Fri,  5 Jun 2020 07:26:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2A071671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591329171;
-	bh=uv5KE3lUub38o0RxoE+OYT6/+Q95KB8Xpvl+f3NkxUY=;
-	h=Date:In-Reply-To:References:Subject:From:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JkS41j1ps9ArB5x69mmo4bAXyS5/IIl/3zNOocr89tPxi0hnswqhf3ywDs2HgWsWA
-	 MICNilzeq85foRBncLtzQ+5e87Z2TbBeP5JkyTnxWWXLI7jbCNj9Yq7IPz9ojNGK6O
-	 8ZMXRl8pYkVKyoPqRvBeirM6oFnms33w87oZRtyA=
+	s=default; t=1591334862;
+	bh=Ka+X4XHpYnnlaPe3yIR4CZc0kjxe6zv0zHKMN4fYeYw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=AfH2X6rl0MCmnSYglJ4/+VAavyFaJv1bthmgUHbPFJdwVE50rC+t0pbODpxwvs+Dx
+	 txq0m7r8P9nOKqZPPMDr8hq/eS1jOAfmJjEpdH5xpvRZUiyZ2M6q9HWBMdej1PLNQT
+	 GdnH3Y3CkoMIHCaf3jfnjT6aWVfGRNeGcye+EOYc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91DE6F8028A;
-	Fri,  5 Jun 2020 05:50:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A209F801F5;
+	Fri,  5 Jun 2020 07:26:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04CF9F801F5; Fri,  5 Jun 2020 05:49:56 +0200 (CEST)
+ id 50CB9F80279; Fri,  5 Jun 2020 07:23:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
- autolearn=disabled version=3.4.0
-Received: from mail-qv1-xf49.google.com (mail-qv1-xf49.google.com
- [IPv6:2607:f8b0:4864:20::f49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=AC_FROM_MANY_DOTS,
+ SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DFCEBF80140
- for <alsa-devel@alsa-project.org>; Fri,  5 Jun 2020 05:49:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFCEBF80140
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="CKsaViqh"
-Received: by mail-qv1-xf49.google.com with SMTP id o1so6292111qvq.14
- for <alsa-devel@alsa-project.org>; Thu, 04 Jun 2020 20:49:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc; bh=jCKvwkQZSa1fCIJgRci4SNm+ecTY7BLQ/n3YL8J5gJ8=;
- b=CKsaViqhw2d9KHrAB8tPbJOWXOsP2J7LAiZdqefwat20nJjXJoMsZsder6wp3aDa7t
- zipnI1U/z3PwikCcVYDXrkwZqGHkYxSOsHFMO1nRrBRRaw5rxn6J9oxryTzII7AzMNT1
- 7zvAAHsXxMv7ahYncyzE4YxuEEJel3Y+40dKdR61r39jOPGwNprCjj9MfchBK4RiIF1s
- 1ifH9c+Dri38GJhhDX9/PltRk5pmLXAbGqf3EDF8EyCEqC/JZAU9zU6R3ZVcdF3bdDv8
- XTFJbTE5/STektjUEJXGSMpVgQxWFziqhFOa+kGcGOqT3Dl+22HtSOnC8xxWEVji/XN3
- TG8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:in-reply-to:message-id:mime-version
- :references:subject:from:to:cc;
- bh=jCKvwkQZSa1fCIJgRci4SNm+ecTY7BLQ/n3YL8J5gJ8=;
- b=eddQ30//irWAqTzRttgHhIZiyo9Ecf5ZoQql4LBNkhoGTgxI80YrrEPCRscK7Evl/9
- YbDlj85nQwTEf/FNbfQOhdebCgwzncTte0X+U0XYLu7k/d1TJZy+gWDmr+0EBeH56Hkh
- kmRRPc+zjJM0ZUuwmajNXgkpz0U3za81yfMx3BWFxVSENETIm6dEaEtgwZ9zeyU92Lb9
- TaMc0K/zYViQ9fF8eg+wnt9p2fA64c5Dyrh9gMPehtz/E/mc3AxN+ueb2OY5sIkfpfFg
- TveD3KkvjNBk0+6p3oI5eTSCh8DixJdYBedHlg4Gngn1n5pM9gyzGrae6+7ih0Vv40VX
- ZPvA==
-X-Gm-Message-State: AOAM530B1Bum4bBAz/0aGix12Fa8q73WFBurYAXonMsBnR0T5cTxKwyj
- PMGKKNeM8nfIr4g7er/n7yA5eWtQOcel
-X-Google-Smtp-Source: ABdhPJz95KhsyQun9QYEz+apHIZfhyAEfeiqcXg7IbVhQZOOg3TMrjIsXxA+nrLSiH5jnauwUMWJQhC4EBjy
-X-Received: by 2002:a0c:f6c3:: with SMTP id d3mr8089108qvo.138.1591328991352; 
- Thu, 04 Jun 2020 20:49:51 -0700 (PDT)
-Date: Fri,  5 Jun 2020 11:49:31 +0800
-In-Reply-To: <20200605034931.107713-1-tzungbi@google.com>
-Message-Id: <20200605034931.107713-3-tzungbi@google.com>
-Mime-Version: 1.0
-References: <20200605034931.107713-1-tzungbi@google.com>
-X-Mailer: git-send-email 2.27.0.278.ge193c7cf3a9-goog
-Subject: [PATCH 2/2] ASoC: dt-bindings: add compatible string for MAX98360A
-From: Tzung-Bi Shih <tzungbi@google.com>
-To: broonie@kernel.org, robh+dt@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, tzungbi@google.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB2DCF80140
+ for <alsa-devel@alsa-project.org>; Fri,  5 Jun 2020 07:22:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB2DCF80140
+IronPort-SDR: /DA0sgTRvHsFvjDopngiUxD6ccezK2WzuxqNw5WrO2aRU3d3AzEFJNEb8cB3QGxpej1W3R14jw
+ uHmPUPfMoi/Q==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jun 2020 22:22:06 -0700
+IronPort-SDR: B5QqP5qmVw74d9jdE0JG+Y8HEn5QQ5cNbZx5hIrDkq/2OzuEveyB5dI2xJ/l8DAITSweIi5QUo
+ oOhbQV+KOOsg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,475,1583222400"; d="scan'208";a="259091128"
+Received: from unknown (HELO jsia-HP-Z620-Workstation.png.intel.com)
+ ([10.221.118.135])
+ by fmsmga008.fm.intel.com with ESMTP; 04 Jun 2020 22:22:05 -0700
+From: Sia Jee Heng <jee.heng.sia@intel.com>
+To: <alsa-devel@alsa-project.org>
+Subject: [PATCH v4 0/3] ASoC: Intel: Add KeemBay ASoC platform driver
+Date: Fri,  5 Jun 2020 13:08:54 +0800
+Message-Id: <1591333737-3231-1-git-send-email-jee.heng.sia@intel.com>
+X-Mailer: git-send-email 1.9.1
+Cc: cezary.rojewski@intel.com, andriy.shevchenko@intel.com, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com, liam.r.girdwood@linux.intel.com,
+ broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,41 +73,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Maxim MAX98360A audio amplifier is functionally identical to MAX98357A.
-Adds compatible string "maxim,max98360a" for driver reuse.
+The below series of patches support the KeemBay ASoC platform driver.
+The platform driver initialize the i2s to capture and playback the
+pcm data on the ARM. The i2s is running in polling mode.
 
-Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
----
- .../devicetree/bindings/sound/max98357a.txt          | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+There is no DSP in the KeemBay SoC. Users are rely on the Gstreamer plugin
+to perform Audio preprocessing.
 
-diff --git a/Documentation/devicetree/bindings/sound/max98357a.txt b/Documentation/devicetree/bindings/sound/max98357a.txt
-index 4bce14ce806f..75db84d06240 100644
---- a/Documentation/devicetree/bindings/sound/max98357a.txt
-+++ b/Documentation/devicetree/bindings/sound/max98357a.txt
-@@ -1,9 +1,10 @@
--Maxim MAX98357A audio DAC
-+Maxim MAX98357A/MAX98360A audio DAC
+Audio graph card is used to connect the platform driver with the
+tlv320aic3204 codec.
+
+Change History:
+v4:
+- Reduce if-otology at the tx/rx function.
+- Fix indentation.
+- specify .rate directly
  
--This node models the Maxim MAX98357A DAC.
-+This node models the Maxim MAX98357A/MAX98360A DAC.
- 
- Required properties:
--- compatible   : "maxim,max98357a"
-+- compatible   : "maxim,max98357a" for MAX98357A.
-+                 "maxim,max98360a" for MAX98360A.
- 
- Optional properties:
- - sdmode-gpios : GPIO specifier for the chip's SD_MODE pin.
-@@ -20,3 +21,8 @@ max98357a {
- 	compatible = "maxim,max98357a";
- 	sdmode-gpios = <&qcom_pinmux 25 0>;
- };
-+
-+max98360a {
-+	compatible = "maxim,max98360a";
-+	sdmode-gpios = <&qcom_pinmux 25 0>;
-+};
+v3:
+- Adjusted header format.
+- Use Audio graph card instead of custom sound card.
+- Use if-else instead of conditional operator.
+- Enabled .set_fmt to configure master clock.
+
+v2:
+- Corrected I2S naming for DT binding.
+
+v1:
+- Initial version.
+
+Sia Jee Heng (3):
+  ASoC: Intel: Add KeemBay platform driver
+  ASoC: Intel: Add makefiles and kconfig changes for KeemBay
+  dt-bindings: sound: Add documentation for KeemBay i2s
+
+ .../bindings/sound/intel,keembay-i2s.yaml          |  68 +++
+ sound/soc/intel/Kconfig                            |   7 +
+ sound/soc/intel/Makefile                           |   1 +
+ sound/soc/intel/keembay/Makefile                   |   4 +
+ sound/soc/intel/keembay/kmb_platform.c             | 654 +++++++++++++++++++++
+ sound/soc/intel/keembay/kmb_platform.h             | 145 +++++
+ 6 files changed, 879 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/intel,keembay-i2s.yaml
+ create mode 100644 sound/soc/intel/keembay/Makefile
+ create mode 100644 sound/soc/intel/keembay/kmb_platform.c
+ create mode 100644 sound/soc/intel/keembay/kmb_platform.h
+
 -- 
-2.27.0.278.ge193c7cf3a9-goog
+1.9.1
 

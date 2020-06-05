@@ -2,90 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DDA31EF752
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jun 2020 14:26:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84C861EF8A8
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jun 2020 15:09:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0EAB1663;
-	Fri,  5 Jun 2020 14:25:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0EAB1663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1CFF1166C;
+	Fri,  5 Jun 2020 15:08:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CFF1166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591359995;
-	bh=2XUGZR54jn4NwjK+Ez8x0NFFsobIka+zfI9ayPRtjBY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1591362559;
+	bh=Zvi1VITg0zTrnMSUkB94IxJNCCxZoNnm5mXka2JSVAU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=N7ZUNdwzBbjMOLhtgvRkeqnL/vMhFeJ1cy4K82zBHPEUnhCS/MIOgk1IJbteI6HJ5
-	 V+sfMgp3PPIgfSx4KRaj7X+wArlsaIV7gqbB4Pv1KE5Q8aGXHRfXvPxFlmrfUiwgg6
-	 HPzQEqe769qgTbOMSBQ12CJqay92DFJ6w9FHj28I=
+	b=QxFwcXxyr7lcEMsnAvNUDDZ8vouhRmrGjXfjMdpawXTFYpeTl1Ghej/1C/oHsfK+n
+	 VbFxmi2AJRfSr8pMtF9w1J2pOQB/wgqm8ZkHQ/vTdetGqaaqmx6gHqdvllDHMjbowS
+	 ULzavyyiiZhP0qzVr3LZJGxdq/bRiZJEw0epLukc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4AE2F801F5;
-	Fri,  5 Jun 2020 14:24:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D009CF801EC;
+	Fri,  5 Jun 2020 15:07:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 17C2BF801ED; Fri,  5 Jun 2020 14:24:52 +0200 (CEST)
+ id 94019F801ED; Fri,  5 Jun 2020 15:07:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
- version=3.4.0
-Received: from mail-il1-x142.google.com (mail-il1-x142.google.com
- [IPv6:2607:f8b0:4864:20::142])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DA1A0F80132
- for <alsa-devel@alsa-project.org>; Fri,  5 Jun 2020 14:24:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA1A0F80132
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="EawcP4Ep"
-Received: by mail-il1-x142.google.com with SMTP id g3so9287821ilq.10
- for <alsa-devel@alsa-project.org>; Fri, 05 Jun 2020 05:24:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=kIfn0QHMP7CK4Hmgml37SRcHqGH4aTtKIuqHQUCLWRQ=;
- b=EawcP4EporkwrqfLPgvSKZWlEE1ID85TieWCHY9LwiKd+HIWVF0QxVSawt8hyzZZA8
- QXJ2pNFwn2Ify3QvL2OneyDAR505YIqjhKzJNYhUVvWgjj9lx52Iq2Aqz4dkftCr4YN5
- esT7/cpbLK9xB2nYLvrPz1qbc1Jt6Uo7VHWrud5qxemkEHW91lVv59CjdFHDnMAbn/BD
- kkCNiXNYmNFMH635f2w+rTyfZuBaHtwXgUEm3k2UI4/y5jZ373klw6RMSRCkefE+qdjy
- RqUsL1NqHhjxO/v4NWOxFztHbXvT7SRoAUQpFoeWdvf/XV9bU9cHguBRm9pITOknMnBd
- 2W2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=kIfn0QHMP7CK4Hmgml37SRcHqGH4aTtKIuqHQUCLWRQ=;
- b=eYp4RZef/eQcPju6FbgZC5IvvPHLKdKy2FUbEUEuvMOXgK83ZfpEh/QP6U8O7m0wYd
- +M07UkTKTKVzK4hYae+Rw7H/ifBy7LHzCw3u1bxACv4U256UU/521gm3c99+kGz5bHdL
- y+Dal5hAYrAhYk0DwSGGx6obP35lqW+t3e/xUuxYICK18ksdUJKj3cImQ2B4dmli6WPm
- LP+bmyfP7Dl+uZ9wBWK7g+3h3IAuKa995TUXfsBSbNbkCJDR+CRi0hRnyGM6dwxwPkyI
- +5iMfC+pxAosyrRnWEb7qB+vP/Uc4Ypep4P9wVbj+2KRcLtN+/VfirUamcE4U7DfdEwq
- JSoQ==
-X-Gm-Message-State: AOAM531tB/hNX61s+ALkF7FandA7QY5zIPhu2CIjhWATZLhVhgOiXs97
- eb0y0aZZxZQMBKSRHvH4uuYyYdbP3nr6EUGWxzJskg==
-X-Google-Smtp-Source: ABdhPJxIJRIn8uLBn8iAB1Nr4R5l0zbAftEc1md7w19YTUWpfcp8liEx8XFB8UBZsNB8M/Dg27ZKhc4KMp4ZpswjQ+Q=
-X-Received: by 2002:a05:6e02:1350:: with SMTP id
- k16mr7686913ilr.213.1591359882249; 
- Fri, 05 Jun 2020 05:24:42 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id BCB80F80140
+ for <alsa-devel@alsa-project.org>; Fri,  5 Jun 2020 15:07:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCB80F80140
+IronPort-SDR: OqNSB8PEobaC/xtJKtuG3qISZz2jGFtb4TYy1XbzImvaO7YneM6LxWMjhr2pY1FyPacdOQK8yw
+ oVGQhXSPpKPQ==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jun 2020 06:07:25 -0700
+IronPort-SDR: B9Urxri045zINYcRS/tuAAVd/PC1vEtnxjc/iRjOJRIEGo209A67NSqcVv2HTV4ZEpfp4XgpDz
+ N7BvDQa6pZtw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,476,1583222400"; d="scan'208";a="313194971"
+Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
+ by FMSMGA003.fm.intel.com with ESMTP; 05 Jun 2020 06:07:23 -0700
+Received: from andy by smile with local (Exim 4.93)
+ (envelope-from <andriy.shevchenko@intel.com>)
+ id 1jhC4E-00B26k-3c; Fri, 05 Jun 2020 16:07:26 +0300
+Date: Fri, 5 Jun 2020 16:07:26 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Sia Jee Heng <jee.heng.sia@intel.com>
+Subject: Re: [PATCH v4 2/3] ASoC: Intel: Add makefiles and kconfig changes
+ for KeemBay
+Message-ID: <20200605130726.GJ2428291@smile.fi.intel.com>
+References: <1591333737-3231-1-git-send-email-jee.heng.sia@intel.com>
+ <1591333737-3231-3-git-send-email-jee.heng.sia@intel.com>
 MIME-Version: 1.0
-References: <1591353222-18576-1-git-send-email-jiaxin.yu@mediatek.com>
-In-Reply-To: <1591353222-18576-1-git-send-email-jiaxin.yu@mediatek.com>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Fri, 5 Jun 2020 20:24:31 +0800
-Message-ID: <CA+Px+wV8U6Y-tppLPUdoOgQhpss-DUm-YDQX7TZ1uHHH7JMyZQ@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] ASoC: mediatek: mt6358: support DMIC one-wire mode
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Hariprasad Kelam <hariprasad.kelam@gmail.com>,
- ALSA development <alsa-devel@alsa-project.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- howie.huang@mediatek.com, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
- linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1591333737-3231-3-git-send-email-jee.heng.sia@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Cc: pierre-louis.bossart@linux.intel.com, cezary.rojewski@intel.com,
+ alsa-devel@alsa-project.org, tiwai@suse.com, liam.r.girdwood@linux.intel.com,
+ broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,17 +83,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jun 5, 2020 at 6:37 PM Jiaxin Yu <jiaxin.yu@mediatek.com> wrote:
-> Jiaxin Yu (2):
->   ASoC: mediatek: mt6358: support DMIC one-wire mode
-Has done previous round review on https://crrev.com/c/2230089
+On Fri, Jun 05, 2020 at 01:08:56PM +0800, Sia Jee Heng wrote:
+> Add makefile and kconfig changes for Intel KeemBay platform driver.
 
->   ASoC: dt-bindings: mediatek: mt6358: add dmic-mode property
-Has done previous round review on https://crrev.com/c/2230086
+> +config SND_SOC_INTEL_KEEMBAY
+> +	tristate "Keembay Platforms"
 
->  Documentation/devicetree/bindings/sound/mt6358.txt |  6 ++++++
->  sound/soc/codecs/mt6358.c                          | 23 +++++++++++++++++++++-
->  2 files changed, 28 insertions(+), 1 deletion(-)
+> +	depends on OF && (ARM64 || COMPILE_TEST)
 
-With that:
-Reviewed-by: Tzung-Bi Shih <tzungbi@google.com>
+You can't compile test w/o OF?
+
+> +	depends on COMMON_CLK
+> +	help
+> +	  If you have a Intel Keembay platform then enable this option
+> +	  by saying Y or m.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+

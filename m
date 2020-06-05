@@ -2,68 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF3651EF4D0
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jun 2020 11:58:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B05191EF5F6
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jun 2020 12:59:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D6C21674;
-	Fri,  5 Jun 2020 11:57:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D6C21674
+	by alsa0.perex.cz (Postfix) with ESMTPS id F00241661;
+	Fri,  5 Jun 2020 12:58:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F00241661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591351122;
-	bh=904MPemjIvsnAFTo4hwHkvzIzTQriCR+HGaY+yM3JXQ=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	s=default; t=1591354787;
+	bh=aftpXunH1eDQjPXFO8QI2IEzKcVO0kd6k1ZnXlRllyc=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WjypSzJKGusWq+mX8FVlnxSUggmcPzhrKowHP+simbco2zEIKiwLqXg/asp40ysaJ
-	 hSC//XAMAOChESW1OkihaOKs1NxaNDVz7YhMvXHMRufbtkRX9LGUMCNmS6Z1rpYSVt
-	 sEx/mP1Z7BXXSqR5AHtNXx9XHZCMbHdQf9G7zuO0=
+	b=QMDAAetzIHZsqhy9SGPI1TWzboElLsbVaAM8uDfUfuvgN8LzkZ5Cd0IvUABkGchJy
+	 /UrPfyeGRWwmLjc6mhxw8ffZQP85pHr089oIhEKVPbttUWs7AQmyWhDqRd+V7pSArm
+	 0KRd8+5zGrzN+TnXg07/lO17eV7v1K72nIuCc8EY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E60DF8027C;
-	Fri,  5 Jun 2020 11:56:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BE035F8028E;
+	Fri,  5 Jun 2020 12:58:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 13AFFF80279; Fri,  5 Jun 2020 11:56:43 +0200 (CEST)
+ id 021F0F8028A; Fri,  5 Jun 2020 12:58:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EA2B9F801F5
- for <alsa-devel@alsa-project.org>; Fri,  5 Jun 2020 11:56:33 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 6F70FA0040;
- Fri,  5 Jun 2020 11:56:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 6F70FA0040
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1591350989; bh=Opc5kD9kxOcL+p5IfA0xy9cjOerQRXf8H5rOavJnE94=;
- h=Subject:To:References:From:Date:In-Reply-To:From;
- b=o7AScL6HhRWRxS1Kek0hHLwAZAiaAHiXq5I8BMo+DpP83yqfkG6w6Ad6uJUCjwzmf
- 6xXv1hIVvsTJ/x73HcqzwdAnIhnk6gloAmMjssl6ZeaajlsjcE3xoks7R0t50Jm0AN
- +ACSyH3XZr2FiDrTfOAiqy7WO56U3wOJMy9goEYY=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Fri,  5 Jun 2020 11:56:27 +0200 (CEST)
-Subject: Re: [PATCH 0/2] alsa-lib: -ENODATA documentation
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org
-References: <20200529122817.1198-1-kai.vehmanen@linux.intel.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <b2399166-a3dc-1c9b-c5fb-d75dbd34b833@perex.cz>
-Date: Fri, 5 Jun 2020 11:56:27 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,MIME_BASE64_TEXT,RDNS_NONE,SPF_HELO_NONE,SPF_PASS,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [1.203.163.81])
+ by alsa1.perex.cz (Postfix) with ESMTP id 90FBEF801EC
+ for <alsa-devel@alsa-project.org>; Fri,  5 Jun 2020 12:58:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90FBEF801EC
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="q5kzpTKE"
+X-UUID: 5a23448968a6405aa6d23791e456fa95-20200605
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
+ bh=aftpXunH1eDQjPXFO8QI2IEzKcVO0kd6k1ZnXlRllyc=; 
+ b=q5kzpTKE1GnRrlfGC5KCRFDhLvUfLRl0CYVPAWH2+mWbTHODnekQlMoGXww0khiUM15wKDDM287u4OxakLmQgsuVEQmkq7YsM0FQ6+/zG0ubtxVBC9DsI7LUF/RYnk9fqSgUZoxgAXtN2pKTCxncYiMqGsnreTrpvdtOmP0XuCI=;
+X-UUID: 5a23448968a6405aa6d23791e456fa95-20200605
+Received: from mtkcas36.mediatek.inc [(172.27.4.253)] by mailgw02.mediatek.com
+ (envelope-from <jiaxin.yu@mediatek.com>)
+ (mailgw01.mediatek.com ESMTP with TLS)
+ with ESMTP id 1655380788; Fri, 05 Jun 2020 17:55:53 +0800
+Received: from mtkcas08.mediatek.inc (172.21.101.126) by
+ MTKMBS31N1.mediatek.inc (172.27.4.69) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Fri, 5 Jun 2020 17:55:52 +0800
+Received: from localhost.localdomain (10.17.3.153) by mtkcas08.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Fri, 5 Jun 2020 17:55:51 +0800
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <tiwai@suse.com>,
+ <matthias.bgg@gmail.com>, <hariprasad.kelam@gmail.com>
+Subject: [v2, 2/2] ASoC: dt-bindings: mediatek: mt6358: add dmic-mode property
+Date: Fri, 5 Jun 2020 17:53:45 +0800
+Message-ID: <1591350825-18152-2-git-send-email-jiaxin.yu@mediatek.com>
+X-Mailer: git-send-email 1.8.1.1.dirty
+In-Reply-To: <1591350825-18152-1-git-send-email-jiaxin.yu@mediatek.com>
+References: <1591350825-18152-1-git-send-email-jiaxin.yu@mediatek.com>
 MIME-Version: 1.0
-In-Reply-To: <20200529122817.1198-1-kai.vehmanen@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+X-TM-SNTS-SMTP: DA84537A393A2A092512B040C0A414505375F5DBD6BEBB53201491E8557FD55F2000:8
+X-MTK: N
+Content-Transfer-Encoding: base64
+Cc: alsa-devel@alsa-project.org, howie.huang@mediatek.com,
+ linux-kernel@vger.kernel.org, Jiaxin Yu <jiaxin.yu@mediatek.com>,
+ tzungbi@google.com, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,43 +88,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 29. 05. 20 v 14:28 Kai Vehmanen napsal(a):
-> Hello all,
-> 
-> here's patch to document -ENODATA error as a PCM error code.
-> We have recently merged patches to SOF firmware to use
-> this error code:
->    https://github.com/thesofproject/sof/pull/2918
-> 
-> Some additional background on the use-case:
->    https://github.com/thesofproject/sof/issues/2564
-> 
-> In thread "Functionality of pcm_notify in snd-aloop?"
-> https://mailman.alsa-project.org/pipermail/alsa-devel/2020-April/166974.html
-> 
-> .. we discussed the possibility for ALSA to provide a mechanism
-> for application to wait for the condition to change, but at least
-> for the currently known usages, the synchronization responsibility
-> will be in user-space (UCM file will describe the PCM dependencies).
-> Anyways, this is orthogonal to documenting -ENODATA, so sending
-> this now.
-> 
-> Kai Vehmanen (2):
->    pcm: add documentation for -ENODATA error code
->    pcm: fix spelling in documentation for -EBADFD
-> 
->   src/pcm/pcm.c | 10 +++++++++-
->   1 file changed, 9 insertions(+), 1 deletion(-)
-> 
+QWRkcyBkbWljLW1vZGUgcHJvcGVydHkgYW5kIHVwZGF0ZXMgZXhhbXBsZS4NCg0KU2lnbmVkLW9m
+Zi1ieTogSmlheGluIFl1IDxqaWF4aW4ueXVAbWVkaWF0ZWsuY29tPg0KLS0tDQogRG9jdW1lbnRh
+dGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5kL210NjM1OC50eHQgfCA2ICsrKysrKw0KIDEg
+ZmlsZSBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKykNCg0KZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRp
+b24vZGV2aWNldHJlZS9iaW5kaW5ncy9zb3VuZC9tdDYzNTgudHh0IGIvRG9jdW1lbnRhdGlvbi9k
+ZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5kL210NjM1OC50eHQNCmluZGV4IDU0NjU3MzAuLjU5YTcz
+ZmYgMTAwNjQ0DQotLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mvc291bmQv
+bXQ2MzU4LnR4dA0KKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5k
+L210NjM1OC50eHQNCkBAIC0xMCw5ICsxMCwxNSBAQCBSZXF1aXJlZCBwcm9wZXJ0aWVzOg0KIC0g
+Y29tcGF0aWJsZSA6ICJtZWRpYXRlayxtdDYzNTgtc291bmQiLg0KIC0gQXZkZC1zdXBwbHkgOiBw
+b3dlciBzb3VyY2Ugb2YgQVZERA0KIA0KK09wdGlvbmFsIHByb3BlcnRpZXM6DQorLSBtZWRpYXRl
+ayxkbWljLW1vZGUgOiBJbmRpY2F0ZXMgaG93IG1hbnkgZGF0YSBwaW5zIGFyZSB1c2VkIHRvIHRy
+YW5zbWl0IHR3bw0KKwljaGFubmVscyBvZiBQRE0gc2lnbmFsLiAwIG1lYW5zIHR3byB3aXJlcywg
+MSBtZWFucyBvbmUgd2lyZS4gRGVmYXVsdA0KKwl2YWx1ZSBpcyAwLg0KKw0KIEV4YW1wbGU6DQog
+DQogbXQ2MzU4X3NuZCB7DQogCWNvbXBhdGlibGUgPSAibWVkaWF0ZWssbXQ2MzU4LXNvdW5kIjsN
+CiAJQXZkZC1zdXBwbHkgPSA8Jm10NjM1OF92YXVkMjhfcmVnPjsNCisJbWVkaWF0ZWssZG1pYy1t
+b2RlID0gPDA+Ow0KIH07DQotLSANCjEuOC4xLjEuZGlydHkNCg==
 
-I applied those two patches, and added a short description that there is
-no recovery mechanism and an event mechanism to notify the link availability 
-at the moment.
-
-https://github.com/alsa-project/alsa-lib/commit/f3597737defe495f9c618b12507c9528c0ade1ee
-
-						Jaroslav
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

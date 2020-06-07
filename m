@@ -2,85 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A476B1F0F7B
-	for <lists+alsa-devel@lfdr.de>; Sun,  7 Jun 2020 22:16:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA6061F0FDA
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 Jun 2020 22:41:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3AB6E1607;
-	Sun,  7 Jun 2020 22:15:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AB6E1607
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6DC811614;
+	Sun,  7 Jun 2020 22:40:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DC811614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591560969;
-	bh=kEeZT1E4zoRmLyPDY9KugTspdRA6R5X4WJFgXlZyO3M=;
-	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
+	s=default; t=1591562502;
+	bh=CYlJBDeJImrFLOl4hMwkWi5YOhP7WYDslE543rLKT2I=;
+	h=References:From:To:Subject:In-reply-to:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=U9J9ug7AR4TAdFezucSagGOlbS3aLNWiFuKcqUOzB9P0cTupeWsBMVFs2mYqjbSxf
-	 xfng6ZrmAeL/VZkqEi9rxtTmtzbuXLUMR1PdfRhKHlRMinK5Bo4XgYcKI8K0k9S+Z1
-	 tcweiiK2TOlkS1lBEF7v43GwH34u0vQUILZyOKNQ=
+	b=aMCCRzi4NFkuXqyTi8iPWo0WWKWbfUBqacsjeZ/BngQWjkfW+lYp8QfGnhMg5PqXq
+	 82m3enBXI3onpAzQwAGvyYrK8Waw2O9Y5M4/3FLut9GVU0m2VOAbbXTgyCV0Xd85XX
+	 23Cyt5sCQocP6Zib+F+7j794L4AEjbxu0Y40YE+k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB511F8028D;
-	Sun,  7 Jun 2020 22:14:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A99DF80291;
+	Sun,  7 Jun 2020 22:40:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E2837F8028D; Sun,  7 Jun 2020 22:14:22 +0200 (CEST)
+ id 2BB48F8028D; Sun,  7 Jun 2020 22:39:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-io1-xd33.google.com (mail-io1-xd33.google.com
- [IPv6:2607:f8b0:4864:20::d33])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com
+ [IPv6:2a00:1450:4864:20::644])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 13496F80149
- for <alsa-devel@alsa-project.org>; Sun,  7 Jun 2020 22:14:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13496F80149
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9F1BAF800F4
+ for <alsa-devel@alsa-project.org>; Sun,  7 Jun 2020 22:39:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F1BAF800F4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="HPuLIXRS"
-Received: by mail-io1-xd33.google.com with SMTP id w18so7512545iom.5
- for <alsa-devel@alsa-project.org>; Sun, 07 Jun 2020 13:14:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=kEeZT1E4zoRmLyPDY9KugTspdRA6R5X4WJFgXlZyO3M=;
- b=HPuLIXRSra8c1JmniFH9y6NjP8nRv9hHJGBKtUYK5W5YoWq4dMTu0k850n0YQlweRT
- cpkUAX6De6isueEj87tzfSkkeoz6JsN3Oqlwz+i3pwdML/e2rFI6kHyrL7nKxFsIdfJY
- eZUfyer5DxE+Laz3plY3msK9Ot8aAINzrt250AWYiK48l8jNe08p/DDQYf6nRr1UIFP/
- I7JCPY3+up75CUisuNvdXsuwYOC9CSQebu+GLxLwNoOwAD3LzNewitoW+37YrU/NQ0fr
- GSB7u/OvlC9wQjE5M3zGhwBhXUO6dqVdni2MA0nsBZFpbMo+Zdek504iBqrkAmwQKX+L
- /COw==
+ dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="KdOyqU9N"
+Received: by mail-ej1-x644.google.com with SMTP id l12so12217117ejn.10
+ for <alsa-devel@alsa-project.org>; Sun, 07 Jun 2020 13:39:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20150623.gappssmtp.com; s=20150623;
+ h=references:user-agent:from:to:cc:subject:in-reply-to:date
+ :message-id:mime-version;
+ bh=cxAlOko9t8uVXP+cvSgKgh4pcthYDznq/xdMjGJwWF8=;
+ b=KdOyqU9ND3HG5d87XzvYCfQ2uByF1009R35nYXeDDMLn3vhVJNmlnwuNBXc0HasUMj
+ LyKvjV0OHT0/GFgDE/03M8ppq31jNA/14gxV99DDyqL8qAre2/OHH5LtP6yQKvfznyX2
+ LROlH2K/f/dx1Vn/5b4xOX0oA7ArWmNxLbjZ1JVMq+Vnt/1ms3tCRN/hGC71MCrsqjUd
+ GIPFEFAU/eZqHJivwmZWwKWtr3PRkJqQ1obBpY+x+MD2ytvfqSzxenTN/wm1iaf4iXcG
+ kNiefj+tDTqhRm+1eJYp0/rg7yaWUj0T9E5B1oGeYm2hbTCHEqv2buK6/vOkL0BGK6WX
+ fsQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=kEeZT1E4zoRmLyPDY9KugTspdRA6R5X4WJFgXlZyO3M=;
- b=I3Lkdcsw85o7iswu1ic7/czp3g9EuCk5R7U01mvku+XW/5IqMGAcpS8EcnoD2Y4A0D
- 3TJxFnvAPKcVYlpfhxRoV5BwWzrlD/XjSDzvrGevhOBWr0YeZbsQ9Pw6BwxM3FwxIRCt
- 12Rv7AMHroGWhs5tXrnAOBqq2x1GINKCRhUwyhuwKEtisxauTrGDRiq8LHd5E7mp5JQG
- S6/SM4D760nEpXRVyCJnrfzAYDieBLLWqVvAfRnVrKE0YCsNn/F0Seb5rOaimTSYyup6
- 8JQvGs9xbDv1EZacQzHxroFr7uUX8T6eQjt0PkKFsk/IeEyGkjdf2k3mszWZapPRscDl
- lv+g==
-X-Gm-Message-State: AOAM5334wBV0s8Zlo1pi7W3lRfdHLo9bGpTE56ieEckhsclGss6kzR8Y
- RttFyhWYKANd3faOVPRdT7XbDUWrW3q1An5PYoBKpGmKC5A=
-X-Google-Smtp-Source: ABdhPJxMTSePrk0a0yQxy57KHFfY2m+yXk6Uh9VUg/EKiNB9toYVqo3FQZdVfnvZRuG0iZ7LWva4hgXm8QroolmIYpI=
-X-Received: by 2002:a02:a91a:: with SMTP id n26mr19041079jam.104.1591560848746; 
- Sun, 07 Jun 2020 13:14:08 -0700 (PDT)
+ h=x-gm-message-state:references:user-agent:from:to:cc:subject
+ :in-reply-to:date:message-id:mime-version;
+ bh=cxAlOko9t8uVXP+cvSgKgh4pcthYDznq/xdMjGJwWF8=;
+ b=P4qctqgl64K5SsW/PFjGh/UwAnkkBihfVhfTjGdP9sCp7d0Cu4VEjQCoAGj5/DW7rs
+ JlryFww0GOV3m2bOYc7a6+wMAxDIwjFjpwgtCG1c/iOa8Z25txJ+YfIZv4Hw/3nCcsP7
+ vWSXtTHjMJeUFl+1+FyyJF2TauBKhNzk1lXo/DbNBmcStLjXPX+aTA1ZMVygOAnBq/JT
+ rsQV3yuROBCamKfjN2h8+7x9pX7Jx13GTfMEli5c/hNV39SGIXMTCVXNXCOlE0194bVs
+ OQO+NLdreYhDeO+aJlM2Pyv+4quApp98uW4p8vtbXY5CFRB6K0jEANUaffcH3Mt0kd31
+ 4zkA==
+X-Gm-Message-State: AOAM533MAeb3rkFRMOFTjRRKMlpEWEHdZiMWvb0BSHnfnoZ1WscZ7RkZ
+ qTXOYFbIyuy+5JMJhM7wTRuarA==
+X-Google-Smtp-Source: ABdhPJxhaSuBhybacMUdhNX3W1cQmnqaVuUYl4vqsJiFOjecWMYGoz4GLI7EUeGpnCcBDZ6WR7g6xQ==
+X-Received: by 2002:a17:906:a387:: with SMTP id
+ k7mr19195332ejz.408.1591562389607; 
+ Sun, 07 Jun 2020 13:39:49 -0700 (PDT)
+Received: from localhost (cag06-3-82-243-161-21.fbx.proxad.net.
+ [82.243.161.21])
+ by smtp.gmail.com with ESMTPSA id v29sm10754839edb.62.2020.06.07.13.39.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 07 Jun 2020 13:39:48 -0700 (PDT)
+References: <20200604171216.60043-1-colin.king@canonical.com>
+User-agent: mu4e 1.3.3; emacs 26.3
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Colin King <colin.king@canonical.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Kevin Hilman <khilman@baylibre.com>,
+ alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org
+Subject: Re: [PATCH] ASoC: meson: fix memory leak of links if allocation of
+ ldata fails
+In-reply-to: <20200604171216.60043-1-colin.king@canonical.com>
+Date: Sun, 07 Jun 2020 22:39:47 +0200
+Message-ID: <1j7dwik3u4.fsf@starbuckisacylon.baylibre.com>
 MIME-Version: 1.0
-References: <CALZj-VpLECyDaBeHcowTnCcufLVaPyr7Xxii+PbkrwGn9kYU+w@mail.gmail.com>
- <bc8420df-3fbe-2d7c-3c3a-dcf7455eeca8@perex.cz>
- <CALZj-VoLtoNbPZ1evLYqTxEg7XaTiEjgdB+WLE7duLfxF2ohLA@mail.gmail.com>
- <15e6517a-6be2-d5cd-c5d7-37a5122bd96e@perex.cz>
- <alpine.DEB.2.21.2006011723250.3787@eliteleevi.tm.intel.com>
-In-Reply-To: <alpine.DEB.2.21.2006011723250.3787@eliteleevi.tm.intel.com>
-From: Paul Dann <pdgiddie@gmail.com>
-Date: Sun, 7 Jun 2020 21:13:57 +0100
-Message-ID: <CALZj-VoJ0tMNyD6aZyLdBWYD3meWaqKjo-1wQww0wk1En2nqwQ@mail.gmail.com>
-Subject: Re: SOF 1.5 release on FTP server
-To: ALSA development <alsa-devel@alsa-project.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,23 +106,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 1 Jun 2020 at 15:45, Kai Vehmanen <kai.vehmanen@linux.intel.com> wrote:
-> Paul, I can confirm the sof-bin is the definitive location to get
-> the SOF binaries.
 
-Many thanks both for confirming the new source. I notice that the old
-FTP package contains the following .ri and .ldc files that are not
-present in the new Github repo:
+On Thu 04 Jun 2020 at 19:12, Colin King <colin.king@canonical.com> wrote:
 
-sof-hsw
-sof-imx8
-sof-jsl
-sof-kbl
-sof-skl
-sof-sue
+> From: Colin Ian King <colin.king@canonical.com>
+>
+> Currently if the allocation of ldata fails the error return path
+> does not kfree the allocated links object.  Fix this by adding
+> an error exit return path that performs the necessary kfree'ing.
+>
+> Addresses-Coverity: ("Resource leak")
+> Fixes: 7864a79f37b5 ("ASoC: meson: add axg sound card support")
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
 
-I'd just like to double-check that shipping the new package without
-these files won't lead to reduced functionality?
+Looks good, Thx
 
-Many thanks again,
-Paul
+Acked-by: Jerome Brunet <jbrunet@baylibre.com>
+
+> ---
+>  sound/soc/meson/meson-card-utils.c | 17 ++++++++++++-----
+>  1 file changed, 12 insertions(+), 5 deletions(-)
+>
+> diff --git a/sound/soc/meson/meson-card-utils.c b/sound/soc/meson/meson-card-utils.c
+> index 2ca8c98e204f..5a4a91c88734 100644
+> --- a/sound/soc/meson/meson-card-utils.c
+> +++ b/sound/soc/meson/meson-card-utils.c
+> @@ -49,19 +49,26 @@ int meson_card_reallocate_links(struct snd_soc_card *card,
+>  	links = krealloc(priv->card.dai_link,
+>  			 num_links * sizeof(*priv->card.dai_link),
+>  			 GFP_KERNEL | __GFP_ZERO);
+> +	if (!links)
+> +		goto err_links;
+> +
+>  	ldata = krealloc(priv->link_data,
+>  			 num_links * sizeof(*priv->link_data),
+>  			 GFP_KERNEL | __GFP_ZERO);
+> -
+> -	if (!links || !ldata) {
+> -		dev_err(priv->card.dev, "failed to allocate links\n");
+> -		return -ENOMEM;
+> -	}
+> +	if (!ldata)
+> +		goto err_ldata;
+>  
+>  	priv->card.dai_link = links;
+>  	priv->link_data = ldata;
+>  	priv->card.num_links = num_links;
+>  	return 0;
+> +
+> +err_ldata:
+> +	kfree(links);
+> +err_links:
+> +	dev_err(priv->card.dev, "failed to allocate links\n");
+> +	return -ENOMEM;
+> +
+>  }
+>  EXPORT_SYMBOL_GPL(meson_card_reallocate_links);
+

@@ -2,60 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E70C1F0CBA
-	for <lists+alsa-devel@lfdr.de>; Sun,  7 Jun 2020 18:01:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DE621F0D2D
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 Jun 2020 18:39:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0AEC01665;
-	Sun,  7 Jun 2020 18:00:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AEC01665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 366B015E2;
+	Sun,  7 Jun 2020 18:39:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 366B015E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591545679;
-	bh=hW04VBwJIndN1wJ6ID4qIeVMpcDRO0bmFDuP2V53zUU=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1591547996;
+	bh=L3JCSq7qeCWleV/aV15xU16dWheoo4EHDIQFizePKVs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Reply-To:From;
-	b=EPUYroW5wJsL1Drt1W2Bih5IOqIti+cMcN0aFIRvWmesz8aKYbltz16SP8nv/kjqr
-	 uYFPmRZaYqpXcy7KzTc1z5Ai5/KY4kvP8IJyRuAtA5lmM8lMxwKQDrIFg9gT7v+zpt
-	 4Ax8uc9pYYya8YiBA1hOvG1UZT6kLn9kYKhp7Bzo=
+	 From;
+	b=H+TYcNEMd3k/6iydguz5rX0TOJJAvrSrGaczZGh+ED71ByQoaMW9692DrZCpA/uyF
+	 XhG5sYOvV5AYScemi2S8t7FG/8j2PsFMiJ++USN+0c0U7eBSlKgmTCdHHnv+8ZPaR6
+	 1v44gXm0Vk/Jwfo76DdRuuOEoaKrmsGxBdFSwSuQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B61D8F800F4;
-	Sun,  7 Jun 2020 17:59:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 43297F80131;
+	Sun,  7 Jun 2020 18:38:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B20DCF8021E; Sun,  7 Jun 2020 17:59:26 +0200 (CEST)
+ id 0306CF80140; Sun,  7 Jun 2020 18:38:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 79668F800F4
- for <alsa-devel@alsa-project.org>; Sun,  7 Jun 2020 17:59:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79668F800F4
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 51706AC79;
- Sun,  7 Jun 2020 15:59:22 +0000 (UTC)
-Message-ID: <ceef6f3cc9aa51518361a538523129aae0b41a38.camel@suse.com>
-Subject: Re: ALSA control service in user space
-From: Scott Bahling <sbahling@suse.com>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Date: Sun, 07 Jun 2020 17:59:11 +0200
-In-Reply-To: <20200605011843.GA268102@workstation>
-References: <20200603100556.GA198303@workstation>
- <4c046724106e88b69584c6bf5604a5e7f7189c1f.camel@suse.com>
- <20200605011843.GA268102@workstation>
-Organization: SUSE Software Solutions Germany GmbH
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-P4ww1VBl3P83m3RyA6Ib"
-User-Agent: Evolution 3.34.4 
+ by alsa1.perex.cz (Postfix) with ESMTPS id 07ED2F80122
+ for <alsa-devel@alsa-project.org>; Sun,  7 Jun 2020 18:38:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07ED2F80122
+Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
+ id 4BFA81C0BD2; Sun,  7 Jun 2020 18:38:04 +0200 (CEST)
+Date: Sun, 7 Jun 2020 18:38:03 +0200
+From: Pavel Machek <pavel@ucw.cz>
+To: "Alex Xu (Hello71)" <alex_y_xu@yahoo.ca>
+Subject: 82fef0ad811f "x86/mm: unencrypted non-blocking DMA allocations use
+ coherent pools" was Re: next-0519 on thinkpad x60: sound related? window
+ manager crash
+Message-ID: <20200607163803.GA10303@duo.ucw.cz>
+References: <20200520111136.GA3802@amd> <1591545088.74ii116nf2.none@localhost>
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature"; boundary="1yeeQ81UyVL57Vl7"
+Content-Disposition: inline
+In-Reply-To: <1591545088.74ii116nf2.none@localhost>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, x86@kernel.org, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, hch@infradead.org, mingo@redhat.com,
+ bp@alien8.de, hpa@zytor.com, rientjes@google.com, tglx@linutronix.de,
+ hch@lst.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,178 +68,126 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Reply-To: sbahling@suse.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---=-P4ww1VBl3P83m3RyA6Ib
-Content-Type: text/plain; charset="UTF-8"
+--1yeeQ81UyVL57Vl7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Takashi,
+Hi!
 
-On Fri, 2020-06-05 at 10:18 +0900, Takashi Sakamoto wrote:
-> Hi Scott,
+> I have a similar issue, caused between aaa2faab4ed8 and b170290c2836.
 >=20
-> On Thu, Jun 04, 2020 at 09:02:23PM +0200, Scott Bahling wrote:
-> > Hi Takashi,
-> >=20
-> > On Wed, 2020-06-03 at 19:05 +0900, Takashi Sakamoto wrote:
-> > > Now instead of Python 3, I select Rust language to write the server
-> > > programs for audio and music units on IEEE 1394 bus. The hinawa-rs he=
-lps
-> > > the third and fourth of the above tasks.
-> >=20
-> > What does this mean for the future of hinawa-utils?
+> [   20.263098] BUG: unable to handle page fault for address: ffffb2b582cc=
+2000
+> [   20.263104] #PF: supervisor write access in kernel mode
+> [   20.263105] #PF: error_code(0x000b) - reserved bit violation
+> [   20.263107] PGD 3fd03b067 P4D 3fd03b067 PUD 3fd03c067 PMD 3f8822067 PT=
+E 8000273942ab2163
+> [   20.263113] Oops: 000b [#1] PREEMPT SMP
+> [   20.263117] CPU: 3 PID: 691 Comm: mpv Not tainted 5.7.0-11262-gb170290=
+c2836 #1
+> [   20.263119] Hardware name: To Be Filled By O.E.M. To Be Filled By O.E.=
+M./B450 Pro4, BIOS P4.10 03/05/2020
+> [   20.263125] RIP: 0010:__memset+0x24/0x30
+> [   20.263128] Code: cc cc cc cc cc cc 0f 1f 44 00 00 49 89 f9 48 89 d1 8=
+3 e2 07 48 c1 e9 03 40 0f b6 f6 48 b8 01 01 01 01 01 01 01 01 48 0f af c6 <=
+f3> 48 ab 89 d1 f3 aa 4c 89 c8 c3 90 49 89 f9 40 88 f0 48 89 d1 f3
+> [   20.263131] RSP: 0018:ffffb2b583d07e10 EFLAGS: 00010216
+> [   20.263133] RAX: 0000000000000000 RBX: ffff8b8000102c00 RCX: 000000000=
+0004000
+> [   20.263134] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffb2b58=
+2cc2000
+> [   20.263136] RBP: ffff8b8000101000 R08: 0000000000000000 R09: ffffb2b58=
+2cc2000
+> [   20.263137] R10: 0000000000005356 R11: ffff8b8000102c18 R12: 000000000=
+0000000
+> [   20.263139] R13: 0000000000000000 R14: ffff8b8039944200 R15: ffffffff9=
+794daa0
+> [   20.263141] FS:  00007f41aa4b4200(0000) GS:ffff8b803ecc0000(0000) knlG=
+S:0000000000000000
+> [   20.263143] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [   20.263144] CR2: ffffb2b582cc2000 CR3: 00000003b6731000 CR4: 000000000=
+03406e0
+> [   20.263146] Call Trace:
+> [   20.263151]  ? snd_pcm_hw_params+0x3f3/0x47a
+> [   20.263154]  ? snd_pcm_common_ioctl+0xf2/0xf73
+> [   20.263158]  ? snd_pcm_ioctl+0x1e/0x29
+> [   20.263161]  ? ksys_ioctl+0x77/0x91
+> [   20.263163]  ? __x64_sys_ioctl+0x11/0x14
+> [   20.263166]  ? do_syscall_64+0x3d/0xf5
+> [   20.263170]  ? entry_SYSCALL_64_after_hwframe+0x44/0xa9
+> [   20.263173] Modules linked in: uvcvideo videobuf2_vmalloc videobuf2_me=
+mops videobuf2_v4l2 videodev snd_usb_audio videobuf2_common snd_hwdep snd_u=
+sbmidi_lib input_leds snd_rawmidi led_class
+> [   20.263182] CR2: ffffb2b582cc2000
+> [   20.263184] ---[ end trace c6b47a774b91f0a0 ]---
+> [   20.263187] RIP: 0010:__memset+0x24/0x30
+> [   20.263190] Code: cc cc cc cc cc cc 0f 1f 44 00 00 49 89 f9 48 89 d1 8=
+3 e2 07 48 c1 e9 03 40 0f b6 f6 48 b8 01 01 01 01 01 01 01 01 48 0f af c6 <=
+f3> 48 ab 89 d1 f3 aa 4c 89 c8 c3 90 49 89 f9 40 88 f0 48 89 d1 f3
+> [   20.263192] RSP: 0018:ffffb2b583d07e10 EFLAGS: 00010216
+> [   20.263193] RAX: 0000000000000000 RBX: ffff8b8000102c00 RCX: 000000000=
+0004000
+> [   20.263195] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffb2b58=
+2cc2000
+> [   20.263196] RBP: ffff8b8000101000 R08: 0000000000000000 R09: ffffb2b58=
+2cc2000
+> [   20.263197] R10: 0000000000005356 R11: ffff8b8000102c18 R12: 000000000=
+0000000
+> [   20.263199] R13: 0000000000000000 R14: ffff8b8039944200 R15: ffffffff9=
+794daa0
+> [   20.263201] FS:  00007f41aa4b4200(0000) GS:ffff8b803ecc0000(0000) knlG=
+S:0000000000000000
+> [   20.263202] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [   20.263204] CR2: ffffb2b582cc2000 CR3: 00000003b6731000 CR4: 000000000=
+03406e0
 >=20
-> I'm sorry to puzzle you but I shift my effort of userspace applications
-> from hinawa-utils into the services.
+> I bisected this to 82fef0ad811f "x86/mm: unencrypted non-blocking DMA=20
+> allocations use coherent pools". Reverting 1ee18de92927 resolves the=20
+> issue.
 >=20
-> As you can see, Python 3 scripts in hinawa-utils depends on 'libhinawa 1'
-> which produces 'Hinawa-2.0.gir'. On the other hand, libhinawa 2 produces
-> 'Hinawa-3.0.gir'. Although hinawa-utils needs to be arranged for its
-> dependency to the latest libhinawa, at present I have no plan for it due
-> to the rest of my time... Therefore hinawa-utils is actually going to bec=
-ome
-> abandoned now at least Python 3 areas, unfortunately.
->=20
-> > I have created an OSC server interface[1] to the Tascam FW-1884 control
-> > surface using a fork of the hinawa-utils with a few enhancements[2]. Th=
-e
-> > OSC server works great for controlling applications like Ardour with th=
-e
-> > FW-1884.
->=20
-> I'm interested in Open Sound Control protocol itself, and I would use it
-> if I were a developer out of alsa-project. However it's secondary option
-> to me if any ALSA interface assists me to achieve the aim.
->=20
-> Now I made the repository public[1] for your information. The 'topic/work=
-'
-> branch includes the latest codes for the services[2]. You can see many
-> protocols are already added. (The most of them are just makeshift...)
->=20
-> For Tascam FireWire series, I uses two types of ALSA interfaces for
-> inter-process communication between the service and ALSA applications:
->=20
-> - interface on ALSA control character device
-> - interface on ALSA sequencer character device
->=20
-> For FW-1884, below elements are transparently visible for ALSA control
-> applications (e.g. amixer, qashctl):
->=20
->  * clock-source
->  * clock-rate
->  * input-threshold
->  * coax-output-source
->  * master-fader-assign
->  * host-mode
->  * opt-output-source
->  * spdif-input-source
->  * monitoring (to start polling for below elements)
->  * monitor-rotary (readonly)
->  * solo-rotary (readonly)
->  * input-meters (readonly)
->  * output-meters (readonly)
->  * detected-clock-source (readonly)
->  * detected-clock-rate (readonly)
->  * monitor-meters (readonly)
->  * analog-mixer-meters (readonly)
->  * monitor-mode (readonly)
->=20
-> Additionally, 'FW-1884' port is opened to ALSA Sequencer. The events gene=
-rated
-> by touching control surfaces such as fader, rotary are converted to stand=
-ard
-> MIDI messages and sent to the port. Any ALSA Sequencer application can re=
-ceive
-> the messages via the port. Ardour is such an application.
+> Looks like Thinkpad X60 doesn't have VT-d, but could still be DMA=20
+> related.
 
-Very nice! I'm particularly interested in the monitoring controls which is
-currently missing and would be useful.
+Note that newer -next releases seem to behave okay for me. The commit
+pointed out by siection is really simple:
 
-> You can see the conversion in 'src/tascam/isoch/seq_ctl.rs'[3] and everyt=
-hing
-> is hard-coded. It's possible to be more inconvenient than your implementa=
-tion.
->=20
-> > I was just cleaning up the code and was prepared to submit my patches f=
-or
-> > hinawa-utils, but if that will go unmaintained, I might just integrate =
-the
-> > hinawa-utils parts into my OSC server code and only depend on libhinawa
-> > directly. What do you recommend?
-> >=20
-> > [1] https://gitlab.com/tascam-fw-1884/tascam-fw-osc
-> > [2] https://github.com/sbahling/hinawa-utils/compare/master...fw-1884
->=20
-> The integration into your repository is easy and convenient to you. I
-> recommend it. But I'm welcome your comment and patches for the service it=
-self
-> when the service officially starts for public development.
->=20
->=20
-> Well, from my interests, how do you implement to blight 'REC' LEDs? It's =
-my
-> concern when using ALSA Sequencer because MIDI standard has no
-> specification to associate LED and messages.
+AFAIK you could verify it is responsible by turning off
+CONFIG_AMD_MEM_ENCRYPT on latest kernel...
 
-With Ardour OSC the state of record enable/disable for each channel is sent
-using the following message format:
+Best regards,
+								Pavel
 
-command           channel  state=20
-/strip/recenable  1        1
-/strip/recenable  1        0
+index 1d6104ea8af0..2bf2222819d3 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -1520,6 +1520,7 @@ config X86_CPA_STATISTICS
+ config AMD_MEM_ENCRYPT
+        bool "AMD Secure Memory Encryption (SME) support"
+        depends on X86_64 && CPU_SUP_AMD
++       select DMA_COHERENT_POOL
+        select DYNAMIC_PHYSICAL_MASK
+        select ARCH_USE_MEMREMAP_PROT
+        select ARCH_HAS_FORCE_DMA_UNENCRYPTED
 
-I listen for those events and turn the LED on or off depending on the state
-of channel it's assigned to.  For a MIDI implementation if there is not a
-standard, I guess you need to just pick a note or control signal to use.
-There seems to be no standard for many controls and different units have
-their own MIDI mappings.
 
-An example of mappings can be found in the Ardour code[ [1]. A description
-of how map MIDI messages to Ardour actions is in the docs [2]. Unfortunatel=
-y
-,given no standard, each application needs to be configured/adjusted to use
-any particular controller. Even with my OSC implementation I have API
-translation service to translate the general FW-1884 API that I came up wit=
-h
-to specific applications like Ardour.
+--=20
+(english) http://www.livejournal.com/~pavelmachek
+(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blo=
+g.html
 
-I looked into MIDI briefly at first, but an OSC implementation seemed easie=
-r
-and more flexible to me. I think it's a better fit for complex control
-surfaces. But it's not as ubiquitous as MIDI so a MIDI implementation would
-be useful.
-
-[1] https://github.com/Ardour/ardour/tree/master/share/midi_maps
-[2] https://manual.ardour.org/using-control-surfaces/generic-midi/midi-bind=
-ing-maps/
-
-Scott
-
---=-P4ww1VBl3P83m3RyA6Ib
+--1yeeQ81UyVL57Vl7
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEQjvzoZ9RLbHiUT/sAst8aI6UpxIFAl7dDs8ACgkQAst8aI6U
-pxIzkg/+LtCsBRPF1N/95CmH0agogW1qK/+IbbSVoAp0HHpJE2lvYujyWF2H/54y
-hrAqBSA5y09mlNbBcXecXDaiDfNwZJzbELIlIKes8MuOX/XIIMBAtl+ecplKOMID
-pi0NIPtQp05qDEFBK8IFVoTA9VhUlxHD3Y0rmnhhhxOyq4pVAZ4SYeA7jERffwec
-sJVCFz8FEw6COtKZKxore/ABeD3+BYVsxxd4MYjgecT0F2LKI4iyFwpK/4y3lupJ
-8eDUOGE37Eo7M9WAn7PBgxOmb8k9p1EsLWzhLkk39uu6Wcb9pG20U7s+EJxnlSZM
-EuJku10aGrl/6fsp50cabw9iDoyL3Xn41ew9x+zVUSLEwZtiiZNw6LDG3aqk8iBo
-tgkbnwQnlYpSpuasRuL57IV4Yq9pCDMtnfEysHVwdRIDJv7coDvMVDleV1amw5iw
-lFzdkalyHLrmXVg6hZ8qvkNAEB68iYPY8QNqS3C70KJnnfd5tVDDnOB4Xxt0CWCs
-jBO1t4G4ON88d3fzrExPOVADL4MvwBSdvkv+DxvXGNeH+AK4rbMpH3dkrMVWExuf
-3SM+tgKzOdtJoMAYmo7rARfCTgazR7MEmmd2yjOKAJntLZViKJamsIC4hyb8j4VX
-E/W352TNylks/5HbbHrOBvHlvMIVcUYHVMfHZcFaqczYL4DjPGY=
-=+Rk4
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCXt0X6wAKCRAw5/Bqldv6
+8nR9AKCEQ5c2R1u4+cXEO0PCRlvn6BRgQwCeLIGOijUJZFuQ4aVPjBCzO69tKp8=
+=cYie
 -----END PGP SIGNATURE-----
 
---=-P4ww1VBl3P83m3RyA6Ib--
-
+--1yeeQ81UyVL57Vl7--

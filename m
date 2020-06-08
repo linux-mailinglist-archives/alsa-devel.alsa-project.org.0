@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30B101F2443
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jun 2020 01:21:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2AF81F2473
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jun 2020 01:21:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE25F1661;
-	Tue,  9 Jun 2020 01:20:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE25F1661
+	by alsa0.perex.cz (Postfix) with ESMTPS id 806771655;
+	Tue,  9 Jun 2020 01:20:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 806771655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591658461;
-	bh=sQjkPKrlL5V6DRjrdXB0ZI0gV62k+bpSQLHdQ/3cqXg=;
+	s=default; t=1591658487;
+	bh=ht8J4MKA9ie5UsO0kJgPE0k/HNLasbq4/TqN7ewjmWU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MwafiSKbvwqPAMKSZFyaY59rTCyjV+t8jAebhf4zCUqwVnvNqGh5rbh2Z84KtO+LJ
-	 qKSAM6Ox/wPYg4Sha+sgSkr2d6AK3i/6isedf04ZU4WhgSIkDnR8cVB2f+Ik3R0mC5
-	 qtqxI7nltTWsbnqWPSj39hciD72Wn06TxLOeXQGY=
+	b=N5cxdlMBdeSJhCvl0uD2RCxbVQWcevuerMZFRJuRs37iDT4tdm4bJp04fBKHaa28Q
+	 QaZzov63ER4EMYQdETlWEiCly8FqQpNzQv5F7Nlpmw910LoEIuSSAfHrcL88JFKQ9h
+	 xc7iKnYtjrkbJpuOHfc8CF6rrZC1eTXxqcyJyNqI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DEDD0F802A1;
-	Tue,  9 Jun 2020 01:15:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B353BF80323;
+	Tue,  9 Jun 2020 01:15:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6EA70F802F8; Tue,  9 Jun 2020 01:15:11 +0200 (CEST)
+ id DEBA7F80304; Tue,  9 Jun 2020 01:15:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 65B22F802E2
- for <alsa-devel@alsa-project.org>; Tue,  9 Jun 2020 01:15:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65B22F802E2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 41FB5F802E9
+ for <alsa-devel@alsa-project.org>; Tue,  9 Jun 2020 01:15:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41FB5F802E9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HdalPhSv"
+ header.b="ynS49tf0"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 5D64521532;
- Mon,  8 Jun 2020 23:15:02 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 6C54C217A0;
+ Mon,  8 Jun 2020 23:15:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591658103;
- bh=sQjkPKrlL5V6DRjrdXB0ZI0gV62k+bpSQLHdQ/3cqXg=;
+ s=default; t=1591658104;
+ bh=ht8J4MKA9ie5UsO0kJgPE0k/HNLasbq4/TqN7ewjmWU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HdalPhSvWtKyZq43qt3WTeXBnz/PflSmIamaw8Nfcv3DW2YMJTcbjeDpI+xsG8pKu
- buUBOF9eZPvQSkH3KmerDzKcZtvZxge0qmcoQ1iuk2mBCCdm8VNH3NJ9LP+o1MCS/k
- F2maAZrc00dGcMGZwaSZ3DG1hh64BuwXxbLow1To=
+ b=ynS49tf0bglpWhV6UNOkD6E9WBw2mZlP4S9ZVZfaO1GUSYV4J55LIEbtnSvOTV7sP
+ N3QMBHWT87gopggzXheX1fKUZHbvedvuhqSrYlVJOfbHgoYRWVoPjXm31nnV+6UUMA
+ C7QLxrtX7WeSgTLIYPqUJ+l1njlkBNsC1QXx8NWw=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.6 143/606] ALSA: iec1712: Initialize STDSP24
- properly when using the model=staudio option
-Date: Mon,  8 Jun 2020 19:04:28 -0400
-Message-Id: <20200608231211.3363633-143-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.6 144/606] ALSA: pcm: fix incorrect hw_base increase
+Date: Mon,  8 Jun 2020 19:04:29 -0400
+Message-Id: <20200608231211.3363633-144-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200608231211.3363633-1-sashal@kernel.org>
 References: <20200608231211.3363633-1-sashal@kernel.org>
@@ -69,7 +68,7 @@ X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Takashi Iwai <tiwai@suse.de>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, alsa-devel@alsa-project.org,
- Scott Bahling <sbahling@suse.com>
+ Brent Lu <brent.lu@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,40 +84,82 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Scott Bahling <sbahling@suse.com>
+From: Brent Lu <brent.lu@intel.com>
 
-commit b0cb099062b0c18246c3a20caaab4c0afc303255 upstream.
+commit e7513c5786f8b33f0c107b3759e433bc6cbb2efa upstream.
 
-The ST Audio ADCIII is an STDSP24 card plus extension box. With commit
-e8a91ae18bdc ("ALSA: ice1712: Add support for STAudio ADCIII") we
-enabled the ADCIII ports using the model=staudio option but forgot
-this part to ensure the STDSP24 card is initialized properly.
+There is a corner case that ALSA keeps increasing the hw_ptr but DMA
+already stop working/updating the position for a long time.
 
-Fixes: e8a91ae18bdc ("ALSA: ice1712: Add support for STAudio ADCIII")
-Signed-off-by: Scott Bahling <sbahling@suse.com>
+In following log we can see the position returned from DMA driver does
+not move at all but the hw_ptr got increased at some point of time so
+snd_pcm_avail() will return a large number which seems to be a buffer
+underrun event from user space program point of view. The program
+thinks there is space in the buffer and fill more data.
+
+[  418.510086] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 4096 avail 12368
+[  418.510149] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 6910 avail 9554
+...
+[  418.681052] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 15102 avail 1362
+[  418.681130] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 16464 avail 0
+[  418.726515] sound pcmC0D5p: pos 96 hw_ptr 16464 appl_ptr 16464 avail 16368
+
+This is because the hw_base will be increased by runtime->buffer_size
+frames unconditionally if the hw_ptr is not updated for over half of
+buffer time. As the hw_base increases, so does the hw_ptr increased
+by the same number.
+
+The avail value returned from snd_pcm_avail() could exceed the limit
+(buffer_size) easily becase the hw_ptr itself got increased by same
+buffer_size samples when the corner case happens. In following log,
+the buffer_size is 16368 samples but the avail is 21810 samples so
+CRAS server complains about it.
+
+[  418.851755] sound pcmC0D5p: pos 96 hw_ptr 16464 appl_ptr 27390 avail 5442
+[  418.926491] sound pcmC0D5p: pos 96 hw_ptr 32832 appl_ptr 27390 avail 21810
+
+cras_server[1907]: pcm_avail returned frames larger than buf_size:
+sof-glkda7219max: :0,5: 21810 > 16368
+
+By updating runtime->hw_ptr_jiffies each time the HWSYNC is called,
+the hw_base will keep the same when buffer stall happens at long as
+the interval between each HWSYNC call is shorter than half of buffer
+time.
+
+Following is a log captured by a patched kernel. The hw_base/hw_ptr
+value is fixed in this corner case and user space program should be
+aware of the buffer stall and handle it.
+
+[  293.525543] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 4096 avail 12368
+[  293.525606] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 6880 avail 9584
+[  293.525975] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 10976 avail 5488
+[  293.611178] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 15072 avail 1392
+[  293.696429] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 16464 avail 0
+...
+[  381.139517] sound pcmC0D5p: pos 96 hw_ptr 96 appl_ptr 16464 avail 0
+
+Signed-off-by: Brent Lu <brent.lu@intel.com>
+Reviewed-by: Jaroslav Kysela <perex@perex.cz>
 Cc: <stable@vger.kernel.org>
-BugLink: https://bugzilla.suse.com/show_bug.cgi?id=1048934
-Link: https://lore.kernel.org/r/20200518175728.28766-1-tiwai@suse.de
+Link: https://lore.kernel.org/r/1589776238-23877-1-git-send-email-brent.lu@intel.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- sound/pci/ice1712/ice1712.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ sound/core/pcm_lib.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/pci/ice1712/ice1712.c b/sound/pci/ice1712/ice1712.c
-index 884d0cdec08c..73e1e5400506 100644
---- a/sound/pci/ice1712/ice1712.c
-+++ b/sound/pci/ice1712/ice1712.c
-@@ -2332,7 +2332,8 @@ static int snd_ice1712_chip_init(struct snd_ice1712 *ice)
- 	pci_write_config_byte(ice->pci, 0x61, ice->eeprom.data[ICE_EEP1_ACLINK]);
- 	pci_write_config_byte(ice->pci, 0x62, ice->eeprom.data[ICE_EEP1_I2SID]);
- 	pci_write_config_byte(ice->pci, 0x63, ice->eeprom.data[ICE_EEP1_SPDIF]);
--	if (ice->eeprom.subvendor != ICE1712_SUBDEVICE_STDSP24) {
-+	if (ice->eeprom.subvendor != ICE1712_SUBDEVICE_STDSP24 &&
-+	    ice->eeprom.subvendor != ICE1712_SUBDEVICE_STAUDIO_ADCIII) {
- 		ice->gpio.write_mask = ice->eeprom.gpiomask;
- 		ice->gpio.direction = ice->eeprom.gpiodir;
- 		snd_ice1712_write(ice, ICE1712_IREG_GPIO_WRITE_MASK,
+diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
+index 872a852de75c..d531e1bc2b81 100644
+--- a/sound/core/pcm_lib.c
++++ b/sound/core/pcm_lib.c
+@@ -433,6 +433,7 @@ static int snd_pcm_update_hw_ptr0(struct snd_pcm_substream *substream,
+ 
+  no_delta_check:
+ 	if (runtime->status->hw_ptr == new_hw_ptr) {
++		runtime->hw_ptr_jiffies = curr_jiffies;
+ 		update_audio_tstamp(substream, &curr_tstamp, &audio_tstamp);
+ 		return 0;
+ 	}
 -- 
 2.25.1
 

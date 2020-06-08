@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF2D11F1914
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jun 2020 14:50:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11A241F1998
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jun 2020 15:04:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7EF301660;
-	Mon,  8 Jun 2020 14:49:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EF301660
+	by alsa0.perex.cz (Postfix) with ESMTPS id 923AA1663;
+	Mon,  8 Jun 2020 15:03:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 923AA1663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591620637;
-	bh=UMGzkwt02Lc6cwgyVYm8EbAEubvUOSkGEH0a8C9W8P4=;
+	s=default; t=1591621441;
+	bh=cngIIOD90DwKRQm8OFfM0qPCvKJ8YUNgXQlPiYnBJ0U=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G4ni0cAA+fttML0RbP964kybQsHrtrW188dgrt4HvuWGIHpE+AmJ5/2YgzahYJPyh
-	 vNNMlUklPwHhkEPQYjnPm5p9GdypkonpAmRoJoXzZ+8Ark7Z0fm6OE1gW3Ox783peB
-	 NTYq5qPnPYeFrZVi5Usvpll+r059xkztHM3shTps=
+	b=oilYLcEhntFRIWTDT7HNU1ToYKAA2EHJ4tucDIFpV2MIDBk+bj7zAMA+A3oJtvIRH
+	 RnzwMZC3ByqJHYKr2oV/nP39xtChdPrfQpwSq8W3KsHtLKpvlCTJ7cC05vY9fgHSex
+	 YO08CXOTlwM3Gu5iWtVMs2pTFsV+jAMEYsVq0xXc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D2F6DF801F7;
-	Mon,  8 Jun 2020 14:48:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6C58BF8024A;
+	Mon,  8 Jun 2020 15:02:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 52DFFF8024A; Mon,  8 Jun 2020 14:48:55 +0200 (CEST)
+ id 5CA8AF8021E; Mon,  8 Jun 2020 15:02:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F307EF80125
- for <alsa-devel@alsa-project.org>; Mon,  8 Jun 2020 14:48:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F307EF80125
+ by alsa1.perex.cz (Postfix) with ESMTPS id 813D3F80125
+ for <alsa-devel@alsa-project.org>; Mon,  8 Jun 2020 15:02:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 813D3F80125
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 24660AD7D;
- Mon,  8 Jun 2020 12:48:44 +0000 (UTC)
-Date: Mon, 08 Jun 2020 14:48:40 +0200
-Message-ID: <s5h4krl67vb.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id B0275AE8C;
+ Mon,  8 Jun 2020 13:02:14 +0000 (UTC)
+Date: Mon, 08 Jun 2020 15:02:10 +0200
+Message-ID: <s5h3675678t.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>
-Subject: Re: [PATCH 1/2] ALSA: pcm: disallow linking stream to itself
-In-Reply-To: <dc38ec162b8c83e53cf48cc8dc4dbac78667e394.1591610330.git.mirq-linux@rere.qmqm.pl>
+Subject: Re: [PATCH 2/2] ALSA: pcm: fix snd_pcm_link() lockdep splat
+In-Reply-To: <37252c65941e58473b1219ca9fab03d48f47e3e3.1591610330.git.mirq-linux@rere.qmqm.pl>
 References: <cover.1591610329.git.mirq-linux@rere.qmqm.pl>
- <dc38ec162b8c83e53cf48cc8dc4dbac78667e394.1591610330.git.mirq-linux@rere.qmqm.pl>
+ <37252c65941e58473b1219ca9fab03d48f47e3e3.1591610330.git.mirq-linux@rere.qmqm.pl>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -75,29 +75,41 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 On Mon, 08 Jun 2020 12:06:32 +0200,
 Michał Mirosław wrote:
 > 
-> Prevent SNDRV_PCM_IOCTL_LINK linking stream to itself - the code
-> can't handle it. Fixed commit is not where bug was introduced, but
-> changes the context significantly.
+> Add and use snd_pcm_stream_lock_nested() in snd_pcm_link/unlink
+> implementation.  The code is fine, but generates a lockdep complaint:
+> 
+> ============================================
+> WARNING: possible recursive locking detected
+> 5.7.1mq+ #381 Tainted: G           O
+> --------------------------------------------
+> pulseaudio/4180 is trying to acquire lock:
+> ffff888402d6f508 (&group->lock){-...}-{2:2}, at: snd_pcm_common_ioctl+0xda8/0xee0 [snd_pcm]
+> 
+> but task is already holding lock:
+> ffff8883f7a8cf18 (&group->lock){-...}-{2:2}, at: snd_pcm_common_ioctl+0xe4e/0xee0 [snd_pcm]
+> 
+> other info that might help us debug this:
+>  Possible unsafe locking scenario:
+> 
+>        CPU0
+>        ----
+>   lock(&group->lock);
+>   lock(&group->lock);
+> 
+>  *** DEADLOCK ***
+> 
+>  May be due to missing lock nesting notation
+> 
+> 2 locks held by pulseaudio/4180:
+>  #0: ffffffffa1a05190 (snd_pcm_link_rwsem){++++}-{3:3}, at: snd_pcm_common_ioctl+0xca0/0xee0 [snd_pcm]
+>  #1: ffff8883f7a8cf18 (&group->lock){-...}-{2:2}, at: snd_pcm_common_ioctl+0xe4e/0xee0 [snd_pcm]
+> [...]
 > 
 > Cc: stable@vger.kernel.org
-> Fixes: 0888c321de70 ("pcm_native: switch to fdget()/fdput()")
+> Fixes: f57f3df03a8e ("ALSA: pcm: More fine-grained PCM link locking")
 > Signed-off-by: Michał Mirosław <mirq-linux@rere.qmqm.pl>
 
-Thanks for the fix.  Just a minor point:
+Applied now.  Thanks.
 
-> @@ -2166,6 +2166,12 @@ static int snd_pcm_link(struct snd_pcm_substream *substream, int fd)
->  	}
->  	pcm_file = f.file->private_data;
->  	substream1 = pcm_file->substream;
-> +
-> +	if (substream == substream1) {
-> +		res = -EDEADLK;
-
-We've never used this error code, hence it may confuse the user-space
-side.  I'd use a more standard -EINVAL instead; the error is basically
-an invalid argument, after all.
-
-
-thanks,
 
 Takashi

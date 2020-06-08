@@ -2,62 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F8181F148D
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jun 2020 10:34:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 279E11F1494
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jun 2020 10:39:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 356911664;
-	Mon,  8 Jun 2020 10:33:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 356911664
+	by alsa0.perex.cz (Postfix) with ESMTPS id B1441165F;
+	Mon,  8 Jun 2020 10:38:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1441165F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591605256;
-	bh=BSK/c5FkEOeV9RpvB0Ax5dsayyzpcarhUzL6mtIMa3U=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	s=default; t=1591605548;
+	bh=YEVauygNN1HzApe1PfLzTfbRpb1psFJUqsG/0LV/Qbs=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=X+PsV83bY+uKDZ2pggg8bwgkK6eUbkEIabLZSKktAoikcch5i+a2/BDVym+HL1kfq
-	 qfflRsjlyzfQh8fCMZpCH7VL9ct9V4oVU0GsF0KhyXOjQAo5KSzb6tNq3yOV9beIMs
-	 KAoqYzU5O5f1qVqtisJwhRs7eR1hBWu9I0ffOQVQ=
+	b=MygN7qR3WjlkB4cccjphySSSICXvWiLGT1CK1Q5RzubNvKFbH0see8tPw9tZo1OiW
+	 GVXBnOuw6Fuaiw8aF27XpB2VA5CniZ38ElAzmI6Q7kga1BIhpSJHos5pBhrPIqNckU
+	 5b6FIgQdiR8VsYpfSYbuXQoQ3KJ3lRK34O2Xkfec=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4836DF801EB;
-	Mon,  8 Jun 2020 10:32:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D989DF80125;
+	Mon,  8 Jun 2020 10:37:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 095F2F8021C; Mon,  8 Jun 2020 10:32:33 +0200 (CEST)
+ id A96A8F8021C; Mon,  8 Jun 2020 10:37:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=PRX_BODYSUB_17, SPF_HELO_NONE, 
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from bollie.ca9.eu (bollie.ca9.eu [81.169.254.190])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 166F6F80125
- for <alsa-devel@alsa-project.org>; Mon,  8 Jun 2020 10:32:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 166F6F80125
-Received: by bollie.ca9.eu (Postfix, from userid 8)
- id E428EC315E; Mon,  8 Jun 2020 10:32:26 +0200 (CEST)
-Received: from [192.168.1.100] (p3e9d4712.dip0.t-ipconnect.de [62.157.71.18])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by bollie.ca9.eu (Postfix) with ESMTPSA id D804CC04FA
- for <alsa-devel@alsa-project.org>; Mon,  8 Jun 2020 10:32:24 +0200 (CEST)
-Subject: Re: Clock sync problem?
-To: alsa-devel@alsa-project.org
-References: <20200607133959.kmljpqdwefuio3mk@overdrive.tratt.net>
- <s5hk10i58io.wl-tiwai@suse.de>
-From: Thomas Ebeling <penguins@bollie.de>
-Message-ID: <14f91307-c121-a9f8-4045-1319ee0ca49e@bollie.de>
-Date: Mon, 8 Jun 2020 10:32:24 +0200
+ by alsa1.perex.cz (Postfix) with ESMTPS id A6215F80125
+ for <alsa-devel@alsa-project.org>; Mon,  8 Jun 2020 10:37:19 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id A6E0BA003F;
+ Mon,  8 Jun 2020 10:37:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz A6E0BA003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1591605436; bh=5YONdSBayq1L3qF6Gs4KnJaPFRC26InoNqL0U1y6Me8=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=bOL0rUpTIqXMLYi9PeDLL7Esp0WMGkJf0eQZeqLlfnY1sNj35Hl91iboX0a6+5/XS
+ H8HPrVTSE3X/CLbKwCW3x3+gWWb9xNxay4t7PKhm2XY0E7lMZgKsS08YEfNHGi8DCC
+ FnTQR7rhL9l5pLo0VcF/TVi0o6PlmXUmNls1sqm4=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Mon,  8 Jun 2020 10:37:13 +0200 (CEST)
+Subject: Re: [PATCH] ALSA: usb-audio: Use the new macro for HP Dock rename
+ quirks
+To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
+References: <20200608071513.570-1-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <3d4e9e2f-eec9-8018-7964-c09ab81c1240@perex.cz>
+Date: Mon, 8 Jun 2020 10:37:12 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <s5hk10i58io.wl-tiwai@suse.de>
+In-Reply-To: <20200608071513.570-1-tiwai@suse.de>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,31 +81,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Dne 08. 06. 20 v 9:15 Takashi Iwai napsal(a):
+> Replace the open-code with the new QUIRK_DEVICE_PROFILE() macro for
+> simplicity.
+> 
+> Fixes: 0c5086f56999 ("ALSA: usb-audio: Add vendor, product and profile name for HP Thunderbolt Dock")
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
 
-On 08.06.20 09:19, Takashi Iwai wrote:
-> On Sun, 07 Jun 2020 15:39:59 +0200,
-> Laurence Tratt wrote:
->> Hello,
->>
->> I've found an interesting issue with an SSL2+ audio interface -- it plays and
->> records fine (and, for the money, the sound quality is excellent!), but
->> recording slowly but surely drifts over time. For example, if I record a
->> click track in Audacity (or Ardour), play it through the interface and record
->> it, and then line up the start of the recorded click track with the original,
->> the two tracks will be around 5ms out of alignment after 30s. Interestingly,
->> this problem does not happen with OpenBSD, where the two tracks line up
->> precisely.
->>
-> The recent change in USB-audio might help for a case like yours.
-> Try my sound git tree (for-linus branch) or Linus' tree.  The former
-> should be pullable onto 5.7 kernel cleanly.
+Takashi, could we export the profile (hint) for new USB cards via the 
+components string - snd_component_add()? The long name seems not appropriate 
+for this. It's a GUI string (which is mangled now).
 
-Since I recently had clock drift issues with Audient devices, I'm 
-intrigued by this. @Takashi Can you quickly elaborate, what you think, 
-Laurance's issue might be and what has changed in that tree that might 
-help him fix it? Is there some general issue with the current (stable) 
-sound/usb implementation?
+					Jaroslav
 
-Thanks!
+>   sound/usb/quirks-table.h | 16 ++++------------
+>   1 file changed, 4 insertions(+), 12 deletions(-)
+> 
+> diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+> index 90d65bfa733d..4ec491011b19 100644
+> --- a/sound/usb/quirks-table.h
+> +++ b/sound/usb/quirks-table.h
+> @@ -43,22 +43,14 @@
+>   /* HP Thunderbolt Dock Audio Headset */
+>   {
+>   	USB_DEVICE(0x03f0, 0x0269),
+> -	.driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
+> -		.vendor_name = "HP",
+> -		.product_name = "Thunderbolt Dock Audio Headset",
+> -		.profile_name = "HP-Thunderbolt-Dock-Audio-Headset",
+> -		.ifnum = QUIRK_NO_INTERFACE
+> -	}
+> +	QUIRK_DEVICE_PROFILE("HP", "Thunderbolt Dock Audio Headset",
+> +			     "HP-Thunderbolt-Dock-Audio-Headset"),
+>   },
+>   /* HP Thunderbolt Dock Audio Module */
+>   {
+>   	USB_DEVICE(0x03f0, 0x0567),
+> -	.driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
+> -		.vendor_name = "HP",
+> -		.product_name = "Thunderbolt Dock Audio Module",
+> -		.profile_name = "HP-Thunderbolt-Dock-Audio-Module",
+> -		.ifnum = QUIRK_NO_INTERFACE
+> -	}
+> +	QUIRK_DEVICE_PROFILE("HP", "Thunderbolt Dock Audio Module",
+> +			     "HP-Thunderbolt-Dock-Audio-Module"),
+>   },
+>   /* FTDI devices */
+>   {
+> 
 
-Thomas
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

@@ -2,77 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84A171F1154
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jun 2020 04:17:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7993E1F12CB
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jun 2020 08:21:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 086921664;
-	Mon,  8 Jun 2020 04:17:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 086921664
+	by alsa0.perex.cz (Postfix) with ESMTPS id 17514166C;
+	Mon,  8 Jun 2020 08:20:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17514166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591582672;
-	bh=1ODzG2dGb4QsCKZ97AGjnS71Y4Y74OrtemWBwKMjoJ4=;
-	h=Date:From:Subject:To:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1591597300;
+	bh=YefTnvDr1Kj6YBCvNxtISHWQjYQmNvmQDX2DM/2yin4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=F/gHZftN2W/GTm9zHmP30co+QdamDp11pRSGaoHbYTr92A6NR629kxeC0a4OO2AUK
-	 Ke37So2OHJW00y4gJhTwmmfRmQLH1uL5fwDn4FidaehpMKQ1A8KazANQpqykCZsc0f
-	 YzsObWI1mcyTPlAeyrF+nSbofXFi4+W+sqRT7VhI=
+	b=dvcN5mt0TBRM0AHGrEnH/3tK2OkBsMMSo40q89aJIstGS8DE6vtPB89o/8ZZTtzHX
+	 XC5+JVczk4rxecVr84FjXQMJYOHvdPHzBiFqlIystSJtQd7y9AreaWYdFFLiiPv+ux
+	 tEoWPa4rJ7xjHjFLZPWOEEP0+cmgKbdNPCWfeqMw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26A4CF801F7;
-	Mon,  8 Jun 2020 04:16:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10356F8021E;
+	Mon,  8 Jun 2020 08:19:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 874E3F8021C; Mon,  8 Jun 2020 04:16:07 +0200 (CEST)
+ id 42979F8021C; Mon,  8 Jun 2020 08:19:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_MSPIKE_H2,SPF_NEUTRAL autolearn=disabled
- version=3.4.0
-Received: from sonic306-48.consmr.mail.gq1.yahoo.com
- (sonic306-48.consmr.mail.gq1.yahoo.com [98.137.68.111])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C8FAF801EB
- for <alsa-devel@alsa-project.org>; Mon,  8 Jun 2020 04:15:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C8FAF801EB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=yahoo.ca header.i=@yahoo.ca
- header.b="hbSl9fSA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.ca; s=s2048;
- t=1591582547; bh=LeNZHONdlm6bcYug9q3xuSIHrVN5iUaoxaV6Ago7nbU=;
- h=Date:From:Subject:To:Cc:References:In-Reply-To:From:Subject;
- b=hbSl9fSAaV+D3pugnsrFXMzN8fmQUT/2+N/GnpbslnifsZal7YrZOMPxmAsYqEX9cVCNw3kPhLQIUXd2ImeZOy85ixESRKVKOiJ/T1y1B0f8+PK/Lbu/RbGkvvAgqvj2+m8FIPGlWuirFh4ajkKZnpFDcAqodR/Ksc3122TRYKEI0BecV4Lk+eYZuEQQLbUk6OFlg26TlqUYGMl5mFcd1dJgBjkj06biu0Tulbh4fuzPC1IbUE2f32VhYc1qOdgEWNtYZ/GmVHAAB5yTsHUP9gSt7h1vSQ9YKuO3c9VStNbsU6kO9cgWDyY+56Dk+zW5fggGjJVVfZeBFIOM3aABEQ==
-X-YMail-OSG: N_6BpMEVRDvd.miR6A7lED5GPdAEx7ojsA--
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic306.consmr.mail.gq1.yahoo.com with HTTP; Mon, 8 Jun 2020 02:15:47 +0000
-Received: by smtp431.mail.gq1.yahoo.com (VZM Hermes SMTP Server) with ESMTPA
- ID 3b13a0cd26292fd40daa8b7a3122671d; 
- Mon, 08 Jun 2020 02:13:45 +0000 (UTC)
-Date: Sun, 07 Jun 2020 22:13:42 -0400
-From: "Alex Xu (Hello71)" <alex_y_xu@yahoo.ca>
-Subject: Re: 82fef0ad811f "x86/mm: unencrypted non-blocking DMA allocations
- use coherent pools" was Re: next-0519 on thinkpad x60: sound related? window
- manager crash
-To: David Rientjes <rientjes@google.com>
-References: <20200520111136.GA3802@amd>
- <1591545088.74ii116nf2.none@localhost> <20200607163803.GA10303@duo.ucw.cz>
- <alpine.DEB.2.22.394.2006071209470.84952@chino.kir.corp.google.com>
- <1591570155.2tn9o40h95.none@localhost>
- <alpine.DEB.2.22.394.2006071756040.138746@chino.kir.corp.google.com>
-In-Reply-To: <alpine.DEB.2.22.394.2006071756040.138746@chino.kir.corp.google.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5EA44F80125
+ for <alsa-devel@alsa-project.org>; Mon,  8 Jun 2020 08:19:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EA44F80125
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 820EA68B02; Mon,  8 Jun 2020 08:19:50 +0200 (CEST)
+Date: Mon, 8 Jun 2020 08:19:50 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: "Alex Xu (Hello71)" <alex_y_xu@yahoo.ca>
+Subject: Re: next-0519 on thinkpad x60: sound related? window manager crash
+Message-ID: <20200608061950.GA17476@lst.de>
+References: <20200520111136.GA3802@amd> <1591545088.74ii116nf2.none@localhost>
 MIME-Version: 1.0
-Message-Id: <1591582140.kcn3hpk42g.none@localhost>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: WebService/1.1.16072 hermes_yahoo Apache-HttpAsyncClient/4.1.4
- (Java/11.0.6)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1591545088.74ii116nf2.none@localhost>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 Cc: alsa-devel@alsa-project.org, x86@kernel.org, tiwai@suse.com,
  linux-kernel@vger.kernel.org, hch@infradead.org, mingo@redhat.com,
- bp@alien8.de, Pavel Machek <pavel@ucw.cz>, hpa@zytor.com, tglx@linutronix.de,
- hch@lst.de
+ bp@alien8.de, Pavel Machek <pavel@ucw.cz>, hpa@zytor.com, rientjes@google.com,
+ tglx@linutronix.de, hch@lst.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,43 +68,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Excerpts from David Rientjes's message of June 7, 2020 8:57 pm:
-> Thanks for trying it out, Alex.  Would you mind sending your .config and=20
-> command line?  I assume either mem_encrypt=3Don or=20
-> CONFIG_AMD_MEM_ENCRYPT_ACTIVE_BY_DEFAULT is enabled.
->=20
-> Could you also give this a try?
->=20
-> diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
-> --- a/kernel/dma/direct.c
-> +++ b/kernel/dma/direct.c
-> @@ -99,10 +99,11 @@ static inline bool dma_should_alloc_from_pool(struct =
-device *dev, gfp_t gfp,
->  static inline bool dma_should_free_from_pool(struct device *dev,
->  					     unsigned long attrs)
->  {
-> -	if (IS_ENABLED(CONFIG_DMA_COHERENT_POOL))
-> +	if (!IS_ENABLED(CONFIG_DMA_COHERENT_POOL))
-> +		return false;
-> +	if (force_dma_unencrypted(dev))
->  		return true;
-> -	if ((attrs & DMA_ATTR_NO_KERNEL_MAPPING) &&
-> -	    !force_dma_unencrypted(dev))
-> +	if (attrs & DMA_ATTR_NO_KERNEL_MAPPING)
->  		return false;
->  	if (IS_ENABLED(CONFIG_DMA_DIRECT_REMAP))
->  		return true;
->=20
+Can you do a listing using gdb where this happens?
 
-This patch doesn't work for me either. It has since occurred to me that=20
-while I do have CONFIG_AMD_MEM_ENCYRPT=3Dy, I have=20
-CONFIG_AMD_MEM_ENCRYPT_ACTIVE_BY_DEFAULT=3Dn, because it was broken with=20
-amdgpu (unfortunately a downgrade from radeon in this respect). Tried it=20
-again just now and it looks like it's now able to enable KMS, but all it=20
-displays is serious-looking errors.
+gdb vmlinux
 
-Sorry for not mentioning that earlier. I'll send you my .config and=20
-command line off-list.
+l *(snd_pcm_hw_params+0x3f3)
 
-Thanks,
-Alex.
+?
+
+On Sun, Jun 07, 2020 at 11:58:21AM -0400, Alex Xu (Hello71) wrote:
+> I have a similar issue, caused between aaa2faab4ed8 and b170290c2836.
+> 
+> [   20.263098] BUG: unable to handle page fault for address: ffffb2b582cc2000
+> [   20.263104] #PF: supervisor write access in kernel mode
+> [   20.263105] #PF: error_code(0x000b) - reserved bit violation
+> [   20.263107] PGD 3fd03b067 P4D 3fd03b067 PUD 3fd03c067 PMD 3f8822067 PTE 8000273942ab2163
+> [   20.263113] Oops: 000b [#1] PREEMPT SMP
+> [   20.263117] CPU: 3 PID: 691 Comm: mpv Not tainted 5.7.0-11262-gb170290c2836 #1
+> [   20.263119] Hardware name: To Be Filled By O.E.M. To Be Filled By O.E.M./B450 Pro4, BIOS P4.10 03/05/2020
+> [   20.263125] RIP: 0010:__memset+0x24/0x30
+> [   20.263128] Code: cc cc cc cc cc cc 0f 1f 44 00 00 49 89 f9 48 89 d1 83 e2 07 48 c1 e9 03 40 0f b6 f6 48 b8 01 01 01 01 01 01 01 01 48 0f af c6 <f3> 48 ab 89 d1 f3 aa 4c 89 c8 c3 90 49 89 f9 40 88 f0 48 89 d1 f3
+> [   20.263131] RSP: 0018:ffffb2b583d07e10 EFLAGS: 00010216
+> [   20.263133] RAX: 0000000000000000 RBX: ffff8b8000102c00 RCX: 0000000000004000
+> [   20.263134] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffb2b582cc2000
+> [   20.263136] RBP: ffff8b8000101000 R08: 0000000000000000 R09: ffffb2b582cc2000
+> [   20.263137] R10: 0000000000005356 R11: ffff8b8000102c18 R12: 0000000000000000
+> [   20.263139] R13: 0000000000000000 R14: ffff8b8039944200 R15: ffffffff9794daa0
+> [   20.263141] FS:  00007f41aa4b4200(0000) GS:ffff8b803ecc0000(0000) knlGS:0000000000000000
+> [   20.263143] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [   20.263144] CR2: ffffb2b582cc2000 CR3: 00000003b6731000 CR4: 00000000003406e0
+> [   20.263146] Call Trace:
+> [   20.263151]  ? snd_pcm_hw_params+0x3f3/0x47a
+> [   20.263154]  ? snd_pcm_common_ioctl+0xf2/0xf73
+> [   20.263158]  ? snd_pcm_ioctl+0x1e/0x29
+> [   20.263161]  ? ksys_ioctl+0x77/0x91
+> [   20.263163]  ? __x64_sys_ioctl+0x11/0x14
+> [   20.263166]  ? do_syscall_64+0x3d/0xf5
+> [   20.263170]  ? entry_SYSCALL_64_after_hwframe+0x44/0xa9
+> [   20.263173] Modules linked in: uvcvideo videobuf2_vmalloc videobuf2_memops videobuf2_v4l2 videodev snd_usb_audio videobuf2_common snd_hwdep snd_usbmidi_lib input_leds snd_rawmidi led_class
+> [   20.263182] CR2: ffffb2b582cc2000
+> [   20.263184] ---[ end trace c6b47a774b91f0a0 ]---
+> [   20.263187] RIP: 0010:__memset+0x24/0x30
+> [   20.263190] Code: cc cc cc cc cc cc 0f 1f 44 00 00 49 89 f9 48 89 d1 83 e2 07 48 c1 e9 03 40 0f b6 f6 48 b8 01 01 01 01 01 01 01 01 48 0f af c6 <f3> 48 ab 89 d1 f3 aa 4c 89 c8 c3 90 49 89 f9 40 88 f0 48 89 d1 f3
+> [   20.263192] RSP: 0018:ffffb2b583d07e10 EFLAGS: 00010216
+> [   20.263193] RAX: 0000000000000000 RBX: ffff8b8000102c00 RCX: 0000000000004000
+> [   20.263195] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffb2b582cc2000
+> [   20.263196] RBP: ffff8b8000101000 R08: 0000000000000000 R09: ffffb2b582cc2000
+> [   20.263197] R10: 0000000000005356 R11: ffff8b8000102c18 R12: 0000000000000000
+> [   20.263199] R13: 0000000000000000 R14: ffff8b8039944200 R15: ffffffff9794daa0
+> [   20.263201] FS:  00007f41aa4b4200(0000) GS:ffff8b803ecc0000(0000) knlGS:0000000000000000
+> [   20.263202] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [   20.263204] CR2: ffffb2b582cc2000 CR3: 00000003b6731000 CR4: 00000000003406e0
+> 
+> I bisected this to 82fef0ad811f "x86/mm: unencrypted non-blocking DMA 
+> allocations use coherent pools". Reverting 1ee18de92927 resolves the 
+> issue.
+> 
+> Looks like Thinkpad X60 doesn't have VT-d, but could still be DMA 
+> related.
+---end quoted text---

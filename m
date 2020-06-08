@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96D5F1F219D
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jun 2020 23:48:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3106C1F219B
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jun 2020 23:47:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D5571674;
-	Mon,  8 Jun 2020 23:48:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D5571674
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6EF8166E;
+	Mon,  8 Jun 2020 23:47:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6EF8166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591652935;
-	bh=KrM0m2f5Lni+8loSeabUnfihI4TnhQaEslBMyfVKYbQ=;
+	s=default; t=1591652878;
+	bh=GeSYFTKJCAVsejlHsEPGVX5vw1iu0Q+XhpyUiECawUI=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JbjvtHX1u+nGLigbwCDvL8z3jK3F9wHVFOJ1MuXfnHGzVDddUOXrzDm/IcPWndEYP
-	 mzhzdTjQn/+qndAeaX7Ki0FENt1c5Z5IGSlm/JW75YidgldH78a1U7fN6L2ahGqxty
-	 z7nI247uLt+FY0cA8h/rSaoBV5lDIp9HGeOPRu14=
+	b=pj5hyzboWYdwID3qk8Zv/WlNvN51yksfW7rBsmecMrFEqMz3iOhMUIDBCCchY8wn7
+	 e79YJCGg8VMzZNFCqII+/EvxfckiVaC5TRRPq5JaZ87LQsCrmpOmq7EePmpEKOno1n
+	 VVfPCWvxaHZLhNXZnlJDkzEcnzCFeAHBePrdyZnc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C42D1F802DB;
-	Mon,  8 Jun 2020 23:45:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75396F8021C;
+	Mon,  8 Jun 2020 23:45:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D5D10F802BD; Mon,  8 Jun 2020 23:45:31 +0200 (CEST)
+ id 8D653F8024A; Mon,  8 Jun 2020 23:45:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,37 +34,34 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 185AAF8021E
- for <alsa-devel@alsa-project.org>; Mon,  8 Jun 2020 23:45:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 185AAF8021E
-IronPort-SDR: AOe9h3VMtnGJYO4xU2G0jbtnkelP+5wniw+KCok6JteNHimwp3zrMwDWLB60qxJLNVN0f7eGO1
- zwaTmudamsYQ==
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5238F801EB
+ for <alsa-devel@alsa-project.org>; Mon,  8 Jun 2020 23:45:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5238F801EB
+IronPort-SDR: nVrzPZYPMFbS9bb9WmoWExUI+c9ZCjS+79rDRCINRQhXjjMCFthX9WwOdUqdYjIrS2NILqJlWu
+ u4ij6Fj9Gdtg==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2020 14:45:13 -0700
-IronPort-SDR: GtfnUP5CJrgkKvpsF8rBroM8XZjUcZuzt2kOQYRgnpwQeHPeKdjUnLpSVSCq7Q1WgunL8kXd7z
- EEQRCVYE2OJg==
+ 08 Jun 2020 14:45:14 -0700
+IronPort-SDR: IVz2kX9KpFHPC3Q2DPv7qDtUv0n3ZFWjE91FYCNE7d3hb1CNju5sADW6wixshELY8Os7utcM9A
+ i4ryDcv1JHhg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,489,1583222400"; d="scan'208";a="446893878"
+X-IronPort-AV: E=Sophos;i="5.73,489,1583222400"; d="scan'208";a="446893881"
 Received: from skarmaka-mobl2.amr.corp.intel.com (HELO [10.254.104.56])
  ([10.254.104.56])
- by orsmga005.jf.intel.com with ESMTP; 08 Jun 2020 14:45:13 -0700
-Subject: Re: [PATCH 1/2] ASoC: Intel: bytcr_rt5640: Add quirk for Toshiba
- Encore WT10-A tablet
-To: Hans de Goede <hdegoede@redhat.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
-References: <20200608204634.93407-1-hdegoede@redhat.com>
+ by orsmga005.jf.intel.com with ESMTP; 08 Jun 2020 14:45:14 -0700
+Subject: Re: [PATCH 1/3] bytcr-rt5640: Fix DMIC1 not working when connected
+ over AIF2
+To: Hans de Goede <hdegoede@redhat.com>, Jaroslav Kysela <perex@perex.cz>
+References: <20200608202142.92894-1-hdegoede@redhat.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <2773afcf-e75d-116f-6492-c69a5f497bab@linux.intel.com>
-Date: Mon, 8 Jun 2020 16:33:48 -0500
+Message-ID: <e32752b3-ad5c-6e63-51fb-a202956bc1f4@linux.intel.com>
+Date: Mon, 8 Jun 2020 16:44:25 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <20200608204634.93407-1-hdegoede@redhat.com>
+In-Reply-To: <20200608202142.92894-1-hdegoede@redhat.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -86,45 +83,63 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 6/8/20 3:46 PM, Hans de Goede wrote:
-> The Toshiba Encore WT10-A tablet almost fully works with the default
-> settings for Bay Trail CR devices. The only issue is that it uses a
-> digital mic. connected the the DMIC1 input instead of an analog mic.
+On 6/8/20 3:21 PM, Hans de Goede wrote:
+> The RT5640 codec has 2 ADC-s which are caled the Stereo ADC and the
+> Mono ADC (even though the mono ADC seems to be stereo too?). The Stereo
+> ADC is connected to the AIF1 interface of the codec and the Mono ADC
+> to the AIF2 interface.
 > 
-> Add a quirk for this model using the default settings with the input-map
-> replaced with BYT_RT5640_DMIC1_MAP.
+> Almost all X86 BYT/CHT design use the AIF1 interface, but a few models
+> use the AIF2 interface. For this reason the IN?-InternalMic.conf bits
+> not only select/enable the microphone input on the Stereo ADC, but
+> also on the Mono ADC, so that the analog mic. inputs also work in devices
+> using the AIF2 interface.
+> 
+> Before this commit DigitalMics.conf was only setting up the DMIC input
+> on the Stereo ADC and not on the Mono ADC, causing DMIC1 to not work
+> when connected over AIF2.
+> 
+> This commit adds selecting / enabling DMIC1 on the Mono ADC.
+> This fixes the internal microphone not working on the Toshiba Encore WT10A.
+> 
+> Note that for devices which use the AIF1 interface this is a no-op since
+> the AIF1 interface is not connected to anything, there is no complete
+> chain so DAPM will not enable any of the elements in the chain.
 
-For patch 1 and 2
+Sounds good to me.
 
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+For the series
+
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
 > 
 > Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 > ---
->   sound/soc/intel/boards/bytcr_rt5640.c | 12 ++++++++++++
->   1 file changed, 12 insertions(+)
+>   ucm2/codecs/rt5640/DigitalMics.conf | 6 ++++++
+>   1 file changed, 6 insertions(+)
 > 
-> diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-> index fbfd53874b47..5c1a5e2aff6f 100644
-> --- a/sound/soc/intel/boards/bytcr_rt5640.c
-> +++ b/sound/soc/intel/boards/bytcr_rt5640.c
-> @@ -754,6 +754,18 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
->   					BYT_RT5640_JD_NOT_INV |
->   					BYT_RT5640_MCLK_EN),
->   	},
-> +	{	/* Toshiba Encore WT10-A */
-> +		.matches = {
-> +			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "TOSHIBA"),
-> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "TOSHIBA WT10-A-103"),
-> +		},
-> +		.driver_data = (void *)(BYT_RT5640_DMIC1_MAP |
-> +					BYT_RT5640_JD_SRC_JD1_IN4P |
-> +					BYT_RT5640_OVCD_TH_2000UA |
-> +					BYT_RT5640_OVCD_SF_0P75 |
-> +					BYT_RT5640_SSP0_AIF2 |
-> +					BYT_RT5640_MCLK_EN),
-> +	},
->   	{	/* Catch-all for generic Insyde tablets, must be last */
->   		.matches = {
->   			DMI_MATCH(DMI_SYS_VENDOR, "Insyde"),
+> diff --git a/ucm2/codecs/rt5640/DigitalMics.conf b/ucm2/codecs/rt5640/DigitalMics.conf
+> index 503c4a9..fdd412f 100644
+> --- a/ucm2/codecs/rt5640/DigitalMics.conf
+> +++ b/ucm2/codecs/rt5640/DigitalMics.conf
+> @@ -6,6 +6,9 @@ SectionDevice."Mic" {
+>   	]
+>   
+>   	EnableSequence [
+> +		cset "name='Mono ADC MIXL ADC2 Switch' on"
+> +		cset "name='Mono ADC MIXR ADC2 Switch' on"
+> +		cset "name='Mono ADC Capture Switch' on"
+>   		cset "name='Stereo ADC MIXL ADC2 Switch' on"
+>   		cset "name='Stereo ADC MIXR ADC2 Switch' on"
+>   		cset "name='Internal Mic Switch' on"
+> @@ -13,6 +16,9 @@ SectionDevice."Mic" {
+>   	]
+>   
+>   	DisableSequence [
+> +		cset "name='Mono ADC MIXL ADC2 Switch' off"
+> +		cset "name='Mono ADC MIXR ADC2 Switch' off"
+> +		cset "name='Mono ADC Capture Switch' off"
+>   		cset "name='Stereo ADC MIXL ADC2 Switch' off"
+>   		cset "name='Stereo ADC MIXR ADC2 Switch' off"
+>   		cset "name='Internal Mic Switch' off"
 > 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5CD81F190E
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jun 2020 14:48:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 909151F1912
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jun 2020 14:48:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B1B71663;
-	Mon,  8 Jun 2020 14:47:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B1B71663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 34B981612;
+	Mon,  8 Jun 2020 14:48:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34B981612
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591620482;
-	bh=FCAvqfmKFayKCxPdwRtAqVx7sG8HLE4jjh4Q6F84pqk=;
+	s=default; t=1591620530;
+	bh=Wq/+Uk6aoGGFVXLgFp6Ufm0w+dLdqZNzS0VJAWWMN3Y=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=evwrlaMJWrVDP54um/4gQfAgGSSD4G/IhpOlxcQKQkmSA7FFNoKNsMmrmZLFa8lZb
-	 pKbNXfvDI7bkVudOwyTWj2G5q6cRYOaDZy5eXbF63SgPPiBCQa1y+jIkczeEQshP1k
-	 2GZidpjAHB1gPPh0qyHPvAGl+345ZbKwCIrsw8ng=
+	b=nOsfzI7jqTY3QYQe+0xh81xGhpCNf2cq/pRf8Y31LEfXdnr6/1tnmtzIhRdl+nHmG
+	 FHQOcWlXEi+u60NbLI0xaQaAKhSfKDUAFC6yuMRHxytgthX1UGWYwntA+s9K5rem+b
+	 Q0pFCvICi2p7Qu774lj58RMtwX/zUjtu754brGCQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3CE8EF8021E;
-	Mon,  8 Jun 2020 14:46:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5C420F80276;
+	Mon,  8 Jun 2020 14:46:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 725C1F8021C; Mon,  8 Jun 2020 14:46:18 +0200 (CEST)
+ id C79CFF80125; Mon,  8 Jun 2020 14:46:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,37 +34,35 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3428FF801EB
- for <alsa-devel@alsa-project.org>; Mon,  8 Jun 2020 14:46:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3428FF801EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 06609F80125
+ for <alsa-devel@alsa-project.org>; Mon,  8 Jun 2020 14:46:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06609F80125
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="pvoyh0Wm"
+ header.b="WCW74dpu"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 213622072F;
- Mon,  8 Jun 2020 12:46:10 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2FE0F2076A;
+ Mon,  8 Jun 2020 12:46:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591620371;
- bh=FCAvqfmKFayKCxPdwRtAqVx7sG8HLE4jjh4Q6F84pqk=;
+ s=default; t=1591620376;
+ bh=Wq/+Uk6aoGGFVXLgFp6Ufm0w+dLdqZNzS0VJAWWMN3Y=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=pvoyh0Wmbo79Pc12rA2pIrsB8hDaGNNVxeCDJUrDxMXEg53yWzsj/jpoCMVRQ/D+k
- iS4q0ZxJQwdYgnH5S5bPje7+IJARN2szNwFq7POidTzoZLNpDR/H7bW51LWAzgk6YT
- GT/iYSpw5umoi75sI57tbGb1OzSZk8hx6Qd8TspE=
-Date: Mon, 08 Jun 2020 13:46:09 +0100
+ b=WCW74dpurI56Y4x3OmKY7vQ1f3D2C8gnCUyKS/OTbs60t0+NSFYD4cQatOH+NKeBq
+ im94IQRdb2unFosKEp64Fz+drKc/tttF5ukguidxXG9UFyqV5RexGgsiaMRjnhugtE
+ yylDilt/pkIflLMdPPZVQG40Axi7ZLV8TaES3flg=
+Date: Mon, 08 Jun 2020 13:46:14 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>, Kevin Hilman <khilman@baylibre.com>,
- Colin King <colin.king@canonical.com>, linux-arm-kernel@lists.infradead.org,
- Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-amlogic@lists.infradead.org, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>
-In-Reply-To: <20200604171216.60043-1-colin.king@canonical.com>
-References: <20200604171216.60043-1-colin.king@canonical.com>
-Subject: Re: [PATCH] ASoC: meson: fix memory leak of links if allocation of
- ldata fails
-Message-Id: <159162036934.23368.2440967052610831030.b4-ty@kernel.org>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+To: lgirdwood@gmail.com, tiwai@suse.com, Dan Murphy <dmurphy@ti.com>,
+ perex@perex.cz
+In-Reply-To: <20200602193524.30309-1-dmurphy@ti.com>
+References: <20200602193524.30309-1-dmurphy@ti.com>
+Subject: Re: [PATCH 1/2] dt-bindings: ASoc: Fix tdm-slot documentation
+ spelling error
+Message-Id: <159162036934.23368.11280508141452953751.b4-ty@kernel.org>
+Cc: robh@kernel.org, alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,10 +78,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 4 Jun 2020 18:12:16 +0100, Colin King wrote:
-> Currently if the allocation of ldata fails the error return path
-> does not kfree the allocated links object.  Fix this by adding
-> an error exit return path that performs the necessary kfree'ing.
+On Tue, 2 Jun 2020 14:35:23 -0500, Dan Murphy wrote:
+> Fix the spelling of 'specified'.  Also fix grammarical issue with the
+> use of 'a' over 'an'
 
 Applied to
 
@@ -91,8 +88,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: meson: fix memory leak of links if allocation of ldata fails
-      commit: 6e801dc411329aff592fbd48fb116183d0acdb00
+[1/1] dt-bindings: ASoc: Fix tdm-slot documentation spelling error
+      commit: 8a9144c1cf523221b37dd3393827253c91fcbf54
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

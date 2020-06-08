@@ -2,70 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 901AD1F1666
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jun 2020 12:08:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C1261F1804
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jun 2020 13:42:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B19031660;
-	Mon,  8 Jun 2020 12:07:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B19031660
+	by alsa0.perex.cz (Postfix) with ESMTPS id D29C81663;
+	Mon,  8 Jun 2020 13:41:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D29C81663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591610903;
-	bh=CDrLC2kySs5OBNJvqoPu46VZEBqI3bBc1GI8m0d56kY=;
-	h=Date:In-Reply-To:References:From:Subject:To:Cc:List-Id:
+	s=default; t=1591616561;
+	bh=x4taCFMl1JSd2Q5eNsTgPag9K1UCnAlZgI2Ug8F0LTc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nW5MK67qphLvurLCr7lFICIRPNSu66dV6doANik4GHpHfQaPMcv68AG6hGWXBabPp
-	 2Q4Oltrs/2h0RM9qeBgobqh0okODJfPmAsYnuHO77JXNs4oq2hwqF4oprwp7S1NkfN
-	 obF8XI9eFIhj9IBha6bjqcL0vVliRSZVF8LESzmE=
+	b=u1CsKTBrSc5sYe31HJtuESMQfv/73SGZd3U5aIR2OqNjDgYcY1nji1aeWzjW/arzE
+	 G8eWeUja8oFwEWxMGMRNUka14MHKayDlOZU0trEj6NlLRNWYvHaoeJoTBdJrZx9cGD
+	 9xi/+kTm/sfTww04Hcr4RlW+FakQqb9jfHMo4YOE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8767F8021E;
-	Mon,  8 Jun 2020 12:06:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DFEF0F8021E;
+	Mon,  8 Jun 2020 13:41:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72E02F8024A; Mon,  8 Jun 2020 12:06:40 +0200 (CEST)
+ id 484FCF8021C; Mon,  8 Jun 2020 13:40:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from rere.qmqm.pl (rere.qmqm.pl [91.227.64.183])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 793FEF801F7
- for <alsa-devel@alsa-project.org>; Mon,  8 Jun 2020 12:06:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 793FEF801F7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 523ACF80124
+ for <alsa-devel@alsa-project.org>; Mon,  8 Jun 2020 13:40:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 523ACF80124
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=rere.qmqm.pl header.i=@rere.qmqm.pl
- header.b="AND0CpYe"
-Received: from remote.user (localhost [127.0.0.1])
- by rere.qmqm.pl (Postfix) with ESMTPSA id 49gTRs19bxzY4;
- Mon,  8 Jun 2020 12:06:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rere.qmqm.pl; s=1;
- t=1591610793; bh=CDrLC2kySs5OBNJvqoPu46VZEBqI3bBc1GI8m0d56kY=;
- h=Date:In-Reply-To:References:From:Subject:To:Cc:From;
- b=AND0CpYeEW677MDFgvTIx8zReIBMkD6olRKBzvkZOdeyRXBwmQTvOWiGG/iBeA7BS
- yX8DP+UguZnDbIuxjkyajal9FqWaBgxqph/knGrmulPBWffp38IYQXNa+8Eyrs2QOT
- NiAbq3Jsu+A9w3670L59ZP33sK2Y5CnpiPZoXyAvuu7GA6GsqC2v8qltNdO1cKlkzr
- bKsQ2v33ERBu5+zVjsyp6hZpSvWcgm4Y5pfZ3Z0EfC2ez9HSTQWz+dlBAfx0wsfHGb
- a401+jf5+fn4MHv3268WB6TYdDLlI5e07znuu+kblHpbo7wWoBxUFw9sPNHXyvC948
- w4BOzftnZDgNQ==
-X-Virus-Status: Clean
-X-Virus-Scanned: clamav-milter 0.102.2 at mail
-Date: Mon, 08 Jun 2020 12:06:32 +0200
-Message-Id: <37252c65941e58473b1219ca9fab03d48f47e3e3.1591610330.git.mirq-linux@rere.qmqm.pl>
-In-Reply-To: <cover.1591610329.git.mirq-linux@rere.qmqm.pl>
-References: <cover.1591610329.git.mirq-linux@rere.qmqm.pl>
-From: =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>
-Subject: [PATCH 2/2] ALSA: pcm: fix snd_pcm_link() lockdep splat
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="rIRuyu7H"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 57A152074B;
+ Mon,  8 Jun 2020 11:40:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1591616452;
+ bh=x4taCFMl1JSd2Q5eNsTgPag9K1UCnAlZgI2Ug8F0LTc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=rIRuyu7HoF2N+aUEjIce4hAevgRqJwI+BsLOC3XtBOVLmgs9MWQKZAT5QGmDr5GKf
+ fu7pg5IOce3RteJB6v7iXvzw0IRjCT8RWz4XrueqXh2wC5nzznCETcsHW8GeosgrBS
+ MxsLKGoQ6TbwarH19XC95Pu9353pbL+po/cfNqx0=
+Date: Mon, 8 Jun 2020 12:40:50 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Pavel Machek <pavel@ucw.cz>
+Subject: Re: [PATCH] soc/meson: add missing free_irq() in error path
+Message-ID: <20200608114050.GD4593@sirena.org.uk>
+References: <20200606153103.GA17905@amd>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="g7w8+K/95kPelPD2"
+Content-Disposition: inline
+In-Reply-To: <20200606153103.GA17905@amd>
+X-Cookie: I'm rated PG-34!!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, trivial@kernel.org, lgirdwood@gmail.com,
+ khilman@baylibre.com, tiwai@suse.com, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org, jbrunet@baylibre.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,82 +83,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add and use snd_pcm_stream_lock_nested() in snd_pcm_link/unlink
-implementation.  The code is fine, but generates a lockdep complaint:
 
-============================================
-WARNING: possible recursive locking detected
-5.7.1mq+ #381 Tainted: G           O
---------------------------------------------
-pulseaudio/4180 is trying to acquire lock:
-ffff888402d6f508 (&group->lock){-...}-{2:2}, at: snd_pcm_common_ioctl+0xda8/0xee0 [snd_pcm]
+--g7w8+K/95kPelPD2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-but task is already holding lock:
-ffff8883f7a8cf18 (&group->lock){-...}-{2:2}, at: snd_pcm_common_ioctl+0xe4e/0xee0 [snd_pcm]
+On Sat, Jun 06, 2020 at 05:31:03PM +0200, Pavel Machek wrote:
+> free_irq() is missing in case of error, fix that.
 
-other info that might help us debug this:
- Possible unsafe locking scenario:
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
 
-       CPU0
-       ----
-  lock(&group->lock);
-  lock(&group->lock);
+--g7w8+K/95kPelPD2
+Content-Type: application/pgp-signature; name="signature.asc"
 
- *** DEADLOCK ***
+-----BEGIN PGP SIGNATURE-----
 
- May be due to missing lock nesting notation
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7eI8EACgkQJNaLcl1U
+h9D2oAf+L+75A6sm74wpOyUZsv7DPH8rJApbMWamWaaL7Zq0ZrwKsFecGUq4jP37
+FvyBa8xpKWuEbPQuvtG8XwFUMjy/VBn0FgKhjbetB7+sUrQg+erx4XzY81Nq5VcG
+Ov+61cWUPIKpY8Ysnj+xH1W+b5nY5EOsBfFvjNNsE3g1JadihgZrcAGdOBK3cy/7
+aS/RStZcQedRmxpIIQvKhwr4j0Am1X8D2lPjFqs7hVl+g9I3t1bvKYdW/Y679FBz
+HgwoXfEOkrODZtQsuMLGAqYRbyGjYKzAesmp892xPWqM07MchsB5JaMl4I81bwkO
+WndnmsoTH4bOw+HPhgwcIRVT/FOqtQ==
+=yNKv
+-----END PGP SIGNATURE-----
 
-2 locks held by pulseaudio/4180:
- #0: ffffffffa1a05190 (snd_pcm_link_rwsem){++++}-{3:3}, at: snd_pcm_common_ioctl+0xca0/0xee0 [snd_pcm]
- #1: ffff8883f7a8cf18 (&group->lock){-...}-{2:2}, at: snd_pcm_common_ioctl+0xe4e/0xee0 [snd_pcm]
-[...]
-
-Cc: stable@vger.kernel.org
-Fixes: f57f3df03a8e ("ALSA: pcm: More fine-grained PCM link locking")
-Signed-off-by: Michał Mirosław <mirq-linux@rere.qmqm.pl>
----
- sound/core/pcm_native.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 3ad399cb6f30..5b36881f7095 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -138,6 +138,16 @@ void snd_pcm_stream_lock_irq(struct snd_pcm_substream *substream)
- }
- EXPORT_SYMBOL_GPL(snd_pcm_stream_lock_irq);
- 
-+static void snd_pcm_stream_lock_nested(struct snd_pcm_substream *substream)
-+{
-+	struct snd_pcm_group *group = &substream->self_group;
-+
-+	if (substream->pcm->nonatomic)
-+		mutex_lock_nested(&group->mutex, SINGLE_DEPTH_NESTING);
-+	else
-+		spin_lock_nested(&group->lock, SINGLE_DEPTH_NESTING);
-+}
-+
- /**
-  * snd_pcm_stream_unlock_irq - Unlock the PCM stream
-  * @substream: PCM substream
-@@ -2200,7 +2210,7 @@ static int snd_pcm_link(struct snd_pcm_substream *substream, int fd)
- 	snd_pcm_stream_unlock_irq(substream);
- 
- 	snd_pcm_group_lock_irq(target_group, nonatomic);
--	snd_pcm_stream_lock(substream1);
-+	snd_pcm_stream_lock_nested(substream1);
- 	snd_pcm_group_assign(substream1, target_group);
- 	refcount_inc(&target_group->refs);
- 	snd_pcm_stream_unlock(substream1);
-@@ -2216,7 +2226,7 @@ static int snd_pcm_link(struct snd_pcm_substream *substream, int fd)
- 
- static void relink_to_local(struct snd_pcm_substream *substream)
- {
--	snd_pcm_stream_lock(substream);
-+	snd_pcm_stream_lock_nested(substream);
- 	snd_pcm_group_assign(substream, &substream->self_group);
- 	snd_pcm_stream_unlock(substream);
- }
--- 
-2.20.1
-
+--g7w8+K/95kPelPD2--

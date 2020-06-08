@@ -2,74 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 951C21F159F
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jun 2020 11:40:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFED61F166D
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jun 2020 12:09:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 322981660;
-	Mon,  8 Jun 2020 11:39:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 322981660
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5B6015E2;
+	Mon,  8 Jun 2020 12:08:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5B6015E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591609238;
-	bh=PeIeS7Fd/D8pJD7iPcdjZXceR9MKEOeGyyuNpZ5F4PI=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JWDcZJFl2kuFubxPzaaeMgTamAAPu5k0qP9rP2cR94rX6PhisVf7wpwlZV00xP87J
-	 51upNQGCXCtQGyopcbWPuYBDI9jFzABScp8ZIF3LirrTS88tza+3BU4vUgfAbnSUxQ
-	 6peEdVx6A4pGXjsW3hbQMBIkq0A+a3MWEdjk9Ubo=
+	s=default; t=1591610965;
+	bh=Xrng9HgE5HPvIAp1NSK4MnUJUDNRKMXBFpteoCe0zYw=;
+	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RCy6Zk1pLiCssWgN7cyGixCy12/mpcGSRjikTjKQO0Nzld9MPPl6hZGzR7GxyKoi1
+	 Gt9vo7EL7sd6K+U3ufz5c1DMJiDB/KEl7xARFZdseW4+gm+urDKC1zCtW294Uylo7l
+	 xXNUCJrp+xMWwZ1YIRy4ivRff60JLT2wl4f9mADQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 530B3F80124;
-	Mon,  8 Jun 2020 11:38:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B127FF801EB;
+	Mon,  8 Jun 2020 12:06:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D89FCF8021C; Mon,  8 Jun 2020 11:38:54 +0200 (CEST)
+ id BBBA4F801F7; Mon,  8 Jun 2020 12:06:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from rere.qmqm.pl (rere.qmqm.pl [91.227.64.183])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A8470F801EB
- for <alsa-devel@alsa-project.org>; Mon,  8 Jun 2020 11:38:47 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 65A2CA0040;
- Mon,  8 Jun 2020 11:38:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 65A2CA0040
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1591609124; bh=dEd7WgjJIUko1k8kcy1rF6rTksyJvoFHywWYy8Vx/CE=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=i4bziiLMMa6sNRjk3sBy6GmvbsRnTqBSQfb3FI1lq+g6/EjnryXPp5GFI036fi3pF
- 5UVsuHcn5hM2DsHopxTLfoEBYiXacnSy0m8e90u2hh4KEMe6CU3GIBqicCMjpmk/Of
- 5M2KhGwUAEXwh+s7qARDdWZbR/AD0QmHx+j3s5r4=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Mon,  8 Jun 2020 11:38:41 +0200 (CEST)
-Subject: Re: [PATCH] ALSA: usb-audio: Use the new macro for HP Dock rename
- quirks
-To: Takashi Iwai <tiwai@suse.de>
-References: <20200608071513.570-1-tiwai@suse.de>
- <3d4e9e2f-eec9-8018-7964-c09ab81c1240@perex.cz>
- <s5hd06a54mi.wl-tiwai@suse.de>
- <0b36a395-0bf3-c853-1640-6356a01e2200@perex.cz>
- <s5ha71d6hfn.wl-tiwai@suse.de>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <5ac86691-e2bd-1036-015e-eae87aad589a@perex.cz>
-Date: Mon, 8 Jun 2020 11:38:40 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7B8DCF8021C
+ for <alsa-devel@alsa-project.org>; Mon,  8 Jun 2020 12:06:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B8DCF8021C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=rere.qmqm.pl header.i=@rere.qmqm.pl
+ header.b="YtIFvNqv"
+Received: from remote.user (localhost [127.0.0.1])
+ by rere.qmqm.pl (Postfix) with ESMTPSA id 49gTRr0G62z2d;
+ Mon,  8 Jun 2020 12:06:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rere.qmqm.pl; s=1;
+ t=1591610792; bh=Xrng9HgE5HPvIAp1NSK4MnUJUDNRKMXBFpteoCe0zYw=;
+ h=Date:From:Subject:To:Cc:From;
+ b=YtIFvNqvAgjAXTyf+AhtXaVrR7FsPn42OVG+x8gNrWDykD5AAnSh8U17Toy7c27Mm
+ sWWzHnXRiNKpBHvJ2eyDgTSLtJlLCzVElljrXW1XiJUnPI5yClZZb9vIPdE8BsNiL+
+ /dH1BS1D/f5490Z50t3q5TCFZzX9tfzKar4ffgRMPmVmZTAymFEYsL6Q/4g0JuOjYZ
+ DxTlYgihFZFrsgV7twUoUmOzUVF3bC5tJSx6naxrgInPZ2d58z5201NBD/IVHHjSww
+ fXbA4gSyu6lF9ooRp9zvdXbRv4bioQ9X/NcDtBuJRL58M09jR2EUh9q/ix11tIBf/X
+ eBOMxOOiM3/1w==
+X-Virus-Status: Clean
+X-Virus-Scanned: clamav-milter 0.102.2 at mail
+Date: Mon, 08 Jun 2020 12:06:30 +0200
+Message-Id: <cover.1591610329.git.mirq-linux@rere.qmqm.pl>
+From: =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>
+Subject: [PATCH 0/2] ALSA: pcm: stream linking locking fixes
 MIME-Version: 1.0
-In-Reply-To: <s5ha71d6hfn.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Kai-Heng Feng <kai.heng.feng@canonical.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,73 +77,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 08. 06. 20 v 11:22 Takashi Iwai napsal(a):
-> On Mon, 08 Jun 2020 11:01:43 +0200,
-> Jaroslav Kysela wrote:
->>
->> Dne 08. 06. 20 v 10:44 Takashi Iwai napsal(a):
->>> On Mon, 08 Jun 2020 10:37:12 +0200,
->>> Jaroslav Kysela wrote:
->>>>
->>>> Dne 08. 06. 20 v 9:15 Takashi Iwai napsal(a):
->>>>> Replace the open-code with the new QUIRK_DEVICE_PROFILE() macro for
->>>>> simplicity.
->>>>>
->>>>> Fixes: 0c5086f56999 ("ALSA: usb-audio: Add vendor, product and profile name for HP Thunderbolt Dock")
->>>>> Signed-off-by: Takashi Iwai <tiwai@suse.de>
->>>>> ---
->>>>
->>>> Takashi, could we export the profile (hint) for new USB cards via the
->>>> components string - snd_component_add()? The long name seems not
->>>> appropriate for this. It's a GUI string (which is mangled now).
->>>
->>> It's possible, and maybe we should move to it, but we'd need to
->>> provide in card->longname for now because the component support in
->>> user-space side isn't in major releases yet.  The longname is ugly,
->>> but that's the only way that works stably right now.
->>>
->>> Also, we need a common helper function for adding the component string
->>> in the kernel side, too, not specific to USB-audio.
->>
->> There is already snd_component_add() function, so we need to settle
->> only the identification prefix for those "model" strings.
->>
->> It would be nice to duplicate this info for the moment (the components
->> string should be shorter than used for long name).
-> 
-> Yes, what we need a concrete definition.  The implementation in
-> kernel-side must be easy :)
-> 
->> Perhaps, we can just add "hw:<hint>" component string for the more
->> finer hardware identification, like:
->>
->> $ amixer -c 0 info
->> Components	: 'USB0bda:58fe hw:VideoMic'
-> 
-> I don't mind what form, but would the example above work as a UCM
-> profile properly?
+Two patches fixing locking issues for SNDRV_PCM_IOCTL_LINK handling:
+first adds a check preventing linking a stream to itself, second quiets
+lockdep warning about nested locks.
 
-It should work for UCM2. UCM2 can compare the components string and load or 
-use the appropriate piece of configuration. So it means that 
-ucm2/USB-Audio/USB-Audio.conf will handle this.
+Michał Mirosław (2):
+  ALSA: pcm: disallow linking stream to itself
+  ALSA: pcm: fix snd_pcm_link() lockdep splat
 
-I also added the possibility to extract 'VideoMic' (regex) from the 
-'hw:VideoMic' string and include the file from the custom path (syntax 3 in 
-UCM2). So we can end with the ucm2/USB-Audio/HiFi-VideoMic.conf file.
-
-So basically, the prefix may be driver specific but consistent, so we can do a 
-match against it in the user space. Or we may use 'hint:<hwid>' or so.
-
-					Jaroslav
-
-> 
-> 
-> thanks,
-> 
-> Takashi
-> 
-
+ sound/core/pcm_native.c | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.20.1
+

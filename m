@@ -2,84 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0C501F4285
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jun 2020 19:37:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 362931F433F
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jun 2020 19:51:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 896111674;
-	Tue,  9 Jun 2020 19:36:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 896111674
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE51C1674;
+	Tue,  9 Jun 2020 19:51:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE51C1674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591724258;
-	bh=738JUeJp+hT13YJEiEzIyJiW7MuosL7D0mqFZbnPdG0=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1591725111;
+	bh=GmOf7ufLopIQ4dm5tWeT9BTmDlXoHbRAmXYulRxbARg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gmBAfI9Sod6DJGZJpliDwZBJEAzUVYv5f07kh1E2aHus62+FGfBObq5LqMic/btI5
-	 Nz5ddikGlwM0CLfGJMuddk0qKKbQc0tEhdPIqRwP7h0Nn0TuHCxIg+EbnL/aLY22aw
-	 a8+sAbRrCz2rnhskEmCGwqB1qwC/fQloYrNvuK2U=
+	b=NstJUbYMFa9gskjLrxvnEz5kwcSCExBf4+jWOt/qL0KCBQfpAiqeNniZd6MpPtPJ5
+	 xvEA9bx1XCqMbQBxYu3ssN9dK8n/iy+A5s9/MNlGSo6pXP1aTR7ae3qSl15Ved6kLP
+	 SqApTifVZaxJLsaCdwQAKBVK2HKadE/angO/oUx0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AEA5AF8028D;
-	Tue,  9 Jun 2020 19:35:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E3D19F80278;
+	Tue,  9 Jun 2020 19:50:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9BACFF8028C; Tue,  9 Jun 2020 19:35:55 +0200 (CEST)
+ id 21ABDF8028C; Tue,  9 Jun 2020 19:50:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 23C1EF80124
+ for <alsa-devel@alsa-project.org>; Tue,  9 Jun 2020 19:50:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23C1EF80124
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="qBlCD7TE"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A92DEF80124
- for <alsa-devel@alsa-project.org>; Tue,  9 Jun 2020 19:35:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A92DEF80124
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="WD1/Wl8I"
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
- by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 059HZot6046157;
- Tue, 9 Jun 2020 12:35:50 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1591724150;
- bh=ulNJut/tfEzVpGlFxRW9r3khnz5f2N4uIk9e8tk29mw=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=WD1/Wl8ITIn7CjclZy8e17qbQLxWjWCaCvCqb65B93zj5us74qrqpR8T1MnTxMYlY
- 5v0sKw9NGKDOVQ0MTB6pQKAnYkoDUV7U5nNvb3gy+f6wFygEErcdbDyCfIGRlRUC4n
- i98wZPpburooNob5kL+A/PK4RpcG6WiFOhCnKaoc=
-Received: from DFLE113.ent.ti.com (dfle113.ent.ti.com [10.64.6.34])
- by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 059HZom8051593
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 9 Jun 2020 12:35:50 -0500
-Received: from DFLE112.ent.ti.com (10.64.6.33) by DFLE113.ent.ti.com
- (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Tue, 9 Jun
- 2020 12:35:50 -0500
-Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE112.ent.ti.com
- (10.64.6.33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Tue, 9 Jun 2020 12:35:50 -0500
-Received: from [10.250.65.13] (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 059HZo2k032887;
- Tue, 9 Jun 2020 12:35:50 -0500
-Subject: Re: [RFC PATCH 1/2] dt-bindings: tas2562: Add firmware support for
- tas2563
-To: Mark Brown <broonie@kernel.org>
+ by mail.kernel.org (Postfix) with ESMTPSA id 1500320801;
+ Tue,  9 Jun 2020 17:50:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1591725002;
+ bh=GmOf7ufLopIQ4dm5tWeT9BTmDlXoHbRAmXYulRxbARg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=qBlCD7TE7EFTt9PmZafc3XGZkCUYr70hyzrVUttbz0QUrhGE+ZKD3ilnm5gavV5aN
+ NShzrd92zAMR12KJn5yRqWK6hNb+kNIOu8EonT++JAT1G7MwZYQUkMalwtLgErwqPA
+ cfTOtJX7xuvIUUh1lI8qFVC5AfvWBZt9lRQe3g0g=
+Date: Tue, 9 Jun 2020 18:50:00 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Dan Murphy <dmurphy@ti.com>
+Subject: Re: [RFC PATCH 2/2] ASoc: tas2563: DSP Firmware loading support
+Message-ID: <20200609175000.GO4583@sirena.org.uk>
 References: <20200609172841.22541-1-dmurphy@ti.com>
- <20200609172841.22541-2-dmurphy@ti.com> <20200609173143.GN4583@sirena.org.uk>
-From: Dan Murphy <dmurphy@ti.com>
-Message-ID: <bb7cff87-f814-1b37-c9eb-e68919e3c077@ti.com>
-Date: Tue, 9 Jun 2020 12:35:50 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ <20200609172841.22541-3-dmurphy@ti.com>
 MIME-Version: 1.0
-In-Reply-To: <20200609173143.GN4583@sirena.org.uk>
-Content-Type: text/plain; charset="windows-1252"; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="vEfizQhTV1P/vojJ"
+Content-Disposition: inline
+In-Reply-To: <20200609172841.22541-3-dmurphy@ti.com>
+X-Cookie: Be careful!  Is it classified?
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: robh@kernel.org, alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
@@ -97,28 +83,110 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Mark
 
-On 6/9/20 12:31 PM, Mark Brown wrote:
-> On Tue, Jun 09, 2020 at 12:28:40PM -0500, Dan Murphy wrote:
->> Add a property called firmware-name that will be the name of the
->> firmware that will reside in the file system or built into the kernel.
-> Why not just use a standard name for the firmware?  If the firmwares
-> vary per-board then building it using the machine compatible (or DMI
-> info) could handle that, with a fallback to a standard name for a
-> default setup.
+--vEfizQhTV1P/vojJ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The number of firmwares can vary per IC on the board itself.  So you may 
-have X number of firmware files all with different names all targets for 
-different TAS2563 ICs.
+On Tue, Jun 09, 2020 at 12:28:41PM -0500, Dan Murphy wrote:
 
-Also TI will not be providing the individual binaries to the customer.  
-There is a customer tool that the user uses to create the binaries.
+>  	.val_bits =3D 8,
+> =20
+> -	.max_register =3D 5 * 128,
+> +	.max_register =3D 255 * 128,
+>  	.cache_type =3D REGCACHE_RBTREE,
+>  	.reg_defaults =3D tas2562_reg_defaults,
+>  	.num_reg_defaults =3D ARRAY_SIZE(tas2562_reg_defaults),
 
-So the output names are arbitrary.
+Should some or all of the DSP memory be marked as volatile?  I guess if
+we only write program to it then on reload after power off it should be
+fine to just blast everything in again and ignore the fact that some
+will have changed, but it might be helpful for debugging to be able to
+read the live values back and do something more clever for restore.
 
-I was going to mention this in the cover letter but did not think 
-mentioning the user tool had any value
+>  #define TAS2562_PAGE_CTRL      0x00
+> +#define TAS2562_BOOK_CTRL      0x7f
 
-Dan
+*sigh*  Of course the two levels of paging register are not located
+anywhere near each other so we can't easily pretend they're one double
+width page address.  :/
 
+> +static int tas25xx_process_fw_single(struct tas2562_data *tas2562,
+> +				     struct tas25xx_cmd_data *cmd_data,
+> +				     u8 *fw_out)
+> +{
+> +	int num_writes =3D cpu_to_be16(cmd_data->length);
+> +	int i;
+> +	int ret;
+> +	int offset =3D 4;
+> +	int reg_data, write_reg;
+> +
+> +	for (i =3D 0; i < num_writes; i++) {
+> +		/* Reset Page to 0 */
+> +		ret =3D regmap_write(tas2562->regmap, TAS2562_PAGE_CTRL, 0);
+> +		if (ret)
+> +			return ret;
+
+Why?
+
+> +
+> +		cmd_data->book =3D fw_out[offset];
+> +		cmd_data->page =3D fw_out[offset + 1];
+> +		cmd_data->offset =3D fw_out[offset + 2];
+> +		reg_data =3D fw_out[offset + 3];
+> +		offset +=3D 4;
+> +
+> +		ret =3D regmap_write(tas2562->regmap, TAS2562_BOOK_CTRL,
+> +				   cmd_data->book);
+> +		if (ret)
+> +			return ret;
+
+This manual paging doesn't fill me with with joy especially with regard
+to caching and doing the books behind the back of regmap.  I didn't spot
+anything disabling cache or anything in the code.  I think you should
+either bypass the cache while doing this or teach regmap about the
+books (which may require core updates, I can't remember if the range
+code copes with nested levels of paging - I remember thinking about it).
+
+> +static ssize_t write_config_store(struct device *dev,
+> +				struct device_attribute *tas25xx_attr,
+> +				const char *buf, size_t size)
+> +{
+
+This looks like it could just be an enum (it looks like there's names we
+could use) or just a simple numbered control?  Same for all the other
+controls, they're just small integers so don't look hard to handle.  But
+perhaps I'm missing something?
+
+> +	tas2562->fw_data->fw_hdr =3D devm_kzalloc(tas2562->dev, hdr_size,
+> +						GFP_KERNEL);
+> +	if (!tas2562->fw_data->fw_hdr)
+> +		return -ENOMEM;
+> +
+> +	memcpy(tas2562->fw_data->fw_hdr, &fw->data[0], hdr_size);
+
+Should validate that the firmware is actually at least hdr_size big, and
+similarly for all the other lengths we get from the header we should
+check that there's actually enough data in the file.  ATM we just
+blindly copy.
+
+It'd also be good to double check that the number of configs and
+programs is within bounds.
+
+--vEfizQhTV1P/vojJ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7fy8cACgkQJNaLcl1U
+h9DyjAf/U3fDLekpB9MZStpSggO6T3wCfTbWFhFNd8RAcNjhjzxnoumprzpXP7vS
+0udC8M7ISpLr6EIdhF6WScsoEWCM/1quzrZ8T3TSAz5pfAiuepmWMYgZiLr532vv
+jGtuTYBno7H+Kx4CKOc5+mnd7cFWaSQkxWui3/uwDrWrdQRQRva9oZRW5NdYLFGY
+5H2uzDpRDnRetbs4xJztGJ7d4FcgSutaJFsfhe6xMEaN8Hgk73m5UBAK1Epv2LTz
+kswZnjp6SO8jdJCLyiblXnliDIRn/ftQz5hTY2ZLUmZ1ylwpbtuoTdGwpp4NoYfU
+2Qo3ZYiD2Gd7QnI6Jqb6H6LM/8IMNw==
+=c5qv
+-----END PGP SIGNATURE-----
+
+--vEfizQhTV1P/vojJ--

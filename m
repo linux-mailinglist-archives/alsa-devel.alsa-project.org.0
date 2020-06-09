@@ -2,66 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2AB91F3B3E
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jun 2020 14:56:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E96041F3C1E
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jun 2020 15:18:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E1AC1675;
-	Tue,  9 Jun 2020 14:55:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E1AC1675
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D441167E;
+	Tue,  9 Jun 2020 15:18:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D441167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591707399;
-	bh=s6DjVd5S/9BMaBHFd1sXcmmcw3hwmnb2raoYKakwRWc=;
-	h=Date:From:To:In-Reply-To:References:Subject:List-Id:
+	s=default; t=1591708734;
+	bh=TlLZeOqml6wgxmkxuKIWIRG7bpP2JBHvK+JBeRuHLbw=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Snt7OcCDyzF/21//UrEGjwIccJsGsAKJsGwK0oBn5vYYliW9LFwAUiqrzIPw/rAX7
-	 3+p+lwIMX3uj4SlO4tGQVZ+V29u4/x+NKtHj6CgbI6pwkgB3J+iihXTVC1QL/cbjJY
-	 BQ3zQXPvE0++CiMdX/FNQ2Wt5/OdMSMV7dGSBRVA=
+	b=j8rc1I4QoSgBRJjHF9P71OBqzw0k1bOPcIrXGMewI1Qh4kBlXWMJcv+nkgn908kM0
+	 OcDLeOYzR9dpct4j3W6HimaamOcqwQWOieKpxr6iVMPW+9HBiLKlZNs9FENilPu8SG
+	 7VmZMmRlhG0lds3IIIt0t5EqvVT/qrQYSL0W6u0w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 74AE2F800F1;
-	Tue,  9 Jun 2020 14:54:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91AB2F8028D;
+	Tue,  9 Jun 2020 15:17:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0993BF8028C; Tue,  9 Jun 2020 14:54:53 +0200 (CEST)
+ id 8D7A3F8028C; Tue,  9 Jun 2020 15:17:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE58CF800F1
- for <alsa-devel@alsa-project.org>; Tue,  9 Jun 2020 14:54:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE58CF800F1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="dNl6PiKG"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id EAC30206A4;
- Tue,  9 Jun 2020 12:54:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591707283;
- bh=s6DjVd5S/9BMaBHFd1sXcmmcw3hwmnb2raoYKakwRWc=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=dNl6PiKGvSYn9EtRbIRN37OwxVFkRJ6JigXpcIGgtBn7yFIifpMp+FpXxNWy81CP0
- q/TXS0BDniJk36Hp8ST9U0GWXZkSZUuyb3UreVw0rbKlh8iRijWZ4iAza/1s8Ryruk
- cIEQ4UReD6Qw6TSMUeS7Gr/2vEIR1iZUR3KQ+I40=
-Date: Tue, 09 Jun 2020 13:54:41 +0100
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- khilman@baylibre.com, trivial@kernel.org, tiwai@suse.com,
- linux-amlogic@lists.infradead.org, lgirdwood@gmail.com, jbrunet@baylibre.com,
- perex@perex.cz, Pavel Machek <pavel@ucw.cz>
-In-Reply-To: <20200606153103.GA17905@amd>
-References: <20200606153103.GA17905@amd>
-Subject: Re: [PATCH] soc/meson: add missing free_irq() in error path
-Message-Id: <159170728116.39758.7078171173608119495.b4-ty@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id BAEDBF80124
+ for <alsa-devel@alsa-project.org>; Tue,  9 Jun 2020 15:16:54 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id B823CA003F;
+ Tue,  9 Jun 2020 15:16:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz B823CA003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1591708612; bh=Q6pAyvWAA5MDPmhkXsBCOnRP+oa87wANg1kmgbc1Kpc=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=WvAeGGBAMKiFOFjTPXv8K3w5I1fxEZVOhQaZiXlSH1MVoJCMwtDLsMxaOSFHber3c
+ L1N+Ix+80HnPbrBixJ0V62C0B7d0XedIZzq/bLDST90WHVbtdXfgzYan8OfYvWB76T
+ tZVa+PvCOJTQmgNlwOSN0GHaj8vF3zuHqiiSmrAI=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Tue,  9 Jun 2020 15:16:38 +0200 (CEST)
+Subject: Re: next-0519 on thinkpad x60: sound related? window manager crash
+To: Christoph Hellwig <hch@lst.de>, Takashi Iwai <tiwai@suse.de>
+References: <20200609054306.GA9606@lst.de> <s5hsgf4irzt.wl-tiwai@suse.de>
+ <20200609084305.GA21671@lst.de> <s5hlfkwip1h.wl-tiwai@suse.de>
+ <20200609091727.GA23814@lst.de> <s5hh7vkio0n.wl-tiwai@suse.de>
+ <20200609113123.GA547@lst.de> <s5h3674ii49.wl-tiwai@suse.de>
+ <20200609114059.GA1228@lst.de> <s5hzh9ch38h.wl-tiwai@suse.de>
+ <20200609114955.GA2027@lst.de>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <a20ab909-bb60-8d47-0da3-122a724aecbe@perex.cz>
+Date: Tue, 9 Jun 2020 15:16:38 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
+MIME-Version: 1.0
+In-Reply-To: <20200609114955.GA2027@lst.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, x86@kernel.org,
+ David Rientjes <rientjes@google.com>, linux-kernel@vger.kernel.org,
+ "Alex Xu \(Hello71\)" <alex_y_xu@yahoo.ca>, tiwai@suse.com, hch@infradead.org,
+ mingo@redhat.com, bp@alien8.de, Pavel Machek <pavel@ucw.cz>, hpa@zytor.com,
+ tglx@linutronix.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,48 +89,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 6 Jun 2020 17:31:03 +0200, Pavel Machek wrote:
-> free_irq() is missing in case of error, fix that.
+Dne 09. 06. 20 v 13:49 Christoph Hellwig napsal(a):
+> On Tue, Jun 09, 2020 at 01:45:34PM +0200, Takashi Iwai wrote:
+>> Yes, for the sound stuff, something below should make things working.
+>> But it means that we'll lose the SG-buffer allocation and the
+>> allocation of large buffers might fail on some machines.
 > 
-> Signed-off-by: Pavel Machek (CIP) <pavel@denx.de>
+> We crossed lines there.  In general due to better memory compaction and
+> CMA we have better chances to get larger contiguous allocations these
+> days, so this might not be too much of an issue in practice.
 > 
-> diff --git a/sound/soc/meson/axg-fifo.c b/sound/soc/meson/axg-fifo.c
-> index 2e9b56b29d31..b2e867113226 100644
-> --- a/sound/soc/meson/axg-fifo.c
-> +++ b/sound/soc/meson/axg-fifo.c
-> @@ -249,7 +249,7 @@ int axg_fifo_pcm_open(struct snd_soc_component *component,
->  	/* Enable pclk to access registers and clock the fifo ip */
->  	ret = clk_prepare_enable(fifo->pclk);
->  	if (ret)
-> -		return ret;
-> +		goto free_irq;
-> 
-> [...]
 
-Applied to
+But turning off the SG DMA scheme seems like a step back. Would be possible to 
+fix this kind of memory mapping?
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+					Jaroslav
 
-Thanks!
 
-[1/1] ASoC: meson: add missing free_irq() in error path
-      commit: 3b8a299a58b2afce464ae11324b59dcf0f1d10a7
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

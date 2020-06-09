@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EB151F4378
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jun 2020 19:53:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C08621F4400
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jun 2020 20:00:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A519B1671;
-	Tue,  9 Jun 2020 19:53:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A519B1671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 31D1B1664;
+	Tue,  9 Jun 2020 19:59:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31D1B1664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591725233;
-	bh=TgO873VK1uWIKP3ppDJ9nGZ4WoqU168LVpBfn9JCTYE=;
+	s=default; t=1591725642;
+	bh=J8tlTkffI9vT+ZtetPjpRh4/bBL9Hh7emd0zTozTyXI=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vH/W7/oQ1A2BDLzio9IEQOOasS98AWKCWF10WTqe6LiY3dM/pkA4DTivbRpBpPjVn
-	 Nd8eh5mv9W4IAdAG9iTkIxM8PwT4vpM/9THWiqJXSobFHMzK6BRMkwMmcqK13T6AIi
-	 z+sK1wF9Jwwn3dg9goelCp3PrWoTg+A6GWqC/H20=
+	b=aBcN8fkqD1rynUoFh2z4r5VdYVjPGz8kJZ7Tes8C0e44U1VuCDv6c7jaGz3v1f76x
+	 exzK0V44EP9CUyp+NW8iC+Yrvgg3ZY8emAP4EeFVUXW87dmWtZOwtQC5nUJV+wAYsC
+	 KNQpuZ3LAsSBPsYUDaUfmjpRZE7hPbIhR6QPjoUQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3DCAF80088;
-	Tue,  9 Jun 2020 19:52:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D778F8028D;
+	Tue,  9 Jun 2020 19:59:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 34277F8028C; Tue,  9 Jun 2020 19:52:10 +0200 (CEST)
+ id 3E15EF8028C; Tue,  9 Jun 2020 19:58:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,35 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61859F80124
- for <alsa-devel@alsa-project.org>; Tue,  9 Jun 2020 19:52:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61859F80124
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9C8E0F80124
+ for <alsa-devel@alsa-project.org>; Tue,  9 Jun 2020 19:58:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C8E0F80124
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="flY6tw4s"
+ header.b="qF1dpbq4"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id F3D05207C3;
- Tue,  9 Jun 2020 17:52:04 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 777A720801;
+ Tue,  9 Jun 2020 17:58:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591725125;
- bh=TgO873VK1uWIKP3ppDJ9nGZ4WoqU168LVpBfn9JCTYE=;
+ s=default; t=1591725535;
+ bh=J8tlTkffI9vT+ZtetPjpRh4/bBL9Hh7emd0zTozTyXI=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=flY6tw4scXwcHAh5ndeODhVjKU39UiDaLUXkNgJF/VeacAKgTqHUSgyi7yWttmL2C
- dM9+M9jBx7AUtHP71uzwM8FS45GEfL+rpx7XhyaPu/XscJ137rzdA/NcQT7giIjpj6
- csJPNwgawxwvmK6IpC14ubbfssZ6sBrSNQmrMXks=
-Date: Tue, 9 Jun 2020 18:52:03 +0100
+ b=qF1dpbq4r6LixfMDbilCvEkZ/h6ZYJ1hJewkW/W1R/P4ihpjzb1aQ6Vqyu57/RnlE
+ 1SXfvJeSswwlhZftcwITa7SGOlKrsZaPDX+PAwZ0JDQDw7COQCJH0tNaPuFmyJDIZ2
+ y1et7/fTJBDLN5J5sfQf0qMqwE6qExDOFqlvAYFs=
+Date: Tue, 9 Jun 2020 18:58:52 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Dan Murphy <dmurphy@ti.com>
-Subject: Re: [RFC PATCH 0/2] TAS2563 DSP Firmware Loader
-Message-ID: <20200609175203.GP4583@sirena.org.uk>
+Subject: Re: [RFC PATCH 1/2] dt-bindings: tas2562: Add firmware support for
+ tas2563
+Message-ID: <20200609175852.GQ4583@sirena.org.uk>
 References: <20200609172841.22541-1-dmurphy@ti.com>
+ <20200609172841.22541-2-dmurphy@ti.com>
+ <20200609173143.GN4583@sirena.org.uk>
+ <bb7cff87-f814-1b37-c9eb-e68919e3c077@ti.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="uQ3BaAlxDi9XKvis"
+ protocol="application/pgp-signature"; boundary="JaBjgNvtdKe5H086"
 Content-Disposition: inline
-In-Reply-To: <20200609172841.22541-1-dmurphy@ti.com>
+In-Reply-To: <bb7cff87-f814-1b37-c9eb-e68919e3c077@ti.com>
 X-Cookie: Be careful!  Is it classified?
 User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: robh@kernel.org, alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
@@ -83,34 +87,54 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---uQ3BaAlxDi9XKvis
-Content-Type: text/plain; charset=us-ascii
+--JaBjgNvtdKe5H086
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jun 09, 2020 at 12:28:39PM -0500, Dan Murphy wrote:
+On Tue, Jun 09, 2020 at 12:35:50PM -0500, Dan Murphy wrote:
+> On 6/9/20 12:31 PM, Mark Brown wrote:
 
-> These programs and configurations are selectable via files under the I2C dev
-> node.  There may be a better way to select this through ALSA controls but I was
-> unable to find a good example of this.  This is why this is an RFC patchset.
+> > Why not just use a standard name for the firmware?  If the firmwares
+> > vary per-board then building it using the machine compatible (or DMI
+> > info) could handle that, with a fallback to a standard name for a
+> > default setup.
 
-I think you can just use enums for most of this - what you want to do I
-think is parse the firmware, build templates for the controls and then
-add them with snd_soc_add_component_controls().  Userspace *should* cope
-with controls being hotplugged.
+> The number of firmwares can vary per IC on the board itself.=A0 So you may
+> have X number of firmware files all with different names all targets for
+> different TAS2563 ICs.
 
---uQ3BaAlxDi9XKvis
+> Also TI will not be providing the individual binaries to the customer.=A0
+> There is a customer tool that the user uses to create the binaries.
+
+> So the output names are arbitrary.
+
+> I was going to mention this in the cover letter but did not think mention=
+ing
+> the user tool had any value
+
+That's all fairly standard for this sort of device.  You could still
+cope with this by including the I2C address in the default name
+requested - do something like tas2562/myboard-addr.fw or whatever.  The
+concern here is that someone shouldn't have to replace their DT if they
+decide they want to start using the DSP, and someone making a distro
+shouldn't be stuck dealing with what happens if multiple vendors decide
+to just reuse the same name (eg, just calling everything tas2562
+regardless of plastics).
+
+--JaBjgNvtdKe5H086
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7fzEIACgkQJNaLcl1U
-h9Bd3Qf+M45/dHXuPejpoJQrP/PmR/7OYTmNoSJSL7fxpGkoxNV4A5VdPFEM7ZmP
-rfspDqlxdJ9jDVZhCyTaRzlFP9VaklY/9EFupR5qc6ms6ZKdjYrcjWc98Cqlk+d1
-RAN0Y4oxlqfxAZZKlw6ZHFLCMBHdV/vkOBGNZdiiaBqAFprXUVnqlevuGW8Lv7s3
-yDf1Te02bvervNfinPb53nj6QtFoBwixBR8E8zdKINv1ZP8q31YF7c8j/0tvyMkQ
-LZ6OhieBzZeb4YFR7/sieJVpr60qnUKefrtUaPWaJLrFtPb8vuuPmVK+jO4AQ4gF
-5WqFDT0NEUZuTrTzITUHxyZZkRbq9Q==
-=8iWz
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7fzdsACgkQJNaLcl1U
+h9BKVQgAhwdvHDREJ2LZnjNuwAcY2lCGKrqH/sZ5zCuez+GTC3OioTnr1/2fRJP3
+oeO4H/IRo6/PsE6dhcl48e+/CVM8p9IBC4J7eLYtvwC3iOd5qZGUXq1HqoYQaYYp
+cJ22lWuYmG6EXPtcTM7eflfBIEdgbluyeksxIc1WSTccPFpEOkc8tElhlNN4eowI
+34B18qXdsfvX3eOghVWTAD/IoyTPmyvWLzOkrRSpk+oPKsiqJnx0g7wEAg95sBKg
+luhCZTAe1gaTpMC44kBIMN1ZVd22wZIGCJqXKY434H4xiVImRvv2/uqxbm0GsQQy
+4Wqt+BFO7MwvkNsDYTTFA/Uj8xQ++A==
+=re6H
 -----END PGP SIGNATURE-----
 
---uQ3BaAlxDi9XKvis--
+--JaBjgNvtdKe5H086--

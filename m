@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B128E1F48F1
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jun 2020 23:39:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7465C1F48F3
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jun 2020 23:40:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A19F41;
-	Tue,  9 Jun 2020 23:39:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A19F41
+	by alsa0.perex.cz (Postfix) with ESMTPS id 264511670;
+	Tue,  9 Jun 2020 23:39:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 264511670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591738794;
+	s=default; t=1591738833;
 	bh=QDTNEtggN41xP+LmoLxU/wcpPGRHzho8UU/lOXt6YFw=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gf9aHTJf/LRVTGKL7FZPJEP+LZcR5VQabxg+J5KEO3MV0E8Jr3acak9JjNTgqJkgh
-	 DVcUBxGjh55NttJO3nhx0Y/diJayhCIw5QZY+KazLA0vZnnnuE/f8DkTq7Te5Gv+rb
-	 NDGtOzNf6UZlkti0OgmsoFRMz2MQu0JXB/o8nDN0=
+	b=djWZmzEnXgvaaqoMSQZ/6misgTub2ob8vLA0Jm3sb5Uh6l6n+x1KULGY4l0kQrcsU
+	 r0Vfb+CeOKIB21lU3XljWq0UZ2PtMgZWopRRN4D34peoJrZCZ5PASOouQ1BxTF8FhB
+	 DFDQkhmfE7DIqcZBiiiczTF25NItAvnmczxG74h0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64B7CF802A0;
-	Tue,  9 Jun 2020 23:38:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9EEA7F80124;
+	Tue,  9 Jun 2020 23:38:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E8B5EF8029A; Tue,  9 Jun 2020 23:38:12 +0200 (CEST)
+ id 4B065F802A7; Tue,  9 Jun 2020 23:38:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: **
 X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 9D5A5F80124
- for <alsa-devel@alsa-project.org>; Tue,  9 Jun 2020 23:38:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D5A5F80124
+ by alsa1.perex.cz (Postfix) with ESMTP id CC637F80124
+ for <alsa-devel@alsa-project.org>; Tue,  9 Jun 2020 23:38:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC637F80124
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1591738690470786095-webhooks-bot@alsa-project.org>
-References: <1591738690470786095-webhooks-bot@alsa-project.org>
-Subject: ALSA journalctl error.
-Message-Id: <20200609213812.E8B5EF8029A@alsa1.perex.cz>
-Date: Tue,  9 Jun 2020 23:38:12 +0200 (CEST)
+In-Reply-To: <1591738700664016008-webhooks-bot@alsa-project.org>
+References: <1591738700664016008-webhooks-bot@alsa-project.org>
+Subject: ALSA journalctl Error
+Message-Id: <20200609213823.4B065F802A7@alsa1.perex.cz>
+Date: Tue,  9 Jun 2020 23:38:23 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list

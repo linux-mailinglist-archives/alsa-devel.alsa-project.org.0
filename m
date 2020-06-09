@@ -2,74 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6BEF1F3D4F
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jun 2020 15:52:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E41841F3EA3
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jun 2020 16:54:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 868AA1614;
-	Tue,  9 Jun 2020 15:51:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 868AA1614
+	by alsa0.perex.cz (Postfix) with ESMTPS id 69D531674;
+	Tue,  9 Jun 2020 16:53:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69D531674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591710764;
-	bh=QLyGqEIUvJCZktBQO3E8b5CNoUk6xAoFrKqLtbqNglk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=TlBXPIG7pmrtmom7nCsDa/ZspIQtM6tIuT96TdW5tgKt7aOHIm5VWgYlwwDGi5WRd
-	 qumBAkN0xv0bk0FYBZB/H88Acj3HQrFKetWVjGCAplh6iKblfHNRepa6c4b8zIkI33
-	 ypuLeF3yoEz0U5R1u38a+HabY7bXwTiDMKMGlHMk=
+	s=default; t=1591714444;
+	bh=frSxncoUsXeEhtq3dnIBdl5+VLSojaLCPVEIVgbQJL8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LEBtH0YQqDMmicezil5WTvl0kSwE6f0eJrDcMHcig9b5IjmwpTk11K9iULckYXS8o
+	 Db1rqy1jtwFXpxQgDChE8pEHIE6dBvYEKpHYI+L9mKpSOuRYBlpmFcrC2seyev4AUV
+	 oh8nR45CbQZBP9qnETCyNG/Pd8DUBHqRrwxCLiuA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AAEE8F8028D;
-	Tue,  9 Jun 2020 15:51:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93C80F8028D;
+	Tue,  9 Jun 2020 16:52:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DD9B4F8028C; Tue,  9 Jun 2020 15:51:00 +0200 (CEST)
+ id 73D77F8028C; Tue,  9 Jun 2020 16:52:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66149F800F1
- for <alsa-devel@alsa-project.org>; Tue,  9 Jun 2020 15:50:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66149F800F1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="SgBCgfOg"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0B61520737;
- Tue,  9 Jun 2020 13:50:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591710656;
- bh=QLyGqEIUvJCZktBQO3E8b5CNoUk6xAoFrKqLtbqNglk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=SgBCgfOg8D/M+dvQX5QNjeGmhKzkxrdjcDxhSSrj0Rjwea5+jRa4nCpF/cyiqPoFp
- SAG3+xF9PTbYhGHopwujbytcte2t2dYZlU11C8YOxHGzo8SoD8XYgQpP8f6MithbKO
- jUoT+p6ERnegqu65UE27VuvmLeA6tjTpMvi78y2s=
-Date: Tue, 9 Jun 2020 14:50:54 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [RFC PATCH] ASoC: fsl_asrc_dma: Fix warning "Cannot create DMA
- dma:tx symlink"
-Message-ID: <20200609135054.GJ4583@sirena.org.uk>
-References: <83e1682e88baf127d25e3470011bd034cfc32032.1591598561.git.shengjiu.wang@nxp.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1AE41F80088
+ for <alsa-devel@alsa-project.org>; Tue,  9 Jun 2020 16:52:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AE41F80088
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="veRzg7YP"
+Received: from lelv0265.itg.ti.com ([10.180.67.224])
+ by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 059Eq9iv041085;
+ Tue, 9 Jun 2020 09:52:09 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1591714329;
+ bh=9QaCiUxj4mSvuZ/Cn2p5J78g4wgMb6uovS5qJwTPoL4=;
+ h=From:To:CC:Subject:Date;
+ b=veRzg7YPdCEVp8Ghx4Dm+mf6nTcUDP4rkGMpYBGKxSmfmHQFU6hsQ+wcu7d2PurBx
+ XXWBchz532icNB5vpAeDqgN8pr76agVwmpuAGYumItP4wDyfgXSuLCsLz5oab9mNwy
+ QMpfWohikfZsXTjHks8D2i81gwwLd2eqGNpSDCCs=
+Received: from DLEE112.ent.ti.com (dlee112.ent.ti.com [157.170.170.23])
+ by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 059Eq941070973
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 9 Jun 2020 09:52:09 -0500
+Received: from DLEE110.ent.ti.com (157.170.170.21) by DLEE112.ent.ti.com
+ (157.170.170.23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Tue, 9 Jun
+ 2020 09:52:09 -0500
+Received: from fllv0039.itg.ti.com (10.64.41.19) by DLEE110.ent.ti.com
+ (157.170.170.21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
+ Frontend Transport; Tue, 9 Jun 2020 09:52:09 -0500
+Received: from localhost (ileax41-snat.itg.ti.com [10.172.224.153])
+ by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id 059Eq9m0099963;
+ Tue, 9 Jun 2020 09:52:09 -0500
+From: Dan Murphy <dmurphy@ti.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <robh@kernel.org>
+Subject: [PATCH v2] dt-bindings: tas2562: Convert the tas2562 binding to yaml
+Date: Tue, 9 Jun 2020 09:52:02 -0500
+Message-ID: <20200609145202.14460-1-dmurphy@ti.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="ELVYuRnMxQ5nnKRy"
-Content-Disposition: inline
-In-Reply-To: <83e1682e88baf127d25e3470011bd034cfc32032.1591598561.git.shengjiu.wang@nxp.com>
-X-Cookie: Be careful!  Is it classified?
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, lars@metafoo.de, timur@kernel.org,
- Xiubo.Lee@gmail.com, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, lgirdwood@gmail.com, tiwai@suse.com,
- nicoleotsuka@gmail.com, festevam@gmail.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Dan Murphy <dmurphy@ti.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,58 +91,127 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Convert the TAS2562 text file to yaml format.
 
---ELVYuRnMxQ5nnKRy
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Dan Murphy <dmurphy@ti.com>
+---
+ .../devicetree/bindings/sound/tas2562.txt     | 34 ----------
+ .../devicetree/bindings/sound/tas2562.yaml    | 65 +++++++++++++++++++
+ 2 files changed, 65 insertions(+), 34 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/tas2562.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/tas2562.yaml
 
-On Mon, Jun 08, 2020 at 03:07:00PM +0800, Shengjiu Wang wrote:
-> The issue log is:
->=20
-> [   48.021506] CPU: 0 PID: 664 Comm: aplay Not tainted 5.7.0-rc1-13120-g1=
-2b434cbbea0 #343
-> [   48.031063] Hardware name: Freescale i.MX6 Quad/DualLite (Device Tree)
-> [   48.037638] [<c0110dd8>] (unwind_backtrace) from [<c010b8ec>] (show_st=
-ack+0x10/0x14)
-> [   48.045413] [<c010b8ec>] (show_stack) from [<c0557fc0>] (dump_stack+0x=
-e4/0x118)
+diff --git a/Documentation/devicetree/bindings/sound/tas2562.txt b/Documentation/devicetree/bindings/sound/tas2562.txt
+deleted file mode 100644
+index 94796b547184..000000000000
+--- a/Documentation/devicetree/bindings/sound/tas2562.txt
++++ /dev/null
+@@ -1,34 +0,0 @@
+-Texas Instruments TAS2562 Smart PA
+-
+-The TAS2562 is a mono, digital input Class-D audio amplifier optimized for
+-efficiently driving high peak power into small loudspeakers.
+-Integrated speaker voltage and current sense provides for
+-real time monitoring of loudspeaker behavior.
+-
+-Required properties:
+- - #address-cells  - Should be <1>.
+- - #size-cells     - Should be <0>.
+- - compatible:	   - Should contain "ti,tas2562", "ti,tas2563".
+- - reg:		   - The i2c address. Should be 0x4c, 0x4d, 0x4e or 0x4f.
+- - ti,imon-slot-no:- TDM TX current sense time slot.
+-
+-Optional properties:
+-- interrupt-parent: phandle to the interrupt controller which provides
+-                    the interrupt.
+-- interrupts: (GPIO) interrupt to which the chip is connected.
+-- shut-down: GPIO used to control the state of the device.
+-
+-Examples:
+-tas2562@4c {
+-        #address-cells = <1>;
+-        #size-cells = <0>;
+-        compatible = "ti,tas2562";
+-        reg = <0x4c>;
+-
+-        interrupt-parent = <&gpio1>;
+-        interrupts = <14>;
+-
+-	shut-down = <&gpio1 15 0>;
+-        ti,imon-slot-no = <0>;
+-};
+-
+diff --git a/Documentation/devicetree/bindings/sound/tas2562.yaml b/Documentation/devicetree/bindings/sound/tas2562.yaml
+new file mode 100644
+index 000000000000..c6168aa32954
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/tas2562.yaml
+@@ -0,0 +1,65 @@
++# SPDX-License-Identifier: (GPL-2.0+ OR BSD-2-Clause)
++# Copyright (C) 2019 Texas Instruments Incorporated
++%YAML 1.2
++---
++$id: "http://devicetree.org/schemas/sound/tas2562.yaml#"
++$schema: "http://devicetree.org/meta-schemas/core.yaml#"
++
++title: Texas Instruments TAS2562 Smart PA
++
++maintainers:
++  - Dan Murphy <dmurphy@ti.com>
++
++description: |
++  The TAS2562 is a mono, digital input Class-D audio amplifier optimized for
++  efficiently driving high peak power into small loudspeakers.
++  Integrated speaker voltage and current sense provides for
++  real time monitoring of loudspeaker behavior.
++
++properties:
++  compatible:
++    enum:
++      - ti,tas2562
++      - ti,tas2563
++
++  reg:
++    maxItems: 1
++    description: |
++       I2C address of the device can be one of these 0x4c, 0x4d, 0x4e or 0x4f
++
++  shut-down:
++    description: GPIO used to control the state of the device.
++
++  interrupts:
++    maxItems: 1
++
++  ti,imon-slot-no:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: TDM TX current sense time slot.
++
++  '#sound-dai-cells':
++    const: 1
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++   #include <dt-bindings/gpio/gpio.h>
++   i2c0 {
++     #address-cells = <1>;
++     #size-cells = <0>;
++     codec: codec@4c {
++       compatible = "ti,tas2562";
++       reg = <0x4c>;
++       #sound-dai-cells = <1>;
++       interrupt-parent = <&gpio1>;
++       interrupts = <14>;
++       shut-down = <&gpio1 15 0>;
++       ti,imon-slot-no = <0>;
++     };
++   };
++
+-- 
+2.26.2
 
-Please think hard before including complete backtraces in upstream
-reports, they are very large and contain almost no useful information
-relative to their size so often obscure the relevant content in your
-message. If part of the backtrace is usefully illustrative (it often is
-for search engines if nothing else) then it's usually better to pull out
-the relevant sections.
-
-> ---
->  include/sound/dmaengine_pcm.h         | 11 ++++++
->  include/sound/soc.h                   |  2 ++
->  sound/soc/fsl/fsl_asrc_common.h       |  2 ++
->  sound/soc/fsl/fsl_asrc_dma.c          | 49 +++++++++++++++++++++------
->  sound/soc/soc-core.c                  |  3 +-
->  sound/soc/soc-generic-dmaengine-pcm.c | 12 -------
->  6 files changed, 55 insertions(+), 24 deletions(-)
-
-Please split the core changes you are adding from the driver changes
-that use them.
-
-The change does look reasonable for the issue, it's not ideal but I'm
-not sure it's avoidable with DPCM.
-
---ELVYuRnMxQ5nnKRy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7fk70ACgkQJNaLcl1U
-h9BOngf/aLSe603sBhY25UjUBm5u7bXy02u1WBCRODt4C2xhzRdn/ONB0kSnJZWH
-sMhms0bZYQD3+F08frWKdLRZzzfTqjTCJYIUnI53dNTGflHB3eVyLSOwhL4VgRwd
-kwjHJACGkDrwncomu6q5hoFNIBnnnz0Ng8hs17CnUmelNFbGyz7oUzLRNYboJy/8
-6S5lJ8xXcCVzQshXwALtw1ap0i42G+lagJpgnslaguun5p2/f700o422CQiteofT
-Wn6GMhF125HPe/MpKSheTO234UQ3xuPlrE/ZHEiu0cDH5UFWnFeIBeRmkqfSpKsz
-jdUXsC+t9AipuS2loQv/KSDyrZG4MQ==
-=rIq/
------END PGP SIGNATURE-----
-
---ELVYuRnMxQ5nnKRy--

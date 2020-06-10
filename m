@@ -2,84 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40A8B1F5D02
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jun 2020 22:22:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF11E1F5E9F
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Jun 2020 01:12:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CBEFE1666;
-	Wed, 10 Jun 2020 22:21:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBEFE1666
+	by alsa0.perex.cz (Postfix) with ESMTPS id 862B61664;
+	Thu, 11 Jun 2020 01:11:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 862B61664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591820532;
-	bh=zUv+l6eCuUka+t0W+/cq8TDwEtZ/VpuvX+Ir/0vilz0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1591830741;
+	bh=J8VnJjY8kXdTFAnIiCcYxiThTgdaeHgHuG3NAZwB54E=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ClZE5wgwMhP3zZMMs2eKPXdBaQCBca2EgD++3mYSYsOIqXI6ySDyhz+68/faLGSTt
-	 O3qezrjT346b18OF8r++Mqf/fFipe8uiJr+Q2laHt7X5oSbqP7+4Xc0yj8Z2z5lsds
-	 kPTYniXZeUcxolQmpixT4SFqUVMvIXp4rKxzf988=
+	b=OKm8uqxW0YUb3QD4RuZMjl6K48r8DH9qnvvjygEo+x1kA8ArKnis327B+maJBktx9
+	 19VeypnXfk6LzlerCrsyYLta9ZnYxJWOJyItcpdnTT9HcdtpcD7EFbC5l/FRIGY+85
+	 BnfBdDj0IAvcnT3xR9Zq75RlacEnWiqQEgJiGWTk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73472F8021E;
-	Wed, 10 Jun 2020 22:20:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B53AAF800E0;
+	Thu, 11 Jun 2020 01:10:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8FACAF8021C; Wed, 10 Jun 2020 22:20:28 +0200 (CEST)
+ id 14E30F8021C; Thu, 11 Jun 2020 01:10:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-io1-f67.google.com (mail-io1-f67.google.com
- [209.85.166.67])
+X-Spam-Status: No, score=-15.1 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,HTML_MESSAGE,PRX_BODY_14,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
+ autolearn=disabled version=3.4.0
+Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com
+ [IPv6:2607:f8b0:4864:20::b36])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A537F80058
- for <alsa-devel@alsa-project.org>; Wed, 10 Jun 2020 22:20:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A537F80058
-Received: by mail-io1-f67.google.com with SMTP id w18so3801363iom.5
- for <alsa-devel@alsa-project.org>; Wed, 10 Jun 2020 13:20:21 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 69768F80088
+ for <alsa-devel@alsa-project.org>; Thu, 11 Jun 2020 01:10:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69768F80088
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="T2kGFNxr"
+Received: by mail-yb1-xb36.google.com with SMTP id y13so2042918ybj.10
+ for <alsa-devel@alsa-project.org>; Wed, 10 Jun 2020 16:10:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Oq56PcmHg/cR1FuGPcTWftGqzJ7r0buKtASahmztDPI=;
+ b=T2kGFNxrhC0/J6ZVMOtxNAbpaK6q8XRIBMfGrX8/EClx5s8+uixmYCRF2uNgaxlSUW
+ lKXHZYVURdfEP3ujn2VgveNs5kQKZWaAdEzU/FMSF+xU2rjD+Am7dKYqzWq26iphUoMA
+ f4fY9Ve8zgMApTPSmWxII3xqtIpDmmYK+QnRMozbUw/6wpd8CLHd12L7kZYwxaNJuRL0
+ KwZpukzxF9k4KWVEVqGogWUO5uNwNx8yfawE7GCmLM5qZQTxcOW/uMECQJeHDpw+1Zil
+ +boWdpMC3Q0VAgWerNmo0b639/mrJfo0F7coQCSGjzjNPsYBg10nWOHRjCktqYW7pYMk
+ 8FIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=tl8LETKmS+P6kESj029xJGHxTqRp5D9lmw9Z1M3J9vU=;
- b=YPei/f70GYp33VJ+Qx+zrDlsuR97FIrmN6hnqY7a9B7V/JMHieyFjkF7kc0EOVzGai
- DRBxVvA0E7oCTglI7tiGZC62jDZxc4W/J5BbaQ9ehzbMj4dmG5oe5upHQ98hw30Hg1Jt
- ykT9yO+MU2nesyG/1cvueqqM5y6upxVk8HhooA8HpbbQ3HM5uyo/Za/5fCArdSIRnYSW
- F7VSTebtoyJSl6uQcGOpaNCFEmUVE4DpY0eXsSaKHKgr+7u7UBbm/qppEPJz75IBB/wT
- j+RO93ZGuPj5rWR7XvsgbZPMZxBMEKTiIHiYeu5v9ao2Xc2hI+xcnFYx2Nur572MSR5M
- NgbA==
-X-Gm-Message-State: AOAM530mVzHcTt17/hoPrFMrOAjoWNVo+iwB9JUygO2zUVq0rvFeZacd
- 49pGDxNVpPLcDCe1c3VNHA==
-X-Google-Smtp-Source: ABdhPJwf363QrAeSH44mRLwoy+rufj4TKAIbsyKss64pemnd+VDJVxMcmbKNnoWonDT8GTc5XdYa1w==
-X-Received: by 2002:a05:6638:35d:: with SMTP id
- x29mr4726694jap.71.1591820420247; 
- Wed, 10 Jun 2020 13:20:20 -0700 (PDT)
-Received: from xps15 ([64.188.179.251])
- by smtp.gmail.com with ESMTPSA id k126sm423901iof.50.2020.06.10.13.20.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Jun 2020 13:20:19 -0700 (PDT)
-Received: (nullmailer pid 3646187 invoked by uid 1000);
- Wed, 10 Jun 2020 20:20:18 -0000
-Date: Wed, 10 Jun 2020 14:20:18 -0600
-From: Rob Herring <robh@kernel.org>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [PATCH 1/2] ASoC: bindings: wm8960: Add property for headphone
- detection
-Message-ID: <20200610202018.GA3646134@bogus>
-References: <1591180013-12416-1-git-send-email-shengjiu.wang@nxp.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Oq56PcmHg/cR1FuGPcTWftGqzJ7r0buKtASahmztDPI=;
+ b=qywiFmZYbgnuE8YTZNxA6QM/ypGHqrhL588w6j1LTTcv7STv+LVduGFtltdt16mRyw
+ IfbdeGYra9uURsiS9FszCg75pKeG04pgDn66fXd2bAaikVfsAeblSFI9HHtzcwvSWpJF
+ 7rmwp9C9W0ZaWaydPj0yN9a6Xf0gd1hkVzIMJj+tUlzcCP4mkOSb0Y13TDBkI7SJjMYU
+ Tq6VBFScYgoxsRMs82WF0Yw1THT+YTt9C6XIxEUwNJW/GG7N7i+BdmBrqTXuCD/vl0pr
+ XUzAYjudOYyw2+U/tYsJJH9Cx01STcMJLM0NxLodDmAFSRCO+5R0wOv2Li9kmopGJOYQ
+ q5Jg==
+X-Gm-Message-State: AOAM531T/ElJY4ApF37PV3qSF7bsbwBWRLHat730MN258Su8qUc/5IAk
+ i+tDJaHfJ5BXtmrYMsBTSXZSQiL0SLnp9sYUQMhDNw==
+X-Google-Smtp-Source: ABdhPJzgImG9rjhvwTx3VV4AIJqc3EknU7zl8tUMuXR2aw08lk4pLRTw/v49V2Oi1qUXjQyWQY9q/4PfQePPK6XSvQQ=
+X-Received: by 2002:a25:cc50:: with SMTP id l77mr8999095ybf.53.1591830626622; 
+ Wed, 10 Jun 2020 16:10:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1591180013-12416-1-git-send-email-shengjiu.wang@nxp.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- ckeepax@opensource.cirrus.com, lgirdwood@gmail.com,
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
- robh+dt@kernel.org, broonie@kernel.org, tglx@linutronix.de, info@metux.net,
- allison@lohutok.net
+References: <20190204093910.23878-1-perex@perex.cz>
+ <20190326140928.GC10898@sirena.org.uk>
+ <s5hva0567vs.wl-tiwai@suse.de>
+ <CACL=Q7we61BwO81W7tQFvb9ohkBZkk34DSXL2B-Ky2B6zfWk1A@mail.gmail.com>
+ <f5b429c6-803c-b624-6d39-5001c76e892f@perex.cz> <s5hd0lcppbn.wl-tiwai@suse.de>
+ <CACL=Q7xSpeqyQzDyexCr+Nxs+nf3o9doaHGxiu-y8biK9w_9YQ@mail.gmail.com>
+ <20200608134546.GG4593@sirena.org.uk>
+ <CACL=Q7x43Udp_KA0C-N4+vcQ1MZ4NQt_xvf-nn6fRERRuz1tRg@mail.gmail.com>
+In-Reply-To: <CACL=Q7x43Udp_KA0C-N4+vcQ1MZ4NQt_xvf-nn6fRERRuz1tRg@mail.gmail.com>
+From: Phil Burk <philburk@google.com>
+Date: Wed, 10 Jun 2020 16:10:15 -0700
+Message-ID: <CACL=Q7z_B3vSd_KOpUq_BdpuhJSDifs+koDAkcBY=hHnsVv=Qw@mail.gmail.com>
+Subject: Re: [PATCH 0/2 v4] ALSA: pcm: anonymous dup implementation
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Takashi Iwai <tiwai@suse.de>,
+ ALSA development <alsa-devel@alsa-project.org>, Leo Yan <leo.yan@linaro.org>,
+ Baolin Wang <baolin.wang@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,16 +104,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 03 Jun 2020 18:26:52 +0800, Shengjiu Wang wrote:
-> Add two properties for headphone detection.
-> 
-> wlf,hp-cfg: A list of headphone jack detect configuration register values
-> wlf,gpio-cfg: A list of GPIO configuration register values
-> 
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> ---
->  Documentation/devicetree/bindings/sound/wm8960.txt | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
+Hello Mark,
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+I wrote to Peter Huang at UniSOC
+
+>  Did you ever get a chance to try the Linaro patches? Did they work for
+you?
+
+
+
+Peter wrote:
+
+>  we have tried these patches, and they works. [snip]
+
+>  And Baolin also suggests that his patch is too complicated and difficult
+to maintain, and a better solution is list as below, this new patch I have
+not tried.
+
+
+
+[1]:
+
+https://lore.kernel.org/patchwork/patch/1033206/
+
+
+
+[2]:
+
+https://www.alsa-project.org/pipermail/alsa-devel/2019-January/144925.html
+
+https://www.alsa-project.org/pipermail/alsa-devel/2019-January/144924.html
+
+
+It is hard for me to extract the relevant patches from those emails.
+
+
+I would love to finish this project but I am not sure how. It seems we need
+to:
+
+
+1) Evaluate the patches that Baolin suggests as a simpler alternative.
+
+2) Test them in an Android kernel with AAudio MMAP.
+
+
+If you can provide a clear description of the latest set of patches then
+maybe I can work with someone in-house to test this.
+
+
+I am open to suggestions.
+
+
+Phil Burk
+
+
+
+On Mon, Jun 8, 2020 at 10:49 AM Phil Burk <philburk@google.com> wrote:
+
+> Hello Mark,
+>
+> Thank you for keeping this moving forward.
+>
+> We sent the patches out to several SOC vendors for Android last year.
+> They thanked us and said they would send feedback but never did.
+> I pinged them again.
+>
+> If we cannot get the changes tested by partners then I will try to get
+> them tested internally.
+>
+> For reference, this is being tracked internally at b/119712034
+> <https://buganizer.corp.google.com/119712034>
+>
+> Thanks,
+> Phil Burk
+>
+>
+>
+> On Mon, Jun 8, 2020 at 6:45 AM Mark Brown <broonie@kernel.org> wrote:
+>
+>> On Tue, Apr 23, 2019 at 01:11:50PM -0700, Phil Burk wrote:
+>> > Hello Takashi,
+>> >
+>> > Sorry for the late reply. I got pulled off on some other projects.
+>> >
+>> > We will try to test this in-house but we will need Qualcomm's help.
+>> > I will also try to get some of our SOC partners to help with testing.
+>>
+>> Did anything ever happen with this testing?  These anonymous mmap
+>> patches never got merged.
+>>
+>

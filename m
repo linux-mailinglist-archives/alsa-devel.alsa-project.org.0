@@ -2,75 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C22D1F5628
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jun 2020 15:51:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83E701F5639
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jun 2020 15:52:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB2161607;
-	Wed, 10 Jun 2020 15:50:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB2161607
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B7771664;
+	Wed, 10 Jun 2020 15:51:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B7771664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591797063;
-	bh=RcCDENTk4744k5I08BTTzwKJGi3k1YJpsjPoSpppoUY=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1591797169;
+	bh=8GZI2724fyE9k40lHkuRYyAJTNgX7y1yWApYiVyFQfo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NFTAtOg9M8gE3zyGIgDQTBD/cclnJFU4qnAAtN47+5/qPUJrTnX0/YljFHuK7PZEF
-	 Hg8XIsA5KyMh+zDvpQx3IuSOy8tMPqm0Zja+zgJlbrZMyCzCQYGt1wvD78FY3QR2Z6
-	 gR3lom8Ur21u27g9ImDq8Vy0zgDLkIYALCUmgpuM=
+	b=E7Vx6WZHc6pxg9Fy3PLDpA56TrYSoz32DPaA8jnvinqnm7RLMTmnrfb8xdyx8/atk
+	 JnK39I6jSs8kl6MroC2gU2DDG3KZqiO7oWTxZaa4sjhkmfhxSXsBuM+UTau+w13ARo
+	 D8nWL2j1GXJHv6dJCK1xzIEGd9uzuK8mMU8sH+ic=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04886F80058;
-	Wed, 10 Jun 2020 15:49:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E923F800E0;
+	Wed, 10 Jun 2020 15:51:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DC9BDF8021C; Wed, 10 Jun 2020 15:49:20 +0200 (CEST)
+ id 25347F8021C; Wed, 10 Jun 2020 15:51:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6878CF80058
+ for <alsa-devel@alsa-project.org>; Wed, 10 Jun 2020 15:51:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6878CF80058
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="pmUPluC9"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EBBCAF80058
- for <alsa-devel@alsa-project.org>; Wed, 10 Jun 2020 15:49:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBBCAF80058
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=tsoy.me header.i=@tsoy.me
- header.b="kp4TGNEF"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
- s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Content-Type:
- References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Reply-To:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
- :List-Post:List-Owner:List-Archive;
- bh=D5hKdquVX+IdfMBHborXt+0KRg8Bp/MjyiIh4IgWVZA=; b=kp4TGNEFrdV4GRHUB2yDqvSZlb
- YB/iG0WPSPzt7nCV4xGBlvcbqtv+FkpjNm6dr8jTWFHkrYy/yvhYJ7mV3b7zecScChv9XdrKhCev2
- 57eFaS2cGCbTkQ038qc8RWfLt9sVIYIdk0OSog0iDuPH+1RTpaeKxea+jT99RHcwAkA4=;
-Received: from [2a00:1370:8125:614e:c510:d933:d0ef:dfce] (helo=home)
- by puleglot.ru with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.93.0.4) (envelope-from <puleglot@puleglot.ru>)
- id 1jj16R-0007Kv-6f; Wed, 10 Jun 2020 16:49:15 +0300
-Message-ID: <325c117faed8514693f0f82d00961efa09fc1b00.camel@tsoy.me>
-Subject: Re: Clock sync problem?
-From: Alexander Tsoy <alexander@tsoy.me>
-To: Laurence Tratt <laurie@tratt.net>
-Date: Wed, 10 Jun 2020 16:49:14 +0300
-In-Reply-To: <20200610074409.aknnhrzzu3ulfa4e@overdrive.tratt.net>
-References: <20200607133959.kmljpqdwefuio3mk@overdrive.tratt.net>
- <s5hk10i58io.wl-tiwai@suse.de>
- <14f91307-c121-a9f8-4045-1319ee0ca49e@bollie.de>
- <s5htuzl4r4f.wl-tiwai@suse.de>
- <d74af0e9a3074c3c9104cac7407185c825378de5.camel@tsoy.me>
- <20200610074409.aknnhrzzu3ulfa4e@overdrive.tratt.net>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.34.4 
+ by mail.kernel.org (Postfix) with ESMTPSA id 4B799206F4;
+ Wed, 10 Jun 2020 13:51:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1591797061;
+ bh=8GZI2724fyE9k40lHkuRYyAJTNgX7y1yWApYiVyFQfo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=pmUPluC9eJZ4izqDHNJF5poHNYcWt3/fzwA4iEMlWW0B3oxzonGDeiFCGERJEFzEW
+ U1L4GLbtaRwtAb+/YXamTjXGGVnkI/Y2SQFdmL9qXhZ9lEL8OBAsYhA1gKsFASMk9p
+ 9R+s7LvDo1lz/hGDdOq9XJDDWC0CQ0XmURdn/2ME=
+Date: Wed, 10 Jun 2020 14:50:59 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [GIT PULL] ASoC fixes for v5.8
+Message-ID: <20200610135059.GF5005@sirena.org.uk>
+References: <20200610133412.97D6E2067B@mail.kernel.org>
+ <20200610134424.GE5005@sirena.org.uk>
+ <s5himfzf2yz.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- Thomas Ebeling <penguins@bollie.de>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="juZjCTNxrMaZdGZC"
+Content-Disposition: inline
+In-Reply-To: <s5himfzf2yz.wl-tiwai@suse.de>
+X-Cookie: fortune: No such file or directory
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,24 +83,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-В Ср, 10/06/2020 в 08:44 +0100, Laurence Tratt пишет:
-> On Mon, Jun 08, 2020 at 05:43:05PM +0300, Alexander Tsoy wrote:
-> 
-> Hello Alexander,
-> 
-> > > The frame size calculation in USB-audio driver wasn't accurate
-> > > enough
-> > > because of the computation in Q16.16 format.  It works OK for
-> > > async mode,
-> > > but for others, it can accumulate rounding errors.  The recent
-> > > change
-> > > corrected it for a more precise way.
-> > I believe that SSL and Audient devices operates in async mode.
-> > Would be
-> > nice to see "lsusb -v" output for them.
-> 
-> Please find attached the "lsusb -v" output.
 
-Thanks! So SSL 2+ is indeed currently needs implicit feedback quirk.
-The question is why it didn't help in your case.
+--juZjCTNxrMaZdGZC
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Wed, Jun 10, 2020 at 03:46:28PM +0200, Takashi Iwai wrote:
+> Mark Brown wrote:
+
+> > This mail is unsigned because I'm automating sending pull requests and
+> > it's hard to do GnuPG MIME stuff from scripts.
+
+> Alright.  I checked the contents and it was OK, so merged now.
+
+Yeah, the tag is still signed so you can verify that - the double
+signing was kind of redundant.
+
+--juZjCTNxrMaZdGZC
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7g5UIACgkQJNaLcl1U
+h9BdKAf/XWPNMmwu9y+fYyPn2Oqv3Y7rqPzy1fTDJzCk8u6xEPVqxIbfTTxHbjTS
+4HGP4Wsc3f8lGHSTa2zVjKJE4CSsp3g1b/cPrvHyj7fAEooR+07cnfqb8o6w/LhU
+fpsx3linmZRt+GNuoyEaGHDZem/1TEs6+clTB65D1dDj9bVExzbMXzN/F5zCU3Bn
+3wn/jh1EZRkOL8ScyWPIgYAuaCXjg7Rpp2PhwbdDBK5daNPgxrSKUVQWMhBFJy6E
+mdTTv1eGhtcj40+f90X/1W+sFvUWCYfrQUkgTgbR/1od/vAvYkiOarsWZ87azsaW
+AuQh2qPAvUUCOp85DLLipmGo/AwCAA==
+=l5mB
+-----END PGP SIGNATURE-----
+
+--juZjCTNxrMaZdGZC--

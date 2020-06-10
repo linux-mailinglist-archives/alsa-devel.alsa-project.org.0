@@ -2,69 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27A611F5613
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jun 2020 15:46:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9BD41F5621
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jun 2020 15:48:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA08C166C;
-	Wed, 10 Jun 2020 15:45:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA08C166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C602166D;
+	Wed, 10 Jun 2020 15:47:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C602166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591796773;
-	bh=pTvgODDLpGVAtsKRFTt5fVldNM5O/r4VoSBkm+++f1I=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1591796897;
+	bh=uVlkmLEvao/MJWRPke4aFILf7INESEaVgUGUTpYTSVs=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rYnSnR01wouH+OctsM3AzPJoDjKEKbUm1gGDvByjDG5p1WaBTgU3+DKQ4c4dVcFE7
-	 nHCiBakXIKXhCJC7T4n9eElKH3bHqugDzayc7QuS2NAMpW7MsVt7P2ezf9Awyzmu+X
-	 Wgtui48ttg7hVzQVnQ2Zrex9kjgPKLL0AgpcQOzo=
+	b=lchvJG2wdrF2kaL2I/SVEAaLm+SNZ3bxVKX4SEVh9Al9Eua70aZi8slL1RruukzEs
+	 28cjpkXKmFAg8vL+7t0opJ2QKFI0ed5tMFg3F1BrL4lZJgZJC/oYcvFbprZOt9Cauv
+	 BPb8jqepkVwwuf209+W9t5PcK/1XT9ExXtpJczpU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE5EAF8021C;
-	Wed, 10 Jun 2020 15:44:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A69D6F80058;
+	Wed, 10 Jun 2020 15:46:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1FB78F8021C; Wed, 10 Jun 2020 15:44:31 +0200 (CEST)
+ id 2C88AF8021C; Wed, 10 Jun 2020 15:46:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 65549F80058
- for <alsa-devel@alsa-project.org>; Wed, 10 Jun 2020 15:44:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65549F80058
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="M5kMYju+"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C5E4220734;
- Wed, 10 Jun 2020 13:44:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591796666;
- bh=pTvgODDLpGVAtsKRFTt5fVldNM5O/r4VoSBkm+++f1I=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=M5kMYju+6C069CftZHLAzC2L5jVZM7/v+mM8sUaHN0LJJC3bymRJ9hapy0CCUAWpJ
- trydbk1Qw2NuONBmr1EGWdLOv/+FEw0ZV3ZAx/sZVaT7G5IlKn5YcemFDIsuwLqlAC
- yStYcBJCgN5ces/uYVVWGdbTyIEPI3SyDhycCW3c=
-Date: Wed, 10 Jun 2020 14:44:24 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id F2892F80058
+ for <alsa-devel@alsa-project.org>; Wed, 10 Jun 2020 15:46:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2892F80058
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id B2586AC61;
+ Wed, 10 Jun 2020 13:46:32 +0000 (UTC)
+Date: Wed, 10 Jun 2020 15:46:28 +0200
+Message-ID: <s5himfzf2yz.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
 Subject: Re: [GIT PULL] ASoC fixes for v5.8
-Message-ID: <20200610134424.GE5005@sirena.org.uk>
+In-Reply-To: <20200610134424.GE5005@sirena.org.uk>
 References: <20200610133412.97D6E2067B@mail.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="/2994txjAzEdQwm5"
-Content-Disposition: inline
-In-Reply-To: <20200610133412.97D6E2067B@mail.kernel.org>
-X-Cookie: fortune: No such file or directory
-User-Agent: Mutt/1.10.1 (2018-07-13)
+ <20200610134424.GE5005@sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
 Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -81,36 +69,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 10 Jun 2020 15:44:24 +0200,
+Mark Brown wrote:
+> 
+> On Wed, Jun 10, 2020 at 02:34:09PM +0100, broonie@kernel.org wrote:
+> > The following changes since commit a6b675a89e51a1cdad0481b809b7840d3f86e4b5:
+> > 
+> >   ASoC: qcom: q6asm-dai: kCFI fix (2020-06-01 12:15:53 +0100)
+> > 
+> > are available in the Git repository at:
+> 
+> This mail is unsigned because I'm automating sending pull requests and
+> it's hard to do GnuPG MIME stuff from scripts.
 
---/2994txjAzEdQwm5
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Alright.  I checked the contents and it was OK, so merged now.
 
-On Wed, Jun 10, 2020 at 02:34:09PM +0100, broonie@kernel.org wrote:
-> The following changes since commit a6b675a89e51a1cdad0481b809b7840d3f86e4=
-b5:
->=20
->   ASoC: qcom: q6asm-dai: kCFI fix (2020-06-01 12:15:53 +0100)
->=20
-> are available in the Git repository at:
 
-This mail is unsigned because I'm automating sending pull requests and
-it's hard to do GnuPG MIME stuff from scripts.
+thanks,
 
---/2994txjAzEdQwm5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7g47cACgkQJNaLcl1U
-h9Abzwf/fIwoPfob9W22ZDhshKNg36GKZy4DSKGtg8kfTfKoRioQcUygJ2O+o8Bc
-bxL1yqGH3CoDjak4d4bjyp0ItDmYOG6GLCerpfYRqnHwFy1oBtkLPAwgIXPXLgGK
-NaQWqMvN9Iv8wQVkpNbSmiIINqsK1OcgNsCHw4BGLDeq1EXNjlWcZ6vVAROa5lZN
-3TPorb26Z+1wOMeVI6W5+bWJ9bRyzvJ6XwY5+GKzbe/g8leSiwKnMzWjK0U5ehME
-UOUdAhdBuJPMVGZaCc0AsOlr6YS7NBsXpi0ZEJwND4yQaJBLo6CytpsAxnJhSscz
-8/JBCQnTJiQv6eoiSUXOc1sztFgwYg==
-=sQPr
------END PGP SIGNATURE-----
-
---/2994txjAzEdQwm5--
+Takashi

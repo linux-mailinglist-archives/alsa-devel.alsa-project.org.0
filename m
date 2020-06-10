@@ -2,89 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 510501F56A6
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jun 2020 16:14:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F142D1F56D2
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jun 2020 16:30:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E75A31666;
-	Wed, 10 Jun 2020 16:13:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E75A31666
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6AFDF1661;
+	Wed, 10 Jun 2020 16:29:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AFDF1661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591798450;
-	bh=qmlUysp1/OkI6KKe5YmubLDJoZTff3NkISzDcAEE8c4=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1591799406;
+	bh=SssoMY0PrbC8NZYL8hnhXQqlnOAu8G3HtlO7aJa2fL4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JVh6f7zkOX1KTkzEza44jorWpvZGQvCrCwpUsGkNSMmCqGIJVHce69x4ldrFbOZZS
-	 PeQTnPf7MT9U6M1H3ElNCSXlgXi8ooFDhttO8uuNqnsCwAFwcJaNM4zQHenjOONTN3
-	 xckuLASq6i9ZV5xWUpJyA5r+RBYOqSPBq10VdUYs=
+	b=M6x2j5XMrQbSFb6LBdVJNTAV5FZ/SiwXWMnwk+Jd4mBezpHGI0unjyJ+NU4+8JsgP
+	 HKM9CdoUL1A1u/hH5obG1+oROgSqb26ZPwAYLR6KJ6WELDy95et9lNlvuQCJ98GJAU
+	 U/aiHSU65lnPQnVIVAaB3JFlfAvy9HAJOFFzN5l4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2C5EBF800E0;
-	Wed, 10 Jun 2020 16:12:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 906E9F8021E;
+	Wed, 10 Jun 2020 16:28:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F152FF8021C; Wed, 10 Jun 2020 16:12:26 +0200 (CEST)
+ id 41C9EF8021C; Wed, 10 Jun 2020 16:28:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_76,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 14B5FF800E0
+ for <alsa-devel@alsa-project.org>; Wed, 10 Jun 2020 16:28:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14B5FF800E0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="cTCwi9MC"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B198F800E0
- for <alsa-devel@alsa-project.org>; Wed, 10 Jun 2020 16:12:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B198F800E0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="afvjACCP"
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
- by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 05AECJ3e108368;
- Wed, 10 Jun 2020 09:12:19 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1591798339;
- bh=M6xkOjg3ZDZEAeNUvfjnKS/Ad55tPzrwQaDSRurU5cc=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=afvjACCPdnbDmVqRfX8f0zKOBmY9rg4cWCK7zArxo9riELGH3cHx9TJpHXVrJKdeQ
- GymgnaosAsYh0fy0IWJmFZgJT+0cqDima0Yo+2+egzOLa9KST9G2joFxyA6zb+stHG
- HVh729z6a4WQYzWzYNRAayMo722dVTEWYCXQoI4U=
-Received: from DLEE111.ent.ti.com (dlee111.ent.ti.com [157.170.170.22])
- by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTP id 05AECJ16130904;
- Wed, 10 Jun 2020 09:12:19 -0500
-Received: from DLEE106.ent.ti.com (157.170.170.36) by DLEE111.ent.ti.com
- (157.170.170.22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Wed, 10
- Jun 2020 09:12:19 -0500
-Received: from fllv0039.itg.ti.com (10.64.41.19) by DLEE106.ent.ti.com
- (157.170.170.36) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Wed, 10 Jun 2020 09:12:19 -0500
-Received: from [10.250.65.13] (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id 05AECGkD054825;
- Wed, 10 Jun 2020 09:12:17 -0500
+ by mail.kernel.org (Postfix) with ESMTPSA id 0EE302067B;
+ Wed, 10 Jun 2020 14:28:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1591799293;
+ bh=SssoMY0PrbC8NZYL8hnhXQqlnOAu8G3HtlO7aJa2fL4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=cTCwi9MCuyazL5XefSTUHGnMKhLIwl80cvs11td6qe8C3D69DMBkyrYGat8L5dWY9
+ Fa+c8YpHEFZk2f1Dd/kgwiPGzNU4MgYhyISpk8hS8R2+XSwvmAzOLEGjUwXsJyA6DQ
+ 2DYELyD9AyVfw1fvQXLrj7qo1gDxAP9j9S2TdN9k=
+Date: Wed, 10 Jun 2020 15:28:11 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Dan Murphy <dmurphy@ti.com>
 Subject: Re: [RFC PATCH 1/2] dt-bindings: tas2562: Add firmware support for
  tas2563
-To: Mark Brown <broonie@kernel.org>
+Message-ID: <20200610142811.GH5005@sirena.org.uk>
 References: <20200609172841.22541-1-dmurphy@ti.com>
- <20200609172841.22541-2-dmurphy@ti.com> <20200609173143.GN4583@sirena.org.uk>
+ <20200609172841.22541-2-dmurphy@ti.com>
+ <20200609173143.GN4583@sirena.org.uk>
  <bb7cff87-f814-1b37-c9eb-e68919e3c077@ti.com>
  <20200609175852.GQ4583@sirena.org.uk>
  <414a2d73-6d09-1e76-59c8-4943c0e8f720@ti.com>
  <20200609184734.GS4583@sirena.org.uk>
  <014b85b5-677b-569a-4eb2-74526d3f00bc@ti.com>
  <20200610102920.GC5005@sirena.org.uk>
-From: Dan Murphy <dmurphy@ti.com>
-Message-ID: <84a6dd5f-cc3e-adb4-ae94-b4fe389adfd9@ti.com>
-Date: Wed, 10 Jun 2020 09:12:15 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ <84a6dd5f-cc3e-adb4-ae94-b4fe389adfd9@ti.com>
 MIME-Version: 1.0
-In-Reply-To: <20200610102920.GC5005@sirena.org.uk>
-Content-Type: text/plain; charset="windows-1252"; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="l06SQqiZYCi8rTKz"
+Content-Disposition: inline
+In-Reply-To: <84a6dd5f-cc3e-adb4-ae94-b4fe389adfd9@ti.com>
+X-Cookie: fortune: No such file or directory
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: robh@kernel.org, alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
@@ -102,51 +92,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Mark
 
-On 6/10/20 5:29 AM, Mark Brown wrote:
-> On Tue, Jun 09, 2020 at 02:20:29PM -0500, Dan Murphy wrote:
->> On 6/9/20 1:47 PM, Mark Brown wrote:
->>> That's really not very idiomatic for how Linux does stuff and seems to
->>> pretty much guarantee issues with hotplugging controls and ordering -
->>> you'd need special userspace to start up even if it was just a really
->>> simple DSP config doing only speaker correction or something.  I'm not
->>> sure what the advantage would be - what problem is this solving over
->>> static names?
->> IMO having a static name is the problem. It is an inflexible design.
->> Besides the firmware-name property seems to be used in other drivers to
->> declare firmwares for the boards.
->> But if no one is complaining or submitting patches within the codecs to be
->> more flexible with firmware then I can just hard code the name like other
->> drivers do.
-> I'm not *completely* opposed to having the ability to suggest a name in
-> firmware, the big problem is making use of the DSP completely dependent
-> on having a DT property or doing some non-standard dance in userspace.
+--l06SQqiZYCi8rTKz
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Well from what I see we have 4 options.
+On Wed, Jun 10, 2020 at 09:12:15AM -0500, Dan Murphy wrote:
+> On 6/10/20 5:29 AM, Mark Brown wrote:
 
-1.  We can have a DT node like RFC'd (Need Rob's comments here)
+> > I'm not *completely* opposed to having the ability to suggest a name in
+> > firmware, the big problem is making use of the DSP completely dependent
+> > on having a DT property or doing some non-standard dance in userspace.
 
-2.  We can have a defconfig flag that hard codes the name (This will 
-probably be met with some resistance if not some really bad reactions 
-and I don't prefer to do it this way)
+> Well from what I see we have 4 options.
 
-3.  We can hard code the name of the firmware in the c file.
+These are not mutually exclusive approaches.
 
-4.  Dynamically derive a file name based on the I2C bus-address-device 
-so it would be expected to be "2_4c_tas2563.bin".  Just need to figure 
-out how to get the bus number.
+> 1.=A0 We can have a DT node like RFC'd (Need Rob's comments here)
 
-I don't see the user space as a viable option because the codec will 
-have to load and then the user space would have to request to load the 
-firmware and then more mixer controls will appear.
+This is compatible with any hardcoding option.
 
-Again only option 1 allows us to have different firmware binaries per IC 
-instance and also denotes the use of the DSP.  The DSP is not programmed 
-until the user space selects the program or configuration from the 
-binary.  So special audio handling is very explicit in the user space.  
-More then likely most standard distributions will not even use the DSP 
-for this device it is more of a specialized use case for each product.
+> 2.=A0 We can have a defconfig flag that hard codes the name (This will
+> probably be met with some resistance if not some really bad reactions and=
+ I
+> don't prefer to do it this way)
 
+This is even worse than the ALSA control suggestion.
 
+> 3.=A0 We can hard code the name of the firmware in the c file.
 
+> 4.=A0 Dynamically derive a file name based on the I2C bus-address-device =
+so it
+> would be expected to be "2_4c_tas2563.bin".=A0 Just need to figure out ho=
+w to
+> get the bus number.
+
+> Again only option 1 allows us to have different firmware binaries per IC
+> instance and also denotes the use of the DSP.=A0 The DSP is not programmed
+
+No, this is not the case at all - a per-device generated file allows
+this just as well.
+
+> So special audio handling is very explicit in the user space.=A0 More then
+> likely most standard distributions will not even use the DSP for this dev=
+ice
+> it is more of a specialized use case for each product.
+
+People do things like make AOSP derived distributions for phones.
+
+--l06SQqiZYCi8rTKz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7g7foACgkQJNaLcl1U
+h9DkTwf/dnxODE9jlK7rqZaP9/fgmsXcrTn+c5SE7VmNv+ButQXrB22OYVH1AJiv
+p2l0ucEqZtrVD/GJGGgjgkfLgwZxx5byaSfBjyszg80Zgpsc16g1YU9xDAoI0pmv
+rkGPrh9WXHB746szBsc2PA46wKtjSgnRkq6cOvxGciuysAdxagYyKvyVgzFopAO+
+O9ZVXw//Yg0jf9atCfpXWA+0Z4Mza0UitJBP7ydpG0siJzXW5qY5dExlM/jromgk
+Wl5Y3oBYKl04j6Y4Yh3ZG/DbLVTsyHMGoD3lYgm6zp4HFxlKcpzcMS6Mdvh1uny1
+dX3NZZwyD4qjL9eOc/p3x08Dreii9A==
+=Iqc2
+-----END PGP SIGNATURE-----
+
+--l06SQqiZYCi8rTKz--

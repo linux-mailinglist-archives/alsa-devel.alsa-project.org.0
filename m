@@ -2,72 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83E701F5639
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jun 2020 15:52:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D14C1F56A7
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jun 2020 16:14:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B7771664;
-	Wed, 10 Jun 2020 15:51:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B7771664
+	by alsa0.perex.cz (Postfix) with ESMTPS id E9C58166D;
+	Wed, 10 Jun 2020 16:14:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9C58166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591797169;
-	bh=8GZI2724fyE9k40lHkuRYyAJTNgX7y1yWApYiVyFQfo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1591798497;
+	bh=SKjYSMyhMk/KfMQALV4t8Rgr6OC7zA2wtp0LNxPKgI4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E7Vx6WZHc6pxg9Fy3PLDpA56TrYSoz32DPaA8jnvinqnm7RLMTmnrfb8xdyx8/atk
-	 JnK39I6jSs8kl6MroC2gU2DDG3KZqiO7oWTxZaa4sjhkmfhxSXsBuM+UTau+w13ARo
-	 D8nWL2j1GXJHv6dJCK1xzIEGd9uzuK8mMU8sH+ic=
+	b=NqKawXQsslEkhGm5o1L/yaqzZ93Hjx13nd4X5TMTtRBoXuiR5VrSLysAkVBDSHak/
+	 s61N7+qW/0ks4sHwvaVcYutX6ZgZI/D53vSXPLITfO/CPavedTW4OKi0cA2IbE0lmN
+	 5MU4Sr5deMvcH2wUyjSruVcbu3thwkhtbSLfmRII=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E923F800E0;
-	Wed, 10 Jun 2020 15:51:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5ADC8F80252;
+	Wed, 10 Jun 2020 16:12:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25347F8021C; Wed, 10 Jun 2020 15:51:06 +0200 (CEST)
+ id E21A1F8024A; Wed, 10 Jun 2020 16:12:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6878CF80058
- for <alsa-devel@alsa-project.org>; Wed, 10 Jun 2020 15:51:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6878CF80058
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="pmUPluC9"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4B799206F4;
- Wed, 10 Jun 2020 13:51:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591797061;
- bh=8GZI2724fyE9k40lHkuRYyAJTNgX7y1yWApYiVyFQfo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=pmUPluC9eJZ4izqDHNJF5poHNYcWt3/fzwA4iEMlWW0B3oxzonGDeiFCGERJEFzEW
- U1L4GLbtaRwtAb+/YXamTjXGGVnkI/Y2SQFdmL9qXhZ9lEL8OBAsYhA1gKsFASMk9p
- 9R+s7LvDo1lz/hGDdOq9XJDDWC0CQ0XmURdn/2ME=
-Date: Wed, 10 Jun 2020 14:50:59 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [GIT PULL] ASoC fixes for v5.8
-Message-ID: <20200610135059.GF5005@sirena.org.uk>
-References: <20200610133412.97D6E2067B@mail.kernel.org>
- <20200610134424.GE5005@sirena.org.uk>
- <s5himfzf2yz.wl-tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 95ABAF80058
+ for <alsa-devel@alsa-project.org>; Wed, 10 Jun 2020 16:12:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95ABAF80058
+IronPort-SDR: 8RjnLnjdGbFWSFhO7/igpT8rXQkXpd6/5KdEvxaJQukwBnHGupIWi5F6iENOAIS1PgweVNohPp
+ l39cmC0d/GxA==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2020 07:12:39 -0700
+IronPort-SDR: fKrJXsTqhlPXdaj5uo+Plq6f24Ee0V34xRBDERFPAU1oT+dwqd1TjgEWVneFvEOvOqdcHz0O1c
+ x2BU4QuL/X4A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,496,1583222400"; d="scan'208";a="473350013"
+Received: from opolat-mobl.amr.corp.intel.com (HELO [10.251.2.3])
+ ([10.251.2.3])
+ by fmsmga006.fm.intel.com with ESMTP; 10 Jun 2020 07:12:38 -0700
+Subject: Re: [RFC PATCH] ALSA: compress: Fix gapless playback state machine
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, vkoul@kernel.org
+References: <20200610100729.362-1-srinivas.kandagatla@linaro.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <694dd437-3453-7328-f544-28106c1c366d@linux.intel.com>
+Date: Wed, 10 Jun 2020 07:56:05 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="juZjCTNxrMaZdGZC"
-Content-Disposition: inline
-In-Reply-To: <s5himfzf2yz.wl-tiwai@suse.de>
-X-Cookie: fortune: No such file or directory
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+In-Reply-To: <20200610100729.362-1-srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
+ linux-kernel@vger.kernel.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,34 +81,61 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---juZjCTNxrMaZdGZC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Wed, Jun 10, 2020 at 03:46:28PM +0200, Takashi Iwai wrote:
-> Mark Brown wrote:
+On 6/10/20 5:07 AM, Srinivas Kandagatla wrote:
+> For gapless playback call to snd_compr_drain_notify() after
+> partial drain should put the state to SNDRV_PCM_STATE_RUNNING
+> rather than SNDRV_PCM_STATE_SETUP as the driver is ready to
+> process the buffers for new track.
+> 
+> With existing code, if we are playing 3 tracks in gapless, after
 
-> > This mail is unsigned because I'm automating sending pull requests and
-> > it's hard to do GnuPG MIME stuff from scripts.
+The gapless playback only deals with transitions between two tracks of 
+identical format. I am not sure what the reference to 3 tracks means.
 
-> Alright.  I checked the contents and it was OK, so merged now.
+> partial drain finished on previous track 1 the state is set to
+> SNDRV_PCM_STATE_SETUP which is then moved to SNDRV_PCM_STATE_PREPARED
+> after data write. With this state calls to snd_compr_next_track() and
+> few other calls will fail as they expect the state to be in
+> SNDRV_PCM_STATE_RUNNING.
+> 
+> Here is the sequence of events and state transitions:
+> 
+> 1. set_params (Track 1), state =  SNDRV_PCM_STATE_SETUP
+> 2. set_metadata (Track 1), no state change, state = SNDRV_PCM_STATE_SETUP
+> 3. fill and trigger start (Track 1), state = SNDRV_PCM_STATE_RUNNING
+> 4. set_next_track (Track 2), state = SNDRV_PCM_STATE_RUNNING
+> 5. partial_drain (Track 1), state = SNDRV_PCM_STATE_SETUP
+> 6  snd_compr_drain_notify (Track 1), state = SNDRV_PCM_STATE_SETUP
+> 7. fill data (Track 2), state = SNDRV_PCM_STATE_PREPARED
+> 8. set_metadata (Track 3), no state change, state = SNDRV_PCM_STATE_PREPARED
+> 9. set_next_track (Track 3), !! FAILURE as state != SNDRV_PCM_STATE_RUNNING
+> 
+> Fixes: f44f2a5417b2 ("ALSA: compress: fix drain calls blocking other compress functions (v6)")
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
+> 
+> I wonder who did gapless work on upstream so far?
 
-Yeah, the tag is still signed so you can verify that - the double
-signing was kind of redundant.
+IIRC the only users of gapless playback are Android platforms, where the 
+HAL deals with the transitions. I am not aware of any plain vanilla 
+Linux solution.
 
---juZjCTNxrMaZdGZC
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7g5UIACgkQJNaLcl1U
-h9BdKAf/XWPNMmwu9y+fYyPn2Oqv3Y7rqPzy1fTDJzCk8u6xEPVqxIbfTTxHbjTS
-4HGP4Wsc3f8lGHSTa2zVjKJE4CSsp3g1b/cPrvHyj7fAEooR+07cnfqb8o6w/LhU
-fpsx3linmZRt+GNuoyEaGHDZem/1TEs6+clTB65D1dDj9bVExzbMXzN/F5zCU3Bn
-3wn/jh1EZRkOL8ScyWPIgYAuaCXjg7Rpp2PhwbdDBK5daNPgxrSKUVQWMhBFJy6E
-mdTTv1eGhtcj40+f90X/1W+sFvUWCYfrQUkgTgbR/1od/vAvYkiOarsWZ87azsaW
-AuQh2qPAvUUCOp85DLLipmGo/AwCAA==
-=l5mB
------END PGP SIGNATURE-----
-
---juZjCTNxrMaZdGZC--
+> 
+>   include/sound/compress_driver.h | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/include/sound/compress_driver.h b/include/sound/compress_driver.h
+> index 6ce8effa0b12..eabac33864c2 100644
+> --- a/include/sound/compress_driver.h
+> +++ b/include/sound/compress_driver.h
+> @@ -182,7 +182,7 @@ static inline void snd_compr_drain_notify(struct snd_compr_stream *stream)
+>   	if (snd_BUG_ON(!stream))
+>   		return;
+>   
+> -	stream->runtime->state = SNDRV_PCM_STATE_SETUP;
+> +	stream->runtime->state = SNDRV_PCM_STATE_RUNNING;
+>   
+>   	wake_up(&stream->runtime->sleep);
+>   }
+> 

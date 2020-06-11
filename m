@@ -2,76 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3E781F69F6
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Jun 2020 16:28:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D15231F6A61
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Jun 2020 16:55:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 983901681;
-	Thu, 11 Jun 2020 16:27:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 983901681
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72C841695;
+	Thu, 11 Jun 2020 16:54:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72C841695
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591885726;
-	bh=G89wVttd5+0SNyPEk524aEUBQf1Ycsbg8KgZe2hwP9Y=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1591887312;
+	bh=bX7UcY722QAVwW6+/B+v2yMlQ4kNPtDvmTRGCSLbq5w=;
+	h=Date:From:Subject:To:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gCGToU0eBFA+woUOGBoPuJwFt+Gs1AvypFlvIKD/3uHvbxfz6m4+X4b84Q3BroOs+
-	 YrQlYl7BKjF5lWOG7/ggLlIbUzbr78d7ohjd/UhvLXMQSA5ApaKK9OLLwGnNqlWNAT
-	 o6vogwF7I6usLg7uttZLLV+8/ynkZgjeYczkKSyw=
+	b=go27N3pVVyHF+e4htXXWX4tG/We8DRBrOXHwCSuF4le82+SE7a57tpOL5K8jepzV5
+	 8bpjI9mXbME7g0+RI/etCLf3dVttpm2xLbQzWKRpApOScyv6hB1QJ76r0wxYniMomf
+	 UQoow54EOZWbpMyfcfeDuDP18MIOQe/wJFTyVchA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE90BF80278;
-	Thu, 11 Jun 2020 16:27:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17964F802BC;
+	Thu, 11 Jun 2020 16:52:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4EBD7F8028C; Thu, 11 Jun 2020 16:27:03 +0200 (CEST)
+ id C4E8DF802A9; Thu, 11 Jun 2020 16:52:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE
+X-Spam-Status: No, score=0.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_MSPIKE_H2,SPF_NEUTRAL,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic307-34.consmr.mail.gq1.yahoo.com
+ (sonic307-34.consmr.mail.gq1.yahoo.com [98.137.64.58])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1409BF800CC
- for <alsa-devel@alsa-project.org>; Thu, 11 Jun 2020 16:26:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1409BF800CC
-IronPort-SDR: 2cuP4xQeFDiNp8MAjCQy/oHfhBIG5VzDyXLWFFu6EolO4umb+x1YDQ5Uj+B0yy98dori9Rno3L
- YyPYKLVZarMA==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2020 07:26:54 -0700
-IronPort-SDR: 7qFKjaG5KXJ6TLnuhh60ybUUGQZ9/dDE0yt/TKPG4fatYhRyg/wZB0anc2ZH9uM+hfIG9+zMmC
- AztVg6o4xXcQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,499,1583222400"; d="scan'208";a="314827486"
-Received: from ttvo1-mobl.amr.corp.intel.com ([10.251.138.170])
- by FMSMGA003.fm.intel.com with ESMTP; 11 Jun 2020 07:26:54 -0700
-Message-ID: <b7e0b822a9deea506acaa40e0e31cc9f488bb446.camel@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: Intel: hda: unsolicited RIRB response
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
-Date: Thu, 11 Jun 2020 07:26:54 -0700
-In-Reply-To: <1591883073-17190-1-git-send-email-brent.lu@intel.com>
-References: <1591883073-17190-1-git-send-email-brent.lu@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- sound-open-firmware@alsa-project.orgDRIVERS, "commit_signer:6/16=38%,
- authored:6/16=38%, added_lines:123/248=50%, removed_lines:36/84=43%,
- Kai    Vehmanen DRIVERS \)" <kai.vehmanen@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Keyon Jie <yang.jie@linux.intel.com>, "authored:2/16=12%,
- added_lines:21/248=8%, removed_lines:5/84=6%, \),
- Liam    Girdwood DRIVERS \)" <lgirdwood@gmail.com>,
- Pierre-Louis Bossart DRIVERS <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, 15/16=94@,
- "Daniel Baluta  DRIVERS \)" <daniel.baluta@nxp.com>,
- Zhu Yingjiang <yingjiang.zhu@linux.intel.com>, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id C81AEF80290
+ for <alsa-devel@alsa-project.org>; Thu, 11 Jun 2020 16:52:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C81AEF80290
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=yahoo.ca header.i=@yahoo.ca
+ header.b="lLRUsp3J"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.ca; s=s2048;
+ t=1591887119; bh=Y49V++UNOPzuYl35+NoNzvTt4SNqxDJdg4ytABKfLJY=;
+ h=Date:From:Subject:To:Cc:References:In-Reply-To:From:Subject;
+ b=lLRUsp3JNW5VdCt6g6Ggd0OM7Cn8QSAglRSU0NwvMZ+5rDqEa6qLy5e6FoSHILZjwM7O4lafiUP849zqqu0SSJVPNHcmU5lqKge62xtI67UjxDMiH3OWKqryetXzqAucHNE/WQTW5sat29a45ZOuUE+cN7x1ijGM9w82OqeqgPlfXleTUoUktZ4ETSx03Akmno2zef7OV26rtoLQUuZxnQRdqEej2UXjp6QvfHaIoa24T84xo28NiAsFNX2MbHAwGozcQvKgLZC4Px0ywGSxBFHE9csaHvnRK9fTc6raDQWyTQuMDZub1N8n2qaNF2vHJ7ToxaRrb3nIXPRVTZiAlQ==
+X-YMail-OSG: N_6BpMEVRDvd.miR6A7lED5GPdAEx7ojsA--
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic307.consmr.mail.gq1.yahoo.com with HTTP; Thu, 11 Jun 2020 14:51:59 +0000
+Received: by smtp424.mail.gq1.yahoo.com (VZM Hermes SMTP Server) with ESMTPA
+ ID b1fcbf8aa3997862c2f8ed0063d81657; 
+ Thu, 11 Jun 2020 14:49:57 +0000 (UTC)
+Date: Thu, 11 Jun 2020 10:49:53 -0400
+From: "Alex Xu (Hello71)" <alex_y_xu@yahoo.ca>
+Subject: Re: [patch for-5.8] dma-pool: decouple DMA_REMAP from
+ DMA_COHERENT_POOL
+To: Christoph Hellwig <hch@lst.de>, David Rientjes <rientjes@google.com>
+References: <alpine.DEB.2.22.394.2006110025250.13899@chino.kir.corp.google.com>
+In-Reply-To: <alpine.DEB.2.22.394.2006110025250.13899@chino.kir.corp.google.com>
+MIME-Version: 1.0
+Message-Id: <1591886384.28dd734zt4.none@localhost>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: WebService/1.1.16072 hermes_yahoo Apache-HttpAsyncClient/4.1.4
+ (Java/11.0.6)
+Cc: alsa-devel@alsa-project.org, x86@kernel.org, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, hch@infradead.org, mingo@redhat.com,
+ bp@alien8.de, Pavel Machek <pavel@ucw.cz>, hpa@zytor.com, tglx@linutronix.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,21 +82,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 2020-06-11 at 21:44 +0800, Brent Lu wrote:
-> The loop implementation could not solve the unsolicited response
-> issue because the RIRBSTS is cleared after leaving the
-> snd_hdac_bus_update_rirb() function. So the next loop will fail the
-> status test against the RIRB_INT_MASK and skip all the RIRB handling
-> stuff. On the other hand, there alwasy could be unsolicited responses
-> in the last loop regardless the number of loops.
-> 
-> Clear the RIRB interrupt before handling it so unsolicited response
-> could trigger another RIRB interrupt to handle it later.
-Hi Brent,
+Excerpts from David Rientjes's message of June 11, 2020 3:25 am:
+> DMA_REMAP is an unnecessary requirement for AMD SEV, which requires=20
+> DMA_COHERENT_POOL, so avoid selecting it when it is otherwise unnecessary=
+. =20
+>=20
+> The only other requirement for DMA coherent pools is DMA_DIRECT_REMAP, so=
+=20
+> ensure that properly selects the config option when needed.
+>=20
+> Fixes: 82fef0ad811f ("x86/mm: unencrypted non-blocking DMA allocations us=
+e=20
+> coherent pools")
+> Suggested-by: Christoph Hellwig <hch@lst.de>
+> Signed-off-by: David Rientjes <rientjes@google.com>
+> ---
+>  kernel/dma/Kconfig | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+>=20
 
-Thanks for the patch. Is this fix for a specific issue you're seeing?
-If so, could you please give us some details about it?
+Works for me with SME on or off with af7b480103, and with SME off in=20
+abfbb29297. There is some regression with amdgpu and SME between those=20
+two points, I need to check that out too. I haven't tested either before=20
+or after with SEV (which I'm not even sure my system supports).=20
+Regardless, this is a definite improvement.
+
+Tested-by: Alex Xu (Hello71) <alex_y_xu@yahoo.ca>
 
 Thanks,
-Ranjani
-
+Alex.

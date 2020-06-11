@@ -2,83 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13A431F6822
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Jun 2020 14:48:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87EE71F681D
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Jun 2020 14:47:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9F8491693;
-	Thu, 11 Jun 2020 14:47:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F8491693
+	by alsa0.perex.cz (Postfix) with ESMTPS id 27F8E1687;
+	Thu, 11 Jun 2020 14:46:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27F8E1687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591879682;
-	bh=fs+FW3f9B731ewcjzUpOlPIdny3b4aY9vBdBA94G3vo=;
+	s=default; t=1591879644;
+	bh=uTmFuzq8ftfBCejonkdjTHFTnppNHZzRJMv3AWJkr3Q=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=a5QKv1BHV3HsY1WPEnMZgoocfq69fy68CCAKLEse+YHpWugw/dXONEPxyScIooM37
-	 4iYxFZ40XK9tCyhZWmTxLokSG5LAIGAn3ZcDgm2vg58fbF62GlsD4ft4nToyQktTIh
-	 TwJ0IbYlnaYUdgCnus53KoPZJzeTdD88PVATJuyE=
+	b=UOuQWM0CBBTeh4hLv8Sr2nPhWP0slnpLPzuJvRbxoyG28lIfMVTG1XJC8JSYjnOEU
+	 hy+aN6RUIi8f/cizWWDqhXwZE6RHCnqhDZAAKtSipmvyBNuQGr32POAruwYn5QNBG9
+	 KOrEosZ8CloCH14BeWMh/5nn+5wfstUhjF5jGZik=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83A4DF802FE;
-	Thu, 11 Jun 2020 14:42:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93AAFF802FD;
+	Thu, 11 Jun 2020 14:42:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 182AAF802DB; Thu, 11 Jun 2020 14:42:21 +0200 (CEST)
+ id C490EF802DC; Thu, 11 Jun 2020 14:42:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F76DF80278
- for <alsa-devel@alsa-project.org>; Thu, 11 Jun 2020 14:42:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F76DF80278
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7CEC5F802A2
+ for <alsa-devel@alsa-project.org>; Thu, 11 Jun 2020 14:42:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CEC5F802A2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="Xl0tFGLV"
-Received: by mail-wr1-x441.google.com with SMTP id l10so5984742wrr.10
- for <alsa-devel@alsa-project.org>; Thu, 11 Jun 2020 05:42:10 -0700 (PDT)
+ header.b="s+lJoAWo"
+Received: by mail-wm1-x344.google.com with SMTP id l26so4842322wme.3
+ for <alsa-devel@alsa-project.org>; Thu, 11 Jun 2020 05:42:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=B03mT4orhX6sIyl4C6QznTHkGPO/8ylOV91f9uSUcuE=;
- b=Xl0tFGLV39isunaxjvopSoszCRQB+kGZSQClDVVLwDPQ45dIW7ZjaG2Jt2Zx5Gw53V
- ddXJHUSupiaryfCOFi5ALJcvUbntzgEtgPQAdcYa9rmOosqWvtLQVc+N/d50WtMUpKcD
- Ru5+++IuUtBRmPouMzQR5+Unk/IiBlUKtGQ+hx8nj8rsIRbPo5sxqjMyQDuF5FwQxfKC
- ptwnXdnfCeWDaUdskUTzNwKUgc84tC18YfXdulI/NNYGIaUoUdahvz3eFC04ILYEYb2v
- uFPeWmEeJB9RHYQNzvgbO0zigO8gnOxYlW3cdrfwcG3hLx/dVHCwzwAClL/d/aefKsXZ
- XGlA==
+ bh=lNnQU7nlgCvrEQswoURWL2iF3lzneMUM2jWkpbiMSAc=;
+ b=s+lJoAWoRoGJECYvMbW8eS/y8a2BEeRfBiogjqYTcMstMMl7ZBj476aHb5zduSoo24
+ DhxTUxmMo+hA8OCL6ST7FXGEwcN948WQv+kRteqTdRgvasABBsCX9HF7QQqDrMATptLd
+ d8ilNO/Nry4j3FAsUc63vIcwPGEi3DBOrQRczcS6WzdYa4vJEE6e1tGKRMYMtl1n92U4
+ LcZ2WVSXPPVOKlH6VMVJ3G8fqL/x45GHuWv/BomoGUWkx85bCl5KZLi5X7jwd5B4VFK7
+ bMuqc2z/GRX283M/5TNBML1rQSYQydNS8wDaOExtL6+0LgD6Pv0QxgVWhuERRDfltuJj
+ 2j7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=B03mT4orhX6sIyl4C6QznTHkGPO/8ylOV91f9uSUcuE=;
- b=pFk7VjrFnFET/LbI0/wXClMhOqNVx0mryYBFOr+p1SgtgC9/z+exl878EiKKWFCOHY
- EEVbGFvflZGYZXDb+8DDA9YeH59xPy0R3MBTqk50eu5bs+boVHqcQwgem8Ddi5R7WN2Q
- bir9JJZs147nU5SfFM/p/decGEbVpQRzDW+fAp4iy9EcK6rIAx/aH0Tt8foufNYiABCa
- kAIS2/KX+dD736YVQVgPfwGnTfd+hEYLcLLln8aRl4J+0r41vQDWqp10CxpwG596PaID
- 4mS825fEXkmuZqQMUlYdYv09iV7p15n6hJFL51Juofo03OnDeqvzLXZzNYhVZfz6VvLY
- LxJQ==
-X-Gm-Message-State: AOAM531f/T3AI9AF+bUQND36nx2Twiy+JSlPQeDFB1u0eDLMfVALsrCr
- V4LWPB67ZK3vQXyZFd8f2ljPSA==
-X-Google-Smtp-Source: ABdhPJxeDz6OHetvu1yt21PQSAiL/G0FMTt8w3IG0GxW2D10SVH5S8inuMVwAPStq7R+m6ewGhtRgA==
-X-Received: by 2002:adf:e4d1:: with SMTP id v17mr9227608wrm.224.1591879329986; 
- Thu, 11 Jun 2020 05:42:09 -0700 (PDT)
+ bh=lNnQU7nlgCvrEQswoURWL2iF3lzneMUM2jWkpbiMSAc=;
+ b=Ycxje6/MEM01exvex5IzlIUFoxfVYvaKRHVU56nibynOGUvRes427oxl4nVe4iPcdW
+ RTJU5wlRHs3w4gAgoXah2IJLBJVLV8wbtFfDOK7jSFnAufdPZLT3hEjPJskAdqb6SF9M
+ zX3+2l95TsNInA4kFGRszkdioq8yFR1ZZxv+1bI5l6+Lm74uzIieSQwWTjdWA1eZccYS
+ KbroWppmuo7atFaD1Dc6Ybw9/ObklmfK+UyIKOZSQ4SdUlkNYZXsm+RiBfEMEqPG5rZE
+ fXFSNpugKeBkfhK9DaVFzp86Ip7lw6fseiKg4/33/6W7kE5C1E+cP6WnpANKQW+uv5vL
+ eU0A==
+X-Gm-Message-State: AOAM5335QBKO+dmFZq/yMOyLR5gSXCidW3jDDvq33HN+n4sy+TksCtnf
+ 8gTFIZNwvkP1f4+HX6snzDylhQ==
+X-Google-Smtp-Source: ABdhPJz7eRsLXz/F+4yfNMex4BXcCn7ORtYkMIb8eBgCBk6GnfDF2bQvZjqBX4S5IMwWJr37i6aSMg==
+X-Received: by 2002:a1c:b386:: with SMTP id c128mr8469524wmf.133.1591879331058; 
+ Thu, 11 Jun 2020 05:42:11 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.gmail.com with ESMTPSA id q13sm4810355wrn.84.2020.06.11.05.42.08
+ by smtp.gmail.com with ESMTPSA id q13sm4810355wrn.84.2020.06.11.05.42.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jun 2020 05:42:09 -0700 (PDT)
+ Thu, 11 Jun 2020 05:42:10 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: broonie@kernel.org
-Subject: [PATCH 6/8] ASoC: q6asm: add length to write command token
-Date: Thu, 11 Jun 2020 13:41:57 +0100
-Message-Id: <20200611124159.20742-7-srinivas.kandagatla@linaro.org>
+Subject: [PATCH 7/8] ASoC: q6asm-dai: check available buffer size before
+ sending
+Date: Thu, 11 Jun 2020 13:41:58 +0100
+Message-Id: <20200611124159.20742-8-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20200611124159.20742-1-srinivas.kandagatla@linaro.org>
 References: <20200611124159.20742-1-srinivas.kandagatla@linaro.org>
@@ -102,91 +103,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add length to write command packet token so that we can track exactly
-how many bytes are consumed by DSP in the command reply.
-
-This is useful in some use-cases where the end of the file/stream
-is not aligned with period size.
+This patch add simple check before sending data buffer to dsp which will
+ensure that we are not sending any buffers which are not already available.
 
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- sound/soc/qcom/qdsp6/q6asm-dai.c | 4 +++-
- sound/soc/qcom/qdsp6/q6asm.c     | 7 ++++---
- sound/soc/qcom/qdsp6/q6asm.h     | 3 +++
- 3 files changed, 10 insertions(+), 4 deletions(-)
+ sound/soc/qcom/qdsp6/q6asm-dai.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
-index 57fb19f6c306..892411f81613 100644
+index 892411f81613..7aba3c07810b 100644
 --- a/sound/soc/qcom/qdsp6/q6asm-dai.c
 +++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
-@@ -509,6 +509,7 @@ static void compress_event_handler(uint32_t opcode, uint32_t token,
- 	struct snd_compr_stream *substream = prtd->cstream;
- 	unsigned long flags;
- 	uint64_t avail;
-+	uint32_t bytes_written;
- 
- 	switch (opcode) {
- 	case ASM_CLIENT_EVENT_CMD_RUN_DONE:
-@@ -529,7 +530,8 @@ static void compress_event_handler(uint32_t opcode, uint32_t token,
- 	case ASM_CLIENT_EVENT_DATA_WRITE_DONE:
- 		spin_lock_irqsave(&prtd->lock, flags);
- 
--		prtd->copied_total += prtd->pcm_count;
-+		bytes_written = token >> ASM_WRITE_TOKEN_LEN_SHIFT;
-+		prtd->copied_total += bytes_written;
+@@ -534,13 +534,12 @@ static void compress_event_handler(uint32_t opcode, uint32_t token,
+ 		prtd->copied_total += bytes_written;
  		snd_compr_fragment_elapsed(substream);
  
- 		if (prtd->state != Q6ASM_STREAM_RUNNING) {
-diff --git a/sound/soc/qcom/qdsp6/q6asm.c b/sound/soc/qcom/qdsp6/q6asm.c
-index d6728304ce6a..205453d1c1fc 100644
---- a/sound/soc/qcom/qdsp6/q6asm.c
-+++ b/sound/soc/qcom/qdsp6/q6asm.c
-@@ -670,6 +670,7 @@ static int32_t q6asm_stream_callback(struct apr_device *adev,
- 		if (ac->io_mode & ASM_SYNC_IO_MODE) {
- 			phys_addr_t phys;
- 			unsigned long flags;
-+			int token = hdr->token & ASM_WRITE_TOKEN_MASK;
+-		if (prtd->state != Q6ASM_STREAM_RUNNING) {
++		avail = prtd->bytes_received - prtd->bytes_sent;
++		if (prtd->state != Q6ASM_STREAM_RUNNING || avail <= 0) {
+ 			spin_unlock_irqrestore(&prtd->lock, flags);
+ 			break;
+ 		}
  
- 			spin_lock_irqsave(&ac->lock, flags);
- 
-@@ -681,12 +682,12 @@ static int32_t q6asm_stream_callback(struct apr_device *adev,
- 				goto done;
- 			}
- 
--			phys = port->buf[hdr->token].phys;
-+			phys = port->buf[token].phys;
- 
- 			if (lower_32_bits(phys) != result->opcode ||
- 			    upper_32_bits(phys) != result->status) {
- 				dev_err(ac->dev, "Expected addr %pa\n",
--					&port->buf[hdr->token].phys);
-+					&port->buf[token].phys);
- 				spin_unlock_irqrestore(&ac->lock, flags);
- 				ret = -EINVAL;
- 				goto done;
-@@ -1535,7 +1536,7 @@ int q6asm_write_async(struct audio_client *ac, uint32_t stream_id, uint32_t len,
- 	q6asm_add_hdr(ac, &pkt->hdr, pkt_size, false, stream_id);
- 
- 	ab = &port->buf[port->dsp_buf];
--	pkt->hdr.token = port->dsp_buf;
-+	pkt->hdr.token = port->dsp_buf | (len << ASM_WRITE_TOKEN_LEN_SHIFT);
- 	pkt->hdr.opcode = ASM_DATA_CMD_WRITE_V2;
- 	write->buf_addr_lsw = lower_32_bits(ab->phys);
- 	write->buf_addr_msw = upper_32_bits(ab->phys);
-diff --git a/sound/soc/qcom/qdsp6/q6asm.h b/sound/soc/qcom/qdsp6/q6asm.h
-index ceece124dd3d..0379580f0742 100644
---- a/sound/soc/qcom/qdsp6/q6asm.h
-+++ b/sound/soc/qcom/qdsp6/q6asm.h
-@@ -20,6 +20,9 @@
- #define ASM_CLIENT_EVENT_CMD_RUN_DONE		0x1008
- #define ASM_CLIENT_EVENT_DATA_WRITE_DONE	0x1009
- #define ASM_CLIENT_EVENT_DATA_READ_DONE		0x100a
-+#define ASM_WRITE_TOKEN_MASK			GENMASK(15, 0)
-+#define ASM_WRITE_TOKEN_LEN_MASK		GENMASK(31, 16)
-+#define ASM_WRITE_TOKEN_LEN_SHIFT		16
- 
- enum {
- 	LEGACY_PCM_MODE = 0,
+-		avail = prtd->bytes_received - prtd->bytes_sent;
+-
+ 		if (avail >= prtd->pcm_count) {
+ 			q6asm_write_async(prtd->audio_client, prtd->stream_id,
+ 					   prtd->pcm_count, 0, 0, 0);
 -- 
 2.21.0
 

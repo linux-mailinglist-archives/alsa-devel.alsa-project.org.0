@@ -2,63 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 204FF1F7E25
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jun 2020 22:42:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC8F01F7E26
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jun 2020 22:43:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A3496166E;
-	Fri, 12 Jun 2020 22:42:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3496166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5A43074C;
+	Fri, 12 Jun 2020 22:42:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A43074C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591994576;
-	bh=SEOlssAcypcUoTT/zWIlT/yYN2A5Ofj//rjLbdVfvYE=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=HSSmDf9TwlY1QgkagyWuAXE7kJ7ENSVJOkqJ7dfoxQrJD+HCV18oTX52QzEtuxOUG
-	 cqn+T1l9f90liLv92oPMMwoaiQfsLhO09LcssVTAQ8o12hpJYdf89gt+t17m6GsdiH
-	 t1AZ0c7rZ2YLLKMy9FDJ4RC4E+mETXYihSj7XjyA=
+	s=default; t=1591994622;
+	bh=unaBrrPcwH0903joTDh0IrNLYv+R/e860NWlRhmsDEo=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=YnFygwHwf8tdEk5hotlU/ii3r50CzfFtoV+9XGphj4ZuRBJCwG4cOA6AV6aYM0/SA
+	 D/ziVucwTKq7hk3an95S4xPipWVQIQo8D8okLjUNv1z8FoWFlBpm5DIIUum89Bllyr
+	 VBbcm9BCSjoN5elMNvaiDsxsWND1mtqU0I3lUnt8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ACA61F8024A;
-	Fri, 12 Jun 2020 22:41:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3206CF801F7;
+	Fri, 12 Jun 2020 22:41:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 068E0F800C7; Fri, 12 Jun 2020 22:41:13 +0200 (CEST)
+ id B5D9CF80228; Fri, 12 Jun 2020 22:41:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E2954F800C7
- for <alsa-devel@alsa-project.org>; Fri, 12 Jun 2020 22:41:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2954F800C7
-IronPort-SDR: XbED4GgTtpt/m2xFgumdURiWl24Ksyfk2SKDYNic8cG24nkaxYKmyOK87GODNz0+7/tTWTS+vZ
- nDeJra4IcA4A==
+ by alsa1.perex.cz (Postfix) with ESMTPS id CA9FFF801F7
+ for <alsa-devel@alsa-project.org>; Fri, 12 Jun 2020 22:41:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA9FFF801F7
+IronPort-SDR: nm5QDK10JTiWyKMdvJ5G6uplOQuQHrwNchrjIsjuHR0iN/kjtSJ3/2oL+E1Hr/lk+n8Q+9+7wy
+ LIU8HareHCvg==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  12 Jun 2020 13:41:07 -0700
-IronPort-SDR: u1yIvM1CD7b3NAP5yfh/aNQsbfQ6Goxs2yu6kG8rhmnW1KjrABTUqvnvToEi0hTtd5md83hYNd
- q9+gAe0awoWg==
+IronPort-SDR: KvJVZ1P7roDSoHMkIpfGD0So3jhL0HZ2rXoKOCg2LTvUSfUBvOLU6o96SbJLBG79UNyVtUyrVF
+ kQ7tZ831PITQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,504,1583222400"; d="scan'208";a="272022963"
+X-IronPort-AV: E=Sophos;i="5.73,504,1583222400"; d="scan'208";a="272022964"
 Received: from tcampell-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.255.231.137])
- by orsmga003.jf.intel.com with ESMTP; 12 Jun 2020 13:41:06 -0700
+ by orsmga003.jf.intel.com with ESMTP; 12 Jun 2020 13:41:07 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 0/3] ASoC: improve core dmesg logs and verbosity
-Date: Fri, 12 Jun 2020 15:40:47 -0500
-Message-Id: <20200612204050.25901-1-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 1/3] ASoC: soc-core: reduce verbosity of BE override message
+Date: Fri, 12 Jun 2020 15:40:48 -0500
+Message-Id: <20200612204050.25901-2-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200612204050.25901-1-pierre-louis.bossart@linux.intel.com>
+References: <20200612204050.25901-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: tiwai@suse.de, broonie@kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,18 +79,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Try to both reduce useless verbosity and keep useful error reports.
+With dynamic debug not enabled, we still see this sort of messages:
 
-Pierre-Louis Bossart (3):
-  ASoC: soc-core: reduce verbosity of BE override message
-  ASoC: soc-pcm: improve error messages in soc_pcm_new()
-  ASoC: soc-pcm/compress: reduce verbosity on mapping ok messages
+[   47.656671] sof_sdw sof_sdw: info: override BE DAI link SDW0-Playback
+[   47.656677] sof_sdw sof_sdw: info: override BE DAI link SDW0-Capture
+[   47.656682] sof_sdw sof_sdw: info: override BE DAI link SDW1-Playback
+[   47.656686] sof_sdw sof_sdw: info: override BE DAI link SDW3-Capture
+[   47.656691] sof_sdw sof_sdw: info: override BE DAI link iDisp1
+[   47.656695] sof_sdw sof_sdw: info: override BE DAI link iDisp2
+[   47.656699] sof_sdw sof_sdw: info: override BE DAI link iDisp3
 
- sound/soc/soc-compress.c |  4 ++--
- sound/soc/soc-core.c     |  4 ++--
- sound/soc/soc-pcm.c      | 13 +++++++------
- 3 files changed, 11 insertions(+), 10 deletions(-)
+This is not really helpful for most users, move to dev_dbg.
 
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+---
+ sound/soc/soc-core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 0f30f5aabaa8..e607a4927933 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -1638,8 +1638,8 @@ static void soc_check_tplg_fes(struct snd_soc_card *card)
+ 				continue;
+ 			}
+ 
+-			dev_info(card->dev, "info: override BE DAI link %s\n",
+-				 card->dai_link[i].name);
++			dev_dbg(card->dev, "info: override BE DAI link %s\n",
++				card->dai_link[i].name);
+ 
+ 			/* override platform component */
+ 			if (!dai_link->platforms) {
 -- 
 2.20.1
 

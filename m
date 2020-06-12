@@ -2,69 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B197C1F7E2B
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jun 2020 22:44:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0A261F7E46
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jun 2020 23:01:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B7931689;
-	Fri, 12 Jun 2020 22:43:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B7931689
+	by alsa0.perex.cz (Postfix) with ESMTPS id 273091680;
+	Fri, 12 Jun 2020 23:00:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 273091680
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591994677;
-	bh=kNbmdaaWvrG0ZwrSMNWvpMonalkKm8eWb3puO07zkwA=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=DuBAQB7v4jchsxnjCO165VPB2J7CSYOg4sJVVzK4aDOOwb2bcw3Q5R/QpGEH4A+GV
-	 NFLBrckw3pMLSuLvtlIUd4E/cFfNFAaYAg85qcJbiSSTPwBvpJN9Vd3l2ggpflHOJt
-	 TvjBr9bmX0rtTbLDYPllwZAqjP3c5wpiodSEoOlE=
+	s=default; t=1591995691;
+	bh=bfwYPBCOJGzrVNURAzbYR0ul9IfrulZhwvYEQpnsp1M=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=cth9KKGnKkoafckVV64zBGw31wHmsztETcvb0VSfyb+by4FhTDOxZe1ZWnDTW1WPS
+	 gUC4hL81asNwZ5kvUw/eZeKPa7QNIrFXD/jdWHymwuPICUYvc/bRm/2fAVWxuuOyME
+	 hJFws4z9w24wcqjPcH8Qb98uERgO55O3O4NavE44=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9C61F802BC;
-	Fri, 12 Jun 2020 22:41:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 53637F80228;
+	Fri, 12 Jun 2020 22:59:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ADF84F802A8; Fri, 12 Jun 2020 22:41:24 +0200 (CEST)
+ id 449FCF8021E; Fri, 12 Jun 2020 22:59:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DCED8F80252
- for <alsa-devel@alsa-project.org>; Fri, 12 Jun 2020 22:41:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCED8F80252
-IronPort-SDR: MQYAO0B38p4XNMAi5DdnPqbVvW/QGdm9cxKblHrITSIhu8NXT1gL44zwhPo+GgP7f0/d7AYCNh
- O0WFI4Hd8W1g==
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8E46F80058
+ for <alsa-devel@alsa-project.org>; Fri, 12 Jun 2020 22:59:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8E46F80058
+IronPort-SDR: FmFALlh/Z3F/Ar8RFQLFJAvIx00dr9T2seUznvS9v0vBl0u/F1Fe7ySxfssTLa/2AwYtftHXwc
+ z0H1TSyvdVAw==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2020 13:41:09 -0700
-IronPort-SDR: MIeMAJAdhisQmD0wx4iNam4vhpQ7v7m15TxGzhGEaqrhQcEU0+QWBmrTheOG4OgDLZHsoVUjhq
- V6eXj14JoihQ==
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jun 2020 13:59:41 -0700
+IronPort-SDR: HSz8sc6NN+bEAE4w2XPiJOQIi1WM0fw5qi/ZRg+eL/jY0NAX2MVkM7sPvXtKSqkYJrIxB9xrGE
+ 6zjjWjG1hetw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,504,1583222400"; d="scan'208";a="272022967"
+X-IronPort-AV: E=Sophos;i="5.73,504,1583222400"; d="scan'208";a="272026623"
 Received: from tcampell-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.255.231.137])
- by orsmga003.jf.intel.com with ESMTP; 12 Jun 2020 13:41:08 -0700
+ by orsmga003.jf.intel.com with ESMTP; 12 Jun 2020 13:59:40 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 3/3] ASoC: soc-pcm/compress: reduce verbosity on mapping ok
- messages
-Date: Fri, 12 Jun 2020 15:40:50 -0500
-Message-Id: <20200612204050.25901-4-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 0/2] ASoC: topology: fix use-after-free when removing
+ components
+Date: Fri, 12 Jun 2020 15:59:36 -0500
+Message-Id: <20200612205938.26415-1-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200612204050.25901-1-pierre-louis.bossart@linux.intel.com>
-References: <20200612204050.25901-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: tiwai@suse.de, broonie@kernel.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,65 +75,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-With dynamic debug not enabled, we still get these messages:
+This patchset fixes a memory allocation issue and removes a 100%
+reproducible use-after-free report thrown by KASAN in automated module
+removal tests across multiple platforms.
 
-[   48.133586] sof_sdw sof_sdw: rt711-aif1 <-> SDW0 Pin2 mapping ok
-[   48.133595] sof_sdw sof_sdw: rt711-aif1 <-> SDW0 Pin3 mapping ok
-[   48.133650] sof_sdw sof_sdw: sdw:1:25d:1308:0 <-> SDW1 Pin2 mapping ok
-[   48.133658] sof_sdw sof_sdw: rt715-aif2 <-> SDW3 Pin2 mapping ok
-[   48.133666] sof_sdw sof_sdw: intel-hdmi-hifi1 <-> iDisp1 Pin mapping ok
-[   48.133672] sof_sdw sof_sdw: intel-hdmi-hifi2 <-> iDisp2 Pin mapping ok
-[   48.133677] sof_sdw sof_sdw: intel-hdmi-hifi3 <-> iDisp3 Pin mapping ok
-[   48.133712] sof_sdw sof_sdw: snd-soc-dummy-dai <-> Headphone 0 mapping ok
-[   48.133733] sof_sdw sof_sdw: snd-soc-dummy-dai <-> Headset mic 1 mapping ok
-[   48.133746] sof_sdw sof_sdw: snd-soc-dummy-dai <-> SDW1-speakers 2 mapping ok
-[   48.133762] sof_sdw sof_sdw: snd-soc-dummy-dai <-> Microphones 4 mapping ok
-[   48.133774] sof_sdw sof_sdw: snd-soc-dummy-dai <-> HDMI1 5 mapping ok
-[   48.133798] sof_sdw sof_sdw: snd-soc-dummy-dai <-> HDMI2 6 mapping ok
-[   48.133809] sof_sdw sof_sdw: snd-soc-dummy-dai <-> HDMI3 7 mapping ok
+All the credit goes to Bard Liao for root-causing the issue. DAIs may
+be registered at the same time as a component, or when the topology is
+loaded. This two-step registration causes the memory for
+topology-based DAIs to allocated last, and conversely to be released
+first by devres, before the component is released and the DAIs removed
+from the component DAI list with snd_soc_unregister_dais().
 
-This is not really useful for most users, demote to dev_dbg()
+When we remove a component, by the time we walk through its dai list
+to unregister all dais, the dais allocated by the topology have been
+freed already by devres and the list is corrupted with pointers that
+are no longer valid.
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
- sound/soc/soc-compress.c | 4 ++--
- sound/soc/soc-pcm.c      | 6 +++---
- 2 files changed, 5 insertions(+), 5 deletions(-)
+The suggestion is to add an explicit devm_ based registration for
+topology-based dais, so that each dai is cleanly removed from the
+component dai list in the release operation before devres releases the
+allocated memory.
 
-diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
-index 4984b6a2c370..415510909a82 100644
---- a/sound/soc/soc-compress.c
-+++ b/sound/soc/soc-compress.c
-@@ -867,8 +867,8 @@ int snd_soc_new_compress(struct snd_soc_pcm_runtime *rtd, int num)
- 	rtd->compr = compr;
- 	compr->private_data = rtd;
- 
--	dev_info(rtd->card->dev, "Compress ASoC: %s <-> %s mapping ok\n",
--		 codec_dai->name, cpu_dai->name);
-+	dev_dbg(rtd->card->dev, "Compress ASoC: %s <-> %s mapping ok\n",
-+		codec_dai->name, cpu_dai->name);
- 
- 	return 0;
- }
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 08e3daf16384..d8073fef68c9 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -2964,9 +2964,9 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
- 
- 	pcm->no_device_suspend = true;
- out:
--	dev_info(rtd->card->dev, "%s <-> %s mapping ok\n",
--		 (rtd->num_codecs > 1) ? "multicodec" : asoc_rtd_to_codec(rtd, 0)->name,
--		 (rtd->num_cpus > 1)   ? "multicpu"   : asoc_rtd_to_cpu(rtd, 0)->name);
-+	dev_dbg(rtd->card->dev, "%s <-> %s mapping ok\n",
-+		(rtd->num_codecs > 1) ? "multicodec" : asoc_rtd_to_codec(rtd, 0)->name,
-+		(rtd->num_cpus > 1)   ? "multicpu"   : asoc_rtd_to_cpu(rtd, 0)->name);
- 	return ret;
- }
- 
+Pierre-Louis Bossart (2):
+  ASoC: soc-devres: add devm_snd_soc_register_dai()
+  ASoC: soc-topology: use devm_snd_soc_register_dai()
+
+ include/sound/soc.h      |  4 ++++
+ sound/soc/soc-devres.c   | 37 +++++++++++++++++++++++++++++++++++++
+ sound/soc/soc-topology.c |  3 +--
+ 3 files changed, 42 insertions(+), 2 deletions(-)
+
 -- 
 2.20.1
 

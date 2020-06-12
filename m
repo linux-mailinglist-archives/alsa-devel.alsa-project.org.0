@@ -2,136 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A596A1F7341
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jun 2020 07:00:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46B731F7345
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jun 2020 07:04:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 349D51682;
-	Fri, 12 Jun 2020 06:59:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 349D51682
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0ED4167A;
+	Fri, 12 Jun 2020 07:03:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0ED4167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591938049;
-	bh=bGhAvxqs2LBSpgJRXrplPU47SViMOIDjMHbzQRAoOLA=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=qUA3hNSTxHGp+nw9Nufji8aafcXutYkhOR7YG995paXIorf2Km25gGEJzHj2omZ1s
-	 dYArsE+uq+qnGJfaGDMeFeDjh5I/zdPqEpb1/qiASSHvi5hxT/XkKUkBGKf+EHPVmu
-	 pHRcaLf5a/4vOhvTH6+pjWxDq0sUqqyw3gvnqbjo=
+	s=default; t=1591938288;
+	bh=aIAzVpEvk28DqBxzn/0BzH1p0/1hlVCPiodVVoC3QS0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=V3n9KShpHI6iFekEy8k3NE45QRbEGDjJqMUXPT1EMZuAnFyt58rJzCgM878JgwebL
+	 Vf4vo2a793h+5Pu0GFyjZHBzn5vymxwyNdSH5Ta/w4EICD0Ff7whParpBZhJdwZO7q
+	 Zw2PZda3dk1adw4ItjlZn0eC9o1sPTAKDAMsZHo0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16407F801F7;
-	Fri, 12 Jun 2020 06:59:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6939F80058;
+	Fri, 12 Jun 2020 07:03:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A72C6F8021C; Fri, 12 Jun 2020 06:59:04 +0200 (CEST)
+ id 4075BF8021C; Fri, 12 Jun 2020 07:03:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
+ [IPv6:2607:f8b0:4864:20::1044])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1E38F800C7
- for <alsa-devel@alsa-project.org>; Fri, 12 Jun 2020 06:58:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1E38F800C7
+ by alsa1.perex.cz (Postfix) with ESMTPS id C80A1F800C7
+ for <alsa-devel@alsa-project.org>; Fri, 12 Jun 2020 07:03:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C80A1F800C7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=intel.onmicrosoft.com
- header.i=@intel.onmicrosoft.com header.b="g6TUENI8"
-IronPort-SDR: jrPbFygNx24NVUvTLwASElbPBAak74P3axwRhmsZ2zTr11LzE1puCoD7S3JgTKdGJFSax92PQQ
- w8o8tVIfdIbA==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2020 21:58:56 -0700
-IronPort-SDR: id3/765zWPmRIAAWH1d+G8x/6Uz7jdm7qDuF7clZWFsHgT5gD82y5mJlLYY7OiUePXYTZKFHn+
- Q1ufJrWLAznQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,501,1583222400"; 
- d="scan'208,217";a="275597069"
-Received: from orsmsx107.amr.corp.intel.com ([10.22.240.5])
- by orsmga006.jf.intel.com with ESMTP; 11 Jun 2020 21:58:56 -0700
-Received: from orsmsx153.amr.corp.intel.com (10.22.226.247) by
- ORSMSX107.amr.corp.intel.com (10.22.240.5) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Thu, 11 Jun 2020 21:58:56 -0700
-Received: from ORSEDG001.ED.cps.intel.com (10.7.248.4) by
- ORSMSX153.amr.corp.intel.com (10.22.226.247) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Thu, 11 Jun 2020 21:58:55 -0700
-Received: from NAM02-CY1-obe.outbound.protection.outlook.com (104.47.37.55) by
- edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
- (TLS) id 14.3.439.0; Thu, 11 Jun 2020 21:58:56 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L/ct66kF8ge59aBTL0QcU/RAroDEuT+08dF8/tPcF6Hnk5zQXpojfK372olqma+8Fn6Bf6H1kOqfb+1WkNi6Ns68yEa0zsd3lPxbsprHf20gRRRgF6/dtrdCE3/0jpVA1J2S3mVCUsOCvxa0SeH4FsQG+sJUyval+qtPYuqE1oErcy9NPHyOdRTDA/nu8JhqdwtVxAmWvZKIvTXgQt8wuWhKOd1yWCqmpC59O5Xam30n7/RQDENjGYPpF/i5rTd+UOANBgD+9u/hs/V9ESzJ5yrIZd34HEnPgiRHbiQFCoHLiXbgBecBnONfE3KluwxCn8BkZF4PDFxsENDGSOdMaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6kuTbrUjpgIZOxIZVT+7PxNnj7tnS+28Z/khsUlp+vk=;
- b=NmnOE5hzTSRuCpDSxY057faP2wBXrqzgejyFUTNohtDIkM5OAmOAsIxpJzuHbES7TsSzA1RPcLpPVSAsuf+jk/hi4XoTOj1UKg2PGi8pgWHAwcMnSUEm6sEYj4EdOMGe+xdpokzj9gU8SzAK0lMAiX6cXYGIwAI4uwoKd6p9LnjfvsXCXA1xAM+Dbi9zaN/j22t0Gsq8FYZM5xB2doRGa3WnCKcyX9Ek82eFkpdqLftB8lRiTdbM9siPnMjyD0oLHENM14QKKvCSJHJr4o6zvr3JXy8sMDBqfC9gSwzxLMgtxq58TsG7DuIyOhMuDuQOk9BjANS8o7CwehWIlRsY1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
- s=selector2-intel-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6kuTbrUjpgIZOxIZVT+7PxNnj7tnS+28Z/khsUlp+vk=;
- b=g6TUENI8SNvjYtDGMyPlgOZHITvsyV5VbiH01LPkM+2q92C7dIlufd9jXFTLMLXjstQ3GsCX8EqbxvK5T58oguuZtZ2EzELdVds/wKQkeaRLpw5AEasJa6bbWabdHZXSzc3y0pJpaH4zFmhYOCRtRgPz0Vf+IbrA1f5YJTiNu1Y=
-Received: from BN6PR11MB1953.namprd11.prod.outlook.com (2603:10b6:404:105::14)
- by BN6PR11MB1377.namprd11.prod.outlook.com (2603:10b6:404:49::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3066.18; Fri, 12 Jun
- 2020 04:58:52 +0000
-Received: from BN6PR11MB1953.namprd11.prod.outlook.com
- ([fe80::55f9:3fed:cc3e:3855]) by BN6PR11MB1953.namprd11.prod.outlook.com
- ([fe80::55f9:3fed:cc3e:3855%12]) with mapi id 15.20.3088.022; Fri, 12 Jun
- 2020 04:58:52 +0000
-From: "Sia, Jee Heng" <jee.heng.sia@intel.com>
-To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Subject: Re: Re: [PATCH v5 0/3] ASoC: Intel: Add KeemBay ASoC platform driver
-Thread-Topic: Re: [PATCH v5 0/3] ASoC: Intel: Add KeemBay ASoC platform driver
-Thread-Index: AQHWQHT+UVTZqL/xV02EU10s2v24hA==
-Date: Fri, 12 Jun 2020 04:58:52 +0000
-Message-ID: <BN6PR11MB1953913840E37CCE88392A29DA810@BN6PR11MB1953.namprd11.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-GB
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: alsa-project.org; dkim=none (message not signed)
- header.d=none; alsa-project.org; dmarc=none action=none header.from=intel.com; 
-x-originating-ip: [192.198.146.173]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 7d9dd230-49d9-464b-c99e-08d80e8d4d3d
-x-ms-traffictypediagnostic: BN6PR11MB1377:
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BN6PR11MB137776B8FA2E9391382F66A2DA810@BN6PR11MB1377.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7219;
-x-forefront-prvs: 0432A04947
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: K8btCeJ1wizgsu5Yt+L7iL7FX3wwIrG4QaYhQ1ZqMKwt11EbS+tSGlY2fq8JLQHxaIXmx3V2XUi+JRYKI6yhTwXrqx7nChFWlPr35ISx1o1n6gntZc/slDse2U8s0i4O3/txfHsfh6/9Gt2bIbRk6x3+SJPjFS6XY63fLM7pnbvkCH2GcEnR7u2GPEc//MwkS9fOP17TgLuNgvkFBlXyPL5v9Cp0bnedtaIGP3IhOWK4y53KsOuM1t3b3yoSfrhTThhnC7cxhz1VeMjCDMmILssDlWbxl877nNKSek5YLr7VCid+JDMnksH4P88F2jQN
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN6PR11MB1953.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(136003)(376002)(366004)(39860400002)(346002)(396003)(91956017)(66556008)(4326008)(52536014)(26005)(66476007)(64756008)(8936002)(5660300002)(66446008)(66946007)(76116006)(186003)(558084003)(7696005)(6916009)(9686003)(8676002)(33656002)(316002)(9326002)(55016002)(2906002)(71200400001)(6506007)(86362001)(4270600006)(478600001)(54906003);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: Q34sQyjm+hY59rxsI1a/cXmsUSoUDUyQQ2GCwabnN0SdyIA9wu3N2jElsXgiY6z89AIAtXPMN2si+E3gU2z0qe58hdQAuOoyveKIwSPnJ6eqNQKCzlJRAua4HtK7IKicSw1czwzseTgpleMa59iWJPQ2O/+opjTWDsLpgq3chmMzQMISCghGWULkhqXKCvZGo8UBbHhZptZHCYTAWBUQb/OoHhEATcgNcaY/0u2G+IR8RgisnAvAWtY4sncMb9im46xW06vkvvAS7pImcx3taY6wF14CTWjh8utDTQF8RCWtdUrE22MNVptEk7CScvVCXHYEb8hB6a7fMMT/5MEdR2xuHIQn9+nOmiUMrALgNqEkbzgaVwaG6CrGUx8H4PB55PSAnISt4YbDKj4DHdyCzDzSLhF/9i1nRdDN9RAlCqxJdgFYGqbTxkAohRuGO7bkzK7O7IUs2c/vAwsZ48w+nqobGUSNZ5o72q+P6iv6LfA=
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="q01Sv3tA"
+Received: by mail-pj1-x1044.google.com with SMTP id s88so3361304pjb.5
+ for <alsa-devel@alsa-project.org>; Thu, 11 Jun 2020 22:03:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=AQb3my+JsHlPPhTUgek4A/JfdbCiC4/wHqfCQrXHjrU=;
+ b=q01Sv3tAmgbAnD8CpTMm/o03irTJ7C9U+SvSNziUnrthARWPJYAHa+QPqOIvkTh6QR
+ no4O2hrQdkvUupP2diATC+WeE8zHFg5Z7B2bRDjTf1OHqN1lk9NsKfdNlQObU1InoXUw
+ 2A4MuUdDhIMNhy8XZYAZb6Nedh0e7AxbreTaiJr/him4Edt1Q345hVImR/g8Kbbc+Uym
+ u0evKTdygrq7aUwfb/rkAxmVz0ZIDw++Z3xruuZc4cwf3IzIzQAMXpLnppl51Jc40Ove
+ kI9LCyxnPeCzAoB1Eo3kkJlxAQ6o/5/HrUpoluPDcm2kg4ysQZPTDnOHRYs4UAKmkXBw
+ bQAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=AQb3my+JsHlPPhTUgek4A/JfdbCiC4/wHqfCQrXHjrU=;
+ b=T+okJZpvs5177t3PcdSh39keMtgAi7leRJZ0wAA9M4cMA3xFr6zy3W3Y3zqGBrjd57
+ HnCg/+JXB6ItMguxDzdZqOI3P0KNrLUnD/T8NvUWWK1/gOo8lC2GjE+Ssg19jyURfL4g
+ 2qFgaOah+nI5CFHT4hlEGaMxPRo+R1IfJrvKMOx3F5QRPJnXJJddIpH7fnlurI2Zrj1r
+ 8bt06cWY5bNvcpt+IQ9eRPj3otS1T0eS8y4Fm1m8r2IMFAGHagad5v591DZY/wB5ZwGC
+ 1xpi2dgkFwUvp1xyLsmu92qECFLKqCqCp21BtBSjBa53EWrpbsMhGJRIPklc4W60DZM8
+ Ve1A==
+X-Gm-Message-State: AOAM531zNNen5NPwiWzPCAVuwINBa+i8N3hW2KdKhJXO0Df5PyCcCbIh
+ GnmePchaSm4yD+7s+4/SCHQ=
+X-Google-Smtp-Source: ABdhPJwjToNwD3VazGS7MHp3JaSxFxVaFsE6O2sMauxx8tbjvDPH4tb7qxRuOF0NFqhRYZWr3cMqNw==
+X-Received: by 2002:a17:902:9f8d:: with SMTP id
+ g13mr9910233plq.292.1591938177195; 
+ Thu, 11 Jun 2020 22:02:57 -0700 (PDT)
+Received: from Asurada-Nvidia (searspoint.nvidia.com. [216.228.112.21])
+ by smtp.gmail.com with ESMTPSA id n4sm4088751pjt.48.2020.06.11.22.02.56
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Thu, 11 Jun 2020 22:02:56 -0700 (PDT)
+Date: Thu, 11 Jun 2020 22:02:46 -0700
+From: Nicolin Chen <nicoleotsuka@gmail.com>
+To: Shengjiu Wang <shengjiu.wang@gmail.com>
+Subject: Re: [RFC PATCH v2 3/3] ASoC: fsl_asrc_dma: Reuse the dma channel if
+ available in Back-End
+Message-ID: <20200612050245.GA18921@Asurada-Nvidia>
+References: <cover.1591783089.git.shengjiu.wang@nxp.com>
+ <0473d4191ae04ab711d63c5c875e47f45f598137.1591783089.git.shengjiu.wang@nxp.com>
+ <20200612003103.GA28228@Asurada-Nvidia>
+ <CAA+D8ANbr-nAzY436-AFPOzwGb2LBaZSb40VwoEQrYScKr=0NA@mail.gmail.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d9dd230-49d9-464b-c99e-08d80e8d4d3d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jun 2020 04:58:52.1436 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ubf0iS076J8i8ZZJ5bc6eu7TXTA+Wuxso2nkN+IFVvnOHLLVMuIdumsupGeQDuPiRQhjWCbRPCm7Ic6yhfSNfw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR11MB1377
-X-OriginatorOrg: intel.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: "liam.r.girdwood@linux.intel.com" <liam.r.girdwood@linux.intel.com>,
- "Rojewski, Cezary" <cezary.rojewski@intel.com>,
- "broonie@kernel.org" <broonie@kernel.org>, "tiwai@suse.com" <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAA+D8ANbr-nAzY436-AFPOzwGb2LBaZSb40VwoEQrYScKr=0NA@mail.gmail.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, lars@metafoo.de,
+ Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ linuxppc-dev@lists.ozlabs.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -147,12 +110,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+On Fri, Jun 12, 2020 at 10:17:08AM +0800, Shengjiu Wang wrote:
 
-Please merge the patches if there is no further comments.
+> > > diff --git a/sound/soc/fsl/fsl_asrc_common.h b/sound/soc/fsl/fsl_asrc_common.h
+
+> > > + * @req_dma_chan_dev_to_dev: flag for release dev_to_dev chan
+> >
+> > Since we only have dma_request call for back-end only:
+> > + * @req_dma_chan: flag to release back-end dma chan
+> 
+> I prefer to use the description "flag to release dev_to_dev chan"
+> because we won't release the dma chan of the back-end. if the chan
+> is from the back-end, it is owned by the back-end component.
+
+TBH, it just looks too long. But I wouldn't have problem if you
+insist so.
+
+> > > @@ -273,19 +299,21 @@ static int fsl_asrc_dma_hw_params(struct snd_soc_component *component,
+> > >  static int fsl_asrc_dma_hw_free(struct snd_soc_component *component,
+> > >                               struct snd_pcm_substream *substream)
+> > >  {
+> > > +     bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
+> > >       struct snd_pcm_runtime *runtime = substream->runtime;
+> > >       struct fsl_asrc_pair *pair = runtime->private_data;
+> > > +     u8 dir = tx ? OUT : IN;
+> > >
+> > >       snd_pcm_set_runtime_buffer(substream, NULL);
+> > >
+> > > -     if (pair->dma_chan[IN])
+> > > -             dma_release_channel(pair->dma_chan[IN]);
+> > > +     if (pair->dma_chan[!dir])
+> > > +             dma_release_channel(pair->dma_chan[!dir]);
+> > >
+> > > -     if (pair->dma_chan[OUT])
+> > > -             dma_release_channel(pair->dma_chan[OUT]);
+> > > +     if (pair->dma_chan[dir] && pair->req_dma_chan_dev_to_dev)
+> > > +             dma_release_channel(pair->dma_chan[dir]);
+> >
+> > Why we only apply this to one direction?
+> 
+> if the chan is from the back-end, it is owned by the back-end
+> component, so it should be released by the back-end component,
+> not here. That's why I added the flag "req_dma_chan".
+
+Ah...I forgot the IN and OUT is for front-end and back-end. The
+naming isn't very good indeed. Probably we should add a line of
+comments somewhere as a reminder.
 
 Thanks
-Regards
-Jee Heng
-
-

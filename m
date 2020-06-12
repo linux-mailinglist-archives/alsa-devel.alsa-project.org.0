@@ -2,72 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 213521F7662
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jun 2020 12:01:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 764101F7697
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jun 2020 12:16:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B899615E5;
-	Fri, 12 Jun 2020 12:00:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B899615E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id F288F1681;
+	Fri, 12 Jun 2020 12:15:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F288F1681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591956071;
-	bh=Fxe86MBpTdJn+EHN1AjtURIaClha1M4VT8FnSGXzj4U=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1591956989;
+	bh=FSgIdeevRs5RHNGYBvTWVll0QD+ECpxCDwmuHIBybPQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mXHtPnr8a4oqSvd3mJucztqjMxqh6fVbL8QfqO5/RICX+zN48DZK3ojeX6SOM0QDV
-	 eyqa0X13jsvr3Pk3qE79BGyisQeGU0vwP64xfriS6rUaN5uHSy3FbSAfwbCWJAK346
-	 eSxdnl+CLaWwIJHAfKt5po/Peq5rhbm/RPvkV/D4=
+	b=PodrfUMABRH9HfZuk8ifRjA7VbhLw1e2QMlTxBOoiH4Rw3EpfJ9yXPNO5jpE0KVFQ
+	 WKx3hYkCVay7JAVTabJsj93eHZ6EpbjNQY881aKKlb1UgrNTo5WVEaqZ4DO7aIC4OA
+	 EfmjKhp1U5KzPBI4W4S+gbmBxcAzwp5ebpZ6Dt+k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88A23F802FF;
-	Fri, 12 Jun 2020 11:55:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14A16F80058;
+	Fri, 12 Jun 2020 12:14:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AD716F802A1; Fri, 12 Jun 2020 11:55:43 +0200 (CEST)
+ id 0EA74F8021C; Fri, 12 Jun 2020 12:14:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from jazz.pogo.org.uk (jazz.pogo.org.uk [213.138.114.167])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 45D5CF80058
+ for <alsa-devel@alsa-project.org>; Fri, 12 Jun 2020 12:14:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45D5CF80058
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="wg3l7CfI"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EF5ACF802A2
- for <alsa-devel@alsa-project.org>; Fri, 12 Jun 2020 11:55:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF5ACF802A2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=pogo.org.uk header.i=@pogo.org.uk
- header.b="wapVHtT9"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=pogo.org.uk
- ; s=a;
- h=References:In-Reply-To:Message-Id:Date:Subject:To:From:Sender:
- Reply-To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=7WXVw4joOZDSAm6LdL63Tjsu6vuWWgk0atT9x8Ms8yA=; b=wapVHtT9FNGNV3oaGq1seMcan2
- 6K7l1bqAOFjjTDFtxQbwLJ8q+ZanqEJ77g+3PQiKrk16ciKf32TN5Oj8WvZav+6h+r2QfL2HxUWVs
- 6o3wwhApNN/zRqryibWtXU3/bWxXGRmmWD7dAx+TIdRc12Qm+jnmzf//s3gqdKNX14qibSKN+NqM9
- Bs1jpfNKrNGOtVsJi/pSjteZBxResQGKXgf37QYoIZ4RkcYvQQM6uoqZ5yibYstYsUJQSTKCtaXWj
- ObA6Mfhpp+5gVF7ALk72LkbpfqEU0Ag6yyALVArf3qQ61LcRlEkzuANjhIq1ltATA0qt9+oCc/I4B
- Sil4xaJQ==;
-Received: from cpc1-hari17-2-0-cust102.20-2.cable.virginm.net ([86.18.4.103]
- helo=stax.localdomain) by jazz.pogo.org.uk with esmtps (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93.0.4 (FreeBSD))
- (envelope-from <mark@xwax.org>)
- id 1jjgPK-000ATc-K0; Fri, 12 Jun 2020 10:55:30 +0100
-Received: from mark by stax.localdomain with local (Exim 4.84)
- (envelope-from <mark@stax.localdomain>)
- id 1jjgPK-00013K-9C; Fri, 12 Jun 2020 10:55:30 +0100
-From: Mark Hills <mark@xwax.org>
-To: alsa-devel@alsa-project.org
-Subject: [RFC PATCH 9/9] pcm: Annotate the _avail functions
-Date: Fri, 12 Jun 2020 10:55:30 +0100
-Message-Id: <20200612095530.3970-9-mark@xwax.org>
-X-Mailer: git-send-email 2.17.5
-In-Reply-To: <2006121020220.23374@stax.localdomain>
-References: <2006121020220.23374@stax.localdomain>
+ by mail.kernel.org (Postfix) with ESMTPSA id 4BC33206A4;
+ Fri, 12 Jun 2020 10:14:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1591956879;
+ bh=FSgIdeevRs5RHNGYBvTWVll0QD+ECpxCDwmuHIBybPQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=wg3l7CfI3UnuLLI+iXs5X6n49jxyMbzThRAaVhSE7qrH1llBm3aa8xbdyyHXWd1qW
+ akXk16Js62DdhOlEwkfv2W5fyVC4SS5abYUelQLRBdHUpG70M0CmV9em4MF+PeGb/s
+ yzQlb7oISJGeVqRkN9TgFPw/wEXCHxXdSV5FejvU=
+Date: Fri, 12 Jun 2020 11:14:35 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "Sia, Jee Heng" <jee.heng.sia@intel.com>
+Subject: Re: Re: [PATCH v5 0/3] ASoC: Intel: Add KeemBay ASoC platform driver
+Message-ID: <20200612101435.GB5396@sirena.org.uk>
+References: <BN6PR11MB1953913840E37CCE88392A29DA810@BN6PR11MB1953.namprd11.prod.outlook.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="7ZAtKRhVyVSsbBD2"
+Content-Disposition: inline
+In-Reply-To: <BN6PR11MB1953913840E37CCE88392A29DA810@BN6PR11MB1953.namprd11.prod.outlook.com>
+X-Cookie: As seen on TV.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: "liam.r.girdwood@linux.intel.com" <liam.r.girdwood@linux.intel.com>,
+ "Rojewski, Cezary" <cezary.rojewski@intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "tiwai@suse.com" <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,67 +85,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-I took time to understand these functions in the context of the
-rest of the code, which would have been a lot quicker with a comment
-like this.
----
- src/pcm/pcm_local.h | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
 
-diff --git a/src/pcm/pcm_local.h b/src/pcm/pcm_local.h
-index cf018fc0..aae58ed3 100644
---- a/src/pcm/pcm_local.h
-+++ b/src/pcm/pcm_local.h
-@@ -480,6 +480,13 @@ static inline int snd_pcm_check_error(snd_pcm_t *pcm, int err)
- 	return err;
- }
- 
-+/**
-+ * \retval number of frames available to the application for playback
-+ *
-+ * This is how far ahead the hardware position in the ring buffer is,
-+ * compared to the application position. ie. for playback it's the
-+ * number of frames in the empty part of the ring buffer.
-+ */
- static inline snd_pcm_uframes_t __snd_pcm_playback_avail(snd_pcm_t *pcm,
- 							 const snd_pcm_uframes_t hw_ptr,
- 							 const snd_pcm_uframes_t appl_ptr)
-@@ -498,6 +505,13 @@ static inline snd_pcm_uframes_t snd_pcm_mmap_playback_avail(snd_pcm_t *pcm)
- 	return __snd_pcm_playback_avail(pcm, *pcm->hw.ptr, *pcm->appl.ptr);
- }
- 
-+/*
-+ * \retval number of frames available to the application for capture
-+ *
-+ * This is how far ahead the hardware position in the ring buffer is
-+ * compared to the application position.  ie. for capture, it's the
-+ * number of frames in the filled part of the ring buffer.
-+ */
- static inline snd_pcm_uframes_t __snd_pcm_capture_avail(snd_pcm_t *pcm,
- 							const snd_pcm_uframes_t hw_ptr,
- 							const snd_pcm_uframes_t appl_ptr)
-@@ -529,11 +543,21 @@ static inline snd_pcm_uframes_t snd_pcm_mmap_avail(snd_pcm_t *pcm)
- 	return __snd_pcm_avail(pcm, *pcm->hw.ptr, *pcm->appl.ptr);
- }
- 
-+/*
-+ * \retval number of frames available to the hardware for playback
-+ *
-+ * ie. the filled part of the ring buffer
-+ */
- static inline snd_pcm_sframes_t snd_pcm_mmap_playback_hw_avail(snd_pcm_t *pcm)
- {
- 	return pcm->buffer_size - snd_pcm_mmap_playback_avail(pcm);
- }
- 
-+/*
-+ * \retval number of frames available to the hardware for capture
-+ *
-+ * ie. the empty part of the ring buffer.
-+ */
- static inline snd_pcm_sframes_t snd_pcm_mmap_capture_hw_avail(snd_pcm_t *pcm)
- {
- 	return pcm->buffer_size - snd_pcm_mmap_capture_avail(pcm);
--- 
-2.17.5
+--7ZAtKRhVyVSsbBD2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, Jun 12, 2020 at 04:58:52AM +0000, Sia, Jee Heng wrote:
+> Hi,
+>=20
+> Please merge the patches if there is no further comments.
+
+Please don't send content free pings and please allow a reasonable time
+for review.  People get busy, go on holiday, attend conferences and so=20
+on so unless there is some reason for urgency (like critical bug fixes)
+please allow at least a couple of weeks for review.  If there have been
+review comments then people may be waiting for those to be addressed.
+
+Sending content free pings adds to the mail volume (if they are seen at
+all) which is often the problem and since they can't be reviewed
+directly if something has gone wrong you'll have to resend the patches
+anyway, so sending again is generally a better approach though there are
+some other maintainers who like them - if in doubt look at how patches
+for the subsystem are normally handled.
+
+Please don't top post, reply in line with needed context.  This allows
+readers to readily follow the flow of conversation and understand what
+you are talking about and also helps ensure that everything in the
+discussion is being addressed.
+
+--7ZAtKRhVyVSsbBD2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7jVYoACgkQJNaLcl1U
+h9DuNQf9FCxOC8P2NoAh/dFQScKgW9OTJWDmq2F0Ab6aSZlbSiFGBu0omg8GwhJ+
++jU2xrsUEeGKFuSeEtBw8YbSxOAEwCHQlPsI2XVw5ervDoiYV7ekoxKg8eWrtwej
+rj3NIsOFt+sd74TRwgqyIb4VDFOMQWv55d0ugjXes5LIZhlRlvgphs5FhAoo3wj8
+MBAo8pVY1gRxxlRqehEFNyGNhiV8Qq28X53HjMsYMaob0/4hgMzGah8WAPT5pROQ
+uRQbhO4VXNtHpDYmm/dO5o09p1A+HDBjUDUUrDEfLXtC3sGMyjM0+iYAJ0m7Dd7+
+Quln58Pe4F4+MjJw6lAVLHvByjVgTQ==
+=p/T+
+-----END PGP SIGNATURE-----
+
+--7ZAtKRhVyVSsbBD2--

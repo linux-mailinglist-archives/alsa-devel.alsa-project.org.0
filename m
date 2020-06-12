@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F3D81F7361
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jun 2020 07:18:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 885261F7368
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jun 2020 07:20:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 50F2C168D;
-	Fri, 12 Jun 2020 07:17:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50F2C168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 31CE1168D;
+	Fri, 12 Jun 2020 07:19:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31CE1168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1591939123;
-	bh=pyi1PL6m34EEjFiiQB1NLjOCIvY1R4cvNgq9K7gNIzI=;
+	s=default; t=1591939224;
+	bh=D4N+Bc4pnpQnOE37qwfIujo4d4aggTOju433eFPymJ4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qJGv537d7gOlfzNyucE93pamdEqxiMT0wdQvDHKoocjtQbI1U3fDHBplsFN2DzHaq
-	 0WeV+AjvpO2F8cNFTiW9Rb6yf49QqDmIUlAF0+eDCa2l9xnPk67L90jhGp36dBS4KC
-	 iSq1CLMoVoLxUGZdnz1fNNOylzSkqlNph3BCKc+A=
+	b=u43sD+H6EnVT4+AnlzrQCx8btxaE0AAsA4fh+qaR17fIZwPx30nqOoeQPtG8oB7Mn
+	 cAgYZMaaTmv0X9VefoXlsev+E7XWa18EB5RLqgA21SUmyZc+kNzef+oxu6XibN3oWd
+	 Rif6kItP+6oXgolOn+MOB49VXe9H8vibOw8CBLVk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B295F80279;
-	Fri, 12 Jun 2020 07:16:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E969FF802E0;
+	Fri, 12 Jun 2020 07:16:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 229B2F8024A; Fri, 12 Jun 2020 07:16:12 +0200 (CEST)
+ id 4D26AF802DF; Fri, 12 Jun 2020 07:16:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -33,14 +33,14 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E76BF801F7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8ADD2F80058
  for <alsa-devel@alsa-project.org>; Fri, 12 Jun 2020 07:16:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E76BF801F7
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8ADD2F80058
 Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.69 with qID 05C5FtxC6027422,
+X-SpamFilter-By: ArmorX SpamTrap 5.69 with qID 05C5FtxE6027422,
  This message is accepted by code: ctloc85258
 Received: from mail.realtek.com (rtexmb06.realtek.com.tw[172.21.6.99])
- by rtits2.realtek.com.tw (8.15.2/2.66/5.86) with ESMTPS id 05C5FtxC6027422
+ by rtits2.realtek.com.tw (8.15.2/2.66/5.86) with ESMTPS id 05C5FtxE6027422
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
  Fri, 12 Jun 2020 13:15:55 +0800
 Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
@@ -50,13 +50,12 @@ Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
 Received: from derek-pvm.localdomain (172.22.234.205) by
  RTEXMB01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Fri, 12 Jun 2020 13:15:54 +0800
+ 15.1.1779.2; Fri, 12 Jun 2020 13:15:55 +0800
 From: <derek.fang@realtek.com>
 To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH 3/5] ASoC: rt5682: Let PLL2 support the freq conversion for
- 44100Hz sample rate
-Date: Fri, 12 Jun 2020 13:15:23 +0800
-Message-ID: <1591938925-1070-3-git-send-email-derek.fang@realtek.com>
+Subject: [PATCH 4/5] ASoC: rt5682: DAI wclk supports 44100 Hz output
+Date: Fri, 12 Jun 2020 13:15:24 +0800
+Message-ID: <1591938925-1070-4-git-send-email-derek.fang@realtek.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1591938925-1070-1-git-send-email-derek.fang@realtek.com>
 References: <1591938925-1070-1-git-send-email-derek.fang@realtek.com>
@@ -85,59 +84,117 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: "derek.fang" <derek.fang@realtek.com>
 
-PLL2 of rt5682 only supports the freq conversion for 48000Hz
-sample rate so far, this patch lets it support 44100Hz.
+DAI Wclk of rt5682 only supports 48000Hz output so far,
+this patch lets it support 44100Hz.
 
 Signed-off-by: derek.fang <derek.fang@realtek.com>
 ---
- sound/soc/codecs/rt5682.c | 9 ++++++++-
- sound/soc/codecs/rt5682.h | 4 ++++
- 2 files changed, 12 insertions(+), 1 deletion(-)
+ sound/soc/codecs/rt5682.c | 49 ++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 31 insertions(+), 18 deletions(-)
 
 diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
-index ca8e1f2..5959b6a 100644
+index 5959b6a..f9d8d8c 100644
 --- a/sound/soc/codecs/rt5682.c
 +++ b/sound/soc/codecs/rt5682.c
-@@ -2246,7 +2246,7 @@ static int rt5682_set_component_pll(struct snd_soc_component *component,
+@@ -2461,8 +2461,8 @@ static int rt5682_set_bias_level(struct snd_soc_component *component,
+ 
+ #ifdef CONFIG_COMMON_CLK
+ #define CLK_PLL2_FIN 48000000
+-#define CLK_PLL2_FOUT 24576000
+ #define CLK_48 48000
++#define CLK_44 44100
+ 
+ static bool rt5682_clk_check(struct rt5682_priv *rt5682)
  {
- 	struct rt5682_priv *rt5682 = snd_soc_component_get_drvdata(component);
- 	struct rl6231_pll_code pll_code, pll2f_code, pll2b_code;
--	unsigned int pll2_fout1;
-+	unsigned int pll2_fout1, pll2_ps_val;
- 	int ret;
+@@ -2544,13 +2544,22 @@ static unsigned long rt5682_wclk_recalc_rate(struct clk_hw *hw,
+ 	struct rt5682_priv *rt5682 =
+ 		container_of(hw, struct rt5682_priv,
+ 			     dai_clks_hw[RT5682_DAI_WCLK_IDX]);
++	struct snd_soc_component *component = rt5682->component;
++	const char * const clk_name = __clk_get_name(hw->clk);
  
- 	if (source == rt5682->pll_src[pll_id] &&
-@@ -2315,8 +2315,15 @@ static int rt5682_set_component_pll(struct snd_soc_component *component,
- 			pll2b_code.n_code);
- 		snd_soc_component_write(component, RT5682_PLL2_CTRL_3,
- 			pll2f_code.n_code << RT5682_PLL2F_N_SFT);
+ 	if (!rt5682_clk_check(rt5682))
+ 		return 0;
+ 	/*
+-	 * Only accept to set wclk rate to 48kHz temporarily.
++	 * Only accept to set wclk rate to 44.1k or 48kHz.
+ 	 */
+-	return CLK_48;
++	if (rt5682->lrck[RT5682_AIF1] != CLK_48 &&
++	    rt5682->lrck[RT5682_AIF1] != CLK_44) {
++		dev_warn(component->dev, "%s: clk %s only support %d or %d Hz output\n",
++			__func__, clk_name, CLK_44, CLK_48);
++		return 0;
++	}
 +
-+		if (freq_out == 22579200)
-+			pll2_ps_val = 1 << RT5682_PLL2B_SEL_PS_SFT;
-+		else
-+			pll2_ps_val = 1 << RT5682_PLL2B_PS_BYP_SFT;
- 		snd_soc_component_update_bits(component, RT5682_PLL2_CTRL_4,
-+			RT5682_PLL2B_SEL_PS_MASK | RT5682_PLL2B_PS_BYP_MASK |
- 			RT5682_PLL2B_M_BP_MASK | RT5682_PLL2F_M_BP_MASK | 0xf,
-+			pll2_ps_val |
- 			(pll2b_code.m_bp ? 1 : 0) << RT5682_PLL2B_M_BP_SFT |
- 			(pll2f_code.m_bp ? 1 : 0) << RT5682_PLL2F_M_BP_SFT |
- 			0xf);
-diff --git a/sound/soc/codecs/rt5682.h b/sound/soc/codecs/rt5682.h
-index f172c9e..6d94327 100644
---- a/sound/soc/codecs/rt5682.h
-+++ b/sound/soc/codecs/rt5682.h
-@@ -1080,6 +1080,10 @@
- #define RT5682_PLL2F_N_SFT			8
++	return rt5682->lrck[RT5682_AIF1];
+ }
  
- /* PLL2 M/N/K Code Control 2 (0x009e) */
-+#define RT5682_PLL2B_SEL_PS_MASK		(0x1 << 13)
-+#define RT5682_PLL2B_SEL_PS_SFT			13
-+#define RT5682_PLL2B_PS_BYP_MASK		(0x1 << 12)
-+#define RT5682_PLL2B_PS_BYP_SFT			12
- #define RT5682_PLL2B_M_BP_MASK			(0x1 << 11)
- #define RT5682_PLL2B_M_BP_SFT			11
- #define RT5682_PLL2F_M_BP_MASK			(0x1 << 7)
+ static long rt5682_wclk_round_rate(struct clk_hw *hw, unsigned long rate,
+@@ -2559,13 +2568,22 @@ static long rt5682_wclk_round_rate(struct clk_hw *hw, unsigned long rate,
+ 	struct rt5682_priv *rt5682 =
+ 		container_of(hw, struct rt5682_priv,
+ 			     dai_clks_hw[RT5682_DAI_WCLK_IDX]);
++	struct snd_soc_component *component = rt5682->component;
++	const char * const clk_name = __clk_get_name(hw->clk);
+ 
+ 	if (!rt5682_clk_check(rt5682))
+ 		return -EINVAL;
+ 	/*
+-	 * Only accept to set wclk rate to 48kHz temporarily.
++	 * Only accept to set wclk rate to 44.1k or 48kHz.
++	 * It will force to 48kHz if not both.
+ 	 */
+-	return CLK_48;
++	if (rate != CLK_48 && rate != CLK_44) {
++		dev_warn(component->dev, "%s: clk %s only support %d or %d Hz output\n",
++			__func__, clk_name, CLK_44, CLK_48);
++		rate = CLK_48;
++	}
++
++	return rate;
+ }
+ 
+ static int rt5682_wclk_set_rate(struct clk_hw *hw, unsigned long rate,
+@@ -2578,6 +2596,7 @@ static int rt5682_wclk_set_rate(struct clk_hw *hw, unsigned long rate,
+ 	struct clk *parent_clk;
+ 	const char * const clk_name = __clk_get_name(hw->clk);
+ 	int pre_div;
++	unsigned int clk_pll2_out;
+ 
+ 	if (!rt5682_clk_check(rt5682))
+ 		return -EINVAL;
+@@ -2600,23 +2619,17 @@ static int rt5682_wclk_set_rate(struct clk_hw *hw, unsigned long rate,
+ 			clk_name, CLK_PLL2_FIN);
+ 
+ 	/*
+-	 * It's a temporary limitation. Only accept to set wclk rate to 48kHz.
+-	 * It will force wclk to 48kHz even it's not.
+-	 */
+-	if (rate != CLK_48) {
+-		dev_warn(component->dev, "clk %s only support %d Hz output\n",
+-			clk_name, CLK_48);
+-		rate = CLK_48;
+-	}
+-
+-	/*
+-	 * To achieve the rate conversion from 48MHz to 48kHz, PLL2 is needed.
++	 * To achieve the rate conversion from 48MHz to 44.1k or 48kHz,
++	 * PLL2 is needed.
+ 	 */
++	clk_pll2_out = rate * 512;
+ 	rt5682_set_component_pll(component, RT5682_PLL2, RT5682_PLL2_S_MCLK,
+-		CLK_PLL2_FIN, CLK_PLL2_FOUT);
++		CLK_PLL2_FIN, clk_pll2_out);
+ 
+ 	rt5682_set_component_sysclk(component, RT5682_SCLK_S_PLL2, 0,
+-		CLK_PLL2_FOUT, SND_SOC_CLOCK_IN);
++		clk_pll2_out, SND_SOC_CLOCK_IN);
++
++	rt5682->lrck[RT5682_AIF1] = rate;
+ 
+ 	pre_div = rl6231_get_clk_info(rt5682->sysclk, rate);
+ 
 -- 
 2.7.4
 

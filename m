@@ -2,104 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C55DB1F8DD6
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Jun 2020 08:29:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C63B01F8DD8
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Jun 2020 08:30:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 788221679;
-	Mon, 15 Jun 2020 08:28:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 788221679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 62543950;
+	Mon, 15 Jun 2020 08:29:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62543950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592202574;
-	bh=qt1Oxwmr6kui0cYxkhiHpXSs6xtgBLPPFgmcWgX0wEQ=;
+	s=default; t=1592202618;
+	bh=0oX5bUFIZPIh6Yu2gNeMesTtKamWr7cyuqNYHulyo2M=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=o9BPWljXRJAbSwVYkX7EnCOgywkr0P5AXlzcWNfD6+rOlUonBKA2e2YETkwyJn45l
-	 LgQEtD/P1iRwSlX3xNPT20Q8eYsaeg82KfgcJL8UxulRr5snsMdvyXuJhl7umoXrf/
-	 yAagLs2ZIANCQ1qbsg85FGA3JOMPCGwiHGwUJFXI=
+	b=Meb8mdODmQ60jGUQzUtvpJMyQf71bkPwzFlOYYpCo6CucTFiHWz1UDw/AhIkr+0fw
+	 Oj2Zfrp7V3L6uA2JFiZ3mjzykBXvt9r5LVC1VoZoQADKEAxWDTRtPt7MVUJsT3tTfn
+	 2R7etCBUCGOYxesRFf4VSlYoldBzT6Gu3BDTJnbc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BFEBAF8028F;
-	Mon, 15 Jun 2020 08:26:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 12D3EF802C2;
+	Mon, 15 Jun 2020 08:26:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA5DFF8022B; Sun, 14 Jun 2020 05:34:04 +0200 (CEST)
+ id 1F8EDF8022B; Sun, 14 Jun 2020 05:38:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mta-p8.oit.umn.edu (mta-p8.oit.umn.edu [134.84.196.208])
+Received: from mta-p7.oit.umn.edu (mta-p7.oit.umn.edu [134.84.196.207])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2E308F800CD
- for <alsa-devel@alsa-project.org>; Sun, 14 Jun 2020 05:33:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E308F800CD
+ by alsa1.perex.cz (Postfix) with ESMTPS id B336BF800CD
+ for <alsa-devel@alsa-project.org>; Sun, 14 Jun 2020 05:37:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B336BF800CD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=umn.edu header.i=@umn.edu
- header.b="RCPqZHOT"
+ header.b="LGu4gU9j"
 Received: from localhost (unknown [127.0.0.1])
- by mta-p8.oit.umn.edu (Postfix) with ESMTP id 49l0S14xHyz9vbsb
- for <alsa-devel@alsa-project.org>; Sun, 14 Jun 2020 03:33:53 +0000 (UTC)
+ by mta-p7.oit.umn.edu (Postfix) with ESMTP id 49l0Xh4K1Nz9vJs1
+ for <alsa-devel@alsa-project.org>; Sun, 14 Jun 2020 03:37:56 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at umn.edu
-Received: from mta-p8.oit.umn.edu ([127.0.0.1])
- by localhost (mta-p8.oit.umn.edu [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id tJTk_0-Ce93R for <alsa-devel@alsa-project.org>;
- Sat, 13 Jun 2020 22:33:53 -0500 (CDT)
-Received: from mail-io1-f69.google.com (mail-io1-f69.google.com
- [209.85.166.69])
+Received: from mta-p7.oit.umn.edu ([127.0.0.1])
+ by localhost (mta-p7.oit.umn.edu [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id p2JaL0-_lAH7 for <alsa-devel@alsa-project.org>;
+ Sat, 13 Jun 2020 22:37:56 -0500 (CDT)
+Received: from mail-il1-f200.google.com (mail-il1-f200.google.com
+ [209.85.166.200])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mta-p8.oit.umn.edu (Postfix) with ESMTPS id 49l0S136CZz9vbsT
- for <alsa-devel@alsa-project.org>; Sat, 13 Jun 2020 22:33:52 -0500 (CDT)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mta-p8.oit.umn.edu 49l0S136CZz9vbsT
-DKIM-Filter: OpenDKIM Filter v2.11.0 mta-p8.oit.umn.edu 49l0S136CZz9vbsT
-Received: by mail-io1-f69.google.com with SMTP id b30so8960735ioc.8
- for <alsa-devel@alsa-project.org>; Sat, 13 Jun 2020 20:33:52 -0700 (PDT)
+ by mta-p7.oit.umn.edu (Postfix) with ESMTPS id 49l0Xh2dxQz9vJs3
+ for <alsa-devel@alsa-project.org>; Sat, 13 Jun 2020 22:37:56 -0500 (CDT)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mta-p7.oit.umn.edu 49l0Xh2dxQz9vJs3
+DKIM-Filter: OpenDKIM Filter v2.11.0 mta-p7.oit.umn.edu 49l0Xh2dxQz9vJs3
+Received: by mail-il1-f200.google.com with SMTP id e5so9519253ill.10
+ for <alsa-devel@alsa-project.org>; Sat, 13 Jun 2020 20:37:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=umn.edu; s=google;
  h=from:to:cc:subject:date:message-id;
- bh=XJ6IMqjGiHhE6cmEbhidHkelmuGZ0N00fySDcl0BZ0Y=;
- b=RCPqZHOTlWV3l7+1oiYCxljpHmbk3Vk2FFESqIGIuZYEKlFcK7H5LrOb23XIzkcQeZ
- WhM1b5WXU6vzr/g+HtvHM472+dxGp6yLvE/3q58mlhvXk3Aflwnhf0aiKXqQEXszg+oW
- X1aKtOp9qoZD5YMEP+Ea47OrYOM/9X6v68pZfo3sNZyhxVKG2CQ2Klf2L5161j8c6fj4
- Qres46gtzoPMvxS/4lGvKcU53HeXhUSW9wZjtIZSNw/XLpkZOjhFuN4+eLFlnLgo68pj
- MoAsFtlisAtqLggUlmwL9fRYb2uBWUyV7froQVfnLzzFLNe2I6oAUj0YePngSworYW+O
- O7zQ==
+ bh=IEXT8U99mfgcaOdzCXO1tyuVnx/v3mvO9nIAZY0Vi9A=;
+ b=LGu4gU9jBSN6jiOgLF41ABPSsY/SbnVsxr7z9IYaoaFRSa+PwgUohjJtEcBpz0YquI
+ vlvAhzT7q3EJefDVovTfAvEKoSA3LEHZjME9tIv1zzQuyrUAitpTSu2JMzm2RmaCxsrb
+ uMimGbJPmVjbDStWXv9le/WaB6MzdbE31YruEjQiOP20nslrOHn3fgHA26itdNxlRmh0
+ rRvuuE0Jb3zV974QSZ3Nwfc1tFvOWwPyi8UAeqnVFm5bM7paFHLpFxlgEejUZL0dNfzl
+ jw4MehN+jaPcLd1otPtLJ2j8VccfnoNzkWPuld3mku/oqw8aetUMdTEiZLjWlh+4hiis
+ 1V3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=XJ6IMqjGiHhE6cmEbhidHkelmuGZ0N00fySDcl0BZ0Y=;
- b=fjytxkpzA+rTk9Tf5jcVVgQ+Hn1B0JNnV3tEuXU326dptk2xz3xmIvN6PT4DvzPHgh
- z9tps0mByl7Y27Lyy+Ok93huxaSIh6RMJ4rXZURWdrNJTCdr4uFZA/hLvy3SCOxt2TqI
- dtPgH8H3qreTrtto3YE28Ssyh6L4kHMeXkApCmACOuVL/NOfidmT500Fr+Ud8t/gn2B7
- BgBLwSDfMGHCIZRLGcy43vm0mQAtctimXhLjgpdGeXmXJM47bqTVSAvL18oSIQeoH3Am
- VIJvRaQZgQmaCLeThXDJJxqdlRVMecuk1ubB/TGrRUOKQ3e8DzPGEAXdfB8J+XXD5POj
- u4+A==
-X-Gm-Message-State: AOAM533v5Jwsyj+FvqIAL/YtkdC0FiYMcGtdNAk2tf127vHXS/EgAqqx
- VF0+MyJEsYVzkwdSnv1C387qEIoMHk6Btzv2jEia0Q2GHL+qiiHp2FtX9JU6E/W6bDW4XB4Ij6W
- e4PuVghraumws0bWuZ9LAGP0Bvko=
-X-Received: by 2002:a05:6602:2e05:: with SMTP id
- o5mr21472155iow.28.1592105632516; 
- Sat, 13 Jun 2020 20:33:52 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyyQxM25g4plSaC+vGKbkygobkILoafY5rQEhoKV/Z8/cZP1AgGP3MWxJz/Yj++R/EZwGS9KQ==
-X-Received: by 2002:a05:6602:2e05:: with SMTP id
- o5mr21472135iow.28.1592105632167; 
- Sat, 13 Jun 2020 20:33:52 -0700 (PDT)
+ bh=IEXT8U99mfgcaOdzCXO1tyuVnx/v3mvO9nIAZY0Vi9A=;
+ b=Fm6OCEZJpRcB2P0E1ZyppSLAdwVBK1/eSgHYsEKZDkLbl3iOZgld0wFXTaPoccXTD8
+ laKOAYbdddei/FnSs5p4B2kVCTYffCJ0cYflKw4t8KvWfY18/rd3102ZPrsPm5eqg9ka
+ i56G+4yW4sPcIQAWWPAHbBE8yPi5Rc6/O7z8yLOk17VnlhZ/fndIwuQM5Jf6AU8P7Auz
+ ECCG1uqpxsnBM1jLE61HBoeve5gCJ6RWFVS9LrhiBOTJJctrWvt46mOwiFau+YkG0n24
+ GmVWk/FYqkyhCAimdO2gwjf5h+awfrvm6qL8zjEY+Xj1BPVKtpndDU4IjofoWNj+oXOH
+ BDEw==
+X-Gm-Message-State: AOAM533EPkMi+ml2Le2tYKVnLR1SKuPVviOMTsbN4TbuY/+OA+o16g+6
+ P8Fs9BhcZL2+FNhCdcR7uIqRUGDYzCnp4LPfT74Q272pqmSfFwWDC85ZS7yS9rC3hhd8wVrRREG
+ UrC/cGujbTNMct9YDP6S/spGIDj0=
+X-Received: by 2002:a92:c103:: with SMTP id p3mr21158774ile.166.1592105875799; 
+ Sat, 13 Jun 2020 20:37:55 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJw6w5D3XCbepCNS+UhKMisNZolwPKq5uHZS4sl0d2Z5/SkMwZE8Awl6R55bbPrcEZdeRAKnUA==
+X-Received: by 2002:a92:c103:: with SMTP id p3mr21158757ile.166.1592105875467; 
+ Sat, 13 Jun 2020 20:37:55 -0700 (PDT)
 Received: from qiushi.cs.umn.edu ([2607:ea00:101:3c74:4874:45:bcb4:df60])
- by smtp.gmail.com with ESMTPSA id 4sm5763940ilc.34.2020.06.13.20.33.51
+ by smtp.gmail.com with ESMTPSA id y13sm5607734iob.51.2020.06.13.20.37.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 13 Jun 2020 20:33:51 -0700 (PDT)
+ Sat, 13 Jun 2020 20:37:54 -0700 (PDT)
 From: wu000273@umn.edu
 To: kjlu@umn.edu
-Subject: [PATCH] ASoC: img-parallel-out: Fix a reference count leak
-Date: Sat, 13 Jun 2020 22:33:43 -0500
-Message-Id: <20200614033344.1814-1-wu000273@umn.edu>
+Subject: [PATCH] ASoC: img: Fix a reference count leak in img_i2s_in_set_fmt
+Date: Sat, 13 Jun 2020 22:37:48 -0500
+Message-Id: <20200614033749.2975-1-wu000273@umn.edu>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Mon, 15 Jun 2020 08:26:10 +0200
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, wu000273@umn.edu
+Cc: alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ wu000273@umn.edu
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -124,25 +124,25 @@ Thus call pm_runtime_put_noidle() if pm_runtime_get_sync() fails.
 
 Signed-off-by: Qiushi Wu <wu000273@umn.edu>
 ---
- sound/soc/img/img-parallel-out.c | 4 +++-
+ sound/soc/img/img-i2s-in.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/img/img-parallel-out.c b/sound/soc/img/img-parallel-out.c
-index 5ddbe3a31c2e..4da49a42e854 100644
---- a/sound/soc/img/img-parallel-out.c
-+++ b/sound/soc/img/img-parallel-out.c
-@@ -163,8 +163,10 @@ static int img_prl_out_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- 	}
+diff --git a/sound/soc/img/img-i2s-in.c b/sound/soc/img/img-i2s-in.c
+index e30b66b94bf6..0843235d73c9 100644
+--- a/sound/soc/img/img-i2s-in.c
++++ b/sound/soc/img/img-i2s-in.c
+@@ -343,8 +343,10 @@ static int img_i2s_in_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 	chan_control_mask = IMG_I2S_IN_CH_CTL_CLK_TRANS_MASK;
  
- 	ret = pm_runtime_get_sync(prl->dev);
+ 	ret = pm_runtime_get_sync(i2s->dev);
 -	if (ret < 0)
 +	if (ret < 0) {
-+		pm_runtime_put_noidle(prl->dev);
++		pm_runtime_put_noidle(i2s->dev);
  		return ret;
 +	}
  
- 	reg = img_prl_out_readl(prl, IMG_PRL_OUT_CTL);
- 	reg = (reg & ~IMG_PRL_OUT_CTL_EDGE_MASK) | control_set;
+ 	for (i = 0; i < i2s->active_channels; i++)
+ 		img_i2s_in_ch_disable(i2s, i);
 -- 
 2.17.1
 

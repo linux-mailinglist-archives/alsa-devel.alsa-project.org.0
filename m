@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F36C81F9B7A
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Jun 2020 17:07:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCA611F9B81
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Jun 2020 17:08:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5F7D3166C;
-	Mon, 15 Jun 2020 17:06:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F7D3166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5AD271665;
+	Mon, 15 Jun 2020 17:07:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5AD271665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592233643;
-	bh=PtHK/rBq5yXWf/az0yFNy5AZojX854pebSRDvWUlzS0=;
+	s=default; t=1592233690;
+	bh=iQxR19VvnbxFvIXIUb0hXUuSs206NScmeWUhnXmjM9M=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=a6jXILcvGwptT33Yy/pkVCSWWtFa7N0yWcLmKY8NWUfNRiI4H8ECOtiwohzfGKxOk
-	 Ve6dNWCqrEQMrSFjyJYF8jnmD+oec0kUp4fiddkOnE68sG3m7N8T3Xw+sGCrVfk1eQ
-	 CHkNR4KyNa4D3IvD/wROV2tajouxIARbpsTPkNmg=
+	b=FURYD0e4JqRMHpRZUWp1BEpk1NMziaGha9mat+FUtLuOoSQ09RqQVtwh0xcDeoIyZ
+	 ueba9KGIDae8umuxsJN6dPU/1TdQvM4HMvgLQG5GXymu1600+0/+z9y00cLUOGQkXq
+	 FvLLHYY/5yTIvuhHv0LLgH4xpFYVq7YXDvDr6TGU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8417DF8013E;
-	Mon, 15 Jun 2020 17:05:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ABAAEF802A7;
+	Mon, 15 Jun 2020 17:05:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AC168F80171; Mon, 15 Jun 2020 17:05:38 +0200 (CEST)
+ id 278DAF8013E; Mon, 15 Jun 2020 17:05:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,34 +34,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 26894F800EF
- for <alsa-devel@alsa-project.org>; Mon, 15 Jun 2020 17:05:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26894F800EF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1E6FFF8013E
+ for <alsa-devel@alsa-project.org>; Mon, 15 Jun 2020 17:05:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E6FFF8013E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="1QmXNSWb"
+ header.b="IHNPQmqX"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 36E532063A;
- Mon, 15 Jun 2020 15:05:32 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4962520739;
+ Mon, 15 Jun 2020 15:05:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592233532;
- bh=PtHK/rBq5yXWf/az0yFNy5AZojX854pebSRDvWUlzS0=;
+ s=default; t=1592233537;
+ bh=iQxR19VvnbxFvIXIUb0hXUuSs206NScmeWUhnXmjM9M=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=1QmXNSWb34Ac+fdNe92nP4uKPNaUp4hSESZQ/+XPwVvlCvfl/Mdzk2Xp/UIOGMrXq
- YBDtQkBSz3H/qDiUjFgRnXuFdqiecQyj5AtSj4AEp5vuPMBwDezPI/4sqBVEzfDF9m
- O4H/RsZMgt23/SsCJkD2eZnMR2JfGh7m/2v7fbZg=
-Date: Mon, 15 Jun 2020 16:05:30 +0100
+ b=IHNPQmqX1tGZkLo5Ha6lNSoK2zKTaLBn3QCA8GwvAGOwBfH+xUM1xb0Krd0TuKkJV
+ PsVYgYjiPqcHDNVfD5OHLLMmEQ3qeAsWcj+DuLqLNCOH2mOfq26+g/uCK8rBxTLtKz
+ aAUKTiqPJg7c82OFgzYsPdXy3pvWHEkc5tOnv5xE=
+Date: Mon, 15 Jun 2020 16:05:35 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-In-Reply-To: <20200612205938.26415-1-pierre-louis.bossart@linux.intel.com>
-References: <20200612205938.26415-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 0/2] ASoC: topology: fix use-after-free when removing
- components
-Message-Id: <159223353044.8967.3692848694814401597.b4-ty@kernel.org>
-Cc: tiwai@suse.de
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20200612123711.29130-1-srinivas.kandagatla@linaro.org>
+References: <20200612123711.29130-1-srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH 1/2] ASoc: q6afe: add support to get port direction
+Message-Id: <159223353044.8967.4267093488191293280.b4-ty@kernel.org>
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, vkoul@kernel.org,
+ John Stultz <john.stultz@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,19 +77,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 12 Jun 2020 15:59:36 -0500, Pierre-Louis Bossart wrote:
-> This patchset fixes a memory allocation issue and removes a 100%
-> reproducible use-after-free report thrown by KASAN in automated module
-> removal tests across multiple platforms.
-> 
-> All the credit goes to Bard Liao for root-causing the issue. DAIs may
-> be registered at the same time as a component, or when the topology is
-> loaded. This two-step registration causes the memory for
-> topology-based DAIs to allocated last, and conversely to be released
-> first by devres, before the component is released and the DAIs removed
-> from the component DAI list with snd_soc_unregister_dais().
-> 
-> [...]
+On Fri, 12 Jun 2020 13:37:10 +0100, Srinivas Kandagatla wrote:
+> This patch adds support to q6afe_is_rx_port() to get direction
+> of DSP BE dai port, this is useful for setting dailink
+> directions correctly.
 
 Applied to
 
@@ -97,10 +88,10 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: soc-devres: add devm_snd_soc_register_dai()
-      commit: 0fae253af563cf5d1f5dc651d520c3eafd74f183
-[2/2] ASoC: soc-topology: use devm_snd_soc_register_dai()
-      commit: 6ae4902f2f3400503f9b78e87e8371e4ffde1e0c
+[1/2] ASoc: q6afe: add support to get port direction
+      commit: 4a95737440d426e93441d49d11abf4c6526d4666
+[2/2] ASoC: qcom: common: set correct directions for dailinks
+      commit: a2120089251f1fe221305e88df99af16f940e236
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

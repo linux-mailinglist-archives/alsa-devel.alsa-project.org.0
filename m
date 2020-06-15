@@ -2,64 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 416601FA4A7
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jun 2020 01:42:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D817F1FA4AA
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jun 2020 01:43:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D067F165E;
-	Tue, 16 Jun 2020 01:41:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D067F165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 73C0B1607;
+	Tue, 16 Jun 2020 01:42:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73C0B1607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592264550;
-	bh=oW9qoyqhic+SD36ZSuXB/Hfr7ESAOoH5X3cPqByf2gE=;
+	s=default; t=1592264592;
+	bh=rX1DHAOnhPtnb7erlFKAIOqjfys/6ZA52aiWMCtZo7Y=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=U9weWnxVSRXtxz0dp2T8CEiGWTZGN/jfn/Fd6NwqXewdANGhuCeT+UYg4fVgFG2Mi
-	 JoDYIiO7/iQ2K0TA7mpWeqF+Ab7+0Xy7d6Q92+ogVdGy76G0mSMnuU48bcRkATevYV
-	 g7FaQYVfRD/yeUe4FDtQ/53vKXWdvt2qp6cGycAU=
+	b=r5O4EeRLzomeOwAoWvcacw9n/K/5MlKODiiWiJbEQFg+Dhg1NshhocZLhE1OnIh5C
+	 U8EE8HENRIugI1OPyvGRROiiQ+2aSvMansRqFBYrxa3mTtdKTRs6z07vZXSgVlFr16
+	 8OzxjaIg/sF7wuw/KXabzUH2qZrGhwSeaX3JLSbE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9080F801ED;
-	Tue, 16 Jun 2020 01:40:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B518F802BE;
+	Tue, 16 Jun 2020 01:40:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AEFB1F801EB; Tue, 16 Jun 2020 01:40:04 +0200 (CEST)
+ id 1886FF802A1; Tue, 16 Jun 2020 01:40:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5D684F8013E
- for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 01:40:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D684F8013E
+ by alsa1.perex.cz (Postfix) with ESMTPS id C8768F8013E
+ for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 01:40:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8768F8013E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="xweG4/5R"
+ header.b="FwFV+tA4"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 85247207D4;
- Mon, 15 Jun 2020 23:39:58 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id C936C207D4;
+ Mon, 15 Jun 2020 23:40:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592264399;
- bh=oW9qoyqhic+SD36ZSuXB/Hfr7ESAOoH5X3cPqByf2gE=;
+ s=default; t=1592264404;
+ bh=rX1DHAOnhPtnb7erlFKAIOqjfys/6ZA52aiWMCtZo7Y=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=xweG4/5RS2Z5RSPt9NqYbAjZ2KcUXpz9SzEjlwUFVfNpY1azZVLedvt0/CErz3I6D
- dC6NMaR3snwd5gUu8ZMwFzyUPJabHjuKwwEZ3Or07gHVchDm7BNhG+MaR7QY7tHTRh
- S9Ydlo/Sdbnvxc962bHmU9f/FZCVR7dzkzqc3Nfc=
-Date: Tue, 16 Jun 2020 00:39:56 +0100
+ b=FwFV+tA4A7kJf7sdhkLV55rcuqeiXqHZVwcYmF4cAIhRt0Kfu+x2/saCCn3WB9xGU
+ QyG8nOfMzur/WAPA7hSeOW0URwVB7SIuEb+PnGJgR4WnPNJqq3b+BAa5lrl/ew+H0z
+ Uj4+X1can5ZZYawgQ1PAloxnAvFST4rNkCZSojQE=
+Date: Tue, 16 Jun 2020 00:40:01 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87v9k7w90s.wl-kuninori.morimoto.gx@renesas.com>
-References: <87v9k7w90s.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH v2 00/12] ASoC: soc-component: collect component functions
-Message-Id: <159226439189.27409.6970843975826387921.b4-ty@kernel.org>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+To: kjlu@umn.edu, "wu000273@umn.edu" <wu000273@umn.edu>
+In-Reply-To: <20200614033749.2975-1-wu000273@umn.edu>
+References: <20200614033749.2975-1-wu000273@umn.edu>
+Subject: Re: [PATCH] ASoC: img: Fix a reference count leak in
+ img_i2s_in_set_fmt
+Message-Id: <159226439190.27409.3717160114611875111.b4-ty@kernel.org>
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,18 +79,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 04 Jun 2020 17:05:39 +0900, Kuninori Morimoto wrote:
-> We have soc-component.c now, but still many component related
-> functions are implemented many place.
-> This patch-set collect these into soc-component.c.
-> 
-> v1 -> v2
-> 	- remove soc-compress.c exchange
-> 	  (But I have plan to repost it)
-> 	- fixup loop break issue on some functions
-> 	- direct return on some functions
-> 
-> [...]
+On Sat, 13 Jun 2020 22:37:48 -0500, wu000273@umn.edu wrote:
+> pm_runtime_get_sync() increments the runtime PM usage counter even
+> when it returns an error code, causing incorrect ref count if
+> pm_runtime_put_noidle() is not called in error handling paths.
+> Thus call pm_runtime_put_noidle() if pm_runtime_get_sync() fails.
 
 Applied to
 
@@ -94,30 +91,8 @@ Applied to
 
 Thanks!
 
-[01/12] ASoC: soc-component: add soc_component_pin() and share code
-        commit: 4ca8701ee3106943c84d011c86a7ae41aff72e17
-[02/12] ASoC: soc-component: move snd_soc_component_xxx_regmap() to soc-component
-        commit: c7d75b5938e38a48e5fdac44f88fc5882f1f7bed
-[03/12] ASoC: soc-component: move snd_soc_component_initialize() to soc-component.c
-        commit: 536aba1dd4939bf647f5d182d4f101ae548e6505
-[04/12] ASoC: soc-component: add soc_component_err()
-        commit: e2329eeba45fdad5eeb2bec5c61f8cefbee69cb8
-[05/12] ASoC: soc-component: add snd_soc_pcm_component_prepare()
-        commit: 4f39514f36980a4b20a754a5d51486a5999c8380
-[06/12] ASoC: soc-component: add snd_soc_pcm_component_hw_params()
-        commit: e1bafa828e3a0622ac24d238e00937f3059ed585
-[07/12] ASoC: soc-component: add snd_soc_pcm_component_hw_free()
-        commit: 047511198639649bdaacb1a34d9691429ccc5698
-[08/12] ASoC: soc-component: add snd_soc_pcm_component_trigger()
-        commit: 32fd120475c1b8a83d28bfedc2b95ec981fbb809
-[09/12] ASoC: soc-component: add snd_soc_component_init()
-        commit: 257c4dac8b7877c865e734533b5f62769c64afb6
-[10/12] ASoC: soc-component: merge soc-io.c into soc-component.c
-        commit: 460b42d162e3cf634586999e6a84e74ca52e626d
-[11/12] ASoC: soc-component: merge soc_pcm_trigger_start/stop()
-        commit: 836367be289d5b130769fd7c46172557e614a148
-[12/12] ASoC: soc-component: tidyup Copyright
-        commit: 45108214dbfdba4a07061d2a4db6dc12475049f2
+[1/1] ASoC: img: Fix a reference count leak in img_i2s_in_set_fmt
+      commit: c4c59b95b7f7d4cef5071b151be2dadb33f3287b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

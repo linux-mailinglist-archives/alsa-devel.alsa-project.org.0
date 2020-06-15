@@ -2,66 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E884F1F9B9A
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Jun 2020 17:10:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E62821F9C86
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Jun 2020 18:03:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 943311680;
-	Mon, 15 Jun 2020 17:09:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 943311680
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8FE1D1678;
+	Mon, 15 Jun 2020 18:02:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FE1D1678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592233809;
-	bh=OTLgPo+ey8vWrk85z+vPQi706mBEQnrrnU/gJ011Lo0=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=m9ci6eY8afgche1/BtG+OoMqmFgYZYXDPwWv2CcYE4BO+V25Mdfo6OQeZLJONGpcg
-	 fialiYReyOa/44qXl8eNL2l5/NbMzUjBjK0VXcTBcVPrYkF632GIk7ffXbpzCjSTQB
-	 L2+XhUO+V6kWOzCKQlx6dhmSlNcnJANn58ZKU0VU=
+	s=default; t=1592237020;
+	bh=JbRUPyLeaiPJE5ACqzhA7KR3HPEIh54zflf7lpT/duQ=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=bdQYe3WDan0eFBeOJYg6/Toe5QkEfgnNT3DeXOaCIijlSuPVdJMYW19gDkAD28a3T
+	 UVDAEOzyBzZV3f6WhPwtaOcbyi2E+H5bwqpfU3DXY5SBLyA1QpOoMKQ69FveIEdXz3
+	 ++BINez0NoHrvjdWdbo1Dmj/nGv+0fAVYCEf0HG8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 25391F802EA;
-	Mon, 15 Jun 2020 17:06:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4377F802A2;
+	Mon, 15 Jun 2020 18:01:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7D81F802DC; Mon, 15 Jun 2020 17:06:02 +0200 (CEST)
+ id 1CCEFF8028F; Mon, 15 Jun 2020 18:00:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6733AF802E0
- for <alsa-devel@alsa-project.org>; Mon, 15 Jun 2020 17:05:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6733AF802E0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="szNzxCWU"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8E5862078E;
- Mon, 15 Jun 2020 15:05:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592233558;
- bh=OTLgPo+ey8vWrk85z+vPQi706mBEQnrrnU/gJ011Lo0=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=szNzxCWURmoRZnB3TCcg1IR8wI0bPdM+kaZkmj0eCYR9O0s3UcoPmzo5+tboq8xlk
- ZdnPerNpVzkefMyOwseGxzemUtwUEAgS0w9NSdoqaZATqkrK7ysjVD2AoCSvC5H9/B
- aa79s0TI2ih7IC257mmQgwNHdCfQJpnQaoWDLUBU=
-Date: Mon, 15 Jun 2020 16:05:55 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-In-Reply-To: <20200612203507.25621-1-pierre-louis.bossart@linux.intel.com>
-References: <20200612203507.25621-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ASoC: soc-pcm: fix checks for multi-cpu FE dailinks
-Message-Id: <159223353044.8967.584162671987051442.b4-ty@kernel.org>
-Cc: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6188EF80171
+ for <alsa-devel@alsa-project.org>; Mon, 15 Jun 2020 18:00:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6188EF80171
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 32B8CABE3
+ for <alsa-devel@alsa-project.org>; Mon, 15 Jun 2020 16:00:51 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 0/4] Fix potential issues with x86 PCM SG-buffer
+Date: Mon, 15 Jun 2020 18:00:41 +0200
+Message-Id: <20200615160045.2703-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.16.4
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,40 +60,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 12 Jun 2020 15:35:07 -0500, Pierre-Louis Bossart wrote:
-> soc_dpcm_fe_runtime_update() is called for all dailinks, and we want
-> to first discard all back-ends, then deal with front-ends.
-> 
-> The existing code first reports an error with multi-cpu front-ends,
-> and that check needs to be moved after we know that we are dealing
-> with a front-end.
-> 
-> [...]
+Hi,
 
-Applied to
+it turned out that x86 SG-pages that are used for PCM buffers aren't
+safe on x86 in all cases, and we need some limitation and workarounds
+for non-standard configurations.  This patch set is an attempt to
+paper over it in a minimalistic way.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Thanks!
+Takashi
 
-[1/1] ASoC: soc-pcm: fix checks for multi-cpu FE dailinks
-      commit: 96bf62f018f40cb5d4e4bed95e50fd990a2354af
+===
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Takashi Iwai (4):
+  ALSA: pcm: Use dma_mmap_coherent() on x86, too
+  ALSA: memalloc: Initialize all fields of snd_dma_buffer properly
+  ALSA: memalloc: Make SG-buffer helper usable for continuous buffer,
+    too
+  ALSA: pcm: Use SG-buffer only when direct DMA is available
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+ include/sound/memalloc.h |  9 ++++++++-
+ sound/core/memalloc.c    |  7 +++----
+ sound/core/pcm_memory.c  | 13 +++++++++++++
+ sound/core/pcm_native.c  |  2 --
+ sound/core/sgbuf.c       |  3 +++
+ 5 files changed, 27 insertions(+), 7 deletions(-)
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+-- 
+2.16.4
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

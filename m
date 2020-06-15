@@ -2,65 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F24A1FA4C2
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jun 2020 01:48:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A7F91FA4C3
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jun 2020 01:48:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 00C9E166F;
-	Tue, 16 Jun 2020 01:47:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00C9E166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC7B11660;
+	Tue, 16 Jun 2020 01:47:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC7B11660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592264897;
-	bh=lOvmryFJWxVe+rag3gT3bLGVqKZmlDGKv/2fXSTKcXc=;
+	s=default; t=1592264917;
+	bh=wmMrTJlDcXeeLr5UjbU5+uAWskHZyXjosJMgpE4Z/Ys=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CS0QWnhSElIcz4ZdsxqIkxZQ+CqmAWK6sguBXv7Fdv2u7+zjk2le5GjTS+4k7NU7v
-	 PI+9CrhPFzKmjCxLLTQ6btGHnWYXq01uI403jWku902xO3UiR76K7GZuHaNOvCC3YU
-	 ipCwcjMg24ORbZE/aDphHEURlxMIvqWopAJWQ2/0=
+	b=rUbNAsZRKcgGsC+Sg+tfssthV+7MoSJv4sc9VbHwYVU1m186hEwufY60pXIe2YNBO
+	 BI1Q7goSlJKYky4fH5+m1rVNJSyrIMcFRzjmQ51DMzTojcO9aFqh87D3TvGLWFmF6I
+	 36brXkymDnKvcF9wWkFro5PbSBb/qUq4C4NfeMMU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 474F3F8032A;
-	Tue, 16 Jun 2020 01:41:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59E19F80332;
+	Tue, 16 Jun 2020 01:41:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D1C29F8032A; Tue, 16 Jun 2020 01:40:58 +0200 (CEST)
+ id 62CACF80331; Tue, 16 Jun 2020 01:41:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AA76AF80328
- for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 01:40:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA76AF80328
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9900AF80162
+ for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 01:40:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9900AF80162
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="NQdbvAuO"
+ header.b="FMytGS/l"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id AE27A207D3;
- Mon, 15 Jun 2020 23:40:50 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id C3B46208C7;
+ Mon, 15 Jun 2020 23:40:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592264451;
- bh=lOvmryFJWxVe+rag3gT3bLGVqKZmlDGKv/2fXSTKcXc=;
+ s=default; t=1592264456;
+ bh=wmMrTJlDcXeeLr5UjbU5+uAWskHZyXjosJMgpE4Z/Ys=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=NQdbvAuOSDp9BpJB3wd+YzO8Whu2ZOvFfjfyERBOO3HUkGmb2RvqZEj3g5jbilADU
- Sb/SVegDwxQFs38vOWpYdt2ija6CjFJCIu4f9TqY89OoMwWtF6UBklB1AQrPLoku/t
- rp4OivZxVmkOEo/eHUtmCpv0ovBJjlLmin/2/fqY=
-Date: Tue, 16 Jun 2020 00:40:49 +0100
+ b=FMytGS/l9Q7rfRAWWuUJCjK4MdsYQ2tN5IbvduDrZtNhidlx8yhZFOPzGNUGHL5GW
+ v9X3c71oALhFIQgqNdVKcPZ89EWHihH25poCzcxKLBrGUYKbqvAn3F1mFvdoO5iYbY
+ 0icsalBe+CJcIfNBdvnAOTaxIYIvjfkZiwZSGleI=
+Date: Tue, 16 Jun 2020 00:40:54 +0100
 From: Mark Brown <broonie@kernel.org>
-To: kjlu@umn.edu, "wu000273@umn.edu" <wu000273@umn.edu>
-In-Reply-To: <20200614033344.1814-1-wu000273@umn.edu>
-References: <20200614033344.1814-1-wu000273@umn.edu>
-Subject: Re: [PATCH] ASoC: img-parallel-out: Fix a reference count leak
-Message-Id: <159226439190.27409.17076823025937855745.b4-ty@kernel.org>
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>
+To: Jiaxin Yu <jiaxin.yu@mediatek.com>, lgirdwood@gmail.com,
+ matthias.bgg@gmail.com, tiwai@suse.com, hariprasad.kelam@gmail.com
+In-Reply-To: <1591353222-18576-1-git-send-email-jiaxin.yu@mediatek.com>
+References: <1591353222-18576-1-git-send-email-jiaxin.yu@mediatek.com>
+Subject: Re: [PATCH v2 0/2] ASoC: mediatek: mt6358: support DMIC one-wire mode
+Message-Id: <159226439189.27409.5559737025420657238.b4-ty@kernel.org>
+Cc: alsa-devel@alsa-project.org, howie.huang@mediatek.com,
+ linux-kernel@vger.kernel.org, tzungbi@google.com,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,11 +78,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 13 Jun 2020 22:33:43 -0500, wu000273@umn.edu wrote:
-> pm_runtime_get_sync() increments the runtime PM usage counter even
-> when it returns an error code, causing incorrect ref count if
-> pm_runtime_put_noidle() is not called in error handling paths.
-> Thus call pm_runtime_put_noidle() if pm_runtime_get_sync() fails.
+On Fri, 5 Jun 2020 18:33:40 +0800, Jiaxin Yu wrote:
+> v2 changes:
+> 	1. Uses a DT property to select DMIC mode instead of a mixer control.
+> 
+> v1 changes:
+> 	1. Uses a mixer control to select DMIC mode.
+> 	2. patchwork list:
+> 		https://patchwork.kernel.org/patch/11578309
+> 
+> [...]
 
 Applied to
 
@@ -88,8 +95,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: img-parallel-out: Fix a reference count leak
-      commit: 6b9fbb073636906eee9fe4d4c05a4f445b9e2a23
+[1/2] ASoC: mediatek: mt6358: support DMIC one-wire mode
+      commit: c46fc800948c2d0afb548ca12453b837aa1ac880
+[2/2] ASoC: dt-bindings: mediatek: mt6358: add dmic-mode property
+      commit: 6323f13b4d927f52f339f7122676de0b0d1da3c3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 494EB1F96CE
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Jun 2020 14:42:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F36C81F9B7A
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Jun 2020 17:07:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D31F0165D;
-	Mon, 15 Jun 2020 14:41:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D31F0165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F7D3166C;
+	Mon, 15 Jun 2020 17:06:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F7D3166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592224924;
-	bh=EO5ZRYBpH1C4C5qa2NcbMw592fMRBuFirZPGlbFWgZM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1592233643;
+	bh=PtHK/rBq5yXWf/az0yFNy5AZojX854pebSRDvWUlzS0=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AwwBSv5qhfgADrxNuz8Reaf/w6a6w5COlKt8LFqOuMynMQytBpaPm4PueU7II4sOD
-	 2dNLlAyQm29UI1V5agjKMrf+GQyQqwJ8fgvwNzP43enL67TZKL05/AeehaeK4tV3md
-	 lX7MXnMBtb0gB1yjHuUINDV5XZlTfqGCVLIErisw=
+	b=a6jXILcvGwptT33Yy/pkVCSWWtFa7N0yWcLmKY8NWUfNRiI4H8ECOtiwohzfGKxOk
+	 Ve6dNWCqrEQMrSFjyJYF8jnmD+oec0kUp4fiddkOnE68sG3m7N8T3Xw+sGCrVfk1eQ
+	 CHkNR4KyNa4D3IvD/wROV2tajouxIARbpsTPkNmg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03E86F80162;
-	Mon, 15 Jun 2020 14:40:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8417DF8013E;
+	Mon, 15 Jun 2020 17:05:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C14BCF80171; Mon, 15 Jun 2020 14:40:20 +0200 (CEST)
+ id AC168F80171; Mon, 15 Jun 2020 17:05:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,41 +34,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 70623F800EF
- for <alsa-devel@alsa-project.org>; Mon, 15 Jun 2020 14:40:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70623F800EF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 26894F800EF
+ for <alsa-devel@alsa-project.org>; Mon, 15 Jun 2020 17:05:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26894F800EF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="oL7MGWqx"
+ header.b="1QmXNSWb"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id DCA07206D7;
- Mon, 15 Jun 2020 12:40:13 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 36E532063A;
+ Mon, 15 Jun 2020 15:05:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592224814;
- bh=EO5ZRYBpH1C4C5qa2NcbMw592fMRBuFirZPGlbFWgZM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=oL7MGWqxb7/sHBciJkrGU8DD+KZlRiKzHJ74HIG12Az6wHonwsHTNTgtloHbnGRcj
- /QwdGybYjHazzpVxdUQsYIm4bLsnRA5KW8pOQwTqgJDVshFRmE6VWUuBA7bQe8LRSF
- CpA46qSwmr6OmDHrvC9yir2bl19Ej1Vcl5GQH/74=
-Date: Mon, 15 Jun 2020 13:40:11 +0100
+ s=default; t=1592233532;
+ bh=PtHK/rBq5yXWf/az0yFNy5AZojX854pebSRDvWUlzS0=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=1QmXNSWb34Ac+fdNe92nP4uKPNaUp4hSESZQ/+XPwVvlCvfl/Mdzk2Xp/UIOGMrXq
+ YBDtQkBSz3H/qDiUjFgRnXuFdqiecQyj5AtSj4AEp5vuPMBwDezPI/4sqBVEzfDF9m
+ O4H/RsZMgt23/SsCJkD2eZnMR2JfGh7m/2v7fbZg=
+Date: Mon, 15 Jun 2020 16:05:30 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Jonathan Bakker <xc-racer2@live.ca>
-Subject: Re: [PATCH 1/3] dt-bindings: sound: Document wm8994 endpoints
-Message-ID: <20200615124011.GQ4447@sirena.org.uk>
-References: <20200614202411.27843-1-xc-racer2@live.ca>
- <BN6PR04MB066019A8783D22F1C4A588B7A39F0@BN6PR04MB0660.namprd04.prod.outlook.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="0pkK7MCEo5hACTvx"
-Content-Disposition: inline
-In-Reply-To: <BN6PR04MB066019A8783D22F1C4A588B7A39F0@BN6PR04MB0660.namprd04.prod.outlook.com>
-X-Cookie: Offer may end without notice.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, sbkim73@samsung.com, linux-kernel@vger.kernel.org,
- tiwai@suse.com, krzk@kernel.org, robh+dt@kernel.org
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+In-Reply-To: <20200612205938.26415-1-pierre-louis.bossart@linux.intel.com>
+References: <20200612205938.26415-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 0/2] ASoC: topology: fix use-after-free when removing
+ components
+Message-Id: <159223353044.8967.3692848694814401597.b4-ty@kernel.org>
+Cc: tiwai@suse.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,35 +77,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, 12 Jun 2020 15:59:36 -0500, Pierre-Louis Bossart wrote:
+> This patchset fixes a memory allocation issue and removes a 100%
+> reproducible use-after-free report thrown by KASAN in automated module
+> removal tests across multiple platforms.
+> 
+> All the credit goes to Bard Liao for root-causing the issue. DAIs may
+> be registered at the same time as a component, or when the topology is
+> loaded. This two-step registration causes the memory for
+> topology-based DAIs to allocated last, and conversely to be released
+> first by devres, before the component is released and the DAIs removed
+> from the component DAI list with snd_soc_unregister_dais().
+> 
+> [...]
 
---0pkK7MCEo5hACTvx
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Sun, Jun 14, 2020 at 01:24:09PM -0700, Jonathan Bakker wrote:
-> The wm8994 exposes several inputs and outputs that can be used by
-> machine drivers in their routing.  Add them to the documention so
-> they don't have been duplicated in any machine drivers bindings.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
+Thanks!
 
---0pkK7MCEo5hACTvx
-Content-Type: application/pgp-signature; name="signature.asc"
+[1/2] ASoC: soc-devres: add devm_snd_soc_register_dai()
+      commit: 0fae253af563cf5d1f5dc651d520c3eafd74f183
+[2/2] ASoC: soc-topology: use devm_snd_soc_register_dai()
+      commit: 6ae4902f2f3400503f9b78e87e8371e4ffde1e0c
 
------BEGIN PGP SIGNATURE-----
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7nbCoACgkQJNaLcl1U
-h9BsHAf/R6p55ub66+PR9VoeILZ3Cel+cYNBquoO9QHAW7l3ZzoLyIGqAp3+HqMz
-CDspNYVkwDTh/lheZ5gCxCJojyx+XZIv7ypw7jk8qmPlq4ICg3Mfr8CYedv0iOWt
-3lllvjaGn3onurgnp5AL086sjlU04BVyfi5NVt6RtCxYVTZM3lmJbOvS063tcHIf
-+95X95RPCersu7prWaUarL/MD+PKPMdLvzQqWo8+YZ5CmtdJULDPPfk6l6trGiuH
-nCLjvbWMZu8OGLAqcgf2bWDbu6RbaCCIO9SmGfl3oBOS1aTyoCHk5uMhuhCBxRfn
-3q3R0h86r0xl2NoEBOrRZ+gCE7y4vQ==
-=Qt7u
------END PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
---0pkK7MCEo5hACTvx--
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

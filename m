@@ -2,67 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D59E1F9B98
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Jun 2020 17:09:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E884F1F9B9A
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Jun 2020 17:10:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4271E166F;
-	Mon, 15 Jun 2020 17:09:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4271E166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 943311680;
+	Mon, 15 Jun 2020 17:09:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 943311680
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592233791;
-	bh=8P4ykyY8jMlSD8oJWEmDnxXO3o+Qr3wpbMtJbKmW9TI=;
+	s=default; t=1592233809;
+	bh=OTLgPo+ey8vWrk85z+vPQi706mBEQnrrnU/gJ011Lo0=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HcY8mN3PggaK95zGxhMgdDyZOoT5OjKkJn+OFFSpzPhLNj81FjtICStC9jYCutVrN
-	 KIXt5lHTVO6SdXQGtl9moUlVYPBIIU6dJ/u46L4UF6uns7GGb1w7lWNHmiVRqkKTng
-	 J3EkWu0TSuQfOp3VTheGD++tERhM25MQgI3njiOU=
+	b=m9ci6eY8afgche1/BtG+OoMqmFgYZYXDPwWv2CcYE4BO+V25Mdfo6OQeZLJONGpcg
+	 fialiYReyOa/44qXl8eNL2l5/NbMzUjBjK0VXcTBcVPrYkF632GIk7ffXbpzCjSTQB
+	 L2+XhUO+V6kWOzCKQlx6dhmSlNcnJANn58ZKU0VU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 229FAF802DC;
-	Mon, 15 Jun 2020 17:06:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25391F802EA;
+	Mon, 15 Jun 2020 17:06:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A445CF802E3; Mon, 15 Jun 2020 17:06:00 +0200 (CEST)
+ id A7D81F802DC; Mon, 15 Jun 2020 17:06:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7B310F802DC
- for <alsa-devel@alsa-project.org>; Mon, 15 Jun 2020 17:05:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B310F802DC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6733AF802E0
+ for <alsa-devel@alsa-project.org>; Mon, 15 Jun 2020 17:05:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6733AF802E0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Ldg4Kbuf"
+ header.b="szNzxCWU"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7A9442074D;
- Mon, 15 Jun 2020 15:05:52 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 8E5862078E;
+ Mon, 15 Jun 2020 15:05:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592233553;
- bh=8P4ykyY8jMlSD8oJWEmDnxXO3o+Qr3wpbMtJbKmW9TI=;
+ s=default; t=1592233558;
+ bh=OTLgPo+ey8vWrk85z+vPQi706mBEQnrrnU/gJ011Lo0=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=Ldg4KbufKcgTOoKDAfoTn2Ai3j7ShEZqCqVryxxNOI7mvxCIT+FIf57U37craYpCI
- t4hZL1ckrme8kKqbfi8cDh9tiVVglAi10+YE5c5Dutvz4KeiPUC/gXxnAhto2MREPq
- QX0lnF/DiXaDxnTRa/MHsuazsyV9wXUATd4YhIPc=
-Date: Mon, 15 Jun 2020 16:05:50 +0100
+ b=szNzxCWURmoRZnB3TCcg1IR8wI0bPdM+kaZkmj0eCYR9O0s3UcoPmzo5+tboq8xlk
+ ZdnPerNpVzkefMyOwseGxzemUtwUEAgS0w9NSdoqaZATqkrK7ysjVD2AoCSvC5H9/B
+ aa79s0TI2ih7IC257mmQgwNHdCfQJpnQaoWDLUBU=
+Date: Mon, 15 Jun 2020 16:05:55 +0100
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, "jack.yu@realtek.com" <jack.yu@realtek.com>
-In-Reply-To: <20200615032433.31061-1-jack.yu@realtek.com>
-References: <20200615032433.31061-1-jack.yu@realtek.com>
-Subject: Re: [PATCH 1/2] ASoC: rt1015: Update rt1015 default register value
- according to spec modification.
-Message-Id: <159223353044.8967.16766188900025141454.b4-ty@kernel.org>
-Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lars@metafoo.de,
- kent_chen@realtek.com, kenny_chen@realtek.com, derek.fang@realtek.com,
- shumingf@realtek.com, flove@realtek.com
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+In-Reply-To: <20200612203507.25621-1-pierre-louis.bossart@linux.intel.com>
+References: <20200612203507.25621-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: soc-pcm: fix checks for multi-cpu FE dailinks
+Message-Id: <159223353044.8967.584162671987051442.b4-ty@kernel.org>
+Cc: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,8 +77,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 15 Jun 2020 11:24:32 +0800, jack.yu@realtek.com wrote:
-> Update rt1015 default register value according to spec modification.
+On Fri, 12 Jun 2020 15:35:07 -0500, Pierre-Louis Bossart wrote:
+> soc_dpcm_fe_runtime_update() is called for all dailinks, and we want
+> to first discard all back-ends, then deal with front-ends.
+> 
+> The existing code first reports an error with multi-cpu front-ends,
+> and that check needs to be moved after we know that we are dealing
+> with a front-end.
+> 
+> [...]
 
 Applied to
 
@@ -87,8 +93,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: rt1015: Update rt1015 default register value according to spec modification.
-      commit: e74a1e7eaed95f2c6422e7cf9ed70154f17a6db3
+[1/1] ASoC: soc-pcm: fix checks for multi-cpu FE dailinks
+      commit: 96bf62f018f40cb5d4e4bed95e50fd990a2354af
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9AD91FA836
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jun 2020 07:29:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4FDD1FA83D
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jun 2020 07:30:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6DFDF169B;
-	Tue, 16 Jun 2020 07:28:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DFDF169B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C841168D;
+	Tue, 16 Jun 2020 07:29:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C841168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592285361;
-	bh=r2/04bUccwZvE3T8XlhSMH0sn8EAtwdiqiiVRxpSNkE=;
+	s=default; t=1592285406;
+	bh=LpSGj/zxf0WB/y0upX6pZkVz9zlQFndN66NjH8FhNKI=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bWuA6UbCxyamdDrDgo0lekIxCxgW50PWyDUheio1TVt0OOratt06RVa3HE0h/pbqR
-	 xEm9lANRyoowzdYU2953yYKdmSErvmDe5wxy7LyT0c7WwfMBLeGbipdYAbQDJOSdsp
-	 FQc5rxh/etCEHDKa0zGB48lQzGf3cFUPkUq4opZY=
+	b=OqpPCyJJuxkZKIqU80UTeAZOlKTDGrw2+VJsZnb2LwaHulekgm7Z0okHz3KoVbTg8
+	 Qlub6DxnAtRpt6apoIi01880r9OoJf7XqysDtLzg9DGn3aCJ7OvZJYV55j6LK8yhDs
+	 J3JRUy7WxJ27m2wegvmC3cLLqikDpODEDjU7JiSA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16898F80345;
-	Tue, 16 Jun 2020 07:21:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21952F8034B;
+	Tue, 16 Jun 2020 07:22:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DF32AF80333; Tue, 16 Jun 2020 07:21:54 +0200 (CEST)
+ id 4D063F80347; Tue, 16 Jun 2020 07:21:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 26777F80245
- for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 07:21:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26777F80245
-Date: 16 Jun 2020 14:21:46 +0900
-X-IronPort-AV: E=Sophos;i="5.73,517,1583161200"; d="scan'208";a="49577460"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 0EFC5F80323
+ for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 07:21:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0EFC5F80323
+Date: 16 Jun 2020 14:21:50 +0900
+X-IronPort-AV: E=Sophos;i="5.73,517,1583161200"; d="scan'208";a="49787724"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 16 Jun 2020 14:21:46 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 16 Jun 2020 14:21:50 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id B4B7641AA3F9;
- Tue, 16 Jun 2020 14:21:46 +0900 (JST)
-Message-ID: <87a7134mc4.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id DA49C41AA3F9;
+ Tue, 16 Jun 2020 14:21:50 +0900 (JST)
+Message-ID: <878sgn4mc0.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 14/16] ASoC: codecs: cs*: rename to snd_soc_component_read()
+Subject: [PATCH 15/16] ASoC: codecs: ak*: rename to snd_soc_component_read()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87tuzb4mjg.wl-kuninori.morimoto.gx@renesas.com>
@@ -77,122 +77,86 @@ This patch renames _read32() to _read()
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/codecs/cs4270.c  | 10 +++++-----
- sound/soc/codecs/cs42l42.c |  2 +-
- sound/soc/codecs/cs42l51.c |  8 ++++----
- sound/soc/codecs/cs42l73.c |  4 ++--
- 4 files changed, 12 insertions(+), 12 deletions(-)
+ sound/soc/codecs/ak4458.c | 2 +-
+ sound/soc/codecs/ak4535.c | 4 ++--
+ sound/soc/codecs/ak4671.c | 8 ++++----
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/codecs/cs4270.c b/sound/soc/codecs/cs4270.c
-index 8a02791e44ad..3e8dabc14f05 100644
---- a/sound/soc/codecs/cs4270.c
-+++ b/sound/soc/codecs/cs4270.c
-@@ -355,7 +355,7 @@ static int cs4270_hw_params(struct snd_pcm_substream *substream,
+diff --git a/sound/soc/codecs/ak4458.c b/sound/soc/codecs/ak4458.c
+index 71562154c0b1..f180cb5dfe4f 100644
+--- a/sound/soc/codecs/ak4458.c
++++ b/sound/soc/codecs/ak4458.c
+@@ -410,7 +410,7 @@ static int ak4458_set_dai_mute(struct snd_soc_dai *dai, int mute)
  
- 	/* Set the sample rate */
+ 	nfs = ak4458->fs;
  
--	reg = snd_soc_component_read32(component, CS4270_MODE);
-+	reg = snd_soc_component_read(component, CS4270_MODE);
- 	reg &= ~(CS4270_MODE_SPEED_MASK | CS4270_MODE_DIV_MASK);
- 	reg |= cs4270_mode_ratios[i].mclk;
+-	reg = snd_soc_component_read32(component, AK4458_0B_CONTROL7);
++	reg = snd_soc_component_read(component, AK4458_0B_CONTROL7);
+ 	ats = (reg & AK4458_ATS_MASK) >> AK4458_ATS_SHIFT;
  
-@@ -372,7 +372,7 @@ static int cs4270_hw_params(struct snd_pcm_substream *substream,
- 
- 	/* Set the DAI format */
- 
--	reg = snd_soc_component_read32(component, CS4270_FORMAT);
-+	reg = snd_soc_component_read(component, CS4270_FORMAT);
- 	reg &= ~(CS4270_FORMAT_DAC_MASK | CS4270_FORMAT_ADC_MASK);
- 
- 	switch (cs4270->mode) {
-@@ -412,7 +412,7 @@ static int cs4270_dai_mute(struct snd_soc_dai *dai, int mute)
- 	struct cs4270_private *cs4270 = snd_soc_component_get_drvdata(component);
- 	int reg6;
- 
--	reg6 = snd_soc_component_read32(component, CS4270_MUTE);
-+	reg6 = snd_soc_component_read(component, CS4270_MUTE);
- 
- 	if (mute)
- 		reg6 |= CS4270_MUTE_DAC_A | CS4270_MUTE_DAC_B;
-@@ -567,7 +567,7 @@ static int cs4270_soc_suspend(struct snd_soc_component *component)
- 	struct cs4270_private *cs4270 = snd_soc_component_get_drvdata(component);
- 	int reg, ret;
- 
--	reg = snd_soc_component_read32(component, CS4270_PWRCTL) | CS4270_PWRCTL_PDN_ALL;
-+	reg = snd_soc_component_read(component, CS4270_PWRCTL) | CS4270_PWRCTL_PDN_ALL;
- 	if (reg < 0)
- 		return reg;
- 
-@@ -599,7 +599,7 @@ static int cs4270_soc_resume(struct snd_soc_component *component)
- 	regcache_sync(cs4270->regmap);
- 
- 	/* ... then disable the power-down bits */
--	reg = snd_soc_component_read32(component, CS4270_PWRCTL);
-+	reg = snd_soc_component_read(component, CS4270_PWRCTL);
- 	reg &= ~CS4270_PWRCTL_PDN_ALL;
- 
- 	return snd_soc_component_write(component, CS4270_PWRCTL, reg);
-diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
-index 5125bb9b37b5..3bc2fa229ef3 100644
---- a/sound/soc/codecs/cs42l42.c
-+++ b/sound/soc/codecs/cs42l42.c
-@@ -877,7 +877,7 @@ static int cs42l42_digital_mute(struct snd_soc_dai *dai, int mute)
- 				CS42L42_PLL_START_MASK,
- 				1 << CS42L42_PLL_START_SHIFT);
- 		/* Read the headphone load */
--		regval = snd_soc_component_read32(component, CS42L42_LOAD_DET_RCSTAT);
-+		regval = snd_soc_component_read(component, CS42L42_LOAD_DET_RCSTAT);
- 		if (((regval & CS42L42_RLA_STAT_MASK) >>
- 			CS42L42_RLA_STAT_SHIFT) == CS42L42_RLA_STAT_15_OHM) {
- 			fullScaleVol = CS42L42_HP_FULL_SCALE_VOL_MASK;
-diff --git a/sound/soc/codecs/cs42l51.c b/sound/soc/codecs/cs42l51.c
-index e47758e4fb36..dde9812490de 100644
---- a/sound/soc/codecs/cs42l51.c
-+++ b/sound/soc/codecs/cs42l51.c
-@@ -61,7 +61,7 @@ static int cs42l51_get_chan_mix(struct snd_kcontrol *kcontrol,
- 			struct snd_ctl_elem_value *ucontrol)
+ 	ndt = att_speed[ats] / (nfs / 1000);
+diff --git a/sound/soc/codecs/ak4535.c b/sound/soc/codecs/ak4535.c
+index b2635f3b11ca..f5ad1f59eb46 100644
+--- a/sound/soc/codecs/ak4535.c
++++ b/sound/soc/codecs/ak4535.c
+@@ -261,7 +261,7 @@ static int ak4535_hw_params(struct snd_pcm_substream *substream,
  {
- 	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
--	unsigned long value = snd_soc_component_read32(component, CS42L51_PCM_MIXER)&3;
-+	unsigned long value = snd_soc_component_read(component, CS42L51_PCM_MIXER)&3;
+ 	struct snd_soc_component *component = dai->component;
+ 	struct ak4535_priv *ak4535 = snd_soc_component_get_drvdata(component);
+-	u8 mode2 = snd_soc_component_read32(component, AK4535_MODE2) & ~(0x3 << 5);
++	u8 mode2 = snd_soc_component_read(component, AK4535_MODE2) & ~(0x3 << 5);
+ 	int rate = params_rate(params), fs = 256;
  
- 	switch (value) {
- 	default:
-@@ -407,8 +407,8 @@ static int cs42l51_hw_params(struct snd_pcm_substream *substream,
- 		return -EINVAL;
- 	}
+ 	if (rate)
+@@ -312,7 +312,7 @@ static int ak4535_set_dai_fmt(struct snd_soc_dai *codec_dai,
+ static int ak4535_mute(struct snd_soc_dai *dai, int mute)
+ {
+ 	struct snd_soc_component *component = dai->component;
+-	u16 mute_reg = snd_soc_component_read32(component, AK4535_DAC);
++	u16 mute_reg = snd_soc_component_read(component, AK4535_DAC);
+ 	if (!mute)
+ 		snd_soc_component_write(component, AK4535_DAC, mute_reg & ~0x20);
+ 	else
+diff --git a/sound/soc/codecs/ak4671.c b/sound/soc/codecs/ak4671.c
+index 67564798f303..eb435235b5a3 100644
+--- a/sound/soc/codecs/ak4671.c
++++ b/sound/soc/codecs/ak4671.c
+@@ -425,7 +425,7 @@ static int ak4671_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_soc_component *component = dai->component;
+ 	u8 fs;
  
--	intf_ctl = snd_soc_component_read32(component, CS42L51_INTF_CTL);
--	power_ctl = snd_soc_component_read32(component, CS42L51_MIC_POWER_CTL);
-+	intf_ctl = snd_soc_component_read(component, CS42L51_INTF_CTL);
-+	power_ctl = snd_soc_component_read(component, CS42L51_MIC_POWER_CTL);
+-	fs = snd_soc_component_read32(component, AK4671_PLL_MODE_SELECT0);
++	fs = snd_soc_component_read(component, AK4671_PLL_MODE_SELECT0);
+ 	fs &= ~AK4671_FS;
  
- 	intf_ctl &= ~(CS42L51_INTF_CTL_MASTER | CS42L51_INTF_CTL_ADC_I2S
- 			| CS42L51_INTF_CTL_DAC_FORMAT(7));
-@@ -490,7 +490,7 @@ static int cs42l51_dai_mute(struct snd_soc_dai *dai, int mute)
- 	int reg;
- 	int mask = CS42L51_DAC_OUT_CTL_DACA_MUTE|CS42L51_DAC_OUT_CTL_DACB_MUTE;
+ 	switch (params_rate(params)) {
+@@ -471,7 +471,7 @@ static int ak4671_set_dai_sysclk(struct snd_soc_dai *dai, int clk_id,
+ 	struct snd_soc_component *component = dai->component;
+ 	u8 pll;
  
--	reg = snd_soc_component_read32(component, CS42L51_DAC_OUT_CTL);
-+	reg = snd_soc_component_read(component, CS42L51_DAC_OUT_CTL);
+-	pll = snd_soc_component_read32(component, AK4671_PLL_MODE_SELECT0);
++	pll = snd_soc_component_read(component, AK4671_PLL_MODE_SELECT0);
+ 	pll &= ~AK4671_PLL;
  
- 	if (mute)
- 		reg |= mask;
-diff --git a/sound/soc/codecs/cs42l73.c b/sound/soc/codecs/cs42l73.c
-index 36089f8bcf0a..988ca7e19821 100644
---- a/sound/soc/codecs/cs42l73.c
-+++ b/sound/soc/codecs/cs42l73.c
-@@ -938,8 +938,8 @@ static int cs42l73_set_dai_fmt(struct snd_soc_dai *codec_dai, unsigned int fmt)
- 	unsigned int inv, format;
- 	u8 spc, mmcc;
+ 	switch (freq) {
+@@ -518,7 +518,7 @@ static int ak4671_set_dai_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 	u8 format;
  
--	spc = snd_soc_component_read32(component, CS42L73_SPC(id));
--	mmcc = snd_soc_component_read32(component, CS42L73_MMCC(id));
-+	spc = snd_soc_component_read(component, CS42L73_SPC(id));
-+	mmcc = snd_soc_component_read(component, CS42L73_MMCC(id));
+ 	/* set master/slave audio interface */
+-	mode = snd_soc_component_read32(component, AK4671_PLL_MODE_SELECT1);
++	mode = snd_soc_component_read(component, AK4671_PLL_MODE_SELECT1);
  
  	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
  	case SND_SOC_DAIFMT_CBM_CFM:
+@@ -532,7 +532,7 @@ static int ak4671_set_dai_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 	}
+ 
+ 	/* interface format */
+-	format = snd_soc_component_read32(component, AK4671_FORMAT_SELECT);
++	format = snd_soc_component_read(component, AK4671_FORMAT_SELECT);
+ 	format &= ~AK4671_DIF;
+ 
+ 	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
 -- 
 2.25.1
 

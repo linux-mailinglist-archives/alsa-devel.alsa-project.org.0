@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29CA91FA82D
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jun 2020 07:25:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68F791FA82E
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jun 2020 07:25:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CCB7B1679;
-	Tue, 16 Jun 2020 07:24:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCB7B1679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19B491674;
+	Tue, 16 Jun 2020 07:25:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19B491674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592285106;
-	bh=ufjKq/8PnC0iBvnWNJ3dSNVAgqLKt/SN5neKyeCZOz0=;
+	s=default; t=1592285152;
+	bh=UNFPs7w24VQE/dX6A3NA4ieSSyBdqxS7X9ilvKDqlFg=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gQUfYcv7rhieJJbNobk0ZPWJ62Hds1cgY0GF7Dfum5Nv1U3fw+q022raJFScMs2fI
-	 XNHTQR3EFs4P1ZAOi3LcHM1EWIfRsk0QIAyue6EBPVrRbKm+cEDjBGZxlcMHdI3cEH
-	 IWvrq8TGRuuVIdcOoWNfNKUknWvjKPZzbZmsiS6k=
+	b=XqNjBrylfQhH9Jb6ju/YIu/v+eoEo3UlWcoubGKkwQvv3Xdsx5FkdN/YHPWcP8a+Y
+	 CMV5HvrqccXQxB6kTwjRtLqGkER4MDI41D2/PpoyNm089lpx2CjN85ODDBvcJHFcJV
+	 CWu2E485BTgcby4maWfR7gSekZtSqX7YEr+XPMGs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F762F800EF;
-	Tue, 16 Jun 2020 07:20:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92316F8028E;
+	Tue, 16 Jun 2020 07:21:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5E87DF802F7; Tue, 16 Jun 2020 07:20:54 +0200 (CEST)
+ id D2E81F802F8; Tue, 16 Jun 2020 07:21:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 2FE4AF80217
- for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 07:20:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FE4AF80217
-Date: 16 Jun 2020 14:20:46 +0900
-X-IronPort-AV: E=Sophos;i="5.73,517,1583161200"; d="scan'208";a="49577370"
+ by alsa1.perex.cz (Postfix) with ESMTP id 7D9AEF80217
+ for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 07:20:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D9AEF80217
+Date: 16 Jun 2020 14:20:53 +0900
+X-IronPort-AV: E=Sophos;i="5.73,517,1583161200"; d="scan'208";a="49577378"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 16 Jun 2020 14:20:46 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 16 Jun 2020 14:20:53 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id C202441A93BB;
- Tue, 16 Jun 2020 14:20:46 +0900 (JST)
-Message-ID: <87k1074mds.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 1A76D41A9C47;
+ Tue, 16 Jun 2020 14:20:53 +0900 (JST)
+Message-ID: <87imfr4mdl.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 07/16] ASoC: codecs: tlv*: rename to snd_soc_component_read()
+Subject: [PATCH 08/16] ASoC: codecs: max*: rename to snd_soc_component_read()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87tuzb4mjg.wl-kuninori.morimoto.gx@renesas.com>
@@ -77,223 +77,246 @@ This patch renames _read32() to _read()
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/codecs/tlv320aic23.c   | 14 +++++++-------
- sound/soc/codecs/tlv320aic26.c   |  4 ++--
- sound/soc/codecs/tlv320aic32x4.c | 16 ++++++++--------
- sound/soc/codecs/tlv320aic3x.c   | 14 +++++++-------
- 4 files changed, 24 insertions(+), 24 deletions(-)
+ sound/soc/codecs/max98088.c | 12 ++++++------
+ sound/soc/codecs/max98090.c | 20 ++++++++++----------
+ sound/soc/codecs/max98095.c | 16 ++++++++--------
+ sound/soc/codecs/max9850.c  |  2 +-
+ 4 files changed, 25 insertions(+), 25 deletions(-)
 
-diff --git a/sound/soc/codecs/tlv320aic23.c b/sound/soc/codecs/tlv320aic23.c
-index 9868fb22323c..d22f75e8fb6a 100644
---- a/sound/soc/codecs/tlv320aic23.c
-+++ b/sound/soc/codecs/tlv320aic23.c
-@@ -91,7 +91,7 @@ static int snd_soc_tlv320aic23_put_volsw(struct snd_kcontrol *kcontrol,
- 	*/
- 	val = (val >= 4) ? 4  : (3 - val);
+diff --git a/sound/soc/codecs/max98088.c b/sound/soc/codecs/max98088.c
+index f031d2caa8b7..1f1817634a41 100644
+--- a/sound/soc/codecs/max98088.c
++++ b/sound/soc/codecs/max98088.c
+@@ -996,7 +996,7 @@ static int max98088_dai1_hw_params(struct snd_pcm_substream *substream,
+        cdata->rate = rate;
  
--	reg = snd_soc_component_read32(component, TLV320AIC23_ANLG) & (~0x1C0);
-+	reg = snd_soc_component_read(component, TLV320AIC23_ANLG) & (~0x1C0);
- 	snd_soc_component_write(component, TLV320AIC23_ANLG, reg | (val << 6));
+        /* Configure NI when operating as master */
+-       if (snd_soc_component_read32(component, M98088_REG_14_DAI1_FORMAT)
++       if (snd_soc_component_read(component, M98088_REG_14_DAI1_FORMAT)
+                & M98088_DAI_MAS) {
+                if (max98088->sysclk == 0) {
+                        dev_err(component->dev, "Invalid system clock frequency\n");
+@@ -1063,7 +1063,7 @@ static int max98088_dai2_hw_params(struct snd_pcm_substream *substream,
+        cdata->rate = rate;
  
- 	return 0;
-@@ -103,7 +103,7 @@ static int snd_soc_tlv320aic23_get_volsw(struct snd_kcontrol *kcontrol,
- 	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
- 	u16 val;
+        /* Configure NI when operating as master */
+-       if (snd_soc_component_read32(component, M98088_REG_1C_DAI2_FORMAT)
++       if (snd_soc_component_read(component, M98088_REG_1C_DAI2_FORMAT)
+                & M98088_DAI_MAS) {
+                if (max98088->sysclk == 0) {
+                        dev_err(component->dev, "Invalid system clock frequency\n");
+@@ -1120,7 +1120,7 @@ static int max98088_dai_set_sysclk(struct snd_soc_dai *dai,
+                return -EINVAL;
+        }
  
--	val = snd_soc_component_read32(component, TLV320AIC23_ANLG) & (0x1C0);
-+	val = snd_soc_component_read(component, TLV320AIC23_ANLG) & (0x1C0);
- 	val = val >> 6;
- 	val = (val >= 4) ? 4  : (3 -  val);
- 	ucontrol->value.integer.value[0] = val;
-@@ -294,7 +294,7 @@ static int find_rate(int mclk, u32 need_adc, u32 need_dac)
- static void get_current_sample_rates(struct snd_soc_component *component, int mclk,
- 		u32 *sample_rate_adc, u32 *sample_rate_dac)
- {
--	int src = snd_soc_component_read32(component, TLV320AIC23_SRATE);
-+	int src = snd_soc_component_read(component, TLV320AIC23_SRATE);
- 	int sr = (src >> 2) & 0x0f;
- 	int val = (mclk / bosr_usb_divisor_table[src & 3]);
- 	int adc = (val * sr_adc_mult_table[sr]) / SR_MULT;
-@@ -356,7 +356,7 @@ static int tlv320aic23_hw_params(struct snd_pcm_substream *substream,
- 	if (ret < 0)
- 		return ret;
+-       if (snd_soc_component_read32(component, M98088_REG_51_PWR_SYS)  & M98088_SHDNRUN) {
++       if (snd_soc_component_read(component, M98088_REG_51_PWR_SYS)  & M98088_SHDNRUN) {
+                snd_soc_component_update_bits(component, M98088_REG_51_PWR_SYS,
+                        M98088_SHDNRUN, 0);
+                snd_soc_component_update_bits(component, M98088_REG_51_PWR_SYS,
+@@ -1440,7 +1440,7 @@ static void max98088_setup_eq1(struct snd_soc_component *component)
+                pdata->eq_cfg[best].rate, fs);
  
--	iface_reg = snd_soc_component_read32(component, TLV320AIC23_DIGT_FMT) & ~(0x03 << 2);
-+	iface_reg = snd_soc_component_read(component, TLV320AIC23_DIGT_FMT) & ~(0x03 << 2);
+        /* Disable EQ while configuring, and save current on/off state */
+-       save = snd_soc_component_read32(component, M98088_REG_49_CFG_LEVEL);
++       save = snd_soc_component_read(component, M98088_REG_49_CFG_LEVEL);
+        snd_soc_component_update_bits(component, M98088_REG_49_CFG_LEVEL, M98088_EQ1EN, 0);
  
- 	switch (params_width(params)) {
- 	case 16:
-@@ -409,7 +409,7 @@ static int tlv320aic23_mute(struct snd_soc_dai *dai, int mute)
- 	struct snd_soc_component *component = dai->component;
- 	u16 reg;
+        coef_set = &pdata->eq_cfg[sel];
+@@ -1487,7 +1487,7 @@ static void max98088_setup_eq2(struct snd_soc_component *component)
+                pdata->eq_cfg[best].rate, fs);
  
--	reg = snd_soc_component_read32(component, TLV320AIC23_DIGT);
-+	reg = snd_soc_component_read(component, TLV320AIC23_DIGT);
- 	if (mute)
- 		reg |= TLV320AIC23_DACM_MUTE;
+        /* Disable EQ while configuring, and save current on/off state */
+-       save = snd_soc_component_read32(component, M98088_REG_49_CFG_LEVEL);
++       save = snd_soc_component_read(component, M98088_REG_49_CFG_LEVEL);
+        snd_soc_component_update_bits(component, M98088_REG_49_CFG_LEVEL, M98088_EQ2EN, 0);
  
-@@ -427,7 +427,7 @@ static int tlv320aic23_set_dai_fmt(struct snd_soc_dai *codec_dai,
- 	struct snd_soc_component *component = codec_dai->component;
- 	u16 iface_reg;
+        coef_set = &pdata->eq_cfg[sel];
+@@ -1673,7 +1673,7 @@ static int max98088_probe(struct snd_soc_component *component)
+        max98088->mic1pre = 0;
+        max98088->mic2pre = 0;
  
--	iface_reg = snd_soc_component_read32(component, TLV320AIC23_DIGT_FMT) & (~0x03);
-+	iface_reg = snd_soc_component_read(component, TLV320AIC23_DIGT_FMT) & (~0x03);
+-       ret = snd_soc_component_read32(component, M98088_REG_FF_REV_ID);
++       ret = snd_soc_component_read(component, M98088_REG_FF_REV_ID);
+        if (ret < 0) {
+                dev_err(component->dev, "Failed to read device revision: %d\n",
+                        ret);
+diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
+index e2cc1ad8cb0a..a61c5638652d 100644
+--- a/sound/soc/codecs/max98090.c
++++ b/sound/soc/codecs/max98090.c
+@@ -353,7 +353,7 @@ static int max98090_get_enab_tlv(struct snd_kcontrol *kcontrol,
+ 	struct soc_mixer_control *mc =
+ 		(struct soc_mixer_control *)kcontrol->private_value;
+ 	unsigned int mask = (1 << fls(mc->max)) - 1;
+-	unsigned int val = snd_soc_component_read32(component, mc->reg);
++	unsigned int val = snd_soc_component_read(component, mc->reg);
+ 	unsigned int *select;
  
- 	/* set master/slave audio interface */
- 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
-@@ -479,7 +479,7 @@ static int tlv320aic23_set_dai_sysclk(struct snd_soc_dai *codec_dai,
- static int tlv320aic23_set_bias_level(struct snd_soc_component *component,
- 				      enum snd_soc_bias_level level)
- {
--	u16 reg = snd_soc_component_read32(component, TLV320AIC23_PWR) & 0x17f;
-+	u16 reg = snd_soc_component_read(component, TLV320AIC23_PWR) & 0x17f;
+ 	switch (mc->reg) {
+@@ -394,7 +394,7 @@ static int max98090_put_enab_tlv(struct snd_kcontrol *kcontrol,
+ 		(struct soc_mixer_control *)kcontrol->private_value;
+ 	unsigned int mask = (1 << fls(mc->max)) - 1;
+ 	unsigned int sel = ucontrol->value.integer.value[0];
+-	unsigned int val = snd_soc_component_read32(component, mc->reg);
++	unsigned int val = snd_soc_component_read(component, mc->reg);
+ 	unsigned int *select;
  
- 	switch (level) {
- 	case SND_SOC_BIAS_ON:
-diff --git a/sound/soc/codecs/tlv320aic26.c b/sound/soc/codecs/tlv320aic26.c
-index b9ca3afd4776..032b39735643 100644
---- a/sound/soc/codecs/tlv320aic26.c
-+++ b/sound/soc/codecs/tlv320aic26.c
-@@ -266,7 +266,7 @@ static ssize_t aic26_keyclick_show(struct device *dev,
- 	struct aic26 *aic26 = dev_get_drvdata(dev);
- 	int val, amp, freq, len;
+ 	switch (mc->reg) {
+@@ -730,7 +730,7 @@ static int max98090_micinput_event(struct snd_soc_dapm_widget *w,
+ 	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
+ 	struct max98090_priv *max98090 = snd_soc_component_get_drvdata(component);
  
--	val = snd_soc_component_read32(aic26->component, AIC26_REG_AUDIO_CTRL2);
-+	val = snd_soc_component_read(aic26->component, AIC26_REG_AUDIO_CTRL2);
- 	amp = (val >> 12) & 0x7;
- 	freq = (125 << ((val >> 8) & 0x7)) >> 1;
- 	len = 2 * (1 + ((val >> 4) & 0xf));
-@@ -306,7 +306,7 @@ static int aic26_probe(struct snd_soc_component *component)
- 	snd_soc_component_write(component, AIC26_REG_POWER_CTRL, 0);
+-	unsigned int val = snd_soc_component_read32(component, w->reg);
++	unsigned int val = snd_soc_component_read(component, w->reg);
  
- 	/* Audio Control 3 (master mode, fsref rate) */
--	reg = snd_soc_component_read32(component, AIC26_REG_AUDIO_CTRL3);
-+	reg = snd_soc_component_read(component, AIC26_REG_AUDIO_CTRL3);
- 	reg &= ~0xf800;
- 	reg |= 0x0800; /* set master mode */
- 	snd_soc_component_write(component, AIC26_REG_AUDIO_CTRL3, reg);
-diff --git a/sound/soc/codecs/tlv320aic32x4.c b/sound/soc/codecs/tlv320aic32x4.c
-index d087f3b20b1d..8682daec016e 100644
---- a/sound/soc/codecs/tlv320aic32x4.c
-+++ b/sound/soc/codecs/tlv320aic32x4.c
-@@ -82,7 +82,7 @@ static int aic32x4_get_mfp1_gpio(struct snd_kcontrol *kcontrol,
- 	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
- 	u8 val;
+ 	if (w->reg == M98090_REG_MIC1_INPUT_LEVEL)
+ 		val = (val & M98090_MIC_PA1EN_MASK) >> M98090_MIC_PA1EN_SHIFT;
+@@ -1496,7 +1496,7 @@ static void max98090_configure_bclk(struct snd_soc_component *component)
+ 	}
  
--	val = snd_soc_component_read32(component, AIC32X4_DINCTL);
-+	val = snd_soc_component_read(component, AIC32X4_DINCTL);
+ 	/* Skip configuration when operating as slave */
+-	if (!(snd_soc_component_read32(component, M98090_REG_MASTER_MODE) &
++	if (!(snd_soc_component_read(component, M98090_REG_MASTER_MODE) &
+ 		M98090_MAS_MASK)) {
+ 		return;
+ 	}
+@@ -2132,7 +2132,7 @@ static void max98090_pll_work(struct max98090_priv *max98090)
+ 		usleep_range(1000, 1200);
  
- 	ucontrol->value.integer.value[0] = (val & 0x01);
+ 		/* Check lock status */
+-		pll = snd_soc_component_read32(
++		pll = snd_soc_component_read(
+ 				component, M98090_REG_DEVICE_STATUS);
+ 		if (!(pll & M98090_ULK_MASK))
+ 			break;
+@@ -2157,16 +2157,16 @@ static void max98090_jack_work(struct work_struct *work)
  
-@@ -96,7 +96,7 @@ static int aic32x4_set_mfp2_gpio(struct snd_kcontrol *kcontrol,
- 	u8 val;
- 	u8 gpio_check;
+ 		msleep(50);
  
--	val = snd_soc_component_read32(component, AIC32X4_DOUTCTL);
-+	val = snd_soc_component_read(component, AIC32X4_DOUTCTL);
- 	gpio_check = (val & AIC32X4_MFP_GPIO_ENABLED);
- 	if (gpio_check != AIC32X4_MFP_GPIO_ENABLED) {
- 		printk(KERN_ERR "%s: MFP2 is not configure as a GPIO output\n",
-@@ -123,7 +123,7 @@ static int aic32x4_get_mfp3_gpio(struct snd_kcontrol *kcontrol,
- 	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
- 	u8 val;
+-		reg = snd_soc_component_read32(component, M98090_REG_JACK_STATUS);
++		reg = snd_soc_component_read(component, M98090_REG_JACK_STATUS);
  
--	val = snd_soc_component_read32(component, AIC32X4_SCLKCTL);
-+	val = snd_soc_component_read(component, AIC32X4_SCLKCTL);
+ 		/* Weak pull up allows only insertion detection */
+ 		snd_soc_component_update_bits(component, M98090_REG_JACK_DETECT,
+ 			M98090_JDWK_MASK, M98090_JDWK_MASK);
+ 	} else {
+-		reg = snd_soc_component_read32(component, M98090_REG_JACK_STATUS);
++		reg = snd_soc_component_read(component, M98090_REG_JACK_STATUS);
+ 	}
  
- 	ucontrol->value.integer.value[0] = (val & 0x01);
+-	reg = snd_soc_component_read32(component, M98090_REG_JACK_STATUS);
++	reg = snd_soc_component_read(component, M98090_REG_JACK_STATUS);
  
-@@ -137,7 +137,7 @@ static int aic32x4_set_mfp4_gpio(struct snd_kcontrol *kcontrol,
- 	u8 val;
- 	u8 gpio_check;
+ 	switch (reg & (M98090_LSNS_MASK | M98090_JKSNS_MASK)) {
+ 		case M98090_LSNS_MASK | M98090_JKSNS_MASK:
+@@ -2406,7 +2406,7 @@ static int max98090_probe(struct snd_soc_component *component)
+ 	max98090->pa1en = 0;
+ 	max98090->pa2en = 0;
  
--	val = snd_soc_component_read32(component, AIC32X4_MISOCTL);
-+	val = snd_soc_component_read(component, AIC32X4_MISOCTL);
- 	gpio_check = (val & AIC32X4_MFP_GPIO_ENABLED);
- 	if (gpio_check != AIC32X4_MFP_GPIO_ENABLED) {
- 		printk(KERN_ERR "%s: MFP4 is not configure as a GPIO output\n",
-@@ -164,7 +164,7 @@ static int aic32x4_get_mfp5_gpio(struct snd_kcontrol *kcontrol,
- 	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
- 	u8 val;
- 
--	val = snd_soc_component_read32(component, AIC32X4_GPIOCTL);
-+	val = snd_soc_component_read(component, AIC32X4_GPIOCTL);
- 	ucontrol->value.integer.value[0] = ((val & 0x2) >> 1);
- 
- 	return 0;
-@@ -177,7 +177,7 @@ static int aic32x4_set_mfp5_gpio(struct snd_kcontrol *kcontrol,
- 	u8 val;
- 	u8 gpio_check;
- 
--	val = snd_soc_component_read32(component, AIC32X4_GPIOCTL);
-+	val = snd_soc_component_read(component, AIC32X4_GPIOCTL);
- 	gpio_check = (val & AIC32X4_MFP5_GPIO_OUTPUT);
- 	if (gpio_check != AIC32X4_MFP5_GPIO_OUTPUT) {
- 		printk(KERN_ERR "%s: MFP5 is not configure as a GPIO output\n",
-@@ -978,7 +978,7 @@ static int aic32x4_component_probe(struct snd_soc_component *component)
- 			AIC32X4_LDOCTLEN : 0;
- 	snd_soc_component_write(component, AIC32X4_LDOCTL, tmp_reg);
- 
--	tmp_reg = snd_soc_component_read32(component, AIC32X4_CMMODE);
-+	tmp_reg = snd_soc_component_read(component, AIC32X4_CMMODE);
- 	if (aic32x4->power_cfg & AIC32X4_PWR_CMMODE_LDOIN_RANGE_18_36)
- 		tmp_reg |= AIC32X4_LDOIN_18_36;
- 	if (aic32x4->power_cfg & AIC32X4_PWR_CMMODE_HP_LDOIN_POWERED)
-@@ -1004,7 +1004,7 @@ static int aic32x4_component_probe(struct snd_soc_component *component)
- 	 * and down for the first capture to work properly. It seems related to
- 	 * a HW BUG or some kind of behavior not documented in the datasheet.
+-	ret = snd_soc_component_read32(component, M98090_REG_REVISION_ID);
++	ret = snd_soc_component_read(component, M98090_REG_REVISION_ID);
+ 	if (ret < 0) {
+ 		dev_err(component->dev, "Failed to read device revision: %d\n",
+ 			ret);
+@@ -2446,7 +2446,7 @@ static int max98090_probe(struct snd_soc_component *component)
+ 	 * An old interrupt ocurring prior to installing the ISR
+ 	 * can keep a new interrupt from generating a trigger.
  	 */
--	tmp_reg = snd_soc_component_read32(component, AIC32X4_ADCSETUP);
-+	tmp_reg = snd_soc_component_read(component, AIC32X4_ADCSETUP);
- 	snd_soc_component_write(component, AIC32X4_ADCSETUP, tmp_reg |
- 				AIC32X4_LADC_EN | AIC32X4_RADC_EN);
- 	snd_soc_component_write(component, AIC32X4_ADCSETUP, tmp_reg);
-diff --git a/sound/soc/codecs/tlv320aic3x.c b/sound/soc/codecs/tlv320aic3x.c
-index 424faafcb85b..6860743ecdca 100644
---- a/sound/soc/codecs/tlv320aic3x.c
-+++ b/sound/soc/codecs/tlv320aic3x.c
-@@ -1056,7 +1056,7 @@ static int aic3x_hw_params(struct snd_pcm_substream *substream,
- 		width = params_width(params);
+-	snd_soc_component_read32(component, M98090_REG_DEVICE_STATUS);
++	snd_soc_component_read(component, M98090_REG_DEVICE_STATUS);
  
- 	/* select data word length */
--	data = snd_soc_component_read32(component, AIC3X_ASD_INTF_CTRLB) & (~(0x3 << 4));
-+	data = snd_soc_component_read(component, AIC3X_ASD_INTF_CTRLB) & (~(0x3 << 4));
- 	switch (width) {
- 	case 16:
- 		break;
-@@ -1219,8 +1219,8 @@ static int aic3x_prepare(struct snd_pcm_substream *substream,
- static int aic3x_mute(struct snd_soc_dai *dai, int mute)
- {
- 	struct snd_soc_component *component = dai->component;
--	u8 ldac_reg = snd_soc_component_read32(component, LDAC_VOL) & ~MUTE_ON;
--	u8 rdac_reg = snd_soc_component_read32(component, RDAC_VOL) & ~MUTE_ON;
-+	u8 ldac_reg = snd_soc_component_read(component, LDAC_VOL) & ~MUTE_ON;
-+	u8 rdac_reg = snd_soc_component_read(component, RDAC_VOL) & ~MUTE_ON;
+ 	/* High Performance is default */
+ 	snd_soc_component_update_bits(component, M98090_REG_DAC_CONTROL,
+diff --git a/sound/soc/codecs/max98095.c b/sound/soc/codecs/max98095.c
+index c7e0a55f3dc2..9bdc6392382a 100644
+--- a/sound/soc/codecs/max98095.c
++++ b/sound/soc/codecs/max98095.c
+@@ -971,7 +971,7 @@ static int max98095_dai1_hw_params(struct snd_pcm_substream *substream,
+ 	cdata->rate = rate;
  
- 	if (mute) {
- 		snd_soc_component_write(component, LDAC_VOL, ldac_reg | MUTE_ON);
-@@ -1256,8 +1256,8 @@ static int aic3x_set_dai_fmt(struct snd_soc_dai *codec_dai,
- 	struct aic3x_priv *aic3x = snd_soc_component_get_drvdata(component);
- 	u8 iface_areg, iface_breg;
+ 	/* Configure NI when operating as master */
+-	if (snd_soc_component_read32(component, M98095_02A_DAI1_FORMAT) & M98095_DAI_MAS) {
++	if (snd_soc_component_read(component, M98095_02A_DAI1_FORMAT) & M98095_DAI_MAS) {
+ 		if (max98095->sysclk == 0) {
+ 			dev_err(component->dev, "Invalid system clock frequency\n");
+ 			return -EINVAL;
+@@ -1032,7 +1032,7 @@ static int max98095_dai2_hw_params(struct snd_pcm_substream *substream,
+ 	cdata->rate = rate;
  
--	iface_areg = snd_soc_component_read32(component, AIC3X_ASD_INTF_CTRLA) & 0x3f;
--	iface_breg = snd_soc_component_read32(component, AIC3X_ASD_INTF_CTRLB) & 0x3f;
-+	iface_areg = snd_soc_component_read(component, AIC3X_ASD_INTF_CTRLA) & 0x3f;
-+	iface_breg = snd_soc_component_read(component, AIC3X_ASD_INTF_CTRLB) & 0x3f;
+ 	/* Configure NI when operating as master */
+-	if (snd_soc_component_read32(component, M98095_034_DAI2_FORMAT) & M98095_DAI_MAS) {
++	if (snd_soc_component_read(component, M98095_034_DAI2_FORMAT) & M98095_DAI_MAS) {
+ 		if (max98095->sysclk == 0) {
+ 			dev_err(component->dev, "Invalid system clock frequency\n");
+ 			return -EINVAL;
+@@ -1093,7 +1093,7 @@ static int max98095_dai3_hw_params(struct snd_pcm_substream *substream,
+ 	cdata->rate = rate;
  
- 	/* set master/slave audio interface */
- 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
-@@ -1407,8 +1407,8 @@ static int aic3x_set_power(struct snd_soc_component *component, int power)
- 		 * writing one of them and thus caused other one also not
- 		 * being written
- 		 */
--		pll_c = snd_soc_component_read32(component, AIC3X_PLL_PROGC_REG);
--		pll_d = snd_soc_component_read32(component, AIC3X_PLL_PROGD_REG);
-+		pll_c = snd_soc_component_read(component, AIC3X_PLL_PROGC_REG);
-+		pll_d = snd_soc_component_read(component, AIC3X_PLL_PROGD_REG);
- 		if (pll_c == aic3x_reg[AIC3X_PLL_PROGC_REG].def ||
- 			pll_d == aic3x_reg[AIC3X_PLL_PROGD_REG].def) {
- 			snd_soc_component_write(component, AIC3X_PLL_PROGC_REG, pll_c);
+ 	/* Configure NI when operating as master */
+-	if (snd_soc_component_read32(component, M98095_03E_DAI3_FORMAT) & M98095_DAI_MAS) {
++	if (snd_soc_component_read(component, M98095_03E_DAI3_FORMAT) & M98095_DAI_MAS) {
+ 		if (max98095->sysclk == 0) {
+ 			dev_err(component->dev, "Invalid system clock frequency\n");
+ 			return -EINVAL;
+@@ -1534,7 +1534,7 @@ static int max98095_put_eq_enum(struct snd_kcontrol *kcontrol,
+ 	regmask = (channel == 0) ? M98095_EQ1EN : M98095_EQ2EN;
+ 
+ 	/* Disable filter while configuring, and save current on/off state */
+-	regsave = snd_soc_component_read32(component, M98095_088_CFG_LEVEL);
++	regsave = snd_soc_component_read(component, M98095_088_CFG_LEVEL);
+ 	snd_soc_component_update_bits(component, M98095_088_CFG_LEVEL, regmask, 0);
+ 
+ 	mutex_lock(&max98095->lock);
+@@ -1685,7 +1685,7 @@ static int max98095_put_bq_enum(struct snd_kcontrol *kcontrol,
+ 	regmask = (channel == 0) ? M98095_BQ1EN : M98095_BQ2EN;
+ 
+ 	/* Disable filter while configuring, and save current on/off state */
+-	regsave = snd_soc_component_read32(component, M98095_088_CFG_LEVEL);
++	regsave = snd_soc_component_read(component, M98095_088_CFG_LEVEL);
+ 	snd_soc_component_update_bits(component, M98095_088_CFG_LEVEL, regmask, 0);
+ 
+ 	mutex_lock(&max98095->lock);
+@@ -1816,7 +1816,7 @@ static irqreturn_t max98095_report_jack(int irq, void *data)
+ 	int mic_report = 0;
+ 
+ 	/* Read the Jack Status Register */
+-	value = snd_soc_component_read32(component, M98095_007_JACK_AUTO_STS);
++	value = snd_soc_component_read(component, M98095_007_JACK_AUTO_STS);
+ 
+ 	/* If ddone is not set, then detection isn't finished yet */
+ 	if ((value & M98095_DDONE) == 0)
+@@ -1972,7 +1972,7 @@ static int max98095_reset(struct snd_soc_component *component)
+ 	/* Reset to hardware default for registers, as there is not
+ 	 * a soft reset hardware control register */
+ 	for (i = M98095_010_HOST_INT_CFG; i < M98095_REG_MAX_CACHED; i++) {
+-		ret = snd_soc_component_write(component, i, snd_soc_component_read32(component, i));
++		ret = snd_soc_component_write(component, i, snd_soc_component_read(component, i));
+ 		if (ret < 0) {
+ 			dev_err(component->dev, "Failed to reset: %d\n", ret);
+ 			return ret;
+@@ -2038,7 +2038,7 @@ static int max98095_probe(struct snd_soc_component *component)
+ 		}
+ 	}
+ 
+-	ret = snd_soc_component_read32(component, M98095_0FF_REV_ID);
++	ret = snd_soc_component_read(component, M98095_0FF_REV_ID);
+ 	if (ret < 0) {
+ 		dev_err(component->dev, "Failure reading hardware revision: %d\n",
+ 			ret);
+diff --git a/sound/soc/codecs/max9850.c b/sound/soc/codecs/max9850.c
+index 6f43748f9239..1ddfad324198 100644
+--- a/sound/soc/codecs/max9850.c
++++ b/sound/soc/codecs/max9850.c
+@@ -121,7 +121,7 @@ static int max9850_hw_params(struct snd_pcm_substream *substream,
+ 		return -EINVAL;
+ 
+ 	/* lrclk_div = 2^22 * rate / iclk with iclk = mclk / sf */
+-	sf = (snd_soc_component_read32(component, MAX9850_CLOCK) >> 2) + 1;
++	sf = (snd_soc_component_read(component, MAX9850_CLOCK) >> 2) + 1;
+ 	lrclk_div = (1 << 22);
+ 	lrclk_div *= params_rate(params);
+ 	lrclk_div *= sf;
 -- 
 2.25.1
 

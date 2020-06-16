@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B8B71FA826
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jun 2020 07:23:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D415A1FA828
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jun 2020 07:23:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F015F1693;
-	Tue, 16 Jun 2020 07:22:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F015F1693
+	by alsa0.perex.cz (Postfix) with ESMTPS id 882641686;
+	Tue, 16 Jun 2020 07:23:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 882641686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592285001;
-	bh=8nqOwdhX/9OKGmtmNLCkjgE47rr4NgkVwSvqpiZ6v80=;
+	s=default; t=1592285037;
+	bh=pHhDEjR8HASC4QqhqyM3g6wpObWq+G6Swd6MG6WRjxM=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=u3ajFDTvf+2UQLDHOWhqo8e5gxBtKNaHBujP1D0xHj/hX8vA4m93FcKcFoG05mMiT
-	 QiMwmMBcCHulaDf2dkzBvRBuiNTmLl0Hx+/486aUEJVYtAE8GTkjhuDkQJw0tfL4Ew
-	 ZW4/q0Id6lxrweBWnSlp7CK17AHSjkGil93ZxX/c=
+	b=U+5Kx+D6/71xLLV6jtmnJXmwFf7m48nQ9rHI7Y++O/zs+a436oZbLso7QS297qXMP
+	 3NNow9PNSgZ4hNMwHx779W7HLq5qYJygJLaBKhiXAWeJuTTgWAq5D5j7UdRTF2VZJd
+	 pp2PzPflREBt/fR1sIMd++3PvxFSNgBNOGvMag0w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 00492F802BD;
-	Tue, 16 Jun 2020 07:20:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24CBFF802E1;
+	Tue, 16 Jun 2020 07:20:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 65683F802D2; Tue, 16 Jun 2020 07:20:27 +0200 (CEST)
+ id 1C852F802DF; Tue, 16 Jun 2020 07:20:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id BA4D8F802BD
- for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 07:20:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA4D8F802BD
-Date: 16 Jun 2020 14:20:23 +0900
-X-IronPort-AV: E=Sophos;i="5.73,517,1583161200"; d="scan'208";a="49577348"
+ by alsa1.perex.cz (Postfix) with ESMTP id B3DE3F802DC
+ for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 07:20:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3DE3F802DC
+Date: 16 Jun 2020 14:20:33 +0900
+X-IronPort-AV: E=Sophos;i="5.73,517,1583161200"; d="scan'208";a="49577357"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 16 Jun 2020 14:20:23 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 16 Jun 2020 14:20:33 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 9700641A8B3C;
- Tue, 16 Jun 2020 14:20:23 +0900 (JST)
-Message-ID: <87o8pj4mef.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 927E141A93B8;
+ Tue, 16 Jun 2020 14:20:33 +0900 (JST)
+Message-ID: <87mu534me5.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 04/16] ASoC: atmel: rename to snd_soc_component_read()
+Subject: [PATCH 05/16] ASoC: codecs: rename to snd_soc_component_read()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87tuzb4mjg.wl-kuninori.morimoto.gx@renesas.com>
@@ -77,26 +77,342 @@ This patch renames _read32() to _read()
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/atmel/atmel-pdmic.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/codecs/88pm860x-codec.c | 14 +++++++-------
+ sound/soc/codecs/ab8500-codec.c   |  8 ++++----
+ sound/soc/codecs/ad1980.c         |  4 ++--
+ sound/soc/codecs/arizona.c        | 18 +++++++++---------
+ sound/soc/codecs/nau8822.c        |  4 ++--
+ sound/soc/codecs/sgtl5000.c       | 16 ++++++++--------
+ sound/soc/codecs/sta32x.c         |  4 ++--
+ sound/soc/codecs/tas2552.c        |  4 ++--
+ sound/soc/codecs/tscs42xx.c       |  4 ++--
+ 9 files changed, 38 insertions(+), 38 deletions(-)
 
-diff --git a/sound/soc/atmel/atmel-pdmic.c b/sound/soc/atmel/atmel-pdmic.c
-index 04ec6f0af179..5245826cd99d 100644
---- a/sound/soc/atmel/atmel-pdmic.c
-+++ b/sound/soc/atmel/atmel-pdmic.c
-@@ -290,10 +290,10 @@ static int pdmic_get_mic_volsw(struct snd_kcontrol *kcontrol,
- 	unsigned int dgain_val, scale_val;
- 	int i;
+diff --git a/sound/soc/codecs/88pm860x-codec.c b/sound/soc/codecs/88pm860x-codec.c
+index 00b2c43d28a1..068914d0ef3d 100644
+--- a/sound/soc/codecs/88pm860x-codec.c
++++ b/sound/soc/codecs/88pm860x-codec.c
+@@ -274,10 +274,10 @@ static int snd_soc_get_volsw_2r_st(struct snd_kcontrol *kcontrol,
+ 	unsigned int reg2 = mc->rreg;
+ 	int val[2], val2[2], i;
  
--	dgain_val = (snd_soc_component_read32(component, PDMIC_DSPR1) & PDMIC_DSPR1_DGAIN_MASK)
-+	dgain_val = (snd_soc_component_read(component, PDMIC_DSPR1) & PDMIC_DSPR1_DGAIN_MASK)
- 		    >> PDMIC_DSPR1_DGAIN_SHIFT;
+-	val[0] = snd_soc_component_read32(component, reg) & 0x3f;
+-	val[1] = (snd_soc_component_read32(component, PM860X_SIDETONE_SHIFT) >> 4) & 0xf;
+-	val2[0] = snd_soc_component_read32(component, reg2) & 0x3f;
+-	val2[1] = (snd_soc_component_read32(component, PM860X_SIDETONE_SHIFT)) & 0xf;
++	val[0] = snd_soc_component_read(component, reg) & 0x3f;
++	val[1] = (snd_soc_component_read(component, PM860X_SIDETONE_SHIFT) >> 4) & 0xf;
++	val2[0] = snd_soc_component_read(component, reg2) & 0x3f;
++	val2[1] = (snd_soc_component_read(component, PM860X_SIDETONE_SHIFT)) & 0xf;
  
--	scale_val = (snd_soc_component_read32(component, PDMIC_DSPR0) & PDMIC_DSPR0_SCALE_MASK)
-+	scale_val = (snd_soc_component_read(component, PDMIC_DSPR0) & PDMIC_DSPR0_SCALE_MASK)
- 		    >> PDMIC_DSPR0_SCALE_SHIFT;
+ 	for (i = 0; i < ARRAY_SIZE(st_table); i++) {
+ 		if ((st_table[i].m == val[0]) && (st_table[i].n == val[1]))
+@@ -333,8 +333,8 @@ static int snd_soc_get_volsw_2r_out(struct snd_kcontrol *kcontrol,
+ 	int max = mc->max, val, val2;
+ 	unsigned int mask = (1 << fls(max)) - 1;
  
- 	for (i = 0; i < ARRAY_SIZE(mic_gain_table); i++) {
+-	val = snd_soc_component_read32(component, reg) >> shift;
+-	val2 = snd_soc_component_read32(component, reg2) >> shift;
++	val = snd_soc_component_read(component, reg) >> shift;
++	val2 = snd_soc_component_read(component, reg2) >> shift;
+ 	ucontrol->value.integer.value[0] = (max - val) & mask;
+ 	ucontrol->value.integer.value[1] = (max - val2) & mask;
+ 
+@@ -426,7 +426,7 @@ static int pm860x_dac_event(struct snd_soc_dapm_widget *w,
+ 			snd_soc_component_update_bits(component, PM860X_EAR_CTRL_2,
+ 					    RSYNC_CHANGE, RSYNC_CHANGE);
+ 			/* update dac */
+-			data = snd_soc_component_read32(component, PM860X_DAC_EN_2);
++			data = snd_soc_component_read(component, PM860X_DAC_EN_2);
+ 			data &= ~dac;
+ 			if (!(data & (DAC_LEFT | DAC_RIGHT)))
+ 				data &= ~MODULATOR;
+diff --git a/sound/soc/codecs/ab8500-codec.c b/sound/soc/codecs/ab8500-codec.c
+index 98e25d93440c..ea92007d1ef5 100644
+--- a/sound/soc/codecs/ab8500-codec.c
++++ b/sound/soc/codecs/ab8500-codec.c
+@@ -1100,7 +1100,7 @@ static void anc_configure(struct snd_soc_component *component,
+ 	if (apply_fir)
+ 		for (bnk = 0; bnk < AB8500_NR_OF_ANC_COEFF_BANKS; bnk++)
+ 			for (par = 0; par < AB8500_ANC_FIR_COEFFS; par++) {
+-				val = snd_soc_component_read32(component,
++				val = snd_soc_component_read(component,
+ 						drvdata->anc_fir_values[par]);
+ 				anc_fir(component, bnk, par, val);
+ 			}
+@@ -1108,7 +1108,7 @@ static void anc_configure(struct snd_soc_component *component,
+ 	if (apply_iir)
+ 		for (bnk = 0; bnk < AB8500_NR_OF_ANC_COEFF_BANKS; bnk++)
+ 			for (par = 0; par < AB8500_ANC_IIR_COEFFS; par++) {
+-				val = snd_soc_component_read32(component,
++				val = snd_soc_component_read(component,
+ 						drvdata->anc_iir_values[par]);
+ 				anc_iir(component, bnk, par, val);
+ 			}
+@@ -1153,7 +1153,7 @@ static int sid_status_control_put(struct snd_kcontrol *kcontrol,
+ 
+ 	mutex_lock(&drvdata->ctrl_lock);
+ 
+-	sidconf = snd_soc_component_read32(component, AB8500_SIDFIRCONF);
++	sidconf = snd_soc_component_read(component, AB8500_SIDFIRCONF);
+ 	if (((sidconf & BIT(AB8500_SIDFIRCONF_FIRSIDBUSY)) != 0)) {
+ 		if ((sidconf & BIT(AB8500_SIDFIRCONF_ENFIRSIDS)) == 0) {
+ 			dev_err(component->dev, "%s: Sidetone busy while off!\n",
+@@ -1168,7 +1168,7 @@ static int sid_status_control_put(struct snd_kcontrol *kcontrol,
+ 	snd_soc_component_write(component, AB8500_SIDFIRADR, 0);
+ 
+ 	for (param = 0; param < AB8500_SID_FIR_COEFFS; param++) {
+-		val = snd_soc_component_read32(component, drvdata->sid_fir_values[param]);
++		val = snd_soc_component_read(component, drvdata->sid_fir_values[param]);
+ 		snd_soc_component_write(component, AB8500_SIDFIRCOEF1, val >> 8 & 0xff);
+ 		snd_soc_component_write(component, AB8500_SIDFIRCOEF2, val & 0xff);
+ 	}
+diff --git a/sound/soc/codecs/ad1980.c b/sound/soc/codecs/ad1980.c
+index 43b1337bac37..9fd2023da218 100644
+--- a/sound/soc/codecs/ad1980.c
++++ b/sound/soc/codecs/ad1980.c
+@@ -256,7 +256,7 @@ static int ad1980_soc_probe(struct snd_soc_component *component)
+ 	if (ret < 0)
+ 		goto reset_err;
+ 
+-	vendor_id2 = snd_soc_component_read32(component, AC97_VENDOR_ID2);
++	vendor_id2 = snd_soc_component_read(component, AC97_VENDOR_ID2);
+ 	if (vendor_id2 == 0x5374) {
+ 		dev_warn(component->dev,
+ 			"Found AD1981 - only 2/2 IN/OUT Channels supported\n");
+@@ -270,7 +270,7 @@ static int ad1980_soc_probe(struct snd_soc_component *component)
+ 	snd_soc_component_write(component, AC97_SURROUND_MASTER, 0x0000);
+ 
+ 	/*power on LFE/CENTER/Surround DACs*/
+-	ext_status = snd_soc_component_read32(component, AC97_EXTENDED_STATUS);
++	ext_status = snd_soc_component_read(component, AC97_EXTENDED_STATUS);
+ 	snd_soc_component_write(component, AC97_EXTENDED_STATUS, ext_status&~0x3800);
+ 
+ 	return 0;
+diff --git a/sound/soc/codecs/arizona.c b/sound/soc/codecs/arizona.c
+index 9716c9624a89..1228f2de0297 100644
+--- a/sound/soc/codecs/arizona.c
++++ b/sound/soc/codecs/arizona.c
+@@ -87,7 +87,7 @@ static int arizona_spk_ev(struct snd_soc_dapm_widget *w,
+ 
+ 	switch (event) {
+ 	case SND_SOC_DAPM_POST_PMU:
+-		val = snd_soc_component_read32(component,
++		val = snd_soc_component_read(component,
+ 					       ARIZONA_INTERRUPT_RAW_STATUS_3);
+ 		if (val & ARIZONA_SPK_OVERHEAT_STS) {
+ 			dev_crit(arizona->dev,
+@@ -897,7 +897,7 @@ static void arizona_in_set_vu(struct snd_soc_component *component, int ena)
+ bool arizona_input_analog(struct snd_soc_component *component, int shift)
+ {
+ 	unsigned int reg = ARIZONA_IN1L_CONTROL + ((shift / 2) * 8);
+-	unsigned int val = snd_soc_component_read32(component, reg);
++	unsigned int val = snd_soc_component_read(component, reg);
+ 
+ 	return !(val & ARIZONA_IN1_MODE_MASK);
+ }
+@@ -937,7 +937,7 @@ int arizona_in_ev(struct snd_soc_dapm_widget *w, struct snd_kcontrol *kcontrol,
+ 		break;
+ 	case SND_SOC_DAPM_POST_PMD:
+ 		/* Disable volume updates if no inputs are enabled */
+-		reg = snd_soc_component_read32(component, ARIZONA_INPUT_ENABLES);
++		reg = snd_soc_component_read(component, ARIZONA_INPUT_ENABLES);
+ 		if (reg == 0)
+ 			arizona_in_set_vu(component, 0);
+ 		break;
+@@ -1755,15 +1755,15 @@ static bool arizona_aif_cfg_changed(struct snd_soc_component *component,
+ {
+ 	int val;
+ 
+-	val = snd_soc_component_read32(component, base + ARIZONA_AIF_BCLK_CTRL);
++	val = snd_soc_component_read(component, base + ARIZONA_AIF_BCLK_CTRL);
+ 	if (bclk != (val & ARIZONA_AIF1_BCLK_FREQ_MASK))
+ 		return true;
+ 
+-	val = snd_soc_component_read32(component, base + ARIZONA_AIF_TX_BCLK_RATE);
++	val = snd_soc_component_read(component, base + ARIZONA_AIF_TX_BCLK_RATE);
+ 	if (lrclk != (val & ARIZONA_AIF1TX_BCPF_MASK))
+ 		return true;
+ 
+-	val = snd_soc_component_read32(component, base + ARIZONA_AIF_FRAME_CTRL_1);
++	val = snd_soc_component_read(component, base + ARIZONA_AIF_FRAME_CTRL_1);
+ 	if (frame != (val & (ARIZONA_AIF1TX_WL_MASK |
+ 			     ARIZONA_AIF1TX_SLOT_LEN_MASK)))
+ 		return true;
+@@ -1813,7 +1813,7 @@ static int arizona_hw_params(struct snd_pcm_substream *substream,
+ 	}
+ 
+ 	/* Force multiple of 2 channels for I2S mode */
+-	val = snd_soc_component_read32(component, base + ARIZONA_AIF_FORMAT);
++	val = snd_soc_component_read(component, base + ARIZONA_AIF_FORMAT);
+ 	val &= ARIZONA_AIF1_FMT_MASK;
+ 	if ((channels & 1) && (val == ARIZONA_FMT_I2S_MODE)) {
+ 		arizona_aif_dbg(dai, "Forcing stereo mode\n");
+@@ -1845,9 +1845,9 @@ static int arizona_hw_params(struct snd_pcm_substream *substream,
+ 
+ 	if (reconfig) {
+ 		/* Save AIF TX/RX state */
+-		aif_tx_state = snd_soc_component_read32(component,
++		aif_tx_state = snd_soc_component_read(component,
+ 					    base + ARIZONA_AIF_TX_ENABLES);
+-		aif_rx_state = snd_soc_component_read32(component,
++		aif_rx_state = snd_soc_component_read(component,
+ 					    base + ARIZONA_AIF_RX_ENABLES);
+ 		/* Disable AIF TX/RX before reconfiguring it */
+ 		regmap_update_bits_async(arizona->regmap,
+diff --git a/sound/soc/codecs/nau8822.c b/sound/soc/codecs/nau8822.c
+index a4f661335c57..79928ddeb7a1 100644
+--- a/sound/soc/codecs/nau8822.c
++++ b/sound/soc/codecs/nau8822.c
+@@ -188,7 +188,7 @@ static int nau8822_eq_get(struct snd_kcontrol *kcontrol,
+ 	val = (u16 *)ucontrol->value.bytes.data;
+ 	reg = NAU8822_REG_EQ1;
+ 	for (i = 0; i < params->max / sizeof(u16); i++) {
+-		reg_val = snd_soc_component_read32(component, reg + i);
++		reg_val = snd_soc_component_read(component, reg + i);
+ 		/* conversion of 16-bit integers between native CPU format
+ 		 * and big endian format
+ 		 */
+@@ -445,7 +445,7 @@ static int check_mclk_select_pll(struct snd_soc_dapm_widget *source,
+ 		snd_soc_dapm_to_component(source->dapm);
+ 	unsigned int value;
+ 
+-	value = snd_soc_component_read32(component, NAU8822_REG_CLOCKING);
++	value = snd_soc_component_read(component, NAU8822_REG_CLOCKING);
+ 
+ 	return (value & NAU8822_CLKM_MASK);
+ }
+diff --git a/sound/soc/codecs/sgtl5000.c b/sound/soc/codecs/sgtl5000.c
+index e8a8bf7b4ffe..eb08976a7d06 100644
+--- a/sound/soc/codecs/sgtl5000.c
++++ b/sound/soc/codecs/sgtl5000.c
+@@ -156,14 +156,14 @@ struct sgtl5000_priv {
+ 
+ static inline int hp_sel_input(struct snd_soc_component *component)
+ {
+-	return (snd_soc_component_read32(component, SGTL5000_CHIP_ANA_CTRL) &
++	return (snd_soc_component_read(component, SGTL5000_CHIP_ANA_CTRL) &
+ 		SGTL5000_HP_SEL_MASK) >> SGTL5000_HP_SEL_SHIFT;
+ }
+ 
+ static inline u16 mute_output(struct snd_soc_component *component,
+ 			      u16 mute_mask)
+ {
+-	u16 mute_reg = snd_soc_component_read32(component,
++	u16 mute_reg = snd_soc_component_read(component,
+ 					      SGTL5000_CHIP_ANA_CTRL);
+ 
+ 	snd_soc_component_update_bits(component, SGTL5000_CHIP_ANA_CTRL,
+@@ -180,7 +180,7 @@ static inline void restore_output(struct snd_soc_component *component,
+ 
+ static void vag_power_on(struct snd_soc_component *component, u32 source)
+ {
+-	if (snd_soc_component_read32(component, SGTL5000_CHIP_ANA_POWER) &
++	if (snd_soc_component_read(component, SGTL5000_CHIP_ANA_POWER) &
+ 	    SGTL5000_VAG_POWERUP)
+ 		return;
+ 
+@@ -225,7 +225,7 @@ static int vag_power_consumers(struct snd_soc_component *component,
+ 
+ static void vag_power_off(struct snd_soc_component *component, u32 source)
+ {
+-	u16 ana_pwr = snd_soc_component_read32(component,
++	u16 ana_pwr = snd_soc_component_read(component,
+ 					     SGTL5000_CHIP_ANA_POWER);
+ 
+ 	if (!(ana_pwr & SGTL5000_VAG_POWERUP))
+@@ -545,7 +545,7 @@ static int dac_get_volsw(struct snd_kcontrol *kcontrol,
+ 	int l;
+ 	int r;
+ 
+-	reg = snd_soc_component_read32(component, SGTL5000_CHIP_DAC_VOL);
++	reg = snd_soc_component_read(component, SGTL5000_CHIP_DAC_VOL);
+ 
+ 	/* get left channel volume */
+ 	l = (reg & SGTL5000_DAC_VOL_LEFT_MASK) >> SGTL5000_DAC_VOL_LEFT_SHIFT;
+@@ -633,7 +633,7 @@ static int avc_get_threshold(struct snd_kcontrol *kcontrol,
+ {
+ 	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
+ 	int db, i;
+-	u16 reg = snd_soc_component_read32(component, SGTL5000_DAP_AVC_THRESHOLD);
++	u16 reg = snd_soc_component_read(component, SGTL5000_DAP_AVC_THRESHOLD);
+ 
+ 	/* register value 0 => -96dB */
+ 	if (!reg) {
+@@ -1325,11 +1325,11 @@ static int sgtl5000_set_power_regs(struct snd_soc_component *component)
+ 	}
+ 
+ 	/* reset value */
+-	ana_pwr = snd_soc_component_read32(component, SGTL5000_CHIP_ANA_POWER);
++	ana_pwr = snd_soc_component_read(component, SGTL5000_CHIP_ANA_POWER);
+ 	ana_pwr |= SGTL5000_DAC_STEREO |
+ 			SGTL5000_ADC_STEREO |
+ 			SGTL5000_REFTOP_POWERUP;
+-	lreg_ctrl = snd_soc_component_read32(component, SGTL5000_CHIP_LINREG_CTRL);
++	lreg_ctrl = snd_soc_component_read(component, SGTL5000_CHIP_LINREG_CTRL);
+ 
+ 	if (vddio < 3100 && vdda < 3100) {
+ 		/* enable internal oscillator used for charge pump */
+diff --git a/sound/soc/codecs/sta32x.c b/sound/soc/codecs/sta32x.c
+index e9ccebbc31e4..e8d2ca4b4603 100644
+--- a/sound/soc/codecs/sta32x.c
++++ b/sound/soc/codecs/sta32x.c
+@@ -397,9 +397,9 @@ static void sta32x_watchdog(struct work_struct *work)
+ 	unsigned int confa, confa_cached;
+ 
+ 	/* check if sta32x has reset itself */
+-	confa_cached = snd_soc_component_read32(component, STA32X_CONFA);
++	confa_cached = snd_soc_component_read(component, STA32X_CONFA);
+ 	regcache_cache_bypass(sta32x->regmap, true);
+-	confa = snd_soc_component_read32(component, STA32X_CONFA);
++	confa = snd_soc_component_read(component, STA32X_CONFA);
+ 	regcache_cache_bypass(sta32x->regmap, false);
+ 	if (confa != confa_cached) {
+ 		regcache_mark_dirty(sta32x->regmap);
+diff --git a/sound/soc/codecs/tas2552.c b/sound/soc/codecs/tas2552.c
+index d90e5f2b6f27..529c0fb93f9b 100644
+--- a/sound/soc/codecs/tas2552.c
++++ b/sound/soc/codecs/tas2552.c
+@@ -169,7 +169,7 @@ static int tas2552_setup_pll(struct snd_soc_component *component,
+ 		pll_clkin += tas2552->tdm_delay;
+ 	}
+ 
+-	pll_enable = snd_soc_component_read32(component, TAS2552_CFG_2) & TAS2552_PLL_ENABLE;
++	pll_enable = snd_soc_component_read(component, TAS2552_CFG_2) & TAS2552_PLL_ENABLE;
+ 	snd_soc_component_update_bits(component, TAS2552_CFG_2, TAS2552_PLL_ENABLE, 0);
+ 
+ 	if (pll_clkin == pll_clk)
+@@ -187,7 +187,7 @@ static int tas2552_setup_pll(struct snd_soc_component *component,
+ 		unsigned int d, q, t;
+ 		u8 j;
+ 		u8 pll_sel = (tas2552->pll_clk_id << 3) & TAS2552_PLL_SRC_MASK;
+-		u8 p = snd_soc_component_read32(component, TAS2552_PLL_CTRL_1);
++		u8 p = snd_soc_component_read(component, TAS2552_PLL_CTRL_1);
+ 
+ 		p = (p >> 7);
+ 
+diff --git a/sound/soc/codecs/tscs42xx.c b/sound/soc/codecs/tscs42xx.c
+index 27b8c6ba72fa..3265d3e8cb28 100644
+--- a/sound/soc/codecs/tscs42xx.c
++++ b/sound/soc/codecs/tscs42xx.c
+@@ -103,7 +103,7 @@ static bool plls_locked(struct snd_soc_component *component)
+ 	int count = MAX_PLL_LOCK_20MS_WAITS;
+ 
+ 	do {
+-		ret = snd_soc_component_read32(component, R_PLLCTL0);
++		ret = snd_soc_component_read(component, R_PLLCTL0);
+ 		if (ret < 0) {
+ 			dev_err(component->dev,
+ 				"Failed to read PLL lock status (%d)\n", ret);
+@@ -148,7 +148,7 @@ static int write_coeff_ram(struct snd_soc_component *component, u8 *coeff_ram,
+ 	for (cnt = 0; cnt < coeff_cnt; cnt++, addr++) {
+ 
+ 		for (trys = 0; trys < DACCRSTAT_MAX_TRYS; trys++) {
+-			ret = snd_soc_component_read32(component, R_DACCRSTAT);
++			ret = snd_soc_component_read(component, R_DACCRSTAT);
+ 			if (ret < 0) {
+ 				dev_err(component->dev,
+ 					"Failed to read stat (%d)\n", ret);
 -- 
 2.25.1
 

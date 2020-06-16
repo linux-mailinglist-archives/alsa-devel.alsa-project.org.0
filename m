@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 761651FA829
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jun 2020 07:24:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29CA91FA82D
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jun 2020 07:25:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 112F81675;
-	Tue, 16 Jun 2020 07:23:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 112F81675
+	by alsa0.perex.cz (Postfix) with ESMTPS id CCB7B1679;
+	Tue, 16 Jun 2020 07:24:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCB7B1679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592285065;
-	bh=ZK+W1oIg2mTqrX0Gbaogx960WX95f8RhiWlvAugs8Ts=;
+	s=default; t=1592285106;
+	bh=ufjKq/8PnC0iBvnWNJ3dSNVAgqLKt/SN5neKyeCZOz0=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qxCOcpU4jpECwxZcRjAUinPUbLsyMDfC8iSIfqATQtuELxE/JHxcJbQnJrj19xacK
-	 7Wa0YuitAGrRgRv2RmGufbs1B2uZUTUu/ffTrbFxWTjjgqytdcGLiqPtzaZKKcHHpH
-	 /kovo5bbb2OXYBK+cBM2GB08OizDuDGzTaGRfFH8=
+	b=gQUfYcv7rhieJJbNobk0ZPWJ62Hds1cgY0GF7Dfum5Nv1U3fw+q022raJFScMs2fI
+	 XNHTQR3EFs4P1ZAOi3LcHM1EWIfRsk0QIAyue6EBPVrRbKm+cEDjBGZxlcMHdI3cEH
+	 IWvrq8TGRuuVIdcOoWNfNKUknWvjKPZzbZmsiS6k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 496C3F80232;
-	Tue, 16 Jun 2020 07:20:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5F762F800EF;
+	Tue, 16 Jun 2020 07:20:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 60565F802EC; Tue, 16 Jun 2020 07:20:48 +0200 (CEST)
+ id 5E87DF802F7; Tue, 16 Jun 2020 07:20:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id A103DF802E0
- for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 07:20:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A103DF802E0
-Date: 16 Jun 2020 14:20:40 +0900
-X-IronPort-AV: E=Sophos;i="5.73,517,1583161200"; d="scan'208";a="49577363"
+ by alsa1.perex.cz (Postfix) with ESMTP id 2FE4AF80217
+ for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 07:20:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FE4AF80217
+Date: 16 Jun 2020 14:20:46 +0900
+X-IronPort-AV: E=Sophos;i="5.73,517,1583161200"; d="scan'208";a="49577370"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 16 Jun 2020 14:20:40 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 16 Jun 2020 14:20:46 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 3C1B441A93BB;
- Tue, 16 Jun 2020 14:20:40 +0900 (JST)
-Message-ID: <87lfkn4mdy.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id C202441A93BB;
+ Tue, 16 Jun 2020 14:20:46 +0900 (JST)
+Message-ID: <87k1074mds.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 06/16] ASoC: codecs: wcd*: rename to snd_soc_component_read()
+Subject: [PATCH 07/16] ASoC: codecs: tlv*: rename to snd_soc_component_read()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87tuzb4mjg.wl-kuninori.morimoto.gx@renesas.com>
@@ -77,417 +77,223 @@ This patch renames _read32() to _read()
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/codecs/wcd-clsh-v2.c |  2 +-
- sound/soc/codecs/wcd9335.c     | 48 +++++++++++++++----------------
- sound/soc/codecs/wcd934x.c     | 52 +++++++++++++++++-----------------
- 3 files changed, 51 insertions(+), 51 deletions(-)
+ sound/soc/codecs/tlv320aic23.c   | 14 +++++++-------
+ sound/soc/codecs/tlv320aic26.c   |  4 ++--
+ sound/soc/codecs/tlv320aic32x4.c | 16 ++++++++--------
+ sound/soc/codecs/tlv320aic3x.c   | 14 +++++++-------
+ 4 files changed, 24 insertions(+), 24 deletions(-)
 
-diff --git a/sound/soc/codecs/wcd-clsh-v2.c b/sound/soc/codecs/wcd-clsh-v2.c
-index cc5a9c9b918b..1be82113c59a 100644
---- a/sound/soc/codecs/wcd-clsh-v2.c
-+++ b/sound/soc/codecs/wcd-clsh-v2.c
-@@ -119,7 +119,7 @@ static inline void wcd_enable_clsh_block(struct wcd_clsh_ctrl *ctrl,
+diff --git a/sound/soc/codecs/tlv320aic23.c b/sound/soc/codecs/tlv320aic23.c
+index 9868fb22323c..d22f75e8fb6a 100644
+--- a/sound/soc/codecs/tlv320aic23.c
++++ b/sound/soc/codecs/tlv320aic23.c
+@@ -91,7 +91,7 @@ static int snd_soc_tlv320aic23_put_volsw(struct snd_kcontrol *kcontrol,
+ 	*/
+ 	val = (val >= 4) ? 4  : (3 - val);
  
- static inline bool wcd_clsh_enable_status(struct snd_soc_component *comp)
+-	reg = snd_soc_component_read32(component, TLV320AIC23_ANLG) & (~0x1C0);
++	reg = snd_soc_component_read(component, TLV320AIC23_ANLG) & (~0x1C0);
+ 	snd_soc_component_write(component, TLV320AIC23_ANLG, reg | (val << 6));
+ 
+ 	return 0;
+@@ -103,7 +103,7 @@ static int snd_soc_tlv320aic23_get_volsw(struct snd_kcontrol *kcontrol,
+ 	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
+ 	u16 val;
+ 
+-	val = snd_soc_component_read32(component, TLV320AIC23_ANLG) & (0x1C0);
++	val = snd_soc_component_read(component, TLV320AIC23_ANLG) & (0x1C0);
+ 	val = val >> 6;
+ 	val = (val >= 4) ? 4  : (3 -  val);
+ 	ucontrol->value.integer.value[0] = val;
+@@ -294,7 +294,7 @@ static int find_rate(int mclk, u32 need_adc, u32 need_dac)
+ static void get_current_sample_rates(struct snd_soc_component *component, int mclk,
+ 		u32 *sample_rate_adc, u32 *sample_rate_dac)
  {
--	return snd_soc_component_read32(comp, WCD9XXX_A_CDC_CLSH_CRC) &
-+	return snd_soc_component_read(comp, WCD9XXX_A_CDC_CLSH_CRC) &
- 					WCD9XXX_A_CDC_CLSH_CRC_CLK_EN_MASK;
- }
+-	int src = snd_soc_component_read32(component, TLV320AIC23_SRATE);
++	int src = snd_soc_component_read(component, TLV320AIC23_SRATE);
+ 	int sr = (src >> 2) & 0x0f;
+ 	int val = (mclk / bosr_usb_divisor_table[src & 3]);
+ 	int adc = (val * sr_adc_mult_table[sr]) / SR_MULT;
+@@ -356,7 +356,7 @@ static int tlv320aic23_hw_params(struct snd_pcm_substream *substream,
+ 	if (ret < 0)
+ 		return ret;
  
-diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
-index fb073f4dc7ed..f2d9d52ee171 100644
---- a/sound/soc/codecs/wcd9335.c
-+++ b/sound/soc/codecs/wcd9335.c
-@@ -1617,7 +1617,7 @@ static int wcd9335_set_mix_interpolator_rate(struct snd_soc_dai *dai,
+-	iface_reg = snd_soc_component_read32(component, TLV320AIC23_DIGT_FMT) & ~(0x03 << 2);
++	iface_reg = snd_soc_component_read(component, TLV320AIC23_DIGT_FMT) & ~(0x03 << 2);
  
- 	list_for_each_entry(ch, &wcd->dai[dai->id].slim_ch_list, list) {
- 		for (j = 0; j < WCD9335_NUM_INTERPOLATORS; j++) {
--			val = snd_soc_component_read32(component,
-+			val = snd_soc_component_read(component,
- 					WCD9335_CDC_RX_INP_MUX_RX_INT_CFG1(j)) &
- 					WCD9335_CDC_RX_INP_MUX_RX_INT_SEL_MASK;
+ 	switch (params_width(params)) {
+ 	case 16:
+@@ -409,7 +409,7 @@ static int tlv320aic23_mute(struct snd_soc_dai *dai, int mute)
+ 	struct snd_soc_component *component = dai->component;
+ 	u16 reg;
  
-@@ -1650,9 +1650,9 @@ static int wcd9335_set_prim_interpolator_rate(struct snd_soc_dai *dai,
- 		 * is connected
- 		 */
- 		for (j = 0; j < WCD9335_NUM_INTERPOLATORS; j++) {
--			cfg0 = snd_soc_component_read32(comp,
-+			cfg0 = snd_soc_component_read(comp,
- 					WCD9335_CDC_RX_INP_MUX_RX_INT_CFG0(j));
--			cfg1 = snd_soc_component_read32(comp,
-+			cfg1 = snd_soc_component_read(comp,
- 					WCD9335_CDC_RX_INP_MUX_RX_INT_CFG1(j));
+-	reg = snd_soc_component_read32(component, TLV320AIC23_DIGT);
++	reg = snd_soc_component_read(component, TLV320AIC23_DIGT);
+ 	if (mute)
+ 		reg |= TLV320AIC23_DACM_MUTE;
  
- 			inp0_sel = cfg0 &
-@@ -1826,7 +1826,7 @@ static int wcd9335_set_decimator_rate(struct snd_soc_dai *dai,
- 			return -EINVAL;
- 		}
+@@ -427,7 +427,7 @@ static int tlv320aic23_set_dai_fmt(struct snd_soc_dai *codec_dai,
+ 	struct snd_soc_component *component = codec_dai->component;
+ 	u16 iface_reg;
  
--		tx_mux_sel = snd_soc_component_read32(comp, tx_port_reg) &
-+		tx_mux_sel = snd_soc_component_read(comp, tx_port_reg) &
- 						      (shift_val << shift);
+-	iface_reg = snd_soc_component_read32(component, TLV320AIC23_DIGT_FMT) & (~0x03);
++	iface_reg = snd_soc_component_read(component, TLV320AIC23_DIGT_FMT) & (~0x03);
  
- 		tx_mux_sel = tx_mux_sel >> shift;
-@@ -2678,17 +2678,17 @@ static int wcd9335_codec_find_amic_input(struct snd_soc_component *comp,
- 	if (adc_mux_n < 4) {
- 		reg = WCD9335_CDC_TX_INP_MUX_ADC_MUX0_CFG1 + 2 * adc_mux_n;
- 		mreg = WCD9335_CDC_TX_INP_MUX_ADC_MUX0_CFG0 + 2 * adc_mux_n;
--		mux_sel = snd_soc_component_read32(comp, reg) & 0x3;
-+		mux_sel = snd_soc_component_read(comp, reg) & 0x3;
- 	} else {
- 		reg = WCD9335_CDC_TX_INP_MUX_ADC_MUX4_CFG0 + adc_mux_n - 4;
- 		mreg = reg;
--		mux_sel = snd_soc_component_read32(comp, reg) >> 6;
-+		mux_sel = snd_soc_component_read(comp, reg) >> 6;
- 	}
+ 	/* set master/slave audio interface */
+ 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+@@ -479,7 +479,7 @@ static int tlv320aic23_set_dai_sysclk(struct snd_soc_dai *codec_dai,
+ static int tlv320aic23_set_bias_level(struct snd_soc_component *component,
+ 				      enum snd_soc_bias_level level)
+ {
+-	u16 reg = snd_soc_component_read32(component, TLV320AIC23_PWR) & 0x17f;
++	u16 reg = snd_soc_component_read(component, TLV320AIC23_PWR) & 0x17f;
  
- 	if (mux_sel != WCD9335_CDC_TX_INP_MUX_SEL_AMIC)
- 		return 0;
+ 	switch (level) {
+ 	case SND_SOC_BIAS_ON:
+diff --git a/sound/soc/codecs/tlv320aic26.c b/sound/soc/codecs/tlv320aic26.c
+index b9ca3afd4776..032b39735643 100644
+--- a/sound/soc/codecs/tlv320aic26.c
++++ b/sound/soc/codecs/tlv320aic26.c
+@@ -266,7 +266,7 @@ static ssize_t aic26_keyclick_show(struct device *dev,
+ 	struct aic26 *aic26 = dev_get_drvdata(dev);
+ 	int val, amp, freq, len;
  
--	return snd_soc_component_read32(comp, mreg) & 0x07;
-+	return snd_soc_component_read(comp, mreg) & 0x07;
- }
+-	val = snd_soc_component_read32(aic26->component, AIC26_REG_AUDIO_CTRL2);
++	val = snd_soc_component_read(aic26->component, AIC26_REG_AUDIO_CTRL2);
+ 	amp = (val >> 12) & 0x7;
+ 	freq = (125 << ((val >> 8) & 0x7)) >> 1;
+ 	len = 2 * (1 + ((val >> 4) & 0xf));
+@@ -306,7 +306,7 @@ static int aic26_probe(struct snd_soc_component *component)
+ 	snd_soc_component_write(component, AIC26_REG_POWER_CTRL, 0);
  
- static u16 wcd9335_codec_get_amic_pwlvl_reg(struct snd_soc_component *comp,
-@@ -2776,7 +2776,7 @@ static int wcd9335_codec_enable_dec(struct snd_soc_dapm_widget *w,
- 								       amic_n);
+ 	/* Audio Control 3 (master mode, fsref rate) */
+-	reg = snd_soc_component_read32(component, AIC26_REG_AUDIO_CTRL3);
++	reg = snd_soc_component_read(component, AIC26_REG_AUDIO_CTRL3);
+ 	reg &= ~0xf800;
+ 	reg |= 0x0800; /* set master mode */
+ 	snd_soc_component_write(component, AIC26_REG_AUDIO_CTRL3, reg);
+diff --git a/sound/soc/codecs/tlv320aic32x4.c b/sound/soc/codecs/tlv320aic32x4.c
+index d087f3b20b1d..8682daec016e 100644
+--- a/sound/soc/codecs/tlv320aic32x4.c
++++ b/sound/soc/codecs/tlv320aic32x4.c
+@@ -82,7 +82,7 @@ static int aic32x4_get_mfp1_gpio(struct snd_kcontrol *kcontrol,
+ 	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
+ 	u8 val;
  
- 		if (pwr_level_reg) {
--			switch ((snd_soc_component_read32(comp, pwr_level_reg) &
-+			switch ((snd_soc_component_read(comp, pwr_level_reg) &
- 					      WCD9335_AMIC_PWR_LVL_MASK) >>
- 					      WCD9335_AMIC_PWR_LVL_SHIFT) {
- 			case WCD9335_AMIC_PWR_LEVEL_LP:
-@@ -2798,7 +2798,7 @@ static int wcd9335_codec_enable_dec(struct snd_soc_dapm_widget *w,
- 				break;
- 			}
- 		}
--		hpf_coff_freq = (snd_soc_component_read32(comp, dec_cfg_reg) &
-+		hpf_coff_freq = (snd_soc_component_read(comp, dec_cfg_reg) &
- 				   TX_HPF_CUT_OFF_FREQ_MASK) >> 5;
+-	val = snd_soc_component_read32(component, AIC32X4_DINCTL);
++	val = snd_soc_component_read(component, AIC32X4_DINCTL);
  
- 		if (hpf_coff_freq != CF_MIN_3DB_150HZ)
-@@ -2830,10 +2830,10 @@ static int wcd9335_codec_enable_dec(struct snd_soc_dapm_widget *w,
- 		snd_soc_component_update_bits(comp, tx_vol_ctl_reg,
- 						0x10, 0x00);
- 		snd_soc_component_write(comp, tx_gain_ctl_reg,
--			      snd_soc_component_read32(comp, tx_gain_ctl_reg));
-+			      snd_soc_component_read(comp, tx_gain_ctl_reg));
- 		break;
- 	case SND_SOC_DAPM_PRE_PMD:
--		hpf_coff_freq = (snd_soc_component_read32(comp, dec_cfg_reg) &
-+		hpf_coff_freq = (snd_soc_component_read(comp, dec_cfg_reg) &
- 				   TX_HPF_CUT_OFF_FREQ_MASK) >> 5;
- 		snd_soc_component_update_bits(comp, tx_vol_ctl_reg, 0x10, 0x10);
- 		snd_soc_component_update_bits(comp, dec_cfg_reg, 0x08, 0x00);
-@@ -3080,7 +3080,7 @@ static int wcd9335_codec_enable_mix_path(struct snd_soc_dapm_widget *w,
+ 	ucontrol->value.integer.value[0] = (val & 0x01);
  
- 	switch (event) {
- 	case SND_SOC_DAPM_POST_PMU:
--		val = snd_soc_component_read32(comp, gain_reg);
-+		val = snd_soc_component_read(comp, gain_reg);
- 		val += offset_val;
- 		snd_soc_component_write(comp, gain_reg, val);
- 		break;
-@@ -3208,7 +3208,7 @@ static int wcd9335_codec_enable_prim_interpolator(
- 		}
+@@ -96,7 +96,7 @@ static int aic32x4_set_mfp2_gpio(struct snd_kcontrol *kcontrol,
+ 	u8 val;
+ 	u8 gpio_check;
  
- 		if ((reg != prim_int_reg) &&
--			((snd_soc_component_read32(comp, prim_int_reg)) &
-+			((snd_soc_component_read(comp, prim_int_reg)) &
- 			 WCD9335_CDC_RX_PGA_MUTE_EN_MASK))
- 			snd_soc_component_update_bits(comp, reg,
- 						WCD9335_CDC_RX_PGA_MUTE_EN_MASK,
-@@ -3344,7 +3344,7 @@ static int wcd9335_codec_enable_interpolator(struct snd_soc_dapm_widget *w,
- 		break;
- 	case SND_SOC_DAPM_POST_PMU:
- 		wcd9335_config_compander(comp, w->shift, event);
--		val = snd_soc_component_read32(comp, gain_reg);
-+		val = snd_soc_component_read(comp, gain_reg);
- 		val += offset_val;
- 		snd_soc_component_write(comp, gain_reg, val);
- 		break;
-@@ -3366,12 +3366,12 @@ static void wcd9335_codec_hph_mode_gain_opt(struct snd_soc_component *component,
- 	u8 hph_pa_status;
- 	bool is_hphl_pa, is_hphr_pa;
+-	val = snd_soc_component_read32(component, AIC32X4_DOUTCTL);
++	val = snd_soc_component_read(component, AIC32X4_DOUTCTL);
+ 	gpio_check = (val & AIC32X4_MFP_GPIO_ENABLED);
+ 	if (gpio_check != AIC32X4_MFP_GPIO_ENABLED) {
+ 		printk(KERN_ERR "%s: MFP2 is not configure as a GPIO output\n",
+@@ -123,7 +123,7 @@ static int aic32x4_get_mfp3_gpio(struct snd_kcontrol *kcontrol,
+ 	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
+ 	u8 val;
  
--	hph_pa_status = snd_soc_component_read32(component, WCD9335_ANA_HPH);
-+	hph_pa_status = snd_soc_component_read(component, WCD9335_ANA_HPH);
- 	is_hphl_pa = hph_pa_status >> 7;
- 	is_hphr_pa = (hph_pa_status & 0x40) >> 6;
+-	val = snd_soc_component_read32(component, AIC32X4_SCLKCTL);
++	val = snd_soc_component_read(component, AIC32X4_SCLKCTL);
  
--	hph_l_en = snd_soc_component_read32(component, WCD9335_HPH_L_EN);
--	hph_r_en = snd_soc_component_read32(component, WCD9335_HPH_R_EN);
-+	hph_l_en = snd_soc_component_read(component, WCD9335_HPH_L_EN);
-+	hph_r_en = snd_soc_component_read(component, WCD9335_HPH_R_EN);
+ 	ucontrol->value.integer.value[0] = (val & 0x01);
  
- 	l_val = (hph_l_en & 0xC0) | 0x20 | gain;
- 	r_val = (hph_r_en & 0xC0) | 0x20 | gain;
-@@ -3542,7 +3542,7 @@ static int wcd9335_codec_hphl_dac_event(struct snd_soc_dapm_widget *w,
- 	switch (event) {
- 	case SND_SOC_DAPM_PRE_PMU:
- 		/* Read DEM INP Select */
--		dem_inp = snd_soc_component_read32(comp,
-+		dem_inp = snd_soc_component_read(comp,
- 				WCD9335_CDC_RX1_RX_PATH_SEC0) & 0x03;
- 		if (((hph_mode == CLS_H_HIFI) || (hph_mode == CLS_H_LOHIFI) ||
- 				(hph_mode == CLS_H_LP)) && (dem_inp != 0x01)) {
-@@ -3694,7 +3694,7 @@ static int wcd9335_codec_hphr_dac_event(struct snd_soc_dapm_widget *w,
- 	case SND_SOC_DAPM_PRE_PMU:
+@@ -137,7 +137,7 @@ static int aic32x4_set_mfp4_gpio(struct snd_kcontrol *kcontrol,
+ 	u8 val;
+ 	u8 gpio_check;
  
- 		/* Read DEM INP Select */
--		dem_inp = snd_soc_component_read32(comp,
-+		dem_inp = snd_soc_component_read(comp,
- 				WCD9335_CDC_RX2_RX_PATH_SEC0) &
- 				WCD9335_CDC_RX_PATH_DEM_INP_SEL_MASK;
- 		if (((hph_mode == CLS_H_HIFI) || (hph_mode == CLS_H_LOHIFI) ||
-@@ -3755,7 +3755,7 @@ static int wcd9335_codec_enable_hphl_pa(struct snd_soc_dapm_widget *w,
- 					WCD9335_CDC_RX_PGA_MUTE_DISABLE);
+-	val = snd_soc_component_read32(component, AIC32X4_MISOCTL);
++	val = snd_soc_component_read(component, AIC32X4_MISOCTL);
+ 	gpio_check = (val & AIC32X4_MFP_GPIO_ENABLED);
+ 	if (gpio_check != AIC32X4_MFP_GPIO_ENABLED) {
+ 		printk(KERN_ERR "%s: MFP4 is not configure as a GPIO output\n",
+@@ -164,7 +164,7 @@ static int aic32x4_get_mfp5_gpio(struct snd_kcontrol *kcontrol,
+ 	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
+ 	u8 val;
  
- 		/* Remove mix path mute if it is enabled */
--		if ((snd_soc_component_read32(comp,
-+		if ((snd_soc_component_read(comp,
- 					WCD9335_CDC_RX1_RX_PATH_MIX_CTL)) &
- 					WCD9335_CDC_RX_PGA_MUTE_EN_MASK)
- 			snd_soc_component_update_bits(comp,
-@@ -3817,7 +3817,7 @@ static int wcd9335_codec_enable_lineout_pa(struct snd_soc_dapm_widget *w,
- 					WCD9335_CDC_RX_PGA_MUTE_DISABLE);
+-	val = snd_soc_component_read32(component, AIC32X4_GPIOCTL);
++	val = snd_soc_component_read(component, AIC32X4_GPIOCTL);
+ 	ucontrol->value.integer.value[0] = ((val & 0x2) >> 1);
  
- 		/* Remove mix path mute if it is enabled */
--		if ((snd_soc_component_read32(comp, mix_vol_reg)) &
-+		if ((snd_soc_component_read(comp, mix_vol_reg)) &
- 					WCD9335_CDC_RX_PGA_MUTE_EN_MASK)
- 			snd_soc_component_update_bits(comp,  mix_vol_reg,
- 					WCD9335_CDC_RX_PGA_MUTE_EN_MASK,
-@@ -3902,7 +3902,7 @@ static int wcd9335_codec_enable_hphr_pa(struct snd_soc_dapm_widget *w,
- 					WCD9335_CDC_RX_PGA_MUTE_EN_MASK,
- 					WCD9335_CDC_RX_PGA_MUTE_DISABLE);
- 		/* Remove mix path mute if it is enabled */
--		if ((snd_soc_component_read32(comp,
-+		if ((snd_soc_component_read(comp,
- 					WCD9335_CDC_RX2_RX_PATH_MIX_CTL)) &
- 					WCD9335_CDC_RX_PGA_MUTE_EN_MASK)
- 			snd_soc_component_update_bits(comp,
-@@ -3942,7 +3942,7 @@ static int wcd9335_codec_enable_ear_pa(struct snd_soc_dapm_widget *w,
- 					WCD9335_CDC_RX_PGA_MUTE_EN_MASK,
- 					WCD9335_CDC_RX_PGA_MUTE_DISABLE);
- 		/* Remove mix path mute if it is enabled */
--		if ((snd_soc_component_read32(comp,
-+		if ((snd_soc_component_read(comp,
- 					WCD9335_CDC_RX0_RX_PATH_MIX_CTL)) &
- 					WCD9335_CDC_RX_PGA_MUTE_EN_MASK)
- 			snd_soc_component_update_bits(comp,
-@@ -4808,7 +4808,7 @@ static int wcd9335_enable_efuse_sensing(struct snd_soc_component *comp)
+ 	return 0;
+@@ -177,7 +177,7 @@ static int aic32x4_set_mfp5_gpio(struct snd_kcontrol *kcontrol,
+ 	u8 val;
+ 	u8 gpio_check;
+ 
+-	val = snd_soc_component_read32(component, AIC32X4_GPIOCTL);
++	val = snd_soc_component_read(component, AIC32X4_GPIOCTL);
+ 	gpio_check = (val & AIC32X4_MFP5_GPIO_OUTPUT);
+ 	if (gpio_check != AIC32X4_MFP5_GPIO_OUTPUT) {
+ 		printk(KERN_ERR "%s: MFP5 is not configure as a GPIO output\n",
+@@ -978,7 +978,7 @@ static int aic32x4_component_probe(struct snd_soc_component *component)
+ 			AIC32X4_LDOCTLEN : 0;
+ 	snd_soc_component_write(component, AIC32X4_LDOCTL, tmp_reg);
+ 
+-	tmp_reg = snd_soc_component_read32(component, AIC32X4_CMMODE);
++	tmp_reg = snd_soc_component_read(component, AIC32X4_CMMODE);
+ 	if (aic32x4->power_cfg & AIC32X4_PWR_CMMODE_LDOIN_RANGE_18_36)
+ 		tmp_reg |= AIC32X4_LDOIN_18_36;
+ 	if (aic32x4->power_cfg & AIC32X4_PWR_CMMODE_HP_LDOIN_POWERED)
+@@ -1004,7 +1004,7 @@ static int aic32x4_component_probe(struct snd_soc_component *component)
+ 	 * and down for the first capture to work properly. It seems related to
+ 	 * a HW BUG or some kind of behavior not documented in the datasheet.
  	 */
- 	usleep_range(5000, 5500);
+-	tmp_reg = snd_soc_component_read32(component, AIC32X4_ADCSETUP);
++	tmp_reg = snd_soc_component_read(component, AIC32X4_ADCSETUP);
+ 	snd_soc_component_write(component, AIC32X4_ADCSETUP, tmp_reg |
+ 				AIC32X4_LADC_EN | AIC32X4_RADC_EN);
+ 	snd_soc_component_write(component, AIC32X4_ADCSETUP, tmp_reg);
+diff --git a/sound/soc/codecs/tlv320aic3x.c b/sound/soc/codecs/tlv320aic3x.c
+index 424faafcb85b..6860743ecdca 100644
+--- a/sound/soc/codecs/tlv320aic3x.c
++++ b/sound/soc/codecs/tlv320aic3x.c
+@@ -1056,7 +1056,7 @@ static int aic3x_hw_params(struct snd_pcm_substream *substream,
+ 		width = params_width(params);
  
--	if (!(snd_soc_component_read32(comp,
-+	if (!(snd_soc_component_read(comp,
- 					WCD9335_CHIP_TIER_CTRL_EFUSE_STATUS) &
- 					WCD9335_CHIP_TIER_CTRL_EFUSE_EN_MASK))
- 		WARN(1, "%s: Efuse sense is not complete\n", __func__);
-diff --git a/sound/soc/codecs/wcd934x.c b/sound/soc/codecs/wcd934x.c
-index 531b8b79e55f..35697b072367 100644
---- a/sound/soc/codecs/wcd934x.c
-+++ b/sound/soc/codecs/wcd934x.c
-@@ -1464,9 +1464,9 @@ static int wcd934x_set_prim_interpolator_rate(struct snd_soc_dai *dai,
- 			if (j == INTERP_LO3_NA || j == INTERP_LO4_NA)
- 				continue;
- 
--			cfg0 = snd_soc_component_read32(comp,
-+			cfg0 = snd_soc_component_read(comp,
- 					WCD934X_CDC_RX_INP_MUX_RX_INT_CFG0(j));
--			cfg1 = snd_soc_component_read32(comp,
-+			cfg1 = snd_soc_component_read(comp,
- 					WCD934X_CDC_RX_INP_MUX_RX_INT_CFG1(j));
- 
- 			inp0_sel = cfg0 &
-@@ -1513,7 +1513,7 @@ static int wcd934x_set_mix_interpolator_rate(struct snd_soc_dai *dai,
- 			/* Interpolators 5 and 6 are not aviliable in Tavil */
- 			if (j == INTERP_LO3_NA || j == INTERP_LO4_NA)
- 				continue;
--			val = snd_soc_component_read32(component,
-+			val = snd_soc_component_read(component,
- 					WCD934X_CDC_RX_INP_MUX_RX_INT_CFG1(j)) &
- 					WCD934X_CDC_RX_INP_MUX_RX_INT_SEL_MASK;
- 
-@@ -1616,7 +1616,7 @@ static int wcd934x_set_decimator_rate(struct snd_soc_dai *dai,
- 			return -EINVAL;
- 		}
- 
--		tx_mux_sel = snd_soc_component_read32(comp, tx_port_reg) &
-+		tx_mux_sel = snd_soc_component_read(comp, tx_port_reg) &
- 						      (shift_val << shift);
- 
- 		tx_mux_sel = tx_mux_sel >> shift;
-@@ -2346,23 +2346,23 @@ static uint32_t get_iir_band_coeff(struct snd_soc_component *component,
- 				((band_idx * BAND_MAX + coeff_idx) *
- 				 sizeof(uint32_t)) & 0x7F);
- 
--	value |= snd_soc_component_read32(component, b2_reg);
-+	value |= snd_soc_component_read(component, b2_reg);
- 	snd_soc_component_write(component, reg,
- 				((band_idx * BAND_MAX + coeff_idx)
- 				 * sizeof(uint32_t) + 1) & 0x7F);
- 
--	value |= (snd_soc_component_read32(component, b2_reg) << 8);
-+	value |= (snd_soc_component_read(component, b2_reg) << 8);
- 	snd_soc_component_write(component, reg,
- 				((band_idx * BAND_MAX + coeff_idx)
- 				 * sizeof(uint32_t) + 2) & 0x7F);
- 
--	value |= (snd_soc_component_read32(component, b2_reg) << 16);
-+	value |= (snd_soc_component_read(component, b2_reg) << 16);
- 	snd_soc_component_write(component, reg,
- 		((band_idx * BAND_MAX + coeff_idx)
- 		* sizeof(uint32_t) + 3) & 0x7F);
- 
- 	/* Mask bits top 2 bits since they are reserved */
--	value |= (snd_soc_component_read32(component, b2_reg) << 24);
-+	value |= (snd_soc_component_read(component, b2_reg) << 24);
- 	return value;
- }
- 
-@@ -3535,7 +3535,7 @@ static int wcd934x_codec_enable_mix_path(struct snd_soc_dapm_widget *w,
+ 	/* select data word length */
+-	data = snd_soc_component_read32(component, AIC3X_ASD_INTF_CTRLB) & (~(0x3 << 4));
++	data = snd_soc_component_read(component, AIC3X_ASD_INTF_CTRLB) & (~(0x3 << 4));
+ 	switch (width) {
+ 	case 16:
  		break;
+@@ -1219,8 +1219,8 @@ static int aic3x_prepare(struct snd_pcm_substream *substream,
+ static int aic3x_mute(struct snd_soc_dai *dai, int mute)
+ {
+ 	struct snd_soc_component *component = dai->component;
+-	u8 ldac_reg = snd_soc_component_read32(component, LDAC_VOL) & ~MUTE_ON;
+-	u8 rdac_reg = snd_soc_component_read32(component, RDAC_VOL) & ~MUTE_ON;
++	u8 ldac_reg = snd_soc_component_read(component, LDAC_VOL) & ~MUTE_ON;
++	u8 rdac_reg = snd_soc_component_read(component, RDAC_VOL) & ~MUTE_ON;
  
- 	case SND_SOC_DAPM_POST_PMU:
--		val = snd_soc_component_read32(comp, gain_reg);
-+		val = snd_soc_component_read(comp, gain_reg);
- 		val += offset_val;
- 		snd_soc_component_write(comp, gain_reg, val);
- 		break;
-@@ -3554,23 +3554,23 @@ static int wcd934x_codec_set_iir_gain(struct snd_soc_dapm_widget *w,
- 	case SND_SOC_DAPM_POST_PMU:
- 		/* B1 GAIN */
- 		snd_soc_component_write(comp, reg,
--					snd_soc_component_read32(comp, reg));
-+					snd_soc_component_read(comp, reg));
- 		/* B2 GAIN */
- 		reg++;
- 		snd_soc_component_write(comp, reg,
--					snd_soc_component_read32(comp, reg));
-+					snd_soc_component_read(comp, reg));
- 		/* B3 GAIN */
- 		reg++;
- 		snd_soc_component_write(comp, reg,
--					snd_soc_component_read32(comp, reg));
-+					snd_soc_component_read(comp, reg));
- 		/* B4 GAIN */
- 		reg++;
- 		snd_soc_component_write(comp, reg,
--					snd_soc_component_read32(comp, reg));
-+					snd_soc_component_read(comp, reg));
- 		/* B5 GAIN */
- 		reg++;
- 		snd_soc_component_write(comp, reg,
--					snd_soc_component_read32(comp, reg));
-+					snd_soc_component_read(comp, reg));
- 		break;
- 	default:
- 		break;
-@@ -3591,7 +3591,7 @@ static int wcd934x_codec_enable_main_path(struct snd_soc_dapm_widget *w,
- 	switch (event) {
- 	case SND_SOC_DAPM_POST_PMU:
- 		snd_soc_component_write(comp, gain_reg,
--				snd_soc_component_read32(comp, gain_reg));
-+				snd_soc_component_read(comp, gain_reg));
- 		break;
- 	}
+ 	if (mute) {
+ 		snd_soc_component_write(component, LDAC_VOL, ldac_reg | MUTE_ON);
+@@ -1256,8 +1256,8 @@ static int aic3x_set_dai_fmt(struct snd_soc_dai *codec_dai,
+ 	struct aic3x_priv *aic3x = snd_soc_component_get_drvdata(component);
+ 	u8 iface_areg, iface_breg;
  
-@@ -3635,7 +3635,7 @@ static int wcd934x_codec_hphl_dac_event(struct snd_soc_dapm_widget *w,
- 	switch (event) {
- 	case SND_SOC_DAPM_PRE_PMU:
- 		/* Read DEM INP Select */
--		dem_inp = snd_soc_component_read32(comp,
-+		dem_inp = snd_soc_component_read(comp,
- 				   WCD934X_CDC_RX1_RX_PATH_SEC0) & 0x03;
+-	iface_areg = snd_soc_component_read32(component, AIC3X_ASD_INTF_CTRLA) & 0x3f;
+-	iface_breg = snd_soc_component_read32(component, AIC3X_ASD_INTF_CTRLB) & 0x3f;
++	iface_areg = snd_soc_component_read(component, AIC3X_ASD_INTF_CTRLA) & 0x3f;
++	iface_breg = snd_soc_component_read(component, AIC3X_ASD_INTF_CTRLB) & 0x3f;
  
- 		if (((hph_mode == CLS_H_HIFI) || (hph_mode == CLS_H_LOHIFI) ||
-@@ -3686,7 +3686,7 @@ static int wcd934x_codec_hphr_dac_event(struct snd_soc_dapm_widget *w,
- 
- 	switch (event) {
- 	case SND_SOC_DAPM_PRE_PMU:
--		dem_inp = snd_soc_component_read32(comp,
-+		dem_inp = snd_soc_component_read(comp,
- 					WCD934X_CDC_RX2_RX_PATH_SEC0) & 0x03;
- 		if (((hph_mode == CLS_H_HIFI) || (hph_mode == CLS_H_LOHIFI) ||
- 		     (hph_mode == CLS_H_LP)) && (dem_inp != 0x01)) {
-@@ -3837,7 +3837,7 @@ static int wcd934x_codec_enable_hphr_pa(struct snd_soc_dapm_widget *w,
- 				      WCD934X_HPH_AUTOCHOP_TIMER_EN_MASK,
- 				      WCD934X_HPH_AUTOCHOP_TIMER_ENABLE);
- 		/* Remove mix path mute if it is enabled */
--		if ((snd_soc_component_read32(comp,
-+		if ((snd_soc_component_read(comp,
- 				      WCD934X_CDC_RX2_RX_PATH_MIX_CTL)) & 0x10)
- 			snd_soc_component_update_bits(comp,
- 					      WCD934X_CDC_RX2_RX_PATH_MIX_CTL,
-@@ -3889,7 +3889,7 @@ static u32 wcd934x_get_dmic_sample_rate(struct snd_soc_component *comp,
- 			++adc_mux_index;
- 			continue;
- 		}
--		adc_mux_sel = ((snd_soc_component_read32(comp, adc_mux_ctl_reg)
-+		adc_mux_sel = ((snd_soc_component_read(comp, adc_mux_ctl_reg)
- 			       & 0xF8) >> 3) - 1;
- 
- 		if (adc_mux_sel == dmic) {
-@@ -3902,7 +3902,7 @@ static u32 wcd934x_get_dmic_sample_rate(struct snd_soc_component *comp,
- 
- 	if (dec_found && adc_mux_index <= 8) {
- 		tx_fs_reg = WCD934X_CDC_TX0_TX_PATH_CTL + (16 * adc_mux_index);
--		tx_stream_fs = snd_soc_component_read32(comp, tx_fs_reg) & 0x0F;
-+		tx_stream_fs = snd_soc_component_read(comp, tx_fs_reg) & 0x0F;
- 		if (tx_stream_fs <= 4)  {
- 			if (wcd->dmic_sample_rate <=
- 					WCD9XXX_DMIC_SAMPLE_RATE_2P4MHZ)
-@@ -4104,12 +4104,12 @@ static int wcd934x_codec_find_amic_input(struct snd_soc_component *comp,
- 				   adc_mux_n - 4;
- 	}
- 
--	is_amic = (((snd_soc_component_read32(comp, adc_mux_in_reg)
-+	is_amic = (((snd_soc_component_read(comp, adc_mux_in_reg)
- 		     & mask) >> shift) == 1);
- 	if (!is_amic)
- 		return 0;
- 
--	return snd_soc_component_read32(comp, amic_mux_sel_reg) & 0x07;
-+	return snd_soc_component_read(comp, amic_mux_sel_reg) & 0x07;
- }
- 
- static u16 wcd934x_codec_get_amic_pwlvl_reg(struct snd_soc_component *comp,
-@@ -4193,7 +4193,7 @@ static int wcd934x_codec_enable_dec(struct snd_soc_dapm_widget *w,
- 		if (!pwr_level_reg)
- 			break;
- 
--		switch ((snd_soc_component_read32(comp, pwr_level_reg) &
-+		switch ((snd_soc_component_read(comp, pwr_level_reg) &
- 				      WCD934X_AMIC_PWR_LVL_MASK) >>
- 				      WCD934X_AMIC_PWR_LVL_SHIFT) {
- 		case WCD934X_AMIC_PWR_LEVEL_LP:
-@@ -4216,7 +4216,7 @@ static int wcd934x_codec_enable_dec(struct snd_soc_dapm_widget *w,
- 		}
- 		break;
- 	case SND_SOC_DAPM_POST_PMU:
--		hpf_coff_freq = (snd_soc_component_read32(comp, dec_cfg_reg) &
-+		hpf_coff_freq = (snd_soc_component_read(comp, dec_cfg_reg) &
- 				 TX_HPF_CUT_OFF_FREQ_MASK) >> 5;
- 		if (hpf_coff_freq != CF_MIN_3DB_150HZ) {
- 			snd_soc_component_update_bits(comp, dec_cfg_reg,
-@@ -4236,11 +4236,11 @@ static int wcd934x_codec_enable_dec(struct snd_soc_dapm_widget *w,
- 		}
- 		/* apply gain after decimator is enabled */
- 		snd_soc_component_write(comp, tx_gain_ctl_reg,
--					snd_soc_component_read32(comp,
-+					snd_soc_component_read(comp,
- 							 tx_gain_ctl_reg));
- 		break;
- 	case SND_SOC_DAPM_PRE_PMD:
--		hpf_coff_freq = (snd_soc_component_read32(comp, dec_cfg_reg) &
-+		hpf_coff_freq = (snd_soc_component_read(comp, dec_cfg_reg) &
- 				 TX_HPF_CUT_OFF_FREQ_MASK) >> 5;
- 
- 		if (hpf_coff_freq != CF_MIN_3DB_150HZ) {
+ 	/* set master/slave audio interface */
+ 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+@@ -1407,8 +1407,8 @@ static int aic3x_set_power(struct snd_soc_component *component, int power)
+ 		 * writing one of them and thus caused other one also not
+ 		 * being written
+ 		 */
+-		pll_c = snd_soc_component_read32(component, AIC3X_PLL_PROGC_REG);
+-		pll_d = snd_soc_component_read32(component, AIC3X_PLL_PROGD_REG);
++		pll_c = snd_soc_component_read(component, AIC3X_PLL_PROGC_REG);
++		pll_d = snd_soc_component_read(component, AIC3X_PLL_PROGD_REG);
+ 		if (pll_c == aic3x_reg[AIC3X_PLL_PROGC_REG].def ||
+ 			pll_d == aic3x_reg[AIC3X_PLL_PROGD_REG].def) {
+ 			snd_soc_component_write(component, AIC3X_PLL_PROGC_REG, pll_c);
 -- 
 2.25.1
 

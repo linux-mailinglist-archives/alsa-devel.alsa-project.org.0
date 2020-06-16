@@ -2,119 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D5341FAE7F
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jun 2020 12:49:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBB9E1FAEEF
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jun 2020 13:13:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E2241167C;
-	Tue, 16 Jun 2020 12:48:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2241167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 81032167C;
+	Tue, 16 Jun 2020 13:12:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81032167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592304552;
-	bh=GJrdCTMxuxqs338LwVoH2e3w4aE7sj+kbFT8XDuUcIY=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1592306010;
+	bh=BGOSeIOXVZpFTcC5omEXErbfuvy6fPyiKnsYh4ujJn4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Jgv6rcw9uXEarvKwESsgcubhf3VcK4uTH/A5JzsxL7d/P9XUQcghmTwtD5qX03yeh
-	 M9e3dwqhE0AD8KWYa3AWbo+5vjnlSzks1YLIbxQzzuH+i0wp8R1oF9VcSdpLc2Ax8U
-	 Re8/H8t0OQemd2ZR+ZPATSyYkn0/64BF5vxXXe5Y=
+	b=LcQZVnB58EEJfHpZ+iFUqEMWuh+IMeXmGIacCEekZfYQ71p8lWZj9xVMYPk0zF0Cd
+	 V444UKeb5e/ABhg6JCiswZ7jZarrXYvO8YEFas5o2bBNhc1bCrRLRFeDeUvIc8u4bG
+	 yfOQqQuiOhBSaVqf2UrW5I7Cdn5elZ84mnHWWFL0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01E7BF800EF;
-	Tue, 16 Jun 2020 12:47:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A093FF80101;
+	Tue, 16 Jun 2020 13:11:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 28E88F8022B; Tue, 16 Jun 2020 12:47:28 +0200 (CEST)
+ id B9807F8022B; Tue, 16 Jun 2020 13:11:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from EUR03-AM5-obe.outbound.protection.outlook.com
- (mail-eopbgr30049.outbound.protection.outlook.com [40.107.3.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8D9E5F800EF
- for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 12:47:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D9E5F800EF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 32AD3F80101
+ for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 13:11:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32AD3F80101
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=dialogsemiconductor.onmicrosoft.com
- header.i=@dialogsemiconductor.onmicrosoft.com header.b="Av0EWfK4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TjPlOGNqk0xSmHFg1GrP/9OrTAbpfnojw0PKAtTHd78mvuLzQ5gCcbE63RaOyBKxbCqtF1GDIYROlEMZxnETxFOdyzgGbngo2mDYagzzqQgk53vEY8Qu+tabhYVhBdfE221mS1j6NOxzJU9tTIKwt2nRuZbHyZfLOSvZP0lwHTKb9qbzqwmylR/KYpwQltkWS6xP6XgXcm9ZNmGo+f3yI2fJWJeZLuXfudgUYqKmQ0kjyxDjlMpzLP3mJuxQemULmgUi/pyyoyl0zFydbLc7nrRB9fqtFHu5mfrrBM5TdWioQD5xXqQM1QDX0lU1iRoQWx/PkZoajdVrceGj299YFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I4m8+KZthGSajCV7QfDEhiotSlfgdlniD2tGm/yfMhs=;
- b=mLgcJhw7jtBa5tGC6pLWkC/NpeWVueSXw1v22JZVtH7wix02A+9JrgTEq2qHWfwENctHTmUFN2ucBB1FP1f1uiczOaoPkWOYTsZtbMslDXkjd2ANNKYbKoQsWJcdCviTx7RpIJm6Jm0+mvyZqeGOIXxsDcmFW6bYr8NgK0ukzC42vAsx8r095azl9RqWJmSMv9HgBYmG41BQwdToFEigIjxIn2Dgmt7W3v2k+CL5flPiVOIWHYcmq2DRtI4tZ5fSDWiZKWYjhBrh5QBtj2SLocjRvJ7hBRb+gQuwHhufOwELiIqfw9HOgUdOugbgIXmcBIzmqnO+l9JwQcCDMpG9hw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=diasemi.com; dmarc=pass action=none header.from=diasemi.com;
- dkim=pass header.d=diasemi.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=dialogsemiconductor.onmicrosoft.com;
- s=selector1-dialogsemiconductor-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I4m8+KZthGSajCV7QfDEhiotSlfgdlniD2tGm/yfMhs=;
- b=Av0EWfK4sLZQ8SCi25QH1HJ0PFfiJ69Ouy+KhG4H1Lda47aQhFUragDu33OslU/MtnmsYaSFLjj6cZ8vBdKo5oM6igmxq0VuxHKqoYEBCxpqgrx1tb+kqmm27Laq5GetHiqkGP0+C0LtlptaokKVkPQkyBBKVTobUUVrNxPL5Gs=
-Received: from AM6PR10MB2263.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:52::13)
- by AM6PR10MB2693.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:a8::26)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.21; Tue, 16 Jun
- 2020 10:47:18 +0000
-Received: from AM6PR10MB2263.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::6d54:9ddd:f235:d379]) by AM6PR10MB2263.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::6d54:9ddd:f235:d379%5]) with mapi id 15.20.3088.029; Tue, 16 Jun 2020
- 10:47:17 +0000
-From: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown
- <broonie@kernel.org>
-Subject: RE: [PATCH 13/16] ASoC: codecs: da*: rename to
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="fpQT0Myw"
+Received: by mail-wr1-x442.google.com with SMTP id p5so20292123wrw.9
+ for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 04:11:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=n+/jE5rC26UcvcTlleRqP8X35sBSlsK7GtdZmIrYebM=;
+ b=fpQT0MywQm3k2lZ67atSboWIA09H//N9xtt36CR+W5808qR2EiLUtz/dMt426vB6gT
+ vzXG9eBlIsbMTKiQGHfk/fV8aKCmI0n9tF5cK29BOEV+GKpiayeaoZMKZuPKwmbusV2b
+ Te6L9o8H5/amzBQNS92wfAVzR0MfjCh4Msgyq2JmRVKydf7nA3kKxvTTvBORLfOre5rL
+ Rpn0Q8A00RLijVfZ2gKMqPpNVKjoIPnTH5fH4tg7gINhvU23Q0EKawr+un6eZsfZohoN
+ 7LEUJxHINQn1993oMr95IytCNNoy1CEndszQ9FYKUo7hKbyxvSHwcpH/wbcfj5mVNNIr
+ Mi8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=n+/jE5rC26UcvcTlleRqP8X35sBSlsK7GtdZmIrYebM=;
+ b=DsZWVtHqtTzsSxb8iR1P0uYkkVtJeMLOkcMCUldZHR/HlZb488434q7O0eX04EcVcv
+ F9WkIlA+/+5fgOBubETD1N5ssXZ99T1hPxw2GOK5G9CVxbLCxleKyp/YAHdtG+kAoVU/
+ c1J+DQuKOerBjbgQkd7h8AOw7t31qu25HyD9L+MYxaegzJWPXbp5DaBXjPqNr5GKC1rj
+ xzDIlfNHPjHwafSxe+2gZVfOaKDxxdu3IkBcB6d8wmg/NXZpeHKBwqmga8fsqsYjS0jV
+ cTAU4eBcEnHmfIdgdTQJiLnPa/df7qqdjH9zhxWsxpVVMi+ZW+VArYq48aDr6GQeSqCE
+ feZg==
+X-Gm-Message-State: AOAM533PPBiMT8l5+YPRkos+seS4UwJHT2zbt2OYBnm82Iw54QQ1ngGJ
+ aKaDYl9ZZovfPCRmrmcdyZpyQ2n7xq4=
+X-Google-Smtp-Source: ABdhPJy+YeFuoetlGycd1lzI2q9RW6yAOtWyQW/FSZmtrM5CcoIyGIhBGLEx0DlLZEyHakC4H6oS6A==
+X-Received: by 2002:adf:e44c:: with SMTP id t12mr2409201wrm.181.1592305897717; 
+ Tue, 16 Jun 2020 04:11:37 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.googlemail.com with ESMTPSA id a3sm3454686wmb.7.2020.06.16.04.11.36
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 16 Jun 2020 04:11:36 -0700 (PDT)
+Subject: Re: [PATCH 06/16] ASoC: codecs: wcd*: rename to
  snd_soc_component_read()
-Thread-Topic: [PATCH 13/16] ASoC: codecs: da*: rename to
- snd_soc_component_read()
-Thread-Index: AQHWQ574xFC3dr7xF0WfXSe841qsD6jbDzzQ
-Date: Tue, 16 Jun 2020 10:47:17 +0000
-Message-ID: <AM6PR10MB2263EFA9898C6120E8CE5EB0809D0@AM6PR10MB2263.EURPRD10.PROD.OUTLOOK.COM>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>
 References: <87tuzb4mjg.wl-kuninori.morimoto.gx@renesas.com>
- <87bllj4mc8.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87bllj4mc8.wl-kuninori.morimoto.gx@renesas.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: renesas.com; dkim=none (message not signed)
- header.d=none;renesas.com; dmarc=none action=none header.from=diasemi.com;
-x-ms-exchange-messagesentrepresentingtype: 1
-x-originating-ip: [146.199.34.209]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 3e810f75-ca00-47a0-1f2e-08d811e2a3b8
-x-ms-traffictypediagnostic: AM6PR10MB2693:
-x-ms-exchange-sharedmailbox-routingagent-processed: True
-x-microsoft-antispam-prvs: <AM6PR10MB2693E1F00612DC5D8400CF50A79D0@AM6PR10MB2693.EURPRD10.PROD.OUTLOOK.COM>
-x-ms-oob-tlc-oobclassifiers: OLM:72;
-x-forefront-prvs: 04362AC73B
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: f7R9rmJhOjkUMWKJJlWjPZl+mB+Ecz0McdfY7dd6WXxqxTLFN3HWpx/Guyzm2MyGoKZVP2wqBMeNrmKIyNLPDibo0Wmp4jAAtlFaK/FYNcuhgqarHiK6KdDV821AGO2Cn0YEkmIhoE0zTyj5DPvQq1bpnihKe6LF0brElJNTNUvt1BjoZfBijmGzQJXJrpkVOH4myCf2//0v0PD5piLB3eo4Cu0ZRsYY2EUyx6Pcg1qqGkio7kgn+3UmAMTYcH4gn/3xa+NG2QmZgT7l+6tKo3ufhQCML1rFTJUoipHoYA9D4nLZWQwK4TQVk0skbo9hmQ2PKOs/yUlbFOHPWeeeng==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM6PR10MB2263.EURPRD10.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(136003)(39860400002)(396003)(366004)(376002)(346002)(8676002)(33656002)(8936002)(2906002)(5660300002)(478600001)(4326008)(52536014)(9686003)(55016002)(71200400001)(66946007)(64756008)(66446008)(66556008)(26005)(186003)(83380400001)(30864003)(66476007)(7696005)(6506007)(86362001)(316002)(53546011)(76116006)(110136005)(559001)(579004);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: /mZIC/cf53fIlL1RNGDL2bw0UB/NIf6fdVKqr1rlsLRs7QwII9rw3gYqP2yXKz1153dBUJagZ4uF27zrbm5f27RSn5DQ8qZvuIWXy5ZcVn4v7enJDyk1sJtw2kXo0MVF80uTojBBDWqdzQUr2K+dTMvnRR5gJ/VoKpD8/bpVIAk25NeyAv8IDTX5qt2wD3zDGDT5/o4QckJUugiZHz2X+i390vJAjhUQg2N7Zj4Je7AuqpZB2uDFXtOU92WVrhbCtqjVC6yJzWsFhB+jZH67ff04F5bAV15hls9x4xRPzg2G1gqwt2qCGfJKp+fJsEji/KJJcUy7C+z5Ggq7d+v4HV/gR7aM79ueurvVSd9jp08xlZuBy3+YkxE82bxaYWSXq/X9IoLsWdbJKzuW6dX/Bb6sHds6fdO5JwOhvhikcJoUjVv0eSJe69L0BL1UfbDQO+ghbt0zkCE3O00Zr7QrbPFAqA04cRrOZFlXYAB0AwLYTi6GnhRJs7ZdY+eoAb/E
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ <87lfkn4mdy.wl-kuninori.morimoto.gx@renesas.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <370c7c82-7e67-1318-69b6-6e78a49e85eb@linaro.org>
+Date: Tue, 16 Jun 2020 12:11:36 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-X-OriginatorOrg: diasemi.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e810f75-ca00-47a0-1f2e-08d811e2a3b8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jun 2020 10:47:17.9279 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 511e3c0e-ee96-486e-a2ec-e272ffa37b7c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: F6RCG5BnT2PIXUc3JjvrNH+9TEwLIYv2Dfui+37EybiTk2JfQfn18eO3bfL67kcdvSAlFonejQQ9JAFOJ1SVdVTByD9QeD1/nLcDu0xuCrQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR10MB2693
+In-Reply-To: <87lfkn4mdy.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -131,775 +107,433 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 16 June 2020 06:22, Kuninori Morimoto wrote:
 
+
+On 16/06/2020 06:20, Kuninori Morimoto wrote:
+> 
 > From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
->=20
+> 
 > We need to use snd_soc_component_read()
 > instead of     snd_soc_component_read32()
->=20
+> 
 > This patch renames _read32() to _read()
->=20
+> 
 > Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-
-Acked-by: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
-
 > ---
->  sound/soc/codecs/da7210.c     | 24 ++++++++++++------------
->  sound/soc/codecs/da7213.c     | 24 ++++++++++++------------
->  sound/soc/codecs/da7218.c     | 34 +++++++++++++++++-----------------
->  sound/soc/codecs/da7219-aad.c | 16 ++++++++--------
->  sound/soc/codecs/da7219.c     | 20 ++++++++++----------
->  sound/soc/codecs/da732x.c     | 18 +++++++++---------
->  sound/soc/codecs/da9055.c     | 14 +++++++-------
->  7 files changed, 75 insertions(+), 75 deletions(-)
->=20
-> diff --git a/sound/soc/codecs/da7210.c b/sound/soc/codecs/da7210.c
-> index e172913d04a4..0c99dcf242e4 100644
-> --- a/sound/soc/codecs/da7210.c
-> +++ b/sound/soc/codecs/da7210.c
-> @@ -330,7 +330,7 @@ static int da7210_put_alc_sw(struct snd_kcontrol
-> *kcontrol,
->=20
->  	if (ucontrol->value.integer.value[0]) {
->  		/* Check if noise suppression is enabled */
-> -		if (snd_soc_component_read32(component, DA7210_CONTROL)
-> & DA7210_NOISE_SUP_EN) {
-> +		if (snd_soc_component_read(component, DA7210_CONTROL) &
-> DA7210_NOISE_SUP_EN) {
->  			dev_dbg(component->dev,
->  				"Disable noise suppression to enable ALC\n");
->  			return -EINVAL;
-> @@ -354,27 +354,27 @@ static int da7210_put_noise_sup_sw(struct
-> snd_kcontrol *kcontrol,
->=20
->  	if (ucontrol->value.integer.value[0]) {
->  		/* Check if ALC is enabled */
-> -		if (snd_soc_component_read32(component, DA7210_ADC) &
-> DA7210_ADC_ALC_EN)
-> +		if (snd_soc_component_read(component, DA7210_ADC) &
-> DA7210_ADC_ALC_EN)
->  			goto err;
->=20
->  		/* Check ZC for HP and AUX1 PGA */
-> -		if ((snd_soc_component_read32(component,
-> DA7210_ZERO_CROSS) &
-> +		if ((snd_soc_component_read(component,
-> DA7210_ZERO_CROSS) &
->  			(DA7210_AUX1_L_ZC | DA7210_AUX1_R_ZC |
-> DA7210_HP_L_ZC |
->  			DA7210_HP_R_ZC)) !=3D (DA7210_AUX1_L_ZC |
->  			DA7210_AUX1_R_ZC | DA7210_HP_L_ZC |
-> DA7210_HP_R_ZC))
->  			goto err;
->=20
->  		/* Check INPGA_L_VOL and INPGA_R_VOL */
-> -		val =3D snd_soc_component_read32(component,
-> DA7210_IN_GAIN);
-> +		val =3D snd_soc_component_read(component, DA7210_IN_GAIN);
->  		if (((val & DA7210_INPGA_L_VOL) <
-> DA7210_INPGA_MIN_VOL_NS) ||
->  			(((val & DA7210_INPGA_R_VOL) >> 4) <
->  			DA7210_INPGA_MIN_VOL_NS))
->  			goto err;
->=20
->  		/* Check AUX1_L_VOL and AUX1_R_VOL */
-> -		if (((snd_soc_component_read32(component, DA7210_AUX1_L)
-> & DA7210_AUX1_L_VOL) <
-> +		if (((snd_soc_component_read(component, DA7210_AUX1_L) &
-> DA7210_AUX1_L_VOL) <
->  		    DA7210_AUX1_MIN_VOL_NS) ||
-> -		    ((snd_soc_component_read32(component, DA7210_AUX1_R)
-> & DA7210_AUX1_R_VOL) <
-> +		    ((snd_soc_component_read(component, DA7210_AUX1_R) &
-> DA7210_AUX1_R_VOL) <
->  		    DA7210_AUX1_MIN_VOL_NS))
->  			goto err;
->  	}
-> @@ -767,7 +767,7 @@ static int da7210_hw_params(struct snd_pcm_substream
-> *substream,
->  	/* Enable DAI */
->  	snd_soc_component_write(component, DA7210_DAI_CFG3,
-> DA7210_DAI_OE | DA7210_DAI_EN);
->=20
-> -	dai_cfg1 =3D 0xFC & snd_soc_component_read32(component,
-> DA7210_DAI_CFG1);
-> +	dai_cfg1 =3D 0xFC & snd_soc_component_read(component,
-> DA7210_DAI_CFG1);
->=20
->  	switch (params_width(params)) {
->  	case 16:
-> @@ -874,11 +874,11 @@ static int da7210_set_dai_fmt(struct snd_soc_dai
-> *codec_dai, u32 fmt)
->  	u32 dai_cfg1;
->  	u32 dai_cfg3;
->=20
-> -	dai_cfg1 =3D 0x7f & snd_soc_component_read32(component,
-> DA7210_DAI_CFG1);
-> -	dai_cfg3 =3D 0xfc & snd_soc_component_read32(component,
-> DA7210_DAI_CFG3);
-> +	dai_cfg1 =3D 0x7f & snd_soc_component_read(component,
-> DA7210_DAI_CFG1);
-> +	dai_cfg3 =3D 0xfc & snd_soc_component_read(component,
-> DA7210_DAI_CFG3);
->=20
-> -	if ((snd_soc_component_read32(component, DA7210_PLL) &
-> DA7210_PLL_EN) &&
-> -		(!(snd_soc_component_read32(component, DA7210_PLL_DIV3)
-> & DA7210_PLL_BYP)))
-> +	if ((snd_soc_component_read(component, DA7210_PLL) &
-> DA7210_PLL_EN) &&
-> +		(!(snd_soc_component_read(component, DA7210_PLL_DIV3) &
-> DA7210_PLL_BYP)))
->  		return -EINVAL;
->=20
->  	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
-> @@ -927,7 +927,7 @@ static int da7210_set_dai_fmt(struct snd_soc_dai
-> *codec_dai, u32 fmt)
->  static int da7210_mute(struct snd_soc_dai *dai, int mute)
->  {
->  	struct snd_soc_component *component =3D dai->component;
-> -	u8 mute_reg =3D snd_soc_component_read32(component,
-> DA7210_DAC_HPF) & 0xFB;
-> +	u8 mute_reg =3D snd_soc_component_read(component,
-> DA7210_DAC_HPF) & 0xFB;
->=20
->  	if (mute)
->  		snd_soc_component_write(component, DA7210_DAC_HPF,
-> mute_reg | 0x4);
-> diff --git a/sound/soc/codecs/da7213.c b/sound/soc/codecs/da7213.c
-> index 3e6ad996741b..cc4ae7b311b4 100644
-> --- a/sound/soc/codecs/da7213.c
-> +++ b/sound/soc/codecs/da7213.c
-> @@ -205,12 +205,12 @@ static int da7213_get_alc_data(struct
-> snd_soc_component *component, u8 reg_val)
->  		/* Select middle 8 bits for read back from data register */
->  		snd_soc_component_write(component,
-> DA7213_ALC_CIC_OP_LVL_CTRL,
->  			      reg_val | DA7213_ALC_DATA_MIDDLE);
-> -		mid_data =3D snd_soc_component_read32(component,
-> DA7213_ALC_CIC_OP_LVL_DATA);
-> +		mid_data =3D snd_soc_component_read(component,
-> DA7213_ALC_CIC_OP_LVL_DATA);
->=20
->  		/* Select top 8 bits for read back from data register */
->  		snd_soc_component_write(component,
-> DA7213_ALC_CIC_OP_LVL_CTRL,
->  			      reg_val | DA7213_ALC_DATA_TOP);
-> -		top_data =3D snd_soc_component_read32(component,
-> DA7213_ALC_CIC_OP_LVL_DATA);
-> +		top_data =3D snd_soc_component_read(component,
-> DA7213_ALC_CIC_OP_LVL_DATA);
->=20
->  		sum +=3D ((mid_data << 8) | (top_data << 16));
->  	}
-> @@ -259,7 +259,7 @@ static void da7213_alc_calib_auto(struct
-> snd_soc_component *component)
->  	snd_soc_component_update_bits(component, DA7213_ALC_CTRL1,
-> DA7213_ALC_AUTO_CALIB_EN,
->  			    DA7213_ALC_AUTO_CALIB_EN);
->  	do {
-> -		alc_ctrl1 =3D snd_soc_component_read32(component,
-> DA7213_ALC_CTRL1);
-> +		alc_ctrl1 =3D snd_soc_component_read(component,
-> DA7213_ALC_CTRL1);
->  	} while (alc_ctrl1 & DA7213_ALC_AUTO_CALIB_EN);
->=20
->  	/* If auto calibration fails, fall back to digital gain only mode */
-> @@ -286,16 +286,16 @@ static void da7213_alc_calib(struct snd_soc_compone=
-nt
-> *component)
->  	u8 mic_1_ctrl, mic_2_ctrl;
->=20
->  	/* Save current values from ADC control registers */
-> -	adc_l_ctrl =3D snd_soc_component_read32(component,
-> DA7213_ADC_L_CTRL);
-> -	adc_r_ctrl =3D snd_soc_component_read32(component,
-> DA7213_ADC_R_CTRL);
-> +	adc_l_ctrl =3D snd_soc_component_read(component,
-> DA7213_ADC_L_CTRL);
-> +	adc_r_ctrl =3D snd_soc_component_read(component,
-> DA7213_ADC_R_CTRL);
->=20
->  	/* Save current values from MIXIN_L/R_SELECT registers */
-> -	mixin_l_sel =3D snd_soc_component_read32(component,
-> DA7213_MIXIN_L_SELECT);
-> -	mixin_r_sel =3D snd_soc_component_read32(component,
-> DA7213_MIXIN_R_SELECT);
-> +	mixin_l_sel =3D snd_soc_component_read(component,
-> DA7213_MIXIN_L_SELECT);
-> +	mixin_r_sel =3D snd_soc_component_read(component,
-> DA7213_MIXIN_R_SELECT);
->=20
->  	/* Save current values from MIC control registers */
-> -	mic_1_ctrl =3D snd_soc_component_read32(component,
-> DA7213_MIC_1_CTRL);
-> -	mic_2_ctrl =3D snd_soc_component_read32(component,
-> DA7213_MIC_2_CTRL);
-> +	mic_1_ctrl =3D snd_soc_component_read(component,
-> DA7213_MIC_1_CTRL);
-> +	mic_2_ctrl =3D snd_soc_component_read(component,
-> DA7213_MIC_2_CTRL);
->=20
->  	/* Enable ADC Left and Right */
->  	snd_soc_component_update_bits(component, DA7213_ADC_L_CTRL,
-> DA7213_ADC_EN,
-> @@ -751,7 +751,7 @@ static int da7213_dai_event(struct snd_soc_dapm_widge=
-t
-> *w,
->  				    DA7213_PC_FREERUN_MASK, 0);
->=20
->  		/* If SRM not enabled then nothing more to do */
-> -		pll_ctrl =3D snd_soc_component_read32(component,
-> DA7213_PLL_CTRL);
-> +		pll_ctrl =3D snd_soc_component_read(component,
-> DA7213_PLL_CTRL);
->  		if (!(pll_ctrl & DA7213_PLL_SRM_EN))
->  			return 0;
->=20
-> @@ -764,7 +764,7 @@ static int da7213_dai_event(struct snd_soc_dapm_widge=
-t
-> *w,
->=20
->  		/* Check SRM has locked */
->  		do {
-> -			pll_status =3D snd_soc_component_read32(component,
-> DA7213_PLL_STATUS);
-> +			pll_status =3D snd_soc_component_read(component,
-> DA7213_PLL_STATUS);
->  			if (pll_status & DA7219_PLL_SRM_LOCK) {
->  				srm_lock =3D true;
->  			} else {
-> @@ -779,7 +779,7 @@ static int da7213_dai_event(struct snd_soc_dapm_widge=
-t
-> *w,
->  		return 0;
->  	case SND_SOC_DAPM_POST_PMD:
->  		/* Revert 32KHz PLL lock udpates if applied previously */
-> -		pll_ctrl =3D snd_soc_component_read32(component,
-> DA7213_PLL_CTRL);
-> +		pll_ctrl =3D snd_soc_component_read(component,
-> DA7213_PLL_CTRL);
->  		if (pll_ctrl & DA7213_PLL_32K_MODE) {
->  			snd_soc_component_write(component, 0xF0, 0x8B);
->  			snd_soc_component_write(component, 0xF2, 0x01);
-> diff --git a/sound/soc/codecs/da7218.c b/sound/soc/codecs/da7218.c
-> index a3003f299868..6d78bccb55c3 100644
-> --- a/sound/soc/codecs/da7218.c
-> +++ b/sound/soc/codecs/da7218.c
-> @@ -298,22 +298,22 @@ static void da7218_alc_calib(struct snd_soc_compone=
-nt
-> *component)
->  	bool calibrated =3D false;
->=20
->  	/* Save current state of MIC control registers */
-> -	mic_1_ctrl =3D snd_soc_component_read32(component,
-> DA7218_MIC_1_CTRL);
-> -	mic_2_ctrl =3D snd_soc_component_read32(component,
-> DA7218_MIC_2_CTRL);
-> +	mic_1_ctrl =3D snd_soc_component_read(component,
-> DA7218_MIC_1_CTRL);
-> +	mic_2_ctrl =3D snd_soc_component_read(component,
-> DA7218_MIC_2_CTRL);
->=20
->  	/* Save current state of input mixer control registers */
-> -	mixin_1_ctrl =3D snd_soc_component_read32(component,
-> DA7218_MIXIN_1_CTRL);
-> -	mixin_2_ctrl =3D snd_soc_component_read32(component,
-> DA7218_MIXIN_2_CTRL);
-> +	mixin_1_ctrl =3D snd_soc_component_read(component,
-> DA7218_MIXIN_1_CTRL);
-> +	mixin_2_ctrl =3D snd_soc_component_read(component,
-> DA7218_MIXIN_2_CTRL);
->=20
->  	/* Save current state of input filter control registers */
-> -	in_1l_filt_ctrl =3D snd_soc_component_read32(component,
-> DA7218_IN_1L_FILTER_CTRL);
-> -	in_1r_filt_ctrl =3D snd_soc_component_read32(component,
-> DA7218_IN_1R_FILTER_CTRL);
-> -	in_2l_filt_ctrl =3D snd_soc_component_read32(component,
-> DA7218_IN_2L_FILTER_CTRL);
-> -	in_2r_filt_ctrl =3D snd_soc_component_read32(component,
-> DA7218_IN_2R_FILTER_CTRL);
-> +	in_1l_filt_ctrl =3D snd_soc_component_read(component,
-> DA7218_IN_1L_FILTER_CTRL);
-> +	in_1r_filt_ctrl =3D snd_soc_component_read(component,
-> DA7218_IN_1R_FILTER_CTRL);
-> +	in_2l_filt_ctrl =3D snd_soc_component_read(component,
-> DA7218_IN_2L_FILTER_CTRL);
-> +	in_2r_filt_ctrl =3D snd_soc_component_read(component,
-> DA7218_IN_2R_FILTER_CTRL);
->=20
->  	/* Save current state of input HPF control registers */
-> -	in_1_hpf_ctrl =3D snd_soc_component_read32(component,
-> DA7218_IN_1_HPF_FILTER_CTRL);
-> -	in_2_hpf_ctrl =3D snd_soc_component_read32(component,
-> DA7218_IN_2_HPF_FILTER_CTRL);
-> +	in_1_hpf_ctrl =3D snd_soc_component_read(component,
-> DA7218_IN_1_HPF_FILTER_CTRL);
-> +	in_2_hpf_ctrl =3D snd_soc_component_read(component,
-> DA7218_IN_2_HPF_FILTER_CTRL);
->=20
->  	/* Enable then Mute MIC PGAs */
->  	snd_soc_component_update_bits(component, DA7218_MIC_1_CTRL,
-> DA7218_MIC_1_AMP_EN_MASK,
-> @@ -369,7 +369,7 @@ static void da7218_alc_calib(struct snd_soc_component
-> *component)
->  	snd_soc_component_update_bits(component, DA7218_CALIB_CTRL,
-> DA7218_CALIB_AUTO_EN_MASK,
->  			    DA7218_CALIB_AUTO_EN_MASK);
->  	do {
-> -		calib_ctrl =3D snd_soc_component_read32(component,
-> DA7218_CALIB_CTRL);
-> +		calib_ctrl =3D snd_soc_component_read(component,
-> DA7218_CALIB_CTRL);
->  		if (calib_ctrl & DA7218_CALIB_AUTO_EN_MASK) {
->  			++i;
->  			usleep_range(DA7218_ALC_CALIB_DELAY_MIN,
-> @@ -613,7 +613,7 @@ static int da7218_biquad_coeff_put(struct snd_kcontro=
-l
-> *kcontrol,
->  	}
->=20
->  	/* Make sure at least out filter1 enabled to allow programming */
-> -	out_filt1l =3D snd_soc_component_read32(component,
-> DA7218_OUT_1L_FILTER_CTRL);
-> +	out_filt1l =3D snd_soc_component_read(component,
-> DA7218_OUT_1L_FILTER_CTRL);
->  	snd_soc_component_write(component, DA7218_OUT_1L_FILTER_CTRL,
->  		      out_filt1l | DA7218_OUT_1L_FILTER_EN_MASK);
->=20
-> @@ -1419,7 +1419,7 @@ static int da7218_dai_event(struct
-> snd_soc_dapm_widget *w,
->  		i =3D 0;
->  		success =3D false;
->  		do {
-> -			refosc_cal =3D snd_soc_component_read32(component,
-> DA7218_PLL_REFOSC_CAL);
-> +			refosc_cal =3D snd_soc_component_read(component,
-> DA7218_PLL_REFOSC_CAL);
->  			if (!(refosc_cal &
-> DA7218_PLL_REFOSC_CAL_START_MASK)) {
->  				success =3D true;
->  			} else {
-> @@ -1438,7 +1438,7 @@ static int da7218_dai_event(struct
-> snd_soc_dapm_widget *w,
->  			      DA7218_PC_RESYNC_AUTO_MASK);
->=20
->  		/* If SRM not enabled, we don't need to check status */
-> -		pll_ctrl =3D snd_soc_component_read32(component,
-> DA7218_PLL_CTRL);
-> +		pll_ctrl =3D snd_soc_component_read(component,
-> DA7218_PLL_CTRL);
->  		if ((pll_ctrl & DA7218_PLL_MODE_MASK) !=3D
-> DA7218_PLL_MODE_SRM)
->  			return 0;
->=20
-> @@ -1446,7 +1446,7 @@ static int da7218_dai_event(struct
-> snd_soc_dapm_widget *w,
->  		i =3D 0;
->  		success =3D false;
->  		do {
-> -			pll_status =3D snd_soc_component_read32(component,
-> DA7218_PLL_STATUS);
-> +			pll_status =3D snd_soc_component_read(component,
-> DA7218_PLL_STATUS);
->  			if (pll_status & DA7218_PLL_SRM_STATUS_SRM_LOCK) {
->  				success =3D true;
->  			} else {
-> @@ -2236,7 +2236,7 @@ static void da7218_hpldet_irq(struct
-> snd_soc_component *component)
->  	u8 jack_status;
->  	int report;
->=20
-> -	jack_status =3D snd_soc_component_read32(component,
-> DA7218_EVENT_STATUS);
-> +	jack_status =3D snd_soc_component_read(component,
-> DA7218_EVENT_STATUS);
->=20
->  	if (jack_status & DA7218_HPLDET_JACK_STS_MASK)
->  		report =3D SND_JACK_HEADPHONE;
-> @@ -2256,7 +2256,7 @@ static irqreturn_t da7218_irq_thread(int irq, void =
-*data)
->  	u8 status;
->=20
->  	/* Read IRQ status reg */
-> -	status =3D snd_soc_component_read32(component, DA7218_EVENT);
-> +	status =3D snd_soc_component_read(component, DA7218_EVENT);
->  	if (!status)
->  		return IRQ_NONE;
->=20
-> diff --git a/sound/soc/codecs/da7219-aad.c b/sound/soc/codecs/da7219-aad.=
-c
-> index 4f2a96e9fd45..b1dfd91609f7 100644
-> --- a/sound/soc/codecs/da7219-aad.c
-> +++ b/sound/soc/codecs/da7219-aad.c
-> @@ -73,7 +73,7 @@ static void da7219_aad_btn_det_work(struct work_struct
-> *work)
->  	snd_soc_dapm_sync(dapm);
->=20
->  	do {
-> -		statusa =3D snd_soc_component_read32(component,
-> DA7219_ACCDET_STATUS_A);
-> +		statusa =3D snd_soc_component_read(component,
-> DA7219_ACCDET_STATUS_A);
->  		if (statusa & DA7219_MICBIAS_UP_STS_MASK)
->  			micbias_up =3D true;
->  		else if (retries++ < DA7219_AAD_MICBIAS_CHK_RETRIES)
-> @@ -91,7 +91,7 @@ static void da7219_aad_btn_det_work(struct work_struct
-> *work)
->  	 */
->  	if (da7219_aad->micbias_pulse_lvl && da7219_aad->micbias_pulse_time)
-> {
->  		/* Pulse higher level voltage */
-> -		micbias_ctrl =3D snd_soc_component_read32(component,
-> DA7219_MICBIAS_CTRL);
-> +		micbias_ctrl =3D snd_soc_component_read(component,
-> DA7219_MICBIAS_CTRL);
->  		snd_soc_component_update_bits(component,
-> DA7219_MICBIAS_CTRL,
->  				    DA7219_MICBIAS1_LEVEL_MASK,
->  				    da7219_aad->micbias_pulse_lvl);
-> @@ -141,11 +141,11 @@ static void da7219_aad_hptest_work(struct work_stru=
-ct
-> *work)
->  	 * If MCLK is present, but PLL is not enabled then we enable it here to
->  	 * ensure a consistent detection procedure.
->  	 */
-> -	pll_srm_sts =3D snd_soc_component_read32(component,
-> DA7219_PLL_SRM_STS);
-> +	pll_srm_sts =3D snd_soc_component_read(component,
-> DA7219_PLL_SRM_STS);
->  	if (pll_srm_sts & DA7219_PLL_SRM_STS_MCLK) {
->  		tonegen_freq_hptest =3D
-> cpu_to_le16(DA7219_AAD_HPTEST_RAMP_FREQ);
->=20
-> -		pll_ctrl =3D snd_soc_component_read32(component,
-> DA7219_PLL_CTRL);
-> +		pll_ctrl =3D snd_soc_component_read(component,
-> DA7219_PLL_CTRL);
->  		if ((pll_ctrl & DA7219_PLL_MODE_MASK) =3D=3D
-> DA7219_PLL_MODE_BYPASS)
->  			da7219_set_pll(component, DA7219_SYSCLK_PLL,
->  				       DA7219_PLL_FREQ_OUT_98304);
-> @@ -154,7 +154,7 @@ static void da7219_aad_hptest_work(struct work_struct
-> *work)
->  	}
->=20
->  	/* Ensure gain ramping at fastest rate */
-> -	gain_ramp_ctrl =3D snd_soc_component_read32(component,
-> DA7219_GAIN_RAMP_CTRL);
-> +	gain_ramp_ctrl =3D snd_soc_component_read(component,
-> DA7219_GAIN_RAMP_CTRL);
->  	snd_soc_component_write(component, DA7219_GAIN_RAMP_CTRL,
-> DA7219_GAIN_RAMP_RATE_X8);
->=20
->  	/* Bypass cache so it saves current settings */
-> @@ -248,7 +248,7 @@ static void da7219_aad_hptest_work(struct work_struct
-> *work)
->  	msleep(DA7219_AAD_HPTEST_PERIOD);
->=20
->  	/* Grab comparator reading */
-> -	accdet_cfg8 =3D snd_soc_component_read32(component,
-> DA7219_ACCDET_CONFIG_8);
-> +	accdet_cfg8 =3D snd_soc_component_read(component,
-> DA7219_ACCDET_CONFIG_8);
->  	if (accdet_cfg8 & DA7219_HPTEST_COMP_MASK)
->  		report |=3D SND_JACK_HEADPHONE;
->  	else
-> @@ -357,7 +357,7 @@ static irqreturn_t da7219_aad_irq_thread(int irq, voi=
-d
-> *data)
->  		return IRQ_NONE;
->=20
->  	/* Read status register for jack insertion & type status */
-> -	statusa =3D snd_soc_component_read32(component,
-> DA7219_ACCDET_STATUS_A);
-> +	statusa =3D snd_soc_component_read(component,
-> DA7219_ACCDET_STATUS_A);
->=20
->  	/* Clear events */
->  	regmap_bulk_write(da7219->regmap, DA7219_ACCDET_IRQ_EVENT_A,
-> @@ -847,7 +847,7 @@ void da7219_aad_suspend(struct snd_soc_component
-> *component)
->  		 * suspend then this will be dealt with through the IRQ handler.
->  		 */
->  		if (da7219_aad->jack_inserted) {
-> -			micbias_ctrl =3D snd_soc_component_read32(component,
-> DA7219_MICBIAS_CTRL);
-> +			micbias_ctrl =3D snd_soc_component_read(component,
-> DA7219_MICBIAS_CTRL);
->  			if (micbias_ctrl & DA7219_MICBIAS1_EN_MASK) {
->  				snd_soc_dapm_disable_pin(dapm, "Mic Bias");
->  				snd_soc_dapm_sync(dapm);
-> diff --git a/sound/soc/codecs/da7219.c b/sound/soc/codecs/da7219.c
-> index f83a6eaba12c..f2520a6c7875 100644
-> --- a/sound/soc/codecs/da7219.c
-> +++ b/sound/soc/codecs/da7219.c
-> @@ -313,13 +313,13 @@ static void da7219_alc_calib(struct snd_soc_compone=
-nt
-> *component)
->  	u8 mic_ctrl, mixin_ctrl, adc_ctrl, calib_ctrl;
->=20
->  	/* Save current state of mic control register */
-> -	mic_ctrl =3D snd_soc_component_read32(component,
-> DA7219_MIC_1_CTRL);
-> +	mic_ctrl =3D snd_soc_component_read(component,
-> DA7219_MIC_1_CTRL);
->=20
->  	/* Save current state of input mixer control register */
-> -	mixin_ctrl =3D snd_soc_component_read32(component,
-> DA7219_MIXIN_L_CTRL);
-> +	mixin_ctrl =3D snd_soc_component_read(component,
-> DA7219_MIXIN_L_CTRL);
->=20
->  	/* Save current state of input ADC control register */
-> -	adc_ctrl =3D snd_soc_component_read32(component,
-> DA7219_ADC_L_CTRL);
-> +	adc_ctrl =3D snd_soc_component_read(component,
-> DA7219_ADC_L_CTRL);
->=20
->  	/* Enable then Mute MIC PGAs */
->  	snd_soc_component_update_bits(component, DA7219_MIC_1_CTRL,
-> DA7219_MIC_1_AMP_EN_MASK,
-> @@ -344,7 +344,7 @@ static void da7219_alc_calib(struct snd_soc_component
-> *component)
->  			    DA7219_ALC_AUTO_CALIB_EN_MASK,
->  			    DA7219_ALC_AUTO_CALIB_EN_MASK);
->  	do {
-> -		calib_ctrl =3D snd_soc_component_read32(component,
-> DA7219_ALC_CTRL1);
-> +		calib_ctrl =3D snd_soc_component_read(component,
-> DA7219_ALC_CTRL1);
->  	} while (calib_ctrl & DA7219_ALC_AUTO_CALIB_EN_MASK);
->=20
->  	/* If auto calibration fails, disable DC offset, hybrid ALC */
-> @@ -822,13 +822,13 @@ static int da7219_dai_event(struct
-> snd_soc_dapm_widget *w,
->  				    DA7219_PC_FREERUN_MASK, 0);
->=20
->  		/* Slave mode, if SRM not enabled no need for status checks */
-> -		pll_ctrl =3D snd_soc_component_read32(component,
-> DA7219_PLL_CTRL);
-> +		pll_ctrl =3D snd_soc_component_read(component,
-> DA7219_PLL_CTRL);
->  		if ((pll_ctrl & DA7219_PLL_MODE_MASK) !=3D
-> DA7219_PLL_MODE_SRM)
->  			return 0;
->=20
->  		/* Check SRM has locked */
->  		do {
-> -			pll_status =3D snd_soc_component_read32(component,
-> DA7219_PLL_SRM_STS);
-> +			pll_status =3D snd_soc_component_read(component,
-> DA7219_PLL_SRM_STS);
->  			if (pll_status & DA7219_PLL_SRM_STS_SRM_LOCK) {
->  				srm_lock =3D true;
->  			} else {
-> @@ -928,7 +928,7 @@ static int da7219_gain_ramp_event(struct
-> snd_soc_dapm_widget *w,
->  	case SND_SOC_DAPM_PRE_PMD:
->  		/* Ensure nominal gain ramping for DAPM sequence */
->  		da7219->gain_ramp_ctrl =3D
-> -			snd_soc_component_read32(component,
-> DA7219_GAIN_RAMP_CTRL);
-> +			snd_soc_component_read(component,
-> DA7219_GAIN_RAMP_CTRL);
->  		snd_soc_component_write(component,
-> DA7219_GAIN_RAMP_CTRL,
->  			      DA7219_GAIN_RAMP_RATE_NOMINAL);
->  		break;
-> @@ -1930,7 +1930,7 @@ static int da7219_wclk_is_prepared(struct clk_hw *h=
-w)
->  	if (!da7219->master)
->  		return -EINVAL;
->=20
-> -	clk_reg =3D snd_soc_component_read32(component,
-> DA7219_DAI_CLK_MODE);
-> +	clk_reg =3D snd_soc_component_read(component,
-> DA7219_DAI_CLK_MODE);
->=20
->  	return !!(clk_reg & DA7219_DAI_CLK_EN_MASK);
->  }
-> @@ -1942,7 +1942,7 @@ static unsigned long da7219_wclk_recalc_rate(struct
-> clk_hw *hw,
->  		container_of(hw, struct da7219_priv,
->  			     dai_clks_hw[DA7219_DAI_WCLK_IDX]);
->  	struct snd_soc_component *component =3D da7219->component;
-> -	u8 fs =3D snd_soc_component_read32(component, DA7219_SR);
-> +	u8 fs =3D snd_soc_component_read(component, DA7219_SR);
->=20
->  	switch (fs & DA7219_SR_MASK) {
->  	case DA7219_SR_8000:
-> @@ -2027,7 +2027,7 @@ static unsigned long da7219_bclk_recalc_rate(struct
-> clk_hw *hw,
->  		container_of(hw, struct da7219_priv,
->  			     dai_clks_hw[DA7219_DAI_BCLK_IDX]);
->  	struct snd_soc_component *component =3D da7219->component;
-> -	u8 bclks_per_wclk =3D snd_soc_component_read32(component,
-> +	u8 bclks_per_wclk =3D snd_soc_component_read(component,
->  						     DA7219_DAI_CLK_MODE);
->=20
->  	switch (bclks_per_wclk & DA7219_DAI_BCLKS_PER_WCLK_MASK) {
-> diff --git a/sound/soc/codecs/da732x.c b/sound/soc/codecs/da732x.c
-> index 3f60c45e1e6d..d43ee7159ae0 100644
-> --- a/sound/soc/codecs/da732x.c
-> +++ b/sound/soc/codecs/da732x.c
-> @@ -361,7 +361,7 @@ static int da732x_hpf_get(struct snd_kcontrol *kcontr=
-ol,
->  	unsigned int reg =3D enum_ctrl->reg;
->  	int val;
->=20
-> -	val =3D snd_soc_component_read32(component, reg) &
-> DA732X_HPF_MASK;
-> +	val =3D snd_soc_component_read(component, reg) & DA732X_HPF_MASK;
->=20
->  	switch (val) {
->  	case DA732X_HPF_VOICE_EN:
-> @@ -1287,9 +1287,9 @@ static void da732x_dac_offset_adjust(struct
-> snd_soc_component *component)
->  	msleep(DA732X_WAIT_FOR_STABILIZATION);
->=20
->  	/* Check DAC offset sign */
-> -	sign[DA732X_HPL_DAC] =3D (snd_soc_component_read32(component,
-> DA732X_REG_HPL_DAC_OFF_CNTL) &
-> +	sign[DA732X_HPL_DAC] =3D (snd_soc_component_read(component,
-> DA732X_REG_HPL_DAC_OFF_CNTL) &
->  				DA732X_HP_DAC_OFF_CNTL_COMPO);
-> -	sign[DA732X_HPR_DAC] =3D (snd_soc_component_read32(component,
-> DA732X_REG_HPR_DAC_OFF_CNTL) &
-> +	sign[DA732X_HPR_DAC] =3D (snd_soc_component_read(component,
-> DA732X_REG_HPR_DAC_OFF_CNTL) &
->  				DA732X_HP_DAC_OFF_CNTL_COMPO);
->=20
->  	/* Binary search DAC offset values (both channels at once) */
-> @@ -1306,10 +1306,10 @@ static void da732x_dac_offset_adjust(struct
-> snd_soc_component *component)
->=20
->  		msleep(DA732X_WAIT_FOR_STABILIZATION);
->=20
-> -		if ((snd_soc_component_read32(component,
-> DA732X_REG_HPL_DAC_OFF_CNTL) &
-> +		if ((snd_soc_component_read(component,
-> DA732X_REG_HPL_DAC_OFF_CNTL) &
->  		     DA732X_HP_DAC_OFF_CNTL_COMPO) ^
-> sign[DA732X_HPL_DAC])
->  			offset[DA732X_HPL_DAC] &=3D ~step;
-> -		if ((snd_soc_component_read32(component,
-> DA732X_REG_HPR_DAC_OFF_CNTL) &
-> +		if ((snd_soc_component_read(component,
-> DA732X_REG_HPR_DAC_OFF_CNTL) &
->  		     DA732X_HP_DAC_OFF_CNTL_COMPO) ^
-> sign[DA732X_HPR_DAC])
->  			offset[DA732X_HPR_DAC] &=3D ~step;
->=20
-> @@ -1350,9 +1350,9 @@ static void da732x_output_offset_adjust(struct
-> snd_soc_component *component)
->  	msleep(DA732X_WAIT_FOR_STABILIZATION);
->=20
->  	/* Check output offset sign */
-> -	sign[DA732X_HPL_AMP] =3D snd_soc_component_read32(component,
-> DA732X_REG_HPL) &
-> +	sign[DA732X_HPL_AMP] =3D snd_soc_component_read(component,
-> DA732X_REG_HPL) &
->  			       DA732X_HP_OUT_COMPO;
-> -	sign[DA732X_HPR_AMP] =3D snd_soc_component_read32(component,
-> DA732X_REG_HPR) &
-> +	sign[DA732X_HPR_AMP] =3D snd_soc_component_read(component,
-> DA732X_REG_HPR) &
->  			       DA732X_HP_OUT_COMPO;
->=20
->  	snd_soc_component_write(component, DA732X_REG_HPL,
-> DA732X_HP_OUT_COMP |
-> @@ -1373,10 +1373,10 @@ static void da732x_output_offset_adjust(struct
-> snd_soc_component *component)
->=20
->  		msleep(DA732X_WAIT_FOR_STABILIZATION);
->=20
-> -		if ((snd_soc_component_read32(component, DA732X_REG_HPL)
-> &
-> +		if ((snd_soc_component_read(component, DA732X_REG_HPL) &
->  		     DA732X_HP_OUT_COMPO) ^ sign[DA732X_HPL_AMP])
->  			offset[DA732X_HPL_AMP] &=3D ~step;
-> -		if ((snd_soc_component_read32(component,
-> DA732X_REG_HPR) &
-> +		if ((snd_soc_component_read(component, DA732X_REG_HPR) &
->  		     DA732X_HP_OUT_COMPO) ^ sign[DA732X_HPR_AMP])
->  			offset[DA732X_HPR_AMP] &=3D ~step;
->=20
-> diff --git a/sound/soc/codecs/da9055.c b/sound/soc/codecs/da9055.c
-> index 94800f522d3e..e93436ccb674 100644
-> --- a/sound/soc/codecs/da9055.c
-> +++ b/sound/soc/codecs/da9055.c
-> @@ -461,12 +461,12 @@ static int da9055_get_alc_data(struct
-> snd_soc_component *component, u8 reg_val)
->  		/* Select middle 8 bits for read back from data register */
->  		snd_soc_component_write(component,
-> DA9055_ALC_CIC_OP_LVL_CTRL,
->  			      reg_val | DA9055_ALC_DATA_MIDDLE);
-> -		mid_data =3D snd_soc_component_read32(component,
-> DA9055_ALC_CIC_OP_LVL_DATA);
-> +		mid_data =3D snd_soc_component_read(component,
-> DA9055_ALC_CIC_OP_LVL_DATA);
->=20
->  		/* Select top 8 bits for read back from data register */
->  		snd_soc_component_write(component,
-> DA9055_ALC_CIC_OP_LVL_CTRL,
->  			      reg_val | DA9055_ALC_DATA_TOP);
-> -		top_data =3D snd_soc_component_read32(component,
-> DA9055_ALC_CIC_OP_LVL_DATA);
-> +		top_data =3D snd_soc_component_read(component,
-> DA9055_ALC_CIC_OP_LVL_DATA);
->=20
->  		sum +=3D ((mid_data << 8) | (top_data << 16));
->  	}
-> @@ -488,8 +488,8 @@ static int da9055_put_alc_sw(struct snd_kcontrol
-> *kcontrol,
->  		 */
->=20
->  		/* Save current values from Mic control registers */
-> -		mic_left =3D snd_soc_component_read32(component,
-> DA9055_MIC_L_CTRL);
-> -		mic_right =3D snd_soc_component_read32(component,
-> DA9055_MIC_R_CTRL);
-> +		mic_left =3D snd_soc_component_read(component,
-> DA9055_MIC_L_CTRL);
-> +		mic_right =3D snd_soc_component_read(component,
-> DA9055_MIC_R_CTRL);
->=20
->  		/* Mute Mic PGA Left and Right */
->  		snd_soc_component_update_bits(component,
-> DA9055_MIC_L_CTRL,
-> @@ -498,8 +498,8 @@ static int da9055_put_alc_sw(struct snd_kcontrol
-> *kcontrol,
->  				    DA9055_MIC_R_MUTE_EN,
-> DA9055_MIC_R_MUTE_EN);
->=20
->  		/* Save current values from ADC control registers */
-> -		adc_left =3D snd_soc_component_read32(component,
-> DA9055_ADC_L_CTRL);
-> -		adc_right =3D snd_soc_component_read32(component,
-> DA9055_ADC_R_CTRL);
-> +		adc_left =3D snd_soc_component_read(component,
-> DA9055_ADC_L_CTRL);
-> +		adc_right =3D snd_soc_component_read(component,
-> DA9055_ADC_R_CTRL);
->=20
->  		/* Enable ADC Left and Right */
->  		snd_soc_component_update_bits(component,
-> DA9055_ADC_L_CTRL,
-> @@ -1176,7 +1176,7 @@ static int da9055_set_dai_fmt(struct snd_soc_dai
-> *codec_dai, unsigned int fmt)
->  	}
->=20
->  	/* Don't allow change of mode if PLL is enabled */
-> -	if ((snd_soc_component_read32(component, DA9055_PLL_CTRL) &
-> DA9055_PLL_EN) &&
-> +	if ((snd_soc_component_read(component, DA9055_PLL_CTRL) &
-> DA9055_PLL_EN) &&
->  	    (da9055->master !=3D mode))
->  		return -EINVAL;
->=20
-> --
-> 2.25.1
+>   sound/soc/codecs/wcd-clsh-v2.c |  2 +-
+>   sound/soc/codecs/wcd9335.c     | 48 +++++++++++++++----------------
+>   sound/soc/codecs/wcd934x.c     | 52 +++++++++++++++++-----------------
+>   3 files changed, 51 insertions(+), 51 deletions(-)
 
+LGTM,
+
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+
+> 
+> diff --git a/sound/soc/codecs/wcd-clsh-v2.c b/sound/soc/codecs/wcd-clsh-v2.c
+> index cc5a9c9b918b..1be82113c59a 100644
+> --- a/sound/soc/codecs/wcd-clsh-v2.c
+> +++ b/sound/soc/codecs/wcd-clsh-v2.c
+> @@ -119,7 +119,7 @@ static inline void wcd_enable_clsh_block(struct wcd_clsh_ctrl *ctrl,
+>   
+>   static inline bool wcd_clsh_enable_status(struct snd_soc_component *comp)
+>   {
+> -	return snd_soc_component_read32(comp, WCD9XXX_A_CDC_CLSH_CRC) &
+> +	return snd_soc_component_read(comp, WCD9XXX_A_CDC_CLSH_CRC) &
+>   					WCD9XXX_A_CDC_CLSH_CRC_CLK_EN_MASK;
+>   }
+>   
+> diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
+> index fb073f4dc7ed..f2d9d52ee171 100644
+> --- a/sound/soc/codecs/wcd9335.c
+> +++ b/sound/soc/codecs/wcd9335.c
+> @@ -1617,7 +1617,7 @@ static int wcd9335_set_mix_interpolator_rate(struct snd_soc_dai *dai,
+>   
+>   	list_for_each_entry(ch, &wcd->dai[dai->id].slim_ch_list, list) {
+>   		for (j = 0; j < WCD9335_NUM_INTERPOLATORS; j++) {
+> -			val = snd_soc_component_read32(component,
+> +			val = snd_soc_component_read(component,
+>   					WCD9335_CDC_RX_INP_MUX_RX_INT_CFG1(j)) &
+>   					WCD9335_CDC_RX_INP_MUX_RX_INT_SEL_MASK;
+>   
+> @@ -1650,9 +1650,9 @@ static int wcd9335_set_prim_interpolator_rate(struct snd_soc_dai *dai,
+>   		 * is connected
+>   		 */
+>   		for (j = 0; j < WCD9335_NUM_INTERPOLATORS; j++) {
+> -			cfg0 = snd_soc_component_read32(comp,
+> +			cfg0 = snd_soc_component_read(comp,
+>   					WCD9335_CDC_RX_INP_MUX_RX_INT_CFG0(j));
+> -			cfg1 = snd_soc_component_read32(comp,
+> +			cfg1 = snd_soc_component_read(comp,
+>   					WCD9335_CDC_RX_INP_MUX_RX_INT_CFG1(j));
+>   
+>   			inp0_sel = cfg0 &
+> @@ -1826,7 +1826,7 @@ static int wcd9335_set_decimator_rate(struct snd_soc_dai *dai,
+>   			return -EINVAL;
+>   		}
+>   
+> -		tx_mux_sel = snd_soc_component_read32(comp, tx_port_reg) &
+> +		tx_mux_sel = snd_soc_component_read(comp, tx_port_reg) &
+>   						      (shift_val << shift);
+>   
+>   		tx_mux_sel = tx_mux_sel >> shift;
+> @@ -2678,17 +2678,17 @@ static int wcd9335_codec_find_amic_input(struct snd_soc_component *comp,
+>   	if (adc_mux_n < 4) {
+>   		reg = WCD9335_CDC_TX_INP_MUX_ADC_MUX0_CFG1 + 2 * adc_mux_n;
+>   		mreg = WCD9335_CDC_TX_INP_MUX_ADC_MUX0_CFG0 + 2 * adc_mux_n;
+> -		mux_sel = snd_soc_component_read32(comp, reg) & 0x3;
+> +		mux_sel = snd_soc_component_read(comp, reg) & 0x3;
+>   	} else {
+>   		reg = WCD9335_CDC_TX_INP_MUX_ADC_MUX4_CFG0 + adc_mux_n - 4;
+>   		mreg = reg;
+> -		mux_sel = snd_soc_component_read32(comp, reg) >> 6;
+> +		mux_sel = snd_soc_component_read(comp, reg) >> 6;
+>   	}
+>   
+>   	if (mux_sel != WCD9335_CDC_TX_INP_MUX_SEL_AMIC)
+>   		return 0;
+>   
+> -	return snd_soc_component_read32(comp, mreg) & 0x07;
+> +	return snd_soc_component_read(comp, mreg) & 0x07;
+>   }
+>   
+>   static u16 wcd9335_codec_get_amic_pwlvl_reg(struct snd_soc_component *comp,
+> @@ -2776,7 +2776,7 @@ static int wcd9335_codec_enable_dec(struct snd_soc_dapm_widget *w,
+>   								       amic_n);
+>   
+>   		if (pwr_level_reg) {
+> -			switch ((snd_soc_component_read32(comp, pwr_level_reg) &
+> +			switch ((snd_soc_component_read(comp, pwr_level_reg) &
+>   					      WCD9335_AMIC_PWR_LVL_MASK) >>
+>   					      WCD9335_AMIC_PWR_LVL_SHIFT) {
+>   			case WCD9335_AMIC_PWR_LEVEL_LP:
+> @@ -2798,7 +2798,7 @@ static int wcd9335_codec_enable_dec(struct snd_soc_dapm_widget *w,
+>   				break;
+>   			}
+>   		}
+> -		hpf_coff_freq = (snd_soc_component_read32(comp, dec_cfg_reg) &
+> +		hpf_coff_freq = (snd_soc_component_read(comp, dec_cfg_reg) &
+>   				   TX_HPF_CUT_OFF_FREQ_MASK) >> 5;
+>   
+>   		if (hpf_coff_freq != CF_MIN_3DB_150HZ)
+> @@ -2830,10 +2830,10 @@ static int wcd9335_codec_enable_dec(struct snd_soc_dapm_widget *w,
+>   		snd_soc_component_update_bits(comp, tx_vol_ctl_reg,
+>   						0x10, 0x00);
+>   		snd_soc_component_write(comp, tx_gain_ctl_reg,
+> -			      snd_soc_component_read32(comp, tx_gain_ctl_reg));
+> +			      snd_soc_component_read(comp, tx_gain_ctl_reg));
+>   		break;
+>   	case SND_SOC_DAPM_PRE_PMD:
+> -		hpf_coff_freq = (snd_soc_component_read32(comp, dec_cfg_reg) &
+> +		hpf_coff_freq = (snd_soc_component_read(comp, dec_cfg_reg) &
+>   				   TX_HPF_CUT_OFF_FREQ_MASK) >> 5;
+>   		snd_soc_component_update_bits(comp, tx_vol_ctl_reg, 0x10, 0x10);
+>   		snd_soc_component_update_bits(comp, dec_cfg_reg, 0x08, 0x00);
+> @@ -3080,7 +3080,7 @@ static int wcd9335_codec_enable_mix_path(struct snd_soc_dapm_widget *w,
+>   
+>   	switch (event) {
+>   	case SND_SOC_DAPM_POST_PMU:
+> -		val = snd_soc_component_read32(comp, gain_reg);
+> +		val = snd_soc_component_read(comp, gain_reg);
+>   		val += offset_val;
+>   		snd_soc_component_write(comp, gain_reg, val);
+>   		break;
+> @@ -3208,7 +3208,7 @@ static int wcd9335_codec_enable_prim_interpolator(
+>   		}
+>   
+>   		if ((reg != prim_int_reg) &&
+> -			((snd_soc_component_read32(comp, prim_int_reg)) &
+> +			((snd_soc_component_read(comp, prim_int_reg)) &
+>   			 WCD9335_CDC_RX_PGA_MUTE_EN_MASK))
+>   			snd_soc_component_update_bits(comp, reg,
+>   						WCD9335_CDC_RX_PGA_MUTE_EN_MASK,
+> @@ -3344,7 +3344,7 @@ static int wcd9335_codec_enable_interpolator(struct snd_soc_dapm_widget *w,
+>   		break;
+>   	case SND_SOC_DAPM_POST_PMU:
+>   		wcd9335_config_compander(comp, w->shift, event);
+> -		val = snd_soc_component_read32(comp, gain_reg);
+> +		val = snd_soc_component_read(comp, gain_reg);
+>   		val += offset_val;
+>   		snd_soc_component_write(comp, gain_reg, val);
+>   		break;
+> @@ -3366,12 +3366,12 @@ static void wcd9335_codec_hph_mode_gain_opt(struct snd_soc_component *component,
+>   	u8 hph_pa_status;
+>   	bool is_hphl_pa, is_hphr_pa;
+>   
+> -	hph_pa_status = snd_soc_component_read32(component, WCD9335_ANA_HPH);
+> +	hph_pa_status = snd_soc_component_read(component, WCD9335_ANA_HPH);
+>   	is_hphl_pa = hph_pa_status >> 7;
+>   	is_hphr_pa = (hph_pa_status & 0x40) >> 6;
+>   
+> -	hph_l_en = snd_soc_component_read32(component, WCD9335_HPH_L_EN);
+> -	hph_r_en = snd_soc_component_read32(component, WCD9335_HPH_R_EN);
+> +	hph_l_en = snd_soc_component_read(component, WCD9335_HPH_L_EN);
+> +	hph_r_en = snd_soc_component_read(component, WCD9335_HPH_R_EN);
+>   
+>   	l_val = (hph_l_en & 0xC0) | 0x20 | gain;
+>   	r_val = (hph_r_en & 0xC0) | 0x20 | gain;
+> @@ -3542,7 +3542,7 @@ static int wcd9335_codec_hphl_dac_event(struct snd_soc_dapm_widget *w,
+>   	switch (event) {
+>   	case SND_SOC_DAPM_PRE_PMU:
+>   		/* Read DEM INP Select */
+> -		dem_inp = snd_soc_component_read32(comp,
+> +		dem_inp = snd_soc_component_read(comp,
+>   				WCD9335_CDC_RX1_RX_PATH_SEC0) & 0x03;
+>   		if (((hph_mode == CLS_H_HIFI) || (hph_mode == CLS_H_LOHIFI) ||
+>   				(hph_mode == CLS_H_LP)) && (dem_inp != 0x01)) {
+> @@ -3694,7 +3694,7 @@ static int wcd9335_codec_hphr_dac_event(struct snd_soc_dapm_widget *w,
+>   	case SND_SOC_DAPM_PRE_PMU:
+>   
+>   		/* Read DEM INP Select */
+> -		dem_inp = snd_soc_component_read32(comp,
+> +		dem_inp = snd_soc_component_read(comp,
+>   				WCD9335_CDC_RX2_RX_PATH_SEC0) &
+>   				WCD9335_CDC_RX_PATH_DEM_INP_SEL_MASK;
+>   		if (((hph_mode == CLS_H_HIFI) || (hph_mode == CLS_H_LOHIFI) ||
+> @@ -3755,7 +3755,7 @@ static int wcd9335_codec_enable_hphl_pa(struct snd_soc_dapm_widget *w,
+>   					WCD9335_CDC_RX_PGA_MUTE_DISABLE);
+>   
+>   		/* Remove mix path mute if it is enabled */
+> -		if ((snd_soc_component_read32(comp,
+> +		if ((snd_soc_component_read(comp,
+>   					WCD9335_CDC_RX1_RX_PATH_MIX_CTL)) &
+>   					WCD9335_CDC_RX_PGA_MUTE_EN_MASK)
+>   			snd_soc_component_update_bits(comp,
+> @@ -3817,7 +3817,7 @@ static int wcd9335_codec_enable_lineout_pa(struct snd_soc_dapm_widget *w,
+>   					WCD9335_CDC_RX_PGA_MUTE_DISABLE);
+>   
+>   		/* Remove mix path mute if it is enabled */
+> -		if ((snd_soc_component_read32(comp, mix_vol_reg)) &
+> +		if ((snd_soc_component_read(comp, mix_vol_reg)) &
+>   					WCD9335_CDC_RX_PGA_MUTE_EN_MASK)
+>   			snd_soc_component_update_bits(comp,  mix_vol_reg,
+>   					WCD9335_CDC_RX_PGA_MUTE_EN_MASK,
+> @@ -3902,7 +3902,7 @@ static int wcd9335_codec_enable_hphr_pa(struct snd_soc_dapm_widget *w,
+>   					WCD9335_CDC_RX_PGA_MUTE_EN_MASK,
+>   					WCD9335_CDC_RX_PGA_MUTE_DISABLE);
+>   		/* Remove mix path mute if it is enabled */
+> -		if ((snd_soc_component_read32(comp,
+> +		if ((snd_soc_component_read(comp,
+>   					WCD9335_CDC_RX2_RX_PATH_MIX_CTL)) &
+>   					WCD9335_CDC_RX_PGA_MUTE_EN_MASK)
+>   			snd_soc_component_update_bits(comp,
+> @@ -3942,7 +3942,7 @@ static int wcd9335_codec_enable_ear_pa(struct snd_soc_dapm_widget *w,
+>   					WCD9335_CDC_RX_PGA_MUTE_EN_MASK,
+>   					WCD9335_CDC_RX_PGA_MUTE_DISABLE);
+>   		/* Remove mix path mute if it is enabled */
+> -		if ((snd_soc_component_read32(comp,
+> +		if ((snd_soc_component_read(comp,
+>   					WCD9335_CDC_RX0_RX_PATH_MIX_CTL)) &
+>   					WCD9335_CDC_RX_PGA_MUTE_EN_MASK)
+>   			snd_soc_component_update_bits(comp,
+> @@ -4808,7 +4808,7 @@ static int wcd9335_enable_efuse_sensing(struct snd_soc_component *comp)
+>   	 */
+>   	usleep_range(5000, 5500);
+>   
+> -	if (!(snd_soc_component_read32(comp,
+> +	if (!(snd_soc_component_read(comp,
+>   					WCD9335_CHIP_TIER_CTRL_EFUSE_STATUS) &
+>   					WCD9335_CHIP_TIER_CTRL_EFUSE_EN_MASK))
+>   		WARN(1, "%s: Efuse sense is not complete\n", __func__);
+> diff --git a/sound/soc/codecs/wcd934x.c b/sound/soc/codecs/wcd934x.c
+> index 531b8b79e55f..35697b072367 100644
+> --- a/sound/soc/codecs/wcd934x.c
+> +++ b/sound/soc/codecs/wcd934x.c
+> @@ -1464,9 +1464,9 @@ static int wcd934x_set_prim_interpolator_rate(struct snd_soc_dai *dai,
+>   			if (j == INTERP_LO3_NA || j == INTERP_LO4_NA)
+>   				continue;
+>   
+> -			cfg0 = snd_soc_component_read32(comp,
+> +			cfg0 = snd_soc_component_read(comp,
+>   					WCD934X_CDC_RX_INP_MUX_RX_INT_CFG0(j));
+> -			cfg1 = snd_soc_component_read32(comp,
+> +			cfg1 = snd_soc_component_read(comp,
+>   					WCD934X_CDC_RX_INP_MUX_RX_INT_CFG1(j));
+>   
+>   			inp0_sel = cfg0 &
+> @@ -1513,7 +1513,7 @@ static int wcd934x_set_mix_interpolator_rate(struct snd_soc_dai *dai,
+>   			/* Interpolators 5 and 6 are not aviliable in Tavil */
+>   			if (j == INTERP_LO3_NA || j == INTERP_LO4_NA)
+>   				continue;
+> -			val = snd_soc_component_read32(component,
+> +			val = snd_soc_component_read(component,
+>   					WCD934X_CDC_RX_INP_MUX_RX_INT_CFG1(j)) &
+>   					WCD934X_CDC_RX_INP_MUX_RX_INT_SEL_MASK;
+>   
+> @@ -1616,7 +1616,7 @@ static int wcd934x_set_decimator_rate(struct snd_soc_dai *dai,
+>   			return -EINVAL;
+>   		}
+>   
+> -		tx_mux_sel = snd_soc_component_read32(comp, tx_port_reg) &
+> +		tx_mux_sel = snd_soc_component_read(comp, tx_port_reg) &
+>   						      (shift_val << shift);
+>   
+>   		tx_mux_sel = tx_mux_sel >> shift;
+> @@ -2346,23 +2346,23 @@ static uint32_t get_iir_band_coeff(struct snd_soc_component *component,
+>   				((band_idx * BAND_MAX + coeff_idx) *
+>   				 sizeof(uint32_t)) & 0x7F);
+>   
+> -	value |= snd_soc_component_read32(component, b2_reg);
+> +	value |= snd_soc_component_read(component, b2_reg);
+>   	snd_soc_component_write(component, reg,
+>   				((band_idx * BAND_MAX + coeff_idx)
+>   				 * sizeof(uint32_t) + 1) & 0x7F);
+>   
+> -	value |= (snd_soc_component_read32(component, b2_reg) << 8);
+> +	value |= (snd_soc_component_read(component, b2_reg) << 8);
+>   	snd_soc_component_write(component, reg,
+>   				((band_idx * BAND_MAX + coeff_idx)
+>   				 * sizeof(uint32_t) + 2) & 0x7F);
+>   
+> -	value |= (snd_soc_component_read32(component, b2_reg) << 16);
+> +	value |= (snd_soc_component_read(component, b2_reg) << 16);
+>   	snd_soc_component_write(component, reg,
+>   		((band_idx * BAND_MAX + coeff_idx)
+>   		* sizeof(uint32_t) + 3) & 0x7F);
+>   
+>   	/* Mask bits top 2 bits since they are reserved */
+> -	value |= (snd_soc_component_read32(component, b2_reg) << 24);
+> +	value |= (snd_soc_component_read(component, b2_reg) << 24);
+>   	return value;
+>   }
+>   
+> @@ -3535,7 +3535,7 @@ static int wcd934x_codec_enable_mix_path(struct snd_soc_dapm_widget *w,
+>   		break;
+>   
+>   	case SND_SOC_DAPM_POST_PMU:
+> -		val = snd_soc_component_read32(comp, gain_reg);
+> +		val = snd_soc_component_read(comp, gain_reg);
+>   		val += offset_val;
+>   		snd_soc_component_write(comp, gain_reg, val);
+>   		break;
+> @@ -3554,23 +3554,23 @@ static int wcd934x_codec_set_iir_gain(struct snd_soc_dapm_widget *w,
+>   	case SND_SOC_DAPM_POST_PMU:
+>   		/* B1 GAIN */
+>   		snd_soc_component_write(comp, reg,
+> -					snd_soc_component_read32(comp, reg));
+> +					snd_soc_component_read(comp, reg));
+>   		/* B2 GAIN */
+>   		reg++;
+>   		snd_soc_component_write(comp, reg,
+> -					snd_soc_component_read32(comp, reg));
+> +					snd_soc_component_read(comp, reg));
+>   		/* B3 GAIN */
+>   		reg++;
+>   		snd_soc_component_write(comp, reg,
+> -					snd_soc_component_read32(comp, reg));
+> +					snd_soc_component_read(comp, reg));
+>   		/* B4 GAIN */
+>   		reg++;
+>   		snd_soc_component_write(comp, reg,
+> -					snd_soc_component_read32(comp, reg));
+> +					snd_soc_component_read(comp, reg));
+>   		/* B5 GAIN */
+>   		reg++;
+>   		snd_soc_component_write(comp, reg,
+> -					snd_soc_component_read32(comp, reg));
+> +					snd_soc_component_read(comp, reg));
+>   		break;
+>   	default:
+>   		break;
+> @@ -3591,7 +3591,7 @@ static int wcd934x_codec_enable_main_path(struct snd_soc_dapm_widget *w,
+>   	switch (event) {
+>   	case SND_SOC_DAPM_POST_PMU:
+>   		snd_soc_component_write(comp, gain_reg,
+> -				snd_soc_component_read32(comp, gain_reg));
+> +				snd_soc_component_read(comp, gain_reg));
+>   		break;
+>   	}
+>   
+> @@ -3635,7 +3635,7 @@ static int wcd934x_codec_hphl_dac_event(struct snd_soc_dapm_widget *w,
+>   	switch (event) {
+>   	case SND_SOC_DAPM_PRE_PMU:
+>   		/* Read DEM INP Select */
+> -		dem_inp = snd_soc_component_read32(comp,
+> +		dem_inp = snd_soc_component_read(comp,
+>   				   WCD934X_CDC_RX1_RX_PATH_SEC0) & 0x03;
+>   
+>   		if (((hph_mode == CLS_H_HIFI) || (hph_mode == CLS_H_LOHIFI) ||
+> @@ -3686,7 +3686,7 @@ static int wcd934x_codec_hphr_dac_event(struct snd_soc_dapm_widget *w,
+>   
+>   	switch (event) {
+>   	case SND_SOC_DAPM_PRE_PMU:
+> -		dem_inp = snd_soc_component_read32(comp,
+> +		dem_inp = snd_soc_component_read(comp,
+>   					WCD934X_CDC_RX2_RX_PATH_SEC0) & 0x03;
+>   		if (((hph_mode == CLS_H_HIFI) || (hph_mode == CLS_H_LOHIFI) ||
+>   		     (hph_mode == CLS_H_LP)) && (dem_inp != 0x01)) {
+> @@ -3837,7 +3837,7 @@ static int wcd934x_codec_enable_hphr_pa(struct snd_soc_dapm_widget *w,
+>   				      WCD934X_HPH_AUTOCHOP_TIMER_EN_MASK,
+>   				      WCD934X_HPH_AUTOCHOP_TIMER_ENABLE);
+>   		/* Remove mix path mute if it is enabled */
+> -		if ((snd_soc_component_read32(comp,
+> +		if ((snd_soc_component_read(comp,
+>   				      WCD934X_CDC_RX2_RX_PATH_MIX_CTL)) & 0x10)
+>   			snd_soc_component_update_bits(comp,
+>   					      WCD934X_CDC_RX2_RX_PATH_MIX_CTL,
+> @@ -3889,7 +3889,7 @@ static u32 wcd934x_get_dmic_sample_rate(struct snd_soc_component *comp,
+>   			++adc_mux_index;
+>   			continue;
+>   		}
+> -		adc_mux_sel = ((snd_soc_component_read32(comp, adc_mux_ctl_reg)
+> +		adc_mux_sel = ((snd_soc_component_read(comp, adc_mux_ctl_reg)
+>   			       & 0xF8) >> 3) - 1;
+>   
+>   		if (adc_mux_sel == dmic) {
+> @@ -3902,7 +3902,7 @@ static u32 wcd934x_get_dmic_sample_rate(struct snd_soc_component *comp,
+>   
+>   	if (dec_found && adc_mux_index <= 8) {
+>   		tx_fs_reg = WCD934X_CDC_TX0_TX_PATH_CTL + (16 * adc_mux_index);
+> -		tx_stream_fs = snd_soc_component_read32(comp, tx_fs_reg) & 0x0F;
+> +		tx_stream_fs = snd_soc_component_read(comp, tx_fs_reg) & 0x0F;
+>   		if (tx_stream_fs <= 4)  {
+>   			if (wcd->dmic_sample_rate <=
+>   					WCD9XXX_DMIC_SAMPLE_RATE_2P4MHZ)
+> @@ -4104,12 +4104,12 @@ static int wcd934x_codec_find_amic_input(struct snd_soc_component *comp,
+>   				   adc_mux_n - 4;
+>   	}
+>   
+> -	is_amic = (((snd_soc_component_read32(comp, adc_mux_in_reg)
+> +	is_amic = (((snd_soc_component_read(comp, adc_mux_in_reg)
+>   		     & mask) >> shift) == 1);
+>   	if (!is_amic)
+>   		return 0;
+>   
+> -	return snd_soc_component_read32(comp, amic_mux_sel_reg) & 0x07;
+> +	return snd_soc_component_read(comp, amic_mux_sel_reg) & 0x07;
+>   }
+>   
+>   static u16 wcd934x_codec_get_amic_pwlvl_reg(struct snd_soc_component *comp,
+> @@ -4193,7 +4193,7 @@ static int wcd934x_codec_enable_dec(struct snd_soc_dapm_widget *w,
+>   		if (!pwr_level_reg)
+>   			break;
+>   
+> -		switch ((snd_soc_component_read32(comp, pwr_level_reg) &
+> +		switch ((snd_soc_component_read(comp, pwr_level_reg) &
+>   				      WCD934X_AMIC_PWR_LVL_MASK) >>
+>   				      WCD934X_AMIC_PWR_LVL_SHIFT) {
+>   		case WCD934X_AMIC_PWR_LEVEL_LP:
+> @@ -4216,7 +4216,7 @@ static int wcd934x_codec_enable_dec(struct snd_soc_dapm_widget *w,
+>   		}
+>   		break;
+>   	case SND_SOC_DAPM_POST_PMU:
+> -		hpf_coff_freq = (snd_soc_component_read32(comp, dec_cfg_reg) &
+> +		hpf_coff_freq = (snd_soc_component_read(comp, dec_cfg_reg) &
+>   				 TX_HPF_CUT_OFF_FREQ_MASK) >> 5;
+>   		if (hpf_coff_freq != CF_MIN_3DB_150HZ) {
+>   			snd_soc_component_update_bits(comp, dec_cfg_reg,
+> @@ -4236,11 +4236,11 @@ static int wcd934x_codec_enable_dec(struct snd_soc_dapm_widget *w,
+>   		}
+>   		/* apply gain after decimator is enabled */
+>   		snd_soc_component_write(comp, tx_gain_ctl_reg,
+> -					snd_soc_component_read32(comp,
+> +					snd_soc_component_read(comp,
+>   							 tx_gain_ctl_reg));
+>   		break;
+>   	case SND_SOC_DAPM_PRE_PMD:
+> -		hpf_coff_freq = (snd_soc_component_read32(comp, dec_cfg_reg) &
+> +		hpf_coff_freq = (snd_soc_component_read(comp, dec_cfg_reg) &
+>   				 TX_HPF_CUT_OFF_FREQ_MASK) >> 5;
+>   
+>   		if (hpf_coff_freq != CF_MIN_3DB_150HZ) {
+> 

@@ -2,88 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F26621FBD7C
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jun 2020 20:03:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7268F1FBE12
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jun 2020 20:31:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98C131679;
-	Tue, 16 Jun 2020 20:02:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98C131679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 00CD81679;
+	Tue, 16 Jun 2020 20:30:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00CD81679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592330585;
-	bh=P1/EB/jmkvbnKLD2OGqL8Zxn9yOxJmK4wmo3lqCpjGA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ARTJ1V9BqY06fBWcv61KmRXEZwMpS5EG2ryo3rc0kUSlTyMYbZam0yjLK+aWqb/1H
-	 A0n7ft8KeRWMKZ1CcOvstkkTiyxUibRhWO4k/hz9ru+sQBzhd5N+rLKJGKJpHhTi+Z
-	 G/kJj0biX0yrj7YYftA1uhC/zb37IUGknKTcW08U=
+	s=default; t=1592332298;
+	bh=/4Cea+h5oFvnpOvKed7L21VpRGeFz4E0so5+LbyMbBs=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=CdH60bQyP1hI1lhhjQM0ZCM4CirNXNlYHBqMMHVfzmTEO2Y78INc++MNnmLMNEQe3
+	 2cXOZ+X+/RKFyEeeNc+GMXm47dywHIF0ely6AwJZcvNsoskc6N9+4Td3A4VPSnys66
+	 WZ9jYeQzbxeZY6aSXsfwXpPxEBKPg9gK5OrKnTLE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB4B0F80232;
-	Tue, 16 Jun 2020 20:01:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 270DCF800EF;
+	Tue, 16 Jun 2020 20:29:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2075AF80114; Tue, 16 Jun 2020 20:01:23 +0200 (CEST)
+ id 8FEB2F8022B; Tue, 16 Jun 2020 20:29:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-oi1-x243.google.com (mail-oi1-x243.google.com
- [IPv6:2607:f8b0:4864:20::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from metanate.com (unknown [IPv6:2001:8b0:1628:5005::111])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EBCB0F80114
- for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 20:01:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBCB0F80114
+ by alsa1.perex.cz (Postfix) with ESMTPS id 03335F800EF
+ for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 20:29:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03335F800EF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="TuBEyfGO"
-Received: by mail-oi1-x243.google.com with SMTP id 25so20025374oiy.13
- for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 11:01:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=EgZ/XoQ64awNfeRabXBKQp1DrgKmmqukpGMGvJR38Xk=;
- b=TuBEyfGOsjP2n116q5v6t3QrerQ9ug/HfGwCnWfT0pegZ2gnRoGwNWLeaHaAPA4fKT
- ZN9V/ILRPj/LpWI6wiR+rwyqidjH60mPpFa0fqZFlt7Qysr1HNsWItP2yl5FMFE74uiR
- kwQaTrX0aeMb7i+2aVVHfhMg9t+dacsYrWUPGqDJzS1V1CxpLY3AIS23JwcaejBU2UGs
- KrAcEbUZ5OW0Wg9PDeEDdlRX6QQrFOdBbmuqTPSWNjGJ7z9qzU7u64uqKeqZXxdm72Vs
- c30lpVzUqDFeS+ZaXGYjfVynGXL7TuBXYyTS16O32LIwQJAjl/VUPUP0kpXOYJL/0PZo
- hj4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=EgZ/XoQ64awNfeRabXBKQp1DrgKmmqukpGMGvJR38Xk=;
- b=E/9iLZKckv3cZw5T4E+55Id9GP/80lEFaO4lilIG5bxH6UJdDtfZWfh/u/QW7Zbr0u
- tbh0Wb+hGn8xplAMRt+4qanwYjUeb+Nb7oSNISQB1Zy37FzrltbCo7sV8agrJ4CExONe
- V+pUW91jeelGAmFAKZRXxRDWD4ns66sJajgtKQuLuYu+DvFwzECIzertjoC7GeaYLlHJ
- GiD4zGl77gdrWCrjhRKOchW3l/ZzpiI55XSLChOCuV9aLhgBH2j0em5SHSM05iINQnIn
- YmPHwQBFK/myaQbKqKBGMZkw0+UJ60zZbQm1maIhRd9sek6WYEMW7ByG4RNAbfNlBsLH
- pKPw==
-X-Gm-Message-State: AOAM5330q6Eqg1z9i+ywzTh9rqg9nfZJeoAg5QPUVglLbZcxSl1KjNYZ
- QrCjXcmqUF00/Ve3vHUgInx3oGisf7k9JlOI/Mcl2w==
-X-Google-Smtp-Source: ABdhPJwCMY2BCv+SW9qiOfPCgfX5ll96BrmVpQuKJWGEA0auXyzgdvga0VidL8pRv3v7D4D1zuMjJNfmX1WfAw9ZflE=
-X-Received: by 2002:aca:2108:: with SMTP id 8mr4531179oiz.10.1592330474306;
- Tue, 16 Jun 2020 11:01:14 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=metanate.com header.i=@metanate.com
+ header.b="rqBhaWQx"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=metanate.com; s=stronger; h=Content-Transfer-Encoding:Message-Id:Date:
+ Subject:Cc:To:From:Content-Type:Reply-To:Content-ID:Content-Description:
+ In-Reply-To:References; bh=VIe0bQZcvcfjdNQJXJvZjKVciBWksqW8vdNTdZmw4Lg=; b=rq
+ BhaWQxySRB2DZWNFd67fu2v1zr+UwxLZLg+gemjDAChPFa/SvCF+GFTFt7rAO9fz5+w+sxYtUf2aX
+ HA9KfcNjnR0n0WkhubWWAF8iE+6JIl6zAwOoeqH3rwZ3zvHly9kKqB2zTnApTsQUn0ET0QgVsDSyr
+ y7BNeMbZfBw8WNHZEyWzibvVLy7AQRHyPZzO/PMsvZG0frZgJL58TirjQu/yYFnaDTnjssyYDHGkS
+ 2hk790FjCyNOAjwd3ggbGG+ezkc+LUC0vuarh7m90clhdJvoD7YmXZZUUi52Jwm+MXZ9n3sEshAFS
+ Fe6cC1n5M3qdVRFy/roiXM1kAuCD2nbA==;
+Received: from johnkeeping.plus.com ([81.174.171.191] helo=donbot.metanate.com)
+ by email.metanate.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.93) (envelope-from <john@metanate.com>)
+ id 1jlGLA-0008B7-9x; Tue, 16 Jun 2020 19:29:44 +0100
+From: John Keeping <john@metanate.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH alsa-lib] control: ctlparse - use type-specific bound on
+ element count
+Date: Tue, 16 Jun 2020 19:29:30 +0100
+Message-Id: <20200616182930.480959-1-john@metanate.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-References: <20200616063417.110263-1-john.stultz@linaro.org>
- <8f7f563b-fae7-e25e-33f2-18c608c338e6@linaro.org>
-In-Reply-To: <8f7f563b-fae7-e25e-33f2-18c608c338e6@linaro.org>
-From: John Stultz <john.stultz@linaro.org>
-Date: Tue, 16 Jun 2020 11:01:02 -0700
-Message-ID: <CALAqxLXnijNBB4HBqLG4k679FRcHT8hjSLMnpjE_+0UkqU7Y0w@mail.gmail.com>
-Subject: Re: [RESENDx2][PATCH] sound: qcom: Kconfig: Tweak dependencies on
- SND_SOC_SDM845
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Banajit Goswami <bgoswami@codeaurora.org>, Patrick Lai <plai@codeaurora.org>,
- Takashi Iwai <tiwai@suse.com>, lkml <linux-kernel@vger.kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rohit kumar <rohitkr@codeaurora.org>
+Content-Transfer-Encoding: 8bit
+X-Authenticated: YES
+Cc: John Keeping <john@metanate.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,42 +78,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jun 16, 2020 at 1:25 AM Srinivas Kandagatla
-<srinivas.kandagatla@linaro.org> wrote:
-> On 16/06/2020 07:34, John Stultz wrote:
-> > CROS_EC isn't strictly required for audio to work
-> > on other SDM845 platforms (like the Dragonboard 845c).
-> >
-> > So lets remove the dependency and select the related
-> > CROS_EC options if CROS_EC is already enabled.
->
-> Sorry John, totally missed this one out!
+Using a fixed bound of 128 means that too many values may be set for an
+INTEGER64 type and that any elements past 128 are out of reach for BYTE
+type controls.
 
-No worries!
+Derive the maximum number of elements from the type so that the full
+range is parsed for all types.
 
-> > diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-> > index f51b28d1b94d..0434f2c7d746 100644
-> > --- a/sound/soc/qcom/Kconfig
-> > +++ b/sound/soc/qcom/Kconfig
-> > @@ -99,12 +99,12 @@ config SND_SOC_MSM8996
-> >
-> >   config SND_SOC_SDM845
-> >       tristate "SoC Machine driver for SDM845 boards"
-> > -     depends on QCOM_APR && CROS_EC && I2C && SOUNDWIRE
-> > +     depends on QCOM_APR && I2C && SOUNDWIRE
-> >       select SND_SOC_QDSP6
-> >       select SND_SOC_QCOM_COMMON
-> >       select SND_SOC_RT5663
-> >       select SND_SOC_MAX98927
-> > -     select SND_SOC_CROS_EC_CODEC
-> > +     select SND_SOC_CROS_EC_CODEC if CROS_EC
->
-> Isn't "imply SND_SOC_CROS_EC_CODEC" better option here?
+Signed-off-by: John Keeping <john@metanate.com>
+---
+ src/control/ctlparse.c | 24 +++++++++++++++++++++++-
+ 1 file changed, 23 insertions(+), 1 deletion(-)
 
-I've honestly not gotten my head around "imply", so I'll have to take
-a closer look.
-What I have in this patch least is easier to compare and match with
-the existing code. :)
+diff --git a/src/control/ctlparse.c b/src/control/ctlparse.c
+index 1ac31bb9..ee1e0602 100644
+--- a/src/control/ctlparse.c
++++ b/src/control/ctlparse.c
+@@ -304,6 +304,25 @@ static int get_ctl_enum_item_index(snd_ctl_t *handle,
+ 	return -1;
+ }
+ 
++static unsigned int get_ctl_type_max_elements(snd_ctl_elem_type_t type)
++{
++	struct snd_ctl_elem_value value;
++
++	switch (type) {
++	case SND_CTL_ELEM_TYPE_BOOLEAN:
++	case SND_CTL_ELEM_TYPE_INTEGER:
++		return ARRAY_SIZE(value.value.integer.value);
++	case SND_CTL_ELEM_TYPE_INTEGER64:
++		return ARRAY_SIZE(value.value.integer64.value);
++	case SND_CTL_ELEM_TYPE_ENUMERATED:
++		return ARRAY_SIZE(value.value.enumerated.item);
++	case SND_CTL_ELEM_TYPE_BYTES:
++		return ARRAY_SIZE(value.value.bytes.data);
++	default:
++		return 0;
++	}
++}
++
+ /**
+  * \brief parse ASCII string as CTL element value
+  * \param handle CTL handle
+@@ -331,8 +350,11 @@ int snd_ctl_ascii_value_parse(snd_ctl_t *handle,
+ 	type = snd_ctl_elem_info_get_type(info);
+ 	count = snd_ctl_elem_info_get_count(info);
+ 	snd_ctl_elem_value_set_id(dst, &myid);
++
++	if (count > get_ctl_type_max_elements(type))
++		count = get_ctl_type_max_elements(type);
+ 	
+-	for (idx = 0; idx < count && idx < 128 && ptr && *ptr; idx++) {
++	for (idx = 0; idx < count && ptr && *ptr; idx++) {
+ 		if (*ptr == ',')
+ 			goto skip;
+ 		switch (type) {
+-- 
+2.27.0
 
-Thanks for the feedback!
--john

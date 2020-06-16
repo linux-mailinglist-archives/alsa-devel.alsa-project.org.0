@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31F331FA822
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jun 2020 07:22:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 440D01FA824
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jun 2020 07:22:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C70031686;
-	Tue, 16 Jun 2020 07:21:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C70031686
+	by alsa0.perex.cz (Postfix) with ESMTPS id D25351680;
+	Tue, 16 Jun 2020 07:21:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D25351680
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592284943;
-	bh=sTdIoHaIZNScTPLftMcis8SwJ2fS+ge/CqzOQ4Wq48U=;
+	s=default; t=1592284958;
+	bh=Y+Tz4rE8SjgroEcLwKLdgf9Sg4g3VlQr8vaiSD0aSXg=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ryH+AozijUxzVdvoyh1WLVVpdUJUHj9uhtUuxtDHFCpqTdTMLy1DY9k01KFNdPnii
-	 BjrtwKnV0qwM9gtdrEHVVyZme4/csh9N61YngblQzwZ0C3/o+CEDEiLtriYLZUgd5y
-	 7g5NQZJIchk9gjCYe08ASI/6/E520FeE6ROPRD/E=
+	b=hUwcoqnSpeS5BI8OiVX5B83tHfNyWfGnQ/T1ZCjaHOf7+I2HCIrNyVIytxszqjYKF
+	 Ds+Eyi/3zRwuSpzBO2jjmV9E/WOQlCI+E4c5XT8TBLIeWs6LeO7vm7yh6u0eYEmK42
+	 /+RdBz6FqgWed3B6ieL7RsOgAzr8JQt3rMbofRaM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79D3EF802A8;
-	Tue, 16 Jun 2020 07:20:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D81F0F802BE;
+	Tue, 16 Jun 2020 07:20:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E44DAF802A7; Tue, 16 Jun 2020 07:20:01 +0200 (CEST)
+ id 0ED6FF802BD; Tue, 16 Jun 2020 07:20:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id CDF03F80101
- for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 07:19:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDF03F80101
-Date: 16 Jun 2020 14:19:52 +0900
-X-IronPort-AV: E=Sophos;i="5.73,517,1583161200"; d="scan'208";a="49577317"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id D9F72F802A9
+ for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 07:20:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9F72F802A9
+Date: 16 Jun 2020 14:20:15 +0900
+X-IronPort-AV: E=Sophos;i="5.73,517,1583161200"; d="scan'208";a="49787588"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 16 Jun 2020 14:19:52 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 16 Jun 2020 14:20:15 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id EDA0F41A6E30;
- Tue, 16 Jun 2020 14:19:52 +0900 (JST)
-Message-ID: <87r1uf4mfa.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 0D03441A8B3C;
+ Tue, 16 Jun 2020 14:20:15 +0900 (JST)
+Message-ID: <87pn9z4men.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 02/16] ASoC: soc-component: use io_mutex correctly
+Subject: [PATCH 03/16] ASoC: pxa: rename to snd_soc_component_read()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87tuzb4mjg.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,161 +70,38 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-component has io_mutex, but it had been used at
-snd_soc_component_update_bits_legacy() only which does read and write.
+We need to use snd_soc_component_read()
+instead of     snd_soc_component_read32()
 
-	static int snd_soc_component_update_bits_legacy(...)
-	{
-		...
-=>		mutex_lock(&component->io_mutex);
-		...
-		old = snd_soc_component_read(...);
-		...
-		ret = snd_soc_component_write(...);
-		...
-=>		mutex_unlock(&component->io_mutex);
-		...
-	}
-
-It is pointless if it is not used with both read and write functions.
-This patch uses io_mutex correctly with read/write.
-Here, xxx_no_lock() is local functions.
-
-	static int snd_soc_component_read(...)
-	{
-		...
-=>		mutex_lock(&component->io_mutex);
-		val = soc_component_read_no_lock(...);
-=>		mutex_unlock(&component->io_mutex);
-		...
-	}
-
-	static int snd_soc_component_write(...)
-	{
-		...
-=>		mutex_lock(&component->io_mutex);
-		ret = soc_component_write_no_lock(...);
-=>		mutex_unlock(&component->io_mutex);
-		...
-	}
-
-	static int snd_soc_component_update_bits_legacy(...)
-	{
-		...
-=>		mutex_lock(&component->io_mutex);
-		...
-		old = soc_component_read_no_lock(...);
-		...
-		ret = soc_component_write_no_lock(...);
-		...
-=>		mutex_unlock(&component->io_mutex);
-		...
-	}
+This patch renames _read32() to _read()
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-component.c | 60 ++++++++++++++++++++++++++++-----------
- 1 file changed, 43 insertions(+), 17 deletions(-)
+ sound/soc/pxa/mioa701_wm9713.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index 428f88decfdb..af9909c5492f 100644
---- a/sound/soc/soc-component.c
-+++ b/sound/soc/soc-component.c
-@@ -403,15 +403,9 @@ EXPORT_SYMBOL_GPL(snd_soc_component_exit_regmap);
+diff --git a/sound/soc/pxa/mioa701_wm9713.c b/sound/soc/pxa/mioa701_wm9713.c
+index bf27b277c01f..763db7bbd9bb 100644
+--- a/sound/soc/pxa/mioa701_wm9713.c
++++ b/sound/soc/pxa/mioa701_wm9713.c
+@@ -51,14 +51,14 @@ static int rear_amp_power(struct snd_soc_component *component, int power)
+ 	unsigned short reg;
  
- #endif
- 
--/**
-- * snd_soc_component_read() - Read register value
-- * @component: Component to read from
-- * @reg: Register to read
-- *
-- * Return: read value
-- */
--unsigned int snd_soc_component_read(struct snd_soc_component *component,
--				    unsigned int reg)
-+static unsigned int soc_component_read_no_lock(
-+	struct snd_soc_component *component,
-+	unsigned int reg)
- {
- 	int ret;
- 	unsigned int val = 0;
-@@ -430,8 +424,41 @@ unsigned int snd_soc_component_read(struct snd_soc_component *component,
- 
- 	return val;
- }
-+
-+/**
-+ * snd_soc_component_read() - Read register value
-+ * @component: Component to read from
-+ * @reg: Register to read
-+ *
-+ * Return: read value
-+ */
-+unsigned int snd_soc_component_read(struct snd_soc_component *component,
-+				    unsigned int reg)
-+{
-+	unsigned int val;
-+
-+	mutex_lock(&component->io_mutex);
-+	val = soc_component_read_no_lock(component, reg);
-+	mutex_unlock(&component->io_mutex);
-+
-+	return val;
-+}
- EXPORT_SYMBOL_GPL(snd_soc_component_read);
- 
-+static int soc_component_write_no_lock(
-+	struct snd_soc_component *component,
-+	unsigned int reg, unsigned int val)
-+{
-+	int ret = -EIO;
-+
-+	if (component->regmap)
-+		ret = regmap_write(component->regmap, reg, val);
-+	else if (component->driver->write)
-+		ret = component->driver->write(component, reg, val);
-+
-+	return soc_component_ret(component, ret);
-+}
-+
- /**
-  * snd_soc_component_write() - Write register value
-  * @component: Component to write to
-@@ -443,14 +470,13 @@ EXPORT_SYMBOL_GPL(snd_soc_component_read);
- int snd_soc_component_write(struct snd_soc_component *component,
- 			    unsigned int reg, unsigned int val)
- {
--	int ret = -EIO;
-+	int ret;
- 
--	if (component->regmap)
--		ret = regmap_write(component->regmap, reg, val);
--	else if (component->driver->write)
--		ret = component->driver->write(component, reg, val);
-+	mutex_lock(&component->io_mutex);
-+	ret = soc_component_write_no_lock(component, reg, val);
-+	mutex_unlock(&component->io_mutex);
- 
--	return soc_component_ret(component, ret);
-+	return ret;
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_write);
- 
-@@ -463,12 +489,12 @@ static int snd_soc_component_update_bits_legacy(
- 
- 	mutex_lock(&component->io_mutex);
- 
--	old = snd_soc_component_read(component, reg);
-+	old = soc_component_read_no_lock(component, reg);
- 
- 	new = (old & ~mask) | (val & mask);
- 	*change = old != new;
- 	if (*change)
--		ret = snd_soc_component_write(component, reg, new);
-+		ret = soc_component_write_no_lock(component, reg, new);
- 
- 	mutex_unlock(&component->io_mutex);
+ 	if (power) {
+-		reg = snd_soc_component_read32(component, AC97_GPIO_CFG);
++		reg = snd_soc_component_read(component, AC97_GPIO_CFG);
+ 		snd_soc_component_write(component, AC97_GPIO_CFG, reg | 0x0100);
+-		reg = snd_soc_component_read32(component, AC97_GPIO_PULL);
++		reg = snd_soc_component_read(component, AC97_GPIO_PULL);
+ 		snd_soc_component_write(component, AC97_GPIO_PULL, reg | (1<<15));
+ 	} else {
+-		reg = snd_soc_component_read32(component, AC97_GPIO_CFG);
++		reg = snd_soc_component_read(component, AC97_GPIO_CFG);
+ 		snd_soc_component_write(component, AC97_GPIO_CFG, reg & ~0x0100);
+-		reg = snd_soc_component_read32(component, AC97_GPIO_PULL);
++		reg = snd_soc_component_read(component, AC97_GPIO_PULL);
+ 		snd_soc_component_write(component, AC97_GPIO_PULL, reg & ~(1<<15));
+ 	}
  
 -- 
 2.25.1

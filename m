@@ -2,62 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EE871FA7EA
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jun 2020 06:49:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 095FE1FA81E
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jun 2020 07:19:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8CE961681;
-	Tue, 16 Jun 2020 06:48:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CE961681
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84C65167C;
+	Tue, 16 Jun 2020 07:18:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84C65167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592282953;
-	bh=Y5/bKBguqm12Cm14eQMPLNmnsyHopKSAkWrWFbwkCn8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Ja6idyyUk6qJQ42THxRUY3YrsSDX+GSgN5smqOlgOHVKba2/wS0/Wi/KPPbhVwivf
-	 l8y4MZzNIL45X1jLzP1MDRVQc/JgmpgnXiKNtz6ctrEzHmS3K/zN4D2J08xD04LvRS
-	 k7LEhrK8Ddsm2Ud4tWztbHGCyrg2iPf5i24eJab4=
+	s=default; t=1592284759;
+	bh=3vR2fJ/+aaPB+Jc2qpZF4crijF06B1WhPdeWeXCv/bA=;
+	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=XOqmW/FpufrjUbC+raDIheQW/tFM3rfuMIvPEVZtznqKRLpYpqieknbm+4Iaf3ueo
+	 0motF6mJZY5xKqyngaAaLQdBvdpN5BPk1KGs6tbcdmD+Rh/sTBj58oNB94fw2jgNsG
+	 jkeQWFq3yD/3oM3DdS4zK50niKc9Sdv0z3x7kybc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 920DAF80114;
-	Tue, 16 Jun 2020 06:47:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92E4DF80232;
+	Tue, 16 Jun 2020 07:17:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E9C77F8022B; Tue, 16 Jun 2020 06:47:26 +0200 (CEST)
+ id E840BF8022B; Tue, 16 Jun 2020 07:17:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E1435F80114
- for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 06:47:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1435F80114
-Received: from 61-220-137-37.hinet-ip.hinet.net ([61.220.137.37]
- helo=localhost) by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <kai.heng.feng@canonical.com>)
- id 1jl3V9-0004Rc-8N; Tue, 16 Jun 2020 04:47:11 +0000
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-To: tiwai@suse.com
-Subject: [PATCH 2/2] ALSA: hda/realtek: Add mute LED and micmute LED support
- for HP systems
-Date: Tue, 16 Jun 2020 12:46:59 +0800
-Message-Id: <20200616044702.17570-2-kai.heng.feng@canonical.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200616044702.17570-1-kai.heng.feng@canonical.com>
-References: <20200616044702.17570-1-kai.heng.feng@canonical.com>
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, Tomas Espeleta <tomas.espeleta@gmail.com>,
- Thomas Hebb <tommyhebb@gmail.com>, open list <linux-kernel@vger.kernel.org>,
- Hui Wang <hui.wang@canonical.com>, Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Jian-Hong Pan <jian-hong@endlessm.com>,
- =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=AC_FROM_MANY_DOTS,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 04BC7F800EF
+ for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 07:17:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04BC7F800EF
+Date: 16 Jun 2020 14:17:22 +0900
+X-IronPort-AV: E=Sophos;i="5.73,517,1583161200"; d="scan'208";a="49577080"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 16 Jun 2020 14:17:22 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 4609C41A4FBA;
+ Tue, 16 Jun 2020 14:17:22 +0900 (JST)
+Message-ID: <87tuzb4mjg.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH 00/16] ASoC: merge snd_soc_component_read() and
+ snd_soc_component_read32()
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+To: Mark Brown <broonie@kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,27 +65,162 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There are two more HP systems control mute LED from HDA and control
-micmute LED from SoF. Add IDs to support them.
 
-Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
----
- sound/pci/hda/patch_realtek.c | 2 ++
- 1 file changed, 2 insertions(+)
+Hi Mark
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index cead44a6c6cd..f7398633d736 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -7440,6 +7440,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x83b9, "HP Spectre x360", ALC269_FIXUP_HP_MUTE_LED_MIC3),
- 	SND_PCI_QUIRK(0x103c, 0x8497, "HP Envy x360", ALC269_FIXUP_HP_MUTE_LED_MIC3),
- 	SND_PCI_QUIRK(0x103c, 0x84e7, "HP Pavilion 15", ALC269_FIXUP_HP_MUTE_LED_MIC3),
-+	SND_PCI_QUIRK(0x103c, 0x869d, "HP", ALC236_FIXUP_HP_MUTE_LED),
-+	SND_PCI_QUIRK(0x103c, 0x8729, "HP", ALC285_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8736, "HP", ALC285_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x877a, "HP", ALC285_FIXUP_HP_MUTE_LED),
- 	SND_PCI_QUIRK(0x103c, 0x877d, "HP", ALC236_FIXUP_HP_MUTE_LED),
+Because we can use "read" function which is using
+"regmap" or "driver", current ALSA SoC drivers are using both
+	snd_soc_component_read()    // for regmap
+	snd_soc_component_read32()  // for driver callback
+These are similar but needs different parameter.
+
+This patch aggressively merge snd_soc_component_read() and _read32(),
+and makes snd_soc_component_read/write() as generally style.
+
+New read doesn't return error if it failed,
+thus, it can't keep compatibility,
+but assuming it is not a big problem.
+Because 1) it will indicate error message,
+2) it can do nothing anyway if it fails "read".
+
+[02/16] patch is not directly connected to read function merging,
+but need to be apply after [01/16].
+
+Kuninori Morimoto (16):
+  ASoC: soc-component: merge snd_soc_component_read() and snd_soc_component_read32()
+  ASoC: soc-component: use io_mutex correctly
+  ASoC: pxa: rename to snd_soc_component_read()
+  ASoC: atmel: rename to snd_soc_component_read()
+  ASoC: codecs: rename to snd_soc_component_read()
+  ASoC: codecs: wcd*: rename to snd_soc_component_read()
+  ASoC: codecs: tlv*: rename to snd_soc_component_read()
+  ASoC: codecs: max*: rename to snd_soc_component_read()
+  ASoC: codecs: msm*: rename to snd_soc_component_read()
+  ASoC: codecs: alc*: rename to snd_soc_component_read()
+  ASoC: codecs: wm*: rename to snd_soc_component_read()
+  ASoC: codecs: rt*: rename to snd_soc_component_read()
+  ASoC: codecs: da*: rename to snd_soc_component_read()
+  ASoC: codecs: cs*: rename to snd_soc_component_read()
+  ASoC: codecs: ak*: rename to snd_soc_component_read()
+  ASoC: remove snd_soc_component_read32()
+
+ include/sound/soc-component.h          |  4 +-
+ sound/soc/atmel/atmel-pdmic.c          |  4 +-
+ sound/soc/codecs/88pm860x-codec.c      | 14 ++---
+ sound/soc/codecs/ab8500-codec.c        |  8 +--
+ sound/soc/codecs/ad1980.c              |  4 +-
+ sound/soc/codecs/ak4458.c              |  2 +-
+ sound/soc/codecs/ak4535.c              |  4 +-
+ sound/soc/codecs/ak4613.c              |  4 +-
+ sound/soc/codecs/ak4671.c              |  8 +--
+ sound/soc/codecs/alc5623.c             |  6 +-
+ sound/soc/codecs/alc5632.c             |  6 +-
+ sound/soc/codecs/arizona.c             | 18 +++---
+ sound/soc/codecs/cs4270.c              | 10 +--
+ sound/soc/codecs/cs42l42.c             |  2 +-
+ sound/soc/codecs/cs42l51.c             |  8 +--
+ sound/soc/codecs/cs42l73.c             |  4 +-
+ sound/soc/codecs/cs47l35.c             | 10 +--
+ sound/soc/codecs/cs47l85.c             | 10 +--
+ sound/soc/codecs/da7210.c              | 24 ++++----
+ sound/soc/codecs/da7213.c              | 24 ++++----
+ sound/soc/codecs/da7218.c              | 34 +++++------
+ sound/soc/codecs/da7219-aad.c          | 16 ++---
+ sound/soc/codecs/da7219.c              | 20 +++---
+ sound/soc/codecs/da732x.c              | 18 +++---
+ sound/soc/codecs/da9055.c              | 14 ++---
+ sound/soc/codecs/inno_rk3036.c         |  6 +-
+ sound/soc/codecs/madera.c              | 49 +++------------
+ sound/soc/codecs/max98088.c            | 12 ++--
+ sound/soc/codecs/max98090.c            | 20 +++---
+ sound/soc/codecs/max98095.c            | 16 ++---
+ sound/soc/codecs/max9850.c             |  2 +-
+ sound/soc/codecs/msm8916-wcd-analog.c  | 14 ++---
+ sound/soc/codecs/msm8916-wcd-digital.c | 16 ++---
+ sound/soc/codecs/nau8822.c             |  6 +-
+ sound/soc/codecs/rt1305.c              |  2 +-
+ sound/soc/codecs/rt298.c               |  2 +-
+ sound/soc/codecs/rt5616.c              |  2 +-
+ sound/soc/codecs/rt5631.c              | 32 +++++-----
+ sound/soc/codecs/rt5640.c              | 10 +--
+ sound/soc/codecs/rt5645.c              | 16 ++---
+ sound/soc/codecs/rt5651.c              |  6 +-
+ sound/soc/codecs/rt5659.c              | 14 ++---
+ sound/soc/codecs/rt5660.c              |  2 +-
+ sound/soc/codecs/rt5663.c              | 34 +++++------
+ sound/soc/codecs/rt5665.c              | 16 ++---
+ sound/soc/codecs/rt5668.c              | 16 ++---
+ sound/soc/codecs/rt5670.c              | 18 +++---
+ sound/soc/codecs/rt5682-i2c.c          |  2 +-
+ sound/soc/codecs/rt5682.c              | 19 +++---
+ sound/soc/codecs/sgtl5000.c            | 16 ++---
+ sound/soc/codecs/sta32x.c              |  4 +-
+ sound/soc/codecs/tas2552.c             |  4 +-
+ sound/soc/codecs/tas5720.c             |  4 +-
+ sound/soc/codecs/tda7419.c             |  9 +--
+ sound/soc/codecs/tlv320aic23.c         | 14 ++---
+ sound/soc/codecs/tlv320aic26.c         |  4 +-
+ sound/soc/codecs/tlv320aic32x4.c       | 16 ++---
+ sound/soc/codecs/tlv320aic3x.c         | 14 ++---
+ sound/soc/codecs/tscs42xx.c            |  4 +-
+ sound/soc/codecs/tscs454.c             | 24 ++------
+ sound/soc/codecs/wcd-clsh-v2.c         |  2 +-
+ sound/soc/codecs/wcd9335.c             | 48 +++++++--------
+ sound/soc/codecs/wcd934x.c             | 52 ++++++++--------
+ sound/soc/codecs/wm2200.c              |  4 +-
+ sound/soc/codecs/wm5100.c              | 18 +++---
+ sound/soc/codecs/wm5110.c              |  6 +-
+ sound/soc/codecs/wm8350.c              | 32 +++++-----
+ sound/soc/codecs/wm8400.c              | 50 +++++++--------
+ sound/soc/codecs/wm8510.c              | 28 ++++-----
+ sound/soc/codecs/wm8523.c              |  6 +-
+ sound/soc/codecs/wm8580.c              | 12 ++--
+ sound/soc/codecs/wm8711.c              |  8 +--
+ sound/soc/codecs/wm8728.c              | 10 +--
+ sound/soc/codecs/wm8731.c              |  6 +-
+ sound/soc/codecs/wm8750.c              |  8 +--
+ sound/soc/codecs/wm8753.c              | 42 ++++++-------
+ sound/soc/codecs/wm8770.c              |  2 +-
+ sound/soc/codecs/wm8776.c              |  2 +-
+ sound/soc/codecs/wm8804.c              |  2 +-
+ sound/soc/codecs/wm8900.c              | 22 +++----
+ sound/soc/codecs/wm8903.c              | 20 +++---
+ sound/soc/codecs/wm8904.c              | 16 ++---
+ sound/soc/codecs/wm8940.c              | 32 +++++-----
+ sound/soc/codecs/wm8955.c              |  2 +-
+ sound/soc/codecs/wm8958-dsp2.c         | 18 +++---
+ sound/soc/codecs/wm8960.c              | 20 +++---
+ sound/soc/codecs/wm8961.c              | 58 +++++++++---------
+ sound/soc/codecs/wm8962.c              | 31 +++++-----
+ sound/soc/codecs/wm8971.c              |  8 +--
+ sound/soc/codecs/wm8974.c              | 24 ++++----
+ sound/soc/codecs/wm8978.c              | 12 ++--
+ sound/soc/codecs/wm8983.c              |  8 +--
+ sound/soc/codecs/wm8985.c              |  8 +--
+ sound/soc/codecs/wm8988.c              | 12 ++--
+ sound/soc/codecs/wm8990.c              | 18 +++---
+ sound/soc/codecs/wm8991.c              | 38 ++++++------
+ sound/soc/codecs/wm8993.c              | 28 ++++-----
+ sound/soc/codecs/wm8994.c              | 60 +++++++++---------
+ sound/soc/codecs/wm8995.c              | 16 ++---
+ sound/soc/codecs/wm8996.c              | 30 ++++-----
+ sound/soc/codecs/wm8998.c              |  8 +--
+ sound/soc/codecs/wm9081.c              | 36 +++++------
+ sound/soc/codecs/wm9090.c              |  4 +-
+ sound/soc/codecs/wm9713.c              |  2 +-
+ sound/soc/codecs/wm_hubs.c             | 30 ++++-----
+ sound/soc/fsl/fsl_audmix.c             | 10 +--
+ sound/soc/fsl/fsl_easrc.c              |  5 +-
+ sound/soc/meson/aiu-encoder-i2s.c      |  3 +-
+ sound/soc/meson/aiu-fifo-i2s.c         |  3 +-
+ sound/soc/meson/aiu-fifo.c             |  3 +-
+ sound/soc/pxa/mioa701_wm9713.c         |  8 +--
+ sound/soc/soc-ac97.c                   |  7 +--
+ sound/soc/soc-component.c              | 84 ++++++++++++++------------
+ sound/soc/soc-dapm.c                   | 31 ++++------
+ sound/soc/soc-ops.c                    | 43 +++----------
+ 115 files changed, 854 insertions(+), 963 deletions(-)
+
 -- 
-2.17.1
+2.25.1
 

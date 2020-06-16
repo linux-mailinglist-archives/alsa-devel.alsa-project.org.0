@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B6211FA833
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jun 2020 07:27:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A0B31FA835
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jun 2020 07:28:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C7D2A1691;
-	Tue, 16 Jun 2020 07:27:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7D2A1691
+	by alsa0.perex.cz (Postfix) with ESMTPS id B585B168D;
+	Tue, 16 Jun 2020 07:27:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B585B168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592285277;
-	bh=vob9dPqKQmN45YHYNPjasUqFVJZ0QZeM3W/CVap+hFM=;
+	s=default; t=1592285325;
+	bh=7T9x2fD1HpS02XPrke+icDkme2sg3t5XZpSDicn5AC4=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=P087TOA28Y37hfS0So70oocMq6V+srikRtfl/dKVktcaZ+TSrN4pUMSlPoVZS0jvZ
-	 HuM2PpiYGBMGhzEaQ4IKciCAxI6IRDOUoNR1X8lWK2MBs4kFB96WUTCG5a950b/AiH
-	 J16V1JEKY8I5ozEyrH9V2IgbOwNyM00SX5UEzzx4=
+	b=QxkeIfWaxsKeDBsSNzgXTODzq+j23FWB61mGdjsIetwYudchNVfrtmM7E59CU3IS1
+	 tCZAzsd+FzG/O5x50WrrfSpe5XWhMsX+g/vgW+TFilis4/QIflU4n3DwmyUVBrvdhk
+	 3GUXm9GxXJ5rPj4OsK9vzGO6whVZ1Itke2lGV4EE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70818F80328;
-	Tue, 16 Jun 2020 07:21:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49C70F80341;
+	Tue, 16 Jun 2020 07:21:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B4DE5F80317; Tue, 16 Jun 2020 07:21:45 +0200 (CEST)
+ id 477DAF80322; Tue, 16 Jun 2020 07:21:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 67182F8022B
- for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 07:21:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67182F8022B
-Date: 16 Jun 2020 14:21:37 +0900
-X-IronPort-AV: E=Sophos;i="5.73,517,1583161200"; d="scan'208";a="49787707"
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 619C9F802A2
+ for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 07:21:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 619C9F802A2
+Date: 16 Jun 2020 14:21:42 +0900
+X-IronPort-AV: E=Sophos;i="5.73,517,1583161200"; d="scan'208";a="49577453"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 16 Jun 2020 14:21:37 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 16 Jun 2020 14:21:42 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id E36EA41AAE87;
- Tue, 16 Jun 2020 14:21:36 +0900 (JST)
-Message-ID: <87d05z4mce.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 8E5E441AAE87;
+ Tue, 16 Jun 2020 14:21:42 +0900 (JST)
+Message-ID: <87bllj4mc8.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 12/16] ASoC: codecs: rt*: rename to snd_soc_component_read()
+Subject: [PATCH 13/16] ASoC: codecs: da*: rename to snd_soc_component_read()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87tuzb4mjg.wl-kuninori.morimoto.gx@renesas.com>
@@ -77,814 +77,540 @@ This patch renames _read32() to _read()
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/codecs/rt298.c      |  2 +-
- sound/soc/codecs/rt5616.c     |  2 +-
- sound/soc/codecs/rt5631.c     | 32 ++++++++++++++++----------------
- sound/soc/codecs/rt5640.c     | 10 +++++-----
- sound/soc/codecs/rt5645.c     | 16 ++++++++--------
- sound/soc/codecs/rt5651.c     |  6 +++---
- sound/soc/codecs/rt5659.c     | 14 +++++++-------
- sound/soc/codecs/rt5660.c     |  2 +-
- sound/soc/codecs/rt5663.c     | 34 +++++++++++++++++-----------------
- sound/soc/codecs/rt5665.c     | 16 ++++++++--------
- sound/soc/codecs/rt5668.c     | 16 ++++++++--------
- sound/soc/codecs/rt5670.c     | 18 +++++++++---------
- sound/soc/codecs/rt5682-i2c.c |  2 +-
- sound/soc/codecs/rt5682.c     | 16 ++++++++--------
- 14 files changed, 93 insertions(+), 93 deletions(-)
+ sound/soc/codecs/da7210.c     | 24 ++++++++++++------------
+ sound/soc/codecs/da7213.c     | 24 ++++++++++++------------
+ sound/soc/codecs/da7218.c     | 34 +++++++++++++++++-----------------
+ sound/soc/codecs/da7219-aad.c | 16 ++++++++--------
+ sound/soc/codecs/da7219.c     | 20 ++++++++++----------
+ sound/soc/codecs/da732x.c     | 18 +++++++++---------
+ sound/soc/codecs/da9055.c     | 14 +++++++-------
+ 7 files changed, 75 insertions(+), 75 deletions(-)
 
-diff --git a/sound/soc/codecs/rt298.c b/sound/soc/codecs/rt298.c
-index f8c0f977206c..7fc7d6181630 100644
---- a/sound/soc/codecs/rt298.c
-+++ b/sound/soc/codecs/rt298.c
-@@ -508,7 +508,7 @@ static int rt298_adc_event(struct snd_soc_dapm_widget *w,
- 			VERB_CMD(AC_VERB_SET_AMP_GAIN_MUTE, nid, 0),
- 			0x7080, 0x7000);
- 		 /* If MCLK doesn't exist, reset AD filter */
--		if (!(snd_soc_component_read32(component, RT298_VAD_CTRL) & 0x200)) {
-+		if (!(snd_soc_component_read(component, RT298_VAD_CTRL) & 0x200)) {
- 			pr_info("NO MCLK\n");
- 			switch (nid) {
- 			case RT298_ADC_IN1:
-diff --git a/sound/soc/codecs/rt5616.c b/sound/soc/codecs/rt5616.c
-index fcf16ec64d10..fd0d3a08e9dd 100644
---- a/sound/soc/codecs/rt5616.c
-+++ b/sound/soc/codecs/rt5616.c
-@@ -348,7 +348,7 @@ static int is_sys_clk_from_pll(struct snd_soc_dapm_widget *source,
- {
- 	unsigned int val;
+diff --git a/sound/soc/codecs/da7210.c b/sound/soc/codecs/da7210.c
+index e172913d04a4..0c99dcf242e4 100644
+--- a/sound/soc/codecs/da7210.c
++++ b/sound/soc/codecs/da7210.c
+@@ -330,7 +330,7 @@ static int da7210_put_alc_sw(struct snd_kcontrol *kcontrol,
  
--	val = snd_soc_component_read32(snd_soc_dapm_to_component(source->dapm), RT5616_GLB_CLK);
-+	val = snd_soc_component_read(snd_soc_dapm_to_component(source->dapm), RT5616_GLB_CLK);
- 	val &= RT5616_SCLK_SRC_MASK;
- 	if (val == RT5616_SCLK_SRC_PLL1)
- 		return 1;
-diff --git a/sound/soc/codecs/rt5631.c b/sound/soc/codecs/rt5631.c
-index f70b9f7e68bb..b5184f0e10e3 100644
---- a/sound/soc/codecs/rt5631.c
-+++ b/sound/soc/codecs/rt5631.c
-@@ -83,7 +83,7 @@ static unsigned int rt5631_read_index(struct snd_soc_component *component,
- 	unsigned int value;
+ 	if (ucontrol->value.integer.value[0]) {
+ 		/* Check if noise suppression is enabled */
+-		if (snd_soc_component_read32(component, DA7210_CONTROL) & DA7210_NOISE_SUP_EN) {
++		if (snd_soc_component_read(component, DA7210_CONTROL) & DA7210_NOISE_SUP_EN) {
+ 			dev_dbg(component->dev,
+ 				"Disable noise suppression to enable ALC\n");
+ 			return -EINVAL;
+@@ -354,27 +354,27 @@ static int da7210_put_noise_sup_sw(struct snd_kcontrol *kcontrol,
  
- 	snd_soc_component_write(component, RT5631_INDEX_ADD, reg);
--	value = snd_soc_component_read32(component, RT5631_INDEX_DATA);
-+	value = snd_soc_component_read(component, RT5631_INDEX_DATA);
+ 	if (ucontrol->value.integer.value[0]) {
+ 		/* Check if ALC is enabled */
+-		if (snd_soc_component_read32(component, DA7210_ADC) & DA7210_ADC_ALC_EN)
++		if (snd_soc_component_read(component, DA7210_ADC) & DA7210_ADC_ALC_EN)
+ 			goto err;
  
- 	return value;
- }
-@@ -285,7 +285,7 @@ static int check_sysclk1_source(struct snd_soc_dapm_widget *source,
- 	struct snd_soc_component *component = snd_soc_dapm_to_component(source->dapm);
- 	unsigned int reg;
+ 		/* Check ZC for HP and AUX1 PGA */
+-		if ((snd_soc_component_read32(component, DA7210_ZERO_CROSS) &
++		if ((snd_soc_component_read(component, DA7210_ZERO_CROSS) &
+ 			(DA7210_AUX1_L_ZC | DA7210_AUX1_R_ZC | DA7210_HP_L_ZC |
+ 			DA7210_HP_R_ZC)) != (DA7210_AUX1_L_ZC |
+ 			DA7210_AUX1_R_ZC | DA7210_HP_L_ZC | DA7210_HP_R_ZC))
+ 			goto err;
  
--	reg = snd_soc_component_read32(component, RT5631_GLOBAL_CLK_CTRL);
-+	reg = snd_soc_component_read(component, RT5631_GLOBAL_CLK_CTRL);
- 	return reg & RT5631_SYSCLK_SOUR_SEL_PLL;
- }
+ 		/* Check INPGA_L_VOL and INPGA_R_VOL */
+-		val = snd_soc_component_read32(component, DA7210_IN_GAIN);
++		val = snd_soc_component_read(component, DA7210_IN_GAIN);
+ 		if (((val & DA7210_INPGA_L_VOL) < DA7210_INPGA_MIN_VOL_NS) ||
+ 			(((val & DA7210_INPGA_R_VOL) >> 4) <
+ 			DA7210_INPGA_MIN_VOL_NS))
+ 			goto err;
  
-@@ -303,7 +303,7 @@ static int check_dacl_to_outmixl(struct snd_soc_dapm_widget *source,
- 	struct snd_soc_component *component = snd_soc_dapm_to_component(source->dapm);
- 	unsigned int reg;
+ 		/* Check AUX1_L_VOL and AUX1_R_VOL */
+-		if (((snd_soc_component_read32(component, DA7210_AUX1_L) & DA7210_AUX1_L_VOL) <
++		if (((snd_soc_component_read(component, DA7210_AUX1_L) & DA7210_AUX1_L_VOL) <
+ 		    DA7210_AUX1_MIN_VOL_NS) ||
+-		    ((snd_soc_component_read32(component, DA7210_AUX1_R) & DA7210_AUX1_R_VOL) <
++		    ((snd_soc_component_read(component, DA7210_AUX1_R) & DA7210_AUX1_R_VOL) <
+ 		    DA7210_AUX1_MIN_VOL_NS))
+ 			goto err;
+ 	}
+@@ -767,7 +767,7 @@ static int da7210_hw_params(struct snd_pcm_substream *substream,
+ 	/* Enable DAI */
+ 	snd_soc_component_write(component, DA7210_DAI_CFG3, DA7210_DAI_OE | DA7210_DAI_EN);
  
--	reg = snd_soc_component_read32(component, RT5631_OUTMIXER_L_CTRL);
-+	reg = snd_soc_component_read(component, RT5631_OUTMIXER_L_CTRL);
- 	return !(reg & RT5631_M_DAC_L_TO_OUTMIXER_L);
- }
+-	dai_cfg1 = 0xFC & snd_soc_component_read32(component, DA7210_DAI_CFG1);
++	dai_cfg1 = 0xFC & snd_soc_component_read(component, DA7210_DAI_CFG1);
  
-@@ -313,7 +313,7 @@ static int check_dacr_to_outmixr(struct snd_soc_dapm_widget *source,
- 	struct snd_soc_component *component = snd_soc_dapm_to_component(source->dapm);
- 	unsigned int reg;
+ 	switch (params_width(params)) {
+ 	case 16:
+@@ -874,11 +874,11 @@ static int da7210_set_dai_fmt(struct snd_soc_dai *codec_dai, u32 fmt)
+ 	u32 dai_cfg1;
+ 	u32 dai_cfg3;
  
--	reg = snd_soc_component_read32(component, RT5631_OUTMIXER_R_CTRL);
-+	reg = snd_soc_component_read(component, RT5631_OUTMIXER_R_CTRL);
- 	return !(reg & RT5631_M_DAC_R_TO_OUTMIXER_R);
- }
+-	dai_cfg1 = 0x7f & snd_soc_component_read32(component, DA7210_DAI_CFG1);
+-	dai_cfg3 = 0xfc & snd_soc_component_read32(component, DA7210_DAI_CFG3);
++	dai_cfg1 = 0x7f & snd_soc_component_read(component, DA7210_DAI_CFG1);
++	dai_cfg3 = 0xfc & snd_soc_component_read(component, DA7210_DAI_CFG3);
  
-@@ -323,7 +323,7 @@ static int check_dacl_to_spkmixl(struct snd_soc_dapm_widget *source,
- 	struct snd_soc_component *component = snd_soc_dapm_to_component(source->dapm);
- 	unsigned int reg;
- 
--	reg = snd_soc_component_read32(component, RT5631_SPK_MIXER_CTRL);
-+	reg = snd_soc_component_read(component, RT5631_SPK_MIXER_CTRL);
- 	return !(reg & RT5631_M_DAC_L_TO_SPKMIXER_L);
- }
- 
-@@ -333,7 +333,7 @@ static int check_dacr_to_spkmixr(struct snd_soc_dapm_widget *source,
- 	struct snd_soc_component *component = snd_soc_dapm_to_component(source->dapm);
- 	unsigned int reg;
- 
--	reg = snd_soc_component_read32(component, RT5631_SPK_MIXER_CTRL);
-+	reg = snd_soc_component_read(component, RT5631_SPK_MIXER_CTRL);
- 	return !(reg & RT5631_M_DAC_R_TO_SPKMIXER_R);
- }
- 
-@@ -343,7 +343,7 @@ static int check_adcl_select(struct snd_soc_dapm_widget *source,
- 	struct snd_soc_component *component = snd_soc_dapm_to_component(source->dapm);
- 	unsigned int reg;
- 
--	reg = snd_soc_component_read32(component, RT5631_ADC_REC_MIXER);
-+	reg = snd_soc_component_read(component, RT5631_ADC_REC_MIXER);
- 	return !(reg & RT5631_M_MIC1_TO_RECMIXER_L);
- }
- 
-@@ -353,7 +353,7 @@ static int check_adcr_select(struct snd_soc_dapm_widget *source,
- 	struct snd_soc_component *component = snd_soc_dapm_to_component(source->dapm);
- 	unsigned int reg;
- 
--	reg = snd_soc_component_read32(component, RT5631_ADC_REC_MIXER);
-+	reg = snd_soc_component_read(component, RT5631_ADC_REC_MIXER);
- 	return !(reg & RT5631_M_MIC2_TO_RECMIXER_R);
- }
- 
-@@ -372,9 +372,9 @@ static void onebit_depop_power_stage(struct snd_soc_component *component, int en
- 				RT5631_EN_ONE_BIT_DEPOP, 0);
- 
- 	/* keep soft volume and zero crossing setting */
--	soft_vol = snd_soc_component_read32(component, RT5631_SOFT_VOL_CTRL);
-+	soft_vol = snd_soc_component_read(component, RT5631_SOFT_VOL_CTRL);
- 	snd_soc_component_write(component, RT5631_SOFT_VOL_CTRL, 0);
--	hp_zc = snd_soc_component_read32(component, RT5631_INT_ST_IRQ_CTRL_2);
-+	hp_zc = snd_soc_component_read(component, RT5631_INT_ST_IRQ_CTRL_2);
- 	snd_soc_component_write(component, RT5631_INT_ST_IRQ_CTRL_2, hp_zc & 0xf7ff);
- 	if (enable) {
- 		/* config one-bit depop parameter */
-@@ -410,9 +410,9 @@ static void onebit_depop_mute_stage(struct snd_soc_component *component, int ena
- 				RT5631_EN_ONE_BIT_DEPOP, 0);
- 
- 	/* keep soft volume and zero crossing setting */
--	soft_vol = snd_soc_component_read32(component, RT5631_SOFT_VOL_CTRL);
-+	soft_vol = snd_soc_component_read(component, RT5631_SOFT_VOL_CTRL);
- 	snd_soc_component_write(component, RT5631_SOFT_VOL_CTRL, 0);
--	hp_zc = snd_soc_component_read32(component, RT5631_INT_ST_IRQ_CTRL_2);
-+	hp_zc = snd_soc_component_read(component, RT5631_INT_ST_IRQ_CTRL_2);
- 	snd_soc_component_write(component, RT5631_INT_ST_IRQ_CTRL_2, hp_zc & 0xf7ff);
- 	if (enable) {
- 		schedule_timeout_uninterruptible(msecs_to_jiffies(10));
-@@ -448,9 +448,9 @@ static void depop_seq_power_stage(struct snd_soc_component *component, int enabl
- 		RT5631_EN_ONE_BIT_DEPOP, RT5631_EN_ONE_BIT_DEPOP);
- 
- 	/* keep soft volume and zero crossing setting */
--	soft_vol = snd_soc_component_read32(component, RT5631_SOFT_VOL_CTRL);
-+	soft_vol = snd_soc_component_read(component, RT5631_SOFT_VOL_CTRL);
- 	snd_soc_component_write(component, RT5631_SOFT_VOL_CTRL, 0);
--	hp_zc = snd_soc_component_read32(component, RT5631_INT_ST_IRQ_CTRL_2);
-+	hp_zc = snd_soc_component_read(component, RT5631_INT_ST_IRQ_CTRL_2);
- 	snd_soc_component_write(component, RT5631_INT_ST_IRQ_CTRL_2, hp_zc & 0xf7ff);
- 	if (enable) {
- 		/* config depop sequence parameter */
-@@ -520,9 +520,9 @@ static void depop_seq_mute_stage(struct snd_soc_component *component, int enable
- 		RT5631_EN_ONE_BIT_DEPOP, RT5631_EN_ONE_BIT_DEPOP);
- 
- 	/* keep soft volume and zero crossing setting */
--	soft_vol = snd_soc_component_read32(component, RT5631_SOFT_VOL_CTRL);
-+	soft_vol = snd_soc_component_read(component, RT5631_SOFT_VOL_CTRL);
- 	snd_soc_component_write(component, RT5631_SOFT_VOL_CTRL, 0);
--	hp_zc = snd_soc_component_read32(component, RT5631_INT_ST_IRQ_CTRL_2);
-+	hp_zc = snd_soc_component_read(component, RT5631_INT_ST_IRQ_CTRL_2);
- 	snd_soc_component_write(component, RT5631_INT_ST_IRQ_CTRL_2, hp_zc & 0xf7ff);
- 	if (enable) {
- 		schedule_timeout_uninterruptible(msecs_to_jiffies(10));
-diff --git a/sound/soc/codecs/rt5640.c b/sound/soc/codecs/rt5640.c
-index 747ca248bf10..3b2bb62a2136 100644
---- a/sound/soc/codecs/rt5640.c
-+++ b/sound/soc/codecs/rt5640.c
-@@ -1651,7 +1651,7 @@ static int get_sdp_info(struct snd_soc_component *component, int dai_id)
- 	if (component == NULL)
+-	if ((snd_soc_component_read32(component, DA7210_PLL) & DA7210_PLL_EN) &&
+-		(!(snd_soc_component_read32(component, DA7210_PLL_DIV3) & DA7210_PLL_BYP)))
++	if ((snd_soc_component_read(component, DA7210_PLL) & DA7210_PLL_EN) &&
++		(!(snd_soc_component_read(component, DA7210_PLL_DIV3) & DA7210_PLL_BYP)))
  		return -EINVAL;
  
--	val = snd_soc_component_read32(component, RT5640_I2S1_SDP);
-+	val = snd_soc_component_read(component, RT5640_I2S1_SDP);
- 	val = (val & RT5640_I2S_IF_MASK) >> RT5640_I2S_IF_SFT;
- 	switch (dai_id) {
- 	case RT5640_AIF1:
-@@ -2081,7 +2081,7 @@ int rt5640_sel_asrc_clk_src(struct snd_soc_component *component,
- 	snd_soc_component_update_bits(component, RT5640_ASRC_2,
- 		asrc2_mask, asrc2_value);
- 
--	if (snd_soc_component_read32(component, RT5640_ASRC_2)) {
-+	if (snd_soc_component_read(component, RT5640_ASRC_2)) {
- 		rt5640->asrc_en = true;
- 		snd_soc_component_update_bits(component, RT5640_JD_CTRL, 0x3, 0x3);
- 	} else {
-@@ -2146,7 +2146,7 @@ static bool rt5640_micbias1_ovcd(struct snd_soc_component *component)
+ 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+@@ -927,7 +927,7 @@ static int da7210_set_dai_fmt(struct snd_soc_dai *codec_dai, u32 fmt)
+ static int da7210_mute(struct snd_soc_dai *dai, int mute)
  {
- 	int val;
+ 	struct snd_soc_component *component = dai->component;
+-	u8 mute_reg = snd_soc_component_read32(component, DA7210_DAC_HPF) & 0xFB;
++	u8 mute_reg = snd_soc_component_read(component, DA7210_DAC_HPF) & 0xFB;
  
--	val = snd_soc_component_read32(component, RT5640_IRQ_CTRL2);
-+	val = snd_soc_component_read(component, RT5640_IRQ_CTRL2);
- 	dev_dbg(component->dev, "irq ctrl2 %#04x\n", val);
+ 	if (mute)
+ 		snd_soc_component_write(component, DA7210_DAC_HPF, mute_reg | 0x4);
+diff --git a/sound/soc/codecs/da7213.c b/sound/soc/codecs/da7213.c
+index 3e6ad996741b..cc4ae7b311b4 100644
+--- a/sound/soc/codecs/da7213.c
++++ b/sound/soc/codecs/da7213.c
+@@ -205,12 +205,12 @@ static int da7213_get_alc_data(struct snd_soc_component *component, u8 reg_val)
+ 		/* Select middle 8 bits for read back from data register */
+ 		snd_soc_component_write(component, DA7213_ALC_CIC_OP_LVL_CTRL,
+ 			      reg_val | DA7213_ALC_DATA_MIDDLE);
+-		mid_data = snd_soc_component_read32(component, DA7213_ALC_CIC_OP_LVL_DATA);
++		mid_data = snd_soc_component_read(component, DA7213_ALC_CIC_OP_LVL_DATA);
  
- 	return (val & RT5640_MB1_OC_STATUS);
-@@ -2157,7 +2157,7 @@ static bool rt5640_jack_inserted(struct snd_soc_component *component)
- 	struct rt5640_priv *rt5640 = snd_soc_component_get_drvdata(component);
- 	int val;
+ 		/* Select top 8 bits for read back from data register */
+ 		snd_soc_component_write(component, DA7213_ALC_CIC_OP_LVL_CTRL,
+ 			      reg_val | DA7213_ALC_DATA_TOP);
+-		top_data = snd_soc_component_read32(component, DA7213_ALC_CIC_OP_LVL_DATA);
++		top_data = snd_soc_component_read(component, DA7213_ALC_CIC_OP_LVL_DATA);
  
--	val = snd_soc_component_read32(component, RT5640_INT_IRQ_ST);
-+	val = snd_soc_component_read(component, RT5640_INT_IRQ_ST);
- 	dev_dbg(component->dev, "irq status %#04x\n", val);
+ 		sum += ((mid_data << 8) | (top_data << 16));
+ 	}
+@@ -259,7 +259,7 @@ static void da7213_alc_calib_auto(struct snd_soc_component *component)
+ 	snd_soc_component_update_bits(component, DA7213_ALC_CTRL1, DA7213_ALC_AUTO_CALIB_EN,
+ 			    DA7213_ALC_AUTO_CALIB_EN);
+ 	do {
+-		alc_ctrl1 = snd_soc_component_read32(component, DA7213_ALC_CTRL1);
++		alc_ctrl1 = snd_soc_component_read(component, DA7213_ALC_CTRL1);
+ 	} while (alc_ctrl1 & DA7213_ALC_AUTO_CALIB_EN);
  
- 	if (rt5640->jd_inverted)
-@@ -2484,7 +2484,7 @@ static int rt5640_probe(struct snd_soc_component *component)
- 	snd_soc_component_update_bits(component, RT5640_MICBIAS, 0x0030, 0x0030);
- 	snd_soc_component_update_bits(component, RT5640_DSP_PATH2, 0xfc00, 0x0c00);
+ 	/* If auto calibration fails, fall back to digital gain only mode */
+@@ -286,16 +286,16 @@ static void da7213_alc_calib(struct snd_soc_component *component)
+ 	u8 mic_1_ctrl, mic_2_ctrl;
  
--	switch (snd_soc_component_read32(component, RT5640_RESET) & RT5640_ID_MASK) {
-+	switch (snd_soc_component_read(component, RT5640_RESET) & RT5640_ID_MASK) {
- 	case RT5640_ID_5640:
- 	case RT5640_ID_5642:
- 		snd_soc_add_component_controls(component,
-diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
-index e2e1d5b03b38..420003d062c7 100644
---- a/sound/soc/codecs/rt5645.c
-+++ b/sound/soc/codecs/rt5645.c
-@@ -866,7 +866,7 @@ static int is_sys_clk_from_pll(struct snd_soc_dapm_widget *source,
- 	struct snd_soc_component *component = snd_soc_dapm_to_component(source->dapm);
- 	unsigned int val;
+ 	/* Save current values from ADC control registers */
+-	adc_l_ctrl = snd_soc_component_read32(component, DA7213_ADC_L_CTRL);
+-	adc_r_ctrl = snd_soc_component_read32(component, DA7213_ADC_R_CTRL);
++	adc_l_ctrl = snd_soc_component_read(component, DA7213_ADC_L_CTRL);
++	adc_r_ctrl = snd_soc_component_read(component, DA7213_ADC_R_CTRL);
  
--	val = snd_soc_component_read32(component, RT5645_GLB_CLK);
-+	val = snd_soc_component_read(component, RT5645_GLB_CLK);
- 	val &= RT5645_SCLK_SRC_MASK;
- 	if (val == RT5645_SCLK_SRC_PLL1)
- 		return 1;
-@@ -909,7 +909,7 @@ static int is_using_asrc(struct snd_soc_dapm_widget *source,
+ 	/* Save current values from MIXIN_L/R_SELECT registers */
+-	mixin_l_sel = snd_soc_component_read32(component, DA7213_MIXIN_L_SELECT);
+-	mixin_r_sel = snd_soc_component_read32(component, DA7213_MIXIN_R_SELECT);
++	mixin_l_sel = snd_soc_component_read(component, DA7213_MIXIN_L_SELECT);
++	mixin_r_sel = snd_soc_component_read(component, DA7213_MIXIN_R_SELECT);
+ 
+ 	/* Save current values from MIC control registers */
+-	mic_1_ctrl = snd_soc_component_read32(component, DA7213_MIC_1_CTRL);
+-	mic_2_ctrl = snd_soc_component_read32(component, DA7213_MIC_2_CTRL);
++	mic_1_ctrl = snd_soc_component_read(component, DA7213_MIC_1_CTRL);
++	mic_2_ctrl = snd_soc_component_read(component, DA7213_MIC_2_CTRL);
+ 
+ 	/* Enable ADC Left and Right */
+ 	snd_soc_component_update_bits(component, DA7213_ADC_L_CTRL, DA7213_ADC_EN,
+@@ -751,7 +751,7 @@ static int da7213_dai_event(struct snd_soc_dapm_widget *w,
+ 				    DA7213_PC_FREERUN_MASK, 0);
+ 
+ 		/* If SRM not enabled then nothing more to do */
+-		pll_ctrl = snd_soc_component_read32(component, DA7213_PLL_CTRL);
++		pll_ctrl = snd_soc_component_read(component, DA7213_PLL_CTRL);
+ 		if (!(pll_ctrl & DA7213_PLL_SRM_EN))
+ 			return 0;
+ 
+@@ -764,7 +764,7 @@ static int da7213_dai_event(struct snd_soc_dapm_widget *w,
+ 
+ 		/* Check SRM has locked */
+ 		do {
+-			pll_status = snd_soc_component_read32(component, DA7213_PLL_STATUS);
++			pll_status = snd_soc_component_read(component, DA7213_PLL_STATUS);
+ 			if (pll_status & DA7219_PLL_SRM_LOCK) {
+ 				srm_lock = true;
+ 			} else {
+@@ -779,7 +779,7 @@ static int da7213_dai_event(struct snd_soc_dapm_widget *w,
  		return 0;
+ 	case SND_SOC_DAPM_POST_PMD:
+ 		/* Revert 32KHz PLL lock udpates if applied previously */
+-		pll_ctrl = snd_soc_component_read32(component, DA7213_PLL_CTRL);
++		pll_ctrl = snd_soc_component_read(component, DA7213_PLL_CTRL);
+ 		if (pll_ctrl & DA7213_PLL_32K_MODE) {
+ 			snd_soc_component_write(component, 0xF0, 0x8B);
+ 			snd_soc_component_write(component, 0xF2, 0x01);
+diff --git a/sound/soc/codecs/da7218.c b/sound/soc/codecs/da7218.c
+index a3003f299868..6d78bccb55c3 100644
+--- a/sound/soc/codecs/da7218.c
++++ b/sound/soc/codecs/da7218.c
+@@ -298,22 +298,22 @@ static void da7218_alc_calib(struct snd_soc_component *component)
+ 	bool calibrated = false;
+ 
+ 	/* Save current state of MIC control registers */
+-	mic_1_ctrl = snd_soc_component_read32(component, DA7218_MIC_1_CTRL);
+-	mic_2_ctrl = snd_soc_component_read32(component, DA7218_MIC_2_CTRL);
++	mic_1_ctrl = snd_soc_component_read(component, DA7218_MIC_1_CTRL);
++	mic_2_ctrl = snd_soc_component_read(component, DA7218_MIC_2_CTRL);
+ 
+ 	/* Save current state of input mixer control registers */
+-	mixin_1_ctrl = snd_soc_component_read32(component, DA7218_MIXIN_1_CTRL);
+-	mixin_2_ctrl = snd_soc_component_read32(component, DA7218_MIXIN_2_CTRL);
++	mixin_1_ctrl = snd_soc_component_read(component, DA7218_MIXIN_1_CTRL);
++	mixin_2_ctrl = snd_soc_component_read(component, DA7218_MIXIN_2_CTRL);
+ 
+ 	/* Save current state of input filter control registers */
+-	in_1l_filt_ctrl = snd_soc_component_read32(component, DA7218_IN_1L_FILTER_CTRL);
+-	in_1r_filt_ctrl = snd_soc_component_read32(component, DA7218_IN_1R_FILTER_CTRL);
+-	in_2l_filt_ctrl = snd_soc_component_read32(component, DA7218_IN_2L_FILTER_CTRL);
+-	in_2r_filt_ctrl = snd_soc_component_read32(component, DA7218_IN_2R_FILTER_CTRL);
++	in_1l_filt_ctrl = snd_soc_component_read(component, DA7218_IN_1L_FILTER_CTRL);
++	in_1r_filt_ctrl = snd_soc_component_read(component, DA7218_IN_1R_FILTER_CTRL);
++	in_2l_filt_ctrl = snd_soc_component_read(component, DA7218_IN_2L_FILTER_CTRL);
++	in_2r_filt_ctrl = snd_soc_component_read(component, DA7218_IN_2R_FILTER_CTRL);
+ 
+ 	/* Save current state of input HPF control registers */
+-	in_1_hpf_ctrl = snd_soc_component_read32(component, DA7218_IN_1_HPF_FILTER_CTRL);
+-	in_2_hpf_ctrl = snd_soc_component_read32(component, DA7218_IN_2_HPF_FILTER_CTRL);
++	in_1_hpf_ctrl = snd_soc_component_read(component, DA7218_IN_1_HPF_FILTER_CTRL);
++	in_2_hpf_ctrl = snd_soc_component_read(component, DA7218_IN_2_HPF_FILTER_CTRL);
+ 
+ 	/* Enable then Mute MIC PGAs */
+ 	snd_soc_component_update_bits(component, DA7218_MIC_1_CTRL, DA7218_MIC_1_AMP_EN_MASK,
+@@ -369,7 +369,7 @@ static void da7218_alc_calib(struct snd_soc_component *component)
+ 	snd_soc_component_update_bits(component, DA7218_CALIB_CTRL, DA7218_CALIB_AUTO_EN_MASK,
+ 			    DA7218_CALIB_AUTO_EN_MASK);
+ 	do {
+-		calib_ctrl = snd_soc_component_read32(component, DA7218_CALIB_CTRL);
++		calib_ctrl = snd_soc_component_read(component, DA7218_CALIB_CTRL);
+ 		if (calib_ctrl & DA7218_CALIB_AUTO_EN_MASK) {
+ 			++i;
+ 			usleep_range(DA7218_ALC_CALIB_DELAY_MIN,
+@@ -613,7 +613,7 @@ static int da7218_biquad_coeff_put(struct snd_kcontrol *kcontrol,
  	}
  
--	val = (snd_soc_component_read32(component, reg) >> shift) & 0xf;
-+	val = (snd_soc_component_read(component, reg) >> shift) & 0xf;
- 	switch (val) {
- 	case 1:
- 	case 2:
-@@ -3121,9 +3121,9 @@ static void rt5645_enable_push_button_irq(struct snd_soc_component *component,
- 					RT5645_INT_IRQ_ST, 0x8, 0x8);
- 		snd_soc_component_update_bits(component,
- 					RT5650_4BTN_IL_CMD2, 0x8000, 0x8000);
--		snd_soc_component_read32(component, RT5650_4BTN_IL_CMD1);
-+		snd_soc_component_read(component, RT5650_4BTN_IL_CMD1);
- 		pr_debug("%s read %x = %x\n", __func__, RT5650_4BTN_IL_CMD1,
--			snd_soc_component_read32(component, RT5650_4BTN_IL_CMD1));
-+			snd_soc_component_read(component, RT5650_4BTN_IL_CMD1));
- 	} else {
- 		snd_soc_component_update_bits(component, RT5650_4BTN_IL_CMD2, 0x8000, 0x0);
- 		snd_soc_component_update_bits(component, RT5645_INT_IRQ_ST, 0x8, 0x0);
-@@ -3216,7 +3216,7 @@ static int rt5645_button_detect(struct snd_soc_component *component)
- {
- 	int btn_type, val;
+ 	/* Make sure at least out filter1 enabled to allow programming */
+-	out_filt1l = snd_soc_component_read32(component, DA7218_OUT_1L_FILTER_CTRL);
++	out_filt1l = snd_soc_component_read(component, DA7218_OUT_1L_FILTER_CTRL);
+ 	snd_soc_component_write(component, DA7218_OUT_1L_FILTER_CTRL,
+ 		      out_filt1l | DA7218_OUT_1L_FILTER_EN_MASK);
  
--	val = snd_soc_component_read32(component, RT5650_4BTN_IL_CMD1);
-+	val = snd_soc_component_read(component, RT5650_4BTN_IL_CMD1);
- 	pr_debug("val=0x%x\n", val);
- 	btn_type = val & 0xfff0;
- 	snd_soc_component_write(component, RT5650_4BTN_IL_CMD1, val);
-@@ -3271,10 +3271,10 @@ static void rt5645_jack_detect_work(struct work_struct *work)
- 				    report, SND_JACK_MICROPHONE);
- 		return;
- 	case 4:
--		val = snd_soc_component_read32(rt5645->component, RT5645_A_JD_CTRL1) & 0x0020;
-+		val = snd_soc_component_read(rt5645->component, RT5645_A_JD_CTRL1) & 0x0020;
- 		break;
- 	default: /* read rt5645 jd1_1 status */
--		val = snd_soc_component_read32(rt5645->component, RT5645_INT_IRQ_ST) & 0x1000;
-+		val = snd_soc_component_read(rt5645->component, RT5645_INT_IRQ_ST) & 0x1000;
- 		break;
+@@ -1419,7 +1419,7 @@ static int da7218_dai_event(struct snd_soc_dapm_widget *w,
+ 		i = 0;
+ 		success = false;
+ 		do {
+-			refosc_cal = snd_soc_component_read32(component, DA7218_PLL_REFOSC_CAL);
++			refosc_cal = snd_soc_component_read(component, DA7218_PLL_REFOSC_CAL);
+ 			if (!(refosc_cal & DA7218_PLL_REFOSC_CAL_START_MASK)) {
+ 				success = true;
+ 			} else {
+@@ -1438,7 +1438,7 @@ static int da7218_dai_event(struct snd_soc_dapm_widget *w,
+ 			      DA7218_PC_RESYNC_AUTO_MASK);
  
- 	}
-@@ -3284,7 +3284,7 @@ static void rt5645_jack_detect_work(struct work_struct *work)
- 	} else if (!val && rt5645->jack_type != 0) {
- 		/* for push button and jack out */
- 		btn_type = 0;
--		if (snd_soc_component_read32(rt5645->component, RT5645_INT_IRQ_ST) & 0x4) {
-+		if (snd_soc_component_read(rt5645->component, RT5645_INT_IRQ_ST) & 0x4) {
- 			/* button pressed */
- 			report = SND_JACK_HEADSET;
- 			btn_type = rt5645_button_detect(rt5645->component);
-diff --git a/sound/soc/codecs/rt5651.c b/sound/soc/codecs/rt5651.c
-index c506c9305043..d198e191fb0c 100644
---- a/sound/soc/codecs/rt5651.c
-+++ b/sound/soc/codecs/rt5651.c
-@@ -1514,7 +1514,7 @@ static int rt5651_set_bias_level(struct snd_soc_component *component,
- 	switch (level) {
- 	case SND_SOC_BIAS_PREPARE:
- 		if (SND_SOC_BIAS_STANDBY == snd_soc_component_get_bias_level(component)) {
--			if (snd_soc_component_read32(component, RT5651_PLL_MODE_1) & 0x9200)
-+			if (snd_soc_component_read(component, RT5651_PLL_MODE_1) & 0x9200)
- 				snd_soc_component_update_bits(component, RT5651_D_MISC,
- 						    0xc00, 0xc00);
- 		}
-@@ -1608,7 +1608,7 @@ static bool rt5651_micbias1_ovcd(struct snd_soc_component *component)
- {
- 	int val;
+ 		/* If SRM not enabled, we don't need to check status */
+-		pll_ctrl = snd_soc_component_read32(component, DA7218_PLL_CTRL);
++		pll_ctrl = snd_soc_component_read(component, DA7218_PLL_CTRL);
+ 		if ((pll_ctrl & DA7218_PLL_MODE_MASK) != DA7218_PLL_MODE_SRM)
+ 			return 0;
  
--	val = snd_soc_component_read32(component, RT5651_IRQ_CTRL2);
-+	val = snd_soc_component_read(component, RT5651_IRQ_CTRL2);
- 	dev_dbg(component->dev, "irq ctrl2 %#04x\n", val);
+@@ -1446,7 +1446,7 @@ static int da7218_dai_event(struct snd_soc_dapm_widget *w,
+ 		i = 0;
+ 		success = false;
+ 		do {
+-			pll_status = snd_soc_component_read32(component, DA7218_PLL_STATUS);
++			pll_status = snd_soc_component_read(component, DA7218_PLL_STATUS);
+ 			if (pll_status & DA7218_PLL_SRM_STATUS_SRM_LOCK) {
+ 				success = true;
+ 			} else {
+@@ -2236,7 +2236,7 @@ static void da7218_hpldet_irq(struct snd_soc_component *component)
+ 	u8 jack_status;
+ 	int report;
  
- 	return (val & RT5651_MB1_OC_CLR);
-@@ -1625,7 +1625,7 @@ static bool rt5651_jack_inserted(struct snd_soc_component *component)
- 		return val;
- 	}
+-	jack_status = snd_soc_component_read32(component, DA7218_EVENT_STATUS);
++	jack_status = snd_soc_component_read(component, DA7218_EVENT_STATUS);
  
--	val = snd_soc_component_read32(component, RT5651_INT_IRQ_ST);
-+	val = snd_soc_component_read(component, RT5651_INT_IRQ_ST);
- 	dev_dbg(component->dev, "irq status %#04x\n", val);
+ 	if (jack_status & DA7218_HPLDET_JACK_STS_MASK)
+ 		report = SND_JACK_HEADPHONE;
+@@ -2256,7 +2256,7 @@ static irqreturn_t da7218_irq_thread(int irq, void *data)
+ 	u8 status;
  
- 	switch (rt5651->jd_src) {
-diff --git a/sound/soc/codecs/rt5659.c b/sound/soc/codecs/rt5659.c
-index 89e0f58512fa..541fc6f1089b 100644
---- a/sound/soc/codecs/rt5659.c
-+++ b/sound/soc/codecs/rt5659.c
-@@ -1238,7 +1238,7 @@ static int rt5659_hp_vol_put(struct snd_kcontrol *kcontrol,
- 	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
- 	int ret = snd_soc_put_volsw(kcontrol, ucontrol);
+ 	/* Read IRQ status reg */
+-	status = snd_soc_component_read32(component, DA7218_EVENT);
++	status = snd_soc_component_read(component, DA7218_EVENT);
+ 	if (!status)
+ 		return IRQ_NONE;
  
--	if (snd_soc_component_read32(component, RT5659_STO_NG2_CTRL_1) & RT5659_NG2_EN) {
-+	if (snd_soc_component_read(component, RT5659_STO_NG2_CTRL_1) & RT5659_NG2_EN) {
- 		snd_soc_component_update_bits(component, RT5659_STO_NG2_CTRL_1,
- 			RT5659_NG2_EN_MASK, RT5659_NG2_DIS);
- 		snd_soc_component_update_bits(component, RT5659_STO_NG2_CTRL_1,
-@@ -1305,7 +1305,7 @@ static int rt5659_headset_detect(struct snd_soc_component *component, int jack_i
- 		snd_soc_dapm_force_enable_pin(dapm,
- 			"Mic Det Power");
- 		snd_soc_dapm_sync(dapm);
--		reg_63 = snd_soc_component_read32(component, RT5659_PWR_ANLG_1);
-+		reg_63 = snd_soc_component_read(component, RT5659_PWR_ANLG_1);
+diff --git a/sound/soc/codecs/da7219-aad.c b/sound/soc/codecs/da7219-aad.c
+index 4f2a96e9fd45..b1dfd91609f7 100644
+--- a/sound/soc/codecs/da7219-aad.c
++++ b/sound/soc/codecs/da7219-aad.c
+@@ -73,7 +73,7 @@ static void da7219_aad_btn_det_work(struct work_struct *work)
+ 	snd_soc_dapm_sync(dapm);
  
- 		snd_soc_component_update_bits(component, RT5659_PWR_ANLG_1,
- 			RT5659_PWR_VREF2 | RT5659_PWR_MB,
-@@ -1323,7 +1323,7 @@ static int rt5659_headset_detect(struct snd_soc_component *component, int jack_i
+ 	do {
+-		statusa = snd_soc_component_read32(component, DA7219_ACCDET_STATUS_A);
++		statusa = snd_soc_component_read(component, DA7219_ACCDET_STATUS_A);
+ 		if (statusa & DA7219_MICBIAS_UP_STS_MASK)
+ 			micbias_up = true;
+ 		else if (retries++ < DA7219_AAD_MICBIAS_CHK_RETRIES)
+@@ -91,7 +91,7 @@ static void da7219_aad_btn_det_work(struct work_struct *work)
+ 	 */
+ 	if (da7219_aad->micbias_pulse_lvl && da7219_aad->micbias_pulse_time) {
+ 		/* Pulse higher level voltage */
+-		micbias_ctrl = snd_soc_component_read32(component, DA7219_MICBIAS_CTRL);
++		micbias_ctrl = snd_soc_component_read(component, DA7219_MICBIAS_CTRL);
+ 		snd_soc_component_update_bits(component, DA7219_MICBIAS_CTRL,
+ 				    DA7219_MICBIAS1_LEVEL_MASK,
+ 				    da7219_aad->micbias_pulse_lvl);
+@@ -141,11 +141,11 @@ static void da7219_aad_hptest_work(struct work_struct *work)
+ 	 * If MCLK is present, but PLL is not enabled then we enable it here to
+ 	 * ensure a consistent detection procedure.
+ 	 */
+-	pll_srm_sts = snd_soc_component_read32(component, DA7219_PLL_SRM_STS);
++	pll_srm_sts = snd_soc_component_read(component, DA7219_PLL_SRM_STS);
+ 	if (pll_srm_sts & DA7219_PLL_SRM_STS_MCLK) {
+ 		tonegen_freq_hptest = cpu_to_le16(DA7219_AAD_HPTEST_RAMP_FREQ);
  
- 		while (i < 5) {
- 			msleep(sleep_time[i]);
--			val = snd_soc_component_read32(component, RT5659_EJD_CTRL_2) & 0x0003;
-+			val = snd_soc_component_read(component, RT5659_EJD_CTRL_2) & 0x0003;
- 			i++;
- 			if (val == 0x1 || val == 0x2 || val == 0x3)
- 				break;
-@@ -1357,7 +1357,7 @@ static int rt5659_button_detect(struct snd_soc_component *component)
- {
- 	int btn_type, val;
- 
--	val = snd_soc_component_read32(component, RT5659_4BTN_IL_CMD_1);
-+	val = snd_soc_component_read(component, RT5659_4BTN_IL_CMD_1);
- 	btn_type = val & 0xfff0;
- 	snd_soc_component_write(component, RT5659_4BTN_IL_CMD_1, val);
- 
-@@ -1396,7 +1396,7 @@ static void rt5659_jack_detect_work(struct work_struct *work)
- 	if (!rt5659->component)
- 		return;
- 
--	val = snd_soc_component_read32(rt5659->component, RT5659_INT_ST_1) & 0x0080;
-+	val = snd_soc_component_read(rt5659->component, RT5659_INT_ST_1) & 0x0080;
- 	if (!val) {
- 		/* jack in */
- 		if (rt5659->jack_type == 0) {
-@@ -1696,7 +1696,7 @@ static int is_sys_clk_from_pll(struct snd_soc_dapm_widget *w,
- 	unsigned int val;
- 	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
- 
--	val = snd_soc_component_read32(component, RT5659_GLB_CLK);
-+	val = snd_soc_component_read(component, RT5659_GLB_CLK);
- 	val &= RT5659_SCLK_SRC_MASK;
- 	if (val == RT5659_SCLK_SRC_PLL1)
- 		return 1;
-@@ -1739,7 +1739,7 @@ static int is_using_asrc(struct snd_soc_dapm_widget *w,
- 		return 0;
+-		pll_ctrl = snd_soc_component_read32(component, DA7219_PLL_CTRL);
++		pll_ctrl = snd_soc_component_read(component, DA7219_PLL_CTRL);
+ 		if ((pll_ctrl & DA7219_PLL_MODE_MASK) == DA7219_PLL_MODE_BYPASS)
+ 			da7219_set_pll(component, DA7219_SYSCLK_PLL,
+ 				       DA7219_PLL_FREQ_OUT_98304);
+@@ -154,7 +154,7 @@ static void da7219_aad_hptest_work(struct work_struct *work)
  	}
  
--	val = (snd_soc_component_read32(component, reg) >> shift) & 0xf;
-+	val = (snd_soc_component_read(component, reg) >> shift) & 0xf;
- 	switch (val) {
- 	case 1:
- 	case 2:
-diff --git a/sound/soc/codecs/rt5660.c b/sound/soc/codecs/rt5660.c
-index efa145e91731..78371e51bc34 100644
---- a/sound/soc/codecs/rt5660.c
-+++ b/sound/soc/codecs/rt5660.c
-@@ -373,7 +373,7 @@ static int rt5660_is_sys_clk_from_pll(struct snd_soc_dapm_widget *source,
- 	struct snd_soc_component *component = snd_soc_dapm_to_component(source->dapm);
- 	unsigned int val;
+ 	/* Ensure gain ramping at fastest rate */
+-	gain_ramp_ctrl = snd_soc_component_read32(component, DA7219_GAIN_RAMP_CTRL);
++	gain_ramp_ctrl = snd_soc_component_read(component, DA7219_GAIN_RAMP_CTRL);
+ 	snd_soc_component_write(component, DA7219_GAIN_RAMP_CTRL, DA7219_GAIN_RAMP_RATE_X8);
  
--	val = snd_soc_component_read32(component, RT5660_GLB_CLK);
-+	val = snd_soc_component_read(component, RT5660_GLB_CLK);
- 	val &= RT5660_SCLK_SRC_MASK;
- 	if (val == RT5660_SCLK_SRC_PLL1)
- 		return 1;
-diff --git a/sound/soc/codecs/rt5663.c b/sound/soc/codecs/rt5663.c
-index e6c1ec6c426e..619fb9a031e3 100644
---- a/sound/soc/codecs/rt5663.c
-+++ b/sound/soc/codecs/rt5663.c
-@@ -1482,7 +1482,7 @@ static int rt5663_v2_jack_detect(struct snd_soc_component *component, int jack_i
+ 	/* Bypass cache so it saves current settings */
+@@ -248,7 +248,7 @@ static void da7219_aad_hptest_work(struct work_struct *work)
+ 	msleep(DA7219_AAD_HPTEST_PERIOD);
  
- 		while (i < 5) {
- 			msleep(sleep_time[i]);
--			val = snd_soc_component_read32(component, RT5663_CBJ_TYPE_2) & 0x0003;
-+			val = snd_soc_component_read(component, RT5663_CBJ_TYPE_2) & 0x0003;
- 			if (val == 0x1 || val == 0x2 || val == 0x3)
- 				break;
- 			dev_dbg(component->dev, "%s: MX-0011 val=%x sleep %d\n",
-@@ -1595,7 +1595,7 @@ static int rt5663_jack_detect(struct snd_soc_component *component, int jack_inse
- 			i++;
- 		}
- 
--		val = snd_soc_component_read32(component, RT5663_EM_JACK_TYPE_2) & 0x0003;
-+		val = snd_soc_component_read(component, RT5663_EM_JACK_TYPE_2) & 0x0003;
- 		dev_dbg(component->dev, "%s val = %d\n", __func__, val);
- 
- 		snd_soc_component_update_bits(component, RT5663_HP_CHARGE_PUMP_1,
-@@ -1698,12 +1698,12 @@ static int rt5663_impedance_sensing(struct snd_soc_component *component)
- 			rt5663->imp_table[i].dc_offset_r_manual & 0xffff);
- 	}
- 
--	reg84 = snd_soc_component_read32(component, RT5663_ASRC_2);
--	reg26 = snd_soc_component_read32(component, RT5663_STO1_ADC_MIXER);
--	reg2fa = snd_soc_component_read32(component, RT5663_DUMMY_1);
--	reg91 = snd_soc_component_read32(component, RT5663_HP_CHARGE_PUMP_1);
--	reg10 = snd_soc_component_read32(component, RT5663_RECMIX);
--	reg80 = snd_soc_component_read32(component, RT5663_GLB_CLK);
-+	reg84 = snd_soc_component_read(component, RT5663_ASRC_2);
-+	reg26 = snd_soc_component_read(component, RT5663_STO1_ADC_MIXER);
-+	reg2fa = snd_soc_component_read(component, RT5663_DUMMY_1);
-+	reg91 = snd_soc_component_read(component, RT5663_HP_CHARGE_PUMP_1);
-+	reg10 = snd_soc_component_read(component, RT5663_RECMIX);
-+	reg80 = snd_soc_component_read(component, RT5663_GLB_CLK);
- 
- 	snd_soc_component_update_bits(component, RT5663_STO_DRE_1, 0x8000, 0);
- 	snd_soc_component_write(component, RT5663_ASRC_2, 0);
-@@ -1768,11 +1768,11 @@ static int rt5663_impedance_sensing(struct snd_soc_component *component)
- 
- 	for (i = 0; i < 100; i++) {
- 		msleep(20);
--		if (snd_soc_component_read32(component, RT5663_INT_ST_1) & 0x2)
-+		if (snd_soc_component_read(component, RT5663_INT_ST_1) & 0x2)
- 			break;
- 	}
- 
--	value = snd_soc_component_read32(component, RT5663_HP_IMP_SEN_4);
-+	value = snd_soc_component_read(component, RT5663_HP_IMP_SEN_4);
- 
- 	snd_soc_component_update_bits(component, RT5663_DEPOP_1, 0x3000, 0);
- 	snd_soc_component_write(component, RT5663_INT_ST_1, 0);
-@@ -1843,7 +1843,7 @@ static int rt5663_button_detect(struct snd_soc_component *component)
- {
- 	int btn_type, val;
- 
--	val = snd_soc_component_read32(component, RT5663_IL_CMD_5);
-+	val = snd_soc_component_read(component, RT5663_IL_CMD_5);
- 	dev_dbg(component->dev, "%s: val=0x%x\n", __func__, val);
- 	btn_type = val & 0xfff0;
- 	snd_soc_component_write(component, RT5663_IL_CMD_5, val);
-@@ -1879,7 +1879,7 @@ static int rt5663_set_jack_detect(struct snd_soc_component *component,
- static bool rt5663_check_jd_status(struct snd_soc_component *component)
- {
- 	struct rt5663_priv *rt5663 = snd_soc_component_get_drvdata(component);
--	int val = snd_soc_component_read32(component, RT5663_INT_ST_1);
-+	int val = snd_soc_component_read(component, RT5663_INT_ST_1);
- 
- 	dev_dbg(component->dev, "%s val=%x\n", __func__, val);
- 
-@@ -2072,7 +2072,7 @@ static int rt5663_is_sys_clk_from_pll(struct snd_soc_dapm_widget *w,
- 	unsigned int val;
- 	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
- 
--	val = snd_soc_component_read32(component, RT5663_GLB_CLK);
-+	val = snd_soc_component_read(component, RT5663_GLB_CLK);
- 	val &= RT5663_SCLK_SRC_MASK;
- 	if (val == RT5663_SCLK_SRC_PLL1)
- 		return 1;
-@@ -2115,7 +2115,7 @@ static int rt5663_is_using_asrc(struct snd_soc_dapm_widget *w,
- 		}
- 	}
- 
--	val = (snd_soc_component_read32(component, reg) >> shift) & 0x7;
-+	val = (snd_soc_component_read(component, reg) >> shift) & 0x7;
- 
- 	if (val)
- 		return 1;
-@@ -2130,15 +2130,15 @@ static int rt5663_i2s_use_asrc(struct snd_soc_dapm_widget *source,
- 	struct rt5663_priv *rt5663 = snd_soc_component_get_drvdata(component);
- 	int da_asrc_en, ad_asrc_en;
- 
--	da_asrc_en = (snd_soc_component_read32(component, RT5663_ASRC_2) &
-+	da_asrc_en = (snd_soc_component_read(component, RT5663_ASRC_2) &
- 		RT5663_DA_STO1_TRACK_MASK) ? 1 : 0;
- 	switch (rt5663->codec_ver) {
- 	case CODEC_VER_1:
--		ad_asrc_en = (snd_soc_component_read32(component, RT5663_ASRC_3) &
-+		ad_asrc_en = (snd_soc_component_read(component, RT5663_ASRC_3) &
- 			RT5663_V2_AD_STO1_TRACK_MASK) ? 1 : 0;
- 		break;
- 	case CODEC_VER_0:
--		ad_asrc_en = (snd_soc_component_read32(component, RT5663_ASRC_2) &
-+		ad_asrc_en = (snd_soc_component_read(component, RT5663_ASRC_2) &
- 			RT5663_AD_STO1_TRACK_MASK) ? 1 : 0;
- 		break;
- 	default:
-diff --git a/sound/soc/codecs/rt5665.c b/sound/soc/codecs/rt5665.c
-index 68299ce26d3e..8a915cdce0fe 100644
---- a/sound/soc/codecs/rt5665.c
-+++ b/sound/soc/codecs/rt5665.c
-@@ -1000,7 +1000,7 @@ static int rt5665_hp_vol_put(struct snd_kcontrol *kcontrol,
- 	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
- 	int ret = snd_soc_put_volsw(kcontrol, ucontrol);
- 
--	if (snd_soc_component_read32(component, RT5665_STO_NG2_CTRL_1) & RT5665_NG2_EN) {
-+	if (snd_soc_component_read(component, RT5665_STO_NG2_CTRL_1) & RT5665_NG2_EN) {
- 		snd_soc_component_update_bits(component, RT5665_STO_NG2_CTRL_1,
- 			RT5665_NG2_EN_MASK, RT5665_NG2_DIS);
- 		snd_soc_component_update_bits(component, RT5665_STO_NG2_CTRL_1,
-@@ -1016,7 +1016,7 @@ static int rt5665_mono_vol_put(struct snd_kcontrol *kcontrol,
- 	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
- 	int ret = snd_soc_put_volsw(kcontrol, ucontrol);
- 
--	if (snd_soc_component_read32(component, RT5665_MONO_NG2_CTRL_1) & RT5665_NG2_EN) {
-+	if (snd_soc_component_read(component, RT5665_MONO_NG2_CTRL_1) & RT5665_NG2_EN) {
- 		snd_soc_component_update_bits(component, RT5665_MONO_NG2_CTRL_1,
- 			RT5665_NG2_EN_MASK, RT5665_NG2_DIS);
- 		snd_soc_component_update_bits(component, RT5665_MONO_NG2_CTRL_1,
-@@ -1126,7 +1126,7 @@ static int rt5665_button_detect(struct snd_soc_component *component)
- {
- 	int btn_type, val;
- 
--	val = snd_soc_component_read32(component, RT5665_4BTN_IL_CMD_1);
-+	val = snd_soc_component_read(component, RT5665_4BTN_IL_CMD_1);
- 	btn_type = val & 0xfff0;
- 	snd_soc_component_write(component, RT5665_4BTN_IL_CMD_1, val);
- 
-@@ -1198,7 +1198,7 @@ static int rt5665_headset_detect(struct snd_soc_component *component, int jack_i
- 
- 		usleep_range(10000, 15000);
- 
--		rt5665->sar_adc_value = snd_soc_component_read32(rt5665->component,
-+		rt5665->sar_adc_value = snd_soc_component_read(rt5665->component,
- 			RT5665_SAR_IL_CMD_4) & 0x7ff;
- 
- 		sar_hs_type = rt5665->pdata.sar_hs_type ?
-@@ -1245,7 +1245,7 @@ static void rt5665_jd_check_handler(struct work_struct *work)
- 	struct rt5665_priv *rt5665 = container_of(work, struct rt5665_priv,
- 		jd_check_work.work);
- 
--	if (snd_soc_component_read32(rt5665->component, RT5665_AJD1_CTRL) & 0x0010) {
-+	if (snd_soc_component_read(rt5665->component, RT5665_AJD1_CTRL) & 0x0010) {
- 		/* jack out */
- 		rt5665->jack_type = rt5665_headset_detect(rt5665->component, 0);
- 
-@@ -1310,7 +1310,7 @@ static void rt5665_jack_detect_handler(struct work_struct *work)
- 
- 	mutex_lock(&rt5665->calibrate_mutex);
- 
--	val = snd_soc_component_read32(rt5665->component, RT5665_AJD1_CTRL) & 0x0010;
-+	val = snd_soc_component_read(rt5665->component, RT5665_AJD1_CTRL) & 0x0010;
- 	if (!val) {
- 		/* jack in */
- 		if (rt5665->jack_type == 0) {
-@@ -1522,7 +1522,7 @@ static int is_sys_clk_from_pll(struct snd_soc_dapm_widget *w,
- 	unsigned int val;
- 	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
- 
--	val = snd_soc_component_read32(component, RT5665_GLB_CLK);
-+	val = snd_soc_component_read(component, RT5665_GLB_CLK);
- 	val &= RT5665_SCLK_SRC_MASK;
- 	if (val == RT5665_SCLK_SRC_PLL1)
- 		return 1;
-@@ -1573,7 +1573,7 @@ static int is_using_asrc(struct snd_soc_dapm_widget *w,
- 		return 0;
- 	}
- 
--	val = (snd_soc_component_read32(component, reg) >> shift) & 0xf;
-+	val = (snd_soc_component_read(component, reg) >> shift) & 0xf;
- 	switch (val) {
- 	case RT5665_CLK_SEL_I2S1_ASRC:
- 	case RT5665_CLK_SEL_I2S2_ASRC:
-diff --git a/sound/soc/codecs/rt5668.c b/sound/soc/codecs/rt5668.c
-index 5716cede99cb..bc69adc9c8b7 100644
---- a/sound/soc/codecs/rt5668.c
-+++ b/sound/soc/codecs/rt5668.c
-@@ -847,7 +847,7 @@ static int rt5668_button_detect(struct snd_soc_component *component)
- {
- 	int btn_type, val;
- 
--	val = snd_soc_component_read32(component, RT5668_4BTN_IL_CMD_1);
-+	val = snd_soc_component_read(component, RT5668_4BTN_IL_CMD_1);
- 	btn_type = val & 0xfff0;
- 	snd_soc_component_write(component, RT5668_4BTN_IL_CMD_1, val);
- 	pr_debug("%s btn_type=%x\n", __func__, btn_type);
-@@ -907,11 +907,11 @@ static int rt5668_headset_detect(struct snd_soc_component *component,
- 			RT5668_TRIG_JD_MASK, RT5668_TRIG_JD_HIGH);
- 
- 		count = 0;
--		val = snd_soc_component_read32(component, RT5668_CBJ_CTRL_2)
-+		val = snd_soc_component_read(component, RT5668_CBJ_CTRL_2)
- 			& RT5668_JACK_TYPE_MASK;
- 		while (val == 0 && count < 50) {
- 			usleep_range(10000, 15000);
--			val = snd_soc_component_read32(component,
-+			val = snd_soc_component_read(component,
- 				RT5668_CBJ_CTRL_2) & RT5668_JACK_TYPE_MASK;
- 			count++;
- 		}
-@@ -955,7 +955,7 @@ static void rt5668_jd_check_handler(struct work_struct *work)
- 	struct rt5668_priv *rt5668 = container_of(work, struct rt5668_priv,
- 		jd_check_work.work);
- 
--	if (snd_soc_component_read32(rt5668->component, RT5668_AJD1_CTRL)
-+	if (snd_soc_component_read(rt5668->component, RT5668_AJD1_CTRL)
- 		& RT5668_JDH_RS_MASK) {
- 		/* jack out */
- 		rt5668->jack_type = rt5668_headset_detect(rt5668->component, 0);
-@@ -1030,7 +1030,7 @@ static void rt5668_jack_detect_handler(struct work_struct *work)
- 
- 	mutex_lock(&rt5668->calibrate_mutex);
- 
--	val = snd_soc_component_read32(rt5668->component, RT5668_AJD1_CTRL)
-+	val = snd_soc_component_read(rt5668->component, RT5668_AJD1_CTRL)
- 		& RT5668_JDH_RS_MASK;
- 	if (!val) {
- 		/* jack in */
-@@ -1191,7 +1191,7 @@ static int set_filter_clk(struct snd_soc_dapm_widget *w,
- 	int ref, val, reg, idx = -EINVAL;
- 	static const int div[] = {1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48};
- 
--	val = snd_soc_component_read32(component, RT5668_GPIO_CTRL_1) &
-+	val = snd_soc_component_read(component, RT5668_GPIO_CTRL_1) &
- 		RT5668_GP4_PIN_MASK;
- 	if (w->shift == RT5668_PWR_ADC_S1F_BIT &&
- 		val == RT5668_GP4_PIN_ADCDAT2)
-@@ -1219,7 +1219,7 @@ static int is_sys_clk_from_pll1(struct snd_soc_dapm_widget *w,
- 	struct snd_soc_component *component =
- 		snd_soc_dapm_to_component(w->dapm);
- 
--	val = snd_soc_component_read32(component, RT5668_GLB_CLK);
-+	val = snd_soc_component_read(component, RT5668_GLB_CLK);
- 	val &= RT5668_SCLK_SRC_MASK;
- 	if (val == RT5668_SCLK_SRC_PLL1)
- 		return 1;
-@@ -1247,7 +1247,7 @@ static int is_using_asrc(struct snd_soc_dapm_widget *w,
- 		return 0;
- 	}
- 
--	val = (snd_soc_component_read32(component, reg) >> shift) & 0xf;
-+	val = (snd_soc_component_read(component, reg) >> shift) & 0xf;
- 	switch (val) {
- 	case RT5668_CLK_SEL_I2S1_ASRC:
- 	case RT5668_CLK_SEL_I2S2_ASRC:
-diff --git a/sound/soc/codecs/rt5670.c b/sound/soc/codecs/rt5670.c
-index 70fee6849ab0..8c5680d1d300 100644
---- a/sound/soc/codecs/rt5670.c
-+++ b/sound/soc/codecs/rt5670.c
-@@ -452,13 +452,13 @@ static int rt5670_headset_detect(struct snd_soc_component *component, int jack_i
- 		snd_soc_component_update_bits(component, RT5670_CJ_CTRL2,
- 			RT5670_CBJ_MN_JD, 0);
- 		msleep(300);
--		val = snd_soc_component_read32(component, RT5670_CJ_CTRL3) & 0x7;
-+		val = snd_soc_component_read(component, RT5670_CJ_CTRL3) & 0x7;
- 		if (val == 0x1 || val == 0x2) {
- 			rt5670->jack_type = SND_JACK_HEADSET;
- 			/* for push button */
- 			snd_soc_component_update_bits(component, RT5670_INT_IRQ_ST, 0x8, 0x8);
- 			snd_soc_component_update_bits(component, RT5670_IL_CMD, 0x40, 0x40);
--			snd_soc_component_read32(component, RT5670_IL_CMD);
-+			snd_soc_component_read(component, RT5670_IL_CMD);
- 		} else {
- 			snd_soc_component_update_bits(component, RT5670_GEN_CTRL3, 0x4, 0x4);
- 			rt5670->jack_type = SND_JACK_HEADPHONE;
-@@ -498,12 +498,12 @@ static int rt5670_button_detect(struct snd_soc_component *component)
- {
- 	int btn_type, val;
- 
--	val = snd_soc_component_read32(component, RT5670_IL_CMD);
-+	val = snd_soc_component_read(component, RT5670_IL_CMD);
- 	btn_type = val & 0xff80;
- 	snd_soc_component_write(component, RT5670_IL_CMD, val);
- 	if (btn_type != 0) {
- 		msleep(20);
--		val = snd_soc_component_read32(component, RT5670_IL_CMD);
-+		val = snd_soc_component_read(component, RT5670_IL_CMD);
- 		snd_soc_component_write(component, RT5670_IL_CMD, val);
- 	}
- 
-@@ -518,9 +518,9 @@ static int rt5670_irq_detection(void *data)
- 	int val, btn_type, report = jack->status;
- 
- 	if (rt5670->pdata.jd_mode == 1) /* 2 port */
--		val = snd_soc_component_read32(rt5670->component, RT5670_A_JD_CTRL1) & 0x0070;
-+		val = snd_soc_component_read(rt5670->component, RT5670_A_JD_CTRL1) & 0x0070;
+ 	/* Grab comparator reading */
+-	accdet_cfg8 = snd_soc_component_read32(component, DA7219_ACCDET_CONFIG_8);
++	accdet_cfg8 = snd_soc_component_read(component, DA7219_ACCDET_CONFIG_8);
+ 	if (accdet_cfg8 & DA7219_HPTEST_COMP_MASK)
+ 		report |= SND_JACK_HEADPHONE;
  	else
--		val = snd_soc_component_read32(rt5670->component, RT5670_A_JD_CTRL1) & 0x0020;
-+		val = snd_soc_component_read(rt5670->component, RT5670_A_JD_CTRL1) & 0x0020;
+@@ -357,7 +357,7 @@ static irqreturn_t da7219_aad_irq_thread(int irq, void *data)
+ 		return IRQ_NONE;
+ 
+ 	/* Read status register for jack insertion & type status */
+-	statusa = snd_soc_component_read32(component, DA7219_ACCDET_STATUS_A);
++	statusa = snd_soc_component_read(component, DA7219_ACCDET_STATUS_A);
+ 
+ 	/* Clear events */
+ 	regmap_bulk_write(da7219->regmap, DA7219_ACCDET_IRQ_EVENT_A,
+@@ -847,7 +847,7 @@ void da7219_aad_suspend(struct snd_soc_component *component)
+ 		 * suspend then this will be dealt with through the IRQ handler.
+ 		 */
+ 		if (da7219_aad->jack_inserted) {
+-			micbias_ctrl = snd_soc_component_read32(component, DA7219_MICBIAS_CTRL);
++			micbias_ctrl = snd_soc_component_read(component, DA7219_MICBIAS_CTRL);
+ 			if (micbias_ctrl & DA7219_MICBIAS1_EN_MASK) {
+ 				snd_soc_dapm_disable_pin(dapm, "Mic Bias");
+ 				snd_soc_dapm_sync(dapm);
+diff --git a/sound/soc/codecs/da7219.c b/sound/soc/codecs/da7219.c
+index f83a6eaba12c..f2520a6c7875 100644
+--- a/sound/soc/codecs/da7219.c
++++ b/sound/soc/codecs/da7219.c
+@@ -313,13 +313,13 @@ static void da7219_alc_calib(struct snd_soc_component *component)
+ 	u8 mic_ctrl, mixin_ctrl, adc_ctrl, calib_ctrl;
+ 
+ 	/* Save current state of mic control register */
+-	mic_ctrl = snd_soc_component_read32(component, DA7219_MIC_1_CTRL);
++	mic_ctrl = snd_soc_component_read(component, DA7219_MIC_1_CTRL);
+ 
+ 	/* Save current state of input mixer control register */
+-	mixin_ctrl = snd_soc_component_read32(component, DA7219_MIXIN_L_CTRL);
++	mixin_ctrl = snd_soc_component_read(component, DA7219_MIXIN_L_CTRL);
+ 
+ 	/* Save current state of input ADC control register */
+-	adc_ctrl = snd_soc_component_read32(component, DA7219_ADC_L_CTRL);
++	adc_ctrl = snd_soc_component_read(component, DA7219_ADC_L_CTRL);
+ 
+ 	/* Enable then Mute MIC PGAs */
+ 	snd_soc_component_update_bits(component, DA7219_MIC_1_CTRL, DA7219_MIC_1_AMP_EN_MASK,
+@@ -344,7 +344,7 @@ static void da7219_alc_calib(struct snd_soc_component *component)
+ 			    DA7219_ALC_AUTO_CALIB_EN_MASK,
+ 			    DA7219_ALC_AUTO_CALIB_EN_MASK);
+ 	do {
+-		calib_ctrl = snd_soc_component_read32(component, DA7219_ALC_CTRL1);
++		calib_ctrl = snd_soc_component_read(component, DA7219_ALC_CTRL1);
+ 	} while (calib_ctrl & DA7219_ALC_AUTO_CALIB_EN_MASK);
+ 
+ 	/* If auto calibration fails, disable DC offset, hybrid ALC */
+@@ -822,13 +822,13 @@ static int da7219_dai_event(struct snd_soc_dapm_widget *w,
+ 				    DA7219_PC_FREERUN_MASK, 0);
+ 
+ 		/* Slave mode, if SRM not enabled no need for status checks */
+-		pll_ctrl = snd_soc_component_read32(component, DA7219_PLL_CTRL);
++		pll_ctrl = snd_soc_component_read(component, DA7219_PLL_CTRL);
+ 		if ((pll_ctrl & DA7219_PLL_MODE_MASK) != DA7219_PLL_MODE_SRM)
+ 			return 0;
+ 
+ 		/* Check SRM has locked */
+ 		do {
+-			pll_status = snd_soc_component_read32(component, DA7219_PLL_SRM_STS);
++			pll_status = snd_soc_component_read(component, DA7219_PLL_SRM_STS);
+ 			if (pll_status & DA7219_PLL_SRM_STS_SRM_LOCK) {
+ 				srm_lock = true;
+ 			} else {
+@@ -928,7 +928,7 @@ static int da7219_gain_ramp_event(struct snd_soc_dapm_widget *w,
+ 	case SND_SOC_DAPM_PRE_PMD:
+ 		/* Ensure nominal gain ramping for DAPM sequence */
+ 		da7219->gain_ramp_ctrl =
+-			snd_soc_component_read32(component, DA7219_GAIN_RAMP_CTRL);
++			snd_soc_component_read(component, DA7219_GAIN_RAMP_CTRL);
+ 		snd_soc_component_write(component, DA7219_GAIN_RAMP_CTRL,
+ 			      DA7219_GAIN_RAMP_RATE_NOMINAL);
+ 		break;
+@@ -1930,7 +1930,7 @@ static int da7219_wclk_is_prepared(struct clk_hw *hw)
+ 	if (!da7219->master)
+ 		return -EINVAL;
+ 
+-	clk_reg = snd_soc_component_read32(component, DA7219_DAI_CLK_MODE);
++	clk_reg = snd_soc_component_read(component, DA7219_DAI_CLK_MODE);
+ 
+ 	return !!(clk_reg & DA7219_DAI_CLK_EN_MASK);
+ }
+@@ -1942,7 +1942,7 @@ static unsigned long da7219_wclk_recalc_rate(struct clk_hw *hw,
+ 		container_of(hw, struct da7219_priv,
+ 			     dai_clks_hw[DA7219_DAI_WCLK_IDX]);
+ 	struct snd_soc_component *component = da7219->component;
+-	u8 fs = snd_soc_component_read32(component, DA7219_SR);
++	u8 fs = snd_soc_component_read(component, DA7219_SR);
+ 
+ 	switch (fs & DA7219_SR_MASK) {
+ 	case DA7219_SR_8000:
+@@ -2027,7 +2027,7 @@ static unsigned long da7219_bclk_recalc_rate(struct clk_hw *hw,
+ 		container_of(hw, struct da7219_priv,
+ 			     dai_clks_hw[DA7219_DAI_BCLK_IDX]);
+ 	struct snd_soc_component *component = da7219->component;
+-	u8 bclks_per_wclk = snd_soc_component_read32(component,
++	u8 bclks_per_wclk = snd_soc_component_read(component,
+ 						     DA7219_DAI_CLK_MODE);
+ 
+ 	switch (bclks_per_wclk & DA7219_DAI_BCLKS_PER_WCLK_MASK) {
+diff --git a/sound/soc/codecs/da732x.c b/sound/soc/codecs/da732x.c
+index 3f60c45e1e6d..d43ee7159ae0 100644
+--- a/sound/soc/codecs/da732x.c
++++ b/sound/soc/codecs/da732x.c
+@@ -361,7 +361,7 @@ static int da732x_hpf_get(struct snd_kcontrol *kcontrol,
+ 	unsigned int reg = enum_ctrl->reg;
+ 	int val;
+ 
+-	val = snd_soc_component_read32(component, reg) & DA732X_HPF_MASK;
++	val = snd_soc_component_read(component, reg) & DA732X_HPF_MASK;
  
  	switch (val) {
- 	/* jack in */
-@@ -533,7 +533,7 @@ static int rt5670_irq_detection(void *data)
- 			break;
- 		}
- 		btn_type = 0;
--		if (snd_soc_component_read32(rt5670->component, RT5670_INT_IRQ_ST) & 0x4) {
-+		if (snd_soc_component_read(rt5670->component, RT5670_INT_IRQ_ST) & 0x4) {
- 			/* button pressed */
- 			report = SND_JACK_HEADSET;
- 			btn_type = rt5670_button_detect(rt5670->component);
-@@ -762,7 +762,7 @@ static int is_using_asrc(struct snd_soc_dapm_widget *source,
- 		return 0;
+ 	case DA732X_HPF_VOICE_EN:
+@@ -1287,9 +1287,9 @@ static void da732x_dac_offset_adjust(struct snd_soc_component *component)
+ 	msleep(DA732X_WAIT_FOR_STABILIZATION);
+ 
+ 	/* Check DAC offset sign */
+-	sign[DA732X_HPL_DAC] = (snd_soc_component_read32(component, DA732X_REG_HPL_DAC_OFF_CNTL) &
++	sign[DA732X_HPL_DAC] = (snd_soc_component_read(component, DA732X_REG_HPL_DAC_OFF_CNTL) &
+ 				DA732X_HP_DAC_OFF_CNTL_COMPO);
+-	sign[DA732X_HPR_DAC] = (snd_soc_component_read32(component, DA732X_REG_HPR_DAC_OFF_CNTL) &
++	sign[DA732X_HPR_DAC] = (snd_soc_component_read(component, DA732X_REG_HPR_DAC_OFF_CNTL) &
+ 				DA732X_HP_DAC_OFF_CNTL_COMPO);
+ 
+ 	/* Binary search DAC offset values (both channels at once) */
+@@ -1306,10 +1306,10 @@ static void da732x_dac_offset_adjust(struct snd_soc_component *component)
+ 
+ 		msleep(DA732X_WAIT_FOR_STABILIZATION);
+ 
+-		if ((snd_soc_component_read32(component, DA732X_REG_HPL_DAC_OFF_CNTL) &
++		if ((snd_soc_component_read(component, DA732X_REG_HPL_DAC_OFF_CNTL) &
+ 		     DA732X_HP_DAC_OFF_CNTL_COMPO) ^ sign[DA732X_HPL_DAC])
+ 			offset[DA732X_HPL_DAC] &= ~step;
+-		if ((snd_soc_component_read32(component, DA732X_REG_HPR_DAC_OFF_CNTL) &
++		if ((snd_soc_component_read(component, DA732X_REG_HPR_DAC_OFF_CNTL) &
+ 		     DA732X_HP_DAC_OFF_CNTL_COMPO) ^ sign[DA732X_HPR_DAC])
+ 			offset[DA732X_HPR_DAC] &= ~step;
+ 
+@@ -1350,9 +1350,9 @@ static void da732x_output_offset_adjust(struct snd_soc_component *component)
+ 	msleep(DA732X_WAIT_FOR_STABILIZATION);
+ 
+ 	/* Check output offset sign */
+-	sign[DA732X_HPL_AMP] = snd_soc_component_read32(component, DA732X_REG_HPL) &
++	sign[DA732X_HPL_AMP] = snd_soc_component_read(component, DA732X_REG_HPL) &
+ 			       DA732X_HP_OUT_COMPO;
+-	sign[DA732X_HPR_AMP] = snd_soc_component_read32(component, DA732X_REG_HPR) &
++	sign[DA732X_HPR_AMP] = snd_soc_component_read(component, DA732X_REG_HPR) &
+ 			       DA732X_HP_OUT_COMPO;
+ 
+ 	snd_soc_component_write(component, DA732X_REG_HPL, DA732X_HP_OUT_COMP |
+@@ -1373,10 +1373,10 @@ static void da732x_output_offset_adjust(struct snd_soc_component *component)
+ 
+ 		msleep(DA732X_WAIT_FOR_STABILIZATION);
+ 
+-		if ((snd_soc_component_read32(component, DA732X_REG_HPL) &
++		if ((snd_soc_component_read(component, DA732X_REG_HPL) &
+ 		     DA732X_HP_OUT_COMPO) ^ sign[DA732X_HPL_AMP])
+ 			offset[DA732X_HPL_AMP] &= ~step;
+-		if ((snd_soc_component_read32(component, DA732X_REG_HPR) &
++		if ((snd_soc_component_read(component, DA732X_REG_HPR) &
+ 		     DA732X_HP_OUT_COMPO) ^ sign[DA732X_HPR_AMP])
+ 			offset[DA732X_HPR_AMP] &= ~step;
+ 
+diff --git a/sound/soc/codecs/da9055.c b/sound/soc/codecs/da9055.c
+index 94800f522d3e..e93436ccb674 100644
+--- a/sound/soc/codecs/da9055.c
++++ b/sound/soc/codecs/da9055.c
+@@ -461,12 +461,12 @@ static int da9055_get_alc_data(struct snd_soc_component *component, u8 reg_val)
+ 		/* Select middle 8 bits for read back from data register */
+ 		snd_soc_component_write(component, DA9055_ALC_CIC_OP_LVL_CTRL,
+ 			      reg_val | DA9055_ALC_DATA_MIDDLE);
+-		mid_data = snd_soc_component_read32(component, DA9055_ALC_CIC_OP_LVL_DATA);
++		mid_data = snd_soc_component_read(component, DA9055_ALC_CIC_OP_LVL_DATA);
+ 
+ 		/* Select top 8 bits for read back from data register */
+ 		snd_soc_component_write(component, DA9055_ALC_CIC_OP_LVL_CTRL,
+ 			      reg_val | DA9055_ALC_DATA_TOP);
+-		top_data = snd_soc_component_read32(component, DA9055_ALC_CIC_OP_LVL_DATA);
++		top_data = snd_soc_component_read(component, DA9055_ALC_CIC_OP_LVL_DATA);
+ 
+ 		sum += ((mid_data << 8) | (top_data << 16));
+ 	}
+@@ -488,8 +488,8 @@ static int da9055_put_alc_sw(struct snd_kcontrol *kcontrol,
+ 		 */
+ 
+ 		/* Save current values from Mic control registers */
+-		mic_left = snd_soc_component_read32(component, DA9055_MIC_L_CTRL);
+-		mic_right = snd_soc_component_read32(component, DA9055_MIC_R_CTRL);
++		mic_left = snd_soc_component_read(component, DA9055_MIC_L_CTRL);
++		mic_right = snd_soc_component_read(component, DA9055_MIC_R_CTRL);
+ 
+ 		/* Mute Mic PGA Left and Right */
+ 		snd_soc_component_update_bits(component, DA9055_MIC_L_CTRL,
+@@ -498,8 +498,8 @@ static int da9055_put_alc_sw(struct snd_kcontrol *kcontrol,
+ 				    DA9055_MIC_R_MUTE_EN, DA9055_MIC_R_MUTE_EN);
+ 
+ 		/* Save current values from ADC control registers */
+-		adc_left = snd_soc_component_read32(component, DA9055_ADC_L_CTRL);
+-		adc_right = snd_soc_component_read32(component, DA9055_ADC_R_CTRL);
++		adc_left = snd_soc_component_read(component, DA9055_ADC_L_CTRL);
++		adc_right = snd_soc_component_read(component, DA9055_ADC_R_CTRL);
+ 
+ 		/* Enable ADC Left and Right */
+ 		snd_soc_component_update_bits(component, DA9055_ADC_L_CTRL,
+@@ -1176,7 +1176,7 @@ static int da9055_set_dai_fmt(struct snd_soc_dai *codec_dai, unsigned int fmt)
  	}
  
--	val = (snd_soc_component_read32(component, reg) >> shift) & 0xf;
-+	val = (snd_soc_component_read(component, reg) >> shift) & 0xf;
- 	switch (val) {
- 	case 1:
- 	case 2:
-@@ -2621,7 +2621,7 @@ static int rt5670_probe(struct snd_soc_component *component)
- 	struct snd_soc_dapm_context *dapm = snd_soc_component_get_dapm(component);
- 	struct rt5670_priv *rt5670 = snd_soc_component_get_drvdata(component);
+ 	/* Don't allow change of mode if PLL is enabled */
+-	if ((snd_soc_component_read32(component, DA9055_PLL_CTRL) & DA9055_PLL_EN) &&
++	if ((snd_soc_component_read(component, DA9055_PLL_CTRL) & DA9055_PLL_EN) &&
+ 	    (da9055->master != mode))
+ 		return -EINVAL;
  
--	switch (snd_soc_component_read32(component, RT5670_RESET) & RT5670_ID_MASK) {
-+	switch (snd_soc_component_read(component, RT5670_RESET) & RT5670_ID_MASK) {
- 	case RT5670_ID_5670:
- 	case RT5670_ID_5671:
- 		snd_soc_dapm_new_controls(dapm,
-diff --git a/sound/soc/codecs/rt5682-i2c.c b/sound/soc/codecs/rt5682-i2c.c
-index e28d08b1cd65..b24f93ff0e55 100644
---- a/sound/soc/codecs/rt5682-i2c.c
-+++ b/sound/soc/codecs/rt5682-i2c.c
-@@ -59,7 +59,7 @@ static void rt5682_jd_check_handler(struct work_struct *work)
- 	struct rt5682_priv *rt5682 = container_of(work, struct rt5682_priv,
- 		jd_check_work.work);
- 
--	if (snd_soc_component_read32(rt5682->component, RT5682_AJD1_CTRL)
-+	if (snd_soc_component_read(rt5682->component, RT5682_AJD1_CTRL)
- 		& RT5682_JDH_RS_MASK) {
- 		/* jack out */
- 		rt5682->jack_type = rt5682_headset_detect(rt5682->component, 0);
-diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
-index 8b592069a7e2..345c3548c1c5 100644
---- a/sound/soc/codecs/rt5682.c
-+++ b/sound/soc/codecs/rt5682.c
-@@ -859,7 +859,7 @@ static int rt5682_button_detect(struct snd_soc_component *component)
- {
- 	int btn_type, val;
- 
--	val = snd_soc_component_read32(component, RT5682_4BTN_IL_CMD_1);
-+	val = snd_soc_component_read(component, RT5682_4BTN_IL_CMD_1);
- 	btn_type = val & 0xfff0;
- 	snd_soc_component_write(component, RT5682_4BTN_IL_CMD_1, val);
- 	dev_dbg(component->dev, "%s btn_type=%x\n", __func__, btn_type);
-@@ -937,11 +937,11 @@ int rt5682_headset_detect(struct snd_soc_component *component, int jack_insert)
- 			RT5682_TRIG_JD_MASK, RT5682_TRIG_JD_HIGH);
- 
- 		count = 0;
--		val = snd_soc_component_read32(component, RT5682_CBJ_CTRL_2)
-+		val = snd_soc_component_read(component, RT5682_CBJ_CTRL_2)
- 			& RT5682_JACK_TYPE_MASK;
- 		while (val == 0 && count < 50) {
- 			usleep_range(10000, 15000);
--			val = snd_soc_component_read32(component,
-+			val = snd_soc_component_read(component,
- 				RT5682_CBJ_CTRL_2) & RT5682_JACK_TYPE_MASK;
- 			count++;
- 		}
-@@ -1067,7 +1067,7 @@ void rt5682_jack_detect_handler(struct work_struct *work)
- 
- 	mutex_lock(&rt5682->calibrate_mutex);
- 
--	val = snd_soc_component_read32(rt5682->component, RT5682_AJD1_CTRL)
-+	val = snd_soc_component_read(rt5682->component, RT5682_AJD1_CTRL)
- 		& RT5682_JDH_RS_MASK;
- 	if (!val) {
- 		/* jack in */
-@@ -1232,7 +1232,7 @@ static int set_filter_clk(struct snd_soc_dapm_widget *w,
- 	if (rt5682->is_sdw)
- 		return 0;
- 
--	val = snd_soc_component_read32(component, RT5682_GPIO_CTRL_1) &
-+	val = snd_soc_component_read(component, RT5682_GPIO_CTRL_1) &
- 		RT5682_GP4_PIN_MASK;
- 	if (w->shift == RT5682_PWR_ADC_S1F_BIT &&
- 		val == RT5682_GP4_PIN_ADCDAT2)
-@@ -1270,7 +1270,7 @@ static int is_sys_clk_from_pll1(struct snd_soc_dapm_widget *w,
- 	struct snd_soc_component *component =
- 		snd_soc_dapm_to_component(w->dapm);
- 
--	val = snd_soc_component_read32(component, RT5682_GLB_CLK);
-+	val = snd_soc_component_read(component, RT5682_GLB_CLK);
- 	val &= RT5682_SCLK_SRC_MASK;
- 	if (val == RT5682_SCLK_SRC_PLL1)
- 		return 1;
-@@ -1285,7 +1285,7 @@ static int is_sys_clk_from_pll2(struct snd_soc_dapm_widget *w,
- 	struct snd_soc_component *component =
- 		snd_soc_dapm_to_component(w->dapm);
- 
--	val = snd_soc_component_read32(component, RT5682_GLB_CLK);
-+	val = snd_soc_component_read(component, RT5682_GLB_CLK);
- 	val &= RT5682_SCLK_SRC_MASK;
- 	if (val == RT5682_SCLK_SRC_PLL2)
- 		return 1;
-@@ -1313,7 +1313,7 @@ static int is_using_asrc(struct snd_soc_dapm_widget *w,
- 		return 0;
- 	}
- 
--	val = (snd_soc_component_read32(component, reg) >> shift) & 0xf;
-+	val = (snd_soc_component_read(component, reg) >> shift) & 0xf;
- 	switch (val) {
- 	case RT5682_CLK_SEL_I2S1_ASRC:
- 	case RT5682_CLK_SEL_I2S2_ASRC:
 -- 
 2.25.1
 

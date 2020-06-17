@@ -2,68 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80AC51FD301
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jun 2020 18:59:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 523901FD3B5
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jun 2020 19:48:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 28A9E165E;
-	Wed, 17 Jun 2020 18:59:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28A9E165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id E88FE1679;
+	Wed, 17 Jun 2020 19:47:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E88FE1679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592413195;
-	bh=08vleDmGKitimHUfeJEA0yenOeoXiDoIOL1bJ1otk5M=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1592416115;
+	bh=4VAJCVxXhsp3CvlrpjnOphuZRpJTIGoJmiskYRQwvEQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DkQ/UI/abmBs3necMijI9u7E6G21YHloFJeYoAblq8krRQeZTRMoVfbkfX4pILHyu
-	 gqxoLiVsPytnsvXdI4UlhrcIt/Rpuf9Cf3o0x5tlhJg7m6BLB5AcvupyOngjYxeGSn
-	 BXgQ8sCnnd7e/vH7gn35BSNBqeLLD0WQY1aLZnYk=
+	b=OP4zswfaP4vNQq/Fm3rSIN8hUUM8GT706kGZop6XgCtFrRU1EflbtSCwFEzSHOUKt
+	 eP7pR43V4kwLGk1nDQCaTl6W0QenErYZn84zO257Uz9LSMebqArfWmdcr46vnc6ahK
+	 ki3yfys1nUdCZKIKkZ1V2/hGtqWeDHBDQGxZikUc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 76FA3F802A7;
-	Wed, 17 Jun 2020 18:56:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D602F800EF;
+	Wed, 17 Jun 2020 19:46:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 441EBF8028F; Wed, 17 Jun 2020 18:56:35 +0200 (CEST)
+ id 27A6CF80171; Wed, 17 Jun 2020 19:46:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
+ [85.215.255.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 46B2EF80116
- for <alsa-devel@alsa-project.org>; Wed, 17 Jun 2020 18:56:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46B2EF80116
-IronPort-SDR: 2Jc02iXalaSzKCFTB7DB5jA43z2Bd53rBlS8T0U17w71/MpWB2Qosj+YV3wvfjVNhB2kDEtYbU
- YDP4pc79XGgg==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2020 09:56:24 -0700
-IronPort-SDR: qXzYVUJAy6/N517PmHE5GrF9A1VB227t44oDZFCeWO7QT3/d09EdTg6NY5Ze1x+sdKFYiv9HMe
- vDSPu+E+D/mQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,523,1583222400"; d="scan'208";a="277339146"
-Received: from zdsmith-mobl2.amr.corp.intel.com (HELO
- pbossart-mobl3.amr.corp.intel.com) ([10.255.229.128])
- by orsmga006.jf.intel.com with ESMTP; 17 Jun 2020 09:56:23 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH RESEND 3/3] ASoC: Intel: broadwell: simplify card names for
- SOF uses
-Date: Wed, 17 Jun 2020 11:56:16 -0500
-Message-Id: <20200617165616.18511-4-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200617165616.18511-1-pierre-louis.bossart@linux.intel.com>
-References: <20200617165616.18511-1-pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 895C2F80101
+ for <alsa-devel@alsa-project.org>; Wed, 17 Jun 2020 19:46:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 895C2F80101
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gerhold.net header.i=@gerhold.net
+ header.b="IBKlWJtl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1592416007;
+ s=strato-dkim-0002; d=gerhold.net;
+ h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:
+ X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+ bh=I/v+8pcADYCLZtSkHU5HuWFOVv8jyZnySvayisldZsM=;
+ b=IBKlWJtlUKhwsopVAgzD/In1amXoALGCh8U+NCj73PWpVrNNiKet6fI6IuVzvObaLa
+ 8BeDkYWlTV5rfUNExWLZHFm2PQxMlvbiGJVyWO4CNEzUdEcqnTOdI3I4XSI/kphqCwFt
+ jl6lTxonBoKxGJg8HZxL//vvNhe/0sLZwnRcis+gv2N2ytkzojQuYjVFbRW2Uh81z2QY
+ DGOZn7//0WgLA4PBdNWdXU0r+hF2+Cexk54SjWwZ8Q2lnmk8tbj2d20BAZNRMHCv/eEs
+ 0R4Le9ayFFBWkvQCTsnYCl/ashMDjDKJP6xWWoVM0dYMBeb0NvDodN5nL3vjbg7ziRzJ
+ 4mzg==
+X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVOQ/OcYgojyw4j34+u26zEodhPgRDZ8j8IczHboo="
+X-RZG-CLASS-ID: mo00
+Received: from gerhold.net by smtp.strato.de (RZmta 46.10.4 DYNA|AUTH)
+ with ESMTPSA id 6005e9w5HHkedR5
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Wed, 17 Jun 2020 19:46:40 +0200 (CEST)
+Date: Wed, 17 Jun 2020 19:46:35 +0200
+From: Stephan Gerhold <stephan@gerhold.net>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 1/4] ASoC: soc-pcm: dpcm: fix playback/capture checks
+Message-ID: <20200617174635.GA40060@gerhold.net>
+References: <20200616085409.GA110999@gerhold.net>
+ <20200616090210.GA111206@gerhold.net>
+ <254a667e-fa49-240a-6386-7e82df8e5c35@linux.intel.com>
+ <20200616145251.GO4447@sirena.org.uk>
+ <af973f45-59b9-ecff-7d78-97d8352ed072@linux.intel.com>
+ <20200616155544.GA8891@gerhold.net>
+ <7cbc9233-e5f2-03e0-5659-cf22dea75e53@linux.intel.com>
+ <45d43cc9-be22-a7d2-1628-3fb30232bd7c@linux.intel.com>
+ <20200617090112.GA38317@gerhold.net>
+ <62ccb59f-9d08-c241-952b-bb7af8311618@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, broonie@kernel.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <62ccb59f-9d08-c241-952b-bb7af8311618@linux.intel.com>
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ alsa-devel@alsa-project.org, tiwai@suse.de,
+ Daniel Baluta <daniel.baluta@gmail.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,100 +101,235 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Blindly adding an sof- prefix to the card name is not user friendly
-and causes UCM issues with a driver name truncated to 16 characters.
+On Wed, Jun 17, 2020 at 09:33:40AM -0500, Pierre-Louis Bossart wrote:
+> 
+> 
+> On 6/17/20 4:01 AM, Stephan Gerhold wrote:
+> > On Tue, Jun 16, 2020 at 12:05:49PM -0500, Pierre-Louis Bossart wrote:
+> > > 
+> > > 
+> > > 
+> > > > > > simple-card.c and audio-graph-card do hard-code but that's done
+> > > > > > with C in
+> > > > > > the driver:
+> > > > > > 
+> > > > > >      ret = asoc_simple_parse_daifmt(dev, cpu_ep, codec_ep,
+> > > > > >                         NULL, &dai_link->dai_fmt);
+> > > > > >      if (ret < 0)
+> > > > > >          goto out_put_node;
+> > > > > > 
+> > > > > >      dai_link->dpcm_playback        = 1;
+> > > > > >      dai_link->dpcm_capture        = 1;
+> > > > > > 
+> > > > > > 
+> > > > > > that that should be fixed based on the DAI format used in that
+> > > > > > dai_link - in
+> > > > > > other words we can make sure the capabilities of the dailink are aligned
+> > > > > > with the dais while parsing the DT blobs.
+> > > > > 
+> > > > > But how do you know which capabilities to set? The device tree doesn't
+> > > > > tells us that. We could add some code to look up the snd_soc_dai_driver
+> > > > > early, based on the references in the device tree (basically something
+> > > > > like snd_soc_of_get_dai_name(), see
+> > > > >      https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/soc/soc-core.c#n2988)
+> > > > > 
+> > > > > 
+> > > > > At least to me that function doesn't exactly look trivial though,
+> > > > > and that's just to properly fill in the dpcm_playback/capture
+> > > > > parameters. Essentially those parameters only complicate the current
+> > > > > device tree use case,  where you want the DAI link to be for both
+> > > > > playback/capture, but restricted to the capabilities of the DAI.
+> > > > > 
+> > > > > Just wondering if setting up dpcm_playback/capture properly is worth it
+> > > > > at all in this case. This isn't necessary for the non-DPCM case either,
+> > > > > there we automatically set it based on the DAI capabilities.
+> > > > 
+> > > > We can add a simple loop for each direction that relies on
+> > > > snd_soc_dai_stream_valid() to identify if each DAI is capable of doing
+> > > > playback/capture.
+> > > 
+> > > see below completely untested diff to show what I had in mind: we already
+> > > make use of snd_soc_dai_stream_valid() in other parts of the core so we
+> > > should be able to determine dpcm_playback/capture based on the same
+> > > information already used.
+> > > 
+> > > diff --git a/sound/soc/generic/audio-graph-card.c
+> > > b/sound/soc/generic/audio-graph-card.c
+> > > index 9ad35d9940fe..4c67f1f65eb4 100644
+> > > --- a/sound/soc/generic/audio-graph-card.c
+> > > +++ b/sound/soc/generic/audio-graph-card.c
+> > > @@ -215,7 +215,9 @@ static int graph_dai_link_of_dpcm(struct
+> > > asoc_simple_priv *priv,
+> > >          struct asoc_simple_dai *dai;
+> > >          struct snd_soc_dai_link_component *cpus = dai_link->cpus;
+> > >          struct snd_soc_dai_link_component *codecs = dai_link->codecs;
+> > > +       int stream;
+> > >          int ret;
+> > > +       int i;
+> > > 
+> > >          /* Do it all CPU endpoint, and 1st Codec endpoint */
+> > >          if (!li->cpu && dup_codec)
+> > > @@ -317,8 +319,34 @@ static int graph_dai_link_of_dpcm(struct
+> > > asoc_simple_priv *priv,
+> > >          if (ret < 0)
+> > >                  goto out_put_node;
+> > > 
+> > > -       dai_link->dpcm_playback         = 1;
+> > > -       dai_link->dpcm_capture          = 1;
+> > > +       for_each_pcm_streams(stream) {
+> > > +               struct snd_soc_dai_link_component *cpu;
+> > > +               struct snd_soc_dai_link_component *codec;
+> > > +               struct snd_soc_dai *d;
+> > > +               bool dpcm_direction = true;
+> > > +
+> > > +               for_each_link_cpus(dai_link, i, cpu) {
+> > > +                       d = snd_soc_find_dai(cpu);
+> > > +                       if (!d || !snd_soc_dai_stream_valid(d, stream)) {
+> > > +                               dpcm_direction = false;
+> > > +                               break;
+> > > +                       }
+> > > +               }
+> > > +               for_each_link_codecs(dai_link, i, codec) {
+> > > +                       d = snd_soc_find_dai(codec);
+> > > +                       if (!d || !snd_soc_dai_stream_valid(d, stream)) {
+> > > +                               dpcm_direction = false;
+> > > +                               break;
+> > > +                       }
+> > > +               }
+> > > +               if (dpcm_direction) {
+> > > +                       if (stream == SNDRV_PCM_STREAM_PLAYBACK)
+> > > +                               dai_link->dpcm_playback = 1;
+> > > +                       if (stream == SNDRV_PCM_STREAM_CAPTURE)
+> > > +                               dai_link->dpcm_capture = 1;
+> > > +               }
+> > > +       }
+> > > +
+> > >          dai_link->ops                   = &graph_ops;
+> > >          dai_link->init                  = asoc_simple_dai_init;
+> > > 
+> > 
+> > Thanks for the diff! I tested it for my case and it seems to work fine
+> > so far. I'm fine with this solution given that it fixes the problem
+> > I mentioned. We would need to patch it into at least
+> > simple-audio-card.c, audio-graph-card.c and soc/qcom/common.c
+> > (probably best to create a shared function in soc-core.c then).
+> 
+> Yes, I worked on a helper in soc-dai.c and have a tentative proposal in
+> https://github.com/thesofproject/linux/pull/2203
+> 
 
-Simplify to use "sof-bdw <codec_name>" pattern for all Broadwell
-machine drivers. The sof- prefix is added by the core. A generic "SOF"
-driver name is used, and UCMv2 will detect the configuration for this
-driver by testing the card name.
+Thanks!
 
-Legacy uses are unmodified.
+> > However, personally I still think that dpcm_playback/capture essentially
+> > just duplicate the capabilities that are already exposed as part of the
+> > DAI drivers. We don't need that duplication in the non-DPCM case,
+> > so I wonder if we really need it for DPCM.
+> 
+> Fully agree, but removing dpcm_playback/capture/playback_only/capture_only
+> should be done in a follow-up patchset. It's just too complicated to both
+> fix the current DPCM configurations and clean-up at the same time, it'd
+> prefer to do this cleanup in two steps.
+> 
+> > With your diff we go over all the DAIs to set dpcm_playback/capture
+> > correctly so that soc_new_pcm() can then verify that they were set
+> > correctly. IMO it would be much simpler to restore the previous behavior
+> > and just make soc_new_pcm() rely on the DAI capabilities to decide
+> > if playback/capture is supported, without producing the error.
+> 
+> I don't understand what previous behavior you are referring to (it's not
+> something I personally changed), and these flags are also hard-coded in
+> static dailink descriptors for machine drivers.
+> 
 
-Suggested-by: Jaroslav Kysela <perex@perex.cz>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
----
- sound/soc/intel/boards/bdw-rt5650.c | 12 +++++++++++-
- sound/soc/intel/boards/bdw-rt5677.c | 12 +++++++++++-
- sound/soc/intel/boards/broadwell.c  | 12 +++++++++++-
- 3 files changed, 33 insertions(+), 3 deletions(-)
+At the end the question is if those machine drivers that have
+dpcm_playback/capture hardcoded just set it because it was required to
+make DPCM work, or if they actually use it to restrict the direction of
+a DAI link.
 
-diff --git a/sound/soc/intel/boards/bdw-rt5650.c b/sound/soc/intel/boards/bdw-rt5650.c
-index a97e912adf4b..482d501b2f43 100644
---- a/sound/soc/intel/boards/bdw-rt5650.c
-+++ b/sound/soc/intel/boards/bdw-rt5650.c
-@@ -297,9 +297,19 @@ static struct snd_soc_dai_link bdw_rt5650_dais[] = {
- 	},
- };
+If they just did it to make DPCM work, then dpcm_playback/capture will
+most likely be equal to the capabilities of the DAIs. In that case
+there is little reason to duplicate that information on the DAI link.
+(We can just get the capabilities by always iterating over the
+DAIs, just like your helpers do for the device tree case).
+
+IMO dpcm_playback/capture would be only needed at all if you want to
+restrict the direction of a DAI link, instead of using everything
+possible using the configured DAI links.
+
+But I agree, removing dpcm_playback/capture is way too much refactoring
+to fix the problem I mentioned.
+
+
+The previous behavior I'm referring to is that until your patch (the one
+I replied to), it was not required to set dpcm_playback/capture
+appropriately:
+
+Before your changes there was just
+
+		playback = rtd->dai_link->dpcm_playback &&
+			   snd_soc_dai_stream_valid(cpu_dai, SNDRV_PCM_STREAM_PLAYBACK);
+		capture = rtd->dai_link->dpcm_capture &&
+			  snd_soc_dai_stream_valid(cpu_dai, SNDRV_PCM_STREAM_CAPTURE);
+
+so even if both dpcm_playback/capture were set to 1 (= true),
+it would just set playback/capture = false if the CPU DAI does not
+actually support those.
+
+Your patch added error conditions if dpcm_playback/capture do not match
+the actual capabilities of the DAI, so now I get e.g.
+"CPU DAI MultiMedia1 for rtd MultiMedia1 does not support capture".
+
+Something like this would restore the previous behavior:
+
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 39ce61c5b874..2b32c2a1fad7 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -2920,31 +2920,31 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ 	if (rtd->dai_link->dynamic || rtd->dai_link->no_pcm) {
+ 		if (rtd->dai_link->dpcm_playback) {
+ 			stream = SNDRV_PCM_STREAM_PLAYBACK;
++			playback = 1;
  
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
-+/* use space before codec name to simplify card ID, and simplify driver name */
-+#define CARD_NAME "bdw rt5650" /* card name will be 'sof-bdw rt5650' */
-+#define DRIVER_NAME "SOF"
-+#else
-+#define CARD_NAME "bdw-rt5650"
-+#define DRIVER_NAME NULL /* card name will be used for driver name */
-+#endif
-+
- /* ASoC machine driver for Broadwell DSP + RT5650 */
- static struct snd_soc_card bdw_rt5650_card = {
--	.name = "bdw-rt5650",
-+	.name = CARD_NAME,
-+	.driver_name = DRIVER_NAME,
- 	.owner = THIS_MODULE,
- 	.dai_link = bdw_rt5650_dais,
- 	.num_links = ARRAY_SIZE(bdw_rt5650_dais),
-diff --git a/sound/soc/intel/boards/bdw-rt5677.c b/sound/soc/intel/boards/bdw-rt5677.c
-index 5f96d7ac0a22..34a3abb5991f 100644
---- a/sound/soc/intel/boards/bdw-rt5677.c
-+++ b/sound/soc/intel/boards/bdw-rt5677.c
-@@ -404,9 +404,19 @@ static int bdw_rt5677_resume_post(struct snd_soc_card *card)
- 	return 0;
- }
+ 			for_each_rtd_cpu_dais(rtd, i, cpu_dai)
+ 				if (!snd_soc_dai_stream_valid(cpu_dai,
+ 							      stream)) {
+-					dev_err(rtd->card->dev,
++					dev_dbg(rtd->card->dev,
+ 						"CPU DAI %s for rtd %s does not support playback\n",
+ 						cpu_dai->name,
+ 						rtd->dai_link->stream_name);
+-					return -EINVAL;
++					playback = 0;
+ 				}
+-			playback = 1;
+ 		}
+ 		if (rtd->dai_link->dpcm_capture) {
+ 			stream = SNDRV_PCM_STREAM_CAPTURE;
++			capture = 1;
  
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
-+/* use space before codec name to simplify card ID, and simplify driver name */
-+#define CARD_NAME "bdw rt5677" /* card name will be 'sof-bdw rt5677' */
-+#define DRIVER_NAME "SOF"
-+#else
-+#define CARD_NAME "bdw-rt5677"
-+#define DRIVER_NAME NULL /* card name will be used for driver name */
-+#endif
-+
- /* ASoC machine driver for Broadwell DSP + RT5677 */
- static struct snd_soc_card bdw_rt5677_card = {
--	.name = "bdw-rt5677",
-+	.name = CARD_NAME,
-+	.driver_name = DRIVER_NAME,
- 	.owner = THIS_MODULE,
- 	.dai_link = bdw_rt5677_dais,
- 	.num_links = ARRAY_SIZE(bdw_rt5677_dais),
-diff --git a/sound/soc/intel/boards/broadwell.c b/sound/soc/intel/boards/broadwell.c
-index 42f8723beef2..c8fd4f7b1c0a 100644
---- a/sound/soc/intel/boards/broadwell.c
-+++ b/sound/soc/intel/boards/broadwell.c
-@@ -291,9 +291,19 @@ static int broadwell_resume(struct snd_soc_card *card){
- 	return 0;
- }
- 
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
-+/* use space before codec name to simplify card ID, and simplify driver name */
-+#define CARD_NAME "bdw rt286" /* card name will be 'sof-bdw rt286' */
-+#define DRIVER_NAME "SOF"
-+#else
-+#define CARD_NAME "broadwell-rt286"
-+#define DRIVER_NAME NULL /* card name will be used for driver name */
-+#endif
-+
- /* broadwell audio machine driver for WPT + RT286S */
- static struct snd_soc_card broadwell_rt286 = {
--	.name = "broadwell-rt286",
-+	.name = CARD_NAME,
-+	.driver_name = DRIVER_NAME,
- 	.owner = THIS_MODULE,
- 	.dai_link = broadwell_rt286_dais,
- 	.num_links = ARRAY_SIZE(broadwell_rt286_dais),
--- 
-2.20.1
+ 			for_each_rtd_cpu_dais(rtd, i, cpu_dai)
+ 				if (!snd_soc_dai_stream_valid(cpu_dai,
+ 							      stream)) {
+-					dev_err(rtd->card->dev,
++					dev_dbg(rtd->card->dev,
+ 						"CPU DAI %s for rtd %s does not support capture\n",
+ 						cpu_dai->name,
+ 						rtd->dai_link->stream_name);
+-					return -EINVAL;
++					capture = 0;
+ 				}
+-			capture = 1;
+ 		}
+ 	} else {
+ 		/* Adapt stream for codec2codec links */
 
+(I just removed the error case you introduced in your patch...)
+
+I understand why you added those error checks, but as a temporary fix
+it might be easier to relax those error checks again for now. I'm not
+sure if any other drivers have dpcm_playback/capture set "incorrectly"
+(better: not matching the DAI capabilities) as well.
+
+Thanks,
+Stephan

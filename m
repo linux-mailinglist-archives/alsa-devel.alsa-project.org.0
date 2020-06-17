@@ -2,49 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E2DE1FCCDF
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jun 2020 13:58:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 694311FCDF7
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jun 2020 14:59:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C9D21851;
-	Wed, 17 Jun 2020 13:57:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9D21851
+	by alsa0.perex.cz (Postfix) with ESMTPS id 90E191678;
+	Wed, 17 Jun 2020 14:58:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90E191678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592395079;
-	bh=o16GcUfRhzwsmPN/cCoes3HW2sQhH8Y6ONyZbfb4jmU=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1592398754;
+	bh=G6ps55m/h0H61ZvWrxAmdlJ2W7P8ZS8Qh5IKqEl7tPs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Aut7CXNWvPV+DHuz92R+CEEsYsvmfcFnqhkbhIRkYHMZw1qNGsSHKm5Ay6JS3npmY
-	 tlkqMPsYqKhKHepXoU4ZEqpmySReA5fc58JoRkuxspD58duPPiz6IhaQVSgjq3gSSa
-	 Wcr+cIQ4QsxNolX8eKqpru4KCrw0sqqF6IcsHEzA=
+	b=ZET66QZDOkZdfd24dplQijos+TPKTotuz34u53d1p/m5ho0WoGD2vGSZO3rq82ls8
+	 NuPUrw9eMfLNzgaFKA8aoIkIgr+yj8pL6oGylIzzFouMMzGqkdcDBS1Xnr3zNSa1qB
+	 7WVpidSdlgjXDW0Opkxiy2kSc2rCyNq1z688WbAM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1EAFCF80162;
-	Wed, 17 Jun 2020 13:56:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56343F801D9;
+	Wed, 17 Jun 2020 14:57:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AD9D4F80271; Wed, 17 Jun 2020 13:56:51 +0200 (CEST)
+ id 600D1F80171; Wed, 17 Jun 2020 14:57:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=4.0 required=5.0 tests=MISSING_DATE,MISSING_MID,
- PRX_BODY_16,SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 6ED54F80162
- for <alsa-devel@alsa-project.org>; Wed, 17 Jun 2020 13:56:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6ED54F80162
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8082CF800EF
+ for <alsa-devel@alsa-project.org>; Wed, 17 Jun 2020 14:57:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8082CF800EF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="sMWJjLGc"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="i45O9qIx"
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.nyi.internal (Postfix) with ESMTP id C10325C00AB;
+ Wed, 17 Jun 2020 08:57:19 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Wed, 17 Jun 2020 08:57:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm1; bh=FG3QLMu0KW/AajfbICYyWPvKagv
+ IhpnDmIbOLm1OBe0=; b=sMWJjLGcUQMirOxkM8Bce2L8AvmoRsKkcqonrVHlcR8
+ YERtI8RlRBK+tCLH7bA+OtBq29knGOi5uk7BOozjBKmXHo2IXDecYkVsBh2xj982
+ 7CKZnkP9bVYBoQnoJLVfme8Q6uaQWl/i1dCTLDRlmo+h24bkVHlsNCW+WSMsz4ca
+ w0310hcQ1OWrQdFF4OrcEaz+jsc8ya0U4SXTc7GXsrK0+n5nnbsi69cdyqplp+Ow
+ vJnw0FTdQ41x3pxE8NIko+o0+jL64Jovsb3oZhh+7yUWqPzKL2ICs/rokV13mhEI
+ 295MJK3CPgxFC6lW/SCzUoefAGdOJN5rJaj45pAzT5Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=FG3QLM
+ u0KW/AajfbICYyWPvKagvIhpnDmIbOLm1OBe0=; b=i45O9qIxEIGi9kXALdP9rv
+ TDK49Gg7UAYr022Z177CgAyuyw7bojBJysjNJNjIxt6UAb48kjeEAVwodgg9VGaA
+ HvvrlvsFR6f2QsNqEOGiImexV6/XGKta3MiFMynSdXeMIjHjXfDobTtepwvBcJCC
+ z8eEbTXM7RMjzarcT+ICT+cnr2wyPKQ89QUunxHnfCuUJS52dsXt9sphDdHEw9iA
+ 1DHHcqnxHgW1BbZFYi3sarsWzJTwRKHTTuTX09M8xnEzYU+PM1WvW8O6n5pDToXK
+ MRq6rCJlCBbe0SkCs8qdUYD1oP1v8LlniTXX8MeM+8XrpmLQLJf5OaDI43hRC75w
+ ==
+X-ME-Sender: <xms:LxPqXonns7BwVLrDjScqcjUAKrfjUkaVTIozUP3l5LElOpzNbzZkBw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrudejvddgheekucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefvrghkrghs
+ hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
+ hpqeenucggtffrrghtthgvrhhnpeelfeelieekieeivedtffefieehfefhudefieeifffh
+ tefffeehfedvveduudfgtdenucffohhmrghinhepghhithhhuhgsrdgtohhmnecukfhppe
+ dukedtrddvfeehrdefrdehgeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhep
+ mhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:LxPqXn3H4GY5TPgW-kCAHO8uYP1KocEwPVd7kj5PDxU8NRG2A_DEjg>
+ <xmx:LxPqXmqWiwUmh1oixzn6MtfDse_psZqDBNHZe76tmWd7L0XbQXKvng>
+ <xmx:LxPqXkmzLaAODaaphmQ8oF7WQxIAlQlFC7Zij5PVskeDVBCpeR4Tvw>
+ <xmx:LxPqXnBaHJ4-OOlBeKUChflTmZ783hZnAgKuGyhHz2tFuVH8CQwljw>
+Received: from workstation (ad003054.dynamic.ppp.asahi-net.or.jp
+ [180.235.3.54])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 6BE25328005A;
+ Wed, 17 Jun 2020 08:57:18 -0400 (EDT)
+Date: Wed, 17 Jun 2020 21:57:16 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: Move ownership for repositories in Github related to
+ gobject-introspection
+Message-ID: <20200617125716.GA273906@workstation>
+Mail-Followup-To: Jaroslav Kysela <perex@perex.cz>,
+ ALSA development <alsa-devel@alsa-project.org>
+References: <20200617080114.GA265611@workstation>
+ <26bcc126-6688-5996-b6ad-3288bd2facd8@perex.cz>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1592395003659609079-webhooks-bot@alsa-project.org>
-References: <1592395003659609079-webhooks-bot@alsa-project.org>
-Subject: pcm: direct: correctly apply existing interval settings
-Message-Id: <20200617115651.AD9D4F80271@alsa1.perex.cz>
-Date: Wed, 17 Jun 2020 13:56:51 +0200 (CEST)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <26bcc126-6688-5996-b6ad-3288bd2facd8@perex.cz>
+Cc: ALSA development <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,158 +116,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib pull request #62 was opened from aditpape:
+Hi,
 
-Feature 'variable periodsize' allows to extend user period size up to buffer_size/2 independent of slave period.
-On enlargement of the settings for period_time.max and period_size.max the setting for openmax was not updated.
+On Wed, Jun 17, 2020 at 01:15:30PM +0200, Jaroslav Kysela wrote:
+> Dne 17. 06. 20 v 10:01 Takashi Sakamoto napsal(a):
+> > Hi Jaroslav,
+> > 
+> > Now I'm going to prepare for official release of alsa-gobject v0.1.0.
+> > 
+> > At the same time, Rust binding is also OK to be released. Currently It's in
+> > my private repository[1] but I think it better to put under alsa-project
+> > project account in Github.
+> > 
+> > Github supports transferring ownership, and this time I'd like to utilize the
+> > feature if you don't mind it. After transferring. some arrangement for the
+> > repository are perhaps required; e.g. to put it to 'gobject-introspection'
+> > team[3]. Would I ask it to you?
+> > 
+> > Additionally, I'd like to move repositories for libhinawa[4][5][6] as well,
+> > which is required to make up control service in user space for devices
+> > supported by ALSA firewire stack[7].
+> 
+> Hi,
+> 
+>   I have no objections against that proposal. I will try to configure the
+> repositories when transferred to the alsa-project organization.
 
-This lead to the effect, that if the slave period itself had openmax set it was still set on the extended size.
-Configuration of a period matching half buffer size was thus rejected.
+Thanks for your approval. Just now I transferred below four repositories
+from my account to alsa-project account:
 
-Example for failure: period size of 384 (half buffer size) is requested which is rejected and rounded down to 352:
+ * https://github.com/alsa-project/alsa-gobject-rs
+ * https://github.com/alsa-project/libhinawa
+ * https://github.com/alsa-project/libhinawa-docs
+ * https://github.com/alsa-project/hinawa-rs
 
-root@oracle-virtualbox:~# arecord -DDSNOOP_32 -r48000 -fS16_LE -c2 --period-size=382 -vv --dump-hw-params > /dev/null
-Recording WAVE 'stdin' : Signed 16 bit Little Endian, Rate 48000 Hz, Stereo
-HW Params of device "DSNOOP_32":
---------------------
-ACCESS:  MMAP_INTERLEAVED MMAP_NONINTERLEAVED RW_INTERLEAVED RW_NONINTERLEAVED
-FORMAT:  S16_LE
-SUBFORMAT:  STD
-SAMPLE_BITS: 16
-FRAME_BITS: 32
-CHANNELS: 2
-RATE: 48000
-PERIOD_TIME: (666 7334)
-PERIOD_SIZE: [32 352]
-PERIOD_BYTES: [128 1408]
-PERIODS: [2 24]
-BUFFER_TIME: (1333 16000]
-BUFFER_SIZE: [64 768]
-BUFFER_BYTES: [256 3072]
-TICK_TIME: ALL
---------------------
-Direct Snoop PCM
-Its setup is:
-  stream       : CAPTURE
-  access       : RW_INTERLEAVED
-  format       : S16_LE
-  subformat    : STD
-  channels     : 2
-  rate         : 48000
-  exact rate   : 48000 (48000/1)
-  msbits       : 16
-  buffer_size  : 704
-  period_size  : 352
-  period_time  : 7333
-  tstamp_mode  : NONE
-  tstamp_type  : MONOTONIC
-  period_step  : 1
-  avail_min    : 352
-  period_event : 0
-  start_threshold  : 1
-  stop_threshold   : 704
-  silence_threshold: 0
-  silence_size : 0
-  boundary     : 6341068275337658368
-Hardware PCM card 0 'Intel 82801AA-ICH' device 0 subdevice 0
-Its setup is:
-  stream       : CAPTURE
-  access       : MMAP_INTERLEAVED
-  format       : S16_LE
-  subformat    : STD
-  channels     : 2
-  rate         : 48000
-  exact rate   : 48000 (48000/1)
-  msbits       : 16
-  buffer_size  : 768
-  period_size  : 32
-  period_time  : 666
-  tstamp_mode  : ENABLE
-  tstamp_type  : MONOTONIC
-  period_step  : 1
-  avail_min    : 32
-  period_event : 0
-  start_threshold  : 1
-  stop_threshold   : 6917529027641081856
-  silence_threshold: 0
-  silence_size : 0
-  boundary     : 6917529027641081856
-  appl_ptr     : 0
-  hw_ptr       : 224
+Fortunately I can select the 'gobject-introspection' team as destination
+of the transferring, but I'm grant for read-only access. Would I request
+you to grant my account Admin (or Writeable) right?
 
-When correctly applying the openmax setting:
+And you made 'Hinawa' team and put libhinawa/hinawa-rs repositories into
+it. But in my preference they're in 'gobject-introspection' team as well
+as alsa-gobject repositories.
 
-root@oracle-virtualbox:~# arecord -DDSNOOP_32 -r48000 -fS16_LE -c2 --period-size=382 -vv --dump-hw-params > /dev/null
-Recording WAVE 'stdin' : Signed 16 bit Little Endian, Rate 48000 Hz, Stereo
-HW Params of device "DSNOOP_32":
---------------------
-ACCESS:  MMAP_INTERLEAVED MMAP_NONINTERLEAVED RW_INTERLEAVED RW_NONINTERLEAVED
-FORMAT:  S16_LE
-SUBFORMAT:  STD
-SAMPLE_BITS: 16
-FRAME_BITS: 32
-CHANNELS: 2
-RATE: 48000
-PERIOD_TIME: (666 8000]
-PERIOD_SIZE: [32 384]
-PERIOD_BYTES: [128 1536]
-PERIODS: [2 24]
-BUFFER_TIME: (1333 16000]
-BUFFER_SIZE: [64 768]
-BUFFER_BYTES: [256 3072]
-TICK_TIME: ALL
---------------------
-Direct Snoop PCM
-Its setup is:
-  stream       : CAPTURE
-  access       : RW_INTERLEAVED
-  format       : S16_LE
-  subformat    : STD
-  channels     : 2
-  rate         : 48000
-  exact rate   : 48000 (48000/1)
-  msbits       : 16
-  buffer_size  : 768
-  period_size  : 384
-  period_time  : 8000
-  tstamp_mode  : NONE
-  tstamp_type  : MONOTONIC
-  period_step  : 1
-  avail_min    : 384
-  period_event : 0
-  start_threshold  : 1
-  stop_threshold   : 768
-  silence_threshold: 0
-  silence_size : 0
-  boundary     : 6917529027641081856
-Hardware PCM card 0 'Intel 82801AA-ICH' device 0 subdevice 0
-Its setup is:
-  stream       : CAPTURE
-  access       : MMAP_INTERLEAVED
-  format       : S16_LE
-  subformat    : STD
-  channels     : 2
-  rate         : 48000
-  exact rate   : 48000 (48000/1)
-  msbits       : 16
-  buffer_size  : 768
-  period_size  : 32
-  period_time  : 666
-  tstamp_mode  : ENABLE
-  tstamp_type  : MONOTONIC
-  period_step  : 1
-  avail_min    : 32
-  period_event : 0
-  start_threshold  : 1
-  stop_threshold   : 6917529027641081856
-  silence_threshold: 0
-  silence_size : 0
-  boundary     : 6917529027641081856
-  appl_ptr     : 0
-  hw_ptr       : 224
 
-Signed-off-by: Andreas Pape <apape@de.adit-jv.com>
+Thanks
 
-Request URL   : https://github.com/alsa-project/alsa-lib/pull/62
-Patch URL     : https://github.com/alsa-project/alsa-lib/pull/62.patch
-Repository URL: https://github.com/alsa-project/alsa-lib
+Takashi Sakamoto

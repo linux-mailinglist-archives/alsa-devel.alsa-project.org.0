@@ -2,66 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C4881FC583
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jun 2020 07:02:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 830841FC57E
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jun 2020 07:00:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E80B31684;
-	Wed, 17 Jun 2020 07:01:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E80B31684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1243F1678;
+	Wed, 17 Jun 2020 06:59:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1243F1678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592370139;
-	bh=SWb+GwEwGQOBzwQYDoXOtrL8PPU4xev35MRfjQ/gkv4=;
-	h=From:To:Subject:Date:In-Reply-To:References:In-Reply-To:
-	 References:Cc:List-Id:List-Unsubscribe:List-Archive:List-Post:
-	 List-Help:List-Subscribe:From;
-	b=iz932VcXmfde2spiRAR6RSq8KiKz7CTMc/ly4+IUDXWhbewU3Sx1A4NG4xeKt2XDt
-	 hzEUJ5TLpBEwH+IYvqF7/sRoBbkGif1LdjxUGfRUl7Cl/V9SHnkurmDALP5pnJYDHw
-	 6PMkvShgRSE59JT75TcZ7l6reNX/3uwM97wS578M=
+	s=default; t=1592370038;
+	bh=y9Ta6EwF9AE87jqwd/NojPnS2wZp8LlHC544bmiCAFs=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Dx/UyLyybeT0MGk8M5G68F4nHQzWKqWOl9dnzFejDGHvsD/Wd4C/0+Fd819es1uJZ
+	 sgxFGk9ssMgDrIjrnuM5W0oXEzQLGMsw6JHCvVDCUpY/NPqpY0jgE3Y3hmewu9gdyV
+	 kw3IB2gYblQwkz/D9suCP5E9/u3Oa35/jqX0wSx0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97CDBF802A7;
-	Wed, 17 Jun 2020 06:59:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07268F801EB;
+	Wed, 17 Jun 2020 06:58:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C2492F802A1; Wed, 17 Jun 2020 06:59:45 +0200 (CEST)
+ id D8431F801D9; Wed, 17 Jun 2020 06:58:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=AC_FROM_MANY_DOTS,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 07197F80271
- for <alsa-devel@alsa-project.org>; Wed, 17 Jun 2020 06:59:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07197F80271
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 1883C1A09F3;
- Wed, 17 Jun 2020 06:59:39 +0200 (CEST)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 9883A1A09DA;
- Wed, 17 Jun 2020 06:59:33 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id DCAA6402B3;
- Wed, 17 Jun 2020 12:59:26 +0800 (SGT)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, lgirdwood@gmail.com, robh+dt@kernel.org,
- devicetree@vger.kernel.org
-Subject: [PATCH v2 2/2] ASoC: fsl-asoc-card: Add MQS support
-Date: Wed, 17 Jun 2020 12:48:25 +0800
-Message-Id: <918505decb7f757f12c38059c590984f28d2f3a4.1592369271.git.shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <2185a3ec866bc59f82d93b73d1a732a896fd8f48.1592369271.git.shengjiu.wang@nxp.com>
-References: <2185a3ec866bc59f82d93b73d1a732a896fd8f48.1592369271.git.shengjiu.wang@nxp.com>
-In-Reply-To: <2185a3ec866bc59f82d93b73d1a732a896fd8f48.1592369271.git.shengjiu.wang@nxp.com>
-References: <2185a3ec866bc59f82d93b73d1a732a896fd8f48.1592369271.git.shengjiu.wang@nxp.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0EE71F800EF
+ for <alsa-devel@alsa-project.org>; Wed, 17 Jun 2020 06:58:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0EE71F800EF
+Received: from 61-220-137-37.hinet-ip.hinet.net ([61.220.137.37]
+ helo=localhost) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <kai.heng.feng@canonical.com>)
+ id 1jlQ9g-0006w0-U0; Wed, 17 Jun 2020 04:58:33 +0000
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+To: tiwai@suse.com
+Subject: [PATCH v2 1/2] ALSA: hda/realtek: Add COEF controlled micmute LED
+ support
+Date: Wed, 17 Jun 2020 12:58:24 +0800
+Message-Id: <20200617045828.3735-1-kai.heng.feng@canonical.com>
+X-Mailer: git-send-email 2.17.1
+Cc: Wenwen Wang <wenwen@cs.uga.edu>, Kailang Yang <kailang@realtek.com>,
+ Tomas Espeleta <tomas.espeleta@gmail.com>, Thomas Hebb <tommyhebb@gmail.com>,
+ "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>,
+ Hui Wang <hui.wang@canonical.com>, Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Jian-Hong Pan <jian-hong@endlessm.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,173 +72,138 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The MQS codec isn't an i2c device, so use of_find_device_by_node
-to get platform device pointer.
+Currently, HDA codec LED class can only used by by GPIO controlled LED.
+However, there are some new systems that control LED via COEF instead of
+GPIO.
 
-Because MQS only support playback, then add a new audio map.
+In order to support those systems, create a new helper that can be
+facilitated by both COEF controlled and GPIO controlled LED, and use
+generic call_micmute_led_update() to control both case.
 
-And there maybe "model" property or no "audio-routing" property in
-devicetree, so add some enhancement for these two property.
+In addition to that, add LED_CORE_SUSPENDRESUME flag since some systems
+don't restore the LED properly after suspend.
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
 ---
-changes in v2
-- update according Nicolin's comments.
+v2:
+ - Prevent platforms like Dell, Lenovoe and Huawei create double LED
+   class devices.
 
- sound/soc/fsl/fsl-asoc-card.c | 78 +++++++++++++++++++++++++----------
- 1 file changed, 57 insertions(+), 21 deletions(-)
+ sound/pci/hda/hda_generic.c   |  3 ++-
+ sound/pci/hda/hda_generic.h   |  1 +
+ sound/pci/hda/patch_realtek.c | 29 ++++++++++++++++-------------
+ 3 files changed, 19 insertions(+), 14 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
-index 00be73900888..d0543a53764e 100644
---- a/sound/soc/fsl/fsl-asoc-card.c
-+++ b/sound/soc/fsl/fsl-asoc-card.c
-@@ -119,6 +119,13 @@ static const struct snd_soc_dapm_route audio_map_ac97[] = {
- 	{"ASRC-Capture",  NULL, "AC97 Capture"},
+diff --git a/sound/pci/hda/hda_generic.c b/sound/pci/hda/hda_generic.c
+index f4e9d9445e18..9c3f1990c621 100644
+--- a/sound/pci/hda/hda_generic.c
++++ b/sound/pci/hda/hda_generic.c
+@@ -3897,7 +3897,7 @@ enum {
+ 	MICMUTE_LED_FOLLOW_MUTE,
  };
  
-+static const struct snd_soc_dapm_route audio_map_tx[] = {
-+	/* 1st half -- Normal DAPM routes */
-+	{"Playback",  NULL, "CPU-Playback"},
-+	/* 2nd half -- ASRC DAPM routes */
-+	{"CPU-Playback",  NULL, "ASRC-Playback"},
-+};
-+
- /* Add all possible widgets into here without being redundant */
- static const struct snd_soc_dapm_widget fsl_asoc_card_dapm_widgets[] = {
- 	SND_SOC_DAPM_LINE("Line Out Jack", NULL),
-@@ -485,8 +492,9 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
- 	struct platform_device *asrc_pdev = NULL;
- 	struct platform_device *cpu_pdev;
- 	struct fsl_asoc_card_priv *priv;
--	struct i2c_client *codec_dev;
-+	struct device *codec_dev = NULL;
- 	const char *codec_dai_name;
-+	const char *codec_dev_name;
- 	u32 width;
- 	int ret;
+-static void call_micmute_led_update(struct hda_codec *codec)
++void call_micmute_led_update(struct hda_codec *codec)
+ {
+ 	struct hda_gen_spec *spec = codec->spec;
+ 	unsigned int val;
+@@ -3924,6 +3924,7 @@ static void call_micmute_led_update(struct hda_codec *codec)
+ 	if (spec->micmute_led.update)
+ 		spec->micmute_led.update(codec);
+ }
++EXPORT_SYMBOL_GPL(call_micmute_led_update);
  
-@@ -512,10 +520,23 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
- 	}
+ static void update_micmute_led(struct hda_codec *codec,
+ 			       struct snd_kcontrol *kcontrol,
+diff --git a/sound/pci/hda/hda_generic.h b/sound/pci/hda/hda_generic.h
+index fb9f1a90238b..9f08a9ee9112 100644
+--- a/sound/pci/hda/hda_generic.h
++++ b/sound/pci/hda/hda_generic.h
+@@ -353,6 +353,7 @@ unsigned int snd_hda_gen_path_power_filter(struct hda_codec *codec,
+ void snd_hda_gen_stream_pm(struct hda_codec *codec, hda_nid_t nid, bool on);
+ int snd_hda_gen_fix_pin_power(struct hda_codec *codec, hda_nid_t pin);
  
- 	codec_np = of_parse_phandle(np, "audio-codec", 0);
--	if (codec_np)
--		codec_dev = of_find_i2c_device_by_node(codec_np);
--	else
--		codec_dev = NULL;
-+	if (codec_np) {
-+		struct platform_device *codec_pdev;
-+		struct i2c_client *codec_i2c;
-+
-+		codec_i2c = of_find_i2c_device_by_node(codec_np);
-+		if (codec_i2c) {
-+			codec_dev = &codec_i2c->dev;
-+			codec_dev_name = codec_i2c->name;
-+		}
-+		if (!codec_dev) {
-+			codec_pdev = of_find_device_by_node(codec_np);
-+			if (codec_pdev) {
-+				codec_dev = &codec_pdev->dev;
-+				codec_dev_name = codec_pdev->name;
-+			}
-+		}
-+	}
++void call_micmute_led_update(struct hda_codec *codec);
+ int snd_hda_gen_add_micmute_led(struct hda_codec *codec,
+ 				void (*hook)(struct hda_codec *));
+ void snd_hda_gen_fixup_micmute_led(struct hda_codec *codec,
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 6d73f8beadb6..9691af8241cf 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -4114,10 +4114,10 @@ static int micmute_led_set(struct led_classdev *led_cdev,
+ 			   enum led_brightness brightness)
+ {
+ 	struct hda_codec *codec = dev_to_hda_codec(led_cdev->dev->parent);
+-	struct alc_spec *spec = codec->spec;
++	struct hda_gen_spec *spec = codec->spec;
  
- 	asrc_np = of_parse_phandle(np, "audio-asrc", 0);
- 	if (asrc_np)
-@@ -523,7 +544,7 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
+-	alc_update_gpio_led(codec, spec->gpio_mic_led_mask,
+-			    spec->micmute_led_polarity, !!brightness);
++	spec->micmute_led.led_mode = !brightness;
++	call_micmute_led_update(codec);
+ 	return 0;
+ }
  
- 	/* Get the MCLK rate only, and leave it controlled by CODEC drivers */
- 	if (codec_dev) {
--		struct clk *codec_clk = clk_get(&codec_dev->dev, NULL);
-+		struct clk *codec_clk = clk_get(codec_dev, NULL);
- 
- 		if (!IS_ERR(codec_clk)) {
- 			priv->codec_priv.mclk_freq = clk_get_rate(codec_clk);
-@@ -538,6 +559,11 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
- 	/* Assign a default DAI format, and allow each card to overwrite it */
- 	priv->dai_fmt = DAI_FMT_BASE;
- 
-+	memcpy(priv->dai_link, fsl_asoc_card_dai,
-+	       sizeof(struct snd_soc_dai_link) * ARRAY_SIZE(priv->dai_link));
-+
-+	priv->card.dapm_routes = audio_map;
-+	priv->card.num_dapm_routes = ARRAY_SIZE(audio_map);
- 	/* Diversify the card configurations */
- 	if (of_device_is_compatible(np, "fsl,imx-audio-cs42888")) {
- 		codec_dai_name = "cs42888";
-@@ -573,6 +599,18 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
- 		codec_dai_name = "ac97-hifi";
- 		priv->card.set_bias_level = NULL;
- 		priv->dai_fmt = SND_SOC_DAIFMT_AC97;
-+		priv->card.dapm_routes = audio_map_ac97;
-+		priv->card.num_dapm_routes = ARRAY_SIZE(audio_map_ac97);
-+	} else if (of_device_is_compatible(np, "fsl,imx-audio-mqs")) {
-+		codec_dai_name = "fsl-mqs-dai";
-+		priv->card.set_bias_level = NULL;
-+		priv->dai_fmt = SND_SOC_DAIFMT_LEFT_J |
-+				SND_SOC_DAIFMT_CBS_CFS |
-+				SND_SOC_DAIFMT_NB_NF;
-+		priv->dai_link[1].dpcm_capture = 0;
-+		priv->dai_link[2].dpcm_capture = 0;
-+		priv->card.dapm_routes = audio_map_tx;
-+		priv->card.num_dapm_routes = ARRAY_SIZE(audio_map_tx);
- 	} else {
- 		dev_err(&pdev->dev, "unknown Device Tree compatible\n");
- 		ret = -EINVAL;
-@@ -601,19 +639,17 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
- 		priv->cpu_priv.sysclk_id[0] = FSL_SAI_CLK_MAST1;
- 	}
- 
--	snprintf(priv->name, sizeof(priv->name), "%s-audio",
--		 fsl_asoc_card_is_ac97(priv) ? "ac97" :
--		 codec_dev->name);
--
- 	/* Initialize sound card */
- 	priv->pdev = pdev;
- 	priv->card.dev = &pdev->dev;
--	priv->card.name = priv->name;
-+	ret = snd_soc_of_parse_card_name(&priv->card, "model");
-+	if (ret) {
-+		snprintf(priv->name, sizeof(priv->name), "%s-audio",
-+			 fsl_asoc_card_is_ac97(priv) ? "ac97" : codec_dev_name);
-+		priv->card.name = priv->name;
-+	}
- 	priv->card.dai_link = priv->dai_link;
--	priv->card.dapm_routes = fsl_asoc_card_is_ac97(priv) ?
--				 audio_map_ac97 : audio_map;
- 	priv->card.late_probe = fsl_asoc_card_late_probe;
--	priv->card.num_dapm_routes = ARRAY_SIZE(audio_map);
- 	priv->card.dapm_widgets = fsl_asoc_card_dapm_widgets;
- 	priv->card.num_dapm_widgets = ARRAY_SIZE(fsl_asoc_card_dapm_widgets);
- 
-@@ -621,13 +657,12 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
- 	if (!asrc_pdev)
- 		priv->card.num_dapm_routes /= 2;
- 
--	memcpy(priv->dai_link, fsl_asoc_card_dai,
--	       sizeof(struct snd_soc_dai_link) * ARRAY_SIZE(priv->dai_link));
--
--	ret = snd_soc_of_parse_audio_routing(&priv->card, "audio-routing");
--	if (ret) {
--		dev_err(&pdev->dev, "failed to parse audio-routing: %d\n", ret);
--		goto asrc_fail;
-+	if (of_property_read_bool(np, "audio-routing")) {
-+		ret = snd_soc_of_parse_audio_routing(&priv->card, "audio-routing");
-+		if (ret) {
-+			dev_err(&pdev->dev, "failed to parse audio-routing: %d\n", ret);
-+			goto asrc_fail;
-+		}
- 	}
- 
- 	/* Normal DAI Link */
-@@ -724,6 +759,7 @@ static const struct of_device_id fsl_asoc_card_dt_ids[] = {
- 	{ .compatible = "fsl,imx-audio-sgtl5000", },
- 	{ .compatible = "fsl,imx-audio-wm8962", },
- 	{ .compatible = "fsl,imx-audio-wm8960", },
-+	{ .compatible = "fsl,imx-audio-mqs", },
- 	{}
+@@ -4126,7 +4126,17 @@ static struct led_classdev micmute_led_cdev = {
+ 	.max_brightness = 1,
+ 	.brightness_set_blocking = micmute_led_set,
+ 	.default_trigger = "audio-micmute",
++	.flags = LED_CORE_SUSPENDRESUME,
  };
- MODULE_DEVICE_TABLE(of, fsl_asoc_card_dt_ids);
++
++static void alc_register_micmute_led(struct hda_codec *codec)
++{
++		micmute_led_cdev.brightness = ledtrig_audio_get(LED_AUDIO_MICMUTE);
++		if (devm_led_classdev_register(&codec->core.dev, &micmute_led_cdev))
++			codec_warn(codec, "failed to register micmute LED\n");
++}
++#else
++static inline void alc_register_micmute_led(struct hda_codec *codec) {}
+ #endif
+ 
+ /* setup mute and mic-mute GPIO bits, add hooks appropriately */
+@@ -4136,9 +4146,6 @@ static void alc_fixup_hp_gpio_led(struct hda_codec *codec,
+ 				  unsigned int micmute_mask)
+ {
+ 	struct alc_spec *spec = codec->spec;
+-#if IS_REACHABLE(CONFIG_LEDS_TRIGGER_AUDIO)
+-	int err;
+-#endif
+ 
+ 	alc_fixup_gpio(codec, action, mute_mask | micmute_mask);
+ 
+@@ -4151,13 +4158,7 @@ static void alc_fixup_hp_gpio_led(struct hda_codec *codec,
+ 	if (micmute_mask) {
+ 		spec->gpio_mic_led_mask = micmute_mask;
+ 		snd_hda_gen_add_micmute_led(codec, alc_gpio_micmute_update);
+-
+-#if IS_REACHABLE(CONFIG_LEDS_TRIGGER_AUDIO)
+-		micmute_led_cdev.brightness = ledtrig_audio_get(LED_AUDIO_MICMUTE);
+-		err = devm_led_classdev_register(&codec->core.dev, &micmute_led_cdev);
+-		if (err)
+-			codec_warn(codec, "failed to register micmute LED\n");
+-#endif
++		alc_register_micmute_led(codec);
+ 	}
+ }
+ 
+@@ -4305,6 +4306,7 @@ static void alc285_fixup_hp_coef_micmute_led(struct hda_codec *codec,
+ 		spec->mic_led_coefbit_on = 1<<13;
+ 		spec->mic_led_coefbit_off = 0;
+ 		snd_hda_gen_add_micmute_led(codec, alc_hp_cap_micmute_update);
++		alc_register_micmute_led(codec);
+ 	}
+ }
+ 
+@@ -4319,6 +4321,7 @@ static void alc236_fixup_hp_coef_micmute_led(struct hda_codec *codec,
+ 		spec->mic_led_coefbit_on = 2<<2;
+ 		spec->mic_led_coefbit_off = 1<<2;
+ 		snd_hda_gen_add_micmute_led(codec, alc_hp_cap_micmute_update);
++		alc_register_micmute_led(codec);
+ 	}
+ }
+ 
 -- 
-2.21.0
+2.17.1
 

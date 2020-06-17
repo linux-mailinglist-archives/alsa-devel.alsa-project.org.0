@@ -2,71 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 143331FCC2D
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jun 2020 13:23:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BA521FCCD9
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jun 2020 13:56:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2E0F51678;
-	Wed, 17 Jun 2020 13:22:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E0F51678
+	by alsa0.perex.cz (Postfix) with ESMTPS id E0D191678;
+	Wed, 17 Jun 2020 13:56:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0D191678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592392980;
-	bh=02sKjSwgkPm0JejYfuilPBK0uhpMMCgzckQlPu+G78A=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1592395017;
+	bh=z8cOc9Kd+fX5ecq3LE3aayUf/yvyei0GvU9Dggv1YoI=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Z9pqOOb9e8Jwf/EGWG6873qLdlwpFhCFFI8o0Ysb3IsJvQ4bbLayDRdhv5fmDXY6Y
-	 uWi6L09ogNZkXIPttwYnWZfNI0ciFKcu9UDSBeoZBW6nCI11sMbEIjnAdcUlAmEIsG
-	 9RuqChZthZfqpOrcNLKpKVO/88NF7ybTtm8L9Z4A=
+	b=Bqt5vbrj9fmo7u3pT6ZhaoK9LIKEhgZGopEBVBvBVss2aOI7Wa1lssQiqGyqtaT2w
+	 jMGPKemgJGi6FBEbIgUBLVDf2Za8DFkplP5Vw3QLiO9UnpnRmtNox2Ll6cyTOAI+IM
+	 jK9TuIlgnxjIiK777f+b/tfAj9ldPpmVFqFjyARo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52A23F801D9;
-	Wed, 17 Jun 2020 13:21:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10F4FF801D9;
+	Wed, 17 Jun 2020 13:55:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6C5F8F80171; Wed, 17 Jun 2020 13:21:14 +0200 (CEST)
+ id F0772F80171; Wed, 17 Jun 2020 13:55:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DEF98F800EF
- for <alsa-devel@alsa-project.org>; Wed, 17 Jun 2020 13:21:06 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 7E435A003F;
- Wed, 17 Jun 2020 13:21:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 7E435A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1592392865; bh=c4mk5jwbXL0J7ZYL9lgyi61rcpug+iCWUqiaWMZlNIY=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=af5Oj6u5jtwZsVkLfECJ/KD1kXOt8njjdoVx+EW5sT6m2y3/P+XhKBV0mAiHmktX+
- 3iWyBV2oApecb6BRUYKtaOltYO0ea+ThNMHf86UdtRsVfLfywCgT4kLpH8KSBh6ctm
- PRppqrbf1r0G72eWpGTDX6E7B3lThbgxGSR0pnUQ=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Wed, 17 Jun 2020 13:21:02 +0200 (CEST)
-Subject: Re: How to populate required string as audio endpoint name in gnome
- audio devices tab
-To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-References: <7c9bdd7c-efe9-c37c-3fa6-a6f611c43fc3@amd.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <ec8c1c5a-a169-8d9c-c897-2bd9ed6593d3@perex.cz>
-Date: Wed, 17 Jun 2020 13:21:02 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
-MIME-Version: 1.0
-In-Reply-To: <7c9bdd7c-efe9-c37c-3fa6-a6f611c43fc3@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: hui.wang@canonical.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id AEBACF80116
+ for <alsa-devel@alsa-project.org>; Wed, 17 Jun 2020 13:55:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AEBACF80116
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 8AC34AAC7;
+ Wed, 17 Jun 2020 11:55:07 +0000 (UTC)
+Date: Wed, 17 Jun 2020 13:55:02 +0200
+Message-ID: <s5hd05xzz3d.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Subject: Re: [PATCH v3 1/2] ALSA: hda/realtek: Add COEF controlled micmute LED
+ support
+In-Reply-To: <20200617102906.16156-1-kai.heng.feng@canonical.com>
+References: <20200617102906.16156-1-kai.heng.feng@canonical.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Wenwen Wang <wenwen@cs.uga.edu>, Kailang Yang <kailang@realtek.com>,
+ Tomas Espeleta <tomas.espeleta@gmail.com>, "moderated
+ list:SOUND" <alsa-devel@alsa-project.org>,
+ open list <linux-kernel@vger.kernel.org>, tiwai@suse.com,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ =?UTF-8?B?TWljaGHFgiBNaXJvc8WC?= =?UTF-8?B?YXc=?= <mirq-linux@rere.qmqm.pl>,
+ Hui Wang <hui.wang@canonical.com>, Thomas Hebb <tommyhebb@gmail.com>,
+ Jian-Hong Pan <jian-hong@endlessm.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,33 +77,184 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 17. 06. 20 v 7:47 Mukunda,Vijendar napsal(a):
-> Renoir platform has onboard dmic + south bridge HD Audio endpoint support.
-> For onboard Dmic, Audio endpoint name is populated as "Analog Input"
-> in Audio input devices.
-> How can we populate name as "Internal Mic" or "Dmic" in audio input
-> devices tab  in sound settings?
+On Wed, 17 Jun 2020 12:29:01 +0200,
+Kai-Heng Feng wrote:
 > 
-> Alsa info link: https://pastebin.ubuntu.com/p/4kprhDZYbg/
-> Pluse audio info output: https://pastebin.ubuntu.com/p/sdx9Xs234C/
-
-It's question for pulseaudio. For the legacy ALSA code in PA, you need to 
-create profile, mixer path and udev rules. The probe mechanism used in PA 
-looks for the volume controls and path switches (kcontrol) API to determine 
-the device name. If not found, the generic name is used.
-
-It's better to finish the UCM support for this hardware:
-
-https://github.com/alsa-project/alsa-ucm-conf/issues/30
-
-					Jaroslav
-
+> Currently, HDA codec LED class can only be used by GPIO controlled LED.
+> However, there are some new systems that control LED via COEF instead of
+> GPIO.
 > 
-> Thanks,
-> Vijendar
+> In order to support those systems, create a new helper that can be
+> facilitated by both COEF controlled and GPIO controlled LED.
 > 
+> In addition to that, add LED_CORE_SUSPENDRESUME flag since some systems
+> don't restore the LED properly after suspend.
+> 
+> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+
+Thanks for the quick follow up, the issues I pointed were fixed.
+
+But, now looking at the code change again, I'm no longer sure whether
+it's the right move.
+
+Basically, the led cdev should serve only for turning on/off the LED
+as given.  But your patch changes it to call the generic mixer
+updater, which is rather the one who would call the led cdev state
+update itself.  That is, it's other way round.
+
+IMO, what we need is to make all places calling
+snd_hda_gen_add_micmute_led() to create led cdev, and change those
+calls with snd_hda_gen_fixup_micmute_led().
+
+It'll be a bit more changes and likely not fitting with 5.8, but the
+whole result will be more consistent.
 
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+thanks,
+
+Takashi
+
+
+> ---
+> v3:
+>  - Wording.
+>  - Properly prefix exported symbol.
+> v2:
+>  - Prevent platforms like Dell, Lenovoe and Huawei create double LED
+>    class devices.
+>  sound/pci/hda/hda_generic.c   |  7 ++++---
+>  sound/pci/hda/hda_generic.h   |  1 +
+>  sound/pci/hda/patch_realtek.c | 29 ++++++++++++++++-------------
+>  3 files changed, 21 insertions(+), 16 deletions(-)
+> 
+> diff --git a/sound/pci/hda/hda_generic.c b/sound/pci/hda/hda_generic.c
+> index f4e9d9445e18..e4f534e9a88c 100644
+> --- a/sound/pci/hda/hda_generic.c
+> +++ b/sound/pci/hda/hda_generic.c
+> @@ -3897,7 +3897,7 @@ enum {
+>  	MICMUTE_LED_FOLLOW_MUTE,
+>  };
+>  
+> -static void call_micmute_led_update(struct hda_codec *codec)
+> +void snd_hda_gen_call_micmute_led_update(struct hda_codec *codec)
+>  {
+>  	struct hda_gen_spec *spec = codec->spec;
+>  	unsigned int val;
+> @@ -3924,6 +3924,7 @@ static void call_micmute_led_update(struct hda_codec *codec)
+>  	if (spec->micmute_led.update)
+>  		spec->micmute_led.update(codec);
+>  }
+> +EXPORT_SYMBOL_GPL(snd_hda_gen_call_micmute_led_update);
+>  
+>  static void update_micmute_led(struct hda_codec *codec,
+>  			       struct snd_kcontrol *kcontrol,
+> @@ -3945,7 +3946,7 @@ static void update_micmute_led(struct hda_codec *codec,
+>  			spec->micmute_led.capture |= mask;
+>  		else
+>  			spec->micmute_led.capture &= ~mask;
+> -		call_micmute_led_update(codec);
+> +		snd_hda_gen_call_micmute_led_update(codec);
+>  	}
+>  }
+>  
+> @@ -3982,7 +3983,7 @@ static int micmute_led_mode_put(struct snd_kcontrol *kcontrol,
+>  	if (mode == spec->micmute_led.led_mode)
+>  		return 0;
+>  	spec->micmute_led.led_mode = mode;
+> -	call_micmute_led_update(codec);
+> +	snd_hda_gen_call_micmute_led_update(codec);
+>  	return 1;
+>  }
+>  
+> diff --git a/sound/pci/hda/hda_generic.h b/sound/pci/hda/hda_generic.h
+> index fb9f1a90238b..062be242339a 100644
+> --- a/sound/pci/hda/hda_generic.h
+> +++ b/sound/pci/hda/hda_generic.h
+> @@ -353,6 +353,7 @@ unsigned int snd_hda_gen_path_power_filter(struct hda_codec *codec,
+>  void snd_hda_gen_stream_pm(struct hda_codec *codec, hda_nid_t nid, bool on);
+>  int snd_hda_gen_fix_pin_power(struct hda_codec *codec, hda_nid_t pin);
+>  
+> +void snd_hda_gen_call_micmute_led_update(struct hda_codec *codec);
+>  int snd_hda_gen_add_micmute_led(struct hda_codec *codec,
+>  				void (*hook)(struct hda_codec *));
+>  void snd_hda_gen_fixup_micmute_led(struct hda_codec *codec,
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index 6d73f8beadb6..0587d1e96b19 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -4114,10 +4114,10 @@ static int micmute_led_set(struct led_classdev *led_cdev,
+>  			   enum led_brightness brightness)
+>  {
+>  	struct hda_codec *codec = dev_to_hda_codec(led_cdev->dev->parent);
+> -	struct alc_spec *spec = codec->spec;
+> +	struct hda_gen_spec *spec = codec->spec;
+>  
+> -	alc_update_gpio_led(codec, spec->gpio_mic_led_mask,
+> -			    spec->micmute_led_polarity, !!brightness);
+> +	spec->micmute_led.led_mode = !brightness;
+> +	snd_hda_gen_call_micmute_led_update(codec);
+>  	return 0;
+>  }
+>  
+> @@ -4126,7 +4126,17 @@ static struct led_classdev micmute_led_cdev = {
+>  	.max_brightness = 1,
+>  	.brightness_set_blocking = micmute_led_set,
+>  	.default_trigger = "audio-micmute",
+> +	.flags = LED_CORE_SUSPENDRESUME,
+>  };
+> +
+> +static void alc_register_micmute_led(struct hda_codec *codec)
+> +{
+> +		micmute_led_cdev.brightness = ledtrig_audio_get(LED_AUDIO_MICMUTE);
+> +		if (devm_led_classdev_register(&codec->core.dev, &micmute_led_cdev))
+> +			codec_warn(codec, "failed to register micmute LED\n");
+> +}
+> +#else
+> +static inline void alc_register_micmute_led(struct hda_codec *codec) {}
+>  #endif
+>  
+>  /* setup mute and mic-mute GPIO bits, add hooks appropriately */
+> @@ -4136,9 +4146,6 @@ static void alc_fixup_hp_gpio_led(struct hda_codec *codec,
+>  				  unsigned int micmute_mask)
+>  {
+>  	struct alc_spec *spec = codec->spec;
+> -#if IS_REACHABLE(CONFIG_LEDS_TRIGGER_AUDIO)
+> -	int err;
+> -#endif
+>  
+>  	alc_fixup_gpio(codec, action, mute_mask | micmute_mask);
+>  
+> @@ -4151,13 +4158,7 @@ static void alc_fixup_hp_gpio_led(struct hda_codec *codec,
+>  	if (micmute_mask) {
+>  		spec->gpio_mic_led_mask = micmute_mask;
+>  		snd_hda_gen_add_micmute_led(codec, alc_gpio_micmute_update);
+> -
+> -#if IS_REACHABLE(CONFIG_LEDS_TRIGGER_AUDIO)
+> -		micmute_led_cdev.brightness = ledtrig_audio_get(LED_AUDIO_MICMUTE);
+> -		err = devm_led_classdev_register(&codec->core.dev, &micmute_led_cdev);
+> -		if (err)
+> -			codec_warn(codec, "failed to register micmute LED\n");
+> -#endif
+> +		alc_register_micmute_led(codec);
+>  	}
+>  }
+>  
+> @@ -4305,6 +4306,7 @@ static void alc285_fixup_hp_coef_micmute_led(struct hda_codec *codec,
+>  		spec->mic_led_coefbit_on = 1<<13;
+>  		spec->mic_led_coefbit_off = 0;
+>  		snd_hda_gen_add_micmute_led(codec, alc_hp_cap_micmute_update);
+> +		alc_register_micmute_led(codec);
+>  	}
+>  }
+>  
+> @@ -4319,6 +4321,7 @@ static void alc236_fixup_hp_coef_micmute_led(struct hda_codec *codec,
+>  		spec->mic_led_coefbit_on = 2<<2;
+>  		spec->mic_led_coefbit_off = 1<<2;
+>  		snd_hda_gen_add_micmute_led(codec, alc_hp_cap_micmute_update);
+> +		alc_register_micmute_led(codec);
+>  	}
+>  }
+>  
+> -- 
+> 2.17.1
+> 

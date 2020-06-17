@@ -2,128 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 045051FC41F
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jun 2020 04:27:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57D6C1FC4BC
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jun 2020 05:34:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 61A1C1676;
-	Wed, 17 Jun 2020 04:27:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61A1C1676
+	by alsa0.perex.cz (Postfix) with ESMTPS id E9A2A167A;
+	Wed, 17 Jun 2020 05:33:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9A2A167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592360878;
-	bh=2eZY62/1f5LqRAs0zWwfybwkVvSsDQgYRuWVytMBGcw=;
-	h=From:To:Subject:Date:References:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=gWsFHcW0RzcSIL9lt4GvyUU/9JEx1s31eTWor2/J+SYJS8XPHxcCUY6oZm8rDKphq
-	 jS8jm7hBEZUFzj7IOWqvizhLq5EHytIBFUHugCeWDRIK44eyxorThowHb8aoRMQU6Z
-	 RF6NxDhccf//6bv+c/6l79Rm1L7h/XoTZuvZvHzc=
+	s=default; t=1592364849;
+	bh=HPVefkGvGMXpMEZtqKUTAHFjNCtMYqdXA3NU1SRqdZs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=gxSbvEAnbLC3M/hsOe3sFxaf2qUYUnbxKNnOhTkRg5idzhSypz8EF9nF3rX5p0iPK
+	 9bEIRa7BuIP4dSTYvFHtZ8bhpqcnDWI0LFv3jJap/rA0pk97JKpqdKI2ILiqsI2bkc
+	 d+WMFTBfQ5pCtbaIsnP3vZm1r93/B+NFcLVHP1Uk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83C4AF800EF;
-	Wed, 17 Jun 2020 04:26:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16BA4F80162;
+	Wed, 17 Jun 2020 05:32:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 90257F80171; Wed, 17 Jun 2020 04:26:14 +0200 (CEST)
+ id 462E0F80162; Wed, 17 Jun 2020 05:32:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
+ [IPv6:2607:f8b0:4864:20::842])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81475F80101
- for <alsa-devel@alsa-project.org>; Wed, 17 Jun 2020 04:26:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81475F80101
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5BEE2F80116
+ for <alsa-devel@alsa-project.org>; Wed, 17 Jun 2020 05:32:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BEE2F80116
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="HwXkUdEZ"
-Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
- by mailout3.samsung.com (KnoxPortal) with ESMTP id
- 20200617022559epoutp03726dc43f5ca176bffe145beedd8a68b5~ZM6ytMxbK3011230112epoutp03O
- for <alsa-devel@alsa-project.org>; Wed, 17 Jun 2020 02:25:59 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com
- 20200617022559epoutp03726dc43f5ca176bffe145beedd8a68b5~ZM6ytMxbK3011230112epoutp03O
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1592360760;
- bh=XN4zHQ5s2L7w5R9LO9A/kCj0MXyiPg2YWme+Zkr0eyE=;
- h=From:To:Cc:Subject:Date:References:From;
- b=HwXkUdEZsRz42Lufa0tj76lWy1pebl6vcxQfBr6KF0EXD8pUq4ZhCx2eKPZfGNi2m
- 5+UljwnuB+omixZEdX8FmPK/mdK/+j29X5GRByxYCPnAlPMNmcp2KOKADQjl06PTIr
- OA6VL1RClbz7nwRto/js3TQ6ClLCpUyny0qEQV3k=
-Received: from epsnrtp1.localdomain (unknown [182.195.42.162]) by
- epcas2p3.samsung.com (KnoxPortal) with ESMTP id
- 20200617022559epcas2p3e57820c4e80a11d8c6636624c639ac04~ZM6ycqWU41758317583epcas2p33;
- Wed, 17 Jun 2020 02:25:59 +0000 (GMT)
-Received: from epsmges2p1.samsung.com (unknown [182.195.40.188]) by
- epsnrtp1.localdomain (Postfix) with ESMTP id 49mppF0nTmzMqYlt; Wed, 17 Jun
- 2020 02:25:57 +0000 (GMT)
-Received: from epcas2p3.samsung.com ( [182.195.41.55]) by
- epsmges2p1.samsung.com (Symantec Messaging Gateway) with SMTP id
- B7.50.19322.33F79EE5; Wed, 17 Jun 2020 11:25:55 +0900 (KST)
-Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
- epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
- 20200617022554epcas2p214a49f03a15e504d8faa28148e06e796~ZM6uAxKd41821918219epcas2p2a;
- Wed, 17 Jun 2020 02:25:54 +0000 (GMT)
-Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
- epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20200617022554epsmtrp160c0e4729ed899c86612c41e341b67fd~ZM6uAQf1P1358113581epsmtrp1l;
- Wed, 17 Jun 2020 02:25:54 +0000 (GMT)
-X-AuditID: b6c32a45-797ff70000004b7a-e1-5ee97f332cb8
-Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
- epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 54.6A.08382.23F79EE5; Wed, 17 Jun 2020 11:25:54 +0900 (KST)
-Received: from ubuntu.dsn.sec.samsung.com (unknown [12.36.155.120]) by
- epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20200617022554epsmtip2f099c75e3c46c6d85a92d02ac3be6eb9~ZM6tyelGd0063400634epsmtip2K;
- Wed, 17 Jun 2020 02:25:54 +0000 (GMT)
-From: JaeHun Jung <jh0801.jung@samsung.com>
-To: tiwai@suse.de
-Subject: [PATCH] ANDROID: sound: usb: Add vendor's hooking interface
-Date: Wed, 17 Jun 2020 11:18:24 +0900
-Message-Id: <1592360304-29621-1-git-send-email-jh0801.jung@samsung.com>
-X-Mailer: git-send-email 2.7.4
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrNKsWRmVeSWpSXmKPExsWy7bCmua5x/cs4g8v3lSyuXDzEZHH34Q8W
- i8u75rBZvNz8hsmBxWPD5yY2j74tqxg9Np+u9vi8SS6AJSrHJiM1MSW1SCE1Lzk/JTMv3VbJ
- OzjeOd7UzMBQ19DSwlxJIS8xN9VWycUnQNctMwdoo5JCWWJOKVAoILG4WEnfzqYov7QkVSEj
- v7jEVim1ICWnwNCwQK84Mbe4NC9dLzk/18rQwMDIFKgyISdj64xZzAVN9hWvP65ib2CcatLF
- yMkhIWAi8fDsAbYuRi4OIYEdjBLtk9YyQzifGCWuv2xmhHC+MUr0T29nhmk50zQfKrGXUeLm
- 94VQLT8YJebu7ACrYhPQltg3ZxE7iC0iICixrWEuC4jNLJAmcebDFiCbg0NYwEVi1k1hkDCL
- gKpE592LYK28Au4S7VMWskEsk5O4ea4TbL6EQD+7xO1/b5kgEi4Sy+a8YYGwhSVeHd/CDmFL
- Sbzsb4Oy6yVOb1wH1dzDKPHxxi6oqcYSs561M4IcwSygKbF+lz6IKSGgLHHkFtSZfBIdh/+y
- Q4R5JTrahCAaVSUONt6E2iot8a33HSOE7SGxZNk1sPOFBGIljt96zDSBUXYWwvwFjIyrGMVS
- C4pz01OLjQoMkSNpEyM4FWm57mCc/PaD3iFGJg7GQ4wSHMxKIrzOv1/ECfGmJFZWpRblxxeV
- 5qQWH2I0BYbXRGYp0eR8YDLMK4k3NDUyMzOwNLUwNTOyUBLnzVW8ECckkJ5YkpqdmlqQWgTT
- x8TBKdXAJPP02DmFrfzv2TdEZr481VuTxFzxcebl5iz9opQnt0qLzpzh8rz0UoxNPPTpNIG6
- 2G6fjZlT7bY8Pn9TYXrCTCFdu6vLH53OSJ+7aP/3u4856qY7SB1dXHH+n2heySa57ya+74Uk
- Jj3amXzdfd6xTe52Oz4uezBJda2TGlv111siX3+emhde8i7jbLFVkafbik11qvOs1UOWnmCf
- aZAc9sLlMtuUKSffPU11j9pX9vq0sELbJ7trLh2ZDvufsRg6rTG/UhWbrJBb0HBhZtsPueJX
- 5ukf4l4LBhY2XwtR/vo//POay5e8RXdOCHrTt5THVXTS28xjmYfzX5V1Rm/gmRG+8fj/tdsL
- N2l7/XmTzKjEUpyRaKjFXFScCACTmsQJzgMAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrJJMWRmVeSWpSXmKPExsWy7bCSvK5R/cs4g58bDSyuXDzEZHH34Q8W
- i8u75rBZvNz8hsmBxWPD5yY2j74tqxg9Np+u9vi8SS6AJYrLJiU1J7MstUjfLoErY+uMWcwF
- TfYVrz+uYm9gnGrSxcjJISFgInGmaT5jFyMXh5DAbkaJDUd6GCES0hI7O6cyQdjCEvdbjrBC
- FH1jlGj72cQCkmAT0JbYN2cRO4gtIiAosa1hLlicWSBDYteOk0A2B4ewgIvErJvCIGEWAVWJ
- zrsXmUFsXgF3ifYpC9kg5stJ3DzXyTyBkWcBI8MqRsnUguLc9NxiwwLDvNRyveLE3OLSvHS9
- 5PzcTYzg0NDS3MG4fdUHvUOMTByMhxglOJiVRHidf7+IE+JNSaysSi3Kjy8qzUktPsQozcGi
- JM57o3BhnJBAemJJanZqakFqEUyWiYNTqoEpedr9K03ftv7t0t2l7/Bdga2XNdy+dtEjEfW2
- Qz+fb0gy/ndCZOUq8ftMF491+9VHPY1/nbPp7OzFf9eHF7jNvj/zyfwirTI9t9snU6LP7Hzy
- +qH1IsaFclnyXAkzvzHUtYU8aZOod/RT5uHvioiuP7jXdM00mfW7pl2c/+/bopMls7kuebyT
- W7d54ZxCj88MwmGJN05vY7tv9EJD3Gjhf778jqk9knsDl84ok+1a9ZTn1Ls83SyX4B5tzrZX
- TR3pb2fOcf+wR+J8ML9mjOkk1gOJTaWpL59u3yfRd7viilyJf96psnNCQlb7V1xWyjYtibp+
- 9J/bqzk1S1nZZijLSgcEGfkUX5zkJCZVfe6NEktxRqKhFnNRcSIAPMnYCXwCAAA=
-X-CMS-MailID: 20200617022554epcas2p214a49f03a15e504d8faa28148e06e796
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20200617022554epcas2p214a49f03a15e504d8faa28148e06e796
-References: <CGME20200617022554epcas2p214a49f03a15e504d8faa28148e06e796@epcas2p2.samsung.com>
-Cc: alsa-devel@alsa-project.org, JaeHun Jung <jh0801.jung@samsung.com>,
- linux-kernel@vger.kernel.org
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ftQAHhnW"
+Received: by mail-qt1-x842.google.com with SMTP id d27so505760qtg.4
+ for <alsa-devel@alsa-project.org>; Tue, 16 Jun 2020 20:32:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=nzA+ElcDbnifqfzX8lfOg2mPfYscDQJ4/Xb5PE+7lMg=;
+ b=ftQAHhnW0hzD4YpGdWc0LllO2OMD/jfP3C4MQqdKOT5C7eeHNFuf4K+O4toru/tGfa
+ M0ivB23w/gyeywiGVuCZ3kCavIsEUJxW2YyS/g0DOG4+iW+DvSMZLCj5gblEB0Co3h93
+ O5KmfqxvIQC+AZFf7dtDsayhkTtx4Gjtpik3xLJbdQ47I/AO2eQqNDg04oYiDPxo4zF5
+ wvphcCLw4AsFpffOfDBt2aD5MeJ8v8EDC6Zz/XhkBL3rvmf7ktHDmE4tH4D8JkXS6fU2
+ qvJz80e1pU8aBXdOeY3q4NtoHG9yuQorBt2J57jYGQumcjXumzorN4FSkwDG8AlEhqBC
+ 2MgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=nzA+ElcDbnifqfzX8lfOg2mPfYscDQJ4/Xb5PE+7lMg=;
+ b=OO7q+T8Wp5Ps+uweQvCF0w3gxyktY9YwLp5nJYPkvA453q/Wk3wyFa93BbkEcuuDLX
+ FKqVNW8kkeU5r2aOCtfTMQThRFJCYnmnx48/NSwdlXgds2m8NruFn8M8btBzcvYrBzw9
+ 77rwgK30x41SrqcqTIx4oR8gjjacwwYHUDBDH/QivPcoBkqsqicHmirairWrtCHg2CuD
+ t9O125P4A06b9a77cCQ2n+MIVCKPJ1XLlq/rFBkXDShyeMKWFqnS9YwJlvRdHqFYu5sc
+ a9PsEgWnL8cek43XBTIym6w46CJDEFQuujDo3BUMjPP9awWuw81GjpEfnV6FGBc6NbyL
+ bAEw==
+X-Gm-Message-State: AOAM533ZBFb/kQyORK274F4XSj3s+t9dRzokWdRs1IkQkffj4ecj9HCJ
+ Xpkiw45seuegHiQEh2DO67ZMqGNjpu6m1bA6NJs=
+X-Google-Smtp-Source: ABdhPJyDsNi9Q52RPZTC9rfPswpXtaMmRaUOjgRU4MMGl6dorrqU82mtSiCqR9s3ZZfHZZvEgOKG74qt9+Wv16UivMo=
+X-Received: by 2002:ac8:f47:: with SMTP id l7mr24311236qtk.292.1592364729462; 
+ Tue, 16 Jun 2020 20:32:09 -0700 (PDT)
+MIME-Version: 1.0
+References: <1592292637-25734-1-git-send-email-shengjiu.wang@nxp.com>
+ <1592292637-25734-2-git-send-email-shengjiu.wang@nxp.com>
+ <20200617004845.GB19896@Asurada-Nvidia>
+In-Reply-To: <20200617004845.GB19896@Asurada-Nvidia>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Wed, 17 Jun 2020 11:31:58 +0800
+Message-ID: <CAA+D8AN_Djr_OTXBWJbymtUY7pjTV_VKKiqwRBqQ8cxo4USgCg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ASoC: fsl-asoc-card: Add MQS support
+To: Nicolin Chen <nicoleotsuka@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -139,238 +101,144 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In mobile, a co-processor is used when using USB audio
-to improve power consumption.
-hooking is required for sync-up when operating
-the co-processor. So register call-back function.
-The main operation of the call-back function is as follows:
-- Initialize the co-processor by transmitting data
-  when initializing.
-- Change the co-processor setting value through
-  the interface function.
-- Configure sampling rate
-- pcm open/close
+On Wed, Jun 17, 2020 at 8:50 AM Nicolin Chen <nicoleotsuka@gmail.com> wrote:
+>
+> On Tue, Jun 16, 2020 at 03:30:37PM +0800, Shengjiu Wang wrote:
+> > The MQS codec isn't an i2c device, so add a new platform device for it.
+> >
+> > MQS only support playback, so add a new audio map.
+> >
+> > Add there maybe "model" property or no "audio-routing" property insertions
+>
+> "Add" => "And"
+>
+> > devicetree, so add some enhancement for these two property.
+> >
+> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > ---
+> >  sound/soc/fsl/fsl-asoc-card.c | 70 ++++++++++++++++++++++++++---------
+> >  1 file changed, 52 insertions(+), 18 deletions(-)
+> >
+> > diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
+> > index 00be73900888..2ac8cb9ddd10 100644
+> > --- a/sound/soc/fsl/fsl-asoc-card.c
+> > +++ b/sound/soc/fsl/fsl-asoc-card.c
+>
+> > @@ -482,6 +489,7 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
+> >  {
+> >       struct device_node *cpu_np, *codec_np, *asrc_np;
+> >       struct device_node *np = pdev->dev.of_node;
+> > +     struct platform_device *codec_pdev = NULL; /* used for non i2c device*/
+>
+> Having both codec_pdev and codec_dev duplicates things. Actually
+> only a couple of places really need "codec_dev" -- most of them
+> need codec_dev->dev pointer instead. So we could have a cleanup:
+>
+> -       struct i2c_client *codec_dev;
+> +       struct device *codec_dev = NULL;
+>
+> > @@ -512,10 +520,13 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
+> >       }
+> >
+> >       codec_np = of_parse_phandle(np, "audio-codec", 0);
+> > -     if (codec_np)
+> > +     if (codec_np) {
+> >               codec_dev = of_find_i2c_device_by_node(codec_np);
+> > -     else
+> > +             if (!codec_dev)
+> > +                     codec_pdev = of_find_device_by_node(codec_np);
+> > +     } else {
+> >               codec_dev = NULL;
+> > +     }
+>
+> Here can have something like (feel free to simplify):
+>
+>         if (codec_np) {
+>                 struct platform_device *codec_pdev;
+>                 struct i2c_client *codec_i2c;
+>
+>                 codec_i2c = of_find_i2c_device_by_node(codec_np);
+>                 if (codec_i2c)
+>                         codec_dev = &codec_i2c->dev;
+>
+>                 if (!codec_dev) {
+>                         codec_pdev = of_find_device_by_node(codec_np);
+>                         codec_dev = &codec_pdev->dev;
+>                 }
+>         }
+> >       asrc_np = of_parse_phandle(np, "audio-asrc", 0);
+> >       if (asrc_np)
+> > @@ -525,6 +536,13 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
+> >       if (codec_dev) {
+> >               struct clk *codec_clk = clk_get(&codec_dev->dev, NULL);
+>
+> Then here:
+>
+> -               struct clk *codec_clk = clk_get(&codec_dev->dev, NULL);
+> +               struct clk *codec_clk = clk_get(codec_dev, NULL);
+>
+> > @@ -538,6 +556,11 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
+> >       /* Assign a default DAI format, and allow each card to overwrite it */
+> >       priv->dai_fmt = DAI_FMT_BASE;
+> >
+> > +     memcpy(priv->dai_link, fsl_asoc_card_dai,
+> > +            sizeof(struct snd_soc_dai_link) * ARRAY_SIZE(priv->dai_link));
+>
+> > @@ -573,13 +596,25 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
+> >               codec_dai_name = "ac97-hifi";
+> >               priv->card.set_bias_level = NULL;
+> >               priv->dai_fmt = SND_SOC_DAIFMT_AC97;
+> > +             priv->card.dapm_routes = audio_map_ac97;
+> > +             priv->card.num_dapm_routes = ARRAY_SIZE(audio_map_ac97);
+> > +     } else if (of_device_is_compatible(np, "fsl,imx-audio-mqs")) {
+> > +             codec_dai_name = "fsl-mqs-dai";
+> > +             priv->card.set_bias_level = NULL;
+> > +             priv->dai_fmt = SND_SOC_DAIFMT_LEFT_J |
+> > +                             SND_SOC_DAIFMT_CBS_CFS |
+> > +                             SND_SOC_DAIFMT_NB_NF;
+> > +             priv->dai_link[1].dpcm_playback = 1;
+> > +             priv->dai_link[2].dpcm_playback = 1;
+>
+> dpcm_playback = 1? That's the default value in fsl_asoc_card_dai.
 
-Bug: 156315379
+ah,  should be dpcm_capture = 0.
 
-Change-Id: I32e1dd408e64aaef68ee06c480c4b4d4c95546dc
-Signed-off-by: JaeHun Jung <jh0801.jung@samsung.com>
----
- sound/usb/card.c     | 16 ++++++++++++++++
- sound/usb/card.h     |  1 +
- sound/usb/clock.c    |  5 +++++
- sound/usb/pcm.c      | 33 +++++++++++++++++++++++++++++++++
- sound/usb/usbaudio.h | 30 ++++++++++++++++++++++++++++++
- 5 files changed, 85 insertions(+)
+>
+> > @@ -601,19 +636,18 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
+> >               priv->cpu_priv.sysclk_id[0] = FSL_SAI_CLK_MAST1;
+> >       }
+> >
+> > -     snprintf(priv->name, sizeof(priv->name), "%s-audio",
+> > -              fsl_asoc_card_is_ac97(priv) ? "ac97" :
+> > -              codec_dev->name);
+> > -
+> >       /* Initialize sound card */
+> >       priv->pdev = pdev;
+> >       priv->card.dev = &pdev->dev;
+> > -     priv->card.name = priv->name;
+> > +     ret = snd_soc_of_parse_card_name(&priv->card, "model");
+> > +     if (ret) {
+> > +             snprintf(priv->name, sizeof(priv->name), "%s-audio",
+> > +                      fsl_asoc_card_is_ac97(priv) ? "ac97" :
+> > +                      (codec_dev ? codec_dev->name : codec_pdev->name));
+>
+> We can just use dev_name() if codec_dev is struct device *
+> Or having a codec_dev_name to cache codec_pdev/i2c->name.
+>
+> > -     ret = snd_soc_of_parse_audio_routing(&priv->card, "audio-routing");
+> > -     if (ret) {
+> > -             dev_err(&pdev->dev, "failed to parse audio-routing: %d\n", ret);
+> > -             goto asrc_fail;
+> > +     if (of_property_read_bool(np, "audio-routing")) {
+> > +             ret = snd_soc_of_parse_audio_routing(&priv->card, "audio-routing");
+> > +             if (ret) {
+> > +                     dev_err(&pdev->dev, "failed to parse audio-routing: %d\n", ret);
+> > +                     goto asrc_fail;
+>
+> Hmm...audio-routing is a required property in DT binding doc.
+> So you might need to update that too.
 
-diff --git a/sound/usb/card.c b/sound/usb/card.c
-index fd6fd17..2f3fa14 100644
---- a/sound/usb/card.c
-+++ b/sound/usb/card.c
-@@ -111,6 +111,7 @@ MODULE_PARM_DESC(skip_validation, "Skip unit descriptor validation (default: no)
- static DEFINE_MUTEX(register_mutex);
- static struct snd_usb_audio *usb_chip[SNDRV_CARDS];
- static struct usb_driver usb_audio_driver;
-+struct snd_usb_audio_vendor_ops *usb_audio_ops;
- 
- /*
-  * disconnect streams
-@@ -210,6 +211,12 @@ static int snd_usb_create_stream(struct snd_usb_audio *chip, int ctrlif, int int
- 	return 0;
- }
- 
-+void snd_set_vender_interface(struct snd_usb_audio_vendor_ops *vendor_ops)
-+{
-+	usb_audio_ops = vendor_ops;
-+}
-+EXPORT_SYMBOL_GPL(snd_set_vender_interface);
-+
- /*
-  * parse audio control descriptor and create pcm/midi streams
-  */
-@@ -598,6 +605,9 @@ static int usb_audio_probe(struct usb_interface *intf,
- 	if (err < 0)
- 		return err;
- 
-+	if (usb_audio_ops && usb_audio_ops->vendor_conn)
-+		usb_audio_ops->vendor_conn(intf, dev);
-+
- 	/*
- 	 * found a config.  now register to ALSA
- 	 */
-@@ -653,6 +663,9 @@ static int usb_audio_probe(struct usb_interface *intf,
- 	}
- 	dev_set_drvdata(&dev->dev, chip);
- 
-+	if (usb_audio_ops && usb_audio_ops->vendor_usb_add_ctls)
-+		usb_audio_ops->vendor_usb_add_ctls(chip, 0);
-+
- 	/*
- 	 * For devices with more than one control interface, we assume the
- 	 * first contains the audio controls. We might need a more specific
-@@ -737,6 +750,9 @@ static void usb_audio_disconnect(struct usb_interface *intf)
- 
- 	card = chip->card;
- 
-+	if (usb_audio_ops && usb_audio_ops->vendor_disc)
-+		usb_audio_ops->vendor_disc();
-+
- 	mutex_lock(&register_mutex);
- 	if (atomic_inc_return(&chip->shutdown) == 1) {
- 		struct snd_usb_stream *as;
-diff --git a/sound/usb/card.h b/sound/usb/card.h
-index 395403a..a55bb4c 100644
---- a/sound/usb/card.h
-+++ b/sound/usb/card.h
-@@ -175,5 +175,6 @@ struct snd_usb_stream {
- 	struct snd_usb_substream substream[2];
- 	struct list_head list;
- };
-+void snd_set_vender_interface(struct snd_usb_audio_vendor_ops *vendor_ops);
- 
- #endif /* __USBAUDIO_CARD_H */
-diff --git a/sound/usb/clock.c b/sound/usb/clock.c
-index b118cf9..0ceeccb 100644
---- a/sound/usb/clock.c
-+++ b/sound/usb/clock.c
-@@ -642,8 +642,13 @@ static int set_sample_rate_v2v3(struct snd_usb_audio *chip, int iface,
- 	 * interface is active. */
- 	if (rate != prev_rate) {
- 		usb_set_interface(dev, iface, 0);
-+		if (usb_audio_ops && usb_audio_ops->vendor_set_intf)
-+			usb_audio_ops->vendor_set_intf(dev, alts, iface, 0);
- 		snd_usb_set_interface_quirk(dev);
- 		usb_set_interface(dev, iface, fmt->altsetting);
-+		if (usb_audio_ops && usb_audio_ops->vendor_set_intf)
-+			usb_audio_ops->vendor_set_intf(dev, alts, iface,
-+					fmt->altsetting);
- 		snd_usb_set_interface_quirk(dev);
- 	}
- 
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index a4e4064..6cdacac 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -134,6 +134,9 @@ static struct audioformat *find_format(struct snd_usb_substream *subs)
- 			found = fp;
- 			cur_attr = attr;
- 		}
-+
-+		if (usb_audio_ops && usb_audio_ops->vendor_pcm_binterval)
-+			usb_audio_ops->vendor_pcm_binterval(fp, found, &cur_attr, &attr);
- 	}
- 	return found;
- }
-@@ -568,6 +571,9 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
- 		}
- 		dev_dbg(&dev->dev, "setting usb interface %d:%d\n",
- 			fmt->iface, fmt->altsetting);
-+		if (usb_audio_ops && usb_audio_ops->vendor_set_pcm_intf)
-+			usb_audio_ops->vendor_set_pcm_intf(dev, fmt->iface,
-+					fmt->altsetting, subs->direction);
- 		snd_usb_set_interface_quirk(dev);
- 	}
- 
-@@ -891,6 +897,15 @@ static int snd_usb_pcm_prepare(struct snd_pcm_substream *substream)
- 	struct usb_interface *iface;
- 	int ret;
- 
-+	if (usb_audio_ops && usb_audio_ops->vendor_set_pcmbuf) {
-+		ret = usb_audio_ops->vendor_set_pcmbuf(subs->dev);
-+
-+		if (ret < 0) {
-+			dev_err(&subs->dev->dev, "pcm buf transfer failed\n");
-+			return ret;
-+		}
-+	}
-+
- 	if (! subs->cur_audiofmt) {
- 		dev_err(&subs->dev->dev, "no format is specified!\n");
- 		return -ENXIO;
-@@ -924,6 +939,15 @@ static int snd_usb_pcm_prepare(struct snd_pcm_substream *substream)
- 		if (ret < 0)
- 			goto unlock;
- 
-+		if (usb_audio_ops && usb_audio_ops->vendor_set_rate) {
-+			subs->need_setup_ep = false;
-+			usb_audio_ops->vendor_set_rate(
-+					subs->cur_audiofmt->iface,
-+					subs->cur_rate,
-+					subs->cur_audiofmt->altsetting);
-+			goto unlock;
-+		}
-+
- 		ret = configure_endpoint(subs);
- 		if (ret < 0)
- 			goto unlock;
-@@ -1333,6 +1357,9 @@ static int snd_usb_pcm_open(struct snd_pcm_substream *substream)
- 	struct snd_usb_substream *subs = &as->substream[direction];
- 	int ret;
- 
-+	if (usb_audio_ops && usb_audio_ops->vendor_pcm_con)
-+		usb_audio_ops->vendor_pcm_con(true, direction);
-+
- 	subs->interface = -1;
- 	subs->altset_idx = 0;
- 	runtime->hw = snd_usb_hardware;
-@@ -1361,12 +1388,18 @@ static int snd_usb_pcm_close(struct snd_pcm_substream *substream)
- 	struct snd_usb_substream *subs = &as->substream[direction];
- 	int ret;
- 
-+	if (usb_audio_ops && usb_audio_ops->vendor_pcm_con)
-+		usb_audio_ops->vendor_pcm_con(false, direction);
-+
- 	snd_media_stop_pipeline(subs);
- 
- 	if (!as->chip->keep_iface &&
- 	    subs->interface >= 0 &&
- 	    !snd_usb_lock_shutdown(subs->stream->chip)) {
- 		usb_set_interface(subs->dev, subs->interface, 0);
-+		if (usb_audio_ops && usb_audio_ops->vendor_set_pcm_intf)
-+			usb_audio_ops->vendor_set_pcm_intf(subs->dev,
-+					subs->interface, 0, direction);
- 		subs->interface = -1;
- 		ret = snd_usb_pcm_change_state(subs, UAC3_PD_STATE_D1);
- 		snd_usb_unlock_shutdown(subs->stream->chip);
-diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
-index 1c892c7..a2fd8a4 100644
---- a/sound/usb/usbaudio.h
-+++ b/sound/usb/usbaudio.h
-@@ -124,4 +124,34 @@ void snd_usb_unlock_shutdown(struct snd_usb_audio *chip);
- extern bool snd_usb_use_vmalloc;
- extern bool snd_usb_skip_validation;
- 
-+/* for vender function mapping */
-+extern struct snd_usb_audio_vendor_ops *usb_audio_ops;
-+
-+/* USB audio interface function for audio core */
-+struct snd_usb_audio_vendor_ops {
-+	/* Set descriptors and memory map */
-+	void (*vendor_conn)(struct usb_interface *intf,
-+			struct usb_device *udev);
-+	/* Set disconnection */
-+	void (*vendor_disc)(void);
-+	/* Set interface info and setting value */
-+	int (*vendor_set_intf)(struct usb_device *udev,
-+			struct usb_host_interface *alts, int iface, int alt);
-+	/* Set sample rate */
-+	int (*vendor_set_rate)(int iface, int rate, int alt);
-+	/* Alloc pcm buffer */
-+	int (*vendor_set_pcmbuf)(struct usb_device *udev);
-+	/* Set pcm interface */
-+	int (*vendor_set_pcm_intf)(struct usb_device *udev,
-+			int iface, int alt, int direction);
-+	/* informed whether pcm open/close to vendor */
-+	void (*vendor_pcm_con)(int onoff, int direction);
-+	/* set datainterval */
-+	void (*vendor_pcm_binterval)(void *fp, void *found,
-+			int *cur_attr, int *attr);
-+	/* control USB F/W */
-+	int (*vendor_usb_add_ctls)(struct snd_usb_audio *chip,
-+				unsigned long private_value);
-+};
-+
- #endif /* __USBAUDIO_H */
--- 
-2.7.4
+will update them in v2.
 
+best regards
+wang shengjiu

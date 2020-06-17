@@ -2,72 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4E021FCE17
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jun 2020 15:09:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DFB81FCE41
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jun 2020 15:19:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66C8D1678;
-	Wed, 17 Jun 2020 15:08:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66C8D1678
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2ADC71676;
+	Wed, 17 Jun 2020 15:18:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2ADC71676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592399342;
-	bh=hopque5QcQfJ8BSHI1M4s1vc9WOy9B0n7nLcm0pEyFE=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1592399946;
+	bh=VGDiAQdKMkO59ASRm6dRJs/1fnpHo1bWsKSaNyTv0Fg=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jieFuv4LdS0y/wn+xdymFCyy1iPEHiABJI1ecF0Qad26g8cqxox07iMbvB742Lg5s
-	 Q/k3i9VNWqfvB20qS96j7/oesLxnmtaJA3sOb/LKxblKtJZkK3b0RO//xzkOVJfMGz
-	 b7/5kqwNQIQ7owmHJ8aQrQ9b+sTOzjQkft7BUGdU=
+	b=owbnZGQrYNjoaaWljh15UqEAjNQJcf558v9Oo6tDw5M2LwyCWrLbaj/yE8hFkKbp3
+	 gSGqpglZ/hrSO3NC7/F2y00DnnyldUmAe0r5XqjLgNxo/GtBZCAqChlot1IuAQJzjJ
+	 Kox5wli0ACeaIeDWN5Z+UorPv30aLHdi+8EcT8z8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6363BF800EF;
-	Wed, 17 Jun 2020 15:07:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 35179F80162;
+	Wed, 17 Jun 2020 15:17:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DD0C9F80171; Wed, 17 Jun 2020 15:07:14 +0200 (CEST)
+ id D4F95F80171; Wed, 17 Jun 2020 15:17:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Level: ***
+X-Spam-Status: No, score=4.0 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ PRX_BODY_16,SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5D29FF800EF
- for <alsa-devel@alsa-project.org>; Wed, 17 Jun 2020 15:07:07 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 7F435A0040;
- Wed, 17 Jun 2020 15:07:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 7F435A0040
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1592399224; bh=SRK0dTFvmaslRCUdWj/+AqfpzbmcL2h/MLGdEGjYotM=;
- h=Subject:To:References:Cc:From:Date:In-Reply-To:From;
- b=PuNaQwjdLkb+EN18rL46f4YqGjEwAM8tvabfBkEBJF7KLytYk2IDdixCw6N9z/ugy
- 5j8KibwTOH3Y691BlWabkdFz4jMWpvIFJNFJJJ6PR7ovc+dsS95beQ/zbs+QVG/YFZ
- ePLTGbVdfPm/3r5DX1DJFFSgclitgoyyEan+GulY=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Wed, 17 Jun 2020 15:07:02 +0200 (CEST)
-Subject: Re: Move ownership for repositories in Github related to
- gobject-introspection
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-References: <20200617080114.GA265611@workstation>
- <26bcc126-6688-5996-b6ad-3288bd2facd8@perex.cz>
- <20200617125716.GA273906@workstation>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <350b8bbe-afed-294f-a96a-0caf99ecb567@perex.cz>
-Date: Wed, 17 Jun 2020 15:07:02 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 1EF68F80101
+ for <alsa-devel@alsa-project.org>; Wed, 17 Jun 2020 15:17:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EF68F80101
 MIME-Version: 1.0
-In-Reply-To: <20200617125716.GA273906@workstation>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Cc: ALSA development <alsa-devel@alsa-project.org>
+From: GitHub pull_request - edited <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1592399833060861111-webhooks-bot@alsa-project.org>
+References: <1592399833060861111-webhooks-bot@alsa-project.org>
+Subject: pcm: direct: correctly apply existing interval settings
+Message-Id: <20200617131721.D4F95F80171@alsa1.perex.cz>
+Date: Wed, 17 Jun 2020 15:17:21 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,65 +60,160 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 17. 06. 20 v 14:57 Takashi Sakamoto napsal(a):
-> Hi,
-> 
-> On Wed, Jun 17, 2020 at 01:15:30PM +0200, Jaroslav Kysela wrote:
->> Dne 17. 06. 20 v 10:01 Takashi Sakamoto napsal(a):
->>> Hi Jaroslav,
->>>
->>> Now I'm going to prepare for official release of alsa-gobject v0.1.0.
->>>
->>> At the same time, Rust binding is also OK to be released. Currently It's in
->>> my private repository[1] but I think it better to put under alsa-project
->>> project account in Github.
->>>
->>> Github supports transferring ownership, and this time I'd like to utilize the
->>> feature if you don't mind it. After transferring. some arrangement for the
->>> repository are perhaps required; e.g. to put it to 'gobject-introspection'
->>> team[3]. Would I ask it to you?
->>>
->>> Additionally, I'd like to move repositories for libhinawa[4][5][6] as well,
->>> which is required to make up control service in user space for devices
->>> supported by ALSA firewire stack[7].
->>
->> Hi,
->>
->>    I have no objections against that proposal. I will try to configure the
->> repositories when transferred to the alsa-project organization.
-> 
-> Thanks for your approval. Just now I transferred below four repositories
-> from my account to alsa-project account:
-> 
->   * https://github.com/alsa-project/alsa-gobject-rs
->   * https://github.com/alsa-project/libhinawa
->   * https://github.com/alsa-project/libhinawa-docs
->   * https://github.com/alsa-project/hinawa-rs
-> 
-> Fortunately I can select the 'gobject-introspection' team as destination
-> of the transferring, but I'm grant for read-only access. Would I request
-> you to grant my account Admin (or Writeable) right?
-> 
-> And you made 'Hinawa' team and put libhinawa/hinawa-rs repositories into
-> it. But in my preference they're in 'gobject-introspection' team as well
-> as alsa-gobject repositories.
+alsa-project/alsa-lib pull request #62 was edited from aditpape:
 
-I created new 'Hinawa' team and changed the priviledges for all new repos 
-appropriately.
+Feature 'variable periodsize' allows to extend user period size up to buffer_size/2 independent of slave period.
+On enlargement of the settings for period_time.max and period_size.max the setting for openmax was not updated.
 
-If something is wrong, let me know.
+This lead to the effect, that if the slave period itself had openmax set it was still set on the extended size.
+Configuration of a period matching half buffer size was thus rejected.
 
-				Thanks,
-					Jaroslav
+Example for failure: period size of 384 (half buffer size) is requested which is rejected and rounded down to 352:
 
-> 
-> 
-> Thanks
-> 
-> Takashi Sakamoto
-> 
+<pre>
+root@oracle-virtualbox:~# arecord -DDSNOOP_32 -r48000 -fS16_LE -c2 --period-size=382 -vv --dump-hw-params > /dev/null
+Recording WAVE 'stdin' : Signed 16 bit Little Endian, Rate 48000 Hz, Stereo
+HW Params of device "DSNOOP_32":
+--------------------
+ACCESS:  MMAP_INTERLEAVED MMAP_NONINTERLEAVED RW_INTERLEAVED RW_NONINTERLEAVED
+FORMAT:  S16_LE
+SUBFORMAT:  STD
+SAMPLE_BITS: 16
+FRAME_BITS: 32
+CHANNELS: 2
+RATE: 48000
+PERIOD_TIME: (666 7334)
+PERIOD_SIZE: [32 352]
+PERIOD_BYTES: [128 1408]
+PERIODS: [2 24]
+BUFFER_TIME: (1333 16000]
+BUFFER_SIZE: [64 768]
+BUFFER_BYTES: [256 3072]
+TICK_TIME: ALL
+--------------------
+Direct Snoop PCM
+Its setup is:
+  stream       : CAPTURE
+  access       : RW_INTERLEAVED
+  format       : S16_LE
+  subformat    : STD
+  channels     : 2
+  rate         : 48000
+  exact rate   : 48000 (48000/1)
+  msbits       : 16
+  buffer_size  : 704
+  period_size  : 352
+  period_time  : 7333
+  tstamp_mode  : NONE
+  tstamp_type  : MONOTONIC
+  period_step  : 1
+  avail_min    : 352
+  period_event : 0
+  start_threshold  : 1
+  stop_threshold   : 704
+  silence_threshold: 0
+  silence_size : 0
+  boundary     : 6341068275337658368
+Hardware PCM card 0 'Intel 82801AA-ICH' device 0 subdevice 0
+Its setup is:
+  stream       : CAPTURE
+  access       : MMAP_INTERLEAVED
+  format       : S16_LE
+  subformat    : STD
+  channels     : 2
+  rate         : 48000
+  exact rate   : 48000 (48000/1)
+  msbits       : 16
+  buffer_size  : 768
+  period_size  : 32
+  period_time  : 666
+  tstamp_mode  : ENABLE
+  tstamp_type  : MONOTONIC
+  period_step  : 1
+  avail_min    : 32
+  period_event : 0
+  start_threshold  : 1
+  stop_threshold   : 6917529027641081856
+  silence_threshold: 0
+  silence_size : 0
+  boundary     : 6917529027641081856
+  appl_ptr     : 0
+  hw_ptr       : 224
 
+When correctly applying the openmax setting:
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+root@oracle-virtualbox:~# arecord -DDSNOOP_32 -r48000 -fS16_LE -c2 --period-size=382 -vv --dump-hw-params > /dev/null
+Recording WAVE 'stdin' : Signed 16 bit Little Endian, Rate 48000 Hz, Stereo
+HW Params of device "DSNOOP_32":
+--------------------
+ACCESS:  MMAP_INTERLEAVED MMAP_NONINTERLEAVED RW_INTERLEAVED RW_NONINTERLEAVED
+FORMAT:  S16_LE
+SUBFORMAT:  STD
+SAMPLE_BITS: 16
+FRAME_BITS: 32
+CHANNELS: 2
+RATE: 48000
+PERIOD_TIME: (666 8000]
+PERIOD_SIZE: [32 384]
+PERIOD_BYTES: [128 1536]
+PERIODS: [2 24]
+BUFFER_TIME: (1333 16000]
+BUFFER_SIZE: [64 768]
+BUFFER_BYTES: [256 3072]
+TICK_TIME: ALL
+--------------------
+Direct Snoop PCM
+Its setup is:
+  stream       : CAPTURE
+  access       : RW_INTERLEAVED
+  format       : S16_LE
+  subformat    : STD
+  channels     : 2
+  rate         : 48000
+  exact rate   : 48000 (48000/1)
+  msbits       : 16
+  buffer_size  : 768
+  period_size  : 384
+  period_time  : 8000
+  tstamp_mode  : NONE
+  tstamp_type  : MONOTONIC
+  period_step  : 1
+  avail_min    : 384
+  period_event : 0
+  start_threshold  : 1
+  stop_threshold   : 768
+  silence_threshold: 0
+  silence_size : 0
+  boundary     : 6917529027641081856
+Hardware PCM card 0 'Intel 82801AA-ICH' device 0 subdevice 0
+Its setup is:
+  stream       : CAPTURE
+  access       : MMAP_INTERLEAVED
+  format       : S16_LE
+  subformat    : STD
+  channels     : 2
+  rate         : 48000
+  exact rate   : 48000 (48000/1)
+  msbits       : 16
+  buffer_size  : 768
+  period_size  : 32
+  period_time  : 666
+  tstamp_mode  : ENABLE
+  tstamp_type  : MONOTONIC
+  period_step  : 1
+  avail_min    : 32
+  period_event : 0
+  start_threshold  : 1
+  stop_threshold   : 6917529027641081856
+  silence_threshold: 0
+  silence_size : 0
+  boundary     : 6917529027641081856
+  appl_ptr     : 0
+  hw_ptr       : 224
+</pre>
+
+Signed-off-by: Andreas Pape <apape@de.adit-jv.com>
+
+Request URL   : https://github.com/alsa-project/alsa-lib/pull/62
+Patch URL     : https://github.com/alsa-project/alsa-lib/pull/62.patch
+Repository URL: https://github.com/alsa-project/alsa-lib

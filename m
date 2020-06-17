@@ -2,66 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 621571FC6C7
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jun 2020 09:11:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1A831FC81E
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jun 2020 10:03:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0BB251676;
-	Wed, 17 Jun 2020 09:11:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0BB251676
+	by alsa0.perex.cz (Postfix) with ESMTPS id 349641679;
+	Wed, 17 Jun 2020 10:02:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 349641679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592377917;
-	bh=cUsFUlKuZN/wvqpBrwaAp44Wx7eiil6RKNHi4H2Xiy8=;
-	h=From:To:Subject:Date:In-Reply-To:References:In-Reply-To:
-	 References:Cc:List-Id:List-Unsubscribe:List-Archive:List-Post:
-	 List-Help:List-Subscribe:From;
-	b=MV7q6+YVUo5gm0bFgN+MQv8INfTCg5ldt6YM4OXnZdiqli38FQmAxM8ad1RstGS6g
-	 b9rO386Mcl/irQkicGgLcKWl+R0ldDu+GGdIiu5kC3Ln9nGt7I05gAOBLY9OmcvEa7
-	 SfK/SAtjcQIoqfrwgbc5YLiP9QjtoX4MTwtUkaXM=
+	s=default; t=1592380993;
+	bh=lGWKhQghuFXA73LTT4vFkclKvN/q1n+dS6BIYrNOqiY=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=YiaBG/zm+7ti7nCtogElWfFYc2QKRWnanuFn5B+Pdl4Xm8RFEFFLCE3HIS/tVb5D5
+	 G/yx+X2+e/GXIhePQkV6bI4ICTdFGE4Kl5Bhj3xZnk1wLOW8o9R1NgPnbLJiXK4U34
+	 vFy3lr7lPdF2qhH6TbKbfKn+i2Ck1O+Q1B/TCF0M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A12BBF801EB;
-	Wed, 17 Jun 2020 09:09:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A33EF80101;
+	Wed, 17 Jun 2020 10:01:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8091BF80101; Wed, 17 Jun 2020 09:09:24 +0200 (CEST)
+ id 31D38F80171; Wed, 17 Jun 2020 10:01:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EE2AFF80162
- for <alsa-devel@alsa-project.org>; Wed, 17 Jun 2020 09:09:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE2AFF80162
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 9812C2008E7;
- Wed, 17 Jun 2020 09:09:17 +0200 (CEST)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 2D74B2008F7;
- Wed, 17 Jun 2020 09:09:12 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 67105402B1;
- Wed, 17 Jun 2020 15:09:05 +0800 (SGT)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, lgirdwood@gmail.com, robh+dt@kernel.org,
- devicetree@vger.kernel.org
-Subject: [PATCH v3 2/2] ASoC: fsl_spdif: Add support for imx6sx platform
-Date: Wed, 17 Jun 2020 14:58:01 +0800
-Message-Id: <7a343edd5f8487abad248a0b862f45fd95067751.1592376770.git.shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <feda3bb02296455d43aeebb7575918d9b28e1a3f.1592376770.git.shengjiu.wang@nxp.com>
-References: <feda3bb02296455d43aeebb7575918d9b28e1a3f.1592376770.git.shengjiu.wang@nxp.com>
-In-Reply-To: <feda3bb02296455d43aeebb7575918d9b28e1a3f.1592376770.git.shengjiu.wang@nxp.com>
-References: <feda3bb02296455d43aeebb7575918d9b28e1a3f.1592376770.git.shengjiu.wang@nxp.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1DCEFF80116
+ for <alsa-devel@alsa-project.org>; Wed, 17 Jun 2020 10:01:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1DCEFF80116
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="Uog2weu6"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="D3ffVXSQ"
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.west.internal (Postfix) with ESMTP id 374335E0;
+ Wed, 17 Jun 2020 04:01:18 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Wed, 17 Jun 2020 04:01:18 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:mime-version:content-type;
+ s=fm1; bh=lGWKhQghuFXA73LTT4vFkclKvN/q1n+dS6BIYrNOqiY=; b=Uog2w
+ eu6G6DmAf/htsGNAOyrCD46grcz/Sa+cmrpcvNwj/x6xd1KJ9rR1PnkmewnQHwjr
+ dNXuhHKkEIdRFsWrIrtzyFSrTx8HKp0ykbbpWmiMOS1krUztjz1OBVCmfTZ6e5g/
+ 4CsGfHvp/eX0T7w6ozfK0y6A0stNy628YkHY2VHDnK/b8slxn8aVeVb0NqbRh7LI
+ ndL47u2DxRom09g4ckocuc0YvRsw/zIBOE+DmCKEFUiek8P4SpxqOlzAqxX6Wcri
+ 3XVdcWQ/gIKqFiCJ7SVVarQwutL4DQbyr7VCdnHRNaH5gUQ258ketsdezX8X+8n4
+ +Y4OzrNZCUeUjZkKQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:message-id
+ :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm3; bh=lGWKhQghuFXA73LTT4vFkclKvN/q1
+ n+dS6BIYrNOqiY=; b=D3ffVXSQVMzAsuNKas1v1T4Sd9U7Ys0MJjh+ztb1+U6VN
+ iAD52ZrdQTtL2NSbxB/7C0oGrYpZh0YtuHQ712ae3QGprUFHucr9p4FOnuEzoNcr
+ hwbEb0C2g1Xot/QHrq69Z07zfAW2SkA93tE4WbPAXreP/bRQ+j/3migIHzrFtEGy
+ uBI2hWPWhDPL+z2XNJVtdSnI0V458k0vb9jOJMPk/nz24v5fKGeWVI4m1Uc/7F85
+ mU57FejnTvYuGQjz8fo3QhWSsi1zmYLuEgxn0Pm61ytr/28NSh7cXBn1wdJx5kDJ
+ zjhrJ7DJci6Bf4b+WuIPF3PGWNAFAvKpz6B62n0iw==
+X-ME-Sender: <xms:zc3pXuvmAwepqiWqmJ8RY0zn5JEE13-i1kcqwsPWkgvfgrKy-OIfvg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrudejuddguddvkecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfggtggusehttdertd
+ dttddvnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
+ hhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpeetgfdvhedtle
+ dvieehtdetgeejhffgleevgfegveelheetvdduteelffekudegheenucffohhmrghinhep
+ ghhithhhuhgsrdgtohhmpdgrlhhsrgdqphhrohhjvggtthdrohhrghenucfkphepudektd
+ drvdefhedrfedrheegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghi
+ lhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:zc3pXjeQunAYs0QjnMcUXJBr6LS-vqa18NTuh8YGfs2iW8-6dCLKug>
+ <xmx:zc3pXpwpFTk70fhOZO5oEwxSMuPF4Olgyce9bB68E3kEA8OgdIjkAA>
+ <xmx:zc3pXpNLGDpU5pNSxZdMzK68a3lAjo9PJsV636eCemU_-GPLDGLX4w>
+ <xmx:zc3pXhIkNDUySRITxoehlofn89EClttRxkqZeDCOR4N4IdYNLWo4nA>
+Received: from workstation (ad003054.dynamic.ppp.asahi-net.or.jp
+ [180.235.3.54])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 78C9E328005E;
+ Wed, 17 Jun 2020 04:01:16 -0400 (EDT)
+Date: Wed, 17 Jun 2020 17:01:14 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: perex@perex.cz
+Subject: Move ownership for repositories in Github related to
+ gobject-introspection
+Message-ID: <20200617080114.GA265611@workstation>
+Mail-Followup-To: perex@perex.cz, alsa-devel@alsa-project.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,131 +110,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The one difference on imx6sx platform is that the root clock
-is shared with ASRC module, so we add a new flags
-"shared_root_clock" which means the root clock is not independent,
-then we will not do the clk_set_rate and clk_round_rate to avoid
-impact ASRC module usage.
+Hi Jaroslav,
 
-As add a new flags, we include the soc specific data struct.
+Now I'm going to prepare for official release of alsa-gobject v0.1.0.
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-Reviewed-by: Nicolin Chen <nicoleotsuka@gmail.com>
----
-changes in v3
-- refine some comments
-- add Reviewed-by: Nicolin Chen
+At the same time, Rust binding is also OK to be released. Currently It's in
+my private repository[1] but I think it better to put under alsa-project
+project account in Github.
 
-changes in v2
-- use shared_root_clk instead ind_root_clk.
-- add fsl_spdif_can_set_clk_rate function.
+Github supports transferring ownership, and this time I'd like to utilize the
+feature if you don't mind it. After transferring. some arrangement for the
+repository are perhaps required; e.g. to put it to 'gobject-introspection'
+team[3]. Would I ask it to you?
 
- sound/soc/fsl/fsl_spdif.c | 50 +++++++++++++++++++++++++++++++++++----
- 1 file changed, 45 insertions(+), 5 deletions(-)
+Additionally, I'd like to move repositories for libhinawa[4][5][6] as well,
+which is required to make up control service in user space for devices
+supported by ALSA firewire stack[7].
 
-diff --git a/sound/soc/fsl/fsl_spdif.c b/sound/soc/fsl/fsl_spdif.c
-index 1b2e516f9162..5bc0e4729341 100644
---- a/sound/soc/fsl/fsl_spdif.c
-+++ b/sound/soc/fsl/fsl_spdif.c
-@@ -42,6 +42,18 @@ static u8 srpc_dpll_locked[] = { 0x0, 0x1, 0x2, 0x3, 0x4, 0xa, 0xb };
- 
- #define DEFAULT_RXCLK_SRC	1
- 
-+/**
-+ * struct fsl_spdif_soc_data: soc specific data
-+ *
-+ * @imx: for imx platform
-+ * @shared_root_clock: flag of sharing a clock source with others;
-+ *                     so the driver shouldn't set root clock rate
-+ */
-+struct fsl_spdif_soc_data {
-+	bool imx;
-+	bool shared_root_clock;
-+};
-+
- /*
-  * SPDIF control structure
-  * Defines channel status, subcode and Q sub
-@@ -89,6 +101,7 @@ struct spdif_mixer_control {
-  * @dma_params_rx: DMA parameters for receive channel
-  */
- struct fsl_spdif_priv {
-+	const struct fsl_spdif_soc_data *soc;
- 	struct spdif_mixer_control fsl_spdif_control;
- 	struct snd_soc_dai_driver cpu_dai_drv;
- 	struct platform_device *pdev;
-@@ -110,6 +123,27 @@ struct fsl_spdif_priv {
- 	u32 regcache_srpc;
- };
- 
-+static struct fsl_spdif_soc_data fsl_spdif_vf610 = {
-+	.imx = false,
-+	.shared_root_clock = false,
-+};
-+
-+static struct fsl_spdif_soc_data fsl_spdif_imx35 = {
-+	.imx = true,
-+	.shared_root_clock = false,
-+};
-+
-+static struct fsl_spdif_soc_data fsl_spdif_imx6sx = {
-+	.imx = true,
-+	.shared_root_clock = true,
-+};
-+
-+/* Check if clk is a root clock that does not share clock source with others */
-+static inline bool fsl_spdif_can_set_clk_rate(struct fsl_spdif_priv *spdif, int clk)
-+{
-+	return (clk == STC_TXCLK_SPDIF_ROOT) && !spdif->soc->shared_root_clock;
-+}
-+
- /* DPLL locked and lock loss interrupt handler */
- static void spdif_irq_dpll_lock(struct fsl_spdif_priv *spdif_priv)
- {
-@@ -420,8 +454,7 @@ static int spdif_set_sample_rate(struct snd_pcm_substream *substream,
- 
- 	sysclk_df = spdif_priv->sysclk_df[rate];
- 
--	/* Don't mess up the clocks from other modules */
--	if (clk != STC_TXCLK_SPDIF_ROOT)
-+	if (!fsl_spdif_can_set_clk_rate(spdif_priv, clk))
- 		goto clk_set_bypass;
- 
- 	/* The S/PDIF block needs a clock of 64 * fs * txclk_df */
-@@ -1186,7 +1219,7 @@ static int fsl_spdif_probe_txclk(struct fsl_spdif_priv *spdif_priv,
- 			continue;
- 
- 		ret = fsl_spdif_txclk_caldiv(spdif_priv, clk, savesub, index,
--					     i == STC_TXCLK_SPDIF_ROOT);
-+					     fsl_spdif_can_set_clk_rate(spdif_priv, i));
- 		if (savesub == ret)
- 			continue;
- 
-@@ -1230,6 +1263,12 @@ static int fsl_spdif_probe(struct platform_device *pdev)
- 
- 	spdif_priv->pdev = pdev;
- 
-+	spdif_priv->soc = of_device_get_match_data(&pdev->dev);
-+	if (!spdif_priv->soc) {
-+		dev_err(&pdev->dev, "failed to get soc data\n");
-+		return -ENODEV;
-+	}
-+
- 	/* Initialize this copy of the CPU DAI driver structure */
- 	memcpy(&spdif_priv->cpu_dai_drv, &fsl_spdif_dai, sizeof(fsl_spdif_dai));
- 	spdif_priv->cpu_dai_drv.name = dev_name(&pdev->dev);
-@@ -1359,8 +1398,9 @@ static const struct dev_pm_ops fsl_spdif_pm = {
- };
- 
- static const struct of_device_id fsl_spdif_dt_ids[] = {
--	{ .compatible = "fsl,imx35-spdif", },
--	{ .compatible = "fsl,vf610-spdif", },
-+	{ .compatible = "fsl,imx35-spdif", .data = &fsl_spdif_imx35, },
-+	{ .compatible = "fsl,vf610-spdif", .data = &fsl_spdif_vf610, },
-+	{ .compatible = "fsl,imx6sx-spdif", .data = &fsl_spdif_imx6sx, },
- 	{}
- };
- MODULE_DEVICE_TABLE(of, fsl_spdif_dt_ids);
--- 
-2.21.0
+[1] https://github.com/takaswie/alsa-gobject-rs/
+[2] https://help.github.com/en/github/administering-a-repository/transferring-a-repository
+[3] https://github.com/orgs/alsa-project/teams/gobject-introspection
+[4] https://github.com/takaswie/libhinawa
+[5] https://github.com/takaswie/libhinawa-docs
+[6] https://github.com/takaswie/hinawa-rs
+[7] https://mailman.alsa-project.org/pipermail/alsa-devel/2020-June/168550.html
 
+Regards
+
+Takashi Sakamoto

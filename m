@@ -2,76 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B5021FF087
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 13:33:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4B9E1FF0E3
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 13:46:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D9EAE1782;
-	Thu, 18 Jun 2020 13:32:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9EAE1782
+	by alsa0.perex.cz (Postfix) with ESMTPS id 37D7F1783;
+	Thu, 18 Jun 2020 13:45:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37D7F1783
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592479990;
-	bh=xmVKqCZO9WNjF/s1+iMwtbOzQ/ZlWpvC11qODgjb/Fk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1592480774;
+	bh=1416VGm9w/xeARXUZQtVEOs3J9ceCmTy3NnzRqrDwS4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ICnBmXXPsZqnIlz9madGNCGEhYb6jmtaiHFiXgtv3Y+TSeZ3DP2sk8JGx5BBrKCfX
-	 4uEkL3/ZS8Nq6STlM6bse8Qz1R0bSV9ry7bJjaVvUnZHujj5WVwTqDCIMeufoNoOC+
-	 9nqgfoLjBT4GCp5HHinhtQy8SrfJTlgBDKJyd1JU=
+	b=KL9XzHin+M16fkpAVy6iC9JUVRifQVSk1encOVfd3AowlZgfy7+TnWKIu7/rC1Bvs
+	 Hzpr3MF92cuAmOtz9EKoOuguKBWPtsG8ZUiDWEGLPAbnY/3N38AIXfP16dIsv7DddR
+	 sv4Ti0hV2UF5FhqLK1j9NnwABzeUtuSuw8p++n+8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03E94F800D1;
-	Thu, 18 Jun 2020 13:31:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6BBCDF800D1;
+	Thu, 18 Jun 2020 13:44:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A6684F80116; Thu, 18 Jun 2020 13:31:26 +0200 (CEST)
+ id E6EDFF80116; Thu, 18 Jun 2020 13:44:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B0D64F800D1
- for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 13:31:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0D64F800D1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="uVP4Z99Y"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, MSGID_FROM_MTA_HEADER, RCVD_IN_MSPIKE_H2, SPF_HELO_PASS,
+ SPF_PASS, URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com
+ (mail-eopbgr30063.outbound.protection.outlook.com [40.107.3.63])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1A25E206C3;
- Thu, 18 Jun 2020 11:31:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592479876;
- bh=xmVKqCZO9WNjF/s1+iMwtbOzQ/ZlWpvC11qODgjb/Fk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=uVP4Z99YcHvJ4xcy54nJ0Ixc1WAPI7Izy/o0/amvDXFN82Opxh8WrxPGFBbR8f+G7
- GDeN8EXggH2c9KxHuKiBFZ7Dq2s1To4uG1FKnZNPphdza9rUQWorreO/aYdUnBffoD
- 8SZDuaMTbl/iPpakFrbxV76w9x3vikQZ5a3ZXRbk=
-Date: Thu, 18 Jun 2020 12:31:14 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
-Subject: Re: [PATCH 2/2] ASoC: amd: closing specific instance.
-Message-ID: <20200618113114.GG5789@sirena.org.uk>
-References: <20200618072653.27103-1-Vishnuvardhanrao.Ravulapati@amd.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id F211EF80101;
+ Thu, 18 Jun 2020 13:44:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F211EF80101
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
+ header.b="e4p9Fa1H"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ua/zu7wgiXrfde+ECBDrYsZ7nr0Nl61N7lWfeepMGy77xvtak93NFiihrrMfD0Bqzz63MFUyNyHDOrmlLluBWu5axrjbIY2BFsrrQzO8tXGBytnRQzNHthLvS8pi9Ks4XylFDu+r+c3AyzEaWvMBfVJYo8zflXbfTvVnP6sp6jScOYn3zOBXYVytum/egWt+wjMOrGI3EjTm6GL23ao01HDU4DLWljHDp2a1M/Qtt5Yt/kYYydYtns/33ujoncDLj7qsEkcJPbOgbm+pu8lMFvfA270L0OF0MCmbTuBCEpfukaj5IElg8NUPYTAUePLlwoGShtfzqFL8GQxMhI1p+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=A1PXs6B0ZCT6TyfliGXgPCg7TwHVrn7ZRywrbuLRfFA=;
+ b=ap7aMcGBfWTKGWNLPkD1VfuwRZDwjEq9BuhvN7nDqq0Ol7jR7sPTWKtOjLsfs1YITca/hP0CT4tiFR9ZZ17YQvqRrzBCoLmNtd3HcnWDCY1IJnr2nCgnxAqrnnlftWPMKxEWhTlCLKaH0w4GR33oI6kB8uXY0cQCSCPwdFaytBaXmxyfl0KXci2QftVU/H6YSSPfn7nTHe8UuIl1OaKJLjqX6At6kf/i+oMXzRxZQqtC5eE1HkvnrsGnotD9Yij2LDlv5QUfX872cbdrpaqzFwm1izYpLY3HpjPVnHhIv8UwMCuCDV/hYk8jTnLcjUsdT+XOSf0DOolD0pg0KC6Wkg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=A1PXs6B0ZCT6TyfliGXgPCg7TwHVrn7ZRywrbuLRfFA=;
+ b=e4p9Fa1HfypmLtyJFFJ5NVk5JA0LMyBrZrEzDvVi2H2iYcxZOJX/X3Lwl765e7HNj+SctBPk2t/S/krldWXVPnXBEcTKfjdyIoBqC6EFNy7erni2fgB49mn1HcqUMbW+VryXFFtMTAUshdAI9qGQHAm54X0UyaD8PQwaqmOrd+4=
+Authentication-Results: alsa-project.org; dkim=none (message not signed)
+ header.d=none;alsa-project.org; dmarc=none action=none header.from=nxp.com;
+Received: from VI1PR0401MB2287.eurprd04.prod.outlook.com
+ (2603:10a6:800:2e::19) by VI1PR0401MB2461.eurprd04.prod.outlook.com
+ (2603:10a6:800:55::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.22; Thu, 18 Jun
+ 2020 11:44:22 +0000
+Received: from VI1PR0401MB2287.eurprd04.prod.outlook.com
+ ([fe80::9d5c:685e:4b51:fa60]) by VI1PR0401MB2287.eurprd04.prod.outlook.com
+ ([fe80::9d5c:685e:4b51:fa60%3]) with mapi id 15.20.3088.029; Thu, 18 Jun 2020
+ 11:44:21 +0000
+Subject: Re: [PATCH AUTOSEL 5.7 055/388] ASoC: SOF: Do nothing when DSP PM
+ callbacks are not set
+To: Mark Brown <broonie@kernel.org>, Sasha Levin <sashal@kernel.org>
+References: <20200618010805.600873-1-sashal@kernel.org>
+ <20200618010805.600873-55-sashal@kernel.org>
+ <20200618110126.GC5789@sirena.org.uk>
+From: Daniel Baluta <daniel.baluta@nxp.com>
+Message-ID: <1d1041f9-521b-98f5-a6ef-12d43615bc13@nxp.com>
+Date: Thu, 18 Jun 2020 14:44:18 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
+In-Reply-To: <20200618110126.GC5789@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-ClientProxiedBy: AM0PR01CA0120.eurprd01.prod.exchangelabs.com
+ (2603:10a6:208:168::25) To VI1PR0401MB2287.eurprd04.prod.outlook.com
+ (2603:10a6:800:2e::19)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="w2JjAQZceEVGylhD"
-Content-Disposition: inline
-In-Reply-To: <20200618072653.27103-1-Vishnuvardhanrao.Ravulapati@amd.com>
-X-Cookie: Androphobia:
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Akshu Agrawal <akshu.agrawal@amd.com>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com,
- Colin Ian King <colin.king@canonical.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.0.100] (5.12.61.62) by
+ AM0PR01CA0120.eurprd01.prod.exchangelabs.com (2603:10a6:208:168::25) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.21 via Frontend
+ Transport; Thu, 18 Jun 2020 11:44:20 +0000
+X-Originating-IP: [5.12.61.62]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 05c51dd4-53f5-400e-868b-08d8137cf11f
+X-MS-TrafficTypeDiagnostic: VI1PR0401MB2461:
+X-Microsoft-Antispam-PRVS: <VI1PR0401MB2461D167DB62294E2DB51F50F99B0@VI1PR0401MB2461.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2276;
+X-Forefront-PRVS: 0438F90F17
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: TLP9oEPa1rKzu/nbA8yZAu/lzUKH0utYRChAo9NkF5cXQyUPuUdu3qhzsoW8pymqVTMpa6xhidH347BrwXbozbXrI8w5oOk0QU2BAY00met4mUPH/778mxtYX2E+TZf5NSMztEd6mduktpLwLE679Uu2zYqkd+tR53UFCCsI/BiQq37GgUhm2hvP5M9pzA4cMUsiFm9uJ6aOlMW908nQ0Mr0TCO53DlMuRcIZs66Cesc58JIgcxaH5iS+eyPfc+cm1th2S5+oERmkcM+JTzL5G7Er3+kPfiA7PWj/sM/AHzavtHSJupc+a6f9G2wDnKzdtCU+z+cTNNCBKZQkCftKlsZyqqfQ/HbkxXuMXtAQ7yioqpI95zjmEZD8zDzSGZx
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR0401MB2287.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(376002)(346002)(366004)(396003)(136003)(39860400002)(16526019)(31696002)(83380400001)(186003)(26005)(53546011)(4326008)(52116002)(44832011)(8936002)(5660300002)(36756003)(8676002)(2906002)(4744005)(478600001)(2616005)(110136005)(54906003)(316002)(16576012)(956004)(86362001)(66556008)(66946007)(66476007)(31686004)(6486002)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: 8b8WrPJebbYTww5fjaMko/tILz0P/+69zAfd2JvCDtWMmuQWHDbWSgfNhCOMIIUFDZI8WJrYvaKVJy0gAr6TFINK0sUAJWAEW6dHWncoH8PBe7AgDBvJCxwanxXLlAPWwXtUrNVtKHXsX+TdF93FYIQTh7E9do/F8IOAjzGoUitHC7Kj5VDnB1yhOJeVGvI9gre0eNx+qfftBrnvZc+B2A6buRvIcwkzXWPZDUeh8hSEFGGPUTAigJkIKL/EGWI3hp3yuep9znJuAbKisX2J+nHA3b92QdkGkpM6k8xJtPvuTArSi09Xp2N9ohL/TWNmrtLOHllZDRZt/csiqJyjcgcl21GZFWDonMvvdIzJ9J3zuIEUVzZgJgsEYeVj8JMMs+N9JCeIxMTolrY6VorWj6OsN/mM3EeoI9mV7MxeriWNc8UwAh7H9sYaXhoTFNiLs3/0WsIcfUGhIQqGg3bpnPTmdkv6CsFggjeCFzGjEXo=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05c51dd4-53f5-400e-868b-08d8137cf11f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2020 11:44:21.7361 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0K50bqZKtj7cnhnLprVZ7PUUKEpR22ty9FizvzQx503DSDr//jPeGCz8S+Ezt/HaJK5UOUSfcCVQbm9A43iGVg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2461
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org, sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,44 +135,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 6/18/20 2:01 PM, Mark Brown wrote:
+> On Wed, Jun 17, 2020 at 09:02:32PM -0400, Sasha Levin wrote:
+>> From: Daniel Baluta <daniel.baluta@nxp.com>
+>>
+>> [ Upstream commit c26fde3b15ed41f5f452f1da727795f787833287 ]
+>>
+>> This provides a better separation between runtime and PM sleep
+>> callbacks.
+>>
+>> Only do nothing if given runtime flag is set and calback is not set.
+>>
+>> With the current implementation, if PM sleep callback is set but runtime
+>> callback is not set then at runtime resume we reload the firmware even
+>> if we do not support runtime resume callback.
+> This doesn't look like a bugfix, just an optimization?
 
---w2JjAQZceEVGylhD
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Indeed can be seen as an optimization, but it does unexpected things 
+which can cause trouble
 
-On Thu, Jun 18, 2020 at 12:56:52PM +0530, Ravulapati Vishnu vardhan rao wro=
-te:
-> The steps to reproduce:
->=20
-> Record from the internal mic :
-> (arecord -D hw:1,2 -f dat /dev/null -V stereos)
->=20
-> Record from the headphone mic:
-> (arecord -D hw:1,0 -f dat /dev/null -V stereos)
->=20
-> Kill the recording from internal mic.
-> We can see the recording from the headphone mic is broken.
->=20
-> This patch rectifies the issue reported.
+and weird behavior for people not familiar with the matter.
 
-The changelog should really also describe what the underlying problem
-and/or fix are - this description is only at user level, it's missing a
-bit for describing the change.
+For example, as explained in the commit message if you only provide
 
---w2JjAQZceEVGylhD
-Content-Type: application/pgp-signature; name="signature.asc"
+System PM handler but not runtime PM handler, then the DSP will be resetted
 
------BEGIN PGP SIGNATURE-----
+even if this is not the intention.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7rUIEACgkQJNaLcl1U
-h9DKfAf+L2nSYQE3s9vUUaTa2gREfXwRWFiOeS9pnxdOboz5I43vVFqJauMas8kx
-PhUZRYhfwsYXiNWLikhDRpPTw/zLhqaxRhqTjV724NcZE35tZp4KjC6aSvY7n0Zs
-KEN208OWaO27vbklKnwv0rXwu5lCrX1c5dJF2ax9z2u6cu1PCKWd4o2rC30JxykY
-GFtcooFi04ann8+eBia8VhNHODWPIkkVBDe7moz4hGPg+Od/NGaKjtX47zpSGadF
-BH+5fTO/sVjdTXLvn3WKdxf0qiNmROyhCQQNuJAPPO3Ns71xSCxHHvq3MlLCsjF9
-r8eky0ARkzvxVVwhj3tAyPqcghgdeQ==
-=mItw
------END PGP SIGNATURE-----
-
---w2JjAQZceEVGylhD--

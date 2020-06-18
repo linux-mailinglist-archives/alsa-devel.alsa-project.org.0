@@ -2,73 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B70521FF032
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 13:03:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8F371FF03C
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 13:09:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5512C1762;
-	Thu, 18 Jun 2020 13:03:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5512C1762
+	by alsa0.perex.cz (Postfix) with ESMTPS id 43D241759;
+	Thu, 18 Jun 2020 13:08:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43D241759
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592478237;
-	bh=T0ml4vNIA9iwQ8rd38WFt5IPvevTyZHHBCYeXpr3C/s=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1592478563;
+	bh=yUh+Aw7M+IzopO/i6gFGJRlYsotqzp0UeReTfhB/kPk=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RbU3NdUhDky2KNkREaQA1vBp+P03A9F7azYY2M3bc382AKwvO+73KzW4pHOEKdb00
-	 F/daNrqFkiAJ4OzBcp60jCRB0JoItb4l8c2kYlgNlJqseGr07mQv4lrVbUABOcGaeB
-	 i50b1jFlVdJi7onOkeFExscLltG2nIM4chgIgMHA=
+	b=nPLI7RNbioSCz6XfogiSiRW6fvAOHgdwP1C6A31H4WNT8fPrjYHyjwRlrBMGnz7cY
+	 3OjUG+z0vyrVlGr10cvu0X0IkD6V5RsHKYmjiQVVIpAgrvx/CutPKD1Y09IQ5uyTdl
+	 yRD8FuE4XX59P8v5rS76A73Q702m4/erYIoU5h68=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D044BF800D1;
-	Thu, 18 Jun 2020 13:03:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A7D9F8010E;
+	Thu, 18 Jun 2020 13:07:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F06FF80162; Thu, 18 Jun 2020 13:03:05 +0200 (CEST)
+ id 259EAF800D1; Thu, 18 Jun 2020 13:07:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9501FF800D1
- for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 13:03:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9501FF800D1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="K3s6a0Oy"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from jazz.pogo.org.uk (jazz.pogo.org.uk [213.138.114.167])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 32B95204EA;
- Thu, 18 Jun 2020 11:03:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592478180;
- bh=T0ml4vNIA9iwQ8rd38WFt5IPvevTyZHHBCYeXpr3C/s=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=K3s6a0OywmvoIatRfxXcvbLw40QFmm4mXNkB2Gf9QFuNQ/3FXjEvQcMC6NmKGN63Z
- YhgFhpYtR3IXV5Q9/GyiiCxJlcyEXAK2azNTZcB4Dqj4Jd6DhvaMC4sIJUJDVtTb7D
- cNJ1wolF6ibWH0wyN98IZk+zZU5WSPcxvQrrqH/c=
-Date: Thu, 18 Jun 2020 12:02:58 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH AUTOSEL 5.7 130/388] ASoC: Fix wrong dependency of da7210
- and wm8983
-Message-ID: <20200618110258.GD5789@sirena.org.uk>
-References: <20200618010805.600873-1-sashal@kernel.org>
- <20200618010805.600873-130-sashal@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E98A3F800D1
+ for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 13:07:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E98A3F800D1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=pogo.org.uk header.i=@pogo.org.uk
+ header.b="X8rgurD5"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=pogo.org.uk
+ ; s=a;
+ h=Content-Type:MIME-Version:References:Message-ID:In-Reply-To:Subject:
+ cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=0ZnJkz30Rp+ixE6kqdI/YrFe25Lk/I+QDdqd1WTsBzw=; b=X8rgurD5eQ4rFTTOYPZujMMjen
+ co9Fa+5u1x43DXEbnt+hpxlfbQnza/nORLlv+BXpPcAhQUP/cBY4D40nkuIO8Y9B5m+TLEdFve2yG
+ AZqza02x30OamLB5s95BYJiaQx/QA5yR65YhsZqyNBb7r5rvtqIIFIpHsff0LteZ6+t68rrH8gGa4
+ j4rcOZqOpDWLf6V35QXDpbZknYxM0A04docwEk/1qalWrBJIu/zTzfShfn3CXjqrteEPN36XCozzg
+ R333MsoAfjAE5XIBss32DpuUEmudO1niQKBwaZBSY2aRAGY56t102sv6evOatsF4gaLL32siJ+fLy
+ XdFrbUug==;
+Received: from cpc1-hari17-2-0-cust102.20-2.cable.virginm.net ([86.18.4.103]
+ helo=stax.localdomain) by jazz.pogo.org.uk with esmtps (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93.0.4 (FreeBSD))
+ (envelope-from <mark@xwax.org>)
+ id 1jlsOM-0001rQ-9D; Thu, 18 Jun 2020 12:07:34 +0100
+Received: from mark (helo=localhost)
+ by stax.localdomain with local-esmtp (Exim 4.84)
+ (envelope-from <mark@xwax.org>)
+ id 1jlsOL-0003bt-TX; Thu, 18 Jun 2020 12:07:33 +0100
+Date: Thu, 18 Jun 2020 12:07:33 +0100 (BST)
+From: Mark Hills <mark@xwax.org>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH 3/3] echoaudio: Address bugs in the interrupt handling
+In-Reply-To: <s5hmu50yehs.wl-tiwai@suse.de>
+Message-ID: <2006181008350.26846@stax.localdomain>
+References: <2006161409060.30751@stax.localdomain>
+ <20200616131743.4793-3-mark@xwax.org> <s5hsgev16ck.wl-tiwai@suse.de>
+ <2006161451110.1865@stax.localdomain> <s5hlfkn14cr.wl-tiwai@suse.de>
+ <2006171134130.2561@stax.localdomain>
+ <s5hmu50yehs.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="+KJYzRxRHjYqLGl5"
-Content-Disposition: inline
-In-Reply-To: <20200618010805.600873-130-sashal@kernel.org>
-X-Cookie: Androphobia:
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Wei Li <liwei391@huawei.com>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,37 +90,193 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, 18 Jun 2020, Takashi Iwai wrote:
 
---+KJYzRxRHjYqLGl5
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> On Wed, 17 Jun 2020 12:51:05 +0200,
+> Mark Hills wrote:
+> > 
+> > On Tue, 16 Jun 2020, Takashi Iwai wrote:
+> > 
+> > > On Tue, 16 Jun 2020 16:01:11 +0200,
+> > > Mark Hills wrote:
+[...]
+> > 
+> > /* Update software pointer to match the hardware
+> >  *
+> >  * \pre chip->lock is held
+> >  */
+> > static void snd_echo_update_substream_position(struct echoaudio *chip,
+> > 					struct snd_pcm_substream *substream)
+> > {
+> > 	struct snd_pcm_runtime *runtime = substream->runtime;
+> > 	struct audiopipe *pipe = runtime->private_data;
+> > 	u32 counter, step;
+> > 	size_t period_bytes;
+> > 
+> > 	if (pipe->state != PIPE_STATE_STARTED)
+> > 		return;
+> > 
+> > 	period_bytes = frames_to_bytes(runtime, runtime->period_size);
+> > 
+> > 	counter = le32_to_cpu(*pipe->dma_counter);
+> > 
+> > 	step = counter - pipe->last_counter;  /* handles wrapping of counter */
+> > 	step -= step % period_bytes;  /* acknowledge whole periods only */
+> > 
+> > 	if (step == 0)
+> > 		return;  /* haven't advanced a whole period yet */
+> > 	pipe->last_counter += step;  /* does not always wrap on a period */
+> > 	pipe->position += step;
+> > 
+> > 	/* wraparound the buffer */
+> > 	pipe->position %= frames_to_bytes(runtime, runtime->buffer_size);
+> > 
+> > 	/* notify only once, even if multiple periods elapsed */
+> > 	spin_unlock(&chip->lock);
+> > 	snd_pcm_period_elapsed(substream);
+> > 	spin_lock(&chip->lock);
+> > }
+> > 
+> > static irqreturn_t snd_echo_interrupt(int irq, void *dev_id)
+> > {
+> > 	struct echoaudio *chip = dev_id;
+> > 	int ss, st;
+> > 
+> > 	spin_lock(&chip->lock);
+> > 	st = service_irq(chip);
+> > 	if (st < 0) {
+> > 		spin_unlock(&chip->lock);
+> > 		return IRQ_NONE;
+> > 	}
+> > 	/* The hardware doesn't tell us which substream caused the irq,
+> > 	thus we have to check all running substreams. */
+> > 	for (ss = 0; ss < DSP_MAXPIPES; ss++) {
+> > 		struct snd_pcm_substream *substream;
+> > 
+> > 		substream = chip->substream[ss];
+> > 		if (substream)
+> > 			snd_echo_update_substream_position(chip, substream);
+> > 	}
+> > 	spin_unlock(&chip->lock);
+> > 
+> > #ifdef ECHOCARD_HAS_MIDI
+> > 	if (st > 0 && chip->midi_in) {
+> > 		snd_rawmidi_receive(chip->midi_in, chip->midi_buffer, st);
+> > 		dev_dbg(chip->card->dev, "rawmidi_iread=%d\n", st);
+> > 	}
+> > #endif
+> > 	return IRQ_HANDLED;
+> > }
+> > 
+> > static snd_pcm_uframes_t pcm_pointer(struct snd_pcm_substream *substream)
+> > {
+> > 	struct snd_pcm_runtime *runtime = substream->runtime;
+> > 	struct audiopipe *pipe = runtime->private_data;
+> > 
+> > 	return bytes_to_frames(runtime, pipe->position);
+> 
+> I guess this misses the update of the precise position; in your code,
+> pipe->position gets updated only with the period size at irq handler.
+> 
+> 
+> IMO, we should have the code like:
+> 
+> static bool update_stream_position(struct snd_pcm_substream *substream)
+> {
+> 	// update pipe->position and others, returns true if period elapsed
+> }
+> 
+> static irqreturn_t snd_echo_interrupt()
+> {
+> 	spin_lock(&chip->lock);
+> 	....
+> 	if (update_stream_position(substream)) {
+> 		spin_unlock(&chip->lock);
+> 		snd_pcm_period_elapsed(substream);
+> 		spin_lock(&chip->lock);
+> 	}
+> 	....
+> 	spin_unlock(&chip->lock);
+> 	return IRQ_HANDLED;
+> }
+> 
+> static snd_pcm_uframes_t pcm_pointer(struct snd_pcm_substream *substream)
+> {
+> 	....
+> 	update_stream_position(substream);
+> 	return bytes_to_frames(runtime, pipe->position);
+> }
 
-On Wed, Jun 17, 2020 at 09:03:47PM -0400, Sasha Levin wrote:
-> From: Wei Li <liwei391@huawei.com>
->=20
-> [ Upstream commit c1c050ee74d67aeb879fd38e3a07139d7fdb79f4 ]
->=20
-> As these two drivers support I2C and SPI, we should add the SND_SOC_I2C_A=
-ND_SPI
-> dependency instead.
+Thanks.
 
-This is purely about build testing, are you sure this is stable
-material?
+I certainly understand this in isolation. 
 
---+KJYzRxRHjYqLGl5
-Content-Type: application/pgp-signature; name="signature.asc"
+But could I please ask for help with the bigger picture? As it feels 
+mismatched.
 
------BEGIN PGP SIGNATURE-----
+* Code should take every possible opportunity to update the stream 
+  position; interrupts, or explicit pcm_pointer calls (whereas the docs 
+  guide towards doing it in the interrupt handler)
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7rSeEACgkQJNaLcl1U
-h9BhCAf/ciV+cf+M61TGXRdOnfuoSVBILoCzTRjUDUZjTFenxNYOL6pn5Xv+aFeK
-RbGbTG45EDMNN9LQhtUYX3r4PAPtTux43olQHdd4D5WfW+qdOh+mewub/+Gw85X8
-82H4kZgiFEWz6w9GU7oEBv6A8aRJnh0ULOk0mNign0wzgtFozUiqpx9GQFZtk2FN
-DttJK3pNdsRcJbPLEWO//vc7NVq+1UeUbIIs7s4j/cH3NGC7NnDTVupWQ9dv6uik
-VTun8Mz+TTz+UQOGK4DmubFUqV1WhCnQ2Nd5CCEVmTvVRDiUm3GYGXxbwMsen3Ks
-Zy1VQsifFNRJrQ+PKFj3h9tf/SBcJQ==
-=mxzp
------END PGP SIGNATURE-----
+* I critiqued (elsewhere in thread) the older interrupt handler for 
+  checking the counter, unlocking, calling back into PCM core and checking 
+  again a moment later. Whereas this is considered good behaviour.
 
---+KJYzRxRHjYqLGl5--
+* Seems like the overall aim is for userland to be able (if it wants to)  
+  to poll the soundcard, even outside of periods.
+
+If all the above is true, I would expect interrupt handling to be very 
+simple -- it would straight away call into PCM core, join existing if the 
+codepaths (to take locks) and do a position update. PCM core would decide 
+if a period really elapsed, not the driver. But this is not how it works.
+
+This now relates strongly to a question of locking:
+
+I ran the code (top of this message) all day, with a few instances in 
+dmesg (at irregular intervals, not wrapping):
+
+  [161644.076666] snd_echo3g 0000:09:02.0: invalid position: , pos = 4096, buffer size = 4096, period size = 64
+  [163232.392501] snd_echo3g 0000:09:02.0: invalid position: , pos = 4096, buffer size = 4096, period size = 64
+  [164976.098069] snd_echo3g 0000:09:02.0: invalid position: , pos = 4096, buffer size = 4096, period size = 64
+  [165054.946225] snd_echo3g 0000:09:02.0: invalid position: , pos = 4096, buffer size = 4096, period size = 64
+  [165312.141545] snd_echo3g 0000:09:02.0: invalid position: , pos = 4096, buffer size = 4096, period size = 64
+
+A definite bug, of course.
+
+However (and I am happy to be corrected) the function never finishes with 
+position == buffer size. Only way is a race between interrupt handler and 
+pcm_pointer.
+
+Therefore one of these is needed:
+
+* pcm_pointer locks chip->lock
+
+  Even though the docs emphasise PCM core has exclusivity, it it not worth 
+  much as it does not protect against the interrupt handler.
+
+  But now interrupt handler becomes ugly in total: take chip->lock, check 
+  the counter, release chip->lock, go to PCM core (which takes middle 
+  layer locks), take chip->lock again, check counter again, release 
+  chip->lock again.
+
+* interrupt handler must make atomic update of pipe->position
+
+  This could have been a solution, but not if we expect pcm_pointer to 
+  also invoke the position update. Now we have a race: both the interrupt 
+  handler and pcm_position want to read dma_counter and write 
+  pipe->position after.
+
+So either do everthing in interrupt, everything in the pointer callback 
+(though there isn't the API for this), but doing both does not seem to 
+work well (though probably can be made to work if necessary)
+
+If we can clarify the requirements then I do not think it would be hard 
+for me to write the code.
+
+[...]
+> Takashi
+
+Thanks again,
+
+-- 
+Mark

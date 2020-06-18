@@ -2,76 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AAE51FF4F1
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 16:41:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B95011FF4F9
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 16:42:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA2931798;
-	Thu, 18 Jun 2020 16:40:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA2931798
+	by alsa0.perex.cz (Postfix) with ESMTPS id 61D4F17A0;
+	Thu, 18 Jun 2020 16:41:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61D4F17A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592491282;
-	bh=etN4J2cAIG1MAkGuXWgQccKMRYufQ7F4qFAKChIOWw4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=NJopDWu/Mi3+jCppKqudNCnNDfkFFT3shHxEhyjBffxyHjwnTq0qjH20KYLp3nrjd
-	 S+bjC/LUEyT/Qbf25O7X9fwNovbD1Pl9RuZaNmm9gTfTYulUksTEuNybr+MVYHmxb/
-	 dWu1mtpFLRkBZXzrmWuGWFkATmocaDo3wJdKgrk4=
+	s=default; t=1592491330;
+	bh=gf/ufkqNZkMrOXQZMd7wJpSC5ZT5K2rDC9VxwYk7PHk=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lypHGWyiMRCovuyhiGIer7eyGNrRVasEIksII8mH2n7SkgwmZoGt7vna5o+yLA0Md
+	 hpQlHt9KCVP70nJENU0zKbaQMMAhiiL+9pSbGac40/9IuJC7JkTT0YQPUWiRQkpzcK
+	 Pho9rN5i0v2vAwCDq9aiU+AxecSDvDkU+iq2g6xQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B903DF8010E;
-	Thu, 18 Jun 2020 16:39:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D4B4F80162;
+	Thu, 18 Jun 2020 16:41:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 34572F80116; Thu, 18 Jun 2020 16:39:38 +0200 (CEST)
+ id 2FF5BF80171; Thu, 18 Jun 2020 16:41:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 837D8F80101
- for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 16:39:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 837D8F80101
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="2U3qhHIs"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3B82220773;
- Thu, 18 Jun 2020 14:39:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592491172;
- bh=etN4J2cAIG1MAkGuXWgQccKMRYufQ7F4qFAKChIOWw4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=2U3qhHIsheqY690iXD1qI+ppqRsMzOpm+NzmomO4TavPiWPKf3REImXF7dg36dTEV
- rOLYl4hv03TMsebFcRG1Jqi/47TFJuX0qZDJr5GEkWNWojjz/sWVGx6XZj1aRdwm67
- /58MLjC3dSXuFKj/enxe8zkb+YKjMumDQJK27Wqs=
-Date: Thu, 18 Jun 2020 15:39:30 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH AUTOSEL 5.7 004/388] ASoC: tegra: tegra_wm8903: Support
- nvidia, headset property
-Message-ID: <20200618143930.GI5789@sirena.org.uk>
-References: <20200618010805.600873-1-sashal@kernel.org>
- <20200618010805.600873-4-sashal@kernel.org>
- <20200618110023.GB5789@sirena.org.uk>
- <20200618143046.GT1931@sasha-vm>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="dMdWWqg3F2Dv/qfw"
-Content-Disposition: inline
-In-Reply-To: <20200618143046.GT1931@sasha-vm>
-X-Cookie: Androphobia:
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: linux-tegra@vger.kernel.org, Dmitry Osipenko <digetx@gmail.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 20B35F80101
+ for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 16:40:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20B35F80101
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 4C636AD25
+ for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 14:40:52 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: hda: Enable sync-write operation as default for all
+ controllers
+Date: Thu, 18 Jun 2020 16:40:51 +0200
+Message-Id: <20200618144051.7415-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.16.4
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,45 +62,125 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+In the end we already enabled the sync-write mode for most of HD-audio
+controllers including Intel, and it's no big merit to keep the async
+write mode for the rest.  Let's make it as default and drop the
+superfluous AZX_DCAPS_SYNC_WRITE bit flag.
 
---dMdWWqg3F2Dv/qfw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Also, avoid to set the allow_bus_reset flag, which is a quite unstable
+and hackish behavior that was needed only for some early platforms
+(decades ago).  The straight fallback to the single cmd mode is more
+robust.
 
-On Thu, Jun 18, 2020 at 10:30:46AM -0400, Sasha Levin wrote:
-> On Thu, Jun 18, 2020 at 12:00:23PM +0100, Mark Brown wrote:
-> > On Wed, Jun 17, 2020 at 09:01:41PM -0400, Sasha Levin wrote:
-> > > From: Dmitry Osipenko <digetx@gmail.com>
-> > >=20
-> > > [ Upstream commit 3ef9d5073b552d56bd6daf2af1e89b7e8d4df183 ]
-> > >=20
-> > > The microphone-jack state needs to be masked in a case of a 4-pin jack
-> > > when microphone and ground pins are shorted. Presence of nvidia,heads=
-et
-> > > tells that WM8903 CODEC driver should mask microphone's status if sho=
-rt
-> > > circuit is detected, i.e headphones are inserted.
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/pci/hda/hda_controller.c | 11 ++---------
+ sound/pci/hda/hda_controller.h |  2 +-
+ sound/pci/hda/hda_intel.c      | 16 +++++++---------
+ 3 files changed, 10 insertions(+), 19 deletions(-)
 
-> > This is a new feature not a bugfix.
+diff --git a/sound/pci/hda/hda_controller.c b/sound/pci/hda/hda_controller.c
+index 9765652a73d7..80016b7b6849 100644
+--- a/sound/pci/hda/hda_controller.c
++++ b/sound/pci/hda/hda_controller.c
+@@ -1202,15 +1202,8 @@ int azx_bus_init(struct azx *chip, const char *model)
+ 	if (chip->driver_caps & AZX_DCAPS_4K_BDLE_BOUNDARY)
+ 		bus->core.align_bdle_4k = true;
+ 
+-	/* AMD chipsets often cause the communication stalls upon certain
+-	 * sequence like the pin-detection.  It seems that forcing the synced
+-	 * access works around the stall.  Grrr...
+-	 */
+-	if (chip->driver_caps & AZX_DCAPS_SYNC_WRITE) {
+-		dev_dbg(chip->card->dev, "Enable sync_write for stable communication\n");
+-		bus->core.sync_write = 1;
+-		bus->allow_bus_reset = 1;
+-	}
++	/* enable sync_write flag for stable communication as default */
++	bus->core.sync_write = 1;
+ 
+ 	return 0;
+ }
+diff --git a/sound/pci/hda/hda_controller.h b/sound/pci/hda/hda_controller.h
+index 82e26442724b..fe171685492d 100644
+--- a/sound/pci/hda/hda_controller.h
++++ b/sound/pci/hda/hda_controller.h
+@@ -33,7 +33,7 @@
+ #define AZX_DCAPS_POSFIX_LPIB	(1 << 16)	/* Use LPIB as default */
+ #define AZX_DCAPS_AMD_WORKAROUND (1 << 17)	/* AMD-specific workaround */
+ #define AZX_DCAPS_NO_64BIT	(1 << 18)	/* No 64bit address */
+-#define AZX_DCAPS_SYNC_WRITE	(1 << 19)	/* sync each cmd write */
++/* 19 unused */
+ #define AZX_DCAPS_OLD_SSYNC	(1 << 20)	/* Old SSYNC reg for ICH */
+ #define AZX_DCAPS_NO_ALIGN_BUFSIZE (1 << 21)	/* no buffer size alignment */
+ /* 22 unused */
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index 3565e2ab0965..b2bd21f5a52e 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -283,13 +283,12 @@ enum {
+ 
+ /* quirks for old Intel chipsets */
+ #define AZX_DCAPS_INTEL_ICH \
+-	(AZX_DCAPS_OLD_SSYNC | AZX_DCAPS_NO_ALIGN_BUFSIZE |\
+-	 AZX_DCAPS_SYNC_WRITE)
++	(AZX_DCAPS_OLD_SSYNC | AZX_DCAPS_NO_ALIGN_BUFSIZE)
+ 
+ /* quirks for Intel PCH */
+ #define AZX_DCAPS_INTEL_PCH_BASE \
+ 	(AZX_DCAPS_NO_ALIGN_BUFSIZE | AZX_DCAPS_COUNT_LPIB_DELAY |\
+-	 AZX_DCAPS_SNOOP_TYPE(SCH) | AZX_DCAPS_SYNC_WRITE)
++	 AZX_DCAPS_SNOOP_TYPE(SCH))
+ 
+ /* PCH up to IVB; no runtime PM; bind with i915 gfx */
+ #define AZX_DCAPS_INTEL_PCH_NOPM \
+@@ -304,13 +303,13 @@ enum {
+ #define AZX_DCAPS_INTEL_HASWELL \
+ 	(/*AZX_DCAPS_ALIGN_BUFSIZE |*/ AZX_DCAPS_COUNT_LPIB_DELAY |\
+ 	 AZX_DCAPS_PM_RUNTIME | AZX_DCAPS_I915_COMPONENT |\
+-	 AZX_DCAPS_SNOOP_TYPE(SCH) | AZX_DCAPS_SYNC_WRITE)
++	 AZX_DCAPS_SNOOP_TYPE(SCH))
+ 
+ /* Broadwell HDMI can't use position buffer reliably, force to use LPIB */
+ #define AZX_DCAPS_INTEL_BROADWELL \
+ 	(/*AZX_DCAPS_ALIGN_BUFSIZE |*/ AZX_DCAPS_POSFIX_LPIB |\
+ 	 AZX_DCAPS_PM_RUNTIME | AZX_DCAPS_I915_COMPONENT |\
+-	 AZX_DCAPS_SNOOP_TYPE(SCH) | AZX_DCAPS_SYNC_WRITE)
++	 AZX_DCAPS_SNOOP_TYPE(SCH))
+ 
+ #define AZX_DCAPS_INTEL_BAYTRAIL \
+ 	(AZX_DCAPS_INTEL_PCH_BASE | AZX_DCAPS_I915_COMPONENT)
+@@ -321,19 +320,18 @@ enum {
+ 
+ #define AZX_DCAPS_INTEL_SKYLAKE \
+ 	(AZX_DCAPS_INTEL_PCH_BASE | AZX_DCAPS_PM_RUNTIME |\
+-	 AZX_DCAPS_SYNC_WRITE |\
+ 	 AZX_DCAPS_SEPARATE_STREAM_TAG | AZX_DCAPS_I915_COMPONENT)
+ 
+ #define AZX_DCAPS_INTEL_BROXTON		AZX_DCAPS_INTEL_SKYLAKE
+ 
+ /* quirks for ATI SB / AMD Hudson */
+ #define AZX_DCAPS_PRESET_ATI_SB \
+-	(AZX_DCAPS_NO_TCSEL | AZX_DCAPS_SYNC_WRITE | AZX_DCAPS_POSFIX_LPIB |\
++	(AZX_DCAPS_NO_TCSEL | AZX_DCAPS_POSFIX_LPIB |\
+ 	 AZX_DCAPS_SNOOP_TYPE(ATI))
+ 
+ /* quirks for ATI/AMD HDMI */
+ #define AZX_DCAPS_PRESET_ATI_HDMI \
+-	(AZX_DCAPS_NO_TCSEL | AZX_DCAPS_SYNC_WRITE | AZX_DCAPS_POSFIX_LPIB|\
++	(AZX_DCAPS_NO_TCSEL | AZX_DCAPS_POSFIX_LPIB|\
+ 	 AZX_DCAPS_NO_MSI64)
+ 
+ /* quirks for ATI HDMI with snoop off */
+@@ -342,7 +340,7 @@ enum {
+ 
+ /* quirks for AMD SB */
+ #define AZX_DCAPS_PRESET_AMD_SB \
+-	(AZX_DCAPS_NO_TCSEL | AZX_DCAPS_SYNC_WRITE | AZX_DCAPS_AMD_WORKAROUND |\
++	(AZX_DCAPS_NO_TCSEL | AZX_DCAPS_AMD_WORKAROUND |\
+ 	 AZX_DCAPS_SNOOP_TYPE(ATI) | AZX_DCAPS_PM_RUNTIME)
+ 
+ /* quirks for Nvidia */
+-- 
+2.25.0
 
-> I saw this patch more as a hardware quirk.
-
-Pretty much any DT property is a hardware quirk :(
-
---dMdWWqg3F2Dv/qfw
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7rfKEACgkQJNaLcl1U
-h9D4egf9GAyUHzaf4lnzptpzMRgqOKL3WVybRfxzlzkgBkgbNNF3Rxgl2TGJpoPu
-DQIe6X4ijMZ/LNocdFZi+BWCr/rh9ml0dUly5TEXbwjHQ1Im5SBdJgy9tLq1yjPD
-OY1sD5faXc2gH1A+z3LQ7xYFpNnpRwug4G+SbyiPtfkPXhIXKnx+cF+tdcqYw8hz
-dDcihB9jR8gPEYGqPBQOacSjd969ocvYYj2npO9TztHNXfwvFwNxErrg7pebwrI5
-7NbFOUdEU7aLAPIx2AfHoHTD9FzDGvqY37Q/UZZYqqFxRQ46ZluGN1cyuOet3sEb
-83lXKDitdxTNZOmNGYNNCEZL/dcdTA==
-=Ja8t
------END PGP SIGNATURE-----
-
---dMdWWqg3F2Dv/qfw--

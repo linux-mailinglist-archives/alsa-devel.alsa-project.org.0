@@ -2,58 +2,126 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 748211FFD6B
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 23:31:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D20D1FFDBE
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jun 2020 00:09:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BDB121679;
-	Thu, 18 Jun 2020 23:31:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDB121679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1AC411678;
+	Fri, 19 Jun 2020 00:08:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1AC411678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592515911;
-	bh=UNO0uOe5SpI6exLNTFCO2shwIg1YC4o/uqtobOqHXr8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1592518185;
+	bh=yB9Xqfs2NtUIoPHYzirr0HAU3GJ34qechRWtbsffhvk=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HgrtWnvDgOoTFwZ5SutMy5SF0y/26DG9QVuBfSROvRimvJcotx3UZ+siNcAH4GqFR
-	 ZZLfO+1USGcRwgqpi3ztW4Qh+W56obYGZBYW65YlOUp9o7w4h8xUZp0RQljs+0E1Xj
-	 05Rv8Odl6/QXjTZjEu9cH2WuKPNsCWuXnriZ0fPo=
+	b=Ko+UeGBIc5bvFVeOgIk15dc6jSzUTs/fjQW3PX3wCeSvG874KtgKJzryhj61DH+tx
+	 ap91/4VgkXoQRsxkML6sJT+5ohjdkPXU7rS1NF7It02K2RELZ9AU16IhH+ZQ3RPhF+
+	 V+Yrj4WN4SmCEWy7e0xsQUwIhVpBQEPtG8yDOgHU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D413FF800D1;
-	Thu, 18 Jun 2020 23:30:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40B3FF800D1;
+	Fri, 19 Jun 2020 00:08:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B352DF80162; Thu, 18 Jun 2020 23:30:06 +0200 (CEST)
+ id 3E9DAF80171; Fri, 19 Jun 2020 00:08:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from dd48038.kasserver.com (dd48038.kasserver.com [85.13.164.104])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2108.outbound.protection.outlook.com [40.107.243.108])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3A627F800D1
- for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 23:30:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A627F800D1
-Received: from meadow.localnet (x4e313b60.dyn.telefonica.de [78.49.59.96])
- by dd48038.kasserver.com (Postfix) with ESMTPSA id D43375005493;
- Thu, 18 Jun 2020 23:29:59 +0200 (CEST)
-From: "m.eik michalke" <alsa@reaktanz.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: presonus StudioLive 24.4.2
-Date: Thu, 18 Jun 2020 23:29:58 +0200
-Message-ID: <2657876.DQpN11Lt7Q@meadow>
-Organization: http://www.reaktanz.de/blog
-X-Face: :Fk?kfw3:=Vz)np%nh,d4^[#)-y,9IYe:y,; }P|%`fw>/.msl.f=*6j*-f$vL09$qopvp6
- Ox|(^ge<|+0iS]{&|\<0>i7r'@'k+i=eB5y8*pO$#xT+$2uq=`
-In-Reply-To: <20200618140623.GA314288@workstation>
-References: <1859294.RmyynjnHiM@meadow> <4447737.uXMYkMNjJ4@yrla>
- <20200618140623.GA314288@workstation>
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 43EBFF800D1
+ for <alsa-devel@alsa-project.org>; Fri, 19 Jun 2020 00:07:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43EBFF800D1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=maximintegrated.onmicrosoft.com
+ header.i=@maximintegrated.onmicrosoft.com header.b="WwFkR3Ck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bKNcyRFc81yIG1x1kt6mQ0UkcifH/6BceKTI56JHTwCoJhxBRVosDmxwxBeL7TN/dq36PpP3jrCrettb8hz1Cdkn7dv2kpVuMJDSk3xKQGpeewWlDzidaHhy2IhejjGZoZyjFIBYkGMSBlyK/xdw1g/6iA/oDv9FztTNNeTUnG8rjBZNrat18pDvs6dbzzZqpMKooHUNcrRAlnhOjA0MyaCwSKLz/NdbmoZYlK3Ryqb5vcO/kPs2vTha0P37CyODHRg8qA7Hv2y5QAHLg95g9+dce2mZ/2Ci2tuXVSbLYrjMaUQ1yrgpHnxi8EgbkqOR0fSuGaV5jWSArJa9tyDmew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YkbxZseRvQ7k/GpPXfsJRa6+mmxAbMaM78B0bZExxKk=;
+ b=cilm7rFNva6zK+SxPVob7JI+Fup4zxDumBFA/keJkSGao7grhEp2bc3+PjWafE+gjdA/NhRFkWMl4PERrYRYwusqsUFNjm6XHy7UYp0Wpxmmm9CaYnomodzh3DjEiJmvsbNkmDgXLinQQGXAVNBs6ek73GYjRQNSQ0nzQaz00X41eir8oe/VeZG8dmu2xlO0sLwlRORUSJLzpTxU/47KJ6gv1mp0x7FSq1N6PwjxGeNYcr+jxGdk88O+7G82pauXoQGbmOH3WWJABSwEZpDRA/siVza/rtCw8kQ+iywQZEALl1up9Kd+ZGcuaMldsWdYyArPW18bQI3bDiKlsim0Aw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=maximintegrated.com; dmarc=pass action=none
+ header.from=maximintegrated.com; dkim=pass header.d=maximintegrated.com;
+ arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=maximintegrated.onmicrosoft.com;
+ s=selector2-maximintegrated-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YkbxZseRvQ7k/GpPXfsJRa6+mmxAbMaM78B0bZExxKk=;
+ b=WwFkR3CkqWCkV0baATGodhFoXicmSSySqf41VpKCbKl/wRSkT+owJTR9dg04/9uzScdpeTEMS4KjsS4Tmjdn1YzsoqgyYtkGaddThXTR8sjcmcBs9gSZjVGV+3VLis/0Nlk2VedGVcRzQDgO23kSVMuKWNmkDDV2psk7cuzJOBs=
+Received: from BL0PR11MB3380.namprd11.prod.outlook.com (2603:10b6:208:69::12)
+ by MN2PR11MB4208.namprd11.prod.outlook.com (2603:10b6:208:17a::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3088.25; Thu, 18 Jun
+ 2020 22:07:47 +0000
+Received: from BL0PR11MB3380.namprd11.prod.outlook.com
+ ([fe80::71fd:6797:4389:da64]) by BL0PR11MB3380.namprd11.prod.outlook.com
+ ([fe80::71fd:6797:4389:da64%2]) with mapi id 15.20.3109.021; Thu, 18 Jun 2020
+ 22:07:47 +0000
+From: Ryan Lee <RyanS.Lee@maximintegrated.com>
+To: Mark Brown <broonie@kernel.org>, Pierre-Louis Bossart
+ <pierre-louis.bossart@linux.intel.com>
+Subject: RE: [PATCH] ASoC: codecs: Added MAX98373 Soundwire Driver
+Thread-Topic: [PATCH] ASoC: codecs: Added MAX98373 Soundwire Driver
+Thread-Index: AQHWRMSoFuqFjiJa20Kl2OKNSeuh2qjeODUAgAAaF4CAAClzAIAAdILA
+Date: Thu, 18 Jun 2020 22:07:47 +0000
+Message-ID: <BL0PR11MB338028B7DB856993FF570D88E79B0@BL0PR11MB3380.namprd11.prod.outlook.com>
+References: <20200617163015.16809-1-pierre-louis.bossart@linux.intel.com>
+ <20200618110902.GE5789@sirena.org.uk>
+ <d3bb399f-3af9-666d-054d-e4a1dda1dfb4@linux.intel.com>
+ <20200618151046.GK5789@sirena.org.uk>
+In-Reply-To: <20200618151046.GK5789@sirena.org.uk>
+Accept-Language: en-US, ko-KR
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none
+ header.from=maximintegrated.com;
+x-originating-ip: [73.189.52.211]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 5cdc09d8-0079-472d-a053-08d813d408ed
+x-ms-traffictypediagnostic: MN2PR11MB4208:
+x-microsoft-antispam-prvs: <MN2PR11MB420866272587E994ED3A587DE79B0@MN2PR11MB4208.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8273;
+x-forefront-prvs: 0438F90F17
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: XSwj3+vH3h6UvSDTLWRr+C63hRFHWK47tp6h/4UM3o033fbNLe2o7VDIRHebZrmmMjaCvUfrMjZMBRdZcETURi80G547BV/1V3vsOiixNyoD3SwTRsr7FNQIKMpoah5MO2pg/lU7ShmG0NnZ9wP8fIMtHuPwb4R2VS0+8u9hy9WhWg7KDfH5GY62hixbAtIuCFkoBKeB5+4v5fCNADhJgPLbxj5apKk6h9LrTT+kSn17L4hqm3xPZkAmyKYm6WxcjUcs36q8F0AggFuzCgqc2lBjrrsI4hcGuoQyZgBc8qUedGip6ZXCOTB5N3ZFxS6ZAf9x5RRBwzblwDsMxy7Szg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR11MB3380.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(39860400002)(396003)(376002)(366004)(346002)(136003)(186003)(6506007)(8936002)(2906002)(71200400001)(52536014)(26005)(8676002)(478600001)(83380400001)(5660300002)(7416002)(9686003)(54906003)(33656002)(55016002)(110136005)(86362001)(64756008)(66446008)(66476007)(66946007)(7696005)(76116006)(316002)(4326008)(66556008);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: PdKovLJMZM0VOKzL9m+9xk1oBQ7i+NS+I3YpVK5K6AE8M6cAgDHZon0p9Sa+TE7h2QoJzOS42kT34m2ZSmDDQc7rJ09zZUifPDLV373k1uac6nw+7U5runHKP63MWrKc0Gk7g9JH6WIohdGIp1zHvCh02bZZS8gJklDRUogF+WDSDqu+cZW/eRlRxC2Tzp2nrKt5HOZ9S9Zemx3HxxzdOjbag2eruvXuzsJgVqh+EkY88ZgG07Y/Nu0c5JRgnVhb5LXcImcD3F9EvyoFyprQvtVxQkwU1BFOcNHQRAOqsrOQ/+TXkUo2IwufhzA4vuEp6airk7v9W87bDU/hOW/X2YQPBgG1DiyAeSEIvbd1HXqtQ6zq/+5fMYBqHAOP0JPWCMlLfWEWePkOErzqOsGL4PZvHSfWT8v96LxGSA8Zu6LiHRsGG47W7r3TKQeJwvYaFw+nKl2JZc+5mWXdoG8KoddVmaiNoVHDP4MaKXYWGxk=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-Cc: alsa-devel@alsa-project.org
+MIME-Version: 1.0
+X-OriginatorOrg: maximintegrated.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5cdc09d8-0079-472d-a053-08d813d408ed
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jun 2020 22:07:47.5141 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: fbd909df-ea69-4788-a554-f24b7854ad03
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: lLbtLZEIV7HTicbzPQSsE1Yb7y5a0OHOoX9CPJFUWTcM2cqRbvg+g5L7Gp79vs93gs8Gpt0MvCJqonyDq4tgtENNAcHXoXTfwkSCm+L9saA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR11MB4208
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "tiwai@suse.de" <tiwai@suse.de>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "vkoul@kernel.org" <vkoul@kernel.org>, Naveen Manohar <naveen.m@intel.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,54 +137,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-hi,
+>-----Original Message-----
+>From: Mark Brown <broonie@kernel.org>
+>Sent: Thursday, June 18, 2020 8:11 AM
+>To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>; alsa-
+>devel@alsa-project.org; Ryan Lee <RyanS.Lee@maximintegrated.com>;
+>tiwai@suse.de; gregkh@linuxfoundation.org; vkoul@kernel.org; Naveen
+>Manohar <naveen.m@intel.com>; Bard liao <yung-
+>chuan.liao@linux.intel.com>; Rander Wang <rander.wang@linux.intel.com>
+>Subject: Re: [PATCH] ASoC: codecs: Added MAX98373 Soundwire Driver
+>
+>On Thu, Jun 18, 2020 at 07:42:25AM -0500, Pierre-Louis Bossart wrote:
+>
+>> > The DT bindings need updating to add SoundWire support.
+>
+>> Interesting. The properties are the same in I2C and SoundWire mode, so
+>> would we need a completely different file that just specifies the
+>> SoundWire DeviceID, e.g.
+>
+>> properties:
+>>   compatible:
+>>     const: sdw10217201000
+>
+>> What's the process for such dual-mode devices?
+>
+>I'd hope it could be added to the existing bindings document like for othe=
+r
+>dual bus devices.
+>
+>> > > +	regmap_write(max98373->regmap,
+>> > > +		     MAX98373_R203D_AMP_DIG_VOL_CTRL,
+>> > > +		     0x00);
+>> > > +	regmap_write(max98373->regmap,
+>> > > +		     MAX98373_R203E_AMP_PATH_GAIN,
+>> > > +		     0x00);
+>
+>> > I'd expect these to be chip defaults, especially the volumes.
+>
+>> The same sequence is already used in the I2C probe. if this needs to
+>> change, it's got to be applied for both cases.
+>
+>Yes, it should.
 
-Am Donnerstag, 18. Juni 2020, 16:06:23 CEST schrieb Takashi Sakamoto:
-> The domain specific language in alsa-lib is not so easy to understand
-> and control. The result affects to all of ALSA applications like pulseaud=
-io.
-> It's better to use alsa_in/alsa_out for the purpose to avoid unexpected
-> influences, IMO...
+Agreed. Shall remove volume configuration.
 
-i'll probably try both, and maybe FFADO as well. my goal is a solution that=
-=20
-reliably works when we (my band) start recording again.
+>
+>> We should probably cut the common parts out, as done for rt5682. Ryan,
+>> can you look into this.
+>
+>Indeed.
 
-it's a pity alsa currently can't transparently take care of this. it looks=
-=20
-like basically everything is in place, but you're left with that IKEA feeli=
-ng,=20
-a collection of parts and a construction manual in your hand. when you plug=
- in=20
-a 24-channel sound card and alsa successfully detects all of them, as a use=
-r=20
-you'd expect the single card that is actually offered by alsa to just provi=
-de=20
-all those channels. that the board internally might use mutliple chips is=20
-something you shouldn't have to worry about/figure out. i'd argue there's=20
-exactly one configuration that everyone would expect to get from a board li=
-ke=20
-this, and that's all channels in one device. it would do no harm to=20
-automatically configure it like this by default. should someone actually=20
-prefer to have split devices for whatever use case, IMHO that should be the=
-=20
-exception to be configured manually.
-
-> > let me know if you need anything else.
->=20
-> Hm. If you hear sound with periodical noise, please report it. The
-> dice-based device is known as one of the devices to require drivers for
-> media clock recovery. In detail, please read the other case[1].
-
-i'll check it out. we have just bought the board second-hand to replace a=20
-phonic helixboard that broke after ~10 years in our studio. i'm just starti=
-ng=20
-to get familiar with it and haven't recorded much more than a proof of basi=
-c=20
-functionality yet.
-
-
-viele gr=FC=DFe :: m.eik
-
-
-
+OK. Shall re-use common parts and remove duplication.

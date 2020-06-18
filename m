@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 311C11FE119
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 03:52:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87C9F1FE11E
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 03:53:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC3CD171E;
-	Thu, 18 Jun 2020 03:51:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC3CD171E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2BC14172D;
+	Thu, 18 Jun 2020 03:52:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BC14172D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592445167;
-	bh=ZwQniGsZaMrpQa0UJdKs4Tf2t9OfA2jff0q6Ie3D2WI=;
+	s=default; t=1592445203;
+	bh=SZWhEUlrFwpvsPH3D1fybotIlI+x0hXe/brgVE34O10=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YdGI84QwjwmIl+dTRpbAgJTO5Ww8j038ALR+ybznxie65T8OAZKcj59itp/1syhPM
-	 EnhbP8zVaDN4E/EYPn574LlFHjMAjI5hQ8XoIDZffvzhyUlI2FDRKhHdYvVVwQpL/8
-	 /czeYj81JK/rrr1MTRi7vxGVI+St7gem29f6yf0w=
+	b=Hs0wsfg9uCuq6DjDGTVVJKrMgdogyrwgEZ1iwXSP4ExidkdoRgO39DELZG02f1k3r
+	 by+QUhl9lokAKHHPiEwL2N/F3Ny8N0uDsEURfJIrlDO736KPxNyMr+xsoI2Ze1ktsW
+	 SPc60N07aXPfD0TaxMl4E835BhIPkYL3AkztPSs0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7F46F80384;
-	Thu, 18 Jun 2020 03:24:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B154DF80371;
+	Thu, 18 Jun 2020 03:24:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 247F9F80524; Thu, 18 Jun 2020 03:23:58 +0200 (CEST)
+ id 2596CF80525; Thu, 18 Jun 2020 03:24:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 47F83F802E7
- for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 03:23:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47F83F802E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id F3BAFF80384
+ for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 03:23:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3BAFF80384
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="nBHj2fH3"
+ header.b="m5oBVun1"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0923A21927;
- Thu, 18 Jun 2020 01:23:48 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 829DB20663;
+ Thu, 18 Jun 2020 01:23:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592443429;
- bh=ZwQniGsZaMrpQa0UJdKs4Tf2t9OfA2jff0q6Ie3D2WI=;
+ s=default; t=1592443432;
+ bh=SZWhEUlrFwpvsPH3D1fybotIlI+x0hXe/brgVE34O10=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nBHj2fH33/VGT/xcF68GADS5wpX5fAAKlH7rWG1TQN33ue4SRXURL0VDwLcv+vSrk
- b2htR8zCTMlbnQvbQqyrFCVm2HlUHIG8C+kCOZ48GqPXuJZRb0h/3HSquloIzaFpJI
- odGE+U+dfPibRFlqHrcnMw15h3BTTausqZzu7fZM=
+ b=m5oBVun1RfgJDLIPZW4MoNgN87QqxsO6S8B1sdoXMYV0K1z59NjCRgAhCUTHdlqjx
+ /8R4viTAs6eD/FdIgL1akCLpQAioNVh8OKvbiOGpyLwxVuaDmzlkWyCxJiQEJJeD0X
+ 7tGr1pkU1mGGgzx3dHjfelDkQtJ+NE8fMzSgTCuk=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 069/172] slimbus: ngd: get drvdata from correct
- device
-Date: Wed, 17 Jun 2020 21:20:35 -0400
-Message-Id: <20200618012218.607130-69-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 071/172] soundwire: slave: don't init debugfs on
+ device registration error
+Date: Wed, 17 Jun 2020 21:20:37 -0400
+Message-Id: <20200618012218.607130-71-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200618012218.607130-1-sashal@kernel.org>
 References: <20200618012218.607130-1-sashal@kernel.org>
@@ -68,9 +68,11 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, alsa-devel@alsa-project.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- linux-arm-msm@vger.kernel.org
+ Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,48 +88,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-[ Upstream commit b58c663059b484f7ff547d076a34cf6d7a302e56 ]
+[ Upstream commit 8893ab5e8ee5d7c12e0fc1dca4a309475064473d ]
 
-Get drvdata directly from parent instead of ngd dev, as ngd
-dev can probe defer and previously set drvdata will become null.
+The error handling flow seems incorrect, there is no reason to try and
+add debugfs support if the device registration did not
+succeed. Return on error.
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Link: https://lore.kernel.org/r/20200417093618.7929-1-srinivas.kandagatla@linaro.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Link: https://lore.kernel.org/r/20200419185117.4233-2-yung-chuan.liao@linux.intel.com
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/slimbus/qcom-ngd-ctrl.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/soundwire/slave.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-index 9221ba7b7863..f40ac8dcb081 100644
---- a/drivers/slimbus/qcom-ngd-ctrl.c
-+++ b/drivers/slimbus/qcom-ngd-ctrl.c
-@@ -1350,7 +1350,6 @@ static int of_qcom_slim_ngd_register(struct device *parent,
- 		ngd->pdev->driver_override = QCOM_SLIM_NGD_DRV_NAME;
- 		ngd->pdev->dev.of_node = node;
- 		ctrl->ngd = ngd;
--		platform_set_drvdata(ngd->pdev, ctrl);
+diff --git a/drivers/soundwire/slave.c b/drivers/soundwire/slave.c
+index ac103bd0c176..b6330b6672d5 100644
+--- a/drivers/soundwire/slave.c
++++ b/drivers/soundwire/slave.c
+@@ -55,6 +55,8 @@ static int sdw_slave_add(struct sdw_bus *bus,
+ 		list_del(&slave->node);
+ 		mutex_unlock(&bus->bus_lock);
+ 		put_device(&slave->dev);
++
++		return ret;
+ 	}
  
- 		platform_device_add(ngd->pdev);
- 		ngd->base = ctrl->base + ngd->id * data->offset +
-@@ -1365,12 +1364,13 @@ static int of_qcom_slim_ngd_register(struct device *parent,
- 
- static int qcom_slim_ngd_probe(struct platform_device *pdev)
- {
--	struct qcom_slim_ngd_ctrl *ctrl = platform_get_drvdata(pdev);
- 	struct device *dev = &pdev->dev;
-+	struct qcom_slim_ngd_ctrl *ctrl = dev_get_drvdata(dev->parent);
- 	int ret;
- 
- 	ctrl->ctrl.dev = dev;
- 
-+	platform_set_drvdata(pdev, ctrl);
- 	pm_runtime_use_autosuspend(dev);
- 	pm_runtime_set_autosuspend_delay(dev, QCOM_SLIM_NGD_AUTOSUSPEND);
- 	pm_runtime_set_suspended(dev);
+ 	return ret;
 -- 
 2.25.1
 

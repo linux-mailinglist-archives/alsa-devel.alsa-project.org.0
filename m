@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 528781FDEB0
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 03:37:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CFEC1FDEB3
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 03:38:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC70216F2;
-	Thu, 18 Jun 2020 03:36:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC70216F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC38116DA;
+	Thu, 18 Jun 2020 03:37:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC38116DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592444262;
-	bh=Vp54ozwgS+zCLet7Ygucfwe5ReCS07oSecflLunDtuM=;
+	s=default; t=1592444295;
+	bh=RmcN2iG8BFT6w027Fmc4vzZKEegboXgWazxfugsbZY8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=B1Q0+m3In0NU7OBP47eVVhlAeZ/u+O/uxfMVECP86ufVdDnVtC9qeBIuF7U7F9hdc
-	 CXSq8Aryh01VhC9Q6Pzn68dAFE19Du64aSINvVWXvtC9Ne9aTinl0nBzJEmEpRVQGM
-	 imGyaxOhuhVRH18e6KnUsrr/gfUqLejQzJnNJZlI=
+	b=a3bBsKX/ZmDKB8tdjqqFp77T03fcRt83LVaTdN0h7fWVfqthqPYFIISmMkWCiq3Bd
+	 y62wei98znC0UwU11rtxsplWMM+8RblWYVr++2ir/0LS39WwFI6qE8srcxzi9e2rI6
+	 g5schuknGo3G0DWHE4mlxuNIie0U8vvJ9jkkGl6w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96550F80334;
-	Thu, 18 Jun 2020 03:18:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21A11F80457;
+	Thu, 18 Jun 2020 03:18:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D450DF80329; Thu, 18 Jun 2020 03:18:28 +0200 (CEST)
+ id 00C44F80457; Thu, 18 Jun 2020 03:18:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B2750F80334
- for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 03:18:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2750F80334
+ by alsa1.perex.cz (Postfix) with ESMTPS id E0911F80336
+ for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 03:18:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0911F80336
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="yNR8t7Ek"
+ header.b="L50ywd/F"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 454F221D90;
- Thu, 18 Jun 2020 01:18:19 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id B7E4D206F1;
+ Thu, 18 Jun 2020 01:18:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592443100;
- bh=Vp54ozwgS+zCLet7Ygucfwe5ReCS07oSecflLunDtuM=;
+ s=default; t=1592443128;
+ bh=RmcN2iG8BFT6w027Fmc4vzZKEegboXgWazxfugsbZY8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=yNR8t7Ek0qwvdj+643ndskzWDr6dxA0KZiBahePhU06U/lkY38ZG5l3UFfotrqmbc
- 2LxMKyShnRRUBUu1DwK43aZfL/Hb4lsZ/XCGCBxh8rsBGDDP0fXYov4fzNH7Fenkvp
- rQNLQuKvCwhrFElSrqgTAtzB5Ghk6zKwPjfhnAIw=
+ b=L50ywd/FR61TF9odOEtUKwY0H/BVu8Dtniz0BtWubdwDHUn39qr/gNcUk336GeMFl
+ /OR/nL7c/bgrEle2M2r6G542wfS9oxM/8oi6OM9/Vq5wNldj1ucsxuhYJrayjRzgWH
+ BkBHkBNnwTDfR9SirJVh8axKl1OkZkUeQRwjVIIM=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 079/266] ASoC: meson: add missing free_irq() in
- error path
-Date: Wed, 17 Jun 2020 21:13:24 -0400
-Message-Id: <20200618011631.604574-79-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 101/266] ALSA: usb-audio: Improve frames size
+ computation
+Date: Wed, 17 Jun 2020 21:13:46 -0400
+Message-Id: <20200618011631.604574-101-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200618011631.604574-1-sashal@kernel.org>
 References: <20200618011631.604574-1-sashal@kernel.org>
@@ -67,10 +67,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- "Pavel Machek \(CIP\)" <pavel@denx.de>, Mark Brown <broonie@kernel.org>,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Jerome Brunet <jbrunet@baylibre.com>
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ Alexander Tsoy <alexander@tsoy.me>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,50 +84,164 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: "Pavel Machek (CIP)" <pavel@denx.de>
+From: Alexander Tsoy <alexander@tsoy.me>
 
-[ Upstream commit 3b8a299a58b2afce464ae11324b59dcf0f1d10a7 ]
+[ Upstream commit f0bd62b64016508938df9babe47f65c2c727d25c ]
 
-free_irq() is missing in case of error, fix that.
+For computation of the the next frame size current value of fs/fps and
+accumulated fractional parts of fs/fps are used, where values are stored
+in Q16.16 format. This is quite natural for computing frame size for
+asynchronous endpoints driven by explicit feedback, since in this case
+fs/fps is a value provided by the feedback endpoint and it's already in
+the Q format. If an error is accumulated over time, the device can
+adjust fs/fps value to prevent buffer overruns/underruns.
 
-Signed-off-by: Pavel Machek (CIP) <pavel@denx.de>
-Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
+But for synchronous endpoints the accuracy provided by these computations
+is not enough. Due to accumulated error the driver periodically produces
+frames with incorrect size (+/- 1 audio sample).
 
-Link: https://lore.kernel.org/r/20200606153103.GA17905@amd
-Signed-off-by: Mark Brown <broonie@kernel.org>
+This patch fixes this issue by implementing a different algorithm for
+frame size computation. It is based on accumulating of the remainders
+from division fs/fps and it doesn't accumulate errors over time. This
+new method is enabled for synchronous and adaptive playback endpoints.
+
+Signed-off-by: Alexander Tsoy <alexander@tsoy.me>
+Link: https://lore.kernel.org/r/20200424022449.14972-1-alexander@tsoy.me
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/meson/axg-fifo.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ sound/usb/card.h     |  4 ++++
+ sound/usb/endpoint.c | 43 ++++++++++++++++++++++++++++++++++++++-----
+ sound/usb/endpoint.h |  1 +
+ sound/usb/pcm.c      |  2 ++
+ 4 files changed, 45 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/meson/axg-fifo.c b/sound/soc/meson/axg-fifo.c
-index d286dff3171d..898ef1d5608f 100644
---- a/sound/soc/meson/axg-fifo.c
-+++ b/sound/soc/meson/axg-fifo.c
-@@ -244,7 +244,7 @@ static int axg_fifo_pcm_open(struct snd_pcm_substream *ss)
- 	/* Enable pclk to access registers and clock the fifo ip */
- 	ret = clk_prepare_enable(fifo->pclk);
- 	if (ret)
--		return ret;
-+		goto free_irq;
+diff --git a/sound/usb/card.h b/sound/usb/card.h
+index 395403a2d33f..820e564656ed 100644
+--- a/sound/usb/card.h
++++ b/sound/usb/card.h
+@@ -84,6 +84,10 @@ struct snd_usb_endpoint {
+ 	dma_addr_t sync_dma;		/* DMA address of syncbuf */
  
- 	/* Setup status2 so it reports the memory pointer */
- 	regmap_update_bits(fifo->map, FIFO_CTRL1,
-@@ -264,8 +264,14 @@ static int axg_fifo_pcm_open(struct snd_pcm_substream *ss)
- 	/* Take memory arbitror out of reset */
- 	ret = reset_control_deassert(fifo->arb);
- 	if (ret)
--		clk_disable_unprepare(fifo->pclk);
-+		goto free_clk;
-+
-+	return 0;
+ 	unsigned int pipe;		/* the data i/o pipe */
++	unsigned int framesize[2];	/* small/large frame sizes in samples */
++	unsigned int sample_rem;	/* remainder from division fs/fps */
++	unsigned int sample_accum;	/* sample accumulator */
++	unsigned int fps;		/* frames per second */
+ 	unsigned int freqn;		/* nominal sampling rate in fs/fps in Q16.16 format */
+ 	unsigned int freqm;		/* momentary sampling rate in fs/fps in Q16.16 format */
+ 	int	   freqshift;		/* how much to shift the feedback value to get Q16.16 */
+diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+index 4a9a2f6ef5a4..d8dc7cb56d43 100644
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -124,12 +124,12 @@ int snd_usb_endpoint_implicit_feedback_sink(struct snd_usb_endpoint *ep)
  
-+free_clk:
-+	clk_disable_unprepare(fifo->pclk);
-+free_irq:
-+	free_irq(fifo->irq, ss);
+ /*
+  * For streaming based on information derived from sync endpoints,
+- * prepare_outbound_urb_sizes() will call next_packet_size() to
++ * prepare_outbound_urb_sizes() will call slave_next_packet_size() to
+  * determine the number of samples to be sent in the next packet.
+  *
+- * For implicit feedback, next_packet_size() is unused.
++ * For implicit feedback, slave_next_packet_size() is unused.
+  */
+-int snd_usb_endpoint_next_packet_size(struct snd_usb_endpoint *ep)
++int snd_usb_endpoint_slave_next_packet_size(struct snd_usb_endpoint *ep)
+ {
+ 	unsigned long flags;
+ 	int ret;
+@@ -146,6 +146,29 @@ int snd_usb_endpoint_next_packet_size(struct snd_usb_endpoint *ep)
  	return ret;
  }
+ 
++/*
++ * For adaptive and synchronous endpoints, prepare_outbound_urb_sizes()
++ * will call next_packet_size() to determine the number of samples to be
++ * sent in the next packet.
++ */
++int snd_usb_endpoint_next_packet_size(struct snd_usb_endpoint *ep)
++{
++	int ret;
++
++	if (ep->fill_max)
++		return ep->maxframesize;
++
++	ep->sample_accum += ep->sample_rem;
++	if (ep->sample_accum >= ep->fps) {
++		ep->sample_accum -= ep->fps;
++		ret = ep->framesize[1];
++	} else {
++		ret = ep->framesize[0];
++	}
++
++	return ret;
++}
++
+ static void retire_outbound_urb(struct snd_usb_endpoint *ep,
+ 				struct snd_urb_ctx *urb_ctx)
+ {
+@@ -190,6 +213,8 @@ static void prepare_silent_urb(struct snd_usb_endpoint *ep,
+ 
+ 		if (ctx->packet_size[i])
+ 			counts = ctx->packet_size[i];
++		else if (ep->sync_master)
++			counts = snd_usb_endpoint_slave_next_packet_size(ep);
+ 		else
+ 			counts = snd_usb_endpoint_next_packet_size(ep);
+ 
+@@ -874,10 +899,17 @@ int snd_usb_endpoint_set_params(struct snd_usb_endpoint *ep,
+ 	ep->maxpacksize = fmt->maxpacksize;
+ 	ep->fill_max = !!(fmt->attributes & UAC_EP_CS_ATTR_FILL_MAX);
+ 
+-	if (snd_usb_get_speed(ep->chip->dev) == USB_SPEED_FULL)
++	if (snd_usb_get_speed(ep->chip->dev) == USB_SPEED_FULL) {
+ 		ep->freqn = get_usb_full_speed_rate(rate);
+-	else
++		ep->fps = 1000;
++	} else {
+ 		ep->freqn = get_usb_high_speed_rate(rate);
++		ep->fps = 8000;
++	}
++
++	ep->sample_rem = rate % ep->fps;
++	ep->framesize[0] = rate / ep->fps;
++	ep->framesize[1] = (rate + (ep->fps - 1)) / ep->fps;
+ 
+ 	/* calculate the frequency in 16.16 format */
+ 	ep->freqm = ep->freqn;
+@@ -936,6 +968,7 @@ int snd_usb_endpoint_start(struct snd_usb_endpoint *ep)
+ 	ep->active_mask = 0;
+ 	ep->unlink_mask = 0;
+ 	ep->phase = 0;
++	ep->sample_accum = 0;
+ 
+ 	snd_usb_endpoint_start_quirk(ep);
+ 
+diff --git a/sound/usb/endpoint.h b/sound/usb/endpoint.h
+index 63a39d4fa8d8..d23fa0a8c11b 100644
+--- a/sound/usb/endpoint.h
++++ b/sound/usb/endpoint.h
+@@ -28,6 +28,7 @@ void snd_usb_endpoint_release(struct snd_usb_endpoint *ep);
+ void snd_usb_endpoint_free(struct snd_usb_endpoint *ep);
+ 
+ int snd_usb_endpoint_implicit_feedback_sink(struct snd_usb_endpoint *ep);
++int snd_usb_endpoint_slave_next_packet_size(struct snd_usb_endpoint *ep);
+ int snd_usb_endpoint_next_packet_size(struct snd_usb_endpoint *ep);
+ 
+ void snd_usb_handle_sync_urb(struct snd_usb_endpoint *ep,
+diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
+index ad8f38380aa3..e52d129085c0 100644
+--- a/sound/usb/pcm.c
++++ b/sound/usb/pcm.c
+@@ -1575,6 +1575,8 @@ static void prepare_playback_urb(struct snd_usb_substream *subs,
+ 	for (i = 0; i < ctx->packets; i++) {
+ 		if (ctx->packet_size[i])
+ 			counts = ctx->packet_size[i];
++		else if (ep->sync_master)
++			counts = snd_usb_endpoint_slave_next_packet_size(ep);
+ 		else
+ 			counts = snd_usb_endpoint_next_packet_size(ep);
  
 -- 
 2.25.1

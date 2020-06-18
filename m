@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDA4E1FF055
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 13:14:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA5591FF05D
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 13:16:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6AA141751;
-	Thu, 18 Jun 2020 13:13:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AA141751
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67215175D;
+	Thu, 18 Jun 2020 13:15:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67215175D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592478886;
-	bh=ePhLyiOtvflOThTOH1WMHTbla0ME9U5MdxrTbjakOs0=;
+	s=default; t=1592478979;
+	bh=WQb29NkX8c3uJd0FMY2A0SmrUM3LeiyRpx046VoL3pk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=efIXMm9wPQtYCsqBJd7b+S9kYO0j5SKS9TBj7VVmnd3FMcLCgrDsnnfxpDSH5LUrb
-	 rtGssvo7CDkAl+RPOwg/OVjKy5fD0uQiXAC6WzY6aggRCnS+mE/lyPWb3Bi4I4OnQl
-	 hV3RcmqhnA90nNfpVtEFY0qA2wtlBbtqaz5zfPGk=
+	b=YJd943FWKqXpUJGoWOmYqhhMoTqnQhr1Zauo+n5BI+etjE/lm1T6/+y7yJO7ET0zf
+	 xfxhHFy4zMDac0jBWCJdbqumZNz8AcJq/wNyxSfmSXbdFcIKzTgSyyw5ENeCs+jJYV
+	 xbITQLjBo4bjldFtEHOS5KiVqnqbEJJojIRqmcSA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92867F802E3;
-	Thu, 18 Jun 2020 13:09:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 907C4F80306;
+	Thu, 18 Jun 2020 13:09:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 61B14F802D2; Thu, 18 Jun 2020 13:09:13 +0200 (CEST)
+ id EF65FF802DC; Thu, 18 Jun 2020 13:09:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,18 +34,18 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 92FEDF8022B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 98407F80252
  for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 13:08:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92FEDF8022B
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98407F80252
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id BA826AF3E;
+ by mx2.suse.de (Postfix) with ESMTP id BC898AF44;
  Thu, 18 Jun 2020 11:08:49 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 08/13] ALSA: hda: generic: Add vmaster mute LED helper
-Date: Thu, 18 Jun 2020 13:08:37 +0200
-Message-Id: <20200618110842.27238-9-tiwai@suse.de>
+Subject: [PATCH 09/13] ALSA: hda/realtek: Use the new vmaster mute LED helper
+Date: Thu, 18 Jun 2020 13:08:38 +0200
+Message-Id: <20200618110842.27238-10-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20200618110842.27238-1-tiwai@suse.de>
 References: <20200618110842.27238-1-tiwai@suse.de>
@@ -65,126 +65,210 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Like mic-mute LED handling, add a new helper to deal with the master
-mute LED with LED classdev.  Unlike the mic-mute case, the playback
-master mute is hooked on vmaster, and we suppose no nested hooks
-allowed there.
+Convert the mute LED handling in Realtek codec to the new vmaster mute
+helper.  A point to be cautiously handled is that the value passed to
+the callback is inverted; the vmaster passes "enabled" (0 = mute),
+while LED classdev passes "brightness" (1 = mute).
 
-The classdev creation code is factored out to a common function that
-is called from both mute and mic-mute LED helpers.
+The code in Thinkpad helper is also converted.   In that case, just
+call the new function and remove the open-code.
 
 Tested-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/hda/hda_generic.c | 71 +++++++++++++++++++++++++++++++++++++--------
- sound/pci/hda/hda_generic.h |  3 ++
- 2 files changed, 62 insertions(+), 12 deletions(-)
+ sound/pci/hda/patch_realtek.c   | 54 +++++++++++++++++++++++------------------
+ sound/pci/hda/thinkpad_helper.c | 17 ++-----------
+ 2 files changed, 32 insertions(+), 39 deletions(-)
 
-diff --git a/sound/pci/hda/hda_generic.c b/sound/pci/hda/hda_generic.c
-index c97a1404af6b..c74519d7096b 100644
---- a/sound/pci/hda/hda_generic.c
-+++ b/sound/pci/hda/hda_generic.c
-@@ -3888,6 +3888,64 @@ static int parse_mic_boost(struct hda_codec *codec)
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 6831587fc4d6..87f7a1c3558d 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -80,7 +80,7 @@ struct alc_spec {
+ 	unsigned int gpio_data;
+ 	bool gpio_write_delay;	/* add a delay before writing gpio_data */
+ 
+-	/* mute LED for HP laptops, see alc269_fixup_mic_mute_hook() */
++	/* mute LED for HP laptops, see vref_mute_led_set() */
+ 	int mute_led_polarity;
+ 	int micmute_led_polarity;
+ 	hda_nid_t mute_led_nid;
+@@ -3990,23 +3990,25 @@ static void alc269_fixup_x101_headset_mic(struct hda_codec *codec,
+ 
+ 
+ /* update mute-LED according to the speaker mute state via mic VREF pin */
+-static void alc269_fixup_mic_mute_hook(void *private_data, int enabled)
++static int vref_mute_led_set(struct led_classdev *led_cdev,
++			     enum led_brightness brightness)
+ {
+-	struct hda_codec *codec = private_data;
++	struct hda_codec *codec = dev_to_hda_codec(led_cdev->dev->parent);
+ 	struct alc_spec *spec = codec->spec;
+ 	unsigned int pinval;
+ 
+ 	if (spec->mute_led_polarity)
+-		enabled = !enabled;
++		brightness = !brightness;
+ 	pinval = snd_hda_codec_get_pin_target(codec, spec->mute_led_nid);
+ 	pinval &= ~AC_PINCTL_VREFEN;
+-	pinval |= enabled ? AC_PINCTL_VREF_HIZ : AC_PINCTL_VREF_80;
++	pinval |= brightness ? AC_PINCTL_VREF_80 : AC_PINCTL_VREF_HIZ;
+ 	if (spec->mute_led_nid) {
+ 		/* temporarily power up/down for setting VREF */
+ 		snd_hda_power_up_pm(codec);
+ 		snd_hda_set_pin_ctl_cache(codec, spec->mute_led_nid, pinval);
+ 		snd_hda_power_down_pm(codec);
+ 	}
++	return 0;
  }
  
- #ifdef CONFIG_SND_HDA_GENERIC_LEDS
-+/*
-+ * vmaster mute LED hook helpers
-+ */
-+
-+static int create_mute_led_cdev(struct hda_codec *codec,
-+				int (*callback)(struct led_classdev *,
-+						enum led_brightness),
-+				bool micmute)
-+{
-+	struct led_classdev *cdev;
-+
-+	cdev = devm_kzalloc(&codec->core.dev, sizeof(*cdev), GFP_KERNEL);
-+	if (!cdev)
-+		return -ENOMEM;
-+
-+	cdev->name = micmute ? "hda::micmute" : "hda::mute";
-+	cdev->max_brightness = 1;
-+	cdev->default_trigger = micmute ? "audio-micmute" : "audio-mute";
-+	cdev->brightness_set_blocking = callback;
-+	cdev->brightness = ledtrig_audio_get(micmute ? LED_AUDIO_MICMUTE : LED_AUDIO_MUTE);
-+
-+	return devm_led_classdev_register(&codec->core.dev, cdev);
-+}
-+
-+static void vmaster_update_mute_led(void *private_data, int enabled)
-+{
-+	ledtrig_audio_set(LED_AUDIO_MUTE, enabled ? LED_OFF : LED_ON);
-+}
-+
-+/**
-+ * snd_dha_gen_add_mute_led_cdev - Create a LED classdev and enable as vmaster mute LED
-+ * @codec: the HDA codec
-+ * @callback: the callback for LED classdev brightness_set_blocking
-+ */
-+int snd_hda_gen_add_mute_led_cdev(struct hda_codec *codec,
-+				  int (*callback)(struct led_classdev *,
-+						  enum led_brightness))
-+{
-+	struct hda_gen_spec *spec = codec->spec;
-+	int err;
-+
-+	if (callback) {
-+		err = create_mute_led_cdev(codec, callback, false);
-+		if (err) {
-+			codec_warn(codec, "failed to create a mute LED cdev\n");
-+			return err;
-+		}
-+	}
-+
-+	if (spec->vmaster_mute.hook)
-+		codec_err(codec, "vmaster hook already present before cdev!\n");
-+
-+	spec->vmaster_mute.hook = vmaster_update_mute_led;
-+	spec->vmaster_mute_enum = 1;
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(snd_hda_gen_add_mute_led_cdev);
-+
- /*
-  * mic mute LED hook helpers
-  */
-@@ -4029,20 +4087,9 @@ int snd_hda_gen_add_micmute_led_cdev(struct hda_codec *codec,
- 						     enum led_brightness))
+ /* Make sure the led works even in runtime suspend */
+@@ -4044,8 +4046,7 @@ static void alc269_fixup_hp_mute_led(struct hda_codec *codec,
+ 			break;
+ 		spec->mute_led_polarity = pol;
+ 		spec->mute_led_nid = pin - 0x0a + 0x18;
+-		spec->gen.vmaster_mute.hook = alc269_fixup_mic_mute_hook;
+-		spec->gen.vmaster_mute_enum = 1;
++		snd_hda_gen_add_mute_led_cdev(codec, vref_mute_led_set);
+ 		codec->power_filter = led_power_filter;
+ 		codec_dbg(codec,
+ 			  "Detected mute LED for %x:%d\n", spec->mute_led_nid,
+@@ -4063,8 +4064,7 @@ static void alc269_fixup_hp_mute_led_micx(struct hda_codec *codec,
+ 	if (action == HDA_FIXUP_ACT_PRE_PROBE) {
+ 		spec->mute_led_polarity = 0;
+ 		spec->mute_led_nid = pin;
+-		spec->gen.vmaster_mute.hook = alc269_fixup_mic_mute_hook;
+-		spec->gen.vmaster_mute_enum = 1;
++		snd_hda_gen_add_mute_led_cdev(codec, vref_mute_led_set);
+ 		codec->power_filter = led_power_filter;
+ 	}
+ }
+@@ -4097,13 +4097,15 @@ static void alc_update_gpio_led(struct hda_codec *codec, unsigned int mask,
+ }
+ 
+ /* turn on/off mute LED via GPIO per vmaster hook */
+-static void alc_fixup_gpio_mute_hook(void *private_data, int enabled)
++static int gpio_mute_led_set(struct led_classdev *led_cdev,
++			     enum led_brightness brightness)
  {
- 	int err;
--	struct led_classdev *cdev;
+-	struct hda_codec *codec = private_data;
++	struct hda_codec *codec = dev_to_hda_codec(led_cdev->dev->parent);
+ 	struct alc_spec *spec = codec->spec;
  
- 	if (callback) {
--		cdev = devm_kzalloc(&codec->core.dev, sizeof(*cdev), GFP_KERNEL);
--		if (!cdev)
--			return -ENOMEM;
--
--		cdev->name = "hda::micmute";
--		cdev->max_brightness = 1;
--		cdev->default_trigger = "audio-micmute";
--		cdev->brightness_set_blocking = callback;
--		cdev->brightness = ledtrig_audio_get(LED_AUDIO_MICMUTE);
--
--		err = devm_led_classdev_register(&codec->core.dev, cdev);
-+		err = create_mute_led_cdev(codec, callback, true);
- 		if (err) {
- 			codec_warn(codec, "failed to create a mic-mute LED cdev\n");
- 			return err;
-diff --git a/sound/pci/hda/hda_generic.h b/sound/pci/hda/hda_generic.h
-index a59e66f9ff33..bbd6d2b741f2 100644
---- a/sound/pci/hda/hda_generic.h
-+++ b/sound/pci/hda/hda_generic.h
-@@ -354,6 +354,9 @@ unsigned int snd_hda_gen_path_power_filter(struct hda_codec *codec,
- void snd_hda_gen_stream_pm(struct hda_codec *codec, hda_nid_t nid, bool on);
- int snd_hda_gen_fix_pin_power(struct hda_codec *codec, hda_nid_t pin);
+ 	alc_update_gpio_led(codec, spec->gpio_mute_led_mask,
+-			    spec->mute_led_polarity, enabled);
++			    spec->mute_led_polarity, !brightness);
++	return 0;
+ }
  
-+int snd_hda_gen_add_mute_led_cdev(struct hda_codec *codec,
-+				  int (*callback)(struct led_classdev *,
-+						  enum led_brightness));
- int snd_hda_gen_add_micmute_led_cdev(struct hda_codec *codec,
- 				     int (*callback)(struct led_classdev *,
- 						     enum led_brightness));
+ /* turn on/off mic-mute LED via GPIO per capture hook */
+@@ -4132,7 +4134,7 @@ static void alc_fixup_hp_gpio_led(struct hda_codec *codec,
+ 		return;
+ 	if (mute_mask) {
+ 		spec->gpio_mute_led_mask = mute_mask;
+-		spec->gen.vmaster_mute.hook = alc_fixup_gpio_mute_hook;
++		snd_hda_gen_add_mute_led_cdev(codec, gpio_mute_led_set);
+ 	}
+ 	if (micmute_mask) {
+ 		spec->gpio_mic_led_mask = micmute_mask;
+@@ -4214,19 +4216,25 @@ static void alc280_fixup_hp_gpio4(struct hda_codec *codec,
+ }
+ 
+ /* update mute-LED according to the speaker mute state via COEF bit */
+-static void alc_fixup_mute_led_coefbit_hook(void *private_data, int enabled)
++static int coef_mute_led_set(struct led_classdev *led_cdev,
++			     enum led_brightness brightness)
+ {
+-	struct hda_codec *codec = private_data;
++	struct hda_codec *codec = dev_to_hda_codec(led_cdev->dev->parent);
+ 	struct alc_spec *spec = codec->spec;
+ 
+ 	if (spec->mute_led_polarity)
+-		enabled = !enabled;
++		brightness = !brightness;
+ 
+ 	/* temporarily power up/down for setting COEF bit */
+-	enabled ? alc_update_coef_idx(codec, spec->mute_led_coef_idx,
+-		spec->mute_led_coefbit_mask, spec->mute_led_coefbit_off) :
+-		  alc_update_coef_idx(codec, spec->mute_led_coef_idx,
+-		spec->mute_led_coefbit_mask, spec->mute_led_coefbit_on);
++	if (brightness)
++		alc_update_coef_idx(codec, spec->mute_led_coef_idx,
++				    spec->mute_led_coefbit_mask,
++				    spec->mute_led_coefbit_on);
++	else
++		alc_update_coef_idx(codec, spec->mute_led_coef_idx,
++				    spec->mute_led_coefbit_mask,
++				    spec->mute_led_coefbit_off);
++	return 0;
+ }
+ 
+ static void alc285_fixup_hp_mute_led_coefbit(struct hda_codec *codec,
+@@ -4241,8 +4249,7 @@ static void alc285_fixup_hp_mute_led_coefbit(struct hda_codec *codec,
+ 		spec->mute_led_coefbit_mask = 1<<3;
+ 		spec->mute_led_coefbit_on = 1<<3;
+ 		spec->mute_led_coefbit_off = 0;
+-		spec->gen.vmaster_mute.hook = alc_fixup_mute_led_coefbit_hook;
+-		spec->gen.vmaster_mute_enum = 1;
++		snd_hda_gen_add_mute_led_cdev(codec, coef_mute_led_set);
+ 	}
+ }
+ 
+@@ -4258,8 +4265,7 @@ static void alc236_fixup_hp_mute_led_coefbit(struct hda_codec *codec,
+ 		spec->mute_led_coefbit_mask = 1<<5;
+ 		spec->mute_led_coefbit_on = 0;
+ 		spec->mute_led_coefbit_off = 1<<5;
+-		spec->gen.vmaster_mute.hook = alc_fixup_mute_led_coefbit_hook;
+-		spec->gen.vmaster_mute_enum = 1;
++		snd_hda_gen_add_mute_led_cdev(codec, coef_mute_led_set);
+ 	}
+ }
+ 
+diff --git a/sound/pci/hda/thinkpad_helper.c b/sound/pci/hda/thinkpad_helper.c
+index cd14d5a55b42..6698ae241efc 100644
+--- a/sound/pci/hda/thinkpad_helper.c
++++ b/sound/pci/hda/thinkpad_helper.c
+@@ -3,13 +3,11 @@
+  * to be included from codec driver
+  */
+ 
+-#if IS_ENABLED(CONFIG_THINKPAD_ACPI) && IS_REACHABLE(CONFIG_LEDS_TRIGGER_AUDIO)
++#if IS_ENABLED(CONFIG_THINKPAD_ACPI)
+ 
+ #include <linux/acpi.h>
+ #include <linux/leds.h>
+ 
+-static void (*old_vmaster_hook)(void *, int);
+-
+ static bool is_thinkpad(struct hda_codec *codec)
+ {
+ 	return (codec->core.subsystem_id >> 16 == 0x17aa) &&
+@@ -17,24 +15,13 @@ static bool is_thinkpad(struct hda_codec *codec)
+ 		acpi_dev_found("IBM0068"));
+ }
+ 
+-static void update_tpacpi_mute_led(void *private_data, int enabled)
+-{
+-	if (old_vmaster_hook)
+-		old_vmaster_hook(private_data, enabled);
+-
+-	ledtrig_audio_set(LED_AUDIO_MUTE, enabled ? LED_OFF : LED_ON);
+-}
+-
+ static void hda_fixup_thinkpad_acpi(struct hda_codec *codec,
+ 				    const struct hda_fixup *fix, int action)
+ {
+-	struct hda_gen_spec *spec = codec->spec;
+-
+ 	if (action == HDA_FIXUP_ACT_PROBE) {
+ 		if (!is_thinkpad(codec))
+ 			return;
+-		old_vmaster_hook = spec->vmaster_mute.hook;
+-		spec->vmaster_mute.hook = update_tpacpi_mute_led;
++		snd_hda_gen_add_mute_led_cdev(codec, NULL);
+ 		snd_hda_gen_add_micmute_led_cdev(codec, NULL);
+ 	}
+ }
 -- 
 2.16.4
 

@@ -2,70 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F04B1FED4C
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 10:14:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64FF31FED6E
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 10:19:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1D0F51744;
-	Thu, 18 Jun 2020 10:13:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D0F51744
+	by alsa0.perex.cz (Postfix) with ESMTPS id E6D8B173A;
+	Thu, 18 Jun 2020 10:18:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6D8B173A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592468055;
-	bh=v4uiJBUsIJjUJey1USCJg3QQsrEncQHO1q9wk40uiTc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1592468365;
+	bh=hle/64IepGyCUinO6eu79tFZXo0rca6+km/YPAypS+A=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FWSPulWYgwWBQZhiASqQ4PwX1o8kLBLm+f7YrNDiMnOADFRCCV4R/o2h4L2wvMe6T
-	 NA14qLGUeUaTEQyDO6lsqSm9WTui8cVfFiJm72E6jf70LEspU0ZIG+tqgZVnYMmNZE
-	 HpY/T4fW1g3j0hSZCfM7Erx1T7J/fBaIJ7y+g3fI=
+	b=GzE5PurkpZlcBeX0KqlNHQ4+ApADrnnON4gCe5XPhjq2L5sNVlT98gOc2fZ5oR8qE
+	 cVXHgZi3w4Q3wpZEODph+IcsJTZ+5e/IHUxgCjD3KgbxGNd4Jd3flTP26J+TlIzib9
+	 YsVr4KXcjYpO6UihG9pFS1ZtYhbeubOAAMrhb9e4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28F2EF800EF;
-	Thu, 18 Jun 2020 10:12:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D8BBFF8010E;
+	Thu, 18 Jun 2020 10:17:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D7092F80116; Thu, 18 Jun 2020 10:12:31 +0200 (CEST)
+ id 1FBFEF80101; Thu, 18 Jun 2020 10:17:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_32, RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3D292F80101
- for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 10:12:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D292F80101
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="e3MwnKPy"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=In-Reply-To:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=8WLntUDK1QrdTrtcYEKpz3qz/VsDSn22rJQznhsWmU0=; b=e3MwnKPyFxHRL5O429eXq+MBeb
- V99twzBHr2ZXWFY2ynglX6gSFx36uKpjd+0ghXzeWdf0xh2c8LctMz+VtELXUOcNHtz9XzjU8fUCr
- l8CkSq1+PCFiYMhidXjLG1bJ5mmQfdYW5M9R7EtvGSPXG/yJFPaHK2jp8Y4bF0piLT+UoiNL7ynuj
- Z11k3keHfxpXLobhqyoreaHbJEfFh3hYOuFNAzAig5DQnpVAPzPfHBKqxfNtgI0ibbUbbi0aN9NPv
- 5T9Rfw7VLV+IYFZNDXTnx6Qr4fb7bP+SBltVUTpaxTYa4LfhzntaknHQWJeRPCmhXI7dDHCxW7V1s
- fhhWC9TQ==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.92.3 #3 (Red
- Hat Linux)) id 1jlpej-0001PE-74; Thu, 18 Jun 2020 08:12:17 +0000
-Date: Thu, 18 Jun 2020 01:12:17 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: JaeHun Jung <jh0801.jung@samsung.com>
-Subject: Re: [PATCH] ANDROID: sound: usb: Add vendor's hooking interface
-Message-ID: <20200618081217.GA25552@infradead.org>
-References: <CGME20200617022554epcas2p214a49f03a15e504d8faa28148e06e796@epcas2p2.samsung.com>
- <1592360304-29621-1-git-send-email-jh0801.jung@samsung.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1592360304-29621-1-git-send-email-jh0801.jung@samsung.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id B4410F80101
+ for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 10:17:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4410F80101
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 7AFA5AD35;
+ Thu, 18 Jun 2020 08:17:35 +0000 (UTC)
+Date: Thu, 18 Jun 2020 10:17:35 +0200
+Message-ID: <s5hmu50yehs.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Hills <mark@xwax.org>
+Subject: Re: [PATCH 3/3] echoaudio: Address bugs in the interrupt handling
+In-Reply-To: <2006171134130.2561@stax.localdomain>
+References: <2006161409060.30751@stax.localdomain>
+ <20200616131743.4793-3-mark@xwax.org>
+ <s5hsgev16ck.wl-tiwai@suse.de>
+ <2006161451110.1865@stax.localdomain>
+ <s5hlfkn14cr.wl-tiwai@suse.de>
+ <2006171134130.2561@stax.localdomain>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,22 +73,206 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jun 17, 2020 at 11:18:24AM +0900, JaeHun Jung wrote:
-> In mobile, a co-processor is used when using USB audio
-> to improve power consumption.
-> hooking is required for sync-up when operating
-> the co-processor. So register call-back function.
-> The main operation of the call-back function is as follows:
-> - Initialize the co-processor by transmitting data
->   when initializing.
-> - Change the co-processor setting value through
->   the interface function.
-> - Configure sampling rate
-> - pcm open/close
+On Wed, 17 Jun 2020 12:51:05 +0200,
+Mark Hills wrote:
 > 
-> Bug: 156315379
+> On Tue, 16 Jun 2020, Takashi Iwai wrote:
+> 
+> > On Tue, 16 Jun 2020 16:01:11 +0200,
+> > Mark Hills wrote:
+> > > 
+> > > On Tue, 16 Jun 2020, Takashi Iwai wrote:
+> > > 
+> > > > On Tue, 16 Jun 2020 15:17:43 +0200,
+> > > > Mark Hills wrote:
+> > > > > 
+> > > > > +/* Update software pointer to match the hardware
+> > > > > + *
+> > > > > + * Return: 1 if we crossed a period threshold, otherwise 0
+> > > > > + */
+> > > > > +static int snd_echo_poll_substream(struct snd_pcm_substream *substream)
+> > > > 
+> > > > This is a bit confusing name.  One would imagine from the function
+> > > > name as if it were about the handling of poll() syscall.
+> > > 
+> > > Poll felt intuitive to me; maybe from FreeBSD where network drivers can 
+> > > poll on a timer instead of interrupts. I do know about poll(), though.
+> > > 
+> > > How about snd_echo_update_substream()?
+> > 
+> > Yes, it's more self-explanatory.  Or even better
+> > snd_echo_update_substream_position() :)
+> 
+> Out of interest, these are static but the names are globally qualified. I 
+> see this elsewhere, so I followed, but is this agreed convention?
+> 
+> Because it could be update_substream_position() :)
 
-None of that is acceptable without an in-tree user.  Never mind that
-the interface just seems horrible.  I'm pretty sure we could do
-somehting much better and more specific based on the actual needs of
-the user, so please post it.
+It's fine to use any name for a local function.
+
+
+> > > > > +{
+> > > > > +	struct snd_pcm_runtime *runtime = substream->runtime;
+> > > > > +	struct audiopipe *pipe = runtime->private_data;
+> > > > > +	unsigned counter, step, period, last_period;
+> > > > > +	size_t buffer_bytes;
+> > > > > +
+> > > > > +	if (pipe->state != PIPE_STATE_STARTED)
+> > > > > +		return 0;
+> > > > > +
+> > > > > +	counter = le32_to_cpu(*pipe->dma_counter);
+> > > > > +
+> > > > > +	period = bytes_to_frames(runtime, counter)
+> > > > > +		/ runtime->period_size;
+> > > > > +	last_period = bytes_to_frames(runtime, pipe->last_counter)
+> > > > > +		/ runtime->period_size;
+> > > > > +
+> > > > > +	if (period == last_period)
+> > > > > +		return 0;  /* don't do any work yet */
+> > > > > +
+> > > > > +	step = counter - pipe->last_counter;
+> > > > > +	pipe->last_counter = counter;
+> > > > 
+> > > > Dose this calculation consider the overlap of 32bit integer of the
+> > > > counter?  (I'm not sure whether the old code did it right, though.)
+> > > 
+> > > I believe it does, since (small - big) as unsigned gives small value. And 
+> > > period is checked only for equality (not greater than). I'll add a comment 
+> > > as such. I have run it with long streams.
+> > 
+> > The problem is that the last_period calculation can be wrong if the
+> > period size isn't aligned.  e.g. when period size is 44100, around the
+> > boundary position, it gets a different last_period value although it
+> > still in the same period.
+> 
+> Agreed, yes.
+> 
+> In which case I think it's clearer to not infer anything about periods 
+> from the current counter or position, and (effectively) accumulate it.
+> 
+> Would you please make suggestions on the code below?
+> 
+> Because it allowed for further simplification whilst fixing the bugs.
+> 
+> In the end, modulo became clearer than loops and I think it has the bonus 
+> of being less risky should the counter make a large step.
+> 
+> I'll run for a longer test today.
+> 
+> ---
+> 
+> /* Update software pointer to match the hardware
+>  *
+>  * \pre chip->lock is held
+>  */
+> static void snd_echo_update_substream_position(struct echoaudio *chip,
+> 					struct snd_pcm_substream *substream)
+> {
+> 	struct snd_pcm_runtime *runtime = substream->runtime;
+> 	struct audiopipe *pipe = runtime->private_data;
+> 	u32 counter, step;
+> 	size_t period_bytes;
+> 
+> 	if (pipe->state != PIPE_STATE_STARTED)
+> 		return;
+> 
+> 	period_bytes = frames_to_bytes(runtime, runtime->period_size);
+> 
+> 	counter = le32_to_cpu(*pipe->dma_counter);
+> 
+> 	step = counter - pipe->last_counter;  /* handles wrapping of counter */
+> 	step -= step % period_bytes;  /* acknowledge whole periods only */
+> 
+> 	if (step == 0)
+> 		return;  /* haven't advanced a whole period yet */
+> 	pipe->last_counter += step;  /* does not always wrap on a period */
+> 	pipe->position += step;
+> 
+> 	/* wraparound the buffer */
+> 	pipe->position %= frames_to_bytes(runtime, runtime->buffer_size);
+> 
+> 	/* notify only once, even if multiple periods elapsed */
+> 	spin_unlock(&chip->lock);
+> 	snd_pcm_period_elapsed(substream);
+> 	spin_lock(&chip->lock);
+> }
+> 
+> static irqreturn_t snd_echo_interrupt(int irq, void *dev_id)
+> {
+> 	struct echoaudio *chip = dev_id;
+> 	int ss, st;
+> 
+> 	spin_lock(&chip->lock);
+> 	st = service_irq(chip);
+> 	if (st < 0) {
+> 		spin_unlock(&chip->lock);
+> 		return IRQ_NONE;
+> 	}
+> 	/* The hardware doesn't tell us which substream caused the irq,
+> 	thus we have to check all running substreams. */
+> 	for (ss = 0; ss < DSP_MAXPIPES; ss++) {
+> 		struct snd_pcm_substream *substream;
+> 
+> 		substream = chip->substream[ss];
+> 		if (substream)
+> 			snd_echo_update_substream_position(chip, substream);
+> 	}
+> 	spin_unlock(&chip->lock);
+> 
+> #ifdef ECHOCARD_HAS_MIDI
+> 	if (st > 0 && chip->midi_in) {
+> 		snd_rawmidi_receive(chip->midi_in, chip->midi_buffer, st);
+> 		dev_dbg(chip->card->dev, "rawmidi_iread=%d\n", st);
+> 	}
+> #endif
+> 	return IRQ_HANDLED;
+> }
+> 
+> static snd_pcm_uframes_t pcm_pointer(struct snd_pcm_substream *substream)
+> {
+> 	struct snd_pcm_runtime *runtime = substream->runtime;
+> 	struct audiopipe *pipe = runtime->private_data;
+> 
+> 	return bytes_to_frames(runtime, pipe->position);
+
+I guess this misses the update of the precise position; in your code,
+pipe->position gets updated only with the period size at irq handler.
+
+
+IMO, we should have the code like:
+
+static bool update_stream_position(struct snd_pcm_substream *substream)
+{
+	// update pipe->position and others, returns true if period elapsed
+}
+
+static irqreturn_t snd_echo_interrupt()
+{
+	spin_lock(&chip->lock);
+	....
+	if (update_stream_position(substream)) {
+		spin_unlock(&chip->lock);
+		snd_pcm_period_elapsed(substream);
+		spin_lock(&chip->lock);
+	}
+	....
+	spin_unlock(&chip->lock);
+	return IRQ_HANDLED;
+}
+
+static snd_pcm_uframes_t pcm_pointer(struct snd_pcm_substream *substream)
+{
+	....
+	update_stream_position(substream);
+	return bytes_to_frames(runtime, pipe->position);
+}
+
+
+Note that snd_pcm_period_elapsed() isn't needed (must not be done)
+from the pointer callback.  The PCM core would detect and handle
+properly if the period gets elapsed there.
+
+
+thanks,
+
+Takashi

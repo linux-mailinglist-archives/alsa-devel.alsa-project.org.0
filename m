@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE8061FDEF4
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 03:39:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FDD81FDF3F
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 03:40:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F1F516DD;
-	Thu, 18 Jun 2020 03:38:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F1F516DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA78E16E8;
+	Thu, 18 Jun 2020 03:39:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA78E16E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592444369;
-	bh=10sXDbedggxckhqYcZsB+MHV9CqU9ANcMhYsBRC6/bc=;
+	s=default; t=1592444432;
+	bh=lffGI+usafluNIt52bJY49hTytGuNJw+IaRZwkMO2Rs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jKEk6/1Az2cMDYInFDnNu3XJ+jW8NXr09KNHD0itMLldoPtyeSZaK7qfZ4goltwzJ
-	 2S9+GKQn9KxYuu3apfZt3fC1bCzT5qvHRofgY1G+dhB1GFYHqocq4zp5BCwkKsZiZl
-	 dK+kIzJr6RSN3LvblUeoGKrsQOsxSpyfisqOffkQ=
+	b=KEn/SMvPGCxUk8iOcrmH8nwN5Pw4uFy4BDAGKvozxFlz3qUG3ZOvogLH/4775bKQo
+	 nXpcAEr4wjxydPEQoueQfZH5/g7ExuwhaH6B9uISabySrjfCTTLr0vuBZfAFHf0nnz
+	 +PlXmDxUWzbAn1OOetXoWrXtU5jhI5YI8rDGKz38=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D5BCCF8047A;
-	Thu, 18 Jun 2020 03:19:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ECA67F80471;
+	Thu, 18 Jun 2020 03:19:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 071BDF80471; Thu, 18 Jun 2020 03:19:01 +0200 (CEST)
+ id DB0A9F80252; Thu, 18 Jun 2020 03:19:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2A0DDF80459
- for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 03:18:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A0DDF80459
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4953CF80217
+ for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 03:19:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4953CF80217
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Io7Ab+5p"
+ header.b="DCIAQL6+"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id DD19421D7E;
- Thu, 18 Jun 2020 01:18:53 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1ED32221F6;
+ Thu, 18 Jun 2020 01:19:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592443134;
- bh=10sXDbedggxckhqYcZsB+MHV9CqU9ANcMhYsBRC6/bc=;
+ s=default; t=1592443143;
+ bh=lffGI+usafluNIt52bJY49hTytGuNJw+IaRZwkMO2Rs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Io7Ab+5pCsdrMKf4vxDrJYYreuijBsPjSc17TLhfPItIFK+QbHx/YmR8HFZcmTJba
- qmn8TluUVlkCPSvDeS0WszUooPE4EEND7FkPQELsm5pHDGbkU3PizayevLodCXVmMB
- 1or6i32HHl/acI94hjHMQ5KHA7V5n73oRUb313Bg=
+ b=DCIAQL6+db1cgMjxPJuF6+iqx7d7QWwXpKEtTORPBcrT9VyND2TV/9twzXDNbB5jw
+ 8js0ARPPowFYC4ujsBLGebdrZUx6Www54ODuqrqf9/S9ofQlqlDQH/RYsvt/2KQzcc
+ 7PWGgEV4gMzKf8OK2jR5c/nMifJ8xrCrFD7kMtWM=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 106/266] slimbus: ngd: get drvdata from correct
- device
-Date: Wed, 17 Jun 2020 21:13:51 -0400
-Message-Id: <20200618011631.604574-106-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 113/266] ASoC: max98373: reorder max98373_reset()
+ in resume
+Date: Wed, 17 Jun 2020 21:13:58 -0400
+Message-Id: <20200618011631.604574-113-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200618011631.604574-1-sashal@kernel.org>
 References: <20200618011631.604574-1-sashal@kernel.org>
@@ -67,10 +67,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, alsa-devel@alsa-project.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- linux-arm-msm@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, Yong Zhi <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,48 +84,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+From: Yong Zhi <yong.zhi@intel.com>
 
-[ Upstream commit b58c663059b484f7ff547d076a34cf6d7a302e56 ]
+[ Upstream commit 1a446873d7dd3a450f685928ce7f1907bde4583d ]
 
-Get drvdata directly from parent instead of ngd dev, as ngd
-dev can probe defer and previously set drvdata will become null.
+During S3 test, the following error was observed:
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Link: https://lore.kernel.org/r/20200417093618.7929-1-srinivas.kandagatla@linaro.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ 726.174237] i2c_designware i2c_designware.0: platform_pm_resume+0x0/0x3d returned 0 after 0 usecs
+[ 726.184187] max98373 i2c-MX98373:00: calling max98373_resume+0x0/0x30 [snd_soc_max98373] @ 12698, parent: i2c-11
+[ 726.195589] max98373 i2c-MX98373:00: Reset command failed. (ret:-16)
+
+When calling regmap_update_bits(), since map->reg_update_bits is NULL,
+_regmap_read() is entered with the following logic:
+
+	if (!map->cache_bypass) {
+		ret = regcache_read(map, reg, val);
+		if (ret == 0)
+			return 0;
+	}
+
+	if (map->cache_only)
+		return -EBUSY;
+
+regcache_read() hits -EINVAL because MAX98373_R2000_SW_RESET is volatile,
+as map->cache_only is set by codec suspend, thus -EBUSY is returned.
+Fix by moving max98373_reset() after cache_only set to false in max98373_resume().
+
+Signed-off-by: Yong Zhi <yong.zhi@intel.com>
+Link: https://lore.kernel.org/r/1588376661-29799-1-git-send-email-yong.zhi@intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/slimbus/qcom-ngd-ctrl.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/codecs/max98373.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-index 29fbab55c3b3..01a17d84b606 100644
---- a/drivers/slimbus/qcom-ngd-ctrl.c
-+++ b/drivers/slimbus/qcom-ngd-ctrl.c
-@@ -1354,7 +1354,6 @@ static int of_qcom_slim_ngd_register(struct device *parent,
- 		ngd->pdev->driver_override = QCOM_SLIM_NGD_DRV_NAME;
- 		ngd->pdev->dev.of_node = node;
- 		ctrl->ngd = ngd;
--		platform_set_drvdata(ngd->pdev, ctrl);
- 
- 		platform_device_add(ngd->pdev);
- 		ngd->base = ctrl->base + ngd->id * data->offset +
-@@ -1369,12 +1368,13 @@ static int of_qcom_slim_ngd_register(struct device *parent,
- 
- static int qcom_slim_ngd_probe(struct platform_device *pdev)
+diff --git a/sound/soc/codecs/max98373.c b/sound/soc/codecs/max98373.c
+index cae1def8902d..96718e3a1ad0 100644
+--- a/sound/soc/codecs/max98373.c
++++ b/sound/soc/codecs/max98373.c
+@@ -850,8 +850,8 @@ static int max98373_resume(struct device *dev)
  {
--	struct qcom_slim_ngd_ctrl *ctrl = platform_get_drvdata(pdev);
- 	struct device *dev = &pdev->dev;
-+	struct qcom_slim_ngd_ctrl *ctrl = dev_get_drvdata(dev->parent);
- 	int ret;
+ 	struct max98373_priv *max98373 = dev_get_drvdata(dev);
  
- 	ctrl->ctrl.dev = dev;
- 
-+	platform_set_drvdata(pdev, ctrl);
- 	pm_runtime_use_autosuspend(dev);
- 	pm_runtime_set_autosuspend_delay(dev, QCOM_SLIM_NGD_AUTOSUSPEND);
- 	pm_runtime_set_suspended(dev);
+-	max98373_reset(max98373, dev);
+ 	regcache_cache_only(max98373->regmap, false);
++	max98373_reset(max98373, dev);
+ 	regcache_sync(max98373->regmap);
+ 	return 0;
+ }
 -- 
 2.25.1
 

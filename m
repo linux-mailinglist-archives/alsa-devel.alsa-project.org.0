@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 034B91FDE0E
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 03:30:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 301121FDE2D
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 03:31:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9128616D5;
-	Thu, 18 Jun 2020 03:29:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9128616D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id D68DB16CC;
+	Thu, 18 Jun 2020 03:30:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D68DB16CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592443837;
-	bh=gXL3bSVpz6/25LWNlUTD5b7GAglv32K1RsVfRFyM3L0=;
+	s=default; t=1592443882;
+	bh=U/qoEAVeB8iCO5EXhVzLLWw4mzWwgbNVgm8+Xu0dWoc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qxuRIMD2mj/S2YT6AORFii4U8y3nxvtOSpSvh7tP1E1lvCf005ApojD6ZWDqw2Nrt
-	 nQ/y9E7stihZO9x+DziT32d6blpq/eQ6/Qzg5oa3qGtjIV2FOVEK9Uib0VrlETE6ab
-	 4GQUi3RQJWog6I7gvcFVNdQvB/zN+ycx+CWn4En0=
+	b=io3lp49nhHMOWWM/7YAg7YTKAZm7S9P1glgWOZ747zN7xtk5jbR+D2LUPdL7cph8L
+	 ErzE33TQ79znNxYtXTNVb4BKXCy8QCmNB2ChVHsOjVR27n9TCkGwTU5a9yKoTPvvDG
+	 Q+2+UGiq78J2uCscJCIZ62vP8TY6s/Wl/1NXP3/M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55CB2F802A8;
-	Thu, 18 Jun 2020 03:16:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A01B9F803D7;
+	Thu, 18 Jun 2020 03:16:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4BE6F80316; Thu, 18 Jun 2020 03:16:05 +0200 (CEST)
+ id F1865F803CA; Thu, 18 Jun 2020 03:16:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F0EA5F8028F
- for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 03:15:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0EA5F8028F
+ by alsa1.perex.cz (Postfix) with ESMTPS id ACC92F802BE;
+ Thu, 18 Jun 2020 03:15:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACC92F802BE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="K33EsTmq"
+ header.b="C3GxPQlz"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9B514206F1;
- Thu, 18 Jun 2020 01:15:54 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 19E6921D7D;
+ Thu, 18 Jun 2020 01:15:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592442955;
- bh=gXL3bSVpz6/25LWNlUTD5b7GAglv32K1RsVfRFyM3L0=;
+ s=default; t=1592442957;
+ bh=U/qoEAVeB8iCO5EXhVzLLWw4mzWwgbNVgm8+Xu0dWoc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=K33EsTmqZe2Dlv/D6EEOBUdWdgH32kSA8n21dB+UYbOPmXjXMktGuzKIH5CHMSu2R
- 2UOCOVpWxAVY2dyeIPtT+IQYtieRWpFBTgewHM2OleQV6QOgAh3+W5nUZzmzpS1Tut
- P7CjcX9VbyTAKoSKiPk5ArEknSgr1bR8St5B6EAo=
+ b=C3GxPQlz0z7EWYH26lFPyVix+CeVrad+TPl+6MEyzLWJASTdAm/BxJUC8+4IWph0k
+ fGEMiifuyH5w/J5mysK8m61MO+H/OhdUMLlOZ6Uf2kNwnkzLjKZrFyKmKfzrCNhLut
+ AW6dGEPHNqIEH+uFWpGBC8FVMwXlo7J5/tOdPMys=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.7 363/388] ASoC: core: only convert non DPCM link to
- DPCM link
-Date: Wed, 17 Jun 2020 21:07:40 -0400
-Message-Id: <20200618010805.600873-363-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.7 364/388] ASoC: SOF: nocodec: conditionally set
+ dpcm_capture/dpcm_playback flags
+Date: Wed, 17 Jun 2020 21:07:41 -0400
+Message-Id: <20200618010805.600873-364-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200618010805.600873-1-sashal@kernel.org>
 References: <20200618010805.600873-1-sashal@kernel.org>
@@ -70,9 +70,9 @@ Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>,
  Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
  Daniel Baluta <daniel.baluta@gmail.com>, alsa-devel@alsa-project.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>
+ Mark Brown <broonie@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,70 +88,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-[ Upstream commit 607fa205a7e4dfad28b8a67ab1c985756ddbccb0 ]
+[ Upstream commit ba4e5abc6c4e173af7c941c03c067263b686665d ]
 
-Additional checks for valid DAIs expose a corner case, where existing
-BE dailinks get modified, e.g. HDMI links are tagged with
-dpcm_capture=1 even if the DAIs are for playback.
+With additional checks on dailinks, we see errors such as
 
-This patch makes those changes conditional and flags configuration
-issues when a BE dailink is has no_pcm=0 but dpcm_playback or
-dpcm_capture=1 (which makes no sense).
+[ 3.000418] sof-nocodec sof-nocodec: CPU DAI DMIC01 Pin for rtd
+NoCodec-6 does not support playback
 
-As discussed on the alsa-devel mailing list, there are redundant flags
-for dpcm_playback, dpcm_capture, playback_only, capture_only. This
-will have to be cleaned-up in a future update. For now only correct
-and flag problematic configurations.
+It's not clear why we set the dpcm_playback and dpcm_capture flags
+unconditionally, add a check on number of channels for each direction
+to avoid invalid configurations.
 
-Fixes: 218fe9b7ec7f3 ("ASoC: soc-core: Set dpcm_playback / dpcm_capture")
-Suggested-by: Daniel Baluta <daniel.baluta@nxp.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Fixes: 8017b8fd37bf5e ('ASoC: SOF: Add Nocodec machine driver support')
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Reviewed-by: Daniel Baluta <daniel.baluta@gmail.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Link: https://lore.kernel.org/r/20200608194415.4663-3-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20200608194415.4663-5-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/soc-core.c | 22 +++++++++++++++++++---
- 1 file changed, 19 insertions(+), 3 deletions(-)
+ sound/soc/sof/nocodec.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 843b8b1c89d4..e5433e8fcf19 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -1720,9 +1720,25 @@ static void soc_check_tplg_fes(struct snd_soc_card *card)
- 			dai_link->platforms->name = component->name;
+diff --git a/sound/soc/sof/nocodec.c b/sound/soc/sof/nocodec.c
+index 2233146386cc..71cf5f9db79d 100644
+--- a/sound/soc/sof/nocodec.c
++++ b/sound/soc/sof/nocodec.c
+@@ -52,8 +52,10 @@ static int sof_nocodec_bes_setup(struct device *dev,
+ 		links[i].platforms->name = dev_name(dev);
+ 		links[i].codecs->dai_name = "snd-soc-dummy-dai";
+ 		links[i].codecs->name = "snd-soc-dummy";
+-		links[i].dpcm_playback = 1;
+-		links[i].dpcm_capture = 1;
++		if (ops->drv[i].playback.channels_min)
++			links[i].dpcm_playback = 1;
++		if (ops->drv[i].capture.channels_min)
++			links[i].dpcm_capture = 1;
+ 	}
  
- 			/* convert non BE into BE */
--			dai_link->no_pcm = 1;
--			dai_link->dpcm_playback = 1;
--			dai_link->dpcm_capture = 1;
-+			if (!dai_link->no_pcm) {
-+				dai_link->no_pcm = 1;
-+
-+				if (dai_link->dpcm_playback)
-+					dev_warn(card->dev,
-+						 "invalid configuration, dailink %s has flags no_pcm=0 and dpcm_playback=1\n",
-+						 dai_link->name);
-+				if (dai_link->dpcm_capture)
-+					dev_warn(card->dev,
-+						 "invalid configuration, dailink %s has flags no_pcm=0 and dpcm_capture=1\n",
-+						 dai_link->name);
-+
-+				/* convert normal link into DPCM one */
-+				if (!(dai_link->dpcm_playback ||
-+				      dai_link->dpcm_capture)) {
-+					dai_link->dpcm_playback = !dai_link->capture_only;
-+					dai_link->dpcm_capture = !dai_link->playback_only;
-+				}
-+			}
- 
- 			/* override any BE fixups */
- 			dai_link->be_hw_params_fixup =
+ 	card->dai_link = links;
 -- 
 2.25.1
 

@@ -2,63 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 356EF1FDE56
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 03:33:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 654891FDE5A
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 03:34:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D101016CE;
-	Thu, 18 Jun 2020 03:32:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D101016CE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0852D16E7;
+	Thu, 18 Jun 2020 03:33:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0852D16E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592444013;
-	bh=1TLicUZauJHHS4QjENC7dQsJoviJc/aajGrqaoOUPoE=;
+	s=default; t=1592444050;
+	bh=082nMbW7W4EL25ot2oiMRYNGZ531syXYTu7mVW7Gabo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=P6v7KvuSWR3tnrz550JRcqaZlBFh2K/G4ZYWpAZHuW7cwXkuIW+8aHr8A0TxCIrHx
-	 o40Gy/k2UlEZfmq2KF0wh2IolLeeAK1YndvwyvRPqcyjCcEaHOZAz9AgGyzSFPjvii
-	 25HOKs9WUi6BskvH/Mp1rZmpZWDfArCsVO/H/BOc=
+	b=KspyUBiclBt2wKYdwwuY65x3CAanx0B/zXqNVhnvgFzfAu2BZmpqm+kh2dU/w8JtY
+	 yn4L+ekyydNSazTcKrRziz7d6tMhKlMg82jXqzfD7PSSeuMx53ahXfmraiVIVzHsJg
+	 UcnmEOfo5iY13pWoR/Xu8ChxhQPK4Yqa1tPZ0f/E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA219F803FD;
-	Thu, 18 Jun 2020 03:16:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F335DF8042A;
+	Thu, 18 Jun 2020 03:16:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D8797F80315; Thu, 18 Jun 2020 03:16:46 +0200 (CEST)
+ id 0F469F80407; Thu, 18 Jun 2020 03:16:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0F7AEF80315;
- Thu, 18 Jun 2020 03:16:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F7AEF80315
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF6E9F80315
+ for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 03:16:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF6E9F80315
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="VzPLrvNf"
+ header.b="vf243AJj"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A9F2C221EB;
- Thu, 18 Jun 2020 01:16:37 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 5EA71221ED;
+ Thu, 18 Jun 2020 01:16:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592442998;
- bh=1TLicUZauJHHS4QjENC7dQsJoviJc/aajGrqaoOUPoE=;
+ s=default; t=1592443005;
+ bh=082nMbW7W4EL25ot2oiMRYNGZ531syXYTu7mVW7Gabo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=VzPLrvNfCVF9z/B3zRKxRuvQbTQElO5BrZ77TcOETvCzdIwyV63aCVtH9jVEo6CCb
- ZVj5MMTnVsSb2w2BWVLKAxjyXh+8O1y1rWsfP+mv7GfAbWszneL451yKXYgvU0Zsgq
- 0Nr1jJ4+aP4nhru4DMBWzbqXPWih5bG20qyYurCM=
+ b=vf243AJj/k+EsVeXSSw/2fKB9ZWYnapKldOO1HYH3sZ/RhFUDKL9dPXX2jHsjCFIB
+ twDlHUGDnbaqbUYV9wP/FrSHetIFoUbSDYPVVGKxebiBdoWTdQ9EXSl9/EEekMXnwJ
+ ifRc0jnJOZhpmEyQS4dYG+zGk5lE7u8NI7caGif8=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 005/266] ASoC: SOF: imx8: Fix randbuild error
-Date: Wed, 17 Jun 2020 21:12:10 -0400
-Message-Id: <20200618011631.604574-5-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 010/266] ASoC: fsl_esai: Disable exception
+ interrupt before scheduling tasklet
+Date: Wed, 17 Jun 2020 21:12:15 -0400
+Message-Id: <20200618011631.604574-10-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200618011631.604574-1-sashal@kernel.org>
 References: <20200618011631.604574-1-sashal@kernel.org>
@@ -67,9 +68,8 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- YueHaibing <yuehaibing@huawei.com>, Hulk Robot <hulkci@huawei.com>,
- Mark Brown <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>,
- linux-arm-kernel@lists.infradead.org, sound-open-firmware@alsa-project.org
+ Shengjiu Wang <shengjiu.wang@nxp.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,48 +85,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: YueHaibing <yuehaibing@huawei.com>
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-[ Upstream commit fe17e6cdc0fefca96ba9659be4b2b07487cbf0c5 ]
+[ Upstream commit 1fecbb71fe0e46b886f84e3b6decca6643c3af6d ]
 
-when do randconfig like this:
-CONFIG_SND_SOC_SOF_IMX8_SUPPORT=y
-CONFIG_SND_SOC_SOF_IMX8=y
-CONFIG_SND_SOC_SOF_OF=y
-CONFIG_IMX_DSP=m
-CONFIG_IMX_SCU=y
+Disable exception interrupt before scheduling tasklet, otherwise if
+the tasklet isn't handled immediately, there will be endless xrun
+interrupt.
 
-there is a link error:
-
-sound/soc/sof/imx/imx8.o: In function 'imx8_send_msg':
-imx8.c:(.text+0x380): undefined reference to 'imx_dsp_ring_doorbell'
-
-Select IMX_DSP in SND_SOC_SOF_IMX8_SUPPORT to fix this
-
-Fixes: f9ad75468453 ("ASoC: SOF: imx: fix reverse CONFIG_SND_SOC_SOF_OF dependency")
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
-Link: https://lore.kernel.org/r/20200409071832.2039-2-daniel.baluta@oss.nxp.com
+Fixes: 7ccafa2b3879 ("ASoC: fsl_esai: recover the channel swap after xrun")
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
+Link: https://lore.kernel.org/r/a8f2ad955aac9e52587beedc1133b3efbe746895.1587968824.git.shengjiu.wang@nxp.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sof/imx/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/fsl/fsl_esai.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/sound/soc/sof/imx/Kconfig b/sound/soc/sof/imx/Kconfig
-index 71f318bc2c74..b4f0426685c4 100644
---- a/sound/soc/sof/imx/Kconfig
-+++ b/sound/soc/sof/imx/Kconfig
-@@ -14,7 +14,7 @@ if SND_SOC_SOF_IMX_TOPLEVEL
- config SND_SOC_SOF_IMX8_SUPPORT
- 	bool "SOF support for i.MX8"
- 	depends on IMX_SCU
--	depends on IMX_DSP
-+	select IMX_DSP
- 	help
-           This adds support for Sound Open Firmware for NXP i.MX8 platforms
-           Say Y if you have such a device.
+diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
+index c7a49d03463a..84290be778f0 100644
+--- a/sound/soc/fsl/fsl_esai.c
++++ b/sound/soc/fsl/fsl_esai.c
+@@ -87,6 +87,10 @@ static irqreturn_t esai_isr(int irq, void *devid)
+ 	if ((saisr & (ESAI_SAISR_TUE | ESAI_SAISR_ROE)) &&
+ 	    esai_priv->reset_at_xrun) {
+ 		dev_dbg(&pdev->dev, "reset module for xrun\n");
++		regmap_update_bits(esai_priv->regmap, REG_ESAI_TCR,
++				   ESAI_xCR_xEIE_MASK, 0);
++		regmap_update_bits(esai_priv->regmap, REG_ESAI_RCR,
++				   ESAI_xCR_xEIE_MASK, 0);
+ 		tasklet_schedule(&esai_priv->task);
+ 	}
+ 
 -- 
 2.25.1
 

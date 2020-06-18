@@ -2,84 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74F161FF7E1
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 17:47:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C8E81FF98B
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 18:46:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F342017A4;
-	Thu, 18 Jun 2020 17:46:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F342017A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id EF06817A5;
+	Thu, 18 Jun 2020 18:45:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF06817A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592495260;
-	bh=OyR+aA+hYwdsP71S5fvodUrv61xpJxy20WB7uVWhr+k=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1592498784;
+	bh=V/vmS3iE8bYbFH1KgNhqWAC8guQyH2lID8qzr22I8bA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZQFXlgQxC5JMnkXhbFM0KtTgjzmJTXxqHB44T37b2ejcc5Z52UZql8/5z9IWISaBZ
-	 xzmBA0WvNlaZVMA9tSmwv1uBF3mTfyUyI+v4rVgIOHMg1IhtiV6PorVe8ASayqdWFr
-	 cLdqC/v+pP34aIbhHMcD0iqIGsMq4BPNL8ebBdig=
+	b=QwaV3OPZTE4WBkbjATsLUd7imuq6lsbcYDDHtY33WZpfOfT+ovDTDPM/DMjaw/4Mi
+	 f6Z7Q7sxYwzTJNoPndUUAMjw/gYXeFcjNUfyBt2JMH8po61oFTVkHCZ4VDJSh8PwTc
+	 Zh1VJmzizxzvxFyuyY8sLONoykAf3Rsa3n7FwV6U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15F9EF800D1;
-	Thu, 18 Jun 2020 17:45:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A7EDF800EF;
+	Thu, 18 Jun 2020 18:44:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1CF54F80116; Thu, 18 Jun 2020 17:45:57 +0200 (CEST)
+ id 5E428F80116; Thu, 18 Jun 2020 18:44:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-io1-f65.google.com (mail-io1-f65.google.com
+ [209.85.166.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B3F4EF80101
- for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 17:45:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3F4EF80101
-IronPort-SDR: VYnVQnaZZ35A4KTI3W/MmOBvkNHMsbvCwXrSqSoEtQOjwismRb/I6Re8j8OxQUEFRSUwLN5lB1
- p0DQhXgOValw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9656"; a="227327136"
-X-IronPort-AV: E=Sophos;i="5.75,251,1589266800"; d="scan'208";a="227327136"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2020 08:45:48 -0700
-IronPort-SDR: /jZyZ7aeQqspV9Di6+SVGSWa4SIPcybabyMPleC3cJhNjSFkRO8LqE/ZKGNpSd4RvXcRQEO4zp
- EI2h6Nj4kV+A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,251,1589266800"; d="scan'208";a="317859568"
-Received: from vktejasw-mobl2.amr.corp.intel.com (HELO [10.254.73.19])
- ([10.254.73.19])
- by FMSMGA003.fm.intel.com with ESMTP; 18 Jun 2020 08:45:47 -0700
-Subject: Re: [PATCH 1/4] ASoC: soc-pcm: dpcm: fix playback/capture checks
-To: Mark Brown <broonie@kernel.org>, Stephan Gerhold <stephan@gerhold.net>
-References: <20200616090210.GA111206@gerhold.net>
- <254a667e-fa49-240a-6386-7e82df8e5c35@linux.intel.com>
- <20200616145251.GO4447@sirena.org.uk>
- <af973f45-59b9-ecff-7d78-97d8352ed072@linux.intel.com>
- <20200616155544.GA8891@gerhold.net>
- <7cbc9233-e5f2-03e0-5659-cf22dea75e53@linux.intel.com>
- <45d43cc9-be22-a7d2-1628-3fb30232bd7c@linux.intel.com>
- <20200617090112.GA38317@gerhold.net>
- <62ccb59f-9d08-c241-952b-bb7af8311618@linux.intel.com>
- <20200617174635.GA40060@gerhold.net> <20200618150143.GJ5789@sirena.org.uk>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <145da893-5cb4-63fc-b988-c048ee839785@linux.intel.com>
-Date: Thu, 18 Jun 2020 10:45:45 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0BE2DF800EF
+ for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 18:44:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BE2DF800EF
+Received: by mail-io1-f65.google.com with SMTP id x189so7771592iof.9
+ for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 09:44:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=P6K0NMCQ9QdVvPAqikzClu5E67Y9Qrb4CGCZ1kreB7k=;
+ b=s06BlBotOlVeHNovwQyirAfcU+AyPjtAcZw8cOjT3FRzAt7CVVvCuTqcT+13jhpR9p
+ OyPxK5aKqX9dhc8I2C7wC3Mrq//FeInA/w/G1OdpnKgjXfRC9l/0FpWC9uZYora+c6qq
+ 1a/mTNlMsvC3xXjCgflQ7KZqofkUrdXVhuGini8PBSe3BRGQijbV8r8YjeZhkzMP9dz7
+ rpjbxjgUJNOHYK6l9fq/Azw9nmJxpxLUh3yAMrBSK8mvzWOY8EpCGuuyt/MTLIPfPPkw
+ iuaF9wt+CtlkG2jTfO7gOcq1uMaXPOoOkxkSHSatxWVnoBO/TDrOkYkBWjHbmlC81j3x
+ U+YQ==
+X-Gm-Message-State: AOAM531W042B0+lmlO3HkPt9b3K12TQ6FEQVWEgs508iezYzd7BbK/31
+ BVEWK+fvYIw1Lnx24tbrgA==
+X-Google-Smtp-Source: ABdhPJwkW4ZsJ4bdYKr0qKa9ryOy5g+2hE48HtjOUzrbj3WgzjP+FDJi5kL2BbFKLOci4Y0m6ArWyw==
+X-Received: by 2002:a5d:858a:: with SMTP id f10mr6056867ioj.184.1592498674934; 
+ Thu, 18 Jun 2020 09:44:34 -0700 (PDT)
+Received: from xps15 ([64.188.179.253])
+ by smtp.gmail.com with ESMTPSA id g21sm1969126ioc.14.2020.06.18.09.44.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 18 Jun 2020 09:44:34 -0700 (PDT)
+Received: (nullmailer pid 504576 invoked by uid 1000);
+ Thu, 18 Jun 2020 16:44:31 -0000
+Date: Thu, 18 Jun 2020 10:44:31 -0600
+From: Rob Herring <robh@kernel.org>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Subject: Re: [PATCH 13/29] dt: fix broken links due to txt->yaml renames
+Message-ID: <20200618164431.GA504444@bogus>
+References: <cover.1592203542.git.mchehab+huawei@kernel.org>
+ <0e4a7f0b7efcc8109c8a41a2e13c8adde4d9c6b9.1592203542.git.mchehab+huawei@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20200618150143.GJ5789@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, tiwai@suse.de,
- Daniel Baluta <daniel.baluta@gmail.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0e4a7f0b7efcc8109c8a41a2e13c8adde4d9c6b9.1592203542.git.mchehab+huawei@kernel.org>
+Cc: alsa-devel@alsa-project.org,
+ Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Jonathan Corbet <corbet@lwn.net>,
+ linux-rockchip@lists.infradead.org, Sandy Huang <hjc@rock-chips.com>,
+ Jakub Kicinski <kuba@kernel.org>, devicetree@vger.kernel.org,
+ Sean Wang <sean.wang@mediatek.com>, Mark Brown <broonie@kernel.org>,
+ linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, netdev@vger.kernel.org,
+ Arnaud Pouliquen <arnaud.pouliquen@st.com>, linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ "David S. Miller" <davem@davemloft.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,48 +103,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 6/18/20 10:01 AM, Mark Brown wrote:
-> On Wed, Jun 17, 2020 at 07:46:35PM +0200, Stephan Gerhold wrote:
+On Mon, 15 Jun 2020 08:46:52 +0200, Mauro Carvalho Chehab wrote:
+> There are some new broken doc links due to yaml renames
+> at DT. Developers should really run:
 > 
->> At the end the question is if those machine drivers that have
->> dpcm_playback/capture hardcoded just set it because it was required to
->> make DPCM work, or if they actually use it to restrict the direction of
->> a DAI link.
+> 	./scripts/documentation-file-ref-check
+> 
+> in order to solve those issues while submitting patches.
+> This tool can even fix most of the issues with:
+> 
+> 	./scripts/documentation-file-ref-check --fix
+> 
+> Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+> ---
+>  Documentation/devicetree/bindings/display/bridge/sii902x.txt  | 2 +-
+>  .../devicetree/bindings/display/rockchip/rockchip-drm.yaml    | 2 +-
+>  Documentation/devicetree/bindings/net/mediatek-bluetooth.txt  | 2 +-
+>  Documentation/devicetree/bindings/sound/audio-graph-card.txt  | 2 +-
+>  Documentation/devicetree/bindings/sound/st,sti-asoc-card.txt  | 2 +-
+>  Documentation/mips/ingenic-tcu.rst                            | 2 +-
+>  MAINTAINERS                                                   | 4 ++--
+>  7 files changed, 8 insertions(+), 8 deletions(-)
+> 
 
-I think those flags are absolutely not DPCM specific, the only use I see 
-for the flags is to set:
-
-	if (rtd->dai_link->no_pcm || rtd->dai_link->params) {
-		if (playback)
-			pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream->private_data = rtd;
-		if (capture)
-			pcm->streams[SNDRV_PCM_STREAM_CAPTURE].substream->private_data = rtd;
-		goto out;
-	}
-
-and that's why I highlighted some time back that they are probably 
-redundant with capture_only and playback_only. We don't need 4 flags to 
-specify 2 directions.
-
-In all cases the use for those flags seems to be to restrict the 
-direction of a DAI link.
-
-Note that people can screw-up the configurations without DPCM, e.g. by 
-not setting capture_only for a microphone, I found last week a WoV DAI 
-link on Broadwell where the capture_only flag was not set... DPCM does 
-not have a monopoly on brokenness...
-
-> The other question would be if they are restricting it to limit the
-> direction of a DAI link beyond the limits that the hardware has why are
-> they doing that?  I'm not sure that'd be a sensible thing to do.
-
-I don't see any such case. When both directions are not set, it's only 
-because the hardware is only capable of one, e.g. dmic, HDMI or SoundWire.
-
-There's one set of cases where we have amplifiers on an SSP link (which 
-is bidirectional), but the amplifier itself does not provide any 
-capture/feedback. That part is probably borderline incorrect, but 
-harmless since the topology does not try to use those links for capture.
-
+Applied, thanks!

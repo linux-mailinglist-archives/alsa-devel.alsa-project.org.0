@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E5FA1FDB58
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 03:12:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 129881FDB5F
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 03:13:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ACF291686;
-	Thu, 18 Jun 2020 03:11:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACF291686
+	by alsa0.perex.cz (Postfix) with ESMTPS id BCAD11679;
+	Thu, 18 Jun 2020 03:12:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCAD11679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592442754;
-	bh=mmt5ndiFij10gOStOvriPpqYvAFtLsVIaRIzJBlMHF8=;
+	s=default; t=1592442785;
+	bh=1s2JKDNxjceJ1O3r0ip5ARBFDU1vucPtZNVNj07YFA8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gWnh78HxMj62kYpWKfMdZC5mfQAluxrY1CvPV8GZENe/Ux0asLi7VHROGE/KIaiYk
-	 npOJVl6Cbv8BbcDO0fn6UR9vdHLBVyEAvomtnHTyv7ACbiN9WydltU8fpMKbz1qHNI
-	 BNgbj3VSnH2kSJGrP8VXHtEQX8XBYmBX9CmdVACo=
+	b=G07zw1wo+n3YfG09+EKytReeDiDKoeUq6fxB7mfwZFv9Lkgb2RLqVjwVHv3AEYjBa
+	 /xdnTy3uuyZ2n51IYOuK96Fp25bDnAwIgz1OD0xNAmZi4zyLQHVWrELrW74fJCUyGw
+	 XKjNtwQM0wTOiqxMA2KhgwjbfPsSfTDJhS7nKlZ8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D040F802E8;
-	Thu, 18 Jun 2020 03:08:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 845E4F802EB;
+	Thu, 18 Jun 2020 03:08:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B6750F802E2; Thu, 18 Jun 2020 03:08:41 +0200 (CEST)
+ id 26B36F802EA; Thu, 18 Jun 2020 03:08:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,31 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4B604F802C4
- for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 03:08:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B604F802C4
+ by alsa1.perex.cz (Postfix) with ESMTPS id AD0C8F802E2
+ for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 03:08:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD0C8F802E2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="t5Zl3YYt"
+ header.b="HjjkEUoN"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0E22221D7E;
- Thu, 18 Jun 2020 01:08:32 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 85C4421BE5;
+ Thu, 18 Jun 2020 01:08:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592442513;
- bh=mmt5ndiFij10gOStOvriPpqYvAFtLsVIaRIzJBlMHF8=;
+ s=default; t=1592442520;
+ bh=1s2JKDNxjceJ1O3r0ip5ARBFDU1vucPtZNVNj07YFA8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=t5Zl3YYtDAtqIg5Bp60iwr1hbdnPKb+bwg7S7LOuaR0s+WbQxhoCWosEX+xeQFcYq
- qAKg1OsG5zG/FicEoZFaVUjFGNC+CWMb9gpII5TtCnW/YyDe8Cv80eHRSx9rY64FIO
- jI/jBwyO6+PsPdcgAfuiwI62Ua2FMlE0lAB8a+qo=
+ b=HjjkEUoNG9cxf0OG3/8nMEXl+D55J4dHmscOClW+mRZSsVhQCKOHZQsyNLdhfe6YB
+ 8R/5pdwQdO79lijopIiUJeLcKwHlWAsBYfPw+qkFd9/stIdogz/Mh0SULudTxAYCjU
+ pjMcXXrA2Hn8a4gVOAmyaov8T5xqc88wPKC0kYsM=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.7 020/388] ASoC: codecs: wm97xx: fix ac97 dependency
-Date: Wed, 17 Jun 2020 21:01:57 -0400
-Message-Id: <20200618010805.600873-20-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.7 025/388] ALSA: hda/realtek - Introduce polarity
+ for micmute LED GPIO
+Date: Wed, 17 Jun 2020 21:02:02 -0400
+Message-Id: <20200618010805.600873-25-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200618010805.600873-1-sashal@kernel.org>
 References: <20200618010805.600873-1-sashal@kernel.org>
@@ -66,9 +67,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, Arnd Bergmann <arnd@arndb.de>
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org, Kai-Heng Feng <kai.heng.feng@canonical.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,63 +84,77 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
 
-[ Upstream commit ee2cbe06935bfa58f1fe07dc2a2283945f4b97dc ]
+[ Upstream commit dbd13179780555ecd3c992dea1222ca31920e892 ]
 
-A recent build fix got the dependency slightly wrong, breaking
-builds with CONFIG_AC97_BUS_NEW:
+Currently mute LED and micmute LED share the same GPIO polarity.
 
-WARNING: unmet direct dependencies detected for SND_SOC_WM9713
-  Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_AC97_BUS [=n]
-  Selected by [m]:
-  - SND_SOC_ZYLONITE [=m] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_PXA2XX_SOC [=m] && MACH_ZYLONITE [=y] && AC97_BUS [=n]=n
+So split the polarity for mute and micmute, in case they have different
+polarities.
 
-WARNING: unmet direct dependencies detected for SND_SOC_WM9712
-  Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_AC97_BUS [=n]
-  Selected by [m]:
-  - SND_PXA2XX_SOC_EM_X270 [=m] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_PXA2XX_SOC [=m] && (MACH_EM_X270 [=n] || MACH_EXEDA [=n] || MACH_CM_X300 [=y]) && AC97_BUS [=n]=n
-
-Change the dependency to allow either version of the AC97 library
-code.
-
-Fixes: 5a309875787d ("ASoC: Fix SND_SOC_ALL_CODECS imply ac97 fallout")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20200428212721.2877627-1-arnd@arndb.de
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Link: https://lore.kernel.org/r/20200430083255.5093-1-kai.heng.feng@canonical.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/Kconfig | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ sound/pci/hda/patch_realtek.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index e60e0b6a689c..8cdc68c141dc 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -1620,19 +1620,19 @@ config SND_SOC_WM9090
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 2c4575909441..e057ecb5a904 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -81,6 +81,7 @@ struct alc_spec {
  
- config SND_SOC_WM9705
- 	tristate
--	depends on SND_SOC_AC97_BUS
-+	depends on SND_SOC_AC97_BUS || AC97_BUS_NEW
- 	select REGMAP_AC97
- 	select AC97_BUS_COMPAT if AC97_BUS_NEW
+ 	/* mute LED for HP laptops, see alc269_fixup_mic_mute_hook() */
+ 	int mute_led_polarity;
++	int micmute_led_polarity;
+ 	hda_nid_t mute_led_nid;
+ 	hda_nid_t cap_mute_led_nid;
  
- config SND_SOC_WM9712
- 	tristate
--	depends on SND_SOC_AC97_BUS
-+	depends on SND_SOC_AC97_BUS || AC97_BUS_NEW
- 	select REGMAP_AC97
- 	select AC97_BUS_COMPAT if AC97_BUS_NEW
+@@ -4080,11 +4081,9 @@ static void alc269_fixup_hp_mute_led_mic3(struct hda_codec *codec,
  
- config SND_SOC_WM9713
- 	tristate
--	depends on SND_SOC_AC97_BUS
-+	depends on SND_SOC_AC97_BUS || AC97_BUS_NEW
- 	select REGMAP_AC97
- 	select AC97_BUS_COMPAT if AC97_BUS_NEW
+ /* update LED status via GPIO */
+ static void alc_update_gpio_led(struct hda_codec *codec, unsigned int mask,
+-				bool enabled)
++				int polarity, bool enabled)
+ {
+-	struct alc_spec *spec = codec->spec;
+-
+-	if (spec->mute_led_polarity)
++	if (polarity)
+ 		enabled = !enabled;
+ 	alc_update_gpio_data(codec, mask, !enabled); /* muted -> LED on */
+ }
+@@ -4095,7 +4094,8 @@ static void alc_fixup_gpio_mute_hook(void *private_data, int enabled)
+ 	struct hda_codec *codec = private_data;
+ 	struct alc_spec *spec = codec->spec;
  
+-	alc_update_gpio_led(codec, spec->gpio_mute_led_mask, enabled);
++	alc_update_gpio_led(codec, spec->gpio_mute_led_mask,
++			    spec->mute_led_polarity, enabled);
+ }
+ 
+ /* turn on/off mic-mute LED via GPIO per capture hook */
+@@ -4104,6 +4104,7 @@ static void alc_gpio_micmute_update(struct hda_codec *codec)
+ 	struct alc_spec *spec = codec->spec;
+ 
+ 	alc_update_gpio_led(codec, spec->gpio_mic_led_mask,
++			    spec->micmute_led_polarity,
+ 			    spec->gen.micmute_led.led_value);
+ }
+ 
+@@ -5808,7 +5809,8 @@ static void alc280_hp_gpio4_automute_hook(struct hda_codec *codec,
+ 
+ 	snd_hda_gen_hp_automute(codec, jack);
+ 	/* mute_led_polarity is set to 0, so we pass inverted value here */
+-	alc_update_gpio_led(codec, 0x10, !spec->gen.hp_jack_present);
++	alc_update_gpio_led(codec, 0x10, spec->mute_led_polarity,
++			    !spec->gen.hp_jack_present);
+ }
+ 
+ /* Manage GPIOs for HP EliteBook Folio 9480m.
 -- 
 2.25.1
 

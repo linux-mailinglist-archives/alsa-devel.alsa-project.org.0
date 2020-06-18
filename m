@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20EAE1FE16C
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 03:55:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A47741FE170
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 03:55:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B39B316F8;
-	Thu, 18 Jun 2020 03:54:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B39B316F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 38FF91729;
+	Thu, 18 Jun 2020 03:54:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38FF91729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592445302;
-	bh=AcYIxsmpAvleDS4rS9jE/oGCD9zL15sMFnhtsmOF7t4=;
+	s=default; t=1592445336;
+	bh=Bt6ZEXdLA0UnS2fNEifmKdZSL9+XTRkjajHnMGGenKM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BcXBG5MWRXtHJAIFgS9+AQFqbw7IvtElleJXEUkdNYa3IQ5/eGzMcgRhs//+ndLRt
-	 IOcOA7HQ/9lVFcMZaVS4z0OVWUTdGBSsJ3EhmK8ro8n1xjXxXa5b0xBm4ho7/9c2Qb
-	 t7CNFAwFW0edKx717Q0TNV1vq4TOYli83mWYFyMk=
+	b=Vu3Cduoudq2zyK3KNCxkklbqRKHQoxv0UhRa2XlLSERJdk5+IW4mCvw3ab97qbvG4
+	 weIHUHSduP8Sd+85AB9kUU3tcRZ4DzEIcpiqSy/LpwdBpa3qUPbCaoJYwqf+/+rLXt
+	 DknooF53Se3CgtuQu+mZxmN3S2zBNxlBOorg6vJI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 508D3F8038F;
-	Thu, 18 Jun 2020 03:25:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9CE84F80392;
+	Thu, 18 Jun 2020 03:25:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BA246F8038D; Thu, 18 Jun 2020 03:25:16 +0200 (CEST)
+ id 977ACF8038C; Thu, 18 Jun 2020 03:25:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2C16AF8037F
- for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 03:25:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C16AF8037F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 40EB0F8038C
+ for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 03:25:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40EB0F8038C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="FmMhz6GG"
+ header.b="iTw7J4K1"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C989421974;
- Thu, 18 Jun 2020 01:25:07 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id B76322088E;
+ Thu, 18 Jun 2020 01:25:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592443508;
- bh=AcYIxsmpAvleDS4rS9jE/oGCD9zL15sMFnhtsmOF7t4=;
+ s=default; t=1592443548;
+ bh=Bt6ZEXdLA0UnS2fNEifmKdZSL9+XTRkjajHnMGGenKM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=FmMhz6GG67rh1xdzyDPI/94sM+JoCnHFEkN+hynZF6EsHd1YH6KpjoGk/KX7ti4aH
- qkGtAAHdQus8rBCt78pcB6AZQjyjM9IXq+byLQqczhG/cB4w8jNNRk4gqaDQk7/YhU
- bySXInfBvxW8RmGkKGJCVd1732wLrB168Vq99QRo=
+ b=iTw7J4K1Y63ecV/Mi5hCQnKPsZpmXRGFvzO3/2vtVYHl4OvtLSCh638ZD7Oi0oXtx
+ tQ50rNkbHRIx2Bv1hrpdpk5x4+wF6ijgvJXoKNTA6SS4LyLQRLN5eaKvzCrDr1iZas
+ gejYXLNAEfSsE8qjlTul4WAB+TjfNc1hd486taoo=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 133/172] ASoC: fsl_asrc_dma: Fix dma_chan leak
- when config DMA channel failed
-Date: Wed, 17 Jun 2020 21:21:39 -0400
-Message-Id: <20200618012218.607130-133-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 164/172] ASoC: core: only convert non DPCM link
+ to DPCM link
+Date: Wed, 17 Jun 2020 21:22:10 -0400
+Message-Id: <20200618012218.607130-164-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200618012218.607130-1-sashal@kernel.org>
 References: <20200618012218.607130-1-sashal@kernel.org>
@@ -67,9 +67,12 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, Xin Tan <tanxin.ctf@gmail.com>,
- Xiyu Yang <xiyuyang19@fudan.edu.cn>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org
+Cc: Sasha Levin <sashal@kernel.org>,
+ Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@gmail.com>, alsa-devel@alsa-project.org,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,44 +88,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Xiyu Yang <xiyuyang19@fudan.edu.cn>
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-[ Upstream commit 36124fb19f1ae68a500cd76a76d40c6e81bee346 ]
+[ Upstream commit 607fa205a7e4dfad28b8a67ab1c985756ddbccb0 ]
 
-fsl_asrc_dma_hw_params() invokes dma_request_channel() or
-fsl_asrc_get_dma_channel(), which returns a reference of the specified
-dma_chan object to "pair->dma_chan[dir]" with increased refcnt.
+Additional checks for valid DAIs expose a corner case, where existing
+BE dailinks get modified, e.g. HDMI links are tagged with
+dpcm_capture=1 even if the DAIs are for playback.
 
-The reference counting issue happens in one exception handling path of
-fsl_asrc_dma_hw_params(). When config DMA channel failed for Back-End,
-the function forgets to decrease the refcnt increased by
-dma_request_channel() or fsl_asrc_get_dma_channel(), causing a refcnt
-leak.
+This patch makes those changes conditional and flags configuration
+issues when a BE dailink is has no_pcm=0 but dpcm_playback or
+dpcm_capture=1 (which makes no sense).
 
-Fix this issue by calling dma_release_channel() when config DMA channel
-failed.
+As discussed on the alsa-devel mailing list, there are redundant flags
+for dpcm_playback, dpcm_capture, playback_only, capture_only. This
+will have to be cleaned-up in a future update. For now only correct
+and flag problematic configurations.
 
-Signed-off-by: Xiyu Yang <xiyuyang19@fudan.edu.cn>
-Signed-off-by: Xin Tan <tanxin.ctf@gmail.com>
-Link: https://lore.kernel.org/r/1590415966-52416-1-git-send-email-xiyuyang19@fudan.edu.cn
+Fixes: 218fe9b7ec7f3 ("ASoC: soc-core: Set dpcm_playback / dpcm_capture")
+Suggested-by: Daniel Baluta <daniel.baluta@nxp.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Reviewed-by: Daniel Baluta <daniel.baluta@gmail.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Link: https://lore.kernel.org/r/20200608194415.4663-3-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/fsl/fsl_asrc_dma.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/soc-core.c | 22 +++++++++++++++++++---
+ 1 file changed, 19 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
-index 1033ac6631b0..b9ac448989ed 100644
---- a/sound/soc/fsl/fsl_asrc_dma.c
-+++ b/sound/soc/fsl/fsl_asrc_dma.c
-@@ -241,6 +241,7 @@ static int fsl_asrc_dma_hw_params(struct snd_pcm_substream *substream,
- 	ret = dmaengine_slave_config(pair->dma_chan[dir], &config_be);
- 	if (ret) {
- 		dev_err(dev, "failed to config DMA channel for Back-End\n");
-+		dma_release_channel(pair->dma_chan[dir]);
- 		return ret;
- 	}
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index e45dfcb62b6a..595fe20bbc6d 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -1920,9 +1920,25 @@ static void soc_check_tplg_fes(struct snd_soc_card *card)
+ 			dai_link->platform_name = component->name;
  
+ 			/* convert non BE into BE */
+-			dai_link->no_pcm = 1;
+-			dai_link->dpcm_playback = 1;
+-			dai_link->dpcm_capture = 1;
++			if (!dai_link->no_pcm) {
++				dai_link->no_pcm = 1;
++
++				if (dai_link->dpcm_playback)
++					dev_warn(card->dev,
++						 "invalid configuration, dailink %s has flags no_pcm=0 and dpcm_playback=1\n",
++						 dai_link->name);
++				if (dai_link->dpcm_capture)
++					dev_warn(card->dev,
++						 "invalid configuration, dailink %s has flags no_pcm=0 and dpcm_capture=1\n",
++						 dai_link->name);
++
++				/* convert normal link into DPCM one */
++				if (!(dai_link->dpcm_playback ||
++				      dai_link->dpcm_capture)) {
++					dai_link->dpcm_playback = !dai_link->capture_only;
++					dai_link->dpcm_capture = !dai_link->playback_only;
++				}
++			}
+ 
+ 			/* override any BE fixups */
+ 			dai_link->be_hw_params_fixup =
 -- 
 2.25.1
 

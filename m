@@ -2,82 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1A6F1FF013
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 12:59:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D1751FF023
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 13:02:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5F9B01750;
-	Thu, 18 Jun 2020 12:58:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F9B01750
+	by alsa0.perex.cz (Postfix) with ESMTPS id 022B3174B;
+	Thu, 18 Jun 2020 13:01:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 022B3174B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592477954;
-	bh=vY2sHSYgz3FSMcrfG9KrkW9kDXXo8NuTjtpQOy2E/lU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1592478127;
+	bh=0coTJo5fM/zPRzyPhZ9zJ8zs5jZ8YrRo1DhSVQj1XWg=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pvlnIaboRPGlFPEGJ+30Wn+P/PiPPUpMBO764S9Lf7wycE6wHgkYXBjyq9ZivVhQ1
-	 bBbOqE96JhaGf2umqj4kuBscp4owb2HJulP7aqY8jDyDd0Xd4O0kK6qEGmgJFme93d
-	 ukuc26uOovK/8KacAiNPDn9PlEdKtWBuDEAfjpN8=
+	b=jR4xJuCefrOTkG1ZNCmoIB8XBmv9J5rqYRBcwu5h+tVJ0NRvg2bB0qRQc/8zeveAq
+	 LxwxPpM60XDn8zIKYfs4uC04gdmSh1oFf63sZXV7EcJ8RGGMJll0g3cBmRAbuATuCJ
+	 08iRSX25TTz8fmc46fvq3PlW7gSRYUxw/vGzPDz4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8FE95F80101;
-	Thu, 18 Jun 2020 12:57:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3A8E7F80116;
+	Thu, 18 Jun 2020 13:00:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E3334F800D1; Thu, 18 Jun 2020 12:57:30 +0200 (CEST)
+ id E555CF80116; Thu, 18 Jun 2020 13:00:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4EE21F800D1
- for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 12:57:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4EE21F800D1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="hG3hPcg1"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 365632085B;
- Thu, 18 Jun 2020 10:57:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592477844;
- bh=vY2sHSYgz3FSMcrfG9KrkW9kDXXo8NuTjtpQOy2E/lU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=hG3hPcg1C8sz2kAMaDAVmjGxfJ54TyooiyfBeTKxdTtslrW228ozcyIgBnZ6XLaSX
- A4wJXR8wKV47rxN0Fgyz+fIuqydSZMcXM2xat4fEJ+jNjzq1KbqrIKLOSpgpvRuQ/1
- 6MGpBbPkMZnN9J3urbv1bFZtfrvHjGPznDLmeMfw=
-Date: Thu, 18 Jun 2020 11:57:22 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [RFC PATCH 1/2] dt-bindings: tas2562: Add firmware support for
- tas2563
-Message-ID: <20200618105722.GA5789@sirena.org.uk>
-References: <20200609172841.22541-2-dmurphy@ti.com>
- <20200609173143.GN4583@sirena.org.uk>
- <bb7cff87-f814-1b37-c9eb-e68919e3c077@ti.com>
- <20200609175852.GQ4583@sirena.org.uk>
- <414a2d73-6d09-1e76-59c8-4943c0e8f720@ti.com>
- <20200609184734.GS4583@sirena.org.uk>
- <014b85b5-677b-569a-4eb2-74526d3f00bc@ti.com>
- <20200610102920.GC5005@sirena.org.uk>
- <84a6dd5f-cc3e-adb4-ae94-b4fe389adfd9@ti.com>
- <20200617220459.GA2884884@bogus>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="RnlQjJ0d97Da+TV1"
-Content-Disposition: inline
-In-Reply-To: <20200617220459.GA2884884@bogus>
-X-Cookie: Androphobia:
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
- Dan Murphy <dmurphy@ti.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id AD071F80101
+ for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 13:00:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD071F80101
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 40E76AC51;
+ Thu, 18 Jun 2020 11:00:13 +0000 (UTC)
+Date: Thu, 18 Jun 2020 13:00:13 +0200
+Message-ID: <s5ha710y6yq.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Subject: Re: [PATCH v3 1/2] ALSA: hda/realtek: Add COEF controlled micmute LED
+ support
+In-Reply-To: <50F84AE3-CA74-4231-86F2-30D7C7920B4D@canonical.com>
+References: <20200617102906.16156-1-kai.heng.feng@canonical.com>
+ <s5hd05xzz3d.wl-tiwai@suse.de>
+ <934401DE-7A4E-4B2C-8B06-E2AA203A9336@canonical.com>
+ <s5h366tzo6x.wl-tiwai@suse.de>
+ <DB5A1DD9-4D61-466F-A7DE-4219534DFA4D@canonical.com>
+ <s5hwo44ygku.wl-tiwai@suse.de>
+ <50F84AE3-CA74-4231-86F2-30D7C7920B4D@canonical.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Wenwen Wang <wenwen@cs.uga.edu>, Kailang Yang <kailang@realtek.com>,
+ Tomas Espeleta <tomas.espeleta@gmail.com>,
+ "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ open list <linux-kernel@vger.kernel.org>, tiwai@suse.com,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ =?UTF-8?B?TWljaGHFgiBNaXJvc8WC?= =?UTF-8?B?YXc=?= <mirq-linux@rere.qmqm.pl>,
+ Hui Wang <hui.wang@canonical.com>, Thomas Hebb <tommyhebb@gmail.com>,
+ Jian-Hong Pan <jian-hong@endlessm.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,36 +83,106 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, 18 Jun 2020 12:16:15 +0200,
+Kai-Heng Feng wrote:
+> 
+> 
+> 
+> > On Jun 18, 2020, at 15:32, Takashi Iwai <tiwai@suse.de> wrote:
+> > 
+> > On Thu, 18 Jun 2020 07:15:21 +0200,
+> > Kai-Heng Feng wrote:
+> >> 
+> >> 
+> >> 
+> >>> On Jun 17, 2020, at 23:50, Takashi Iwai <tiwai@suse.de> wrote:
+> >>> 
+> >>> On Wed, 17 Jun 2020 17:24:30 +0200,
+> >>> Kai-Heng Feng wrote:
+> >>>> 
+> >>>> 
+> >>>> 
+> >>>>> On Jun 17, 2020, at 19:55, Takashi Iwai <tiwai@suse.de> wrote:
+> >>>>> 
+> >>>>> On Wed, 17 Jun 2020 12:29:01 +0200,
+> >>>>> Kai-Heng Feng wrote:
+> >>>>>> 
+> >>>>>> Currently, HDA codec LED class can only be used by GPIO controlled LED.
+> >>>>>> However, there are some new systems that control LED via COEF instead of
+> >>>>>> GPIO.
+> >>>>>> 
+> >>>>>> In order to support those systems, create a new helper that can be
+> >>>>>> facilitated by both COEF controlled and GPIO controlled LED.
+> >>>>>> 
+> >>>>>> In addition to that, add LED_CORE_SUSPENDRESUME flag since some systems
+> >>>>>> don't restore the LED properly after suspend.
+> >>>>>> 
+> >>>>>> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> >>>>> 
+> >>>>> Thanks for the quick follow up, the issues I pointed were fixed.
+> >>>>> 
+> >>>>> But, now looking at the code change again, I'm no longer sure whether
+> >>>>> it's the right move.
+> >>>>> 
+> >>>>> Basically, the led cdev should serve only for turning on/off the LED
+> >>>>> as given.  But your patch changes it to call the generic mixer
+> >>>>> updater, which is rather the one who would call the led cdev state
+> >>>>> update itself.  That is, it's other way round.
+> >>>>> 
+> >>>>> IMO, what we need is to make all places calling
+> >>>>> snd_hda_gen_add_micmute_led() to create led cdev, and change those
+> >>>>> calls with snd_hda_gen_fixup_micmute_led().
+> >>>> 
+> >>>> Ok, so it's the same as patch v1.
+> >>>> How should we handle vendors other than HP?
+> >>>> Only create led cdev if the ID matches to HP?
+> >>> 
+> >>> It's fine to create a LED classdev for other vendors, too.  But the
+> >>> problem is that it wasn't consistent.  With the LED classdev, we
+> >>> should use only cdev, instead of mixing up different ways.
+> >> 
+> >> Ok, now I get what you meant...
+> >> 
+> >>> 
+> >>> I wrote a few patches to convert those mic-mute LED stuff to classdev,
+> >>> including some cleanups.  The patches are found in
+> >>> topic/hda-micmute-led branch of sound git tree.  Could you check it?
+> >>> 
+> >>> Note that it's totally untested.  Also it doesn't contain yet
+> >>> LED_CORE_SUSPENDRESUME, which should be done in another patch in
+> >>> anyway.
+> >> 
+> >> Other than LED_CORE_SUSPENDRESUME, it works great!
+> >> 
+> >> Tested-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> > 
+> > Good to hear!
+> > 
+> >>>>> It'll be a bit more changes and likely not fitting with 5.8, but the
+> >>>>> whole result will be more consistent.
+> >>>> 
+> >>>> A bit off topic, but do you think it's reasonable to also create led cdev for mute LED, in addition to micmute LED?
+> >>>> I just found that the LEDs are still on during system suspend, and led cdev has the ability to turn off the LEDs on system suspend.
+> >>> 
+> >>> Yes, it makes sense, too.  But the playback mute handling is a bit
+> >>> more complicated than the mic-mute LED because it's implemented with a
+> >>> vmaster hook.  I'll take a look later.
+> >> 
+> >> Thanks. I'll be happy to test it.
+> > 
+> > OK, I worked on this further and converted the whole mute LED handling
+> > with LED classdev.
+> > 
+> > The topic/hda-micmute-led branch was updated again.  Could you give it
+> > a try?  If that's OK, I'll add your tested-by tag and submit the
+> > patches to ML later.
+> 
+> Thanks for the work, it works great.
+> 
+> Tested-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
 
---RnlQjJ0d97Da+TV1
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Great, then I'll submit a patch set.
+Thanks for quick testing!
 
-On Wed, Jun 17, 2020 at 04:04:59PM -0600, Rob Herring wrote:
 
-> Given bus numbering may not be constant, that seems like not the best=20
-> way to match up devices. I'd assume that userspace needs some way to=20
-> identify which instance is which already, so maybe there's other data=20
-> you can use already.
-
-There isn't really, you're putting stuff in the DT for that - usually as
-part of the card binding.  I guess we could use that string rather than
-the dev_name().
-
---RnlQjJ0d97Da+TV1
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7rSJEACgkQJNaLcl1U
-h9AibAf/ZmP/R1X+W0rdK+oILKnjLxOdozk0Sprm6q6LHFutWUM6iachMjh1+7jW
-N/B9nHZSkHAjtocF5Xlfzt/K1jS/mNa4c0DVBmnBALam88CbZshWAG7lwMZhkf40
-DgLtkfZfyNCxFgd5/bTBcOZXnxLcWm1YHj45Pv/iOHtEhRDJ3UNmE5jry4DwjwSV
-YVl4a1Jjaoth+Xgy3THO6M8DAv5PXlHT3ysJSOLY4rkrXlqQPdu8ylpqe8tymPng
-Jv2FZWels3v9S+wWYj3OPbs2TkiTQE+Y34YaaxkTtz3FA4YktesN3F9mGUjE81jW
-yEMbgNDVy1xaeFNm7q9geJCHfGdyvQ==
-=DzpG
------END PGP SIGNATURE-----
-
---RnlQjJ0d97Da+TV1--
+Takashi

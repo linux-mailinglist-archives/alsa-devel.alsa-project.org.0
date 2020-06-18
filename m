@@ -2,63 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93D091FEF7D
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 12:16:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D1271FEF85
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 12:17:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2FFA8174E;
-	Thu, 18 Jun 2020 12:15:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FFA8174E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 077361744;
+	Thu, 18 Jun 2020 12:16:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 077361744
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592475398;
-	bh=pvqbrENaPF1edZkV4uAwuNKVBxUkOy8J4eNXtWgmc2Y=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1592475448;
+	bh=KQBV+B4UnGYx/KiNCe+MBUwX6o1oxgEYkggMcnQur4c=;
+	h=Subject:From:In-Reply-To:Date:References:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TQ0BZqpb9JYNYhXGt4rjIShPsrUtcLlBJdn7p/7dK5iOAu1fb4lgyiDtXb85nFcji
-	 3kWFGI9vaT1xDqXjMfkNcx3BcgVXBGeqVMJ3u5p6aZX950mBxX78eE3JsCzsAMc3NG
-	 c91lFEsFhdsRVRvCvvSuLFm15SL2YbLoU9Tyzbe0=
+	b=bBxW+SyNlb8npsAZFFnXd3CqlftXM9nWBYS9xu9c85oH/79t3x9BLZpEvEkwdbD5b
+	 s8kzB7Fo5bNEvI2YK4BkC6E7wCawsFjYStLClicyxNchvF2M0sYauQT72+TQ84mgXE
+	 9/LhX5+oLeAp5mnNuVBU5UHhB+pXA3m2ojZTV/QM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3CACFF80101;
-	Thu, 18 Jun 2020 12:14:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD3DFF80162;
+	Thu, 18 Jun 2020 12:16:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB18CF80116; Thu, 18 Jun 2020 12:14:54 +0200 (CEST)
+ id F14F3F80171; Thu, 18 Jun 2020 12:16:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtprelay03.ispgateway.de (smtprelay03.ispgateway.de
- [80.67.31.37])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AF45FF80101
- for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 12:14:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF45FF80101
-Received: from [87.123.35.171] (helo=yrla.localnet)
- by smtprelay03.ispgateway.de with esmtpsa
- (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.92.3)
- (envelope-from <alsa@reaktanz.de>)
- id 1jlrZH-0003ll-H0; Thu, 18 Jun 2020 12:14:47 +0200
-From: "m.eik michalke" <alsa@reaktanz.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: presonus StudioLive 24.4.2
-Date: Thu, 18 Jun 2020 12:14:41 +0200
-Message-ID: <4447737.uXMYkMNjJ4@yrla>
-Organization: https://reaktanz.de
-X-Face: :Fk?kfw3:=Vz)np%nh,d4^[#)-y,9IYe:y,; }P|%`fw>/.msl.f=*6j*-f$vL09$qopvp6
- Ox|(^ge<|+0iS]{&|\<0>i7r'@'k+i=eB5y8*pO$#xT+$2uq=`
-In-Reply-To: <20200617233213.GA281450@workstation>
-References: <1859294.RmyynjnHiM@meadow> <1950143.FVrUTiCnyk@yrla>
- <20200617233213.GA281450@workstation>
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id E585EF8010E
+ for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 12:16:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E585EF8010E
+Received: from mail-pl1-f200.google.com ([209.85.214.200])
+ by youngberry.canonical.com with esmtps
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <kai.heng.feng@canonical.com>) id 1jlrao-0006Qq-5S
+ for alsa-devel@alsa-project.org; Thu, 18 Jun 2020 10:16:22 +0000
+Received: by mail-pl1-f200.google.com with SMTP id 59so3539235pla.12
+ for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 03:16:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=tafBBnafCbfI5o9MOV+64xc9E0d/3o9toKXYsB0LHjg=;
+ b=fI/jqLvIcDbQaYuHpkqDNLfph9Z6lVeTRBRhsWwRspUDMXszvepS4n+27YDildJSlV
+ 1MZyIqKL2yk9gDhVqnpl6zYVhorO6cEpRTWoA2uPb26Y1pezDBCqS/zvHH68UwOoY6t0
+ QI1dUYAdNScbzejTIA/NQnLw4OzygWX2tp2ZO/vescfa/usmuPSeKr3WItGXGtmJldpa
+ hmshXqGVCHHnaf58CA4XLh7QyMqEwoTWM7MOLNFOFMPwJADARRrwnp8eIuG4DRUcKias
+ ffCw31BZDXewerZFqhV6zYhYuGgeRaWZ7LZeWJAoWsO5uRB5gmFPLsbpzsaQTNDsxOYp
+ 6aJA==
+X-Gm-Message-State: AOAM531OIw/aXERoWYRiZIPFWY5DbI60Qn/91NQ0khkX4IM9NIj76dmU
+ baSEYpzE2a8/OtHG6azFwA956iRsIBRNZ8DmlJfg0l0E4Jv5mIHALmhcMX5xEGb3TlpCfjRdr+M
+ hFhaVsYAa+UJEVbEEad6jK03dKLYgjQzYjlS8FPCo
+X-Received: by 2002:a65:43cb:: with SMTP id n11mr2706888pgp.160.1592475380694; 
+ Thu, 18 Jun 2020 03:16:20 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxcrIMx+GxkoyBuQ/qT0KMBZ9GgjwPYV2GO9uzuY+3d9c7k8NOQNlyofE6oHwexJY5ElbUkBA==
+X-Received: by 2002:a65:43cb:: with SMTP id n11mr2706856pgp.160.1592475380156; 
+ Thu, 18 Jun 2020 03:16:20 -0700 (PDT)
+Received: from [192.168.1.208] (220-133-187-190.HINET-IP.hinet.net.
+ [220.133.187.190])
+ by smtp.gmail.com with ESMTPSA id x20sm2044113pjr.44.2020.06.18.03.16.17
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 18 Jun 2020 03:16:19 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.80.23.2.2\))
+Subject: Re: [PATCH v3 1/2] ALSA: hda/realtek: Add COEF controlled micmute LED
+ support
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+In-Reply-To: <s5hwo44ygku.wl-tiwai@suse.de>
+Date: Thu, 18 Jun 2020 18:16:15 +0800
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-X-Df-Sender: MmRXRmFlNmlha21wWFBSNnA5Y1lAYWQuZ2VsZHVudGVyZ2FuZy5iaXo=
-Cc: alsa-devel@alsa-project.org
+Message-Id: <50F84AE3-CA74-4231-86F2-30D7C7920B4D@canonical.com>
+References: <20200617102906.16156-1-kai.heng.feng@canonical.com>
+ <s5hd05xzz3d.wl-tiwai@suse.de>
+ <934401DE-7A4E-4B2C-8B06-E2AA203A9336@canonical.com>
+ <s5h366tzo6x.wl-tiwai@suse.de>
+ <DB5A1DD9-4D61-466F-A7DE-4219534DFA4D@canonical.com>
+ <s5hwo44ygku.wl-tiwai@suse.de>
+To: Takashi Iwai <tiwai@suse.de>
+X-Mailer: Apple Mail (2.3608.80.23.2.2)
+Cc: Wenwen Wang <wenwen@cs.uga.edu>, Kailang Yang <kailang@realtek.com>,
+ Tomas Espeleta <tomas.espeleta@gmail.com>,
+ "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ open list <linux-kernel@vger.kernel.org>, tiwai@suse.com,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ =?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+ Hui Wang <hui.wang@canonical.com>, Thomas Hebb <tommyhebb@gmail.com>,
+ Jian-Hong Pan <jian-hong@endlessm.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,49 +110,118 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-hi,
 
-Am Donnerstag, 18. Juni 2020, 01:32:13 CEST schrieb Takashi Sakamoto:
-> > ok, could a hack like this also help me out?
-> >=20
-> >   http://www.jrigg.co.uk/linuxaudio/ice1712multi.html
+
+> On Jun 18, 2020, at 15:32, Takashi Iwai <tiwai@suse.de> wrote:
 >=20
-> Yep, the PCM multi plugin in alsa-lib seems to be available as well.
-
-that's encouraging. now i only have to figure that out ;) never had to deal=
-=20
-with .asoundrc before (which is testament to the hard work of all of you,=20
-thx!).
-
-> From my curiousity, would I ask you extra check in system log (like
-> journalctl -k)? ALSA Dice driver supports TCAT protocol extension, and
-> it firstly attempts to detect it for all of devices without explicit
-> flags (in your case). If the device doesn't support the extension, the
-> attempt fails and we can see below log:
+> On Thu, 18 Jun 2020 07:15:21 +0200,
+> Kai-Heng Feng wrote:
+>>=20
+>>=20
+>>=20
+>>> On Jun 17, 2020, at 23:50, Takashi Iwai <tiwai@suse.de> wrote:
+>>>=20
+>>> On Wed, 17 Jun 2020 17:24:30 +0200,
+>>> Kai-Heng Feng wrote:
+>>>>=20
+>>>>=20
+>>>>=20
+>>>>> On Jun 17, 2020, at 19:55, Takashi Iwai <tiwai@suse.de> wrote:
+>>>>>=20
+>>>>> On Wed, 17 Jun 2020 12:29:01 +0200,
+>>>>> Kai-Heng Feng wrote:
+>>>>>>=20
+>>>>>> Currently, HDA codec LED class can only be used by GPIO =
+controlled LED.
+>>>>>> However, there are some new systems that control LED via COEF =
+instead of
+>>>>>> GPIO.
+>>>>>>=20
+>>>>>> In order to support those systems, create a new helper that can =
+be
+>>>>>> facilitated by both COEF controlled and GPIO controlled LED.
+>>>>>>=20
+>>>>>> In addition to that, add LED_CORE_SUSPENDRESUME flag since some =
+systems
+>>>>>> don't restore the LED properly after suspend.
+>>>>>>=20
+>>>>>> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+>>>>>=20
+>>>>> Thanks for the quick follow up, the issues I pointed were fixed.
+>>>>>=20
+>>>>> But, now looking at the code change again, I'm no longer sure =
+whether
+>>>>> it's the right move.
+>>>>>=20
+>>>>> Basically, the led cdev should serve only for turning on/off the =
+LED
+>>>>> as given.  But your patch changes it to call the generic mixer
+>>>>> updater, which is rather the one who would call the led cdev state
+>>>>> update itself.  That is, it's other way round.
+>>>>>=20
+>>>>> IMO, what we need is to make all places calling
+>>>>> snd_hda_gen_add_micmute_led() to create led cdev, and change those
+>>>>> calls with snd_hda_gen_fixup_micmute_led().
+>>>>=20
+>>>> Ok, so it's the same as patch v1.
+>>>> How should we handle vendors other than HP?
+>>>> Only create led cdev if the ID matches to HP?
+>>>=20
+>>> It's fine to create a LED classdev for other vendors, too.  But the
+>>> problem is that it wasn't consistent.  With the LED classdev, we
+>>> should use only cdev, instead of mixing up different ways.
+>>=20
+>> Ok, now I get what you meant...
+>>=20
+>>>=20
+>>> I wrote a few patches to convert those mic-mute LED stuff to =
+classdev,
+>>> including some cleanups.  The patches are found in
+>>> topic/hda-micmute-led branch of sound git tree.  Could you check it?
+>>>=20
+>>> Note that it's totally untested.  Also it doesn't contain yet
+>>> LED_CORE_SUSPENDRESUME, which should be done in another patch in
+>>> anyway.
+>>=20
+>> Other than LED_CORE_SUSPENDRESUME, it works great!
+>>=20
+>> Tested-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
 >=20
-> ```
-> kernel: snd_dice fw1.0: transaction failed: timeout
-> ```
+> Good to hear!
+>=20
+>>>>> It'll be a bit more changes and likely not fitting with 5.8, but =
+the
+>>>>> whole result will be more consistent.
+>>>>=20
+>>>> A bit off topic, but do you think it's reasonable to also create =
+led cdev for mute LED, in addition to micmute LED?
+>>>> I just found that the LEDs are still on during system suspend, and =
+led cdev has the ability to turn off the LEDs on system suspend.
+>>>=20
+>>> Yes, it makes sense, too.  But the playback mute handling is a bit
+>>> more complicated than the mic-mute LED because it's implemented with =
+a
+>>> vmaster hook.  I'll take a look later.
+>>=20
+>> Thanks. I'll be happy to test it.
+>=20
+> OK, I worked on this further and converted the whole mute LED handling
+> with LED classdev.
+>=20
+> The topic/hda-micmute-led branch was updated again.  Could you give it
+> a try?  If that's OK, I'll add your tested-by tag and submit the
+> patches to ML later.
 
-here's what i see in journalctl -k when the device is being plugged in:
+Thanks for the work, it works great.
 
-kernel: firewire_ohci 0000:05:00.0: isochronous cycle inconsistent
-kernel: firewire_core 0000:05:00.0: created device fw1: GUID 000a920404af77=
-44,=20
-S400
-kernel: firewire_core 0000:05:00.0: phy config: new root=3Dffc1, gap_count=
-=3D5
-kernel: firewire_core 0000:05:00.0: IRM is not 1394a compliant, making loca=
-l=20
-node (ffc0) root
-kernel: firewire_core 0000:05:00.0: phy config: new root=3Dffc0, gap_count=
-=3D5
-kernel: snd_dice fw1.0: transaction failed: address error
+Tested-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
 
-let me know if you need anything else.
-
-
-viele gr=FC=DFe :: m.eik
-
-
+>=20
+> The old patchset is saved in topic/hda-micmute-led-old branch just for
+> a reference.
+>=20
+>=20
+> thanks,
+>=20
+> Takashi
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E25501FE1F8
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 03:58:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58CA51FE1FB
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 03:59:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8824B1735;
-	Thu, 18 Jun 2020 03:57:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8824B1735
+	by alsa0.perex.cz (Postfix) with ESMTPS id 05EE11723;
+	Thu, 18 Jun 2020 03:58:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05EE11723
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592445506;
-	bh=kDfgXbkLOcQsgKi7kCnSID1zbif1f+ACplg1zsdz6pI=;
+	s=default; t=1592445542;
+	bh=KrpSwJ0KW8zhWehHRttjOJ/61tE/svWEmhe0hunMWKw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cGetAoWf0dKaS75gLs1Z7PlQug8Oduyc+OXRmC71FfmIPE8c6kKk4jmRibsKjdfkL
-	 ANM/FSCQOowDyhr6PVqN5UHZyjwmYWVMipaf2FfqlM36SyTb/PX968HTdPPcyOTDKk
-	 dSvj+NwZ6LiR8kbkfZKzcR2Y2N9IKYjLnJYupDtA=
+	b=K6U3It1EW4TKLuF9K0gwt2OSTm8WPOSkH858dCtIetbo9AZ5FmwcPi8s04SS5oDwo
+	 riIaZMkftMcQHS5HCoAA9n5oUqr56maPLHqy2iAAdtlr//ZJ8TKh8HDN0OP1ZMU87/
+	 hJbpoo0qOHogfdlmvNHw9dMrcMOWoHSmXvDe7bAk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4518F802C4;
-	Thu, 18 Jun 2020 03:27:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37F4CF802FB;
+	Thu, 18 Jun 2020 03:28:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3FD83F802F9; Thu, 18 Jun 2020 03:27:02 +0200 (CEST)
+ id 57D9FF802E9; Thu, 18 Jun 2020 03:27:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A7561F802C4
- for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 03:26:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7561F802C4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 35E20F80116
+ for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 03:27:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35E20F80116
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="q4oDuDMw"
+ header.b="E+MCQcgh"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8373821D7F;
- Thu, 18 Jun 2020 01:26:53 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id D17A021D7F;
+ Thu, 18 Jun 2020 01:27:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592443614;
- bh=kDfgXbkLOcQsgKi7kCnSID1zbif1f+ACplg1zsdz6pI=;
+ s=default; t=1592443669;
+ bh=KrpSwJ0KW8zhWehHRttjOJ/61tE/svWEmhe0hunMWKw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=q4oDuDMwwfr/sR37Vd+yTy2nH8w8folLx+zGT2wJFiUtSVKgmzdRcmNVxJROV1I24
- 0wYti3HhPDzSmysdcSWsvHZvz1SQK+93fzaphO/+Nm3JhurYxicqDrUkIhAVANiidT
- o6cJc/NQEqR+UQVx5obSvr8wLSYTcLMVgDLHvGiE=
+ b=E+MCQcghHuNmuwS8YYoefiN5krq/w6WbNJnnv9b9qnFGqsp6+dXfSrL128DMdIQ9Y
+ 7oosXygVF/T4oHTxTYPbTRW6pcYQAFzxd5b2kAlnIYsNCIupqofLrHI16BY4UDbxW+
+ jenrGW7ZfIycDHvwFsIf6eVL2luinG541UhGOhLU=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.14 041/108] ALSA: usb-audio: Improve frames size
- computation
-Date: Wed, 17 Jun 2020 21:24:53 -0400
-Message-Id: <20200618012600.608744-41-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.14 086/108] ASoC: fsl_asrc_dma: Fix dma_chan leak
+ when config DMA channel failed
+Date: Wed, 17 Jun 2020 21:25:38 -0400
+Message-Id: <20200618012600.608744-86-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200618012600.608744-1-sashal@kernel.org>
 References: <20200618012600.608744-1-sashal@kernel.org>
@@ -67,8 +67,9 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- Alexander Tsoy <alexander@tsoy.me>, alsa-devel@alsa-project.org
+Cc: Sasha Levin <sashal@kernel.org>, Xin Tan <tanxin.ctf@gmail.com>,
+ Xiyu Yang <xiyuyang19@fudan.edu.cn>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,164 +85,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Alexander Tsoy <alexander@tsoy.me>
+From: Xiyu Yang <xiyuyang19@fudan.edu.cn>
 
-[ Upstream commit f0bd62b64016508938df9babe47f65c2c727d25c ]
+[ Upstream commit 36124fb19f1ae68a500cd76a76d40c6e81bee346 ]
 
-For computation of the the next frame size current value of fs/fps and
-accumulated fractional parts of fs/fps are used, where values are stored
-in Q16.16 format. This is quite natural for computing frame size for
-asynchronous endpoints driven by explicit feedback, since in this case
-fs/fps is a value provided by the feedback endpoint and it's already in
-the Q format. If an error is accumulated over time, the device can
-adjust fs/fps value to prevent buffer overruns/underruns.
+fsl_asrc_dma_hw_params() invokes dma_request_channel() or
+fsl_asrc_get_dma_channel(), which returns a reference of the specified
+dma_chan object to "pair->dma_chan[dir]" with increased refcnt.
 
-But for synchronous endpoints the accuracy provided by these computations
-is not enough. Due to accumulated error the driver periodically produces
-frames with incorrect size (+/- 1 audio sample).
+The reference counting issue happens in one exception handling path of
+fsl_asrc_dma_hw_params(). When config DMA channel failed for Back-End,
+the function forgets to decrease the refcnt increased by
+dma_request_channel() or fsl_asrc_get_dma_channel(), causing a refcnt
+leak.
 
-This patch fixes this issue by implementing a different algorithm for
-frame size computation. It is based on accumulating of the remainders
-from division fs/fps and it doesn't accumulate errors over time. This
-new method is enabled for synchronous and adaptive playback endpoints.
+Fix this issue by calling dma_release_channel() when config DMA channel
+failed.
 
-Signed-off-by: Alexander Tsoy <alexander@tsoy.me>
-Link: https://lore.kernel.org/r/20200424022449.14972-1-alexander@tsoy.me
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Xiyu Yang <xiyuyang19@fudan.edu.cn>
+Signed-off-by: Xin Tan <tanxin.ctf@gmail.com>
+Link: https://lore.kernel.org/r/1590415966-52416-1-git-send-email-xiyuyang19@fudan.edu.cn
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/card.h     |  4 ++++
- sound/usb/endpoint.c | 43 ++++++++++++++++++++++++++++++++++++++-----
- sound/usb/endpoint.h |  1 +
- sound/usb/pcm.c      |  2 ++
- 4 files changed, 45 insertions(+), 5 deletions(-)
+ sound/soc/fsl/fsl_asrc_dma.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/usb/card.h b/sound/usb/card.h
-index ed87cc83eb47..9dbcbb27c28e 100644
---- a/sound/usb/card.h
-+++ b/sound/usb/card.h
-@@ -81,6 +81,10 @@ struct snd_usb_endpoint {
- 	dma_addr_t sync_dma;		/* DMA address of syncbuf */
- 
- 	unsigned int pipe;		/* the data i/o pipe */
-+	unsigned int framesize[2];	/* small/large frame sizes in samples */
-+	unsigned int sample_rem;	/* remainder from division fs/fps */
-+	unsigned int sample_accum;	/* sample accumulator */
-+	unsigned int fps;		/* frames per second */
- 	unsigned int freqn;		/* nominal sampling rate in fs/fps in Q16.16 format */
- 	unsigned int freqm;		/* momentary sampling rate in fs/fps in Q16.16 format */
- 	int	   freqshift;		/* how much to shift the feedback value to get Q16.16 */
-diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
-index 8caf0b57f9c6..841219560872 100644
---- a/sound/usb/endpoint.c
-+++ b/sound/usb/endpoint.c
-@@ -137,12 +137,12 @@ int snd_usb_endpoint_implicit_feedback_sink(struct snd_usb_endpoint *ep)
- 
- /*
-  * For streaming based on information derived from sync endpoints,
-- * prepare_outbound_urb_sizes() will call next_packet_size() to
-+ * prepare_outbound_urb_sizes() will call slave_next_packet_size() to
-  * determine the number of samples to be sent in the next packet.
-  *
-- * For implicit feedback, next_packet_size() is unused.
-+ * For implicit feedback, slave_next_packet_size() is unused.
-  */
--int snd_usb_endpoint_next_packet_size(struct snd_usb_endpoint *ep)
-+int snd_usb_endpoint_slave_next_packet_size(struct snd_usb_endpoint *ep)
- {
- 	unsigned long flags;
- 	int ret;
-@@ -159,6 +159,29 @@ int snd_usb_endpoint_next_packet_size(struct snd_usb_endpoint *ep)
- 	return ret;
- }
- 
-+/*
-+ * For adaptive and synchronous endpoints, prepare_outbound_urb_sizes()
-+ * will call next_packet_size() to determine the number of samples to be
-+ * sent in the next packet.
-+ */
-+int snd_usb_endpoint_next_packet_size(struct snd_usb_endpoint *ep)
-+{
-+	int ret;
-+
-+	if (ep->fill_max)
-+		return ep->maxframesize;
-+
-+	ep->sample_accum += ep->sample_rem;
-+	if (ep->sample_accum >= ep->fps) {
-+		ep->sample_accum -= ep->fps;
-+		ret = ep->framesize[1];
-+	} else {
-+		ret = ep->framesize[0];
-+	}
-+
-+	return ret;
-+}
-+
- static void retire_outbound_urb(struct snd_usb_endpoint *ep,
- 				struct snd_urb_ctx *urb_ctx)
- {
-@@ -203,6 +226,8 @@ static void prepare_silent_urb(struct snd_usb_endpoint *ep,
- 
- 		if (ctx->packet_size[i])
- 			counts = ctx->packet_size[i];
-+		else if (ep->sync_master)
-+			counts = snd_usb_endpoint_slave_next_packet_size(ep);
- 		else
- 			counts = snd_usb_endpoint_next_packet_size(ep);
- 
-@@ -889,10 +914,17 @@ int snd_usb_endpoint_set_params(struct snd_usb_endpoint *ep,
- 	ep->maxpacksize = fmt->maxpacksize;
- 	ep->fill_max = !!(fmt->attributes & UAC_EP_CS_ATTR_FILL_MAX);
- 
--	if (snd_usb_get_speed(ep->chip->dev) == USB_SPEED_FULL)
-+	if (snd_usb_get_speed(ep->chip->dev) == USB_SPEED_FULL) {
- 		ep->freqn = get_usb_full_speed_rate(rate);
--	else
-+		ep->fps = 1000;
-+	} else {
- 		ep->freqn = get_usb_high_speed_rate(rate);
-+		ep->fps = 8000;
-+	}
-+
-+	ep->sample_rem = rate % ep->fps;
-+	ep->framesize[0] = rate / ep->fps;
-+	ep->framesize[1] = (rate + (ep->fps - 1)) / ep->fps;
- 
- 	/* calculate the frequency in 16.16 format */
- 	ep->freqm = ep->freqn;
-@@ -951,6 +983,7 @@ int snd_usb_endpoint_start(struct snd_usb_endpoint *ep)
- 	ep->active_mask = 0;
- 	ep->unlink_mask = 0;
- 	ep->phase = 0;
-+	ep->sample_accum = 0;
- 
- 	snd_usb_endpoint_start_quirk(ep);
- 
-diff --git a/sound/usb/endpoint.h b/sound/usb/endpoint.h
-index 63a39d4fa8d8..d23fa0a8c11b 100644
---- a/sound/usb/endpoint.h
-+++ b/sound/usb/endpoint.h
-@@ -28,6 +28,7 @@ void snd_usb_endpoint_release(struct snd_usb_endpoint *ep);
- void snd_usb_endpoint_free(struct snd_usb_endpoint *ep);
- 
- int snd_usb_endpoint_implicit_feedback_sink(struct snd_usb_endpoint *ep);
-+int snd_usb_endpoint_slave_next_packet_size(struct snd_usb_endpoint *ep);
- int snd_usb_endpoint_next_packet_size(struct snd_usb_endpoint *ep);
- 
- void snd_usb_handle_sync_urb(struct snd_usb_endpoint *ep,
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index ff38fca1781b..fd73186d6003 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -1484,6 +1484,8 @@ static void prepare_playback_urb(struct snd_usb_substream *subs,
- 	for (i = 0; i < ctx->packets; i++) {
- 		if (ctx->packet_size[i])
- 			counts = ctx->packet_size[i];
-+		else if (ep->sync_master)
-+			counts = snd_usb_endpoint_slave_next_packet_size(ep);
- 		else
- 			counts = snd_usb_endpoint_next_packet_size(ep);
+diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
+index e1b97e59275a..15d7e6da0555 100644
+--- a/sound/soc/fsl/fsl_asrc_dma.c
++++ b/sound/soc/fsl/fsl_asrc_dma.c
+@@ -243,6 +243,7 @@ static int fsl_asrc_dma_hw_params(struct snd_pcm_substream *substream,
+ 	ret = dmaengine_slave_config(pair->dma_chan[dir], &config_be);
+ 	if (ret) {
+ 		dev_err(dev, "failed to config DMA channel for Back-End\n");
++		dma_release_channel(pair->dma_chan[dir]);
+ 		return ret;
+ 	}
  
 -- 
 2.25.1

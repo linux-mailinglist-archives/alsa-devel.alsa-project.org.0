@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22D8D1FDDE5
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 03:29:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80FA61FDDFE
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jun 2020 03:29:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B58451678;
-	Thu, 18 Jun 2020 03:28:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B58451678
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2129E16D8;
+	Thu, 18 Jun 2020 03:29:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2129E16D8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592443766;
-	bh=kPxEmnmOMxuJtqjZV6a2AVPBdrlNhs4Uq5+RKIVKpaY=;
+	s=default; t=1592443799;
+	bh=hsh8OBWkdJYDP6rXNi6v/fdteZHhnTVpUh3LbNud6rw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Sq4OIaxv16sMBQO7m6n1UVrOFPgqYhPSYoO1CUS3ij+uTEbPhJZHYRJOGQMh63Pwq
-	 mjatDq2AzDii8hMEweFQhlWkvAMhgSFEDKA8EUtVyLk5/6RQh9KBv+6RlUbpkbE30s
-	 LWMJvEZfKHnADgZxTSSkbVEmtmICrE4rhupY+XsE=
+	b=j73y8OQSI5S9D0vmz9IamoQf/Kz/MfaiRaYc38sNySVZxFG+fRLPm9H4kiff0h/Up
+	 ZTmEqN6BollY12QOCj5xlTUihcQqrO4c9ZqsZcAKAgsaTIr/xMCCYpWt67NxxKJ8L1
+	 NuSWyEr0HEyJgcr4qnWUWxTe4/7CJM7SMuEwDIes=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40042F802FE;
-	Thu, 18 Jun 2020 03:15:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7285AF8028F;
+	Thu, 18 Jun 2020 03:16:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1CD59F803B1; Thu, 18 Jun 2020 03:14:56 +0200 (CEST)
+ id A2752F80308; Thu, 18 Jun 2020 03:16:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0C6A7F80305;
- Thu, 18 Jun 2020 03:14:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C6A7F80305
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9A691F802A8
+ for <alsa-devel@alsa-project.org>; Thu, 18 Jun 2020 03:15:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A691F802A8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="QNaUCmsx"
+ header.b="o7iQ1flQ"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 82601221F2;
- Thu, 18 Jun 2020 01:14:42 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1B3FA21D79;
+ Thu, 18 Jun 2020 01:15:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592442883;
- bh=kPxEmnmOMxuJtqjZV6a2AVPBdrlNhs4Uq5+RKIVKpaY=;
+ s=default; t=1592442954;
+ bh=hsh8OBWkdJYDP6rXNi6v/fdteZHhnTVpUh3LbNud6rw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=QNaUCmsxjy3lRmut9fU0KMqHYXcJydVlkMIgQ1yp1DKL0gOFkGAPWSUrPbXr/BkLm
- ynBVrQa2t3S5b1QdeWrstSiKABP3ni617sM/BICtkVG8ZZH0zHirL7G/5EkeClanSU
- jcD3SLfBSLjgdyLHcf7A2Ru3kwBoC6y+Fd26mWZ0=
+ b=o7iQ1flQyJF5hbnCuCpopU7nMUFXrJA4W3FvD8nLrLKNMf3u3npudCymvZequaezp
+ ij9R2VinBeYHjzdMuXosamEaY+nN4clB0JqKnyvmV0Pz+Sk5k0DV+KQ9p5u3s1mdaT
+ ek+VwT1vRlA4QiRY7WROS8vZkXCHlA7bXR55F/+s=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.7 307/388] ASoC: SOF: Intel: hda: fix generic hda
- codec support
-Date: Wed, 17 Jun 2020 21:06:44 -0400
-Message-Id: <20200618010805.600873-307-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.7 362/388] ASoC: soc-pcm: dpcm: fix playback/capture
+ checks
+Date: Wed, 17 Jun 2020 21:07:39 -0400
+Message-Id: <20200618010805.600873-362-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200618010805.600873-1-sashal@kernel.org>
 References: <20200618010805.600873-1-sashal@kernel.org>
@@ -69,10 +69,10 @@ X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>,
  Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@gmail.com>, alsa-devel@alsa-project.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Hui Wang <hui.wang@canonical.com>, Mark Brown <broonie@kernel.org>,
- sound-open-firmware@alsa-project.org
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,137 +88,90 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-[ Upstream commit 89d73ccab20a684d8446cea4d8ac6a2608c8d390 ]
+[ Upstream commit b73287f0b0745961b14e5ebcce92cc8ed24d4d52 ]
 
-Add support for using generic codec driver with SOF. Generic driver
-is used if:
- - snd_sof_intel_hda_common.hda_model="generic" is set, or
- - fallback if no other codec driver is found
+Recent changes in the ASoC core prevent multi-cpu BE dailinks from
+being used. DPCM does support multi-cpu DAIs for BE Dailinks, but not
+for FE.
 
-The implementation is aligned with snd-hda-intel driver, and fixes audio
-support for systems like Acer Swift 3 SF314-57G, on which this issue was
-originally reported.
+Handle the FE checks first, and make sure all DAIs support the same
+capabilities within the same dailink.
 
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Hui Wang <hui.wang@canonical.com>
+Fixes: 9b5db059366ae2 ("ASoC: soc-pcm: dpcm: Only allow playback/capture if supported")
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-BugLink: https://github.com/thesofproject/linux/issues/1807
-BugLink: https://bugs.launchpad.net/bugs/1877757
-Link: https://lore.kernel.org/r/20200529160358.12134-1-kai.vehmanen@linux.intel.com
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Daniel Baluta <daniel.baluta@gmail.com>
+BugLink: https://github.com/thesofproject/linux/issues/2031
+Link: https://lore.kernel.org/r/20200608194415.4663-2-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sof/intel/hda-codec.c | 51 +++++++++++++++++++++++++++++----
- 1 file changed, 45 insertions(+), 6 deletions(-)
+ sound/soc/soc-pcm.c | 44 ++++++++++++++++++++++++++++++++++----------
+ 1 file changed, 34 insertions(+), 10 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
-index 3041fbbb010a..ea021db697b8 100644
---- a/sound/soc/sof/intel/hda-codec.c
-+++ b/sound/soc/sof/intel/hda-codec.c
-@@ -24,19 +24,44 @@
- #define IDISP_VID_INTEL	0x80860000
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 1f302de44052..39ce61c5b874 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -2908,20 +2908,44 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ 	struct snd_pcm *pcm;
+ 	char new_name[64];
+ 	int ret = 0, playback = 0, capture = 0;
++	int stream;
+ 	int i;
  
- /* load the legacy HDA codec driver */
--static int hda_codec_load_module(struct hda_codec *codec)
-+static int request_codec_module(struct hda_codec *codec)
- {
- #ifdef MODULE
- 	char alias[MODULE_NAME_LEN];
--	const char *module = alias;
-+	const char *mod = NULL;
- 
--	snd_hdac_codec_modalias(&codec->core, alias, sizeof(alias));
--	dev_dbg(&codec->core.dev, "loading codec module: %s\n", module);
--	request_module(module);
-+	switch (codec->probe_id) {
-+	case HDA_CODEC_ID_GENERIC:
-+#if IS_MODULE(CONFIG_SND_HDA_GENERIC)
-+		mod = "snd-hda-codec-generic";
- #endif
-+		break;
-+	default:
-+		snd_hdac_codec_modalias(&codec->core, alias, sizeof(alias));
-+		mod = alias;
-+		break;
++	if (rtd->dai_link->dynamic && rtd->num_cpus > 1) {
++		dev_err(rtd->dev,
++			"DPCM doesn't support Multi CPU for Front-Ends yet\n");
++		return -EINVAL;
 +	}
 +
-+	if (mod) {
-+		dev_dbg(&codec->core.dev, "loading codec module: %s\n", mod);
-+		request_module(mod);
-+	}
-+#endif /* MODULE */
- 	return device_attach(hda_codec_dev(codec));
- }
- 
-+static int hda_codec_load_module(struct hda_codec *codec)
-+{
-+	int ret = request_codec_module(codec);
+ 	if (rtd->dai_link->dynamic || rtd->dai_link->no_pcm) {
+-		cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+-		if (rtd->num_cpus > 1) {
+-			dev_err(rtd->dev,
+-				"DPCM doesn't support Multi CPU yet\n");
+-			return -EINVAL;
++		if (rtd->dai_link->dpcm_playback) {
++			stream = SNDRV_PCM_STREAM_PLAYBACK;
 +
-+	if (ret <= 0) {
-+		codec->probe_id = HDA_CODEC_ID_GENERIC;
-+		ret = request_codec_module(codec);
-+	}
++			for_each_rtd_cpu_dais(rtd, i, cpu_dai)
++				if (!snd_soc_dai_stream_valid(cpu_dai,
++							      stream)) {
++					dev_err(rtd->card->dev,
++						"CPU DAI %s for rtd %s does not support playback\n",
++						cpu_dai->name,
++						rtd->dai_link->stream_name);
++					return -EINVAL;
++				}
++			playback = 1;
++		}
++		if (rtd->dai_link->dpcm_capture) {
++			stream = SNDRV_PCM_STREAM_CAPTURE;
 +
-+	return ret;
-+}
-+
- /* enable controller wake up event for all codecs with jack connectors */
- void hda_codec_jack_wake_enable(struct snd_sof_dev *sdev)
- {
-@@ -78,6 +103,13 @@ void hda_codec_jack_check(struct snd_sof_dev *sdev) {}
- EXPORT_SYMBOL_NS(hda_codec_jack_wake_enable, SND_SOC_SOF_HDA_AUDIO_CODEC);
- EXPORT_SYMBOL_NS(hda_codec_jack_check, SND_SOC_SOF_HDA_AUDIO_CODEC);
- 
-+#if IS_ENABLED(CONFIG_SND_HDA_GENERIC)
-+#define is_generic_config(bus) \
-+	((bus)->modelname && !strcmp((bus)->modelname, "generic"))
-+#else
-+#define is_generic_config(x)	0
-+#endif
-+
- /* probe individual codec */
- static int hda_codec_probe(struct snd_sof_dev *sdev, int address,
- 			   bool hda_codec_use_common_hdmi)
-@@ -87,6 +119,7 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address,
- #endif
- 	struct hda_bus *hbus = sof_to_hbus(sdev);
- 	struct hdac_device *hdev;
-+	struct hda_codec *codec;
- 	u32 hda_cmd = (address << 28) | (AC_NODE_ROOT << 20) |
- 		(AC_VERB_PARAMETERS << 8) | AC_PAR_VENDOR_ID;
- 	u32 resp = -1;
-@@ -108,6 +141,7 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address,
- 
- 	hda_priv->codec.bus = hbus;
- 	hdev = &hda_priv->codec.core;
-+	codec = &hda_priv->codec;
- 
- 	ret = snd_hdac_ext_bus_device_init(&hbus->core, address, hdev);
- 	if (ret < 0)
-@@ -122,6 +156,11 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address,
- 		hda_priv->need_display_power = true;
- 	}
- 
-+	if (is_generic_config(hbus))
-+		codec->probe_id = HDA_CODEC_ID_GENERIC;
-+	else
-+		codec->probe_id = 0;
-+
- 	/*
- 	 * if common HDMI codec driver is not used, codec load
- 	 * is skipped here and hdac_hdmi is used instead
-@@ -129,7 +168,7 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address,
- 	if (hda_codec_use_common_hdmi ||
- 	    (resp & 0xFFFF0000) != IDISP_VID_INTEL) {
- 		hdev->type = HDA_DEV_LEGACY;
--		ret = hda_codec_load_module(&hda_priv->codec);
-+		ret = hda_codec_load_module(codec);
- 		/*
- 		 * handle ret==0 (no driver bound) as an error, but pass
- 		 * other return codes without modification
++			for_each_rtd_cpu_dais(rtd, i, cpu_dai)
++				if (!snd_soc_dai_stream_valid(cpu_dai,
++							      stream)) {
++					dev_err(rtd->card->dev,
++						"CPU DAI %s for rtd %s does not support capture\n",
++						cpu_dai->name,
++						rtd->dai_link->stream_name);
++					return -EINVAL;
++				}
++			capture = 1;
+ 		}
+-
+-		playback = rtd->dai_link->dpcm_playback &&
+-			   snd_soc_dai_stream_valid(cpu_dai, SNDRV_PCM_STREAM_PLAYBACK);
+-		capture = rtd->dai_link->dpcm_capture &&
+-			  snd_soc_dai_stream_valid(cpu_dai, SNDRV_PCM_STREAM_CAPTURE);
+ 	} else {
+ 		/* Adapt stream for codec2codec links */
+ 		int cpu_capture = rtd->dai_link->params ?
 -- 
 2.25.1
 

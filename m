@@ -2,79 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7D30200418
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jun 2020 10:36:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 922A520048B
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jun 2020 11:04:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DBF101680;
-	Fri, 19 Jun 2020 10:35:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBF101680
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4073B167D;
+	Fri, 19 Jun 2020 11:03:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4073B167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592555769;
-	bh=TcyfnhQnoyH+E0PhL9YlOQeEnES3z7aR3TVf3eeruKc=;
+	s=default; t=1592557466;
+	bh=HXAjTqP5mbERJoNBXsyMut+4Ns6FO1dT9pvJUP0k4aY=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fMwYi2cedssV/LQRd7UlpUZemfRiR5WzE91sBJXflHzR5jzv2aifATEjakSsjRk6D
-	 ckvkCp43NrLY8p4nan3MWo170nbNlwQ9bt96gmz3/HQxLHVirHOtG4ouRNCsES4IGh
-	 tRur1AJ/5axw2ZITGix0iNYD9mxD6B7BD16vPy6c=
+	b=kNQR8DbPkaSKvZVmSwuu9NbJu2SAIIBqpPpZIcfXhf1/6b382uDo2cIZ5x+fKm1oy
+	 fhYhyFGCtXzEurrPyppa+f+GtLterwHvW6y20RXsCTgM0zXyOa3O9PVm/4VYkHMntf
+	 M/4MzUW/khCcVJzI4K3ySAr17DdQ6LsCoHdsG1/g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1338F80255;
-	Fri, 19 Jun 2020 10:34:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6231DF80255;
+	Fri, 19 Jun 2020 11:02:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6608FF80252; Fri, 19 Jun 2020 10:34:15 +0200 (CEST)
+ id C85CBF80252; Fri, 19 Jun 2020 11:02:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 16FE6F80232
- for <alsa-devel@alsa-project.org>; Fri, 19 Jun 2020 10:34:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16FE6F80232
-IronPort-SDR: xS05vnTt401y483ORoGXdNLEoGwOPiDkWQhf0/SsRp3Y4NyzTIVaS3TwiuI96Tci4St0Cc0xLD
- s6VmeqHNuuvA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9656"; a="204378398"
-X-IronPort-AV: E=Sophos;i="5.75,254,1589266800"; d="scan'208";a="204378398"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jun 2020 01:34:06 -0700
-IronPort-SDR: pqdkReBxGk7QRPSDtCM3X29Dd/JTiTlZCHZfoJVN5+FgTVl5dLOCwYL/W7HGlPHiIYfpfMDGbY
- vYoqLdlNNaVw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,254,1589266800"; d="scan'208";a="277935582"
-Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.213.24.47])
- ([10.213.24.47])
- by orsmga006.jf.intel.com with ESMTP; 19 Jun 2020 01:34:03 -0700
-Subject: Re: [PATCH] ASoC: Intel: haswell: Power transition refactor
-To: Curtis Malainey <cujomalainey@google.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-References: <20200330194520.13253-1-cezary.rojewski@intel.com>
- <293372ae-5270-a1d4-2577-04991c08e33f@intel.com>
- <ee6c0545-a325-8df4-9c26-d823582735af@linux.intel.com>
- <49a16c64-5951-f327-c12a-d3264353b74b@intel.com>
- <685b8be3-4ff8-5012-c900-8521c2772121@linux.intel.com>
- <CAOReqxiTDafvSiUQFZuqhp1DYT_buaCp5oq01QDSgRm-YK57ng@mail.gmail.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <91f8b0d8-6015-6090-40cf-0647eaa73686@intel.com>
-Date: Fri, 19 Jun 2020 10:34:02 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 21C87F80232
+ for <alsa-devel@alsa-project.org>; Fri, 19 Jun 2020 11:02:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21C87F80232
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="L7oT52IN"
+Received: by mail-wr1-x441.google.com with SMTP id l10so8891985wrr.10
+ for <alsa-devel@alsa-project.org>; Fri, 19 Jun 2020 02:02:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=bHC3389Agiw1YGQvJXvHdNrdxAHDGZlLAi2j1YUz3Ag=;
+ b=L7oT52INJmfuzrCEKMR1hBDeG0jedYNR2VO9PizxWA+nkG0/ydzobyDwjG3/unZRjx
+ ZfiNugZi8GzJa0PQYXr3IuQipPBcQqxZxsphTT6XJ9mOA2EuMBUWpxdCfQx5GlQyIZce
+ 1eMuxvFrjtEysokvv14hovdv2zQSA/LfUNQkJMx9mGwk3HUW3Iscr9BEntSUMG3VtLuW
+ 1LrG6X7Hi9kOzQG704YUjZsSdBK6VB8x4HQBGeaWBwmgJERCvvJhnrnosBnU+VLNP1T3
+ sUnKQ6iXW7k80THjcn64s9s+rHmnN2CR97Qw7PfXMlnFHQ3nfvZ1I/lRX61qA2cebtgP
+ AT+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=bHC3389Agiw1YGQvJXvHdNrdxAHDGZlLAi2j1YUz3Ag=;
+ b=AxdumfA13JcubZ6G8ug6Mmt06ID/6tb+IUr9uhLYfNnLbDYNkpajH560syjsf89RMQ
+ w+o2nBjiGgyGd/IVJIZ++a3VC8IyBXRu39BAMqgrt4KOsBLyPwjcppf+lyZD/lXSiKIc
+ AlzuejbodvBlK99cjpyQl+bwEc1BzEB0WVXXjlWGxi39jD73bWn2UzqoSVUZ4hT0AGM0
+ KLCSfSv6tvnPg3vmYkXjJotTvzepSyzcsC/T63GSewULwe/hjzwByNkaiQaEskBDEEix
+ rL1acuo/Ov8+qn3YoSKkG1K8+wFnmO+/SOocMeGr8lXnVWJcjnTMt1eTh7iW9fbOad9/
+ gPrQ==
+X-Gm-Message-State: AOAM5336xCxHqj3OhKa/VcO0nhu3oRPgr068Hxlt/TIwclykr2b6fFqO
+ Za8Ii07DXnAIZFxi3DyDpFBnhgs8hS8=
+X-Google-Smtp-Source: ABdhPJzvao0Uhczcik/HaAS9ovCKJDBpVDhnTG4tb5POQnrBuPZa8heBN5Bmo8ETEZIOrhFpT1Ht3w==
+X-Received: by 2002:a5d:6283:: with SMTP id k3mr2855792wru.422.1592557354487; 
+ Fri, 19 Jun 2020 02:02:34 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.googlemail.com with ESMTPSA id v7sm6586948wrp.45.2020.06.19.02.02.33
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 19 Jun 2020 02:02:33 -0700 (PDT)
+Subject: Re: [PATCH v3] ASoC: qcom: Kconfig: Tweak dependencies on
+ SND_SOC_SDM845
+To: John Stultz <john.stultz@linaro.org>, lkml <linux-kernel@vger.kernel.org>
+References: <20200619031407.116140-1-john.stultz@linaro.org>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <803a1a44-0454-8b75-bcac-f06ef5bd89ec@linaro.org>
+Date: Fri, 19 Jun 2020 10:02:32 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <CAOReqxiTDafvSiUQFZuqhp1DYT_buaCp5oq01QDSgRm-YK57ng@mail.gmail.com>
+In-Reply-To: <20200619031407.116140-1-john.stultz@linaro.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Ross Zwisler <zwisler@google.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Dominik Brodowski <linux@dominikbrodowski.net>, Takashi Iwai <tiwai@suse.com>,
- vkoul@kernel.org, Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
+ Patrick Lai <plai@codeaurora.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rohit kumar <rohitkr@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,47 +108,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-06-19 3:21 AM, Curtis Malainey wrote:
-> On Thu, Jun 18, 2020 at 6:19 PM Pierre-Louis Bossart
-> <pierre-louis.bossart@linux.intel.com> wrote:
 
->>
-> We reverted this patch locally due to regressions and raised the issue
-> with Cezary on Github, we got no response.
+
+On 19/06/2020 04:14, John Stultz wrote:
+> CROS_EC isn't strictly required for audio to work
+> on other SDM845 platforms (like the Dragonboard 845c).
 > 
-> Curtis
->> 8ec7d6043263ecf250b9b7c0dd8ade899487538a is the first bad commit
->> commit 8ec7d6043263ecf250b9b7c0dd8ade899487538a
->> Author: Cezary Rojewski <cezary.rojewski@intel.com>
->> Date:   Mon Mar 30 21:45:20 2020 +0200
->>
->>       ASoC: Intel: haswell: Power transition refactor
->>
+> So lets remove the dependency and select the related
+> CROS_EC options via imply.
+> 
+> Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> Cc: Rohit kumar <rohitkr@codeaurora.org>
+> Cc: Patrick Lai <plai@codeaurora.org>
+> Cc: Banajit Goswami <bgoswami@codeaurora.org>
+> Cc: Liam Girdwood <lgirdwood@gmail.com>
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: Jaroslav Kysela <perex@perex.cz>
+> Cc: Takashi Iwai <tiwai@suse.com>
+> Cc: alsa-devel@alsa-project.org
+> Signed-off-by: John Stultz <john.stultz@linaro.org>
+> ---
 
-Hello,
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 
-This is the very first time I see hear about the issue. You raised no 
-issue Curtis, instead, you did write a comment mentioning me in Closed 
-thread thesofproject/linux which isn't even the driver issue relates to.
 
-If you scroll up a bit, in the very same thread there is a message 
-notifying about official path for such issues. Said message was ack'ed 
-by management before posting and that's why it's split from technical 
-explanation.
-
-We've received no response from Harsha and Cedrik about the issue being 
-risen. Official HSD-ticket is left unchanged since my feedback from 3rd 
-April.
-
-Help me help you - don't wait until problem escalates. Adhere to 
-official protocols, notify early and stay in contact. Last time when 
-your 'SOF github-IntelSST BDW' ticket finally did arrive at my desk, I 
-drove back to campus, borrowed the only SAMUS we have and by the end of 
-the week, the problem was fixed. Monday Mar30 you had the official 
-response and patches applied.
-
-I've forwarded your issue to required entities within Intel so issue is 
-tracked appropriately.
-
-Regards,
-Czarek
+> v2: Switch to using imply as suggested by Srinivas
+> ---
+>   sound/soc/qcom/Kconfig | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
+> index f51b28d1b94d..0ea4cde9f4f0 100644
+> --- a/sound/soc/qcom/Kconfig
+> +++ b/sound/soc/qcom/Kconfig
+> @@ -99,12 +99,12 @@ config SND_SOC_MSM8996
+>   
+>   config SND_SOC_SDM845
+>   	tristate "SoC Machine driver for SDM845 boards"
+> -	depends on QCOM_APR && CROS_EC && I2C && SOUNDWIRE
+> +	depends on QCOM_APR && I2C && SOUNDWIRE
+>   	select SND_SOC_QDSP6
+>   	select SND_SOC_QCOM_COMMON
+>   	select SND_SOC_RT5663
+>   	select SND_SOC_MAX98927
+> -	select SND_SOC_CROS_EC_CODEC
+> +	imply SND_SOC_CROS_EC_CODEC
+>   	help
+>   	  To add support for audio on Qualcomm Technologies Inc.
+>   	  SDM845 SoC-based systems.
+> 

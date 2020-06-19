@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7295E20195F
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jun 2020 19:25:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 106AD201961
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jun 2020 19:26:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 12295167D;
-	Fri, 19 Jun 2020 19:25:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12295167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6FAA1679;
+	Fri, 19 Jun 2020 19:25:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6FAA1679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592587556;
-	bh=dS4rt7CJcy8P1xBC8m2qBteO1gXgiIT94M6HPBtbY9o=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=vGN1+Q2ef3uFnAx+9lBE8HxBSiqP3dgO0BoKQz7zUxMjjv9OgkzmRnGJ3GxUyZRB3
-	 3ohRvTRw6Z6gtuAmiooHgsCGCdyblucDQmKUv32nG2G8DnfnnaQr+/MLrp8KrqrPHw
-	 fUc9yXFrUpuWL55IWG0Wf38rRKSQt4moZKZQpiOM=
+	s=default; t=1592587603;
+	bh=xhnZNjD30KpzbgevAKvUO9PfvISuyPJ+vLNl3xTSVkA=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=g5/6W1c/eAfpP8gmCsBv6NT+7d9fIHtQpOFlIEIo71D1vIcF9oMcOaIsDm9lMoSfD
+	 +yJlkpNPfp7LdcUe6SZuFP9nTcUtWQrmByqHfiwotrFVoFGpI3vS7IulIVBewjg8Pt
+	 aIKtTCyVbbQvo9qXKAtct3Z8oIz4nKaY8Jcs47Tw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43F10F80232;
-	Fri, 19 Jun 2020 19:24:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49A5CF80245;
+	Fri, 19 Jun 2020 19:24:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4B3D4F80255; Fri, 19 Jun 2020 19:24:12 +0200 (CEST)
+ id 971C3F8028A; Fri, 19 Jun 2020 19:24:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -33,19 +34,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 02B71F80245
- for <alsa-devel@alsa-project.org>; Fri, 19 Jun 2020 19:24:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02B71F80245
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7E9E4F800EF
+ for <alsa-devel@alsa-project.org>; Fri, 19 Jun 2020 19:24:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E9E4F800EF
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 21D55AD68;
+ by mx2.suse.de (Postfix) with ESMTP id 2FFD1AB64;
  Fri, 19 Jun 2020 17:24:05 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH alsa-lib 1/2] pcm: dmix: Fix semaphore usage
-Date: Fri, 19 Jun 2020 19:24:03 +0200
-Message-Id: <20200619172404.26826-1-tiwai@suse.de>
+Subject: [PATCH alsa-lib 2/2] pcm: dmix: make lockless operation optional
+Date: Fri, 19 Jun 2020 19:24:04 +0200
+Message-Id: <20200619172404.26826-2-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
+In-Reply-To: <20200619172404.26826-1-tiwai@suse.de>
+References: <20200619172404.26826-1-tiwai@suse.de>
 Cc: Maarten Baert <maarten-baert@hotmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -62,107 +65,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-As Maarten Baert recently reported, the current dmix code applies the
-semaphore unnecessarily around mixing streams even when the lockless
-mix operation is used on x86.  This was rather introduced mistakenly
-at the commit 267d7c728196 ("Add support of little-endian on
-i386/x86_64 dmix") where the generic dmix code was included on x86,
-too.
+The recent overlooked bug about the unconditional semaphore usage in
+the dmix implies that basically we've had no problem with the locking
+in the practical usages over years.  Although the lockless operation
+has a clear merit, it's a much higher CPU usage (especially on some
+uncached pages), and it might lead to a potential deadlock in theory
+(which is hard to reproduce at will, though).
 
-For achieving the original performance back, this patch changes the
-semaphore handling to be checked at run time instead of statically at
-compile time.
+This patch introduces a new configure option "--enable-lockless-dmix"
+or "--disable-lockless-dmix" to let user choose the default dmix
+operation mode, then the default value for the dmix
+"direct_memory_access" option is set based on it.
+
+A big question is which operation mode should be default: it's hard to
+decide, but in this patch, I bet for disabling the lockless in the
+end as the performance loss is significant.
+
+But the user can enable the lockless operation at any time; at build
+time, with the configure option above, and at run time, by specifying
+the dmix "direct_memory_access" option, too.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- src/pcm/pcm_direct.h       |  1 +
- src/pcm/pcm_dmix.c         | 18 +++++++++++-------
- src/pcm/pcm_dmix_generic.c |  2 +-
- src/pcm/pcm_dmix_i386.c    |  1 +
- src/pcm/pcm_dmix_x86_64.c  |  1 +
- 5 files changed, 15 insertions(+), 8 deletions(-)
+ configure.ac         | 13 +++++++++++++
+ src/pcm/pcm_direct.c |  4 ++++
+ 2 files changed, 17 insertions(+)
 
-diff --git a/src/pcm/pcm_direct.h b/src/pcm/pcm_direct.h
-index 8a236970a3a1..2150bce15449 100644
---- a/src/pcm/pcm_direct.h
-+++ b/src/pcm/pcm_direct.h
-@@ -186,6 +186,7 @@ struct snd_pcm_direct {
- 			mix_areas_32_t *remix_areas_32;
- 			mix_areas_24_t *remix_areas_24;
- 			mix_areas_u8_t *remix_areas_u8;
-+			unsigned int use_sem;
- 		} dmix;
- 		struct {
- 			unsigned long long chn_mask;
-diff --git a/src/pcm/pcm_dmix.c b/src/pcm/pcm_dmix.c
-index 843fa3168756..e9343b19a536 100644
---- a/src/pcm/pcm_dmix.c
-+++ b/src/pcm/pcm_dmix.c
-@@ -292,13 +292,17 @@ static void remix_areas(snd_pcm_direct_t *dmix,
-  * the area via semaphore
-  */
- #ifndef DOC_HIDDEN
--#ifdef NO_CONCURRENT_ACCESS
--#define dmix_down_sem(dmix) snd_pcm_direct_semaphore_down(dmix, DIRECT_IPC_SEM_CLIENT)
--#define dmix_up_sem(dmix) snd_pcm_direct_semaphore_up(dmix, DIRECT_IPC_SEM_CLIENT)
--#else
--#define dmix_down_sem(dmix)
--#define dmix_up_sem(dmix)
--#endif
-+static void dmix_down_sem(snd_pcm_direct_t *dmix)
-+{
-+	if (dmix->u.dmix.use_sem)
-+		snd_pcm_direct_semaphore_down(dmix, DIRECT_IPC_SEM_CLIENT);
-+}
-+
-+static void dmix_up_sem(snd_pcm_direct_t *dmix)
-+{
-+	if (dmix->u.dmix.use_sem)
-+		snd_pcm_direct_semaphore_up(dmix, DIRECT_IPC_SEM_CLIENT);
-+}
- #endif
+diff --git a/configure.ac b/configure.ac
+index 4577c417037a..75d037d5509a 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -629,6 +629,19 @@ if test "$build_pcm_mmap_emul" = "yes"; then
+   AC_DEFINE([BUILD_PCM_PLUGIN_MMAP_EMUL], "1", [Build PCM mmap-emul plugin])
+ fi
  
- /*
-diff --git a/src/pcm/pcm_dmix_generic.c b/src/pcm/pcm_dmix_generic.c
-index 40c08747a74a..8a5b6f148556 100644
---- a/src/pcm/pcm_dmix_generic.c
-+++ b/src/pcm/pcm_dmix_generic.c
-@@ -43,7 +43,6 @@ static inline unsigned long __cmpxchg(volatile void *ptr, unsigned long old,
- #ifndef ARCH_ADD
- #define ARCH_ADD(p,a) (*(p) += (a))
- #define ARCH_CMPXCHG(p,a,b) (*(p)) /* fake */
--#define NO_CONCURRENT_ACCESS	/* use semaphore to avoid race */
- #define IS_CONCURRENT	0	/* no race check */
- #endif
++if test "$build_pcm_dmix" = "yes"; then
++AC_MSG_CHECKING(for default lockless dmix)
++AC_ARG_ENABLE(lockless-dmix,
++  AS_HELP_STRING([--enable-lockless-dmix],
++    [use lockless dmix as default on x86]),
++  lockless_dmix="$enableval", lockless_dmix="no")
++if test "$lockless_dmix" = "yes"; then
++  AC_MSG_RESULT(yes)
++  AC_DEFINE([LOCKLESS_DMIX_DEFAULT], "1", [Lockless dmix as default])
++else
++  AC_MSG_RESULT(no)
++fi
++fi
  
-@@ -530,6 +529,7 @@ static void generic_mix_select_callbacks(snd_pcm_direct_t *dmix)
- 	dmix->u.dmix.mix_areas_u8 = generic_mix_areas_u8;
- 	dmix->u.dmix.remix_areas_24 = generic_remix_areas_24;
- 	dmix->u.dmix.remix_areas_u8 = generic_remix_areas_u8;
-+	dmix->u.dmix.use_sem = 1;
- }
+ dnl Create PCM plugin symbol list for static library
+ rm -f "$srcdir"/src/pcm/pcm_symbols_list.c
+diff --git a/src/pcm/pcm_direct.c b/src/pcm/pcm_direct.c
+index 665340954cf3..c38ba3190f1a 100644
+--- a/src/pcm/pcm_direct.c
++++ b/src/pcm/pcm_direct.c
+@@ -1892,7 +1892,11 @@ int snd_pcm_direct_parse_open_conf(snd_config_t *root, snd_config_t *conf,
+ 	rec->slowptr = 1;
+ 	rec->max_periods = 0;
+ 	rec->var_periodsize = 0;
++#ifdef LOCKLESS_DMIX_DEFAULT
+ 	rec->direct_memory_access = 1;
++#else
++	rec->direct_memory_access = 0;
++#endif
+ 	rec->hw_ptr_alignment = SND_PCM_HW_PTR_ALIGNMENT_AUTO;
+ 	rec->tstamp_type = -1;
  
- #endif
-diff --git a/src/pcm/pcm_dmix_i386.c b/src/pcm/pcm_dmix_i386.c
-index 1ab983a8a373..82a91c5c2897 100644
---- a/src/pcm/pcm_dmix_i386.c
-+++ b/src/pcm/pcm_dmix_i386.c
-@@ -135,4 +135,5 @@ static void mix_select_callbacks(snd_pcm_direct_t *dmix)
- 		dmix->u.dmix.mix_areas_24 = smp > 1 ? mix_areas_24_smp: mix_areas_24;
- 		dmix->u.dmix.remix_areas_24 = smp > 1 ? remix_areas_24_smp: remix_areas_24;
- 	}
-+	dmix->u.dmix.use_sem = 0;
- }
-diff --git a/src/pcm/pcm_dmix_x86_64.c b/src/pcm/pcm_dmix_x86_64.c
-index 34c40d4e9d1d..4d882bfd01bf 100644
---- a/src/pcm/pcm_dmix_x86_64.c
-+++ b/src/pcm/pcm_dmix_x86_64.c
-@@ -102,4 +102,5 @@ static void mix_select_callbacks(snd_pcm_direct_t *dmix)
- 	dmix->u.dmix.remix_areas_32 = smp > 1 ? remix_areas_32_smp : remix_areas_32;
- 	dmix->u.dmix.mix_areas_24 = smp > 1 ? mix_areas_24_smp : mix_areas_24;
- 	dmix->u.dmix.remix_areas_24 = smp > 1 ? remix_areas_24_smp : remix_areas_24;
-+	dmix->u.dmix.use_sem = 0;
- }
 -- 
 2.16.4
 

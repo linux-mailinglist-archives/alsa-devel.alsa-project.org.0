@@ -2,61 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3924E200A27
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jun 2020 15:30:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 370192014C1
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jun 2020 18:20:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD09D1668;
-	Fri, 19 Jun 2020 15:29:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD09D1668
+	by alsa0.perex.cz (Postfix) with ESMTPS id 69E951684;
+	Fri, 19 Jun 2020 18:19:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69E951684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592573428;
-	bh=FlatgOiI92mzBuygghhmYIRwTVULyRdwLvB5mhTW5h4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1592583621;
+	bh=pTbEMXhwsTdeD6ghvEdM6msdDqjBkimy2GBYTX3WE3M=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ULUSEhEXLEn6ATYSYmQ2gfOYfN7kjeMIs5qzfR1Z8y7jz5GZSz7zbnkRrwj0DWPIe
-	 pV0TfnH36NPwp8og1F9Eww24wBL6CWwsgxik4mbXsashzcPnejxEOYU3AwoiN5Hs7V
-	 TBrQCI8J4r+6zEiDcmQtNFaAiDE629gD0XdSkaIg=
+	b=CxZSmQWLnkAhVrYfX+1GY+6odIQuPsjBFwC88DJNE1peFUIXBMMn1pBXd7Cvxjq9+
+	 54a5XTSZko1Bux/MuMt1dc6VT+TDZj7TKUPbEpTELQiqeeddqaLVv3YVLR1C2idHrz
+	 sVSfnx6awhdoY43/drFKAbuaCFfuc6EFkBKFD8Hk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C907F80271;
-	Fri, 19 Jun 2020 15:28:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EFCE7F800EF;
+	Fri, 19 Jun 2020 18:18:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0C2E7F802A1; Fri, 19 Jun 2020 15:28:19 +0200 (CEST)
+ id 8FD52F8028A; Fri, 19 Jun 2020 18:18:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 95C10F8028F
- for <alsa-devel@alsa-project.org>; Fri, 19 Jun 2020 15:28:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95C10F8028F
-Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
- id 863BA1C0BD2; Fri, 19 Jun 2020 15:28:10 +0200 (CEST)
-Date: Fri, 19 Jun 2020 15:28:10 +0200
-From: Pavel Machek <pavel@denx.de>
-To: Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH AUTOSEL 4.19 047/172] ASoC: meson: add missing free_irq()
- in error path
-Message-ID: <20200619132810.GA1345@amd>
-References: <20200618012218.607130-1-sashal@kernel.org>
- <20200618012218.607130-47-sashal@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8D3BCF800EF
+ for <alsa-devel@alsa-project.org>; Fri, 19 Jun 2020 18:18:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D3BCF800EF
+IronPort-SDR: 6sfokLTcTY/UDlKs/ku4uB6M6N8dkTVuM9j4RJcD4pid8g64/Y58yffVHcqWFp4ybjARoKdZ2O
+ gkF4aHj0SwyQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9657"; a="122734129"
+X-IronPort-AV: E=Sophos;i="5.75,255,1589266800"; d="scan'208";a="122734129"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jun 2020 09:18:30 -0700
+IronPort-SDR: ZPn+sQrS3xQi+iXrTB+gfnRA8AalPx+1noM0YyA21HwCgONXv/WnAFbVTiOcscGTLkwMixmGsV
+ PJG4MhCd6/fg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.75,255,1589266800"; d="scan'208";a="318155770"
+Received: from lewest-mobl1.amr.corp.intel.com (HELO [10.255.230.148])
+ ([10.255.230.148])
+ by FMSMGA003.fm.intel.com with ESMTP; 19 Jun 2020 09:18:30 -0700
+Subject: Re: [PATCH 1/3] ALSA: compress: document the compress audio state
+ machine
+To: Vinod Koul <vkoul@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Jaroslav Kysela <perex@perex.cz>
+References: <20200619045449.3966868-1-vkoul@kernel.org>
+ <20200619045449.3966868-2-vkoul@kernel.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <8e322574-14bc-aaaa-5fdb-751cb8b97fff@linux.intel.com>
+Date: Fri, 19 Jun 2020 09:22:09 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature"; boundary="wRRV7LY7NUeQGEoC"
-Content-Disposition: inline
-In-Reply-To: <20200618012218.607130-47-sashal@kernel.org>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-Cc: alsa-devel@alsa-project.org, "Pavel Machek \(CIP\)" <pavel@denx.de>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, Jerome Brunet <jbrunet@baylibre.com>
+In-Reply-To: <20200619045449.3966868-2-vkoul@kernel.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,47 +86,58 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---wRRV7LY7NUeQGEoC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> +
+> +                                        +----------+
+> +                                        |          |
+> +                                        |   OPEN   |
+> +                                        |          |
+> +                                        +----------+
+> +                                             |
+> +                                             |
+> +                                             | compr_set_params()
+> +                                             |
+> +                                             V
+> +                                        +----------+
+> +                compr_drain_notify()    |          |
+> +              +------------------------>|   SETUP  |
+> +              |                         |          |
+> +              |                         +----------+
+> +              |                              |
+> +              |                              |
+> +              |                              | compr_write()
+> +              |                              |
+> +              |                              V
+> +              |                         +----------+
+> +              |                         |          |
+> +              |                         |  PREPARE |
+> +              |                         |          |
+> +              |                         +----------+
+> +              |                              |
+> +              |                              |
+> +              |                              | compr_start()
+> +              |                              |
+> +              |                              V
+> +        +----------+                    +----------+     compr_pause()      +----------+
+> +        |          |                    |          |----------------------->|          |
+> +        |  DRAIN   |<-------------------|  RUNNING |                        |  PAUSE   |
+> +        |          |                    |          |<-----------------------|          |
+> +        +----------+                    +----------+     compr_resume()     +----------+
+> +              |                              |
+> +              |                              |
+> +              |                              | compr_free()
+> +              |                              |
+> +              |                              V
+> +              |                         +----------+
+> +              |     compr_free()        |          |
+> +              +------------------------>|          |
+> +                                        |   STOP   |
+> +                                        |          |
+> +                                        +----------+
 
-Hi!
 
-> From: "Pavel Machek (CIP)" <pavel@denx.de>
->=20
-> [ Upstream commit 3b8a299a58b2afce464ae11324b59dcf0f1d10a7 ]
->=20
-> free_irq() is missing in case of error, fix that.
->=20
-> Signed-off-by: Pavel Machek (CIP) <pavel@denx.de>
-> Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
->=20
-> Link: https://lore.kernel.org/r/20200606153103.GA17905@amd
-> Signed-off-by: Mark Brown <broonie@kernel.org>
+The STOP state doesn't seem quite right to me, sorry.
 
-Notice that the bug this fixes is theoretical (found by code review)
-and the fix itself was not tested by me as I don't have the hardware.
+the direction of the DRAIN-STOP comp_free() arrow seems wrong? Of if it 
+is correct, then something's missing to exit the STOP state so that the 
+stream can be opened again.
 
-It may be good idea to for mainline to test the change a bit...
-
-Best regards,
-							Pavel
-						=09
---=20
-DENX Software Engineering GmbH,      Managing Director: Wolfgang Denk
-HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
-
---wRRV7LY7NUeQGEoC
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
-
-iEYEARECAAYFAl7svWoACgkQMOfwapXb+vKgPwCfatdZSXBo7eyLKEUcWoN1nKrh
-K8kAn2+x3sAUwlj/zrlpo9y3mh1nlBDY
-=nSQo
------END PGP SIGNATURE-----
-
---wRRV7LY7NUeQGEoC--

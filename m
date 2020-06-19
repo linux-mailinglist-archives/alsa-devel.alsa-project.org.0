@@ -2,71 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 937C3200179
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jun 2020 06:58:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BFF52001AD
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jun 2020 07:37:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3FEF61682;
-	Fri, 19 Jun 2020 06:57:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FEF61682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A5121679;
+	Fri, 19 Jun 2020 07:36:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A5121679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592542719;
-	bh=dFySWiW+V3w18ShvwVA+ym0QQvWEuHOaM8UF5XXckvE=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=TBt45mUxp2Ej5+dNtfAYyHuF0dfy1VBxhMrP/8TNAqHjTlYkP4rgqzCaJlabeINtk
-	 GtkqkleJpyVVg8zAVQQZbSj03Vq3Te0zeDTIPNDHas51i/zdPy+GDBzByZ0NdCyjQm
-	 2uwj0K1qezgFlfQNKggWMvqqR6ZaA+qJXEb+yuC0=
+	s=default; t=1592545041;
+	bh=Ehqwsfxq9ULBfIZaQQvDpIToetoJdfyTBfpRQuybos4=;
+	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=c7lpzChdxCalwsxHQg6loJYyEaR7OOc4lBwRSFB8HR/EiAB+eLRl7DI4yotUmKsu5
+	 L7Vt55fPl+DxKMf9gda/OLXe3h0uJInvk5fvgUOct5RM/kItEFaEP+0kdIsME+NSTO
+	 NOv/d9vCQRtBVyQH5GCFuZLtyIiHb47JUYYbQ/zQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EBDC2F802DB;
-	Fri, 19 Jun 2020 06:55:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1719EF800B5;
+	Fri, 19 Jun 2020 07:35:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5034FF802C4; Fri, 19 Jun 2020 06:55:21 +0200 (CEST)
+ id CE9FFF80252; Fri, 19 Jun 2020 07:35:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 51403F80245
- for <alsa-devel@alsa-project.org>; Fri, 19 Jun 2020 06:55:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51403F80245
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fEVC6TV4"
-Received: from localhost.localdomain (unknown [171.61.66.58])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id DCC5720FC3;
- Fri, 19 Jun 2020 04:55:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592542513;
- bh=dFySWiW+V3w18ShvwVA+ym0QQvWEuHOaM8UF5XXckvE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fEVC6TV4T7BDWfy7okeil9bxWPLXS5IHhkOHEBxqNqlTKLHa5tUGPeP3v+OUFG6pm
- DyMW1K58r6bv82ZIPSR4DgtEAvy/w2Y6fIy9+PEftVRvB8oU2G+3xU7zuPEdOxgSp8
- pbyFTkgom+8SBCPMq06zS6HpH7CUgUsEKbW5dUUo=
-From: Vinod Koul <vkoul@kernel.org>
-To: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>
-Subject: [PATCH 3/3] ALSA: compress: fix partial_drain completion state
-Date: Fri, 19 Jun 2020 10:24:48 +0530
-Message-Id: <20200619045449.3966868-4-vkoul@kernel.org>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200619045449.3966868-1-vkoul@kernel.org>
-References: <20200619045449.3966868-1-vkoul@kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+X-Spam-Level: **
+X-Spam-Status: No, score=2.6 required=5.0 tests=AC_FROM_MANY_DOTS,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 30985F800B5
+ for <alsa-devel@alsa-project.org>; Fri, 19 Jun 2020 07:35:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30985F800B5
+Date: 19 Jun 2020 14:35:26 +0900
+X-IronPort-AV: E=Sophos;i="5.75,253,1589209200"; d="scan'208";a="49865930"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 19 Jun 2020 14:35:26 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 7026341A6914;
+ Fri, 19 Jun 2020 14:35:26 +0900 (JST)
+Message-ID: <87pn9v39eo.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH] ASoC: dt-bindings: renesas,
+ fsi: use patternProperties for FSI-A/B
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+To: Rob Herring <robh+dt@kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,80 +66,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On partial_drain completion we should be in SNDRV_PCM_STATE_RUNNING
-state, so set that for partially draining streams in
-snd_compr_drain_notify() and use a flag for partially draining streams
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-While at it, add locks for stream state change in
-snd_compr_drain_notify() as well.
+FSI has FSI-A and FSI-B, and has fsia-xxx/fsib-xxx properties.
+This patch uses patternProperties, and reduce verbose settings.
 
-Fixes: f44f2a5417b2 ("ALSA: compress: fix drain calls blocking other compress functions (v6)")
-Reported-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/compress_driver.h | 12 +++++++++++-
- sound/core/compress_offload.c   |  4 ++++
- 2 files changed, 15 insertions(+), 1 deletion(-)
+ .../bindings/sound/renesas,fsi.yaml           | 19 ++++---------------
+ 1 file changed, 4 insertions(+), 15 deletions(-)
 
-diff --git a/include/sound/compress_driver.h b/include/sound/compress_driver.h
-index 3df8d8c90191..93a5897201ea 100644
---- a/include/sound/compress_driver.h
-+++ b/include/sound/compress_driver.h
-@@ -66,6 +66,7 @@ struct snd_compr_runtime {
-  * @direction: stream direction, playback/recording
-  * @metadata_set: metadata set flag, true when set
-  * @next_track: has userspace signal next track transition, true when set
-+ * @partial_drain: undergoing partial_drain for stream, true when set
-  * @private_data: pointer to DSP private data
-  * @dma_buffer: allocated buffer if any
-  */
-@@ -78,6 +79,7 @@ struct snd_compr_stream {
- 	enum snd_compr_direction direction;
- 	bool metadata_set;
- 	bool next_track;
-+	bool partial_drain;
- 	void *private_data;
- 	struct snd_dma_buffer dma_buffer;
- };
-@@ -187,7 +189,15 @@ static inline void snd_compr_drain_notify(struct snd_compr_stream *stream)
- 	if (snd_BUG_ON(!stream))
- 		return;
+diff --git a/Documentation/devicetree/bindings/sound/renesas,fsi.yaml b/Documentation/devicetree/bindings/sound/renesas,fsi.yaml
+index 8a4406be387a..0dd3f7361399 100644
+--- a/Documentation/devicetree/bindings/sound/renesas,fsi.yaml
++++ b/Documentation/devicetree/bindings/sound/renesas,fsi.yaml
+@@ -43,30 +43,19 @@ properties:
+   '#sound-dai-cells':
+     const: 1
  
--	stream->runtime->state = SNDRV_PCM_STATE_SETUP;
-+	mutex_lock(&stream->device->lock);
-+	/* for partial_drain case we are back to running state on success */
-+	if (stream->partial_drain) {
-+		stream->runtime->state = SNDRV_PCM_STATE_RUNNING;
-+		stream->partial_drain = false; /* clear this flag as well */
-+	} else {
-+		stream->runtime->state = SNDRV_PCM_STATE_SETUP;
-+	}
-+	mutex_unlock(&stream->device->lock);
+-  fsia,spdif-connection:
++patternProperties:
++  "^fsi(a|b),spdif-connection$":
+     $ref: /schemas/types.yaml#/definitions/flag
+     description: FSI is connected by S/PDIF
  
- 	wake_up(&stream->runtime->sleep);
- }
-diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
-index e618580feac4..1c4b2cf450a0 100644
---- a/sound/core/compress_offload.c
-+++ b/sound/core/compress_offload.c
-@@ -803,6 +803,9 @@ static int snd_compr_stop(struct snd_compr_stream *stream)
+-  fsia,stream-mode-support:
++  "^fsi(a|b),stream-mode-support$":
+     $ref: /schemas/types.yaml#/definitions/flag
+     description: FSI supports 16bit stream mode
  
- 	retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_STOP);
- 	if (!retval) {
-+		/* clear flags and stop any drain wait */
-+		stream->partial_drain = false;
-+		stream->metadata_set = false;
- 		snd_compr_drain_notify(stream);
- 		stream->runtime->total_bytes_available = 0;
- 		stream->runtime->total_bytes_transferred = 0;
-@@ -960,6 +963,7 @@ static int snd_compr_partial_drain(struct snd_compr_stream *stream)
- 	if (stream->next_track == false)
- 		return -EPERM;
+-  fsia,use-internal-clock:
++  "^fsi(a|b),use-internal-clock$":
+     $ref: /schemas/types.yaml#/definitions/flag
+     description: FSI uses internal clock when master mode
  
-+	stream->partial_drain = true;
- 	retval = stream->ops->trigger(stream, SND_COMPR_TRIGGER_PARTIAL_DRAIN);
- 	if (retval) {
- 		pr_debug("Partial drain returned failure\n");
+-  fsib,spdif-connection:
+-    $ref: /schemas/types.yaml#/definitions/flag
+-    description: same as fsia
+-
+-  fsib,stream-mode-support:
+-    $ref: /schemas/types.yaml#/definitions/flag
+-    description: same as fsia
+-
+-  fsib,use-internal-clock:
+-    $ref: /schemas/types.yaml#/definitions/flag
+-    description: same as fsia
+-
+ required:
+   - compatible
+   - reg
 -- 
-2.26.2
+2.25.1
 

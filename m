@@ -2,50 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6187620296D
-	for <lists+alsa-devel@lfdr.de>; Sun, 21 Jun 2020 09:52:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47D63202AB0
+	for <lists+alsa-devel@lfdr.de>; Sun, 21 Jun 2020 15:19:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C390C1686;
-	Sun, 21 Jun 2020 09:51:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C390C1686
+	by alsa0.perex.cz (Postfix) with ESMTPS id D33D215F2;
+	Sun, 21 Jun 2020 15:18:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D33D215F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592725919;
-	bh=1vzoz3y37Zkrh3RaOWmpw8E1d80b8koKdoCiey0P3ig=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=BNarVikE8THWqoBYCfKWH1Gdewk6M9hh72uU3lbhWiID/cTFIvjoA9zxUYobvh8hS
-	 8l/duwOtGUKNUH+18Q7ROderaQFbV5nZFxaNNRPThiBj4xhuiN9o+x7lZZ//DuojiH
-	 RLfMhFs8kak0WiPUTNGDJ8I8VynqYty6a7R+Oza8=
+	s=default; t=1592745579;
+	bh=5M8SPlj3qrZ5Sj+x+Y3Q5M/Gig9xHnM6TrNvaj90Mv8=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=LEZdHU+TsmDZHVkki7jrSndKoZHMEyVci8rzluIEPZHDjDFz2GJxyPo4jNkpjJkdN
+	 we6uArRBWYPYVvrXJlRIcoTsRTOpYrGkGfRZ5hmzVKNwlGTm108Qlfi/vV4KfqikD/
+	 UQg9bgcokLOeJALAoxB1or57COjBzs8o/zPkk/nI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D93D0F8023E;
-	Sun, 21 Jun 2020 09:50:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED92DF80218;
+	Sun, 21 Jun 2020 15:17:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86A29F8010E; Sun, 21 Jun 2020 09:50:16 +0200 (CEST)
+ id 6F185F80234; Sun, 21 Jun 2020 15:17:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from echo.tratt.net (echo.default.edsfctgx.uk0.bigv.io
- [IPv6:2001:41c9:1:420::208])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 52A80F8010E
- for <alsa-devel@alsa-project.org>; Sun, 21 Jun 2020 09:50:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52A80F8010E
-Received: by echo.tratt.net (Postfix, from userid 1000)
- id E5F9765F3; Sun, 21 Jun 2020 08:50:02 +0100 (BST)
-Date: Sun, 21 Jun 2020 08:50:05 +0100
-From: Laurence Tratt <laurie@tratt.net>
-To: alsa-devel@alsa-project.org
-Subject: [Resend PATCH] Add implicit feedback quirk for SSL2.
-Message-ID: <20200621075005.52mjjfc6dtdjnr3h@overdrive.tratt.net>
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 708BCF800D0
+ for <alsa-devel@alsa-project.org>; Sun, 21 Jun 2020 15:17:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 708BCF800D0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1592745466367408991-webhooks-bot@alsa-project.org>
+References: <1592745466367408991-webhooks-bot@alsa-project.org>
+Subject: alsa-gobject: fix indentation
+Message-Id: <20200621131750.6F185F80234@alsa1.perex.cz>
+Date: Sun, 21 Jun 2020 15:17:50 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,27 +59,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-As expected, this requires the same quirk as the SSL2+ in order for the
-clock to sync. This was suggested by, and tested on an SSL2, by Dmitry.
+alsa-project/alsa-gobject pull request #43 was opened from takaswie:
 
-Suggested-by: Dmitry <dpavlushko@gmail.com>
-Signed-off-by: Laurence Tratt <laurie@tratt.net>
----
- sound/usb/pcm.c | 1 +
- 1 file changed, 1 insertion(+)
+This patchset is trivial to apply fixes for 4-spaces indentation.
 
-diff --git sound/usb/pcm.c sound/usb/pcm.c
-index 84c0ae4319..dc1608bdf6 100644
---- sound/usb/pcm.c
-+++ sound/usb/pcm.c
-@@ -367,6 +367,7 @@ static int set_sync_ep_implicit_fb_quirk(struct snd_usb_substream *subs,
- 		ifnum = 0;
- 		goto add_sync_ep_from_ifnum;
- 	case USB_ID(0x07fd, 0x0008): /* MOTU M Series */
-+	case USB_ID(0x31e9, 0x0001): /* Solid State Logic SSL2 */
- 	case USB_ID(0x31e9, 0x0002): /* Solid State Logic SSL2+ */
- 		ep = 0x81;
- 		ifnum = 2;
--- 
-2.27.0
-
+Request URL   : https://github.com/alsa-project/alsa-gobject/pull/43
+Patch URL     : https://github.com/alsa-project/alsa-gobject/pull/43.patch
+Repository URL: https://github.com/alsa-project/alsa-gobject

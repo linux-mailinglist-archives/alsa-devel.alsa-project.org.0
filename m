@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79593203661
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jun 2020 14:05:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF2E12036E2
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jun 2020 14:34:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 126CF169A;
-	Mon, 22 Jun 2020 14:04:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 126CF169A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 21FA116B4;
+	Mon, 22 Jun 2020 14:33:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21FA116B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592827533;
-	bh=OtCXs6qM/P9EkBQOGbFbsuL3yixXLWMZlDM2pS2KULw=;
+	s=default; t=1592829252;
+	bh=vUsQ4/bIHVn4jBo65OALfNI338jW6zMlkCy7dd1UtUo=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=j7+Kzdrc3ClYr79f9zPC6KwtPNYAqG20EzEsMCjtCShxxXd4yYgIUCmP9sKT+sBDY
-	 q6x069RLfiLs74h8cYztCX0OHExdKNt/Iuy1HekY2i+gTw+XFKo9rMYbK1aC+X87J1
-	 h5wbuyPZ0/uxpj8RqdWLrbWYvKco/QOnNkA+SZD4=
+	b=Z6nl1Baaf/UMtKhwiAiYUqE/OMUotPS9G+bXoOTFrbbvD48WB5n1mDMaoQHDL16h5
+	 tGVEcl6rWKBx1xBoN76UNr7eFivhDvkZA6mhxqlZdWm6yN/Qg//lFpyxDF/5Ig5sAz
+	 0jefeMCy+AUb9izJnNMX5rMADII6FbUAJkmZRpnE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4AD49F8010D;
-	Mon, 22 Jun 2020 14:04:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 390B5F80162;
+	Mon, 22 Jun 2020 14:32:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72085F8010D; Mon, 22 Jun 2020 14:04:16 +0200 (CEST)
+ id 3D9E6F80157; Mon, 22 Jun 2020 14:31:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,45 +34,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C2BE3F8010D
- for <alsa-devel@alsa-project.org>; Mon, 22 Jun 2020 14:04:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2BE3F8010D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 84BB8F80157
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jun 2020 14:31:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84BB8F80157
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lLSiwOPq"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ header.b="kQhewzvs"
+Received: from localhost (c-73-47-72-35.hsd1.nh.comcast.net [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 12E432071A;
- Mon, 22 Jun 2020 12:04:10 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2CA1B206BE;
+ Mon, 22 Jun 2020 12:31:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592827451;
- bh=OtCXs6qM/P9EkBQOGbFbsuL3yixXLWMZlDM2pS2KULw=;
+ s=default; t=1592829079;
+ bh=vUsQ4/bIHVn4jBo65OALfNI338jW6zMlkCy7dd1UtUo=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=lLSiwOPq3kFltNjGmVtUTR8bqdRAZLMPunIKPq/ormr3CcYLEKhYqR99c7sOWbm6j
- QGDp3guukz+KDDmVFZZbM801EPjtvCQJHQ1Jn22iv/gzYz0+zqTS2g6Agann7ySK64
- D7rgZz7rr4H84BwzotL1cGZN6bQDlsmoSWEjnkqs=
-Date: Mon, 22 Jun 2020 13:04:09 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pantelis Antoniou <pantelis.antoniou@linaro.org>
-Subject: Re: [PATCH 1/2] dt-bindings: sound: Device tree bindings for the
- apq8039 sound complex
-Message-ID: <20200622120409.GD4560@sirena.org.uk>
-References: <20200619193831.12528-1-pantelis.antoniou@linaro.org>
- <20200619193831.12528-2-pantelis.antoniou@linaro.org>
- <20200619214126.GA1251@gerhold.net>
- <2070B433-83E0-4ACE-A470-36401934FC5A@linaro.org>
+ b=kQhewzvsjTq3cvPrzmIBgb5SttjfYpYAIvQ5Sk32Q6C8nxucZEc7myegU6NDew1Ql
+ Om4NchBLWbGKl0T0gUerAdMSFOJno0IDf+H3x+a1YRaJx5M8asWcogxHQ6vTkHl6nl
+ 7gS0eiC95+Xni+DDX+Xb7uWSTTR/yN282ozy9BK4=
+Date: Mon, 22 Jun 2020 08:31:18 -0400
+From: Sasha Levin <sashal@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH AUTOSEL 5.7 004/388] ASoC: tegra: tegra_wm8903: Support
+ nvidia, headset property
+Message-ID: <20200622123118.GF1931@sasha-vm>
+References: <20200618010805.600873-1-sashal@kernel.org>
+ <20200618010805.600873-4-sashal@kernel.org>
+ <20200618110023.GB5789@sirena.org.uk>
+ <20200618143046.GT1931@sasha-vm>
+ <20200618143930.GI5789@sirena.org.uk>
+ <20200621233352.GA1931@sasha-vm>
+ <20200622112321.GB4560@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="zS7rBR6csb6tI2e1"
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <2070B433-83E0-4ACE-A470-36401934FC5A@linaro.org>
-X-Cookie: laser, n.:
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Stephan Gerhold <stephan@gerhold.net>, linux-arm-msm@vger.kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Matthew Porter <mporter@konsulko.com>, Shawn Guo <shawn.guo@linaro.org>
+In-Reply-To: <20200622112321.GB4560@sirena.org.uk>
+Cc: linux-tegra@vger.kernel.org, Dmitry Osipenko <digetx@gmail.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,41 +87,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, Jun 22, 2020 at 12:23:21PM +0100, Mark Brown wrote:
+>On Sun, Jun 21, 2020 at 07:33:52PM -0400, Sasha Levin wrote:
+>> On Thu, Jun 18, 2020 at 03:39:30PM +0100, Mark Brown wrote:
+>> > On Thu, Jun 18, 2020 at 10:30:46AM -0400, Sasha Levin wrote:
+>> > > On Thu, Jun 18, 2020 at 12:00:23PM +0100, Mark Brown wrote:
+>
+>> > > > This is a new feature not a bugfix.
+>
+>> > > I saw this patch more as a hardware quirk.
+>
+>> > Pretty much any DT property is a hardware quirk :(
+>
+>> Which is why we're taking most of them :)
+>
+>That's concerning - please don't do this.  It's not what stable is
+>expected to be and there's no guarantee that you're getting all the
+>changes required to actually make things work.
 
---zS7rBR6csb6tI2e1
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+How come? This is one of the things stable rules explicitly call for:
+"New device IDs and quirks are also accepted".
 
-On Mon, Jun 22, 2020 at 02:34:23PM +0300, Pantelis Antoniou wrote:
+If we're missing anything, the solution is to make sure we stop missing
+it rather than not take anything to begin with :)
 
-> > This looks much like a replacement for ALSA UCM and userspace audio jack
-> > detection coded into the device tree.
-
-> I wouldn=E2=80=99t call it a replacement exactly. It=E2=80=99s merely a w=
-ay to bundle all
-> of this information about codec glue in the kernel (where it should belon=
-g IMO).
-
-No, you're encoding use case decisions into the DT here - for example
-your example will break use cases like ring tones and shutter sounds
-which should play through both speaker and headphones.  It's also
-setting volumes which may be inappropriate or may be not and interferes
-with userspace using those same physical volume controls.
-
---zS7rBR6csb6tI2e1
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7wnjgACgkQJNaLcl1U
-h9Dz/Af/ajnJ98C2qreuaWAPQ8PgLd/GE3P0ukq/sBXHzyMUg16weomHiWdIrtEZ
-/78/EQEqwb8rigyHLVLC7P/BBmLH2XqpNu0tB0hhv4iN5ywyvri2U6LbDUIlSdKM
-VieAO/eLiOmM7lC34jf5n6JJllQJGAFQlsJMeSdsBMim/xILhPXPAZ8Vw10PakkK
-VWBCA2z5kQLlqU7R/90f9HqXaQFegxQJzJN4otivtTr0bNq3fYVnjs/l8cGoIM78
-hHTm7Gg5dIPxG6u5SL+s6073hlMRzS1NOPCjz/9nuJgNV49BR9kvHT25GE2wPmLP
-Pbq2xpkHMsSQSpnRaK81eKX9f3gp1Q==
-=IFZO
------END PGP SIGNATURE-----
-
---zS7rBR6csb6tI2e1--
+-- 
+Thanks,
+Sasha

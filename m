@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2240B203009
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jun 2020 09:01:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF20020300B
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jun 2020 09:01:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4119516D7;
-	Mon, 22 Jun 2020 09:00:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4119516D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 90B8B16B6;
+	Mon, 22 Jun 2020 09:00:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90B8B16B6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592809263;
-	bh=cJaK9Ij0LnW3uaf90F+DxG2K4hVeM1atFzhGIhfMpbw=;
+	s=default; t=1592809279;
+	bh=GqFAi7Q4sHYSuj6BAxMwU4DVplPmfDCh76OdL45s+EM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jlbRcO29G6NBqUk769h4DVg2MNaZnIf+uhf1eggdoPzY37fr8KxTvBRvLDYqIYuxN
-	 UrF81PIeoFZNijuOeK/izeXbAoYvxt+ioRZt/jGF9gIBe5L4OJrfdMmU9tVqs+Ikxi
-	 /Cr/vATbViGQFCHvpfT9bTI71gCERgla/cwZ/xQ8=
+	b=iFxWT7D1clA0ECh4HqpYYN/dK9TK/LWWQFLDmyr5wMuBaqDt487ls7MmUBVqSRxUs
+	 0avo3ATwBk0CPCvrtbNA9qI1qV0gbjLz06J7rkTOPvWbTc6moYsereypAxxcWPYdps
+	 bRHU0oh0eiJ2QMX6Xog4FqANmKiI/HZLU4ISzxnk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD753F8028A;
-	Mon, 22 Jun 2020 08:58:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8048F802A2;
+	Mon, 22 Jun 2020 08:58:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B52EEF80246; Mon, 22 Jun 2020 08:58:35 +0200 (CEST)
+ id D901DF802A0; Mon, 22 Jun 2020 08:58:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3816EF8010D
- for <alsa-devel@alsa-project.org>; Mon, 22 Jun 2020 08:58:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3816EF8010D
+ by alsa1.perex.cz (Postfix) with ESMTPS id BC60EF8010E
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jun 2020 08:58:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC60EF8010E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="d8QdwWm0"
+ header.b="XUubVqh7"
 Received: from localhost.localdomain (unknown [171.61.66.58])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3ADF325439;
- Mon, 22 Jun 2020 06:58:26 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9D6E42543C;
+ Mon, 22 Jun 2020 06:58:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592809110;
- bh=cJaK9Ij0LnW3uaf90F+DxG2K4hVeM1atFzhGIhfMpbw=;
+ s=default; t=1592809115;
+ bh=GqFAi7Q4sHYSuj6BAxMwU4DVplPmfDCh76OdL45s+EM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=d8QdwWm0SMOkokdDVPicskvy40K7ynMncLQaHXxFnQTMFTimJ01a1vQMX/PSZ/nO8
- jGkKLCigR4/9ZePJBXqxvd0G4tHPH4Mbkxak3bGmivigI2FCilVmdOIfQdAjKHo9UL
- vj+ZjHlaPIvWK8xVXL1q22/fztbcgByVRAs0Gxyg=
+ b=XUubVqh7SwrB1MbftvIpwdhMm7y6KHzJxeFvVNTH/tD6Xxo5XFxARiUaBkZM8W1kz
+ r50RblSeNtI1MSjlbdZWVJ4r6EGHDEE4S8YxivgVlaOwL0dE1m6u9AM9MRE19IlpgE
+ 7T81WWPH0+y6mERjA2wlJwJ3tM4TTSV9pa3hQ3rI=
 From: Vinod Koul <vkoul@kernel.org>
 To: Takashi Iwai <tiwai@suse.com>,
 	Jaroslav Kysela <perex@perex.cz>
-Subject: [PATCH v2 1/3] ALSA: compress: document the compress audio state
- machine
-Date: Mon, 22 Jun 2020 12:28:09 +0530
-Message-Id: <20200622065811.221485-2-vkoul@kernel.org>
+Subject: [PATCH v2 2/3] ALSA: compress: document the compress gapless audio
+ state machine
+Date: Mon, 22 Jun 2020 12:28:10 +0530
+Message-Id: <20200622065811.221485-3-vkoul@kernel.org>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200622065811.221485-1-vkoul@kernel.org>
 References: <20200622065811.221485-1-vkoul@kernel.org>
@@ -85,77 +85,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-So we had some discussions of the stream states, so I thought it is a
-good idea to document the state transitions, so add it documentation
+Also documented the galpess transitions. Please note that these are not
+really stream states, but show how the stream steps in gapless mode
 
 Signed-off-by: Vinod Koul <vkoul@kernel.org>
 ---
- .../sound/designs/compress-offload.rst        | 52 +++++++++++++++++++
- 1 file changed, 52 insertions(+)
+ .../sound/designs/compress-offload.rst        | 32 +++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
 diff --git a/Documentation/sound/designs/compress-offload.rst b/Documentation/sound/designs/compress-offload.rst
-index ad4bfbdacc83..6f86db82298b 100644
+index 6f86db82298b..0bebfd33b933 100644
 --- a/Documentation/sound/designs/compress-offload.rst
 +++ b/Documentation/sound/designs/compress-offload.rst
-@@ -151,6 +151,58 @@ Modifications include:
- - Addition of encoding options when required (derived from OpenMAX IL)
- - Addition of rateControlSupported (missing in OpenMAX AL)
+@@ -251,6 +251,38 @@ Sequence flow for gapless would be:
  
-+State Machine
-+=============
+ (note: order for partial_drain and write for next track can be reversed as well)
+ 
++Gapless Playback SM
++===================
 +
-+The compressed audio stream state machine is described below ::
++For Gapless, we move from running state to partial drain and back, along
++with setting of meta_data and signalling for next track ::
++
 +
 +                                        +----------+
-+                                        |          |
-+                                        |   OPEN   |
-+                                        |          |
++                compr_drain_notify()    |          |
++              +------------------------>|  RUNNING |
++              |                         |          |
++              |                         +----------+
++              |                              |
++              |                              |
++              |                              | compr_next_track()
++              |                              |
++              |                              V
++              |                         +----------+
++              |                         |          |
++              |                         |NEXT_TRACK|
++              |                         |          |
++              |                         +----------+
++              |                              |
++              |                              |
++              |                              | compr_partial_drain()
++              |                              |
++              |                              V
++              |                         +----------+
++              |                         |          |
++              +------------------------ | PARTIAL_ |
++                                        |  DRAIN   |
 +                                        +----------+
-+                                             |
-+                                             |
-+                                             | compr_set_params()
-+                                             |
-+                                             v
-+         compr_free()                   +----------+
-+  +-------------------------------------|          |
-+  |                                     |   SETUP  |
-+  |           +------------------------>|          |<---------------------------------+
-+  |           | compr_drain_notify()    +----------+                                  |
-+  |           |                              |                                        |
-+  |           |                              |                                        |
-+  |           |                              | compr_write()                          |
-+  |           |                              |                                        |
-+  |           |                              v                                        |
-+  |           |                         +----------+                                  |
-+  |           |                         |          |                                  |
-+  |           |                         |  PREPARE |                                  |
-+  |           |                         |          |                                  |
-+  |           |                         +----------+                                  |
-+  |           |                              |                                        |
-+  |           |                              |                                        |
-+  |           |                              | compr_start()                          |
-+  |           |                              |                                        |
-+  |           |                              v                                        |
-+  |     +----------+                    +----------+  compr_pause()  +----------+     |
-+  |     |          |    compr_drain()   |          |---------------->|          |     |
-+  |     |  DRAIN   |<-------------------|  RUNNING |                 |  PAUSE   |     |
-+  |     |          |                    |          |<----------------|          |     |
-+  |     +----------+                    +----------+  compr_resume() +----------+     |
-+  |           |                           |      |                                    |
-+  |           |                           |      |                                    |
-+  |           |                           |      |                                    |
-+  |           |                           |      |          compr_stop()              |
-+  |           |                           |      +------------------------------------+
-+  |           |       +----------+        |
-+  |           |       |          |        |
-+  +-----------+------>|          |<-------+
-+     compr_free()     |   FREE   |  compr_free()
-+                      |          |
-+                      +----------+
-+
  
- Gapless Playback
- ================
+ Not supported
+ =============
 -- 
 2.26.2
 

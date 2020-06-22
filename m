@@ -2,81 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D869206E52
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 09:55:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19D42206E57
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 09:56:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 163A442;
-	Wed, 24 Jun 2020 09:54:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 163A442
+	by alsa0.perex.cz (Postfix) with ESMTPS id BAD971800;
+	Wed, 24 Jun 2020 09:55:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BAD971800
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592985329;
-	bh=NVWMWvAoOO6YBx+YhJeYqKDvKwbdwf2nhURd9uK4Mdo=;
-	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=iupOa2d2IfX/eSDw700v+gSzCvi8YnwLEjlGeGrbnym3rT3r3QztTBvJx/VT6JEY/
-	 P4b4FJma3wmiItCVdMKH+Dp7hLhvkYU+6EzrLZqsVT7r7HQUYjJPM67UkNhi2cZeh4
-	 ZNMS5e932p41XhyB+2tjZStIi2dAHBiqyYncM1mQ=
+	s=default; t=1592985362;
+	bh=XV3Uggxit27WTW1F2nkq/2Jc+ANghu0fg/bajwmuFVw=;
+	h=Subject:From:In-Reply-To:Date:References:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=lQq0eEhBOZv8RqmhV7oFNFUikiucDqK3oO+TZuOvq80a0mksgh0BXV9NWPxqxI7hE
+	 WxoGF1JZkV6ntWu5+YIEucjge+wEKrJiHbkSqVbe50/W3qoSnUcT/7xWSiIfc6Jb8j
+	 7VliiL1bHJhSBN3lbZrP1kuoYOI3lffQ7IfX7Tqk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0EA40F80304;
-	Wed, 24 Jun 2020 09:49:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2173EF80308;
+	Wed, 24 Jun 2020 09:49:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B617F8015B; Mon, 22 Jun 2020 07:26:30 +0200 (CEST)
+ id 0D305F8015B; Mon, 22 Jun 2020 13:34:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_13,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
- [IPv6:2607:f8b0:4864:20::d44])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com
+ [IPv6:2a00:1450:4864:20::544])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 30984F80157
- for <alsa-devel@alsa-project.org>; Mon, 22 Jun 2020 07:26:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30984F80157
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31C33F80157
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jun 2020 13:34:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31C33F80157
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="oYMH8fzh"
-Received: by mail-io1-xd44.google.com with SMTP id s18so18138567ioe.2
- for <alsa-devel@alsa-project.org>; Sun, 21 Jun 2020 22:26:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=ZVr+kr5aPEjx6Npw7yjfK1tPKuWVmOT6gEGNYB7VNrA=;
- b=oYMH8fzhBDhGezaTM7HcTcKGOu1hlV/Wa0dvpqCFbR9dh5bahFVUoKGxT6AsPq4FTW
- uOlgBM5SZO6XaTCmkmUvf/iGrXY+2qtXlBz+XSJja49XhdAmAxvMTKsllftvhIsuiusQ
- rKcIEbS336prVxBG5TJZ4SdTaSbcQ9WT6CUZ2htITeR3Ok8TAhTjaY5LBmDqk9yj2nvQ
- GkvpySGDT33p1SN43wQ7V+Lx9PJkg41Ox8955T/0+djd0JITZ/W6jf7SgPGPvlvfYnT2
- JnZYXFIL4uniEoRl7soYYd+oBsPmRB6i8oFzonhJUFDs04bv60Kpw/UMO419QKrtLU53
- TrKQ==
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="E0vCCRrR"
+Received: by mail-ed1-x544.google.com with SMTP id e22so2671810edq.8
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jun 2020 04:34:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=CkMLKDYyCdgwgrz6M1KvCuyRca4uYmURUSVIrQBAvAs=;
+ b=E0vCCRrRcBEQEc24INVK06CXRUi9uNy4P7BoFOkgMQfS/2XlouVRXGecPDz/qguUJv
+ HpY6Egz4KTxwz/fsL0+dbThaO+FwYXsCjJVkOkGu+qmJKHy8Ib8jGeWrV8G2YjB1bkzy
+ WQNtGkzkd0c31/xsJqjpOw+k9Bnryy78AV3HVRSCJzBtE7cXDUVhWzybLDy1GcESL96Z
+ R3G7FIdQ/LRPG2zhqOwkpHu9AUwO2K9sqpkt4shLnZUCS7oQwN2lPpMZf5kjhJYAOmvg
+ w7wePJlz6m2fw7fSx/gj0ub4Xnxc9PLDwc4FZDsZAS8IwIFEfiiMIce/HtfuVhM+EUKm
+ H3lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=ZVr+kr5aPEjx6Npw7yjfK1tPKuWVmOT6gEGNYB7VNrA=;
- b=l2Dnnc8Be1HSLeIl3ArzR6sMBMtKxQH2rM3j5BvM5pxOUzF00X6JuORv8TziSBb9iq
- NNoo+FlJU2cA3sSx4XzlPReywnM6ZK4XJqEQSFYbymIU0X25/XEW+Dc1rb3ZGvZgOR6G
- zzSeN/gW8MMKODP3YgVKEOceHqr2IgDY0FRhAW5FA8Ro24DmpIS3aoe2qe8attYSKB9w
- mwtgQ3AUgu6Vd+8Xkh6DJGoFF7BZ7uHmJvah/1Vv1Pae8kXaV8BV5UB7aLDTZ4re7Rja
- gMy0nFFN5388/ZI1NtBnCWjIGcCM2eCrP+E77V9O1WqES9MEmsyADBrrLx7FlxT7dQ87
- Vg3w==
-X-Gm-Message-State: AOAM533pdk+iIJwfAI6jDheTNvCzCdPS1ohlao35rCkYfh7kMOo8f9RJ
- P5SFtCKuRGF0me4Z/JTCVhFByArVmRbJPinvZKE=
-X-Google-Smtp-Source: ABdhPJwk3NB4NMUIlQAycdGvuvCGWsjaJr8+k0f6AkYAOnbvhTZ8BsIvlXNtiQV7Dh5sCvhXdwd9P2nv4GPQzaZu0ho=
-X-Received: by 2002:a6b:b5d1:: with SMTP id
- e200mr17709974iof.191.1592803582521; 
- Sun, 21 Jun 2020 22:26:22 -0700 (PDT)
-MIME-Version: 1.0
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Date: Mon, 22 Jun 2020 10:26:11 +0500
-Message-ID: <CABXGCsM+SccvqTBR68b_a=a__BPN2+XCqjCGSCoGBKGqRZLV5Q@mail.gmail.com>
-Subject: [snd_pcm] [5.8RC1] kernel BUG at mm/huge_memory.c:2613! (system
- stopped playing sound)
-To: Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
- alsa-devel@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Wed, 24 Jun 2020 09:49:30 +0200
+ h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=CkMLKDYyCdgwgrz6M1KvCuyRca4uYmURUSVIrQBAvAs=;
+ b=cFbIeN3b5hgI+U41w4sXHxSUGHdbWPVoCTHa9OBV+PQInjJ0EV+lCd3sEsLtp2i8vJ
+ n3NlfjSTpJ1NnQlndFDWiEPyfxpHKCyaByCgk57j63gCCqQ8p4YQPubr5gPZE7GUs+rl
+ d3jU4H7ldP7AQiK4UnzJ56IoemaEuKY41yyhyU/ZtNJqN6dBeXlnrLZMdkxOfpi2l3x5
+ toYunhJjk8vvpaA8O4ffy98tpNAG1kOOnZaEWgS5uxVSKP+jhEAa5BLs5Rlqh5BfkO2k
+ wyPui0SD89T3d/xDtuLQafTLjG+X22zvUE5dIZhL9sUNXS220/dUIlmws9v9tMS/0uBD
+ LIOQ==
+X-Gm-Message-State: AOAM531Uf0RJqGboF0z+Ok0DOrSFDSbpnDLImBOT7BH0H9iMXcu/eyuW
+ Vna/t6NKqU7FaGT70qBsQf33cg==
+X-Google-Smtp-Source: ABdhPJw2TclJgKhGEZSe4yr9Ks34pnf4FLPghWj83LoIt+wG/aeGcpVWvJEpc3m7sjqyjF+KpuK0gA==
+X-Received: by 2002:aa7:cd6c:: with SMTP id ca12mr16716994edb.36.1592825666146; 
+ Mon, 22 Jun 2020 04:34:26 -0700 (PDT)
+Received: from [192.168.2.2] (ppp089210109128.access.hol.gr. [89.210.109.128])
+ by smtp.gmail.com with ESMTPSA id f16sm26335ejr.0.2020.06.22.04.34.24
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 22 Jun 2020 04:34:25 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.80.23.2.2\))
+Subject: Re: [PATCH 1/2] dt-bindings: sound: Device tree bindings for the
+ apq8039 sound complex
+From: Pantelis Antoniou <pantelis.antoniou@linaro.org>
+In-Reply-To: <20200619214126.GA1251@gerhold.net>
+Date: Mon, 22 Jun 2020 14:34:23 +0300
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <2070B433-83E0-4ACE-A470-36401934FC5A@linaro.org>
+References: <20200619193831.12528-1-pantelis.antoniou@linaro.org>
+ <20200619193831.12528-2-pantelis.antoniou@linaro.org>
+ <20200619214126.GA1251@gerhold.net>
+To: Stephan Gerhold <stephan@gerhold.net>
+X-Mailer: Apple Mail (2.3608.80.23.2.2)
+X-Mailman-Approved-At: Wed, 24 Jun 2020 09:49:29 +0200
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Matthew Porter <mporter@konsulko.com>, Shawn Guo <shawn.guo@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,130 +108,494 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi folks.
-After upgrade kernel to 5.8RC1 (git69119673bd50) my system stopped
-playing sound.
-In the kernel log, I see the message 'invalid opcode: 0000 [#1] SMP
-NOPTI' which probably related to this issue.
-
-[   19.076508] page:ffffeb1b1dc14b00 refcount:1 mapcount:0
-mapping:0000000000000000 index:0x0 head:ffffeb1b1dc14b00 order:2
-compound_mapcount:0 compound_pincount:0
-[   19.076515] flags: 0x17ffffc0010000(head)
-[   19.076520] raw: 0017ffffc0010000 dead000000000100 dead000000000122
-0000000000000000
-[   19.076524] raw: 0000000000000000 0000000000000000 00000001ffffffff
-0000000000000000
-[   19.076527] page dumped because: VM_BUG_ON_PAGE(!PageLocked(head))
-[   19.076561] ------------[ cut here ]------------
-[   19.076562] kernel BUG at mm/huge_memory.c:2613!
-[   19.076581] invalid opcode: 0000 [#1] SMP NOPTI
-[   19.076584] CPU: 12 PID: 1787 Comm: pulseaudio Not tainted
-5.8.0-0.rc1.20200617git69119673bd50.1.fc33.x86_64 #1
-[   19.076586] Hardware name: System manufacturer System Product
-Name/ROG STRIX X570-I GAMING, BIOS 1407 04/02/2020
-[   19.076592] RIP: 0010:split_huge_page_to_list+0x86a/0xd90
-[   19.076596] Code: 48 c7 c6 c0 d5 38 9c 48 8d 50 ff a8 01 48 0f 45
-da 48 89 df e8 b7 d0 f8 ff 0f 0b 48 c7 c6 88 f1 3b 9c 48 89 df e8 a6
-d0 f8 ff <0f> 0b 48 8b 07 f6 c4 04 0f 84 b4 f9 ff ff 48 89 df e8 f0 59
-fc ff
-[   19.076599] RSP: 0018:ffffb580c249fad8 EFLAGS: 00010296
-[   19.076601] RAX: 0000000000000000 RBX: ffffeb1b1dc14b00 RCX: ffff93f1fbbdb5f8
-[   19.076603] RDX: 00000000ffffffd8 RSI: 0000000000000000 RDI: ffff93f1fbbdb5f0
-[   19.076605] RBP: ffff93f21e2ff688 R08: 0000000000000000 R09: 0000000000000000
-[   19.076606] R10: 0000000000000001 R11: 0000000000000000 R12: ffff93f21e2d5000
-[   19.076608] R13: ffffeb1b1dc14b00 R14: 0000000000000007 R15: ffffeb1b1dc14b00
-[   19.076610] FS:  00007f6f4e421880(0000) GS:ffff93f1fba00000(0000)
-knlGS:0000000000000000
-[   19.076612] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[   19.076613] CR2: 00007f6f3ceab000 CR3: 0000000779996000 CR4: 00000000003406e0
-[   19.076615] Call Trace:
-[   19.076622]  ? rcu_read_lock_sched_held+0x3f/0x80
-[   19.076626]  ? __alloc_pages_nodemask+0x3df/0x450
-[   19.076631]  iommu_dma_alloc+0x316/0x580
-[   19.076637]  dma_alloc_attrs+0x86/0x90
-[   19.076645]  snd_dma_alloc_pages+0xdf/0x160 [snd_pcm]
-[   19.076651]  snd_dma_alloc_pages_fallback+0x5d/0x80 [snd_pcm]
-[   19.076657]  snd_malloc_sgbuf_pages+0x166/0x380 [snd_pcm]
-[   19.076665]  ? trace_kmalloc+0xf2/0x120
-[   19.076670]  snd_dma_alloc_pages+0x64/0x160 [snd_pcm]
-[   19.076676]  do_alloc_pages+0x3c/0x90 [snd_pcm]
-[   19.076683]  snd_pcm_lib_malloc_pages+0x115/0x1a0 [snd_pcm]
-[   19.076690]  snd_pcm_hw_params+0x4de/0x5b0 [snd_pcm]
-[   19.076694]  ? _copy_from_user+0x6b/0xb0
-[   19.076700]  snd_pcm_common_ioctl+0x209/0x1340 [snd_pcm]
-[   19.076703]  ? selinux_file_ioctl+0x132/0x1e0
-[   19.076711]  snd_pcm_ioctl+0x23/0x30 [snd_pcm]
-[   19.076715]  ksys_ioctl+0x82/0xc0
-[   19.076718]  __x64_sys_ioctl+0x16/0x20
-[   19.076722]  do_syscall_64+0x52/0xb0
-[   19.076724]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-[   19.076727] RIP: 0033:0x7f6f4ed53e9b
-[   19.076728] Code: Bad RIP value.
-[   19.076730] RSP: 002b:00007ffe556b7e18 EFLAGS: 00000246 ORIG_RAX:
-0000000000000010
-[   19.076732] RAX: ffffffffffffffda RBX: 00007ffe556b8020 RCX: 00007f6f4ed53e9b
-[   19.076733] RDX: 00007ffe556b8020 RSI: 00000000c2604111 RDI: 0000000000000016
-[   19.076735] RBP: 00005562734fdfa0 R08: 0000000000000000 R09: 0000000000000000
-[   19.076737] R10: 0000000000000004 R11: 0000000000000246 R12: 00005562734fdf20
-[   19.076738] R13: 00007ffe556b7e54 R14: 0000000000000000 R15: 00007ffe556b8020
-[   19.076743] Modules linked in: xt_CHECKSUM xt_MASQUERADE
-xt_conntrack ipt_REJECT nf_nat_tftp nf_conntrack_tftp tun bridge stp
-llc nft_objref nf_conntrack_netbios_ns nf_conntrack_broadcast
-nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib nft_reject_inet
-nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct nft_chain_nat
-ip6table_nat ip6table_mangle ip6table_raw ip6table_security
-iptable_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4
-libcrc32c iptable_mangle iptable_raw iptable_security ip_set nf_tables
-nfnetlink ip6table_filter ip6_tables iptable_filter cmac bnep sunrpc
-vfat fat hid_logitech_hidpp joydev hid_logitech_dj mt76x2u
-mt76x2_common mt76x02_usb mt76_usb mt76x02_lib mt76 edac_mce_amd
-amd_energy kvm_amd kvm gspca_zc3xx gspca_main irqbypass eeepc_wmi
-asus_wmi btusb sparse_keymap btrtl video wmi_bmof btbcm btintel
-bluetooth ecdh_generic uvcvideo ecc videobuf2_vmalloc videobuf2_memops
-videobuf2_v4l2 snd_usb_audio videobuf2_common snd_usbmidi_lib videodev
-snd_rawmidi pcspkr iwlmvm mc
-[   19.076777]  mac80211 snd_hda_codec_realtek snd_hda_codec_generic
-ledtrig_audio libarc4 snd_hda_codec_hdmi iwlwifi snd_hda_intel
-snd_intel_dspcfg snd_hda_codec snd_hda_core snd_hwdep cfg80211 snd_seq
-snd_seq_device rfkill snd_pcm snd_timer snd soundcore k10temp
-sp5100_tco i2c_piix4 acpi_cpufreq binfmt_misc ip_tables amdgpu
-iommu_v2 gpu_sched ttm crct10dif_pclmul drm_kms_helper crc32_pclmul
-crc32c_intel cec drm ghash_clmulni_intel ccp igb nvme nvme_core
-xhci_pci dca xhci_pci_renesas i2c_algo_bit wmi pinctrl_amd fuse
-[   19.076798] ---[ end trace 14b750353357325c ]---
-[   19.076801] RIP: 0010:split_huge_page_to_list+0x86a/0xd90
-[   19.076804] Code: 48 c7 c6 c0 d5 38 9c 48 8d 50 ff a8 01 48 0f 45
-da 48 89 df e8 b7 d0 f8 ff 0f 0b 48 c7 c6 88 f1 3b 9c 48 89 df e8 a6
-d0 f8 ff <0f> 0b 48 8b 07 f6 c4 04 0f 84 b4 f9 ff ff 48 89 df e8 f0 59
-fc ff
-[   19.076806] RSP: 0018:ffffb580c249fad8 EFLAGS: 00010296
-[   19.076808] RAX: 0000000000000000 RBX: ffffeb1b1dc14b00 RCX: ffff93f1fbbdb5f8
-[   19.076809] RDX: 00000000ffffffd8 RSI: 0000000000000000 RDI: ffff93f1fbbdb5f0
-[   19.076811] RBP: ffff93f21e2ff688 R08: 0000000000000000 R09: 0000000000000000
-[   19.076812] R10: 0000000000000001 R11: 0000000000000000 R12: ffff93f21e2d5000
-[   19.076814] R13: ffffeb1b1dc14b00 R14: 0000000000000007 R15: ffffeb1b1dc14b00
-[   19.076816] FS:  00007f6f4e421880(0000) GS:ffff93f1fba00000(0000)
-knlGS:0000000000000000
-[   19.076817] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[   19.076819] CR2: 00007f6f3ceab000 CR3: 0000000779996000 CR4: 00000000003406e0
-[   26.761111] logitech-hidpp-device 0003:046D:4087.000B: HID++ 4.2
-device connected.
-[   37.568414] rfkill: input handler enabled
-[   43.157188] page:ffffeb1b1daca200 refcount:1 mapcount:0
-mapping:0000000000000000 index:0x0 head:ffffeb1b1daca200 order:2
-compound_mapcount:0 compound_pincount:0
-[   43.157192] flags: 0x17ffffc0010000(head)
-[   43.157195] raw: 0017ffffc0010000 dead000000000100 dead000000000122
-0000000000000000
-[   43.157197] raw: 0000000000000000 0000000000000000 00000001ffffffff
-0000000000000000
-[   43.157198] page dumped because: VM_BUG_ON_PAGE(!PageLocked(head))
-[   43.157209] ------------[ cut here ]------------
+Hi Stephan,
 
 
-I would be happy to test any patch which fixes it.
+> On Jun 20, 2020, at 00:41 , Stephan Gerhold <stephan@gerhold.net> =
+wrote:
+>=20
+> Hi Pantelis,
+>=20
+> On Fri, Jun 19, 2020 at 10:38:30PM +0300, Pantelis Antoniou wrote:
+>> Add a yaml device binding for the QCOM apq8039 sound complex driver.
+>>=20
+>=20
+> Nice to see some activity to get sound working on another SoC!
+> Thanks for documenting all these properties.
+>=20
 
---
-Best Regards,
-Mike Gavrilov.
+Thanks (I guess :) )
+
+>> Signed-off-by: Pantelis Antoniou <pantelis.antoniou@linaro.org>
+>> ---
+>> .../bindings/sound/qcom,apq8039.yaml          | 370 =
+++++++++++++++++++
+>> 1 file changed, 370 insertions(+)
+>> create mode 100644 =
+Documentation/devicetree/bindings/sound/qcom,apq8039.yaml
+>>=20
+>> diff --git =
+a/Documentation/devicetree/bindings/sound/qcom,apq8039.yaml =
+b/Documentation/devicetree/bindings/sound/qcom,apq8039.yaml
+>> new file mode 100644
+>> index 000000000000..f1c4fb99ccbb
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/sound/qcom,apq8039.yaml
+>> @@ -0,0 +1,370 @@
+>> +# SPDX-License-Identifier: GPL-2.0
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/sound/qcom,apq8039.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Qualcomm Technologies APQ8039 ASoC sound card
+>> +
+>> +maintainers:
+>> +  - Pantelis Antoniou <pantelis.antoniou@linaro.org>
+>> +
+>> +properties:
+>> +  compatible:
+>> +    items:
+>> +      - const: qcom,apq8039-sndcard
+>> +
+>> +  pinctrl-0:
+>> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+>> +    description: |
+>> +      Should specify pin control groups used for this controller =
+matching
+>> +      the first entry in pinctrl-names.
+>> +
+>> +  pinctrl-1:
+>> +    description: |
+>> +      Should specify pin control groups used for this controller =
+matching
+>> +      the second entry in pinctrl-names.
+>> +
+>> +  pinctrl-names:
+>> +    minItems: 1
+>> +    items:
+>> +      - const: default
+>> +      - const: sleep
+>> +    description:
+>> +      Names for the pin configuration(s); may be "default" or =
+"sleep",
+>> +      where the "sleep" configuration may describe the state
+>> +      the pins should be in during system suspend.
+>> +
+>> +  reg:
+>> +    description: Must contain an address for each entry in =
+"reg-names".
+>> +    minItems: 2
+>> +    maxItems: 2
+>> +
+>> +  reg-names:
+>> +    items:
+>> +      - const: mic-iomux
+>> +      - const: spkr-iomux
+>> +
+>> +  qcom,model:
+>> +    $ref: /schemas/types.yaml#/definitions/string
+>> +    description: The user-visible name of the sound complex.
+>> +
+>> +  qcom,audio-routing:
+>> +    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+>> +    description: |
+>> +      List of the connections between audio components;  each entry =
+is a
+>> +      pair of strings, the first being the connection's sink, the =
+second
+>> +      being the connection's source; valid names could be power =
+supplies
+>> +      and MicBias of msm8916-analoc-wcd codec.
+>> +
+>> +  function-definition:
+>> +    type: object
+>> +    description: |
+>> +      Functional configuration for the sound complex via a
+>> +      simple control. allows fixed and dynamically constructed
+>> +      function selection.
+>> +
+>> +    properties:
+>> +      mixer-control:
+>> +        $ref: /schemas/types.yaml#/definitions/string
+>> +        description: |
+>> +          Name of the exported alsa mix control.
+>> +
+>> +      function-list:
+>> +        $ref: /schemas/types.yaml#/definitions/phandle-array
+>> +        description: |
+>> +          phandle(s) of the functions which the sound complex
+>> +          exposes via the control.
+>> +
+>> +      system-list:
+>> +        $ref: /schemas/types.yaml#/definitions/phandle-array
+>> +        description: |
+>> +          phandle(s) of the default, init and shutdown functions
+>> +          Must be one of the declared ones in the function property.
+>> +          The default function is the one selected by default on
+>> +          startup (after the init function's sequence is executed).
+>> +          On shutdown the shutdown function sequence will be =
+executed.
+>> +          Typically init and shutdown are the same and it's purpose
+>> +          is to initialize the sound complex mixer controls to the
+>> +          all off state, and be ready for a regular function =
+selection.
+>> +
+>> +    patternProperties:
+>> +      "^[A-Za-z_][A-Aa-z0-9_]*$":
+>> +        type: object
+>> +        description:
+>> +          Function description subnodes. The name of the function
+>> +          is simply the name of the subnode, so restrictions apply
+>> +          to the valid node names.
+>> +
+>> +          The function definition of each subnode is either a cooked
+>> +          function (i.e. which is not dependent on state inputs), or
+>> +          a function that is selecting a cooked function based on =
+the
+>> +          state inputs and the generated state vector.
+>> +
+>> +        oneOf:
+>> +          # non-cooked function
+>> +          - properties:
+>> +              enable:
+>> +                $ref: =
+/schemas/types.yaml#/definitions/non-unique-string-array
+>> +                description: |
+>> +                  Sequence of alsa mixer controls to apply when this =
+state is to
+>> +                  be enabled.
+>> +
+>> +              disable:
+>> +                $ref: =
+/schemas/types.yaml#/definitions/non-unique-string-array
+>> +                description: |
+>> +                  Sequence of alsa mixer controls to apply when this =
+state is to
+>> +                  be disabled.
+>> +
+>> +            required:
+>> +              - enable
+>> +
+>> +          # cooked function
+>> +          - properties:
+>> +              state-inputs:
+>> +                description: |
+>> +                  A list of state inputs to be used in constructing =
+a state
+>> +                  vector.
+>> +                type: array
+>> +                uniqueItems: true
+>> +                minItems: 1
+>> +                items:
+>> +                  anyOf:
+>> +                    - const: JACK_HEADPHONE
+>> +                    - const: JACK_MICROPHONE
+>> +
+>> +              state-input-bits:
+>> +                $ref: /schemas/types.yaml#/definitions/uint32-array
+>> +                description: |
+>> +                  Number of bits to use for each state-input in the
+>> +                  state vector creation. For now only the value 1 is
+>> +                  supported for JACK_HEADPHONE and JACK_MICROPHONE.
+>> +
+>> +              state-input-defaults:
+>> +                $ref: /schemas/types.yaml#/definitions/uint32-array
+>> +                description: |
+>> +                  The default value to use as a state input at =
+startup.
+>> +
+>> +              state-map:
+>> +                $ref: /schemas/types.yaml#/definitions/phandle-array
+>> +                description: |
+>> +                  The mapping of this function to a cooked function. =
+The
+>> +                  format used is a sequence of phandle to a state, =
+the mask
+>> +                  to apply to the state vector, and the equality =
+value.
+>> +
+>> +                  Take the example's configuration
+>> +
+>> +                    state-inputs         =3D "JACK_HEADPHONE", =
+"JACK_MICROPHONE";
+>> +                    state-input-bits     =3D <1>, <1>;
+>> +                    state-input-defaults =3D <0>, <0>;
+>> +
+>> +                    state-map =3D <&speaker    0x1 0x0>,
+>> +                                <&headphones 0x3 0x1>,
+>> +                                <&headset    0x3 0x3>;
+>> +
+>> +                  is decoded as follows.
+>> +
+>> +                  There are 3 possible cooked functions to be =
+selected.
+>> +                  speaker, headphone and headset. The state-inputs =
+are
+>> +                  the JACK_HEADPHONE and JACK_MICROPHONE, which are =
+single
+>> +                  bit values, being placed at bit 0 and bit 1 of the
+>> +                  constructed vector.
+>> +
+>> +                  The 4 possible state vectors are:
+>> +                    MICROPHONE=3D0, HEADPHONE=3D0, 0
+>> +                    MICROPHONE=3D0, HEADPHONE=3D1, 1
+>> +                    MICROPHONE=3D1, HEADPHONE=3D0, 2
+>> +                    MICROPHONE=3D1, HEADPHONE=3D1, 3
+>> +
+>> +                  The speaker function is selected when HEADPHONE=3D0 =
+because
+>> +                  both (0 & 1) =3D=3D (2 & 1) =3D=3D 0.
+>> +
+>> +                  The headphones function is selected when =
+HEADPHONE=3D1 and
+>> +                  MICROPHONE=3D0 because (1 & 3) =3D=3D 1.
+>> +
+>> +                  The headset function is selected when both =
+HEADPHONE=3D1 and
+>> +                  MICROPHONE=3D1 because (3 & 3) =3D=3D 3.
+>> +
+>> +            required:
+>> +              - state-inputs
+>> +              - state-input-bits
+>> +              - state-input-defaults
+>> +              - state-map
+>> +
+>> +patternProperties:
+>> +  "^.*dai-link-[0-9]+$":
+>> +    type: object
+>> +    description: |-
+>> +      cpu and codec child nodes:
+>> +        Container for cpu and codec dai sub-nodes.
+>> +        One cpu and one codec sub-node must exist.
+>> +
+>> +    properties:
+>> +      link-name:
+>> +        description: The link name
+>> +
+>> +      cpu:
+>> +        type: object
+>> +        properties:
+>> +
+>> +          sound-dai:
+>> +            $ref: /schemas/types.yaml#/definitions/phandle-array
+>> +            description: phandle(s) of the CPU DAI(s)
+>> +
+>> +        required:
+>> +          - sound-dai
+>> +
+>> +      codec:
+>> +        type: object
+>> +        properties:
+>> +
+>> +          sound-dai:
+>> +            $ref: /schemas/types.yaml#/definitions/phandle-array
+>> +            description: phandle(s) of the codec DAI(s)
+>> +
+>> +        required:
+>> +          - sound-dai
+>> +
+>> +    required:
+>> +      - link-name
+>> +      - cpu
+>> +      - codec
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - reg-names
+>> +  - qcom,model
+>> +
+>> +additionalProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/sound/apq8016-lpass.h>
+>> +
+>> +    sound: sound@7702000  {
+>> +        compatible =3D "qcom,apq8039-sndcard";
+>> +        reg =3D <0x07702000 0x4>, <0x07702004 0x4>;
+>> +        reg-names =3D "mic-iomux", "spkr-iomux";
+>> +
+>> +        status =3D "okay";
+>> +        pinctrl-0 =3D <&cdc_pdm_lines_act>;
+>> +        pinctrl-1 =3D <&cdc_pdm_lines_sus>;
+>> +        pinctrl-names =3D "default", "sleep";
+>> +        qcom,model =3D "APQ8039";
+>> +        qcom,audio-routing =3D "AMIC2", "MIC BIAS Internal2";
+>> +
+>> +        internal-codec-playback-dai-link-0 {
+>> +            link-name =3D "WCD";
+>> +            cpu {
+>> +                sound-dai =3D <&lpass MI2S_PRIMARY>;
+>> +            };
+>> +            codec {
+>> +                sound-dai =3D <&lpass_codec 0>, <&wcd_codec 0>;
+>> +            };
+>> +        };
+>> +
+>> +        internal-codec-capture-dai-link-0 {
+>> +            link-name =3D "WCD-Capture";
+>> +            cpu {
+>> +                sound-dai =3D <&lpass MI2S_TERTIARY>;
+>> +            };
+>> +            codec {
+>> +                sound-dai =3D <&lpass_codec 1>, <&wcd_codec 1>;
+>> +            };
+>> +        };
+>> +
+>> +        function-definition {
+>> +
+>> +            mixer-control =3D "Jack Function";
+>> +            function-list =3D <&auto &headphones &headset &speaker =
+&off>;
+>> +            system-list =3D <&auto &off &off>;  // default, init, =
+shutdown
+>> +
+>> +            auto: Automatic {
+>> +                // Headphone presence bit 0 (1) - H
+>> +                // Microphone presence bit 1 (2) - M
+>> +                state-inputs         =3D "JACK_HEADPHONE", =
+"JACK_MICROPHONE";
+>> +                state-input-bits     =3D <1>, <1>;
+>> +                state-input-defaults =3D <0>, <0>;
+>> +
+>> +                // HM & MASK
+>> +                state-map =3D
+>> +                    <&speaker    0x1 0x0>,  // no headphone -> =
+speaker
+>> +                    <&headphones 0x3 0x1>,  // headphone but no mic =
+-> headphones
+>> +                    <&headset    0x3 0x3>;  // headphone & mic -> =
+headset
+>> +            };
+>> +            headphones: Headphones {
+>> +                enable =3D
+>> +                    "RX1 MIX1 INP1", "RX1",
+>> +                    "RX2 MIX1 INP1", "RX2",
+>> +                    "RDAC2 MUX", "RX2",
+>> +                    "RX1 Digital Volume", "128",
+>> +                    "RX2 Digital Volume", "128",
+>> +                    "HPHL", "Switch",
+>> +                    "HPHR", "Switch";
+>> +
+>> +                disable =3D
+>> +                    "RX1 Digital Volume", "0",
+>> +                    "RX2 Digital Volume", "0",
+>> +                    "HPHL", "ZERO",
+>> +                    "HPHR", "ZERO",
+>> +                    "RDAC2 MUX", "RX1",
+>> +                    "RX1 MIX1 INP1", "ZERO",
+>> +                    "RX2 MIX1 INP1", "ZERO";
+>> +            };
+>> +            headset: Headset {
+>> +                enable =3D
+>> +                    "RX1 MIX1 INP1", "RX1",
+>> +                    "RX2 MIX1 INP1", "RX2",
+>> +                    "RDAC2 MUX", "RX2",
+>> +                    "RX1 Digital Volume", "128",
+>> +                    "RX2 Digital Volume", "128",
+>> +                    "DEC1 MUX", "ADC2",
+>> +                    "CIC1 MUX", "AMIC",
+>> +                    "ADC2 Volume", "8",
+>> +                    "ADC2 MUX", "INP2",
+>> +                    "HPHL", "Switch",
+>> +                    "HPHR", "Switch";
+>> +
+>> +                disable =3D
+>> +                    "RX1 Digital Volume", "0",
+>> +                    "RX2 Digital Volume", "0",
+>> +                    "HPHL", "ZERO",
+>> +                    "HPHR", "ZERO",
+>> +                    "RDAC2 MUX", "RX1",
+>> +                    "RX1 MIX1 INP1", "ZERO",
+>> +                    "RX2 MIX1 INP1", "ZERO",
+>> +                    "ADC2 MUX", "ZERO",
+>> +                    "ADC2 Volume", "0",
+>> +                    "DEC1 MUX", "ZERO";
+>> +            };
+>> +            speaker: Speaker {
+>> +                enable =3D
+>> +                    "SPK DAC Switch", "1",
+>> +                    "RX3 MIX1 INP1", "RX1",
+>> +                    "RX3 MIX1 INP2", "RX2",
+>> +                    "RX3 Digital Volume", "128";
+>> +
+>> +                disable =3D
+>> +                    "SPK DAC Switch", "0",
+>> +                    "RX3 MIX1 INP1", "ZERO",
+>> +                    "RX3 MIX1 INP2", "ZERO";
+>> +            };
+>> +            off: Off {
+>> +                enable =3D
+>> +                    "RX1 Digital Volume", "0",
+>> +                    "RX2 Digital Volume", "0",
+>> +                    "HPHL", "ZERO",
+>> +                    "HPHR", "ZERO",
+>> +                    "RDAC2 MUX", "RX1",
+>> +                    "RX1 MIX1 INP1", "ZERO",
+>> +                    "RX2 MIX1 INP1", "ZERO",
+>> +                    "ADC2 MUX", "ZERO",
+>> +                    "ADC2 Volume", "0",
+>> +                    "DEC1 MUX", "ZERO",
+>> +                    "SPK DAC Switch", "0",
+>> +                    "RX3 MIX1 INP1", "ZERO",
+>> +                    "RX3 MIX1 INP2", "ZERO";
+>> +            };
+>> +        };
+>=20
+> This looks much like a replacement for ALSA UCM and userspace audio =
+jack
+> detection coded into the device tree.
+>=20
+
+I wouldn=E2=80=99t call it a replacement exactly. It=E2=80=99s merely a =
+way to bundle all
+of this information about codec glue in the kernel (where it should =
+belong IMO).
+
+
+> While I personally think this is an interesting idea
+> (We have the device tree to describe the hardware, why can we not also
+> describe necessary audio routing to enable a particular output?)
+> this is also not really specific to the APQ8039 hardware, is it?
+>=20
+
+Not really TBF. However it is considerably simplified but not handling
+all the mixer controls types besides the ones that are applicable to=20
+this driver.
+
+> In fact, without all the code to handle the mixer enable/disable
+> sequences the machine driver looks almost identical to the existing
+> apq8016-sbc.
+>=20
+
+Yep, modulo some device tree handling fixes.
+
+> If you want to discuss ways to integrate mixer enable/disable =
+sequences
+> into the device tree, I suggest that you post your ideas separately as
+> [RFC] with a more generic subject. That will make it more easy for
+> everyone interested to share their thoughts.
+>=20
+
+Well, I can certainly do that. However I=E2=80=99d like to see if this =
+is
+something that the community would be interested to, but feedback
+against this patch.
+
+As I mentioned earlier it needs some work to be made to something
+that=E2=80=99s completely generic (i.e. handling arbitrary control =
+types).
+
+> Right now it's quite hidden in a patch set where the subjects suggest
+> that it's just a simple machine driver to glue some codecs together.
+>=20
+> Thanks,
+> Stephan
+
+
+Regards
+
+=E2=80=94 Pantelis
+

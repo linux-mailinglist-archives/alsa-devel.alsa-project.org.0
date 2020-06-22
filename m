@@ -2,135 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A6A8203C3C
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jun 2020 18:08:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA952203CD9
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jun 2020 18:45:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98E9A16B4;
-	Mon, 22 Jun 2020 18:08:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98E9A16B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 757091710;
+	Mon, 22 Jun 2020 18:44:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 757091710
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592842133;
-	bh=euiTs9Vlme+/DBX3W6t9oQp+oD5eiCyynyHj9yaGmUc=;
-	h=To:Subject:From:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Iih0qz2HwhInCNttHq27tN2rHAj34TwCWZx3ndEKABeinmOkaMvuOlnSc5FERdRFJ
-	 Op7PFY/icPscakNDXdyioqzADaLmNphzb1QPIVTOkw/aQzc2PYtcAlCDwy1BLD+YYj
-	 hzRUmLuzn+Q/41xrcVjrR4SiMUX/JO6F1bVwTs1U=
+	s=default; t=1592844312;
+	bh=fHdUYMN1CthGXBqW5gf/eyqTc6WkYbVr0aR/luIj1iU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=iC34QCihU5TSshxG/m/KWq3Xj9K62JhCvl5dMSzFXkM50yYRpk2G6DjoNt8KT8BdE
+	 LwNldq9USsrrqPlvHw1kLKpB+sBexxrQg8jGCjCO3iOyl78HuA2OYi4ghJ5oY+Zf2b
+	 erFqtzzrfVKQVVZAGO0u+v9LZMp6QFcJMg6rrzKo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B7EA1F8015A;
-	Mon, 22 Jun 2020 18:07:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7CF8EF8010E;
+	Mon, 22 Jun 2020 18:43:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 30C4EF8015B; Mon, 22 Jun 2020 18:07:11 +0200 (CEST)
+ id A207AF8015B; Mon, 22 Jun 2020 18:43:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mout.web.de (mout.web.de [212.227.15.14])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5A7D6F8010E
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jun 2020 18:43:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A7D6F8010E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="FtULZXDt"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F66FF80157
- for <alsa-devel@alsa-project.org>; Mon, 22 Jun 2020 18:07:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F66FF80157
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=web.de header.i=@web.de header.b="FPuGjfk1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
- s=dbaedf251592; t=1592842025;
- bh=euiTs9Vlme+/DBX3W6t9oQp+oD5eiCyynyHj9yaGmUc=;
- h=X-UI-Sender-Class:To:Cc:Subject:From:Date;
- b=FPuGjfk1nmdT1AozUfprjwsqHojo8YqKpaEbckNH1v+EJpRtqX9p0M7a/MX0ORO1J
- xjFzBkiHYvxbilLvcuO7Kcl5X+Lx5HWKiodMid3GnThu4SdDksS34oAzigO3YSWZ/G
- fRp3hpTrwP9EXifGIXS9drteNbdyCpn0OfQVmEGo=
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.1.2] ([78.49.69.81]) by smtp.web.de (mrweb001
- [213.165.67.108]) with ESMTPSA (Nemesis) id 0MVtmK-1jKlEX1pyi-00X4kv; Mon, 22
- Jun 2020 18:07:05 +0200
-To: Shengjiu Wang <shengjiu.wang@nxp.com>, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH] ASoC: fsl_mqs: Fix unchecked return value for
- clk_prepare_enable
-From: Markus Elfring <Markus.Elfring@web.de>
-Autocrypt: addr=Markus.Elfring@web.de; prefer-encrypt=mutual; keydata=
- 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 FEE=
-Message-ID: <3eab889e-75b6-6287-a668-a2eaa509834c@web.de>
-Date: Mon, 22 Jun 2020 18:07:02 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ by mail.kernel.org (Postfix) with ESMTPSA id 0920B2073E;
+ Mon, 22 Jun 2020 16:43:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1592844201;
+ bh=fHdUYMN1CthGXBqW5gf/eyqTc6WkYbVr0aR/luIj1iU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=FtULZXDtg7M5nsENpvPqhbRvPL6xdrpt7Wt71cZ4txBP4svF8ppG5hckyjtGdPXvN
+ gN6g8D4p7Iw/NSpfFhVKIikjGC4nLuFMAzncSTkrKbXaZwF+cLWoCllQev5sTDgG1R
+ xRg94lJFACbaXJIBEzuCCkoM0hFZKSV+wgvQS3e4=
+Date: Mon, 22 Jun 2020 17:43:18 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Pantelis Antoniou <pantelis.antoniou@linaro.org>
+Subject: Re: [PATCH 1/2] dt-bindings: sound: Device tree bindings for the
+ apq8039 sound complex
+Message-ID: <20200622164318.GL4560@sirena.org.uk>
+References: <20200619193831.12528-1-pantelis.antoniou@linaro.org>
+ <20200619193831.12528-2-pantelis.antoniou@linaro.org>
+ <20200619214126.GA1251@gerhold.net>
+ <2070B433-83E0-4ACE-A470-36401934FC5A@linaro.org>
+ <20200622120409.GD4560@sirena.org.uk>
+ <519B5FAC-4DB8-4968-B9D4-96E376D74F1E@linaro.org>
+ <20200622134145.GJ4560@sirena.org.uk>
+ <8C9C4D5E-D92B-426D-A597-C784D1611967@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-X-Provags-ID: V03:K1:mdhL/0f5+V25v2dpHQoNdD4QBj3iePUzzgiygJmbHDdjOrwPGcI
- kHTnyh9jUR+losoXxnS0TgyX5vM/TPwlq3Y3yhRHyo+IhPmnp5BpcgBfiB8KTjx/8bBWSGq
- UM2ptugSwHEsLOxknu6YaslnfyID0Ep1k+r58vqjXZQqiO0j/8MacCFjpdccu6ueRiwwkEi
- k1BS5uQGMGcQg5HIruhMw==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:iCN0J44QwF4=:QKf8Vt6Nzuj4jfABJLLAuy
- ZXFXgVdDs687hmyUEIVzFKdqIefl3ah5lIHYrhAMQy+tKCTjiztRBSco1wLgy7aiBKwkzCkwI
- NSh723weY9q9uphmL8yuXIIyMLpK0w2havy1PCA5CSxsUed8/9n0dG1TXOVGYhO2jCj0ZY4R8
- q6LJ1MDb6EBWFOGpIbenY3R2lGs4J8zxzIoP7vmaDRCF8FmTQUN9F1lXXIJWtbhMChECsa42O
- S6WYIFMWQoeec9aF7xHLvNABP2DW/8yTjWnAiJY6f/NYpIs3zC/QQqB8klmkX17zI1HvWQyI/
- keDFLuShMEtCGf70oKBCvMlC9CKA2cSXeix5sD9yC5YOBIJMpqmlohHv6l1TuQY0xqAfLz120
- q0QgPgTW5u9fyMTCN4Nx6Os9otb3qnRRF9Br8mAQgnVX1POMpYfm5WY1pjjzuuZFX55e9oCjf
- 3JIP4NhxMGu/waTg8Ywdu24C4kHdcCOTcsyZKcLqXvOQZiXz5fBee+HO0OMXycGIgQ+FPD5oh
- gL/9mgJys9eli3WVOgvqDc5d2ng0S62Y3DLvvlC+9sKlEHdwPr9jKmm2fbbMupuLBVrfQXOqk
- KPAjnOf2fa+gWWYKwD1RiRiD9TH/Wqlc39cJ7FZPpFhVhE8Pxv8NUTYNp73iaybsf+wn66syy
- FPx1ngZ3itf899NkYviotpQh5nNY5UZHHves1v9S0v9PG8qlBq/ftBHSMRA/zP/LGLeOg6nNH
- awH+RfAIq8qKxSzj+FQXEiBBcGt00lPpRA+n+JHMxM+Z3mCXMrCl+GGqymBwVaISAhwv+saqs
- s/wHI+TnyyckJY7R5iUzYQZLisgrqaqTonzTS2VRvY4vOq2ZOtgGB75si3OEDRSNkada8PAQ6
- 0RHomGUJUUtMM3WGeKuoAnwTWW3RYYH0D/NN2RQRHw85g++dPRTI4btmxDv/zPQQ7dQVPfZeQ
- /PFddQ5FzwFK/M9wN2qaokTUe8faeY0huAjyPqeakiYB4Js2ZPOY9sFxcnCjTiwWcQZjBcY54
- 05r/xK5oYYa6zPGmpvrlwGDDr3yV9rLQPVBRk6zF38/mXuzlUp4FXwomvvDBbYFJuhlMsIMW3
- jXrcIpgSlRzzmvIgkdxltKy9CWgtyx6UV2b9vwNHcWYOtOG4uE+Kj114TCpjIDylrBh3UYqF1
- F4JIGt4XJmDQZ2pc/HjFaRvRQ6UckROGNjP10Ffh7zO36S1RsHALD6jYYTge08wx+IUYjluJB
- PJIsqZk9PiJx5y4Xg
-Cc: Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, Nicolin Chen <nicoleotsuka@gmail.com>,
- Mark Brown <broonie@kernel.org>, Fabio Estevam <festevam@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="pFej7zHSL6C5fFIz"
+Content-Disposition: inline
+In-Reply-To: <8C9C4D5E-D92B-426D-A597-C784D1611967@linaro.org>
+X-Cookie: laser, n.:
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree <devicetree@vger.kernel.org>, alsa-devel@alsa-project.org,
+ Stephan Gerhold <stephan@gerhold.net>, linux-arm-msm@vger.kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Matthew Porter <mporter@konsulko.com>, Shawn Guo <shawn.guo@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -146,17 +92,78 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-> Fix unchecked return value for clk_prepare_enable.
->
-> And because clk_prepare_enable and clk_disable_unprepare should
-> check input clock parameter is NULL or not, then we don't need
-> to check it before calling the function.
 
-I propose to split the adjustment of two function implementations
-into separate update steps for a small patch series.
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/process/submitting-patches.rst?id=625d3449788f85569096780592549d0340e9c0c7#n138
+--pFej7zHSL6C5fFIz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I suggest to improve the change descriptions accordingly.
+On Mon, Jun 22, 2020 at 05:04:16PM +0300, Pantelis Antoniou wrote:
 
-Regards,
-Markus
+> The problem is that for sound card that is composed of a number of compon=
+ent
+> like this one a pretty non trivial setting of controls must be done.
+
+> Tt is not atypical for a card like this the set of control being a dozen
+> or so, with some requiring even more.
+
+> Someone has to do them, be it the kernel or userspace.
+
+This is super standard stuff, it's why UCM (and the Android equivalent)
+exist.  There is nothing here that's remarkable or new here, *please*
+look at existing solutions before proposing new stuff and (as Stephan
+suggested) please don't try to sneak major changes in how things work
+into otherwise routine patches.
+
+> Instead of having userspace do it, bundle everything in DT so that everyt=
+hing
+> can be set in one go, and without having the user-space engineer read the
+> a few 10-100 pages of reference manuals.
+
+Very often in embedded systems the people doing the tuning include
+hardware and acoustic engineers for whom dealing with the flexibility of
+the device is not an issue but having to reflash and reboot the system
+to test out changes is a substantial inconvenience.  I've seen how happy
+they can be with userspace configuration options allowing them to speed
+up their workflows.  For end users it doesn't really make a huge
+difference if the configuration is delivered as part of the firmware or
+as part of userspace.
+
+> This is arguably a hardware setting (eg. the set of configuration paramet=
+ers
+> that enables routing sound to speaker).
+
+In all but the simplest systems there are several, frequently many,
+options available for even seemingly simple tasks like routing audio to
+the speaker.  Deciding between these is something that's well within the
+bounds of userspace configurability, it's not like there's only one way
+to do things and there may be tradeoffs to be made or combinations of
+things to be considered (eg, will we have to mix additional streams in
+or route the audio to additional outputs later?).  Transitions between
+use cases are also very much part of this, they can often be worked out
+automatically but not always.
+
+> Now this is not going to perfect for all cases; some cases are very compl=
+icated
+> and indeed user-space has to be engaged and perform the configuration.
+> This mechanism does not preclude it.
+
+Having multiple uncoordinated mechanisms for doing the same thing in the
+same system makes the system more complicated. =20
+
+--pFej7zHSL6C5fFIz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7w36YACgkQJNaLcl1U
+h9ALXAf+ITFI2DOoH2qE4+RFkrE6iNsf5CAeoJwCOIa0ZzBWTZINaqr8sHF8Ak7Q
+n5iU+vu4EZRAxkRZMzzc8zPsZC7tey4F4yNshc+n1t41HtmA1OOG7Yie3Nt1iCUF
+Vpj7TtWHLsAmCewClfYJ48qp2ZinR+RBGlJ3qqW4MaoZbcQEW3AGv7yswXtPZuxE
+AGNvlac3wLT4dF15Ol46dIRRpcBZfs2CgP/+afQ5ZQoVFPCnucA3ljSRyM48DcqB
+fM8o5v5HmUtC/FgHsMHvA46UZcyoaZzDwMGK/SpyqLOt1beqw8BbL3B8dP7EMIOY
+rvDT0R1JIokB+JAoseBcmEQtxbvXXg==
+=Am6L
+-----END PGP SIGNATURE-----
+
+--pFej7zHSL6C5fFIz--

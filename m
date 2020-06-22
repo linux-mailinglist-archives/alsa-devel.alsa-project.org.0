@@ -2,80 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8FF5203805
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jun 2020 15:30:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D829720386B
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jun 2020 15:48:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B5A916E6;
-	Mon, 22 Jun 2020 15:29:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B5A916E6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7063816E4;
+	Mon, 22 Jun 2020 15:47:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7063816E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592832612;
-	bh=lhi0FntWbQp4WIrSKUUmGDerYj3VQxf+0v5+P6/doWc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1592833719;
+	bh=NpK34mUEO+i88YjZLcgp44JfF15dfeC2j4qaZY6axyc=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=P5E+8194er/96znhpV4v+APZ0704G36d4052J6aWZ1yediGMsFJ9V9IlJ0oVDFbPw
-	 FAeqNVApzC7W2eoUq3C59lo67bel38H3eADOfDf+9ZLB2fDTSMG20y8JgDnpNROViI
-	 9tALOSltPe+UQ/0lHiFCvD6gq/W5aJ8wHNhaSo6w=
+	b=O30MZijyG6I9lINaqsJzcAHAv9ytRAulzhRPkpe8B6I5SQrf7MhuxRNfcWmOm/jf/
+	 IOEV1YRIISpx+YQNJqEi0TNCXc8fYAWQRDO8bRF+hEwTGvAlqkwb6+zRZ9qg/paZGt
+	 CEkY0EU7Q5jK78eqWg8jdyVeogv/g+GQzL9QvdBA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15FBDF80246;
-	Mon, 22 Jun 2020 15:28:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9BC68F8015B;
+	Mon, 22 Jun 2020 15:46:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 270E3F801F2; Mon, 22 Jun 2020 15:28:08 +0200 (CEST)
+ id 5F061F80162; Mon, 22 Jun 2020 15:46:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3BB67F8010E
- for <alsa-devel@alsa-project.org>; Mon, 22 Jun 2020 15:28:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BB67F8010E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JBUfeRI4"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D4DCF206D7;
- Mon, 22 Jun 2020 13:27:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592832479;
- bh=lhi0FntWbQp4WIrSKUUmGDerYj3VQxf+0v5+P6/doWc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=JBUfeRI44+v7JXdB6xXg+hIdb2t30haIQsuAJLa0wyZmSthAEVhHdecY9uHhx85nL
- S4HuvyD0gC30/581rYJXWnWLQL2Xevq7246D7yJr74DluWtW9bCTlf60np6xoSIWfs
- NOGQclz2mgoEbpCOGEtVzf6tv7x9ltlrbjyyAi4U=
-Date: Mon, 22 Jun 2020 14:27:57 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH AUTOSEL 5.7 004/388] ASoC: tegra: tegra_wm8903: Support
- nvidia, headset property
-Message-ID: <20200622132757.GG4560@sirena.org.uk>
-References: <20200618010805.600873-1-sashal@kernel.org>
- <20200618010805.600873-4-sashal@kernel.org>
- <20200618110023.GB5789@sirena.org.uk>
- <20200618143046.GT1931@sasha-vm>
- <20200618143930.GI5789@sirena.org.uk>
- <20200621233352.GA1931@sasha-vm>
- <20200622112321.GB4560@sirena.org.uk>
- <20200622123118.GF1931@sasha-vm>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 186C0F80157
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jun 2020 15:46:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 186C0F80157
+IronPort-SDR: yeJcezQS6P/HV+kn0U6fzB0VhcJDoyhg2JruZ8/ao2zPjqb4KFox1PMke3ECAP0ZkoYVWgFbuh
+ mATWQAUrNEow==
+X-IronPort-AV: E=McAfee;i="6000,8403,9659"; a="208960441"
+X-IronPort-AV: E=Sophos;i="5.75,267,1589266800"; d="scan'208";a="208960441"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jun 2020 06:46:43 -0700
+IronPort-SDR: 5BHLR7zv99DGglQd5lQNqfshbMhGKIl4USbYSH9SUj1WCI4rZnAw3UBLJ3uDpLeHjQ4aqDImk0
+ ckgYOkyM1ymA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.75,267,1589266800"; d="scan'208";a="262971329"
+Received: from agsoto-mobl.amr.corp.intel.com (HELO [10.251.3.142])
+ ([10.251.3.142])
+ by fmsmga007.fm.intel.com with ESMTP; 22 Jun 2020 06:46:42 -0700
+Subject: Re: [PATCH 2/3] ALSA: compress: document the compress gapless audio
+ state machine
+To: Vinod Koul <vkoul@kernel.org>
+References: <20200619045449.3966868-1-vkoul@kernel.org>
+ <20200619045449.3966868-3-vkoul@kernel.org>
+ <5c878ccf-43dd-4e13-aa6b-a6cb1e82af72@linux.intel.com>
+ <20200622053441.GE2324254@vkoul-mobl>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <248f7bef-c3d4-2d2e-ffa4-0d372879c8ae@linux.intel.com>
+Date: Mon, 22 Jun 2020 08:22:00 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="GdbWtwDHkcXqP16f"
-Content-Disposition: inline
-In-Reply-To: <20200622123118.GF1931@sasha-vm>
-X-Cookie: laser, n.:
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: linux-tegra@vger.kernel.org, Dmitry Osipenko <digetx@gmail.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
+In-Reply-To: <20200622053441.GE2324254@vkoul-mobl>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,46 +87,50 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---GdbWtwDHkcXqP16f
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Mon, Jun 22, 2020 at 08:31:18AM -0400, Sasha Levin wrote:
-> On Mon, Jun 22, 2020 at 12:23:21PM +0100, Mark Brown wrote:
+On 6/22/20 12:34 AM, Vinod Koul wrote:
+> On 19-06-20, 09:27, Pierre-Louis Bossart wrote:
+>>
+>>> +For Gapless, we move from running state to partial drain and back, along
+>>> +with setting of meta_data and signalling for next track ::
+>>> +
+>>> +
+>>> +                                        +----------+
+>>> +                compr_drain_notify()    |          |
+>>> +              +------------------------>|  RUNNING |
+>>> +              |                         |          |
+>>> +              |                         +----------+
+>>> +              |                              |
+>>> +              |                              |
+>>> +              |                              | compr_next_track()
+>>> +              |                              |
+>>> +              |                              V
+>>> +              |                         +----------+
+>>> +              |                         |          |
+>>> +              |                         |NEXT_TRACK|
+>>> +              |                         |          |
+>>> +              |                         +----------+
+>>> +              |                              |
+>>> +              |                              |
+>>> +              |                              | compr_partial_drain()
+>>> +              |                              |
+>>> +              |                              V
+>>> +              |                         +----------+
+>>> +              |                         |          |
+>>> +              +------------------------ | PARTIAL_ |
+>>> +                                        |  DRAIN   |
+>>> +                                        +----------+
+>>
+>> May I suggest having a single state machine, not a big one and an additional
+>> partial one. It would help explain why in one case compr_drain_notify()
+>> triggers a transition to RUNNING while in the other one it goes to SETUP.
+>>
+>> I realize it's more complicated to edit but it'd be easier on
+>> reviewers/users.
+> 
+> Ell adding stop and transitions would really make it complicated and
+> gapless is a bit different handling and it looks cleaner this way IMO,
+> so lets stick to this. Feel free to create one if you are up for it.
 
-> > That's concerning - please don't do this.  It's not what stable is
-> > expected to be and there's no guarantee that you're getting all the
-> > changes required to actually make things work.
-
-> How come? This is one of the things stable rules explicitly call for:
-> "New device IDs and quirks are also accepted".
-
-I would expect that to be data only additions, I would not expect that
-to be adding new code.
-
-> If we're missing anything, the solution is to make sure we stop missing
-> it rather than not take anything to begin with :)
-
-It would be much better to not have to watch stable constantly like we
-currently do - we're seeing people report breakage often enough to be a
-concern as things are, we don't need to be trying to pile extra stuff in
-there because there's some keywords in a changelog or whatever.  The
-testing coverage for drivers is weak, increasing the change rate puts
-more stress on that.
-
---GdbWtwDHkcXqP16f
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7wsdwACgkQJNaLcl1U
-h9DAWgf+LXkPTWA3Nc4TkIaUcPd+6AtboLQyyP/9/zEkyr2ajDpxQXLudemBDlSm
-kHTVki/gUcoz35AYQ5Hz9grJOzflY0Md4GMge23a8MOKyI4vG/bPkDU1cB0Ui9nz
-g6HpTo9KGjOtwUMrL8EOOukvy87Uq9UdfSbffIWDLo8o/RiicXsc+on+Oso9NXdZ
-mTI5atdoy6lseE9eaYxGrgmetAytq7nmr79/UBBVIh2WMxgqZjNHE360hUJx8HSQ
-O9TUmrx7VKViCZxIhSW0DnJz0ArHTqJ6E/kdsoy6OaM4PkGUGup9xqLe3eHoaFqp
-OvEHOplFor4XKOgt1n2JicJP6G+Wrw==
-=xyNh
------END PGP SIGNATURE-----
-
---GdbWtwDHkcXqP16f--
+if you don't want to change the visuals then please add a paragraph 
+explaining the different uses of compr_drain_notify().

@@ -2,81 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA952203CD9
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jun 2020 18:45:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60635203E88
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jun 2020 19:56:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 757091710;
-	Mon, 22 Jun 2020 18:44:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 757091710
+	by alsa0.perex.cz (Postfix) with ESMTPS id EA67A1710;
+	Mon, 22 Jun 2020 19:55:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA67A1710
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592844312;
-	bh=fHdUYMN1CthGXBqW5gf/eyqTc6WkYbVr0aR/luIj1iU=;
+	s=default; t=1592848579;
+	bh=uGUqHNYQMlZfV77taVRX1dlQ31m7F3RDwATU0BzpX4U=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iC34QCihU5TSshxG/m/KWq3Xj9K62JhCvl5dMSzFXkM50yYRpk2G6DjoNt8KT8BdE
-	 LwNldq9USsrrqPlvHw1kLKpB+sBexxrQg8jGCjCO3iOyl78HuA2OYi4ghJ5oY+Zf2b
-	 erFqtzzrfVKQVVZAGO0u+v9LZMp6QFcJMg6rrzKo=
+	b=ix0QxZ4wkzDhoW01HbTbqV97Ok4IABwGA2v4UWIk5OPfAtjyI6mGqubqdomZNMDi/
+	 N4SpLrNPuCJKF6JmRFl2TTwA0eXeL3hWgg+g9QQ0OdiuOAXgv7Chv6i08zcZG2tM1r
+	 xA5YM/jmVJCxJWeqcJgKlKg7U1Gd2xL8+kO6AOEg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7CF8EF8010E;
-	Mon, 22 Jun 2020 18:43:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A7D8F8010D;
+	Mon, 22 Jun 2020 19:54:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A207AF8015B; Mon, 22 Jun 2020 18:43:27 +0200 (CEST)
+ id 9686AF8015B; Mon, 22 Jun 2020 19:54:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5A7D6F8010E
- for <alsa-devel@alsa-project.org>; Mon, 22 Jun 2020 18:43:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A7D6F8010E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="FtULZXDt"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
+ [85.215.255.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0920B2073E;
- Mon, 22 Jun 2020 16:43:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592844201;
- bh=fHdUYMN1CthGXBqW5gf/eyqTc6WkYbVr0aR/luIj1iU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=FtULZXDtg7M5nsENpvPqhbRvPL6xdrpt7Wt71cZ4txBP4svF8ppG5hckyjtGdPXvN
- gN6g8D4p7Iw/NSpfFhVKIikjGC4nLuFMAzncSTkrKbXaZwF+cLWoCllQev5sTDgG1R
- xRg94lJFACbaXJIBEzuCCkoM0hFZKSV+wgvQS3e4=
-Date: Mon, 22 Jun 2020 17:43:18 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pantelis Antoniou <pantelis.antoniou@linaro.org>
-Subject: Re: [PATCH 1/2] dt-bindings: sound: Device tree bindings for the
- apq8039 sound complex
-Message-ID: <20200622164318.GL4560@sirena.org.uk>
-References: <20200619193831.12528-1-pantelis.antoniou@linaro.org>
- <20200619193831.12528-2-pantelis.antoniou@linaro.org>
- <20200619214126.GA1251@gerhold.net>
- <2070B433-83E0-4ACE-A470-36401934FC5A@linaro.org>
- <20200622120409.GD4560@sirena.org.uk>
- <519B5FAC-4DB8-4968-B9D4-96E376D74F1E@linaro.org>
- <20200622134145.GJ4560@sirena.org.uk>
- <8C9C4D5E-D92B-426D-A597-C784D1611967@linaro.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 98276F8010D
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jun 2020 19:54:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98276F8010D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gerhold.net header.i=@gerhold.net
+ header.b="I7bLO9lH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1592848470;
+ s=strato-dkim-0002; d=gerhold.net;
+ h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:
+ X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+ bh=oCr6AOnb5631o7vYirZq7zrjVtC+bPuwmPg15eBKCHo=;
+ b=I7bLO9lHgY7vM1pgjN7+CqshzEmWZSGmwes3DN/T6wmiiwt4JvJhW8GWAgBg0EtbwD
+ iF/4VLwqJT5d2k/BFfb3TNNhy+8cUL1tyoBOw6Z9e9P4ZVPRQPcE7UXgKjYVbkTc4kWE
+ KWrGJMaTeSpn0YAR72LgF+dUzOd13t2fKkRxIDeyKa3Rkt0yBM7FSm4z/5sc/t/oswmD
+ +hZNjLoxl/yeCwkVtg1elxvAYQsJnpQSLYy7N/YmSXVQN7L705RJXnCGIMywXGie10FG
+ 8DnsRcCnIisclw5giL7amhzKvhTtaJYEbfAq4oBOegQtU0Ut9/mqQNxSTHMl1P9ZuAxs
+ HB3g==
+X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVOQ/OcYgojyw4j34+u26zEodhPgRDZ8j6IczHboo="
+X-RZG-CLASS-ID: mo00
+Received: from gerhold.net by smtp.strato.de (RZmta 46.10.4 DYNA|AUTH)
+ with ESMTPSA id 6005e9w5MHsS6UR
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Mon, 22 Jun 2020 19:54:28 +0200 (CEST)
+Date: Mon, 22 Jun 2020 19:54:23 +0200
+From: Stephan Gerhold <stephan@gerhold.net>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 1/4] ASoC: soc-pcm: dpcm: fix playback/capture checks
+Message-ID: <20200622175423.GA8907@gerhold.net>
+References: <20200616145251.GO4447@sirena.org.uk>
+ <af973f45-59b9-ecff-7d78-97d8352ed072@linux.intel.com>
+ <20200616155544.GA8891@gerhold.net>
+ <7cbc9233-e5f2-03e0-5659-cf22dea75e53@linux.intel.com>
+ <45d43cc9-be22-a7d2-1628-3fb30232bd7c@linux.intel.com>
+ <20200617090112.GA38317@gerhold.net>
+ <62ccb59f-9d08-c241-952b-bb7af8311618@linux.intel.com>
+ <20200617174635.GA40060@gerhold.net>
+ <20200618150143.GJ5789@sirena.org.uk>
+ <145da893-5cb4-63fc-b988-c048ee839785@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="pFej7zHSL6C5fFIz"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <8C9C4D5E-D92B-426D-A597-C784D1611967@linaro.org>
-X-Cookie: laser, n.:
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree <devicetree@vger.kernel.org>, alsa-devel@alsa-project.org,
- Stephan Gerhold <stephan@gerhold.net>, linux-arm-msm@vger.kernel.org,
+In-Reply-To: <145da893-5cb4-63fc-b988-c048ee839785@linux.intel.com>
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ alsa-devel@alsa-project.org, tiwai@suse.de,
+ Daniel Baluta <daniel.baluta@gmail.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Matthew Porter <mporter@konsulko.com>, Shawn Guo <shawn.guo@linaro.org>
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,78 +100,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, Jun 18, 2020 at 10:45:45AM -0500, Pierre-Louis Bossart wrote:
+> On 6/18/20 10:01 AM, Mark Brown wrote:
+> > On Wed, Jun 17, 2020 at 07:46:35PM +0200, Stephan Gerhold wrote:
+> > 
+> > > At the end the question is if those machine drivers that have
+> > > dpcm_playback/capture hardcoded just set it because it was required to
+> > > make DPCM work, or if they actually use it to restrict the direction of
+> > > a DAI link.
+> 
+> I think those flags are absolutely not DPCM specific, the only use I see for
+> the flags is to set:
+> 
+> 	if (rtd->dai_link->no_pcm || rtd->dai_link->params) {
+> 		if (playback)
+> 			pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream->private_data = rtd;
+> 		if (capture)
+> 			pcm->streams[SNDRV_PCM_STREAM_CAPTURE].substream->private_data = rtd;
+> 		goto out;
+> 	}
+> 
+> and that's why I highlighted some time back that they are probably redundant
+> with capture_only and playback_only. We don't need 4 flags to specify 2
+> directions.
+> 
+> In all cases the use for those flags seems to be to restrict the direction
+> of a DAI link.
+> 
+> Note that people can screw-up the configurations without DPCM, e.g. by not
+> setting capture_only for a microphone, I found last week a WoV DAI link on
+> Broadwell where the capture_only flag was not set... DPCM does not have a
+> monopoly on brokenness...
+> 
+> > The other question would be if they are restricting it to limit the
+> > direction of a DAI link beyond the limits that the hardware has why are
+> > they doing that?  I'm not sure that'd be a sensible thing to do.
+> 
+> I don't see any such case. When both directions are not set, it's only
+> because the hardware is only capable of one, e.g. dmic, HDMI or SoundWire.
+> 
 
---pFej7zHSL6C5fFIz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+If we end up simplifying those flags, and eventually removing
+dpcm_playback/capture entirely, wouldn't it be the easiest solution to
+just relax the error checks for 5.8? (Like the diff I suggested?)
 
-On Mon, Jun 22, 2020 at 05:04:16PM +0300, Pantelis Antoniou wrote:
+Pierre's diff to set dpcm_playback/capture correctly for
+simple-audio-card etc would work too, but I'm not sure if this is worth
+it if we end up removing those anyway.
 
-> The problem is that for sound card that is composed of a number of compon=
-ent
-> like this one a pretty non trivial setting of controls must be done.
-
-> Tt is not atypical for a card like this the set of control being a dozen
-> or so, with some requiring even more.
-
-> Someone has to do them, be it the kernel or userspace.
-
-This is super standard stuff, it's why UCM (and the Android equivalent)
-exist.  There is nothing here that's remarkable or new here, *please*
-look at existing solutions before proposing new stuff and (as Stephan
-suggested) please don't try to sneak major changes in how things work
-into otherwise routine patches.
-
-> Instead of having userspace do it, bundle everything in DT so that everyt=
-hing
-> can be set in one go, and without having the user-space engineer read the
-> a few 10-100 pages of reference manuals.
-
-Very often in embedded systems the people doing the tuning include
-hardware and acoustic engineers for whom dealing with the flexibility of
-the device is not an issue but having to reflash and reboot the system
-to test out changes is a substantial inconvenience.  I've seen how happy
-they can be with userspace configuration options allowing them to speed
-up their workflows.  For end users it doesn't really make a huge
-difference if the configuration is delivered as part of the firmware or
-as part of userspace.
-
-> This is arguably a hardware setting (eg. the set of configuration paramet=
-ers
-> that enables routing sound to speaker).
-
-In all but the simplest systems there are several, frequently many,
-options available for even seemingly simple tasks like routing audio to
-the speaker.  Deciding between these is something that's well within the
-bounds of userspace configurability, it's not like there's only one way
-to do things and there may be tradeoffs to be made or combinations of
-things to be considered (eg, will we have to mix additional streams in
-or route the audio to additional outputs later?).  Transitions between
-use cases are also very much part of this, they can often be worked out
-automatically but not always.
-
-> Now this is not going to perfect for all cases; some cases are very compl=
-icated
-> and indeed user-space has to be engaged and perform the configuration.
-> This mechanism does not preclude it.
-
-Having multiple uncoordinated mechanisms for doing the same thing in the
-same system makes the system more complicated. =20
-
---pFej7zHSL6C5fFIz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7w36YACgkQJNaLcl1U
-h9ALXAf+ITFI2DOoH2qE4+RFkrE6iNsf5CAeoJwCOIa0ZzBWTZINaqr8sHF8Ak7Q
-n5iU+vu4EZRAxkRZMzzc8zPsZC7tey4F4yNshc+n1t41HtmA1OOG7Yie3Nt1iCUF
-Vpj7TtWHLsAmCewClfYJ48qp2ZinR+RBGlJ3qqW4MaoZbcQEW3AGv7yswXtPZuxE
-AGNvlac3wLT4dF15Ol46dIRRpcBZfs2CgP/+afQ5ZQoVFPCnucA3ljSRyM48DcqB
-fM8o5v5HmUtC/FgHsMHvA46UZcyoaZzDwMGK/SpyqLOt1beqw8BbL3B8dP7EMIOY
-rvDT0R1JIokB+JAoseBcmEQtxbvXXg==
-=Am6L
------END PGP SIGNATURE-----
-
---pFej7zHSL6C5fFIz--
+Thanks,
+Stephan

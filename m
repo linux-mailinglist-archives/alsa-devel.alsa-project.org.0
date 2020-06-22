@@ -2,73 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 710CC203654
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jun 2020 14:03:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09B07203658
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jun 2020 14:03:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A5DBE16A2;
-	Mon, 22 Jun 2020 14:02:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5DBE16A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id A0F6616B3;
+	Mon, 22 Jun 2020 14:03:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0F6616B3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592827386;
-	bh=cKToLI54oOITx6S0u/FBsNBVZ8iG/fKNzotyxYYnCG4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=LejrsVFRDsGHglAW0v9XNQLZjNQHjGZ5V5clmBzAmQEfdNoI8T0gAFByq9duSF6u4
-	 AZ1ca/b4Tcw9uIRG085cWZCFe63fxgvZ4DiTIH6zXIvF4HQl/X1Hyp1KsLyiRsWWS5
-	 MNm7wLdsTpRGLMzRZhD+Jqncri9RU+1sihtN32nQ=
+	s=default; t=1592827434;
+	bh=4UQVXcXNrU4xdYj2+WJUrWiIQDy7USnX9HkWeXOICOc=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=MJD6uoQ7ISAbr7IqfAHF8tnJE7/0/Fh7yacA1HM3HvbpWh1G03AFTedJLTZW8pLF2
+	 MNmlXrkkKkICFfPrPhw6/xZsMQV63irWOK2jO6oW4Q/AH9u2+TghN1+mhZ/ETBraE1
+	 LHqnX0LghKBmrr2tv51Z1qKvKwkC1EY/8hMpFGNI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB62DF8010D;
-	Mon, 22 Jun 2020 14:01:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 313D0F80246;
+	Mon, 22 Jun 2020 14:02:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2D990F8015B; Mon, 22 Jun 2020 14:01:23 +0200 (CEST)
+ id 9B39DF801F2; Mon, 22 Jun 2020 14:02:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_MSPIKE_BL,RCVD_IN_MSPIKE_L3,SPF_HELO_NONE,SPF_SOFTFAIL,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from conuserg-11.nifty.com (conuserg-11.nifty.com [210.131.2.78])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 51E92F8010D
- for <alsa-devel@alsa-project.org>; Mon, 22 Jun 2020 14:01:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51E92F8010D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nifty.com header.i=@nifty.com
- header.b="cY9JURAW"
-Received: from oscar.flets-west.jp (softbank126090202047.bbtec.net
- [126.90.202.47]) (authenticated)
- by conuserg-11.nifty.com with ESMTP id 05MC0mJU031409;
- Mon, 22 Jun 2020 21:00:49 +0900
-DKIM-Filter: OpenDKIM Filter v2.10.3 conuserg-11.nifty.com 05MC0mJU031409
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nifty.com;
- s=dec2015msa; t=1592827249;
- bh=eg9cS/iFCnkIuPhMhc6OKqBZdWFocu0SvTBatQL6K2w=;
- h=From:To:Cc:Subject:Date:From;
- b=cY9JURAWYJCcDpn5iJg7WHds4bmraJRN/tkBHgBGZqeLL+SkQxaooE6WJrzfAZKCv
- IO9uEd+I7TMg7rAbSrTRfDt2IhW8ZHKTqIIV8YNaaekSUt4ThlE0jqFyRojcfMjuPs
- P1aAzK6TuBw4C7ybGfVXh1dX2vtEemRq7wTBjo9S/viYGCUF68t+FgAbnUKCXf+W2u
- ZXOPk+L41yoOvWckMKSAhsob324NKewwglQby1BKLNHraHatLmHwXMTH4QQYSoaie9
- vcu3wQz6992wDnXWWpOKheSzZ6D2pv3Kf3AJ/wJF334SEbJkaTOUjFO/IF6px+fmaQ
- 2mtl9CRpHCpBA==
-X-Nifty-SrcIP: [126.90.202.47]
-From: Masahiro Yamada <yamada.masahiro@socionext.com>
-To: Rob Herring <robh+dt@kernel.org>, Frank Rowand <frowand.list@gmail.com>,
- devicetree@vger.kernel.org
-Subject: [PATCH] dt-bindings: ASoC: Convert UniPhier AIO audio system to
- json-schema
-Date: Mon, 22 Jun 2020 21:00:39 +0900
-Message-Id: <20200622120039.453616-1-yamada.masahiro@socionext.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5100FF80162
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jun 2020 14:01:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5100FF80162
+IronPort-SDR: v4ZkiihxF01w0p2sLhZyMVb1+9Cnv1I/eqrPTIBKTxITlXpIxBt6zEe0C6EwkTEgmyR4D2Gybw
+ 8H1tj1VLdgoQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9659"; a="205215181"
+X-IronPort-AV: E=Sophos;i="5.75,266,1589266800"; d="scan'208";a="205215181"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jun 2020 05:01:53 -0700
+IronPort-SDR: VxNc8gByYckHZDa28hkIysNb0y+oFKf7ZDX56ADAS8ZbGXncunL4QnyACOtgtfoTRaWj7VxyR6
+ g9LKXbKAjiPQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.75,266,1589266800"; d="scan'208";a="300815872"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by fmsmga004.fm.intel.com with ESMTP; 22 Jun 2020 05:01:52 -0700
+Date: Mon, 22 Jun 2020 15:01:37 +0300 (EEST)
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+X-X-Sender: kvehmane@eliteleevi.tm.intel.com
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH 01/16] ASoC: soc-component: merge snd_soc_component_read()
+ and snd_soc_component_read32()
+In-Reply-To: <87sgev4mfl.wl-kuninori.morimoto.gx@renesas.com>
+Message-ID: <alpine.DEB.2.22.394.2006221450410.3186@eliteleevi.tm.intel.com>
+References: <87tuzb4mjg.wl-kuninori.morimoto.gx@renesas.com>
+ <87sgev4mfl.wl-kuninori.morimoto.gx@renesas.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: - <alsa-devel@alsa-project.org>, Katsuhiro Suzuki <katsuhiro@katsuster.net>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Masahiro Yamada <yamada.masahiro@socionext.com>,
- Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,147 +81,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Convert the UniPhier AIO audio system binding to DT schema format.
+Hello, 
 
-Signed-off-by: Masahiro Yamada <yamada.masahiro@socionext.com>
----
+On Tue, 16 Jun 2020, Kuninori Morimoto wrote:
 
- .../sound/socionext,uniphier-aio.yaml         | 73 +++++++++++++++++++
- .../bindings/sound/uniphier,aio.txt           | 45 ------------
- 2 files changed, 73 insertions(+), 45 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/socionext,uniphier-aio.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/uniphier,aio.txt
+> This patch do
+> 	1) merge snd_soc_component_read() and snd_soc_component_read32()
+> 	2) it uses soc_component_err() when error case (easy to notice)
+> 	3) keeps read32 for now by #define
+> 	4) update snd_soc_component_read() for all drivers
 
-diff --git a/Documentation/devicetree/bindings/sound/socionext,uniphier-aio.yaml b/Documentation/devicetree/bindings/sound/socionext,uniphier-aio.yaml
-new file mode 100644
-index 000000000000..bea8b06ff1b9
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/socionext,uniphier-aio.yaml
-@@ -0,0 +1,73 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/socionext,uniphier-aio.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: UniPhier AIO audio system
-+
-+maintainers:
-+  - <alsa-devel@alsa-project.org>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - socionext,uniphier-ld11-aio
-+      - socionext,uniphier-ld20-aio
-+      - socionext,uniphier-pxs2-aio
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clock-names:
-+    const: aio
-+
-+  clocks:
-+    maxItems: 1
-+
-+  reset-names:
-+    const: aio
-+
-+  resets:
-+    maxItems: 1
-+
-+  socionext,syscon:
-+    description: |
-+      Specifies a phandle to soc-glue, which is used for changing mode of S/PDIF
-+      signal pin to output from Hi-Z. This property is optional if you use I2S
-+      signal pins only.
-+    $ref: "/schemas/types.yaml#/definitions/phandle"
-+
-+  "#sound-dai-cells":
-+    const: 1
-+
-+additionalProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clock-names
-+  - clocks
-+  - reset-names
-+  - resets
-+  - "#sound-dai-cells"
-+
-+examples:
-+  - |
-+    audio@56000000 {
-+        compatible = "socionext,uniphier-ld20-aio";
-+        reg = <0x56000000 0x80000>;
-+        interrupts = <0 144 4>;
-+        pinctrl-names = "default";
-+        pinctrl-0 = <&pinctrl_aout>;
-+        clock-names = "aio";
-+        clocks = <&sys_clk 40>;
-+        reset-names = "aio";
-+        resets = <&sys_rst 40>;
-+        #sound-dai-cells = <1>;
-+        socionext,syscon = <&soc_glue>;
-+    };
-diff --git a/Documentation/devicetree/bindings/sound/uniphier,aio.txt b/Documentation/devicetree/bindings/sound/uniphier,aio.txt
-deleted file mode 100644
-index 4ce68ed6f2f2..000000000000
---- a/Documentation/devicetree/bindings/sound/uniphier,aio.txt
-+++ /dev/null
-@@ -1,45 +0,0 @@
--Socionext UniPhier SoC audio driver
--
--The Socionext UniPhier audio subsystem consists of I2S and S/PDIF blocks in
--the same register space.
--
--Required properties:
--- compatible      : should be one of the following:
--		    "socionext,uniphier-ld11-aio"
--		    "socionext,uniphier-ld20-aio"
--		    "socionext,uniphier-pxs2-aio"
--- reg             : offset and length of the register set for the device.
--- interrupts      : should contain I2S or S/PDIF interrupt.
--- pinctrl-names   : should be "default".
--- pinctrl-0       : defined I2S signal pins for an external codec chip.
--- clock-names     : should include following entries:
--                    "aio"
--- clocks          : a list of phandle, should contain an entry for each
--                    entry in clock-names.
--- reset-names     : should include following entries:
--                    "aio"
--- resets          : a list of phandle, should contain an entry for each
--                    entry in reset-names.
--- #sound-dai-cells: should be 1.
--
--Optional properties:
--- socionext,syscon: a phandle, should contain soc-glue.
--                    The soc-glue is used for changing mode of S/PDIF signal pin
--                    to Output from Hi-Z. This property is optional if you use
--                    I2S signal pins only.
--
--Example:
--	audio {
--		compatible = "socionext,uniphier-ld20-aio";
--		reg = <0x56000000 0x80000>;
--		interrupts = <0 144 4>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&pinctrl_aout>;
--		clock-names = "aio";
--		clocks = <&sys_clk 40>;
--		reset-names = "aio";
--		resets = <&sys_rst 40>;
--		#sound-dai-cells = <1>;
--
--		socionext,syscon = <&sg>;
--	};
--- 
-2.25.1
+removing the possibility to return errors is a bit iffy, but reviewing
+the existing usage, indeed in practise it is not much used.
 
+And on the other side, having two component_read() variants with different 
+style and overlapping usage, in soc-component.h, is very confusing, so 
+this patch does clean up the component interface. So all in all, my 
+++votes for the change.
+
+I spotted one minor whitespace issue, but that's trivial, so for
+the patch:
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+
+> --- a/sound/soc/soc-dapm.c
+> +++ b/sound/soc/soc-dapm.c
+> @@ -616,12 +616,11 @@ static const char *soc_dapm_prefix(struct snd_soc_dapm_context *dapm)
+>  	return dapm->component->name_prefix;
+>  }
+>  
+> -static int soc_dapm_read(struct snd_soc_dapm_context *dapm, int reg,
+> -	unsigned int *value)
+> +static unsigned int soc_dapm_read(struct snd_soc_dapm_context *dapm, int reg)
+>  {
+>  	if (!dapm->component)
+>  		return -EIO;
+> -	return snd_soc_component_read(dapm->component, reg, value);
+> +	return  snd_soc_component_read(dapm->component, reg);
+
+Trivial but you have extra whitespace there after return.
+
+Br, Kai

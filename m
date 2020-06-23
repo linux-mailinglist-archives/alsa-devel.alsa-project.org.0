@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61AA7206E3A
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 09:52:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61F89206E3F
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 09:52:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16B511800;
-	Wed, 24 Jun 2020 09:51:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16B511800
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B5D71816;
+	Wed, 24 Jun 2020 09:52:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B5D71816
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592985138;
-	bh=8RouWAQGAfFLqEp/nys8NV1ahriMhvcHXbxHmoMRtio=;
+	s=default; t=1592985175;
+	bh=nJY5pM1XJK+PkGo8ItvEhMxQJ8KB2jky9DEP6kMh9Dg=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NWAkWNtyiageVrd0qo4buwOTqs10vL+EoJshpjs48F70P+pFiB3LTV8esni2Z8Sac
-	 5Aq4CEgooG9gk9gReRq4S0pywJB45AzcusTdX3C4FRMJRj+EVCRv/mLZvxGvouzvLR
-	 csdngAAhIdXb6NhDeJ83NxjjA64W0BOO7Yt7W6w8=
+	b=sKwmUNHKcA2Zj2TyI0SvjMEIOBMGLvsdhx5ZHuGN1KDjmPQfPwClE7QUo31PT+BJ8
+	 z5Q5sCVjuwh5IdXF8pnIjyWuAG/Ge8Oc4Qm93BsOVhdjvSY5yjb+JgWmLrd38GTfx6
+	 OFIEyLxCl6v/G7WvaVXY8F2FkM4M9CtkBNsUT+Xg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F2E9F802A2;
-	Wed, 24 Jun 2020 09:49:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3614BF802A8;
+	Wed, 24 Jun 2020 09:49:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 12A0FF8015B; Tue, 23 Jun 2020 03:19:46 +0200 (CEST)
+ id C6C3FF80162; Tue, 23 Jun 2020 03:19:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 84194F8010D
- for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 03:19:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84194F8010D
-Date: 23 Jun 2020 10:19:38 +0900
-X-IronPort-AV: E=Sophos;i="5.75,268,1589209200"; d="scan'208";a="50118822"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 23 Jun 2020 10:19:38 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 686DBF8015A
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 03:19:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 686DBF8015A
+Date: 23 Jun 2020 10:19:43 +0900
+X-IronPort-AV: E=Sophos;i="5.75,268,1589209200"; d="scan'208";a="50118833"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 23 Jun 2020 10:19:43 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 93BD94183C30;
- Tue, 23 Jun 2020 10:19:37 +0900 (JST)
-Message-ID: <87d05q37f8.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 765E04001DB1;
+ Tue, 23 Jun 2020 10:19:43 +0900 (JST)
+Message-ID: <87blla37f2.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 02/19] ASoC: ti: merge .digital_mute() into .mute_stream()
+Subject: [PATCH 03/19] ASoC: spear: merge .digital_mute() into .mute_stream()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87ftam37ko.wl-kuninori.morimoto.gx@renesas.com>
@@ -143,50 +143,48 @@ We can merge digital_mute() into mute_stream
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/ti/ams-delta.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ sound/soc/spear/spdif_out.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/ti/ams-delta.c b/sound/soc/ti/ams-delta.c
-index e17cd5e939f0..4fd3ec39bde4 100644
---- a/sound/soc/ti/ams-delta.c
-+++ b/sound/soc/ti/ams-delta.c
-@@ -420,10 +420,13 @@ static struct snd_soc_ops ams_delta_ops;
-  * Shares hardware with codec config pulse generation */
- static bool ams_delta_muted = 1;
+diff --git a/sound/soc/spear/spdif_out.c b/sound/soc/spear/spdif_out.c
+index 58d5843811f9..c53c59f3b359 100644
+--- a/sound/soc/spear/spdif_out.c
++++ b/sound/soc/spear/spdif_out.c
+@@ -188,11 +188,14 @@ static int spdif_out_trigger(struct snd_pcm_substream *substream, int cmd,
+ 	return ret;
+ }
  
--static int ams_delta_digital_mute(struct snd_soc_dai *dai, int mute)
-+static int ams_delta_mute(struct snd_soc_dai *dai, int mute, int direction)
+-static int spdif_digital_mute(struct snd_soc_dai *dai, int mute)
++static int spdif_mute(struct snd_soc_dai *dai, int mute, int direction)
  {
- 	int apply;
+ 	struct spdif_out_dev *host = snd_soc_dai_get_drvdata(dai);
+ 	u32 val;
  
 +	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
 +		return 0;
 +
- 	if (ams_delta_muted == mute)
+ 	host->saved_params.mute = mute;
+ 	val = readl(host->io_base + SPDIF_OUT_CTRL);
+ 	val &= ~SPDIF_OPMODE_MASK;
+@@ -229,7 +232,8 @@ static int spdif_mute_put(struct snd_kcontrol *kcontrol,
+ 	if (host->saved_params.mute == ucontrol->value.integer.value[0])
  		return 0;
  
-@@ -439,18 +442,18 @@ static int ams_delta_digital_mute(struct snd_soc_dai *dai, int mute)
+-	spdif_digital_mute(cpu_dai, ucontrol->value.integer.value[0]);
++	spdif_mute(cpu_dai, ucontrol->value.integer.value[0],
++		   SNDRV_PCM_STREAM_PLAYBACK);
  
- /* Our codec DAI probably doesn't have its own .ops structure */
- static const struct snd_soc_dai_ops ams_delta_dai_ops = {
--	.digital_mute = ams_delta_digital_mute,
-+	.mute_stream = ams_delta_mute,
- };
- 
- /* Will be used if the codec ever has its own digital_mute function */
- static int ams_delta_startup(struct snd_pcm_substream *substream)
- {
--	return ams_delta_digital_mute(NULL, 0);
-+	return ams_delta_digital_mute(NULL, 0, substream->stream);
+ 	return 1;
+ }
+@@ -250,7 +254,7 @@ static int spdif_soc_dai_probe(struct snd_soc_dai *dai)
  }
  
- static void ams_delta_shutdown(struct snd_pcm_substream *substream)
- {
--	ams_delta_digital_mute(NULL, 1);
-+	ams_delta_digital_mute(NULL, 1, substream->stream);
- }
- 
- 
+ static const struct snd_soc_dai_ops spdif_out_dai_ops = {
+-	.digital_mute	= spdif_digital_mute,
++	.mute_stream	= spdif_mute,
+ 	.startup	= spdif_out_startup,
+ 	.shutdown	= spdif_out_shutdown,
+ 	.trigger	= spdif_out_trigger,
 -- 
 2.25.1
 

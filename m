@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2AF2206E6C
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 09:58:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FCE2206E6E
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 09:58:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 606951822;
-	Wed, 24 Jun 2020 09:57:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 606951822
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0EE5C177B;
+	Wed, 24 Jun 2020 09:57:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EE5C177B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592985489;
-	bh=H5iyljHkSG82rd1uyhW3ka3sRKIW9Imi/sXIj0zArlg=;
+	s=default; t=1592985526;
+	bh=pADqnG0RdF2cQ23bDRAturGFFHwbjH93Qjwi3HRb4U4=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=A130S165cXM2MW2SGRBiWXcoPBF+3A+DOSzzunGAuyqaBYmv1ceHi+mWVl3kZ9WRI
-	 12Zot8sLsblS75BSERhpSWdhDhbXYs0Id7m3+tHWiJTWfD9PdbWfQ9Ldhr4EOI5qNT
-	 8GyJ1ZLqHSqOhRssW3sljZtsdxClwrhz1XvPNTBM=
+	b=usDjmCwDAsyNNKj69Qqiue0cQ7TitjnYhMiHk9Ldrky8WQwHkHDXD2+yvqRYw3K9y
+	 4mI4TnY58q17aWNov7gD1Wr+8LBI3HigEkJapJVkfm1DqMBJakmwYk3nPm/jgx8eMo
+	 yE+Z9wggrjnfs2gBO8tB4RXjzyxFLlt2cYmB+qDk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C086F80336;
-	Wed, 24 Jun 2020 09:49:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3E37F80337;
+	Wed, 24 Jun 2020 09:49:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0CBD0F8015B; Tue, 23 Jun 2020 03:20:00 +0200 (CEST)
+ id ED9FFF80162; Tue, 23 Jun 2020 03:20:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 8CFF0F8010D
- for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 03:19:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CFF0F8010D
-Date: 23 Jun 2020 10:19:56 +0900
-X-IronPort-AV: E=Sophos;i="5.75,268,1589209200"; d="scan'208";a="50329372"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 23 Jun 2020 10:19:56 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 38318F8015A
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 03:20:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38318F8015A
+Date: 23 Jun 2020 10:20:02 +0900
+X-IronPort-AV: E=Sophos;i="5.75,268,1589209200"; d="scan'208";a="50329387"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 23 Jun 2020 10:20:02 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 9DE984183C52;
- Tue, 23 Jun 2020 10:19:55 +0900 (JST)
-Message-ID: <878sge37eq.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 4212C4001DB1;
+ Tue, 23 Jun 2020 10:20:02 +0900 (JST)
+Message-ID: <877dvy37ek.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 05/19] ASoC: atmel: merge .digital_mute() into .mute_stream()
+Subject: [PATCH 06/19] ASoC: codecs: merge .digital_mute() into .mute_stream()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87ftam37ko.wl-kuninori.morimoto.gx@renesas.com>
@@ -143,41 +143,636 @@ We can merge digital_mute() into mute_stream
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/atmel/atmel-classd.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ sound/soc/codecs/88pm860x-codec.c |  9 +++++---
+ sound/soc/codecs/ad193x.c         |  7 +++++--
+ sound/soc/codecs/adau1701.c       |  7 +++++--
+ sound/soc/codecs/cpcap.c          | 15 +++++++++----
+ sound/soc/codecs/cq93vc.c         |  7 +++++--
+ sound/soc/codecs/isabelle.c       | 21 +++++++++++++------
+ sound/soc/codecs/jz4770.c         |  7 +++++--
+ sound/soc/codecs/lm49453.c        | 35 ++++++++++++++++++++++---------
+ sound/soc/codecs/ml26124.c        |  7 +++++--
+ sound/soc/codecs/nau8822.c        |  7 +++++--
+ sound/soc/codecs/rk3328_codec.c   |  7 +++++--
+ sound/soc/codecs/sgtl5000.c       |  7 +++++--
+ sound/soc/codecs/sta529.c         |  7 +++++--
+ sound/soc/codecs/tfa9879.c        |  7 +++++--
+ sound/soc/codecs/twl6040.c        |  7 +++++--
+ sound/soc/codecs/uda134x.c        |  7 +++++--
+ 16 files changed, 117 insertions(+), 47 deletions(-)
 
-diff --git a/sound/soc/atmel/atmel-classd.c b/sound/soc/atmel/atmel-classd.c
-index e98601eccfa3..59231c0371b8 100644
---- a/sound/soc/atmel/atmel-classd.c
-+++ b/sound/soc/atmel/atmel-classd.c
-@@ -327,12 +327,16 @@ static int atmel_classd_codec_dai_startup(struct snd_pcm_substream *substream,
- 	return clk_prepare_enable(dd->gclk);
- }
- 
--static int atmel_classd_codec_dai_digital_mute(struct snd_soc_dai *codec_dai,
--	int mute)
-+static int atmel_classd_codec_dai_mute(struct snd_soc_dai *codec_dai,
-+				       int mute,
-+				       int direction)
+diff --git a/sound/soc/codecs/88pm860x-codec.c b/sound/soc/codecs/88pm860x-codec.c
+index 068914d0ef3d..c668029258b0 100644
+--- a/sound/soc/codecs/88pm860x-codec.c
++++ b/sound/soc/codecs/88pm860x-codec.c
+@@ -902,11 +902,14 @@ static const struct snd_soc_dapm_route pm860x_dapm_routes[] = {
+  * Use MUTE_LEFT & MUTE_RIGHT to implement digital mute.
+  * These bits can also be used to mute.
+  */
+-static int pm860x_digital_mute(struct snd_soc_dai *codec_dai, int mute)
++static int pm860x_mute(struct snd_soc_dai *codec_dai, int mute, int direction)
  {
  	struct snd_soc_component *component = codec_dai->component;
- 	u32 mask, val;
+ 	int data = 0, mask = MUTE_LEFT | MUTE_RIGHT;
  
 +	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
 +		return 0;
 +
- 	mask = CLASSD_MR_LMUTE_MASK | CLASSD_MR_RMUTE_MASK;
- 
  	if (mute)
-@@ -469,7 +473,7 @@ static int atmel_classd_codec_dai_trigger(struct snd_pcm_substream *substream,
+ 		data = mask;
+ 	snd_soc_component_update_bits(component, PM860X_DAC_OFFSET, mask, data);
+@@ -1136,14 +1139,14 @@ static int pm860x_set_bias_level(struct snd_soc_component *component,
  }
  
- static const struct snd_soc_dai_ops atmel_classd_codec_dai_ops = {
--	.digital_mute	= atmel_classd_codec_dai_digital_mute,
-+	.mute_stream	= atmel_classd_codec_dai_mute,
- 	.startup	= atmel_classd_codec_dai_startup,
- 	.shutdown	= atmel_classd_codec_dai_shutdown,
- 	.hw_params	= atmel_classd_codec_dai_hw_params,
+ static const struct snd_soc_dai_ops pm860x_pcm_dai_ops = {
+-	.digital_mute	= pm860x_digital_mute,
++	.mute_stream	= pm860x_mute,
+ 	.hw_params	= pm860x_pcm_hw_params,
+ 	.set_fmt	= pm860x_pcm_set_dai_fmt,
+ 	.set_sysclk	= pm860x_set_dai_sysclk,
+ };
+ 
+ static const struct snd_soc_dai_ops pm860x_i2s_dai_ops = {
+-	.digital_mute	= pm860x_digital_mute,
++	.mute_stream	= pm860x_mute,
+ 	.hw_params	= pm860x_i2s_hw_params,
+ 	.set_fmt	= pm860x_i2s_set_dai_fmt,
+ 	.set_sysclk	= pm860x_set_dai_sysclk,
+diff --git a/sound/soc/codecs/ad193x.c b/sound/soc/codecs/ad193x.c
+index 980e024a5720..5af815f1028d 100644
+--- a/sound/soc/codecs/ad193x.c
++++ b/sound/soc/codecs/ad193x.c
+@@ -143,10 +143,13 @@ static inline bool ad193x_has_adc(const struct ad193x_priv *ad193x)
+  * DAI ops entries
+  */
+ 
+-static int ad193x_mute(struct snd_soc_dai *dai, int mute)
++static int ad193x_mute(struct snd_soc_dai *dai, int mute, int direction)
+ {
+ 	struct ad193x_priv *ad193x = snd_soc_component_get_drvdata(dai->component);
+ 
++	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++		return 0;
++
+ 	if (mute)
+ 		regmap_update_bits(ad193x->regmap, AD193X_DAC_CTRL2,
+ 				    AD193X_DAC_MASTER_MUTE,
+@@ -371,7 +374,7 @@ static int ad193x_startup(struct snd_pcm_substream *substream,
+ static const struct snd_soc_dai_ops ad193x_dai_ops = {
+ 	.startup = ad193x_startup,
+ 	.hw_params = ad193x_hw_params,
+-	.digital_mute = ad193x_mute,
++	.mute_stream = ad193x_mute,
+ 	.set_tdm_slot = ad193x_set_tdm_slot,
+ 	.set_sysclk	= ad193x_set_dai_sysclk,
+ 	.set_fmt = ad193x_set_dai_fmt,
+diff --git a/sound/soc/codecs/adau1701.c b/sound/soc/codecs/adau1701.c
+index 115e296b2ad6..2aa41f91386f 100644
+--- a/sound/soc/codecs/adau1701.c
++++ b/sound/soc/codecs/adau1701.c
+@@ -573,13 +573,16 @@ static int adau1701_set_bias_level(struct snd_soc_component *component,
+ 	return 0;
+ }
+ 
+-static int adau1701_digital_mute(struct snd_soc_dai *dai, int mute)
++static int adau1701_mute(struct snd_soc_dai *dai, int mute, int direction)
+ {
+ 	struct snd_soc_component *component = dai->component;
+ 	unsigned int mask = ADAU1701_DSPCTRL_DAM;
+ 	struct adau1701 *adau1701 = snd_soc_component_get_drvdata(component);
+ 	unsigned int val;
+ 
++	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++		return 0;
++
+ 	if (mute)
+ 		val = 0;
+ 	else
+@@ -631,7 +634,7 @@ static int adau1701_startup(struct snd_pcm_substream *substream,
+ static const struct snd_soc_dai_ops adau1701_dai_ops = {
+ 	.set_fmt	= adau1701_set_dai_fmt,
+ 	.hw_params	= adau1701_hw_params,
+-	.digital_mute	= adau1701_digital_mute,
++	.mute_stream	= adau1701_mute,
+ 	.startup	= adau1701_startup,
+ };
+ 
+diff --git a/sound/soc/codecs/cpcap.c b/sound/soc/codecs/cpcap.c
+index d7f05b384f1f..24a1d1196d3a 100644
+--- a/sound/soc/codecs/cpcap.c
++++ b/sound/soc/codecs/cpcap.c
+@@ -1216,7 +1216,7 @@ static int cpcap_hifi_set_dai_fmt(struct snd_soc_dai *codec_dai,
+ 	return regmap_update_bits(cpcap->regmap, reg, mask, val);
+ }
+ 
+-static int cpcap_hifi_set_mute(struct snd_soc_dai *dai, int mute)
++static int cpcap_hifi_set_mute(struct snd_soc_dai *dai, int mute, int direction)
+ {
+ 	struct snd_soc_component *component = dai->component;
+ 	struct cpcap_audio *cpcap = snd_soc_component_get_drvdata(component);
+@@ -1224,6 +1224,9 @@ static int cpcap_hifi_set_mute(struct snd_soc_dai *dai, int mute)
+ 	static const u16 mask = BIT(CPCAP_BIT_ST_DAC_SW);
+ 	u16 val;
+ 
++	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++		return 0;
++
+ 	if (mute)
+ 		val = 0;
+ 	else
+@@ -1237,7 +1240,7 @@ static const struct snd_soc_dai_ops cpcap_dai_hifi_ops = {
+ 	.hw_params	= cpcap_hifi_hw_params,
+ 	.set_sysclk	= cpcap_hifi_set_dai_sysclk,
+ 	.set_fmt	= cpcap_hifi_set_dai_fmt,
+-	.digital_mute	= cpcap_hifi_set_mute,
++	.mute_stream	= cpcap_hifi_set_mute,
+ };
+ 
+ static int cpcap_voice_hw_params(struct snd_pcm_substream *substream,
+@@ -1370,7 +1373,8 @@ static int cpcap_voice_set_dai_fmt(struct snd_soc_dai *codec_dai,
+ 	return 0;
+ }
+ 
+-static int cpcap_voice_set_mute(struct snd_soc_dai *dai, int mute)
++static int cpcap_voice_set_mute(struct snd_soc_dai *dai,
++				int mute, int direction)
+ {
+ 	struct snd_soc_component *component = dai->component;
+ 	struct cpcap_audio *cpcap = snd_soc_component_get_drvdata(component);
+@@ -1378,6 +1382,9 @@ static int cpcap_voice_set_mute(struct snd_soc_dai *dai, int mute)
+ 	static const u16 mask = BIT(CPCAP_BIT_CDC_SW);
+ 	u16 val;
+ 
++	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++		return 0;
++
+ 	if (mute)
+ 		val = 0;
+ 	else
+@@ -1391,7 +1398,7 @@ static const struct snd_soc_dai_ops cpcap_dai_voice_ops = {
+ 	.hw_params	= cpcap_voice_hw_params,
+ 	.set_sysclk	= cpcap_voice_set_dai_sysclk,
+ 	.set_fmt	= cpcap_voice_set_dai_fmt,
+-	.digital_mute	= cpcap_voice_set_mute,
++	.mute_stream	= cpcap_voice_set_mute,
+ };
+ 
+ static struct snd_soc_dai_driver cpcap_dai[] = {
+diff --git a/sound/soc/codecs/cq93vc.c b/sound/soc/codecs/cq93vc.c
+index b0cc61178a41..4a41cc551bdd 100644
+--- a/sound/soc/codecs/cq93vc.c
++++ b/sound/soc/codecs/cq93vc.c
+@@ -30,11 +30,14 @@ static const struct snd_kcontrol_new cq93vc_snd_controls[] = {
+ 	SOC_SINGLE("Mono DAC Playback Volume", DAVINCI_VC_REG09, 0, 0x3f, 0),
+ };
+ 
+-static int cq93vc_mute(struct snd_soc_dai *dai, int mute)
++static int cq93vc_mute(struct snd_soc_dai *dai, int mute, int direction)
+ {
+ 	struct snd_soc_component *component = dai->component;
+ 	u8 reg;
+ 
++	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++		return 0;
++
+ 	if (mute)
+ 		reg = DAVINCI_VC_REG09_MUTE;
+ 	else
+@@ -87,7 +90,7 @@ static int cq93vc_set_bias_level(struct snd_soc_component *component,
+ #define CQ93VC_FORMATS	(SNDRV_PCM_FMTBIT_U8 | SNDRV_PCM_FMTBIT_S16_LE)
+ 
+ static const struct snd_soc_dai_ops cq93vc_dai_ops = {
+-	.digital_mute	= cq93vc_mute,
++	.mute_stream	= cq93vc_mute,
+ 	.set_sysclk	= cq93vc_set_dai_sysclk,
+ };
+ 
+diff --git a/sound/soc/codecs/isabelle.c b/sound/soc/codecs/isabelle.c
+index 3626f70f7768..204b89d6aa4a 100644
+--- a/sound/soc/codecs/isabelle.c
++++ b/sound/soc/codecs/isabelle.c
+@@ -860,24 +860,33 @@ static const struct snd_soc_dapm_route isabelle_intercon[] = {
+ 	{ "LINEOUT2", NULL, "LINEOUT2 Driver" },
+ };
+ 
+-static int isabelle_hs_mute(struct snd_soc_dai *dai, int mute)
++static int isabelle_hs_mute(struct snd_soc_dai *dai, int mute, int direction)
+ {
++	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++		return 0;
++
+ 	snd_soc_component_update_bits(dai->component, ISABELLE_DAC1_SOFTRAMP_REG,
+ 			BIT(4), (mute ? BIT(4) : 0));
+ 
+ 	return 0;
+ }
+ 
+-static int isabelle_hf_mute(struct snd_soc_dai *dai, int mute)
++static int isabelle_hf_mute(struct snd_soc_dai *dai, int mute, int direction)
+ {
++	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++		return 0;
++
+ 	snd_soc_component_update_bits(dai->component, ISABELLE_DAC2_SOFTRAMP_REG,
+ 			BIT(4), (mute ? BIT(4) : 0));
+ 
+ 	return 0;
+ }
+ 
+-static int isabelle_line_mute(struct snd_soc_dai *dai, int mute)
++static int isabelle_line_mute(struct snd_soc_dai *dai, int mute, int direction)
+ {
++	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++		return 0;
++
+ 	snd_soc_component_update_bits(dai->component, ISABELLE_DAC3_SOFTRAMP_REG,
+ 			BIT(4), (mute ? BIT(4) : 0));
+ 
+@@ -1014,19 +1023,19 @@ static int isabelle_set_dai_fmt(struct snd_soc_dai *codec_dai, unsigned int fmt)
+ static const struct snd_soc_dai_ops isabelle_hs_dai_ops = {
+ 	.hw_params	= isabelle_hw_params,
+ 	.set_fmt	= isabelle_set_dai_fmt,
+-	.digital_mute	= isabelle_hs_mute,
++	.mute_stream	= isabelle_hs_mute,
+ };
+ 
+ static const struct snd_soc_dai_ops isabelle_hf_dai_ops = {
+ 	.hw_params	= isabelle_hw_params,
+ 	.set_fmt	= isabelle_set_dai_fmt,
+-	.digital_mute	= isabelle_hf_mute,
++	.mute_stream	= isabelle_hf_mute,
+ };
+ 
+ static const struct snd_soc_dai_ops isabelle_line_dai_ops = {
+ 	.hw_params	= isabelle_hw_params,
+ 	.set_fmt	= isabelle_set_dai_fmt,
+-	.digital_mute	= isabelle_line_mute,
++	.mute_stream	= isabelle_line_mute,
+ };
+ 
+ static const struct snd_soc_dai_ops isabelle_ul_dai_ops = {
+diff --git a/sound/soc/codecs/jz4770.c b/sound/soc/codecs/jz4770.c
+index 34775aa62402..c9e2ac155421 100644
+--- a/sound/soc/codecs/jz4770.c
++++ b/sound/soc/codecs/jz4770.c
+@@ -264,7 +264,7 @@ static int jz4770_codec_pcm_trigger(struct snd_pcm_substream *substream,
+ 	return ret;
+ }
+ 
+-static int jz4770_codec_digital_mute(struct snd_soc_dai *dai, int mute)
++static int jz4770_codec_mute(struct snd_soc_dai *dai, int mute, int direction)
+ {
+ 	struct snd_soc_component *codec = dai->component;
+ 	struct jz_codec *jz_codec = snd_soc_component_get_drvdata(codec);
+@@ -272,6 +272,9 @@ static int jz4770_codec_digital_mute(struct snd_soc_dai *dai, int mute)
+ 	unsigned int val;
+ 	int change, err;
+ 
++	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++		return 0;
++
+ 	change = snd_soc_component_update_bits(codec, JZ4770_CODEC_REG_CR_DAC,
+ 					       REG_CR_DAC_MUTE,
+ 					       mute ? REG_CR_DAC_MUTE : 0);
+@@ -753,7 +756,7 @@ static const struct snd_soc_dai_ops jz4770_codec_dai_ops = {
+ 	.shutdown	= jz4770_codec_shutdown,
+ 	.hw_params	= jz4770_codec_hw_params,
+ 	.trigger	= jz4770_codec_pcm_trigger,
+-	.digital_mute	= jz4770_codec_digital_mute,
++	.mute_stream	= jz4770_codec_mute,
+ };
+ 
+ #define JZ_CODEC_FORMATS (SNDRV_PCM_FMTBIT_S16_LE  | \
+diff --git a/sound/soc/codecs/lm49453.c b/sound/soc/codecs/lm49453.c
+index f864b07cb0b8..32a384d0ec18 100644
+--- a/sound/soc/codecs/lm49453.c
++++ b/sound/soc/codecs/lm49453.c
+@@ -1218,36 +1218,51 @@ static int lm49453_set_dai_sysclk(struct snd_soc_dai *dai, int clk_id,
+ 	return 0;
+ }
+ 
+-static int lm49453_hp_mute(struct snd_soc_dai *dai, int mute)
++static int lm49453_hp_mute(struct snd_soc_dai *dai, int mute, int direction)
+ {
++	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++		return 0;
++
+ 	snd_soc_component_update_bits(dai->component, LM49453_P0_DAC_DSP_REG, BIT(1)|BIT(0),
+ 			    (mute ? (BIT(1)|BIT(0)) : 0));
+ 	return 0;
+ }
+ 
+-static int lm49453_lo_mute(struct snd_soc_dai *dai, int mute)
++static int lm49453_lo_mute(struct snd_soc_dai *dai, int mute, int direction)
+ {
++	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++		return 0;
++
+ 	snd_soc_component_update_bits(dai->component, LM49453_P0_DAC_DSP_REG, BIT(3)|BIT(2),
+ 			    (mute ? (BIT(3)|BIT(2)) : 0));
+ 	return 0;
+ }
+ 
+-static int lm49453_ls_mute(struct snd_soc_dai *dai, int mute)
++static int lm49453_ls_mute(struct snd_soc_dai *dai, int mute, int direction)
+ {
++	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++		return 0;
++
+ 	snd_soc_component_update_bits(dai->component, LM49453_P0_DAC_DSP_REG, BIT(5)|BIT(4),
+ 			    (mute ? (BIT(5)|BIT(4)) : 0));
+ 	return 0;
+ }
+ 
+-static int lm49453_ep_mute(struct snd_soc_dai *dai, int mute)
++static int lm49453_ep_mute(struct snd_soc_dai *dai, int mute, int direction)
+ {
++	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++		return 0;
++
+ 	snd_soc_component_update_bits(dai->component, LM49453_P0_DAC_DSP_REG, BIT(4),
+ 			    (mute ? BIT(4) : 0));
+ 	return 0;
+ }
+ 
+-static int lm49453_ha_mute(struct snd_soc_dai *dai, int mute)
++static int lm49453_ha_mute(struct snd_soc_dai *dai, int mute, int direction)
+ {
++	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++		return 0;
++
+ 	snd_soc_component_update_bits(dai->component, LM49453_P0_DAC_DSP_REG, BIT(7)|BIT(6),
+ 			    (mute ? (BIT(7)|BIT(6)) : 0));
+ 	return 0;
+@@ -1288,35 +1303,35 @@ static const struct snd_soc_dai_ops lm49453_headset_dai_ops = {
+ 	.hw_params	= lm49453_hw_params,
+ 	.set_sysclk	= lm49453_set_dai_sysclk,
+ 	.set_fmt	= lm49453_set_dai_fmt,
+-	.digital_mute	= lm49453_hp_mute,
++	.mute_stream	= lm49453_hp_mute,
+ };
+ 
+ static const struct snd_soc_dai_ops lm49453_speaker_dai_ops = {
+ 	.hw_params	= lm49453_hw_params,
+ 	.set_sysclk	= lm49453_set_dai_sysclk,
+ 	.set_fmt	= lm49453_set_dai_fmt,
+-	.digital_mute	= lm49453_ls_mute,
++	.mute_stream	= lm49453_ls_mute,
+ };
+ 
+ static const struct snd_soc_dai_ops lm49453_haptic_dai_ops = {
+ 	.hw_params	= lm49453_hw_params,
+ 	.set_sysclk	= lm49453_set_dai_sysclk,
+ 	.set_fmt	= lm49453_set_dai_fmt,
+-	.digital_mute	= lm49453_ha_mute,
++	.mute_stream	= lm49453_ha_mute,
+ };
+ 
+ static const struct snd_soc_dai_ops lm49453_ep_dai_ops = {
+ 	.hw_params	= lm49453_hw_params,
+ 	.set_sysclk	= lm49453_set_dai_sysclk,
+ 	.set_fmt	= lm49453_set_dai_fmt,
+-	.digital_mute	= lm49453_ep_mute,
++	.mute_stream	= lm49453_ep_mute,
+ };
+ 
+ static const struct snd_soc_dai_ops lm49453_lineout_dai_ops = {
+ 	.hw_params	= lm49453_hw_params,
+ 	.set_sysclk	= lm49453_set_dai_sysclk,
+ 	.set_fmt	= lm49453_set_dai_fmt,
+-	.digital_mute	= lm49453_lo_mute,
++	.mute_stream	= lm49453_lo_mute,
+ };
+ 
+ /* LM49453 dai structure. */
+diff --git a/sound/soc/codecs/ml26124.c b/sound/soc/codecs/ml26124.c
+index 55823bc95d06..cbfd3919e31c 100644
+--- a/sound/soc/codecs/ml26124.c
++++ b/sound/soc/codecs/ml26124.c
+@@ -372,11 +372,14 @@ static int ml26124_hw_params(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
+ 
+-static int ml26124_mute(struct snd_soc_dai *dai, int mute)
++static int ml26124_mute(struct snd_soc_dai *dai, int mute, int direction)
+ {
+ 	struct snd_soc_component *component = dai->component;
+ 	struct ml26124_priv *priv = snd_soc_component_get_drvdata(component);
+ 
++	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++		return 0;
++
+ 	switch (priv->substream->stream) {
+ 	case SNDRV_PCM_STREAM_CAPTURE:
+ 		snd_soc_component_update_bits(component, ML26124_REC_PLYBAK_RUN, BIT(0), 1);
+@@ -492,7 +495,7 @@ static int ml26124_set_bias_level(struct snd_soc_component *component,
+ 
+ static const struct snd_soc_dai_ops ml26124_dai_ops = {
+ 	.hw_params	= ml26124_hw_params,
+-	.digital_mute	= ml26124_mute,
++	.mute_stream	= ml26124_mute,
+ 	.set_fmt	= ml26124_set_dai_fmt,
+ 	.set_sysclk	= ml26124_set_dai_sysclk,
+ };
+diff --git a/sound/soc/codecs/nau8822.c b/sound/soc/codecs/nau8822.c
+index 79928ddeb7a1..9e7937f889cd 100644
+--- a/sound/soc/codecs/nau8822.c
++++ b/sound/soc/codecs/nau8822.c
+@@ -900,10 +900,13 @@ static int nau8822_hw_params(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
+ 
+-static int nau8822_mute(struct snd_soc_dai *dai, int mute)
++static int nau8822_mute(struct snd_soc_dai *dai, int mute, int direction)
+ {
+ 	struct snd_soc_component *component = dai->component;
+ 
++	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++		return 0;
++
+ 	dev_dbg(component->dev, "%s: %d\n", __func__, mute);
+ 
+ 	if (mute)
+@@ -967,7 +970,7 @@ static int nau8822_set_bias_level(struct snd_soc_component *component,
+ 
+ static const struct snd_soc_dai_ops nau8822_dai_ops = {
+ 	.hw_params	= nau8822_hw_params,
+-	.digital_mute	= nau8822_mute,
++	.mute_stream	= nau8822_mute,
+ 	.set_fmt	= nau8822_set_dai_fmt,
+ 	.set_sysclk	= nau8822_set_dai_sysclk,
+ 	.set_pll	= nau8822_set_pll,
+diff --git a/sound/soc/codecs/rk3328_codec.c b/sound/soc/codecs/rk3328_codec.c
+index 115706a55577..7f235d0da3f5 100644
+--- a/sound/soc/codecs/rk3328_codec.c
++++ b/sound/soc/codecs/rk3328_codec.c
+@@ -107,12 +107,15 @@ static int rk3328_set_dai_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 	return 0;
+ }
+ 
+-static int rk3328_digital_mute(struct snd_soc_dai *dai, int mute)
++static int rk3328_mute(struct snd_soc_dai *dai, int mute, int direction)
+ {
+ 	struct rk3328_codec_priv *rk3328 =
+ 		snd_soc_component_get_drvdata(dai->component);
+ 	unsigned int val;
+ 
++	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++		return 0;
++
+ 	if (mute)
+ 		val = HPOUTL_MUTE | HPOUTR_MUTE;
+ 	else
+@@ -316,7 +319,7 @@ static void rk3328_pcm_shutdown(struct snd_pcm_substream *substream,
+ static const struct snd_soc_dai_ops rk3328_dai_ops = {
+ 	.hw_params = rk3328_hw_params,
+ 	.set_fmt = rk3328_set_dai_fmt,
+-	.digital_mute = rk3328_digital_mute,
++	.mute_stream = rk3328_mute,
+ 	.startup = rk3328_pcm_startup,
+ 	.shutdown = rk3328_pcm_shutdown,
+ };
+diff --git a/sound/soc/codecs/sgtl5000.c b/sound/soc/codecs/sgtl5000.c
+index eb08976a7d06..9a87c08caca3 100644
+--- a/sound/soc/codecs/sgtl5000.c
++++ b/sound/soc/codecs/sgtl5000.c
+@@ -775,11 +775,14 @@ static const struct snd_kcontrol_new sgtl5000_snd_controls[] = {
+ };
+ 
+ /* mute the codec used by alsa core */
+-static int sgtl5000_digital_mute(struct snd_soc_dai *codec_dai, int mute)
++static int sgtl5000_mute(struct snd_soc_dai *codec_dai, int mute, int direction)
+ {
+ 	struct snd_soc_component *component = codec_dai->component;
+ 	u16 i2s_pwr = SGTL5000_I2S_IN_POWERUP;
+ 
++	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++		return 0;
++
+ 	/*
+ 	 * During 'digital mute' do not mute DAC
+ 	 * because LINE_IN would be muted aswell. We want to mute
+@@ -1160,7 +1163,7 @@ static int sgtl5000_set_bias_level(struct snd_soc_component *component,
+ 
+ static const struct snd_soc_dai_ops sgtl5000_ops = {
+ 	.hw_params = sgtl5000_pcm_hw_params,
+-	.digital_mute = sgtl5000_digital_mute,
++	.mute_stream = sgtl5000_mute,
+ 	.set_fmt = sgtl5000_set_dai_fmt,
+ 	.set_sysclk = sgtl5000_set_dai_sysclk,
+ };
+diff --git a/sound/soc/codecs/sta529.c b/sound/soc/codecs/sta529.c
+index 2881a0f7bb39..3bcb55b240df 100644
+--- a/sound/soc/codecs/sta529.c
++++ b/sound/soc/codecs/sta529.c
+@@ -251,10 +251,13 @@ static int sta529_hw_params(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
+ 
+-static int sta529_mute(struct snd_soc_dai *dai, int mute)
++static int sta529_mute(struct snd_soc_dai *dai, int mute, int direction)
+ {
+ 	u8 val = 0;
+ 
++	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++		return 0;
++
+ 	if (mute)
+ 		val |= CODEC_MUTE_VAL;
+ 
+@@ -291,7 +294,7 @@ static int sta529_set_dai_fmt(struct snd_soc_dai *codec_dai, u32 fmt)
+ static const struct snd_soc_dai_ops sta529_dai_ops = {
+ 	.hw_params	=	sta529_hw_params,
+ 	.set_fmt	=	sta529_set_dai_fmt,
+-	.digital_mute	=	sta529_mute,
++	.mute_stream	=	sta529_mute,
+ };
+ 
+ static struct snd_soc_dai_driver sta529_dai = {
+diff --git a/sound/soc/codecs/tfa9879.c b/sound/soc/codecs/tfa9879.c
+index abc114a3ae2b..d59a2b1e380c 100644
+--- a/sound/soc/codecs/tfa9879.c
++++ b/sound/soc/codecs/tfa9879.c
+@@ -93,10 +93,13 @@ static int tfa9879_hw_params(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
+ 
+-static int tfa9879_digital_mute(struct snd_soc_dai *dai, int mute)
++static int tfa9879_mute(struct snd_soc_dai *dai, int mute, int direction)
+ {
+ 	struct snd_soc_component *component = dai->component;
+ 
++	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++		return 0;
++
+ 	snd_soc_component_update_bits(component, TFA9879_MISC_CONTROL,
+ 				      TFA9879_S_MUTE_MASK,
+ 				      !!mute << TFA9879_S_MUTE_SHIFT);
+@@ -251,7 +254,7 @@ static const struct regmap_config tfa9879_regmap = {
+ 
+ static const struct snd_soc_dai_ops tfa9879_dai_ops = {
+ 	.hw_params = tfa9879_hw_params,
+-	.digital_mute = tfa9879_digital_mute,
++	.mute_stream = tfa9879_mute,
+ 	.set_fmt = tfa9879_set_fmt,
+ };
+ 
+diff --git a/sound/soc/codecs/twl6040.c b/sound/soc/codecs/twl6040.c
+index f34637afee51..9fead4faa739 100644
+--- a/sound/soc/codecs/twl6040.c
++++ b/sound/soc/codecs/twl6040.c
+@@ -997,8 +997,11 @@ static void twl6040_mute_path(struct snd_soc_component *component, enum twl6040_
+ 	}
+ }
+ 
+-static int twl6040_digital_mute(struct snd_soc_dai *dai, int mute)
++static int twl6040_mute(struct snd_soc_dai *dai, int mute, int direction)
+ {
++	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++		return 0;
++
+ 	switch (dai->id) {
+ 	case TWL6040_DAI_LEGACY:
+ 		twl6040_mute_path(dai->component, TWL6040_DAI_DL1, mute);
+@@ -1020,7 +1023,7 @@ static const struct snd_soc_dai_ops twl6040_dai_ops = {
+ 	.hw_params	= twl6040_hw_params,
+ 	.prepare	= twl6040_prepare,
+ 	.set_sysclk	= twl6040_set_dai_sysclk,
+-	.digital_mute	= twl6040_digital_mute,
++	.mute_stream	= twl6040_mute,
+ };
+ 
+ static struct snd_soc_dai_driver twl6040_dai[] = {
+diff --git a/sound/soc/codecs/uda134x.c b/sound/soc/codecs/uda134x.c
+index 1cc7f56912dc..a58291581813 100644
+--- a/sound/soc/codecs/uda134x.c
++++ b/sound/soc/codecs/uda134x.c
+@@ -117,12 +117,15 @@ static inline void uda134x_reset(struct snd_soc_component *component)
+ 	regmap_update_bits(uda134x->regmap, UDA134X_STATUS0, mask, 0);
+ }
+ 
+-static int uda134x_mute(struct snd_soc_dai *dai, int mute)
++static int uda134x_mute(struct snd_soc_dai *dai, int mute, int direction)
+ {
+ 	struct uda134x_priv *uda134x = snd_soc_component_get_drvdata(dai->component);
+ 	unsigned int mask = 1<<2;
+ 	unsigned int val;
+ 
++	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++		return 0;
++
+ 	pr_debug("%s mute: %d\n", __func__, mute);
+ 
+ 	if (mute)
+@@ -416,7 +419,7 @@ static const struct snd_soc_dai_ops uda134x_dai_ops = {
+ 	.startup	= uda134x_startup,
+ 	.shutdown	= uda134x_shutdown,
+ 	.hw_params	= uda134x_hw_params,
+-	.digital_mute	= uda134x_mute,
++	.mute_stream	= uda134x_mute,
+ 	.set_sysclk	= uda134x_set_dai_sysclk,
+ 	.set_fmt	= uda134x_set_dai_fmt,
+ };
 -- 
 2.25.1
 

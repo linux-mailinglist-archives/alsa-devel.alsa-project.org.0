@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AED67204FF5
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jun 2020 13:02:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51297204FF8
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jun 2020 13:03:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5F80F1797;
-	Tue, 23 Jun 2020 13:01:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F80F1797
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1E181798;
+	Tue, 23 Jun 2020 13:02:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1E181798
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592910165;
-	bh=hoy/tegq3GXdtuvCAur5bxzwdf9P4lq+YYmK0Uk5K74=;
+	s=default; t=1592910207;
+	bh=oJB1HuergFIu0DIlBP7pw4PjAEGvpLXmbXxRS9DrjBU=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LOZ1EebWS0pcNWS4aPl+J30LSpy6bWfLAvj23WvyK+Ayr2OV42GRw7nCdZP8zyk+6
-	 YsGtuJUksmwqTkTgk1szALXpNF7QG1pOtr+DPLSaKq8Lw7wyc0xSAWIkc5UQxfAbzf
-	 dpqOkAOxBjbN4NbiiqaC9ioI7nvwIPnUaD6AK6UU=
+	b=WdtHJMvpcyzPFze6rHYNUd/rVO6AlJNK/+wAWidMOveLgOKTuyTXJLpWIbrflViOn
+	 5dbCVS00cGsN13+RLtDWh09wtEI8byZtL3ERb+lz6Rdcv8cvAONr1Br6Z+EyGp9duF
+	 djvFji27RjP5G1sa3qxpnP6wB5GL5gKBY4GFN4FE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DEE45F80259;
-	Tue, 23 Jun 2020 13:00:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91727F800B2;
+	Tue, 23 Jun 2020 13:01:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 48298F802A1; Tue, 23 Jun 2020 13:00:51 +0200 (CEST)
+ id 4913BF80249; Tue, 23 Jun 2020 13:01:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6A385F8025E
- for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 13:00:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A385F8025E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5E3F5F80218
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 13:01:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E3F5F80218
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A6B9AAED9;
- Tue, 23 Jun 2020 11:00:44 +0000 (UTC)
-Date: Tue, 23 Jun 2020 13:00:45 +0200
-Message-ID: <s5h1rm6oxlu.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 47A46AED9;
+ Tue, 23 Jun 2020 11:01:35 +0000 (UTC)
+Date: Tue, 23 Jun 2020 13:01:35 +0200
+Message-ID: <s5hzh8unj00.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Mark Hills <mark@xwax.org>
-Subject: Re: [PATCH 8/9] dsnoop: Make use of the (previously unused) function
-In-Reply-To: <20200622131515.23385-8-mark@xwax.org>
+Subject: Re: [PATCH 9/9] pcm: Annotate the _avail functions
+In-Reply-To: <20200622131515.23385-9-mark@xwax.org>
 References: <2006221356390.20421@stax.localdomain>
- <20200622131515.23385-8-mark@xwax.org>
+ <20200622131515.23385-9-mark@xwax.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -70,12 +70,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 22 Jun 2020 15:15:14 +0200,
+On Mon, 22 Jun 2020 15:15:15 +0200,
 Mark Hills wrote:
 > 
-> Match the equivalent funciton for playback. This is on the assumption
-> that values should be capped at zero, which is what _rewindable()
-> implements.
+> I took time to understand these functions in the context of the
+> rest of the code, which would have been a lot quicker with a comment
+> like this.
 > 
 > Signed-off-by: Mark Hills <mark@xwax.org>
 

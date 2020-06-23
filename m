@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5646204FA4
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jun 2020 12:56:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB4C6204FBD
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jun 2020 12:59:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B02A81773;
-	Tue, 23 Jun 2020 12:55:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B02A81773
+	by alsa0.perex.cz (Postfix) with ESMTPS id 045011780;
+	Tue, 23 Jun 2020 12:58:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 045011780
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592909771;
-	bh=JzFkKJG1+uXeabzwz48rFzYmlA/XIE8DsvzGyfheUxo=;
+	s=default; t=1592909959;
+	bh=YIuvDeTsbEkUV9PKLxIiKtk/1prbOacYH9GdCCaQt+E=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YFtSWHTBJaqW9pHQ4cjJhabc39PN57xIVhdqBOv9uzFKfavt5sdNmhZFcb16bARxH
-	 cSGzJiNhDdhBa/dlCYS4ztydutWEeE0jNe8oG7K/jgQljzduMGkn/jCFS6QSz6ZLTt
-	 THcpfh3ipbg9Zo7q/PIbGfYc4D6AUVPPqR6FAll8=
+	b=sitGPeI0VwGV28lwd+LIkdj8pPvPabwdy3gZYZxX0TnOBorU8Tt7M9SGG9kweJ8zD
+	 zXFjxhaepfVs6y1EA5wWCJOfj3DlhbGzniv6LfQlelXs3xUoozxRTW237WOBoaV18+
+	 xaHAtipFo/+KO+vHpZkCTfLXeSJBca/yxd6dhKEU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E7F97F800B2;
-	Tue, 23 Jun 2020 12:54:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 35AF4F80234;
+	Tue, 23 Jun 2020 12:57:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 621BDF80234; Tue, 23 Jun 2020 12:54:27 +0200 (CEST)
+ id C0479F800B2; Tue, 23 Jun 2020 12:57:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7F821F800B2
- for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 12:54:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F821F800B2
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5E59F800B2
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 12:57:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5E59F800B2
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8E229AED9;
- Tue, 23 Jun 2020 10:54:19 +0000 (UTC)
-Date: Tue, 23 Jun 2020 12:54:19 +0200
-Message-ID: <s5hbllaoxwk.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 266EBAF27;
+ Tue, 23 Jun 2020 10:57:29 +0000 (UTC)
+Date: Tue, 23 Jun 2020 12:57:29 +0200
+Message-ID: <s5ha70uoxra.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Mark Hills <mark@xwax.org>
-Subject: Re: [PATCH 3/9] conf: Read a host-specific asoundrc
-In-Reply-To: <20200622131515.23385-3-mark@xwax.org>
+Subject: Re: [PATCH 1/9] control: Fix typos in the namehint example
+In-Reply-To: <20200622131515.23385-1-mark@xwax.org>
 References: <2006221356390.20421@stax.localdomain>
- <20200622131515.23385-3-mark@xwax.org>
+ <20200622131515.23385-1-mark@xwax.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -70,57 +70,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 22 Jun 2020 15:15:09 +0200,
+On Mon, 22 Jun 2020 15:15:07 +0200,
 Mark Hills wrote:
 > 
-> On systems with a network mounted home directory this is thoroughly
-> useful to allow for a core set of asoundrc settings, but with different
-> settings on different hosts.
-> 
-> It's not possibly to implement this in our own asoundrc or local
-> customisation, as it's too late. The installation file must be modified.
-> 
-> This is similar to ~/.Xdefaults-* on some systems.
+> Ths "namehint" is a list, and there doesn't seem to have been any
+> history where the separator would be a colon.
 > 
 > Signed-off-by: Mark Hills <mark@xwax.org>
 
-This kind of change popping up sometimes in the past, too, and I have
-a mixed feeling whether to take such a change globally or not.
+Thanks, applied.
 
-In one side, it can work, but OTOH, if you can deal with that detail,
-you're certainly able to set up the environment variable easily, too.
-
-
-thanks,
 
 Takashi
-
-> ---
->  src/conf/alsa.conf | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/src/conf/alsa.conf b/src/conf/alsa.conf
-> index 18427ec6..4dae0e9c 100644
-> --- a/src/conf/alsa.conf
-> +++ b/src/conf/alsa.conf
-> @@ -24,6 +24,17 @@
->  					"/alsa/asoundrc"
->  				]
->  			}
-> +			{
-> +				@func concat
-> +				strings [
-> +					"~/.asoundrc-"
-> +					{
-> +						@func getenv
-> +						vars [ HOSTNAME ]
-> +						default "localhost"
-> +					}
-> +				]
-> +			}
->  		]
->  		errors false
->  	}
-> -- 
-> 2.17.5
-> 

@@ -2,93 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0CAE2049CA
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jun 2020 08:21:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E95482049DC
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jun 2020 08:27:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7BC6A1741;
-	Tue, 23 Jun 2020 08:20:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BC6A1741
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9382C1737;
+	Tue, 23 Jun 2020 08:26:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9382C1737
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592893286;
-	bh=fIRATAv3RvR5+c8bhPShPqTjwHm3SqN/7mAm8b4nKsY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=O9/SEl1oLyHFC2poBfTgySsg6qIizEMEXf2oOb0QYq/+GPPhdawUyOnCWESmwjPj2
-	 HIFiI9pxHiTGMky5K18jV18N7D07KCETjLGk5f4COB1HJbzwfCWaIpeB54zZHjCkWh
-	 Py5JdNl0W3Y10vJMMhqjflNSI368tbXXNdts9pMs=
+	s=default; t=1592893623;
+	bh=Sogd8AyIqh4nPSIAmZW0SrYhuNkFzmgvMwbPZ5EqEB4=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=aPEs/sU6oVn0M29NMrq3oM/iMi/aWr66k/Ac53XkuvMGX65jLZCWiG0H8W2uUBOHm
+	 y6wpunRGb7vKRPXaAvJypr/o8CHgkyIOsO4KFwiCF+OOeAjzB29OB7E4A9OkoSO11w
+	 pS0/aZC/FvAEmGKWI/SW1inzR0RN8dCXSHbwI++4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87917F8023E;
-	Tue, 23 Jun 2020 08:19:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2C79F8023E;
+	Tue, 23 Jun 2020 08:25:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 11D2BF80234; Tue, 23 Jun 2020 08:19:43 +0200 (CEST)
+ id 8EBA4F80234; Tue, 23 Jun 2020 08:25:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
- [IPv6:2607:f8b0:4864:20::542])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4EA28F8010E
- for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 08:19:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4EA28F8010E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="fn3y7skK"
-Received: by mail-pg1-x542.google.com with SMTP id b5so9381198pgm.8
- for <alsa-devel@alsa-project.org>; Mon, 22 Jun 2020 23:19:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=Bwz1vrpVxlGgwtFKw237fp9M9eojls5v4/DP0A07JQ4=;
- b=fn3y7skKUEDp9iQkWtqczpoT5FaVQt4MtuOdi6Dsxzp58ItB1PqdXW44Cetlzw9217
- VD9r1GiTXD+bRBgr2+JXYX+1mKsJdMc3yw7u61oeMo39QT+FVS49ZsNzKse7Eh7oUiXv
- 7F2obX235r6Akbk97F4qUQmhEo42odWWe+81tIuKp2gz4wXAM1bNfTQWam5P5oHIF2ON
- I0edcl8g20c+V5pTlzKkoezS2UL5ZT3GC5rmpFGrbzRVJFKLFXwWZI4E+Yq9w7jqUuqz
- SbuhT1LoYV5Anl/JBtDQFU7FTYTOkBPrW+4ARUOMMpjlPYpCvF34JvnCWxUmQSWB0nXv
- HE3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=Bwz1vrpVxlGgwtFKw237fp9M9eojls5v4/DP0A07JQ4=;
- b=Ph3pU3/RNqcZtzIzq8y2NVYZP0bH+q8RaTGAiBedka4QrwZVK2QXBZr4nj/tHHfMjJ
- BWR6HrWSjM7mTuCGfdRudgh9kS3nDQUfpfuWkFw/d7oYfy036VXr6aSxtpAO0NYOnqVZ
- GHt+nljltJVx2VwaVUt5M7/q/kumqJqiIOXZULEtv8Wrd7rfHJV+ypC0r0i2qYNkoIH7
- 4vVWbIFq0n31ZS0OL+NiKYuuq2SeaSbJt0S/5QQh0qotxK4w4Np/vvfm115f5lmeQ/jJ
- TJBsgO8jWR2kgKQ9IPC93Ol966PfrMEbaBw/Oa6Mn3Icydb2XIJvZgSE0V/F5MpclZQJ
- 6FJA==
-X-Gm-Message-State: AOAM5321U93+w6Hs1vZo3AVx9SaNKnCg/J6ayWMydLri8/OvD+Xj43BP
- g0dcseto+44V/MKaAhpC8E0=
-X-Google-Smtp-Source: ABdhPJwUtGgLL8c5jtRRJm6AFuwIQf/CtCYTn5xkqG5AoImo/YewMgT5It9ubJgub3rXylkVIimJlA==
-X-Received: by 2002:a62:19c4:: with SMTP id 187mr458732pfz.312.1592893177171; 
- Mon, 22 Jun 2020 23:19:37 -0700 (PDT)
-Received: from Asurada-Nvidia (searspoint.nvidia.com. [216.228.112.21])
- by smtp.gmail.com with ESMTPSA id jz23sm1270689pjb.2.2020.06.22.23.19.36
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 22 Jun 2020 23:19:37 -0700 (PDT)
-Date: Mon, 22 Jun 2020 23:19:13 -0700
-From: Nicolin Chen <nicoleotsuka@gmail.com>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [PATCH v2 2/2] ASoC: fsl_mqs: Fix unchecked return value for
- clk_prepare_enable
-Message-ID: <20200623061913.GB17085@Asurada-Nvidia>
-References: <cover.1592888591.git.shengjiu.wang@nxp.com>
- <5edd68d03def367d96268f1a9a00bd528ea5aaf2.1592888591.git.shengjiu.wang@nxp.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5edd68d03def367d96268f1a9a00bd528ea5aaf2.1592888591.git.shengjiu.wang@nxp.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
- linuxppc-dev@lists.ozlabs.org, tiwai@suse.com, broonie@kernel.org,
- festevam@gmail.com, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8387FF8012F
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 08:25:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8387FF8012F
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 8A7B1AAF1
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 06:25:11 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: hda/conexant: Fix missing headphone node after reboot
+ from Windows
+Date: Tue, 23 Jun 2020 08:25:10 +0200
+Message-Id: <20200623062510.27499-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.16.4
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,11 +62,79 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jun 23, 2020 at 02:01:12PM +0800, Shengjiu Wang wrote:
-> Fix unchecked return value for clk_prepare_enable, add error
-> handler in fsl_mqs_runtime_resume.
-> 
-> Fixes: 9e28f6532c61 ("ASoC: fsl_mqs: Add MQS component driver")
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+When Lenovo Thinkpad E495 is rebooted from Windows, the headphone
+control is lost.  This seems because BIOS doesn't initialize the
+headphone node (NID 0x16) properly after the reboot from Windows, as
+Windows likely turns off the power at its exit.  The node is left
+as a vendor-specific unknown node and ignored by the HD-audio parser.
 
-Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
+This patch forcibly initializes the node at the probe time, by
+overriding the widget caps and the connection list, so that the
+headphone control is detected always at probe time.
+
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=207741
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/pci/hda/patch_conexant.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/sound/pci/hda/patch_conexant.c b/sound/pci/hda/patch_conexant.c
+index 396b5503038a..37c8add48791 100644
+--- a/sound/pci/hda/patch_conexant.c
++++ b/sound/pci/hda/patch_conexant.c
+@@ -215,6 +215,7 @@ enum {
+ 	CXT_FIXUP_MUTE_LED_GPIO,
+ 	CXT_FIXUP_HEADSET_MIC,
+ 	CXT_FIXUP_HP_MIC_NO_PRESENCE,
++	CXT_FIXUP_THINKPAD_E495,
+ };
+ 
+ /* for hda_fixup_thinkpad_acpi() */
+@@ -673,6 +674,22 @@ static void cxt_fixup_mute_led_gpio(struct hda_codec *codec,
+ 				    spec->gpio_led);
+ }
+ 
++static void cxt_fixup_thinkpad_e495(struct hda_codec *codec,
++				    const struct hda_fixup *fix,
++				    int action)
++{
++	if (action == HDA_FIXUP_ACT_PRE_PROBE) {
++		static const hda_nid_t conns[] = { 0x10, 0x11 };
++		/* BIOS invalidates the headphone pin NID 0x16 when rebooted
++		 * after Windows by some reason;
++		 * forcibly restoring the whole setup
++		 */
++		snd_hda_override_wcaps(codec, 0x16, 0x400581);
++		snd_hda_codec_set_pincfg(codec, 0x16, 0x03211040);
++		snd_hda_override_conn_list(codec, 0x16, ARRAY_SIZE(conns),
++					   conns);
++	}
++}
+ 
+ /* ThinkPad X200 & co with cxt5051 */
+ static const struct hda_pintbl cxt_pincfg_lenovo_x200[] = {
+@@ -846,6 +863,12 @@ static const struct hda_fixup cxt_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = CXT_FIXUP_HEADSET_MIC,
+ 	},
++	[CXT_FIXUP_THINKPAD_E495] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = cxt_fixup_thinkpad_e495,
++		.chained = true,
++		.chain_id = CXT_FIXUP_THINKPAD_ACPI,
++	},
+ };
+ 
+ static const struct snd_pci_quirk cxt5045_fixups[] = {
+@@ -932,6 +955,7 @@ static const struct snd_pci_quirk cxt5066_fixups[] = {
+ 	SND_PCI_QUIRK(0x17aa, 0x3977, "Lenovo IdeaPad U310", CXT_FIXUP_STEREO_DMIC),
+ 	SND_PCI_QUIRK(0x17aa, 0x3978, "Lenovo G50-70", CXT_FIXUP_STEREO_DMIC),
+ 	SND_PCI_QUIRK(0x17aa, 0x397b, "Lenovo S205", CXT_FIXUP_STEREO_DMIC),
++	SND_PCI_QUIRK(0x17aa, 0x5124, "Lenovo Thinkpad E495", CXT_FIXUP_THINKPAD_E495),
+ 	SND_PCI_QUIRK_VENDOR(0x17aa, "Thinkpad", CXT_FIXUP_THINKPAD_ACPI),
+ 	SND_PCI_QUIRK(0x1c06, 0x2011, "Lemote A1004", CXT_PINCFG_LEMOTE_A1004),
+ 	SND_PCI_QUIRK(0x1c06, 0x2012, "Lemote A1205", CXT_PINCFG_LEMOTE_A1205),
+-- 
+2.16.4
+

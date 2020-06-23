@@ -2,103 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E868206E61
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 09:57:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AED85206E35
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 09:51:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AF7CF182B;
-	Wed, 24 Jun 2020 09:56:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF7CF182B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4344F17FE;
+	Wed, 24 Jun 2020 09:50:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4344F17FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592985425;
-	bh=X/gHabGyJjIvH7klo+Z30N80BShhTBTxHAMboUHZsDw=;
-	h=Subject:From:In-Reply-To:Date:References:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Sz9+AmZI0WNFQCJcOpE2T08giX2VTuyKCwPx92z4Af3jNHrPICbgMsdeKGA79qMsA
-	 AH1BFvG66RYXSW3sRMsWo553GfHtEa/snMIyJ60ix3CJai1WFIxbYBFaTfUzrcxTMQ
-	 Mli9r26D0T3pRDgatSD9/mAikwftDxetoDHpfsGA=
+	s=default; t=1592985074;
+	bh=t09hvdiC3ajklTACYsOoQrYlPulBqQjhsU2grHPvCV8=;
+	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=q5b/+dNKnFcVLon2OD6onvgXbsLKaAhTRGyNhlEiGXnJKLBkOFc5h0dlaS595ikWW
+	 0biL/4MZ3frJDqSLquzpWyrlRHqn/B2Hrraz9IDDqU43KaiJ6hnDTqfBNleT9a8hzL
+	 GorYcxxYd9CQCoDOl2mXDiAmQ+ZDCMGoLb0ymOAc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BCBADF80328;
-	Wed, 24 Jun 2020 09:49:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 562A6F80162;
+	Wed, 24 Jun 2020 09:49:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DA43CF8015B; Mon, 22 Jun 2020 16:04:29 +0200 (CEST)
+ id 1CE27F8015B; Tue, 23 Jun 2020 03:16:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
- [IPv6:2a00:1450:4864:20::643])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A0944F8010D
- for <alsa-devel@alsa-project.org>; Mon, 22 Jun 2020 16:04:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0944F8010D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="miQD36o/"
-Received: by mail-ej1-x643.google.com with SMTP id n24so18162724ejd.0
- for <alsa-devel@alsa-project.org>; Mon, 22 Jun 2020 07:04:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:subject:from:in-reply-to:date:cc
- :content-transfer-encoding:message-id:references:to;
- bh=AkXgQz4f6Jb/SfgaY94+eCp/+t+YH9GzfLxXy17qw1I=;
- b=miQD36o/JVjj5qBA3N2E8kQsw3fyaP5shHvUmpQxO/WwB1W6F7TkFAu7FqDbqJycGX
- ZbeQWR2lKhtbYP//aapUtjeRUXbixUHgYN49PT749c4rJMWYqQ94jitfnK2fNizM3qLV
- JfGYxFe2V7sES1ZDIN5R6a4kRzHwxusjH/P6ealaz9HEjzYsgvKtQT1HXe/komoioEHB
- 7igQ6Lz1LBp1TXvdZnfydpnd6UVM0Gp/eqiTwXd/jzlbfJ7eAjrHAeMlcHXavgR5Zcud
- QWPbD6neGomrMu2L3fqSTWi3FZbTIgBxcBKIlQwBPnzekCnOuCr4f3M/TppY18mdfq9x
- lTgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
- :content-transfer-encoding:message-id:references:to;
- bh=AkXgQz4f6Jb/SfgaY94+eCp/+t+YH9GzfLxXy17qw1I=;
- b=bGU0U+LpbpcFOSbMqsbKtuRw0TEFese4uw+8FlApYFPTCxb4g386luM92sVkxEhA0D
- lij64HgFGpfRUuTiPinHsAhbbUhV7rcGuNFM/umtua47oEi6EG7GamoUHRtyxvZzPVU+
- QjZ9wSDXFEOmu6Eijkvx8WOcIQYjPU/+NRkZT2gxAEBAbrCSdPvkSvcq6lBVP5Eoo2yd
- pdrp+w7OTRHO4eDRLBUT+E9O+wU7h7WVlVc0oiOvEHPIqyK9cyWnC32yBfB+2PjZKCZS
- RWuZEfYdRDg8dW3F3WavQxYT3XyR46i1M8127rjHdS3Jw+lMvPbxhsUEiS78DChY23/5
- 7YYg==
-X-Gm-Message-State: AOAM532yFuBjAcLm7/oGhdq9Js5xFXNy/94zpC11cD1wPI9/6o6t9ul/
- L0rcgaU+iIeD8yIzJZwKf5hrGA==
-X-Google-Smtp-Source: ABdhPJx13jRteSsX752kFTZR7wYlw7AZQfoFikTlKm6sVUt89ZqX2jnk7bahtoLDO7GiSW+vMYhcyA==
-X-Received: by 2002:a17:906:5e08:: with SMTP id
- n8mr15834673eju.132.1592834658428; 
- Mon, 22 Jun 2020 07:04:18 -0700 (PDT)
-Received: from [192.168.2.2] (ppp089210109128.access.hol.gr. [89.210.109.128])
- by smtp.gmail.com with ESMTPSA id
- w18sm1217980edv.11.2020.06.22.07.04.16
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 22 Jun 2020 07:04:17 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.80.23.2.2\))
-Subject: Re: [PATCH 1/2] dt-bindings: sound: Device tree bindings for the
- apq8039 sound complex
-From: Pantelis Antoniou <pantelis.antoniou@linaro.org>
-In-Reply-To: <20200622134145.GJ4560@sirena.org.uk>
-Date: Mon, 22 Jun 2020 17:04:16 +0300
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <8C9C4D5E-D92B-426D-A597-C784D1611967@linaro.org>
-References: <20200619193831.12528-1-pantelis.antoniou@linaro.org>
- <20200619193831.12528-2-pantelis.antoniou@linaro.org>
- <20200619214126.GA1251@gerhold.net>
- <2070B433-83E0-4ACE-A470-36401934FC5A@linaro.org>
- <20200622120409.GD4560@sirena.org.uk>
- <519B5FAC-4DB8-4968-B9D4-96E376D74F1E@linaro.org>
- <20200622134145.GJ4560@sirena.org.uk>
+X-Spam-Level: **
+X-Spam-Status: No, score=3.0 required=5.0 tests=AC_FROM_MANY_DOTS,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 53F82F8010D
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 03:16:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53F82F8010D
+Date: 23 Jun 2020 10:16:22 +0900
+X-IronPort-AV: E=Sophos;i="5.75,268,1589209200"; d="scan'208";a="50118517"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 23 Jun 2020 10:16:22 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 364284001DB1;
+ Tue, 23 Jun 2020 10:16:22 +0900 (JST)
+Message-ID: <87ftam37ko.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH 00/19] ASoC: merge .digital_mute() into .mute_stream()
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
-X-Mailer: Apple Mail (2.3608.80.23.2.2)
-X-Mailman-Approved-At: Wed, 24 Jun 2020 09:49:29 +0200
-Cc: devicetree <devicetree@vger.kernel.org>, alsa-devel@alsa-project.org,
- Stephan Gerhold <stephan@gerhold.net>, linux-arm-msm@vger.kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Matthew Porter <mporter@konsulko.com>, Shawn Guo <shawn.guo@linaro.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Mailman-Approved-At: Wed, 24 Jun 2020 09:49:28 +0200
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Michael Walle <michael@walle.cc>,
+ =?ISO-8859-1?Q?=22Heiko_St=FCbner=22?= <heiko@sntech.de>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
+ =?ISO-8859-2?Q?=22Micha=B3_Miros=B3aw=22?= <mirq-linux@rere.qmqm.pl>,
+ Jonghwan Choi <charlie.jh@kakaocorp.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Paul Cercueil <paul@crapouillou.net>, Andrzej Hajda <a.hajda@samsung.com>,
+ Frank Shi <shifu0704@thundersoft.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ "Andrew F. Davis" <afd@ti.com>, Fabio Estevam <festevam@gmail.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Nikita Yushchenko <nikita.yoush@cogentembedded.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, Joonyoung Shim <jy0922.shim@samsung.com>,
+ Matthias Reichl <hias@horus.com>, Katsuhiro Suzuki <katsuhiro@katsuster.net>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ YueHaibing <yuehaibing@huawei.com>, Russell King <linux@armlinux.org.uk>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Daniel Drake <drake@endlessm.com>,
+ Tzung-Bi Shih <tzungbi@google.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Kukjin Kim <kgene@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Dinghao Liu <dinghao.liu@zju.edu.cn>,
+ Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+ Cheng-Yi Chiang <cychiang@chromium.org>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Jonas Karlman <jonas@kwiboo.se>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Chuhong Yuan <hslester96@gmail.com>, Robin Murphy <robin.murphy@arm.com>,
+ James Schulman <james.schulman@cirrus.com>, Inki Dae <inki.dae@samsung.com>,
+ Masahiro Yamada <masahiroy@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Dan Murphy <dmurphy@ti.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ =?ISO-8859-1?Q?=22Nuno_S=E1=22?= <nuno.sa@analog.com>,
+ Vincent Abriou <vincent.abriou@st.com>, kbuild test robot <lkp@intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@ti.com>,
+ Jernej Skrabec <jernej.skrabec@siol.net>,
+ Support Opensource <support.opensource@diasemi.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, Jason Yan <yanaijie@huawei.com>,
+ Stephen Boyd <sboyd@kernel.org>,
+ Pankaj Bharadiya <pankaj.laxminarayan.bharadiya@intel.com>,
+ David Rhodes <david.rhodes@cirrus.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Sandy Huang <hjc@rock-chips.com>, Pavel Dobias <dobias@2n.cz>,
+ Philipp Puschmann <p.puschmann@pironex.de>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Vishwas A Deshpande <vishwas.a.deshpande@ti.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Colin Ian King <colin.king@canonical.com>,
+ Kevin Cernekee <cernekee@chromium.org>, Lucas Stach <l.stach@pengutronix.de>,
+ Shawn Guo <shawnguo@kernel.org>, Peter Rosin <peda@axentia.se>,
+ M R Swami Reddy <mr.swami.reddy@ti.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,73 +122,144 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+Hi Mark
 
-> On Jun 22, 2020, at 16:41 , Mark Brown <broonie@kernel.org> wrote:
->=20
-> On Mon, Jun 22, 2020 at 04:32:46PM +0300, Pantelis Antoniou wrote:
->>> On Jun 22, 2020, at 15:04 , Mark Brown <broonie@kernel.org> wrote:
->=20
->>> No, you're encoding use case decisions into the DT here - for =
-example
->>> your example will break use cases like ring tones and shutter sounds
->>> which should play through both speaker and headphones.  It's also
->>> setting volumes which may be inappropriate or may be not and =
-interferes
->>> with userspace using those same physical volume controls.
->=20
->> It is completely optional whether you use this functionality or not.
->=20
-> It's optional for whoever writes the DT and flashes it, it is not
-> optional for whoever's doing the OS configuration - these may not be =
-the
-> same people.
->=20
->> In that case you don=E2=80=99t use the automatic routing you merely =
-set it to off
->> and everything works as before. Or you merely use the route setup for
->> the function from userspace.
->=20
-> Userspace shouldn't have to be fighting with the kernel for control of
-> the device.
->=20
->> The device in question is not a mobile phone so there is no =
-requirement
->> to have speaker and headphone active at the same time. It is possible =
-to
->> create a function that would be headphone+speaker active at the same =
-time
->> for that case.
->=20
-> That may be true for your OS configuration but that doesn't mean that
-> some other user of the same hardware won't want to do something that
-> needs both simultaneously.
+ALSA SoC has 2 mute callbacks (= .digital_mute(), .mute_stream()).
+But the difference between these 2 is very small.
+	.digital_mute() is for Playback
+	.mute_stream()  is for Playback/Capture
 
-Let=E2=80=99s step back a bit and let me present the problem and what =
-this is about.
-Disregard the automatic function selection using external state inputs.
+This patch-set merges .digital_mute() into .mute_stream(),
+and removes .digital_mute().
 
-The problem is that for sound card that is composed of a number of =
-component
-like this one a pretty non trivial setting of controls must be done.
+Kuninori Morimoto (19):
+  ASoC: hdmi-codec: merge .digital_mute() into .mute_stream()
+  ASoC: ti: merge .digital_mute() into .mute_stream()
+  ASoC: spear: merge .digital_mute() into .mute_stream()
+  ASoC: meson: merge .digital_mute() into .mute_stream()
+  ASoC: atmel: merge .digital_mute() into .mute_stream()
+  ASoC: codecs: merge .digital_mute() into .mute_stream()
+  ASoC: codecs: tlv*: merge .digital_mute() into .mute_stream()
+  ASoC: codecs: tas*: merge .digital_mute() into .mute_stream()
+  ASoC: codecs: ssm*: merge .digital_mute() into .mute_stream()
+  ASoC: codecs: pcm*: merge .digital_mute() into .mute_stream()
+  ASoC: codecs: max*: merge .digital_mute() into .mute_stream()
+  ASoC: codecs: alc*: merge .digital_mute() into .mute_stream()
+  ASoC: codecs: wm*: merge .digital_mute() into .mute_stream()
+  ASoC: codecs: es*: merge .digital_mute() into .mute_stream()
+  ASoC: codecs: da*: merge .digital_mute() into .mute_stream()
+  ASoC: codecs: cs*: merge .digital_mute() into .mute_stream()
+  ASoC: codecs: ak*: merge .digital_mute() into .mute_stream()
+  ASoC: soc-dai: remove .digital_mute
+  ASoC: soc-core: snd_soc_dai_digital_mute() for both CPU/Codec
 
-Tt is not atypical for a card like this the set of control being a dozen
-or so, with some requiring even more.
+ drivers/gpu/drm/bridge/sii902x.c       |  9 ++++---
+ drivers/gpu/drm/exynos/exynos_hdmi.c   |  8 ++++--
+ drivers/gpu/drm/i2c/tda998x_drv.c      |  9 ++++---
+ drivers/gpu/drm/mediatek/mtk_hdmi.c    |  8 ++++--
+ drivers/gpu/drm/rockchip/cdn-dp-core.c |  9 ++++---
+ drivers/gpu/drm/sti/sti_hdmi.c         |  8 ++++--
+ drivers/gpu/drm/zte/zx_hdmi.c          |  9 ++++---
+ include/sound/hdmi-codec.h             |  3 ++-
+ include/sound/soc-dai.h                |  1 -
+ sound/soc/atmel/atmel-classd.c         | 10 +++++---
+ sound/soc/codecs/88pm860x-codec.c      |  9 ++++---
+ sound/soc/codecs/ad193x.c              |  7 ++++--
+ sound/soc/codecs/adau1701.c            |  7 ++++--
+ sound/soc/codecs/ak4458.c              |  7 ++++--
+ sound/soc/codecs/ak4535.c              |  8 ++++--
+ sound/soc/codecs/ak4641.c              |  9 ++++---
+ sound/soc/codecs/alc5623.c             |  7 ++++--
+ sound/soc/codecs/alc5632.c             |  7 ++++--
+ sound/soc/codecs/cpcap.c               | 15 ++++++++---
+ sound/soc/codecs/cq93vc.c              |  7 ++++--
+ sound/soc/codecs/cs4265.c              |  7 ++++--
+ sound/soc/codecs/cs4270.c              |  7 ++++--
+ sound/soc/codecs/cs42l42.c             |  7 ++++--
+ sound/soc/codecs/cs42l51.c             |  7 ++++--
+ sound/soc/codecs/cs42l52.c             |  7 ++++--
+ sound/soc/codecs/cs42l56.c             |  7 ++++--
+ sound/soc/codecs/cs42xx8.c             |  7 ++++--
+ sound/soc/codecs/cs4341.c              |  7 ++++--
+ sound/soc/codecs/cs4349.c              |  7 ++++--
+ sound/soc/codecs/da7210.c              |  7 ++++--
+ sound/soc/codecs/da7213.c              |  7 ++++--
+ sound/soc/codecs/da9055.c              |  7 ++++--
+ sound/soc/codecs/es8316.c              |  7 ++++--
+ sound/soc/codecs/es8328.c              |  7 ++++--
+ sound/soc/codecs/hdmi-codec.c          | 13 +++++-----
+ sound/soc/codecs/isabelle.c            | 21 +++++++++++-----
+ sound/soc/codecs/jz4770.c              |  7 ++++--
+ sound/soc/codecs/lm49453.c             | 35 ++++++++++++++++++--------
+ sound/soc/codecs/max98088.c            | 16 +++++++++---
+ sound/soc/codecs/max98090.c            |  8 ++++--
+ sound/soc/codecs/max9867.c             |  7 ++++--
+ sound/soc/codecs/ml26124.c             |  7 ++++--
+ sound/soc/codecs/nau8822.c             |  7 ++++--
+ sound/soc/codecs/pcm1681.c             |  7 ++++--
+ sound/soc/codecs/pcm1789.c             |  7 ++++--
+ sound/soc/codecs/pcm179x.c             |  7 ++++--
+ sound/soc/codecs/pcm3168a.c            |  7 ++++--
+ sound/soc/codecs/pcm512x.c             |  7 ++++--
+ sound/soc/codecs/rk3328_codec.c        |  7 ++++--
+ sound/soc/codecs/sgtl5000.c            |  7 ++++--
+ sound/soc/codecs/ssm2518.c             |  7 ++++--
+ sound/soc/codecs/ssm2602.c             |  7 ++++--
+ sound/soc/codecs/ssm4567.c             |  7 ++++--
+ sound/soc/codecs/sta529.c              |  7 ++++--
+ sound/soc/codecs/tas2552.c             |  7 ++++--
+ sound/soc/codecs/tas2562.c             |  7 ++++--
+ sound/soc/codecs/tas2770.c             |  7 ++++--
+ sound/soc/codecs/tas571x.c             |  7 ++++--
+ sound/soc/codecs/tas5720.c             |  7 ++++--
+ sound/soc/codecs/tas6424.c             |  7 ++++--
+ sound/soc/codecs/tfa9879.c             |  7 ++++--
+ sound/soc/codecs/tlv320aic23.c         |  7 ++++--
+ sound/soc/codecs/tlv320aic26.c         |  7 ++++--
+ sound/soc/codecs/tlv320aic31xx.c       |  8 ++++--
+ sound/soc/codecs/tlv320aic32x4.c       |  7 ++++--
+ sound/soc/codecs/tlv320aic3x.c         |  7 ++++--
+ sound/soc/codecs/twl6040.c             |  7 ++++--
+ sound/soc/codecs/uda134x.c             |  7 ++++--
+ sound/soc/codecs/wm8350.c              |  7 ++++--
+ sound/soc/codecs/wm8400.c              |  7 ++++--
+ sound/soc/codecs/wm8510.c              |  7 ++++--
+ sound/soc/codecs/wm8580.c              |  7 ++++--
+ sound/soc/codecs/wm8711.c              |  7 ++++--
+ sound/soc/codecs/wm8728.c              |  7 ++++--
+ sound/soc/codecs/wm8731.c              |  7 ++++--
+ sound/soc/codecs/wm8741.c              |  7 ++++--
+ sound/soc/codecs/wm8750.c              |  7 ++++--
+ sound/soc/codecs/wm8753.c              |  9 ++++---
+ sound/soc/codecs/wm8770.c              |  7 ++++--
+ sound/soc/codecs/wm8776.c              |  7 ++++--
+ sound/soc/codecs/wm8900.c              |  7 ++++--
+ sound/soc/codecs/wm8903.c              |  7 ++++--
+ sound/soc/codecs/wm8904.c              |  7 ++++--
+ sound/soc/codecs/wm8940.c              |  7 ++++--
+ sound/soc/codecs/wm8955.c              |  7 ++++--
+ sound/soc/codecs/wm8960.c              |  7 ++++--
+ sound/soc/codecs/wm8961.c              |  7 ++++--
+ sound/soc/codecs/wm8962.c              |  7 ++++--
+ sound/soc/codecs/wm8971.c              |  7 ++++--
+ sound/soc/codecs/wm8974.c              |  7 ++++--
+ sound/soc/codecs/wm8978.c              |  7 ++++--
+ sound/soc/codecs/wm8983.c              |  7 ++++--
+ sound/soc/codecs/wm8985.c              |  7 ++++--
+ sound/soc/codecs/wm8988.c              |  7 ++++--
+ sound/soc/codecs/wm8990.c              |  7 ++++--
+ sound/soc/codecs/wm8991.c              |  7 ++++--
+ sound/soc/codecs/wm8993.c              |  7 ++++--
+ sound/soc/codecs/wm8994.c              | 10 +++++---
+ sound/soc/codecs/wm8995.c              |  9 ++++---
+ sound/soc/codecs/wm9081.c              |  7 ++++--
+ sound/soc/meson/axg-spdifout.c         |  7 ++++--
+ sound/soc/soc-core.c                   |  4 +--
+ sound/soc/soc-dai.c                    |  4 ---
+ sound/soc/spear/spdif_out.c            | 10 +++++---
+ sound/soc/ti/ams-delta.c               | 11 +++++---
+ 105 files changed, 576 insertions(+), 243 deletions(-)
 
-Someone has to do them, be it the kernel or userspace.
-
-Instead of having userspace do it, bundle everything in DT so that =
-everything
-can be set in one go, and without having the user-space engineer read =
-the
-a few 10-100 pages of reference manuals.
-
-This is arguably a hardware setting (eg. the set of configuration =
-parameters
-that enables routing sound to speaker).
-
-Now this is not going to perfect for all cases; some cases are very =
-complicated
-and indeed user-space has to be engaged and perform the configuration.
-This mechanism does not preclude it.
-
+-- 
+2.25.1
 

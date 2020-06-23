@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EF88205CD0
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jun 2020 22:06:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D4AA205E51
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jun 2020 22:26:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B4C6617C3;
-	Tue, 23 Jun 2020 22:05:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4C6617C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8413917D1;
+	Tue, 23 Jun 2020 22:26:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8413917D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592942767;
-	bh=YFU4nickBTEJglm1QqS/EJzp5sp9hIBugDpuNLnIXEg=;
+	s=default; t=1592944018;
+	bh=oas93NNC0F914MjXfIOoxIh9b9rSyP2udPEEJm45pOg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=op2PjG+alAEPOOAHWNY1jQYfBn4H0Sl3Z1rMNKCoWGL22ghvuPKTYefODRGnks0Tg
-	 tAFj2ZDCM38QnBhcddbdDh24gDxUEts+vFr+stvQbH1MpTlm1dUG5oQzV6Kk0Xh+aj
-	 rMZv3vlREfHHh+8j/iwKQfJ2e27LYQOhjFYnqNGY=
+	b=XQ206/9qjkvTfGMYcDUuTtDDGEBFHnz9zLvm2r9XL3CE0C0uvO9gUZfJ8/XZaT3qf
+	 79ll6s7xRceN6xjGX3Etg2S+s9C5nYV3kyio1AAZe/TPjj3IZPNP85wkOkb+8YT51H
+	 A2wUCUzmTv/bTTxvuXYmM6U2ox0CrRcwMjS9BWRE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA463F800B2;
-	Tue, 23 Jun 2020 22:04:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9E22F8010E;
+	Tue, 23 Jun 2020 22:25:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 42765F8010E; Tue, 23 Jun 2020 22:04:25 +0200 (CEST)
+ id 4EE2CF80234; Tue, 23 Jun 2020 22:25:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,33 +34,33 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 740C7F8010E
- for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 22:04:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 740C7F8010E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 26B70F8010E
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 22:25:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26B70F8010E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="kPn0rSIr"
+ header.b="VwOqVH7N"
 Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
  [83.86.89.107])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8844920DD4;
- Tue, 23 Jun 2020 20:04:14 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 16E93206C3;
+ Tue, 23 Jun 2020 20:25:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592942655;
- bh=YFU4nickBTEJglm1QqS/EJzp5sp9hIBugDpuNLnIXEg=;
+ s=default; t=1592943904;
+ bh=oas93NNC0F914MjXfIOoxIh9b9rSyP2udPEEJm45pOg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=kPn0rSIrEjqGsMbqtwJ0J6Pe/wcC0PjBqvr3n/Ra5TEx9/jf6sKOlUGc3kzBH0KOF
- H9CL8p2BCDHv+FLH5EaF6DPwxtnQzNlWgr+CwImEkLx3eQqkeTRo0GzzxcOjngNmiS
- RiV9o638i25seIxFwq2cnFuuAsr61knJknOM0dtg=
+ b=VwOqVH7Noghf1uXnjCBH3WeR4jQb53GUvXx2g/d6vTP2b0to5LpIZPU8puoBVI1gZ
+ kCD67OZcoatsJTZYOPtr49hwxlhX8NeF1y9e6GJNUuCnUTBquv9DXUx5OS77KC/z7N
+ LHszjp62V2bySRvt75Gqkzmr5t4O9aGml6VcnXXE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org
-Subject: [PATCH 5.7 084/477] ASoC: qcom: q6asm-dai: kCFI fix
-Date: Tue, 23 Jun 2020 21:51:21 +0200
-Message-Id: <20200623195411.578851991@linuxfoundation.org>
+Subject: [PATCH 5.4 066/314] ASoC: qcom: q6asm-dai: kCFI fix
+Date: Tue, 23 Jun 2020 21:54:21 +0200
+Message-Id: <20200623195341.985207079@linuxfoundation.org>
 X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20200623195407.572062007@linuxfoundation.org>
-References: <20200623195407.572062007@linuxfoundation.org>
+In-Reply-To: <20200623195338.770401005@linuxfoundation.org>
+References: <20200623195338.770401005@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -174,10 +174,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
-index 125af00bba539..4640804aab7fa 100644
+index 548eb4fa2da64..9f0ffdcef637e 100644
 --- a/sound/soc/qcom/qdsp6/q6asm-dai.c
 +++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
-@@ -176,7 +176,7 @@ static const struct snd_compr_codec_caps q6asm_compr_caps = {
+@@ -171,7 +171,7 @@ static const struct snd_compr_codec_caps q6asm_compr_caps = {
  };
  
  static void event_handler(uint32_t opcode, uint32_t token,
@@ -186,8 +186,8 @@ index 125af00bba539..4640804aab7fa 100644
  {
  	struct q6asm_dai_rtd *prtd = priv;
  	struct snd_pcm_substream *substream = prtd->substream;
-@@ -490,7 +490,7 @@ static int q6asm_dai_hw_params(struct snd_soc_component *component,
- }
+@@ -494,7 +494,7 @@ static struct snd_pcm_ops q6asm_dai_ops = {
+ };
  
  static void compress_event_handler(uint32_t opcode, uint32_t token,
 -				   uint32_t *payload, void *priv)

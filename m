@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E1B7206E7E
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 10:00:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75DF7206E81
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 10:01:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A0081838;
-	Wed, 24 Jun 2020 10:00:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A0081838
+	by alsa0.perex.cz (Postfix) with ESMTPS id 26AB317F9;
+	Wed, 24 Jun 2020 10:00:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26AB317F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592985656;
-	bh=CgTRV2ZBPAlZSaP9P+b4nbPEKqAXsDJ28KCD9miw1Yo=;
+	s=default; t=1592985686;
+	bh=ttB3rYLqVT6CP6MkxOb9q6cTsnqGrx5SKY6x872FzA8=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DL1SmldB1KmaJOZYXIFIGCVAiOWZ4TYS/egGjzco6W/GrvXxpmMKuXO4VGpUAo6UB
-	 o780B91aQ8VqGz5SuKBJSOBxMkQakurc2v31ytUrvee9M67SeYMmYwTqh77+7D8MsR
-	 GDSIcpmCIl5eYzAPax6ZQRzLsfWkHrAMGi7xVlvY=
+	b=p+hm4fxUg8ltRb3JnSdex9d6dPJmFrP/L3IQbMOLKCiZMLIOUCE56OeM3/sTMv1FL
+	 bh47MDNyanoVuikJWheva2VkeTOJzlGrPQP1Ncz5lTLQAwI/ojg23KZlTvm1Au759N
+	 sNh+34U2/XU9DQMYLHIaNmlwldHmRs0v6tFGrKes=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89B4AF8034D;
-	Wed, 24 Jun 2020 09:49:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9DEC3F8034E;
+	Wed, 24 Jun 2020 09:49:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F04EF80162; Tue, 23 Jun 2020 03:20:35 +0200 (CEST)
+ id 4E8E6F801DB; Tue, 23 Jun 2020 03:20:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id DC775F8015A
- for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 03:20:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC775F8015A
-Date: 23 Jun 2020 10:20:24 +0900
-X-IronPort-AV: E=Sophos;i="5.75,268,1589209200"; d="scan'208";a="50329454"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 23 Jun 2020 10:20:24 +0900
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 3B12FF8010D
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 03:20:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B12FF8010D
+Date: 23 Jun 2020 10:20:31 +0900
+X-IronPort-AV: E=Sophos;i="5.75,268,1589209200"; d="scan'208";a="50118953"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 23 Jun 2020 10:20:31 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 542114001DB1;
- Tue, 23 Jun 2020 10:20:24 +0900 (JST)
-Message-ID: <871rm637dy.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 7AA5B4183C43;
+ Tue, 23 Jun 2020 10:20:31 +0900 (JST)
+Message-ID: <87zh8u1sta.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 10/19] ASoC: codecs: pcm*: merge .digital_mute() into
+Subject: [PATCH 11/19] ASoC: codecs: max*: merge .digital_mute() into
  .mute_stream()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -143,162 +143,125 @@ We can merge digital_mute() into mute_stream
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/codecs/pcm1681.c  | 7 +++++--
- sound/soc/codecs/pcm1789.c  | 7 +++++--
- sound/soc/codecs/pcm179x.c  | 7 +++++--
- sound/soc/codecs/pcm3168a.c | 7 +++++--
- sound/soc/codecs/pcm512x.c  | 7 +++++--
- 5 files changed, 25 insertions(+), 10 deletions(-)
+ sound/soc/codecs/max98088.c | 16 ++++++++++++----
+ sound/soc/codecs/max98090.c |  8 ++++++--
+ sound/soc/codecs/max9867.c  |  7 +++++--
+ 3 files changed, 23 insertions(+), 8 deletions(-)
 
-diff --git a/sound/soc/codecs/pcm1681.c b/sound/soc/codecs/pcm1681.c
-index 4767e158cd5e..0f641d29b8b3 100644
---- a/sound/soc/codecs/pcm1681.c
-+++ b/sound/soc/codecs/pcm1681.c
-@@ -147,12 +147,15 @@ static int pcm1681_set_dai_fmt(struct snd_soc_dai *codec_dai,
- 	return 0;
+diff --git a/sound/soc/codecs/max98088.c b/sound/soc/codecs/max98088.c
+index 1f1817634a41..60096e732517 100644
+--- a/sound/soc/codecs/max98088.c
++++ b/sound/soc/codecs/max98088.c
+@@ -1274,11 +1274,15 @@ static int max98088_dai2_set_fmt(struct snd_soc_dai *codec_dai,
+        return 0;
  }
  
--static int pcm1681_digital_mute(struct snd_soc_dai *dai, int mute)
-+static int pcm1681_mute(struct snd_soc_dai *dai, int mute, int direction)
+-static int max98088_dai1_digital_mute(struct snd_soc_dai *codec_dai, int mute)
++static int max98088_dai1_mute(struct snd_soc_dai *codec_dai, int mute,
++			      int direction)
  {
- 	struct snd_soc_component *component = dai->component;
- 	struct pcm1681_private *priv = snd_soc_component_get_drvdata(component);
- 	int val;
+        struct snd_soc_component *component = codec_dai->component;
+        int reg;
  
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
++       if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++                return 0;
 +
- 	if (mute)
- 		val = PCM1681_SOFT_MUTE_ALL;
- 	else
-@@ -205,7 +208,7 @@ static int pcm1681_hw_params(struct snd_pcm_substream *substream,
- static const struct snd_soc_dai_ops pcm1681_dai_ops = {
- 	.set_fmt	= pcm1681_set_dai_fmt,
- 	.hw_params	= pcm1681_hw_params,
--	.digital_mute	= pcm1681_digital_mute,
-+	.mute_stream	= pcm1681_mute,
+        if (mute)
+                reg = M98088_DAI_MUTE;
+        else
+@@ -1289,11 +1293,15 @@ static int max98088_dai1_digital_mute(struct snd_soc_dai *codec_dai, int mute)
+        return 0;
+ }
+ 
+-static int max98088_dai2_digital_mute(struct snd_soc_dai *codec_dai, int mute)
++static int max98088_dai2_mute(struct snd_soc_dai *codec_dai, int mute,
++			      int direction)
+ {
+        struct snd_soc_component *component = codec_dai->component;
+        int reg;
+ 
++       if (direction != SNDRV_PCM_STREAM_PLAYBACK)
++               return 0;
++
+        if (mute)
+                reg = M98088_DAI_MUTE;
+        else
+@@ -1354,14 +1362,14 @@ static const struct snd_soc_dai_ops max98088_dai1_ops = {
+        .set_sysclk = max98088_dai_set_sysclk,
+        .set_fmt = max98088_dai1_set_fmt,
+        .hw_params = max98088_dai1_hw_params,
+-       .digital_mute = max98088_dai1_digital_mute,
++       .mute_stream = max98088_dai1_mute,
  };
  
- static const struct snd_soc_dapm_widget pcm1681_dapm_widgets[] = {
-diff --git a/sound/soc/codecs/pcm1789.c b/sound/soc/codecs/pcm1789.c
-index 8df6447c76a6..eb887802c6d0 100644
---- a/sound/soc/codecs/pcm1789.c
-+++ b/sound/soc/codecs/pcm1789.c
-@@ -60,11 +60,14 @@ static int pcm1789_set_dai_fmt(struct snd_soc_dai *codec_dai,
+ static const struct snd_soc_dai_ops max98088_dai2_ops = {
+        .set_sysclk = max98088_dai_set_sysclk,
+        .set_fmt = max98088_dai2_set_fmt,
+        .hw_params = max98088_dai2_hw_params,
+-       .digital_mute = max98088_dai2_digital_mute,
++       .mute_stream = max98088_dai2_mute,
+ };
+ 
+ static struct snd_soc_dai_driver max98088_dai[] = {
+diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
+index a61c5638652d..05a1a7f13b36 100644
+--- a/sound/soc/codecs/max98090.c
++++ b/sound/soc/codecs/max98090.c
+@@ -2017,11 +2017,15 @@ static int max98090_dai_set_sysclk(struct snd_soc_dai *dai,
  	return 0;
  }
  
--static int pcm1789_digital_mute(struct snd_soc_dai *codec_dai, int mute)
-+static int pcm1789_mute(struct snd_soc_dai *codec_dai, int mute, int direction)
+-static int max98090_dai_digital_mute(struct snd_soc_dai *codec_dai, int mute)
++static int max98090_dai_mute(struct snd_soc_dai *codec_dai, int mute,
++			     int direction)
  {
  	struct snd_soc_component *component = codec_dai->component;
- 	struct pcm1789_private *priv = snd_soc_component_get_drvdata(component);
+ 	int regval;
  
 +	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
 +		return 0;
 +
- 	return regmap_update_bits(priv->regmap, PCM1789_SOFT_MUTE,
- 				  PCM1789_MUTE_MASK,
- 				  mute ? 0 : PCM1789_MUTE_MASK);
-@@ -167,7 +170,7 @@ static int pcm1789_trigger(struct snd_pcm_substream *substream, int cmd,
- static const struct snd_soc_dai_ops pcm1789_dai_ops = {
- 	.set_fmt	= pcm1789_set_dai_fmt,
- 	.hw_params	= pcm1789_hw_params,
--	.digital_mute	= pcm1789_digital_mute,
-+	.mute_stream	= pcm1789_mute,
- 	.trigger	= pcm1789_trigger,
+ 	regval = mute ? M98090_DVM_MASK : 0;
+ 	snd_soc_component_update_bits(component, M98090_REG_DAI_PLAYBACK_LEVEL,
+ 		M98090_DVM_MASK, regval);
+@@ -2347,7 +2351,7 @@ static const struct snd_soc_dai_ops max98090_dai_ops = {
+ 	.set_fmt = max98090_dai_set_fmt,
+ 	.set_tdm_slot = max98090_set_tdm_slot,
+ 	.hw_params = max98090_dai_hw_params,
+-	.digital_mute = max98090_dai_digital_mute,
++	.mute_stream = max98090_dai_mute,
+ 	.trigger = max98090_dai_trigger,
  };
  
-diff --git a/sound/soc/codecs/pcm179x.c b/sound/soc/codecs/pcm179x.c
-index 9e70b7385c69..cc944250ad71 100644
---- a/sound/soc/codecs/pcm179x.c
-+++ b/sound/soc/codecs/pcm179x.c
-@@ -76,12 +76,15 @@ static int pcm179x_set_dai_fmt(struct snd_soc_dai *codec_dai,
+diff --git a/sound/soc/codecs/max9867.c b/sound/soc/codecs/max9867.c
+index c72cb2888c21..b4ac9f696a5d 100644
+--- a/sound/soc/codecs/max9867.c
++++ b/sound/soc/codecs/max9867.c
+@@ -283,11 +283,14 @@ static int max9867_dai_hw_params(struct snd_pcm_substream *substream,
  	return 0;
  }
  
--static int pcm179x_digital_mute(struct snd_soc_dai *dai, int mute)
-+static int pcm179x_mute(struct snd_soc_dai *dai, int mute, int direction)
+-static int max9867_mute(struct snd_soc_dai *dai, int mute)
++static int max9867_mute(struct snd_soc_dai *dai, int mute, int direction)
  {
  	struct snd_soc_component *component = dai->component;
- 	struct pcm179x_private *priv = snd_soc_component_get_drvdata(component);
- 	int ret;
+ 	struct max9867_priv *max9867 = snd_soc_component_get_drvdata(component);
  
 +	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
 +		return 0;
 +
- 	ret = regmap_update_bits(priv->regmap, PCM179X_SOFT_MUTE,
- 				 PCM179X_MUTE_MASK, !!mute);
- 	if (ret < 0)
-@@ -145,7 +148,7 @@ static int pcm179x_hw_params(struct snd_pcm_substream *substream,
- static const struct snd_soc_dai_ops pcm179x_dai_ops = {
- 	.set_fmt	= pcm179x_set_dai_fmt,
- 	.hw_params	= pcm179x_hw_params,
--	.digital_mute	= pcm179x_digital_mute,
-+	.mute_stream	= pcm179x_mute,
- };
- 
- static const DECLARE_TLV_DB_SCALE(pcm179x_dac_tlv, -12000, 50, 1);
-diff --git a/sound/soc/codecs/pcm3168a.c b/sound/soc/codecs/pcm3168a.c
-index 9711fab296eb..e9756c45e15d 100644
---- a/sound/soc/codecs/pcm3168a.c
-+++ b/sound/soc/codecs/pcm3168a.c
-@@ -290,11 +290,14 @@ static int pcm3168a_reset(struct pcm3168a_priv *pcm3168a)
- 			PCM3168A_MRST_MASK | PCM3168A_SRST_MASK);
+ 	return regmap_update_bits(max9867->regmap, MAX9867_DACLEVEL,
+ 				  1 << 6, !!mute << 6);
  }
- 
--static int pcm3168a_digital_mute(struct snd_soc_dai *dai, int mute)
-+static int pcm3168a_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 	struct pcm3168a_priv *pcm3168a = snd_soc_component_get_drvdata(component);
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	regmap_write(pcm3168a->regmap, PCM3168A_DAC_MUTE, mute ? 0xff : 0);
- 
- 	return 0;
-@@ -570,7 +573,7 @@ static const struct snd_soc_dai_ops pcm3168a_dai_ops = {
- 	.set_fmt	= pcm3168a_set_dai_fmt,
- 	.set_sysclk	= pcm3168a_set_dai_sysclk,
- 	.hw_params	= pcm3168a_hw_params,
--	.digital_mute	= pcm3168a_digital_mute,
-+	.mute_stream	= pcm3168a_mute,
- 	.set_tdm_slot	= pcm3168a_set_tdm_slot,
+@@ -393,7 +396,7 @@ static int max9867_dai_set_fmt(struct snd_soc_dai *codec_dai,
+ static const struct snd_soc_dai_ops max9867_dai_ops = {
+ 	.set_sysclk	= max9867_set_dai_sysclk,
+ 	.set_fmt	= max9867_dai_set_fmt,
+-	.digital_mute	= max9867_mute,
++	.mute_stream	= max9867_mute,
+ 	.startup	= max9867_startup,
+ 	.hw_params	= max9867_dai_hw_params,
  };
- 
-diff --git a/sound/soc/codecs/pcm512x.c b/sound/soc/codecs/pcm512x.c
-index 4cbef9affffd..5a82a59d6336 100644
---- a/sound/soc/codecs/pcm512x.c
-+++ b/sound/soc/codecs/pcm512x.c
-@@ -1394,13 +1394,16 @@ static int pcm512x_set_bclk_ratio(struct snd_soc_dai *dai, unsigned int ratio)
- 	return 0;
- }
- 
--static int pcm512x_digital_mute(struct snd_soc_dai *dai, int mute)
-+static int pcm512x_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 	struct pcm512x_priv *pcm512x = snd_soc_component_get_drvdata(component);
- 	int ret;
- 	unsigned int mute_det;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	mutex_lock(&pcm512x->mutex);
- 
- 	if (mute) {
-@@ -1445,7 +1448,7 @@ static const struct snd_soc_dai_ops pcm512x_dai_ops = {
- 	.startup = pcm512x_dai_startup,
- 	.hw_params = pcm512x_hw_params,
- 	.set_fmt = pcm512x_set_fmt,
--	.digital_mute = pcm512x_digital_mute,
-+	.mute_stream = pcm512x_mute,
- 	.set_bclk_ratio = pcm512x_set_bclk_ratio,
- };
- 
 -- 
 2.25.1
 

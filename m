@@ -2,54 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15533205654
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jun 2020 17:52:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 387682056B2
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jun 2020 18:01:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B207517AB;
-	Tue, 23 Jun 2020 17:51:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B207517AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id A325517B0;
+	Tue, 23 Jun 2020 18:00:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A325517B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592927530;
-	bh=dS4rt7CJcy8P1xBC8m2qBteO1gXgiIT94M6HPBtbY9o=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1592928104;
+	bh=mFaMXKH1Wr6S65mEIChWXhxRSdPIdfSNI9H4USttIUY=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ta4D4iGXLKIMSzODt2nWSAwa6uRsRvTZFtxZHVLw/o4LTZelThZTyoxUS8XtsiC6z
-	 vmIMj/A1wY0eH8BXCrjFp/UMygEwpcJhS8aCB2+je7lduiQpgkSJEdRItPbauBR3QI
-	 m5LcFAl6O3pjY7BdHLxQK8IzvngybAEyQUMXFAaI=
+	b=AZ/JeMU1FlDG2rLaxE1ZrgfM0LlIFsEbAui8c4sSUkITmQkaBAV6WGqI8LZW6AHa4
+	 Kmv1HkRrHDtNyI4K7xPkKdiLQSpefkaYZSdI8dhws6wAsyS9Qn42xYbOAPc86/Be6g
+	 ZAlALug4LuGxCqSq0mkXKchYB8AociYlaqfcJoj0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2CE1AF8025E;
-	Tue, 23 Jun 2020 17:49:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CCC64F800B2;
+	Tue, 23 Jun 2020 18:00:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 33FD9F80249; Tue, 23 Jun 2020 17:49:40 +0200 (CEST)
+ id CB229F80218; Tue, 23 Jun 2020 17:59:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6158BF800B2
- for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 17:49:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6158BF800B2
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5C8FFB03A
- for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 15:49:32 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH alsa-lib v2 2/2] pcm: dmix: Fix semaphore usage with lockless
- operation
-Date: Tue, 23 Jun 2020 17:49:31 +0200
-Message-Id: <20200623154931.27755-3-tiwai@suse.de>
-X-Mailer: git-send-email 2.16.4
-In-Reply-To: <20200623154931.27755-1-tiwai@suse.de>
-References: <20200623154931.27755-1-tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 85B6EF8010E
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 17:59:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85B6EF8010E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="elmIn/w9"
+Received: from lelv0265.itg.ti.com ([10.180.67.224])
+ by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 05NFxoNB045823;
+ Tue, 23 Jun 2020 10:59:50 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1592927990;
+ bh=olC4l/jXzIroYJbEpRReyOUqgRg7I8gSJNp27yn9+/g=;
+ h=Subject:To:CC:References:From:Date:In-Reply-To;
+ b=elmIn/w9jpsWEuzqTTEYJMbNKlN3CikTLSag64yS0+7RWQhvsgkwgPuhSnidqaH3Y
+ zLFp4scutmYLF7bf1PmT96FcQcJmQahn/lROVxVGJdOZOUR3UP4ucXrxsnrV9CA7tE
+ hB02ImQxeZkTKLUtZglqNab7Oy6xEg00+9XjJCQE=
+Received: from DFLE108.ent.ti.com (dfle108.ent.ti.com [10.64.6.29])
+ by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 05NFxotF083470
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 23 Jun 2020 10:59:50 -0500
+Received: from DFLE114.ent.ti.com (10.64.6.35) by DFLE108.ent.ti.com
+ (10.64.6.29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Tue, 23
+ Jun 2020 10:59:50 -0500
+Received: from lelv0326.itg.ti.com (10.180.67.84) by DFLE114.ent.ti.com
+ (10.64.6.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
+ Frontend Transport; Tue, 23 Jun 2020 10:59:50 -0500
+Received: from [10.250.52.63] (ileax41-snat.itg.ti.com [10.172.224.153])
+ by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 05NFxnjP128978;
+ Tue, 23 Jun 2020 10:59:50 -0500
+Subject: Re: [PATCH v4 2/2] ASoC: tas2562: Update shutdown GPIO property
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <robh@kernel.org>
+References: <20200612171412.25423-1-dmurphy@ti.com>
+ <20200612171412.25423-2-dmurphy@ti.com>
+From: Dan Murphy <dmurphy@ti.com>
+Message-ID: <cfb043e3-77c5-2957-20b6-2814f1445cf0@ti.com>
+Date: Tue, 23 Jun 2020 10:59:49 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
+MIME-Version: 1.0
+In-Reply-To: <20200612171412.25423-2-dmurphy@ti.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,107 +97,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-As Maarten Baert recently reported, the current dmix code applies the
-semaphore unnecessarily around mixing streams even when the lockless
-mix operation is used on x86.  This was rather introduced mistakenly
-at the commit 267d7c728196 ("Add support of little-endian on
-i386/x86_64 dmix") where the generic dmix code was included on x86,
-too.
+Hello
 
-For achieving the original performance back, this patch changes the
-semaphore handling to be checked at run time instead of statically at
-compile time.
+On 6/12/20 12:14 PM, Dan Murphy wrote:
+> Update the shutdown GPIO property to be shutdown from shut-down.
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- src/pcm/pcm_direct.h       |  1 +
- src/pcm/pcm_dmix.c         | 18 +++++++++++-------
- src/pcm/pcm_dmix_generic.c |  2 +-
- src/pcm/pcm_dmix_i386.c    |  1 +
- src/pcm/pcm_dmix_x86_64.c  |  1 +
- 5 files changed, 15 insertions(+), 8 deletions(-)
+I have some other patches that go on top of this patchset I am wondering 
+if I should re-submit with those patches on top or indicate in a cover 
+letter the dependency
 
-diff --git a/src/pcm/pcm_direct.h b/src/pcm/pcm_direct.h
-index 8a236970a3a1..2150bce15449 100644
---- a/src/pcm/pcm_direct.h
-+++ b/src/pcm/pcm_direct.h
-@@ -186,6 +186,7 @@ struct snd_pcm_direct {
- 			mix_areas_32_t *remix_areas_32;
- 			mix_areas_24_t *remix_areas_24;
- 			mix_areas_u8_t *remix_areas_u8;
-+			unsigned int use_sem;
- 		} dmix;
- 		struct {
- 			unsigned long long chn_mask;
-diff --git a/src/pcm/pcm_dmix.c b/src/pcm/pcm_dmix.c
-index 843fa3168756..e9343b19a536 100644
---- a/src/pcm/pcm_dmix.c
-+++ b/src/pcm/pcm_dmix.c
-@@ -292,13 +292,17 @@ static void remix_areas(snd_pcm_direct_t *dmix,
-  * the area via semaphore
-  */
- #ifndef DOC_HIDDEN
--#ifdef NO_CONCURRENT_ACCESS
--#define dmix_down_sem(dmix) snd_pcm_direct_semaphore_down(dmix, DIRECT_IPC_SEM_CLIENT)
--#define dmix_up_sem(dmix) snd_pcm_direct_semaphore_up(dmix, DIRECT_IPC_SEM_CLIENT)
--#else
--#define dmix_down_sem(dmix)
--#define dmix_up_sem(dmix)
--#endif
-+static void dmix_down_sem(snd_pcm_direct_t *dmix)
-+{
-+	if (dmix->u.dmix.use_sem)
-+		snd_pcm_direct_semaphore_down(dmix, DIRECT_IPC_SEM_CLIENT);
-+}
-+
-+static void dmix_up_sem(snd_pcm_direct_t *dmix)
-+{
-+	if (dmix->u.dmix.use_sem)
-+		snd_pcm_direct_semaphore_up(dmix, DIRECT_IPC_SEM_CLIENT);
-+}
- #endif
- 
- /*
-diff --git a/src/pcm/pcm_dmix_generic.c b/src/pcm/pcm_dmix_generic.c
-index 40c08747a74a..8a5b6f148556 100644
---- a/src/pcm/pcm_dmix_generic.c
-+++ b/src/pcm/pcm_dmix_generic.c
-@@ -43,7 +43,6 @@ static inline unsigned long __cmpxchg(volatile void *ptr, unsigned long old,
- #ifndef ARCH_ADD
- #define ARCH_ADD(p,a) (*(p) += (a))
- #define ARCH_CMPXCHG(p,a,b) (*(p)) /* fake */
--#define NO_CONCURRENT_ACCESS	/* use semaphore to avoid race */
- #define IS_CONCURRENT	0	/* no race check */
- #endif
- 
-@@ -530,6 +529,7 @@ static void generic_mix_select_callbacks(snd_pcm_direct_t *dmix)
- 	dmix->u.dmix.mix_areas_u8 = generic_mix_areas_u8;
- 	dmix->u.dmix.remix_areas_24 = generic_remix_areas_24;
- 	dmix->u.dmix.remix_areas_u8 = generic_remix_areas_u8;
-+	dmix->u.dmix.use_sem = 1;
- }
- 
- #endif
-diff --git a/src/pcm/pcm_dmix_i386.c b/src/pcm/pcm_dmix_i386.c
-index 1ab983a8a373..82a91c5c2897 100644
---- a/src/pcm/pcm_dmix_i386.c
-+++ b/src/pcm/pcm_dmix_i386.c
-@@ -135,4 +135,5 @@ static void mix_select_callbacks(snd_pcm_direct_t *dmix)
- 		dmix->u.dmix.mix_areas_24 = smp > 1 ? mix_areas_24_smp: mix_areas_24;
- 		dmix->u.dmix.remix_areas_24 = smp > 1 ? remix_areas_24_smp: remix_areas_24;
- 	}
-+	dmix->u.dmix.use_sem = 0;
- }
-diff --git a/src/pcm/pcm_dmix_x86_64.c b/src/pcm/pcm_dmix_x86_64.c
-index 34c40d4e9d1d..4d882bfd01bf 100644
---- a/src/pcm/pcm_dmix_x86_64.c
-+++ b/src/pcm/pcm_dmix_x86_64.c
-@@ -102,4 +102,5 @@ static void mix_select_callbacks(snd_pcm_direct_t *dmix)
- 	dmix->u.dmix.remix_areas_32 = smp > 1 ? remix_areas_32_smp : remix_areas_32;
- 	dmix->u.dmix.mix_areas_24 = smp > 1 ? mix_areas_24_smp : mix_areas_24;
- 	dmix->u.dmix.remix_areas_24 = smp > 1 ? remix_areas_24_smp : remix_areas_24;
-+	dmix->u.dmix.use_sem = 0;
- }
--- 
-2.16.4
+Dan
 

@@ -2,86 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 387682056B2
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jun 2020 18:01:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C57152057E8
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jun 2020 18:51:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A325517B0;
-	Tue, 23 Jun 2020 18:00:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A325517B0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5218917B0;
+	Tue, 23 Jun 2020 18:51:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5218917B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592928104;
-	bh=mFaMXKH1Wr6S65mEIChWXhxRSdPIdfSNI9H4USttIUY=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1592931113;
+	bh=mp2veAmJrx0HjmM7bfHyrU2dCOosKZKwlfPv3nLAWSc=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AZ/JeMU1FlDG2rLaxE1ZrgfM0LlIFsEbAui8c4sSUkITmQkaBAV6WGqI8LZW6AHa4
-	 Kmv1HkRrHDtNyI4K7xPkKdiLQSpefkaYZSdI8dhws6wAsyS9Qn42xYbOAPc86/Be6g
-	 ZAlALug4LuGxCqSq0mkXKchYB8AociYlaqfcJoj0=
+	b=LlhOgwsEZ8QzveQwblKhzVfNDfWE/3uiBYRLrG77+ykblFsor1G21JDTVgyGeui4i
+	 qvZlS4UtnuQPDZYPtGaIwMvQ9kdBc9kT0ouzXnsdxV/QBROjYz0FMGfe/+3wjH6nnP
+	 Tz3F+ioPnHkSaoa44pEMjOt9/Zpe/blTLd+TsCdw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CCC64F800B2;
-	Tue, 23 Jun 2020 18:00:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A365F80218;
+	Tue, 23 Jun 2020 18:50:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CB229F80218; Tue, 23 Jun 2020 17:59:56 +0200 (CEST)
+ id 3D451F80234; Tue, 23 Jun 2020 18:50:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85B6EF8010E
- for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 17:59:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85B6EF8010E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="elmIn/w9"
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
- by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 05NFxoNB045823;
- Tue, 23 Jun 2020 10:59:50 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1592927990;
- bh=olC4l/jXzIroYJbEpRReyOUqgRg7I8gSJNp27yn9+/g=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=elmIn/w9jpsWEuzqTTEYJMbNKlN3CikTLSag64yS0+7RWQhvsgkwgPuhSnidqaH3Y
- zLFp4scutmYLF7bf1PmT96FcQcJmQahn/lROVxVGJdOZOUR3UP4ucXrxsnrV9CA7tE
- hB02ImQxeZkTKLUtZglqNab7Oy6xEg00+9XjJCQE=
-Received: from DFLE108.ent.ti.com (dfle108.ent.ti.com [10.64.6.29])
- by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 05NFxotF083470
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 23 Jun 2020 10:59:50 -0500
-Received: from DFLE114.ent.ti.com (10.64.6.35) by DFLE108.ent.ti.com
- (10.64.6.29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Tue, 23
- Jun 2020 10:59:50 -0500
-Received: from lelv0326.itg.ti.com (10.180.67.84) by DFLE114.ent.ti.com
- (10.64.6.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Tue, 23 Jun 2020 10:59:50 -0500
-Received: from [10.250.52.63] (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 05NFxnjP128978;
- Tue, 23 Jun 2020 10:59:50 -0500
-Subject: Re: [PATCH v4 2/2] ASoC: tas2562: Update shutdown GPIO property
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <robh@kernel.org>
-References: <20200612171412.25423-1-dmurphy@ti.com>
- <20200612171412.25423-2-dmurphy@ti.com>
-From: Dan Murphy <dmurphy@ti.com>
-Message-ID: <cfb043e3-77c5-2957-20b6-2814f1445cf0@ti.com>
-Date: Tue, 23 Jun 2020 10:59:49 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
-MIME-Version: 1.0
-In-Reply-To: <20200612171412.25423-2-dmurphy@ti.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2C563F8012F
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 18:49:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C563F8012F
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 04304AEAF;
+ Tue, 23 Jun 2020 16:49:59 +0000 (UTC)
+Date: Tue, 23 Jun 2020 18:49:59 +0200
+Message-ID: <s5h366ln2vc.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Stanislav Kazmin <stas.kazmin@gmail.com>
+Subject: Re: [HDAudio][ALC295] speakers not working on Acer Travelmate P614
+In-Reply-To: <CA+-1zuv3SeumhdMbqXjZU0tbmh7HB9LwTK2bfNTe5nOCmz4BgA@mail.gmail.com>
+References: <CA+-1zuv3SeumhdMbqXjZU0tbmh7HB9LwTK2bfNTe5nOCmz4BgA@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,14 +69,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello
+On Tue, 23 Jun 2020 17:49:18 +0200,
+Stanislav Kazmin wrote:
+> 
+> Hello, I have the following problem on my Acer TravelMate P614-51T-G2:
+> 
+> I have all the audio sinks correctly identified (like HDMI, DMic, Headphones)
+> but the internal speakers do not produce any sound.
+> 
+> What I have tried so far:
+> 
+> - hard/soft shutdown on Windows and reboot
+> - disable/re-enable speakers and microphone in BIOS
+> - uninstall pulseaudio and test alsa alone (so it is defeitely **not** a
+> pulseaudio issue)
+> - switch from sof-hda-dsp to snd-hda-intel driver (without Dmic support)
+> - retask pins 0x14, 0x16, 0x1b to "Internal Speakers" through hdajackretask
+> (only basic, without advanced features)
+> - removed/reconnected the headphones
+> 
+> `alsamixer` shows all needed sinks and nothing is muted.
+> 
+> I already discussed the issue at sof github https://github.com/thesofproject/
+> sof/issues/3058 but since the same issue occurs on `snd-hda-intel` legacy
+> river, I was advised to communicate with alsa-devel team.
+> 
+> The alsa-info.sh result are linked at http://alsa-project.org/db/?
+> f=252f92c7a1df3c755d16ee69353b26d2535a4d81
+> 
+> I have tested the kernel 5.8-rc1 but it does not make any difference.
+> 
+> Let me know if I can do anything else to test the issue.
 
-On 6/12/20 12:14 PM, Dan Murphy wrote:
-> Update the shutdown GPIO property to be shutdown from shut-down.
+It's hard to know and the only way is to some trial-and-errors.
+The first shot I'd take is to toggle GPIO pins.  You can change the
+bit via hda-verb program like
+  hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_DIR 0x01
+  hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_MASK 0x01
+  hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_DATA 0x01
+  
+to turn on the bit 0 of GPIO.  The first 0x01 is the node ID and it's
+0x01 on Realtek, and the last 0x01 the GPIO bit 0.  For toggling the
+bit 1, pass 0x02 in the last argument, and for bit 2, pass 0x04.
 
-I have some other patches that go on top of this patchset I am wondering 
-if I should re-submit with those patches on top or indicate in a cover 
-letter the dependency
+And try turn on EAPD on non-used pins.  This can be done via hda-verb,
+too.
 
-Dan
+If this doesn't help, you might need to try some COEF changes as done
+in various quirks in sound/pci/hda/patch_realtek.c.
 
+
+HTH,
+
+Takashi

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB4C6204FBD
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jun 2020 12:59:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C384C204FC2
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jun 2020 13:00:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 045011780;
-	Tue, 23 Jun 2020 12:58:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 045011780
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BF101778;
+	Tue, 23 Jun 2020 12:59:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BF101778
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592909959;
-	bh=YIuvDeTsbEkUV9PKLxIiKtk/1prbOacYH9GdCCaQt+E=;
+	s=default; t=1592910007;
+	bh=8TyokLYgzSxp4Aia8szt1FT6qopzlr01ChmQzbzqpJo=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sitGPeI0VwGV28lwd+LIkdj8pPvPabwdy3gZYZxX0TnOBorU8Tt7M9SGG9kweJ8zD
-	 zXFjxhaepfVs6y1EA5wWCJOfj3DlhbGzniv6LfQlelXs3xUoozxRTW237WOBoaV18+
-	 xaHAtipFo/+KO+vHpZkCTfLXeSJBca/yxd6dhKEU=
+	b=rJgMc8PynE84FBws5F3rsn7syN7PT09lhHoUjojAEZQBqDLaE2y7zXULf3j1LBGGk
+	 FPCWe6xSAx6rJZXcSsOLSinhtIawYy7QMQ5fF/KDnXeGpjxQSsH02Patohst1WaVsD
+	 PSiOiso53u8IzNNi/9EqEGZ4/0qVjzzRfjfKpCoA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 35AF4F80234;
-	Tue, 23 Jun 2020 12:57:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F227FF80291;
+	Tue, 23 Jun 2020 12:57:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C0479F800B2; Tue, 23 Jun 2020 12:57:35 +0200 (CEST)
+ id 83A2AF80259; Tue, 23 Jun 2020 12:57:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E5E59F800B2
- for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 12:57:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5E59F800B2
+ by alsa1.perex.cz (Postfix) with ESMTPS id C2D31F8023E
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 12:57:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2D31F8023E
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 266EBAF27;
- Tue, 23 Jun 2020 10:57:29 +0000 (UTC)
-Date: Tue, 23 Jun 2020 12:57:29 +0200
-Message-ID: <s5ha70uoxra.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 0AA35AEE6;
+ Tue, 23 Jun 2020 10:57:42 +0000 (UTC)
+Date: Tue, 23 Jun 2020 12:57:42 +0200
+Message-ID: <s5h8sgeoxqx.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Mark Hills <mark@xwax.org>
-Subject: Re: [PATCH 1/9] control: Fix typos in the namehint example
-In-Reply-To: <20200622131515.23385-1-mark@xwax.org>
+Subject: Re: [PATCH 2/9] control: Fix a bug that prevented namehint behaviour
+In-Reply-To: <20200622131515.23385-2-mark@xwax.org>
 References: <2006221356390.20421@stax.localdomain>
- <20200622131515.23385-1-mark@xwax.org>
+ <20200622131515.23385-2-mark@xwax.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -70,11 +70,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 22 Jun 2020 15:15:07 +0200,
+On Mon, 22 Jun 2020 15:15:08 +0200,
 Mark Hills wrote:
 > 
-> Ths "namehint" is a list, and there doesn't seem to have been any
-> history where the separator would be a colon.
+> Looks like the documented behaviour was broken in commit 1ba513f9 in
+> 2006, with the introduction of multiple fields.
+> 
+> I've chosen to match the described behaviour. Prior to this patch,
+> using namehint could be made to work by exploiting the lack of escaping
+> of the "name", populating the other fields:
+> 
+>   "plug:front|DESCDo all conversions for front speakers"
+> 
+> rather than that which is documented and presumed to be the intention
+> for asoundrc files:
+> 
+>   "plug:front|Do all conversions for front speakers"
+> 
+> Everything seems to strongly suggest nobody is using this feature; I can
+> find no working examples through a web search and probably someone
+> would have hit this bug. It's not documented in configuration, only in
+> the snd_device_name_hint() call. So it would probably clutter things to
+> provide compatibility for the old behaviour.
+> 
+> I have found it to be very useful since working in Chromium, where it is
+> the only way to expose chosen ALSA devices to web applications.
+> 
+> A temporary buffer is required to null-terminate the string.  I see no
+> use of alloca() in the code, presumably to avoid unbounded stack size.
+> So memory is allocated on the heap.
 > 
 > Signed-off-by: Mark Hills <mark@xwax.org>
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 513C4206BB9
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 07:32:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99666206BBA
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 07:32:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E5D8217D6;
-	Wed, 24 Jun 2020 07:31:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5D8217D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B9F617E7;
+	Wed, 24 Jun 2020 07:32:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B9F617E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592976761;
-	bh=ONVy6CEkm+764exp3fNjan1XCHJq2v9uKeZAstJN2M8=;
+	s=default; t=1592976778;
+	bh=JbNrFgLqa1UhOPk0L1v+djmi6G0BCDkKVoP23gx0kzU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HIfSdrghfmweeWCKbz62mpOO7fl3RRHlv6ShP4FYxErdkCDmVIbA9ZXqfcZ5Ru0rG
-	 OyX5lG4qu4vRRaXmK9vtMmpjlLccLXtk0sPbCdbYvkCeSEJKeGL4jKmN3J/uN0cpaC
-	 ae4Ll6PTQ1PqKi7uu9HIXlqMROgvSw4o7iFmhwR4=
+	b=j9NG3IrGe036dY4SV5YG587ITyTjRX6p9OPA02LL8Wz/+jMA1GJ2CsLzCN4SRXYaa
+	 Qbia8pMoCCdz4CAbpxklch1Q+fil92wQaQBGnVNSPLVRqNNO10M4R6PKTVTseBiSJh
+	 2TB3WbJorQUwD39UsQ9kHG417nvICIYt/ZgfNNJE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D1F6F80276;
-	Wed, 24 Jun 2020 07:30:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E60EF802A8;
+	Wed, 24 Jun 2020 07:30:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1DB03F80276; Wed, 24 Jun 2020 07:30:15 +0200 (CEST)
+ id ECA2EF802A2; Wed, 24 Jun 2020 07:30:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
@@ -33,30 +33,31 @@ X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 84172F8015A
- for <alsa-devel@alsa-project.org>; Wed, 24 Jun 2020 07:30:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84172F8015A
-IronPort-SDR: tyWZ02F5H40mEQHhRfOUcQTFVjvT72Ax1L0TPWNJOYypAKd0LGa8TGR7oopz4e4brH30Ju6oDv
- rs+o5YSqR4KA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9661"; a="131775924"
-X-IronPort-AV: E=Sophos;i="5.75,274,1589266800"; d="scan'208";a="131775924"
+ by alsa1.perex.cz (Postfix) with ESMTPS id D5831F80268
+ for <alsa-devel@alsa-project.org>; Wed, 24 Jun 2020 07:30:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5831F80268
+IronPort-SDR: 7BZLMg8z/xoFOYJiYVY86DXE/VEUug8Xk/VcjSQaYOyps4Su1o98or/TL46jGpTwSfSoZPc4WZ
+ dO7WsAaXaqZw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9661"; a="131775981"
+X-IronPort-AV: E=Sophos;i="5.75,274,1589266800"; d="scan'208";a="131775981"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2020 22:30:06 -0700
-IronPort-SDR: 3z7dzNO8hR6sPsGAOtCtqhT4XMNWbUZBTTNcuajtWhE6tnwjQGREVSTR6uN+31v4H68YJPPz2k
- oDLyjoq0JNfA==
+ 23 Jun 2020 22:30:11 -0700
+IronPort-SDR: 6qCjaBh756XqDD1clRqa/Sk30co5NJU1FxK+EtZTZG0fuOjWw3u9OXaRJ1EeSpKMRh/1iux4nc
+ DkmZlTqqFcrw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,274,1589266800"; d="scan'208";a="452513337"
+X-IronPort-AV: E=Sophos;i="5.75,274,1589266800"; d="scan'208";a="452513392"
 Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
- by orsmga005.jf.intel.com with ESMTP; 23 Jun 2020 22:30:02 -0700
+ by orsmga005.jf.intel.com with ESMTP; 23 Jun 2020 22:30:06 -0700
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
-Subject: [PATCH 2/9] soundwire: intel: revisit SHIM programming sequences.
-Date: Wed, 24 Jun 2020 01:35:39 +0800
-Message-Id: <20200623173546.21870-3-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH 3/9] soundwire: intel: introduce a helper to arm link
+ synchronization
+Date: Wed, 24 Jun 2020 01:35:40 +0800
+Message-Id: <20200623173546.21870-4-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200623173546.21870-1-yung-chuan.liao@linux.intel.com>
 References: <20200623173546.21870-1-yung-chuan.liao@linux.intel.com>
@@ -83,444 +84,64 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Somehow the existing code is not aligned with the steps described in
-the documentation, refactor code and make sure the register
-programming sequences are correct. Also add missing power-up,
-power-down and wake capabilities (the last two are used in follow-up
-patches but introduced here for consistency).
+Move code from pre_bank_switch to dedicated helper, will be used in
+follow-up patches as recommended by programming flows.
 
-Some of the SHIM registers exposed fields that are link specific, and
-in addition some of the power-related registers (SPA/CPA) take time to
-be updated. Uncontrolled access leads to timeouts or errors. Add a
-mutex, shared by all links, so that all accesses to such registers are
-serialized, and follow a pattern of read-modify-write.
-
-This includes making sure SHIM_SYNC is programmed only once, before
-the first master is powered on. We use a 'shim_mask' field, shared
-between all links and protected by a mutex, to deal with power-up and
-power-down sequences.
-
-Note that the SYNCPRD value is tied only to the XTAL value and not the
-current bus frequency or the frame rate.
-
-BugLink: https://github.com/thesofproject/linux/issues/1555
-Signed-off-by: Rander Wang <rander.wang@intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- drivers/soundwire/intel.c           | 241 +++++++++++++++++++++++-----
- drivers/soundwire/intel.h           |   4 +
- drivers/soundwire/intel_init.c      |   4 +
- include/linux/soundwire/sdw_intel.h |   2 +
- 4 files changed, 215 insertions(+), 36 deletions(-)
+ drivers/soundwire/intel.c | 26 ++++++++++++++++----------
+ 1 file changed, 16 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index 8c7ae07c0fe1..4792613e8e5a 100644
+index 4792613e8e5a..6a745602c9cc 100644
 --- a/drivers/soundwire/intel.c
 +++ b/drivers/soundwire/intel.c
-@@ -46,7 +46,8 @@
- #define SDW_SHIM_LCTL_SPA		BIT(0)
- #define SDW_SHIM_LCTL_CPA		BIT(8)
+@@ -497,6 +497,21 @@ static int __maybe_unused intel_link_power_down(struct sdw_intel *sdw)
+ 	return 0;
+ }
  
--#define SDW_SHIM_SYNC_SYNCPRD_VAL	0x176F
-+#define SDW_SHIM_SYNC_SYNCPRD_VAL_24	(24000 / SDW_CADENCE_GSYNC_KHZ - 1)
-+#define SDW_SHIM_SYNC_SYNCPRD_VAL_38_4	(38400 / SDW_CADENCE_GSYNC_KHZ - 1)
- #define SDW_SHIM_SYNC_SYNCPRD		GENMASK(14, 0)
- #define SDW_SHIM_SYNC_SYNCCPU		BIT(15)
- #define SDW_SHIM_SYNC_CMDSYNC_MASK	GENMASK(19, 16)
-@@ -272,8 +273,46 @@ static int intel_link_power_up(struct sdw_intel *sdw)
- {
- 	unsigned int link_id = sdw->instance;
- 	void __iomem *shim = sdw->link_res->shim;
-+	u32 *shim_mask = sdw->link_res->shim_mask;
-+	struct sdw_bus *bus = &sdw->cdns.bus;
-+	struct sdw_master_prop *prop = &bus->prop;
- 	int spa_mask, cpa_mask;
--	int link_control, ret;
-+	int link_control;
-+	int ret = 0;
-+	u32 syncprd;
++static void intel_shim_sync_arm(struct sdw_intel *sdw)
++{
++	void __iomem *shim = sdw->link_res->shim;
 +	u32 sync_reg;
 +
 +	mutex_lock(sdw->link_res->shim_lock);
 +
-+	/*
-+	 * The hardware relies on an internal counter, typically 4kHz,
-+	 * to generate the SoundWire SSP - which defines a 'safe'
-+	 * synchronization point between commands and audio transport
-+	 * and allows for multi link synchronization. The SYNCPRD value
-+	 * is only dependent on the oscillator clock provided to
-+	 * the IP, so adjust based on _DSD properties reported in DSDT
-+	 * tables. The values reported are based on either 24MHz
-+	 * (CNL/CML) or 38.4 MHz (ICL/TGL+).
-+	 */
-+	if (prop->mclk_freq % 6000000)
-+		syncprd = SDW_SHIM_SYNC_SYNCPRD_VAL_38_4;
-+	else
-+		syncprd = SDW_SHIM_SYNC_SYNCPRD_VAL_24;
-+
-+	if (!*shim_mask) {
-+		/* we first need to program the SyncPRD/CPU registers */
-+		dev_dbg(sdw->cdns.dev,
-+			"%s: first link up, programming SYNCPRD\n", __func__);
-+
-+		/* set SyncPRD period */
-+		sync_reg = intel_readl(shim, SDW_SHIM_SYNC);
-+		sync_reg |= (syncprd <<
-+			     SDW_REG_SHIFT(SDW_SHIM_SYNC_SYNCPRD));
-+
-+		/* Set SyncCPU bit */
-+		sync_reg |= SDW_SHIM_SYNC_SYNCCPU;
-+		intel_writel(shim, SDW_SHIM_SYNC, sync_reg);
-+	}
- 
- 	/* Link power up sequence */
- 	link_control = intel_readl(shim, SDW_SHIM_LCTL);
-@@ -282,70 +321,182 @@ static int intel_link_power_up(struct sdw_intel *sdw)
- 	link_control |=  spa_mask;
- 
- 	ret = intel_set_bit(shim, SDW_SHIM_LCTL, link_control, cpa_mask);
--	if (ret < 0)
--		return ret;
-+	if (ret < 0) {
-+		dev_err(sdw->cdns.dev, "Failed to power up link: %d\n", ret);
-+		goto out;
-+	}
-+
-+	if (!*shim_mask) {
-+		/* SyncCPU will change once link is active */
-+		ret = intel_wait_bit(shim, SDW_SHIM_SYNC,
-+				     SDW_SHIM_SYNC_SYNCCPU, 0);
-+		if (ret < 0) {
-+			dev_err(sdw->cdns.dev,
-+				"Failed to set SHIM_SYNC: %d\n", ret);
-+			goto out;
-+		}
-+	}
-+
-+	*shim_mask |= BIT(link_id);
- 
- 	sdw->cdns.link_up = true;
--	return 0;
-+out:
-+	mutex_unlock(sdw->link_res->shim_lock);
-+
-+	return ret;
- }
- 
--static int intel_shim_init(struct sdw_intel *sdw)
-+/* this needs to be called with shim_lock */
-+static void intel_shim_glue_to_master_ip(struct sdw_intel *sdw)
- {
- 	void __iomem *shim = sdw->link_res->shim;
- 	unsigned int link_id = sdw->instance;
--	int sync_reg, ret;
--	u16 ioctl = 0, act = 0;
--
--	/* Initialize Shim */
--	ioctl |= SDW_SHIM_IOCTL_BKE;
--	intel_writew(shim, SDW_SHIM_IOCTL(link_id), ioctl);
--
--	ioctl |= SDW_SHIM_IOCTL_WPDD;
--	intel_writew(shim, SDW_SHIM_IOCTL(link_id), ioctl);
--
--	ioctl |= SDW_SHIM_IOCTL_DO;
--	intel_writew(shim, SDW_SHIM_IOCTL(link_id), ioctl);
--
--	ioctl |= SDW_SHIM_IOCTL_DOE;
--	intel_writew(shim, SDW_SHIM_IOCTL(link_id), ioctl);
-+	u16 ioctl;
- 
- 	/* Switch to MIP from Glue logic */
- 	ioctl = intel_readw(shim,  SDW_SHIM_IOCTL(link_id));
- 
- 	ioctl &= ~(SDW_SHIM_IOCTL_DOE);
- 	intel_writew(shim, SDW_SHIM_IOCTL(link_id), ioctl);
-+	usleep_range(10, 15);
- 
- 	ioctl &= ~(SDW_SHIM_IOCTL_DO);
- 	intel_writew(shim, SDW_SHIM_IOCTL(link_id), ioctl);
-+	usleep_range(10, 15);
- 
- 	ioctl |= (SDW_SHIM_IOCTL_MIF);
- 	intel_writew(shim, SDW_SHIM_IOCTL(link_id), ioctl);
-+	usleep_range(10, 15);
- 
- 	ioctl &= ~(SDW_SHIM_IOCTL_BKE);
- 	ioctl &= ~(SDW_SHIM_IOCTL_COE);
-+	intel_writew(shim, SDW_SHIM_IOCTL(link_id), ioctl);
-+	usleep_range(10, 15);
-+
-+	/* at this point Master IP has full control of the I/Os */
-+}
-+
-+/* this needs to be called with shim_lock */
-+static void intel_shim_master_ip_to_glue(struct sdw_intel *sdw)
-+{
-+	unsigned int link_id = sdw->instance;
-+	void __iomem *shim = sdw->link_res->shim;
-+	u16 ioctl;
-+
-+	/* Glue logic */
-+	ioctl = intel_readw(shim, SDW_SHIM_IOCTL(link_id));
-+	ioctl |= SDW_SHIM_IOCTL_BKE;
-+	ioctl |= SDW_SHIM_IOCTL_COE;
-+	intel_writew(shim, SDW_SHIM_IOCTL(link_id), ioctl);
-+	usleep_range(10, 15);
- 
-+	ioctl &= ~(SDW_SHIM_IOCTL_MIF);
- 	intel_writew(shim, SDW_SHIM_IOCTL(link_id), ioctl);
-+	usleep_range(10, 15);
-+
-+	/* at this point Integration Glue has full control of the I/Os */
-+}
-+
-+static int intel_shim_init(struct sdw_intel *sdw, bool clock_stop)
-+{
-+	void __iomem *shim = sdw->link_res->shim;
-+	unsigned int link_id = sdw->instance;
-+	int ret = 0;
-+	u16 ioctl = 0, act = 0;
-+
-+	mutex_lock(sdw->link_res->shim_lock);
-+
-+	/* Initialize Shim */
-+	ioctl |= SDW_SHIM_IOCTL_BKE;
-+	intel_writew(shim, SDW_SHIM_IOCTL(link_id), ioctl);
-+	usleep_range(10, 15);
-+
-+	ioctl |= SDW_SHIM_IOCTL_WPDD;
-+	intel_writew(shim, SDW_SHIM_IOCTL(link_id), ioctl);
-+	usleep_range(10, 15);
-+
-+	ioctl |= SDW_SHIM_IOCTL_DO;
-+	intel_writew(shim, SDW_SHIM_IOCTL(link_id), ioctl);
-+	usleep_range(10, 15);
-+
-+	ioctl |= SDW_SHIM_IOCTL_DOE;
-+	intel_writew(shim, SDW_SHIM_IOCTL(link_id), ioctl);
-+	usleep_range(10, 15);
-+
-+	intel_shim_glue_to_master_ip(sdw);
- 
- 	act |= 0x1 << SDW_REG_SHIFT(SDW_SHIM_CTMCTL_DOAIS);
- 	act |= SDW_SHIM_CTMCTL_DACTQE;
- 	act |= SDW_SHIM_CTMCTL_DODS;
- 	intel_writew(shim, SDW_SHIM_CTMCTL(link_id), act);
-+	usleep_range(10, 15);
- 
--	/* Now set SyncPRD period */
--	sync_reg = intel_readl(shim, SDW_SHIM_SYNC);
--	sync_reg |= (SDW_SHIM_SYNC_SYNCPRD_VAL <<
--			SDW_REG_SHIFT(SDW_SHIM_SYNC_SYNCPRD));
--
--	/* Set SyncCPU bit */
--	sync_reg |= SDW_SHIM_SYNC_SYNCCPU;
--	ret = intel_clear_bit(shim, SDW_SHIM_SYNC, sync_reg,
--			      SDW_SHIM_SYNC_SYNCCPU);
--	if (ret < 0)
--		dev_err(sdw->cdns.dev, "Failed to set sync period: %d\n", ret);
-+	mutex_unlock(sdw->link_res->shim_lock);
- 
- 	return ret;
- }
- 
-+static void __maybe_unused intel_shim_wake(struct sdw_intel *sdw, bool wake_enable)
-+{
-+	void __iomem *shim = sdw->link_res->shim;
-+	unsigned int link_id = sdw->instance;
-+	u16 wake_en, wake_sts;
-+
-+	mutex_lock(sdw->link_res->shim_lock);
-+	wake_en = intel_readw(shim, SDW_SHIM_WAKEEN);
-+
-+	if (wake_enable) {
-+		/* Enable the wakeup */
-+		wake_en |= (SDW_SHIM_WAKEEN_ENABLE << link_id);
-+		intel_writew(shim, SDW_SHIM_WAKEEN, wake_en);
-+	} else {
-+		/* Disable the wake up interrupt */
-+		wake_en &= ~(SDW_SHIM_WAKEEN_ENABLE << link_id);
-+		intel_writew(shim, SDW_SHIM_WAKEEN, wake_en);
-+
-+		/* Clear wake status */
-+		wake_sts = intel_readw(shim, SDW_SHIM_WAKESTS);
-+		wake_sts |= (SDW_SHIM_WAKEEN_ENABLE << link_id);
-+		intel_writew(shim, SDW_SHIM_WAKESTS_STATUS, wake_sts);
-+	}
-+	mutex_unlock(sdw->link_res->shim_lock);
-+}
-+
-+static int __maybe_unused intel_link_power_down(struct sdw_intel *sdw)
-+{
-+	int link_control, spa_mask, cpa_mask;
-+	unsigned int link_id = sdw->instance;
-+	void __iomem *shim = sdw->link_res->shim;
-+	u32 *shim_mask = sdw->link_res->shim_mask;
-+	int ret = 0;
-+
-+	mutex_lock(sdw->link_res->shim_lock);
-+
-+	intel_shim_master_ip_to_glue(sdw);
-+
-+	/* Link power down sequence */
-+	link_control = intel_readl(shim, SDW_SHIM_LCTL);
-+	spa_mask = ~(SDW_SHIM_LCTL_SPA << link_id);
-+	cpa_mask = (SDW_SHIM_LCTL_CPA << link_id);
-+	link_control &=  spa_mask;
-+
-+	ret = intel_clear_bit(shim, SDW_SHIM_LCTL, link_control, cpa_mask);
-+
-+	if (!(*shim_mask & BIT(link_id)))
-+		dev_err(sdw->cdns.dev,
-+			"%s: Unbalanced power-up/down calls\n", __func__);
-+
-+	*shim_mask &= ~BIT(link_id);
++	/* update SYNC register */
++	sync_reg = intel_readl(shim, SDW_SHIM_SYNC);
++	sync_reg |= (SDW_SHIM_SYNC_CMDSYNC << sdw->instance);
++	intel_writel(shim, SDW_SHIM_SYNC, sync_reg);
 +
 +	mutex_unlock(sdw->link_res->shim_lock);
-+
-+	if (ret < 0)
-+		return ret;
-+
-+	sdw->cdns.link_up = false;
-+	return 0;
 +}
 +
  /*
   * PDI routines
   */
-@@ -566,11 +717,15 @@ static int intel_pre_bank_switch(struct sdw_bus *bus)
+@@ -710,21 +725,12 @@ static int intel_pre_bank_switch(struct sdw_bus *bus)
+ {
+ 	struct sdw_cdns *cdns = bus_to_cdns(bus);
+ 	struct sdw_intel *sdw = cdns_to_intel(cdns);
+-	void __iomem *shim = sdw->link_res->shim;
+-	int sync_reg;
+ 
+ 	/* Write to register only for multi-link */
  	if (!bus->multi_link)
  		return 0;
  
-+	mutex_lock(sdw->link_res->shim_lock);
-+
- 	/* Read SYNC register */
- 	sync_reg = intel_readl(shim, SDW_SHIM_SYNC);
- 	sync_reg |= SDW_SHIM_SYNC_CMDSYNC << sdw->instance;
- 	intel_writel(shim, SDW_SHIM_SYNC, sync_reg);
+-	mutex_lock(sdw->link_res->shim_lock);
+-
+-	/* Read SYNC register */
+-	sync_reg = intel_readl(shim, SDW_SHIM_SYNC);
+-	sync_reg |= SDW_SHIM_SYNC_CMDSYNC << sdw->instance;
+-	intel_writel(shim, SDW_SHIM_SYNC, sync_reg);
+-
+-	mutex_unlock(sdw->link_res->shim_lock);
++	intel_shim_sync_arm(sdw);
  
-+	mutex_unlock(sdw->link_res->shim_lock);
-+
  	return 0;
  }
- 
-@@ -585,6 +740,8 @@ static int intel_post_bank_switch(struct sdw_bus *bus)
- 	if (!bus->multi_link)
- 		return 0;
- 
-+	mutex_lock(sdw->link_res->shim_lock);
-+
- 	/* Read SYNC register */
- 	sync_reg = intel_readl(shim, SDW_SHIM_SYNC);
- 
-@@ -596,9 +753,10 @@ static int intel_post_bank_switch(struct sdw_bus *bus)
- 	 *
- 	 * So, set the SYNCGO bit only if CMDSYNC bit is set for any Master.
- 	 */
--	if (!(sync_reg & SDW_SHIM_SYNC_CMDSYNC_MASK))
--		return 0;
--
-+	if (!(sync_reg & SDW_SHIM_SYNC_CMDSYNC_MASK)) {
-+		ret = 0;
-+		goto unlock;
-+	}
- 	/*
- 	 * Set SyncGO bit to synchronously trigger a bank switch for
- 	 * all the masters. A write to SYNCGO bit clears CMDSYNC bit for all
-@@ -608,6 +766,9 @@ static int intel_post_bank_switch(struct sdw_bus *bus)
- 
- 	ret = intel_clear_bit(shim, SDW_SHIM_SYNC, sync_reg,
- 			      SDW_SHIM_SYNC_SYNCGO);
-+unlock:
-+	mutex_unlock(sdw->link_res->shim_lock);
-+
- 	if (ret < 0)
- 		dev_err(sdw->cdns.dev, "Post bank switch failed: %d\n", ret);
- 
-@@ -1011,9 +1172,17 @@ static struct sdw_master_ops sdw_intel_ops = {
- 
- static int intel_init(struct sdw_intel *sdw)
- {
-+	bool clock_stop;
-+
- 	/* Initialize shim and controller */
- 	intel_link_power_up(sdw);
--	intel_shim_init(sdw);
-+
-+	clock_stop = sdw_cdns_is_clock_stop(&sdw->cdns);
-+
-+	intel_shim_init(sdw, clock_stop);
-+
-+	if (clock_stop)
-+		return 0;
- 
- 	return sdw_cdns_init(&sdw->cdns);
- }
-diff --git a/drivers/soundwire/intel.h b/drivers/soundwire/intel.h
-index 694117370ac3..d6bdd4d63e08 100644
---- a/drivers/soundwire/intel.h
-+++ b/drivers/soundwire/intel.h
-@@ -15,6 +15,8 @@
-  * @irq: Interrupt line
-  * @ops: Shim callback ops
-  * @dev: device implementing hw_params and free callbacks
-+ * @shim_lock: mutex to handle access to shared SHIM registers
-+ * @shim_mask: global pointer to check SHIM register initialization
-  */
- struct sdw_intel_link_res {
- 	struct platform_device *pdev;
-@@ -25,6 +27,8 @@ struct sdw_intel_link_res {
- 	int irq;
- 	const struct sdw_intel_ops *ops;
- 	struct device *dev;
-+	struct mutex *shim_lock; /* protect shared registers */
-+	u32 *shim_mask;
- };
- 
- struct sdw_intel {
-diff --git a/drivers/soundwire/intel_init.c b/drivers/soundwire/intel_init.c
-index 3f2e884b4f6d..f50a93130d12 100644
---- a/drivers/soundwire/intel_init.c
-+++ b/drivers/soundwire/intel_init.c
-@@ -180,6 +180,7 @@ static struct sdw_intel_ctx
- 	ctx->mmio_base = res->mmio_base;
- 	ctx->link_mask = res->link_mask;
- 	ctx->handle = res->handle;
-+	mutex_init(&ctx->shim_lock);
- 
- 	link = ctx->links;
- 	link_mask = ctx->link_mask;
-@@ -201,6 +202,9 @@ static struct sdw_intel_ctx
- 		link->ops = res->ops;
- 		link->dev = res->dev;
- 
-+		link->shim_lock = &ctx->shim_lock;
-+		link->shim_mask = &ctx->shim_mask;
-+
- 		memset(&pdevinfo, 0, sizeof(pdevinfo));
- 
- 		pdevinfo.parent = res->parent;
-diff --git a/include/linux/soundwire/sdw_intel.h b/include/linux/soundwire/sdw_intel.h
-index 979b41b5dcb4..120ffddc03d2 100644
---- a/include/linux/soundwire/sdw_intel.h
-+++ b/include/linux/soundwire/sdw_intel.h
-@@ -115,6 +115,7 @@ struct sdw_intel_slave_id {
-  * links
-  * @link_list: list to handle interrupts across all links
-  * @shim_lock: mutex to handle concurrent rmw access to shared SHIM registers.
-+ * @shim_mask: flags to track initialization of SHIM shared registers
-  */
- struct sdw_intel_ctx {
- 	int count;
-@@ -126,6 +127,7 @@ struct sdw_intel_ctx {
- 	struct sdw_intel_slave_id *ids;
- 	struct list_head link_list;
- 	struct mutex shim_lock; /* lock for access to shared SHIM registers */
-+	u32 shim_mask;
- };
- 
- /**
 -- 
 2.17.1
 

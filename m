@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1786C206E87
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 10:02:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD31E206E8B
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 10:03:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7FAB1833;
-	Wed, 24 Jun 2020 10:01:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7FAB1833
+	by alsa0.perex.cz (Postfix) with ESMTPS id 60FE61849;
+	Wed, 24 Jun 2020 10:02:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60FE61849
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592985753;
-	bh=bXsajeIl2S6QChLmwVWHAvJT/hnl6CkM5FgIxMip46g=;
+	s=default; t=1592985784;
+	bh=MSw9CUCjVn+3Qoq5CW6dQIqIMQ+qyPCTVXbkIWPfOn0=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GOjM4cFreD45HeiTctpWmAk496pkAzJKj00QMvRC8uQUpJDBPQB2M9zAKQpoeqve7
-	 R+k48ymr08MACrmgpTzRmXHVigCJ6tYwNeySwZP9UPM49MeRYwIWF2pRZYSCjoCZXp
-	 yM2uQXdZqieQ/XkksJKUmdGjBviiWX0IEtjWtqyg=
+	b=DfxSjvegRdI1xNGIAmlaNtO0B8FF+N+NvEoteqg++DbiLLWIxh5BwkLh/imoVIw/k
+	 txgyjm2iOc10o3gJQQGE4kqTdPyczzg6T6kw5UcJB52v51qa8dR0CVy9Y2eiomCGqh
+	 Ynf8H8GYvKkgt5zicKlChjqykT81xXkoivMHr4lc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C229CF80368;
-	Wed, 24 Jun 2020 09:50:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5534FF80369;
+	Wed, 24 Jun 2020 09:50:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5C601F801DB; Tue, 23 Jun 2020 03:20:50 +0200 (CEST)
+ id 895A1F8015B; Tue, 23 Jun 2020 03:20:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 756B4F8010D
- for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 03:20:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 756B4F8010D
-Date: 23 Jun 2020 10:20:43 +0900
-X-IronPort-AV: E=Sophos;i="5.75,268,1589209200"; d="scan'208";a="50118969"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 23 Jun 2020 10:20:43 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 45B67F8015A
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 03:20:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45B67F8015A
+Date: 23 Jun 2020 10:20:48 +0900
+X-IronPort-AV: E=Sophos;i="5.75,268,1589209200"; d="scan'208";a="50118976"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 23 Jun 2020 10:20:48 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id B66CF4001DC8;
- Tue, 23 Jun 2020 10:20:42 +0900 (JST)
-Message-ID: <87wo3y1ssz.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 52737418450A;
+ Tue, 23 Jun 2020 10:20:48 +0900 (JST)
+Message-ID: <87v9ji1ssu.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 13/19] ASoC: codecs: wm*: merge .digital_mute() into
+Subject: [PATCH 14/19] ASoC: codecs: es*: merge .digital_mute() into
  .mute_stream()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -143,991 +143,62 @@ We can merge digital_mute() into mute_stream
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/codecs/wm8350.c |  7 +++++--
- sound/soc/codecs/wm8400.c |  7 +++++--
- sound/soc/codecs/wm8510.c |  7 +++++--
- sound/soc/codecs/wm8580.c |  7 +++++--
- sound/soc/codecs/wm8711.c |  7 +++++--
- sound/soc/codecs/wm8728.c |  7 +++++--
- sound/soc/codecs/wm8731.c |  7 +++++--
- sound/soc/codecs/wm8741.c |  7 +++++--
- sound/soc/codecs/wm8750.c |  7 +++++--
- sound/soc/codecs/wm8753.c |  9 ++++++---
- sound/soc/codecs/wm8770.c |  7 +++++--
- sound/soc/codecs/wm8776.c |  7 +++++--
- sound/soc/codecs/wm8900.c |  7 +++++--
- sound/soc/codecs/wm8903.c |  7 +++++--
- sound/soc/codecs/wm8904.c |  7 +++++--
- sound/soc/codecs/wm8940.c |  7 +++++--
- sound/soc/codecs/wm8955.c |  7 +++++--
- sound/soc/codecs/wm8960.c |  7 +++++--
- sound/soc/codecs/wm8961.c |  7 +++++--
- sound/soc/codecs/wm8962.c |  7 +++++--
- sound/soc/codecs/wm8971.c |  7 +++++--
- sound/soc/codecs/wm8974.c |  7 +++++--
- sound/soc/codecs/wm8978.c |  7 +++++--
- sound/soc/codecs/wm8983.c |  7 +++++--
- sound/soc/codecs/wm8985.c |  7 +++++--
- sound/soc/codecs/wm8988.c |  7 +++++--
- sound/soc/codecs/wm8990.c |  7 +++++--
- sound/soc/codecs/wm8991.c |  7 +++++--
- sound/soc/codecs/wm8993.c |  7 +++++--
- sound/soc/codecs/wm8994.c | 10 +++++++---
- sound/soc/codecs/wm8995.c |  9 ++++++---
- sound/soc/codecs/wm9081.c |  7 +++++--
- 32 files changed, 164 insertions(+), 67 deletions(-)
+ sound/soc/codecs/es8316.c | 7 +++++--
+ sound/soc/codecs/es8328.c | 7 +++++--
+ 2 files changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/codecs/wm8350.c b/sound/soc/codecs/wm8350.c
-index 7fe7c1e91882..470f2655418f 100644
---- a/sound/soc/codecs/wm8350.c
-+++ b/sound/soc/codecs/wm8350.c
-@@ -942,11 +942,14 @@ static int wm8350_pcm_hw_params(struct snd_pcm_substream *substream,
+diff --git a/sound/soc/codecs/es8316.c b/sound/soc/codecs/es8316.c
+index 36eef1fb3d18..6e0066fc9e26 100644
+--- a/sound/soc/codecs/es8316.c
++++ b/sound/soc/codecs/es8316.c
+@@ -507,8 +507,11 @@ static int es8316_pcm_hw_params(struct snd_pcm_substream *substream,
  	return 0;
  }
  
--static int wm8350_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8350_mute(struct snd_soc_dai *dai, int mute, int direction)
+-static int es8316_mute(struct snd_soc_dai *dai, int mute)
++static int es8316_mute(struct snd_soc_dai *dai, int mute, int direction)
  {
- 	struct snd_soc_component *component = dai->component;
- 	unsigned int val;
- 
 +	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
 +		return 0;
 +
- 	if (mute)
- 		val = WM8350_DAC_MUTE_ENA;
- 	else
-@@ -1426,7 +1429,7 @@ EXPORT_SYMBOL_GPL(wm8350_mic_jack_detect);
- 
- static const struct snd_soc_dai_ops wm8350_dai_ops = {
- 	 .hw_params	= wm8350_pcm_hw_params,
--	 .digital_mute	= wm8350_mute,
-+	 .mute_stream	= wm8350_mute,
- 	 .set_fmt	= wm8350_set_dai_fmt,
- 	 .set_sysclk	= wm8350_set_dai_sysclk,
- 	 .set_pll	= wm8350_set_fll,
-diff --git a/sound/soc/codecs/wm8400.c b/sound/soc/codecs/wm8400.c
-index 2551eb0f1868..5709a2c45c3e 100644
---- a/sound/soc/codecs/wm8400.c
-+++ b/sound/soc/codecs/wm8400.c
-@@ -1104,11 +1104,14 @@ static int wm8400_hw_params(struct snd_pcm_substream *substream,
+ 	snd_soc_component_update_bits(dai->component, ES8316_DAC_SET1, 0x20,
+ 			    mute ? 0x20 : 0);
  	return 0;
- }
- 
--static int wm8400_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8400_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 	u16 val = snd_soc_component_read(component, WM8400_DAC_CTRL) & ~WM8400_DAC_MUTE;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	if (mute)
- 		snd_soc_component_write(component, WM8400_DAC_CTRL, val | WM8400_DAC_MUTE);
- 	else
-@@ -1234,7 +1237,7 @@ static int wm8400_set_bias_level(struct snd_soc_component *component,
- 
- static const struct snd_soc_dai_ops wm8400_dai_ops = {
- 	.hw_params = wm8400_hw_params,
--	.digital_mute = wm8400_mute,
-+	.mute_stream = wm8400_mute,
- 	.set_fmt = wm8400_set_dai_fmt,
- 	.set_clkdiv = wm8400_set_dai_clkdiv,
- 	.set_sysclk = wm8400_set_dai_sysclk,
-diff --git a/sound/soc/codecs/wm8510.c b/sound/soc/codecs/wm8510.c
-index 63a877a8ee2b..b480dfe47267 100644
---- a/sound/soc/codecs/wm8510.c
-+++ b/sound/soc/codecs/wm8510.c
-@@ -487,11 +487,14 @@ static int wm8510_pcm_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static int wm8510_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8510_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 	u16 mute_reg = snd_soc_component_read(component, WM8510_DAC) & 0xffbf;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	if (mute)
- 		snd_soc_component_write(component, WM8510_DAC, mute_reg | 0x40);
- 	else
-@@ -547,7 +550,7 @@ static int wm8510_set_bias_level(struct snd_soc_component *component,
- 
- static const struct snd_soc_dai_ops wm8510_dai_ops = {
- 	.hw_params	= wm8510_pcm_hw_params,
--	.digital_mute	= wm8510_mute,
-+	.mute_stream	= wm8510_mute,
- 	.set_fmt	= wm8510_set_dai_fmt,
- 	.set_clkdiv	= wm8510_set_dai_clkdiv,
- 	.set_pll	= wm8510_set_dai_pll,
-diff --git a/sound/soc/codecs/wm8580.c b/sound/soc/codecs/wm8580.c
-index d1fc529d20e7..63284d3a9518 100644
---- a/sound/soc/codecs/wm8580.c
-+++ b/sound/soc/codecs/wm8580.c
-@@ -800,11 +800,14 @@ static int wm8580_set_sysclk(struct snd_soc_dai *dai, int clk_id,
- 	return 0;
- }
- 
--static int wm8580_digital_mute(struct snd_soc_dai *codec_dai, int mute)
-+static int wm8580_mute(struct snd_soc_dai *codec_dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = codec_dai->component;
- 	unsigned int reg;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	reg = snd_soc_component_read(component, WM8580_DAC_CONTROL5);
- 
- 	if (mute)
-@@ -866,7 +869,7 @@ static const struct snd_soc_dai_ops wm8580_dai_ops_playback = {
- 	.set_fmt	= wm8580_set_paif_dai_fmt,
- 	.set_clkdiv	= wm8580_set_dai_clkdiv,
- 	.set_pll	= wm8580_set_dai_pll,
--	.digital_mute	= wm8580_digital_mute,
-+	.mute_stream	= wm8580_mute,
+@@ -522,7 +525,7 @@ static const struct snd_soc_dai_ops es8316_ops = {
+ 	.hw_params = es8316_pcm_hw_params,
+ 	.set_fmt = es8316_set_dai_fmt,
+ 	.set_sysclk = es8316_set_dai_sysclk,
+-	.digital_mute = es8316_mute,
++	.mute_stream = es8316_mute,
  };
  
- static const struct snd_soc_dai_ops wm8580_dai_ops_capture = {
-diff --git a/sound/soc/codecs/wm8711.c b/sound/soc/codecs/wm8711.c
-index 8a0f93f54b60..cbbb46a6ccac 100644
---- a/sound/soc/codecs/wm8711.c
-+++ b/sound/soc/codecs/wm8711.c
-@@ -204,11 +204,14 @@ static void wm8711_shutdown(struct snd_pcm_substream *substream,
- 	}
- }
- 
--static int wm8711_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8711_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 	u16 mute_reg = snd_soc_component_read(component, WM8711_APDIGI) & 0xfff7;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	if (mute)
- 		snd_soc_component_write(component, WM8711_APDIGI, mute_reg | 0x8);
- 	else
-@@ -329,7 +332,7 @@ static const struct snd_soc_dai_ops wm8711_ops = {
- 	.prepare = wm8711_pcm_prepare,
- 	.hw_params = wm8711_hw_params,
- 	.shutdown = wm8711_shutdown,
--	.digital_mute = wm8711_mute,
-+	.mute_stream = wm8711_mute,
- 	.set_sysclk = wm8711_set_dai_sysclk,
- 	.set_fmt = wm8711_set_dai_fmt,
- };
-diff --git a/sound/soc/codecs/wm8728.c b/sound/soc/codecs/wm8728.c
-index bb5521f544ba..b33c50e82725 100644
---- a/sound/soc/codecs/wm8728.c
-+++ b/sound/soc/codecs/wm8728.c
-@@ -69,11 +69,14 @@ static const struct snd_soc_dapm_route wm8728_intercon[] = {
- 	{"VOUTR", NULL, "DAC"},
+ static struct snd_soc_dai_driver es8316_dai = {
+diff --git a/sound/soc/codecs/es8328.c b/sound/soc/codecs/es8328.c
+index fdf64c29f563..b8ac7b31e2b9 100644
+--- a/sound/soc/codecs/es8328.c
++++ b/sound/soc/codecs/es8328.c
+@@ -449,8 +449,11 @@ static const struct snd_soc_dapm_route es8328_dapm_routes[] = {
+ 	{ "ROUT2", NULL, "Right Out 2" },
  };
  
--static int wm8728_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8728_mute(struct snd_soc_dai *dai, int mute, int direction)
+-static int es8328_mute(struct snd_soc_dai *dai, int mute)
++static int es8328_mute(struct snd_soc_dai *dai, int mute, int direction)
  {
- 	struct snd_soc_component *component = dai->component;
- 	u16 mute_reg = snd_soc_component_read(component, WM8728_DACCTL);
- 
 +	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
 +		return 0;
 +
- 	if (mute)
- 		snd_soc_component_write(component, WM8728_DACCTL, mute_reg | 1);
- 	else
-@@ -192,7 +195,7 @@ static int wm8728_set_bias_level(struct snd_soc_component *component,
- 
- static const struct snd_soc_dai_ops wm8728_dai_ops = {
- 	.hw_params	= wm8728_hw_params,
--	.digital_mute	= wm8728_mute,
-+	.mute_stream	= wm8728_mute,
- 	.set_fmt	= wm8728_set_dai_fmt,
+ 	return snd_soc_component_update_bits(dai->component, ES8328_DACCONTROL3,
+ 			ES8328_DACCONTROL3_DACMUTE,
+ 			mute ? ES8328_DACCONTROL3_DACMUTE : 0);
+@@ -692,7 +695,7 @@ static int es8328_set_bias_level(struct snd_soc_component *component,
+ static const struct snd_soc_dai_ops es8328_dai_ops = {
+ 	.startup	= es8328_startup,
+ 	.hw_params	= es8328_hw_params,
+-	.digital_mute	= es8328_mute,
++	.mute_stream	= es8328_mute,
+ 	.set_sysclk	= es8328_set_sysclk,
+ 	.set_fmt	= es8328_set_dai_fmt,
  };
- 
-diff --git a/sound/soc/codecs/wm8731.c b/sound/soc/codecs/wm8731.c
-index cae2cc38d93c..9b6b2e95d3cc 100644
---- a/sound/soc/codecs/wm8731.c
-+++ b/sound/soc/codecs/wm8731.c
-@@ -366,11 +366,14 @@ static int wm8731_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static int wm8731_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8731_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 	u16 mute_reg = snd_soc_component_read(component, WM8731_APDIGI) & 0xfff7;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	if (mute)
- 		snd_soc_component_write(component, WM8731_APDIGI, mute_reg | 0x8);
- 	else
-@@ -546,7 +549,7 @@ static int wm8731_startup(struct snd_pcm_substream *substream,
- static const struct snd_soc_dai_ops wm8731_dai_ops = {
- 	.startup	= wm8731_startup,
- 	.hw_params	= wm8731_hw_params,
--	.digital_mute	= wm8731_mute,
-+	.mute_stream	= wm8731_mute,
- 	.set_sysclk	= wm8731_set_dai_sysclk,
- 	.set_fmt	= wm8731_set_dai_fmt,
- };
-diff --git a/sound/soc/codecs/wm8741.c b/sound/soc/codecs/wm8741.c
-index 328df81ee839..283b875a344d 100644
---- a/sound/soc/codecs/wm8741.c
-+++ b/sound/soc/codecs/wm8741.c
-@@ -364,10 +364,13 @@ static int wm8741_set_dai_fmt(struct snd_soc_dai *codec_dai,
- 	return 0;
- }
- 
--static int wm8741_mute(struct snd_soc_dai *codec_dai, int mute)
-+static int wm8741_mute(struct snd_soc_dai *codec_dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = codec_dai->component;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	snd_soc_component_update_bits(component, WM8741_VOLUME_CONTROL,
- 			WM8741_SOFT_MASK, !!mute << WM8741_SOFT_SHIFT);
- 	return 0;
-@@ -386,7 +389,7 @@ static const struct snd_soc_dai_ops wm8741_dai_ops = {
- 	.hw_params	= wm8741_hw_params,
- 	.set_sysclk	= wm8741_set_dai_sysclk,
- 	.set_fmt	= wm8741_set_dai_fmt,
--	.digital_mute   = wm8741_mute,
-+	.mute_stream	= wm8741_mute,
- };
- 
- static struct snd_soc_dai_driver wm8741_dai = {
-diff --git a/sound/soc/codecs/wm8750.c b/sound/soc/codecs/wm8750.c
-index 970941f8ae81..a8d6195e27f9 100644
---- a/sound/soc/codecs/wm8750.c
-+++ b/sound/soc/codecs/wm8750.c
-@@ -606,11 +606,14 @@ static int wm8750_pcm_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static int wm8750_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8750_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 	u16 mute_reg = snd_soc_component_read(component, WM8750_ADCDAC) & 0xfff7;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	if (mute)
- 		snd_soc_component_write(component, WM8750_ADCDAC, mute_reg | 0x8);
- 	else
-@@ -660,7 +663,7 @@ static int wm8750_set_bias_level(struct snd_soc_component *component,
- 
- static const struct snd_soc_dai_ops wm8750_dai_ops = {
- 	.hw_params	= wm8750_pcm_hw_params,
--	.digital_mute	= wm8750_mute,
-+	.mute_stream	= wm8750_mute,
- 	.set_fmt	= wm8750_set_dai_fmt,
- 	.set_sysclk	= wm8750_set_dai_sysclk,
- };
-diff --git a/sound/soc/codecs/wm8753.c b/sound/soc/codecs/wm8753.c
-index a1b6765c8f23..09d8d8177f2f 100644
---- a/sound/soc/codecs/wm8753.c
-+++ b/sound/soc/codecs/wm8753.c
-@@ -1295,12 +1295,15 @@ static int wm8753_voice_set_dai_fmt(struct snd_soc_dai *codec_dai,
- 	return wm8753_voice_write_dai_fmt(component, fmt);
- };
- 
--static int wm8753_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8753_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 	u16 mute_reg = snd_soc_component_read(component, WM8753_DAC) & 0xfff7;
- 	struct wm8753_priv *wm8753 = snd_soc_component_get_drvdata(component);
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	/* the digital mute covers the HiFi and Voice DAC's on the WM8753.
- 	 * make sure we check if they are not both active when we mute */
- 	if (mute && wm8753->dai_func == 1) {
-@@ -1380,7 +1383,7 @@ static int wm8753_set_bias_level(struct snd_soc_component *component,
-  */
- static const struct snd_soc_dai_ops wm8753_dai_ops_hifi_mode = {
- 	.hw_params	= wm8753_i2s_hw_params,
--	.digital_mute	= wm8753_mute,
-+	.mute_stream	= wm8753_mute,
- 	.set_fmt	= wm8753_hifi_set_dai_fmt,
- 	.set_clkdiv	= wm8753_set_dai_clkdiv,
- 	.set_pll	= wm8753_set_dai_pll,
-@@ -1389,7 +1392,7 @@ static const struct snd_soc_dai_ops wm8753_dai_ops_hifi_mode = {
- 
- static const struct snd_soc_dai_ops wm8753_dai_ops_voice_mode = {
- 	.hw_params	= wm8753_pcm_hw_params,
--	.digital_mute	= wm8753_mute,
-+	.mute_stream	= wm8753_mute,
- 	.set_fmt	= wm8753_voice_set_dai_fmt,
- 	.set_clkdiv	= wm8753_set_dai_clkdiv,
- 	.set_pll	= wm8753_set_dai_pll,
-diff --git a/sound/soc/codecs/wm8770.c b/sound/soc/codecs/wm8770.c
-index d51be2531e2e..9242231a9886 100644
---- a/sound/soc/codecs/wm8770.c
-+++ b/sound/soc/codecs/wm8770.c
-@@ -472,10 +472,13 @@ static int wm8770_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static int wm8770_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8770_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	component = dai->component;
- 	return snd_soc_component_update_bits(component, WM8770_DACMUTE, 0x10,
- 				   !!mute << 4);
-@@ -538,7 +541,7 @@ static int wm8770_set_bias_level(struct snd_soc_component *component,
- 			SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S32_LE)
- 
- static const struct snd_soc_dai_ops wm8770_dai_ops = {
--	.digital_mute = wm8770_mute,
-+	.mute_stream = wm8770_mute,
- 	.hw_params = wm8770_hw_params,
- 	.set_fmt = wm8770_set_fmt,
- 	.set_sysclk = wm8770_set_sysclk,
-diff --git a/sound/soc/codecs/wm8776.c b/sound/soc/codecs/wm8776.c
-index f174d7ce2b13..367612e2fc25 100644
---- a/sound/soc/codecs/wm8776.c
-+++ b/sound/soc/codecs/wm8776.c
-@@ -309,10 +309,13 @@ static int wm8776_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static int wm8776_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8776_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	return snd_soc_component_write(component, WM8776_DACMUTE, !!mute);
- }
- 
-@@ -361,7 +364,7 @@ static int wm8776_set_bias_level(struct snd_soc_component *component,
- 			SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S32_LE)
- 
- static const struct snd_soc_dai_ops wm8776_dac_ops = {
--	.digital_mute	= wm8776_mute,
-+	.mute_stream	= wm8776_mute,
- 	.hw_params      = wm8776_hw_params,
- 	.set_fmt        = wm8776_set_fmt,
- 	.set_sysclk     = wm8776_set_sysclk,
-diff --git a/sound/soc/codecs/wm8900.c b/sound/soc/codecs/wm8900.c
-index 3921af63adf2..428c39e560ff 100644
---- a/sound/soc/codecs/wm8900.c
-+++ b/sound/soc/codecs/wm8900.c
-@@ -967,11 +967,14 @@ static int wm8900_set_dai_fmt(struct snd_soc_dai *codec_dai,
- 	return 0;
- }
- 
--static int wm8900_digital_mute(struct snd_soc_dai *codec_dai, int mute)
-+static int wm8900_mute(struct snd_soc_dai *codec_dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = codec_dai->component;
- 	u16 reg;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	reg = snd_soc_component_read(component, WM8900_REG_DACCTRL);
- 
- 	if (mute)
-@@ -997,7 +1000,7 @@ static const struct snd_soc_dai_ops wm8900_dai_ops = {
- 	.set_clkdiv	= wm8900_set_dai_clkdiv,
- 	.set_pll	= wm8900_set_dai_pll,
- 	.set_fmt	= wm8900_set_dai_fmt,
--	.digital_mute	= wm8900_digital_mute,
-+	.mute_stream	= wm8900_mute,
- };
- 
- static struct snd_soc_dai_driver wm8900_dai = {
-diff --git a/sound/soc/codecs/wm8903.c b/sound/soc/codecs/wm8903.c
-index 5de663d61ba6..2cb1c5b29f8f 100644
---- a/sound/soc/codecs/wm8903.c
-+++ b/sound/soc/codecs/wm8903.c
-@@ -1307,11 +1307,14 @@ static int wm8903_set_dai_fmt(struct snd_soc_dai *codec_dai,
- 	return 0;
- }
- 
--static int wm8903_digital_mute(struct snd_soc_dai *codec_dai, int mute)
-+static int wm8903_mute(struct snd_soc_dai *codec_dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = codec_dai->component;
- 	u16 reg;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	reg = snd_soc_component_read(component, WM8903_DAC_DIGITAL_1);
- 
- 	if (mute)
-@@ -1737,7 +1740,7 @@ static irqreturn_t wm8903_irq(int irq, void *data)
- 
- static const struct snd_soc_dai_ops wm8903_dai_ops = {
- 	.hw_params	= wm8903_hw_params,
--	.digital_mute	= wm8903_digital_mute,
-+	.mute_stream	= wm8903_mute,
- 	.set_fmt	= wm8903_set_dai_fmt,
- 	.set_sysclk	= wm8903_set_dai_sysclk,
- };
-diff --git a/sound/soc/codecs/wm8904.c b/sound/soc/codecs/wm8904.c
-index 3f0e49c51fd5..eba04e40d782 100644
---- a/sound/soc/codecs/wm8904.c
-+++ b/sound/soc/codecs/wm8904.c
-@@ -1846,11 +1846,14 @@ static int wm8904_set_sysclk(struct snd_soc_dai *dai, int clk_id,
- 	return 0;
- }
- 
--static int wm8904_digital_mute(struct snd_soc_dai *codec_dai, int mute)
-+static int wm8904_mute(struct snd_soc_dai *codec_dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = codec_dai->component;
- 	int val;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	if (mute)
- 		val = WM8904_DAC_MUTE;
- 	else
-@@ -1962,7 +1965,7 @@ static const struct snd_soc_dai_ops wm8904_dai_ops = {
- 	.set_tdm_slot = wm8904_set_tdm_slot,
- 	.set_pll = wm8904_set_fll,
- 	.hw_params = wm8904_hw_params,
--	.digital_mute = wm8904_digital_mute,
-+	.mute_stream = wm8904_mute,
- };
- 
- static struct snd_soc_dai_driver wm8904_dai = {
-diff --git a/sound/soc/codecs/wm8940.c b/sound/soc/codecs/wm8940.c
-index 41d87e172775..165fe1abc323 100644
---- a/sound/soc/codecs/wm8940.c
-+++ b/sound/soc/codecs/wm8940.c
-@@ -452,11 +452,14 @@ static int wm8940_i2s_hw_params(struct snd_pcm_substream *substream,
- 	return ret;
- }
- 
--static int wm8940_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8940_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 	u16 mute_reg = snd_soc_component_read(component, WM8940_DAC) & 0xffbf;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	if (mute)
- 		mute_reg |= 0x40;
- 
-@@ -664,7 +667,7 @@ static int wm8940_set_dai_clkdiv(struct snd_soc_dai *codec_dai,
- static const struct snd_soc_dai_ops wm8940_dai_ops = {
- 	.hw_params = wm8940_i2s_hw_params,
- 	.set_sysclk = wm8940_set_dai_sysclk,
--	.digital_mute = wm8940_mute,
-+	.mute_stream = wm8940_mute,
- 	.set_fmt = wm8940_set_dai_fmt,
- 	.set_clkdiv = wm8940_set_dai_clkdiv,
- 	.set_pll = wm8940_set_dai_pll,
-diff --git a/sound/soc/codecs/wm8955.c b/sound/soc/codecs/wm8955.c
-index 73c192f58382..12ffd1660189 100644
---- a/sound/soc/codecs/wm8955.c
-+++ b/sound/soc/codecs/wm8955.c
-@@ -745,11 +745,14 @@ static int wm8955_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- }
- 
- 
--static int wm8955_digital_mute(struct snd_soc_dai *codec_dai, int mute)
-+static int wm8955_mute(struct snd_soc_dai *codec_dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = codec_dai->component;
- 	int val;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	if (mute)
- 		val = WM8955_DACMU;
- 	else
-@@ -848,7 +851,7 @@ static const struct snd_soc_dai_ops wm8955_dai_ops = {
- 	.set_sysclk = wm8955_set_sysclk,
- 	.set_fmt = wm8955_set_fmt,
- 	.hw_params = wm8955_hw_params,
--	.digital_mute = wm8955_digital_mute,
-+	.mute_stream = wm8955_mute,
- };
- 
- static struct snd_soc_dai_driver wm8955_dai = {
-diff --git a/sound/soc/codecs/wm8960.c b/sound/soc/codecs/wm8960.c
-index 96c4400e92f8..13819cbca22a 100644
---- a/sound/soc/codecs/wm8960.c
-+++ b/sound/soc/codecs/wm8960.c
-@@ -878,10 +878,13 @@ static int wm8960_hw_free(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static int wm8960_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8960_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	if (mute)
- 		snd_soc_component_update_bits(component, WM8960_DACCTL1, 0x8, 0x8);
- 	else
-@@ -1315,7 +1318,7 @@ static int wm8960_set_dai_sysclk(struct snd_soc_dai *dai, int clk_id,
- static const struct snd_soc_dai_ops wm8960_dai_ops = {
- 	.hw_params = wm8960_hw_params,
- 	.hw_free = wm8960_hw_free,
--	.digital_mute = wm8960_mute,
-+	.mute_stream = wm8960_mute,
- 	.set_fmt = wm8960_set_dai_fmt,
- 	.set_clkdiv = wm8960_set_dai_clkdiv,
- 	.set_pll = wm8960_set_dai_pll,
-diff --git a/sound/soc/codecs/wm8961.c b/sound/soc/codecs/wm8961.c
-index d11a38a0b283..84ecfc90a1f5 100644
---- a/sound/soc/codecs/wm8961.c
-+++ b/sound/soc/codecs/wm8961.c
-@@ -698,11 +698,14 @@ static int wm8961_set_tristate(struct snd_soc_dai *dai, int tristate)
- 	return snd_soc_component_write(component, WM8961_ADDITIONAL_CONTROL_2, reg);
- }
- 
--static int wm8961_digital_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8961_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 	u16 reg = snd_soc_component_read(component, WM8961_ADC_DAC_CONTROL_1);
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	if (mute)
- 		reg |= WM8961_DACMU;
- 	else
-@@ -806,7 +809,7 @@ static const struct snd_soc_dai_ops wm8961_dai_ops = {
- 	.hw_params = wm8961_hw_params,
- 	.set_sysclk = wm8961_set_sysclk,
- 	.set_fmt = wm8961_set_fmt,
--	.digital_mute = wm8961_digital_mute,
-+	.mute_stream = wm8961_mute,
- 	.set_tristate = wm8961_set_tristate,
- 	.set_clkdiv = wm8961_set_clkdiv,
- };
-diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
-index 6ef022295f55..b3dfac8f77d3 100644
---- a/sound/soc/codecs/wm8962.c
-+++ b/sound/soc/codecs/wm8962.c
-@@ -2918,11 +2918,14 @@ static int wm8962_set_fll(struct snd_soc_component *component, int fll_id, int s
- 	return 0;
- }
- 
--static int wm8962_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8962_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 	int val, ret;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	if (mute)
- 		val = WM8962_DAC_MUTE | WM8962_DAC_MUTE_ALT;
- 	else
-@@ -2951,7 +2954,7 @@ static const struct snd_soc_dai_ops wm8962_dai_ops = {
- 	.hw_params = wm8962_hw_params,
- 	.set_sysclk = wm8962_set_dai_sysclk,
- 	.set_fmt = wm8962_set_dai_fmt,
--	.digital_mute = wm8962_mute,
-+	.mute_stream = wm8962_mute,
- };
- 
- static struct snd_soc_dai_driver wm8962_dai = {
-diff --git a/sound/soc/codecs/wm8971.c b/sound/soc/codecs/wm8971.c
-index 2cefb795da03..345e6c2ce22f 100644
---- a/sound/soc/codecs/wm8971.c
-+++ b/sound/soc/codecs/wm8971.c
-@@ -536,11 +536,14 @@ static int wm8971_pcm_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static int wm8971_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8971_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 	u16 mute_reg = snd_soc_component_read(component, WM8971_ADCDAC) & 0xfff7;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	if (mute)
- 		snd_soc_component_write(component, WM8971_ADCDAC, mute_reg | 0x8);
- 	else
-@@ -602,7 +605,7 @@ static int wm8971_set_bias_level(struct snd_soc_component *component,
- 
- static const struct snd_soc_dai_ops wm8971_dai_ops = {
- 	.hw_params	= wm8971_pcm_hw_params,
--	.digital_mute	= wm8971_mute,
-+	.mute_stream	= wm8971_mute,
- 	.set_fmt	= wm8971_set_dai_fmt,
- 	.set_sysclk	= wm8971_set_dai_sysclk,
- };
-diff --git a/sound/soc/codecs/wm8974.c b/sound/soc/codecs/wm8974.c
-index 953d12e4576f..d3231989d4a2 100644
---- a/sound/soc/codecs/wm8974.c
-+++ b/sound/soc/codecs/wm8974.c
-@@ -559,11 +559,14 @@ static int wm8974_pcm_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static int wm8974_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8974_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 	u16 mute_reg = snd_soc_component_read(component, WM8974_DAC) & 0xffbf;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	if (mute)
- 		snd_soc_component_write(component, WM8974_DAC, mute_reg | 0x40);
- 	else
-@@ -616,7 +619,7 @@ static int wm8974_set_bias_level(struct snd_soc_component *component,
- 
- static const struct snd_soc_dai_ops wm8974_ops = {
- 	.hw_params = wm8974_pcm_hw_params,
--	.digital_mute = wm8974_mute,
-+	.mute_stream = wm8974_mute,
- 	.set_fmt = wm8974_set_dai_fmt,
- 	.set_clkdiv = wm8974_set_dai_clkdiv,
- 	.set_pll = wm8974_set_dai_pll,
-diff --git a/sound/soc/codecs/wm8978.c b/sound/soc/codecs/wm8978.c
-index e01ba5394527..fe491ab0d2b8 100644
---- a/sound/soc/codecs/wm8978.c
-+++ b/sound/soc/codecs/wm8978.c
-@@ -836,10 +836,13 @@ static int wm8978_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static int wm8978_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8978_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	dev_dbg(component->dev, "%s: %d\n", __func__, mute);
- 
- 	if (mute)
-@@ -893,7 +896,7 @@ static int wm8978_set_bias_level(struct snd_soc_component *component,
- 
- static const struct snd_soc_dai_ops wm8978_dai_ops = {
- 	.hw_params	= wm8978_hw_params,
--	.digital_mute	= wm8978_mute,
-+	.mute_stream	= wm8978_mute,
- 	.set_fmt	= wm8978_set_dai_fmt,
- 	.set_clkdiv	= wm8978_set_dai_clkdiv,
- 	.set_sysclk	= wm8978_set_dai_sysclk,
-diff --git a/sound/soc/codecs/wm8983.c b/sound/soc/codecs/wm8983.c
-index 78e1a302c54c..1b91a1636823 100644
---- a/sound/soc/codecs/wm8983.c
-+++ b/sound/soc/codecs/wm8983.c
-@@ -557,10 +557,13 @@ static bool wm8983_writeable(struct device *dev, unsigned int reg)
- 	}
- }
- 
--static int wm8983_dac_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8983_dac_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	return snd_soc_component_update_bits(component, WM8983_DAC_CONTROL,
- 				   WM8983_SOFTMUTE_MASK,
- 				   !!mute << WM8983_SOFTMUTE_SHIFT);
-@@ -943,7 +946,7 @@ static int wm8983_probe(struct snd_soc_component *component)
- }
- 
- static const struct snd_soc_dai_ops wm8983_dai_ops = {
--	.digital_mute = wm8983_dac_mute,
-+	.mute_stream = wm8983_dac_mute,
- 	.hw_params = wm8983_hw_params,
- 	.set_fmt = wm8983_set_fmt,
- 	.set_sysclk = wm8983_set_sysclk,
-diff --git a/sound/soc/codecs/wm8985.c b/sound/soc/codecs/wm8985.c
-index 62f2c603eb2d..61b25f82bddd 100644
---- a/sound/soc/codecs/wm8985.c
-+++ b/sound/soc/codecs/wm8985.c
-@@ -649,10 +649,13 @@ static int wm8985_reset(struct snd_soc_component *component)
- 	return snd_soc_component_write(component, WM8985_SOFTWARE_RESET, 0x0);
- }
- 
--static int wm8985_dac_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8985_dac_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	return snd_soc_component_update_bits(component, WM8985_DAC_CONTROL,
- 				   WM8985_SOFTMUTE_MASK,
- 				   !!mute << WM8985_SOFTMUTE_SHIFT);
-@@ -1072,7 +1075,7 @@ static int wm8985_probe(struct snd_soc_component *component)
- }
- 
- static const struct snd_soc_dai_ops wm8985_dai_ops = {
--	.digital_mute = wm8985_dac_mute,
-+	.mute_stream = wm8985_dac_mute,
- 	.hw_params = wm8985_hw_params,
- 	.set_fmt = wm8985_set_fmt,
- 	.set_sysclk = wm8985_set_sysclk,
-diff --git a/sound/soc/codecs/wm8988.c b/sound/soc/codecs/wm8988.c
-index 646cfd8b2693..7e7c561f88ab 100644
---- a/sound/soc/codecs/wm8988.c
-+++ b/sound/soc/codecs/wm8988.c
-@@ -707,11 +707,14 @@ static int wm8988_pcm_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static int wm8988_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8988_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 	u16 mute_reg = snd_soc_component_read(component, WM8988_ADCDAC) & 0xfff7;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	if (mute)
- 		snd_soc_component_write(component, WM8988_ADCDAC, mute_reg | 0x8);
- 	else
-@@ -766,7 +769,7 @@ static const struct snd_soc_dai_ops wm8988_ops = {
- 	.hw_params = wm8988_pcm_hw_params,
- 	.set_fmt = wm8988_set_dai_fmt,
- 	.set_sysclk = wm8988_set_dai_sysclk,
--	.digital_mute = wm8988_mute,
-+	.mute_stream = wm8988_mute,
- };
- 
- static struct snd_soc_dai_driver wm8988_dai = {
-diff --git a/sound/soc/codecs/wm8990.c b/sound/soc/codecs/wm8990.c
-index 13bca8ebf677..22613df4969d 100644
---- a/sound/soc/codecs/wm8990.c
-+++ b/sound/soc/codecs/wm8990.c
-@@ -998,11 +998,14 @@ static int wm8990_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static int wm8990_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8990_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 	u16 val;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	val  = snd_soc_component_read(component, WM8990_DAC_CTRL) & ~WM8990_DAC_MUTE;
- 
- 	if (mute)
-@@ -1152,7 +1155,7 @@ static int wm8990_set_bias_level(struct snd_soc_component *component,
-  */
- static const struct snd_soc_dai_ops wm8990_dai_ops = {
- 	.hw_params	= wm8990_hw_params,
--	.digital_mute	= wm8990_mute,
-+	.mute_stream	= wm8990_mute,
- 	.set_fmt	= wm8990_set_dai_fmt,
- 	.set_clkdiv	= wm8990_set_dai_clkdiv,
- 	.set_pll	= wm8990_set_dai_pll,
-diff --git a/sound/soc/codecs/wm8991.c b/sound/soc/codecs/wm8991.c
-index ba71c2f59511..1830eb9ada28 100644
---- a/sound/soc/codecs/wm8991.c
-+++ b/sound/soc/codecs/wm8991.c
-@@ -1064,11 +1064,14 @@ static int wm8991_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static int wm8991_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8991_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 	u16 val;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	val  = snd_soc_component_read(component, WM8991_DAC_CTRL) & ~WM8991_DAC_MUTE;
- 	if (mute)
- 		snd_soc_component_write(component, WM8991_DAC_CTRL, val | WM8991_DAC_MUTE);
-@@ -1196,7 +1199,7 @@ static int wm8991_set_bias_level(struct snd_soc_component *component,
- 
- static const struct snd_soc_dai_ops wm8991_ops = {
- 	.hw_params = wm8991_hw_params,
--	.digital_mute = wm8991_mute,
-+	.mute_stream = wm8991_mute,
- 	.set_fmt = wm8991_set_dai_fmt,
- 	.set_clkdiv = wm8991_set_dai_clkdiv,
- 	.set_pll = wm8991_set_dai_pll
-diff --git a/sound/soc/codecs/wm8993.c b/sound/soc/codecs/wm8993.c
-index 207c0211caa9..fbce5e4692fa 100644
---- a/sound/soc/codecs/wm8993.c
-+++ b/sound/soc/codecs/wm8993.c
-@@ -1330,11 +1330,14 @@ static int wm8993_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static int wm8993_digital_mute(struct snd_soc_dai *codec_dai, int mute)
-+static int wm8993_mute(struct snd_soc_dai *codec_dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = codec_dai->component;
- 	unsigned int reg;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	reg = snd_soc_component_read(component, WM8993_DAC_CTRL);
- 
- 	if (mute)
-@@ -1444,7 +1447,7 @@ static const struct snd_soc_dai_ops wm8993_ops = {
- 	.set_sysclk = wm8993_set_sysclk,
- 	.set_fmt = wm8993_set_dai_fmt,
- 	.hw_params = wm8993_hw_params,
--	.digital_mute = wm8993_digital_mute,
-+	.mute_stream = wm8993_mute,
- 	.set_pll = wm8993_set_fll,
- 	.set_tdm_slot = wm8993_set_tdm_slot,
- };
-diff --git a/sound/soc/codecs/wm8994.c b/sound/soc/codecs/wm8994.c
-index 5e1ce243feb1..fa188d422f0b 100644
---- a/sound/soc/codecs/wm8994.c
-+++ b/sound/soc/codecs/wm8994.c
-@@ -3110,12 +3110,16 @@ static int wm8994_aif3_hw_params(struct snd_pcm_substream *substream,
- 	return snd_soc_component_update_bits(component, aif1_reg, WM8994_AIF1_WL_MASK, aif1);
- }
- 
--static int wm8994_aif_mute(struct snd_soc_dai *codec_dai, int mute)
-+static int wm8994_aif_mute(struct snd_soc_dai *codec_dai, int mute,
-+			   int direction)
- {
- 	struct snd_soc_component *component = codec_dai->component;
- 	int mute_reg;
- 	int reg;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	switch (codec_dai->id) {
- 	case 1:
- 		mute_reg = WM8994_AIF1_DAC1_FILTERS_1;
-@@ -3187,7 +3191,7 @@ static const struct snd_soc_dai_ops wm8994_aif1_dai_ops = {
- 	.set_sysclk	= wm8994_set_dai_sysclk,
- 	.set_fmt	= wm8994_set_dai_fmt,
- 	.hw_params	= wm8994_hw_params,
--	.digital_mute	= wm8994_aif_mute,
-+	.mute_stream	= wm8994_aif_mute,
- 	.set_pll	= wm8994_set_fll,
- 	.set_tristate	= wm8994_set_tristate,
- };
-@@ -3196,7 +3200,7 @@ static const struct snd_soc_dai_ops wm8994_aif2_dai_ops = {
- 	.set_sysclk	= wm8994_set_dai_sysclk,
- 	.set_fmt	= wm8994_set_dai_fmt,
- 	.hw_params	= wm8994_hw_params,
--	.digital_mute   = wm8994_aif_mute,
-+	.mute_stream	= wm8994_aif_mute,
- 	.set_pll	= wm8994_set_fll,
- 	.set_tristate	= wm8994_set_tristate,
- };
-diff --git a/sound/soc/codecs/wm8995.c b/sound/soc/codecs/wm8995.c
-index 276ffa84cc31..a79906fa0cea 100644
---- a/sound/soc/codecs/wm8995.c
-+++ b/sound/soc/codecs/wm8995.c
-@@ -1417,11 +1417,14 @@ static bool wm8995_volatile(struct device *dev, unsigned int reg)
- 	}
- }
- 
--static int wm8995_aif_mute(struct snd_soc_dai *dai, int mute)
-+static int wm8995_aif_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 	int mute_reg;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	switch (dai->id) {
- 	case 0:
- 		mute_reg = WM8995_AIF1_DAC1_FILTERS_1;
-@@ -2094,7 +2097,7 @@ static const struct snd_soc_dai_ops wm8995_aif1_dai_ops = {
- 	.set_sysclk = wm8995_set_dai_sysclk,
- 	.set_fmt = wm8995_set_dai_fmt,
- 	.hw_params = wm8995_hw_params,
--	.digital_mute = wm8995_aif_mute,
-+	.mute_stream = wm8995_aif_mute,
- 	.set_pll = wm8995_set_fll,
- 	.set_tristate = wm8995_set_tristate,
- };
-@@ -2103,7 +2106,7 @@ static const struct snd_soc_dai_ops wm8995_aif2_dai_ops = {
- 	.set_sysclk = wm8995_set_dai_sysclk,
- 	.set_fmt = wm8995_set_dai_fmt,
- 	.hw_params = wm8995_hw_params,
--	.digital_mute = wm8995_aif_mute,
-+	.mute_stream = wm8995_aif_mute,
- 	.set_pll = wm8995_set_fll,
- 	.set_tristate = wm8995_set_tristate,
- };
-diff --git a/sound/soc/codecs/wm9081.c b/sound/soc/codecs/wm9081.c
-index be5c9c2b0162..60e20aeb81ae 100644
---- a/sound/soc/codecs/wm9081.c
-+++ b/sound/soc/codecs/wm9081.c
-@@ -1147,11 +1147,14 @@ static int wm9081_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static int wm9081_digital_mute(struct snd_soc_dai *codec_dai, int mute)
-+static int wm9081_mute(struct snd_soc_dai *codec_dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = codec_dai->component;
- 	unsigned int reg;
- 
-+	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
- 	reg = snd_soc_component_read(component, WM9081_DAC_DIGITAL_2);
- 
- 	if (mute)
-@@ -1232,7 +1235,7 @@ static int wm9081_set_tdm_slot(struct snd_soc_dai *dai,
- static const struct snd_soc_dai_ops wm9081_dai_ops = {
- 	.hw_params = wm9081_hw_params,
- 	.set_fmt = wm9081_set_dai_fmt,
--	.digital_mute = wm9081_digital_mute,
-+	.mute_stream = wm9081_mute,
- 	.set_tdm_slot = wm9081_set_tdm_slot,
- };
- 
 -- 
 2.25.1
 

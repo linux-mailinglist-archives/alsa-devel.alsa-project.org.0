@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61F89206E3F
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 09:52:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63B62206E69
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 09:57:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B5D71816;
-	Wed, 24 Jun 2020 09:52:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B5D71816
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B64D17ED;
+	Wed, 24 Jun 2020 09:56:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B64D17ED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592985175;
-	bh=nJY5pM1XJK+PkGo8ItvEhMxQJ8KB2jky9DEP6kMh9Dg=;
+	s=default; t=1592985458;
+	bh=zniIKLWgw1oSJHh7xT29+yyI1bZ+tYb8LtxgX9lWPPo=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sKwmUNHKcA2Zj2TyI0SvjMEIOBMGLvsdhx5ZHuGN1KDjmPQfPwClE7QUo31PT+BJ8
-	 z5Q5sCVjuwh5IdXF8pnIjyWuAG/Ge8Oc4Qm93BsOVhdjvSY5yjb+JgWmLrd38GTfx6
-	 OFIEyLxCl6v/G7WvaVXY8F2FkM4M9CtkBNsUT+Xg=
+	b=NLyVvyTeEEwII0RUvi8mpMdPylU/LjEHg8qrup51jNmDKxCmESlsqX/BsUC94CsuZ
+	 WnUO9HHFVWnGwS6anIaBWGdcMjLDhql1N5uQ4y5N89bPFupLyJBE8BZPVK38ys29Q5
+	 zAqWuk5D2xDMjtl2qRoWH6eHMe4XJvIiMbM2X3+k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3614BF802A8;
-	Wed, 24 Jun 2020 09:49:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D2B8AF80329;
+	Wed, 24 Jun 2020 09:49:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C6C3FF80162; Tue, 23 Jun 2020 03:19:47 +0200 (CEST)
+ id 683C7F8015B; Tue, 23 Jun 2020 03:19:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 686DBF8015A
- for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 03:19:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 686DBF8015A
-Date: 23 Jun 2020 10:19:43 +0900
-X-IronPort-AV: E=Sophos;i="5.75,268,1589209200"; d="scan'208";a="50118833"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 23 Jun 2020 10:19:43 +0900
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 1EF51F80157
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 03:19:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EF51F80157
+Date: 23 Jun 2020 10:19:49 +0900
+X-IronPort-AV: E=Sophos;i="5.75,268,1589209200"; d="scan'208";a="50329359"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 23 Jun 2020 10:19:49 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 765E04001DB1;
- Tue, 23 Jun 2020 10:19:43 +0900 (JST)
-Message-ID: <87blla37f2.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 64BC94183C30;
+ Tue, 23 Jun 2020 10:19:49 +0900 (JST)
+Message-ID: <87a70u37ex.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 03/19] ASoC: spear: merge .digital_mute() into .mute_stream()
+Subject: [PATCH 04/19] ASoC: meson: merge .digital_mute() into .mute_stream()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87ftam37ko.wl-kuninori.morimoto.gx@renesas.com>
@@ -143,48 +143,37 @@ We can merge digital_mute() into mute_stream
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/spear/spdif_out.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ sound/soc/meson/axg-spdifout.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/spear/spdif_out.c b/sound/soc/spear/spdif_out.c
-index 58d5843811f9..c53c59f3b359 100644
---- a/sound/soc/spear/spdif_out.c
-+++ b/sound/soc/spear/spdif_out.c
-@@ -188,11 +188,14 @@ static int spdif_out_trigger(struct snd_pcm_substream *substream, int cmd,
- 	return ret;
+diff --git a/sound/soc/meson/axg-spdifout.c b/sound/soc/meson/axg-spdifout.c
+index 7ce6aa97ddf7..b5dcbfc35a1b 100644
+--- a/sound/soc/meson/axg-spdifout.c
++++ b/sound/soc/meson/axg-spdifout.c
+@@ -108,10 +108,13 @@ static int axg_spdifout_trigger(struct snd_pcm_substream *substream, int cmd,
+ 	}
  }
  
--static int spdif_digital_mute(struct snd_soc_dai *dai, int mute)
-+static int spdif_mute(struct snd_soc_dai *dai, int mute, int direction)
+-static int axg_spdifout_digital_mute(struct snd_soc_dai *dai, int mute)
++static int axg_spdifout_mute(struct snd_soc_dai *dai, int mute, int direction)
  {
- 	struct spdif_out_dev *host = snd_soc_dai_get_drvdata(dai);
- 	u32 val;
+ 	struct axg_spdifout *priv = snd_soc_dai_get_drvdata(dai);
  
 +	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
 +		return 0;
 +
- 	host->saved_params.mute = mute;
- 	val = readl(host->io_base + SPDIF_OUT_CTRL);
- 	val &= ~SPDIF_OPMODE_MASK;
-@@ -229,7 +232,8 @@ static int spdif_mute_put(struct snd_kcontrol *kcontrol,
- 	if (host->saved_params.mute == ucontrol->value.integer.value[0])
- 		return 0;
+ 	/* Use spdif valid bit to perform digital mute */
+ 	regmap_update_bits(priv->map, SPDIFOUT_CTRL0, SPDIFOUT_CTRL0_VSET,
+ 			   mute ? SPDIFOUT_CTRL0_VSET : 0);
+@@ -285,7 +288,7 @@ static void axg_spdifout_shutdown(struct snd_pcm_substream *substream,
  
--	spdif_digital_mute(cpu_dai, ucontrol->value.integer.value[0]);
-+	spdif_mute(cpu_dai, ucontrol->value.integer.value[0],
-+		   SNDRV_PCM_STREAM_PLAYBACK);
- 
- 	return 1;
- }
-@@ -250,7 +254,7 @@ static int spdif_soc_dai_probe(struct snd_soc_dai *dai)
- }
- 
- static const struct snd_soc_dai_ops spdif_out_dai_ops = {
--	.digital_mute	= spdif_digital_mute,
-+	.mute_stream	= spdif_mute,
- 	.startup	= spdif_out_startup,
- 	.shutdown	= spdif_out_shutdown,
- 	.trigger	= spdif_out_trigger,
+ static const struct snd_soc_dai_ops axg_spdifout_ops = {
+ 	.trigger	= axg_spdifout_trigger,
+-	.digital_mute	= axg_spdifout_digital_mute,
++	.mute_stream	= axg_spdifout_mute,
+ 	.hw_params	= axg_spdifout_hw_params,
+ 	.startup	= axg_spdifout_startup,
+ 	.shutdown	= axg_spdifout_shutdown,
 -- 
 2.25.1
 

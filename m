@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3EB7204FF2
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jun 2020 13:02:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AED67204FF5
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jun 2020 13:02:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7929A179B;
-	Tue, 23 Jun 2020 13:01:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7929A179B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F80F1797;
+	Tue, 23 Jun 2020 13:01:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F80F1797
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592910139;
-	bh=fF1LPxeRY0j9UUIkBzJbw5mLpGr/YEo+ohySBoNENp0=;
+	s=default; t=1592910165;
+	bh=hoy/tegq3GXdtuvCAur5bxzwdf9P4lq+YYmK0Uk5K74=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AHuYA/U27HrhzTk3X/PyR1eRKIL/Kxpl1OGHGPI/Urx8XerSsx3Yb7QtxG3kSgICz
-	 hcSr25SGffvZ2elqYzbyu7pnKG019KYJNqyD/7sSKh6Tog+SxFKpTtsNFhrzWsv1BN
-	 sKjkb1cxD4qEkR8qc6DwVMVkMH1zvk19f0MugdIU=
+	b=LOZ1EebWS0pcNWS4aPl+J30LSpy6bWfLAvj23WvyK+Ayr2OV42GRw7nCdZP8zyk+6
+	 YsGtuJUksmwqTkTgk1szALXpNF7QG1pOtr+DPLSaKq8Lw7wyc0xSAWIkc5UQxfAbzf
+	 dpqOkAOxBjbN4NbiiqaC9ioI7nvwIPnUaD6AK6UU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08B4EF802D2;
-	Tue, 23 Jun 2020 13:00:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DEE45F80259;
+	Tue, 23 Jun 2020 13:00:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7A1E9F80291; Tue, 23 Jun 2020 13:00:08 +0200 (CEST)
+ id 48298F802A1; Tue, 23 Jun 2020 13:00:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,22 +34,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C1D59F802C2
- for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 13:00:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1D59F802C2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6A385F8025E
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 13:00:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A385F8025E
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0B3B5AF31;
- Tue, 23 Jun 2020 11:00:05 +0000 (UTC)
-Date: Tue, 23 Jun 2020 13:00:05 +0200
-Message-ID: <s5h366moxmy.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id A6B9AAED9;
+ Tue, 23 Jun 2020 11:00:44 +0000 (UTC)
+Date: Tue, 23 Jun 2020 13:00:45 +0200
+Message-ID: <s5h1rm6oxlu.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Mark Hills <mark@xwax.org>
-Subject: Re: [PATCH 7/9] dsnoop: Another bug where the empty, not full,
- part of the ringbuffer was observed
-In-Reply-To: <20200622131515.23385-7-mark@xwax.org>
+Subject: Re: [PATCH 8/9] dsnoop: Make use of the (previously unused) function
+In-Reply-To: <20200622131515.23385-8-mark@xwax.org>
 References: <2006221356390.20421@stax.localdomain>
- <20200622131515.23385-7-mark@xwax.org>
+ <20200622131515.23385-8-mark@xwax.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -71,11 +70,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 22 Jun 2020 15:15:13 +0200,
+On Mon, 22 Jun 2020 15:15:14 +0200,
 Mark Hills wrote:
 > 
-> This looks like a simple mistake dating back to 2003 (commit 7470a5b9)
-> where code originated from dmix.
+> Match the equivalent funciton for playback. This is on the assumption
+> that values should be capped at zero, which is what _rewindable()
+> implements.
 > 
 > Signed-off-by: Mark Hills <mark@xwax.org>
 

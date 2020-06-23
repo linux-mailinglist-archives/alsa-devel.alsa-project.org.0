@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 140D2206BCE
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 07:36:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0AD1206BCF
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 07:37:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B82B71785;
-	Wed, 24 Jun 2020 07:35:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B82B71785
+	by alsa0.perex.cz (Postfix) with ESMTPS id 54C4717FD;
+	Wed, 24 Jun 2020 07:36:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54C4717FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592976992;
-	bh=ugbyRBkrQrSwT8X+c0rqPSU+BHf2HVgsv+LUqhtWD0Y=;
+	s=default; t=1592977020;
+	bh=+TqtpxHwDdwRayDvpnkIJz8gH90uE1LFJcextAX3h5E=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PGx3adG4tiQDb6XHYxTRVXYfsBQ8aA5YG0YXtJfCF1c/pp+/HRj7/xO0O4e8Vs8f9
-	 w4T8VrB/JeXOuuOpgQuzj9A5bDU/TrOM+pA79CTK1MNHk01yPykl1JrREasLj/ydVz
-	 HyKWLQPnFFZpMxFhDxXPvwcBFIgpAl6xqnC9V9UI=
+	b=B42vRrZDlDrslT2XnmC7ual4DK9oDLLRLk0+LBWnZBNouR0e8q62OPFUE5AQq6AW9
+	 wV+BzLxH04F4bVQDtB2w/AJqR3efm0OYZB78IiiHsjSDh9b9NaTjKQ9pfLgLuX2r2z
+	 9qEVOpcuAwPFX8lR9x5HYXD1m72fa4Z14VOraXNs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3102BF802FF;
-	Wed, 24 Jun 2020 07:30:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EAF48F80306;
+	Wed, 24 Jun 2020 07:31:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7732DF802E9; Wed, 24 Jun 2020 07:30:47 +0200 (CEST)
+ id C613BF802E9; Wed, 24 Jun 2020 07:30:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
@@ -33,30 +33,31 @@ X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 80876F802DB
- for <alsa-devel@alsa-project.org>; Wed, 24 Jun 2020 07:30:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80876F802DB
-IronPort-SDR: m7MfrKhCeNaI2gKLAwPFBcyFjjmUruFbfNWSBBwuV5BjhOe2Cph//sxIXdPemuhbxSeXfb15aF
- 8iOMSuIL+LmA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9661"; a="131776198"
-X-IronPort-AV: E=Sophos;i="5.75,274,1589266800"; d="scan'208";a="131776198"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 65A1AF802E3
+ for <alsa-devel@alsa-project.org>; Wed, 24 Jun 2020 07:30:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65A1AF802E3
+IronPort-SDR: rpY2YDHNmLV3AiyLpNrMn7/WX4B4qjSIMqNJQY9X3HnvAlrNMw0rUWYWf8uxYm7J0qE950WRZ6
+ D21qk+30g4dA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9661"; a="131776245"
+X-IronPort-AV: E=Sophos;i="5.75,274,1589266800"; d="scan'208";a="131776245"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2020 22:30:37 -0700
-IronPort-SDR: AX6BEU/hi0QVfeqgPIlj85D0U7tQnybRt/1vxf5ni1340eJYkoc8cqjKOd8hpkaPlbYaKxj/3t
- rkzT9VjR08aA==
+ 23 Jun 2020 22:30:43 -0700
+IronPort-SDR: YHZbXwFMmJMd1fC8ZZkZVKSQwJO+OCQaDr50XMc5njX1ODc/gEjJ9ey/TZZbyFPUHvGqSGvqtv
+ TN22WHx0/Zdg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,274,1589266800"; d="scan'208";a="452513566"
+X-IronPort-AV: E=Sophos;i="5.75,274,1589266800"; d="scan'208";a="452513619"
 Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
- by orsmga005.jf.intel.com with ESMTP; 23 Jun 2020 22:30:32 -0700
+ by orsmga005.jf.intel.com with ESMTP; 23 Jun 2020 22:30:38 -0700
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
-Subject: [PATCH 8/9] soundwire: intel: add wake interrupt support
-Date: Wed, 24 Jun 2020 01:35:45 +0800
-Message-Id: <20200623173546.21870-9-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH 9/9] Soundwire: intel_init: save Slave(s) _ADR info in
+ sdw_intel_ctx
+Date: Wed, 24 Jun 2020 01:35:46 +0800
+Message-Id: <20200623173546.21870-10-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200623173546.21870-1-yung-chuan.liao@linux.intel.com>
 References: <20200623173546.21870-1-yung-chuan.liao@linux.intel.com>
@@ -81,145 +82,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Rander Wang <rander.wang@intel.com>
+Save ACPI information in context so that we can match machine driver
+with sdw _ADR matching tables.
 
-When system is suspended in clock stop mode on intel platforms, both
-master and slave are in clock stop mode and soundwire bus is taken
-over by a glue hardware. The bus message for jack event is processed
-by this glue hardware, which will trigger an interrupt to resume audio
-pci device. Then audio pci driver will resume soundwire master and slave,
-transfer bus ownership to master, finally slave will report jack event
-to master and codec driver is triggered to check jack status.
-
-if a slave has been attached to a bus, the slave->dev_num_sticky
-should be non-zero, so we can check this value to skip the
-ghost devices defined in ACPI table but not populated in hardware.
-
-Signed-off-by: Rander Wang <rander.wang@intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Suggested-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- drivers/soundwire/intel.c      | 48 +++++++++++++++++++++++++++++++++-
- drivers/soundwire/intel.h      |  1 +
- drivers/soundwire/intel_init.c | 22 ++++++++++++++++
- 3 files changed, 70 insertions(+), 1 deletion(-)
+ drivers/soundwire/intel_init.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index 06c553d94890..22d9fd3e34fa 100644
---- a/drivers/soundwire/intel.c
-+++ b/drivers/soundwire/intel.c
-@@ -13,6 +13,7 @@
- #include <linux/io.h>
- #include <linux/platform_device.h>
- #include <sound/pcm_params.h>
-+#include <linux/pm_runtime.h>
- #include <sound/soc.h>
- #include <linux/soundwire/sdw_registers.h>
- #include <linux/soundwire/sdw.h>
-@@ -436,7 +437,7 @@ static int intel_shim_init(struct sdw_intel *sdw, bool clock_stop)
- 	return ret;
- }
- 
--static void __maybe_unused intel_shim_wake(struct sdw_intel *sdw, bool wake_enable)
-+static void intel_shim_wake(struct sdw_intel *sdw, bool wake_enable)
- {
- 	void __iomem *shim = sdw->link_res->shim;
- 	unsigned int link_id = sdw->instance;
-@@ -1337,6 +1338,51 @@ static int intel_master_remove(struct platform_device *pdev)
- 	return 0;
- }
- 
-+int intel_master_process_wakeen_event(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct sdw_intel *sdw;
-+	struct sdw_bus *bus;
-+	struct sdw_slave *slave;
-+	void __iomem *shim;
-+	u16 wake_sts;
-+
-+	sdw = platform_get_drvdata(pdev);
-+	bus = &sdw->cdns.bus;
-+
-+	if (bus->prop.hw_disabled) {
-+		dev_dbg(dev,
-+			"SoundWire master %d is disabled, ignoring\n",
-+			bus->link_id);
-+		return 0;
-+	}
-+
-+	shim = sdw->link_res->shim;
-+	wake_sts = intel_readw(shim, SDW_SHIM_WAKESTS);
-+
-+	if (!(wake_sts & BIT(sdw->instance)))
-+		return 0;
-+
-+	/* disable WAKEEN interrupt ASAP to prevent interrupt flood */
-+	intel_shim_wake(sdw, false);
-+
-+	/*
-+	 * wake up master and slave so that slave can notify master
-+	 * the wakeen event and let codec driver check codec status
-+	 */
-+	list_for_each_entry(slave, &bus->slaves, node) {
-+		/*
-+		 * discard devices that are defined in ACPI tables but
-+		 * not physically present and devices that cannot
-+		 * generate wakes
-+		 */
-+		if (slave->dev_num_sticky && slave->prop.wake_capable)
-+			pm_request_resume(&slave->dev);
-+	}
-+
-+	return 0;
-+}
-+
- static struct platform_driver sdw_intel_drv = {
- 	.probe = intel_master_probe,
- 	.remove = intel_master_remove,
-diff --git a/drivers/soundwire/intel.h b/drivers/soundwire/intel.h
-index bf127c88eb51..4ea3d262d249 100644
---- a/drivers/soundwire/intel.h
-+++ b/drivers/soundwire/intel.h
-@@ -47,5 +47,6 @@ struct sdw_intel {
- #define SDW_INTEL_QUIRK_MASK_BUS_DISABLE      BIT(1)
- 
- int intel_master_startup(struct platform_device *pdev);
-+int intel_master_process_wakeen_event(struct platform_device *pdev);
- 
- #endif /* __SDW_INTEL_LOCAL_H */
 diff --git a/drivers/soundwire/intel_init.c b/drivers/soundwire/intel_init.c
-index 63b3beda443d..eff4e385bb59 100644
+index eff4e385bb59..6502a5e82229 100644
 --- a/drivers/soundwire/intel_init.c
 +++ b/drivers/soundwire/intel_init.c
-@@ -415,5 +415,27 @@ void sdw_intel_exit(struct sdw_intel_ctx *ctx)
- }
- EXPORT_SYMBOL_NS(sdw_intel_exit, SOUNDWIRE_INTEL_INIT);
+@@ -188,7 +188,11 @@ static struct sdw_intel_ctx
+ 	struct sdw_intel_link_res *link;
+ 	struct sdw_intel_ctx *ctx;
+ 	struct acpi_device *adev;
++	struct sdw_slave *slave;
++	struct list_head *node;
++	struct sdw_bus *bus;
+ 	u32 link_mask;
++	int num_slaves = 0;
+ 	int count;
+ 	int i;
  
-+void sdw_intel_process_wakeen_event(struct sdw_intel_ctx *ctx)
-+{
-+	struct sdw_intel_link_res *link;
-+	u32 link_mask;
-+	int i;
-+
-+	if (!ctx->links)
-+		return;
-+
-+	link = ctx->links;
-+	link_mask = ctx->link_mask;
-+
-+	/* Startup SDW Master devices */
-+	for (i = 0; i < ctx->count; i++, link++) {
-+		if (!(link_mask & BIT(i)))
-+			continue;
-+
-+		intel_master_process_wakeen_event(link->pdev);
+@@ -265,6 +269,26 @@ static struct sdw_intel_ctx
+ 		link->cdns = platform_get_drvdata(pdev);
+ 
+ 		list_add_tail(&link->list, &ctx->link_list);
++		bus = &link->cdns->bus;
++		/* Calculate number of slaves */
++		list_for_each(node, &bus->slaves)
++			num_slaves++;
 +	}
-+}
-+EXPORT_SYMBOL_NS(sdw_intel_process_wakeen_event, SOUNDWIRE_INTEL_INIT);
 +
- MODULE_LICENSE("Dual BSD/GPL");
- MODULE_DESCRIPTION("Intel Soundwire Init Library");
++	ctx->ids = devm_kcalloc(&adev->dev, num_slaves,
++				sizeof(*ctx->ids), GFP_KERNEL);
++	if (!ctx->ids)
++		goto err;
++
++	ctx->num_slaves = num_slaves;
++	i = 0;
++	list_for_each_entry(link, &ctx->link_list, list) {
++		bus = &link->cdns->bus;
++		list_for_each_entry(slave, &bus->slaves, node) {
++			ctx->ids[i].id = slave->id;
++			ctx->ids[i].link_id = bus->link_id;
++			i++;
++		}
+ 	}
+ 
+ 	return ctx;
 -- 
 2.17.1
 

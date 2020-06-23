@@ -2,90 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 363792050E1
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jun 2020 13:37:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB2EB2050F6
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jun 2020 13:41:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C654617CB;
-	Tue, 23 Jun 2020 13:36:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C654617CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 692E017AF;
+	Tue, 23 Jun 2020 13:40:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 692E017AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592912223;
-	bh=uAkyLDpx2dxpU3/B1xBtFFUKt2SQEgfqYrmc8N0VVaw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=kuWb1084jdtsBt4cJu17VksKasn6fd1j2uSs36no0/HYTEyj2i+aB8V71mhgSHdxj
-	 1MuXbdeVSWNmv31tpAbZ0dD1VR0NGoPPJPshgwzm4ieLwm+w4FVp5Q1631UdWHjKAY
-	 KoH0QWPRVxxKQGPBtUTLchn1DdgN/gsSImVtVEOU=
+	s=default; t=1592912508;
+	bh=PHv6RMWA0CB8IW+CPXkgSL5ROW0cigmoL/UVZhECOt8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=C++violVAJJbhe1YRBBjMfIlh/BI4l0JaEVRYMnatP66ZNfn4CsQlsDAOFXgBKM8g
+	 oE8hzmcjFIx763Gl94ct0qAAbOgeN17NsJF/GgEHRgxxXHAVptliSFe6gT/5cySCzu
+	 sk0+Ol8Ta4Og6hSLZxeUnIQBexs5jlQ9JtAcM5A4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B27E6F80218;
-	Tue, 23 Jun 2020 13:36:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F241F800B2;
+	Tue, 23 Jun 2020 13:40:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9C971F80234; Tue, 23 Jun 2020 13:36:08 +0200 (CEST)
+ id C6065F80234; Tue, 23 Jun 2020 13:40:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
- [IPv6:2607:f8b0:4864:20::844])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_SOFTFAIL,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from conuserg-10.nifty.com (conuserg-10.nifty.com [210.131.2.77])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 53BBFF800B2
- for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 13:36:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53BBFF800B2
+ by alsa1.perex.cz (Postfix) with ESMTPS id DCC4FF800B2
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 13:39:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCC4FF800B2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="HyMlCpMD"
-Received: by mail-qt1-x844.google.com with SMTP id d27so15067888qtg.4
- for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 04:36:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4pFgJBI5OCUGefSIcYA75cTva8JFYmUiXoqYx+WyG9c=;
- b=HyMlCpMDocjfKKBdCi+o40gBFKbEJLUZrOAhvFFx4oLGKFgYQ+huI9As79YT6CAjOa
- z2C/Xdl9JZ0KjIxf0z+fW6ABlByiQ5bya+k/eGUH/aF4IHdwR1bTNNip68uuIJe7WlpH
- YMSHIlyZqfTwCdwD010jH6B7e3ALpCGY4ELBk3/yM9GQQH47+gIQ0ImwuYYE2D+5Njhv
- 0ym+2XuFqxH3sJwOokUV7b1thTP7Nbqy0B6kLt7X61WBzB3zDn8HOkMNTidrlrHhGmhe
- bjqpiyKJ8IZ+hJ6oXMGZZc8CVPLZSl1qwaaUZry6fOksDMILHtAjkq1qVnFnpIWu5FzY
- mlBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4pFgJBI5OCUGefSIcYA75cTva8JFYmUiXoqYx+WyG9c=;
- b=dHmzr36WE5Cfwdf6B07N6zbLwSm7h46WnHQfkRW+NapORUK7TXluE7MlVed3O05YvB
- 95vsdUQ4XHRpfdZTd2GzCMbnMzM0MErD3FxozGP3Tif7XrVNUbKnSz3FcHFYeUXH9oYY
- R2NqsJkMHsrtdA2KASgBmXjLdKKxmFncJX+qTXWZkXMj89xBuhWZsPMYRbaEKp9FUN5f
- EUcnIGLsBw6u8kkOrF7nnybRAE+S8wAGH4dZ7+/PYm0npNW+kNdWjTYMc62LwoM7PiBS
- SQTFSQRWnmUdH1L34gFC2Rn+57Nuw0D//9YmSGhmt9HOqWRkACmuoE5xaz2dq0eZ3rGV
- kCpA==
-X-Gm-Message-State: AOAM532cCi7imn3Lb8XglB1RFbRpm2EIDexS1K55+KLWO4WDgDvRrHSd
- t6U6yhrJkmR6/L7a65IA1c5Cvup0Bu0abZdm1cZS3Q==
-X-Google-Smtp-Source: ABdhPJxO61T03lcfmOJXo9ryxEyKF6k7r6xNQ5tVWce+sBxYQ2LVJuylLY2ZNsYXy4zLvna194XXAG3+GxjVNzCv12s=
-X-Received: by 2002:ac8:41c6:: with SMTP id o6mr15036092qtm.292.1592912162502; 
- Tue, 23 Jun 2020 04:36:02 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=nifty.com header.i=@nifty.com
+ header.b="MBl6WMP9"
+Received: from oscar.flets-west.jp (softbank126090202047.bbtec.net
+ [126.90.202.47]) (authenticated)
+ by conuserg-10.nifty.com with ESMTP id 05NBdQcO015338;
+ Tue, 23 Jun 2020 20:39:27 +0900
+DKIM-Filter: OpenDKIM Filter v2.10.3 conuserg-10.nifty.com 05NBdQcO015338
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nifty.com;
+ s=dec2015msa; t=1592912367;
+ bh=EQR5jz5Ak267spsKF3ptXzFmAIfZKKdNNqltK1FNhao=;
+ h=From:To:Cc:Subject:Date:From;
+ b=MBl6WMP9adRnYFLrrJkyqoyppk+BUFmKK6oIMZCxoQgKR+qeQm87sOAI8TELXzp/p
+ dE5cjfY6chpBz57ArwADg3D/AT8bFm/JnTMJHHdW0Z2nKmv94VxV/wYofC3qXj1sQd
+ bLLaaBeA2oOlNHYEDraW1Q9nWCb8GPeCRRiEd0pb3eSsN8klDL7hyC9cidtcnoXdyC
+ WpQzUXovcvwNIPmD2nETSwwZ9eipi0EFRHtI04RixvDXpFb1+dX6GgJYEOIENVVkEI
+ XqC88Q7N7+9W/+kM0jC+e8nA7CiA0QdfNU/QkcKDXaPhUDXU09lYT4xb3znh+4gZpG
+ tTjnZk1zCyS2Q==
+X-Nifty-SrcIP: [126.90.202.47]
+From: Masahiro Yamada <yamada.masahiro@socionext.com>
+To: Rob Herring <robh+dt@kernel.org>, Frank Rowand <frowand.list@gmail.com>,
+ devicetree@vger.kernel.org
+Subject: [PATCH v2] dt-bindings: ASoC: Convert UniPhier AIO audio system to
+ json-schema
+Date: Tue, 23 Jun 2020 20:39:15 +0900
+Message-Id: <20200623113915.791386-1-yamada.masahiro@socionext.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <39ac8f24-3148-2a3d-3f8d-91567b3c4c9e@web.de>
- <CAA+D8APR2NGAn9jRDSZzr1fgj5u0hAvH19VxZS+tj2A7j3PCuw@mail.gmail.com>
- <24be48d2-63de-b900-cec7-d21e83a89ca2@web.de>
-In-Reply-To: <24be48d2-63de-b900-cec7-d21e83a89ca2@web.de>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Tue, 23 Jun 2020 19:35:51 +0800
-Message-ID: <CAA+D8AMSVCbJtcDoCbsMeV6ygrSdARpn3_PWE83mitcnkA1Tog@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] ASoC: fsl_mqs: Don't check clock is NULL before
- calling clk API
-To: Markus Elfring <Markus.Elfring@web.de>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- Shengjiu Wang <shengjiu.wang@nxp.com>, kernel-janitors@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, linux-kernel <linux-kernel@vger.kernel.org>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
- linuxppc-dev@lists.ozlabs.org
+Content-Transfer-Encoding: 8bit
+Cc: - <alsa-devel@alsa-project.org>, Katsuhiro Suzuki <katsuhiro@katsuster.net>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Masahiro Yamada <yamada.masahiro@socionext.com>,
+ Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,31 +83,158 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jun 23, 2020 at 4:55 PM Markus Elfring <Markus.Elfring@web.de> wrote:
->
-> >     clk_prepare_enable and clk_disable_unprepare check the input
-> >     clock parameter in the beginning of the function,
->
-> These functions call further functions which perform null pointer checks.
->
->
-> >                                                       if the parameter
-> >     is NULL, clk_prepare_enable and clk_disable_unprepare will
-> >     return immediately.
->
-> The interpretation of these function implementations seems to be reasonable.
-> Would you like to achieve any improvements for the corresponding software documentation?
+Convert the UniPhier AIO audio system binding to DT schema format.
 
-Which document do you mean?
+Signed-off-by: Masahiro Yamada <yamada.masahiro@socionext.com>
+---
 
->
->
-> >     So Don't need to check input clock parameters before calling clk API.
->
-> What do you find imperative in this wording?
->
-> Another wording alternative:
->    Thus omit extra null pointer checks before four function calls.
->
-> Regards,
-> Markus
+Changes in v2:
+  - Add schema for subnode 'port'
+
+ .../sound/socionext,uniphier-aio.yaml         | 81 +++++++++++++++++++
+ .../bindings/sound/uniphier,aio.txt           | 45 -----------
+ 2 files changed, 81 insertions(+), 45 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/socionext,uniphier-aio.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/uniphier,aio.txt
+
+diff --git a/Documentation/devicetree/bindings/sound/socionext,uniphier-aio.yaml b/Documentation/devicetree/bindings/sound/socionext,uniphier-aio.yaml
+new file mode 100644
+index 000000000000..4987eb91f2ab
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/socionext,uniphier-aio.yaml
+@@ -0,0 +1,81 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/socionext,uniphier-aio.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: UniPhier AIO audio system
++
++maintainers:
++  - <alsa-devel@alsa-project.org>
++
++properties:
++  compatible:
++    enum:
++      - socionext,uniphier-ld11-aio
++      - socionext,uniphier-ld20-aio
++      - socionext,uniphier-pxs2-aio
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clock-names:
++    const: aio
++
++  clocks:
++    maxItems: 1
++
++  reset-names:
++    const: aio
++
++  resets:
++    maxItems: 1
++
++  socionext,syscon:
++    description: |
++      Specifies a phandle to soc-glue, which is used for changing mode of S/PDIF
++      signal pin to output from Hi-Z. This property is optional if you use I2S
++      signal pins only.
++    $ref: "/schemas/types.yaml#/definitions/phandle"
++
++  "#sound-dai-cells":
++    const: 1
++
++patternProperties:
++  "^port@[0-9]$":
++    type: object
++    properties:
++      endpoint: true
++    required:
++      - endpoint
++
++additionalProperties: false
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clock-names
++  - clocks
++  - reset-names
++  - resets
++  - "#sound-dai-cells"
++
++examples:
++  - |
++    audio@56000000 {
++        compatible = "socionext,uniphier-ld20-aio";
++        reg = <0x56000000 0x80000>;
++        interrupts = <0 144 4>;
++        pinctrl-names = "default";
++        pinctrl-0 = <&pinctrl_aout>;
++        clock-names = "aio";
++        clocks = <&sys_clk 40>;
++        reset-names = "aio";
++        resets = <&sys_rst 40>;
++        #sound-dai-cells = <1>;
++        socionext,syscon = <&soc_glue>;
++    };
+diff --git a/Documentation/devicetree/bindings/sound/uniphier,aio.txt b/Documentation/devicetree/bindings/sound/uniphier,aio.txt
+deleted file mode 100644
+index 4ce68ed6f2f2..000000000000
+--- a/Documentation/devicetree/bindings/sound/uniphier,aio.txt
++++ /dev/null
+@@ -1,45 +0,0 @@
+-Socionext UniPhier SoC audio driver
+-
+-The Socionext UniPhier audio subsystem consists of I2S and S/PDIF blocks in
+-the same register space.
+-
+-Required properties:
+-- compatible      : should be one of the following:
+-		    "socionext,uniphier-ld11-aio"
+-		    "socionext,uniphier-ld20-aio"
+-		    "socionext,uniphier-pxs2-aio"
+-- reg             : offset and length of the register set for the device.
+-- interrupts      : should contain I2S or S/PDIF interrupt.
+-- pinctrl-names   : should be "default".
+-- pinctrl-0       : defined I2S signal pins for an external codec chip.
+-- clock-names     : should include following entries:
+-                    "aio"
+-- clocks          : a list of phandle, should contain an entry for each
+-                    entry in clock-names.
+-- reset-names     : should include following entries:
+-                    "aio"
+-- resets          : a list of phandle, should contain an entry for each
+-                    entry in reset-names.
+-- #sound-dai-cells: should be 1.
+-
+-Optional properties:
+-- socionext,syscon: a phandle, should contain soc-glue.
+-                    The soc-glue is used for changing mode of S/PDIF signal pin
+-                    to Output from Hi-Z. This property is optional if you use
+-                    I2S signal pins only.
+-
+-Example:
+-	audio {
+-		compatible = "socionext,uniphier-ld20-aio";
+-		reg = <0x56000000 0x80000>;
+-		interrupts = <0 144 4>;
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&pinctrl_aout>;
+-		clock-names = "aio";
+-		clocks = <&sys_clk 40>;
+-		reset-names = "aio";
+-		resets = <&sys_rst 40>;
+-		#sound-dai-cells = <1>;
+-
+-		socionext,syscon = <&sg>;
+-	};
+-- 
+2.25.1
+

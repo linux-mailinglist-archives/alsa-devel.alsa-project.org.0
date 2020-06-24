@@ -2,72 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6664207748
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 17:22:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 694292077E2
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 17:49:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4B054185F;
-	Wed, 24 Jun 2020 17:21:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B054185F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 15C59186E;
+	Wed, 24 Jun 2020 17:49:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15C59186E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593012138;
-	bh=S5J+FVAKxVkCB1In0I6T6c95GE+Iz2p9hmXrlQ4oT2U=;
+	s=default; t=1593013795;
+	bh=+dJjNjbAFG5oreJ6jWgolF5zddh7mL9u3hY4kWcH1bI=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WgxZfa2mdSggs+rxGUAW6AzQeVipUbW0gm/uuERib0EqpLTtmNNwybWY8ps9mk/FO
-	 gwK/mFhN2SGyZ8ptTdOYhL4opSo0t7cXhZAFlqUdDOe+G2ayKMmdpglZiiTsABrakK
-	 56PmVIaDB2f8xOLd4+cDCxdTcpdYlCtqZqQGip2E=
+	b=sPNT46OtH1BgA28iCA6+JLrHg6cpRGow7NWkmWfgBG12XYFoSlnURHWEyqObuu6eh
+	 gZ+1EzS9dcfad5/lOREREFyVfwhr0fDb8xP30aTZHiQAIm2BHCIsnnkrqaG05Hb+jB
+	 65U/RUHdq4JuFps7ZHqTteXj7fEvSf4u5oeyZsnk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3ACACF80162;
-	Wed, 24 Jun 2020 17:20:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 32ACFF800B2;
+	Wed, 24 Jun 2020 17:48:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2C378F8015B; Wed, 24 Jun 2020 17:20:35 +0200 (CEST)
+ id 25652F800B2; Wed, 24 Jun 2020 17:48:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 86FA4F800B2
- for <alsa-devel@alsa-project.org>; Wed, 24 Jun 2020 17:20:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86FA4F800B2
-IronPort-SDR: Ytrzxx4HosaGMupcV6fDgYsT2LygyOF5hals1x4DqJXabssdVNokM6di1BdaY7/JCCS3QJJkUn
- ZkgF624TXuGQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9662"; a="146007392"
-X-IronPort-AV: E=Sophos;i="5.75,275,1589266800"; d="scan'208";a="146007392"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 83457F800B2
+ for <alsa-devel@alsa-project.org>; Wed, 24 Jun 2020 17:48:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83457F800B2
+IronPort-SDR: T1y+D+lCa2eTDyKb/Tty6ApUoT62arHHAepsf3imv3jl89R6cR6qTFva5mqMDvJUJ+Y6BLGvqR
+ BRTUj5roPRoQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9662"; a="124773171"
+X-IronPort-AV: E=Sophos;i="5.75,275,1589266800"; d="scan'208";a="124773171"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jun 2020 08:20:23 -0700
-IronPort-SDR: KthMzFyEl+Z+3oHEZKWAhiMVGsE0+zzjoyfbYYib8GepZG1omsKR/JMJCX53jjf1l9wDom6Jt2
- 8+LyYd+a+Egg==
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2020 08:48:04 -0700
+IronPort-SDR: 1fOZxaumamDFEwr2EtI126XZfYPpl6EnkhnFagpBmQGlfjPIaer8ZHziy+gLU7hEdicHiz1YbL
+ DnDMB7diiitQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,275,1589266800"; d="scan'208";a="279502647"
+X-IronPort-AV: E=Sophos;i="5.75,275,1589266800"; d="scan'208";a="279509947"
 Received: from bkorrapa-mobl1.amr.corp.intel.com (HELO [10.254.109.185])
  ([10.254.109.185])
- by orsmga006.jf.intel.com with ESMTP; 24 Jun 2020 08:20:22 -0700
-Subject: Re: Fwd: [PATCH] snd/soc: correct trivial kernel-doc inconsistency
-To: Colton Lewis <colton.w.lewis@protonmail.com>, alsa-devel@alsa-project.org
-References: <4574918.31r3eYUQgx@laptop.coltonlewis.name>
+ by orsmga006.jf.intel.com with ESMTP; 24 Jun 2020 08:48:03 -0700
+Subject: Re: [PATCH] ALSA: hda/hdmi: Add Intel silent stream support
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.de>,
+ Harsha Priya <harshapriya.n@intel.com>
+References: <1592954796-12449-1-git-send-email-harshapriya.n@intel.com>
+ <s5hr1u4lxee.wl-tiwai@suse.de>
+ <f2da25c0-c740-4d44-ab66-6017622f7dde@perex.cz>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <db6d3b05-33c1-91b9-d0b4-c5063ebafcae@linux.intel.com>
-Date: Wed, 24 Jun 2020 10:20:22 -0500
+Message-ID: <7dd38f98-e74a-94c0-6888-523e6189c00b@linux.intel.com>
+Date: Wed, 24 Jun 2020 10:33:45 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <4574918.31r3eYUQgx@laptop.coltonlewis.name>
+In-Reply-To: <f2da25c0-c740-4d44-ab66-6017622f7dde@perex.cz>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>,
- lgirdwood@gmail.com
+Content-Transfer-Encoding: 8bit
+Cc: kai.vehmanen@intel.com, Emmanuel Jillela <emmanuel.jillela@intel.com>,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,48 +86,20 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+>>> The silent stream is enabled with a Kconfig option, as well as a kernel
+>>> parameter should there be a need to override the build time default.
+>>
+>> I'm not sure whether the module option is the best interface.
+>> An alternative is a mixer element that controls dynamically.  Then
+>> it'll be per card unlike the module option.
+> 
+> +1, kcontrol seems the appropriate way to control this.
 
-On 6/20/20 9:09 PM, Colton Lewis wrote:
-> Can some please accept or comment on this patch?
+It was my suggestion to use Kconfig+kernel parameter for 
+simplicity/overrides.
 
-It's a valid fix, I added the same change in the SOF tree yesterday but 
-you beat me to it.
+The kcontrol is a nice idea, but in practice we typically only have one 
+card dealing with HDMI. It also doesn't have a UCM representation so 
+would force the use of amixer and manual configs, or the UCM file would 
+always set the mode.
 
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
-You probably want to resend and CC: Takashi and Mark.
-
-> 
-> ----------  Forwarded Message  ----------
-> 
-> Subject: [PATCH] snd/soc: correct trivial kernel-doc inconsistency
-> Date: Saturday, June 13, 2020, 9:29:08 PM CDT
-> From: Colton Lewis <colton.w.lewis@protonmail.com>
-> To: lgirdwood@gmail.com
-> CC: trivial@kernel.org, Colton Lewis <colton.w.lewis@protonmail.com>
-> 
-> 
-> 
-> Silence documentation build warning by correcting kernel-doc comment
-> for snd_soc_runtime_action.
-> 
-> ./sound/soc/soc-pcm.c:220: warning: Function parameter or member 'action' not described in 'snd_soc_runtime_action'
-> 
-> Signed-off-by: Colton Lewis <colton.w.lewis@protonmail.com>
-> ---
->   sound/soc/soc-pcm.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-> index 2c114b4542ce..9ab376844ac1 100644
-> --- a/sound/soc/soc-pcm.c
-> +++ b/sound/soc/soc-pcm.c
-> @@ -208,6 +208,7 @@ static inline void dpcm_remove_debugfs_state(struct snd_soc_dpcm *dpcm)
->    * PCM runtime components
->    * @rtd: ASoC PCM runtime that is activated
->    * @stream: Direction of the PCM stream
-> + * @action: Activate stream if 1. Deactivate if -1.
->    *
->    * Increments/Decrements the active count for all the DAIs and components
->    * attached to a PCM runtime.
-> 

@@ -2,106 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21B7E207457
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 15:20:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D6E02075BC
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 16:32:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE1C21858;
-	Wed, 24 Jun 2020 15:20:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE1C21858
+	by alsa0.perex.cz (Postfix) with ESMTPS id 99020185E;
+	Wed, 24 Jun 2020 16:31:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99020185E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593004857;
-	bh=xNO5yDvWg96Frhzte0rPCTf9LLPb4+8ON6fZccIR5A4=;
-	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1593009123;
+	bh=vbvqyLg8QHmspqnBx1cqkVMV+xZaBefJlzpZLc4g5Y0=;
+	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=a5ZdHGJdTAQvC9MwpUT1vZx7vz6/KHemw+1z3+e0o/QomibY+pPhC2wctbq2ffSWL
-	 nEIK4ip9nlC5meFej7dOZ5ENy8lkzkZqH63EDdTw+Pi4NOsv/WRfWpcKKFIGiySw1F
-	 yW+PvyTYhvncdGVWJvmAUWWPlGKCjdCMUshOjaRQ=
+	b=LYe+gjDI+dYvkw+AaM31fy9yfxinM4ANAbc4moZ8wapJnKDNlZlxx3iokFr5HV3u0
+	 ab/1tr8/hgC2/UEbFp7tEiGSQAXGzsaj+hGQs4BGJHG5GyGwdxZTi1XTcwXP/2beGI
+	 /NConLrqVjfdORlrcgu+mSslVz0xaw98FOH7ZJwc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C3146F800B2;
-	Wed, 24 Jun 2020 15:19:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C93B7F8015A;
+	Wed, 24 Jun 2020 16:30:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D688AF8015B; Wed, 24 Jun 2020 15:19:14 +0200 (CEST)
+ id E14B7F8015B; Wed, 24 Jun 2020 16:30:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
- [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, SPF_HELO_NONE, SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com
+ [IPv6:2607:f8b0:4864:20::d43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E70CF8012F
- for <alsa-devel@alsa-project.org>; Wed, 24 Jun 2020 15:19:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E70CF8012F
+ by alsa1.perex.cz (Postfix) with ESMTPS id D728BF80084
+ for <alsa-devel@alsa-project.org>; Wed, 24 Jun 2020 16:30:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D728BF80084
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="G8jYOutf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1593004745;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=sqFL+0VVQXFIPkWDerFgsTMbHwb4u1v2M3CtbM9Ol0s=;
- b=G8jYOutf2oGKixR0Ok8Jren8V7Lt2QWv0SNm6pVpayROEypTtEfGcykx8KwtzeYlhZ6FPr
- k261QsgrD6mJEP/2bNr52wCAMFzpitGo6fiWvU1xKu6uXCrNmrO5SvXdQHRfHvrNQsqa2a
- 96TnRanEOSSN6F9l0G+OYuWx1JdZWNk=
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-455-BZWlzPHvMrmbukCONOsyaQ-1; Wed, 24 Jun 2020 09:18:58 -0400
-X-MC-Unique: BZWlzPHvMrmbukCONOsyaQ-1
-Received: by mail-ej1-f70.google.com with SMTP id m21so1750578eji.19
- for <alsa-devel@alsa-project.org>; Wed, 24 Jun 2020 06:18:58 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="bG/KweiT"
+Received: by mail-io1-xd43.google.com with SMTP id i25so2383629iog.0
+ for <alsa-devel@alsa-project.org>; Wed, 24 Jun 2020 07:30:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+ bh=c0OL3or/jNukylu4SLW7xZjyvLR74uApDtLzGY2kh5U=;
+ b=bG/KweiTdUUc5tNHeF68ffWzobMQ0INN+e4iJf20UJNuU5VIqbpDjWjYyNbyi7wTRz
+ IYWh+dLcw9AV7o7PBzzZo7VlYZrCsIHEkPjEs8lSRZmmsQRDUy/Xq7mHYpSpv/+pdt3b
+ VKXellLuFo+jYoZ2D9usoLmOq7XXebu08/HaauKLTew4VUbASwp2/B39jOjpW/z3cf9x
+ rDbh68hBVW81QYB0XbFeKrgOEQMT9FxKnzPDv/yksxHVJDoaP9/B+e8R+3nRqZoDRU5n
+ qCoBRzYq1xJKB6gCIUbPIA/f1h1skY6ggv59bKEw+n8gOnq536JrCBGBaQGdNI1kC5rq
+ 9jmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:from:to:cc:references:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=sqFL+0VVQXFIPkWDerFgsTMbHwb4u1v2M3CtbM9Ol0s=;
- b=hG+TZAQQzHQwrmpCrSSgz9Lfow1D0rSiofl2RZUjHrVqyTrh5su0SnRURjnNWcsT+b
- 2FOBrX4//9lYkGb+k7PyLQcUMzjZpZCy6KQgii1GHkNTTdGQydKJZfEO1O6BSARJTwVt
- YOpjyOOhN4fWk/tRWmNCTKhczjNEHgpi9mRZUFGX5BqKsT7HS+CF2UY3ONKJMo9zPK0d
- BUKr1cshCPCPyIte9sqp+thVKaeO4obV+ySZw5FKG3jUh2DX6Rb2AhpIyBy0H7PTyyuL
- jBzXIOkzLh84GVBlJroJzPT6rTYWAIvoIEed5PAmQ9zYiL7n2J2IT9mfIbZBccQILFOF
- YmWg==
-X-Gm-Message-State: AOAM532q+Ih0jrAMKTsz+3E6C3He2CN7B3QXYE++k4p/TcXSVuVVmJvw
- pNP4dKGpC76IgZgfuNjhyOO1zX2O75KsTuW6/upWggj7FlHQ8GF/GLsgveqnUND3jOI8HX4abk/
- OyWnPTkrSvCzmFB234tAZmMo=
-X-Received: by 2002:a50:b0a1:: with SMTP id j30mr27020672edd.387.1593004737691; 
- Wed, 24 Jun 2020 06:18:57 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyQJQmqEkL+KHd7t/DDJpav3jDwlMndknnAi8vZGgLuqO/PJXsGcjbp0sM178BZVlweJRmSaQ==
-X-Received: by 2002:a50:b0a1:: with SMTP id j30mr27020658edd.387.1593004737459; 
- Wed, 24 Jun 2020 06:18:57 -0700 (PDT)
-Received: from x1.localdomain
- (2001-1c00-0c0c-fe00-d2ea-f29d-118b-24dc.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c0c:fe00:d2ea:f29d:118b:24dc])
- by smtp.gmail.com with ESMTPSA id cx13sm16239000edb.20.2020.06.24.06.18.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Jun 2020 06:18:56 -0700 (PDT)
-Subject: Re: Fixing sound on Asus UX534F / some UX533 models
-From: Hans de Goede <hdegoede@redhat.com>
-To: Kailang <kailang@realtek.com>, Takashi Iwai <tiwai@suse.de>
-References: <808c7b46-c86f-a3de-b645-c47e658e8abb@redhat.com>
- <s5hr1uxhc6k.wl-tiwai@suse.de> <b647b169111f4c46a7c81ec80c551498@realtek.com>
- <1a98fc46-b22a-cc2d-8de9-c2e703b2206b@redhat.com>
-Message-ID: <f254a433-63b3-1322-1a85-9b1bdaa04c5b@redhat.com>
-Date: Wed, 24 Jun 2020 15:18:55 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to;
+ bh=c0OL3or/jNukylu4SLW7xZjyvLR74uApDtLzGY2kh5U=;
+ b=N+xBJlx5tGEGqWaz8/fVVp5MXXiH1kOLub31AgQRZFUG6bJAADGR6xianfjKif3YjC
+ /O6cRrkhSlXkAniR0vdjMnJFvMYTWmw2u9zbVbkCxGWuQDCEyOU3tF5JxpkCfXEZEp6R
+ TTroV9a4HpxBywcljcrcf5of3ld1Z+71LhIYuRFoMNG4WJX+0U+wx2C3emqMd2cG/JBI
+ hcK8pvdAZMmBgNe2YAV7PeNbxKDOJf5JMUJhNVg0f1/hAekuupVwZ2CnVvy737nBLoGz
+ 6xNfyd1NrM5VCwQPXYhgDS5AfQ4qspTocFCIuDBcICXPN1LhsxrbaYVxEvmAdHUcyZa7
+ 4zJA==
+X-Gm-Message-State: AOAM5328SWc8zGGrSs6kCj5LLBTBmxwCOTSQGkn6TQ5drq5vjS9DkEJJ
+ N6lzBVAvJMnUyhN41mWs5+p0hfy7aPhqFSHU1Ai82A==
+X-Google-Smtp-Source: ABdhPJxHW2kXFpMMz6E/2n9qUbnzrilg1B8qbM6zjZPIh9Xi73WtRIA4XDwKNJi/bVsPBDUQWMmBpqXsplw4V0s5dS4=
+X-Received: by 2002:a05:6602:146:: with SMTP id
+ v6mr31073100iot.170.1593009001104; 
+ Wed, 24 Jun 2020 07:30:01 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1a98fc46-b22a-cc2d-8de9-c2e703b2206b@redhat.com>
-Content-Language: en-US
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- c <kai.heng.feng@canonical.com>, "nuno.dias@gmail.com" <nuno.dias@gmail.com>
+References: <CA+-1zuv3SeumhdMbqXjZU0tbmh7HB9LwTK2bfNTe5nOCmz4BgA@mail.gmail.com>
+ <s5h366ln2vc.wl-tiwai@suse.de> <1665408.c0yUS1ZBRE@gluon>
+In-Reply-To: <1665408.c0yUS1ZBRE@gluon>
+From: Stanislav Kazmin <stas.kazmin@gmail.com>
+Date: Wed, 24 Jun 2020 16:29:49 +0200
+Message-ID: <CA+-1zuvXNt-J6p_9t4FgfkDBdgdcr=-EGiP+QgHoMv+E14Oa+A@mail.gmail.com>
+Subject: Re: [HDAudio][ALC295] speakers not working on Acer Travelmate P614
+To: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,112 +95,120 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+I have two more questions on the procedure.
 
-On 6/23/20 12:02 PM, Hans de Goede wrote:
-> Hi,
-> 
-> On 6/4/20 8:49 AM, Kailang wrote:
->> Hi Hans de Goede,
->>
->> Please test below.
->>
->> hda-verb /dev/snd/hwC0D0 0x20 0x500 0xf
->> hda-verb /dev/snd/hwC0D0 0x20 0x400 0x7774
->> hda-verb /dev/snd/hwC0D0 0x20 0x500 0x45
->> hda-verb /dev/snd/hwC0D0 0x20 0x400 0x5289
->>
->> I think Headset Mic will work.
-> 
-> Thank you, and sorry for being somewhat slow to respond.
-> 
-> I do not have access to the affected hardware myself.
-> 
-> I've asked users who have reported bugs about this to test these setting
-> and report back in the following bug-reports:
-> 
-> https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1850439
-> https://bugzilla.kernel.org/show_bug.cgi?id=206289
-> https://bugzilla.redhat.com/show_bug.cgi?id=1834751
-> 
-> I will follow-up when I have heard back from the
-> bug-reporters.
+1. can I apply changes through hda-verbs while using the sof drivers or do
+I need to use snd-hda-intel?
 
-Ok, I've gotten the first feedback. I ve asked the
-users to test the following after running the 4 suggested
-hda-verb commands:
+2. I have windows 10 installed dual to my Linux. Is there a tool I could
+use to get the correct pins/coefficients for the Linux driver or quirk?
 
-1. Speakers
-2. Headphones output
-3. Internal mic.
-4. Headset mic. (using a phone headset with builtin mic with a single T-R-R-S connector)
+I am not a Linux developer so it all is very new to me. I am willing to try
+anything suggested by someone but I will probably not be able to find out
+any commad/setting on my own.
 
-I've got feedback from a user with a UX533FTC-A8221R laptop:
+Thanks.
 
-1. Speakers: works
-2. Headphones output: works
-3. Internal mic: doesn't work
-4. Headset mic: works
+On Tue, Jun 23, 2020, 23:50 Stanislav Kazmin <stas.kazmin@gmail.com> wrote:
 
-So things are looking ok, but we still have some
-work to do to get the internal mic to work.
-
-Kailang do you have any suggestions for getting the
-internal mic to work?
-
-Regards,
-
-Hans
-
-
-
-
-
-
->>> -----Original Message-----
->>> From: Takashi Iwai <tiwai@suse.de>
->>> Sent: Tuesday, June 2, 2020 8:42 PM
->>> To: Hans de Goede <hdegoede@redhat.com>
->>> Cc: Kailang <kailang@realtek.com>; c <kai.heng.feng@canonical.com>;
->>> alsa-devel@alsa-project.org; nuno.dias@gmail.com
->>> Subject: Re: Fixing sound on Asus UX534F / some UX533 models
->>>
->>> On Tue, 02 Jun 2020 11:51:49 +0200,
->>> Hans de Goede wrote:
->>>>
->>>> Hi Kai-Heng Feng, Takashi,
->>>>
->>>> I see that you are on the notification list for this bug:
->>>> https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1850439
->>>>
->>>> So you may have already seen this. Some owners of affected laptops
->>>> (which have non working speakers / headphone output atm), have done
->>>> some heroic debugging work and come up with a set of
->>>> 2 hda-verb commands which fix this.
->>>>
->>>> I'm not all that familiar with writing hda quirks, so I was hoping
->>>> that one of you 2 can come up with a patch to fix this at the kernel
->>>> level.
->>>>
->>>> This would also resolve these 2 bugs, which I believe are the same bug
->>>> really:
->>>>
->>>> https://bugzilla.kernel.org/show_bug.cgi?id=206289
->>>> https://bugzilla.redhat.com/show_bug.cgi?id=1834751
->>>
->>> Adding verbs are trivial and it can be done even without patching kernel but
->>> providing by a patch via patch module option of snd-hda-intel driver.
->>>
->>> But, before moving forward, I'd like to confirm about the correctness (and the
->>> safeness) of those verbs.
->>>
->>> Kailang, could you check the COEF verbs mentioned in the bug entry above?
->>>
->>>
->>> thanks,
->>>
->>> Takashi
->>>
->>> ------Please consider the environment before printing this e-mail.
->>
-
+> Hello,
+>
+> so I have tested the following three cases:
+> ```
+> sudo hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_DIR 0x01
+> sudo hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_MASK 0x01
+> sudo hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_DATA 0x01
+> aplay /usr/share/sounds/alsa/Front_Center.wav
+> ```
+>
+> ```
+> sudo hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_DIR 0x02
+> sudo hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_MASK 0x02
+> sudo hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_DATA 0x02
+> aplay /usr/share/sounds/alsa/Front_Center.wav
+> ```
+>
+> ```
+> sudo hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_DIR 0x04
+> sudo hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_MASK 0x04
+> sudo hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_DATA 0x04
+> aplay /usr/share/sounds/alsa/Front_Center.wav
+> ```
+>
+> But this did not solved the problem.
+>
+> > And try turn on EAPD on non-used pins.
+>
+> I have not found how to do that exactly. Do I have to use the pins which I
+> have seen in hdajackretask?
+>
+> Could you provide an example on how to do it?
+>
+> And how to start with the coefficient changes properly?
+>
+> Best,
+>
+> Stanislav
+>
+> On Dienstag, 23. Juni 2020 18:49:59 CEST Takashi Iwai wrote:
+> > On Tue, 23 Jun 2020 17:49:18 +0200,
+> >
+> > Stanislav Kazmin wrote:
+> > > Hello, I have the following problem on my Acer TravelMate P614-51T-G2:
+> > >
+> > > I have all the audio sinks correctly identified (like HDMI, DMic,
+> > > Headphones) but the internal speakers do not produce any sound.
+> > >
+> > > What I have tried so far:
+> > >
+> > > - hard/soft shutdown on Windows and reboot
+> > > - disable/re-enable speakers and microphone in BIOS
+> > > - uninstall pulseaudio and test alsa alone (so it is defeitely **not**
+> a
+> > > pulseaudio issue)
+> > > - switch from sof-hda-dsp to snd-hda-intel driver (without Dmic
+> support)
+> > > - retask pins 0x14, 0x16, 0x1b to "Internal Speakers" through
+> > > hdajackretask
+> > > (only basic, without advanced features)
+> > > - removed/reconnected the headphones
+> > >
+> > > `alsamixer` shows all needed sinks and nothing is muted.
+> > >
+> > > I already discussed the issue at sof github
+> > > https://github.com/thesofproject/ sof/issues/3058 but since the same
+> > > issue occurs on `snd-hda-intel` legacy river, I was advised to
+> > > communicate with alsa-devel team.
+> > >
+> > > The alsa-info.sh result are linked at http://alsa-project.org/db/?
+> > > f=252f92c7a1df3c755d16ee69353b26d2535a4d81
+> > >
+> > > I have tested the kernel 5.8-rc1 but it does not make any difference.
+> > >
+> > > Let me know if I can do anything else to test the issue.
+> >
+> > It's hard to know and the only way is to some trial-and-errors.
+> > The first shot I'd take is to toggle GPIO pins.  You can change the
+> > bit via hda-verb program like
+> >   hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_DIR 0x01
+> >   hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_MASK 0x01
+> >   hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_DATA 0x01
+> >
+> > to turn on the bit 0 of GPIO.  The first 0x01 is the node ID and it's
+> > 0x01 on Realtek, and the last 0x01 the GPIO bit 0.  For toggling the
+> > bit 1, pass 0x02 in the last argument, and for bit 2, pass 0x04.
+> >
+> > And try turn on EAPD on non-used pins.  This can be done via hda-verb,
+> > too.
+> >
+> > If this doesn't help, you might need to try some COEF changes as done
+> > in various quirks in sound/pci/hda/patch_realtek.c.
+> >
+> >
+> > HTH,
+> >
+> > Takashi
+>
+>
+>
+>

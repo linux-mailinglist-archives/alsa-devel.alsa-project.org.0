@@ -2,70 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2EAA207884
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 18:15:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB2332078C6
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 18:16:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 611D41874;
-	Wed, 24 Jun 2020 18:14:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 611D41874
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1FE90187D;
+	Wed, 24 Jun 2020 18:15:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FE90187D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593015313;
-	bh=fJWogUJPu4OIGecqxgurMMIEsc50FTP/CXsEPZ90Keg=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=OTjuThYK43+fuWp3YZvBcn9dj8appftdjGkcMteM1p6Gl4GqG47PcqsqSZaWG4ofd
-	 z1Lj4tsshaAenDAZMJvT/xgSLIIbPC3IwAbdWTHFj9LHRdCiFxxoX1t0qA0NTqk2Tx
-	 n5UTgJi7n1trbVC7PfQELUM0ilS28EkN/mZa1E2E=
+	s=default; t=1593015363;
+	bh=67EeWk1kzvyPqaG1ulIjrKHm9bNV9VBtKcXZnk5qHZw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=D09VUD7dY7Km4vJaHzlo6DoEhg2X7F++5R3d2sYvjid+5YL+O2/2eQKDk3Wal9Mye
+	 S/kk0r7rLgzyFy0jUMRhkjRL/MMCb61ujE2g2hhUFPf4NwyY4w6RHudVTj9wREh5z3
+	 vsZeocq6WaY821NBjwo3Wtg5oKxctbOl19NZN578=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7CCBFF8015A;
-	Wed, 24 Jun 2020 18:13:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB3BCF8012F;
+	Wed, 24 Jun 2020 18:15:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 93364F8015B; Wed, 24 Jun 2020 18:13:29 +0200 (CEST)
+ id 1DF62F801DB; Wed, 24 Jun 2020 18:15:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00332F800B2
- for <alsa-devel@alsa-project.org>; Wed, 24 Jun 2020 18:13:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00332F800B2
-IronPort-SDR: KQ0dAT2DgFo29ETpOgoTc1TanDQpu+oPuwX9KmTz4/JeZfdGa/VnQxYzkXWAbWtcZcgmSpb3ln
- Yglj1wJ5SzpA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9662"; a="142752874"
-X-IronPort-AV: E=Sophos;i="5.75,275,1589266800"; d="scan'208";a="142752874"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jun 2020 09:13:17 -0700
-IronPort-SDR: BoL2Q8FpwmGNUhuHvxSbAVSKhjee5XzYKaAtGYajyyAtE/BPcQDc4VfAHsAR9JgdwsO1oOMznS
- pv72QGsIyqwQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,275,1589266800"; d="scan'208";a="279521081"
-Received: from bkorrapa-mobl1.amr.corp.intel.com (HELO [10.254.109.185])
- ([10.254.109.185])
- by orsmga006.jf.intel.com with ESMTP; 24 Jun 2020 09:13:17 -0700
-Subject: Re: [PATCH] ALSA: core: Warn on empty module
-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>
-References: <20200624160300.21703-1-tiwai@suse.de>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <8d9cd8bf-9023-f3f7-e62d-167da5263714@linux.intel.com>
-Date: Wed, 24 Jun 2020 11:13:16 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D66AF800B2
+ for <alsa-devel@alsa-project.org>; Wed, 24 Jun 2020 18:15:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D66AF800B2
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="O9+Xgjp1"
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+ by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 05OGF1cl038472;
+ Wed, 24 Jun 2020 11:15:01 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1593015301;
+ bh=PERrQrRfdmam6H0p9AISJ5uvgazKR0B7qBwzzHc92JA=;
+ h=From:To:CC:Subject:Date;
+ b=O9+Xgjp1yiFV1ez/tC5FJaYDrH7dzhajKNpZbiK31kD8bvPAqFwo3n721Ww7l2lhT
+ 3onjWEhL7U2JN3QYoO27m/SaNPniSKNqaGJwqH0OqpXi979pGI3r8pL1VTRCQYzKLN
+ p0NBdi0LROr/Bi3KAxnUkJGY0XdK+1zP3/aSPyIo=
+Received: from DLEE109.ent.ti.com (dlee109.ent.ti.com [157.170.170.41])
+ by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTP id 05OGF120079293;
+ Wed, 24 Jun 2020 11:15:01 -0500
+Received: from DLEE104.ent.ti.com (157.170.170.34) by DLEE109.ent.ti.com
+ (157.170.170.41) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Wed, 24
+ Jun 2020 11:15:00 -0500
+Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE104.ent.ti.com
+ (157.170.170.34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
+ Frontend Transport; Wed, 24 Jun 2020 11:15:00 -0500
+Received: from localhost (ileax41-snat.itg.ti.com [10.172.224.153])
+ by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 05OGF0de112577;
+ Wed, 24 Jun 2020 11:15:00 -0500
+From: Dan Murphy <dmurphy@ti.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>
+Subject: [PATCH v5 0/7] TAS2562 issue fixes and slot programming 
+Date: Wed, 24 Jun 2020 11:14:52 -0500
+Message-ID: <20200624161459.19248-1-dmurphy@ti.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <20200624160300.21703-1-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: robh@kernel.org, alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Dan Murphy <dmurphy@ti.com>, devicetree@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,45 +90,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hello
+
+This series fixes issues tih the shut-down gpio device tree allocation and a
+code format issue found.
+
+While working on a project slot programming for the tx and rx paths needed to be
+enabled.  In addition the vsense slot programming needed to be configurable and
+not directly a simpler adder to the isense slot.
+
+Finally the yaml conversion patch was moved to be the last patch in the series
+so that the fixes can be applied and the yaml can be reviewed appropriately
+and does not hold up the rest of the fixes.
+
+Dan
 
 
-On 6/24/20 11:03 AM, Takashi Iwai wrote:
-> The module argument passed to snd_card_new() must be a valid non-NULL
-> pointer when the module support is enabled.  Since ASoC driver passes
-> the argument from each snd_soc_card definition, one may forget to set
-> the owner field and lead to a NULL module easily.
-> 
-> For catching such an overlook, add a WARN_ON() in snd_card_new().
-> Also, put the card->module assignment in the ifdef block for a very
-> minor optimization.
-> 
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> ---
->   sound/core/init.c | 3 +++
->   1 file changed, 3 insertions(+)
-> 
-> diff --git a/sound/core/init.c b/sound/core/init.c
-> index b02a99766351..0478847ba2b8 100644
-> --- a/sound/core/init.c
-> +++ b/sound/core/init.c
-> @@ -203,7 +203,10 @@ int snd_card_new(struct device *parent, int idx, const char *xid,
->   	mutex_unlock(&snd_card_mutex);
->   	card->dev = parent;
->   	card->number = idx;
-> +#ifdef MODULE
-> +	WARN_ON(!module);
->   	card->module = module;
-> +#endif
->   	INIT_LIST_HEAD(&card->devices);
->   	init_rwsem(&card->controls_rwsem);
->   	rwlock_init(&card->ctl_files_rwlock);
+Dan Murphy (7):
+  dt-bindings: tas2562: Fix shut-down gpio property
+  ASoC: tas2562: Update shutdown GPIO property
+  ASoC: tas2562: Fix format issue for extra space before a comma
+  ASoC: tas2562: Add rx and tx slot programming
+  dt-bindings: tas2562: Add voltage sense slot property
+  ASoC: tas2562: Add voltage sense slot configuration
+  dt-bindings: tas2562: Convert the tas2562 binding to yaml
 
-Would it make sense to also change the ASoC code to use THIS_MODULE 
-instead of card->owner?
+ .../devicetree/bindings/sound/tas2562.txt     |   34 -
+ .../devicetree/bindings/sound/tas2562.yaml    |   77 +
+ arch/arm/boot/compressed/fdt.h                |   66 +
+ arch/arm/boot/compressed/libfdt.h             | 2072 +++++++++++++++++
+ arch/arm/boot/compressed/libfdt_internal.h    |  173 ++
+ sound/soc/codecs/tas2562.c                    |   88 +-
+ sound/soc/codecs/tas2562.h                    |    4 +
+ 7 files changed, 2462 insertions(+), 52 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/tas2562.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/tas2562.yaml
+ create mode 100644 arch/arm/boot/compressed/fdt.h
+ create mode 100644 arch/arm/boot/compressed/libfdt.h
+ create mode 100644 arch/arm/boot/compressed/libfdt_internal.h
 
-/* card bind complete so register a sound card */
-ret = snd_card_new(card->dev, SNDRV_DEFAULT_IDX1, SNDRV_DEFAULT_STR1,
-		card->owner, 0, &card->snd_card);
+-- 
+2.26.2
 
-A quick grep shows we are setting .owner = THIS_MODULE pretty much all 
-the time for machine drivers.

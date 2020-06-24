@@ -2,113 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A12A9206E43
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 09:53:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28971206E24
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 09:47:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 22C341818;
-	Wed, 24 Jun 2020 09:52:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22C341818
+	by alsa0.perex.cz (Postfix) with ESMTPS id C26651804;
+	Wed, 24 Jun 2020 09:46:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C26651804
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1592985216;
-	bh=okg8FBWz9PjlAHfVtRwN6lndH7DJ7dFdauuPPC4ylTE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1592984855;
+	bh=Ja1f/dW/hu7sDLiOiMsJTqq+gQAEWNx2f/lWJsmVMhs=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Uzq1AsZUJVK7AKfikDY0cBTJjeXn2U3wuDWDRBa6OYNYb6bzdpkmu8okVqLugxvir
-	 pxTiS6fZs00QcOjTrekXiAxSYBN/VYZIJMELm1C0L1q1uVCUn2Y/O8/p0EpTbce5c1
-	 4xFRpdT6G2afTFhHVKs24Uwi5yVQwseVRqdx1V8A=
+	b=vnZG4+pYeMZJzmfr0oVWXU2JvP3Qnqg2r0gU2Ecvk9aNURhnrOy8BJHlVhc8dSUg+
+	 82HkrTlJt8J2Vz1Wd7q/WfZcZXbEE7hZ0ahm1FAX0RO4CQM/3k+UHjdUbQ9VVBTyTM
+	 Gola7WfiGleNKG/hSbjl+WKNtU3r+rASrcz/d/aM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6DCF7F802C4;
-	Wed, 24 Jun 2020 09:49:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DAA3CF80084;
+	Wed, 24 Jun 2020 09:45:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 786B8F80218; Tue, 23 Jun 2020 13:29:49 +0200 (CEST)
+ id 74609F8015B; Wed, 24 Jun 2020 09:45:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
- [217.70.183.199])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2BA76F8023E
- for <alsa-devel@alsa-project.org>; Tue, 23 Jun 2020 13:29:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2BA76F8023E
-X-Originating-IP: 86.202.110.81
-Received: from localhost (lfbn-lyo-1-15-81.w86-202.abo.wanadoo.fr
- [86.202.110.81])
- (Authenticated sender: alexandre.belloni@bootlin.com)
- by relay9-d.mail.gandi.net (Postfix) with ESMTPSA id 69F8AFF808;
- Tue, 23 Jun 2020 11:29:32 +0000 (UTC)
-Date: Tue, 23 Jun 2020 13:29:31 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH 05/19] ASoC: atmel: merge .digital_mute() into
- .mute_stream()
-Message-ID: <20200623112931.GM131826@piout.net>
-References: <87ftam37ko.wl-kuninori.morimoto.gx@renesas.com>
- <878sge37eq.wl-kuninori.morimoto.gx@renesas.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <878sge37eq.wl-kuninori.morimoto.gx@renesas.com>
-X-Mailman-Approved-At: Wed, 24 Jun 2020 09:49:28 +0200
-Cc: Shengjiu Wang <shengjiu.wang@nxp.com>,
- Linux-ALSA <alsa-devel@alsa-project.org>, Michael Walle <michael@walle.cc>,
- =?iso-8859-1?B?IkhlaWtvIFN0/GJuZXIi?= <heiko@sntech.de>,
- Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- =?utf-8?B?Ik1pY2hhxYIgTWlyb3PFgmF3Ig==?= <mirq-linux@rere.qmqm.pl>,
- Jonghwan Choi <charlie.jh@kakaocorp.com>, Paul Cercueil <paul@crapouillou.net>,
- Andrzej Hajda <a.hajda@samsung.com>, Frank Shi <shifu0704@thundersoft.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- "Andrew F. Davis" <afd@ti.com>, Fabio Estevam <festevam@gmail.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Nikita Yushchenko <nikita.yoush@cogentembedded.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Lars-Peter Clausen <lars@metafoo.de>, Joonyoung Shim <jy0922.shim@samsung.com>,
- Matthias Reichl <hias@horus.com>, Katsuhiro Suzuki <katsuhiro@katsuster.net>,
- Kevin Hilman <khilman@baylibre.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- YueHaibing <yuehaibing@huawei.com>, Russell King <linux@armlinux.org.uk>,
- Krzysztof Kozlowski <krzk@kernel.org>, Daniel Drake <drake@endlessm.com>,
- Tzung-Bi Shih <tzungbi@google.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Kukjin Kim <kgene@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Dinghao Liu <dinghao.liu@zju.edu.cn>,
- Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
- Cheng-Yi Chiang <cychiang@chromium.org>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Jonas Karlman <jonas@kwiboo.se>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Chuhong Yuan <hslester96@gmail.com>, Robin Murphy <robin.murphy@arm.com>,
- James Schulman <james.schulman@cirrus.com>, Inki Dae <inki.dae@samsung.com>,
- Masahiro Yamada <masahiroy@kernel.org>, Mark Brown <broonie@kernel.org>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Dan Murphy <dmurphy@ti.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- =?iso-8859-1?B?Ik51bm8gU+Ei?= <nuno.sa@analog.com>,
- Vincent Abriou <vincent.abriou@st.com>, Peter Ujfalusi <peter.ujfalusi@ti.com>,
- Jernej Skrabec <jernej.skrabec@siol.net>,
- Support Opensource <support.opensource@diasemi.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>, Jason Yan <yanaijie@huawei.com>,
- Stephen Boyd <sboyd@kernel.org>,
- Pankaj Bharadiya <pankaj.laxminarayan.bharadiya@intel.com>,
- David Rhodes <david.rhodes@cirrus.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Sandy Huang <hjc@rock-chips.com>, Pavel Dobias <dobias@2n.cz>,
- Philipp Puschmann <p.puschmann@pironex.de>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Vishwas A Deshpande <vishwas.a.deshpande@ti.com>,
- Daniel Vetter <daniel@ffwll.ch>, Colin Ian King <colin.king@canonical.com>,
- Kevin Cernekee <cernekee@chromium.org>, Lucas Stach <l.stach@pengutronix.de>,
- Shawn Guo <shawnguo@kernel.org>, Peter Rosin <peda@axentia.se>,
- M R Swami Reddy <mr.swami.reddy@ti.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1B303F80084
+ for <alsa-devel@alsa-project.org>; Wed, 24 Jun 2020 09:45:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B303F80084
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 25C80AD4B;
+ Wed, 24 Jun 2020 07:45:45 +0000 (UTC)
+Date: Wed, 24 Jun 2020 09:45:45 +0200
+Message-ID: <s5hr1u4lxee.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Harsha Priya <harshapriya.n@intel.com>
+Subject: Re: [PATCH] ALSA: hda/hdmi: Add Intel silent stream support
+In-Reply-To: <1592954796-12449-1-git-send-email-harshapriya.n@intel.com>
+References: <1592954796-12449-1-git-send-email-harshapriya.n@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: kai.vehmanen@intel.com, Emmanuel Jillela <emmanuel.jillela@intel.com>,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -124,71 +69,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 23/06/2020 10:19:56+0900, Kuninori Morimoto wrote:
+On Wed, 24 Jun 2020 01:26:36 +0200,
+Harsha Priya wrote:
 > 
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> External HDMI receivers have analog circuitry that needs to be powered-on
+> when exiting standby, and a mechanism to detect PCM v. IEC61937 data.
+> These two steps take time and up to 2-3 seconds of audio may be muted
+> when starting playback.
 > 
-> snd_soc_dai_digital_mute() is internally using both
-> mute_stream() (1) or digital_mute() (2), but the difference between
-> these 2 are only handling direction.
-> We can merge digital_mute() into mute_stream
+> Intel hardware can keep the link active with a 'silent stream', so that
+> the receiver does not go through those two steps when valid audio is
+> transmitted. This mechanism relies on an info packet and preventing the
+> codec from going to D3, which will increase the platform static power
+> consumption. The info packet assumes a basic 2ch stereo, and the silent
+> stream is enabled when connecting a monitor. In case of format changes the
+> detection of PCM v. IEC61937 needs to be re-run. In this case there is no
+> way to avoid the 2-3s mute.
 > 
-> 	int snd_soc_dai_digital_mute(xxx, int direction)
-> 	{
-> 		...
-> 		else if (dai->driver->ops->mute_stream)
-> (1)			return dai->driver->ops->mute_stream(xxx, direction);
-> 		else if (direction == SNDRV_PCM_STREAM_PLAYBACK &&
-> 			 dai->driver->ops->digital_mute)
-> (2)			return dai->driver->ops->digital_mute(xxx);
-> 		...
-> 	}
-> 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> The silent stream is enabled with a Kconfig option, as well as a kernel
+> parameter should there be a need to override the build time default.
 
-Reviewed-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+I'm not sure whether the module option is the best interface.
+An alternative is a mixer element that controls dynamically.  Then
+it'll be per card unlike the module option.
 
-> ---
->  sound/soc/atmel/atmel-classd.c | 10 +++++++---
->  1 file changed, 7 insertions(+), 3 deletions(-)
-> 
-> diff --git a/sound/soc/atmel/atmel-classd.c b/sound/soc/atmel/atmel-classd.c
-> index e98601eccfa3..59231c0371b8 100644
-> --- a/sound/soc/atmel/atmel-classd.c
-> +++ b/sound/soc/atmel/atmel-classd.c
-> @@ -327,12 +327,16 @@ static int atmel_classd_codec_dai_startup(struct snd_pcm_substream *substream,
->  	return clk_prepare_enable(dd->gclk);
->  }
->  
-> -static int atmel_classd_codec_dai_digital_mute(struct snd_soc_dai *codec_dai,
-> -	int mute)
-> +static int atmel_classd_codec_dai_mute(struct snd_soc_dai *codec_dai,
-> +				       int mute,
-> +				       int direction)
+And I think Kconfig is redundant.
+
+> Silent stream is supported in Intel platforms Skylake and beyond.
+> Tested HDMI plug-out plug-in from Intel Cometlake based Chromebook
+> connected to few different monitors.
+
+IMO, the feature enablement should be done only for those devices.
+The current patch influences on all HDMI devices including AMD and
+others that are irrelevant so far.
+
+About the code changes:
+
+>  /* update ELD and jack state via audio component */
+>  static void sync_eld_via_acomp(struct hda_codec *codec,
+>  			       struct hdmi_spec_per_pin *per_pin)
 >  {
->  	struct snd_soc_component *component = codec_dai->component;
->  	u32 mask, val;
+>  	struct hdmi_spec *spec = codec->spec;
+>  	struct hdmi_eld *eld = &spec->temp_eld;
+> +	bool monitor_prev, monitor_next;
 >  
-> +	if (direction != SNDRV_PCM_STREAM_PLAYBACK)
-> +		return 0;
+>  	mutex_lock(&per_pin->lock);
+>  	eld->monitor_present = false;
+> +	monitor_prev = per_pin->sink_eld.monitor_present;
+>  	eld->eld_size = snd_hdac_acomp_get_eld(&codec->core, per_pin->pin_nid,
+>  				      per_pin->dev_id, &eld->monitor_present,
+>  				      eld->eld_buffer, ELD_MAX_SIZE);
+>  	eld->eld_valid = (eld->eld_size > 0);
+>  	update_eld(codec, per_pin, eld, 0);
+> +	monitor_next = per_pin->sink_eld.monitor_present;
+>  	mutex_unlock(&per_pin->lock);
 > +
->  	mask = CLASSD_MR_LMUTE_MASK | CLASSD_MR_RMUTE_MASK;
->  
->  	if (mute)
-> @@ -469,7 +473,7 @@ static int atmel_classd_codec_dai_trigger(struct snd_pcm_substream *substream,
->  }
->  
->  static const struct snd_soc_dai_ops atmel_classd_codec_dai_ops = {
-> -	.digital_mute	= atmel_classd_codec_dai_digital_mute,
-> +	.mute_stream	= atmel_classd_codec_dai_mute,
->  	.startup	= atmel_classd_codec_dai_startup,
->  	.shutdown	= atmel_classd_codec_dai_shutdown,
->  	.hw_params	= atmel_classd_codec_dai_hw_params,
-> -- 
-> 2.25.1
-> 
+> +	/*
+> +	 * Power-up will call hdmi_present_sense, so the PM calls
+> +	 * have to be done without mutex held.
+> +	 */
+> +
+> +	if (enable_silent_stream) {
+> +		if (!monitor_prev && monitor_next) {
 
--- 
-Alexandre Belloni, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Isn't a valid ELD mandatory?  The monitor_present flag itself can be
+set even for the monitor without audio support, IIRC.
+
+> +			snd_hda_power_up_pm(codec);
+> +			silent_stream_enable(codec, per_pin);
+> +		} else if (monitor_prev && !monitor_next)
+> +			snd_hda_power_down_pm(codec);
+
+This power up/down sequence may lead to the unbalance if the
+enable_silent_stream flag is flipped during operation.
+
+
+thanks,
+
+Takashi

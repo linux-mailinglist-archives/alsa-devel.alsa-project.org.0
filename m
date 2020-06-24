@@ -2,74 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 858B8207A2C
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 19:23:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4B5C207A5B
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jun 2020 19:35:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1264B188D;
-	Wed, 24 Jun 2020 19:22:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1264B188D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 523E81893;
+	Wed, 24 Jun 2020 19:34:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 523E81893
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593019407;
-	bh=6N99XooWYeVVg6NVinvNzNvm7Fc07idPBfxVFgTYiTo=;
+	s=default; t=1593020105;
+	bh=TUYNYcG324mutIxlaUwfBS8RTAsvAs2zCmDlJT2y3Q8=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gYdhgbVQ30BcsDcMbUj+Zq4wG6ccyfLF2V3sP/ghIluDde860BLRMWjAQ+a/HTex+
-	 fpBlxNyvoebueV5DgK/BWQQkicZfMPhuLDZr2M+s6Z4SvS+53GrFLYJaVPE93DpB2R
-	 0cS4QvgJvTqV2R9Da9MzYVGhQ/iywJQIeoXXNlV0=
+	b=dsbMh4L4IQ4sYuFuHCVCdM4nITrF5M+BgULPSK7koCq+wOAKsCLihLuqz6wfzh+UW
+	 6oDfDFPRPUZU3YAT23KY4+L6qkhbGRCNFJAPTqfsavbisQJdh1+dI+XzNhv4jwvS/M
+	 a1RJShaNq9HfrnmrWptUz21fWWZAZVxdc5D9iJyM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0FABFF80084;
-	Wed, 24 Jun 2020 19:21:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6FD9BF800B2;
+	Wed, 24 Jun 2020 19:33:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4038BF8015B; Wed, 24 Jun 2020 19:21:43 +0200 (CEST)
+ id B36B5F8015B; Wed, 24 Jun 2020 19:33:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 14E4FF800B2
- for <alsa-devel@alsa-project.org>; Wed, 24 Jun 2020 19:21:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14E4FF800B2
-IronPort-SDR: fbx2L7KfSh9tKjoZIikVz3QzTA8h0FhUyVql3wnqGArRvjCmLCnud8th5Xy9O4jc5B0Q8mz/11
- V/E1Zofn2iLA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9662"; a="162648705"
-X-IronPort-AV: E=Sophos;i="5.75,276,1589266800"; d="scan'208";a="162648705"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jun 2020 10:21:37 -0700
-IronPort-SDR: cx6xYAJ3i6EWmJDRn5EUk3oeeyt4qQG3ud9FIVO6cyFPFh1eXbX/0iGNLwjJ8Qz0A362qvL4up
- Mao4v00otWsQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,276,1589266800"; d="scan'208";a="479188580"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmsmga006.fm.intel.com with ESMTP; 24 Jun 2020 10:21:33 -0700
-Date: Wed, 24 Jun 2020 20:21:14 +0300 (EEST)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Takashi Iwai <tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6E38DF800B2
+ for <alsa-devel@alsa-project.org>; Wed, 24 Jun 2020 19:33:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E38DF800B2
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 5B7FBAD87;
+ Wed, 24 Jun 2020 17:33:13 +0000 (UTC)
+Date: Wed, 24 Jun 2020 19:33:13 +0200
+Message-ID: <s5hftakid2e.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Subject: Re: [PATCH] ALSA: hda/hdmi: Add Intel silent stream support
-In-Reply-To: <s5ho8p8ifcn.wl-tiwai@suse.de>
-Message-ID: <alpine.DEB.2.22.394.2006242007051.3186@eliteleevi.tm.intel.com>
+In-Reply-To: <2404f45d-832d-69a0-fb3b-1981ae455f50@linux.intel.com>
 References: <1592954796-12449-1-git-send-email-harshapriya.n@intel.com>
  <s5hr1u4lxee.wl-tiwai@suse.de>
  <f2da25c0-c740-4d44-ab66-6017622f7dde@perex.cz>
  <7dd38f98-e74a-94c0-6888-523e6189c00b@linux.intel.com>
  <s5ho8p8ifcn.wl-tiwai@suse.de>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+ <2404f45d-832d-69a0-fb3b-1981ae455f50@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 Cc: Harsha Priya <harshapriya.n@intel.com>, kai.vehmanen@intel.com,
- alsa-devel@alsa-project.org, Emmanuel Jillela <emmanuel.jillela@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ alsa-devel@alsa-project.org, Emmanuel Jillela <emmanuel.jillela@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,25 +75,78 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hey,
+On Wed, 24 Jun 2020 19:05:14 +0200,
+Pierre-Louis Bossart wrote:
+> 
+> 
+> 
+> On 6/24/20 11:43 AM, Takashi Iwai wrote:
+> > On Wed, 24 Jun 2020 17:33:45 +0200,
+> > Pierre-Louis Bossart wrote:
+> >>
+> >>
+> >>>>> The silent stream is enabled with a Kconfig option, as well as a kernel
+> >>>>> parameter should there be a need to override the build time default.
+> >>>>
+> >>>> I'm not sure whether the module option is the best interface.
+> >>>> An alternative is a mixer element that controls dynamically.  Then
+> >>>> it'll be per card unlike the module option.
+> >>>
+> >>> +1, kcontrol seems the appropriate way to control this.
+> >>
+> >> It was my suggestion to use Kconfig+kernel parameter for
+> >> simplicity/overrides.
+> >>
+> >> The kcontrol is a nice idea, but in practice we typically only have
+> >> one card dealing with HDMI.
+> >
+> > Not really.  There are systems with two HDMI outputs from both
+> > integrated and discrete GPUs.  Most modern systems are only with
+> > hybrid graphics, though.
+> 
+> Ok, maybe I am mistaken, in most of the HDMI issues we've seen only
+> one HDMI source.
+> 
+> But it's a good point that this is only supposed to be used for Intel
+> whether it's a kernel parameter or a kcontrol shouldn't this be
+> dependent on a PCI ID being detected and a SKYLAKE flag being set?
+> it's my understanding that this applies from Skylake to TigerLake, not
+> before.
 
-On Wed, 24 Jun 2020, Takashi Iwai wrote:
+I guess we can check it from the codec ID?  Change the probe function
+for Skylake+ codecs to patch_i915_skl_hdmi and co, and set the flag
+there.
 
-> So, rather the question is how we should provide the setup of such
-> parameter.  It's supposed to be a part of power management stuff that
-> should be touched by either a smart PM tool or a manual override such
-> as runtime PM setup?  Or can it be seen as a more casual tuning?
+> >> It also doesn't have a UCM representation
+> >> so would force the use of amixer and manual configs, or the UCM file
+> >> would always set the mode.
+> >
+> > But people usually use the distro kernels, so the situation is more or
+> > less equivalent; you'd have to adjust a module option manually if you
+> > want a different one from the default, and you'd have to be root to
+> > change it.
+> >
+> > So, rather the question is how we should provide the setup of such
+> > parameter.  It's supposed to be a part of power management stuff that
+> > should be touched by either a smart PM tool or a manual override such
+> > as runtime PM setup?  Or can it be seen as a more casual tuning?
+> 
+> I am not aware of such tools. The only thing I know is that some of
+> the HDaudio power settings are already controlled by kernel
+> parameters, e.g.
+> 
+> /etc/modprobe.d/audio_powersave.conf
+> options snd_hda_intel power_save=1
 
-this is fairly similar to "power_save" parameter (which has a default set 
-via Kconfig). Enabling silent streaming comes at a power consumption cost 
-as you will keep the audio controller powered up whenever a HDMI/DP 
-receiver is connected (but you can get rid of the startup delay for audio 
-that can be annoying for short audio clips like UI sounds).
+Yes, it's been the primary knob for years to turn on/off the runtime
+PM for HD-audio and other legacy drivers.  This was used by powertop
+or some other power-aware daemons and tools, to be toggled dynamically
+per the power cable state or such.
 
-So depends mostly on the type of product. I'd expect system integrators 
-who are used to modify "power_save", to also modify the default for 
-silent_stream enable config. So in that sense using similar interface to 
-expose the feature makes sense (so the people most likely to use the 
-interface, are already familiar with it).
+And, how the silent stream feature should be seen?
+Should it be a system-wide root-only setup or adjustable per user?
+Would it be changed often?  Such questions and answers will lead us to
+the right direction, I hope.
 
-Br, Kai
+
+Takashi

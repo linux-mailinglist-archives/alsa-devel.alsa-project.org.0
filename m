@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6145120A581
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jun 2020 21:15:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20CE820A584
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jun 2020 21:16:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 162F41AA4;
-	Thu, 25 Jun 2020 21:14:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 162F41AA4
+	by alsa0.perex.cz (Postfix) with ESMTPS id B7F801917;
+	Thu, 25 Jun 2020 21:15:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7F801917
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593112530;
-	bh=r16U2TstmOfH2WiwGQDtLzL9Lbevd4kNSONE749h07Y=;
+	s=default; t=1593112571;
+	bh=hjJlaoyLyOYl6yPLRybUKuq9qqygZ+DYo/2xyZzFmUE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UCajaMEvA4yrJLJnl6y0ijP1s2hM+knpFnrKX7P56tdfr/rnxBeTinN/I1jYBoZoD
-	 h1IrpMwQQ+8KnE4ivqZzFWVaw8zoT6+IlclQ39/wE4v5MkJbrR1j9M8Q3pdAIQBbiy
-	 XRgYliq9JoYIOUaDHhCcg8GLnTXlIu4c+fYhya7Y=
+	b=c+/lBoqwipoOdgVTZULFfvUqutIhQMifC8dkWOqwFOEXHNHyh5Zx05WhdAC0n7VFS
+	 fMEMjgR48yPJmgBmvZnM81yDq3DM8JVNpKVLfnga/crtXchZ04FWQIwcSSDPbtBUq0
+	 fMQjIcm18JZpYvyIxJyuOtR13zEZgIkJsVhFOTRk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A31FDF8023E;
-	Thu, 25 Jun 2020 21:13:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B56DDF80277;
+	Thu, 25 Jun 2020 21:13:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B3E4CF802C2; Thu, 25 Jun 2020 21:13:45 +0200 (CEST)
+ id 1472EF802DB; Thu, 25 Jun 2020 21:13:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,30 +33,30 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 959DAF80234
- for <alsa-devel@alsa-project.org>; Thu, 25 Jun 2020 21:13:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 959DAF80234
-IronPort-SDR: Ab+oAAH5JgAALpn+lVIaKDAwEuYdTxwt4KlWyiEd70PGM21IocpvOdPcLZxF1zjkMRHKtXiN+/
- kJqqSUkNLn5w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9663"; a="144120812"
-X-IronPort-AV: E=Sophos;i="5.75,280,1589266800"; d="scan'208";a="144120812"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 927D0F80277
+ for <alsa-devel@alsa-project.org>; Thu, 25 Jun 2020 21:13:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 927D0F80277
+IronPort-SDR: NKckVP5d6MZreeQl/c1F9k8fUYiHHBzOEr2JjkwDmEUm/a7yzXBwoDZ+/+bhx65r8L/Gj2QHea
+ tS7M3j7cRceQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9663"; a="144120815"
+X-IronPort-AV: E=Sophos;i="5.75,280,1589266800"; d="scan'208";a="144120815"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2020 12:13:32 -0700
-IronPort-SDR: MK5bJLBYQUy6jQNdJxEw53M+wU4HjBu+3cU2SwUp+PUjTbjNfRh9dNnXyoHiPAdkGQRtNaK6rc
- 1r5BXbaITJWg==
-X-IronPort-AV: E=Sophos;i="5.75,280,1589266800"; d="scan'208";a="354559464"
+ 25 Jun 2020 12:13:33 -0700
+IronPort-SDR: hsIoCVMRgp/T58xBnCyby5ULZEo/s61e4PdCK2rtvmwt8lbSPeECAs31zo86rb1sN3DV9zj4ex
+ LnY2zLCjFEjA==
+X-IronPort-AV: E=Sophos;i="5.75,280,1589266800"; d="scan'208";a="354559469"
 Received: from zeqimao-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.254.109.39])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Jun 2020 12:13:32 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 01/17] ASoC: SOF: nocodec: add missing .owner field
-Date: Thu, 25 Jun 2020 14:12:52 -0500
-Message-Id: <20200625191308.3322-2-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 02/17] ASoC: Intel: cml_rt1011_rt5682: add missing .owner field
+Date: Thu, 25 Jun 2020 14:12:53 -0500
+Message-Id: <20200625191308.3322-3-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200625191308.3322-1-pierre-louis.bossart@linux.intel.com>
 References: <20200625191308.3322-1-pierre-louis.bossart@linux.intel.com>
@@ -88,25 +88,25 @@ cat /proc/asound/modules
 
 Reported-by: Jaroslav Kysela <perex@perex.cz>
 Suggested-by: Takashi Iwai <tiwai@suse.de>
-Fixes: 8017b8fd37bf ('ASoC: SOF: Add Nocodec machine driver support')
+Fixes: 17fe95d6df93 ('ASoC: Intel: boards: Add CML m/c using RT1011 and RT5682')
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- sound/soc/sof/nocodec.c | 1 +
+ sound/soc/intel/boards/cml_rt1011_rt5682.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/sof/nocodec.c b/sound/soc/sof/nocodec.c
-index d03b5be31255..9e922df6a710 100644
---- a/sound/soc/sof/nocodec.c
-+++ b/sound/soc/sof/nocodec.c
-@@ -14,6 +14,7 @@
- 
- static struct snd_soc_card sof_nocodec_card = {
- 	.name = "nocodec", /* the sof- prefix is added by the core */
-+	.owner = THIS_MODULE
- };
- 
- static int sof_nocodec_bes_setup(struct device *dev,
+diff --git a/sound/soc/intel/boards/cml_rt1011_rt5682.c b/sound/soc/intel/boards/cml_rt1011_rt5682.c
+index 189c908c4aa8..6e8934f348ef 100644
+--- a/sound/soc/intel/boards/cml_rt1011_rt5682.c
++++ b/sound/soc/intel/boards/cml_rt1011_rt5682.c
+@@ -501,6 +501,7 @@ static struct snd_soc_codec_conf rt1011_conf[] = {
+ /* Cometlake audio machine driver for RT1011 and RT5682 */
+ static struct snd_soc_card snd_soc_card_cml = {
+ 	.name = "cml_rt1011_rt5682",
++	.owner = THIS_MODULE,
+ 	.dai_link = cml_rt1011_rt5682_dailink,
+ 	.num_links = ARRAY_SIZE(cml_rt1011_rt5682_dailink),
+ 	.codec_conf = rt1011_conf,
 -- 
 2.20.1
 

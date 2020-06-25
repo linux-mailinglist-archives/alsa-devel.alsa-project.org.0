@@ -2,70 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51F4A20A535
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jun 2020 20:49:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AF5C20A57A
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jun 2020 21:13:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D751C1945;
-	Thu, 25 Jun 2020 20:48:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D751C1945
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5938919FE;
+	Thu, 25 Jun 2020 21:12:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5938919FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593110943;
-	bh=rLbojWXUptPdhCgDaskuNa2uLFc6h9pGZvfdLZl7BGg=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1593112429;
+	bh=Wq5qLv42hAbYbM3KVFBmYg7DH+Sc+FTD5uuJlgNEbE0=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rFAQU1tara3edroiElzFDIu+ubLZXXS23JKlxs95v8dzDVpq8M8bYj0ThgEXSB7vG
-	 jziCYMLH/5bJ8lQjNjOBS0FnfIZJqvARTo4KN1AWTw9bZXVNCQMWZ2/XouNNd0Omj3
-	 4lrcp5rRaIdS5AQNyC5JUNMyUwym/fCvKLH3AYuQ=
+	b=IWiZVjMCpqk9/KRQBmELcPDqzu3LJ5TgPf3HH7FGnmvGDfG64t3nltCmBFExbmZcQ
+	 FNR7qrPPsB/fGJet4jD+wS3TnMlWFZSGm3yeJXEQ+IMbXBpwfE+k9/RFXFtyJRykNh
+	 q5tKF6AipUhpVvaJ0xSQgus5YZamfT5uwMPKTRUY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC7F9F8023E;
-	Thu, 25 Jun 2020 20:47:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 496CEF8023E;
+	Thu, 25 Jun 2020 21:12:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CB2F6F80234; Thu, 25 Jun 2020 20:47:20 +0200 (CEST)
+ id CB091F80234; Thu, 25 Jun 2020 21:12:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E7AD9F80158
+ for <alsa-devel@alsa-project.org>; Thu, 25 Jun 2020 21:12:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7AD9F80158
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="kOv4k4cK"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4BAEBF80158
- for <alsa-devel@alsa-project.org>; Thu, 25 Jun 2020 20:47:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BAEBF80158
-IronPort-SDR: hvHqQyI6g6cBj02a3ZDflCloNX44FeHj2iD+MxMpwX3PheLU9Cg2Ng0PX4U24PlTbDezzzbtDZ
- b1nT82tgFQnA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9663"; a="132479965"
-X-IronPort-AV: E=Sophos;i="5.75,280,1589266800"; d="scan'208";a="132479965"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2020 11:47:11 -0700
-IronPort-SDR: +s+bQfE/QsCATeRVaatNfpITuJn6bUxiM4lrxARpv8HLiLD4pWnDJ8UBkX8hROuMXWeBpY4TNc
- cqpizLA22s4w==
-X-IronPort-AV: E=Sophos;i="5.75,280,1589266800"; d="scan'208";a="265429477"
-Received: from zeqimao-mobl.amr.corp.intel.com (HELO [10.254.109.39])
- ([10.254.109.39])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2020 11:47:10 -0700
-Subject: Re: [PATCH 0/4] ASoC: Intel: fix missing .owner fields
-To: alsa-devel@alsa-project.org
-References: <20200625180635.3563-1-pierre-louis.bossart@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <4c91abfb-5c68-97d4-713b-6271a3fc362b@linux.intel.com>
-Date: Thu, 25 Jun 2020 13:47:08 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
-MIME-Version: 1.0
-In-Reply-To: <20200625180635.3563-1-pierre-louis.bossart@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: tiwai@suse.de, broonie@kernel.org
+ by mail.kernel.org (Postfix) with ESMTPSA id 438472075A;
+ Thu, 25 Jun 2020 19:11:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1593112319;
+ bh=Wq5qLv42hAbYbM3KVFBmYg7DH+Sc+FTD5uuJlgNEbE0=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=kOv4k4cKrUDBv/davGtLqjHBm3p2BBy/BHnIsQdY+11N5h47jw4atb66G8jlsFiSG
+ MUkjX8FFFZAq1wLlUkvsBPuaPb/2RmauGuNroLw8sQZQgCzNqWZxkqI9VsAT7toY9O
+ +dcZKwpnIt1OWSCgC6KXUQHQGwUjdoi7pNbT9odI=
+Date: Thu, 25 Jun 2020 20:11:57 +0100
+From: Mark Brown <broonie@kernel.org>
+To: tiwai@suse.com, perex@perex.cz, Dan Murphy <dmurphy@ti.com>,
+ lgirdwood@gmail.com
+In-Reply-To: <20200624174932.9604-1-dmurphy@ti.com>
+References: <20200624174932.9604-1-dmurphy@ti.com>
+Subject: Re: [PATCH v6 0/7] TAS2562 issue fixes and slot programming
+Message-Id: <159311231750.10637.10437779790730548951.b4-ty@kernel.org>
+Cc: robh@kernel.org, alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,28 +77,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 24 Jun 2020 12:49:25 -0500, Dan Murphy wrote:
+> This series fixes issues tih the shut-down gpio device tree allocation and a
+> code format issue found.
+> 
+> While working on a project slot programming for the tx and rx paths needed to be
+> enabled.  In addition the vsense slot programming needed to be configurable and
+> not directly a simpler adder to the isense slot.
+> 
+> [...]
 
+Applied to
 
-On 6/25/20 1:06 PM, Pierre-Louis Bossart wrote:
-> Fix omission of .owner = THIS_MODULE in Intel and SOF cards.
-> Thanks to Jaroslav and Takashi for reporting and suggesting a fix.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Sorry for the noise, please discard this series. I will add this in a 
-separate machine driver update to avoid conflicts.
+Thanks!
 
-> 
-> Pierre-Louis Bossart (4):
->    ASoC: SOF: nocodec: add missing .owner field
->    ASoC: Intel: cml_rt1011_rt5682: add missing .owner field
->    ASoC: Intel: sof_sdw: add missing .owner field
->    ASoC: Intel: bxt_rt298: add missing .owner field
-> 
->   sound/soc/intel/boards/bxt_rt298.c         | 2 ++
->   sound/soc/intel/boards/cml_rt1011_rt5682.c | 1 +
->   sound/soc/intel/boards/sof_sdw.c           | 2 +-
->   sound/soc/sof/nocodec.c                    | 1 +
->   4 files changed, 5 insertions(+), 1 deletion(-)
-> 
-> 
-> base-commit: 6f81e520b2906258a063f09b8d1dd9d0cc6a3172
-> 
+[1/6] ASoC: tas2562: Fix shut-down gpio property
+      commit: 6f81e520b2906258a063f09b8d1dd9d0cc6a3172
+[2/6] ASoC: tas2562: Update shutdown GPIO property
+      commit: bc07b54459cbb3a572a78b5c200ff79ef11b8158
+[3/6] ASoC: tas2562: Fix format issue for extra space before a comma
+      commit: c8294da2ed0be726bb87019eba3a6367c7f1c922
+[4/6] ASoC: tas2562: Add rx and tx slot programming
+      (no commit info)
+[5/6] dt-bindings: tas2562: Add voltage sense slot property
+      (no commit info)
+[6/6] ASoC: tas2562: Add voltage sense slot configuration
+      (no commit info)
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E4D820A226
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jun 2020 17:38:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B69320A229
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jun 2020 17:38:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 485AF18FD;
-	Thu, 25 Jun 2020 17:37:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 485AF18FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 175121900;
+	Thu, 25 Jun 2020 17:37:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 175121900
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593099507;
-	bh=l1GLlwn24ElrzRgS2/l9FKxYLhWc07dos496Wz8Arho=;
+	s=default; t=1593099524;
+	bh=5fDD8NmEW9QkobIY6oHmA1VE9pr6WZBgTjYo2fUKWMQ=;
 	h=Date:In-Reply-To:References:Subject:From:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OmjgfEaKfuAgmXgIdJzqvTJoz8rzd63atcjS3PIppzSQkK7zPDjCBMzW4++eYkYJ1
-	 wfDilFWs7MEwVGH2DqOl40meRgeAOMHM26rNf82tr62hS/cBT9ImQdqYOKbi1/XvDd
-	 R/8vtkG0hT7LEbZlNl3LBuLyJ0yNW4YevTBAyy5w=
+	b=S1Pa7wDtPrdwjFuza+k8lg/0PEjLikFYRYmc5bnSZc0+O0mHcxp34baIJjABDat1u
+	 p3Zs2v/6JDTDGo3IuKpP5pPCNh06gkBWtVJZC020gaHwvTPw5JW9l/2c8aC/CFgqLL
+	 n1jEPHEPYqFALoOIrKCCmraWgWwl4LnQmu78iH3c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 74D9FF80158;
-	Thu, 25 Jun 2020 17:36:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41AB4F802A2;
+	Thu, 25 Jun 2020 17:36:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9E89FF80259; Thu, 25 Jun 2020 17:36:02 +0200 (CEST)
+ id A309AF802A1; Thu, 25 Jun 2020 17:36:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
@@ -35,47 +35,46 @@ Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com
  [IPv6:2607:f8b0:4864:20::b49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 63EB0F80234
- for <alsa-devel@alsa-project.org>; Thu, 25 Jun 2020 17:35:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63EB0F80234
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6E70EF8025E
+ for <alsa-devel@alsa-project.org>; Thu, 25 Jun 2020 17:36:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E70EF8025E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="T9dcF8M+"
-Received: by mail-yb1-xb49.google.com with SMTP id s7so6305703ybg.10
- for <alsa-devel@alsa-project.org>; Thu, 25 Jun 2020 08:35:58 -0700 (PDT)
+ header.b="F5rLCh58"
+Received: by mail-yb1-xb49.google.com with SMTP id l9so5565472ybm.20
+ for <alsa-devel@alsa-project.org>; Thu, 25 Jun 2020 08:36:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc; bh=dbGI7v9rzg/Ac7uwlTJsLHWm06iT1PR6qePnkUIC9XA=;
- b=T9dcF8M+YccA4Bnlvh4rBbTe+LGEddNeoc9rJUWs6GLzXbxBZ5NbGBRJTcBMtbNegH
- E2i5ojBn4GMnaSAQHzc6gpOsdJVuisBORihCnQ9jF5/LpPkLEhEbXPrCTdGIPhlJRMEC
- TBJi6iLAqxY6vwtKLa8/cXCu9IFcyFyGIAzO2EzQ3Bk1yPtM7LGVoXjWFZErH03T596L
- g4pnQh4HdWDAWRqf75f1TyNIvN9qs2rjRm1ects6Ex32Ny0oNqLtq57Eex22RiVLwmrb
- Js+A2dcxPGAfPBXXFkf3KgwzG3W/gyWMcyLcAf0qpe8Cn2+R5EwvQdoaoGrfqQVYwbpM
- AULA==
+ :cc; bh=VXKiWv6DTV1TrKdYwUuMhghuxgm18ckN/7p6PszOuRE=;
+ b=F5rLCh58RdVQQgE9xgJsRGLi63Ct3V4A7EroMli62T/ytob3QLnhVf+a4nxCAR8pu0
+ +Op3zbLg9E1ysSbKrIvcZDV7+KO/1kTEQuJZC76D9zz9yQRyYzCA4YldrrPMxt+D7Znb
+ jUNxGIpWy9W5nmanSJcHEJYyE940ISM2zZ1V4rTqVDQ2ZQznW2DQPy/iCH6i+97Uz0vR
+ 7r6QUF+L6gN3PRKYxYDgpr8/SpNe+mKHFxfhgokEROr6bm1/hcKeE6qI0Rpwf9GT/hAa
+ ao/54jfYbm5VfLRyUSYZz4NG2BEDnYsd4R/1mVarUmEy++f/LbKDKc5c+rwplRIqBMtt
+ YWcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:in-reply-to:message-id:mime-version
  :references:subject:from:to:cc;
- bh=dbGI7v9rzg/Ac7uwlTJsLHWm06iT1PR6qePnkUIC9XA=;
- b=XZr/eu8kIacQQ6+7KcWMf48Kk5fhI7CJrDWZeOr35CNSEFKLPujnn1bN0QJU334ztm
- ifmGlLcf2pBfe/C745nIJ8VMSDGWGmKObSDaYlb0UF0tzHgf6Gh7XfIObqoewPLmQ8Ds
- glm0ScnJO8MNwMsfQ22FrSryHuc6F4FPxHQ4aV3RrIYU5YB/vv1yUXo0KubVO9pxM6ld
- ynsy8NeJa2SGaNN56zk/LjQAWOAVRaVBwvKP7fIbJK/jQy3elGldrx1HzvAjm0878LD8
- P9mdYtp+h0paRBCtS3RzSsrG/9+QKDu9uN4BlYuY5T6TQoWd13FksSINlL0Hud0oo4Zv
- HfYg==
-X-Gm-Message-State: AOAM530vpbtJotOlazlGDftQEFhuYgDu9yZGWZajRpBvq4+1XgXOE9oo
- +QzUXYT+gweniGYvw2BDr05i8VoYsqqd
-X-Google-Smtp-Source: ABdhPJzgR0jm3M2pJ8FWv89j3WkCT1Y2LQKWLnM5V+nQ3jpXXF8+NUr8PvJs6AJ5Wyew+OsnB3plQQsMs+Of
-X-Received: by 2002:a05:6902:4e9:: with SMTP id
- w9mr52565520ybs.311.1593099357573; 
- Thu, 25 Jun 2020 08:35:57 -0700 (PDT)
-Date: Thu, 25 Jun 2020 23:35:41 +0800
+ bh=VXKiWv6DTV1TrKdYwUuMhghuxgm18ckN/7p6PszOuRE=;
+ b=TrgjOdXixJ9IVxgE68iHYfdJ3JCAgzP30wHbh/u1XA1kwEpGAPb8W21Nd8/W2vpMN/
+ 5qzh/lvAAWy7tyXPFAsYdNiHUxA6NvF5MGGrYjkMh3glh9O3vs6D7vrrfZ2sIXl/L3rc
+ ziyTt1Oh/sKqgSYBN0xlKdYSnaN5fI4NJgU9GzwgYbLDex3et+HOIS6bJ0hhNCHhrDkD
+ Xd0vZPXSGqaOP3e852nRW3jZWFS4WBNcNaqD5jBQAs0bFYYR/7FlgVneEzJhp/GrMYEp
+ b9mrQSTO1F0Do8L09yxhm9EDBN96b6omvuw55AxtRr+V9w82sgVxYszWXJOquzPa6LUJ
+ /Q8g==
+X-Gm-Message-State: AOAM533qdkZqUliRChTfCtmMAekBH6zx9o57NrbeBEMBRfgJJ1jrapOr
+ KbsT3Rzy5GBk33e2a4YwW0KTqtbD+4+M
+X-Google-Smtp-Source: ABdhPJy5PZyhdFaR4SpFVtZms0KvvXK3BCjXrGrhkRySd63KDoleRAWNmxBbloZMg+d8FvN2n2qdZc28h6V0
+X-Received: by 2002:a25:b51:: with SMTP id 78mr54320051ybl.186.1593099361606; 
+ Thu, 25 Jun 2020 08:36:01 -0700 (PDT)
+Date: Thu, 25 Jun 2020 23:35:42 +0800
 In-Reply-To: <20200625153543.85039-1-tzungbi@google.com>
-Message-Id: <20200625153543.85039-2-tzungbi@google.com>
+Message-Id: <20200625153543.85039-3-tzungbi@google.com>
 Mime-Version: 1.0
 References: <20200625153543.85039-1-tzungbi@google.com>
 X-Mailer: git-send-email 2.27.0.212.ge8ba1cc988-goog
-Subject: [PATCH v2 1/3] ASoC: core: move definition of enum snd_soc_bias_level
+Subject: [PATCH v2 2/3] ASoC: dapm: declare missing structure prototypes
 From: Tzung-Bi Shih <tzungbi@google.com>
 To: broonie@kernel.org
 Content-Type: text/plain; charset="UTF-8"
@@ -95,76 +94,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-To fix compilation error:
+To fix compilation warnings:
 
-- error: field 'XXX' has incomplete type
+- struct 'snd_soc_pcm_runtime' declared inside parameter list will not
+  be visible outside of this definition or declaration
+- struct 'soc_enum' declared inside parameter list will not be visible
+  outside of this definition or declaration
 
-Moves definition of enum snd_soc_bias_level from soc.h to soc-dapm.h.
+Declares the missing structure prototypes.
 
 Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
 ---
- include/sound/soc-dapm.h | 18 ++++++++++++++++++
- include/sound/soc.h      | 18 ------------------
- 2 files changed, 18 insertions(+), 18 deletions(-)
+ include/sound/soc-dapm.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/include/sound/soc-dapm.h b/include/sound/soc-dapm.h
-index cc3dcb815282..75467f2ed405 100644
+index 75467f2ed405..c3039e97929a 100644
 --- a/include/sound/soc-dapm.h
 +++ b/include/sound/soc-dapm.h
-@@ -376,6 +376,24 @@ struct snd_soc_dapm_widget_list;
- struct snd_soc_dapm_update;
- enum snd_soc_dapm_direction;
+@@ -16,6 +16,8 @@
+ #include <sound/asoc.h>
  
-+/*
-+ * Bias levels
-+ *
-+ * @ON:      Bias is fully on for audio playback and capture operations.
-+ * @PREPARE: Prepare for audio operations. Called before DAPM switching for
-+ *           stream start and stop operations.
-+ * @STANDBY: Low power standby state when no playback/capture operations are
-+ *           in progress. NOTE: The transition time between STANDBY and ON
-+ *           should be as fast as possible and no longer than 10ms.
-+ * @OFF:     Power Off. No restrictions on transition times.
-+ */
-+enum snd_soc_bias_level {
-+	SND_SOC_BIAS_OFF = 0,
-+	SND_SOC_BIAS_STANDBY = 1,
-+	SND_SOC_BIAS_PREPARE = 2,
-+	SND_SOC_BIAS_ON = 3,
-+};
-+
- int dapm_regulator_event(struct snd_soc_dapm_widget *w,
- 			 struct snd_kcontrol *kcontrol, int event);
- int dapm_clock_event(struct snd_soc_dapm_widget *w,
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index 33aceadebd03..6791b7570a67 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -368,24 +368,6 @@
- #define SOC_ENUM_SINGLE_VIRT_DECL(name, xtexts) \
- 	const struct soc_enum name = SOC_ENUM_SINGLE_VIRT(ARRAY_SIZE(xtexts), xtexts)
+ struct device;
++struct snd_soc_pcm_runtime;
++struct soc_enum;
  
--/*
-- * Bias levels
-- *
-- * @ON:      Bias is fully on for audio playback and capture operations.
-- * @PREPARE: Prepare for audio operations. Called before DAPM switching for
-- *           stream start and stop operations.
-- * @STANDBY: Low power standby state when no playback/capture operations are
-- *           in progress. NOTE: The transition time between STANDBY and ON
-- *           should be as fast as possible and no longer than 10ms.
-- * @OFF:     Power Off. No restrictions on transition times.
-- */
--enum snd_soc_bias_level {
--	SND_SOC_BIAS_OFF = 0,
--	SND_SOC_BIAS_STANDBY = 1,
--	SND_SOC_BIAS_PREPARE = 2,
--	SND_SOC_BIAS_ON = 3,
--};
--
- struct device_node;
- struct snd_jack;
- struct snd_soc_card;
+ /* widget has no PM register bit */
+ #define SND_SOC_NOPM	-1
 -- 
 2.27.0.212.ge8ba1cc988-goog
 

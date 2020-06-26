@@ -2,54 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DF2F20B83E
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jun 2020 20:27:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56C6120BC76
+	for <lists+alsa-devel@lfdr.de>; Sat, 27 Jun 2020 00:25:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C3A82168E;
-	Fri, 26 Jun 2020 20:27:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3A82168E
+	by alsa0.perex.cz (Postfix) with ESMTPS id BDFAE1689;
+	Sat, 27 Jun 2020 00:25:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDFAE1689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593196076;
-	bh=hIrqp7/IJW4OuSGfTyUkwczwTtZM6YoE34v513TEhHc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=em9B2h7BgkuO/Z0S1Y+tgdodKd4UggliKRz2VpnFt+MNDfu2Omb+PZ3uriV7YZuwM
-	 69Wn8JFONSrIi5h1Rq45TRMwPoPMGLR4hN6WUXfdvqYORvYX59AFB+rLcJSrRAXQJQ
-	 qHrsJwbaojNian88y2f2CHld/1EV5mBkHFK0hLkE=
+	s=default; t=1593210353;
+	bh=VKxrtn9b1rLZok7npeM07JPJJGLj3SbxuM5wyhZti0E=;
+	h=Date:From:To:Subject:References:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:Reply-To:From;
+	b=al0x/yq47CNCUot6uhhd4xKVKUfaMEw4iQSKrTEjo21ksjZpWfDW6AvW2F10YRXRq
+	 QMsibo6aRL6Jv3LryPOGxslHj3nIGXG++iOcOcIHlLtwxr0IWUm8sCuiF09zajnsr+
+	 VMrM6Wvj38fdwnXKhpYwt6c0dkTRr7SzKBWHcMRs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD881F800F1;
-	Fri, 26 Jun 2020 20:26:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D8D5AF80096;
+	Sat, 27 Jun 2020 00:24:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3E97CF80096; Fri, 26 Jun 2020 20:26:14 +0200 (CEST)
+ id 70528F8015B; Sat, 27 Jun 2020 00:24:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SORTED_RECIPS, SPF_HELO_PASS, SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from netrider.rowland.org (netrider.rowland.org [192.131.102.5])
- by alsa1.perex.cz (Postfix) with SMTP id EE236F80096
- for <alsa-devel@alsa-project.org>; Fri, 26 Jun 2020 20:26:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE236F80096
-Received: (qmail 305618 invoked by uid 1000); 26 Jun 2020 14:26:05 -0400
-Date: Fri, 26 Jun 2020 14:26:05 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: syzbot <syzbot+145012a46658ac00fc9e@syzkaller.appspotmail.com>
-Subject: Re: KASAN: use-after-free Read in line6_submit_audio_in_all_urbs
-Message-ID: <20200626182605.GA305214@rowland.harvard.edu>
-References: <000000000000d44c6d05a8ffe488@google.com>
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from sonic301-22.consmr.mail.ir2.yahoo.com
+ (sonic301-22.consmr.mail.ir2.yahoo.com [77.238.176.99])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C2FD8F80096
+ for <alsa-devel@alsa-project.org>; Sat, 27 Jun 2020 00:24:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2FD8F80096
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com
+ header.b="Lw2GjAUE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1593210242; bh=yJWtv/xQNv9yi4DXySY84d9wf1fTjZFuuNrMEf1tWqM=;
+ h=Date:From:Reply-To:To:Subject:References:From:Subject;
+ b=Lw2GjAUEN5LmLeStN3HMSi/zLMt5xnCfT8FOkWt0pucZG79fqi7aklmYZD9I1Cm6Sz+2sSf2Wye55w4gL+AaXjIRtIuUbM7SPB3pVWekl3Pf8IPoNK/erLwIeiyebbJ7JqpeFIkngZ0SJs0OM38/vOD+YTvD7VODQoNzYKF89+VKwfu9pTpS05CauOim1X70I0R7A5xsMpVpzEe6Ob2Mm3shrUcaNG4qd5PB2DeAY4TQm7cBB+ZGkqERCH3pHWIUBGipxLZ6YawgzRCXRYtcAMs7E5xgjb1PxKyffOA6Rkwg4pcbw62XZgx3XYAQF1B6VrpLJ/yxpbZQ9es7R3kPxw==
+X-YMail-OSG: oNSeU7IVM1lMtbAnHfKxuFjwUt2KicQBEBY8QsyWToAabxNG.mu4f_wNbAY6Utt
+ tfIcRbsYy3b00ptzp.qy4HcGqqBeGOAieYAApKAnneJ_OmuRkpOl8z.dhAdMydk_jDKBAMg4sqFi
+ 44PSxNXygdIIF9L3tBgns1hNzjU_RKPWA55OwHVL9sxH2j5BZsKLxiUAB2LyfzYlaRr3DGkthAFa
+ 2v6CwVFJhGSPdefxgfA69MtxAAdDCfz58SrVMKJa3F2rfOcht7qwLvk.470ue1V9cY.N0AKSpfcl
+ wrjNwrsW9sLDF0YY3g2bEvEepOWF2WXoKbhKBM.JF3cQHuVooF3O7Wb1Ztv.Dzzll88QIdY97NIU
+ hzA9wSSnY7nkDLC9YBvalbCmLFfjH4IyghfrV0QJ45VUB4chb7Jm6HLtCghrd27baxVnmmCjVSwK
+ qfxKVHDQSqeb0j9ilE74SUNfHlUoVaz4368OFbQTKkoH.BvaAKrUUoEivan21_lN4Btum11.j7dt
+ 8NqTnAFdY1oL_HXOJBmShgJoaFqhogoTxknbqkyoDO7hqoSUf3kCedvIo3TBY7bjN3xz4ylevLdB
+ tYCI6tbKf.6RL7CNQeS9Up.IMLkZDuNsuDJmqsU9r9C806qRTm24x3AcI2wvYF1wFIBsFjuSkI_g
+ rfzMtZ3XS55EodBY8RP.aVxYEhXYR2Vl66MT5mxiul6z2fHH8J9mxI_LewxLnSffpbgQPAFv4gpz
+ MvlvxtLCV.dR5vuf.KPMv72GsIA6esQU.fQUmL.C5sBdXzueHxRPJoFtgr6AUEv_fKbHYJrRLutS
+ ObKI3RfuMHcepdrpwjxAgKqr0au8T39lOlw3mp4wAAXF16DRpav3YB97UDRubRO8FmPKuT9j9OG3
+ d.Kyw.QKevXcx5YYqW2MZvtDD3JA24kf0H0.LbLQz0E2s3meQOoAwsSzT0bbatdwUnZWRbCgbRkc
+ g1tSJnfQ6dqozkHnbDcdzOG.btKuXfra3makuIUxJxiDgWkehsFEEOYpqh80Lf9BHpgcc6GDzWRT
+ fvJwBPn51biEd1fXBXbokq8K5Ju6WrbKnFf_OTMaZbRRTd.0.M4gcNls9IZAf.wg7Ep_mekKKn0y
+ 77qEibnwoT.GMlnclKYyTJtxdWOgT2vG5bEbo0hSYGkaGbol3YrvsG6ge_xXWnE8fN7FMrStPQNP
+ t7l8BWNqNKikL_DNUY_B2JSb.eJy7.jubveZEBc3r4fNVfzDKz3Pi_WxghtaavgKpcYvABQBH4G2
+ uuQX6LuBsTdpvBWwO7a3uC1OX6lcnxNO.uCP_19IW1dSvTHlPoCW5n4uLt1f1lJo9TOrAp_huCVQ
+ zG0IFplXSwazwMQUiw_.nULeVyS9c2AY-
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic301.consmr.mail.ir2.yahoo.com with HTTP; Fri, 26 Jun 2020 22:24:02 +0000
+Date: Fri, 26 Jun 2020 22:24:00 +0000 (UTC)
+From: Hin-Tak Leung <htl10@users.sourceforge.net>
+To: tiwai@suse.com, alsa-devel@alsa-project.org
+Message-ID: <143617268.7720265.1593210241029@mail.yahoo.com>
+Subject: problem with Jabra EVOLVE 20 headset, and usb quirk update
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <000000000000d44c6d05a8ffe488@google.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, andreyknvl@google.com,
- linux-usb@vger.kernel.org, syzkaller-bugs@googlegroups.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com
+Content-Type: multipart/mixed; 
+ boundary="----=_Part_7720264_203893015.1593210241029"
+References: <143617268.7720265.1593210241029.ref@mail.yahoo.com>
+X-Mailer: WebService/1.1.16138 YMailNodin Mozilla/5.0 (Macintosh;
+ Intel Mac OS X 10_15) AppleWebKit/605.1.15 (KHTML, like Gecko)
+ Version/13.0 Safari/605.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,64 +88,293 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Reply-To: htl10@users.sourceforge.net
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jun 26, 2020 at 10:18:12AM -0700, syzbot wrote:
-> Hello,
-> 
-> syzbot found the following crash on:
-> 
-> HEAD commit:    fb574682 usbip: tools: fix module name in man page
-> git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
-> console output: https://syzkaller.appspot.com/x/log.txt?x=156560b1100000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=63b40b2ae167bad6
-> dashboard link: https://syzkaller.appspot.com/bug?extid=145012a46658ac00fc9e
-> compiler:       gcc (GCC) 10.1.0-syz 20200507
-> 
-> Unfortunately, I don't have any reproducer for this crash yet.
-> 
-> IMPORTANT: if you fix the bug, please add the following tag to the commit:
-> Reported-by: syzbot+145012a46658ac00fc9e@syzkaller.appspotmail.com
-> 
-> snd_usb_toneport 5-1:0.0: URB in #0 submission failed (-19)
-> snd_usb_toneport 5-1:0.0: URB in #0 submission failed (-19)
-> snd_usb_toneport 5-1:0.0: URB in #0 submission failed (-19)
-> snd_usb_toneport 5-1:0.0: URB in #0 submission failed (-19)
-> ==================================================================
-> BUG: KASAN: use-after-free in line6_submit_audio_in_all_urbs+0x10b/0x120 sound/usb/line6/capture.c:72
-> Read of size 8 at addr ffff8881cffb1800 by task kworker/1:5/3257
-> 
-> CPU: 1 PID: 3257 Comm: kworker/1:5 Not tainted 5.8.0-rc1-syzkaller #0
-> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
-> Workqueue: events line6_startup_work
-> Call Trace:
->  __dump_stack lib/dump_stack.c:77 [inline]
->  dump_stack+0xf6/0x16e lib/dump_stack.c:118
->  print_address_description.constprop.0+0x1a/0x210 mm/kasan/report.c:383
->  __kasan_report mm/kasan/report.c:513 [inline]
->  kasan_report.cold+0x37/0x7c mm/kasan/report.c:530
->  line6_submit_audio_in_all_urbs+0x10b/0x120 sound/usb/line6/capture.c:72
->  line6_stream_start+0x207/0x230 sound/usb/line6/pcm.c:197
->  line6_pcm_acquire+0x161/0x210 sound/usb/line6/pcm.c:318
->  line6_startup_work+0x42/0x50 sound/usb/line6/driver.c:734
->  process_one_work+0x94c/0x15f0 kernel/workqueue.c:2269
->  worker_thread+0x64c/0x1120 kernel/workqueue.c:2415
->  kthread+0x392/0x470 kernel/kthread.c:291
->  ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:293
-> 
-> Allocated by task 76:
->  save_stack+0x1b/0x40 mm/kasan/common.c:48
->  set_track mm/kasan/common.c:56 [inline]
->  __kasan_kmalloc.constprop.0+0xc2/0xd0 mm/kasan/common.c:494
->  kmalloc include/linux/slab.h:555 [inline]
->  kzalloc include/linux/slab.h:669 [inline]
->  line6_init_pcm+0x2a7/0x9e0 sound/usb/line6/pcm.c:533
->  toneport_init+0xdd/0x6b0 sound/usb/line6/toneport.c:419
->  line6_probe+0xaa0/0x1330 sound/usb/line6/driver.c:809
+------=_Part_7720264_203893015.1593210241029
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-It look like the cancel_delayed_work() in line6_disconnect() needs to be 
-cancel_delayed_work_sync().  Unfortunately we can't test this until syzbot 
-is able to reproduce the bug.
+Hi,
 
-Alan Stern
+This is a headset i.e. with both a ear set, and a microphone - the playback seems fine, but recording only accept one setting - and also I was having problem with zoom using it ("cannot get freq" see the tail end of this e-mail). switching via the gnome setting -> sound (from built-in hda) seems sluggish, and occasionally the volume is frozen to mute and unresponsive to unmute.
+
+$ arecord -f S16_LE -D front:CARD=J20,DEV=0 -d 10 wonder.wav
+Recording WAVE 'wonder.wav' : Signed 16 bit Little Endian, Rate 8000 Hz, Mono
+Warning: rate is not accurate (requested = 8000Hz, got = 16000Hz)
+         please, try the plug plugin 
+
+and, also zoom seems to have problem getting at the microphone. I read that it is something to do with rate querying?
+
+Attached is "lsusb -vvvv -d 0b0e:0301  > usb-audio-lsusb-vvvv-0b0e:0301".
+
+I have tried just letting udev doing its thing, or preloading the module with with 
+modprobe snd_usb_audio quirk_alias=0b0e0301:0b0e0349
+or
+modprobe snd_usb_audio quirk_alias=0b0e0301:0b0e030b
+as below. But the "cannot get freq" message stays.
+
+This is based on similar vendor ids - 
+
+sound/usb/format.c:	if (chip->usb_id == USB_ID(0x0b0e, 0x030b)) {
+sound/usb/quirks.c:	     chip->usb_id == USB_ID(0x0b0e, 0x0349) ||
+
+The device does not seems to be under quirks.c:snd_usb_ctl_msg_quirk() ( I don't really get delays,  I think), 
+
+format.c:formatparse_audio_format_rates_v1() seems to be somewhat related, but I don't have issue with playback, just capture.
+
+Should I insert this vid/pid into bool snd_usb_get_sample_rate_quirk(struct snd_usb_audio *chip) as suggested elsewhere? I am just uncomfortable doing so as there isn't a quirk for this vendor there, yet. Also, related question: the format rate quirk routine and usb_ctl_msg_quirk routine does not seem to be affected by the alias_quirk list, as far as I understand and read the code?
+
+Here is the dmesg, under plain udev autoprobe, and the two preloads. I hope this is enough info. Please feel free to ask for more.
+(I also maintain https://github.com/HinTak/sound-usb-dkms/ as part of my previous job, but this device/usage is slightly complicated as I need to sign modified modules due to UEFI ; so I'd rather try something that has a chance of working, then just blindly try any modification)
+
+[25475.773095] usbcore: registered new interface driver snd-usb-audio
+[25482.559878] usb 2-2: new full-speed USB device number 6 using xhci_hcd
+[25482.764666] usb 2-2: New USB device found, idVendor=0b0e, idProduct=0301, bcdDevice= 3.00
+[25482.764669] usb 2-2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[25482.764671] usb 2-2: Product: Jabra EVOLVE 20
+[25482.764672] usb 2-2: Manufacturer: GN Netcom A/S
+[25482.764674] usb 2-2: SerialNumber: 0001B7518B0E07
+[25482.770770] usb 2-2: device (0b0e:0301): applying quirk alias 0b0e:0349
+[25482.794845] usb 2-2: 1:1: cannot get freq at ep 0x83
+[25482.808838] usb 2-2: 2:1: cannot get freq at ep 0x4
+[25483.133618] input: GN Netcom A/S Jabra EVOLVE 20 as /devices/pci0000:00/0000:00:10.0/usb2/2-2/2-2:1.3/0003:0B0E:0301.0004/input/input16
+[25483.187155] jabra 0003:0B0E:0301.0004: input,hiddev96,hidraw0: USB HID v1.00 Device [GN Netcom A/S Jabra EVOLVE 20] on usb-0000:00:10.0-2/input3
+[25483.444718] usb 2-2: 2:1: cannot get freq at ep 0x4
+
+[25865.406518] usb 2-2: USB disconnect, device number 6
+[25883.242957] usbcore: deregistering interface driver snd-usb-audio
+[25895.379533] usb 2-2: new full-speed USB device number 7 using xhci_hcd
+[25895.584862] usb 2-2: New USB device found, idVendor=0b0e, idProduct=0301, bcdDevice= 3.00
+[25895.584868] usb 2-2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[25895.584871] usb 2-2: Product: Jabra EVOLVE 20
+[25895.584874] usb 2-2: Manufacturer: GN Netcom A/S
+[25895.584876] usb 2-2: SerialNumber: 0001B7518B0E07
+[25895.640239] input: GN Netcom A/S Jabra EVOLVE 20 as /devices/pci0000:00/0000:00:10.0/usb2/2-2/2-2:1.3/0003:0B0E:0301.0005/input/input17
+[25895.692123] jabra 0003:0B0E:0301.0005: input,hiddev96,hidraw0: USB HID v1.00 Device [GN Netcom A/S Jabra EVOLVE 20] on usb-0000:00:10.0-2/input3
+[25895.875421] usb 2-2: 1:1: cannot get freq at ep 0x83
+[25895.885726] usb 2-2: 2:1: cannot get freq at ep 0x4
+[25896.060320] usbcore: registered new interface driver snd-usb-audio
+[25896.149752] usb 2-2: 2:1: cannot get freq at ep 0x4
+[25899.451644] usb 2-2: USB disconnect, device number 7
+
+
+[25919.315839] usbcore: registered new interface driver snd-usb-audio
+[25924.595119] usb 2-2: new full-speed USB device number 8 using xhci_hcd
+[25924.797720] usb 2-2: New USB device found, idVendor=0b0e, idProduct=0301, bcdDevice= 3.00
+[25924.797722] usb 2-2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[25924.797724] usb 2-2: Product: Jabra EVOLVE 20
+[25924.797725] usb 2-2: Manufacturer: GN Netcom A/S
+[25924.797726] usb 2-2: SerialNumber: 0001B7518B0E07
+[25924.802782] usb 2-2: device (0b0e:0301): applying quirk alias 0b0e:030b
+[25924.822715] usb 2-2: 1:1: cannot get freq at ep 0x83
+[25924.832718] usb 2-2: 2:1: cannot get freq at ep 0x4
+[25925.052655] input: GN Netcom A/S Jabra EVOLVE 20 as /devices/pci0000:00/0000:00:10.0/usb2/2-2/2-2:1.3/0003:0B0E:0301.0006/input/input18
+[25925.104757] jabra 0003:0B0E:0301.0006: input,hiddev96,hidraw0: USB HID v1.00 Device [GN Netcom A/S Jabra EVOLVE 20] on usb-0000:00:10.0-2/input3
+[25925.338094] usb 2-2: 2:1: cannot get freq at ep 0x4
+[26253.731814] usb 2-2: USB disconnect, device number 8
+
+
+------=_Part_7720264_203893015.1593210241029
+Content-Type: text/plain
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="usb-audio-lsusb-vvvv-0b0e:0301.txt"
+Content-ID: <m13Hwecq3QiCSCABeh0k>
+
+CkJ1cyAwMDIgRGV2aWNlIDAwNTogSUQgMGIwZTowMzAxIEdOIE5ldGNvbSBKYWJyYSBFVk9MVkUg
+MjAKRGV2aWNlIERlc2NyaXB0b3I6CiAgYkxlbmd0aCAgICAgICAgICAgICAgICAxOAogIGJEZXNj
+cmlwdG9yVHlwZSAgICAgICAgIDEKICBiY2RVU0IgICAgICAgICAgICAgICAyLjAwCiAgYkRldmlj
+ZUNsYXNzICAgICAgICAgICAgMCAKICBiRGV2aWNlU3ViQ2xhc3MgICAgICAgICAwIAogIGJEZXZp
+Y2VQcm90b2NvbCAgICAgICAgIDAgCiAgYk1heFBhY2tldFNpemUwICAgICAgICAgOAogIGlkVmVu
+ZG9yICAgICAgICAgICAweDBiMGUgR04gTmV0Y29tCiAgaWRQcm9kdWN0ICAgICAgICAgIDB4MDMw
+MSAKICBiY2REZXZpY2UgICAgICAgICAgICAzLjAwCiAgaU1hbnVmYWN0dXJlciAgICAgICAgICAg
+MSBHTiBOZXRjb20gQS9TCiAgaVByb2R1Y3QgICAgICAgICAgICAgICAgMiBKYWJyYSBFVk9MVkUg
+MjAKICBpU2VyaWFsICAgICAgICAgICAgICAgICAzIDAwMDFCNzUxOEIwRTA3CiAgYk51bUNvbmZp
+Z3VyYXRpb25zICAgICAgMQogIENvbmZpZ3VyYXRpb24gRGVzY3JpcHRvcjoKICAgIGJMZW5ndGgg
+ICAgICAgICAgICAgICAgIDkKICAgIGJEZXNjcmlwdG9yVHlwZSAgICAgICAgIDIKICAgIHdUb3Rh
+bExlbmd0aCAgICAgICAweDAxMGYKICAgIGJOdW1JbnRlcmZhY2VzICAgICAgICAgIDQKICAgIGJD
+b25maWd1cmF0aW9uVmFsdWUgICAgIDEKICAgIGlDb25maWd1cmF0aW9uICAgICAgICAgIDAgCiAg
+ICBibUF0dHJpYnV0ZXMgICAgICAgICAweDgwCiAgICAgIChCdXMgUG93ZXJlZCkKICAgIE1heFBv
+d2VyICAgICAgICAgICAgICAxMDBtQQogICAgSW50ZXJmYWNlIERlc2NyaXB0b3I6CiAgICAgIGJM
+ZW5ndGggICAgICAgICAgICAgICAgIDkKICAgICAgYkRlc2NyaXB0b3JUeXBlICAgICAgICAgNAog
+ICAgICBiSW50ZXJmYWNlTnVtYmVyICAgICAgICAwCiAgICAgIGJBbHRlcm5hdGVTZXR0aW5nICAg
+ICAgIDAKICAgICAgYk51bUVuZHBvaW50cyAgICAgICAgICAgMAogICAgICBiSW50ZXJmYWNlQ2xh
+c3MgICAgICAgICAxIEF1ZGlvCiAgICAgIGJJbnRlcmZhY2VTdWJDbGFzcyAgICAgIDEgQ29udHJv
+bCBEZXZpY2UKICAgICAgYkludGVyZmFjZVByb3RvY29sICAgICAgMCAKICAgICAgaUludGVyZmFj
+ZSAgICAgICAgICAgICAgMCAKICAgICAgQXVkaW9Db250cm9sIEludGVyZmFjZSBEZXNjcmlwdG9y
+OgogICAgICAgIGJMZW5ndGggICAgICAgICAgICAgICAgMTAKICAgICAgICBiRGVzY3JpcHRvclR5
+cGUgICAgICAgIDM2CiAgICAgICAgYkRlc2NyaXB0b3JTdWJ0eXBlICAgICAgMSAoSEVBREVSKQog
+ICAgICAgIGJjZEFEQyAgICAgICAgICAgICAgIDEuMDAKICAgICAgICB3VG90YWxMZW5ndGggICAg
+ICAgMHgwMDcwCiAgICAgICAgYkluQ29sbGVjdGlvbiAgICAgICAgICAgMgogICAgICAgIGJhSW50
+ZXJmYWNlTnIoMCkgICAgICAgIDEKICAgICAgICBiYUludGVyZmFjZU5yKDEpICAgICAgICAyCiAg
+ICAgIEF1ZGlvQ29udHJvbCBJbnRlcmZhY2UgRGVzY3JpcHRvcjoKICAgICAgICBiTGVuZ3RoICAg
+ICAgICAgICAgICAgIDEyCiAgICAgICAgYkRlc2NyaXB0b3JUeXBlICAgICAgICAzNgogICAgICAg
+IGJEZXNjcmlwdG9yU3VidHlwZSAgICAgIDIgKElOUFVUX1RFUk1JTkFMKQogICAgICAgIGJUZXJt
+aW5hbElEICAgICAgICAgICAgIDEKICAgICAgICB3VGVybWluYWxUeXBlICAgICAgMHgwMTAxIFVT
+QiBTdHJlYW1pbmcKICAgICAgICBiQXNzb2NUZXJtaW5hbCAgICAgICAgICAwCiAgICAgICAgYk5y
+Q2hhbm5lbHMgICAgICAgICAgICAgMgogICAgICAgIHdDaGFubmVsQ29uZmlnICAgICAweDAwMDMK
+ICAgICAgICAgIExlZnQgRnJvbnQgKEwpCiAgICAgICAgICBSaWdodCBGcm9udCAoUikKICAgICAg
+ICBpQ2hhbm5lbE5hbWVzICAgICAgICAgICAwIAogICAgICAgIGlUZXJtaW5hbCAgICAgICAgICAg
+ICAgIDAgCiAgICAgIEF1ZGlvQ29udHJvbCBJbnRlcmZhY2UgRGVzY3JpcHRvcjoKICAgICAgICBi
+TGVuZ3RoICAgICAgICAgICAgICAgIDEwCiAgICAgICAgYkRlc2NyaXB0b3JUeXBlICAgICAgICAz
+NgogICAgICAgIGJEZXNjcmlwdG9yU3VidHlwZSAgICAgIDYgKEZFQVRVUkVfVU5JVCkKICAgICAg
+ICBiVW5pdElEICAgICAgICAgICAgICAgICAyCiAgICAgICAgYlNvdXJjZUlEICAgICAgICAgICAg
+ICAxMgogICAgICAgIGJDb250cm9sU2l6ZSAgICAgICAgICAgIDEKICAgICAgICBibWFDb250cm9s
+cygwKSAgICAgICAweDAzCiAgICAgICAgICBNdXRlIENvbnRyb2wKICAgICAgICAgIFZvbHVtZSBD
+b250cm9sCiAgICAgICAgYm1hQ29udHJvbHMoMSkgICAgICAgMHgwMAogICAgICAgIGJtYUNvbnRy
+b2xzKDIpICAgICAgIDB4MDAKICAgICAgICBpRmVhdHVyZSAgICAgICAgICAgICAgICAwIAogICAg
+ICBBdWRpb0NvbnRyb2wgSW50ZXJmYWNlIERlc2NyaXB0b3I6CiAgICAgICAgYkxlbmd0aCAgICAg
+ICAgICAgICAgICAgOQogICAgICAgIGJEZXNjcmlwdG9yVHlwZSAgICAgICAgMzYKICAgICAgICBi
+RGVzY3JpcHRvclN1YnR5cGUgICAgICAzIChPVVRQVVRfVEVSTUlOQUwpCiAgICAgICAgYlRlcm1p
+bmFsSUQgICAgICAgICAgICAgMwogICAgICAgIHdUZXJtaW5hbFR5cGUgICAgICAweDAzMDEgU3Bl
+YWtlcgogICAgICAgIGJBc3NvY1Rlcm1pbmFsICAgICAgICAgIDAKICAgICAgICBiU291cmNlSUQg
+ICAgICAgICAgICAgICAyCiAgICAgICAgaVRlcm1pbmFsICAgICAgICAgICAgICAgMCAKICAgICAg
+QXVkaW9Db250cm9sIEludGVyZmFjZSBEZXNjcmlwdG9yOgogICAgICAgIGJMZW5ndGggICAgICAg
+ICAgICAgICAgMTIKICAgICAgICBiRGVzY3JpcHRvclR5cGUgICAgICAgIDM2CiAgICAgICAgYkRl
+c2NyaXB0b3JTdWJ0eXBlICAgICAgMiAoSU5QVVRfVEVSTUlOQUwpCiAgICAgICAgYlRlcm1pbmFs
+SUQgICAgICAgICAgICAgNAogICAgICAgIHdUZXJtaW5hbFR5cGUgICAgICAweDAyMDEgTWljcm9w
+aG9uZQogICAgICAgIGJBc3NvY1Rlcm1pbmFsICAgICAgICAgIDAKICAgICAgICBiTnJDaGFubmVs
+cyAgICAgICAgICAgICAxCiAgICAgICAgd0NoYW5uZWxDb25maWcgICAgIDB4MDAwMAogICAgICAg
+IGlDaGFubmVsTmFtZXMgICAgICAgICAgIDAgCiAgICAgICAgaVRlcm1pbmFsICAgICAgICAgICAg
+ICAgMCAKICAgICAgQXVkaW9Db250cm9sIEludGVyZmFjZSBEZXNjcmlwdG9yOgogICAgICAgIGJM
+ZW5ndGggICAgICAgICAgICAgICAgIDgKICAgICAgICBiRGVzY3JpcHRvclR5cGUgICAgICAgIDM2
+CiAgICAgICAgYkRlc2NyaXB0b3JTdWJ0eXBlICAgICAgNiAoRkVBVFVSRV9VTklUKQogICAgICAg
+IGJVbml0SUQgICAgICAgICAgICAgICAgIDUKICAgICAgICBiU291cmNlSUQgICAgICAgICAgICAg
+ICA0CiAgICAgICAgYkNvbnRyb2xTaXplICAgICAgICAgICAgMQogICAgICAgIGJtYUNvbnRyb2xz
+KDApICAgICAgIDB4MDMKICAgICAgICAgIE11dGUgQ29udHJvbAogICAgICAgICAgVm9sdW1lIENv
+bnRyb2wKICAgICAgICBpRmVhdHVyZSAgICAgICAgICAgICAgICAwIAogICAgICBBdWRpb0NvbnRy
+b2wgSW50ZXJmYWNlIERlc2NyaXB0b3I6CiAgICAgICAgYkxlbmd0aCAgICAgICAgICAgICAgICAg
+NwogICAgICAgIGJEZXNjcmlwdG9yVHlwZSAgICAgICAgMzYKICAgICAgICBiRGVzY3JpcHRvclN1
+YnR5cGUgICAgICA1IChTRUxFQ1RPUl9VTklUKQogICAgICAgIGJVbml0SUQgICAgICAgICAgICAg
+ICAgIDkKICAgICAgICBiTnJJblBpbnMgICAgICAgICAgICAgICAxCiAgICAgICAgYmFTb3VyY2VJ
+RCgwKSAgICAgICAgICAgNQogICAgICAgIGlTZWxlY3RvciAgICAgICAgICAgICAgIDAgCiAgICAg
+IEF1ZGlvQ29udHJvbCBJbnRlcmZhY2UgRGVzY3JpcHRvcjoKICAgICAgICBiTGVuZ3RoICAgICAg
+ICAgICAgICAgICA5CiAgICAgICAgYkRlc2NyaXB0b3JUeXBlICAgICAgICAzNgogICAgICAgIGJE
+ZXNjcmlwdG9yU3VidHlwZSAgICAgIDMgKE9VVFBVVF9URVJNSU5BTCkKICAgICAgICBiVGVybWlu
+YWxJRCAgICAgICAgICAgICA2CiAgICAgICAgd1Rlcm1pbmFsVHlwZSAgICAgIDB4MDEwMSBVU0Ig
+U3RyZWFtaW5nCiAgICAgICAgYkFzc29jVGVybWluYWwgICAgICAgICAgMAogICAgICAgIGJTb3Vy
+Y2VJRCAgICAgICAgICAgICAgIDkKICAgICAgICBpVGVybWluYWwgICAgICAgICAgICAgICAwIAog
+ICAgICBBdWRpb0NvbnRyb2wgSW50ZXJmYWNlIERlc2NyaXB0b3I6CiAgICAgICAgYkxlbmd0aCAg
+ICAgICAgICAgICAgICAxMgogICAgICAgIGJEZXNjcmlwdG9yVHlwZSAgICAgICAgMzYKICAgICAg
+ICBiRGVzY3JpcHRvclN1YnR5cGUgICAgICAyIChJTlBVVF9URVJNSU5BTCkKICAgICAgICBiVGVy
+bWluYWxJRCAgICAgICAgICAgIDEwCiAgICAgICAgd1Rlcm1pbmFsVHlwZSAgICAgIDB4MDIwMSBN
+aWNyb3Bob25lCiAgICAgICAgYkFzc29jVGVybWluYWwgICAgICAgICAgMAogICAgICAgIGJOckNo
+YW5uZWxzICAgICAgICAgICAgIDIKICAgICAgICB3Q2hhbm5lbENvbmZpZyAgICAgMHgwMDAzCiAg
+ICAgICAgICBMZWZ0IEZyb250IChMKQogICAgICAgICAgUmlnaHQgRnJvbnQgKFIpCiAgICAgICAg
+aUNoYW5uZWxOYW1lcyAgICAgICAgICAgMCAKICAgICAgICBpVGVybWluYWwgICAgICAgICAgICAg
+ICA2IFNpZGV0b25lCiAgICAgIEF1ZGlvQ29udHJvbCBJbnRlcmZhY2UgRGVzY3JpcHRvcjoKICAg
+ICAgICBiTGVuZ3RoICAgICAgICAgICAgICAgIDEwCiAgICAgICAgYkRlc2NyaXB0b3JUeXBlICAg
+ICAgICAzNgogICAgICAgIGJEZXNjcmlwdG9yU3VidHlwZSAgICAgIDYgKEZFQVRVUkVfVU5JVCkK
+ICAgICAgICBiVW5pdElEICAgICAgICAgICAgICAgIDExCiAgICAgICAgYlNvdXJjZUlEICAgICAg
+ICAgICAgICAxMAogICAgICAgIGJDb250cm9sU2l6ZSAgICAgICAgICAgIDEKICAgICAgICBibWFD
+b250cm9scygwKSAgICAgICAweDAzCiAgICAgICAgICBNdXRlIENvbnRyb2wKICAgICAgICAgIFZv
+bHVtZSBDb250cm9sCiAgICAgICAgYm1hQ29udHJvbHMoMSkgICAgICAgMHgwMAogICAgICAgIGJt
+YUNvbnRyb2xzKDIpICAgICAgIDB4MDAKICAgICAgICBpRmVhdHVyZSAgICAgICAgICAgICAgICAw
+IAogICAgICBBdWRpb0NvbnRyb2wgSW50ZXJmYWNlIERlc2NyaXB0b3I6CiAgICAgICAgYkxlbmd0
+aCAgICAgICAgICAgICAgICAxMwogICAgICAgIGJEZXNjcmlwdG9yVHlwZSAgICAgICAgMzYKICAg
+ICAgICBiRGVzY3JpcHRvclN1YnR5cGUgICAgICA0IChNSVhFUl9VTklUKQogICAgICAgIGJVbml0
+SUQgICAgICAgICAgICAgICAgMTIKICAgICAgICBiTnJJblBpbnMgICAgICAgICAgICAgICAyCiAg
+ICAgICAgYmFTb3VyY2VJRCgwKSAgICAgICAgICAgMQogICAgICAgIGJhU291cmNlSUQoMSkgICAg
+ICAgICAgMTEKICAgICAgICBiTnJDaGFubmVscyAgICAgICAgICAgICAyCiAgICAgICAgd0NoYW5u
+ZWxDb25maWcgICAgIDB4MDAwMwogICAgICAgICAgTGVmdCBGcm9udCAoTCkKICAgICAgICAgIFJp
+Z2h0IEZyb250IChSKQogICAgICAgIGlDaGFubmVsTmFtZXMgICAgICAgICAgIDAgCiAgICAgICAg
+Ym1Db250cm9scygwKSAgICAgICAgMHgwMAogICAgICAgIGlNaXhlciAgICAgICAgICAgICAgICAg
+IDAgCiAgICBJbnRlcmZhY2UgRGVzY3JpcHRvcjoKICAgICAgYkxlbmd0aCAgICAgICAgICAgICAg
+ICAgOQogICAgICBiRGVzY3JpcHRvclR5cGUgICAgICAgICA0CiAgICAgIGJJbnRlcmZhY2VOdW1i
+ZXIgICAgICAgIDEKICAgICAgYkFsdGVybmF0ZVNldHRpbmcgICAgICAgMAogICAgICBiTnVtRW5k
+cG9pbnRzICAgICAgICAgICAwCiAgICAgIGJJbnRlcmZhY2VDbGFzcyAgICAgICAgIDEgQXVkaW8K
+ICAgICAgYkludGVyZmFjZVN1YkNsYXNzICAgICAgMiBTdHJlYW1pbmcKICAgICAgYkludGVyZmFj
+ZVByb3RvY29sICAgICAgMCAKICAgICAgaUludGVyZmFjZSAgICAgICAgICAgICAgMCAKICAgIElu
+dGVyZmFjZSBEZXNjcmlwdG9yOgogICAgICBiTGVuZ3RoICAgICAgICAgICAgICAgICA5CiAgICAg
+IGJEZXNjcmlwdG9yVHlwZSAgICAgICAgIDQKICAgICAgYkludGVyZmFjZU51bWJlciAgICAgICAg
+MQogICAgICBiQWx0ZXJuYXRlU2V0dGluZyAgICAgICAxCiAgICAgIGJOdW1FbmRwb2ludHMgICAg
+ICAgICAgIDEKICAgICAgYkludGVyZmFjZUNsYXNzICAgICAgICAgMSBBdWRpbwogICAgICBiSW50
+ZXJmYWNlU3ViQ2xhc3MgICAgICAyIFN0cmVhbWluZwogICAgICBiSW50ZXJmYWNlUHJvdG9jb2wg
+ICAgICAwIAogICAgICBpSW50ZXJmYWNlICAgICAgICAgICAgICAwIAogICAgICBBdWRpb1N0cmVh
+bWluZyBJbnRlcmZhY2UgRGVzY3JpcHRvcjoKICAgICAgICBiTGVuZ3RoICAgICAgICAgICAgICAg
+ICA3CiAgICAgICAgYkRlc2NyaXB0b3JUeXBlICAgICAgICAzNgogICAgICAgIGJEZXNjcmlwdG9y
+U3VidHlwZSAgICAgIDEgKEFTX0dFTkVSQUwpCiAgICAgICAgYlRlcm1pbmFsTGluayAgICAgICAg
+ICAgNgogICAgICAgIGJEZWxheSAgICAgICAgICAgICAgICAgIDAgZnJhbWVzCiAgICAgICAgd0Zv
+cm1hdFRhZyAgICAgICAgIDB4MDAwMSBQQ00KICAgICAgQXVkaW9TdHJlYW1pbmcgSW50ZXJmYWNl
+IERlc2NyaXB0b3I6CiAgICAgICAgYkxlbmd0aCAgICAgICAgICAgICAgICAxMQogICAgICAgIGJE
+ZXNjcmlwdG9yVHlwZSAgICAgICAgMzYKICAgICAgICBiRGVzY3JpcHRvclN1YnR5cGUgICAgICAy
+IChGT1JNQVRfVFlQRSkKICAgICAgICBiRm9ybWF0VHlwZSAgICAgICAgICAgICAxIChGT1JNQVRf
+VFlQRV9JKQogICAgICAgIGJOckNoYW5uZWxzICAgICAgICAgICAgIDEKICAgICAgICBiU3ViZnJh
+bWVTaXplICAgICAgICAgICAyCiAgICAgICAgYkJpdFJlc29sdXRpb24gICAgICAgICAxNgogICAg
+ICAgIGJTYW1GcmVxVHlwZSAgICAgICAgICAgIDEgRGlzY3JldGUKICAgICAgICB0U2FtRnJlcVsg
+MF0gICAgICAgIDE2MDAwCiAgICAgIEVuZHBvaW50IERlc2NyaXB0b3I6CiAgICAgICAgYkxlbmd0
+aCAgICAgICAgICAgICAgICAgOQogICAgICAgIGJEZXNjcmlwdG9yVHlwZSAgICAgICAgIDUKICAg
+ICAgICBiRW5kcG9pbnRBZGRyZXNzICAgICAweDgzICBFUCAzIElOCiAgICAgICAgYm1BdHRyaWJ1
+dGVzICAgICAgICAgICAxMwogICAgICAgICAgVHJhbnNmZXIgVHlwZSAgICAgICAgICAgIElzb2No
+cm9ub3VzCiAgICAgICAgICBTeW5jaCBUeXBlICAgICAgICAgICAgICAgU3luY2hyb25vdXMKICAg
+ICAgICAgIFVzYWdlIFR5cGUgICAgICAgICAgICAgICBEYXRhCiAgICAgICAgd01heFBhY2tldFNp
+emUgICAgIDB4MDBjMCAgMXggMTkyIGJ5dGVzCiAgICAgICAgYkludGVydmFsICAgICAgICAgICAg
+ICAgMQogICAgICAgIGJSZWZyZXNoICAgICAgICAgICAgICAgIDAKICAgICAgICBiU3luY2hBZGRy
+ZXNzICAgICAgICAgICAwCiAgICAgICAgQXVkaW9TdHJlYW1pbmcgRW5kcG9pbnQgRGVzY3JpcHRv
+cjoKICAgICAgICAgIGJMZW5ndGggICAgICAgICAgICAgICAgIDcKICAgICAgICAgIGJEZXNjcmlw
+dG9yVHlwZSAgICAgICAgMzcKICAgICAgICAgIGJEZXNjcmlwdG9yU3VidHlwZSAgICAgIDEgKEVQ
+X0dFTkVSQUwpCiAgICAgICAgICBibUF0dHJpYnV0ZXMgICAgICAgICAweDAxCiAgICAgICAgICAg
+IFNhbXBsaW5nIEZyZXF1ZW5jeQogICAgICAgICAgYkxvY2tEZWxheVVuaXRzICAgICAgICAgMCBV
+bmRlZmluZWQKICAgICAgICAgIHdMb2NrRGVsYXkgICAgICAgICAweDAwMDAKICAgIEludGVyZmFj
+ZSBEZXNjcmlwdG9yOgogICAgICBiTGVuZ3RoICAgICAgICAgICAgICAgICA5CiAgICAgIGJEZXNj
+cmlwdG9yVHlwZSAgICAgICAgIDQKICAgICAgYkludGVyZmFjZU51bWJlciAgICAgICAgMgogICAg
+ICBiQWx0ZXJuYXRlU2V0dGluZyAgICAgICAwCiAgICAgIGJOdW1FbmRwb2ludHMgICAgICAgICAg
+IDAKICAgICAgYkludGVyZmFjZUNsYXNzICAgICAgICAgMSBBdWRpbwogICAgICBiSW50ZXJmYWNl
+U3ViQ2xhc3MgICAgICAyIFN0cmVhbWluZwogICAgICBiSW50ZXJmYWNlUHJvdG9jb2wgICAgICAw
+IAogICAgICBpSW50ZXJmYWNlICAgICAgICAgICAgICAwIAogICAgSW50ZXJmYWNlIERlc2NyaXB0
+b3I6CiAgICAgIGJMZW5ndGggICAgICAgICAgICAgICAgIDkKICAgICAgYkRlc2NyaXB0b3JUeXBl
+ICAgICAgICAgNAogICAgICBiSW50ZXJmYWNlTnVtYmVyICAgICAgICAyCiAgICAgIGJBbHRlcm5h
+dGVTZXR0aW5nICAgICAgIDEKICAgICAgYk51bUVuZHBvaW50cyAgICAgICAgICAgMQogICAgICBi
+SW50ZXJmYWNlQ2xhc3MgICAgICAgICAxIEF1ZGlvCiAgICAgIGJJbnRlcmZhY2VTdWJDbGFzcyAg
+ICAgIDIgU3RyZWFtaW5nCiAgICAgIGJJbnRlcmZhY2VQcm90b2NvbCAgICAgIDAgCiAgICAgIGlJ
+bnRlcmZhY2UgICAgICAgICAgICAgIDAgCiAgICAgIEF1ZGlvU3RyZWFtaW5nIEludGVyZmFjZSBE
+ZXNjcmlwdG9yOgogICAgICAgIGJMZW5ndGggICAgICAgICAgICAgICAgIDcKICAgICAgICBiRGVz
+Y3JpcHRvclR5cGUgICAgICAgIDM2CiAgICAgICAgYkRlc2NyaXB0b3JTdWJ0eXBlICAgICAgMSAo
+QVNfR0VORVJBTCkKICAgICAgICBiVGVybWluYWxMaW5rICAgICAgICAgICAxCiAgICAgICAgYkRl
+bGF5ICAgICAgICAgICAgICAgICAgMCBmcmFtZXMKICAgICAgICB3Rm9ybWF0VGFnICAgICAgICAg
+MHgwMDAxIFBDTQogICAgICBBdWRpb1N0cmVhbWluZyBJbnRlcmZhY2UgRGVzY3JpcHRvcjoKICAg
+ICAgICBiTGVuZ3RoICAgICAgICAgICAgICAgIDIzCiAgICAgICAgYkRlc2NyaXB0b3JUeXBlICAg
+ICAgICAzNgogICAgICAgIGJEZXNjcmlwdG9yU3VidHlwZSAgICAgIDIgKEZPUk1BVF9UWVBFKQog
+ICAgICAgIGJGb3JtYXRUeXBlICAgICAgICAgICAgIDEgKEZPUk1BVF9UWVBFX0kpCiAgICAgICAg
+Yk5yQ2hhbm5lbHMgICAgICAgICAgICAgMgogICAgICAgIGJTdWJmcmFtZVNpemUgICAgICAgICAg
+IDIKICAgICAgICBiQml0UmVzb2x1dGlvbiAgICAgICAgIDE2CiAgICAgICAgYlNhbUZyZXFUeXBl
+ICAgICAgICAgICAgNSBEaXNjcmV0ZQogICAgICAgIHRTYW1GcmVxWyAwXSAgICAgICAgIDgwMDAK
+ICAgICAgICB0U2FtRnJlcVsgMV0gICAgICAgIDE2MDAwCiAgICAgICAgdFNhbUZyZXFbIDJdICAg
+ICAgICAzMjAwMAogICAgICAgIHRTYW1GcmVxWyAzXSAgICAgICAgNDQxMDAKICAgICAgICB0U2Ft
+RnJlcVsgNF0gICAgICAgIDQ4MDAwCiAgICAgIEVuZHBvaW50IERlc2NyaXB0b3I6CiAgICAgICAg
+Ykxlbmd0aCAgICAgICAgICAgICAgICAgOQogICAgICAgIGJEZXNjcmlwdG9yVHlwZSAgICAgICAg
+IDUKICAgICAgICBiRW5kcG9pbnRBZGRyZXNzICAgICAweDA0ICBFUCA0IE9VVAogICAgICAgIGJt
+QXR0cmlidXRlcyAgICAgICAgICAgMTMKICAgICAgICAgIFRyYW5zZmVyIFR5cGUgICAgICAgICAg
+ICBJc29jaHJvbm91cwogICAgICAgICAgU3luY2ggVHlwZSAgICAgICAgICAgICAgIFN5bmNocm9u
+b3VzCiAgICAgICAgICBVc2FnZSBUeXBlICAgICAgICAgICAgICAgRGF0YQogICAgICAgIHdNYXhQ
+YWNrZXRTaXplICAgICAweDAwYzAgIDF4IDE5MiBieXRlcwogICAgICAgIGJJbnRlcnZhbCAgICAg
+ICAgICAgICAgIDEKICAgICAgICBiUmVmcmVzaCAgICAgICAgICAgICAgICAwCiAgICAgICAgYlN5
+bmNoQWRkcmVzcyAgICAgICAgICAgMAogICAgICAgIEF1ZGlvU3RyZWFtaW5nIEVuZHBvaW50IERl
+c2NyaXB0b3I6CiAgICAgICAgICBiTGVuZ3RoICAgICAgICAgICAgICAgICA3CiAgICAgICAgICBi
+RGVzY3JpcHRvclR5cGUgICAgICAgIDM3CiAgICAgICAgICBiRGVzY3JpcHRvclN1YnR5cGUgICAg
+ICAxIChFUF9HRU5FUkFMKQogICAgICAgICAgYm1BdHRyaWJ1dGVzICAgICAgICAgMHgwMQogICAg
+ICAgICAgICBTYW1wbGluZyBGcmVxdWVuY3kKICAgICAgICAgIGJMb2NrRGVsYXlVbml0cyAgICAg
+ICAgIDAgVW5kZWZpbmVkCiAgICAgICAgICB3TG9ja0RlbGF5ICAgICAgICAgMHgwMDAwCiAgICBJ
+bnRlcmZhY2UgRGVzY3JpcHRvcjoKICAgICAgYkxlbmd0aCAgICAgICAgICAgICAgICAgOQogICAg
+ICBiRGVzY3JpcHRvclR5cGUgICAgICAgICA0CiAgICAgIGJJbnRlcmZhY2VOdW1iZXIgICAgICAg
+IDMKICAgICAgYkFsdGVybmF0ZVNldHRpbmcgICAgICAgMAogICAgICBiTnVtRW5kcG9pbnRzICAg
+ICAgICAgICAxCiAgICAgIGJJbnRlcmZhY2VDbGFzcyAgICAgICAgIDMgSHVtYW4gSW50ZXJmYWNl
+IERldmljZQogICAgICBiSW50ZXJmYWNlU3ViQ2xhc3MgICAgICAwIAogICAgICBiSW50ZXJmYWNl
+UHJvdG9jb2wgICAgICAwIAogICAgICBpSW50ZXJmYWNlICAgICAgICAgICAgICAwIAogICAgICAg
+IEhJRCBEZXZpY2UgRGVzY3JpcHRvcjoKICAgICAgICAgIGJMZW5ndGggICAgICAgICAgICAgICAg
+IDkKICAgICAgICAgIGJEZXNjcmlwdG9yVHlwZSAgICAgICAgMzMKICAgICAgICAgIGJjZEhJRCAg
+ICAgICAgICAgICAgIDEuMDAKICAgICAgICAgIGJDb3VudHJ5Q29kZSAgICAgICAgICAgIDAgTm90
+IHN1cHBvcnRlZAogICAgICAgICAgYk51bURlc2NyaXB0b3JzICAgICAgICAgMQogICAgICAgICAg
+YkRlc2NyaXB0b3JUeXBlICAgICAgICAzNCBSZXBvcnQKICAgICAgICAgIHdEZXNjcmlwdG9yTGVu
+Z3RoICAgICAyOTUKICAgICAgICAgUmVwb3J0IERlc2NyaXB0b3JzOiAKICAgICAgICAgICAqKiBV
+TkFWQUlMQUJMRSAqKgogICAgICBFbmRwb2ludCBEZXNjcmlwdG9yOgogICAgICAgIGJMZW5ndGgg
+ICAgICAgICAgICAgICAgIDcKICAgICAgICBiRGVzY3JpcHRvclR5cGUgICAgICAgICA1CiAgICAg
+ICAgYkVuZHBvaW50QWRkcmVzcyAgICAgMHg4MSAgRVAgMSBJTgogICAgICAgIGJtQXR0cmlidXRl
+cyAgICAgICAgICAgIDMKICAgICAgICAgIFRyYW5zZmVyIFR5cGUgICAgICAgICAgICBJbnRlcnJ1
+cHQKICAgICAgICAgIFN5bmNoIFR5cGUgICAgICAgICAgICAgICBOb25lCiAgICAgICAgICBVc2Fn
+ZSBUeXBlICAgICAgICAgICAgICAgRGF0YQogICAgICAgIHdNYXhQYWNrZXRTaXplICAgICAweDAw
+MjQgIDF4IDM2IGJ5dGVzCiAgICAgICAgYkludGVydmFsICAgICAgICAgICAgICAgOApEZXZpY2Ug
+U3RhdHVzOiAgICAgMHgwMDAwCiAgKEJ1cyBQb3dlcmVkKQo=
+
+------=_Part_7720264_203893015.1593210241029--

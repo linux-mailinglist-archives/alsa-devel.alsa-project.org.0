@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72BCC20BEA5
-	for <lists+alsa-devel@lfdr.de>; Sat, 27 Jun 2020 06:58:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3ABBB20BEA7
+	for <lists+alsa-devel@lfdr.de>; Sat, 27 Jun 2020 06:59:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2387C1695;
-	Sat, 27 Jun 2020 06:57:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2387C1695
+	by alsa0.perex.cz (Postfix) with ESMTPS id E369A1689;
+	Sat, 27 Jun 2020 06:58:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E369A1689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593233920;
-	bh=DUR/I0sxdSJs3TGOZvE+jIont2T+CgiRxLBlDDbZoIY=;
+	s=default; t=1593233962;
+	bh=Z//72yQr3Nbh8dTms5hLuSmxn3p7EVLq2QCEk2lozzI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZNML92JZVVS/CqmsWbGJDQ+gurhsqIxXVfBvLPK1HwII9DZGvfTakwdzJtqQTwfmH
-	 xE1oT1bZnUAKQCSdEeTUj0WjNggd8NDDgqQPJIeZw/LnFJzb2kbyazqMWmSdcEXm1J
-	 L8pKym0BxNbJ0xAgPbr0x9yamqDxxWeHMSUpecqM=
+	b=jo0hYPF6ZF1uUcts2wpONh8SuyDaSkbljpQlkiJx++aFF6dhZ1GFLxTO31QIdN8Jp
+	 9hSDOp3ig4bwyRrLUYXQpGjHD05TT7ehGGPwch9TMyyZeWpVYs2JKVKo5vDg7rbosD
+	 UwlLsHmlklMIq36fxjThdv3GPsadWCvUDXi2H2iA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 617DCF802E0;
-	Sat, 27 Jun 2020 06:54:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7BE06F802F9;
+	Sat, 27 Jun 2020 06:54:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9E8C0F802D2; Sat, 27 Jun 2020 06:54:47 +0200 (CEST)
+ id B4624F802E0; Sat, 27 Jun 2020 06:54:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,51 +35,51 @@ Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
  [216.228.121.143])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0E398F80277
- for <alsa-devel@alsa-project.org>; Sat, 27 Jun 2020 06:54:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E398F80277
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2FF0DF802A7
+ for <alsa-devel@alsa-project.org>; Sat, 27 Jun 2020 06:54:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FF0DF802A7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="n+bWEiAu"
-Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
+ header.b="R4zQ0b2T"
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
  hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5ef6d0ae0002>; Fri, 26 Jun 2020 21:53:02 -0700
+ id <B5ef6d0b40000>; Fri, 26 Jun 2020 21:53:08 -0700
 Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate102.nvidia.com (PGP Universal service);
- Fri, 26 Jun 2020 21:54:38 -0700
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Fri, 26 Jun 2020 21:54:43 -0700
 X-PGP-Universal: processed;
- by hqpgpgate102.nvidia.com on Fri, 26 Jun 2020 21:54:38 -0700
-Received: from HQMAIL101.nvidia.com (172.20.187.10) by HQMAIL111.nvidia.com
+ by hqpgpgate101.nvidia.com on Fri, 26 Jun 2020 21:54:43 -0700
+Received: from HQMAIL107.nvidia.com (172.20.187.13) by HQMAIL111.nvidia.com
  (172.20.187.18) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Sat, 27 Jun
- 2020 04:54:37 +0000
-Received: from hqnvemgw03.nvidia.com (10.124.88.68) by HQMAIL101.nvidia.com
- (172.20.187.10) with Microsoft SMTP Server (TLS) id 15.0.1473.3 via Frontend
- Transport; Sat, 27 Jun 2020 04:54:37 +0000
+ 2020 04:54:43 +0000
+Received: from hqnvemgw03.nvidia.com (10.124.88.68) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3 via Frontend
+ Transport; Sat, 27 Jun 2020 04:54:43 +0000
 Received: from audio.nvidia.com (Not Verified[10.24.34.185]) by
  hqnvemgw03.nvidia.com with Trustwave SEG (v7, 5, 8, 10121)
- id <B5ef6d1080000>; Fri, 26 Jun 2020 21:54:37 -0700
+ id <B5ef6d10d0001>; Fri, 26 Jun 2020 21:54:42 -0700
 From: Sameer Pujar <spujar@nvidia.com>
 To: <broonie@kernel.org>, <perex@perex.cz>, <tiwai@suse.com>,
  <kuninori.morimoto.gx@renesas.com>, <robh+dt@kernel.org>,
  <lgirdwood@gmail.com>
-Subject: [PATCH v4 04/23] ASoC: tegra: Add Tegra210 based I2S driver
-Date: Sat, 27 Jun 2020 10:23:26 +0530
-Message-ID: <1593233625-14961-5-git-send-email-spujar@nvidia.com>
+Subject: [PATCH v4 05/23] ASoC: tegra: Add Tegra210 based AHUB driver
+Date: Sat, 27 Jun 2020 10:23:27 +0530
+Message-ID: <1593233625-14961-6-git-send-email-spujar@nvidia.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1593233625-14961-1-git-send-email-spujar@nvidia.com>
 References: <1593233625-14961-1-git-send-email-spujar@nvidia.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1593233582; bh=aDkhpYYJLWGN7OMx7qpH8hf1d5k/jCAY0WlNHEDh5JI=;
+ t=1593233588; bh=RvBX3OORulruAdr4932CWRZpA3YNmCsUdxePLFUoMA4=;
  h=X-PGP-Universal:From:To:CC:Subject:Date:Message-ID:X-Mailer:
  In-Reply-To:References:MIME-Version:Content-Type;
- b=n+bWEiAubPbPF6b1uPrYjfErwu29d1bY+dPafoQBMRz9EtLfno5WpGYj95WpihXm2
- ZVXwaY0/duyM+KGFqapclhhK1G+g+7l9ZZLoWxKmzPCUUbk8Qp3GFGW9j1yYmUweEw
- EVsHvukb5IVKh4X3xCuieMopDU/0itvIiAm/zRlXSDS+QhmvArjrJpD0RJJns3TfhV
- tUC3/DriAd26pdVJNW/iy4DrwpdHr/ZBRxFopK1QKZfVzmgl423VsFWo+hvMy8VR79
- egzA1BIguocNF9Wo3HN4YBWCcoXahxtDuyKV3fcBB4QMTks4KR8JHeInkFlu9TT9k3
- gHs51gxTlHaDw==
+ b=R4zQ0b2TIZvk3JZ3wtg1pL0kK78uv1q9jeSYswrZsHosSIgP/jNtrVctbA8UTR3IL
+ 8i01N+Dy+N0LPujkYymzA63DTK+LCNyCe64WhvES8nXiguXlpCqhTQzQQr5UXKcrlp
+ iKkh0JzOBlcP7uSUfUChd97AoTmYsVy4bfBPfkavYjY8rcckqQ7lx5q0gvCjDBTqFi
+ b9H1g1CphB4d4JWoa8YjThD6qAYOEYkeQOz0Sh0Ef/InoPLBmt1cKs45VzL+Lz4dvn
+ dKf1XI69hNzv5Dv/gdwUY5jHAog15gK/r9XNAyeI03dHOHCNHk6dDjke2tUUXY/6r0
+ Qw6EeqQnBP9WQ==
 Cc: nicoleotsuka@gmail.com, alsa-devel@alsa-project.org, swarren@nvidia.com,
  Sameer Pujar <spujar@nvidia.com>, nwartikar@nvidia.com,
  linux-kernel@vger.kernel.org, jonathanh@nvidia.com, viswanathl@nvidia.com,
@@ -101,984 +101,761 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The Inter-IC Sound (I2S) controller implements full-duplex, bi-directional
-and single direction point to point serial interface. It can interface
-with I2S compatible devices. Tegra I2S controller can operate as both
-master and slave.
+The Audio Hub (AHUB) comprises a collection of hardware accelerators for
+audio pre/post-processing and a programmable full crossbar (XBAR) for
+routing audio data across these accelerators in time and in parallel.
+AHUB supports multiple interfaces to I2S, DSPK, DMIC etc., XBAR is a
+switch used to configure or modify audio routing between HW accelerators
+present inside AHUB.
 
-This patch registers I2S controller with ASoC framework. The component
+This patch registers AHUB component with ASoC framework. The component
 driver exposes DAPM widgets, routes and kcontrols for the device. The DAI
-driver exposes I2S interfaces, which can be used to connect different
-components in the ASoC layer. Makefile and Kconfig support is added to
-allow to build the driver. The I2S devices can be enabled in the DT via
-"nvidia,tegra210-i2s" compatible binding.
+driver exposes AHUB interfaces, which can be used to connect different
+components in the ASoC layer. Currently the driver takes care of XBAR
+programming to allow audio data flow through various clients of the AHUB.
+Makefile and Kconfig support is added to allow to build the driver. The
+AHUB component can be enabled in the DT via below compatible bindings.
+  - "nvidia,tegra210-ahub" for Tegra210
+  - "nvidia,tegra186-ahub" for Tegra186 and Tegra194
 
 Signed-off-by: Sameer Pujar <spujar@nvidia.com>
 ---
- sound/soc/tegra/Kconfig        |  10 +
- sound/soc/tegra/Makefile       |   2 +
- sound/soc/tegra/tegra210_i2s.c | 780 +++++++++++++++++++++++++++++++++++++++++
- sound/soc/tegra/tegra210_i2s.h | 126 +++++++
- 4 files changed, 918 insertions(+)
- create mode 100644 sound/soc/tegra/tegra210_i2s.c
- create mode 100644 sound/soc/tegra/tegra210_i2s.h
+ sound/soc/tegra/Kconfig         |  10 +
+ sound/soc/tegra/Makefile        |   2 +
+ sound/soc/tegra/tegra210_ahub.c | 578 ++++++++++++++++++++++++++++++++++++++++
+ sound/soc/tegra/tegra210_ahub.h | 100 +++++++
+ 4 files changed, 690 insertions(+)
+ create mode 100644 sound/soc/tegra/tegra210_ahub.c
+ create mode 100644 sound/soc/tegra/tegra210_ahub.h
 
 diff --git a/sound/soc/tegra/Kconfig b/sound/soc/tegra/Kconfig
-index 2bde1e6..157fa7a 100644
+index 157fa7a..3166d03 100644
 --- a/sound/soc/tegra/Kconfig
 +++ b/sound/soc/tegra/Kconfig
-@@ -73,6 +73,16 @@ config SND_SOC_TEGRA210_DMIC
-           PDM receiver.
-           Say Y or M if you want to add support for Tegra210 DMIC module.
+@@ -62,6 +62,16 @@ config SND_SOC_TEGRA30_I2S
+ 	  Tegra30 I2S interface. You will also need to select the individual
+ 	  machine drivers to support below.
  
-+config SND_SOC_TEGRA210_I2S
-+        tristate "Tegra210 I2S module"
-+        depends on SND_SOC_TEGRA
-+        help
-+          Config to enable the Inter-IC Sound (I2S) Controller which
-+          implements full-duplex and bidirectional and single direction
-+          point-to-point serial interfaces. It can interface with I2S
-+          compatible devices.
-+          Say Y or M if you want to add support for Tegra210 I2S module.
++config SND_SOC_TEGRA210_AHUB
++	tristate "Tegra210 AHUB module"
++	depends on SND_SOC_TEGRA
++	help
++	  Config to enable Audio Hub (AHUB) module, which comprises of a
++	  switch called Audio Crossbar (AXBAR) used to configure or modify
++	  the audio routing path between various HW accelerators present in
++	  AHUB.
++	  Say Y or M if you want to add support for Tegra210 AHUB module.
 +
- config SND_SOC_TEGRA_RT5640
- 	tristate "SoC Audio support for Tegra boards using an RT5640 codec"
- 	depends on SND_SOC_TEGRA && I2C && GPIOLIB
+ config SND_SOC_TEGRA210_DMIC
+         tristate "Tegra210 DMIC module"
+         depends on SND_SOC_TEGRA
 diff --git a/sound/soc/tegra/Makefile b/sound/soc/tegra/Makefile
-index f0690cf..e30f6a3 100644
+index e30f6a3..b01d88e 100644
 --- a/sound/soc/tegra/Makefile
 +++ b/sound/soc/tegra/Makefile
-@@ -9,6 +9,7 @@ snd-soc-tegra20-spdif-objs := tegra20_spdif.o
+@@ -8,6 +8,7 @@ snd-soc-tegra20-i2s-objs := tegra20_i2s.o
+ snd-soc-tegra20-spdif-objs := tegra20_spdif.o
  snd-soc-tegra30-ahub-objs := tegra30_ahub.o
  snd-soc-tegra30-i2s-objs := tegra30_i2s.o
++snd-soc-tegra210-ahub-objs := tegra210_ahub.o
  snd-soc-tegra210-dmic-objs := tegra210_dmic.o
-+snd-soc-tegra210-i2s-objs := tegra210_i2s.o
+ snd-soc-tegra210-i2s-objs := tegra210_i2s.o
  
- obj-$(CONFIG_SND_SOC_TEGRA) += snd-soc-tegra-pcm.o
- obj-$(CONFIG_SND_SOC_TEGRA) += snd-soc-tegra-utils.o
-@@ -19,6 +20,7 @@ obj-$(CONFIG_SND_SOC_TEGRA20_SPDIF) += snd-soc-tegra20-spdif.o
+@@ -20,6 +21,7 @@ obj-$(CONFIG_SND_SOC_TEGRA20_SPDIF) += snd-soc-tegra20-spdif.o
  obj-$(CONFIG_SND_SOC_TEGRA30_AHUB) += snd-soc-tegra30-ahub.o
  obj-$(CONFIG_SND_SOC_TEGRA30_I2S) += snd-soc-tegra30-i2s.o
  obj-$(CONFIG_SND_SOC_TEGRA210_DMIC) += snd-soc-tegra210-dmic.o
-+obj-$(CONFIG_SND_SOC_TEGRA210_I2S) += snd-soc-tegra210-i2s.o
++obj-$(CONFIG_SND_SOC_TEGRA210_AHUB) += snd-soc-tegra210-ahub.o
+ obj-$(CONFIG_SND_SOC_TEGRA210_I2S) += snd-soc-tegra210-i2s.o
  
  # Tegra machine Support
- snd-soc-tegra-rt5640-objs := tegra_rt5640.o
-diff --git a/sound/soc/tegra/tegra210_i2s.c b/sound/soc/tegra/tegra210_i2s.c
+diff --git a/sound/soc/tegra/tegra210_ahub.c b/sound/soc/tegra/tegra210_ahub.c
 new file mode 100644
-index 0000000..a48124c
+index 0000000..93bd23f
 --- /dev/null
-+++ b/sound/soc/tegra/tegra210_i2s.c
-@@ -0,0 +1,780 @@
++++ b/sound/soc/tegra/tegra210_ahub.c
+@@ -0,0 +1,578 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +//
-+// tegra210_i2s.c - Tegra210 I2S driver
++// tegra210_ahub.c - Tegra210 AHUB driver
 +//
 +// Copyright (c) 2020 NVIDIA CORPORATION.  All rights reserved.
 +
 +#include <linux/clk.h>
 +#include <linux/device.h>
 +#include <linux/module.h>
-+#include <linux/of_device.h>
++#include <linux/of_platform.h>
 +#include <linux/platform_device.h>
 +#include <linux/pm_runtime.h>
 +#include <linux/regmap.h>
-+#include <sound/core.h>
-+#include <sound/pcm_params.h>
 +#include <sound/soc.h>
-+#include "tegra210_i2s.h"
-+#include "tegra_cif.h"
++#include "tegra210_ahub.h"
 +
-+static const struct reg_default tegra210_i2s_reg_defaults[] = {
-+	{ TEGRA210_I2S_RX_INT_MASK, 0x00000003 },
-+	{ TEGRA210_I2S_RX_CIF_CTRL, 0x00007700 },
-+	{ TEGRA210_I2S_TX_INT_MASK, 0x00000003 },
-+	{ TEGRA210_I2S_TX_CIF_CTRL, 0x00007700 },
-+	{ TEGRA210_I2S_CG, 0x1 },
-+	{ TEGRA210_I2S_TIMING, 0x0000001f },
-+	{ TEGRA210_I2S_ENABLE, 0x1 },
++static int tegra_ahub_get_value_enum(struct snd_kcontrol *kctl,
++				     struct snd_ctl_elem_value *uctl)
++{
++	struct snd_soc_component *cmpnt = snd_soc_dapm_kcontrol_component(kctl);
++	struct tegra_ahub *ahub = snd_soc_component_get_drvdata(cmpnt);
++	struct soc_enum *e = (struct soc_enum *)kctl->private_value;
++	unsigned int reg, i, bit_pos = 0;
++
 +	/*
-+	 * Below update does not have any effect on Tegra186 and Tegra194.
-+	 * On Tegra210, I2S4 has "i2s4a" and "i2s4b" pins and below update
-+	 * is required to select i2s4b for it to be functional for I2S
-+	 * operation.
++	 * Find the bit position of current MUX input.
++	 * If nothing is set, position would be 0 and it corresponds to 'None'.
 +	 */
-+	{ TEGRA210_I2S_CYA, 0x1 },
-+};
++	for (i = 0; i < ahub->soc_data->reg_count; i++) {
++		unsigned int reg_val;
 +
-+static void tegra210_i2s_set_slot_ctrl(struct regmap *regmap,
-+				       unsigned int total_slots,
-+				       unsigned int tx_slot_mask,
-+				       unsigned int rx_slot_mask)
-+{
-+	regmap_write(regmap, TEGRA210_I2S_SLOT_CTRL, total_slots - 1);
-+	regmap_write(regmap, TEGRA210_I2S_TX_SLOT_CTRL, tx_slot_mask);
-+	regmap_write(regmap, TEGRA210_I2S_RX_SLOT_CTRL, rx_slot_mask);
-+}
++		reg = e->reg + (TEGRA210_XBAR_PART1_RX * i);
++		reg_val = snd_soc_component_read(cmpnt, reg);
++		reg_val &= ahub->soc_data->mask[i];
 +
-+static int tegra210_i2s_set_clock_rate(struct device *dev,
-+				       unsigned int clock_rate)
-+{
-+	struct tegra210_i2s *i2s = dev_get_drvdata(dev);
-+	unsigned int val;
-+	int err;
-+
-+	regmap_read(i2s->regmap, TEGRA210_I2S_CTRL, &val);
-+
-+	/* No need to set rates if I2S is being operated in slave */
-+	if (!(val & I2S_CTRL_MASTER_EN))
-+		return 0;
-+
-+	err = clk_set_rate(i2s->clk_i2s, clock_rate);
-+	if (err) {
-+		dev_err(dev, "can't set I2S bit clock rate %u, err: %d\n",
-+			clock_rate, err);
-+		return err;
++		if (reg_val) {
++			bit_pos = ffs(reg_val) +
++				  (8 * cmpnt->val_bytes * i);
++			break;
++		}
 +	}
 +
-+	if (!IS_ERR(i2s->clk_sync_input)) {
-+		/*
-+		 * Other I/O modules in AHUB can use i2s bclk as reference
-+		 * clock. Below sets sync input clock rate as per bclk,
-+		 * which can be used as input to other I/O modules.
-+		 */
-+		err = clk_set_rate(i2s->clk_sync_input, clock_rate);
-+		if (err) {
-+			dev_err(dev,
-+				"can't set I2S sync input rate %u, err = %d\n",
-+				clock_rate, err);
-+			return err;
++	/* Find index related to the item in array *_ahub_mux_texts[] */
++	for (i = 0; i < e->items; i++) {
++		if (bit_pos == e->values[i]) {
++			uctl->value.enumerated.item[0] = i;
++			break;
 +		}
 +	}
 +
 +	return 0;
 +}
 +
-+static int tegra210_i2s_sw_reset(struct snd_soc_component *compnt,
-+				 bool is_playback)
++static int tegra_ahub_put_value_enum(struct snd_kcontrol *kctl,
++				     struct snd_ctl_elem_value *uctl)
 +{
-+	struct device *dev = compnt->dev;
-+	struct tegra210_i2s *i2s = dev_get_drvdata(dev);
-+	unsigned int reset_mask = I2S_SOFT_RESET_MASK;
-+	unsigned int reset_en = I2S_SOFT_RESET_EN;
-+	unsigned int reset_reg, cif_reg, stream_reg;
-+	unsigned int cif_ctrl, stream_ctrl, i2s_ctrl, val;
-+	int err;
++	struct snd_soc_component *cmpnt = snd_soc_dapm_kcontrol_component(kctl);
++	struct tegra_ahub *ahub = snd_soc_component_get_drvdata(cmpnt);
++	struct snd_soc_dapm_context *dapm = snd_soc_dapm_kcontrol_dapm(kctl);
++	struct soc_enum *e = (struct soc_enum *)kctl->private_value;
++	struct snd_soc_dapm_update update[TEGRA_XBAR_UPDATE_MAX_REG] = { };
++	unsigned int *item = uctl->value.enumerated.item;
++	unsigned int value = e->values[item[0]];
++	unsigned int i, bit_pos, reg_idx = 0, reg_val = 0;
 +
-+	if (is_playback) {
-+		reset_reg = TEGRA210_I2S_RX_SOFT_RESET;
-+		cif_reg = TEGRA210_I2S_RX_CIF_CTRL;
-+		stream_reg = TEGRA210_I2S_RX_CTRL;
-+	} else {
-+		reset_reg = TEGRA210_I2S_TX_SOFT_RESET;
-+		cif_reg = TEGRA210_I2S_TX_CIF_CTRL;
-+		stream_reg = TEGRA210_I2S_TX_CTRL;
-+	}
-+
-+	/* Store CIF and I2S control values */
-+	regmap_read(i2s->regmap, cif_reg, &cif_ctrl);
-+	regmap_read(i2s->regmap, stream_reg, &stream_ctrl);
-+	regmap_read(i2s->regmap, TEGRA210_I2S_CTRL, &i2s_ctrl);
-+
-+	/* Reset to make sure the previous transactions are clean */
-+	regmap_update_bits(i2s->regmap, reset_reg, reset_mask, reset_en);
-+
-+	err = regmap_read_poll_timeout(i2s->regmap, reset_reg, val,
-+				       !(val & reset_mask & reset_en),
-+				       10, 10000);
-+	if (err) {
-+		dev_err(dev, "timeout: failed to reset I2S for %s\n",
-+			is_playback ? "playback" : "capture");
-+		return err;
-+	}
-+
-+	/* Restore CIF and I2S control values */
-+	regmap_write(i2s->regmap, cif_reg, cif_ctrl);
-+	regmap_write(i2s->regmap, stream_reg, stream_ctrl);
-+	regmap_write(i2s->regmap, TEGRA210_I2S_CTRL, i2s_ctrl);
-+
-+	return 0;
-+}
-+
-+static int tegra210_i2s_init(struct snd_soc_dapm_widget *w,
-+			     struct snd_kcontrol *kcontrol, int event)
-+{
-+	struct snd_soc_component *compnt = snd_soc_dapm_to_component(w->dapm);
-+	struct device *dev = compnt->dev;
-+	struct tegra210_i2s *i2s = dev_get_drvdata(dev);
-+	unsigned int val, status_reg;
-+	bool is_playback;
-+	int err;
-+
-+	switch (w->reg) {
-+	case TEGRA210_I2S_RX_ENABLE:
-+		is_playback = true;
-+		status_reg = TEGRA210_I2S_RX_STATUS;
-+		break;
-+	case TEGRA210_I2S_TX_ENABLE:
-+		is_playback = false;
-+		status_reg = TEGRA210_I2S_TX_STATUS;
-+		break;
-+	default:
++	if (item[0] >= e->items)
 +		return -EINVAL;
++
++	if (value) {
++		/* Get the register index and value to set */
++		reg_idx = (value - 1) / (8 * cmpnt->val_bytes);
++		bit_pos = (value - 1) % (8 * cmpnt->val_bytes);
++		reg_val = BIT(bit_pos);
 +	}
-+
-+	/* Ensure I2S is in disabled state before new session */
-+	err = regmap_read_poll_timeout(i2s->regmap, status_reg, val,
-+				       !(val & I2S_EN_MASK & I2S_EN),
-+				       10, 10000);
-+	if (err) {
-+		dev_err(dev, "timeout: previous I2S %s is still active\n",
-+			is_playback ? "playback" : "capture");
-+		return err;
-+	}
-+
-+	return tegra210_i2s_sw_reset(compnt, is_playback);
-+}
-+
-+static int tegra210_i2s_runtime_suspend(struct device *dev)
-+{
-+	struct tegra210_i2s *i2s = dev_get_drvdata(dev);
-+
-+	regcache_cache_only(i2s->regmap, true);
-+	regcache_mark_dirty(i2s->regmap);
-+
-+	clk_disable_unprepare(i2s->clk_i2s);
-+
-+	return 0;
-+}
-+
-+static int tegra210_i2s_runtime_resume(struct device *dev)
-+{
-+	struct tegra210_i2s *i2s = dev_get_drvdata(dev);
-+	int err;
-+
-+	err = clk_prepare_enable(i2s->clk_i2s);
-+	if (err) {
-+		dev_err(dev, "failed to enable I2S bit clock, err: %d\n", err);
-+		return err;
-+	}
-+
-+	regcache_cache_only(i2s->regmap, false);
-+	regcache_sync(i2s->regmap);
-+
-+	return 0;
-+}
-+
-+static void tegra210_i2s_set_data_offset(struct tegra210_i2s *i2s,
-+					 unsigned int data_offset)
-+{
-+	/* Capture path */
-+	regmap_update_bits(i2s->regmap, TEGRA210_I2S_TX_CTRL,
-+			   I2S_CTRL_DATA_OFFSET_MASK,
-+			   data_offset << I2S_DATA_SHIFT);
-+
-+	/* Playback path */
-+	regmap_update_bits(i2s->regmap, TEGRA210_I2S_RX_CTRL,
-+			   I2S_CTRL_DATA_OFFSET_MASK,
-+			   data_offset << I2S_DATA_SHIFT);
-+}
-+
-+static int tegra210_i2s_set_fmt(struct snd_soc_dai *dai,
-+				unsigned int fmt)
-+{
-+	struct tegra210_i2s *i2s = snd_soc_dai_get_drvdata(dai);
-+	unsigned int mask, val;
-+
-+	mask = I2S_CTRL_MASTER_EN_MASK;
-+	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
-+	case SND_SOC_DAIFMT_CBS_CFS:
-+		val = 0;
-+		break;
-+	case SND_SOC_DAIFMT_CBM_CFM:
-+		val = I2S_CTRL_MASTER_EN;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	mask |= I2S_CTRL_FRAME_FMT_MASK | I2S_CTRL_LRCK_POL_MASK;
-+	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
-+	case SND_SOC_DAIFMT_DSP_A:
-+		val |= I2S_CTRL_FRAME_FMT_FSYNC_MODE;
-+		val |= I2S_CTRL_LRCK_POL_HIGH;
-+		tegra210_i2s_set_data_offset(i2s, 1);
-+		break;
-+	case SND_SOC_DAIFMT_DSP_B:
-+		val |= I2S_CTRL_FRAME_FMT_FSYNC_MODE;
-+		val |= I2S_CTRL_LRCK_POL_HIGH;
-+		tegra210_i2s_set_data_offset(i2s, 0);
-+		break;
-+	/* I2S mode has data offset of 1 */
-+	case SND_SOC_DAIFMT_I2S:
-+		val |= I2S_CTRL_FRAME_FMT_LRCK_MODE;
-+		val |= I2S_CTRL_LRCK_POL_LOW;
-+		tegra210_i2s_set_data_offset(i2s, 1);
-+		break;
-+	/*
-+	 * For RJ mode data offset is dependent on the sample size
-+	 * and the bclk ratio, and so is set when hw_params is called.
-+	 */
-+	case SND_SOC_DAIFMT_RIGHT_J:
-+		val |= I2S_CTRL_FRAME_FMT_LRCK_MODE;
-+		val |= I2S_CTRL_LRCK_POL_HIGH;
-+		break;
-+	case SND_SOC_DAIFMT_LEFT_J:
-+		val |= I2S_CTRL_FRAME_FMT_LRCK_MODE;
-+		val |= I2S_CTRL_LRCK_POL_HIGH;
-+		tegra210_i2s_set_data_offset(i2s, 0);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	mask |= I2S_CTRL_EDGE_CTRL_MASK;
-+	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
-+	case SND_SOC_DAIFMT_NB_NF:
-+		val |= I2S_CTRL_EDGE_CTRL_POS_EDGE;
-+		break;
-+	case SND_SOC_DAIFMT_NB_IF:
-+		val |= I2S_CTRL_EDGE_CTRL_POS_EDGE;
-+		val ^= I2S_CTRL_LRCK_POL_MASK;
-+		break;
-+	case SND_SOC_DAIFMT_IB_NF:
-+		val |= I2S_CTRL_EDGE_CTRL_NEG_EDGE;
-+		break;
-+	case SND_SOC_DAIFMT_IB_IF:
-+		val |= I2S_CTRL_EDGE_CTRL_NEG_EDGE;
-+		val ^= I2S_CTRL_LRCK_POL_MASK;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	regmap_update_bits(i2s->regmap, TEGRA210_I2S_CTRL, mask, val);
-+
-+	i2s->dai_fmt = fmt & SND_SOC_DAIFMT_FORMAT_MASK;
-+
-+	return 0;
-+}
-+
-+static int tegra210_i2s_set_tdm_slot(struct snd_soc_dai *dai,
-+				     unsigned int tx_mask, unsigned int rx_mask,
-+				     int slots, int slot_width)
-+{
-+	struct tegra210_i2s *i2s = snd_soc_dai_get_drvdata(dai);
-+
-+	/* Copy the required tx and rx mask */
-+	i2s->tx_mask = (tx_mask > DEFAULT_I2S_SLOT_MASK) ?
-+		       DEFAULT_I2S_SLOT_MASK : tx_mask;
-+	i2s->rx_mask = (rx_mask > DEFAULT_I2S_SLOT_MASK) ?
-+		       DEFAULT_I2S_SLOT_MASK : rx_mask;
-+
-+	return 0;
-+}
-+
-+static int tegra210_i2s_set_dai_bclk_ratio(struct snd_soc_dai *dai,
-+					   unsigned int ratio)
-+{
-+	struct tegra210_i2s *i2s = snd_soc_dai_get_drvdata(dai);
-+
-+	i2s->bclk_ratio = ratio;
-+
-+	return 0;
-+}
-+
-+static int tegra210_i2s_get_control(struct snd_kcontrol *kcontrol,
-+				    struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *compnt = snd_soc_kcontrol_component(kcontrol);
-+	struct tegra210_i2s *i2s = snd_soc_component_get_drvdata(compnt);
-+	long *uctl_val = &ucontrol->value.integer.value[0];
-+
-+	if (strstr(kcontrol->id.name, "Loopback"))
-+		*uctl_val = i2s->loopback;
-+	else if (strstr(kcontrol->id.name, "FSYNC Width"))
-+		*uctl_val = i2s->fsync_width;
-+	else if (strstr(kcontrol->id.name, "Capture Stereo To Mono"))
-+		*uctl_val = i2s->stereo_to_mono[I2S_TX_PATH];
-+	else if (strstr(kcontrol->id.name, "Capture Mono To Stereo"))
-+		*uctl_val = i2s->mono_to_stereo[I2S_TX_PATH];
-+	else if (strstr(kcontrol->id.name, "Playback Stereo To Mono"))
-+		*uctl_val = i2s->stereo_to_mono[I2S_RX_PATH];
-+	else if (strstr(kcontrol->id.name, "Playback Mono To Stereo"))
-+		*uctl_val = i2s->mono_to_stereo[I2S_RX_PATH];
-+	else if (strstr(kcontrol->id.name, "Playback FIFO Threshold"))
-+		*uctl_val = i2s->rx_fifo_th;
-+	else if (strstr(kcontrol->id.name, "BCLK Ratio"))
-+		*uctl_val = i2s->bclk_ratio;
-+
-+	return 0;
-+}
-+
-+static int tegra210_i2s_put_control(struct snd_kcontrol *kcontrol,
-+				    struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *compnt = snd_soc_kcontrol_component(kcontrol);
-+	struct tegra210_i2s *i2s = snd_soc_component_get_drvdata(compnt);
-+	int value = ucontrol->value.integer.value[0];
-+
-+	if (strstr(kcontrol->id.name, "Loopback")) {
-+		i2s->loopback = value;
-+
-+		regmap_update_bits(i2s->regmap, TEGRA210_I2S_CTRL,
-+				   I2S_CTRL_LPBK_MASK,
-+				   i2s->loopback << I2S_CTRL_LPBK_SHIFT);
-+
-+	} else if (strstr(kcontrol->id.name, "FSYNC Width")) {
-+		/*
-+		 * Frame sync width is used only for FSYNC modes and not
-+		 * applicable for LRCK modes. Reset value for this field is "0",
-+		 * which means the width is one bit clock wide.
-+		 * The width requirement may depend on the codec and in such
-+		 * cases mixer control is used to update custom values. A value
-+		 * of "N" here means, width is "N + 1" bit clock wide.
-+		 */
-+		i2s->fsync_width = value;
-+
-+		regmap_update_bits(i2s->regmap, TEGRA210_I2S_CTRL,
-+				   I2S_CTRL_FSYNC_WIDTH_MASK,
-+				   i2s->fsync_width << I2S_FSYNC_WIDTH_SHIFT);
-+
-+	} else if (strstr(kcontrol->id.name, "Capture Stereo To Mono")) {
-+		i2s->stereo_to_mono[I2S_TX_PATH] = value;
-+	} else if (strstr(kcontrol->id.name, "Capture Mono To Stereo")) {
-+		i2s->mono_to_stereo[I2S_TX_PATH] = value;
-+	} else if (strstr(kcontrol->id.name, "Playback Stereo To Mono")) {
-+		i2s->stereo_to_mono[I2S_RX_PATH] = value;
-+	} else if (strstr(kcontrol->id.name, "Playback Mono To Stereo")) {
-+		i2s->mono_to_stereo[I2S_RX_PATH] = value;
-+	} else if (strstr(kcontrol->id.name, "Playback FIFO Threshold")) {
-+		i2s->rx_fifo_th = value;
-+	} else if (strstr(kcontrol->id.name, "BCLK Ratio")) {
-+		i2s->bclk_ratio = value;
-+	}
-+
-+	return 0;
-+}
-+
-+static int tegra210_i2s_set_timing_params(struct device *dev,
-+					  unsigned int sample_size,
-+					  unsigned int srate,
-+					  unsigned int channels)
-+{
-+	struct tegra210_i2s *i2s = dev_get_drvdata(dev);
-+	unsigned int val, bit_count, bclk_rate, num_bclk = sample_size;
-+	int err;
-+
-+	if (i2s->bclk_ratio)
-+		num_bclk *= i2s->bclk_ratio;
-+
-+	if (i2s->dai_fmt == SND_SOC_DAIFMT_RIGHT_J)
-+		tegra210_i2s_set_data_offset(i2s, num_bclk - sample_size);
-+
-+	/* I2S bit clock rate */
-+	bclk_rate = srate * channels * num_bclk;
-+
-+	err = tegra210_i2s_set_clock_rate(dev, bclk_rate);
-+	if (err) {
-+		dev_err(dev, "can't set I2S bit clock rate %u, err: %d\n",
-+			bclk_rate, err);
-+		return err;
-+	}
-+
-+	regmap_read(i2s->regmap, TEGRA210_I2S_CTRL, &val);
 +
 +	/*
-+	 * For LRCK mode, channel bit count depends on number of bit clocks
-+	 * on the left channel, where as for FSYNC mode bit count depends on
-+	 * the number of bit clocks in both left and right channels for DSP
-+	 * mode or the number of bit clocks in one TDM frame.
-+	 *
++	 * Run through all parts of a MUX register to find the state changes.
++	 * There will be an additional update if new MUX input value is from
++	 * different part of the MUX register.
 +	 */
-+	switch (val & I2S_CTRL_FRAME_FMT_MASK) {
-+	case I2S_CTRL_FRAME_FMT_LRCK_MODE:
-+		bit_count = (bclk_rate / (srate * 2)) - 1;
-+		break;
-+	case I2S_CTRL_FRAME_FMT_FSYNC_MODE:
-+		bit_count = (bclk_rate / srate) - 1;
++	for (i = 0; i < ahub->soc_data->reg_count; i++) {
++		update[i].reg = e->reg + (TEGRA210_XBAR_PART1_RX * i);
++		update[i].val = (i == reg_idx) ? reg_val : 0;
++		update[i].mask = ahub->soc_data->mask[i];
++		update[i].kcontrol = kctl;
 +
-+		tegra210_i2s_set_slot_ctrl(i2s->regmap, channels,
-+					   i2s->tx_mask, i2s->rx_mask);
-+		break;
-+	default:
-+		dev_err(dev, "invalid I2S frame format\n");
-+		return -EINVAL;
++		/* Update widget power if state has changed */
++		if (snd_soc_component_test_bits(cmpnt, update[i].reg,
++						update[i].mask, update[i].val))
++			snd_soc_dapm_mux_update_power(dapm, kctl, item[0], e,
++						      &update[i]);
 +	}
-+
-+	if (bit_count > I2S_TIMING_CH_BIT_CNT_MASK) {
-+		dev_err(dev, "invalid I2S channel bit count %u\n", bit_count);
-+		return -EINVAL;
-+	}
-+
-+	regmap_write(i2s->regmap, TEGRA210_I2S_TIMING,
-+		     bit_count << I2S_TIMING_CH_BIT_CNT_SHIFT);
 +
 +	return 0;
 +}
 +
-+static int tegra210_i2s_hw_params(struct snd_pcm_substream *substream,
-+				  struct snd_pcm_hw_params *params,
-+				  struct snd_soc_dai *dai)
-+{
-+	struct device *dev = dai->dev;
-+	struct tegra210_i2s *i2s = snd_soc_dai_get_drvdata(dai);
-+	unsigned int sample_size, channels, srate, val, reg, path;
-+	struct tegra_cif_conf cif_conf;
-+
-+	memset(&cif_conf, 0, sizeof(struct tegra_cif_conf));
-+
-+	channels = params_channels(params);
-+	if (channels < 1) {
-+		dev_err(dev, "invalid I2S %d channel configuration\n",
-+			channels);
-+		return -EINVAL;
-+	}
-+
-+	cif_conf.audio_ch = channels;
-+	cif_conf.client_ch = channels;
-+
-+	switch (params_format(params)) {
-+	case SNDRV_PCM_FORMAT_S8:
-+		val = I2S_BITS_8;
-+		sample_size = 8;
-+		cif_conf.audio_bits = TEGRA_ACIF_BITS_8;
-+		cif_conf.client_bits = TEGRA_ACIF_BITS_8;
-+		break;
-+	case SNDRV_PCM_FORMAT_S16_LE:
-+		val = I2S_BITS_16;
-+		sample_size = 16;
-+		cif_conf.audio_bits = TEGRA_ACIF_BITS_16;
-+		cif_conf.client_bits = TEGRA_ACIF_BITS_16;
-+		break;
-+	case SNDRV_PCM_FORMAT_S32_LE:
-+		val = I2S_BITS_32;
-+		sample_size = 32;
-+		cif_conf.audio_bits = TEGRA_ACIF_BITS_32;
-+		cif_conf.client_bits = TEGRA_ACIF_BITS_32;
-+		break;
-+	default:
-+		dev_err(dev, "unsupported format!\n");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	/* Program sample size */
-+	regmap_update_bits(i2s->regmap, TEGRA210_I2S_CTRL,
-+			   I2S_CTRL_BIT_SIZE_MASK, val);
-+
-+	srate = params_rate(params);
-+
-+	/* For playback I2S RX-CIF and for capture TX-CIF is used */
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		path = I2S_RX_PATH;
-+	else
-+		path = I2S_TX_PATH;
-+
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+		unsigned int max_th;
-+
-+		/* FIFO threshold in terms of frames */
-+		max_th = (I2S_RX_FIFO_DEPTH / cif_conf.audio_ch) - 1;
-+
-+		if (i2s->rx_fifo_th > max_th)
-+			i2s->rx_fifo_th = max_th;
-+
-+		cif_conf.threshold = i2s->rx_fifo_th;
-+
-+		reg = TEGRA210_I2S_RX_CIF_CTRL;
-+	} else {
-+		reg = TEGRA210_I2S_TX_CIF_CTRL;
-+	}
-+
-+	cif_conf.mono_conv = i2s->mono_to_stereo[path];
-+	cif_conf.stereo_conv = i2s->stereo_to_mono[path];
-+
-+	tegra_set_cif(i2s->regmap, reg, &cif_conf);
-+
-+	return tegra210_i2s_set_timing_params(dev, sample_size, srate,
-+					      cif_conf.client_ch);
-+}
-+
-+static const struct snd_soc_dai_ops tegra210_i2s_dai_ops = {
-+	.set_fmt	= tegra210_i2s_set_fmt,
-+	.hw_params	= tegra210_i2s_hw_params,
-+	.set_bclk_ratio	= tegra210_i2s_set_dai_bclk_ratio,
-+	.set_tdm_slot	= tegra210_i2s_set_tdm_slot,
++static const char * const tegra210_ahub_mux_texts[] = {
++	"None",
++	"ADMAIF1",
++	"ADMAIF2",
++	"ADMAIF3",
++	"ADMAIF4",
++	"ADMAIF5",
++	"ADMAIF6",
++	"ADMAIF7",
++	"ADMAIF8",
++	"ADMAIF9",
++	"ADMAIF10",
++	"I2S1",
++	"I2S2",
++	"I2S3",
++	"I2S4",
++	"I2S5",
++	"DMIC1",
++	"DMIC2",
++	"DMIC3",
 +};
 +
-+static struct snd_soc_dai_driver tegra210_i2s_dais[] = {
-+	{
-+		.name = "I2S",
-+		.playback = {
-+			.stream_name = "Playback",
-+			.channels_min = 1,
-+			.channels_max = 16,
-+			.rates = SNDRV_PCM_RATE_8000_192000,
-+			.formats = SNDRV_PCM_FMTBIT_S8 |
-+				SNDRV_PCM_FMTBIT_S16_LE |
-+				SNDRV_PCM_FMTBIT_S32_LE,
-+		},
-+		.capture = {
-+			.stream_name = "Capture",
-+			.channels_min = 1,
-+			.channels_max = 16,
-+			.rates = SNDRV_PCM_RATE_8000_192000,
-+			.formats = SNDRV_PCM_FMTBIT_S8 |
-+				SNDRV_PCM_FMTBIT_S16_LE |
-+				SNDRV_PCM_FMTBIT_S32_LE,
-+		},
-+		.ops = &tegra210_i2s_dai_ops,
-+		.symmetric_rates = 1,
-+	},
++static const char * const tegra186_ahub_mux_texts[] = {
++	"None",
++	"ADMAIF1",
++	"ADMAIF2",
++	"ADMAIF3",
++	"ADMAIF4",
++	"ADMAIF5",
++	"ADMAIF6",
++	"ADMAIF7",
++	"ADMAIF8",
++	"ADMAIF9",
++	"ADMAIF10",
++	"ADMAIF11",
++	"ADMAIF12",
++	"ADMAIF13",
++	"ADMAIF14",
++	"ADMAIF15",
++	"ADMAIF16",
++	"I2S1",
++	"I2S2",
++	"I2S3",
++	"I2S4",
++	"I2S5",
++	"I2S6",
++	"ADMAIF17",
++	"ADMAIF18",
++	"ADMAIF19",
++	"ADMAIF20",
++	"DMIC1",
++	"DMIC2",
++	"DMIC3",
++	"DMIC4",
 +};
 +
-+static const char * const tegra210_i2s_stereo_conv_text[] = {
-+	"CH0", "CH1", "AVG",
++static const unsigned int tegra210_ahub_mux_values[] = {
++	0,
++	MUX_VALUE(0, 0),
++	MUX_VALUE(0, 1),
++	MUX_VALUE(0, 2),
++	MUX_VALUE(0, 3),
++	MUX_VALUE(0, 4),
++	MUX_VALUE(0, 5),
++	MUX_VALUE(0, 6),
++	MUX_VALUE(0, 7),
++	MUX_VALUE(0, 8),
++	MUX_VALUE(0, 9),
++	MUX_VALUE(0, 16),
++	MUX_VALUE(0, 17),
++	MUX_VALUE(0, 18),
++	MUX_VALUE(0, 19),
++	MUX_VALUE(0, 20),
++	MUX_VALUE(2, 18),
++	MUX_VALUE(2, 19),
++	MUX_VALUE(2, 20),
 +};
 +
-+static const char * const tegra210_i2s_mono_conv_text[] = {
-+	"Zero", "Copy",
++static const unsigned int tegra186_ahub_mux_values[] = {
++	0,
++	MUX_VALUE(0, 0),
++	MUX_VALUE(0, 1),
++	MUX_VALUE(0, 2),
++	MUX_VALUE(0, 3),
++	MUX_VALUE(0, 4),
++	MUX_VALUE(0, 5),
++	MUX_VALUE(0, 6),
++	MUX_VALUE(0, 7),
++	MUX_VALUE(0, 8),
++	MUX_VALUE(0, 9),
++	MUX_VALUE(0, 10),
++	MUX_VALUE(0, 11),
++	MUX_VALUE(0, 12),
++	MUX_VALUE(0, 13),
++	MUX_VALUE(0, 14),
++	MUX_VALUE(0, 15),
++	MUX_VALUE(0, 16),
++	MUX_VALUE(0, 17),
++	MUX_VALUE(0, 18),
++	MUX_VALUE(0, 19),
++	MUX_VALUE(0, 20),
++	MUX_VALUE(0, 21),
++	MUX_VALUE(3, 16),
++	MUX_VALUE(3, 17),
++	MUX_VALUE(3, 18),
++	MUX_VALUE(3, 19),
++	MUX_VALUE(2, 18),
++	MUX_VALUE(2, 19),
++	MUX_VALUE(2, 20),
++	MUX_VALUE(2, 21),
 +};
 +
-+static const struct soc_enum tegra210_i2s_mono_conv_enum =
-+	SOC_ENUM_SINGLE(0, 0, ARRAY_SIZE(tegra210_i2s_mono_conv_text),
-+			tegra210_i2s_mono_conv_text);
++/* Controls for t210 */
++MUX_ENUM_CTRL_DECL(t210_admaif1_tx, 0x00);
++MUX_ENUM_CTRL_DECL(t210_admaif2_tx, 0x01);
++MUX_ENUM_CTRL_DECL(t210_admaif3_tx, 0x02);
++MUX_ENUM_CTRL_DECL(t210_admaif4_tx, 0x03);
++MUX_ENUM_CTRL_DECL(t210_admaif5_tx, 0x04);
++MUX_ENUM_CTRL_DECL(t210_admaif6_tx, 0x05);
++MUX_ENUM_CTRL_DECL(t210_admaif7_tx, 0x06);
++MUX_ENUM_CTRL_DECL(t210_admaif8_tx, 0x07);
++MUX_ENUM_CTRL_DECL(t210_admaif9_tx, 0x08);
++MUX_ENUM_CTRL_DECL(t210_admaif10_tx, 0x09);
++MUX_ENUM_CTRL_DECL(t210_i2s1_tx, 0x10);
++MUX_ENUM_CTRL_DECL(t210_i2s2_tx, 0x11);
++MUX_ENUM_CTRL_DECL(t210_i2s3_tx, 0x12);
++MUX_ENUM_CTRL_DECL(t210_i2s4_tx, 0x13);
++MUX_ENUM_CTRL_DECL(t210_i2s5_tx, 0x14);
 +
-+static const struct soc_enum tegra210_i2s_stereo_conv_enum =
-+	SOC_ENUM_SINGLE(0, 0, ARRAY_SIZE(tegra210_i2s_stereo_conv_text),
-+			tegra210_i2s_stereo_conv_text);
++/* Controls for t186 */
++MUX_ENUM_CTRL_DECL_186(t186_admaif1_tx, 0x00);
++MUX_ENUM_CTRL_DECL_186(t186_admaif2_tx, 0x01);
++MUX_ENUM_CTRL_DECL_186(t186_admaif3_tx, 0x02);
++MUX_ENUM_CTRL_DECL_186(t186_admaif4_tx, 0x03);
++MUX_ENUM_CTRL_DECL_186(t186_admaif5_tx, 0x04);
++MUX_ENUM_CTRL_DECL_186(t186_admaif6_tx, 0x05);
++MUX_ENUM_CTRL_DECL_186(t186_admaif7_tx, 0x06);
++MUX_ENUM_CTRL_DECL_186(t186_admaif8_tx, 0x07);
++MUX_ENUM_CTRL_DECL_186(t186_admaif9_tx, 0x08);
++MUX_ENUM_CTRL_DECL_186(t186_admaif10_tx, 0x09);
++MUX_ENUM_CTRL_DECL_186(t186_i2s1_tx, 0x10);
++MUX_ENUM_CTRL_DECL_186(t186_i2s2_tx, 0x11);
++MUX_ENUM_CTRL_DECL_186(t186_i2s3_tx, 0x12);
++MUX_ENUM_CTRL_DECL_186(t186_i2s4_tx, 0x13);
++MUX_ENUM_CTRL_DECL_186(t186_i2s5_tx, 0x14);
++MUX_ENUM_CTRL_DECL_186(t186_admaif11_tx, 0x0a);
++MUX_ENUM_CTRL_DECL_186(t186_admaif12_tx, 0x0b);
++MUX_ENUM_CTRL_DECL_186(t186_admaif13_tx, 0x0c);
++MUX_ENUM_CTRL_DECL_186(t186_admaif14_tx, 0x0d);
++MUX_ENUM_CTRL_DECL_186(t186_admaif15_tx, 0x0e);
++MUX_ENUM_CTRL_DECL_186(t186_admaif16_tx, 0x0f);
++MUX_ENUM_CTRL_DECL_186(t186_i2s6_tx, 0x15);
++MUX_ENUM_CTRL_DECL_186(t186_dspk1_tx, 0x30);
++MUX_ENUM_CTRL_DECL_186(t186_dspk2_tx, 0x31);
++MUX_ENUM_CTRL_DECL_186(t186_admaif17_tx, 0x68);
++MUX_ENUM_CTRL_DECL_186(t186_admaif18_tx, 0x69);
++MUX_ENUM_CTRL_DECL_186(t186_admaif19_tx, 0x6a);
++MUX_ENUM_CTRL_DECL_186(t186_admaif20_tx, 0x6b);
 +
-+static const struct snd_kcontrol_new tegra210_i2s_controls[] = {
-+	SOC_SINGLE_EXT("Loopback", 0, 0, 1, 0, tegra210_i2s_get_control,
-+		       tegra210_i2s_put_control),
-+	SOC_SINGLE_EXT("FSYNC Width", 0, 0, 255, 0, tegra210_i2s_get_control,
-+		       tegra210_i2s_put_control),
-+	SOC_ENUM_EXT("Capture Stereo To Mono", tegra210_i2s_stereo_conv_enum,
-+		     tegra210_i2s_get_control, tegra210_i2s_put_control),
-+	SOC_ENUM_EXT("Capture Mono To Stereo", tegra210_i2s_mono_conv_enum,
-+		     tegra210_i2s_get_control, tegra210_i2s_put_control),
-+	SOC_ENUM_EXT("Playback Stereo To Mono", tegra210_i2s_stereo_conv_enum,
-+		     tegra210_i2s_get_control, tegra210_i2s_put_control),
-+	SOC_ENUM_EXT("Playback Mono To Stereo", tegra210_i2s_mono_conv_enum,
-+		     tegra210_i2s_get_control, tegra210_i2s_put_control),
-+	SOC_SINGLE_EXT("Playback FIFO Threshold", 0, 0, I2S_RX_FIFO_DEPTH - 1,
-+		       0, tegra210_i2s_get_control, tegra210_i2s_put_control),
-+	SOC_SINGLE_EXT("BCLK Ratio", 0, 0, INT_MAX, 0, tegra210_i2s_get_control,
-+		       tegra210_i2s_put_control),
++/*
++ * The number of entries in, and order of, this array is closely tied to the
++ * calculation of tegra210_ahub_codec.num_dapm_widgets near the end of
++ * tegra210_ahub_probe()
++ */
++static const struct snd_soc_dapm_widget tegra210_ahub_widgets[] = {
++	WIDGETS("ADMAIF1", t210_admaif1_tx),
++	WIDGETS("ADMAIF2", t210_admaif2_tx),
++	WIDGETS("ADMAIF3", t210_admaif3_tx),
++	WIDGETS("ADMAIF4", t210_admaif4_tx),
++	WIDGETS("ADMAIF5", t210_admaif5_tx),
++	WIDGETS("ADMAIF6", t210_admaif6_tx),
++	WIDGETS("ADMAIF7", t210_admaif7_tx),
++	WIDGETS("ADMAIF8", t210_admaif8_tx),
++	WIDGETS("ADMAIF9", t210_admaif9_tx),
++	WIDGETS("ADMAIF10", t210_admaif10_tx),
++	WIDGETS("I2S1", t210_i2s1_tx),
++	WIDGETS("I2S2", t210_i2s2_tx),
++	WIDGETS("I2S3", t210_i2s3_tx),
++	WIDGETS("I2S4", t210_i2s4_tx),
++	WIDGETS("I2S5", t210_i2s5_tx),
++	TX_WIDGETS("DMIC1"),
++	TX_WIDGETS("DMIC2"),
++	TX_WIDGETS("DMIC3"),
 +};
 +
-+static const struct snd_soc_dapm_widget tegra210_i2s_widgets[] = {
-+	SND_SOC_DAPM_AIF_IN_E("RX", NULL, 0, TEGRA210_I2S_RX_ENABLE,
-+			      0, 0, tegra210_i2s_init, SND_SOC_DAPM_PRE_PMU),
-+	SND_SOC_DAPM_AIF_OUT_E("TX", NULL, 0, TEGRA210_I2S_TX_ENABLE,
-+			       0, 0, tegra210_i2s_init, SND_SOC_DAPM_PRE_PMU),
++static const struct snd_soc_dapm_widget tegra186_ahub_widgets[] = {
++	WIDGETS("ADMAIF1", t186_admaif1_tx),
++	WIDGETS("ADMAIF2", t186_admaif2_tx),
++	WIDGETS("ADMAIF3", t186_admaif3_tx),
++	WIDGETS("ADMAIF4", t186_admaif4_tx),
++	WIDGETS("ADMAIF5", t186_admaif5_tx),
++	WIDGETS("ADMAIF6", t186_admaif6_tx),
++	WIDGETS("ADMAIF7", t186_admaif7_tx),
++	WIDGETS("ADMAIF8", t186_admaif8_tx),
++	WIDGETS("ADMAIF9", t186_admaif9_tx),
++	WIDGETS("ADMAIF10", t186_admaif10_tx),
++	WIDGETS("ADMAIF11", t186_admaif11_tx),
++	WIDGETS("ADMAIF12", t186_admaif12_tx),
++	WIDGETS("ADMAIF13", t186_admaif13_tx),
++	WIDGETS("ADMAIF14", t186_admaif14_tx),
++	WIDGETS("ADMAIF15", t186_admaif15_tx),
++	WIDGETS("ADMAIF16", t186_admaif16_tx),
++	WIDGETS("ADMAIF17", t186_admaif17_tx),
++	WIDGETS("ADMAIF18", t186_admaif18_tx),
++	WIDGETS("ADMAIF19", t186_admaif19_tx),
++	WIDGETS("ADMAIF20", t186_admaif20_tx),
++	WIDGETS("I2S1", t186_i2s1_tx),
++	WIDGETS("I2S2", t186_i2s2_tx),
++	WIDGETS("I2S3", t186_i2s3_tx),
++	WIDGETS("I2S4", t186_i2s4_tx),
++	WIDGETS("I2S5", t186_i2s5_tx),
++	WIDGETS("I2S6", t186_i2s6_tx),
++	TX_WIDGETS("DMIC1"),
++	TX_WIDGETS("DMIC2"),
++	TX_WIDGETS("DMIC3"),
++	TX_WIDGETS("DMIC4"),
++	WIDGETS("DSPK1", t186_dspk1_tx),
++	WIDGETS("DSPK2", t186_dspk2_tx),
 +};
 +
-+static const struct snd_soc_dapm_route tegra210_i2s_routes[] = {
-+	{ "RX",		NULL,	"XBAR-TX" },
-+	{ "Playback",	NULL,	"RX" },
-+	{ "XBAR-RX",	NULL,	"TX" },
-+	{ "TX",		NULL,	"Capture" },
++#define TEGRA_COMMON_ROUTES(name)					\
++	{ name " XBAR-TX",	NULL,		name " Mux" },		\
++	{ name " Mux",		"ADMAIF1",	"ADMAIF1 XBAR-RX" },	\
++	{ name " Mux",		"ADMAIF2",	"ADMAIF2 XBAR-RX" },	\
++	{ name " Mux",		"ADMAIF3",	"ADMAIF3 XBAR-RX" },	\
++	{ name " Mux",		"ADMAIF4",	"ADMAIF4 XBAR-RX" },	\
++	{ name " Mux",		"ADMAIF5",	"ADMAIF5 XBAR-RX" },	\
++	{ name " Mux",		"ADMAIF6",	"ADMAIF6 XBAR-RX" },	\
++	{ name " Mux",		"ADMAIF7",	"ADMAIF7 XBAR-RX" },	\
++	{ name " Mux",		"ADMAIF8",	"ADMAIF8 XBAR-RX" },	\
++	{ name " Mux",		"ADMAIF9",	"ADMAIF9 XBAR-RX" },	\
++	{ name " Mux",		"ADMAIF10",	"ADMAIF10 XBAR-RX" },	\
++	{ name " Mux",		"I2S1",		"I2S1 XBAR-RX" },	\
++	{ name " Mux",		"I2S2",		"I2S2 XBAR-RX" },	\
++	{ name " Mux",		"I2S3",		"I2S3 XBAR-RX" },	\
++	{ name " Mux",		"I2S4",		"I2S4 XBAR-RX" },	\
++	{ name " Mux",		"I2S5",		"I2S5 XBAR-RX" },	\
++	{ name " Mux",		"DMIC1",	"DMIC1 XBAR-RX" },	\
++	{ name " Mux",		"DMIC2",	"DMIC2 XBAR-RX" },	\
++	{ name " Mux",		"DMIC3",	"DMIC3 XBAR-RX" },
++
++#define TEGRA186_ONLY_ROUTES(name)					\
++	{ name " Mux",		"ADMAIF11",	"ADMAIF11 XBAR-RX" },	\
++	{ name " Mux",		"ADMAIF12",	"ADMAIF12 XBAR-RX" },	\
++	{ name " Mux",		"ADMAIF13",	"ADMAIF13 XBAR-RX" },	\
++	{ name " Mux",		"ADMAIF14",	"ADMAIF14 XBAR-RX" },	\
++	{ name " Mux",		"ADMAIF15",	"ADMAIF15 XBAR-RX" },	\
++	{ name " Mux",		"ADMAIF16",	"ADMAIF16 XBAR-RX" },	\
++	{ name " Mux",		"ADMAIF17",	"ADMAIF17 XBAR-RX" },	\
++	{ name " Mux",		"ADMAIF18",	"ADMAIF18 XBAR-RX" },	\
++	{ name " Mux",		"ADMAIF19",	"ADMAIF19 XBAR-RX" },	\
++	{ name " Mux",		"ADMAIF20",	"ADMAIF20 XBAR-RX" },	\
++	{ name " Mux",		"I2S6",		"I2S6 XBAR-RX" },	\
++	{ name " Mux",		"DMIC4",	"DMIC4 XBAR-RX" },
++
++#define TEGRA210_ROUTES(name)						\
++	TEGRA_COMMON_ROUTES(name)
++
++#define TEGRA186_ROUTES(name)						\
++	TEGRA_COMMON_ROUTES(name)					\
++	TEGRA186_ONLY_ROUTES(name)
++
++/*
++ * The number of entries in, and order of, this array is closely tied to the
++ * calculation of tegra210_ahub_codec.num_dapm_routes near the end of
++ * tegra210_ahub_probe()
++ */
++static const struct snd_soc_dapm_route tegra210_ahub_routes[] = {
++	TEGRA210_ROUTES("ADMAIF1")
++	TEGRA210_ROUTES("ADMAIF2")
++	TEGRA210_ROUTES("ADMAIF3")
++	TEGRA210_ROUTES("ADMAIF4")
++	TEGRA210_ROUTES("ADMAIF5")
++	TEGRA210_ROUTES("ADMAIF6")
++	TEGRA210_ROUTES("ADMAIF7")
++	TEGRA210_ROUTES("ADMAIF8")
++	TEGRA210_ROUTES("ADMAIF9")
++	TEGRA210_ROUTES("ADMAIF10")
++	TEGRA210_ROUTES("I2S1")
++	TEGRA210_ROUTES("I2S2")
++	TEGRA210_ROUTES("I2S3")
++	TEGRA210_ROUTES("I2S4")
++	TEGRA210_ROUTES("I2S5")
 +};
 +
-+static const struct snd_soc_component_driver tegra210_i2s_cmpnt = {
-+	.dapm_widgets = tegra210_i2s_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(tegra210_i2s_widgets),
-+	.dapm_routes = tegra210_i2s_routes,
-+	.num_dapm_routes = ARRAY_SIZE(tegra210_i2s_routes),
-+	.controls = tegra210_i2s_controls,
-+	.num_controls = ARRAY_SIZE(tegra210_i2s_controls),
++static const struct snd_soc_dapm_route tegra186_ahub_routes[] = {
++	TEGRA186_ROUTES("ADMAIF1")
++	TEGRA186_ROUTES("ADMAIF2")
++	TEGRA186_ROUTES("ADMAIF3")
++	TEGRA186_ROUTES("ADMAIF4")
++	TEGRA186_ROUTES("ADMAIF5")
++	TEGRA186_ROUTES("ADMAIF6")
++	TEGRA186_ROUTES("ADMAIF7")
++	TEGRA186_ROUTES("ADMAIF8")
++	TEGRA186_ROUTES("ADMAIF9")
++	TEGRA186_ROUTES("ADMAIF10")
++	TEGRA186_ROUTES("ADMAIF11")
++	TEGRA186_ROUTES("ADMAIF12")
++	TEGRA186_ROUTES("ADMAIF13")
++	TEGRA186_ROUTES("ADMAIF14")
++	TEGRA186_ROUTES("ADMAIF15")
++	TEGRA186_ROUTES("ADMAIF16")
++	TEGRA186_ROUTES("ADMAIF17")
++	TEGRA186_ROUTES("ADMAIF18")
++	TEGRA186_ROUTES("ADMAIF19")
++	TEGRA186_ROUTES("ADMAIF20")
++	TEGRA186_ROUTES("I2S1")
++	TEGRA186_ROUTES("I2S2")
++	TEGRA186_ROUTES("I2S3")
++	TEGRA186_ROUTES("I2S4")
++	TEGRA186_ROUTES("I2S5")
++	TEGRA186_ROUTES("I2S6")
++	TEGRA186_ROUTES("DSPK1")
++	TEGRA186_ROUTES("DSPK2")
 +};
 +
-+static bool tegra210_i2s_wr_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case TEGRA210_I2S_RX_ENABLE ... TEGRA210_I2S_RX_SOFT_RESET:
-+	case TEGRA210_I2S_RX_INT_MASK ... TEGRA210_I2S_RX_CLK_TRIM:
-+	case TEGRA210_I2S_TX_ENABLE ... TEGRA210_I2S_TX_SOFT_RESET:
-+	case TEGRA210_I2S_TX_INT_MASK ... TEGRA210_I2S_TX_CLK_TRIM:
-+	case TEGRA210_I2S_ENABLE ... TEGRA210_I2S_CG:
-+	case TEGRA210_I2S_CTRL ... TEGRA210_I2S_CYA:
-+		return true;
-+	default:
-+		return false;
-+	};
-+}
++static const struct snd_soc_component_driver tegra210_ahub_component = {
++	.dapm_widgets		= tegra210_ahub_widgets,
++	.num_dapm_widgets	= ARRAY_SIZE(tegra210_ahub_widgets),
++	.dapm_routes		= tegra210_ahub_routes,
++	.num_dapm_routes	= ARRAY_SIZE(tegra210_ahub_routes),
++};
 +
-+static bool tegra210_i2s_rd_reg(struct device *dev, unsigned int reg)
-+{
-+	if (tegra210_i2s_wr_reg(dev, reg))
-+		return true;
++static const struct snd_soc_component_driver tegra186_ahub_component = {
++	.dapm_widgets = tegra186_ahub_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(tegra186_ahub_widgets),
++	.dapm_routes = tegra186_ahub_routes,
++	.num_dapm_routes = ARRAY_SIZE(tegra186_ahub_routes),
++};
 +
-+	switch (reg) {
-+	case TEGRA210_I2S_RX_STATUS:
-+	case TEGRA210_I2S_RX_INT_STATUS:
-+	case TEGRA210_I2S_RX_CIF_FIFO_STATUS:
-+	case TEGRA210_I2S_TX_STATUS:
-+	case TEGRA210_I2S_TX_INT_STATUS:
-+	case TEGRA210_I2S_TX_CIF_FIFO_STATUS:
-+	case TEGRA210_I2S_STATUS:
-+	case TEGRA210_I2S_INT_STATUS:
-+		return true;
-+	default:
-+		return false;
-+	};
-+}
-+
-+static bool tegra210_i2s_volatile_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case TEGRA210_I2S_RX_STATUS:
-+	case TEGRA210_I2S_RX_INT_STATUS:
-+	case TEGRA210_I2S_RX_CIF_FIFO_STATUS:
-+	case TEGRA210_I2S_TX_STATUS:
-+	case TEGRA210_I2S_TX_INT_STATUS:
-+	case TEGRA210_I2S_TX_CIF_FIFO_STATUS:
-+	case TEGRA210_I2S_STATUS:
-+	case TEGRA210_I2S_INT_STATUS:
-+	case TEGRA210_I2S_RX_SOFT_RESET:
-+	case TEGRA210_I2S_TX_SOFT_RESET:
-+		return true;
-+	default:
-+		return false;
-+	};
-+}
-+
-+static const struct regmap_config tegra210_i2s_regmap_config = {
++static const struct regmap_config tegra210_ahub_regmap_config = {
 +	.reg_bits		= 32,
-+	.reg_stride		= 4,
 +	.val_bits		= 32,
-+	.max_register		= TEGRA210_I2S_CYA,
-+	.writeable_reg		= tegra210_i2s_wr_reg,
-+	.readable_reg		= tegra210_i2s_rd_reg,
-+	.volatile_reg		= tegra210_i2s_volatile_reg,
-+	.reg_defaults		= tegra210_i2s_reg_defaults,
-+	.num_reg_defaults	= ARRAY_SIZE(tegra210_i2s_reg_defaults),
++	.reg_stride		= 4,
++	.max_register		= TEGRA210_MAX_REGISTER_ADDR,
 +	.cache_type		= REGCACHE_FLAT,
 +};
 +
-+static int tegra210_i2s_probe(struct platform_device *pdev)
++static const struct regmap_config tegra186_ahub_regmap_config = {
++	.reg_bits		= 32,
++	.val_bits		= 32,
++	.reg_stride		= 4,
++	.max_register		= TEGRA186_MAX_REGISTER_ADDR,
++	.cache_type		= REGCACHE_FLAT,
++};
++
++static const struct tegra_ahub_soc_data soc_data_tegra210 = {
++	.cmpnt_drv	= &tegra210_ahub_component,
++	.regmap_config	= &tegra210_ahub_regmap_config,
++	.mask[0]	= TEGRA210_XBAR_REG_MASK_0,
++	.mask[1]	= TEGRA210_XBAR_REG_MASK_1,
++	.mask[2]	= TEGRA210_XBAR_REG_MASK_2,
++	.mask[3]	= TEGRA210_XBAR_REG_MASK_3,
++	.reg_count	= TEGRA210_XBAR_UPDATE_MAX_REG,
++};
++
++static const struct tegra_ahub_soc_data soc_data_tegra186 = {
++	.cmpnt_drv	= &tegra186_ahub_component,
++	.regmap_config	= &tegra186_ahub_regmap_config,
++	.mask[0]	= TEGRA186_XBAR_REG_MASK_0,
++	.mask[1]	= TEGRA186_XBAR_REG_MASK_1,
++	.mask[2]	= TEGRA186_XBAR_REG_MASK_2,
++	.mask[3]	= TEGRA186_XBAR_REG_MASK_3,
++	.reg_count	= TEGRA186_XBAR_UPDATE_MAX_REG,
++};
++
++static const struct of_device_id tegra_ahub_of_match[] = {
++	{ .compatible = "nvidia,tegra210-ahub", .data = &soc_data_tegra210 },
++	{ .compatible = "nvidia,tegra186-ahub", .data = &soc_data_tegra186 },
++	{},
++};
++MODULE_DEVICE_TABLE(of, tegra_ahub_of_match);
++
++static int tegra_ahub_runtime_suspend(struct device *dev)
 +{
-+	struct device *dev = &pdev->dev;
-+	struct tegra210_i2s *i2s;
++	struct tegra_ahub *ahub = dev_get_drvdata(dev);
++
++	regcache_cache_only(ahub->regmap, true);
++	regcache_mark_dirty(ahub->regmap);
++
++	clk_disable_unprepare(ahub->clk);
++
++	return 0;
++}
++
++static int tegra_ahub_runtime_resume(struct device *dev)
++{
++	struct tegra_ahub *ahub = dev_get_drvdata(dev);
++	int err;
++
++	err = clk_prepare_enable(ahub->clk);
++	if (err) {
++		dev_err(dev, "failed to enable AHUB clock, err: %d\n", err);
++		return err;
++	}
++
++	regcache_cache_only(ahub->regmap, false);
++	regcache_sync(ahub->regmap);
++
++	return 0;
++}
++
++static int tegra_ahub_probe(struct platform_device *pdev)
++{
++	struct tegra_ahub *ahub;
 +	void __iomem *regs;
 +	int err;
 +
-+	i2s = devm_kzalloc(dev, sizeof(*i2s), GFP_KERNEL);
-+	if (!i2s)
++	ahub = devm_kzalloc(&pdev->dev, sizeof(*ahub), GFP_KERNEL);
++	if (!ahub)
 +		return -ENOMEM;
 +
-+	i2s->rx_fifo_th = DEFAULT_I2S_RX_FIFO_THRESHOLD;
-+	i2s->tx_mask = DEFAULT_I2S_SLOT_MASK;
-+	i2s->rx_mask = DEFAULT_I2S_SLOT_MASK;
-+	i2s->loopback = false;
++	ahub->soc_data = of_device_get_match_data(&pdev->dev);
 +
-+	dev_set_drvdata(dev, i2s);
++	platform_set_drvdata(pdev, ahub);
 +
-+	i2s->clk_i2s = devm_clk_get(dev, "i2s");
-+	if (IS_ERR(i2s->clk_i2s)) {
-+		dev_err(dev, "can't retrieve I2S bit clock\n");
-+		return PTR_ERR(i2s->clk_i2s);
++	ahub->clk = devm_clk_get(&pdev->dev, "ahub");
++	if (IS_ERR(ahub->clk)) {
++		dev_err(&pdev->dev, "can't retrieve AHUB clock\n");
++		return PTR_ERR(ahub->clk);
 +	}
-+
-+	/*
-+	 * Not an error, as this clock is needed only when some other I/O
-+	 * requires input clock from current I2S instance, which is
-+	 * configurable from DT.
-+	 */
-+	i2s->clk_sync_input = devm_clk_get(dev, "sync_input");
-+	if (IS_ERR(i2s->clk_sync_input))
-+		dev_dbg(dev, "can't retrieve I2S sync input clock\n");
 +
 +	regs = devm_platform_ioremap_resource(pdev, 0);
 +	if (IS_ERR(regs))
 +		return PTR_ERR(regs);
 +
-+	i2s->regmap = devm_regmap_init_mmio(dev, regs,
-+					    &tegra210_i2s_regmap_config);
-+	if (IS_ERR(i2s->regmap)) {
-+		dev_err(dev, "regmap init failed\n");
-+		return PTR_ERR(i2s->regmap);
++	ahub->regmap = devm_regmap_init_mmio(&pdev->dev, regs,
++					     ahub->soc_data->regmap_config);
++	if (IS_ERR(ahub->regmap)) {
++		dev_err(&pdev->dev, "regmap init failed\n");
++		return PTR_ERR(ahub->regmap);
 +	}
 +
-+	regcache_cache_only(i2s->regmap, true);
++	regcache_cache_only(ahub->regmap, true);
 +
-+	err = devm_snd_soc_register_component(dev, &tegra210_i2s_cmpnt,
-+					      tegra210_i2s_dais,
-+					      ARRAY_SIZE(tegra210_i2s_dais));
++	err = devm_snd_soc_register_component(&pdev->dev,
++					      ahub->soc_data->cmpnt_drv,
++					      NULL, 0);
 +	if (err) {
-+		dev_err(dev, "can't register I2S component, err: %d\n", err);
++		dev_err(&pdev->dev, "can't register AHUB component, err: %d\n",
++			err);
 +		return err;
 +	}
 +
-+	pm_runtime_enable(dev);
++	err = of_platform_populate(pdev->dev.of_node, NULL, NULL, &pdev->dev);
++	if (err)
++		return err;
++
++	pm_runtime_enable(&pdev->dev);
 +
 +	return 0;
 +}
 +
-+static int tegra210_i2s_remove(struct platform_device *pdev)
++static int tegra_ahub_remove(struct platform_device *pdev)
 +{
 +	pm_runtime_disable(&pdev->dev);
 +
 +	return 0;
 +}
 +
-+static const struct dev_pm_ops tegra210_i2s_pm_ops = {
-+	SET_RUNTIME_PM_OPS(tegra210_i2s_runtime_suspend,
-+			   tegra210_i2s_runtime_resume, NULL)
++static const struct dev_pm_ops tegra_ahub_pm_ops = {
++	SET_RUNTIME_PM_OPS(tegra_ahub_runtime_suspend,
++			   tegra_ahub_runtime_resume, NULL)
 +	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
 +				pm_runtime_force_resume)
 +};
 +
-+static const struct of_device_id tegra210_i2s_of_match[] = {
-+	{ .compatible = "nvidia,tegra210-i2s" },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, tegra210_i2s_of_match);
-+
-+static struct platform_driver tegra210_i2s_driver = {
++static struct platform_driver tegra_ahub_driver = {
++	.probe = tegra_ahub_probe,
++	.remove = tegra_ahub_remove,
 +	.driver = {
-+		.name = "tegra210-i2s",
-+		.of_match_table = tegra210_i2s_of_match,
-+		.pm = &tegra210_i2s_pm_ops,
++		.name = "tegra210-ahub",
++		.of_match_table = tegra_ahub_of_match,
++		.pm = &tegra_ahub_pm_ops,
 +	},
-+	.probe = tegra210_i2s_probe,
-+	.remove = tegra210_i2s_remove,
 +};
-+module_platform_driver(tegra210_i2s_driver)
++module_platform_driver(tegra_ahub_driver);
 +
-+MODULE_AUTHOR("Songhee Baek <sbaek@nvidia.com>");
-+MODULE_DESCRIPTION("Tegra210 ASoC I2S driver");
++MODULE_AUTHOR("Stephen Warren <swarren@nvidia.com>");
++MODULE_AUTHOR("Mohan Kumar <mkumard@nvidia.com>");
++MODULE_DESCRIPTION("Tegra210 ASoC AHUB driver");
 +MODULE_LICENSE("GPL v2");
-diff --git a/sound/soc/tegra/tegra210_i2s.h b/sound/soc/tegra/tegra210_i2s.h
+diff --git a/sound/soc/tegra/tegra210_ahub.h b/sound/soc/tegra/tegra210_ahub.h
 new file mode 100644
-index 0000000..030d70c
+index 0000000..db3c8ce
 --- /dev/null
-+++ b/sound/soc/tegra/tegra210_i2s.h
-@@ -0,0 +1,126 @@
++++ b/sound/soc/tegra/tegra210_ahub.h
+@@ -0,0 +1,100 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
-+ * tegra210_i2s.h - Definitions for Tegra210 I2S driver
++ * tegra210_ahub.h - TEGRA210 AHUB
 + *
-+ * Copyright (c) 2020 NVIDIA CORPORATION. All rights reserved.
++ * Copyright (c) 2020 NVIDIA CORPORATION.  All rights reserved.
 + *
 + */
 +
-+#ifndef __TEGRA210_I2S_H__
-+#define __TEGRA210_I2S_H__
++#ifndef __TEGRA210_AHUB__H__
++#define __TEGRA210_AHUB__H__
 +
-+/* Register offsets from I2S*_BASE */
-+#define TEGRA210_I2S_RX_ENABLE			0x0
-+#define TEGRA210_I2S_RX_SOFT_RESET		0x4
-+#define TEGRA210_I2S_RX_STATUS			0x0c
-+#define TEGRA210_I2S_RX_INT_STATUS		0x10
-+#define TEGRA210_I2S_RX_INT_MASK		0x14
-+#define TEGRA210_I2S_RX_INT_SET			0x18
-+#define TEGRA210_I2S_RX_INT_CLEAR		0x1c
-+#define TEGRA210_I2S_RX_CIF_CTRL		0x20
-+#define TEGRA210_I2S_RX_CTRL			0x24
-+#define TEGRA210_I2S_RX_SLOT_CTRL		0x28
-+#define TEGRA210_I2S_RX_CLK_TRIM		0x2c
-+#define TEGRA210_I2S_RX_CYA			0x30
-+#define TEGRA210_I2S_RX_CIF_FIFO_STATUS		0x34
-+#define TEGRA210_I2S_TX_ENABLE			0x40
-+#define TEGRA210_I2S_TX_SOFT_RESET		0x44
-+#define TEGRA210_I2S_TX_STATUS			0x4c
-+#define TEGRA210_I2S_TX_INT_STATUS		0x50
-+#define TEGRA210_I2S_TX_INT_MASK		0x54
-+#define TEGRA210_I2S_TX_INT_SET			0x58
-+#define TEGRA210_I2S_TX_INT_CLEAR		0x5c
-+#define TEGRA210_I2S_TX_CIF_CTRL		0x60
-+#define TEGRA210_I2S_TX_CTRL			0x64
-+#define TEGRA210_I2S_TX_SLOT_CTRL		0x68
-+#define TEGRA210_I2S_TX_CLK_TRIM		0x6c
-+#define TEGRA210_I2S_TX_CYA			0x70
-+#define TEGRA210_I2S_TX_CIF_FIFO_STATUS		0x74
-+#define TEGRA210_I2S_ENABLE			0x80
-+#define TEGRA210_I2S_SOFT_RESET			0x84
-+#define TEGRA210_I2S_CG				0x88
-+#define TEGRA210_I2S_STATUS			0x8c
-+#define TEGRA210_I2S_INT_STATUS			0x90
-+#define TEGRA210_I2S_CTRL			0xa0
-+#define TEGRA210_I2S_TIMING			0xa4
-+#define TEGRA210_I2S_SLOT_CTRL			0xa8
-+#define TEGRA210_I2S_CLK_TRIM			0xac
-+#define TEGRA210_I2S_CYA			0xb0
++/* Tegra210 specific */
++#define TEGRA210_XBAR_PART1_RX				0x200
++#define TEGRA210_XBAR_PART2_RX				0x400
++#define TEGRA210_XBAR_RX_STRIDE				0x4
++#define TEGRA210_XBAR_AUDIO_RX_COUNT			90
++#define TEGRA210_XBAR_REG_MASK_0			0xf1f03ff
++#define TEGRA210_XBAR_REG_MASK_1			0x3f30031f
++#define TEGRA210_XBAR_REG_MASK_2			0xff1cf313
++#define TEGRA210_XBAR_REG_MASK_3			0x0
++#define TEGRA210_XBAR_UPDATE_MAX_REG			3
++/* Tegra186 specific */
++#define TEGRA186_XBAR_PART3_RX				0x600
++#define TEGRA186_XBAR_AUDIO_RX_COUNT			115
++#define TEGRA186_XBAR_REG_MASK_0			0xf3fffff
++#define TEGRA186_XBAR_REG_MASK_1			0x3f310f1f
++#define TEGRA186_XBAR_REG_MASK_2			0xff3cf311
++#define TEGRA186_XBAR_REG_MASK_3			0x3f0f00ff
++#define TEGRA186_XBAR_UPDATE_MAX_REG			4
 +
-+/* Bit fields, shifts and masks */
-+#define I2S_DATA_SHIFT				8
-+#define I2S_CTRL_DATA_OFFSET_MASK		(0x7ff << I2S_DATA_SHIFT)
++#define TEGRA_XBAR_UPDATE_MAX_REG (TEGRA186_XBAR_UPDATE_MAX_REG)
 +
-+#define I2S_EN_SHIFT				0
-+#define I2S_EN_MASK				BIT(I2S_EN_SHIFT)
-+#define I2S_EN					BIT(I2S_EN_SHIFT)
++#define TEGRA186_MAX_REGISTER_ADDR (TEGRA186_XBAR_PART3_RX +		\
++	(TEGRA210_XBAR_RX_STRIDE * (TEGRA186_XBAR_AUDIO_RX_COUNT - 1)))
 +
-+#define I2S_FSYNC_WIDTH_SHIFT			24
-+#define I2S_CTRL_FSYNC_WIDTH_MASK		(0xff << I2S_FSYNC_WIDTH_SHIFT)
++#define TEGRA210_MAX_REGISTER_ADDR (TEGRA210_XBAR_PART2_RX +		\
++	(TEGRA210_XBAR_RX_STRIDE * (TEGRA210_XBAR_AUDIO_RX_COUNT - 1)))
 +
-+#define I2S_POS_EDGE				0
-+#define I2S_NEG_EDGE				1
-+#define I2S_EDGE_SHIFT				20
-+#define I2S_CTRL_EDGE_CTRL_MASK			BIT(I2S_EDGE_SHIFT)
-+#define I2S_CTRL_EDGE_CTRL_POS_EDGE		(I2S_POS_EDGE << I2S_EDGE_SHIFT)
-+#define I2S_CTRL_EDGE_CTRL_NEG_EDGE		(I2S_NEG_EDGE << I2S_EDGE_SHIFT)
++#define MUX_REG(id) (TEGRA210_XBAR_RX_STRIDE * (id))
 +
-+#define I2S_FMT_LRCK				0
-+#define I2S_FMT_FSYNC				1
-+#define I2S_FMT_SHIFT				12
-+#define I2S_CTRL_FRAME_FMT_MASK			(7 << I2S_FMT_SHIFT)
-+#define I2S_CTRL_FRAME_FMT_LRCK_MODE		(I2S_FMT_LRCK << I2S_FMT_SHIFT)
-+#define I2S_CTRL_FRAME_FMT_FSYNC_MODE		(I2S_FMT_FSYNC << I2S_FMT_SHIFT)
++#define MUX_VALUE(npart, nbit) (1 + (nbit) + (npart) * 32)
 +
-+#define I2S_CTRL_MASTER_EN_SHIFT		10
-+#define I2S_CTRL_MASTER_EN_MASK			BIT(I2S_CTRL_MASTER_EN_SHIFT)
-+#define I2S_CTRL_MASTER_EN			BIT(I2S_CTRL_MASTER_EN_SHIFT)
++#define SOC_VALUE_ENUM_WIDE(xreg, shift, xmax, xtexts, xvalues)		\
++	{								\
++		.reg = xreg,						\
++		.shift_l = shift,					\
++		.shift_r = shift,					\
++		.items = xmax,						\
++		.texts = xtexts,					\
++		.values = xvalues,					\
++		.mask = xmax ? roundup_pow_of_two(xmax) - 1 : 0		\
++	}
 +
-+#define I2S_CTRL_LRCK_POL_SHIFT			9
-+#define I2S_CTRL_LRCK_POL_MASK			BIT(I2S_CTRL_LRCK_POL_SHIFT)
-+#define I2S_CTRL_LRCK_POL_LOW			(0 << I2S_CTRL_LRCK_POL_SHIFT)
-+#define I2S_CTRL_LRCK_POL_HIGH			BIT(I2S_CTRL_LRCK_POL_SHIFT)
++#define SOC_VALUE_ENUM_WIDE_DECL(name, xreg, shift, xtexts, xvalues)	\
++	static struct soc_enum name =					\
++		SOC_VALUE_ENUM_WIDE(xreg, shift, ARRAY_SIZE(xtexts),	\
++				    xtexts, xvalues)
 +
-+#define I2S_CTRL_LPBK_SHIFT			8
-+#define I2S_CTRL_LPBK_MASK			BIT(I2S_CTRL_LPBK_SHIFT)
-+#define I2S_CTRL_LPBK_EN			BIT(I2S_CTRL_LPBK_SHIFT)
++#define MUX_ENUM_CTRL_DECL(ename, id)					\
++	SOC_VALUE_ENUM_WIDE_DECL(ename##_enum, MUX_REG(id), 0,		\
++				 tegra210_ahub_mux_texts,		\
++				 tegra210_ahub_mux_values);		\
++	static const struct snd_kcontrol_new ename##_control =		\
++		SOC_DAPM_ENUM_EXT("Route", ename##_enum,		\
++				  tegra_ahub_get_value_enum,		\
++				  tegra_ahub_put_value_enum)
 +
-+#define I2S_BITS_8				1
-+#define I2S_BITS_16				3
-+#define I2S_BITS_32				7
-+#define I2S_CTRL_BIT_SIZE_MASK			0x7
++#define MUX_ENUM_CTRL_DECL_186(ename, id)				\
++	SOC_VALUE_ENUM_WIDE_DECL(ename##_enum, MUX_REG(id), 0,		\
++				 tegra186_ahub_mux_texts,		\
++				 tegra186_ahub_mux_values);		\
++	static const struct snd_kcontrol_new ename##_control =		\
++		SOC_DAPM_ENUM_EXT("Route", ename##_enum,		\
++				  tegra_ahub_get_value_enum,		\
++				  tegra_ahub_put_value_enum)
 +
-+#define I2S_TIMING_CH_BIT_CNT_MASK		0x7ff
-+#define I2S_TIMING_CH_BIT_CNT_SHIFT		0
++#define WIDGETS(sname, ename)						     \
++	SND_SOC_DAPM_AIF_IN(sname " XBAR-RX", NULL, 0, SND_SOC_NOPM, 0, 0),  \
++	SND_SOC_DAPM_AIF_OUT(sname " XBAR-TX", NULL, 0, SND_SOC_NOPM, 0, 0), \
++	SND_SOC_DAPM_MUX(sname " Mux", SND_SOC_NOPM, 0, 0,		     \
++			 &ename##_control)
 +
-+#define I2S_SOFT_RESET_SHIFT			0
-+#define I2S_SOFT_RESET_MASK			BIT(I2S_SOFT_RESET_SHIFT)
-+#define I2S_SOFT_RESET_EN			BIT(I2S_SOFT_RESET_SHIFT)
++#define TX_WIDGETS(sname)						    \
++	SND_SOC_DAPM_AIF_IN(sname " XBAR-RX", NULL, 0, SND_SOC_NOPM, 0, 0), \
++	SND_SOC_DAPM_AIF_OUT(sname " XBAR-TX", NULL, 0, SND_SOC_NOPM, 0, 0)
 +
-+#define I2S_RX_FIFO_DEPTH			64
-+#define DEFAULT_I2S_RX_FIFO_THRESHOLD		3
-+
-+#define DEFAULT_I2S_SLOT_MASK			0xffff
-+
-+enum tegra210_i2s_path {
-+	I2S_RX_PATH,
-+	I2S_TX_PATH,
-+	I2S_PATHS,
++struct tegra_ahub_soc_data {
++	const struct regmap_config *regmap_config;
++	const struct snd_soc_component_driver *cmpnt_drv;
++	unsigned int mask[4];
++	unsigned int reg_count;
 +};
 +
-+struct tegra210_i2s {
-+	struct clk *clk_i2s;
-+	struct clk *clk_sync_input;
++struct tegra_ahub {
++	const struct tegra_ahub_soc_data *soc_data;
 +	struct regmap *regmap;
-+	unsigned int stereo_to_mono[I2S_PATHS];
-+	unsigned int mono_to_stereo[I2S_PATHS];
-+	unsigned int dai_fmt;
-+	unsigned int fsync_width;
-+	unsigned int bclk_ratio;
-+	unsigned int tx_mask;
-+	unsigned int rx_mask;
-+	unsigned int rx_fifo_th;
-+	bool loopback;
++	struct clk *clk;
 +};
 +
 +#endif

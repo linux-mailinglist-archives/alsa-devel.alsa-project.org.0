@@ -2,93 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD5FA20C36F
-	for <lists+alsa-devel@lfdr.de>; Sat, 27 Jun 2020 20:04:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F29F20C38B
+	for <lists+alsa-devel@lfdr.de>; Sat, 27 Jun 2020 20:32:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6428B1665;
-	Sat, 27 Jun 2020 20:03:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6428B1665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 15FFA1678;
+	Sat, 27 Jun 2020 20:32:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15FFA1678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593281053;
-	bh=GMoysJB9FrzrUXe3ZNk4yWw1g7t/ZuEfwaTB0B3e63o=;
-	h=Subject:To:References:From:Date:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=pPyAaUnQp+48V5Aax3U18ux1aCpp0cQEPNce4Ni2q6w0UCEeOMtnwSQMu0/kod3NR
-	 bE6QvY5VUtJRSYyhl35s5k8dnIPs1PCi5zo1+j9sYE42Ctr4owuz/+54TUIk/NvCOD
-	 X1bfYikQI5ef16bjvMKehxCq0dRsAEiOuQjNzKw0=
+	s=default; t=1593282770;
+	bh=2eKHOShBx9Ba8o4P59DMd8+IjH/am3jT5ZVcZrpVQjU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=peTF1aT/bZmkA5UbNy/N5Gps6I0dxHh6q972CIFImn52uhCn2oxeC43KaArWB5k4k
+	 InWIN6TBk9FZYjdaqvrn0DW+HY1Lt/7NlsSiEnhR4x2NXGaioWCmPXUG70379SQ4T7
+	 SiOi6mkBqkWtwkvAk4ByXRW+UdLR3A08mmhsovv0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 425E2F8023E;
-	Sat, 27 Jun 2020 20:02:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1E0BDF8023E;
+	Sat, 27 Jun 2020 20:31:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6E0CFF80234; Sat, 27 Jun 2020 20:02:29 +0200 (CEST)
+ id 7CE03F80234; Sat, 27 Jun 2020 20:31:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_MSPIKE_H4, RCVD_IN_MSPIKE_WL, RCVD_IN_SORBS_WEB, SPF_HELO_NONE,
- SPF_PASS, URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
- [104.130.122.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
+ [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 31CB8F80157
- for <alsa-devel@alsa-project.org>; Sat, 27 Jun 2020 20:02:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31CB8F80157
+ by alsa1.perex.cz (Postfix) with ESMTPS id 16A63F80096
+ for <alsa-devel@alsa-project.org>; Sat, 27 Jun 2020 20:31:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16A63F80096
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="o33eIcfG"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1593280945; h=Content-Transfer-Encoding: Content-Type:
- MIME-Version: Date: Message-ID: From: References: Cc: To: Subject:
- Sender; bh=rh/RzCkxDxGOtEhur6n0ua62CiLZl8TIulvjxC0+MdQ=;
- b=o33eIcfG9+fz+Z/dJuVzfxUu71KzD3Sfq5oL78p3IVbrglK4RUDppw+TIw55lcjGKxBdI9kP
- 6Kf0jq1t3MVCLeDy3KSWuLb6I0Zkox4PYxGPhs4lbLtdb1zbVvNvQhefRAswkMaKtSFpo4Kj
- /94TKyGQjTstvB7P3IRg82rTFUA=
-X-Mailgun-Sending-Ip: 104.130.122.29
-X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n20.prod.us-east-1.postgun.com with SMTP id
- 5ef789a8c76a4e7a2a74051e (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Sat, 27 Jun 2020 18:02:16
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 0ED94C433CA; Sat, 27 Jun 2020 18:02:15 +0000 (UTC)
-Received: from [192.168.0.129] (unknown [183.83.142.110])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: rohitkr)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 1B766C433C8;
- Sat, 27 Jun 2020 18:02:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 1B766C433C8
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=rohitkr@codeaurora.org
-Subject: Re: [PATCH v2 4/7] ASoC: qcom: lpass: Use regmap_field for i2sctl and
- dmactl registers
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Ajit Pandey <ajitp@codeaurora.org>, broonie@kernel.org, plai@codeaurora.org,
- bgoswami@codeaurora.org
-References: =?UTF-8?Q?=3c=1c1586592171-31644-1-git-send-email-ajitp=40codeau?=
- =?UTF-8?Q?rora=2eorg=1d=3e_=3c1589474298-29437-1-git-send-email-ajitp=40cod?=
- =?UTF-8?Q?eaurora=2eorg=3e_=3c1589474298-29437-5-git-send-email-ajitp=40cod?=
- =?UTF-8?Q?eaurora=2eorg=3e_=3ca3527251-cafd-6d8f-3f96-0549b220af09=40linaro?=
- =?UTF-8?B?Lm9yZz4=?=
-From: Rohit Kumar <rohitkr@codeaurora.org>
-Message-ID: <3c4093c5-d538-8508-ae98-c313ffdea250@codeaurora.org>
-Date: Sat, 27 Jun 2020 23:32:09 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="KlH6ttEe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1593282660;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=ocQ8ce/EgZoTX+gQk7QLb8yXb1HRDeg2hLqSrkNmPcg=;
+ b=KlH6ttEeiFneO5FvtdSIcAuy4yiEbx6XunKUZClHDuSqyRdDiZrT/vbpFf+WQdLqqgudJt
+ 1VHkMAzZk+fFhlK1c7nxwVTXKQCg4R4cbc/a7efkCzCyBTj3WRn2eDNUNY7qoVsdFiPjr1
+ 5ZbWxkdn13/k0yR1sbtEERxik/teuRs=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-279-_zoYSSpIM92N6z7Gexe8dQ-1; Sat, 27 Jun 2020 14:30:56 -0400
+X-MC-Unique: _zoYSSpIM92N6z7Gexe8dQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+ [10.5.11.22])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 49D4718A8228;
+ Sat, 27 Jun 2020 18:30:55 +0000 (UTC)
+Received: from x1.localdomain.com (ovpn-112-69.ams2.redhat.com [10.36.112.69])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 0F8AE1001B07;
+ Sat, 27 Jun 2020 18:30:53 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Jaroslav Kysela <perex@perex.cz>,
+	alsa-devel@alsa-project.org
+Subject: [PATCH] ucm: Allow empty strings in "${var:...}" substitutions
+Date: Sat, 27 Jun 2020 20:30:52 +0200
+Message-Id: <20200627183052.97118-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Cc: Hans de Goede <hdegoede@redhat.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,142 +90,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks Srini for reviewing the change.
+Recent ucm-conf changes introduce checks like this one in various places:
 
+If.mspk {
+        Condition {
+                Type String
+                Empty "${var:MonoSpeaker}"
+        }
+        True ...
+        False ...
+}
 
-On 5/18/2020 3:19 PM, Srinivas Kandagatla wrote:
->
->
-> On 14/05/2020 17:38, Ajit Pandey wrote:
->> I2SCTL and DMACTL registers has different bits alignment for newer
->> LPASS variants of SC7180 soc. Instead of adding extra overhead for
->> calculating masks and shifts for newer variants registers layout we
->> changed the approach to use regmap_field_write() API to update bit.
->> Such API's will internally do the required bit shift and mask based
->> on reg_field struct defined for bit fields. We'll define REG_FIELD()
->> macros with bit layout for both lpass variants and use such macros
->> to initialize register fields in variant specific driver callbacks.
->> Also added new bitfieds values for I2SCTL and DMACTL registers and
->> removed shifts and mask macros for such registers from header file.
->>
->> Signed-off-by: Ajit Pandey <ajitp@codeaurora.org>
->> ---
->>   sound/soc/qcom/lpass-apq8016.c   |  61 ++++++++++++
->>   sound/soc/qcom/lpass-cpu.c       | 114 +++++++++++++---------
->>   sound/soc/qcom/lpass-lpaif-reg.h | 203 
->> ++++++++++++++++++++++++---------------
->>   sound/soc/qcom/lpass-platform.c  |  86 +++++++++++------
->>   sound/soc/qcom/lpass.h           |  30 ++++++
->>   5 files changed, 340 insertions(+), 154 deletions(-)
->>
->
-> Thanks for moving this to regmap fields, looks clean!
-> However this patch just removed support to lpass-ipq806x.c variant, 
-> which should to be taken care of while doing patches that apply to all 
-> variants.
->
-Right. I will make the change as part of next patchset.
->
->> diff --git a/sound/soc/qcom/lpass-apq8016.c 
->> b/sound/soc/qcom/lpass-apq8016.c
->> index 8210e37..3149645 100644
->> --- a/sound/soc/qcom/lpass-apq8016.c
->> +++ b/sound/soc/qcom/lpass-apq8016.c
->> @@ -124,6 +124,32 @@
->>       },
->>   };
->>   +static int apq8016_init_dmactl_bitfields(struct lpaif_dmactl *dmactl,
->> +                     struct regmap *map,
->> +                     unsigned int reg)
->> +{
->> +    struct reg_field bursten = DMACTL_BURSTEN_FLD(reg);
->> +    struct reg_field wpscnt = DMACTL_WPSCNT_FLD(reg);
->> +    struct reg_field fifowm = DMACTL_FIFOWM_FLD(reg);
->> +    struct reg_field intf = DMACTL_AUDINTF_FLD(reg);
->> +    struct reg_field enable = DMACTL_ENABLE_FLD(reg);
->> +    struct reg_field dyncclk = DMACTL_DYNCLK_FLD(reg);
->> +
->> +    dmactl->bursten = regmap_field_alloc(map, bursten);
->> +    dmactl->wpscnt = regmap_field_alloc(map, wpscnt);
->> +    dmactl->fifowm = regmap_field_alloc(map, fifowm);
->> +    dmactl->intf = regmap_field_alloc(map, intf);
->> +    dmactl->enable = regmap_field_alloc(map, enable);
->> +    dmactl->dyncclk = regmap_field_alloc(map, dyncclk);
->
-> My idea was to move this all regmap fields to variant structure and 
-> common code will do the regmap_filed_alloc rather than each variant 
-> duplicating the same code for each variant, also am guessing some of 
-> the members in the lpass_variant structure tp become redundant due to 
-> regmap field which can be removed as well.
->
-> ex :
->
-> struct lpass_variant {
->     ...
->     struct reg_field bursten
->     ...
-> };
->
-> in lpass-apq8016.c
->
-> we do
-> static struct lpass_variant apq8016_data = {
->
->     .bursten = REG_FIELD(reg, 11, 11),
->     ...
-> }
->
-We can keep reg_field in lpass_variant, but assignment in the struct 
-will be a problem as
+The 'Empty "${var:MonoSpeaker}"' part can only every succeed if we do:
 
-reg is variable here. So, we need to expose an API in lpass_variant to 
-assign reg_field.
+Define.MonoSpeaker ""
 
-regmap_field will still be in dmactl/i2sctl structs as it differs for 
-different dma channel/i2s port
+But so far that would result in an error like this one:
 
-respectively. Please share your thoughts.
+ALSA lib ucm_subs.c:367:(uc_mgr_get_substituted_value) variable '${var:MonoSpeaker}' is not defined in this context!
+ALSA lib main.c:983:(snd_use_case_mgr_open) error: failed to import cht-bsw-rt5672 use case configuration -22
+alsaucm: error failed to open sound card cht-bsw-rt5672: Invalid argument
 
-> in lpass-cpu.c we can do the real regmap_field_alloc
-> asoc_qcom_lpass_cpu_platform_probe
->
-Yes, I will move regmap_field_alloc to lpass_cpu.c in next patchset.
->
->
->> +
->> +    if (IS_ERR(dmactl->bursten) || IS_ERR(dmactl->wpscnt) ||
->> +        IS_ERR(dmactl->fifowm) || IS_ERR(dmactl->intf) ||
->> +        IS_ERR(dmactl->enable) || IS_ERR(dmactl->dyncclk))
->> +        return -EINVAL;
->> +
->> +    return 0;
->> +}
->> +
->>   static int apq8016_lpass_alloc_dma_channel(struct lpass_data *drvdata,
->>                          int direction)
->>   {
->> @@ -158,6 +184,39 @@ static int apq8016_lpass_free_dma_channel(struct 
->> lpass_data *drvdata, int chan)
->>       return 0;
->>   }
->>   +static int sc7180_init_i2sctl_bitfields(struct lpaif_i2sctl *i2sctl,
->> +                    struct regmap *map, unsigned int reg)
->> +{
-> Should this be apq8016_init_i2sctl_bitfields
->
-> Please make sure that you compile the code before sending it out!
->
-Will take care in next patchset.
+This commit fixes this by allowing empty values for "${var:...}"
+substitutions.
 
->
-> --srini
->
->>
-Thanks,
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+Note besides the mentioned error, this also fixes similar errors I have
+been seeing on every board since alsa-ucm-conf commit d001c8de287f
+("ucm.conf: add support for the kernel module name tree")
+---
+ src/ucm/ucm_subs.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-Rohit
-
+diff --git a/src/ucm/ucm_subs.c b/src/ucm/ucm_subs.c
+index 293426f2..a154aa51 100644
+--- a/src/ucm/ucm_subs.c
++++ b/src/ucm/ucm_subs.c
+@@ -262,9 +262,10 @@ static char *rval_var(snd_use_case_mgr_t *uc_mgr, const char *id)
+ 		goto __rval;						\
+ 	}
+ 
+-#define MATCH_VARIABLE2(name, id, fcn)					\
++#define MATCH_VARIABLE2(name, id, fcn, empty_ok)			\
+ 	if (strncmp((name), (id), sizeof(id) - 1) == 0) {		\
+ 		idsize = sizeof(id) - 1;				\
++		allow_empty = (empty_ok);				\
+ 		fcn2 = (fcn);						\
+ 		goto __match2;						\
+ 	}
+@@ -314,11 +315,11 @@ __std:
+ 		MATCH_VARIABLE(value, "${CardName}", rval_card_name, false);
+ 		MATCH_VARIABLE(value, "${CardLongName}", rval_card_longname, false);
+ 		MATCH_VARIABLE(value, "${CardComponents}", rval_card_components, true);
+-		MATCH_VARIABLE2(value, "${env:", rval_env);
+-		MATCH_VARIABLE2(value, "${sys:", rval_sysfs);
+-		MATCH_VARIABLE2(value, "${var:", rval_var);
+-		MATCH_VARIABLE2(value, "${CardNumberByName:", rval_card_number_by_name);
+-		MATCH_VARIABLE2(value, "${CardIdByName:", rval_card_id_by_name);
++		MATCH_VARIABLE2(value, "${env:", rval_env, false);
++		MATCH_VARIABLE2(value, "${sys:", rval_sysfs, false);
++		MATCH_VARIABLE2(value, "${var:", rval_var, true);
++		MATCH_VARIABLE2(value, "${CardNumberByName:", rval_card_number_by_name, false);
++		MATCH_VARIABLE2(value, "${CardIdByName:", rval_card_id_by_name, false);
+ __merr:
+ 		err = -EINVAL;
+ 		tmp = strchr(value, '}');
 -- 
-Qualcomm INDIA, on behalf of Qualcomm Innovation Center, Inc.is a member
-of the Code Aurora Forum, hosted by the Linux Foundation.
+2.26.2
 

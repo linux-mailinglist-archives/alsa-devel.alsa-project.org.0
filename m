@@ -2,70 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07E1E20C420
-	for <lists+alsa-devel@lfdr.de>; Sat, 27 Jun 2020 22:42:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8CC520C8BF
+	for <lists+alsa-devel@lfdr.de>; Sun, 28 Jun 2020 17:41:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 50C9B1679;
-	Sat, 27 Jun 2020 22:41:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50C9B1679
+	by alsa0.perex.cz (Postfix) with ESMTPS id A11141678;
+	Sun, 28 Jun 2020 17:40:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A11141678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593290546;
-	bh=M77RMJOrxgP2GSsRf2I5n0jcp1lbiDPx85yabVEM+Do=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=CgDwiICUanSmphM3fYIvL+9QTf8iKVATphT1XGhAtzxmnNwWT3fK39R+AcOUsTzyg
-	 +XtHaIa1xpwPt5GUByDd/vRygQa6DTspGwHndLY4sIT2K+8uwa1zTH9kb+Q/7SqLub
-	 YoEcRYz4PwSRiMfSrIHXwSTHdQBCPNyoxySsuiNs=
+	s=default; t=1593358891;
+	bh=cp6ychLjaNlfb+ZwY8ijr6CMrwo3TiqLhnW2wzpwJqU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=oQG/FFhN4ybJVDI8oWOViYX3vLuchO0cQzZgv8vGYRId2qKtciBydEnrfNfiULTGg
+	 9JnHazY++jHVpL+ew03M2/zRXR+s8hCXHpT59Fdw0EE/kJXkAECXpeDppkb4yE97Ns
+	 uwzyf/Tn2LH6nn72D+km5KEogDkVj5vbc5/5trz0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D884F80148;
-	Sat, 27 Jun 2020 22:40:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4656F80096;
+	Sun, 28 Jun 2020 17:39:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B01F9F80234; Sat, 27 Jun 2020 22:40:42 +0200 (CEST)
+ id ECFC1F80245; Sun, 28 Jun 2020 17:39:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
+ [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 22A6CF80157
- for <alsa-devel@alsa-project.org>; Sat, 27 Jun 2020 22:40:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22A6CF80157
-IronPort-SDR: fqhcwXN2CaAOGXwIM+K3JgsIdfpL31S7B1GRy2rdUSv71uEbMw3jUFbu8vuyrjTmvkfClSDya1
- aQk+IOSY5Nww==
-X-IronPort-AV: E=McAfee;i="6000,8403,9665"; a="125366815"
-X-IronPort-AV: E=Sophos;i="5.75,289,1589266800"; d="scan'208";a="125366815"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jun 2020 13:40:30 -0700
-IronPort-SDR: Ox1sXx1NGE8Zae9V9Lvm+vedawtW0fHhQWLk7CJCQ97Se4v0q2AI/Hmes2GcyDvh++XKHJ1GFW
- GQDr6lJeoKOg==
-X-IronPort-AV: E=Sophos;i="5.75,289,1589266800"; d="scan'208";a="320295633"
-Received: from sspancha-mobl1.amr.corp.intel.com (HELO [10.254.110.21])
- ([10.254.110.21])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jun 2020 13:40:29 -0700
-Subject: Re: [PATCH] ucm: Allow empty strings in "${var:...}" substitutions
-To: Hans de Goede <hdegoede@redhat.com>, Jaroslav Kysela <perex@perex.cz>,
- alsa-devel@alsa-project.org
-References: <20200627183052.97118-1-hdegoede@redhat.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <e516d4d6-69bc-703a-9dc3-a7aead3c7a4c@linux.intel.com>
-Date: Sat, 27 Jun 2020 15:40:28 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0FA34F80096
+ for <alsa-devel@alsa-project.org>; Sun, 28 Jun 2020 17:39:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FA34F80096
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="PNUKfu8c"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1593358783;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=C3LpD2mlcJNMtbsD9v32FPjMwTU1WWu2E9HMpLcuDz0=;
+ b=PNUKfu8cYtKHsu1+2fK9jkE+mszyDOc6SnhHsSlIyBC87M3ykIqEdTjO4emD9pZRpBjzZ9
+ cp53e4fe2vSqmXLBRXY3MFpXlFoO3NcKlGcb6jPBcnOO78lZOOwlssrOlX71WI+4sZxe36
+ RlzsnguoVD6KR1qZJXY6+L/Tebi3dgw=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-489-5c2xL9kcPOuEZ9TC6XHuHQ-1; Sun, 28 Jun 2020 11:39:39 -0400
+X-MC-Unique: 5c2xL9kcPOuEZ9TC6XHuHQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3B3EFBFC0;
+ Sun, 28 Jun 2020 15:39:37 +0000 (UTC)
+Received: from x1.localdomain.com (ovpn-112-41.ams2.redhat.com [10.36.112.41])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id D6AC62857F;
+ Sun, 28 Jun 2020 15:39:34 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>,
+ Oder Chiou <oder_chiou@realtek.com>
+Subject: [PATCH 1/6] ASoC: Intel: cht_bsw_rt5672: Change bus format to I2S 2
+ channel
+Date: Sun, 28 Jun 2020 17:39:28 +0200
+Message-Id: <20200628153933.70538-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20200627183052.97118-1-hdegoede@redhat.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,90 +94,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The default mode for SSP configuration is TDM 4 slot and so far we were
+using this for the bus format on cht-bsw-rt56732 boards.
 
+One board, the Lenovo Miix 2 10 uses not 1 but 2 codecs connected to SSP2.
+The second piggy-backed, output-only codec is inside the keyboard-dock
+(which has extra speakers). Unlike the main rt5672 codec, we cannot
+configure this codec, it is hard coded to use 2 channel 24 bit I2S.
 
-On 6/27/20 1:30 PM, Hans de Goede wrote:
-> Recent ucm-conf changes introduce checks like this one in various places:
-> 
-> If.mspk {
->          Condition {
->                  Type String
->                  Empty "${var:MonoSpeaker}"
->          }
->          True ...
->          False ...
-> }
-> 
-> The 'Empty "${var:MonoSpeaker}"' part can only every succeed if we do:
-> 
-> Define.MonoSpeaker ""
-> 
-> But so far that would result in an error like this one:
-> 
-> ALSA lib ucm_subs.c:367:(uc_mgr_get_substituted_value) variable '${var:MonoSpeaker}' is not defined in this context!
-> ALSA lib main.c:983:(snd_use_case_mgr_open) error: failed to import cht-bsw-rt5672 use case configuration -22
-> alsaucm: error failed to open sound card cht-bsw-rt5672: Invalid argument
-> 
-> This commit fixes this by allowing empty values for "${var:...}"
-> substitutions.
-> 
-> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-> ---
-> Note besides the mentioned error, this also fixes similar errors I have
-> been seeing on every board since alsa-ucm-conf commit d001c8de287f
-> ("ucm.conf: add support for the kernel module name tree")
+Using 4 channel TDM leads to the dock speakers codec (which listens in on
+the data send from the SSP to the rt5672 codec) emiting horribly distorted
+sound.
 
-Well this is quite timely, I had to revert to older versions of UCM 
-earlier today because of similar issues:
+Since we only support 2 channels anyways, there is no need for TDM on any
+cht-bsw-rt5672 designs. So we can simply use I2S 2ch everywhere.
 
-root@Zotac:~/alsa-lib# alsaucm -c SOF set _verb HiFi set _enadev Headphones
-ALSA lib ucm_subs.c:367:(uc_mgr_get_substituted_value) variable 
-'${var:V1}' is not defined in this context!
-ALSA lib main.c:983:(snd_use_case_mgr_open) error: failed to import SOF 
-use case configuration -22
-alsaucm: error failed to open sound card SOF: Invalid argument
+This commit fixes the Lenovo Miix 2 10 dock speakers issue by changing
+the bus format set in cht_codec_fixup() to I2S 2 channel.
 
-This error is gone with this patch + latest alsa-ucm-conf, so
+This change has been tested on the following devices with a rt5672 codec:
 
-Tested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Lenovo Miix 2 10
+Lenovo Thinkpad 8
+Lenovo Thinkpad 10 (gen 1)
 
-Thanks Hans!
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ sound/soc/intel/boards/cht_bsw_rt5672.c | 23 +++++++++++------------
+ 1 file changed, 11 insertions(+), 12 deletions(-)
 
-> ---
->   src/ucm/ucm_subs.c | 13 +++++++------
->   1 file changed, 7 insertions(+), 6 deletions(-)
-> 
-> diff --git a/src/ucm/ucm_subs.c b/src/ucm/ucm_subs.c
-> index 293426f2..a154aa51 100644
-> --- a/src/ucm/ucm_subs.c
-> +++ b/src/ucm/ucm_subs.c
-> @@ -262,9 +262,10 @@ static char *rval_var(snd_use_case_mgr_t *uc_mgr, const char *id)
->   		goto __rval;						\
->   	}
->   
-> -#define MATCH_VARIABLE2(name, id, fcn)					\
-> +#define MATCH_VARIABLE2(name, id, fcn, empty_ok)			\
->   	if (strncmp((name), (id), sizeof(id) - 1) == 0) {		\
->   		idsize = sizeof(id) - 1;				\
-> +		allow_empty = (empty_ok);				\
->   		fcn2 = (fcn);						\
->   		goto __match2;						\
->   	}
-> @@ -314,11 +315,11 @@ __std:
->   		MATCH_VARIABLE(value, "${CardName}", rval_card_name, false);
->   		MATCH_VARIABLE(value, "${CardLongName}", rval_card_longname, false);
->   		MATCH_VARIABLE(value, "${CardComponents}", rval_card_components, true);
-> -		MATCH_VARIABLE2(value, "${env:", rval_env);
-> -		MATCH_VARIABLE2(value, "${sys:", rval_sysfs);
-> -		MATCH_VARIABLE2(value, "${var:", rval_var);
-> -		MATCH_VARIABLE2(value, "${CardNumberByName:", rval_card_number_by_name);
-> -		MATCH_VARIABLE2(value, "${CardIdByName:", rval_card_id_by_name);
-> +		MATCH_VARIABLE2(value, "${env:", rval_env, false);
-> +		MATCH_VARIABLE2(value, "${sys:", rval_sysfs, false);
-> +		MATCH_VARIABLE2(value, "${var:", rval_var, true);
-> +		MATCH_VARIABLE2(value, "${CardNumberByName:", rval_card_number_by_name, false);
-> +		MATCH_VARIABLE2(value, "${CardIdByName:", rval_card_id_by_name, false);
->   __merr:
->   		err = -EINVAL;
->   		tmp = strchr(value, '}');
-> 
+diff --git a/sound/soc/intel/boards/cht_bsw_rt5672.c b/sound/soc/intel/boards/cht_bsw_rt5672.c
+index 7a43c70a1378..22e432768edb 100644
+--- a/sound/soc/intel/boards/cht_bsw_rt5672.c
++++ b/sound/soc/intel/boards/cht_bsw_rt5672.c
+@@ -253,21 +253,20 @@ static int cht_codec_fixup(struct snd_soc_pcm_runtime *rtd,
+ 	params_set_format(params, SNDRV_PCM_FORMAT_S24_LE);
+ 
+ 	/*
+-	 * Default mode for SSP configuration is TDM 4 slot
++	 * Default mode for SSP configuration is TDM 4 slot. One board/design,
++	 * the Lenovo Miix 2 10 uses not 1 but 2 codecs connected to SSP2. The
++	 * second piggy-backed, output-only codec is inside the keyboard-dock
++	 * (which has extra speakers). Unlike the main rt5672 codec, we cannot
++	 * configure this codec, it is hard coded to use 2 channel 24 bit I2S.
++	 * Since we only support 2 channels anyways, there is no need for TDM
++	 * on any cht-bsw-rt5672 designs. So we simply use I2S 2ch everywhere.
+ 	 */
+-	ret = snd_soc_dai_set_fmt(asoc_rtd_to_codec(rtd, 0),
+-				  SND_SOC_DAIFMT_DSP_B |
+-				  SND_SOC_DAIFMT_IB_NF |
++	ret = snd_soc_dai_set_fmt(asoc_rtd_to_cpu(rtd, 0),
++				  SND_SOC_DAIFMT_I2S     |
++				  SND_SOC_DAIFMT_NB_NF   |
+ 				  SND_SOC_DAIFMT_CBS_CFS);
+ 	if (ret < 0) {
+-		dev_err(rtd->dev, "can't set format to TDM %d\n", ret);
+-		return ret;
+-	}
+-
+-	/* TDM 4 slots 24 bit, set Rx & Tx bitmask to 4 active slots */
+-	ret = snd_soc_dai_set_tdm_slot(asoc_rtd_to_codec(rtd, 0), 0xF, 0xF, 4, 24);
+-	if (ret < 0) {
+-		dev_err(rtd->dev, "can't set codec TDM slot %d\n", ret);
++		dev_err(rtd->dev, "can't set format to I2S, err %d\n", ret);
+ 		return ret;
+ 	}
+ 
+-- 
+2.26.2
+

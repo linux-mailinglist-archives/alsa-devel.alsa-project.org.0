@@ -2,110 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3019320D5EF
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jun 2020 22:04:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED33120D855
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jun 2020 22:09:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BA9EC165E;
-	Mon, 29 Jun 2020 22:03:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA9EC165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5A1D6165D;
+	Mon, 29 Jun 2020 22:08:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A1D6165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593461058;
-	bh=6u+ueu8mwwkztoe91bhc4fSzBYiRYoUmgVRIZTK4GgE=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1593461360;
+	bh=CFy0XiHvO0+goP6LXEaAAtd6WGeOa3kVbpguRZ50Wcs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UgMR77IZZi12SMyiUEFnICZJMlbyQhQH4XvMvTYPy6lnVTe1zBi3OO687Q9LSL+As
-	 kTCwBGVRbcjayJ7LudRoZI7euURC6BoE81eaEIvb4wzuPgKxTN5KQ13neeJyIB1p/r
-	 6+m7lzZ5fhtZIr08fgl6X2uIlXmViWqubBi844Rw=
+	b=Me1O1JKWiu5Oh7N5zUFy4Pr4SMMjlGAlMmcviNVTGteM4CmlnYDCQygZLAJkBNdEu
+	 xTA4h5A6o+TV3I0wxC8iGQdjFwlovIyn+bXySYDZEB43hrTHsk6TJyrL24nov1vWn/
+	 AHlSBaGUVnNI8xTTYN2SVa0OP9AlzEy7r8/enxZY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD41DF8020C;
-	Mon, 29 Jun 2020 22:02:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78976F80217;
+	Mon, 29 Jun 2020 22:07:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 66955F80217; Mon, 29 Jun 2020 22:02:36 +0200 (CEST)
+ id 3D05FF80217; Mon, 29 Jun 2020 22:07:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 09E28F80096
- for <alsa-devel@alsa-project.org>; Mon, 29 Jun 2020 22:02:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09E28F80096
+ by alsa1.perex.cz (Postfix) with ESMTPS id 612E1F80096
+ for <alsa-devel@alsa-project.org>; Mon, 29 Jun 2020 22:07:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 612E1F80096
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="RWftICYi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1593460949;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=5P7wbiDWv4UOgMAeguuZyI0w31+W6fKo+gmexo4S+2o=;
- b=RWftICYiCk/c7clD/Zz8rfYIjp+Q7sobST4hD7zvtHgS+VJjkrBbeJuT3423Ru+WWgpHeK
- rUyYZBwfEvPUzSMy0rMmQJSFhxj6y1AE+nLLq6wuPod8/Osu6BpXSFR1DDXaU2OaWpHsNL
- eKziRpWLB6ty16BK9wQbjmRrh48MyIg=
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
- [209.85.208.72]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-511-9rz8zyZ4Oxm1KYJboPi9ag-1; Mon, 29 Jun 2020 16:02:27 -0400
-X-MC-Unique: 9rz8zyZ4Oxm1KYJboPi9ag-1
-Received: by mail-ed1-f72.google.com with SMTP id o3so15135734eda.23
- for <alsa-devel@alsa-project.org>; Mon, 29 Jun 2020 13:02:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=5P7wbiDWv4UOgMAeguuZyI0w31+W6fKo+gmexo4S+2o=;
- b=bGlqyqwzF/HNwH7v2ZVesApL0dhYNEIv7yEd/GC+IprwHrYNdlqM8wf93xlxpFluXx
- xFs4UU7JbyCEaLhf9Qf9Fg+vxMJWacHxly5loTtpwOEA7geviS5JZhCwWrpdahJ10roR
- QUVoe+GF7Arl8Fv9z9ABiO534C87Zua0CoggDJkpZtxuKY0Uu4DO1wbGYDeIaievcvdE
- eH5a7z2B89AfwVPOHr1L/y9bocRh1HlRBMVK9JXxd3rMoihodGYBEWgWwQI3bdoMoYjg
- MAAkFzbf3Dhv6uHvAgidK43jElOXjdbTPkZZozcR0HP0OcnynaHt9gAD5KrWxyDsk0Yt
- lBLA==
-X-Gm-Message-State: AOAM532xol6J0Jg4T717L08PhLkXBfdFRhgdBIyOW8HNpZwPA7ONVWCE
- QSWyPdXGe0FN7DIAlEXaY94g/C3vq0Czo1dcIUKkZLNi+b0PPPqMuWYYHZff1a90xUOfUC4MWn5
- msaBZr4lYVvjiZ58qQN6+QvE=
-X-Received: by 2002:a17:906:444e:: with SMTP id
- i14mr3418860ejp.418.1593460945548; 
- Mon, 29 Jun 2020 13:02:25 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyIA64K/INYDh8m5BujI4jBGSxGILfFvYwyRNawdzOyUkjwKTNSuFlpEFYl3wHSqrQ29MSzog==
-X-Received: by 2002:a17:906:444e:: with SMTP id
- i14mr3418836ejp.418.1593460945368; 
- Mon, 29 Jun 2020 13:02:25 -0700 (PDT)
-Received: from x1.localdomain
- (2001-1c00-0c0c-fe00-d2ea-f29d-118b-24dc.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c0c:fe00:d2ea:f29d:118b:24dc])
- by smtp.gmail.com with ESMTPSA id s7sm614353edr.57.2020.06.29.13.02.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Jun 2020 13:02:24 -0700 (PDT)
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="D+ucAQ9r"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1D5C520760;
+ Mon, 29 Jun 2020 20:07:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1593461250;
+ bh=CFy0XiHvO0+goP6LXEaAAtd6WGeOa3kVbpguRZ50Wcs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=D+ucAQ9r/Ni6hZV/uOTTT+23wR7/A/Nt3CAKRxD7WXxHGJqY0Eh6j0mbhnGnQCxP+
+ b2S9SvV3tDNw5WW8IOcsT0B/MI1YbENRGgR/ESoNb2W/TR1IJbdlBwM9rbY+BFgXW6
+ em5RNOYCT2ugSn22qiyF24bn/lVM+jxt3B71NbOk=
+Date: Mon, 29 Jun 2020 21:07:28 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Hans de Goede <hdegoede@redhat.com>
 Subject: Re: ASoC: rt5670/cht_bsw_rt5672: Some bugfixes and cleanups
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>,
- Oder Chiou <oder_chiou@realtek.com>
+Message-ID: <20200629200728.GJ5499@sirena.org.uk>
 References: <20200628155231.71089-1-hdegoede@redhat.com>
  <2dda2d0a-2aa5-d9a5-d214-6ab0259de43c@linux.intel.com>
-From: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <b93be4cd-0d32-4bc0-d3f8-4f8a22996469@redhat.com>
-Date: Mon, 29 Jun 2020 22:02:23 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ <b93be4cd-0d32-4bc0-d3f8-4f8a22996469@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <2dda2d0a-2aa5-d9a5-d214-6ab0259de43c@linux.intel.com>
-Content-Language: en-US
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="oplxJGu+Ee5xywIT"
+Content-Disposition: inline
+In-Reply-To: <b93be4cd-0d32-4bc0-d3f8-4f8a22996469@redhat.com>
+X-Cookie: Real programs don't eat cache.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Oder Chiou <oder_chiou@realtek.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -121,33 +87,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
 
-On 6/29/20 5:14 PM, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 6/28/20 10:52 AM, Hans de Goede wrote:
->> Hi All,
->>
->> This series is mainly the result of me working on fixing the extra
->> set of speakers in the Lenovo Miix 2 10 kbd dock not working with
->> Linux (patches 1 and 3) while working on this I noticed some other
->> bugs (patches 2 and 4) and I also ended up doing some generic
->> cleanups (patches 5 and 6). For patches 1-3 or 1-4 it would be
->> nice it they can go to a future 5.8-rc# 5-6 are mostly -next
->> material.
-> 
-> I added a minor comment on patch 1 but is a good set of changes, thanks Hans!
+--oplxJGu+Ee5xywIT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Since Mark has already merged this, I believe it is best to keep
-patch 1 as is, still thank you for the clarification of what is
-going on.
+On Mon, Jun 29, 2020 at 10:02:23PM +0200, Hans de Goede wrote:
+> On 6/29/20 5:14 PM, Pierre-Louis Bossart wrote:
 
-> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> > I added a minor comment on patch 1 but is a good set of changes, thanks Hans!
 
-And thank you for the review; and Mark thank you for merging these.
+> Since Mark has already merged this, I believe it is best to keep
+> patch 1 as is, still thank you for the clarification of what is
+> going on.
 
-Regards,
+I was kind of expecting an incremental patch for that TBH.
 
-Hans
+--oplxJGu+Ee5xywIT
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl76Sf8ACgkQJNaLcl1U
+h9AqiAf/UkbEYftLCPnnKy2ii7T2oyzVNjQmzz1m1CMle4dlwIf7/7LsACkT4gUx
+ir57EGBHM31jRfjknZeqJGGPBjqyQJpubFuQpMqsYjIFu3DrDce2RBpkefjIWeR0
+0X8fhendeduvhG31GG6eDkmRi522GoT13kGYez/7QHzHZIS8J9L5EyOO8oliIAo7
+bIP6yV6JE+0MK54VQS7eFMLB67TN5BrceP3x/bOVO+/miiCsKnOGRC1Zgrt9c5eN
+/XILsWSAPDzsIZ6I6TlmeXG6EBnTjO1MhHxebTnGAo6OAzpAvaCpqf9b7dX5TyOn
+xCTqiYkjqy1yFBXSgNa22pu8VMcQiw==
+=ugt7
+-----END PGP SIGNATURE-----
+
+--oplxJGu+Ee5xywIT--

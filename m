@@ -2,76 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED33120D855
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jun 2020 22:09:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98DBD20D8BA
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jun 2020 22:10:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A1D6165D;
-	Mon, 29 Jun 2020 22:08:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A1D6165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 43A221655;
+	Mon, 29 Jun 2020 22:09:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43A221655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593461360;
-	bh=CFy0XiHvO0+goP6LXEaAAtd6WGeOa3kVbpguRZ50Wcs=;
+	s=default; t=1593461408;
+	bh=TpA5Lfr5tZC5oqEYlD9p4V2YYLnpt1vtuEp7LCnUbtI=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Me1O1JKWiu5Oh7N5zUFy4Pr4SMMjlGAlMmcviNVTGteM4CmlnYDCQygZLAJkBNdEu
-	 xTA4h5A6o+TV3I0wxC8iGQdjFwlovIyn+bXySYDZEB43hrTHsk6TJyrL24nov1vWn/
-	 AHlSBaGUVnNI8xTTYN2SVa0OP9AlzEy7r8/enxZY=
+	b=UFRf9wKY6pUj5KLVddUOcfn24N6BsXDImWh8IzBNppxNeuD1WzAEeroD9W7teWX+d
+	 B19y/S+u6UPwHmW8JOH/BobgCJL5xCfs2iEmzV/h6i5BThNYNIUxYPGCT3KrgvO43f
+	 vIYZeKad1scRsU1KZeR3vwPAvVZ3R4D96hAdTiB0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78976F80217;
-	Mon, 29 Jun 2020 22:07:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48BC1F80256;
+	Mon, 29 Jun 2020 22:08:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3D05FF80217; Mon, 29 Jun 2020 22:07:36 +0200 (CEST)
+ id 80007F80229; Mon, 29 Jun 2020 22:08:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
+ [IPv6:2607:f8b0:4864:20::541])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 612E1F80096
- for <alsa-devel@alsa-project.org>; Mon, 29 Jun 2020 22:07:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 612E1F80096
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2295DF80096
+ for <alsa-devel@alsa-project.org>; Mon, 29 Jun 2020 22:08:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2295DF80096
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="D+ucAQ9r"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1D5C520760;
- Mon, 29 Jun 2020 20:07:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1593461250;
- bh=CFy0XiHvO0+goP6LXEaAAtd6WGeOa3kVbpguRZ50Wcs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=D+ucAQ9r/Ni6hZV/uOTTT+23wR7/A/Nt3CAKRxD7WXxHGJqY0Eh6j0mbhnGnQCxP+
- b2S9SvV3tDNw5WW8IOcsT0B/MI1YbENRGgR/ESoNb2W/TR1IJbdlBwM9rbY+BFgXW6
- em5RNOYCT2ugSn22qiyF24bn/lVM+jxt3B71NbOk=
-Date: Mon, 29 Jun 2020 21:07:28 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: ASoC: rt5670/cht_bsw_rt5672: Some bugfixes and cleanups
-Message-ID: <20200629200728.GJ5499@sirena.org.uk>
-References: <20200628155231.71089-1-hdegoede@redhat.com>
- <2dda2d0a-2aa5-d9a5-d214-6ab0259de43c@linux.intel.com>
- <b93be4cd-0d32-4bc0-d3f8-4f8a22996469@redhat.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="YJBNPwOj"
+Received: by mail-pg1-x541.google.com with SMTP id d194so5429941pga.13
+ for <alsa-devel@alsa-project.org>; Mon, 29 Jun 2020 13:08:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=Dk9Y/T99sdQ3PfvJ9tzS88PlXk+29r6HaUnDmfo2AIs=;
+ b=YJBNPwOj22wBFdvzais+fblphrAroRFtJc3OzQ8RRLvsojoV0C3WM/buNqASfskOyT
+ zIA4r/pM0/v3TRqNNZxBpcOJGSD29gOelOc2e9T2RgAxFq53QEMhIdN7zA/nBhWS+qmm
+ Y8jRoreByc494Td0CMc5wZbjcCS87hohVxhtz7jj6Ix58a1hsPo6sl3iYvyX9dbReAa9
+ GDz4K05C9Dmut4rRqMPkKNiBr6X2XbdHSOnGE6PyNHPDAZA/Ck3K6jAQVo/GgatdQdQ4
+ L5D2QyfKR42ohh4zzhShlTZSmIgwd7VHZLY0uwIU2hNP0T3rbqObAKV+bA5s46B8iGbO
+ OuzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=Dk9Y/T99sdQ3PfvJ9tzS88PlXk+29r6HaUnDmfo2AIs=;
+ b=alnyPPs8G7p+kYJxfbl1o+CeisccByY3RWwyEATxc531smGYRqcUVebN7h4IXdcs8E
+ EJlqnvY8XRSRCJ42LlZKfISmzA3vy8Wbp7QJKLahJgPk72JmO4n8zg/cFcTqEFgevnTi
+ 8oL0Sf56smPzSukEAWtgvcXZg8tZBB6MHZidAO1IDyY+5149al7/uvwV9npxR9TuYciQ
+ /yFBQZnceLnlg2zGBophP8Y6LxP38se3g/BRroPF+XfyVKn5gmC4fTPBu5TChRgOygs0
+ 6I5R6R3bHIPVAhKK7PZv5cNPXLJOnQWANZRPiKfh1QLfhJZtUUD1fAjDoihnpLWwhWvh
+ Rdvg==
+X-Gm-Message-State: AOAM532ABr+6nUOX7xgMKLTifvglhfiCA0/lLLxbiq4hM/3xoPe0qUl4
+ 6MBcUfsiAyG6Ob8qg15E/JQ=
+X-Google-Smtp-Source: ABdhPJw9k+cyjMxkvZCZ4AoSCBXsw6VLdn1xIUlzJKIwRHnIfMovFVz5gBkCQyh6fguu6A9iRlF4Gg==
+X-Received: by 2002:aa7:9906:: with SMTP id z6mr16229603pff.60.1593461326205; 
+ Mon, 29 Jun 2020 13:08:46 -0700 (PDT)
+Received: from Asurada-Nvidia (searspoint.nvidia.com. [216.228.112.21])
+ by smtp.gmail.com with ESMTPSA id 137sm534234pgg.72.2020.06.29.13.08.45
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 29 Jun 2020 13:08:46 -0700 (PDT)
+Date: Mon, 29 Jun 2020 13:08:13 -0700
+From: Nicolin Chen <nicoleotsuka@gmail.com>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: fsl_asrc: Add an option to select internal ratio
+ mode
+Message-ID: <20200629200813.GB27967@Asurada-Nvidia>
+References: <1593439115-19282-1-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="oplxJGu+Ee5xywIT"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <b93be4cd-0d32-4bc0-d3f8-4f8a22996469@redhat.com>
-X-Cookie: Real programs don't eat cache.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Oder Chiou <oder_chiou@realtek.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>
+In-Reply-To: <1593439115-19282-1-git-send-email-shengjiu.wang@nxp.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
+ linuxppc-dev@lists.ozlabs.org, tiwai@suse.com, lgirdwood@gmail.com,
+ broonie@kernel.org, festevam@gmail.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,35 +103,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, Jun 29, 2020 at 09:58:35PM +0800, Shengjiu Wang wrote:
+> The ASRC not only supports ideal ratio mode, but also supports
+> internal ratio mode.
+> 
+> For internal rato mode, the rate of clock source should be divided
+> with no remainder by sample rate, otherwise there is sound
+> distortion.
+> 
+> Add function fsl_asrc_select_clk() to find proper clock source for
+> internal ratio mode, if the clock source is available then internal
+> ratio mode will be selected.
+> 
+> With change, the ideal ratio mode is not the only option for user.
+> 
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> ---
 
---oplxJGu+Ee5xywIT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> +static int fsl_asrc_select_clk(struct fsl_asrc_priv *asrc_priv,
+> +			       struct fsl_asrc_pair *pair,
+> +			       int in_rate,
+> +			       int out_rate)
+> +{
+> +	struct fsl_asrc_pair_priv *pair_priv = pair->private;
+> +	struct asrc_config *config = pair_priv->config;
+> +	int rate[2], select_clk[2]; /* Array size 2 means IN and OUT */
+> +	int clk_rate, clk_index;
+> +	int i = 0, j = 0;
+> +	bool clk_sel[2];
+> +
+> +	rate[0] = in_rate;
+> +	rate[1] = out_rate;
+> +
+> +	/* Select proper clock source for internal ratio mode */
+> +	for (j = 0; j < 2; j++) {
+> +		for (i = 0; i < ASRC_CLK_MAP_LEN; i++) {
+> +			clk_index = asrc_priv->clk_map[j][i];
+> +			clk_rate = clk_get_rate(asrc_priv->asrck_clk[clk_index]);
 
-On Mon, Jun 29, 2020 at 10:02:23PM +0200, Hans de Goede wrote:
-> On 6/29/20 5:14 PM, Pierre-Louis Bossart wrote:
++			/* Only match a perfect clock source with no remainder */
 
-> > I added a minor comment on patch 1 but is a good set of changes, thanks Hans!
+> +			if (clk_rate != 0 && (clk_rate / rate[j]) <= 1024 &&
+> +			    (clk_rate % rate[j]) == 0)
+> +				break;
+> +		}
+> +
+> +		if (i == ASRC_CLK_MAP_LEN) {
+> +			select_clk[j] = OUTCLK_ASRCK1_CLK;
+> +			clk_sel[j] = false;
+> +		} else {
+> +			select_clk[j] = i;
+> +			clk_sel[j] = true;
+> +		}
+> +	}
+> +
+> +	/* Switch to ideal ratio mode if there is no proper clock source */
+> +	if (!clk_sel[IN] || !clk_sel[OUT])
+> +		select_clk[IN] = INCLK_NONE;
 
-> Since Mark has already merged this, I believe it is best to keep
-> patch 1 as is, still thank you for the clarification of what is
-> going on.
+Could get rid of clk_set:
 
-I was kind of expecting an incremental patch for that TBH.
+	for (j) {
+		for (i) {
+			if (match)
+				break;
+		}
 
---oplxJGu+Ee5xywIT
-Content-Type: application/pgp-signature; name="signature.asc"
+		clk[j] = i;
+	}
 
------BEGIN PGP SIGNATURE-----
+	if (clk[IN] == ASRC_CLK_MAP_LEN || clk[OUT] == ASRC_CLK_MAP_LEN)
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl76Sf8ACgkQJNaLcl1U
-h9AqiAf/UkbEYftLCPnnKy2ii7T2oyzVNjQmzz1m1CMle4dlwIf7/7LsACkT4gUx
-ir57EGBHM31jRfjknZeqJGGPBjqyQJpubFuQpMqsYjIFu3DrDce2RBpkefjIWeR0
-0X8fhendeduvhG31GG6eDkmRi522GoT13kGYez/7QHzHZIS8J9L5EyOO8oliIAo7
-bIP6yV6JE+0MK54VQS7eFMLB67TN5BrceP3x/bOVO+/miiCsKnOGRC1Zgrt9c5eN
-/XILsWSAPDzsIZ6I6TlmeXG6EBnTjO1MhHxebTnGAo6OAzpAvaCpqf9b7dX5TyOn
-xCTqiYkjqy1yFBXSgNa22pu8VMcQiw==
-=ugt7
------END PGP SIGNATURE-----
-
---oplxJGu+Ee5xywIT--
+And it only overrides clk[IN] setting but leaving clk[OUT] to
+to the searching result. This means that clk[OUT] may be using
+a clock source other than OUTCLK_ASRCK1_CLK if sel[IN] happens
+to be false while sel[OUT] happens to be true. Not sure if it
+is intended...but I feel it would probably be safer to use the
+previous settings: INCLK_NONE + OUTCLK_ASRCK1_CLK?

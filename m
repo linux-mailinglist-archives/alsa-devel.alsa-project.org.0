@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA7A920FAFE
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jun 2020 19:49:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B9F220FB04
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jun 2020 19:50:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 11C3083B;
-	Tue, 30 Jun 2020 19:48:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11C3083B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 170A883A;
+	Tue, 30 Jun 2020 19:49:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 170A883A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593539380;
-	bh=b0u5+s1gWFmqUKyFq9DSR+65zfqblPMjkUWuMNfbbTs=;
+	s=default; t=1593539428;
+	bh=4xE7dk9XBpoTTFhTjMhfwVg+3zhxrxMQuTBnaTJglQs=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ex/JZN3PnsRe5xC8Y79MVYr8lmrwBaoP7r+FlLG1a7dwusFvplw2IXNKHOJPeyPfw
-	 JmoWpcTfQjSvNK0jIl7yhzn+9ctJwXgHfZywqE5m1yOZ+gPy6TWpxfoEKeK3G28nU/
-	 dKaMudYeHYdK/6Cnm2AYLoabGSUexGiL70nj1HGE=
+	b=m2FJ1h6U7wh+oRXx1/s2KYDa2lgs92OtUjtDsD0ejqVh74FI9mIaVaEpUCYNs6Fq2
+	 PyBki0IpfE5/UryaQpShGLpGgBcPRrwTCyLt3qO6JcOUsKv9+m6saaGDGC/AbNkCGs
+	 2PXAFJPDkLQZBEzHeCekfeBKI0QL6jrlTY2o5h1I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 35960F8022D;
-	Tue, 30 Jun 2020 19:47:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F03D6F80252;
+	Tue, 30 Jun 2020 19:48:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4697FF801F2; Tue, 30 Jun 2020 19:47:57 +0200 (CEST)
+ id 27A01F80247; Tue, 30 Jun 2020 19:48:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,20 +34,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 60D88F800EA
- for <alsa-devel@alsa-project.org>; Tue, 30 Jun 2020 19:47:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60D88F800EA
+ by alsa1.perex.cz (Postfix) with ESMTPS id EF26CF801D8
+ for <alsa-devel@alsa-project.org>; Tue, 30 Jun 2020 19:48:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF26CF801D8
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5E4F1AE83;
- Tue, 30 Jun 2020 17:47:50 +0000 (UTC)
-Date: Tue, 30 Jun 2020 19:47:49 +0200
-Message-ID: <s5hpn9gfnsq.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 9B3A6AE83;
+ Tue, 30 Jun 2020 17:48:03 +0000 (UTC)
+Date: Tue, 30 Jun 2020 19:48:03 +0200
+Message-ID: <s5ho8p0fnsc.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Alexander Tsoy <alexander@tsoy.me>
-Subject: Re: [PATCH 1/2] ALSA: usb-audio: Fix packet size calculation
-In-Reply-To: <20200629025934.154288-1-alexander@tsoy.me>
+Subject: Re: [PATCH 2/2] ALSA: usb-audio: Replace s/frame/packet/ where
+ appropriate
+In-Reply-To: <20200629025934.154288-2-alexander@tsoy.me>
 References: <20200629025934.154288-1-alexander@tsoy.me>
+ <20200629025934.154288-2-alexander@tsoy.me>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -69,22 +71,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 29 Jun 2020 04:59:33 +0200,
+On Mon, 29 Jun 2020 04:59:34 +0200,
 Alexander Tsoy wrote:
 > 
-> Commit f0bd62b64016 ("ALSA: usb-audio: Improve frames size computation")
-> introduced a regression for devices which have playback endpoints with
-> bInterval > 1. Fix this by taking ep->datainterval into account.
+> Replace several occurences of "frame" with a "packet" where appropriate.
 > 
-> Note that frame and fps are actually mean packet and packets per second
-> in the code introduces by the mentioned commit. This will be fixed in a
-> follow-up patch.
-> 
-> Fixes: f0bd62b64016 ("ALSA: usb-audio: Improve frames size computation")
-> BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=208353
 > Signed-off-by: Alexander Tsoy <alexander@tsoy.me>
 
-Applied now.  Thanks.
+Applied, thanks.
 
 
 Takashi

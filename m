@@ -2,89 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 843F9210004
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Jul 2020 00:24:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2EBF210013
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Jul 2020 00:32:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 25CDA1614;
-	Wed,  1 Jul 2020 00:23:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25CDA1614
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A98983E;
+	Wed,  1 Jul 2020 00:31:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A98983E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593555871;
-	bh=tLQScyH3DkTRMoOo7z4ZDKGZgpJVuuj0dCkLOX2a9iE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JnnflfuRgG/4/CoFFAUO1+xLzVzlIiWYYzALhnPtMRrdyyid3HVaSTLmmEJlK9W4K
-	 bbwyYevuVqf+ihOa91HaPV2joC6hVg9ggwU97of/6pIqPPmxZAmwdp8W/tPPzIvpvf
-	 TYReBwYyskSpOlLPN5/uFiwLQabyTsKakOn0pTjA=
+	s=default; t=1593556355;
+	bh=SGbanoS0lWd18UA2u2+SUyCHsXA1XZaFR/cqs+IzO6s=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=EyDodJ8FOACn965NOSfbmhRijXA6AyEbbBxnyDHaGbNTh0tQvmZwzhgz7CVp3mnHX
+	 oiwzYddVb9YuLek7FJDK0/MeOouHozo8LQbAoFbw4LzOuQ+6RMelbTEkaAhvQS9poN
+	 gWH1SwOPxY+P+W3eJw/fL2jR2I2CdSLxQA6F1ksQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2C615F8013E;
-	Wed,  1 Jul 2020 00:22:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9024EF801F2;
+	Wed,  1 Jul 2020 00:30:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3DB27F801F2; Wed,  1 Jul 2020 00:22:48 +0200 (CEST)
+ id C46B0F8022D; Wed,  1 Jul 2020 00:30:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
- [IPv6:2607:f8b0:4864:20::641])
+Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
+ [IPv6:2607:f8b0:4864:20::743])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CE14AF8013E
- for <alsa-devel@alsa-project.org>; Wed,  1 Jul 2020 00:22:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE14AF8013E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1A462F801D8
+ for <alsa-devel@alsa-project.org>; Wed,  1 Jul 2020 00:30:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A462F801D8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="d9za7jNT"
-Received: by mail-pl1-x641.google.com with SMTP id o1so2490620plk.1
- for <alsa-devel@alsa-project.org>; Tue, 30 Jun 2020 15:22:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=LQqg1+PZ05kIBpTL59xr7DfetEZhJfx8+ch9+gI56hE=;
- b=d9za7jNTCujMATufanAoR3E/dGN4JlmvT8hTxlO3BqAzmpkcLMzyenbVFNE04cO5Eq
- V3DgKPCKI5KwKtKe/Lm6L4L/ke5Q1Y/bNin6Ta4aYPvb9AaDyLgHaKCQ7/bhBAiCY10J
- 9Qtuq+KjVh4r1/3OeWVh3VEZtFTmImFJLF8MdDLDnxQcdIDSfkzSD2QUF1q5FRBXynKF
- chtp2UHDgw7EWxu56qD6JK+Wh1bOkY5o1Jz+mh76bbPcfik3Bh6qpYuwVzpDL+A70zpI
- 0X2X1Agp2iaiaf2DoXiqE+EKqkqHPYLKjJw2dd7rDpioCCC36NnjhlW+gvz+y3oK0sju
- 4qnQ==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ToEIYLPG"
+Received: by mail-qk1-x743.google.com with SMTP id b4so20306978qkn.11
+ for <alsa-devel@alsa-project.org>; Tue, 30 Jun 2020 15:30:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=ayDLVTpqrRWCu2rwzj3x2w0PDrwipYQ4Na/NteQ3Y6I=;
+ b=ToEIYLPGzxPgrQ7L3jZflV9PYsDrLwOpsOJOlSXTFMCBPV/SEltqv7XFy1pwdKfnAp
+ 3cmCK3JmxdGFkymbaOfEbUYcphfmjBVaCwAviummcOtbHwu/0f/9mmZWLbw2wErBTDJr
+ fSW1oYCsWGIqEgXehlHZwIoTzvjEcNQ0eNPHAq9FeBpiCwFpyo0A3oOS+PhC59hXS/PX
+ O8wTCp3oL6lcsG5p5WLsvbfBDXxTmdjStWLK9P7WuVPpd9NpQyxbHGsKODNK1ZUJobIH
+ lEv9qWgbRK5NuLH5IQAg8OxkGXjfGYUIwp2PDySktEJMiJoFRJzUoQVs1bGEbYTryYpE
+ kmwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=LQqg1+PZ05kIBpTL59xr7DfetEZhJfx8+ch9+gI56hE=;
- b=bGUlQG9fgx1Qz2YJNVOC1ch0zkbLCUNnWaPAyWlmwdFCaom5c+HGzYPWuVDprxRLae
- gVAn34YbiyCNvYP6cKPl5DdmlA67GNjkuvZagg+m3io1DgS3a23o7sKY7JIuSYn5foa5
- R8sa5caETOtVOLPvlTU7yWJVHaRmB1H1Qzq3HsElafVfl/zdZ9sLOzoEj2IGm8ltA3Xd
- yQ7NYUgRn4f1j37e/Lbk8lUL1ytLFxWHmqg+mvkmYPvSKcgszFKbvtx0StmlYx5cQbR2
- r1Nok3L33r/L5ehPzgvrnnywaVldrml99aLTjKuktmi0JTt7S83HoIQwd0WfricFncub
- 3BBw==
-X-Gm-Message-State: AOAM531i7KIhj6HttwiTFnGp8JTjMef2Trp4KnOGEP2TkC4asMpTVQfI
- NXszU5qoeizXKXiyKtaLhidGPeqVSDaCyNv+YzKGFcuG
-X-Google-Smtp-Source: ABdhPJxCBS34d/ACfckTMdJK3GubMe09aLA2YT2TUi4myE/v1ISodfMaY3nIq1O/4bK4VRpBoPPYs9LPzxwrE6TH1wo=
-X-Received: by 2002:a17:90a:1e:: with SMTP id 30mr23028159pja.25.1593555757877; 
- Tue, 30 Jun 2020 15:22:37 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200617010232.23222-1-natechancellor@gmail.com>
-In-Reply-To: <20200617010232.23222-1-natechancellor@gmail.com>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Tue, 30 Jun 2020 15:22:25 -0700
-Message-ID: <CAKwvOdkXfW0vncswB_OjLfVu4-dAqZXaotw44y6TZSVEezWW0Q@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: Intel: KeemBay: Fix header guard
-To: Cezary Rojewski <cezary.rojewski@intel.com>, 
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, 
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: alsa-devel@alsa-project.org, LKML <linux-kernel@vger.kernel.org>,
- Sia Jee Heng <jee.heng.sia@intel.com>,
- clang-built-linux <clang-built-linux@googlegroups.com>,
- Mark Brown <broonie@kernel.org>, Nathan Chancellor <natechancellor@gmail.com>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=ayDLVTpqrRWCu2rwzj3x2w0PDrwipYQ4Na/NteQ3Y6I=;
+ b=j0a0F9Xj/t8CBk+JfEF2bZCg4P2AsElL22v8aDThV0U3I4/0XhGj1mupQyerwdqwAP
+ ibVijaPkhGMqy2kGrcd/aFoMmu/bbNn0IvZDa3EKTfK+DJYzBExhzIQiLyGb+TzHj2Fw
+ 1V5+eSU87I3PQhdGoDPyKq71mUmsIhWjaZEngZoyTAj1XH1OC58Y6NCXxUjiHvBOKlR1
+ dRJ45nugTxkHc0gMCsndQw7E6q0UJw8V7A7zfNwMG7OIYJ9daAy2y+b7ljz6x+SWBCUr
+ MwE5jJY9F2DL0lYaJoEI9ruDIr+Ee+t+4MrSFB5SItrmycotaLDDeeSo2cyJgo4R6Ibo
+ DvUQ==
+X-Gm-Message-State: AOAM533OsNDZAKqT74JXfRuJJTGpjNDghXnSXKMnTOb0kZKxK63DG06d
+ t8VU7QyvKCiN2p36XgtIkEQ=
+X-Google-Smtp-Source: ABdhPJwWLjBICbFjUM8eRwUr1PD1j1fUXQS5UUelnMrxQ8PYmYr8AImcgcKzUDv2TX882UPRHMk9tA==
+X-Received: by 2002:a37:2c41:: with SMTP id s62mr15987292qkh.165.1593556244486; 
+ Tue, 30 Jun 2020 15:30:44 -0700 (PDT)
+Received: from localhost.localdomain ([2804:14c:482:92b:d42f:2bc1:abe3:59f0])
+ by smtp.gmail.com with ESMTPSA id
+ o21sm4216556qtt.25.2020.06.30.15.30.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 Jun 2020 15:30:43 -0700 (PDT)
+From: Fabio Estevam <festevam@gmail.com>
+To: broonie@kernel.org
+Subject: [PATCH] ASoC: dt-bindings: simple-card: Fix 'make dt_binding_check'
+ warnings
+Date: Tue, 30 Jun 2020 19:30:20 -0300
+Message-Id: <20200630223020.25546-1-festevam@gmail.com>
+X-Mailer: git-send-email 2.17.1
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, robh+dt@kernel.org,
+ Fabio Estevam <festevam@gmail.com>, kuninori.morimoto.gx@renesas.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,61 +95,104 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jun 16, 2020 at 6:02 PM Nathan Chancellor
-<natechancellor@gmail.com> wrote:
->
-> Clang warns:
->
->  In file included from sound/soc/intel/keembay/kmb_platform.c:14:
->  sound/soc/intel/keembay/kmb_platform.h:9:9: warning: 'KMB_PLATFORM_H_'
->  is used as a header guard here, followed by #define of a different
->  macro [-Wheader-guard]
->  #ifndef KMB_PLATFORM_H_
->          ^~~~~~~~~~~~~~~
->  sound/soc/intel/keembay/kmb_platform.h:10:9: note: 'KMB_PLATFORMP_H_'
->  is defined here; did you mean 'KMB_PLATFORM_H_'?
->  #define KMB_PLATFORMP_H_
->          ^~~~~~~~~~~~~~~~
->          KMB_PLATFORM_H_
->  1 warning generated.
->
-> Fix the typo so that the header guard works as intended.
->
-> Fixes: c5477e966728 ("ASoC: Intel: Add KeemBay platform driver")
-> Link: https://github.com/ClangBuiltLinux/linux/issues/1053
-> Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
+The following build warnings are seen with 'make dt_binding_check':
 
-Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
+Documentation/devicetree/bindings/sound/simple-card.example.dts:209.46-211.15: Warning (unit_address_vs_reg): /example-4/sound/simple-audio-card,cpu@0: node has a unit name, but no reg or ranges property
+Documentation/devicetree/bindings/sound/simple-card.example.dts:213.37-215.15: Warning (unit_address_vs_reg): /example-4/sound/simple-audio-card,cpu@1: node has a unit name, but no reg or ranges property
+Documentation/devicetree/bindings/sound/simple-card.example.dts:250.42-261.15: Warning (unit_address_vs_reg): /example-5/sound/simple-audio-card,dai-link@0: node has a unit name, but no reg or ranges property
+Documentation/devicetree/bindings/sound/simple-card.example.dts:263.42-288.15: Warning (unit_address_vs_reg): /example-5/sound/simple-audio-card,dai-link@1: node has a unit name, but no reg or ranges property
+Documentation/devicetree/bindings/sound/simple-card.example.dts:270.32-272.19: Warning (unit_address_vs_reg): /example-5/sound/simple-audio-card,dai-link@1/cpu@0: node has a unit name, but no reg or ranges property
+Documentation/devicetree/bindings/sound/simple-card.example.dts:273.23-275.19: Warning (unit_address_vs_reg): /example-5/sound/simple-audio-card,dai-link@1/cpu@1: node has a unit name, but no reg or ranges property
+Documentation/devicetree/bindings/sound/simple-card.example.dts:276.23-278.19: Warning (unit_address_vs_reg): /example-5/sound/simple-audio-card,dai-link@1/cpu@2: node has a unit name, but no reg or ranges property
+Documentation/devicetree/bindings/sound/simple-card.example.dts:279.23-281.19: Warning (unit_address_vs_reg): /example-5/sound/simple-audio-card,dai-link@1/cpu@3: node has a unit name, but no reg or ranges property
+Documentation/devicetree/bindings/sound/simple-card.example.dts:290.42-303.15: Warning (unit_address_vs_reg): /example-5/sound/simple-audio-card,dai-link@2: node has a unit name, but no reg or ranges property
 
-> ---
->  sound/soc/intel/keembay/kmb_platform.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/sound/soc/intel/keembay/kmb_platform.h b/sound/soc/intel/keembay/kmb_platform.h
-> index 29600652d8f4..6bf221aa8fff 100644
-> --- a/sound/soc/intel/keembay/kmb_platform.h
-> +++ b/sound/soc/intel/keembay/kmb_platform.h
-> @@ -7,7 +7,7 @@
->   */
->
->  #ifndef KMB_PLATFORM_H_
-> -#define KMB_PLATFORMP_H_
-> +#define KMB_PLATFORM_H_
->
->  #include <linux/bits.h>
->  #include <linux/bitfield.h>
->
-> base-commit: 27f70ec4fa0e0f419031f1b8d61b1a788244e313
-> --
-> 2.27.0
->
-> --
-> You received this message because you are subscribed to the Google Groups "Clang Built Linux" group.
-> To unsubscribe from this group and stop receiving emails from it, send an email to clang-built-linux+unsubscribe@googlegroups.com.
-> To view this discussion on the web visit https://groups.google.com/d/msgid/clang-built-linux/20200617010232.23222-1-natechancellor%40gmail.com.
+Fix them all.
 
+Signed-off-by: Fabio Estevam <festevam@gmail.com>
+---
+ .../devicetree/bindings/sound/simple-card.yaml  | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
-
+diff --git a/Documentation/devicetree/bindings/sound/simple-card.yaml b/Documentation/devicetree/bindings/sound/simple-card.yaml
+index 8132d0c0f00a..35e669020296 100644
+--- a/Documentation/devicetree/bindings/sound/simple-card.yaml
++++ b/Documentation/devicetree/bindings/sound/simple-card.yaml
+@@ -378,6 +378,8 @@ examples:
+   - |
+     sound {
+         compatible = "simple-audio-card";
++        #address-cells = <1>;
++        #size-cells = <0>;
+ 
+         simple-audio-card,name = "rsnd-ak4643";
+         simple-audio-card,format = "left_j";
+@@ -391,10 +393,12 @@ examples:
+                                     "ak4642 Playback", "DAI1 Playback";
+ 
+         dpcmcpu: simple-audio-card,cpu@0 {
++            reg = <0>;
+             sound-dai = <&rcar_sound 0>;
+         };
+ 
+         simple-audio-card,cpu@1 {
++            reg = <1>;
+             sound-dai = <&rcar_sound 1>;
+         };
+ 
+@@ -418,6 +422,8 @@ examples:
+   - |
+     sound {
+         compatible = "simple-audio-card";
++        #address-cells = <1>;
++        #size-cells = <0>;
+ 
+         simple-audio-card,routing =
+             "pcm3168a Playback", "DAI1 Playback",
+@@ -426,6 +432,7 @@ examples:
+             "pcm3168a Playback", "DAI4 Playback";
+ 
+         simple-audio-card,dai-link@0 {
++            reg = <0>;
+             format = "left_j";
+             bitclock-master = <&sndcpu0>;
+             frame-master = <&sndcpu0>;
+@@ -439,22 +446,23 @@ examples:
+         };
+ 
+         simple-audio-card,dai-link@1 {
++            reg = <1>;
+             format = "i2s";
+             bitclock-master = <&sndcpu1>;
+             frame-master = <&sndcpu1>;
+ 
+             convert-channels = <8>; /* TDM Split */
+ 
+-            sndcpu1: cpu@0 {
++            sndcpu1: cpu0 {
+                 sound-dai = <&rcar_sound 1>;
+             };
+-            cpu@1 {
++            cpu1 {
+                 sound-dai = <&rcar_sound 2>;
+             };
+-            cpu@2 {
++            cpu2 {
+                 sound-dai = <&rcar_sound 3>;
+             };
+-            cpu@3 {
++            cpu3 {
+                 sound-dai = <&rcar_sound 4>;
+             };
+             codec {
+@@ -466,6 +474,7 @@ examples:
+         };
+ 
+         simple-audio-card,dai-link@2 {
++            reg = <2>;
+             format = "i2s";
+             bitclock-master = <&sndcpu2>;
+             frame-master = <&sndcpu2>;
 -- 
-Thanks,
-~Nick Desaulniers
+2.17.1
+

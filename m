@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B792720EC2D
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jun 2020 05:50:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 152EA20EC5D
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jun 2020 06:10:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5762915E0;
-	Tue, 30 Jun 2020 05:49:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5762915E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D0441614;
+	Tue, 30 Jun 2020 06:09:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D0441614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593489005;
-	bh=UcthL2nug+KzY9nuYTxpnBMkugp7xSoOqkW4NlNHcSo=;
+	s=default; t=1593490228;
+	bh=i8FXNFcJpIORCaQifdCHe/w9nG9qViwg2/aZt+lCpjY=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=l0zjEumU7oEIRgFeI3TbGybzEoGvP8hAGJha71+gTtutNRNR/jGfoPwMBnIbFdNBE
-	 XGTsnQkZhhmWLCRXd96XuzjqvbuhZLtbPKjK5O0cbhmSucU17ENjOmVmP0ozdLnKD6
-	 jZ6LFt89IS2+x27aA+fUHeshzzho/n/p13dAk7R0=
+	b=HXMiUxZfBWOr9dVT8iVimX7UiiTs/uoJj7yMSO6kVjs2D6FoUI2nfPX1fRAzXSqmL
+	 +RR1MOnaqURwVru5rdqy4iT6fc+vSAG6yjyhJjiZb5S9DkRdDeD7LwRkztRhNrTLTg
+	 Qff9y+VaLesHNk+85MfxXHJ2xZc3dWOaDuBYMZRs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7FD56F8022D;
-	Tue, 30 Jun 2020 05:48:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A59CEF801D8;
+	Tue, 30 Jun 2020 06:08:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 766D6F801D8; Tue, 30 Jun 2020 05:48:21 +0200 (CEST)
+ id E866FF801F2; Tue, 30 Jun 2020 06:08:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,56 +35,56 @@ Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
  [216.228.121.143])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0EFF1F8013E
- for <alsa-devel@alsa-project.org>; Tue, 30 Jun 2020 05:48:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0EFF1F8013E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C41AF8013E
+ for <alsa-devel@alsa-project.org>; Tue, 30 Jun 2020 06:08:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C41AF8013E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="qwFpHH7Q"
+ header.b="F0MySOhe"
 Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
  hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5efab59a0000>; Mon, 29 Jun 2020 20:46:34 -0700
+ id <B5efaba610000>; Mon, 29 Jun 2020 21:06:57 -0700
 Received: from hqmail.nvidia.com ([172.20.161.6])
  by hqpgpgate102.nvidia.com (PGP Universal service);
- Mon, 29 Jun 2020 20:48:12 -0700
+ Mon, 29 Jun 2020 21:08:35 -0700
 X-PGP-Universal: processed;
- by hqpgpgate102.nvidia.com on Mon, 29 Jun 2020 20:48:12 -0700
-Received: from [10.25.97.62] (10.124.1.5) by HQMAIL107.nvidia.com
+ by hqpgpgate102.nvidia.com on Mon, 29 Jun 2020 21:08:35 -0700
+Received: from [10.25.97.62] (172.20.13.39) by HQMAIL107.nvidia.com
  (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 30 Jun
- 2020 03:48:03 +0000
-Subject: Re: [PATCH v4 10/23] ASoC: simple-card: Wrong daifmt for CPU end of
- DPCM DAI link
+ 2020 04:08:26 +0000
+Subject: Re: [PATCH v4 12/23] ASoC: simple-card: Support DPCM DAI link with
+ multiple Codecs
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 References: <1593233625-14961-1-git-send-email-spujar@nvidia.com>
- <1593233625-14961-11-git-send-email-spujar@nvidia.com>
- <877dvq1yhy.wl-kuninori.morimoto.gx@renesas.com>
- <6e27daa5-331e-968b-4027-2e30aeb7d382@nvidia.com>
- <87o8p1z81b.wl-kuninori.morimoto.gx@renesas.com>
+ <1593233625-14961-13-git-send-email-spujar@nvidia.com>
+ <874kqu1x70.wl-kuninori.morimoto.gx@renesas.com>
+ <1e0cf6d1-bf4e-8808-5390-c8a3b7c7fe7e@nvidia.com>
+ <87mu4lz6pt.wl-kuninori.morimoto.gx@renesas.com>
 From: Sameer Pujar <spujar@nvidia.com>
-Message-ID: <841ac69f-1c3f-2b13-17f9-6f196811ce52@nvidia.com>
-Date: Tue, 30 Jun 2020 09:17:59 +0530
+Message-ID: <1d7888c7-a8cc-e891-01aa-016e31cc9113@nvidia.com>
+Date: Tue, 30 Jun 2020 09:38:22 +0530
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.9.0
 MIME-Version: 1.0
-In-Reply-To: <87o8p1z81b.wl-kuninori.morimoto.gx@renesas.com>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
+In-Reply-To: <87mu4lz6pt.wl-kuninori.morimoto.gx@renesas.com>
+X-Originating-IP: [172.20.13.39]
+X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
  HQMAIL107.nvidia.com (172.20.187.13)
 Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 Content-Language: en-GB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1593488794; bh=Waf+fRsBa+tnFyTsNnzSNk2rurwJRlEFA5A13c5KFMs=;
+ t=1593490017; bh=XIVR0uF6KmslDb3mY0ekre9vEG+3ksH8GQ6MbptjlEc=;
  h=X-PGP-Universal:CC:Subject:To:References:From:Message-ID:Date:
  User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
  X-ClientProxiedBy:Content-Type:Content-Transfer-Encoding:
  Content-Language;
- b=qwFpHH7QE9mC28kfCJxAzmZEE6JRNuOHvraL8M+Y1I0zQ2WHYK/Oh8u5rmuHvtNqL
- GcmVOB6EW9EOlpdfCaH4AOmTYNBxxacg/Aqt2JtYELBNEAWybmjXvu3pfb4AEyqrHY
- yYntjl5O1xuuT5F/Sh4kN2gK+PEGfeQf+KCl4vnYO0NNbx7GcryFnkzP9t1XgMNp6w
- +kXre478ipBLf7aA32L6fd0Y6QQeVQ5UhAfx1kBLrlGT0G/1FnvSypYJelewxTlkSP
- ACpFmiAhdlrKdgWY8KEQGkm7JZP3NEu8oHzSFiQf8DZKRtYw9BWJms99RTFKLDDhT7
- ThgNFlWVXU8Ag==
+ b=F0MySOhe6yO6KPj5IaF6+GycjZ9dQaX6EVlNjVRiTj1KhlACYxEQT6//yLp9pflkA
+ aHe5WkiyvkVh6L/nzLh+E7XoHF4jyAmHPyuLeJlb6+3icHJVe3q3uwqtGkr0+aWRxA
+ k8SAqyT77QYJ7Lmxb3ndAK+ObYvOyGirdjykkoUz29JW8gtPa5uhKD+ADYmj8FKWNw
+ auxoyN3jxb3A7qUW9iDp/16yau95yEt37uNl6sXeEjzdU/g7jXb/Evi3zotg5dkzNS
+ xf1ivyHaHZpkEHBbev20cF72YlKBHoy4eOgv5e/8HOVN95ErgGzIy2M+hbSgsr+Mxc
+ +rSBx3vbV0z5g==
 Cc: jonathanh@nvidia.com, nicoleotsuka@gmail.com, alsa-devel@alsa-project.org,
  atalambedu@nvidia.com, swarren@nvidia.com, linux-kernel@vger.kernel.org,
  spujar@nvidia.com, nwartikar@nvidia.com, lgirdwood@gmail.com,
@@ -108,41 +108,45 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 6/30/2020 6:26 AM, Kuninori Morimoto wrote:
+On 6/30/2020 6:54 AM, Kuninori Morimoto wrote:
 > External email: Use caution opening links or attachments
 >
 >
 > Hi Sameer
 >
->>   snd_soc_runtime_set_dai_fmt() {
->>       ...
->>
->>       if (cpu_dai->component->driver->non_legacy_dai_naming)
->>           fmt = inv_dai_fmt;
->>
->>       ...
->>   }
->>
->> Above flips polarity for 'cpu_dai' if 'non_legacy_dai_naming' flag is set.
->>
->> 1. Hence example mentioned in the commit message does not work if my 'cpu_dai'
->> driver does not have this flag set.
-> ?
-> Do you want fo flip it ? or don't flip?
-> It is for Codec <-> Codec connection.
+>>> Maybe base issue for multiple codec support
+>>> is that simple_for_each_link() is caring first codec only ?
+> (snip)
+>> Ideally I wanted to remove above two lines and allow empty codec
+>> list. But some users may expect the parsing to fail if no 'Codec' is
+>> found in the DAI link, hence did not remove above. If it is fine to
+>> remove above two lines it would be simpler. The loop inside
+>> simple_for_each_link() would anyway loop for each child node of DAI
+>> link and simple_dai_link_of_dpcm() can parse each 'np'.
 
-For DPCM links I don't want to flip based on one Codec reference. My 
-goal was to make the binding work for multiple CPU/Codec link. Hence I 
-thought it would be better to explicitly describe the 'Master' DAI. We 
-can eventually get rid of 'codec' argument from simple_dai_link_of_dpcm().
->> 2. While it is true that we consider reference of 'Codec' mode for simple CPU<->
->> Codec DAI links, for DPCM this does not seem flexible. For DPCM links CPU and
->> Codec are not directly connected (CPU<->Dummy or Dummy<->Codec). Please
->> consider, for example, if the DAI link has multiple CPU/Codecs. Which 'Codec'
->> reference needs to be considered? Isn't it better if we explicitly mention which
->> DAI we want to operate as 'Master'?
-> I think Lars-Peter has (had ?) plan for this SND_SOC_DAIFMT_CBx_CFx
-> flag flexibility ? Yes maybe it is needed for multi CPU/Codec system.
+> Current simple-card is not assuming multi Codec,
+> thus, we need to update it correctly, not quick-hack.
+>
+> I'm not sure how to do it, but it seems we need to update
+> many functions to support it, not only simple-card driver.
+> For example, simple-card-utils, soc-core, etc, etc...
+>
+> I'm not sure, this is just my guess.
+> I'm happy if we can support it more easily :)
+Right now I am trying re-use simple-card driver as much as possible and 
+still make it work for flexible sound cards. I will be happy to discuss 
+and improve the patch wherever necessary. Please help me understand 
+which part you think looks to be hacky.
+
+> But, if it was difficult to keep compatibility on simple-card,
+> we/you need to have new one.
+Patch 17/23 and 18/23 introduce new compatible 'simple-cc-audio-card'. 
+Idea was to use component chaining which allows connection of FE<->BE 
+and multiple BE<->BE components along the DAPM path (patch 16/23). Do 
+you think it would be fine?
+
+> Actually, I had a plan to create more flexible sound card
+> driver, but it is not hi priority for me in these days.
 >
 > Thank you for your help !!
 >

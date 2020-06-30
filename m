@@ -2,93 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B5E720F021
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jun 2020 10:05:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EBC220F116
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jun 2020 11:01:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B3B7845;
-	Tue, 30 Jun 2020 10:04:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B3B7845
+	by alsa0.perex.cz (Postfix) with ESMTPS id E0D2015E0;
+	Tue, 30 Jun 2020 11:00:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0D2015E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593504332;
-	bh=TxP20BERYvygj3oxEU69F+wciZGscZHtRG0lLeUXHSw=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=WW0WPB30j9XEbwjvYoWFdoPTKAvWkhK4Sy7886ANyveReprbuvzDSSVtVFxJ6rmAO
-	 04lKkwP9eRr2oXJoEmghWidKBGM8S9ES11pCkTGiQ8CWHOl2xzd3Z7k2P6T+BzkWyD
-	 e/aFstjnt8vuV2In6wYxpnRy6XBjtkZB41qBAR+c=
+	s=default; t=1593507696;
+	bh=3szy5Es1Ch8wsJ2BA9DXsR0Dp5cDjCzJRCdZ7hRTcMg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=O2npz3A7D+TssKFW2yup7xCWkp04qUETQy+O7js4lZzQrIjxM6ANqnVg499YsS1Y7
+	 U6w4biQnlmezgZXNjUY5ioG9jFsdEGliDOkjg6n345h2ciHVemOUjrcQL59I2ebGFH
+	 EwnAY6LDjUDoERReUDfLRv0twtPf6qpuHxp2dLE4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 35397F8022D;
-	Tue, 30 Jun 2020 10:03:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 11BADF8022D;
+	Tue, 30 Jun 2020 10:59:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B79C6F801F2; Tue, 30 Jun 2020 10:03:48 +0200 (CEST)
+ id 87E2CF801F2; Tue, 30 Jun 2020 10:59:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
- [216.228.121.64])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 91ED5F800EA
- for <alsa-devel@alsa-project.org>; Tue, 30 Jun 2020 10:03:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91ED5F800EA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="WQUwIr+W"
-Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate25.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5efaf1a90002>; Tue, 30 Jun 2020 01:02:49 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate101.nvidia.com (PGP Universal service);
- Tue, 30 Jun 2020 01:03:39 -0700
-X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Tue, 30 Jun 2020 01:03:39 -0700
-Received: from [10.25.97.62] (10.124.1.5) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 30 Jun
- 2020 08:03:31 +0000
-Subject: Re: [PATCH v4 15/23] ASoC: soc-core: Identify 'no_pcm' DAI links for
- DPCM
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-References: <1593233625-14961-1-git-send-email-spujar@nvidia.com>
- <1593233625-14961-16-git-send-email-spujar@nvidia.com>
- <87h7utytlx.wl-kuninori.morimoto.gx@renesas.com>
-From: Sameer Pujar <spujar@nvidia.com>
-Message-ID: <9c7871ae-6649-7b0d-4780-c8389c299b04@nvidia.com>
-Date: Tue, 30 Jun 2020 13:33:27 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
-MIME-Version: 1.0
-In-Reply-To: <87h7utytlx.wl-kuninori.morimoto.gx@renesas.com>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
- HQMAIL107.nvidia.com (172.20.187.13)
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1593504169; bh=DnKjNwH/guC7EJEpkXLjFlHpxsWMMzSc4XkpFzGQbAg=;
- h=X-PGP-Universal:CC:Subject:To:References:From:Message-ID:Date:
- User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
- X-ClientProxiedBy:Content-Type:Content-Transfer-Encoding:
- Content-Language;
- b=WQUwIr+WF/GGwacJzN7rnd4pRjFlBamjWeqTONoPBOOZYgq7blpSZ87MHNdErkG/V
- Bo5un9TEvghvrPYJtlgg/3/67mIK7K7OuME2UgysIJBrQsLscV7rPe5qsImS52vi+l
- tBtyNEId8MOyf5+oALW7p+QzyXv+QJXTIyVzbhzhl3PV7l6YaQqkhjgk3lnk4FEvP2
- Hwh38kn4IjXhwdJaI/HKbUZjmGQYG/YPm71jdjU6NGptDUih2eCD6TgFWKc6IhKRkX
- G1nr50EASreeu9otzItyG9V/VzGXnbHR6oGij3dXYjDlW+ElcrOlMWu8e+AzFJ1YZa
- d+zK2Z3ASZHUA==
-Cc: jonathanh@nvidia.com, nicoleotsuka@gmail.com, alsa-devel@alsa-project.org,
- atalambedu@nvidia.com, swarren@nvidia.com, linux-kernel@vger.kernel.org,
- spujar@nvidia.com, nwartikar@nvidia.com, lgirdwood@gmail.com,
- robh+dt@kernel.org, tiwai@suse.com, viswanathl@nvidia.com, sharadg@nvidia.com,
- broonie@kernel.org, thierry.reding@gmail.com, linux-tegra@vger.kernel.org,
- digetx@gmail.com, rlokhande@nvidia.com, mkumard@nvidia.com, dramesh@nvidia.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8404FF80135
+ for <alsa-devel@alsa-project.org>; Tue, 30 Jun 2020 10:59:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8404FF80135
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 73145201338;
+ Tue, 30 Jun 2020 10:59:43 +0200 (CEST)
+Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
+ [165.114.16.14])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id BA2B8201345;
+ Tue, 30 Jun 2020 10:59:38 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id D653040287;
+ Tue, 30 Jun 2020 16:59:32 +0800 (SGT)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, broonie@kernel.org, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com
+Subject: [PATCH v2] ASoC: fsl_asrc: Add an option to select internal ratio mode
+Date: Tue, 30 Jun 2020 16:47:56 +0800
+Message-Id: <1593506876-14599-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,59 +71,111 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The ASRC not only supports ideal ratio mode, but also supports
+internal ratio mode.
 
+For internal rato mode, the rate of clock source should be divided
+with no remainder by sample rate, otherwise there is sound
+distortion.
 
-On 6/30/2020 11:37 AM, Kuninori Morimoto wrote:
-> External email: Use caution opening links or attachments
->
->
-> Hi Sameer
->
->> PCM devices are created for dai links with 'no-pcm' flag as '0'.
->> Such DAI links have CPU component which implement pcm_construct()
->> and pcm_destruct() callbacks. Based on this, current patch exposes
->> a helper function to identify such components and populate 'no_pcm'
->> flag for DPCM DAI link.
->>
->> This helps to have BE<->BE component links where PCM devices need
->> not be created for CPU components involved in the links.
->>
->> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
->> ---
-> (snip)
->> +bool soc_component_is_pcm(struct snd_soc_dai_link_component *dlc)
->> +{
->> +     struct snd_soc_component *component;
->> +     struct snd_soc_dai *dai;
->> +
->> +     for_each_component(component) {
->> +             if (!component->driver)
->> +                     continue;
->> +
->> +             for_each_component_dais(component, dai) {
->> +                     if (!dai->name || !dlc->dai_name)
->> +                             continue;
->> +
->> +                     if (strcmp(dai->name, dlc->dai_name))
->> +                             continue;
->> +
->> +                     if (component->driver->pcm_construct)
->> +                             return true;
->> +             }
->> +     }
->> +
->> +     return false;
->> +}
-> At least my CPU driver doesn't use component:pcm_construct
-> but is using DAI:pcm_new for some reasons.
-> I'm not sure checking DAI:pcm here is enough, or not...
+Add function fsl_asrc_select_clk() to find proper clock source for
+internal ratio mode, if the clock source is available then internal
+ratio mode will be selected.
 
-OK. If adding DAI:pcm_new above here is not sufficient, then a flag can 
-be used to describe FE component? or is there a better alternative?
->
-> Thank you for your help !!
->
-> Best regards
-> ---
-> Kuninori Morimoto
+With change, the ideal ratio mode is not the only option for user.
+
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+changes in v2
+- update according to Nicolin's comments
+
+ sound/soc/fsl/fsl_asrc.c | 54 ++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 52 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
+index 95f6a9617b0b..4105ef2c4f99 100644
+--- a/sound/soc/fsl/fsl_asrc.c
++++ b/sound/soc/fsl/fsl_asrc.c
+@@ -582,11 +582,55 @@ static int fsl_asrc_dai_startup(struct snd_pcm_substream *substream,
+ 			SNDRV_PCM_HW_PARAM_RATE, &fsl_asrc_rate_constraints);
+ }
+ 
++/**
++ * Select proper clock source for internal ratio mode
++ */
++static int fsl_asrc_select_clk(struct fsl_asrc_priv *asrc_priv,
++			       struct fsl_asrc_pair *pair,
++			       int in_rate,
++			       int out_rate)
++{
++	struct fsl_asrc_pair_priv *pair_priv = pair->private;
++	struct asrc_config *config = pair_priv->config;
++	int rate[2], select_clk[2]; /* Array size 2 means IN and OUT */
++	int clk_rate, clk_index;
++	int i = 0, j = 0;
++
++	rate[0] = in_rate;
++	rate[1] = out_rate;
++
++	/* Select proper clock source for internal ratio mode */
++	for (j = 0; j < 2; j++) {
++		for (i = 0; i < ASRC_CLK_MAP_LEN; i++) {
++			clk_index = asrc_priv->clk_map[j][i];
++			clk_rate = clk_get_rate(asrc_priv->asrck_clk[clk_index]);
++			/* Only match a perfect clock source with no remainder */
++			if (clk_rate != 0 && (clk_rate / rate[j]) <= 1024 &&
++			    (clk_rate % rate[j]) == 0)
++				break;
++		}
++
++		select_clk[j] = i;
++	}
++
++	/* Switch to ideal ratio mode if there is no proper clock source */
++	if (select_clk[IN] == ASRC_CLK_MAP_LEN || select_clk[OUT] == ASRC_CLK_MAP_LEN) {
++		select_clk[IN] = INCLK_NONE;
++		select_clk[OUT] = OUTCLK_ASRCK1_CLK;
++	}
++
++	config->inclk = select_clk[IN];
++	config->outclk = select_clk[OUT];
++
++	return 0;
++}
++
+ static int fsl_asrc_dai_hw_params(struct snd_pcm_substream *substream,
+ 				  struct snd_pcm_hw_params *params,
+ 				  struct snd_soc_dai *dai)
+ {
+ 	struct fsl_asrc *asrc = snd_soc_dai_get_drvdata(dai);
++	struct fsl_asrc_priv *asrc_priv = asrc->private;
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct fsl_asrc_pair *pair = runtime->private_data;
+ 	struct fsl_asrc_pair_priv *pair_priv = pair->private;
+@@ -605,8 +649,6 @@ static int fsl_asrc_dai_hw_params(struct snd_pcm_substream *substream,
+ 
+ 	config.pair = pair->index;
+ 	config.channel_num = channels;
+-	config.inclk = INCLK_NONE;
+-	config.outclk = OUTCLK_ASRCK1_CLK;
+ 
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+ 		config.input_format   = params_format(params);
+@@ -620,6 +662,14 @@ static int fsl_asrc_dai_hw_params(struct snd_pcm_substream *substream,
+ 		config.output_sample_rate = rate;
+ 	}
+ 
++	ret = fsl_asrc_select_clk(asrc_priv, pair,
++				  config.input_sample_rate,
++				  config.output_sample_rate);
++	if (ret) {
++		dev_err(dai->dev, "fail to select clock\n");
++		return ret;
++	}
++
+ 	ret = fsl_asrc_config_pair(pair, false);
+ 	if (ret) {
+ 		dev_err(dai->dev, "fail to config asrc pair\n");
+-- 
+2.21.0
 

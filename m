@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53C4120F2E0
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jun 2020 12:42:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0653220F2F4
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jun 2020 12:47:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D36A61612;
-	Tue, 30 Jun 2020 12:41:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D36A61612
+	by alsa0.perex.cz (Postfix) with ESMTPS id B1AA31607;
+	Tue, 30 Jun 2020 12:46:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1AA31607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593513758;
-	bh=5qvJz6IPxW4GxH4mEunu4MaN4GfIhfcEM+grEQlyTOU=;
+	s=default; t=1593514022;
+	bh=HCwlK42xB042oqF7MAHHSUKyEu4RNuEIcvJII2cfj1g=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BBQu/s256L5F22qVq+U4mT7twrCL/db37AyEwh9Eu3YQDJpvWA0vUKRxr55doUAnU
-	 kqMQQDi/bH8zJ9hnjqY8VbI1HIO8vNY3v/KTcU6Q2SxPWF2P3cWLGj7AIIhvzqVSRH
-	 JkHOlD6AH4xZs8u9LtNK3Gy6QATFB84rIgKeCVXQ=
+	b=ooLktZxh6v7mO5tEW+ZjXOGlUZYgUQrRwBQ42uRrEuMe+oVyy5fxGp18k7V5agsjH
+	 18Rk7m7V5i4UefO1ZdW9FL1ow2bd3PUgGjEdU9mzQf+PQ10fh94Jrok+6MqKSOhDKS
+	 gcJnogx0LZbI1A4q41UTfyJI5cHRKbvHvyykY/Bo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0424F8022D;
-	Tue, 30 Jun 2020 12:40:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DDF8AF8022D;
+	Tue, 30 Jun 2020 12:45:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CE17CF801F2; Tue, 30 Jun 2020 12:40:55 +0200 (CEST)
+ id 26A35F801F2; Tue, 30 Jun 2020 12:45:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,42 +34,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BA09EF8013E
- for <alsa-devel@alsa-project.org>; Tue, 30 Jun 2020 12:40:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA09EF8013E
+ by alsa1.perex.cz (Postfix) with ESMTPS id B289FF8013E
+ for <alsa-devel@alsa-project.org>; Tue, 30 Jun 2020 12:45:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B289FF8013E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="N2Uz5Fpx"
+ header.b="RgTVEDZX"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E7EA82065F;
- Tue, 30 Jun 2020 10:40:48 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id B29792065F;
+ Tue, 30 Jun 2020 10:45:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1593513649;
- bh=5qvJz6IPxW4GxH4mEunu4MaN4GfIhfcEM+grEQlyTOU=;
+ s=default; t=1593513916;
+ bh=HCwlK42xB042oqF7MAHHSUKyEu4RNuEIcvJII2cfj1g=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=N2Uz5FpxOZMzl1sRgzzhtHb6mSSdB+Pa8aK8nLsqq7guqzojcCLyep/rpV8vPC0f8
- GInCDAwuI4Q3Um2eBSbZbdDVn8yzsRP2GM6roG2FasbLMiXKUaHB73QHczNQNwDpGd
- M9tT+5mcW9a/Q56/qBGo1XMddjjNrz9vFUlGz5ic=
-Date: Tue, 30 Jun 2020 11:40:47 +0100
+ b=RgTVEDZX01EVqYqLfOdTNEQOSbgsNYs8npVeIBBFE+rp1yLIUrdMrWppFoa77aR04
+ IVKfrY9h5tntGo4pKMAInZn9L48ADjfSmMxec67wMCW28Fer4NQ/ParNsoEawFwx1p
+ 75enOI0s/p4r3CYIk1x1fFAU+4N6ejj9hE9zU+Ck=
+Date: Tue, 30 Jun 2020 11:45:14 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Yu-Hsuan Hsu <yuhsuan@chromium.org>
-Subject: Re: [PATCH] ASoC: rockchip: add format and rate constraints on rk3399
-Message-ID: <20200630104047.GD5272@sirena.org.uk>
-References: <20200630091615.4020059-1-yuhsuan@chromium.org>
+To: Sameer Pujar <spujar@nvidia.com>
+Subject: Re: [PATCH v4 08/23] ASoC: soc-core: Fix component name_prefix parsing
+Message-ID: <20200630104514.GE5272@sirena.org.uk>
+References: <1593233625-14961-1-git-send-email-spujar@nvidia.com>
+ <1593233625-14961-9-git-send-email-spujar@nvidia.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="IMjqdzrDRly81ofr"
+ protocol="application/pgp-signature"; boundary="3XA6nns4nE4KvaS/"
 Content-Disposition: inline
-In-Reply-To: <20200630091615.4020059-1-yuhsuan@chromium.org>
+In-Reply-To: <1593233625-14961-9-git-send-email-spujar@nvidia.com>
 X-Cookie: Walk softly and carry a megawatt laser.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Tzung-Bi Shih <tzungbi@chromium.org>,
- Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Cheng-Yi Chiang <cychiang@chromium.org>
+Cc: jonathanh@nvidia.com, nicoleotsuka@gmail.com, alsa-devel@alsa-project.org,
+ atalambedu@nvidia.com, swarren@nvidia.com, kuninori.morimoto.gx@renesas.com,
+ linux-kernel@vger.kernel.org, nwartikar@nvidia.com, lgirdwood@gmail.com,
+ tiwai@suse.com, viswanathl@nvidia.com, sharadg@nvidia.com, robh+dt@kernel.org,
+ thierry.reding@gmail.com, linux-tegra@vger.kernel.org, digetx@gmail.com,
+ rlokhande@nvidia.com, mkumard@nvidia.com, dramesh@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,34 +88,33 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---IMjqdzrDRly81ofr
+--3XA6nns4nE4KvaS/
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, Jun 30, 2020 at 05:16:15PM +0800, Yu-Hsuan Hsu wrote:
-> S8 and S24 formats does not work on this machine driver so force to use
-> S16_LE instead.
+On Sat, Jun 27, 2020 at 10:23:30AM +0530, Sameer Pujar wrote:
+> The "prefix" can be defined in DAI link node or it can be specified as
+> part of the component node itself. Currently "sound-name-prefix" defined
+> in a component is not taking effect. Actually the property is not getting
+> parsed. It can be fixed by parsing "sound-name-prefix" property whenever
+> "prefix" is missing in DAI link Codec node.
 
-> In addition, add constraint to limit the max value of rate because the
-> rate higher than 96000(172000, 192000) is not stable either.
+Any fixes should go at the start of a series so they can be applied as
+such without needing to pull in the rest of the series.
 
-What is the source of these restrictions - are they due to the component
-devices?  If they are then the component devices ought to be setting
-suitable constraints themselves.
-
---IMjqdzrDRly81ofr
+--3XA6nns4nE4KvaS/
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl77Fq4ACgkQJNaLcl1U
-h9BqcQf/bBQI6UlLdBzbns/XWHMzns0NgqJqIDhyUaAV2cK/NnbvoadF7Q/Ierez
-Kksy56oOcNJtiTpSuhy/Z2ubQNKNkcMYkwVSp3M3FllU/QxR59Ia7N8P4xkvbOsx
-a5niu9cUSP94dygzita0jqcVvYkXXAaC9IHK/v11WwKsoM8KTgP3CWgksBGWJqVm
-uTY3zisJtV1m7GIHObSu0Vr9c6XJrCi5G9qDZSxPyq+Fhcpz6nFtA3sN7Ctu5j8J
-G8HdFjK69Suj6ESd13Xkd2/ELgNGzpA/W0SVpVkJzmS4Mbj6iyUegxXIk5LjVx4C
-XfuoMxggN8y3ux+S5/MlmEw9AqU/TA==
-=1Ldw
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl77F7kACgkQJNaLcl1U
+h9Ddygf7BrD+E2FcOp8W6S0EYnd7iYl0lFpKgh7ecrnG7StoGY3SPitqEAa0P2L3
+2yl+I7bikIQtVPb0E0k55Fr8bnIo/b+7Gn5LGI+BnXRg6E8wU/nRIrmiu1Yg5Abo
+QE5BLjDS98Bg3HmoR2qA3shJ6GM2bNOphemjtLP4gtd1ceCKoS143lR+XkkoSWoD
+Vnw0bkyg86RJoLykmF1IwIjPdx0HtDygI9PhX/e0rOU9iDDCMmNGtAoFe0berc5d
+/xUlYzSeVbpBbeCCT0g1Q/uZmAGUo0kydWp0pdPTqgjkzhTUNam6yY9L/25JBHsY
+qf/OnFDPGSaSKEtgp8kltfZMcT1d4g==
+=t15Z
 -----END PGP SIGNATURE-----
 
---IMjqdzrDRly81ofr--
+--3XA6nns4nE4KvaS/--

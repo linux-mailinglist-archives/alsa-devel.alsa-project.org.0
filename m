@@ -2,65 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B87120F4DA
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jun 2020 14:39:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB5BA20F529
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jun 2020 14:55:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BCCD61665;
-	Tue, 30 Jun 2020 14:38:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCCD61665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5229F1688;
+	Tue, 30 Jun 2020 14:55:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5229F1688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593520781;
-	bh=pS7umVqM0mgTJ09AiBW/StXciTr5YpoU7AULFWXwVz0=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1593521753;
+	bh=pIAOQr5KmrnwCzBtXXB8RxWWM7jUs7Q4XbZ5fURun0U=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ctGxMVK3mD46pmZpW4+wr5xsUQOQLF8P7y0Dd8tHCvoiFqo+JH8FT7RLEuHPsBy6O
-	 XQdHx1cwH8OyOBVdF1Utpd8/b9y2mOtrzlHXIRJGEskTJ5jrV5lyd5WsmzsxLL1EKK
-	 tx5jxFpoglb1LpOtZRslHeCNP2mtAEJx4V9sgIYI=
+	b=EnnNcUF4SS7WR1ZeJihIyL9Q02JMca+ovNhauuLIf3dYx1ot8aWtLxYEHAI8EvIAk
+	 fgUIxN2qGZCULxl4a1SEJc2i6mYsO/HJ6Qmqh6wLongDT8EhZmHZsG0Ig+dqKYYkvl
+	 yO00BEjL1w3Hlk9lKMIkUjrEdZe5Bd6NCz5xdgD4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8610F800EA;
-	Tue, 30 Jun 2020 14:38:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 53267F8022D;
+	Tue, 30 Jun 2020 14:54:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B4A12F80247; Tue, 30 Jun 2020 14:38:22 +0200 (CEST)
+ id 667E6F801F2; Tue, 30 Jun 2020 14:54:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C43D4F801D8
- for <alsa-devel@alsa-project.org>; Tue, 30 Jun 2020 14:38:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C43D4F801D8
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id F221EB5C1;
- Tue, 30 Jun 2020 12:38:15 +0000 (UTC)
-Message-ID: <b170d0e1d022dc26eb446c9003ff9bd9194a0fd0.camel@suse.de>
-Subject: Re: [PATCH] ALSA: core: Warn on empty module
-From: Nicolas Saenz Julienne <nsaenzjulienne@suse.de>
-To: Marek Szyprowski <m.szyprowski@samsung.com>, Takashi Iwai
- <tiwai@suse.de>,  linux-rpi-kernel <linux-rpi-kernel@lists.infradead.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>
-Date: Tue, 30 Jun 2020 14:38:14 +0200
-In-Reply-To: <8a5e65f3-771d-5896-1288-f4e441225034@samsung.com>
-References: <20200624160300.21703-1-tiwai@suse.de>
- <CGME20200630123043eucas1p2f95aa10ad1611e902269fbf9b783c405@eucas1p2.samsung.com>
- <0ec9855e-18d5-6144-ae5f-6cb239214dee@samsung.com>
- <c16be1b9b4da811e923e3ff589ff5dfcdfebe314.camel@suse.de>
- <8a5e65f3-771d-5896-1288-f4e441225034@samsung.com>
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-d97NhKc6RRweIb4poa4x"
-User-Agent: Evolution 3.36.3 
+ by alsa1.perex.cz (Postfix) with ESMTPS id B45F3F800EA
+ for <alsa-devel@alsa-project.org>; Tue, 30 Jun 2020 14:54:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B45F3F800EA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="Gh3ACliK"
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5efb35850000>; Tue, 30 Jun 2020 05:52:21 -0700
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Tue, 30 Jun 2020 05:54:00 -0700
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Tue, 30 Jun 2020 05:54:00 -0700
+Received: from [10.25.97.62] (172.20.13.39) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 30 Jun
+ 2020 12:53:53 +0000
+Subject: Re: Re: [PATCH v4 12/23] ASoC: simple-card: Support DPCM DAI link
+ with multiple Codecs
+To: Mark Brown <broonie@kernel.org>
+References: <1593233625-14961-1-git-send-email-spujar@nvidia.com>
+ <1593233625-14961-13-git-send-email-spujar@nvidia.com>
+ <874kqu1x70.wl-kuninori.morimoto.gx@renesas.com>
+ <1e0cf6d1-bf4e-8808-5390-c8a3b7c7fe7e@nvidia.com>
+ <87mu4lz6pt.wl-kuninori.morimoto.gx@renesas.com>
+ <1d7888c7-a8cc-e891-01aa-016e31cc9113@nvidia.com>
+ <87ftadyrec.wl-kuninori.morimoto.gx@renesas.com>
+ <492079e9-4518-78ba-a227-859d31594369@nvidia.com>
+ <20200630110100.GH5272@sirena.org.uk>
+From: Sameer Pujar <spujar@nvidia.com>
+Message-ID: <81d106c0-e1c8-a79a-8caf-1f3be0d61f0c@nvidia.com>
+Date: Tue, 30 Jun 2020 18:23:49 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20200630110100.GH5272@sirena.org.uk>
+X-Originating-IP: [172.20.13.39]
+X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1593521541; bh=aXxCz2dTV4FtL79w8/1SiDck9RwhPcel5Fp7Yqr93ys=;
+ h=X-PGP-Universal:CC:Subject:To:References:From:Message-ID:Date:
+ User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
+ X-ClientProxiedBy:Content-Type:Content-Transfer-Encoding:
+ Content-Language;
+ b=Gh3ACliKpLklTAftBCph4CwFuABvt9iKOaYeZz9J9rKIAEuUd7rQRvaTVD6XQZt7T
+ axfWqqI5PiBn9JpHQfL4rhdLKiL76uJ1w5S9AXLytg4BCoLvKCRCEH9kLNV2M1wDFw
+ bc6uYFwF6yT2JQeqDfGjx6xCmCL2jAaPmAQbPZOZmOciS4J0knlc5kq1ijFmM7z6N3
+ EG7PlhYruqj0fsBMzrETSEnSnHNxCc9q/3GEKJ4gd6mAJSiYMI0uvC/QIrlzYDJzWQ
+ ZURoXaJ+7yXHbfQ/3oLA/KBcWn0rYoBp1R/7vrhUiBe9fHg6ZA8NE6L55EZOkiOWgP
+ Q3oHajDJIRzZg==
+Cc: jonathanh@nvidia.com, nicoleotsuka@gmail.com, alsa-devel@alsa-project.org,
+ atalambedu@nvidia.com, swarren@nvidia.com,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ linux-kernel@vger.kernel.org, spujar@nvidia.com, nwartikar@nvidia.com,
+ lgirdwood@gmail.com, tiwai@suse.com, viswanathl@nvidia.com, sharadg@nvidia.com,
+ robh+dt@kernel.org, thierry.reding@gmail.com, linux-tegra@vger.kernel.org,
+ digetx@gmail.com, rlokhande@nvidia.com, mkumard@nvidia.com, dramesh@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,129 +112,33 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---=-d97NhKc6RRweIb4poa4x
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2020-06-30 at 14:36 +0200, Marek Szyprowski wrote:
-> On 30.06.2020 14:34, Nicolas Saenz Julienne wrote:
-> > Hi Marek,
-> > Thanks for pointing this out!
-> >=20
-> > On Tue, 2020-06-30 at 14:30 +0200, Marek Szyprowski wrote:
-> > > Hi
-> > >=20
-> > > On 24.06.2020 18:03, Takashi Iwai wrote:
-> > > > The module argument passed to snd_card_new() must be a valid non-NU=
-LL
-> > > > pointer when the module support is enabled.  Since ASoC driver pass=
-es
-> > > > the argument from each snd_soc_card definition, one may forget to s=
-et
-> > > > the owner field and lead to a NULL module easily.
-> > > >=20
-> > > > For catching such an overlook, add a WARN_ON() in snd_card_new().
-> > > > Also, put the card->module assignment in the ifdef block for a very
-> > > > minor optimization.
-> > > >=20
-> > > > Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> > > I know that this is intended, but I would like to note that this patc=
-h
-> > > reveals the following issue on Raspberry Pi 3B with ARM 32bit kernel
-> > > compiled from multi_v7_defconfig:
-> > >=20
-> > > ------------[ cut here ]------------
-> > > WARNING: CPU: 1 PID: 210 at sound/core/init.c:207
-> > > snd_card_new+0x378/0x398 [snd]
-> > > Modules linked in: vc4(+) snd_soc_core ac97_bus snd_pcm_dmaengine
-> > > bluetooth snd_pcm snd_timer crc32_arm_ce raspberrypi_hwmon snd soundc=
-ore
-> > > ecdh_generic ecc bcm2835_thermal phy_generic
-> > > CPU: 1 PID: 210 Comm: systemd-udevd Not tainted
-> > > 5.8.0-rc1-00027-g81033c6b584b #1087
-> > > Hardware name: BCM2835
-> > > [<c03113c0>] (unwind_backtrace) from [<c030bcb4>] (show_stack+0x10/0x=
-14)
-> > > [<c030bcb4>] (show_stack) from [<c071cef8>] (dump_stack+0xd4/0xe8)
-> > > [<c071cef8>] (dump_stack) from [<c0345bfc>] (__warn+0xdc/0xf4)
-> > > [<c0345bfc>] (__warn) from [<c0345cc4>] (warn_slowpath_fmt+0xb0/0xb8)
-> > > [<c0345cc4>] (warn_slowpath_fmt) from [<bf02ff74>]
-> > > (snd_card_new+0x378/0x398 [snd])
-> > > [<bf02ff74>] (snd_card_new [snd]) from [<bf11f0b4>]
-> > > (snd_soc_bind_card+0x280/0x99c [snd_soc_core])
-> > > [<bf11f0b4>] (snd_soc_bind_card [snd_soc_core]) from [<bf12f000>]
-> > > (devm_snd_soc_register_card+0x34/0x6c [snd_soc_core])
-> > > [<bf12f000>] (devm_snd_soc_register_card [snd_soc_core]) from
-> > > [<bf165654>] (vc4_hdmi_bind+0x43c/0x5f4 [vc4])
-> > > [<bf165654>] (vc4_hdmi_bind [vc4]) from [<c09d660c>]
-> > > (component_bind_all+0xec/0x24c)
-> > > [<c09d660c>] (component_bind_all) from [<bf15c44c>]
-> > > (vc4_drm_bind+0xd4/0x174 [vc4])
-> > > [<bf15c44c>] (vc4_drm_bind [vc4]) from [<c09d6ac0>]
-> > > (try_to_bring_up_master+0x160/0x1b0)
-> > > [<c09d6ac0>] (try_to_bring_up_master) from [<c09d6f38>]
-> > > (component_master_add_with_match+0xd0/0x104)
-> > > [<c09d6f38>] (component_master_add_with_match) from [<bf15c588>]
-> > > (vc4_platform_drm_probe+0x9c/0xbc [vc4])
-> > > [<bf15c588>] (vc4_platform_drm_probe [vc4]) from [<c09df740>]
-> > > (platform_drv_probe+0x6c/0xa4)
-> > > [<c09df740>] (platform_drv_probe) from [<c09dd6f0>]
-> > > (really_probe+0x210/0x350)
-> > > [<c09dd6f0>] (really_probe) from [<c09dd940>]
-> > > (driver_probe_device+0x5c/0xb4)
-> > > [<c09dd940>] (driver_probe_device) from [<c09ddb38>]
-> > > (device_driver_attach+0x58/0x60)
-> > > [<c09ddb38>] (device_driver_attach) from [<c09ddbc0>]
-> > > (__driver_attach+0x80/0xbc)
-> > > [<c09ddbc0>] (__driver_attach) from [<c09db820>]
-> > > (bus_for_each_dev+0x68/0xb4)
-> > > [<c09db820>] (bus_for_each_dev) from [<c09dc9f8>]
-> > > (bus_add_driver+0x130/0x1e8)
-> > > [<c09dc9f8>] (bus_add_driver) from [<c09de648>]
-> > > (driver_register+0x78/0x110)
-> > > [<c09de648>] (driver_register) from [<c0302038>]
-> > > (do_one_initcall+0x50/0x220)
-> > > [<c0302038>] (do_one_initcall) from [<c03db544>]
-> > > (do_init_module+0x60/0x210)
-> > > [<c03db544>] (do_init_module) from [<c03da4f8>]
-> > > (load_module+0x1e34/0x2338)
-> > > [<c03da4f8>] (load_module) from [<c03dac00>] (sys_finit_module+0xac/0=
-xbc)
-> > > [<c03dac00>] (sys_finit_module) from [<c03000c0>]
-> > > (ret_fast_syscall+0x0/0x54)
-> > > Exception stack(0xeded9fa8 to 0xeded9ff0)
-> > > ...
-> > > ---[ end trace 6414689569c2bc08 ]---
-> > >=20
-> > > This warning is not present when booting ARM 64bit kernel, but I susp=
-ect
-> > > that this is due to the differences in the kernel configuration.
-> > It's because vc4 is not yet supported on RPi4.
->=20
-> This happens on RPi *3B* :)
+On 6/30/2020 4:31 PM, Mark Brown wrote:
+> On Tue, Jun 30, 2020 at 01:22:29PM +0530, Sameer Pujar wrote:
+>
+>> Yes there are complex use cases, but if we look at the amount of changes
+>> required in simple-card driver that is not too much. Existing binding for
+>> simple-card driver would still work fine for our cases. Yes there are some
+>> deviations and we don't want to break existing users, that is why a *new*
+>> compatible was introduced and specific items can be pushed under it.
+>> Majority of the simple-card driver is getting re-used here. We just need to
+>> make sure it does not affect anyone else.
+> Why simple-card and not audio-graph-card?
 
-Ok, read too fast. Thanks!
+Frankly speaking I have not used audio-graph-card before. I had a brief 
+look at the related binding. It seems it can use similar DT properties 
+that simple-card uses, although the binding style appears to be 
+different. However I am not sure if it offers better solutions to the 
+problems I am facing. For example, the ability to connect or form a 
+chain of components to realize more complicated use cases with DPCM, 
+some of which were discussed in [0]. Can you please help me understand 
+why it could be preferred?
 
-Regards,
-Nicolas
+[0] https://lkml.org/lkml/2020/4/30/519
 
-
---=-d97NhKc6RRweIb4poa4x
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCAAdFiEErOkkGDHCg2EbPcGjlfZmHno8x/4FAl77MjYACgkQlfZmHno8
-x/6t7QgAhz/xYTT8vaZbqp0GbVP4x4Hn6izsaQ9aAY8httSb44uRdi/kd2ztlv9N
-KR34p0AaoX0jcKCrD6OghTVgQdk5r1BPXK7vFoqDptRmZQl0pRlFg2YCcW9N7546
-bWB9/DjzvJP9pNag1+lWGAoMJxImHfz1D5+ngaLz32zmmnlxlW+5tp3fGkJRa8PK
-5qwxPGW8R0JTbqanjmiSi03brh78lNQ4BRB/+8Ya5eGi3vdKtzNq0ByIzdwews4h
-DxQH45Li+Empm+jYlAT/c/HvE2LkQ1/1f99vnW8of7XlxpOwjaDdo3YyXGw4rCos
-sLON/HvZQBK8T1Mw91vIF1+xWTraqA==
-=vk+X
------END PGP SIGNATURE-----
-
---=-d97NhKc6RRweIb4poa4x--
+>>> Using fe/be instead of cpu/codec is easy to understand.
+>> I guess you are referring to DT binding part. The parsing code specifically
+>> looks for "codec" sub node and thus present conventions had to be used.
+> Remember that this stuff gets fixed into the ABI so we'd have to live
+> with this for ever.
 

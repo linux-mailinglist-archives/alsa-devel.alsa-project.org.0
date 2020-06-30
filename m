@@ -2,76 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58F2B20FA9A
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jun 2020 19:30:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3574720FAE6
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jun 2020 19:42:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EDF391663;
-	Tue, 30 Jun 2020 19:29:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDF391663
+	by alsa0.perex.cz (Postfix) with ESMTPS id C94B71612;
+	Tue, 30 Jun 2020 19:41:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C94B71612
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593538230;
-	bh=0E6+B2i1sF19iKIULXbiwWrThnH8UkXhUWE6ms81ZAA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1593538940;
+	bh=/GM6AeIqw9iMfwaAUqPqb+JVH2GTSEAEZE3z28g1yd8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vdsx4I12ZC1b74dtKfIn/0KATjMRFjeGSJCNSdDahQOiI81+ma0uwvaZnLsCu3pBX
-	 UnTG9e9ijzE6Ky7MdOhR/YCGPimXveO36S0kPgYUf66P46Kat6VYkkMl6NA3xwfMtv
-	 KBGDTTg19FWGg7Oj2ulf95wb+XEcIENjZN7E+ixc=
+	b=re9xpBbHswgVVpj7mFvwiboAefGfPs4L+oZ0ijdZP1pwAyENqplJhDFwzt1dCpOug
+	 putM/vk3AHCyUhNlgkbRDCfuGn7aegNhF/CDVjyNdzDxU7n8rc9D/O6V//TZcVqH9d
+	 X+SUpenVX8yzAQhpIGb/0Dw6Rze9/64fB/lcdOPw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B5F6EF801D8;
-	Tue, 30 Jun 2020 19:27:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 00B1FF8022D;
+	Tue, 30 Jun 2020 19:40:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 38363F802BD; Tue, 30 Jun 2020 19:27:12 +0200 (CEST)
+ id 791F4F801F2; Tue, 30 Jun 2020 19:40:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 33FEAF801D8
- for <alsa-devel@alsa-project.org>; Tue, 30 Jun 2020 19:27:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33FEAF801D8
-IronPort-SDR: BqPlXt2S2kqITdZL2FbWL6Ov2mwqMZStn9Isebf111g7J6TzLN9JSghoE12QV5c1LRhFdXgtgd
- ygJgHPsZQJgQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9668"; a="231190533"
-X-IronPort-AV: E=Sophos;i="5.75,298,1589266800"; d="scan'208";a="231190533"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2020 10:27:00 -0700
-IronPort-SDR: Z7x4fpl5QBPCt0yGQhLxehb9wwa3icsJnhTonGBQYdcWh4ESmn32vMryMjX4d1BR7rQyQsa5TY
- 7XQYwNFkx4CA==
-X-IronPort-AV: E=Sophos;i="5.75,298,1589266800"; d="scan'208";a="281307477"
-Received: from dnoeunx-mobl.amr.corp.intel.com (HELO [10.254.77.113])
- ([10.254.77.113])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2020 10:26:59 -0700
-Subject: Re: [PATCH 8/9] soundwire: intel: add wake interrupt support
-To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
-References: <20200623173546.21870-1-yung-chuan.liao@linux.intel.com>
- <20200623173546.21870-9-yung-chuan.liao@linux.intel.com>
- <20200630165126.GT2599@vkoul-mobl>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <a69aa5d0-613a-6ef6-9263-378b1e99770a@linux.intel.com>
-Date: Tue, 30 Jun 2020 12:18:51 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
-MIME-Version: 1.0
-In-Reply-To: <20200630165126.GT2599@vkoul-mobl>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, ranjani.sridharan@linux.intel.com,
- hui.wang@canonical.com, broonie@kernel.org, srinivas.kandagatla@linaro.org,
- jank@cadence.com, mengdong.lin@intel.com, slawomir.blauciak@intel.com,
- sanyog.r.kale@intel.com, rander.wang@linux.intel.com, bard.liao@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id ACC8AF80135
+ for <alsa-devel@alsa-project.org>; Tue, 30 Jun 2020 19:40:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACC8AF80135
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id A0E64AE2A;
+ Tue, 30 Jun 2020 17:40:30 +0000 (UTC)
+Date: Tue, 30 Jun 2020 19:40:30 +0200
+Message-ID: <s5hsgecfo4x.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Nicolas Saenz Julienne <nsaenzjulienne@suse.de>
+Subject: Re: [PATCH] ALSA: core: Warn on empty module
+In-Reply-To: <b170d0e1d022dc26eb446c9003ff9bd9194a0fd0.camel@suse.de>
+References: <20200624160300.21703-1-tiwai@suse.de>
+ <CGME20200630123043eucas1p2f95aa10ad1611e902269fbf9b783c405@eucas1p2.samsung.com>
+ <0ec9855e-18d5-6144-ae5f-6cb239214dee@samsung.com>
+ <c16be1b9b4da811e923e3ff589ff5dfcdfebe314.camel@suse.de>
+ <8a5e65f3-771d-5896-1288-f4e441225034@samsung.com>
+ <b170d0e1d022dc26eb446c9003ff9bd9194a0fd0.camel@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org,
+ linux-rpi-kernel <linux-rpi-kernel@lists.infradead.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,163 +78,104 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 6/30/20 11:51 AM, Vinod Koul wrote:
-> On 24-06-20, 01:35, Bard Liao wrote:
->> From: Rander Wang <rander.wang@intel.com>
->>
->> When system is suspended in clock stop mode on intel platforms, both
->> master and slave are in clock stop mode and soundwire bus is taken
->> over by a glue hardware. The bus message for jack event is processed
->> by this glue hardware, which will trigger an interrupt to resume audio
->> pci device. Then audio pci driver will resume soundwire master and slave,
->> transfer bus ownership to master, finally slave will report jack event
->> to master and codec driver is triggered to check jack status.
->>
->> if a slave has been attached to a bus, the slave->dev_num_sticky
->> should be non-zero, so we can check this value to skip the
->> ghost devices defined in ACPI table but not populated in hardware.
->>
->> Signed-off-by: Rander Wang <rander.wang@intel.com>
->> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
->> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
->> ---
->>   drivers/soundwire/intel.c      | 48 +++++++++++++++++++++++++++++++++-
->>   drivers/soundwire/intel.h      |  1 +
->>   drivers/soundwire/intel_init.c | 22 ++++++++++++++++
->>   3 files changed, 70 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
->> index 06c553d94890..22d9fd3e34fa 100644
->> --- a/drivers/soundwire/intel.c
->> +++ b/drivers/soundwire/intel.c
->> @@ -13,6 +13,7 @@
->>   #include <linux/io.h>
->>   #include <linux/platform_device.h>
->>   #include <sound/pcm_params.h>
->> +#include <linux/pm_runtime.h>
->>   #include <sound/soc.h>
->>   #include <linux/soundwire/sdw_registers.h>
->>   #include <linux/soundwire/sdw.h>
->> @@ -436,7 +437,7 @@ static int intel_shim_init(struct sdw_intel *sdw, bool clock_stop)
->>   	return ret;
->>   }
->>   
->> -static void __maybe_unused intel_shim_wake(struct sdw_intel *sdw, bool wake_enable)
->> +static void intel_shim_wake(struct sdw_intel *sdw, bool wake_enable)
+On Tue, 30 Jun 2020 14:38:14 +0200,
+Nicolas Saenz Julienne wrote:
 > 
-> why drop __maybe?
-
-the __maybe was used in previous patches to avoid throwing 'defined but 
-not used' errors.
-
-In this patch this function is actually used so there's no longer a 
-reason to keep it.
-
->>   {
->>   	void __iomem *shim = sdw->link_res->shim;
->>   	unsigned int link_id = sdw->instance;
->> @@ -1337,6 +1338,51 @@ static int intel_master_remove(struct platform_device *pdev)
->>   	return 0;
->>   }
->>   
->> +int intel_master_process_wakeen_event(struct platform_device *pdev)
->> +{
->> +	struct device *dev = &pdev->dev;
->> +	struct sdw_intel *sdw;
->> +	struct sdw_bus *bus;
->> +	struct sdw_slave *slave;
->> +	void __iomem *shim;
->> +	u16 wake_sts;
->> +
->> +	sdw = platform_get_drvdata(pdev);
->> +	bus = &sdw->cdns.bus;
->> +
->> +	if (bus->prop.hw_disabled) {
->> +		dev_dbg(dev,
->> +			"SoundWire master %d is disabled, ignoring\n",
->> +			bus->link_id);
+> On Tue, 2020-06-30 at 14:36 +0200, Marek Szyprowski wrote:
+> > On 30.06.2020 14:34, Nicolas Saenz Julienne wrote:
+> > > Hi Marek,
+> > > Thanks for pointing this out!
+> > > 
+> > > On Tue, 2020-06-30 at 14:30 +0200, Marek Szyprowski wrote:
+> > > > Hi
+> > > > 
+> > > > On 24.06.2020 18:03, Takashi Iwai wrote:
+> > > > > The module argument passed to snd_card_new() must be a valid non-NULL
+> > > > > pointer when the module support is enabled.  Since ASoC driver passes
+> > > > > the argument from each snd_soc_card definition, one may forget to set
+> > > > > the owner field and lead to a NULL module easily.
+> > > > > 
+> > > > > For catching such an overlook, add a WARN_ON() in snd_card_new().
+> > > > > Also, put the card->module assignment in the ifdef block for a very
+> > > > > minor optimization.
+> > > > > 
+> > > > > Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> > > > I know that this is intended, but I would like to note that this patch
+> > > > reveals the following issue on Raspberry Pi 3B with ARM 32bit kernel
+> > > > compiled from multi_v7_defconfig:
+> > > > 
+> > > > ------------[ cut here ]------------
+> > > > WARNING: CPU: 1 PID: 210 at sound/core/init.c:207
+> > > > snd_card_new+0x378/0x398 [snd]
+> > > > Modules linked in: vc4(+) snd_soc_core ac97_bus snd_pcm_dmaengine
+> > > > bluetooth snd_pcm snd_timer crc32_arm_ce raspberrypi_hwmon snd soundcore
+> > > > ecdh_generic ecc bcm2835_thermal phy_generic
+> > > > CPU: 1 PID: 210 Comm: systemd-udevd Not tainted
+> > > > 5.8.0-rc1-00027-g81033c6b584b #1087
+> > > > Hardware name: BCM2835
+> > > > [<c03113c0>] (unwind_backtrace) from [<c030bcb4>] (show_stack+0x10/0x14)
+> > > > [<c030bcb4>] (show_stack) from [<c071cef8>] (dump_stack+0xd4/0xe8)
+> > > > [<c071cef8>] (dump_stack) from [<c0345bfc>] (__warn+0xdc/0xf4)
+> > > > [<c0345bfc>] (__warn) from [<c0345cc4>] (warn_slowpath_fmt+0xb0/0xb8)
+> > > > [<c0345cc4>] (warn_slowpath_fmt) from [<bf02ff74>]
+> > > > (snd_card_new+0x378/0x398 [snd])
+> > > > [<bf02ff74>] (snd_card_new [snd]) from [<bf11f0b4>]
+> > > > (snd_soc_bind_card+0x280/0x99c [snd_soc_core])
+> > > > [<bf11f0b4>] (snd_soc_bind_card [snd_soc_core]) from [<bf12f000>]
+> > > > (devm_snd_soc_register_card+0x34/0x6c [snd_soc_core])
+> > > > [<bf12f000>] (devm_snd_soc_register_card [snd_soc_core]) from
+> > > > [<bf165654>] (vc4_hdmi_bind+0x43c/0x5f4 [vc4])
+> > > > [<bf165654>] (vc4_hdmi_bind [vc4]) from [<c09d660c>]
+> > > > (component_bind_all+0xec/0x24c)
+> > > > [<c09d660c>] (component_bind_all) from [<bf15c44c>]
+> > > > (vc4_drm_bind+0xd4/0x174 [vc4])
+> > > > [<bf15c44c>] (vc4_drm_bind [vc4]) from [<c09d6ac0>]
+> > > > (try_to_bring_up_master+0x160/0x1b0)
+> > > > [<c09d6ac0>] (try_to_bring_up_master) from [<c09d6f38>]
+> > > > (component_master_add_with_match+0xd0/0x104)
+> > > > [<c09d6f38>] (component_master_add_with_match) from [<bf15c588>]
+> > > > (vc4_platform_drm_probe+0x9c/0xbc [vc4])
+> > > > [<bf15c588>] (vc4_platform_drm_probe [vc4]) from [<c09df740>]
+> > > > (platform_drv_probe+0x6c/0xa4)
+> > > > [<c09df740>] (platform_drv_probe) from [<c09dd6f0>]
+> > > > (really_probe+0x210/0x350)
+> > > > [<c09dd6f0>] (really_probe) from [<c09dd940>]
+> > > > (driver_probe_device+0x5c/0xb4)
+> > > > [<c09dd940>] (driver_probe_device) from [<c09ddb38>]
+> > > > (device_driver_attach+0x58/0x60)
+> > > > [<c09ddb38>] (device_driver_attach) from [<c09ddbc0>]
+> > > > (__driver_attach+0x80/0xbc)
+> > > > [<c09ddbc0>] (__driver_attach) from [<c09db820>]
+> > > > (bus_for_each_dev+0x68/0xb4)
+> > > > [<c09db820>] (bus_for_each_dev) from [<c09dc9f8>]
+> > > > (bus_add_driver+0x130/0x1e8)
+> > > > [<c09dc9f8>] (bus_add_driver) from [<c09de648>]
+> > > > (driver_register+0x78/0x110)
+> > > > [<c09de648>] (driver_register) from [<c0302038>]
+> > > > (do_one_initcall+0x50/0x220)
+> > > > [<c0302038>] (do_one_initcall) from [<c03db544>]
+> > > > (do_init_module+0x60/0x210)
+> > > > [<c03db544>] (do_init_module) from [<c03da4f8>]
+> > > > (load_module+0x1e34/0x2338)
+> > > > [<c03da4f8>] (load_module) from [<c03dac00>] (sys_finit_module+0xac/0xbc)
+> > > > [<c03dac00>] (sys_finit_module) from [<c03000c0>]
+> > > > (ret_fast_syscall+0x0/0x54)
+> > > > Exception stack(0xeded9fa8 to 0xeded9ff0)
+> > > > ...
+> > > > ---[ end trace 6414689569c2bc08 ]---
+> > > > 
+> > > > This warning is not present when booting ARM 64bit kernel, but I suspect
+> > > > that this is due to the differences in the kernel configuration.
+> > > It's because vc4 is not yet supported on RPi4.
+> > 
+> > This happens on RPi *3B* :)
 > 
-> single line pls
+> Ok, read too fast. Thanks!
 
-ok
-
->> +		return 0;
->> +	}
->> +
->> +	shim = sdw->link_res->shim;
->> +	wake_sts = intel_readw(shim, SDW_SHIM_WAKESTS);
->> +
->> +	if (!(wake_sts & BIT(sdw->instance)))
->> +		return 0;
->> +
->> +	/* disable WAKEEN interrupt ASAP to prevent interrupt flood */
->> +	intel_shim_wake(sdw, false);
-> 
-> when & where is this enabled?
-
-in follow-up patches where the clock-stop mode is enabled.
-
-	} else if (clock_stop_quirks & SDW_INTEL_CLK_STOP_BUS_RESET ||
-		   !clock_stop_quirks) {
-
-		ret = sdw_cdns_clock_stop(cdns, true);
-		if (ret < 0) {
-			dev_err(dev, "cannot enable clock stop on suspend\n");
-			return ret;
-		}
-
-		ret = sdw_cdns_enable_interrupt(cdns, false);
-		if (ret < 0) {
-			dev_err(dev, "cannot disable interrupts on suspend\n");
-			return ret;
-		}
-
-		ret = intel_link_power_down(sdw);
-		if (ret) {
-			dev_err(dev, "Link power down failed: %d", ret);
-			return ret;
-		}
-
-		intel_shim_wake(sdw, true);
-
->> +
->> +	/*
->> +	 * wake up master and slave so that slave can notify master
->> +	 * the wakeen event and let codec driver check codec status
->> +	 */
->> +	list_for_each_entry(slave, &bus->slaves, node) {
->> +		/*
->> +		 * discard devices that are defined in ACPI tables but
->> +		 * not physically present and devices that cannot
->> +		 * generate wakes
->> +		 */
->> +		if (slave->dev_num_sticky && slave->prop.wake_capable)
->> +			pm_request_resume(&slave->dev);
-> 
-> Hmmm, shouldn't slave do this? would it not make sense to notify the
-> slave thru callback and then slave decides to resume or not..?
-
-In this mode, the bus is clock-stop mode, and events are detected with 
-level detector tied to PCI events. The master and slave devices are all 
-in pm_runtime suspended states. The codec cannot make any decisions on 
-its own since the bus is stopped, it needs to first resume, which 
-assumes that the master resumes first and the enumeration re-done before 
-it can access any of its registers.
-
-By looping through the list of devices that can generate events, you 
-end-up first forcing the master to resume, and then each slave resumes 
-and can check who generated the event and what happened while suspended. 
-if the codec didn't generate the event it will go back to suspended mode 
-after the usual timeout.
-
-We can add a callback but that callback would only be used for Intel 
-solutions, but internally it would only do a pm_request_resume() since 
-the codec cannot make any decisions before first resuming. In other 
-words, it would be an Intel-specific callback that is implemented using 
-generic resume operations. It's probably better to keep this in 
-Intel-specific code, no?
+FYI, you just need to set card->owner field properly in
+vc4_hdmi_audio_init().
 
 
+thanks,
 
+Takashi

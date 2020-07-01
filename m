@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 115752115F8
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jul 2020 00:26:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 703A32115FA
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jul 2020 00:26:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ADB5E169B;
-	Thu,  2 Jul 2020 00:25:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADB5E169B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13C321684;
+	Thu,  2 Jul 2020 00:26:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13C321684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593642372;
-	bh=OFrydZJeoFPPEIsSLHrZKo0VwyTkGxBPs8O02wurO8c=;
+	s=default; t=1593642419;
+	bh=qR6b0seueX1BWelGymIepBrH7Jm0QvYZYSibZfidNYw=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ENH7tnkjqhgi/e0lfXtVkI4y2d72ttVMRR4zg6QtpkKew31yHlcghwcMiRCgS0eGj
-	 iYOuy1zhfBvX/6p8QHWbnlf0dXFxxnl6YdvVe2gg0gaC1d0fPfnkl6Ggmfku4CRZf+
-	 qFxFI/qlr4sUydyV2tAuSi1mFQO1jr1tPgXEza64=
+	b=CZJkTjEL/njWOp1QUbKD86DuE4TtTbauM2lmL65JLoldK8PJh7YNyEaiFJMp4TMin
+	 XlCpv9UoMqcxy8uY+0oTZ5zLLmnuWTEqVDWqbO0MCyEt4S/RvBG0F035nkzW4jVIgr
+	 VQvDM85OwwIl+2H6Qklrek8JFgIeO8STXk4k+7gc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3ED4AF802DC;
-	Thu,  2 Jul 2020 00:22:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B640F802E1;
+	Thu,  2 Jul 2020 00:23:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6C763F802DF; Thu,  2 Jul 2020 00:22:57 +0200 (CEST)
+ id 75339F802E3; Thu,  2 Jul 2020 00:23:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,35 +34,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D303F802DB
- for <alsa-devel@alsa-project.org>; Thu,  2 Jul 2020 00:22:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D303F802DB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8B2E9F802E1
+ for <alsa-devel@alsa-project.org>; Thu,  2 Jul 2020 00:22:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B2E9F802E1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GZmWkYxO"
+ header.b="ybfuOJs9"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9FECC20780;
- Wed,  1 Jul 2020 22:22:52 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id B3347207E8;
+ Wed,  1 Jul 2020 22:22:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1593642173;
- bh=OFrydZJeoFPPEIsSLHrZKo0VwyTkGxBPs8O02wurO8c=;
+ s=default; t=1593642178;
+ bh=qR6b0seueX1BWelGymIepBrH7Jm0QvYZYSibZfidNYw=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=GZmWkYxOPzNNwVuxMoom4aqXVWovfXQu5bh8J4JDJXzgKkCGB4x2B/cruDd3rb6vZ
- xnwKuwmSM6EhpXr62i0t+39R4R8UXTplPBFXdE33qXlH3/OFzBeXTNL+2al91kXXH8
- W0YzNqLrr9zyF0wdf0ojuL+uoUnTuE/7ZIoykru0=
-Date: Wed, 01 Jul 2020 23:22:50 +0100
+ b=ybfuOJs9Vmbfe4ObII/sYSTuo+YClxTRqYIrdBxAyiM0aJd4f3dszsnJI5I2cS56c
+ Io6TIbicvRPVE0epumlQ9rhyFeaw+fmO7gcxFUwM8n8nrDNpcxmYhwms3XbZeiEbPF
+ OSZG1Xp5CZASNqiARSsBmmzvNZ6MkkU0192ooJp0=
+Date: Wed, 01 Jul 2020 23:22:56 +0100
 From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, Yu-Hsuan Hsu <yuhsuan@chromium.org>
-In-Reply-To: <20200630091615.4020059-1-yuhsuan@chromium.org>
-References: <20200630091615.4020059-1-yuhsuan@chromium.org>
-Subject: Re: [PATCH] ASoC: rockchip: add format and rate constraints on rk3399
-Message-Id: <159364215573.10630.1998520137231805857.b4-ty@kernel.org>
-Cc: alsa-devel@alsa-project.org, Tzung-Bi Shih <tzungbi@chromium.org>,
- Heiko Stuebner <heiko@sntech.de>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, Cheng-Yi Chiang <cychiang@chromium.org>
+To: perex@perex.cz, alsa-devel@alsa-project.org, tiwai@suse.com,
+ Xiubo.Lee@gmail.com, timur@kernel.org, festevam@gmail.com,
+ nicoleotsuka@gmail.com, Shengjiu Wang <shengjiu.wang@nxp.com>
+In-Reply-To: <1593412953-10897-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1593412953-10897-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: fsl_sai: Refine regcache usage with pm runtime
+Message-Id: <159364215573.10630.10167601683932305726.b4-ty@kernel.org>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,12 +77,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 30 Jun 2020 17:16:15 +0800, Yu-Hsuan Hsu wrote:
-> S8 and S24 formats does not work on this machine driver so force to use
-> S16_LE instead.
-> 
-> In addition, add constraint to limit the max value of rate because the
-> rate higher than 96000(172000, 192000) is not stable either.
+On Mon, 29 Jun 2020 14:42:33 +0800, Shengjiu Wang wrote:
+> When there is dedicated power domain bound with device, after probing
+> the power will be disabled, then registers are not accessible in
+> fsl_sai_dai_probe(), so regcache only need to be enabled in end of
+> probe() and regcache_mark_dirty should be moved to pm runtime resume
+> callback function.
 
 Applied to
 
@@ -91,8 +90,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: rockchip: add format and rate constraints on rk3399
-      commit: 1eb96c198aff13162de4857e19f9488d59c4acb1
+[1/1] ASoC: fsl_sai: Refine regcache usage with pm runtime
+      commit: d8d702e19e997cf3f172487e0659d0e68aa5ede5
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

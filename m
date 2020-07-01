@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6772211277
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Jul 2020 20:19:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CA75211278
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Jul 2020 20:19:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 63C2816BB;
-	Wed,  1 Jul 2020 20:18:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63C2816BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA8AC16B4;
+	Wed,  1 Jul 2020 20:18:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA8AC16B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593627547;
-	bh=6BurVOUe2Fd0ifH+7W6hdY21FGr/IdufuWDu2gsaljc=;
+	s=default; t=1593627584;
+	bh=K+8lnCkQEm2LLRhbR6kOyFLibOfsqhYzvTA5WAf9ePk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LONQAGD9pblE6UN0dTFBXWdInaVZcji82MS4xqRoyOdYTZTunTa3FkggV2JbxC9n6
-	 JjNgqQPrxFqWU8iC01kHVWQSSFjTUTQOJM8qRgAztWtdlmgyVkV9U8Q9J+Wg+ZLno9
-	 mBpoYjlnhLPZYbnWsRwB9pqtKnVzI3E2NGzBBnSQ=
+	b=YCxHy44eo6TZ6mdQtvQACToe0fAVz84rMSsQKcEtRyaK/mK4oXUZByDvCDtmvlTBp
+	 4FmSebTM0SrpINziy1teRe0SvBD8EaXvT8dSKAcie3SQynsfD9VCdZYDqfW6ot8sMi
+	 zWQ0gRI/P7bamVCanC7piBx3lTYhDMEKzquMAHCw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D29C9F802E9;
-	Wed,  1 Jul 2020 20:14:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98375F802F7;
+	Wed,  1 Jul 2020 20:14:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EA89AF802A8; Wed,  1 Jul 2020 20:14:13 +0200 (CEST)
+ id AF536F802BE; Wed,  1 Jul 2020 20:14:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,30 +33,30 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DD265F80217
- for <alsa-devel@alsa-project.org>; Wed,  1 Jul 2020 20:14:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD265F80217
-IronPort-SDR: 9VCD43XQfYj6dRztIBFBlkEGF7OW+lPDw1AtvJ2tARjc1lzFkXCLMjaJpcn20Z7PQU6dSt1wYx
- CqwKLExng7zw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9669"; a="145753284"
-X-IronPort-AV: E=Sophos;i="5.75,301,1589266800"; d="scan'208";a="145753284"
+ by alsa1.perex.cz (Postfix) with ESMTPS id B09D3F802A9
+ for <alsa-devel@alsa-project.org>; Wed,  1 Jul 2020 20:14:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B09D3F802A9
+IronPort-SDR: kjE8uM9vMvTH08kcMXmQoS2ni/A2R6iXV1mDP+IklbsX7UaHpVEKmsB0bNIlK/x/vZNAU58nkl
+ fGkGfZOi5LEg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9669"; a="145753295"
+X-IronPort-AV: E=Sophos;i="5.75,301,1589266800"; d="scan'208";a="145753295"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2020 11:13:57 -0700
-IronPort-SDR: PDq2TanOI5rAjEuvT1VNIyvrNkyGEJpP5f8vd4XdKI9+xwu2zovkY3AI2zsSm+Cr+4LYly3y8V
- hrr3pDkRLk4w==
-X-IronPort-AV: E=Sophos;i="5.75,301,1589266800"; d="scan'208";a="481686403"
+ 01 Jul 2020 11:13:58 -0700
+IronPort-SDR: 9124I9w6YLT/w9p27DAKq8CmyxnEIU3bl/ayEzjzu9V/jK6qH9zMJZN/Zv+WEE0xhWvOkm0CrL
+ us4WZJt4TH4Q==
+X-IronPort-AV: E=Sophos;i="5.75,301,1589266800"; d="scan'208";a="481686409"
 Received: from srnatla-mobl2.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.254.76.199])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2020 11:13:56 -0700
+ 01 Jul 2020 11:13:57 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 6/7] ASoC: codecs: wm8994: fix kernel-doc
-Date: Wed,  1 Jul 2020 13:13:19 -0500
-Message-Id: <20200701181320.80848-7-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 7/7] ASoC: codecs: wm8400: add _maybe_unused as needed
+Date: Wed,  1 Jul 2020 13:13:20 -0500
+Message-Id: <20200701181320.80848-8-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200701181320.80848-1-pierre-louis.bossart@linux.intel.com>
 References: <20200701181320.80848-1-pierre-louis.bossart@linux.intel.com>
@@ -80,28 +80,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix W=1 warning
+Fix W=1 warning by adding __maybe_unused. Maintainers for this file
+may want to double-check if those definitions are necessary.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/codecs/wm8994.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ sound/soc/codecs/wm8400.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/codecs/wm8994.c b/sound/soc/codecs/wm8994.c
-index 5e1ce243feb1..75242ec47406 100644
---- a/sound/soc/codecs/wm8994.c
-+++ b/sound/soc/codecs/wm8994.c
-@@ -3877,6 +3877,10 @@ static void wm1811_jackdet_bootstrap(struct work_struct *work)
-  *
-  * @component:   WM8958 component
-  * @jack:    jack to report detection events on
-+ * @det_cb: detection callback
-+ * @det_cb_data: data for detection callback
-+ * @id_cb: mic id callback
-+ * @id_cb_data: data for mic id callback
-  *
-  * Enable microphone detection functionality for the WM8958.  By
-  * default simple detection which supports the detection of up to 6
+diff --git a/sound/soc/codecs/wm8400.c b/sound/soc/codecs/wm8400.c
+index 2551eb0f1868..1e5671d345da 100644
+--- a/sound/soc/codecs/wm8400.c
++++ b/sound/soc/codecs/wm8400.c
+@@ -67,7 +67,7 @@ static void wm8400_component_reset(struct snd_soc_component *component)
+ 	wm8400_reset_codec_reg_cache(wm8400->wm8400);
+ }
+ 
+-static const DECLARE_TLV_DB_SCALE(rec_mix_tlv, -1500, 600, 0);
++static __maybe_unused const DECLARE_TLV_DB_SCALE(rec_mix_tlv, -1500, 600, 0);
+ 
+ static const DECLARE_TLV_DB_SCALE(in_pga_tlv, -1650, 3000, 0);
+ 
+@@ -75,7 +75,7 @@ static const DECLARE_TLV_DB_SCALE(out_mix_tlv, -2100, 0, 0);
+ 
+ static const DECLARE_TLV_DB_SCALE(out_pga_tlv, -7300, 600, 0);
+ 
+-static const DECLARE_TLV_DB_SCALE(out_omix_tlv, -600, 0, 0);
++static __maybe_unused const DECLARE_TLV_DB_SCALE(out_omix_tlv, -600, 0, 0);
+ 
+ static const DECLARE_TLV_DB_SCALE(out_dac_tlv, -7163, 0, 0);
+ 
+@@ -440,7 +440,7 @@ static const struct snd_kcontrol_new wm8400_dapm_ainrmux_controls =
+ SOC_DAPM_ENUM("Route", wm8400_ainrmux_enum);
+ 
+ /* RXVOICE */
+-static const struct snd_kcontrol_new wm8400_dapm_rxvoice_controls[] = {
++static __maybe_unused const struct snd_kcontrol_new wm8400_dapm_rxvoice_controls[] = {
+ SOC_DAPM_SINGLE_TLV("LIN4/RXN", WM8400_INPUT_MIXER5, WM8400_LR4BVOL_SHIFT,
+ 			WM8400_LR4BVOL_MASK, 0, in_mix_tlv),
+ SOC_DAPM_SINGLE_TLV("RIN4/RXP", WM8400_INPUT_MIXER6, WM8400_RL4BVOL_SHIFT,
 -- 
 2.25.1
 

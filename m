@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABAAD2115F5
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jul 2020 00:25:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E51932115F6
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jul 2020 00:25:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 523801681;
-	Thu,  2 Jul 2020 00:24:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 523801681
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8DD01168A;
+	Thu,  2 Jul 2020 00:25:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DD01168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593642315;
-	bh=cJ/E7eJozKmA8owHe5A5Mzv6L3LI8x9nRfUS77HPINA=;
+	s=default; t=1593642355;
+	bh=sNB0otr3YXbGQdp8LUGPooYFhKBdpdTWobuGYek895E=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ejOIOZPJUfmrZqt89J2B5OgxGQBhZRxsZSABxquD+M1OnAMx1tEkCFwAK2TTeAlRN
-	 Cx9SrmMFCh0FEntdYVJa+qmH2Qe9fW6o3lUML80vbSUpBZClesaunU7ECOMX/P+7Ct
-	 LDLWM3722KPTUy/414nrN2el7LcdPje9jA9eFbcM=
+	b=ErHyF0XPTMfekipVgstgtLP9AVNm6ZbudkP663tXzYvcj7lctNM42qMpBk4BPFFKO
+	 kmFESY/3W7ejtLJlu/JQIdUO9VtTbfpW7+ZifzbFl3VCsnTA8EbAQXOajbpmNWOfxN
+	 ubR+59qlnp+frOoLqC0vGa102N2rV7HRK7w5L1Wk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13300F8025F;
-	Thu,  2 Jul 2020 00:22:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0948FF802C2;
+	Thu,  2 Jul 2020 00:22:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 48E77F8025F; Thu,  2 Jul 2020 00:22:47 +0200 (CEST)
+ id 8BD77F802D2; Thu,  2 Jul 2020 00:22:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,34 +34,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57EE9F8020C
- for <alsa-devel@alsa-project.org>; Thu,  2 Jul 2020 00:22:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57EE9F8020C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 87B02F802C2
+ for <alsa-devel@alsa-project.org>; Thu,  2 Jul 2020 00:22:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87B02F802C2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="eoZetv18"
+ header.b="YilNAXuy"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 77574207E8;
- Wed,  1 Jul 2020 22:22:42 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 8BE5520780;
+ Wed,  1 Jul 2020 22:22:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1593642163;
- bh=cJ/E7eJozKmA8owHe5A5Mzv6L3LI8x9nRfUS77HPINA=;
+ s=default; t=1593642168;
+ bh=sNB0otr3YXbGQdp8LUGPooYFhKBdpdTWobuGYek895E=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=eoZetv183/MwvWt4g9XDdVjYYsLTKM3H+xWZ9H88Ciadikq8X5B7IjbZPxke7OytK
- 0khhZ0pQ70pTNdYl1Wko3KkJCe4bG+XwA2DNLuFlfOs/+1Oa5euSv4F5l2qhUSjjCZ
- eYZ09tWNMNXg6H1ACS8jpDmejaNm2KrM+ZcGDXSU=
-Date: Wed, 01 Jul 2020 23:22:40 +0100
+ b=YilNAXuy18fwlQ34TqLP/zvBVBwFLd7MI44QdIFpJeNoCMFk8quUX+vSzdJBPSDkr
+ t5hJrURtDoaWKAxBGmIopKIMwVL3xf4VHA3nGLkDKsT039wJ6RS+Y6BR8+SJY02vE1
+ YnKtwgf1+TPE+VpGopzPypu8j/GLJk3x8AoLMryc=
+Date: Wed, 01 Jul 2020 23:22:45 +0100
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@ti.com>,
- robh+dt@kernel.org
-In-Reply-To: <20200630125843.11561-1-peter.ujfalusi@ti.com>
-References: <20200630125843.11561-1-peter.ujfalusi@ti.com>
-Subject: Re: [PATCH v4 0/3] ASoC: ti: Add support for audio on J721e EVM
-Message-Id: <159364215574.10630.2058528286314798186.b4-ty@kernel.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+To: Fabio Estevam <festevam@gmail.com>
+In-Reply-To: <20200630223020.25546-1-festevam@gmail.com>
+References: <20200630223020.25546-1-festevam@gmail.com>
+Subject: Re: [PATCH] ASoC: dt-bindings: simple-card: Fix 'make
+ dt_binding_check' warnings
+Message-Id: <159364215574.10630.10014931369710772889.b4-ty@kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, robh+dt@kernel.org,
+ kuninori.morimoto.gx@renesas.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,23 +77,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 30 Jun 2020 15:58:40 +0300, Peter Ujfalusi wrote:
-> Changes since v3:
-> - Fix the single clock source handling and typo
+On Tue, 30 Jun 2020 19:30:20 -0300, Fabio Estevam wrote:
+> The following build warnings are seen with 'make dt_binding_check':
 > 
-> Changes since v2:
-> - DT binding:
->  - use proper (?) patch subject for the binding docuemtn patch
->  - drop pll4 and pll15 from DT - driver should check the rate via
->    clk_get_parent. If it is not available (as it is not currently) then use the
->    match_data provided rates.
->  - add simple explanation for the clocking setup
->  - Use descriptive names for clocks: cpb/ivi-mcasp-auxclk and cpb/ivi-codec-scki
->  - dt_binding_check shows no errors/warnings
-> - ASoC machine driver:
->  - Try to read the PLL4/15 rate with clk API (parent of the two clock divider)
->    if it is not available then use the match_data provided numbers.
->  - Support for single PLL setup
+> Documentation/devicetree/bindings/sound/simple-card.example.dts:209.46-211.15: Warning (unit_address_vs_reg): /example-4/sound/simple-audio-card,cpu@0: node has a unit name, but no reg or ranges property
+> Documentation/devicetree/bindings/sound/simple-card.example.dts:213.37-215.15: Warning (unit_address_vs_reg): /example-4/sound/simple-audio-card,cpu@1: node has a unit name, but no reg or ranges property
+> Documentation/devicetree/bindings/sound/simple-card.example.dts:250.42-261.15: Warning (unit_address_vs_reg): /example-5/sound/simple-audio-card,dai-link@0: node has a unit name, but no reg or ranges property
+> Documentation/devicetree/bindings/sound/simple-card.example.dts:263.42-288.15: Warning (unit_address_vs_reg): /example-5/sound/simple-audio-card,dai-link@1: node has a unit name, but no reg or ranges property
+> Documentation/devicetree/bindings/sound/simple-card.example.dts:270.32-272.19: Warning (unit_address_vs_reg): /example-5/sound/simple-audio-card,dai-link@1/cpu@0: node has a unit name, but no reg or ranges property
+> Documentation/devicetree/bindings/sound/simple-card.example.dts:273.23-275.19: Warning (unit_address_vs_reg): /example-5/sound/simple-audio-card,dai-link@1/cpu@1: node has a unit name, but no reg or ranges property
+> Documentation/devicetree/bindings/sound/simple-card.example.dts:276.23-278.19: Warning (unit_address_vs_reg): /example-5/sound/simple-audio-card,dai-link@1/cpu@2: node has a unit name, but no reg or ranges property
+> Documentation/devicetree/bindings/sound/simple-card.example.dts:279.23-281.19: Warning (unit_address_vs_reg): /example-5/sound/simple-audio-card,dai-link@1/cpu@3: node has a unit name, but no reg or ranges property
+> Documentation/devicetree/bindings/sound/simple-card.example.dts:290.42-303.15: Warning (unit_address_vs_reg): /example-5/sound/simple-audio-card,dai-link@2: node has a unit name, but no reg or ranges property
 > 
 > [...]
 
@@ -103,12 +98,8 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: ti: davinci-mcasp: Specify stream_name for playback/capture
-      commit: ef3ab250aad9920fa7fd6280051c92a488109b87
-[2/3] ASoC: dt-bindings: Add documentation for TI j721e EVM (CPB and IVI)
-      commit: 8142500e7dc0d214e3c7a22788116f71cd84f07b
-[3/3] ASoC: ti: Add custom machine driver for j721e EVM (CPB and IVI)
-      commit: 6748d05590594837e42dfa975879fb275099f0b2
+[1/1] ASoC: dt-bindings: simple-card: Fix 'make dt_binding_check' warnings
+      commit: 88ba5f4a642e4fb6ab7058254967f55375ca068d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

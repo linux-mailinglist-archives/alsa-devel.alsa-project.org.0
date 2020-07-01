@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 421022115E6
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jul 2020 00:24:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABAAD2115F5
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jul 2020 00:25:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B0891168C;
-	Thu,  2 Jul 2020 00:23:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0891168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 523801681;
+	Thu,  2 Jul 2020 00:24:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 523801681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593642267;
-	bh=mxx7Gg/ZIeVDV4tXevq1kBD2WMrxAhSo/UjofIGOOwU=;
+	s=default; t=1593642315;
+	bh=cJ/E7eJozKmA8owHe5A5Mzv6L3LI8x9nRfUS77HPINA=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=anXJI1IRVG95qHF4umy5Y2ZveVYEwPEeO/rD9JLFy5SdYGbcwNbsyRnhtYZ9ExRc/
-	 cbutyNYzmK6kYfhJWyn6WuFGzPYVNTqYqHlD7xEbucNlBMZQdn4+YewNRYNs/for63
-	 XY3VYzU0tOh4H1v+S0a1Y7mWNNCylD7Qn8TAEaM8=
+	b=ejOIOZPJUfmrZqt89J2B5OgxGQBhZRxsZSABxquD+M1OnAMx1tEkCFwAK2TTeAlRN
+	 Cx9SrmMFCh0FEntdYVJa+qmH2Qe9fW6o3lUML80vbSUpBZClesaunU7ECOMX/P+7Ct
+	 LDLWM3722KPTUy/414nrN2el7LcdPje9jA9eFbcM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD8BDF80229;
-	Thu,  2 Jul 2020 00:22:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 13300F8025F;
+	Thu,  2 Jul 2020 00:22:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DC169F80217; Thu,  2 Jul 2020 00:22:43 +0200 (CEST)
+ id 48E77F8025F; Thu,  2 Jul 2020 00:22:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,35 +34,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EE6F0F800C1
- for <alsa-devel@alsa-project.org>; Thu,  2 Jul 2020 00:22:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE6F0F800C1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57EE9F8020C
+ for <alsa-devel@alsa-project.org>; Thu,  2 Jul 2020 00:22:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57EE9F8020C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="04e4khGI"
+ header.b="eoZetv18"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 5D78220780;
- Wed,  1 Jul 2020 22:22:37 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 77574207E8;
+ Wed,  1 Jul 2020 22:22:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1593642157;
- bh=mxx7Gg/ZIeVDV4tXevq1kBD2WMrxAhSo/UjofIGOOwU=;
+ s=default; t=1593642163;
+ bh=cJ/E7eJozKmA8owHe5A5Mzv6L3LI8x9nRfUS77HPINA=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=04e4khGICYM7F2fV318l7QGiET8eig6XK+gokuFooZFgBJouu8gJBd14/TIBQ+mpv
- UblTZxZI4UIzLu5D+bDdMao2CAFWavi/aJo7FRezwwFJsbLKP9Ot1rvINT9cGhR1eh
- xjrE1pqQI/7VEA7Ht2y6mPk1Zc4zXv7HCyhsAZf4=
-Date: Wed, 01 Jul 2020 23:22:35 +0100
+ b=eoZetv183/MwvWt4g9XDdVjYYsLTKM3H+xWZ9H88Ciadikq8X5B7IjbZPxke7OytK
+ 0khhZ0pQ70pTNdYl1Wko3KkJCe4bG+XwA2DNLuFlfOs/+1Oa5euSv4F5l2qhUSjjCZ
+ eYZ09tWNMNXg6H1ACS8jpDmejaNm2KrM+ZcGDXSU=
+Date: Wed, 01 Jul 2020 23:22:40 +0100
 From: Mark Brown <broonie@kernel.org>
-To: perex@perex.cz, alsa-devel@alsa-project.org, tiwai@suse.com,
- Xiubo.Lee@gmail.com, timur@kernel.org, lgirdwood@gmail.com, festevam@gmail.com,
- nicoleotsuka@gmail.com, Shengjiu Wang <shengjiu.wang@nxp.com>
-In-Reply-To: <1593525367-23221-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1593525367-23221-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH v3] ASoC: fsl_asrc: Add an option to select internal ratio
- mode
-Message-Id: <159364215575.10630.16163829958912302210.b4-ty@kernel.org>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@ti.com>,
+ robh+dt@kernel.org
+In-Reply-To: <20200630125843.11561-1-peter.ujfalusi@ti.com>
+References: <20200630125843.11561-1-peter.ujfalusi@ti.com>
+Subject: Re: [PATCH v4 0/3] ASoC: ti: Add support for audio on J721e EVM
+Message-Id: <159364215574.10630.2058528286314798186.b4-ty@kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,13 +77,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 30 Jun 2020 21:56:07 +0800, Shengjiu Wang wrote:
-> The ASRC not only supports ideal ratio mode, but also supports
-> internal ratio mode.
+On Tue, 30 Jun 2020 15:58:40 +0300, Peter Ujfalusi wrote:
+> Changes since v3:
+> - Fix the single clock source handling and typo
 > 
-> For internal rato mode, the rate of clock source should be divided
-> with no remainder by sample rate, otherwise there is sound
-> distortion.
+> Changes since v2:
+> - DT binding:
+>  - use proper (?) patch subject for the binding docuemtn patch
+>  - drop pll4 and pll15 from DT - driver should check the rate via
+>    clk_get_parent. If it is not available (as it is not currently) then use the
+>    match_data provided rates.
+>  - add simple explanation for the clocking setup
+>  - Use descriptive names for clocks: cpb/ivi-mcasp-auxclk and cpb/ivi-codec-scki
+>  - dt_binding_check shows no errors/warnings
+> - ASoC machine driver:
+>  - Try to read the PLL4/15 rate with clk API (parent of the two clock divider)
+>    if it is not available then use the match_data provided numbers.
+>  - Support for single PLL setup
 > 
 > [...]
 
@@ -94,8 +103,12 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl_asrc: Add an option to select internal ratio mode
-      commit: d0250cf4f2abfbea64ed247230f08f5ae23979f0
+[1/3] ASoC: ti: davinci-mcasp: Specify stream_name for playback/capture
+      commit: ef3ab250aad9920fa7fd6280051c92a488109b87
+[2/3] ASoC: dt-bindings: Add documentation for TI j721e EVM (CPB and IVI)
+      commit: 8142500e7dc0d214e3c7a22788116f71cd84f07b
+[3/3] ASoC: ti: Add custom machine driver for j721e EVM (CPB and IVI)
+      commit: 6748d05590594837e42dfa975879fb275099f0b2
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

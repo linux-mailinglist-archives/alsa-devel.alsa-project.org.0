@@ -2,74 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 295F3210B03
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Jul 2020 14:27:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 082E3210B04
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Jul 2020 14:28:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C26AE1682;
-	Wed,  1 Jul 2020 14:26:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C26AE1682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 979F81685;
+	Wed,  1 Jul 2020 14:27:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 979F81685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593606467;
-	bh=Nv4eozuzIRWQ00LKbcRdZ16BBjaXpDv2SmZ8B7PBl8M=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1593606501;
+	bh=pEFfkALKDSC8/x2HjIbpCn/sZsK6z3BdswLJCd1sAX0=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qZxUL4pohOVuvOkGG8tBDmBNt5FqzIFVqkLsEe/GKCRi+oJOBvQzuiIh8E5BSx9+w
-	 ASxjViWXEPGpZqvakprmTTA28wIgC6m9iNQQPUZ+22kT7jjunZ91QWl5RTj/NIiTp9
-	 +jP+XAbsgecrFz3nk66E6T/91idlEe52Nz46ZOpk=
+	b=BpTSzUq2Wy2s4EZuGefpeTGNsFU7kSzDRtgXUiB18kahkOpfEJVlsGOnOlEca4jfT
+	 OCfe8CZHgSeaiXd83DhAKh6jVw3Wvm8vC/o+52h0ONAIL+m5gkboyh52M0ier5e/18
+	 bO9vVR4Mm6IQkaSE9jGP+73A6xxUIWDYzkkb6Tm4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5C30CF800C1;
-	Wed,  1 Jul 2020 14:25:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BE25EF8025F;
+	Wed,  1 Jul 2020 14:27:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14125F80217; Wed,  1 Jul 2020 14:25:56 +0200 (CEST)
+ id 444F9F80269; Wed,  1 Jul 2020 14:27:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from jazz.pogo.org.uk (jazz.pogo.org.uk [213.138.114.167])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B03DF80217
- for <alsa-devel@alsa-project.org>; Wed,  1 Jul 2020 14:25:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B03DF80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id 49CDBF800EA
+ for <alsa-devel@alsa-project.org>; Wed,  1 Jul 2020 14:27:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49CDBF800EA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=pogo.org.uk header.i=@pogo.org.uk
- header.b="HSxBmn44"
+ header.b="EpJPZmAz"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=pogo.org.uk
  ; s=a;
- h=Content-Type:MIME-Version:References:Message-ID:In-Reply-To:Subject:
- cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:
+ Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=e9GcZj7gH4lMtKXxtQnw4HiUVbZtf7yJJ7kltXFOfPY=; b=HSxBmn44VwAkOoIW3k5a+hDugC
- +vhhfaj5W8NaHoVO8VRa2Q5ZBILTdHM8J3Sd7BymH3uqfTdyf3QIT9Ug6Hiy6qJP/u+QlO7IwSzhz
- UfNSoB/EbRlj3Cos3fNJu4OlMF7G5Y40iHJaBpe9hVgZ4ugzZLeIUBG/e21Ahl9NlABMxZPgdd+j2
- ilbbY9G7+FoEcWyHRKwN7oz6uDxCOaK++J7etg1YXRW/F1bukJNqJUQbb1by7QXh9d6Hsubb+jAaa
- rX7mI4WqZMGB1qrBXUZ+T1NGbzxAFB7L1pjJa870pSkwV4QhC8wI3cnPPssiov9wv+eYW/YslHIRO
- m1j2wakw==;
+ bh=EUMW/bEashtO586ffyz1ljJ1OZGveLvglHUaZik2x+I=; b=EpJPZmAzhe6SMDO5bK0F8PaYx7
+ lyLsaiPKc5jkB/QeHqaetCQ/OnH5nJh8kbHei8U+uhy3bbvq7O/3KI9SgFBEBkEejBLrMJeE75KNF
+ yW5cdKYqBsJcUW4mTxwZvyMTxLqhtPntCnjiDev5/Ci7Z/YOuWN9gyU/QwMEx6mP0HZIiSV8G9QXN
+ SwJ6SgdXJK/xj6FscdudK5JgQt1JC/GMy1DYooVLtjJQ4MeeqZpsDfrpzZAXHENQZWRnJLn32XMSb
+ WlxeRbidbAiwr45+3TlFSpvwWbrX3Hu608itJEbruAdrEVcakgoL/u738+WO4g93H1lNZzjpkh1Ms
+ jwfbrNWw==;
 Received: from cpc1-hari17-2-0-cust102.20-2.cable.virginm.net ([86.18.4.103]
  helo=stax.localdomain) by jazz.pogo.org.uk with esmtps (TLS1.2) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94 (FreeBSD))
  (envelope-from <mark@xwax.org>)
- id 1jqboG-0009jt-4V; Wed, 01 Jul 2020 13:25:52 +0100
-Received: from mark (helo=localhost)
- by stax.localdomain with local-esmtp (Exim 4.84)
- (envelope-from <mark@xwax.org>)
- id 1jqboF-0004bG-SO; Wed, 01 Jul 2020 13:25:51 +0100
-Date: Wed, 1 Jul 2020 13:25:51 +0100 (BST)
+ id 1jqbpj-0009kN-Ns; Wed, 01 Jul 2020 13:27:23 +0100
+Received: from mark by stax.localdomain with local (Exim 4.84)
+ (envelope-from <mark@stax.localdomain>)
+ id 1jqbpj-0004dz-Es; Wed, 01 Jul 2020 13:27:23 +0100
 From: Mark Hills <mark@xwax.org>
 To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: echoaudio: Fix some long standing bugs
-In-Reply-To: <2006161409060.30751@stax.localdomain>
-Message-ID: <2007011319580.23012@tamla.localdomain>
-References: <2006161409060.30751@stax.localdomain>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [PATCH 1/4] echoaudio: Race conditions around "opencount"
+Date: Wed,  1 Jul 2020 13:27:20 +0100
+Message-Id: <20200701122723.17814-1-mark@xwax.org>
+X-Mailer: git-send-email 2.17.5
+In-Reply-To: <2007011319580.23012@tamla.localdomain>
+References: <2007011319580.23012@tamla.localdomain>
 Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -86,16 +84,226 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Takashi, thank you for the feedback on the previous patches.
+Use of atomics does not make these statements robust:
 
-I will follow up with the final patches ready for merging. I've been 
-running for many days now against kernel 5.6.14 with all issues resolved 
-and no side effects.
+       atomic_inc(&chip->opencount);
+       if (atomic_read(&chip->opencount) > 1 && chip->rate_set)
+               chip->can_set_rate=0;
 
-I think it would be good to include these in a stable/LTS kernel. Is there 
-some criteria, and can you assist with this?
+and
 
-Many thanks
+       if (atomic_read(&chip->opencount)) {
+               if (chip->opencount) {
+                       changed = -EAGAIN;
+               } else {
+                       changed = set_digital_mode(chip, dmode);
 
+It would be necessary to atomically increment or decrement the value
+and use the returned result. And yet we still need to prevent other
+threads making use of "can_set_rate" while we set it.
+
+However in all but one case the atomic is misleading as they are already
+running with "mode_mutex" held.
+
+Decisions are made on mode setting are often intrinsically connected
+to "opencount" because some operations are not permitted unless
+there is sole ownership.
+
+So instead simplify this, and use "mode_mutex" as a lock for all reference
+counting and mode setting.
+
+Signed-off-by: Mark Hills <mark@xwax.org>
+---
+ sound/pci/echoaudio/echoaudio.c | 76 ++++++++++++++++++---------------
+ sound/pci/echoaudio/echoaudio.h |  6 +--
+ 2 files changed, 45 insertions(+), 37 deletions(-)
+
+diff --git a/sound/pci/echoaudio/echoaudio.c b/sound/pci/echoaudio/echoaudio.c
+index 0941a7a17623..82a49dfd2384 100644
+--- a/sound/pci/echoaudio/echoaudio.c
++++ b/sound/pci/echoaudio/echoaudio.c
+@@ -245,13 +245,20 @@ static int hw_rule_sample_rate(struct snd_pcm_hw_params *params,
+ 						      SNDRV_PCM_HW_PARAM_RATE);
+ 	struct echoaudio *chip = rule->private;
+ 	struct snd_interval fixed;
++	int err;
++
++	mutex_lock(&chip->mode_mutex);
+ 
+-	if (!chip->can_set_rate) {
++	if (chip->can_set_rate) {
++		err = 0;
++	} else {
+ 		snd_interval_any(&fixed);
+ 		fixed.min = fixed.max = chip->sample_rate;
+-		return snd_interval_refine(rate, &fixed);
++		err = snd_interval_refine(rate, &fixed);
+ 	}
+-	return 0;
++
++	mutex_unlock(&chip->mode_mutex);
++	return err;
+ }
+ 
+ 
+@@ -322,7 +329,7 @@ static int pcm_open(struct snd_pcm_substream *substream,
+ 				       SNDRV_PCM_HW_PARAM_RATE, -1)) < 0)
+ 		return err;
+ 
+-	/* Finally allocate a page for the scatter-gather list */
++	/* Allocate a page for the scatter-gather list */
+ 	if ((err = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV,
+ 				       &chip->pci->dev,
+ 				       PAGE_SIZE, &pipe->sgpage)) < 0) {
+@@ -330,6 +337,17 @@ static int pcm_open(struct snd_pcm_substream *substream,
+ 		return err;
+ 	}
+ 
++	/*
++	 * Sole ownership required to set the rate
++	 */
++
++	dev_dbg(chip->card->dev, "pcm_open opencount=%d can_set_rate=%d, rate_set=%d",
++		chip->opencount, chip->can_set_rate, chip->rate_set);
++
++	chip->opencount++;
++	if (chip->opencount > 1 && chip->rate_set)
++		chip->can_set_rate = 0;
++
+ 	return 0;
+ }
+ 
+@@ -353,12 +371,7 @@ static int pcm_analog_in_open(struct snd_pcm_substream *substream)
+ 				       hw_rule_capture_format_by_channels, NULL,
+ 				       SNDRV_PCM_HW_PARAM_CHANNELS, -1)) < 0)
+ 		return err;
+-	atomic_inc(&chip->opencount);
+-	if (atomic_read(&chip->opencount) > 1 && chip->rate_set)
+-		chip->can_set_rate=0;
+-	dev_dbg(chip->card->dev, "pcm_analog_in_open  cs=%d  oc=%d  r=%d\n",
+-		chip->can_set_rate, atomic_read(&chip->opencount),
+-		chip->sample_rate);
++
+ 	return 0;
+ }
+ 
+@@ -388,12 +401,7 @@ static int pcm_analog_out_open(struct snd_pcm_substream *substream)
+ 				       NULL,
+ 				       SNDRV_PCM_HW_PARAM_CHANNELS, -1)) < 0)
+ 		return err;
+-	atomic_inc(&chip->opencount);
+-	if (atomic_read(&chip->opencount) > 1 && chip->rate_set)
+-		chip->can_set_rate=0;
+-	dev_dbg(chip->card->dev, "pcm_analog_out_open  cs=%d  oc=%d  r=%d\n",
+-		chip->can_set_rate, atomic_read(&chip->opencount),
+-		chip->sample_rate);
++
+ 	return 0;
+ }
+ 
+@@ -429,10 +437,6 @@ static int pcm_digital_in_open(struct snd_pcm_substream *substream)
+ 				       SNDRV_PCM_HW_PARAM_CHANNELS, -1)) < 0)
+ 		goto din_exit;
+ 
+-	atomic_inc(&chip->opencount);
+-	if (atomic_read(&chip->opencount) > 1 && chip->rate_set)
+-		chip->can_set_rate=0;
+-
+ din_exit:
+ 	mutex_unlock(&chip->mode_mutex);
+ 	return err;
+@@ -471,9 +475,7 @@ static int pcm_digital_out_open(struct snd_pcm_substream *substream)
+ 				       NULL, SNDRV_PCM_HW_PARAM_CHANNELS,
+ 				       -1)) < 0)
+ 		goto dout_exit;
+-	atomic_inc(&chip->opencount);
+-	if (atomic_read(&chip->opencount) > 1 && chip->rate_set)
+-		chip->can_set_rate=0;
++
+ dout_exit:
+ 	mutex_unlock(&chip->mode_mutex);
+ 	return err;
+@@ -488,23 +490,29 @@ static int pcm_digital_out_open(struct snd_pcm_substream *substream)
+ static int pcm_close(struct snd_pcm_substream *substream)
+ {
+ 	struct echoaudio *chip = snd_pcm_substream_chip(substream);
+-	int oc;
+ 
+ 	/* Nothing to do here. Audio is already off and pipe will be
+ 	 * freed by its callback
+ 	 */
+ 
+-	atomic_dec(&chip->opencount);
+-	oc = atomic_read(&chip->opencount);
+-	dev_dbg(chip->card->dev, "pcm_close  oc=%d  cs=%d  rs=%d\n", oc,
+-		chip->can_set_rate, chip->rate_set);
+-	if (oc < 2)
++	mutex_lock(&chip->mode_mutex);
++
++	dev_dbg(chip->card->dev, "pcm_open opencount=%d can_set_rate=%d, rate_set=%d",
++		chip->opencount, chip->can_set_rate, chip->rate_set);
++
++	chip->opencount--;
++
++	switch (chip->opencount) {
++	case 1:
+ 		chip->can_set_rate = 1;
+-	if (oc == 0)
++		break;
++
++	case 0:
+ 		chip->rate_set = 0;
+-	dev_dbg(chip->card->dev, "pcm_close2 oc=%d  cs=%d  rs=%d\n", oc,
+-		chip->can_set_rate, chip->rate_set);
++		break;
++	}
+ 
++	mutex_unlock(&chip->mode_mutex);
+ 	return 0;
+ }
+ 
+@@ -1409,7 +1417,7 @@ static int snd_echo_digital_mode_put(struct snd_kcontrol *kcontrol,
+ 		/* Do not allow the user to change the digital mode when a pcm
+ 		device is open because it also changes the number of channels
+ 		and the allowed sample rates */
+-		if (atomic_read(&chip->opencount)) {
++		if (chip->opencount) {
+ 			changed = -EAGAIN;
+ 		} else {
+ 			changed = set_digital_mode(chip, dmode);
+@@ -1874,7 +1882,7 @@ static int snd_echo_create(struct snd_card *card,
+ 		chip->card = card;
+ 		chip->pci = pci;
+ 		chip->irq = -1;
+-		atomic_set(&chip->opencount, 0);
++		chip->opencount = 0;
+ 		mutex_init(&chip->mode_mutex);
+ 		chip->can_set_rate = 1;
+ 	} else {
+diff --git a/sound/pci/echoaudio/echoaudio.h b/sound/pci/echoaudio/echoaudio.h
+index be4d0489394a..6fd283e4e676 100644
+--- a/sound/pci/echoaudio/echoaudio.h
++++ b/sound/pci/echoaudio/echoaudio.h
+@@ -336,7 +336,7 @@ struct echoaudio {
+ 	struct mutex mode_mutex;
+ 	u16 num_digital_modes, digital_mode_list[6];
+ 	u16 num_clock_sources, clock_source_list[10];
+-	atomic_t opencount;
++	unsigned int opencount;  /* protected by mode_mutex */
+ 	struct snd_kcontrol *clock_src_ctl;
+ 	struct snd_pcm *analog_pcm, *digital_pcm;
+ 	struct snd_card *card;
+@@ -353,8 +353,8 @@ struct echoaudio {
+ 	struct timer_list timer;
+ 	char tinuse;				/* Timer in use */
+ 	char midi_full;				/* MIDI output buffer is full */
+-	char can_set_rate;
+-	char rate_set;
++	char can_set_rate;                      /* protected by mode_mutex */
++	char rate_set;                          /* protected by mode_mutex */
+ 
+ 	/* This stuff is used mainly by the lowlevel code */
+ 	struct comm_page *comm_page;	/* Virtual address of the memory
 -- 
-Mark
+2.17.5
+

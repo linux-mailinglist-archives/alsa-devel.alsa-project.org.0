@@ -2,76 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58F93212069
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jul 2020 11:55:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81328212070
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jul 2020 11:58:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ECF3616DB;
-	Thu,  2 Jul 2020 11:54:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECF3616DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0702D16E4;
+	Thu,  2 Jul 2020 11:57:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0702D16E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593683743;
-	bh=lJzfA7AcKSurYZeRDXy0lFMGhOMsaMjwM7Lcqz95NOc=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1593683903;
+	bh=0KliAdk2KDdHRlJJRKUdgwcgXxNfW4cUzqtQm1UECyg=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BtvueHMXOeh4m8x0O1R0dig5b+ECjchCKpE9E4FaIUkcxOCkUhvNIhp/VG4YjKi0T
-	 VqCXlqCRINx8gg0y9vF0YIsHMWz31hi5hrMjJlDw7rY9CbtRQYl6jJCb/oEV+dhrm2
-	 2tj0YOJhIAg5lWXCgACThMeguwgFOUV0JLDfePkI=
+	b=byQ/9hWapXFijByBDfuYwYlodeffKjYkA1l5VPFtyUtHoqa9G7kLKPRO6yEByAViX
+	 5k8F0j9939gG5Gj/V97mTW2ccvI5sHLWZzkNn4arVP64irtFjPafvcVNmPcUse5IqO
+	 NGUK14sVFpHWFo21hkhRLYeuPaKqrwupck7Y1NmQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC391F800ED;
-	Thu,  2 Jul 2020 11:54:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 469DDF80245;
+	Thu,  2 Jul 2020 11:56:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 90603F8022D; Thu,  2 Jul 2020 11:53:59 +0200 (CEST)
+ id 26A86F8022D; Thu,  2 Jul 2020 11:56:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from jazz.pogo.org.uk (jazz.pogo.org.uk [213.138.114.167])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 914DAF800ED
- for <alsa-devel@alsa-project.org>; Thu,  2 Jul 2020 11:53:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 914DAF800ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id 171CAF80134
+ for <alsa-devel@alsa-project.org>; Thu,  2 Jul 2020 11:56:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 171CAF80134
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=pogo.org.uk header.i=@pogo.org.uk
- header.b="uQ46cWuX"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=pogo.org.uk
- ; s=a;
- h=Content-Type:MIME-Version:References:Message-ID:In-Reply-To:Subject:
- cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=5EksP0KRuehAWHUCa3CHOPauq8Sx4MlqVo0ALYHv/dY=; b=uQ46cWuXz+OlVm2pwgeqEjRRyk
- y4VDd+pkS88ZlECDs/2yA1PEHur1MLql4mOlwCiAwA/ZAds3ADvfM8S4vP0UKnQSrfY2+aPa0CJe1
- NVwbTBxdTtnXPyPWaClSnstnhY+4RPt80s5DrHX3jPevJ64ZHmX2g07M21eqB8B2OOJjB/bMFKN60
- ez2erhsLdvZhmzZKNAbMMCLAkoSvHZHhE6c3l8a4rUOPfzlyEP9NaxjlxIHAEEnWrQZWHi+mrkI/0
- 3L0Tw2IXhXadDccsyl0P2pX+Tl10F8ZKTmxBLnEJpCAhXU0q6FfK0Epf9ONUktEpqHNz/JX9L/h+v
- y0pIuN/g==;
-Received: from cpc1-hari17-2-0-cust102.20-2.cable.virginm.net ([86.18.4.103]
- helo=stax.localdomain) by jazz.pogo.org.uk with esmtps (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94 (FreeBSD))
- (envelope-from <mark@xwax.org>)
- id 1jqvuh-000Brl-Qp; Thu, 02 Jul 2020 10:53:51 +0100
-Received: from mark (helo=localhost)
- by stax.localdomain with local-esmtp (Exim 4.84)
- (envelope-from <mark@xwax.org>)
- id 1jqvuh-0002iu-Gu; Thu, 02 Jul 2020 10:53:51 +0100
-Date: Thu, 2 Jul 2020 10:53:51 +0100 (BST)
-From: Mark Hills <mark@xwax.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH 1/4] echoaudio: Race conditions around "opencount"
-In-Reply-To: <202007020108.pW8giznF%lkp@intel.com>
-Message-ID: <2007021037270.2435@stax.localdomain>
-References: <20200701122723.17814-1-mark@xwax.org>
- <202007020108.pW8giznF%lkp@intel.com>
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="JaTHyCUH"
+Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5efdaeec0001>; Thu, 02 Jul 2020 02:54:52 -0700
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate102.nvidia.com (PGP Universal service);
+ Thu, 02 Jul 2020 02:56:33 -0700
+X-PGP-Universal: processed;
+ by hqpgpgate102.nvidia.com on Thu, 02 Jul 2020 02:56:33 -0700
+Received: from [10.25.97.252] (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 2 Jul
+ 2020 09:56:25 +0000
+Subject: Re: [PATCH v4 15/23] ASoC: soc-core: Identify 'no_pcm' DAI links for
+ DPCM
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+References: <1593233625-14961-1-git-send-email-spujar@nvidia.com>
+ <1593233625-14961-16-git-send-email-spujar@nvidia.com>
+ <87h7utytlx.wl-kuninori.morimoto.gx@renesas.com>
+ <9c7871ae-6649-7b0d-4780-c8389c299b04@nvidia.com>
+ <87d05ezqlc.wl-kuninori.morimoto.gx@renesas.com>
+ <49bac9c1-093c-d353-cef3-c9c3391cc00d@nvidia.com>
+ <875zb6z4fq.wl-kuninori.morimoto.gx@renesas.com>
+From: Sameer Pujar <spujar@nvidia.com>
+Message-ID: <c23f962a-7192-8187-39d8-18eff26e06be@nvidia.com>
+Date: Thu, 2 Jul 2020 15:26:21 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+In-Reply-To: <875zb6z4fq.wl-kuninori.morimoto.gx@renesas.com>
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1593683692; bh=dDYuyP/VcCvHIR0JuEEZXo9QqLf+pb+8/yFvb6XxP/g=;
+ h=X-PGP-Universal:CC:Subject:To:References:From:Message-ID:Date:
+ User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
+ X-ClientProxiedBy:Content-Type:Content-Transfer-Encoding:
+ Content-Language;
+ b=JaTHyCUHRSSIxrMUZwHzmEP4jaeDDaUhMyF/Vq4hBT2x86Hv7lFPDY5qyddsEe6eH
+ LZ/H8+3TKvgKFHq9dYpDB13s4XKRW/icwqU/QIT6fVXsih+UdkCtxRv5ZJDR5x+nsC
+ 6b2eoafvPpUY7C+10Q2YadI+ycqZZU4oz54ATWoHvUUoz97m2L1TN5VsEqt3GUERU3
+ QdGeVvznLbqFJIo8GXJW3cK8MTkTiRVCG515/9g89c5RkUKrRwyMIqbpBe16dznfxK
+ pMGfCpvO8yW5zS8U3f0nr1Ry+Aw6ZRM+toEp3OZCuTnj66iAHEx95pTDYPTVaSgL9V
+ aQ0sJJXuudzOA==
+Cc: jonathanh@nvidia.com, nicoleotsuka@gmail.com, alsa-devel@alsa-project.org,
+ atalambedu@nvidia.com, swarren@nvidia.com, linux-kernel@vger.kernel.org,
+ spujar@nvidia.com, nwartikar@nvidia.com, lgirdwood@gmail.com,
+ robh+dt@kernel.org, tiwai@suse.com, viswanathl@nvidia.com, sharadg@nvidia.com,
+ broonie@kernel.org, thierry.reding@gmail.com, linux-tegra@vger.kernel.org,
+ digetx@gmail.com, rlokhande@nvidia.com, mkumard@nvidia.com, dramesh@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,58 +108,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Takashi, my apologies, it looks like this patch broke the build of the 
-Mona driver.
-
-Thankfully the change is simple, as it just looks like a bit of confusion 
-of responsibilies in the code for the Mona interface; the correct fix is 
-to remove the code.
-
-That is a lesson for working with only the echo3g driver enabled. Now I 
-have done a full build of all echoaudio drivers, with no warnings or 
-errors.
-
-Here's a patch, or it can be squashed into the original patch if 
-necessary.
-
--- 
-Mark
 
 
-From 3c56faaa51436ca08dfe107aa1b06162904c216f Mon Sep 17 00:00:00 2001
-From: Mark Hills <mark@xwax.org>
-Date: Thu, 2 Jul 2020 10:25:43 +0100
-Subject: [PATCH] echoaudio: The Mona build was broken by changes to opencount
+On 7/2/2020 2:20 PM, Kuninori Morimoto wrote:
+> External email: Use caution opening links or attachments
+>
+>
+> Hi Sameer
+>
+>>> I wonder component->driver->non_legacy_dai_naming can't work for you ?
+>> I see currently in simple-card driver that, BE<->BE link would be
+>> treated as CODEC<->CODEC link if 'non_legacy_dai_naming' flag is set
+>> at both ends of BE. Do we need to set this flag for all BE?
+>> However I am not sure how this will work out for a BE<->BE DPCM DAI
+>> link considering the fact that I want to use chain of components and I
+>> guess routing map would get complicated. Also going by the flag name
+>> it was not meant to differentiate between a FE and BE?
+> OK, non_legacy_dai_naming was just my quick idea.
 
-The correct fix is to remove this check as it is always false.
+>
+> Maybe your soc_component_is_pcm() idea can work,
+> but it seems a littl bit hackish for me.
+> So, can you please
+>
+> 1) Add soc_component_is_pcm() on simple-card, not soc-core ?
+>     Maybe we can move it to soc-core later,
+>     but want to keep it under simple-card, so far.
+>
+> 2) Use it with data->component_chaining, and some comment ?
+>     non component_chaining user doesn't get damage in worst case,
+>     and easy to understand.
+>
+>          /*
+>           * This is for BE<->BE connection.
+>           * It needs to ...
+>           * It is assumng ...
+>           * Note is ...
+>           */
+>          if (data->component_chaining &&
+>              !soc_component_is_pcm(cpus))
+>                  dai_link->no_pcm = 1;
+>
+> 3) maybe you can reuse snd_soc_find_dai() for soc_component_is_pcm() ?
+>
+>          dai = snd_soc_find_dai(dlc);
+>          if (dai &&
+>              (dai->pcm_new || dai->component->driver->pcm_construct))
+>                  return xxx
 
-It's not the responsibilty of the device-specific driver to make
-this check, as it is already checked in snd_echo_digital_mode_put
-before this code is called.
+Sounds fine, I can make changes as per above points. Thanks.
 
-I do not have a Mona interface to test this change.
-
-Signed-off-by: Mark Hills <mark@xwax.org>
----
- sound/pci/echoaudio/mona_dsp.c | 5 -----
- 1 file changed, 5 deletions(-)
-
-diff --git a/sound/pci/echoaudio/mona_dsp.c b/sound/pci/echoaudio/mona_dsp.c
-index dce9e57d01c4..f77db83dd73d 100644
---- a/sound/pci/echoaudio/mona_dsp.c
-+++ b/sound/pci/echoaudio/mona_dsp.c
-@@ -300,11 +300,6 @@ static int set_input_clock(struct echoaudio *chip, u16 clock)
- 	u32 control_reg, clocks_from_dsp;
- 	int err;
- 
--
--	/* Prevent two simultaneous calls to switch_asic() */
--	if (atomic_read(&chip->opencount))
--		return -EAGAIN;
--
- 	/* Mask off the clock select bits */
- 	control_reg = le32_to_cpu(chip->comm_page->control_register) &
- 		GML_CLOCK_CLEAR_MASK;
--- 
-2.17.5
+>
+> Thank you for your help !!
+>
+> Best regards
+> ---
+> Kuninori Morimoto
 

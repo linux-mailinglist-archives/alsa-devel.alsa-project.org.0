@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 926F02117D6
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jul 2020 03:26:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5835B2117DC
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jul 2020 03:27:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D0861673;
-	Thu,  2 Jul 2020 03:26:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D0861673
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08B8A168D;
+	Thu,  2 Jul 2020 03:26:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08B8A168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593653211;
-	bh=ibgWaXaIp9fRZflJ+8sQ813HXN7UoFBwZ3Vfhhpu6q8=;
+	s=default; t=1593653257;
+	bh=EAz4seBjivztUDkIMKifhMhzenT9iqxoaHQ5/wp543c=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=niaCqhR7HHc+mYtEeAkcbyN8xLJX0eQ8w3EHCnmY0hrLzrVayXx0L+Pohg7ShMqk1
-	 rUaDGmv4MXVMIso6njZJ/J1OqjjEC7fWlQ5NFNzkp7+adbIj72CAlr2xvBrGurQtOw
-	 YGtXP6MeLBlOgqV1oShHEPu3y+JHOOe6z6NjUleU=
+	b=VCmc6qCCNpwyb9kbNZmooST+ilE+YjTKGjExPlQg2/dGWnpR4rdNrCGYKSa4TbpTH
+	 IHR0u0FNDbrr2wTxcLuM1NHMqacxns2XgxQKEBo0wjM77s2gWNNvqlSYJ1t02fMYMI
+	 iSHuxe4OTbt2Xuegqw3YnGDV6AhQdmYhZGIrCyhc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D857F802E0;
-	Thu,  2 Jul 2020 03:23:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D48E7F8022B;
+	Thu,  2 Jul 2020 03:25:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F38B2F8022B; Thu,  2 Jul 2020 03:23:28 +0200 (CEST)
+ id C9CADF8022B; Thu,  2 Jul 2020 03:25:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,35 +34,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 163DFF8022D
- for <alsa-devel@alsa-project.org>; Thu,  2 Jul 2020 03:23:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 163DFF8022D
+ by alsa1.perex.cz (Postfix) with ESMTPS id C42CFF80134;
+ Thu,  2 Jul 2020 03:25:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C42CFF80134
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="R97W5t9J"
+ header.b="F9r2lzan"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BE6552082F;
- Thu,  2 Jul 2020 01:23:16 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 5494820899;
+ Thu,  2 Jul 2020 01:25:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1593652997;
- bh=ibgWaXaIp9fRZflJ+8sQ813HXN7UoFBwZ3Vfhhpu6q8=;
+ s=default; t=1593653137;
+ bh=EAz4seBjivztUDkIMKifhMhzenT9iqxoaHQ5/wp543c=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=R97W5t9JRtOVvtLDH+uK+agZ1P5QcHxU/E/VB3UqxH9xrlbj9ds76FrVIqefIXzMc
- Qfr9V/cx/TZHHUYUxTtX8NGPpF8J8V5X/W3Rb4CgyEKpb3W2B3rLxBZnRVjLgwrPgf
- YVM/dLZIt8uOjxeJHjG70BB5R5kFx5fbtXa+mrUw=
+ b=F9r2lzanuBFvf2V2vrHZm9/LNJPBepSA1hbJAybbywP6SF4Dv3LJCwR2Faki9KmGE
+ GAZZnIDs+nGBViRJWfmWusk4XXd1Bj+loA/WQhyfe4OyPsqOqaxUUu4B0QFoou75+J
+ QYTFVU4TbvIiWQTHTt7GLev9QJdNpi8m/UCtUoq8=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.7 18/53] ALSA: hda: Intel: add missing PCI IDs for
- ICL-H, TGL-H and EKL
-Date: Wed,  1 Jul 2020 21:21:27 -0400
-Message-Id: <20200702012202.2700645-18-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 10/40] ASoC: SOF: Intel: add PCI ID for CometLake-S
+Date: Wed,  1 Jul 2020 21:23:31 -0400
+Message-Id: <20200702012402.2701121-10-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200702012202.2700645-1-sashal@kernel.org>
-References: <20200702012202.2700645-1-sashal@kernel.org>
+In-Reply-To: <20200702012402.2701121-1-sashal@kernel.org>
+References: <20200702012402.2701121-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -70,8 +69,8 @@ Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>,
  Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
  alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Takashi Iwai <tiwai@suse.de>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,49 +88,33 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-[ Upstream commit d50313a5a0d803bcf55121a2b82086633060d05e ]
+[ Upstream commit 258fb4f4c34a0db9d3834aba6784d7b322176bb9 ]
 
-Mirror PCI ids used for SOF.
+Mirror ID added for legacy HDaudio
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Link: https://lore.kernel.org/r/20200617164909.18225-1-pierre-louis.bossart@linux.intel.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Link: https://lore.kernel.org/r/20200617164755.18104-3-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/hda_intel.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ sound/soc/sof/sof-pci-dev.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index 41a03c61a74b3..11ec5c56c80e9 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -2470,6 +2470,9 @@ static const struct pci_device_id azx_ids[] = {
- 	/* Icelake */
- 	{ PCI_DEVICE(0x8086, 0x34c8),
- 	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
-+	/* Icelake-H */
-+	{ PCI_DEVICE(0x8086, 0x3dc8),
-+	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
- 	/* Jasperlake */
- 	{ PCI_DEVICE(0x8086, 0x38c8),
- 	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
-@@ -2478,9 +2481,14 @@ static const struct pci_device_id azx_ids[] = {
- 	/* Tigerlake */
+diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
+index d66412a778739..3f79cd03507c9 100644
+--- a/sound/soc/sof/sof-pci-dev.c
++++ b/sound/soc/sof/sof-pci-dev.c
+@@ -420,6 +420,8 @@ static const struct pci_device_id sof_pci_ids[] = {
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_COMETLAKE_H)
+ 	{ PCI_DEVICE(0x8086, 0x06c8),
+ 		.driver_data = (unsigned long)&cml_desc},
++	{ PCI_DEVICE(0x8086, 0xa3f0), /* CML-S */
++		.driver_data = (unsigned long)&cml_desc},
+ #endif
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_TIGERLAKE)
  	{ PCI_DEVICE(0x8086, 0xa0c8),
- 	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
-+	/* Tigerlake-H */
-+	{ PCI_DEVICE(0x8086, 0x43c8),
-+	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
- 	/* Elkhart Lake */
- 	{ PCI_DEVICE(0x8086, 0x4b55),
- 	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
-+	{ PCI_DEVICE(0x8086, 0x4b58),
-+	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
- 	/* Broxton-P(Apollolake) */
- 	{ PCI_DEVICE(0x8086, 0x5a98),
- 	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_BROXTON },
 -- 
 2.25.1
 

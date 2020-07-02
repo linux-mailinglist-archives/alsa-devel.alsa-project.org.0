@@ -2,112 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91D9E21820C
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 10:14:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23FDB21A20D
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 16:25:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 368101670;
-	Wed,  8 Jul 2020 10:13:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 368101670
+	by alsa0.perex.cz (Postfix) with ESMTPS id BDEBC1607;
+	Thu,  9 Jul 2020 16:24:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDEBC1607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594196075;
-	bh=Gqh11UiG2+F/LHFxJpAOq5p7jpOlo0S6qUWZwnjh2/w=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1594304711;
+	bh=xr9f/KPkeDlJaaznAQJH3wMwLcDfD0pus5EAoV8y7E8=;
+	h=Resent-From:Resent-Date:Resent-To:From:To:Date:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PEcvDzyd95XetQrJT0+VhNlQKPnI0U+pIP+/wlxGJbRKjKUFGDAeTmryviRZrCtCV
-	 wtfodrubCX0Mqbml7OVyv/09taNJSnCvsfn1ToShgi0XK+/GWQPXZaTXskvl2F2FnC
-	 CXNi2KAoFvow8NJLY63F43yZyyCG/LF6vauicr+Y=
+	b=DHHHDZii6bGYz0r0eB2Ae2lSpWstLL9HZhcNsEUNQ93dN1c5WuM6VBq+IMgT2dqgc
+	 BHFoA7KNM9cBOhK+2E/PUo1gS1pWBceXf0FkEdeskmkwen+qf6X4pQ8grCswOGJmT/
+	 5Adv69D1ssOJiypjjMZCY82vkh1XVG3EFEzmu/So=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50AA7F80258;
-	Wed,  8 Jul 2020 10:12:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ECE8EF8011F;
+	Thu,  9 Jul 2020 16:22:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 13E7BF80161; Wed,  8 Jul 2020 10:12:18 +0200 (CEST)
+ id 60C3BF8015A; Wed,  8 Jul 2020 12:24:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
- [66.111.4.221])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C2CDEF8015C
- for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 10:12:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2CDEF8015C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1BF4AF800AE
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 12:24:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BF4AF800AE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="JGrN7IAR"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="MqguM69H"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.nyi.internal (Postfix) with ESMTP id 8418F5801C9;
- Wed,  8 Jul 2020 04:12:04 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Wed, 08 Jul 2020 04:12:04 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:content-transfer-encoding:in-reply-to; s=fm3; bh=G
- qh11UiG2+F/LHFxJpAOq5p7jpOlo0S6qUWZwnjh2/w=; b=JGrN7IARgfhBh+TYe
- spWxXGNdUcQDnVFdKyixl0fYvvH6xJE2djLhIpQoI3PaOR96xHYEKB9y7LWGuKQZ
- Wm7zqMOzf1+BMhTlzcE8XzeqGCEi+bK2b5nvOAfZL2xf+XXOv/fjw9c/pEKnzU87
- Op3zoBhLVrjR/2z3QbtXmmTP0AarXrW6b6w+MtwK4136yhs5Fme0addu/Z1mrQHT
- n0aCEWQxQnTxSwt7tQYfIooNx7qUGcB6BHJlapo40cTwRBEg2gIQK0mkzg+NSnoe
- lREucFh5AqjnYTuwk+vvfKGSt2Yz7TAiCOwGbdeuIKvzCiQVFduGlitQK1NABuv2
- o3sPQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm3; bh=Gqh11UiG2+F/LHFxJpAOq5p7jpOlo0S6qUWZwnjh2
- /w=; b=MqguM69HgwVhZ2LfdsU7p7gkgcYkwfx88zlEIjsnKU1qg+cYe812la7Dx
- 9twClAB2Busn1YMK0XKL4KD0JUtkKln/PI6eKSdQQ5UI5CjlTqbaPDFG7Qn7pk8E
- nNBz3m03oYpmTN1jnGjnU/MvuwxHUgqRw0q0w3mmTyNz843v4eLp2yXnzyGxtyQK
- 9mgu9SgHm/rNFPHnntSSVfI3iCo6cKnEzLdMx61KSp/77PjPBbr6657WZfLx0fqS
- bMuu/78tX+ccfUhyPz0CToWvlvmisfj6Rab/q2KHvOWcDU1n4iJYbmHdODifc9fQ
- cEbTIxzGqobWsI9uIzxCQ00CWiDpg==
-X-ME-Sender: <xms:1H8FX_XqiUxkF3w1npvl2KiPBXj_eaKnhwZ_mjecBfLsUOe3224xZg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudejgddtudcutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggugfgjsehtqhertddttddvnecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepgfejtedtjefggfffvdetuedthedtheegheeuteekfeeghfdtteejkeeludeg
- vddunecukfhppeeltddrkeelrdeikedrjeeinecuvehluhhsthgvrhfuihiivgepvdenuc
- frrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:1H8FX3lEo9eAqzU90yHPSuQe4UhMoT9p6vjKrmqEilWV40AMB0dPiw>
- <xmx:1H8FX7Y19YTvZboPsu2qS3uYAV8aeE8lKAIIuU422hAJDAIOBgcURg>
- <xmx:1H8FX6XOVIfmPPzegoT0O_H9vMmmY1OaseE7zQIM6Y6nffXklZAgCw>
- <xmx:1H8FX_fXVuG5vBqH6T10VjYO0mtGtSNT19lkLwDCkTl7oHQPWmmi4Q>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id B7227328005D;
- Wed,  8 Jul 2020 04:12:03 -0400 (EDT)
-Date: Wed, 8 Jul 2020 10:12:02 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v3 03/10] ASoC: sunxi: sun4i-spdif: fix kernel-doc
-Message-ID: <20200708081202.2dlhr7unkdqma2gg@gilmour.lan>
-References: <20200707191615.98296-1-pierre-louis.bossart@linux.intel.com>
- <20200707191615.98296-4-pierre-louis.bossart@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20200707191615.98296-4-pierre-louis.bossart@linux.intel.com>
-Cc: alsa-devel@alsa-project.org,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, tiwai@suse.de,
- open list <linux-kernel@vger.kernel.org>,
- Masahiro Yamada <masahiroy@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, Chen-Yu Tsai <wens@csie.org>,
- broonie@kernel.org, Lee Jones <lee.jones@linaro.org>,
- "moderated list:ARM/Allwinner sunXi SoC support"
- <linux-arm-kernel@lists.infradead.org>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="mw0TvNWe"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7E0BE206F6
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 10:24:32 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="mw0TvNWe"
+Resent-From: Mark Brown <broonie@sirena.org.uk>
+Resent-Date: Wed, 8 Jul 2020 11:24:27 +0100
+Resent-Message-ID: <20200708102427.GD4655@sirena.org.uk>
+Resent-To: alsa-devel@alsa-project.org
+Envelope-to: broonie@sirena.co.uk
+Delivery-date: Thu, 02 Jul 2020 03:30:52 +0100
+Received: from mail.kernel.org ([198.145.29.99])
+ by cassiel.sirena.org.uk with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.92)
+ (envelope-from <SRS0=U1ae=AN=gmail.com=puyou.lu@kernel.org>)
+ id 1jqozx-0001lj-U7
+ for broonie@sirena.co.uk; Thu, 02 Jul 2020 03:30:52 +0100
+Received: by mail.kernel.org (Postfix)
+ id A9530207F5; Thu,  2 Jul 2020 02:30:48 +0000 (UTC)
+Received: from mail-pj1-f66.google.com (mail-pj1-f66.google.com
+ [209.85.216.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPS id 7D9B4207D4
+ for <broonie@kernel.org>; Thu,  2 Jul 2020 02:30:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7D9B4207D4
+Authentication-Results: mail.kernel.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: mail.kernel.org;
+ spf=pass smtp.mailfrom=puyou.lu@gmail.com
+Received: by mail-pj1-f66.google.com with SMTP id cm21so2444317pjb.3
+ for <broonie@kernel.org>; Wed, 01 Jul 2020 19:30:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=4XsXXEYBxxHrQytaDfCbGD9jRcEQocnFGF0UdWQqVok=;
+ b=mw0TvNWeIKKT92Q9lGDYXqikWvdc17VpfHHs6O/e0CM41Xg4bhGxAGIQqJ2binvoM+
+ VHDLuVrqzUdGctCB8h+bFjlxHy3j0XTaxi9inwl5R7bLXlKBkQRjJBRyPvtHXc3uEz3O
+ QFgVUjzVj3+wme619MUT2EKQ/wnttXjvC71/kiIKGqpt1XvIwwTzw7cmefrdqxFyc1/u
+ Ryf1AMlqdziv6dEdUN78WuMsA7phBfiePALOEFLPo3qnuYyt4WhQ0q/dxRmRpBTftf19
+ L5e49qLCzhdHUGWU5TGRpM5CHZ31msbDnFf3QhZ+3+kQK1GLXztI8BUje53DlfkGeRCr
+ LWOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=4XsXXEYBxxHrQytaDfCbGD9jRcEQocnFGF0UdWQqVok=;
+ b=a+M6TEt7JD8aPkdvzPcpstdDCF8meSpNJnf0eI1mw/7+rcawQN87UlEnipUqk/j9Wf
+ gyTvpRJQaBHferFKAau7CIX3JHmmqS7b8a9SfWBBZYtqM26RQuL2BwGg9qPyCj+O56IB
+ JxLYpFjRyIaaPBmb0hhq1HHKM3VMdXXzaxsZB1xSJHdw7PdTyupqKu+NjEKVrthOCE3b
+ DufSpd0slogzvTuXXtpkCwX24LMLeI9zBArlo4BnLJ1oGhf/Cpn1Yj9YQeDBryeHZ9/M
+ +JdDsemTCN45Pm5tmOiL9wQtDd3Ji1pe8d3h99WMWvNK4KbgSL+rUNArMAbgovsWK5aC
+ CQsw==
+X-Gm-Message-State: AOAM5313wbQRwZW33Yx8etWaCRIQMgFtn+Ri3KRGik9nQt9c+6tpqkOm
+ OR7kRDZT5uTJgT+CbRbYXAgfw4VqAgLtxA==
+X-Google-Smtp-Source: ABdhPJxQVEkr5UH//Ri7y0DKd0SUtrXbUes0AD/XqEC2koxriXqi2vEjqpf3XsrQ2mFm6lxX1jE7zg==
+X-Received: by 2002:a17:90a:e60b:: with SMTP id
+ j11mr31646564pjy.189.1593657047838; 
+ Wed, 01 Jul 2020 19:30:47 -0700 (PDT)
+Received: from localhost.localdomain ([183.14.30.148])
+ by smtp.gmail.com with ESMTPSA id t137sm7330632pgc.32.2020.07.01.19.30.45
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 01 Jul 2020 19:30:47 -0700 (PDT)
+From: puyou.lu@gmail.com
+To: broonie@kernel.org,
+	lgirdwood@gmail.com
+Date: Thu,  2 Jul 2020 10:30:25 +0800
+Message-Id: <1593657025-4903-1-git-send-email-puyou.lu@gmail.com>
+X-Mailer: git-send-email 2.7.4
+X-SA-Exim-Connect-IP: 198.145.29.99
+X-SA-Exim-Mail-From: SRS0=U1ae=AN=gmail.com=puyou.lu@kernel.org
+Subject: [PATCH 1/2] ASoC: wm8974: fix Boost Mixer Aux Switch
+X-SA-Exim-Version: 4.2.1 (built Wed, 08 May 2019 21:11:16 +0000)
+X-SA-Exim-Scanned: No (on cassiel.sirena.org.uk); Unknown failure
+X-TUID: ITp8EExr0cKZ
+X-Mailman-Approved-At: Thu, 09 Jul 2020 16:22:25 +0200
+Cc: Puyou Lu <puyou.lu@gmail.com>, patches@opensource.cirrus.com,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,12 +134,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jul 07, 2020 at 02:16:08PM -0500, Pierre-Louis Bossart wrote:
-> Fix W=3D1 warning - typo in field description
->=20
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+From: Puyou Lu <puyou.lu@gmail.com>
 
-Acked-by: Maxime Ripard <mripard@kernel.org>
+Clear BIT6 of INPPGA means not muted (Switch On).
 
-Thanks!
-Maxime
+Signed-off-by: Puyou Lu <puyou.lu@gmail.com>
+---
+ sound/soc/codecs/wm8974.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/soc/codecs/wm8974.c b/sound/soc/codecs/wm8974.c
+index 06ba365..764bf93 100644
+--- a/sound/soc/codecs/wm8974.c
++++ b/sound/soc/codecs/wm8974.c
+@@ -186,7 +186,7 @@ SOC_DAPM_SINGLE("PCM Playback Switch", WM8974_MONOMIX, 0, 1, 0),
+ 
+ /* Boost mixer */
+ static const struct snd_kcontrol_new wm8974_boost_mixer[] = {
+-SOC_DAPM_SINGLE("Aux Switch", WM8974_INPPGA, 6, 1, 0),
++SOC_DAPM_SINGLE("Aux Switch", WM8974_INPPGA, 6, 1, 1),
+ };
+ 
+ /* Input PGA */
+-- 
+2.7.4
+

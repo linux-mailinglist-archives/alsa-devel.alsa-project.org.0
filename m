@@ -2,63 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4881212642
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jul 2020 16:27:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A405212658
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jul 2020 16:33:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5380B16DD;
-	Thu,  2 Jul 2020 16:26:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5380B16DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED86516DD;
+	Thu,  2 Jul 2020 16:32:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED86516DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593700027;
-	bh=9JZ4Q/jab7SpPdou5WA7QO+VuvLfk5iWbPOtYXHsjOs=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1593700417;
+	bh=yoiiIk8yV7aQeMBE6eGjgWhzrgZn5o4MtsX81urPOGs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ExifkJykAt05VXVjAcLO0UWAuo2vOxApMKCz1qDkT6jDBMET3KMCHlqxu6tkj7aZU
-	 WTATFUirPynYxR+xASG/gB5P/TsigZPSQ4GSmUD6kk73sQ50aKN2jsthQyTF7mcd8l
-	 7+kM36SHXFWDiFGynFq2IpEF7++WAsEZ1hX2oZSA=
+	b=aSxYQkZveqxal6qSZXZd1CPY+AaZRNHEeOD4LOAMyJj5e0ZlSyxchpkXGExo0QKLD
+	 5Fvvzakt+rOT1L64x6s5d0cV1p4j9xIDCpJrVdz5oog0zenNefzC1Uy8Zt2bO8LmW1
+	 xhtxBVlIaRbPDRdaLoLGYMh0eecKMq9AYZiogh78=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67F6BF802E7;
-	Thu,  2 Jul 2020 16:23:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22202F8022B;
+	Thu,  2 Jul 2020 16:31:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A5E57F802DB; Thu,  2 Jul 2020 16:23:17 +0200 (CEST)
+ id CFC67F8022B; Thu,  2 Jul 2020 16:31:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 07A3AF800ED
+ for <alsa-devel@alsa-project.org>; Thu,  2 Jul 2020 16:31:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07A3AF800ED
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="rh0X/EYu"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2BDB7F80252
- for <alsa-devel@alsa-project.org>; Thu,  2 Jul 2020 16:23:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2BDB7F80252
-Received: from xps.home (unknown [IPv6:2a01:e35:2fb5:1510:315a:ecf0:6250:a3ed])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: aferraris)
- by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 34A3E2A5EC7;
- Thu,  2 Jul 2020 15:23:10 +0100 (BST)
-From: Arnaud Ferraris <arnaud.ferraris@collabora.com>
-To: 
-Subject: [PATCH 4/4] ASoC: fsl_asrc: swap input and output clocks in capture
- mode
-Date: Thu,  2 Jul 2020 16:22:35 +0200
-Message-Id: <20200702142235.235869-5-arnaud.ferraris@collabora.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20200702142235.235869-1-arnaud.ferraris@collabora.com>
-References: <20200702142235.235869-1-arnaud.ferraris@collabora.com>
+ by mail.kernel.org (Postfix) with ESMTPSA id 1424320890;
+ Thu,  2 Jul 2020 14:31:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1593700307;
+ bh=yoiiIk8yV7aQeMBE6eGjgWhzrgZn5o4MtsX81urPOGs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=rh0X/EYuSOXjJd7IZLHAt5PjkHiHVaHXBUckRAW9ESHhInCw6Awe+B4EfTXfWCHVB
+ 7EktAmVfcIb68os9+HU0zTIMMK2vVgmbUxpjkhl/15jB1bAUYaB/mh6tZxA+Kca9Kt
+ 8pgI/1MrVOnWgvLgGpKz3zSZFCNbIk1mawQLAFq0=
+Date: Thu, 2 Jul 2020 15:31:45 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Arnaud Ferraris <arnaud.ferraris@collabora.com>
+Subject: Re: [PATCH 1/2] dt-bindings: sound: fsl-asoc-card: add new
+ compatible for I2S slave
+Message-ID: <20200702143145.GG4483@sirena.org.uk>
+References: <20200702141114.232688-1-arnaud.ferraris@collabora.com>
+ <20200702141114.232688-2-arnaud.ferraris@collabora.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- Arnaud Ferraris <arnaud.ferraris@collabora.com>, linuxppc-dev@lists.ozlabs.org,
- Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="/Zw+/jwnNHcBRYYu"
+Content-Disposition: inline
+In-Reply-To: <20200702141114.232688-2-arnaud.ferraris@collabora.com>
+X-Cookie: I'm rated PG-34!!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linuxppc-dev@lists.ozlabs.org, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, Rob Herring <robh+dt@kernel.org>,
  kernel@collabora.com, Fabio Estevam <festevam@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -75,97 +88,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The input clock is the reference clock we need to convert the stream to,
-which therefore has to be the clock of the origin stream/device.
 
-When the stream is bi-directional and we want ASRC to act on both
-directions, we need to swap the input and output clocks between the
-playback and capture streams.
+--/Zw+/jwnNHcBRYYu
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-As some of the clocks have different ID's depending on whether they are
-used as input or output, this requires adding a new function to find the
-output clock ID corresponding to a given input clock.
+On Thu, Jul 02, 2020 at 04:11:14PM +0200, Arnaud Ferraris wrote:
+> fsl-asoc-card currently doesn't support generic codecs with the SoC
+> acting as I2S slave.
+>=20
+> This commit adds a new `fsl,imx-audio-i2s-slave` for this use-case, as
+> well as the following mandatory properties:
 
-Signed-off-by: Arnaud Ferraris <arnaud.ferraris@collabora.com>
----
- sound/soc/fsl/fsl_asrc.c | 50 ++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 48 insertions(+), 2 deletions(-)
+Why require that the CODEC be clock master here - why not make this
+configurable, reusing the properties from the generic and audio graph
+cards?
 
-diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-index 65e7307a3df0..5aeab1fbcdd9 100644
---- a/sound/soc/fsl/fsl_asrc.c
-+++ b/sound/soc/fsl/fsl_asrc.c
-@@ -506,6 +506,50 @@ static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair, bool use_ideal_rate)
- 	return fsl_asrc_set_ideal_ratio(pair, inrate, outrate);
- }
- 
-+/**
-+ * Select the output clock corresponding to a given input clock (and vice-versa)
-+ *
-+ * If we want to setup a capture channel, the input and output clocks have to
-+ * be swapped.
-+ * However, even if most of the clocks have the same index when used as input
-+ * or output, some of them (ESAI, SSI* and SPDIF) are different:
-+ * - the TX output clock has the index of the corresponding RX input clock
-+ * - the RX output clock has the index of the corresponding TX input clock
-+ *
-+ * This function makes sure that we use the proper clock index when swapping
-+ * the input and output clocks.
-+ */
-+static enum asrc_outclk fsl_asrc_get_capture_clock(enum asrc_inclk inclk)
-+{
-+	enum asrc_outclk outclk;
-+
-+	switch (inclk) {
-+	case INCLK_ESAI_RX:
-+	case INCLK_SSI1_RX:
-+	case INCLK_SSI2_RX:
-+	case INCLK_SPDIF_RX:
-+		outclk = inclk + 0x8;
-+		break;
-+	case INCLK_SSI3_RX:
-+		outclk = OUTCLK_SSI3_RX;
-+		break;
-+	case INCLK_ESAI_TX:
-+	case INCLK_SSI1_TX:
-+	case INCLK_SSI2_TX:
-+	case INCLK_SPDIF_TX:
-+		outclk = inclk - 0x8;
-+		break;
-+	case INCLK_SSI3_TX:
-+		outclk = OUTCLK_SSI3_TX;
-+		break;
-+	default:
-+		outclk = inclk;
-+		break;
-+	}
-+
-+	return outclk;
-+}
-+
- /**
-  * Start the assigned ASRC pair
-  *
-@@ -604,15 +648,17 @@ static int fsl_asrc_dai_hw_params(struct snd_pcm_substream *substream,
- 
- 	config.pair = pair->index;
- 	config.channel_num = channels;
--	config.inclk = asrc->inclk;
--	config.outclk = asrc->outclk;
- 
- 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+		config.inclk = asrc->inclk;
-+		config.outclk = asrc->outclk;
- 		config.input_format   = params_format(params);
- 		config.output_format  = asrc->asrc_format;
- 		config.input_sample_rate  = rate;
- 		config.output_sample_rate = asrc->asrc_rate;
- 	} else {
-+		config.inclk = fsl_asrc_get_capture_clock(asrc->outclk);
-+		config.outclk = fsl_asrc_get_capture_clock(asrc->inclk);
- 		config.input_format   = asrc->asrc_format;
- 		config.output_format  = params_format(params);
- 		config.input_sample_rate  = asrc->asrc_rate;
--- 
-2.27.0
+--/Zw+/jwnNHcBRYYu
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7979AACgkQJNaLcl1U
+h9AxkAf/ayvMQ6Irjwi6oOAqWBxCV2VEySnpQQvROq2t4wDxz2MOOXIE0fZfwg0F
+I7UlRDnm9ZyWwq8Dol9pigToIxzfz/G0rxJ0F3jTr5qo/1lt+hFMmdlghcl0T37v
+4OP2CPBwJtmavd2mM06870/eXQKtmd3jwRXJ2HKljt9ZSuHVcyOk0t+ZaR0zYD+V
+1AvChO6mvUipSO7A82pchm57qOKdBv7SpIGtHf4wsc+MFuEFJYaOtjfCwTrFvB1B
+kPACxzQBG4l4xgQtN803PNAZbjbZCBGusst8v4Kpygbpq5OjuhFMJ4xHUVcxHPVk
+y4i45+Yv7ceu+GohmwdxDGKnszmETw==
+=uElK
+-----END PGP SIGNATURE-----
+
+--/Zw+/jwnNHcBRYYu--

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 190F0212639
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jul 2020 16:26:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4881212642
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jul 2020 16:27:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B762816E7;
-	Thu,  2 Jul 2020 16:25:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B762816E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5380B16DD;
+	Thu,  2 Jul 2020 16:26:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5380B16DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593699982;
-	bh=D6nfxE/Kc1hclkY0hlLy5yeI7dkAW/eo8e6G9q8wxH0=;
+	s=default; t=1593700027;
+	bh=9JZ4Q/jab7SpPdou5WA7QO+VuvLfk5iWbPOtYXHsjOs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VdYUQrBc3tMKSpZdCX/ANrtLsrgLv6Xwu74aK6b2MTjrKdaQAx2ZPtFIVT38DuG7w
-	 RAjmEth3flqy1JYcA2hAGg+cJb4M9a4dawh0bo8bOXzjBZSWvWBxe1X8MAD/M+79uj
-	 RYPYtMRcUOKIxL5MlB1LGpy114NNYTYY/CNvzecw=
+	b=ExifkJykAt05VXVjAcLO0UWAuo2vOxApMKCz1qDkT6jDBMET3KMCHlqxu6tkj7aZU
+	 WTATFUirPynYxR+xASG/gB5P/TsigZPSQ4GSmUD6kk73sQ50aKN2jsthQyTF7mcd8l
+	 7+kM36SHXFWDiFGynFq2IpEF7++WAsEZ1hX2oZSA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39CB8F802DB;
-	Thu,  2 Jul 2020 16:23:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67F6BF802E7;
+	Thu,  2 Jul 2020 16:23:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9A151F802E0; Thu,  2 Jul 2020 16:23:17 +0200 (CEST)
+ id A5E57F802DB; Thu,  2 Jul 2020 16:23:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
@@ -34,19 +34,20 @@ Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
  [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A5745F800C1
- for <alsa-devel@alsa-project.org>; Thu,  2 Jul 2020 16:23:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5745F800C1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2BDB7F80252
+ for <alsa-devel@alsa-project.org>; Thu,  2 Jul 2020 16:23:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2BDB7F80252
 Received: from xps.home (unknown [IPv6:2a01:e35:2fb5:1510:315a:ecf0:6250:a3ed])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: aferraris)
- by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 962A12A5EC1;
- Thu,  2 Jul 2020 15:23:08 +0100 (BST)
+ by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 34A3E2A5EC7;
+ Thu,  2 Jul 2020 15:23:10 +0100 (BST)
 From: Arnaud Ferraris <arnaud.ferraris@collabora.com>
 To: 
-Subject: [PATCH 3/4] ASoC: fsl_asrc: always use ratio for conversion
-Date: Thu,  2 Jul 2020 16:22:34 +0200
-Message-Id: <20200702142235.235869-4-arnaud.ferraris@collabora.com>
+Subject: [PATCH 4/4] ASoC: fsl_asrc: swap input and output clocks in capture
+ mode
+Date: Thu,  2 Jul 2020 16:22:35 +0200
+Message-Id: <20200702142235.235869-5-arnaud.ferraris@collabora.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200702142235.235869-1-arnaud.ferraris@collabora.com>
 References: <20200702142235.235869-1-arnaud.ferraris@collabora.com>
@@ -74,39 +75,97 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Even when not in "Ideal Ratio" mode, ASRC can use an internally measured
-ratio, which greatly improves the conversion quality.
+The input clock is the reference clock we need to convert the stream to,
+which therefore has to be the clock of the origin stream/device.
 
-This patch ensures we always use at least the internal ratio.
+When the stream is bi-directional and we want ASRC to act on both
+directions, we need to swap the input and output clocks between the
+playback and capture streams.
+
+As some of the clocks have different ID's depending on whether they are
+used as input or output, this requires adding a new function to find the
+output clock ID corresponding to a given input clock.
 
 Signed-off-by: Arnaud Ferraris <arnaud.ferraris@collabora.com>
 ---
- sound/soc/fsl/fsl_asrc.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ sound/soc/fsl/fsl_asrc.c | 50 ++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 48 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-index 75df220e4b51..65e7307a3df0 100644
+index 65e7307a3df0..5aeab1fbcdd9 100644
 --- a/sound/soc/fsl/fsl_asrc.c
 +++ b/sound/soc/fsl/fsl_asrc.c
-@@ -451,7 +451,7 @@ static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair, bool use_ideal_rate)
- 	regmap_update_bits(asrc->regmap, REG_ASRCTR,
- 			   ASRCTR_ATSi_MASK(index), ASRCTR_ATS(index));
- 	regmap_update_bits(asrc->regmap, REG_ASRCTR,
--			   ASRCTR_USRi_MASK(index), 0);
-+			   ASRCTR_USRi_MASK(index), ASRCTR_USR(index));
+@@ -506,6 +506,50 @@ static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair, bool use_ideal_rate)
+ 	return fsl_asrc_set_ideal_ratio(pair, inrate, outrate);
+ }
  
- 	/* Set the input and output clock sources */
- 	regmap_update_bits(asrc->regmap, REG_ASRCSR,
-@@ -493,8 +493,7 @@ static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair, bool use_ideal_rate)
++/**
++ * Select the output clock corresponding to a given input clock (and vice-versa)
++ *
++ * If we want to setup a capture channel, the input and output clocks have to
++ * be swapped.
++ * However, even if most of the clocks have the same index when used as input
++ * or output, some of them (ESAI, SSI* and SPDIF) are different:
++ * - the TX output clock has the index of the corresponding RX input clock
++ * - the RX output clock has the index of the corresponding TX input clock
++ *
++ * This function makes sure that we use the proper clock index when swapping
++ * the input and output clocks.
++ */
++static enum asrc_outclk fsl_asrc_get_capture_clock(enum asrc_inclk inclk)
++{
++	enum asrc_outclk outclk;
++
++	switch (inclk) {
++	case INCLK_ESAI_RX:
++	case INCLK_SSI1_RX:
++	case INCLK_SSI2_RX:
++	case INCLK_SPDIF_RX:
++		outclk = inclk + 0x8;
++		break;
++	case INCLK_SSI3_RX:
++		outclk = OUTCLK_SSI3_RX;
++		break;
++	case INCLK_ESAI_TX:
++	case INCLK_SSI1_TX:
++	case INCLK_SSI2_TX:
++	case INCLK_SPDIF_TX:
++		outclk = inclk - 0x8;
++		break;
++	case INCLK_SSI3_TX:
++		outclk = OUTCLK_SSI3_TX;
++		break;
++	default:
++		outclk = inclk;
++		break;
++	}
++
++	return outclk;
++}
++
+ /**
+  * Start the assigned ASRC pair
+  *
+@@ -604,15 +648,17 @@ static int fsl_asrc_dai_hw_params(struct snd_pcm_substream *substream,
  
- 	/* Enable Ideal Ratio mode */
- 	regmap_update_bits(asrc->regmap, REG_ASRCTR,
--			   ASRCTR_IDRi_MASK(index) | ASRCTR_USRi_MASK(index),
--			   ASRCTR_IDR(index) | ASRCTR_USR(index));
-+			   ASRCTR_IDRi_MASK(index), ASRCTR_IDR(index));
+ 	config.pair = pair->index;
+ 	config.channel_num = channels;
+-	config.inclk = asrc->inclk;
+-	config.outclk = asrc->outclk;
  
- 	fsl_asrc_sel_proc(inrate, outrate, &pre_proc, &post_proc);
- 
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
++		config.inclk = asrc->inclk;
++		config.outclk = asrc->outclk;
+ 		config.input_format   = params_format(params);
+ 		config.output_format  = asrc->asrc_format;
+ 		config.input_sample_rate  = rate;
+ 		config.output_sample_rate = asrc->asrc_rate;
+ 	} else {
++		config.inclk = fsl_asrc_get_capture_clock(asrc->outclk);
++		config.outclk = fsl_asrc_get_capture_clock(asrc->inclk);
+ 		config.input_format   = asrc->asrc_format;
+ 		config.output_format  = params_format(params);
+ 		config.input_sample_rate  = asrc->asrc_rate;
 -- 
 2.27.0
 

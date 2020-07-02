@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95558212B38
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jul 2020 19:27:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00D1D212B3A
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jul 2020 19:27:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3443616CE;
-	Thu,  2 Jul 2020 19:26:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3443616CE
+	by alsa0.perex.cz (Postfix) with ESMTPS id A018116E4;
+	Thu,  2 Jul 2020 19:27:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A018116E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593710838;
-	bh=emcunHaeE6JdDfnm13+2QKOp+ZY9IS3483l9QxqMM+8=;
+	s=default; t=1593710876;
+	bh=TRtmUdqpV9FQp7lwL8FTv7x2Ucis+ljESfyzyhfF/HE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MmiB64Dh4C6bgAOvOBldJRlP/V5DwQ+yxdQyL78cTTTNw+IrlPoRKpxaU8tRHKmhu
-	 T+ZTDrwP59cYmNlpa2y6CRBCNeqbk6EBpkdNnJ98JDRxySbz1PrTWJPEMAoe8A4NLp
-	 FYR7AxqhvTd6sv1ITPRaHpNCjdRBqyDCGasmo5pY=
+	b=NssWzlWHBHgLT5E4ynNL5YM5N/YWnKM2m2okQNZA/lBfXNnmIOo2FtotGCVLPnN8H
+	 dsJohdIGfh8vBeweXFk63iujmSULqm9lh/Y1MHDG+zmT9Jv5hFXwjTJr2G5jbJaPpv
+	 MfFv7JY8dh/zKU2978xkwqmuOaAtuto/2RA/S1Ow=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B2DDF802E2;
-	Thu,  2 Jul 2020 19:23:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA1EAF802F9;
+	Thu,  2 Jul 2020 19:23:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2CD35F802C4; Thu,  2 Jul 2020 19:22:59 +0200 (CEST)
+ id 768B0F802E1; Thu,  2 Jul 2020 19:23:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,30 +33,30 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7B4C6F8028F
- for <alsa-devel@alsa-project.org>; Thu,  2 Jul 2020 19:22:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B4C6F8028F
-IronPort-SDR: HNFPslFuuiXARSCP6DnH+ssnBICM4FIdAdsSxWP3H2dT1StsYwMAZb4C0mYDYQUvg3udbfYk0u
- ZvINqJqBtc0w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9670"; a="144480310"
-X-IronPort-AV: E=Sophos;i="5.75,304,1589266800"; d="scan'208";a="144480310"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 414D6F80134
+ for <alsa-devel@alsa-project.org>; Thu,  2 Jul 2020 19:22:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 414D6F80134
+IronPort-SDR: +8X5/phuZj+NtZEE1xzE6jWChVsTKTCzGGzV+yITYETgjXQhjl9QfjyY48nakWVdMxyxhPDRog
+ zQmwUWIjHzQg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9670"; a="144480314"
+X-IronPort-AV: E=Sophos;i="5.75,304,1589266800"; d="scan'208";a="144480314"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2020 10:22:51 -0700
-IronPort-SDR: 8V5QjC/cvmL6jPyiq6KUG7JjQGBBGeaq5u2Q5ONxesSQQtZAmxSRHxTKBwXNmgCPjFgAfadFIT
- e2W3Q4Y/1rEQ==
-X-IronPort-AV: E=Sophos;i="5.75,304,1589266800"; d="scan'208";a="356521260"
+ 02 Jul 2020 10:22:52 -0700
+IronPort-SDR: 4tbJVHoxpfHyKr4pVs60jgiNeWvWfkvRCg1DzXQtBcCXKNQF0yZDHTy7phJdY91tVoRs9s7GDU
+ RPNOnzHJu6JQ==
+X-IronPort-AV: E=Sophos;i="5.75,304,1589266800"; d="scan'208";a="356521264"
 Received: from nzbastur-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.255.231.182])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2020 10:22:50 -0700
+ 02 Jul 2020 10:22:51 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 5/6] ASoC: fsl: fsl_asrc: fix kernel-doc
-Date: Thu,  2 Jul 2020 12:22:26 -0500
-Message-Id: <20200702172227.164474-6-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 6/6] ASoC: fsl: fsl_esai: fix kernel-doc
+Date: Thu,  2 Jul 2020 12:22:27 -0500
+Message-Id: <20200702172227.164474-7-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200702172227.164474-1-pierre-louis.bossart@linux.intel.com>
 References: <20200702172227.164474-1-pierre-louis.bossart@linux.intel.com>
@@ -85,176 +85,95 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix W=1 warnings. fix kernel doc and describe arguments.
+Fix W=1 warnings. Fix kernel-doc syntax and add missing parameters.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/fsl/fsl_asrc.c | 57 +++++++++++++++++++++++++++-------------
- 1 file changed, 39 insertions(+), 18 deletions(-)
+ sound/soc/fsl/fsl_esai.c | 32 ++++++++++++++++++--------------
+ 1 file changed, 18 insertions(+), 14 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-index 462ce9f9ab48..02c81d2e34ad 100644
---- a/sound/soc/fsl/fsl_asrc.c
-+++ b/sound/soc/fsl/fsl_asrc.c
-@@ -37,7 +37,7 @@ static struct snd_pcm_hw_constraint_list fsl_asrc_rate_constraints = {
- 	.list = supported_asrc_rate,
- };
+diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
+index cbcb70d6f8c8..a1db69061b4b 100644
+--- a/sound/soc/fsl/fsl_esai.c
++++ b/sound/soc/fsl/fsl_esai.c
+@@ -22,8 +22,7 @@
+ 				SNDRV_PCM_FMTBIT_S24_LE)
  
--/**
-+/*
-  * The following tables map the relationship between asrc_inclk/asrc_outclk in
-  * fsl_asrc.h and the registers of ASRCSR
+ /**
+- * fsl_esai_soc_data: soc specific data
+- *
++ * struct fsl_esai_soc_data - soc specific data
+  * @imx: for imx platform
+  * @reset_at_xrun: flags for enable reset operaton
   */
-@@ -68,7 +68,7 @@ static unsigned char output_clk_map_imx53[ASRC_CLK_MAP_LEN] = {
- 	0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7,
- };
- 
--/**
-+/*
-  * i.MX8QM/i.MX8QXP uses the same map for input and output.
-  * clk_map_imx8qm[0] is for i.MX8QM asrc0
-  * clk_map_imx8qm[1] is for i.MX8QM asrc1
-@@ -102,16 +102,17 @@ static unsigned char clk_map_imx8qxp[2][ASRC_CLK_MAP_LEN] = {
+@@ -33,8 +32,7 @@ struct fsl_esai_soc_data {
  };
  
  /**
-- * Select the pre-processing and post-processing options
-+ * fsl_asrc_sel_proc - Select the pre-processing and post-processing options
-+ * @inrate: input sample rate
-+ * @outrate: output sample rate
-+ * @pre_proc: return value for pre-processing option
-+ * @post_proc: return value for post-processing option
-+ *
-  * Make sure to exclude following unsupported cases before
-  * calling this function:
-  * 1) inrate > 8.125 * outrate
-  * 2) inrate > 16.125 * outrate
+- * fsl_esai: ESAI private data
+- *
++ * struct fsl_esai - ESAI private data
+  * @dma_params_rx: DMA parameters for receive channel
+  * @dma_params_tx: DMA parameters for transmit channel
+  * @pdev: platform device pointer
+@@ -49,6 +47,8 @@ struct fsl_esai_soc_data {
+  * @fifo_depth: depth of tx/rx FIFO
+  * @slot_width: width of each DAI slot
+  * @slots: number of slots
++ * @tx_mask: slot mask for TX
++ * @rx_mask: slot mask for RX
+  * @channels: channel num for tx or rx
+  * @hck_rate: clock rate of desired HCKx clock
+  * @sck_rate: clock rate of desired SCKx clock
+@@ -157,13 +157,15 @@ static irqreturn_t esai_isr(int irq, void *devid)
+ }
+ 
+ /**
+- * This function is used to calculate the divisors of psr, pm, fp and it is
+- * supposed to be called in set_dai_sysclk() and set_bclk().
++ * fsl_esai_divisor_cal - This function is used to calculate the
++ * divisors of psr, pm, fp and it is supposed to be called in
++ * set_dai_sysclk() and set_bclk().
   *
-- * inrate: input sample rate
-- * outrate: output sample rate
-- * pre_proc: return value for pre-processing option
-- * post_proc: return value for post-processing option
++ * @dai: pointer to DAI
++ * @tx: current setting is for playback or capture
+  * @ratio: desired overall ratio for the paticipating dividers
+  * @usefp: for HCK setting, there is no need to set fp divider
+  * @fp: bypass other dividers by setting fp directly if fp != 0
+- * @tx: current setting is for playback or capture
   */
- static void fsl_asrc_sel_proc(int inrate, int outrate,
- 			     int *pre_proc, int *post_proc)
-@@ -148,7 +149,9 @@ static void fsl_asrc_sel_proc(int inrate, int outrate,
+ static int fsl_esai_divisor_cal(struct snd_soc_dai *dai, bool tx, u32 ratio,
+ 				bool usefp, u32 fp)
+@@ -250,13 +252,12 @@ static int fsl_esai_divisor_cal(struct snd_soc_dai *dai, bool tx, u32 ratio,
  }
  
  /**
-- * Request ASRC pair
-+ * fsl_asrc_request_pair - Request ASRC pair
-+ * @channels: number of channels
-+ * @pair: pointer to pair
+- * This function mainly configures the clock frequency of MCLK (HCKT/HCKR)
+- *
+- * @Parameters:
+- * clk_id: The clock source of HCKT/HCKR
++ * fsl_esai_set_dai_sysclk - This function mainly configures the clock frequency of MCLK (HCKT/HCKR)
++ * @dai: pointer to DAI
++ * @clk_id: The clock source of HCKT/HCKR
+  *	  (Input from outside; output from inside, FSYS or EXTAL)
+- * freq: The required clock rate of HCKT/HCKR
+- * dir: The clock direction of HCKT/HCKR
++ * @freq: The required clock rate of HCKT/HCKR
++ * @dir: The clock direction of HCKT/HCKR
   *
-  * It assigns pair by the order of A->C->B because allocation of pair B,
-  * within range [ANCA, ANCA+ANCB-1], depends on the channels of pair A
-@@ -193,7 +196,8 @@ static int fsl_asrc_request_pair(int channels, struct fsl_asrc_pair *pair)
+  * Note: If the direction is input, we do not care about clk_id.
+  */
+@@ -358,7 +359,10 @@ static int fsl_esai_set_dai_sysclk(struct snd_soc_dai *dai, int clk_id,
  }
  
  /**
-- * Release ASRC pair
-+ * fsl_asrc_release_pair - Release ASRC pair
-+ * @pair: pair to release
-  *
-  * It clears the resource from asrc and releases the occupied channels.
+- * This function configures the related dividers according to the bclk rate
++ * fsl_esai_set_bclk - This function configures the related dividers according to the bclk rate
++ * @dai: pointer to DAI
++ * @tx: direction boolean
++ * @freq: bclk freq
   */
-@@ -217,7 +221,10 @@ static void fsl_asrc_release_pair(struct fsl_asrc_pair *pair)
- }
- 
- /**
-- * Configure input and output thresholds
-+ * fsl_asrc_set_watermarks- configure input and output thresholds
-+ * @pair: pointer to pair
-+ * @in: input threshold
-+ * @out: output threshold
-  */
- static void fsl_asrc_set_watermarks(struct fsl_asrc_pair *pair, u32 in, u32 out)
- {
-@@ -234,7 +241,9 @@ static void fsl_asrc_set_watermarks(struct fsl_asrc_pair *pair, u32 in, u32 out)
- }
- 
- /**
-- * Calculate the total divisor between asrck clock rate and sample rate
-+ * fsl_asrc_cal_asrck_divisor - Calculate the total divisor between asrck clock rate and sample rate
-+ * @pair: pointer to pair
-+ * @div: divider
-  *
-  * It follows the formula clk_rate = samplerate * (2 ^ prescaler) * divider
-  */
-@@ -250,7 +259,10 @@ static u32 fsl_asrc_cal_asrck_divisor(struct fsl_asrc_pair *pair, u32 div)
- }
- 
- /**
-- * Calculate and set the ratio for Ideal Ratio mode only
-+ * fsl_asrc_set_ideal_ratio - Calculate and set the ratio for Ideal Ratio mode only
-+ * @pair: pointer to pair
-+ * @inrate: input rate
-+ * @outrate: output rate
-  *
-  * The ratio is a 32-bit fixed point value with 26 fractional bits.
-  */
-@@ -293,7 +305,9 @@ static int fsl_asrc_set_ideal_ratio(struct fsl_asrc_pair *pair,
- }
- 
- /**
-- * Configure the assigned ASRC pair
-+ * fsl_asrc_config_pair - Configure the assigned ASRC pair
-+ * @pair: pointer to pair
-+ * @use_ideal_rate: boolean configuration
-  *
-  * It configures those ASRC registers according to a configuration instance
-  * of struct asrc_config which includes in/output sample rate, width, channel
-@@ -508,7 +522,8 @@ static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair, bool use_ideal_rate)
- }
- 
- /**
-- * Start the assigned ASRC pair
-+ * fsl_asrc_start_pair - Start the assigned ASRC pair
-+ * @pair: pointer to pair
-  *
-  * It enables the assigned pair and makes it stopped at the stall level.
-  */
-@@ -539,7 +554,8 @@ static void fsl_asrc_start_pair(struct fsl_asrc_pair *pair)
- }
- 
- /**
-- * Stop the assigned ASRC pair
-+ * fsl_asrc_stop_pair - Stop the assigned ASRC pair
-+ * @pair: pointer to pair
-  */
- static void fsl_asrc_stop_pair(struct fsl_asrc_pair *pair)
- {
-@@ -552,7 +568,9 @@ static void fsl_asrc_stop_pair(struct fsl_asrc_pair *pair)
- }
- 
- /**
-- * Get DMA channel according to the pair and direction.
-+ * fsl_asrc_get_dma_channel- Get DMA channel according to the pair and direction.
-+ * @pair: pointer to pair
-+ * @dir: DMA direction
-  */
- static struct dma_chan *fsl_asrc_get_dma_channel(struct fsl_asrc_pair *pair,
- 						 bool dir)
-@@ -896,7 +914,8 @@ static const struct regmap_config fsl_asrc_regmap_config = {
- };
- 
- /**
-- * Initialize ASRC registers with a default configurations
-+ * fsl_asrc_init - Initialize ASRC registers with a default configuration
-+ * @asrc: ASRC context
-  */
- static int fsl_asrc_init(struct fsl_asrc *asrc)
- {
-@@ -930,7 +949,9 @@ static int fsl_asrc_init(struct fsl_asrc *asrc)
- }
- 
- /**
-- * Interrupt handler for ASRC
-+ * fsl_asrc_isr- Interrupt handler for ASRC
-+ * @irq: irq number
-+ * @dev_id: ASRC context
-  */
- static irqreturn_t fsl_asrc_isr(int irq, void *dev_id)
+ static int fsl_esai_set_bclk(struct snd_soc_dai *dai, bool tx, u32 freq)
  {
 -- 
 2.25.1

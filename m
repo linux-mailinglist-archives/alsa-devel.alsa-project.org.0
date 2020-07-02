@@ -2,77 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A405212658
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jul 2020 16:33:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F83D212747
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jul 2020 17:04:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ED86516DD;
-	Thu,  2 Jul 2020 16:32:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED86516DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id B974216DF;
+	Thu,  2 Jul 2020 17:03:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B974216DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593700417;
-	bh=yoiiIk8yV7aQeMBE6eGjgWhzrgZn5o4MtsX81urPOGs=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1593702277;
+	bh=RzuxJDCWoVijtS38qYxdfdrVKsqcOrwvyYi5323sG1E=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aSxYQkZveqxal6qSZXZd1CPY+AaZRNHEeOD4LOAMyJj5e0ZlSyxchpkXGExo0QKLD
-	 5Fvvzakt+rOT1L64x6s5d0cV1p4j9xIDCpJrVdz5oog0zenNefzC1Uy8Zt2bO8LmW1
-	 xhtxBVlIaRbPDRdaLoLGYMh0eecKMq9AYZiogh78=
+	b=mstxAh8Bux4qlo1w1cAlzjW8ytZ+RDhEY8TUAHJ5ZIQYAn3WDxk0eKGvJqrr8noo3
+	 zJn7HPmb6KNBHKpx+RUn6oFa2AlGJ0FGxVLdirb3eefat9bOnSjpI4RWRNqeynYDKE
+	 PxsV7XGItSp0Kjl1jULqHjnZnBARhz9b4vnTC5SA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22202F8022B;
-	Thu,  2 Jul 2020 16:31:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3C54F80252;
+	Thu,  2 Jul 2020 17:02:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CFC67F8022B; Thu,  2 Jul 2020 16:31:52 +0200 (CEST)
+ id C7104F80252; Thu,  2 Jul 2020 17:02:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 07A3AF800ED
- for <alsa-devel@alsa-project.org>; Thu,  2 Jul 2020 16:31:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07A3AF800ED
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="rh0X/EYu"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1424320890;
- Thu,  2 Jul 2020 14:31:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1593700307;
- bh=yoiiIk8yV7aQeMBE6eGjgWhzrgZn5o4MtsX81urPOGs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=rh0X/EYuSOXjJd7IZLHAt5PjkHiHVaHXBUckRAW9ESHhInCw6Awe+B4EfTXfWCHVB
- 7EktAmVfcIb68os9+HU0zTIMMK2vVgmbUxpjkhl/15jB1bAUYaB/mh6tZxA+Kca9Kt
- 8pgI/1MrVOnWgvLgGpKz3zSZFCNbIk1mawQLAFq0=
-Date: Thu, 2 Jul 2020 15:31:45 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Arnaud Ferraris <arnaud.ferraris@collabora.com>
-Subject: Re: [PATCH 1/2] dt-bindings: sound: fsl-asoc-card: add new
- compatible for I2S slave
-Message-ID: <20200702143145.GG4483@sirena.org.uk>
-References: <20200702141114.232688-1-arnaud.ferraris@collabora.com>
- <20200702141114.232688-2-arnaud.ferraris@collabora.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 18A7DF80134
+ for <alsa-devel@alsa-project.org>; Thu,  2 Jul 2020 17:02:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18A7DF80134
+IronPort-SDR: xHP95+yHDBpjp3/9K8Iq6T3wqcPeOueLVkElFwhnypbxvasdKO+j6XwbCxAW2oEHyYuhoBY99v
+ TGkSPTMQyeXw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9670"; a="145063685"
+X-IronPort-AV: E=Sophos;i="5.75,304,1589266800"; d="scan'208";a="145063685"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jul 2020 08:02:41 -0700
+IronPort-SDR: W/iS25Y2HU7wr+H0UDFRVD3TdGcuFXMVpdLnjPeZ9a4kObj1kYA7x++obbTVf6rR1WgJA/yPNp
+ LlVVPdTUSaZw==
+X-IronPort-AV: E=Sophos;i="5.75,304,1589266800"; d="scan'208";a="304275473"
+Received: from nchava-mobl1.amr.corp.intel.com (HELO [10.252.135.144])
+ ([10.252.135.144])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jul 2020 08:02:40 -0700
+Subject: Re: [PATCH] riscv: asm/gdb_xml.h: use __maybe_used to make W=1
+ warnings go away
+To: Vincent Chen <vincent.chen@sifive.com>
+References: <20200701184751.84008-1-pierre-louis.bossart@linux.intel.com>
+ <CABvJ_xhm9a0nzBJ2YKvwm5vKZt3Xp0H9z6QakD0EYK7vRR-_AA@mail.gmail.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <f148580a-f97d-3416-ca03-c3a425189568@linux.intel.com>
+Date: Thu, 2 Jul 2020 09:20:52 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="/Zw+/jwnNHcBRYYu"
-Content-Disposition: inline
-In-Reply-To: <20200702141114.232688-2-arnaud.ferraris@collabora.com>
-X-Cookie: I'm rated PG-34!!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- kernel@collabora.com, Fabio Estevam <festevam@gmail.com>
+In-Reply-To: <CABvJ_xhm9a0nzBJ2YKvwm5vKZt3Xp0H9z6QakD0EYK7vRR-_AA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Albert Ou <aou@eecs.berkeley.edu>,
+ kernel test robot <lkp@intel.com>, tiwai@suse.de,
+ open list <linux-kernel@vger.kernel.org>, broonie@kernel.org,
+ Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <paul.walmsley@sifive.com>,
+ "open list:RISC-V ARCHITECTURE" <linux-riscv@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,35 +88,58 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---/Zw+/jwnNHcBRYYu
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 02, 2020 at 04:11:14PM +0200, Arnaud Ferraris wrote:
-> fsl-asoc-card currently doesn't support generic codecs with the SoC
-> acting as I2S slave.
->=20
-> This commit adds a new `fsl,imx-audio-i2s-slave` for this use-case, as
-> well as the following mandatory properties:
+On 7/1/20 9:04 PM, Vincent Chen wrote:
+> On Thu, Jul 2, 2020 at 2:48 AM Pierre-Louis Bossart
+> <pierre-louis.bossart@linux.intel.com> wrote:
+>>
+>> 0day/kbuild reports warnings with the ASoC codecs compiled with W=1.
+>>
+>> In file included from arch/riscv/include/asm/kgdb.h:109,
+>>                   from include/linux/kgdb.h:20,
+>>                   from include/linux/fb.h:5,
+>>                   from include/drm/drm_crtc.h:31,
+>>                   from sound/soc/codecs/hdmi-codec.c:19:
+>>
+>> arch/riscv/include/asm/gdb_xml.h:23:19: warning:
+>> 'riscv_gdb_stub_cpuxml' defined but not used [-Wunused-const-variable=]
+>>     23 | static const char riscv_gdb_stub_cpuxml[2048] =
+>>        |                   ^~~~~~~~~~~~~~~~~~~~~
+>> arch/riscv/include/asm/gdb_xml.h:16:19: warning:
+>> 'riscv_gdb_stub_target_desc' defined but not used [-Wunused-const-variable=]
+>>     16 | static const char riscv_gdb_stub_target_desc[256] =
+>>        |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+>> arch/riscv/include/asm/gdb_xml.h:13:19: warning:
+>> 'gdb_xfer_read_cpuxml' defined but not used [-Wunused-const-variable=]
+>>     13 | static const char gdb_xfer_read_cpuxml[39] =
+>>        |                   ^~~~~~~~~~~~~~~~~~~~
+>> arch/riscv/include/asm/gdb_xml.h:10:19: warning:
+>> 'gdb_xfer_read_target' defined but not used [-Wunused-const-variable=]
+>>     10 | static const char gdb_xfer_read_target[31] = "qXfer:features:read:target.xml:";
+>>        |                   ^~~~~~~~~~~~~~~~~~~~
+>> arch/riscv/include/asm/gdb_xml.h:7:19: warning:
+>> 'riscv_gdb_stub_feature' defined but not used [-Wunused-const-variable=]
+>>      7 | static const char riscv_gdb_stub_feature[64] =
+>>        |                   ^~~~~~~~~~~~~~~~~~~~~~
+>>
+>> Reported-by: kernel test robot <lkp@intel.com>
+>> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>> ---
+>>
+>> I don't know if this is the right way of solving this issue but this
+>> error is now consistently thrown in kbuild compile-test reports w/
+>> W=1.
+>>
+> 
+> Dear Pierre-Louis Bossart:
+> Thanks for your modifications. I have fixed the warnings in my latest
+> KGDB patchset and sent it out, but the merged KGDB patchset is not my
+> latest version.
+> I have sent a patch set to complement the missing ports, and I think
+> these warnings would disappear after this patch has been accepted and
+> merged.
+> 
+> Here is the patch to fix this warning:
+> http://lists.infradead.org/pipermail/linux-riscv/2020-June/000660.html
 
-Why require that the CODEC be clock master here - why not make this
-configurable, reusing the properties from the generic and audio graph
-cards?
-
---/Zw+/jwnNHcBRYYu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7979AACgkQJNaLcl1U
-h9AxkAf/ayvMQ6Irjwi6oOAqWBxCV2VEySnpQQvROq2t4wDxz2MOOXIE0fZfwg0F
-I7UlRDnm9ZyWwq8Dol9pigToIxzfz/G0rxJ0F3jTr5qo/1lt+hFMmdlghcl0T37v
-4OP2CPBwJtmavd2mM06870/eXQKtmd3jwRXJ2HKljt9ZSuHVcyOk0t+ZaR0zYD+V
-1AvChO6mvUipSO7A82pchm57qOKdBv7SpIGtHf4wsc+MFuEFJYaOtjfCwTrFvB1B
-kPACxzQBG4l4xgQtN803PNAZbjbZCBGusst8v4Kpygbpq5OjuhFMJ4xHUVcxHPVk
-y4i45+Yv7ceu+GohmwdxDGKnszmETw==
-=uElK
------END PGP SIGNATURE-----
-
---/Zw+/jwnNHcBRYYu--
+Thank you Vincent, let's drop my hacky patch then.

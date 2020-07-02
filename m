@@ -2,97 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81328212070
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jul 2020 11:58:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05A472120AB
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jul 2020 12:12:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0702D16E4;
-	Thu,  2 Jul 2020 11:57:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0702D16E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7AE6516E4;
+	Thu,  2 Jul 2020 12:11:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7AE6516E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593683903;
-	bh=0KliAdk2KDdHRlJJRKUdgwcgXxNfW4cUzqtQm1UECyg=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1593684722;
+	bh=7zOf0XHFLX0eK3QuQhqBjCbi88LKF6pOiXhH3KqTZ6k=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=byQ/9hWapXFijByBDfuYwYlodeffKjYkA1l5VPFtyUtHoqa9G7kLKPRO6yEByAViX
-	 5k8F0j9939gG5Gj/V97mTW2ccvI5sHLWZzkNn4arVP64irtFjPafvcVNmPcUse5IqO
-	 NGUK14sVFpHWFo21hkhRLYeuPaKqrwupck7Y1NmQ=
+	b=thHIR2j0Z9zd4el23u4HF0cpZjDzOT6t+z4VNmymWWWZEcU+cfjVHkaZ85LhiVLCG
+	 qMaOEiXCALZ3FAWZe+0OtRtAiQp3qr5FKraiuc4SqPbmPR91LCOyLP9S3nl48ueTLV
+	 jH5ZZ48Jm41xksVxZV9viDHVBEjRxYYthhH9w3Os=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 469DDF80245;
-	Thu,  2 Jul 2020 11:56:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98D25F80134;
+	Thu,  2 Jul 2020 12:10:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 26A86F8022D; Thu,  2 Jul 2020 11:56:40 +0200 (CEST)
+ id 0EF03F8022D; Thu,  2 Jul 2020 12:10:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
- [216.228.121.143])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 171CAF80134
- for <alsa-devel@alsa-project.org>; Thu,  2 Jul 2020 11:56:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 171CAF80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id DE797F80134
+ for <alsa-devel@alsa-project.org>; Thu,  2 Jul 2020 12:10:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE797F80134
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="JaTHyCUH"
-Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5efdaeec0001>; Thu, 02 Jul 2020 02:54:52 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate102.nvidia.com (PGP Universal service);
- Thu, 02 Jul 2020 02:56:33 -0700
-X-PGP-Universal: processed;
- by hqpgpgate102.nvidia.com on Thu, 02 Jul 2020 02:56:33 -0700
-Received: from [10.25.97.252] (10.124.1.5) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 2 Jul
- 2020 09:56:25 +0000
-Subject: Re: [PATCH v4 15/23] ASoC: soc-core: Identify 'no_pcm' DAI links for
- DPCM
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-References: <1593233625-14961-1-git-send-email-spujar@nvidia.com>
- <1593233625-14961-16-git-send-email-spujar@nvidia.com>
- <87h7utytlx.wl-kuninori.morimoto.gx@renesas.com>
- <9c7871ae-6649-7b0d-4780-c8389c299b04@nvidia.com>
- <87d05ezqlc.wl-kuninori.morimoto.gx@renesas.com>
- <49bac9c1-093c-d353-cef3-c9c3391cc00d@nvidia.com>
- <875zb6z4fq.wl-kuninori.morimoto.gx@renesas.com>
-From: Sameer Pujar <spujar@nvidia.com>
-Message-ID: <c23f962a-7192-8187-39d8-18eff26e06be@nvidia.com>
-Date: Thu, 2 Jul 2020 15:26:21 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ dkim=pass (2048-bit key) header.d=semihalf-com.20150623.gappssmtp.com
+ header.i=@semihalf-com.20150623.gappssmtp.com header.b="Ga4jYOuv"
+Received: by mail-qk1-x742.google.com with SMTP id j80so25076085qke.0
+ for <alsa-devel@alsa-project.org>; Thu, 02 Jul 2020 03:10:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=semihalf-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=MNkwKZ84Zrawk816auciDQTYwDrs9ybRS0FVRLuLd9I=;
+ b=Ga4jYOuvR8MX3nF2I6L7nPH0rm/ZyxshqRb5F4+rL33+Dnnyb7FevBZZ90KDsvrHKV
+ WgfFd92ZJh5hmBt1OEWYUt4vNpzYROC9C4LhqphBIgEmjRIuA2uLoAqnId7O9xEpBOUs
+ Nla0Wih4ZFy2hHQ3+TBKtg2SY7KBhlFLwmoyxSWCgb0u9AhCwZrAPgE2nWZbdmGIRdHO
+ Bn+d7Dg/YVemE9LvZSnqhR+jUeppn8wUwMia4TUXkC/w3ps8MVS8IgrrSDC0yol2L1RR
+ 2t/1JL25f6Pb6bomI8yC4grazve3xpODK2cXQrPtDv5FgiCe0uQ6kj9ytlhs6OXRwq6F
+ X/eQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=MNkwKZ84Zrawk816auciDQTYwDrs9ybRS0FVRLuLd9I=;
+ b=mcUBfrCCAH2k2Ge3j2OGB87Jai6sY2O4hR4HL5ghHuqR87Ns/jho6OzET5cRckiIL6
+ RPf52j/MiowqcgTDq46apFSH+ByJCsgK7FJCxLsAWUMr+Cr70+ComKuuohzRLWm/OP6v
+ 0lPPn7x8cjoDAebC/3XkQUR55jyxo4fQbWI6CSqZh85wXd0JRjDirOl3OFQyjwBbQzOs
+ GPJ/Kj0EPIYB/HGtY4o9p8lYFniRBD3smSM2JH7V+jxrxzjV+6XYvUy533jAZ/y+bDEK
+ V1cqlhNzTJhBRc7x2SdM1rk5dYCiRRCfUuIVLoUsnsLlChNoU+Oeth/TeKkScb5VkoN1
+ wZ0w==
+X-Gm-Message-State: AOAM530LvwBY+aAi2o2nrgxyKjfn3HBW0Ouiag8kdu1+ECitBRI90G0U
+ 5AHOVDXdNkOIGW8z5+CNn6G0pUSvn8RP2EZ74WsYjg==
+X-Google-Smtp-Source: ABdhPJxSCrlGDF8VbOkF76c527VsV7+BA6AZM2DosVAXwrPnrjTB9/lEdURnS2JpeZC7MdKZXtTdxC39Y9vZxDerRRc=
+X-Received: by 2002:a37:2781:: with SMTP id
+ n123mr29703103qkn.106.1593684610371; 
+ Thu, 02 Jul 2020 03:10:10 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <875zb6z4fq.wl-kuninori.morimoto.gx@renesas.com>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
- HQMAIL107.nvidia.com (172.20.187.13)
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1593683692; bh=dDYuyP/VcCvHIR0JuEEZXo9QqLf+pb+8/yFvb6XxP/g=;
- h=X-PGP-Universal:CC:Subject:To:References:From:Message-ID:Date:
- User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
- X-ClientProxiedBy:Content-Type:Content-Transfer-Encoding:
- Content-Language;
- b=JaTHyCUHRSSIxrMUZwHzmEP4jaeDDaUhMyF/Vq4hBT2x86Hv7lFPDY5qyddsEe6eH
- LZ/H8+3TKvgKFHq9dYpDB13s4XKRW/icwqU/QIT6fVXsih+UdkCtxRv5ZJDR5x+nsC
- 6b2eoafvPpUY7C+10Q2YadI+ycqZZU4oz54ATWoHvUUoz97m2L1TN5VsEqt3GUERU3
- QdGeVvznLbqFJIo8GXJW3cK8MTkTiRVCG515/9g89c5RkUKrRwyMIqbpBe16dznfxK
- pMGfCpvO8yW5zS8U3f0nr1Ry+Aw6ZRM+toEp3OZCuTnj66iAHEx95pTDYPTVaSgL9V
- aQ0sJJXuudzOA==
-Cc: jonathanh@nvidia.com, nicoleotsuka@gmail.com, alsa-devel@alsa-project.org,
- atalambedu@nvidia.com, swarren@nvidia.com, linux-kernel@vger.kernel.org,
- spujar@nvidia.com, nwartikar@nvidia.com, lgirdwood@gmail.com,
- robh+dt@kernel.org, tiwai@suse.com, viswanathl@nvidia.com, sharadg@nvidia.com,
- broonie@kernel.org, thierry.reding@gmail.com, linux-tegra@vger.kernel.org,
- digetx@gmail.com, rlokhande@nvidia.com, mkumard@nvidia.com, dramesh@nvidia.com
+References: <20200521162518.1809995-1-lma@semihalf.com>
+ <3c89e614-81f5-ba87-19a9-fbe9f5c73925@linux.intel.com>
+ <CAFJ_xbr8TN3ynfELJ3NQnkuRg0VRbkjB7=Cyb8yu2L==JGXJiw@mail.gmail.com>
+ <475fb5c0-9b26-a8f6-c102-25c7775bc2ca@linux.intel.com>
+ <CAFJ_xbq-QotvPG=AxSp7=Etc5P5f4ePRWLCvSNnTkzUO9o_qjQ@mail.gmail.com>
+ <268b11b6-9f4c-d769-a7f9-536d77198705@linux.intel.com>
+ <CAFJ_xboUTDtnpvskb2dY4fGhGLNkEgT0sH3dU0NYJV_Cb_gqPw@mail.gmail.com>
+ <BY5PR11MB4307284BAE6DA415CFC0865CFD6E0@BY5PR11MB4307.namprd11.prod.outlook.com>
+ <CAFJ_xbq3DU8NMmymYHLjy0z+QbGRAOmB4NaiXPphAr2Zu0MPAg@mail.gmail.com>
+ <BY5PR11MB4307CBA736456853777A9FD9FD6E0@BY5PR11MB4307.namprd11.prod.outlook.com>
+ <BY5PR11MB4307C20278F32D17551112FAFD6C0@BY5PR11MB4307.namprd11.prod.outlook.com>
+ <7e38bb2e-2132-d305-e94d-043fa53bd836@linux.intel.com>
+ <BY5PR11MB4307BBBCAA78A0506BBC5F74FD6C0@BY5PR11MB4307.namprd11.prod.outlook.com>
+ <b2236769-6957-dc41-21b2-aca238994b4b@linux.intel.com>
+In-Reply-To: <b2236769-6957-dc41-21b2-aca238994b4b@linux.intel.com>
+From: =?UTF-8?Q?=C5=81ukasz_Majczak?= <lma@semihalf.com>
+Date: Thu, 2 Jul 2020 12:09:59 +0200
+Message-ID: <CAFJ_xboZp02M3XAzTXMyUJU50CZDNBnrd_oOnYBWxFfMpr=1pg@mail.gmail.com>
+Subject: Re: [PATCH v3] ASoC: Intel: kbl_rt5663_rt5514_max98927: Split
+ be_hw_params_fixup function
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "N,
+ Harshapriya" <harshapriya.n@intel.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Radoslaw Biernacki <rad@semihalf.com>, Ross Zwisler <zwisler@google.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>, "M R,
+ Sathya Prakash" <sathya.prakash.m.r@intel.com>, Bob Brandt <brndt@google.com>,
+ Marcin Wojtas <mw@semihalf.com>, Alex Levin <levinale@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,60 +116,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
+I am also ok with Harsha patch. I have checked it on my Eve and it looks ok=
+.
 
-On 7/2/2020 2:20 PM, Kuninori Morimoto wrote:
-> External email: Use caution opening links or attachments
->
->
-> Hi Sameer
->
->>> I wonder component->driver->non_legacy_dai_naming can't work for you ?
->> I see currently in simple-card driver that, BE<->BE link would be
->> treated as CODEC<->CODEC link if 'non_legacy_dai_naming' flag is set
->> at both ends of BE. Do we need to set this flag for all BE?
->> However I am not sure how this will work out for a BE<->BE DPCM DAI
->> link considering the fact that I want to use chain of components and I
->> guess routing map would get complicated. Also going by the flag name
->> it was not meant to differentiate between a FE and BE?
-> OK, non_legacy_dai_naming was just my quick idea.
+Best regards,
 
->
-> Maybe your soc_component_is_pcm() idea can work,
-> but it seems a littl bit hackish for me.
-> So, can you please
->
-> 1) Add soc_component_is_pcm() on simple-card, not soc-core ?
->     Maybe we can move it to soc-core later,
->     but want to keep it under simple-card, so far.
->
-> 2) Use it with data->component_chaining, and some comment ?
->     non component_chaining user doesn't get damage in worst case,
->     and easy to understand.
->
->          /*
->           * This is for BE<->BE connection.
->           * It needs to ...
->           * It is assumng ...
->           * Note is ...
->           */
->          if (data->component_chaining &&
->              !soc_component_is_pcm(cpus))
->                  dai_link->no_pcm = 1;
->
-> 3) maybe you can reuse snd_soc_find_dai() for soc_component_is_pcm() ?
->
->          dai = snd_soc_find_dai(dlc);
->          if (dai &&
->              (dai->pcm_new || dai->component->driver->pcm_construct))
->                  return xxx
+Lukasz
 
-Sounds fine, I can make changes as per above points. Thanks.
-
+=C5=9Br., 1 lip 2020 o 19:08 Pierre-Louis Bossart
+<pierre-louis.bossart@linux.intel.com> napisa=C5=82(a):
 >
-> Thank you for your help !!
 >
-> Best regards
-> ---
-> Kuninori Morimoto
-
+> >>> Tested and the following is something we can use without creating a n=
+ew
+> >> dailink.
+> >>>             struct snd_soc_dai *codec_dai =3D asoc_rtd_to_codec(rtd, =
+0);
+> >>>     if (!strcmp(codec_dai->name, KBL_REALTEK_DMIC_CODEC_DAI)) {
+> >>>             if (params_channels(params) =3D=3D 2 ||
+> >> DMIC_CH(dmic_constraints) =3D=3D 2)
+> >>>                     channels->min =3D channels->max =3D 2;
+> >>>             else
+> >>>                     channels->min =3D channels->max =3D 4;
+> >>>     } else {
+> >>>             rate->min =3D rate->max =3D 48000;
+> >>>             channels->min =3D channels->max =3D 2;
+> >>>             snd_mask_none(fmt);
+> >>>             snd_mask_set_format(fmt, pcm_fmt);
+> >>>     }
+> >>>
+> >>> Pierre, thoughts?
+> >>
+> >> thanks Harsha, that looks like what I had in mind, but my earlier ques=
+tion was
+> >> why we deal with the rates and formats only in the last case?
+> > The speaker codec supported only 16 bit.  (Vendor mentioned)
+> > For playback on this platform, only 48Khz was used.
+>
+> ok then, as long as Harsha and Lukasz are aligned I'm fine. Thanks!
+>

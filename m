@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA027213E29
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jul 2020 19:06:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6491213E2A
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jul 2020 19:07:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8A76416AB;
-	Fri,  3 Jul 2020 19:05:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A76416AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D10E16DA;
+	Fri,  3 Jul 2020 19:06:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D10E16DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593795987;
-	bh=avVmBYE85HqmZGz24vFbJj580KfAPUe9Qy5+/5Manoc=;
+	s=default; t=1593796024;
+	bh=hP39J8iySgK1spkOebBngQqztRk5vCznpJM9JfC/LZY=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vWDqmEB9JRfA8PlAeXDEEitxrkeEj2Rr9Nvtpp9ZWCUZOY1v6aiEO25QggcfN7P3i
-	 pi+PAJA14AX1uazbnmzokWjcm68AAiMyBb98UDvpMmAU+VkOyU/Uc4hqWULnnlZTPS
-	 R+DnE963WiKnqbbgKyx1Jw3z9MfgKdZqwaGP0xrA=
+	b=Cc48uYBJycDWr7I+9FkyEMMRCpPA7hub6iRpV2fEDBs2s3mnKLHilvu8U2/5COX6D
+	 r/esNHZ+IIPTkR08U+TbrCjxlKz93K77ugpM8o7/q32WEwXb9H1fHvrpobKieskY56
+	 cRFNGYQ+LmjTB/beeEHyiL9UjZzijXc3KSGEc5sE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D12CF802BC;
-	Fri,  3 Jul 2020 19:03:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E533F802BD;
+	Fri,  3 Jul 2020 19:04:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F600F802A9; Fri,  3 Jul 2020 19:03:55 +0200 (CEST)
+ id 0311FF802C4; Fri,  3 Jul 2020 19:04:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,39 +34,33 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AF100F8028A
- for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 19:03:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF100F8028A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 93F40F8028F
+ for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 19:03:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93F40F8028F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="kAxCMucR"
+ header.b="YZV73zdo"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B2B5A20870;
- Fri,  3 Jul 2020 17:03:50 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id BCDD920B80;
+ Fri,  3 Jul 2020 17:03:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1593795831;
- bh=avVmBYE85HqmZGz24vFbJj580KfAPUe9Qy5+/5Manoc=;
+ s=default; t=1593795836;
+ bh=hP39J8iySgK1spkOebBngQqztRk5vCznpJM9JfC/LZY=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=kAxCMucRahfO2ghUeJK+MEqOP+R0sb8agJKsi5oXJcHuMs4fZ6Ol7ftUCaB5qerV1
- gO7asNnUfNJ9DL/jfAdBrO1MlU6niawzdHr4C2MS9vF84zwDWKMmOdnJK6DQo0eaA3
- qkEHs36FuA9MxZpytVjmfm9EfEzEnd01vTyCN2qI=
-Date: Fri, 03 Jul 2020 18:03:48 +0100
+ b=YZV73zdoY++b0p2wAA5isJldmfk1fTdwSlx6wgB/L5EmC7s/2v/L6eaf7lyOpBmB1
+ kqZYbSOM4BZ2TslPD+5xfb5S1ue/iHaXZpeiXkHszVHsFx7k263Jvp/s1asBDIvqYl
+ QOJJUlvnRvtC7oLjcMRmQjdSiCZtZe2bvAV621K0=
+Date: Fri, 03 Jul 2020 18:03:54 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, Colin King <colin.king@canonical.com>,
- Brent Lu <brent.lu@intel.com>,
+To: alsa-devel@alsa-project.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20200702114835.37889-1-colin.king@canonical.com>
-References: <20200702114835.37889-1-colin.king@canonical.com>
-Subject: Re: [PATCH][next] ASoC: Intel: bxt-da7219-max98357a: return -EINVAL
- on unrecognized speaker amplifier
-Message-Id: <159379581380.55795.4909094479360848314.b4-ty@kernel.org>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20200702172800.164986-1-pierre-louis.bossart@linux.intel.com>
+References: <20200702172800.164986-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: soc-ac97: fix kernel-doc
+Message-Id: <159379581380.55795.4667153946420872113.b4-ty@kernel.org>
+Cc: tiwai@suse.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,11 +76,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 2 Jul 2020 12:48:35 +0100, Colin King wrote:
-> Currently if the ctx->spkamp is not recognized an error message is
-> reported but the code continues to set up the device with uninitialized
-> variables such as the number of widgets.  Fix this by returning -EINVAL
-> for unrecognized speaker amplifier types.
+On Thu, 2 Jul 2020 12:28:00 -0500, Pierre-Louis Bossart wrote:
+> Fix W=1 warning. Add missing arguments
 
 Applied to
 
@@ -94,8 +85,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Intel: bxt-da7219-max98357a: return -EINVAL on unrecognized speaker amplifier
-      commit: c950e9fcc79b8fedd3126ede4dcd70add8ea5339
+[1/1] ASoC: soc-ac97: fix kernel-doc
+      commit: 8182fa9afc8bcecb75d9e7c2d84e11d95903c945
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

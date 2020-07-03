@@ -2,126 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B8E02137C6
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jul 2020 11:34:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 029092137D2
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jul 2020 11:40:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BDA5816D2;
-	Fri,  3 Jul 2020 11:34:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDA5816D2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6722516AC;
+	Fri,  3 Jul 2020 11:39:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6722516AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593768898;
-	bh=FYa07MjnfAJt+NkWlpoDT9KGeH2OwaihV7zBjBFdUZo=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1593769235;
+	bh=V/ubCCwyYGgkRn8sWgMMDRg2McYRoRA20U3uNK7P9lo=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pSzCyrS3O/3WQbWyXvKZCK2diL16hidsc34rx++ZhdMXKQLpEbpeWNQiBLs8XDWjG
-	 2HNoXjqLnEO0wzD+D0UAIzhpQSNtG7bGAs6m5U/LwIlw1EacQ8hd7DQH0TtPMt1v7/
-	 dwyUxjM0mO0RU/+PEqk1FBdYZ90rdG35M8reB4nk=
+	b=HKBvJNB+cIbsoEgbnU0lHYwu5wsZ7YfnSNQKNGeIoBdIO7ECcLV5VbGc1RdypfBYU
+	 cjDwOeCcPlPsUqUp7+7xgPusnn1R4rjgQyvoHqP2QnTSFDUmFlv2YoPdWvNCTiri5Y
+	 mrrpPJwe3paDanXyfYvIT9rcdOdaDVQw3SZQX9Jg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F712F800ED;
-	Fri,  3 Jul 2020 11:33:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6442DF8021D;
+	Fri,  3 Jul 2020 11:38:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 89932F80217; Fri,  3 Jul 2020 11:33:15 +0200 (CEST)
+ id CEF2CF80217; Fri,  3 Jul 2020 11:38:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on061a.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe0c::61a])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3648BF800E2
- for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 11:33:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3648BF800E2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=dialogsemiconductor.onmicrosoft.com
- header.i=@dialogsemiconductor.onmicrosoft.com header.b="LX8rAXw9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IQB8lmj5TmOpxVPAcAE8EVLdEDuBqDG7uM5uolZIsCf+6fEhV0f3ZnWOGwlBc0JC7A8H1uq1ZBtM8hEhGlVzvxDHLRPybsl1WN+5KOyRE/Gj7oYuzIdgY3TXQAZvtMslajUB2EK5f40O/gCTmDPnXVddZwIdwi8IiFyGzhf2q+nDxO8bZzuxBwuJMmgp7E3bqTMuINYdEZ9e4CIrKpChudbolBP4Pslxoy0dVCFhg7s1//Lx+7P1ArrdNKXhke+Vslvtx+xZFqhlfsGc7pKKVbkbl4JmeIdQhtjo9E37sdHdRyJAjNsjbDeGoPpclEgt6HgfHOBW0Tp2qT7d7mRGFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7g2mmyzLQlUP83pMVvKeJyFpaXTOgi8ncEVyGIcGU7U=;
- b=PzEz8y+nLYiRUh0e4PR37QbJm/fBf25jLXzZARa/yZNeIcj4iyxf/GTjc9ZlB+wfPzjDJVnPMrWKP2LSx1yh9fflv5cVXyXYq6A0I1FIzJBO7xBCB2+nyyCNq/tUQj800uMu3Uy4Aq2AvASbhgf0ZD6N1VwXaDZA7pmxoG81PU5jy7xXHuT+co9Xgyre/eMpyzzqJEFa17G4rtv/FwVtjX9ty4bR9fb5hX1KfwM4wx2//IKfnjl+Tf6SeluWk0DjKP4k7iMFcGoPFZ7b8kfFcFB5KBcI9I1P5cmStylboOpySSvuxLSR6sf1RI/tMrJlZKl1A8h3z2BPQV3rH+cccQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=diasemi.com; dmarc=pass action=none header.from=diasemi.com;
- dkim=pass header.d=diasemi.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=dialogsemiconductor.onmicrosoft.com;
- s=selector1-dialogsemiconductor-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7g2mmyzLQlUP83pMVvKeJyFpaXTOgi8ncEVyGIcGU7U=;
- b=LX8rAXw9IGUqPghmIwhx5bq74Pey9+ed2vzfFSfkC2aEZfa67hd3THlu/38nlPrQLBTvu9LrIWmwhjUMsWF/dRB2ZPmYI+0JL2ay/TPzHbeYlgWQFpBTFyWbyhmjMs3ZfSXQKbWGlBng1JjCUUW2fGmM6bAR3WPhZn6tD07CK6M=
-Received: from DB6PR1001MB1096.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:4:65::9)
- by DB8PR10MB3768.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:148::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3153.22; Fri, 3 Jul
- 2020 09:33:07 +0000
-Received: from DB6PR1001MB1096.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::314b:f930:76b1:11c5]) by DB6PR1001MB1096.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::314b:f930:76b1:11c5%10]) with mapi id 15.20.3131.029; Fri, 3 Jul 2020
- 09:33:06 +0000
-From: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Subject: RE: [PATCH 04/11] ASoC: codecs: da7219: fix 'defined but not used'
- warning
-Thread-Topic: [PATCH 04/11] ASoC: codecs: da7219: fix 'defined but not used'
- warning
-Thread-Index: AQHWT9TglCRPh6aF50mArntijWazBaj1l1Kw
-Date: Fri, 3 Jul 2020 09:33:06 +0000
-Message-ID: <DB6PR1001MB1096535996028B7DE0D136DC806A0@DB6PR1001MB1096.EURPRD10.PROD.OUTLOOK.COM>
-References: <20200701182422.81496-1-pierre-louis.bossart@linux.intel.com>
- <20200701182422.81496-5-pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20200701182422.81496-5-pierre-louis.bossart@linux.intel.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: linux.intel.com; dkim=none (message not signed)
- header.d=none;linux.intel.com; dmarc=none action=none
- header.from=diasemi.com;
-x-ms-exchange-messagesentrepresentingtype: 1
-x-originating-ip: [165.225.80.64]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 379ba017-6421-494b-ec74-08d81f341774
-x-ms-traffictypediagnostic: DB8PR10MB3768:
-x-ms-exchange-sharedmailbox-routingagent-processed: True
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DB8PR10MB3768C708CEF52F084651389FA76A0@DB8PR10MB3768.EURPRD10.PROD.OUTLOOK.COM>
-x-ms-oob-tlc-oobclassifiers: OLM:200;
-x-forefront-prvs: 045315E1EE
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Wcyr+VA/mh7RjNH1rv+VoPU5FAOsLzV6gmXSZK5mW1DhByxvYAuruWbqvWALloIBWZdyI8LJLqmIC2vfl97L84yP8THDPjoSZaCas+EMaJF0k/I9Eg5wHS5a5eBx9MvYQ8xVYFS9vpu9aC2Hc6zzif8LXaFILSNfCgReIbimzcI5a8Y3QAondCg/F35ZBpFqHDwVleD+7riKrFnen7PFWwY8oZ7ZzApbd7e8zbxmubpPJEqT1AwKY8CF4B6flXe08noFjzDQVljdM8SRw9JRT+bc4ZTwRfkyhOwsmOmrMU51qohTuBA2sGlurCwZPM+c1PH24YdNI/OEnRIuVHPtOg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DB6PR1001MB1096.EURPRD10.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(136003)(396003)(376002)(39860400002)(346002)(366004)(86362001)(83380400001)(316002)(4326008)(55016002)(478600001)(9686003)(110136005)(33656002)(71200400001)(54906003)(26005)(8936002)(66476007)(7696005)(66946007)(66446008)(64756008)(66556008)(186003)(5660300002)(76116006)(2906002)(8676002)(52536014)(6506007)(53546011)(55236004);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: VMmVviWtJ3R6R4fKWadIRAv/6x+1GzyhD6+6MatwpLhGPut3XpvWr8se80dUfYJiyMxfYAOER9AvVKBDZPFXfXGQk/n9qPtwysXIsNJyjy28zF9CulIYbli5woaN02/X2aY2uWVmm91ejChxc8E6qlQwe4T1mN0UBRPoTzieLIgKNBxlkyGZtcW8tBlr38IbZrmHxFNXKEkiCpjSG3eU0USosbb/qHI4hib5s/ro8BNpLcskKcRxon+qMLMi5BW+4V8ypJhTuDpTvnLEquyESlZ1PvJbOlzT9PUXiufLUnzbw/TPMDn1ZBqPQo3RxmreOitpwv5YMxyWzi08gFzs8idrmvY1fBs1gOd+x4/yUUo1kTCn/I6n6RI6yPHEwbVyZLtphGhF+COlYTcQKPlmxeVKd5OTwXlGxPO5DnUHZOjJDwvHTQNvfmFUOolZTG+T4HjjLy1hA4EY1ZZ8snz79jh/wdHqzOxXLNcsS7kG61A=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ by alsa1.perex.cz (Postfix) with ESMTPS id 46F7DF800ED
+ for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 11:38:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46F7DF800ED
+Received: from [IPv6:2a01:e35:2fb5:1510:1d94:e6f1:f819:f29f] (unknown
+ [IPv6:2a01:e35:2fb5:1510:1d94:e6f1:f819:f29f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: aferraris)
+ by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 9571D2A066E;
+ Fri,  3 Jul 2020 10:38:46 +0100 (BST)
+Subject: Re: [PATCH 0/4] ASoC: fsl_asrc: allow selecting arbitrary clocks
+To: Nicolin Chen <nicoleotsuka@gmail.com>
+References: <20200702142235.235869-1-arnaud.ferraris@collabora.com>
+ <20200702184226.GA23935@Asurada-Nvidia>
+From: Arnaud Ferraris <arnaud.ferraris@collabora.com>
+Autocrypt: addr=arnaud.ferraris@collabora.com; keydata=
+ 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
+ xZQG6fKWuIur3RI=
+Message-ID: <3f39a0bb-a766-f646-28b3-a51cf9983c6b@collabora.com>
+Date: Fri, 3 Jul 2020 11:38:44 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
 MIME-Version: 1.0
-X-OriginatorOrg: diasemi.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB6PR1001MB1096.EURPRD10.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 379ba017-6421-494b-ec74-08d81f341774
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jul 2020 09:33:06.3385 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 511e3c0e-ee96-486e-a2ec-e272ffa37b7c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qoYziLgV34Y2c7edlV0PbsveeSRUVB5bER2lMVYxyI0X1lunKX+MTnguBLfk05WP2W6f3qskd1xM1rNJSihWt6gHx4ujZlFoJIHbq+kWqv4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR10MB3768
-Cc: Support Opensource <Support.Opensource@diasemi.com>,
- Liam Girdwood <lgirdwood@gmail.com>, "tiwai@suse.de" <tiwai@suse.de>,
- open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- "broonie@kernel.org" <broonie@kernel.org>
+In-Reply-To: <20200702184226.GA23935@Asurada-Nvidia>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh+dt@kernel.org>, Fabio Estevam <festevam@gmail.com>,
+ kernel@collabora.com, linuxppc-dev@lists.ozlabs.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -137,48 +122,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 01 July 2020 19:24, Pierre-Louis Bossart wrote:
+Hi Nic,
 
-> fix W=3D1 warning
->=20
-> sound/soc/codecs/da7219.c:1711:36: warning: 'da7219_acpi_match'
-> defined but not used [-Wunused-const-variable=3D]
->  1711 | static const struct acpi_device_id da7219_acpi_match[] =3D {
->       |                                    ^~~~~~~~~~~~~~~~~
->=20
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com=
->
-> ---
->  sound/soc/codecs/da7219.c | 2 ++
->  1 file changed, 2 insertions(+)
->=20
-> diff --git a/sound/soc/codecs/da7219.c b/sound/soc/codecs/da7219.c
-> index f2520a6c7875..153ea30b5a8f 100644
-> --- a/sound/soc/codecs/da7219.c
-> +++ b/sound/soc/codecs/da7219.c
-> @@ -1708,11 +1708,13 @@ static const struct of_device_id da7219_of_match[=
-] =3D
-> {
->  };
->  MODULE_DEVICE_TABLE(of, da7219_of_match);
->=20
-> +#ifdef CONFIG_ACPI
->  static const struct acpi_device_id da7219_acpi_match[] =3D {
->  	{ .id =3D "DLGS7219", },
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(acpi, da7219_acpi_match);
-> +#endif
+Le 02/07/2020 à 20:42, Nicolin Chen a écrit :
+> Hi Arnaud,
+> 
+> On Thu, Jul 02, 2020 at 04:22:31PM +0200, Arnaud Ferraris wrote:
+>> The current ASRC driver hardcodes the input and output clocks used for
+>> sample rate conversions. In order to allow greater flexibility and to
+>> cover more use cases, it would be preferable to select the clocks using
+>> device-tree properties.
+> 
+> We recent just merged a new change that auto-selecting internal
+> clocks based on sample rates as the first option -- ideal ratio
+> mode is the fallback mode now. Please refer to:
+> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?h=next-20200702&id=d0250cf4f2abfbea64ed247230f08f5ae23979f0
 
-I think this will break non-ACPI builds as this symbol is used in the
-declaration of 'da7219_i2c_driver', without conditional compilation surroun=
-ding
-it. Unless of course I'm missing something. Could we instead use
-'__maybe_unused' to avoid this warning?
+That looks interesting, thanks for pointing this out!
+I'll rebase and see how it works for my use-case, will keep you informed.
 
->=20
->  static enum da7219_micbias_voltage
->  	da7219_fw_micbias_lvl(struct device *dev, u32 val)
-> --
-> 2.25.1
-
+Regards,
+Arnaud

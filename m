@@ -2,104 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2DB42130BE
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jul 2020 02:58:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FA1F213207
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jul 2020 05:06:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 469F216D0;
-	Fri,  3 Jul 2020 02:58:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 469F216D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 76EEB16BF;
+	Fri,  3 Jul 2020 05:05:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76EEB16BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593737930;
-	bh=FGKCLWB3xFwlJuBmModDHRw9M5VOJULZV6L4iuvVoHY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=DNQz7C4+GCbD6Fs0jNVNvRykHMZ552dY88fGSdxaMHyXqXmrkYVgghJ9u5mcPEo2R
-	 folDPzVlzoAyHEvtJGSP1zGqkV+I8QD+7fULiLbiQB5DxUb0yO0RjmAzxu1dGiu4Eb
-	 3zewDA4u8T9N4BCWE2FXUYMhG/YRsSVYEW4LYSeA=
+	s=default; t=1593745603;
+	bh=jGZlEEh4dUNM3cX/GGZ8DLajU57/vj0n+tKQmCryuNM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=UY3l8BFY+Oz+UhJsALar1iEwpUgcvOWQwm2CmG8gJfU8t1LG2j6DtBWmGRf05CcYk
+	 A9OqckrTee365jtBnyf+jV562oo3bMElLPmWJvTzFpcMdz1La/Hdg4rR3duUnmjrnA
+	 yPAHd7vCAtOp4RGJuMbxukys2rY+QkpCgTJl5jHc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 629CDF80134;
-	Fri,  3 Jul 2020 02:57:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56751F8021D;
+	Fri,  3 Jul 2020 05:05:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 93534F8022D; Fri,  3 Jul 2020 02:57:06 +0200 (CEST)
+ id 3511AF80217; Fri,  3 Jul 2020 05:04:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H4,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B1C3FF80134
- for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 02:56:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1C3FF80134
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="c28gi1d5"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="arSG++a2"
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.west.internal (Postfix) with ESMTP id E1297B97;
- Thu,  2 Jul 2020 20:56:56 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Thu, 02 Jul 2020 20:56:57 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm2; bh=N0L71KptBQjZz5cAIsugJrh0Lwh
- GDIUbtv3hIQ1GbcY=; b=c28gi1d5oEOsbWgz8Gz61WqRdPMIkiQVmxZ1tuACSmp
- tYVP7FkrScnBebrHLLsY4Oq/0lpYZ15AVMLAewvMvl0idJUJ+6DURah87kpREXIi
- YvUOKakBkv7PX1furMtoBACCneXySKVROoZCCGOiuO1KBW64wwNPEMavHVd2D7r9
- 7Djn++gq/17ZN0vDmDDMT0k30tNnuut54UL33ZUzf3QFe+sOsiZW+5CVhhVRxSWL
- SQ9+4m9lu15ToMF+ebMXPTXCEPFHUvbZbG87FRHpdKM5LidaS8+gzE3B3uA5TmG8
- EJjP8OOps+pgR7l3Cqt5UWDIN4lGsFgcEdpTu1xFowA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=N0L71K
- ptBQjZz5cAIsugJrh0LwhGDIUbtv3hIQ1GbcY=; b=arSG++a2fht/YhZokTNgEd
- fI98qvSL2lVSUaOdcYHpdhZoz/oDBo/uSw2GmRcFoDyxqKhIJlqe5ycYJqfa6Kbo
- LbRWOdLwc60A8VKr1jcd32F2UE9AmZWHLfyWEEPVx3VLlifxmLXoINsYvmrT/L5z
- n3uRhHha9gwW1zLdypAO7Hb1ZgDEDOrZ3nf56EpjAdUwfoRmGiDvSxWPOUNyxyL5
- iD/ENfxRzY5jAPdzd7tyIUpp9YotrYw2K3AYxbJoGlHyBkoBt75WQJcxGcBTRXRY
- hHx8lvOKotQshky93L70iu7b6TLR7Y+/pApxcvYkk6nD4RpjRw1f7u6OGy8daUJg
- ==
-X-ME-Sender: <xms:V4L-XmY1jUpV1xR7vf7KUmpYUNxZYErc12-zvreCA-qIghRCVPLcSg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrtdehgdeflecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgrshhh
- ihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
- eqnecuggftrfgrthhtvghrnheplefhueegvdejgfejgfdukeefudetvddtuddtueeivedt
- tdegteejkedvfeegfefhnecukfhppedukedtrddvfeehrdefrdehgeenucevlhhushhtvg
- hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehs
- rghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:V4L-XpZ8F5L31kaffL4D7DBUfghiFldHmNG_v17Zy4JZX_uR3Qt0Nw>
- <xmx:V4L-Xg8olzOF0qeTYxBMMvUm9NGXxb7EkfGLJgGTZO3Qw4_yKt9Zhg>
- <xmx:V4L-Xor0EPoemPGlkQ1w7LIpC5dDLPUV6QWsi61KR9GZzozOk-h4nw>
- <xmx:WIL-XjFs2gbvEKj1bedqrc4YXogwhd4e2Y-voxnh9pig1C3P9txUaw>
-Received: from workstation (ad003054.dynamic.ppp.asahi-net.or.jp
- [180.235.3.54])
- by mail.messagingengine.com (Postfix) with ESMTPA id 00D53306006C;
- Thu,  2 Jul 2020 20:56:54 -0400 (EDT)
-Date: Fri, 3 Jul 2020 09:56:52 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [RFC PATCH 12/23] ALSA: firewire: fix kernel-doc
-Message-ID: <20200703005652.GC349540@workstation>
-Mail-Followup-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, 
- alsa-devel@alsa-project.org, tiwai@suse.de
-References: <20200702193604.169059-1-pierre-louis.bossart@linux.intel.com>
- <20200702193604.169059-13-pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8686CF800E0
+ for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 05:04:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8686CF800E0
+Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.58])
+ by Forcepoint Email with ESMTP id 22DB6E5DE6A194980ED4;
+ Fri,  3 Jul 2020 11:04:37 +0800 (CST)
+Received: from localhost.localdomain.localdomain (10.175.113.25) by
+ DGGEMS413-HUB.china.huawei.com (10.3.19.213) with Microsoft SMTP Server id
+ 14.3.487.0; Fri, 3 Jul 2020 11:04:27 +0800
+From: Wei Yongjun <weiyongjun1@huawei.com>
+To: Peter Ujfalusi <peter.ujfalusi@ti.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
+ <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH -next] ASoC: ti: j721e-evm: Fix missing unlock on error in
+ j721e_audio_hw_params()
+Date: Fri, 3 Jul 2020 03:09:10 +0000
+Message-ID: <20200703030910.75047-1-weiyongjun1@huawei.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200702193604.169059-13-pierre-louis.bossart@linux.intel.com>
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.175.113.25]
+X-CFilter-Loop: Reflected
+Cc: kernel-janitors@vger.kernel.org, alsa-devel@alsa-project.org,
+ Wei Yongjun <weiyongjun1@huawei.com>, linux-kernel@vger.kernel.org,
+ Hulk Robot <hulkci@huawei.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,35 +74,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jul 02, 2020 at 02:35:53PM -0500, Pierre-Louis Bossart wrote:
-> Fix W=1 warning. Remove excess function parameter from description
-> 
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> ---
->  sound/firewire/cmp.c | 1 -
->  1 file changed, 1 deletion(-)
+Add the missing unlock before return from function j721e_audio_hw_params()
+in the error handling case.
+
+Fixes: 6748d0559059 ("ASoC: ti: Add custom machine driver for j721e EVM (CPB and IVI)")
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
+---
+ sound/soc/ti/j721e-evm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/soc/ti/j721e-evm.c b/sound/soc/ti/j721e-evm.c
+index 3a2a8b1f3aa3..174306cf53ad 100644
+--- a/sound/soc/ti/j721e-evm.c
++++ b/sound/soc/ti/j721e-evm.c
+@@ -330,7 +330,7 @@ static int j721e_audio_hw_params(struct snd_pcm_substream *substream,
+ 		ret = snd_soc_dai_set_tdm_slot(codec_dai, 0x3, 0x3, 2,
+ 					       slot_width);
+ 		if (ret && ret != -ENOTSUPP)
+-			return ret;
++			goto out;
+ 	}
  
-Thanks for your catching this bug.
+ 	ret = j721e_configure_refclk(priv, domain_id, params_rate(params));
 
-Fixes: 7bc93821a70a ("ALSA: firewire-lib: split allocation of isochronous resources from establishment of connection")
-Acked-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-> diff --git a/sound/firewire/cmp.c b/sound/firewire/cmp.c
-> index 14abbe7175b6..b596bec19774 100644
-> --- a/sound/firewire/cmp.c
-> +++ b/sound/firewire/cmp.c
-> @@ -293,7 +293,6 @@ static int pcr_set_check(struct cmp_connection *c, __be32 pcr)
->  /**
->   * cmp_connection_establish - establish a connection to the target
->   * @c: the connection manager
-> - * @max_payload_bytes: the amount of data (including CIP headers) per packet
->   *
->   * This function establishes a point-to-point connection from the local
->   * computer to the target by allocating isochronous resources (channel and
-> -- 
-> 2.25.1
- 
 
-Regards
-
-Takashi Sakamoto

@@ -2,136 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61D64213FA3
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jul 2020 20:49:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 919CD213FC9
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jul 2020 21:13:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D789516C9;
-	Fri,  3 Jul 2020 20:48:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D789516C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8EED16C0;
+	Fri,  3 Jul 2020 21:12:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8EED16C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593802156;
-	bh=lP4GpcUjG72YqBMg9J08cBVB85PCY1/9glqqIhXNEFU=;
-	h=Subject:To:From:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1593803596;
+	bh=/PANOEygWsjGuGKQAV1AV0cJbYsmCO8lRNcAF32SHsw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cqeo6LZyY5w/0n2A51fQLdnqPyCEvk0xcDBHZpB9YiOHYRnZbwSI6XkWVH/zA6PLR
-	 AjjFnZ8pfSKZuCLqvyrKLQFfyUPZl4W+5XtY9ugZpqhvRb7I6KBCO4ccsOJSZTVOaJ
-	 3C93GSXcnI3pzqT0AtzBFNVh2qTSp/IsZE2oW+pA=
+	b=sZ7Q/FIMlxatz/RUN9jOw4q2jdGrXs+LbfZpxlx4toROnDuruqxiZv4XGsmlXZuYD
+	 taLlNS+JiFEbMZAidAQX033E7vWPSPNfanR1a2VYVf+5HP9iBuQotd3ikRmubY4yZ+
+	 z0+6vDtIFyq5Rjxf3LQFab+uN2hml7s79E4fiv3g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0044F8021D;
-	Fri,  3 Jul 2020 20:47:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0CB7CF8021D;
+	Fri,  3 Jul 2020 21:11:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C68AF80217; Fri,  3 Jul 2020 20:47:33 +0200 (CEST)
+ id B6F4EF80217; Fri,  3 Jul 2020 21:11:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_135,PRX_BODY_29,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2DD77F800E0
- for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 20:47:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DD77F800E0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2EB65F800ED
+ for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 21:11:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2EB65F800ED
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="UzN//N9y"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20200703184722euoutp011d5508dd1f8f9e8c51238875466aa5a0~eUoN5iAqx3139931399euoutp01j
- for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 18:47:22 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20200703184722euoutp011d5508dd1f8f9e8c51238875466aa5a0~eUoN5iAqx3139931399euoutp01j
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1593802042;
- bh=i1/uMDs8BgSjlm9bkstKj5YuscCvOGSa3GwGD5PZpt4=;
- h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
- b=UzN//N9y9ROTSnLGmoAzyFEWZM52vP6mxMwapCl/V99Yn+LQaR2rH3QNVGyZfraH0
- J7Aspe2mQZ/IK2s0ieuweoPDXGLkBPM2GCQsj4NqX+Hc+gc315tTw6QKnoh6wNwL34
- Svs9kVHPg+NKYIMGThxtBevOBqx7kxNVITsYzBhw=
-Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTP id
- 20200703184722eucas1p22fcca6dd07e52aaf1251e85fc18db7b3~eUoNiCsmr2016720167eucas1p2s;
- Fri,  3 Jul 2020 18:47:22 +0000 (GMT)
-Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges3new.samsung.com (EUCPMTA) with SMTP id 1B.66.06318.A3D7FFE5; Fri,  3
- Jul 2020 19:47:22 +0100 (BST)
-Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20200703184721eucas1p14d55ad6733d8edbc22237da65563d0bc~eUoNGzc-m0218502185eucas1p1M;
- Fri,  3 Jul 2020 18:47:21 +0000 (GMT)
-Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
- eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20200703184721eusmtrp2050d75dc1546f772412a0fa8183e36e2~eUoNGI9Qp1186411864eusmtrp2a;
- Fri,  3 Jul 2020 18:47:21 +0000 (GMT)
-X-AuditID: cbfec7f5-371ff700000018ae-d5-5eff7d3ab566
-Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
- eusmgms2.samsung.com (EUCPMTA) with SMTP id C2.0E.06017.93D7FFE5; Fri,  3
- Jul 2020 19:47:21 +0100 (BST)
-Received: from [106.210.123.115] (unknown [106.210.123.115]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20200703184720eusmtip1f6a015963e019e47265fe8d15eb9bcc8~eUoML1gIE3172131721eusmtip10;
- Fri,  3 Jul 2020 18:47:20 +0000 (GMT)
-Subject: Re: [PATCH 3/8] ASoC: samsung: pcm: fix kernel-doc
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-From: Sylwester Nawrocki <s.nawrocki@samsung.com>
-Message-ID: <d6980967-5def-58c9-39a9-239a5c671f3f@samsung.com>
-Date: Fri, 3 Jul 2020 20:47:19 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="EbSrIYsG"
+Received: by mail-wr1-x444.google.com with SMTP id a6so33791634wrm.4
+ for <alsa-devel@alsa-project.org>; Fri, 03 Jul 2020 12:11:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=pCP+1HZxn+tsKMBNz33uyfOsq4XBUKWSgs+6uGDsAcU=;
+ b=EbSrIYsGTORFUAvtQkgz3HYhwMLbSYoO+gjQcJgEq0xURy+FUajjikfhcFJQB6CKGI
+ WZdlZtphq4me8695bU+S1g46OxHEALrMI9mw9hBoBc38RChyIlAxBBK2kO6ZKcDPofS2
+ bcUbnR54GPmrzjS6d+zZu/1pPnyJGAP2t8J6U=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=pCP+1HZxn+tsKMBNz33uyfOsq4XBUKWSgs+6uGDsAcU=;
+ b=tirK/7D5DVkeLltwUfcXmUjI95psodcvVBGXJ3E3ADWHucn0Oj3kTMuGmPeMLrhnLG
+ 72iKUlsgnTHg8MwdXA9QYewBLX3GPyYfjAmU0BiERoaAzWqDELs7ye4YAQS7rtzggwDk
+ OhYEm+Sag/NjDQ4IEQ/rDsz0IU2DAUgmFwsszhtkLdZ2hiBMBxD7MyaqxhBSCH87VzzY
+ M76pIOoXuFWADwD2NYxjWXGjH92Kyy+uY/qN0795b8aebyaODwlqhTu0fUwfseehRY3q
+ HmhqHBtV1N+SNJv9RX/jrX0c6mIPaqktPFByknJw18y8Uj+qGXuzotJbCNFo4eJMg4lq
+ mXTQ==
+X-Gm-Message-State: AOAM532Z2mnTH24DKHnrX5A/pNK/MLivSs8G0KeBv+eeJWzMX0Fag+mA
+ h8L8iwvaCvc8KKJj+ONC1VrrtYtzBt+4DBFmEoieTQ==
+X-Google-Smtp-Source: ABdhPJyrT/LgK6PdaSFibq6fztGk0jI82mt3ucxNiVLRwpNcfMYf+pQXqhRWLU87NjMJgEIAvIYTae7G7aQA50ai3Ww=
+X-Received: by 2002:adf:cf0a:: with SMTP id o10mr9313725wrj.14.1593803485389; 
+ Fri, 03 Jul 2020 12:11:25 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200702165901.164100-4-pierre-louis.bossart@linux.intel.com>
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Brightmail-Tracker: H4sIAAAAAAAAA02SWUwTURSGvTPT6XS05FIwnKDBWDGuoAQwoyjBLRnjg/hmVKpFBkpY7QBu
- IRoRhKJ1i0GbCkTDYo0BK4JgRAWFVCJYtxA3AqlEidUIBQUFdDoaefv+c89/z/1PLkNqHisC
- meT0LMGYrk/V0ixV3zbaFbIqd1K3fHgYcy+cLQR3vtdFc11dtUpu5EUhwT1vstJcUdMpBTc2
- 2U9wzmoPwdV+v464Tzc/EzEsXzt0lOYbLe+UvN1WRPOljq18s7uS5s11NsTX1L2k+Jsdh/gh
- e1Csaju7OkFITc4RjMuid7OGHx/CMsum77/27gw6giYYE2IYwBGQf583IZbR4GoEefX5pCw8
- CDrNfUpZDCE49uoXbUIqr6PiQj8psQZXIXCbl8r8DcGg009iPxwFbQUVSon9sQ6qPF3ei0hc
- QEDr1wGvmcZhcPKRGUmsxtFQYp2gJKZwMLy2Wr08E8eBuaKclnt8wXHR5a2r8GYYv+RUSEzi
- AHjtKiNkngMNbqs3AmC3Ep7elQcA3gCD46OUzH4w0F6nlHk2TDZKZsmQh+DEnTdKWZxG0NNe
- /tcdBW87x2hpYyReBDVNy+TyWhhvKCXkRfpAt9tXfoQPnK0vIeWyGgoLNHJ3MPy0lRAyB0Kx
- a5I6jbSWKdEsU+JYpsSx/J9bjigbChCyxbQkQQxPF/aFivo0MTs9KXRPRpod/flhHRPtw7dR
- 86/4FoQZpJ2h/ugY12kU+hzxQFoLAobU+qvXPenQadQJ+gMHBWPGLmN2qiC2oFkMpQ1Qh1/+
- FKfBSfosIUUQMgXjv1OCUQUeQZHxPolxa5bYG2Jj2noLot9fhkjPtYjE6odrTQNjD66kLDTl
- Vs61t4Y1r0y+FxS14ELl4WDu5NWBPkMEu/HLFp1z7/VYbeXx+fMyc3uUNQu7DVmLVuxo7B25
- u7N4TlnO9+dbp52L9OT9DB8NUq3bEL+JvcXGhDi4HaBYf+PZzvptfdO1lGjQhy0mjaL+N+Dn
- NktdAwAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrHIsWRmVeSWpSXmKPExsVy+t/xu7qWtf/jDN4cMLC4cvEQk8XUh0/Y
- LM6f38Bu8e1KB5PF5V1z2Cw6d/WzWvz6/4zJ4uKKL0wWG76vZbR4ufkNkwOXx4bPTWweO2fd
- ZffYtKqTzWPeyUCPfW+XsXn0bVnF6LF+y1UWj82nqz0+b5IL4IzSsynKLy1JVcjILy6xVYo2
- tDDSM7S00DMysdQzNDaPtTIyVdK3s0lJzcksSy3St0vQy/jx1LBgPnfF6rsTGRsY/3F0MXJy
- SAiYSCyd8Yy5i5GLQ0hgKaPEzcud7F2MHEAJKYn5LUoQNcISf651sUHUvGeUuL/0ETNIQljA
- WuJY21J2EFtEIE5i98JDLCBFzAJtTBLfV/UwQnTcZ5T40NPDBFLFJmAo0Xu0jxHE5hWwk5g+
- 5x8LiM0ioCJxa84cMFtUIFbi270tbBA1ghInZz4Bi3MKeEv8nXuRFcRmFlCX+DPvEjOELS5x
- 68l8JghbXmL72znMExiFZiFpn4WkZRaSlllIWhYwsqxiFEktLc5Nzy020itOzC0uzUvXS87P
- 3cQIjNttx35u2cHY9S74EKMAB6MSD++E43/jhFgTy4orcw8xSnAwK4nwOp09HSfEm5JYWZVa
- lB9fVJqTWnyI0RTouYnMUqLJ+cCUklcSb2hqaG5haWhubG5sZqEkztshcDBGSCA9sSQ1OzW1
- ILUIpo+Jg1OqgXGS45/DembLlq7r1rganz5j7YfASN4sLu/rEjc3t+t6eXI/dpK/v+q6r0fy
- jlKzZJ1Z07yrJhzcbnO0aq2El6bYb/5CoVP2TvN33pyw8HBKtaLytWd3Zhp2PC2O3Lakvf5s
- p6+ofHeh6h+dhPYvX0tcmcr/2y/Sy1mjlnav8eO3Xef8ntfu9lJiKc5INNRiLipOBADTRFEi
- 8QIAAA==
-X-CMS-MailID: 20200703184721eucas1p14d55ad6733d8edbc22237da65563d0bc
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20200702165920eucas1p236c3c4c82424ea459ea88ebacf9b8a6e
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20200702165920eucas1p236c3c4c82424ea459ea88ebacf9b8a6e
-References: <20200702165901.164100-1-pierre-louis.bossart@linux.intel.com>
- <CGME20200702165920eucas1p236c3c4c82424ea459ea88ebacf9b8a6e@eucas1p2.samsung.com>
- <20200702165901.164100-4-pierre-louis.bossart@linux.intel.com>
-Cc: tiwai@suse.de, open list <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Sangbeom Kim <sbkim73@samsung.com>,
- broonie@kernel.org
+References: <20200703071913.2358882-1-yuhsuan@chromium.org>
+ <8d21fc0c-b43e-75a0-d5d4-ed4872ec92cb@collabora.com>
+ <CAGvk5Pqx475MOsefchcgs=CnVJiwFJxa+-J6eHcp1VgscVkTeg@mail.gmail.com>
+ <cea2bc7e-035b-2c97-73bf-25dc55ab8801@collabora.com>
+ <CAGvk5PoiWDchYCsaR_tqQ5mE0XA_hBXHy-hS5o3vFtuPzm_JiA@mail.gmail.com>
+ <d5634533-3cf3-b52a-ff24-2bda3230927d@collabora.com>
+ <CABXOdTcP0DagxzUrBh5H_TXzSAZjMAG4UaV++0sW99W4ypC78w@mail.gmail.com>
+In-Reply-To: <CABXOdTcP0DagxzUrBh5H_TXzSAZjMAG4UaV++0sW99W4ypC78w@mail.gmail.com>
+From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+Date: Sat, 4 Jul 2020 03:11:14 +0800
+Message-ID: <CAGvk5PpKTHGgp5v3FLGARE7EX7F7nZUJucnpcncbf4epDfZ7jw@mail.gmail.com>
+Subject: Re: [PATCH v2] ASoC: cros_ec_codec: Log results when EC commands fail
+To: Guenter Roeck <groeck@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Tzung-Bi Shih <tzungbi@google.com>,
+ Mark Brown <broonie@kernel.org>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Guenter Roeck <groeck@chromium.org>, Benson Leung <bleung@chromium.org>,
+ Cheng-Yi Chiang <cychiang@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -147,50 +105,214 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 02.07.2020 18:58, Pierre-Louis Bossart wrote:
-> Fix W=1 warnings - missing fields in structure
-> 
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> ---
->  sound/soc/samsung/pcm.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/sound/soc/samsung/pcm.c b/sound/soc/samsung/pcm.c
-> index a5b1a12b3496..86eefbc89e9e 100644
-> --- a/sound/soc/samsung/pcm.c
-> +++ b/sound/soc/samsung/pcm.c
-> @@ -104,8 +104,13 @@
+Guenter Roeck <groeck@google.com> =E6=96=BC 2020=E5=B9=B47=E6=9C=883=E6=97=
+=A5 =E9=80=B1=E4=BA=94 =E4=B8=8B=E5=8D=8811:58=E5=AF=AB=E9=81=93=EF=BC=9A
+>
+> On Fri, Jul 3, 2020 at 3:56 AM Enric Balletbo i Serra
+> <enric.balletbo@collabora.com> wrote:
+> >
+> > Hi Yu-Hsuan,
+> >
+> > On 3/7/20 11:40, Yu-Hsuan Hsu wrote:
+> > > Enric Balletbo i Serra <enric.balletbo@collabora.com> =E6=96=BC 2020=
+=E5=B9=B47=E6=9C=883=E6=97=A5 =E9=80=B1=E4=BA=94 =E4=B8=8B=E5=8D=885:19=E5=
+=AF=AB=E9=81=93=EF=BC=9A
+> > >>
+> > >> Hi Yu-Hsuan,
+> > >>
+> > >> On 3/7/20 10:48, Yu-Hsuan Hsu wrote:
+> > >>> Enric Balletbo i Serra <enric.balletbo@collabora.com> =E6=96=BC 202=
+0=E5=B9=B47=E6=9C=883=E6=97=A5 =E9=80=B1=E4=BA=94 =E4=B8=8B=E5=8D=884:38=E5=
+=AF=AB=E9=81=93=EF=BC=9A
+> > >>>>
+> > >>>> Hi Yu-Hsuan,
+> > >>>>
+> > >>>> Thank you for your patch
+> > >>>>
+> > >>>> On 3/7/20 9:19, Yu-Hsuan Hsu wrote:
+> > >>>>> Log results of failed EC commands to identify a problem more easi=
+ly.
+> > >>>>>
+> > >>>>> Replace cros_ec_cmd_xfer_status with cros_ec_cmd_xfer because the=
+ result
+> > >>>>> has already been checked in this function. The wrapper is not nee=
+ded.
+> > >>>>>
+> > >>>>
+> > >>>> Nack, we did an effort to remove all public users of cros_ec_cmd_x=
+fer() in
+> > >>>> favour of cros_ec_cmd_xfer_status() and you are reintroducing agai=
+n. You can do
+> > >>>> the same but using cros_ec_cmd_xfer_status(). In fact, your patch =
+will not build
+> > >>>> on top of the upcoming changes.
+> > >>> Thanks! But I have a question about implementing it. Does it look l=
+ike
+> > >>> the one below?
+> > >>> ret =3D cros_ec_cmd_xfer_status(ec_dev, msg);
+> > >>> if (ret < 0) {
+> > >>
+> > >> In this case will already print an error.
+> > >>
+> > >> What are you trying to achieve?
+> > >>
+> > >> If the only reason is of this patch is print a message you should ei=
+ther, or
+> > >> enable dynamic printk and enable dev_dbg or event better use the ker=
+nel trace
+> > >> functionality. There is no need to be more verbose.
+> > >>
+> > >> Example:
+> > >>     $ echo 1 > /sys/kernel/debug/tracing/events/cros_ec/enable
+> > >>     $ cat /sys/kernel/debug/tracing/trace
+> > >>
+> > >>     369.416372: cros_ec_request_start: version: 0, command: EC_CMD_U=
+SB_PD_POWER_INFO
+> > >>     369.420528: cros_ec_request_done: version: 0, command:
+> > >> EC_CMD_USB_PD_POWER_INFO, ec result: EC_RES_SUCCESS, retval: 16
+> > >>
+> > >> Cheers,
+> > >>  Enric
+> > >>
+> > > Thank Enric,
+> > >
+> > > The situation is that some users encountered errors on ChromeBook.
+> >
+> > And, aren't you able to reproduce the issue?
+> >
+> >
+> > > From their feedback reports, we only get the message like
+> > > 'cros-ec-codec GOOG0013:00: ASoC: Failed to set DAI format: -71'.
+> > > We know that -71 is -EPROTO but it is not clear enough for us to find
+> > > out the root cause. That's why we want the detail of the result.
+> >
+> >
+> > If I am not mistaken this ends calling i2s_rx_set_daifmt() into the EC =
+firmware,
+> > if the result is -EPROTO that means is not returning EC_RES_SUCCESS, so=
+ there
+> > are few options:
+> >
+> >         if (i2s_rx_enabled)
+> >                 return EC_RES_BUSY;
+> >
+> >         if (daifmt >=3D EC_CODEC_I2S_RX_DAIFMT_COUNT)
+> >                 return EC_RES_INVALID_PARAM;
+> >
+> >         if (audio_codec_i2s_rx_set_daifmt(daifmt) !=3D EC_SUCCESS)
+> >                 return EC_RES_ERROR;
+> >
+> > > Because the situation happens on users' side, it is not possible for
+> > > them to enable kernel trace (ChromeOS does not allow users to touch
+> > > kernel).
+> > >
+> >
+> > Are you sure that when you know the error code you'll find the root cau=
+se
+> > (without adding more prints)? There is only three possibilities? You ca=
+n't start
+> > adding prints just to debug a user issue because you don't allow to be =
+more
+> > verbose. I understand that might help you but is not the way to go.
 
-Thank you for the patch, I have some suggestions to improve the comments.
+Hi Enric and Guenter,
 
->  /**
->   * struct s3c_pcm_info - S3C PCM Controller information
-> + * @lock: Spin lock
+Thanks for your inspiring comments.
+I'm not sure whether we will find the root cause if I know the error
+code. But I think it's not a point.
+We wanted to add this error log because we found that the current one
+is not enough. Since it is a real error, it would be better if we can
+make it more detailed, right?
+In addition, we thought it would be helpful in the future as well.
+That's why we chose to upstream instead of merging into our source
+tree only.
 
-@lock: Spin lock to serialize access to the device registers and @idle_clk
+> >
+> > You should really reproduce the issue yourself an use actual debug
+> > tools/prints./traces
+We are trying but still unable to reproduce this issue.
+However, as I maintained above, it is not a main concern of this change.
+> >
+>
+> Another possibility would be to change cros_ec_cmd_xfer_status() to
+> return a more granular error code, such as -EINVAL for
+> EC_RES_INVALID_PARAM, -EBUSY for EC_RES_BUSY, -EINPROGRESS for
+> EC_RES_IN_PROGRESS,  -ETIMEDOUT for EC_RES_TIMEOUT, -EOVERFLOW for
+> EC_RES_OVERFLOW, -ENODATA for EC_RES_UNAVAILABLE, and so on.
+Since there are many kinds of results from EC, why not just make users
+able to check on their own?
+For example, users can wait and try again if the result is EC_RES_BUSY.
 
->   * @dev: The parent device passed to use from the probe.
->   * @regs: The pointer to the device register block.
-> + * @sclk_per_fs: number of sclk per frame sync
-> + * @idleclk: Whether to keep PCMSCLK enabled even when idle(no active xfer)
+>
+> However, it appears that the various low level functions already
+> replace various EC error codes with a blank EC_RES_ERROR. No amount of
+> logging will tell us what exactly went wrong in those functions. Lucky
+> for us, audio_codec_i2s_rx_set_daifmt() only ever returns EC_SUCCESS,
+> so we know that the problem is either that i2s_rx_enabled is true or
+> that daifmt is too large. None of those really warrants more verbose
+> logging.
+>
+> From the context, my personal bet is that i2s_rx_enabled is true: I
+> don't immediately see how disabling it is enforced before trying to
+> set the DAI format, and I don't see how "daifmt >=3D
+> EC_CODEC_I2S_RX_DAIFMT_COUNT" can ever be true.
+I totally agree. According to the source, it seems that both path are
+impossible. I'm not really understand the whole path but is it
+possible for EC to return other results? I will do more tests and look
+carefully into the source. Really thanks for your suggestions.
 
-How about adding space before the opening parenthesis?
-
-> + * @pclk: the pclk pointer
-
-@pclk: the PCLK_PCM (pcm) clock pointer
-
-> + * @cclk: the clck pointer
-
-@cclk: the SCLK_AUDIO (audio-bus) clock pointer  
-
->   * @dma_playback: DMA information for playback channel.
->   * @dma_capture: DMA information for capture channel.
->   */
- 
-With above changes feel free to add:
-Reviewed-by: Sylwester Nawrocki <s.nawrocki@samsung.com>
-
--- 
-Thanks,
-Sylwester
+Cheers,
+Yu-Hsuan
+>
+> Guenter
+>
+>
+> Guenter
+>
+> > Cheers,
+> >  Enric
+> >
+> > > The other way we thought is changing dev_dbg to dev_err in
+> > > cros_ec_cmd_xfer_status. But we are not sure whether it is also an
+> > > error for other usages.
+> > >
+> > >>>   if (ret =3D=3D -EPROTO)
+> > >>>     dev_err(..., msg->result)
+> > >>>   goto error;
+> > >>> }
+> > >>> I'm not sure whether it makes sense to check ret =3D=3D -EPROTO her=
+e.
+> > >>>
+> > >>>>
+> > >>>>> Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+> > >>>>> ---
+> > >>>>>  sound/soc/codecs/cros_ec_codec.c | 9 ++++++++-
+> > >>>>>  1 file changed, 8 insertions(+), 1 deletion(-)
+> > >>>>>
+> > >>>>> diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/=
+cros_ec_codec.c
+> > >>>>> index 8d45c628e988e..a4ab62f59efa6 100644
+> > >>>>> --- a/sound/soc/codecs/cros_ec_codec.c
+> > >>>>> +++ b/sound/soc/codecs/cros_ec_codec.c
+> > >>>>> @@ -90,10 +90,17 @@ static int send_ec_host_command(struct cros_e=
+c_device *ec_dev, uint32_t cmd,
+> > >>>>>       if (outsize)
+> > >>>>>               memcpy(msg->data, out, outsize);
+> > >>>>>
+> > >>>>> -     ret =3D cros_ec_cmd_xfer_status(ec_dev, msg);
+> > >>>>> +     ret =3D cros_ec_cmd_xfer(ec_dev, msg);
+> > >>>>>       if (ret < 0)
+> > >>>>>               goto error;
+> > >>>>>
+> > >>>>> +     if (msg->result !=3D EC_RES_SUCCESS) {
+> > >>>>> +             dev_err(ec_dev->dev, "Command %d failed: %d\n", cmd=
+,
+> > >>>>> +                     msg->result);
+> > >>>>> +             ret =3D -EPROTO;
+> > >>>>> +             goto error;
+> > >>>>> +     }
+> > >>>>> +
+> > >>>>>       if (insize)
+> > >>>>>               memcpy(in, msg->data, insize);
+> > >>>>>
+> > >>>>>

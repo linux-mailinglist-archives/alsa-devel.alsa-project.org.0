@@ -2,91 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27B242137D9
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jul 2020 11:43:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EBB12137F7
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jul 2020 11:46:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A661116DC;
-	Fri,  3 Jul 2020 11:42:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A661116DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id D571916D2;
+	Fri,  3 Jul 2020 11:45:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D571916D2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593769410;
-	bh=H1A24+KeHLlEKNDI1IKdWlQkVJOV5vKgeGrvmo2Brc4=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1593769569;
+	bh=H7YT9B/7VwlQuN7F2GLTctohoWcjqx+VLNi1YeMI7/g=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TohknJCgXBSlJcTAkNfhB75aVSgg2YGxu+hJXmzJW+Kb9ni1+8NcYBxtbR5y3+44W
-	 0BuvQ1FeQh4DJ0GygbF6fzXgdgTwicUalqenuMJhfurcnHuIVxHuxYP1wuGaWDtbp1
-	 dIngtlZ/g4GSJ0d+0vc2J576Xgxo6Rhw5qU//Ko8=
+	b=gxCoimhbxRvmbhaKZPvHl42QTE9W/SbBP8GnV7P6Rg8H8v13DISmlNkl8rhmmIH4+
+	 Mp2kXqVD0fguQw0uJzBmeil3CpoJ5FFDMv0E80N1/ak6ICDMqfg13Wq8bJNkY8TSUL
+	 C55G0zmPVvc/pqHox1ScCCTYtDOEA2jYPR/GcS0k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ADFFDF800ED;
-	Fri,  3 Jul 2020 11:42:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E0C53F8020C;
+	Fri,  3 Jul 2020 11:44:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5CE98F80229; Fri,  3 Jul 2020 11:42:23 +0200 (CEST)
+ id 63D98F80217; Fri,  3 Jul 2020 11:44:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
- [IPv6:2a00:1450:4864:20::643])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from EUR03-VE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr50040.outbound.protection.outlook.com [40.107.5.40])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AF178F8020C
- for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 11:42:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF178F8020C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1A13CF800E0
+ for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 11:44:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A13CF800E0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="c9qYTaAu"
-Received: by mail-ej1-x643.google.com with SMTP id a1so33516071ejg.12
- for <alsa-devel@alsa-project.org>; Fri, 03 Jul 2020 02:42:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:subject:date:message-id:in-reply-to:references:mime-version
- :content-transfer-encoding;
- bh=7O1Ho+Y9XzSIjLy6QD5J6272JRCLWOVaSjBiLZwIY/Q=;
- b=c9qYTaAutHf1dCy8vFF6iHjbK3+SETst/WIYULk8V751egju8+RQXVlSS7Eo/K9OuY
- 3JPSTfkIc1KG0cyTvnap9OAdZxV7k0645fmpYM20yzkD5NfrRcm8X76BFeEOzdkq7Br8
- 8SgTafL+vozPgIsfm/jKztvrkL/UMrPJRwN1sM2NLo+PguepffRZlbOlVk3Kn9kw9BpW
- kcPFcBopP59u6W8eacFj8S8YFqILevMvxolMqXAe44cZS5a74PTcc407lakMYQpj8S32
- NSO/0inoe2Eay1vI4X4sKA4h4f5LUwMbugTnZWY+Xy6HShkn3KmpSApxG+kpZehGTxFm
- 2+Lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=7O1Ho+Y9XzSIjLy6QD5J6272JRCLWOVaSjBiLZwIY/Q=;
- b=QjpWiXqRx9vdfqOHSdVjllIvq3V3ARzjKbQTC4Y8GlUiym5rumu1s6KDQPxCXZQFCA
- /OOunbhFQzTagfcl9+ZaYWgoazBFQzsmdsjJlh2Te4x1fhfiKqblIedU7/Ce0+DXpdnM
- +/4bN/8BeEimKambUhroOWURC+Vd9xMl9OwGK8x+luiX/LOtJLI1jiyiLhyZY1v0FI8q
- GC/ZZGuM5l0OAkY3B2FkIyB7wNLmjxU0zZNrZfuu5GonE//dhpAJbYP4hG/pXk2EpeFo
- ZhmYVqMfjWGF3tCrJA6BJ6Hct2q3qwfTbZIUG7c3z83Mf3Oi3+FFxDGAMCqb2sWqgGDZ
- jv0Q==
-X-Gm-Message-State: AOAM530tNRHWU164oyrWGDFCLsQJwXR2bxDxgKQJgUow5yk0X3mpTzn3
- /Fu2UxDTggkkiMBPJGPdadqQMFbG
-X-Google-Smtp-Source: ABdhPJxrDs/3UXU4OCPULCRFa0m9qudsx/RorVpMzQHdVW1Mt7bz/y8VHcykoyQlPj86Z6TljqJGzQ==
-X-Received: by 2002:a17:906:194b:: with SMTP id
- b11mr25408636eje.28.1593769335877; 
- Fri, 03 Jul 2020 02:42:15 -0700 (PDT)
-Received: from gluon.localnet
- (dynamic-2a01-0c23-600c-c800-b5bb-ab38-3fcf-cdfe.c23.pool.telefonica.de.
- [2a01:c23:600c:c800:b5bb:ab38:3fcf:cdfe])
- by smtp.gmail.com with ESMTPSA id p14sm11737217edr.23.2020.07.03.02.42.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Jul 2020 02:42:15 -0700 (PDT)
-From: Stanislav Kazmin <stas.kazmin@gmail.com>
-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
-Subject: Re: [HDAudio][ALC295] speakers not working on Acer Travelmate P614
-Date: Fri, 03 Jul 2020 11:42:14 +0200
-Message-ID: <2100677.Z98FQmKFDK@gluon>
-In-Reply-To: <32519971.jW2LJBauvq@gluon>
-References: <CA+-1zuv3SeumhdMbqXjZU0tbmh7HB9LwTK2bfNTe5nOCmz4BgA@mail.gmail.com>
- <s5h366ln2vc.wl-tiwai@suse.de> <32519971.jW2LJBauvq@gluon>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
+ dkim=pass (1024-bit key) header.d=dialogsemiconductor.onmicrosoft.com
+ header.i=@dialogsemiconductor.onmicrosoft.com header.b="vVtAxyry"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Y04DX7nbx3eXiTCgUJgB0K3+exVdmGeXMI+AOK3HEAMORCKkCrU35l1FbYvCyocKsPMhKjo0XvdQGZo9p10lTsjlICy0+QEhLuW4VEmqdCXViAsEPgvxe27KytKjAQVojC2MnZNT+Z2vw49qKuWzNRfC6VhwbAY8V0s4A2lKPGa5BVPVt+a06Pap28bniOksfqCm3x25kHcZ2EopASxVb5HkGxwzuwzoSekh6M0e1w0gmMQSVy6zwuV2/v4ap/4e5lxZ2/A1h37RQxTPYh40ZGVVUrxoK+9fBa1/tU+pm/NxPPiswqKZAsCK47nnWuX21A1EjQnDDNSgR86zCBU03A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iTzVqH9zBEZ7uWr1xQjfIJ4eeKbVgfRQNN+g+nal6e4=;
+ b=O1ByNDyhQakMfbXiKa37ZlER9LeoH8hlfWUloomCmzDBBIK6UsG9YRwBfBqMXailtnhrAP83Zki9J108bMJHk5nUb96SzwIw+zSxW03germKKiTo5T0kCisrx/WqAk2HaEh91cE2b0oizvCWUkPT81kDSF5DEdQ8yysTmcC6ipPswUQ73q8e6KpJZvuuW0X7KdKYCE8m+LNNQ2bRVoWShEd9xr+iqYjkAAQ1SbAdWiZ3j+X5bBu8C+6d9MNYZxardBuuYtyRMo9MKJTF/x7R1AQJH+aG/UajxBnCDPQmyQfyv58geiraASfTrSGCrhYWwuJHdPzmyh6CzThr+EB8XQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=diasemi.com; dmarc=pass action=none header.from=diasemi.com;
+ dkim=pass header.d=diasemi.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=dialogsemiconductor.onmicrosoft.com;
+ s=selector1-dialogsemiconductor-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iTzVqH9zBEZ7uWr1xQjfIJ4eeKbVgfRQNN+g+nal6e4=;
+ b=vVtAxyryRaPb3DsnES02pb7MLzscr/MpmvVSxhSj0OQxudZawSPlgJQaOZEvhhKKXEWk+AYQNPMPqaiCUo0OVN0bmvJiURxqRRQ4YaV4h6mRkIzP3MxcrSbjyBF88jFlh3MofGc/ZEB618hE0FVTuR5KRExYXXRwRlsVhIBEhl0=
+Received: from DB6PR1001MB1096.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:4:65::9)
+ by DB6PR1001MB1350.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:4:b5::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3153.21; Fri, 3 Jul
+ 2020 09:44:17 +0000
+Received: from DB6PR1001MB1096.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::314b:f930:76b1:11c5]) by DB6PR1001MB1096.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::314b:f930:76b1:11c5%10]) with mapi id 15.20.3131.029; Fri, 3 Jul 2020
+ 09:44:17 +0000
+From: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>, Support Opensource
+ <Support.Opensource@diasemi.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark
+ Brown <broonie@kernel.org>
+Subject: RE: [PATCHv4] ASoC: da7213: add default clock handling
+Thread-Topic: [PATCHv4] ASoC: da7213: add default clock handling
+Thread-Index: AQHWUR6FyRPb3HyZQUmB0DL/ZWyqfg==
+Date: Fri, 3 Jul 2020 09:44:17 +0000
+Message-ID: <DB6PR1001MB10965E5BDA9B3EF570B607A4806A0@DB6PR1001MB1096.EURPRD10.PROD.OUTLOOK.COM>
+References: <AM6PR10MB2263094DD176499308EC8B2A80B80@AM6PR10MB2263.EURPRD10.PROD.OUTLOOK.COM>
+ <20200626164623.87894-1-sebastian.reichel@collabora.com>
+In-Reply-To: <20200626164623.87894-1-sebastian.reichel@collabora.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: collabora.com; dkim=none (message not signed)
+ header.d=none;collabora.com; dmarc=none action=none header.from=diasemi.com;
+x-ms-exchange-messagesentrepresentingtype: 1
+x-originating-ip: [165.225.80.64]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 927623c9-0123-46c9-3be7-08d81f35a7a4
+x-ms-traffictypediagnostic: DB6PR1001MB1350:
+x-ms-exchange-sharedmailbox-routingagent-processed: True
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DB6PR1001MB135038B59B41BB7360AEA047A76A0@DB6PR1001MB1350.EURPRD10.PROD.OUTLOOK.COM>
+x-ms-oob-tlc-oobclassifiers: OLM:4502;
+x-forefront-prvs: 045315E1EE
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: X6N4bS+oX0pTx/F3LskPGgzAbdcMmoukeyNdOveUtjXjRp9IoY0y7qhczsSN4vKfssflaQrlddUlFexr7stn5VY9mXO6l/As9jHRDIiUfjensKauHMBeH9M/pEwjF+u55sIWu1A+AZCc74PMxBTAkEq4FQl1v7NBUJjNfEjYf6JQoE1/nPROBywnz3ogHmeLIxLHMwS+hXUN3duYX9n1Gua+0pTePaBQyY2T85hTioNhMpYLVhcYqZXDoTaYERdo3xdU5aDi9FciEhs8iqHcujj54LKaw+mcFg/BNWbNEG3TkwgrKFZSDk8yT2Bn3ill
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DB6PR1001MB1096.EURPRD10.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(346002)(39860400002)(366004)(376002)(136003)(396003)(186003)(6506007)(83380400001)(86362001)(55016002)(8936002)(8676002)(478600001)(54906003)(316002)(33656002)(110136005)(9686003)(2906002)(7696005)(55236004)(53546011)(4326008)(26005)(66476007)(66556008)(66446008)(64756008)(52536014)(76116006)(71200400001)(5660300002)(66946007);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: PCvHg78PKtxSv65yGroM77GWyJmwaNUQ78+gZNCx4uYft/fiK+/1od48UBP5r03K5UiAzRRYERnw6tHWQjUSMItyxy34ci6wBmad1l2bVyRlNvJM1JiVBE+kYpsj5cvuZ+Tcih6D8BTT2m/sfnrSZ7YVP7hfdzQmnQxC2riyOZcMvM2n2LYrxa+fqyNeXFGNpfzKPVULPnp1MoJIniG6kH9yqz9fFGu6ORadofCIDzpmH8XXtjevvXun2ZBjuRDmrIKAxPyTE5MW/noubxA3WP8UFM9Psh83HqtokH4dv9rKH3QB6Od2DqCbRamsiBNesKZLis8RMiQ5U1K4PtelGKPR5eOtWoetCs/wTnq4wI7wKSBSPWgBq6AkT6v8H40av7ckXJDbfgv5UI2I1VM3+9/RxUqMnQWEM744Lh2vOzCsS3xf49hXt596LdUg5Cm+ETtmYLAMdx49U/XnuJsVJtjGAItFT5l3D+e3fwRUzG0=
 Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: diasemi.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB6PR1001MB1096.EURPRD10.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 927623c9-0123-46c9-3be7-08d81f35a7a4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jul 2020 09:44:17.7701 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 511e3c0e-ee96-486e-a2ec-e272ffa37b7c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: NdXb+jQESX0V15/bOUd9EpeEyk6qZmVZUCtyrBM7aKI9I1EqPfC9MuzYNga8UkTT1Ltvu9UZy99Xa4RZZLabjgBAYbgyncseiNsisCJ5R54=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR1001MB1350
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>,
+ Adam Thomson <Adam.Thomson.Opensource@diasemi.com>,
+ "kernel@collabora.com" <kernel@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,96 +136,239 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello Takashi,
+On 26 June 2020 17:46, Sebastian Reichel wrote:
 
-as I am new to mailing lists I would like to know how to proceed now, after I 
-posted the question here. Because I cannot create quirks on my own and need 
-someone to guide me. But it seems that no one is answering to the question 
-anymore. 
+> This adds default clock/PLL configuration to the driver
+> for usage with generic drivers like simple-card for usage
+> with a fixed rate clock.
+>=20
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-Is it normal and will it be attended at some point? Or do I have to post it as 
-a BUG somewhere (e. g. linux kernel)?
+Looks good. Thanks for the work here.
 
-I do not want to hurry you or anyone else here in any way but I would like to 
-know whether I have to wait or to do something.
+Reviewed-by: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
 
-I would be happy to test some more ideas (like COEFFS and stuff like that) but 
-I need concrete recipes for it.
-
-Thanks,
-
-Stanislav
-
-On Montag, 29. Juni 2020 15:46:15 CEST Stanislav Kazmin wrote:
-> Hello,
-> 
-> unfortunately I am still lost and do not know how to attack the problem...
-> 
-> But I found this bug: https://bugzilla.kernel.org/show_bug.cgi?id=207423
-> 
-> and I wounder if it related to the problem here?
-> 
-> Best,
-> 
-> Stanislav
-> 
-> On Dienstag, 23. Juni 2020 18:49:59 CEST Takashi Iwai wrote:
-> > On Tue, 23 Jun 2020 17:49:18 +0200,
-> > 
-> > Stanislav Kazmin wrote:
-> > > Hello, I have the following problem on my Acer TravelMate P614-51T-G2:
-> > > 
-> > > I have all the audio sinks correctly identified (like HDMI, DMic,
-> > > Headphones) but the internal speakers do not produce any sound.
-> > > 
-> > > What I have tried so far:
-> > > 
-> > > - hard/soft shutdown on Windows and reboot
-> > > - disable/re-enable speakers and microphone in BIOS
-> > > - uninstall pulseaudio and test alsa alone (so it is defeitely **not** a
-> > > pulseaudio issue)
-> > > - switch from sof-hda-dsp to snd-hda-intel driver (without Dmic support)
-> > > - retask pins 0x14, 0x16, 0x1b to "Internal Speakers" through
-> > > hdajackretask
-> > > (only basic, without advanced features)
-> > > - removed/reconnected the headphones
-> > > 
-> > > `alsamixer` shows all needed sinks and nothing is muted.
-> > > 
-> > > I already discussed the issue at sof github
-> > > https://github.com/thesofproject/ sof/issues/3058 but since the same
-> > > issue occurs on `snd-hda-intel` legacy river, I was advised to
-> > > communicate with alsa-devel team.
-> > > 
-> > > The alsa-info.sh result are linked at http://alsa-project.org/db/?
-> > > f=252f92c7a1df3c755d16ee69353b26d2535a4d81
-> > > 
-> > > I have tested the kernel 5.8-rc1 but it does not make any difference.
-> > > 
-> > > Let me know if I can do anything else to test the issue.
-> > 
-> > It's hard to know and the only way is to some trial-and-errors.
-> > The first shot I'd take is to toggle GPIO pins.  You can change the
-> > bit via hda-verb program like
-> > 
-> >   hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_DIR 0x01
-> >   hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_MASK 0x01
-> >   hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_DATA 0x01
-> > 
-> > to turn on the bit 0 of GPIO.  The first 0x01 is the node ID and it's
-> > 0x01 on Realtek, and the last 0x01 the GPIO bit 0.  For toggling the
-> > bit 1, pass 0x02 in the last argument, and for bit 2, pass 0x04.
-> > 
-> > And try turn on EAPD on non-used pins.  This can be done via hda-verb,
-> > too.
-> > 
-> > If this doesn't help, you might need to try some COEF changes as done
-> > in various quirks in sound/pci/hda/patch_realtek.c.
-> > 
-> > 
-> > HTH,
-> > 
-> > Takashi
-
-
+> ---
+> Changes since PATCHv3:
+>  * rebase to v5.8-rc1
+>  * add SRM support for usage in slave mode with simple-card.
+>    I only tested with master mode, though.
+> ---
+>  sound/soc/codecs/da7213.c | 83
+> ++++++++++++++++++++++++++++++++++++---
+>  sound/soc/codecs/da7213.h |  2 +
+>  2 files changed, 80 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/sound/soc/codecs/da7213.c b/sound/soc/codecs/da7213.c
+> index 3e6ad996741b..1a4fece20bcd 100644
+> --- a/sound/soc/codecs/da7213.c
+> +++ b/sound/soc/codecs/da7213.c
+> @@ -1156,6 +1156,7 @@ static int da7213_hw_params(struct
+> snd_pcm_substream *substream,
+>  			    struct snd_soc_dai *dai)
+>  {
+>  	struct snd_soc_component *component =3D dai->component;
+> +	struct da7213_priv *da7213 =3D
+> snd_soc_component_get_drvdata(component);
+>  	u8 dai_ctrl =3D 0;
+>  	u8 fs;
+>=20
+> @@ -1181,33 +1182,43 @@ static int da7213_hw_params(struct
+> snd_pcm_substream *substream,
+>  	switch (params_rate(params)) {
+>  	case 8000:
+>  		fs =3D DA7213_SR_8000;
+> +		da7213->out_rate =3D DA7213_PLL_FREQ_OUT_98304000;
+>  		break;
+>  	case 11025:
+>  		fs =3D DA7213_SR_11025;
+> +		da7213->out_rate =3D DA7213_PLL_FREQ_OUT_90316800;
+>  		break;
+>  	case 12000:
+>  		fs =3D DA7213_SR_12000;
+> +		da7213->out_rate =3D DA7213_PLL_FREQ_OUT_98304000;
+>  		break;
+>  	case 16000:
+>  		fs =3D DA7213_SR_16000;
+> +		da7213->out_rate =3D DA7213_PLL_FREQ_OUT_98304000;
+>  		break;
+>  	case 22050:
+>  		fs =3D DA7213_SR_22050;
+> +		da7213->out_rate =3D DA7213_PLL_FREQ_OUT_90316800;
+>  		break;
+>  	case 32000:
+>  		fs =3D DA7213_SR_32000;
+> +		da7213->out_rate =3D DA7213_PLL_FREQ_OUT_98304000;
+>  		break;
+>  	case 44100:
+>  		fs =3D DA7213_SR_44100;
+> +		da7213->out_rate =3D DA7213_PLL_FREQ_OUT_90316800;
+>  		break;
+>  	case 48000:
+>  		fs =3D DA7213_SR_48000;
+> +		da7213->out_rate =3D DA7213_PLL_FREQ_OUT_98304000;
+>  		break;
+>  	case 88200:
+>  		fs =3D DA7213_SR_88200;
+> +		da7213->out_rate =3D DA7213_PLL_FREQ_OUT_90316800;
+>  		break;
+>  	case 96000:
+>  		fs =3D DA7213_SR_96000;
+> +		da7213->out_rate =3D DA7213_PLL_FREQ_OUT_98304000;
+>  		break;
+>  	default:
+>  		return -EINVAL;
+> @@ -1392,9 +1403,9 @@ static int da7213_set_component_sysclk(struct
+> snd_soc_component *component,
+>  }
+>=20
+>  /* Supported PLL input frequencies are 32KHz, 5MHz - 54MHz. */
+> -static int da7213_set_component_pll(struct snd_soc_component *component,
+> -				    int pll_id, int source,
+> -				    unsigned int fref, unsigned int fout)
+> +static int _da7213_set_component_pll(struct snd_soc_component
+> *component,
+> +				     int pll_id, int source,
+> +				     unsigned int fref, unsigned int fout)
+>  {
+>  	struct da7213_priv *da7213 =3D
+> snd_soc_component_get_drvdata(component);
+>=20
+> @@ -1503,6 +1514,16 @@ static int da7213_set_component_pll(struct
+> snd_soc_component *component,
+>  	return 0;
+>  }
+>=20
+> +static int da7213_set_component_pll(struct snd_soc_component *component,
+> +				    int pll_id, int source,
+> +				    unsigned int fref, unsigned int fout)
+> +{
+> +	struct da7213_priv *da7213 =3D
+> snd_soc_component_get_drvdata(component);
+> +	da7213->fixed_clk_auto_pll =3D false;
+> +
+> +	return _da7213_set_component_pll(component, pll_id, source, fref,
+> fout);
+> +}
+> +
+>  /* DAI operations */
+>  static const struct snd_soc_dai_ops da7213_dai_ops =3D {
+>  	.hw_params	=3D da7213_hw_params,
+> @@ -1532,6 +1553,50 @@ static struct snd_soc_dai_driver da7213_dai =3D {
+>  	.symmetric_rates =3D 1,
+>  };
+>=20
+> +static int da7213_set_auto_pll(struct snd_soc_component *component, bool
+> enable)
+> +{
+> +	struct da7213_priv *da7213 =3D
+> snd_soc_component_get_drvdata(component);
+> +	int mode;
+> +
+> +	if (!da7213->fixed_clk_auto_pll)
+> +		return 0;
+> +
+> +	da7213->mclk_rate =3D clk_get_rate(da7213->mclk);
+> +
+> +	if (enable) {
+> +		/* Slave mode needs SRM for non-harmonic frequencies */
+> +		if (da7213->master)
+> +			mode =3D DA7213_SYSCLK_PLL;
+> +		else
+> +			mode =3D DA7213_SYSCLK_PLL_SRM;
+> +
+> +		/* PLL is not required for harmonic frequencies */
+> +		switch (da7213->out_rate) {
+> +		case DA7213_PLL_FREQ_OUT_90316800:
+> +			if (da7213->mclk_rate =3D=3D 11289600 ||
+> +			    da7213->mclk_rate =3D=3D 22579200 ||
+> +			    da7213->mclk_rate =3D=3D 45158400)
+> +				mode =3D DA7213_SYSCLK_MCLK;
+> +			break;
+> +		case DA7213_PLL_FREQ_OUT_98304000:
+> +			if (da7213->mclk_rate =3D=3D 12288000 ||
+> +			    da7213->mclk_rate =3D=3D 24576000 ||
+> +			    da7213->mclk_rate =3D=3D 49152000)
+> +				mode =3D DA7213_SYSCLK_MCLK;
+> +
+> +			break;
+> +		default:
+> +			return -1;
+> +		}
+> +	} else {
+> +		/* Disable PLL in standby */
+> +		mode =3D DA7213_SYSCLK_MCLK;
+> +	}
+> +
+> +	return _da7213_set_component_pll(component, 0, mode,
+> +					 da7213->mclk_rate, da7213->out_rate);
+> +}
+> +
+>  static int da7213_set_bias_level(struct snd_soc_component *component,
+>  				 enum snd_soc_bias_level level)
+>  {
+> @@ -1551,6 +1616,8 @@ static int da7213_set_bias_level(struct
+> snd_soc_component *component,
+>  						"Failed to enable mclk\n");
+>  					return ret;
+>  				}
+> +
+> +				da7213_set_auto_pll(component, true);
+>  			}
+>  		}
+>  		break;
+> @@ -1562,8 +1629,10 @@ static int da7213_set_bias_level(struct
+> snd_soc_component *component,
+>  					    DA7213_VMID_EN | DA7213_BIAS_EN);
+>  		} else {
+>  			/* Remove MCLK */
+> -			if (da7213->mclk)
+> +			if (da7213->mclk) {
+> +				da7213_set_auto_pll(component, false);
+>  				clk_disable_unprepare(da7213->mclk);
+> +			}
+>  		}
+>  		break;
+>  	case SND_SOC_BIAS_OFF:
+> @@ -1693,7 +1762,6 @@ static struct da7213_platform_data
+>  	return pdata;
+>  }
+>=20
+> -
+>  static int da7213_probe(struct snd_soc_component *component)
+>  {
+>  	struct da7213_priv *da7213 =3D
+> snd_soc_component_get_drvdata(component);
+> @@ -1829,6 +1897,11 @@ static int da7213_probe(struct snd_soc_component
+> *component)
+>  			return PTR_ERR(da7213->mclk);
+>  		else
+>  			da7213->mclk =3D NULL;
+> +	} else {
+> +		/* Do automatic PLL handling assuming fixed clock until
+> +		 * set_pll() has been called. This makes the codec usable
+> +		 * with the simple-audio-card driver. */
+> +		da7213->fixed_clk_auto_pll =3D true;
+>  	}
+>=20
+>  	return 0;
+> diff --git a/sound/soc/codecs/da7213.h b/sound/soc/codecs/da7213.h
+> index 3890829dfb6e..97ccf0ddd2be 100644
+> --- a/sound/soc/codecs/da7213.h
+> +++ b/sound/soc/codecs/da7213.h
+> @@ -535,10 +535,12 @@ struct da7213_priv {
+>  	struct regulator_bulk_data supplies[DA7213_NUM_SUPPLIES];
+>  	struct clk *mclk;
+>  	unsigned int mclk_rate;
+> +	unsigned int out_rate;
+>  	int clk_src;
+>  	bool master;
+>  	bool alc_calib_auto;
+>  	bool alc_en;
+> +	bool fixed_clk_auto_pll;
+>  	struct da7213_platform_data *pdata;
+>  };
+>=20
+> --
+> 2.27.0
 

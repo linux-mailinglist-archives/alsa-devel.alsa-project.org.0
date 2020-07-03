@@ -2,111 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 029092137D2
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jul 2020 11:40:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C6322137D7
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jul 2020 11:42:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6722516AC;
-	Fri,  3 Jul 2020 11:39:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6722516AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 89C9116D1;
+	Fri,  3 Jul 2020 11:41:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89C9116D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593769235;
-	bh=V/ubCCwyYGgkRn8sWgMMDRg2McYRoRA20U3uNK7P9lo=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1593769363;
+	bh=+uT4/ugJepuzJfRXEfUbL9ym4yqXL84mVyZkxqlatWQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HKBvJNB+cIbsoEgbnU0lHYwu5wsZ7YfnSNQKNGeIoBdIO7ECcLV5VbGc1RdypfBYU
-	 cjDwOeCcPlPsUqUp7+7xgPusnn1R4rjgQyvoHqP2QnTSFDUmFlv2YoPdWvNCTiri5Y
-	 mrrpPJwe3paDanXyfYvIT9rcdOdaDVQw3SZQX9Jg=
+	b=sGWCyHS0DcBMng8mrWyjdKjLIzeAw7PYaD8g9yrU9WpkIt7Y2ua5R6y4MWWlUTcIp
+	 9i7W83yQwmW8vyP2VUv46YsgfggjkOrwm3onSr+FT7MbCDz44jyYvtYu4ZKlp+cN1N
+	 vIUvGGrBJztuGHQuqIv+WKRXne42+hSHKC8oQ3Gs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6442DF8021D;
-	Fri,  3 Jul 2020 11:38:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6C07F800E2;
+	Fri,  3 Jul 2020 11:41:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CEF2CF80217; Fri,  3 Jul 2020 11:38:51 +0200 (CEST)
+ id ACF59F80217; Fri,  3 Jul 2020 11:41:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 46F7DF800ED
- for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 11:38:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46F7DF800ED
-Received: from [IPv6:2a01:e35:2fb5:1510:1d94:e6f1:f819:f29f] (unknown
- [IPv6:2a01:e35:2fb5:1510:1d94:e6f1:f819:f29f])
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: aferraris)
- by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 9571D2A066E;
- Fri,  3 Jul 2020 10:38:46 +0100 (BST)
-Subject: Re: [PATCH 0/4] ASoC: fsl_asrc: allow selecting arbitrary clocks
-To: Nicolin Chen <nicoleotsuka@gmail.com>
-References: <20200702142235.235869-1-arnaud.ferraris@collabora.com>
- <20200702184226.GA23935@Asurada-Nvidia>
-From: Arnaud Ferraris <arnaud.ferraris@collabora.com>
-Autocrypt: addr=arnaud.ferraris@collabora.com; keydata=
- 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
- xZQG6fKWuIur3RI=
-Message-ID: <3f39a0bb-a766-f646-28b3-a51cf9983c6b@collabora.com>
-Date: Fri, 3 Jul 2020 11:38:44 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1E57BF800E2
+ for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 11:40:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E57BF800E2
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="aCP0cShj"
+Received: by mail-wm1-x344.google.com with SMTP id o2so33417307wmh.2
+ for <alsa-devel@alsa-project.org>; Fri, 03 Jul 2020 02:40:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=DdinKhU6Vgfi2yzkEzkWpZ1cEblZoAeY2Qj+FjvvzvE=;
+ b=aCP0cShjbrykQvr0g1Vb+DEj00lwAxg0T78dsiIDjyKDfQDVu3sax35VsD+5BopxBx
+ Xk1fdV5P6jRSIY3aeIF3Auv39STfQHSfFib4ytai0iieU4CPbdF4Idi+KfDPU565e6/t
+ JK60Gs6fQ2v3r7hZrbrjVy3+FWxGjTx1n1jQ0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=DdinKhU6Vgfi2yzkEzkWpZ1cEblZoAeY2Qj+FjvvzvE=;
+ b=m4RRI1Vhom5yARo3/IBPaTN7UtPSG0DwO5RUpbPE1LjPmU1kOpU9BD1Z6YjSI49sfz
+ wgLEs74NZDXSu+WHroybzjq5DF+u2IBHzWs/LqXVOxpnqLkCGV30u5igg1a1PiAtNTM7
+ ItbsH5NQUzbH8+Q4kUg50ovPPlCcW5uGHAbJ4xggRCSy6QsjJURbX5cTPhENk4eTHcjG
+ ozioa+vrgyKyuGzny6fez+pjKUzmOQGWyGB4A8RutA4gvjO4kaB35wWOaerEWaH/pJ2p
+ 03q4PTTdiehHEFAJ6yPuNCpibNXNQ0oEU+OZmY2ccrBYXErfBoC5Hok1rKLEFgyAm0UB
+ 4WHA==
+X-Gm-Message-State: AOAM531b4cNlVTU6DfTxkl0L0eQ8+mrERAlyEnMs3rn21XTYjTnB5ZPz
+ skRVWKxLkbgsZjNGAEJYXLjBo8/X+AwLDA55n3083hRe04g=
+X-Google-Smtp-Source: ABdhPJyK3bZA5YHuYaknx92LE0w8p979gJTs+4780PHItenqBWsn4/F2bJXGGYP51jn4Y3LxXJfRoekc1uTcz5f/J10=
+X-Received: by 2002:a1c:bb43:: with SMTP id l64mr36903087wmf.151.1593769253122; 
+ Fri, 03 Jul 2020 02:40:53 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200702184226.GA23935@Asurada-Nvidia>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Rob Herring <robh+dt@kernel.org>, Fabio Estevam <festevam@gmail.com>,
- kernel@collabora.com, linuxppc-dev@lists.ozlabs.org
+References: <20200703071913.2358882-1-yuhsuan@chromium.org>
+ <8d21fc0c-b43e-75a0-d5d4-ed4872ec92cb@collabora.com>
+ <CAGvk5Pqx475MOsefchcgs=CnVJiwFJxa+-J6eHcp1VgscVkTeg@mail.gmail.com>
+ <cea2bc7e-035b-2c97-73bf-25dc55ab8801@collabora.com>
+In-Reply-To: <cea2bc7e-035b-2c97-73bf-25dc55ab8801@collabora.com>
+From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+Date: Fri, 3 Jul 2020 17:40:42 +0800
+Message-ID: <CAGvk5PoiWDchYCsaR_tqQ5mE0XA_hBXHy-hS5o3vFtuPzm_JiA@mail.gmail.com>
+Subject: Re: [PATCH v2] ASoC: cros_ec_codec: Log results when EC commands fail
+To: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Tzung-Bi Shih <tzungbi@google.com>,
+ Mark Brown <broonie@kernel.org>, Guenter Roeck <groeck@chromium.org>,
+ Benson Leung <bleung@chromium.org>, Cheng-Yi Chiang <cychiang@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -122,24 +100,113 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Nic,
+Enric Balletbo i Serra <enric.balletbo@collabora.com> =E6=96=BC 2020=E5=B9=
+=B47=E6=9C=883=E6=97=A5 =E9=80=B1=E4=BA=94 =E4=B8=8B=E5=8D=885:19=E5=AF=AB=
+=E9=81=93=EF=BC=9A
+>
+> Hi Yu-Hsuan,
+>
+> On 3/7/20 10:48, Yu-Hsuan Hsu wrote:
+> > Enric Balletbo i Serra <enric.balletbo@collabora.com> =E6=96=BC 2020=E5=
+=B9=B47=E6=9C=883=E6=97=A5 =E9=80=B1=E4=BA=94 =E4=B8=8B=E5=8D=884:38=E5=AF=
+=AB=E9=81=93=EF=BC=9A
+> >>
+> >> Hi Yu-Hsuan,
+> >>
+> >> Thank you for your patch
+> >>
+> >> On 3/7/20 9:19, Yu-Hsuan Hsu wrote:
+> >>> Log results of failed EC commands to identify a problem more easily.
+> >>>
+> >>> Replace cros_ec_cmd_xfer_status with cros_ec_cmd_xfer because the res=
+ult
+> >>> has already been checked in this function. The wrapper is not needed.
+> >>>
+> >>
+> >> Nack, we did an effort to remove all public users of cros_ec_cmd_xfer(=
+) in
+> >> favour of cros_ec_cmd_xfer_status() and you are reintroducing again. Y=
+ou can do
+> >> the same but using cros_ec_cmd_xfer_status(). In fact, your patch will=
+ not build
+> >> on top of the upcoming changes.
+> > Thanks! But I have a question about implementing it. Does it look like
+> > the one below?
+> > ret =3D cros_ec_cmd_xfer_status(ec_dev, msg);
+> > if (ret < 0) {
+>
+> In this case will already print an error.
+>
+> What are you trying to achieve?
+>
+> If the only reason is of this patch is print a message you should either,=
+ or
+> enable dynamic printk and enable dev_dbg or event better use the kernel t=
+race
+> functionality. There is no need to be more verbose.
+>
+> Example:
+>     $ echo 1 > /sys/kernel/debug/tracing/events/cros_ec/enable
+>     $ cat /sys/kernel/debug/tracing/trace
+>
+>     369.416372: cros_ec_request_start: version: 0, command: EC_CMD_USB_PD=
+_POWER_INFO
+>     369.420528: cros_ec_request_done: version: 0, command:
+> EC_CMD_USB_PD_POWER_INFO, ec result: EC_RES_SUCCESS, retval: 16
+>
+> Cheers,
+>  Enric
+>
+Thank Enric,
 
-Le 02/07/2020 à 20:42, Nicolin Chen a écrit :
-> Hi Arnaud,
-> 
-> On Thu, Jul 02, 2020 at 04:22:31PM +0200, Arnaud Ferraris wrote:
->> The current ASRC driver hardcodes the input and output clocks used for
->> sample rate conversions. In order to allow greater flexibility and to
->> cover more use cases, it would be preferable to select the clocks using
->> device-tree properties.
-> 
-> We recent just merged a new change that auto-selecting internal
-> clocks based on sample rates as the first option -- ideal ratio
-> mode is the fallback mode now. Please refer to:
-> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?h=next-20200702&id=d0250cf4f2abfbea64ed247230f08f5ae23979f0
+The situation is that some users encountered errors on ChromeBook.
+From their feedback reports, we only get the message like
+'cros-ec-codec GOOG0013:00: ASoC: Failed to set DAI format: -71'.
+We know that -71 is -EPROTO but it is not clear enough for us to find
+out the root cause. That's why we want the detail of the result.
+Because the situation happens on users' side, it is not possible for
+them to enable kernel trace (ChromeOS does not allow users to touch
+kernel).
 
-That looks interesting, thanks for pointing this out!
-I'll rebase and see how it works for my use-case, will keep you informed.
+The other way we thought is changing dev_dbg to dev_err in
+cros_ec_cmd_xfer_status. But we are not sure whether it is also an
+error for other usages.
 
-Regards,
-Arnaud
+> >   if (ret =3D=3D -EPROTO)
+> >     dev_err(..., msg->result)
+> >   goto error;
+> > }
+> > I'm not sure whether it makes sense to check ret =3D=3D -EPROTO here.
+> >
+> >>
+> >>> Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+> >>> ---
+> >>>  sound/soc/codecs/cros_ec_codec.c | 9 ++++++++-
+> >>>  1 file changed, 8 insertions(+), 1 deletion(-)
+> >>>
+> >>> diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros=
+_ec_codec.c
+> >>> index 8d45c628e988e..a4ab62f59efa6 100644
+> >>> --- a/sound/soc/codecs/cros_ec_codec.c
+> >>> +++ b/sound/soc/codecs/cros_ec_codec.c
+> >>> @@ -90,10 +90,17 @@ static int send_ec_host_command(struct cros_ec_de=
+vice *ec_dev, uint32_t cmd,
+> >>>       if (outsize)
+> >>>               memcpy(msg->data, out, outsize);
+> >>>
+> >>> -     ret =3D cros_ec_cmd_xfer_status(ec_dev, msg);
+> >>> +     ret =3D cros_ec_cmd_xfer(ec_dev, msg);
+> >>>       if (ret < 0)
+> >>>               goto error;
+> >>>
+> >>> +     if (msg->result !=3D EC_RES_SUCCESS) {
+> >>> +             dev_err(ec_dev->dev, "Command %d failed: %d\n", cmd,
+> >>> +                     msg->result);
+> >>> +             ret =3D -EPROTO;
+> >>> +             goto error;
+> >>> +     }
+> >>> +
+> >>>       if (insize)
+> >>>               memcpy(in, msg->data, insize);
+> >>>
+> >>>

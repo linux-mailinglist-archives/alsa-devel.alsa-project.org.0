@@ -2,68 +2,136 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D2CC213E36
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jul 2020 19:09:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B603213F2E
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jul 2020 20:09:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2820D16A6;
-	Fri,  3 Jul 2020 19:08:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2820D16A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 12BAB16C0;
+	Fri,  3 Jul 2020 20:08:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12BAB16C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593796173;
-	bh=u9uVrDTqK0wRptdS3zOB8pENulWvXRF3AfIsNI9ad8k=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1593799767;
+	bh=5iogMd7yz99uXe9u1jct/jqhPQTK+vVWmPaDxjClMNw=;
+	h=Subject:To:From:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EiHLYcBuIdNqZ6hRf7s9xn1S75InfAC0jmgTOiFld2OL51dORwoZyc85rX54gOdsS
-	 HIJnJe5M30M9rK061utNlRTkj6UJX+BRkcWY/B1vxt+k1YpEQiKyC3q6C+9vnn6vTa
-	 Y/GCQ2oIgbRFK8r8K1vzfg3yC4pCX51DkHYg2MgY=
+	b=Ezo/aVAnd3ca2kdpM6JTH6TgxNDfXg9q7EN+luMcGdD2DdzEq7NO0Q3i9cJzZiW8m
+	 wRbt95OuLbMk7p3SYFMh0OwQB1OIOBPUhel6E8TX8EMZcB6XfAc1sAz7PULUTR3DQ4
+	 GtxDI/qk5USJ9vPbYnSbcX9Bs0Gr1vVCVgPlU17E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F294FF802FF;
-	Fri,  3 Jul 2020 19:04:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3D115F8021D;
+	Fri,  3 Jul 2020 20:07:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 89BB4F802FE; Fri,  3 Jul 2020 19:04:21 +0200 (CEST)
+ id 04282F80217; Fri,  3 Jul 2020 20:07:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 56A62F802F9
- for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 19:04:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56A62F802F9
+ by alsa1.perex.cz (Postfix) with ESMTPS id A1615F800E0
+ for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 20:07:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1615F800E0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="sDxfGx+a"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 804FF2100A;
- Fri,  3 Jul 2020 17:04:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1593795857;
- bh=u9uVrDTqK0wRptdS3zOB8pENulWvXRF3AfIsNI9ad8k=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=sDxfGx+a/PCUNOVR7IqKMtl2Z+/lNrzf0n/dPUk/5Kait88CCJI6/C3a0+0qic7T9
- NuDNRpB9TXciNxnfpqBaSg4VTW6whAi+QYsQgp2TuQLBQvjkFfaSfLXunVIF2qxblV
- uPw5CyqpDwAqa6xHB9pOG0RAu0/oK0Lbbsda8wlk=
-Date: Fri, 03 Jul 2020 18:04:14 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Oder Chiou <oder_chiou@realtek.com>, Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20200703100823.258033-1-hdegoede@redhat.com>
-References: <20200703100823.258033-1-hdegoede@redhat.com>
-Subject: Re: [PATCH v2 0/2] ASoC: rt5670: 2 small cleanups
-Message-Id: <159379581381.55795.17943057797770768500.b4-ty@kernel.org>
-Cc: alsa-devel@alsa-project.org
+ dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
+ header.b="fH/4YEMc"
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20200703180733euoutp019ef0d43042466974f6350af35981e4cd~eUFdCmoLh0454004540euoutp01u
+ for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 18:07:33 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20200703180733euoutp019ef0d43042466974f6350af35981e4cd~eUFdCmoLh0454004540euoutp01u
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1593799653;
+ bh=70bj60STKB80rOnkSFyQI/YuWqofuzC2wl3VVj689IQ=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
+ b=fH/4YEMcA2LodrTI/daUKxlD0MWVGe3XaNoHQ5r2h5GF2w6ec51XYEii0Vlkcly+d
+ dP9WJmnN6xyAnLO12nAxpSK2+HipNs6vg1ldi7qO4UQDt2gmDob7S73FgpBI3jhFA5
+ 5kWUjdiPtqT+Ut018CPNBC8E50crh01VEgiLlDjc=
+Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTP id
+ 20200703180733eucas1p2f008451ed38148d09c3be4fac6adaa55~eUFckRTwB2636026360eucas1p2Z;
+ Fri,  3 Jul 2020 18:07:33 +0000 (GMT)
+Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
+ eusmges1new.samsung.com (EUCPMTA) with SMTP id D1.E3.06456.5E37FFE5; Fri,  3
+ Jul 2020 19:07:33 +0100 (BST)
+Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20200703180732eucas1p2d892bde2008ef5b783a041ed194198b9~eUFcQJuqT1177511775eucas1p21;
+ Fri,  3 Jul 2020 18:07:32 +0000 (GMT)
+Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
+ eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20200703180732eusmtrp1827a4f6922fb396ce87071f27e726fd7~eUFcPh8bG0919209192eusmtrp1p;
+ Fri,  3 Jul 2020 18:07:32 +0000 (GMT)
+X-AuditID: cbfec7f2-809ff70000001938-20-5eff73e5b7fd
+Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
+ eusmgms1.samsung.com (EUCPMTA) with SMTP id F9.FE.06314.4E37FFE5; Fri,  3
+ Jul 2020 19:07:32 +0100 (BST)
+Received: from [106.210.123.115] (unknown [106.210.123.115]) by
+ eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20200703180732eusmtip24b72fb42ea4bb4fbcf34697077c19ce1~eUFbk_jJb0813408134eusmtip22;
+ Fri,  3 Jul 2020 18:07:32 +0000 (GMT)
+Subject: Re: [PATCH 2/8] ASoC: samsung: spdif: fix kernel-doc
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+From: Sylwester Nawrocki <s.nawrocki@samsung.com>
+Message-ID: <de4b95f5-72b8-fa22-e437-7740e5ce51f5@samsung.com>
+Date: Fri, 3 Jul 2020 20:07:30 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
+MIME-Version: 1.0
+In-Reply-To: <20200702165901.164100-3-pierre-louis.bossart@linux.intel.com>
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrDKsWRmVeSWpSXmKPExsWy7djPc7pPi//HGez7zm9x5eIhJoupD5+w
+ WZw/v4Hd4tuVDiaLy7vmsFl07upntfj1/xmTxcUVX5gsNnxfy2jxcvMbJgcujw2fm9g8ds66
+ y+6xaVUnm8e8k4Ee+94uY/Po27KK0WP9lqssHptPV3t83iQXwBnFZZOSmpNZllqkb5fAldGw
+ ag97wSfGirOPPjE1MF5k7GLk5JAQMJG4cPgUexcjF4eQwApGiRUti1ggnC+MEuem3GIBqRIS
+ +MwocWirP0zHjWuLoDqWM0r83vWFCcL5yCjxZ+VCdpAqYQFbifZzi9hAbBGBOInlX86DdTAL
+ tDFJHH7/ihkkwSZgKNF7tA/sEF4BO4mOm9+YQGwWARWJx09XgQ0SFYiV6Fu6gA2iRlDi5Mwn
+ QCdxcHAKeEsceMMBEmYWEJe49WQ+E4QtL7H97RxmkF0SAi/ZJdon34Z61EVi9sJPzBC2sMSr
+ 41vYIWwZidOTe1ggGpoZJXp232aHcCYwStw/vgCq21rizrlfbCCbmQU0Jdbv0ocIO0p03djA
+ DBKWEOCTuPFWEOIIPolJ26ZDhXklOtqEIKpVJH6vms4EYUtJdD/5zzKBUWkWks9mIXlnFpJ3
+ ZiHsXcDIsopRPLW0ODc9tdgwL7Vcrzgxt7g0L10vOT93EyMwjZ3+d/zTDsavl5IOMQpwMCrx
+ 8L44+TdOiDWxrLgy9xCjBAezkgiv09nTcUK8KYmVValF+fFFpTmpxYcYpTlYlMR5jRe9jBUS
+ SE8sSc1OTS1ILYLJMnFwSjUwRn0Ks15nn7RUe3ej+QI+puT7mmkBX9n2b+Zy3fkrnMnJiPdf
+ 5dI264PiijW7D7NV+rS4imQdF/54qLlxfd2V3nb+W2IK84ytrP5sWRXVknni56M9ETXTm9kk
+ Kufb2XI/ExXaKsxatEbnfm9Lf9/hF1KTpryPXvVineSTkOySd/qVJWVOCS1KLMUZiYZazEXF
+ iQBaKrheXwMAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrHIsWRmVeSWpSXmKPExsVy+t/xe7pPiv/HGTz+ZWFx5eIhJoupD5+w
+ WZw/v4Hd4tuVDiaLy7vmsFl07upntfj1/xmTxcUVX5gsNnxfy2jxcvMbJgcujw2fm9g8ds66
+ y+6xaVUnm8e8k4Ee+94uY/Po27KK0WP9lqssHptPV3t83iQXwBmlZ1OUX1qSqpCRX1xiqxRt
+ aGGkZ2hpoWdkYqlnaGwea2VkqqRvZ5OSmpNZllqkb5egl9Gwag97wSfGirOPPjE1MF5k7GLk
+ 5JAQMJG4cW0RexcjF4eQwFJGiR3/j7J1MXIAJaQk5rcoQdQIS/y51sUGUfOeUaLnSi87SEJY
+ wFai/dwiNhBbRCBOYvfCQywgRcwCbUwS31f1MEJ03GeUaFn7HayKTcBQovdoH9hqXgE7iY6b
+ 35hAbBYBFYnHT1eBTRUViJX4dm8LG0SNoMTJmU9YQC7iFPCWOPCGAyTMLKAu8WfeJWYIW1zi
+ 1pP5TBC2vMT2t3OYJzAKzULSPQtJyywkLbOQtCxgZFnFKJJaWpybnltsqFecmFtcmpeul5yf
+ u4kRGLfbjv3cvIPx0sbgQ4wCHIxKPLwTjv+NE2JNLCuuzD3EKMHBrCTC63T2dJwQb0piZVVq
+ UX58UWlOavEhRlOg3yYyS4km5wNTSl5JvKGpobmFpaG5sbmxmYWSOG+HwMEYIYH0xJLU7NTU
+ gtQimD4mDk6pBsaafskfm+y6Pf0uRivUF38PerZwxkyu1Us4JjTb1b/f0nST09hVfFkkw2+P
+ P0Klbg1bMg2mWYaXMOr4/3Vot4w5Fhu7VWJjjvR2madO9X28Sd0cvUxe2+KO5vBHnet9HRmZ
+ /TJVw+Cnxbufny6t2LjkjnVE4fUExi6zp9k/U6wdGsJa4pfdU2Ipzkg01GIuKk4EAOhKcpLx
+ AgAA
+X-CMS-MailID: 20200703180732eucas1p2d892bde2008ef5b783a041ed194198b9
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20200702165920eucas1p1348effa5cbe7fb4682946525c3aeb31b
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20200702165920eucas1p1348effa5cbe7fb4682946525c3aeb31b
+References: <20200702165901.164100-1-pierre-louis.bossart@linux.intel.com>
+ <CGME20200702165920eucas1p1348effa5cbe7fb4682946525c3aeb31b@eucas1p1.samsung.com>
+ <20200702165901.164100-3-pierre-louis.bossart@linux.intel.com>
+Cc: tiwai@suse.de, open list <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Sangbeom Kim <sbkim73@samsung.com>,
+ broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,43 +147,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 3 Jul 2020 12:08:21 +0200, Hans de Goede wrote:
-> Here is in essence a resend of my 2 cleanup patches for the rt5670 ASoC
-> codec code, rebased on top of broonie/sound/for-5.9 with
-> broonie/sound/for-5.8 merged in.
+On 02.07.2020 18:58, Pierre-Louis Bossart wrote:
+> Fix W=1 warnings - typos with structure fields
 > 
-> Regards,
-> 
-> Hans
-> 
-> [...]
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/2] ASoC: rt5670: Remove struct rt5670_platform_data
-      commit: c14f61a89c1335f95d9b37624ee157fb1fd424ee
-[2/2] ASoC: rt5670: Rename dev_gpio to gpio1_is_irq
-      commit: 883330c11fa6dca55e30f8612398b3e0abc51dc5
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Reviewed-by: Sylwester Nawrocki <s.nawrocki@samsung.com>

@@ -2,87 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82AE72134E4
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jul 2020 09:25:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19296213507
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jul 2020 09:33:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0013116CE;
-	Fri,  3 Jul 2020 09:25:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0013116CE
+	by alsa0.perex.cz (Postfix) with ESMTPS id A208C16BF;
+	Fri,  3 Jul 2020 09:33:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A208C16BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593761156;
-	bh=B0x33tXoJrPRUUnaAGsYMRRSt5MbzrCo2cGIQi3Tljk=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=aDG2frF10JV52pZDTiANcjDfTzU9NsbhZr2cmutXCAU3WbsW7NZNv2rr+2U8XGe+U
-	 tiuSZgvDevJ/YKJ7d2A2Xv9WsfuqAEbabrZC7hVUvmtyU0t7QVKply1TtGmjaiEgNQ
-	 LZRoQv4rrPhWMRI4mIhebR2HS5xSzgjLbe3oIqwg=
+	s=default; t=1593761636;
+	bh=C0Izbs6RbeSKq/gEEfsJ8cqHx1Qb+Z2Ku4928fDFUXY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=WnMGUdBkVcwoHq0T67aX+WEHsR0ekmg6h+tRwX7LE99fYH46cpG6hQBOqF1kg9EFm
+	 7Alk//YpILEkOARsyP8qA9J9hJiZB93ULsI/01qEQI6yJVsCJR7Jet/mPnIJUZCfyp
+	 yeHlAdcKyRtO3wk6hY/8Wsm/5x0/i4r6aGBbD7eM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EBB24F800E0;
-	Fri,  3 Jul 2020 09:24:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95DCBF800E0;
+	Fri,  3 Jul 2020 09:32:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 748DAF80217; Fri,  3 Jul 2020 09:24:12 +0200 (CEST)
+ id 2D494F80217; Fri,  3 Jul 2020 09:32:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
  version=3.4.0
-Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
- [IPv6:2607:f8b0:4864:20::1042])
+Received: from mail-il1-x143.google.com (mail-il1-x143.google.com
+ [IPv6:2607:f8b0:4864:20::143])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 716B4F800E0
- for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 09:24:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 716B4F800E0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8329EF800E0
+ for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 09:32:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8329EF800E0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="CrMpKQn0"
-Received: by mail-pj1-x1042.google.com with SMTP id k71so10032252pje.0
- for <alsa-devel@alsa-project.org>; Fri, 03 Jul 2020 00:24:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Z08w30dCEd3i5CcEmTQ6bmApVFZhvp9t4OCAfTP18pI=;
- b=CrMpKQn0zqDgwQpGYD36szdd1r1O9EYIXH/1uPWWtawPcFsq6oqKcIjZW+Pye9+FMl
- i+VfnRWM3UsGETp0f1aQm7c6kbBJbqjXABWgEVnZqiryl9G5fJk42JhZajouxaGJigro
- bkVHAdkAysNol7WPFOu1kAtaovb8K/md2GIjlf6MV6/CbtFpE3jb8PGi7vkxK1XA39K0
- fe4mfG5yJg3m4zkoJWYW0dUOkuqkcaCTmo77qnC0IylOnNcKiWGqntxBtyY0SLdOqNh+
- BM4kWi674/xTBoQI2g96vsUVGPDacDj4O8FYcorjiZuCbxXiu/ZlgxXyYTDkm4200hO2
- NODA==
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="vTATOuPQ"
+Received: by mail-il1-x143.google.com with SMTP id x9so26540175ila.3
+ for <alsa-devel@alsa-project.org>; Fri, 03 Jul 2020 00:32:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=x+/vW+OeCuUFfmZ33bKp2kdfIMTrI96qZvK5nkkiTS8=;
+ b=vTATOuPQzML5zSoilwoHzw3DAL41OliM6zI+kKVgVVsC0Q2hSUkdoudQe7Zj/AsBBy
+ QIZR6MeIAocScr5kByrRZdLf8L7FzZTjU+0btvYZB+U2e4NI8exHoKYz8wdsx3i683k6
+ 0jdVR4MmHk/GYYB5JTbd/elg1rvm8T/U+/QDu7Hv5Ekj/jYHjLLOZrkV3mkhN2ZzN+Bo
+ qCWbEKd41cX4C0unh44Qvb2A/7l9/+zIRCWB6vqECnFKuNSLzvsBFQruh/BHY25cBH3p
+ WN9nVnin0cV2XgKukA9RuGEQfNzq2dznlPgj9EFbpHzkoU2K5ABbq6+PAahe4ex7GHje
+ 5/4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Z08w30dCEd3i5CcEmTQ6bmApVFZhvp9t4OCAfTP18pI=;
- b=sQa31eNjMM4+MGHV7ibXlyBZ1ldyg/Qz5Pi2lJhSdvrDUjbEi23DW9DSJeTbV5JkLz
- hdyCSqb8HcFLI6JjGa2zxom5sXH2WYZ80py/T8HPhxjbziWpw9yZY7ibArDQUvtAZ3FC
- aVMTBKbyzPPEPhg7Jqyt6HrA4gFaasqeLqXcxTuXG/oyTXgRC+/0fiQLZc4/2diW6h13
- uiUT/u3DgZS7o8Gnp4jHs3wbnGUtKNwlvInvrQSdBySgOU90HHF7lp/qbDypIkWslh+D
- PJuaYiP9wPRs91Wn2rAAxbolVohXLLXWV88s+C9xqfHB9ryOD7UEsbTefHkVMQWHnwDQ
- 2njg==
-X-Gm-Message-State: AOAM532VJoObHfYZrhuCHYStRoJ2VTEfByqQw8Eh2N2FjHXhn1wSmZrT
- iTqszptMj8e3fXmcZBRINP74W8B+
-X-Google-Smtp-Source: ABdhPJzhm8GoSqTxyuqw9en4lfh01Cqs1cZ/mkbIG2EIDdZG0YsSG+UP+kI+DmRublOTtm5Jsfceiw==
-X-Received: by 2002:a17:902:c206:: with SMTP id 6mr6932738pll.30.1593761044822; 
- Fri, 03 Jul 2020 00:24:04 -0700 (PDT)
-Received: from f3.nvidia.com (ae055068.dynamic.ppp.asahi-net.or.jp.
- [14.3.55.68])
- by smtp.gmail.com with ESMTPSA id w1sm3901794pfc.55.2020.07.03.00.24.03
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Jul 2020 00:24:03 -0700 (PDT)
-From: Benjamin Poirier <benjamin.poirier@gmail.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH RFC alsa-ucm-conf] sof-hda-dsp: Use Master mixer to control
- volume with dual stereo speakers
-Date: Fri,  3 Jul 2020 16:23:02 +0900
-Message-Id: <20200703072302.16876-1-benjamin.poirier@gmail.com>
-X-Mailer: git-send-email 2.27.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=x+/vW+OeCuUFfmZ33bKp2kdfIMTrI96qZvK5nkkiTS8=;
+ b=WDJFkwtzqOWsR8MHersfLsGu47Zypj06ej7IX79/7GF+aCtLYmgIksSykvVA+VHWHN
+ 31sydoggN55BYVa+MwEKZeJkZ2qJc040u9ZFBzcMXcF3g6ZY3cj33hnT0tN2uTu8wGcP
+ mmrGv/riG46ToskrLCsfAmeOuvD/mNNoEZ0Ipqw5V3HEeUG8/iRoajNF05qXGcSp2Vvj
+ N/P8tLUYIz8hDF0Urx/b7leFixo7AKFjebueDHUXKWxO4HVNSn7E+wAxxfR5QBSKXz7Z
+ yzUBFiNUEwnHNUhZTH8ojIci+8bop20bth7B41+BDc/26trqZKGheYgZ6yUpM4gnvgCF
+ EhJg==
+X-Gm-Message-State: AOAM533C5yurwe49B/pU4pYb2NfUkZ1U8ybyrwWH6Amwg/w8nkfoKhuI
+ nuEfNrPENav1kEW30KQ4ANEBdh0usEhpkE5rt0vFGA==
+X-Google-Smtp-Source: ABdhPJzWzMZA3AtErhTkdyYBW8iBKoGbRxKNeoaVF3URlnVrwKsdXGH9YXH56hFuzbiryQV9r7LZj72JExxKvSQ2WF4=
+X-Received: by 2002:a92:8947:: with SMTP id n68mr16903165ild.235.1593761523450; 
+ Fri, 03 Jul 2020 00:32:03 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20200703071913.2358882-1-yuhsuan@chromium.org>
+In-Reply-To: <20200703071913.2358882-1-yuhsuan@chromium.org>
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Fri, 3 Jul 2020 15:31:52 +0800
+Message-ID: <CA+Px+wVQC0vu5osOECC+x9JdsxdS8VpN+ni6y1k6YvOErsmKqA@mail.gmail.com>
+Subject: Re: [PATCH v2] ASoC: cros_ec_codec: Log results when EC commands fail
+To: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Guenter Roeck <groeck@chromium.org>, Mark Brown <broonie@kernel.org>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Benson Leung <bleung@chromium.org>, Cheng-Yi Chiang <cychiang@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,102 +99,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The Lenovo ThinkPad X1 Carbon 7th is a laptop with two sets of stereo
-speakers driven from a single stereo output. The volume of each set of
-speakers can be controlled independently through two separate mixers. In
-that case, one of those mixers serves a dual purpose: it also controls
-headphone volume.
+On Fri, Jul 3, 2020 at 3:19 PM Yu-Hsuan Hsu <yuhsuan@chromium.org> wrote:
+> Log results of failed EC commands to identify a problem more easily.
+>
+> Replace cros_ec_cmd_xfer_status with cros_ec_cmd_xfer because the result
+> has already been checked in this function. The wrapper is not needed.
 
-With the current ucm profile, when outputting to speakers, pulseaudio uses
-only the mixer for the front speakers to control volume. This is
-ineffective; rear speaker volume must be controlled as well. In order to
-control both sets of speakers at once, indicate that the Master mixer
-should be used.
+Alternatively, you can still use cros_ec_cmd_xfer_status( ).  I guess
+it is okay to have 2 logs for an error.
 
-Moreover, when switching between speaker and headphone outputs, the level
-of the dual purpose mixer should be restored. Since this kind of constraint
-cannot be described with ucm, indicate that the Master mixer should be used
-to control volume instead when outputting to headphones.
+> diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros_ec_codec.c
+> index 8d45c628e988e..a4ab62f59efa6 100644
+> --- a/sound/soc/codecs/cros_ec_codec.c
+> +++ b/sound/soc/codecs/cros_ec_codec.c
+> @@ -90,10 +90,17 @@ static int send_ec_host_command(struct cros_ec_device *ec_dev, uint32_t cmd,
+>         if (outsize)
+>                 memcpy(msg->data, out, outsize);
+>
+> -       ret = cros_ec_cmd_xfer_status(ec_dev, msg);
+> +       ret = cros_ec_cmd_xfer(ec_dev, msg);
+>         if (ret < 0)
+I am thinking of if it is a better solution to print msg->result here.
 
-This patch depends on a modification to the snd_hda_codec_realtek kernel
-driver used on that system to rename one of the controls.
-
-Signed-off-by: Benjamin Poirier <benjamin.poirier@gmail.com>
----
-
-Note that I plan to submit the related kernel patch upstream shortly, in
-the meantime, it is available here:
-https://github.com/gobenji/thinkpad-x1-gen7-sound
-
-Also note that this patch is based on commit 38e5906cd1b1 ("sof-hda-dsp:
-fix the device order (Hdmi devices)"). While testing with libasound built
-from alsa-lib git head 485930ea5dc8 ("ucm: substitution - remove duplicate
-allow_empty assignment"), alsa-ucm-conf versions including dcef48f13d4f
-("HDA-Intel: add support for AMD acp microphone devices") and newer do not
-work for me. I've tested up to current head, ffe0cab5cfce ("sof-hda-dsp:
-use sof-hda-dsp/Hdmi.conf").
-Looking at the output of `pulseaudio --log-level=debug`, things go wrong
-at:
-I: [pulseaudio] (alsa-lib)main.c: error: failed to import sof-hda-dsp use case configuration -17
-
-
- ucm2/sof-hda-dsp/HiFi.conf | 32 ++++++++++++++++++++++++++++----
- 1 file changed, 28 insertions(+), 4 deletions(-)
-
-diff --git a/ucm2/sof-hda-dsp/HiFi.conf b/ucm2/sof-hda-dsp/HiFi.conf
-index 62358e2..661a086 100644
---- a/ucm2/sof-hda-dsp/HiFi.conf
-+++ b/ucm2/sof-hda-dsp/HiFi.conf
-@@ -25,10 +25,22 @@ SectionDevice."Headphones" {
- 	Value {
- 		PlaybackPriority 200
- 		PlaybackPCM "hw:${CardId}"
--		PlaybackMixerElem "Headphone"
- 		PlaybackMasterElem "Master"
--		PlaybackVolume "Headphone Playback Volume"
- 		PlaybackSwitch "Headphone Playback Switch"
-+		If.hpmixer {
-+			Condition {
-+				Type ControlExists
-+				Control "name='Headphone/Bass Speaker Playback Volume'"
-+			}
-+			True {
-+				PlaybackMixerElem "Master"
-+				PlaybackVolume "Master Playback Volume"
-+			}
-+			False {
-+				PlaybackMixerElem "Headphone"
-+				PlaybackVolume "Headphone Playback Volume"
-+			}
-+		}
- 		If.jack {
- 			Condition {
- 				Type ControlExists
-@@ -77,10 +89,22 @@ SectionDevice."Speaker" {
- 	Value {
- 		PlaybackPriority 100
- 		PlaybackPCM "hw:${CardId}"
--		PlaybackMixerElem "Speaker"
- 		PlaybackMasterElem "Master"
--		PlaybackVolume "Speaker Playback Volume"
- 		PlaybackSwitch "Speaker Playback Switch"
-+		If.spkmixer {
-+			Condition {
-+				Type ControlExists
-+				Control "name='Headphone/Bass Speaker Playback Volume'"
-+			}
-+			True {
-+				PlaybackMixerElem "Master"
-+				PlaybackVolume "Master Playback Volume"
-+			}
-+			False {
-+				PlaybackMixerElem "Speaker"
-+				PlaybackVolume "Speaker Playback Volume"
-+			}
-+		}
- 	}
- }
- 
--- 
-2.27.0
-
+>                 goto error;
+>
+> +       if (msg->result != EC_RES_SUCCESS) {
+> +               dev_err(ec_dev->dev, "Command %d failed: %d\n", cmd,
+> +                       msg->result);
+> +               ret = -EPROTO;
+> +               goto error;
+> +       }
+So that you don't need this block.

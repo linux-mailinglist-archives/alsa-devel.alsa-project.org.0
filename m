@@ -2,74 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7BD82133FE
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jul 2020 08:18:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9ED492134A5
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jul 2020 09:07:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 342EE16CC;
-	Fri,  3 Jul 2020 08:17:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 342EE16CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id F05FC16CE;
+	Fri,  3 Jul 2020 09:06:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F05FC16CE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593757097;
-	bh=lFhbFWoDcGZBrHMTP2Zrz7daL6Kx1o1qy/2JAe9aDPw=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=MF/Ni+qKu0yWXH8roZxMX4QM4TIIwPzJ2BuQTi3ye7KaPWu8h2jvu+gAxXLliKxzV
-	 4MOpejinF9B7lzkO33SfYCp01sDhRvW4l442NdZIJiG2gp/kobb9fVKE8WppCE1a6R
-	 k1VcBUhvpis3sVOpX/cYNfWsOMdzeC2ZN+zPlZVU=
+	s=default; t=1593760069;
+	bh=guwZ3uTVWKwB76ayS4xqkdxbf3lCvN2ndCZaptvz7x0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lS76avSFzpLxzXYtua70ox37XIxjrmkAIYF8zgLqteGa47wVVCqeeUuzLaf+Tc0O4
+	 QgFyKsjBXcYxqNj6IvUQwCtOCQYw4GId+lr+czCSHFhJRyfPpMak4IQdMJgcC+JoXY
+	 RFc+/grDnO92oDNWKJDdJfGu9RC+tTGsf1g3BevE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C0ABF8020C;
-	Fri,  3 Jul 2020 08:16:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC6C9F800E2;
+	Fri,  3 Jul 2020 09:06:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A8DCF80217; Fri,  3 Jul 2020 08:16:33 +0200 (CEST)
+ id B11ABF80217; Fri,  3 Jul 2020 09:06:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail.cccmz.de (mail.cccmz.de [IPv6:2a01:4f8:161:4283:1000::108])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
+ [IPv6:2607:f8b0:4864:20::542])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B3488F800E0
- for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 08:16:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3488F800E0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1911CF800E2
+ for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 09:05:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1911CF800E2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=cccmz.de header.i=@cccmz.de
- header.b="hno37GfJ"
-Received: from [192.168.178.45] (x4dbdad84.dyn.telefonica.de [77.189.173.132])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128
- bits)) (No client certificate requested)
- (Authenticated sender: tanjeff@cccmz.de)
- by mail.cccmz.de (Postfix) with ESMTPSA id 4ED8617A08BE;
- Fri,  3 Jul 2020 08:16:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cccmz.de; s=2019;
- t=1593756987;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=0n9Km7xLnrGKEPSr4L7/+Wtf5RIVBC/bzkST4chlVNo=;
- b=hno37GfJPvsZdgRREpn1laAfbdbBab6BD4H6snIatEq9zi2cs2YWS9Ap0DZ5cZjVn2aH5w
- iCL1oN5VwP3h0gKqh6Z3QON15uYXXprccK2HYk94B8uYbJeLosVfqBBjdsY+y9euTYoB7i
- rC5ChTqW+gJrZb83ZsucvezOqTc6JVc=
-Subject: Re: How to identify Alsa eLements?
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-References: <3e46d988-d2f7-b06d-76e8-c8def2e870d1@cccmz.de>
- <20200703003420.GA349540@workstation>
-From: Tanjeff Moos <tanjeff@cccmz.de>
-Message-ID: <00efd9d1-8eef-fb06-d9bf-867ca37e2e74@cccmz.de>
-Date: Fri, 3 Jul 2020 08:16:26 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ dkim=pass (2048-bit key) header.d=endlessm-com.20150623.gappssmtp.com
+ header.i=@endlessm-com.20150623.gappssmtp.com header.b="WK9lutSV"
+Received: by mail-pg1-x542.google.com with SMTP id o13so11719395pgf.0
+ for <alsa-devel@alsa-project.org>; Fri, 03 Jul 2020 00:05:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=endlessm-com.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=1tVzWaBcXcAIcSS8sXY9snxZzqYH+2Rl4YL7e8hJOjM=;
+ b=WK9lutSV8aohCLhH2O7vvNVP18AgWz88xGPef6Tk1YAI+DQ2HqXCXRy4bqeyBAiReO
+ S9SBfaT+E/rsH5+uawtdGO+5wNZwnR8NHv5wpZ+Sz61fmvOGelKdc+SnGEXTn5ZOFskc
+ 5ynnceAafFB6tto143ZnsyfGU550y+q8VzxbYpMifE2ptXE5b0H0McCc66XbJ4cfFIQc
+ U3Xf0MM8mBczuJwupscYlUSaBf5RI3Lv6VgpslVT7Yw635ZTijRx8rAFsEqUeQk1sZbd
+ WkKCHGpiyLofO3iBBtn5liXFUyqT6ZAD7ZxIlfDqNYxUJkoJcayn6mrfix/UH4wzfqjz
+ 7Zmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=1tVzWaBcXcAIcSS8sXY9snxZzqYH+2Rl4YL7e8hJOjM=;
+ b=b4rdi4io4U+3TI0ouW2a6ojz+Al+J4A6+2GBKSX2wUpx4vAPIxY7+X7CKKWArD9eMO
+ CJG7jdFszP8lgSbTmF9kgikciF5H4osTkLHTZqjM/uYNqjcmgKL+ujP52egKOA5T1BnL
+ PIlZ6FtAynMyNJ/9zRNNJOemTTx2xo5zyCHvY5STf7ZRMSho6802DoFhMz7HWtVR8nGZ
+ abWba26J+sm4HQKDbimKGTFxbTFKyO3PYDqa4k3TJ1OWSJZ6eLNHXzc+uLnbKp+UKo6m
+ wqAtLC/C5S9R+J+lgFyDOOPwt7j66NdMdNS3DyZRjEa8nJva4N9Wlnej+4PxIB1XkRmd
+ oJZw==
+X-Gm-Message-State: AOAM533tVUPRwGyEog3BabPpNG0KupDdCJtS1mO6jJOAk8dzRCYATCVx
+ 92x9ZSaIedPHOqaIjKhN7lVYGw==
+X-Google-Smtp-Source: ABdhPJxGi/BdYlejGmgrE/rcM8LCpXTxUzO9vwzvnCwG+dyaUMn01oiAAfHbABHUSHjkCn8XHOLXjw==
+X-Received: by 2002:a05:6a00:4f:: with SMTP id i15mr638018pfk.93.1593759955267; 
+ Fri, 03 Jul 2020 00:05:55 -0700 (PDT)
+Received: from starnight.localdomain (123-204-46-122.static.seed.net.tw.
+ [123.204.46.122])
+ by smtp.googlemail.com with ESMTPSA id p1sm3529764pja.2.2020.07.03.00.05.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Jul 2020 00:05:54 -0700 (PDT)
+From: Jian-Hong Pan <jian-hong@endlessm.com>
+To: Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH 1/3] ALSA: hda/realtek - Enable audio jacks of Acer vCopperbox
+ with ALC269VC
+Date: Fri,  3 Jul 2020 15:05:11 +0800
+Message-Id: <20200703070512.174394-1-jian-hong@endlessm.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-In-Reply-To: <20200703003420.GA349540@workstation>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: de-DE
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Kailang Yang <kailang@realtek.com>,
+ Chris Chiu <chiu@endlessm.com>, linux-kernel@vger.kernel.org,
+ Jian-Hong Pan <jian-hong@endlessm.com>, linux@endlessm.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,79 +100,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Takashi Sakamoto,
+The Acer desktop vCopperbox with ALC269VC cannot detect the MIC of
+headset, the line out and internal speaker until
+ALC269VC_FIXUP_ACER_VCOPPERBOX_PINS quirk applied.
 
+Signed-off-by: Jian-Hong Pan <jian-hong@endlessm.com>
+Signed-off-by: Chris Chiu <chiu@endlessm.com>
+---
+ sound/pci/hda/patch_realtek.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-On 03/07/2020 02:34, Takashi Sakamoto wrote:
-> Hi,
-> 
-> On Thu, Jul 02, 2020 at 10:05:01PM +0200, Tanjeff Moos wrote:
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 737ef82a75fd..dfb4bca07d3f 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -6149,6 +6149,7 @@ enum {
+ 	ALC236_FIXUP_HP_MUTE_LED,
+ 	ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET,
+ 	ALC295_FIXUP_ASUS_MIC_NO_PRESENCE,
++	ALC269VC_FIXUP_ACER_VCOPPERBOX_PINS,
+ };
+ 
+ static const struct hda_fixup alc269_fixups[] = {
+@@ -7327,6 +7328,17 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC269_FIXUP_HEADSET_MODE
+ 	},
++	[ALC269VC_FIXUP_ACER_VCOPPERBOX_PINS] = {
++		.type = HDA_FIXUP_PINS,
++		.v.pins = (const struct hda_pintbl[]) {
++			{ 0x14, 0x90100120 }, /* use as internal speaker */
++			{ 0x18, 0x02a111f0 }, /* use as headset mic, without its own jack detect */
++			{ 0x1a, 0x01011020 }, /* use as line out */
++			{ },
++		},
++		.chained = true,
++		.chain_id = ALC269_FIXUP_HEADSET_MODE
++	},
+ };
+ 
+ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+@@ -7346,6 +7358,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1025, 0x1099, "Acer Aspire E5-523G", ALC255_FIXUP_ACER_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1025, 0x110e, "Acer Aspire ES1-432", ALC255_FIXUP_ACER_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1025, 0x1246, "Acer Predator Helios 500", ALC299_FIXUP_PREDATOR_SPK),
++	SND_PCI_QUIRK(0x1025, 0x1247, "Acer vCopperbox", ALC269VC_FIXUP_ACER_VCOPPERBOX_PINS),
+ 	SND_PCI_QUIRK(0x1025, 0x128f, "Acer Veriton Z6860G", ALC286_FIXUP_ACER_AIO_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1025, 0x1290, "Acer Veriton Z4860G", ALC286_FIXUP_ACER_AIO_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1025, 0x1291, "Acer Veriton Z4660G", ALC286_FIXUP_ACER_AIO_HEADSET_MIC),
+-- 
+2.27.0
 
-[...]
-
->>
->> My questions:
->> 1) Are name and index enough to identify an element?
-> 
-> In ALSA control core, 'snd_ctl_find_id()' helper function[1] is used to
-> find control element set by the given information from userspace
-> application. You can see the algorithm supports two cases:
-> 
-> 1. numid matching
-> 2. the combination matching with:
->    * iface
->    * device
->    * subdevice
->    * name
->    * index is within the range of set
-> 
-> As you know, the numid is not constant between every bootup since it's
-> assigned dynamically (see __snd_ctl_add_replace() helper function[2]).
-> Thus the way 2 is available in the case to hard-code in userspace
-> application.
-Thanks for the clarification.
-
-> 
->> 2) How can I obtain the index? The name and numid are shown by 'amixer
->>     contents', for example.
-> 
-
-[...]
-
-> 
-> Anyway, when using alsa-lib application for the purpose, you should pay
-> enough attention to which API is used since alsa-lib includes several
-> abstractions of API for control element set in each level:
-> 
->   * Lower abstraction (snd_ctl_xxx)
->   * Higher abstraction (snd_hctl_xxx)
->   * Setup control interface (snd_sctl_xxx)
->   * Mixer interface (snd_mixer_xxx)
->     * Simple Mixer interface (snd_mixer_selem_xxx)
-I find this quite confusing. If I could change a volume control using 
-any of those interfaces, then I don't understand when to use which 
-interface. I'm sure that there is good reasoning for each of them, but 
-unfortunatly the documentation has very little information about these 
-concepts.
-
-Anyway, I will stick to the lower abstraction which serves my needs. In 
-the worst case I will do more work than necessary ;-)
-
-> 
-> The configuration space of alsa-lib affects Setup control interface
-> and Mixer interface. On the other hand, it doesn't affect the
-> lower/higher abstraction. The amixer is a kind of application to use
-> 'snd_hctl_xxx', 'snd_mixer_xxx', and 'snd_mixer_selem_xxx'.
-So the controls offered by CTL/HCTL are determined by the driver? And 
-SCTL, MIXER and MIXER_SELEM are influenced by user space config files?
-
-> When you'd like to communicate to kernel land implementation without any
-> effects of alsa-lib's configuration space. it's better to use the lower/higher
-> abstractions. As long as I've used, 'qashctl' in QasTools[4] is good GUI
-> application for this purpose. It's written with Qt5 and seems to be helpful
-> for your work in both of GUI programming and control elements handling.
-qashctl is indeed very helpful, thank you! As being said, I'll stick to CTL.
-
-Thank you very much for your advice!
-
-  - Tanjeff

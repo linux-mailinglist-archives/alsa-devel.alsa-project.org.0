@@ -2,99 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBB76213DBC
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jul 2020 18:51:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 056F1213E00
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jul 2020 19:05:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 424BD16CB;
-	Fri,  3 Jul 2020 18:50:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 424BD16CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6665B16CD;
+	Fri,  3 Jul 2020 19:04:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6665B16CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593795090;
-	bh=VaZuqzSVOQo1CFbSJdv1voPfjGj4y5CKxBvZQ/BpF0Q=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=CtOB99OJKO9422ItEQ7ahxRh1rj1vtGf8x6bhugloHN9kwoGpGKti70UD9yWkASIV
-	 rY5+5GHRvxwx4+N/wxcIpnG85alIhVd6c2j0SGZJv228RIYjy1gSNm/3ynNaO6C9iK
-	 i00oeHR64UpUUOtgMZXDChn5fap6+n/KXQKtQXWQ=
+	s=default; t=1593795923;
+	bh=WgkvmGtlUl6Eo7CF4+ocruAMNgDPflJpM8Ax/aFh0l0=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Kp0gAdEg4wbfer7p8cmpMqwDKyXFfOVwtxov8PcdIG5U0YfISQPx/u7cpNceg/db5
+	 6N8La4XC449oiQnXHEB2pL8u3yJxc0sde0e5EQHcXvOwF1Tqg2WtE3DOMr560kdpve
+	 iBz8yIPdsLTm2iTHTWoVlKY5C3pFj67xweNMiJEc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 685DBF800E0;
-	Fri,  3 Jul 2020 18:49:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8885BF800E0;
+	Fri,  3 Jul 2020 19:03:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76EC1F80217; Fri,  3 Jul 2020 18:49:46 +0200 (CEST)
+ id 7C431F80217; Fri,  3 Jul 2020 19:03:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, PRX_BODY_135, RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL,
- SPF_HELO_PASS, 
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DBF52F800E0
- for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 18:49:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBF52F800E0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 130F5F800E0
+ for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 19:03:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 130F5F800E0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="UJvkgiIy"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="Cs+uaj9m"
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id CD5205C0134;
- Fri,  3 Jul 2020 12:49:37 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Fri, 03 Jul 2020 12:49:37 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:mime-version:content-type;
- s=fm2; bh=VaZuqzSVOQo1CFbSJdv1voPfjGj4y5CKxBvZQ/BpF0Q=; b=UJvkg
- iIyurbC0S7w2IB+0C0oI3hF6vv2c/55n6aXsmMsMqwJO4UfUH1nrsDy0g3wmYWC+
- j0A/bzp2zGIZngSX1CCz5GFKAWRpQyStR6VAo8XEkjIthUx7I3aNBej6tNgsSVws
- uEGrrTn91bzExR15c8s7SYwixnXfo46BqJjOAsBL1TBuClyDtPccsZMePrx8gL76
- 2fqEKa5wKDe6D1PlMrc5izeDDpzlT9x19w9XD/u3EJI3c3Nj2oSiHwn9RWI8Tty6
- Vj6xyqxStozN0Av/EPvlirjFASvK0X3xovvkSYl0+/iluvGvQ5GP+paAb/3F5nDa
- inNO7/CCwZtF/7R0A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:message-id
- :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; bh=VaZuqzSVOQo1CFbSJdv1voPfjGj4y
- 5CKxBvZQ/BpF0Q=; b=Cs+uaj9mAlNsY7MSR6StVEEljUOfv50mf6gQ4oklKShj2
- xi51xk10uQt+79ICZCydZDYa02Dhi2Xak4b1/hSVfvWYVQxHO2+rArRqS/O5ob/x
- Biu7O0KNBI75RC6rdqS8Q/xlsLbhzLKbgUkwUmqMAoHxOyJzKAZwQiDJR5bc55FN
- nwTc5B4zT9AW+p7P7G2OcmGXcu0lJJ89ojSqy+dr6myTlu7UiXoyKt0JBhOUK5/P
- iM8XeaKWmsCm5nsWhtINCnveJZ66QLPr6/A6/W8WWDVrwmk6ZgxXWS47SrVXk6KM
- SXcvnqaekkb+AXu0ydesAl780jAg7HmKGXO5obhzg==
-X-ME-Sender: <xms:oWH_XsGljkHs1CFYQv_4xprnxHtnIV2pgVz03VW7qm6vjAuqF0a7ig>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrtdeigddutdeiucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkgggtugesthdtredttd
- dtvdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
- ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepuedutefhleejle
- egudeklefgkeelgeeuffeuueeuffdttddtgfetuefgheegfeeinecuffhomhgrihhnpegr
- lhhsrgdqphhrohhjvggtthdrohhrghdpghhithhhuhgsrdgtohhmnecukfhppedukedtrd
- dvfeehrdefrdehgeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhl
- fhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:oWH_XlUViobQRHMYHkHeUKWrnq2wBDlNMT2QHXszraWbb0TpbyPc3g>
- <xmx:oWH_XmLLsa_CpYz1Wbws5CXLzqDHlxPwdwctIwsCcmH6UOcQJZ6O5Q>
- <xmx:oWH_XuEQqUrpCpOatsf5vOR6NTTltz6rAuAu_4y6G_7LPqxWMWogkA>
- <xmx:oWH_Xqini2yHrzXKIdkUS_D8GOzwdXzgzf4RSftci-LNytVVK0lX3A>
-Received: from workstation (ad003054.dynamic.ppp.asahi-net.or.jp
- [180.235.3.54])
- by mail.messagingengine.com (Postfix) with ESMTPA id 797503060062;
- Fri,  3 Jul 2020 12:49:36 -0400 (EDT)
-Date: Sat, 4 Jul 2020 01:49:34 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: perex@perex.cz
-Subject: Move ownership of snd-firewire-ctl-services repository
-Message-ID: <20200703164934.GA49779@workstation>
-Mail-Followup-To: perex@perex.cz, alsa-devel@alsa-project.org
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Cc: alsa-devel@alsa-project.org
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="uxD548lJ"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7396820870;
+ Fri,  3 Jul 2020 17:03:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1593795816;
+ bh=WgkvmGtlUl6Eo7CF4+ocruAMNgDPflJpM8Ax/aFh0l0=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=uxD548lJoPyX2Qis0noGWhZOcW53hnPY1DW1Vw423r8hl6OD1VXTB4gA9TnrgqyZ4
+ /LQyGHmBMwkjp+r+IJUESWr1GI/5zcnMCia9lf/ebSpoNpKZWS0e2YIxn/TyW5t7u3
+ dhROD7HSMUVRYGcRxnZHcUHK1Ztpjt7iwUItC0qg=
+Date: Fri, 03 Jul 2020 18:03:33 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Hans de Goede <hdegoede@redhat.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Oder Chiou <oder_chiou@realtek.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20200628155231.71089-2-hdegoede@redhat.com>
+References: <20200628155231.71089-1-hdegoede@redhat.com>
+ <20200628155231.71089-2-hdegoede@redhat.com>
+Subject: Re: [PATCH 1/6] ASoC: Intel: cht_bsw_rt5672: Change bus format to I2S
+ 2 channel
+Message-Id: <159379581380.55795.15728838678765550745.b4-ty@kernel.org>
+Cc: alsa-devel@alsa-project.org, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,29 +81,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Jaroslav,
+On Sun, 28 Jun 2020 17:52:26 +0200, Hans de Goede wrote:
+> The default mode for SSP configuration is TDM 4 slot and so far we were
+> using this for the bus format on cht-bsw-rt56732 boards.
+> 
+> One board, the Lenovo Miix 2 10 uses not 1 but 2 codecs connected to SSP2.
+> The second piggy-backed, output-only codec is inside the keyboard-dock
+> (which has extra speakers). Unlike the main rt5672 codec, we cannot
+> configure this codec, it is hard coded to use 2 channel 24 bit I2S.
+> 
+> [...]
 
-I'm currently working for the idea of 'ALSA control service in
-userspace'[1] for audio and music units on IEEE 1394 bus under my personal
-repository[2], and the work mostly done for Digidesign Digi 002/003 family
-and Tascam FireWire series[3].
+Applied to
 
-As well as libhinawa and alsa-gobject repositories[4], I'd like to move
-ownership of the repository to 'GObject Introspection' team of alsa-project
-account, then continue the work. I'd like you to arrange access rights and
-so on, again.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Besides, as I tols you in previous message[5], the nested team is not
-good in reasons. I strongly request you to leave 'GObject Introspection' team
-and drop 'Hinawa' team, again. Would I expect your arrangement for it?
+Thanks!
 
-[1] https://mailman.alsa-project.org/pipermail/alsa-devel/2020-June/169141.html
-[2] https://github.com/takaswie/snd-firewire-ctl-services/
-[3] https://github.com/takaswie/snd-firewire-ctl-services/tree/topic/services-for-dg00x-tascam
-[4] https://mailman.alsa-project.org/pipermail/alsa-devel/2020-June/169141.html
-[5] https://mailman.alsa-project.org/pipermail/alsa-devel/2020-June/169191.html
+[1/2] ASoC: rt5670: Remove struct rt5670_platform_data
+      commit: c14f61a89c1335f95d9b37624ee157fb1fd424ee
+[2/2] ASoC: rt5670: Rename dev_gpio to gpio1_is_irq
+      commit: 883330c11fa6dca55e30f8612398b3e0abc51dc5
 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Thanks
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Takashi Sakamoto
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

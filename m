@@ -2,73 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B6012138AE
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jul 2020 12:35:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D41D2138B5
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jul 2020 12:40:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E0677168B;
-	Fri,  3 Jul 2020 12:35:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0677168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 789BD16E6;
+	Fri,  3 Jul 2020 12:39:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 789BD16E6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593772552;
-	bh=Yesq5SdI/fnqcAi+ZsKHgk/iLwBb54IuWq0ChbLjQi0=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JkFUuECxJtdwJZFqh6+atIUVU52Vh63bpYqwjHguFtbfimRgAluRHHLqlX7Anbue9
-	 AIgnVB9U7i1J5gBRQQYebGTk2XOQk6QWLXHFwRVW+fsbh29m3nJBJWfo7CCkKNf1OE
-	 xKjLc/DJSnXhp5EyNSs4jyeyeojKSr0LC80A0RlU=
+	s=default; t=1593772837;
+	bh=mhjcpymOXNuacPnUh6Z5ZYApKV7KkVlL7LhpqGfsHHM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=aExC50s23S69IUYvXt7hIj96olwWOMPMQSE2poSf86jaPF+dkcccIs8NCDupL1vjK
+	 djyPK7+HgP7Yp4OnFCSx+Q6EWm04D9fTmjQqPFVpesMlnHGRlGtKQhnapmHVe0DbI+
+	 vb1hb0sYsvafZCgRWaKPO2NUSgjxKjeYRmtqvilQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D85A3F800E0;
-	Fri,  3 Jul 2020 12:34:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A667F800E0;
+	Fri,  3 Jul 2020 12:38:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0D5BCF80217; Fri,  3 Jul 2020 12:34:07 +0200 (CEST)
+ id 22757F80217; Fri,  3 Jul 2020 12:38:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
+ [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31BFFF800E2
+ for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 12:38:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31BFFF800E2
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="TlFTWY6j"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1593772727;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=+ALviRvjDfpClclH7KUhuvk/t+IK+sAH6lMRhR+W5jk=;
+ b=TlFTWY6j4R7NBsyOlI0EjDhe02FtBmgKsmcjfIomkO5j3uBUOE761GH+2qZKpb4RvPl7qM
+ VnL5Ds4gCi3s+hvD+pfMCegPy9tzIXt9b2VIf7rU/mQuPkzkOUX/Tqq3HFqv3FZAVSqMgP
+ kYeYp96EOIydRWocL+/teOxjitBQ7rQ=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-99-_jYBFlogMdC7uIZNimjEww-1; Fri, 03 Jul 2020 06:38:45 -0400
+X-MC-Unique: _jYBFlogMdC7uIZNimjEww-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+ [10.5.11.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DB155F800E0
- for <alsa-devel@alsa-project.org>; Fri,  3 Jul 2020 12:34:00 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 70B02A0040;
- Fri,  3 Jul 2020 12:33:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 70B02A0040
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1593772439; bh=3T/wE8bMc0BL0daCfI0X8ARfu5h0bvCmF7vzLBctSt4=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=RyrQ8HUcueeRyovLp4HaK4ICBrqfaGMTgMN+6fxsIQmdmW/fDe2g5HH6yphyedtwV
- LOVAbf7HMBRjoGl9fsQe1boEe1AsYNLkyggCrNh6ELLSOl1WAhNy/CbOxefFRZyjMu
- EBjxJfCUsufABqanTZUTSb+TXQ7W3A45LKHO5hLc=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Fri,  3 Jul 2020 12:33:50 +0200 (CEST)
-Subject: Re: [PATCH v2 2/2] ALSA: hda/realtek - Replace Lenovo Thinkpad X1
- Carbon 7th quirk
-To: Benjamin Poirier <benjamin.poirier@gmail.com>, alsa-devel@alsa-project.org
-References: <20200703080005.8942-1-benjamin.poirier@gmail.com>
- <20200703080005.8942-3-benjamin.poirier@gmail.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <58a7791c-0db4-a585-c550-3d3e9576191c@perex.cz>
-Date: Fri, 3 Jul 2020 12:33:50 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E52B9107B0F1;
+ Fri,  3 Jul 2020 10:38:43 +0000 (UTC)
+Received: from x1.localdomain.com (ovpn-114-45.ams2.redhat.com [10.36.114.45])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id EDB09CF921;
+ Fri,  3 Jul 2020 10:38:41 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>,
+ Oder Chiou <oder_chiou@realtek.com>
+Subject: [PATCH] ASoC: Intel: cht_bsw_rt5672: Improve dai-set-fmt comment in
+ cht_codec_fixup()
+Date: Fri,  3 Jul 2020 12:38:40 +0200
+Message-Id: <20200703103840.333732-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20200703080005.8942-3-benjamin.poirier@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Kailang Yang <kailang@realtek.com>, Takashi Iwai <tiwai@suse.com>,
- Hui Wang <hui.wang@canonical.com>, Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Vincent Bernat <vincent@bernat.ch>, Even Brenden <evenbrenden@gmail.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,205 +96,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 03. 07. 20 v 10:00 Benjamin Poirier napsal(a):
-> As a result of commit d2cd795c4ece ("ALSA: hda - fixup for the bass speaker
-> on Lenovo Carbon X1 7th gen"), the sound output level on my machine, an X1
-> Carbon 7th gen, was reduced to ~65% of its previous level when playing
-> certain sounds. [1]
-> 
-> Internally, this laptop model has three outputs (PCM-OUT1, connection 0x02;
-> PCM-OUT2, connection 0x03; SP-OUT PCM, connection 0x06) which can be routed
-> to two sets of stereo speakers: Front (tweeters, node 0x14) and Bass
-> (woofers, node 0x17, aka Rear in some contexts) and one headphone output
-> (node 0x21). The tweeters are noticeably less powerful than the woofers.
-> [2]
-> 
-> Before commit d2cd795c4ece, the bass speakers were connected to SP-OUT PCM.
-> SP-OUT PCM is meant for s/pdif output and does not have volume control.
-> This connection made volume control commonly ineffective (using the Master
-> slider in alsa or pulseaudio apparently had little effect or alternated
-> between mute or max with nothing in between).
-> 
-> commit d2cd795c4ece added quirk ALC285_FIXUP_SPEAKER2_TO_DAC1 which
-> resulted in assigning both sets of speakers to PCM-OUT1, bringing
-> the two sets of speakers under one effective volume control but also
-> lowering the output volume noticeably.
-> 
-> Fix this by connecting PCM-OUT1 to Front speakers and PCM-OUT2 to Rear
-> speakers. Each set of speakers gets its own volume control and the max
-> output volume is restored to what it was before commit d2cd795c4ece. This
-> is done by setting the connection of node 0x17 to 0x03.
-> 
-> However, when we do this, the HDA auto config automatically changes the
-> connection of node 0x21 to 0x02. This output, meant for the front speakers,
-> has some "secret" equalizer which changes the output volume according to
-> the level of what's being played, after some delay[3]. This is undesirable
-> with headphones. Therefore, this patch manually limits the connection of
-> node 0x21 to 0x03.
+As Pierre-Louis Bossart pointed out, saying that the default mode for the
+SSP is TDM 4 slot is not entirely accurate.
 
-Thank you for this work. Perhaps, Takashi will have some comments to improve 
-this quirk.
+There really are 2 default modes:
+The default mode for the SSP configuration is TDM 4 slot for the
+cpu-dai (hard-coded in DSP firmware),
+The default mode for the SSP configuration is I2S for the codec-dai
+(hard-coded in the 'SSP2-Codec" .dai_fmt masks, so far unused).
 
-> The volume control for PCM-OUT2 is renamed to reflect its dual effect.
-> This name is also used in a modified alsa UCM profile. [4]
+This commit updates the comment in cht_codec_fixup() to properly reflect
+this.
 
-The new name is not ideal. Perhaps, a mirror (joined) control might be better 
-in this case. I mean to create both "Bass Speaker Playback Volume" and 
-"Headphone Playback Volume" with the similar NID control.
+Suggested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ sound/soc/intel/boards/cht_bsw_rt5672.c | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
 
-Or create "Speaker Playback" controls with 4 channels (and joined "Headphone 
-Playback" controls).
-
-> It is possible that the X1 Carbon 8th gen would benefit from the same
-> changes but I don't have a device to test that. Fixups are reordered so
-> that the devices for 7th & 8th gen can share the same chain after the first
-> fixup. The resulting chain is:
-
-8th gen hardware should be similar, so the new fixup should be applied to this 
-hw, too.
-
-> ALC295_FIXUP_TPX17_DUAL_SPEAKERS/ALC285_FIXUP_SPEAKER2_TO_DAC1
-> ALC285_FIXUP_THINKPAD_HEADSET_JACK
-> ALC269_FIXUP_THINKPAD_ACPI
-> ALC269_FIXUP_SKU_IGNORE
-> 
-> [1] https://gist.github.com/hamidzr/dd81e429dc86f4327ded7a2030e7d7d9#gistcomment-3214171
-> [2] https://bugzilla.kernel.org/show_bug.cgi?id=207407#c10
-> [3] https://gist.github.com/hamidzr/dd81e429dc86f4327ded7a2030e7d7d9#gistcomment-3276276
-> [4] https://lore.kernel.org/alsa-devel/20200703072302.16876-1-benjamin.poirier@gmail.com/
-> 
-> Fixes: d2cd795c4ece ("ALSA: hda - fixup for the bass speaker on Lenovo Carbon X1 7th gen")
-> Link: https://lore.kernel.org/alsa-devel/20200210025249.GA2700@f3/
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Kailang Yang <kailang@realtek.com>
-> Tested-by: Vincent Bernat <vincent@bernat.ch>
-> Tested-by: Even Brenden <evenbrenden@gmail.com>
-> Signed-off-by: Benjamin Poirier <benjamin.poirier@gmail.com>
-> ---
->   sound/pci/hda/patch_realtek.c | 56 ++++++++++++++++++++++++++++++++---
->   1 file changed, 52 insertions(+), 4 deletions(-)
-> 
-> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-> index 16696694da91..ef3dbf83e42b 100644
-> --- a/sound/pci/hda/patch_realtek.c
-> +++ b/sound/pci/hda/patch_realtek.c
-> @@ -5825,6 +5825,46 @@ static void alc285_fixup_speaker2_to_dac1(struct hda_codec *codec,
->   	}
->   }
->   
-> +static void alc295_fixup_tpx17_dual_speakers(struct hda_codec *codec,
-> +					     const struct hda_fixup *fix,
-> +					     int action)
-> +{
-> +	if (action == HDA_FIXUP_ACT_PRE_PROBE) {
-> +		static const hda_nid_t conn[] = { 0x03 };
-> +
-> +		/* For NID 0x17 (bass speakers), the connection list is {0x02,
-> +		 * 0x03, 0x06}. Disable SP-OUT PCM (0x06) selection since it
-> +		 * has no volume control, disable PCM1 (0x02) selection since
-> +		 * it is for front speakers. This leaves PCM2 (0x03).
-> +		 */
-> +		snd_hda_override_conn_list(codec, 0x17, ARRAY_SIZE(conn),
-> +					   conn);
-> +		/* For NID 0x21 (headphone out), the connection list is {0x02,
-> +		 * 0x03}. Disable LOUT1 (0x02) selection since its volume
-> +		 * fluctuates according to input level. This leaves LOUT2
-> +		 * (0x03).
-> +		 */
-> +		snd_hda_override_conn_list(codec, 0x21, ARRAY_SIZE(conn),
-> +					   conn);
-> +	} else if (action == HDA_FIXUP_ACT_INIT) {
-> +		/* Because the overridden connection lists contain only a
-> +		 * single node, __parse_nid_path() does not label the output
-> +		 * as "multi". This leads snd_hda_activate_path() to skip the
-> +		 * AC_VERB_SET_CONNECT_SEL even though it might be needed. Do
-> +		 * it here instead.
-> +		 * Note that when doing AC_VERB_SET_CONNECT_SEL, the
-> +		 * connection is specified by index instead of nid.
-> +		 */
-> +		snd_hda_codec_write(codec, 0x17, 0, AC_VERB_SET_CONNECT_SEL,
-> +				    0x1);
-> +		snd_hda_codec_write(codec, 0x21, 0, AC_VERB_SET_CONNECT_SEL,
-> +				    0x1);
-> +	} else if (action == HDA_FIXUP_ACT_BUILD) {
-> +		rename_ctl(codec, "Headphone Playback Volume",
-> +			   "Headphone/Bass Speaker Playback Volume");
-> +	}
-> +}
-> +
->   /* Hook to update amp GPIO4 for automute */
->   static void alc280_hp_gpio4_automute_hook(struct hda_codec *codec,
->   					  struct hda_jack_callback *jack)
-> @@ -6077,6 +6117,7 @@ enum {
->   	ALC225_FIXUP_DISABLE_MIC_VREF,
->   	ALC225_FIXUP_DELL1_MIC_NO_PRESENCE,
->   	ALC295_FIXUP_DISABLE_DAC3,
-> +	ALC295_FIXUP_TPX17_DUAL_SPEAKERS,
->   	ALC285_FIXUP_SPEAKER2_TO_DAC1,
->   	ALC280_FIXUP_HP_HEADSET_MIC,
->   	ALC221_FIXUP_HP_FRONT_MIC,
-> @@ -6886,11 +6927,17 @@ static const struct hda_fixup alc269_fixups[] = {
->   		.type = HDA_FIXUP_FUNC,
->   		.v.func = alc295_fixup_disable_dac3,
->   	},
-> +	[ALC295_FIXUP_TPX17_DUAL_SPEAKERS] = {
-> +		.type = HDA_FIXUP_FUNC,
-> +		.v.func = alc295_fixup_tpx17_dual_speakers,
-> +		.chained = true,
-> +		.chain_id = ALC285_FIXUP_THINKPAD_HEADSET_JACK
-> +	},
->   	[ALC285_FIXUP_SPEAKER2_TO_DAC1] = {
->   		.type = HDA_FIXUP_FUNC,
->   		.v.func = alc285_fixup_speaker2_to_dac1,
->   		.chained = true,
-> -		.chain_id = ALC269_FIXUP_THINKPAD_ACPI
-> +		.chain_id = ALC285_FIXUP_THINKPAD_HEADSET_JACK
->   	},
->   	[ALC256_FIXUP_DELL_INSPIRON_7559_SUBWOOFER] = {
->   		.type = HDA_FIXUP_PINS,
-> @@ -7263,7 +7310,7 @@ static const struct hda_fixup alc269_fixups[] = {
->   		.type = HDA_FIXUP_FUNC,
->   		.v.func = alc_fixup_headset_jack,
->   		.chained = true,
-> -		.chain_id = ALC285_FIXUP_SPEAKER2_TO_DAC1
-> +		.chain_id = ALC269_FIXUP_THINKPAD_ACPI
->   	},
->   	[ALC294_FIXUP_ASUS_HPE] = {
->   		.type = HDA_FIXUP_VERBS,
-> @@ -7559,8 +7606,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
->   	SND_PCI_QUIRK(0x17aa, 0x224c, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
->   	SND_PCI_QUIRK(0x17aa, 0x224d, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
->   	SND_PCI_QUIRK(0x17aa, 0x225d, "Thinkpad T480", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
-> -	SND_PCI_QUIRK(0x17aa, 0x2292, "Thinkpad X1 Carbon 7th", ALC285_FIXUP_THINKPAD_HEADSET_JACK),
-> -	SND_PCI_QUIRK(0x17aa, 0x22be, "Thinkpad X1 Carbon 8th", ALC285_FIXUP_THINKPAD_HEADSET_JACK),
-> +	SND_PCI_QUIRK(0x17aa, 0x2292, "Thinkpad X1 Carbon 7th", ALC295_FIXUP_TPX17_DUAL_SPEAKERS),
-> +	SND_PCI_QUIRK(0x17aa, 0x22be, "Thinkpad X1 Carbon 8th", ALC285_FIXUP_SPEAKER2_TO_DAC1),
-
-It will cause regression with the old UCM configs. I would preper the manual 
-model selection and switch this when things settle a bit in the user space. We 
-definitely need a better way to control this volume separately for both 
-tweeters and the bass speakers in the user space. The "Master" volume hack is 
-far from the ideal solution.
-
-For this time, keep ALC285_FIXUP_SPEAKER2_TO_DAC1 as the default fixup.
-
-						Jaroslav
-
-
->   	SND_PCI_QUIRK(0x17aa, 0x30bb, "ThinkCentre AIO", ALC233_FIXUP_LENOVO_LINE2_MIC_HOTKEY),
->   	SND_PCI_QUIRK(0x17aa, 0x30e2, "ThinkCentre AIO", ALC233_FIXUP_LENOVO_LINE2_MIC_HOTKEY),
->   	SND_PCI_QUIRK(0x17aa, 0x310c, "ThinkCentre Station", ALC294_FIXUP_LENOVO_MIC_LOCATION),
-> @@ -7746,6 +7793,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
->   	{.id = ALC255_FIXUP_DELL_SPK_NOISE, .name = "dell-spk-noise"},
->   	{.id = ALC225_FIXUP_DELL1_MIC_NO_PRESENCE, .name = "alc225-dell1"},
->   	{.id = ALC295_FIXUP_DISABLE_DAC3, .name = "alc295-disable-dac3"},
-> +	{.id = ALC295_FIXUP_TPX17_DUAL_SPEAKERS, .name = "alc295-thinkpad-x1-gen7"},
->   	{.id = ALC285_FIXUP_SPEAKER2_TO_DAC1, .name = "alc285-speaker2-to-dac1"},
->   	{.id = ALC280_FIXUP_HP_HEADSET_MIC, .name = "alc280-hp-headset"},
->   	{.id = ALC221_FIXUP_HP_FRONT_MIC, .name = "alc221-hp-mic"},
-> 
-
-
+diff --git a/sound/soc/intel/boards/cht_bsw_rt5672.c b/sound/soc/intel/boards/cht_bsw_rt5672.c
+index 1470c3de7895..1812b786d33b 100644
+--- a/sound/soc/intel/boards/cht_bsw_rt5672.c
++++ b/sound/soc/intel/boards/cht_bsw_rt5672.c
+@@ -253,13 +253,17 @@ static int cht_codec_fixup(struct snd_soc_pcm_runtime *rtd,
+ 	params_set_format(params, SNDRV_PCM_FORMAT_S24_LE);
+ 
+ 	/*
+-	 * Default mode for SSP configuration is TDM 4 slot. One board/design,
+-	 * the Lenovo Miix 2 10 uses not 1 but 2 codecs connected to SSP2. The
+-	 * second piggy-backed, output-only codec is inside the keyboard-dock
+-	 * (which has extra speakers). Unlike the main rt5672 codec, we cannot
+-	 * configure this codec, it is hard coded to use 2 channel 24 bit I2S.
+-	 * Since we only support 2 channels anyways, there is no need for TDM
+-	 * on any cht-bsw-rt5672 designs. So we simply use I2S 2ch everywhere.
++	 * The default mode for the cpu-dai is TDM 4 slot. The default mode
++	 * for the codec-dai is I2S. So we need to either set the cpu-dai to
++	 * I2S mode to match the codec-dai, or set the codec-dai to TDM 4 slot
++	 * (or program both to yet another mode).
++	 * One board, the Lenovo Miix 2 10, uses not 1 but 2 codecs connected
++	 * to SSP2. The second piggy-backed, output-only codec is inside the
++	 * keyboard-dock (which has extra speakers). Unlike the main rt5672
++	 * codec, we cannot configure this codec, it is hard coded to use
++	 * 2 channel 24 bit I2S. For this to work we must use I2S mode on this
++	 * board. Since we only support 2 channels anyways, there is no need
++	 * for TDM on any cht-bsw-rt5672 designs. So we use I2S 2ch everywhere.
+ 	 */
+ 	ret = snd_soc_dai_set_fmt(asoc_rtd_to_cpu(rtd, 0),
+ 				  SND_SOC_DAIFMT_I2S     |
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.26.2
+

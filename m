@@ -2,85 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DF522145A1
-	for <lists+alsa-devel@lfdr.de>; Sat,  4 Jul 2020 13:47:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D84C02145A3
+	for <lists+alsa-devel@lfdr.de>; Sat,  4 Jul 2020 13:48:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D20B716AA;
-	Sat,  4 Jul 2020 13:46:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D20B716AA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C39116B5;
+	Sat,  4 Jul 2020 13:47:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C39116B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593863268;
-	bh=MFKVMWUPrhlI6G6oprRvcbj9c9ehm344gEKMbV+VDm8=;
+	s=default; t=1593863303;
+	bh=zNYrDPE7TMA04OGbu1SKE9/dvQ6G9N3BQ1ew+mdo+oI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MOLcOC+PYjSIop60vfQE8oAjwFX2VIgb4k8xPs32TECEKGF+lAptjxclJlzGxvyE9
-	 fochYLVSzXHGXsIihZcmTvEd+Xo+hmJ1NWOqr1WcJHK1oF91QECcH6YkB8DyCjvqid
-	 HG4Ry1TyoJQWtpcuFnXPrPQm96giTjF6fXG6wlCA=
+	b=DsRIvtjy7SckutOLaHQEpDf+LVMSxAWkEdA6Hq8RxsFhIm3GK5aPJzvKtN5ScHSog
+	 Greq/fJm2xrmiBKUyr8bdrx4RpGMd6UpziUmyH0ZXzipoBqgJrcMKeA7RRLJtjoF6R
+	 0jp+1EXBB6Te3S36UcMyTro8CovWznxQYWlr8AtM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0229AF8033D;
+	by alsa1.perex.cz (Postfix) with ESMTP id BB084F80341;
 	Sat,  4 Jul 2020 13:39:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B52CAF802FD; Sat,  4 Jul 2020 13:39:28 +0200 (CEST)
+ id 0D2F0F802FE; Sat,  4 Jul 2020 13:39:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 88FC8F8022B
- for <alsa-devel@alsa-project.org>; Sat,  4 Jul 2020 13:39:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88FC8F8022B
+ by alsa1.perex.cz (Postfix) with ESMTPS id C1286F802E1
+ for <alsa-devel@alsa-project.org>; Sat,  4 Jul 2020 13:39:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1286F802E1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="W0vd95Qb"
-Received: by mail-wr1-x443.google.com with SMTP id z15so24151387wrl.8
- for <alsa-devel@alsa-project.org>; Sat, 04 Jul 2020 04:39:20 -0700 (PDT)
+ header.b="KCEglnpy"
+Received: by mail-wm1-x342.google.com with SMTP id o8so34352717wmh.4
+ for <alsa-devel@alsa-project.org>; Sat, 04 Jul 2020 04:39:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=vVjW7FiC+qSaQ3KBioDqK1mV2GwG3KhiYxWo2WY1YG8=;
- b=W0vd95QbcYPxywbQ8+RJ8ztu8DvaIkr0ZKZitkNzpk1C9WB8xdrZhvB/JHiMxOaX6w
- tG55l5DSxI/MHd92V/oAFfN31k91tu7G3CuqVPR9EAYe+/LWLF69wUhr1wHIXKjXZWFF
- ps6F4O98jUYhoh6t/XTfLPOjfb0g8dOlfcXi+Ls7rzXpN0Y+/Y+IPlMPO0sVJKtESqnO
- jo++bS18e4d3QnhkVNi2d+n4FJtQJWSr2yZC/0H533V7Or0YyVRns5b+gpgqn9IJEji1
- hw9NsWkziOWm4S3+KrFAQpj6iZ2g97dgkRjWrm5L+4dS0Ej6rygfY2qkHyAae9/nXkpj
- RI9w==
+ bh=GZa7juvxCNraX7yvPBOLr2zonCmAlaBXMRvkitzcE1A=;
+ b=KCEglnpyhNmWqNqkJ/+JquXUQEMFiqvGsTWMUc+p4Dxgp4TE1emyB3jY012MFGoj0d
+ L+aLNL2/GkMTeFM/7qX6AQScuaQShpdM3wOy1NUYQKPxaASltMFZfVP+v02PTpXPqTyy
+ dsNRT1nVSAbwQ7jPLS3X2Z0n+oxRQAMQM9hmM1pFaXRlyuTDYLY0woO6j8WEUQwqCpXP
+ qIdBVbUbyOJtjfvyth01DnHE6oobgdVuu38o6MtaOQDPSvqcPNQvdXTUyfHC0nC9eVSY
+ P7+ojJIqNe9KxAEIqbG3Ck3UGr4+XOhewTkczhTOWaWG39ECeAk23r1PCOVFc7QRx4Rp
+ qVRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=vVjW7FiC+qSaQ3KBioDqK1mV2GwG3KhiYxWo2WY1YG8=;
- b=JIv6tYEW1WixABnXqomZY8ewjj1FBgFUpoovGGwUFao0ohxh5pSX+YB6ytjEGD7VOc
- 9ckLbtS6JwWsBWnc+GRei0N3AZyD8lWiipEZVdP3wzlfFVLsB3VFYUZxyDzbTbgIA/TF
- YNDe4VW3M1JeF1TIID9QNJXJjn7Mnl5V+yR3tHLcmVxHl67dtNVKbN+wUvMkf5MdH2hp
- l3CEZHLq+M5IU4tQWl7LuvER/qgQmgEszZWNHUC6pGhcYL67dJs2h9CKY7CXwJlp1CHv
- m0mNl2PlS8JWK8zdIbez6he5y4k8Fd3XNHC4YNfLBpn7XMRRwkvuQO94pK43RbJ8//sU
- PMCg==
-X-Gm-Message-State: AOAM532ya+k2TpVSmr9Rmk3ELqvPsFLX+twaSf6l2iQj4PMzmIrYFPD7
- cbLlAibsrNb0horX0B9+Wig=
-X-Google-Smtp-Source: ABdhPJwerxoQFv4zEnNu+Da57+LRJoLW49iAkIp8U0yBpTUxgLCXgzWvx3YJVjiOUOqQbUJjIMeB6A==
-X-Received: by 2002:a5d:46c7:: with SMTP id g7mr40337474wrs.365.1593862760024; 
- Sat, 04 Jul 2020 04:39:20 -0700 (PDT)
+ bh=GZa7juvxCNraX7yvPBOLr2zonCmAlaBXMRvkitzcE1A=;
+ b=ea78aa8v4m1DxTU+n3h8e7GgfbsFUP6dWIhaET7KdN2ekapMMbheB5SHi5cnQhLo0y
+ K0Q5TCo62YPtee8v1QTOpm3X/1JJvExL9aUqDrYBGmu+/zxfiBJtofNCaOKqiX07aWeQ
+ FXstUQNguyN2hKorXYiMr/qVL9Ta92gARfSJPBZ1XZ/MFSaMvPUI+6Fa3W9yzhBql3YD
+ dA9jSgy7rG4wmXAwvG1Vxj7adMVZU6mTz+vD1Czy5q6lH3D+gsEd5c+dLHD9ERMUGv+P
+ Z/M+C0JumeEsypjS32m9cUJP7bQCGatsL1ZUksqQQ17id4ovXXBSZJzCNlFQdHenOQ9e
+ 4BOQ==
+X-Gm-Message-State: AOAM5324vx9oWgqs9j47Fzsi7sO/0u/nYxHoMPVE5FrxsHOcgg/NRRGp
+ njq/ovXK1wrbzSdiak53J5c=
+X-Google-Smtp-Source: ABdhPJxfcQdS+Umj/CHeClbECFuBf+fW1U4N3FItKLlj7UmAWRunzK5YIbAPJzh+k2FYo5STu5fXKg==
+X-Received: by 2002:a1c:9d0c:: with SMTP id g12mr34791236wme.107.1593862761215; 
+ Sat, 04 Jul 2020 04:39:21 -0700 (PDT)
 Received: from clement-Latitude-7490.numericable.fr
  (213-245-241-245.rev.numericable.fr. [213.245.241.245])
- by smtp.gmail.com with ESMTPSA id j24sm18657373wrd.43.2020.07.04.04.39.18
+ by smtp.gmail.com with ESMTPSA id j24sm18657373wrd.43.2020.07.04.04.39.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 Jul 2020 04:39:19 -0700 (PDT)
+ Sat, 04 Jul 2020 04:39:20 -0700 (PDT)
 From: =?UTF-8?q?Cl=C3=A9ment=20P=C3=A9ron?= <peron.clem@gmail.com>
 To: Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
  Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
  Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH 12/16] arm64: dts: allwinner: a64: Add DAI node for HDMI
-Date: Sat,  4 Jul 2020 13:38:58 +0200
-Message-Id: <20200704113902.336911-13-peron.clem@gmail.com>
+Subject: [PATCH 13/16] arm64: dts: allwinner: a64: Add HDMI audio
+Date: Sat,  4 Jul 2020 13:38:59 +0200
+Message-Id: <20200704113902.336911-14-peron.clem@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200704113902.336911-1-peron.clem@gmail.com>
 References: <20200704113902.336911-1-peron.clem@gmail.com>
@@ -110,39 +110,61 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Marcus Cooper <codekipper@gmail.com>
 
-Add the new DAI block for I2S2 which is used for HDMI audio.
+Add a simple-soundcard to link audio between HDMI and I2S.
 
+Signed-off-by: Jernej Skrabec <jernej.skrabec@siol.net>
 Signed-off-by: Marcus Cooper <codekipper@gmail.com>
 Signed-off-by: Clément Péron <peron.clem@gmail.com>
 ---
- arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi | 21 +++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
-index 8dfbcd144072..c662f6a170ce 100644
+index c662f6a170ce..6a321fdc8e90 100644
 --- a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
-@@ -845,6 +845,20 @@ i2s1: i2s@1c22400 {
+@@ -102,6 +102,25 @@ de: display-engine {
+ 		status = "disabled";
+ 	};
+ 
++	hdmi_sound: hdmi-sound {
++		compatible = "simple-audio-card";
++		simple-audio-card,format = "i2s";
++		simple-audio-card,name = "sun50i-a64-hdmi";
++		simple-audio-card,mclk-fs = <128>;
++		simple-audio-card,frame-inversion;
++		status = "disabled";
++
++		simple-audio-card,codec {
++			sound-dai = <&hdmi>;
++		};
++
++		simple-audio-card,cpu {
++			sound-dai = <&i2s2>;
++			dai-tdm-slot-num = <2>;
++			dai-tdm-slot-width = <32>;
++		};
++	};
++
+ 	osc24M: osc24M_clk {
+ 		#clock-cells = <0>;
+ 		compatible = "fixed-clock";
+@@ -856,6 +875,7 @@ i2s2: i2s@1c22800 {
+ 			resets = <&ccu RST_BUS_I2S2>;
+ 			dma-names = "tx";
+ 			dmas = <&dma 27>;
++			allwinner,playback-channels = <8>;
  			status = "disabled";
  		};
  
-+		i2s2: i2s@1c22800 {
+@@ -1155,6 +1175,7 @@ deinterlace: deinterlace@1e00000 {
+ 		};
+ 
+ 		hdmi: hdmi@1ee0000 {
 +			#sound-dai-cells = <0>;
-+			compatible = "allwinner,sun50i-a64-i2s",
-+				     "allwinner,sun8i-h3-i2s";
-+			reg = <0x01c22800 0x400>;
-+			interrupts = <GIC_SPI 15 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_I2S2>, <&ccu CLK_I2S2>;
-+			clock-names = "apb", "mod";
-+			resets = <&ccu RST_BUS_I2S2>;
-+			dma-names = "tx";
-+			dmas = <&dma 27>;
-+			status = "disabled";
-+		};
-+
- 		dai: dai@1c22c00 {
- 			#sound-dai-cells = <0>;
- 			compatible = "allwinner,sun50i-a64-codec-i2s";
+ 			compatible = "allwinner,sun50i-a64-dw-hdmi",
+ 				     "allwinner,sun8i-a83t-dw-hdmi";
+ 			reg = <0x01ee0000 0x10000>;
 -- 
 2.25.1
 

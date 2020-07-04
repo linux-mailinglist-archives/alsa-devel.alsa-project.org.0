@@ -2,85 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 207A7214595
-	for <lists+alsa-devel@lfdr.de>; Sat,  4 Jul 2020 13:44:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E771021459D
+	for <lists+alsa-devel@lfdr.de>; Sat,  4 Jul 2020 13:46:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C946416B5;
-	Sat,  4 Jul 2020 13:43:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C946416B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95C3816AB;
+	Sat,  4 Jul 2020 13:45:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95C3816AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593863058;
-	bh=Dh2Ivc+I2qCPIC+zM6LbZGFaTjXcVOT0417OlMN6sto=;
+	s=default; t=1593863168;
+	bh=3FAxLZmgKZUBRoI0nV9bsNABMPpW1k5fhYQvi5s5D9c=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=H+4EEcSlxhwQp2O6nbN1qug4XsL4Qryt3B29/Ea2sxqCX131WIqXR3Z1ximo1fTRw
-	 gKTG3ma17EREHTRvf1q0KULBjkE279pFeDgyeCoNkq+UlybDOSyQCgxbBPwetDm/LZ
-	 P6HWDRu21YqWtNczaUPw+Pl7Ahj/w/RAX2TEfOmY=
+	b=p6+2yyEyv1kMhYuIwClkdIAQ+G427HBFsMkUiubWrws0GQYmV561AwYVCsuQ1kr20
+	 hk7BNhhH3y/Ju1AA+gwR/4y4imKn75UnDb5KIW+hXIatmqy65t72bpBHpqTTKC72Xv
+	 xfhTcyWLZJaFolte24e2lrJnDy8mLr3nGx7yhaiM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B70EF802E7;
-	Sat,  4 Jul 2020 13:39:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10EDEF80321;
+	Sat,  4 Jul 2020 13:39:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D84ACF802E3; Sat,  4 Jul 2020 13:39:20 +0200 (CEST)
+ id 0B9DFF802E1; Sat,  4 Jul 2020 13:39:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A232EF8022B
- for <alsa-devel@alsa-project.org>; Sat,  4 Jul 2020 13:39:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A232EF8022B
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB6C8F802BD
+ for <alsa-devel@alsa-project.org>; Sat,  4 Jul 2020 13:39:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB6C8F802BD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="XtFrKdEp"
-Received: by mail-wr1-x442.google.com with SMTP id q5so35410401wru.6
- for <alsa-devel@alsa-project.org>; Sat, 04 Jul 2020 04:39:14 -0700 (PDT)
+ header.b="MrHuEd2Q"
+Received: by mail-wr1-x443.google.com with SMTP id f2so7458900wrp.7
+ for <alsa-devel@alsa-project.org>; Sat, 04 Jul 2020 04:39:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=6srjU/ZvMImw58RSlWml1hSuOXhUjM1f+LvigtsjUM0=;
- b=XtFrKdEpb8bM+H8QddJjKQH5JC/VHoJSwNcO8OBf/L+QWdA26GqLvH11+AYVmuRzf7
- ROsysFD/uvNR1V9BVbVkxhgRR6fSKMl889u5A8Ah/9nseslR/JnSdVo6IHY+GgWas1PX
- RcRpZf2BY/wSGyagBdkI3/LAHRt0WY+NfYjLUxCWy+6lsxsGZqkWLq0jjwi6n6e6cpgu
- I6pTE1xqoHcSZ0z3W3fSd4Kv4DjvelmrAEcFKzBPofWi7cvp7RTPHUuRKrfil8RbMOR8
- SjIh2IG44xkvhbQ4EO6URcl+EysjVlf3KK95SjIXJJigqokxZdB+2d4CU4a4JMYtvoqa
- ZhWg==
+ bh=ezO7lsAoD6+JpVBUKtvDQJMPID6Dt/CBroo5aFvxW2c=;
+ b=MrHuEd2QT2ZG+PWI9dVl4RQZaS0AAbRl7EJLQByo8JfTtqrsz8cRyRhZz95E9Bfdp7
+ 4hteyPq1A5GG5i0YXjdG4qVSnW5GK+W6Evvgyiw01ojSZ0JX5mHq/IL1d7ztzMzLJItL
+ z3WGpoaWoO/17jXsjdzV2ln0DyBENhFlFx3xyRH4pu9bYbIH6KyCDfQ3IBVsljgH6WbA
+ ic1kR4226T52XjPmy4TujajrMGgGVyNtKr3g+oJUCTQeVHezP/U/7ZzD3n4VGstGE3AU
+ uY2Ko8gjm2ew2Fz43HFWV6Gizk+Zm5uMcnUYiPZIN1LFZ/URzsqFILAKDP8EszHmAyMR
+ uygA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=6srjU/ZvMImw58RSlWml1hSuOXhUjM1f+LvigtsjUM0=;
- b=Y5luCJ0RgZ1ivzTr5P03Zj+olXbaeppVo+aTTE0s7i6MXGVJNqe/mYkyWFiMxu0tBt
- NGCfjpTfUmaTWi2jnORKTmkPCj8d9Ax1Pe9uul61Z6Z4ezLMIL1zVZvDSOzZPrazbA+F
- tyRzu6om2WZBe1JdE10YPP12NIoneTuCpndRVnYzVS2oF6NLpYor8J9fw6M8+vEsHWv6
- vhxK8K1889I9D3k5DzlWXJRbyxDVVFg1nvmfHkE6da0dZDLg0/Y4dfpiqp0NSCEl4Ykp
- MZFZbya845ITNtjUX+kYGCWWBpM3f/BUMHYPc4qr83b4ob+D6vXzxklyvClsJTyH/L/T
- Uo+g==
-X-Gm-Message-State: AOAM532OCSxsAyxX66Q4vxJtOB/OW1XCqhbn0XqUsqhsmS+dc1UUdWMy
- kGEPLNPORaGOvGXXKdh/agc=
-X-Google-Smtp-Source: ABdhPJwK6E1iUiYqMoIAXl71mOL+4VQsJk1OxMZ+u6k8BriUd2J7xo3i7cKAuCBEKWDBXnm86Zm6gw==
-X-Received: by 2002:adf:dd8d:: with SMTP id x13mr39861926wrl.362.1593862754105; 
- Sat, 04 Jul 2020 04:39:14 -0700 (PDT)
+ bh=ezO7lsAoD6+JpVBUKtvDQJMPID6Dt/CBroo5aFvxW2c=;
+ b=XcTspu1UfinpTxxdd0qnA/6DCG28QC5DwSeW69+G8v9+5ae5lYjFMf0gIphG4AgHwJ
+ ah1I9uVsPRL+g6tBB6mvl28I1on3gwaVRmPOf7b7YsfbwV6HTJ/tnH+CaI4fpIruz2Ef
+ WYpIXzkpDo6fqtAm2sdMYE9XpIAH/denx3ku4NCu3ZzaKg3GD5pD3DnpKkHzMs80yfn+
+ v7S9PIx/SwpxEp+QnRNaF+k7XO26GBoDx1UkqMNS1WpV0yxtwCd2lBdn2oGK8thlk32E
+ /lbnu0TOzR7oqAIaiVSAeiktDmUy3lSebI1gbo6dVfZIMzmrqYfPYXCbZe8MEDGBytfu
+ VIFA==
+X-Gm-Message-State: AOAM531UNEQr/QCOWKi0g5nEZEAHHiJ/uFHsW9IBEA2eZeJD3GWNcSbL
+ /TRVrDNtVqiK4uEpmyjxxOk=
+X-Google-Smtp-Source: ABdhPJyiYQcCMIVNP2K3kv3FGvdS4uvqVsD55hFFNUkDO5/5HgW8wLxq7kKI6/UKcROBuhJPZUQlUA==
+X-Received: by 2002:a5d:4991:: with SMTP id r17mr13013702wrq.1.1593862755239; 
+ Sat, 04 Jul 2020 04:39:15 -0700 (PDT)
 Received: from clement-Latitude-7490.numericable.fr
  (213-245-241-245.rev.numericable.fr. [213.245.241.245])
- by smtp.gmail.com with ESMTPSA id j24sm18657373wrd.43.2020.07.04.04.39.13
+ by smtp.gmail.com with ESMTPSA id j24sm18657373wrd.43.2020.07.04.04.39.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 Jul 2020 04:39:13 -0700 (PDT)
+ Sat, 04 Jul 2020 04:39:14 -0700 (PDT)
 From: =?UTF-8?q?Cl=C3=A9ment=20P=C3=A9ron?= <peron.clem@gmail.com>
 To: Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
  Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
  Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH 07/16] ASoC: sun4i-i2s: Fix sun8i volatile regs
-Date: Sat,  4 Jul 2020 13:38:53 +0200
-Message-Id: <20200704113902.336911-8-peron.clem@gmail.com>
+Subject: [PATCH 08/16] arm64: dts: allwinner: h6: Add HDMI audio node
+Date: Sat,  4 Jul 2020 13:38:54 +0200
+Message-Id: <20200704113902.336911-9-peron.clem@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200704113902.336911-1-peron.clem@gmail.com>
 References: <20200704113902.336911-1-peron.clem@gmail.com>
@@ -108,45 +108,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The FIFO TX reg is volatile and sun8i i2s register
-mapping is different from sun4i.
+From: Jernej Skrabec <jernej.skrabec@siol.net>
 
-Even if in this case it's doesn't create an issue,
-Avoid setting some regs that are undefined in sun8i.
+Add a simple-soundcard to link audio between HDMI and I2S.
 
+Signed-off-by: Jernej Skrabec <jernej.skrabec@siol.net>
+Signed-off-by: Marcus Cooper <codekipper@gmail.com>
 Signed-off-by: Clément Péron <peron.clem@gmail.com>
 ---
- sound/soc/sunxi/sun4i-i2s.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi | 33 ++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
-index d7484c7e8fa2..109c10296d83 100644
---- a/sound/soc/sunxi/sun4i-i2s.c
-+++ b/sound/soc/sunxi/sun4i-i2s.c
-@@ -1147,12 +1147,19 @@ static bool sun8i_i2s_rd_reg(struct device *dev, unsigned int reg)
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
+index 78b1361dfbb9..ae169d07b939 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
+@@ -67,6 +67,25 @@ de: display-engine {
+ 		status = "disabled";
+ 	};
  
- static bool sun8i_i2s_volatile_reg(struct device *dev, unsigned int reg)
- {
--	if (reg == SUN8I_I2S_INT_STA_REG)
-+	switch (reg) {
-+	case SUN4I_I2S_FIFO_CTRL_REG:
-+	case SUN4I_I2S_FIFO_RX_REG:
-+	case SUN4I_I2S_FIFO_STA_REG:
-+	case SUN4I_I2S_RX_CNT_REG:
-+	case SUN4I_I2S_TX_CNT_REG:
-+	case SUN8I_I2S_FIFO_TX_REG:
-+	case SUN8I_I2S_INT_STA_REG:
- 		return true;
--	if (reg == SUN8I_I2S_FIFO_TX_REG)
--		return false;
++	hdmi_sound: hdmi-sound {
++		compatible = "simple-audio-card";
++		simple-audio-card,format = "i2s";
++		simple-audio-card,name = "sun50i-h6-hdmi";
++		simple-audio-card,mclk-fs = <128>;
++		simple-audio-card,frame-inversion;
++		status = "disabled";
++
++		simple-audio-card,codec {
++			sound-dai = <&hdmi>;
++		};
++
++		simple-audio-card,cpu {
++			sound-dai = <&i2s1>;
++			dai-tdm-slot-num = <2>;
++			dai-tdm-slot-width = <32>;
++		};
++	};
++
+ 	osc24M: osc24M_clk {
+ 		#clock-cells = <0>;
+ 		compatible = "fixed-clock";
+@@ -607,6 +626,19 @@ mdio: mdio {
+ 			};
+ 		};
  
--	return sun4i_i2s_volatile_reg(dev, reg);
-+	default:
-+		return false;
-+	}
- }
++		i2s1: i2s@5091000 {
++			#sound-dai-cells = <0>;
++			compatible = "allwinner,sun50i-h6-i2s";
++			reg = <0x05091000 0x1000>;
++			interrupts = <GIC_SPI 19 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_I2S1>, <&ccu CLK_I2S1>;
++			clock-names = "apb", "mod";
++			dmas = <&dma 4>, <&dma 4>;
++			resets = <&ccu RST_BUS_I2S1>;
++			dma-names = "rx", "tx";
++			status = "disabled";
++		};
++
+ 		spdif: spdif@5093000 {
+ 			#sound-dai-cells = <0>;
+ 			compatible = "allwinner,sun50i-h6-spdif";
+@@ -737,6 +769,7 @@ ohci3: usb@5311400 {
+ 		};
  
- static const struct reg_default sun4i_i2s_reg_defaults[] = {
+ 		hdmi: hdmi@6000000 {
++			#sound-dai-cells = <0>;
+ 			compatible = "allwinner,sun50i-h6-dw-hdmi";
+ 			reg = <0x06000000 0x10000>;
+ 			reg-io-width = <1>;
 -- 
 2.25.1
 

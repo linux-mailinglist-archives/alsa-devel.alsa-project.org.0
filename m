@@ -2,97 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B05C92145AE
-	for <lists+alsa-devel@lfdr.de>; Sat,  4 Jul 2020 13:50:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E119621478B
+	for <lists+alsa-devel@lfdr.de>; Sat,  4 Jul 2020 18:51:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 546E816AC;
-	Sat,  4 Jul 2020 13:49:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 546E816AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7501616AC;
+	Sat,  4 Jul 2020 18:50:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7501616AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593863402;
-	bh=6zCMgV1md5O08oZMh2wGxa+FHEFhgrmUinhzD32bOe4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=lDMOxJsEkB+Yf/XmK01c+/SjSFmgeMSnF5G1sRswBesGCu72He6nQpRqzuas63IP8
-	 FOkVXgzzGQ1aEmhBT7bUyrAL8EkMTjtr80/mqN9FDxPxz6whyAB5QYxMJ9peJwR0ks
-	 YWxTTkiF/bBskHGDwWO24c8lI+lgUriR67s8gG0s=
+	s=default; t=1593881467;
+	bh=slIcyNX43jn/rjQlkSAL/Zblep9juUf8xyM/cB6BhZE=;
+	h=From:Subject:To:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=G5lYYJBSTFIsaOAASrdG5q752Zrc3NzKaIp4dJ/QxHknVimIVETGw9zEnlAG8T+0d
+	 zuowojUohCyv+pVoSR4WhuCothiuPT2lZ5oj5mtQANyNAP7aK5/knujP96mlNJHIQ4
+	 pVWU8TE/qmQpK7NM8OXsTODXS7zyM6owRdlFY9I4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F0F7F8034D;
-	Sat,  4 Jul 2020 13:39:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91967F8011B;
+	Sat,  4 Jul 2020 18:49:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 313DAF802FD; Sat,  4 Jul 2020 13:39:31 +0200 (CEST)
+ id 344A0F8022D; Sat,  4 Jul 2020 18:49:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pegase1.c-s.fr (pegase1.c-s.fr [93.17.236.30])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C744DF802F8
- for <alsa-devel@alsa-project.org>; Sat,  4 Jul 2020 13:39:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C744DF802F8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="JrewqFuc"
-Received: by mail-wm1-x343.google.com with SMTP id f139so36655805wmf.5
- for <alsa-devel@alsa-project.org>; Sat, 04 Jul 2020 04:39:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=s1wxiSXb6FjGblsvKrZYztMSCVGGVQHB+0DmuQ/lyxA=;
- b=JrewqFucv5cYOk7OE3oVnmZEW3IbJjLlbiFhIN8TjMDZzUl7L+jK5AKEFgEXWzxTt2
- 2pQXxy3Pz1M75SMWDCj/v0RMb9zesYAdX6YFCYIbnYmGaG9U9A/BVMclHljHSKcbD+qe
- YAwDMlcI+nxg14LvyfWNzqkomR1qajrWKg4u814ufNNLKFQAY6e3hDdo729Kvyx+Pcil
- IDKRHP5AQmDyohNs9j0Xia144mKJyU+H5ggVM8MSPXcNsrLv/Pbsxr2TwbtFJf+3XCQy
- 89ld2FVKMq24fnhWHiB3dC+gxVF4kpm1vsG8xovGK4fAWvcuKmXsP643kNsh9VlDOEoe
- Kgww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=s1wxiSXb6FjGblsvKrZYztMSCVGGVQHB+0DmuQ/lyxA=;
- b=RyhJDG1oQZHU6d1VgVyKLSrEwE2/FdKNJS6wxRVAdobSt/Ne86i3i1FsEva/LEp/OU
- e9XCIZ+l1mlI8iPQDudhMJKELdLbTW/PULa6KrEuD3BBFAXvA9rEBrKEFygAl3n8cNbH
- ka28XrkiVLwT7KlwbuQaSXf48+seQTBYBMownTpD2DdEFg162IYsH+oyr5WOYbqXssS6
- hrfrHnYha6H0sHWfDa3u6ZaF79r7+VYBJIbEP4isEjSv/ovZ3g/2ptMYdyd6TDiRfe5K
- nUbYAsKkgeRnJpMoB1GOL8X7tn6TcifdJxFKOMzb1TUKsMVcHZRqhxqT5/bQlyuYNcTP
- v3Ig==
-X-Gm-Message-State: AOAM530kKcXx3lC3MsdXOscay5UJek82aIKuaFYrvpAbp6i4WmYcRjFL
- RRzav4xIuFdoghr4tEBI1ws=
-X-Google-Smtp-Source: ABdhPJwzV34Wu9Tm/bGGoIIBjIyhv/6HbZCqgcw/NraTBYcNKoYfUjnjYieuWUKNkx3O6QBQVusUfg==
-X-Received: by 2002:a1c:5459:: with SMTP id p25mr39307080wmi.148.1593862764834; 
- Sat, 04 Jul 2020 04:39:24 -0700 (PDT)
-Received: from clement-Latitude-7490.numericable.fr
- (213-245-241-245.rev.numericable.fr. [213.245.241.245])
- by smtp.gmail.com with ESMTPSA id j24sm18657373wrd.43.2020.07.04.04.39.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 Jul 2020 04:39:24 -0700 (PDT)
-From: =?UTF-8?q?Cl=C3=A9ment=20P=C3=A9ron?= <peron.clem@gmail.com>
-To: Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
- Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH 16/16] arm64: dts: allwinner: a64: Add HDMI audio to Pine64
-Date: Sat,  4 Jul 2020 13:39:02 +0200
-Message-Id: <20200704113902.336911-17-peron.clem@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200704113902.336911-1-peron.clem@gmail.com>
-References: <20200704113902.336911-1-peron.clem@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C8D92F8011B
+ for <alsa-devel@alsa-project.org>; Sat,  4 Jul 2020 18:49:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8D92F8011B
+Received: from localhost (mailhub1-int [192.168.12.234])
+ by localhost (Postfix) with ESMTP id 49zd8X45wzz9tyNd;
+ Sat,  4 Jul 2020 18:49:16 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at c-s.fr
+Received: from pegase1.c-s.fr ([192.168.12.234])
+ by localhost (pegase1.c-s.fr [192.168.12.234]) (amavisd-new, port 10024)
+ with ESMTP id 6A-LboEen77o; Sat,  4 Jul 2020 18:49:16 +0200 (CEST)
+Received: from messagerie.si.c-s.fr (messagerie.si.c-s.fr [192.168.25.192])
+ by pegase1.c-s.fr (Postfix) with ESMTP id 49zd8X2Py1z9tyNc;
+ Sat,  4 Jul 2020 18:49:16 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by messagerie.si.c-s.fr (Postfix) with ESMTP id 9C8698B780;
+ Sat,  4 Jul 2020 18:49:18 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at c-s.fr
+Received: from messagerie.si.c-s.fr ([127.0.0.1])
+ by localhost (messagerie.si.c-s.fr [127.0.0.1]) (amavisd-new, port 10023)
+ with ESMTP id LdNBUEYla3iI; Sat,  4 Jul 2020 18:49:18 +0200 (CEST)
+Received: from [192.168.4.90] (unknown [192.168.4.90])
+ by messagerie.si.c-s.fr (Postfix) with ESMTP id D6ACD8B75B;
+ Sat,  4 Jul 2020 18:49:17 +0200 (CEST)
+From: Christophe Leroy <christophe.leroy@csgroup.eu>
+Subject: Looking for guidance for porting home made audio driver to ASoC/FSL
+To: Qiang Zhao <qiang.zhao@nxp.com>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+ Li Yang <leoyang.li@nxp.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Timur Tabi <timur@kernel.org>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>
+Message-ID: <d27d50d0-f99a-7702-4175-79281b06ad8c@csgroup.eu>
+Date: Sat, 4 Jul 2020 18:49:07 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, Jernej Skrabec <jernej.skrabec@siol.net>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Marcus Cooper <codekipper@gmail.com>,
- linux-sunxi@googlegroups.com,
- =?UTF-8?q?Cl=C3=A9ment=20P=C3=A9ron?= <peron.clem@gmail.com>,
- linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: fr
+Content-Transfer-Encoding: 7bit
+Cc: TIGE Jean-Paul <jean-paul.tige@csgroup.eu>,
+ "F. TRINH THAI" <florent.trinh-thai@csgroup.eu>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,42 +90,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Marcus Cooper <codekipper@gmail.com>
+Hello
 
-Enable HDMI audio on Pine64.
+I'm looking for guidance for porting a home made audio driver to 
+ASoC/FSL on a custom board.
 
-Signed-off-by: Marcus Cooper <codekipper@gmail.com>
-Signed-off-by: Clément Péron <peron.clem@gmail.com>
----
- arch/arm64/boot/dts/allwinner/sun50i-a64-pine64.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
+The board has an MPC8321 freescale/NXP cpu. The board has a TDM bus 
+connected to one of the cpu TDM port. On that TDM bus, there are three 
+IDT 821034 quad codecs (PCM G.711) and an E1 chip that carries IP over E1.
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pine64.dts b/arch/arm64/boot/dts/allwinner/sun50i-a64-pine64.dts
-index 2165f238af13..c5939ba52f19 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pine64.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pine64.dts
-@@ -99,6 +99,10 @@ hdmi_out_con: endpoint {
- 	};
- };
- 
-+&hdmi_sound {
-+	status = "okay";
-+};
-+
- &i2c1 {
- 	status = "okay";
- };
-@@ -107,6 +111,10 @@ &i2c1_pins {
- 	bias-pull-up;
- };
- 
-+&i2s2 {
-+	status = "okay";
-+};
-+
- &mdio {
- 	ext_rmii_phy1: ethernet-phy@1 {
- 		compatible = "ethernet-phy-ieee802.3-c22";
--- 
-2.25.1
+Today, there is a home made audio driver providing raw read/write 
+devices plus an home made WAN HDLC driver for the E1.
 
+The CPU Quicc Engine (QE) is configured to connect the TDM port to one 
+UCC. QUICC Multi-Channel Controller (QMC) is used to distribute E1 
+timeslots to the HDLC driver and each of the 12 codec timeslots to the 
+audio driver. (The QMC is able to manage two types of channels: 
+transparent and HDLC).
+
+We would like to make all this more standard and port it to use ALSA 
+ASoC for the audio part, and the Freescale Quicc Engine HDLC. As of 
+today, the Freescale QE HDLC wan driver uses the UCC directly, it 
+doesn't interface through the QMC. And the FSL ASoC drivers seem to 
+neither handle QE TDM via QE QMC nor QE UCC.
+
+We are thinking about adding a QE QMC layer in driver/soc/fsl/ which 
+would more or less present to the consumer the same kind of API as the 
+FSL UCC layer, and enhance the WAN FSL HDLC driver to be able to use 
+that new layer.
+
+For the ALSA ASoC part, could some parts of existing FSL ASoC drivers be 
+re-used of would we have to start implementing an ASoC from scratch ?
+
+Any recommendation and/or guidance would be welcomed and appreciated.
+
+Thanks in advance
+Christophe

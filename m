@@ -2,78 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B96502149DF
-	for <lists+alsa-devel@lfdr.de>; Sun,  5 Jul 2020 05:44:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDF60214CB3
+	for <lists+alsa-devel@lfdr.de>; Sun,  5 Jul 2020 15:23:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC49F16B0;
-	Sun,  5 Jul 2020 05:43:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC49F16B0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4DE5D16AF;
+	Sun,  5 Jul 2020 15:22:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4DE5D16AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593920670;
-	bh=6NLk9kxfB9NifSC8qM7HHRRcGwOajkI+N6rXtbLiKTQ=;
-	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=h3xNpoVbuXrlVVyAaqlwJ38VrdXOy1xZExOcemgAy+2GpRC5hx1B8+l84JElbqTIO
-	 7Tn/+cYtc4+8mFbquW2E79XR65SvUzaLGEyY09OsgJJmnypKqkfziENUjikw5hM9ll
-	 WWgDr8pJtJa+4ayk8rPXM3KoLolXw83dplpa4j+I=
+	s=default; t=1593955383;
+	bh=RAYbpwc1wjI2tqQOUC7DxRJQDZWuIrUkzuIaIkLnPqw=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=VmxMZK27Uxeq5UQtLu+pEHFquLrTTQzv6RXCW2qns1VZz1f7/w2/X8umXuYQnReGz
+	 dPdLorckHYvc04zPDEIuJ2+XUVZcjWxd/46DzIOnpVI2M8qgJLAG9WlUpXj3Wk/1HY
+	 JEegTfqV016EQsCCoTr+x3y6k9VfFb7VAacOMX5Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1140BF80216;
-	Sun,  5 Jul 2020 05:42:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63F7DF801F9;
+	Sun,  5 Jul 2020 15:21:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 341BDF80216; Sun,  5 Jul 2020 05:42:46 +0200 (CEST)
+ id 97AA7F80216; Sun,  5 Jul 2020 15:20:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, PRX_BODY_135, RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL,
+ SPF_HELO_PASS, 
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B0A27F800DA
- for <alsa-devel@alsa-project.org>; Sun,  5 Jul 2020 05:42:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0A27F800DA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 96F82F800DA
+ for <alsa-devel@alsa-project.org>; Sun,  5 Jul 2020 15:20:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96F82F800DA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Em3mLVBJ"
-Received: by mail-wr1-x436.google.com with SMTP id z15so25952815wrl.8
- for <alsa-devel@alsa-project.org>; Sat, 04 Jul 2020 20:42:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=JpsMVBhQ0eJujSA2LTKBZYrXPuJgPEWcLG+df8QBVNA=;
- b=Em3mLVBJym41MTcQtAE6dsukSry4HLq0gOdmLnW+KDt3mroMXQecV9M6vHIspG3mMQ
- mLIl+7VWPsYC9k1Se62MZm5cH0gMwUdrAslQlZT52bINCFb6UejYbkss+SLieuy3vGwz
- JCAPX26vxsgCzQWf5Hwu1O10fepstrp3AhhOdM/dFu7sb4c3BdWHCDb/nbPnoObIwKBi
- 1/ZM+7D5+1h7WmomoWln8+JmKjHza9QkISnhj578CzajaWkMXkbG0dvz9FH9jBpyZUW1
- wJzfCrF9wBiOMYcbTgciYaF4Co0xCComArAEtwsOggmM2AshdHSZU3XCpHYD56ePVfcA
- Jw2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=JpsMVBhQ0eJujSA2LTKBZYrXPuJgPEWcLG+df8QBVNA=;
- b=tsDwEP6yaIlq6/yusvXI9MujsIXuIUhzRNp4Gm4kdCjPvlvk0mvzEph8X0g77ZgBPW
- 0xpls43ACrzToCKO+4uBBTORdngHN03VDmtFsDuV121llPGXfHtCvT18zGpL9OoD8hJ4
- u7Hsnw85nNaB9iOdQ54fqJLnA3Ew4ZWpEv6wV/NBZNmPjK2lyR6Q9Lh/uiRP6k18Brwr
- swQPDG6dRWwePLMc4saF9Ks4O3ZOdxtu/0AGYXcLvbdwLDxn2Vl7RU0JYxih7gamMG29
- Lsq/FoE8b09KLerzT/HBpEOjbMsrI9hVY0Gr7L1JHrm2qo8qFVVYa3bvv2LUt7DASvY9
- KPYg==
-X-Gm-Message-State: AOAM531owQpPkuIUXQG+eR5jJwej4MZtMOSD26x7SwgoNWOZpayg99Oq
- 8sPohiOFApM1rphVqJgEWbYgA40R5IUq57vQC9kxINnWIL4=
-X-Google-Smtp-Source: ABdhPJyc9sO5CRZ/CyU180aOmFeSlbEqwYse41JpNVJhT1duEN5BlGhmptbUjg2b+21q9jGm1iu3lo+QdTagw4vB9rE=
-X-Received: by 2002:adf:ebd0:: with SMTP id v16mr36670865wrn.241.1593920559760; 
- Sat, 04 Jul 2020 20:42:39 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="LKSTO+yu"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="rorThBka"
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.west.internal (Postfix) with ESMTP id AACF66D4;
+ Sun,  5 Jul 2020 09:20:20 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Sun, 05 Jul 2020 09:20:20 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm2; bh=KGyFyE4zKP/VK8GyaQuvqWP9CwS
+ RajlQk1Pw0rDc15k=; b=LKSTO+yu+smBInhU0MSBO6AJ0TXgZe8I/dWbAQcvlHH
+ YI0j0kMYmFFo9ERxwOFEc7Izdx+MGvynuClVdVqST+4YMmrOE1in5apZ4Z3tYgcv
+ wnDK2bVrafEsBjCfeViooHm8nny+D0VaHzGFGJ1NEnLLOIEJWrcwykjvv6qh/AaA
+ dQ8L3UgnrIFGM2sueasvnQ9i8P09waNaUbl9abObdr1uflW7y90Qa6pnXwfgePVn
+ tjldfrz187SV74nx29FIoZxa1Hom985ZMTZAz+x/vIvrAYJmh5okNbHmvoxdPNZd
+ ZUzBkppUfPJL+WWzEkjIo9N6zVukO6en3oBDtEw3DQw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=KGyFyE
+ 4zKP/VK8GyaQuvqWP9CwSRajlQk1Pw0rDc15k=; b=rorThBkaB7cwNSmoD1gxls
+ M+EfTtCjmt6Pi/RiYJwYuw3OJrYWeLhFSIWhUp9YRv11Tstv/dHbcRLjGhzoP//B
+ 14JpFpIBXX0/VgpkWFmJmo8c/vHGoOyQ1VIdwa+hWm9boiYp3cNLh38xOQdhN9YE
+ wDlXR9ZQWgj5NJvi6Yxm9sPxYTRPJI4ZhXhIxuRp3ZVe65TC2TaI5w8cLMv/Gy5H
+ Go+n9AhFAWHuHPJ0mp/JHoszsV555yukhQWvsDRPqG8MKEtQPuwnp3iukXurPxBA
+ JWF5QFRZtMwBN/vMWukPTQF9A7FzofQwaLV9R6X4jCBBw33duZ5gp1DJx7eZUMBg
+ ==
+X-ME-Sender: <xms:ktMBX65QH-oWxLAAqV4_4Ss3aCJ5dlG9O0-fBEPC3jevyM3rQEvmLw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedruddugdeigecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfhfgggtuggjsehttdertd
+ dttddvnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
+ hhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpeeiudelleetue
+ fhkeetffefffejvdejhedtteefgfeiffffjeelueeklefhtdevgfenucffohhmrghinhep
+ rghlshgrqdhprhhojhgvtghtrdhorhhgpdhgihhthhhusgdrtghomhenucfkphepudektd
+ drvdefhedrfedrheegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghi
+ lhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:ktMBXz7KL14WRG6e5l2ugpxFi5qHQ0KbwDyr7JFdnHhwlxqFi1R13A>
+ <xmx:ktMBX5colTbSEBOZEKid-r80YlCySM2fEz0w_hE3noS1A69G1WfJrg>
+ <xmx:ktMBX3JeEeJZn4QpZbvNCTusOt5Vwi4U8IKZJLtsDXvUnXEOSeT7QA>
+ <xmx:lNMBXzXjm-ix2Pe8kj0f3tS2qHNHNL1ysgwyoGsYU8hPKnZTn-WKFQ>
+Received: from workstation (ad003054.dynamic.ppp.asahi-net.or.jp
+ [180.235.3.54])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 3C4033069D37;
+ Sun,  5 Jul 2020 09:20:18 -0400 (EDT)
+Date: Sun, 5 Jul 2020 22:20:15 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: perex@perex.cz, alsa-devel@alsa-project.org
+Subject: Re: Move ownership of snd-firewire-ctl-services repository
+Message-ID: <20200705132015.GA104849@workstation>
+Mail-Followup-To: perex@perex.cz, alsa-devel@alsa-project.org
+References: <20200703164934.GA49779@workstation>
 MIME-Version: 1.0
-From: =?UTF-8?B?0KHRgtCw0L3QuNGB0LvQsNCyINCQ0LvQtdC60YHQsNC90LTRgNC+0LI=?=
- <lightofmysoul@gmail.com>
-Date: Sun, 5 Jul 2020 06:42:29 +0300
-Message-ID: <CAEo19OgAGRWGsaPZ9G=xYcdC=MgyO9jdH365ZMmS--o5BoWFKw@mail.gmail.com>
-Subject: Some questions about asoc codec mixer elements naming
-To: alsa-devel@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200703164934.GA49779@workstation>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,54 +113,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello.
+Hi Jaroslav,
 
-I am writing an asoc codec driver and stuck with mixer and output
-naming. Could someone clarify a few things?
-This codec has two playback PGAs and 4 outputs:
+On Sat, Jul 04, 2020 at 01:49:34AM +0900, Takashi Sakamoto wrote:
+> I'm currently working for the idea of 'ALSA control service in
+> userspace'[1] for audio and music units on IEEE 1394 bus under my personal
+> repository[2], and the work mostly done for Digidesign Digi 002/003 family
+> and Tascam FireWire series[3].
+> 
+> As well as libhinawa and alsa-gobject repositories[4], I'd like to move
+> ownership of the repository to 'GObject Introspection' team of alsa-project
+> account, then continue the work. I'd like you to arrange access rights and
+> so on, again.
+> 
+> Besides, as I tols you in previous message[5], the nested team is not
+> good in reasons. I strongly request you to leave 'GObject Introspection' team
+> and drop 'Hinawa' team, again. Would I expect your arrangement for it?
+> 
+> [1] https://mailman.alsa-project.org/pipermail/alsa-devel/2020-June/169141.html
+> [2] https://github.com/takaswie/snd-firewire-ctl-services/
+> [3] https://github.com/takaswie/snd-firewire-ctl-services/tree/topic/services-for-dg00x-tascam
+> [4] https://mailman.alsa-project.org/pipermail/alsa-devel/2020-June/169141.html
+> [5] https://mailman.alsa-project.org/pipermail/alsa-devel/2020-June/169191.html
 
-PGA1 ->  [Speaker,Headphone,Line Out]
-PGA2 ->  [Mono Output]
+Just now I finish the first work for snd-firewire-ctl-services, and move
+its ownership to alsa-project project in github.com. I'm glad if you
+arrange my access rights for the repository as well as the former ones.
 
-[PGA1] controls volume and mute for all three outputs.
-[Speaker,Headphone,Line Out] have only mute.
+https://github.com/alsa-project/snd-firewire-ctl-services
 
-[PGA2] controls volume and mute.
-[Mono Output] also has mute.
+After your arrangement, I'm going to create the first merge request for
+control services to Digidesign Digi 002/003 family and Tascam FireWire
+series.
 
-Codec is bound to platform driver via simple-audio-card:
-simple-audio-card,widgets =
-    "Headphone", "Headphones",
-    "Speaker", "Speakers",
-    "Line", "Line Out Jack";
 
-simple-audio-card,routing =
-     "Headphones", "HPOUT",
-     "Speakers", "SPKOUT",
-     "Line Out Jack", "LINEOUT";
+Thanks
 
-Is it possible to name mixer controls so that no further configuration
-is required when the driver is loaded?
-i.e. pulseaudio automatically detects all these outputs and controls,
-correctly maps them and allows switching between them?
-
-Currently i have this configuration(simplified):
-
-SOC_DOUBLE_S8_TLV("Master Playback Volume", PGA1, ...)
-SOC_DOUBLE("Master Playback Switch", PGA1, ...)
-
-SOC_SINGLE("Speaker Playback Switch", ...)
-SOC_SINGLE("Headphone Playback Switch", ...)
-SOC_SINGLE("Line Out Playback Switch", ...)
-
-SOC_SINGLE_S8_TLV("Mono Output Playback Volume", PGA2...)
-SOC_SINGLE("Mono Output Playback Switch", PGA2....)
-
-With these settings pulseaudio only detects Speaker and Headphone (but
-not Line Out because it wants to find its Jack)
-But as I understand "Master Playback" assumes control for all sound
-streams, so this is probably not correct =\
-
-If it is impossible to name those elements that way so everything is
-autodetected, what should i use then? Write a machine audio driver or
-use alsaucm?
+Takashi Sakamoto

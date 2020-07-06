@@ -2,98 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDE14215061
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jul 2020 01:33:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C070B215214
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jul 2020 07:17:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3816E16B3;
-	Mon,  6 Jul 2020 01:32:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3816E16B3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39AFE1678;
+	Mon,  6 Jul 2020 07:16:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39AFE1678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1593992000;
-	bh=gQmg+aViyd2eG4cg4uTdrGamN+wErKHFsIndgpKkrqY=;
+	s=default; t=1594012651;
+	bh=ZXEss1k0QLecJ5NkXjQPb0yi3ZK2tgfzktCui/n67d8=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FjqnNRlNV0n72YK0JeHm2osuU9HXkembMZtbrmRFHaWcA0FKMLshOeYGBe2IyySpx
-	 FgS9T9fgy7CT88SwtNK5hPaCHJAiEG3Uj1S7fi9uNO8LV/YlMS0lUwo5KPkSHHM7tA
-	 ildYqipZGVRSrpUpbm1nvrSRFUKKOCh9+OXp9avs=
+	b=TVK07CLkyC1UZaYG70EsvUTSpF0TxoxCd0Cat6RlDry5lVmP+lrMSgQLpuJ+ypK+N
+	 6owj4zHZOjWkq5ELdCxunVetsI9kBzh9XhiuYgGrWaV4P6t5pQ6CS+D998eSO5VsJO
+	 2fmv7kUkRlhV+oQtMcmjA+zFyYPJRlntHCFuA030=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C193F800DA;
-	Mon,  6 Jul 2020 01:31:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5AD09F8015C;
+	Mon,  6 Jul 2020 07:15:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F13D8F80216; Mon,  6 Jul 2020 01:31:35 +0200 (CEST)
+ id A0C34F8015A; Mon,  6 Jul 2020 07:15:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
- [IPv6:2607:f8b0:4864:20::643])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
+ [66.111.4.221])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EBCAEF800DA
- for <alsa-devel@alsa-project.org>; Mon,  6 Jul 2020 01:31:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBCAEF800DA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2C4EFF80125
+ for <alsa-devel@alsa-project.org>; Mon,  6 Jul 2020 07:15:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C4EFF80125
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="PPgwtr4v"
-Received: by mail-pl1-x643.google.com with SMTP id o1so8041712plk.1
- for <alsa-devel@alsa-project.org>; Sun, 05 Jul 2020 16:31:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=Kau7zMY1dJtPnAeFjFb1bpRpxzhyG/k07bIDDi1B9Sw=;
- b=PPgwtr4vUclIXDDzRAzx5UNpfygKAAnwFGo8N6m019/7vON7mJvo2wH1tyFl8qwOtV
- KHIG72FyJXp+vEln8Jv+6+QDrjx6mpyRANzqfRjeiFJjJLP67GS0Ri3TBSmJhUpyQkBs
- o31T6l2WnekkjvWdXD22/yS29c9nuKKBzZ/L/RfmqD7zPsPk1BbHnUM73cikcLoFBzE3
- R19e/XplnWi2I27+AM4A5D7XgwpXJsTg4zpbPuWYfOhyIw7KNSyuRmuxkYRkebGB1rnq
- RhGDwE7cRVFsc2H10tf/cgFFyK06+ACzKobIsXuqWmjPduu8wkmo168oGaP5kReeZyTy
- UYQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=Kau7zMY1dJtPnAeFjFb1bpRpxzhyG/k07bIDDi1B9Sw=;
- b=WI5iva/Nh29Q6T+3N7PQJttyMNdOGIuXHbqgyStM0HyGrpqL4qes3OiwWA0dB8lAS+
- BerILImbUIl9UXCKwRR3lksBPasX6GcubZe1u8J1VBeULR325wPdtVRGCy3DTxFfMTWE
- nAHnOtsrTY0usIxm6yviJdE8M5ey/W2YWJrPMR7u+luxSr6l4pHDI9aQQ4HzvoDR+KrD
- 4wlcGwI5JtvPYY/lWCAC7Y/QI54YqcZx2ce52rdbOWEWTs/bPq/RSi/R1Xr0VXXHF7d6
- j9NQsRWcXxWnZ13EkGCPwPMPiwbABax3oncbkQzJ1XPZUVfE+P6Fbv/2DeQKXyHaajqD
- zCgg==
-X-Gm-Message-State: AOAM530tycgLkSr7JGOZyZHpVUn4ClYqA+y++MA877MbViaDADCHHsKR
- snuvH2PwaKbNkLxyPU5aId/GZ3NsMEg=
-X-Google-Smtp-Source: ABdhPJwy+14Q5gXEnZviYclyR6O6yWEYat7xQeoEtaSlw1qYCbD9Ewn8pytUK08Lmb2Gznh3U6KIOQ==
-X-Received: by 2002:a17:902:d68d:: with SMTP id
- v13mr40357626ply.10.1593991884792; 
- Sun, 05 Jul 2020 16:31:24 -0700 (PDT)
-Received: from f3 (ae055068.dynamic.ppp.asahi-net.or.jp. [14.3.55.68])
- by smtp.gmail.com with ESMTPSA id r191sm453948pfr.181.2020.07.05.16.31.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 05 Jul 2020 16:31:24 -0700 (PDT)
-Date: Mon, 6 Jul 2020 08:31:19 +0900
-From: Benjamin Poirier <benjamin.poirier@gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [External] Re: [PATCH v2 2/2] ALSA: hda/realtek - Replace Lenovo
- Thinkpad X1 Carbon 7th quirk
-Message-ID: <20200705233119.GB2439@f3>
-References: <20200703080005.8942-1-benjamin.poirier@gmail.com>
- <20200703080005.8942-3-benjamin.poirier@gmail.com>
- <58a7791c-0db4-a585-c550-3d3e9576191c@perex.cz>
- <SG2PR03MB3324D74B5A539F69DBDDE0F5BD6A0@SG2PR03MB3324.apcprd03.prod.outlook.com>
- <a09194c3-3f2e-823c-e455-b7c5e7d73e28@perex.cz>
+ dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
+ header.b="fUP73GgK"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="jxl0tQ6a"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 1552E5804F4;
+ Mon,  6 Jul 2020 01:15:39 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Mon, 06 Jul 2020 01:15:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm3; bh=b5/fr/3pZ2lvhcvw66DkfYYaQeM
+ z9RO3BLgfQtk5ldY=; b=fUP73GgKQmPif25nwLKLJn7DbQ/yGhZmMobQ0l4+xde
+ vSdwfdxaO3dJSg7YnaoNgf2uXib7AFdUjt5cvf0lt2q7lifC72qTohIwaatsPPLv
+ o1o3MqzH8RWw4sJlN8XdY8GgU/CbYFRlBt4iJ92n5gW8YeJ++1zzqfJ0aPfJnP3Z
+ UZ3aZQ2bNf8ta13KOfS398RQzEmvo7igJSHpdimnASrusYlwXfSRWnrnLMTgxvDY
+ pLNRV11uMYPiDx9sXQr/Rp9NxTkqkWpmhD1Hfe1B05hxMu9F9qRrrjDk96AvfycZ
+ pNK4AiwYOJKVAD8py0d6f39iwdaZ6qaJ/zPw6eIFsQw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=b5/fr/
+ 3pZ2lvhcvw66DkfYYaQeMz9RO3BLgfQtk5ldY=; b=jxl0tQ6abU73Y1kgsMMnD3
+ kU4djisQ5UKvt71Rzy0Tze47aFuQSCpgOUccSVQOL4e2I1hzLJkeBOXrJNtLCSB7
+ 1Lgj1wrMi7IpcFS4Zs6K3VN3ee/V3cN+AGrEIjCjcpjqKDJqmfleLM6F0GR5kBqk
+ kbGoUUyPIWfeHrz6IXtrq4K+BlKbSWoxRq4NzIr3VikAufMk2wkJ1A4OiHIEiWty
+ UUAvJ9gU5YiJhBLcKME1J7lt5pO9fn64JBEtsrQgk8k3y4YKiyCZPfP4+HZQUYVf
+ t8n07X2mdex9NA93MB0Ek4CL41HqzDv815KkG1OwzmSg1kQKFfy6uLYflLtu2oMA
+ ==
+X-ME-Sender: <xms:ebMCX7NuF30_7l9cCHDm2A02Zy7881nM90wq2KRb4N8nAYwgO-RpNQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedruddvgdeludcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggujgesghdtreertddtudenucfhrhhomhepofgrgihimhgv
+ ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
+ gvrhhnpeduvdduhfekkeehgffftefflefgffdtheffudffgeevteffheeuiedvvdejvdfg
+ veenucfkphepledtrdekledrieekrdejieenucevlhhushhtvghrufhiiigvpedtnecurf
+ grrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:ebMCX18Qad9zkuTzMPeq5buYIIF1SZzJSWTiJYg1UO1PSZfL46VqIg>
+ <xmx:ebMCX6SqZfVMtFjqleVO5xe8o7e9k0meWu7aWYhYr83P_ODbUVDS5g>
+ <xmx:ebMCX_trrJ8ajYhr5clpmE_yK02QVfVunS4AwDZSVGvzFNV9mCE7og>
+ <xmx:e7MCX0VOOJC-6PJzjKENxUhT1T-uPIBRDqU7U4vYtkCC2cEMdZKcXw>
+Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
+ [90.89.68.76])
+ by mail.messagingengine.com (Postfix) with ESMTPA id A184230653F0;
+ Mon,  6 Jul 2020 01:15:37 -0400 (EDT)
+Date: Mon, 6 Jul 2020 07:15:35 +0200
+From: Maxime Ripard <maxime@cerno.tech>
+To: =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
+Subject: Re: [PATCH 01/16] ASoC: sun4i-i2s: Add support for H6 I2S
+Message-ID: <20200706051535.bdg7pxnsdo6mzmqq@gilmour.lan>
+References: <20200704113902.336911-1-peron.clem@gmail.com>
+ <20200704113902.336911-2-peron.clem@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="t3nnxkhnwrf5ighs"
 Content-Disposition: inline
-In-Reply-To: <a09194c3-3f2e-823c-e455-b7c5e7d73e28@perex.cz>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, Takashi Iwai <tiwai@suse.com>,
- Hui Wang <hui.wang@canonical.com>, Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Vincent Bernat <vincent@bernat.ch>, Even Brenden <evenbrenden@gmail.com>,
- Mark Pearson <mpearson@lenovo.com>
+In-Reply-To: <20200704113902.336911-2-peron.clem@gmail.com>
+Cc: devicetree@vger.kernel.org, Jernej Skrabec <jernej.skrabec@siol.net>,
+ alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ linux-sunxi@googlegroups.com, Takashi Iwai <tiwai@suse.com>,
+ Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,54 +118,76 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-07-03 14:43 +0200, Jaroslav Kysela wrote:
-> Dne 03. 07. 20 v 12:59 Mark Pearson napsal(a):
-> > 
-> > > -----Original Message-----
-> > > From: Alsa-devel <alsa-devel-bounces@alsa-project.org> On Behalf Of
-> > > Jaroslav Kysela
-> > > Sent: Friday, July 3, 2020 6:34 AM
-> > > 
-> > > Dne 03. 07. 20 v 10:00 Benjamin Poirier napsal(a):
-> > > > As a result of commit d2cd795c4ece ("ALSA: hda - fixup for the bass
-> > > > speaker on Lenovo Carbon X1 7th gen"), the sound output level on my machine, an
-> > > > X1 Carbon 7th gen, was reduced to ~65% of its previous level when playing
-> > > > certain sounds. [1]
-> > > > 
-> > <snip>
-> > > 
-> > > Thank you for this work. Perhaps, Takashi will have some comments to
-> > > improve this quirk.
-> > Seconded - thank you!
-> > 
-> > <snip>
-> > > 
-> > > > It is possible that the X1 Carbon 8th gen would benefit from the same
-> > > > changes but I don't have a device to test that. Fixups are reordered so
-> > > > that the devices for 7th & 8th gen can share the same chain after the first
-> > > > fixup. The resulting chain is:
-> > > 
-> > > 8th gen hardware should be similar, so the new fixup should be applied to this
-> > > hw, too.
-> > > 
-> > We'll do some testing here and confirm the fixes on the X1C7 and X1C8 (and Yoga)
-> > 
-> > Do let me know if there is any details Lenovo can provide that would help
-> 
-> The functionality of this patch is same like the hda-verb command is
-> executed with the current kernel (run as root):
-> 
-> hda-verb /dev/snd/hwC0D0 0x17 SET_CONNECT_SEL 1
-> 
-> You can control tweeters with 'Speaker' volume control.
-> And headphones and bass speakers with the 'Headphone' volume control.
 
-For other X1 users who might stumble upon this discussion; practical
-usage of the hda-verb trick requires a way to apply it automatically[1]
-and changes to the ucm profile[2].
+--t3nnxkhnwrf5ighs
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-[1] https://gist.github.com/hamidzr/dd81e429dc86f4327ded7a2030e7d7d9#gistcomment-3345062
-[2] https://gist.github.com/hamidzr/dd81e429dc86f4327ded7a2030e7d7d9#gistcomment-3335517
+Hi,
 
-I've added more information here:
-https://github.com/gobenji/thinkpad-x1-gen7-sound/tree/c5ebc9166e955934dab03d6c4fb5928cf28496b0#alternative-2---runtime-reconfiguration
+On Sat, Jul 04, 2020 at 01:38:47PM +0200, Cl=E9ment P=E9ron wrote:
+> From: Jernej Skrabec <jernej.skrabec@siol.net>
+>=20
+> H6 I2S is very similar to that in H3, except it supports up to 16
+> channels.
+>=20
+> Signed-off-by: Jernej Skrabec <jernej.skrabec@siol.net>
+> Signed-off-by: Marcus Cooper <codekipper@gmail.com>
+> Signed-off-by: Cl=E9ment P=E9ron <peron.clem@gmail.com>
+> ---
+>  sound/soc/sunxi/sun4i-i2s.c | 227 ++++++++++++++++++++++++++++++++++++
+>  1 file changed, 227 insertions(+)
+>=20
+> diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
+> index d0a8d5810c0a..9690389cb68e 100644
+> --- a/sound/soc/sunxi/sun4i-i2s.c
+> +++ b/sound/soc/sunxi/sun4i-i2s.c
+> @@ -124,6 +124,21 @@
+>  #define SUN8I_I2S_RX_CHAN_SEL_REG	0x54
+>  #define SUN8I_I2S_RX_CHAN_MAP_REG	0x58
+> =20
+> +/* Defines required for sun50i-h6 support */
+> +#define SUN50I_H6_I2S_TX_CHAN_SEL_OFFSET_MASK	GENMASK(21, 20)
+> +#define SUN50I_H6_I2S_TX_CHAN_SEL_OFFSET(offset)	((offset) << 20)
+> +#define SUN50I_H6_I2S_TX_CHAN_SEL_MASK		GENMASK(19, 16)
+> +#define SUN50I_H6_I2S_TX_CHAN_SEL(chan)		((chan - 1) << 16)
+> +#define SUN50I_H6_I2S_TX_CHAN_EN_MASK		GENMASK(15, 0)
+> +#define SUN50I_H6_I2S_TX_CHAN_EN(num_chan)	(((1 << num_chan) - 1))
+> +
+> +#define SUN50I_H6_I2S_TX_CHAN_MAP0_REG	0x44
+> +#define SUN50I_H6_I2S_TX_CHAN_MAP1_REG	0x48
+> +
+> +#define SUN50I_H6_I2S_RX_CHAN_SEL_REG	0x64
+> +#define SUN50I_H6_I2S_RX_CHAN_MAP0_REG	0x68
+> +#define SUN50I_H6_I2S_RX_CHAN_MAP1_REG	0x6C
+> +
+>  struct sun4i_i2s;
+> =20
+>  /**
+> @@ -466,6 +481,65 @@ static int sun8i_i2s_set_chan_cfg(const struct sun4i=
+_i2s *i2s,
+>  	return 0;
+>  }
+> =20
+> +static int sun50i_i2s_set_chan_cfg(const struct sun4i_i2s *i2s,
+> +				   const struct snd_pcm_hw_params *params)
+
+We should have sun50i_h6 as prefix. The A64 is also part of the sun50i
+family and supported through the sun8i callbacks, so it's pretty
+confusing if you don't have the soc name in there.
+
+Maxime
+
+--t3nnxkhnwrf5ighs
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXwKzdwAKCRDj7w1vZxhR
+xfxGAQCshGGwznq/CeE0k77Y+AnV9plA1fYToH5o5w6MMZvDEQD/alZa28wl4rhA
+GY2AfRBbwU3iFQayelpzXAsJMzLoPAo=
+=29OL
+-----END PGP SIGNATURE-----
+
+--t3nnxkhnwrf5ighs--

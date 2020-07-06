@@ -2,92 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47829215A85
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jul 2020 17:18:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8647215AF9
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jul 2020 17:43:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DAF2E1665;
-	Mon,  6 Jul 2020 17:17:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAF2E1665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 92A9C1665;
+	Mon,  6 Jul 2020 17:42:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92A9C1665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594048705;
-	bh=QNWUBlpL7U3ZSiH1XRVBpy6VXJLUfJfXU4dpyjhRj1c=;
+	s=default; t=1594050226;
+	bh=jGPqGlgX603MiQSpwfA/296KcleJQZKsn11rhAb0N/U=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZHQ2hoyuIub9boRlAMLpLMD+4zfBI8NA5G4Mm33WH2JIITTVb4Y57kbPVw6XLkf4J
-	 JG7gAeoefuWWOUZVj006OtU/onBdOA3VCth/9EZQMKQGiSX/loLt5tm1e1AcA7QE74
-	 NcUb1xZKVrS6etylgALY2F88gF1COSodADBwlq3k=
+	b=LPa0L65NfwagbVzEsPM3GzrxIk8th6kzm15zJeW/CC405jIDE+s0OwzERFddQ2rzk
+	 lEKHJ9XRPe5NFvvfS7SYR8Lrg8+8gyK0bAhXEYiOD1Z/sAGWCgBvi7ULl1QYfVg6qj
+	 n/ziTReTKEQJInNFZPgLidn1WfNqMYUYapdAgyl8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1C2BFF8015C;
-	Mon,  6 Jul 2020 17:16:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B11E6F8015C;
+	Mon,  6 Jul 2020 17:42:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D5CCEF8015A; Mon,  6 Jul 2020 17:16:42 +0200 (CEST)
+ id 5917EF8015A; Mon,  6 Jul 2020 17:42:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
- [216.228.121.143])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62051F80125
- for <alsa-devel@alsa-project.org>; Mon,  6 Jul 2020 17:16:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62051F80125
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="d6OFUJ0p"
-Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5f033fe70000>; Mon, 06 Jul 2020 08:14:47 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate102.nvidia.com (PGP Universal service);
- Mon, 06 Jul 2020 08:16:32 -0700
-X-PGP-Universal: processed;
- by hqpgpgate102.nvidia.com on Mon, 06 Jul 2020 08:16:32 -0700
-Received: from [10.26.72.33] (172.20.13.39) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 6 Jul
- 2020 15:16:20 +0000
-Subject: Re: [PATCH 7/8] ASoC: tegra: tegra20_das: remove always-true
- comparison
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- <alsa-devel@alsa-project.org>
-References: <20200702165901.164100-1-pierre-louis.bossart@linux.intel.com>
- <20200702165901.164100-8-pierre-louis.bossart@linux.intel.com>
-From: Jon Hunter <jonathanh@nvidia.com>
-Message-ID: <1a7c7025-7689-54a0-dbc0-00b5c1fcd0f1@nvidia.com>
-Date: Mon, 6 Jul 2020 16:16:18 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9AE57F80125
+ for <alsa-devel@alsa-project.org>; Mon,  6 Jul 2020 17:41:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AE57F80125
+IronPort-SDR: kJCTGzD1b1pJlkORVrUkGF411iEvk7o35jaKu5XMcqE8PwjS+E6uBJObqYmY0Q3u94Xr+Goao+
+ 8hH/i8w065lg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9673"; a="145539850"
+X-IronPort-AV: E=Sophos;i="5.75,320,1589266800"; d="scan'208";a="145539850"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2020 08:41:50 -0700
+IronPort-SDR: AS0HeRsqQZt0NvwtBpVT084SnSxbfpTRzLF4kAisPpb/x+Zo9438wtNF1Cuj6SmOBZvJiBxi/V
+ RbpnIUrH4/lg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.75,320,1589266800"; d="scan'208";a="313997880"
+Received: from aislam-mobl1.amr.corp.intel.com ([10.212.167.133])
+ by orsmga008.jf.intel.com with ESMTP; 06 Jul 2020 08:41:47 -0700
+Subject: Re: [PATCH v4] ASoC: Intel: kbl_rt5663_rt5514_max98927: Fix
+ kabylake_ssp_fixup function
+To: Lukasz Majczak <lma@semihalf.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Harsha Priya <harshapriya.n@intel.com>
+References: <20200521162518.1809995-1-lma@semihalf.com>
+ <20200703121650.547944-1-lma@semihalf.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <5dfc3678-0f12-7823-2571-ab0dff250d15@linux.intel.com>
+Date: Mon, 6 Jul 2020 10:41:47 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.8.1
 MIME-Version: 1.0
-In-Reply-To: <20200702165901.164100-8-pierre-louis.bossart@linux.intel.com>
-X-Originating-IP: [172.20.13.39]
-X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
- HQMAIL107.nvidia.com (172.20.187.13)
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <20200703121650.547944-1-lma@semihalf.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1594048487; bh=S3qOsW4jy3ZymnO+RQ9II2XOQKKoroUl5+GuXsnukfU=;
- h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
- User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
- X-ClientProxiedBy:Content-Type:Content-Language:
- Content-Transfer-Encoding;
- b=d6OFUJ0pQtg6JQNVFCgkn/XX5QvOjZQA7YGkzOh5jeFI1EEr9d+9uXjmZBMHygc7i
- +fMiz5QaZP2St9MCr/wjAiDsGA3nMwV9kXM12bX28umi38ousxAkAwYFukFs2+qr9m
- DCXLZZuViVo6JARF8034PM2zUKb1ihpLn+de3tmDU2jrBRyOr0vEwRg86NdPauItf4
- lMLsoErnsyCo6EWjSVqqgECpya2Upq1awjOuxQRTSbpVVcDhRZ3bb7a3UXdcX1futz
- EbIQZhihEllFEKDsBgXLOX++Y4glQJTFP9jMsvK+dVkDw0Ou1BJJiDy1U19xd9q99L
- 6MUUXS/P0jwUQ==
-Cc: tiwai@suse.de, open list <linux-kernel@vger.kernel.org>,
- YueHaibing <yuehaibing@huawei.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, broonie@kernel.org,
- Thierry Reding <thierry.reding@gmail.com>,
- "open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>
+Cc: alsa-devel@alsa-project.org, Radoslaw Biernacki <rad@semihalf.com>,
+ Ross Zwisler <zwisler@google.com>, linux-kernel@vger.kernel.org,
+ Sathya Prakash <sathya.prakash.m.r@intel.com>, Bob Brandt <brndt@google.com>,
+ Marcin Wojtas <mw@semihalf.com>, Alex Levin <levinale@chromium.org>,
+ Gopal Vamshi Krishna <vamshi.krishna.gopal@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,42 +88,91 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 7/3/20 7:16 AM, Lukasz Majczak wrote:
+> Fix kabylake_ssp_fixup function to distinguish codecs DAIs by names,
+> as current approach, leads to crash while trying to get snd_soc_dpcm with
+> container_of() macro in kabylake_ssp_fixup().
+> The crash call path looks as below:
+> soc_pcm_hw_params()
+> snd_soc_dai_hw_params(codec_dai, substream, &codec_params);
+> rtd->dai_link->be_hw_params_fixup(rtd, params)
+> kabylake_ssp_fixup()
+> In this case, codec_params is just a copy of an internal structure and is
+> not embedded into struct snd_soc_dpcm thus we cannot use
+> container_of() on it.
+> 
+> v1 -> v2:
+> - Extract dmic from SSP0 as every BE should have own fixup function.
+> v2 -> v3:
+> - Restore naming in the dapm route table to not confuse with other
+> drivers
+> - Fixed indentations
+> v3 -> v4:
+> - Updated code and commit description according to
+> solution proposed by Harsha
 
-On 02/07/2020 17:59, Pierre-Louis Bossart wrote:
-> Fix W=1 warning:
+Looks good Lukasz but you need to move the information on changes below 
+the --- marker (~4 lines below).
+
 > 
-> sound/soc//tegra/tegra20_das.c:101:11: warning:
-> comparison of unsigned expression >= 0 is always true [-Wtype-limits]
->   101 |  if ((reg >= TEGRA20_DAS_DAP_CTRL_SEL) &&
->       |           ^~
-> 
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Signed-off-by: Lukasz Majczak <lma@semihalf.com>
+> Signed-off-by: Harsha Priya <harshapriya.n@intel.com>
 > ---
->  sound/soc/tegra/tegra20_das.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
+>   .../intel/boards/kbl_rt5663_rt5514_max98927.c | 28 ++++++++-----------
+>   1 file changed, 12 insertions(+), 16 deletions(-)
 > 
-> diff --git a/sound/soc/tegra/tegra20_das.c b/sound/soc/tegra/tegra20_das.c
-> index 1070b2710d5e..79dba878d854 100644
-> --- a/sound/soc/tegra/tegra20_das.c
-> +++ b/sound/soc/tegra/tegra20_das.c
-> @@ -98,8 +98,7 @@ EXPORT_SYMBOL_GPL(tegra20_das_connect_dac_to_dap);
->  
->  static bool tegra20_das_wr_rd_reg(struct device *dev, unsigned int reg)
->  {
-> -	if ((reg >= TEGRA20_DAS_DAP_CTRL_SEL) &&
-> -	    (reg <= LAST_REG(DAP_CTRL_SEL)))
-> +	if (reg <= LAST_REG(DAP_CTRL_SEL))
->  		return true;
->  	if ((reg >= TEGRA20_DAS_DAC_INPUT_DATA_CLK_SEL) &&
->  	    (reg <= LAST_REG(DAC_INPUT_DATA_CLK_SEL)))
+> diff --git a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+> index b34cf6cf11395..df454de40739a 100644
+> --- a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+> +++ b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+> @@ -333,36 +333,32 @@ static int kabylake_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
+>   {
+>   	struct snd_interval *rate = hw_param_interval(params,
+>   			SNDRV_PCM_HW_PARAM_RATE);
+> -	struct snd_interval *chan = hw_param_interval(params,
+> +	struct snd_interval *channels = hw_param_interval(params,
+>   			SNDRV_PCM_HW_PARAM_CHANNELS);
+>   	struct snd_mask *fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
+> -	struct snd_soc_dpcm *dpcm = container_of(
+> -			params, struct snd_soc_dpcm, hw_params);
+> -	struct snd_soc_dai_link *fe_dai_link = dpcm->fe->dai_link;
+> -	struct snd_soc_dai_link *be_dai_link = dpcm->be->dai_link;
+> +	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+>   
+>   	/*
+>   	 * The ADSP will convert the FE rate to 48k, stereo, 24 bit
+>   	 */
+> -	if (!strcmp(fe_dai_link->name, "Kbl Audio Port") ||
+> -	    !strcmp(fe_dai_link->name, "Kbl Audio Headset Playback") ||
+> -	    !strcmp(fe_dai_link->name, "Kbl Audio Capture Port")) {
+> +
+> +	if (!strcmp(codec_dai->name, KBL_REALTEK_DMIC_CODEC_DAI)) {
+> +		if (params_channels(params) == 2 ||
+> +			DMIC_CH(dmic_constraints) == 2)
+> +			channels->min = channels->max = 2;
+> +		else
+> +			channels->min = channels->max = 4;
+> +	} else {
+>   		rate->min = rate->max = 48000;
+> -		chan->min = chan->max = 2;
+> +		channels->min = channels->max = 2;
+>   		snd_mask_none(fmt);
+>   		snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S24_LE);
+> -	} else if (!strcmp(fe_dai_link->name, "Kbl Audio DMIC cap")) {
+> -		if (params_channels(params) == 2 ||
+> -				DMIC_CH(dmic_constraints) == 2)
+> -			chan->min = chan->max = 2;
+> -		else
+> -			chan->min = chan->max = 4;
+>   	}
+>   	/*
+>   	 * The speaker on the SSP0 supports S16_LE and not S24_LE.
+>   	 * thus changing the mask here
+>   	 */
+> -	if (!strcmp(be_dai_link->name, "SSP0-Codec"))
+> +	if (!strcmp(codec_dai->name, KBL_MAXIM_CODEC_DAI))
+>   		snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S16_LE);
+>   
+>   	return 0;
 > 
 
-Thanks!
-
-Reviewed-by: Jon Hunter <jonathanh@nvidia.com>
-
-Cheers
-Jon
-
--- 
-nvpublic

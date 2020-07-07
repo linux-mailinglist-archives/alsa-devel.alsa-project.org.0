@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2D5A216F5D
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 16:52:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9464216F58
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 16:51:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59D6C820;
-	Tue,  7 Jul 2020 16:52:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59D6C820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A2F81660;
+	Tue,  7 Jul 2020 16:50:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A2F81660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594133574;
-	bh=eIjc6K4C6AG0CP+nO7f716vsFKUAonS1/pXfGr1bI5E=;
+	s=default; t=1594133505;
+	bh=0oTipXMewJaCzbJ8wtWE1Ge+lrrvI+OTYhKQy+wqT8I=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tYeCPi85m19+wV+GbFES/P5p3qdXrZ0Zk332OMrFyLSHBCI7j+TBWp06CAMky7EV3
-	 M4Zppa29LKCJSQyIctZaXecWedz68k0eq4YOUFxAQHOQTGbF3ENeXusEsH2qYuj9KV
-	 hSi9znzQy3R+mN1siGRhHxZ6Ylyyv52kvmudmT6M=
+	b=NVE+pTmjJhj1/1ad308QQB93LpaKv2kMNliXD7aUvHHOB7cyeTGcgWjD1d+QMwP2M
+	 YhGlgVYWLW3oSPNFy41Ar0Chz2PDyJx6NsZ8VjBibhdGwHrNZDrTwfkQI8yECHgrm6
+	 x7iCR5tuj5IfB3GHLudD1julJotADob86IAnj6pk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14E46F80393;
-	Tue,  7 Jul 2020 16:38:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4B16F80384;
+	Tue,  7 Jul 2020 16:38:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0195DF80361; Tue,  7 Jul 2020 16:38:31 +0200 (CEST)
+ id 08AA5F80360; Tue,  7 Jul 2020 16:38:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,59 +35,60 @@ Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
  [IPv6:2a00:1450:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F0FA0F802F8
- for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 16:38:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0FA0F802F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8D487F80329
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 16:38:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D487F80329
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="feeerbFq"
-Received: by mail-wr1-x444.google.com with SMTP id z13so45410291wrw.5
- for <alsa-devel@alsa-project.org>; Tue, 07 Jul 2020 07:38:15 -0700 (PDT)
+ header.b="C+DvgwtI"
+Received: by mail-wr1-x444.google.com with SMTP id o11so45442114wrv.9
+ for <alsa-devel@alsa-project.org>; Tue, 07 Jul 2020 07:38:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=GMUYidfrIwBoQwr04cGElMGH9ZhgIrwlDOw4is85pEg=;
- b=feeerbFqAir1V0Q6gG7sN9/sctNzOhjRzVnjuEbvAbmdsIlIDD56silJ+KDXeR/Jq9
- 8jR1hCIT+WFN9UFvLDuUyUJVDogu1pHStNdyZIOThNEwp5zhx10W+YtTfYWblWhPARnL
- vxcY8UD8Q+wOuvAsctslvZW2g4yufz+FsjXe5lz5AoHEfe0v6Vl31z17ULBKIdl5VnHf
- NFgf6ZG9C6kQHLGTFIYhptX5/o/IQS3yshXcvSC0a+FjA1CKqyVJw4TBbqHn6BKNK8mC
- Nc9Jyj9vUMD7j4Z7Ve633OrgtQAlOJsmxJywmtvnOXIOpMCZR77AZYcVWKaZHTlUOxm+
- Iqbw==
+ bh=wlcleqYJY5jQ1OZcMa4GgQUjEFsprvthMn+zX7CdCH0=;
+ b=C+DvgwtImCJiiCVNxFwI9tT6IRQA5rXY9b0UMNq/qhCDZJquNaMLx1Q027QICk1xw6
+ GOcMf0ZeJzxE16mOIP1eh8YHcFNXeCt6BMeMYGeSxEzmXLFRTkUS20lyaPihXAlgOo7n
+ 3wNkADF2GRmNbauV/DltdxYgl0GoSQPwvkmZyKXUOpKKk3ipTlo7/NkL4p8cA6Z6ECdJ
+ ZR4HMK2QM2YJBpGt8wfV72UC6VNVFCCY4ahwb+tPnvIGzY3H8OnSZTNZYWvHp9e/gjvg
+ cX0wPlpkVMbw3sBrQkauQHX6xvWLsYdN2dMTjhVYzzzbh/g01qqPoVl3KyHSgRAuL6R8
+ 1IXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=GMUYidfrIwBoQwr04cGElMGH9ZhgIrwlDOw4is85pEg=;
- b=tluDKTHoehUeC72TBqOEJIUGC6iYCo0dcBKOutzRAxo6sWnaSoI0YuJqBtLiF9tY4I
- QD1aH/eZZFoPOcZ5qxzcpYI4CQGfVzkTjj9YLE7RsMXbB3IdRJY6ag3ZSeD9xHp+XDTO
- dp5GybhEBRcfgFn2yJ7NjPWc2hSvbfI/fotkUkH7e7mRK52D6IBiJwmh9n8iNCa6WNLU
- X7t77kgOoWAyTHsP1HCtoyVXz3XaMaNTPm0BMRNq3Q49A3GgrriaTjIZlcshmJ5QXHiA
- 3akxFDdHIVDQ04sDWubfuLvXdEyVWo7yIKjixCWPjDfxVr8RwFFgY9yr7d2HiS4+ObJF
- VY6w==
-X-Gm-Message-State: AOAM533wH5uAgOnN92In28KiK5Qp6agl8wKIpKW2HftENsJzBfZ0mxqu
- 2+LrZl4UzH1GvurnEqdOmlR2Cw==
-X-Google-Smtp-Source: ABdhPJwecod/4foCMnzh1J6sMuZQ6V/g4S44h0ZZWS70jZc4P0QOoxlkw+3CGKD1KX4PYHqecVMChg==
-X-Received: by 2002:adf:8444:: with SMTP id 62mr51773190wrf.278.1594132695426; 
- Tue, 07 Jul 2020 07:38:15 -0700 (PDT)
+ bh=wlcleqYJY5jQ1OZcMa4GgQUjEFsprvthMn+zX7CdCH0=;
+ b=P/IeS/6uP35pmM7Q6n9IA51325WhVpfNWVKESp7zPqd4+rAZf9bCfctED3GdQQgjwv
+ NnjMMSNUuNeNApXmBt6vMLCGh7iTCan6NsxW2hf3l/rlwIpSv8m4ZfyukZiwuQtBe8G1
+ bKqA080nXygVA9QL3X2CiUONC6qhIPn+lW/Fn6Dr+hnVqmej82GNEfgjVj+c4lLss+MI
+ UH1csUZR6VveXfdxN9Y0FU5WyOvHniS+4D55MVF2dUIWPz3ih+tm1ckYVUe2QVag3G+E
+ JfDZA9ejIgWtSvI6yeE8P5MfYTAGuuTpNXC//tS3K+CcdykHlx37c6brSRc+Lo4Qt88n
+ +i/w==
+X-Gm-Message-State: AOAM533DSCbQfKtNHY+KqI0IcsB0+FCplsKFxl/jfEAbXFKdsD76iPM8
+ /w1g6ITB/FcEgmFjfUS24A0aCA==
+X-Google-Smtp-Source: ABdhPJwKOPKcRllwzqIDBY+TgIWIRPSnExaAAvyTfdJWtFOiySyUOdAS4Vf5gq6RLSb6KEqnudtfkg==
+X-Received: by 2002:adf:f10a:: with SMTP id r10mr23439173wro.406.1594132697074; 
+ Tue, 07 Jul 2020 07:38:17 -0700 (PDT)
 Received: from localhost.localdomain ([2.27.35.206])
- by smtp.gmail.com with ESMTPSA id y16sm1276131wro.71.2020.07.07.07.38.14
+ by smtp.gmail.com with ESMTPSA id y16sm1276131wro.71.2020.07.07.07.38.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2020 07:38:14 -0700 (PDT)
+ Tue, 07 Jul 2020 07:38:16 -0700 (PDT)
 From: Lee Jones <lee.jones@linaro.org>
 To: broonie@kernel.org, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com
-Subject: [PATCH v2 20/28] ASoC: sti: uniperif: Mark 'uni_tdm_hw' as
- __maybe_unused
-Date: Tue,  7 Jul 2020 15:37:34 +0100
-Message-Id: <20200707143742.2959960-21-lee.jones@linaro.org>
+Subject: [PATCH v2 21/28] ASoC: ti: omap-mcbsp-st: Remove set,
+ but unused variable 'w'
+Date: Tue,  7 Jul 2020 15:37:35 +0100
+Message-Id: <20200707143742.2959960-22-lee.jones@linaro.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200707143742.2959960-1-lee.jones@linaro.org>
 References: <20200707143742.2959960-1-lee.jones@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Cc: Arnaud Pouliquen <arnaud.pouliquen@st.com>, alsa-devel@alsa-project.org,
- Lee Jones <lee.jones@linaro.org>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
+Cc: alsa-devel@alsa-project.org, Samuel Ortiz <samuel.ortiz@nokia.com>,
+ linux-kernel@vger.kernel.org, Peter Ujfalusi <peter.ujfalusi@ti.com>,
+ linux-arm-kernel@lists.infradead.org, linux-omap@vger.kernel.org,
+ Lee Jones <lee.jones@linaro.org>, Jarkko Nikula <jarkko.nikula@bitmer.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,36 +104,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Only 2 of the 3 source files which include this headerfile actually
-reference 'uni_tdm_hw'.  The other source file 'sti_uniperif.c' sees
-as it as being unused.  Mark it as __maybe_unused to show that this
-behaviour is not only known, it's intentional.
+Looks like 'w' has remained unchecked since the driver's inception.
 
 Fixes the following W=1 kernel build warning(s):
 
- sound/soc/sti/uniperif.h:1351:38: warning: ‘uni_tdm_hw’ defined but not used [-Wunused-const-variable=]
- 1351 | static const struct snd_pcm_hardware uni_tdm_hw = {
- | ^~~~~~~~~~
+ sound/soc/ti/omap-mcbsp-st.c: In function ‘omap_mcbsp_st_chgain’:
+ sound/soc/ti/omap-mcbsp-st.c:145:6: warning: variable ‘w’ set but not used [-Wunused-but-set-variable]
 
-Cc: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+Peter suggested that the whole read can be removed, so that's
+been done too.
+
+Cc: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Cc: Jarkko Nikula <jarkko.nikula@bitmer.com>
+Cc: Samuel Ortiz <samuel.ortiz@nokia.com>
+Cc: linux-omap@vger.kernel.org
 Signed-off-by: Lee Jones <lee.jones@linaro.org>
 ---
- sound/soc/sti/uniperif.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/ti/omap-mcbsp-st.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/sound/soc/sti/uniperif.h b/sound/soc/sti/uniperif.h
-index 2dc2da5d458bd..e22d045d5cd99 100644
---- a/sound/soc/sti/uniperif.h
-+++ b/sound/soc/sti/uniperif.h
-@@ -1348,7 +1348,7 @@ struct sti_uniperiph_data {
- 	struct sti_uniperiph_dai dai_data;
- };
+diff --git a/sound/soc/ti/omap-mcbsp-st.c b/sound/soc/ti/omap-mcbsp-st.c
+index 5a32b54bbf3bb..0bc7d26c660aa 100644
+--- a/sound/soc/ti/omap-mcbsp-st.c
++++ b/sound/soc/ti/omap-mcbsp-st.c
+@@ -142,11 +142,8 @@ static void omap_mcbsp_st_fir_write(struct omap_mcbsp *mcbsp, s16 *fir)
  
--static const struct snd_pcm_hardware uni_tdm_hw = {
-+static const struct snd_pcm_hardware __maybe_unused uni_tdm_hw = {
- 	.info = SNDRV_PCM_INFO_INTERLEAVED | SNDRV_PCM_INFO_BLOCK_TRANSFER |
- 		SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_MMAP |
- 		SNDRV_PCM_INFO_MMAP_VALID,
+ static void omap_mcbsp_st_chgain(struct omap_mcbsp *mcbsp)
+ {
+-	u16 w;
+ 	struct omap_mcbsp_st_data *st_data = mcbsp->st_data;
+ 
+-	w = MCBSP_ST_READ(mcbsp, SSELCR);
+-
+ 	MCBSP_ST_WRITE(mcbsp, SGAINCR, ST_CH0GAIN(st_data->ch0gain) |
+ 		       ST_CH1GAIN(st_data->ch1gain));
+ }
 -- 
 2.25.1
 

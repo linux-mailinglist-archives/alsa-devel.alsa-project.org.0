@@ -2,128 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C074216A81
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 12:38:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31D03216AF0
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 13:01:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B9BB16AE;
-	Tue,  7 Jul 2020 12:38:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B9BB16AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id A89E6167C;
+	Tue,  7 Jul 2020 13:00:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A89E6167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594118331;
-	bh=jYhVSdvabcIssc/68iywPFxV9ulAQmlZ9NX1lys1dpI=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	s=default; t=1594119670;
+	bh=HgP0jte1uEBp0/EldBW2mmfa/xaCi6WXeXmXNLmIHk0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Fic936DqgsNWhc5JY7WTL4gD8u7sPBpGRYq5yUfFQ9E2WUqfI5z/KEqk4EFzEBPpz
-	 q9/l3uPJgKbEqavFzofNpGHtsEAE3qLT+qNuBmL/bqJo4JO3Q3Gt9nOoiD4zAvoD7W
-	 pf41ENe2VH7d3vrf5PNtPMmvqNkm8LntaEZVOv40=
+	b=YKKglqjgphK289FEnpW0KIR/1PFn/VG3gyOGL56NRrQjc4oRjdo4+Ja6z4KXxWcuX
+	 3FfdQ3rbVN1dNl8m35kRVe91qgMMHx4VOa8i3u/X8oxWxFrMRp2hAb5Hk9szAZmQ7C
+	 0vpayfU7hQfRs2q+YBjtLWU2ONWTmhQLlyITuOe0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89AFDF8027C;
-	Tue,  7 Jul 2020 12:37:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1FD2F80257;
+	Tue,  7 Jul 2020 12:59:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A8B61F8027C; Tue,  7 Jul 2020 12:37:03 +0200 (CEST)
+ id F27A6F800D0; Tue,  7 Jul 2020 12:59:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
+X-Spam-Level: 
 X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FORGED_SPF_HELO,MSGID_FROM_MTA_HEADER,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2083.outbound.protection.outlook.com [40.107.243.83])
+ SPF_HELO_NONE,SPF_SOFTFAIL,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from conssluserg-05.nifty.com (conssluserg-05.nifty.com
+ [210.131.2.90])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4EF04F8011F
- for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 12:36:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4EF04F8011F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6274CF800D0
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 12:59:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6274CF800D0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
- header.i=@amdcloud.onmicrosoft.com header.b="k+a11Y9N"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TdDmBjO9El0pbbzqjBGnYfHoxZW5gS+Ddwjf5Ce8oBfyZbrwU/N3mbmCa8wSNImoqoAFSN/bfygk6MFVHOuOQ1l/SIbswU/zd+GMVft3TIvVqj+tXLRUeHAtJwJuaQdRTuqE2OoAWlRkH7oydohZMVz8YPANpYmEJCKIXp740/eo85c3O8N8n4GbkpmeyjHRsO2rwyyUqHTBmpqhZ6uxNiO/MNP+S/bEQI576MmD1OltqHMbPg9EpXoesPM7RwCqQbkCTg+GmZmyDehShm4vm4t7xCm+iPbBzZXX+8CHFWE+ENf/7ZzXsPFwzDgdfdXl8m7KhQFbXhIDoeeOnOPTLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FhPYv/YUtRWTZ9nxMkm5KNoRROhH9jL0P6S2qL64FhE=;
- b=fhRdtV9z951mAfH4vowh3X1HYlAYK+7Hg+A1+tUHL16Mfbt1azAq91G4PsRwYtVpqwkHBTwT/vQVCk9kqENrshBZDHyy4/eDQWf/VlDZYBCL22bkIIlhQ3c5OHkg6o0Mvyw06Sek8Lj8RvCJkiWwLNs8tmducoBYNCJ/BElNuLF1mFVhG7ku/3wy/Y02s2usa2/Dsl1Dc8c8ocX58ci3yikzLOdF5z5BSj+jnA2qv0HVdYXJ6siRg3JR2vYUNfy3BXSUNpTDJXUIREqlCcK9EwvgYunGmKTXPbCfAl5hDorhsYk0Y541AdgKUtLAWuXw7YOn3VrrBqCsiV1jxgMx4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FhPYv/YUtRWTZ9nxMkm5KNoRROhH9jL0P6S2qL64FhE=;
- b=k+a11Y9NVdms6YzZ8/Hi6yc9bP27kf6I4n/vvE1kxTjdOotWaqsXj3C2nGP6+Bv0R+SRFmDWq4lIJe8Eu6DU9+ikfjJm4YU8L/tbrWU0keLRmliObu8SX2ZtoWc/HK1Zrnk+ydyj6SYV0xcg31JmvYA9Zv/IpUTZSmZ32f/0m08=
-Authentication-Results: canb.auug.org.au; dkim=none (message not signed)
- header.d=none;canb.auug.org.au; dmarc=none action=none header.from=amd.com;
-Received: from CY4PR1201MB0151.namprd12.prod.outlook.com
- (2603:10b6:910:1e::14) by CY4PR1201MB0168.namprd12.prod.outlook.com
- (2603:10b6:910:1d::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3153.24; Tue, 7 Jul
- 2020 10:36:50 +0000
-Received: from CY4PR1201MB0151.namprd12.prod.outlook.com
- ([fe80::6d1b:3185:6bd7:31dc]) by CY4PR1201MB0151.namprd12.prod.outlook.com
- ([fe80::6d1b:3185:6bd7:31dc%7]) with mapi id 15.20.3153.029; Tue, 7 Jul 2020
- 10:36:50 +0000
-Subject: Re: mmotm 2020-07-06-18-53 uploaded
- (sound/soc/amd/renoir/rn-pci-acp3x.c:)
-To: Randy Dunlap <rdunlap@infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>, broonie@kernel.org,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, linux-next@vger.kernel.org, mhocko@suse.cz,
- moderated for non-subscribers <alsa-devel@alsa-project.org>,
- sfr@canb.auug.org.au
-References: <20200707015344.U9ep-OO5Z%akpm@linux-foundation.org>
- <b54188c7-47b4-b7e4-2f74-6394320df5df@infradead.org>
- <e19cd74c-df3d-9589-1fc1-55980a8d289b@amd.com>
- <2af9510e-b3fd-97d8-c2d4-1c42943180ee@infradead.org>
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-Message-ID: <ebe0bcc3-48be-3037-1670-4d83f0f6e498@amd.com>
-Date: Tue, 7 Jul 2020 16:20:48 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
-In-Reply-To: <2af9510e-b3fd-97d8-c2d4-1c42943180ee@infradead.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BM1PR01CA0149.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:b00:68::19) To CY4PR1201MB0151.namprd12.prod.outlook.com
- (2603:10b6:910:1e::14)
+ dkim=pass (2048-bit key) header.d=nifty.com header.i=@nifty.com
+ header.b="dLgZqZOb"
+Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com
+ [209.85.217.52]) (authenticated)
+ by conssluserg-05.nifty.com with ESMTP id 067Awmw7012540
+ for <alsa-devel@alsa-project.org>; Tue, 7 Jul 2020 19:58:49 +0900
+DKIM-Filter: OpenDKIM Filter v2.10.3 conssluserg-05.nifty.com 067Awmw7012540
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nifty.com;
+ s=dec2015msa; t=1594119529;
+ bh=Q7blUsQ9JbN98/2v6PmnTU26WzCTrui/OAXxYYFuhio=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=dLgZqZOb+1s/K5aLOfNDqded0K4JdophwcRkFTTL4Po8yMixKmG+ezypY5cDyonf4
+ 2baAVDsHGf9tXnEbJkwAkUxwBjhzElyQYq6jF71BODCtrwzGkQDlhZK+zV5aJ6muWv
+ Otb0oPc/nL3cgndiZ0BQSAr/9aeG1Sy5JYzIMpNB/HffKJxL+r+fxAQ4oEfCYwL92T
+ LG3UHUJiJIPz3P1f9B/s6n/RGQOyFtSzHitUaiR2rwMA/uy6ZTvGI/rJiRmt5c/B6N
+ KHt92Tf5QfGQkq4D9JeqidL8NYp96aajg4loIh+m7/AT8B96bZbBSJemFzbtDhBEqo
+ ZmPN9LuYqhm5Q==
+X-Nifty-SrcIP: [209.85.217.52]
+Received: by mail-vs1-f52.google.com with SMTP id 64so16026723vsl.3
+ for <alsa-devel@alsa-project.org>; Tue, 07 Jul 2020 03:58:49 -0700 (PDT)
+X-Gm-Message-State: AOAM5330A+fadRr2GtNwfqJtsuJOjg083zBwgOaIg25ehgGLr5FJ7bsb
+ UqNE3wZgwQOtPtVtyrGEHaiIM4VB4P7gkr41Sk8=
+X-Google-Smtp-Source: ABdhPJx5C6TC1CTC3ZI4pLzUX4bW+vK98tg3hyw8GkksN3pcaONQiKgWX4RJM4Cxt/R3M5Kza1brZQUcvvb5lnQhBNU=
+X-Received: by 2002:a67:6c84:: with SMTP id
+ h126mr35660734vsc.181.1594119527826; 
+ Tue, 07 Jul 2020 03:58:47 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [10.129.8.176] (165.204.159.251) by
- BM1PR01CA0149.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:68::19) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3174.20 via Frontend Transport; Tue, 7 Jul 2020 10:36:46 +0000
-X-Originating-IP: [165.204.159.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 7a6d91f5-59e2-416c-ca10-08d82261a807
-X-MS-TrafficTypeDiagnostic: CY4PR1201MB0168:
-X-Microsoft-Antispam-PRVS: <CY4PR1201MB0168440D456878AF4ED4DA2F97660@CY4PR1201MB0168.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
-X-Forefront-PRVS: 0457F11EAF
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hEf8wMquT3NXa3LbqoY2UJ1lmRuhQKpO1uyrvjaQk3/QwAdHURyGyVNzWovcPENjCd6u0tT2jr3Q2cp4uTbFXuhRaYrnvTn5dtiQdRRCFfYBk3uiT3aVn4V9x7E1+SuWVPkAfb/P1XSXH5nht86Hx1fLd+rYigbUvnCRorc/o0fS02GQRWJoJY+Z3d7t6JINH3TJddWsKunyRa1ti4cvp0SJ86dx/4odTBkT4jbFs00dgjFOOgpmvtoQK/H5JI8/abcTSOoHcfHuIAxoBdYYOdkKOMrh5nXUIjQBgm50JgLlP1CIS78p2DHGihxndWzpFSmDffLn5rFslPiT1laPn+n/VBOEnB62B4uLituXVF9pyfZ4R8pgdm0t9AVoUGnv5/m6Pf1dCpyNm04BCHWE/wllmSHzg+Y+cUykcp/mObdssXV182ovb6Zk2o6590zDwowSO881NxHY1w0TgcLGzk7QBQ2Fs7A8FcI1aazGNug=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR1201MB0151.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(376002)(136003)(366004)(39860400002)(346002)(396003)(26005)(7416002)(8936002)(86362001)(66556008)(52116002)(8676002)(66946007)(66476007)(2906002)(6486002)(16526019)(53546011)(31696002)(45080400002)(5660300002)(31686004)(966005)(16576012)(316002)(478600001)(186003)(110136005)(36756003)(2616005)(956004)(921003)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: rW2kyMM2NAI5MHFDlgzeManY1ZP21Wa8Ifrh125kO+DdG49ZTYan5bh0AibrGE/eYD+mGObFKe5ZrCgEQ9TUp5cO2PjzMWpfXPeAYwOBMnFkifJW/7AYLk6b9XLaf442NDf6xjLf3dFIebpg3wNO/HWGNWvgF8sGyigfC9KG4Y3hJwSDvBJ92/PGkP79UmIiQHTpH+9LpvgoqbSycL/diaMw93xTtdfXkpWrAf6cmSrfiH0L5fhHekTFE2wn0sUm41PhB2Dpv0+9cFIJt4NCRfHRKnpte2Mr0gELoihm0lPOeIhg9VfITFLsj3L99wGZRGahoZta4WS2tdb3MwcLVGcUSelAlVkjImZtr2DwkCCLB4VquHzm4wMjK75NQqjXAA62b2wYhgU4qi3dod6H2yt5kvQx1MpYZ1icc8nfBOuIimBrGr+Z6r4vj3m4W87DHPMcVfdqeCHEs96BQazlW+RPD02ZLq5+zVd3RBAYSgjYE8nLJOme1JF4210ihkUO
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a6d91f5-59e2-416c-ca10-08d82261a807
-X-MS-Exchange-CrossTenant-AuthSource: CY4PR1201MB0151.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2020 10:36:50.1708 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1cES4rOyR2otnp8wObgZkX7QWWs29VKh5ubKK1NmZrTVqDSHoD4B8ooYFBD/vwu5Ex7N7h+a7yreNy95dvMSPg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0168
+References: <20200702165901.164100-1-pierre-louis.bossart@linux.intel.com>
+ <20200702165901.164100-9-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20200702165901.164100-9-pierre-louis.bossart@linux.intel.com>
+From: Masahiro Yamada <masahiroy@kernel.org>
+Date: Tue, 7 Jul 2020 19:58:10 +0900
+X-Gmail-Original-Message-ID: <CAK7LNARV9p=TF+5kPx-MBOsGnE9mafndYTEoaWRAaieqeL5a5A@mail.gmail.com>
+Message-ID: <CAK7LNARV9p=TF+5kPx-MBOsGnE9mafndYTEoaWRAaieqeL5a5A@mail.gmail.com>
+Subject: Re: [PATCH 8/8] ASoC: uniphier: aio-core: fix kernel-doc
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Takashi Iwai <tiwai@suse.de>, open list <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, "moderated list:ARM/UNIPHIER ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -139,48 +95,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, Jul 3, 2020 at 1:59 AM Pierre-Louis Bossart
+<pierre-louis.bossart@linux.intel.com> wrote:
+>
+> Fix W=1 warning - wrong parameter description and bad format
+>
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> ---
+
+Reviewed-by: Masahiro Yamada <yamada.masahiro@socionext.com>
 
 
-On 07/07/20 11:38 am, Randy Dunlap wrote:
-> On 7/6/20 11:15 PM, Mukunda,Vijendar wrote:
->>
->>
->> On 07/07/20 11:14 am, Randy Dunlap wrote:
->>> On 7/6/20 6:53 PM, Andrew Morton wrote:
->>>> The mm-of-the-moment snapshot 2020-07-06-18-53 has been uploaded to
->>>>
->>>>      https://nam11.safelinks.protection.outlook.com/?url=http:%2F%2Fwww.ozlabs.org%2F~akpm%2Fmmotm%2F&amp;data=02%7C01%7Cvijendar.mukunda%40amd.com%7C1707f719e862439351d808d8223c28f6%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637296989101868555&amp;sdata=zwcKEzTT4zHSr38qU6hHYI5qLCdid1Af0YJZsp9n8W0%3D&amp;reserved=0
->>>>
->>>> mmotm-readme.txt says
->>>>
->>>> README for mm-of-the-moment:
->>>>
->>>> https://nam11.safelinks.protection.outlook.com/?url=http:%2F%2Fwww.ozlabs.org%2F~akpm%2Fmmotm%2F&amp;data=02%7C01%7Cvijendar.mukunda%40amd.com%7C1707f719e862439351d808d8223c28f6%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637296989101868555&amp;sdata=zwcKEzTT4zHSr38qU6hHYI5qLCdid1Af0YJZsp9n8W0%3D&amp;reserved=0
->>>>
->>>> This is a snapshot of my -mm patch queue.  Uploaded at random hopefully
->>>> more than once a week.
->>>>
->>>> You will need quilt to apply these patches to the latest Linus release (5.x
->>>> or 5.x-rcY).  The series file is in broken-out.tar.gz and is duplicated in
->>>> https://nam11.safelinks.protection.outlook.com/?url=http:%2F%2Fozlabs.org%2F~akpm%2Fmmotm%2Fseries&amp;data=02%7C01%7Cvijendar.mukunda%40amd.com%7C1707f719e862439351d808d8223c28f6%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637296989101868555&amp;sdata=mzNHUR0CpjfaXX6Syq4sjkR3i3JU3jGRm7CcjKxFmMc%3D&amp;reserved=0
->>>>
->>>
->>> on i386:
->>>
->>> when CONFIG_ACPI is not set/enabled:
->>>
->>> ../sound/soc/amd/renoir/rn-pci-acp3x.c: In function ‘snd_rn_acp_probe’:
->>> ../sound/soc/amd/renoir/rn-pci-acp3x.c:222:9: error: implicit declaration of function ‘acpi_evaluate_integer’; did you mean ‘acpi_evaluate_object’? [-Werror=implicit-function-declaration]
->>>      ret = acpi_evaluate_integer(handle, "_WOV", NULL, &dmic_status);
->> Will add ACPI as dependency in Kconfig for Renoir ACP driver.
->> Do i need to upload new version of the patch? or should i submit the incremental patch as a fix >>           ^~~~~~~~~~~~~~~~~~~~~
->>>            acpi_evaluate_object
-> 
-> Hi,
-> Not my call, but I would go with an incremental patch.
-> 
-> 
-> thanks.
+>  sound/soc/uniphier/aio-core.c | 7 +++----
+>  1 file changed, 3 insertions(+), 4 deletions(-)
+>
+> diff --git a/sound/soc/uniphier/aio-core.c b/sound/soc/uniphier/aio-core.c
+> index 9bcba06ba52e..b8195778953e 100644
+> --- a/sound/soc/uniphier/aio-core.c
+> +++ b/sound/soc/uniphier/aio-core.c
+> @@ -93,9 +93,9 @@ void aio_iecout_set_enable(struct uniphier_aio_chip *chip, bool enable)
+>
+>  /**
+>   * aio_chip_set_pll - set frequency to audio PLL
+> - * @chip  : the AIO chip pointer
+> - * @source: PLL
+> - * @freq  : frequency in Hz, 0 is ignored
+> + * @chip: the AIO chip pointer
+> + * @pll_id: PLL
+> + * @freq: frequency in Hz, 0 is ignored
+>   *
+>   * Sets frequency of audio PLL. This function can be called anytime,
+>   * but it takes time till PLL is locked.
+> @@ -267,7 +267,6 @@ void aio_port_reset(struct uniphier_aio_sub *sub)
+>  /**
+>   * aio_port_set_ch - set channels of LPCM
+>   * @sub: the AIO substream pointer, PCM substream only
+> - * @ch : count of channels
+>   *
+>   * Set suitable slot selecting to input/output port block of AIO.
+>   *
+> --
+> 2.25.1
+>
 
-Submitted fix as an incremental patch for upstream review.
-> 
+
+-- 
+Best Regards
+Masahiro Yamada

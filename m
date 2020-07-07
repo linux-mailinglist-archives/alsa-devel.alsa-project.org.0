@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B1ED2177F6
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 21:29:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FBF92177F8
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 21:30:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CFC9E16B1;
-	Tue,  7 Jul 2020 21:28:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFC9E16B1
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8EAF16DB;
+	Tue,  7 Jul 2020 21:29:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8EAF16DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594150179;
-	bh=ikF7IXJwMwLoetiK/VETF4x0VJvDPMI7CtwJJtRP8oM=;
+	s=default; t=1594150217;
+	bh=dzs9xvz0L5k25RLQa0bz0DK93U9gRSBktEK5woJLnJM=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=odKpbkU0npD2bsW4+bwOqVNf6HJqCGQi0UNjghMDbTkO5pu7SpM3LzO19EDirGfqT
-	 HreoB20GCKk91poWqCXQ3mNRiB/poBd+j6zGz0NyJ1kWiHi6/1QTeuUGSRxV+a59pn
-	 +MAeN9U65EigEHhd65GLtXHqotO+RzfQHZw6IVro=
+	b=rc1mXtpG4zgDGI9Qxy0LNOud+9yJ0h4Tdmq6jAi4M1Pc79kwX9cZNMJ4k7q+x6Zaz
+	 OLimfGo8pca/ikZaLbXyfRCi/gD1HpvZjmoTP3b7RzOg8Fd/x7Z9Pyo9bc4jyyjHeB
+	 lWl3uNLbUhnbttkFXfeAeu3LTQ7dP1GM88yb7nSE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7FE6FF802BC;
-	Tue,  7 Jul 2020 21:26:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D742F802DC;
+	Tue,  7 Jul 2020 21:27:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 34C36F80274; Tue,  7 Jul 2020 21:26:55 +0200 (CEST)
+ id D863DF80264; Tue,  7 Jul 2020 21:26:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,36 +33,36 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9AB5EF8011F
- for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 21:26:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AB5EF8011F
-IronPort-SDR: UIR2hbyR5pMtXhnrqMZS6C4Kfz6QiFxkMUHDZ4T3s68oeDVzZ16Z59nVFWiO4Lngs8wWa0+ZfB
- z3g7J9fUF6pw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9675"; a="146751732"
-X-IronPort-AV: E=Sophos;i="5.75,324,1589266800"; d="scan'208";a="146751732"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78D64F800DF
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 21:26:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78D64F800DF
+IronPort-SDR: D3MabGganRjkSiminompUd/2h8pVaddsTF39OHHC6EqQMs6+vNQMomm8HQwSSlsGVZF5olcMsW
+ gobjRmprH+Rg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9675"; a="146751734"
+X-IronPort-AV: E=Sophos;i="5.75,324,1589266800"; d="scan'208";a="146751734"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2020 12:26:49 -0700
-IronPort-SDR: w9lL4KLb6oitgxodPkM7v7cQh/LYMpU/kacWdpwAN5ZOZTn3GFeUT44qcp6dwirJ3UmRaQC9IG
- zi47uV7izF/w==
-X-IronPort-AV: E=Sophos;i="5.75,324,1589266800"; d="scan'208";a="297493442"
+ 07 Jul 2020 12:26:51 -0700
+IronPort-SDR: i8p44p0pWWlOKfP9MwzqRPEQ4Qe8pRdooKE0Tcf3tP5wSyQX1KXMG/fXggJfa7AlYTHeR/pC0m
+ ppUTWWAThu1g==
+X-IronPort-AV: E=Sophos;i="5.75,324,1589266800"; d="scan'208";a="297493452"
 Received: from mrtorger-mobl1.amr.corp.intel.com (HELO [10.254.77.62])
  ([10.254.77.62])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2020 12:26:48 -0700
-Subject: Re: [PATCH 07/11] ASoC: q6asm: add support to gapless flag in asm open
+ 07 Jul 2020 12:26:50 -0700
+Subject: Re: [PATCH 10/11] ASoC: qdsp6-dai: add gapless support
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, broonie@kernel.org
 References: <20200707163641.17113-1-srinivas.kandagatla@linaro.org>
- <20200707163641.17113-8-srinivas.kandagatla@linaro.org>
+ <20200707163641.17113-11-srinivas.kandagatla@linaro.org>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <b05e5503-6a47-5b52-1339-f1243d952cea@linux.intel.com>
-Date: Tue, 7 Jul 2020 11:57:26 -0500
+Message-ID: <62af11d3-db26-a31b-00c8-9d78b11862cc@linux.intel.com>
+Date: Tue, 7 Jul 2020 12:07:17 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <20200707163641.17113-8-srinivas.kandagatla@linaro.org>
+In-Reply-To: <20200707163641.17113-11-srinivas.kandagatla@linaro.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -85,26 +85,20 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-> diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
-> index c3558288242a..8c214436a2c2 100644
-> --- a/sound/soc/qcom/qdsp6/q6asm-dai.c
-> +++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
-> @@ -258,7 +258,7 @@ static int q6asm_dai_prepare(struct snd_soc_component *component,
->   	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
->   		ret = q6asm_open_write(prtd->audio_client, prtd->stream_id,
->   				       FORMAT_LINEAR_PCM,
-> -				       0, prtd->bits_per_sample);
-> +				       0, prtd->bits_per_sample, false);
 
-nit-pick: it's a bit ironic that is_gapless is false for PCM, when there 
-is no gap in the first place..
+On 7/7/20 11:36 AM, Srinivas Kandagatla wrote:
+> Add support to gapless playback by implementing metadata,
+> next_track, drain and partial drain support.
+> 
+> Gapless on Q6ASM is implemented by opening 2 streams in a single asm stream
 
->   	} else if (substream->stream == SNDRV_PCM_STREAM_CAPTURE) {
->   		ret = q6asm_open_read(prtd->audio_client, prtd->stream_id,
->   				      FORMAT_LINEAR_PCM,
-> @@ -685,7 +685,7 @@ static int q6asm_dai_compr_set_params(struct snd_soc_component *component,
->   	if (dir == SND_COMPRESS_PLAYBACK) {
->   		ret = q6asm_open_write(prtd->audio_client, prtd->stream_id,
->   				       params->codec.id, params->codec.profile,
-> -				       prtd->bits_per_sample);
-> +				       prtd->bits_per_sample, true);
+What does 'in a single asm stream' means?
+
+> and toggling them on next track.
+
+It really seems to me that you have two streams at the lowest level, 
+along with the knowledge of how many samples to remove/insert and hence 
+could do a much better job - including gapless support between unrelated 
+profiles and cross-fading - without the partial drain and next_track 
+mechanism that was defined assuming a single stream/profile.
+

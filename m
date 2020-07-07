@@ -2,130 +2,128 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16CBB21769F
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 20:25:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 372112176B1
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 20:28:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9FFEE823;
-	Tue,  7 Jul 2020 20:24:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FFEE823
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6EE615F2;
+	Tue,  7 Jul 2020 20:27:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6EE615F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594146317;
-	bh=dpkLS/spRRHH6S+XScisrWJnoYBiHBOzGK3XVVOKKgs=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=siyI5GMPQZ+a5MMAVyOz8kdf8IaLuFFYaR/Gcb475hKohfCmZOd3OqO/K4/pmE5AW
-	 k1ZljkLS537bfpyyp97GMxP2R/K5f1mr/NNhbeKo3fEAlZakfWg3gGyOqpMtEDeqrU
-	 eEnUZ2D6mXnyo54j+OliAGJ9dsgADSj+cnb3EUy8=
+	s=default; t=1594146486;
+	bh=D5kAoMimfYRSszzCjW6QFY1+HiXv+uXnafc8RtyovDs=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=MNIgBxcBLnOvPQOWmYEjSmIU/EQrWVUm5A+tXs+wz9qN4KGZUCkCTBwotDhRtE3qZ
+	 DGt/k2EXmAcoblo/tXQ2r32GrQ8p+IiYV8hQiPxtpS5z2cb/A/30/yWKztkwXEiQeS
+	 Vbz8vTzIYbg+381xTTp8GEpivLlkpoYv1Q15HxPQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C2014F8011F;
-	Tue,  7 Jul 2020 20:23:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF87CF8011F;
+	Tue,  7 Jul 2020 20:26:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CA358F80216; Tue,  7 Jul 2020 20:23:34 +0200 (CEST)
+ id 7E122F80216; Tue,  7 Jul 2020 20:26:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FORGED_SPF_HELO,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2050.outbound.protection.outlook.com [40.107.244.50])
+ FORGED_SPF_HELO,MSGID_FROM_MTA_HEADER,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2087.outbound.protection.outlook.com [40.107.220.87])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89292F8011F
- for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 20:23:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89292F8011F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 899B9F8011F
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 20:26:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 899B9F8011F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
- header.i=@amdcloud.onmicrosoft.com header.b="BzY6t4LZ"
+ header.i=@amdcloud.onmicrosoft.com header.b="U4YNtjQy"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=es03veLVFg48Z9+iDAaDW2BOPqfipCtGj49inSKgjemh7XzBfDwinmy2pE6KdfNWZ7rzsNEOj/+FUHde5am+uFJE0kj0puHCuFq1k7WTNyT/XZ0vi2pZGleRtL3oYiUzthgLGBYg1brAp2ol/n9W8yfieqW/qKqIzl9QycqmzdP2Ba7LNbyuaN/v+1dUvO14aAaIFRBFmDVFLxjrkGBQJmSv2MtuMRLt1DeJzL1uIjBgY3BZ/CJhSTNe7rU0h+eECBL4b8X9g12cBsUW0notedU1Hq2ngQMJwj/lCqtcs+NZgL6lsZS/zQcLxzVCO+5IjMASfBGZLSRCGlBsetzLNA==
+ b=AVHQ+YhtnR8eoC+7l9fMBpqnc1ixMGR/ULlRQCB5JwNpC/USRBKPsNUHOUfvBf2iiOJX2ndV0wxLwnaSdFPg+lJ088nT4bgqLVN4eOCUvwl6HCRrO6qLBKoKKsfbaM/CdApKw6Skq5DVaViXq3p/uICRhgae/IIOC7a5dVPsfulGUrAcf0IGDZ7oucEfgS5oPGH1c6uO57KcyFBpaEIEhHgdx7AtSmRMCSpIyPNmiLbEjMzAZvPvAriemfR7HHo5PSPJ5TJhh9pB6xJky6ZsRlazQxSfU/UbSmbKWKvQnjpsHcwrakYwTVQAF5X+PMPgjPyf/o0xJ0tCalSpg2M+/Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2F94W99POqoQSBmxK42um2mHvH+G1yyWqOlK2h/KgV8=;
- b=PEwsf+288xE45OJ6fyEXqoMZSEK1DyAvz76gXjweHMh/qwxmkoxAL6+IIxfUUhrwhS5G8EYRBpb9oNK2TyIPCLGRukxhA9emQIPkuL95NOji+DZGfET1WLiQXHPheF+xWMD24tVpDCJE5Q2RmIZjf5sIZcG8yt3SYyAaLY5w83wiq3T2t15NE9B0y7N0fHRG+7Eu3nqcD3tNTgUxJzG8I0zW3ev84n8TW17Vj/NKXBA40YmNqIPpbAhXZBG9eomiJTaSrk21TuMZ+Lt8OSMDbbZ5aLd91O+HX8tojdA3OwKaf4Bw62Xq9RZXjfudAAnIIBlDH1l05DLv782KotS2/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=alsa-project.org smtp.mailfrom=amd.com;
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
+ bh=ooyBceck8uAbPM6TfvBq8YPgeDbgF7vw63JwFdeUChE=;
+ b=dsWnXGbCM0fBPBfzZsoq4uZ1vQ1Pb3sfJt33pgiC5chy4HsBkqfo/VgSAWPImXMFuSdwn5pQ0aC3JpAsoMUN4b/ARFC1WPKrZarognifM/XpHV9SKnzMd4LgedTud9VZIt9HzXeFTQdVw+q355fJw8c9txr1w1yzVPkBUrdsNhmrw19uZC2SLpd/kzFeVqKN0UFD2QbMWHTFGWB7g0dGHp9a4WhgLz0+oBUv7KOZlnoZTuTOKiO9y+Qrm4rkDPl6uAjNixjCuy5g65XgqGmQ4zozNfTTS7+MammASp0yc3ItiCtvhyr+hxTDM7VZHHDnZXZIGPheWLp6vAlYKXr5RA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2F94W99POqoQSBmxK42um2mHvH+G1yyWqOlK2h/KgV8=;
- b=BzY6t4LZA7///dCq2kH8nii9tZ96X8m5F/pGmlwetvoo0AH6eTHRfWvoP2337WYRhKuFVWWxYmvDOG8eoLBWubrxf45ATO4dD0CKniN0HlPgA3NZRlzAj10YSSBYWOaD8ON+3guEWLeHGLenqbuePUqNTuB1UqDqwCfBh52VbQs=
-Received: from DM5PR22CA0022.namprd22.prod.outlook.com (2603:10b6:3:101::32)
- by MWHPR12MB1614.namprd12.prod.outlook.com (2603:10b6:301:f::15) with
+ bh=ooyBceck8uAbPM6TfvBq8YPgeDbgF7vw63JwFdeUChE=;
+ b=U4YNtjQyglbfTHyE9KZksx2Htq6gBalF+RohsyVJHEvsj60HFZdseyyz17JFNNOHcKTQSZIDP6RFXaPJ8LDE+QjRved8/6GhZo71vQKT8gB+cAtQuoe5f1gkC1uq8j6oKQ9h8EMthTjdGkr62zJUxzWbFfl9I8tmcu5QuQzFEoY=
+Authentication-Results: suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=none action=none header.from=amd.com;
+Received: from DM5PR1201MB0155.namprd12.prod.outlook.com (2603:10b6:4:55::20)
+ by DM6PR12MB2873.namprd12.prod.outlook.com (2603:10b6:5:18a::32) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3153.28; Tue, 7 Jul
- 2020 18:23:23 +0000
-Received: from DM6NAM11FT066.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:101:cafe::b2) by DM5PR22CA0022.outlook.office365.com
- (2603:10b6:3:101::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3153.23 via Frontend
- Transport; Tue, 7 Jul 2020 18:23:22 +0000
-X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; alsa-project.org; dkim=none (message not signed)
- header.d=none;alsa-project.org; dmarc=permerror action=none
- header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- DM6NAM11FT066.mail.protection.outlook.com (10.13.173.179) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3153.24 via Frontend Transport; Tue, 7 Jul 2020 18:23:21 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 7 Jul 2020
- 13:23:19 -0500
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 7 Jul 2020
- 13:23:19 -0500
-Received: from LinuxHost.amd.com (10.180.168.240) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Tue, 7 Jul 2020 13:23:16 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <alsa-devel@alsa-project.org>
-Subject: [PATCH] ASoC: amd: fixed kernel warnings
-Date: Wed, 8 Jul 2020 00:07:11 +0530
-Message-ID: <1594147044-25582-1-git-send-email-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.7.4
+ 2020 18:26:14 +0000
+Received: from DM5PR1201MB0155.namprd12.prod.outlook.com
+ ([fe80::1477:12b0:571:5000]) by DM5PR1201MB0155.namprd12.prod.outlook.com
+ ([fe80::1477:12b0:571:5000%10]) with mapi id 15.20.3174.021; Tue, 7 Jul 2020
+ 18:26:14 +0000
+Subject: Re: [PATCH] ASoC: amd: add ACPI dependency check
+To: Randy Dunlap <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>,
+ alsa-devel@alsa-project.org
+References: <1594118813-18689-1-git-send-email-Vijendar.Mukunda@amd.com>
+ <159413142467.34737.8485886141400585716.b4-ty@kernel.org>
+ <755e1c02-21d5-db66-0b52-42ad65888647@infradead.org>
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+Message-ID: <b85397e1-531a-00bc-b672-bfbd2d9ada6e@amd.com>
+Date: Wed, 8 Jul 2020 00:10:12 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
+In-Reply-To: <755e1c02-21d5-db66-0b52-42ad65888647@infradead.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BM1PR01CA0079.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:1::19) To DM5PR1201MB0155.namprd12.prod.outlook.com
+ (2603:10b6:4:55::20)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFTY:;
- SFS:(4636009)(346002)(136003)(396003)(376002)(39860400002)(46966005)(5660300002)(186003)(356005)(6666004)(82310400002)(478600001)(82740400003)(81166007)(47076004)(26005)(2906002)(4326008)(6916009)(83380400001)(426003)(8676002)(8936002)(36756003)(86362001)(4744005)(70206006)(2616005)(336012)(316002)(7696005)(54906003)(70586007);
- DIR:OUT; SFP:1101; 
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [10.129.8.176] (165.204.159.251) by
+ BM1PR01CA0079.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:1::19) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3174.20 via Frontend Transport; Tue, 7 Jul 2020 18:26:11 +0000
+X-Originating-IP: [165.204.159.251]
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3640dbaf-ee1a-4685-3b4f-08d822a2d49a
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1614:
-X-Microsoft-Antispam-PRVS: <MWHPR12MB161447DED69A1552CE6B9D8997660@MWHPR12MB1614.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:346;
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 1e8c2ac7-8f58-42e4-eb1f-08d822a33b28
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2873:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB287388B30E3A4D67F273DA7297660@DM6PR12MB2873.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-Forefront-PRVS: 0457F11EAF
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: S6F3wRXBzutg6xYg1OSf834ekw51tKIpFRYwgQxNjZB3eEyciPrNhaFFAM7hjlWpq2p4b6mtwV59+JsqYZbrYU5C1tIC1Q5ZDP6Zr2dS1EzpOJMkmj2ccbf8JpRWDVW8RSHWse7VjWnZtxvLIaWFMtqD0DsY3+zOHYc40Zpd84+oSZSF9GxwfBQIxGc6usSEjOJLKCJ3LGokZ3IsTt7RusPGn9mFkFxmTvyg+NcUCfEUVHiwiv4ADw5XX4ktiQedcEQsEfIYzDa5xsh9p8AjbNcnPcFuklM+Vogdx5b2+E5/bPPmyLtBLvoTkOaVPAqARTYEqnt1iaBPTg1wmMvMUDE0Rvmq6Qg+pH0s1bIOOwTor3YBNJFa1XCnUzLaZ3ZWHF5gO+dNhmUboxz94hCzRA==
+X-Microsoft-Antispam-Message-Info: X0PKFQ0Cy8DHt7zF9ePiB+9CmkONdh0XNljOeTt1e0oKpePmUOmLqp1KTYyhluII/7t89847x5NC70nmsQgOM/p4aWfE2WmpdHZBHjYUCwYKwYxkm0daBASjrW9Gi2kY/jQTIfWAXp4PxGKgFhyYsIZAmjk4t6aShxjG6NTvzDDZGnJPIlqqnuBfyZnvFvmt/zHymimEMcqPhVRuuUnID8NrqUC6yCNIBd0pmXZjtzNgJcDMT+ErROpuV+MizCT/JEYFfBg40LBcc8GtxzRq9nSIlvu8DXWxe4Ye9XMcrlAVJrnOwH4WaNCpFcZt5AMGMc6aZNKIZQWc3IOEYmjSUzvKhA8QRWHNsgN1Wr4o+iSZPy80ov3BLhRDfGQoQdcgyAkIuyamXL5ryoEmwIbZyVkKoMrwtv/ftqWsqXXUiWZGgm57hrMaVBLFuPEjwaI24wrztc4wtCwbbHzYOlt8aA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR1201MB0155.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(396003)(366004)(39860400002)(136003)(376002)(346002)(2906002)(66476007)(4326008)(66556008)(86362001)(186003)(83380400001)(52116002)(6486002)(5660300002)(31696002)(16526019)(2616005)(8676002)(36756003)(26005)(66946007)(8936002)(956004)(966005)(54906003)(316002)(478600001)(45080400002)(31686004)(53546011)(110136005)(16576012)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: ERKKBCPM5Iudd26eaoQqaClZlv1uUZw5qDHuqSx3DQXDtU56pKox7NflJlWuSNPjuJg6Y9DvtdDDo5UZcAK9UJNUg4Bp5YCYCy6XNRkseSK7vvsyWLefC2VdYgenSe83OYGXqL9F8ShnsPx+N6nyQ4lyA/NiFV/d1Wra9I3Q4GA3dxQIBbQ6rO23xQsKMkrApDhT3TG+x5NMWiSZeb6WL5caLIONhnJjgCqWcB94z7xfuAC5xEyXBIPolF7ZXvB2RTfrk0oQx97Xg0MyJM/gAFWBRnebOUY9x8/MXZ6eyWVTJwO4WI0MqmitJgWAhmrGeVUUi0R2Bwu9w7KMe15X41jqWDT0ir7cqCzvRsbIBiDKKSgltJtss+Zvy8SJwLoAq8EnRs5uyXV4eYtssZUWyGlQx3ZuAj91ZhHcLK6DzQkgUxj8Z8z6bmnSEu0/gnyIK831pMQp6r8JRi045vfXApZat61tBWtbbRqQJrXBoqddoMPmyTGKs8PDObW5u2YM
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2020 18:23:21.9019 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3640dbaf-ee1a-4685-3b4f-08d822a2d49a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e8c2ac7-8f58-42e4-eb1f-08d822a33b28
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR1201MB0155.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2020 18:26:14.2055 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT066.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1614
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>, rdunlap@infradead.org,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com,
- Takashi Iwai <tiwai@suse.com>
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oGhH6O+BtsGB7wnpPDOzX7bZybSVAkcSylhQBwXEGxc43o+h74Vfhq+k5oaUzEwbZaARltGX2jfaHoGzyk1wwQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2873
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, hui.wang@canonical.com,
+ Alexander.Deucher@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -141,30 +139,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch will fix unused variables kernel warnings when
-CONFIG_ACPI is disabled.
 
-Reported-by: Randy Dunlap <rdunlap@infradead.org>
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
----
- sound/soc/amd/renoir/rn-pci-acp3x.c | 2 ++
- 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/amd/renoir/rn-pci-acp3x.c b/sound/soc/amd/renoir/rn-pci-acp3x.c
-index 165c93f..b943e59 100644
---- a/sound/soc/amd/renoir/rn-pci-acp3x.c
-+++ b/sound/soc/amd/renoir/rn-pci-acp3x.c
-@@ -168,8 +168,10 @@ static int snd_rn_acp_probe(struct pci_dev *pci,
- {
- 	struct acp_dev_data *adata;
- 	struct platform_device_info pdevinfo[ACP_DEVS];
-+#if defined(CONFIG_ACPI)
- 	acpi_handle handle;
- 	acpi_integer dmic_status;
-+#endif
- 	unsigned int irqflags;
- 	int ret, index;
- 	u32 addr;
--- 
-2.7.4
-
+On 07/07/20 9:05 pm, Randy Dunlap wrote:
+> On 7/7/20 7:17 AM, Mark Brown wrote:
+>> On Tue, 7 Jul 2020 16:16:41 +0530, Vijendar Mukunda wrote:
+>>> Add ACPI dependency for evaluating DMIC hardware
+>>> runtime.
+>>
+>> Applied to
+>>
+>>     https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgit.kernel.org%2Fpub%2Fscm%2Flinux%2Fkernel%2Fgit%2Fbroonie%2Fsound.git&amp;data=02%7C01%7CVijendar.Mukunda%40amd.com%7C208d9cc8e38b4dce718608d8228b70af%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637297329610560875&amp;sdata=NrNkECQoF2k0BO2NEQVON%2BE%2BP0clg4nPqH285c7HHzU%3D&amp;reserved=0 for-next
+>>
+>> Thanks!
+>>
+>> [1/1] ASoC: amd: add ACPI dependency check
+>>        commit: 68d1abe186d1c865923d3b97414906f4697daf58
+>>
+>> All being well this means that it will be integrated into the linux-next
+>> tree (usually sometime in the next 24 hours) and sent to Linus during
+>> the next merge window (or sooner if it is a bug fix), however if
+>> problems are discovered then the patch may be dropped or reverted.
+>>
+>> You may get further e-mails resulting from automated or manual testing
+>> and review of the tree, please engage with people reporting problems and
+>> send followup patches addressing any issues that are reported if needed.
+>>
+>> If any updates are required or you are submitting further changes they
+>> should be sent as incremental updates against current git, existing
+>> patches will not be replaced.
+>>
+>> Please add any relevant lists and maintainers to the CCs when replying
+>> to this mail.
+> 
+> 
+> Vijendar, you should have Cc-ed me on the patch and you should have
+> added this line to the patch:
+> 
+> Reported-by: Randy Dunlap <rdunlap@infradead.org>
+> 
+Sorry Randy. I have forgot to add you in cc.
+will fix the kernel warnings and upload a fresh patchset.
+> Also, now
+> Acked-by: Randy Dunlap <rdunlap@infradead.org> # build-tested
+> 
+> although there are now 2 warnings:
+> 
+> ../sound/soc/amd/renoir/rn-pci-acp3x.c: In function ‘snd_rn_acp_probe’:
+> ../sound/soc/amd/renoir/rn-pci-acp3x.c:172:15: warning: unused variable ‘dmic_status’ [-Wunused-variable]
+>    acpi_integer dmic_status;
+>                 ^~~~~~~~~~~
+> ../sound/soc/amd/renoir/rn-pci-acp3x.c:171:14: warning: unused variable ‘handle’ [-Wunused-variable]
+>    acpi_handle handle;
+>                ^~~~~~
+> 
+> 
+> 
+> thanks.
+> 

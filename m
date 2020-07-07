@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76F9E216815
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 10:15:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42B1F216816
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 10:16:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16391167B;
-	Tue,  7 Jul 2020 10:14:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16391167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE1051682;
+	Tue,  7 Jul 2020 10:15:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE1051682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594109719;
-	bh=uMA8Jpn2zsKQZEDdNquivF4VvLnEXqulhKfBX5eMUWM=;
+	s=default; t=1594109765;
+	bh=AmV9ACToGgsJ2XCF4EP+vxCaAZLSdFQReLHFVx3afyQ=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QRYYN/8RiWNxTntbLUfJx/9juczybGYRQ1ZY6spVAiVWrYCweStTOtVS8dDZ7tv00
-	 l92wiQQoqz60ti4intcP444EVaJeP6Iuh3K1lGKdqluaUCMghkxXaa7mEBDkVc7dXS
-	 w3oLCSAywxvDLwNskO+UA4tB/7yPNBrYIasnwAMc=
+	b=d99WEOkylxZ1VUVO9pR/Hk/UnUu67aXnVBJPt5C9NYofpkUvZAcwb1btnyR69Qle+
+	 bWqSpLFduAty1scFbcByq2116EnWRM18hWcfFZXZ7RmlT2Wj8feBRHwg3XBL5M4XgG
+	 +ESpan7F4HVIFWXpNnl21gWJBHOoh3jG2Q3SUMJk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3DA3DF80257;
-	Tue,  7 Jul 2020 10:13:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6CDBFF80264;
+	Tue,  7 Jul 2020 10:14:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F600F80216; Tue,  7 Jul 2020 10:13:36 +0200 (CEST)
+ id 5117DF8025A; Tue,  7 Jul 2020 10:14:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,21 +34,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 24398F800D0
- for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 10:13:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24398F800D0
+ by alsa1.perex.cz (Postfix) with ESMTPS id D045FF800DF
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 10:14:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D045FF800DF
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A4D0CAF3B;
- Tue,  7 Jul 2020 08:13:29 +0000 (UTC)
-Date: Tue, 07 Jul 2020 10:13:29 +0200
-Message-ID: <s5h5zazg2ty.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id DC754AF3B;
+ Tue,  7 Jul 2020 08:14:24 +0000 (UTC)
+Date: Tue, 07 Jul 2020 10:14:24 +0200
+Message-ID: <s5h4kqjg2sf.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH 1/2] ALSA: hda/hdmi: fix failures at PCM open on Intel ICL
- and later
-In-Reply-To: <20200703153818.2808592-1-kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH 2/2] ALSA: hda/hdmi: improve debug traces for stream
+ lookups
+In-Reply-To: <20200703153818.2808592-2-kai.vehmanen@linux.intel.com>
 References: <20200703153818.2808592-1-kai.vehmanen@linux.intel.com>
+ <20200703153818.2808592-2-kai.vehmanen@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -72,36 +73,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 03 Jul 2020 17:38:17 +0200,
+On Fri, 03 Jul 2020 17:38:18 +0200,
 Kai Vehmanen wrote:
 > 
-> When HDMI PCM devices are opened in a specific order, with at least one
-> HDMI/DP receiver connected, ALSA PCM open fails to -EBUSY on the
-> connected monitor, on recent Intel platforms (ICL/JSL and newer). While
-> this is not a typical sequence, at least Pulseaudio does this every time
-> when it is started, to discover the available PCMs.
+> The HDMI codec driver has two debug traces printed from different
+> functions but with identical message content:
 > 
-> The rootcause is an invalid assumption in hdmi_add_pin(), where the
-> total number of converters is assumed to be known at the time the
-> function is called. On older Intel platforms this held true, but after
-> ICL/JSL, the order how pins and converters are in the subnode list as
-> returned by snd_hda_get_sub_nodes(), was changed. As a result,
-> information for some converters was not stored to per_pin->mux_nids.
-> And this means some pins cannot be connected to all converters, and
-> application instead gets -EBUSY instead at open.
+> "HDMI: hinfo 000000006a6b84d9 not registered"
 > 
-> The assumption that converters are always before pins in the subnode
-> list, is not really a valid one. Fix the problem in hdmi_parse_codec()
-> by introducing separate loops for discovering converters and pins.
+> Fix this duplication and also add a bit more context in addition to raw
+> object pointer, to help analysis of kernel logs.
 > 
-> BugLink: https://github.com/thesofproject/linux/issues/1978
-> BugLink: https://github.com/thesofproject/linux/issues/2216
-> BugLink: https://github.com/thesofproject/linux/issues/2217
 > Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 > Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 > Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-Thanks, applied.
+Thanks, applied now.
 
 
 Takashi

@@ -2,91 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D6C8216F5B
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 16:52:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D88A6216F61
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 16:53:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09E951677;
-	Tue,  7 Jul 2020 16:51:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09E951677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 648E382C;
+	Tue,  7 Jul 2020 16:52:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 648E382C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594133540;
-	bh=0FVxQneLc0kXrGDjM8rqEU0RgT4cRqOVRCGonSO3BA8=;
+	s=default; t=1594133612;
+	bh=n3zWAvEiKs24KPS3ygF4mWRc5qP7nr5XK3QBPFEFg+Y=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DQBAZLd/lxAlEBwbsl2zCgLCC9LF6YkFkEPDMGOXtzBPzE9c4Vf18X6r5gcKMfepY
-	 TpYqnizuNTDRwh5xfFjg0g288oNBX79V8f/Z9DkUlKUJlwVU38jZYhOEND23+ccQFe
-	 C98nMWAFoswKWvjYqEfeI4uaXvR/YYjzpgAex1i8=
+	b=S07txuqyWF5tIvGYEU0RZjCLQQkv94pGJM2kiKAJl1eDfWetfRlfElylnoxSaB0oV
+	 x/LX10n9qciEwqsXg6lyBgmCnIsrTmgcQ77AzcXT5QXVqNh4ajV84bZrI95N3VEyo/
+	 EXIEOhtqt/Q1wHw1/cxNkrknugfLG4Qf4SxqCNVM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8AF6F80391;
-	Tue,  7 Jul 2020 16:38:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67B19F803C9;
+	Tue,  7 Jul 2020 16:38:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6ACD4F8035E; Tue,  7 Jul 2020 16:38:30 +0200 (CEST)
+ id CFD5EF80369; Tue,  7 Jul 2020 16:38:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D9ECDF802FE
- for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 16:38:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9ECDF802FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 01FA5F802F9
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 16:38:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01FA5F802F9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="o5qFIiE6"
-Received: by mail-wr1-x442.google.com with SMTP id b6so45387883wrs.11
- for <alsa-devel@alsa-project.org>; Tue, 07 Jul 2020 07:38:19 -0700 (PDT)
+ header.b="XexzV3KJ"
+Received: by mail-wr1-x444.google.com with SMTP id s10so45358658wrw.12
+ for <alsa-devel@alsa-project.org>; Tue, 07 Jul 2020 07:38:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=EXLqTyUKMLj4M51ntYR1QA4V9xA1YrzmuNUETaX0PBA=;
- b=o5qFIiE60x8cX+Bhm0rgzWF0oy0LXLTwf++5sVrWU5JMR62946RZ49b2fud+ahUxan
- M3fyhMHkqfpuyZPTvDJ6FLSUfLQZSmxONDGQ5cEbwEnAEEIlIjX/w+B9YHhPuaO/ydBR
- +7G31bbUN/ChKb43mdklUoqkHM2wTxewBYKlrV8Ic+LjI5zxU0xnw/9ps3p7Q/IYFkZC
- bSPRlsbBl90eqE1Wrcaad9xHV1OArmn3GcJA4JxXnmZq9Z8XjsfwdVfYMJFL+IbYyqIP
- ghwioQaNbFCOyXYEV0SfC7uV+2lls7XmQ01d5xuzA3RjuI1uH+nHX6DtiKjxfhFRljqM
- ec+Q==
+ bh=c4/atXJGhj1n0uTQI5cYV/gQNs+sjaOZMgJsAAMgfWA=;
+ b=XexzV3KJ/Ugols+x89JArM434s7OMKFDWfksKXZoXwvRPrZMNSE+f1ahUBOak/G6cr
+ Keb/Ao22IP697YEQuWmJupSw5F3K/5J4cfUmQ5Fl6aUnL1sST5sDk+u40SDimh/L/lCl
+ of3/5TIli6NqTueNigm2UK09ss1j2CEvGpCp00FM4lCEZ7IoFQqsuiKaRVlDj1P9gSLK
+ f2gWtR8gu6UZJvkilbAYzBQtLrjTrOV0JNNHsHbp1W1UUPujKE+2HaqwnrtxfyY+9ffT
+ 4Mx83dlZKFZ5StSTuhzRvUYOKDxMDqDEH3Z078Ltg9OM3w6VVK9I+0Blditu6KMrKP4B
+ FRBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=EXLqTyUKMLj4M51ntYR1QA4V9xA1YrzmuNUETaX0PBA=;
- b=LzjeEOSflZkQ/ol5x3gr2NXUwQD52LGJ/0NuNDWlnx8iVY68/ooDhT19Ff0ZaXji2t
- nYAEziHa1kByH/Bs7iV+v/jSztwCOCynak6qxWDIlE+20MvsUV7WQCfcIvPYjhpMEun9
- xtel56e2KtB+OfWoKAsG6+z0vjT+eWPe2kE0OZdA4WqwhmkEB3vEGhaNQJfId12RY9by
- 9jztiR1rO4KPaxnn5vN4kFnXnGY5cnFID2wgK9BR070KQ6E/hhM5RRymRbV+zBhHAeBZ
- LGsJQM9LbZj3WExamRrZriCTh6LAOPMUDOqXs9aHZYGywdErNGqwe2YxNu0hTU6PhrCa
- eu1A==
-X-Gm-Message-State: AOAM532bP51dBT8LWmRBKYwTsq5bAbq/SP5FoPzqNqaGRpv9H73tHj6d
- ll50v9QGIsmzb7YAoBWmmXEaaw==
-X-Google-Smtp-Source: ABdhPJyRMAvI6NkTDV7IWsTK5HtfFZ6l9B/O82Lz0Ooky54tkmtjUVeL9Ss/7Rr8kNE7uRm+HvYhCg==
-X-Received: by 2002:a05:6000:6:: with SMTP id h6mr53076969wrx.26.1594132699386; 
- Tue, 07 Jul 2020 07:38:19 -0700 (PDT)
+ bh=c4/atXJGhj1n0uTQI5cYV/gQNs+sjaOZMgJsAAMgfWA=;
+ b=Ji2/sDk7An0W0Qb61uRCe93PSCEwzovQy4pcEoy5KnxOzIv+YF5O3de87i/6V91HCq
+ KQ3elZqqTOw5jrqVHbSU9dxO30h2mkyV05wFAmio9IqwjgmljPaV6wTMFCot8gBZY0G5
+ ozLj0VkEpAZzPZdC6U/uXbmlEAKRxfC+24mrbANi+OwypQQfgwKL1f6y/svRM7DDRsCw
+ SWU0Vn05Chdc3UOyTqS3eEOgoUHfXus4my2x+O4WQAaiQUM2u4oVud4tZHB5ctxQdUyD
+ bBFphRqkvxhrsJWpcq4GUfvsTaNv09xbEh1MR3DcDmsrsLykMBHpBEROXyjkxvX6Hgh2
+ l8YA==
+X-Gm-Message-State: AOAM531LEtyo5ckCWhpcdQGLqyzWCbMTrKLl+m7QQycNtAiLcptUh1dQ
+ syrvp73509xs8AlkLx9wetNt6A==
+X-Google-Smtp-Source: ABdhPJwUIuU6BxAOBk4GhOQGfCgIR0VqwtdE96hRGr8Pp3rz/+R0BNo2yo13BD/FqfNnN+jvPo7jQw==
+X-Received: by 2002:a5d:6912:: with SMTP id t18mr53340540wru.411.1594132700570; 
+ Tue, 07 Jul 2020 07:38:20 -0700 (PDT)
 Received: from localhost.localdomain ([2.27.35.206])
- by smtp.gmail.com with ESMTPSA id y16sm1276131wro.71.2020.07.07.07.38.18
+ by smtp.gmail.com with ESMTPSA id y16sm1276131wro.71.2020.07.07.07.38.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2020 07:38:18 -0700 (PDT)
+ Tue, 07 Jul 2020 07:38:19 -0700 (PDT)
 From: Lee Jones <lee.jones@linaro.org>
 To: broonie@kernel.org, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com
-Subject: [PATCH v2 23/28] ASoC: soc-ac97: Demote seemingly unintentional
- kerneldoc header
-Date: Tue,  7 Jul 2020 15:37:37 +0100
-Message-Id: <20200707143742.2959960-24-lee.jones@linaro.org>
+Subject: [PATCH v2 24/28] ASoC: codecs: jz4770: Remove defined but never used
+ variable 'mic_boost_tlv'
+Date: Tue,  7 Jul 2020 15:37:38 +0100
+Message-Id: <20200707143742.2959960-25-lee.jones@linaro.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200707143742.2959960-1-lee.jones@linaro.org>
 References: <20200707143742.2959960-1-lee.jones@linaro.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Cc: Richard Purdie <richard@openedhand.com>, alsa-devel@alsa-project.org,
- Lee Jones <lee.jones@linaro.org>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Paul Cercueil <paul@crapouillou.net>, ter Huurne <maarten@treewalker.org>,
+ Lee Jones <lee.jones@linaro.org>, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,33 +103,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This is the only use of kerneldoc in the sourcefile and no
-descriptions are provided.
-
 Fixes the following W=1 kernel build warning(s):
 
- sound/soc/soc-ac97.c:402: warning: Function parameter or member 'ops' not described in 'snd_soc_set_ac97_ops_of_reset'
- sound/soc/soc-ac97.c:402: warning: Function parameter or member 'pdev' not described in 'snd_soc_set_ac97_ops_of_reset'
+ In file included from include/sound/tlv.h:10,
+ from sound/soc/codecs/jz4770.c:19:
+ sound/soc/codecs/jz4770.c:306:35: warning: ‘mic_boost_tlv’ defined but not used [-Wunused-const-variable=]
+ 306 | static const DECLARE_TLV_DB_SCALE(mic_boost_tlv, 0, 400, 0);
+ | ^~~~~~~~~~~~~
+ include/uapi/sound/tlv.h:64:15: note: in definition of macro ‘SNDRV_CTL_TLVD_DECLARE_DB_SCALE’
+ 64 | unsigned int name[] = { | ^~~~
+ sound/soc/codecs/jz4770.c:306:14: note: in expansion of macro ‘DECLARE_TLV_DB_SCALE’
+ 306 | static const DECLARE_TLV_DB_SCALE(mic_boost_tlv, 0, 400, 0);
+ | ^~~~~~~~~~~~~~~~~~~~
 
-Cc: Richard Purdie <richard@openedhand.com>
+Cc: Paul Cercueil <paul@crapouillou.net>
+Cc: ter Huurne <maarten@treewalker.org>
 Signed-off-by: Lee Jones <lee.jones@linaro.org>
 ---
- sound/soc/soc-ac97.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/codecs/jz4770.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/sound/soc/soc-ac97.c b/sound/soc/soc-ac97.c
-index 906106ed8ca14..af789552a9d4c 100644
---- a/sound/soc/soc-ac97.c
-+++ b/sound/soc/soc-ac97.c
-@@ -391,7 +391,7 @@ int snd_soc_set_ac97_ops(struct snd_ac97_bus_ops *ops)
- }
- EXPORT_SYMBOL_GPL(snd_soc_set_ac97_ops);
+diff --git a/sound/soc/codecs/jz4770.c b/sound/soc/codecs/jz4770.c
+index 34775aa624024..4dee585761c24 100644
+--- a/sound/soc/codecs/jz4770.c
++++ b/sound/soc/codecs/jz4770.c
+@@ -303,7 +303,6 @@ static int jz4770_codec_digital_mute(struct snd_soc_dai *dai, int mute)
+ static const DECLARE_TLV_DB_MINMAX_MUTE(dac_tlv, -3100, 0);
+ static const DECLARE_TLV_DB_SCALE(adc_tlv, 0, 100, 0);
+ static const DECLARE_TLV_DB_MINMAX(out_tlv, -2500, 600);
+-static const DECLARE_TLV_DB_SCALE(mic_boost_tlv, 0, 400, 0);
+ static const DECLARE_TLV_DB_SCALE(linein_tlv, -2500, 100, 0);
  
--/**
-+/*
-  * snd_soc_set_ac97_ops_of_reset - Set ac97 ops with generic ac97 reset functions
-  *
-  * This function sets the reset and warm_reset properties of ops and parses
+ /* Unconditional controls. */
 -- 
 2.25.1
 

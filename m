@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2340F2177D5
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 21:22:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A145B2177CF
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 21:21:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B75541676;
-	Tue,  7 Jul 2020 21:21:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B75541676
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4D2771676;
+	Tue,  7 Jul 2020 21:20:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D2771676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594149752;
-	bh=Rk3P74drdtsAVdl0ATD7kRq4iSvs8QfL/4jI2Im1gaI=;
+	s=default; t=1594149687;
+	bh=0J4FVQOVmVbTaQI3tfvU4gnwO3hxp0S86enH1E72diM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WCQeusDFaPwBaHL9u0qbKIkU0lRJesTkaIff5Tn8chbeffzY2ZD64ysdSTSIVYXgy
-	 Enb0oNKYwLRMpRJA8Ebc4/CGQcAjEmFXRuXObSAhW6CMSmg4+6xUwbdtcMd7qHxNmw
-	 hbV/7UfTpKsF4vU/2doY98rEyVCw0C2RCmhiHLGw=
+	b=GXmGXTThzpY+6rlxptOPPMDQE43JzJLN8e1vPbRHMu3ivDV08epXH+4gTHESe+bLE
+	 Jj05x2ty6e0HnnY1KRbWd4tOAouvHHsuQY8JAqMXXK5IYlm3E8+E9t3oxRBqRkyDoc
+	 QxNkDYKvzT1FknXgHRLfvVIZKv3YPyaEaNqvXZWY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 76B1BF802BD;
-	Tue,  7 Jul 2020 21:16:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F232DF802EB;
+	Tue,  7 Jul 2020 21:16:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 59836F802D2; Tue,  7 Jul 2020 21:16:49 +0200 (CEST)
+ id A7472F802DD; Tue,  7 Jul 2020 21:16:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,44 +33,42 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7C0FBF8025A
- for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 21:16:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C0FBF8025A
-IronPort-SDR: vEjsjTqWVYTObl9hfU0FhrdbnH0fqqB92arH7J8qOFwZ9ajj5H0Of+n5/aWV8tLHmR5uN6DLYj
- qOFJr0ODHA1w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9675"; a="147690696"
-X-IronPort-AV: E=Sophos;i="5.75,324,1589266800"; d="scan'208";a="147690696"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D49CF800D0
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 21:16:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D49CF800D0
+IronPort-SDR: w6nKnApDTqSHIJkTHa9GwJlR+khF1J2z5sJABU+y+P6sF+qfVvzcgoJF9677kK3KU6DZnV9eE4
+ R+umcb5gO2Dg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9675"; a="147690700"
+X-IronPort-AV: E=Sophos;i="5.75,324,1589266800"; d="scan'208";a="147690700"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2020 12:16:38 -0700
-IronPort-SDR: 2A4qNl2xB4s5LGy7ZTxWCqUDjEifAnZDy5qv1Kka0MGuyK5zhvYydOzQUvSwESWI6qdURYBXpM
- 7ZzuivkUJ2kg==
-X-IronPort-AV: E=Sophos;i="5.75,324,1589266800"; d="scan'208";a="388601636"
+ 07 Jul 2020 12:16:40 -0700
+IronPort-SDR: /suSIlxaokPqR671iiUxFN6GYWeFBnGgoSr6SrYAdcFMWA592cksoAJz+aA+siuLWXuDPD6XE0
+ pqmOvKGkbfZg==
+X-IronPort-AV: E=Sophos;i="5.75,324,1589266800"; d="scan'208";a="388601639"
 Received: from mrtorger-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.254.77.62])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2020 12:16:37 -0700
+ 07 Jul 2020 12:16:39 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v3 05/10] ASoC: ux500: ux500_msp_i2s: Remove unused variables
- 'reg_val_DR' and 'reg_val_TSTDR'
-Date: Tue,  7 Jul 2020 14:16:10 -0500
-Message-Id: <20200707191615.98296-6-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH v3 06/10] ASoC: sti: uniperif: fix 'defined by not used'
+ warning
+Date: Tue,  7 Jul 2020 14:16:11 -0500
+Message-Id: <20200707191615.98296-7-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200707191615.98296-1-pierre-louis.bossart@linux.intel.com>
 References: <20200707191615.98296-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: Ola Lilja <ola.o.lilja@stericsson.com>, tiwai@suse.de,
- Lee Jones <lee.jones@linaro.org>, Takashi Iwai <tiwai@suse.com>,
+Cc: tiwai@suse.de, open list <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Arnaud Pouliquen <arnaud.pouliquen@st.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Roger Nilsson <roger.xr.nilsson@stericsson.com>, broonie@kernel.org,
- Sandeep Kaushik <sandeep.kaushik@st.com>, zhong jiang <zhongjiang@huawei.com>,
- open list <linux-kernel@vger.kernel.org>
+ Liam Girdwood <lgirdwood@gmail.com>, broonie@kernel.org,
+ Lee Jones <lee.jones@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,67 +84,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Lee Jones <lee.jones@linaro.org>
+Fix W=1 warning. The table uni_tdm_hw is declared in a header included
+by multiple C file. This isn't really a good practice but for now
+using __maybe_unused makes the following warning go away.
 
-Looks like these have been unchecked since the driver's inception in 2012.
+sound/soc/sti/sti_uniperif.c:12:
+sound/soc/sti/uniperif.h:1351:38: warning: ‘uni_tdm_hw’ defined but
+not used [-Wunused-const-variable=]
+ 1351 | static const struct snd_pcm_hardware uni_tdm_hw = {
+      |                                      ^~~~~~~~~~
 
-Fixes the following W=1 kernel build warning(s):
-
- sound/soc/ux500/ux500_msp_i2s.c: In function ‘flush_fifo_rx’:
- sound/soc/ux500/ux500_msp_i2s.c:398:6: warning: variable ‘reg_val_DR’ set but not used [-Wunused-but-set-variable]
- sound/soc/ux500/ux500_msp_i2s.c: In function ‘flush_fifo_tx’:
- sound/soc/ux500/ux500_msp_i2s.c:415:6: warning: variable ‘reg_val_TSTDR’ set but not used [-Wunused-but-set-variable]
-
-Cc: zhong jiang <zhongjiang@huawei.com>
-Cc: Ola Lilja <ola.o.lilja@stericsson.com>
-Cc: Roger Nilsson <roger.xr.nilsson@stericsson.com>
-Cc: Sandeep Kaushik <sandeep.kaushik@st.com>
-Signed-off-by: Lee Jones <lee.jones@linaro.org>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/ux500/ux500_msp_i2s.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ sound/soc/sti/uniperif.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/ux500/ux500_msp_i2s.c b/sound/soc/ux500/ux500_msp_i2s.c
-index 394d8b2a4a16..fd0b88bb7921 100644
---- a/sound/soc/ux500/ux500_msp_i2s.c
-+++ b/sound/soc/ux500/ux500_msp_i2s.c
-@@ -395,7 +395,7 @@ static int enable_msp(struct ux500_msp *msp, struct ux500_msp_config *config)
+diff --git a/sound/soc/sti/uniperif.h b/sound/soc/sti/uniperif.h
+index 2dc2da5d458b..a16adeb7c1e9 100644
+--- a/sound/soc/sti/uniperif.h
++++ b/sound/soc/sti/uniperif.h
+@@ -1348,7 +1348,7 @@ struct sti_uniperiph_data {
+ 	struct sti_uniperiph_dai dai_data;
+ };
  
- static void flush_fifo_rx(struct ux500_msp *msp)
- {
--	u32 reg_val_DR, reg_val_GCR, reg_val_FLR;
-+	u32 reg_val_GCR, reg_val_FLR;
- 	u32 limit = 32;
- 
- 	reg_val_GCR = readl(msp->registers + MSP_GCR);
-@@ -403,7 +403,7 @@ static void flush_fifo_rx(struct ux500_msp *msp)
- 
- 	reg_val_FLR = readl(msp->registers + MSP_FLR);
- 	while (!(reg_val_FLR & RX_FIFO_EMPTY) && limit--) {
--		reg_val_DR = readl(msp->registers + MSP_DR);
-+		readl(msp->registers + MSP_DR);
- 		reg_val_FLR = readl(msp->registers + MSP_FLR);
- 	}
- 
-@@ -412,7 +412,7 @@ static void flush_fifo_rx(struct ux500_msp *msp)
- 
- static void flush_fifo_tx(struct ux500_msp *msp)
- {
--	u32 reg_val_TSTDR, reg_val_GCR, reg_val_FLR;
-+	u32 reg_val_GCR, reg_val_FLR;
- 	u32 limit = 32;
- 
- 	reg_val_GCR = readl(msp->registers + MSP_GCR);
-@@ -421,7 +421,7 @@ static void flush_fifo_tx(struct ux500_msp *msp)
- 
- 	reg_val_FLR = readl(msp->registers + MSP_FLR);
- 	while (!(reg_val_FLR & TX_FIFO_EMPTY) && limit--) {
--		reg_val_TSTDR = readl(msp->registers + MSP_TSTDR);
-+		readl(msp->registers + MSP_TSTDR);
- 		reg_val_FLR = readl(msp->registers + MSP_FLR);
- 	}
- 	writel(0x0, msp->registers + MSP_ITCR);
+-static const struct snd_pcm_hardware uni_tdm_hw = {
++static __maybe_unused const struct snd_pcm_hardware uni_tdm_hw = {
+ 	.info = SNDRV_PCM_INFO_INTERLEAVED | SNDRV_PCM_INFO_BLOCK_TRANSFER |
+ 		SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_MMAP |
+ 		SNDRV_PCM_INFO_MMAP_VALID,
 -- 
 2.25.1
 

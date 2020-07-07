@@ -2,71 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E525221695C
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 11:44:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DE7A216950
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 11:42:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 91FC31679;
-	Tue,  7 Jul 2020 11:43:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91FC31679
+	by alsa0.perex.cz (Postfix) with ESMTPS id E7BA4166C;
+	Tue,  7 Jul 2020 11:41:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7BA4166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594115046;
-	bh=NZv2eb8kA4Ls+TpmzEPlP1chi47i3c75TS699LovaLU=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=TegkEuLfKJlZeX/jfHWTs/J1zQq6erpSOtOv59pwkcIHOWzBdrXHQo2IKrjIDSoSd
-	 42UwEZOnuBqweQ+ZJkHYxVW6KFydw96HNuWIm4k4tJ06QCUqk4XbbvGg9ApAzjBMQJ
-	 Qq2OHW5w1PxTtYzX9LK8h1lA5B2BwoiPBFUeVHXo=
+	s=default; t=1594114944;
+	bh=cMSVEG2PGXhgAEYHhi1d8T/qOBMQsxoJjbWvK2E2OeM=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=RtpFHl6W8QltFNcXC9PV6orPnloLtNrzOZgaKHcRIiYKw2FegHYa4K0a1AeKnEjmo
+	 i4N7RRtZ57/B28zeDuitgcDybyQ6cw+lL6l9gvqDu4ZjUyx6Y9eQ5jZ1zncbPpZkgS
+	 uIohFqa9Ru4hffDFuZdRfGhICWeo1GtB9u2Thjtk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ABFA7F802BE;
-	Tue,  7 Jul 2020 11:41:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19C45F800DF;
+	Tue,  7 Jul 2020 11:40:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 70934F8015A; Mon,  6 Jul 2020 05:27:54 +0200 (CEST)
+ id B009EF80216; Tue,  7 Jul 2020 11:40:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,RCVD_IN_MSPIKE_H4,
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
  RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-m972.mail.163.com (mail-m972.mail.163.com [123.126.97.2])
- (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 91E3FF8010A
- for <alsa-devel@alsa-project.org>; Mon,  6 Jul 2020 05:27:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91E3FF8010A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=163.com header.i=@163.com
- header.b="XdrQDrDD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=5yazT
- dyA3YxMPgoBpYzzCyqT8fJEoy7VrCOXLHWeXI8=; b=XdrQDrDDQoHy04HdxYZxj
- h3KjGArTII3jkEehfkOKhLmlREGMWNGvTeO5+jV64xvkcLfmvFxWAzwZeH4qkpeZ
- PrxA6H4qj7dMX1PKcoeWBfjUrQzCwWiZLQAPWqCJk8D6+pB6B5zCWaSF55gNp7Zp
- D+xs/Yq1p/8GgVurTtRZqU=
-Received: from ubuntu.localdomain (unknown [182.113.175.219])
- by smtp2 (Coremail) with SMTP id GtxpCgC3GA8rmgJfecIjDg--.165S3;
- Mon, 06 Jul 2020 11:27:44 +0800 (CST)
-From: Xidong Wang <wangxidong_97@163.com>
-To: Xidong Wang <wangxidong_97@163.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 1/1] ALSA: opl3: fix infoleak in opl3
-Date: Sun,  5 Jul 2020 20:27:38 -0700
-Message-Id: <1594006058-30362-1-git-send-email-wangxidong_97@163.com>
-X-Mailer: git-send-email 2.7.4
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: GtxpCgC3GA8rmgJfecIjDg--.165S3
-X-Coremail-Antispam: 1Uf129KBjvdXoW7XFy7ZFy8tF4UtF4kAr45Awb_yoW3Krg_C3
- 4Fqrn7Zryrurn2yr4ayFW3ZrZrKasrZw1vqF42vry3J3sa9ryavr1kZryxWF1UJFs7WF43
- Z3savr48AF98JjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRic_-PUUUUU==
-X-Originating-IP: [182.113.175.219]
-X-CM-SenderInfo: pzdqw5xlgr0wrbzxqiywtou0bp/1tbiyBBZ81p7AiB0FQAAsQ
-X-Mailman-Approved-At: Tue, 07 Jul 2020 11:41:50 +0200
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8C935F800DF
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 11:40:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C935F800DF
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 275A3B007;
+ Tue,  7 Jul 2020 09:40:34 +0000 (UTC)
+Date: Tue, 07 Jul 2020 11:40:33 +0200
+Message-ID: <s5hmu4bek8e.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pavel Hofman <pavel.hofman@ivitera.com>
+Subject: Re: Ignored USB-audio implicit feedback in kernel 5.8rc3
+In-Reply-To: <a9002e0a-2a89-12c3-77c6-f2b9d51db8f2@ivitera.com>
+References: <5be78c36-bca0-da9c-43ec-2e2a538948a8@ivitera.com>
+ <51a129ba-d74f-bfe3-933c-4805bc87804a@ivitera.com>
+ <5bd5efb4-66f0-955c-783e-57aff997028a@ivitera.com>
+ <a9002e0a-2a89-12c3-77c6-f2b9d51db8f2@ivitera.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,30 +71,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: xidongwang <wangxidong_97@163.com>
+On Fri, 03 Jul 2020 12:17:14 +0200,
+Pavel Hofman wrote:
+> 
+> 
+> Dne 02. 07. 20 v 13:28 Pavel Hofman napsal(a):
+> > 
+> > 
+> > Please is the requirement that EP OUT + EP IN implicit feedback data
+> > must be in the same interface really necessary? If such a requirement
+> > was dropped, IMO many devices could be removed from the existing
+> > set_sync_ep_implicit_fb_quirk and many devices would work out of the
+> > box, 
+> 
+> I am still thinking about the single-interface requirement. If both
+> endpoints were to be part of a single interface, could they use
+> different altsettings for different sample lengths for capture and
+> playback? E.g. to save USB bandwidth when the capture is used only for
+> implicit feedback - capturing at 16bits, playback at 32bits.
+> 
+> In the quirked XMOS devices the common clock for both directions is
+> defined by the clock feature, the altsettings for each direction (in
+> separate interfaces) are used for setting sample length.
+> 
+> Thank you very much for any insight into the issue. IMO not having to
+> add quirks before a device starts working would be advantageous for all
+> involved.
 
-The stack object “info” in snd_opl3_ioctl() has a leaking problem.
-It has 2 padding bytes which are not initialized and leaked via
-“copy_to_user”.
+Could you check for-linus branch of my sound git tree?
+Just to be sure whether you're hitting the issue that has been already
+addressed.
 
-Signed-off-by: xidongwang <wangxidong_97@163.com>
----
- sound/drivers/opl3/opl3_synth.c | 2 ++
- 1 file changed, 2 insertions(+)
 
-diff --git a/sound/drivers/opl3/opl3_synth.c b/sound/drivers/opl3/opl3_synth.c
-index e69a4ef..08c10ac 100644
---- a/sound/drivers/opl3/opl3_synth.c
-+++ b/sound/drivers/opl3/opl3_synth.c
-@@ -91,6 +91,8 @@ int snd_opl3_ioctl(struct snd_hwdep * hw, struct file *file,
- 		{
- 			struct snd_dm_fm_info info;
- 
-+			memset(&info, 0, sizeof(info));
-+
- 			info.fm_mode = opl3->fm_mode;
- 			info.rhythm = opl3->rhythm;
- 			if (copy_to_user(argp, &info, sizeof(struct snd_dm_fm_info)))
--- 
-2.7.4
+thanks,
 
+Takashi

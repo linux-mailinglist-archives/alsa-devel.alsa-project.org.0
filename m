@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F82B2169EF
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 12:20:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3147F216A0A
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 12:22:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AF54A166E;
-	Tue,  7 Jul 2020 12:19:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF54A166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBA9A42;
+	Tue,  7 Jul 2020 12:21:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBA9A42
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594117221;
-	bh=1Ifd8O975coMZ3wL2+EXrnNnrNU7zwyBLOi9HB9oScY=;
+	s=default; t=1594117365;
+	bh=9anm3FkVKfmBb4XXKTunqBgnT6EhpaxDcnHMSeJA3mI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=o3iZ6q4uCpUeEfw5+TIMFbb93FYyWV0FcY1K68aa6/4xAQ6FJVNJjRVBom+5S2EUM
-	 UrWExFEjbdA1DXYy/qD6odetPJXW7CHZre+E31GhyEMMeSgZuFVnSx/CtgmKbS42KD
-	 3K1wSmO/2/VuT+lkqPe/RkhRy1B05K9vIpBkwNaQ=
+	b=V8pFst+8iBJmT2VOIsB+lt2QFwldAaTctgKuI6kFYfApd6bcZIirKomEPmVNw8BeQ
+	 A5xqsPfivGW7B60zjnNRxiB8ivVmxXhqp8slp9bNYwRW2SqMGGC3sT4JVq/QVjtREw
+	 bfdhhdQnJTtkSa8feJxFp4wvzD+HhHs2xcJqqGDk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A192F802EA;
-	Tue,  7 Jul 2020 12:17:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C62AF80308;
+	Tue,  7 Jul 2020 12:17:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BC6ACF802EB; Tue,  7 Jul 2020 12:17:05 +0200 (CEST)
+ id 1E15DF802FE; Tue,  7 Jul 2020 12:17:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 04C16F80264
- for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 12:16:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04C16F80264
+ by alsa1.perex.cz (Postfix) with ESMTPS id 21CDBF802BE
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 12:16:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21CDBF802BE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="ZKwj3HHw"
-Received: by mail-wm1-x341.google.com with SMTP id g10so1411317wmc.1
- for <alsa-devel@alsa-project.org>; Tue, 07 Jul 2020 03:16:53 -0700 (PDT)
+ header.b="Y0gY2Sy9"
+Received: by mail-wr1-x443.google.com with SMTP id f7so41530816wrw.1
+ for <alsa-devel@alsa-project.org>; Tue, 07 Jul 2020 03:16:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=WA9dG36UknQVCp/Rfsks+W3xsfkt4WlYU9zyAfbsCgQ=;
- b=ZKwj3HHwQOk7yXe4WVIDlXiwgYKi35YtfQOQBLtduNJaim5iOiInCvN13A/ysgBTFA
- gid3Y1lntBVYfmTMVDpyzc5Dpl8m16t8Jmkd33+lgwA+zsTrLp9Z616D7dJuQEiEaqwO
- xhLycdc4APcvWyNwd2DH6fBd6ToPPhQ4SLe5Q8uYSdU8kTWwRVjT0JLT2uqIRYnuU0yZ
- //VZ8EBQVJv7gy0gQdMd9vdEqaX5MCkItW3oM2WVNZXGH7o0W+6cGt3kbz+cAiWIleC6
- zj2SRmISQNV9o+ZRxaou75jIdRInodNYBtvGpqOlkAfZlEF9nqmJCeYzQc7IUAgDIhs6
- NH0Q==
+ bh=8ZEmbLq4aOW35ukJy4E78RGy/Qq2YYTCi7Pk4jUv8mI=;
+ b=Y0gY2Sy9AnIXxGPBMPafdM/OU+9ALGKd8+XAf10BdrSVdmVXMQ3Drjdux2AMMLpIff
+ I9bHd7e1F6GPWDyeNwpRf5NJl51RBzzacMIqXloYMMCBSl8luOL9X9Vlh2wVEddLyVzH
+ X/EglPfk6GL5tncqxuYjwHRyb9k89v9BbmrAsS/STklgO/FkJI/85N9CuLpAYoYifrY8
+ m9rysfNJHAiL9ccDW9o8UiDwstNbizR9NdPn2J2Sl1EeTmUz+hEEOxWPUxRA1Ze5DYoF
+ uvYdXCkL+aLfmYJDTbvIyEzfu1DeN08knBxZdKrkCHIPtTnNlqsFQH5mepXeDajhBjxs
+ UYvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=WA9dG36UknQVCp/Rfsks+W3xsfkt4WlYU9zyAfbsCgQ=;
- b=IbFLvFcAZ6mJUvExgJeoM6k49CkLYKQkWf4PW1dlUg3VWAWIrgN/MarVUsOH/7YcO3
- XznX36m+uN5KvPzKmd3jDzDRf5Q90OKADiSRnz/JZVQ21ivVfHXlCGcEzdqvGSV2awO4
- SQS9G5XffFecNFdYCA3J5XZWapdXy7c0PfUrkTVv1RFA50VsEwPiuj9gDBSB91HEin3A
- WUHU3mA2x8EJLZkAKCziJ2tv02F6WSIDFPndHnyHnkhLa8crNoOgvAOy0ExQMpb0KnLz
- SvhlQCaej16AW1bCpunKNlu3LpgD4uRuRf775rlouLbGxw9Y7OpldCUFmrOh7JdA8hKB
- IsmQ==
-X-Gm-Message-State: AOAM530FPbIWgGzAr8Bh3RT70c0ZrdsAw4og0hgvoeCQLTiGno6ArQxP
- k+gbtboEqwLJlP6SlalwCMhzYA==
-X-Google-Smtp-Source: ABdhPJwfe7mJl2Nlvy7MUCw7TJuJtcEgvNqi1W6VVbo7nbbTXXlCa6Y7P3z77mktRj4O6UVPNWCFTA==
-X-Received: by 2002:a1c:3245:: with SMTP id y66mr3228476wmy.64.1594117012898; 
- Tue, 07 Jul 2020 03:16:52 -0700 (PDT)
+ bh=8ZEmbLq4aOW35ukJy4E78RGy/Qq2YYTCi7Pk4jUv8mI=;
+ b=cwrp8kGFL/6li0E+L52uwNvMulQBTGu18dS6e1wzgGM7EDrYu0S/2Q++4Sxc7SKUsF
+ 6q43wgprK8ZYOhvud4IsbQhimVy6t84kxIo/BpdSeCnwieSIFoMPJRME52NMrNPn5iYy
+ jQk71SaSytIWMCB/BJijnqDWPgap5+rdhVtwfIOFGfmh33QaMFjdhcrX5lDBUyz/YoUE
+ LJgzYFNxXYupEILEU6RKPtogOnrWBuLompNoysUzl/U1s08GsvbzN8pAcIHA09TzpcOg
+ c5cZlRX9GqBTV1TiIx6BK8QNiCmXexpEs7iIA6X+Fz95QHK9K8AeX9K4RCqztjiyqtr3
+ UV3g==
+X-Gm-Message-State: AOAM530oSh6bVBOLTcrAhIbpPPDd1h8PFtQQYXwkOpYYUn7Ib4ljmoYC
+ HQgAU44DlEZs1m09j3pRXAtPgg==
+X-Google-Smtp-Source: ABdhPJxbWYN/EZ506zCfhQGem0UtKR9JftLPkvuSL9odppwn/+9aRct/FXJzmr1kyNsbYQyI9tSEhw==
+X-Received: by 2002:adf:edc8:: with SMTP id v8mr52127368wro.125.1594117014212; 
+ Tue, 07 Jul 2020 03:16:54 -0700 (PDT)
 Received: from localhost.localdomain ([2.27.35.206])
- by smtp.gmail.com with ESMTPSA id z8sm469409wmg.39.2020.07.07.03.16.51
+ by smtp.gmail.com with ESMTPSA id z8sm469409wmg.39.2020.07.07.03.16.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2020 03:16:52 -0700 (PDT)
+ Tue, 07 Jul 2020 03:16:53 -0700 (PDT)
 From: Lee Jones <lee.jones@linaro.org>
 To: broonie@kernel.org, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com
-Subject: [PATCH 04/28] ASoC: fsl: fsl_asrc: Demote obvious misuse of kerneldoc
+Subject: [PATCH 05/28] ASoC: fsl: fsl_ssi: Demote obvious misuse of kerneldoc
  to standard comment blocks
-Date: Tue,  7 Jul 2020 11:16:18 +0100
-Message-Id: <20200707101642.1747944-5-lee.jones@linaro.org>
+Date: Tue,  7 Jul 2020 11:16:19 +0100
+Message-Id: <20200707101642.1747944-6-lee.jones@linaro.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200707101642.1747944-1-lee.jones@linaro.org>
 References: <20200707101642.1747944-1-lee.jones@linaro.org>
@@ -108,32 +108,36 @@ No attempt has been made to document any of the demoted functions here.
 
 Fixes the following W=1 kernel build warning(s):
 
- sound/soc/fsl/fsl_asrc.c:44: warning: cannot understand function prototype: 'unsigned char input_clk_map_imx35[ASRC_CLK_MAP_LEN] = '
- sound/soc/fsl/fsl_asrc.c:78: warning: cannot understand function prototype: 'unsigned char clk_map_imx8qm[2][ASRC_CLK_MAP_LEN] = '
- sound/soc/fsl/fsl_asrc.c:118: warning: Function parameter or member 'inrate' not described in 'fsl_asrc_sel_proc'
- sound/soc/fsl/fsl_asrc.c:118: warning: Function parameter or member 'outrate' not described in 'fsl_asrc_sel_proc'
- sound/soc/fsl/fsl_asrc.c:118: warning: Function parameter or member 'pre_proc' not described in 'fsl_asrc_sel_proc'
- sound/soc/fsl/fsl_asrc.c:118: warning: Function parameter or member 'post_proc' not described in 'fsl_asrc_sel_proc'
- sound/soc/fsl/fsl_asrc.c:158: warning: Function parameter or member 'channels' not described in 'fsl_asrc_request_pair'
- sound/soc/fsl/fsl_asrc.c:158: warning: Function parameter or member 'pair' not described in 'fsl_asrc_request_pair'
- sound/soc/fsl/fsl_asrc.c:201: warning: Function parameter or member 'pair' not described in 'fsl_asrc_release_pair'
- sound/soc/fsl/fsl_asrc.c:223: warning: Function parameter or member 'pair' not described in 'fsl_asrc_set_watermarks'
- sound/soc/fsl/fsl_asrc.c:223: warning: Function parameter or member 'in' not described in 'fsl_asrc_set_watermarks'
- sound/soc/fsl/fsl_asrc.c:223: warning: Function parameter or member 'out' not described in 'fsl_asrc_set_watermarks'
- sound/soc/fsl/fsl_asrc.c:242: warning: Function parameter or member 'pair' not described in 'fsl_asrc_cal_asrck_divisor'
- sound/soc/fsl/fsl_asrc.c:242: warning: Function parameter or member 'div' not described in 'fsl_asrc_cal_asrck_divisor'
- sound/soc/fsl/fsl_asrc.c:259: warning: Function parameter or member 'pair' not described in 'fsl_asrc_set_ideal_ratio'
- sound/soc/fsl/fsl_asrc.c:259: warning: Function parameter or member 'inrate' not described in 'fsl_asrc_set_ideal_ratio'
- sound/soc/fsl/fsl_asrc.c:259: warning: Function parameter or member 'outrate' not described in 'fsl_asrc_set_ideal_ratio'
- sound/soc/fsl/fsl_asrc.c:310: warning: Function parameter or member 'pair' not described in 'fsl_asrc_config_pair'
- sound/soc/fsl/fsl_asrc.c:310: warning: Function parameter or member 'use_ideal_rate' not described in 'fsl_asrc_config_pair'
- sound/soc/fsl/fsl_asrc.c:516: warning: Function parameter or member 'pair' not described in 'fsl_asrc_start_pair'
- sound/soc/fsl/fsl_asrc.c:545: warning: Function parameter or member 'pair' not described in 'fsl_asrc_stop_pair'
- sound/soc/fsl/fsl_asrc.c:559: warning: Function parameter or member 'pair' not described in 'fsl_asrc_get_dma_channel'
- sound/soc/fsl/fsl_asrc.c:559: warning: Function parameter or member 'dir' not described in 'fsl_asrc_get_dma_channel'
- sound/soc/fsl/fsl_asrc.c:902: warning: Function parameter or member 'asrc' not described in 'fsl_asrc_init'
- sound/soc/fsl/fsl_asrc.c:936: warning: Function parameter or member 'irq' not described in 'fsl_asrc_isr'
- sound/soc/fsl/fsl_asrc.c:936: warning: Function parameter or member 'dev_id' not described in 'fsl_asrc_isr'
+ sound/soc/fsl/fsl_ssi.c:380: warning: Function parameter or member 'irq' not described in 'fsl_ssi_isr'
+ sound/soc/fsl/fsl_ssi.c:380: warning: Function parameter or member 'dev_id' not described in 'fsl_ssi_isr'
+ sound/soc/fsl/fsl_ssi.c:406: warning: Function parameter or member 'ssi' not described in 'fsl_ssi_config_enable'
+ sound/soc/fsl/fsl_ssi.c:406: warning: Function parameter or member 'tx' not described in 'fsl_ssi_config_enable'
+ sound/soc/fsl/fsl_ssi.c:506: warning: Function parameter or member 'ssi' not described in 'fsl_ssi_config_disable'
+ sound/soc/fsl/fsl_ssi.c:506: warning: Function parameter or member 'tx' not described in 'fsl_ssi_config_disable'
+ sound/soc/fsl/fsl_ssi.c:583: warning: Function parameter or member 'ssi' not described in 'fsl_ssi_setup_regvals'
+ sound/soc/fsl/fsl_ssi.c:675: warning: Function parameter or member 'substream' not described in 'fsl_ssi_set_bclk'
+ sound/soc/fsl/fsl_ssi.c:675: warning: Function parameter or member 'dai' not described in 'fsl_ssi_set_bclk'
+ sound/soc/fsl/fsl_ssi.c:675: warning: Function parameter or member 'hw_params' not described in 'fsl_ssi_set_bclk'
+ sound/soc/fsl/fsl_ssi.c:798: warning: Function parameter or member 'substream' not described in 'fsl_ssi_hw_params'
+ sound/soc/fsl/fsl_ssi.c:798: warning: Function parameter or member 'hw_params' not described in 'fsl_ssi_hw_params'
+ sound/soc/fsl/fsl_ssi.c:798: warning: Function parameter or member 'dai' not described in 'fsl_ssi_hw_params'
+ sound/soc/fsl/fsl_ssi.c:1003: warning: Function parameter or member 'dai' not described in 'fsl_ssi_set_dai_fmt'
+ sound/soc/fsl/fsl_ssi.c:1003: warning: Function parameter or member 'fmt' not described in 'fsl_ssi_set_dai_fmt'
+ sound/soc/fsl/fsl_ssi.c:1018: warning: Function parameter or member 'dai' not described in 'fsl_ssi_set_dai_tdm_slot'
+ sound/soc/fsl/fsl_ssi.c:1018: warning: Function parameter or member 'tx_mask' not described in 'fsl_ssi_set_dai_tdm_slot'
+ sound/soc/fsl/fsl_ssi.c:1018: warning: Function parameter or member 'rx_mask' not described in 'fsl_ssi_set_dai_tdm_slot'
+ sound/soc/fsl/fsl_ssi.c:1018: warning: Function parameter or member 'slots' not described in 'fsl_ssi_set_dai_tdm_slot'
+ sound/soc/fsl/fsl_ssi.c:1018: warning: Function parameter or member 'slot_width' not described in 'fsl_ssi_set_dai_tdm_slot'
+ sound/soc/fsl/fsl_ssi.c:1065: warning: Function parameter or member 'substream' not described in 'fsl_ssi_trigger'
+ sound/soc/fsl/fsl_ssi.c:1065: warning: Function parameter or member 'cmd' not described in 'fsl_ssi_trigger'
+ sound/soc/fsl/fsl_ssi.c:1065: warning: Function parameter or member 'dai' not described in 'fsl_ssi_trigger'
+ sound/soc/fsl/fsl_ssi.c:1245: warning: Function parameter or member 'ssi' not described in 'fsl_ssi_hw_init'
+ sound/soc/fsl/fsl_ssi.c:1274: warning: Function parameter or member 'ssi' not described in 'fsl_ssi_hw_clean'
+ sound/soc/fsl/fsl_ssi.c:1292: warning: Function parameter or member 's' not described in 'make_lowercase'
+
+Also use correct formatting when documenting structs:
+
+ sound/soc/fsl/fsl_ssi.c:258: warning: cannot understand function prototype: 'struct fsl_ssi '
 
 Cc: Timur Tabi <timur@kernel.org>
 Cc: Nicolin Chen <nicoleotsuka@gmail.com>
@@ -142,139 +146,139 @@ Cc: Fabio Estevam <festevam@gmail.com>
 Cc: linuxppc-dev@lists.ozlabs.org
 Signed-off-by: Lee Jones <lee.jones@linaro.org>
 ---
- sound/soc/fsl/fsl_asrc.c | 28 ++++++++++++++--------------
+ sound/soc/fsl/fsl_ssi.c | 28 ++++++++++++++--------------
  1 file changed, 14 insertions(+), 14 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-index 462ce9f9ab488..209bf80dc3670 100644
---- a/sound/soc/fsl/fsl_asrc.c
-+++ b/sound/soc/fsl/fsl_asrc.c
-@@ -37,7 +37,7 @@ static struct snd_pcm_hw_constraint_list fsl_asrc_rate_constraints = {
- 	.list = supported_asrc_rate,
+diff --git a/sound/soc/fsl/fsl_ssi.c b/sound/soc/fsl/fsl_ssi.c
+index 1a2fa7f181423..5717d664cde1e 100644
+--- a/sound/soc/fsl/fsl_ssi.c
++++ b/sound/soc/fsl/fsl_ssi.c
+@@ -203,7 +203,7 @@ struct fsl_ssi_soc_data {
  };
+ 
+ /**
+- * fsl_ssi: per-SSI private data
++ * struct fsl_ssi - per-SSI private data
+  *
+  * @regs: Pointer to the regmap registers
+  * @irq: IRQ of this SSI
+@@ -373,7 +373,7 @@ static bool fsl_ssi_is_i2s_cbm_cfs(struct fsl_ssi *ssi)
+ 		SND_SOC_DAIFMT_CBM_CFS;
+ }
  
 -/**
 +/*
-  * The following tables map the relationship between asrc_inclk/asrc_outclk in
-  * fsl_asrc.h and the registers of ASRCSR
+  * Interrupt handler to gather states
   */
-@@ -68,7 +68,7 @@ static unsigned char output_clk_map_imx53[ASRC_CLK_MAP_LEN] = {
- 	0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7,
- };
- 
--/**
-+/*
-  * i.MX8QM/i.MX8QXP uses the same map for input and output.
-  * clk_map_imx8qm[0] is for i.MX8QM asrc0
-  * clk_map_imx8qm[1] is for i.MX8QM asrc1
-@@ -101,7 +101,7 @@ static unsigned char clk_map_imx8qxp[2][ASRC_CLK_MAP_LEN] = {
- 	},
- };
- 
--/**
-+/*
-  * Select the pre-processing and post-processing options
-  * Make sure to exclude following unsupported cases before
-  * calling this function:
-@@ -147,7 +147,7 @@ static void fsl_asrc_sel_proc(int inrate, int outrate,
- 		*post_proc = 1;
+ static irqreturn_t fsl_ssi_isr(int irq, void *dev_id)
+@@ -394,7 +394,7 @@ static irqreturn_t fsl_ssi_isr(int irq, void *dev_id)
+ 	return IRQ_HANDLED;
  }
  
 -/**
 +/*
-  * Request ASRC pair
+  * Set SCR, SIER, STCR and SRCR registers with cached values in regvals
   *
-  * It assigns pair by the order of A->C->B because allocation of pair B,
-@@ -192,7 +192,7 @@ static int fsl_asrc_request_pair(int channels, struct fsl_asrc_pair *pair)
- 	return ret;
+  * Notes:
+@@ -474,7 +474,7 @@ static void fsl_ssi_config_enable(struct fsl_ssi *ssi, bool tx)
+ 	ssi->streams |= BIT(dir);
  }
  
 -/**
 +/*
-  * Release ASRC pair
+  * Exclude bits that are used by the opposite stream
   *
-  * It clears the resource from asrc and releases the occupied channels.
-@@ -216,7 +216,7 @@ static void fsl_asrc_release_pair(struct fsl_asrc_pair *pair)
- 	spin_unlock_irqrestore(&asrc->lock, lock_flags);
+  * When both streams are active, disabling some bits for the current stream
+@@ -494,7 +494,7 @@ static void fsl_ssi_config_enable(struct fsl_ssi *ssi, bool tx)
+ #define ssi_excl_shared_bits(vals, avals, aactive) \
+ 	((vals) & _ssi_xor_shared_bits(vals, avals, aactive))
+ 
+-/**
++/*
+  * Unset SCR, SIER, STCR and SRCR registers with cached values in regvals
+  *
+  * Notes:
+@@ -576,7 +576,7 @@ static void fsl_ssi_tx_ac97_saccst_setup(struct fsl_ssi *ssi)
+ 	}
  }
  
 -/**
 +/*
-  * Configure input and output thresholds
+  * Cache critical bits of SIER, SRCR, STCR and SCR to later set them safely
   */
- static void fsl_asrc_set_watermarks(struct fsl_asrc_pair *pair, u32 in, u32 out)
-@@ -233,7 +233,7 @@ static void fsl_asrc_set_watermarks(struct fsl_asrc_pair *pair, u32 in, u32 out)
- 			   ASRMCRi_OUTFIFO_THRESHOLD(out));
+ static void fsl_ssi_setup_regvals(struct fsl_ssi *ssi)
+@@ -660,7 +660,7 @@ static void fsl_ssi_shutdown(struct snd_pcm_substream *substream,
+ 	clk_disable_unprepare(ssi->clk);
  }
  
 -/**
 +/*
-  * Calculate the total divisor between asrck clock rate and sample rate
+  * Configure Digital Audio Interface bit clock
   *
-  * It follows the formula clk_rate = samplerate * (2 ^ prescaler) * divider
-@@ -249,7 +249,7 @@ static u32 fsl_asrc_cal_asrck_divisor(struct fsl_asrc_pair *pair, u32 div)
- 	return ((div - 1) << ASRCDRi_AxCPi_WIDTH) | ps;
- }
- 
--/**
-+/*
-  * Calculate and set the ratio for Ideal Ratio mode only
-  *
-  * The ratio is a 32-bit fixed point value with 26 fractional bits.
-@@ -292,7 +292,7 @@ static int fsl_asrc_set_ideal_ratio(struct fsl_asrc_pair *pair,
+  * Note: This function can be only called when using SSI as DAI master
+@@ -781,7 +781,7 @@ static int fsl_ssi_set_bclk(struct snd_pcm_substream *substream,
  	return 0;
  }
  
 -/**
 +/*
-  * Configure the assigned ASRC pair
+  * Configure SSI based on PCM hardware parameters
   *
-  * It configures those ASRC registers according to a configuration instance
-@@ -507,7 +507,7 @@ static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair, bool use_ideal_rate)
- 	return fsl_asrc_set_ideal_ratio(pair, inrate, outrate);
+  * Notes:
+@@ -996,7 +996,7 @@ static int _fsl_ssi_set_dai_fmt(struct fsl_ssi *ssi, unsigned int fmt)
+ 	return 0;
  }
  
 -/**
 +/*
-  * Start the assigned ASRC pair
+  * Configure Digital Audio Interface (DAI) Format
+  */
+ static int fsl_ssi_set_dai_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+@@ -1010,7 +1010,7 @@ static int fsl_ssi_set_dai_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 	return _fsl_ssi_set_dai_fmt(ssi, fmt);
+ }
+ 
+-/**
++/*
+  * Set TDM slot number and slot width
+  */
+ static int fsl_ssi_set_dai_tdm_slot(struct snd_soc_dai *dai, u32 tx_mask,
+@@ -1054,7 +1054,7 @@ static int fsl_ssi_set_dai_tdm_slot(struct snd_soc_dai *dai, u32 tx_mask,
+ 	return 0;
+ }
+ 
+-/**
++/*
+  * Start or stop SSI and corresponding DMA transaction.
   *
-  * It enables the assigned pair and makes it stopped at the stall level.
-@@ -538,7 +538,7 @@ static void fsl_asrc_start_pair(struct fsl_asrc_pair *pair)
- 	regmap_write(asrc->regmap, REG_ASRIER, ASRIER_AOLIE);
- }
- 
--/**
-+/*
-  * Stop the assigned ASRC pair
-  */
- static void fsl_asrc_stop_pair(struct fsl_asrc_pair *pair)
-@@ -551,7 +551,7 @@ static void fsl_asrc_stop_pair(struct fsl_asrc_pair *pair)
- 			   ASRCTR_ASRCEi_MASK(index), 0);
- }
- 
--/**
-+/*
-  * Get DMA channel according to the pair and direction.
-  */
- static struct dma_chan *fsl_asrc_get_dma_channel(struct fsl_asrc_pair *pair,
-@@ -895,7 +895,7 @@ static const struct regmap_config fsl_asrc_regmap_config = {
- 	.cache_type = REGCACHE_FLAT,
+  * The DMA channel is in external master start and pause mode, which
+@@ -1238,7 +1238,7 @@ static struct snd_ac97_bus_ops fsl_ssi_ac97_ops = {
+ 	.write = fsl_ssi_ac97_write,
  };
  
 -/**
 +/*
-  * Initialize ASRC registers with a default configurations
+  * Initialize SSI registers
   */
- static int fsl_asrc_init(struct fsl_asrc *asrc)
-@@ -929,7 +929,7 @@ static int fsl_asrc_init(struct fsl_asrc *asrc)
- 	return regmap_write(asrc->regmap, REG_ASR56K, ipg_rate / 56000);
+ static int fsl_ssi_hw_init(struct fsl_ssi *ssi)
+@@ -1267,7 +1267,7 @@ static int fsl_ssi_hw_init(struct fsl_ssi *ssi)
+ 	return 0;
  }
  
 -/**
 +/*
-  * Interrupt handler for ASRC
+  * Clear SSI registers
   */
- static irqreturn_t fsl_asrc_isr(int irq, void *dev_id)
+ static void fsl_ssi_hw_clean(struct fsl_ssi *ssi)
+@@ -1285,7 +1285,7 @@ static void fsl_ssi_hw_clean(struct fsl_ssi *ssi)
+ 		regmap_update_bits(ssi->regs, REG_SSI_SCR, SSI_SCR_SSIEN, 0);
+ 	}
+ }
+-/**
++/*
+  * Make every character in a string lower-case
+  */
+ static void make_lowercase(char *s)
 -- 
 2.25.1
 

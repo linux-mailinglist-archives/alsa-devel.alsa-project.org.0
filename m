@@ -2,54 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28C92216998
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 11:55:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42CC7216999
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 11:56:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8774084D;
-	Tue,  7 Jul 2020 11:55:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8774084D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 81C721607;
+	Tue,  7 Jul 2020 11:55:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81C721607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594115753;
-	bh=AAYQuCrNs9oioJC0XXtg5N671YWvYqoV3nGJjfZ0Wnw=;
+	s=default; t=1594115800;
+	bh=d7NZKeKZylbXhlGs91fbxuQE8uKoIIQlR+Phi9phmFs=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nYwPwX89VHFnzs1c2DOLYDQ6wx9htmhcsMQymT4R8BBs+Ph/iTYEDfXIKxaDx6Q9I
-	 j1I7De5u8582APCP4h78+W1h/KbOPwE1mfh3Yc6AiV4DCXvezRIQqqEYKCCiHq2C5V
-	 viAhB+B/jvOUapDBKhU1WrCy9TuT/qmia+XYarxE=
+	b=IXLSzrqicDicpZG6i6JMCjGj1EFl3m6lCibHW3wzX3yVFHnRBQEq9X+egIhnWMw8R
+	 Btvj7Yrd1gg2sYe/uOotO5O4Tfk/5CXPcQWlrb4TMAdoPGLxI9E1xS1KtDbw4SQ/Ec
+	 SYC+a6rleS+Zikts64GC7pv/1RP0Jbmtoax1au2I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B0135F80257;
-	Tue,  7 Jul 2020 11:54:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98833F80274;
+	Tue,  7 Jul 2020 11:54:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AE676F80216; Tue,  7 Jul 2020 11:54:10 +0200 (CEST)
+ id DCCF9F80216; Tue,  7 Jul 2020 11:54:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9C906F800DF
- for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 11:54:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C906F800DF
+ by alsa1.perex.cz (Postfix) with ESMTPS id C7184F80216
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 11:54:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7184F80216
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 91536AC2D;
- Tue,  7 Jul 2020 09:54:04 +0000 (UTC)
-Date: Tue, 07 Jul 2020 11:54:04 +0200
-Message-ID: <s5himezejlv.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id CE452AE2B;
+ Tue,  7 Jul 2020 09:54:16 +0000 (UTC)
+Date: Tue, 07 Jul 2020 11:54:16 +0200
+Message-ID: <s5hh7ujejlj.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Vinod Koul <vkoul@kernel.org>
-Subject: Re: [PATCH v5 1/3] ALSA: compress: document the compress audio state
- machine
-In-Reply-To: <20200629134737.105993-2-vkoul@kernel.org>
+Subject: Re: [PATCH v5 2/3] ALSA: compress: document the compress gapless
+ audio state machine
+In-Reply-To: <20200629134737.105993-3-vkoul@kernel.org>
 References: <20200629134737.105993-1-vkoul@kernel.org>
- <20200629134737.105993-2-vkoul@kernel.org>
+ <20200629134737.105993-3-vkoul@kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -76,16 +75,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 29 Jun 2020 15:47:35 +0200,
+On Mon, 29 Jun 2020 15:47:36 +0200,
 Vinod Koul wrote:
 > 
-> So we had some discussions of the stream states, so I thought it is a
-> good idea to document the state transitions, so add it documentation
+> Also documented the galpess transitions. Please note that these are not
+> really stream states, but show how the stream steps in gapless mode
 > 
-> Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 > Signed-off-by: Vinod Koul <vkoul@kernel.org>
 
-Applied to for-next branch now.  Thanks.
+Applied to for-next branch.  Thanks.
 
 
 Takashi

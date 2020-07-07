@@ -2,74 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B865121776F
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 21:01:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35C02217771
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 21:02:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1B5F615E2;
-	Tue,  7 Jul 2020 21:00:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B5F615E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE40A84D;
+	Tue,  7 Jul 2020 21:01:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE40A84D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594148493;
-	bh=dYDxYvPT32BLVDMVsQAF83e+xGeSLhuqg+mfXEUM7b4=;
+	s=default; t=1594148539;
+	bh=EFAUE/O3NAFgFk16uIpubIyUQAmR64ga9v6sCy4aUV8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Xpz0HUR+23rWZcouv33GQcLGLu3FzVz3h8TaQsYS2PNn/P1NhQVuHwznnodXB96pM
-	 ZH6G5MWRktccNtghEgHsIRfaxuEMbdetrvp/6f+AJnoxIAC08MHvEVMEbVRz+ei4fC
-	 2oDPv/E+JrQceTy62d91BmqL5bSVwfMjJgvxyirw=
+	b=JYgpjdPgT6+Xcd+frtwNImfJNrLJ112MsMSiXvbtfXHY1MeRnHfVkSShSjezDzU7w
+	 THRjIyQaIozg3KjNooVy9QDLpA9QHn1QebyI5f/gCM5zAE71vTixmJE6am9XAAcXqE
+	 V0fZ93xVqFgBcJc8CDttPEDvs/ac4KIFQ9Px9Tgg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 479B7F80257;
-	Tue,  7 Jul 2020 20:59:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57F8EF8027C;
+	Tue,  7 Jul 2020 20:59:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EE818F8025A; Tue,  7 Jul 2020 20:59:49 +0200 (CEST)
+ id 1E24DF80257; Tue,  7 Jul 2020 20:59:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89F00F801F9
- for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 20:59:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89F00F801F9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8657DF800D0
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 20:59:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8657DF800D0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="amcogKLN"
+ header.b="c9732zf5"
 Received: from sol.hsd1.ca.comcast.net (c-107-3-166-239.hsd1.ca.comcast.net
  [107.3.166.239])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A190C20771;
- Tue,  7 Jul 2020 18:59:37 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id C9EE7206CD;
+ Tue,  7 Jul 2020 18:59:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594148378;
- bh=dYDxYvPT32BLVDMVsQAF83e+xGeSLhuqg+mfXEUM7b4=;
+ s=default; t=1594148379;
+ bh=EFAUE/O3NAFgFk16uIpubIyUQAmR64ga9v6sCy4aUV8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=amcogKLNwPWNZWTJA/bClGo+zbp+dlirYL+aO6XBIv774Zp+ALWBpN5UqSwBomBDc
- Zsu72EkQYEJrg0wVmqiEn3br6EQj9S05pNcP7kK3xAH2PLZExIcsKG7YZNWfN5fcIY
- 93yfGpg/J8a8ULQTSm/FuR8M/tU+NiMa4ML6SD9I=
+ b=c9732zf5gH9kNy/qOxs8iTYY7nqaMEDN+LqFtnIDsK66oKlYDc0huOBgQasFTmiX9
+ 6RR5REwpmJGjyz9yhxRabbDu0oEpD2PYmoa1biV75kcYGkeew5KY5746nv3IJ4jw54
+ vIInYsdRydl1osvc5z62Y0mYRv2uh1UeQWXsQpOo=
 From: Eric Biggers <ebiggers@kernel.org>
 To: linux-crypto@vger.kernel.org,
 	Herbert Xu <herbert@gondor.apana.org.au>
-Subject: [PATCH 1/4] crypto: lib/sha256 - add sha256() function
-Date: Tue,  7 Jul 2020 11:58:15 -0700
-Message-Id: <20200707185818.80177-2-ebiggers@kernel.org>
+Subject: [PATCH 4/4] ASoC: cros_ec_codec: use sha256() instead of open coding
+Date: Tue,  7 Jul 2020 11:58:18 -0700
+Message-Id: <20200707185818.80177-5-ebiggers@kernel.org>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200707185818.80177-1-ebiggers@kernel.org>
 References: <20200707185818.80177-1-ebiggers@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-efi@vger.kernel.org,
- Hans de Goede <hdegoede@redhat.com>,
- Mat Martineau <mathew.j.martineau@linux.intel.com>,
- Guenter Roeck <groeck@chromium.org>, Tzung-Bi Shih <tzungbi@google.com>,
+Cc: alsa-devel@alsa-project.org, Tzung-Bi Shih <tzungbi@google.com>,
+ Guenter Roeck <groeck@chromium.org>,
  Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Matthieu Baerts <matthieu.baerts@tessares.net>, mptcp@lists.01.org,
  Ard Biesheuvel <ardb@kernel.org>, Cheng-Yi Chiang <cychiang@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -88,48 +85,69 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Eric Biggers <ebiggers@google.com>
 
-Add a function sha256() which computes a SHA-256 digest in one step,
-combining sha256_init() + sha256_update() + sha256_final().
+Now that there's a function that calculates the SHA-256 digest of a
+buffer in one step, use it instead of sha256_init() + sha256_update() +
+sha256_final().
 
-This is similar to how we also have blake2s().
+Also simplify the code by inlining calculate_sha256() into its caller
+and switching a debug log statement to use %*phN instead of bin2hex().
 
+Cc: alsa-devel@alsa-project.org
+Cc: Ard Biesheuvel <ardb@kernel.org>
+Cc: Cheng-Yi Chiang <cychiang@chromium.org>
+Cc: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+Cc: Guenter Roeck <groeck@chromium.org>
+Cc: Tzung-Bi Shih <tzungbi@google.com>
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
- include/crypto/sha.h |  1 +
- lib/crypto/sha256.c  | 10 ++++++++++
- 2 files changed, 11 insertions(+)
+ sound/soc/codecs/cros_ec_codec.c | 27 ++-------------------------
+ 1 file changed, 2 insertions(+), 25 deletions(-)
 
-diff --git a/include/crypto/sha.h b/include/crypto/sha.h
-index 10753ff71d46..4ff3da816630 100644
---- a/include/crypto/sha.h
-+++ b/include/crypto/sha.h
-@@ -147,6 +147,7 @@ static inline void sha256_init(struct sha256_state *sctx)
+diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros_ec_codec.c
+index 8d45c628e988..ab009c7dfdf4 100644
+--- a/sound/soc/codecs/cros_ec_codec.c
++++ b/sound/soc/codecs/cros_ec_codec.c
+@@ -103,28 +103,6 @@ static int send_ec_host_command(struct cros_ec_device *ec_dev, uint32_t cmd,
+ 	return ret;
  }
- void sha256_update(struct sha256_state *sctx, const u8 *data, unsigned int len);
- void sha256_final(struct sha256_state *sctx, u8 *out);
-+void sha256(const u8 *data, unsigned int len, u8 *out);
  
- static inline void sha224_init(struct sha256_state *sctx)
+-static int calculate_sha256(struct cros_ec_codec_priv *priv,
+-			    uint8_t *buf, uint32_t size, uint8_t *digest)
+-{
+-	struct sha256_state sctx;
+-
+-	sha256_init(&sctx);
+-	sha256_update(&sctx, buf, size);
+-	sha256_final(&sctx, digest);
+-
+-#ifdef DEBUG
+-	{
+-		char digest_str[65];
+-
+-		bin2hex(digest_str, digest, 32);
+-		digest_str[64] = 0;
+-		dev_dbg(priv->dev, "hash=%s\n", digest_str);
+-	}
+-#endif
+-
+-	return 0;
+-}
+-
+ static int dmic_get_gain(struct snd_kcontrol *kcontrol,
+ 			 struct snd_ctl_elem_value *ucontrol)
  {
-diff --git a/lib/crypto/sha256.c b/lib/crypto/sha256.c
-index 2e621697c5c3..2321f6cb322f 100644
---- a/lib/crypto/sha256.c
-+++ b/lib/crypto/sha256.c
-@@ -280,4 +280,14 @@ void sha224_final(struct sha256_state *sctx, u8 *out)
- }
- EXPORT_SYMBOL(sha224_final);
+@@ -782,9 +760,8 @@ static int wov_hotword_model_put(struct snd_kcontrol *kcontrol,
+ 	if (IS_ERR(buf))
+ 		return PTR_ERR(buf);
  
-+void sha256(const u8 *data, unsigned int len, u8 *out)
-+{
-+	struct sha256_state sctx;
-+
-+	sha256_init(&sctx);
-+	sha256_update(&sctx, data, len);
-+	sha256_final(&sctx, out);
-+}
-+EXPORT_SYMBOL(sha256);
-+
- MODULE_LICENSE("GPL");
+-	ret = calculate_sha256(priv, buf, size, digest);
+-	if (ret)
+-		goto leave;
++	sha256(buf, size, digest);
++	dev_dbg(priv->dev, "hash=%*phN\n", SHA256_DIGEST_SIZE, digest);
+ 
+ 	p.cmd = EC_CODEC_WOV_GET_LANG;
+ 	ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_WOV,
 -- 
 2.27.0
 

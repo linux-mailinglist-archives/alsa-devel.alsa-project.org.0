@@ -2,85 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56DE22165B6
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 07:01:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A029E2165F6
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 07:46:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B2C781674;
-	Tue,  7 Jul 2020 07:00:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2C781674
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2DF31166E;
+	Tue,  7 Jul 2020 07:45:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DF31166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594098059;
-	bh=zBAVOOxoNZnFHxWDjotrxyPb1iXjek0VoVYLkHfl22M=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=iN7Z1VhhvrHWyufWYkyU9EY2FcwAFxqHEZYv2BwwYx8348uwsFa/L+GizxAYmkZFu
-	 S67V9h/vPGM9N8sJYt1LNjHQpzxYNvDaTnR1fdwvgkVWSI/U6N8jzP/PuSQbjMj3Vk
-	 3stG20Ko4jP0MPeZH1EL4/ICmp4iQwW9b5hHFswU=
+	s=default; t=1594100764;
+	bh=f7eFFJOYGRK+fvYwlkiyPSD7sPYUCURDrgucWQCSQ1s=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ua1RDde8UDT7ARP3QypECIWm8xCc/5QRVT2WBe2t1MMfL00sOvDU2vHqDnSoYxzNg
+	 jheJqHfJnNRKIBpqiYQnxAHKLy1mzOweAWrcB5eeZKDC+d2JjH/ZRRtbGxm4slvncn
+	 bj52WhVm528GBNSm+P5IRfWyX7UifRfsRp7U1Exg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9A79F80257;
-	Tue,  7 Jul 2020 06:59:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C327F80257;
+	Tue,  7 Jul 2020 07:44:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25516F80216; Tue,  7 Jul 2020 06:59:14 +0200 (CEST)
+ id D440DF80216; Tue,  7 Jul 2020 07:44:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4B68EF800DF
- for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 06:59:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B68EF800DF
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5D65F800DF
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 07:44:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5D65F800DF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="uftFUaF0"
-Received: by mail-pg1-x544.google.com with SMTP id l63so19412287pge.12
- for <alsa-devel@alsa-project.org>; Mon, 06 Jul 2020 21:59:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=fnf5BOlLTguFdAJt0eKBqSFaZTROPVc2dJ5RoFXNCYA=;
- b=uftFUaF0PjHg0naEaC4J+NSl69Db+2w3bJ6URTUu0NQ0/8Syog8GFyJos/mOW2tD3B
- jgroHtO7cic5K99ZvRpTyH3vKylb+A0A4Z0kAt/s3H68nivRpBkODHGFo0SSHvHlypwh
- 39U/wnLwe7ElfgFYL2M2narCr959zv9/REkd3bVvgAHOKfWH7bzVQO/xuHkcaI+QvRSB
- gY0D5JyQgoohO2h9EN1s4UsZ/KR50Mpd3MUHjvAuX7FkSxFL4Bc+vX5F5Sfp+0a4wgOH
- /hOfzJ5VbGOy6fluH/BL0dg/w7IxdNeK6Y4yJ5pAwXEVI9VWsrihdxwX7DdXV7ywcCzw
- H5og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=fnf5BOlLTguFdAJt0eKBqSFaZTROPVc2dJ5RoFXNCYA=;
- b=NpJL2w6ddeN8+luCSbgs1pZXz4UAF70oc/9k/H3WBkn17vvqpulbsSy9tWpOnesJTw
- TUp0SaWLIwvL17TRKdnXOhLxYX4CWnVw6XUTW8unqn3vXQTmDv8F/u0iP6uAuYewtX1S
- bVKnK1y31jzIrT2uh98k1k7pyh1u0T4PjWBoOP7PLT9nYARbFiw1QTLfj+MvoHzgXSIC
- jSzNXp+S1OYPhCuTZETQPqmnXz2eFsA3On5+du40/aM3o4jeK7rwSd3CEkUMXDy4Yd7h
- L4GJ0rBbyr+Tnle+M0bhXlIuyG6Nh5GOYcS9sDnwxUtPW/qbD0w7XNkAiLUaii/1sJoo
- SJJg==
-X-Gm-Message-State: AOAM532rg0O2CaDfjSj161j8w+TZ5FY7+k3rfmcL5cq2apwBQEYRusRs
- lVZgoCAVSvMEHUz82ow/CVE=
-X-Google-Smtp-Source: ABdhPJwwBjwRcBhX5cznZ+2DvGqB7QhUlH1A9wSx7ThIxOU26AbLCZvRJz73gSNVuaTqZ6nuI1r/Kw==
-X-Received: by 2002:a05:6a00:1589:: with SMTP id
- u9mr49055656pfk.201.1594097943614; 
- Mon, 06 Jul 2020 21:59:03 -0700 (PDT)
-Received: from Asurada-Nvidia.nvidia.com (searspoint.nvidia.com.
- [216.228.112.21])
- by smtp.gmail.com with ESMTPSA id d18sm1017930pjz.11.2020.07.06.21.59.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jul 2020 21:59:03 -0700 (PDT)
-From: Nicolin Chen <nicoleotsuka@gmail.com>
-To: broonie@kernel.org
-Subject: [PATCH v2] MAINTAINERS: Add Shengjiu to reviewer list of sound/soc/fsl
-Date: Mon,  6 Jul 2020 21:58:29 -0700
-Message-Id: <20200707045829.10002-1-nicoleotsuka@gmail.com>
-X-Mailer: git-send-email 2.17.1
-Cc: alsa-devel@alsa-project.org, shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, shengjiu.wang@nxp.com, timur@tabi.org,
- linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="LywVwyGX"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:To:Subject:Sender:
+ Reply-To:Cc:Content-ID:Content-Description;
+ bh=VZkOok0klgYFwIIGzlVgtaFmTD1Z+sQAb+yB5lFvhOw=; b=LywVwyGX/TJ2DZv2pe2/K08L5r
+ MJDRPMQ6dPYqEoL75gE7NLMEC2Gk+iIYvxkj5BYB9ir7uaGoEI3KTdZTpUy2dK34VvxQ5IFnAkwfj
+ Z53fC+wV1m6YnNgod2y063+J0kDfkvSfL/JwxNnlgomj7ITPpGPt+ZMG2WaX8F9AreLeNJrdSXecK
+ C33ZP48O7t5qd6WBZhZZe6Ns+2Q9Rie0b8hfMh7t/uoX8Nx7NBckcI4Euv6qnOwbdA3LL2fhNu/Dg
+ In2bIpTuJuOw3SGWeK3oz3vCTfaZLo+AtgrZSyUq4n4nu7vRqZyNWxQyd5eeNefJn6MixQuYJg1XN
+ ttz4h/7A==;
+Received: from [2601:1c0:6280:3f0:897c:6038:c71d:ecac]
+ by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1jsgOj-00019U-FU; Tue, 07 Jul 2020 05:44:06 +0000
+Subject: Re: mmotm 2020-07-06-18-53 uploaded
+ (sound/soc/amd/renoir/rn-pci-acp3x.c:)
+To: Andrew Morton <akpm@linux-foundation.org>, broonie@kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, linux-next@vger.kernel.org, mhocko@suse.cz,
+ moderated for non-subscribers <alsa-devel@alsa-project.org>,
+ sfr@canb.auug.org.au, Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+References: <20200707015344.U9ep-OO5Z%akpm@linux-foundation.org>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <b54188c7-47b4-b7e4-2f74-6394320df5df@infradead.org>
+Date: Mon, 6 Jul 2020 22:44:00 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
+MIME-Version: 1.0
+In-Reply-To: <20200707015344.U9ep-OO5Z%akpm@linux-foundation.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,32 +87,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add Shengjiu who's actively working on the latest fsl/nxp audio drivers.
+On 7/6/20 6:53 PM, Andrew Morton wrote:
+> The mm-of-the-moment snapshot 2020-07-06-18-53 has been uploaded to
+> 
+>    http://www.ozlabs.org/~akpm/mmotm/
+> 
+> mmotm-readme.txt says
+> 
+> README for mm-of-the-moment:
+> 
+> http://www.ozlabs.org/~akpm/mmotm/
+> 
+> This is a snapshot of my -mm patch queue.  Uploaded at random hopefully
+> more than once a week.
+> 
+> You will need quilt to apply these patches to the latest Linus release (5.x
+> or 5.x-rcY).  The series file is in broken-out.tar.gz and is duplicated in
+> http://ozlabs.org/~akpm/mmotm/series
+> 
 
-Signed-off-by: Nicolin Chen <nicoleotsuka@gmail.com>
-Acked-by: Shengjiu Wang <shengjiu.wang@gmail.com>
-Reviewed-by: Fabio Estevam <festevam@gmail.com>
----
-Changelog
-v1->v2:
- * Replaced Shengjiu's emaill address with his gmail one
- * Added Acked-by from Shengjiu and Reviewed-by from Fabio
+on i386:
 
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+when CONFIG_ACPI is not set/enabled:
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 496fd4eafb68..ff97b8cefaea 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -6956,6 +6956,7 @@ M:	Timur Tabi <timur@kernel.org>
- M:	Nicolin Chen <nicoleotsuka@gmail.com>
- M:	Xiubo Li <Xiubo.Lee@gmail.com>
- R:	Fabio Estevam <festevam@gmail.com>
-+R:	Shengjiu Wang <shengjiu.wang@gmail.com>
- L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
- L:	linuxppc-dev@lists.ozlabs.org
- S:	Maintained
+../sound/soc/amd/renoir/rn-pci-acp3x.c: In function ‘snd_rn_acp_probe’:
+../sound/soc/amd/renoir/rn-pci-acp3x.c:222:9: error: implicit declaration of function ‘acpi_evaluate_integer’; did you mean ‘acpi_evaluate_object’? [-Werror=implicit-function-declaration]
+   ret = acpi_evaluate_integer(handle, "_WOV", NULL, &dmic_status);
+         ^~~~~~~~~~~~~~~~~~~~~
+         acpi_evaluate_object
+
+
+
 -- 
-2.17.1
-
+~Randy
+Reported-by: Randy Dunlap <rdunlap@infradead.org>

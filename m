@@ -2,82 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 494BB217414
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 18:38:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99225217432
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jul 2020 18:39:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD5749F6;
-	Tue,  7 Jul 2020 18:37:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD5749F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id D08F11660;
+	Tue,  7 Jul 2020 18:38:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D08F11660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594139927;
-	bh=pTQOsCVaGdw0VyCeU79ze1Jh99TaAMXGI5SjW+OCbYs=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=mkoqCjSU0sjcCK+uko4UGp6RLFguEN6nb/MEI6Q3rFQBu3xRkNn8PZtrlT1oH6Wl3
-	 aOuEAWdeAKAAoTNK8AIy64l8CC8LRrE88NfJ0jvCE6E5ddY/VMXN2U45DX2dvhGcYM
-	 rPz+tHsT8vYEOeruVEQdbUNsq2VMfTjjOQjll1GY=
+	s=default; t=1594139973;
+	bh=xdwW81u7IxxoNmesNocO0hbzyu8brea2mHr1aIB4hYo=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=jnAOCy0a/78WxedEuxa+Az+jVIKnvjCPZoGOYNqDcIqNPew8GlGAeemG6pt+77+qa
+	 yZjlu8mrgT9z3ncyYoavre3M6/BmCNQgyJ3gPfEGupqaEGLV+78b7s9e6h7cLbvdF+
+	 FNjG95HFsDufP2Sxjk2CAEPJXoYNUZW00nZuL9W8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D00C9F802BC;
-	Tue,  7 Jul 2020 18:37:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C89D8F802C4;
+	Tue,  7 Jul 2020 18:37:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E3A6DF8027C; Tue,  7 Jul 2020 18:37:02 +0200 (CEST)
+ id 197D3F80274; Tue,  7 Jul 2020 18:37:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 124CBF80216
- for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 18:36:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 124CBF80216
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0A571F800D0
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jul 2020 18:36:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A571F800D0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="ceObNRJb"
-Received: by mail-wm1-x344.google.com with SMTP id l17so43994495wmj.0
- for <alsa-devel@alsa-project.org>; Tue, 07 Jul 2020 09:36:50 -0700 (PDT)
+ header.b="uLrJ/B+z"
+Received: by mail-wr1-x441.google.com with SMTP id o11so45929221wrv.9
+ for <alsa-devel@alsa-project.org>; Tue, 07 Jul 2020 09:36:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=AUDtaZGuLvv+SLoR7KU3Z891RyQPf3cxC2Vk4Ft9m9A=;
- b=ceObNRJb7swhmuIvVvg3ZWrMgV+06yjHovtpaDEvq4C3mCvWuWv+/xTa0cFjalWvb0
- DkiDYsAW+KY+MufpoNp8ltf2iXAvP2ivhQ/eTvxOtu2Dwa7ZQSoER3vk+bBwrXO9siZ6
- BfPqBqVmp4nDCnIA0gJQNrIXMjoAq8CZBPfpawF2hCp6x69YekTK/MSWoLa1a+Hg9+9k
- neMSXdGgCUmyDrUxBvrtTnfYdHo+0w0wbZN+jG07dxZ9x+oaRwJc0MCZndbsta3LNw+7
- yIbnD/2BxgAALz314G6NQD/xkZaONSuA1VH+KgTN5eR+2bFZek3ybcNA433micyY7kDx
- z7dQ==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=eXFmux5X1whu1JBdcynlDddC5+sJq/4aA7zZPxnTZOA=;
+ b=uLrJ/B+zL3ZjyzHkLvOuGvamrzrBzDHge6qjBz/hFLcTSxqdbrcuzOcLI+n8bLwE2f
+ TZBi7a3z8Oj81fJyTn6QjU8mpe/0mz0GyxyFfPXRsWAiRMCLnAtkgb8sAxnn+2iNIJWI
+ WfkBlPRU3WhTZgGKvanFhJstFplDxkrjAzhsanUcgaYsqhPxZx1xN8NsONZSvXx2uqi/
+ UbtJtTNv7Bo43yJ/Z8wMZG0vccKp0XnQklb4ab9ZZKRvBsug4azlvVWNTz0VjK7p4Djg
+ xwPe24SOwRLtWXtyDp8syBrAA01me3ase+Do2AlKkp4L7PMVR5GHA56hSPNZC6iCQa2C
+ yy1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=AUDtaZGuLvv+SLoR7KU3Z891RyQPf3cxC2Vk4Ft9m9A=;
- b=L5PNBKvFqrySn8VIkVkyktpKejrLuzhxLysUE8FvWDkjMddRKa/cyMNfU+GDfhNP90
- H5sB3M6K6dHLSr46R1I3kMx5odr3XpX/48AGwaJ2Z+FjN3ssVSfpylBMyZZg+YjMj7py
- tqubHrC6zDs5P12SRSHL7yeUzYa8zPnfapGtz90VWS25AF2teN5LcXhpVKIqczL0fUgG
- kh973LAYXeNVNJq6ixLGJQD9tVBbF3VzmhzTbrv4tOw1Zx5opjKzYdjBntYHtH6zaJCi
- XrYRz/9kgDdJj0lslIlbJft6zEIWI1H1mQxp/tnpl3ypFoHb0riidJ1+YAxQXQea4mpv
- jw1Q==
-X-Gm-Message-State: AOAM532/PSta83go7jjmT/co8YGCyoBwJZRn0d5S/LdFO0/jj9iynur+
- JzdeGcfbJq2bG1l6nQsBaCKbFQ==
-X-Google-Smtp-Source: ABdhPJz0MNARkMW88PzV5/chhJFzWYfOvc0ROqTGi8ma2hnlG9QS9GYEPrqvZOnoNhLS0UuMXlyHeg==
-X-Received: by 2002:a7b:c218:: with SMTP id x24mr4863263wmi.109.1594139809531; 
- Tue, 07 Jul 2020 09:36:49 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=eXFmux5X1whu1JBdcynlDddC5+sJq/4aA7zZPxnTZOA=;
+ b=St8unv5lhhN6yYm3JKxqVIPi2ThDYtGuMHnsDKGZaPXfJjxnjrwvCClsM5npDh0yiu
+ aDDj/HJpar3r2nFuKeuqTL51qyDThWnt9cdQhe7FIGiRVGD8Pw0Eqao24kxG+dfm27dI
+ JzRHQxUCAZeb6eqI+g+f0rHbHLVYzZBZQO0/hk+q7mXYpj2Wu+If+61MTcRuCkS2Jagw
+ QZ1+fRJ4igDmMYFiVU0UG1XYj5uBCREHriPqaEbzT/bTUdfBX95sPWVCAwCIdM0DOHTg
+ 4034w61Ck2z3ZmFItanhoLyg6yfP+sXdhR2IVMovSxB/fRjv8EeSy8w6r2KKhY6t/0ty
+ ohrA==
+X-Gm-Message-State: AOAM533pZDLBkTqgiGGVGoLKxrJv7nK1Spy2ghjROryM3rssXF9ZXwb7
+ 7S1sC8ZMrKbs/WdYZt7LnY6/yA==
+X-Google-Smtp-Source: ABdhPJwQUC2lPy1B1jfVkVhjQrvBloYN9Zm6x0E4go8cfkV/wUheZl/QcmCcBOwbz/t4/v0q0FPbBw==
+X-Received: by 2002:a5d:4649:: with SMTP id j9mr52303665wrs.270.1594139810886; 
+ Tue, 07 Jul 2020 09:36:50 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.gmail.com with ESMTPSA id p14sm1925874wrj.14.2020.07.07.09.36.47
+ by smtp.gmail.com with ESMTPSA id p14sm1925874wrj.14.2020.07.07.09.36.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2020 09:36:48 -0700 (PDT)
+ Tue, 07 Jul 2020 09:36:50 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: broonie@kernel.org
-Subject: [PATCH 00/11] ASoC: qdsp6: add gapless compressed audio support
-Date: Tue,  7 Jul 2020 17:36:30 +0100
-Message-Id: <20200707163641.17113-1-srinivas.kandagatla@linaro.org>
+Subject: [PATCH 01/11] ASoC: q6asm: add command opcode to timeout error report
+Date: Tue,  7 Jul 2020 17:36:31 +0100
+Message-Id: <20200707163641.17113-2-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
+In-Reply-To: <20200707163641.17113-1-srinivas.kandagatla@linaro.org>
+References: <20200707163641.17113-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com, tiwai@suse.com,
@@ -98,39 +102,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patchset adds gapless compressed audio support on q6asm.
-Gapless on q6asm is implemented using 2 streams in a single asm session.
+Make the error reporting more useful by adding opcode to it.
+Without this its almost impossible to say which command actually
+timed out.
 
-First few patches are enhacements done to q6asm interface to allow
-stream id per each command, gapless flags and silence meta data.
-Along with this there are few trivial changes which I thought are necessary!
-Last patch implements copy callback to allow finer control over buffer offsets,
-specially in partial drain cases.
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+ sound/soc/qcom/qdsp6/q6asm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-This patchset is tested on RB3 aka DB845c platform.
-
-Thanks,
-srini
-
-
-Srinivas Kandagatla (11):
-  ASoC: q6asm: add command opcode to timeout error report
-  ASoC: q6asm: rename misleading session id variable
-  ASoC: q6asm: make commands specific to streams
-  ASoC: q6asm: use flags directly from asm-dai
-  ASoC: q6asm: add length to write command token
-  ASoC: q6asm: add support to remove intial and trailing silence
-  ASoC: q6asm: add support to gapless flag in asm open
-  ASoC: q6asm-dai: add next track metadata support
-  ASoC: qdsp6: use dev_err instead of pr_err
-  ASoC: qdsp6-dai: add gapless support
-  ASoC: q6asm-dai: add support to copy callback
-
- sound/soc/qcom/qdsp6/q6asm-dai.c | 397 +++++++++++++++++++++++--------
- sound/soc/qcom/qdsp6/q6asm.c     | 173 +++++++++-----
- sound/soc/qcom/qdsp6/q6asm.h     |  48 ++--
- 3 files changed, 458 insertions(+), 160 deletions(-)
-
+diff --git a/sound/soc/qcom/qdsp6/q6asm.c b/sound/soc/qcom/qdsp6/q6asm.c
+index ae4b2cabdf2d..e0983970cba9 100644
+--- a/sound/soc/qcom/qdsp6/q6asm.c
++++ b/sound/soc/qcom/qdsp6/q6asm.c
+@@ -311,7 +311,7 @@ static int q6asm_apr_send_session_pkt(struct q6asm *a, struct audio_client *ac,
+ 					5 * HZ);
+ 
+ 	if (!rc) {
+-		dev_err(a->dev, "CMD timeout\n");
++		dev_err(a->dev, "CMD %x timeout\n", hdr->opcode);
+ 		rc = -ETIMEDOUT;
+ 	} else if (ac->result.status > 0) {
+ 		dev_err(a->dev, "DSP returned error[%x]\n",
+@@ -891,7 +891,7 @@ static int q6asm_ac_send_cmd_sync(struct audio_client *ac, struct apr_pkt *pkt)
+ 	rc = wait_event_timeout(ac->cmd_wait,
+ 				(ac->result.opcode == hdr->opcode), 5 * HZ);
+ 	if (!rc) {
+-		dev_err(ac->dev, "CMD timeout\n");
++		dev_err(ac->dev, "CMD %x timeout\n", hdr->opcode);
+ 		rc =  -ETIMEDOUT;
+ 		goto err;
+ 	}
 -- 
 2.21.0
 

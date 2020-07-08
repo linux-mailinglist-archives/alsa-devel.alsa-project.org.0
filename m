@@ -2,74 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B596021887E
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 15:08:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9118A2188AD
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 15:15:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DE03F168C;
-	Wed,  8 Jul 2020 15:07:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE03F168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 91F591679;
+	Wed,  8 Jul 2020 15:14:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91F591679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594213729;
-	bh=QTb9kn2b3DUE3Ca1VRAQY9XJLUA/liSaAQuBO3yf8N8=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1594214113;
+	bh=5rANE8QL9bujIGIKTFmNAOGIjpnD1tbUYUW9Yy2zXf4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=llSxA3ecSu1GcNvgjHd0phRm8bxJUBmHkKNARcO54q8Mqd962XxXSbTZpkhoKZkHV
-	 bcyAoep6WqLnTnOstEFTYRtDUOl1ljOnmFjcaXVgTdy3RUPsPgkk6UHl2BLbl0Oczp
-	 KM9WRLMLL9WuExFBk0oy1Apy1gcZv+kViL0DMn+I=
+	b=RXHV+AJWLx02/CJBWbsQvGtFpHPsesO0hJ0+8W20+vebhL97wGM0adRIJtit0Ol83
+	 W7wJoPfnF9XKJyrfty1I2FZn12/h43a18IIVHjOFi/pcNvoURKXUOaE1Qwk6Ej78yt
+	 XqZSwr0OhVVcgCMCfnfHZfjmDbB6BOxw2E6bPTQI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38B09F80258;
-	Wed,  8 Jul 2020 15:06:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19324F80115;
+	Wed,  8 Jul 2020 15:13:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A19EAF80161; Wed,  8 Jul 2020 15:06:41 +0200 (CEST)
+ id 32C41F8015A; Wed,  8 Jul 2020 15:13:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6C458F8011F
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 15:13:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C458F8011F
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="w4+SEDGL"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 33FADF8011F
- for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 15:06:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33FADF8011F
-IronPort-SDR: 9d3YVV1TqiWdZ036zcPUVHsA9z+qVETgQMqRWMVVTUGVobwtIGyjbCGxMVneO+p500Zf/dMf9g
- KQzZM6JM4dsw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9675"; a="136018571"
-X-IronPort-AV: E=Sophos;i="5.75,327,1589266800"; d="scan'208";a="136018571"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2020 06:06:30 -0700
-IronPort-SDR: P5qtq4WPAKu4Jcv7EbkTrZYVMsTvHhoAMjb7Hcm8yODViPeHgSoGywF3dW4kqb/58IvCXubQ3O
- wc9ryDf15Pow==
-X-IronPort-AV: E=Sophos;i="5.75,327,1589266800"; d="scan'208";a="323873323"
-Received: from sare-mobl.amr.corp.intel.com (HELO [10.251.7.246])
- ([10.251.7.246])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2020 06:06:30 -0700
-Subject: Re: [PATCH] regmap: add missing dependency on SoundWire
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-References: <20200707202628.113142-1-pierre-louis.bossart@linux.intel.com>
- <20200708071428.GA353107@kroah.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <dda765be-b252-98ff-f339-f226a42f4093@linux.intel.com>
-Date: Wed, 8 Jul 2020 08:06:29 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ by mail.kernel.org (Postfix) with ESMTPSA id A1C5A20578;
+ Wed,  8 Jul 2020 13:13:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1594213993;
+ bh=5rANE8QL9bujIGIKTFmNAOGIjpnD1tbUYUW9Yy2zXf4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=w4+SEDGLAoFA3Xs7h9v8fQ6kjHFgBMCaiT3W0AjRftyEAUzxY8jqwpkxq5zhH9xZt
+ wtYwhEmYsxu46SnGP6wBSLJYjIGLURiBDW2NRIhmUssF2btzHI8xyypEtSGbpr+ssm
+ cCvfO9iv4r43IHJhMNurq3k02mT6Si6QyK7oN968=
+Date: Wed, 8 Jul 2020 14:13:07 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH 03/11] ASoC: q6asm: make commands specific to streams
+Message-ID: <20200708131307.GO4655@sirena.org.uk>
+References: <20200707163641.17113-1-srinivas.kandagatla@linaro.org>
+ <20200707163641.17113-4-srinivas.kandagatla@linaro.org>
+ <9ff595b4-1093-36c8-f27f-f097e24657a0@linux.intel.com>
+ <4eedae20-903f-77c6-c6e9-fbf3db209bcf@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <20200708071428.GA353107@kroah.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org,
- "open list:REGISTER MAP ABSTRACTION" <linux-kernel@vger.kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="GoZzJvFfKjxI3RhA"
+Content-Disposition: inline
+In-Reply-To: <4eedae20-903f-77c6-c6e9-fbf3db209bcf@linaro.org>
+X-Cookie: Oh Dad!  We're ALL Devo!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, vkoul@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,45 +87,56 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--GoZzJvFfKjxI3RhA
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 7/8/20 2:14 AM, Greg Kroah-Hartman wrote:
-> On Tue, Jul 07, 2020 at 03:26:28PM -0500, Pierre-Louis Bossart wrote:
->> CONFIG_REGMAP is not selected when no other serial bus is supported.
->> It's largely academic since CONFIG_I2C is usually selected e.g. by
->> DRM, but still this can break randconfig so let's be explicit.
->>
->> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
->> ---
->>   drivers/base/regmap/Kconfig | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/base/regmap/Kconfig b/drivers/base/regmap/Kconfig
->> index 0fd6f97ee523..1d1d26b0d279 100644
->> --- a/drivers/base/regmap/Kconfig
->> +++ b/drivers/base/regmap/Kconfig
->> @@ -4,7 +4,7 @@
->>   # subsystems should select the appropriate symbols.
->>   
->>   config REGMAP
->> -	default y if (REGMAP_I2C || REGMAP_SPI || REGMAP_SPMI || REGMAP_W1 || REGMAP_AC97 || REGMAP_MMIO || REGMAP_IRQ || REGMAP_SCCB || REGMAP_I3C)
->> +	default y if (REGMAP_I2C || REGMAP_SPI || REGMAP_SPMI || REGMAP_W1 || REGMAP_AC97 || REGMAP_MMIO || REGMAP_IRQ || REGMAP_SOUNDWIRE || REGMAP_SCCB || REGMAP_I3C)
-> 
-> Any reason you didn't add it to the end of the list instead of adding it
-> to the middle?
+On Wed, Jul 08, 2020 at 10:44:19AM +0100, Srinivas Kandagatla wrote:
+> On 07/07/2020 17:52, Pierre-Louis Bossart wrote:
 
-yes, I followed the config order in the same file:
+> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0 if (substream->stream =3D=3D SNDRV_PCM_ST=
+REAM_PLAYBACK)
+> > > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 q6asm_write_async(prtd->audio_clie=
+nt,
+> > > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 prtd->pcm_cou=
+nt, 0, 0, NO_TIMESTAMP);
+> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 q6asm_write_async(prtd->audio_clie=
+nt, prtd->stream_id,
+> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 prtd->pcm_cou=
+nt, 0, 0, 0);
 
-grep config Kconfig
-config REGMAP
-config REGCACHE_COMPRESSED
-config REGMAP_AC97
-config REGMAP_I2C
-config REGMAP_SLIMBUS
-config REGMAP_SPI
-config REGMAP_SPMI
-config REGMAP_W1
-config REGMAP_MMIO
-config REGMAP_IRQ
-config REGMAP_SOUNDWIRE
-config REGMAP_SCCB
-config REGMAP_I3C
+> > sound/soc/qcom/qdsp6/q6asm.h:#define NO_TIMESTAMP=A0=A0=A0 0xFF00
+
+> > is the change on the previous line intentional?
+
+> May be not!
+
+> Plan is that the users of these apis will send flags directly instead of
+> boiler plating this!
+
+> This change should go as part of next patch("[PATCH 04/11] ASoC: q6asm: u=
+se
+> flags directly from asm-dai") which would make it much clear!
+
+It should be in here.
+
+Please be also consistent in your use of ASM, especially given that asm
+is a widely used name in the kernel.
+
+--GoZzJvFfKjxI3RhA
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8FxmMACgkQJNaLcl1U
+h9CkaAf9EYS1y3Rx8LG8HM3oH1Htsox8HmKMN+MFhUgtH+3ent6wb2eaYtZ+FcET
+qwwYx6Vrs4F5lBh6UyKGFhUyznHP01JY2qGjtUfgEP+NRJc1IcSnSuAiD1Bu77Wl
+0HSBK7HpF/feGrZZcUxov527kh7O1TCBEAu3/PNCLZ45SXwbNP/6rDMc2PQM1JlQ
+/rjNJpWokFP+CnUaY4Yy653Jlh6s+7UTJyi0bKzXpejJyYhDICBq5XS8PmGA/EE2
+8wU3ez4ZBwlr9ujK67WuSRuOFeGpnU+HtRdo1KTNs4msmNQZdjSlcjEYgWo5T883
+EhcHgBqaHAPIPKdv77XiRIygaJm1GA==
+=8rYY
+-----END PGP SIGNATURE-----
+
+--GoZzJvFfKjxI3RhA--

@@ -2,79 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76A6921843B
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 11:51:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FFBC2184AA
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 12:06:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DEC97167F;
-	Wed,  8 Jul 2020 11:51:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEC97167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id C82F7167B;
+	Wed,  8 Jul 2020 12:05:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C82F7167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594201916;
-	bh=MTnvbqcZlnu+azn/LRyoWX3UCd+R2A0BVyNb56D6uN8=;
+	s=default; t=1594202797;
+	bh=WESo8uRn89dal0Se9yediaMIdWKfPgqlwwQUi0PuOh8=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=YKmYagE/Zv++GVrO5hTJ6SGZSb2kOIVAjQs7eDB3RiUKzfnzOCz6UyVzC5NfMo9IA
-	 Cai/no13tShDHhHyU/8TV1XHLQ1D3R7/X93HJKVz/PffHnowUSA12vux29HolcySmo
-	 t6ZHuTnPu374sHC/OlAK+jzYLXA60KwRkyvJuuAc=
+	b=Q4tbXQmkfQivB3w1DWeHTV6zmyVRnwKCaBuTCtEPRsSvTU72OfAFNi13cuBwZ/D3m
+	 2AAm/SKKUhu/WMYlEL1YEuMs4kD7Psb7SgbnVES5cJZog2eXeZOhRxgj2QahXcxdBA
+	 Ei8TSf2kjEwLv/CpZkHT1ecgwq4Kg77+Izhzqbvg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A1C3F80115;
-	Wed,  8 Jul 2020 11:50:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E1A36F8011F;
+	Wed,  8 Jul 2020 12:04:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 68C6EF8015A; Wed,  8 Jul 2020 11:50:13 +0200 (CEST)
+ id E0333F8015A; Wed,  8 Jul 2020 12:04:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_32,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
+ DKIM_VALID_AU,PRX_BODY_32,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
  SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from esa1.microchip.iphmx.com (esa1.microchip.iphmx.com
- [68.232.147.91])
+Received: from esa3.microchip.iphmx.com (esa3.microchip.iphmx.com
+ [68.232.153.233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89D86F80115
- for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 11:50:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89D86F80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0F925F8011F
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 12:04:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F925F8011F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com
- header.b="VHw63Hf0"
+ header.b="pFMbAJrg"
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1594201807; x=1625737807;
+ t=1594202689; x=1625738689;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=MTnvbqcZlnu+azn/LRyoWX3UCd+R2A0BVyNb56D6uN8=;
- b=VHw63Hf07W+7PE37bnoeNNREYESfHC8aefrcGr6PHY0lYg0JAo7gcLLp
- FB8mMrz7wCQjQUV2g28hMe0veabVIMq+dtBa+MhU7vbscRnq5h3/+pqgB
- YlQyu0V3+76VCN9UaPL7p5TD6MQSAiT1MwTdMUHstmi4xWVYxcodMj+3T
- 89F4wucTnDeV1CNkJ5hoij2n/PxMYW7vL1AgI4JmvvNhVYRgl77g4cXeD
- bKzAhdURoLfmsbXWsIClPTHQprSw02nvhrXqO0k11J8KqiYmVxdta3uY8
- d3CsaAeVpl/zCFABMnQ6vwVVs0nPl/CJOXLXXzayNRK4QUdcB5clVMOJt g==;
-IronPort-SDR: IbbmxUMeYbQAK6G9awOEMmxkfIoAVbYhMy5Sm8bBn3SY+SDC2UqWP2vu5iklzdGA1iBWi8se9M
- nU2rq+BgsX7tG3f1BqPjq2AMFzs/sGweYWiZPnKldm8E2P5P2z26+lgw2hgeE7mmqmtXMH/dWe
- uuoiIkT3xcCjs5sEybI7bFlNPqdFa+pH4rN5k/+yyK96cAsz041/5C8ZGD4y6IRzjO026chz6z
- nCEL/5MG0hEApgmjnw5gq37iyq07Uhh71K+yY8Uh31Juc33oMybrAC54zzzCn+0CDSwtI2kvQp
- PY0=
-X-IronPort-AV: E=Sophos;i="5.75,327,1589266800"; d="scan'208";a="86638125"
+ bh=WESo8uRn89dal0Se9yediaMIdWKfPgqlwwQUi0PuOh8=;
+ b=pFMbAJrgautGScJbFmJ/F9i9o0Nd2MaBlidQpeOwIS6Sc/1TTfNuLKux
+ 6/nSRhrlgZO2pv1aWTQqsNEJFo8awnIm/CjQx7yE3/GQnBfAInwsHzIrf
+ NKeByxE2UgSJTeLtRuPNDe7+5ZGMP5Vh1TulFwvnrL5WYqOVlys17pKj9
+ emI1PW3MOukaXDhh7xeqvH8T/NA6gqNBRNLzgJC5s/hGomcMFxKh4bQEG
+ zVcV5FmSeGw/Og0fEKsEtrpQb1DfLqBykLVkziDj8pgWPmB+/8ipZ0G2m
+ zaRwdJpjogccQrcQuRPc1iiBduTTbmxCGMp61N/gf5vNozOkyWjBIB6xr w==;
+IronPort-SDR: Iap92/DhbL9SeP4/bXfxOMjNRrvLV3PF9G0itpbxzdcsllogS/vOZOcdg2G1NICaIkm1IJORLi
+ DIi10cKw2UsxHRsmfllxsUPrDuZHxRPPtu/Gn9DY3HlpW3mMI87cnulgtLChwVleFJJnRP8HYu
+ w++7rS8KFljmeNz8UzfnfweiyM4SWbZXrfeeZXa06NS9WsFEVz9Q/EMU3oSDK4vGVtXx+c0GDU
+ ksp/wgfZ9G2KQ3fmbk5jAbt0DLwxfl95A/ZzFFx/gFrNw0o4ZFUsVA19O3YXJC9Qu2hfH7ocQy
+ ILQ=
+X-IronPort-AV: E=Sophos;i="5.75,327,1589266800"; d="scan'208";a="82965611"
 Received: from smtpout.microchip.com (HELO email.microchip.com)
  ([198.175.253.82])
- by esa1.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 08 Jul 2020 02:50:02 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ by esa3.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 08 Jul 2020 03:04:39 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1979.3; Wed, 8 Jul 2020 02:50:01 -0700
+ 15.1.1979.3; Wed, 8 Jul 2020 03:04:12 -0700
 Received: from rob-ult-m19940.microchip.com (10.10.115.15) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.1979.3 via Frontend Transport; Wed, 8 Jul 2020 02:49:51 -0700
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
+ 15.1.1979.3 via Frontend Transport; Wed, 8 Jul 2020 03:03:53 -0700
 From: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
 To: <alsa-devel@alsa-project.org>, <linux-arm-kernel@lists.infradead.org>,
  <linux-kernel@vger.kernel.org>
-Subject: [PATCH] ASoC: atmel-classd: remove codec component
-Date: Wed, 8 Jul 2020 12:49:21 +0300
-Message-ID: <20200708094921.2595529-1-codrin.ciubotariu@microchip.com>
+Subject: [PATCH v2] ASoC: atmel-classd: remove codec component
+Date: Wed, 8 Jul 2020 13:04:09 +0300
+Message-ID: <20200708100409.2625566-1-codrin.ciubotariu@microchip.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -106,11 +106,15 @@ create entries for both componenets with the same name.
 
 Signed-off-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
 ---
- sound/soc/atmel/atmel-classd.c | 133 ++++++++++++---------------------
- 1 file changed, 48 insertions(+), 85 deletions(-)
+
+Changes in v2:
+ - removed no longer used ATMEL_CLASSD_CODEC_DAI_NAME macro;
+
+ sound/soc/atmel/atmel-classd.c | 134 ++++++++++++---------------------
+ 1 file changed, 48 insertions(+), 86 deletions(-)
 
 diff --git a/sound/soc/atmel/atmel-classd.c b/sound/soc/atmel/atmel-classd.c
-index e98601eccfa3..d1ce67d30cd7 100644
+index e98601eccfa3..24bc93c468af 100644
 --- a/sound/soc/atmel/atmel-classd.c
 +++ b/sound/soc/atmel/atmel-classd.c
 @@ -5,7 +5,6 @@
@@ -263,7 +267,7 @@ index e98601eccfa3..d1ce67d30cd7 100644
  	u32 mask, val;
  
  	mask = CLASSD_MR_LEN_MASK | CLASSD_MR_REN_MASK;
-@@ -468,19 +428,17 @@ static int atmel_classd_codec_dai_trigger(struct snd_pcm_substream *substream,
+@@ -468,19 +428,16 @@ static int atmel_classd_codec_dai_trigger(struct snd_pcm_substream *substream,
  	return 0;
  }
  
@@ -283,7 +287,7 @@ index e98601eccfa3..d1ce67d30cd7 100644
 +	.trigger	= atmel_classd_cpu_dai_trigger,
  };
  
- #define ATMEL_CLASSD_CODEC_DAI_NAME  "atmel-classd-hifi"
+-#define ATMEL_CLASSD_CODEC_DAI_NAME  "atmel-classd-hifi"
 -
 -static struct snd_soc_dai_driver atmel_classd_codec_dai = {
 -	.name = ATMEL_CLASSD_CODEC_DAI_NAME,
@@ -291,7 +295,7 @@ index e98601eccfa3..d1ce67d30cd7 100644
  	.playback = {
  		.stream_name	= "Playback",
  		.channels_min	= 1,
-@@ -488,7 +446,18 @@ static struct snd_soc_dai_driver atmel_classd_codec_dai = {
+@@ -488,7 +445,18 @@ static struct snd_soc_dai_driver atmel_classd_codec_dai = {
  		.rates		= ATMEL_CLASSD_RATES,
  		.formats	= SNDRV_PCM_FMTBIT_S16_LE,
  	},
@@ -311,7 +315,7 @@ index e98601eccfa3..d1ce67d30cd7 100644
  };
  
  /* ASoC sound card */
-@@ -517,9 +486,10 @@ static int atmel_classd_asoc_card_init(struct device *dev,
+@@ -517,9 +485,10 @@ static int atmel_classd_asoc_card_init(struct device *dev,
  
  	dai_link->name			= "CLASSD";
  	dai_link->stream_name		= "CLASSD PCM";
@@ -324,7 +328,7 @@ index e98601eccfa3..d1ce67d30cd7 100644
  	dai_link->platforms->name	= dev_name(dev);
  
  	card->dai_link	= dai_link;
-@@ -620,13 +590,6 @@ static int atmel_classd_probe(struct platform_device *pdev)
+@@ -620,13 +589,6 @@ static int atmel_classd_probe(struct platform_device *pdev)
  		return ret;
  	}
  

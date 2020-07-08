@@ -2,93 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78F8E218879
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 15:08:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B596021887E
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 15:08:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1C9531682;
-	Wed,  8 Jul 2020 15:07:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C9531682
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE03F168C;
+	Wed,  8 Jul 2020 15:07:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE03F168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594213682;
-	bh=+ZcEixGGyXNx/rGI0cDyhMEYBIC0HZVRlgM5r67B0/s=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1594213729;
+	bh=QTb9kn2b3DUE3Ca1VRAQY9XJLUA/liSaAQuBO3yf8N8=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FHyu7gCADa1KCDo6L27i5x2v1/Pfhhjojh/cMHhX7rrCwDnbSFPXiRgyRkfIpfyLg
-	 Y/wzTJhFiJkdV/wQvCCoxBJqBP+SAr9u4W4DdGG0n5E56V6s0sSIP1ST97y9ljtzTH
-	 s+pTWwDSrtcv8OIwLlcmT9Djm2BsVIvdfRDawv44=
+	b=llSxA3ecSu1GcNvgjHd0phRm8bxJUBmHkKNARcO54q8Mqd962XxXSbTZpkhoKZkHV
+	 bcyAoep6WqLnTnOstEFTYRtDUOl1ljOnmFjcaXVgTdy3RUPsPgkk6UHl2BLbl0Oczp
+	 KM9WRLMLL9WuExFBk0oy1Apy1gcZv+kViL0DMn+I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 35996F8015C;
-	Wed,  8 Jul 2020 15:06:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38B09F80258;
+	Wed,  8 Jul 2020 15:06:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9F0EF8015A; Wed,  8 Jul 2020 15:06:17 +0200 (CEST)
+ id A19EAF80161; Wed,  8 Jul 2020 15:06:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4DC81F80115
- for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 15:06:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DC81F80115
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="vcs0lIKG"
-Received: by mail-wr1-x443.google.com with SMTP id q5so48884865wru.6
- for <alsa-devel@alsa-project.org>; Wed, 08 Jul 2020 06:06:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=mNKCLmCbwMQS6p1jtUSXl2rKJQGQDSOEjrDKNkTmf9Q=;
- b=vcs0lIKG7KmSx2lDcQMz76MgotwWDBzdwD4mga1beApwOkExaw/zkQVWeUtMianeaC
- QcCg430g3Q5yaTL4LcV4BO2Cx/lnwW6M3/cNFFfqEkopRZTgkfT8rTnRnyfeL6EHmpd0
- vd+snH7q03KXfcg0H5a5PP7aPwilMKk8/JANzt1bUGx0uAMqawIHnYhrI4b6J8wojbIH
- xj6DGPt2uVWtRu1EQvabuCOcxU8eI61wpLGxT3hTbpCIUHLPAJK3HFu8C0NoTENLYhGC
- /zBOVOffZ38XoahttSAFnMogbisXyXxOm0DJodkWGyWUmP3E4LnKMp21l2osiVlMa8HK
- 7ibA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=mNKCLmCbwMQS6p1jtUSXl2rKJQGQDSOEjrDKNkTmf9Q=;
- b=A++0Ln9gHh7phILVVzyiuKVl6GMu8zTw/JAy0Tr/K21uBMkKm6FRnIWJi3m4wIvtfv
- uJtWEZCN2lXuxwK2sFK58KwxKsVFodjJfdDNHeI0BS4V6k81eMis2rbOjtTTDybNsKXc
- TRwBKgxPxgzF9Miv1Ov5wS3zqwe1rnR1N03b2//Kig1HfLt+cKEz6yqZf/Lj+icYs3z2
- 09B0NQFSvy1ZQ9rRNctDNlaF02D1U79RbIgNPEzFolHQu3Gg3LUSVSYhxcy7ofk2dM/H
- +iH2efpG77iAubwGwpq88yFReIGfa+E6j2uTdMvkB4XmQJCKJXomKE+Jaoo4FTM6E3uC
- 8p4A==
-X-Gm-Message-State: AOAM531gJqNJsRqCVO82tGaKrNoRlM7hUHjCCsTcHJ6KzCqHvYarO/uk
- 4LY6hGUj3jRQRkGqClfDS4+rZA==
-X-Google-Smtp-Source: ABdhPJxGAM/C0FnXyCE6FocAVlACjRdgrK+tj3pdqIR1dc1kqQx9e/LaC34AsT2tuKTUwBGVSCfdJg==
-X-Received: by 2002:adf:f04c:: with SMTP id t12mr55512843wro.382.1594213569073; 
- Wed, 08 Jul 2020 06:06:09 -0700 (PDT)
-Received: from dell ([2.27.35.206])
- by smtp.gmail.com with ESMTPSA id q188sm6222627wma.46.2020.07.08.06.06.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jul 2020 06:06:08 -0700 (PDT)
-Date: Wed, 8 Jul 2020 14:06:06 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v3 00/10] ASoC: =?utf-8?Q?Clean?=
- =?utf-8?Q?-up_W=3D1_build_warnings=E2=80=8B?= - part2
-Message-ID: <20200708130606.GW3500@dell>
-References: <20200707191615.98296-1-pierre-louis.bossart@linux.intel.com>
- <20200708063900.GJ3500@dell>
- <93b7fb31-7a00-2c68-5096-6a3c81df881a@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 33FADF8011F
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 15:06:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33FADF8011F
+IronPort-SDR: 9d3YVV1TqiWdZ036zcPUVHsA9z+qVETgQMqRWMVVTUGVobwtIGyjbCGxMVneO+p500Zf/dMf9g
+ KQzZM6JM4dsw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9675"; a="136018571"
+X-IronPort-AV: E=Sophos;i="5.75,327,1589266800"; d="scan'208";a="136018571"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jul 2020 06:06:30 -0700
+IronPort-SDR: P5qtq4WPAKu4Jcv7EbkTrZYVMsTvHhoAMjb7Hcm8yODViPeHgSoGywF3dW4kqb/58IvCXubQ3O
+ wc9ryDf15Pow==
+X-IronPort-AV: E=Sophos;i="5.75,327,1589266800"; d="scan'208";a="323873323"
+Received: from sare-mobl.amr.corp.intel.com (HELO [10.251.7.246])
+ ([10.251.7.246])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jul 2020 06:06:30 -0700
+Subject: Re: [PATCH] regmap: add missing dependency on SoundWire
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <20200707202628.113142-1-pierre-louis.bossart@linux.intel.com>
+ <20200708071428.GA353107@kroah.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <dda765be-b252-98ff-f339-f226a42f4093@linux.intel.com>
+Date: Wed, 8 Jul 2020 08:06:29 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <93b7fb31-7a00-2c68-5096-6a3c81df881a@linux.intel.com>
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org
+In-Reply-To: <20200708071428.GA353107@kroah.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org,
+ "open list:REGISTER MAP ABSTRACTION" <linux-kernel@vger.kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,73 +85,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 08 Jul 2020, Pierre-Louis Bossart wrote:
 
+
+On 7/8/20 2:14 AM, Greg Kroah-Hartman wrote:
+> On Tue, Jul 07, 2020 at 03:26:28PM -0500, Pierre-Louis Bossart wrote:
+>> CONFIG_REGMAP is not selected when no other serial bus is supported.
+>> It's largely academic since CONFIG_I2C is usually selected e.g. by
+>> DRM, but still this can break randconfig so let's be explicit.
+>>
+>> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>> ---
+>>   drivers/base/regmap/Kconfig | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/base/regmap/Kconfig b/drivers/base/regmap/Kconfig
+>> index 0fd6f97ee523..1d1d26b0d279 100644
+>> --- a/drivers/base/regmap/Kconfig
+>> +++ b/drivers/base/regmap/Kconfig
+>> @@ -4,7 +4,7 @@
+>>   # subsystems should select the appropriate symbols.
+>>   
+>>   config REGMAP
+>> -	default y if (REGMAP_I2C || REGMAP_SPI || REGMAP_SPMI || REGMAP_W1 || REGMAP_AC97 || REGMAP_MMIO || REGMAP_IRQ || REGMAP_SCCB || REGMAP_I3C)
+>> +	default y if (REGMAP_I2C || REGMAP_SPI || REGMAP_SPMI || REGMAP_W1 || REGMAP_AC97 || REGMAP_MMIO || REGMAP_IRQ || REGMAP_SOUNDWIRE || REGMAP_SCCB || REGMAP_I3C)
 > 
-> 
-> On 7/8/20 1:39 AM, Lee Jones wrote:
-> > On Tue, 07 Jul 2020, Pierre-Louis Bossart wrote:
-> > 
-> > > Both Lee Jones and I submitted separate series, this is the second
-> > > part of the merged result, for which no feedback was provided.
-> > > 
-> > > I picked Lee's patches for rt5659 and ak4458 and added the pxa and
-> > > ux500 that I didn't fix. The rest is largely identical between our
-> > > respective series, with the exception of the sunxi which I documented
-> > > and Lee removed. I don't have any specific preference and will go with
-> > > the flow on this.
-> > > 
-> > > Lee Jones (4):
-> > >    ASoC: pxa: pxa-ssp: Demote seemingly unintentional kerneldoc header
-> > >    ASoC: ux500: ux500_msp_i2s: Remove unused variables 'reg_val_DR' and
-> > >      'reg_val_TSTDR'
-> > >    ASoC: codecs: rt5659: Remove many unused const variables
-> > >    ASoC: codecs: ak4458: Remove set but never checked variable 'ret'
-> > > 
-> > > Pierre-Louis Bossart (6):
-> > >    ASoC: qcom: q6asm: fix kernel-doc
-> > >    ASoC: sunxi: sun4i-i2s: fix kernel-doc
-> > >    ASoC: sunxi: sun4i-spdif: fix kernel-doc
-> > >    ASoC: codecs: rt5631: fix kernel-doc
-> > >    ASoC: codecs: tlv320aic26: fix kernel-doc warning
-> > 
-> > Would you mind elaborating on "fix kernel-doc".  Some tooling relies
-> > on the fact that subject lines are, at least for the most part, pretty
-> > unique, and if we have to fix another kerneldoc issue in the future
-> > with the same thirst for simpleness, I'm afraid there might be
-> > clashes.
-> 
-> which tools? seems pretty bad to me to rely on string uniqueness, isn't
-> uniqueness defined by SHA1s?
+> Any reason you didn't add it to the end of the list instead of adding it
+> to the middle?
 
-SHAs don't work across rebases/cherry-picks.
+yes, I followed the config order in the same file:
 
-Sometimes subject lines are the most reliable way to 'match'.
-
-> > Take a look at my patches, if you require inspiration.
-> 
-> I have a minimalist style for commit subjects but ok, will update them.
-
-I'd appreciated it.  Thanks.
-
-> > >    ASoC: sti: uniperif: fix 'defined by not used' warning
-> > > 
-> > >   sound/soc/codecs/ak4458.c       |  6 +++---
-> > >   sound/soc/codecs/rt5631.c       |  8 +++++--
-> > >   sound/soc/codecs/rt5659.c       | 37 ---------------------------------
-> > >   sound/soc/codecs/tlv320aic26.c  |  2 +-
-> > >   sound/soc/pxa/pxa-ssp.c         |  2 +-
-> > >   sound/soc/qcom/qdsp6/q6asm.c    |  2 +-
-> > >   sound/soc/sti/uniperif.h        |  2 +-
-> > >   sound/soc/sunxi/sun4i-i2s.c     | 10 ++++++++-
-> > >   sound/soc/sunxi/sun4i-spdif.c   |  2 +-
-> > >   sound/soc/ux500/ux500_msp_i2s.c |  8 +++----
-> > >   10 files changed, 27 insertions(+), 52 deletions(-)
-> > > 
-> > 
-
--- 
-Lee Jones [李琼斯]
-Senior Technical Lead - Developer Services
-Linaro.org │ Open source software for Arm SoCs
-Follow Linaro: Facebook | Twitter | Blog
+grep config Kconfig
+config REGMAP
+config REGCACHE_COMPRESSED
+config REGMAP_AC97
+config REGMAP_I2C
+config REGMAP_SLIMBUS
+config REGMAP_SPI
+config REGMAP_SPMI
+config REGMAP_W1
+config REGMAP_MMIO
+config REGMAP_IRQ
+config REGMAP_SOUNDWIRE
+config REGMAP_SCCB
+config REGMAP_I3C

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35D6D217EF3
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 07:12:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49D03217EF6
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 07:13:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D3E981669;
-	Wed,  8 Jul 2020 07:11:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3E981669
+	by alsa0.perex.cz (Postfix) with ESMTPS id F39E91679;
+	Wed,  8 Jul 2020 07:12:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F39E91679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594185135;
-	bh=wmCvIFN7yAtMaFLwa1c+bBU0I1H/flNDXou4Aq27PFM=;
+	s=default; t=1594185198;
+	bh=mgrZ2fNNSC+1Yd2vYA3mmAboEY+wqXmWKNmZC/w9q6M=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TfearxR7csaphZe72GK01JoToAc9H0X7jxTGVe/efE1asYm41dN/yC5cyoqYvZIgV
-	 Nf9zr861tYO/W0p345AYJ6UqSTEGXI2qHqQX5sztbadO6T95HCHZRnve3aGQSTCqVu
-	 aW6jwBgHOOaGbw7D5XxIU6pnh7nvFFq1r2PwG3nk=
+	b=WvqkdL8REYfKFQRouVug/GagUrxDWjNgI+X/BuxA2/OAqzMCkyC8RAJtJ9ZbCb4Mj
+	 Uf5ZVZmwzXLVTI17cGseFueUF6gbHp/eLIRxqtIIMOe5TsZWcG1ujrS5PYHreVHaIT
+	 GFoVZ1CrRHdDfcDBLcyGbMq5JIoETSiQBLRbo2q0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F01CF802E0;
-	Wed,  8 Jul 2020 07:09:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 13C85F802FF;
+	Wed,  8 Jul 2020 07:09:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7F09F802C4; Wed,  8 Jul 2020 07:09:24 +0200 (CEST)
+ id 22EB2F802C4; Wed,  8 Jul 2020 07:09:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,37 +35,37 @@ Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
  [104.130.122.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8CC36F802C4
- for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 07:09:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CC36F802C4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4C9FAF802C4
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 07:09:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C9FAF802C4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="b5SfZZKs"
+ header.i=@mg.codeaurora.org header.b="Ka77QsEt"
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1594184960; h=References: In-Reply-To: Message-Id: Date:
+ s=smtp; t=1594184962; h=References: In-Reply-To: Message-Id: Date:
  Subject: Cc: To: From: Sender;
- bh=lB89iK3tJ1IYtY/wkQuoTXpZTXQ1oYnOZdhjFlIZSCQ=;
- b=b5SfZZKs8pzrc7uxreO1yczUXTZP1G5NbFFA53pP4h8lFvrBstG5S7V+UBJaka7YeX52O0yf
- ytEdGMBrRXhlZ8paKGO5YugQiOGofZj6mzLDz5HqyRfOAKZH7uEyGuFWSqHhHgYByTFnJr8A
- RQJKHA0jCg9sjNzqaqDUU8QE1LQ=
+ bh=VSHM2/YV7ANiTjEG5pC2jzezjdMwYMdReakR4aD7eD8=;
+ b=Ka77QsEtuYU67D9E/ZVi9HzqBJpa++DcIBdxHMGbTlPwVuGFVie01KLuI0ifRVvOgwZXqG6H
+ eAfcrVur44XHDojvLj0+0/4cBPcyV5bdye7JrcLb+csU03IjlNJTHOd8Hzxu3x9dQbZMH1YR
+ Vo8rZyd2P1vitMTNIWhvWsKlICA=
 X-Mailgun-Sending-Ip: 104.130.122.29
 X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n08.prod.us-west-2.postgun.com with SMTP id
- 5f0554ecc431f7323b614060 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 08 Jul 2020 05:09:00
+ smtp-out-n14.prod.us-west-2.postgun.com with SMTP id
+ 5f0554f2d8ca07a573d83126 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 08 Jul 2020 05:09:06
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id B80E3C43391; Wed,  8 Jul 2020 05:09:00 +0000 (UTC)
+ id 4A53CC433CA; Wed,  8 Jul 2020 05:09:06 +0000 (UTC)
 Received: from rohkumar-linux.qualcomm.com
  (blr-c-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.19.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: rohitkr)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id E308FC433C6;
- Wed,  8 Jul 2020 05:08:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org E308FC433C6
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id DAD57C433C8;
+ Wed,  8 Jul 2020 05:09:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org DAD57C433C8
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
@@ -77,10 +77,10 @@ To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
  srinivas.kandagatla@linaro.org, linux-arm-msm@vger.kernel.org,
  alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v3 4/8] include: dt-bindings: sound: Add sc7180-lpass bindings
- header
-Date: Wed,  8 Jul 2020 10:38:12 +0530
-Message-Id: <1594184896-10629-5-git-send-email-rohitkr@codeaurora.org>
+Subject: [PATCH v3 5/8] ASoC: qcom: lpass-platform: Replace card->dev with
+ component->dev
+Date: Wed,  8 Jul 2020 10:38:13 +0530
+Message-Id: <1594184896-10629-6-git-send-email-rohitkr@codeaurora.org>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1594184896-10629-1-git-send-email-rohitkr@codeaurora.org>
 References: <1594184896-10629-1-git-send-email-rohitkr@codeaurora.org>
@@ -102,30 +102,31 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Ajit Pandey <ajitp@codeaurora.org>
 
-Add header defining dai-id and mclk id for SC7180 lpass soc.
+We are allocating dma memory for component->dev but trying to mmap
+such memory for substream->pcm->card->dev. Replace device argument
+in mmap with component->dev to fix this.
 
 Signed-off-by: Ajit Pandey <ajitp@codeaurora.org>
 ---
- include/dt-bindings/sound/sc7180-lpass.h | 10 ++++++++++
- 1 file changed, 10 insertions(+)
- create mode 100644 include/dt-bindings/sound/sc7180-lpass.h
+ sound/soc/qcom/lpass-platform.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/include/dt-bindings/sound/sc7180-lpass.h b/include/dt-bindings/sound/sc7180-lpass.h
-new file mode 100644
-index 00000000..7d988f6
---- /dev/null
-+++ b/include/dt-bindings/sound/sc7180-lpass.h
-@@ -0,0 +1,10 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef __DT_SC7180_LPASS_H
-+#define __DT_SC7180_LPASS_H
-+
-+#define MI2S_PRIMARY	0
-+#define MI2S_SECONDARY	1
-+
-+#define LPASS_MCLK0	0
-+
-+#endif /* __DT_APQ8016_LPASS_H */
+diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
+index 445ca193..f9424cc 100644
+--- a/sound/soc/qcom/lpass-platform.c
++++ b/sound/soc/qcom/lpass-platform.c
+@@ -472,9 +472,8 @@ static int lpass_platform_pcmops_mmap(struct snd_soc_component *component,
+ {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 
+-	return dma_mmap_coherent(substream->pcm->card->dev, vma,
+-			runtime->dma_area, runtime->dma_addr,
+-			runtime->dma_bytes);
++	return dma_mmap_coherent(component->dev, vma, runtime->dma_area,
++				 runtime->dma_addr, runtime->dma_bytes);
+ }
+ 
+ static irqreturn_t lpass_dma_interrupt_handler(
 -- 
 Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
 is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.

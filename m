@@ -2,95 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33359217F9C
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 08:33:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7938217FBA
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 08:40:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C14D5165D;
-	Wed,  8 Jul 2020 08:32:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C14D5165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5FD4B1660;
+	Wed,  8 Jul 2020 08:40:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5FD4B1660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594189979;
-	bh=ukl7KkBY26OZrWu4oNczxbvvnhszz/xkGlAlanUBzqc=;
+	s=default; t=1594190458;
+	bh=qYK4fP8FXabkEY6FQNptFQq7J3EDEgokISDCSqMlyYA=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pYS9zOUUDmBVTWUkDyRWYMnLLc1JcR52ljk8GEOLt7bb9yPdT5b+jE5OCJbF5vU1K
-	 1GFP5lgapLiEG+RW9WQ2EYb2Jk8JZQqTWy9k6nFT4Ke+G/AygvRw26kahUnwd1WTxo
-	 SM5YUN9lyGfWdLP/a28+XVY7ujmxLm5VRn/7h7EA=
+	b=kC0jcqY7uqDns/RDpzrrHBDwsG6SQjx4TMNV0FQY6C9seVFYDgrNCDp/FVaEkvZgY
+	 xoS+RYBzsFqBzyzM57O+/RI3Sa4XVvcGlYXGClRErCTQf/cM5EFoGzIqELt1XU1AxC
+	 9Y5uEvwuQRVWATN3K2uKuFNeipqBbQnaQovyl310=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5B39F8015A;
-	Wed,  8 Jul 2020 08:31:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A5E7F8015C;
+	Wed,  8 Jul 2020 08:39:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9330CF8015A; Wed,  8 Jul 2020 08:31:16 +0200 (CEST)
+ id 58838F800AE; Wed,  8 Jul 2020 08:39:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E2CE1F800AE
- for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 08:31:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2CE1F800AE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 48D90F800AE
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 08:39:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48D90F800AE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="kJXsGxGo"
-Received: by mail-wm1-x342.google.com with SMTP id w3so1686114wmi.4
- for <alsa-devel@alsa-project.org>; Tue, 07 Jul 2020 23:31:04 -0700 (PDT)
+ header.b="BYyse/g5"
+Received: by mail-wr1-x442.google.com with SMTP id j4so45197680wrp.10
+ for <alsa-devel@alsa-project.org>; Tue, 07 Jul 2020 23:39:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:content-transfer-encoding:in-reply-to;
- bh=2Aqu7Lfs/p1g3htA0z8+2+r80uB3BtErHJ01UrBErAg=;
- b=kJXsGxGok52j7OoAzeFqK8zHhMkU5Rx/9OpwwjyMMVBes0uf48M4BIqXoNq+StaDxV
- kaqnWrhzXsAjVwMdXkFT/Td3/QgOHZwDiMjdKmgCDd7guGvwl1aK3v9wHRbiA6emaPT6
- yFqZubCfSupYaefseIzfXLkQgCza+ijrC8mziana0BplhA35YkTDkBEyQ2kMGtjyGshx
- pqGyJyXABUb7gQUjBKPZpJXJKTPRrqh3czsg96y9gpoabkrNpqlvyA0Scg0gRaoMTUQH
- 5pMV3WbW5rQVSiZFPgFnKk2hQqFG7RLVQgjB7YfR6QmjZpBWtWAiow2GjmQ044FeAD/v
- eHCg==
+ bh=DM8bMgHCqOlGPCjkiDDlA27DKTmodREN5EN2LPmOUhQ=;
+ b=BYyse/g5REL3x1rwFZYs1DfnpBcpEQ2fWyyvmpc29kXrcEAcID1If2ljWWHV6bmbVZ
+ dC5E6Ipj6vEMeK3ei6fmhrPvKgAIWn9VE7TT7iQsQtFrE/AmkyA1jql1A2qGICiK86Sr
+ 8bmLmXeDxjC1nrJoosRBho9U/3xugehMAXtYCQ7Nljr/lAQJMwzAkBjvfNzAtQDJxy22
+ KSARJ1m2WzNUM2eLtHXw4XrvpIjMkYkfpFcK0/b0TM6U08MifLWb9fofLQtLL9te2XxK
+ WHkF3s4oSb0waxNzTKo+4Di+lEfZ5qvj0Q1Jyftzl3bAKl9DZMMa8LScUkTnRHHDK5J8
+ lLpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:content-transfer-encoding
  :in-reply-to;
- bh=2Aqu7Lfs/p1g3htA0z8+2+r80uB3BtErHJ01UrBErAg=;
- b=b07OtICvO0QxOktsmRZDJADyfzsIBJcmHo+pwhosvrawkUs6RJf/qkxa8EK9h7k/y0
- mRDm9yVqTrq7nHbEd+KYWuLN+ywaLfjyIMrdIIc2IF/dk/pdxvT+0GFE1B+eR3/1AqTT
- EeQ4Q8UwOR2KDVpg994m2ZhWp0lSIZl7hcLLBkzKku1ok1c+12zd2v+FJ0x9YBEZcCA6
- tlIFh8pvmuOccEI9DIiNjRAtzez7LuEHLT3JgNDSjdU0+bzargB6/S32LFasBx8hPsC1
- 57Ci92Azd3m9YjegmtCsQh4WC6tVN+hCz4DSgTUkGDe/k02RWCMzpXiy8pb0KoApVsHc
- o+hQ==
-X-Gm-Message-State: AOAM531gNmUZQPhf4bvoYCqnsjS2dN9osm6G0sxwgto0fMmzaXp74KPg
- DB61C04ugg7z7GNiMKkAkA8FTA==
-X-Google-Smtp-Source: ABdhPJxCZf1gERs5lje7p2rtCYKCe0KqPYd1eet733smFfyVtdHvTQ3Iq3RnTFSZKY1WkygeZni8DA==
-X-Received: by 2002:a1c:668b:: with SMTP id a133mr7578253wmc.10.1594189863045; 
- Tue, 07 Jul 2020 23:31:03 -0700 (PDT)
+ bh=DM8bMgHCqOlGPCjkiDDlA27DKTmodREN5EN2LPmOUhQ=;
+ b=JPhuV+Qc7+ZXBR6bfeDYh/ebPV9WWla74MLTkFiou8L8iDKPflLn+GSCRN/oJELaLv
+ gM1ItbVyViT8A8T+x6Kkfa6La1MPQgGT03ViWZKaN5exypfo+srUiAeAMrHcpdGZtOFs
+ P0gjmdc6a8iDeJcudurUv+V+kfMZOImTg0/P6gOg7NcArwnjtNxDo6UKZzcnEwJAbmfU
+ Yek976sVyn9It6ZxjzaNlsQvEEU3HgFb/yEj1SploiKQXGVBNdnWesXQnZMhMC+rG3EK
+ dCwiO6FI85zJPLjlOtxFvrO8zBtBcK4OzXal/KEEQRON+F4Cp4dB1/bWS2V32nHMBU1e
+ rPZg==
+X-Gm-Message-State: AOAM532JewDp3I2s8tHSn6syleTYx1YffkGlu/OPFw6T8zb+oEUMBICu
+ THOOhndS63e9HKdxRRluelJ5vA==
+X-Google-Smtp-Source: ABdhPJyNXF+hsh42cbFNddNeUsL5c3lyPEbGPOYiI1yHP/QDQEpo70W5hg63NeQUdhxtE4v9yw37Ug==
+X-Received: by 2002:a5d:60c7:: with SMTP id x7mr53301104wrt.138.1594190342389; 
+ Tue, 07 Jul 2020 23:39:02 -0700 (PDT)
 Received: from dell ([2.27.35.206])
- by smtp.gmail.com with ESMTPSA id c20sm5181182wrb.65.2020.07.07.23.31.01
+ by smtp.gmail.com with ESMTPSA id j15sm4188880wrx.69.2020.07.07.23.39.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2020 23:31:02 -0700 (PDT)
-Date: Wed, 8 Jul 2020 07:31:00 +0100
+ Tue, 07 Jul 2020 23:39:01 -0700 (PDT)
+Date: Wed, 8 Jul 2020 07:39:00 +0100
 From: Lee Jones <lee.jones@linaro.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 0/3] ASoC: Clean-up =?utf-8?Q?W?=
- =?utf-8?Q?=3D1_build_warnings=E2=80=8B?= - part3
-Message-ID: <20200708063100.GH3500@dell>
-References: <20200707192310.98663-1-pierre-louis.bossart@linux.intel.com>
- <1jo8ordshd.fsf@starbuckisacylon.baylibre.com>
- <951676be-fd0a-530a-d57b-d684b93efc70@linux.intel.com>
+Subject: Re: [PATCH v3 00/10] ASoC: =?utf-8?Q?Clean?=
+ =?utf-8?Q?-up_W=3D1_build_warnings=E2=80=8B?= - part2
+Message-ID: <20200708063900.GJ3500@dell>
+References: <20200707191615.98296-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <951676be-fd0a-530a-d57b-d684b93efc70@linux.intel.com>
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org,
- Rikard Falkeborn <rikard.falkeborn@gmail.com>,
- Jerome Brunet <jbrunet@baylibre.com>
+In-Reply-To: <20200707191615.98296-1-pierre-louis.bossart@linux.intel.com>
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,41 +103,52 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On Tue, 07 Jul 2020, Pierre-Louis Bossart wrote:
-> On 7/7/20 2:39 PM, Jerome Brunet wrote:
-> > 
-> > On Tue 07 Jul 2020 at 21:23, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com> wrote:
-> > 
-> > > This is a much smaller set of cleanups, all related to warnings thrown
-> > > by the use of GENMASK() with an unsigned variable. I just made the
-> > > warning go away but I wonder if there's a better fix in the definition
-> > > of GENMASK() itself?
-> > 
-> > Looking at the patch I was going to ask the same thing.
-> > It does not make much sense to me to force GENMASK arguments to be
-> > integer (instead of unsigned integer) to then check there are positive ...
-> 
-> Agree, it's just that the following macro isn't exactly simple to change:
-> 
-> #define GENMASK_INPUT_CHECK(h, l) \
-> 	(BUILD_BUG_ON_ZERO(__builtin_choose_expr( \
-> 		__builtin_constant_p((l) > (h)), (l) > (h), 0)))
-> 
-> I couldn't find a means to avoid the comparison.
-> 
-> I just realized this is a fairly recent addition in 295bcca84916
-> ('linux/bits.h: add compile time sanity check of GENMASK inputs'), adding
-> the author Rikard Falkeborn in CC:
-> 
-> include/linux/bits.h:26:28: warning: comparison of unsigned expression < 0
-> is always false [-Wtype-limits]
->    26 |   __builtin_constant_p((l) > (h)), (l) > (h), 0)))
 
-Linus recently complained about the type-limits warning, saying that
-it was invalid.  He preferred the warning to be bumped from W=1 to
-W=2, although I haven't seen a patch doing this yet.
+> Both Lee Jones and I submitted separate series, this is the second
+> part of the merged result, for which no feedback was provided.
+> 
+> I picked Lee's patches for rt5659 and ak4458 and added the pxa and
+> ux500 that I didn't fix. The rest is largely identical between our
+> respective series, with the exception of the sunxi which I documented
+> and Lee removed. I don't have any specific preference and will go with
+> the flow on this.
+> 
+> Lee Jones (4):
+>   ASoC: pxa: pxa-ssp: Demote seemingly unintentional kerneldoc header
+>   ASoC: ux500: ux500_msp_i2s: Remove unused variables 'reg_val_DR' and
+>     'reg_val_TSTDR'
+>   ASoC: codecs: rt5659: Remove many unused const variables
+>   ASoC: codecs: ak4458: Remove set but never checked variable 'ret'
+> 
+> Pierre-Louis Bossart (6):
+>   ASoC: qcom: q6asm: fix kernel-doc
+>   ASoC: sunxi: sun4i-i2s: fix kernel-doc
+>   ASoC: sunxi: sun4i-spdif: fix kernel-doc
+>   ASoC: codecs: rt5631: fix kernel-doc
+>   ASoC: codecs: tlv320aic26: fix kernel-doc warning
 
-Rikard also tried to fix GENMASK directly; however, Linus did not
-approve of this either.
+Would you mind elaborating on "fix kernel-doc".  Some tooling relies
+on the fact that subject lines are, at least for the most part, pretty
+unique, and if we have to fix another kerneldoc issue in the future
+with the same thirst for simpleness, I'm afraid there might be
+clashes.
+
+Take a look at my patches, if you require inspiration.
+
+>   ASoC: sti: uniperif: fix 'defined by not used' warning
+> 
+>  sound/soc/codecs/ak4458.c       |  6 +++---
+>  sound/soc/codecs/rt5631.c       |  8 +++++--
+>  sound/soc/codecs/rt5659.c       | 37 ---------------------------------
+>  sound/soc/codecs/tlv320aic26.c  |  2 +-
+>  sound/soc/pxa/pxa-ssp.c         |  2 +-
+>  sound/soc/qcom/qdsp6/q6asm.c    |  2 +-
+>  sound/soc/sti/uniperif.h        |  2 +-
+>  sound/soc/sunxi/sun4i-i2s.c     | 10 ++++++++-
+>  sound/soc/sunxi/sun4i-spdif.c   |  2 +-
+>  sound/soc/ux500/ux500_msp_i2s.c |  8 +++----
+>  10 files changed, 27 insertions(+), 52 deletions(-)
+> 
 
 -- 
 Lee Jones [李琼斯]

@@ -2,80 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 866FC218641
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 13:36:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7115921863C
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 13:35:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 345F216A4;
-	Wed,  8 Jul 2020 13:35:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 345F216A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 20132168E;
+	Wed,  8 Jul 2020 13:34:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20132168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594208183;
-	bh=1wI6JP3WiOKZNxaIsUKQCJAgyajuKfiFdc9wQedxcz0=;
+	s=default; t=1594208129;
+	bh=L8AzCt9oTbyUoAdqfnhpUSH2PilRSuVFyQLKGDMAVBQ=;
 	h=Date:In-Reply-To:References:Subject:From:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Bokm4TguqCVuq+lMRwNYSH/VQX8ew+6GG6/qJlp8omxRbWGi2H4LEm4xjoQTtSTIv
-	 pS77URjpsK/TO90t3OotERTfeEzW+dhH5mhUFA1JBY7kqfJ574vhJGyY4BoF+4IGJU
-	 YMs2SPKtQIvldl2aIqwlev8vHmBI30wrlggpDHzQ=
+	b=YUXrU21uXIgj987Yevo1W6H3SNPgnwH7FDHrpaoxwbJCENCSy4xxV5ffynmhPeXWF
+	 l7Aj0r/GYhkIT2lkcuTK1dM3/jEq0xcZeVcUvsyziGHdEvjwYuZjYPAIBN/xLNX3Cj
+	 Kqo9Npl1GFbWOgqiLUag/qs+P52ivZXnMZqVJbVc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61795F802BD;
-	Wed,  8 Jul 2020 13:33:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A512F800AE;
+	Wed,  8 Jul 2020 13:33:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1864AF800AE; Wed,  8 Jul 2020 13:33:04 +0200 (CEST)
+ id 7CAC1F80269; Wed,  8 Jul 2020 13:33:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
- USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
+ autolearn=disabled version=3.4.0
 Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com
  [IPv6:2607:f8b0:4864:20::b49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B4F75F80150
- for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 13:32:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4F75F80150
+ by alsa1.perex.cz (Postfix) with ESMTPS id B9428F8015A
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 13:32:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9428F8015A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="sPcXnGBL"
-Received: by mail-yb1-xb49.google.com with SMTP id 124so18732330ybb.5
- for <alsa-devel@alsa-project.org>; Wed, 08 Jul 2020 04:32:50 -0700 (PDT)
+ header.b="ajIHCSrd"
+Received: by mail-yb1-xb49.google.com with SMTP id z7so51125012ybz.1
+ for <alsa-devel@alsa-project.org>; Wed, 08 Jul 2020 04:32:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc; bh=6FhChgNsjWl6gND82XH9wwnoBKtHa/ehVm4YKI17cOw=;
- b=sPcXnGBLHEBpPbBJvUpkHZegzNgRAmYuS35JMlanSO4OXGf1no4O8LwlkN10MsXmT0
- woWxbfr8kxWXB5jN/x+fgGwjBhbek/ClIz/A1sHpu15kcPjinWcITugsqapMsQSOeuOz
- EMnUbUyYZ8hVX/3BiQL/8MI2MokaU9tixu4/Amx9WmDVfXvNX/FYwmMqZw4VXzkQM36P
- +0cYobVv2Q6eVyjCyIelbjVWY//lVn53g5HiSeWtOXv1cdrUeYXlFH5VfVVBtscikjJ6
- zjLU/VDONk7IuyQ0nAJBLWXXIHwlEpmbFhGQrCm56JzmVsxu15aiO1k3G+fmS5Y7DpFf
- TatA==
+ :cc; bh=SXjS5MYE+OES8bqE7NYkGTk+6V5mx4sL9yP7xTJC9ec=;
+ b=ajIHCSrd25kOA3bVHzUUWwIvUdeudcLWsMeItBZJAoqgHigZ4drMNILWBp0KTpetku
+ hjBOSR3pwYzlc1mayhM1uBm79xFixi6c/PXMPJ8mqjEYDh77TE5HFnaSTTA7xZKgkrwx
+ i6Xkxwl2ZMj/PUwCqVX23NxgB5F9P7qh/RalAC2oupjM/jyw3btHGfFRUKPa5TAAPkBx
+ NJBXmgF6B7XBb0SFmOhFHUXROV5wCvoqn7IvZMUJ5cuJ4hTnUx4BYmJPlU4FjKgtQxw2
+ WVtxGxWXRhr7HOoOtsdEsWPprlIFKfD2aQ2+gSQDikctb45GkAQPF4eE865Sh/ENM5Bo
+ reBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:in-reply-to:message-id:mime-version
  :references:subject:from:to:cc;
- bh=6FhChgNsjWl6gND82XH9wwnoBKtHa/ehVm4YKI17cOw=;
- b=NmB7Bgg0hQKs9rsHiZ/+LOVDaLayo6gnRrRNFHoYmSog0QtJRLk0JZjv68Bv8ire3C
- OJi3z3fv6RShx5pNzr+dwkKCHofFzIGmqltROwB1ejOIgAwsfj9gDjy85BNfhhSKmgwU
- dqTd5JsUOfQ2SJdHSJJQOmp+ujgnv5cKClMWuGr1JtIHwosdBUqNd1HIothaYcgw0Aca
- E7iquS/gXLYLypI4toQiinWTBFlRcKMY6v7SuBmGxbW2V8q9aqLg6qIOuzvSyjLUqHuB
- BE7kz2w3FZ/4ZqWOM3bKQTKgDyzRJuTL8NKvFfTvR8e8+JciE7Q+ITe6jLzm8YkuT26H
- M+sw==
-X-Gm-Message-State: AOAM533455pJZbd6b4tU/8OXVBq3nL7C/rL6i5AJLGWM+HuRaWAO3ne4
- 7usLglhc0N9UL4SrsdsPAcJwKO9wIZyl
-X-Google-Smtp-Source: ABdhPJyjfU9P0otQHIiqz1zn8C0iSCfzci2MI/wGNecYetCRSI0gPiU2S0h0PyrgUg3b/oDtQ9c6KUCNTeiM
-X-Received: by 2002:a25:8008:: with SMTP id m8mr37507113ybk.104.1594207968592; 
- Wed, 08 Jul 2020 04:32:48 -0700 (PDT)
-Date: Wed,  8 Jul 2020 19:32:31 +0800
+ bh=SXjS5MYE+OES8bqE7NYkGTk+6V5mx4sL9yP7xTJC9ec=;
+ b=KOcR832QpQC8z2cxKg29PMIUaXSLAU0gU3lzFpgf5+WVTBQkUutLcUaefF8CX9MjI1
+ LrvecHsJ0qtjGjp9ZV0Z4zlfnZOUroX+RkHhDi3mHwNoG2QrIZlL/xUTdE6t55HWmbjO
+ 81aKrfdMBnvVAOeTZglBjLDQgVk68KPWfHN4j/xiWwocfYXoyUu1hLxC+52q622OIbuM
+ gNtev0EA9Z65X7DWD7SBh5q3Hc6ifKUYyeHMAjEVlQr7GYQOi5KVY/i3re81nSycGXfV
+ t6066VkiEEAldrx/Xg7+VzeF6B4t7qC/cN23W7OTb7a4pnld9HgG9AmkgKGqEAyQiW8k
+ 4SFw==
+X-Gm-Message-State: AOAM531gM50KxftIlzdIiKjLizu6pbKK39RzLlpbVLZuudgNHTk4PgUW
+ qsJOhz3jYfXGsWdfoPLFFuYnbJ28592C
+X-Google-Smtp-Source: ABdhPJzfEQPqdsUH+w7M5HxIbKMttNmVUXAlFyBkxTQRJfzPeKnudu2L2Gi8mEZZz1+QbxrrAnwD9N6F/+HS
+X-Received: by 2002:a25:f509:: with SMTP id a9mr100220280ybe.227.1594207972178; 
+ Wed, 08 Jul 2020 04:32:52 -0700 (PDT)
+Date: Wed,  8 Jul 2020 19:32:32 +0800
 In-Reply-To: <20200708113233.3994206-1-tzungbi@google.com>
-Message-Id: <20200708113233.3994206-2-tzungbi@google.com>
+Message-Id: <20200708113233.3994206-3-tzungbi@google.com>
 Mime-Version: 1.0
 References: <20200708113233.3994206-1-tzungbi@google.com>
 X-Mailer: git-send-email 2.27.0.383.g050319c2ae-goog
-Subject: [PATCH 1/3] ASoC: mediatek: mt8183: sort header inclusions in
- alphabetical
+Subject: [PATCH 2/3] dt-bindings: mt8183: add compatible string for using
+ rt1015
 From: Tzung-Bi Shih <tzungbi@google.com>
 To: broonie@kernel.org, robh+dt@kernel.org
 Content-Type: text/plain; charset="UTF-8"
@@ -95,34 +95,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Sorts header inclusions in alphabetical.
+Machines with rt1015 should use the compatible string
+"mt8183-mt6358-ts3a227-rt1015".
 
 Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
 ---
- sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ .../bindings/sound/mt8183-mt6358-ts3a227-max98357.txt        | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-index 1fca8df109b4..8cd53403a080 100644
---- a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-+++ b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-@@ -7,13 +7,13 @@
- // Author: Shunli Wang <shunli.wang@mediatek.com>
+diff --git a/Documentation/devicetree/bindings/sound/mt8183-mt6358-ts3a227-max98357.txt b/Documentation/devicetree/bindings/sound/mt8183-mt6358-ts3a227-max98357.txt
+index decaa013a07e..5afd3d8dab84 100644
+--- a/Documentation/devicetree/bindings/sound/mt8183-mt6358-ts3a227-max98357.txt
++++ b/Documentation/devicetree/bindings/sound/mt8183-mt6358-ts3a227-max98357.txt
+@@ -1,7 +1,8 @@
+-MT8183 with MT6358, TS3A227 and MAX98357 CODECS
++MT8183 with MT6358, TS3A227, MAX98357, and RT1015 CODECS
  
- #include <linux/module.h>
-+#include <linux/pinctrl/consumer.h>
-+#include <sound/jack.h>
- #include <sound/pcm_params.h>
- #include <sound/soc.h>
--#include <sound/jack.h>
--#include <linux/pinctrl/consumer.h>
+ Required properties:
+-- compatible : "mediatek,mt8183_mt6358_ts3a227_max98357"
++- compatible : "mediatek,mt8183_mt6358_ts3a227_max98357" for MAX98357A codec
++               "mediatek,mt8183_mt6358_ts3a227_rt1015" for RT1015 codec
+ - mediatek,platform: the phandle of MT8183 ASoC platform
  
--#include "mt8183-afe-common.h"
- #include "../../codecs/ts3a227e.h"
-+#include "mt8183-afe-common.h"
- 
- enum PINCTRL_PIN_STATE {
- 	PIN_STATE_DEFAULT = 0,
+ Optional properties:
 -- 
 2.27.0.383.g050319c2ae-goog
 

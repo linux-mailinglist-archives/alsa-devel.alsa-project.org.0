@@ -2,75 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9118A2188AD
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 15:15:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E4DE218905
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 15:30:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 91F591679;
-	Wed,  8 Jul 2020 15:14:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91F591679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3CE0B1684;
+	Wed,  8 Jul 2020 15:29:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3CE0B1684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594214113;
-	bh=5rANE8QL9bujIGIKTFmNAOGIjpnD1tbUYUW9Yy2zXf4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1594215013;
+	bh=Fu+r+fbjbtz08bgxHNl0fWXGEhA901qPXLT9Yo2YhFo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RXHV+AJWLx02/CJBWbsQvGtFpHPsesO0hJ0+8W20+vebhL97wGM0adRIJtit0Ol83
-	 W7wJoPfnF9XKJyrfty1I2FZn12/h43a18IIVHjOFi/pcNvoURKXUOaE1Qwk6Ej78yt
-	 XqZSwr0OhVVcgCMCfnfHZfjmDbB6BOxw2E6bPTQI=
+	b=r1d1cZd2v7F39Sd8ojFXp9DVfSJXgOZ9NNRqzdwB3mwf/MiwkmjTfWNFHxxCY8GUQ
+	 le0FeVBXIvGMpjh1wa3/j4g3zoQPxGAkSxSzt/1OTB4WfEHoWLtwzKeyJAOe6s/5E2
+	 mxFKfsRvVUMmbdy1piaiBjVoVUrV+HfEcGq80K4k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19324F80115;
-	Wed,  8 Jul 2020 15:13:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 195F0F8015C;
+	Wed,  8 Jul 2020 15:28:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 32C41F8015A; Wed,  8 Jul 2020 15:13:22 +0200 (CEST)
+ id F09E8F8015A; Wed,  8 Jul 2020 15:28:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com
+ [IPv6:2a00:1450:4864:20::543])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6C458F8011F
- for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 15:13:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C458F8011F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 404B7F8011F
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 15:28:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 404B7F8011F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="w4+SEDGL"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A1C5A20578;
- Wed,  8 Jul 2020 13:13:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594213993;
- bh=5rANE8QL9bujIGIKTFmNAOGIjpnD1tbUYUW9Yy2zXf4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=w4+SEDGLAoFA3Xs7h9v8fQ6kjHFgBMCaiT3W0AjRftyEAUzxY8jqwpkxq5zhH9xZt
- wtYwhEmYsxu46SnGP6wBSLJYjIGLURiBDW2NRIhmUssF2btzHI8xyypEtSGbpr+ssm
- cCvfO9iv4r43IHJhMNurq3k02mT6Si6QyK7oN968=
-Date: Wed, 8 Jul 2020 14:13:07 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH 03/11] ASoC: q6asm: make commands specific to streams
-Message-ID: <20200708131307.GO4655@sirena.org.uk>
-References: <20200707163641.17113-1-srinivas.kandagatla@linaro.org>
- <20200707163641.17113-4-srinivas.kandagatla@linaro.org>
- <9ff595b4-1093-36c8-f27f-f097e24657a0@linux.intel.com>
- <4eedae20-903f-77c6-c6e9-fbf3db209bcf@linaro.org>
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="sjhiUnqO"
+Received: by mail-ed1-x543.google.com with SMTP id d15so41846636edm.10
+ for <alsa-devel@alsa-project.org>; Wed, 08 Jul 2020 06:28:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=nLdXECLtQR/Jw6PnNJBO5O7DiN9iPSyCU6LSlGREUDY=;
+ b=sjhiUnqOgyku9GLu3mmz/Um7HUrzDAYJqAJxMNLm0sRIJhmQ7LHp4nt2gEXQd5wcHr
+ XS4x1CQFpjLShiftGsXNL53GxV0RnsCMTevOP8ikkGWzQDS30K6+2IX4ZqV7u0jME2Ba
+ dILkafio6QobeRnjg3uuNJuzZIyJS00+nCI7OAtYb9uft6T/mg+5OMqrqtVMyFkPrjxf
+ CLK2tp9cL/LjyHla1IXqhYbRvMl5HX0mJV+6GTtZgmqiW9UWXNS+BdFdYsKd2vqXou5V
+ PxoBaAzoLKBw2x4gJsFyxmcleZAn2GGdrLOuuHOBIA10QNDeMzxXg2Zx35tnuOfP+H/a
+ +ciQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=nLdXECLtQR/Jw6PnNJBO5O7DiN9iPSyCU6LSlGREUDY=;
+ b=UFaltYuC//9FgHPRq4wtYxse1i5oQiEvFs2lIWoc2j6AfmdLWcf+VPCHpmm4Bt7Bm9
+ Y8rJlPinTgtX4y7Pogso8kitRSSCFjcpjYE0stgTLGQm+OcEABXBaJ988154Djok5QVI
+ BK/PrCfwOTs+AWR0tzWEo/Eivvjl38QnfKFH4UydVQwJf1jQMyOIKU3fpjeAfxKZeVUj
+ pOn0UfcjPdt+ygQhDHPe1Ob8EK0UYeirDNlXhSHFFYIjtE5Q0aUOgR4J1IMsJtbh76iI
+ 50FvuirVBL/TzMRb/hVHJtKdiDXohpHRYC6qxtkaV+3aGkziMOi8pHhpaNNbIJK93RuH
+ wXyw==
+X-Gm-Message-State: AOAM5314s81kjiFXXK5xpAh9T8q/1Z5z59TzdU/aS/BZsPI5/MWN637N
+ AcstuCQBnTCcWs0GzHmikTFsyDEiF7odVJmJHaY+HQ==
+X-Google-Smtp-Source: ABdhPJx6BwBt/gJQ+AbYP2vcFUIQWAatTLW9ZAv8b7hfj0jRUd4HM83MoBiFzEowxIEE9I2S2ENP9XB/jZd+6e6YTp8=
+X-Received: by 2002:a50:ed15:: with SMTP id j21mr41499564eds.246.1594214893469; 
+ Wed, 08 Jul 2020 06:28:13 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="GoZzJvFfKjxI3RhA"
-Content-Disposition: inline
-In-Reply-To: <4eedae20-903f-77c6-c6e9-fbf3db209bcf@linaro.org>
-X-Cookie: Oh Dad!  We're ALL Devo!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, vkoul@kernel.org
+References: <20200708071117.3070707-1-yuhsuan@chromium.org>
+ <f6a0ea44-3805-5901-9864-72d4a3a4562e@collabora.com>
+In-Reply-To: <f6a0ea44-3805-5901-9864-72d4a3a4562e@collabora.com>
+From: Guenter Roeck <groeck@google.com>
+Date: Wed, 8 Jul 2020 06:28:02 -0700
+Message-ID: <CABXOdTfV_oGgZWbyP3o07obMuYGOLY87fou2h3_gowQkV7QVNw@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: cros_ec_codec: Reset I2S RX when probing
+To: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Gwendal Grignou <gwendal@chromium.org>,
+ ALSA development <alsa-devel@alsa-project.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Yu-Hsuan Hsu <yuhsuan@chromium.org>,
+ Tzung-Bi Shih <tzungbi@google.com>, Yicheng Li <yichengli@chromium.org>,
+ Mark Brown <broonie@kernel.org>, Guenter Roeck <groeck@chromium.org>,
+ Lee Jones <lee.jones@linaro.org>, Benson Leung <bleung@chromium.org>,
+ Cheng-Yi Chiang <cychiang@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,57 +102,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, Jul 8, 2020 at 3:16 AM Enric Balletbo i Serra
+<enric.balletbo@collabora.com> wrote:
+>
+> Hi Yu-Hsuan,
+>
+> Thank you for your patch.
+>
+> On 8/7/20 9:11, Yu-Hsuan Hsu wrote:
+> > It is not guaranteed that I2S RX is disabled when the kernel booting.
+> > For example, if the kernel crashes while it is enabled, it will keep
+> > enabled until the next time EC reboots. Reset I2S RX when probing to
+> > fix this issue.
+> >
+> > Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+> > ---
+> >  include/linux/platform_data/cros_ec_commands.h | 1 +
+> >  sound/soc/codecs/cros_ec_codec.c               | 7 +++++++
+> >  2 files changed, 8 insertions(+)
+> >
+> > diff --git a/include/linux/platform_data/cros_ec_commands.h b/include/linux/platform_data/cros_ec_commands.h
+> > index 69210881ebac8..11ce917ca924c 100644
+> > --- a/include/linux/platform_data/cros_ec_commands.h
+> > +++ b/include/linux/platform_data/cros_ec_commands.h
+> > @@ -4598,6 +4598,7 @@ enum ec_codec_i2s_rx_subcmd {
+> >       EC_CODEC_I2S_RX_SET_SAMPLE_DEPTH = 0x2,
+> >       EC_CODEC_I2S_RX_SET_DAIFMT = 0x3,
+> >       EC_CODEC_I2S_RX_SET_BCLK = 0x4,
+> > +     EC_CODEC_I2S_RX_RESET = 0x5,
+>
+> Is this a new command not available in the firmware that is already in the field?
+>
+>
+> >       EC_CODEC_I2S_RX_SUBCMD_COUNT,
+> >  };
+> >
+> > diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros_ec_codec.c
+> > index 8d45c628e988e..5495214e73e68 100644
+> > --- a/sound/soc/codecs/cros_ec_codec.c
+> > +++ b/sound/soc/codecs/cros_ec_codec.c
+> > @@ -1034,6 +1034,13 @@ static int cros_ec_codec_platform_probe(struct platform_device *pdev)
+> >       }
+> >       priv->ec_capabilities = r.capabilities;
+> >
+> > +     /* Reset EC codec I2S RX. */
+> > +     p.cmd = EC_CODEC_I2S_RX_RESET;
+> > +     ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_I2S_RX,
+> > +                                (uint8_t *)&p, sizeof(p), NULL, 0);
+> > +     if (ret)
+> > +             dev_err(dev, "failed to EC_CODEC_I2S_RESET: %d\n", ret);
+> > +
+>
+> With an old firmware I suspect this message will appear on every boot, right?
+> So, to solve the issue and get rid of this error you're forced to upgrade the
+> firmware. Is that true?
+>
 
---GoZzJvFfKjxI3RhA
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+It might possibly make more sense to fail this silently and to send
+EC_CODEC_I2S_RX_DISABLE as backup if it is not supported (-ENOTSUPP
+can possibly be used as trigger if the call returns it).
 
-On Wed, Jul 08, 2020 at 10:44:19AM +0100, Srinivas Kandagatla wrote:
-> On 07/07/2020 17:52, Pierre-Louis Bossart wrote:
+Also, I don't accept dev_err() if the error is ignored for patches in
+my scope of responsibility.
 
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0 if (substream->stream =3D=3D SNDRV_PCM_ST=
-REAM_PLAYBACK)
-> > > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 q6asm_write_async(prtd->audio_clie=
-nt,
-> > > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 prtd->pcm_cou=
-nt, 0, 0, NO_TIMESTAMP);
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 q6asm_write_async(prtd->audio_clie=
-nt, prtd->stream_id,
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 prtd->pcm_cou=
-nt, 0, 0, 0);
+Guenter
 
-> > sound/soc/qcom/qdsp6/q6asm.h:#define NO_TIMESTAMP=A0=A0=A0 0xFF00
-
-> > is the change on the previous line intentional?
-
-> May be not!
-
-> Plan is that the users of these apis will send flags directly instead of
-> boiler plating this!
-
-> This change should go as part of next patch("[PATCH 04/11] ASoC: q6asm: u=
-se
-> flags directly from asm-dai") which would make it much clear!
-
-It should be in here.
-
-Please be also consistent in your use of ASM, especially given that asm
-is a widely used name in the kernel.
-
---GoZzJvFfKjxI3RhA
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8FxmMACgkQJNaLcl1U
-h9CkaAf9EYS1y3Rx8LG8HM3oH1Htsox8HmKMN+MFhUgtH+3ent6wb2eaYtZ+FcET
-qwwYx6Vrs4F5lBh6UyKGFhUyznHP01JY2qGjtUfgEP+NRJc1IcSnSuAiD1Bu77Wl
-0HSBK7HpF/feGrZZcUxov527kh7O1TCBEAu3/PNCLZ45SXwbNP/6rDMc2PQM1JlQ
-/rjNJpWokFP+CnUaY4Yy653Jlh6s+7UTJyi0bKzXpejJyYhDICBq5XS8PmGA/EE2
-8wU3ez4ZBwlr9ujK67WuSRuOFeGpnU+HtRdo1KTNs4msmNQZdjSlcjEYgWo5T883
-EhcHgBqaHAPIPKdv77XiRIygaJm1GA==
-=8rYY
------END PGP SIGNATURE-----
-
---GoZzJvFfKjxI3RhA--
+> >       platform_set_drvdata(pdev, priv);
+> >
+> >       ret = devm_snd_soc_register_component(dev, &i2s_rx_component_driver,
+> >

@@ -2,86 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 190102184B9
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 12:15:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50EC22184C3
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 12:18:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 80603167D;
-	Wed,  8 Jul 2020 12:14:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80603167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D813C1681;
+	Wed,  8 Jul 2020 12:17:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D813C1681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594203314;
-	bh=yPe6Sn1dNDUkqKd9G6KaUfJ53MUjs+1QIkwAIOtG6vI=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Jb+Tp42MAnlZ6jB8hEnxINY7KrOfzRobjgdkKzzJtxH5Syp21fUOUVYcVcGkr3lhU
-	 uQ3ys5GA7hHefB0BcvaubeSW/8PQyk4hGCD6DcxKRp5sWL0tIhPJbbHfqoqt2clRFM
-	 BkCB9rLg2f1CB9vddcP3i0GQGWqemtPnlkFl+T7M=
+	s=default; t=1594203487;
+	bh=vWVr5dhar1Gs0TslgM3QjLCek3oqcOWlW9ntQCj+lFU=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ZOaC1INw3LLdbvKSAKwEmiXMO/nHvUFFLBZJAqmXCR8p2QKZtL717sgmUWQBi1phv
+	 QNN9emAXWkG1potroq003MGJcMmjK6LM6qD+8G3eyPevIPx0Eh98WB4LkLtVNZQN1W
+	 ni1NNY3VUKTUsoQiM83DVN3jQKaWXEJ9NURR55uc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9891BF8015C;
-	Wed,  8 Jul 2020 12:13:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DBCAEF8015C;
+	Wed,  8 Jul 2020 12:16:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3D58AF8015A; Wed,  8 Jul 2020 12:13:31 +0200 (CEST)
+ id BCE27F8015A; Wed,  8 Jul 2020 12:16:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_32,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from esa2.microchip.iphmx.com (esa2.microchip.iphmx.com
- [68.232.149.84])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from jazz.pogo.org.uk (jazz.pogo.org.uk [213.138.114.167])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D468FF8011F
- for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 12:13:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D468FF8011F
+ by alsa1.perex.cz (Postfix) with ESMTPS id F1B98F8011F
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 12:16:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1B98F8011F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com
- header.b="Q88zKv1Z"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1594203205; x=1625739205;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=yPe6Sn1dNDUkqKd9G6KaUfJ53MUjs+1QIkwAIOtG6vI=;
- b=Q88zKv1Z2FcEIlKqJVB261xyswIDjdoB5i+4FUPumnSdK1C7QqvfZdom
- ToCmP1xzeZO+cJdodlIN0XAvhv6cgq2+MXRCgMFGdphZcShkyBvBuqDzJ
- HZGlj5I3f+TZmVSwfiEfk9NmG2TayaLHu1jIBnFvwNy2E8fYdy3MADdhF
- +ckMSNIBMAjkPiqLfmboGCX7qgE1e1a3H4uJvkHUqKMxRwCZp4Fmziicb
- Baup4Gx1iH820bxloYT/3OlyL29GGgSsn/ojK3W+2UUyeUdApbGGkMRsO
- cYggxw1nlM8fSh2rx0xFz/WsnnI7V2qrEYtzLbPPArRxMmzjzkUSDNXDS A==;
-IronPort-SDR: O70QMcwbPhgHa/l5X3lhrnCVDwzvVCy6k7kEfsG1u7E4zwaX9C1D4hvNMQfq/p4apCsnesfh3f
- aQayOMQ2rptcfOYDerYqIhQh2RWasj/oIzp2usvblYfCdVo0VRCVqoZr3LRexF1AHXSWA6zCG9
- XBWRrpIHWZcRjUl0j++OHD0OHTETMt7dG8n+AywQZefic6nLaXDOC/Xg09hmW2+3JVJECuCM+S
- eXbDg6it1N5bR+AY8Wdiq9qAr54HO4WRG63uoCUXMoLsQf1OvZwx9RdMSPUeoPJtdvr0HRtEFZ
- IFc=
-X-IronPort-AV: E=Sophos;i="5.75,327,1589266800"; d="scan'208";a="81063248"
-Received: from smtpout.microchip.com (HELO email.microchip.com)
- ([198.175.253.82])
- by esa2.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 08 Jul 2020 03:13:18 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1979.3; Wed, 8 Jul 2020 03:12:49 -0700
-Received: from rob-ult-m19940.microchip.com (10.10.115.15) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.1979.3 via Frontend Transport; Wed, 8 Jul 2020 03:13:00 -0700
-From: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
-To: <alsa-devel@alsa-project.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>
-Subject: [PATCH v3] ASoC: atmel-classd: remove codec component
-Date: Wed, 8 Jul 2020 13:12:49 +0300
-Message-ID: <20200708101249.2626560-1-codrin.ciubotariu@microchip.com>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (2048-bit key) header.d=pogo.org.uk header.i=@pogo.org.uk
+ header.b="QrlNy11Y"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=pogo.org.uk
+ ; s=a;
+ h=Content-Type:MIME-Version:References:Message-ID:In-Reply-To:Subject:
+ cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=7gYwUkTyCqQoMt3LJUKj6v5JoZDtza2N+qN0RUSqeOU=; b=QrlNy11YqmxHDaSWel0WsIxzWf
+ M6FkJu0SQ4UbBstwT8p2nGLlwUdDLMNYgSJh5uuOPoBMFsWqN+evo9OyqdsrHQq4/PI5XsM//nzYU
+ L9nD9kMIhu6U0sNVrHFhB7EfMDW1Krgm46uZs10zwFgbnhuy/BHjqvL1LpR2MBnmN2hu3ZDktzkBf
+ EaTBou+VQIfFSooQF/j4vvDtcyRc9kkrlCl7yO33J2OQSgNmIpDfwqL+AEBon7hv6SdxNJHLkLM9Z
+ LdiSu5uhDTErPudsp5oA8O8YDbKj6nrJm27FKubeqTnyqE28SNmeZ+EV6Ibi4keWYq/eWN25Wrblx
+ mdHq3lng==;
+Received: from cpc1-hari17-2-0-cust102.20-2.cable.virginm.net ([86.18.4.103]
+ helo=stax.localdomain) by jazz.pogo.org.uk with esmtps (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94 (FreeBSD))
+ (envelope-from <mark@xwax.org>)
+ id 1jt77k-0002PP-C2; Wed, 08 Jul 2020 11:16:20 +0100
+Received: from mark (helo=localhost)
+ by stax.localdomain with local-esmtp (Exim 4.84)
+ (envelope-from <mark@xwax.org>)
+ id 1jt77j-0000rI-Oq; Wed, 08 Jul 2020 11:16:20 +0100
+Date: Wed, 8 Jul 2020 11:16:19 +0100 (BST)
+From: Mark Hills <mark@xwax.org>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH 1/4] echoaudio: Race conditions around "opencount"
+In-Reply-To: <s5hr1tnenkv.wl-tiwai@suse.de>
+Message-ID: <2007081115280.3085@stax.localdomain>
+References: <20200701122723.17814-1-mark@xwax.org>
+ <202007020108.pW8giznF%lkp@intel.com> <2007021037270.2435@stax.localdomain>
+ <s5hr1tnenkv.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Cc: alexandre.belloni@bootlin.com, lgirdwood@gmail.com,
- nicolas.ferre@microchip.com, tiwai@suse.com, ludovic.desroches@microchip.com,
- broonie@kernel.org, Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,245 +88,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The CPU and the codec both are represented now as components, so for
-CLASS-D we are registering two componenets with the same name. Since
-there is no actual codec, we will merge the codec component into the
-CPU one and use a dummy codec instead, for the DAI link.
-As a bonus, debugfs will no longer report an error when will try to
-create entries for both componenets with the same name.
+On Tue, 7 Jul 2020, Takashi Iwai wrote:
 
-Signed-off-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
----
+> On Thu, 02 Jul 2020 11:53:51 +0200,
+> Mark Hills wrote:
+> > 
+> > Takashi, my apologies, it looks like this patch broke the build of the 
+> > Mona driver.
+> > 
+> > Thankfully the change is simple, as it just looks like a bit of confusion 
+> > of responsibilies in the code for the Mona interface; the correct fix is 
+> > to remove the code.
+> > 
+> > That is a lesson for working with only the echo3g driver enabled. Now I 
+> > have done a full build of all echoaudio drivers, with no warnings or 
+> > errors.
+> > 
+> > Here's a patch, or it can be squashed into the original patch if 
+> > necessary.
+> 
+> Could you rather fold the fix into the patch and resubmit the whole
+> patch set?  I'm just back from travel, and it'd be better anyway if I
+> receive a fresh patch set to apply.
 
-Changes in v3:
- - fixed some newlines modified by no reason;
+No problem, I'll follow up.
 
-Changes in v2:
- - removed no longer used ATMEL_CLASSD_CODEC_DAI_NAME macro;
+In the end, I decided it best to keep the patch separate, but re-order so 
+as to not break the build.
 
- sound/soc/atmel/atmel-classd.c | 132 ++++++++++++---------------------
- 1 file changed, 47 insertions(+), 85 deletions(-)
-
-diff --git a/sound/soc/atmel/atmel-classd.c b/sound/soc/atmel/atmel-classd.c
-index e98601eccfa3..2d35b08f0565 100644
---- a/sound/soc/atmel/atmel-classd.c
-+++ b/sound/soc/atmel/atmel-classd.c
-@@ -120,39 +120,21 @@ static int atmel_classd_cpu_dai_startup(struct snd_pcm_substream *substream,
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct atmel_classd *dd = snd_soc_card_get_drvdata(rtd->card);
-+	int err;
- 
- 	regmap_write(dd->regmap, CLASSD_THR, 0x0);
- 
--	return clk_prepare_enable(dd->pclk);
--}
--
--static void atmel_classd_cpu_dai_shutdown(struct snd_pcm_substream *substream,
--					struct snd_soc_dai *cpu_dai)
--{
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct atmel_classd *dd = snd_soc_card_get_drvdata(rtd->card);
--
--	clk_disable_unprepare(dd->pclk);
-+	err = clk_prepare_enable(dd->pclk);
-+	if (err)
-+		return err;
-+	err = clk_prepare_enable(dd->gclk);
-+	if (err) {
-+		clk_disable_unprepare(dd->pclk);
-+		return err;
-+	}
-+	return 0;
- }
- 
--static const struct snd_soc_dai_ops atmel_classd_cpu_dai_ops = {
--	.startup	= atmel_classd_cpu_dai_startup,
--	.shutdown	= atmel_classd_cpu_dai_shutdown,
--};
--
--static struct snd_soc_dai_driver atmel_classd_cpu_dai = {
--	.playback = {
--		.channels_min	= 1,
--		.channels_max	= 2,
--		.rates		= ATMEL_CLASSD_RATES,
--		.formats	= SNDRV_PCM_FMTBIT_S16_LE,},
--	.ops = &atmel_classd_cpu_dai_ops,
--};
--
--static const struct snd_soc_component_driver atmel_classd_cpu_dai_component = {
--	.name = "atmel-classd",
--};
--
- /* platform */
- static int
- atmel_classd_platform_configure_dma(struct snd_pcm_substream *substream,
-@@ -306,31 +288,10 @@ static int atmel_classd_component_resume(struct snd_soc_component *component)
- 	return regcache_sync(dd->regmap);
- }
- 
--static struct snd_soc_component_driver soc_component_dev_classd = {
--	.probe			= atmel_classd_component_probe,
--	.resume			= atmel_classd_component_resume,
--	.controls		= atmel_classd_snd_controls,
--	.num_controls		= ARRAY_SIZE(atmel_classd_snd_controls),
--	.idle_bias_on		= 1,
--	.use_pmdown_time	= 1,
--	.endianness		= 1,
--	.non_legacy_dai_naming	= 1,
--};
--
--/* codec dai component */
--static int atmel_classd_codec_dai_startup(struct snd_pcm_substream *substream,
--				struct snd_soc_dai *codec_dai)
--{
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct atmel_classd *dd = snd_soc_card_get_drvdata(rtd->card);
--
--	return clk_prepare_enable(dd->gclk);
--}
--
--static int atmel_classd_codec_dai_digital_mute(struct snd_soc_dai *codec_dai,
--	int mute)
-+static int atmel_classd_cpu_dai_digital_mute(struct snd_soc_dai *cpu_dai,
-+					     int mute)
- {
--	struct snd_soc_component *component = codec_dai->component;
-+	struct snd_soc_component *component = cpu_dai->component;
- 	u32 mask, val;
- 
- 	mask = CLASSD_MR_LMUTE_MASK | CLASSD_MR_RMUTE_MASK;
-@@ -373,13 +334,13 @@ static struct {
- };
- 
- static int
--atmel_classd_codec_dai_hw_params(struct snd_pcm_substream *substream,
--			    struct snd_pcm_hw_params *params,
--			    struct snd_soc_dai *codec_dai)
-+atmel_classd_cpu_dai_hw_params(struct snd_pcm_substream *substream,
-+			       struct snd_pcm_hw_params *params,
-+			       struct snd_soc_dai *cpu_dai)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct atmel_classd *dd = snd_soc_card_get_drvdata(rtd->card);
--	struct snd_soc_component *component = codec_dai->component;
-+	struct snd_soc_component *component = cpu_dai->component;
- 	int fs;
- 	int i, best, best_val, cur_val, ret;
- 	u32 mask, val;
-@@ -417,8 +378,8 @@ atmel_classd_codec_dai_hw_params(struct snd_pcm_substream *substream,
- }
- 
- static void
--atmel_classd_codec_dai_shutdown(struct snd_pcm_substream *substream,
--			    struct snd_soc_dai *codec_dai)
-+atmel_classd_cpu_dai_shutdown(struct snd_pcm_substream *substream,
-+			      struct snd_soc_dai *cpu_dai)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct atmel_classd *dd = snd_soc_card_get_drvdata(rtd->card);
-@@ -426,10 +387,10 @@ atmel_classd_codec_dai_shutdown(struct snd_pcm_substream *substream,
- 	clk_disable_unprepare(dd->gclk);
- }
- 
--static int atmel_classd_codec_dai_prepare(struct snd_pcm_substream *substream,
--					struct snd_soc_dai *codec_dai)
-+static int atmel_classd_cpu_dai_prepare(struct snd_pcm_substream *substream,
-+					struct snd_soc_dai *cpu_dai)
- {
--	struct snd_soc_component *component = codec_dai->component;
-+	struct snd_soc_component *component = cpu_dai->component;
- 
- 	snd_soc_component_update_bits(component, CLASSD_MR,
- 				CLASSD_MR_LEN_MASK | CLASSD_MR_REN_MASK,
-@@ -439,10 +400,10 @@ static int atmel_classd_codec_dai_prepare(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static int atmel_classd_codec_dai_trigger(struct snd_pcm_substream *substream,
--					int cmd, struct snd_soc_dai *codec_dai)
-+static int atmel_classd_cpu_dai_trigger(struct snd_pcm_substream *substream,
-+					int cmd, struct snd_soc_dai *cpu_dai)
- {
--	struct snd_soc_component *component = codec_dai->component;
-+	struct snd_soc_component *component = cpu_dai->component;
- 	u32 mask, val;
- 
- 	mask = CLASSD_MR_LEN_MASK | CLASSD_MR_REN_MASK;
-@@ -468,19 +429,16 @@ static int atmel_classd_codec_dai_trigger(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static const struct snd_soc_dai_ops atmel_classd_codec_dai_ops = {
--	.digital_mute	= atmel_classd_codec_dai_digital_mute,
--	.startup	= atmel_classd_codec_dai_startup,
--	.shutdown	= atmel_classd_codec_dai_shutdown,
--	.hw_params	= atmel_classd_codec_dai_hw_params,
--	.prepare	= atmel_classd_codec_dai_prepare,
--	.trigger	= atmel_classd_codec_dai_trigger,
-+static const struct snd_soc_dai_ops atmel_classd_cpu_dai_ops = {
-+	.startup        = atmel_classd_cpu_dai_startup,
-+	.shutdown       = atmel_classd_cpu_dai_shutdown,
-+	.digital_mute	= atmel_classd_cpu_dai_digital_mute,
-+	.hw_params	= atmel_classd_cpu_dai_hw_params,
-+	.prepare	= atmel_classd_cpu_dai_prepare,
-+	.trigger	= atmel_classd_cpu_dai_trigger,
- };
- 
--#define ATMEL_CLASSD_CODEC_DAI_NAME  "atmel-classd-hifi"
--
--static struct snd_soc_dai_driver atmel_classd_codec_dai = {
--	.name = ATMEL_CLASSD_CODEC_DAI_NAME,
-+static struct snd_soc_dai_driver atmel_classd_cpu_dai = {
- 	.playback = {
- 		.stream_name	= "Playback",
- 		.channels_min	= 1,
-@@ -488,7 +446,18 @@ static struct snd_soc_dai_driver atmel_classd_codec_dai = {
- 		.rates		= ATMEL_CLASSD_RATES,
- 		.formats	= SNDRV_PCM_FMTBIT_S16_LE,
- 	},
--	.ops = &atmel_classd_codec_dai_ops,
-+	.ops = &atmel_classd_cpu_dai_ops,
-+};
-+
-+static const struct snd_soc_component_driver atmel_classd_cpu_dai_component = {
-+	.name			= "atmel-classd",
-+	.probe			= atmel_classd_component_probe,
-+	.resume			= atmel_classd_component_resume,
-+	.controls		= atmel_classd_snd_controls,
-+	.num_controls		= ARRAY_SIZE(atmel_classd_snd_controls),
-+	.idle_bias_on		= 1,
-+	.use_pmdown_time	= 1,
-+	.endianness		= 1,
- };
- 
- /* ASoC sound card */
-@@ -517,9 +486,9 @@ static int atmel_classd_asoc_card_init(struct device *dev,
- 
- 	dai_link->name			= "CLASSD";
- 	dai_link->stream_name		= "CLASSD PCM";
--	dai_link->codecs->dai_name	= ATMEL_CLASSD_CODEC_DAI_NAME;
-+	dai_link->codecs->dai_name	= "snd-soc-dummy-dai";
- 	dai_link->cpus->dai_name	= dev_name(dev);
--	dai_link->codecs->name		= dev_name(dev);
-+	dai_link->codecs->name		= "snd-soc-dummy";
- 	dai_link->platforms->name	= dev_name(dev);
- 
- 	card->dai_link	= dai_link;
-@@ -620,13 +589,6 @@ static int atmel_classd_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
--	ret = devm_snd_soc_register_component(dev, &soc_component_dev_classd,
--					&atmel_classd_codec_dai, 1);
--	if (ret) {
--		dev_err(dev, "could not register component: %d\n", ret);
--		return ret;
--	}
--
- 	/* register sound card */
- 	card = devm_kzalloc(dev, sizeof(*card), GFP_KERNEL);
- 	if (!card) {
 -- 
-2.25.1
-
+Mark

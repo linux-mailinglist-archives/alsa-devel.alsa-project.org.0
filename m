@@ -2,85 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDEA5217F04
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 07:17:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3712A217F2F
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 07:40:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 67628165E;
-	Wed,  8 Jul 2020 07:16:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67628165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id B3A161661;
+	Wed,  8 Jul 2020 07:39:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3A161661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594185426;
-	bh=OjRGsx+zBlIIIbDhGpVKv/LRJguOuHZK9HO76E8eliE=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Hihs5EuO9QgnlZEw8MtUcsjM8V0gf1vPL0NAGwdV9RQ8YFzdKCqG6G2wGlkuN+F+J
-	 jx4GA+UJO5LoEqKm8NjEdvjOLFEvzWBd7gwd3cnYDpJEbqBChlOo8vygiMEXVJWHnK
-	 OZ3j3Zo37re2NFKbjniucqK9xbwRGy6Kh5EOWDSI=
+	s=default; t=1594186847;
+	bh=lGyN1e29cwGChUnCFiPOFocJftOcTJV8cM2VhNPzdlM=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=quXoFRpAQPiLZwWX0hrrL2xkg9Msr/ewq0SNN6xKrBiX44Ss09ub7Z3aXvr9W/2W+
+	 ExdOBvdfdxu/SLcEDvlkgW+pX9uWrVga1EcnrZcehKN7chanh30S2NchOs+95cSaeh
+	 5QsOrycBhQIowDs5wRuUFhny+xWnVQVRQQe89me0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22A92F80161;
-	Wed,  8 Jul 2020 07:15:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CE281F80150;
+	Wed,  8 Jul 2020 07:39:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 618F7F8015C; Wed,  8 Jul 2020 07:15:22 +0200 (CEST)
+ id F165EF8015A; Wed,  8 Jul 2020 07:39:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
- [104.130.122.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_78,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AF139F80150
- for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 07:15:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF139F80150
+ by alsa1.perex.cz (Postfix) with ESMTPS id 76F58F8011F
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 07:38:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76F58F8011F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="kyNyx5Np"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1594185313; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=DqngTMN8bZvP5c/5P7DMgEaEbgXzsIHVVYA1hFd9HjI=;
- b=kyNyx5Np3HGV5477KR8dTyo8DSyWVRSHDecCC/o7kNyIawQ0RgmhgXlseCWAgdKicqQI+gSt
- NYItTu1BcT6cwDWvUvBCMuvFxHp1HfEfSuFxxjY3WZYtvjjJ56dBI0BAsgCw4YwXCLJHZGn2
- 0BH+9q0e48Az5ieVqBo8LjhP5LI=
-X-Mailgun-Sending-Ip: 104.130.122.29
-X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n18.prod.us-west-2.postgun.com with SMTP id
- 5f0556589b7f1f3df7443fe6 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 08 Jul 2020 05:15:04
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id A15B1C433A1; Wed,  8 Jul 2020 05:15:04 +0000 (UTC)
-Received: from rohkumar-linux.qualcomm.com
- (blr-c-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.19.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: rohitkr)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 946A2C433C8;
- Wed,  8 Jul 2020 05:14:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 946A2C433C8
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=rohitkr@codeaurora.org
-From: Rohit kumar <rohitkr@codeaurora.org>
-To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
- bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
- srinivas.kandagatla@linaro.org, linux-arm-msm@vger.kernel.org,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [RESEND][PATCH v3 7/8] ASoC: qcom: lpass-sc7180: Add platform driver
- for lpass audio
-Date: Wed,  8 Jul 2020 10:44:46 +0530
-Message-Id: <1594185286-11323-1-git-send-email-rohitkr@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-Cc: Rohit kumar <rohitkr@codeaurora.org>, Ajit Pandey <ajitp@codeaurora.org>
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="eEYSrpLt"
+Received: from fllv0034.itg.ti.com ([10.64.40.246])
+ by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 0685cmGR004469;
+ Wed, 8 Jul 2020 00:38:48 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1594186728;
+ bh=LifHd+6VnWqpYV3vbn/ZBl2W0YOQxwd/c5VBQf9Tt30=;
+ h=Subject:To:CC:References:From:Date:In-Reply-To;
+ b=eEYSrpLtcBUNQwFoOOwVcKUz/yJUsZy08VTQfBZeIG8fYDlaP5UAJ/zcegsBR7ILJ
+ ah+Jmo/fJjDJJUzdnEs0286zV8bUIF/WqW0GXtv6pOokDIcD7Gfa5CfmnPGM/18dam
+ Fs2z/n+ceQ6JhhKKM2sbndBAHfMZPM/KpR+MGTls=
+Received: from DFLE107.ent.ti.com (dfle107.ent.ti.com [10.64.6.28])
+ by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 0685cmLp093876
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 8 Jul 2020 00:38:48 -0500
+Received: from DFLE111.ent.ti.com (10.64.6.32) by DFLE107.ent.ti.com
+ (10.64.6.28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Wed, 8 Jul
+ 2020 00:38:47 -0500
+Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE111.ent.ti.com
+ (10.64.6.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
+ Frontend Transport; Wed, 8 Jul 2020 00:38:47 -0500
+Received: from [192.168.2.6] (ileax41-snat.itg.ti.com [10.172.224.153])
+ by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 0685cieM073282;
+ Wed, 8 Jul 2020 00:38:45 -0500
+Subject: Re: [PATCH v3 09/13] ASoC: ti: omap-mcbsp-st: Remove set, but unused
+ variable 'w'
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ <alsa-devel@alsa-project.org>
+References: <20200707190612.97799-1-pierre-louis.bossart@linux.intel.com>
+ <20200707190612.97799-10-pierre-louis.bossart@linux.intel.com>
+From: Peter Ujfalusi <peter.ujfalusi@ti.com>
+X-Pep-Version: 2.0
+Message-ID: <f386522e-04b3-21e8-bf9b-c5431622693f@ti.com>
+Date: Wed, 8 Jul 2020 08:39:49 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <20200707190612.97799-10-pierre-louis.bossart@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: tiwai@suse.de, open list <linux-kernel@vger.kernel.org>,
+ Samuel Ortiz <samuel.ortiz@nokia.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, broonie@kernel.org,
+ linux-omap@vger.kernel.org, Lee Jones <lee.jones@linaro.org>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,280 +102,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ajit Pandey <ajitp@codeaurora.org>
 
-Add platform driver for configuring sc7180 lpass core I2S and
-DMA configuration to support playback & capture to external codecs
-connected over primary & secondary MI2S interfaces.
 
-Signed-off-by: Ajit Pandey <ajitp@codeaurora.org>
-Signed-off-by: Rohit kumar <rohitkr@codeaurora.org>
----
-Resending to update Signed-off mail id.
+On 07/07/2020 22.06, Pierre-Louis Bossart wrote:
+> From: Lee Jones <lee.jones@linaro.org>
+>=20
+> Looks like 'w' has remained unchecked since the driver's inception.
+>=20
+> Fixes the following W=3D1 kernel build warning(s):
+>=20
+>  sound/soc/ti/omap-mcbsp-st.c: In function =E2=80=98omap_mcbsp_st_chgai=
+n=E2=80=99:
+>  sound/soc/ti/omap-mcbsp-st.c:145:6: warning: variable =E2=80=98w=E2=80=
+=99 set but not used [-Wunused-but-set-variable]
+>=20
+> Peter suggested that the whole read can be removed, so that's
+> been done too.
 
- sound/soc/qcom/Kconfig        |   5 +
- sound/soc/qcom/Makefile       |   2 +
- sound/soc/qcom/lpass-sc7180.c | 216 ++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 223 insertions(+)
- create mode 100644 sound/soc/qcom/lpass-sc7180.c
+Thank you,
 
-diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-index 0ea4cde..87bec7f 100644
---- a/sound/soc/qcom/Kconfig
-+++ b/sound/soc/qcom/Kconfig
-@@ -24,6 +24,11 @@ config SND_SOC_LPASS_APQ8016
- 	select SND_SOC_LPASS_CPU
- 	select SND_SOC_LPASS_PLATFORM
- 
-+config SND_SOC_LPASS_SC7180
-+	tristate
-+	select SND_SOC_LPASS_CPU
-+	select SND_SOC_LPASS_PLATFORM
-+
- config SND_SOC_STORM
- 	tristate "ASoC I2S support for Storm boards"
- 	depends on SND_SOC_QCOM
-diff --git a/sound/soc/qcom/Makefile b/sound/soc/qcom/Makefile
-index 41b2c7a..7972c94 100644
---- a/sound/soc/qcom/Makefile
-+++ b/sound/soc/qcom/Makefile
-@@ -4,11 +4,13 @@ snd-soc-lpass-cpu-objs := lpass-cpu.o
- snd-soc-lpass-platform-objs := lpass-platform.o
- snd-soc-lpass-ipq806x-objs := lpass-ipq806x.o
- snd-soc-lpass-apq8016-objs := lpass-apq8016.o
-+snd-soc-lpass-sc7180-objs := lpass-sc7180.o
- 
- obj-$(CONFIG_SND_SOC_LPASS_CPU) += snd-soc-lpass-cpu.o
- obj-$(CONFIG_SND_SOC_LPASS_PLATFORM) += snd-soc-lpass-platform.o
- obj-$(CONFIG_SND_SOC_LPASS_IPQ806X) += snd-soc-lpass-ipq806x.o
- obj-$(CONFIG_SND_SOC_LPASS_APQ8016) += snd-soc-lpass-apq8016.o
-+obj-$(CONFIG_SND_SOC_LPASS_SC7180) += snd-soc-lpass-sc7180.o
- 
- # Machine
- snd-soc-storm-objs := storm.o
-diff --git a/sound/soc/qcom/lpass-sc7180.c b/sound/soc/qcom/lpass-sc7180.c
-new file mode 100644
-index 00000000..dd85a97
---- /dev/null
-+++ b/sound/soc/qcom/lpass-sc7180.c
-@@ -0,0 +1,216 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) 2020, The Linux Foundation. All rights reserved.
-+ *
-+ * lpass-sc7180.c -- ALSA SoC platform-machine driver for QTi LPASS
-+ */
-+
-+#include <linux/clk.h>
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <dt-bindings/sound/sc7180-lpass.h>
-+#include <sound/pcm.h>
-+#include <sound/soc.h>
-+
-+#include "lpass-lpaif-reg.h"
-+#include "lpass.h"
-+
-+static struct snd_soc_dai_driver sc7180_lpass_cpu_dai_driver[] = {
-+	[MI2S_PRIMARY] = {
-+		.id = MI2S_PRIMARY,
-+		.name = "Primary MI2S",
-+		.playback = {
-+			.stream_name = "Primary Playback",
-+			.formats	= SNDRV_PCM_FMTBIT_S16,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 2,
-+			.channels_max	= 2,
-+		},
-+		.capture = {
-+			.stream_name = "Primary Capture",
-+			.formats = SNDRV_PCM_FMTBIT_S16,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 2,
-+			.channels_max	= 2,
-+		},
-+		.probe	= &asoc_qcom_lpass_cpu_dai_probe,
-+		.ops    = &asoc_qcom_lpass_cpu_dai_ops,
-+	},
-+
-+	[MI2S_SECONDARY] = {
-+		.id = MI2S_SECONDARY,
-+		.name = "Secondary MI2S",
-+		.playback = {
-+			.stream_name = "Secondary Playback",
-+			.formats	= SNDRV_PCM_FMTBIT_S16,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 2,
-+			.channels_max	= 2,
-+		},
-+		.probe	= &asoc_qcom_lpass_cpu_dai_probe,
-+		.ops    = &asoc_qcom_lpass_cpu_dai_ops,
-+	},
-+};
-+
-+static int sc7180_lpass_alloc_dma_channel(struct lpass_data *drvdata,
-+					   int direction)
-+{
-+	struct lpass_variant *v = drvdata->variant;
-+	int chan = 0;
-+
-+	if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
-+		chan = find_first_zero_bit(&drvdata->dma_ch_bit_map,
-+					v->rdma_channels);
-+
-+		if (chan >= v->rdma_channels)
-+			return -EBUSY;
-+	} else {
-+		chan = find_next_zero_bit(&drvdata->dma_ch_bit_map,
-+					v->wrdma_channel_start +
-+					v->wrdma_channels,
-+					v->wrdma_channel_start);
-+
-+		if (chan >=  v->wrdma_channel_start + v->wrdma_channels)
-+			return -EBUSY;
-+	}
-+
-+	set_bit(chan, &drvdata->dma_ch_bit_map);
-+
-+	return chan;
-+}
-+
-+static int sc7180_lpass_free_dma_channel(struct lpass_data *drvdata, int chan)
-+{
-+	clear_bit(chan, &drvdata->dma_ch_bit_map);
-+
-+	return 0;
-+}
-+
-+static int sc7180_lpass_init(struct platform_device *pdev)
-+{
-+	struct lpass_data *drvdata = platform_get_drvdata(pdev);
-+	struct lpass_variant *variant = drvdata->variant;
-+	struct device *dev = &pdev->dev;
-+	int ret, i;
-+
-+	drvdata->clks = devm_kcalloc(dev, variant->num_clks,
-+				     sizeof(*drvdata->clks), GFP_KERNEL);
-+	drvdata->num_clks = variant->num_clks;
-+
-+	for (i = 0; i < drvdata->num_clks; i++)
-+		drvdata->clks[i].id = variant->clk_name[i];
-+
-+	ret = devm_clk_bulk_get(dev, drvdata->num_clks, drvdata->clks);
-+	if (ret) {
-+		dev_err(dev, "Failed to get clocks %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = clk_bulk_prepare_enable(drvdata->num_clks, drvdata->clks);
-+	if (ret) {
-+		dev_err(dev, "sc7180 clk_enable failed\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int sc7180_lpass_exit(struct platform_device *pdev)
-+{
-+	struct lpass_data *drvdata = platform_get_drvdata(pdev);
-+
-+	clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
-+
-+	return 0;
-+}
-+
-+static struct lpass_variant sc7180_data = {
-+	.i2sctrl_reg_base	= 0x1000,
-+	.i2sctrl_reg_stride	= 0x1000,
-+	.i2s_ports		= 3,
-+	.irq_reg_base		= 0x9000,
-+	.irq_reg_stride		= 0x1000,
-+	.irq_ports		= 3,
-+	.rdma_reg_base		= 0xC000,
-+	.rdma_reg_stride	= 0x1000,
-+	.rdma_channels		= 5,
-+	.dmactl_audif_start	= 1,
-+	.wrdma_reg_base		= 0x18000,
-+	.wrdma_reg_stride	= 0x1000,
-+	.wrdma_channel_start	= 5,
-+	.wrdma_channels		= 4,
-+
-+	.loopback		= REG_FIELD_ID(0x1000, 17, 17, 3, 0x1000),
-+	.spken			= REG_FIELD_ID(0x1000, 16, 16, 3, 0x1000),
-+	.spkmode		= REG_FIELD_ID(0x1000, 11, 15, 3, 0x1000),
-+	.spkmono		= REG_FIELD_ID(0x1000, 10, 10, 3, 0x1000),
-+	.micen			= REG_FIELD_ID(0x1000, 9, 9, 3, 0x1000),
-+	.micmode		= REG_FIELD_ID(0x1000, 4, 8, 3, 0x1000),
-+	.micmono		= REG_FIELD_ID(0x1000, 3, 3, 3, 0x1000),
-+	.wssrc			= REG_FIELD_ID(0x1000, 2, 2, 3, 0x1000),
-+	.bitwidth		= REG_FIELD_ID(0x1000, 0, 0, 3, 0x1000),
-+
-+	.rdma_dyncclk		= REG_FIELD_ID(0xC000, 21, 21, 5, 0x1000),
-+	.rdma_bursten		= REG_FIELD_ID(0xC000, 20, 20, 5, 0x1000),
-+	.rdma_wpscnt		= REG_FIELD_ID(0xC000, 16, 19, 5, 0x1000),
-+	.rdma_intf		= REG_FIELD_ID(0xC000, 12, 15, 5, 0x1000),
-+	.rdma_fifowm		= REG_FIELD_ID(0xC000, 1, 5, 5, 0x1000),
-+	.rdma_enable		= REG_FIELD_ID(0xC000, 0, 0, 5, 0x1000),
-+
-+	.wrdma_dyncclk		= REG_FIELD_ID(0x18000, 22, 22, 4, 0x1000),
-+	.wrdma_bursten		= REG_FIELD_ID(0x18000, 21, 21, 4, 0x1000),
-+	.wrdma_wpscnt		= REG_FIELD_ID(0x18000, 17, 20, 4, 0x1000),
-+	.wrdma_intf		= REG_FIELD_ID(0x18000, 12, 16, 4, 0x1000),
-+	.wrdma_fifowm		= REG_FIELD_ID(0x18000, 1, 5, 4, 0x1000),
-+	.wrdma_enable		= REG_FIELD_ID(0x18000, 0, 0, 4, 0x1000),
-+
-+	.clk_name		= (const char*[]) {
-+				   "noc",
-+				   "audio-core",
-+				   "sysnoc_mport",
-+				},
-+	.num_clks		= 3,
-+	.dai_driver		= sc7180_lpass_cpu_dai_driver,
-+	.num_dai		= ARRAY_SIZE(sc7180_lpass_cpu_dai_driver),
-+	.dai_osr_clk_names      = (const char *[]) {
-+				   "mclk0",
-+				   "null",
-+				},
-+	.dai_bit_clk_names      = (const char *[]) {
-+				   "pri_ibit",
-+				   "sec_ibit",
-+				},
-+	.init			= sc7180_lpass_init,
-+	.exit			= sc7180_lpass_exit,
-+	.alloc_dma_channel	= sc7180_lpass_alloc_dma_channel,
-+	.free_dma_channel	= sc7180_lpass_free_dma_channel,
-+};
-+
-+static const struct of_device_id sc7180_lpass_cpu_device_id[] = {
-+	{.compatible = "qcom,lpass-cpu-sc7180", .data = &sc7180_data},
-+	{}
-+};
-+
-+static struct platform_driver sc7180_lpass_cpu_platform_driver = {
-+	.driver = {
-+		.name = "sc7180-lpass-cpu",
-+		.of_match_table = of_match_ptr(sc7180_lpass_cpu_device_id),
-+	},
-+	.probe = asoc_qcom_lpass_cpu_platform_probe,
-+	.remove = asoc_qcom_lpass_cpu_platform_probe,
-+};
-+
-+module_platform_driver(sc7180_lpass_cpu_platform_driver);
-+
-+MODULE_DESCRIPTION("SC7180 LPASS CPU DRIVER");
-+MODULE_LICENSE("GPL v2");
--- 
-Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
-is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+Acked-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
+
+>=20
+> Cc: Peter Ujfalusi <peter.ujfalusi@ti.com>
+> Cc: Jarkko Nikula <jarkko.nikula@bitmer.com>
+> Cc: Samuel Ortiz <samuel.ortiz@nokia.com>
+> Cc: linux-omap@vger.kernel.org
+> Signed-off-by: Lee Jones <lee.jones@linaro.org>
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.c=
+om>
+> ---
+>  sound/soc/ti/omap-mcbsp-st.c | 3 ---
+>  1 file changed, 3 deletions(-)
+>=20
+> diff --git a/sound/soc/ti/omap-mcbsp-st.c b/sound/soc/ti/omap-mcbsp-st.=
+c
+> index 5a32b54bbf3b..0bc7d26c660a 100644
+> --- a/sound/soc/ti/omap-mcbsp-st.c
+> +++ b/sound/soc/ti/omap-mcbsp-st.c
+> @@ -142,11 +142,8 @@ static void omap_mcbsp_st_fir_write(struct omap_mc=
+bsp *mcbsp, s16 *fir)
+> =20
+>  static void omap_mcbsp_st_chgain(struct omap_mcbsp *mcbsp)
+>  {
+> -	u16 w;
+>  	struct omap_mcbsp_st_data *st_data =3D mcbsp->st_data;
+> =20
+> -	w =3D MCBSP_ST_READ(mcbsp, SSELCR);
+> -
+>  	MCBSP_ST_WRITE(mcbsp, SGAINCR, ST_CH0GAIN(st_data->ch0gain) |
+>  		       ST_CH1GAIN(st_data->ch1gain));
+>  }
+>=20
+
+- P=C3=A9ter
+
+Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
+Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
 

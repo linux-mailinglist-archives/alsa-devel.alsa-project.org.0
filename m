@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B73A218DC8
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 19:01:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE9D8218DC9
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 19:02:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE7551675;
-	Wed,  8 Jul 2020 19:00:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE7551675
+	by alsa0.perex.cz (Postfix) with ESMTPS id C5F6A167D;
+	Wed,  8 Jul 2020 19:01:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5F6A167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594227692;
-	bh=WJGWw2GOGxEKG1Lf2nq70geUMNdU1XULEN+/0s34JEc=;
+	s=default; t=1594227726;
+	bh=HTIwv7d4sVCmjrv6qbqW5PLKQvA6dQ/cgwBOc/Sloco=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tytBEYveuzqICxQrRpM6zI3wze3PEYe3vLcFVJHOAKe7Jn35zLpNHXOm7DJ53EcwD
-	 7l1Vlzzov8KktMnJdvhk+xsYuiQmxtYQm+9ctz2utQnCG4bfGjwdKD0a3VtGujtc96
-	 XwCmPcJgFiRhiAfYklvZ3deJI+NhhewQiBtLjNRg=
+	b=vFV3sCR8eL57u9g9SvwAPGXDLrRfqacnDkaT5J8cQu0GqiVmf4s/rIpchb1FhxR6b
+	 Q+qy2cruHqufkMBzGRcd0BT6xfqqxvXzW7Us2CE9I5IjZpaebeloZ+K6opIZgGTUoA
+	 667rJb2ZyQG27Nv+azm0KM5FQhjqVgYVW2sOw33M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 60C4EF802A9;
-	Wed,  8 Jul 2020 19:00:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E55F9F802BE;
+	Wed,  8 Jul 2020 19:00:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09CDFF80269; Wed,  8 Jul 2020 19:00:00 +0200 (CEST)
+ id E3F81F8015A; Wed,  8 Jul 2020 19:00:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,33 +34,33 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A727BF80150
- for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 18:59:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A727BF80150
+ by alsa1.perex.cz (Postfix) with ESMTPS id 99B1BF8015A
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 18:59:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99B1BF8015A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="uWCzLywa"
+ header.b="QNrkBwzC"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id AAEC7206F6;
- Wed,  8 Jul 2020 16:59:52 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id C3E65206F6;
+ Wed,  8 Jul 2020 16:59:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594227593;
- bh=WJGWw2GOGxEKG1Lf2nq70geUMNdU1XULEN+/0s34JEc=;
+ s=default; t=1594227598;
+ bh=HTIwv7d4sVCmjrv6qbqW5PLKQvA6dQ/cgwBOc/Sloco=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=uWCzLywai1Y1fFKLuQ62Ss/72sGv5tZGhq0IByKjprMJs6lMCrbwPm2CZ+WN0h7Ld
- Z9ZVSfSlKBBKdVQuzMISalSV4wHS7nHBrItIx95xEZn0uXIbYyFnnY7sRMYzlEiv+j
- OhJafdLPaBppksVuee3jH8RP4kodRdrYszHoKGUM=
-Date: Wed, 08 Jul 2020 17:59:48 +0100
+ b=QNrkBwzColl5yjG9g6JySNrWGoYTCm1e5wVmAIZ2uu9UVyXqr6WmO1w1dUFsuOST3
+ l3tYzg5Fat/RcwrEIA6UWMgzc8ckhlGo2wiz1jrsfnkQRtlcEIejaXDW7aVJ67E3Fe
+ PO9GRAw2HP8M9VF9IWg8N50k3utOXtjhFNn/n9ZU=
+Date: Wed, 08 Jul 2020 17:59:53 +0100
 From: Mark Brown <broonie@kernel.org>
 To: alsa-devel@alsa-project.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20200707205740.114927-1-pierre-louis.bossart@linux.intel.com>
-References: <20200707205740.114927-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v2 0/6] ASoC: codecs: add MAX98373 Soundwire driver
-Message-Id: <159422758800.28431.3605238994646318402.b4-ty@kernel.org>
-Cc: tiwai@suse.de
+In-Reply-To: <20200707210439.115300-1-pierre-louis.bossart@linux.intel.com>
+References: <20200707210439.115300-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 0/3] ASoC: more fixes for dpcm checks
+Message-Id: <159422758800.28431.15762815187255264463.b4-ty@kernel.org>
+Cc: tiwai@suse.de, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,14 +76,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 7 Jul 2020 15:57:34 -0500, Pierre-Louis Bossart wrote:
-> V2 with a number of cleanups:
-> split between I2C and SoundWire modes, as done for rt5682, and updated
-> Kconfigs.
-> removed useless initializations common to both modes
-> removed idle_bias on
-> fixed register classified as volatile in error
-> fixed SPDX comments
+On Tue, 7 Jul 2020 16:04:36 -0500, Pierre-Louis Bossart wrote:
+> This is hopefully the last set of fixes to avoid probe errors due to
+> stricter checks of DAI capabilities introduced late in the 5.8 cycle.
+> 
+> Daniel Baluta (1):
+>   ASoC: SOF: imx: add min/max channels for SAI/ESAI on i.MX8/i.MX8M
+> 
+> Pierre-Louis Bossart (2):
+>   ASoC: soc-dai: set dai_link dpcm_ flags with a helper
+>   ASoC: Intel: bdw-rt5677: fix non BE conversion
 > 
 > [...]
 
@@ -93,10 +95,12 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: codecs: max98373: Removed superfluous volume control from chip default
-      commit: a53bacc04d7e2b813ebe0ca4dae38716c00d7953
-[2/2] ASoc: codecs: max98373: remove Idle_bias_on to let codec suspend
-      commit: 0fd3935ef888b7231fde87eba3fdf613c4923b4a
+[1/3] ASoC: soc-dai: set dai_link dpcm_ flags with a helper
+      commit: 25612477d20b522a3203707ff23575b99f639fff
+[2/3] ASoC: Intel: bdw-rt5677: fix non BE conversion
+      commit: fffebe8a8339c7e56db4126653a3bc0c0c5592cf
+[3/3] ASoC: SOF: imx: add min/max channels for SAI/ESAI on i.MX8/i.MX8M
+      commit: 4e7f8cac1171ba369a9209a8d949732a4d3b939a
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

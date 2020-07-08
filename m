@@ -2,95 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02CD721834F
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 11:14:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 811AD21841F
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 11:47:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85F251678;
-	Wed,  8 Jul 2020 11:13:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85F251678
+	by alsa0.perex.cz (Postfix) with ESMTPS id 146C6167D;
+	Wed,  8 Jul 2020 11:46:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 146C6167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594199644;
-	bh=GcKC1lWnDh4KC3ruzVAqCPlYFlTP/4F42dtF8lKhQ50=;
+	s=default; t=1594201623;
+	bh=w0YrqsKzW2LRSvCKdn6bK7913y97WBv2dp2y/rH8GqA=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TBIiqx/Ym/90G47v0JIHeeJB3poUyixL60JJ7pkp0L6L/C9FYPnHnqnqW+ayU/Ydp
-	 E9/sYPO1Ntn2XUGPl+r9qXnnvQoDRUfWfeTtaKPs0Dyz0mIR320LhWk2ZGbwtwurjS
-	 4KXPb39PnvyhiBI8U2qpcQQR6oju6PA1z4tuybKE=
+	b=Dg04lXXLKwZvJZU+kX6VAs5A3ZbArZ2tmIAxJMV47txRmhBpaflNbwsQuCNEiWq/x
+	 JHr9A0gVYFjoKOW9An+lhB7EUBc9T/1GdF13KBpwWSU7bZLVEdZY/snhpBNlPxALKg
+	 /S7gPrSBdbn8bQl8kehkdft11aqKUzC6eODevvIc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4389BF80115;
-	Wed,  8 Jul 2020 11:12:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E78C3F80258;
+	Wed,  8 Jul 2020 11:44:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 64DFAF8015A; Wed,  8 Jul 2020 11:12:18 +0200 (CEST)
+ id D25D5F8015D; Wed,  8 Jul 2020 11:44:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C218F80115
- for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 11:12:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C218F80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id 857F3F8011F
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 11:44:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 857F3F8011F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="TO0IWmej"
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 06898mX7031611; Wed, 8 Jul 2020 11:12:06 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=iawSYaeSKNtVm44sgn49UhCmyo15meIegOqh6x74E2M=;
- b=TO0IWmejSbgi7SHJXFFD9ycY1Yz2bJiFrKk55e7vIsjjYRhwXn01v/NE2Fg6D1XxVL0c
- cZcHuW4kzDK+uLzkp3S3d7vB9C3sL2wEHr9JnbiBsBboeaLC3kRpPNGJ4dpZOuY5ulQ5
- JG5Oiz+KAFYspXbJXwZe5SEaDp41aEJJY+GjCoWe/XCM7yWQkUNZDrzdZiWMl0FeRAI0
- RghVB+2dhAf4tPKbOpJakxQGR7BmLt4s33BDj7vvbl9w0krkboSbqKP+dWD6cj5dVXNF
- AjAws0bd/3lFDpzkFW2WK9DMR7X/8ts7aDSyyZlC/LF8iXVzRHycrestry/rhxC/hUXb BQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 322f80xfwp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 08 Jul 2020 11:12:06 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 470B910002A;
- Wed,  8 Jul 2020 11:12:04 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0A8062222A6;
- Wed,  8 Jul 2020 11:12:00 +0200 (CEST)
-Received: from lmecxl0889.tpe.st.com (10.75.127.45) by SFHDAG3NODE1.st.com
- (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 8 Jul
- 2020 11:11:58 +0200
-Subject: Re: [PATCH v3 06/10] ASoC: sti: uniperif: fix 'defined by not used'
- warning
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="Fpjx3n8Z"
+Received: by mail-wr1-x444.google.com with SMTP id q5so48118811wru.6
+ for <alsa-devel@alsa-project.org>; Wed, 08 Jul 2020 02:44:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=7Jns/yX+3aClnQNyC+2ax+ymiJLw8nGPUIjOZoROxiY=;
+ b=Fpjx3n8ZM6TtASQQ3MqccK2166U6UtGHVdKdKpM3ddmRW6w37DoBJGZeWy3playtH6
+ XMn4zZPaScEpr/td03Xw+MaTulQdOgQz1sXzldnbiLDhXcQiOsS0RGVFQe6SZDzeeqGq
+ vfArGvSMPUBdeBTY0OkzS32iiNEAnprj2fXz4EoyuqeSL08SBbp84UpDl/ENkgNBihxC
+ Gd9R0zJmsL6dmFREtzOW8xeg+yoUxlnaYF+KyjfUs/3EnYuVToJ+WO0oAoecIoSQXscS
+ irB3j5n875UM7DbOon8DS4aGeQzoTG/zw6U+uwJW3wYd8Ne6/Y3YbtC9e1DsKmqC/cuK
+ XGQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=7Jns/yX+3aClnQNyC+2ax+ymiJLw8nGPUIjOZoROxiY=;
+ b=FRCp7Izaa35dMqTHKuVI/VsAQ16DOkTxm4HropGSc6e//BYt+HJk6SRlNui1rSDqfg
+ dekmE3aX1mCKflIX1IL2CX2WZRyVyrWp65pulAXObJsmwsRmoQCiL0Z0oFxBrZJaGbQJ
+ GLgRnr9qc0gUeRKIGrgieFl8IStaFZmzMjcka7rbDkrHEqqNun4IZXvrTgmdRjNAP2IL
+ 3KiEQZUV5WPIyeNZrUdo8ABR5/CC6dfk2E3VEar2VPFP5/Pu/v6DaAgfcmfvlgu82H1w
+ BJ9rEl/xGI50L02mUso2X2Xr24cb0bCkDAERAsz5U5qHF9JHbGBdTLo1frxYi7UnMOxk
+ eZWg==
+X-Gm-Message-State: AOAM530dntPSMfSkNsGGauaFq2wxjmAi6g4eTMnuaBKqk2WcCHDKJve5
+ N3YbI4/3stLhzoJmL8NhrB0I7Q==
+X-Google-Smtp-Source: ABdhPJyOe8hm51EM8jb8HvCuyASFEnECIqcU4tIDM0/F7Tr+eWobQ0z+voWarZPRT+sExqYKK2NL2w==
+X-Received: by 2002:adf:ef89:: with SMTP id d9mr61277066wro.124.1594201461254; 
+ Wed, 08 Jul 2020 02:44:21 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.googlemail.com with ESMTPSA id y77sm5640094wmd.36.2020.07.08.02.44.19
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 08 Jul 2020 02:44:20 -0700 (PDT)
+Subject: Re: [PATCH 03/11] ASoC: q6asm: make commands specific to streams
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-References: <20200707191615.98296-1-pierre-louis.bossart@linux.intel.com>
- <20200707191615.98296-7-pierre-louis.bossart@linux.intel.com>
-From: Arnaud POULIQUEN <arnaud.pouliquen@st.com>
-Message-ID: <a376393a-6a17-2836-204b-0d4ff60729c0@st.com>
-Date: Wed, 8 Jul 2020 11:11:57 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ broonie@kernel.org
+References: <20200707163641.17113-1-srinivas.kandagatla@linaro.org>
+ <20200707163641.17113-4-srinivas.kandagatla@linaro.org>
+ <9ff595b4-1093-36c8-f27f-f097e24657a0@linux.intel.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <4eedae20-903f-77c6-c6e9-fbf3db209bcf@linaro.org>
+Date: Wed, 8 Jul 2020 10:44:19 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20200707191615.98296-7-pierre-louis.bossart@linux.intel.com>
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <9ff595b4-1093-36c8-f27f-f097e24657a0@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG4NODE2.st.com (10.75.127.11) To SFHDAG3NODE1.st.com
- (10.75.127.7)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-07-08_04:2020-07-08,
- 2020-07-08 signatures=0
-Cc: "tiwai@suse.de" <tiwai@suse.de>, open list <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- "broonie@kernel.org" <broonie@kernel.org>, Lee Jones <lee.jones@linaro.org>
+Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ vkoul@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,43 +108,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Pierre-Louis,
+Thanks Pierre for quick review,
 
-On 7/7/20 9:16 PM, Pierre-Louis Bossart wrote:
-> Fix W=1 warning. The table uni_tdm_hw is declared in a header included
-> by multiple C file. This isn't really a good practice but for now
-> using __maybe_unused makes the following warning go away.
+On 07/07/2020 17:52, Pierre-Louis Bossart wrote:
 > 
-> sound/soc/sti/sti_uniperif.c:12:
-> sound/soc/sti/uniperif.h:1351:38: warning: ‘uni_tdm_hw’ defined but
-> not used [-Wunused-const-variable=]
->  1351 | static const struct snd_pcm_hardware uni_tdm_hw = {
->       |                                      ^~~~~~~~~~
 > 
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> 
+>> @@ -184,8 +186,8 @@ static void event_handler(uint32_t opcode, 
+>> uint32_t token,
+>>       switch (opcode) {
+>>       case ASM_CLIENT_EVENT_CMD_RUN_DONE:
+>>           if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+>> -            q6asm_write_async(prtd->audio_client,
+>> -                   prtd->pcm_count, 0, 0, NO_TIMESTAMP);
+>> +            q6asm_write_async(prtd->audio_client, prtd->stream_id,
+>> +                   prtd->pcm_count, 0, 0, 0);
+> 
+> sound/soc/qcom/qdsp6/q6asm.h:#define NO_TIMESTAMP    0xFF00
+> 
+> is the change on the previous line intentional?
 
-Thanks for the patch, 
-Seems that the same patch has already been proposed by Lee: 
-https://www.spinics.net/lists/arm-kernel/msg820327.html
+May be not!
 
-Regards,
-Arnaud
+Plan is that the users of these apis will send flags directly instead of 
+boiler plating this!
 
-> ---
->  sound/soc/sti/uniperif.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/sti/uniperif.h b/sound/soc/sti/uniperif.h
-> index 2dc2da5d458b..a16adeb7c1e9 100644
-> --- a/sound/soc/sti/uniperif.h
-> +++ b/sound/soc/sti/uniperif.h
-> @@ -1348,7 +1348,7 @@ struct sti_uniperiph_data {
->  	struct sti_uniperiph_dai dai_data;
->  };
->  
-> -static const struct snd_pcm_hardware uni_tdm_hw = {
-> +static __maybe_unused const struct snd_pcm_hardware uni_tdm_hw = {
->  	.info = SNDRV_PCM_INFO_INTERLEAVED | SNDRV_PCM_INFO_BLOCK_TRANSFER |
->  		SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_MMAP |
->  		SNDRV_PCM_INFO_MMAP_VALID,
-> 
+This change should go as part of next patch("[PATCH 04/11] ASoC: q6asm: 
+use flags directly from asm-dai") which would make it much clear!
+
+thanks,
+srini

@@ -2,69 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42186217EFA
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 07:14:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDEA5217F04
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 07:17:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D3A331612;
-	Wed,  8 Jul 2020 07:14:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3A331612
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67628165E;
+	Wed,  8 Jul 2020 07:16:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67628165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594185298;
-	bh=/0+EWGp2B5h0kAKNpTqajME2/8uXAmExal6KPLmE5j4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=lfKr70YQm0KHpFSJomIZTW8kIDmpKjYragCXKC2KPM+03agdaVybb+GerSZE00SRr
-	 1M4X0u/ESBU0rcqoy9KUm1xanIyGJLEreYI9OP/buE60auqFi5a56anQnx6L5YUKdF
-	 57SiHzMbRvAZtZSzWFQu7DNaQ/0DzPkSUSix9w2U=
+	s=default; t=1594185426;
+	bh=OjRGsx+zBlIIIbDhGpVKv/LRJguOuHZK9HO76E8eliE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Hihs5EuO9QgnlZEw8MtUcsjM8V0gf1vPL0NAGwdV9RQ8YFzdKCqG6G2wGlkuN+F+J
+	 jx4GA+UJO5LoEqKm8NjEdvjOLFEvzWBd7gwd3cnYDpJEbqBChlOo8vygiMEXVJWHnK
+	 OZ3j3Zo37re2NFKbjniucqK9xbwRGy6Kh5EOWDSI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C3C0F80258;
-	Wed,  8 Jul 2020 07:09:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22A92F80161;
+	Wed,  8 Jul 2020 07:15:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 185FFF80161; Wed,  8 Jul 2020 07:09:55 +0200 (CEST)
+ id 618F7F8015C; Wed,  8 Jul 2020 07:15:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
+ [104.130.122.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A81BBF8015A
- for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 07:09:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A81BBF8015A
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF139F80150
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 07:15:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF139F80150
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="gpuTMFnL"
+ header.i=@mg.codeaurora.org header.b="kyNyx5Np"
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1594184989; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=3Ch8WSA1B/4jOFB5bA7AVNVE1HX8i9OvLQvCMnXDHgo=;
- b=gpuTMFnLkQTAXWsJ/exigUastC2e3yLAAv+9rB/mXXjoOIqhLd+ARG8WuK7hZbkNGOOcfOPt
- Ev6aKpkp84/fqMHfGeXZeqwWXx9k/zC8u2RLlbmwARxU9BbuyC5MBf78kcU/c5Gp5uUFqA4X
- weiYKbU781JU9lvgzdjRMqumges=
-X-Mailgun-Sending-Ip: 69.72.43.7
+ s=smtp; t=1594185313; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=DqngTMN8bZvP5c/5P7DMgEaEbgXzsIHVVYA1hFd9HjI=;
+ b=kyNyx5Np3HGV5477KR8dTyo8DSyWVRSHDecCC/o7kNyIawQ0RgmhgXlseCWAgdKicqQI+gSt
+ NYItTu1BcT6cwDWvUvBCMuvFxHp1HfEfSuFxxjY3WZYtvjjJ56dBI0BAsgCw4YwXCLJHZGn2
+ 0BH+9q0e48Az5ieVqBo8LjhP5LI=
+X-Mailgun-Sending-Ip: 104.130.122.29
 X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
  smtp-out-n18.prod.us-west-2.postgun.com with SMTP id
- 5f0555060082b278486da78a (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 08 Jul 2020 05:09:26
+ 5f0556589b7f1f3df7443fe6 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 08 Jul 2020 05:15:04
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id ACA88C433B6; Wed,  8 Jul 2020 05:09:26 +0000 (UTC)
+ id A15B1C433A1; Wed,  8 Jul 2020 05:15:04 +0000 (UTC)
 Received: from rohkumar-linux.qualcomm.com
  (blr-c-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.19.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: rohitkr)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 0208CC433C6;
- Wed,  8 Jul 2020 05:09:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 0208CC433C6
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 946A2C433C8;
+ Wed,  8 Jul 2020 05:14:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 946A2C433C8
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
@@ -76,12 +75,11 @@ To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
  srinivas.kandagatla@linaro.org, linux-arm-msm@vger.kernel.org,
  alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v3 8/8] dt-bindings: sound: lpass-cpu: Move to yaml format
-Date: Wed,  8 Jul 2020 10:38:16 +0530
-Message-Id: <1594184896-10629-9-git-send-email-rohitkr@codeaurora.org>
+Subject: [RESEND][PATCH v3 7/8] ASoC: qcom: lpass-sc7180: Add platform driver
+ for lpass audio
+Date: Wed,  8 Jul 2020 10:44:46 +0530
+Message-Id: <1594185286-11323-1-git-send-email-rohitkr@codeaurora.org>
 X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1594184896-10629-1-git-send-email-rohitkr@codeaurora.org>
-References: <1594184896-10629-1-git-send-email-rohitkr@codeaurora.org>
 Cc: Rohit kumar <rohitkr@codeaurora.org>, Ajit Pandey <ajitp@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -100,263 +98,277 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Ajit Pandey <ajitp@codeaurora.org>
 
-Update lpass-cpu binding with yaml formats.
+Add platform driver for configuring sc7180 lpass core I2S and
+DMA configuration to support playback & capture to external codecs
+connected over primary & secondary MI2S interfaces.
 
 Signed-off-by: Ajit Pandey <ajitp@codeaurora.org>
 Signed-off-by: Rohit kumar <rohitkr@codeaurora.org>
 ---
- .../devicetree/bindings/sound/qcom,lpass-cpu.txt   |  80 -----------
- .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  | 154 +++++++++++++++++++++
- 2 files changed, 154 insertions(+), 80 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
- create mode 100644 Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+Resending to update Signed-off mail id.
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
-deleted file mode 100644
-index 04e34cc..00000000
---- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
-+++ /dev/null
-@@ -1,80 +0,0 @@
--* Qualcomm Technologies LPASS CPU DAI
--
--This node models the Qualcomm Technologies Low-Power Audio SubSystem (LPASS).
--
--Required properties:
--
--- compatible		: "qcom,lpass-cpu" or "qcom,apq8016-lpass-cpu" or
--			  "qcom,lpass-cpu-sc7180"
--- clocks		: Must contain an entry for each entry in clock-names.
--- clock-names		: A list which must include the following entries:
--				* "ahbix-clk"
--				* "mi2s-osr-clk"
--				* "mi2s-bit-clk"
--			: required clocks for "qcom,lpass-cpu-apq8016"
--				* "ahbix-clk"
--				* "mi2s-bit-clk0"
--				* "mi2s-bit-clk1"
--				* "mi2s-bit-clk2"
--				* "mi2s-bit-clk3"
--				* "pcnoc-mport-clk"
--				* "pcnoc-sway-clk"
--
--- interrupts		: Must contain an entry for each entry in
--			  interrupt-names.
--- interrupt-names	: A list which must include the following entries:
--				* "lpass-irq-lpaif"
--- pinctrl-N		: One property must exist for each entry in
--			  pinctrl-names.  See ../pinctrl/pinctrl-bindings.txt
--			  for details of the property values.
--- pinctrl-names		: Must contain a "default" entry.
--- reg			: Must contain an address for each entry in reg-names.
--- reg-names		: A list which must include the following entries:
--				* "lpass-lpaif"
--- #address-cells	: Must be 1
--- #size-cells		: Must be 0
--
--
--
--Optional properties:
--
--- qcom,adsp		: Phandle for the audio DSP node
--
--By default, the driver uses up to 4 MI2S SD lines, for a total of 8 channels.
--The SD lines to use can be configured by adding subnodes for each of the DAIs.
--
--Required properties for each DAI (represented by a subnode):
--- reg			: Must be one of the DAI IDs
--			  (usually part of dt-bindings header)
--- qcom,playback-sd-lines: List of serial data lines to use for playback
--			  Each SD line should be represented by a number from 0-3.
--- qcom,capture-sd-lines	: List of serial data lines to use for capture
--			  Each SD line should be represented by a number from 0-3.
--
--Note that adding a subnode changes the default to "no lines configured",
--so both playback and capture lines should be configured when a subnode is added.
--
--Example:
--
--lpass@28100000 {
--	compatible = "qcom,lpass-cpu";
--	clocks = <&lcc AHBIX_CLK>, <&lcc MI2S_OSR_CLK>, <&lcc MI2S_BIT_CLK>;
--	clock-names = "ahbix-clk", "mi2s-osr-clk", "mi2s-bit-clk";
--	interrupts = <0 85 1>;
--	interrupt-names = "lpass-irq-lpaif";
--	pinctrl-names = "default", "idle";
--	pinctrl-0 = <&mi2s_default>;
--	pinctrl-1 = <&mi2s_idle>;
--	reg = <0x28100000 0x10000>;
--	reg-names = "lpass-lpaif";
--	qcom,adsp = <&adsp>;
--
--	#address-cells = <1>;
--	#size-cells = <0>;
--
--	/* Optional to set different MI2S SD lines */
--	dai@3 {
--		reg = <MI2S_QUATERNARY>;
--		qcom,playback-sd-lines = <0 1>;
--	};
--};
-diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+ sound/soc/qcom/Kconfig        |   5 +
+ sound/soc/qcom/Makefile       |   2 +
+ sound/soc/qcom/lpass-sc7180.c | 216 ++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 223 insertions(+)
+ create mode 100644 sound/soc/qcom/lpass-sc7180.c
+
+diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
+index 0ea4cde..87bec7f 100644
+--- a/sound/soc/qcom/Kconfig
++++ b/sound/soc/qcom/Kconfig
+@@ -24,6 +24,11 @@ config SND_SOC_LPASS_APQ8016
+ 	select SND_SOC_LPASS_CPU
+ 	select SND_SOC_LPASS_PLATFORM
+ 
++config SND_SOC_LPASS_SC7180
++	tristate
++	select SND_SOC_LPASS_CPU
++	select SND_SOC_LPASS_PLATFORM
++
+ config SND_SOC_STORM
+ 	tristate "ASoC I2S support for Storm boards"
+ 	depends on SND_SOC_QCOM
+diff --git a/sound/soc/qcom/Makefile b/sound/soc/qcom/Makefile
+index 41b2c7a..7972c94 100644
+--- a/sound/soc/qcom/Makefile
++++ b/sound/soc/qcom/Makefile
+@@ -4,11 +4,13 @@ snd-soc-lpass-cpu-objs := lpass-cpu.o
+ snd-soc-lpass-platform-objs := lpass-platform.o
+ snd-soc-lpass-ipq806x-objs := lpass-ipq806x.o
+ snd-soc-lpass-apq8016-objs := lpass-apq8016.o
++snd-soc-lpass-sc7180-objs := lpass-sc7180.o
+ 
+ obj-$(CONFIG_SND_SOC_LPASS_CPU) += snd-soc-lpass-cpu.o
+ obj-$(CONFIG_SND_SOC_LPASS_PLATFORM) += snd-soc-lpass-platform.o
+ obj-$(CONFIG_SND_SOC_LPASS_IPQ806X) += snd-soc-lpass-ipq806x.o
+ obj-$(CONFIG_SND_SOC_LPASS_APQ8016) += snd-soc-lpass-apq8016.o
++obj-$(CONFIG_SND_SOC_LPASS_SC7180) += snd-soc-lpass-sc7180.o
+ 
+ # Machine
+ snd-soc-storm-objs := storm.o
+diff --git a/sound/soc/qcom/lpass-sc7180.c b/sound/soc/qcom/lpass-sc7180.c
 new file mode 100644
-index 00000000..9c350bc
+index 00000000..dd85a97
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
-@@ -0,0 +1,154 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/qcom,lpass-cpu.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/sound/soc/qcom/lpass-sc7180.c
+@@ -0,0 +1,216 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) 2020, The Linux Foundation. All rights reserved.
++ *
++ * lpass-sc7180.c -- ALSA SoC platform-machine driver for QTi LPASS
++ */
 +
-+title: Qualcomm LPASS CPU dai driver bindings
++#include <linux/clk.h>
++#include <linux/device.h>
++#include <linux/err.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <dt-bindings/sound/sc7180-lpass.h>
++#include <sound/pcm.h>
++#include <sound/soc.h>
 +
-+maintainers:
-+  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-+  - Rohit kumar <rohitkr@codeaurora.org>
++#include "lpass-lpaif-reg.h"
++#include "lpass.h"
 +
-+description:
-+  Qualcomm SOC Low-Power Audio SubSystem (LPASS) that consist of MI2S interface
-+  for audio data transfer on external codecs. LPASS cpu driver is a module to
-+  configure Low-Power Audio Interface(LPAIF) core registers across different
-+  IP versions.
++static struct snd_soc_dai_driver sc7180_lpass_cpu_dai_driver[] = {
++	[MI2S_PRIMARY] = {
++		.id = MI2S_PRIMARY,
++		.name = "Primary MI2S",
++		.playback = {
++			.stream_name = "Primary Playback",
++			.formats	= SNDRV_PCM_FMTBIT_S16,
++			.rates = SNDRV_PCM_RATE_48000,
++			.rate_min	= 48000,
++			.rate_max	= 48000,
++			.channels_min	= 2,
++			.channels_max	= 2,
++		},
++		.capture = {
++			.stream_name = "Primary Capture",
++			.formats = SNDRV_PCM_FMTBIT_S16,
++			.rates = SNDRV_PCM_RATE_48000,
++			.rate_min	= 48000,
++			.rate_max	= 48000,
++			.channels_min	= 2,
++			.channels_max	= 2,
++		},
++		.probe	= &asoc_qcom_lpass_cpu_dai_probe,
++		.ops    = &asoc_qcom_lpass_cpu_dai_ops,
++	},
 +
-+properties:
-+  compatible:
-+    enum:
-+      - qcom,lpass-cpu
-+      - qcom,apq8016-lpass-cpu
-+      - qcom,lpass-cpu-sc7180
++	[MI2S_SECONDARY] = {
++		.id = MI2S_SECONDARY,
++		.name = "Secondary MI2S",
++		.playback = {
++			.stream_name = "Secondary Playback",
++			.formats	= SNDRV_PCM_FMTBIT_S16,
++			.rates = SNDRV_PCM_RATE_48000,
++			.rate_min	= 48000,
++			.rate_max	= 48000,
++			.channels_min	= 2,
++			.channels_max	= 2,
++		},
++		.probe	= &asoc_qcom_lpass_cpu_dai_probe,
++		.ops    = &asoc_qcom_lpass_cpu_dai_ops,
++	},
++};
 +
-+  reg:
-+    items:
-+      - description: LPAIF core registers
++static int sc7180_lpass_alloc_dma_channel(struct lpass_data *drvdata,
++					   int direction)
++{
++	struct lpass_variant *v = drvdata->variant;
++	int chan = 0;
 +
-+  reg-names:
-+    items:
-+      - const: lpass-lpaif
++	if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
++		chan = find_first_zero_bit(&drvdata->dma_ch_bit_map,
++					v->rdma_channels);
 +
-+  clocks:
-+    items:
-+      - description: AHBIX core clock
-+      - description: oscillator clock for MI2S external interfaces
-+      - description: Bit clock for single MI2S dai
-+      - description: Bit clock for MI2S_PRIMARY dai interface
-+      - description: Bit clock for MI2S_SECONDARY dai interface
-+      - description: Bit clock for MI2S_TERTIARY dai interface
-+      - description: Bit clock for MI2S_QUATERNARY dai interface
-+      - description: NOC MPORT clock of LPASS core
-+      - description: NOC SWAY clock of LPASS core
++		if (chan >= v->rdma_channels)
++			return -EBUSY;
++	} else {
++		chan = find_next_zero_bit(&drvdata->dma_ch_bit_map,
++					v->wrdma_channel_start +
++					v->wrdma_channels,
++					v->wrdma_channel_start);
 +
-+  clock-names:
-+    items:
-+      - const: ahbix-clk
-+      - const: mi2s-osr-clk
-+      - const: mi2s-bit-clk
-+      - const: mi2s-bit-clk0
-+      - const: mi2s-bit-clk1
-+      - const: mi2s-bit-clk2
-+      - const: mi2s-bit-clk3
-+      - const: pcnoc-mport-clk
-+      - const: pcnoc-sway-clk
++		if (chan >=  v->wrdma_channel_start + v->wrdma_channels)
++			return -EBUSY;
++	}
 +
-+  interrupts:
-+    items:
-+      - description: LPAIF DMA buffer interrupt
++	set_bit(chan, &drvdata->dma_ch_bit_map);
 +
-+  interrupt-names:
-+    items:
-+      - const: lpass-irq-lpaif
++	return chan;
++}
 +
-+  qcom,adsp:
-+    maxItems: 1
-+    description: Phandle for the audio DSP node
++static int sc7180_lpass_free_dma_channel(struct lpass_data *drvdata, int chan)
++{
++	clear_bit(chan, &drvdata->dma_ch_bit_map);
 +
-+  iommus:
-+    maxItems: 1
-+    description: Phandle to apps_smmu node with sid mask
++	return 0;
++}
 +
-+  power-domains:
-+    maxItems: 1
-+    description: Phandle for power domain node
++static int sc7180_lpass_init(struct platform_device *pdev)
++{
++	struct lpass_data *drvdata = platform_get_drvdata(pdev);
++	struct lpass_variant *variant = drvdata->variant;
++	struct device *dev = &pdev->dev;
++	int ret, i;
 +
-+  '#sound-dai-cells':
-+    const: 1
++	drvdata->clks = devm_kcalloc(dev, variant->num_clks,
++				     sizeof(*drvdata->clks), GFP_KERNEL);
++	drvdata->num_clks = variant->num_clks;
 +
-+  child-node:
-+    description: Required properties for each DAI
-+    type: object
-+    properties:
-+      reg:
-+        description: Must be one of the DAI ID
-+                     (Usually part of dtbindings header)
-+      qcom,playback-sd-lines:
-+        description: List of serial data lines to use for playback
-+                     Each SD line should be represented by a number from 0-3.
-+      qcom,capture-sd-lines :
-+        description: List of serial data lines to use for capture
-+                     Each SD line should be represented by a number from 0-3.
-+    required:
-+      -reg
-+    # Note that adding a subnode changes the default to "no lines configured",
-+    # so both playback and capture lines should be configured when a subnode
-+    # is added.
++	for (i = 0; i < drvdata->num_clks; i++)
++		drvdata->clks[i].id = variant->clk_name[i];
 +
++	ret = devm_clk_bulk_get(dev, drvdata->num_clks, drvdata->clks);
++	if (ret) {
++		dev_err(dev, "Failed to get clocks %d\n", ret);
++		return ret;
++	}
 +
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - clocks
-+  - clock-names
-+  - interrupts
-+  - interrupt-names
-+  - sound-dai-cells
++	ret = clk_bulk_prepare_enable(drvdata->num_clks, drvdata->clks);
++	if (ret) {
++		dev_err(dev, "sc7180 clk_enable failed\n");
++		return ret;
++	}
 +
-+optional:
-+  - qcom,adsp
++	return 0;
++}
 +
-+if:
-+  properties:
-+    compatible:
-+      contains:
-+        const: qcom,lpass-cpu-sc7180
++static int sc7180_lpass_exit(struct platform_device *pdev)
++{
++	struct lpass_data *drvdata = platform_get_drvdata(pdev);
 +
-+then:
-+  required:
-+    - iommus
-+    - power-domains
++	clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
 +
-+examples:
-+  lpass@28100000 {
-+	compatible = "qcom,lpass-cpu";
-+	clocks = <&lcc AHBIX_CLK>,
-+		 <&lcc MI2S_OSR_CLK>,
-+		 <&lcc MI2S_BIT_CLK>;
++	return 0;
++}
 +
-+	clock-names = "ahbix-clk",
-+		      "mi2s-osr-clk",
-+		      "mi2s-bit-clk";
++static struct lpass_variant sc7180_data = {
++	.i2sctrl_reg_base	= 0x1000,
++	.i2sctrl_reg_stride	= 0x1000,
++	.i2s_ports		= 3,
++	.irq_reg_base		= 0x9000,
++	.irq_reg_stride		= 0x1000,
++	.irq_ports		= 3,
++	.rdma_reg_base		= 0xC000,
++	.rdma_reg_stride	= 0x1000,
++	.rdma_channels		= 5,
++	.dmactl_audif_start	= 1,
++	.wrdma_reg_base		= 0x18000,
++	.wrdma_reg_stride	= 0x1000,
++	.wrdma_channel_start	= 5,
++	.wrdma_channels		= 4,
 +
-+	interrupts = <0 85 1>;
-+        interrupt-names = "lpass-irq-lpaif";
++	.loopback		= REG_FIELD_ID(0x1000, 17, 17, 3, 0x1000),
++	.spken			= REG_FIELD_ID(0x1000, 16, 16, 3, 0x1000),
++	.spkmode		= REG_FIELD_ID(0x1000, 11, 15, 3, 0x1000),
++	.spkmono		= REG_FIELD_ID(0x1000, 10, 10, 3, 0x1000),
++	.micen			= REG_FIELD_ID(0x1000, 9, 9, 3, 0x1000),
++	.micmode		= REG_FIELD_ID(0x1000, 4, 8, 3, 0x1000),
++	.micmono		= REG_FIELD_ID(0x1000, 3, 3, 3, 0x1000),
++	.wssrc			= REG_FIELD_ID(0x1000, 2, 2, 3, 0x1000),
++	.bitwidth		= REG_FIELD_ID(0x1000, 0, 0, 3, 0x1000),
 +
-+	iommus = <&apps_smmu 0x1020 0>;
-+	power-domains = <&lpass_hm LPASS_CORE_HM_GDSCR>;
++	.rdma_dyncclk		= REG_FIELD_ID(0xC000, 21, 21, 5, 0x1000),
++	.rdma_bursten		= REG_FIELD_ID(0xC000, 20, 20, 5, 0x1000),
++	.rdma_wpscnt		= REG_FIELD_ID(0xC000, 16, 19, 5, 0x1000),
++	.rdma_intf		= REG_FIELD_ID(0xC000, 12, 15, 5, 0x1000),
++	.rdma_fifowm		= REG_FIELD_ID(0xC000, 1, 5, 5, 0x1000),
++	.rdma_enable		= REG_FIELD_ID(0xC000, 0, 0, 5, 0x1000),
 +
-+	reg = <0x28100000 0x10000>;
-+	reg-names = "lpass-lpaif";
-+	#sound-dai-cells = <1>;
-+	qcom,adsp = <&adsp>;
++	.wrdma_dyncclk		= REG_FIELD_ID(0x18000, 22, 22, 4, 0x1000),
++	.wrdma_bursten		= REG_FIELD_ID(0x18000, 21, 21, 4, 0x1000),
++	.wrdma_wpscnt		= REG_FIELD_ID(0x18000, 17, 20, 4, 0x1000),
++	.wrdma_intf		= REG_FIELD_ID(0x18000, 12, 16, 4, 0x1000),
++	.wrdma_fifowm		= REG_FIELD_ID(0x18000, 1, 5, 4, 0x1000),
++	.wrdma_enable		= REG_FIELD_ID(0x18000, 0, 0, 4, 0x1000),
 +
-+	#address-cells = <1>;
-+	#size-cells = <0>;
++	.clk_name		= (const char*[]) {
++				   "noc",
++				   "audio-core",
++				   "sysnoc_mport",
++				},
++	.num_clks		= 3,
++	.dai_driver		= sc7180_lpass_cpu_dai_driver,
++	.num_dai		= ARRAY_SIZE(sc7180_lpass_cpu_dai_driver),
++	.dai_osr_clk_names      = (const char *[]) {
++				   "mclk0",
++				   "null",
++				},
++	.dai_bit_clk_names      = (const char *[]) {
++				   "pri_ibit",
++				   "sec_ibit",
++				},
++	.init			= sc7180_lpass_init,
++	.exit			= sc7180_lpass_exit,
++	.alloc_dma_channel	= sc7180_lpass_alloc_dma_channel,
++	.free_dma_channel	= sc7180_lpass_free_dma_channel,
++};
 +
-+	/* Optional to set different MI2S SD lines */
-+	mi2s-quaternary@3 {
-+		reg = <MI2S_QUATERNARY>;
-+		qcom,playback-sd-lines = <0 1>;
-+  };
++static const struct of_device_id sc7180_lpass_cpu_device_id[] = {
++	{.compatible = "qcom,lpass-cpu-sc7180", .data = &sc7180_data},
++	{}
++};
++
++static struct platform_driver sc7180_lpass_cpu_platform_driver = {
++	.driver = {
++		.name = "sc7180-lpass-cpu",
++		.of_match_table = of_match_ptr(sc7180_lpass_cpu_device_id),
++	},
++	.probe = asoc_qcom_lpass_cpu_platform_probe,
++	.remove = asoc_qcom_lpass_cpu_platform_probe,
++};
++
++module_platform_driver(sc7180_lpass_cpu_platform_driver);
++
++MODULE_DESCRIPTION("SC7180 LPASS CPU DRIVER");
++MODULE_LICENSE("GPL v2");
 -- 
 Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
 is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.

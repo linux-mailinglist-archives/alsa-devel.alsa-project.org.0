@@ -2,76 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A4EA218A52
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 16:44:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71D66218A60
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 16:46:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C91AC1665;
-	Wed,  8 Jul 2020 16:43:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C91AC1665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 02A671669;
+	Wed,  8 Jul 2020 16:45:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02A671669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594219477;
-	bh=Sjzz9oln1Cql5t3IpU6mKZpecmWEWwre+xiOBQ9kKvg=;
+	s=default; t=1594219601;
+	bh=YhseJEePgvpSTmX9XlP8TaSDJ83VtMy6jUAsWBvn1lc=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tbWjYOP0Mre38c8SOfyEfj9SWh7EHrTwwgniX5yK+U3XWXsXJEWkqoI19gA3vsKgG
-	 s4vsJoDXgMBxSqQvGZy0JgfZXvwhPyx6R42BzqRx7MWRk0kIgZ4wU1BHJ+fFBUVzcB
-	 SEeM5+f0EczyM0aTIRjF+NHAXSNRAndRiYlSqKks=
+	b=K3PSJW1RzMGSWDTajyGOH6L8Qfv8C9FVqyB6zaBSu+CY0C/3/vx8oUiIZC5UP6984
+	 G79IRKg/IxqQX5bPIl2e4uaff1sP+SpVjHm76Qoy2YaB1ryCnHSToVN2wlnBO6vliw
+	 cyqUwLWJUsrw+2qcb/n3EUkhgXfGHf5AVgTSV4Lk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0FE8DF80115;
-	Wed,  8 Jul 2020 16:42:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 43B34F80150;
+	Wed,  8 Jul 2020 16:45:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7BDA4F8015A; Wed,  8 Jul 2020 16:42:55 +0200 (CEST)
+ id F2C39F8015A; Wed,  8 Jul 2020 16:44:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 63EDEF8011F
- for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 16:42:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63EDEF8011F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5415AF8011F
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 16:44:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5415AF8011F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Y6Voee1t"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A31D020786;
- Wed,  8 Jul 2020 14:42:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594219363;
- bh=Sjzz9oln1Cql5t3IpU6mKZpecmWEWwre+xiOBQ9kKvg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Y6Voee1tSrUKjWJWfglhv5+6y8OTcm1GHKqv1WPeRrZqYkKWKdhJqJ/iF1aR4ZfIf
- tRp3riRBYZy75HC/CDKPJtwwYKNk6bgCptWD9OU3LuGXlHrbeT6tVAKBJK8JMxYvkc
- dUKZf8xJsRwoDLhsEdDP+dAX55slc/1hD2SvfoLs=
-Date: Wed, 8 Jul 2020 15:42:37 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Lee Jones <lee.jones@linaro.org>
-Subject: Re: [PATCH v3 00/10] ASoC: =?utf-8?Q?Clean?=
- =?utf-8?Q?-up_W=3D1_build_warnings=E2=80=8B?= - part2
-Message-ID: <20200708144237.GS4655@sirena.org.uk>
-References: <20200707191615.98296-1-pierre-louis.bossart@linux.intel.com>
- <20200708063900.GJ3500@dell>
- <93b7fb31-7a00-2c68-5096-6a3c81df881a@linux.intel.com>
- <20200708130606.GW3500@dell> <20200708133833.GQ4655@sirena.org.uk>
- <20200708135016.GX3500@dell>
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="O+LMLEZ5"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="MePi1JHA"
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.west.internal (Postfix) with ESMTP id A6A44DF2;
+ Wed,  8 Jul 2020 10:44:43 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Wed, 08 Jul 2020 10:44:43 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm2; bh=zS4cLsxZBzFI7SbLtt7irGNd4KT
+ +uosvycDIir2B79E=; b=O+LMLEZ5K4KMr/ojUJxkYCvX4Dev+IMnGu3zn0MCgYL
+ 6gVYZCe0r2qx5CY7OUnkDu1JK/jWvmb42E5QZMKa8v3z8BgP3wSMJyxPnCJi3kc1
+ JdPkHLQZOGHboBYRjal8LCj6QOBmbdJEEdUs5gaUxzPUFdHOLKSzQmMdVyZYENgF
+ HyT7044In1kQbqV5I+f1cF0Exr+k790D0QMnRC+qV/g3VhzhR8UGSUtc1jfNSaTH
+ lPc9LWj3LhpCTKDld6K2IVmUGNYtRECukmXhV0qQDLsedCLE1jb7vqBYeYCqN4ip
+ MhooTVznhCJmutVdtIarlKk5urSynv/jvbETH+XSSVA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=zS4cLs
+ xZBzFI7SbLtt7irGNd4KT+uosvycDIir2B79E=; b=MePi1JHASxajqlO+om3yCY
+ GkvMdzMYnAT2uobpyiHNglGEsyMNsSjrSxS83IaacIFThKCviu6QyB54kiyzOgol
+ GEdfoj8oJScD28FnI04NK/wBucr5sSSUmsPF8VIlZJOPkiuR6fwr4eUJUs1Zse9K
+ Y4Z7khJ44Gx2Z6FAXYPJmreCnRxeCyA11g9XKl5DqmsrsmT11MTJL8emZo/3McV5
+ EtX98rJuJHBWc+j4VnZDXK++/y3CPlnHWAU8/Z3dJFVl7x7ZGjy5ZzLgqKiyGuDb
+ ns3D+Uv10zC4DTikxEFRg4IxuKsmUV2kTntZOcw3Q1khX9iRaZVEKkxFw2eWSJ9g
+ ==
+X-ME-Sender: <xms:29sFX_zxJWFJ7FyZSo26HQOniVnKfapb3mY5boX_nv-8S4z3WP43vQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudejgdekudcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfhfgggtuggjsehttdertd
+ dttddvnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
+ hhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpeelhfeugedvje
+ fgjefgudekfedutedvtddutdeuieevtddtgeetjeekvdefgeefhfenucfkphepudektddr
+ vdefhedrfedrheegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
+ hfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:29sFX3SM1lj8GhTLrKDfALOveMD7ffS3jAU-mzMqJS_gI5KdsZX5Gg>
+ <xmx:29sFX5Vd2p_b6xtIiIWs4-RftzYGpCrRv8Uca2wSwfK9as5Z761Lzw>
+ <xmx:29sFX5giTQBMdi58SjhkMQHtuhUNnNIF74oJm7utnnFKbu0Iuuqgow>
+ <xmx:29sFX0q4G3U3wplPlMHIQ9fwgXtU6yNQoqGX9x267sSMoyWUe8Mpeg>
+Received: from workstation (ad003054.dynamic.ppp.asahi-net.or.jp
+ [180.235.3.54])
+ by mail.messagingengine.com (Postfix) with ESMTPA id F08C53280063;
+ Wed,  8 Jul 2020 10:44:41 -0400 (EDT)
+Date: Wed, 8 Jul 2020 23:44:39 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [RFT] ALSA control service programs for Digidesign Digi 002/003
+ family and Tascam FireWire series
+Message-ID: <20200708144439.GA27082@workstation>
+Mail-Followup-To: Jaroslav Kysela <perex@perex.cz>,
+ alsa-devel@alsa-project.org, sbahling@suse.com,
+ ffado-devel@lists.sourceforge.net
+References: <20200707125651.GA200100@workstation>
+ <a322006e-bd58-4dba-f590-855be17a2cdb@perex.cz>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="/Ocr+Jy+jPJR1APa"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200708135016.GX3500@dell>
-X-Cookie: Oh Dad!  We're ALL Devo!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <a322006e-bd58-4dba-f590-855be17a2cdb@perex.cz>
+Cc: ffado-devel@lists.sourceforge.net, alsa-devel@alsa-project.org,
+ sbahling@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,39 +117,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Jaroslav,
 
---/Ocr+Jy+jPJR1APa
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Tue, Jul 07, 2020 at 03:15:53PM +0200, Jaroslav Kysela wrote:
+> Dne 07. 07. 20 v 14:56 Takashi Sakamoto napsal(a):
+> > They have command line options. For all models of Digi 002/003 family, the
+> > executable has an option for the numerical ID of sound card.
+> > 
+> > ```
+> > Usage:
+> >    snd-firewire-digi00x-ctl-service CARD_ID
+> > 
+> >    where:
+> >      CARD_ID: The numerical ID of sound card.
+> > ```
+> 
+> It's better to handle both card number and the card id string. In the latter
+> case, the user may create independent environment and use udev or
+> modprobe.conf configurations to address the devices. The card number may
+> change when the plug-and-play devices are randomly connected / disconnected.
+> 
+> snd_card_new() - third argument.
 
-On Wed, Jul 08, 2020 at 02:50:16PM +0100, Lee Jones wrote:
-> On Wed, 08 Jul 2020, Mark Brown wrote:
+Thanks for the comment and I also think it good idea for users to have
+fixed configuration since the numerical ID of sound card differs
+depending on system environment.
 
-> > Note that all these patches have unique subjects due to the prefixes
-> > saying what they're modifying, this is a common pattern for these sorts
-> > of repetitive serieses doing broad cleanups.
+At the same time, I like to keep the specification of service programs
+as small as possible. The numerical ID of sound card is enough to
+identify target sound card, and it's sole way for it.
 
-> Yes, they're unique within *this* set.  The fun starts when you
-> conduct another pass a few months/years down the line and have the
-> same lack of imagination. :)
+If implementing the idea, I need to add enough instructions about the
+mechanism of card id string in kernel land so that users can utilize
+it without any puzzle. Actually, the mechanism heavily depends on kernel
+loadable module domain and I think it better not to consider that the
+users are enough friendly to the domain.
 
-If you're doing that sort of tracking over any period of time,
-especially with this kind of shut up the warnings stuff, you're going to
-run into issues.
+Actually there are good tools to identify the numerical ID of user's
+sound card, and usage of such tools are more friendly than module
+manipulation and option documentation.
 
---/Ocr+Jy+jPJR1APa
-Content-Type: application/pgp-signature; name="signature.asc"
+For future, I have a plan to write system service to handle udev
+event and launch the service programs automatically. For the case,
+the event includes enough information to construct arguments for
+the service program, therefore no need to handle mapping information
+and extra care of the card id string.
 
------BEGIN PGP SIGNATURE-----
+At last, the most of drivers in ALSA firewire stack don't support the
+card id string, except for my initial work for bebob and fireworks
+driver. If ALSA control core had a feature to change card id string
+dynamically for existent card instance by ioctl command, or it had a
+feature to maintain mapping between card id string and the other
+identification such as system-wide or bus-wide UUID, I would be
+willing to implement them to the drivers. At present, it's outside
+of my work scope.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8F210ACgkQJNaLcl1U
-h9CGTAf+MNI/Ze3/BzZtlYhOxIlVJ/wlryePf86bzSwOoxnOIe3bEljdeFAWFAA4
-zgQm0RUktFr6XAC9PE4Ly9/VkxmiqIILXGuUlnTdhoxYfVmqEQL12z2JWQBQDUBq
-Z8JeWuSIqFRovtmEr/r4PCYshduw429JfLioGk6yGhNsht3bcdKbTyUquiGPyART
-s0xAF3inPZMnaQ/46JJI/solmkkYiik41UK65CNkNFGOc4q1ktezHhrNO4Tvk4Vv
-M6HtTQ969WpH+Pln6OWD8Tj2YAbfUYyf0AZot3jPl1Z8jk/bVvDQ3v18R4mV3+Pu
-QfA7mwGVgQwsBTJh/u+fx1dQNdheXA==
-=O3uW
------END PGP SIGNATURE-----
 
---/Ocr+Jy+jPJR1APa--
+Thanks
+
+Takashi Sakamoto

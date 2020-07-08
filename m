@@ -2,70 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9807721813F
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 09:32:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF31A218209
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 10:13:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3A44E1672;
-	Wed,  8 Jul 2020 09:31:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A44E1672
+	by alsa0.perex.cz (Postfix) with ESMTPS id 452841675;
+	Wed,  8 Jul 2020 10:12:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 452841675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594193541;
-	bh=r0dgow9rUsKgNihdZtEDDnS8/19yUYtOrwqxHuYb/Dk=;
+	s=default; t=1594196028;
+	bh=sJxqwEav5m/liphTX7Uv4mCFYX9xUN1LrCWjQGAsOYw=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=n7X0HHr96+OpHq7JxnONNpGksjhepqlS0S9f1CRvlkXneHBqFOIDecF1xIs97INLw
-	 HMJpbUhtZz4BTCW8zgqkXB5uLdP16222wYHFMcxCZQKJKKsvZ5rplfF7TopndOek0R
-	 A1tb1vqnJeT4omX4cqtjHNK19w6pvAoJQ1mNuN4s=
+	b=iXWejjCI8PCWPMaL8/nZlE7Q+C4NCf0cbyqPJc0SLegXH5OKh5XDSzu/hEzv9Tme9
+	 fczsWsWhpK1QAVd+5cEzZkMex6Swyp64PBp6mOo+FDlG2bAM85RjI6wi1jKTfuP+bZ
+	 Bt6mJ9xKws5/7d552cZgCbB1ML0Xc6qDQTwp/ePM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42664F8015C;
-	Wed,  8 Jul 2020 09:30:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68B32F8015A;
+	Wed,  8 Jul 2020 10:12:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E5BCF8015A; Wed,  8 Jul 2020 09:30:37 +0200 (CEST)
+ id D866AF8015A; Wed,  8 Jul 2020 10:12:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from wnew1-smtp.messagingengine.com (wnew1-smtp.messagingengine.com
+ [64.147.123.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 12C5FF80115
- for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 09:30:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12C5FF80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id 93DA1F800AE
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 10:11:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93DA1F800AE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="b4siWivv"
-Received: from localhost (unknown [122.182.251.219])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E43EA2064C;
- Wed,  8 Jul 2020 07:30:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594193426;
- bh=r0dgow9rUsKgNihdZtEDDnS8/19yUYtOrwqxHuYb/Dk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=b4siWivvpsbhrb/hA4+uJM8L5LUKMVI++w20ZWQd9JE1hS+xmIxO4e1u0DAihFgNF
- MijMbYe2NkR7DhtkfxY0Ae5Jzcd51gAkFSxKSe/nOcptk/HVV9Z/BVZYu5Wj9/qQvW
- Ho44lQISN493RS5P8FYl3Hnw5q0LbwB8aOaz/rIg=
-Date: Wed, 8 Jul 2020 13:00:20 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [PATCH 1/1] MAINTAINERS: change SoundWire maintainer
-Message-ID: <20200708073020.GA34333@vkoul-mobl>
-References: <20200703192644.751-1-sanyog.r.kale@intel.com>
+ dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
+ header.b="PkJNSR/z"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="JkUebIEf"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailnew.west.internal (Postfix) with ESMTP id CBECD7F8;
+ Wed,  8 Jul 2020 04:11:53 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Wed, 08 Jul 2020 04:11:54 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:content-transfer-encoding:in-reply-to; s=fm3; bh=s
+ JxqwEav5m/liphTX7Uv4mCFYX9xUN1LrCWjQGAsOYw=; b=PkJNSR/zWWZRkE02B
+ +yGV5sDueqZldn9bODN8dDQrmtDocgOltweXn0VJstNF7WN71bmdzAfXsJ+hR764
+ sFtZ1pwobR9cbVf1gW710vzzhyHwf4JQI11ki5fkphOR5fy2xBtCFr3ucNMDLfyj
+ L1niymzpCrXrAxxiYFEBBqdZurUSkVVEvDGNWcZ306t/Ukt4xDRiG2lgSrYXoM70
+ gDWlgam+gB2PpKEcI60r2i9JcBg61JZzwJb2VRoSTN0Y5BvAonA0V2G7ULn1YIIb
+ Uop0YQwjB2NvuxNizqattdpU+myfhQ0VkdfYNFTM9EacbTb8AaY+Tw0BcVgWDNfT
+ eN3+g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm3; bh=sJxqwEav5m/liphTX7Uv4mCFYX9xUN1LrCWjQGAsO
+ Yw=; b=JkUebIEfX5+achqCYV3faj+Nrbws8MrRpRCr6BJj4ruuutEwddsF32phW
+ 3hJLZv3oVcnrGT0GCesPGX6GmoYapaJzk5kMlcIzlYVvWHb4t9RIu8LfR8OHwBVm
+ y7xIZ4l5dBMFnZ/65PUgXr9oTZylSfFPyq2zd8oHtOVtLqvxRrCf/yi4Wnos6+h3
+ KJLYHylYC3GWOzMHvqLfbIYPBoq+igA2FFNhvxhwW0gbEQJPSRRNz95dSDEJAg+C
+ SsOxY14sgaycGHIyPk9SoqGRDld4DW2D61EQVRKDqn2UJF9yUv+11deSruXMJMRR
+ OJrkBBntExrF3ZFhy/WhRTpuWzVoQ==
+X-ME-Sender: <xms:xX8FXxCqSmc8QZVz8zp-5N6vnYh2aMKnCfUm-Zkjh-M3H92_Daaksg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudejgddtudcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggugfgjsehtqhertddttddvnecuhfhrohhmpeforgigihhm
+ vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
+ htvghrnhepgfejtedtjefggfffvdetuedthedtheegheeuteekfeeghfdtteejkeeludeg
+ vddunecukfhppeeltddrkeelrdeikedrjeeinecuvehluhhsthgvrhfuihiivgepudenuc
+ frrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:xX8FX_jkSv4P9VgdlqD5DZgxpy3tlfTxQqb5uRPKPOg3iepvNG3Tkw>
+ <xmx:xX8FX8mlmqsenaW6bZmS_IVP64mNdb8P7uKyJX63tPlMW6swMpZRAQ>
+ <xmx:xX8FX7yY-mlmTtgiwCIt_8H1AkRt0qrMVYr278aAyDLbGZO94MvMFw>
+ <xmx:yX8FX5GSUn7TWTRR4pAjdM2NPRllLF3JKnlPUSOzg_CtkEpHaxo3UVBffVU>
+Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
+ [90.89.68.76])
+ by mail.messagingengine.com (Postfix) with ESMTPA id CBECD3060067;
+ Wed,  8 Jul 2020 04:11:48 -0400 (EDT)
+Date: Wed, 8 Jul 2020 10:11:47 +0200
+From: Maxime Ripard <maxime@cerno.tech>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v3 02/10] ASoC: sunxi: sun4i-i2s: fix kernel-doc
+Message-ID: <20200708081147.3azg42jocodq7noc@gilmour.lan>
+References: <20200707191615.98296-1-pierre-louis.bossart@linux.intel.com>
+ <20200707191615.98296-3-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200703192644.751-1-sanyog.r.kale@intel.com>
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
- lgirdwood@gmail.com, gregkh@linuxfoundation.org,
- ranjani.sridharan@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- yung-chuan.liao@linux.intel.com
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20200707191615.98296-3-pierre-louis.bossart@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
+ open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Marcus Cooper <codekipper@gmail.com>,
+ Chen-Yu Tsai <wens@csie.org>, broonie@kernel.org,
+ Lee Jones <lee.jones@linaro.org>,
+ "moderated list:ARM/Allwinner sunXi SoC support"
+ <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,45 +120,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 04-07-20, 00:56, Sanyog Kale wrote:
-> Add Bard as SoundWire maintainer from Intel and change Sanyog's
-> role as reviewer.
+On Tue, Jul 07, 2020 at 02:16:07PM -0500, Pierre-Louis Bossart wrote:
+> Fix W=3D1 warnings - missing fields in description
+>=20
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Sad to see you go!
+Acked-by: Maxime Ripard <mripard@kernel.org>
 
-> 
-> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-
-Need ack from Bard (i think he is on vacation)
-
-> Signed-off-by: Sanyog Kale <sanyog.r.kale@intel.com>
-> ---
->  MAINTAINERS | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 1c1527a34d99..9559e947bf67 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -16012,8 +16012,9 @@ F:	sound/soc/sof/
->  
->  SOUNDWIRE SUBSYSTEM
->  M:	Vinod Koul <vkoul@kernel.org>
-> -M:	Sanyog Kale <sanyog.r.kale@intel.com>
-> +M:	Bard Liao <yung-chuan.liao@linux.intel.com>
->  R:	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> +R:	Sanyog Kale <sanyog.r.kale@intel.com>
-
-Do you still want to be a reviewer, I would like folks in this to be bit
-active for reviews etc
-
-Thanks
-
->  L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
->  S:	Supported
->  F:	Documentation/driver-api/soundwire/
-> -- 
-> 2.17.1
-
--- 
-~Vinod
+Thanks!
+Maxime

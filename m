@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B465D219295
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 23:36:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A32C92192B5
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 23:45:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 48FB21607;
-	Wed,  8 Jul 2020 23:35:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48FB21607
+	by alsa0.perex.cz (Postfix) with ESMTPS id 41AC19F6;
+	Wed,  8 Jul 2020 23:44:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41AC19F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594244173;
-	bh=CE1lo+YuH068omvHJljcuDCpljxlXjdw1ydIac9WsME=;
+	s=default; t=1594244701;
+	bh=Kk9h0gPHM1gvwB0+NDIf25GCSpLEJwQPNNw1MOAkA30=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Nm2rLxUG5HithfFGIY1Sp6kTQKOlGnOkWnmF0w+3OuhHahb15Oz0Nez6ENh02DMjz
-	 INKzIZQ+TUW3PV7maGnJCx0pKiEeb2Z53PEqHbzGJDE2WilBtkpVkwb25jXklw/l1J
-	 gSO1f3wYc8fQtdoxTd4c/EAAhVfOAwk24hjjidWo=
+	b=e5zNUFJe6VrZU4ULekyGqZUh9Ho7cJXMzysEGBkFUxMYRyzYy48aFZszV4yXF0Bfc
+	 ZyyCfb6cjoiljvAchpVxpNI+PvGVjIcZ1EHf9I5N6moQPXgbLrgpp+hBkcnJgFHFvK
+	 Neuh6UCXCTTLSdufBxgk29Nd/sZNNRkYDrAzQPV0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A9D2F8015A;
-	Wed,  8 Jul 2020 23:34:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69655F8015C;
+	Wed,  8 Jul 2020 23:43:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C70EFF8015A; Wed,  8 Jul 2020 23:34:24 +0200 (CEST)
+ id 8B2C7F8015A; Wed,  8 Jul 2020 23:43:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: **
 X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 434D6F800AE
- for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 23:34:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 434D6F800AE
+ by alsa1.perex.cz (Postfix) with ESMTP id 0CE30F800AE
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 23:43:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CE30F800AE
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
+From: GitHub pull_request - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1594244056746320963-webhooks-bot@alsa-project.org>
-References: <1594244056746320963-webhooks-bot@alsa-project.org>
+In-Reply-To: <1594244589751174927-webhooks-bot@alsa-project.org>
+References: <1594244589751174927-webhooks-bot@alsa-project.org>
 Subject: ucm2: Add config for Rockchip/rk3399-gru-sound
-Message-Id: <20200708213424.C70EFF8015A@alsa1.perex.cz>
-Date: Wed,  8 Jul 2020 23:34:24 +0200 (CEST)
+Message-Id: <20200708214317.8B2C7F8015A@alsa1.perex.cz>
+Date: Wed,  8 Jul 2020 23:43:17 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,13 +59,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #39 was opened from alpernebbi:
+alsa-project/alsa-ucm-conf pull request #39 was edited from alpernebbi:
 
 This is the internal card for a number of ChromeOS devices based on the Gru board. Config is taken from ChromeOS sources [1] and modified to mostly look like Rockchip/max98090. Tested on a Samsung Chromebook Plus (rk3399-gru-kevin) running Linux 5.7+.
 
 [1] https://chromium.googlesource.com/chromiumos/overlays/board-overlays/+/75cf7da335c11469956c84ddfa4e2ca73b268441/overlay-kevin/chromeos-base/chromeos-bsp-kevin/files/audio-config/ucm-config/rk3399-gru-sound
 
-Signed-off-by: Alper Nebi Yasak <alpernebiyasak@gmail.com>
+Signed-off-by: Alper Nebi Yasak \<alpernebiyasak@gmail.com\>
 
 ---
 

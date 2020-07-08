@@ -2,80 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35B5D21A214
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 16:27:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEF1F218F40
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 19:53:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE7C59F6;
-	Thu,  9 Jul 2020 16:26:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE7C59F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id A1D721607;
+	Wed,  8 Jul 2020 19:52:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1D721607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594304849;
-	bh=1CewVLm+s7fVMdPViHyCrFuChEZ4jWUHKWZXpgJiBhU=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=TZTP3WVFLFRXXO3FOolgUVmkos8xoWrR2xebNChsmRTs+HqRkus9ptmi0Z+2p5M3J
-	 l7pKEC9PkPOfR0f8g3sj6GwyQPdyaKbRcFR5Hb9E/n+gQvBtdkO1UsChq1K9mSLdLn
-	 sEjr3G/EM73VHZniT6vD1Sq6MfCPq6BkxT3aL06w=
+	s=default; t=1594230788;
+	bh=MxnLLsxUD5ExepmnjpAPZ9UfGK3+rupEWwYpk4ZyIH8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Comx+a8jM3EjrjhPT0Nl+/4uXAudvb13wi777uH7kDUibwi45IeDrI9fDrdlSaLUr
+	 X0Pxe/7tujq+x6BqoO1wBibNTSP+GNFoq/cii/sibat/pJYq/3sFVV5dm+TDvisyXH
+	 aosUE7F3f0/z84u7bBGk8Ku+kxGVPw6Zu3o41gSE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45C95F802E9;
-	Thu,  9 Jul 2020 16:22:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A89EF8015C;
+	Wed,  8 Jul 2020 19:51:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4D3B6F8015A; Wed,  8 Jul 2020 19:43:48 +0200 (CEST)
+ id 679F3F8015A; Wed,  8 Jul 2020 19:51:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
- [IPv6:2607:f8b0:4864:20::d42])
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E0C09F80115
- for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 19:43:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0C09F80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id 20151F80115
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 19:51:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20151F80115
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="RPofA+AU"
-Received: by mail-io1-xd42.google.com with SMTP id q8so47928583iow.7
- for <alsa-devel@alsa-project.org>; Wed, 08 Jul 2020 10:43:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=BA+Vp5PUdZmdYIEe8g+pikWUOCupAwvS+IsOKUxpsqc=;
- b=RPofA+AUmfR0+dgm+EHMO5j1PHJ25eRC4h7IgANRzjSPNV69/zcvaeiQxL5dZtJuSS
- STdR01Yf5RY2F+2aRfbRGIX56sOeSG4NuAoHuv2MLxLJu8sk+ugDy7Mz00MYbvbdqZRE
- +nnXZKlzqXKpy7x7fsJ31Obp28PDUsGXhv62jNqiPWI1vti8uvbnmXBeMHUAeiyuYBpv
- hokgRNdJRr9au5E29eGB+82A1ZYdDDpks1YBjeQ7/GmwBmm0gT71O7yaKMUu+4F+MNBg
- qIO6HtyuEzJfdEjEuvyBKdVg3GDoXNHpELAae9Ce3LqLZ/7Y8cslt41A9uxRwMlWC8CP
- PVZg==
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="OzA7R+pv"
+Received: by mail-wr1-x444.google.com with SMTP id s10so49865599wrw.12
+ for <alsa-devel@alsa-project.org>; Wed, 08 Jul 2020 10:51:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=7SQJhbW9iFT0GAfAIqHssBvgsuF+/Q2rlb1LOfoE3Dg=;
+ b=OzA7R+pvW5s80iDwljKpzPfzJpi33QbPyL02J9vQRicBjee/2//LIsykAXKhMqcvfx
+ 7rPtOGJEBnbi78A8LFqY0fQ2wG5o4Ekz8g18p+6qFlIXZZerwp76g2kRTc+rOfrd1m/0
+ Xl04VzboUPA0mE62FIpPY3fScjYQkYR8qTSy4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=BA+Vp5PUdZmdYIEe8g+pikWUOCupAwvS+IsOKUxpsqc=;
- b=hd0jf/HzWZXNsJMkv/sRYsv9DHPSmKNGtFa8g1k1OZQ2BC955pE/TdUwwzKQHLT7ID
- EhlNvWeZMdM4akHQqFpDTrIn70Fbr/7Lkn4vhDDTju8lAp4iJ4EUvgTW4eUV549Ic8j9
- VS89iWqR0v0kIzBp1IDpXWhXiD2gX/Rknj3ULtDZNkfMgLsZ/NUyYEWgVVhccNvmcvdq
- LyOpeEdEe+qh/R5PxllO9yio0oZc2oTrmvFrKzzahO9VhFYZVhHF950rIsX07jKD1yGd
- atpkX/fFOFzj2dCXbxQ+8TTF81kkWIN5Gmc+NVlAeMbrbQsp59RdyLe2yVgbIu0J8yNP
- IbhA==
-X-Gm-Message-State: AOAM531bsby9g3CquewRNK/y98+licmR1nXeb9UjvZnFBEuIJpa81Hkj
- IqzxvEpLgVpKMoBrklOlGOUqEfEVj3JS91d00ws=
-X-Google-Smtp-Source: ABdhPJxm8vqZdhTgtR+PdC+ODPxkhoK0RBvgUObrOzKTrY7+G8i40q0pWyjFmvi7ekMK/j1p1729TaH/ADHT/O4xA+U=
-X-Received: by 2002:a5d:9c44:: with SMTP id 4mr38503292iof.15.1594230215485;
- Wed, 08 Jul 2020 10:43:35 -0700 (PDT)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=7SQJhbW9iFT0GAfAIqHssBvgsuF+/Q2rlb1LOfoE3Dg=;
+ b=kadyt5TW4q9teagH4z5OV5xYXCKkh99rLWXrCbKEW+hCDaopOYgki5ZxKclMhJDzbS
+ jIHyGoMfwl6syjR1ZCWenlTLtwHM5IHgw5V/+/ZC5MpPrL0nYUSzP5fp2BwCect1TLCT
+ vifc323Tu+j4stFGLlvsp59VlhYDgUq2bhjT0uFKtt5fFtBITPUhHKyGIMmRMFJA30fs
+ xeVrU3dXwZHwdhs67XUn7qeoc4eCT9he5KWUVaVhT7QL3NTkqfrxoZwYCUMBI7h7ot7y
+ PIkYqML7+ib63Gg2jOLDdymrZvdN+rat/yShJtVs6xxahl5DtRi03z5Vdy7uRyolCcl8
+ IYZA==
+X-Gm-Message-State: AOAM533A2Im+4LsNj2hKSqS9mg1LlbTFVLbaKHEOclMbUT93P9HzAzDQ
+ WBZouHfbKwZTWHBeDSLMGBrLpzVXJL0akPkOp5W4TQ==
+X-Google-Smtp-Source: ABdhPJy2alGvzZL6wQszq75bUER1H71H1cXO2lQ2Kqo3cndUKYuoAJw+NUjXk0Tx7RN/Wp+wMSWb5XBs5ORDoJdCXZ0=
+X-Received: by 2002:adf:cf0a:: with SMTP id o10mr30713365wrj.14.1594230671246; 
+ Wed, 08 Jul 2020 10:51:11 -0700 (PDT)
 MIME-Version: 1.0
-From: Junar Wohn <doomsheart@gmail.com>
-Date: Thu, 9 Jul 2020 02:43:24 +0900
-Message-ID: <CAHcbMh2gBKwiC-_UvbhXLuxKCmc+jzWrmcf7_0hsQ6AZHwXZrA@mail.gmail.com>
-Subject: [PATCH] ALSA: hda/realtek: Add quirk for Samsung Notebook Pen S
-To: tiwai@suse.com, Junar Wohn <doomsheart@gmail.com>
-X-Mailman-Approved-At: Thu, 09 Jul 2020 16:22:25 +0200
+References: <20200708071117.3070707-1-yuhsuan@chromium.org>
+ <f6a0ea44-3805-5901-9864-72d4a3a4562e@collabora.com>
+ <CABXOdTfV_oGgZWbyP3o07obMuYGOLY87fou2h3_gowQkV7QVNw@mail.gmail.com>
+ <CAGvk5Po=BcHZ8uQJAp10cYHJcvc6-x613o-0Jj00K23xpeQpaQ@mail.gmail.com>
+ <CABXOdTf1+nBtau7ujnUVTfNd68D-RijZBPU8XMv=ZQ-RLbpzAg@mail.gmail.com>
+In-Reply-To: <CABXOdTf1+nBtau7ujnUVTfNd68D-RijZBPU8XMv=ZQ-RLbpzAg@mail.gmail.com>
+From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+Date: Thu, 9 Jul 2020 01:51:00 +0800
+Message-ID: <CAGvk5Po2osJOc077x6AWOn7bDgYsWzYSfqrSp64XBgjvjMHKsQ@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: cros_ec_codec: Reset I2S RX when probing
+To: Guenter Roeck <groeck@google.com>
 Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org
+Content-Transfer-Encoding: quoted-printable
+Cc: Gwendal Grignou <gwendal@chromium.org>,
+ ALSA development <alsa-devel@alsa-project.org>,
+ Tzung-Bi Shih <tzungbi@google.com>, Lee Jones <lee.jones@linaro.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ Guenter Roeck <groeck@chromium.org>, Yicheng Li <yichengli@chromium.org>,
+ Mark Brown <broonie@kernel.org>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Benson Leung <bleung@chromium.org>, Cheng-Yi Chiang <cychiang@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,35 +104,130 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fixed no headphone sound bug on laptop Samsung Notebook Pen S
-(950SBE-951SBE), by using existing patch in Linus' tree, commit
-14425f1f521f (ALSA: hda/realtek: Add quirk for Samsung Notebook).
-This laptop uses the same ALC298 but different subsystem id 0x144dc812.
-I added SND_PCI_QUIRK at sound/pci/hda/patch_realtek.c
+Guenter Roeck <groeck@google.com> =E6=96=BC 2020=E5=B9=B47=E6=9C=889=E6=97=
+=A5 =E9=80=B1=E5=9B=9B =E4=B8=8A=E5=8D=881:26=E5=AF=AB=E9=81=93=EF=BC=9A
+>
+> On Wed, Jul 8, 2020 at 9:17 AM Yu-Hsuan Hsu <yuhsuan@chromium.org> wrote:
+> >
+> > Guenter Roeck <groeck@google.com> =E6=96=BC 2020=E5=B9=B47=E6=9C=888=E6=
+=97=A5 =E9=80=B1=E4=B8=89 =E4=B8=8B=E5=8D=889:28=E5=AF=AB=E9=81=93=EF=BC=9A
+> > >
+> > > On Wed, Jul 8, 2020 at 3:16 AM Enric Balletbo i Serra
+> > > <enric.balletbo@collabora.com> wrote:
+> > > >
+> > > > Hi Yu-Hsuan,
+> > > >
+> > > > Thank you for your patch.
+> > > >
+> > > > On 8/7/20 9:11, Yu-Hsuan Hsu wrote:
+> > > > > It is not guaranteed that I2S RX is disabled when the kernel boot=
+ing.
+> > > > > For example, if the kernel crashes while it is enabled, it will k=
+eep
+> > > > > enabled until the next time EC reboots. Reset I2S RX when probing=
+ to
+> > > > > fix this issue.
+> > > > >
+> > > > > Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+> > > > > ---
+> > > > >  include/linux/platform_data/cros_ec_commands.h | 1 +
+> > > > >  sound/soc/codecs/cros_ec_codec.c               | 7 +++++++
+> > > > >  2 files changed, 8 insertions(+)
+> > > > >
+> > > > > diff --git a/include/linux/platform_data/cros_ec_commands.h b/inc=
+lude/linux/platform_data/cros_ec_commands.h
+> > > > > index 69210881ebac8..11ce917ca924c 100644
+> > > > > --- a/include/linux/platform_data/cros_ec_commands.h
+> > > > > +++ b/include/linux/platform_data/cros_ec_commands.h
+> > > > > @@ -4598,6 +4598,7 @@ enum ec_codec_i2s_rx_subcmd {
+> > > > >       EC_CODEC_I2S_RX_SET_SAMPLE_DEPTH =3D 0x2,
+> > > > >       EC_CODEC_I2S_RX_SET_DAIFMT =3D 0x3,
+> > > > >       EC_CODEC_I2S_RX_SET_BCLK =3D 0x4,
+> > > > > +     EC_CODEC_I2S_RX_RESET =3D 0x5,
+> > > >
+> > > > Is this a new command not available in the firmware that is already=
+ in the field?
+> > > >
+> > > >
+> > > > >       EC_CODEC_I2S_RX_SUBCMD_COUNT,
+> > > > >  };
+> > > > >
+> > > > > diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/=
+cros_ec_codec.c
+> > > > > index 8d45c628e988e..5495214e73e68 100644
+> > > > > --- a/sound/soc/codecs/cros_ec_codec.c
+> > > > > +++ b/sound/soc/codecs/cros_ec_codec.c
+> > > > > @@ -1034,6 +1034,13 @@ static int cros_ec_codec_platform_probe(st=
+ruct platform_device *pdev)
+> > > > >       }
+> > > > >       priv->ec_capabilities =3D r.capabilities;
+> > > > >
+> > > > > +     /* Reset EC codec I2S RX. */
+> > > > > +     p.cmd =3D EC_CODEC_I2S_RX_RESET;
+> > > > > +     ret =3D send_ec_host_command(priv->ec_device, EC_CMD_EC_COD=
+EC_I2S_RX,
+> > > > > +                                (uint8_t *)&p, sizeof(p), NULL, =
+0);
+> > > > > +     if (ret)
+> > > > > +             dev_err(dev, "failed to EC_CODEC_I2S_RESET: %d\n", =
+ret);
+> > > > > +
+> > > >
+> > > > With an old firmware I suspect this message will appear on every bo=
+ot, right?
+> > > > So, to solve the issue and get rid of this error you're forced to u=
+pgrade the
+> > > > firmware. Is that true?
+> > > >
+> > >
+> > > It might possibly make more sense to fail this silently and to send
+> > > EC_CODEC_I2S_RX_DISABLE as backup if it is not supported (-ENOTSUPP
+> > > can possibly be used as trigger if the call returns it).
+> > >
+> > > Also, I don't accept dev_err() if the error is ignored for patches in
+> > > my scope of responsibility.
+> > >
+> > > Guenter
+> > Thanks for the suggestion. Our plan is to upstream this patch first.
+> > And then we will merge it into the kernel after the firmware is
+> > updated. Is it feasible? (I'm not sure whether there is the better way
+> > if I want to update EC and the kernel at the same time.)
+> >
+> > I think calling EC_CODEC_I2S_RX_DISABLE does not make sense because it
+> > checks the value of i2s_rx_enabled first. If i2s_rx_enabled is false,
+> > it will skip the function. However, we don't need to reset while the
+> > i2s_rx_enabled is already false.
+> >
+> Exactly my point. If i2s_rx_enabled is false, nothing needs to be
+> done, and it doesn't hurt if the EC does nothing. If i2s_rx_enabled is
+> true, it needs to be set to false, which is accomplished by sending
+> EC_CODEC_I2S_RX_DISABLE.
+Sorry my bad. If i2s_rx_enabled is false, it will skip and return
+EC_RES_BUSY. And then we may need to handle one more error. I think it
+may become too complicated to handle those errors. Could we just merge
+this change after the firmware updates? So that we don't need to worry
+about the unsupported command.
 
-Signed-off-by: Joonho Wohn <doomsheart@gmail.com>
----
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 737ef82a75fd..ebedc6093642 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -7528,6 +7528,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[]
-= {
-  SND_PCI_QUIRK(0x144d, 0xc169, "Samsung Notebook 9 Pen (NP930SBE-K01US)",
-ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
-  SND_PCI_QUIRK(0x144d, 0xc176, "Samsung Notebook 9 Pro (NP930MBE-K04US)",
-ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
-  SND_PCI_QUIRK(0x144d, 0xc740, "Samsung Ativ book 8 (NP870Z5G)",
-ALC269_FIXUP_ATIV_BOOK_8),
-+ SND_PCI_QUIRK(0x144d, 0xc812, "Samsung Notebook Pen S (NT950SBE-X58)",
-ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
-  SND_PCI_QUIRK(0x1458, 0xfa53, "Gigabyte BXBT-2807",
-ALC283_FIXUP_HEADSET_MIC),
-  SND_PCI_QUIRK(0x1462, 0xb120, "MSI Cubi MS-B120",
-ALC283_FIXUP_HEADSET_MIC),
-  SND_PCI_QUIRK(0x1462, 0xb171, "Cubi N 8GL (MS-B171)",
-ALC283_FIXUP_HEADSET_MIC),
---
+>
+> > In addition, since it is a sub-command, it will return
+> > EC_RES_INVALID_PARAM but not ENOTSUPP if the command is not supported.
+> > And then EC_RES_INVALID_PARAM will turn into -EPROTO finally so it's
+> > difficult to do other operators basing on the return value.
+> >
+>
+> You might have to convince Enric to permit another error code to
+> translate EC_RES_INVALID_PARAM. After all, that would meet his
+> requirement that the error code must be used in the kernel to accept a
+> translation.
+>
+> Guenter
+>
+> > Thanks,
+> > Yu-Hsuan
+> >
+> > >
+> > > > >       platform_set_drvdata(pdev, priv);
+> > > > >
+> > > > >       ret =3D devm_snd_soc_register_component(dev, &i2s_rx_compon=
+ent_driver,
+> > > > >

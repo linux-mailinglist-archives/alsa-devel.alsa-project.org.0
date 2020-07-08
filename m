@@ -2,75 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86EB0218928
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 15:34:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7838121892B
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 15:34:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4CE50167C;
-	Wed,  8 Jul 2020 15:33:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CE50167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8CF1B1674;
+	Wed,  8 Jul 2020 15:34:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CF1B1674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594215245;
-	bh=k9yEvZWF82P/ZW8C1fASHcEBrQtDL3VN44vG/M6C1vs=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1594215293;
+	bh=pWRPHGibjjPPWKpbJyMPd4KeiPF/cZsn0uBAep4dEts=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UocnAEUfmsKz1j72y8WD0wCfhSjP8v5K2vtBV2ngUUH2T3KHwKtaBdqnlyQT0HM3P
-	 Ma2IfFWdfq9e5HDG0yDm+JwJnPSf8P2OmkV5TnqgeKDl0WO04KspPvshx1s/T/HFTV
-	 tgLWczl/Oc7ZErT+E6+z10ZUTaQWGqlZqaX/mC10=
+	b=IEvUvpJs4icpmec/sjNxhZJExyiGmrkGN8nUu5niGHMT9ysz3JPxzcY4Bw11dIT3Q
+	 2EM7hdBaYDROa2h1XCCyzrAI8iktke7VTmTxroGjmTudqdfrMF5CYMjzB33siCqMsb
+	 D3vCWWedlBtluQkB3VtN25LMCOr1LXe1z3fue978=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BAD7BF800AE;
-	Wed,  8 Jul 2020 15:32:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F0253F80161;
+	Wed,  8 Jul 2020 15:33:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ACB9AF80150; Wed,  8 Jul 2020 15:32:15 +0200 (CEST)
+ id 131C7F8015D; Wed,  8 Jul 2020 15:33:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A04C7F80115
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 15:32:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A04C7F80115
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Scq6byou"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 17339F800AE
- for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 15:32:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17339F800AE
-IronPort-SDR: i9H6NT1uubN1sZUDKvv2sy0ZH3s5ycvUDu8YcdbZIIXm04PjDT8BDtadEOdPbGwXk5r8fJ8K79
- CkmEKEWjYLzg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9675"; a="212731851"
-X-IronPort-AV: E=Sophos;i="5.75,327,1589266800"; d="scan'208";a="212731851"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2020 06:32:04 -0700
-IronPort-SDR: JpZagW8MXgMBvYL2D8nB9CPV8hqSBf7SjbpT5EbikngkLv4RhwnVp/V/1aWGE07okKPQTvc2KL
- 8xAPSOsMJkdw==
-X-IronPort-AV: E=Sophos;i="5.75,327,1589266800"; d="scan'208";a="306046990"
-Received: from sare-mobl.amr.corp.intel.com (HELO [10.251.7.246])
- ([10.251.7.246])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2020 06:32:03 -0700
-Subject: Re: [PATCH 10/11] ASoC: qdsp6-dai: add gapless support
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, broonie@kernel.org
+ by mail.kernel.org (Postfix) with ESMTPSA id 5EFEE20720;
+ Wed,  8 Jul 2020 13:32:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1594215169;
+ bh=pWRPHGibjjPPWKpbJyMPd4KeiPF/cZsn0uBAep4dEts=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Scq6byouIRCANUCFAPOYPb22KSZxoBqJ+tf5/JkEVp1ex3HMbOmWCGCcTOAp4JEyM
+ bS3aaHUNuKowQdQEaW6FT6Tc3+GHrLSYBzOsfq3tqy8hENXhvZpkHSH0WRA52EkmV8
+ FQ1nqTlCxk6MqS3biSx0DMaLruXltRliCPAT1YDs=
+Date: Wed, 8 Jul 2020 14:32:44 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH 00/11] ASoC: qdsp6: add gapless compressed audio support
+Message-ID: <20200708133244.GP4655@sirena.org.uk>
 References: <20200707163641.17113-1-srinivas.kandagatla@linaro.org>
- <20200707163641.17113-11-srinivas.kandagatla@linaro.org>
- <62af11d3-db26-a31b-00c8-9d78b11862cc@linux.intel.com>
- <04a7f696-e23d-5563-7cc3-aedfaf2c7636@linaro.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <cf9b2d33-9b63-f3d2-2e51-a88c528dad53@linux.intel.com>
-Date: Wed, 8 Jul 2020 08:32:02 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <04a7f696-e23d-5563-7cc3-aedfaf2c7636@linaro.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
- vkoul@kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="+mr2ctTDD1GjnQwB"
+Content-Disposition: inline
+In-Reply-To: <20200707163641.17113-1-srinivas.kandagatla@linaro.org>
+X-Cookie: Oh Dad!  We're ALL Devo!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com, tiwai@suse.com,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, vkoul@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,89 +83,32 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
->>> Add support to gapless playback by implementing metadata,
->>> next_track, drain and partial drain support.
->>>
->>> Gapless on Q6ASM is implemented by opening 2 streams in a single asm 
->>> stream
->>
->> What does 'in a single asm stream' means?
-> 
-> 
-> So in QDSP6 ASM (Audio Stream Manager) terminology we have something 
-> called "asm session" for each ASoC FE DAI, Each asm session can be 
-> connected with multiple streams (upto 8 I think). However there will be 
-> only one active stream at anytime. Also there only single data buffer 
-> associated with each asm session.
-> 
-> For Gapless usecase, we can keep two streams open for one asm-session, 
-> allowing us to fill in data on second stream while first stream is playing.
+--+mr2ctTDD1GjnQwB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Ah, that's interesting, thanks for the details. So you have one DMA 
-transfer and the data from the previous and next track are provided in 
-consecutive bytes in a ring buffer, but at the DSP level you have a 
-switch that will feed data for the previous and next tracks into 
-different decoders, yes?
+On Tue, Jul 07, 2020 at 05:36:30PM +0100, Srinivas Kandagatla wrote:
 
-If that is the case, indeed the extension you suggested earlier to 
-change the profile is valid. You could even change the format I guess.
+> Along with this there are few trivial changes which I thought are necessary!
 
-To avoid confusion I believe the capabilities would need to be extended 
-so that applications know that gapless playback is supported across 
-unrelated profiles/formats. The point is that you don't want a 
-traditional implementation to use a capability that isn't supported in 
-hardware or will lead to audio issues.
+It's better to split stuff like this out of the series, or put it near
+the start after any fixes if other things depend on it.  That way it can
+progress without getting caught up with the rest of the series and the
+series gets smaller and more focused.
 
->>> and toggling them on next track.
->>
->> It really seems to me that you have two streams at the lowest level, 
->> along with the knowledge of how many samples to remove/insert and 
->> hence could do a much better job - including gapless support between 
->> unrelated profiles and cross-fading - without the partial drain and 
->> next_track mechanism that was defined assuming a single stream/profile.
-> At the end of the day its a single session with one data buffer but with 
-> multiple streams.
-> 
-> Achieving cross fade should be easy with this design.
+--+mr2ctTDD1GjnQwB
+Content-Type: application/pgp-signature; name="signature.asc"
 
-looks like it indeed.
+-----BEGIN PGP SIGNATURE-----
 
-> We need those hooks for partial drain and next track to allow us to 
-> switch between streams and pass silence information to respective stream 
-> ids.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8FyvsACgkQJNaLcl1U
+h9AWqQf+O9QgCNEJa54N14qIB5Rc4Mw/3fizJUF48b0PH+rmGoca3G1ZG5wMWi0Y
+dACGNRHobAITHwclS6Sf2vJ9mYarNB+IWHBI7H9TR0bwXhg39gXqma6AmD6qCohW
+P+4PpynoFmPkZ5vJ+ZXymzWbTQ3jbEfamhVV6HOoHZQWIo6DogQV8bRvxGs4u31O
+/+RBvxigPKakC3IJWfGgri5pTo9IE2WIB4Lxg+oValuJ4zyAtdbhNP4D8/5AkozK
+e98sDMLocMQ6WFRChSS6VnAB3ySmzOf250vL98fgn4bEJ/harJ5aCmmBXphStOKE
+8thsg/8jOVCrWSnHTloxWQIfMHjAzg==
+=apo/
+-----END PGP SIGNATURE-----
 
-right, but the key point is 'switch between streams'. That means a more 
-complex/capable implementation that should be advertised as such to 
-applications. This is not the default behavior assumed initially: to 
-allow for minimal implementations in memory-constrained devices, we 
-assumed gapless was supported with a single decoder.
-
-Maybe the right way to do this is extend the snd_compr_caps structure:
-
-/**
-  * struct snd_compr_caps - caps descriptor
-  * @codecs: pointer to array of codecs
-  * @direction: direction supported. Of type snd_compr_direction
-  * @min_fragment_size: minimum fragment supported by DSP
-  * @max_fragment_size: maximum fragment supported by DSP
-  * @min_fragments: min fragments supported by DSP
-  * @max_fragments: max fragments supported by DSP
-  * @num_codecs: number of codecs supported
-  * @reserved: reserved field
-  */
-struct snd_compr_caps {
-	__u32 num_codecs;
-	__u32 direction;
-	__u32 min_fragment_size;
-	__u32 max_fragment_size;
-	__u32 min_fragments;
-	__u32 max_fragments;
-	__u32 codecs[MAX_NUM_CODECS];
-	__u32 reserved[11];
-} __attribute__((packed, aligned(4)));
-
-
-and use a reserved field to provide info on capabilities, and filter the 
-set_codec_params() addition based this capability - i.e. return -ENOTSUP 
-in 'traditional' implementations based on a single 'stream'/decoder 
-instance.
+--+mr2ctTDD1GjnQwB--

@@ -2,90 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBE60217D14
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 04:31:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 212D9217EE9
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jul 2020 07:10:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A1AD1614;
-	Wed,  8 Jul 2020 04:31:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A1AD1614
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8BA2A1607;
+	Wed,  8 Jul 2020 07:09:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8BA2A1607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594175511;
-	bh=5k/JGsyD2+esKCntA7d0GqlyFPWtT12zUQKTXZD4ijE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Irxi53mPb24As/lkFyrhB2BT3wD6KyF4oJYbi+KN5AO2IckrMyrgABw8GU4XXibub
-	 /srARB2Rd8NjkEUKd0Wo+MOYsDoEt+TyXdjRulCvk8zryiyATf+3l1VQF+TUKU427h
-	 8kOn4+wyF0NuiJSE7D6TZBHcvqD9OP65s41nHMng=
+	s=default; t=1594185031;
+	bh=PrHCkXCaJCsn9TdQiJsiFEgbG7pslUdO4JuzAK3NHQw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=SVqaadRHfXgKQ4VE7GQqjojKKUDFnrA2kiYCJZUGx/2H8LC2ZBKEaY7dC+Gcg/iSt
+	 hoSkyXDfjUCYvJmc58xtBuWG2j2Hz8PTNd/NTAn88FfeykiZTbghEOjre+xbf1jkKH
+	 bZBw0pOXI4biCWnxt6Z9KcjYkEYj2Bu8QGPqTHHc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8130AF80115;
-	Wed,  8 Jul 2020 04:30:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2F2C9F8015C;
+	Wed,  8 Jul 2020 07:08:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5E9CAF8015A; Wed,  8 Jul 2020 04:30:03 +0200 (CEST)
+ id 7A197F8015A; Wed,  8 Jul 2020 07:08:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
- version=3.4.0
-Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
- [IPv6:2607:f8b0:4864:20::d44])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C4A0BF80115
- for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 04:29:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4A0BF80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id 89B18F80115
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jul 2020 07:08:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89B18F80115
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="isZVmxyb"
-Received: by mail-io1-xd44.google.com with SMTP id q8so45404436iow.7
- for <alsa-devel@alsa-project.org>; Tue, 07 Jul 2020 19:29:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=5k/JGsyD2+esKCntA7d0GqlyFPWtT12zUQKTXZD4ijE=;
- b=isZVmxybBp1KSJIveFgxL3srASfZzBCe64vST1INaL9Tt0Cmc6eXvQpO4B1dFJ+Cxc
- 5Tuih8iZIYCJd4H10Mtd6qVhyU1X0BkJJkRfx4yU084021EkVBccQIyas6oYs84CTpXI
- Bdig1CwUdpMuHwPdRHXj0iV0oBb3TpJcaSjS3tySv5jlSoYEWiiVx1TsvFfoWONXicbh
- y81teS+Q9Pm9GHmghEJw1LwzyBbyD/VGRf50t/K6S3iQQs4BsiAyPpv2yyMNa45WuUFt
- wwEEvCqTDvm0aPKIaS5lYv9vWOm1gJaF2RUw9C5feZiLgyh0+QMvydwCJPWsu+Q7iG1g
- z2Dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=5k/JGsyD2+esKCntA7d0GqlyFPWtT12zUQKTXZD4ijE=;
- b=rGHiM7a/N1JPsGwXt+m6Ntcqd3TKrTOHwNbRqOp+87x+GgQbw+ITv8m3gPEVt/56K8
- 8hzvvnY3rssJoSfs6a4NUUexJOhQFc12n5rckTvBwhFONPOxItmmMy3nmdpBoCaTU1mn
- opfB86KmtWF/YDRLq+FYGrSTDU97uErRHMkQ1zJSzbjesmWOEMpzWdK9Gx/k2IwMg/A0
- xTW1YWPT7xjm3es4SZlbA4b2KxIo8CKnKQZfOzDwd5Z26/pZt4+Jw005HLWKAIbGoSrN
- lge8JqnC5b/i3DuB8kJwD5ee+KNXN2rb+aMWvPZhenOJhBs15moxV+fQnTzkR5v311io
- iBgA==
-X-Gm-Message-State: AOAM533nw+0kIUtpreRXYgLy+zg6WZyL/RzsVCOiiNWT1cCrSmLhmFP1
- qS4pRNjPwbBU8+YPSF/jPVUUkk8yABn8AnrTLaefcg==
-X-Google-Smtp-Source: ABdhPJwNzd2zl5gOvT8AIEAOM+a58ORD2lFo8Gb3Ecuyf8uk0eDHHCA3AHnwqPXeDdhypjO8OflVcKhLfxbFpnb+rX8=
-X-Received: by 2002:a05:6602:2dd4:: with SMTP id
- l20mr34268706iow.13.1594175391947; 
- Tue, 07 Jul 2020 19:29:51 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200707185818.80177-1-ebiggers@kernel.org>
- <20200707185818.80177-5-ebiggers@kernel.org>
-In-Reply-To: <20200707185818.80177-5-ebiggers@kernel.org>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Wed, 8 Jul 2020 10:29:40 +0800
-Message-ID: <CA+Px+wUTqgbT6tAWg+5mek_ZtQdH4=7-ta6ned7PeYy8r_3rVw@mail.gmail.com>
-Subject: Re: [PATCH 4/4] ASoC: cros_ec_codec: use sha256() instead of open
- coding
-To: Eric Biggers <ebiggers@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Herbert Xu <herbert@gondor.apana.org.au>, Guenter Roeck <groeck@chromium.org>,
- linux-crypto@vger.kernel.org,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Ard Biesheuvel <ardb@kernel.org>, Cheng-Yi Chiang <cychiang@chromium.org>
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="jsaqKy69"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1594184915; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=J/0rtb7ms4jKYAU3mSlVXiZ7/65ZzPwUSJ72i0ViAwU=;
+ b=jsaqKy69Z/XrG2xZrcojAje91Z9UKZJdNBZjw3CCB6ev9dT693Ooo3CsIsvPwLwZ/MxgmweO
+ uu26vm1Av5EVjdEoeZFhDduuIa6otQcagP46r7ojPfcGe0ULWK84cUBl4m0nFwYuzHtGQY2x
+ ZtV5xUGKOHzDle/ch0dypVm98kk=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n03.prod.us-west-2.postgun.com with SMTP id
+ 5f0554ced8ca07a573d81168 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 08 Jul 2020 05:08:30
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 23347C433CA; Wed,  8 Jul 2020 05:08:30 +0000 (UTC)
+Received: from rohkumar-linux.qualcomm.com
+ (blr-c-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.19.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: rohitkr)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id A2672C433C6;
+ Wed,  8 Jul 2020 05:08:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org A2672C433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=rohitkr@codeaurora.org
+From: Rohit kumar <rohitkr@codeaurora.org>
+To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
+ broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
+ bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
+ srinivas.kandagatla@linaro.org, linux-arm-msm@vger.kernel.org,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/8] ASoC: qcom: Add support for SC7180 lpass variant
+Date: Wed,  8 Jul 2020 10:38:08 +0530
+Message-Id: <1594184896-10629-1-git-send-email-rohitkr@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Cc: Rohit kumar <rohitkr@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,23 +94,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jul 8, 2020 at 2:59 AM Eric Biggers <ebiggers@kernel.org> wrote:
->
-> From: Eric Biggers <ebiggers@google.com>
->
-> Now that there's a function that calculates the SHA-256 digest of a
-> buffer in one step, use it instead of sha256_init() + sha256_update() +
-> sha256_final().
->
-> Also simplify the code by inlining calculate_sha256() into its caller
-> and switching a debug log statement to use %*phN instead of bin2hex().
->
-> Cc: alsa-devel@alsa-project.org
-> Cc: Ard Biesheuvel <ardb@kernel.org>
-> Cc: Cheng-Yi Chiang <cychiang@chromium.org>
-> Cc: Enric Balletbo i Serra <enric.balletbo@collabora.com>
-> Cc: Guenter Roeck <groeck@chromium.org>
-> Cc: Tzung-Bi Shih <tzungbi@google.com>
-> Signed-off-by: Eric Biggers <ebiggers@google.com>
+This patch chain add audio support for SC7180 soc by doing the required
+modification in existing common lpass-cpu/lpass-platform driver.
+Below is a brief summary of patch series:
 
-Acked-by: Tzung-Bi Shih <tzungbi@google.com>
+PATCH v3 0001 ... 0005: Update lpass-cpu, lpass-platform drivers to make it more generic
+and support newer soc registers configuration. This also updates existing lpass-apq8096.c
+and lpass-ipq806x.c.
+PATCH v2 0005 ... 0007: Add documentation and platform driver for newer SC7180 SOC variant.
+
+Changes since v2:
+	- Moved yaml conversion of Documentation to the end of patch series
+	- Used REG_FIELD_ID instead of REG_FIELD for DMACTL and I2SCTL registers.
+Move reg_fields to struct lpass_variant as suggested by Srinivas.
+
+Ajit Pandey (5):
+  ASoC: qcom: Add common array to initialize soc based core clocks
+  include: dt-bindings: sound: Add sc7180-lpass bindings header
+  ASoC: qcom: lpass-platform: Replace card->dev with component->dev
+  ASoC: qcom: lpass-sc7180: Add platform driver for lpass audio
+  dt-bindings: sound: lpass-cpu: Move to yaml format
+
+Rohit kumar (3):
+  ASoC: qcom: lpass-cpu: Move ahbix clk to platform specific function
+  ASoC: qcom: lpass: Use regmap_field for i2sctl and dmactl registers
+  dt-bindings: sound: lpass-cpu: Add sc7180 lpass cpu node
+
+ .../devicetree/bindings/sound/qcom,lpass-cpu.txt   |  79 --------
+ .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  | 154 +++++++++++++++
+ include/dt-bindings/sound/sc7180-lpass.h           |  10 +
+ sound/soc/qcom/Kconfig                             |   5 +
+ sound/soc/qcom/Makefile                            |   2 +
+ sound/soc/qcom/lpass-apq8016.c                     |  86 ++++++--
+ sound/soc/qcom/lpass-cpu.c                         | 193 +++++++++---------
+ sound/soc/qcom/lpass-ipq806x.c                     |  67 +++++++
+ sound/soc/qcom/lpass-lpaif-reg.h                   | 157 ++++++++-------
+ sound/soc/qcom/lpass-platform.c                    | 156 +++++++++++----
+ sound/soc/qcom/lpass-sc7180.c                      | 216 +++++++++++++++++++++
+ sound/soc/qcom/lpass.h                             |  63 +++++-
+ 12 files changed, 886 insertions(+), 302 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+ create mode 100644 include/dt-bindings/sound/sc7180-lpass.h
+ create mode 100644 sound/soc/qcom/lpass-sc7180.c
+
+-- 
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+

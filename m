@@ -2,95 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A57B219D50
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 12:14:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C3CC219D5B
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 12:15:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D68D51614;
-	Thu,  9 Jul 2020 12:14:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D68D51614
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9F96F9F6;
+	Thu,  9 Jul 2020 12:14:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F96F9F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594289694;
-	bh=DjxGdoEO0Wc0O9doBVGdvGDo+IPdXfYZ232IDe3j80s=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Oz9MhgGiVfBhmSnucam9rjqykfbn/gr9k866dltCoF7KmZEChF19dyWIP9PkJ8seV
-	 e1Fe1qgN+N0sag17dKSCrIryEvcqI2sKVGCxqkBs35iLQ1o4UkdZstCalV1Q24W9Ax
-	 76EYkcflvXOfjkmaEnH/nV8US7NNKQTg7pAsqEnw=
+	s=default; t=1594289741;
+	bh=XlsiMKP8/LNf53wdfK4Wno7RbRbNOI+53ssxrzajTNc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=AAHxdwetDZUQMpeAfJOtMvOmPVeerENm3eq/BoszjrMxcxEi/+XdghAvDX9oMakZ1
+	 pxEmdzxynjakmPlFnXRG0RsrQhYf0FCC+vm5yvkPaTFjvU2lCRrKau9ra6WbQrkT2B
+	 AA2mvUhFwYC1TIJWIPOh+/OFUVir2ejz4+8r5Lok=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A3B8F8011F;
-	Thu,  9 Jul 2020 12:13:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4BBB2F802BD;
+	Thu,  9 Jul 2020 12:14:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CACE2F801F9; Thu,  9 Jul 2020 12:13:11 +0200 (CEST)
+ id 8C819F802BD; Thu,  9 Jul 2020 12:14:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, RCVD_IN_SORBS_WEB, SPF_HELO_NONE,
- SPF_PASS, URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9A7E9F80117
- for <alsa-devel@alsa-project.org>; Thu,  9 Jul 2020 12:13:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A7E9F80117
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="FKZCpj2R"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1594289586; h=Content-Transfer-Encoding: Content-Type:
- In-Reply-To: MIME-Version: Date: Message-ID: From: References: To:
- Subject: Sender; bh=wWq91HAC/ZSJGdVzwMRWL+Q0WO0UCK3z/tPDOpaZ6gU=;
- b=FKZCpj2Rvdz04VIW0/1F19AZTvlHOqpYTCO2q5O/2v/hqq+8VaiD1mL2PEzsfTlXtOcBQozm
- PgGgtmt2WL9YBrqHKJ0Dcn02bLsyl3P5ExUI7yyUupmFiDN9yNVyIGpJmnVNX4dospOZc/72
- OsDTDNcN8c5BI4VQ/XZVbrUNlOw=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n08.prod.us-west-2.postgun.com with SMTP id
- 5f06ed9ec9789fa906cdc389 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 09 Jul 2020 10:12:46
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id D14D6C43395; Thu,  9 Jul 2020 10:12:45 +0000 (UTC)
-Received: from [192.168.0.129] (unknown [183.83.142.110])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: rohitkr)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 437E9C433C6;
- Thu,  9 Jul 2020 10:12:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 437E9C433C6
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=rohitkr@codeaurora.org
-Subject: Re: [PATCH v3 6/8] dt-bindings: sound: lpass-cpu: Add sc7180 lpass
- cpu node
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, agross@kernel.org,
- bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
- robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
- perex@perex.cz, tiwai@suse.com, linux-arm-msm@vger.kernel.org,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <1594184896-10629-1-git-send-email-rohitkr@codeaurora.org>
- <1594184896-10629-7-git-send-email-rohitkr@codeaurora.org>
- <6b6b0e38-9c04-e065-8a43-ccfec260d60c@linaro.org>
- <430e0d24-c5c2-84ec-fe7b-b6b27192666d@codeaurora.org>
- <de07f84b-40bc-d9ae-932d-623a5e8341e2@linaro.org>
-From: Rohit Kumar <rohitkr@codeaurora.org>
-Message-ID: <40ca93fe-5bf0-ace3-4f95-90624d29a409@codeaurora.org>
-Date: Thu, 9 Jul 2020 15:42:38 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5E63EF800AE
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jul 2020 12:13:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E63EF800AE
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.69 with qID 069ADpdJ6022280,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexmb06.realtek.com.tw[172.21.6.99])
+ by rtits2.realtek.com.tw (8.15.2/2.66/5.86) with ESMTPS id 069ADpdJ6022280
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 9 Jul 2020 18:13:51 +0800
+Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
+ RTEXMB06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1779.2; Thu, 9 Jul 2020 18:13:51 +0800
+Received: from localhost.localdomain (172.22.102.1) by RTEXMB01.realtek.com.tw
+ (172.21.6.94) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1779.2; Thu, 9 Jul 2020
+ 18:13:50 +0800
+From: <shumingf@realtek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: rt286: fix unexpected interrupt happens
+Date: Thu, 9 Jul 2020 18:13:45 +0800
+Message-ID: <20200709101345.11449-1-shumingf@realtek.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-In-Reply-To: <de07f84b-40bc-d9ae-932d-623a5e8341e2@linaro.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain
+X-Originating-IP: [172.22.102.1]
+X-ClientProxiedBy: RTEXMB05.realtek.com.tw (172.21.6.98) To
+ RTEXMB01.realtek.com.tw (172.21.6.94)
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, pierre-louis.bossart@linux.intel.com, derek.fang@realtek.com,
+ Shuming Fan <shumingf@realtek.com>, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,72 +80,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Shuming Fan <shumingf@realtek.com>
 
-On 7/9/2020 3:38 PM, Srinivas Kandagatla wrote:
->
->
-> On 09/07/2020 11:01, Rohit Kumar wrote:
->>
->> On 7/9/2020 2:57 PM, Srinivas Kandagatla wrote:
->>>
->>>
->>> On 08/07/2020 06:08, Rohit kumar wrote:
->>>> Add dt-bindings to support "qcom,lpass-cpu-sc7180" node.
->>>>
->>>> Signed-off-by: Rohit kumar <rohitkr@codeaurora.org>
->>>> ---
->>>>   Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt | 3 ++-
->>>>   1 file changed, 2 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git 
->>>> a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt 
->>>> b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
->>>> index 32c2cdb..04e34cc 100644
->>>> --- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
->>>> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
->>>> @@ -4,7 +4,8 @@ This node models the Qualcomm Technologies 
->>>> Low-Power Audio SubSystem (LPASS).
->>>>     Required properties:
->>>>   -- compatible        : "qcom,lpass-cpu" or "qcom,apq8016-lpass-cpu"
->>>> +- compatible        : "qcom,lpass-cpu" or "qcom,apq8016-lpass-cpu" or
->>>> +              "qcom,lpass-cpu-sc7180"
->>>>   - clocks        : Must contain an entry for each entry in 
->>>> clock-names.
->>>>   - clock-names        : A list which must include the following 
->>>> entries:
->>>>                   * "ahbix-clk"
->>>
->>> Can you also list the clocks that are mandatory for this SoC.
->>>
->>> --srini
->>>
->> Will it be fine if I update it in patch 8 only where we have moved to 
->> yaml format?
->>
-> May be reverse the order, Convert to Yaml first and then add sc7180!
+The HV/VREF should not turn off if the headphone jack plug-in.
+This patch could solve the unexpected interrupt issue in some devices.
 
-Actually Mark suggested to keep yaml change at the end of patch series 
-as there
+Tested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Shuming Fan <shumingf@realtek.com>
+---
+ sound/soc/codecs/rt286.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-are pending yaml patch reviews and it might take time. If we keep yaml 
-change before sc7180
-
-change, then it will get blocked until yaml review. For now, I can 
-update in exisiting
-
-documentation. Please suggest.
-
-Thanks
-
->
-> --srini
->> Thanks,
->>
->> Rohit
->>
->>>
->>>>
+diff --git a/sound/soc/codecs/rt286.c b/sound/soc/codecs/rt286.c
+index 9593a9a27bf8..e8d14eefc41b 100644
+--- a/sound/soc/codecs/rt286.c
++++ b/sound/soc/codecs/rt286.c
+@@ -272,13 +272,13 @@ static int rt286_jack_detect(struct rt286_priv *rt286, bool *hp, bool *mic)
+ 		regmap_read(rt286->regmap, RT286_GET_MIC1_SENSE, &buf);
+ 		*mic = buf & 0x80000000;
+ 	}
+-	if (!*mic) {
++
++	if (!*hp) {
+ 		snd_soc_dapm_disable_pin(dapm, "HV");
+ 		snd_soc_dapm_disable_pin(dapm, "VREF");
+-	}
+-	if (!*hp)
+ 		snd_soc_dapm_disable_pin(dapm, "LDO1");
+-	snd_soc_dapm_sync(dapm);
++		snd_soc_dapm_sync(dapm);
++	}
+ 
+ 	return 0;
+ }
 -- 
-Qualcomm INDIA, on behalf of Qualcomm Innovation Center, Inc.is a member
-of the Code Aurora Forum, hosted by the Linux Foundation.
+2.27.0
 

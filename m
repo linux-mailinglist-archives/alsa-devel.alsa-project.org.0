@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E2C62195D6
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 04:02:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D70682195D7
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 04:03:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F37F01614;
-	Thu,  9 Jul 2020 04:02:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F37F01614
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7743C1660;
+	Thu,  9 Jul 2020 04:02:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7743C1660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594260171;
-	bh=9rX+ttn7KsLQYmTpzgOCf+HilPET34TTOh3Gui5fI30=;
+	s=default; t=1594260208;
+	bh=gtpFapJH2fEP8PCfrVjt0c/kq506qMzxUGQhBxvS4Do=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TvjJP5ia/fywE30UkiHz5eWv0fkC5mtRFePL7Qn2yj4eGaaPsIVnFuCINUaWdXpoH
-	 cw1hHFASJu4duJMZ4gXNtcGttVkxyMaE1axRn0GFz5R0QdqF6XNyySvrgP3Y0luJO9
-	 Frz3tH8WZSkM3MDKqAM1NUxTCtSw68yRyv6c/KmA=
+	b=OICYigCE7A6ZKO63KDJ2TLvwmrxFig95zIRR4rLgKS4wU6yf2FVVQMkyRagWzbz9/
+	 KJ4clnxH5Ksfd3VsMHdDM+4ndi8e2VjahlXN9wo0YNYhKkIOjq6Ex4ktJJW2s4Eiru
+	 XPG7N0m9gkTjHvcVIO3twni31izyfUXKeFXPhZiY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9FAC4F80331;
-	Thu,  9 Jul 2020 03:56:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97ECCF80334;
+	Thu,  9 Jul 2020 03:56:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 46378F8032A; Thu,  9 Jul 2020 03:56:37 +0200 (CEST)
+ id 4EF8CF80333; Thu,  9 Jul 2020 03:56:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id C4F4EF80322
- for <alsa-devel@alsa-project.org>; Thu,  9 Jul 2020 03:56:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4F4EF80322
-Date: 09 Jul 2020 10:56:30 +0900
-X-IronPort-AV: E=Sophos;i="5.75,329,1589209200"; d="scan'208";a="51457228"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 09 Jul 2020 10:56:30 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 7412FF80321
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jul 2020 03:56:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7412FF80321
+Date: 09 Jul 2020 10:56:35 +0900
+X-IronPort-AV: E=Sophos;i="5.75,329,1589209200"; d="scan'208";a="51457234"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 09 Jul 2020 10:56:35 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 4AD72400A8A7;
- Thu,  9 Jul 2020 10:56:30 +0900 (JST)
-Message-ID: <873661xxhu.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id F13A940E4BF6;
+ Thu,  9 Jul 2020 10:56:34 +0900 (JST)
+Message-ID: <871rllxxhp.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v3 10/21] ASoC: codecs: tas*: merge .digital_mute() into
+Subject: [PATCH v3 11/21] ASoC: codecs: ssm*: merge .digital_mute() into
  .mute_stream()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -89,155 +89,86 @@ We can merge digital_mute() into mute_stream
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Reviewed-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
 ---
- sound/soc/codecs/tas2552.c | 5 +++--
- sound/soc/codecs/tas2562.c | 5 +++--
- sound/soc/codecs/tas2770.c | 5 +++--
- sound/soc/codecs/tas571x.c | 5 +++--
- sound/soc/codecs/tas5720.c | 5 +++--
- sound/soc/codecs/tas6424.c | 5 +++--
- 6 files changed, 18 insertions(+), 12 deletions(-)
+ sound/soc/codecs/ssm2518.c | 5 +++--
+ sound/soc/codecs/ssm2602.c | 5 +++--
+ sound/soc/codecs/ssm4567.c | 5 +++--
+ 3 files changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/codecs/tas2552.c b/sound/soc/codecs/tas2552.c
-index 529c0fb93f9b..3a153526e47f 100644
---- a/sound/soc/codecs/tas2552.c
-+++ b/sound/soc/codecs/tas2552.c
-@@ -465,7 +465,7 @@ static int tas2552_set_dai_tdm_slot(struct snd_soc_dai *dai,
+diff --git a/sound/soc/codecs/ssm2518.c b/sound/soc/codecs/ssm2518.c
+index c47e3c4762fe..09449c6c4024 100644
+--- a/sound/soc/codecs/ssm2518.c
++++ b/sound/soc/codecs/ssm2518.c
+@@ -388,7 +388,7 @@ static int ssm2518_hw_params(struct snd_pcm_substream *substream,
+ 				SSM2518_POWER1_MCS_MASK, mcs << 1);
+ }
+ 
+-static int ssm2518_mute(struct snd_soc_dai *dai, int mute)
++static int ssm2518_mute(struct snd_soc_dai *dai, int mute, int direction)
+ {
+ 	struct ssm2518 *ssm2518 = snd_soc_component_get_drvdata(dai->component);
+ 	unsigned int val;
+@@ -623,9 +623,10 @@ static int ssm2518_startup(struct snd_pcm_substream *substream,
+ static const struct snd_soc_dai_ops ssm2518_dai_ops = {
+ 	.startup = ssm2518_startup,
+ 	.hw_params	= ssm2518_hw_params,
+-	.digital_mute	= ssm2518_mute,
++	.mute_stream	= ssm2518_mute,
+ 	.set_fmt	= ssm2518_set_dai_fmt,
+ 	.set_tdm_slot	= ssm2518_set_tdm_slot,
++	.no_capture_mute = 1,
+ };
+ 
+ static struct snd_soc_dai_driver ssm2518_dai = {
+diff --git a/sound/soc/codecs/ssm2602.c b/sound/soc/codecs/ssm2602.c
+index 464a4d7873bb..905160246614 100644
+--- a/sound/soc/codecs/ssm2602.c
++++ b/sound/soc/codecs/ssm2602.c
+@@ -338,7 +338,7 @@ static int ssm2602_startup(struct snd_pcm_substream *substream,
  	return 0;
  }
  
--static int tas2552_mute(struct snd_soc_dai *dai, int mute)
-+static int tas2552_mute(struct snd_soc_dai *dai, int mute, int direction)
+-static int ssm2602_mute(struct snd_soc_dai *dai, int mute)
++static int ssm2602_mute(struct snd_soc_dai *dai, int mute, int direction)
  {
- 	u8 cfg1_reg = 0;
- 	struct snd_soc_component *component = dai->component;
-@@ -519,7 +519,8 @@ static const struct snd_soc_dai_ops tas2552_speaker_dai_ops = {
- 	.set_sysclk	= tas2552_set_dai_sysclk,
- 	.set_fmt	= tas2552_set_dai_fmt,
- 	.set_tdm_slot	= tas2552_set_dai_tdm_slot,
--	.digital_mute = tas2552_mute,
-+	.mute_stream	= tas2552_mute,
+ 	struct ssm2602_priv *ssm2602 = snd_soc_component_get_drvdata(dai->component);
+ 
+@@ -505,9 +505,10 @@ static int ssm2602_set_bias_level(struct snd_soc_component *component,
+ static const struct snd_soc_dai_ops ssm2602_dai_ops = {
+ 	.startup	= ssm2602_startup,
+ 	.hw_params	= ssm2602_hw_params,
+-	.digital_mute	= ssm2602_mute,
++	.mute_stream	= ssm2602_mute,
+ 	.set_sysclk	= ssm2602_set_dai_sysclk,
+ 	.set_fmt	= ssm2602_set_dai_fmt,
 +	.no_capture_mute = 1,
  };
  
- /* Formats supported by TAS2552 driver. */
-diff --git a/sound/soc/codecs/tas2562.c b/sound/soc/codecs/tas2562.c
-index 5c28af370bd4..e74628061040 100644
---- a/sound/soc/codecs/tas2562.c
-+++ b/sound/soc/codecs/tas2562.c
-@@ -394,7 +394,7 @@ static int tas2562_set_dai_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- 	return 0;
+ static struct snd_soc_dai_driver ssm2602_dai = {
+diff --git a/sound/soc/codecs/ssm4567.c b/sound/soc/codecs/ssm4567.c
+index bb4958bb8fe9..811b1a2c404a 100644
+--- a/sound/soc/codecs/ssm4567.c
++++ b/sound/soc/codecs/ssm4567.c
+@@ -220,7 +220,7 @@ static int ssm4567_hw_params(struct snd_pcm_substream *substream,
+ 				SSM4567_DAC_FS_MASK, dacfs);
  }
  
--static int tas2562_mute(struct snd_soc_dai *dai, int mute)
-+static int tas2562_mute(struct snd_soc_dai *dai, int mute, int direction)
+-static int ssm4567_mute(struct snd_soc_dai *dai, int mute)
++static int ssm4567_mute(struct snd_soc_dai *dai, int mute, int direction)
  {
- 	struct snd_soc_component *component = dai->component;
+ 	struct ssm4567 *ssm4567 = snd_soc_component_get_drvdata(dai->component);
+ 	unsigned int val;
+@@ -390,9 +390,10 @@ static int ssm4567_set_bias_level(struct snd_soc_component *component,
  
-@@ -612,7 +612,8 @@ static const struct snd_soc_dai_ops tas2562_speaker_dai_ops = {
- 	.hw_params	= tas2562_hw_params,
- 	.set_fmt	= tas2562_set_dai_fmt,
- 	.set_tdm_slot	= tas2562_set_dai_tdm_slot,
--	.digital_mute	= tas2562_mute,
-+	.mute_stream	= tas2562_mute,
+ static const struct snd_soc_dai_ops ssm4567_dai_ops = {
+ 	.hw_params	= ssm4567_hw_params,
+-	.digital_mute	= ssm4567_mute,
++	.mute_stream	= ssm4567_mute,
+ 	.set_fmt	= ssm4567_set_dai_fmt,
+ 	.set_tdm_slot	= ssm4567_set_tdm_slot,
 +	.no_capture_mute = 1,
  };
  
- static struct snd_soc_dai_driver tas2562_dai[] = {
-diff --git a/sound/soc/codecs/tas2770.c b/sound/soc/codecs/tas2770.c
-index 54c8135fe43c..4538b2d0216f 100644
---- a/sound/soc/codecs/tas2770.c
-+++ b/sound/soc/codecs/tas2770.c
-@@ -189,7 +189,7 @@ static const struct snd_soc_dapm_route tas2770_audio_map[] = {
- 	{"VSENSE", "Switch", "VMON"},
- };
- 
--static int tas2770_mute(struct snd_soc_dai *dai, int mute)
-+static int tas2770_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 	int ret;
-@@ -530,10 +530,11 @@ static int tas2770_set_dai_tdm_slot(struct snd_soc_dai *dai,
- }
- 
- static struct snd_soc_dai_ops tas2770_dai_ops = {
--	.digital_mute = tas2770_mute,
-+	.mute_stream = tas2770_mute,
- 	.hw_params  = tas2770_hw_params,
- 	.set_fmt    = tas2770_set_fmt,
- 	.set_tdm_slot = tas2770_set_dai_tdm_slot,
-+	.no_capture_mute = 1,
- };
- 
- #define TAS2770_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S20_3LE |\
-diff --git a/sound/soc/codecs/tas571x.c b/sound/soc/codecs/tas571x.c
-index 5b7f9fcf6cbf..835a723ce5bc 100644
---- a/sound/soc/codecs/tas571x.c
-+++ b/sound/soc/codecs/tas571x.c
-@@ -301,7 +301,7 @@ static int tas571x_hw_params(struct snd_pcm_substream *substream,
- 				  TAS571X_SDI_FMT_MASK, val);
- }
- 
--static int tas571x_mute(struct snd_soc_dai *dai, int mute)
-+static int tas571x_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 	u8 sysctl2;
-@@ -354,7 +354,8 @@ static int tas571x_set_bias_level(struct snd_soc_component *component,
- static const struct snd_soc_dai_ops tas571x_dai_ops = {
- 	.set_fmt	= tas571x_set_dai_fmt,
- 	.hw_params	= tas571x_hw_params,
--	.digital_mute	= tas571x_mute,
-+	.mute_stream	= tas571x_mute,
-+	.no_capture_mute = 1,
- };
- 
- 
-diff --git a/sound/soc/codecs/tas5720.c b/sound/soc/codecs/tas5720.c
-index e159f839d928..139ac5e683bf 100644
---- a/sound/soc/codecs/tas5720.c
-+++ b/sound/soc/codecs/tas5720.c
-@@ -199,7 +199,7 @@ static int tas5720_set_dai_tdm_slot(struct snd_soc_dai *dai,
- 	return ret;
- }
- 
--static int tas5720_mute(struct snd_soc_dai *dai, int mute)
-+static int tas5720_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 	int ret;
-@@ -604,7 +604,8 @@ static const struct snd_soc_dai_ops tas5720_speaker_dai_ops = {
- 	.hw_params	= tas5720_hw_params,
- 	.set_fmt	= tas5720_set_dai_fmt,
- 	.set_tdm_slot	= tas5720_set_dai_tdm_slot,
--	.digital_mute	= tas5720_mute,
-+	.mute_stream	= tas5720_mute,
-+	.no_capture_mute = 1,
- };
- 
- /*
-diff --git a/sound/soc/codecs/tas6424.c b/sound/soc/codecs/tas6424.c
-index aaba39295079..6198138e693a 100644
---- a/sound/soc/codecs/tas6424.c
-+++ b/sound/soc/codecs/tas6424.c
-@@ -252,7 +252,7 @@ static int tas6424_set_dai_tdm_slot(struct snd_soc_dai *dai,
- 	return 0;
- }
- 
--static int tas6424_mute(struct snd_soc_dai *dai, int mute)
-+static int tas6424_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
- 	struct snd_soc_component *component = dai->component;
- 	struct tas6424_data *tas6424 = snd_soc_component_get_drvdata(component);
-@@ -382,7 +382,8 @@ static const struct snd_soc_dai_ops tas6424_speaker_dai_ops = {
- 	.hw_params	= tas6424_hw_params,
- 	.set_fmt	= tas6424_set_dai_fmt,
- 	.set_tdm_slot	= tas6424_set_dai_tdm_slot,
--	.digital_mute	= tas6424_mute,
-+	.mute_stream	= tas6424_mute,
-+	.no_capture_mute = 1,
- };
- 
- static struct snd_soc_dai_driver tas6424_dai[] = {
+ static struct snd_soc_dai_driver ssm4567_dai = {
 -- 
 2.25.1
 

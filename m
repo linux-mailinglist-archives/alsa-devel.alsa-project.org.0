@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6FD62195C3
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 03:57:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8A5D2195C5
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 03:58:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7521F9F6;
-	Thu,  9 Jul 2020 03:56:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7521F9F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 85A891612;
+	Thu,  9 Jul 2020 03:57:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85A891612
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594259867;
-	bh=vFAucXSpMxZ+5eyTp0yxgvWfVyiORa6h/YTC4ziIT+Y=;
+	s=default; t=1594259883;
+	bh=J+hWFZi3tIZOEem2ArthTVPZBnA4JTUZ25iEqEL9Iwk=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=R9Kz0HIWWIbyiomCNI08FSH7b0C5J8Lr1aYnJE/ZbtMSDUHJeW8zjyLiwGREDjPIw
-	 WHnLP4ZQNdszyFlFOKRx97G7+po+7+UxvsW3l0xGC/n4BweOHgrdvjRmODGo/zIiOk
-	 7QgjRVBtugwt/zc24S0sk/9/BmIbeCYuqg7/KeYQ=
+	b=P9n/bEeOv77UgK957U4QYvnsyIP/EjPLLXvvc7w1zshqBGUbNhPNj+SLOIQCztnZo
+	 IxUY4xb2DP9sEnUhuxv2+mmph7FIECEKMAbSYRDqJfu0EmcBur5RWXNp7PsdTmGr06
+	 RwtwekCu81BoyKSt0t67XaxqcLgF/DdcLR4q6mlM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE67EF80255;
-	Thu,  9 Jul 2020 03:55:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2462F802BD;
+	Thu,  9 Jul 2020 03:55:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 24A12F80257; Thu,  9 Jul 2020 03:55:45 +0200 (CEST)
+ id 2C953F802BC; Thu,  9 Jul 2020 03:55:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id B3B88F80255
- for <alsa-devel@alsa-project.org>; Thu,  9 Jul 2020 03:55:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3B88F80255
-Date: 09 Jul 2020 10:55:36 +0900
-X-IronPort-AV: E=Sophos;i="5.75,329,1589209200"; d="scan'208";a="51669027"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 09 Jul 2020 10:55:36 +0900
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 8CD0EF8011F
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jul 2020 03:55:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CD0EF8011F
+Date: 09 Jul 2020 10:55:41 +0900
+X-IronPort-AV: E=Sophos;i="5.75,329,1589209200"; d="scan'208";a="51457141"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 09 Jul 2020 10:55:41 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 372A7400A8A2;
- Thu,  9 Jul 2020 10:55:36 +0900 (JST)
-Message-ID: <87fta1xxjc.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 423FD4138B2C;
+ Thu,  9 Jul 2020 10:55:41 +0900 (JST)
+Message-ID: <87eeplxxj7.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v3 01/21] ASoC: hdmi-codec: return -ENOTSUPP for digital_mute
+Subject: [PATCH v3 02/21] ASoC: soc-dai.c: add .no_capture_mute support
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87h7uhxxk6.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,30 +70,65 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-snd_soc_dai_digital_mute() will return -ENOTSUPP if driver doesn't
-support mute.
-In hdmi-codec case, hdmi_codec_digital_mute() will be used for it,
-and each driver has .digital_mute() callback.
-hdmi_codec_digital_mute() want to return -ENOTSUPP to follow it.
+snd_soc_dai_digital_mute() is internally using both
+mute_stream() (1) or digital_mute() (2), but the difference between
+these 2 are only handling "direction".
+We can merge digital_mute() into mute_stream
+
+	int snd_soc_dai_digital_mute(xxx, int direction)
+	{
+		...
+		else if (dai->driver->ops->mute_stream)
+(1)			return dai->driver->ops->mute_stream(xxx, direction);
+		else if (direction == SNDRV_PCM_STREAM_PLAYBACK &&
+			 dai->driver->ops->digital_mute)
+(2)			return dai->driver->ops->digital_mute(xxx);
+		...
+	}
+
+To prepare merging mute_stream()/digital_mute(),
+this patch adds .no_capture_mute support to emulate .digital_mute().
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/codecs/hdmi-codec.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/sound/soc-dai.h | 3 +++
+ sound/soc/soc-dai.c     | 8 +++++++-
+ 2 files changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-codec.c
-index f005751da2cc..926ab447a96b 100644
---- a/sound/soc/codecs/hdmi-codec.c
-+++ b/sound/soc/codecs/hdmi-codec.c
-@@ -566,7 +566,7 @@ static int hdmi_codec_digital_mute(struct snd_soc_dai *dai, int mute)
- 		return hcp->hcd.ops->digital_mute(dai->dev->parent,
- 						  hcp->hcd.data, mute);
+diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
+index 212257e84fac..e0e061b8e9bd 100644
+--- a/include/sound/soc-dai.h
++++ b/include/sound/soc-dai.h
+@@ -280,6 +280,9 @@ struct snd_soc_dai_ops {
+ 	 */
+ 	snd_pcm_sframes_t (*delay)(struct snd_pcm_substream *,
+ 		struct snd_soc_dai *);
++
++	/* bit field */
++	unsigned int no_capture_mute:1;
+ };
  
--	return 0;
-+	return -ENOTSUPP;
- }
+ struct snd_soc_cdai_ops {
+diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
+index b05e18b63a1c..458d2ea44329 100644
+--- a/sound/soc/soc-dai.c
++++ b/sound/soc/soc-dai.c
+@@ -298,8 +298,14 @@ int snd_soc_dai_digital_mute(struct snd_soc_dai *dai, int mute,
+ {
+ 	int ret = -ENOTSUPP;
  
- static const struct snd_soc_dai_ops hdmi_codec_i2s_dai_ops = {
++	/*
++	 * ignore if direction was CAPTURE
++	 * and it had .no_capture_mute flag
++	 */
+ 	if (dai->driver->ops &&
+-	    dai->driver->ops->mute_stream)
++	    dai->driver->ops->mute_stream &&
++	    (direction == SNDRV_PCM_STREAM_PLAYBACK ||
++	     !dai->driver->ops->no_capture_mute))
+ 		ret = dai->driver->ops->mute_stream(dai, mute, direction);
+ 	else if (direction == SNDRV_PCM_STREAM_PLAYBACK &&
+ 		 dai->driver->ops &&
 -- 
 2.25.1
 

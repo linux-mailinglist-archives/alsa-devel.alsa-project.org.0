@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0CFB219E95
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 13:01:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84C6E219E98
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 13:02:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E3E5165D;
-	Thu,  9 Jul 2020 13:01:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E3E5165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3739A15E0;
+	Thu,  9 Jul 2020 13:01:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3739A15E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594292515;
-	bh=rLJoQxroBjKphYNJ/CT0M4kQyaWGECXnMAWaib72o0U=;
+	s=default; t=1594292562;
+	bh=ENh+iCnDazdjaIkKOVzUEriYbU03fExfpv9WryD8da4=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kVa8gtc0s8+s/zMaG7MKxHMohoAUOCcOfztceZP66xh4agAy2H97EMzrdvyhW9mrv
-	 5j9KhV/JGOR5nJL7cSSQU2/opf44cqdVTG/ANMsucnhpQaGn30uYRDiDQnPl+DAMaS
-	 aYn+wVFSMiMNrCmUX4gTeXS9OW6nA/2fiXk7HSQU=
+	b=mxpsNvKmrabX0jCyBFrjASTxSJpBmnFIdRv9WVoLHSITNjvPewZfCaIQxVmfEcYst
+	 4+cs+XjJLvfpcoR0S0OT/zEXs9vU6Hs9D2zwj12db8qhiL7yhtK6OseKU26UvaJoJB
+	 bKIbKle0av1xNCMDeilxcKbai8Dlrc/Jn23moDsQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6379CF801F9;
-	Thu,  9 Jul 2020 13:00:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E567F802BE;
+	Thu,  9 Jul 2020 13:00:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B58F1F80216; Thu,  9 Jul 2020 13:00:12 +0200 (CEST)
+ id 52ABCF802BD; Thu,  9 Jul 2020 13:00:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 709BFF8011F
- for <alsa-devel@alsa-project.org>; Thu,  9 Jul 2020 13:00:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 709BFF8011F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2C302F800AE
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jul 2020 13:00:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C302F800AE
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 11732AE44;
- Thu,  9 Jul 2020 11:00:05 +0000 (UTC)
-Date: Thu, 09 Jul 2020 13:00:05 +0200
-Message-ID: <s5hh7uh7y2y.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 72436AE44;
+ Thu,  9 Jul 2020 11:00:21 +0000 (UTC)
+Date: Thu, 09 Jul 2020 13:00:21 +0200
+Message-ID: <s5hfta17y2i.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Mark Hills <mark@xwax.org>
-Subject: Re: [PATCH 1/5] echoaudio: Remove redundant check
-In-Reply-To: <20200708101848.3457-1-mark@xwax.org>
+Subject: Re: [PATCH 2/5] echoaudio: Race conditions around "opencount"
+In-Reply-To: <20200708101848.3457-2-mark@xwax.org>
 References: <2007081115280.3085@stax.localdomain>
- <20200708101848.3457-1-mark@xwax.org>
+ <20200708101848.3457-2-mark@xwax.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -70,17 +70,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 08 Jul 2020 12:18:44 +0200,
+On Wed, 08 Jul 2020 12:18:45 +0200,
 Mark Hills wrote:
 > 
-> This check is always false, as it's not the responsibilty of the
-> device-specific code to make this check. It is already checked
-> in snd_echo_digital_mode_put.
+> Use of atomics does not make these statements robust:
 > 
-> I do not have a Mona interface to test this change.
+>        atomic_inc(&chip->opencount);
+>        if (atomic_read(&chip->opencount) > 1 && chip->rate_set)
+>                chip->can_set_rate=0;
 > 
-> This patch is in preparation for follow-up patch to modify the
-> behavior of "opencount".
+> and
+> 
+>        if (atomic_read(&chip->opencount)) {
+>                if (chip->opencount) {
+>                        changed = -EAGAIN;
+>                } else {
+>                        changed = set_digital_mode(chip, dmode);
+> 
+> It would be necessary to atomically increment or decrement the value
+> and use the returned result. And yet we still need to prevent other
+> threads making use of "can_set_rate" while we set it.
+> 
+> However in all but one case the atomic is misleading as they are already
+> running with "mode_mutex" held.
+> 
+> Decisions are made on mode setting are often intrinsically connected
+> to "opencount" because some operations are not permitted unless
+> there is sole ownership.
+> 
+> So instead simplify this, and use "mode_mutex" as a lock for all reference
+> counting and mode setting.
 > 
 > Signed-off-by: Mark Hills <mark@xwax.org>
 

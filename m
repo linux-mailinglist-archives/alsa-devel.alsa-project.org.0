@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DC23219E99
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 13:02:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F745219E9F
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 13:03:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1828F1663;
-	Thu,  9 Jul 2020 13:02:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1828F1663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 12F001660;
+	Thu,  9 Jul 2020 13:02:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12F001660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594292578;
-	bh=mluRWjQvf7g0zfkr+5lQ23XtHPl4aW4rdRlGlIrvkog=;
+	s=default; t=1594292619;
+	bh=TcdHXAR/FfeM+//UNYMSUirTVEpuwEtbtDKOgcE31Ag=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RqPIikYPdE5TNr90Ek1uyz4+rmhQAbCsk+u22oWHvy5EkadM8VZs6AyvCwSpcN2QD
-	 UlpT1K/oQ3ZZx2aNfJgQgwC370ohrOWiiCGS20Gz4E6oatnRbkXtZjjNMzXlr4tEEI
-	 1xVMXHcfVPRKOq5hluyQY4MhFYIibiyjRHXzqL7o=
+	b=kiW0S/NjIo2iQrbl5Q8CVvKJPmir/VKz7yU3vCDh7kVY2w6llFazHicBWMGkCzhSZ
+	 HvHZzIxNfOuyLFjvqt+iLOyb9QOI7slYl23hGmHiv/+x9CuOrR0iPOt5CwUflPEHzy
+	 3pUR/VjCRsplsr6IdZDdk3pPq/fABVhjgKtQGv3Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84C48F802C4;
-	Thu,  9 Jul 2020 13:00:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D94FFF802DF;
+	Thu,  9 Jul 2020 13:01:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D29DBF802D2; Thu,  9 Jul 2020 13:00:47 +0200 (CEST)
+ id 973C9F802DB; Thu,  9 Jul 2020 13:00:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,22 +34,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4E76F802C2
- for <alsa-devel@alsa-project.org>; Thu,  9 Jul 2020 13:00:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4E76F802C2
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3525F802DB
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jul 2020 13:00:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3525F802DB
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EFFCBAE44;
- Thu,  9 Jul 2020 11:00:36 +0000 (UTC)
-Date: Thu, 09 Jul 2020 13:00:37 +0200
-Message-ID: <s5heepl7y22.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id EF64CAE2D;
+ Thu,  9 Jul 2020 11:00:52 +0000 (UTC)
+Date: Thu, 09 Jul 2020 13:00:53 +0200
+Message-ID: <s5hd0557y1m.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Mark Hills <mark@xwax.org>
-Subject: Re: [PATCH 3/5] echoaudio: Prevent races in calls to
- set_audio_format()
-In-Reply-To: <20200708101848.3457-3-mark@xwax.org>
+Subject: Re: [PATCH 4/5] echoaudio: Prevent some noise on unloading the module
+In-Reply-To: <20200708101848.3457-4-mark@xwax.org>
 References: <2007081115280.3085@stax.localdomain>
- <20200708101848.3457-3-mark@xwax.org>
+ <20200708101848.3457-4-mark@xwax.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -71,11 +70,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 08 Jul 2020 12:18:46 +0200,
+On Wed, 08 Jul 2020 12:18:47 +0200,
 Mark Hills wrote:
 > 
-> The function uses chip->comm_page which needs locking against
-> other use at the same time.
+> These are valid conditions in normal circumstances, so do not "warn" but
+> make them for debugging.
 > 
 > Signed-off-by: Mark Hills <mark@xwax.org>
 

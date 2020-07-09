@@ -2,57 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40CF3219605
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 04:08:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C20B21964B
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 04:33:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C777C1673;
-	Thu,  9 Jul 2020 04:07:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C777C1673
+	by alsa0.perex.cz (Postfix) with ESMTPS id D581E15E0;
+	Thu,  9 Jul 2020 04:32:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D581E15E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594260517;
-	bh=xXZJBsh1ARQFV1kxEAPiUfvZKHjQejw2MyDvEPY3Rf8=;
-	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1594261987;
+	bh=X4Ooh2TepNDU2kUT7eH6cJMYnCAo6DGOXFEWrYUpDzs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rNN/RE+g5yrPqhD6H1v+PMoFg2LjDteuxX7ov7m8ZPzLyjWsoajf8WxmxwgaBSUL/
-	 jS6Ne8WxpToZlk8SB7VvdWJ6wNY6E6i2OcmXNwCfSPSS/Tx6TzJwCBCKcuWOTkol2h
-	 hXOc88ITaHqiMNGBYh9LwNqeOG0owOfjj0oyLMno=
+	b=TmphiYqdhoIH0QuiA/ZrqPE0ayIzuAevgT/ke+oZh6mpK/sTAkvKReUflJ+V7lqBR
+	 Yi/MXNjK0eCJO3j5vTF8lyj7aIFrXAUyzvu1tP6NmtFdHlH+mcnRtN8DmalgZaUktm
+	 wpnkSmjomvczZKoTuwiZa1HnzJpcbUVwK4ETTTRo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 85E5CF8036E;
-	Thu,  9 Jul 2020 03:57:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AED2F80117;
+	Thu,  9 Jul 2020 04:31:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 808D6F80371; Thu,  9 Jul 2020 03:57:41 +0200 (CEST)
+ id DCE1EF80216; Thu,  9 Jul 2020 04:31:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 0D6BCF8036E
- for <alsa-devel@alsa-project.org>; Thu,  9 Jul 2020 03:57:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D6BCF8036E
-Date: 09 Jul 2020 10:57:18 +0900
-X-IronPort-AV: E=Sophos;i="5.75,330,1589209200"; d="scan'208";a="51457325"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 09 Jul 2020 10:57:18 +0900
-Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 7D17B400A8A7;
- Thu,  9 Jul 2020 10:57:18 +0900 (JST)
-Message-ID: <87mu49wiw2.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v3 21/21] ASoC: soc-core: snd_soc_dai_digital_mute() for both
- CPU/Codec
-User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
+Received: from mail-il1-x141.google.com (mail-il1-x141.google.com
+ [IPv6:2607:f8b0:4864:20::141])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 01D65F800AE
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jul 2020 04:31:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01D65F800AE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="LHgaqoAT"
+Received: by mail-il1-x141.google.com with SMTP id a6so715119ilq.13
+ for <alsa-devel@alsa-project.org>; Wed, 08 Jul 2020 19:31:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Y1aFB8ecB2wmH9T4OAlgM3uPIr3+7dTGswq2KZGud10=;
+ b=LHgaqoATqobXsJ823bt6UbEz6EFOF6myqOpjQDAnwqhgXKl07w4nHw+JB03BZYlt2X
+ BNH+dH0z6LmpBnHFCumuSMuAdzaEP7M5WsxWs3gQu7DQ7dgritCm3xWZ+CHEUxizjiLP
+ WTPrkPBuUAeyMQ64PvdBWCyu2vQkgWzCqizQH0GOGKHXYvYJaNuKqcM1H8eMJwBOmZRF
+ 7abA8/E8d+8fydzTVcEVQ7JMm7doNMOrPww7G/vZcmpETvsROzdtGumcGiL1jGG5x2QH
+ YlRQ0q/flSV88Gf7LJiNjzISn/9i6uirwLeNNQJGZuXCHNK41ap2wqMgSIyGoNq1RLMV
+ bJOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Y1aFB8ecB2wmH9T4OAlgM3uPIr3+7dTGswq2KZGud10=;
+ b=J3VLo9a95ndgl72PHv+ROVRIXf9s2iybjNf3maop7SkfogCxTq1o2X+snfNzSo061K
+ NRhwqfYxeeVJZQVanbMxQK7FnuM2pwChfysViNM4n0oMX/v2Jmt9bu35sgaLzhWpY+KU
+ V/pPQ8ExnnReSs4AaoF4dIkPW3zjq3SV+UQ5fBXAiSpzob/bPH5shn0ZofoeobTA9z4r
+ ic1h6+ZTtoew4bG8ds8NG+HekPTYitfWU5BjyyhHvv0aSLY3JofU8Zd6lfmEfSSaNwVS
+ KrsfrvT2T0Y+jw2Iauf72lsbv6uuGQF59Y5TapHIiBHL1lf3fSLqkJO6wxXKifUVHcq1
+ HgYA==
+X-Gm-Message-State: AOAM532oshW+oDergy/+m7bgEfV6wfjgt/1vquUDummQ11gflQvC1/BW
+ 8+9XA/ME2HlYcpVu0CXwdRxKjrUdx8RaezqD3ViccQ==
+X-Google-Smtp-Source: ABdhPJycmG2v/dMRqlo4y4LjYnpAsyQqnOVG2LTg3fO1f0wSLY2ig+oxacWew56SN7C4tQMpaHBJFn2jujQh0be0RaI=
+X-Received: by 2002:a92:dd02:: with SMTP id n2mr44851812ilm.257.1594261875306; 
+ Wed, 08 Jul 2020 19:31:15 -0700 (PDT)
+MIME-Version: 1.0
+References: <20200708113233.3994206-1-tzungbi@google.com>
+ <159422758800.28431.1053466753613230176.b4-ty@kernel.org>
+In-Reply-To: <159422758800.28431.1053466753613230176.b4-ty@kernel.org>
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Thu, 9 Jul 2020 10:31:04 +0800
+Message-ID: <CA+Px+wXPoW-VU-SXSZoBdMY7zSxWf3qxWJZGOE2hT4riwT8XtA@mail.gmail.com>
+Subject: Re: [PATCH 0/3] ASoC: mediatek: mt8183: support machine driver for
+ rt1015
 To: Mark Brown <broonie@kernel.org>
-In-Reply-To: <87h7uhxxk6.wl-kuninori.morimoto.gx@renesas.com>
-References: <87h7uhxxk6.wl-kuninori.morimoto.gx@renesas.com>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: devicetree@vger.kernel.org, ALSA development <alsa-devel@alsa-project.org>,
+ Rob Herring <robh+dt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,43 +96,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+On Thu, Jul 9, 2020 at 1:00 AM Mark Brown <broonie@kernel.org> wrote:
+>
+> [1/3] ASoC: mediatek: mt8183: sort header inclusions in alphabetical
+>       commit: 4dae01c2e5df7beb8dfd5deb9560e42f19d3cfb7
+> [2/3] ASoC: mt8183: add compatible string for using rt1015
+>       commit: ab1ba5252f611c0efabca5fca81f5717445da47b
 
-snd_soc_dai_digital_mute() is used for both CPU and Codec.
-For example, soc_pcm_prepare() / soc_pcm_hw_free() are caring
-both CPU and Codec.
+I am curious about the 2nd patch's title.  Did you change it from
+"dt-bindings" to "ASoC" intentionally?
 
-But soc_resume_deferred() / snd_soc_suspend() are not.
-This patch cares it.
-
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Reviewed-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
----
- sound/soc/soc-core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 7c58e45c1c3f..defd96b14c28 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -548,7 +548,7 @@ int snd_soc_suspend(struct device *dev)
- 		if (rtd->dai_link->ignore_suspend)
- 			continue;
- 
--		for_each_rtd_codec_dais(rtd, i, dai) {
-+		for_each_rtd_dais(rtd, i, dai) {
- 			if (snd_soc_dai_stream_active(dai, playback))
- 				snd_soc_dai_digital_mute(dai, 1, playback);
- 		}
-@@ -687,7 +687,7 @@ static void soc_resume_deferred(struct work_struct *work)
- 		if (rtd->dai_link->ignore_suspend)
- 			continue;
- 
--		for_each_rtd_codec_dais(rtd, i, dai) {
-+		for_each_rtd_dais(rtd, i, dai) {
- 			if (snd_soc_dai_stream_active(dai, playback))
- 				snd_soc_dai_digital_mute(dai, 0, playback);
- 		}
--- 
-2.25.1
-
+I am trying to avoid using the wrong title prefix next time.

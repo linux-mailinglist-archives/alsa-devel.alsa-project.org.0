@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F745219E9F
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 13:03:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3851219EA0
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 13:04:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 12F001660;
-	Thu,  9 Jul 2020 13:02:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12F001660
+	by alsa0.perex.cz (Postfix) with ESMTPS id 889CC1658;
+	Thu,  9 Jul 2020 13:03:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 889CC1658
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594292619;
-	bh=TcdHXAR/FfeM+//UNYMSUirTVEpuwEtbtDKOgcE31Ag=;
+	s=default; t=1594292654;
+	bh=QRmRFJKNb/XOIrGcr6OLXsxae3IPgZtT2k4SGjH79XI=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kiW0S/NjIo2iQrbl5Q8CVvKJPmir/VKz7yU3vCDh7kVY2w6llFazHicBWMGkCzhSZ
-	 HvHZzIxNfOuyLFjvqt+iLOyb9QOI7slYl23hGmHiv/+x9CuOrR0iPOt5CwUflPEHzy
-	 3pUR/VjCRsplsr6IdZDdk3pPq/fABVhjgKtQGv3Q=
+	b=Gubrod/3EAlXJ4cpRmTDjbv0mPO+1reKdSB6+etF6NK+SvSwmjWu7RDk3Paz1xAZL
+	 DZo+quRPMkH1Mh/MxLNKAQ5zIkZhaTlWwJYt19C5TDqPvCEbIGm5JeZpYOK7i9p7Z/
+	 zEwRAQC5fYrTINBWCm0QxGm11zFC5qEjLSQ0R2lw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D94FFF802DF;
-	Thu,  9 Jul 2020 13:01:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19717F80264;
+	Thu,  9 Jul 2020 13:01:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 973C9F802DB; Thu,  9 Jul 2020 13:00:59 +0200 (CEST)
+ id C89EFF80257; Thu,  9 Jul 2020 13:01:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A3525F802DB
- for <alsa-devel@alsa-project.org>; Thu,  9 Jul 2020 13:00:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3525F802DB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8B486F80257
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jul 2020 13:01:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B486F80257
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EF64CAE2D;
- Thu,  9 Jul 2020 11:00:52 +0000 (UTC)
-Date: Thu, 09 Jul 2020 13:00:53 +0200
-Message-ID: <s5hd0557y1m.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id D423EAE2D;
+ Thu,  9 Jul 2020 11:01:06 +0000 (UTC)
+Date: Thu, 09 Jul 2020 13:01:07 +0200
+Message-ID: <s5hblkp7y18.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Mark Hills <mark@xwax.org>
-Subject: Re: [PATCH 4/5] echoaudio: Prevent some noise on unloading the module
-In-Reply-To: <20200708101848.3457-4-mark@xwax.org>
+Subject: Re: [PATCH 5/5] echoaudio: Address bugs in the interrupt handling
+In-Reply-To: <20200708101848.3457-5-mark@xwax.org>
 References: <2007081115280.3085@stax.localdomain>
- <20200708101848.3457-4-mark@xwax.org>
+ <20200708101848.3457-5-mark@xwax.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -70,11 +70,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 08 Jul 2020 12:18:47 +0200,
+On Wed, 08 Jul 2020 12:18:48 +0200,
 Mark Hills wrote:
 > 
-> These are valid conditions in normal circumstances, so do not "warn" but
-> make them for debugging.
+> Distorted audio appears occasionally, affecting either playback or
+> capture and requiring the affected substream to be closed by all
+> applications and re-opened.
+> 
+> The best way I have found to reproduce the bug is to use dmix in
+> combination with Chromium, which opens the audio device multiple times
+> in threads. Anecdotally, the problems appear to have increased with
+> faster CPUs. I ruled out 32-bit counter wrapping; it often happens
+> much earlier.
+> 
+> Since applying this patch I have not had problems, where previously
+> they would occur several times a day.
+> 
+> The patch targets the following issues:
+> 
+> * Check for progress using the counter from the hardware, not after it
+>   has been truncated to the buffer.
+> 
+>   This is a clean way to address a possible bug where if a whole
+>   ringbuffer advances between interrupts, it goes unnoticed.
+> 
+> * Move last_period state from chip to pipe
+> 
+>   This more logically belongs as part of pipe, and code is reasier to
+>   read if it is "counter position last time a period elapsed".
+> 
+>   Now the code has no references to period count. A period is just
+>   when the regular counter crosses a threshold. This increases
+>   readability and reduces scope for bugs.
+> 
+> * Treat period notification and buffer advance independently:
+> 
+>   This helps to clarify what is the responsibility of the interrupt
+>   handler, and what is pcm_pointer().
+> 
+>   Removing shared state between these operations means race conditions
+>   are fixed without introducing locks. Synchronisation is only around
+>   the read of pipe->dma_counter. There may be cache line contention
+>   around "struct audiopipe" but I did not have cause to profile this.
+> 
+> Pay attention to be robust where dma_counter wrapping is not a
+> multiple of period_size or buffer_size.
+> 
+> This is a revised patch based on feedback from Takashi and Giuliano.
 > 
 > Signed-off-by: Mark Hills <mark@xwax.org>
 

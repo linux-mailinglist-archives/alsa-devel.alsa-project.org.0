@@ -2,65 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94B6C21AA2F
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jul 2020 00:02:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43B4E21AA30
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jul 2020 00:02:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF7FC165E;
-	Fri, 10 Jul 2020 00:01:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF7FC165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id D76511616;
+	Fri, 10 Jul 2020 00:02:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D76511616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594332124;
-	bh=X9jrVdpxYr/DSxHd+vKioxvT64X2cVBTnZXlPLeMq+4=;
+	s=default; t=1594332170;
+	bh=KTis7LSip2tgNS5BmCt1ETgGx7obSOtc3jyA8p8H4sw=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LawEOdiyhoaZ5p2JXJlDsxMnOIQw2mu3P+aUd8MibZWl5npjz7YgavstD5DT3hT8i
-	 USvxu0W5qGEWJFttm4Rb37SYFLj8cHQPf9qvMkBHghL5wc3PaKqHjkMu3GyOeF9/VS
-	 FXX+CMt/RJ9xJ1S3dm68WHNC2tZoRSBD8lM2yvTc=
+	b=XxvQr5s3iur1afnjwiW26B1+0bpEAWgqvx/ZobdwGuZ9Y9QEio0GKz+4ZS0jsXmG4
+	 d1jaV4j4XpWHwY2J1gN1ML5sqc0Y/XD4gAJc3VPxppwwKiDnZQOoJFRF9A3WC9ITmH
+	 QNGQXaVz86I9bWFqloOzmLnaWEQGTCcQ9jmj+Fr4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22D00F80257;
-	Fri, 10 Jul 2020 00:00:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 85CEBF80264;
+	Fri, 10 Jul 2020 00:00:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 69B22F80255; Fri, 10 Jul 2020 00:00:18 +0200 (CEST)
+ id DF244F80216; Fri, 10 Jul 2020 00:00:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 31169F80117
- for <alsa-devel@alsa-project.org>; Fri, 10 Jul 2020 00:00:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31169F80117
+ by alsa1.perex.cz (Postfix) with ESMTPS id 33643F801F9
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jul 2020 00:00:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33643F801F9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="z/LrGWBG"
+ header.b="PHMP7Xd9"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6C24820672;
- Thu,  9 Jul 2020 22:00:05 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9B3D420774;
+ Thu,  9 Jul 2020 22:00:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594332005;
- bh=X9jrVdpxYr/DSxHd+vKioxvT64X2cVBTnZXlPLeMq+4=;
+ s=default; t=1594332011;
+ bh=KTis7LSip2tgNS5BmCt1ETgGx7obSOtc3jyA8p8H4sw=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=z/LrGWBGscb3Y4QXphwUuPVkviZloN5d9ynk3D3ZAmE+HWjFpAA0yDAM8Rei7q5bJ
- eRjJet3+eo5yjq8tIaFOf61nxvJCNkeyFgj6mAWV4z36l5kArP8DzLrI1uyrXK34fR
- cbka089qF7Mwxk+YnsvAk6k9pxyRS/dqf+zZs43Q=
-Date: Thu, 09 Jul 2020 23:00:00 +0100
+ b=PHMP7Xd9W5mrdKGHfMyNojJjvi1AX2bOlaZZrstfJtKuWkOzf0dWvK0WZY/4aAhnw
+ HgFnv+QExkEClG2/Hgy8EY8q4bsbyRqbc/ZtCv/K2j8tZSZibVqZtgxJrEaRVWFq1i
+ UwMLWx4kp4Be+ReFZY9C/E6MIPrKAH97xRtZGm1g=
+Date: Thu, 09 Jul 2020 23:00:05 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Lars-Peter Clausen <lars@metafoo.de>, Nuno Sá <nuno.sa@analog.com>, Jaroslav Kysela <perex@perex.cz>, Oder Chiou <oder_chiou@realtek.com>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, Peter Rosin <peda@axentia.se>, Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>
-In-Reply-To: <20200709010359.GA18971@embeddedor>
-References: <20200709010359.GA18971@embeddedor>
-Subject: Re: [PATCH][next] ASoC: codecs: Use fallthrough pseudo-keyword
-Message-Id: <159433200030.57213.4459453830029311407.b4-ty@kernel.org>
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+To: lgirdwood@gmail.com, "shumingf@realtek.com" <shumingf@realtek.com>
+In-Reply-To: <20200709101345.11449-1-shumingf@realtek.com>
+References: <20200709101345.11449-1-shumingf@realtek.com>
+Subject: Re: [PATCH] ASoC: rt286: fix unexpected interrupt happens
+Message-Id: <159433200031.57213.1169861509572541722.b4-ty@kernel.org>
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, pierre-louis.bossart@linux.intel.com, derek.fang@realtek.com,
+ flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,11 +77,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 8 Jul 2020 20:03:59 -0500, Gustavo A. R. Silva wrote:
-> Replace the existing /* fall through */ comments and its variants with
-> the new pseudo-keyword macro fallthrough[1].
-> 
-> [1] https://www.kernel.org/doc/html/latest/process/deprecated.html?highlight=fallthrough#implicit-switch-case-fall-through
+On Thu, 9 Jul 2020 18:13:45 +0800, shumingf@realtek.com wrote:
+> The HV/VREF should not turn off if the headphone jack plug-in.
+> This patch could solve the unexpected interrupt issue in some devices.
 
 Applied to
 
@@ -88,8 +87,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: Use fallthrough pseudo-keyword
-      commit: 3e146b55a4f5213b5da0f243813efb380fa7f84d
+[1/1] ASoC: rt286: fix unexpected interrupt happens
+      commit: 12eb3ad0638c2a6af72de866e9d7837de16ee82f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

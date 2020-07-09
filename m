@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4943321A4C4
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 18:28:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB37C21A4CE
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 18:29:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F2444950;
-	Thu,  9 Jul 2020 18:27:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2444950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A13B1658;
+	Thu,  9 Jul 2020 18:28:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A13B1658
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594312102;
-	bh=Z9qyixeDk+yXv8kRoaQPdDoY+FL2SGJIIuqm0eNTNOU=;
+	s=default; t=1594312157;
+	bh=ngblmSpQFUb22qF0BxjE67/HBTTcZTRukygKHx/x4s8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GHJ1i65Jw6f2bvDUFRKBisZz9IkwwJDw7uMsHTbebxw3l0K3dhOUEm0KRJczp9cbb
-	 ii59A3CpYxzEebyl/i5tW8g0sbXb8PsOgW/8lTeRxkazCnfqCHNPVl2Yyr93Wpl9SH
-	 3e7imKgCaOM8TyUD3A2Q+OnTBfoSj4jGJUyu7lOA=
+	b=FxGtcwPENYKvDclQEvwXc03R9iWpSSP1uHcGKgX47Su6gMLcG3b6ijvGiltqQ4uaf
+	 223n8Wy29vNHCJViuM0TJoRtXwFRRPW0aGue3KtOVcSAP9eJV5lG6eGQQX4Cjdkai6
+	 rMuRo2CouuRJhqoPxappmSbUrwTZ3OciRfwwLolY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B06CDF802E8;
-	Thu,  9 Jul 2020 18:24:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CDCFAF802F9;
+	Thu,  9 Jul 2020 18:24:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CF60BF800AE; Thu,  9 Jul 2020 18:24:12 +0200 (CEST)
+ id 73C88F802D2; Thu,  9 Jul 2020 18:24:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,43 +34,44 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78515F8025A
+ by alsa1.perex.cz (Postfix) with ESMTPS id C14B4F80264
  for <alsa-devel@alsa-project.org>; Thu,  9 Jul 2020 18:23:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78515F8025A
-IronPort-SDR: kiPB4eYZI2F+C9FRfrndgtH1ZyYwcqrKixpfWal8B6Hnfs6REyUm9UqTC849s5Yv9++h+MN7dY
- KITheWd3ghxw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9677"; a="149515632"
-X-IronPort-AV: E=Sophos;i="5.75,331,1589266800"; d="scan'208";a="149515632"
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C14B4F80264
+IronPort-SDR: vcy7K6l3rJ118TVuAsW03Wc8718Nc20w+O3fFU2Z8kXKh29lkcZ81jtamBNgYis/iIS+97z9AE
+ IycaUrnmueUA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9677"; a="149515638"
+X-IronPort-AV: E=Sophos;i="5.75,331,1589266800"; d="scan'208";a="149515638"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jul 2020 09:23:51 -0700
-IronPort-SDR: lm3Ib2ShWTmXznpfavx4QfxHF04ccoonCrDpdHI/ipqPyzv6ZFjViciQX1J5pm9ryztz9x4JQM
- LOi5/hqreAlQ==
-X-IronPort-AV: E=Sophos;i="5.75,331,1589266800"; d="scan'208";a="280353012"
+ 09 Jul 2020 09:23:54 -0700
+IronPort-SDR: AFPU3/pslc3kyCCROQND6pvI376z8oj4lK+LEGNEsCaj+Gbv6jeU17N1negviMKydRse3Vvjbv
+ jO3rlSgP7KAA==
+X-IronPort-AV: E=Sophos;i="5.75,331,1589266800"; d="scan'208";a="280353028"
 Received: from mdcoakle-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.255.231.43])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jul 2020 09:23:50 -0700
+ 09 Jul 2020 09:23:53 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v4 05/10] ASoC: pxa: pxa-ssp: Demote seemingly unintentional
- kerneldoc header
-Date: Thu,  9 Jul 2020 11:23:22 -0500
-Message-Id: <20200709162328.259586-6-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH v4 06/10] ASoC: ux500: ux500_msp_i2s: Remove unused variables
+ 'reg_val_DR' and 'reg_val_TSTDR'
+Date: Thu,  9 Jul 2020 11:23:23 -0500
+Message-Id: <20200709162328.259586-7-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200709162328.259586-1-pierre-louis.bossart@linux.intel.com>
 References: <20200709162328.259586-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: open list <linux-kernel@vger.kernel.org>, tiwai@suse.de,
+Cc: Ola Lilja <ola.o.lilja@stericsson.com>, tiwai@suse.de,
  Lee Jones <lee.jones@linaro.org>, Takashi Iwai <tiwai@suse.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Haojian Zhuang <haojian.zhuang@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- broonie@kernel.org,
- "moderated list:PXA2xx/PXA3xx SUPPORT" <linux-arm-kernel@lists.infradead.org>,
- Robert Jarzmik <robert.jarzmik@free.fr>, Daniel Mack <daniel@zonque.org>
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Roger Nilsson <roger.xr.nilsson@stericsson.com>, broonie@kernel.org,
+ Sandeep Kaushik <sandeep.kaushik@st.com>, zhong jiang <zhongjiang@huawei.com>,
+ open list <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,36 +89,67 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Lee Jones <lee.jones@linaro.org>
 
-This is the only use of kerneldoc in the sourcefile and full
-descriptions are not provided.
+Looks like these have been unchecked since the driver's inception in 2012.
 
 Fixes the following W=1 kernel build warning(s):
 
-sound/soc/pxa/pxa-ssp.c:186: warning: Function parameter or member
-'ssp' not described in 'pxa_ssp_set_scr'
+sound/soc/ux500/ux500_msp_i2s.c: In function ‘flush_fifo_rx’:
+sound/soc/ux500/ux500_msp_i2s.c:398:6: warning: variable ‘reg_val_DR’
+set but not used [-Wunused-but-set-variable]
+sound/soc/ux500/ux500_msp_i2s.c: In function ‘flush_fifo_tx’:
+sound/soc/ux500/ux500_msp_i2s.c:415:6: warning: variable
+‘reg_val_TSTDR’ set but not used [-Wunused-but-set-variable]
 
-Cc: Daniel Mack <daniel@zonque.org>
-Cc: Haojian Zhuang <haojian.zhuang@gmail.com>
-Cc: Robert Jarzmik <robert.jarzmik@free.fr>
+Cc: zhong jiang <zhongjiang@huawei.com>
+Cc: Ola Lilja <ola.o.lilja@stericsson.com>
+Cc: Roger Nilsson <roger.xr.nilsson@stericsson.com>
+Cc: Sandeep Kaushik <sandeep.kaushik@st.com>
 Signed-off-by: Lee Jones <lee.jones@linaro.org>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/pxa/pxa-ssp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/ux500/ux500_msp_i2s.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/pxa/pxa-ssp.c b/sound/soc/pxa/pxa-ssp.c
-index 6a72cc1665b7..d1e09ade0190 100644
---- a/sound/soc/pxa/pxa-ssp.c
-+++ b/sound/soc/pxa/pxa-ssp.c
-@@ -178,7 +178,7 @@ static int pxa_ssp_resume(struct snd_soc_component *component)
- #define pxa_ssp_resume	NULL
- #endif
+diff --git a/sound/soc/ux500/ux500_msp_i2s.c b/sound/soc/ux500/ux500_msp_i2s.c
+index 394d8b2a4a16..fd0b88bb7921 100644
+--- a/sound/soc/ux500/ux500_msp_i2s.c
++++ b/sound/soc/ux500/ux500_msp_i2s.c
+@@ -395,7 +395,7 @@ static int enable_msp(struct ux500_msp *msp, struct ux500_msp_config *config)
  
--/**
-+/*
-  * ssp_set_clkdiv - set SSP clock divider
-  * @div: serial clock rate divider
-  */
+ static void flush_fifo_rx(struct ux500_msp *msp)
+ {
+-	u32 reg_val_DR, reg_val_GCR, reg_val_FLR;
++	u32 reg_val_GCR, reg_val_FLR;
+ 	u32 limit = 32;
+ 
+ 	reg_val_GCR = readl(msp->registers + MSP_GCR);
+@@ -403,7 +403,7 @@ static void flush_fifo_rx(struct ux500_msp *msp)
+ 
+ 	reg_val_FLR = readl(msp->registers + MSP_FLR);
+ 	while (!(reg_val_FLR & RX_FIFO_EMPTY) && limit--) {
+-		reg_val_DR = readl(msp->registers + MSP_DR);
++		readl(msp->registers + MSP_DR);
+ 		reg_val_FLR = readl(msp->registers + MSP_FLR);
+ 	}
+ 
+@@ -412,7 +412,7 @@ static void flush_fifo_rx(struct ux500_msp *msp)
+ 
+ static void flush_fifo_tx(struct ux500_msp *msp)
+ {
+-	u32 reg_val_TSTDR, reg_val_GCR, reg_val_FLR;
++	u32 reg_val_GCR, reg_val_FLR;
+ 	u32 limit = 32;
+ 
+ 	reg_val_GCR = readl(msp->registers + MSP_GCR);
+@@ -421,7 +421,7 @@ static void flush_fifo_tx(struct ux500_msp *msp)
+ 
+ 	reg_val_FLR = readl(msp->registers + MSP_FLR);
+ 	while (!(reg_val_FLR & TX_FIFO_EMPTY) && limit--) {
+-		reg_val_TSTDR = readl(msp->registers + MSP_TSTDR);
++		readl(msp->registers + MSP_TSTDR);
+ 		reg_val_FLR = readl(msp->registers + MSP_FLR);
+ 	}
+ 	writel(0x0, msp->registers + MSP_ITCR);
 -- 
 2.25.1
 

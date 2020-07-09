@@ -2,49 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8A5D2195C5
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 03:58:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 088752195C7
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 03:58:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85A891612;
-	Thu,  9 Jul 2020 03:57:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85A891612
+	by alsa0.perex.cz (Postfix) with ESMTPS id A363A1663;
+	Thu,  9 Jul 2020 03:57:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A363A1663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594259883;
-	bh=J+hWFZi3tIZOEem2ArthTVPZBnA4JTUZ25iEqEL9Iwk=;
+	s=default; t=1594259921;
+	bh=LmCbVDoF2gcTEvXBY+Fi245GuOasP5DB08kWUVQdSCU=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=P9n/bEeOv77UgK957U4QYvnsyIP/EjPLLXvvc7w1zshqBGUbNhPNj+SLOIQCztnZo
-	 IxUY4xb2DP9sEnUhuxv2+mmph7FIECEKMAbSYRDqJfu0EmcBur5RWXNp7PsdTmGr06
-	 RwtwekCu81BoyKSt0t67XaxqcLgF/DdcLR4q6mlM=
+	b=CizqnVl/0Wdhzv/FQkN4I3YEeChnYi1/o86rpv/bu8FNyeRUjOdST9FUR3bITHx2J
+	 CNyh/wjlBX2ztA2wGOzjO9gpjNUZbTUGxUpU6JuMJl7SlQ4URFu1R5rTidi3tRH8h3
+	 OLLloYmbJDOVPyXZHiXYs15CNKRL/7dNDD5qJDKs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2462F802BD;
-	Thu,  9 Jul 2020 03:55:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CAC51F80274;
+	Thu,  9 Jul 2020 03:55:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2C953F802BC; Thu,  9 Jul 2020 03:55:50 +0200 (CEST)
+ id D52E1F802C2; Thu,  9 Jul 2020 03:55:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 8CD0EF8011F
- for <alsa-devel@alsa-project.org>; Thu,  9 Jul 2020 03:55:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CD0EF8011F
-Date: 09 Jul 2020 10:55:41 +0900
-X-IronPort-AV: E=Sophos;i="5.75,329,1589209200"; d="scan'208";a="51457141"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 09 Jul 2020 10:55:41 +0900
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 35546F802A0
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jul 2020 03:55:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35546F802A0
+Date: 09 Jul 2020 10:55:45 +0900
+X-IronPort-AV: E=Sophos;i="5.75,329,1589209200"; d="scan'208";a="51669036"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 09 Jul 2020 10:55:45 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 423FD4138B2C;
- Thu,  9 Jul 2020 10:55:41 +0900 (JST)
-Message-ID: <87eeplxxj7.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id DE4CA400A8A6;
+ Thu,  9 Jul 2020 10:55:45 +0900 (JST)
+Message-ID: <87d055xxj2.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v3 02/21] ASoC: soc-dai.c: add .no_capture_mute support
+Subject: [PATCH v3 03/21] ASoC: hdmi-codec: merge .digital_mute() into
+ .mute_stream()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87h7uhxxk6.wl-kuninori.morimoto.gx@renesas.com>
@@ -67,12 +68,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 snd_soc_dai_digital_mute() is internally using both
 mute_stream() (1) or digital_mute() (2), but the difference between
-these 2 are only handling "direction".
+these 2 are only handling direction.
 We can merge digital_mute() into mute_stream
 
 	int snd_soc_dai_digital_mute(xxx, int direction)
@@ -86,49 +86,276 @@ We can merge digital_mute() into mute_stream
 		...
 	}
 
-To prepare merging mute_stream()/digital_mute(),
-this patch adds .no_capture_mute support to emulate .digital_mute().
+For hdmi-codec, we need to update struct hdmi_codec_ops,
+and all its users in the same time.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Reviewed-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
 ---
- include/sound/soc-dai.h | 3 +++
- sound/soc/soc-dai.c     | 8 +++++++-
- 2 files changed, 10 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/sii902x.c       |  7 ++++---
+ drivers/gpu/drm/exynos/exynos_hdmi.c   |  6 ++++--
+ drivers/gpu/drm/i2c/tda998x_drv.c      |  7 ++++---
+ drivers/gpu/drm/mediatek/mtk_hdmi.c    |  6 ++++--
+ drivers/gpu/drm/rockchip/cdn-dp-core.c |  7 ++++---
+ drivers/gpu/drm/sti/sti_hdmi.c         |  6 ++++--
+ drivers/gpu/drm/zte/zx_hdmi.c          |  7 ++++---
+ include/sound/hdmi-codec.h             |  6 +++++-
+ sound/soc/codecs/hdmi-codec.c          | 21 +++++++++++++++------
+ 9 files changed, 48 insertions(+), 25 deletions(-)
 
-diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
-index 212257e84fac..e0e061b8e9bd 100644
---- a/include/sound/soc-dai.h
-+++ b/include/sound/soc-dai.h
-@@ -280,6 +280,9 @@ struct snd_soc_dai_ops {
+diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
+index 6dad025f8da7..c751baf3d064 100644
+--- a/drivers/gpu/drm/bridge/sii902x.c
++++ b/drivers/gpu/drm/bridge/sii902x.c
+@@ -672,8 +672,8 @@ static void sii902x_audio_shutdown(struct device *dev, void *data)
+ 	clk_disable_unprepare(sii902x->audio.mclk);
+ }
+ 
+-static int sii902x_audio_digital_mute(struct device *dev,
+-				      void *data, bool enable)
++static int sii902x_audio_mute(struct device *dev, void *data,
++			      bool enable, int direction)
+ {
+ 	struct sii902x *sii902x = dev_get_drvdata(dev);
+ 
+@@ -724,9 +724,10 @@ static int sii902x_audio_get_dai_id(struct snd_soc_component *component,
+ static const struct hdmi_codec_ops sii902x_audio_codec_ops = {
+ 	.hw_params = sii902x_audio_hw_params,
+ 	.audio_shutdown = sii902x_audio_shutdown,
+-	.digital_mute = sii902x_audio_digital_mute,
++	.mute_stream = sii902x_audio_mute,
+ 	.get_eld = sii902x_audio_get_eld,
+ 	.get_dai_id = sii902x_audio_get_dai_id,
++	.no_capture_mute = 1,
+ };
+ 
+ static int sii902x_audio_codec_init(struct sii902x *sii902x,
+diff --git a/drivers/gpu/drm/exynos/exynos_hdmi.c b/drivers/gpu/drm/exynos/exynos_hdmi.c
+index 95dd399aa9cc..68d7b1ce1b7c 100644
+--- a/drivers/gpu/drm/exynos/exynos_hdmi.c
++++ b/drivers/gpu/drm/exynos/exynos_hdmi.c
+@@ -1604,7 +1604,8 @@ static int hdmi_audio_hw_params(struct device *dev, void *data,
+ 	return 0;
+ }
+ 
+-static int hdmi_audio_digital_mute(struct device *dev, void *data, bool mute)
++static int hdmi_audio_mute(struct device *dev, void *data,
++			   bool mute, int direction)
+ {
+ 	struct hdmi_context *hdata = dev_get_drvdata(dev);
+ 
+@@ -1634,8 +1635,9 @@ static int hdmi_audio_get_eld(struct device *dev, void *data, uint8_t *buf,
+ static const struct hdmi_codec_ops audio_codec_ops = {
+ 	.hw_params = hdmi_audio_hw_params,
+ 	.audio_shutdown = hdmi_audio_shutdown,
+-	.digital_mute = hdmi_audio_digital_mute,
++	.mute_stream = hdmi_audio_mute,
+ 	.get_eld = hdmi_audio_get_eld,
++	.no_capture_mute = 1,
+ };
+ 
+ static int hdmi_register_audio_device(struct hdmi_context *hdata)
+diff --git a/drivers/gpu/drm/i2c/tda998x_drv.c b/drivers/gpu/drm/i2c/tda998x_drv.c
+index 9517f522dcb9..3010a4536da3 100644
+--- a/drivers/gpu/drm/i2c/tda998x_drv.c
++++ b/drivers/gpu/drm/i2c/tda998x_drv.c
+@@ -1133,8 +1133,8 @@ static void tda998x_audio_shutdown(struct device *dev, void *data)
+ 	mutex_unlock(&priv->audio_mutex);
+ }
+ 
+-static int tda998x_audio_digital_mute(struct device *dev, void *data,
+-				      bool enable)
++static int tda998x_audio_mute_stream(struct device *dev, void *data,
++				     bool enable, int direction)
+ {
+ 	struct tda998x_priv *priv = dev_get_drvdata(dev);
+ 
+@@ -1162,8 +1162,9 @@ static int tda998x_audio_get_eld(struct device *dev, void *data,
+ static const struct hdmi_codec_ops audio_codec_ops = {
+ 	.hw_params = tda998x_audio_hw_params,
+ 	.audio_shutdown = tda998x_audio_shutdown,
+-	.digital_mute = tda998x_audio_digital_mute,
++	.mute_stream = tda998x_audio_mute_stream,
+ 	.get_eld = tda998x_audio_get_eld,
++	.no_capture_mute = 1,
+ };
+ 
+ static int tda998x_audio_codec_init(struct tda998x_priv *priv,
+diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi.c b/drivers/gpu/drm/mediatek/mtk_hdmi.c
+index 5feb760617cb..37b4420a0b22 100644
+--- a/drivers/gpu/drm/mediatek/mtk_hdmi.c
++++ b/drivers/gpu/drm/mediatek/mtk_hdmi.c
+@@ -1647,7 +1647,8 @@ static void mtk_hdmi_audio_shutdown(struct device *dev, void *data)
+ }
+ 
+ static int
+-mtk_hdmi_audio_digital_mute(struct device *dev, void *data, bool enable)
++mtk_hdmi_audio_mute(struct device *dev, void *data,
++		    bool enable, int direction)
+ {
+ 	struct mtk_hdmi *hdmi = dev_get_drvdata(dev);
+ 
+@@ -1692,9 +1693,10 @@ static const struct hdmi_codec_ops mtk_hdmi_audio_codec_ops = {
+ 	.hw_params = mtk_hdmi_audio_hw_params,
+ 	.audio_startup = mtk_hdmi_audio_startup,
+ 	.audio_shutdown = mtk_hdmi_audio_shutdown,
+-	.digital_mute = mtk_hdmi_audio_digital_mute,
++	.mute_stream = mtk_hdmi_audio_mute,
+ 	.get_eld = mtk_hdmi_audio_get_eld,
+ 	.hook_plugged_cb = mtk_hdmi_audio_hook_plugged_cb,
++	.no_capture_mute = 1,
+ };
+ 
+ static int mtk_hdmi_register_audio_driver(struct device *dev)
+diff --git a/drivers/gpu/drm/rockchip/cdn-dp-core.c b/drivers/gpu/drm/rockchip/cdn-dp-core.c
+index c634b95b50f7..a4a45daf93f2 100644
+--- a/drivers/gpu/drm/rockchip/cdn-dp-core.c
++++ b/drivers/gpu/drm/rockchip/cdn-dp-core.c
+@@ -817,8 +817,8 @@ static void cdn_dp_audio_shutdown(struct device *dev, void *data)
+ 	mutex_unlock(&dp->lock);
+ }
+ 
+-static int cdn_dp_audio_digital_mute(struct device *dev, void *data,
+-				     bool enable)
++static int cdn_dp_audio_mute_stream(struct device *dev, void *data,
++				    bool enable, int direction)
+ {
+ 	struct cdn_dp_device *dp = dev_get_drvdata(dev);
+ 	int ret;
+@@ -849,8 +849,9 @@ static int cdn_dp_audio_get_eld(struct device *dev, void *data,
+ static const struct hdmi_codec_ops audio_codec_ops = {
+ 	.hw_params = cdn_dp_audio_hw_params,
+ 	.audio_shutdown = cdn_dp_audio_shutdown,
+-	.digital_mute = cdn_dp_audio_digital_mute,
++	.mute_stream = cdn_dp_audio_mute_stream,
+ 	.get_eld = cdn_dp_audio_get_eld,
++	.no_capture_mute = 1,
+ };
+ 
+ static int cdn_dp_audio_codec_init(struct cdn_dp_device *dp,
+diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdmi.c
+index 5b15c4974e6b..008f07923bbc 100644
+--- a/drivers/gpu/drm/sti/sti_hdmi.c
++++ b/drivers/gpu/drm/sti/sti_hdmi.c
+@@ -1191,7 +1191,8 @@ static int hdmi_audio_hw_params(struct device *dev,
+ 	return 0;
+ }
+ 
+-static int hdmi_audio_digital_mute(struct device *dev, void *data, bool enable)
++static int hdmi_audio_mute(struct device *dev, void *data,
++			   bool enable, int direction)
+ {
+ 	struct sti_hdmi *hdmi = dev_get_drvdata(dev);
+ 
+@@ -1219,8 +1220,9 @@ static int hdmi_audio_get_eld(struct device *dev, void *data, uint8_t *buf, size
+ static const struct hdmi_codec_ops audio_codec_ops = {
+ 	.hw_params = hdmi_audio_hw_params,
+ 	.audio_shutdown = hdmi_audio_shutdown,
+-	.digital_mute = hdmi_audio_digital_mute,
++	.mute_stream = hdmi_audio_mute,
+ 	.get_eld = hdmi_audio_get_eld,
++	.no_capture_mute = 1,
+ };
+ 
+ static int sti_hdmi_register_audio_driver(struct device *dev,
+diff --git a/drivers/gpu/drm/zte/zx_hdmi.c b/drivers/gpu/drm/zte/zx_hdmi.c
+index 76a16d997a23..cd79ca0a92a9 100644
+--- a/drivers/gpu/drm/zte/zx_hdmi.c
++++ b/drivers/gpu/drm/zte/zx_hdmi.c
+@@ -439,8 +439,8 @@ static int zx_hdmi_audio_hw_params(struct device *dev,
+ 	return zx_hdmi_infoframe_trans(hdmi, &frame, FSEL_AUDIO);
+ }
+ 
+-static int zx_hdmi_audio_digital_mute(struct device *dev, void *data,
+-				      bool enable)
++static int zx_hdmi_audio_mute(struct device *dev, void *data,
++			      bool enable, int direction)
+ {
+ 	struct zx_hdmi *hdmi = dev_get_drvdata(dev);
+ 
+@@ -468,8 +468,9 @@ static const struct hdmi_codec_ops zx_hdmi_codec_ops = {
+ 	.audio_startup = zx_hdmi_audio_startup,
+ 	.hw_params = zx_hdmi_audio_hw_params,
+ 	.audio_shutdown = zx_hdmi_audio_shutdown,
+-	.digital_mute = zx_hdmi_audio_digital_mute,
++	.mute_stream = zx_hdmi_audio_mute,
+ 	.get_eld = zx_hdmi_audio_get_eld,
++	.no_capture_mute = 1,
+ };
+ 
+ static struct hdmi_codec_pdata zx_hdmi_codec_pdata = {
+diff --git a/include/sound/hdmi-codec.h b/include/sound/hdmi-codec.h
+index 83b17682e01c..17eebd34835a 100644
+--- a/include/sound/hdmi-codec.h
++++ b/include/sound/hdmi-codec.h
+@@ -76,7 +76,8 @@ struct hdmi_codec_ops {
+ 	 * Mute/unmute HDMI audio stream.
+ 	 * Optional
  	 */
- 	snd_pcm_sframes_t (*delay)(struct snd_pcm_substream *,
- 		struct snd_soc_dai *);
+-	int (*digital_mute)(struct device *dev, void *data, bool enable);
++	int (*mute_stream)(struct device *dev, void *data,
++			   bool enable, int direction);
+ 
+ 	/*
+ 	 * Provides EDID-Like-Data from connected HDMI device.
+@@ -99,6 +100,9 @@ struct hdmi_codec_ops {
+ 	int (*hook_plugged_cb)(struct device *dev, void *data,
+ 			       hdmi_codec_plugged_cb fn,
+ 			       struct device *codec_dev);
 +
 +	/* bit field */
 +	unsigned int no_capture_mute:1;
  };
  
- struct snd_soc_cdai_ops {
-diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
-index b05e18b63a1c..458d2ea44329 100644
---- a/sound/soc/soc-dai.c
-+++ b/sound/soc/soc-dai.c
-@@ -298,8 +298,14 @@ int snd_soc_dai_digital_mute(struct snd_soc_dai *dai, int mute,
- {
- 	int ret = -ENOTSUPP;
+ /* HDMI codec initalization data */
+diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-codec.c
+index 926ab447a96b..bc760a81e217 100644
+--- a/sound/soc/codecs/hdmi-codec.c
++++ b/sound/soc/codecs/hdmi-codec.c
+@@ -558,13 +558,22 @@ static int hdmi_codec_i2s_set_fmt(struct snd_soc_dai *dai,
+ 	return 0;
+ }
  
+-static int hdmi_codec_digital_mute(struct snd_soc_dai *dai, int mute)
++static int hdmi_codec_mute(struct snd_soc_dai *dai, int mute, int direction)
+ {
+ 	struct hdmi_codec_priv *hcp = snd_soc_dai_get_drvdata(dai);
+ 
+-	if (hcp->hcd.ops->digital_mute)
+-		return hcp->hcd.ops->digital_mute(dai->dev->parent,
+-						  hcp->hcd.data, mute);
 +	/*
 +	 * ignore if direction was CAPTURE
 +	 * and it had .no_capture_mute flag
++	 * see
++	 *	snd_soc_dai_digital_mute()
 +	 */
- 	if (dai->driver->ops &&
--	    dai->driver->ops->mute_stream)
-+	    dai->driver->ops->mute_stream &&
++	if (hcp->hcd.ops->mute_stream &&
 +	    (direction == SNDRV_PCM_STREAM_PLAYBACK ||
-+	     !dai->driver->ops->no_capture_mute))
- 		ret = dai->driver->ops->mute_stream(dai, mute, direction);
- 	else if (direction == SNDRV_PCM_STREAM_PLAYBACK &&
- 		 dai->driver->ops &&
++	     !hcp->hcd.ops->no_capture_mute))
++		return hcp->hcd.ops->mute_stream(dai->dev->parent,
++						 hcp->hcd.data,
++						 mute, direction);
+ 
+ 	return -ENOTSUPP;
+ }
+@@ -574,14 +583,14 @@ static const struct snd_soc_dai_ops hdmi_codec_i2s_dai_ops = {
+ 	.shutdown	= hdmi_codec_shutdown,
+ 	.hw_params	= hdmi_codec_hw_params,
+ 	.set_fmt	= hdmi_codec_i2s_set_fmt,
+-	.digital_mute	= hdmi_codec_digital_mute,
++	.mute_stream	= hdmi_codec_mute,
+ };
+ 
+ static const struct snd_soc_dai_ops hdmi_codec_spdif_dai_ops = {
+ 	.startup	= hdmi_codec_startup,
+ 	.shutdown	= hdmi_codec_shutdown,
+ 	.hw_params	= hdmi_codec_hw_params,
+-	.digital_mute	= hdmi_codec_digital_mute,
++	.mute_stream	= hdmi_codec_mute,
+ };
+ 
+ #define HDMI_RATES	(SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 |\
 -- 
 2.25.1
 

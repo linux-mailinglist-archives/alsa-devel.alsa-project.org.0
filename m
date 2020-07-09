@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D1AE2195CE
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 04:00:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1CA12195D3
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 04:01:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB0211665;
-	Thu,  9 Jul 2020 03:59:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB0211665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53FDD10E;
+	Thu,  9 Jul 2020 04:00:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53FDD10E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594260026;
-	bh=wBmJ9b3LO7r4o7r6Dj+DSSbhdiZMyITHmwjNfaMVl2I=;
+	s=default; t=1594260069;
+	bh=/oVUjdJf7pOIoVJbG2qxAk1gdfbnURuazMQb8OnItN4=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZZ0YBy23AbLQZ7EIGOUmb8/EnTrTeVfxHtgxx7i1Jkj+loviPGY5QOQIZjqAqmaRN
-	 WYxkSOawCi2o+o4DuoauYyP2Oq/TTre6++9NlnMfe9s34sEc/kJq9T0SMXB6qtPP/3
-	 YuI4S7mKDYDzJXkzQPgutBmScKVGfjxYZPqmbd/c=
+	b=hDuGwLYpxcwQlNYZlYjkvwU4ejuMH26UPmSZ9tkf3df4qj/+Szgefs/P/LNqJQbZK
+	 TdkjByVb59bLLg+nxdp3Go8jl9G6T7x6ICj7T2Xrge0tEEexExiakVGunaRMNzQTzA
+	 Guq9AP9+vg79sF/G9bZ17/RpbyRAErq2pHdWw0Eo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9CF1F802EB;
-	Thu,  9 Jul 2020 03:56:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CADB1F802FB;
+	Thu,  9 Jul 2020 03:56:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1749BF802EC; Thu,  9 Jul 2020 03:56:17 +0200 (CEST)
+ id 12332F802FB; Thu,  9 Jul 2020 03:56:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 1F8F5F80117
- for <alsa-devel@alsa-project.org>; Thu,  9 Jul 2020 03:56:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F8F5F80117
-Date: 09 Jul 2020 10:56:10 +0900
-X-IronPort-AV: E=Sophos;i="5.75,329,1589209200"; d="scan'208";a="51457197"
+ by alsa1.perex.cz (Postfix) with ESMTP id 4856AF80117
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jul 2020 03:56:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4856AF80117
+Date: 09 Jul 2020 10:56:15 +0900
+X-IronPort-AV: E=Sophos;i="5.75,329,1589209200"; d="scan'208";a="51457205"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 09 Jul 2020 10:56:10 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 09 Jul 2020 10:56:15 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 9C5B340E4C02;
- Thu,  9 Jul 2020 10:56:10 +0900 (JST)
-Message-ID: <878sftxxie.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id C617340E4BF6;
+ Thu,  9 Jul 2020 10:56:15 +0900 (JST)
+Message-ID: <877dvdxxi8.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v3 06/21] ASoC: meson: merge .digital_mute() into
+Subject: [PATCH v3 07/21] ASoC: atmel: merge .digital_mute() into
  .mute_stream()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -88,36 +88,41 @@ We can merge digital_mute() into mute_stream
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Reviewed-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Reviewed-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
 ---
- sound/soc/meson/axg-spdifout.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ sound/soc/atmel/atmel-classd.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/meson/axg-spdifout.c b/sound/soc/meson/axg-spdifout.c
-index 7ce6aa97ddf7..e769a5ee6e27 100644
---- a/sound/soc/meson/axg-spdifout.c
-+++ b/sound/soc/meson/axg-spdifout.c
-@@ -108,7 +108,7 @@ static int axg_spdifout_trigger(struct snd_pcm_substream *substream, int cmd,
- 	}
+diff --git a/sound/soc/atmel/atmel-classd.c b/sound/soc/atmel/atmel-classd.c
+index e98601eccfa3..5deabb506a79 100644
+--- a/sound/soc/atmel/atmel-classd.c
++++ b/sound/soc/atmel/atmel-classd.c
+@@ -327,8 +327,8 @@ static int atmel_classd_codec_dai_startup(struct snd_pcm_substream *substream,
+ 	return clk_prepare_enable(dd->gclk);
  }
  
--static int axg_spdifout_digital_mute(struct snd_soc_dai *dai, int mute)
-+static int axg_spdifout_mute(struct snd_soc_dai *dai, int mute, int direction)
+-static int atmel_classd_codec_dai_digital_mute(struct snd_soc_dai *codec_dai,
+-	int mute)
++static int atmel_classd_codec_dai_mute(struct snd_soc_dai *codec_dai,
++				       int mute, int direction)
  {
- 	struct axg_spdifout *priv = snd_soc_dai_get_drvdata(dai);
+ 	struct snd_soc_component *component = codec_dai->component;
+ 	u32 mask, val;
+@@ -469,12 +469,13 @@ static int atmel_classd_codec_dai_trigger(struct snd_pcm_substream *substream,
+ }
  
-@@ -285,10 +285,11 @@ static void axg_spdifout_shutdown(struct snd_pcm_substream *substream,
- 
- static const struct snd_soc_dai_ops axg_spdifout_ops = {
- 	.trigger	= axg_spdifout_trigger,
--	.digital_mute	= axg_spdifout_digital_mute,
-+	.mute_stream	= axg_spdifout_mute,
- 	.hw_params	= axg_spdifout_hw_params,
- 	.startup	= axg_spdifout_startup,
- 	.shutdown	= axg_spdifout_shutdown,
+ static const struct snd_soc_dai_ops atmel_classd_codec_dai_ops = {
+-	.digital_mute	= atmel_classd_codec_dai_digital_mute,
++	.mute_stream	= atmel_classd_codec_dai_mute,
+ 	.startup	= atmel_classd_codec_dai_startup,
+ 	.shutdown	= atmel_classd_codec_dai_shutdown,
+ 	.hw_params	= atmel_classd_codec_dai_hw_params,
+ 	.prepare	= atmel_classd_codec_dai_prepare,
+ 	.trigger	= atmel_classd_codec_dai_trigger,
 +	.no_capture_mute = 1,
  };
  
- static struct snd_soc_dai_driver axg_spdifout_dai_drv[] = {
+ #define ATMEL_CLASSD_CODEC_DAI_NAME  "atmel-classd-hifi"
 -- 
 2.25.1
 

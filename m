@@ -2,83 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42BBF21A757
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jul 2020 20:54:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94B6C21AA2F
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jul 2020 00:02:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4FDC1661;
-	Thu,  9 Jul 2020 20:53:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4FDC1661
+	by alsa0.perex.cz (Postfix) with ESMTPS id EF7FC165E;
+	Fri, 10 Jul 2020 00:01:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF7FC165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594320862;
-	bh=Tq5H8+8pN1gTTI1kDn7fUaE9IK2j9ZCmjTYHN7aCOYM=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1594332124;
+	bh=X9jrVdpxYr/DSxHd+vKioxvT64X2cVBTnZXlPLeMq+4=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lwAFypqs1RB2kkV2rCUiNAcGWxPVAmEOL0vSo0Tf+wN7AY1ttKb7Ce/96MxX7RJvD
-	 UA1PkOjtBj34kCYyVbZF2ih3kPIt23xnexDcZyQIAj3tCaInfKKZz5kmYVMCnzWw3b
-	 LSGb2tjmUqJ2WKUTOcrrrs6Kp51jL7h4w5o9XhKk=
+	b=LawEOdiyhoaZ5p2JXJlDsxMnOIQw2mu3P+aUd8MibZWl5npjz7YgavstD5DT3hT8i
+	 USvxu0W5qGEWJFttm4Rb37SYFLj8cHQPf9qvMkBHghL5wc3PaKqHjkMu3GyOeF9/VS
+	 FXX+CMt/RJ9xJ1S3dm68WHNC2tZoRSBD8lM2yvTc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6FACCF80274;
-	Thu,  9 Jul 2020 20:51:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22D00F80257;
+	Fri, 10 Jul 2020 00:00:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 15FBDF801F9; Thu,  9 Jul 2020 20:51:50 +0200 (CEST)
+ id 69B22F80255; Fri, 10 Jul 2020 00:00:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31169F80117
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jul 2020 00:00:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31169F80117
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="z/LrGWBG"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4971DF801F9
- for <alsa-devel@alsa-project.org>; Thu,  9 Jul 2020 20:51:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4971DF801F9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="QhS++ITn"
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
- by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 069IpeZp058636;
- Thu, 9 Jul 2020 13:51:40 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1594320700;
- bh=GtWtWQHKdBXB3CLNnasO+bNWYTz+NerPnNTBio+tRkU=;
- h=From:To:CC:Subject:Date:In-Reply-To:References;
- b=QhS++ITnV6S47j8LNZmwdw3dbtxLzP4GSKKOfA5cXwjYgSbCszdTooHYUWXpncK3W
- dqNm4Ok89JXwaT8iKBDYQsa9G3U2C60Ecff8u0pFRBqrMUijlnXWFLFq1aX7AxUCdZ
- Ei2cqFpe5MJ0aaV0iE/Ub7Wsjr2Pl7gSCnUtbKrI=
-Received: from DLEE109.ent.ti.com (dlee109.ent.ti.com [157.170.170.41])
- by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 069IpeE8060318
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 9 Jul 2020 13:51:40 -0500
-Received: from DLEE104.ent.ti.com (157.170.170.34) by DLEE109.ent.ti.com
- (157.170.170.41) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Thu, 9 Jul
- 2020 13:51:40 -0500
-Received: from lelv0327.itg.ti.com (10.180.67.183) by DLEE104.ent.ti.com
- (157.170.170.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Thu, 9 Jul 2020 13:51:40 -0500
-Received: from localhost (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 069Ipdbw009667;
- Thu, 9 Jul 2020 13:51:40 -0500
-From: Dan Murphy <dmurphy@ti.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>
-Subject: [PATCH 2/2] ASoC: tlv320adcx140: Add tx offset slot programming
-Date: Thu, 9 Jul 2020 13:51:29 -0500
-Message-ID: <20200709185129.10505-2-dmurphy@ti.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20200709185129.10505-1-dmurphy@ti.com>
-References: <20200709185129.10505-1-dmurphy@ti.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Dan Murphy <dmurphy@ti.com>
+ by mail.kernel.org (Postfix) with ESMTPSA id 6C24820672;
+ Thu,  9 Jul 2020 22:00:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1594332005;
+ bh=X9jrVdpxYr/DSxHd+vKioxvT64X2cVBTnZXlPLeMq+4=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=z/LrGWBGscb3Y4QXphwUuPVkviZloN5d9ynk3D3ZAmE+HWjFpAA0yDAM8Rei7q5bJ
+ eRjJet3+eo5yjq8tIaFOf61nxvJCNkeyFgj6mAWV4z36l5kArP8DzLrI1uyrXK34fR
+ cbka089qF7Mwxk+YnsvAk6k9pxyRS/dqf+zZs43Q=
+Date: Thu, 09 Jul 2020 23:00:00 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Lars-Peter Clausen <lars@metafoo.de>, Nuno Sá <nuno.sa@analog.com>, Jaroslav Kysela <perex@perex.cz>, Oder Chiou <oder_chiou@realtek.com>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, Peter Rosin <peda@axentia.se>, Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>
+In-Reply-To: <20200709010359.GA18971@embeddedor>
+References: <20200709010359.GA18971@embeddedor>
+Subject: Re: [PATCH][next] ASoC: codecs: Use fallthrough pseudo-keyword
+Message-Id: <159433200030.57213.4459453830029311407.b4-ty@kernel.org>
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,99 +76,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add the TX offset slot programming.  There is no RX offset slot
-register.
+On Wed, 8 Jul 2020 20:03:59 -0500, Gustavo A. R. Silva wrote:
+> Replace the existing /* fall through */ comments and its variants with
+> the new pseudo-keyword macro fallthrough[1].
+> 
+> [1] https://www.kernel.org/doc/html/latest/process/deprecated.html?highlight=fallthrough#implicit-switch-case-fall-through
 
-Since there is no RX offset the check for slot symmetry can be removed.
+Applied to
 
-Signed-off-by: Dan Murphy <dmurphy@ti.com>
----
- sound/soc/codecs/tlv320adcx140.c | 40 ++++++++------------------------
- 1 file changed, 10 insertions(+), 30 deletions(-)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-diff --git a/sound/soc/codecs/tlv320adcx140.c b/sound/soc/codecs/tlv320adcx140.c
-index f884abdb576e..d900af967f8c 100644
---- a/sound/soc/codecs/tlv320adcx140.c
-+++ b/sound/soc/codecs/tlv320adcx140.c
-@@ -646,6 +646,8 @@ static int adcx140_set_dai_fmt(struct snd_soc_dai *codec_dai,
- 	struct adcx140_priv *adcx140 = snd_soc_component_get_drvdata(component);
- 	u8 iface_reg1 = 0;
- 	u8 iface_reg2 = 0;
-+	int offset = 0;
-+	int width = adcx140->slot_width;
- 
- 	/* set master/slave audio interface */
- 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
-@@ -688,7 +690,10 @@ static int adcx140_set_dai_fmt(struct snd_soc_dai *codec_dai,
- 		iface_reg1 |= ADCX140_LEFT_JUST_BIT;
- 		break;
- 	case SND_SOC_DAIFMT_DSP_A:
-+		offset += (adcx140->tdm_delay * width + 1);
-+		break;
- 	case SND_SOC_DAIFMT_DSP_B:
-+		offset += adcx140->tdm_delay * width;
- 		break;
- 	default:
- 		dev_err(component->dev, "Invalid DAI interface format\n");
-@@ -705,6 +710,11 @@ static int adcx140_set_dai_fmt(struct snd_soc_dai *codec_dai,
- 	snd_soc_component_update_bits(component, ADCX140_MST_CFG0,
- 				      ADCX140_BCLK_FSYNC_MASTER, iface_reg2);
- 
-+	/* Configure data offset */
-+	snd_soc_component_update_bits(component, ADCX140_ASI_CFG1,
-+				      ADCX140_TX_OFFSET_MASK, offset);
-+
-+
- 	return 0;
- }
- 
-@@ -716,11 +726,6 @@ static int adcx140_set_dai_tdm_slot(struct snd_soc_dai *codec_dai,
- 	struct adcx140_priv *adcx140 = snd_soc_component_get_drvdata(component);
- 	unsigned int lsb;
- 
--	if (tx_mask != rx_mask) {
--		dev_err(component->dev, "tx and rx masks must be symmetric\n");
--		return -EINVAL;
--	}
--
- 	/* TDM based on DSP mode requires slots to be adjacent */
- 	lsb = __ffs(tx_mask);
- 	if ((lsb + 1) != __fls(tx_mask)) {
-@@ -745,34 +750,9 @@ static int adcx140_set_dai_tdm_slot(struct snd_soc_dai *codec_dai,
- 	return 0;
- }
- 
--static int adcx140_prepare(struct snd_pcm_substream *substream,
--			 struct snd_soc_dai *dai)
--{
--	struct snd_soc_component *component = dai->component;
--	struct adcx140_priv *adcx140 = snd_soc_component_get_drvdata(component);
--	int offset = 0;
--	int width = adcx140->slot_width;
--
--	if (!width)
--		width = substream->runtime->sample_bits;
--
--	/* TDM slot selection only valid in DSP_A/_B mode */
--	if (adcx140->dai_fmt == SND_SOC_DAIFMT_DSP_A)
--		offset += (adcx140->tdm_delay * width + 1);
--	else if (adcx140->dai_fmt == SND_SOC_DAIFMT_DSP_B)
--		offset += adcx140->tdm_delay * width;
--
--	/* Configure data offset */
--	snd_soc_component_update_bits(component, ADCX140_ASI_CFG1,
--				      ADCX140_TX_OFFSET_MASK, offset);
--
--	return 0;
--}
--
- static const struct snd_soc_dai_ops adcx140_dai_ops = {
- 	.hw_params	= adcx140_hw_params,
- 	.set_fmt	= adcx140_set_dai_fmt,
--	.prepare	= adcx140_prepare,
- 	.set_tdm_slot	= adcx140_set_dai_tdm_slot,
- };
- 
--- 
-2.27.0
+Thanks!
 
+[1/1] ASoC: codecs: Use fallthrough pseudo-keyword
+      commit: 3e146b55a4f5213b5da0f243813efb380fa7f84d
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

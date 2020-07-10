@@ -2,73 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69A4421B07F
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jul 2020 09:47:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A917E21B17F
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jul 2020 10:40:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F21761616;
-	Fri, 10 Jul 2020 09:46:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F21761616
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2DE631616;
+	Fri, 10 Jul 2020 10:39:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DE631616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594367247;
-	bh=bq9189NYD1kFDAJTUeapQxZRTg1t20SNcKNNi3GAqS8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=rpO8Wh3gzJs1iyuAMBR8jixZrKlRo4Mg1BBwnJb6P6Uufz5l2EEPTU4gr3dol43fA
-	 7o22rkg3jHXNiGtzprzFzTnjMEw4+mx19ISXZVHC+3sSRTzPENZceCzuK+1nSm0iYY
-	 uCihd6u+NKSk06HgtcMU/uKGGVGwJL/pnxaN0lfU=
+	s=default; t=1594370424;
+	bh=zYQ1AWwNCNgS+9EPjDwan5B2a/LMnvKJmunchi+BfGE=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Lo4MiifBbSpvIQCk95/xgoC7bZsyh+Nqz7qsFFmSIpOOdSP/o4VeCrqpxfflE0Ciq
+	 Kuv4S0jPxnoX/hNIW4U09SDLCiyQV41UM2gQgJ9ZUdoW61LrD2Q9QopRHCVT6+nFyq
+	 kkV7NEtU6HRA7wfyO31gxBl/S8lqWtMAGu/n0y10=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40031F8011C;
-	Fri, 10 Jul 2020 09:45:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52B91F80117;
+	Fri, 10 Jul 2020 10:38:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 61816F8015A; Fri, 10 Jul 2020 09:45:43 +0200 (CEST)
+ id B0F51F8015A; Fri, 10 Jul 2020 10:38:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.0 required=5.0 tests=PRX_APP_ATTACH, SPF_HELO_NONE, 
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DF3FDF8011C
- for <alsa-devel@alsa-project.org>; Fri, 10 Jul 2020 09:45:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF3FDF8011C
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.69 with qID 06A7jObO5031538,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexmb06.realtek.com.tw[172.21.6.99])
- by rtits2.realtek.com.tw (8.15.2/2.66/5.86) with ESMTPS id 06A7jObO5031538
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 10 Jul 2020 15:45:24 +0800
-Received: from RTEXMB05.realtek.com.tw (172.21.6.98) by
- RTEXMB06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Fri, 10 Jul 2020 15:45:24 +0800
-Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
- RTEXMB05.realtek.com.tw (172.21.6.98) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Fri, 10 Jul 2020 15:45:24 +0800
-Received: from RTEXMB01.realtek.com.tw ([fe80::d53a:d9a5:318:7cd8]) by
- RTEXMB01.realtek.com.tw ([fe80::d53a:d9a5:318:7cd8%5]) with mapi id
- 15.01.1779.005; Fri, 10 Jul 2020 15:45:24 +0800
-From: Kailang <kailang@realtek.com>
-To: "Takashi Iwai (tiwai@suse.de)" <tiwai@suse.de>
-Subject: Change model for ASUS platform
-Thread-Topic: Change model for ASUS platform
-Thread-Index: AdZWjY2MFX16jKlbTTa/suiU0tMR6w==
-Date: Fri, 10 Jul 2020 07:45:24 +0000
-Message-ID: <d05bcff170784ec7bb35023407148161@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.22.102.211]
-Content-Type: multipart/mixed;
- boundary="_002_d05bcff170784ec7bb35023407148161realtekcom_"
-MIME-Version: 1.0
-Cc: " \(alsa-devel@alsa-project.org\)" <alsa-devel@alsa-project.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 22BA7F80117
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jul 2020 10:38:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22BA7F80117
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id DFD31ABCE;
+ Fri, 10 Jul 2020 08:38:31 +0000 (UTC)
+Date: Fri, 10 Jul 2020 10:38:31 +0200
+Message-ID: <s5h8sfr69yw.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Zhang, Qiang" <Qiang.Zhang@windriver.com>
+Subject: Re: =?UTF-8?B?5Zue5aSNOg==?= WARNING in
+ submit_audio_out_urb/usb_submit_urb
+In-Reply-To: <BYAPR11MB263211A6842402F1EE47F6F8FF650@BYAPR11MB2632.namprd11.prod.outlook.com>
+References: <0000000000001ad77805aa024889@google.com>
+ <BYAPR11MB263211A6842402F1EE47F6F8FF650@BYAPR11MB2632.namprd11.prod.outlook.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "anarsoul@gmail.com" <anarsoul@gmail.com>,
+ Alan Stern <stern@rowland.harvard.edu>, "pavel@denx.de" <pavel@denx.de>,
+ "tiwai@suse.com" <tiwai@suse.com>,
+ syzbot <syzbot+c190f6858a04ea7fbc52@syzkaller.appspotmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,45 +79,78 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---_002_d05bcff170784ec7bb35023407148161realtekcom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On Fri, 10 Jul 2020 10:12:43 +0200,
+Zhang, Qiang wrote:
+> 
+> 
+> 
+> ________________________________________
+> 发件人: linux-kernel-owner@vger.kernel.org <linux-kernel-owner@vger.kernel.org> 代表 syzbot <syzbot+c190f6858a04ea7fbc52@syzkaller.appspotmail.com>
+> 发送时间: 2020年7月9日 21:34
+> 收件人: andreyknvl@google.com; gregkh@linuxfoundation.org; ingrassia@epigenesys.com; linux-kernel@vger.kernel.org; linux-usb@vger.kernel.org; syzkaller-bugs@googlegroups.com
+> 主题: WARNING in submit_audio_out_urb/usb_submit_urb
+> 
+> Hello,
+> 
+> syzbot found the following crash on:
+> 
+> HEAD commit:    768a0741 usb: dwc2: gadget: Remove assigned but never used..
+> git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
+> console output: https://syzkaller.appspot.com/x/log.txt?x=1568d11f100000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=999be4eb2478ffa5
+> dashboard link: https://syzkaller.appspot.com/bug?extid=c190f6858a04ea7fbc52
+> compiler:       gcc (GCC) 10.1.0-syz 20200507
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=123aa2fb100000
+> 
+> IMPORTANT: if you fix the bug, please add the following tag to the commit:
+> Reported-by: syzbot+c190f6858a04ea7fbc52@syzkaller.appspotmail.com
+> 
+> usb 1-1: send failed (error -32)
+> snd_usb_toneport 1-1:0.0: Line 6 TonePort GX now attached
+> ------------[ cut here ]------------
+> usb 1-1: BOGUS urb xfer, pipe 0 != type 3
+> WARNING: CPU: 0 PID: 12 at drivers/usb/core/urb.c:478 usb_submit_urb+0xa17/0x13e0 drivers/usb/core/urb.c:478
+> Kernel panic - not syncing: panic_on_warn set ...
+> CPU: 0 PID: 12 Comm: kworker/0:1 Not tainted 5.8.0-rc3-syzkaller #0
+> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+> Workqueue: events line6_startup_work
+> Call Trace:
+>  __dump_stack lib/dump_stack.c:77 [inline]
+>  dump_stack+0xf6/0x16e lib/dump_stack.c:118
+>  panic+0x2aa/0x6e1 kernel/panic.c:231
+>  __warn.cold+0x20/0x50 kernel/panic.c:600
+>  report_bug+0x1bd/0x210 lib/bug.c:198
+>  handle_bug+0x41/0x80 arch/x86/kernel/traps.c:235
+>  exc_invalid_op+0x13/0x40 arch/x86/kernel/traps.c:255
+>  asm_exc_invalid_op+0x12/0x20 arch/x86/include/asm/idtentry.h:563
+> RIP: 0010:usb_submit_urb+0xa17/0x13e0 drivers/usb/core/urb.c:478
+> Code: 84 e7 04 00 00 e8 a9 10 ca fd 4c 89 ef e8 41 79 12 ff 41 89 d8 44 89 e1 4c 89 f2 48 89 c6 48 c7 c7 80 a0 5d 86 e8 db 77 9e fd <0f> 0b e8 82 10 ca fd 0f b6 6c 24 08 48 c7 c6 e0 a1 5d 86 48 89 ef
+> RSP: 0018:ffff8881da227b10 EFLAGS: 00010086
+> RAX: 0000000000000000 RBX: 0000000000000003 RCX: 0000000000000000
+> RDX: ffff8881da211900 RSI: ffffffff8129b4e3 RDI: ffffed103b444f54
+> RBP: 0000000000000030 R08: 0000000000000001 R09: ffff8881db21fe8b
+> R10: 0000000000000000 R11: 0000000000000004 R12: 0000000000000000
+> R13: ffff8881d6ecd0a0 R14: ffff8881d3d8c690 R15: ffff8881d54c4000
+>  submit_audio_out_urb+0x6d6/0x1a00 sound/usb/line6/playback.c:271
+>  line6_submit_audio_out_all_urbs+0xc9/0x120 sound/usb/line6/playback.c:291
+>  line6_stream_start+0x187/0x230 sound/usb/line6/pcm.c:195
+>  line6_pcm_acquire+0x137/0x210 sound/usb/line6/pcm.c:318
+>  line6_startup_work+0x42/0x50 sound/usb/line6/driver.c:734
+>  process_one_work+0x94c/0x15f0 kernel/workqueue.c:2269
+>  worker_thread+0x64c/0x1120 kernel/workqueue.c:2415
+>  kthread+0x392/0x470 kernel/kthread.c:291
+>  ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:293
+> 
+>  It's like Alan Stern's reply to the email titled "KASAN: use-after-free Read in line6_submit_audio_in_all_urbs."   It's also like a problem with asynchronous operations. can replace "cancel_delayed_work" with" cancel_delayed_work_sync"
+> in "line6_disconnect" func？
 
-Hi Takashi,
+No, this looks a different problem.  It's just a matter of the missing
+URB type check that leads to a USB warning.  A typical issue with the
+USB fuzzing.
 
-ASUS platform couldn't need to use Headset Mode model.
-Attach patch will change it.
+I'll check it later.
 
-BR,
-Kailang
 
---_002_d05bcff170784ec7bb35023407148161realtekcom_
-Content-Type: application/octet-stream; name="0000-asus-model-change.patch"
-Content-Description: 0000-asus-model-change.patch
-Content-Disposition: attachment; filename="0000-asus-model-change.patch";
-	size=1092; creation-date="Fri, 10 Jul 2020 07:39:52 GMT";
-	modification-date="Fri, 10 Jul 2020 07:44:05 GMT"
-Content-Transfer-Encoding: base64
+thanks,
 
-RnJvbSBmZjRhY2MzMTE0NGMzZTQ4ZTQzNWVhNGMyNTJlZDkzMjRkNTA3ODI0IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
-dGU6IEZyaSwgMTAgSnVsIDIwMjAgMTU6MzE6MTEgKzA4MDAKU3ViamVjdDogW1BBVENIXSBBTFNB
-OiBoZGEvcmVhbHRlayAtIGNoYW5nZSB0byBzdWl0YWJsZSBsaW5rIG1vZGVsIGZvciBBU1VTCiBw
-bGF0Zm9ybQoKQVNVUyBwbGF0Zm9ybSBjb3VsZG4ndCBuZWVkIHRvIHVzZSBIZWFkc2V0IE1vZGUg
-bW9kZWwuCkl0IGNoYW5nZXMgdG8gdGhlIHN1aXRhYmxlIG1vZGVsLgoKU2lnbmVkLW9mZi1ieTog
-S2FpbGFuZyBZYW5nIDxrYWlsYW5nQHJlYWx0ZWsuY29tPgoKZGlmZiAtLWdpdCBhL3NvdW5kL3Bj
-aS9oZGEvcGF0Y2hfcmVhbHRlay5jIGIvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKaW5k
-ZXggYWQ0MzgxMmQ2M2I1Li40ZGM3ODJlZDA0YjQgMTAwNjQ0Ci0tLSBhL3NvdW5kL3BjaS9oZGEv
-cGF0Y2hfcmVhbHRlay5jCisrKyBiL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5jCkBAIC03
-MTA1LDcgKzcxMDUsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGhkYV9maXh1cCBhbGMyNjlfZml4
-dXBzW10gPSB7CiAJCQl7IH0KIAkJfSwKIAkJLmNoYWluZWQgPSB0cnVlLAotCQkuY2hhaW5faWQg
-PSBBTEMyNjlfRklYVVBfSEVBRFNFVF9NT0RFX05PX0hQX01JQworCQkuY2hhaW5faWQgPSBBTEMy
-NjlfRklYVVBfSEVBRFNFVF9NSUMKIAl9LAogCVtBTEMyOTRfRklYVVBfQVNVU19IRUFEU0VUX01J
-Q10gPSB7CiAJCS50eXBlID0gSERBX0ZJWFVQX1BJTlMsCkBAIC03MTE0LDcgKzcxMTQsNyBAQCBz
-dGF0aWMgY29uc3Qgc3RydWN0IGhkYV9maXh1cCBhbGMyNjlfZml4dXBzW10gPSB7CiAJCQl7IH0K
-IAkJfSwKIAkJLmNoYWluZWQgPSB0cnVlLAotCQkuY2hhaW5faWQgPSBBTEMyNjlfRklYVVBfSEVB
-RFNFVF9NT0RFX05PX0hQX01JQworCQkuY2hhaW5faWQgPSBBTEMyNjlfRklYVVBfSEVBRFNFVF9N
-SUMKIAl9LAogCVtBTEMyOTRfRklYVVBfQVNVU19TUEtdID0gewogCQkudHlwZSA9IEhEQV9GSVhV
-UF9WRVJCUywK
-
---_002_d05bcff170784ec7bb35023407148161realtekcom_--
+Takashi

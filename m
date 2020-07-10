@@ -2,70 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56E2621B4DC
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jul 2020 14:17:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C06EC21B690
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jul 2020 15:35:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E52031616;
-	Fri, 10 Jul 2020 14:16:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E52031616
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F7361616;
+	Fri, 10 Jul 2020 15:34:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F7361616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594383423;
-	bh=nd4IPg08C9BPVxbLhoGM0RYE6qNWp8XTCe52jV6+gA4=;
-	h=Subject:From:To:Date:In-Reply-To:References:List-Id:
+	s=default; t=1594388148;
+	bh=yDn+5sxtI0lFTBrbiB3/SA4LPIdHoUrvtTN/AFR+zfE=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XDqhgreGPIrQ/tGTZxIMQgftWAyNq2XEn9BBHUcJmh7Nnw8qlVZAjNOmq7IWAOq17
-	 6tQYg7THdIoBMdnZsfNaGhGjj8Xn8OUJUkzlfxVDnydR9pIkV2OAm7jyrZgrMV/wLW
-	 1hNdhtR8tEkeS+dnf0BVa/Q0trVcS4gxD6L7hu0U=
+	b=tAw4pFShVkOEhOWco3sjZRaX2n3wzctiAJ5Lhkj5oZNJSCcpWShvPBUiRRHixvH8S
+	 9s965+48V0KEkAOz2D99dvXep0pbSqFMC0CmeA8A59/Hl6dfbh5gadvXl9glOLyliX
+	 dOsVk300CKwUCUIIvKsyg1PlN5MsvBgk1jxviyoM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E77BDF8015C;
-	Fri, 10 Jul 2020 14:15:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8DCA0F80150;
+	Fri, 10 Jul 2020 15:34:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 915B2F8015A; Fri, 10 Jul 2020 14:15:19 +0200 (CEST)
+ id C709AF8015A; Fri, 10 Jul 2020 15:34:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7BD3CF80112
- for <alsa-devel@alsa-project.org>; Fri, 10 Jul 2020 14:15:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BD3CF80112
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=tsoy.me header.i=@tsoy.me
- header.b="NOhO54DI"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
- s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Content-Type:
- References:In-Reply-To:Date:To:From:Subject:Message-ID:Reply-To:Cc:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
- :List-Post:List-Owner:List-Archive;
- bh=OhiI8yraeH7GEOlj0APWEU84wEkFnnBv6aI7P/byAxY=; b=NOhO54DIuLsEzeueneXvLLgTCv
- 09iAWKjCpZyCO8HsPQ5525LXfDNkQ/60YWuMdf/5+oBMB+wvQuk0hPjSSdHaGLGJFo+08Gg8b2Y/p
- 2fOiGxX4RSpD61H81VYi6KF4mZslEWJuTRxnfbfComn80MMmzkIG07/F+TQJVOrdSyhQ=;
-Received: from [10.8.11.2] (helo=work)
- by puleglot.ru with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.93.0.4) (envelope-from <puleglot@puleglot.ru>)
- id 1jtrvm-00085e-1A; Fri, 10 Jul 2020 15:15:06 +0300
-Message-ID: <98b1ba96fca2c6e1a90ce4120b3f3201a3cefd43.camel@tsoy.me>
-Subject: Re: Beginning 5.8rc1 kernel USB headsets (ASUS ROG Delta and HyperX
- Cloud Orbit S) play sound as if in slow-motion.
-From: Alexander Tsoy <alexander@tsoy.me>
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>, Linux List Kernel
- Mailing <linux-kernel@vger.kernel.org>, alsa-devel@alsa-project.org
-Date: Fri, 10 Jul 2020 15:15:04 +0300
-In-Reply-To: <CABXGCsN2-TTemU8JOnh3YErxe2GH7xtG+EZrF9gn_JWLmMxRag@mail.gmail.com>
-References: <CABXGCsN2-TTemU8JOnh3YErxe2GH7xtG+EZrF9gn_JWLmMxRag@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.36.3 
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id AD288F8011C
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jul 2020 15:33:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD288F8011C
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id AFCA4AC9F;
+ Fri, 10 Jul 2020 13:33:51 +0000 (UTC)
+Date: Fri, 10 Jul 2020 15:33:51 +0200
+Message-ID: <s5hv9iv4hq8.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Zhang, Qiang" <Qiang.Zhang@windriver.com>
+Subject: Re: =?UTF-8?B?5Zue5aSNOg==?= WARNING in
+ submit_audio_out_urb/usb_submit_urb
+In-Reply-To: <s5h8sfr69yw.wl-tiwai@suse.de>
+References: <0000000000001ad77805aa024889@google.com>
+ <BYAPR11MB263211A6842402F1EE47F6F8FF650@BYAPR11MB2632.namprd11.prod.outlook.com>
+ <s5h8sfr69yw.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "anarsoul@gmail.com" <anarsoul@gmail.com>,
+ Alan Stern <stern@rowland.harvard.edu>, "pavel@denx.de" <pavel@denx.de>,
+ "tiwai@suse.com" <tiwai@suse.com>,
+ syzbot <syzbot+c190f6858a04ea7fbc52@syzkaller.appspotmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,17 +80,130 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-В Пт, 10/07/2020 в 10:46 +0500, Mikhail Gavrilov пишет:
-> Beginning 5.8rc1 (git 69119673bd50) kernel USB headsets (ASUS ROG
-> Delta and HyperX Cloud Orbit S) play sound as if in slow-motion.
+On Fri, 10 Jul 2020 10:38:31 +0200,
+Takashi Iwai wrote:
 > 
-> And in 5.8rc4 (git dcde237b9b0e) this still not fixed yet.
-> The bisecting is problematic because rc1 also has another issue
-> https://lkml.org/lkml/2020/6/22/21 which completely breaks the sound
-> subsystem.
-> If anyone said how to fix https://lkml.org/lkml/2020/6/22/21 I can
-> bisect this issue.
+> On Fri, 10 Jul 2020 10:12:43 +0200,
+> Zhang, Qiang wrote:
+> > 
+> > 
+> > 
+> > ________________________________________
+> > 发件人: linux-kernel-owner@vger.kernel.org <linux-kernel-owner@vger.kernel.org> 代表 syzbot <syzbot+c190f6858a04ea7fbc52@syzkaller.appspotmail.com>
+> > 发送时间: 2020年7月9日 21:34
+> > 收件人: andreyknvl@google.com; gregkh@linuxfoundation.org; ingrassia@epigenesys.com; linux-kernel@vger.kernel.org; linux-usb@vger.kernel.org; syzkaller-bugs@googlegroups.com
+> > 主题: WARNING in submit_audio_out_urb/usb_submit_urb
+> > 
+> > Hello,
+> > 
+> > syzbot found the following crash on:
+> > 
+> > HEAD commit:    768a0741 usb: dwc2: gadget: Remove assigned but never used..
+> > git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
+> > console output: https://syzkaller.appspot.com/x/log.txt?x=1568d11f100000
+> > kernel config:  https://syzkaller.appspot.com/x/.config?x=999be4eb2478ffa5
+> > dashboard link: https://syzkaller.appspot.com/bug?extid=c190f6858a04ea7fbc52
+> > compiler:       gcc (GCC) 10.1.0-syz 20200507
+> > syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=123aa2fb100000
+> > 
+> > IMPORTANT: if you fix the bug, please add the following tag to the commit:
+> > Reported-by: syzbot+c190f6858a04ea7fbc52@syzkaller.appspotmail.com
+> > 
+> > usb 1-1: send failed (error -32)
+> > snd_usb_toneport 1-1:0.0: Line 6 TonePort GX now attached
+> > ------------[ cut here ]------------
+> > usb 1-1: BOGUS urb xfer, pipe 0 != type 3
+> > WARNING: CPU: 0 PID: 12 at drivers/usb/core/urb.c:478 usb_submit_urb+0xa17/0x13e0 drivers/usb/core/urb.c:478
+> > Kernel panic - not syncing: panic_on_warn set ...
+> > CPU: 0 PID: 12 Comm: kworker/0:1 Not tainted 5.8.0-rc3-syzkaller #0
+> > Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+> > Workqueue: events line6_startup_work
+> > Call Trace:
+> >  __dump_stack lib/dump_stack.c:77 [inline]
+> >  dump_stack+0xf6/0x16e lib/dump_stack.c:118
+> >  panic+0x2aa/0x6e1 kernel/panic.c:231
+> >  __warn.cold+0x20/0x50 kernel/panic.c:600
+> >  report_bug+0x1bd/0x210 lib/bug.c:198
+> >  handle_bug+0x41/0x80 arch/x86/kernel/traps.c:235
+> >  exc_invalid_op+0x13/0x40 arch/x86/kernel/traps.c:255
+> >  asm_exc_invalid_op+0x12/0x20 arch/x86/include/asm/idtentry.h:563
+> > RIP: 0010:usb_submit_urb+0xa17/0x13e0 drivers/usb/core/urb.c:478
+> > Code: 84 e7 04 00 00 e8 a9 10 ca fd 4c 89 ef e8 41 79 12 ff 41 89 d8 44 89 e1 4c 89 f2 48 89 c6 48 c7 c7 80 a0 5d 86 e8 db 77 9e fd <0f> 0b e8 82 10 ca fd 0f b6 6c 24 08 48 c7 c6 e0 a1 5d 86 48 89 ef
+> > RSP: 0018:ffff8881da227b10 EFLAGS: 00010086
+> > RAX: 0000000000000000 RBX: 0000000000000003 RCX: 0000000000000000
+> > RDX: ffff8881da211900 RSI: ffffffff8129b4e3 RDI: ffffed103b444f54
+> > RBP: 0000000000000030 R08: 0000000000000001 R09: ffff8881db21fe8b
+> > R10: 0000000000000000 R11: 0000000000000004 R12: 0000000000000000
+> > R13: ffff8881d6ecd0a0 R14: ffff8881d3d8c690 R15: ffff8881d54c4000
+> >  submit_audio_out_urb+0x6d6/0x1a00 sound/usb/line6/playback.c:271
+> >  line6_submit_audio_out_all_urbs+0xc9/0x120 sound/usb/line6/playback.c:291
+> >  line6_stream_start+0x187/0x230 sound/usb/line6/pcm.c:195
+> >  line6_pcm_acquire+0x137/0x210 sound/usb/line6/pcm.c:318
+> >  line6_startup_work+0x42/0x50 sound/usb/line6/driver.c:734
+> >  process_one_work+0x94c/0x15f0 kernel/workqueue.c:2269
+> >  worker_thread+0x64c/0x1120 kernel/workqueue.c:2415
+> >  kthread+0x392/0x470 kernel/kthread.c:291
+> >  ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:293
+> > 
+> >  It's like Alan Stern's reply to the email titled "KASAN: use-after-free Read in line6_submit_audio_in_all_urbs."   It's also like a problem with asynchronous operations. can replace "cancel_delayed_work" with" cancel_delayed_work_sync"
+> > in "line6_disconnect" func？
+> 
+> No, this looks a different problem.  It's just a matter of the missing
+> URB type check that leads to a USB warning.  A typical issue with the
+> USB fuzzing.
+> 
+> I'll check it later.
 
-You've probably hit this bug:
-https://bugzilla.kernel.org/show_bug.cgi?id=208353
+... and below is the fix patch.
+
+
+Takashi
+
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH] ALSA: line6: Perform sanity check for each URB creation
+
+LINE6 drivers create stream URBs with a fixed pipe without checking
+its validity, and this may lead to a kernel WARNING at the submission
+when a malformed USB descriptor is passed.
+
+For avoiding the kernel warning, perform the similar sanity checks for
+each pipe type at creating a URB.
+
+Reported-by: syzbot+c190f6858a04ea7fbc52@syzkaller.appspotmail.com
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/line6/capture.c  | 2 ++
+ sound/usb/line6/playback.c | 2 ++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/sound/usb/line6/capture.c b/sound/usb/line6/capture.c
+index 663d608c4287..970c9bdce0b2 100644
+--- a/sound/usb/line6/capture.c
++++ b/sound/usb/line6/capture.c
+@@ -286,6 +286,8 @@ int line6_create_audio_in_urbs(struct snd_line6_pcm *line6pcm)
+ 		urb->interval = LINE6_ISO_INTERVAL;
+ 		urb->error_count = 0;
+ 		urb->complete = audio_in_callback;
++		if (usb_urb_ep_type_check(urb))
++			return -EINVAL;
+ 	}
+ 
+ 	return 0;
+diff --git a/sound/usb/line6/playback.c b/sound/usb/line6/playback.c
+index 01930ce7bd75..8233c61e23f1 100644
+--- a/sound/usb/line6/playback.c
++++ b/sound/usb/line6/playback.c
+@@ -431,6 +431,8 @@ int line6_create_audio_out_urbs(struct snd_line6_pcm *line6pcm)
+ 		urb->interval = LINE6_ISO_INTERVAL;
+ 		urb->error_count = 0;
+ 		urb->complete = audio_out_callback;
++		if (usb_urb_ep_type_check(urb))
++			return -EINVAL;
+ 	}
+ 
+ 	return 0;
+-- 
+2.16.4
 

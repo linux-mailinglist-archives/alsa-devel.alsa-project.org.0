@@ -2,64 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DD3921B9BC
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jul 2020 17:43:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1683A21BA5B
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jul 2020 18:08:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F3E9F15E5;
-	Fri, 10 Jul 2020 17:43:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3E9F15E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9201D1670;
+	Fri, 10 Jul 2020 18:08:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9201D1670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594395838;
-	bh=31SRA1ojL9GpcKLyUiLwLpHPGG0dcpgvSQatvym/bPs=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=RNTSukeq+tzhz1RfWcEsH9qEn6hbUadnBBZhF7U390RodYcKBoB5coJG89K/O1KQm
-	 4hbGObJsDrt9Z04ZDC5kjvDqvPt0mHId9uPLQU04WbpaxVIXOyDdfvs6/QY8PZ9hwQ
-	 8/PLR+Maaii8J1mmcJ7oz9ck5CJg5JScmMlaX8Vk=
+	s=default; t=1594397331;
+	bh=Eu+OmCKKGqZLCVlbOV0zGHHS7qPRU/BjIxNtcxCXdTU=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=OTEK/KfR91y7DUK0rkj1jop3D5a4paQ9yTFaxV3pbvIARqOadIsC9SphfJaSZYI9m
+	 CydvNck4jlP3teHGdKcX08Z3sLNt3yu/iKDS9/SewEQu6bwjKx48c9N4xDAzVurfR5
+	 nUmZFBuq9zERKQm3PC5NFFHRpYlqq4+UjSeS7IaI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B0C6EF802DD;
-	Fri, 10 Jul 2020 17:40:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8A459F8015C;
+	Fri, 10 Jul 2020 18:07:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4292CF802C2; Fri, 10 Jul 2020 17:40:09 +0200 (CEST)
+ id 7F266F8015A; Fri, 10 Jul 2020 18:07:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2F6A4F802BC
- for <alsa-devel@alsa-project.org>; Fri, 10 Jul 2020 17:40:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F6A4F802BC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="LZMhp4bX"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2F80C207BB;
- Fri, 10 Jul 2020 15:40:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594395604;
- bh=31SRA1ojL9GpcKLyUiLwLpHPGG0dcpgvSQatvym/bPs=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=LZMhp4bX0rgy7ASmfQ8w6c5qwZi78zTA53J/RT7BpqPcGjen1sXLzA1Aou9pff3wT
- ECKaLD/lzBs3Wn5/zzrSlOTYRQDPX2/4Qa4CVJfoGvkTZtm4sbJeSQ0mGjNBwGQ/3f
- OEPXq9ouCjLqHgNvdka7TPnZ7xWZFuTCwODcsYYg=
-Date: Fri, 10 Jul 2020 16:39:58 +0100
-From: Mark Brown <broonie@kernel.org>
-To: robh+dt@kernel.org, Tzung-Bi Shih <tzungbi@google.com>
-In-Reply-To: <20200710052505.3664118-1-tzungbi@google.com>
-References: <20200710052505.3664118-1-tzungbi@google.com>
-Subject: Re: [PATCH 0/6] ASoC: mediatek: mt8183: support DP audio
-Message-Id: <159439557864.48910.15353677231173679587.b4-ty@kernel.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6EE44F8011C
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jul 2020 18:06:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EE44F8011C
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id F040BAD9F
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jul 2020 16:06:57 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: usb-audio: Fix race against the error recovery URB
+ submission
+Date: Fri, 10 Jul 2020 18:06:56 +0200
+Message-Id: <20200710160656.16819-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.16.4
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,50 +62,86 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 10 Jul 2020 13:24:59 +0800, Tzung-Bi Shih wrote:
-> This series is a follow up for a long time ago series
-> (https://patchwork.kernel.org/cover/11204303/).
-> 
-> The old series bound too much on the patches of DRM bridge and ASoC
-> machine driver.  And unluckily, the dependencies
-> (https://lore.kernel.org/patchwork/patch/1126819/) have not applied.
-> 
-> [...]
+USB MIDI driver has an error recovery mechanism to resubmit the URB in
+the delayed timer handler, and this may race with the standard start /
+stop operations.  Although both start and stop operations themselves
+don't race with each other due to the umidi->mutex protection, but
+this isn't applied to the timer handler.
 
-Applied to
+For fixing this potential race, the following changes are applied:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+- Since the timer handler can't use the mutex, we apply the
+  umidi->disc_lock protection at each input stream URB submission;
+  this also needs to change the GFP flag to GFP_ATOMIC
+- Add a check of the URB refcount and skip if already submitted
+- Move the timer cancel call at disconnection to the beginning of the
+  procedure; this assures the in-flight timer handler is gone properly
+  before killing all pending URBs
 
-Thanks!
+Reported-by: syzbot+0f4ecfe6a2c322c81728@syzkaller.appspotmail.com
+Reported-by: syzbot+5f1d24c49c1d2c427497@syzkaller.appspotmail.com
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/midi.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
 
-[1/6] ASoC: dt-bindings: mt8183: add a property "mediatek, hdmi-codec"
-      commit: cc07e14b149e4260075093c06b371bcb31574ccc
-[2/6] ASoC: mediatek: mt8183: use hdmi-codec
-      commit: f2024dc55fcb743469238aa11f9967e0752ac600
-[3/6] ASoC: mediatek: mt8183: support HDMI jack reporting
-      commit: 88abbf627a56efcd7f24aa119f07069d3d10bd0b
-[4/6] ASoC: dt-bindings: mt8183-da7219: add a property "mediatek, hdmi-codec"
-      commit: 5653841d1e6bace7897a0b5ca681fa37945fa11b
-[5/6] ASoC: mediatek: mt8183-da7219: use hdmi-codec
-      commit: 5bdbe977117741a6bf4958c8dfdcb6b9263e9f1c
-[6/6] ASoC: mediatek: mt8183-da7219: support HDMI jack reporting
-      commit: e25f8afd8869bd97a4d0baea5d8da730913c8541
+diff --git a/sound/usb/midi.c b/sound/usb/midi.c
+index 047b90595d65..354f57692938 100644
+--- a/sound/usb/midi.c
++++ b/sound/usb/midi.c
+@@ -1499,6 +1499,8 @@ void snd_usbmidi_disconnect(struct list_head *p)
+ 	spin_unlock_irq(&umidi->disc_lock);
+ 	up_write(&umidi->disc_rwsem);
+ 
++	del_timer_sync(&umidi->error_timer);
++
+ 	for (i = 0; i < MIDI_MAX_ENDPOINTS; ++i) {
+ 		struct snd_usb_midi_endpoint *ep = &umidi->endpoints[i];
+ 		if (ep->out)
+@@ -1525,7 +1527,6 @@ void snd_usbmidi_disconnect(struct list_head *p)
+ 			ep->in = NULL;
+ 		}
+ 	}
+-	del_timer_sync(&umidi->error_timer);
+ }
+ EXPORT_SYMBOL(snd_usbmidi_disconnect);
+ 
+@@ -2301,16 +2302,22 @@ void snd_usbmidi_input_stop(struct list_head *p)
+ }
+ EXPORT_SYMBOL(snd_usbmidi_input_stop);
+ 
+-static void snd_usbmidi_input_start_ep(struct snd_usb_midi_in_endpoint *ep)
++static void snd_usbmidi_input_start_ep(struct snd_usb_midi *umidi,
++				       struct snd_usb_midi_in_endpoint *ep)
+ {
+ 	unsigned int i;
++	unsigned long flags;
+ 
+ 	if (!ep)
+ 		return;
+ 	for (i = 0; i < INPUT_URBS; ++i) {
+ 		struct urb *urb = ep->urbs[i];
+-		urb->dev = ep->umidi->dev;
+-		snd_usbmidi_submit_urb(urb, GFP_KERNEL);
++		spin_lock_irqsave(&umidi->disc_lock, flags);
++		if (!atomic_read(&urb->use_count)) {
++			urb->dev = ep->umidi->dev;
++			snd_usbmidi_submit_urb(urb, GFP_ATOMIC);
++		}
++		spin_unlock_irqrestore(&umidi->disc_lock, flags);
+ 	}
+ }
+ 
+@@ -2326,7 +2333,7 @@ void snd_usbmidi_input_start(struct list_head *p)
+ 	if (umidi->input_running || !umidi->opened[1])
+ 		return;
+ 	for (i = 0; i < MIDI_MAX_ENDPOINTS; ++i)
+-		snd_usbmidi_input_start_ep(umidi->endpoints[i].in);
++		snd_usbmidi_input_start_ep(umidi, umidi->endpoints[i].in);
+ 	umidi->input_running = 1;
+ }
+ EXPORT_SYMBOL(snd_usbmidi_input_start);
+-- 
+2.16.4
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

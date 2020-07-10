@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E11EE21B9B3
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jul 2020 17:41:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D8AA21B9B4
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jul 2020 17:42:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 96CD515F2;
-	Fri, 10 Jul 2020 17:40:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96CD515F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 91FD01663;
+	Fri, 10 Jul 2020 17:41:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91FD01663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594395695;
-	bh=S8Kzjz8GMKCyOZ1Wspv0F6dUQ3brvguDwZMSyFwdBd4=;
+	s=default; t=1594395742;
+	bh=yFPT4h/KMgvzJQDGMmQZ0nn6DIAU8lqRuotl4oUgUFU=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pQbroEz4EVIpOfe/BAlgj1i+08kkg44n6R2aw06evi7C8PRc47dlCBljWyCy8rdyz
-	 OwVOQtEWTUDIaweb/Z9Fa+Y2gnfeDPYCEYQGyTul6Z6dfr298WEYs0pLp2u0NLlXpo
-	 2TRDX4EWAMMVpKnczv1lXJXRLITEV5SujVtUCqlE=
+	b=mQ3U4ZOfX3mt5FuNGmU9j+t3yy69khAFT8m2T2OqHC4WJOO1qj7fPTZ8QoQXExba3
+	 k/3M5kWq+7VA0zIrJ+SepFCitCYNXXyAWbSR9WKqzkfq4sWBmjpfJI1vynOD5G8Lpt
+	 1ycJohzQcg3DBqYLKiJk8mTsUuFB2wXT8u/3JWqQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0C46F8015C;
-	Fri, 10 Jul 2020 17:39:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4D6C1F80258;
+	Fri, 10 Jul 2020 17:40:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E0932F8015A; Fri, 10 Jul 2020 17:39:52 +0200 (CEST)
+ id 1C2FBF80258; Fri, 10 Jul 2020 17:39:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=1.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 38270F8011C
- for <alsa-devel@alsa-project.org>; Fri, 10 Jul 2020 17:39:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38270F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id F4051F8015A
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jul 2020 17:39:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F4051F8015A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="YPul5mMc"
+ header.b="NBWuq7fz"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E6D8A2078B;
- Fri, 10 Jul 2020 15:39:43 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 294822078B;
+ Fri, 10 Jul 2020 15:39:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594395584;
- bh=S8Kzjz8GMKCyOZ1Wspv0F6dUQ3brvguDwZMSyFwdBd4=;
+ s=default; t=1594395589;
+ bh=yFPT4h/KMgvzJQDGMmQZ0nn6DIAU8lqRuotl4oUgUFU=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=YPul5mMceyBdlF4DxyJ94fzYdFDg/VRXwwut9ee72J5k9YW/KwqioZIJYLGKPfU17
- 5yt0Jk6UZQ1crYgFzy0F6NNcnNgtBtz8irmoLhjShN3k0II7RgRxLHsRNI5fVO0JrC
- rVVJFDNtB3734+WgWJBzNp5JOeqv76vmH5ItDQtw=
-Date: Fri, 10 Jul 2020 16:39:38 +0100
+ b=NBWuq7fzCYj25mKzhn4FyAAA3LIXke7Qcw6CqIj3dQOTDdIGFbB1pZz5Wu3Bq7rtG
+ gJ8XFMG5B2mf/l1t/Dump1DTqv22IwBcqDfUD3cqowc86NoDoiWWnaOo7WeTaz7qdf
+ w0ieZrvJ9U90qcQ4hRC0rYQ2j9a14GAASNsjs4Oc=
+Date: Fri, 10 Jul 2020 16:39:43 +0100
 From: Mark Brown <broonie@kernel.org>
 To: alsa-devel@alsa-project.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20200707191615.98296-1-pierre-louis.bossart@linux.intel.com>
-References: <20200707191615.98296-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v3 00/10] ASoC: Clean-up W=1 build warnings​ - part2
-Message-Id: <159439557864.48910.10218682361128705855.b4-ty@kernel.org>
+In-Reply-To: <20200709162328.259586-1-pierre-louis.bossart@linux.intel.com>
+References: <20200709162328.259586-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v4 00/10] ASoC: Clean-up W=1 build warnings​ - part2
+Message-Id: <159439557864.48910.8925222039037389087.b4-ty@kernel.org>
 Cc: tiwai@suse.de, Lee Jones <lee.jones@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -76,7 +76,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 7 Jul 2020 14:16:05 -0500, Pierre-Louis Bossart wrote:
+On Thu, 9 Jul 2020 11:23:17 -0500, Pierre-Louis Bossart wrote:
 > Both Lee Jones and I submitted separate series, this is the second
 > part of the merged result, for which no feedback was provided.
 > 
@@ -94,18 +94,18 @@ Applied to
 
 Thanks!
 
-[01/10] ASoC: qcom: qdsp6: q6asm: Provide documentation for 'codec_profile'
-        commit: d4633504213eff9913f722da7320e23eecd48b59
-[02/10] ASoC: sunxi: sun4i-i2s: add missing clock and format arguments in kernel-doc
-        commit: 643e305e9b2c42800fe73ac0e23bd02ba87fe202
-[03/10] ASoC: sunxi: sun4i-spdif: Fix misspelling of 'reg_dac_txdata' in kernel-doc
-        commit: c7202a19cf838d2a999e554cffa552bf7f480fde
-[04/10] ASoC: pxa: pxa-ssp: Demote seemingly unintentional kerneldoc header
-        commit: 701f4727f7bb35e9dca7e2c65f44af0608ef3d6b
-[05/10] ASoC: ux500: ux500_msp_i2s: Remove unused variables 'reg_val_DR' and 'reg_val_TSTDR'
-        commit: 79b094c9dcd70123f51e4039ea9a29ebbd073edd
-[06/10] ASoC: sti: uniperif: fix 'defined by not used' warning
+[01/10] ASoC: sti: uniperif: fix 'defined by not used' warning
         commit: 97d73032a89d85437d6be354ef1cfde7dd97a24a
+[02/10] ASoC: qcom: qdsp6: q6asm: Provide documentation for 'codec_profile'
+        commit: d4633504213eff9913f722da7320e23eecd48b59
+[03/10] ASoC: sunxi: sun4i-i2s: add missing clock and format arguments in kernel-doc
+        commit: 643e305e9b2c42800fe73ac0e23bd02ba87fe202
+[04/10] ASoC: sunxi: sun4i-spdif: Fix misspelling of 'reg_dac_txdata' in kernel-doc
+        commit: c7202a19cf838d2a999e554cffa552bf7f480fde
+[05/10] ASoC: pxa: pxa-ssp: Demote seemingly unintentional kerneldoc header
+        commit: 701f4727f7bb35e9dca7e2c65f44af0608ef3d6b
+[06/10] ASoC: ux500: ux500_msp_i2s: Remove unused variables 'reg_val_DR' and 'reg_val_TSTDR'
+        commit: 79b094c9dcd70123f51e4039ea9a29ebbd073edd
 [07/10] ASoC: codecs: rt5631: fix spurious kernel-doc start and missing arguments
         commit: 762a3d4313aa44a2158c95fbc6e95ec19b7add4a
 [08/10] ASoC: codecs: rt5659: Remove many unused const variables

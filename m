@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 775BD21C3FF
-	for <lists+alsa-devel@lfdr.de>; Sat, 11 Jul 2020 13:34:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8735D21C402
+	for <lists+alsa-devel@lfdr.de>; Sat, 11 Jul 2020 13:36:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D9A321661;
-	Sat, 11 Jul 2020 13:33:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9A321661
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1AC34165D;
+	Sat, 11 Jul 2020 13:35:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1AC34165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594467240;
-	bh=mBp3uEIgNNw3PqBcgbcOvL4iy+tul6o00fvFtV0yUPM=;
+	s=default; t=1594467397;
+	bh=zuDKkmQ753xiSRkLPNDKQSN1JWSIriopHCNUO4MSEhs=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=K75cws90CuuhCWRHTPomChU3wubPbHeUMV3nKQjp2DCi3FlqGpb4x9uU5OQI+r1Kh
-	 eKAPtW2aaGYu2rOzQTmJnpf6HvS7kgxw4LJszVNsO4iCr3bmEUo+dSrWVkp/EKHOd4
-	 iQSEVgrXu4GDVW4CyAkxkYZRQ+rm+Rk5fnst7TCM=
+	b=vc9f8i/k3RC6b+v07VLcLcDfAVwprEIMT2hCXPYHmhDmxdldKKhWYUGBAv1ydWmtk
+	 aDcYPcdNo3tJdqEeWlpdXrGDqGChMGYJqlwNVSqgOR8sNbGJa//liO8zrNzy30SG4m
+	 dJXq0mGYZGEo+rmEZhi3bUiGqBeiXGMeuTF/1C+Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 073BCF80084;
-	Sat, 11 Jul 2020 13:32:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48CA5F8014A;
+	Sat, 11 Jul 2020 13:34:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E307BF80216; Sat, 11 Jul 2020 13:32:16 +0200 (CEST)
+ id 576AFF80216; Sat, 11 Jul 2020 13:34:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,23 +34,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41033F80084
- for <alsa-devel@alsa-project.org>; Sat, 11 Jul 2020 13:32:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41033F80084
+ by alsa1.perex.cz (Postfix) with ESMTPS id 969CBF8014A
+ for <alsa-devel@alsa-project.org>; Sat, 11 Jul 2020 13:34:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 969CBF8014A
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 56C80ACB8;
- Sat, 11 Jul 2020 11:32:09 +0000 (UTC)
-Date: Sat, 11 Jul 2020 13:32:08 +0200
-Message-ID: <s5hh7ue2sp3.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 0EB17ABCF;
+ Sat, 11 Jul 2020 11:34:48 +0000 (UTC)
+Date: Sat, 11 Jul 2020 13:34:47 +0200
+Message-ID: <s5hft9y2sko.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Armas Spann <zappel@retarded.farm>
-Subject: Re: [PATCH v2] ALSA: hda/realtek: enable headset mic of ASUS ROG
+Subject: Re: [PATCH v3] ALSA: hda/realtek: enable headset mic of ASUS ROG
  Zephyrus G14(G401) series with ALC289
-In-Reply-To: <7a0c60c4ba2ae63e369bc1f3e3d1d5e90392d624.camel@retarded.farm>
-References: <20200711101111.13983-1-zappel@retarded.farm>
- <s5hk0za2w07.wl-tiwai@suse.de>
- <7a0c60c4ba2ae63e369bc1f3e3d1d5e90392d624.camel@retarded.farm>
+In-Reply-To: <20200711110557.18681-1-zappel@retarded.farm>
+References: <20200711110557.18681-1-zappel@retarded.farm>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -72,101 +70,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 11 Jul 2020 12:47:08 +0200,
+On Sat, 11 Jul 2020 13:05:57 +0200,
 Armas Spann wrote:
 > 
-> Am Samstag, den 11.07.2020, 12:20 +0200 schrieb Takashi Iwai:
-> > On Sat, 11 Jul 2020 12:11:11 +0200,
-> > Armas Spann wrote:
-> > > Signed-off-by: Armas Spann <
-> > > zappel@retarded.farm
-> > > >
-> > 
-> > Could you give a bit more detail about what you've fixed?
-> > An empty patch description is always a bad sign.
-> > 
-> > 
-> > thanks,
-> > 
-> > Takashi
-> > 
-> > > ---
-> > >  sound/pci/hda/patch_realtek.c | 9 +++++++++
-> > >  1 file changed, 9 insertions(+)
-> > > 
-> > > diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-> > > index 194ffa8c66ce..ff4f3eeedfd0 100644
-> > > --- a/sound/pci/hda/patch_realtek.c
-> > > +++ b/sound/pci/hda/patch_realtek.c
-> > > @@ -6152,6 +6152,7 @@ enum {
-> > >  	ALC269VC_FIXUP_ACER_VCOPPERBOX_PINS,
-> > >  	ALC269VC_FIXUP_ACER_HEADSET_MIC,
-> > >  	ALC269VC_FIXUP_ACER_MIC_NO_PRESENCE,
-> > > +	ALC289_FIXUP_ASUS_G401,
-> > >  };
-> > >  
-> > >  static const struct hda_fixup alc269_fixups[] = {
-> > > @@ -7359,6 +7360,13 @@ static const struct hda_fixup alc269_fixups[] = {
-> > >  		.chained = true,
-> > >  		.chain_id = ALC269_FIXUP_HEADSET_MIC
-> > >  	},
-> > > +	[ALC289_FIXUP_ASUS_G401] = {
-> > > +		.type = HDA_FIXUP_PINS,
-> > > +		.v.pins = (const struct hda_pintbl[]) {
-> > > +			{ 0x19, 0x03a11020 }, /* headset mic with jack detect */
-> > > +			{ }
-> > > +		},
-> > > +	},
-> > >  };
-> > >  
-> > >  static const struct snd_pci_quirk alc269_fixup_tbl[] = {
-> > > @@ -7539,6 +7547,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] =
-> > > {
-> > >  	SND_PCI_QUIRK(0x1043, 0x1bbd, "ASUS Z550MA",
-> > > ALC255_FIXUP_ASUS_MIC_NO_PRESENCE),
-> > >  	SND_PCI_QUIRK(0x1043, 0x1c23, "Asus X55U",
-> > > ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
-> > >  	SND_PCI_QUIRK(0x1043, 0x1ccd, "ASUS X555UB", ALC256_FIXUP_ASUS_MIC),
-> > > +	SND_PCI_QUIRK(0x1043, 0x1f11, "ASUS Zephyrus G14",
-> > > ALC289_FIXUP_ASUS_G401),
-> > >  	SND_PCI_QUIRK(0x1043, 0x3030, "ASUS ZN270IE",
-> > > ALC256_FIXUP_ASUS_AIO_GPIO2),
-> > >  	SND_PCI_QUIRK(0x1043, 0x831a, "ASUS P901", ALC269_FIXUP_STEREO_DMIC),
-> > >  	SND_PCI_QUIRK(0x1043, 0x834a, "ASUS S101", ALC269_FIXUP_STEREO_DMIC),
-> > > -- 
-> > > 2.27.0
-> > > 
-> 
-> Yes, of course. 
-> 
-> Sorry I thought it would have be taken from the commit message when using git
-> send-email.
+> Signed-off-by: Armas Spann <zappel@retarded.farm>
+> ---
+>  Description:
+>  This patch adds support for headset mic to the ASUS ROG Zephyrus G14(GA401) 
+>  notebook series by adding the corresponding vendor/pci_device id, as well as
+>  adding a new fixup for the used realtek ALC289. The fixup stets the correct
+>  pin to get the headset mic correctly recognized on audio-jack.
 
-It is.  But I guess you didn't put the texts there, only your
-Signed-off-by line.
+I applied this version with the description above moved in the
+right place now.  Also added Cc to stable as it's a simple fix.
 
-> Is it enough to have it in the conversation or must I put it into
-> the patch. If it has to be inside the patch, where do I have to place the
-> description? Because I think git send-mail is stripping some parts off(may be
-> caused due my lack of knowledge about this)
 
-The patch description is put in the lines before Signed-off-by.
-That is, the patch would look like:
- 
-  From: Foo Bar <foo@bar.com>
-  Subject: ALSA: hda: Fix something great
-
-  This patch fixes blah and blah.
-  More blah.
-
-  Signed-off-by: Foo Bar <foo@bar.com>
-  
-  --
-  .... the diff is put below ...
-
-And when you commit "This patch fixes..." until "Signed-off-by"
-lines in your own git commit as the commit log, this will be
-gracefully produced by git-send-email (or git-format-patch).
-
+Thanks!
 
 Takashi

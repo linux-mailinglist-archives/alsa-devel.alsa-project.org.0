@@ -2,114 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49FD021C1A2
-	for <lists+alsa-devel@lfdr.de>; Sat, 11 Jul 2020 03:45:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AC4D21C1EB
+	for <lists+alsa-devel@lfdr.de>; Sat, 11 Jul 2020 05:35:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BB370165E;
-	Sat, 11 Jul 2020 03:44:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB370165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C6D50165E;
+	Sat, 11 Jul 2020 05:35:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6D50165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594431899;
-	bh=jIrXHwkUGTSo1uyeKqdJeqanQOojzF3yCJI2TEAUMGA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=msZEbg7nEWE8OoBgEv151Qq3Sa7Az5ijd/xDrOy1J36CmbEhFf0P9553aToNb61pQ
-	 UG9dyS8bQRLugndTXTur7LD5GdUk4a7vzbzibE0z5xug62t8PM8qYDcUogYgeiwQG8
-	 0c9oiwoID5dQ8wSk6cAToNGl+YceOLujm1QDKhEA=
+	s=default; t=1594438557;
+	bh=d5Ank3CEgpRGIco3O2jFrcl5+zEmO1liq7+RYmg3j74=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=fPIN3T4WvQK+If+dyJCgmmwaKABLskR+rOMen+/9oQVamaWmq+BQWjYkqVBzjjGZO
+	 BTnx3hXfyrnMvyw3X+7lFu97nGoT36a6J0H424ZPWBzEyTjcv/sEOsFyWjmXyPUxCj
+	 /zfSu7h5qRGtVVKLXdRtW7YGhzGlsxWv6gY1DQ0U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC9A7F80084;
-	Sat, 11 Jul 2020 03:43:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DABFEF80255;
+	Sat, 11 Jul 2020 05:34:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DD021F80216; Sat, 11 Jul 2020 03:43:15 +0200 (CEST)
+ id 75492F80216; Sat, 11 Jul 2020 05:34:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
- [66.111.4.230])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6FB2CF80084
+ for <alsa-devel@alsa-project.org>; Sat, 11 Jul 2020 05:34:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FB2CF80084
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="f5K3F87j"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1594438447;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type;
+ bh=rkxV9wGrbaQjvlwNa9bpSRvCBx9BwmI9mcVo23t8Au0=;
+ b=f5K3F87jVzfkbqieA50DNfqLjCBvyS8dPcu1dnBvTZoi/sqmEyEy0mCcnuvPz85NncFLMF
+ ICdooGahlR9PspHA8CvbE7Rx2nVUsf5vswnLAeSQhZTvkcOPDA56+EJu2EHVIzv9Nv7etw
+ rsoKQYPR0072kgFdlYtD37PI3Z91ol4=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-328-keMQNT7LN7WgirSVBUnglg-1; Fri, 10 Jul 2020 23:34:05 -0400
+X-MC-Unique: keMQNT7LN7WgirSVBUnglg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+ [10.5.11.16])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8D7BBF80084
- for <alsa-devel@alsa-project.org>; Sat, 11 Jul 2020 03:43:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D7BBF80084
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sholland.org header.i=@sholland.org
- header.b="OETpcIsZ"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="NGRfGRRj"
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailnew.nyi.internal (Postfix) with ESMTP id 665F358046B;
- Fri, 10 Jul 2020 21:43:08 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Fri, 10 Jul 2020 21:43:08 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sholland.org; h=
- subject:to:cc:references:from:message-id:date:mime-version
- :in-reply-to:content-type:content-transfer-encoding; s=fm3; bh=H
- LgEH/278Opa5rtB0os+SzkGd6M293q0r6hnuwndsH4=; b=OETpcIsZ/w7fLD9vI
- jxBVrbG1+yoNJiZDSsgRR33JmQ6otsy2LGhaP5Dq58q4YOwlkDpFzVee4Q7NBFx5
- z6WDuvdrTdQZsulT139LLHJDRLWo0FyX4Wd1ovAndYUIY0DDhXBEcRhsNtDnJ0+S
- 0kWneIuFWNSU9NNNSlfgduIjawEU8G+ChV9JZImOcAeU6C/a76GNJ1apnk9i/GYw
- 04XqQPMI7gsKz8zwRvmx60G+eARIou5YpUPipfz66JJgbFLH+Jiakjk0LKxpBM/i
- oXt1HLyNchf/qL9T5XdgS0F9cktz+a1uf5R+Djqbd1gESe+7nSd2ZNvN3gQ33tL6
- BO0kg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm3; bh=HLgEH/278Opa5rtB0os+SzkGd6M293q0r6hnuwnds
- H4=; b=NGRfGRRjGajfOa4oqWhCMRfPjEQ/fr7k8P05hv1bTcZujnTjc2hGyJ2rH
- yBU3GsXTSxgylf6z3muV57ukJ7bEtIsHwlS8raLVq+MPOgzPr3LJ0WETIoxx1SoA
- y2xy+qY2cvjB7DjEWXnCU0QXqWKpDJ3gsKEeVEw8YOSOc2Cl6Ge7Fq/0Cgu/SegO
- rJlovnUz+/AC8XExAQ1UM9LnAmP2rgaXJ1Cmh5/bJ8lwkjXSGMmukAyzCFF2stUi
- wPR3uBu+2dGAvKpz12iJgFKROAU1wHhYr9c8XRZxENr04vmytKXVXveKEupu9fJE
- RH7L81sjA0qET3942aOCdM/onOoVg==
-X-ME-Sender: <xms:KhkJX8z8q--1SxP5KnunZarNkXEv-kogxKbThIpnzq0mIcMyDZUTKQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrvddvgdehtdcutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefuvfhfhffkffgfgggjtgfgsehtkeertddtfeejnecuhfhrohhmpefurghmuhgv
- lhcujfholhhlrghnugcuoehsrghmuhgvlhesshhhohhllhgrnhgurdhorhhgqeenucggtf
- frrghtthgvrhhnpefgleekudevjedtjefhieelvdfhgeegieeikeelhfeffeffffffgedu
- teetleeijeenucfkphepjedtrddufeehrddugeekrdduhedunecuvehluhhsthgvrhfuih
- iivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepshgrmhhuvghlsehshhholhhlrghn
- ugdrohhrgh
-X-ME-Proxy: <xmx:KhkJXwQHYM1QAUstOd77deyOhQBUZff43ws-qBJIxN7USRUmFe8dWA>
- <xmx:KhkJX-XsQJ_88C10qwIzJiegM2XRZb0y6q1tAAMTgww0TmpKjWcUzA>
- <xmx:KhkJX6gHemG4by0MW23SaKB1d9f5LAEaQ4Shj8Uz7R_rzqNIN_17MA>
- <xmx:LBkJX_LcUWuqKwq4qdAKDUb-1Fpe50g72-jcW2_uCpIbXCPEqSepMA>
-Received: from [192.168.50.169]
- (70-135-148-151.lightspeed.stlsmo.sbcglobal.net [70.135.148.151])
- by mail.messagingengine.com (Postfix) with ESMTPA id AED6D328005D;
- Fri, 10 Jul 2020 21:43:05 -0400 (EDT)
-Subject: Re: [linux-sunxi] [PATCH 01/16] ASoC: sun4i-i2s: Add support for H6
- I2S
-To: =?UTF-8?Q?Jernej_=c5=a0krabec?= <jernej.skrabec@siol.net>,
- peron.clem@gmail.com, Maxime Ripard <mripard@kernel.org>,
- Chen-Yu Tsai <wens@csie.org>, Rob Herring <robh+dt@kernel.org>,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
-References: <20200704113902.336911-1-peron.clem@gmail.com>
- <20200704113902.336911-2-peron.clem@gmail.com>
- <72a6fddf-5e84-f050-2eee-74178d457789@sholland.org>
- <3787973.dVgI16VYFl@jernej-laptop>
-From: Samuel Holland <samuel@sholland.org>
-Message-ID: <6f183057-2c5b-2acf-4394-535ee09fe8db@sholland.org>
-Date: Fri, 10 Jul 2020 20:43:05 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 75AD28015F7;
+ Sat, 11 Jul 2020 03:34:03 +0000 (UTC)
+Received: from dhcp-128-65.nay.redhat.com (ovpn-12-95.pek2.redhat.com
+ [10.72.12.95])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6699D5C240;
+ Sat, 11 Jul 2020 03:34:00 +0000 (UTC)
+Date: Sat, 11 Jul 2020 11:33:56 +0800
+From: Dave Young <dyoung@redhat.com>
+To: Peter Ujfalusi <peter.ujfalusi@ti.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>,
+ alsa-devel@alsa-project.org, linux-omap@vger.kernel.org
+Subject: omap-mcbsp 49022000.mcbsp: TX Buffer Overflow!
+Message-ID: <20200711033356.GA164619@dhcp-128-65.nay.redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <3787973.dVgI16VYFl@jernej-laptop>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Marcus Cooper <codekipper@gmail.com>, linux-sunxi@googlegroups.com,
- linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -125,20 +88,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Jernej,
+Hi,
 
-On 7/10/20 2:22 PM, Jernej Škrabec wrote:
->> From the description in the manual, this looks off by one. The number of
->> BCLKs per LRCK is LRCK_PERIOD + 1.
-> 
-> Are you sure? Macro SUN8I_I2S_FMT0_LRCK_PERIOD() is defined as follows:
-> 
-> #define SUN8I_I2S_FMT0_LRCK_PERIOD(period)	((period - 1) << 8)
-> 
-> which already lowers value by 1.
+I'm trying to use g_audio on my Nokia N900 with mainline kernel. Seems
+it does not work.  No sound when I play from a laptop, and also see a
+lot of error like below:
+[ 4729.557647] omap-mcbsp 49022000.mcbsp: TX Buffer Overflow!
+...
 
-No, sorry, I had missed the subtraction happening in the macro. So there's no
-problem here.
 
-Thanks,
-Samuel
+Is this a know issue?
+
+Thanks
+Dave
+

@@ -2,84 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A59721D95E
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Jul 2020 17:01:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE7FC21DA10
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Jul 2020 17:30:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CAFA21665;
-	Mon, 13 Jul 2020 17:00:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAFA21665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F1231665;
+	Mon, 13 Jul 2020 17:30:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F1231665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594652467;
-	bh=nzASuH9Aa6QzRRlwVHAvFBo4qZ+A3sWOlJRsPr6CAsg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cdkPBIFA6LShGb+Be3LIKnd5E7qw296knpx14jGfgISTb9cpovRrlA+FQuXwNj/KC
-	 WEqksPLT+bpSGEpkN6Js22Kj5XfmgkcoUTNb4OCX03QPSnp7PkUz8o2pmMxI9BAFs8
-	 uDvehXmQaKREg0JV9YUXkzBkz3lv+bCH1WAXBobA=
+	s=default; t=1594654254;
+	bh=nbsimYX60Y84007qlEPAHjd+gdkl/Azh2sgrkNYXQd0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=QjwYwCZ5ExDM+Pfj1VmOPXukt9ORbva3vr1eItqboFiCev5lAN/02uvM/DIYG8Toy
+	 sAA8Eo9hbRowvgljIQw8AZsNV/Lb9kz7CGoiwpyfDOesRWUELg1XeOcW/gLpvmo/XY
+	 W2nK7/tklx7R6Wgjeq7xpiy13hNdF1o4w6A848jI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ED196F800E5;
-	Mon, 13 Jul 2020 16:59:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 81776F800E5;
+	Mon, 13 Jul 2020 17:29:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 40FEAF8021D; Mon, 13 Jul 2020 16:59:23 +0200 (CEST)
+ id 398DEF8021D; Mon, 13 Jul 2020 17:29:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail-io1-f67.google.com (mail-io1-f67.google.com
- [209.85.166.67])
+Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
+ [IPv6:2607:f8b0:4864:20::1044])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CBC56F800E5
- for <alsa-devel@alsa-project.org>; Mon, 13 Jul 2020 16:59:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBC56F800E5
-Received: by mail-io1-f67.google.com with SMTP id d18so13813608ion.0
- for <alsa-devel@alsa-project.org>; Mon, 13 Jul 2020 07:59:16 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A84D3F800E5
+ for <alsa-devel@alsa-project.org>; Mon, 13 Jul 2020 17:29:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A84D3F800E5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="QtPurEzn"
+Received: by mail-pj1-x1044.google.com with SMTP id ls15so6440831pjb.1
+ for <alsa-devel@alsa-project.org>; Mon, 13 Jul 2020 08:29:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=dUZVIomsgrNeq0tAzWYalnJgUmuE7AfZACOs9ixpxxs=;
+ b=QtPurEzntS9W29xApYYBB4bbSJYX/t33q/uKXL2nehqLF6cYdQmIC13WFG5eDRNMi+
+ Ab8xeqKFuFmpY98Yq+uMEXqaUxtRQ7cAe5Em9tSgPWrUTJaCCHav0LM51CNQiiEfC9O7
+ 42C+SD+sRGMWtbO25oViigAUag1KARIKN+ZCOaEn/RWJEUfb6fEQW+EsJ/LPJEDcca3O
+ Ptiz4QzCKQFblv4E3Fq2sqpIMciYt0Qs9eOsA1sX1XYD2uRJZOE0KY6tY5msSiyA1vri
+ W/ZGA+wUs5KsYUTRQ8Ehxu/JHcCFYC0Vslnfv3rgk0JMAJYDjGjotZSLlu93/ZFuCiT6
+ 1ERA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=5WwrQCBfCGD1oAlfh4Q+LcNaL9+7pA+S/ObwRTYKA7s=;
- b=SltTJvqu65eCGJ/G+90mqnrX5nIO8XsqQ8445gmh7mSiDpoNaXwjTWCpD7/zkINtXh
- sGyc0Fpr60yS54qVvwL1aHzDuPbzcs8ZzGY7HHc3VmHsytP/pTCGKIvxUhSj3K/MhhYA
- P0CK4KEu2Xtx6IqgVYpK4g9N20XQYizr76LWG681yGeZ5WeANLViLlOcd1fiFH+xX/ba
- xKonYKR6mLEpmlbuxPc0fY5yQkuhjalPpEp6gmnHdVl+y1bWZHBcBedN7GYxdXmkb+dy
- XhOZtWIoyBGl+PAhkpoaxwQYt3BMJwq/jd3NLE5YoMWTRBAM1kYuYqu5M0VcUqBvXmow
- esOA==
-X-Gm-Message-State: AOAM53103Mol5W8SDwvuhmE/fXU9498IARNmmIQYeMldfFIovwOgUuoq
- 2xdOn2IXlYIgE1KYa2DlEQ==
-X-Google-Smtp-Source: ABdhPJzHZq+wMFL1ggb2CsSFLDEJagYQZrr2Q2lLGCkDm5iY+m/zhSLIJpn5qI8RV2IDmpYmYErCOA==
-X-Received: by 2002:a05:6638:12d2:: with SMTP id
- v18mr502732jas.4.1594652354184; 
- Mon, 13 Jul 2020 07:59:14 -0700 (PDT)
-Received: from xps15 ([64.188.179.252])
- by smtp.gmail.com with ESMTPSA id y12sm5507378iot.49.2020.07.13.07.59.13
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=dUZVIomsgrNeq0tAzWYalnJgUmuE7AfZACOs9ixpxxs=;
+ b=X5k78G7yxQI9P5BxW7CWltL7Iw5b72ynB3shU995N8EaGlKPQ83rtfc1Txp4JxOJT5
+ XalVcapt7Pctxemp0FgcpHloHhsL7aS13QofmN3EBrtUN/c+gDlwouhvNTcMBpQcymkY
+ JGbedJ1MStV+qEf6a/d84ly7tLlIWj5SgoYEVmB/o8AbV5pHcXjso8u/519zg64cJEc7
+ mrKvbqSIFDDWg76qDjfeP5upRaXJgPodUSW2d18MgYFsB2XrhaeotcAV/o8njVNZEOgG
+ fuYtvoMwlDt6AcExFWM8v3pFWnHGV3oCNVB+WzmJ1iYkHxMU/iRkxOyI4gJBftQ8VIB7
+ I1bQ==
+X-Gm-Message-State: AOAM531/1OFJivuXSpCXQJL/0FKSaiup/az6TNVTeZzs9oRa0+EFAkRt
+ 257MoEejUlq2nwWwo7BEn6c=
+X-Google-Smtp-Source: ABdhPJyXym73DV8eH5fqTDOOWGLVdygiCGpLhTbadvnaOXjG3R1lro2vFggqw/thSwCYawJuEKzZaw==
+X-Received: by 2002:a17:902:bd97:: with SMTP id
+ q23mr154894pls.167.1594654140961; 
+ Mon, 13 Jul 2020 08:29:00 -0700 (PDT)
+Received: from anarsoul-xps15.lan (216-71-213-236.dyn.novuscom.net.
+ [216.71.213.236])
+ by smtp.gmail.com with ESMTPSA id b11sm15236250pfr.179.2020.07.13.08.29.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2020 07:59:13 -0700 (PDT)
-Received: (nullmailer pid 173994 invoked by uid 1000);
- Mon, 13 Jul 2020 14:59:12 -0000
-Date: Mon, 13 Jul 2020 08:59:12 -0600
-From: Rob Herring <robh@kernel.org>
-To: Sylwester Nawrocki <s.nawrocki@samsung.com>
-Subject: Re: [PATCH 1/3] ASoC: samsung: Document DT bindings for Midas sound
- subsystem
-Message-ID: <20200713145912.GA173446@bogus>
-References: <CGME20200710173512eucas1p101c03994a728150f18428295192edf25@eucas1p1.samsung.com>
- <20200710173500.22365-1-s.nawrocki@samsung.com>
+ Mon, 13 Jul 2020 08:29:00 -0700 (PDT)
+From: Vasily Khoruzhick <anarsoul@gmail.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Pavel Machek <pavel@denx.de>, Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v4] ALSA: line6: add hw monitor volume control for POD HD500
+Date: Mon, 13 Jul 2020 08:28:52 -0700
+Message-Id: <20200713152852.65832-1-anarsoul@gmail.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200710173500.22365-1-s.nawrocki@samsung.com>
-Cc: simon@lineageos.org, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
- b.zolnierkie@samsung.com, broonie@kernel.org, krzk@kernel.org,
- robh+dt@kernel.org, m.szyprowski@samsung.com
+Content-Transfer-Encoding: 8bit
+Cc: Vasily Khoruzhick <anarsoul@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,29 +100,232 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 10 Jul 2020 19:34:58 +0200, Sylwester Nawrocki wrote:
-> This patch adds documentation of DT biding for the Midas sound complex.
-> Partially based on the *txt version by Simon Shields <simon@lineageos.org>.
-> 
-> Signed-off-by: Sylwester Nawrocki <s.nawrocki@samsung.com>
-> ---
->  .../bindings/sound/samsung,midas-audio.yaml        | 105 +++++++++++++++++++++
->  1 file changed, 105 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/samsung,midas-audio.yaml
-> 
+Add hw monitor volume control for POD HD500. The same change may
+work for HD500X but I don't have it to test.
 
+Signed-off-by: Vasily Khoruzhick <anarsoul@gmail.com>
+---
+v4: add NULL check for kmalloc-ed buffer
+v3: - use EXPORT_SYMBOL_GPL instead of EXPORT_SYMBOL
+    - use GFP_KERNEL instead of GFP_ATOMIC for allocating a message
+    - use lower case for float lookup table
+v2: clamp volume value to [0, ARRAY_SIZE() -1] in
+    podhd_set_monitor_level()
 
-My bot found errors running 'make dt_binding_check' on your patch:
+ sound/usb/line6/driver.c |   3 +-
+ sound/usb/line6/driver.h |   4 ++
+ sound/usb/line6/podhd.c  | 127 ++++++++++++++++++++++++++++++++++++++-
+ 3 files changed, 132 insertions(+), 2 deletions(-)
 
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/samsung,midas-audio.example.dt.yaml: sound: 'mic-bias-gpios', 'submic-bias-gpios' do not match any of the regexes: 'pinctrl-[0-9]+'
-
-
-See https://patchwork.ozlabs.org/patch/1327065
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure dt-schema is up to date:
-
-pip3 install git+https://github.com/devicetree-org/dt-schema.git@master --upgrade
-
-Please check and re-submit.
+diff --git a/sound/usb/line6/driver.c b/sound/usb/line6/driver.c
+index 7629116f570e..3e07251b80e3 100644
+--- a/sound/usb/line6/driver.c
++++ b/sound/usb/line6/driver.c
+@@ -97,7 +97,7 @@ static void line6_stop_listen(struct usb_line6 *line6)
+ /*
+ 	Send raw message in pieces of wMaxPacketSize bytes.
+ */
+-static int line6_send_raw_message(struct usb_line6 *line6, const char *buffer,
++int line6_send_raw_message(struct usb_line6 *line6, const char *buffer,
+ 				  int size)
+ {
+ 	int i, done = 0;
+@@ -132,6 +132,7 @@ static int line6_send_raw_message(struct usb_line6 *line6, const char *buffer,
+ 
+ 	return done;
+ }
++EXPORT_SYMBOL_GPL(line6_send_raw_message);
+ 
+ /*
+ 	Notification of completion of asynchronous request transmission.
+diff --git a/sound/usb/line6/driver.h b/sound/usb/line6/driver.h
+index 1a4e3700c80c..62c686bed0ca 100644
+--- a/sound/usb/line6/driver.h
++++ b/sound/usb/line6/driver.h
+@@ -108,6 +108,8 @@ enum {
+ 	LINE6_CAP_CONTROL_MIDI = 1 << 4,
+ 	/* device provides low-level information */
+ 	LINE6_CAP_CONTROL_INFO = 1 << 5,
++	/* device provides hardware monitoring volume control */
++	LINE6_CAP_HWMON_CTL =	1 << 6,
+ };
+ 
+ /*
+@@ -185,6 +187,8 @@ extern int line6_read_data(struct usb_line6 *line6, unsigned address,
+ 			   void *data, unsigned datalen);
+ extern int line6_read_serial_number(struct usb_line6 *line6,
+ 				    u32 *serial_number);
++extern int line6_send_raw_message(struct usb_line6 *line6,
++					const char *buffer, int size);
+ extern int line6_send_raw_message_async(struct usb_line6 *line6,
+ 					const char *buffer, int size);
+ extern int line6_send_sysex_message(struct usb_line6 *line6,
+diff --git a/sound/usb/line6/podhd.c b/sound/usb/line6/podhd.c
+index e39dc85c355a..1557483ec657 100644
+--- a/sound/usb/line6/podhd.c
++++ b/sound/usb/line6/podhd.c
+@@ -11,6 +11,7 @@
+ #include <linux/slab.h>
+ #include <linux/module.h>
+ #include <sound/core.h>
++#include <sound/control.h>
+ #include <sound/pcm.h>
+ 
+ #include "driver.h"
+@@ -37,6 +38,9 @@ struct usb_line6_podhd {
+ 
+ 	/* Firmware version */
+ 	int firmware_version;
++
++	/* Monitor level */
++	int monitor_level;
+ };
+ 
+ #define line6_to_podhd(x)	container_of(x, struct usb_line6_podhd, line6)
+@@ -250,6 +254,118 @@ static void podhd_disconnect(struct usb_line6 *line6)
+ 	}
+ }
+ 
++static const unsigned int float_zero_to_one_lookup[] = {
++0x00000000, 0x3c23d70a, 0x3ca3d70a, 0x3cf5c28f, 0x3d23d70a, 0x3d4ccccd,
++0x3d75c28f, 0x3d8f5c29, 0x3da3d70a, 0x3db851ec, 0x3dcccccd, 0x3de147ae,
++0x3df5c28f, 0x3e051eb8, 0x3e0f5c29, 0x3e19999a, 0x3e23d70a, 0x3e2e147b,
++0x3e3851ec, 0x3e428f5c, 0x3e4ccccd, 0x3e570a3d, 0x3e6147ae, 0x3e6b851f,
++0x3e75c28f, 0x3e800000, 0x3e851eb8, 0x3e8a3d71, 0x3e8f5c29, 0x3e947ae1,
++0x3e99999a, 0x3e9eb852, 0x3ea3d70a, 0x3ea8f5c3, 0x3eae147b, 0x3eb33333,
++0x3eb851ec, 0x3ebd70a4, 0x3ec28f5c, 0x3ec7ae14, 0x3ecccccd, 0x3ed1eb85,
++0x3ed70a3d, 0x3edc28f6, 0x3ee147ae, 0x3ee66666, 0x3eeb851f, 0x3ef0a3d7,
++0x3ef5c28f, 0x3efae148, 0x3f000000, 0x3f028f5c, 0x3f051eb8, 0x3f07ae14,
++0x3f0a3d71, 0x3f0ccccd, 0x3f0f5c29, 0x3f11eb85, 0x3f147ae1, 0x3f170a3d,
++0x3f19999a, 0x3f1c28f6, 0x3f1eb852, 0x3f2147ae, 0x3f23d70a, 0x3f266666,
++0x3f28f5c3, 0x3f2b851f, 0x3f2e147b, 0x3f30a3d7, 0x3f333333, 0x3f35c28f,
++0x3f3851ec, 0x3f3ae148, 0x3f3d70a4, 0x3f400000, 0x3f428f5c, 0x3f451eb8,
++0x3f47ae14, 0x3f4a3d71, 0x3f4ccccd, 0x3f4f5c29, 0x3f51eb85, 0x3f547ae1,
++0x3f570a3d, 0x3f59999a, 0x3f5c28f6, 0x3f5eb852, 0x3f6147ae, 0x3f63d70a,
++0x3f666666, 0x3f68f5c3, 0x3f6b851f, 0x3f6e147b, 0x3f70a3d7, 0x3f733333,
++0x3f75c28f, 0x3f7851ec, 0x3f7ae148, 0x3f7d70a4, 0x3f800000
++};
++
++static void podhd_set_monitor_level(struct usb_line6_podhd *podhd, int value)
++{
++	unsigned int fl;
++	static const unsigned char msg[16] = {
++		/* Chunk is 0xc bytes (without first word) */
++		0x0c, 0x00,
++		/* First chunk in the message */
++		0x01, 0x00,
++		/* Message size is 2 4-byte words */
++		0x02, 0x00,
++		/* Unknown */
++		0x04, 0x41,
++		/* Unknown */
++		0x04, 0x00, 0x13, 0x00,
++		/* Volume, LE float32, 0.0 - 1.0 */
++		0x00, 0x00, 0x00, 0x00
++	};
++	unsigned char *buf;
++
++	buf = kmalloc(sizeof(msg), GFP_KERNEL);
++	if (!buf)
++		return;
++
++	memcpy(buf, msg, sizeof(msg));
++
++	if (value < 0)
++		value = 0;
++
++	if (value >= ARRAY_SIZE(float_zero_to_one_lookup))
++		value = ARRAY_SIZE(float_zero_to_one_lookup) - 1;
++
++	fl = float_zero_to_one_lookup[value];
++
++	buf[12] = (fl >> 0) & 0xff;
++	buf[13] = (fl >> 8) & 0xff;
++	buf[14] = (fl >> 16) & 0xff;
++	buf[15] = (fl >> 24) & 0xff;
++
++	line6_send_raw_message(&podhd->line6, buf, sizeof(msg));
++	kfree(buf);
++
++	podhd->monitor_level = value;
++}
++
++/* control info callback */
++static int snd_podhd_control_monitor_info(struct snd_kcontrol *kcontrol,
++					struct snd_ctl_elem_info *uinfo)
++{
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
++	uinfo->count = 1;
++	uinfo->value.integer.min = 0;
++	uinfo->value.integer.max = 100;
++	uinfo->value.integer.step = 1;
++	return 0;
++}
++
++/* control get callback */
++static int snd_podhd_control_monitor_get(struct snd_kcontrol *kcontrol,
++				       struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_line6_pcm *line6pcm = snd_kcontrol_chip(kcontrol);
++	struct usb_line6_podhd *podhd = line6_to_podhd(line6pcm->line6);
++
++	ucontrol->value.integer.value[0] = podhd->monitor_level;
++	return 0;
++}
++
++/* control put callback */
++static int snd_podhd_control_monitor_put(struct snd_kcontrol *kcontrol,
++				       struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_line6_pcm *line6pcm = snd_kcontrol_chip(kcontrol);
++	struct usb_line6_podhd *podhd = line6_to_podhd(line6pcm->line6);
++
++	if (ucontrol->value.integer.value[0] == podhd->monitor_level)
++		return 0;
++
++	podhd_set_monitor_level(podhd, ucontrol->value.integer.value[0]);
++	return 1;
++}
++
++/* control definition */
++static const struct snd_kcontrol_new podhd_control_monitor = {
++	.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++	.name = "Monitor Playback Volume",
++	.index = 0,
++	.access = SNDRV_CTL_ELEM_ACCESS_READWRITE,
++	.info = snd_podhd_control_monitor_info,
++	.get = snd_podhd_control_monitor_get,
++	.put = snd_podhd_control_monitor_put
++};
++
+ /*
+ 	Try to init POD HD device.
+ */
+@@ -298,6 +414,15 @@ static int podhd_init(struct usb_line6 *line6,
+ 			return err;
+ 	}
+ 
++	if (pod->line6.properties->capabilities & LINE6_CAP_HWMON_CTL) {
++		podhd_set_monitor_level(pod, 100);
++		err = snd_ctl_add(line6->card,
++				  snd_ctl_new1(&podhd_control_monitor,
++					       line6->line6pcm));
++		if (err < 0)
++			return err;
++	}
++
+ 	if (!(pod->line6.properties->capabilities & LINE6_CAP_CONTROL_INFO)) {
+ 		/* register USB audio system directly */
+ 		return snd_card_register(line6->card);
+@@ -354,7 +479,7 @@ static const struct line6_properties podhd_properties_table[] = {
+ 		.id = "PODHD500",
+ 		.name = "POD HD500",
+ 		.capabilities	= LINE6_CAP_PCM | LINE6_CAP_CONTROL
+-				| LINE6_CAP_HWMON,
++				| LINE6_CAP_HWMON | LINE6_CAP_HWMON_CTL,
+ 		.altsetting = 1,
+ 		.ctrl_if = 1,
+ 		.ep_ctrl_r = 0x81,
+-- 
+2.27.0
 

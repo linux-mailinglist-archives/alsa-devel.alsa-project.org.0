@@ -2,61 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E43BB21F15B
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jul 2020 14:33:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D85B521F160
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jul 2020 14:34:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 981D31674;
-	Tue, 14 Jul 2020 14:32:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 981D31674
+	by alsa0.perex.cz (Postfix) with ESMTPS id 780451669;
+	Tue, 14 Jul 2020 14:33:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 780451669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594730019;
-	bh=lbc2fS43hLE6cOu+Fjy/Orddi5XPhjNVYSn2y7z1uF4=;
+	s=default; t=1594730059;
+	bh=eYZOrm2BiclT7p7Rc5kvloX6CVQnmvsSCC0cNI1PGn0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mhbx+0mKSH6PS5cwVuZbm5SZXMWeQ40ik1H5cJ7V8WUX12O6O+MaA0nlR2YerJ/Uj
-	 IaIwAEk+OLAtE/AFh8WpsppjD7ySRJyZGbh+Xp1yZe9D1X+2uGCkMCsYHuTTEfD+Dv
-	 nfStevVHEdLOKZ4ud3BfVaHJzXYajXVXUbXPA09k=
+	b=LKpibDtHQpPek6YD0YFKaE7hDtPceRVKRvmU09Z+R6dYgbEoc0jm92Br36W72rQyj
+	 jBtoJ0IhAva2brKZXHEvH3IBixy800wQsQ0aS5e4mYEVGShe/cZZv1SfS5AA42F9Vj
+	 ox2cJ4I3WnfVa8d4IglfEG0L3c7UgNcphXfEkn64=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE880F80316;
-	Tue, 14 Jul 2020 14:27:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7427BF80322;
+	Tue, 14 Jul 2020 14:27:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F7BBF8016F; Tue, 14 Jul 2020 14:26:53 +0200 (CEST)
+ id 8219DF800E5; Tue, 14 Jul 2020 14:26:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 73446F801EC
- for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 14:26:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73446F801EC
-IronPort-SDR: 9qJL5Nklhw3M7i7Kz24tqa9Fv5GvZocEY+vZVmhWbHFYAX//sUcDvPjZEJpGxj1sXq6/L3CrUn
- RhhkIEWPHK5A==
-X-IronPort-AV: E=McAfee;i="6000,8403,9681"; a="150304990"
-X-IronPort-AV: E=Sophos;i="5.75,350,1589266800"; d="scan'208";a="150304990"
+ by alsa1.perex.cz (Postfix) with ESMTPS id DC498F8019B
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 14:26:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC498F8019B
+IronPort-SDR: +Bsz6/ltFBHT0An/LCSFC8z3KuHavp0n8Vv+dKkPIemsRtdEOTnUM5pp2L+ReZux/XURF1uUfv
+ U6UbOsP4j6cw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9681"; a="128438766"
+X-IronPort-AV: E=Sophos;i="5.75,350,1589266800"; d="scan'208";a="128438766"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2020 05:26:38 -0700
-IronPort-SDR: Wmg27iqK42LaI39q2yTHXX0fBvwPDTUWsgqH3smqcKWLcZipxcigYVVDsmL45m239JViiTZgEH
- 5pQDrTEZG2/A==
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jul 2020 05:26:39 -0700
+IronPort-SDR: 4Rzf2Tw+7acLpUJFtvigyp5vJ1BTN/nIkfDZeghfPyiDUF/HMQUS6m1IARolrPkyXm5kMTz9ah
+ 91Wk5UP2fdgw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,350,1589266800"; d="scan'208";a="485860457"
+X-IronPort-AV: E=Sophos;i="5.75,350,1589266800"; d="scan'208";a="485860475"
 Received: from test-hp-compaq-8100-elite-cmt-pc.igk.intel.com ([10.237.149.93])
- by fmsmga005.fm.intel.com with ESMTP; 14 Jul 2020 05:26:36 -0700
+ by fmsmga005.fm.intel.com with ESMTP; 14 Jul 2020 05:26:38 -0700
 From: Piotr Maziarz <piotrx.maziarz@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v3 09/10] topology: decode: Add DAI name printing
-Date: Tue, 14 Jul 2020 13:25:10 +0200
-Message-Id: <1594725911-14308-10-git-send-email-piotrx.maziarz@linux.intel.com>
+Subject: [PATCH v3 10/10] topology: Make buffer for saving dynamic size
+Date: Tue, 14 Jul 2020 13:25:11 +0200
+Message-Id: <1594725911-14308-11-git-send-email-piotrx.maziarz@linux.intel.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1594725911-14308-1-git-send-email-piotrx.maziarz@linux.intel.com>
 References: <1594725911-14308-1-git-send-email-piotrx.maziarz@linux.intel.com>
@@ -76,29 +75,85 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-DAI name is a part of topology binary. Not printing makes data loss while
-converting from binary to standard ALSA configuration file.
+Some fields can exceed size limit, e.g. private data has no size
+restriction. Therefore it needs to be dynamically increased.
 
 Signed-off-by: Piotr Maziarz <piotrx.maziarz@linux.intel.com>
 ---
- src/topology/pcm.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ src/topology/save.c | 34 +++++++++++++++++++++++++++++-----
+ 1 file changed, 29 insertions(+), 5 deletions(-)
 
-diff --git a/src/topology/pcm.c b/src/topology/pcm.c
-index 49c5eab..5a54e15 100644
---- a/src/topology/pcm.c
-+++ b/src/topology/pcm.c
-@@ -781,7 +781,9 @@ int tplg_save_fe_dai(snd_tplg_t *tplg ATTRIBUTE_UNUSED,
- 	struct snd_soc_tplg_pcm *pcm = elem->pcm;
- 	int err = 0;
+diff --git a/src/topology/save.c b/src/topology/save.c
+index 4ecf86c..9c74735 100644
+--- a/src/topology/save.c
++++ b/src/topology/save.c
+@@ -19,22 +19,43 @@
+ #include "tplg_local.h"
  
--	if (pcm->dai_id > 0)
-+	if (strlen(pcm->dai_name))
-+		err = tplg_save_printf(dst, pfx, "dai.'%s'.id %u\n", pcm->dai_name, pcm->dai_id);
-+	else if (pcm->dai_id > 0)
- 		err = tplg_save_printf(dst, pfx, "dai.0.id %u\n", pcm->dai_id);
- 	return err;
+ #define SAVE_ALLOC_SHIFT	(13)	/* 8192 bytes */
++#define PRINT_BUF_SIZE		(1024)
++#define PRINT_BUF_SIZE_MAX	(1024 * 1024)
+ 
+ int tplg_save_printf(char **dst, const char *pfx, const char *fmt, ...)
+ {
+ 	va_list va;
+-	char buf[1024], *s;
++	char *buf, *s;
+ 	size_t n, l, t, pl;
++	int ret = 0;
++
++	buf = malloc(PRINT_BUF_SIZE);
++	if (!buf)
++		return -ENOMEM;
+ 
+ 	if (pfx == NULL)
+ 		pfx = "";
+ 
+ 	va_start(va, fmt);
+-	n = vsnprintf(buf, sizeof(buf), fmt, va);
++	n = vsnprintf(buf, PRINT_BUF_SIZE, fmt, va);
+ 	va_end(va);
+ 
+-	if (n >= sizeof(buf))
+-		return -EOVERFLOW;
++	if (n >= PRINT_BUF_SIZE_MAX) {
++		ret = -EOVERFLOW;
++		goto end;
++	}
++
++	if (n >= PRINT_BUF_SIZE) {
++		char *tmp = realloc(buf, n + 1);
++		if (!tmp) {
++			ret = -ENOMEM;
++			goto end;
++		}
++		buf = tmp;
++		va_start(va, fmt);
++		n = vsnprintf(buf, n + 1, fmt, va);
++		va_end(va);
++	}
+ 
+ 	pl = strlen(pfx);
+ 	l = *dst ? strlen(*dst) : 0;
+@@ -47,7 +68,8 @@ int tplg_save_printf(char **dst, const char *pfx, const char *fmt, ...)
+ 		if (s == NULL) {
+ 			free(*dst);
+ 			*dst = NULL;
+-			return -ENOMEM;
++			ret = -ENOMEM;
++			goto end;
+ 		}
+ 	} else {
+ 		s = *dst;
+@@ -57,6 +79,8 @@ int tplg_save_printf(char **dst, const char *pfx, const char *fmt, ...)
+ 		strcpy(s + l, pfx);
+ 	strcpy(s + l + pl, buf);
+ 	*dst = s;
++end:
++	free(buf);
+ 	return 0;
  }
+ 
 -- 
 2.7.4
 

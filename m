@@ -2,84 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8162F21F89F
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jul 2020 19:55:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A80B721F8BE
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jul 2020 20:05:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C7FB1669;
-	Tue, 14 Jul 2020 19:54:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C7FB1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 36C47166E;
+	Tue, 14 Jul 2020 20:04:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36C47166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594749305;
-	bh=Vj9u8QF9x99xMmejTwSLhX1eTftkeD98fKJvUc1Dfws=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1594749933;
+	bh=IjCHqOr2evNezqa6HBSVm+1hqq1LJxpLJpvSc6zQj7w=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=A5DLxRON0dyafot2ww8ElqE3qgz7hiMagpiQFrwd9VIVdnUJXbd5RBTeN+nlHnKVa
-	 cMPxNlDcl2E23efgj9erLWvtMyUkm4Bd+aNQghbpSl/iwrqYN4tnVQMBhDOHtjfdSr
-	 eJXB86SaDAwvlA2siGetFsDyYVm0u7fljsxM5LTg=
+	b=BjwwPSyIC2FMeOIaAI3RXdcSi5O4+Xv/yvT3yNVyEvzHqmSa9/tq7/AoqksAX9O1x
+	 hWQnSbZ3za2N4YU/DCYDNjm91BLN9na8c8IlUjYPeIrAEjW5WIvlkyQscL/tz8GMfW
+	 eWVXUjq7HBPdLaw12V9rbHQnBcLBuoBu77Y7jrEo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2EC02F800E5;
-	Tue, 14 Jul 2020 19:53:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48C4FF8016F;
+	Tue, 14 Jul 2020 20:03:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3B971F800E5; Tue, 14 Jul 2020 19:53:21 +0200 (CEST)
+ id 71553F8019B; Tue, 14 Jul 2020 20:03:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.1 required=5.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ PRX_APP_ATTACH,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from bitmer.com (50-87-157-213.static.tentacle.fi [213.157.87.50])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9419DF8014E
- for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 19:53:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9419DF8014E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="h/LcrFQh"
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com
- [209.85.167.179])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7286922597
- for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 17:53:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594749188;
- bh=Vj9u8QF9x99xMmejTwSLhX1eTftkeD98fKJvUc1Dfws=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=h/LcrFQhreoRzvurbroMwkTmQ359hV48l9cybtWCBaOFtWTXb4wI4GMJFqJ1yaZwS
- 17nUkwG5qYZIEPugizU2WFZGkh4XDeo9yrcMshphwgzT2wfk4nQ04mAarfL4g4vK+W
- YI5C9xFqehV0JuttYHL4lLcddwPuD7JqlQ7F4iTE=
-Received: by mail-oi1-f179.google.com with SMTP id k4so14602151oik.2
- for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 10:53:08 -0700 (PDT)
-X-Gm-Message-State: AOAM532JG1m9LaN+ttXjyAS6Khhe3KEb5v9hhrqAMKutVMYDtpM+dKvM
- XwpfvNSz817Yb8PJdyjRzN6bRnAGVJUhYarOwQ==
-X-Google-Smtp-Source: ABdhPJzeQjKGJO3Po7FN1n6GH1S+VMKuEzA4tWJk8eA1Ub0hYOYIbQ9EQOL3U26bSjQVI/j843zgHlHyOlWhcVywtCA=
-X-Received: by 2002:aca:bb82:: with SMTP id l124mr4795615oif.106.1594749187884; 
- Tue, 14 Jul 2020 10:53:07 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 698A7F800E5
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 20:03:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 698A7F800E5
+Received: from 88-114-184-4.elisa-laajakaista.fi ([88.114.184.4]
+ helo=[192.168.1.42])
+ by bitmer.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.89) (envelope-from <jarkko.nikula@bitmer.com>)
+ id 1jvPHE-00032d-U7; Tue, 14 Jul 2020 21:03:36 +0300
+Subject: Re: omap-mcbsp 49022000.mcbsp: TX Buffer Overflow!
+To: Dave Young <dyoung@redhat.com>, Peter Ujfalusi <peter.ujfalusi@ti.com>,
+ alsa-devel@alsa-project.org, linux-omap@vger.kernel.org
+References: <20200711033356.GA164619@dhcp-128-65.nay.redhat.com>
+From: Jarkko Nikula <jarkko.nikula@bitmer.com>
+Message-ID: <e4fc5a03-0343-d9c7-757f-b9652f0cd0ed@bitmer.com>
+Date: Tue, 14 Jul 2020 21:03:36 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <20200623114005.791643-1-yamada.masahiro@socionext.com>
- <20200714022252.GA1151466@bogus>
- <CAK7LNAQrdqztMrHtAHnbMkxeaDLLyBS68WVovev+zytHdD7RVQ@mail.gmail.com>
- <20200714095259.GB4900@sirena.org.uk>
-In-Reply-To: <20200714095259.GB4900@sirena.org.uk>
-From: Rob Herring <robh@kernel.org>
-Date: Tue, 14 Jul 2020 11:52:56 -0600
-X-Gmail-Original-Message-ID: <CAL_JsqLvMbeMQL+SFgA58cZ=+FueSB5qYKf0f-CBy83S4sQ4cQ@mail.gmail.com>
-Message-ID: <CAL_JsqLvMbeMQL+SFgA58cZ=+FueSB5qYKf0f-CBy83S4sQ4cQ@mail.gmail.com>
-Subject: Re: [PATCH v2] dt-bindings: ASoC: Convert UniPhier EVEA codec to
- json-schema
-To: Mark Brown <broonie@kernel.org>, Masahiro Yamada <masahiroy@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: DTML <devicetree@vger.kernel.org>, - <alsa-devel@alsa-project.org>,
- Katsuhiro Suzuki <katsuhiro@katsuster.net>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Frank Rowand <frowand.list@gmail.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+In-Reply-To: <20200711033356.GA164619@dhcp-128-65.nay.redhat.com>
+Content-Type: multipart/mixed; boundary="------------4DBB47A0D994866EAB499D59"
+Content-Language: en-US
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,24 +70,84 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jul 14, 2020 at 3:53 AM Mark Brown <broonie@kernel.org> wrote:
->
-> On Tue, Jul 14, 2020 at 03:13:26PM +0900, Masahiro Yamada wrote:
->
-> > What do you mean by Reviewed-by ?
-> > Do you expect this to go to the asoc tree?
+This is a multi-part message in MIME format.
+--------------4DBB47A0D994866EAB499D59
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-Yes.
+Hi
 
-> > I just thought the schema conversion
-> > would go through the dt tree.
->
-> No, bindings changes usually go through the subsystem - if there's any
-> other work on the binding then it'll usually also involve driver
-> changes.
+On 7/11/20 6:33 AM, Dave Young wrote:
+> Hi,
+> 
+> I'm trying to use g_audio on my Nokia N900 with mainline kernel. Seems
+> it does not work.  No sound when I play from a laptop, and also see a
+> lot of error like below:
+> [ 4729.557647] omap-mcbsp 49022000.mcbsp: TX Buffer Overflow!
+> ...
+> 
+Head 0dc589da873b ("Merge tag 'iommu-fixes-v5.8-rc5' of
+git://git.kernel.org/pub/scm/linux/kernel/git/joro/iommu") records and
+plays fine here (arecord -f dat |aplay), although I see some of those
+errors but don't hear any glitches etc.
 
-I have been taking some conversions so I can test them when they are
-standalone, there's a low chance of other changes, and the maintainer
-tends to be slow to apply and pickup fixes (not Mark).
+Peter, does above indicate a serious issue or is it perhaps a false
+alarm on OMAP3 (no audible glitches)?
 
-Rob
+I believe you don't have some mixer knob on, N900 audio path is somewhat
+complex and needs bunch of mixer switches and volumes to be set. I
+attached my N900 mixer scripts for you to try.
+
+Set first everything off:
+./aic34_scripts/shutdown.sh
+
+Then enable internal digital microphone and speakers:
+./aic34_scripts/dmic.sh
+./aic34_scripts/speakers.sh
+
+Hopefully these help you get going :-)
+
+-- 
+Jarkko
+
+--------------4DBB47A0D994866EAB499D59
+Content-Type: application/octet-stream;
+ name="aic34_scripts.tar.bz2"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename="aic34_scripts.tar.bz2"
+
+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
+MA==
+--------------4DBB47A0D994866EAB499D59--

@@ -2,95 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E707621FFCD
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jul 2020 23:17:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E542122012D
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Jul 2020 01:57:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 88C1E1662;
-	Tue, 14 Jul 2020 23:16:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88C1E1662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6CBE1166C;
+	Wed, 15 Jul 2020 01:56:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6CBE1166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594761421;
-	bh=Oo+BzK4qk3JSgLLNjaFi89A5rMIoGwhkoZuK3UVN7rY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1594771059;
+	bh=qw6UTA9Ilr+O8vMiu0YNlCm1KV8fDRi9Ue7TDSwiBaM=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SCwPEe+FJeWpCN6FhI4G6aqYGp3nzxcqNfkKFnU0zyvpO/nhSd5uOmAHCl5bxPTRQ
-	 RKwq+0IA6rpNzvB21yMKGWmArVQd4IhHNb/NFXfAUUJyynTog/A84FjpmGVyzTucwe
-	 mOsvf1VuV66y4EvD7pREleeDAX8z++k4a6NvfpLo=
+	b=BsGGoBKui0aepIXtrObYV0C0W8YdaaRy7mz/1xDDKa1OvJMg5OngeTGY3TMa3zSXh
+	 BwcqYF2Rn9Khj4RNtnDKZ3EtuiJw3M6MYZep5rD+u9Vlm2aozZHMub4AQz7YsTihZ6
+	 sk7azdimtLG8R/qZGMXVHh68en8Jb6zgGqVKJcXA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF7E6F801EC;
-	Tue, 14 Jul 2020 23:15:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 805C8F80113;
+	Wed, 15 Jul 2020 01:55:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CBD72F8019B; Tue, 14 Jul 2020 23:15:18 +0200 (CEST)
+ id 504D5F8019B; Wed, 15 Jul 2020 01:55:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81D76F80113
- for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 23:15:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81D76F80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id CA137F80113
+ for <alsa-devel@alsa-project.org>; Wed, 15 Jul 2020 01:55:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA137F80113
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="c4g5l41v"
-Received: by mail-pg1-x541.google.com with SMTP id m22so8300219pgv.9
- for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 14:15:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=gUsxgEIbOCPN/g+dhdnfdWC6Rsm4WcdiQ4zDxdYgS80=;
- b=c4g5l41vPTzdfvBku6Gyyd9dtF0BOhHeYH39FPISi5h5zu/7m0KQBQAauU6DRWwCNI
- aJFxK5Oqe96j7ceibK0CyVHiTNei10p4jHaC3l7OVoXMCCEeHsi/Q8ezd90xrh3x8oJ6
- UwDEyUiPh3Ja1sl8MrwnF5+o4DsaE+nx8NDmDwYw98Nea3ZKmlTfZx3CCP800NIM0SOY
- CXa3j3AUDNMdDH2KvVLhkxmyCWqXWjSov+f1nxIO31O0Gx6YS7hwxXt8puB0/xHjTd2f
- u1Y3X+ybA8mclQRcyyvl59frNzSpsGVtHfR6Mbi41HgC+bFjI9xSl+k3C4ePbPUODuiP
- oeqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=gUsxgEIbOCPN/g+dhdnfdWC6Rsm4WcdiQ4zDxdYgS80=;
- b=cVoTbjQvQFeqYB+6qn9lpyQnbruBI5AEBiA72gdMhFJwV3TbfLMoEaUtMwVK2euTz0
- HBYGAwCzAhf1tb14BFGntxjpY9DAGR6PBn7Rk0eyr85IT97217Cvv2llkLzMhcNOL8ap
- 4YddY8f69b/Lg6jBuysZh7LkyDbdBdgyFVvC4HLjXLuZUGzZ1PDTNdbfroHccn1wbY2c
- pkm9qWjQT8DC57nWLHrtdUV2qe+Wl3LlockARG8UPr5xzd4+iHOYnv9HeJ2jzK3zHaRz
- s0fs9AkilBd29mEUM8DwV/z2kS9hy5C59rGI1yzKv7e/12YNI8bD7soPcbzcxCN4XKXy
- hoMA==
-X-Gm-Message-State: AOAM533GyE/lwRwBFx/W/qv27cNKRWvOwvyy2U7wJi/yCf1Yz52LFY5+
- BEj6OozW86QIXxVq9RAvPfg=
-X-Google-Smtp-Source: ABdhPJwsRQ9mKCwSTE8ucb75FPjtcLbouSD8dQj1J5mA3EExVAJ2tJ3R4hWiETcAhJVqwmV+N1o7rA==
-X-Received: by 2002:a63:441c:: with SMTP id r28mr4965134pga.372.1594761309828; 
- Tue, 14 Jul 2020 14:15:09 -0700 (PDT)
-Received: from Asurada-Nvidia (searspoint.nvidia.com. [216.228.112.21])
- by smtp.gmail.com with ESMTPSA id y17sm105760pfe.30.2020.07.14.14.15.08
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 14 Jul 2020 14:15:09 -0700 (PDT)
-Date: Tue, 14 Jul 2020 14:14:45 -0700
-From: Nicolin Chen <nicoleotsuka@gmail.com>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [PATCH 3/3] ASoC: fsl-asoc-card: Support Headphone and
- Microphone Jack detection
-Message-ID: <20200714211432.GA10818@Asurada-Nvidia>
-References: <1594717536-5188-1-git-send-email-shengjiu.wang@nxp.com>
- <1594717536-5188-4-git-send-email-shengjiu.wang@nxp.com>
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="Qw2PwrdT"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="K/gGHlxT"
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.nyi.internal (Postfix) with ESMTP id 1EEB85C0044;
+ Tue, 14 Jul 2020 19:55:47 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Tue, 14 Jul 2020 19:55:47 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm2; bh=GpiBfE8Kn5HBdBpTS8IpkY5/aUx
+ XFXNXicheL8PIiUA=; b=Qw2PwrdT2k4mBGUlkbqBISqjnWDJ6PSofKcaWzGNW50
+ uHrtZQO66hjuadQkq7wOyRRT8WASwfDtd8GXaAtsDPuZbGoOZ3+ZTJAhM/aGRPNg
+ 7gtwd0x2O0KPqQYuEmX0ZSB3EDzBwpsInLi862/USgX7snG5VLX29eGKbM9v1PlM
+ fNaMer8ZprI6C6tr4aHh7ZC+Vi+/y4nWsSwJ+vZ7yPIJ38Y2dp5VV4ytxoSL3q5N
+ hacM7QPOCxr/Im3UGNqo+KzzFavmEIGpxTXWW4u85DpKDQUYMePhhMcrRUBv3umS
+ Jd3GO04dOb/cmyZ1Xf5DLpZqLdZEgK0J72+HtcBM0eA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=GpiBfE
+ 8Kn5HBdBpTS8IpkY5/aUxXFXNXicheL8PIiUA=; b=K/gGHlxTNSEGceaVv+hfTg
+ 3z71wuoBHrs6yNShLD6pQ/BJZlWSDHZyrXsSGukeDV0fO+TZotFIipd00jj6Y0SE
+ 8AKrdKREyKyWkqNR8/bUxa3cvaryHvrdEeTNBdgXKrCK+gzRvMiPGEiW123oD5ad
+ DEzPzsDz2ei2e2kH5qJkkgCCkOqIEcczYjniQFdXjJsgIkOsuZ3z28qfSPS2/zv9
+ LaFDnOHfsRNMfNs3hRO6aSiLLJiuS1iaV5uiUzrD0szyPiFTyzymYpMHTC1tOPKX
+ O0VoXKMcnIsg67Yizm8Dovy8M84Ei5q9iWtEsj5IuhWGIdy6k/a8qoqpnGyk9Mxg
+ ==
+X-ME-Sender: <xms:AkYOX05Mt4Ia2IGQC3Jze4WHlvv8sPYFL-fZ1XN29WRjyP4EQPsf7w>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrfedugddvjecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfhfgggtuggjsehttdertd
+ dttddvnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
+ hhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpeelfeelieekie
+ eivedtffefieehfefhudefieeifffhtefffeehfedvveduudfgtdenucffohhmrghinhep
+ ghhithhhuhgsrdgtohhmnecukfhppedukedtrddvfeehrdefrdehgeenucevlhhushhtvg
+ hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehs
+ rghkrghmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:AkYOX16td5opQW3GAvTCaRvlHYe0rj5EwnnYU7SfnZ4qaN6cjymwCQ>
+ <xmx:AkYOXzedv5i9Q-2Jco9cfKEOz13CpnCsF7txP5lwJBzV8c25darCEQ>
+ <xmx:AkYOX5LGbBZtbUPdXbsEmlndRSebk0miYkXDrgtnjd3xQLriBjUuFQ>
+ <xmx:A0YOX_ntdB5t6wS5VqfbgNu246DFSe9d1Ju9tVm74mfql8T0DNlnsw>
+Received: from workstation (ad003054.dynamic.ppp.asahi-net.or.jp
+ [180.235.3.54])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 537703280063;
+ Tue, 14 Jul 2020 19:55:45 -0400 (EDT)
+Date: Wed, 15 Jul 2020 08:55:43 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: alsa-devel@alsa-project.org, sbahling@suse.com,
+ ffado-devel@lists.sourceforge.net
+Subject: Re: [RFT] ALSA control service programs for Digidesign Digi 002/003
+ family and Tascam FireWire series
+Message-ID: <20200714235543.GA263043@workstation>
+Mail-Followup-To: alsa-devel@alsa-project.org, sbahling@suse.com,
+ ffado-devel@lists.sourceforge.net
+References: <20200707125651.GA200100@workstation>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1594717536-5188-4-git-send-email-shengjiu.wang@nxp.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org, timur@kernel.org,
- kuninori.morimoto.gx@renesas.com, samuel@sholland.org, katsuhiro@katsuster.net,
- linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, lgirdwood@gmail.com,
- robh+dt@kernel.org, tiwai@suse.com, broonie@kernel.org, festevam@gmail.com
+In-Reply-To: <20200707125651.GA200100@workstation>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,59 +115,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Shengjiu,
+Hi,
 
-The whole series looks good to me. Just a couple of small
-questions inline:
-
-On Tue, Jul 14, 2020 at 05:05:36PM +0800, Shengjiu Wang wrote:
-> Use asoc_simple_init_jack function from simple card to implement
-> the Headphone and Microphone detection.
-> Register notifier to disable Speaker when Headphone is plugged in
-> and enable Speaker when Headphone is unplugged.
-> Register notifier to disable Digital Microphone when Analog Microphone
-> is plugged in and enable DMIC when Analog Microphone is unplugged.
+On Tue, Jul 07, 2020 at 09:56:51PM +0900, Takashi Sakamoto wrote:
+> How to build
+> -------------
 > 
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> ---
->  sound/soc/fsl/Kconfig         |  1 +
->  sound/soc/fsl/fsl-asoc-card.c | 69 ++++++++++++++++++++++++++++++++++-
->  2 files changed, 68 insertions(+), 2 deletions(-)
+> The project depends on several libraries in below repositories:
+> 
+> * glib[2]
+> * alsa-gobject v0.1.0[3]
+> * libhinawa v2.0.0[4]
+> 
+> Before building it, please install them with gobject-introspection support.
+> 
+> The project is written by Rust programming language[5] and packaged by
+> cargo[6]. To build, just run below commands in the environment to connect
+> to internet:
+> 
+> ```
+> $ git clone https://github.com/alsa-project/snd-firewire-ctl-services.git -b topic/services-for-dg00x-tascam
+> $ cd snd-firewire-ctl-services
+> $ cargo build
+> ```
+> 
+> All of required crates are downloaded automatically, then start build.
 
->  static int fsl_asoc_card_late_probe(struct snd_soc_card *card)
->  {
->  	struct fsl_asoc_card_priv *priv = snd_soc_card_get_drvdata(card);
-> @@ -745,8 +789,29 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
->  	snd_soc_card_set_drvdata(&priv->card, priv);
->  
->  	ret = devm_snd_soc_register_card(&pdev->dev, &priv->card);
-> -	if (ret && ret != -EPROBE_DEFER)
-> -		dev_err(&pdev->dev, "snd_soc_register_card failed (%d)\n", ret);
-> +	if (ret) {
-> +		if (ret != -EPROBE_DEFER)
-> +			dev_err(&pdev->dev, "snd_soc_register_card failed (%d)\n", ret);
+I merged the above topic branch into master branch. Please use HEAD of master
+branch if you're interested in it.
 
-I think we may move this EPROBE_DEFER to the asrc_fail label.
 
-> +		goto asrc_fail;
-> +	}
-> +
-> +	if (of_property_read_bool(np, "hp-det-gpio")) {
+Thanks
 
-Could we move this check inside asoc_simple_init_jack? There's no
-problem with doing it here though, yet I got a bit confused by it
-as I thought it's a boolean type property, which would be against
-the DT bindings until I saw asoc_simple_init_jack() uses the same
-string to get the GPIO. Just it probably would be a bit tricky as
-we need it to be optional here.
-
-Otherwise, I think we may add a line of comments to indicate that
-the API would use the same string to get the GPIO.
-
-> +		ret = asoc_simple_init_jack(&priv->card, &priv->hp_jack,
-> +					    1, NULL, "Headphone Jack");
-> +		if (ret)
-> +			goto asrc_fail;
-> +
-> +		snd_soc_jack_notifier_register(&priv->hp_jack.jack, &hp_jack_nb);
-> +	}
+Takashi Sakamoto

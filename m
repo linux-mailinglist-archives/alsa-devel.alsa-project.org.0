@@ -2,70 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6810921F717
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jul 2020 18:19:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 700FA21F725
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jul 2020 18:22:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA4E5166C;
-	Tue, 14 Jul 2020 18:18:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA4E5166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 18A061669;
+	Tue, 14 Jul 2020 18:21:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18A061669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594743576;
-	bh=GHc/A54ej8xbpj6gfhPRdrZjqYoOmZGcyrndwuh7kUw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1594743743;
+	bh=sZAkuK//Uvvh4PVn2pXumK2xp7sDbjp5pvRCxNITvKA=;
+	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=baRkwVIChM/yP0LRwmejyIUbHoV+qjP+RAYC2xacmwt5xkDIE3m3cAni3LOVK7xOQ
-	 Mo+HZ91E5C+OoCxbNHMk+grxhqjG/yZlj1hnLT09GX6EUv3XcuBkrWBBJ5B83SXmnH
-	 t4aCEkdEysKmTc0UswEUFQL9M0MHafKXufoAdRqk=
+	b=O6ZLgFy7gsaadFeEyX6lXSRZ7WC4Rl2lZX1aVZ7TqpDI63Qi0oon4iBAuVL/h1TVg
+	 R4EK5cyUE+2dX/HyENmGogx6QBhyhuzJFj5Sk4XYjlp/FpFfLPuh0PyS9VBNX1nsMt
+	 Ii9D7A9UyMTDG75CVd8xMy0AXrd2Yj7Xc8uH9GyY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EF804F8016F;
-	Tue, 14 Jul 2020 18:17:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67948F801EC;
+	Tue, 14 Jul 2020 18:20:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 35905F8019B; Tue, 14 Jul 2020 18:17:53 +0200 (CEST)
+ id E6E20F8019B; Tue, 14 Jul 2020 18:20:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3DC99F80113
- for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 18:17:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DC99F80113
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="SjOM0G1b"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_PASS,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4CCF82082F;
- Tue, 14 Jul 2020 16:17:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594743467;
- bh=GHc/A54ej8xbpj6gfhPRdrZjqYoOmZGcyrndwuh7kUw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=SjOM0G1bw04Wq//QItGFQXxxCi+rDxZneHP6HJQNDuZRZ9AloSlcf2HEuC9pMQEU2
- j4n6d9hwWBGmUGaO3XbuhR3NAYcoSSH8NE//NYCrAVHMgO+RdE056Dp5+q4IOm6A3l
- Fge2bhgS2PCihgavkSzLhk3Xt4RhQbN4qukVrv00=
-Date: Tue, 14 Jul 2020 17:17:38 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Primoz Fiser <primoz.fiser@norik.com>
-Subject: Re: ASoC: codecs: wm9712: Mux no paths errors
-Message-ID: <20200714161738.GG4900@sirena.org.uk>
-References: <b050f906-35e7-b9a8-ea9d-93786ea5006a@norik.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D714EF80113
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 18:20:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D714EF80113
+Received: from [IPv6:2a01:e35:2fb5:1510:f10e:b079:5246:a11f] (unknown
+ [IPv6:2a01:e35:2fb5:1510:f10e:b079:5246:a11f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: aferraris)
+ by bhuna.collabora.co.uk (Postfix) with ESMTPSA id A35752A0870;
+ Tue, 14 Jul 2020 17:20:35 +0100 (BST)
+Subject: Re: [PATCH 0/4] ASoC: fsl_asrc: allow selecting arbitrary clocks
+From: Arnaud Ferraris <arnaud.ferraris@collabora.com>
+To: Nicolin Chen <nicoleotsuka@gmail.com>
+References: <20200702142235.235869-1-arnaud.ferraris@collabora.com>
+ <20200702184226.GA23935@Asurada-Nvidia>
+ <3f39a0bb-a766-f646-28b3-a51cf9983c6b@collabora.com>
+Autocrypt: addr=arnaud.ferraris@collabora.com; keydata=
+ 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
+ xZQG6fKWuIur3RI=
+Message-ID: <3fea8912-63df-ff27-0c29-6284a85107ab@collabora.com>
+Date: Tue, 14 Jul 2020 18:20:32 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="7uYPyRQQ5N0D02nI"
-Content-Disposition: inline
-In-Reply-To: <b050f906-35e7-b9a8-ea9d-93786ea5006a@norik.com>
-X-Cookie: Your password is pitifully obvious.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org
+In-Reply-To: <3f39a0bb-a766-f646-28b3-a51cf9983c6b@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
+ kernel@collabora.com, Fabio Estevam <festevam@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,82 +122,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Nic,
 
---7uYPyRQQ5N0D02nI
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Le 03/07/2020 à 11:38, Arnaud Ferraris a écrit :
+> Hi Nic,
+> 
+> Le 02/07/2020 à 20:42, Nicolin Chen a écrit :
+>> Hi Arnaud,
+>>
+>> On Thu, Jul 02, 2020 at 04:22:31PM +0200, Arnaud Ferraris wrote:
+>>> The current ASRC driver hardcodes the input and output clocks used for
+>>> sample rate conversions. In order to allow greater flexibility and to
+>>> cover more use cases, it would be preferable to select the clocks using
+>>> device-tree properties.
+>>
+>> We recent just merged a new change that auto-selecting internal
+>> clocks based on sample rates as the first option -- ideal ratio
+>> mode is the fallback mode now. Please refer to:
+>> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?h=next-20200702&id=d0250cf4f2abfbea64ed247230f08f5ae23979f0
+> 
+> That looks interesting, thanks for pointing this out!
+> I'll rebase and see how it works for my use-case, will keep you informed.
+> 
+> Regards,
+> Arnaud
+> 
 
-On Tue, Jul 14, 2020 at 02:17:34PM +0200, Primoz Fiser wrote:
->=20
-> I have a sound setup based on fsl_ssi + wm9712 codec.
->=20
+I finally got some time to test and debug clock auto-selection on my
+system, and unfortunately couldn't get it to work.
 
-Copying in the Cirrus driver maintainers, not deleting anything for
-their benefit.
+Here's some background about my use case: the i.MX6 board acts as a
+Bluetooth proxy between a phone and a headset. It has 2 Bluetooth
+modules (one for each connected device), with audio connected to SSI1 &
+SSI2. Audio sample rate can be either 8 or 16kHz, and bclk can be either
+512 or 1024kHz, all depending of the capabilities of the headset and phone.
+In our case we want SSI2 to be the input clock to the ASRC and SSI1 the
+output clock, but there is no way to force that with auto-selection:
+both clocks are multiples of both 8k and 16k, so the algorithm will
+always select the SSI1 clock.
 
-> On every drivers load I get the following console error:
->=20
-> > > [ 5666.776770] wm9712-codec wm9712-codec: ASoC: mux Capture Phone Mux=
- has no paths
-> > > [ 5666.784281] wm9712-codec wm9712-codec: ASoC: mux Differential Sour=
-ce has no paths
->=20
-> What is the proper way to get rid of this errors?
->=20
-> As a temporary solution I have ifdef-ed the following muxes from the driv=
-er
-> like so:
->=20
-> > @@ -364,8 +365,10 @@ SND_SOC_DAPM_MUX("Out3 Mux", SND_SOC_NOPM, 0, 0,
-> >         &wm9712_out3_mux_controls),
-> >  SND_SOC_DAPM_MUX("Speaker Mux", SND_SOC_NOPM, 0, 0,
-> >         &wm9712_spk_mux_controls),
-> > +#if 0
-> >  SND_SOC_DAPM_MUX("Capture Phone Mux", SND_SOC_NOPM, 0, 0,
-> >         &wm9712_capture_phone_mux_controls),
-> > +#endif
-> >  SND_SOC_DAPM_MUX("Left Capture Select", SND_SOC_NOPM, 0, 0,
-> >         &wm9712_capture_selectl_controls),
-> >  SND_SOC_DAPM_MUX("Right Capture Select", SND_SOC_NOPM, 0, 0,
-> > @@ -374,8 +377,10 @@ SND_SOC_DAPM_MUX("Left Mic Select Source", SND_SOC=
-_NOPM, 0, 0,
-> >         &wm9712_mic_src_controls),
-> >  SND_SOC_DAPM_MUX("Right Mic Select Source", SND_SOC_NOPM, 0, 0,
-> >         &wm9712_mic_src_controls),
-> > +#ifdef 0
-> >  SND_SOC_DAPM_MUX("Differential Source", SND_SOC_NOPM, 0, 0,
-> >         &wm9712_diff_sel_controls),
-> > +#endif
-> >  SND_SOC_DAPM_MIXER("AC97 Mixer", SND_SOC_NOPM, 0, 0, NULL, 0),
-> >  SND_SOC_DAPM_MIXER("Left HP Mixer", AC97_INT_PAGING, 9, 1,
-> >         &wm9712_hpl_mixer_controls[0], ARRAY_SIZE(wm9712_hpl_mixer_cont=
-rols)),
->=20
-> which works but feels like a dirty workaround, right?
+I don't think auto-selection can be made smart enough to cover this
+case, which is why I believe we still need a way to manually setup the
+input and output clocks to be used by ASRC, falling back to
+auto-selecting the clocks if not setup manually.
+If not using DT bindings, what do you think would be the best way to
+implement that?
 
-> How can this be properly fixed in the wm9712 driver or somewhere else?
-
-Someone needs to either removing the muxes as you have at the minute or
-filling in their inputs (which should be fairly straightforward if you
-take a look at the datasheet).  TBH if nobody's noticed them being
-broken in all the time the driver has been in mainline it's probably not
-that great a loss to remove them, someone who needs the support can
-always re-add the muxes themselves while adding their inputs.
-
---7uYPyRQQ5N0D02nI
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8N2qEACgkQJNaLcl1U
-h9CfTAf/dzNSBDWoKd/nl1gombwrTyxq1WpJx1BFGIr68UUkIkR+Q++vK6NSSLHR
-L7HQhNLoHEBwmCkhM8ZR/iqVNhrvSMgMKm/EfCuYuROHGewDzGYwzyKapEo2Uzu0
-DBTMD9PWqrek1VCe6s+GBsaQawjc34klv9KM2jOFUhDiZNqaRFgp8ejsjPd87Aau
-7+NCxYcldAGwVEOzfMe427+il9s7MZG6hGJkIZc4Is4Xja/7ckk99YHlcgPD/gpK
-2Q5yR3jj26fCVxja9bPdyrKCRXNWovs7YWL9SCuy47/vSavc4zbC2hLRT0rZD+Qg
-1uJk/np/FGvt3VNiQ0+Im0j7rLlhxA==
-=D6Ym
------END PGP SIGNATURE-----
-
---7uYPyRQQ5N0D02nI--
+Regards,
+Arnaud

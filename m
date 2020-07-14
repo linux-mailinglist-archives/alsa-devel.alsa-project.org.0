@@ -2,72 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05FC521F54D
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jul 2020 16:47:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2049B21F5A4
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jul 2020 17:04:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 94CB815E5;
-	Tue, 14 Jul 2020 16:46:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94CB815E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 92793165E;
+	Tue, 14 Jul 2020 17:03:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92793165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594738043;
-	bh=2HMwBWKfuibfivhw2EEUQyPibobh2jV2edHTtMRWpi4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=lR6oDBHs2xyuF+AZSWwOAhvPbBexI/gJWJos++myHgyO6YA/kV0jftDK8FMDSoCG6
-	 BFDCmETBIUWFavnqzFniUuGmldJRoMQWJAnJ8TTPOtXUQUIjfPwXlOcRovQq01SvDr
-	 UlEWfjxmEaCYJ1bc/Ne78uek7SZj7hPQukSoFi6Y=
+	s=default; t=1594739067;
+	bh=UxLIHjNMDuOcJPYKWVZ0NeUzRJHBrL+77S27hHGeHas=;
+	h=To:From:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=UqsCpXTf4mXpfvP6w8x7ThjvdAckE/2fTbTBcEPgkK9b3a8eW/y5NESww2xiK93m9
+	 xEE6fo+TrJLfUNgHm7fRwlCqQKbAfEUmOhKUETpcnFUdJ52F8xlsm4ZL6h/emGxzSq
+	 QWFQRC3xfEhJKGIxmoxoP+mEyi4SEKOCd/PNXqE0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A522BF801F2;
-	Tue, 14 Jul 2020 16:45:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9D7FBF800E5;
+	Tue, 14 Jul 2020 17:02:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BE8FDF801EC; Tue, 14 Jul 2020 16:45:39 +0200 (CEST)
+ id E0B4CF8019B; Tue, 14 Jul 2020 17:02:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AF418F8014E
- for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 16:45:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF418F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4CDD5F800E5
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 17:02:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CDD5F800E5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="b5V+WwDP"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4C3C42082F;
- Tue, 14 Jul 2020 14:45:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594737926;
- bh=2HMwBWKfuibfivhw2EEUQyPibobh2jV2edHTtMRWpi4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=b5V+WwDPUEuUkdqEsN9NzyYu3TWmKLZnUCKxVKQquFPPzDfiFie7GzFbvI5NAFpGh
- r7yckDYP6Yfaben+GiUh78V7tlFtgFp0+GSpMpaRxHjDg/ZU2wqGBb9pQS9BO+dIvH
- jdOV2K9VTQOF+e8DvfTJTY2nVMElE2TnX8l7V5KM=
-Date: Tue, 14 Jul 2020 15:45:17 +0100
-From: Mark Brown <broonie@kernel.org>
-To: xingxing qiao <mnlife@foxmail.com>
-Subject: Re: [PATCH] When snd_soc_card_jack_new is not called or the call
- fails, calling this function causes a null pointer access
-Message-ID: <20200714144517.GF4900@sirena.org.uk>
-References: <tencent_AA2F5D7A5EDC40E7E806D0CA5877CE8AB308@qq.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="N+lhi45Y"
+Received: by mail-ed1-x536.google.com with SMTP id h28so17576581edz.0
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 08:02:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=to:from:subject:cc:message-id:date:user-agent:mime-version
+ :content-language;
+ bh=UxTbpT//uTreXUM/0Lg32yUqkXe9c7dhsrjm3sjG1eY=;
+ b=N+lhi45YBdfEHK8FLEz2Z7MZ+G4baCQNDI4sipCZlL9ix6Kzd1qjD78DOpJ2NN4Ypt
+ 5damZ4zOUoLY/C6jPN3KndjnVrPhMWURUaezRkhrH2Fj9stV6u3p/U01yhau/+VA0HF4
+ 7uJlYetma4beyJysh7R8ENHSU7mgPSEe1uK9WB2Bvv0temRzqzrRV+b4wVt7zV8Mz2d2
+ fb9M0KPTQ6h4AXhUqIh9rv5H+biPT9Epmd2O3uvU9ta+DRkH5RSCkQXNCnemAvJQmy0n
+ MGKm9lcBiCJ5Zmebs3uZfB/uah8Ti2qCSTnykH2TA1gUwkY/2aBBQI6dMAQX/vJCM6lx
+ W7SA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:to:from:subject:cc:message-id:date:user-agent
+ :mime-version:content-language;
+ bh=UxTbpT//uTreXUM/0Lg32yUqkXe9c7dhsrjm3sjG1eY=;
+ b=UECyJieT/GvDRSjOSFQbxS/oeS/YQzCMKoq+lnuYPY8fP2tiSaZ9C9g5WxoSvGjexZ
+ ULgKjJmnrczqcb0oj7g48MDDj9w6LEVaYI5xRws+8vusxzL6tyzodSd3lIycgZx8nFHC
+ O4yjDQqflWxQgB+1Rs36/ojG32xeQpH1fhOATpasRzb6aUuDlNrfokmb32ZgOX2ZJDt1
+ gci5XIw7R2sRuNsK6D+CbESHyuNqmtdo7Wp9XhlpZhNu0ibvR0f0s4IFMgB301XHe2As
+ bXdqwllYp6RqNdcbdmZnQqIm3i1tZrCMDXa5LvzIEeNO4ci4+OqiZA7407cD4Jg7ETj3
+ X/Ow==
+X-Gm-Message-State: AOAM5335SO8ZOS6okevpZZ1ubiKArnJ/Jt9EiXDf8PpXiHKKCEbSsq2J
+ /PI+fkSNcU7qF2+qfpcqArM=
+X-Google-Smtp-Source: ABdhPJx4k8cjmzqOajr6KJBedildoEu4s0j3KDQKJcFmb6N33cMfs/btTT/EMwZhCFhEPKBoahsANw==
+X-Received: by 2002:a50:a1e7:: with SMTP id 94mr4775980edk.165.1594738955798; 
+ Tue, 14 Jul 2020 08:02:35 -0700 (PDT)
+Received: from ?IPv6:2001:1c01:2f03:7200:763c:d807:63d8:4d15?
+ (2001-1c01-2f03-7200-763c-d807-63d8-4d15.cable.dynamic.v6.ziggo.nl.
+ [2001:1c01:2f03:7200:763c:d807:63d8:4d15])
+ by smtp.gmail.com with ESMTPSA id o14sm12855316eja.121.2020.07.14.08.02.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 14 Jul 2020 08:02:35 -0700 (PDT)
+To: alsa-devel@alsa-project.org
+From: =?UTF-8?Q?Ren=c3=a9_Herman?= <rene.herman@gmail.com>
+Subject: [snd-usb-6fire] Move DMA-buffer off of the stack
+Message-ID: <1e255a15-b0ff-088b-2ac2-8f2fc68bfbeb@gmail.com>
+Date: Tue, 14 Jul 2020 17:02:34 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="bGR76rFJjkSxVeRa"
-Content-Disposition: inline
-In-Reply-To: <tencent_AA2F5D7A5EDC40E7E806D0CA5877CE8AB308@qq.com>
-X-Cookie: Your password is pitifully obvious.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: linux-kernel <linux-kernel@vger.kernel.org>,
- alsa-devel <alsa-devel@alsa-project.org>, lgirdwood <lgirdwood@gmail.com>
+Content-Type: multipart/mixed; boundary="------------096A0602DC2CEC2614F888FD"
+Content-Language: en-US
+Cc: Torsten Schenk <torsten.schenk@zoho.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,38 +100,156 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This is a multi-part message in MIME format.
+--------------096A0602DC2CEC2614F888FD
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
---bGR76rFJjkSxVeRa
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+snd-usb-fire currently fails its firmware load with "transfer buffer not
+dma capable". Move said buffer off of the stack (has been coordinated
+with the original driver author Torsten Schenk)
 
-On Tue, Jul 14, 2020 at 10:30:36PM +0800, xingxing qiao wrote:
+Signed-off-by: René Herman <rene.herman@gmail.com>
 
-> &nbsp;unsigned int sync = 0;
-> &nbsp;int enable;
-> &nbsp;
-> -if (!jack)
+--------------096A0602DC2CEC2614F888FD
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0001-snd-usb-6fire-Move-DMA-buffer-off-the-stack.patch"
+Content-Transfer-Encoding: 8bit
+Content-Disposition: attachment;
+ filename="0001-snd-usb-6fire-Move-DMA-buffer-off-the-stack.patch"
 
-This is actually worse than your previous posting - it's got HTML all
-through it :(  git send-email is typically the easiest way to send
-things.
+From 6a732ea2536217e1aa35c55c966df0e7873d95ca Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ren=C3=A9=20Herman?= <rene.herman@gmail.com>
+Date: Sun, 12 Jul 2020 01:22:45 +0200
+Subject: [PATCH 1/3] [snd-usb-6fire] Move DMA-buffer off the stack
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Also please note my comment about needing a subject line in a similar
-style to those in existing commits you can see in git.
+snd-usb-fire currently fails its firmware load with "transfer buffer not dma
+capable". Move said buffer off of the stack.
 
---bGR76rFJjkSxVeRa
-Content-Type: application/pgp-signature; name="signature.asc"
+Signed-off-by: René Herman <rene.herman@gmail.com>
+---
+ sound/usb/6fire/firmware.c | 95 ++++++++++++++++++--------------------
+ 1 file changed, 46 insertions(+), 49 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/sound/usb/6fire/firmware.c b/sound/usb/6fire/firmware.c
+index 69137c14d0dc..502653a89f01 100644
+--- a/sound/usb/6fire/firmware.c
++++ b/sound/usb/6fire/firmware.c
+@@ -355,63 +355,60 @@ static int usb6fire_fw_check(struct usb_interface *intf, const u8 *version)
+ 
+ int usb6fire_fw_init(struct usb_interface *intf)
+ {
+-	int i;
+-	int ret;
+ 	struct usb_device *device = interface_to_usbdev(intf);
++	int ret, i;
++
+ 	/* buffer: 8 receiving bytes from device and
+ 	 * sizeof(EP_W_MAX_PACKET_SIZE) bytes for non-const copy */
+-	u8 buffer[12];
++	u8 *buffer = kmalloc(12, GFP_KERNEL);
++
++	if (!buffer)
++		return -ENOMEM;
+ 
+ 	ret = usb6fire_fw_ezusb_read(device, 1, 0, buffer, 8);
+ 	if (ret < 0) {
+ 		dev_err(&intf->dev,
+ 			"unable to receive device firmware state.\n");
+-		return ret;
+-	}
+-	if (buffer[0] != 0xeb || buffer[1] != 0xaa || buffer[2] != 0x55) {
+-		dev_err(&intf->dev,
+-			"unknown device firmware state received from device:");
+-		for (i = 0; i < 8; i++)
+-			printk(KERN_CONT "%02x ", buffer[i]);
+-		printk(KERN_CONT "\n");
+-		return -EIO;
+-	}
+-	/* do we need fpga loader ezusb firmware? */
+-	if (buffer[3] == 0x01) {
+-		ret = usb6fire_fw_ezusb_upload(intf,
+-				"6fire/dmx6firel2.ihx", 0, NULL, 0);
+-		if (ret < 0)
+-			return ret;
+-		return FW_NOT_READY;
++		goto out;
+ 	}
+-	/* do we need fpga firmware and application ezusb firmware? */
+-	else if (buffer[3] == 0x02) {
+-		ret = usb6fire_fw_check(intf, buffer + 4);
+-		if (ret < 0)
+-			return ret;
+-		ret = usb6fire_fw_fpga_upload(intf, "6fire/dmx6firecf.bin");
+-		if (ret < 0)
+-			return ret;
+-		memcpy(buffer, ep_w_max_packet_size,
+-				sizeof(ep_w_max_packet_size));
+-		ret = usb6fire_fw_ezusb_upload(intf, "6fire/dmx6fireap.ihx",
+-				0x0003,	buffer, sizeof(ep_w_max_packet_size));
+-		if (ret < 0)
+-			return ret;
+-		return FW_NOT_READY;
+-	}
+-	/* all fw loaded? */
+-	else if (buffer[3] == 0x03)
+-		return usb6fire_fw_check(intf, buffer + 4);
+-	/* unknown data? */
+-	else {
+-		dev_err(&intf->dev,
+-			"unknown device firmware state received from device: ");
+-		for (i = 0; i < 8; i++)
+-			printk(KERN_CONT "%02x ", buffer[i]);
+-		printk(KERN_CONT "\n");
+-		return -EIO;
++	if (buffer[0] == 0xeb && buffer[1] == 0xaa && buffer[2] == 0x55) {
++		/* do we need fpga loader ezusb firmware? */
++		if (buffer[3] == 1) {
++			ret = usb6fire_fw_ezusb_upload(intf,
++					"6fire/dmx6firel2.ihx", 0, NULL, 0);
++			if (ret >= 0)
++				ret = FW_NOT_READY;
++			goto out;
++		}
++		/* do we need fpga firmware and application ezusb firmware? */
++		if (buffer[3] == 2) {
++			ret = usb6fire_fw_check(intf, buffer + 4);
++			if (ret < 0)
++				goto out;
++			ret = usb6fire_fw_fpga_upload(intf, "6fire/dmx6firecf.bin");
++			if (ret < 0)
++				goto out;
++			memcpy(buffer, ep_w_max_packet_size,
++					sizeof(ep_w_max_packet_size));
++			ret = usb6fire_fw_ezusb_upload(intf, "6fire/dmx6fireap.ihx",
++					0x0003,	buffer, sizeof(ep_w_max_packet_size));
++			if (ret >= 0)
++				ret = FW_NOT_READY;
++			goto out;
++		}
++		/* all fw loaded? */
++		if (buffer[3] == 3) {
++			ret = usb6fire_fw_check(intf, buffer + 4);
++			goto out;
++		}
+ 	}
+-	return 0;
++	dev_err(&intf->dev,
++		"unknown device firmware state received from device: ");
++	for (i = 0; i < 8; i++)
++		printk(KERN_CONT "%02x ", buffer[i]);
++	printk(KERN_CONT "\n");
++	ret = -EIO;
++
++out:	kfree(buffer);
++	return ret;
+ }
+-
+-- 
+2.17.1
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8NxPwACgkQJNaLcl1U
-h9AM4Qf/daXJ1X3aWCVvpubYHVhttn9yFHKfs4sRxrKLLl40i4ysYQWZB5P7doEk
-1sohzwXmgJxxDz4j8MIoKtTClsCG2uH5aGj060gGwkhN1++b5lW4jpF+mKUWvwim
-wraN7JLZUr8yW8nHlVxscbXimUXHlb1apb3/KjvS3fL5EgPLpZ3cLRCQepJEorno
-EW/9+hJrKewpM1oCT9E0Fwsurv6BakMAEdsa7+557T20xOv+OFpFObZjz0E8fmtx
-hv7VM838yUwuPrwdA/WUj96Sa+pHVbIyX/mKqIPOj7ppLNHwiKdMS0v5BookoPfc
-u8i9TV4N4MuBuVrk7R70fqvPTmvBnw==
-=pZ+i
------END PGP SIGNATURE-----
 
---bGR76rFJjkSxVeRa--
+--------------096A0602DC2CEC2614F888FD--

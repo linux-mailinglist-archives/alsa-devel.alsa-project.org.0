@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F16021F82F
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jul 2020 19:30:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 989C921F82D
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jul 2020 19:30:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1499D1681;
-	Tue, 14 Jul 2020 19:29:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1499D1681
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4EA391669;
+	Tue, 14 Jul 2020 19:29:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4EA391669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594747815;
-	bh=/Ec1m6Vu3z+qtVDzzSbglEej/cdDVJwf2udxiQ3Q3gk=;
+	s=default; t=1594747800;
+	bh=R6N4v2CYe/Lx3W7tlVvWs/T7H+CfVwVF1Nb5Y6waph8=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QoK2igZ4cwBTYechx8o9NZ5YjQJnauyUFu3utCqP8jEkRY6zsuelM0rqcAfKiaylS
-	 7iJk4vwUEJXkNvqvn9U6TaoEylWAgmvs5pX52YkGkR5ONYu3siBhVDuqbjZHOCzt3M
-	 hoDZwfT78bj+CuL3DFKxtvpT5VyjlJJHqFoXcO6M=
+	b=O4FE6Qp9Oo+htXTGafA7VuYvdzR49UaH/ATD7fJFCjxtAX8zPmVtDr/wBAz/gEkiA
+	 6PP74uwyVADa18lar63UUSR4Y0/A5KltoUB9EOtUnCv6wfmKpOQywrN3PH6ZkNDBJa
+	 cyKbUVcV2BW+kiH8reGE917XPDKWW0Utb2NTXzKQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 846D8F802E2;
-	Tue, 14 Jul 2020 19:27:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05F51F8019B;
+	Tue, 14 Jul 2020 19:26:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A33FAF802E2; Tue, 14 Jul 2020 19:26:53 +0200 (CEST)
+ id D7807F802DC; Tue, 14 Jul 2020 19:26:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,18 +34,18 @@ X-Spam-Status: No, score=1.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (unknown [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 226C9F801F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2162BF801EC
  for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 19:26:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 226C9F801F2
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2162BF801EC
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 22F8DAD60
+ by mx2.suse.de (Postfix) with ESMTP id 30D6CAD63
  for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 17:26:38 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 03/10] ALSA: bt87x: Replace the words white/blacklist
-Date: Tue, 14 Jul 2020 19:26:24 +0200
-Message-Id: <20200714172631.25371-4-tiwai@suse.de>
+Subject: [PATCH 04/10] ALSA: ctxfi: Replace the word blacklist
+Date: Tue, 14 Jul 2020 19:26:25 +0200
+Message-Id: <20200714172631.25371-5-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20200714172631.25371-1-tiwai@suse.de>
 References: <20200714172631.25371-1-tiwai@suse.de>
@@ -65,68 +65,28 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Follow the recent inclusive terminology guidelines and replace the
-words "whitelist" and "blacklist" appropriately.
+word "blacklist" appropriately.
 
-Only comment or variable renames, no functional changes.
+Only correcting the error message, no functional changes.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/bt87x.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ sound/pci/ctxfi/ctatc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/pci/bt87x.c b/sound/pci/bt87x.c
-index 6567504665b9..54cb223caa2f 100644
---- a/sound/pci/bt87x.c
-+++ b/sound/pci/bt87x.c
-@@ -30,7 +30,7 @@ static int index[SNDRV_CARDS] = {[0 ... (SNDRV_CARDS - 1)] = -2}; /* Exclude the
- static char *id[SNDRV_CARDS] = SNDRV_DEFAULT_STR;	/* ID for this card */
- static bool enable[SNDRV_CARDS] = SNDRV_DEFAULT_ENABLE_PNP;	/* Enable this card */
- static int digital_rate[SNDRV_CARDS];	/* digital input rate */
--static bool load_all;	/* allow to load the non-whitelisted cards */
-+static bool load_all;	/* allow to load cards not the allowlist */
- 
- module_param_array(index, int, NULL, 0444);
- MODULE_PARM_DESC(index, "Index value for Bt87x soundcard");
-@@ -41,7 +41,7 @@ MODULE_PARM_DESC(enable, "Enable Bt87x soundcard");
- module_param_array(digital_rate, int, NULL, 0444);
- MODULE_PARM_DESC(digital_rate, "Digital input rate for Bt87x soundcard");
- module_param(load_all, bool, 0444);
--MODULE_PARM_DESC(load_all, "Allow to load the non-whitelisted cards");
-+MODULE_PARM_DESC(load_all, "Allow to load cards not on the allowlist");
- 
- 
- /* register offsets */
-@@ -801,7 +801,7 @@ MODULE_DEVICE_TABLE(pci, snd_bt87x_ids);
-  * (DVB cards use the audio function to transfer MPEG data) */
- static struct {
- 	unsigned short subvendor, subdevice;
--} blacklist[] = {
-+} denylist[] = {
- 	{0x0071, 0x0101}, /* Nebula Electronics DigiTV */
- 	{0x11bd, 0x001c}, /* Pinnacle PCTV Sat */
- 	{0x11bd, 0x0026}, /* Pinnacle PCTV SAT CI */
-@@ -817,7 +817,7 @@ static struct {
- 
- static struct pci_driver driver;
- 
--/* return the id of the card, or a negative value if it's blacklisted */
-+/* return the id of the card, or a negative value if it's on the denylist */
- static int snd_bt87x_detect_card(struct pci_dev *pci)
- {
- 	int i;
-@@ -827,9 +827,9 @@ static int snd_bt87x_detect_card(struct pci_dev *pci)
- 	if (supported && supported->driver_data > 0)
- 		return supported->driver_data;
- 
--	for (i = 0; i < ARRAY_SIZE(blacklist); ++i)
--		if (blacklist[i].subvendor == pci->subsystem_vendor &&
--		    blacklist[i].subdevice == pci->subsystem_device) {
-+	for (i = 0; i < ARRAY_SIZE(denylist); ++i)
-+		if (denylist[i].subvendor == pci->subsystem_vendor &&
-+		    denylist[i].subdevice == pci->subsystem_device) {
- 			dev_dbg(&pci->dev,
- 				"card %#04x-%#04x:%#04x has no audio\n",
- 				    pci->device, pci->subsystem_vendor, pci->subsystem_device);
+diff --git a/sound/pci/ctxfi/ctatc.c b/sound/pci/ctxfi/ctatc.c
+index b1898fafc6a9..f8ac96cf38a4 100644
+--- a/sound/pci/ctxfi/ctatc.c
++++ b/sound/pci/ctxfi/ctatc.c
+@@ -1282,7 +1282,7 @@ static int atc_identify_card(struct ct_atc *atc, unsigned int ssid)
+ 	if (p) {
+ 		if (p->value < 0) {
+ 			dev_err(atc->card->dev,
+-				"Device %04x:%04x is black-listed\n",
++				"Device %04x:%04x is on the denylist\n",
+ 				vendor_id, device_id);
+ 			return -ENOENT;
+ 		}
 -- 
 2.16.4
 

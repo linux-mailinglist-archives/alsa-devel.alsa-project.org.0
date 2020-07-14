@@ -2,59 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A80B721F8BE
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jul 2020 20:05:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D25B21FAA7
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jul 2020 20:54:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 36C47166E;
-	Tue, 14 Jul 2020 20:04:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36C47166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6623166E;
+	Tue, 14 Jul 2020 20:53:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6623166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594749933;
-	bh=IjCHqOr2evNezqa6HBSVm+1hqq1LJxpLJpvSc6zQj7w=;
+	s=default; t=1594752878;
+	bh=NQFU2DvA6aEwWPa1CQSfaaDSpA/Q3iCnzhcUxCVuft4=;
 	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BjwwPSyIC2FMeOIaAI3RXdcSi5O4+Xv/yvT3yNVyEvzHqmSa9/tq7/AoqksAX9O1x
-	 hWQnSbZ3za2N4YU/DCYDNjm91BLN9na8c8IlUjYPeIrAEjW5WIvlkyQscL/tz8GMfW
-	 eWVXUjq7HBPdLaw12V9rbHQnBcLBuoBu77Y7jrEo=
+	b=llTdiL+zyiwbS5H7zTo/vO4Zc0Kf8OE8iFSwseonlP2zkl54GdvKUL75jkPNVHERl
+	 9CoMHelQ92qcX8bKC1Kxd5YJUWxNyKZtebZZ4enDwKC6KfgrCo3qTRNFIkumLrpN06
+	 grrvNKI2RFNRpAtzCl86C7l+UeluSTyuIfZo1hEc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48C4FF8016F;
-	Tue, 14 Jul 2020 20:03:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F33B4F80113;
+	Tue, 14 Jul 2020 20:52:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 71553F8019B; Tue, 14 Jul 2020 20:03:50 +0200 (CEST)
+ id DDC4EF8019B; Tue, 14 Jul 2020 20:52:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.1 required=5.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
- PRX_APP_ATTACH,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from bitmer.com (50-87-157-213.static.tentacle.fi [213.157.87.50])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 698A7F800E5
- for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 20:03:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 698A7F800E5
-Received: from 88-114-184-4.elisa-laajakaista.fi ([88.114.184.4]
- helo=[192.168.1.42])
- by bitmer.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.89) (envelope-from <jarkko.nikula@bitmer.com>)
- id 1jvPHE-00032d-U7; Tue, 14 Jul 2020 21:03:36 +0300
-Subject: Re: omap-mcbsp 49022000.mcbsp: TX Buffer Overflow!
-To: Dave Young <dyoung@redhat.com>, Peter Ujfalusi <peter.ujfalusi@ti.com>,
- alsa-devel@alsa-project.org, linux-omap@vger.kernel.org
-References: <20200711033356.GA164619@dhcp-128-65.nay.redhat.com>
-From: Jarkko Nikula <jarkko.nikula@bitmer.com>
-Message-ID: <e4fc5a03-0343-d9c7-757f-b9652f0cd0ed@bitmer.com>
-Date: Tue, 14 Jul 2020 21:03:36 +0300
+ by alsa1.perex.cz (Postfix) with ESMTPS id 974B4F8014E
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 20:52:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 974B4F8014E
+IronPort-SDR: YLrZRH3ypzHGg0n0e9Y4xVcQsbUPArHXTG9M7HBPvAEHwuPE77mCSTHQUDMdPFAV+EL9ohU+zS
+ M3EpqQ+t+AsQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9682"; a="233864163"
+X-IronPort-AV: E=Sophos;i="5.75,352,1589266800"; d="scan'208";a="233864163"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jul 2020 11:52:31 -0700
+IronPort-SDR: 5XYBwlx7BLG8RYABelYmySVh0I3KiAU9UI0qNmFubXzkxHyyZphWn/8LNKwMTyXCgweX+rXXCC
+ TQp+1iCfvAIg==
+X-IronPort-AV: E=Sophos;i="5.75,352,1589266800"; d="scan'208";a="459795109"
+Received: from pchen16-mobl.amr.corp.intel.com (HELO [10.254.77.61])
+ ([10.254.77.61])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jul 2020 11:52:31 -0700
+Subject: Re: [PATCH 01/10] ALSA: Replace the word "slave" in vmaster API
+To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
+References: <20200714172631.25371-1-tiwai@suse.de>
+ <20200714172631.25371-2-tiwai@suse.de>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <eda4df2e-d7b0-9e7e-e873-e3d8d3088174@linux.intel.com>
+Date: Tue, 14 Jul 2020 13:52:30 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200711033356.GA164619@dhcp-128-65.nay.redhat.com>
-Content-Type: multipart/mixed; boundary="------------4DBB47A0D994866EAB499D59"
+In-Reply-To: <20200714172631.25371-2-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,84 +81,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This is a multi-part message in MIME format.
---------------4DBB47A0D994866EAB499D59
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
 
-Hi
 
-On 7/11/20 6:33 AM, Dave Young wrote:
-> Hi,
-> 
-> I'm trying to use g_audio on my Nokia N900 with mainline kernel. Seems
-> it does not work.  No sound when I play from a laptop, and also see a
-> lot of error like below:
-> [ 4729.557647] omap-mcbsp 49022000.mcbsp: TX Buffer Overflow!
-> ...
-> 
-Head 0dc589da873b ("Merge tag 'iommu-fixes-v5.8-rc5' of
-git://git.kernel.org/pub/scm/linux/kernel/git/joro/iommu") records and
-plays fine here (arecord -f dat |aplay), although I see some of those
-errors but don't hear any glitches etc.
+On 7/14/20 12:26 PM, Takashi Iwai wrote:
+> Follow the recent inclusive terminology guidelines and replace the
+> word "slave" in vmaster API.  I chose the word "replica" at this time
+> since it seems fitting for the purpose.
 
-Peter, does above indicate a serious issue or is it perhaps a false
-alarm on OMAP3 (no audible glitches)?
+Thanks Takashi for starting this.
 
-I believe you don't have some mixer knob on, N900 audio path is somewhat
-complex and needs bunch of mixer switches and volumes to be set. I
-attached my N900 mixer scripts for you to try.
+For the HDaudio Volume widgets, the spec says they may have different 
+step size but use the same number of steps, so they are not copy-exact 
+versions in the usual 'replica' sense but rather follow or track the 
+master configuration.
 
-Set first everything off:
-./aic34_scripts/shutdown.sh
+The internal guidance I see at Intel is to use 'replica' mainly in a 
+database/configuration management context.
 
-Then enable internal digital microphone and speakers:
-./aic34_scripts/dmic.sh
-./aic34_scripts/speakers.sh
+If the idea is that the 'replicas' use the same configuration as the 
+'master', that'd be fine indeed but we may want to add a clarifying 
+comment that the end-result may be different for each 'replica'?
 
-Hopefully these help you get going :-)
+[...]
 
--- 
-Jarkko
+>   /*
+> - * link slave - this contains a slave control element
+> + * link replica - this contains a replica control element
+>    *
+>    * It fakes the control callbacsk with additional attenuation by the
 
---------------4DBB47A0D994866EAB499D59
-Content-Type: application/octet-stream;
- name="aic34_scripts.tar.bz2"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment;
- filename="aic34_scripts.tar.bz2"
+unrelated typo here that maybe we can fix while we are at it?
 
-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
-MA==
---------------4DBB47A0D994866EAB499D59--
+> - * master control.  A slave may have either one or two channels.
+> + * master control.  A replica may have either one or two channels.
+>    */
+

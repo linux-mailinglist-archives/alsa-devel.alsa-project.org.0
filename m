@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E68421F4DC
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jul 2020 16:42:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E77DE21F4E7
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jul 2020 16:43:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 254BD1677;
-	Tue, 14 Jul 2020 16:41:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 254BD1677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8799015F9;
+	Tue, 14 Jul 2020 16:42:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8799015F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594737763;
-	bh=ODeja8ZbbbsF0+/QkL7ragA/7v6rT+R0y3p4lM9mCC4=;
+	s=default; t=1594737805;
+	bh=+TpmgRyoAimEk+9EmfjO4fVbNk/czgms/EFFceKQDgs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XHV8FzZUD1UaibBvHVjelUQfOtwQfBi84fKR4/DBYWW6sc5BaD2DvlwHevKp0tcfU
-	 buAHu6QISNGs2/YSnlhwb8wcnhn6Y2Z424kH9lB9H0Hrz3++J4IDqEEKUgOH9CR1L+
-	 Ji+V65k4C2f2iAUVejJ3+jSMI1B5Yd0rQbbD8nc8=
+	b=YM4D+G8ak90VNatvQL1JPfSMi+49gBmp7XKs0IL3qvGaMHwgS76WNIV1Bon8/XMi2
+	 bo2o6VkrYFcFucdwLMjaekEkMnHqCSET7Xp8Qt86sluTqM92DOOj8SCG6cIEOqKsnc
+	 Geyuf9yS9E5b6Q/fH7poN07CqjwoVFEUhywY287I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 948F8F800E5;
-	Tue, 14 Jul 2020 16:40:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2C7AF802DC;
+	Tue, 14 Jul 2020 16:40:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 30DB3F802C2; Tue, 14 Jul 2020 16:40:14 +0200 (CEST)
+ id 66F62F802DB; Tue, 14 Jul 2020 16:40:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,35 +34,35 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 83D3DF802BE
- for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 16:40:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83D3DF802BE
+ by alsa1.perex.cz (Postfix) with ESMTPS id E89D5F802C4
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 16:40:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E89D5F802C4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JDAo4wdU"
+ header.b="KIC8jTy8"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2DE082253D;
- Tue, 14 Jul 2020 14:40:05 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 90F2A206F5;
+ Tue, 14 Jul 2020 14:40:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594737606;
- bh=ODeja8ZbbbsF0+/QkL7ragA/7v6rT+R0y3p4lM9mCC4=;
+ s=default; t=1594737619;
+ bh=+TpmgRyoAimEk+9EmfjO4fVbNk/czgms/EFFceKQDgs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JDAo4wdUevGWUPTAqTEOntFQj/g4rFSM9YO+vG1ZAUAbTn47ulMeYxZ2zBv03VcCz
- ZkKGfIXCm0eaOEyk4RI5bFiypn0XuowbePJNzgFN35aDM4SVZF3jooMlF93jZHcqPJ
- 4+00Fh76bX5nNzsCW9Uwgev6bgp3AJh/xI78yJuk=
+ b=KIC8jTy8ry1ltCrulSBTEMEN59DUlyYLhGYT+Ra8gfaCvERy14cBEwGDLjpUgtvvO
+ mm5xuU1VJzVEA3Pxm/AN/QPjftBnB/MEbNBNq8fHj0lyOtEJ1KsZ1652d8XGH27SHC
+ 8jF8FRyQZbMTiFMvmyunwxAAd8Ju5vtqghs6qvAc=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.14 09/12] ALSA: hda/hdmi: fix failures at PCM open
- on Intel ICL and later
-Date: Tue, 14 Jul 2020 10:39:51 -0400
-Message-Id: <20200714143954.4035840-9-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.9 07/10] ALSA: hda/hdmi: fix failures at PCM open on
+ Intel ICL and later
+Date: Tue, 14 Jul 2020 10:40:07 -0400
+Message-Id: <20200714144010.4035987-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200714143954.4035840-1-sashal@kernel.org>
-References: <20200714143954.4035840-1-sashal@kernel.org>
+In-Reply-To: <20200714144010.4035987-1-sashal@kernel.org>
+References: <20200714144010.4035987-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -123,10 +123,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 23 insertions(+), 13 deletions(-)
 
 diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index 9e8cfc409b4b3..04420a3bf5eb0 100644
+index 2def4ad579ccf..f7bd91b713e83 100644
 --- a/sound/pci/hda/patch_hdmi.c
 +++ b/sound/pci/hda/patch_hdmi.c
-@@ -1805,33 +1805,43 @@ static int hdmi_add_cvt(struct hda_codec *codec, hda_nid_t cvt_nid)
+@@ -1655,33 +1655,43 @@ static int hdmi_add_cvt(struct hda_codec *codec, hda_nid_t cvt_nid)
  
  static int hdmi_parse_codec(struct hda_codec *codec)
  {

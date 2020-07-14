@@ -2,68 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0507121F783
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jul 2020 18:42:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE0E121F788
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jul 2020 18:42:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 831C31676;
-	Tue, 14 Jul 2020 18:41:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 831C31676
+	by alsa0.perex.cz (Postfix) with ESMTPS id A12211612;
+	Tue, 14 Jul 2020 18:41:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A12211612
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594744934;
-	bh=TbXWV5ei7TBnr/Ctk0w3GzHb6IxxNUBtez1DyLMmyCk=;
+	s=default; t=1594744952;
+	bh=GxYEQ0ZE+PQYiELuKdT9mB9ND5rBTIQP1mYSyp5CoFY=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NaAruYtPKftifnQlesv6lrOtvwoWSMzbY7b+pO02SL91FtNKUCpHTMzOkvWGFIpAt
-	 C3DTfd2hLgXp0wifuGBa7BDhBe6+J8iOfZs9P2hF4ZfgQFign8d9Q7LUxkhmpyWf6i
-	 pWUGGFW6aU7ZOehqvJcexrVo5YofYnfztUA4Khd8=
+	b=gVw+V5+J2XP86bR6GTSoCE2ZWqnA9rAX8QF/AHhRYcezTr9xiBpIO0l2G/zizuDEO
+	 uVRO/SMoq034jRlG+Z2f9A55Lprs/q4snovKjXGciHbYZEvgLEzGm4VAUgqx/cVroB
+	 ClQCul36g3KZ17T3kod5o6ZLRMmN76t8rYXtm+ls=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C00DBF8026A;
-	Tue, 14 Jul 2020 18:39:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC830F8026F;
+	Tue, 14 Jul 2020 18:40:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B026F8020C; Tue, 14 Jul 2020 18:39:50 +0200 (CEST)
+ id D9330F8028A; Tue, 14 Jul 2020 18:39:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81F16F801EC
- for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 18:39:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81F16F801EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id C1D3DF801F2
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 18:39:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1D3DF801F2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="BznuuqH9"
+ header.b="lVQhdWmH"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A879122475;
- Tue, 14 Jul 2020 16:39:45 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id C345622475;
+ Tue, 14 Jul 2020 16:39:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594744786;
- bh=TbXWV5ei7TBnr/Ctk0w3GzHb6IxxNUBtez1DyLMmyCk=;
+ s=default; t=1594744791;
+ bh=GxYEQ0ZE+PQYiELuKdT9mB9ND5rBTIQP1mYSyp5CoFY=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=BznuuqH97wJLHyex5iSFWHeYbkNfLTB2RFZQR+i+UN8PjghuFxITWS+85qdQchZaw
- +06NZp5M5zHse8Ky/eFq7lvb48byAkGE+Ar+GUPnD84kMxweJMwi66np7bv6NgLBBQ
- TOdoGJScF39M++kfVYx6sAvwM1+CAb4OnAcVaABk=
-Date: Tue, 14 Jul 2020 17:39:37 +0100
+ b=lVQhdWmHbY5sHD5v1JROjRFjs3iFLrpVsC0ix8DjXt0O7ROEuVizPnIBsQJbUeruM
+ lQZRsIyDjroKxRFQRZrOlERYHYXqvngQ7HkoXH+xVqX0WnA5vnhBHmALlPeT7o7a2Q
+ yEl9cHhWIVW7UNxBbxuz2ysetjPgs8YMKMLhIZrw=
+Date: Tue, 14 Jul 2020 17:39:42 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Katsuhiro Suzuki <katsuhiro@katsuster.net>,
- Rob Herring <robh+dt@kernel.org>
-In-Reply-To: <20200714073247.172859-1-katsuhiro@katsuster.net>
-References: <20200714073247.172859-1-katsuhiro@katsuster.net>
-Subject: Re: [PATCH v3] dt-bindings: sound: convert rk3328 codec binding to
- yaml
-Message-Id: <159474477218.998.15280718297734736345.b4-ty@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, alsa-devel@alsa-project.org,
- Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+To: lgirdwood@gmail.com, "derek.fang@realtek.com" <derek.fang@realtek.com>
+In-Reply-To: <1594721600-29994-1-git-send-email-derek.fang@realtek.com>
+References: <1594721600-29994-1-git-send-email-derek.fang@realtek.com>
+Subject: Re: [PATCH RESEND] ASoC: rt5682: Enable Vref2 under using PLL2
+Message-Id: <159474477218.998.1913180416899971436.b4-ty@kernel.org>
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, shumingf@realtek.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,10 +76,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 14 Jul 2020 16:32:47 +0900, Katsuhiro Suzuki wrote:
-> This patch converts Rockchip rk3328 audio codec binding to DT schema.
-> And adds description about "mclk" clock and fixes some errors in
-> original example.
+On Tue, 14 Jul 2020 18:13:20 +0800, derek.fang@realtek.com wrote:
+> Enable Vref2 under long term using PLL2 to avoid clock unstable.
 
 Applied to
 
@@ -90,8 +85,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: convert rk3328 codec binding to yaml
-      commit: 3f6597ad2f9ed8ed89dbd2a9ec0b0c892774f9d2
+[1/1] ASoC: rt5682: Enable Vref2 under using PLL2
+      commit: fa291331cb24bd9665096d660b917998285aae17
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

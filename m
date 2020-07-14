@@ -2,75 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0604221F500
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jul 2020 16:44:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05FC521F54D
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jul 2020 16:47:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 91D9B1661;
-	Tue, 14 Jul 2020 16:43:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91D9B1661
+	by alsa0.perex.cz (Postfix) with ESMTPS id 94CB815E5;
+	Tue, 14 Jul 2020 16:46:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94CB815E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594737842;
-	bh=gvBGplmD/bCXZ6jSiG5SiAMcTnGEktsb764GFQOsJM0=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1594738043;
+	bh=2HMwBWKfuibfivhw2EEUQyPibobh2jV2edHTtMRWpi4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=i5LEyXxgIyGLhV8MNput0sP3VAene0OGhMZJaPGea0DZSSiEbC0ParB+Rv7aT7SZC
-	 6Tl7lcBr0f/5/7WScCN3NwHygaKUpZQnXDw/8RKMQKuk5a5Ut+H7wBGW7dXcZVdvum
-	 c368kFeJWDSoNOfLamc6eoAMuFvXm1G5fbcQ6ZTs=
+	b=lR6oDBHs2xyuF+AZSWwOAhvPbBexI/gJWJos++myHgyO6YA/kV0jftDK8FMDSoCG6
+	 BFDCmETBIUWFavnqzFniUuGmldJRoMQWJAnJ8TTPOtXUQUIjfPwXlOcRovQq01SvDr
+	 UlEWfjxmEaCYJ1bc/Ne78uek7SZj7hPQukSoFi6Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6832F802EA;
-	Tue, 14 Jul 2020 16:40:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A522BF801F2;
+	Tue, 14 Jul 2020 16:45:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6DB86F802E9; Tue, 14 Jul 2020 16:40:40 +0200 (CEST)
+ id BE8FDF801EC; Tue, 14 Jul 2020 16:45:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1A52BF802E1
- for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 16:40:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A52BF802E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF418F8014E
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 16:45:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF418F8014E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="2Vh86KRb"
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
- [73.47.72.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ header.b="b5V+WwDP"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BA0C722227;
- Tue, 14 Jul 2020 14:40:31 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4C3C42082F;
+ Tue, 14 Jul 2020 14:45:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594737632;
- bh=gvBGplmD/bCXZ6jSiG5SiAMcTnGEktsb764GFQOsJM0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=2Vh86KRbqbEn5xwyZEOrF99yAHf+CSrtjBZ56sddQnmmihbiDsFaEwtAuZSBOKUJR
- O5vFRNEdV8uwpnstVmW6yhDfGUATgbHAQzHnqPQz19KVO5/OvOhEnTa2l7ToqxgCjr
- QFVyMPR+jwSOYersKjWQfrYuCsLDHl0DB/2kA7U8=
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.4 7/9] ALSA: hda/hdmi: fix failures at PCM open on
- Intel ICL and later
-Date: Tue, 14 Jul 2020 10:40:21 -0400
-Message-Id: <20200714144024.4036118-7-sashal@kernel.org>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200714144024.4036118-1-sashal@kernel.org>
-References: <20200714144024.4036118-1-sashal@kernel.org>
+ s=default; t=1594737926;
+ bh=2HMwBWKfuibfivhw2EEUQyPibobh2jV2edHTtMRWpi4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=b5V+WwDPUEuUkdqEsN9NzyYu3TWmKLZnUCKxVKQquFPPzDfiFie7GzFbvI5NAFpGh
+ r7yckDYP6Yfaben+GiUh78V7tlFtgFp0+GSpMpaRxHjDg/ZU2wqGBb9pQS9BO+dIvH
+ jdOV2K9VTQOF+e8DvfTJTY2nVMElE2TnX8l7V5KM=
+Date: Tue, 14 Jul 2020 15:45:17 +0100
+From: Mark Brown <broonie@kernel.org>
+To: xingxing qiao <mnlife@foxmail.com>
+Subject: Re: [PATCH] When snd_soc_card_jack_new is not called or the call
+ fails, calling this function causes a null pointer access
+Message-ID: <20200714144517.GF4900@sirena.org.uk>
+References: <tencent_AA2F5D7A5EDC40E7E806D0CA5877CE8AB308@qq.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.de>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="bGR76rFJjkSxVeRa"
+Content-Disposition: inline
+In-Reply-To: <tencent_AA2F5D7A5EDC40E7E806D0CA5877CE8AB308@qq.com>
+X-Cookie: Your password is pitifully obvious.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: linux-kernel <linux-kernel@vger.kernel.org>,
+ alsa-devel <alsa-devel@alsa-project.org>, lgirdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,103 +83,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-[ Upstream commit 56275036d8185f92eceac7479d48b858ee3dab84 ]
+--bGR76rFJjkSxVeRa
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-When HDMI PCM devices are opened in a specific order, with at least one
-HDMI/DP receiver connected, ALSA PCM open fails to -EBUSY on the
-connected monitor, on recent Intel platforms (ICL/JSL and newer). While
-this is not a typical sequence, at least Pulseaudio does this every time
-when it is started, to discover the available PCMs.
+On Tue, Jul 14, 2020 at 10:30:36PM +0800, xingxing qiao wrote:
 
-The rootcause is an invalid assumption in hdmi_add_pin(), where the
-total number of converters is assumed to be known at the time the
-function is called. On older Intel platforms this held true, but after
-ICL/JSL, the order how pins and converters are in the subnode list as
-returned by snd_hda_get_sub_nodes(), was changed. As a result,
-information for some converters was not stored to per_pin->mux_nids.
-And this means some pins cannot be connected to all converters, and
-application instead gets -EBUSY instead at open.
+> &nbsp;unsigned int sync = 0;
+> &nbsp;int enable;
+> &nbsp;
+> -if (!jack)
 
-The assumption that converters are always before pins in the subnode
-list, is not really a valid one. Fix the problem in hdmi_parse_codec()
-by introducing separate loops for discovering converters and pins.
+This is actually worse than your previous posting - it's got HTML all
+through it :(  git send-email is typically the easiest way to send
+things.
 
-BugLink: https://github.com/thesofproject/linux/issues/1978
-BugLink: https://github.com/thesofproject/linux/issues/2216
-BugLink: https://github.com/thesofproject/linux/issues/2217
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Link: https://lore.kernel.org/r/20200703153818.2808592-1-kai.vehmanen@linux.intel.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/pci/hda/patch_hdmi.c | 36 +++++++++++++++++++++++-------------
- 1 file changed, 23 insertions(+), 13 deletions(-)
+Also please note my comment about needing a subject line in a similar
+style to those in existing commits you can see in git.
 
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index b249b1b857464..6aa7403ad80ac 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -1735,33 +1735,43 @@ static int hdmi_add_cvt(struct hda_codec *codec, hda_nid_t cvt_nid)
- 
- static int hdmi_parse_codec(struct hda_codec *codec)
- {
--	hda_nid_t nid;
-+	hda_nid_t start_nid;
-+	unsigned int caps;
- 	int i, nodes;
- 
--	nodes = snd_hda_get_sub_nodes(codec, codec->core.afg, &nid);
--	if (!nid || nodes < 0) {
-+	nodes = snd_hda_get_sub_nodes(codec, codec->core.afg, &start_nid);
-+	if (!start_nid || nodes < 0) {
- 		codec_warn(codec, "HDMI: failed to get afg sub nodes\n");
- 		return -EINVAL;
- 	}
- 
--	for (i = 0; i < nodes; i++, nid++) {
--		unsigned int caps;
--		unsigned int type;
-+	/*
-+	 * hdmi_add_pin() assumes total amount of converters to
-+	 * be known, so first discover all converters
-+	 */
-+	for (i = 0; i < nodes; i++) {
-+		hda_nid_t nid = start_nid + i;
- 
- 		caps = get_wcaps(codec, nid);
--		type = get_wcaps_type(caps);
- 
- 		if (!(caps & AC_WCAP_DIGITAL))
- 			continue;
- 
--		switch (type) {
--		case AC_WID_AUD_OUT:
-+		if (get_wcaps_type(caps) == AC_WID_AUD_OUT)
- 			hdmi_add_cvt(codec, nid);
--			break;
--		case AC_WID_PIN:
-+	}
-+
-+	/* discover audio pins */
-+	for (i = 0; i < nodes; i++) {
-+		hda_nid_t nid = start_nid + i;
-+
-+		caps = get_wcaps(codec, nid);
-+
-+		if (!(caps & AC_WCAP_DIGITAL))
-+			continue;
-+
-+		if (get_wcaps_type(caps) == AC_WID_PIN)
- 			hdmi_add_pin(codec, nid);
--			break;
--		}
- 	}
- 
- 	return 0;
--- 
-2.25.1
+--bGR76rFJjkSxVeRa
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8NxPwACgkQJNaLcl1U
+h9AM4Qf/daXJ1X3aWCVvpubYHVhttn9yFHKfs4sRxrKLLl40i4ysYQWZB5P7doEk
+1sohzwXmgJxxDz4j8MIoKtTClsCG2uH5aGj060gGwkhN1++b5lW4jpF+mKUWvwim
+wraN7JLZUr8yW8nHlVxscbXimUXHlb1apb3/KjvS3fL5EgPLpZ3cLRCQepJEorno
+EW/9+hJrKewpM1oCT9E0Fwsurv6BakMAEdsa7+557T20xOv+OFpFObZjz0E8fmtx
+hv7VM838yUwuPrwdA/WUj96Sa+pHVbIyX/mKqIPOj7ppLNHwiKdMS0v5BookoPfc
+u8i9TV4N4MuBuVrk7R70fqvPTmvBnw==
+=pZ+i
+-----END PGP SIGNATURE-----
+
+--bGR76rFJjkSxVeRa--

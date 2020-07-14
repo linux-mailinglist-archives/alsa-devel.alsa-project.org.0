@@ -2,65 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A897821F13A
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jul 2020 14:30:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A18F21F0A6
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jul 2020 14:15:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 348371674;
-	Tue, 14 Jul 2020 14:29:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 348371674
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C5A31662;
+	Tue, 14 Jul 2020 14:14:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C5A31662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594729817;
-	bh=zFwpH1r6/0ba8AC04QbvDI4fYPGF2/e1Dd3TP/mE6oc=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1594728911;
+	bh=jwQk69ZDpPmHfdWoVbuYfGKZ+P3mp7GVFsH651TbHzc=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=j5bpeYszAEUBRyGG08qTpBtMcsI3cbVHgFsIb8xvnbrUVRqZeBz43ZA4y5Hx5sHDe
-	 XEjijTfV9DSp0/yUr19Auxix2BKXeBBX7A/cz1+uZS8N172F+zyiygo1uBVHWOQJY6
-	 aol+Qq4ZPokywcVI3L30RDEUHWlvKTqhSQA6XgTU=
+	b=r4UG7DlblM80m/wy8rQJ25uEXg7h/C8StjJI2V92hzobAffTZ/CIBl5ELGIQ/T5Z/
+	 tjShrPgYrHu4d/fYnj4qmni34D/eCNm2y3PURysfWiRhZpfdjdIlwn30ppXnTBuwGs
+	 m9/fbVG81Finz18L3i0K0cdnH4iIsbQlSOa0VVs4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D3A7F802C4;
-	Tue, 14 Jul 2020 14:26:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4BCAF800E5;
+	Tue, 14 Jul 2020 14:13:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4B5D7F8026F; Tue, 14 Jul 2020 14:26:45 +0200 (CEST)
+ id 6A387F8019B; Tue, 14 Jul 2020 14:13:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 32237F801EC
- for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 14:26:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32237F801EC
-IronPort-SDR: RO5vAzlfq8mcu6RihWHkco+7g8VJfhVBQrB8jMBO7Apms6vKBTcSf2+4g9N+eD3uX8mx6xqzxN
- IOFWWtE1Pi7A==
-X-IronPort-AV: E=McAfee;i="6000,8403,9681"; a="166981786"
-X-IronPort-AV: E=Sophos;i="5.75,350,1589266800"; d="scan'208";a="166981786"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 90C11F8014E
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 14:13:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90C11F8014E
+IronPort-SDR: RQ2p6cCLKzOqh7md38aIHfJrp6oE8WxaxEyVk7NC2wNk45EIIeUKKZp3a7Ji51iiWo5BCSkXL8
+ BsXXJkQIKNBg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9681"; a="148015043"
+X-IronPort-AV: E=Sophos;i="5.75,350,1589266800"; d="scan'208";a="148015043"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2020 05:26:30 -0700
-IronPort-SDR: nWpZ+aq55LLnKlLnAfnABKEKzqUj8dssW0r3Oj0xBrPyCIY4fBi9tXliN0cGQHXlDXlLUQF3XL
- WZMBDXvugK2Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,350,1589266800"; d="scan'208";a="485860413"
-Received: from test-hp-compaq-8100-elite-cmt-pc.igk.intel.com ([10.237.149.93])
- by fmsmga005.fm.intel.com with ESMTP; 14 Jul 2020 05:26:28 -0700
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jul 2020 05:13:18 -0700
+IronPort-SDR: AVQ2HeD3grSpp/1uZ/3Ewp4Gml0TpwUYb28aQaKiPlizlH01CaYqsAEcjEifLaZHOS5qkbLl6Q
+ BNilK68hcV0Q==
+X-IronPort-AV: E=Sophos;i="5.75,350,1589266800"; d="scan'208";a="459668727"
+Received: from pmaziarx-mobl.ger.corp.intel.com (HELO [10.249.128.98])
+ ([10.249.128.98])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jul 2020 05:13:16 -0700
+Subject: Re: [PATCH v2 00/10] topology: decode: Various fixes
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+References: <1594026363-30276-1-git-send-email-piotrx.maziarz@linux.intel.com>
+ <fe7b1707-d6f3-f8ad-e72d-f5840f298d6d@linux.intel.com>
 From: Piotr Maziarz <piotrx.maziarz@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v3 03/10] topology: decode: Remove decoding values for enum
- control
-Date: Tue, 14 Jul 2020 13:25:04 +0200
-Message-Id: <1594725911-14308-4-git-send-email-piotrx.maziarz@linux.intel.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1594725911-14308-1-git-send-email-piotrx.maziarz@linux.intel.com>
-References: <1594725911-14308-1-git-send-email-piotrx.maziarz@linux.intel.com>
+Message-ID: <dd94424f-b1c9-826d-3eaf-244f25d2fda6@linux.intel.com>
+Date: Tue, 14 Jul 2020 14:13:13 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <fe7b1707-d6f3-f8ad-e72d-f5840f298d6d@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Cc: cezary.rojewski@intel.com, amadeuszx.slawinski@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -77,32 +83,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Values have no representation in standard ALSA configuration files,
-therefore there is no need to populate them. Also memory for values
-wasn't allocated which was causing undefined behaviour.
+On 2020-07-06 22:01, Pierre-Louis Bossart wrote:
+> 
+> 
+> On 7/6/20 4:05 AM, Piotr Maziarz wrote:
+>> This series fixes various problems with topology decoding mechanism.
+>> Some of the problems were critical like improper memory management or
+>> infinite loops that were causing undefined behaviour or program crashes,
+>> while other resulted in losing some data during conversion.
+>>
+>> Bugs found while testing with Intel SST topologies.
+>>
+>> Changelog:
+>> v2:
+>>    -Divide into more patches, critical fixes are in separate patches now
+>>    -More specific descriptions
+>>    -Fix a typo UML to UCM
+> 
+> That fix makes it even more confusing, I get that a UCM file can set 
+> values for controls defined in a topology file, but 'decoding to UCM' 
+> leaves me wondering what you are referring to.
+> 
 
-Signed-off-by: Piotr Maziarz <piotrx.maziarz@linux.intel.com>
----
- src/topology/ctl.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+I meant standard ALSA configuration file format that is used also by UCM 
+files. I'll change it for more clarity.
 
-diff --git a/src/topology/ctl.c b/src/topology/ctl.c
-index 0aa49ab..02e482e 100644
---- a/src/topology/ctl.c
-+++ b/src/topology/ctl.c
-@@ -1367,11 +1367,8 @@ int tplg_decode_control_enum1(snd_tplg_t *tplg,
- 		et->texts = tplg_calloc(heap, sizeof(char *) * ec->items);
- 		if (!et->texts)
- 			return -ENOMEM;
--		for (i = 0; i < ec->items; i++) {
--			unsigned int j = i * sizeof(int) * ENUM_VAL_SIZE;
-+		for (i = 0; i < ec->items; i++)
- 			et->texts[i] = ec->texts[i];
--			et->values[i] = (int *)&ec->values[j];
--		}
- 	}
- 
- 	et->map = tplg_calloc(heap, sizeof(struct snd_tplg_channel_map_template));
--- 
-2.7.4
+> Also you may want to remove all the Gerrit ChangeId before sending to 
+> the mailing list.
+> 
+>>    -Add error reporting in topology: decode: fix channel map memory
+>>     allocation
+>>    -Remove goto again in topology: Make buffer for saving dynamic size
+>>     for better readability
+>>
+>> Piotr Maziarz (10):
+>>    topology: decode: Fix channel map memory allocation
+>>    topology: decode: Fix infinite loop in decoding enum control
+>>    topology: decode: Remove decoding  values for enum control
+>>    topology: decode: Add enum control texts as separate element
+>>    topology: decode: Fix printing texts section
+>>    topology: decode: Change declaration of enum decoding function
+>>    topology: decode: Fix decoding PCM formats and rates
+>>    topology: decode: Print sig_bits field in PCM capabilities section
+>>    topology: decode: Add DAI name printing
+>>    topology: Make buffer for saving dynamic size
+>>
+>>   src/topology/ctl.c        | 51 
+>> ++++++++++++++++++++++-------------------------
+>>   src/topology/dapm.c       |  3 +--
+>>   src/topology/pcm.c        | 11 +++++++---
+>>   src/topology/save.c       | 34 ++++++++++++++++++++++++++-----
+>>   src/topology/text.c       |  2 +-
+>>   src/topology/tplg_local.h |  2 +-
+>>   6 files changed, 64 insertions(+), 39 deletions(-)
+>>
 

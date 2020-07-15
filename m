@@ -2,88 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6F2222043E
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Jul 2020 07:12:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0980122054B
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Jul 2020 08:43:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 771761662;
-	Wed, 15 Jul 2020 07:11:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 771761662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95A201665;
+	Wed, 15 Jul 2020 08:42:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95A201665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594789932;
-	bh=RKspWdQUmF4FP5uXe/3l4Ju6t7jIEW6++Ox7QAXw9Qs=;
+	s=default; t=1594795400;
+	bh=8y/LvhcOc+rcKqDngnMDUcUhVYtJN74MdN9Tqa88bmI=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mRgP5+A4B+KFkR0duO7R5ShJev9Z4rbdEzUVHRgSOPhSk4xvJDuXHUyJ+sT7EE1D4
-	 SF3keI1G7JmyMqJahgoyZKqn3xxhGXV6ceB8kTBIP9FBIY85MA9Kp86NfAaYxYNrT1
-	 wKGBKHlH7KyST6ookASouEvjtsxlPFTtmzxb81qQ=
+	b=a6nXuuf3hpkXpuDU2ug69VdlBxzmAgZxrJegfPlk0PhE08JykfoNWycwyutKfsPp2
+	 gOoicn98efDHmh/bAaM93gWXhlICSwx02XlIn1QtIGohY4AgbViov6LJRPxQi1QZvE
+	 WQlqfHznIlbKahHmQUZpMtikxZhGxo5uEwjLrBiE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6EA2F8014E;
-	Wed, 15 Jul 2020 07:10:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C739CF80113;
+	Wed, 15 Jul 2020 08:41:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 227B9F8021D; Wed, 15 Jul 2020 07:10:28 +0200 (CEST)
+ id 33616F8021D; Wed, 15 Jul 2020 08:41:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
+ [IPv6:2607:f8b0:4864:20::641])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9166DF80113
- for <alsa-devel@alsa-project.org>; Wed, 15 Jul 2020 07:10:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9166DF80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4820EF80113
+ for <alsa-devel@alsa-project.org>; Wed, 15 Jul 2020 08:41:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4820EF80113
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="KzNUdA0n"
-Received: from localhost (unknown [122.171.202.192])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BD3BD20657;
- Wed, 15 Jul 2020 04:54:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594788893;
- bh=RKspWdQUmF4FP5uXe/3l4Ju6t7jIEW6++Ox7QAXw9Qs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KzNUdA0n80OlGxwzMG/VZtWvb6RZCZdf/zWgAqITT49Tq22x4Y7JSs1ILoudkOWsc
- yMEntxxBo6ZkyD0QpKWxA8b1aGmWw5uuvMcGBHLUPrKw7ScKfY9IC6HDfdScSvF/M3
- TTsuOqkzNI+C8yHvuzJYNB28v0xyRhNS1Et2aZH8=
-Date: Wed, 15 Jul 2020 10:24:49 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 7/9] soundwire: intel/cadence: merge Soundwire interrupt
- handlers/threads
-Message-ID: <20200715045449.GP34333@vkoul-mobl>
-References: <20200623173546.21870-1-yung-chuan.liao@linux.intel.com>
- <20200623173546.21870-8-yung-chuan.liao@linux.intel.com>
- <20200630162448.GS2599@vkoul-mobl>
- <55fbc41e-cb41-8bdf-bdbd-1d1b76938683@linux.intel.com>
- <20200701054224.GV2599@vkoul-mobl>
- <MN2PR11MB4080CF23D00A3AF817AC1E7CFF6D0@MN2PR11MB4080.namprd11.prod.outlook.com>
- <077d4430-bb76-df2c-2c39-8077998e6fdc@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="alvhxN7Z"
+Received: by mail-pl1-x641.google.com with SMTP id 72so1987825ple.0
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 23:41:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=H3GOXsEias8O11m7veg8//yn3qcFVNyaC+qfLEtL+Ng=;
+ b=alvhxN7ZMAQKl7g8xDR8IV6PagrJ9Hahmx//vd3jdPyUs04mYsJSaxa0f8L68+OQ+l
+ E3+DxH4KmqLcBJpeV9Jtr26IcaITP+oQr6l47Zv8aHE9du2IrS27lUGCdfK6hvhSFm0E
+ AnJa4gH3mgO0SYfVUP/lsMRqaZy/c5gUkHzpKYExnEj2d08k0QFoyDyd+gqaYlNKZegr
+ d4bihMgLhmzBMDkqnkc2gq+sxeD2jmO6GA5EQrht3RujORiO3efOGCf9/0izJVYJAjLt
+ WXryT0azR8FlK9noO8I9iG9LqC1nhEQ8wjDsmCf5ak4sEtEY9j0xzqPHAf3pv+idT7uJ
+ yiIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=H3GOXsEias8O11m7veg8//yn3qcFVNyaC+qfLEtL+Ng=;
+ b=i3JOkWugBLOUtIwPk9l05zMB18sp8fLW1xNj4vxtlCIPfg+cKLnhu/Q8mDA8uOJRHq
+ 4tivYoHow3tmpM/e4aMeChj+etqnll6NU8KkF6WocLqROVAYE48bG/axCTde0tPvwPOS
+ kWS+mvMyR4GrrejXqFpi1BEB93upzTJ5M4C4JGPruZ+EbUjp+vWeh7at7BsnFk9pUUPs
+ fX26AQCbYB0eRWa4nn6gZ5L99Tsngu59bfeKveS1bEOQqgUBWd+Ft2525P5Zi0uVjfGu
+ 4lpewhsS6w8FgxvvfUtKozcSt/Xo5mzE6vQTVu/VdlpuY79ZWXSFfgPwTKF7MUXUnRO+
+ PJTA==
+X-Gm-Message-State: AOAM533lUh3nYcOb4LUQ628i0RUJZygdNFL+SWkXgA5ZnPQfpjMDfQzI
+ t/9J0ZQ6OtNGAVE1GkKk54A=
+X-Google-Smtp-Source: ABdhPJx7Fa/qDN3qyOdO0QPaUPtwX+pk9Uzy1ivVjam/CKWrJ+m4kN3YIdTdkOkLBa39I3kofrPxrQ==
+X-Received: by 2002:a17:90a:1d06:: with SMTP id
+ c6mr9005046pjd.194.1594795282729; 
+ Tue, 14 Jul 2020 23:41:22 -0700 (PDT)
+Received: from Asurada-Nvidia (searspoint.nvidia.com. [216.228.112.21])
+ by smtp.gmail.com with ESMTPSA id bx18sm958690pjb.49.2020.07.14.23.41.21
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Tue, 14 Jul 2020 23:41:22 -0700 (PDT)
+Date: Tue, 14 Jul 2020 23:40:58 -0700
+From: Nicolin Chen <nicoleotsuka@gmail.com>
+To: Shengjiu Wang <shengjiu.wang@gmail.com>
+Subject: Re: [PATCH 3/3] ASoC: fsl-asoc-card: Support Headphone and
+ Microphone Jack detection
+Message-ID: <20200715064057.GA14081@Asurada-Nvidia>
+References: <1594717536-5188-1-git-send-email-shengjiu.wang@nxp.com>
+ <1594717536-5188-4-git-send-email-shengjiu.wang@nxp.com>
+ <20200714211432.GA10818@Asurada-Nvidia>
+ <CAA+D8ANQ_B9jJUhLYQnKxKJcVrmvakxPo58h433QqFhdu2nRPA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <077d4430-bb76-df2c-2c39-8077998e6fdc@linux.intel.com>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "tiwai@suse.de" <tiwai@suse.de>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
- "hui.wang@canonical.com" <hui.wang@canonical.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "srinivas.kandagatla@linaro.org" <srinivas.kandagatla@linaro.org>,
- "jank@cadence.com" <jank@cadence.com>, "Lin,
- Mengdong" <mengdong.lin@intel.com>, "Blauciak,
- Slawomir" <slawomir.blauciak@intel.com>, "Kale,
- Sanyog R" <sanyog.r.kale@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- "rander.wang@linux.intel.com" <rander.wang@linux.intel.com>, "Liao,
- Bard" <bard.liao@intel.com>
+In-Reply-To: <CAA+D8ANQ_B9jJUhLYQnKxKJcVrmvakxPo58h433QqFhdu2nRPA@mail.gmail.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>,
+ kuninori.morimoto.gx@renesas.com, Timur Tabi <timur@kernel.org>,
+ samuel@sholland.org, katsuhiro@katsuster.net,
+ Fabio Estevam <festevam@gmail.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, linux-kernel <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ linuxppc-dev@lists.ozlabs.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,70 +113,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 02-07-20, 10:01, Pierre-Louis Bossart wrote:
- 
-> > > Sounds good. Now that you are already in irq thread, does it make sense
-> > > to spawn a worker thread for this and handle it there? Why not do in the
-> > > irq thread itself. Using a thread kind of defeats the whole point behind
-> > > concept of irq threads
-> > 
-> > Not sure If you are talking about cdns_update_slave_status_work().
-> > The reason we need to spawn a worker thread in sdw_cdns_irq() is
-> > that we will do sdw transfer which will generate an interrupt when
-> > a slave interrupt is triggered. And the handler will not be invoked if the
-> > previous handler is not return yet.
-> > Please see the scenario below for better explanation.
-> > 1. Slave interrupt arrives
-> > 	2.1 Try to read Slave register and waiting for the transfer response
-> > 	2.2 Get the transfer response interrupt and finish the sdw transfer.
-> > 3. Finish the Slave interrupt handling.
-> > 
-> > Interrupts are triggered in step 1 and 2.2, but step 2.2's handler will not be
-> > invoked if step 1's handler is not return yet.
-> > What we do is to spawn a worker thread to do step 2 and return from step 1.
-> > So the handler can be invoked when the transfer response interrupt arrives.
+On Wed, Jul 15, 2020 at 12:14:01PM +0800, Shengjiu Wang wrote:
+> On Wed, Jul 15, 2020 at 5:16 AM Nicolin Chen <nicoleotsuka@gmail.com> wrote:
+> >
+> > Hi Shengjiu,
+> >
+> > The whole series looks good to me. Just a couple of small
+> > questions inline:
+> >
+> > On Tue, Jul 14, 2020 at 05:05:36PM +0800, Shengjiu Wang wrote:
+> > > Use asoc_simple_init_jack function from simple card to implement
+> > > the Headphone and Microphone detection.
+> > > Register notifier to disable Speaker when Headphone is plugged in
+> > > and enable Speaker when Headphone is unplugged.
+> > > Register notifier to disable Digital Microphone when Analog Microphone
+> > > is plugged in and enable DMIC when Analog Microphone is unplugged.
+> > >
+> > > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > > ---
+> > >  sound/soc/fsl/Kconfig         |  1 +
+> > >  sound/soc/fsl/fsl-asoc-card.c | 69 ++++++++++++++++++++++++++++++++++-
+> > >  2 files changed, 68 insertions(+), 2 deletions(-)
+> >
+> > >  static int fsl_asoc_card_late_probe(struct snd_soc_card *card)
+> > >  {
+> > >       struct fsl_asoc_card_priv *priv = snd_soc_card_get_drvdata(card);
+> > > @@ -745,8 +789,29 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
+> > >       snd_soc_card_set_drvdata(&priv->card, priv);
+> > >
+> > >       ret = devm_snd_soc_register_card(&pdev->dev, &priv->card);
+> > > -     if (ret && ret != -EPROBE_DEFER)
+> > > -             dev_err(&pdev->dev, "snd_soc_register_card failed (%d)\n", ret);
+> > > +     if (ret) {
+> > > +             if (ret != -EPROBE_DEFER)
+> > > +                     dev_err(&pdev->dev, "snd_soc_register_card failed (%d)\n", ret);
+> >
+> > I think we may move this EPROBE_DEFER to the asrc_fail label.
 > 
-> To build on Bard's correct answer, the irq thread only takes care of
-> 'immediate' actions, such as command completion, parity or bus clash errors.
-> The rest of the work can be split in
-> a) changes to device state, usually for attachment and enumeration. This is
-> rather slow and will entail regmap syncs.
-> b) device interrupts - typically only for jack detection which is also
-> rather slow.
-> 
-> Since this irq thread function is actually part of the entire HDaudio
-> controller interrupt handling, we have to defer the work for cases a) and b)
-> and re-enable the HDaudio interrupts at the end of the irq thread function -
-> see the code I shared earlier.
-> 
-> In addition, both a) and b) will result  in transactions over the bus, which
-> will trigger interrupts to signal the command completions. In other words,
-> because of the asynchronous nature of the transactions, we need a two-level
-> implementation. If you look at the previous solution it was the same, the
-> commands were issued in the irq thread and the command completion was
-> handled in the handler, since we had to make the handler minimal with a
-> global GIE interrupt disable we kept the same hierarchy to deal with
-> commands but move it up one level.
-> 
-> You could argue that maybe a worker thread is not optimal and could be
-> replaced by something better/faster. Since the jack detection is typically
-> handled with a worker thread in all ASoC codec drivers, we didn't feel the
-> need to optimize further. We did not see any performance impact with this
-> change.
-> 
-> Does this answer to your concern?
+> If we move this to asrc_fail label, then it will be hard to define the
+> error message.
+> There are many places that goto asrc_fail.
 
-The point is that we are already in irq_thread which is designed to
-handle any bottom half processing and can be given priority, spawning of
-worker threads for another bottom half seems unnecessary to me and would
-increase the latency for you.
+Oh...good point...
 
-I would have handled everything in irq_thread and returned, after all we
-are in bottom half :)
+> > > +             goto asrc_fail;
+> > > +     }
+> > > +
+> > > +     if (of_property_read_bool(np, "hp-det-gpio")) {
+> >
+> > Could we move this check inside asoc_simple_init_jack? There's no
+> > problem with doing it here though, yet I got a bit confused by it
+> > as I thought it's a boolean type property, which would be against
+> > the DT bindings until I saw asoc_simple_init_jack() uses the same
+> > string to get the GPIO. Just it probably would be a bit tricky as
+> > we need it to be optional here.
+> >
+> > Otherwise, I think we may add a line of comments to indicate that
+> > the API would use the same string to get the GPIO.
+> 
+> In asoc_simple_init_jack, gpio_is_valid() will be invalid when there is
+> no "hp-det-gpio" property, and asoc_simple_init_jack will return 0.
+> 
+> The reason why I add a check here is mostly for
+> snd_soc_jack_notifier_register().
+> when there is no jack created, there will be a kernel dump.
+> 
+> or I can use this code:
+> 
+> -       if (of_property_read_bool(np, "hp-det-gpio")) {
+> -               ret = asoc_simple_init_jack(&priv->card, &priv->hp_jack,
+> -                                           1, NULL, "Headphone Jack");
+> -               if (ret)
+> -                       goto asrc_fail;
+> +       ret = asoc_simple_init_jack(&priv->card, &priv->hp_jack,
+> +                                   1, NULL, "Headphone Jack");
+> +       if (ret)
+> +               goto asrc_fail;
+> 
+> +       if (priv->hp_jack.jack.jack)
+>                 snd_soc_jack_notifier_register(&priv->hp_jack.jack,
 
-Is there a reason for worker thread here, if so it is not clear to me
-atm.
+It's pretty clean but not very obvious for the "optional" part.
+So I think that it'd be slightly better to go for your previous
+solution, but with a line of comments to show: these properties
+are optional and asoc_simple_init_jack() uses the same strings.
+
+Please add to all three changes once the comments being added:
+
+Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
 
 Thanks
--- 
-~Vinod

@@ -2,80 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D67ED22178E
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jul 2020 00:11:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE278221799
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jul 2020 00:15:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E489C1675;
-	Thu, 16 Jul 2020 00:11:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E489C1675
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4D64D1662;
+	Thu, 16 Jul 2020 00:14:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D64D1662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594851118;
-	bh=93EiFIk/NdwdF/mi7fmL6xvs1z7iai9XGWJoodXPosk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1594851313;
+	bh=Zbhdl6sALo2atgdM5W15dn+y8u3p2HS1qQ+EUdFgpig=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=g56I4QVyreSkT9HChVJkHL1fdrNM4nVRhWrvhQqGDs59sGht5/iEMYY8DbV7z2TCJ
-	 WQj0vE7fXrblk3em1W4pG0WMq6ArCJBjmx6RqaZ+wT9X1wCfYjTXxUp1YrE2MYRxmt
-	 JZeH/araMCKb+sCIYYKKXffDM0NmcjTVS1s4nAzM=
+	b=pgUQXtE8P4l9sbRfYE6rTFW1hx1VMar6Ahf9ZouQ5TCit2dSGaLo2ux/3a49h8FI3
+	 6A1i57LJcgOdIxg+AP/cWvpiTnVbRiQ09RzZaeeae0cICBCqoAILMOq+ay0O9xmlIH
+	 cQb0BDybwvq5kjBwXqY4i1rjR7jYqvU/SDqI1Dfs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F5EAF80229;
-	Thu, 16 Jul 2020 00:11:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9BFEFF800E8;
+	Thu, 16 Jul 2020 00:13:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7D072F8021D; Thu, 16 Jul 2020 00:11:05 +0200 (CEST)
+ id CE0A5F8021D; Thu, 16 Jul 2020 00:13:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-io1-f54.google.com (mail-io1-f54.google.com
- [209.85.166.54])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4D71AF8014E
- for <alsa-devel@alsa-project.org>; Thu, 16 Jul 2020 00:10:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D71AF8014E
-Received: by mail-io1-f54.google.com with SMTP id v6so3954007iob.4
- for <alsa-devel@alsa-project.org>; Wed, 15 Jul 2020 15:10:58 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0618F800E8
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jul 2020 00:13:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0618F800E8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Hz1JhZJq"
+Received: by mail-lj1-x22c.google.com with SMTP id x9so4534703ljc.5
+ for <alsa-devel@alsa-project.org>; Wed, 15 Jul 2020 15:13:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=EIwOcx3xakAQl+aytp6k21WdPOXiW4LKLnvT4rMht3U=;
+ b=Hz1JhZJqRnK8pNhlac4KJKaAOrt6GLsozrPP7iGcRXSoePoz+4/oCVBbTuj3gKxy+F
+ Iqupe7BXDyuvqUJFq7ux48yxZUXet2l6lCejiDEF5ECWlwRcMN4qBAfk7OUG/2xnGMtY
+ ZH/nT62WZGA1pzdItKBop2AoEWnQHrTPncCft30e1/nh6uxRAgqcZODIGUaYQ0g744Uz
+ r3G/6+naA1rtni+RG0gW7XB/jVGfSrm+e3VZFviXPRLv6VoBXrRiGq48YKSWTFfLzt8N
+ NWUyzV3raOPM5tpvDRk2I4F5RbZS3kii+NhiJuQb8mYBHsHWwYp/6fk1byezdGCJCvn5
+ FTQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=bs4UvWlAUqqCoLxMvImO4Yyx0pE7t+ca9ZPzNIql2gA=;
- b=WNePLc9Fcc/My9HXE7//AkY86NLhRBgV1ewTHPI2WBvz70RmnWNUY9HJT+Q+VS3WZm
- 4hA1GwBBgLX24lIfTcorGsH8UuGZ0OChtHCZfBpCil1S4p4znsmZ+w2yVudJfxbhXZRM
- 4yNrMeHe03+i9nVRH6bcgtTXcL97v7HYUAJxGFAQ5VdDovPdCOZdk25nmUiwAioKcIok
- EI/XF5MwDu+AuSBhcSiLCw0J5GSe4mOB2JLowo7HsXmHdCBDxhNEBNLpf2ar1pN80Juj
- z+j1fLi1s/7XbVqTWY/zv9aFC8k/88Si9dcjGiaSTL7/SAcQJJoDnFX+ahfyOOnaiKW3
- jdeA==
-X-Gm-Message-State: AOAM531YWJK0gmf64+WmpYVEmtzXMfZlUOtvNfU4MqlhuKQjAGB+jEPd
- tg6zXdjTrWLX/tkq6Dq0NQ==
-X-Google-Smtp-Source: ABdhPJzywfwMkAxR2QgSwYC2Kedi45mHiQTzllbo4ZvapAVObxEPmKtxc/SMvZB/mHBePWd7cSiCqw==
-X-Received: by 2002:a5d:8f0b:: with SMTP id f11mr1449175iof.200.1594851057295; 
- Wed, 15 Jul 2020 15:10:57 -0700 (PDT)
-Received: from xps15 ([64.188.179.252])
- by smtp.gmail.com with ESMTPSA id f76sm1744517ilg.62.2020.07.15.15.10.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Jul 2020 15:10:56 -0700 (PDT)
-Received: (nullmailer pid 905964 invoked by uid 1000);
- Wed, 15 Jul 2020 22:10:55 -0000
-Date: Wed, 15 Jul 2020 16:10:55 -0600
-From: Rob Herring <robh@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH][resend] ASoC: dt-bindings: ak4642: switch to yaml base
- Documentation
-Message-ID: <20200715221055.GA905934@bogus>
-References: <87lfjwxlna.wl-kuninori.morimoto.gx@renesas.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=EIwOcx3xakAQl+aytp6k21WdPOXiW4LKLnvT4rMht3U=;
+ b=TwupHUqu4guqDNlktPgZ6vBIA1LNKF4t7p5LbvC69YPdtwB+9h3hU0LLqcz5D913sR
+ 5dDCcYAkJbv4NfWfyl/42DgoUiXxxceOvRgv6RYJ2ioaCV4GFsfZEwONHwxrYGkU5wvN
+ 3xJUWBtUC2AuanAuBqpXlsyogk1MOsKLpyK3Kta5BRZ5cA6WLff5qbVA7g2gCKo9MdTG
+ DTh/kj0uhgAToQwrPutfPCw0MoELYzbOBukSHwsjYUOqr+nmPydrCPtT477RK9HnUisr
+ f7Il15L2bJ5c5A5Llxjr4qYrhuv/h349yPoHG21b5WxYbgjCQnRzO4dTYhSk2yh/lET3
+ I8XQ==
+X-Gm-Message-State: AOAM532bTYL1wFFkdNE3a1DPDDxC8mETBtWsGIfqxSUg7JtcHfntw/d7
+ Ccxenh4dSoL2t5bZReX36YJQgAfLtg1VnuScyfc=
+X-Google-Smtp-Source: ABdhPJwbsLNfkUD4HdIJ6IkkHbrTn5XQ0hwtojNOkp3i+xmDVdQLvJF2Xzpt34dORXBPkeyQoU9vlFrz+IAunQMkhA8=
+X-Received: by 2002:a05:651c:544:: with SMTP id
+ q4mr596756ljp.310.1594851203157; 
+ Wed, 15 Jul 2020 15:13:23 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87lfjwxlna.wl-kuninori.morimoto.gx@renesas.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>
+References: <87mu4cxlo2.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87mu4cxlo2.wl-kuninori.morimoto.gx@renesas.com>
+From: Fabio Estevam <festevam@gmail.com>
+Date: Wed, 15 Jul 2020 19:13:11 -0300
+Message-ID: <CAOMZO5BYV_3GhcWsaGXnyxT_d86wQ+3wguW3AU+kVfx7bnZUkg@mail.gmail.com>
+Subject: Re: [PATCH][resend] ASoC: dt-bindings: ak4613: switch to yaml base
+ Documentation
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,21 +97,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 07 Jul 2020 08:35:38 +0900, Kuninori Morimoto wrote:
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> 
-> This patch switches from .txt base to .yaml base Document.
-> 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
-> 
->  - 2weeks passed, but nothing happen
-> 
->  .../devicetree/bindings/sound/ak4642.txt      | 37 ------------
->  .../devicetree/bindings/sound/ak4642.yaml     | 57 +++++++++++++++++++
->  2 files changed, 57 insertions(+), 37 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/ak4642.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/ak4642.yaml
-> 
+Hi Kuninori,
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+On Mon, Jul 6, 2020 at 8:35 PM Kuninori Morimoto
+<kuninori.morimoto.gx@renesas.com> wrote:
+
+> +examples:
+> +  - |
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +        ak4613: ak4613@10 {
+
+node names should be generic, so:
+
+ak4613: codec@10 {

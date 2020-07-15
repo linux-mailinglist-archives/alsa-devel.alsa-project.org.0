@@ -2,104 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED6BB22168E
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Jul 2020 22:48:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83082221690
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Jul 2020 22:49:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C1A0845;
-	Wed, 15 Jul 2020 22:48:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C1A0845
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1AD461662;
+	Wed, 15 Jul 2020 22:48:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1AD461662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594846136;
-	bh=UuICVjdPHq27v+e/qYqn0W4kmOJbCHL6Dc6qsEtZPKk=;
+	s=default; t=1594846186;
+	bh=d+YOFSKw4YDYKoEWuxCARqVLlZI0PrTidmbFEz1yCMc=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aaGbsZSzYLpxewZ6wmIZiVIXR//n8dFgneNOA+oDoS+yrsfCm6xYpmmDHvs9xNG9p
-	 DUfnygZLnOBiNpRPrTtv2iyeZ6/MkP7BiTpyJgsD6/UCHCjxsUCRYAnPqXMIn6IE1W
-	 lfn4Yu2eZD8aLHxKg/oeU06Wh4zVyuq0pYdKSNGY=
+	b=Na4qIMVATqVqZGXzJpgcn4InRAjy9/1pswwzc1S46DqJvNL047fwH8IDDe5T8G8dy
+	 PxfVzi25xnD3cZ4Uhy7orZIa5lHvM/FbI7+Rm+7CD9nK/pWS+NZLPGNtR4gawyNBn/
+	 x6E3E6BePwrX+XiSmVP3XxWYxyjnKFsWgHKOP1kk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 768EAF80113;
-	Wed, 15 Jul 2020 22:47:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C364BF8023F;
+	Wed, 15 Jul 2020 22:48:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED28EF8021D; Wed, 15 Jul 2020 22:47:12 +0200 (CEST)
+ id 1A73BF80229; Wed, 15 Jul 2020 22:48:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
- [IPv6:2607:f8b0:4864:20::641])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
+ [IPv6:2607:f8b0:4864:20::1042])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5A74CF80113
- for <alsa-devel@alsa-project.org>; Wed, 15 Jul 2020 22:47:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A74CF80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9B109F80217
+ for <alsa-devel@alsa-project.org>; Wed, 15 Jul 2020 22:48:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B109F80217
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Hf3pdpYH"
-Received: by mail-pl1-x641.google.com with SMTP id o1so2894094plk.1
- for <alsa-devel@alsa-project.org>; Wed, 15 Jul 2020 13:47:05 -0700 (PDT)
+ header.b="WfhBj627"
+Received: by mail-pj1-x1042.google.com with SMTP id f16so3567498pjt.0
+ for <alsa-devel@alsa-project.org>; Wed, 15 Jul 2020 13:48:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to
- :user-agent; bh=FXz7OnFn9ZprLznWsMLDc1PTFviPFIrchOGsQ58Z+yI=;
- b=Hf3pdpYHLXpQj0ceAPhAiJWguzWIx1DkVx7VzOu8/NuBvdM0uzSDDQoXF8+61PDq/G
- 5Gzh0SQ1ifzWaK3+VdLkWAet53Z4WTCzPNYk1wmPq9dVabyxntyXt7Mx3X8fPAiOfSy9
- iaTb0FZ9jSe3Wkkw4YloqRpQpVgw13bN9c3YBE2V+JxikNgZK4ZGNTdUzj+XP55eJ0jb
- rlospzo9NEnSdP9H0quq0WHGeo41hjgffgLpGc7iSDxLToaO5SNhQTDVYhHPuB+zPXGq
- ruW75+BJgJf3+ZIFuTWqoKMbzJ4IcuE6MaclsR2e8NSHoIpoYMRuxHc9RvpBbo4aKDBp
- plTw==
+ :content-disposition:in-reply-to:user-agent;
+ bh=YwtQ+qIZRMu1aHjFHPtF40fPrwJ9tfeRwj/jvnsJYBE=;
+ b=WfhBj627Y0WOtyr1wRjCUf4CYVWiv9xzOas2x0/JPpSflqWZmNEp95WvwJiPslkU2d
+ Kios/eGN2XcbMmUIQ9klS1VhHOTkfjtPmpIyJJFaAHb8FJTBq5kGR2CZ5/HY+l2RjpVi
+ i2grx16HFurjU299NUhstWKgdpL5bNT08QT9ZevBaeFxDI/+RZ00qhq2VPxTxwsiKmce
+ UdGnoQzlQXNtlhig++nO4/kAuwBPXjZL9/gLz8HWgggqzUUDW+WHz1bxHPcvq1ta8lSr
+ 6+f9FCbLIynLkNZbyxGHPGbSHsrIRaKOoIb8D841N/GpaWFnWcg4hUlqmD0RJpDt+jrL
+ bWAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=FXz7OnFn9ZprLznWsMLDc1PTFviPFIrchOGsQ58Z+yI=;
- b=bBESU2CkEmbBm2gH089Gx7QhI43S25GAhmjROmYVKTXHf7tkwb9c4A2sVUxavlJh31
- QHlT2QlsRZsnp7TOJnMIbrdqcF8YR+W42uAfcHLIHzbyv64a519MzmxMF6jEC93bgxQS
- LdYTQXUQCHlV99Y9OTAMbxBSJ1PCeevEG+GbDBL8hnF3tv0EWSACE+W04fux8U3sJJj4
- rc0orlxyzexdpSaDvdxi+9jpyPUSLvGvmop7Bmjcleup283NPe0fsZunKzwp7qxcyGVw
- Ch/imJnqkll96ux3Uz0koIjVGrGmL/HQ1Hy9j1I3+MFdVq6ny87tOQtU1wc8SlrwF0mN
- uXOw==
-X-Gm-Message-State: AOAM533y8DoqAykI9eofpsLn08RUEFhWfOSZUknmbbP/0f/7ESJFrbSH
- 89nxkjPIPKLAD6nG5zW5zIc=
-X-Google-Smtp-Source: ABdhPJwoIb2MvOzijl+bvxJwJXZRfIdjOy5U9ImsWQ93NI6qGX2IrEdqizHwXV3920DgPiADXBKk3A==
-X-Received: by 2002:a17:90a:e2c7:: with SMTP id
- fr7mr1460963pjb.103.1594846023187; 
- Wed, 15 Jul 2020 13:47:03 -0700 (PDT)
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=YwtQ+qIZRMu1aHjFHPtF40fPrwJ9tfeRwj/jvnsJYBE=;
+ b=SGvuETRdfvr3TpmHwXGEyuQIasX2JG7XXRwlTrOBw8bN+VFMzvnfqICjb9PDAwFP3P
+ 1tMttNrjEw61xkr115ZKytOdo/RbkGj23GIpMXYvo1eybjlcdOh41bsS5llXJBeJ4Lqc
+ URrgwt4Bc7z1FqDG4W4gnoeoTlzfwuqiI+pT9EqdRUG3yVl1OdaI2273ZJAegj9A85+E
+ VwA/rDzMT284qavK5GnWnGTacW/I3BIH+0n5fEsQ97rMLJB5rGlfFYX2Lm0UzacrIqh5
+ ojcrVlRKLeIqlP8Pf4HDwZC8XsJzhxz+B/z5oYUhIC54IAeJgCj+crgZi7k3DfQe2NW5
+ G1kw==
+X-Gm-Message-State: AOAM533h+ZF6XZJG5LX81KgCI6uiDpnY7eHjqliQD74JhnxVMdU7JKxc
+ SDDragJaCREmtkz497D1vs8=
+X-Google-Smtp-Source: ABdhPJz1GJ2Ik7lZDPIUXV5ePwyu/YwogLbPU4apDaOlkhisq+aJKtFRAA1r//dZtZBvcY/zN4hOBQ==
+X-Received: by 2002:a17:90a:a413:: with SMTP id
+ y19mr1460097pjp.59.1594846114095; 
+ Wed, 15 Jul 2020 13:48:34 -0700 (PDT)
 Received: from Asurada-Nvidia (searspoint.nvidia.com. [216.228.112.21])
- by smtp.gmail.com with ESMTPSA id c14sm2839648pfj.82.2020.07.15.13.47.02
+ by smtp.gmail.com with ESMTPSA id w9sm2983563pja.39.2020.07.15.13.48.33
  (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 15 Jul 2020 13:47:02 -0700 (PDT)
-Date: Wed, 15 Jul 2020 13:46:38 -0700
+ Wed, 15 Jul 2020 13:48:33 -0700 (PDT)
+Date: Wed, 15 Jul 2020 13:48:09 -0700
 From: Nicolin Chen <nicoleotsuka@gmail.com>
-To: Arnaud Ferraris <arnaud.ferraris@collabora.com>
-Subject: Re: [PATCH 0/4] ASoC: fsl_asrc: allow selecting arbitrary clocks
-Message-ID: <20200715204636.GA14539@Asurada-Nvidia>
-References: <20200702142235.235869-1-arnaud.ferraris@collabora.com>
- <20200702184226.GA23935@Asurada-Nvidia>
- <3f39a0bb-a766-f646-28b3-a51cf9983c6b@collabora.com>
- <3fea8912-63df-ff27-0c29-6284a85107ab@collabora.com>
- <20200714201544.GA10501@Asurada-Nvidia>
- <20200714202753.GM4900@sirena.org.uk>
- <20200714205050.GB10501@Asurada-Nvidia>
- <20200715140519.GH5431@sirena.org.uk>
- <0a56326b-27a9-d9f4-3923-8773963d7548@collabora.com>
+To: Lee Jones <lee.jones@linaro.org>
+Subject: Re: [PATCH v2 1/1] ASoC: fsl: fsl-asoc-card: Trivial: Fix
+ misspelling of 'exists'
+Message-ID: <20200715204809.GA14565@Asurada-Nvidia>
+References: <20200715150009.407442-1-lee.jones@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <0a56326b-27a9-d9f4-3923-8773963d7548@collabora.com>
+In-Reply-To: <20200715150009.407442-1-lee.jones@linaro.org>
 User-Agent: Mutt/1.9.4 (2018-02-28)
 Cc: alsa-devel@alsa-project.org, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- kernel@collabora.com, Fabio Estevam <festevam@gmail.com>
+ Xiubo Li <Xiubo.Lee@gmail.com>, linuxppc-dev@lists.ozlabs.org,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, broonie@kernel.org,
+ Fabio Estevam <festevam@gmail.com>, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,18 +105,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jul 15, 2020 at 06:18:38PM +0200, Arnaud Ferraris wrote:
-> Hi,
-> 
-> Le 15/07/2020 à 16:05, Mark Brown a écrit :
-> > On Tue, Jul 14, 2020 at 01:50:50PM -0700, Nicolin Chen wrote:
-> > Anything wrong with ASRC selecting SSI1 clock for both cases? The
-> > driver calculates the divisors based on the given clock rate, so
-> > the final internal rate should be the same. If there's a problem,
-> > I feel that's a separate bug.
-> 
-> Calculations are indeed good, but then the clock selection setting in
-> the ASRCSR register would also use SSI1 as the input clock, which
-> doesn't work in our case.
+On Wed, Jul 15, 2020 at 04:00:09PM +0100, Lee Jones wrote:
+> Cc: Timur Tabi <timur@kernel.org>
+> Cc: Nicolin Chen <nicoleotsuka@gmail.com>
 
-Could you please elaborate why it doesn't work?
+Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
+
+> Cc: Xiubo Li <Xiubo.Lee@gmail.com>
+> Cc: Fabio Estevam <festevam@gmail.com>
+> Cc: linuxppc-dev@lists.ozlabs.org
+> Signed-off-by: Lee Jones <lee.jones@linaro.org>
+> ---
+>  sound/soc/fsl/fsl-asoc-card.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
+> index faac6ce9a82cb..dbacdd25dfe76 100644
+> --- a/sound/soc/fsl/fsl-asoc-card.c
+> +++ b/sound/soc/fsl/fsl-asoc-card.c
+> @@ -92,7 +92,7 @@ struct fsl_asoc_card_priv {
+>  };
+>  
+>  /*
+> - * This dapm route map exits for DPCM link only.
+> + * This dapm route map exists for DPCM link only.
+>   * The other routes shall go through Device Tree.
+>   *
+>   * Note: keep all ASRC routes in the second half
+> -- 
+> 2.25.1
+> 

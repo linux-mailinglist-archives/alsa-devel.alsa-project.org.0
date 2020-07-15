@@ -2,116 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C40F322126D
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Jul 2020 18:34:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F7E32212B7
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Jul 2020 18:43:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B4DF1665;
-	Wed, 15 Jul 2020 18:33:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B4DF1665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 259E21669;
+	Wed, 15 Jul 2020 18:42:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 259E21669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594830851;
-	bh=ENZI/BM7IH/ZGCNEhLbunC+oAW3juvcVEkIRvRkGGkI=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1594831394;
+	bh=XTYGu8jBcE8fejJsN6HsQke1vSB+VEJmjRcOnOPetL4=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dXTW4j55SIK3tzTM2obZ4Ub7WEE2H+GKXLcFZq4HjZJdksNiKVJQjcrmTV2ZJtQF/
-	 ZhMEX9dv8ozqi6yXsh3/MHqIyLNfzGxZ4577881WWOgRChkDzNbbsYwn8fdYhtZXSH
-	 0PCa3nmT7RyT6oFSt4lO8sSzdEsiN4RCcUI7hRuY=
+	b=pLuLllzE/3mbZGruXjMknPMVR4ooEW+xVlhWrmsN/IUB0MrgotYX5OMVI18FvSQi3
+	 cDXIvGlfGnhvtjisIPJpq1TAFuXayL3R60Xb3C+aHNYegdb7noM39NfBT2aR5mjPyw
+	 UcVaQtU1bHShMNrG0MyIH3TkuDR79/iU/LN64ZyY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 521AAF8014E;
-	Wed, 15 Jul 2020 18:32:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5BA11F8014E;
+	Wed, 15 Jul 2020 18:41:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DC41DF8021D; Wed, 15 Jul 2020 18:32:26 +0200 (CEST)
+ id B10A5F8021D; Wed, 15 Jul 2020 18:41:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_PASS,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2E4AAF8014E
- for <alsa-devel@alsa-project.org>; Wed, 15 Jul 2020 18:32:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E4AAF8014E
-Received: from [IPv6:2a01:e35:2fb5:1510:1d7c:45e2:f76d:7ac5] (unknown
- [IPv6:2a01:e35:2fb5:1510:1d7c:45e2:f76d:7ac5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: aferraris)
- by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 0DF072A503E;
- Wed, 15 Jul 2020 17:32:21 +0100 (BST)
-Subject: Re: [PATCH 0/4] ASoC: fsl_asrc: allow selecting arbitrary clocks
-To: Mark Brown <broonie@kernel.org>
-References: <20200702142235.235869-1-arnaud.ferraris@collabora.com>
- <20200702184226.GA23935@Asurada-Nvidia>
- <3f39a0bb-a766-f646-28b3-a51cf9983c6b@collabora.com>
- <3fea8912-63df-ff27-0c29-6284a85107ab@collabora.com>
- <20200714201544.GA10501@Asurada-Nvidia> <20200714202753.GM4900@sirena.org.uk>
- <20200714205050.GB10501@Asurada-Nvidia> <20200715140519.GH5431@sirena.org.uk>
- <0a56326b-27a9-d9f4-3923-8773963d7548@collabora.com>
- <20200715162202.GJ5431@sirena.org.uk>
-From: Arnaud Ferraris <arnaud.ferraris@collabora.com>
-Autocrypt: addr=arnaud.ferraris@collabora.com; keydata=
- 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
- xZQG6fKWuIur3RI=
-Message-ID: <cc3f2674-a6c4-72f0-edb5-c4c8026aec84@collabora.com>
-Date: Wed, 15 Jul 2020 18:32:18 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <20200715162202.GJ5431@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Nicolin Chen <nicoleotsuka@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- kernel@collabora.com, Fabio Estevam <festevam@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D44B3F80113
+ for <alsa-devel@alsa-project.org>; Wed, 15 Jul 2020 18:41:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D44B3F80113
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id BEAD2AF83;
+ Wed, 15 Jul 2020 16:41:23 +0000 (UTC)
+Date: Wed, 15 Jul 2020 18:41:19 +0200
+Message-ID: <s5hpn8wpw7k.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 01/10] ALSA: Replace the word "slave" in vmaster API
+In-Reply-To: <a93460a3-ac0e-be0b-7c46-47b87fd611c2@linux.intel.com>
+References: <20200714172631.25371-1-tiwai@suse.de>
+ <20200714172631.25371-2-tiwai@suse.de>
+ <eda4df2e-d7b0-9e7e-e873-e3d8d3088174@linux.intel.com>
+ <s5h5zaptgaz.wl-tiwai@suse.de>
+ <a93460a3-ac0e-be0b-7c46-47b87fd611c2@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -127,16 +72,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-Le 15/07/2020 à 18:22, Mark Brown a écrit :
+On Wed, 15 Jul 2020 16:34:51 +0200,
+Pierre-Louis Bossart wrote:
 > 
-> Those look reasonable enough off the top of my head, not that I've
-> really looked at the hardware.
 > 
+> 
+> >> On 7/14/20 12:26 PM, Takashi Iwai wrote:
+> >>> Follow the recent inclusive terminology guidelines and replace the
+> >>> word "slave" in vmaster API.  I chose the word "replica" at this time
+> >>> since it seems fitting for the purpose.
+> >>
+> >> Thanks Takashi for starting this.
+> >>
+> >> For the HDaudio Volume widgets, the spec says they may have different
+> >> step size but use the same number of steps, so they are not copy-exact
+> >> versions in the usual 'replica' sense but rather follow or track the
+> >> master configuration.
+> >>
+> >> The internal guidance I see at Intel is to use 'replica' mainly in a
+> >> database/configuration management context.
+> >>
+> >> If the idea is that the 'replicas' use the same configuration as the
+> >> 'master', that'd be fine indeed but we may want to add a clarifying
+> >> comment that the end-result may be different for each 'replica'?
+> >
+> > I don't mind to pick up another word.
+> > What could be another better alternative?
+> 
+> I don't have a suggestion that is really better. the usual suggestions
+> of 'secondary' or 'subordinate' are not really great in this context,
+> something like 'tracker' or 'follower' might work but are maybe more
+> vague for controls.
 
-Alright, thanks for your feedback! Unless Nic has other comments I'll
-submit a v2 tomorrow then.
+"Follower" would fit for the purpose, I think.
+(Or better to say "retweeter"? :)
 
-Regards,
-Arnaud
+> I am really fine with 'replica', just wanted to clarify that it's not
+> doing the same thing in multiple places but using the same
+> configuration in multiple places.
+
+Yeah point taken.
+
+
+thanks,
+
+Takashi

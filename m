@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DCA922040F
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Jul 2020 06:39:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70AA4220416
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Jul 2020 06:42:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 811F51662;
-	Wed, 15 Jul 2020 06:38:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 811F51662
+	by alsa0.perex.cz (Postfix) with ESMTPS id EBFDB1661;
+	Wed, 15 Jul 2020 06:41:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBFDB1661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594787977;
-	bh=FkgBXyuF+XFNy5qc841ZACxfHHnjVQ7pJoeeVggha0s=;
+	s=default; t=1594788135;
+	bh=7Cps2deu5EEozoenVkm17f1pN+4mr3/yXYH71x07wzk=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EJ9viCCwAoXO4b426neysK5Xs/4G2ThjHaS1zB7Z4soLbZj6iySRFYCB7vL3pQEcj
-	 Vb6VtVsnBu1fIspnIEemAvZAjJJRbXt4Y4U2RvnDv4k4zc6x7z6UEbho6Xgx5Ad+t5
-	 UTJGLa/aGtWi9w8c20WUuoxtYl8RAekINP2T2q3k=
+	b=tLTPTic1VXiZwiMg+8M6FtBvhq0aSW64cMtYvy221L60tvyBimel2N6d7NDiSI9GU
+	 VHmE5fVryawAY97vvxYoBCI330ZQkiQErfhknAwQPWMq7XG2cvb0fFmSPDDaV0uDaf
+	 8af/kOFYVDfGAduQf6Jbc8nslSJU1IlcY3lSFX2E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88007F80113;
-	Wed, 15 Jul 2020 06:37:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 202C8F800E8;
+	Wed, 15 Jul 2020 06:40:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2BB5DF8021D; Wed, 15 Jul 2020 06:37:53 +0200 (CEST)
+ id 7A8ADF8021D; Wed, 15 Jul 2020 06:40:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,38 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EE047F80113
- for <alsa-devel@alsa-project.org>; Wed, 15 Jul 2020 06:37:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE047F80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id A1C45F800E8
+ for <alsa-devel@alsa-project.org>; Wed, 15 Jul 2020 06:40:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1C45F800E8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HAvWgash"
+ header.b="oFh1f10z"
 Received: from localhost (unknown [122.171.202.192])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D92C6206D5;
- Wed, 15 Jul 2020 04:37:43 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id F3389205CB;
+ Wed, 15 Jul 2020 04:40:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594787864;
- bh=FkgBXyuF+XFNy5qc841ZACxfHHnjVQ7pJoeeVggha0s=;
+ s=default; t=1594788022;
+ bh=7Cps2deu5EEozoenVkm17f1pN+4mr3/yXYH71x07wzk=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=HAvWgashKtwF64JCAequp2kjP2D8UhkjrctzbtPez1zqgxCBjiyQIA4o7RsxWaTMZ
- YmJLbBXCq73ZED4/dlJ02++/UXojBplD+/xSLXNC0mertqMM06YmF3Y8F6kNpW5mD6
- 0btJ/Wm9TMm8fTPYipKTAxdd35KiS1uPQ+/wdN0U=
-Date: Wed, 15 Jul 2020 10:07:40 +0530
+ b=oFh1f10zR9kh4Pz8bmNgMzuyp8S15g4/wa7BsBvRatoqWBVcva4m2lWza1hm6e7Vh
+ O2l96/rTU2pcgG7DUfAAOVDmGF3t1+6b/vxB2FUcWuXtmL3spVGPED5MPuMxb0Bokj
+ XB9++x4dIfmZtJYWwziq4D5PFZtY2CP49mLuVWrY=
+Date: Wed, 15 Jul 2020 10:10:19 +0530
 From: Vinod Koul <vkoul@kernel.org>
-To: Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [PATCH 1/1] MAINTAINERS: change SoundWire maintainer
-Message-ID: <20200715043740.GM34333@vkoul-mobl>
-References: <20200703192644.751-1-sanyog.r.kale@intel.com>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH v2 0/5] soundwire: handle stream at the dailink level
+Message-ID: <20200715044019.GN34333@vkoul-mobl>
+References: <20200630184356.24939-1-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200703192644.751-1-sanyog.r.kale@intel.com>
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
- lgirdwood@gmail.com, gregkh@linuxfoundation.org,
- ranjani.sridharan@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- yung-chuan.liao@linux.intel.com
+In-Reply-To: <20200630184356.24939-1-yung-chuan.liao@linux.intel.com>
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, mengdong.lin@intel.com,
+ slawomir.blauciak@intel.com, sanyog.r.kale@intel.com,
+ rander.wang@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,9 +83,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 04-07-20, 00:56, Sanyog Kale wrote:
-> Add Bard as SoundWire maintainer from Intel and change Sanyog's
-> role as reviewer.
+On 01-07-20, 02:43, Bard Liao wrote:
+> Currently, stream is handled at the dai level. But we have to handle
+> stream at the dailink level in the multi-cpu dailink usage.
 
 Applied, thanks
 

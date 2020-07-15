@@ -2,101 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D2572216C6
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Jul 2020 23:05:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA3BB22178A
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jul 2020 00:10:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 902061662;
-	Wed, 15 Jul 2020 23:04:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 902061662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5678A1661;
+	Thu, 16 Jul 2020 00:09:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5678A1661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594847127;
-	bh=paIyuaQb7r3011gMJZJy0c1Yse/+WCU83OO1y9OLHOY=;
+	s=default; t=1594851031;
+	bh=VF4tUJ9I08eoMr8g2PIYVFZaBDkPcMH6aavljIgvV5M=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=C7VVeqEyfjZj3OyXLvZjRAdC7PAmB1u+fRmvYHDcCzdOfsIQx8YoFHYal1leuwPUM
-	 cjXwzUcdV58R7CJyWYs2IzV8IkWh1lQ9i5eLHj4GQE/Jl8Kpu1hcs9e2Fx4LrFZKZu
-	 VElNM63FibzLr4dEIQnt4kY+3V5+IG9iROxSzC0w=
+	b=ADagfz84zUZaaX14ZeEQ1kOGPXq2ESxmD4ll70+10pLBbHSAAlz2xB12X9HSHAu3Z
+	 ro3+MJAOVaMcjOsEJ1YUxGIlsrHp4GPsgXVI0GPrNhKr7SAIe4xXyoGT9ASRBtUIKG
+	 H7ZUizJFX7Uqd1nI8N9HNsKOjFHYUucmdVsHQcSg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD024F80217;
-	Wed, 15 Jul 2020 23:03:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87581F8021D;
+	Thu, 16 Jul 2020 00:08:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 66D67F8021D; Wed, 15 Jul 2020 23:03:44 +0200 (CEST)
+ id D83DEF8021D; Thu, 16 Jul 2020 00:08:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
+Received: from mail-il1-f174.google.com (mail-il1-f174.google.com
+ [209.85.166.174])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A2BA8F80113
- for <alsa-devel@alsa-project.org>; Wed, 15 Jul 2020 23:03:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2BA8F80113
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="M0a6hIft"
-Received: by mail-pf1-x443.google.com with SMTP id u185so2652133pfu.1
- for <alsa-devel@alsa-project.org>; Wed, 15 Jul 2020 14:03:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=hRzNY1JDvrNXSdO8U7l97e0qNXhN4R2q/raGpfh2xSg=;
- b=M0a6hIftqMPigj4qmdMeWnqpRS3Mhy/U/7tUxAJxo7OSSYbXSs1F2eHV2Got5uVniB
- fnnxdnC9ZZJqASAvHEjKtn37vsFNBdsR0Y+c7kAeDJx9/bg+oiwPjtcgbgWSxF45qxW/
- +YUIUkpaCLuGaqFeYoJ7IQUIUHnjtTDVdO2eOUlLAEZc+mqjD5ce/+F+m7DsX6qxzgsf
- zt3i0YoDpSePFWCBoqV0JgX2k1GtNZd9x0PsQ6mObkRRhuqa8i13bcNSo0ft2Yhdpy+8
- FlYet5jyBRKAe9z/e6RkiL/kXCrQdGGuqn8MWdizP19m3CiL1UddjV1tqOIDudAmNzml
- 3zlQ==
+ by alsa1.perex.cz (Postfix) with ESMTPS id ABA9BF800E8
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jul 2020 00:08:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABA9BF800E8
+Received: by mail-il1-f174.google.com with SMTP id r12so3373819ilh.4
+ for <alsa-devel@alsa-project.org>; Wed, 15 Jul 2020 15:08:39 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=hRzNY1JDvrNXSdO8U7l97e0qNXhN4R2q/raGpfh2xSg=;
- b=i1uQ1NDDrFmvGJq1Hqk1CE4HJ+2sMqPgc/9QSXTncYcFHqXZTytSbLhbtaHcgnkiNT
- +6tPRnGgY3H5jW1mfvnY8xwvEx1NPpmlVKKyubT2LD/XKvuyYTnFl+DWYFRfpkh41iIn
- dj9ubqNQy6w/O866b7PSEFY2vHpPfBkh7C0ugPwST6SgpjxVYntzfQwfwEIY82cOru/Q
- OQRwCELRalVF50h7VF5z/iPhKiBihax+LhbF3XmCyN+aEB9BBMYcEXpJoYEOEJ3Y4RI4
- H0YKRs9FjFnaHBpZtio/eEuzFFY6d1qfA0ApqxwKKtS8Ly3t6elYVtfa5EUzEifixjwr
- l0UA==
-X-Gm-Message-State: AOAM530c/9v1+PKIzJ1r15uTzttBy9Qwz15EEc8rwOgFuFG6jcwkB9t8
- B2hEdnFOUA5ex0LJVUu3bMg=
-X-Google-Smtp-Source: ABdhPJzJmgyhP7wX+GxWvJnVu0WYkg3Mrtb2coBAaKPhmJ2puWco+JxG7AG7U8wtv2nQBQYdGGywbw==
-X-Received: by 2002:a62:e919:: with SMTP id j25mr957900pfh.123.1594847013262; 
- Wed, 15 Jul 2020 14:03:33 -0700 (PDT)
-Received: from Asurada-Nvidia (searspoint.nvidia.com. [216.228.112.21])
- by smtp.gmail.com with ESMTPSA id y7sm2949173pjy.54.2020.07.15.14.03.32
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 15 Jul 2020 14:03:33 -0700 (PDT)
-Date: Wed, 15 Jul 2020 14:03:08 -0700
-From: Nicolin Chen <nicoleotsuka@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH 0/4] ASoC: fsl_asrc: allow selecting arbitrary clocks
-Message-ID: <20200715210308.GA14589@Asurada-Nvidia>
-References: <20200702142235.235869-1-arnaud.ferraris@collabora.com>
- <20200702184226.GA23935@Asurada-Nvidia>
- <3f39a0bb-a766-f646-28b3-a51cf9983c6b@collabora.com>
- <3fea8912-63df-ff27-0c29-6284a85107ab@collabora.com>
- <20200714201544.GA10501@Asurada-Nvidia>
- <20200714202753.GM4900@sirena.org.uk>
- <20200714205050.GB10501@Asurada-Nvidia>
- <20200715140519.GH5431@sirena.org.uk>
+ :mime-version:content-disposition:in-reply-to;
+ bh=knDsMsUZzPuBI6zceRTXu+uSnKypwnx7mg8vtlqsklw=;
+ b=IwIduTzgyIB+pzSE53StKuX/rd0o9TVWdetEILQn0fvb2BIO0oEa69+O160vGOQ/KE
+ dJDdANDnKzXyj15eUx4kzFQ7K0U9A3Wr0n/my7uq3oY/lvf26aNH5qspLsmEVx4pJV6M
+ gbjM90iIN8Cn7O0ZRYR2Ghsop5AR6SP9afXVHuVpZsi51GAAEmvzMLNW607QBPKqWXLQ
+ m+sgUR97IRkDy+i9088qd+E2d+QHvBYuuvv+9UK9LIEMgFeCdphw1ZjX6By3TlbyofK+
+ YEoCAnu73yUaCcebQPqsPV8QeUdwT4efG08eNz9mV2Dbq14ft3XtIXzHOrWFtkErJLZV
+ KIMw==
+X-Gm-Message-State: AOAM5329zTy/lwOT+Dy+5wr1VoMaVT0cAbvheEVhJGJkkXt4FK5v/ltX
+ K+Cq8Vnq1TsRnb+IZyQLdg==
+X-Google-Smtp-Source: ABdhPJxv9iOiymvbjYstJARTL1KA2eV7g35/XZk4+qyrmqGJVA5nmI9zX1z0p6c3HPJmTe5ujfJNJA==
+X-Received: by 2002:a05:6e02:1086:: with SMTP id
+ r6mr1535402ilj.158.1594850917930; 
+ Wed, 15 Jul 2020 15:08:37 -0700 (PDT)
+Received: from xps15 ([64.188.179.252])
+ by smtp.gmail.com with ESMTPSA id t5sm1893525iov.53.2020.07.15.15.08.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Jul 2020 15:08:37 -0700 (PDT)
+Received: (nullmailer pid 902712 invoked by uid 1000);
+ Wed, 15 Jul 2020 22:08:36 -0000
+Date: Wed, 15 Jul 2020 16:08:36 -0600
+From: Rob Herring <robh@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH][resend] ASoC: dt-bindings: renesas, fsi: use
+ patternProperties for FSI-A/B
+Message-ID: <20200715220836.GA902680@bogus>
+References: <87o8osxlow.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200715140519.GH5431@sirena.org.uk>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: Arnaud Ferraris <arnaud.ferraris@collabora.com>,
- Timur Tabi <timur@kernel.org>, alsa-devel@alsa-project.org,
- Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Rob Herring <robh+dt@kernel.org>, kernel@collabora.com,
- Fabio Estevam <festevam@gmail.com>
+In-Reply-To: <87o8osxlow.wl-kuninori.morimoto.gx@renesas.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,24 +92,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jul 15, 2020 at 03:05:19PM +0100, Mark Brown wrote:
-> On Tue, Jul 14, 2020 at 01:50:50PM -0700, Nicolin Chen wrote:
-> > On Tue, Jul 14, 2020 at 09:27:53PM +0100, Mark Brown wrote:
+On Tue, 07 Jul 2020 08:34:40 +0900, Kuninori Morimoto wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > 
-> > > The nominal rate might be the same but if they're in different clock
-> > > domains then the actual rates might be different (hence the desire for
-> > > an ASRC I guess).  I can see the system wanting to choose one clock or
-> > > the other on the basis of some system specific property (quality of the
-> > > clock sources, tolerances of the devices involved or something) though
-> > > it's a rather fun edge case configuration :/ .
+> FSI has FSI-A and FSI-B, and has fsia-xxx/fsib-xxx properties.
+> This patch uses patternProperties, and reduce verbose settings.
 > 
-> > Thanks for the input. Fox i.MX6, I don't feel it would be that
-> > drastically different though. And both SSI1 and SSI2 can simply
-> > select the same root clock source to avoid that happen.
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
 > 
-> If you've got two radios that both need to sync to some radio derived
-> frequency it gets a bit more entertaining.
+> - 2weeks passed, but nothing happen
+> 
+>  .../bindings/sound/renesas,fsi.yaml           | 19 ++++---------------
+>  1 file changed, 4 insertions(+), 15 deletions(-)
+> 
 
-I'm simply curious what could be a problem. Do you mind educating
-me a bit? And ASRC here isn't a radio but a sample rate converter
-working as a BE in DPCM setup, using radio-capture for example...
+Reviewed-by: Rob Herring <robh@kernel.org>

@@ -2,87 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D5C5221D33
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jul 2020 09:20:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24ED2221D36
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jul 2020 09:21:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DAD881614;
-	Thu, 16 Jul 2020 09:20:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAD881614
+	by alsa0.perex.cz (Postfix) with ESMTPS id C53F51677;
+	Thu, 16 Jul 2020 09:20:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C53F51677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594884057;
-	bh=0xQ/am6woNxh3DruGf+dAScKAPL+8zkB9Nmyj1htUOM=;
-	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=XFl77YTrib3ZEByuhhO1kg+/t3HD57KHQor3fqXNL9BHPStmkfNlY+xiL5EYkCjJG
-	 BsvbZ4arbYpenc7VVsMwbNgTitF3k70Y4dLMXDel1Gm2BgWhrOQyTS1QVmM6IxjJTw
-	 aa7aWV+BK9KfE1AHNwKXOGBjkvuuw2T1VJGTi1cM=
+	s=default; t=1594884093;
+	bh=o7mdjroG5s9BvztFVmLwZmt2KTj98wqEKDV/glIinkc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=JqK9z8Ts7hNfclwjPGa6Y12wDSSOktIc+JK+X9gkTLmmMjzjZRptb9FP9D4z8EH11
+	 ITUARF9EKiIYidS/l7ds/xXvEak1CaV5njjLLPfLMJiEGr3rKcpdvHIAcjet/3aGGK
+	 sInk7DRLL7FEqUnwDrstCZeZV3lerWC7g9Rex7yA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F703F8028A;
-	Thu, 16 Jul 2020 09:18:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8CDF3F802C4;
+	Thu, 16 Jul 2020 09:18:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 06A97F8019B; Wed, 15 Jul 2020 02:24:24 +0200 (CEST)
+ id 1058CF8021D; Wed, 15 Jul 2020 18:48:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, SPF_HELO_NONE, SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A9DE1F8014E
- for <alsa-devel@alsa-project.org>; Wed, 15 Jul 2020 02:24:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9DE1F8014E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="rawG1LNi"
-Received: by mail-wr1-x442.google.com with SMTP id z13so571577wrw.5
- for <alsa-devel@alsa-project.org>; Tue, 14 Jul 2020 17:24:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=iewP6kBBGkoM+NWaS3DfjUXvQDRr2nJUEdxQPlIIFM0=;
- b=rawG1LNi+RAb1ZzCXDdwd32vQxg7rvvqBJiHSOWkRGlttzJ8pqTMEsWwmtvcFKTfvX
- Ut3tOUR0s/AkQSrZiCrJPS/biRHToPRz4/PNQCMbo0JXds3zuRERaseMpyG2TBD7mmJZ
- BUzLpGxAKG4ZT0HCOA0muhLorV7Hu7vPPmQiGiF7pNPAjvcTeyWcSRfL7IDCheONIV/d
- oQ37wF3EFBlLSQYn1ub1ASjtUacrWtnJSvc3YkreYTZRTpEgBOKJRvA21bNq1iARoA0k
- nbTjrN+yr10T/FQ9DTbEZylp45wl6ztXkPAb81ALO+Fp5ecOwRiEhvCHRGddgWsggOWK
- JWeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=iewP6kBBGkoM+NWaS3DfjUXvQDRr2nJUEdxQPlIIFM0=;
- b=SY9CcmTdaOFF0mHVmkvQIA4VZyuyoK5uCjnWjeuR4qb0yzg+oCqMLXNXZS5eVBydJt
- wg4tPcclqpwPrLQdhPprf1lnXFYdChTfHJbVJ09mP9a4DmefkLPOI3OmYBBPmuMaWafO
- HQwzMr2I0ddKgO9iVCtjTukFfmyYO78cqu5AsSMiC5YMeo0iORdviBnp3gXo1I33xOez
- 3da7NlrTwM5YtL9wVvNTFKyMGGBT0GSyusvbTcX/hRQaVh8wEGPk+Xt31f4uY+mc2MtT
- rjO+ZTYnpYaHQ67Gc9Dl/J/PQ6ZeR52yREqlRfdpcjxivOnCm5yg/OJn+/OeDKLtmYqu
- iYuw==
-X-Gm-Message-State: AOAM531rSyGDR2wu8SoY4HCsNoIo6JKeXSyzCbiQwF/HGv+/L9dTkA1K
- hxXnAGXv85UImfzCiKN1WuP/PrFuvLpdS70UjTk=
-X-Google-Smtp-Source: ABdhPJzMsiHuahVmxHGl1O1iCFxyz0OXaHxlhJ9mKuK/83xI4YCn4L7U1waH+DACUr56IBhQt1IiTWFEc/aRP/zNFCc=
-X-Received: by 2002:adf:82f5:: with SMTP id 108mr8356831wrc.218.1594772656307; 
- Tue, 14 Jul 2020 17:24:16 -0700 (PDT)
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from ipmail04.adl3.internode.on.net (ipmail04.adl3.internode.on.net
+ [150.101.137.10])
+ by alsa1.perex.cz (Postfix) with ESMTP id 3DEC2F80113
+ for <alsa-devel@alsa-project.org>; Wed, 15 Jul 2020 18:48:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DEC2F80113
+X-SMTP-MATCH: 0
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2AxEQAuMg9f/5UxyQ5gHAEBATwBAQQ?=
+ =?us-ascii?q?EAQECAQEHAQEcgUWBPAIBgixfjTSGAJwwgWkLATwBAgQBAYRGBAKCDCU4EwI?=
+ =?us-ascii?q?QAQEGAQEBAQEGBIZUhigBIyNPAYEBgyaCfKtKiTCBQIE2AgEBAYgAhQmCAIR?=
+ =?us-ascii?q?fhCNnhSkEj0mJcoFjmhGCZ4ELmEEwgQueLgGzAoF6MxoIKAg7gmlQGQ2OKhe?=
+ =?us-ascii?q?ONDQwNwIGCAEBAwlXAY9RAQE?=
+Received: from 14-201-49-149.tpgi.com.au (HELO silver.lan) ([14.201.49.149])
+ by ipmail04.adl3.internode.on.net with ESMTP; 16 Jul 2020 02:18:40 +0930
+From: Paul Schulz <paul@mawsonlakes.org>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] sound/soc/soc-core: Removed instances of 'blacklist'
+Date: Thu, 16 Jul 2020 02:18:36 +0930
+Message-Id: <20200715164836.123012-1-paul@mawsonlakes.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <5f0e49da.1c69fb81.1ede7.a8fbSMTPIN_ADDED_MISSING@mx.google.com>
-In-Reply-To: <5f0e49da.1c69fb81.1ede7.a8fbSMTPIN_ADDED_MISSING@mx.google.com>
-From: mnlife qiao <mnlife.qiao@gmail.com>
-Date: Wed, 15 Jul 2020 08:24:04 +0800
-Message-ID: <CAGjHXR2ExzMO3ntwzZy9QUhpuqe-VZAXOucNkXXZK+0XZcaQWQ@mail.gmail.com>
-Subject: [PATCH] ASoC: soc-jack: calling snd_soc_jack_report causes a null
- pointer access
-To: lgirdwood@gmail.com, Jaroslav Kysela <perex@perex.cz>, 
- open list <linux-kernel@vger.kernel.org>, alsa-devel@alsa-project.org, 
- broonie@kernel.org, mnlife qiao <mnlife.qiao@gmail.com>,
- mnlife <mnlife@foxmail.com>
-X-Mailman-Approved-At: Thu, 16 Jul 2020 09:18:09 +0200
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 16 Jul 2020 09:18:10 +0200
+Cc: Takashi Iwai <tiwai@suse.com>, Paul Schulz <paul@mawsonlakes.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,27 +68,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When snd_soc_card_jack_new is not called or the call fails,
-calling this function causes a null pointer access
+This patch removes 'blacklist' and replaces it with
+'invalid list' in sound/soc/soc-core.c
 
-Signed-off-by: mnlife <mnlife@foxmail.com>
+This is a functionally trivial patch and has no other effect.
+
+Signed-off-by: Paul Schulz <paul@mawsonlakes.org>
 ---
- sound/soc/soc-jack.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/soc-core.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/soc-jack.c b/sound/soc/soc-jack.c
-index 0f1820f36b4d..51b799ee98b7 100644
---- a/sound/soc/soc-jack.c
-+++ b/sound/soc/soc-jack.c
-@@ -44,7 +44,7 @@ void snd_soc_jack_report(struct snd_soc_jack *jack, int
-status, int mask)
-        unsigned int sync = 0;
-        int enable;
-
--       if (!jack)
-+       if (!jack || !jack->jack)
-                return;
-        trace_snd_soc_jack_report(jack, mask, status);
-
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 0f30f5aabaa8..6bc56c4cb207 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -1457,11 +1457,11 @@ EXPORT_SYMBOL_GPL(snd_soc_runtime_set_dai_fmt);
+ 
+ #ifdef CONFIG_DMI
+ /*
+- * If a DMI filed contain strings in this blacklist (e.g.
++ * If a DMI filed contain strings in this invalid list (e.g.
+  * "Type2 - Board Manufacturer" or "Type1 - TBD by OEM"), it will be taken
+  * as invalid and dropped when setting the card long name from DMI info.
+  */
+-static const char * const dmi_blacklist[] = {
++static const char * const dmi_invalid_list[] = {
+ 	"To be filled by OEM",
+ 	"TBD by OEM",
+ 	"Default String",
+@@ -1493,14 +1493,14 @@ static void cleanup_dmi_name(char *name)
+ 
+ /*
+  * Check if a DMI field is valid, i.e. not containing any string
+- * in the black list.
++ * in the invalid list.
+  */
+ static int is_dmi_valid(const char *field)
+ {
+ 	int i = 0;
+ 
+-	while (dmi_blacklist[i]) {
+-		if (strstr(field, dmi_blacklist[i]))
++	while (dmi_invalid_list[i]) {
++		if (strstr(field, dmi_invalid_list[i]))
+ 			return 0;
+ 		i++;
+ 	}
 -- 
-2.17.1
+2.25.1
+

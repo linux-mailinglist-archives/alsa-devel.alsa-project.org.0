@@ -2,114 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F145F222576
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jul 2020 16:28:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 415242225CD
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jul 2020 16:36:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3747C165E;
-	Thu, 16 Jul 2020 16:27:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3747C165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC7B71660;
+	Thu, 16 Jul 2020 16:36:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC7B71660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594909702;
-	bh=wZfr0SR/GlbL5zvCXpy4wuC58EhPJI7hKGijkRSBwzs=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1594910217;
+	bh=nxkcrc5P7Qd7poz1LmdDvcMFnguH4wq4okmKRFsmWhw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tij0NAWpeDty0EyjZejN5LA9qoLJ6LXCOp3dO5cveZokxR2NI1NLx83TM5TZCxcIi
-	 TV7iwRqV/asfcHPzMxbXF10Uds71TPlxrYDEmzPUvNpn4O8B4Rvl82mXE6kRWWojwB
-	 C2gxjUcJRNDY+N4McqZxCLuRuymgf7RCV/GhM200=
+	b=rPmWaN5W5hBAkCGKfpIb4BW2N4dRwzwl1M9SkP9dRNpczoLhqhucH2KIchpGxrX7R
+	 4kQD5GMdxeFvhnD146R2lkHcpMZZwmtavDQFCgdtKFIKsznrAxJaHFfPKzhNDcKNOY
+	 Aiq/vBs4EO9j4+n7FGoJxth5VsuGxXLuf3GobzSM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5C1C2F801F2;
-	Thu, 16 Jul 2020 16:26:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CEB88F801F2;
+	Thu, 16 Jul 2020 16:35:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A996EF801EC; Thu, 16 Jul 2020 16:26:38 +0200 (CEST)
+ id A3EF2F8014C; Thu, 16 Jul 2020 16:35:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_PASS,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 21054F8014C
- for <alsa-devel@alsa-project.org>; Thu, 16 Jul 2020 16:26:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21054F8014C
-Received: from [IPv6:2a01:e35:2fb5:1510:95f7:ce7f:fb76:c54a] (unknown
- [IPv6:2a01:e35:2fb5:1510:95f7:ce7f:fb76:c54a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: aferraris)
- by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 0879D261064;
- Thu, 16 Jul 2020 15:26:32 +0100 (BST)
-Subject: Re: [PATCH 0/4] ASoC: fsl_asrc: allow selecting arbitrary clocks
-To: Mark Brown <broonie@kernel.org>, Nicolin Chen <nicoleotsuka@gmail.com>
-References: <20200702142235.235869-1-arnaud.ferraris@collabora.com>
- <20200702184226.GA23935@Asurada-Nvidia>
- <3f39a0bb-a766-f646-28b3-a51cf9983c6b@collabora.com>
- <3fea8912-63df-ff27-0c29-6284a85107ab@collabora.com>
- <20200714201544.GA10501@Asurada-Nvidia> <20200714202753.GM4900@sirena.org.uk>
- <20200714205050.GB10501@Asurada-Nvidia> <20200715140519.GH5431@sirena.org.uk>
- <20200715210308.GA14589@Asurada-Nvidia> <20200716121821.GA5105@sirena.org.uk>
-From: Arnaud Ferraris <arnaud.ferraris@collabora.com>
-Autocrypt: addr=arnaud.ferraris@collabora.com; keydata=
- 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
- xZQG6fKWuIur3RI=
-Message-ID: <f05485be-b081-60a8-7fd0-f8020dc42375@collabora.com>
-Date: Thu, 16 Jul 2020 16:26:29 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B4AC6F8014C
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jul 2020 16:35:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4AC6F8014C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="d5zWQW7K"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id D4C7F206F4;
+ Thu, 16 Jul 2020 14:34:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1594910100;
+ bh=nxkcrc5P7Qd7poz1LmdDvcMFnguH4wq4okmKRFsmWhw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=d5zWQW7KcwQQwGsZLtlihkD9diBPlVE3DBlaRFuftlKxZJ9FVattsI4I5Lc5ENbS6
+ 68oniVnmgwkk+HemvqlyT3+a+Hh1TY0Gnd7IxVfpyVYoSt8jOuG0WBzyiv3oJVZgbP
+ AkJnG3L9x3uLfQ8tI5QQ0QFX+YzK4k1rEXAGhr6k=
+Date: Thu, 16 Jul 2020 15:34:50 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Subject: Re: [PATCH] ASoC: meson: add the missed kfree() for
+ axg_card_add_tdm_loopback
+Message-ID: <20200716143450.GB5105@sirena.org.uk>
+References: <20200716132558.33932-1-jingxiangfeng@huawei.com>
+ <1jzh7zegfw.fsf@starbuckisacylon.baylibre.com>
 MIME-Version: 1.0
-In-Reply-To: <20200716121821.GA5105@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, linux-kernel@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Rob Herring <robh+dt@kernel.org>, kernel@collabora.com,
- Fabio Estevam <festevam@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ADZbWkCsHQ7r3kzd"
+Content-Disposition: inline
+In-Reply-To: <1jzh7zegfw.fsf@starbuckisacylon.baylibre.com>
+X-Cookie: This login session: $13.99
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ kuninori.morimoto.gx@renesas.com, lgirdwood@gmail.com, khilman@baylibre.com,
+ tiwai@suse.com, linux-amlogic@lists.infradead.org,
+ Jing Xiangfeng <jingxiangfeng@huawei.com>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -126,29 +88,37 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--ADZbWkCsHQ7r3kzd
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Le 16/07/2020 à 14:18, Mark Brown a écrit :
-> On Wed, Jul 15, 2020 at 02:03:08PM -0700, Nicolin Chen wrote:
->> On Wed, Jul 15, 2020 at 03:05:19PM +0100, Mark Brown wrote:
->>> On Tue, Jul 14, 2020 at 01:50:50PM -0700, Nicolin Chen wrote:
-> 
->>>> Thanks for the input. Fox i.MX6, I don't feel it would be that
->>>> drastically different though. And both SSI1 and SSI2 can simply
->>>> select the same root clock source to avoid that happen.
-> 
->>> If you've got two radios that both need to sync to some radio derived
->>> frequency it gets a bit more entertaining.
-> 
->> I'm simply curious what could be a problem. Do you mind educating
->> me a bit? And ASRC here isn't a radio but a sample rate converter
->> working as a BE in DPCM setup, using radio-capture for example...
-> 
-> My understanding was that this application was using the ASRC to convert
-> between the sample rates of two different radios - the rates may be
-> nominaly the same but in practice different so the audio will glitch
-> after a while when the clocks drift far enough apart.
+On Thu, Jul 16, 2020 at 03:29:39PM +0200, Jerome Brunet wrote:
+> On Thu 16 Jul 2020 at 15:25, Jing Xiangfeng <jingxiangfeng@huawei.com> wrote:
 
-That's part of the issues we had to solve, yes. The other part is more
-traditional sample rate conversion on an as-needed basis, as we can't
-assume which rate will be used (iPhone's use 16kHz, Android phones stick
-to 8kHz, and headsets can use both depending on their capabilities).
+> > axg_card_add_tdm_loopback() misses to call kfree() in an error path. Add
+> > the missed function call to fix it.
+> >
+> > Fixes: c84836d7f650 ("ASoC: meson: axg-card: use modern dai_link style")
+> > Signed-off-by: Jing Xiangfeng <jingxiangfeng@huawei.com>
+
+> Thanks for fixing this.
+> Maybe it would be better to use the devm_ variant for the name instead ?
+
+Yes, that should be more robust.
+
+--ADZbWkCsHQ7r3kzd
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8QZYkACgkQJNaLcl1U
+h9B59Qf/cQ/Ssu6kfNi9QbWnYWdZOWPmbzLXNPPSbdpuW2McJvjhrFAscgfM5b/m
++ShTyHn5oEztIfyoIXlaCPsfmNJRBjLotRdmo8xlZ3FyzgxAE810aNDKwR4uaOnv
+lSByiQZOnNa3EhV5P1naQaRf/MLw35gsHixOxQBO3kLkkokx5GpL1F1quQC33N9l
+cNu6tviX29PziUhmYNdjr6nhhSsHB4qC7+l6YwQmR3DzEPeVTiW8b1lWsmWL1YQq
+fhLlNWrqQSBTs01/EUEmvCHnHZZTZUhJRpIozH8eGjvhvg9YeY1nRj0ggxClpGHh
+Dzc0HtU/KTKfLk8zhuQLhLrKBKGvzg==
+=gap3
+-----END PGP SIGNATURE-----
+
+--ADZbWkCsHQ7r3kzd--

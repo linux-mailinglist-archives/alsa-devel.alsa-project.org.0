@@ -2,80 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18279221D3A
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jul 2020 09:22:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 812BC221D3C
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jul 2020 09:23:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A90B71607;
-	Thu, 16 Jul 2020 09:21:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A90B71607
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2DCAB15DC;
+	Thu, 16 Jul 2020 09:22:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DCAB15DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594884137;
-	bh=QzAIy3WcNYaqI1YVC6MG03iWRhYAIVKVHJ5UFwQxn7Q=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=PEkEr64g2KIfOm2wzNiNYN4zwrPxqVKINENVFpSiSKkzwELvcae3l4Yr15t/gaGdb
-	 AATdZWxRGUImxoidKK1uiyPCk4OM7VKPknIxNuCOKjrmht4wosxADNfMW5onvW/1Ar
-	 SyaoO0iDfJpoKXXxKCgLHjX0J4shzGC/xtSZ2QDc=
+	s=default; t=1594884194;
+	bh=Refqs9TMLM3/4TJtwS69GVOk3yoXw06Cl67tHKuQi+A=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=T/9p/4sw/RwXtsx7aEDihhLKHGIYgQxbnWPC45ROUBxkWQYZN7rLBj12uoo3w++7e
+	 SoffCuhQTziapFn42PhVmbHaYdMQ+TNsr59vwx/7lBtV1jIiU2OaCDNpHkN6INvfBf
+	 hT1QKgwQdOAuq/lbyklpdkku1Y0DgSfU6isgJ6e4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F18C5F802D2;
-	Thu, 16 Jul 2020 09:18:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7FBA3F802E9;
+	Thu, 16 Jul 2020 09:18:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47815F802BC; Thu, 16 Jul 2020 05:09:00 +0200 (CEST)
+ id 72C5AF8028A; Thu, 16 Jul 2020 05:09:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
- [IPv6:2607:f8b0:4864:20::1044])
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
+ [IPv6:2607:f8b0:4864:20::641])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 36FADF8020C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7121DF80276
  for <alsa-devel@alsa-project.org>; Thu, 16 Jul 2020 05:08:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36FADF8020C
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7121DF80276
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="ntnEdubb"
-Received: by mail-pj1-x1044.google.com with SMTP id mn17so4094161pjb.4
+ header.b="FG/kfdhr"
+Received: by mail-pl1-x641.google.com with SMTP id l6so3242971plt.7
  for <alsa-devel@alsa-project.org>; Wed, 15 Jul 2020 20:08:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=/eo13gw5fJCvhJnxKm6L26qmA1xy2iBEtE20aAjPg9o=;
- b=ntnEdubbdqpGPgOV96gJLeIOeDJD9bl8sWEZchgJzsbJoRlAxafbTPHiU+bBiSM9Ay
- Bb6I6dJreCIWt+SNvx3uSnD715S/LsJbtTBKRxlploZohP5A0IMBAo41xfxzSg+BNCgv
- UyZA7zqZ2jt8SIod07xOd5QbCCRaueqNa4gOI=
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=PQ3rS81iCqlQj563UE75aUsx51oFdKIvno+SEEG/FG4=;
+ b=FG/kfdhrrvpgKNO8XoFAw8rMldsyko1xxMQvI4cYzTokOwgJ4VoV67Xp7ZSUwQyuB1
+ pUGFqZBMP6lpP24GnUWphnxjAPTHxBvHDhawoWy2aIc23UsRgkac0gYVUKAPjXZwMzVH
+ C32IKdA7MiHJNt49J80WqSESe08lPvA2ln4BQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=/eo13gw5fJCvhJnxKm6L26qmA1xy2iBEtE20aAjPg9o=;
- b=bl3nNwZ5F+vk1B16L+uTs34cu5lY58xsmp2Fdr0AR0aCTZPWgPhotmkJssMZtYSF41
- 9J74O+Q63hy3ixxNgTAXelta44JUlR3JuWWBq29HiYmNBLOz2V/g1ptrjjOOaMVci/zS
- p15fM651yi+a5zyxPGJwETIJslai8UUw0BwxkzjONGgPwOCrdeKakpcB/BAD3/i+dqfP
- bEo60oT1apR7FByQc6CmK95fMNyh68ZoXJ+whiWSRNoBrZiz7UJiCkb5QOHDjR9xVCto
- cqfg5xTB/fXMI+YjvXsSKgTFmMMiAcfy9JDdziTyaISY4LRdZXyy1dIcOyXQK/kQd0Ct
- cCnQ==
-X-Gm-Message-State: AOAM530z/QHxT49wYWWXl88/RgrPafqF6VKg+jNa3oXtxP2Y9z9gakN/
- SFJU7j2taED2NFGZ8I/mo+4CRw==
-X-Google-Smtp-Source: ABdhPJyJvjSFUmwOZKl8hOEZtdbgisML9TaMY9zA2DquJ5wPNkSNvu+LzxqBXFwknWNq3+GQp8EoZw==
-X-Received: by 2002:a17:902:ee8b:: with SMTP id
- a11mr1923650pld.26.1594868932899; 
- Wed, 15 Jul 2020 20:08:52 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=PQ3rS81iCqlQj563UE75aUsx51oFdKIvno+SEEG/FG4=;
+ b=ee7vn4BTObXmwn8eaz6RBqE8v+dcQipF55C0Tmv5DCsz48mY0yLA7DZUNR+UYcKL5s
+ RjafncZqii3HySuXfHTA4naMl2W5e6yRvbUsA0LluQ1zMO+6SKAR6TOsd0fwWMikE11Z
+ ffeGEoS7nbQeBi3mdFdg3IXXN4HgcbN7kwdzXlPdNQxiLFivTQ3MEH4Dj6cm0SWDK3N9
+ 0f3xrgA2Nj3e0o8jyUdPKdB4aROQOI1qiGOJcJsk/fhYIkmj2ZA+c6+uHfj+Yns/X50r
+ zA7O0NaLz/E4tKH9ghtinU4ctoniiWjciPpd5TISWpSZSELlnaOED1lGgi4c4KIytiq3
+ hXXQ==
+X-Gm-Message-State: AOAM532pW855+yeIda3e0xeVAy6Rbb+KSRz/JoqyAzRklHfqbcDmaeyL
+ x15nkl6KBRl1etGkQ/oelRk4gg==
+X-Google-Smtp-Source: ABdhPJyQqOXVFa0AWxv/APlQyrdA+w7DqHfNJLE5LIIILIY1tjbP6/hW3QXi5M1V5H9nUHof0O9/lw==
+X-Received: by 2002:a17:902:6181:: with SMTP id
+ u1mr1929724plj.205.1594868933459; 
+ Wed, 15 Jul 2020 20:08:53 -0700 (PDT)
 Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
- by smtp.gmail.com with ESMTPSA id x7sm2909172pfp.96.2020.07.15.20.08.51
+ by smtp.gmail.com with ESMTPSA id q20sm3015469pfn.111.2020.07.15.20.08.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Wed, 15 Jul 2020 20:08:51 -0700 (PDT)
 From: Kees Cook <keescook@chromium.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH 0/3] Modernize tasklet callback API
-Date: Wed, 15 Jul 2020 20:08:44 -0700
-Message-Id: <20200716030847.1564131-1-keescook@chromium.org>
+Subject: [PATCH 1/3] usb: gadget: udc: Avoid tasklet passing a global
+Date: Wed, 15 Jul 2020 20:08:45 -0700
+Message-Id: <20200716030847.1564131-2-keescook@chromium.org>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200716030847.1564131-1-keescook@chromium.org>
+References: <20200716030847.1564131-1-keescook@chromium.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 16 Jul 2020 09:18:09 +0200
@@ -125,61 +128,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+There's no reason for the tasklet callback to set an argument since it
+always uses a global. Instead, use the global directly, in preparation
+for converting the tasklet subsystem to modern callback conventions.
 
-This is the infrastructure changes to prepare the tasklet API for
-conversion to passing the tasklet struct as the callback argument instead
-of an arbitrary unsigned long. The first patch details why this is useful
-(it's the same rationale as the timer_struct changes from a bit ago:
-less abuse during memory corruption attacks, more in line with existing
-ways of doing things in the kernel, save a little space in struct,
-etc). Notably, the existing tasklet API use is much less messy, so there
-is less to clean up.
+Signed-off-by: Kees Cook <keescook@chromium.org>
+---
+ drivers/usb/gadget/udc/snps_udc_core.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-It's not clear to me which tree this should go through... Greg since it
-starts with a USB clean-up, -tip for timer or interrupt, or if I should
-just carry it. I'm open to suggestions, but if I don't hear otherwise,
-I'll just carry it.
-
-My goal is to have this merged for v5.9-rc1 so that during the v5.10
-development cycle the new API will be available. The entire tree of
-changes is here[1] currently, but to split it up by maintainer the
-infrastructure changes need to be landed first.
-
-Review and Acks appreciated! :)
-
-Thanks,
-
--Kees
-
-[1] https://github.com/allenpais/tasklets/commits/tasklets_V2
-
-Kees Cook (2):
-  usb: gadget: udc: Avoid tasklet passing a global
-  treewide: Replace DECLARE_TASKLET() with DECLARE_TASKLET_OLD()
-
-Romain Perier (1):
-  tasklet: Introduce new initialization API
-
- drivers/input/keyboard/omap-keypad.c   |  2 +-
- drivers/input/serio/hil_mlc.c          |  2 +-
- drivers/net/wan/farsync.c              |  4 +--
- drivers/s390/crypto/ap_bus.c           |  2 +-
- drivers/staging/most/dim2/dim2.c       |  2 +-
- drivers/staging/octeon/ethernet-tx.c   |  2 +-
- drivers/tty/vt/keyboard.c              |  2 +-
- drivers/usb/gadget/udc/snps_udc_core.c |  6 ++---
- drivers/usb/host/fhci-sched.c          |  2 +-
- include/linux/interrupt.h              | 37 ++++++++++++++++++++++----
- kernel/backtracetest.c                 |  2 +-
- kernel/debug/debug_core.c              |  2 +-
- kernel/irq/resend.c                    |  2 +-
- kernel/softirq.c                       | 18 ++++++++++++-
- net/atm/pppoatm.c                      |  2 +-
- net/iucv/iucv.c                        |  2 +-
- sound/drivers/pcsp/pcsp_lib.c          |  2 +-
- 17 files changed, 66 insertions(+), 25 deletions(-)
-
+diff --git a/drivers/usb/gadget/udc/snps_udc_core.c b/drivers/usb/gadget/udc/snps_udc_core.c
+index 3fcded31405a..afdd28f332ce 100644
+--- a/drivers/usb/gadget/udc/snps_udc_core.c
++++ b/drivers/usb/gadget/udc/snps_udc_core.c
+@@ -96,9 +96,7 @@ static int stop_pollstall_timer;
+ static DECLARE_COMPLETION(on_pollstall_exit);
+ 
+ /* tasklet for usb disconnect */
+-static DECLARE_TASKLET(disconnect_tasklet, udc_tasklet_disconnect,
+-		(unsigned long) &udc);
+-
++static DECLARE_TASKLET(disconnect_tasklet, udc_tasklet_disconnect, 0);
+ 
+ /* endpoint names used for print */
+ static const char ep0_string[] = "ep0in";
+@@ -1661,7 +1659,7 @@ static void usb_disconnect(struct udc *dev)
+ /* Tasklet for disconnect to be outside of interrupt context */
+ static void udc_tasklet_disconnect(unsigned long par)
+ {
+-	struct udc *dev = (struct udc *)(*((struct udc **) par));
++	struct udc *dev = udc;
+ 	u32 tmp;
+ 
+ 	DBG(dev, "Tasklet disconnect\n");
 -- 
 2.25.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56D18222FA7
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 02:05:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D254A222FB3
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 02:05:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 067A3166C;
-	Fri, 17 Jul 2020 02:04:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 067A3166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 852661614;
+	Fri, 17 Jul 2020 02:04:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 852661614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594944300;
-	bh=oCZ9mQzHXEpBhE6/r9HcA4YofT7b18jAnYmHxDAbqvw=;
+	s=default; t=1594944331;
+	bh=oFW1cl+r20hCLJ4pfkKV3RYD8Qs6TkPlxv0gjk1ZC/4=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZzY9u5a6JZzKhDr4Tetm19vou/PYyRSAitl5tSb5WS2l5xIsU5ily0O6pY1ykDRT/
-	 asyRjZwAudWW3aklwHEF9THrQynN4e1MYVKa4yZA9eAj5MLhFgnvS0IxT9C+o0fqsc
-	 uCXvRCJOvgaYhtBwazED92WjgP6AUZYm08nfbTQQ=
+	b=GD9ejv51syCt+k8nXhotdmXsAV5CjTQM1nh/MIJpNARflgnP/3Wqx0Yh/yAkdGEb4
+	 CfBFsbvy5LKDknsZjRVVMDlcjAgMIdrup0vHBmWuXv6ovTtueiUUif2iyasKtsg4Yd
+	 ysPfV1KQu16q/XyDqVAf7bCa99zjlHUu5XvVt370=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8E66F80110;
-	Fri, 17 Jul 2020 01:57:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A4AEF80332;
+	Fri, 17 Jul 2020 01:58:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 809F7F80328; Fri, 17 Jul 2020 01:57:57 +0200 (CEST)
+ id 59791F80331; Fri, 17 Jul 2020 01:58:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,34 +34,35 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7CA50F80323
- for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 01:57:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CA50F80323
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5DC20F80329
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 01:57:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DC20F80329
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="yTUsjP7i"
+ header.b="dmrjWPZf"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 74063207DD;
- Thu, 16 Jul 2020 23:57:52 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 85897207DD;
+ Thu, 16 Jul 2020 23:57:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594943873;
- bh=oCZ9mQzHXEpBhE6/r9HcA4YofT7b18jAnYmHxDAbqvw=;
+ s=default; t=1594943878;
+ bh=oFW1cl+r20hCLJ4pfkKV3RYD8Qs6TkPlxv0gjk1ZC/4=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=yTUsjP7iurgdYgoMIzCY/0O81liX9kwtqtsc4MeBO1012K8dy/38GX4+PVeX7t/86
- QROeZg4SmgwTrz2st+r/nxphk5FvM6i2+UQo0qsSoD/nYYnzeWcyXUgCshec9al6W1
- QAXNYzHA9pNGApKPOPnFy/PC2egPkeu3LfcV/MeA=
-Date: Fri, 17 Jul 2020 00:57:43 +0100
+ b=dmrjWPZfs03JsoBSLG00UWERkRjDmkCCpfqFocx4AtXOzxNIBEbeqfiDmulKpfhu9
+ LX9QjhTPsPjfJZnyzmfPzjbT48DveeTsySr6eZSkxI9CeltjMh7N8YpbDdPa5YC6iE
+ xUNuDY3L2xc+m354XKAyf1nPh7Rx4KR5rRJiM9jI=
+Date: Fri, 17 Jul 2020 00:57:48 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Rob Herring <robh+dt@kernel.org>
-In-Reply-To: <87wo342tds.wl-kuninori.morimoto.gx@renesas.com>
-References: <87wo342tds.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH v3] ASoC: dt-bindings: ak4642: switch to yaml base
- Documentation
-Message-Id: <159494380522.42174.6468511962760207976.b4-ty@kernel.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org
+To: pierre-louis.bossart@linux.intel.com, kuninori.morimoto.gx@renesas.com,
+ hdegoede@redhat.com, paul@crapouillou.net, yang.jie@linux.intel.com,
+ liam.r.girdwood@linux.intel.com, cezary.rojewski@intel.com,
+ Jing Xiangfeng <jingxiangfeng@huawei.com>, tiwai@suse.com, perex@perex.cz
+In-Reply-To: <20200714080918.148196-1-jingxiangfeng@huawei.com>
+References: <20200714080918.148196-1-jingxiangfeng@huawei.com>
+Subject: Re: [PATCH] ASoC: Intel: bytcht_es8316: Add missed put_device()
+Message-Id: <159494380522.42174.15064040875252381887.b4-ty@kernel.org>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,8 +78,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 16 Jul 2020 09:31:57 +0900, Kuninori Morimoto wrote:
-> This patch switches from .txt base to .yaml base Document.
+On Tue, 14 Jul 2020 16:09:18 +0800, Jing Xiangfeng wrote:
+> snd_byt_cht_es8316_mc_probe() misses to call put_device() in an error
+> path. Add the missed function call to fix it.
 
 Applied to
 
@@ -86,8 +88,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: dt-bindings: ak4642: switch to yaml base Documentation
-      commit: 0cee81b4fa402d31a5cbefaedba4973ba3f2aced
+[1/1] ASoC: Intel: bytcht_es8316: Add missed put_device()
+      commit: b3df80ab6d147d4738be242e1c91e5fdbb6b03ef
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

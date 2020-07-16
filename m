@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F780222F7A
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 01:58:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5800E222F7B
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 01:59:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 99F3E166E;
-	Fri, 17 Jul 2020 01:57:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99F3E166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 084E71661;
+	Fri, 17 Jul 2020 01:58:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 084E71661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594943924;
-	bh=zeAWV8quqJcjNdKGBpwqdnxqQ3lUBTZRlol3e/xmC50=;
+	s=default; t=1594943971;
+	bh=Y7YbYdRW8LuVo4MQyf5O2z9SNu58bMqNl9y5bmX9evY=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Jd/uRPGzqDqlhfWU4nqPy3guoA+1Cxr4Z+6X48y04AzZ9DgApBQ1g41jcvQ1VWypO
-	 QD/SXcqbpsX0Rcixt9ubLb7MZw37ChfZSIQPskRqMyFVeECv/HlywoWy8w1LismCgx
-	 DvwbGcIsUEqlSdquOBwnQBkQBw7+gbi6CjuHNj7I=
+	b=bAdwKT1q0GnBxv2xVL8h1MkOGE82OSC3MsmVg7F7Zaze3gV4ESCW+PiUTA09QyAl7
+	 JI8FflDFNEa8bek8XP0RTpY4AQsRh5dlLbN9YcqyyJMEj5TYRwt0U7pzr+ovRnum0C
+	 lvITiDPwEumxSpy+sj+kzuNA/wtqvAaxpx/kXPyc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 85AA9F8020C;
-	Fri, 17 Jul 2020 01:57:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D85FF80276;
+	Fri, 17 Jul 2020 01:57:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3EDBBF801EC; Fri, 17 Jul 2020 01:57:00 +0200 (CEST)
+ id 40FD2F8014C; Fri, 17 Jul 2020 01:57:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,36 +34,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94DFAF80110
- for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 01:56:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94DFAF80110
+ by alsa1.perex.cz (Postfix) with ESMTPS id 94AA7F801EC
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 01:57:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94AA7F801EC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="EhlCQmpQ"
+ header.b="ppygDrys"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id AD9002076D;
- Thu, 16 Jul 2020 23:56:54 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id B2226207BC;
+ Thu, 16 Jul 2020 23:56:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594943815;
- bh=zeAWV8quqJcjNdKGBpwqdnxqQ3lUBTZRlol3e/xmC50=;
+ s=default; t=1594943820;
+ bh=Y7YbYdRW8LuVo4MQyf5O2z9SNu58bMqNl9y5bmX9evY=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=EhlCQmpQ7D8+Rn5PCJWFdB4BBXPH3Bk1PrJuvJj6/Oj1ZgeuiK1NWg2XGZijXsYHB
- aNqNi/XV32KgqSAOZNPTEWDRLdQUGTFAVvK8pQSOub7lzDtWaLt/4byf4UdFLNhh4v
- LMr7SSnohO5HKgSSliZeGyjXVSOegfT+XDRKhN+U=
-Date: Fri, 17 Jul 2020 00:56:45 +0100
+ b=ppygDrys7CZnZC4xycnhMNo2yXLLy48Un80UKZz/YbBf8UfKU0BkHpYanUujFgaJe
+ bmRWn0VKWQsZMeQke70aYi7vgAyPVLDcwHQ8jkChuKmx7LiJT5+EscD/WbmluXY4nO
+ MzPMyfkXHZ9YeOrWmlDEVqmh0RWoWwFFCUMgzRf4=
+Date: Fri, 17 Jul 2020 00:56:50 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Lee Jones <lee.jones@linaro.org>, lgirdwood@gmail.com
-In-Reply-To: <20200715150009.407442-1-lee.jones@linaro.org>
-References: <20200715150009.407442-1-lee.jones@linaro.org>
-Subject: Re: [PATCH v2 1/1] ASoC: fsl: fsl-asoc-card: Trivial: Fix misspelling
- of 'exists'
-Message-Id: <159494380521.42174.8014458780867404653.b4-ty@kernel.org>
-Cc: alsa-devel@alsa-project.org, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- linux-kernel@vger.kernel.org, Nicolin Chen <nicoleotsuka@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Rob Herring <robh+dt@kernel.org>
+In-Reply-To: <87y2nk2tfd.wl-kuninori.morimoto.gx@renesas.com>
+References: <87y2nk2tfd.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH v3] ASoC: dt-bindings: ak4613: switch to yaml base
+ Documentation
+Message-Id: <159494380522.42174.16007156277692941427.b4-ty@kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,9 +77,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 15 Jul 2020 16:00:09 +0100, Lee Jones wrote:
-> 
-
+On 16 Jul 2020 09:31:01 +0900, Kuninori Morimoto wrote:
+> This patch switches from .txt base to .yaml base Document.
 
 Applied to
 
@@ -89,8 +86,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl: fsl-asoc-card: Trivial: Fix misspelling of 'exists'
-      commit: 1b58214113481616b74ee4d196e5b1cb683758ee
+[1/1] ASoC: dt-bindings: ak4613: switch to yaml base Documentation
+      commit: 5b235b5522bf38f65cc76a9a008f179c37e0eb81
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

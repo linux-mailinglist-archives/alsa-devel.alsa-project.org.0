@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E30B0222F9D
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 02:03:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 158A8222F9E
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 02:03:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8FE0715F9;
-	Fri, 17 Jul 2020 02:02:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FE0715F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id AFE8D1669;
+	Fri, 17 Jul 2020 02:03:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AFE8D1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594944204;
-	bh=5mhLBJ7h6ElkX/0AxOdJ2+cHlZaRzaXjArcjaCDUEQE=;
+	s=default; t=1594944230;
+	bh=0KEn9GGodMAd0GZ7nJ9P9iUYKaDti52GK2guzJb/P4w=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vsAiRO0Jtznb1hnX1CRYVYripyVlQW7e651mOZAvGMdUQLUFNmfvxjxl5VyNjmcpI
-	 DHi4XQaH+bZr8fauCnFWKQRKzbdjOGovQx6udbJTA/q7hk3xtRtzpMgtPrO5GQyav5
-	 xhw5oYXtjBdF1zRRji0NM4EMDSA+Tvj6lOOOJuJI=
+	b=YKIdQ3H7Gl8pPIb+K/NEUHI+0PRsHGJU6HDhwZpwQjYKNFKDhv6R21bfPyh0xssbh
+	 cvZc8nM7l+P0a4zNADeKW+cTxF2jeIZvc8+zjyWbXGkvi9NffjfEWL5E3RaUXpz9BS
+	 TuJ99eWPuSTgCzf/GBrnBOGQkwBz0ulLt46fesnA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D343F80305;
-	Fri, 17 Jul 2020 01:57:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0EA45F80316;
+	Fri, 17 Jul 2020 01:57:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22BE2F802FB; Fri, 17 Jul 2020 01:57:42 +0200 (CEST)
+ id 3394DF80315; Fri, 17 Jul 2020 01:57:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,35 +34,36 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A5DAF802EC
- for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 01:57:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A5DAF802EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 732EAF80307
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 01:57:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 732EAF80307
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="cJnwPT3X"
+ header.b="XAIocMRK"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 704F4207BC;
- Thu, 16 Jul 2020 23:57:37 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 6EB922076D;
+ Thu, 16 Jul 2020 23:57:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594943858;
- bh=5mhLBJ7h6ElkX/0AxOdJ2+cHlZaRzaXjArcjaCDUEQE=;
+ s=default; t=1594943862;
+ bh=0KEn9GGodMAd0GZ7nJ9P9iUYKaDti52GK2guzJb/P4w=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=cJnwPT3X2FH6FCM6jcYgB3hpoARd40Qv3iu7c0nfDjwEDgBgGe61Qip+68Yb39Ud5
- YhIohsWJYKHLJZ26Fig4h4IZt3QJz133+eMrfsNUkVF90NfgYQUGvBAxgBGWdn19iC
- 9bmF8yHwcBnlFBpcKg6MmnhQ9mWee+6E0CN+OAt8=
-Date: Fri, 17 Jul 2020 00:57:28 +0100
+ b=XAIocMRK2IbotWianyYDXpavaPbno1JrNsGdRieeU6p/nLKKp8TYjuaPvzd8Jmwid
+ Fl6z5R/ElUHBtrvDsmRq9ov6ZJKonxNpOsCHQTNWXB/41cfytpBn0nuwCLqEesKOSY
+ efn3YpQdcJvpe+uPIEP0XSfH7W768BnAPDHbpn4E=
+Date: Fri, 17 Jul 2020 00:57:33 +0100
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Xiubo.Lee@gmail.com, robh+dt@kernel.org,
- Shengjiu Wang <shengjiu.wang@nxp.com>, festevam@gmail.com, timur@kernel.org,
- nicoleotsuka@gmail.com, devicetree@vger.kernel.org, tiwai@suse.com,
- perex@perex.cz, lgirdwood@gmail.com
-In-Reply-To: <1594822179-1849-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1594822179-1849-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH v2 0/3] ASoC: fsl-asoc-card: Support hp and mic detection
-Message-Id: <159494380522.42174.2922411454169889285.b4-ty@kernel.org>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+To: Lee Jones <lee.jones@linaro.org>, lgirdwood@gmail.com
+In-Reply-To: <20200715094447.3170843-1-lee.jones@linaro.org>
+References: <20200715094447.3170843-1-lee.jones@linaro.org>
+Subject: Re: [PATCH 1/1] ASoC: fsl: fsl-asoc-card: Trivial: Fix misspelling of
+ 'exists'
+Message-Id: <159494380521.42174.11701175343660094863.b4-ty@kernel.org>
+Cc: alsa-devel@alsa-project.org, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-kernel@vger.kernel.org, Nicolin Chen <nicoleotsuka@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,17 +79,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 15 Jul 2020 22:09:36 +0800, Shengjiu Wang wrote:
-> Support hp and mic detection.
-> Add a parameter for asoc_simple_init_jack.
+On Wed, 15 Jul 2020 10:44:47 +0100, Lee Jones wrote:
 > 
-> Shengjiu Wang (3):
->   ASoC: simple-card-utils: Support configure pin_name for
->     asoc_simple_init_jack
->   ASoC: bindings: fsl-asoc-card: Support hp-det-gpio and mic-det-gpio
->   ASoC: fsl-asoc-card: Support Headphone and Microphone Jack detection
-> 
-> [...]
+
 
 Applied to
 
@@ -96,12 +89,8 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: simple-card-utils: Support configure pin_name for asoc_simple_init_jack
-      commit: 764aafdb985b182bce0c91503e9233cb97a2f0d7
-[2/3] ASoC: bindings: fsl-asoc-card: Support hp-det-gpio and mic-det-gpio
-      commit: c3c058aba4032a0f88a2f203472d7b5076a926b4
-[3/3] ASoC: fsl-asoc-card: Support Headphone and Microphone Jack detection
-      commit: 3b171194493c5f7b2aa9b76deb402a8e98ab510f
+[1/1] ASoC: fsl: fsl-asoc-card: Trivial: Fix misspelling of 'exists'
+      commit: 1b58214113481616b74ee4d196e5b1cb683758ee
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

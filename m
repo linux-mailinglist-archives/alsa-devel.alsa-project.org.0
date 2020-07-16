@@ -2,87 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C113B2228BE
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jul 2020 19:11:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A53C52228C7
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jul 2020 19:16:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6A1B11672;
-	Thu, 16 Jul 2020 19:11:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A1B11672
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40C671660;
+	Thu, 16 Jul 2020 19:15:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40C671660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594919513;
-	bh=gqKRr1l6blf7Fw5bGNIj3XapwL4vaMQtEQRs+h41xFc=;
+	s=default; t=1594919761;
+	bh=4lyoQPXsDqos+4BPtgy2qqY6GjpVpGeOF8pV6xNAF2M=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=dIeNa4NHewJvSnWZ5ZJF6wiFmojl1xvmvTKfSY/6Mk7x8nVqjKrpc7+oOGvOY6NEu
-	 3ijqxq7dQulvzjWRI4werZF29Ymsv1KoRSM1NOw6uilbTPHBTYxb65Eh3XZIAG77H3
-	 6cz6rPUZiQU2I6rJr7PYzHmvG2QxEiS++dPSSDp8=
+	b=VlrIpmSa010Nkw+jN99re/WYzyjINIFqSmYdWuKSLQjau5MTQJuL0GSYMcb+fsLNs
+	 nYpd2w35vzAlEt152TrjeLGlribGsuMNZCWM5lZb1gBugCD/uWLtgZ3yZIyifljHQ1
+	 XoxREzc+qmXkMotvXn0aX/qTVvx08YcLqwEwtT54=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E4F03F8014E;
-	Thu, 16 Jul 2020 19:09:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64213F8014E;
+	Thu, 16 Jul 2020 19:14:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C01EF8026A; Thu, 16 Jul 2020 19:09:34 +0200 (CEST)
+ id 8BF5CF801EC; Thu, 16 Jul 2020 19:14:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2B814F801F2
- for <alsa-devel@alsa-project.org>; Thu, 16 Jul 2020 19:09:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B814F801F2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="ScABqrn1"
-Received: by mail-pg1-x544.google.com with SMTP id s189so5140122pgc.13
- for <alsa-devel@alsa-project.org>; Thu, 16 Jul 2020 10:09:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=+YUV7baZS3QMy6H9iHTF1vq422tSxwwdhocsQIIKpJ8=;
- b=ScABqrn1IiApBTOd3uwWZ9zcKyBA/0MYgYViGsTpujPuZnW3GdtFtgxyBI5AFAzYl3
- fUrxQg8yGnew+6F9JimmYfj2uOabAogHKPhV3U7stmqIjUvfIAn3FmaffVO5I3+Cc4Bc
- vhXwlBO1ze/qqLGqmg/EgekmFJZAfA2nMSGkk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=+YUV7baZS3QMy6H9iHTF1vq422tSxwwdhocsQIIKpJ8=;
- b=YAnPR9ppUaVcElU1CNsxGeZT1RhVEU6VXMfxki/2Y1dkgg1JUjD22KzUIH53TE4eZc
- j3AZA07b+yi1yqrbk2CDdNlQo9K+rccjIUnjABTLr4VoMI9FKOqYVgMfGXt1vdWxrFpC
- pTW6lu5rhzGb+Uoa7SK4f2Nfst0tWh7xuVRcZ/h61VTqjPYZg0HRo9N7dvad6zwWV0Rq
- n+lTUfBj70YrQIWyR+qdk8CsQKJv971xAZRm6PaB2Fr+33hrGakxSTevQ7E/prY9iWRv
- Y+IQ8XjKiBLm7XIb7eWaYb9fqsPn7CJh2bqH0lsxxbFbSJRPCMUUNWkNNQ0/hueVnogT
- E+Ng==
-X-Gm-Message-State: AOAM5306Tmp6w1ySdDjqIF4+ysv7gug+reMgWopayZCq3FfSLdE3uUh2
- IsOoVDajE5S8v8gQWzvIDYFlCw==
-X-Google-Smtp-Source: ABdhPJwER+Qj87J/ACr8CCYXvpcmu4jIfvu9bYRFuYv8jUqPfgcWzZLmxBY+kzYo551VD6jFfDqMQQ==
-X-Received: by 2002:a63:cb03:: with SMTP id p3mr5023403pgg.444.1594919364719; 
- Thu, 16 Jul 2020 10:09:24 -0700 (PDT)
-Received: from localhost ([2401:fa00:1:10:725a:fff:fe46:44eb])
- by smtp.gmail.com with ESMTPSA id c71sm651622pje.32.2020.07.16.10.09.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Jul 2020 10:09:22 -0700 (PDT)
-From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH v2] ASoC: cros_ec_codec: Reset I2S RX when probing
-Date: Fri, 17 Jul 2020 01:09:14 +0800
-Message-Id: <20200716170914.3623060-1-yuhsuan@chromium.org>
-X-Mailer: git-send-email 2.27.0.389.gc38d7665816-goog
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Tzung-Bi Shih <tzungbi@google.com>,
- Mark Brown <broonie@kernel.org>,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Guenter Roeck <groeck@chromium.org>, Benson Leung <bleung@chromium.org>,
- Yu-Hsuan Hsu <yuhsuan@chromium.org>, Cheng-Yi Chiang <cychiang@chromium.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id B5D95F80110
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jul 2020 19:14:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5D95F80110
+IronPort-SDR: H02jpG8rzczmCfPOa3l+v0FmWFGsL3thRRtmFarYqmGdzgFxD7Tk7U5U/XuuiXkOZHzHokt8u2
+ agc3OXe8kpGg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9684"; a="149431762"
+X-IronPort-AV: E=Sophos;i="5.75,360,1589266800"; d="scan'208";a="149431762"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2020 10:14:07 -0700
+IronPort-SDR: 6R0t2Qz3xSDnnYjKm0gNGfTjzRigT680d016xG8ijHFG4kqpS3pVSpC4YV+DWV4U1Pt2CT/GuN
+ Ad4BlzF4EQGA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.75,360,1589266800"; d="scan'208";a="308707428"
+Received: from joycetoh-desk.sc.intel.com ([172.25.206.187])
+ by fmsmga004.fm.intel.com with ESMTP; 16 Jul 2020 10:14:06 -0700
+From: Harsha Priya <harshapriya.n@intel.com>
+To: alsa-devel@alsa-project.org, broonie@kernel.org,
+ pierre-louis.bossart@linux.intel.com
+Subject: [PATCH v6] ASoC: Intel: kbl_rt5663_rt5514_max98927: Fix
+ kabylake_ssp_fixup function
+Date: Thu, 16 Jul 2020 10:13:57 -0700
+Message-Id: <1594919637-31460-1-git-send-email-harshapriya.n@intel.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Harsha Priya <harshapriya.n@intel.com>, yang.jie@linux.intel.com,
+ rad@semihalf.com, zwisler@google.com, linux-kernel@vger.kernel.org,
+ liam.r.girdwood@linux.intel.com,
+ Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>,
+ sathya.prakash.m.r@intel.com, brndt@google.com, mw@semihalf.com,
+ levinale@chromium.org, lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,68 +79,99 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-It is not guaranteed that I2S RX is disabled when the kernel booting.
-For example, if the kernel crashes while it is enabled, it will keep
-enabled until the next time EC reboots. Reset I2S RX when probing to
-fix this issue.
+From: Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>
 
-Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+kabylake_ssp_fixup function uses snd_soc_dpcm to identify the codecs DAIs.
+The hw parameters are changed based on the codec DAI,
+the stream is intended for. The earlier approach to get
+snd_soc_dpcm was using container_of() macro on snd_pcm_hw_params.
+The structures have been modified over time and snd_soc_dpcm does 
+not have snd_pcm_hw_params as a reference but as a copy.
+This causes the current driver to crash when used.
+This patch changes the way snd_soc_dpcm is extracted.
+The snd_soc_pcm_runtime holds 2 dpcm
+instances (one for playback and one for capture).
+The 2 codecs on this SSP are dmic and speakers.
+One is for capture and one is for playback respectively.
+Based on the direction of the stream,
+the snd_soc_dpcm is extracted from the snd_soc_pcm_runtime structure.
+Tested for all use cases of the driver.
+
+Signed-off-by: Harsha Priya <harshapriya.n@intel.com>
+Signed-off-by: Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>
+Tested-by: Lukasz Majczak <lma@semihalf.com>
 ---
- drivers/platform/chrome/cros_ec_proto.c        | 7 ++++++-
- include/linux/platform_data/cros_ec_commands.h | 1 +
- sound/soc/codecs/cros_ec_codec.c               | 9 +++++++++
- 3 files changed, 16 insertions(+), 1 deletion(-)
+v1 -> v2:
+- Extract dmic from SSP0 as every BE should have own fixup function.
+v2 -> v3:
+- Restore naming in the dapm route table to not confuse with other
+drivers
+- Fixed indentations
+v3 -> v4:
+- Updated code and commit description according to
+solution proposed by Harsha
+v4 -> v5:
+- Cosmetic Changes
+v5 -> v6:
+- Dmic regression seen with v4 fixed 
+- Using available routines for obtaining dpcm information
+---
+---
+ .../intel/boards/kbl_rt5663_rt5514_max98927.c | 26 ++++++++++++-------
+ 1 file changed, 17 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/platform/chrome/cros_ec_proto.c b/drivers/platform/chrome/cros_ec_proto.c
-index 3e745e0fe092c..2c60690d7147c 100644
---- a/drivers/platform/chrome/cros_ec_proto.c
-+++ b/drivers/platform/chrome/cros_ec_proto.c
-@@ -572,7 +572,12 @@ int cros_ec_cmd_xfer_status(struct cros_ec_device *ec_dev,
- 		return -ENOTSUPP;
- 	} else if (msg->result != EC_RES_SUCCESS) {
- 		dev_dbg(ec_dev->dev, "Command result (err: %d)\n", msg->result);
--		return -EPROTO;
-+		switch (msg->result) {
-+		case EC_RES_INVALID_PARAM:
-+			return -EINVAL;
-+		default:
-+			return -EPROTO;
-+		}
- 	}
- 
- 	return ret;
-diff --git a/include/linux/platform_data/cros_ec_commands.h b/include/linux/platform_data/cros_ec_commands.h
-index 69210881ebac8..11ce917ca924c 100644
---- a/include/linux/platform_data/cros_ec_commands.h
-+++ b/include/linux/platform_data/cros_ec_commands.h
-@@ -4598,6 +4598,7 @@ enum ec_codec_i2s_rx_subcmd {
- 	EC_CODEC_I2S_RX_SET_SAMPLE_DEPTH = 0x2,
- 	EC_CODEC_I2S_RX_SET_DAIFMT = 0x3,
- 	EC_CODEC_I2S_RX_SET_BCLK = 0x4,
-+	EC_CODEC_I2S_RX_RESET = 0x5,
- 	EC_CODEC_I2S_RX_SUBCMD_COUNT,
- };
- 
-diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros_ec_codec.c
-index f23956cf4ed84..b5ff30b7f1aa8 100644
---- a/sound/soc/codecs/cros_ec_codec.c
-+++ b/sound/soc/codecs/cros_ec_codec.c
-@@ -1034,6 +1034,15 @@ static int cros_ec_codec_platform_probe(struct platform_device *pdev)
- 	}
- 	priv->ec_capabilities = r.capabilities;
- 
-+	/* Reset EC codec I2S RX. */
-+	p.cmd = EC_CODEC_I2S_RX_RESET;
-+	ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_I2S_RX,
-+				   (uint8_t *)&p, sizeof(p), NULL, 0);
-+	if (ret == -EINVAL)
-+		dev_info(dev, "Missing reset command. Please update your EC firmware.\n");
-+	else if (ret)
-+		dev_err(dev, "failed to EC_CODEC_I2S_RESET: %d\n", ret);
+diff --git a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+index 584e4f9cedc2..b261b1c466a8 100644
+--- a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
++++ b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+@@ -379,22 +379,30 @@ static int kabylake_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
+ 	struct snd_interval *chan = hw_param_interval(params,
+ 			SNDRV_PCM_HW_PARAM_CHANNELS);
+ 	struct snd_mask *fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
+-	struct snd_soc_dpcm *dpcm = container_of(
+-			params, struct snd_soc_dpcm, hw_params);
+-	struct snd_soc_dai_link *fe_dai_link = dpcm->fe->dai_link;
+-	struct snd_soc_dai_link *be_dai_link = dpcm->be->dai_link;
++	struct snd_soc_dpcm *dpcm, *rtd_dpcm;
 +
- 	platform_set_drvdata(pdev, priv);
++	/*
++	 * This macro will be called for playback stream
++	 */
++	for_each_dpcm_fe(rtd, SNDRV_PCM_STREAM_PLAYBACK, dpcm)
++		rtd_dpcm = dpcm;
++	/*
++	 * This macro will be called for capture stream
++	 */
++	for_each_dpcm_fe(rtd, SNDRV_PCM_STREAM_CAPTURE, dpcm)
++		rtd_dpcm = dpcm;
  
- 	ret = devm_snd_soc_register_component(dev, &i2s_rx_component_driver,
+ 	/*
+ 	 * The ADSP will convert the FE rate to 48k, stereo, 24 bit
+ 	 */
+-	if (!strcmp(fe_dai_link->name, "Kbl Audio Port") ||
+-	    !strcmp(fe_dai_link->name, "Kbl Audio Headset Playback") ||
+-	    !strcmp(fe_dai_link->name, "Kbl Audio Capture Port")) {
++	if (!strcmp(rtd_dpcm->fe->dai_link->name, "Kbl Audio Port") ||
++	    !strcmp(rtd_dpcm->fe->dai_link->name, "Kbl Audio Headset Playback") ||
++	    !strcmp(rtd_dpcm->fe->dai_link->name, "Kbl Audio Capture Port")) {
+ 		rate->min = rate->max = 48000;
+ 		chan->min = chan->max = 2;
+ 		snd_mask_none(fmt);
+ 		snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S24_LE);
+-	} else if (!strcmp(fe_dai_link->name, "Kbl Audio DMIC cap")) {
++	} else if (!strcmp(rtd_dpcm->fe->dai_link->name, "Kbl Audio DMIC cap")) {
+ 		if (params_channels(params) == 2 ||
+ 				DMIC_CH(dmic_constraints) == 2)
+ 			chan->min = chan->max = 2;
+@@ -405,7 +413,7 @@ static int kabylake_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
+ 	 * The speaker on the SSP0 supports S16_LE and not S24_LE.
+ 	 * thus changing the mask here
+ 	 */
+-	if (!strcmp(be_dai_link->name, "SSP0-Codec"))
++	if (!strcmp(rtd_dpcm->be->dai_link->name, "SSP0-Codec"))
+ 		snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S16_LE);
+ 
+ 	return 0;
 -- 
-2.27.0.389.gc38d7665816-goog
+2.17.1
 

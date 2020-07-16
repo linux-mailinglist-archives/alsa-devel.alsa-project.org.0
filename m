@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D4F9222647
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jul 2020 16:55:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08B4B222646
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jul 2020 16:55:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 13B23825;
-	Thu, 16 Jul 2020 16:54:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13B23825
+	by alsa0.perex.cz (Postfix) with ESMTPS id 94A88166C;
+	Thu, 16 Jul 2020 16:54:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94A88166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594911336;
-	bh=R+Vh84uzvHLs5lnVeeKfzy7IKC9XldUOSPgQ/2wh+rY=;
+	s=default; t=1594911316;
+	bh=EgnIrtuzRT0k8ENVc+kfu21kzs57sEVUszquL4O1M0I=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=B3k+nbiqvqS4MdGjBg4ZF2DXntg8zaKwGW7gg7j9t47XF3Ttmae19ZQMm7xneEDYm
-	 NSfn/rFSa3gmUog91+FP4IT5AhF0iBjQI/ptMgYHt3bxrS9fuzx40/grHHc0VoH67q
-	 JgBjfidrS2yrFmNDll8e79JtVm6W9KIsXjc9fox0=
+	b=m4S4XR4jcsbmT1qJle2PCED+fRE9QvC9MTw6H6wzGNmeizaZM8NJLDq4q6MpBGa3w
+	 S2V0Z3RoZO/iAoxVQnFVi+lBoLCRwdVR1e0QZSCfvmvbN9Z/iDSf8mgCatIpTEDZtD
+	 jd2huXgrJQe70Geuh+vMnFwaOImBtlSeE8G/xZCo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54047F802BD;
-	Thu, 16 Jul 2020 16:52:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91430F80276;
+	Thu, 16 Jul 2020 16:52:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7C6BFF8028A; Thu, 16 Jul 2020 16:52:53 +0200 (CEST)
+ id 2116FF8027B; Thu, 16 Jul 2020 16:52:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
@@ -33,20 +33,19 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A00B9F801EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9B50AF8016F
  for <alsa-devel@alsa-project.org>; Thu, 16 Jul 2020 16:52:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A00B9F801EC
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B50AF8016F
 Received: from xps.home (unknown [IPv6:2a01:e35:2fb5:1510:95f7:ce7f:fb76:c54a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: aferraris)
- by bhuna.collabora.co.uk (Postfix) with ESMTPSA id E5D742A50D8;
- Thu, 16 Jul 2020 15:52:37 +0100 (BST)
+ by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 421E82A50E0;
+ Thu, 16 Jul 2020 15:52:38 +0100 (BST)
 From: Arnaud Ferraris <arnaud.ferraris@collabora.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 1/2] ASoC: fsl_asrc: make sure the input and output clocks are
- different
-Date: Thu, 16 Jul 2020 16:52:00 +0200
-Message-Id: <20200716145201.186270-2-arnaud.ferraris@collabora.com>
+Subject: [PATCH 2/2] ASoC: fsl_asrc: always use internal ratio
+Date: Thu, 16 Jul 2020 16:52:01 +0200
+Message-Id: <20200716145201.186270-3-arnaud.ferraris@collabora.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200716145201.186270-1-arnaud.ferraris@collabora.com>
 References: <20200716145201.186270-1-arnaud.ferraris@collabora.com>
@@ -73,31 +72,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The current clock selection algorithm might select the same clock for
-both input and output. This can happen when, for instance, the output
-sample rate is a multiple of the input rate.
+Even though the current driver calculates the dividers to be used
+depending on the clocks and sample rates, enabling the internal ratio
+can lead to noticeable improvements in the audio quality, based on my
+testing.
 
-This patch makes sure it always selects distinct input and output
-clocks.
+As stated in the documentation, "When USRx=1 and IDRx=0, ASRC internal
+measured ratio will be used", so setting this bit even when not in
+"Ideal Ratio" mode still makes sense.
 
 Signed-off-by: Arnaud Ferraris <arnaud.ferraris@collabora.com>
 ---
- sound/soc/fsl/fsl_asrc.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ sound/soc/fsl/fsl_asrc.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-index 02c81d2e34ad..bfd35b9c0781 100644
+index bfd35b9c0781..cc0f70c9140f 100644
 --- a/sound/soc/fsl/fsl_asrc.c
 +++ b/sound/soc/fsl/fsl_asrc.c
-@@ -622,7 +622,8 @@ static void fsl_asrc_select_clk(struct fsl_asrc_priv *asrc_priv,
- 			clk_rate = clk_get_rate(asrc_priv->asrck_clk[clk_index]);
- 			/* Only match a perfect clock source with no remainder */
- 			if (clk_rate != 0 && (clk_rate / rate[j]) <= 1024 &&
--			    (clk_rate % rate[j]) == 0)
-+			    (clk_rate % rate[j]) == 0 &&
-+			    (j == 0 || i != select_clk[j-1]))
- 				break;
- 		}
+@@ -465,7 +465,7 @@ static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair, bool use_ideal_rate)
+ 	regmap_update_bits(asrc->regmap, REG_ASRCTR,
+ 			   ASRCTR_ATSi_MASK(index), ASRCTR_ATS(index));
+ 	regmap_update_bits(asrc->regmap, REG_ASRCTR,
+-			   ASRCTR_USRi_MASK(index), 0);
++			   ASRCTR_USRi_MASK(index), ASRCTR_USR(index));
+ 
+ 	/* Set the input and output clock sources */
+ 	regmap_update_bits(asrc->regmap, REG_ASRCSR,
+@@ -507,8 +507,7 @@ static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair, bool use_ideal_rate)
+ 
+ 	/* Enable Ideal Ratio mode */
+ 	regmap_update_bits(asrc->regmap, REG_ASRCTR,
+-			   ASRCTR_IDRi_MASK(index) | ASRCTR_USRi_MASK(index),
+-			   ASRCTR_IDR(index) | ASRCTR_USR(index));
++			   ASRCTR_IDRi_MASK(index), ASRCTR_IDR(index);
+ 
+ 	fsl_asrc_sel_proc(inrate, outrate, &pre_proc, &post_proc);
  
 -- 
 2.27.0

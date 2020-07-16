@@ -2,92 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 402182227B5
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jul 2020 17:45:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F0602227BB
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jul 2020 17:46:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E6EAB84D;
-	Thu, 16 Jul 2020 17:44:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6EAB84D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D1A3852;
+	Thu, 16 Jul 2020 17:45:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D1A3852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594914322;
-	bh=ei4gBjfdAtk+hxlbKLfG/Ki7E6MgOCTpRvL1S5fCnyM=;
-	h=From:Subject:To:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=k08eaZdR656kXMOEAgkzVB2hkMQA0srCRePINb9bNkhbS9MwyWZkzewhqvZNAfFxA
-	 phbCSpcPmoC1SXsZBMNfHqH5hBeKz90lU5zGnF79dSglPwkMsjSNhIV4PtL7rYk15s
-	 ygHXAIxCe/JGLM2qvsQLVv9a9hjKsNdxCD/Xnq4c=
+	s=default; t=1594914361;
+	bh=SEbmjwVaSC+xt+ki5I1cJpVTfGx6F/hiisqmMwfQ/xo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=bLlWq8FOc/59KYkLo4fmaFT9hXUiUiqNkfhIbBYJJ8nD7MPz8M0SW104DDAFbEUWy
+	 DzJl5RicQvbomHrrgOeTjM/oKuFcE3OJXC/vjBvpw4agT4PqbhtqCs0M0LPZuKG+K4
+	 PFnNE0qc912KdJ4OOKiFadXygPj4rl6w7Box/zHk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 739F9F802E9;
-	Thu, 16 Jul 2020 17:40:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 373DAF802F7;
+	Thu, 16 Jul 2020 17:40:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86C0FF801EC; Thu, 16 Jul 2020 13:49:46 +0200 (CEST)
+ id 2AEE9F801F2; Thu, 16 Jul 2020 17:38:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9B9C3F8014C
- for <alsa-devel@alsa-project.org>; Thu, 16 Jul 2020 13:49:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B9C3F8014C
+ by alsa1.perex.cz (Postfix) with ESMTPS id DA99BF80110
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jul 2020 17:38:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA99BF80110
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="rCwFb7kg"
-Received: by mail-wm1-x343.google.com with SMTP id w3so11305568wmi.4
- for <alsa-devel@alsa-project.org>; Thu, 16 Jul 2020 04:49:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:subject:to:cc:message-id:date:user-agent:mime-version
- :content-language:content-transfer-encoding;
- bh=yfbzLHHcXrWqLy0p2f9WLJbzwEat6UUwiUFItT++s0M=;
- b=rCwFb7kgVyJSCd4OZIYO2btf/9sxzypDeCAzFC2W+oN+yF4GDR60mvZsGmXQKJ6hEm
- nzy+adXMh2SeEzYD5taL9P4WuPfTWHPGgiDTLzwn23scQZD3QuxcdIDGdfaVozEM9bba
- WQqujfP5eUlLE24haAD1Jn+QfimAyVW1Ct5iJbx2H7ox6kmHltGmXQSBWv7Ct2wmVVqA
- P8BEgeExHFIu8BE2Lvk3vRnmD10gdP0dAoMJ7ez4cRwUxOY6Xa7JE8ijFTvc1ckTz83F
- d+zFUCzzPr+nlXJGKL8mzjIJ6whQXEcDVq4PNE5VQmGWjiyYiY4nxgOtcwdKSNgbrHz9
- 5YJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:subject:to:cc:message-id:date:user-agent
- :mime-version:content-language:content-transfer-encoding;
- bh=yfbzLHHcXrWqLy0p2f9WLJbzwEat6UUwiUFItT++s0M=;
- b=GjgfRLxqiZsrXhjvdm/mbLJDDbxhRVxbaxkcW05th8CHkPl7d9klB1BaC3/7fqRZI/
- NPktAS8a2ovXPcrwoPHsFahrmh6WeTVfBjoTk0pmNsORpTPPEJc4RAiEZvUFyo9Tvnjy
- 3GfDM7aHNzUkOQL5SxCE+qeZgTOHqMzhDR7MJrfQCH/jKe6pZ2LtjV1k3Gw2uIQNwcUl
- ADUaemqh1nDNGCEz9GY0+5OGo8uGLDi0uhE+sNI8+87nHI28nzN/AzE8fDWIdKDJbcR8
- I9MrRAV5Nl08kiUItzvQZ00UpIdOzrH5v8mOWfUcwQ/UCziMVDhJ9cBi6qleJJzxfYqm
- dI3g==
-X-Gm-Message-State: AOAM533i54aXflXJeoaA6u28a1WEFm4e22gXljq9bFd1dMzCXNpVRwVZ
- TN2TZ8eeKFheQHT68o4FL5w=
-X-Google-Smtp-Source: ABdhPJw0OtWlYMt7xDWjMv8pWSP74h3A1lsoV4P/FVFzX+6kZb91pM40rn9jF9vo7hHlub3nWJ6AHg==
-X-Received: by 2002:a1c:9a06:: with SMTP id c6mr3826398wme.23.1594900175364;
- Thu, 16 Jul 2020 04:49:35 -0700 (PDT)
-Received: from [192.168.0.74] ([178.233.178.9])
- by smtp.gmail.com with ESMTPSA id v12sm8835593wrt.31.2020.07.16.04.49.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Jul 2020 04:49:34 -0700 (PDT)
-From: Alper Nebi Yasak <alpernebiyasak@gmail.com>
-Subject: Speaker pops with max98357a on rk3399-gru-kevin since v5.7
-To: Tzung-Bi Shih <tzungbi@google.com>, Mark Brown <broonie@kernel.org>
-Message-ID: <f2ca985f-7dbd-847a-1875-dd0e1044ef02@gmail.com>
-Date: Thu, 16 Jul 2020 14:49:29 +0300
-User-Agent: Mozilla/5.0 (X11; Linux aarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="blVXROz0"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=o6oHT2rpgf0cErqSO7RynM1ahrdcZBKx58Lp4xYSPqk=; b=blVXROz0kqPs9WT7AReAWRXnaN
+ giDr3C3VPp7qAB5MirGN6Ghar0/xZ6skZ2oTHZrIQnlWV0t6l172otR7fmoceWN/3Omnm1QChvIMq
+ v24J9raPRCn37XZp1iaolfjuwtv7Xbf1SjhRG2+phHG2UAzWRhI9WhvuDp7GGNLuphLQb40yeLPn3
+ CQvkTsWNMP4QZfiCDKNmVfer2n52y/giQdVBQQgnlCxKQCaxItNDXKZ4xi8RomDl1v2I45h76ddYe
+ 874YANmm/lqvFG5LUaTOLCBGOMdHl/R06HcEWCdFmgnxvTEFvwNCpVE7mt6U4f8u6oQtVOhd7dG0R
+ /sE940zQ==;
+Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
+ Hat Linux)) id 1jw5wW-0004De-Tg; Thu, 16 Jul 2020 15:37:05 +0000
+Date: Thu, 16 Jul 2020 16:37:04 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: Kees Cook <keescook@chromium.org>
+Subject: Re: [PATCH 3/3] tasklet: Introduce new initialization API
+Message-ID: <20200716153704.GM12769@casper.infradead.org>
+References: <20200716030847.1564131-1-keescook@chromium.org>
+ <20200716030847.1564131-4-keescook@chromium.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200716030847.1564131-4-keescook@chromium.org>
 X-Mailman-Approved-At: Thu, 16 Jul 2020 17:40:15 +0200
-Cc: alsa-devel@alsa-project.org, Heiko Stuebner <heiko@sntech.de>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-rockchip@lists.infradead.org,
- Alper Nebi Yasak <alpernebiyasak@gmail.com>
+Cc: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+ "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+ Oscar Carter <oscar.carter@gmx.com>, Mitchell Blank Jr <mitch@sfgoth.com>,
+ kernel-hardening@lists.openwall.com, Peter Zijlstra <peterz@infradead.org>,
+ kgdb-bugreport@lists.sourceforge.net,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, alsa-devel@alsa-project.org,
+ Allen Pais <allen.lkml@gmail.com>, netdev@vger.kernel.org,
+ Christian Gromm <christian.gromm@microchip.com>, Will Deacon <will@kernel.org>,
+ devel@driverdev.osuosl.org, Jonathan Corbet <corbet@lwn.net>,
+ Daniel Thompson <daniel.thompson@linaro.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Masahiro Yamada <masahiroy@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Julian Wiedmann <jwi@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ Nishka Dasgupta <nishkadg.linux@gmail.com>, Jiri Slaby <jslaby@suse.com>,
+ Jakub Kicinski <kuba@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
+ Wambui Karuga <wambui.karugax@gmail.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Heiko Carstens <hca@linux.ibm.com>, linux-input@vger.kernel.org,
+ Ursula Braun <ubraun@linux.ibm.com>, Stephen Boyd <swboyd@chromium.org>,
+ Chris Packham <chris.packham@alliedtelesis.co.nz>,
+ Harald Freudenberger <freude@linux.ibm.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Felipe Balbi <balbi@kernel.org>,
+ Kyungtae Kim <kt0755@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ Kevin Curtis <kevin.curtis@farsite.co.uk>, linux-usb@vger.kernel.org,
+ Jason Wessel <jason.wessel@windriver.com>,
+ Romain Perier <romain.perier@gmail.com>, Karsten Graul <kgraul@linux.ibm.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,57 +109,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+On Wed, Jul 15, 2020 at 08:08:47PM -0700, Kees Cook wrote:
+> +#define DECLARE_TASKLET(name, _callback)		\
+> +struct tasklet_struct name = {				\
+> +	.count = ATOMIC_INIT(0),			\
+> +	.callback = _callback,				\
+> +	.use_callback = true,				\
+> +}
+> +
+> +#define DECLARE_TASKLET_DISABLED(name, _callback)	\
+> +struct tasklet_struct name = {				\
+> +	.count = ATOMIC_INIT(1),			\
+> +	.callback = _callback,				\
+> +}
 
-I have been getting "pop" sounds from the speaker on my rk3399-gru-kevin
-for a while, and bisected it to 128f825aeab7 ("ASoC: max98357a: move
-control of SD_MODE to DAPM"), but looks like the pops were somewhat
-expected:
+You forgot to set use_callback here.
 
-On 12 Feb 2020 13:55:15 +0800, Tzung-Bi Shih wrote [1]:
-> Possible drawback: may generate pop noise when BCLK=on but LRCLK=off.
-> As the datasheet[2] mentioned:
-> > Do not remove LRCLK while BCLK is present.
-> > Removing LRCLK while BCLK is present can cause unexpected output behavior
-> > including a large DC output voltage.
+> @@ -547,7 +547,10 @@ static void tasklet_action_common(struct softirq_action *a,
+>  				if (!test_and_clear_bit(TASKLET_STATE_SCHED,
+>  							&t->state))
+>  					BUG();
+> -				t->func(t->data);
+> +				if (t->use_callback)
+> +					t->callback(t);
+> +				else
+> +					t->func(t->data);
 
-[1] https://lore.kernel.org/alsa-devel/20200212055517.122728-1-tzungbi@google.com/
+I think this is the wrong way to do the conversion.  Start out by setting
+t->data to (unsigned long)t in the new initialisers.  Then convert the
+drivers (all 350 of them) to the new API.  Then you can get rid of 'data'
+from the tasklet_struct.
 
-As of v5.8-rc5 I'm still getting the speaker pops. More info below, but
-not all pops coincide with "set sdmode" messages, and vice versa.
-Reverting that commit stops the pops, but then the "Speakers Switch" can
-no longer mute the speakers.
-
-I don't really know much about these things, could anyone have a look at
-it? I'll try to read relevant documentation and code to make sense of it,
-but wanted to send an email in case there is an immediately obvious
-solution (besides reverting) and maybe just nobody had the time to
-implement it yet.
-
-Thanks in advance.
-
----
-
-I've experimented a bit on a Debian userspace (with #define DEBUG 1
-to get sdmode messages), here's what happens without PulseAudio:
-- When playback starts, speaker pops with "set sdmode to 1".
-- During playback, toggling "Speakers Switch" sets sdmode to 0/1 and
-  mutes/unmutes speakers without any pops.
-- Pausing/resuming playback (like seeking on a media player) make pops
-  without changing sdmode. Also pops when playback ends (e.g. when
-  "speaker-test -l 1" quits).
-- A few seconds after playback ends, speaker pops for the last time with
-  "set sdmode to 0".
-- Within that few seconds, toggling "Speakers Switch" sets sdmode to 0/1
-  and makes a pop each time.
-
-It's mostly the same with PulseAudio but:
-- Pause/resume during playback doesn't make any pops.
-- The penultimate pop happens a few seconds after playback stops, when
-  PA says it's suspending the max98357a device (no sdmode changes).
-- The final pop comes a few seconds after that (still with "set sdmode
-  to 0").
-
-Even without any playback it makes several pops during boot when e.g.
-PulseAudio starts/stops running in the display manager or in the user
-session.

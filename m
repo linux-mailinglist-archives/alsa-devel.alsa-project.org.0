@@ -2,60 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FE80221B20
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jul 2020 06:13:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 560E0221B2F
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jul 2020 06:19:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 19ABB15DC;
-	Thu, 16 Jul 2020 06:12:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19ABB15DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id F24221673;
+	Thu, 16 Jul 2020 06:19:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F24221673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594872797;
-	bh=6bGnlTC5lsxGupHugA7MUd7TjK0+6bRJc8fbqKu0cOc=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=WFeN9zpWnJsbr7zcndWt64fShEHbhguLNnOs+KZh2uhx02shqiQRiEPcV7BjE1BN7
-	 mYOS9l63TPFRVffQjwNPqRFuY3h7imPmfSysSgAvaYbabplWpLUVaIKNXT7NtKe/M5
-	 86Yjz14yXXaI6mcRmhBT2j/d3MetaP9dBjzJ93JY=
+	s=default; t=1594873198;
+	bh=OJj2kohsTV1LDwUseb+W6iarLQQUhvTRWR/LX7fKFKI=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=TeD4KB4GE7NoOWILPXbUuYBVIhRKETCa34lxs7n0MpleQ11oXIxxqdeVsyL78YV/G
+	 P3GAhOcM78iX/mMAMtxGpRzFyDTuc6QC2tbpCMj4urb3tRSZzIFxSR+7+aTIG28zL5
+	 8awjsnSmxM5sHgMLipTGO1CPczUbsPZd662I2IEY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48A64F802DD;
-	Thu, 16 Jul 2020 05:56:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66550F8028A;
+	Thu, 16 Jul 2020 06:17:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E944BF802DC; Thu, 16 Jul 2020 05:56:31 +0200 (CEST)
+ id 155DBF802DC; Thu, 16 Jul 2020 06:17:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C5B4DF802C4
- for <alsa-devel@alsa-project.org>; Thu, 16 Jul 2020 05:56:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5B4DF802C4
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 21C3B200393;
- Thu, 16 Jul 2020 05:56:24 +0200 (CEST)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id B7936200385;
- Thu, 16 Jul 2020 05:56:19 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 0FD55402BF;
- Thu, 16 Jul 2020 11:56:13 +0800 (SGT)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- kuninori.morimoto.gx@renesas.com, ranjani.sridharan@linux.intel.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: soc-component: Add missed return for
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id CBBECF8028A
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jul 2020 06:17:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBBECF8028A
+Date: 16 Jul 2020 13:17:34 +0900
+X-IronPort-AV: E=Sophos;i="5.75,358,1589209200"; d="scan'208";a="52260971"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 16 Jul 2020 13:17:34 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 1D9D940078B4;
+ Thu, 16 Jul 2020 13:17:34 +0900 (JST)
+Message-ID: <87sgds2ixs.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: soc-component: Add missed return for
  snd_soc_pcm_component_mmap
-Date: Thu, 16 Jul 2020 11:52:43 +0800
-Message-Id: <1594871563-30088-1-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-X-Virus-Scanned: ClamAV using ClamSMTP
+In-Reply-To: <1594871563-30088-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1594871563-30088-1-git-send-email-shengjiu.wang@nxp.com>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com,
+ ranjani.sridharan@linux.intel.com, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,28 +70,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add missed return for snd_soc_pcm_component_mmap, otherwise it always
-return -EINVAL.
 
-Fixes: e2329eeba45f ("ASoC: soc-component: add soc_component_err()")
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Hi Shengjiu
+
+> Add missed return for snd_soc_pcm_component_mmap, otherwise it always
+> return -EINVAL.
+> 
+> Fixes: e2329eeba45f ("ASoC: soc-component: add soc_component_err()")
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> ---
+
+Oops, indeed.
+Thank you for the patch.
+
+But it seems these functions are also missing "return"
+	snd_soc_pcm_component_new()
+	snd_soc_pcm_component_sync_stop()
+
+Can you please care these, too ?
+
+Thank you for your help !!
+
+Best regards
 ---
- sound/soc/soc-component.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index af9909c5492f..cde7b9c609bb 100644
---- a/sound/soc/soc-component.c
-+++ b/sound/soc/soc-component.c
-@@ -705,7 +705,7 @@ int snd_soc_pcm_component_mmap(struct snd_pcm_substream *substream,
- 	/* FIXME. it returns 1st mmap now */
- 	for_each_rtd_components(rtd, i, component)
- 		if (component->driver->mmap)
--			soc_component_ret(
-+			return soc_component_ret(
- 				component,
- 				component->driver->mmap(component,
- 							substream, vma));
--- 
-2.27.0
-
+Kuninori Morimoto

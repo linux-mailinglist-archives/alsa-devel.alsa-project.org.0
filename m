@@ -2,95 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D11D2238A5
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 11:47:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 649B62238D6
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 12:00:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9CE031661;
-	Fri, 17 Jul 2020 11:46:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CE031661
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB9F71662;
+	Fri, 17 Jul 2020 11:59:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB9F71662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594979224;
-	bh=g+aK3/l71OafSIeamIOofh9CfO/K9CrnDxq4DyCkIyQ=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=UCAH4N7KBGuniHdfdRg1DH86wu9XpZifVH/LM+pmEIBvWVoyz42P218QGSzG6/FEG
-	 ALXsarPZoI3/KfrCJOVdopoAedsnNzo2y6Y7dAf5EvQ6BFhkEHJlKKQkJ9hJl3tkG3
-	 0t5bylzm73q5aiStjdv/Vrow87+UvzYP2jqdm2Fc=
+	s=default; t=1594980028;
+	bh=YWm0BBZQlVLcR88Aqvxgp5AVZidngiXYDb3MmrelhdQ=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ld6xVuxPbA/QlZJB9JFVZF6KAFhaOZApqQVaFA5MXMEzXRaattZS2Xms6DWR+jBxv
+	 DBoTCFphpqiHCaodvuaA522c144EXRLzYdHoAX9wD14Jyk7cDDGAyIESUOCbmRgB7H
+	 CHYbGrTVQYxV43Ix5ctMew7RqOK+adOA7yPEBC90=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B371DF8014E;
-	Fri, 17 Jul 2020 11:45:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10741F8021D;
+	Fri, 17 Jul 2020 11:58:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01ABAF80217; Fri, 17 Jul 2020 11:45:22 +0200 (CEST)
+ id 39742F80217; Fri, 17 Jul 2020 11:58:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE,
- UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 22CDCF8014E
- for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 11:45:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22CDCF8014E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
- header.b="DCJ0yGy4"
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 06H9bQtY064898;
- Fri, 17 Jul 2020 09:45:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
- bh=Tfzshdr+0ctb2W9/zhpfZrMu5nBKn7KtwRVe6P81CFA=;
- b=DCJ0yGy46oUAlhfbWGYwC3Ll4uClRbOg5cBzPGuSBc0c2aCFSoZ2EJmMQK4fVHdHUZPC
- r85QCAvbuVcPry/mBwxsNVSrY23ucSY9D/Up6RIxibFN+5DATgHNZEoUjSMVUhBwCbrc
- uSKSwZ6y2kvjQT8AxY6xDokg5wpXixagARvztX8FQKGnr+VMTVJ3GYbAHr4KVcZpuvVt
- 1kRyXK62HL938w+GDyoW0axyRuMd7SRS4uGY+N1gabpW9Vn5T9nXVFnN6e05dI/aL/gP
- 8wyQYhMkqkTsNK7iKovZnqB7T8cKadyhMrkUeByvYygys3P6HfkyMlX1q9TXrOU6dRmB Qg== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by aserp2120.oracle.com with ESMTP id 3275cmp9e1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 17 Jul 2020 09:45:08 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 06H9h2fu150927;
- Fri, 17 Jul 2020 09:43:07 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by aserp3020.oracle.com with ESMTP id 327qbe7du8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 17 Jul 2020 09:43:03 +0000
-Received: from abhmp0018.oracle.com (abhmp0018.oracle.com [141.146.116.24])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 06H9f1it010182;
- Fri, 17 Jul 2020 09:41:02 GMT
-Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Fri, 17 Jul 2020 02:41:00 -0700
-Date: Fri, 17 Jul 2020 12:40:53 +0300
-From: <dan.carpenter@oracle.com>
-To: srinivas.kandagatla@linaro.org
-Subject: [bug report] ASoC: soc-dai: return proper error for get_sdw_stream()
-Message-ID: <20200717094053.GA23150@mwanda>
+X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_PASS,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id EEF41F800E4
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 11:58:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEF41F800E4
+Received: from [IPv6:2a01:e35:2fb5:1510:c567:382e:1974:9868] (unknown
+ [IPv6:2a01:e35:2fb5:1510:c567:382e:1974:9868])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: aferraris)
+ by bhuna.collabora.co.uk (Postfix) with ESMTPSA id EA4562A4F66;
+ Fri, 17 Jul 2020 10:58:35 +0100 (BST)
+Subject: Re: [PATCH v2 2/2] ASoC: fsl_asrc: always use internal ratio
+To: Nicolin Chen <nicoleotsuka@gmail.com>
+References: <20200716145201.186270-1-arnaud.ferraris@collabora.com>
+ <20200716151352.193451-1-arnaud.ferraris@collabora.com>
+ <20200716151352.193451-3-arnaud.ferraris@collabora.com>
+ <20200716233742.GA27376@Asurada-Nvidia>
+From: Arnaud Ferraris <arnaud.ferraris@collabora.com>
+Autocrypt: addr=arnaud.ferraris@collabora.com; keydata=
+ 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
+ xZQG6fKWuIur3RI=
+Message-ID: <e4d96e1f-b988-bb24-b784-b4198d172e40@collabora.com>
+Date: Fri, 17 Jul 2020 11:58:32 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9684
- signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=840
- malwarescore=0
- mlxscore=0 spamscore=0 phishscore=0 suspectscore=3 bulkscore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2007170073
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9684
- signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=3
- priorityscore=1501
- bulkscore=0 adultscore=0 lowpriorityscore=0 phishscore=0 spamscore=0
- impostorscore=0 malwarescore=0 mlxlogscore=833 clxscore=1011 mlxscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2007170073
-Cc: alsa-devel@alsa-project.org
+In-Reply-To: <20200716233742.GA27376@Asurada-Nvidia>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Shengjiu Wang <shengjiu.wang@gmail.com>,
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, kernel@collabora.com,
+ Fabio Estevam <festevam@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,41 +122,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello Srinivas Kandagatla,
 
-The patch 308811a327c3: "ASoC: soc-dai: return proper error for
-get_sdw_stream()" from Mar 16, 2020, leads to the following static
-checker warning:
 
-	drivers/soundwire/stream.c:1920 sdw_shutdown_stream()
-	error: 'sdw_stream' dereferencing possible ERR_PTR()
+Le 17/07/2020 à 01:37, Nicolin Chen a écrit :
+>> @@ -507,8 +507,7 @@ static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair, bool use_ideal_rate)
+>>  
+>>  	/* Enable Ideal Ratio mode */
+> 
+> The code is against the comments now -- need to update this line.
 
-drivers/soundwire/stream.c
-  1902  void sdw_shutdown_stream(void *sdw_substream)
-  1903  {
-  1904          struct snd_pcm_substream *substream = sdw_substream;
-  1905          struct snd_soc_pcm_runtime *rtd = substream->private_data;
-  1906          struct sdw_stream_runtime *sdw_stream;
-  1907          struct snd_soc_dai *dai;
-  1908  
-  1909          /* Find stream from first CPU DAI */
-  1910          dai = asoc_rtd_to_cpu(rtd, 0);
-  1911  
-  1912          sdw_stream = snd_soc_dai_get_sdw_stream(dai, substream->stream);
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-We updated this to return error pointers as well as NULL but forgot to
-check the caller.
+It isn't, the following code still enables "Ideal Ratio" mode (see below)
 
-  1913  
-  1914          if (!sdw_stream) {
-  1915                  dev_err(rtd->dev, "no stream found for DAI %s", dai->name);
-  1916                  return;
-  1917          }
-  1918  
-  1919          /* release memory */
-  1920          kfree(sdw_stream->name);
-  1921          sdw_release_stream(sdw_stream);
-  1922  
+>>  	regmap_update_bits(asrc->regmap, REG_ASRCTR,
+>> -			   ASRCTR_IDRi_MASK(index) | ASRCTR_USRi_MASK(index),
+>> -			   ASRCTR_IDR(index) | ASRCTR_USR(index));
+>> +			   ASRCTR_IDRi_MASK(index), ASRCTR_IDR(index);
+> 
+> The driver falls back to ideal ratio mode if there is no matched
+> clock source. Your change seems to apply internal ratio mode any
+> way? Probably would break the fallback routine.
 
-regards,
-dan carpenter
+Strictly speaking, internal ratio is only enabled when we have matched
+clock sources, and is used in addition to the calculated dividers
+(allows the ASRC to better adjust to drifting/inaccurate physical
+clocks). "Ideal Ratio" mode is different, and still enabled as a
+fallback when no clock source is matched.
+
+Ideal ratio requires both USRi and IDRi bits to be set, and that would
+still be the case if there is no matched clock source.
+
+The only difference my patch introduces is that USRi is always set (was
+previously cleared for "normal" mode), and therefore only IDRi needs to
+be set in order to enable ideal ratio mode.
+
+Regards,
+Arnaud

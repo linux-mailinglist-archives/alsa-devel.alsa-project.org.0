@@ -2,91 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0CD8223E16
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 16:34:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFC7A223F0F
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 17:03:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8609D1662;
-	Fri, 17 Jul 2020 16:33:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8609D1662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 233121615;
+	Fri, 17 Jul 2020 17:03:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 233121615
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594996472;
-	bh=NXnncGhtO0QzNaW4QS7pCRbN37898e+1BQP/RwRTcQo=;
+	s=default; t=1594998234;
+	bh=8sDjfq/IG2PDXRYJmC55H23rgSfCu/D3F3sS0XGudkw=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bFC5QS5AtcLi9dRHV9O08IwRUOWuDRezUhkNvIdVZryXf7nF4KjZQO9pG033Lbphw
-	 lMwDTygBEDJj66v0k92rHJWM4WD2DaL1CFda/S9azSxHzsj/drRBcwR1ggKNNdLP9j
-	 iWCO9oTYWDJa5yMQlkGHFolzZNqCXQne5QoheQyg=
+	b=bGvTPl5cGYdanqj5B8MpVNJI4CYsBY2ku33/cwuUyxDiCsiGW1VHfT5kVfaqba0JK
+	 1yBSOs2QJ6bj2eOSE9l7Xg733vaRYQXWs7+Y2S6WeE0JXwNEKJ+TiUdeHPBndQSJvp
+	 DK/YTAEHAL3vn6vXh9CnS4IrvcD2BlQgFKcFkqGQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9DC13F80110;
-	Fri, 17 Jul 2020 16:32:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C4D9F80110;
+	Fri, 17 Jul 2020 17:02:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4DE58F80217; Fri, 17 Jul 2020 16:32:49 +0200 (CEST)
+ id 73921F80217; Fri, 17 Jul 2020 17:02:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
- version=3.4.0
-Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com
- [IPv6:2a00:1450:4864:20::642])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-vk1-xa44.google.com (mail-vk1-xa44.google.com
+ [IPv6:2607:f8b0:4864:20::a44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0C7C9F80110
- for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 16:32:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C7C9F80110
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1BF4CF80110
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 17:02:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BF4CF80110
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="jtQUJdXb"
-Received: by mail-ej1-x642.google.com with SMTP id w6so11076368ejq.6
- for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 07:32:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="YooeeixG"
+Received: by mail-vk1-xa44.google.com with SMTP id q85so2179652vke.4
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 08:02:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=zW8Tx5F9J8OHnFWh/HH8a3bm9XWpmViZ4XegdyqY93E=;
- b=jtQUJdXblGi/ryS3Z6ju0NFNquil2t7oPz+mOIhqRlB4n+GfCiVVFAt70VBEuVEOem
- cPhV/I5KS+5BsUt7ORCFroCirTq5B5yUvVKEMue3guU8lcD2N5dTh/MxIJK5U52DB5hW
- zjsODvitaaWNmUA4vh1bWfvs0gJmBas/XDonDhN9kLnbFY0TwUVVi9Te1XV0iaOVKG/0
- 6qZO9eBqXauhvJS+buYBg6K54EUu7JI19FodzDRNpFYeGhK/SHRQbxxbYaNTvnArQOkW
- AhD4ngtgayXc8OeJSgQiHBnOGgt6uxlfcTkElwzfr3sm9mr6QnDsxRU/Vif4CImCz5Rw
- XoAw==
+ :cc; bh=7Aj8c3ItAShnnsLNIQ3E8MXZ0tu8sMgycVZ8H2IhzgY=;
+ b=YooeeixG0/jkhNIRHh3/Ok41dsT/OX3z2lbp1dsvYYWgOvjgGAeQzWt4/nwPKnz3Mv
+ uXq028FmcWMT8/xVvpnT5J5b/dVVSVDK5eofaCaIcodv7fnB3wrg/uKVe0+25lcrLv/3
+ WamTri+dPxncC4RrX/4vmXrs97xe8dnN1V6/E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=zW8Tx5F9J8OHnFWh/HH8a3bm9XWpmViZ4XegdyqY93E=;
- b=plGAC/E+aLJ+iEfvtK6k/Et2fil1sBDYEa6Q6lQaMa1yW+H/QWosHoy2LsRQjnxC4r
- h2duLDmae+5SfKVBYgcWMP9XhiMlXjhF2LKrAMJtrp7tndxtymCpgYyeXLwPPD/l0lA1
- URkd2Ms+yGlPnb65DCv21paVnbtY/odp1B2FWh5vi9y9QASl0LLhZtErFXkLV4WdSqid
- 23dRQZKRxNbb50NesBaI6R9oCu1JdECQfI55hGFYPpefSUEB+FVaQG0bfFalUqMc7Tm+
- tr01PT9lZwDDfquYdv26acwbUQ21s6cW+jgf1H9V1d4AcsobZCTC7CnCDBsYnx193Efz
- CTag==
-X-Gm-Message-State: AOAM531y24nimXzEhZ59FQ6qoaJOzVhLqrMl0TVr0RNxNu0ajE3n/vFa
- VqTmOHTUWDUjZOemIk0bvMmg+LiZwc3yheubGrAX/w==
-X-Google-Smtp-Source: ABdhPJz41kh9hSIhYD17HeWveunMqSPLym8stDGAavsGB1Z7MZ1iLP/s0rm/f8zSOq7UO1YjQjTwaiiMKoIgd5jKgiE=
-X-Received: by 2002:a17:907:41dc:: with SMTP id
- og20mr9208765ejb.183.1594996356749; 
- Fri, 17 Jul 2020 07:32:36 -0700 (PDT)
+ bh=7Aj8c3ItAShnnsLNIQ3E8MXZ0tu8sMgycVZ8H2IhzgY=;
+ b=jYGxp/oRTzmuLj9B4F294jQJesvoGJ7ZkJpeTeqOZOdVwjbfkKC3Jlg10zS4PFgi9f
+ XY7GNpptlWNUeYM3XpG4TYAmXxoKo/sc1k+Axq+V9swXf64HAXVMqntDpvEOYWZp38ES
+ 4feEbOk0KWtko5ofbbjS0JRD4Cus1ehG2q/HN+WdXmZ0y8oDkx78JhZQ4xhm/uA/F+I3
+ 06nsEsWZJgEnEt8d9ms46Wyq/hNTmeo1dkEs7XpjO+nZNyFUw44BDitvYxTAbvczJJle
+ hNx/T0u/Ji9szzO+SbFvlkrz0gsCAbbkNb5m9rWbf5rIBtWjQWr90G0cJWv0OKXDRS6x
+ EYEA==
+X-Gm-Message-State: AOAM531oc9e9ZGIA1Etal4/7nMb00RhNQ9Q2fH36vd3YvRGMZB3m2rvF
+ zHOsEgtaka16CZtf/88n8uG1jlGo0Yo=
+X-Google-Smtp-Source: ABdhPJz1HUG9pteU4EGaLZ6hMBt5CjN2BKtIeT0jB34q3Hfc+eDsPyGFtVHu85vfsFSUgxR2qhaccw==
+X-Received: by 2002:ac5:c912:: with SMTP id t18mr7583896vkl.54.1594998121520; 
+ Fri, 17 Jul 2020 08:02:01 -0700 (PDT)
+Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com.
+ [209.85.221.169])
+ by smtp.gmail.com with ESMTPSA id a71sm995936vsd.12.2020.07.17.08.02.00
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 17 Jul 2020 08:02:00 -0700 (PDT)
+Received: by mail-vk1-f169.google.com with SMTP id m21so2179855vkp.1
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 08:02:00 -0700 (PDT)
+X-Received: by 2002:a1f:3d4a:: with SMTP id k71mr7624402vka.65.1594998119832; 
+ Fri, 17 Jul 2020 08:01:59 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200716170914.3623060-1-yuhsuan@chromium.org>
- <CABXOdTffo_PoFytXTR0DthRgxrp9SLkTrg2Wp6dMDXXj060KFw@mail.gmail.com>
- <f53d5f7b-6d9a-af68-7a48-fbb411625336@collabora.com>
-In-Reply-To: <f53d5f7b-6d9a-af68-7a48-fbb411625336@collabora.com>
-From: Guenter Roeck <groeck@google.com>
-Date: Fri, 17 Jul 2020 07:32:25 -0700
-Message-ID: <CABXOdTf2x4zK9n0WN2djLxCbfQynF4p5v_opwB-DsEyRnRAd4g@mail.gmail.com>
-Subject: Re: [PATCH v2] ASoC: cros_ec_codec: Reset I2S RX when probing
-To: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+References: <20200717120207.3471030-1-cychiang@chromium.org>
+In-Reply-To: <20200717120207.3471030-1-cychiang@chromium.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 17 Jul 2020 08:01:48 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=XFayyvT-b9C3f4pXNkboH7kb7ikyi9qJxmNvowOfkjqQ@mail.gmail.com>
+Message-ID: <CAD=FV=XFayyvT-b9C3f4pXNkboH7kb7ikyi9qJxmNvowOfkjqQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] ASoC: qcom: dt-bindings: Add sc7180 machine bindings
+To: Cheng-Yi Chiang <cychiang@chromium.org>
 Content-Type: text/plain; charset="UTF-8"
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- linux-kernel <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Yu-Hsuan Hsu <yuhsuan@chromium.org>,
- Tzung-Bi Shih <tzungbi@google.com>, Mark Brown <broonie@kernel.org>,
- Guenter Roeck <groeck@chromium.org>, Benson Leung <bleung@chromium.org>,
- Cheng-Yi Chiang <cychiang@chromium.org>
+Cc: Taniya Das <tdas@codeaurora.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Banajit Goswami <bgoswami@codeaurora.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Patrick Lai <plai@codeaurora.org>, Takashi Iwai <tiwai@suse.com>,
+ LKML <linux-kernel@vger.kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Mark Brown <broonie@kernel.org>,
+ Rohit kumar <rohitkr@codeaurora.org>, Andy Gross <agross@kernel.org>,
+ tzungbi@chromium.org, Dylan Reid <dgreid@chromium.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,116 +112,204 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jul 16, 2020 at 10:47 AM Enric Balletbo i Serra
-<enric.balletbo@collabora.com> wrote:
->
-> Hi,
->
-> On 16/7/20 19:23, Guenter Roeck wrote:
-> > On Thu, Jul 16, 2020 at 10:09 AM Yu-Hsuan Hsu <yuhsuan@chromium.org> wrote:
-> >>
-> >> It is not guaranteed that I2S RX is disabled when the kernel booting.
-> >> For example, if the kernel crashes while it is enabled, it will keep
-> >> enabled until the next time EC reboots. Reset I2S RX when probing to
-> >> fix this issue.
-> >>
-> >> Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
-> >> ---
-> >>  drivers/platform/chrome/cros_ec_proto.c        | 7 ++++++-
-> >>  include/linux/platform_data/cros_ec_commands.h | 1 +
-> >>  sound/soc/codecs/cros_ec_codec.c               | 9 +++++++++
-> >>  3 files changed, 16 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/drivers/platform/chrome/cros_ec_proto.c b/drivers/platform/chrome/cros_ec_proto.c
-> >> index 3e745e0fe092c..2c60690d7147c 100644
-> >> --- a/drivers/platform/chrome/cros_ec_proto.c
-> >> +++ b/drivers/platform/chrome/cros_ec_proto.c
-> >> @@ -572,7 +572,12 @@ int cros_ec_cmd_xfer_status(struct cros_ec_device *ec_dev,
-> >>                 return -ENOTSUPP;
-> >>         } else if (msg->result != EC_RES_SUCCESS) {
-> >>                 dev_dbg(ec_dev->dev, "Command result (err: %d)\n", msg->result);
-> >> -               return -EPROTO;
-> >> +               switch (msg->result) {
-> >> +               case EC_RES_INVALID_PARAM:
-> >> +                       return -EINVAL;
-> >
-> > As we have learned, this may impact other callers of
-> > cros_ec_cmd_xfer_status() which only accept -EPROTO as error return
-> > value. In addition to that, the code is odd:
-> >
-> >     if (msg->result == EC_RES_INVALID_VERSION) {
-> >         ...
-> >     } else if (msg->result != EC_RES_SUCCESS) {
-> >         switch (msg->result) {
-> >         ....
-> >         }
-> >     }
-> >
->
-> Ack, this is odd.
->
-> > I really dislike the notion of changing error return values of
-> > cros_ec_cmd_xfer_status() one by one. That can only cause ongoing
-> > trouble with callers expecting specific error return codes (as we have
-> > already seen).
-> >
->
-> Hmm, that's a good point. Ok.
->
-> Let's apply the Guenter's patch that maps the errors *and* fix the callers of
-> cros_ec_cmd_xfer_status which only accept -EPROTO (there are few).
->
-> Yu-Hsuan, can you take care of this and send a patch series with all the
-> required patches? If not, I can work on this next week.
->
+Hi,
 
-I can look into it as well. Let me know - I don't want to duplicate work.
-
-Guenter
-
-> Thanks,
->   Enric
+On Fri, Jul 17, 2020 at 5:02 AM Cheng-Yi Chiang <cychiang@chromium.org> wrote:
 >
-> > Guenter
-> >
-> >> +               default:
-> >> +                       return -EPROTO;
-> >> +               }
-> >>         }
-> >>
-> >>         return ret;
-> >> diff --git a/include/linux/platform_data/cros_ec_commands.h b/include/linux/platform_data/cros_ec_commands.h
-> >> index 69210881ebac8..11ce917ca924c 100644
-> >> --- a/include/linux/platform_data/cros_ec_commands.h
-> >> +++ b/include/linux/platform_data/cros_ec_commands.h
-> >> @@ -4598,6 +4598,7 @@ enum ec_codec_i2s_rx_subcmd {
-> >>         EC_CODEC_I2S_RX_SET_SAMPLE_DEPTH = 0x2,
-> >>         EC_CODEC_I2S_RX_SET_DAIFMT = 0x3,
-> >>         EC_CODEC_I2S_RX_SET_BCLK = 0x4,
-> >> +       EC_CODEC_I2S_RX_RESET = 0x5,
-> >>         EC_CODEC_I2S_RX_SUBCMD_COUNT,
-> >>  };
-> >>
-> >> diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros_ec_codec.c
-> >> index f23956cf4ed84..b5ff30b7f1aa8 100644
-> >> --- a/sound/soc/codecs/cros_ec_codec.c
-> >> +++ b/sound/soc/codecs/cros_ec_codec.c
-> >> @@ -1034,6 +1034,15 @@ static int cros_ec_codec_platform_probe(struct platform_device *pdev)
-> >>         }
-> >>         priv->ec_capabilities = r.capabilities;
-> >>
-> >> +       /* Reset EC codec I2S RX. */
-> >> +       p.cmd = EC_CODEC_I2S_RX_RESET;
-> >> +       ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_I2S_RX,
-> >> +                                  (uint8_t *)&p, sizeof(p), NULL, 0);
-> >> +       if (ret == -EINVAL)
-> >> +               dev_info(dev, "Missing reset command. Please update your EC firmware.\n");
-> >> +       else if (ret)
-> >> +               dev_err(dev, "failed to EC_CODEC_I2S_RESET: %d\n", ret);
-> >> +
-> >>         platform_set_drvdata(pdev, priv);
-> >>
-> >>         ret = devm_snd_soc_register_component(dev, &i2s_rx_component_driver,
-> >> --
-> >> 2.27.0.389.gc38d7665816-goog
-> >>
+> Add devicetree bindings documentation file for sc7180 sound card.
+>
+> Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
+> ---
+>  .../bindings/sound/qcom,sc7180.yaml           | 123 ++++++++++++++++++
+>  1 file changed, 123 insertions(+)
+
+A bit of a mechanical review since my audio knowledge is not strong.
+
+
+>  create mode 100644 Documentation/devicetree/bindings/sound/qcom,sc7180.yaml
+>
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,sc7180.yaml b/Documentation/devicetree/bindings/sound/qcom,sc7180.yaml
+> new file mode 100644
+> index 000000000000..d60d2880d991
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/qcom,sc7180.yaml
+> @@ -0,0 +1,123 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/qcom,sc7180.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Technologies Inc. SC7180 ASoC sound card driver
+> +
+> +maintainers:
+> +  - Rohit kumar <rohitkr@codeaurora.org>
+> +  - Cheng-Yi Chiang <cychiang@chromium.org>
+> +
+> +description: |
+> +  This binding describes the SC7180 sound card, which uses LPASS for audio.
+
+nit: you don't need the pipe at the end of the "description" line.
+That means that newlines are important and you don't need it.
+
+
+> +definitions:
+
+I haven't yet seen much yaml using definitions like this.  It feels
+like overkill for some of these properties, especially ones that are
+only ever used once in the "properties:" section and are/or are really
+simple.
+
+
+> +  link-name:
+> +    description: Indicates dai-link name and PCM stream name.
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    maxItems: 1
+> +
+> +  dai:
+> +    type: object
+> +    properties:
+> +      sound-dai:
+> +        maxItems: 1
+> +        $ref: /schemas/types.yaml#/definitions/phandle-array
+> +        description: phandle array of the codec or CPU DAI
+> +
+> +    required:
+> +      - sound-dai
+> +
+> +  unidirectional:
+> +    description: Specify direction of unidirectional dai link.
+> +                 0 for playback only. 1 for capture only.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+
+So if the property isn't there then it's _not_ unidirectional and if
+it is there then this specifies the direction, right?  I almost wonder
+if this should just be two boolean properties, like:
+
+playback-only;
+capture-only;
+
+...but I guess I'd leave it to Rob and/or Mark to say what they liked
+better.  In any case if you keep it how you have it then you should
+use yaml to force it to be either 0 or 1 if present.
+
+
+> +
+> +properties:
+> +  compatible:
+> +    contains:
+> +      enum:
+> +        - qcom,sc7180-sndcard
+
+Just:
+
+properties:
+  compatible:
+    const: qcom,sc7180-sndcard
+
+
+
+> +  audio-routing:
+> +    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+> +    description: |-
+> +      A list of the connections between audio components. Each entry is a
+> +      pair of strings, the first being the connection's sink, the second
+> +      being the connection's source.
+
+You don't need the "|-" after the "description:".  That says newlines
+are important but strip the newline from the end.
+
+
+> +  model:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description: User specified audio sound card name
+> +
+> +patternProperties:
+> +  "^dai-link-[0-9]+$":
+> +    description: |
+> +      Each subnode represents a dai link. Subnodes of each dai links would be
+> +      cpu/codec dais.
+
+From looking at "simple-card.yaml", I'm gonna guess that instead of
+encoding the link number in the name of the node that you should
+actually use a unit address and a reg in the subnodes.
+
+...also, again your description doesn't need the "|" at the end.
+Maybe <https://yaml-multiline.info/> will be useful to you?
+
+
+> +    type: object
+> +
+> +    properties:
+> +      link-name:
+> +        $ref: "#/definitions/link-name"
+> +
+> +      unidirectional:
+> +        $ref: "#/definitions/unidirectional"
+> +
+> +      cpu:
+> +        $ref: "#/definitions/dai"
+> +
+> +      codec:
+> +        $ref: "#/definitions/dai"
+> +
+> +    required:
+> +      - link-name
+> +      - cpu
+> +      - codec
+> +
+> +    additionalProperties: false
+> +
+> +examples:
+> +
+> +  - |
+> +    snd {
+
+Can you use the full node name "sound" here?
+
+
+> +        compatible = "qcom,sc7180-sndcard";
+> +        model = "sc7180-snd-card";
+> +
+> +        pinctrl-names = "default";
+> +        pinctrl-0 = <&sec_mi2s_active &sec_mi2s_dout_active
+> +                     &sec_mi2s_ws_active &pri_mi2s_active
+> +                     &pri_mi2s_dout_active &pri_mi2s_ws_active
+> +                     &pri_mi2s_din_active &pri_mi2s_mclk_active>;
+
+I think pinctrl is usually not in the dt examples.
+
+...also, shouldn't the mi2s pinctrl be in the i2s nodes, not in the
+overall sound node?
+
+
+> +        audio-routing =
+> +                    "Headphone Jack", "HPOL",
+> +                    "Headphone Jack", "HPOR";
+> +
+> +        dai-link-0 {
+> +            link-name = "MultiMedia0";
+> +            cpu {
+> +                sound-dai = <&lpass_cpu 0>;
+> +            };
+> +
+> +            codec {
+> +                sound-dai = <&alc5682 0>;
+> +            };
+> +        };
+> +
+> +        dai-link-1 {
+> +            link-name = "MultiMedia1";
+> +            unidirectional = <0>;
+> +            cpu {
+> +                sound-dai = <&lpass_cpu 1>;
+> +            };
+> +
+> +            codec {
+> +                sound-dai = <&max98357a>;
+> +            };
+> +        };
+> +    };
+> --
+> 2.28.0.rc0.105.gf9edc3c819-goog
+>

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64625223508
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 08:59:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBF5F223512
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 09:00:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A311B15F9;
-	Fri, 17 Jul 2020 08:58:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A311B15F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 716AE1614;
+	Fri, 17 Jul 2020 08:59:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 716AE1614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594969171;
-	bh=J9q5eTf/KbNMNKUl9QNBHlTfK1V0V/0VUJ7cmXprC6s=;
+	s=default; t=1594969218;
+	bh=9FzYT+V/PUsvJ1tOQn68EUNU0eQ+WxtGNYOOTmY2/aM=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Kabv4klKrn0hri+wixbC5uljUirmQwEePFQ2P8ywZk16KP5hLula6qH/leMLpoh/b
-	 AGQNr/rpQxBQQOVyjslfXep1C1IzTNWZE7rTdY20VukXGIcEOO79rs9Q69dyHpRNxo
-	 Z3IT3WtkDzedWOGpPMzrJDr2PxwWSAoSTYIZkn1k=
+	b=W7F5f/gz1MvH5P3gxMI/QwBi8B6I+4+Fb6U7asc156Z1XqMklOdTjJFgrQPVqeyK6
+	 +xZPOBLeSFpNNckwRZOZ3gMj/3rO4/2E+GTk2cC8cN6tmaaZJ0typsJRdYiPSM0lnl
+	 epscjO/MbrO5mm4aDfYK3QAENzTWex+Uc2gHRekc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC87DF800E4;
-	Fri, 17 Jul 2020 08:57:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B27BAF802BC;
+	Fri, 17 Jul 2020 08:58:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85234F80217; Fri, 17 Jul 2020 08:57:47 +0200 (CEST)
+ id BFFC8F802BE; Fri, 17 Jul 2020 08:58:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 550E8F800E4
- for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 08:57:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 550E8F800E4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 631DFF802BC
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 08:58:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 631DFF802BC
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7E10AAD1E;
- Fri, 17 Jul 2020 06:57:40 +0000 (UTC)
-Date: Fri, 17 Jul 2020 08:57:35 +0200
-Message-ID: <s5hzh7yk4rk.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 50480AD32;
+ Fri, 17 Jul 2020 06:58:36 +0000 (UTC)
+Date: Fri, 17 Jul 2020 08:58:31 +0200
+Message-ID: <s5hy2nik4q0.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Kaige Li <likaige@loongson.cn>
-Subject: Re: [PATCH 1/2] ALSA: hda/realtek: Fix headset mic on Loongson
- platform
-In-Reply-To: <1594954292-1703-1-git-send-email-likaige@loongson.cn>
+Subject: Re: [PATCH 2/2] ALSA: hda: Add support for Loongson 7A1000 controller
+In-Reply-To: <1594954292-1703-2-git-send-email-likaige@loongson.cn>
 References: <1594954292-1703-1-git-send-email-likaige@loongson.cn>
+ <1594954292-1703-2-git-send-email-likaige@loongson.cn>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -72,25 +72,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 17 Jul 2020 04:51:31 +0200,
+On Fri, 17 Jul 2020 04:51:32 +0200,
 Kaige Li wrote:
 > 
-> Add pin quirks to enable use of the headset mic on Loongson platform.
+> Add the new PCI ID 0x0014 0x7a07 to support Loongson 7A1000 controller.
 > 
 > Signed-off-by: Kaige Li <likaige@loongson.cn>
-> @@ -7654,6 +7663,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
->  	SND_PCI_QUIRK(0x17aa, 0x3bf8, "Quanta FL1", ALC269_FIXUP_PCM_44K),
->  	SND_PCI_QUIRK(0x17aa, 0x9e54, "LENOVO NB", ALC269_FIXUP_LENOVO_EAPD),
->  	SND_PCI_QUIRK(0x19e5, 0x3204, "Huawei MACH-WX9", ALC256_FIXUP_HUAWEI_MACH_WX9_PINS),
-> +	SND_PCI_QUIRK(0x10ec, 0x0269, "Loongson HDA", ALC269_FIXUP_LOONGSON_HDA),
 
-This is basically Realtek ALC269 codec itself, so putting this here
-may hit with many other machines.
+Applied this one.  Thanks.
 
-Doesn't it has any proper PCI or codec SSID?  The lack of them usually
-means a bug of BIOS.
-
-
-thanks,
 
 Takashi

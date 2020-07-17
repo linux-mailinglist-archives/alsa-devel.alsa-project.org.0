@@ -2,69 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92F962245CA
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 23:20:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 158A22245FA
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 23:51:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 32AF916AD;
-	Fri, 17 Jul 2020 23:19:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32AF916AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 853CB1676;
+	Fri, 17 Jul 2020 23:50:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 853CB1676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595020824;
-	bh=ASHHWkJsa6q3U1ooLAi7MSyTjnLkcSoBGuWxRk86mdg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=qeidk9j4e5XNrmjZTsZczmb1SftjeWwHKLulKy4GXMHDf71AnZR9otPTFbbcaZHSn
-	 B1Sf50H29lH0y1Ke6xlMcgwMuA2n/uzGVfLTCrAFzdqBISGEEdcsMqyXXBf0cJTXX2
-	 oV3ZH8eYiWWbXuNvSOntUItP2gkL0jAO5CGbtT+E=
+	s=default; t=1595022685;
+	bh=d6pg/moIc4Lfqu+IfBjkbjoSoRMlnQNHmTVvs1VG1nk=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=tpr5nZBs3uuo3Ho/zO20eGBg0qzTWQaTpDBi98Zb8yOpioRli6GzFWlZutWLk5MOB
+	 Ls/ttovccu+UDFhoWLNnoprG+hxua9SEGna8qYtVwIpDk9BXH/QLB3DY6bTHQKjegz
+	 ++kY0HCvdKgIiKNMyYNXZaxpgRCiVZtnfMvm4m5k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1FBFF802DC;
-	Fri, 17 Jul 2020 23:16:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C82F0F8014E;
+	Fri, 17 Jul 2020 23:49:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09A2CF802DC; Fri, 17 Jul 2020 23:16:03 +0200 (CEST)
+ id BECE0F80217; Fri, 17 Jul 2020 23:49:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=none autolearn=disabled
- version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C3638F8014E
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 23:49:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3638F8014E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="2FsjmqEN"
+Received: from embeddedor (unknown [201.162.167.76])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1A59CF80217
- for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 23:14:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A59CF80217
-IronPort-SDR: tMKkhEavbWiVNffmJ6kobk6oIOPqYpvYkcoDckOgTVLQtB53qVsgORHEEc1w5VNRbkc+XkVScz
- LDSOmlKsGaDQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9685"; a="129758220"
-X-IronPort-AV: E=Sophos;i="5.75,364,1589266800"; d="scan'208";a="129758220"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jul 2020 14:13:52 -0700
-IronPort-SDR: K6GM19Mh63cqwzL/PJWiCvMOx7cwx+bDJ66eSMZO4S4xg3jhOweJD9aInBK61CEdgAwb8649UC
- i1ZMsjffcNXA==
-X-IronPort-AV: E=Sophos;i="5.75,364,1589266800"; d="scan'208";a="282905803"
-Received: from toddjdav-mobl1.amr.corp.intel.com (HELO
- pbossart-mobl3.amr.corp.intel.com) ([10.254.77.240])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jul 2020 14:13:52 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 6/6] ASoC: Intel: common: change match table ehl-rt5660
-Date: Fri, 17 Jul 2020 16:13:37 -0500
-Message-Id: <20200717211337.31956-7-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200717211337.31956-1-pierre-louis.bossart@linux.intel.com>
-References: <20200717211337.31956-1-pierre-louis.bossart@linux.intel.com>
+ by mail.kernel.org (Postfix) with ESMTPSA id C2EA320759;
+ Fri, 17 Jul 2020 21:49:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1595022573;
+ bh=d6pg/moIc4Lfqu+IfBjkbjoSoRMlnQNHmTVvs1VG1nk=;
+ h=Date:From:To:Cc:Subject:From;
+ b=2FsjmqENNaKb2fIvhkjaY9xknfwSoNvX+heeZudSyESchWojQCWTVoy5V//d1bDev
+ ssv6gOfMQnPh8DaqKaf1XzTwnYClT/4M8zjFMmX0HpN/Tkl+BDyNPM80B0ThNsNZ+M
+ K651XniFOE0QEEJcqZ8ylRUhH6Dpr38HeVLNEPC0=
+Date: Fri, 17 Jul 2020 16:55:00 -0500
+From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH][next] ASoC: Intel: Skylake: Avoid the use of one-element array
+Message-ID: <20200717215500.GA13910@embeddedor>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Libin Yang <libin.yang@intel.com>, broonie@kernel.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,31 +82,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Libin Yang <libin.yang@intel.com>
+One-element arrays are being deprecated[1]. Replace the one-element
+array with a simple value type 'u8 reserved'[2], once it seems this
+is just a placeholder for alignment.
 
-This configuration is for EHL with the RT5660 codec. RT5660
-should use "10EC5660" ID instead of "INTC1027".
+[1] https://github.com/KSPP/linux/issues/79
+[2] https://github.com/KSPP/linux/issues/86
 
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Signed-off-by: Libin Yang <libin.yang@intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Tested-by: kernel test robot <lkp@intel.com>
+Link: https://github.com/GustavoARSilva/linux-hardening/blob/master/cii/0-day/skylake-20200717.md
+Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
 ---
- sound/soc/intel/common/soc-acpi-intel-ehl-match.c | 2 +-
+ sound/soc/intel/skylake/skl-topology.h | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-ehl-match.c b/sound/soc/intel/common/soc-acpi-intel-ehl-match.c
-index 45e07d886013..badafc1d54d2 100644
---- a/sound/soc/intel/common/soc-acpi-intel-ehl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-ehl-match.c
-@@ -12,7 +12,7 @@
+diff --git a/sound/soc/intel/skylake/skl-topology.h b/sound/soc/intel/skylake/skl-topology.h
+index 9889f728752c..5e93ad85e06d 100644
+--- a/sound/soc/intel/skylake/skl-topology.h
++++ b/sound/soc/intel/skylake/skl-topology.h
+@@ -97,7 +97,7 @@ struct skl_audio_data_format {
+ 	u8 number_of_channels;
+ 	u8 valid_bit_depth;
+ 	u8 sample_type;
+-	u8 reserved[1];
++	u8 reserved;
+ } __packed;
  
- struct snd_soc_acpi_mach snd_soc_acpi_intel_ehl_machines[] = {
- 	{
--		.id = "INTC1027",
-+		.id = "10EC5660",
- 		.drv_name = "ehl_rt5660",
- 		.sof_fw_filename = "sof-ehl.ri",
- 		.sof_tplg_filename = "sof-ehl-rt5660.tplg",
+ struct skl_base_cfg {
 -- 
-2.25.1
+2.27.0
 

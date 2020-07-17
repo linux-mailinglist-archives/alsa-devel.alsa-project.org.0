@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76E4322392A
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 12:23:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABAD222392B
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 12:23:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2C9671673;
-	Fri, 17 Jul 2020 12:22:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C9671673
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4626B10E;
+	Fri, 17 Jul 2020 12:22:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4626B10E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594981402;
-	bh=QGe7Ih+xJ/1I7B2d1lTNmISNdLm6P/zm1sPYKZobE70=;
+	s=default; t=1594981421;
+	bh=2rp8JZIQsj447PRl623rhJ7W/xG2L4eRvURNOC/hGRU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QZ8bwjyp/MOjPMfqWqFJWk9izm0qVLSMSyVby1g1Zt7oqfzym5xq+ihh7yoxTEmxF
-	 DKmwZxvsztc7j0/N4i4kJBzJxuU/LDnaiP8ouXmXM6tB5CkMcxx7GT5rdCRystPu4K
-	 OKlcjqbcz1Mo/F0laXWxewmO0XsrHlyGw2rFoO0Y=
+	b=KDPHkNEItkISMq6EnqS4NqK0qi2Y3IqNVKJEYCyIoZPZJkZHfHlKUoEew0dXyBt/w
+	 kBrfcGjPiVhNtko2EdkZLDroMmW3bl7I4T0hRfM3fuGOw7Kmx6mGxf9PwwPpOXvdd/
+	 wNaK48w46w46ej7+vkRuDM/jTxNljXlOz/Cl1NB4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91A34F80240;
-	Fri, 17 Jul 2020 12:20:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2BF3F802BD;
+	Fri, 17 Jul 2020 12:21:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5DAFCF8014E; Fri, 17 Jul 2020 12:20:56 +0200 (CEST)
+ id 5063FF802BC; Fri, 17 Jul 2020 12:21:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,36 +34,37 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 60E65F8014E
- for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 12:20:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60E65F8014E
-IronPort-SDR: /1Z1sUD2Hbk5MPC14M8BL4tSQcE0BhBwn5EUJMTtwaKlH5zGLAc3Kd3DuGuiwdwnqLY98pCZOO
- tE1hX0r4TpFw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9684"; a="137682722"
-X-IronPort-AV: E=Sophos;i="5.75,362,1589266800"; d="scan'208";a="137682722"
+ by alsa1.perex.cz (Postfix) with ESMTPS id C73B8F80229
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 12:20:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C73B8F80229
+IronPort-SDR: cmKJ2Z/CbUwkkYmSvNysvyQ7BqrAH6Y9C0Zl5aymtilYfzcstXT64jLcp9Xibzsx0FbqC+hm9p
+ i1Ebpzty2WQg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9684"; a="137682726"
+X-IronPort-AV: E=Sophos;i="5.75,362,1589266800"; d="scan'208";a="137682726"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jul 2020 03:20:46 -0700
-IronPort-SDR: LEH4dqoqO27sOXPghptIz6y0MWhwv3qOCozGKL+a7I9nsCNwH1V1H34++7bR6LPAnM28HWAktZ
- A2R3neRtx/qg==
+ 17 Jul 2020 03:20:49 -0700
+IronPort-SDR: M1R/fTri/KfRNkghPlwRBjLxhQahb67rygJoTHwOBknnDeD/PKn1aadRWPM8yEpi+2w5bVOjL+
+ /MCrJTIL2/QA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,362,1589266800"; d="scan'208";a="282744417"
+X-IronPort-AV: E=Sophos;i="5.75,362,1589266800"; d="scan'208";a="282744428"
 Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga003.jf.intel.com with ESMTP; 17 Jul 2020 03:20:44 -0700
+ by orsmga003.jf.intel.com with ESMTP; 17 Jul 2020 03:20:47 -0700
 From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH 2/3] ASoC: hdac_hda: fix memleak on module unload
-Date: Fri, 17 Jul 2020 13:19:49 +0300
-Message-Id: <20200717101950.3885187-2-kai.vehmanen@linux.intel.com>
+Subject: [PATCH 3/3] ASoC: hdac_hda: fix deadlock after PCM open error
+Date: Fri, 17 Jul 2020 13:19:50 +0300
+Message-Id: <20200717101950.3885187-3-kai.vehmanen@linux.intel.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200717101950.3885187-1-kai.vehmanen@linux.intel.com>
 References: <20200717101950.3885187-1-kai.vehmanen@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com,
+Cc: Rander Wang <rander.wang@linux.intel.com>,
+ pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com,
  ranjani.sridharan@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -80,71 +81,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The hdac_hda remove implementation fails to free the hda codec
-resources, leading to memleaks at module unload. This gap has been there
-from the start, commit 6bae5ea94989 ("ASoC: hdac_hda: add asoc
-extension for legacy HDA codec drivers").
+Commit 5bd70440cb0a ("ASoC: soc-dai: revert all changes to DAI
+startup/shutdown sequence"), introduced a slight change of semantics
+to DAI startup/shutdown. If startup() returns an error, shutdown()
+is now called for the DAI.
 
-Instead of duplicating the cleanup logic, use the common
-snd_hda_codec_cleanup_for_unbind() to free the resources. Remove
-existing code in hdac_hda to cleanup "codec.jackpoll_work" and call to
-snd_hdac_regmap_exit(), as these are already done in
-snd_hda_codec_cleanup_for_unbind().
+This causes a deadlock in hdac_hda which issues a call to
+snd_hda_codec_pcm_put() in case open fails. Upon error, soc_pcm_open()
+will call shutdown(), and pcm_put() ends up getting called twice. Result
+is a deadlock on pcm->open_mutex, as snd_device_free() gets called from
+within snd_pcm_open(). Typical task backtrace looks like this:
 
-The cleanup is done in ASoC component remove() callback and not in the
-HDAC bus hdev_detach(). This is done to ensure the codec specific
-cleanup routines are run before the parent card is freed.
+[  334.244627]  snd_pcm_dev_disconnect+0x49/0x340 [snd_pcm]
+[  334.244634]  __snd_device_disconnect.part.0+0x2c/0x50 [snd]
+[  334.244640]  __snd_device_free+0x7f/0xc0 [snd]
+[  334.244650]  snd_hda_codec_pcm_put+0x87/0x120 [snd_hda_codec]
+[  334.244660]  soc_pcm_open+0x6a0/0xbe0 [snd_soc_core]
+[  334.244676]  ? dpcm_add_paths.isra.0+0x491/0x590 [snd_soc_core]
+[  334.244679]  ? kfree+0x9a/0x230
+[  334.244686]  dpcm_be_dai_startup+0x255/0x300 [snd_soc_core]
+[  334.244695]  dpcm_fe_dai_open+0x20e/0xf30 [snd_soc_core]
+[  334.244701]  ? snd_pcm_hw_rule_muldivk+0x110/0x110 [snd_pcm]
+[  334.244709]  ? dpcm_be_dai_startup+0x300/0x300 [snd_soc_core]
+[  334.244714]  ? snd_pcm_attach_substream+0x3c4/0x540 [snd_pcm]
+[  334.244719]  snd_pcm_open_substream+0x69a/0xb60 [snd_pcm]
+[  334.244729]  ? snd_pcm_release_substream+0x30/0x30 [snd_pcm]
+[  334.244732]  ? __mutex_lock_slowpath+0x10/0x10
+[  334.244736]  snd_pcm_open+0x1b3/0x3c0 [snd_pcm]
 
-Fixes: 6bae5ea94989 ("ASoC: hdac_hda: add asoc extension for legacy HDA codec drivers")
-BugLink: https://github.com/thesofproject/linux/issues/2195
+Fixes: 5bd70440cb0a ("ASoC: soc-dai: revert all changes to DAI startup/shutdown sequence")
+BugLink: https://github.com/thesofproject/linux/issues/2159
 Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@linux.intel.com>
 ---
- sound/soc/codecs/hdac_hda.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+ sound/soc/codecs/hdac_hda.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
 diff --git a/sound/soc/codecs/hdac_hda.c b/sound/soc/codecs/hdac_hda.c
-index 72bd779bf942..74574b9180a5 100644
+index 74574b9180a5..49e6f23fc766 100644
 --- a/sound/soc/codecs/hdac_hda.c
 +++ b/sound/soc/codecs/hdac_hda.c
-@@ -513,6 +513,7 @@ static void hdac_hda_codec_remove(struct snd_soc_component *component)
- 	struct hdac_hda_priv *hda_pvt =
- 		      snd_soc_component_get_drvdata(component);
- 	struct hdac_device *hdev = &hda_pvt->codec.core;
-+	struct hda_codec *codec = &hda_pvt->codec;
- 	struct hdac_ext_link *hlink = NULL;
+@@ -289,7 +289,6 @@ static int hdac_hda_dai_open(struct snd_pcm_substream *substream,
+ 	struct hdac_hda_priv *hda_pvt;
+ 	struct hda_pcm_stream *hda_stream;
+ 	struct hda_pcm *pcm;
+-	int ret;
  
- 	hlink = snd_hdac_ext_bus_get_link(hdev->bus, dev_name(&hdev->dev));
-@@ -524,7 +525,10 @@ static void hdac_hda_codec_remove(struct snd_soc_component *component)
- 	pm_runtime_disable(&hdev->dev);
- 	snd_hdac_ext_bus_link_put(hdev->bus, hlink);
+ 	hda_pvt = snd_soc_component_get_drvdata(component);
+ 	pcm = snd_soc_find_pcm_from_dai(hda_pvt, dai);
+@@ -300,11 +299,7 @@ static int hdac_hda_dai_open(struct snd_pcm_substream *substream,
  
--	snd_hdac_regmap_exit(hdev);
-+	if (codec->patch_ops.free)
-+		codec->patch_ops.free(codec);
-+
-+	snd_hda_codec_cleanup_for_unbind(codec);
+ 	hda_stream = &pcm->stream[substream->stream];
+ 
+-	ret = hda_stream->ops.open(hda_stream, &hda_pvt->codec, substream);
+-	if (ret < 0)
+-		snd_hda_codec_pcm_put(pcm);
+-
+-	return ret;
++	return hda_stream->ops.open(hda_stream, &hda_pvt->codec, substream);
  }
  
- static const struct snd_soc_dapm_route hdac_hda_dapm_routes[] = {
-@@ -608,12 +612,10 @@ static int hdac_hda_dev_probe(struct hdac_device *hdev)
- 
- static int hdac_hda_dev_remove(struct hdac_device *hdev)
- {
--	struct hdac_hda_priv *hda_pvt;
--
--	hda_pvt = dev_get_drvdata(&hdev->dev);
--	if (hda_pvt && hda_pvt->codec.registered)
--		cancel_delayed_work_sync(&hda_pvt->codec.jackpoll_work);
--
-+	/*
-+	 * Resources are freed in hdac_hda_codec_remove(). This
-+	 * function is kept to keep hda_codec_driver_remove() happy.
-+	 */
- 	return 0;
- }
- 
+ static void hdac_hda_dai_close(struct snd_pcm_substream *substream,
 -- 
 2.27.0
 

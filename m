@@ -2,106 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3D64223A9C
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 13:36:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0762223AC8
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 13:48:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4417D1662;
-	Fri, 17 Jul 2020 13:35:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4417D1662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 59F041615;
+	Fri, 17 Jul 2020 13:47:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59F041615
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594985792;
-	bh=PzQOu0fYsOtmDJJjaHV/HqTKlZaZq0kiargDAYIzj74=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1594986484;
+	bh=KX5mPfLHuUjnGJeMBjtqTQ1Ck4CB31BE9OJacRIWQDE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Tj9BOOKSSL76R+aVyAvyZh1EBRf6TjTdZfgUulnebXw9R/T/2vGeRPJGk0awb5cXy
-	 fWXAkMZGQuh85E/i3Mmgpz5JIPLEna3kaNBFv0ku7uXnBSyCmVDYdPe4tdB9eKqKEt
-	 oJfI3x6fYusbDc6503H/JxUlYkjrDcJaijmCVylU=
+	b=XUb891kR3qhMCCjf6Bu2Xiey8WZS6dRBH175R3FYUr1XNjq+O21RLgMc9sc/BeyP2
+	 ND1pU+al3Z+a1Qn8rGSRk5oCDENhW7Vu48YRvba2r9qtPYHH2GH0nq24TIx4DI30+/
+	 ZHfQT5dCUisloY15EoE8JR3oC5SrKVW8v+HdvEg4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F25AF80110;
-	Fri, 17 Jul 2020 13:34:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84022F8014E;
+	Fri, 17 Jul 2020 13:46:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CA4BAF80217; Fri, 17 Jul 2020 13:34:48 +0200 (CEST)
+ id CCFE7F80217; Fri, 17 Jul 2020 13:46:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_PASS,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5A352F80110
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 13:46:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A352F80110
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="DHCB9uLi"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 26C65F80110
- for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 13:34:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26C65F80110
-Received: from [IPv6:2a01:e35:2fb5:1510:c567:382e:1974:9868] (unknown
- [IPv6:2a01:e35:2fb5:1510:c567:382e:1974:9868])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: aferraris)
- by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 9A5AA2A5CBA;
- Fri, 17 Jul 2020 12:34:36 +0100 (BST)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2C25B20768;
+ Fri, 17 Jul 2020 11:46:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1594986367;
+ bh=KX5mPfLHuUjnGJeMBjtqTQ1Ck4CB31BE9OJacRIWQDE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=DHCB9uLiov4F0fSB35Lqnoa6srk5KAw9Kka9E9gBd1LAkSsiU0JIXYaz4BR4ium8/
+ KVtjkPOMF+Y0iOe6zWU8O563rEp/D3ou24ojmd9e5+p1tNf9oph/oq6tBfpy8Oz+BE
+ RJTIrZgqZWeDyNRk5gByfHb1fQsze9zDrIPsr0EU=
+Date: Fri, 17 Jul 2020 12:45:56 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Arnaud Ferraris <arnaud.ferraris@collabora.com>
 Subject: Re: [PATCH v3 0/1] ASoC: fsl_asrc: always select different clocks
-To: Mark Brown <broonie@kernel.org>
+Message-ID: <20200717114556.GC4316@sirena.org.uk>
 References: <20200716232000.GA27246@Asurada-Nvidia>
  <20200717103857.31877-1-arnaud.ferraris@collabora.com>
  <20200717112156.GA4316@sirena.org.uk>
-From: Arnaud Ferraris <arnaud.ferraris@collabora.com>
-Autocrypt: addr=arnaud.ferraris@collabora.com; keydata=
- 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
- xZQG6fKWuIur3RI=
-Message-ID: <5bdf1102-e964-3d44-e673-beb23b0dc970@collabora.com>
-Date: Fri, 17 Jul 2020 13:34:34 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <5bdf1102-e964-3d44-e673-beb23b0dc970@collabora.com>
 MIME-Version: 1.0
-In-Reply-To: <20200717112156.GA4316@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="FsscpQKzF/jJk6ya"
+Content-Disposition: inline
+In-Reply-To: <5bdf1102-e964-3d44-e673-beb23b0dc970@collabora.com>
+X-Cookie: No other warranty expressed or implied.
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: alsa-devel@alsa-project.org, Timur Tabi <timur@kernel.org>,
  Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
  Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
@@ -122,23 +88,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Le 17/07/2020 à 13:21, Mark Brown a écrit :
-> On Fri, Jul 17, 2020 at 12:38:56PM +0200, Arnaud Ferraris wrote:
->> This patch fixes the automatic clock selection so it always selects
->> distinct input and output clocks.
-> 
-> Please don't send new patches in reply to old ones, it buries things and
-> makes it hard to keep track of what the current version of a series
-> looks like.  Just send new versions as a completely new thread.
-> 
-> Please don't send cover letters for single patches, if there is anything
-> that needs saying put it in the changelog of the patch or after the ---
-> if it's administrative stuff.  This reduces mail volume and ensures that 
-> any important information is recorded in the changelog rather than being
-> lost. 
-> 
 
-Understood, sorry about that. Should I do a "clean" re-send for this one?
+--FsscpQKzF/jJk6ya
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Regards,
-Arnaud
+On Fri, Jul 17, 2020 at 01:34:34PM +0200, Arnaud Ferraris wrote:
+
+> Understood, sorry about that. Should I do a "clean" re-send for this one?
+
+It's fine, please just remember this for future submissions.
+
+--FsscpQKzF/jJk6ya
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8Rj3MACgkQJNaLcl1U
+h9DDqgf/eQ2QLdcqzuvznpoDrEQ0LM6SxnFnr3vplVVaQsHOluS09uLqLR+HkP2p
+hfONZTrrp2pEVi2rOBUwm8Q9Iw8llcsgfDSY4QIdM3OMW2RBx0eZbZzJuF4GEZG2
+q8oKUo2Ytc7Dw00dssXYUqEoYzAuKhcDjO0ik0J/omCjFvqX2h5CODQQRbSTSxQY
+HHQlH57XuzZvN48iU5PFISv8azIzQHe/BRJNRa/UC83eoaicJ38sahPkXkIE1vjq
+EM2viwQEbYK567qsSO6eKdt+SgrbV87awChbYGrL7f5+b40/NzUjXg5+E3BE+j4G
+17XXR4WyhCrLNtECvaAY4KCOPrmq+w==
+=maun
+-----END PGP SIGNATURE-----
+
+--FsscpQKzF/jJk6ya--

@@ -2,63 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A4C52236E8
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 10:20:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDBDC22374C
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 10:42:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9DEFE1697;
-	Fri, 17 Jul 2020 10:19:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DEFE1697
+	by alsa0.perex.cz (Postfix) with ESMTPS id 535F6167D;
+	Fri, 17 Jul 2020 10:41:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 535F6167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594974026;
-	bh=pzUN2Ov4biKzc5lYCqS8hlrROz0sJBM+ebPZ/iKV4SI=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1594975341;
+	bh=rwG02nvEfKkQY0Jo8FJSaccd5ZXlsY2U0MWt8Hi6PGI=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=aaB7rHYnjSrg9xEuX3ruATcfjc4+cvA9ncJ79jru0YVvcq8MQ9GQks5tyEREHiDGF
-	 viuNm7G04kEHazghC0Ey7hRkHct2LDIN4jIQhtBl716TxZfzog9l5dIPaTbSJWD34t
-	 gDpQsV0WAhey8z2t5IBV3jm5oiK4tQZq0zPSJt2I=
+	b=l0QUWYYFgamSe724o19gxuCWSgALMSm4cMtfMpA4nFqCCoJnGb44+dE8rd8RrvL25
+	 xfV2Au+3sQe5LNcbOxCYHlhptwn1Iaae3D+VDP6Q/j1Eoij1CetCl6yXhtrn1I5Tv8
+	 jgtGj8ViEKvjt7dbSi5PCgyw/qvS4HCarn+47EYA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2481BF8021D;
-	Fri, 17 Jul 2020 10:19:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7687CF8021D;
+	Fri, 17 Jul 2020 10:40:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D752DF80227; Fri, 17 Jul 2020 10:19:22 +0200 (CEST)
+ id ACB08F80217; Fri, 17 Jul 2020 10:40:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H4,
- RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B9F18F801D8
- for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 10:19:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9F18F801D8
-Received: from DGGEMS403-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id 536C352A645CA3F5BF09;
- Fri, 17 Jul 2020 16:19:10 +0800 (CST)
-Received: from localhost.localdomain.localdomain (10.175.113.25) by
- DGGEMS403-HUB.china.huawei.com (10.3.19.203) with Microsoft SMTP Server id
- 14.3.487.0; Fri, 17 Jul 2020 16:19:02 +0800
-From: Jing Xiangfeng <jingxiangfeng@huawei.com>
-To: <jbrunet@baylibre.com>, <lgirdwood@gmail.com>, <broonie@kernel.org>,
- <perex@perex.cz>, <tiwai@suse.com>, <khilman@baylibre.com>,
- <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2] ASoC: meson: fixes the missed kfree() for
- axg_card_add_tdm_loopback
-Date: Fri, 17 Jul 2020 16:22:42 +0800
-Message-ID: <20200717082242.130627-1-jingxiangfeng@huawei.com>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.175.113.25]
-X-CFilter-Loop: Reflected
-Cc: linux-amlogic@lists.infradead.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- jingxiangfeng@huawei.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4103DF800E4
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 10:40:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4103DF800E4
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 22039B829
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 08:40:28 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: info: Drop WARN_ON() from buffer NULL sanity check
+Date: Fri, 17 Jul 2020 10:40:23 +0200
+Message-Id: <20200717084023.5928-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.16.4
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,29 +61,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-axg_card_add_tdm_loopback() misses to call kfree() in an error path. We
-can use devm_kasprintf() to fix the issue, also improve maintainability.
-So use it instead.
+snd_info_get_line() has a sanity check of NULL buffer -- both buffer
+itself being NULL and buffer->buffer being NULL.  Basically both
+checks are valid and necessary, but the problem is that it's with
+snd_BUG_ON() macro that triggers WARN_ON().  The latter condition
+(NULL buffer->buffer) can be met arbitrarily by user since the buffer
+is allocated at the first write, so it means that user can trigger
+WARN_ON() at will.
 
-Fixes: c84836d7f650 ("ASoC: meson: axg-card: use modern dai_link style")
-Signed-off-by: Jing Xiangfeng <jingxiangfeng@huawei.com>
+This patch addresses it by simply moving buffer->buffer NULL check out
+of snd_BUG_ON() so that spurious WARNING is no longer triggered.
+
+Reported-by: syzbot+e42d0746c3c3699b6061@syzkaller.appspotmail.com
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/soc/meson/axg-card.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/core/info.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/meson/axg-card.c b/sound/soc/meson/axg-card.c
-index 89f7f64747cd..47f2d93224fe 100644
---- a/sound/soc/meson/axg-card.c
-+++ b/sound/soc/meson/axg-card.c
-@@ -116,7 +116,7 @@ static int axg_card_add_tdm_loopback(struct snd_soc_card *card,
+diff --git a/sound/core/info.c b/sound/core/info.c
+index 8c6bc5241df5..9fec3070f8ba 100644
+--- a/sound/core/info.c
++++ b/sound/core/info.c
+@@ -606,7 +606,9 @@ int snd_info_get_line(struct snd_info_buffer *buffer, char *line, int len)
+ {
+ 	int c;
  
- 	lb = &card->dai_link[*index + 1];
- 
--	lb->name = kasprintf(GFP_KERNEL, "%s-lb", pad->name);
-+	lb->name = devm_kasprintf(card->dev, GFP_KERNEL, "%s-lb", pad->name);
- 	if (!lb->name)
- 		return -ENOMEM;
- 
+-	if (snd_BUG_ON(!buffer || !buffer->buffer))
++	if (snd_BUG_ON(!buffer))
++		return 1;
++	if (!buffer->buffer)
+ 		return 1;
+ 	if (len <= 0 || buffer->stop || buffer->error)
+ 		return 1;
 -- 
-2.17.1
+2.16.4
 

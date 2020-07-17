@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37CA4223FD2
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 17:43:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C32F4223FD7
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 17:43:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D196F15DC;
-	Fri, 17 Jul 2020 17:42:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D196F15DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 68F5C1679;
+	Fri, 17 Jul 2020 17:42:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68F5C1679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595000595;
-	bh=oUWXy3XEEdACj4VXB3S0A8gloCT8UAGtaaANZlTOhcY=;
+	s=default; t=1595000611;
+	bh=zZZXKkoo6jRo9cnEc915dxdlDYp+1O3LpZF62jp+s98=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=en2IQmbirweJaTxz+YCwXS95nKRwzO03A+Vc8JlN2ZnQbijhfi3pYJUEKIz2nXZNj
-	 3eBrgQtEOUQHnK8pTK4DNvfaXoE6NrlohI8MtVERBMHyHxN0XmILo61ilH+X0LbxvB
-	 1ILEG/ZeNEhZu7iDK7Jdjq4ZJaISLg8A9UGX3cs4=
+	b=GZV7+ZI8nie4NpcrRDeS26OVVIZenD8vznRFyBgvb0VtqqmEQSt51EpaNDM435Y5Y
+	 O1XWjFbQEbkNZibo8CynbxASgSZiIt6iLPG/5Hcvf1HT57xvMjeyUh/u+pW9OnT+Uz
+	 mUog/syz0v4dl41c5ILN8CnZUPAnkQMBTaCkkw5s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F36EEF802C3;
-	Fri, 17 Jul 2020 17:40:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AC635F802E0;
+	Fri, 17 Jul 2020 17:40:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 59F28F80229; Fri, 17 Jul 2020 17:40:06 +0200 (CEST)
+ id 61EA8F802DF; Fri, 17 Jul 2020 17:40:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,47 +34,36 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0632CF80110
- for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 17:40:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0632CF80110
+ by alsa1.perex.cz (Postfix) with ESMTPS id CCE50F802DB
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 17:40:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCE50F802DB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="egmxPzhC"
+ header.b="wCWypbZZ"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D94742076A;
- Fri, 17 Jul 2020 15:40:00 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id DD3F3207DD;
+ Fri, 17 Jul 2020 15:40:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1595000401;
- bh=oUWXy3XEEdACj4VXB3S0A8gloCT8UAGtaaANZlTOhcY=;
+ s=default; t=1595000406;
+ bh=zZZXKkoo6jRo9cnEc915dxdlDYp+1O3LpZF62jp+s98=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=egmxPzhCJaO5Pklo2wFUgCisrdBaL7j2ncVrgoys66Ov9LXhgVzxXGFqIlODz/BYm
- SBeDYsmknwq4gkwP74D2/j5goaQrPlJbtdJY2ErVv8nPqEDRjP6D+aAJZpnM8njnoZ
- FRAkq9i/JLIztXRgN6hLt6p5JYwLKxyZ+Mt0PWp4=
-Date: Fri, 17 Jul 2020 16:39:50 +0100
+ b=wCWypbZZF7PLbOUbetRlsgfqG3+u73IGwbKUGEPdUuXOLMwHzN+f+DZ+/7TKvV0JI
+ osW7ch72As13d4Dc9d38g2D99ZnGpzLIsPL0QCWJMziadUCdX5I3S76a6fPKQjTSl/
+ JB/IN903+jeKxLY/cxvXNV2tPW6jZ9+shlCQ+rTo=
+Date: Fri, 17 Jul 2020 16:39:55 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Jens Axboe <axboe@kernel.dk>, Liam Girdwood <lgirdwood@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Kishon Vijay Abraham I <kishon@ti.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Marek Vasut <marek.vasut+renesas@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Niklas <niklas.soderlund@ragnatech.se>, devicetree@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>
-In-Reply-To: <1594919915-5225-1-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <1594919915-5225-1-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH 00/20] Add support for SATA/PCIe/USB2[3]/VIN/CSI on
- R8A774E1
-Message-Id: <159500037996.27597.9512992990495217445.b4-ty@kernel.org>
-Cc: alsa-devel@alsa-project.org, linux-pci@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-ide@vger.kernel.org,
- Prabhakar <prabhakar.csengg@gmail.com>, linux-i2c@vger.kernel.org,
- dmaengine@vger.kernel.org, linux-media@vger.kernel.org
+To: tiwai@suse.com, kuninori.morimoto.gx@renesas.com, lgirdwood@gmail.com,
+ Jing Xiangfeng <jingxiangfeng@huawei.com>, perex@perex.cz,
+ khilman@baylibre.com, jbrunet@baylibre.com
+In-Reply-To: <20200717082242.130627-1-jingxiangfeng@huawei.com>
+References: <20200717082242.130627-1-jingxiangfeng@huawei.com>
+Subject: Re: [PATCH v2] ASoC: meson: fixes the missed kfree() for
+ axg_card_add_tdm_loopback
+Message-Id: <159500037996.27597.11571662104348843402.b4-ty@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,17 +79,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 16 Jul 2020 18:18:15 +0100, Lad Prabhakar wrote:
-> This patch series adds support for the following peripherals on RZ/G2H SoC
->  * PCIe
->  * SATA
->  * USB2
->  * USB3
->  * Audio
->  * VIN
->  * CSI
-> 
-> [...]
+On Fri, 17 Jul 2020 16:22:42 +0800, Jing Xiangfeng wrote:
+> axg_card_add_tdm_loopback() misses to call kfree() in an error path. We
+> can use devm_kasprintf() to fix the issue, also improve maintainability.
+> So use it instead.
 
 Applied to
 
@@ -108,8 +90,8 @@ Applied to
 
 Thanks!
 
-[1/1] dt-bindings: sound: renesas, rsnd: Document r8a774e1 bindings
-      commit: 92e37407811b98a7eb54eb6a6b3d65847a46e0e6
+[1/1] ASoC: meson: fixes the missed kfree() for axg_card_add_tdm_loopback
+      commit: bd054ece7d9cdd88e900df6625e951a01d9f655e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

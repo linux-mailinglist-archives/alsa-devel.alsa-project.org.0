@@ -2,101 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFC7A223F0F
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 17:03:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18993223F5F
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 17:20:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 233121615;
-	Fri, 17 Jul 2020 17:03:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 233121615
+	by alsa0.perex.cz (Postfix) with ESMTPS id A47631607;
+	Fri, 17 Jul 2020 17:19:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A47631607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594998234;
-	bh=8sDjfq/IG2PDXRYJmC55H23rgSfCu/D3F3sS0XGudkw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1594999204;
+	bh=RS6zSbkIqqcGrPuQyhiXMkqSgHUJmTOSt6lcBsCETjs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bGvTPl5cGYdanqj5B8MpVNJI4CYsBY2ku33/cwuUyxDiCsiGW1VHfT5kVfaqba0JK
-	 1yBSOs2QJ6bj2eOSE9l7Xg733vaRYQXWs7+Y2S6WeE0JXwNEKJ+TiUdeHPBndQSJvp
-	 DK/YTAEHAL3vn6vXh9CnS4IrvcD2BlQgFKcFkqGQ=
+	b=FRka5ntSyrYits3A3jVVNiDpccSMV+7pQyERTFqjj79IYhtJv/oHl3uC+tVjuowEQ
+	 1kWmRNCaHWt3e75rW/wr0qU6Be4EcbPHUvSI98mKdaKetIy1jXljTkxhdbj0pIbpro
+	 jBE8YCwLsqIXQthbF4MSn78Tr5TaMydu5GMVE5Wo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C4D9F80110;
-	Fri, 17 Jul 2020 17:02:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AEE61F800E4;
+	Fri, 17 Jul 2020 17:18:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 73921F80217; Fri, 17 Jul 2020 17:02:11 +0200 (CEST)
+ id CF08AF80217; Fri, 17 Jul 2020 17:18:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-vk1-xa44.google.com (mail-vk1-xa44.google.com
- [IPv6:2607:f8b0:4864:20::a44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1BF4CF80110
- for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 17:02:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BF4CF80110
+ by alsa1.perex.cz (Postfix) with ESMTPS id C8EECF800E4
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 17:18:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8EECF800E4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="YooeeixG"
-Received: by mail-vk1-xa44.google.com with SMTP id q85so2179652vke.4
- for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 08:02:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=7Aj8c3ItAShnnsLNIQ3E8MXZ0tu8sMgycVZ8H2IhzgY=;
- b=YooeeixG0/jkhNIRHh3/Ok41dsT/OX3z2lbp1dsvYYWgOvjgGAeQzWt4/nwPKnz3Mv
- uXq028FmcWMT8/xVvpnT5J5b/dVVSVDK5eofaCaIcodv7fnB3wrg/uKVe0+25lcrLv/3
- WamTri+dPxncC4RrX/4vmXrs97xe8dnN1V6/E=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=7Aj8c3ItAShnnsLNIQ3E8MXZ0tu8sMgycVZ8H2IhzgY=;
- b=jYGxp/oRTzmuLj9B4F294jQJesvoGJ7ZkJpeTeqOZOdVwjbfkKC3Jlg10zS4PFgi9f
- XY7GNpptlWNUeYM3XpG4TYAmXxoKo/sc1k+Axq+V9swXf64HAXVMqntDpvEOYWZp38ES
- 4feEbOk0KWtko5ofbbjS0JRD4Cus1ehG2q/HN+WdXmZ0y8oDkx78JhZQ4xhm/uA/F+I3
- 06nsEsWZJgEnEt8d9ms46Wyq/hNTmeo1dkEs7XpjO+nZNyFUw44BDitvYxTAbvczJJle
- hNx/T0u/Ji9szzO+SbFvlkrz0gsCAbbkNb5m9rWbf5rIBtWjQWr90G0cJWv0OKXDRS6x
- EYEA==
-X-Gm-Message-State: AOAM531oc9e9ZGIA1Etal4/7nMb00RhNQ9Q2fH36vd3YvRGMZB3m2rvF
- zHOsEgtaka16CZtf/88n8uG1jlGo0Yo=
-X-Google-Smtp-Source: ABdhPJz1HUG9pteU4EGaLZ6hMBt5CjN2BKtIeT0jB34q3Hfc+eDsPyGFtVHu85vfsFSUgxR2qhaccw==
-X-Received: by 2002:ac5:c912:: with SMTP id t18mr7583896vkl.54.1594998121520; 
- Fri, 17 Jul 2020 08:02:01 -0700 (PDT)
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com.
- [209.85.221.169])
- by smtp.gmail.com with ESMTPSA id a71sm995936vsd.12.2020.07.17.08.02.00
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Jul 2020 08:02:00 -0700 (PDT)
-Received: by mail-vk1-f169.google.com with SMTP id m21so2179855vkp.1
- for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 08:02:00 -0700 (PDT)
-X-Received: by 2002:a1f:3d4a:: with SMTP id k71mr7624402vka.65.1594998119832; 
- Fri, 17 Jul 2020 08:01:59 -0700 (PDT)
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="oLrCBcii"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 07735204EA;
+ Fri, 17 Jul 2020 15:18:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1594999088;
+ bh=RS6zSbkIqqcGrPuQyhiXMkqSgHUJmTOSt6lcBsCETjs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=oLrCBciiORmqncK64Bcq2D9T82vkHN7zZrUlDjFCoIKcbug3yhyuCXUSAycset3O2
+ DiBTvjVgmkyZPX/bSP8BnCaDOS49xDlLFNQ+ZNnMCoqhUoQZDcO67op7OZgrVJ+DYD
+ Ca/X4C8T9PqTPZdRutfxMzDa8bVX2TcYosgrETuQ=
+Date: Fri, 17 Jul 2020 16:17:57 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Fabio Estevam <festevam@gmail.com>
+Subject: Re: wm8962: error at soc_component_read_no_lock
+Message-ID: <20200717151757.GA36674@sirena.org.uk>
+References: <CAOMZO5Bhhcmm6ex0nP6MnYq0Uf8EMYCMMFOMav-fCrVJvOY+vQ@mail.gmail.com>
+ <87o8of2gb8.wl-kuninori.morimoto.gx@renesas.com>
+ <20200717112332.GB4316@sirena.org.uk>
+ <CAOMZO5D1BMjNcf-2z11uzCc46yCA2-GTWh+V28Y7WhrSAM_+Cg@mail.gmail.com>
+ <CAOMZO5CjMa0JHfSrMdntmj1_gHoZoqsJhdjU8xR9-1LPupcDAw@mail.gmail.com>
 MIME-Version: 1.0
-References: <20200717120207.3471030-1-cychiang@chromium.org>
-In-Reply-To: <20200717120207.3471030-1-cychiang@chromium.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 17 Jul 2020 08:01:48 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=XFayyvT-b9C3f4pXNkboH7kb7ikyi9qJxmNvowOfkjqQ@mail.gmail.com>
-Message-ID: <CAD=FV=XFayyvT-b9C3f4pXNkboH7kb7ikyi9qJxmNvowOfkjqQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] ASoC: qcom: dt-bindings: Add sc7180 machine bindings
-To: Cheng-Yi Chiang <cychiang@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Taniya Das <tdas@codeaurora.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Banajit Goswami <bgoswami@codeaurora.org>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Patrick Lai <plai@codeaurora.org>, Takashi Iwai <tiwai@suse.com>,
- LKML <linux-kernel@vger.kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Mark Brown <broonie@kernel.org>,
- Rohit kumar <rohitkr@codeaurora.org>, Andy Gross <agross@kernel.org>,
- tzungbi@chromium.org, Dylan Reid <dgreid@chromium.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="Q68bSM7Ycu6FN28Q"
+Content-Disposition: inline
+In-Reply-To: <CAOMZO5CjMa0JHfSrMdntmj1_gHoZoqsJhdjU8xR9-1LPupcDAw@mail.gmail.com>
+X-Cookie: hipatitis:
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Nicolin Chen <nicoleotsuka@gmail.com>, "S.j. Wang" <shengjiu.wang@nxp.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,204 +88,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
 
-On Fri, Jul 17, 2020 at 5:02 AM Cheng-Yi Chiang <cychiang@chromium.org> wrote:
->
-> Add devicetree bindings documentation file for sc7180 sound card.
->
-> Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
-> ---
->  .../bindings/sound/qcom,sc7180.yaml           | 123 ++++++++++++++++++
->  1 file changed, 123 insertions(+)
+--Q68bSM7Ycu6FN28Q
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-A bit of a mechanical review since my audio knowledge is not strong.
+On Fri, Jul 17, 2020 at 10:01:30AM -0300, Fabio Estevam wrote:
 
+> If I move WM8962_ADDITIONAL_CONTROL_4 to the non-volatile region, the
+> two errors related to this register are gone:
 
->  create mode 100644 Documentation/devicetree/bindings/sound/qcom,sc7180.yaml
->
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,sc7180.yaml b/Documentation/devicetree/bindings/sound/qcom,sc7180.yaml
-> new file mode 100644
-> index 000000000000..d60d2880d991
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/qcom,sc7180.yaml
-> @@ -0,0 +1,123 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/qcom,sc7180.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Technologies Inc. SC7180 ASoC sound card driver
-> +
-> +maintainers:
-> +  - Rohit kumar <rohitkr@codeaurora.org>
-> +  - Cheng-Yi Chiang <cychiang@chromium.org>
-> +
-> +description: |
-> +  This binding describes the SC7180 sound card, which uses LPASS for audio.
+IIRC that register really did have some volatile bits in it, I can't
+remember what they were or if they were important though.  It's not
+fundamentally wrong and if the volatile bits don't practically matter
+for Linux it would be sensible enough.
 
-nit: you don't need the pipe at the end of the "description" line.
-That means that newlines are important and you don't need it.
+--Q68bSM7Ycu6FN28Q
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
-> +definitions:
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8RwSQACgkQJNaLcl1U
+h9B7YQf/Z/PgQt8jy0qM0uwMXx6B0b9FMHkVQtyTGzNDN+lSZtKhFYgkd8aee3Mr
+01TT5eunx9an6vQqjBAPafaYtlny/rSHRM1G40svhhl5HV/WoKdnneTr3dZUPl+D
+5ahrihLBei6QgiQejWKqWwklgK1pMiyrrgur5cDosvNpEjPECBBBWgQ2Y17/CPwb
+JZz/tck6hSGd5vkXjOZAEThB6G2SN49fiNiDRIZYtMv9/vqHZF9hUbTGs3qerWF8
+n92d3bezd0/Zuemn19H6ONIpLIWW2DCmvGI62SRmmFe686sDf+UuNq3092fXFjKC
+5siShfjkgpjjOtnUYiAkUmM0CJWSIQ==
+=W1Ny
+-----END PGP SIGNATURE-----
 
-I haven't yet seen much yaml using definitions like this.  It feels
-like overkill for some of these properties, especially ones that are
-only ever used once in the "properties:" section and are/or are really
-simple.
-
-
-> +  link-name:
-> +    description: Indicates dai-link name and PCM stream name.
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    maxItems: 1
-> +
-> +  dai:
-> +    type: object
-> +    properties:
-> +      sound-dai:
-> +        maxItems: 1
-> +        $ref: /schemas/types.yaml#/definitions/phandle-array
-> +        description: phandle array of the codec or CPU DAI
-> +
-> +    required:
-> +      - sound-dai
-> +
-> +  unidirectional:
-> +    description: Specify direction of unidirectional dai link.
-> +                 0 for playback only. 1 for capture only.
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-
-So if the property isn't there then it's _not_ unidirectional and if
-it is there then this specifies the direction, right?  I almost wonder
-if this should just be two boolean properties, like:
-
-playback-only;
-capture-only;
-
-...but I guess I'd leave it to Rob and/or Mark to say what they liked
-better.  In any case if you keep it how you have it then you should
-use yaml to force it to be either 0 or 1 if present.
-
-
-> +
-> +properties:
-> +  compatible:
-> +    contains:
-> +      enum:
-> +        - qcom,sc7180-sndcard
-
-Just:
-
-properties:
-  compatible:
-    const: qcom,sc7180-sndcard
-
-
-
-> +  audio-routing:
-> +    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-> +    description: |-
-> +      A list of the connections between audio components. Each entry is a
-> +      pair of strings, the first being the connection's sink, the second
-> +      being the connection's source.
-
-You don't need the "|-" after the "description:".  That says newlines
-are important but strip the newline from the end.
-
-
-> +  model:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description: User specified audio sound card name
-> +
-> +patternProperties:
-> +  "^dai-link-[0-9]+$":
-> +    description: |
-> +      Each subnode represents a dai link. Subnodes of each dai links would be
-> +      cpu/codec dais.
-
-From looking at "simple-card.yaml", I'm gonna guess that instead of
-encoding the link number in the name of the node that you should
-actually use a unit address and a reg in the subnodes.
-
-...also, again your description doesn't need the "|" at the end.
-Maybe <https://yaml-multiline.info/> will be useful to you?
-
-
-> +    type: object
-> +
-> +    properties:
-> +      link-name:
-> +        $ref: "#/definitions/link-name"
-> +
-> +      unidirectional:
-> +        $ref: "#/definitions/unidirectional"
-> +
-> +      cpu:
-> +        $ref: "#/definitions/dai"
-> +
-> +      codec:
-> +        $ref: "#/definitions/dai"
-> +
-> +    required:
-> +      - link-name
-> +      - cpu
-> +      - codec
-> +
-> +    additionalProperties: false
-> +
-> +examples:
-> +
-> +  - |
-> +    snd {
-
-Can you use the full node name "sound" here?
-
-
-> +        compatible = "qcom,sc7180-sndcard";
-> +        model = "sc7180-snd-card";
-> +
-> +        pinctrl-names = "default";
-> +        pinctrl-0 = <&sec_mi2s_active &sec_mi2s_dout_active
-> +                     &sec_mi2s_ws_active &pri_mi2s_active
-> +                     &pri_mi2s_dout_active &pri_mi2s_ws_active
-> +                     &pri_mi2s_din_active &pri_mi2s_mclk_active>;
-
-I think pinctrl is usually not in the dt examples.
-
-...also, shouldn't the mi2s pinctrl be in the i2s nodes, not in the
-overall sound node?
-
-
-> +        audio-routing =
-> +                    "Headphone Jack", "HPOL",
-> +                    "Headphone Jack", "HPOR";
-> +
-> +        dai-link-0 {
-> +            link-name = "MultiMedia0";
-> +            cpu {
-> +                sound-dai = <&lpass_cpu 0>;
-> +            };
-> +
-> +            codec {
-> +                sound-dai = <&alc5682 0>;
-> +            };
-> +        };
-> +
-> +        dai-link-1 {
-> +            link-name = "MultiMedia1";
-> +            unidirectional = <0>;
-> +            cpu {
-> +                sound-dai = <&lpass_cpu 1>;
-> +            };
-> +
-> +            codec {
-> +                sound-dai = <&max98357a>;
-> +            };
-> +        };
-> +    };
-> --
-> 2.28.0.rc0.105.gf9edc3c819-goog
->
+--Q68bSM7Ycu6FN28Q--

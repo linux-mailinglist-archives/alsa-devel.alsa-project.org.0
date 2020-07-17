@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 915CE223FCD
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 17:41:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37CA4223FD2
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 17:43:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D53D1615;
-	Fri, 17 Jul 2020 17:40:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D53D1615
+	by alsa0.perex.cz (Postfix) with ESMTPS id D196F15DC;
+	Fri, 17 Jul 2020 17:42:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D196F15DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595000506;
-	bh=ZbC+gDl7WuYsyoEZK9jriCDYB/kmxm2hu4oLKRUdqVE=;
+	s=default; t=1595000595;
+	bh=oUWXy3XEEdACj4VXB3S0A8gloCT8UAGtaaANZlTOhcY=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OgzlordVQW24GYPQFDLa1XqHtlBOpYDsV+llj03CTJRHAdv4849SiNFYAhTK4E8ya
-	 2L38bJLfWLoNMLre/i2E3Xl+sLjFWY9876RHY6sGCoLiQsdWYepCYvJlpmwzhsB9qh
-	 QaW6JApSfOin/uTt0ciAe70aMCOBptpqCUw/VJK8=
+	b=en2IQmbirweJaTxz+YCwXS95nKRwzO03A+Vc8JlN2ZnQbijhfi3pYJUEKIz2nXZNj
+	 3eBrgQtEOUQHnK8pTK4DNvfaXoE6NrlohI8MtVERBMHyHxN0XmILo61ilH+X0LbxvB
+	 1ILEG/ZeNEhZu7iDK7Jdjq4ZJaISLg8A9UGX3cs4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CAB09F8021D;
-	Fri, 17 Jul 2020 17:40:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F36EEF802C3;
+	Fri, 17 Jul 2020 17:40:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 771EDF80227; Fri, 17 Jul 2020 17:40:01 +0200 (CEST)
+ id 59F28F80229; Fri, 17 Jul 2020 17:40:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,33 +34,47 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1593DF801D8
- for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 17:39:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1593DF801D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0632CF80110
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 17:40:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0632CF80110
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="J9eSijix"
+ header.b="egmxPzhC"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D73012076A;
- Fri, 17 Jul 2020 15:39:55 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id D94742076A;
+ Fri, 17 Jul 2020 15:40:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1595000396;
- bh=ZbC+gDl7WuYsyoEZK9jriCDYB/kmxm2hu4oLKRUdqVE=;
+ s=default; t=1595000401;
+ bh=oUWXy3XEEdACj4VXB3S0A8gloCT8UAGtaaANZlTOhcY=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=J9eSijixam3yIOX+GVYvq/o5r+fO6G10amtS3F7Io3UeLmGibf1lb8huE5gIbGIXn
- CXr19sVSx79+//Sd2G/GdD8RpG0j0kQzheEH48g9NBzmw8prCK/d+2BbMvvCa8mGTQ
- jGbYFBgHnPvvJvPI8J1zWTbiglvDlWKs1/j9PMak=
-Date: Fri, 17 Jul 2020 16:39:45 +0100
+ b=egmxPzhCJaO5Pklo2wFUgCisrdBaL7j2ncVrgoys66Ov9LXhgVzxXGFqIlODz/BYm
+ SBeDYsmknwq4gkwP74D2/j5goaQrPlJbtdJY2ErVv8nPqEDRjP6D+aAJZpnM8njnoZ
+ FRAkq9i/JLIztXRgN6hLt6p5JYwLKxyZ+Mt0PWp4=
+Date: Fri, 17 Jul 2020 16:39:50 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <875zam3bmk.wl-kuninori.morimoto.gx@renesas.com>
-References: <875zam3bmk.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH] ASoC: soc-dai.h: don't use discriminatory terms for
- comment
-Message-Id: <159500037996.27597.7953835559890054472.b4-ty@kernel.org>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+To: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Jens Axboe <axboe@kernel.dk>, Liam Girdwood <lgirdwood@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Kishon Vijay Abraham I <kishon@ti.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Marek Vasut <marek.vasut+renesas@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Niklas <niklas.soderlund@ragnatech.se>, devicetree@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Magnus Damm <magnus.damm@gmail.com>
+In-Reply-To: <1594919915-5225-1-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <1594919915-5225-1-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH 00/20] Add support for SATA/PCIe/USB2[3]/VIN/CSI on
+ R8A774E1
+Message-Id: <159500037996.27597.9512992990495217445.b4-ty@kernel.org>
+Cc: alsa-devel@alsa-project.org, linux-pci@vger.kernel.org,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-ide@vger.kernel.org,
+ Prabhakar <prabhakar.csengg@gmail.com>, linux-i2c@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-media@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,10 +90,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 17 Jul 2020 15:22:26 +0900, Kuninori Morimoto wrote:
-> soc-dai is using discriminatory terms for comment.
-> This patch renames "slave" to "secondary", thus
-> we can keep M/S initials.
+On Thu, 16 Jul 2020 18:18:15 +0100, Lad Prabhakar wrote:
+> This patch series adds support for the following peripherals on RZ/G2H SoC
+>  * PCIe
+>  * SATA
+>  * USB2
+>  * USB3
+>  * Audio
+>  * VIN
+>  * CSI
+> 
+> [...]
 
 Applied to
 
@@ -87,8 +108,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: soc-dai.h: don't use discriminatory terms for comment
-      commit: ca00e66c1bc875aef7d84ec16418e08a14d0cda9
+[1/1] dt-bindings: sound: renesas, rsnd: Document r8a774e1 bindings
+      commit: 92e37407811b98a7eb54eb6a6b3d65847a46e0e6
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

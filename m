@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6288A223A72
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 13:23:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D3BD223A78
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jul 2020 13:24:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E906F1660;
-	Fri, 17 Jul 2020 13:23:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E906F1660
+	by alsa0.perex.cz (Postfix) with ESMTPS id A35A4886;
+	Fri, 17 Jul 2020 13:23:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A35A4886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1594985039;
-	bh=4Ytl/sJApXV4/rt16Tz5YqZRmbwVqcvOPJ+WrmLBSIw=;
+	s=default; t=1594985088;
+	bh=tHXHufgWfuOBgCZPBB6jyf/yLEDUH1W1shg16H3v7oo=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SKuNlX/UDcCf8/gz8MHDFFZvWCzQesbYYk1J6D4hwDUB0iCuZ5fqYbH4tglgz6Vs+
-	 PIw63DZyLQFj6GcF3PGJ2dht4qEJ2WZpWy1raVHGIrDq03UPm1BU33Xjn+bjhg8nwu
-	 se6tX/x038wjUL31fl/eJ2Sfh2Y26UW05ZrAW2fw=
+	b=pnZdhCSvb7TmSuG1jE9A4kl++hIeHPudk4mqLf0XxKO+O+zYhJEK64rPfDZqo9uB/
+	 CcJsV/Re+CZZ50k2TT5eEgii4spu6zNfFIRbdfvATznwvxuyJprjAtEm4d5w8q8RhN
+	 R5W4JKE2hPcHItEUiW8T8GJu+cCnk3o4uB5mbzgw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F01C8F801D8;
-	Fri, 17 Jul 2020 13:22:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25B02F80229;
+	Fri, 17 Jul 2020 13:23:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F676F80217; Fri, 17 Jul 2020 13:22:16 +0200 (CEST)
+ id AE74CF80227; Fri, 17 Jul 2020 13:23:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,43 +34,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3307BF80110
- for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 13:22:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3307BF80110
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB87BF80110
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jul 2020 13:23:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB87BF80110
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="AfEOvqoS"
+ header.b="gq9lPHEE"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2B94320734;
- Fri, 17 Jul 2020 11:22:07 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id C0FDC20734;
+ Fri, 17 Jul 2020 11:23:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594984927;
- bh=4Ytl/sJApXV4/rt16Tz5YqZRmbwVqcvOPJ+WrmLBSIw=;
+ s=default; t=1594985023;
+ bh=tHXHufgWfuOBgCZPBB6jyf/yLEDUH1W1shg16H3v7oo=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=AfEOvqoSmBqSuZ3IGZrCNgaEKKyAJrLH9mU99LQvawWDxFCaTs78HCYeflnfPK61R
- tJqGICRWpojrt4iXZhd8qKRhlYtLUGmPmXBEK+GAU3j/Kvof1igZFdi0/lE21Q0eL2
- lZT/XLVFvff+JAIz+bdonDDX9JyTGaCqUDa72oro=
-Date: Fri, 17 Jul 2020 12:21:56 +0100
+ b=gq9lPHEEpQaLxHOStgtiCI2pUNXcy2laEW8wipENK9pH5okAPVZrhKvXEM387qmqS
+ HlYsH6pAhSjcPyWc7GD0noMLJTYsLFYE2c2r79/ANCLKlHQR1wL04Tv/tUbbZ9QYfL
+ op9rVDE7fZ7Nu0fgtzlsorkSRB6dp0AebMWdkeN8=
+Date: Fri, 17 Jul 2020 12:23:32 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Arnaud Ferraris <arnaud.ferraris@collabora.com>
-Subject: Re: [PATCH v3 0/1] ASoC: fsl_asrc: always select different clocks
-Message-ID: <20200717112156.GA4316@sirena.org.uk>
-References: <20200716232000.GA27246@Asurada-Nvidia>
- <20200717103857.31877-1-arnaud.ferraris@collabora.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: wm8962: error at soc_component_read_no_lock
+Message-ID: <20200717112332.GB4316@sirena.org.uk>
+References: <CAOMZO5Bhhcmm6ex0nP6MnYq0Uf8EMYCMMFOMav-fCrVJvOY+vQ@mail.gmail.com>
+ <87o8of2gb8.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="3MwIy2ne0vdjdPXF"
+ protocol="application/pgp-signature"; boundary="tsOsTdHNUZQcU9Ye"
 Content-Disposition: inline
-In-Reply-To: <20200717103857.31877-1-arnaud.ferraris@collabora.com>
+In-Reply-To: <87o8of2gb8.wl-kuninori.morimoto.gx@renesas.com>
 X-Cookie: No other warranty expressed or implied.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Nicolin Chen <nicoleotsuka@gmail.com>, kernel@collabora.com,
- Shengjiu Wang <shengjiu.wang@gmail.com>
+Cc: Nicolin Chen <nicoleotsuka@gmail.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ "S.j. Wang" <shengjiu.wang@nxp.com>, Fabio Estevam <festevam@gmail.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,38 +86,43 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---3MwIy2ne0vdjdPXF
+--tsOsTdHNUZQcU9Ye
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jul 17, 2020 at 12:38:56PM +0200, Arnaud Ferraris wrote:
-> This patch fixes the automatic clock selection so it always selects
-> distinct input and output clocks.
+On Fri, Jul 17, 2020 at 08:26:33AM +0900, Kuninori Morimoto wrote:
+> > wm8962 0-001a: ASoC: error at soc_component_read_no_lock on wm8962.0-001a: -16
+> > wm8962 0-001a: ASoC: error at soc_component_read_no_lock on wm8962.0-001a: -16
+> >  input: WM8962 Beep Generator as
+> > /devices/platform/soc/2100000.bus/21a0000.i2c/i2c-0/0-001a/input/input3
+> > wm8962 0-001a: ASoC: error at soc_component_read_no_lock on wm8962.0-001a: -16
+> > wm8962 0-001a: ASoC: error at soc_component_read_no_lock on wm8962.0-001a: -16
 
-Please don't send new patches in reply to old ones, it buries things and
-makes it hard to keep track of what the current version of a series
-looks like.  Just send new versions as a completely new thread.
+> > Despite these errors, the codec probes fine.
 
-Please don't send cover letters for single patches, if there is anything
-that needs saying put it in the changelog of the patch or after the ---
-if it's administrative stuff.  This reduces mail volume and ensures that=20
-any important information is recorded in the changelog rather than being
-lost.=20
+> > What is the correct way to avoid such errors?
 
---3MwIy2ne0vdjdPXF
+> New component function indicates above when error.
+> It seems yours couldn't read because of busy.
+> I think it had been happened, but didn't indicate it before.
+
+Right, IIRC the wm8962 had some registers that weren't accessible all
+the time and possibly also some volatile bits - the driver will need
+updates to handle things better for these widgets.
+
+--tsOsTdHNUZQcU9Ye
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8RidAACgkQJNaLcl1U
-h9BABgf+McXrUIeMmHD9s/UnkWkyNJ4PKl5NQIIRBqxooaMsMM8EleOfLVIvm21q
-gpXLvv741e7NL5slM0lyEmbPOGkrOlQtAXqQRfjXrE058oe69xfZc81UBJyY/qGs
-6FHaHrv/I7t8Qi/P4omXIkWV7o8dYepW8bqoGmGaj+sWokZRH/2t+RtUhIqWGL/T
-h2GOGFLnNU62s0KhCin26ASw2lf+Yn7aiVPylMz985lOH+eRL6hCaCnWFEeeoeyC
-Ik2ICPmAdoqofYG6Nh1Su1w4hZC6gAhh8VheBeHjWoK5+6rJcRZ+uB1cWwSl458n
-kGpe9Jse9m2ZILav2E4WlGb5ncO4JA==
-=UqXD
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8RijMACgkQJNaLcl1U
+h9BHDwf/Wdwzr1Wb01xlSjCW4OGxihAcj8ikmyVs47EOpLQO0WqJFm6Xb4mq+E4B
+Gl2srn8xC5u6Bhz/X7msx9rZ+q6csCbP/qILWGgzvJddtErGNjGlqs2ggzfN3jQH
+j3pNMsiWpG9KNO2vI7iAxaczX6zN8LJ164kAKRVqdE1z1kjyutt7XgYDIN1DAc5O
+Az6xZ8SFnwWbBd5xJ6Hb3m3YsC10xTKKInr+t+CnzF/q/fEzuckVYSpXgQ3fGZ1u
+w1wk08Qg2molOInrH73GygL9adXpd7pWVYFKl4HSwlrrpb34wFjegOK3GWB7031e
+RSVgAFUQBNPfFf+LiKlhHEvgAiK2yw==
+=21cK
 -----END PGP SIGNATURE-----
 
---3MwIy2ne0vdjdPXF--
+--tsOsTdHNUZQcU9Ye--

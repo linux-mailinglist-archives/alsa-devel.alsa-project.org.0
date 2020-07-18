@@ -2,81 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0EB72258AD
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 09:35:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C7F32258B3
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 09:37:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E7FF1614;
-	Mon, 20 Jul 2020 09:35:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E7FF1614
+	by alsa0.perex.cz (Postfix) with ESMTPS id DFA0E850;
+	Mon, 20 Jul 2020 09:36:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFA0E850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595230554;
-	bh=1CewVLm+s7fVMdPViHyCrFuChEZ4jWUHKWZXpgJiBhU=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1595230620;
+	bh=Pl9yMpMmaVeGq00atYTotiYrLM1BGncxlMhk4p8vY+k=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Clgjh6nRY66MjpS0pDzTV/6zc8cJSNZOH4XMQBuMrAVMczilcLx09olDoxkOkHN0N
-	 j4LoXel3U6PQjhFRrA6O4fRHwjqMt4wACem18YX1s/LKzLe25+K42XDiSvlloeWuRe
-	 mUvp+hWqKMoxm+ePzBFih/pMAuy8sXe7pQcDIGuk=
+	b=rzFnAZpswib1W8K5qUaZkZflDK5IN+JA1c21ePR9Qk56j4nNCgEAUif761KKlHOz+
+	 zaym43PAtC/VXdyL/T7f0fhkSXUQ2QLxYpLeps0kSmJeNZi3IJnN4cT3ScwPwMNbVF
+	 ogocH5Pu5r786a+eXwSunjWpbWHAAz/kePopy/FE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3A739F800C1;
-	Mon, 20 Jul 2020 09:34:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 85782F800BF;
+	Mon, 20 Jul 2020 09:34:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BCF21F8016F; Sat, 18 Jul 2020 10:23:34 +0200 (CEST)
+ id 303BFF8014E; Sat, 18 Jul 2020 13:09:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_IMAGE_ONLY_28,HTML_MESSAGE,SPF_HELO_NONE,
- SPF_PASS,T_REMOTE_IMAGE autolearn=disabled version=3.4.0
-Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com
- [IPv6:2607:f8b0:4864:20::d41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtp.al2klimov.de (smtp.al2klimov.de
+ [IPv6:2a01:4f8:c0c:1465::1])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C0A71F800E4
- for <alsa-devel@alsa-project.org>; Sat, 18 Jul 2020 10:23:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0A71F800E4
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="iiDMLnCD"
-Received: by mail-io1-xd41.google.com with SMTP id y2so12776965ioy.3
- for <alsa-devel@alsa-project.org>; Sat, 18 Jul 2020 01:23:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=ShK2sOMMXq7aexBMQlQxFYtGN5Ev3tTcy8uw8HQjVb0=;
- b=iiDMLnCDMyvdxaWdQmtg32xcbj2Laauw8YsimO1YHyJTqhm9iU/s7Yy0HWK9yF7WNG
- 8FU54ScbxECoKloE+s53hrJ17olTrVLrH8v2qIyqu4+iG1GUJETyuUYrMMY4ZmgEzJGm
- 43XuSRIK7Yi9yKH1dnO/+40DQCr0G+JZzkdiWwHD3nImNUuu7WnQyhnDAqQ2S2mm7Hqp
- ZRpjLWElLt0enSA2KLVsrzWIV4Gb1FPaQagfQ8rnqLZ+TBKlUoSq3tZ30Nly04W8iwUJ
- YSLJ+nufV7LNbye1s7VF49eHzCKJ+nVN76bZbszVHA+UsV5Q5J4QkAHerS3VEJcg2ppd
- 7n6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=ShK2sOMMXq7aexBMQlQxFYtGN5Ev3tTcy8uw8HQjVb0=;
- b=OdQ17IHD/GMf3yTxAzJ3xZ31tNVPJxyeYKXSRxSd3v6tu1pJgFM33/Vnj12Rjb8mzQ
- 5kg9xV+HDJsfJd2r8YYl5XMjDezI1q36EIbXZireMYGUx7V0Se4oT/ZWznXDPyJgBQ4Q
- cyxnd8F+uyCtFuaX/qhsWoTunUMDUlY3IdiilGurUcW4vi5iyXpwofnI4er2lKlOUeuv
- xKnUDKUTBBOWOUc9L3NjLafx59ysMVM/0I7gwavEgIushgiCKmBfgv1CqiA68EZHdNCL
- e23WI+b1Sp+SnccQdg00umMEJ6Wky+QyQQQCwWxaAVDzVEB+9GDiWDdOH5IzX2c+c/i+
- JgWA==
-X-Gm-Message-State: AOAM531Ju+JhnJ5sG6CLUh78lKgqcUSpswQym8ohgxGLvkLW/MljTnVC
- 6+RMk/LSFAtiVa+rOcudYl3l4ZAT5lto7d8L/fM=
-X-Google-Smtp-Source: ABdhPJw8qWBve6tMh8Sg4KzR05Sj9YkVvZhMBq7KO08H6VUt4IlKL7kkBeQflkSqa5kpa6+dmwoIA8CKQv8Eyi5IF1A=
-X-Received: by 2002:a5d:9503:: with SMTP id d3mr138251iom.154.1595060606673;
- Sat, 18 Jul 2020 01:23:26 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 26682F80141
+ for <alsa-devel@alsa-project.org>; Sat, 18 Jul 2020 13:09:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26682F80141
+Received: from authenticated-user (PRIMARY_HOSTNAME [PUBLIC_IP])
+ by smtp.al2klimov.de (Postfix) with ESMTPA id E6C44BC069;
+ Sat, 18 Jul 2020 11:09:04 +0000 (UTC)
+From: "Alexander A. Klimov" <grandmaster@al2klimov.de>
+To: peter.ujfalusi@ti.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: ti: Replace HTTP links with HTTPS ones
+Date: Sat, 18 Jul 2020 13:08:57 +0200
+Message-Id: <20200718110857.11520-1-grandmaster@al2klimov.de>
 MIME-Version: 1.0
-From: Junar Wohn <doomsheart@gmail.com>
-Date: Sat, 18 Jul 2020 17:23:15 +0900
-Message-ID: <CAHcbMh291aWDKiWSZoxXB4-Eru6OYRwGA4AVEdCZeYmVLo5ZxQ@mail.gmail.com>
-Subject: [PATCH] ALSA: hda/realtek: Fixed ALC298 sound bug by adding quirk for
- Samsung Notebook Pen S
-To: tiwai@suse.com, Junar Wohn <doomsheart@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Spamd-Bar: +++++
+Authentication-Results: smtp.al2klimov.de;
+ auth=pass smtp.auth=aklimov@al2klimov.de
+ smtp.mailfrom=grandmaster@al2klimov.de
 X-Mailman-Approved-At: Mon, 20 Jul 2020 09:34:10 +0200
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org
+Cc: "Alexander A. Klimov" <grandmaster@al2klimov.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,35 +69,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fixed no headphone sound bug on laptop Samsung Notebook Pen S
-(950SBE-951SBE), by using existing patch in Linus' tree, commit
-14425f1f521f (ALSA: hda/realtek: Add quirk for Samsung Notebook).
-This laptop uses the same ALC298 but different subsystem id 0x144dc812.
-I added SND_PCI_QUIRK at sound/pci/hda/patch_realtek.c
+Rationale:
+Reduces attack surface on kernel devs opening the links for MITM
+as HTTPS traffic is much harder to manipulate.
 
-Signed-off-by: Joonho Wohn <doomsheart@gmail.com>
+Deterministic algorithm:
+For each file:
+  If not .svg:
+    For each line:
+      If doesn't contain `\bxmlns\b`:
+        For each link, `\bhttp://[^# \t\r\n]*(?:\w|/)`:
+	  If neither `\bgnu\.org/license`, nor `\bmozilla\.org/MPL\b`:
+            If both the HTTP and HTTPS versions
+            return 200 OK and serve the same content:
+              Replace HTTP with HTTPS.
+
+Signed-off-by: Alexander A. Klimov <grandmaster@al2klimov.de>
 ---
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+ Continuing my work started at 93431e0607e5.
+ See also: git log --oneline '--author=Alexander A. Klimov <grandmaster@al2klimov.de>' v5.7..master
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 737ef82a75fd..ebedc6093642 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -7528,6 +7528,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[]
-= {
-  SND_PCI_QUIRK(0x144d, 0xc169, "Samsung Notebook 9 Pen (NP930SBE-K01US)",
-ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
-  SND_PCI_QUIRK(0x144d, 0xc176, "Samsung Notebook 9 Pro (NP930MBE-K04US)",
-ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
-  SND_PCI_QUIRK(0x144d, 0xc740, "Samsung Ativ book 8 (NP870Z5G)",
-ALC269_FIXUP_ATIV_BOOK_8),
-+ SND_PCI_QUIRK(0x144d, 0xc812, "Samsung Notebook Pen S (NT950SBE-X58)",
-ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
-  SND_PCI_QUIRK(0x1458, 0xfa53, "Gigabyte BXBT-2807",
-ALC283_FIXUP_HEADSET_MIC),
-  SND_PCI_QUIRK(0x1462, 0xb120, "MSI Cubi MS-B120",
-ALC283_FIXUP_HEADSET_MIC),
-  SND_PCI_QUIRK(0x1462, 0xb171, "Cubi N 8GL (MS-B171)",
-ALC283_FIXUP_HEADSET_MIC),
---
+ If there are any URLs to be removed completely
+ or at least not (just) HTTPSified:
+ Just clearly say so and I'll *undo my change*.
+ See also: https://lkml.org/lkml/2020/6/27/64
+
+ If there are any valid, but yet not changed URLs:
+ See: https://lkml.org/lkml/2020/6/26/837
+
+ If you apply the patch, please let me know.
+
+
+ sound/soc/ti/udma-pcm.c | 2 +-
+ sound/soc/ti/udma-pcm.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/ti/udma-pcm.c b/sound/soc/ti/udma-pcm.c
+index 39830caaaf7c..2ff0f518aba5 100644
+--- a/sound/soc/ti/udma-pcm.c
++++ b/sound/soc/ti/udma-pcm.c
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0
+ /*
+- *  Copyright (C) 2020 Texas Instruments Incorporated - http://www.ti.com
++ *  Copyright (C) 2020 Texas Instruments Incorporated - https://www.ti.com
+  *  Author: Peter Ujfalusi <peter.ujfalusi@ti.com>
+  */
+ 
+diff --git a/sound/soc/ti/udma-pcm.h b/sound/soc/ti/udma-pcm.h
+index 54111e7312c1..9ed588fd79b9 100644
+--- a/sound/soc/ti/udma-pcm.h
++++ b/sound/soc/ti/udma-pcm.h
+@@ -1,6 +1,6 @@
+ /* SPDX-License-Identifier: GPL-2.0 */
+ /*
+- *  Copyright (C) 2018 Texas Instruments Incorporated - http://www.ti.com
++ *  Copyright (C) 2018 Texas Instruments Incorporated - https://www.ti.com
+  */
+ 
+ #ifndef __UDMA_PCM_H__
+-- 
+2.27.0
+

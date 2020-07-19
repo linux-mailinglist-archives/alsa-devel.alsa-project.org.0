@@ -2,83 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0F742258C0
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 09:38:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B55982258C6
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 09:39:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A0838844;
-	Mon, 20 Jul 2020 09:37:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0838844
+	by alsa0.perex.cz (Postfix) with ESMTPS id 591B4847;
+	Mon, 20 Jul 2020 09:38:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 591B4847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595230720;
-	bh=coVCcEB0Ome5TFv/yh7Tq+cyWe8fdCk/gB0AfUjgtZ4=;
-	h=Subject:From:To:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1595230755;
+	bh=a5cwmf1bQCGiK8kCTFmco2ukiZFuNtsoUNEfVLhTKHI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=j52FIXi6csqc+9/kYnAYmrc6JRuPUEfknewI1bLZufxhJfRX74WYN96drVRb24zCZ
-	 b9mjGGPwAym3qoXWzkrTUbsj81rWW8/XaH/xs7rI9qZFtFnpljDytTzzo7rOEImEt4
-	 zl4WXyPS1y4/n9ooeyA/wUpEyARc5PF7KKPRoTyE=
+	b=rY0v9wmlwl+1KG/pTlJcvpqM/RFC38WGAh8/KoH8hRo57AxlNBIWg84PkmzqPckkD
+	 gAQ5xO/RagXTa8xFvcR3DWQSyl7xv317VVReovrR9c/WhbJEtqqd5oXStpBrh9qRHg
+	 yPrrHvcI/r8g30xmhpX7pkVMK+bMILR86Pe5NyeA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01F73F802C4;
-	Mon, 20 Jul 2020 09:34:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 823F1F802DD;
+	Mon, 20 Jul 2020 09:34:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09573F8016F; Sat, 18 Jul 2020 16:57:43 +0200 (CEST)
+ id DA68CF8014C; Sun, 19 Jul 2020 17:17:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,HTML_MESSAGE,
- MISSING_MID,RDNS_DYNAMIC,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from qq.com (out203-205-221-249.mail.qq.com [203.205.221.249])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=LOTS_OF_MONEY,SPF_HELO_NONE,
+ SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtp.al2klimov.de (smtp.al2klimov.de [78.46.175.9])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 390D0F8014C
- for <alsa-devel@alsa-project.org>; Sat, 18 Jul 2020 16:57:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 390D0F8014C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="zWpFRVa6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1595084199; bh=DCgSq9pEwVHUYszd9MLQsC8i8Dkpw2H8+7P/BACNV2w=;
- h=Subject:From:Cc:To:Date;
- b=zWpFRVa6mxWAgJra1Gi+HVN8YbNjlyZ+ZqCfnstrfsnnbsagmhtiP1cB/0NIl3lj6
- k4t3ZXcFQ2AqjTbcwbscN3KwTbdv22+GE6zioylgkNmG8tSWc7wtQT2bcqFiDAOc+e
- x7pC2g+IiFV3cGGKaMsxiUHGEymMrPNtyU+e7VoY=
-Received: from localhost ([219.145.34.93])
- by newxmesmtplogicsvrszc8.qq.com (NewEsmtp) with SMTP
- id E0224AE3; Sat, 18 Jul 2020 22:56:02 +0800
-X-QQ-mid: xmsmtpt1595084162tj2lmcn5l
-Messag-ID: <tencent_CB757578310155A0CF414761AD3843CC9E0A@qq.com>
-X-QQ-XMAILINFO: MJbzIFWCh68vVL7NkW7oUKwNdMt9CvugGOKGpd0Wt23zEvRYHRxZdzzNp/kdZJ
- ugMI2DM3CGeZlrYiCjTYHZtZfjhs47sC87MMPlq0bj9ZqBmidi8vNj+VNkt//v068uH4oKl43y4I
- pNeteQ6dUc7cBWa7U/XbjFy2mJhchBVEnjPsXO+KP2XXqC68Hm8+HVBnqK91sAYZgjkHejLkT8vs
- S5ufe1Hj6oRxsu8v0wFkz5CxQ/HA9kaAucwSIrbtsPc3nVEJICFOFjfWuYUJ95Dcr7s/xqiLjkwm
- /BtGthdMCJ84WTcCTvSHklAk4YNYDtGxrQj4E7DJBu8gnXfn+T7xfGKyZBm+fSatVztJ8yNjbvDH
- v4/bm2fjYlZeQLafZroxI6QELcxLoqBQ8NuS2KeDoG/Qbc/3y7rrPHfFLRWPqaBt9ij8pcFE13ja
- p5vapxrmspbufiTQ2ar2B1O5MjZLmP06tsebcgz3cFhlhis1C922GQribaUXyUlFTRl9moFZi/pk
- x/6eFYBuMgf75AyGrYk4bK+hW5AMOEJNv84yYVQj75wubyOO8jNtv8wdo8n1/HQCbFysAB0dCRDy
- ajG7kR2Q59dM8wIyh0Grpj8hvtcUXJtLh7hxIUWWLaErVdvwg6wm53zcvkT0WvJw+Y9Z38qHz2sy
- cQxw2f79b08rLbdqAMasqOSDOTk6/pZmI3Oi64Lr2H+MrzDNWrYpT5UdQKSpJpEKUEsjUhV+LNVQ
- WHQq/B7xFfEsIHozHfQTbb3cY6QclDayOGRuuW7yzSkcXGFYMh/V12vSy7AHTT6p2S
-Subject: [PATCH] ASoC: soc-jack: calling snd_soc_jack_report causes a null
- pointer access
-From: mnlife <178316538@qq.com>
-To: lgirdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- open list <linux-kernel@vger.kernel.org>, mnlife qiao <mnlife@foxmail.com>,
- alsa-devel <alsa-devel@alsa-project.org>
-Date: Sat, 18 Jul 2020 22:56:01 +0800
+ by alsa1.perex.cz (Postfix) with ESMTPS id 018D8F800BF
+ for <alsa-devel@alsa-project.org>; Sun, 19 Jul 2020 17:17:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 018D8F800BF
+Received: from authenticated-user (PRIMARY_HOSTNAME [PUBLIC_IP])
+ by smtp.al2klimov.de (Postfix) with ESMTPA id 17AF3BC084;
+ Sun, 19 Jul 2020 15:17:11 +0000 (UTC)
+From: "Alexander A. Klimov" <grandmaster@al2klimov.de>
+To: perex@perex.cz, tiwai@suse.com, corbet@lwn.net, gustavo@embeddedor.com,
+ chris@boyle.name, andrew@adoakley.name, alsa-devel@alsa-project.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH for v5.9] ALSA: Replace HTTP links with HTTPS ones
+Date: Sun, 19 Jul 2020 17:17:05 +0200
+Message-Id: <20200719151705.59624-1-grandmaster@al2klimov.de>
 MIME-Version: 1.0
-X-Priority: 3
-X-OQ-MSGID: <1595083783859.spo1p3mpmusubtqmg122sc05@android.mail.163.com>
-X-CUSTOM-MAIL-MASTER-SENT-ID: MailMasterAndroid-9157-1595084160290-29ad05e9-077d-4748-b098-3c9d378b36a0
-Content-Type: multipart/mixed;
- boundary="__MESSAGE_BODY_PART__1_5225840673225486787"
-Message-Id: <20200718145743.09573F8016F@alsa1.perex.cz>
+Content-Transfer-Encoding: 8bit
+X-Spamd-Bar: +++++
+Authentication-Results: smtp.al2klimov.de;
+ auth=pass smtp.auth=aklimov@al2klimov.de
+ smtp.mailfrom=grandmaster@al2klimov.de
 X-Mailman-Approved-At: Mon, 20 Jul 2020 09:34:10 +0200
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: "nmlife.qiao@gmail.com" <nmlife.qiao@gmail.com>,
- mnlife qiao <mnlife@foxmail.com>
+Cc: "Alexander A. Klimov" <grandmaster@al2klimov.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,47 +68,193 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---__MESSAGE_BODY_PART__1_5225840673225486787
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
+Rationale:
+Reduces attack surface on kernel devs opening the links for MITM
+as HTTPS traffic is much harder to manipulate.
 
-RnJvbTogbW5saWZlIDxtbmxpZmVAZm94bWFpbC5jb20+IFdoZW4gc25kX3NvY19jYXJkX2phY2tf
-bmV3IGlzIG5vdCBjYWxsZWQgb3IgdGhlIGNhbGwgZmFpbHMsIGNhbGxpbmcgdGhpcyBmdW5jdGlv
-biBjYXVzZXMgYSBudWxsIHBvaW50ZXIgYWNjZXNzIFNpZ25lZC1vZmYtYnk6IG1ubGlmZSA8bW5s
-aWZlQGZveG1haWwuY29tPiAtLS0gc291bmQvc29jL3NvYy1qYWNrLmMgfCAyICstIDEgZmlsZSBj
-aGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKSBkaWZmIC0tZ2l0IGEvc291bmQv
-c29jL3NvYy1qYWNrLmMgYi9zb3VuZC9zb2Mvc29jLWphY2suYyBpbmRleCAwZjE4MjBmMzZiNGQu
-LjUxYjc5OWVlOThiNyAxMDA2NDQgLS0tIGEvc291bmQvc29jL3NvYy1qYWNrLmMgKysrIGIvc291
-bmQvc29jL3NvYy1qYWNrLmMgQEAgLTQ0LDcgKzQ0LDcgQEAgdm9pZCBzbmRfc29jX2phY2tfcmVw
-b3J0KHN0cnVjdCBzbmRfc29jX2phY2sgKmphY2ssIGludCBzdGF0dXMsIGludCBtYXNrKSDCoCDC
-oCDCoHVuc2lnbmVkIGludCBzeW5jID0gMDsgwqAgwqAgwqBpbnQgZW5hYmxlOyAtwqAgwqAgwqBp
-ZiAoIWphY2spICvCoCDCoCDCoGlmICghamFjayB8fCAhamFjay0+amFjaykgwqAgwqAgwqDCoCDC
-oCDCoHJldHVybjsgwqAgwqAgwqB0cmFjZV9zbmRfc29jX2phY2tfcmVwb3J0KGphY2ssIG1hc2ss
-IHN0YXR1cyk7IC0tIDIuMTcuMSAu
+Deterministic algorithm:
+For each file:
+  If not .svg:
+    For each line:
+      If doesn't contain `\bxmlns\b`:
+        For each link, `\bhttp://[^# \t\r\n]*(?:\w|/)`:
+	  If neither `\bgnu\.org/license`, nor `\bmozilla\.org/MPL\b`:
+            If both the HTTP and HTTPS versions
+            return 200 OK and serve the same content:
+              Replace HTTP with HTTPS.
 
---__MESSAGE_BODY_PART__1_5225840673225486787
-Content-Type: text/x-diff;
- name="0001-ASoC-soc-jack-calling-snd_soc_jack_report-causes-a-n.patch"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment;
- filename="0001-ASoC-soc-jack-calling-snd_soc_jack_report-causes-a-n.patch"
+Signed-off-by: Alexander A. Klimov <grandmaster@al2klimov.de>
+---
+ Continuing my work started at 93431e0607e5.
+ See also: git log --oneline '--author=Alexander A. Klimov <grandmaster@al2klimov.de>' v5.7..master
+ (Actually letting a shell for loop submit all this stuff for me.)
 
-RnJvbSAxY2Q2ZWQ4Y2QxYzg1MThkNmJkMzBiZGMwYjFjZjk5OGEzYWJlMzJkIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBtbmxpZmUgPG1ubGlmZUBmb3htYWlsLmNvbT4KRGF0ZTogRnJp
-LCAxMCBKdWwgMjAyMCAyMTozMTowOCArMDgwMApTdWJqZWN0OiBbUEFUQ0hdIEFTb0M6IHNvYy1q
-YWNrOiBjYWxsaW5nIHNuZF9zb2NfamFja19yZXBvcnQgY2F1c2VzIGEgbnVsbAogcG9pbnRlciBh
-Y2Nlc3MKQ29udGVudC1UeXBlOiB0ZXh0L3BsYWluOyBjaGFyc2V0PSJ1dGYtOCIKCldoZW4gc25k
-X3NvY19jYXJkX2phY2tfbmV3IGlzIG5vdCBjYWxsZWQgb3IgdGhlIGNhbGwgZmFpbHMsCmNhbGxp
-bmcgdGhpcyBmdW5jdGlvbiBjYXVzZXMgYSBudWxsIHBvaW50ZXIgYWNjZXNzCgpTaWduZWQtb2Zm
-LWJ5OiBtbmxpZmUgPG1ubGlmZUBmb3htYWlsLmNvbT4KLS0tCiBzb3VuZC9zb2Mvc29jLWphY2su
-YyB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQoK
-ZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9zb2MtamFjay5jIGIvc291bmQvc29jL3NvYy1qYWNrLmMK
-aW5kZXggMGYxODIwZjM2YjRkLi41MWI3OTllZTk4YjcgMTAwNjQ0Ci0tLSBhL3NvdW5kL3NvYy9z
-b2MtamFjay5jCisrKyBiL3NvdW5kL3NvYy9zb2MtamFjay5jCkBAIC00NCw3ICs0NCw3IEBAIHZv
-aWQgc25kX3NvY19qYWNrX3JlcG9ydChzdHJ1Y3Qgc25kX3NvY19qYWNrICpqYWNrLCBpbnQgc3Rh
-dHVzLCBpbnQgbWFzaykKIAl1bnNpZ25lZCBpbnQgc3luYyA9IDA7CiAJaW50IGVuYWJsZTsKIAot
-CWlmICghamFjaykKKwlpZiAoIWphY2sgfHwgIWphY2stPmphY2spCiAJCXJldHVybjsKIAl0cmFj
-ZV9zbmRfc29jX2phY2tfcmVwb3J0KGphY2ssIG1hc2ssIHN0YXR1cyk7CiAKLS0gCjIuMTcuMQoK
+ If there are any URLs to be removed completely
+ or at least not (just) HTTPSified:
+ Just clearly say so and I'll *undo my change*.
+ See also: https://lkml.org/lkml/2020/6/27/64
 
---__MESSAGE_BODY_PART__1_5225840673225486787--
+ If there are any valid, but yet not changed URLs:
+ See: https://lkml.org/lkml/2020/6/26/837
+
+ If you apply the patch, please let me know.
+
+ Sorry again to all maintainers who complained about subject lines.
+ Now I realized that you want an actually perfect prefixes,
+ not just subsystem ones.
+ I tried my best...
+ And yes, *I could* (at least half-)automate it.
+ Impossible is nothing! :)
+
+
+ Documentation/sound/alsa-configuration.rst  | 6 +++---
+ Documentation/sound/cards/audigy-mixer.rst  | 2 +-
+ Documentation/sound/cards/sb-live-mixer.rst | 2 +-
+ Documentation/sound/hd-audio/notes.rst      | 6 +++---
+ include/sound/hdmi-codec.h                  | 2 +-
+ include/sound/omap-hdmi-audio.h             | 2 +-
+ sound/isa/Kconfig                           | 2 +-
+ sound/sparc/dbri.c                          | 2 +-
+ sound/usb/mixer_maps.c                      | 2 +-
+ 9 files changed, 13 insertions(+), 13 deletions(-)
+
+diff --git a/Documentation/sound/alsa-configuration.rst b/Documentation/sound/alsa-configuration.rst
+index 72f97d4b01a7..c755b1c5e16f 100644
+--- a/Documentation/sound/alsa-configuration.rst
++++ b/Documentation/sound/alsa-configuration.rst
+@@ -309,7 +309,7 @@ pcifix
+ This module supports all ADB PCM channels, ac97 mixer, SPDIF, hardware
+ EQ, mpu401, gameport. A3D and wavetable support are still in development.
+ Development and reverse engineering work is being coordinated at
+-http://savannah.nongnu.org/projects/openvortex/
++https://savannah.nongnu.org/projects/openvortex/
+ SPDIF output has a copy of the AC97 codec output, unless you use the
+ ``spdif`` pcm device, which allows raw data passthru.
+ The hardware EQ hardware and SPDIF is only present in the Vortex2 and 
+@@ -1575,7 +1575,7 @@ See Documentation/sound/cards/multisound.sh for important information
+ about this driver.  Note that it has been discontinued, but the 
+ Voyetra Turtle Beach knowledge base entry for it is still available
+ at
+-http://www.turtlebeach.com
++https://www.turtlebeach.com
+ 
+ Module snd-msnd-pinnacle
+ ------------------------
+@@ -2703,4 +2703,4 @@ Kernel Bugzilla
+ ALSA Developers ML
+     mailto:alsa-devel@alsa-project.org
+ alsa-info.sh script
+-    http://www.alsa-project.org/alsa-info.sh
++    https://www.alsa-project.org/alsa-info.sh
+diff --git a/Documentation/sound/cards/audigy-mixer.rst b/Documentation/sound/cards/audigy-mixer.rst
+index 86213234435f..998f76e19cdd 100644
+--- a/Documentation/sound/cards/audigy-mixer.rst
++++ b/Documentation/sound/cards/audigy-mixer.rst
+@@ -331,7 +331,7 @@ WO 9901953 (A1)
+         Execution and Audio Data Sequencing (Jan. 14, 1999)
+ 
+ 
+-US Patents (http://www.uspto.gov/)
++US Patents (https://www.uspto.gov/)
+ ----------------------------------
+ 
+ US 5925841
+diff --git a/Documentation/sound/cards/sb-live-mixer.rst b/Documentation/sound/cards/sb-live-mixer.rst
+index bcb62fc99bbb..eccb0f0ffd0f 100644
+--- a/Documentation/sound/cards/sb-live-mixer.rst
++++ b/Documentation/sound/cards/sb-live-mixer.rst
+@@ -336,7 +336,7 @@ WO 9901953 (A1)
+         Execution and Audio Data Sequencing (Jan. 14, 1999)
+ 
+ 
+-US Patents (http://www.uspto.gov/)
++US Patents (https://www.uspto.gov/)
+ ----------------------------------
+ 
+ US 5925841
+diff --git a/Documentation/sound/hd-audio/notes.rst b/Documentation/sound/hd-audio/notes.rst
+index 0f3109d9abc8..cf4d7158af78 100644
+--- a/Documentation/sound/hd-audio/notes.rst
++++ b/Documentation/sound/hd-audio/notes.rst
+@@ -42,7 +42,7 @@ If you are interested in the deep debugging of HD-audio, read the
+ HD-audio specification at first.  The specification is found on
+ Intel's web page, for example:
+ 
+-* http://www.intel.com/standards/hdaudio/
++* https://www.intel.com/standards/hdaudio/
+ 
+ 
+ HD-Audio Controller
+@@ -728,7 +728,7 @@ version can be found on git repository:
+ 
+ The script can be fetched directly from the following URL, too:
+ 
+-* http://www.alsa-project.org/alsa-info.sh
++* https://www.alsa-project.org/alsa-info.sh
+ 
+ Run this script as root, and it will gather the important information
+ such as the module lists, module parameters, proc file contents
+@@ -818,7 +818,7 @@ proc-compatible output.
+ 
+ The hda-analyzer:
+ 
+-* http://git.alsa-project.org/?p=alsa.git;a=tree;f=hda-analyzer
++* https://git.alsa-project.org/?p=alsa.git;a=tree;f=hda-analyzer
+ 
+ is a part of alsa.git repository in alsa-project.org:
+ 
+diff --git a/include/sound/hdmi-codec.h b/include/sound/hdmi-codec.h
+index 83b17682e01c..cc0b29bbcde3 100644
+--- a/include/sound/hdmi-codec.h
++++ b/include/sound/hdmi-codec.h
+@@ -2,7 +2,7 @@
+ /*
+  * hdmi-codec.h - HDMI Codec driver API
+  *
+- * Copyright (C) 2014 Texas Instruments Incorporated - http://www.ti.com
++ * Copyright (C) 2014 Texas Instruments Incorporated - https://www.ti.com
+  *
+  * Author: Jyri Sarha <jsarha@ti.com>
+  */
+diff --git a/include/sound/omap-hdmi-audio.h b/include/sound/omap-hdmi-audio.h
+index 16c007b651f4..e5f82044a404 100644
+--- a/include/sound/omap-hdmi-audio.h
++++ b/include/sound/omap-hdmi-audio.h
+@@ -2,7 +2,7 @@
+ /*
+  * hdmi-audio.c -- OMAP4+ DSS HDMI audio support library
+  *
+- * Copyright (C) 2014 Texas Instruments Incorporated - http://www.ti.com
++ * Copyright (C) 2014 Texas Instruments Incorporated - https://www.ti.com
+  *
+  * Author: Jyri Sarha <jsarha@ti.com>
+  */
+diff --git a/sound/sparc/dbri.c b/sound/sparc/dbri.c
+index cf7049999261..2d0144562173 100644
+--- a/sound/sparc/dbri.c
++++ b/sound/sparc/dbri.c
+@@ -22,7 +22,7 @@
+  *   - Data sheet of the T7903, a newer but very similar ISA bus equivalent
+  *     available from the Lucent (formerly AT&T microelectronics) home
+  *     page.
+- *   - http://www.freesoft.org/Linux/DBRI/
++ *   - https://www.freesoft.org/Linux/DBRI/
+  * - MMCODEC: Crystal Semiconductor CS4215 16 bit Multimedia Audio Codec
+  *   Interfaces: CHI, Audio In & Out, 2 bits parallel
+  *   Documentation: from the Crystal Semiconductor home page.
+diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
+index 9af7aa93f6fa..2ec484655201 100644
+--- a/sound/usb/mixer_maps.c
++++ b/sound/usb/mixer_maps.c
+@@ -233,7 +233,7 @@ static const struct usbmix_name_map maya44_map[] = {
+ };
+ 
+ /* Section "justlink_map" below added by James Courtier-Dutton <James@superbug.demon.co.uk>
+- * sourced from Maplin Electronics (http://www.maplin.co.uk), part number A56AK
++ * sourced from Maplin Electronics (https://www.maplin.co.uk), part number A56AK
+  * Part has 2 connectors that act as a single output. (TOSLINK Optical for digital out, and 3.5mm Jack for Analogue out.)
+  * The USB Mixer publishes a Microphone and extra Volume controls for it, but none exist on the device,
+  * so this map removes all unwanted sliders from alsamixer
+-- 
+2.27.0
 

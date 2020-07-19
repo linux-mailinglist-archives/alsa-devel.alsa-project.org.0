@@ -2,49 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B55982258C6
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 09:39:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 095842258C9
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 09:39:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 591B4847;
-	Mon, 20 Jul 2020 09:38:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 591B4847
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9F5A850;
+	Mon, 20 Jul 2020 09:39:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9F5A850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595230755;
-	bh=a5cwmf1bQCGiK8kCTFmco2ukiZFuNtsoUNEfVLhTKHI=;
+	s=default; t=1595230794;
+	bh=ZwBz+Mb9sBmHbvwQUlPvR4JebTJxFtZ8tJGbgovp2PQ=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=rY0v9wmlwl+1KG/pTlJcvpqM/RFC38WGAh8/KoH8hRo57AxlNBIWg84PkmzqPckkD
-	 gAQ5xO/RagXTa8xFvcR3DWQSyl7xv317VVReovrR9c/WhbJEtqqd5oXStpBrh9qRHg
-	 yPrrHvcI/r8g30xmhpX7pkVMK+bMILR86Pe5NyeA=
+	b=dOSUj+NbkUCAjXg3DXlGLGbIYoXNB4e2nzI4d0BRND+3LG5RyBz2P7My0csOWPEQ0
+	 93T5tj4C6Doq0kyUJa7KLV+/BhMlxy8nPSnrmoP2P+FPDH/Qknk2DIxL+OkrIDfqxZ
+	 NyGJVGRJ9DgUCXWe99zgPkptVrP8Z9gFJ3YX0Ykc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 823F1F802DD;
-	Mon, 20 Jul 2020 09:34:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0A60F802E2;
+	Mon, 20 Jul 2020 09:34:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DA68CF8014C; Sun, 19 Jul 2020 17:17:23 +0200 (CEST)
+ id 513A9F8014C; Sun, 19 Jul 2020 17:38:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=LOTS_OF_MONEY,SPF_HELO_NONE,
+X-Spam-Status: No, score=0.2 required=5.0 tests=PRX_BODY_78,SPF_HELO_NONE,
  SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from smtp.al2klimov.de (smtp.al2klimov.de [78.46.175.9])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 018D8F800BF
- for <alsa-devel@alsa-project.org>; Sun, 19 Jul 2020 17:17:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 018D8F800BF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 561AEF800F5
+ for <alsa-devel@alsa-project.org>; Sun, 19 Jul 2020 17:38:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 561AEF800F5
 Received: from authenticated-user (PRIMARY_HOSTNAME [PUBLIC_IP])
- by smtp.al2klimov.de (Postfix) with ESMTPA id 17AF3BC084;
- Sun, 19 Jul 2020 15:17:11 +0000 (UTC)
+ by smtp.al2klimov.de (Postfix) with ESMTPA id 76888BC078;
+ Sun, 19 Jul 2020 15:38:28 +0000 (UTC)
 From: "Alexander A. Klimov" <grandmaster@al2klimov.de>
-To: perex@perex.cz, tiwai@suse.com, corbet@lwn.net, gustavo@embeddedor.com,
- chris@boyle.name, andrew@adoakley.name, alsa-devel@alsa-project.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH for v5.9] ALSA: Replace HTTP links with HTTPS ones
-Date: Sun, 19 Jul 2020 17:17:05 +0200
-Message-Id: <20200719151705.59624-1-grandmaster@al2klimov.de>
+To: lgirdwood@gmail.com, broonie@kernel.org, robh+dt@kernel.org,
+ perex@perex.cz, tiwai@suse.com, corbet@lwn.net, yuehaibing@huawei.com,
+ kuninori.morimoto.gx@renesas.com, tzungbi@google.com, jbrunet@baylibre.com,
+ keescook@chromium.org, pankaj.laxminarayan.bharadiya@intel.com,
+ cychiang@chromium.org, dinghao.liu@zju.edu.cn, dmurphy@ti.com,
+ rikard.falkeborn@gmail.com, shifu0704@thundersoft.com, lkp@intel.com,
+ colin.king@canonical.com, nikita.yoush@cogentembedded.com,
+ l.stach@pengutronix.de, afd@ti.com, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org
+Subject: [PATCH for v5.9] ASoC: Replace HTTP links with HTTPS ones
+Date: Sun, 19 Jul 2020 17:38:22 +0200
+Message-Id: <20200719153822.59788-1-grandmaster@al2klimov.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Spamd-Bar: +++++
@@ -107,154 +114,399 @@ Signed-off-by: Alexander A. Klimov <grandmaster@al2klimov.de>
  Impossible is nothing! :)
 
 
- Documentation/sound/alsa-configuration.rst  | 6 +++---
- Documentation/sound/cards/audigy-mixer.rst  | 2 +-
- Documentation/sound/cards/sb-live-mixer.rst | 2 +-
- Documentation/sound/hd-audio/notes.rst      | 6 +++---
- include/sound/hdmi-codec.h                  | 2 +-
- include/sound/omap-hdmi-audio.h             | 2 +-
- sound/isa/Kconfig                           | 2 +-
- sound/sparc/dbri.c                          | 2 +-
- sound/usb/mixer_maps.c                      | 2 +-
- 9 files changed, 13 insertions(+), 13 deletions(-)
+ Documentation/devicetree/bindings/sound/adi,adau1977.txt   | 6 +++---
+ Documentation/devicetree/bindings/sound/tas2552.txt        | 2 +-
+ Documentation/devicetree/bindings/sound/tas5720.txt        | 6 +++---
+ Documentation/devicetree/bindings/sound/ti,tas6424.txt     | 2 +-
+ Documentation/devicetree/bindings/sound/tlv320adcx140.yaml | 6 +++---
+ Documentation/sound/soc/dai.rst                            | 2 +-
+ sound/soc/cirrus/ep93xx-ac97.c                             | 2 +-
+ sound/soc/codecs/hdmi-codec.c                              | 2 +-
+ sound/soc/codecs/max9850.c                                 | 2 +-
+ sound/soc/codecs/mc13783.c                                 | 2 +-
+ sound/soc/codecs/pcm186x-i2c.c                             | 2 +-
+ sound/soc/codecs/pcm186x-spi.c                             | 2 +-
+ sound/soc/codecs/pcm186x.c                                 | 2 +-
+ sound/soc/codecs/pcm186x.h                                 | 2 +-
+ sound/soc/codecs/tas2552.c                                 | 2 +-
+ sound/soc/codecs/tas2552.h                                 | 2 +-
+ sound/soc/codecs/tas2562.h                                 | 2 +-
+ sound/soc/codecs/tas2770.c                                 | 2 +-
+ sound/soc/codecs/tas2770.h                                 | 2 +-
+ sound/soc/codecs/tas5720.c                                 | 2 +-
+ sound/soc/codecs/tas5720.h                                 | 2 +-
+ sound/soc/codecs/tas6424.c                                 | 2 +-
+ sound/soc/codecs/tas6424.h                                 | 2 +-
+ sound/soc/codecs/tlv320adcx140.c                           | 2 +-
+ sound/soc/codecs/tlv320adcx140.h                           | 2 +-
+ sound/soc/codecs/tlv320aic31xx.c                           | 4 ++--
+ sound/soc/codecs/tlv320aic31xx.h                           | 2 +-
+ 27 files changed, 34 insertions(+), 34 deletions(-)
 
-diff --git a/Documentation/sound/alsa-configuration.rst b/Documentation/sound/alsa-configuration.rst
-index 72f97d4b01a7..c755b1c5e16f 100644
---- a/Documentation/sound/alsa-configuration.rst
-+++ b/Documentation/sound/alsa-configuration.rst
-@@ -309,7 +309,7 @@ pcifix
- This module supports all ADB PCM channels, ac97 mixer, SPDIF, hardware
- EQ, mpu401, gameport. A3D and wavetable support are still in development.
- Development and reverse engineering work is being coordinated at
--http://savannah.nongnu.org/projects/openvortex/
-+https://savannah.nongnu.org/projects/openvortex/
- SPDIF output has a copy of the AC97 codec output, unless you use the
- ``spdif`` pcm device, which allows raw data passthru.
- The hardware EQ hardware and SPDIF is only present in the Vortex2 and 
-@@ -1575,7 +1575,7 @@ See Documentation/sound/cards/multisound.sh for important information
- about this driver.  Note that it has been discontinued, but the 
- Voyetra Turtle Beach knowledge base entry for it is still available
- at
--http://www.turtlebeach.com
-+https://www.turtlebeach.com
+diff --git a/Documentation/devicetree/bindings/sound/adi,adau1977.txt b/Documentation/devicetree/bindings/sound/adi,adau1977.txt
+index 9225472c80b4..37f8aad01203 100644
+--- a/Documentation/devicetree/bindings/sound/adi,adau1977.txt
++++ b/Documentation/devicetree/bindings/sound/adi,adau1977.txt
+@@ -1,9 +1,9 @@
+ Analog Devices ADAU1977/ADAU1978/ADAU1979
  
- Module snd-msnd-pinnacle
- ------------------------
-@@ -2703,4 +2703,4 @@ Kernel Bugzilla
- ALSA Developers ML
-     mailto:alsa-devel@alsa-project.org
- alsa-info.sh script
--    http://www.alsa-project.org/alsa-info.sh
-+    https://www.alsa-project.org/alsa-info.sh
-diff --git a/Documentation/sound/cards/audigy-mixer.rst b/Documentation/sound/cards/audigy-mixer.rst
-index 86213234435f..998f76e19cdd 100644
---- a/Documentation/sound/cards/audigy-mixer.rst
-+++ b/Documentation/sound/cards/audigy-mixer.rst
-@@ -331,7 +331,7 @@ WO 9901953 (A1)
-         Execution and Audio Data Sequencing (Jan. 14, 1999)
+ Datasheets:
+-http://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1977.pdf
+-http://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1978.pdf
+-http://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1979.pdf
++https://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1977.pdf
++https://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1978.pdf
++https://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1979.pdf
  
+ This driver supports both the I2C and SPI bus.
  
--US Patents (http://www.uspto.gov/)
-+US Patents (https://www.uspto.gov/)
- ----------------------------------
- 
- US 5925841
-diff --git a/Documentation/sound/cards/sb-live-mixer.rst b/Documentation/sound/cards/sb-live-mixer.rst
-index bcb62fc99bbb..eccb0f0ffd0f 100644
---- a/Documentation/sound/cards/sb-live-mixer.rst
-+++ b/Documentation/sound/cards/sb-live-mixer.rst
-@@ -336,7 +336,7 @@ WO 9901953 (A1)
-         Execution and Audio Data Sequencing (Jan. 14, 1999)
- 
- 
--US Patents (http://www.uspto.gov/)
-+US Patents (https://www.uspto.gov/)
- ----------------------------------
- 
- US 5925841
-diff --git a/Documentation/sound/hd-audio/notes.rst b/Documentation/sound/hd-audio/notes.rst
-index 0f3109d9abc8..cf4d7158af78 100644
---- a/Documentation/sound/hd-audio/notes.rst
-+++ b/Documentation/sound/hd-audio/notes.rst
-@@ -42,7 +42,7 @@ If you are interested in the deep debugging of HD-audio, read the
- HD-audio specification at first.  The specification is found on
- Intel's web page, for example:
- 
--* http://www.intel.com/standards/hdaudio/
-+* https://www.intel.com/standards/hdaudio/
- 
- 
- HD-Audio Controller
-@@ -728,7 +728,7 @@ version can be found on git repository:
- 
- The script can be fetched directly from the following URL, too:
- 
--* http://www.alsa-project.org/alsa-info.sh
-+* https://www.alsa-project.org/alsa-info.sh
- 
- Run this script as root, and it will gather the important information
- such as the module lists, module parameters, proc file contents
-@@ -818,7 +818,7 @@ proc-compatible output.
- 
- The hda-analyzer:
- 
--* http://git.alsa-project.org/?p=alsa.git;a=tree;f=hda-analyzer
-+* https://git.alsa-project.org/?p=alsa.git;a=tree;f=hda-analyzer
- 
- is a part of alsa.git repository in alsa-project.org:
- 
-diff --git a/include/sound/hdmi-codec.h b/include/sound/hdmi-codec.h
-index 83b17682e01c..cc0b29bbcde3 100644
---- a/include/sound/hdmi-codec.h
-+++ b/include/sound/hdmi-codec.h
-@@ -2,7 +2,7 @@
- /*
-  * hdmi-codec.h - HDMI Codec driver API
-  *
-- * Copyright (C) 2014 Texas Instruments Incorporated - http://www.ti.com
-+ * Copyright (C) 2014 Texas Instruments Incorporated - https://www.ti.com
-  *
-  * Author: Jyri Sarha <jsarha@ti.com>
-  */
-diff --git a/include/sound/omap-hdmi-audio.h b/include/sound/omap-hdmi-audio.h
-index 16c007b651f4..e5f82044a404 100644
---- a/include/sound/omap-hdmi-audio.h
-+++ b/include/sound/omap-hdmi-audio.h
-@@ -2,7 +2,7 @@
- /*
-  * hdmi-audio.c -- OMAP4+ DSS HDMI audio support library
-  *
-- * Copyright (C) 2014 Texas Instruments Incorporated - http://www.ti.com
-+ * Copyright (C) 2014 Texas Instruments Incorporated - https://www.ti.com
-  *
-  * Author: Jyri Sarha <jsarha@ti.com>
-  */
-diff --git a/sound/sparc/dbri.c b/sound/sparc/dbri.c
-index cf7049999261..2d0144562173 100644
---- a/sound/sparc/dbri.c
-+++ b/sound/sparc/dbri.c
-@@ -22,7 +22,7 @@
-  *   - Data sheet of the T7903, a newer but very similar ISA bus equivalent
-  *     available from the Lucent (formerly AT&T microelectronics) home
-  *     page.
-- *   - http://www.freesoft.org/Linux/DBRI/
-+ *   - https://www.freesoft.org/Linux/DBRI/
-  * - MMCODEC: Crystal Semiconductor CS4215 16 bit Multimedia Audio Codec
-  *   Interfaces: CHI, Audio In & Out, 2 bits parallel
-  *   Documentation: from the Crystal Semiconductor home page.
-diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
-index 9af7aa93f6fa..2ec484655201 100644
---- a/sound/usb/mixer_maps.c
-+++ b/sound/usb/mixer_maps.c
-@@ -233,7 +233,7 @@ static const struct usbmix_name_map maya44_map[] = {
+diff --git a/Documentation/devicetree/bindings/sound/tas2552.txt b/Documentation/devicetree/bindings/sound/tas2552.txt
+index 2d71eb05c1d3..a7eecad83db1 100644
+--- a/Documentation/devicetree/bindings/sound/tas2552.txt
++++ b/Documentation/devicetree/bindings/sound/tas2552.txt
+@@ -33,4 +33,4 @@ tas2552: tas2552@41 {
  };
  
- /* Section "justlink_map" below added by James Courtier-Dutton <James@superbug.demon.co.uk>
-- * sourced from Maplin Electronics (http://www.maplin.co.uk), part number A56AK
-+ * sourced from Maplin Electronics (https://www.maplin.co.uk), part number A56AK
-  * Part has 2 connectors that act as a single output. (TOSLINK Optical for digital out, and 3.5mm Jack for Analogue out.)
-  * The USB Mixer publishes a Microphone and extra Volume controls for it, but none exist on the device,
-  * so this map removes all unwanted sliders from alsamixer
+ For more product information please see the link below:
+-http://www.ti.com/product/TAS2552
++https://www.ti.com/product/TAS2552
+diff --git a/Documentation/devicetree/bindings/sound/tas5720.txt b/Documentation/devicetree/bindings/sound/tas5720.txt
+index 7481653fe8e3..df99ca9451b0 100644
+--- a/Documentation/devicetree/bindings/sound/tas5720.txt
++++ b/Documentation/devicetree/bindings/sound/tas5720.txt
+@@ -4,9 +4,9 @@ The TAS5720 serial control bus communicates through the I2C protocol only. The
+ serial bus is also used for periodic codec fault checking/reporting during
+ audio playback. For more product information please see the links below:
+ 
+-http://www.ti.com/product/TAS5720L
+-http://www.ti.com/product/TAS5720M
+-http://www.ti.com/product/TAS5722L
++https://www.ti.com/product/TAS5720L
++https://www.ti.com/product/TAS5720M
++https://www.ti.com/product/TAS5722L
+ 
+ Required properties:
+ 
+diff --git a/Documentation/devicetree/bindings/sound/ti,tas6424.txt b/Documentation/devicetree/bindings/sound/ti,tas6424.txt
+index eacb54f34188..00940c489299 100644
+--- a/Documentation/devicetree/bindings/sound/ti,tas6424.txt
++++ b/Documentation/devicetree/bindings/sound/ti,tas6424.txt
+@@ -19,4 +19,4 @@ tas6424: tas6424@6a {
+ };
+ 
+ For more product information please see the link below:
+-http://www.ti.com/product/TAS6424-Q1
++https://www.ti.com/product/TAS6424-Q1
+diff --git a/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml b/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml
+index 2e6ac5d2ee96..8e008b7cf926 100644
+--- a/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml
++++ b/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml
+@@ -18,9 +18,9 @@ description: |
+   microphone bias or supply voltage generation.
+ 
+   Specifications can be found at:
+-    http://www.ti.com/lit/ds/symlink/tlv320adc3140.pdf
+-    http://www.ti.com/lit/ds/symlink/tlv320adc5140.pdf
+-    http://www.ti.com/lit/ds/symlink/tlv320adc6140.pdf
++    https://www.ti.com/lit/ds/symlink/tlv320adc3140.pdf
++    https://www.ti.com/lit/ds/symlink/tlv320adc5140.pdf
++    https://www.ti.com/lit/ds/symlink/tlv320adc6140.pdf
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/sound/soc/dai.rst b/Documentation/sound/soc/dai.rst
+index 2e99183a7a47..009b07e5a0f3 100644
+--- a/Documentation/sound/soc/dai.rst
++++ b/Documentation/sound/soc/dai.rst
+@@ -17,7 +17,7 @@ frame (FRAME) (usually 48kHz) is always driven by the controller. Each AC97
+ frame is 21uS long and is divided into 13 time slots.
+ 
+ The AC97 specification can be found at :
+-http://www.intel.com/p/en_US/business/design
++https://www.intel.com/p/en_US/business/design
+ 
+ 
+ I2S
+diff --git a/sound/soc/cirrus/ep93xx-ac97.c b/sound/soc/cirrus/ep93xx-ac97.c
+index 1c45fb9ff990..16f9bb283b5c 100644
+--- a/sound/soc/cirrus/ep93xx-ac97.c
++++ b/sound/soc/cirrus/ep93xx-ac97.c
+@@ -285,7 +285,7 @@ static int ep93xx_ac97_trigger(struct snd_pcm_substream *substream,
+ 			/*
+ 			 * As per Cirrus EP93xx errata described below:
+ 			 *
+-			 * http://www.cirrus.com/en/pubs/errata/ER667E2B.pdf
++			 * https://www.cirrus.com/en/pubs/errata/ER667E2B.pdf
+ 			 *
+ 			 * we will wait for the TX FIFO to be empty before
+ 			 * clearing the TEN bit.
+diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-codec.c
+index f005751da2cc..86c636ee312a 100644
+--- a/sound/soc/codecs/hdmi-codec.c
++++ b/sound/soc/codecs/hdmi-codec.c
+@@ -1,7 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ /*
+  * ALSA SoC codec for HDMI encoder drivers
+- * Copyright (C) 2015 Texas Instruments Incorporated - http://www.ti.com/
++ * Copyright (C) 2015 Texas Instruments Incorporated - https://www.ti.com/
+  * Author: Jyri Sarha <jsarha@ti.com>
+  */
+ #include <linux/module.h>
+diff --git a/sound/soc/codecs/max9850.c b/sound/soc/codecs/max9850.c
+index 6f43748f9239..4659b8c6e746 100644
+--- a/sound/soc/codecs/max9850.c
++++ b/sound/soc/codecs/max9850.c
+@@ -7,7 +7,7 @@
+  * Author: Christian Glindkamp <christian.glindkamp@taskit.de>
+  *
+  * Initial development of this code was funded by
+- * MICRONIC Computer Systeme GmbH, http://www.mcsberlin.de/
++ * MICRONIC Computer Systeme GmbH, https://www.mcsberlin.de/
+  */
+ 
+ #include <linux/module.h>
+diff --git a/sound/soc/codecs/mc13783.c b/sound/soc/codecs/mc13783.c
+index f9830bd3da18..9e6a0cda43d0 100644
+--- a/sound/soc/codecs/mc13783.c
++++ b/sound/soc/codecs/mc13783.c
+@@ -5,7 +5,7 @@
+  * Copyright 2012 Philippe Retornaz, philippe.retornaz@epfl.ch
+  *
+  * Initial development of this code was funded by
+- * Phytec Messtechnik GmbH, http://www.phytec.de
++ * Phytec Messtechnik GmbH, https://www.phytec.de
+  */
+ #include <linux/module.h>
+ #include <linux/device.h>
+diff --git a/sound/soc/codecs/pcm186x-i2c.c b/sound/soc/codecs/pcm186x-i2c.c
+index 0214dc6d84d0..f8382b74391d 100644
+--- a/sound/soc/codecs/pcm186x-i2c.c
++++ b/sound/soc/codecs/pcm186x-i2c.c
+@@ -2,7 +2,7 @@
+ /*
+  * Texas Instruments PCM186x Universal Audio ADC - I2C
+  *
+- * Copyright (C) 2015-2017 Texas Instruments Incorporated - http://www.ti.com
++ * Copyright (C) 2015-2017 Texas Instruments Incorporated - https://www.ti.com
+  *	Andreas Dannenberg <dannenberg@ti.com>
+  *	Andrew F. Davis <afd@ti.com>
+  */
+diff --git a/sound/soc/codecs/pcm186x-spi.c b/sound/soc/codecs/pcm186x-spi.c
+index b56e19827497..bc1b0f0698ed 100644
+--- a/sound/soc/codecs/pcm186x-spi.c
++++ b/sound/soc/codecs/pcm186x-spi.c
+@@ -2,7 +2,7 @@
+ /*
+  * Texas Instruments PCM186x Universal Audio ADC - SPI
+  *
+- * Copyright (C) 2015-2017 Texas Instruments Incorporated - http://www.ti.com
++ * Copyright (C) 2015-2017 Texas Instruments Incorporated - https://www.ti.com
+  *	Andreas Dannenberg <dannenberg@ti.com>
+  *	Andrew F. Davis <afd@ti.com>
+  */
+diff --git a/sound/soc/codecs/pcm186x.c b/sound/soc/codecs/pcm186x.c
+index c5fcc632f670..f0da55901dcb 100644
+--- a/sound/soc/codecs/pcm186x.c
++++ b/sound/soc/codecs/pcm186x.c
+@@ -2,7 +2,7 @@
+ /*
+  * Texas Instruments PCM186x Universal Audio ADC
+  *
+- * Copyright (C) 2015-2017 Texas Instruments Incorporated - http://www.ti.com
++ * Copyright (C) 2015-2017 Texas Instruments Incorporated - https://www.ti.com
+  *	Andreas Dannenberg <dannenberg@ti.com>
+  *	Andrew F. Davis <afd@ti.com>
+  */
+diff --git a/sound/soc/codecs/pcm186x.h b/sound/soc/codecs/pcm186x.h
+index bb3f0c42a1cd..4d493754a3e2 100644
+--- a/sound/soc/codecs/pcm186x.h
++++ b/sound/soc/codecs/pcm186x.h
+@@ -2,7 +2,7 @@
+ /*
+  * Texas Instruments PCM186x Universal Audio ADC
+  *
+- * Copyright (C) 2015-2017 Texas Instruments Incorporated - http://www.ti.com
++ * Copyright (C) 2015-2017 Texas Instruments Incorporated - https://www.ti.com
+  *	Andreas Dannenberg <dannenberg@ti.com>
+  *	Andrew F. Davis <afd@ti.com>
+  */
+diff --git a/sound/soc/codecs/tas2552.c b/sound/soc/codecs/tas2552.c
+index d90e5f2b6f27..a94ad2580729 100644
+--- a/sound/soc/codecs/tas2552.c
++++ b/sound/soc/codecs/tas2552.c
+@@ -2,7 +2,7 @@
+ /*
+  * tas2552.c - ALSA SoC Texas Instruments TAS2552 Mono Audio Amplifier
+  *
+- * Copyright (C) 2014 Texas Instruments Incorporated -  http://www.ti.com
++ * Copyright (C) 2014 Texas Instruments Incorporated -  https://www.ti.com
+  *
+  * Author: Dan Murphy <dmurphy@ti.com>
+  */
+diff --git a/sound/soc/codecs/tas2552.h b/sound/soc/codecs/tas2552.h
+index d0958315d6a2..b9c2e70df57e 100644
+--- a/sound/soc/codecs/tas2552.h
++++ b/sound/soc/codecs/tas2552.h
+@@ -2,7 +2,7 @@
+ /*
+  * tas2552.h - ALSA SoC Texas Instruments TAS2552 Mono Audio Amplifier
+  *
+- * Copyright (C) 2014 Texas Instruments Incorporated -  http://www.ti.com
++ * Copyright (C) 2014 Texas Instruments Incorporated -  https://www.ti.com
+  *
+  * Author: Dan Murphy <dmurphy@ti.com>
+  */
+diff --git a/sound/soc/codecs/tas2562.h b/sound/soc/codecs/tas2562.h
+index 28e75fc431d0..61f22b45fe1b 100644
+--- a/sound/soc/codecs/tas2562.h
++++ b/sound/soc/codecs/tas2562.h
+@@ -2,7 +2,7 @@
+ /*
+  * tas2562.h - ALSA SoC Texas Instruments TAS2562 Mono Audio Amplifier
+  *
+- * Copyright (C) 2019 Texas Instruments Incorporated -  http://www.ti.com
++ * Copyright (C) 2019 Texas Instruments Incorporated -  https://www.ti.com
+  *
+  * Author: Dan Murphy <dmurphy@ti.com>
+  */
+diff --git a/sound/soc/codecs/tas2770.c b/sound/soc/codecs/tas2770.c
+index 54c8135fe43c..ad660d1a5ed9 100644
+--- a/sound/soc/codecs/tas2770.c
++++ b/sound/soc/codecs/tas2770.c
+@@ -3,7 +3,7 @@
+ // ALSA SoC Texas Instruments TAS2770 20-W Digital Input Mono Class-D
+ // Audio Amplifier with Speaker I/V Sense
+ //
+-// Copyright (C) 2016-2017 Texas Instruments Incorporated - http://www.ti.com/
++// Copyright (C) 2016-2017 Texas Instruments Incorporated - https://www.ti.com/
+ //	Author: Tracy Yi <tracy-yi@ti.com>
+ //	Frank Shi <shifu0704@thundersoft.com>
+ 
+diff --git a/sound/soc/codecs/tas2770.h b/sound/soc/codecs/tas2770.h
+index cbb858369fe6..96683971ee9b 100644
+--- a/sound/soc/codecs/tas2770.h
++++ b/sound/soc/codecs/tas2770.h
+@@ -2,7 +2,7 @@
+  *
+  * ALSA SoC TAS2770 codec driver
+  *
+- *  Copyright (C) 2016-2017 Texas Instruments Incorporated - http://www.ti.com/
++ *  Copyright (C) 2016-2017 Texas Instruments Incorporated - https://www.ti.com/
+  */
+ #ifndef __TAS2770__
+ #define __TAS2770__
+diff --git a/sound/soc/codecs/tas5720.c b/sound/soc/codecs/tas5720.c
+index 37fab8f22800..616c8ab89c68 100644
+--- a/sound/soc/codecs/tas5720.c
++++ b/sound/soc/codecs/tas5720.c
+@@ -2,7 +2,7 @@
+ /*
+  * tas5720.c - ALSA SoC Texas Instruments TAS5720 Mono Audio Amplifier
+  *
+- * Copyright (C)2015-2016 Texas Instruments Incorporated -  http://www.ti.com
++ * Copyright (C)2015-2016 Texas Instruments Incorporated -  https://www.ti.com
+  *
+  * Author: Andreas Dannenberg <dannenberg@ti.com>
+  */
+diff --git a/sound/soc/codecs/tas5720.h b/sound/soc/codecs/tas5720.h
+index 93079f954f09..223858f0de71 100644
+--- a/sound/soc/codecs/tas5720.h
++++ b/sound/soc/codecs/tas5720.h
+@@ -2,7 +2,7 @@
+ /*
+  * tas5720.h - ALSA SoC Texas Instruments TAS5720 Mono Audio Amplifier
+  *
+- * Copyright (C)2015-2016 Texas Instruments Incorporated -  http://www.ti.com
++ * Copyright (C)2015-2016 Texas Instruments Incorporated -  https://www.ti.com
+  *
+  * Author: Andreas Dannenberg <dannenberg@ti.com>
+  */
+diff --git a/sound/soc/codecs/tas6424.c b/sound/soc/codecs/tas6424.c
+index aaba39295079..3e6a77d60a2f 100644
+--- a/sound/soc/codecs/tas6424.c
++++ b/sound/soc/codecs/tas6424.c
+@@ -2,7 +2,7 @@
+ /*
+  * ALSA SoC Texas Instruments TAS6424 Quad-Channel Audio Amplifier
+  *
+- * Copyright (C) 2016-2017 Texas Instruments Incorporated - http://www.ti.com/
++ * Copyright (C) 2016-2017 Texas Instruments Incorporated - https://www.ti.com/
+  *	Author: Andreas Dannenberg <dannenberg@ti.com>
+  *	Andrew F. Davis <afd@ti.com>
+  */
+diff --git a/sound/soc/codecs/tas6424.h b/sound/soc/codecs/tas6424.h
+index c67a7835ca66..a6a0d00e5190 100644
+--- a/sound/soc/codecs/tas6424.h
++++ b/sound/soc/codecs/tas6424.h
+@@ -2,7 +2,7 @@
+ /*
+  * ALSA SoC Texas Instruments TAS6424 Quad-Channel Audio Amplifier
+  *
+- * Copyright (C) 2016-2017 Texas Instruments Incorporated - http://www.ti.com/
++ * Copyright (C) 2016-2017 Texas Instruments Incorporated - https://www.ti.com/
+  *	Author: Andreas Dannenberg <dannenberg@ti.com>
+  *	Andrew F. Davis <afd@ti.com>
+  */
+diff --git a/sound/soc/codecs/tlv320adcx140.c b/sound/soc/codecs/tlv320adcx140.c
+index 35fe8ee5bce9..0c3b08d1d749 100644
+--- a/sound/soc/codecs/tlv320adcx140.c
++++ b/sound/soc/codecs/tlv320adcx140.c
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0
+ // TLV320ADCX140 Sound driver
+-// Copyright (C) 2020 Texas Instruments Incorporated - http://www.ti.com/
++// Copyright (C) 2020 Texas Instruments Incorporated - https://www.ti.com/
+ 
+ #include <linux/module.h>
+ #include <linux/moduleparam.h>
+diff --git a/sound/soc/codecs/tlv320adcx140.h b/sound/soc/codecs/tlv320adcx140.h
+index 39206bf1af12..ab3fec866ae9 100644
+--- a/sound/soc/codecs/tlv320adcx140.h
++++ b/sound/soc/codecs/tlv320adcx140.h
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0
+ // TLV320ADCX104 Sound driver
+-// Copyright (C) 2020 Texas Instruments Incorporated - http://www.ti.com/
++// Copyright (C) 2020 Texas Instruments Incorporated - https://www.ti.com/
+ 
+ #ifndef _TLV320ADCX140_H
+ #define _TLV320ADCX140_H
+diff --git a/sound/soc/codecs/tlv320aic31xx.c b/sound/soc/codecs/tlv320aic31xx.c
+index 31daa60695bd..9d4063138e22 100644
+--- a/sound/soc/codecs/tlv320aic31xx.c
++++ b/sound/soc/codecs/tlv320aic31xx.c
+@@ -2,7 +2,7 @@
+ /*
+  * ALSA SoC TLV320AIC31xx CODEC Driver
+  *
+- * Copyright (C) 2014-2017 Texas Instruments Incorporated - http://www.ti.com/
++ * Copyright (C) 2014-2017 Texas Instruments Incorporated - https://www.ti.com/
+  *	Jyri Sarha <jsarha@ti.com>
+  *
+  * Based on ground work by: Ajit Kulkarni <x0175765@ti.com>
+@@ -877,7 +877,7 @@ static int aic31xx_setup_pll(struct snd_soc_component *component,
+ 		   there may be trouble. To fix the issue edit the
+ 		   aic31xx_divs table for your mclk and sample
+ 		   rate. Details can be found from:
+-		   http://www.ti.com/lit/ds/symlink/tlv320aic3100.pdf
++		   https://www.ti.com/lit/ds/symlink/tlv320aic3100.pdf
+ 		   Section: 5.6 CLOCK Generation and PLL
+ 		*/
+ 	}
+diff --git a/sound/soc/codecs/tlv320aic31xx.h b/sound/soc/codecs/tlv320aic31xx.h
+index 0523884cee74..81952984613d 100644
+--- a/sound/soc/codecs/tlv320aic31xx.h
++++ b/sound/soc/codecs/tlv320aic31xx.h
+@@ -2,7 +2,7 @@
+ /*
+  * ALSA SoC TLV320AIC31xx CODEC Driver Definitions
+  *
+- * Copyright (C) 2014-2017 Texas Instruments Incorporated - http://www.ti.com/
++ * Copyright (C) 2014-2017 Texas Instruments Incorporated - https://www.ti.com/
+  */
+ 
+ #ifndef _TLV320AIC31XX_H
 -- 
 2.27.0
 

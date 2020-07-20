@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14439225575
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 03:33:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CFD6225576
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 03:33:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B549C1614;
-	Mon, 20 Jul 2020 03:32:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B549C1614
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0BC5F825;
+	Mon, 20 Jul 2020 03:33:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0BC5F825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595208801;
-	bh=CEF4JIwB31IKUUhAFqmMokLru1xet0Di6w45lLop31s=;
+	s=default; t=1595208836;
+	bh=S0ZoTidWCcvbVQavlf5KeWJpss7HaHpAGKmqqODAkBA=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SVJAXhelxjy+wvOIPYXFdKJjIGrrWwPoc5sDp4YdguzClMGM5+jgksuZuPgMRXd+T
-	 GdHEDG4eXI79BbXf70g4/FXKPdTeQp4PXaVUlcyZpDDPpykYmrv46FIIsimPqeO2Wx
-	 RBywCiy2FHv7lLEzjQzpVjhfmHRMod0VMlBmn+vk=
+	b=c5UuVZXyFgPiuva+Q+qHjJP7XZ8+h49PdNUGvNIV+S+YJuEWclCHTlEKjF5GUfD55
+	 /K2rrANGOKNfYywXEzrzoG6Iw8/obpcu3WENatLw6byB9K6PETRz9MIVXOw8IaV4Z5
+	 DmIXp/YA1O4LhmrETYfFoOTU6lPEvUmWwPnQANK4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7FE6DF803BC;
-	Mon, 20 Jul 2020 03:19:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 012BFF803B0;
+	Mon, 20 Jul 2020 03:19:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7B4A1F803BD; Mon, 20 Jul 2020 03:19:39 +0200 (CEST)
+ id B48CCF803CA; Mon, 20 Jul 2020 03:19:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id B3192F80393
- for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:19:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3192F80393
-Date: 20 Jul 2020 10:19:32 +0900
-X-IronPort-AV: E=Sophos;i="5.75,373,1589209200"; d="scan'208";a="52541516"
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 75779F803BC
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:19:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75779F803BC
+Date: 20 Jul 2020 10:19:37 +0900
+X-IronPort-AV: E=Sophos;i="5.75,373,1589209200"; d="scan'208";a="52330339"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 20 Jul 2020 10:19:32 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 20 Jul 2020 10:19:37 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 4D1B840083F8;
- Mon, 20 Jul 2020 10:19:32 +0900 (JST)
-Message-ID: <87zh7vyoex.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 1D47440083F8;
+ Mon, 20 Jul 2020 10:19:37 +0900 (JST)
+Message-ID: <87y2nfyoes.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 24/29] ASoC: generic: use asoc_substream_to_rtd()
+Subject: [PATCH 25/29] ASoC: sprd: use asoc_substream_to_rtd()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87y2nf0yw2.wl-kuninori.morimoto.gx@renesas.com>
@@ -75,40 +75,22 @@ let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/generic/simple-card-utils.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ sound/soc/sprd/sprd-pcm-dma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
-index b408cb5ed644..6cada4c1e283 100644
---- a/sound/soc/generic/simple-card-utils.c
-+++ b/sound/soc/generic/simple-card-utils.c
-@@ -193,7 +193,7 @@ EXPORT_SYMBOL_GPL(asoc_simple_parse_clk);
- 
- int asoc_simple_startup(struct snd_pcm_substream *substream)
+diff --git a/sound/soc/sprd/sprd-pcm-dma.c b/sound/soc/sprd/sprd-pcm-dma.c
+index 5074123f8855..5e3a96d4793c 100644
+--- a/sound/soc/sprd/sprd-pcm-dma.c
++++ b/sound/soc/sprd/sprd-pcm-dma.c
+@@ -190,7 +190,7 @@ static int sprd_pcm_hw_params(struct snd_soc_component *component,
  {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct sprd_pcm_dma_private *dma_private = runtime->private_data;
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(rtd->card);
- 	struct simple_dai_props *dai_props = simple_priv_to_props(priv, rtd->num);
- 	int ret;
-@@ -212,7 +212,7 @@ EXPORT_SYMBOL_GPL(asoc_simple_startup);
- 
- void asoc_simple_shutdown(struct snd_pcm_substream *substream)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(rtd->card);
-@@ -248,7 +248,7 @@ static int asoc_simple_set_clk_rate(struct asoc_simple_dai *simple_dai,
- int asoc_simple_hw_params(struct snd_pcm_substream *substream,
- 			  struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(rtd->card);
+ 	struct sprd_pcm_dma_params *dma_params;
+ 	size_t totsize = params_buffer_bytes(params);
+ 	size_t period = params_period_bytes(params);
 -- 
 2.25.1
 

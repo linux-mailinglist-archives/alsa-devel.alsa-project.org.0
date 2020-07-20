@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D73622557E
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 03:35:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DDF022557F
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 03:36:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BF29E169E;
-	Mon, 20 Jul 2020 03:34:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF29E169E
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB20C167A;
+	Mon, 20 Jul 2020 03:35:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB20C167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595208941;
-	bh=tFDfOUX21DM+krVb9y0omifhyypKLUuLHtVMon+NCuc=;
+	s=default; t=1595208975;
+	bh=62PgFpsim4D3/wnv0yUfKJPVxWQxy2fpPQWSfohZHsc=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YMnNAZJNhZvxtKmHw7/9K0fCKa92BWO8LEHs5egDgipv5ldGKJyAV59AKk/eyld1c
-	 AwcNHmB2CovEpWdcFwIYAkIh98p5jUKmEb8J1aSn4dYqkrLg1W+0AWuv8lMbZtBfNO
-	 d/4z6cqr/UfX2wKBmYEpGmKrIr8EPlbthVFiqct8=
+	b=J41nIDbNRQ9F5NHSRjnfQG+OfU8RtaoZ4yemK+KM9fsVRxcDITRP/AuiKgX1BMC5C
+	 yu/hqLQ3h3qpHphJTRrWn1N6Ce5gbsLS1xLZJLrM8pSsqjhmLJOLJ2nc/7SDaDH277
+	 L6/fHJT+NCqITId7ZBITGgO9RqtgN2oaF9s7H70s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A55FF803EB;
-	Mon, 20 Jul 2020 03:19:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CAB03F803F3;
+	Mon, 20 Jul 2020 03:20:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 73CD6F803E0; Mon, 20 Jul 2020 03:19:55 +0200 (CEST)
+ id C9DE2F802D2; Mon, 20 Jul 2020 03:20:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 711EAF803E0
- for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:19:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 711EAF803E0
-Date: 20 Jul 2020 10:19:51 +0900
-X-IronPort-AV: E=Sophos;i="5.75,373,1589209200"; d="scan'208";a="52330359"
+ by alsa1.perex.cz (Postfix) with ESMTP id B6DC6F803EA
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:19:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6DC6F803EA
+Date: 20 Jul 2020 10:19:55 +0900
+X-IronPort-AV: E=Sophos;i="5.75,373,1589209200"; d="scan'208";a="52330364"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 20 Jul 2020 10:19:51 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 20 Jul 2020 10:19:55 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 0AAA4415D724;
- Mon, 20 Jul 2020 10:19:51 +0900 (JST)
-Message-ID: <87tuy3yoef.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 4B74F415D3D9;
+ Mon, 20 Jul 2020 10:19:55 +0900 (JST)
+Message-ID: <87sgdnyoea.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 28/29] ASoC: mxs: use asoc_substream_to_rtd()
+Subject: [PATCH 29/29] ASoC: uniphier: use asoc_substream_to_rtd()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87y2nf0yw2.wl-kuninori.morimoto.gx@renesas.com>
@@ -75,22 +75,40 @@ let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/mxs/mxs-sgtl5000.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/uniphier/aio-dma.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/mxs/mxs-sgtl5000.c b/sound/soc/mxs/mxs-sgtl5000.c
-index f46d7aca8cf6..a6407f4388de 100644
---- a/sound/soc/mxs/mxs-sgtl5000.c
-+++ b/sound/soc/mxs/mxs-sgtl5000.c
-@@ -19,7 +19,7 @@
- static int mxs_sgtl5000_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_pcm_hw_params *params)
+diff --git a/sound/soc/uniphier/aio-dma.c b/sound/soc/uniphier/aio-dma.c
+index d6bcd476df12..3c1628a3a1ac 100644
+--- a/sound/soc/uniphier/aio-dma.c
++++ b/sound/soc/uniphier/aio-dma.c
+@@ -108,7 +108,7 @@ static int uniphier_aiodma_prepare(struct snd_soc_component *component,
+ 				   struct snd_pcm_substream *substream)
  {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+-	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	unsigned int rate = params_rate(params);
+ 	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
+ 	struct uniphier_aio_sub *sub = &aio->sub[substream->stream];
+ 	int bytes = runtime->period_size *
+@@ -135,7 +135,7 @@ static int uniphier_aiodma_trigger(struct snd_soc_component *component,
+ 				   struct snd_pcm_substream *substream, int cmd)
+ {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+-	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
+ 	struct uniphier_aio_sub *sub = &aio->sub[substream->stream];
+ 	struct device *dev = &aio->chip->pdev->dev;
+@@ -171,7 +171,7 @@ static snd_pcm_uframes_t uniphier_aiodma_pointer(
+ 					struct snd_pcm_substream *substream)
+ {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+-	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct uniphier_aio *aio = uniphier_priv(asoc_rtd_to_cpu(rtd, 0));
+ 	struct uniphier_aio_sub *sub = &aio->sub[substream->stream];
+ 	int bytes = runtime->period_size *
 -- 
 2.25.1
 

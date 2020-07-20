@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE922225556
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 03:22:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 972F4225559
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 03:22:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 914C11657;
-	Mon, 20 Jul 2020 03:21:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 914C11657
+	by alsa0.perex.cz (Postfix) with ESMTPS id 43761165E;
+	Mon, 20 Jul 2020 03:21:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43761165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595208137;
-	bh=ZNr5Iekfu3GZs2GSUtdjlKz9ejdB9Ld8hzmMwG6LeFo=;
+	s=default; t=1595208163;
+	bh=ZOwpK5M8NTwkCizvk9twtgFqXmzwQJ+x4+ygutDEZ/o=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bsHKRw2l4qhlqtOxuf7DsFSMcXOK3nrqotsfQyjqZvYXMGg6kq+bTE+fKGC0Rij/o
-	 vK41C57Ix+Gxqin4mhhG7UxQ2GDBy/L8KXFEFeA5EEv/4F0Uet9k1zQQP/KbXp6gLx
-	 tVBHNlIymdYUVRZvOJljtd+HxiaOUubDckQAogGw=
+	b=EdgpDCdOjaJZ3nkif4eLBOk54NECl3ilugd8F53DweI4iZlNRTydj3yHyffot6lxF
+	 zvjYkHvx9gd8JA/8N7NS1u+H8+ytpxO28c/mqErN5gCd9vppKh/9pYRSTgXNZ4HhbU
+	 jLQygjAv366CmXk5kcTtAcNfFZPFCbxoMidQBFvI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7414F80274;
-	Mon, 20 Jul 2020 03:18:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9CF9F80305;
+	Mon, 20 Jul 2020 03:18:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 137D4F802EB; Mon, 20 Jul 2020 03:18:02 +0200 (CEST)
+ id D5508F802FF; Mon, 20 Jul 2020 03:18:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 6149DF802E7
- for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:17:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6149DF802E7
-Date: 20 Jul 2020 10:17:57 +0900
-X-IronPort-AV: E=Sophos;i="5.75,373,1589209200"; d="scan'208";a="52330175"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 20 Jul 2020 10:17:57 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 03813F802EA
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:18:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03813F802EA
+Date: 20 Jul 2020 10:18:01 +0900
+X-IronPort-AV: E=Sophos;i="5.75,373,1589209200"; d="scan'208";a="52330178"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 20 Jul 2020 10:18:01 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id C23FC415C6CB;
- Mon, 20 Jul 2020 10:17:57 +0900 (JST)
-Message-ID: <87r1t70yuw.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 8FEB740083F8;
+ Mon, 20 Jul 2020 10:18:01 +0900 (JST)
+Message-ID: <87pn8r0yus.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 05/29] ASoC: sunxi: use asoc_substream_to_rtd()
+Subject: [PATCH 06/29] ASoC: stm: use asoc_substream_to_rtd()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87y2nf0yw2.wl-kuninori.morimoto.gx@renesas.com>
@@ -75,81 +75,81 @@ let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/sunxi/sun4i-codec.c | 12 ++++++------
- sound/soc/sunxi/sun4i-spdif.c |  2 +-
+ sound/soc/stm/stm32_adfsdm.c  | 12 ++++++------
+ sound/soc/stm/stm32_sai_sub.c |  2 +-
  2 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/sunxi/sun4i-codec.c b/sound/soc/sunxi/sun4i-codec.c
-index 34f3e0be3058..2af6404dbd62 100644
---- a/sound/soc/sunxi/sun4i-codec.c
-+++ b/sound/soc/sunxi/sun4i-codec.c
-@@ -286,7 +286,7 @@ static void sun4i_codec_stop_capture(struct sun4i_codec *scodec)
- static int sun4i_codec_trigger(struct snd_pcm_substream *substream, int cmd,
- 			       struct snd_soc_dai *dai)
+diff --git a/sound/soc/stm/stm32_adfsdm.c b/sound/soc/stm/stm32_adfsdm.c
+index 16ff02953015..c1433c20b08b 100644
+--- a/sound/soc/stm/stm32_adfsdm.c
++++ b/sound/soc/stm/stm32_adfsdm.c
+@@ -168,7 +168,7 @@ static void stm32_memcpy_32to16(void *dest, const void *src, size_t n)
+ static int stm32_afsdm_pcm_cb(const void *data, size_t size, void *private)
+ {
+ 	struct stm32_adfsdm_priv *priv = private;
+-	struct snd_soc_pcm_runtime *rtd = priv->substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(priv->substream);
+ 	u8 *pcm_buff = priv->pcm_buff;
+ 	u8 *src_buff = (u8 *)data;
+ 	unsigned int old_pos = priv->pos;
+@@ -213,7 +213,7 @@ static int stm32_afsdm_pcm_cb(const void *data, size_t size, void *private)
+ static int stm32_adfsdm_trigger(struct snd_soc_component *component,
+ 				struct snd_pcm_substream *substream, int cmd)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct sun4i_codec *scodec = snd_soc_card_get_drvdata(rtd->card);
+ 	struct stm32_adfsdm_priv *priv =
+ 		snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
  
- 	switch (cmd) {
-@@ -318,7 +318,7 @@ static int sun4i_codec_trigger(struct snd_pcm_substream *substream, int cmd,
- static int sun4i_codec_prepare_capture(struct snd_pcm_substream *substream,
- 				       struct snd_soc_dai *dai)
+@@ -234,7 +234,7 @@ static int stm32_adfsdm_trigger(struct snd_soc_component *component,
+ static int stm32_adfsdm_pcm_open(struct snd_soc_component *component,
+ 				 struct snd_pcm_substream *substream)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct sun4i_codec *scodec = snd_soc_card_get_drvdata(rtd->card);
+ 	struct stm32_adfsdm_priv *priv = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 	int ret;
  
- 
-@@ -360,7 +360,7 @@ static int sun4i_codec_prepare_capture(struct snd_pcm_substream *substream,
- static int sun4i_codec_prepare_playback(struct snd_pcm_substream *substream,
- 					struct snd_soc_dai *dai)
+@@ -248,7 +248,7 @@ static int stm32_adfsdm_pcm_open(struct snd_soc_component *component,
+ static int stm32_adfsdm_pcm_close(struct snd_soc_component *component,
+ 				  struct snd_pcm_substream *substream)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct sun4i_codec *scodec = snd_soc_card_get_drvdata(rtd->card);
- 	u32 val;
+ 	struct stm32_adfsdm_priv *priv =
+ 		snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
  
-@@ -573,7 +573,7 @@ static int sun4i_codec_hw_params(struct snd_pcm_substream *substream,
- 				 struct snd_pcm_hw_params *params,
- 				 struct snd_soc_dai *dai)
+@@ -261,7 +261,7 @@ static snd_pcm_uframes_t stm32_adfsdm_pcm_pointer(
+ 					    struct snd_soc_component *component,
+ 					    struct snd_pcm_substream *substream)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct sun4i_codec *scodec = snd_soc_card_get_drvdata(rtd->card);
- 	unsigned long clk_freq;
- 	int ret, hwrate;
-@@ -614,7 +614,7 @@ static struct snd_pcm_hw_constraint_list sun4i_codec_constraints = {
- static int sun4i_codec_startup(struct snd_pcm_substream *substream,
- 			       struct snd_soc_dai *dai)
+ 	struct stm32_adfsdm_priv *priv =
+ 		snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 
+@@ -272,7 +272,7 @@ static int stm32_adfsdm_pcm_hw_params(struct snd_soc_component *component,
+ 				      struct snd_pcm_substream *substream,
+ 				      struct snd_pcm_hw_params *params)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct sun4i_codec *scodec = snd_soc_card_get_drvdata(rtd->card);
+ 	struct stm32_adfsdm_priv *priv =
+ 		snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
  
- 	snd_pcm_hw_constraint_list(substream->runtime, 0,
-@@ -634,7 +634,7 @@ static int sun4i_codec_startup(struct snd_pcm_substream *substream,
- static void sun4i_codec_shutdown(struct snd_pcm_substream *substream,
- 				 struct snd_soc_dai *dai)
+diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
+index 41f01c3e639e..3fb9513cedb2 100644
+--- a/sound/soc/stm/stm32_sai_sub.c
++++ b/sound/soc/stm/stm32_sai_sub.c
+@@ -1237,7 +1237,7 @@ static int stm32_sai_pcm_process_spdif(struct snd_pcm_substream *substream,
+ 				       void *buf, unsigned long bytes)
  {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct sun4i_codec *scodec = snd_soc_card_get_drvdata(rtd->card);
- 
- 	clk_disable_unprepare(scodec->clk_module);
-diff --git a/sound/soc/sunxi/sun4i-spdif.c b/sound/soc/sunxi/sun4i-spdif.c
-index 326dd45e39da..228485fe0734 100644
---- a/sound/soc/sunxi/sun4i-spdif.c
-+++ b/sound/soc/sunxi/sun4i-spdif.c
-@@ -243,7 +243,7 @@ static void sun4i_snd_txctrl_off(struct snd_pcm_substream *substream,
- static int sun4i_spdif_startup(struct snd_pcm_substream *substream,
- 			       struct snd_soc_dai *cpu_dai)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct sun4i_spdif_dev *host = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 
- 	if (substream->stream != SNDRV_PCM_STREAM_PLAYBACK)
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	struct stm32_sai_sub_data *sai = dev_get_drvdata(cpu_dai->dev);
+ 	int *ptr = (int *)(runtime->dma_area + hwoff +
 -- 
 2.25.1
 

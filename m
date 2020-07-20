@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6AA522556B
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 03:29:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3067922556C
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 03:29:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 893621607;
-	Mon, 20 Jul 2020 03:28:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 893621607
+	by alsa0.perex.cz (Postfix) with ESMTPS id D652E1681;
+	Mon, 20 Jul 2020 03:29:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D652E1681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595208556;
-	bh=OWoHFySBct96gYsM8R59J28XBuxVmPyekQM5rCcuYEM=;
+	s=default; t=1595208593;
+	bh=QWTTr19VS31zKReKmv7jwPrCUysmr605OGLzu6F+8d8=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fDnvjrTzayOoiNmjZ1X0rJv2Hlf157q0m6VfHXiPUGnv2eLDg0bCaPm1Ryin9Nfz8
-	 dmc0q8FiPwgdXvRyinkq6KOtgZxH0zQg0FkAAeHT+lkAbFpg8s9tlc9yFtJT03RGzk
-	 Ya2Z44UCAo+uAbRYn+i6eWyKFIbk6rP4/GBMc7rk=
+	b=uGpmYvTY+OUT97wA1x7+kGpgPYIAYwP6dEZUfYxd+kbwA7f1ZadWptkWpAReUpQxM
+	 HCRsW2hPvzuj2t0khIIuV/j8w95okQ8vjfCzSM+8iPaetUluYLsb4QBdFzVT2GX1GJ
+	 cbCT5d0VBvdK1k5Jk2fcg2M7+XqnE6fBIVBM51D8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B5FBF802BE;
-	Mon, 20 Jul 2020 03:19:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29A82F800C1;
+	Mon, 20 Jul 2020 03:19:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1A18AF80370; Mon, 20 Jul 2020 03:19:09 +0200 (CEST)
+ id BF71FF80212; Mon, 20 Jul 2020 03:19:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 826C3F80363
- for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:19:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 826C3F80363
-Date: 20 Jul 2020 10:19:00 +0900
-X-IronPort-AV: E=Sophos;i="5.75,373,1589209200"; d="scan'208";a="52330285"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id CFF79F8036D
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:19:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFF79F8036D
+Date: 20 Jul 2020 10:19:05 +0900
+X-IronPort-AV: E=Sophos;i="5.75,373,1589209200"; d="scan'208";a="52541475"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 20 Jul 2020 10:19:00 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 20 Jul 2020 10:19:05 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 4B11D40083F8;
- Mon, 20 Jul 2020 10:19:00 +0900 (JST)
-Message-ID: <87a6zv0yt5.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 854AC4002623;
+ Mon, 20 Jul 2020 10:19:05 +0900 (JST)
+Message-ID: <878sff0yt0.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 17/29] ASoC: qcom: use asoc_substream_to_rtd()
+Subject: [PATCH 18/29] ASoC: dwc: use asoc_substream_to_rtd()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87y2nf0yw2.wl-kuninori.morimoto.gx@renesas.com>
@@ -75,218 +75,22 @@ let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/qcom/apq8096.c         |  2 +-
- sound/soc/qcom/lpass-platform.c  | 14 +++++++-------
- sound/soc/qcom/qdsp6/q6asm-dai.c |  6 +++---
- sound/soc/qcom/qdsp6/q6routing.c |  2 +-
- sound/soc/qcom/sdm845.c          | 14 +++++++-------
- sound/soc/qcom/storm.c           |  2 +-
- 6 files changed, 20 insertions(+), 20 deletions(-)
+ sound/soc/dwc/dwc-pcm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/qcom/apq8096.c b/sound/soc/qcom/apq8096.c
-index 287ad2aa27f3..6b5a381cf9b6 100644
---- a/sound/soc/qcom/apq8096.c
-+++ b/sound/soc/qcom/apq8096.c
-@@ -30,7 +30,7 @@ static int apq8096_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
- static int msm_snd_hw_params(struct snd_pcm_substream *substream,
- 			     struct snd_pcm_hw_params *params)
+diff --git a/sound/soc/dwc/dwc-pcm.c b/sound/soc/dwc/dwc-pcm.c
+index 9868e7373d36..9f25631d43d3 100644
+--- a/sound/soc/dwc/dwc-pcm.c
++++ b/sound/soc/dwc/dwc-pcm.c
+@@ -139,7 +139,7 @@ static int dw_pcm_open(struct snd_soc_component *component,
+ 		       struct snd_pcm_substream *substream)
  {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	u32 rx_ch[SLIM_MAX_RX_PORTS], tx_ch[SLIM_MAX_TX_PORTS];
-diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
-index 34f7fd1bab1c..01179bc0e5e5 100644
---- a/sound/soc/qcom/lpass-platform.c
-+++ b/sound/soc/qcom/lpass-platform.c
-@@ -54,7 +54,7 @@ static int lpass_platform_pcmops_open(struct snd_soc_component *component,
- 				      struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
--	struct snd_soc_pcm_runtime *soc_runtime = substream->private_data;
-+	struct snd_soc_pcm_runtime *soc_runtime = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(soc_runtime, 0);
- 	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
- 	struct lpass_variant *v = drvdata->variant;
-@@ -125,7 +125,7 @@ static int lpass_platform_pcmops_hw_params(struct snd_soc_component *component,
- 					   struct snd_pcm_substream *substream,
- 					   struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *soc_runtime = substream->private_data;
-+	struct snd_soc_pcm_runtime *soc_runtime = asoc_substream_to_rtd(substream);
- 	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
- 	struct snd_pcm_runtime *rt = substream->runtime;
- 	struct lpass_pcm_data *pcm_data = rt->private_data;
-@@ -218,7 +218,7 @@ static int lpass_platform_pcmops_hw_params(struct snd_soc_component *component,
- static int lpass_platform_pcmops_hw_free(struct snd_soc_component *component,
- 					 struct snd_pcm_substream *substream)
- {
--	struct snd_soc_pcm_runtime *soc_runtime = substream->private_data;
-+	struct snd_soc_pcm_runtime *soc_runtime = asoc_substream_to_rtd(substream);
- 	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
- 	struct snd_pcm_runtime *rt = substream->runtime;
- 	struct lpass_pcm_data *pcm_data = rt->private_data;
-@@ -239,7 +239,7 @@ static int lpass_platform_pcmops_prepare(struct snd_soc_component *component,
- 					 struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
--	struct snd_soc_pcm_runtime *soc_runtime = substream->private_data;
-+	struct snd_soc_pcm_runtime *soc_runtime = asoc_substream_to_rtd(substream);
- 	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
- 	struct snd_pcm_runtime *rt = substream->runtime;
- 	struct lpass_pcm_data *pcm_data = rt->private_data;
-@@ -291,7 +291,7 @@ static int lpass_platform_pcmops_trigger(struct snd_soc_component *component,
- 					 struct snd_pcm_substream *substream,
- 					 int cmd)
- {
--	struct snd_soc_pcm_runtime *soc_runtime = substream->private_data;
-+	struct snd_soc_pcm_runtime *soc_runtime = asoc_substream_to_rtd(substream);
- 	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
- 	struct snd_pcm_runtime *rt = substream->runtime;
- 	struct lpass_pcm_data *pcm_data = rt->private_data;
-@@ -365,7 +365,7 @@ static snd_pcm_uframes_t lpass_platform_pcmops_pointer(
- 		struct snd_soc_component *component,
- 		struct snd_pcm_substream *substream)
- {
--	struct snd_soc_pcm_runtime *soc_runtime = substream->private_data;
-+	struct snd_soc_pcm_runtime *soc_runtime = asoc_substream_to_rtd(substream);
- 	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
- 	struct snd_pcm_runtime *rt = substream->runtime;
- 	struct lpass_pcm_data *pcm_data = rt->private_data;
-@@ -410,7 +410,7 @@ static irqreturn_t lpass_dma_interrupt_handler(
- 			struct lpass_data *drvdata,
- 			int chan, u32 interrupts)
- {
--	struct snd_soc_pcm_runtime *soc_runtime = substream->private_data;
-+	struct snd_soc_pcm_runtime *soc_runtime = asoc_substream_to_rtd(substream);
- 	struct lpass_variant *v = drvdata->variant;
- 	irqreturn_t ret = IRQ_NONE;
- 	int rv;
-diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
-index 941f3216399c..a2acb7564eb8 100644
---- a/sound/soc/qcom/qdsp6/q6asm-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
-@@ -215,7 +215,7 @@ static int q6asm_dai_prepare(struct snd_soc_component *component,
- 			     struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
--	struct snd_soc_pcm_runtime *soc_prtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *soc_prtd = asoc_substream_to_rtd(substream);
- 	struct q6asm_dai_rtd *prtd = runtime->private_data;
- 	struct q6asm_dai_data *pdata;
- 	struct device *dev = component->dev;
-@@ -333,7 +333,7 @@ static int q6asm_dai_open(struct snd_soc_component *component,
- 			  struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
--	struct snd_soc_pcm_runtime *soc_prtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *soc_prtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(soc_prtd, 0);
- 	struct q6asm_dai_rtd *prtd;
- 	struct q6asm_dai_data *pdata;
-@@ -425,7 +425,7 @@ static int q6asm_dai_close(struct snd_soc_component *component,
- 			   struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
--	struct snd_soc_pcm_runtime *soc_prtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *soc_prtd = asoc_substream_to_rtd(substream);
- 	struct q6asm_dai_rtd *prtd = runtime->private_data;
+ 	struct dw_i2s_dev *dev = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
  
- 	if (prtd->audio_client) {
-diff --git a/sound/soc/qcom/qdsp6/q6routing.c b/sound/soc/qcom/qdsp6/q6routing.c
-index 46e50612b92c..eaa95b5a7b66 100644
---- a/sound/soc/qcom/qdsp6/q6routing.c
-+++ b/sound/soc/qcom/qdsp6/q6routing.c
-@@ -924,7 +924,7 @@ static int routing_hw_params(struct snd_soc_component *component,
- 			     struct snd_pcm_substream *substream,
- 			     struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct msm_routing_data *data = dev_get_drvdata(component->dev);
- 	unsigned int be_id = asoc_rtd_to_cpu(rtd, 0)->id;
- 	struct session_data *session;
-diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
-index 68e9388ff46f..e77a88784e61 100644
---- a/sound/soc/qcom/sdm845.c
-+++ b/sound/soc/qcom/sdm845.c
-@@ -45,7 +45,7 @@ static unsigned int tdm_slot_offset[8] = {0, 4, 8, 12, 16, 20, 24, 28};
- static int sdm845_slim_snd_hw_params(struct snd_pcm_substream *substream,
- 				     struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	struct snd_soc_dai *codec_dai;
- 	struct sdm845_snd_data *pdata = snd_soc_card_get_drvdata(rtd->card);
-@@ -85,7 +85,7 @@ static int sdm845_slim_snd_hw_params(struct snd_pcm_substream *substream,
- static int sdm845_tdm_snd_hw_params(struct snd_pcm_substream *substream,
- 					struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	struct snd_soc_dai *codec_dai;
- 	int ret = 0, j;
-@@ -170,7 +170,7 @@ static int sdm845_tdm_snd_hw_params(struct snd_pcm_substream *substream,
- static int sdm845_snd_hw_params(struct snd_pcm_substream *substream,
- 					struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	int ret = 0;
-@@ -301,7 +301,7 @@ static int sdm845_snd_startup(struct snd_pcm_substream *substream)
- {
- 	unsigned int fmt = SND_SOC_DAIFMT_CBS_CFS;
- 	unsigned int codec_dai_fmt = SND_SOC_DAIFMT_CBS_CFS;
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_card *card = rtd->card;
- 	struct sdm845_snd_data *data = snd_soc_card_get_drvdata(card);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-@@ -391,7 +391,7 @@ static int sdm845_snd_startup(struct snd_pcm_substream *substream)
- 
- static void  sdm845_snd_shutdown(struct snd_pcm_substream *substream)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_card *card = rtd->card;
- 	struct sdm845_snd_data *data = snd_soc_card_get_drvdata(card);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-@@ -437,7 +437,7 @@ static void  sdm845_snd_shutdown(struct snd_pcm_substream *substream)
- 
- static int sdm845_snd_prepare(struct snd_pcm_substream *substream)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct sdm845_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	struct sdw_stream_runtime *sruntime = data->sruntime[cpu_dai->id];
-@@ -476,7 +476,7 @@ static int sdm845_snd_prepare(struct snd_pcm_substream *substream)
- 
- static int sdm845_snd_hw_free(struct snd_pcm_substream *substream)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct sdm845_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	struct sdw_stream_runtime *sruntime = data->sruntime[cpu_dai->id];
-diff --git a/sound/soc/qcom/storm.c b/sound/soc/qcom/storm.c
-index 3a6e18709b9e..c0c388d4db82 100644
---- a/sound/soc/qcom/storm.c
-+++ b/sound/soc/qcom/storm.c
-@@ -19,7 +19,7 @@
- static int storm_ops_hw_params(struct snd_pcm_substream *substream,
- 		struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *soc_runtime = substream->private_data;
-+	struct snd_soc_pcm_runtime *soc_runtime = asoc_substream_to_rtd(substream);
- 	struct snd_soc_card *card = soc_runtime->card;
- 	snd_pcm_format_t format = params_format(params);
- 	unsigned int rate = params_rate(params);
+ 	snd_soc_set_runtime_hwparams(substream, &dw_pcm_hardware);
 -- 
 2.25.1
 

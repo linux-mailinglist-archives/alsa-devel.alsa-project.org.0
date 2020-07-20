@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64A4522555C
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 03:24:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 180C622555D
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 03:25:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0EB111663;
-	Mon, 20 Jul 2020 03:23:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EB111663
+	by alsa0.perex.cz (Postfix) with ESMTPS id B4B081667;
+	Mon, 20 Jul 2020 03:24:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4B081667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595208264;
-	bh=K2KFrPuPN4TInidL4MCThAlaP7WDPf44Tmtz9vlOifc=;
+	s=default; t=1595208307;
+	bh=Y0xIgg3+h5wS+DUvWmHGg/FYvi4kpIJ7jnAfUOR0/8o=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qu9W+PIMpFi/AHyuEwq6hQvkbMHZwsJg4J5FtSYATdAefpNEjiMs/E4GLuC9i8TQI
-	 AGe5FUKQfuuBSKlhq3Tt2aVmP0suaPF6XSCPeHESWTmM0AJvjRh4kpolrseEmABx/M
-	 W4LHUyuNNbr9S7TnIM77A9fa7QFDVevXALKdmOm4=
+	b=mwqf0es2vMFhBnCuNusMR8ctESEBn8fhOTdShMVq3FybAYInwUq/jis4mWq3xDMAv
+	 nYiwt3oOUsl0BhfS2wUqSkUwpCu+ySerX0WoQ6I4uncwv8u7JlLxmuhJQsoEDplvcQ
+	 sWawd9qA0dbF/Jww0Yj5lI7UU/KBg1HKDhXrWD/U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DEF78F80321;
-	Mon, 20 Jul 2020 03:18:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3DCC5F80334;
+	Mon, 20 Jul 2020 03:18:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 54173F80321; Mon, 20 Jul 2020 03:18:24 +0200 (CEST)
+ id A2C20F80321; Mon, 20 Jul 2020 03:18:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id A7606F80307
- for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:18:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7606F80307
-Date: 20 Jul 2020 10:18:14 +0900
-X-IronPort-AV: E=Sophos;i="5.75,373,1589209200"; d="scan'208";a="52330201"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 20 Jul 2020 10:18:14 +0900
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 636E3F80141
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:18:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 636E3F80141
+Date: 20 Jul 2020 10:18:20 +0900
+X-IronPort-AV: E=Sophos;i="5.75,373,1589209200"; d="scan'208";a="52541395"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 20 Jul 2020 10:18:20 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 6FCA0415CA6E;
- Mon, 20 Jul 2020 10:18:14 +0900 (JST)
-Message-ID: <87lfjf0yuf.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 092904002627;
+ Mon, 20 Jul 2020 10:18:20 +0900 (JST)
+Message-ID: <87k0yz0yua.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 09/29] ASoC: samsung: use asoc_substream_to_rtd()
+Subject: [PATCH 10/29] ASoC: pxa: use asoc_substream_to_rtd()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87y2nf0yw2.wl-kuninori.morimoto.gx@renesas.com>
@@ -75,294 +75,140 @@ let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/samsung/aries_wm8994.c    | 4 ++--
- sound/soc/samsung/arndale.c         | 4 ++--
- sound/soc/samsung/h1940_uda1380.c   | 2 +-
- sound/soc/samsung/i2s.c             | 2 +-
- sound/soc/samsung/jive_wm8750.c     | 2 +-
- sound/soc/samsung/littlemill.c      | 2 +-
- sound/soc/samsung/neo1973_wm8753.c  | 8 ++++----
- sound/soc/samsung/odroid.c          | 6 +++---
- sound/soc/samsung/pcm.c             | 4 ++--
- sound/soc/samsung/rx1950_uda1380.c  | 2 +-
- sound/soc/samsung/s3c-i2s-v2.c      | 2 +-
- sound/soc/samsung/s3c24xx_simtec.c  | 2 +-
- sound/soc/samsung/s3c24xx_uda134x.c | 6 +++---
- sound/soc/samsung/smartq_wm8987.c   | 2 +-
- sound/soc/samsung/smdk_spdif.c      | 2 +-
- sound/soc/samsung/smdk_wm8580.c     | 2 +-
- sound/soc/samsung/smdk_wm8994.c     | 2 +-
- sound/soc/samsung/smdk_wm8994pcm.c  | 2 +-
- sound/soc/samsung/snow.c            | 2 +-
- sound/soc/samsung/spdif.c           | 6 +++---
- sound/soc/samsung/tm2_wm5110.c      | 8 ++++----
- 21 files changed, 36 insertions(+), 36 deletions(-)
+ sound/soc/pxa/brownstone.c | 2 +-
+ sound/soc/pxa/corgi.c      | 4 ++--
+ sound/soc/pxa/hx4700.c     | 2 +-
+ sound/soc/pxa/imote2.c     | 2 +-
+ sound/soc/pxa/magician.c   | 6 +++---
+ sound/soc/pxa/mmp-pcm.c    | 2 +-
+ sound/soc/pxa/poodle.c     | 4 ++--
+ sound/soc/pxa/pxa2xx-i2s.c | 2 +-
+ sound/soc/pxa/spitz.c      | 4 ++--
+ sound/soc/pxa/tosa.c       | 2 +-
+ sound/soc/pxa/z2.c         | 2 +-
+ sound/soc/pxa/zylonite.c   | 2 +-
+ 12 files changed, 17 insertions(+), 17 deletions(-)
 
-diff --git a/sound/soc/samsung/aries_wm8994.c b/sound/soc/samsung/aries_wm8994.c
-index 8579c87dcae8..0ac5956ba270 100644
---- a/sound/soc/samsung/aries_wm8994.c
-+++ b/sound/soc/samsung/aries_wm8994.c
-@@ -260,7 +260,7 @@ static const struct snd_soc_dapm_widget aries_dapm_widgets[] = {
- static int aries_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	unsigned int pll_out;
- 	int ret;
-@@ -288,7 +288,7 @@ static int aries_hw_params(struct snd_pcm_substream *substream,
- 
- static int aries_hw_free(struct snd_pcm_substream *substream)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	int ret;
- 
-diff --git a/sound/soc/samsung/arndale.c b/sound/soc/samsung/arndale.c
-index c81ece78e036..28587375813a 100644
---- a/sound/soc/samsung/arndale.c
-+++ b/sound/soc/samsung/arndale.c
-@@ -20,7 +20,7 @@
- static int arndale_rt5631_hw_params(struct snd_pcm_substream *substream,
- 				    struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	int rfs, ret;
-@@ -55,7 +55,7 @@ static struct snd_soc_ops arndale_rt5631_ops = {
- static int arndale_wm1811_hw_params(struct snd_pcm_substream *substream,
- 				    struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	unsigned int rfs, rclk;
- 
-diff --git a/sound/soc/samsung/h1940_uda1380.c b/sound/soc/samsung/h1940_uda1380.c
-index 9139a1e7e200..b8f0057a0510 100644
---- a/sound/soc/samsung/h1940_uda1380.c
-+++ b/sound/soc/samsung/h1940_uda1380.c
-@@ -67,7 +67,7 @@ static int h1940_startup(struct snd_pcm_substream *substream)
- static int h1940_hw_params(struct snd_pcm_substream *substream,
- 				struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	int div;
- 	int ret;
-diff --git a/sound/soc/samsung/i2s.c b/sound/soc/samsung/i2s.c
-index f86e3028b402..80ecb5c7fed0 100644
---- a/sound/soc/samsung/i2s.c
-+++ b/sound/soc/samsung/i2s.c
-@@ -931,7 +931,7 @@ static int i2s_trigger(struct snd_pcm_substream *substream,
- {
- 	struct samsung_i2s_priv *priv = snd_soc_dai_get_drvdata(dai);
- 	int capture = (substream->stream == SNDRV_PCM_STREAM_CAPTURE);
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct i2s_dai *i2s = to_info(asoc_rtd_to_cpu(rtd, 0));
- 	unsigned long flags;
- 
-diff --git a/sound/soc/samsung/jive_wm8750.c b/sound/soc/samsung/jive_wm8750.c
-index 30899016cf08..40a85f539509 100644
---- a/sound/soc/samsung/jive_wm8750.c
-+++ b/sound/soc/samsung/jive_wm8750.c
-@@ -32,7 +32,7 @@ static const struct snd_soc_dapm_widget wm8750_dapm_widgets[] = {
- static int jive_hw_params(struct snd_pcm_substream *substream,
- 			  struct snd_pcm_hw_params *params)
+diff --git a/sound/soc/pxa/brownstone.c b/sound/soc/pxa/brownstone.c
+index 016a91199485..f310a8e91bbf 100644
+--- a/sound/soc/pxa/brownstone.c
++++ b/sound/soc/pxa/brownstone.c
+@@ -43,7 +43,7 @@ static const struct snd_soc_dapm_route brownstone_audio_map[] = {
+ static int brownstone_wm8994_hw_params(struct snd_pcm_substream *substream,
+ 				       struct snd_pcm_hw_params *params)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
  	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
  	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	struct s3c_i2sv2_rate_calc div;
-diff --git a/sound/soc/samsung/littlemill.c b/sound/soc/samsung/littlemill.c
-index f4375c49f7f4..a1ff1400857e 100644
---- a/sound/soc/samsung/littlemill.c
-+++ b/sound/soc/samsung/littlemill.c
-@@ -104,7 +104,7 @@ static int littlemill_set_bias_level_post(struct snd_soc_card *card,
- static int littlemill_hw_params(struct snd_pcm_substream *substream,
- 				struct snd_pcm_hw_params *params)
+ 	int freq_out, sspa_mclk, sysclk;
+diff --git a/sound/soc/pxa/corgi.c b/sound/soc/pxa/corgi.c
+index 6fbef9a0afa7..8ee2dea25a8d 100644
+--- a/sound/soc/pxa/corgi.c
++++ b/sound/soc/pxa/corgi.c
+@@ -96,7 +96,7 @@ static void corgi_ext_control(struct snd_soc_dapm_context *dapm)
+ 
+ static int corgi_startup(struct snd_pcm_substream *substream)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	int ret;
  
-diff --git a/sound/soc/samsung/neo1973_wm8753.c b/sound/soc/samsung/neo1973_wm8753.c
-index b7ce1da854ce..54317e0f68f8 100644
---- a/sound/soc/samsung/neo1973_wm8753.c
-+++ b/sound/soc/samsung/neo1973_wm8753.c
-@@ -25,7 +25,7 @@
- static int neo1973_hifi_hw_params(struct snd_pcm_substream *substream,
+ 	/* check the jack status at stream startup */
+ 	corgi_ext_control(&rtd->card->dapm);
+@@ -115,7 +115,7 @@ static void corgi_shutdown(struct snd_pcm_substream *substream)
+ static int corgi_hw_params(struct snd_pcm_substream *substream,
  	struct snd_pcm_hw_params *params)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
  	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
  	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	unsigned int pll_out = 0, bclk = 0;
-@@ -99,7 +99,7 @@ static int neo1973_hifi_hw_params(struct snd_pcm_substream *substream,
- 
- static int neo1973_hifi_hw_free(struct snd_pcm_substream *substream)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 
- 	/* disable the PLL */
-@@ -117,7 +117,7 @@ static struct snd_soc_ops neo1973_hifi_ops = {
- static int neo1973_voice_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	unsigned int pcmdiv = 0;
- 	int ret = 0;
-@@ -154,7 +154,7 @@ static int neo1973_voice_hw_params(struct snd_pcm_substream *substream,
- 
- static int neo1973_voice_hw_free(struct snd_pcm_substream *substream)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 
- 	/* disable the PLL */
-diff --git a/sound/soc/samsung/odroid.c b/sound/soc/samsung/odroid.c
-index 6eda5af989fe..ca643a488c3c 100644
---- a/sound/soc/samsung/odroid.c
-+++ b/sound/soc/samsung/odroid.c
-@@ -35,7 +35,7 @@ static int odroid_card_fe_startup(struct snd_pcm_substream *substream)
- static int odroid_card_fe_hw_params(struct snd_pcm_substream *substream,
- 				      struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct odroid_priv *priv = snd_soc_card_get_drvdata(rtd->card);
- 	unsigned long flags;
- 	int ret = 0;
-@@ -56,7 +56,7 @@ static const struct snd_soc_ops odroid_card_fe_ops = {
- static int odroid_card_be_hw_params(struct snd_pcm_substream *substream,
- 				      struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct odroid_priv *priv = snd_soc_card_get_drvdata(rtd->card);
- 	unsigned int pll_freq, rclk_freq, rfs;
- 	unsigned long flags;
-@@ -115,7 +115,7 @@ static int odroid_card_be_hw_params(struct snd_pcm_substream *substream,
- 
- static int odroid_card_be_trigger(struct snd_pcm_substream *substream, int cmd)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct odroid_priv *priv = snd_soc_card_get_drvdata(rtd->card);
- 	unsigned long flags;
- 
-diff --git a/sound/soc/samsung/pcm.c b/sound/soc/samsung/pcm.c
-index 45dfc534c6c7..6f50c7b47326 100644
---- a/sound/soc/samsung/pcm.c
-+++ b/sound/soc/samsung/pcm.c
-@@ -216,7 +216,7 @@ static void s3c_pcm_snd_rxctrl(struct s3c_pcm_info *pcm, int on)
- static int s3c_pcm_trigger(struct snd_pcm_substream *substream, int cmd,
- 			       struct snd_soc_dai *dai)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct s3c_pcm_info *pcm = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 	unsigned long flags;
- 
-@@ -260,7 +260,7 @@ static int s3c_pcm_hw_params(struct snd_pcm_substream *substream,
- 				 struct snd_pcm_hw_params *params,
- 				 struct snd_soc_dai *socdai)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct s3c_pcm_info *pcm = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 	void __iomem *regs = pcm->regs;
- 	struct clk *clk;
-diff --git a/sound/soc/samsung/rx1950_uda1380.c b/sound/soc/samsung/rx1950_uda1380.c
-index 3afe63c0923e..08f7c82aedb6 100644
---- a/sound/soc/samsung/rx1950_uda1380.c
-+++ b/sound/soc/samsung/rx1950_uda1380.c
-@@ -148,7 +148,7 @@ static int rx1950_spk_power(struct snd_soc_dapm_widget *w,
- static int rx1950_hw_params(struct snd_pcm_substream *substream,
- 				struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	int div;
- 	int ret;
-diff --git a/sound/soc/samsung/s3c-i2s-v2.c b/sound/soc/samsung/s3c-i2s-v2.c
-index 5e95c30fb2ba..ed21786104a1 100644
---- a/sound/soc/samsung/s3c-i2s-v2.c
-+++ b/sound/soc/samsung/s3c-i2s-v2.c
-@@ -379,7 +379,7 @@ static int s3c_i2sv2_set_sysclk(struct snd_soc_dai *cpu_dai,
- static int s3c2412_i2s_trigger(struct snd_pcm_substream *substream, int cmd,
- 			       struct snd_soc_dai *dai)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct s3c_i2sv2_info *i2s = to_info(asoc_rtd_to_cpu(rtd, 0));
- 	int capture = (substream->stream == SNDRV_PCM_STREAM_CAPTURE);
- 	unsigned long irqs;
-diff --git a/sound/soc/samsung/s3c24xx_simtec.c b/sound/soc/samsung/s3c24xx_simtec.c
-index fd2a4da086f3..3cddd11344ac 100644
---- a/sound/soc/samsung/s3c24xx_simtec.c
-+++ b/sound/soc/samsung/s3c24xx_simtec.c
-@@ -159,7 +159,7 @@ EXPORT_SYMBOL_GPL(simtec_audio_init);
- static int simtec_hw_params(struct snd_pcm_substream *substream,
+ 	unsigned int clk = 0;
+diff --git a/sound/soc/pxa/hx4700.c b/sound/soc/pxa/hx4700.c
+index b4da9a9a6521..7334fac758de 100644
+--- a/sound/soc/pxa/hx4700.c
++++ b/sound/soc/pxa/hx4700.c
+@@ -53,7 +53,7 @@ static struct snd_soc_jack_gpio hs_jack_gpio = {
+ static int hx4700_hw_params(struct snd_pcm_substream *substream,
  			    struct snd_pcm_hw_params *params)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
  	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
  	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	int ret;
-diff --git a/sound/soc/samsung/s3c24xx_uda134x.c b/sound/soc/samsung/s3c24xx_uda134x.c
-index abb5c4713c53..6272070dcd92 100644
---- a/sound/soc/samsung/s3c24xx_uda134x.c
-+++ b/sound/soc/samsung/s3c24xx_uda134x.c
-@@ -49,7 +49,7 @@ static const struct snd_pcm_hw_constraint_list hw_constraints_rates = {
- 
- static int s3c24xx_uda134x_startup(struct snd_pcm_substream *substream)
+ 	int ret = 0;
+diff --git a/sound/soc/pxa/imote2.c b/sound/soc/pxa/imote2.c
+index 3014e8244ab4..a575676508b3 100644
+--- a/sound/soc/pxa/imote2.c
++++ b/sound/soc/pxa/imote2.c
+@@ -11,7 +11,7 @@
+ static int imote2_asoc_hw_params(struct snd_pcm_substream *substream,
+ 				 struct snd_pcm_hw_params *params)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct s3c24xx_uda134x *priv = snd_soc_card_get_drvdata(rtd->card);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	unsigned int clk = 0;
+diff --git a/sound/soc/pxa/magician.c b/sound/soc/pxa/magician.c
+index e4c818f4cd62..a5f326c97af2 100644
+--- a/sound/soc/pxa/magician.c
++++ b/sound/soc/pxa/magician.c
+@@ -68,7 +68,7 @@ static void magician_ext_control(struct snd_soc_dapm_context *dapm)
+ 
+ static int magician_startup(struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 
+ 	/* check the jack status at stream startup */
+ 	magician_ext_control(&rtd->card->dapm);
+@@ -82,7 +82,7 @@ static int magician_startup(struct snd_pcm_substream *substream)
+ static int magician_playback_hw_params(struct snd_pcm_substream *substream,
+ 				       struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	unsigned int width;
+@@ -120,7 +120,7 @@ static int magician_playback_hw_params(struct snd_pcm_substream *substream,
+ static int magician_capture_hw_params(struct snd_pcm_substream *substream,
+ 				      struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
  	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
  	int ret = 0;
-@@ -101,7 +101,7 @@ static int s3c24xx_uda134x_startup(struct snd_pcm_substream *substream)
- 
- static void s3c24xx_uda134x_shutdown(struct snd_pcm_substream *substream)
+diff --git a/sound/soc/pxa/mmp-pcm.c b/sound/soc/pxa/mmp-pcm.c
+index 3fe6c4c5a3ab..53fc49e32fbc 100644
+--- a/sound/soc/pxa/mmp-pcm.c
++++ b/sound/soc/pxa/mmp-pcm.c
+@@ -110,7 +110,7 @@ static bool filter(struct dma_chan *chan, void *param)
+ static int mmp_pcm_open(struct snd_soc_component *component,
+ 			struct snd_pcm_substream *substream)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct s3c24xx_uda134x *priv = snd_soc_card_get_drvdata(rtd->card);
- 
- 	mutex_lock(&priv->clk_lock);
-@@ -118,7 +118,7 @@ static void s3c24xx_uda134x_shutdown(struct snd_pcm_substream *substream)
- static int s3c24xx_uda134x_hw_params(struct snd_pcm_substream *substream,
- 					struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct platform_device *pdev = to_platform_device(component->dev);
  	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	unsigned int clk = 0;
-diff --git a/sound/soc/samsung/smartq_wm8987.c b/sound/soc/samsung/smartq_wm8987.c
-index 36bef136d57f..c95629becbc3 100644
---- a/sound/soc/samsung/smartq_wm8987.c
-+++ b/sound/soc/samsung/smartq_wm8987.c
-@@ -24,7 +24,7 @@ static struct snd_soc_card snd_soc_smartq;
- static int smartq_hifi_hw_params(struct snd_pcm_substream *substream,
+ 	struct mmp_dma_data dma_data;
+diff --git a/sound/soc/pxa/poodle.c b/sound/soc/pxa/poodle.c
+index 287984a564c8..323ba3e23039 100644
+--- a/sound/soc/pxa/poodle.c
++++ b/sound/soc/pxa/poodle.c
+@@ -68,7 +68,7 @@ static void poodle_ext_control(struct snd_soc_dapm_context *dapm)
+ 
+ static int poodle_startup(struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 
+ 	/* check the jack status at stream startup */
+ 	poodle_ext_control(&rtd->card->dapm);
+@@ -89,7 +89,7 @@ static void poodle_shutdown(struct snd_pcm_substream *substream)
+ static int poodle_hw_params(struct snd_pcm_substream *substream,
  	struct snd_pcm_hw_params *params)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
@@ -370,142 +216,80 @@ index 36bef136d57f..c95629becbc3 100644
  	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
  	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
  	unsigned int clk = 0;
-diff --git a/sound/soc/samsung/smdk_spdif.c b/sound/soc/samsung/smdk_spdif.c
-index 776a270261bf..6f3eeb7bc834 100644
---- a/sound/soc/samsung/smdk_spdif.c
-+++ b/sound/soc/samsung/smdk_spdif.c
-@@ -100,7 +100,7 @@ static int set_audio_clock_rate(unsigned long epll_rate,
- static int smdk_hw_params(struct snd_pcm_substream *substream,
- 		struct snd_pcm_hw_params *params)
+diff --git a/sound/soc/pxa/pxa2xx-i2s.c b/sound/soc/pxa/pxa2xx-i2s.c
+index 03102e938ba1..5301859a8453 100644
+--- a/sound/soc/pxa/pxa2xx-i2s.c
++++ b/sound/soc/pxa/pxa2xx-i2s.c
+@@ -95,7 +95,7 @@ static struct snd_dmaengine_dai_dma_data pxa2xx_i2s_pcm_stereo_in = {
+ static int pxa2xx_i2s_startup(struct snd_pcm_substream *substream,
+ 			      struct snd_soc_dai *dai)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
  	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	unsigned long pll_out, rclk_rate;
- 	int ret, ratio;
-diff --git a/sound/soc/samsung/smdk_wm8580.c b/sound/soc/samsung/smdk_wm8580.c
-index 02074c34a2b2..ed753a2f202e 100644
---- a/sound/soc/samsung/smdk_wm8580.c
-+++ b/sound/soc/samsung/smdk_wm8580.c
-@@ -22,7 +22,7 @@
- static int smdk_hw_params(struct snd_pcm_substream *substream,
+ 
+ 	if (IS_ERR(clk_i2s))
+diff --git a/sound/soc/pxa/spitz.c b/sound/soc/pxa/spitz.c
+index 6d8174f62935..7c1384a869ca 100644
+--- a/sound/soc/pxa/spitz.c
++++ b/sound/soc/pxa/spitz.c
+@@ -105,7 +105,7 @@ static void spitz_ext_control(struct snd_soc_dapm_context *dapm)
+ 
+ static int spitz_startup(struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 
+ 	/* check the jack status at stream startup */
+ 	spitz_ext_control(&rtd->card->dapm);
+@@ -116,7 +116,7 @@ static int spitz_startup(struct snd_pcm_substream *substream)
+ static int spitz_hw_params(struct snd_pcm_substream *substream,
  	struct snd_pcm_hw_params *params)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
  	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	unsigned int pll_out;
- 	int rfs, ret;
-diff --git a/sound/soc/samsung/smdk_wm8994.c b/sound/soc/samsung/smdk_wm8994.c
-index a9f345f19a8a..64a1a64656ab 100644
---- a/sound/soc/samsung/smdk_wm8994.c
-+++ b/sound/soc/samsung/smdk_wm8994.c
-@@ -44,7 +44,7 @@ static struct smdk_wm8994_data smdk_board_data = {
- static int smdk_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	unsigned int clk = 0;
+diff --git a/sound/soc/pxa/tosa.c b/sound/soc/pxa/tosa.c
+index b429db25f884..3b40b5fa5de7 100644
+--- a/sound/soc/pxa/tosa.c
++++ b/sound/soc/pxa/tosa.c
+@@ -72,7 +72,7 @@ static void tosa_ext_control(struct snd_soc_dapm_context *dapm)
+ 
+ static int tosa_startup(struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 
+ 	/* check the jack status at stream startup */
+ 	tosa_ext_control(&rtd->card->dapm);
+diff --git a/sound/soc/pxa/z2.c b/sound/soc/pxa/z2.c
+index 6eee1aefc89a..edf2b9eec5b8 100644
+--- a/sound/soc/pxa/z2.c
++++ b/sound/soc/pxa/z2.c
+@@ -33,7 +33,7 @@ static struct snd_soc_card snd_soc_z2;
+ static int z2_hw_params(struct snd_pcm_substream *substream,
  	struct snd_pcm_hw_params *params)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
  	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	unsigned int pll_out;
- 	int ret;
-diff --git a/sound/soc/samsung/smdk_wm8994pcm.c b/sound/soc/samsung/smdk_wm8994pcm.c
-index 746930dde5d7..a01640576f71 100644
---- a/sound/soc/samsung/smdk_wm8994pcm.c
-+++ b/sound/soc/samsung/smdk_wm8994pcm.c
-@@ -43,7 +43,7 @@
- static int smdk_wm8994_pcm_hw_params(struct snd_pcm_substream *substream,
- 			      struct snd_pcm_hw_params *params)
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	unsigned int clk = 0;
+diff --git a/sound/soc/pxa/zylonite.c b/sound/soc/pxa/zylonite.c
+index 447b59b8bd33..bb89a53f4ab1 100644
+--- a/sound/soc/pxa/zylonite.c
++++ b/sound/soc/pxa/zylonite.c
+@@ -75,7 +75,7 @@ static int zylonite_wm9713_init(struct snd_soc_pcm_runtime *rtd)
+ static int zylonite_voice_hw_params(struct snd_pcm_substream *substream,
+ 				    struct snd_pcm_hw_params *params)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
  	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
  	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	unsigned long mclk_freq;
-diff --git a/sound/soc/samsung/snow.c b/sound/soc/samsung/snow.c
-index 40c5de8df0ff..07163f07c6d5 100644
---- a/sound/soc/samsung/snow.c
-+++ b/sound/soc/samsung/snow.c
-@@ -30,7 +30,7 @@ static int snow_card_hw_params(struct snd_pcm_substream *substream,
- 	static const unsigned int pll_rate[] = {
- 		73728000U, 67737602U, 49152000U, 45158401U, 32768001U
- 	};
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snow_priv *priv = snd_soc_card_get_drvdata(rtd->card);
- 	int bfs, psr, rfs, bitwidth;
- 	unsigned long int rclk;
-diff --git a/sound/soc/samsung/spdif.c b/sound/soc/samsung/spdif.c
-index 4ae7ff623b82..226c359892e9 100644
---- a/sound/soc/samsung/spdif.c
-+++ b/sound/soc/samsung/spdif.c
-@@ -141,7 +141,7 @@ static int spdif_set_sysclk(struct snd_soc_dai *cpu_dai,
- static int spdif_trigger(struct snd_pcm_substream *substream, int cmd,
- 				struct snd_soc_dai *dai)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct samsung_spdif_info *spdif = to_info(asoc_rtd_to_cpu(rtd, 0));
- 	unsigned long flags;
- 
-@@ -177,7 +177,7 @@ static int spdif_hw_params(struct snd_pcm_substream *substream,
- 				struct snd_pcm_hw_params *params,
- 				struct snd_soc_dai *socdai)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct samsung_spdif_info *spdif = to_info(asoc_rtd_to_cpu(rtd, 0));
- 	void __iomem *regs = spdif->regs;
- 	struct snd_dmaengine_dai_dma_data *dma_data;
-@@ -279,7 +279,7 @@ static int spdif_hw_params(struct snd_pcm_substream *substream,
- static void spdif_shutdown(struct snd_pcm_substream *substream,
- 				struct snd_soc_dai *dai)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct samsung_spdif_info *spdif = to_info(asoc_rtd_to_cpu(rtd, 0));
- 	void __iomem *regs = spdif->regs;
- 	u32 con, clkcon;
-diff --git a/sound/soc/samsung/tm2_wm5110.c b/sound/soc/samsung/tm2_wm5110.c
-index 6dfd540e2d74..9300fef9bf26 100644
---- a/sound/soc/samsung/tm2_wm5110.c
-+++ b/sound/soc/samsung/tm2_wm5110.c
-@@ -92,7 +92,7 @@ static int tm2_stop_sysclk(struct snd_soc_card *card)
- static int tm2_aif1_hw_params(struct snd_pcm_substream *substream,
- 				struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
- 	struct tm2_machine_priv *priv = snd_soc_card_get_drvdata(rtd->card);
- 
-@@ -133,7 +133,7 @@ static struct snd_soc_ops tm2_aif1_ops = {
- static int tm2_aif2_hw_params(struct snd_pcm_substream *substream,
- 				struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
- 	unsigned int asyncclk_rate;
- 	int ret;
-@@ -187,7 +187,7 @@ static int tm2_aif2_hw_params(struct snd_pcm_substream *substream,
- 
- static int tm2_aif2_hw_free(struct snd_pcm_substream *substream)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
- 	int ret;
- 
-@@ -208,7 +208,7 @@ static struct snd_soc_ops tm2_aif2_ops = {
- static int tm2_hdmi_hw_params(struct snd_pcm_substream *substream,
- 			      struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	unsigned int bfs;
- 	int bitwidth, ret;
+ 	unsigned int wm9713_div = 0;
 -- 
 2.25.1
 

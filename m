@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05EEC225562
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 03:26:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D358D225563
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 03:27:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9388D1660;
-	Mon, 20 Jul 2020 03:25:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9388D1660
+	by alsa0.perex.cz (Postfix) with ESMTPS id 719B61657;
+	Mon, 20 Jul 2020 03:26:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 719B61657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595208408;
-	bh=7BQqOJYrPycviwSBLYAf6iTninLaxtthCCzUbu6nOFw=;
+	s=default; t=1595208451;
+	bh=ufgkvco5rlgUxvewJVz1saRNDJ97nf4FHVoD2+vgInc=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XpPBzKP/QNUAzhuMkK+H5LSsWhAad1FQfqUoXzhgMroUlBXsII/py+YBakMAksAlK
-	 kKtx87fW4n+4ubwnEcTGmbV1f8U2DEWHGWxb065zunWNIejQ87gjLpUta09FJGqJvV
-	 +Zy7EaA1aF7fvWP6eTK+zDPoxoHxUObT/A04HGr8=
+	b=RtBAJ/q5YwYj1pYmg9lrE4OS3DHjTkBEe9hocl/kN1jctAJ/UDGocqC3ar9cRldLG
+	 UwbpLza2ZDQQXBVUGX5rRuWPKlOjiQE3vmXtH3hrYWw6DAqvPQDwtjpl7jxAmcr6Mb
+	 EA1OpU6v7nm0pfFoNtsJM+vn75sq+e5lNfnXiROQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E084F8033E;
-	Mon, 20 Jul 2020 03:18:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8AD10F80350;
+	Mon, 20 Jul 2020 03:18:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94E15F80344; Mon, 20 Jul 2020 03:18:38 +0200 (CEST)
+ id 9D41FF8034E; Mon, 20 Jul 2020 03:18:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id C9FF6F80341
- for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:18:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9FF6F80341
-Date: 20 Jul 2020 10:18:34 +0900
-X-IronPort-AV: E=Sophos;i="5.75,373,1589209200"; d="scan'208";a="52330254"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id B2A60F80346
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:18:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2A60F80346
+Date: 20 Jul 2020 10:18:38 +0900
+X-IronPort-AV: E=Sophos;i="5.75,373,1589209200"; d="scan'208";a="52541451"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 20 Jul 2020 10:18:34 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 20 Jul 2020 10:18:38 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 61A0E415CFEA;
- Mon, 20 Jul 2020 10:18:34 +0900 (JST)
-Message-ID: <87ft9n0ytv.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id E9A8E415CA93;
+ Mon, 20 Jul 2020 10:18:38 +0900 (JST)
+Message-ID: <87eep70ytr.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 13/29] ASoC: amd: use asoc_substream_to_rtd()
+Subject: [PATCH 14/29] ASoC: fsl: use asoc_substream_to_rtd()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87y2nf0yw2.wl-kuninori.morimoto.gx@renesas.com>
@@ -75,182 +75,335 @@ let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/amd/acp-da7219-max98357a.c | 12 ++++++------
- sound/soc/amd/acp-pcm-dma.c          |  2 +-
- sound/soc/amd/acp-rt5645.c           |  2 +-
- sound/soc/amd/acp3x-rt5682-max9836.c |  8 ++++----
- sound/soc/amd/raven/acp3x-i2s.c      |  2 +-
- sound/soc/amd/raven/acp3x-pcm-dma.c  |  6 +++---
- 6 files changed, 16 insertions(+), 16 deletions(-)
+ sound/soc/fsl/eukrea-tlv320.c   |  2 +-
+ sound/soc/fsl/fsl-asoc-card.c   |  2 +-
+ sound/soc/fsl/fsl_asrc_dma.c    |  4 ++--
+ sound/soc/fsl/fsl_dma.c         |  2 +-
+ sound/soc/fsl/fsl_spdif.c       | 10 +++++-----
+ sound/soc/fsl/fsl_ssi.c         |  8 ++++----
+ sound/soc/fsl/imx-audmix.c      |  6 +++---
+ sound/soc/fsl/imx-mc13783.c     |  2 +-
+ sound/soc/fsl/mpc5200_dma.c     |  8 ++++----
+ sound/soc/fsl/mpc5200_psc_i2s.c |  2 +-
+ sound/soc/fsl/mpc8610_hpcd.c    |  2 +-
+ sound/soc/fsl/mx27vis-aic32x4.c |  2 +-
+ sound/soc/fsl/p1022_ds.c        |  2 +-
+ sound/soc/fsl/p1022_rdk.c       |  2 +-
+ sound/soc/fsl/wm1133-ev1.c      |  2 +-
+ 15 files changed, 28 insertions(+), 28 deletions(-)
 
-diff --git a/sound/soc/amd/acp-da7219-max98357a.c b/sound/soc/amd/acp-da7219-max98357a.c
-index 7d8986379d80..a7702e64ec51 100644
---- a/sound/soc/amd/acp-da7219-max98357a.c
-+++ b/sound/soc/amd/acp-da7219-max98357a.c
-@@ -99,7 +99,7 @@ static int cz_da7219_init(struct snd_soc_pcm_runtime *rtd)
- static int da7219_clk_enable(struct snd_pcm_substream *substream)
+diff --git a/sound/soc/fsl/eukrea-tlv320.c b/sound/soc/fsl/eukrea-tlv320.c
+index 4ff2d21bb32f..e13271ea84de 100644
+--- a/sound/soc/fsl/eukrea-tlv320.c
++++ b/sound/soc/fsl/eukrea-tlv320.c
+@@ -30,7 +30,7 @@
+ static int eukrea_tlv320_hw_params(struct snd_pcm_substream *substream,
+ 			    struct snd_pcm_hw_params *params)
  {
- 	int ret = 0;
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 
- 	/*
- 	 * Set wclk to 48000 because the rate constraint of this driver is
-@@ -146,7 +146,7 @@ static const struct snd_pcm_hw_constraint_list constraints_channels = {
- static int cz_da7219_play_startup(struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_card *card = rtd->card;
- 	struct acp_platform_info *machine = snd_soc_card_get_drvdata(card);
- 
-@@ -167,7 +167,7 @@ static int cz_da7219_play_startup(struct snd_pcm_substream *substream)
- static int cz_da7219_cap_startup(struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_card *card = rtd->card;
- 	struct acp_platform_info *machine = snd_soc_card_get_drvdata(card);
- 
-@@ -189,7 +189,7 @@ static int cz_da7219_cap_startup(struct snd_pcm_substream *substream)
- static int cz_max_startup(struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_card *card = rtd->card;
- 	struct acp_platform_info *machine = snd_soc_card_get_drvdata(card);
- 
-@@ -210,7 +210,7 @@ static int cz_max_startup(struct snd_pcm_substream *substream)
- static int cz_dmic0_startup(struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_card *card = rtd->card;
- 	struct acp_platform_info *machine = snd_soc_card_get_drvdata(card);
- 
-@@ -231,7 +231,7 @@ static int cz_dmic0_startup(struct snd_pcm_substream *substream)
- static int cz_dmic1_startup(struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_card *card = rtd->card;
- 	struct acp_platform_info *machine = snd_soc_card_get_drvdata(card);
- 
-diff --git a/sound/soc/amd/acp-pcm-dma.c b/sound/soc/amd/acp-pcm-dma.c
-index f54beb7f39a8..143155a840ac 100644
---- a/sound/soc/amd/acp-pcm-dma.c
-+++ b/sound/soc/amd/acp-pcm-dma.c
-@@ -840,7 +840,7 @@ static int acp_dma_hw_params(struct snd_soc_component *component,
- 	u32 val = 0;
- 	struct snd_pcm_runtime *runtime;
- 	struct audio_substream_data *rtd;
--	struct snd_soc_pcm_runtime *prtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *prtd = asoc_substream_to_rtd(substream);
- 	struct audio_drv_data *adata = dev_get_drvdata(component->dev);
- 	struct snd_soc_card *card = prtd->card;
- 	struct acp_platform_info *pinfo = snd_soc_card_get_drvdata(card);
-diff --git a/sound/soc/amd/acp-rt5645.c b/sound/soc/amd/acp-rt5645.c
-index 87f0060e771f..d6ba94677ac2 100644
---- a/sound/soc/amd/acp-rt5645.c
-+++ b/sound/soc/amd/acp-rt5645.c
-@@ -47,7 +47,7 @@ static int cz_aif1_hw_params(struct snd_pcm_substream *substream,
- 			     struct snd_pcm_hw_params *params)
- {
- 	int ret = 0;
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
  	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 
- 	ret = snd_soc_dai_set_pll(codec_dai, 0, RT5645_PLL1_S_MCLK,
-diff --git a/sound/soc/amd/acp3x-rt5682-max9836.c b/sound/soc/amd/acp3x-rt5682-max9836.c
-index f745b42dfd23..6009e444b858 100644
---- a/sound/soc/amd/acp3x-rt5682-max9836.c
-+++ b/sound/soc/amd/acp3x-rt5682-max9836.c
-@@ -105,7 +105,7 @@ static int acp3x_5682_init(struct snd_soc_pcm_runtime *rtd)
- static int rt5682_clk_enable(struct snd_pcm_substream *substream)
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	int ret;
+diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
+index ee80d02b56c6..dad136d2c087 100644
+--- a/sound/soc/fsl/fsl-asoc-card.c
++++ b/sound/soc/fsl/fsl-asoc-card.c
+@@ -148,7 +148,7 @@ static bool fsl_asoc_card_is_ac97(struct fsl_asoc_card_priv *priv)
+ static int fsl_asoc_card_hw_params(struct snd_pcm_substream *substream,
+ 				   struct snd_pcm_hw_params *params)
  {
- 	int ret = 0;
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 
- 	/* RT5682 will support only 48K output with 48M mclk */
- 	clk_set_rate(rt5682_dai_wclk, 48000);
-@@ -147,7 +147,7 @@ static const struct snd_pcm_hw_constraint_list constraints_channels = {
- static int acp3x_5682_startup(struct snd_pcm_substream *substream)
+ 	struct fsl_asoc_card_priv *priv = snd_soc_card_get_drvdata(rtd->card);
+ 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
+ 	struct cpu_priv *cpu_priv = &priv->cpu_priv;
+diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
+index 5f01a58f422a..29f91cdecbc3 100644
+--- a/sound/soc/fsl/fsl_asrc_dma.c
++++ b/sound/soc/fsl/fsl_asrc_dma.c
+@@ -129,7 +129,7 @@ static int fsl_asrc_dma_hw_params(struct snd_soc_component *component,
+ 				  struct snd_pcm_hw_params *params)
  {
+ 	enum dma_slave_buswidth buswidth = DMA_SLAVE_BUSWIDTH_2_BYTES;
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
+ 	struct snd_dmaengine_dai_dma_data *dma_params_fe = NULL;
+ 	struct snd_dmaengine_dai_dma_data *dma_params_be = NULL;
+@@ -313,7 +313,7 @@ static int fsl_asrc_dma_startup(struct snd_soc_component *component,
+ 				struct snd_pcm_substream *substream)
+ {
+ 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
  	struct snd_pcm_runtime *runtime = substream->runtime;
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_card *card = rtd->card;
- 	struct acp3x_platform_info *machine = snd_soc_card_get_drvdata(card);
- 
-@@ -165,7 +165,7 @@ static int acp3x_5682_startup(struct snd_pcm_substream *substream)
- static int acp3x_max_startup(struct snd_pcm_substream *substream)
+ 	struct snd_dmaengine_dai_dma_data *dma_data;
+ 	struct device *dev = component->dev;
+diff --git a/sound/soc/fsl/fsl_dma.c b/sound/soc/fsl/fsl_dma.c
+index 13ae089c1911..be021250d6e9 100644
+--- a/sound/soc/fsl/fsl_dma.c
++++ b/sound/soc/fsl/fsl_dma.c
+@@ -200,7 +200,7 @@ static irqreturn_t fsl_dma_isr(int irq, void *dev_id)
  {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct fsl_dma_private *dma_private = dev_id;
+ 	struct snd_pcm_substream *substream = dma_private->substream;
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_card *card = rtd->card;
- 	struct acp3x_platform_info *machine = snd_soc_card_get_drvdata(card);
- 
-@@ -181,7 +181,7 @@ static int acp3x_max_startup(struct snd_pcm_substream *substream)
- 
- static int acp3x_ec_dmic0_startup(struct snd_pcm_substream *substream)
+ 	struct device *dev = rtd->dev;
+ 	struct ccsr_dma_channel __iomem *dma_channel = dma_private->dma_channel;
+ 	irqreturn_t ret = IRQ_NONE;
+diff --git a/sound/soc/fsl/fsl_spdif.c b/sound/soc/fsl/fsl_spdif.c
+index 37053e8f29d0..455f96908377 100644
+--- a/sound/soc/fsl/fsl_spdif.c
++++ b/sound/soc/fsl/fsl_spdif.c
+@@ -405,7 +405,7 @@ static int spdif_set_rx_clksrc(struct fsl_spdif_priv *spdif_priv,
+ static int spdif_set_sample_rate(struct snd_pcm_substream *substream,
+ 				int sample_rate)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_card *card = rtd->card;
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	struct acp3x_platform_info *machine = snd_soc_card_get_drvdata(card);
-diff --git a/sound/soc/amd/raven/acp3x-i2s.c b/sound/soc/amd/raven/acp3x-i2s.c
-index c3eb9b347eaa..5bc028692fcf 100644
---- a/sound/soc/amd/raven/acp3x-i2s.c
-+++ b/sound/soc/amd/raven/acp3x-i2s.c
-@@ -80,7 +80,7 @@ static int acp3x_i2s_hwparams(struct snd_pcm_substream *substream,
- 	u32 val;
- 	u32 reg_val, frmt_reg;
- 
--	prtd = substream->private_data;
-+	prtd = asoc_substream_to_rtd(substream);
- 	rtd = substream->runtime->private_data;
- 	card = prtd->card;
- 	adata = snd_soc_dai_get_drvdata(dai);
-diff --git a/sound/soc/amd/raven/acp3x-pcm-dma.c b/sound/soc/amd/raven/acp3x-pcm-dma.c
-index 17290c829c4b..417cda24030c 100644
---- a/sound/soc/amd/raven/acp3x-pcm-dma.c
-+++ b/sound/soc/amd/raven/acp3x-pcm-dma.c
-@@ -217,7 +217,7 @@ static int acp3x_dma_open(struct snd_soc_component *component,
+ 	struct fsl_spdif_priv *spdif_priv = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 	struct spdif_mixer_control *ctrl = &spdif_priv->fsl_spdif_control;
+ 	struct regmap *regmap = spdif_priv->regmap;
+@@ -492,7 +492,7 @@ static int spdif_set_sample_rate(struct snd_pcm_substream *substream,
+ static int fsl_spdif_startup(struct snd_pcm_substream *substream,
+ 			     struct snd_soc_dai *cpu_dai)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct fsl_spdif_priv *spdif_priv = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 	struct platform_device *pdev = spdif_priv->pdev;
+ 	struct regmap *regmap = spdif_priv->regmap;
+@@ -534,7 +534,7 @@ static int fsl_spdif_startup(struct snd_pcm_substream *substream,
+ static void fsl_spdif_shutdown(struct snd_pcm_substream *substream,
+ 				struct snd_soc_dai *cpu_dai)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct fsl_spdif_priv *spdif_priv = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 	struct regmap *regmap = spdif_priv->regmap;
+ 	u32 scr, mask;
+@@ -563,7 +563,7 @@ static int fsl_spdif_hw_params(struct snd_pcm_substream *substream,
+ 				struct snd_pcm_hw_params *params,
+ 				struct snd_soc_dai *dai)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct fsl_spdif_priv *spdif_priv = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 	struct spdif_mixer_control *ctrl = &spdif_priv->fsl_spdif_control;
+ 	struct platform_device *pdev = spdif_priv->pdev;
+@@ -591,7 +591,7 @@ static int fsl_spdif_hw_params(struct snd_pcm_substream *substream,
+ static int fsl_spdif_trigger(struct snd_pcm_substream *substream,
+ 				int cmd, struct snd_soc_dai *dai)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct fsl_spdif_priv *spdif_priv = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 	struct regmap *regmap = spdif_priv->regmap;
+ 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
+diff --git a/sound/soc/fsl/fsl_ssi.c b/sound/soc/fsl/fsl_ssi.c
+index 7ec80b240563..d8b9c6547142 100644
+--- a/sound/soc/fsl/fsl_ssi.c
++++ b/sound/soc/fsl/fsl_ssi.c
+@@ -629,7 +629,7 @@ static void fsl_ssi_setup_ac97(struct fsl_ssi *ssi)
+ static int fsl_ssi_startup(struct snd_pcm_substream *substream,
+ 			   struct snd_soc_dai *dai)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct fsl_ssi *ssi = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
  	int ret;
  
- 	runtime = substream->runtime;
--	prtd = substream->private_data;
-+	prtd = asoc_substream_to_rtd(substream);
- 	component = snd_soc_rtdcom_lookup(prtd, DRV_NAME);
- 	adata = dev_get_drvdata(component->dev);
- 	i2s_data = kzalloc(sizeof(*i2s_data), GFP_KERNEL);
-@@ -258,7 +258,7 @@ static int acp3x_dma_hw_params(struct snd_soc_component *component,
- 	struct i2s_dev_data *adata;
- 	u64 size;
+@@ -653,7 +653,7 @@ static int fsl_ssi_startup(struct snd_pcm_substream *substream,
+ static void fsl_ssi_shutdown(struct snd_pcm_substream *substream,
+ 			     struct snd_soc_dai *dai)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct fsl_ssi *ssi = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
  
--	prtd = substream->private_data;
-+	prtd = asoc_substream_to_rtd(substream);
- 	card = prtd->card;
- 	pinfo = snd_soc_card_get_drvdata(card);
- 	adata = dev_get_drvdata(component->dev);
-@@ -340,7 +340,7 @@ static int acp3x_dma_close(struct snd_soc_component *component,
- 	struct i2s_dev_data *adata;
- 	struct i2s_stream_instance *ins;
+ 	clk_disable_unprepare(ssi->clk);
+@@ -863,7 +863,7 @@ static int fsl_ssi_hw_params(struct snd_pcm_substream *substream,
+ static int fsl_ssi_hw_free(struct snd_pcm_substream *substream,
+ 			   struct snd_soc_dai *dai)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct fsl_ssi *ssi = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
  
--	prtd = substream->private_data;
-+	prtd = asoc_substream_to_rtd(substream);
- 	component = snd_soc_rtdcom_lookup(prtd, DRV_NAME);
- 	adata = dev_get_drvdata(component->dev);
- 	ins = substream->runtime->private_data;
+ 	if (fsl_ssi_is_i2s_master(ssi) &&
+@@ -1078,7 +1078,7 @@ static int fsl_ssi_set_dai_tdm_slot(struct snd_soc_dai *dai, u32 tx_mask,
+ static int fsl_ssi_trigger(struct snd_pcm_substream *substream, int cmd,
+ 			   struct snd_soc_dai *dai)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct fsl_ssi *ssi = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
+ 
+diff --git a/sound/soc/fsl/imx-audmix.c b/sound/soc/fsl/imx-audmix.c
+index e09b45de0efd..75bcdf3c9e32 100644
+--- a/sound/soc/fsl/imx-audmix.c
++++ b/sound/soc/fsl/imx-audmix.c
+@@ -44,7 +44,7 @@ static const struct snd_pcm_hw_constraint_list imx_audmix_rate_constraints = {
+ 
+ static int imx_audmix_fe_startup(struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct imx_audmix *priv = snd_soc_card_get_drvdata(rtd->card);
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct device *dev = rtd->card->dev;
+@@ -73,7 +73,7 @@ static int imx_audmix_fe_startup(struct snd_pcm_substream *substream)
+ static int imx_audmix_fe_hw_params(struct snd_pcm_substream *substream,
+ 				   struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct device *dev = rtd->card->dev;
+ 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
+ 	unsigned int fmt = SND_SOC_DAIFMT_DSP_A | SND_SOC_DAIFMT_NB_NF;
+@@ -112,7 +112,7 @@ static int imx_audmix_fe_hw_params(struct snd_pcm_substream *substream,
+ static int imx_audmix_be_hw_params(struct snd_pcm_substream *substream,
+ 				   struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct device *dev = rtd->card->dev;
+ 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
+ 	unsigned int fmt = SND_SOC_DAIFMT_DSP_A | SND_SOC_DAIFMT_NB_NF;
+diff --git a/sound/soc/fsl/imx-mc13783.c b/sound/soc/fsl/imx-mc13783.c
+index fab2d6c56653..dd9c1ac81cf5 100644
+--- a/sound/soc/fsl/imx-mc13783.c
++++ b/sound/soc/fsl/imx-mc13783.c
+@@ -26,7 +26,7 @@
+ static int imx_mc13783_hifi_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int ret;
+diff --git a/sound/soc/fsl/mpc5200_dma.c b/sound/soc/fsl/mpc5200_dma.c
+index 3b8c796d7829..9e4f66b6b92b 100644
+--- a/sound/soc/fsl/mpc5200_dma.c
++++ b/sound/soc/fsl/mpc5200_dma.c
+@@ -114,7 +114,7 @@ static int psc_dma_hw_free(struct snd_soc_component *component,
+ static int psc_dma_trigger(struct snd_soc_component *component,
+ 			   struct snd_pcm_substream *substream, int cmd)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct psc_dma *psc_dma = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct psc_dma_stream *s = to_psc_dma_stream(substream, psc_dma);
+@@ -216,7 +216,7 @@ static int psc_dma_open(struct snd_soc_component *component,
+ 			struct snd_pcm_substream *substream)
+ {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct psc_dma *psc_dma = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 	struct psc_dma_stream *s;
+ 	int rc;
+@@ -244,7 +244,7 @@ static int psc_dma_open(struct snd_soc_component *component,
+ static int psc_dma_close(struct snd_soc_component *component,
+ 			 struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct psc_dma *psc_dma = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 	struct psc_dma_stream *s;
+ 
+@@ -270,7 +270,7 @@ static snd_pcm_uframes_t
+ psc_dma_pointer(struct snd_soc_component *component,
+ 		struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct psc_dma *psc_dma = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 	struct psc_dma_stream *s;
+ 	dma_addr_t count;
+diff --git a/sound/soc/fsl/mpc5200_psc_i2s.c b/sound/soc/fsl/mpc5200_psc_i2s.c
+index 1ab4fbda08cb..3149d59ae968 100644
+--- a/sound/soc/fsl/mpc5200_psc_i2s.c
++++ b/sound/soc/fsl/mpc5200_psc_i2s.c
+@@ -38,7 +38,7 @@ static int psc_i2s_hw_params(struct snd_pcm_substream *substream,
+ 				 struct snd_pcm_hw_params *params,
+ 				 struct snd_soc_dai *dai)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct psc_dma *psc_dma = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 	u32 mode;
+ 
+diff --git a/sound/soc/fsl/mpc8610_hpcd.c b/sound/soc/fsl/mpc8610_hpcd.c
+index b3090fea4290..eccc833390d4 100644
+--- a/sound/soc/fsl/mpc8610_hpcd.c
++++ b/sound/soc/fsl/mpc8610_hpcd.c
+@@ -98,7 +98,7 @@ static int mpc8610_hpcd_machine_probe(struct snd_soc_card *card)
+  */
+ static int mpc8610_hpcd_startup(struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct mpc8610_hpcd_data *machine_data =
+ 		container_of(rtd->card, struct mpc8610_hpcd_data, card);
+ 	struct device *dev = rtd->card->dev;
+diff --git a/sound/soc/fsl/mx27vis-aic32x4.c b/sound/soc/fsl/mx27vis-aic32x4.c
+index a36d4e8cd55c..4ead537e090a 100644
+--- a/sound/soc/fsl/mx27vis-aic32x4.c
++++ b/sound/soc/fsl/mx27vis-aic32x4.c
+@@ -36,7 +36,7 @@ static int mx27vis_amp_muter_gpio;
+ static int mx27vis_aic32x4_hw_params(struct snd_pcm_substream *substream,
+ 			    struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	int ret;
+diff --git a/sound/soc/fsl/p1022_ds.c b/sound/soc/fsl/p1022_ds.c
+index fe3091590f20..ac68d2238045 100644
+--- a/sound/soc/fsl/p1022_ds.c
++++ b/sound/soc/fsl/p1022_ds.c
+@@ -121,7 +121,7 @@ static int p1022_ds_machine_probe(struct snd_soc_card *card)
+  */
+ static int p1022_ds_startup(struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct machine_data *mdata =
+ 		container_of(rtd->card, struct machine_data, card);
+ 	struct device *dev = rtd->card->dev;
+diff --git a/sound/soc/fsl/p1022_rdk.c b/sound/soc/fsl/p1022_rdk.c
+index f5374fe354ab..714515b8081f 100644
+--- a/sound/soc/fsl/p1022_rdk.c
++++ b/sound/soc/fsl/p1022_rdk.c
+@@ -127,7 +127,7 @@ static int p1022_rdk_machine_probe(struct snd_soc_card *card)
+  */
+ static int p1022_rdk_startup(struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct machine_data *mdata =
+ 		container_of(rtd->card, struct machine_data, card);
+ 	struct device *dev = rtd->card->dev;
+diff --git a/sound/soc/fsl/wm1133-ev1.c b/sound/soc/fsl/wm1133-ev1.c
+index 8b1551c55452..99611a037ada 100644
+--- a/sound/soc/fsl/wm1133-ev1.c
++++ b/sound/soc/fsl/wm1133-ev1.c
+@@ -75,7 +75,7 @@ static const struct _wm8350_audio wm8350_audio[] = {
+ static int wm1133_ev1_hw_params(struct snd_pcm_substream *substream,
+ 				struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	int i, found = 0;
 -- 
 2.25.1
 

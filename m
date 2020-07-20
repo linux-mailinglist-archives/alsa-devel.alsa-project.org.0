@@ -2,89 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90E3B225CAF
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 12:36:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78AE2225DD5
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 13:53:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F39B1612;
-	Mon, 20 Jul 2020 12:35:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F39B1612
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD1BB1614;
+	Mon, 20 Jul 2020 13:52:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD1BB1614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595241378;
-	bh=1RAYPNMLe0El3wV6vSORMFVaG0k9RDajv+fSBgeCyGE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1595245989;
+	bh=uh6pZqT3gGRXM43/NRvvGhsCkxMMMKqxuy1Sr8oz9Iw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bgOCS4CoSQStf7w9vaWu4jw5sXBaBLqYj036g+NFKmHO1F9AEs3exXieLJPNbYB+/
-	 upvj+lQdV7/OSrR7wKdxgZOJb73VIbHm/t3BqX9qlwgaZVWQh/76aOLjCWt9kTpglS
-	 dnHj/AN/w9K6vejQJkrXFLjanqsofjd782YFlWNw=
+	b=nv0xyUugYWkr4+QtKAq6yK0PlzEyTKsKKfQKXYdVDvrzCeIVe+YtLVp0xnMr+xyBx
+	 iBAwkiJM86SXuGQcly+/67CMPinFxeL0liEgtVCqS+Vmi88X36SXP/NBmKSvuV1GOt
+	 DbsdA831/LSag3l84YdjpVoKY6CJ6XGYKw+Ke+nE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67D39F800BF;
-	Mon, 20 Jul 2020 12:34:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09A17F800E0;
+	Mon, 20 Jul 2020 13:51:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A80DF800F5; Mon, 20 Jul 2020 12:34:35 +0200 (CEST)
+ id 5B7F2F800F5; Mon, 20 Jul 2020 13:51:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
- [IPv6:2607:f8b0:4864:20::f44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BAFC6F800BF
- for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 12:34:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BAFC6F800BF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 27072F800C1
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 13:51:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27072F800C1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Xw1t7clZ"
-Received: by mail-qv1-xf44.google.com with SMTP id e3so7092197qvo.10
- for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:34:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=VKpYBbrlnZWFZ3b9/7gPTVvr7uUXN2uw4/yc1h13XyM=;
- b=Xw1t7clZzNAezWxkwn6uMU0INMdckgeJj/r5KWBOP378438MNB0l3z/9VRnhE1E2qq
- tzaKFj3rmwyD2Dwft0ESb1tjUlGoovmduHcJ7jGDN9fkY3X16C+hN7+RLDZfc+U0J3rM
- NRcFsn8ALuGmUfT8cYHONuBWuepXrWm08QgmHEouegAHcD6fBjt9YVpUxT4Xo1QoU0Up
- 0m58/28f30BkP/vYkU8yKlITL5F0hl5xLUmGofmKs8boxHsL79OMmW7VPvOEzddgO+DV
- FyIcM86Z/mI1/iMd7f8YtgiF1TMy0AWxj5Mbb/YW0hDh1F6cOjktTPPke8SzVaG3tL3x
- 43nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=VKpYBbrlnZWFZ3b9/7gPTVvr7uUXN2uw4/yc1h13XyM=;
- b=gQITwTSqNE6aY0zkqY1ij4tcJodVVlmqmfzbyPhQxkP2VW4XOazOKG8VrpzRxf/QoG
- FBmt7POjGumDrXjGpQg5SmdZ1nguOl9OT62sFGGtklmD2XhPNq+9NLK+/m4GQD3g1j1H
- vg7NsM2SWPwdkFOYNOtw1kw2BFZw+cR0N3ur2uocCMf7n8+b+7+zOWi37Db9Xk8BMDCo
- 9iM+s2ZOIyd5vf5s2yTgZy6BYUKnHi93MYtN+fuxcPPoCPUfJHP/bN+rmHEtgHuWjr5O
- 5m/bJ1tVpnvNDtvossnMC92m3z0t8y7ca4u0766MO8pNV799Rj60g4yrkX9/LH3aUQmb
- iMyA==
-X-Gm-Message-State: AOAM532pZgIU9guHTSecZsCbOyD5q4ayGjJJR2w2TMfjLtRJ4nWcT60n
- zDIuMJx4M+x7vueIL0dGfE+wIpcfn/S7x5u8jrY=
-X-Google-Smtp-Source: ABdhPJycw37x1nzlr7P53atdMWdi6e2oUYQ8kUhWmklSym5hek24o6IxjZ9bBdyZEH+X8XPvUZykq3x46DwKcA8caag=
-X-Received: by 2002:a0c:eac1:: with SMTP id y1mr20806707qvp.32.1595241261541; 
- Mon, 20 Jul 2020 03:34:21 -0700 (PDT)
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="pGQYcTtW"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 179F82070A;
+ Mon, 20 Jul 2020 11:51:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1595245877;
+ bh=uh6pZqT3gGRXM43/NRvvGhsCkxMMMKqxuy1Sr8oz9Iw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=pGQYcTtWGaaC8v4tkZFLhux4Xgtv8kFWgmoG1vk9whlZ7vUXK4N8+3Z8vLQpz7MCT
+ SroLs8o8Lf+ykRX81gSZOsodbqkRHacbIz/vnr14T9qB25PbgmNqoMFD3x6t1ksHmi
+ dd7Z0qAkhFyJ5gd/a7Ag5gbaV9EZo6ydtccaTaKQ=
+Date: Mon, 20 Jul 2020 12:51:05 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 6/6] ASoC: Intel: common: change match table ehl-rt5660
+Message-ID: <20200720115105.GB4601@sirena.org.uk>
+References: <20200717211337.31956-1-pierre-louis.bossart@linux.intel.com>
+ <20200717211337.31956-7-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-References: <20200716232000.GA27246@Asurada-Nvidia>
- <20200717103857.31877-1-arnaud.ferraris@collabora.com>
- <20200717103857.31877-2-arnaud.ferraris@collabora.com>
-In-Reply-To: <20200717103857.31877-2-arnaud.ferraris@collabora.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Mon, 20 Jul 2020 18:34:10 +0800
-Message-ID: <CAA+D8AM9S6UThwyM2vWcXBzysY+3EgnzxToyk4kQ4e9rs3ch1A@mail.gmail.com>
-Subject: Re: [PATCH v3 1/1] ASoC: fsl_asrc: make sure the input and output
- clocks are different
-To: Arnaud Ferraris <arnaud.ferraris@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
- kernel@collabora.com, Fabio Estevam <festevam@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="WhfpMioaduB5tiZL"
+Content-Disposition: inline
+In-Reply-To: <20200717211337.31956-7-pierre-louis.bossart@linux.intel.com>
+X-Cookie: Be different: conform.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: tiwai@suse.de, Libin Yang <libin.yang@intel.com>,
+ alsa-devel@alsa-project.org, Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,79 +83,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jul 17, 2020 at 6:40 PM Arnaud Ferraris
-<arnaud.ferraris@collabora.com> wrote:
->
-> The current clock selection algorithm might select the same clock for
-> both input and output when, for instance, the output sample rate is a
-> multiple of the input rate.
->
-> In that case, both selectable clocks will be multiples of both the input
-> and output sample rates, and therefore the first of these clocks will be
-> selected for both input and output, leading to miscalculation of the
-> dividers for either the input or output side.
->
-> Example:
->   Input uses clock A (512kHz) and has a sample rate of 8kHz
->   Output uses clock B (1024kHz) and has a sample rate of 16kHz
->
->   In this case, the algorithm will select clock A for both input and
->   output: the input divider will therefore be calculated properly
->   (512 / 8 => 64), but the output divider's value will be only half
->   the expected value (512 / 16 => 32 instead of 1024 / 16 => 64).
->
-(input divider, output divider) = (64, 32) for the same clock source
-(512kHz) looks no problem.  could you explain more detail why
-(64, 32) can't work?
 
+--WhfpMioaduB5tiZL
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> This patch makes sure it always selects distinct input and output
-> clocks.
+On Fri, Jul 17, 2020 at 04:13:37PM -0500, Pierre-Louis Bossart wrote:
+> From: Libin Yang <libin.yang@intel.com>
+>=20
+> This configuration is for EHL with the RT5660 codec. RT5660
+> should use "10EC5660" ID instead of "INTC1027".
 
-There should be no such constraint for this IP, do you have any
-evidence for we should use distinct input and output clocks?
+This seems like it should have gone out as a bug fix?
 
->
-> Signed-off-by: Arnaud Ferraris <arnaud.ferraris@collabora.com>
-> ---
->  sound/soc/fsl/fsl_asrc.c | 16 ++++++++++------
->  1 file changed, 10 insertions(+), 6 deletions(-)
->
-> diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-> index 02c81d2e34ad..de10c208d3c8 100644
-> --- a/sound/soc/fsl/fsl_asrc.c
-> +++ b/sound/soc/fsl/fsl_asrc.c
-> @@ -608,8 +608,8 @@ static void fsl_asrc_select_clk(struct fsl_asrc_priv *asrc_priv,
->  {
->         struct fsl_asrc_pair_priv *pair_priv = pair->private;
->         struct asrc_config *config = pair_priv->config;
-> -       int rate[2], select_clk[2]; /* Array size 2 means IN and OUT */
-> -       int clk_rate, clk_index;
-> +       int rate[2], select_clk[2], clk_index[2]; /* Array size 2 means IN and OUT */
-> +       int clk_rate;
->         int i = 0, j = 0;
->
->         rate[IN] = in_rate;
-> @@ -618,11 +618,15 @@ static void fsl_asrc_select_clk(struct fsl_asrc_priv *asrc_priv,
->         /* Select proper clock source for internal ratio mode */
->         for (j = 0; j < 2; j++) {
->                 for (i = 0; i < ASRC_CLK_MAP_LEN; i++) {
-> -                       clk_index = asrc_priv->clk_map[j][i];
-> -                       clk_rate = clk_get_rate(asrc_priv->asrck_clk[clk_index]);
-> -                       /* Only match a perfect clock source with no remainder */
-> +                       clk_index[j] = asrc_priv->clk_map[j][i];
-> +                       clk_rate = clk_get_rate(asrc_priv->asrck_clk[clk_index[j]]);
-> +                       /*
-> +                        * Only match a perfect clock source with no remainder
-> +                        * and make sure the input & output clocks are different
-> +                        */
->                         if (clk_rate != 0 && (clk_rate / rate[j]) <= 1024 &&
-> -                           (clk_rate % rate[j]) == 0)
-> +                           (clk_rate % rate[j]) == 0 &&
-> +                           (j == 0 || clk_index[j] != clk_index[j - 1]))
->                                 break;
->                 }
->
-> --
-> 2.27.0
->
+--WhfpMioaduB5tiZL
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8VhSgACgkQJNaLcl1U
+h9D7UAf/XQ4aTe67SjTuNTc6tzfD4+nGdnUvy1yASxamAskzh34Dq1GU0/SxqX4I
+wjKrTyNUmqV+lSc2F+dD26YcdVBpbBCFWfze3hy2w0Da51rIiHHIRszNKbhFFLVn
+poc6+llGU7x1Gwt/e9/l+FRjGTQQrIyvx/EWFQ2lsQAqpoLZoOqDYhV8kYdXzhKw
+ZC4oM70VcBk2LBNyhS2SBOFl4AKYgYWWlikb+HZ9m4Hm4EMNOxxtoDEYxaV/4TUD
+44MsQCjdhLZnAUahZHRH/6SY11WL8M73MHapKfd3jdHPclRbAVS6k2lo0/Gi6xEP
+UNOPA9He0D+L0O15b5AEuYmkMtV5jg==
+=lIY7
+-----END PGP SIGNATURE-----
+
+--WhfpMioaduB5tiZL--

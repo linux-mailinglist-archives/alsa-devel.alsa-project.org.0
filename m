@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 604D222556F
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 03:31:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75EF4225570
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 03:31:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CC4A1167C;
-	Mon, 20 Jul 2020 03:30:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC4A1167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 255FC1662;
+	Mon, 20 Jul 2020 03:30:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 255FC1662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595208663;
-	bh=VHa5aaujzaW5ou2I18VCA9RuXdu9Nx99l0ZCJcF3vqE=;
+	s=default; t=1595208702;
+	bh=+he0Rwwro7QaMStLLD8Rqr3CJvNxxsbA3TSRbYUAryY=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kT47TYrLStXPraMoAv3tg4dRnrW8uCVL2cKMzmF36wBS+Ou/e7hClykWbMTx8DZsg
-	 n/PFtjxMpQO8w156YGYYQp+4DAYwtIH+Gq0C5LzWS0FrsYjszAA/2fRkH0DhaEhuIL
-	 CVMcYIyv16YsA1KP65fuYV0V9KnU8BxYNr2ArRG4=
+	b=T7cWAyMfTJ8+RqRqi8h7atZ4uJn3tE36KxIjgKzsTOPsk9Zjq2TAR8StO43TCy/xv
+	 HX/zQq8/pi2z+8BYFPoVQsAjiE0ifTsi7h3rqTQnDWFh65oe89Uw7y+l7kqrwYeJRC
+	 rVIs4AFGtAbNMi3W2qkYcYJ8LEVUbe7wE2pLoDEw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6D55F80384;
-	Mon, 20 Jul 2020 03:19:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F79BF8038E;
+	Mon, 20 Jul 2020 03:19:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3F90FF8037D; Mon, 20 Jul 2020 03:19:23 +0200 (CEST)
+ id 9320BF8037E; Mon, 20 Jul 2020 03:19:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 1163AF8036E
- for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:19:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1163AF8036E
-Date: 20 Jul 2020 10:19:14 +0900
-X-IronPort-AV: E=Sophos;i="5.75,373,1589209200"; d="scan'208";a="52541487"
+ by alsa1.perex.cz (Postfix) with ESMTP id 25C76F80371
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:19:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25C76F80371
+Date: 20 Jul 2020 10:19:19 +0900
+X-IronPort-AV: E=Sophos;i="5.75,373,1589209200"; d="scan'208";a="52541493"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 20 Jul 2020 10:19:14 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 20 Jul 2020 10:19:19 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 9BAA5415D190;
- Mon, 20 Jul 2020 10:19:14 +0900 (JST)
-Message-ID: <875zaj0ysr.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id AE874415D3D9;
+ Mon, 20 Jul 2020 10:19:19 +0900 (JST)
+Message-ID: <874kq30ysm.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 20/29] ASoC: meson: use asoc_substream_to_rtd()
+Subject: [PATCH 21/29] ASoC: au1x: use asoc_substream_to_rtd()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87y2nf0yw2.wl-kuninori.morimoto.gx@renesas.com>
@@ -75,63 +75,49 @@ let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/meson/axg-card.c         | 2 +-
- sound/soc/meson/gx-card.c          | 2 +-
- sound/soc/meson/meson-card-utils.c | 2 +-
- sound/soc/meson/meson-codec-glue.c | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
+ sound/soc/au1x/db1200.c | 2 +-
+ sound/soc/au1x/dbdma2.c | 2 +-
+ sound/soc/au1x/dma.c    | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/meson/axg-card.c b/sound/soc/meson/axg-card.c
-index 89f7f64747cd..0ec16844f224 100644
---- a/sound/soc/meson/axg-card.c
-+++ b/sound/soc/meson/axg-card.c
-@@ -40,7 +40,7 @@ static const struct snd_soc_pcm_stream codec_params = {
- static int axg_card_tdm_be_hw_params(struct snd_pcm_substream *substream,
- 				     struct snd_pcm_hw_params *params)
+diff --git a/sound/soc/au1x/db1200.c b/sound/soc/au1x/db1200.c
+index d649037bda9b..5f8baad37a40 100644
+--- a/sound/soc/au1x/db1200.c
++++ b/sound/soc/au1x/db1200.c
+@@ -94,7 +94,7 @@ static struct snd_soc_card db1550_ac97_machine = {
+ 
+ static int db1200_i2s_startup(struct snd_pcm_substream *substream)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct meson_card *priv = snd_soc_card_get_drvdata(rtd->card);
- 	struct axg_dai_link_tdm_data *be =
- 		(struct axg_dai_link_tdm_data *)priv->link_data[rtd->num];
-diff --git a/sound/soc/meson/gx-card.c b/sound/soc/meson/gx-card.c
-index 4abf7efb7eac..6da8535f4dd2 100644
---- a/sound/soc/meson/gx-card.c
-+++ b/sound/soc/meson/gx-card.c
-@@ -29,7 +29,7 @@ static const struct snd_soc_pcm_stream codec_params = {
- static int gx_card_i2s_be_hw_params(struct snd_pcm_substream *substream,
- 				    struct snd_pcm_hw_params *params)
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 
+ 	/* WM8731 has its own 12MHz crystal */
+diff --git a/sound/soc/au1x/dbdma2.c b/sound/soc/au1x/dbdma2.c
+index e82bbf2d1eea..3d67e27fada9 100644
+--- a/sound/soc/au1x/dbdma2.c
++++ b/sound/soc/au1x/dbdma2.c
+@@ -278,7 +278,7 @@ static int au1xpsc_pcm_open(struct snd_soc_component *component,
+ 			    struct snd_pcm_substream *substream)
  {
+ 	struct au1xpsc_audio_dmadata *pcd = to_dmadata(substream, component);
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct meson_card *priv = snd_soc_card_get_drvdata(rtd->card);
- 	struct gx_dai_link_i2s_data *be =
- 		(struct gx_dai_link_i2s_data *)priv->link_data[rtd->num];
-diff --git a/sound/soc/meson/meson-card-utils.c b/sound/soc/meson/meson-card-utils.c
-index 5a4a91c88734..29b601a0e274 100644
---- a/sound/soc/meson/meson-card-utils.c
-+++ b/sound/soc/meson/meson-card-utils.c
-@@ -13,7 +13,7 @@ int meson_card_i2s_set_sysclk(struct snd_pcm_substream *substream,
- 			      struct snd_pcm_hw_params *params,
- 			      unsigned int mclk_fs)
+ 	int stype = substream->stream, *dmaids;
+ 
+ 	dmaids = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream);
+diff --git a/sound/soc/au1x/dma.c b/sound/soc/au1x/dma.c
+index 4e246c7e78f2..7f5be90c9ed1 100644
+--- a/sound/soc/au1x/dma.c
++++ b/sound/soc/au1x/dma.c
+@@ -191,7 +191,7 @@ static int alchemy_pcm_open(struct snd_soc_component *component,
+ 			    struct snd_pcm_substream *substream)
  {
+ 	struct alchemy_pcm_ctx *ctx = ss_to_ctx(substream, component);
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *codec_dai;
- 	unsigned int mclk;
- 	int ret, i;
-diff --git a/sound/soc/meson/meson-codec-glue.c b/sound/soc/meson/meson-codec-glue.c
-index 524a33472337..d07270d17cee 100644
---- a/sound/soc/meson/meson-codec-glue.c
-+++ b/sound/soc/meson/meson-codec-glue.c
-@@ -98,7 +98,7 @@ EXPORT_SYMBOL_GPL(meson_codec_glue_input_set_fmt);
- int meson_codec_glue_output_startup(struct snd_pcm_substream *substream,
- 				    struct snd_soc_dai *dai)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct meson_codec_glue_input *in_data =
- 		meson_codec_glue_output_get_input_data(dai->capture_widget);
+ 	int *dmaids, s = substream->stream;
+ 	char *name;
  
 -- 
 2.25.1

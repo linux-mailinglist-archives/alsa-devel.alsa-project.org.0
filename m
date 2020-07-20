@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF05122555F
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 03:25:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E274225561
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 03:26:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 71DDC844;
-	Mon, 20 Jul 2020 03:24:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71DDC844
+	by alsa0.perex.cz (Postfix) with ESMTPS id B55ED1607;
+	Mon, 20 Jul 2020 03:25:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B55ED1607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595208349;
-	bh=iFD0tHY6jQS7iMaoG4Y/6WWYzWTprLSk9uWZNfW1ck8=;
+	s=default; t=1595208378;
+	bh=kVGrT/0JNMYZ8at4OH3uwHyLD3hX4J5pwSiPAUS4i4o=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tJk2hJktFZb8Y5IM3vkPi2ZXoj7KFjxXN3FyMjkeYmEN/+celxI+yxHkeZt7Gk26I
-	 O7psmYkvp9FvcbYh5OWm2MH37/7FxpcOdrQMZ5cyMtYH3C3nd1S3hkxGwR61rS9Js5
-	 +qjs1ZCivUqKtoAp1m3HPl7L0JRyMPJNV9dPnymE=
+	b=Rt803rRt4JOgoWkuDHboDC1bSh4ObfV0VDJNOOei87H1Dg6o/OIhLmPputmkMZsrP
+	 9MTSvbVJTbwrpzQhtY9HF4uEVFmwnrEjrb5f1X0TjEeV9RPYqlJmpbVrn1RkkPmZL5
+	 tqN81LLRW6MKOgJzPGIGVFsr5HvLz1uWRBdNUdEc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ACA60F80339;
-	Mon, 20 Jul 2020 03:18:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3FDEDF80342;
+	Mon, 20 Jul 2020 03:18:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85E7DF80328; Mon, 20 Jul 2020 03:18:28 +0200 (CEST)
+ id 2A797F80340; Mon, 20 Jul 2020 03:18:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id B29B5F80307
- for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:18:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B29B5F80307
-Date: 20 Jul 2020 10:18:24 +0900
-X-IronPort-AV: E=Sophos;i="5.75,373,1589209200"; d="scan'208";a="52541402"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 20 Jul 2020 10:18:24 +0900
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id C2F0EF80336
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:18:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2F0EF80336
+Date: 20 Jul 2020 10:18:28 +0900
+X-IronPort-AV: E=Sophos;i="5.75,373,1589209200"; d="scan'208";a="52330228"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 20 Jul 2020 10:18:28 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 4760C415CA8B;
- Mon, 20 Jul 2020 10:18:24 +0900 (JST)
-Message-ID: <87imej0yu5.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 87E004002623;
+ Mon, 20 Jul 2020 10:18:28 +0900 (JST)
+Message-ID: <87h7u30yu1.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 11/29] ASoC: cirrus: use asoc_substream_to_rtd()
+Subject: [PATCH 12/29] ASoC: rockchip: use asoc_substream_to_rtd()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87y2nf0yw2.wl-kuninori.morimoto.gx@renesas.com>
@@ -75,36 +75,105 @@ let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/cirrus/edb93xx.c     | 2 +-
- sound/soc/cirrus/snappercl15.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/rockchip/rk3288_hdmi_analog.c | 2 +-
+ sound/soc/rockchip/rk3399_gru_sound.c   | 8 ++++----
+ sound/soc/rockchip/rockchip_i2s.c       | 2 +-
+ sound/soc/rockchip/rockchip_max98090.c  | 2 +-
+ sound/soc/rockchip/rockchip_rt5645.c    | 2 +-
+ 5 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/sound/soc/cirrus/edb93xx.c b/sound/soc/cirrus/edb93xx.c
-index ccf65f087ea6..7b6cdc9c8a23 100644
---- a/sound/soc/cirrus/edb93xx.c
-+++ b/sound/soc/cirrus/edb93xx.c
-@@ -22,7 +22,7 @@
- static int edb93xx_hw_params(struct snd_pcm_substream *substream,
+diff --git a/sound/soc/rockchip/rk3288_hdmi_analog.c b/sound/soc/rockchip/rk3288_hdmi_analog.c
+index 01078155a914..33a00774746d 100644
+--- a/sound/soc/rockchip/rk3288_hdmi_analog.c
++++ b/sound/soc/rockchip/rk3288_hdmi_analog.c
+@@ -66,7 +66,7 @@ static int rk_hw_params(struct snd_pcm_substream *substream,
+ 			struct snd_pcm_hw_params *params)
+ {
+ 	int ret = 0;
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int mclk;
+diff --git a/sound/soc/rockchip/rk3399_gru_sound.c b/sound/soc/rockchip/rk3399_gru_sound.c
+index 9539b0d024fe..66d17089793f 100644
+--- a/sound/soc/rockchip/rk3399_gru_sound.c
++++ b/sound/soc/rockchip/rk3399_gru_sound.c
+@@ -51,7 +51,7 @@ static const struct snd_kcontrol_new rockchip_controls[] = {
+ static int rockchip_sound_max98357a_hw_params(struct snd_pcm_substream *substream,
  			     struct snd_pcm_hw_params *params)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	int err;
-diff --git a/sound/soc/cirrus/snappercl15.c b/sound/soc/cirrus/snappercl15.c
-index cb133e80b7c3..c4b112921661 100644
---- a/sound/soc/cirrus/snappercl15.c
-+++ b/sound/soc/cirrus/snappercl15.c
-@@ -22,7 +22,7 @@
- static int snappercl15_hw_params(struct snd_pcm_substream *substream,
- 				 struct snd_pcm_hw_params *params)
+ 	unsigned int mclk;
+ 	int ret;
+ 
+@@ -70,7 +70,7 @@ static int rockchip_sound_max98357a_hw_params(struct snd_pcm_substream *substrea
+ static int rockchip_sound_rt5514_hw_params(struct snd_pcm_substream *substream,
+ 			     struct snd_pcm_hw_params *params)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
  	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	int err;
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	unsigned int mclk;
+@@ -102,7 +102,7 @@ static int rockchip_sound_rt5514_hw_params(struct snd_pcm_substream *substream,
+ static int rockchip_sound_da7219_hw_params(struct snd_pcm_substream *substream,
+ 			     struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int mclk, ret;
+@@ -200,7 +200,7 @@ static int rockchip_sound_da7219_init(struct snd_soc_pcm_runtime *rtd)
+ static int rockchip_sound_dmic_hw_params(struct snd_pcm_substream *substream,
+ 			     struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	unsigned int mclk;
+ 	int ret;
+ 
+diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
+index 61c984f10d8e..d1438753edb4 100644
+--- a/sound/soc/rockchip/rockchip_i2s.c
++++ b/sound/soc/rockchip/rockchip_i2s.c
+@@ -272,7 +272,7 @@ static int rockchip_i2s_hw_params(struct snd_pcm_substream *substream,
+ 				  struct snd_soc_dai *dai)
+ {
+ 	struct rk_i2s_dev *i2s = to_info(dai);
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	unsigned int val = 0;
+ 	unsigned int mclk_rate, bclk_rate, div_bclk, div_lrck;
+ 
+diff --git a/sound/soc/rockchip/rockchip_max98090.c b/sound/soc/rockchip/rockchip_max98090.c
+index 1f527d3763ce..9acfd024aa5d 100644
+--- a/sound/soc/rockchip/rockchip_max98090.c
++++ b/sound/soc/rockchip/rockchip_max98090.c
+@@ -145,7 +145,7 @@ static int rk_aif1_hw_params(struct snd_pcm_substream *substream,
+ 			     struct snd_pcm_hw_params *params)
+ {
+ 	int ret = 0;
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int mclk;
+diff --git a/sound/soc/rockchip/rockchip_rt5645.c b/sound/soc/rockchip/rockchip_rt5645.c
+index 0617ccf4e42c..16ca2ad92426 100644
+--- a/sound/soc/rockchip/rockchip_rt5645.c
++++ b/sound/soc/rockchip/rockchip_rt5645.c
+@@ -55,7 +55,7 @@ static int rk_aif1_hw_params(struct snd_pcm_substream *substream,
+ 			     struct snd_pcm_hw_params *params)
+ {
+ 	int ret = 0;
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int mclk;
 -- 
 2.25.1
 

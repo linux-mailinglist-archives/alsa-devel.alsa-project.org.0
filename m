@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D358D225563
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 03:27:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3DCE225564
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 03:28:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 719B61657;
-	Mon, 20 Jul 2020 03:26:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 719B61657
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4AF70167A;
+	Mon, 20 Jul 2020 03:27:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AF70167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595208451;
-	bh=ufgkvco5rlgUxvewJVz1saRNDJ97nf4FHVoD2+vgInc=;
+	s=default; t=1595208487;
+	bh=Oa06OvnFukzEGAIaVysKwXvlgN4UNP7juL8tmWOe48Y=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RtBAJ/q5YwYj1pYmg9lrE4OS3DHjTkBEe9hocl/kN1jctAJ/UDGocqC3ar9cRldLG
-	 UwbpLza2ZDQQXBVUGX5rRuWPKlOjiQE3vmXtH3hrYWw6DAqvPQDwtjpl7jxAmcr6Mb
-	 EA1OpU6v7nm0pfFoNtsJM+vn75sq+e5lNfnXiROQ=
+	b=O1FECSEcKyLOhd2TIDAu4ymxKSAuxvCqJMHsP+ryU/fTZUzQ4xU2sOLxrnIsTm3us
+	 RSc1AFy/SR7qNld2G6EICzp4tlv9IjIB1rVWo9S3GEOTXFzY9HLcdHFyq0XxkP0WKF
+	 5fFzAWPEag1cRRqHPmXjz/vdviNjAKLgDAAnApG8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8AD10F80350;
-	Mon, 20 Jul 2020 03:18:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 178A2F80351;
+	Mon, 20 Jul 2020 03:19:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9D41FF8034E; Mon, 20 Jul 2020 03:18:48 +0200 (CEST)
+ id 75905F8035E; Mon, 20 Jul 2020 03:18:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id B2A60F80346
- for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:18:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2A60F80346
-Date: 20 Jul 2020 10:18:38 +0900
-X-IronPort-AV: E=Sophos;i="5.75,373,1589209200"; d="scan'208";a="52541451"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 20 Jul 2020 10:18:38 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 86ECCF8034C
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:18:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86ECCF8034C
+Date: 20 Jul 2020 10:18:48 +0900
+X-IronPort-AV: E=Sophos;i="5.75,373,1589209200"; d="scan'208";a="52541458"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 20 Jul 2020 10:18:48 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id E9A8E415CA93;
- Mon, 20 Jul 2020 10:18:38 +0900 (JST)
-Message-ID: <87eep70ytr.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 1EDD840083F8;
+ Mon, 20 Jul 2020 10:18:48 +0900 (JST)
+Message-ID: <87d04r0yth.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 14/29] ASoC: fsl: use asoc_substream_to_rtd()
+Subject: [PATCH 15/29] ASoC: mediatek: use asoc_substream_to_rtd()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87y2nf0yw2.wl-kuninori.morimoto.gx@renesas.com>
@@ -75,335 +75,339 @@ let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/fsl/eukrea-tlv320.c   |  2 +-
- sound/soc/fsl/fsl-asoc-card.c   |  2 +-
- sound/soc/fsl/fsl_asrc_dma.c    |  4 ++--
- sound/soc/fsl/fsl_dma.c         |  2 +-
- sound/soc/fsl/fsl_spdif.c       | 10 +++++-----
- sound/soc/fsl/fsl_ssi.c         |  8 ++++----
- sound/soc/fsl/imx-audmix.c      |  6 +++---
- sound/soc/fsl/imx-mc13783.c     |  2 +-
- sound/soc/fsl/mpc5200_dma.c     |  8 ++++----
- sound/soc/fsl/mpc5200_psc_i2s.c |  2 +-
- sound/soc/fsl/mpc8610_hpcd.c    |  2 +-
- sound/soc/fsl/mx27vis-aic32x4.c |  2 +-
- sound/soc/fsl/p1022_ds.c        |  2 +-
- sound/soc/fsl/p1022_rdk.c       |  2 +-
- sound/soc/fsl/wm1133-ev1.c      |  2 +-
- 15 files changed, 28 insertions(+), 28 deletions(-)
+ sound/soc/mediatek/common/mtk-afe-fe-dai.c           | 12 ++++++------
+ sound/soc/mediatek/common/mtk-afe-platform-driver.c  |  2 +-
+ sound/soc/mediatek/mt2701/mt2701-afe-pcm.c           |  2 +-
+ sound/soc/mediatek/mt2701/mt2701-cs42448.c           |  2 +-
+ sound/soc/mediatek/mt2701/mt2701-wm8960.c            |  2 +-
+ sound/soc/mediatek/mt6797/mt6797-afe-pcm.c           |  4 ++--
+ sound/soc/mediatek/mt8173/mt8173-afe-pcm.c           |  2 +-
+ sound/soc/mediatek/mt8173/mt8173-max98090.c          |  2 +-
+ sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c     |  2 +-
+ sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c     |  2 +-
+ sound/soc/mediatek/mt8173/mt8173-rt5650.c            |  2 +-
+ sound/soc/mediatek/mt8183/mt8183-afe-pcm.c           |  4 ++--
+ sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c   |  8 ++++----
+ .../mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c | 12 ++++++------
+ 14 files changed, 29 insertions(+), 29 deletions(-)
 
-diff --git a/sound/soc/fsl/eukrea-tlv320.c b/sound/soc/fsl/eukrea-tlv320.c
-index 4ff2d21bb32f..e13271ea84de 100644
---- a/sound/soc/fsl/eukrea-tlv320.c
-+++ b/sound/soc/fsl/eukrea-tlv320.c
-@@ -30,7 +30,7 @@
- static int eukrea_tlv320_hw_params(struct snd_pcm_substream *substream,
- 			    struct snd_pcm_hw_params *params)
+diff --git a/sound/soc/mediatek/common/mtk-afe-fe-dai.c b/sound/soc/mediatek/common/mtk-afe-fe-dai.c
+index 375e3b492922..882cdf86c8bf 100644
+--- a/sound/soc/mediatek/common/mtk-afe-fe-dai.c
++++ b/sound/soc/mediatek/common/mtk-afe-fe-dai.c
+@@ -37,7 +37,7 @@ static int mtk_regmap_write(struct regmap *map, int reg, unsigned int val)
+ int mtk_afe_fe_startup(struct snd_pcm_substream *substream,
+ 		       struct snd_soc_dai *dai)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	int memif_num = asoc_rtd_to_cpu(rtd, 0)->id;
+@@ -98,7 +98,7 @@ EXPORT_SYMBOL_GPL(mtk_afe_fe_startup);
+ void mtk_afe_fe_shutdown(struct snd_pcm_substream *substream,
+ 			 struct snd_soc_dai *dai)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
+ 	struct mtk_base_afe_memif *memif = &afe->memif[asoc_rtd_to_cpu(rtd, 0)->id];
+ 	int irq_id;
+@@ -120,7 +120,7 @@ int mtk_afe_fe_hw_params(struct snd_pcm_substream *substream,
+ 			 struct snd_pcm_hw_params *params,
+ 			 struct snd_soc_dai *dai)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
+ 	int id = asoc_rtd_to_cpu(rtd, 0)->id;
+ 	struct mtk_base_afe_memif *memif = &afe->memif[id];
+@@ -196,7 +196,7 @@ EXPORT_SYMBOL_GPL(mtk_afe_fe_hw_free);
+ int mtk_afe_fe_trigger(struct snd_pcm_substream *substream, int cmd,
+ 		       struct snd_soc_dai *dai)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_pcm_runtime * const runtime = substream->runtime;
+ 	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
+ 	int id = asoc_rtd_to_cpu(rtd, 0)->id;
+@@ -263,7 +263,7 @@ EXPORT_SYMBOL_GPL(mtk_afe_fe_trigger);
+ int mtk_afe_fe_prepare(struct snd_pcm_substream *substream,
+ 		       struct snd_soc_dai *dai)
+ {
+-	struct snd_soc_pcm_runtime *rtd  = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd  = asoc_substream_to_rtd(substream);
+ 	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
+ 	int id = asoc_rtd_to_cpu(rtd, 0)->id;
+ 	int pbuf_size;
+@@ -505,7 +505,7 @@ EXPORT_SYMBOL_GPL(mtk_memif_set_rate);
+ int mtk_memif_set_rate_substream(struct snd_pcm_substream *substream,
+ 				 int id, unsigned int rate)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_component *component =
+ 		snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
+ 	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(component);
+diff --git a/sound/soc/mediatek/common/mtk-afe-platform-driver.c b/sound/soc/mediatek/common/mtk-afe-platform-driver.c
+index 0a1a65c86f0e..01501d5747a7 100644
+--- a/sound/soc/mediatek/common/mtk-afe-platform-driver.c
++++ b/sound/soc/mediatek/common/mtk-afe-platform-driver.c
+@@ -80,7 +80,7 @@ EXPORT_SYMBOL_GPL(mtk_afe_add_sub_dai_control);
+ snd_pcm_uframes_t mtk_afe_pcm_pointer(struct snd_soc_component *component,
+ 				      struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(component);
+ 	struct mtk_base_afe_memif *memif = &afe->memif[asoc_rtd_to_cpu(rtd, 0)->id];
+ 	const struct mtk_base_memif_data *memif_data = memif->data;
+diff --git a/sound/soc/mediatek/mt2701/mt2701-afe-pcm.c b/sound/soc/mediatek/mt2701/mt2701-afe-pcm.c
+index f0250b0dd734..df29641c74aa 100644
+--- a/sound/soc/mediatek/mt2701/mt2701-afe-pcm.c
++++ b/sound/soc/mediatek/mt2701/mt2701-afe-pcm.c
+@@ -494,7 +494,7 @@ static int mt2701_dlm_fe_trigger(struct snd_pcm_substream *substream,
+ static int mt2701_memif_fs(struct snd_pcm_substream *substream,
+ 			   unsigned int rate)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	int fs;
+ 
+ 	if (asoc_rtd_to_cpu(rtd, 0)->id != MT2701_MEMIF_ULBT)
+diff --git a/sound/soc/mediatek/mt2701/mt2701-cs42448.c b/sound/soc/mediatek/mt2701/mt2701-cs42448.c
+index c47af9b6949b..44a8d5cfb0aa 100644
+--- a/sound/soc/mediatek/mt2701/mt2701-cs42448.c
++++ b/sound/soc/mediatek/mt2701/mt2701-cs42448.c
+@@ -127,7 +127,7 @@ static const struct snd_soc_ops mt2701_cs42448_48k_fe_ops = {
+ static int mt2701_cs42448_be_ops_hw_params(struct snd_pcm_substream *substream,
+ 					   struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	unsigned int mclk_rate;
+diff --git a/sound/soc/mediatek/mt2701/mt2701-wm8960.c b/sound/soc/mediatek/mt2701/mt2701-wm8960.c
+index 0122e7df067f..414e422c0eba 100644
+--- a/sound/soc/mediatek/mt2701/mt2701-wm8960.c
++++ b/sound/soc/mediatek/mt2701/mt2701-wm8960.c
+@@ -24,7 +24,7 @@ static const struct snd_kcontrol_new mt2701_wm8960_controls[] = {
+ static int mt2701_wm8960_be_ops_hw_params(struct snd_pcm_substream *substream,
+ 					  struct snd_pcm_hw_params *params)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
  	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
  	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	int ret;
-diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
-index ee80d02b56c6..dad136d2c087 100644
---- a/sound/soc/fsl/fsl-asoc-card.c
-+++ b/sound/soc/fsl/fsl-asoc-card.c
-@@ -148,7 +148,7 @@ static bool fsl_asoc_card_is_ac97(struct fsl_asoc_card_priv *priv)
- static int fsl_asoc_card_hw_params(struct snd_pcm_substream *substream,
+ 	unsigned int mclk_rate;
+diff --git a/sound/soc/mediatek/mt6797/mt6797-afe-pcm.c b/sound/soc/mediatek/mt6797/mt6797-afe-pcm.c
+index 7f3ac04b9425..3d68e4726ea2 100644
+--- a/sound/soc/mediatek/mt6797/mt6797-afe-pcm.c
++++ b/sound/soc/mediatek/mt6797/mt6797-afe-pcm.c
+@@ -139,7 +139,7 @@ static const struct snd_pcm_hardware mt6797_afe_hardware = {
+ static int mt6797_memif_fs(struct snd_pcm_substream *substream,
+ 			   unsigned int rate)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_component *component =
+ 		snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
+ 	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(component);
+@@ -150,7 +150,7 @@ static int mt6797_memif_fs(struct snd_pcm_substream *substream,
+ 
+ static int mt6797_irq_fs(struct snd_pcm_substream *substream, unsigned int rate)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_component *component =
+ 		snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
+ 	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(component);
+diff --git a/sound/soc/mediatek/mt8173/mt8173-afe-pcm.c b/sound/soc/mediatek/mt8173/mt8173-afe-pcm.c
+index 1cc044425a9e..7e7bda70d12e 100644
+--- a/sound/soc/mediatek/mt8173/mt8173-afe-pcm.c
++++ b/sound/soc/mediatek/mt8173/mt8173-afe-pcm.c
+@@ -482,7 +482,7 @@ static int mt8173_afe_hdmi_trigger(struct snd_pcm_substream *substream, int cmd,
+ static int mt8173_memif_fs(struct snd_pcm_substream *substream,
+ 			   unsigned int rate)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
+ 	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(component);
+ 	struct mtk_base_afe_memif *memif = &afe->memif[asoc_rtd_to_cpu(rtd, 0)->id];
+diff --git a/sound/soc/mediatek/mt8173/mt8173-max98090.c b/sound/soc/mediatek/mt8173/mt8173-max98090.c
+index 37693d354e66..fc94314bfc02 100644
+--- a/sound/soc/mediatek/mt8173/mt8173-max98090.c
++++ b/sound/soc/mediatek/mt8173/mt8173-max98090.c
+@@ -52,7 +52,7 @@ static const struct snd_kcontrol_new mt8173_max98090_controls[] = {
+ static int mt8173_max98090_hw_params(struct snd_pcm_substream *substream,
+ 				     struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 
+ 	return snd_soc_dai_set_sysclk(codec_dai, 0, params_rate(params) * 256,
+diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c
+index 51009a172777..0f28dc2217c0 100644
+--- a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c
++++ b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c
+@@ -43,7 +43,7 @@ static const struct snd_kcontrol_new mt8173_rt5650_rt5514_controls[] = {
+ static int mt8173_rt5650_rt5514_hw_params(struct snd_pcm_substream *substream,
+ 					  struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai;
+ 	int i, ret;
+ 
+diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c
+index 247ac7690805..077c6ee06780 100644
+--- a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c
++++ b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c
+@@ -47,7 +47,7 @@ static const struct snd_kcontrol_new mt8173_rt5650_rt5676_controls[] = {
+ static int mt8173_rt5650_rt5676_hw_params(struct snd_pcm_substream *substream,
+ 					  struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai;
+ 	int i, ret;
+ 
+diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650.c b/sound/soc/mediatek/mt8173/mt8173-rt5650.c
+index 2065c94dbf99..347b095d478d 100644
+--- a/sound/soc/mediatek/mt8173/mt8173-rt5650.c
++++ b/sound/soc/mediatek/mt8173/mt8173-rt5650.c
+@@ -58,7 +58,7 @@ static const struct snd_kcontrol_new mt8173_rt5650_controls[] = {
+ static int mt8173_rt5650_hw_params(struct snd_pcm_substream *substream,
  				   struct snd_pcm_hw_params *params)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct fsl_asoc_card_priv *priv = snd_soc_card_get_drvdata(rtd->card);
- 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
- 	struct cpu_priv *cpu_priv = &priv->cpu_priv;
-diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
-index 5f01a58f422a..29f91cdecbc3 100644
---- a/sound/soc/fsl/fsl_asrc_dma.c
-+++ b/sound/soc/fsl/fsl_asrc_dma.c
-@@ -129,7 +129,7 @@ static int fsl_asrc_dma_hw_params(struct snd_soc_component *component,
- 				  struct snd_pcm_hw_params *params)
- {
- 	enum dma_slave_buswidth buswidth = DMA_SLAVE_BUSWIDTH_2_BYTES;
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
- 	struct snd_dmaengine_dai_dma_data *dma_params_fe = NULL;
- 	struct snd_dmaengine_dai_dma_data *dma_params_be = NULL;
-@@ -313,7 +313,7 @@ static int fsl_asrc_dma_startup(struct snd_soc_component *component,
- 				struct snd_pcm_substream *substream)
- {
- 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct snd_dmaengine_dai_dma_data *dma_data;
- 	struct device *dev = component->dev;
-diff --git a/sound/soc/fsl/fsl_dma.c b/sound/soc/fsl/fsl_dma.c
-index 13ae089c1911..be021250d6e9 100644
---- a/sound/soc/fsl/fsl_dma.c
-+++ b/sound/soc/fsl/fsl_dma.c
-@@ -200,7 +200,7 @@ static irqreturn_t fsl_dma_isr(int irq, void *dev_id)
- {
- 	struct fsl_dma_private *dma_private = dev_id;
- 	struct snd_pcm_substream *substream = dma_private->substream;
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct device *dev = rtd->dev;
- 	struct ccsr_dma_channel __iomem *dma_channel = dma_private->dma_channel;
- 	irqreturn_t ret = IRQ_NONE;
-diff --git a/sound/soc/fsl/fsl_spdif.c b/sound/soc/fsl/fsl_spdif.c
-index 37053e8f29d0..455f96908377 100644
---- a/sound/soc/fsl/fsl_spdif.c
-+++ b/sound/soc/fsl/fsl_spdif.c
-@@ -405,7 +405,7 @@ static int spdif_set_rx_clksrc(struct fsl_spdif_priv *spdif_priv,
- static int spdif_set_sample_rate(struct snd_pcm_substream *substream,
- 				int sample_rate)
+ 	unsigned int mclk_clock;
+ 	struct snd_soc_dai *codec_dai;
+ 	int i, ret;
+diff --git a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
+index e0c4714da92c..c4a598cbbdaa 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
++++ b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
+@@ -142,7 +142,7 @@ static const struct snd_pcm_hardware mt8183_afe_hardware = {
+ static int mt8183_memif_fs(struct snd_pcm_substream *substream,
+ 			   unsigned int rate)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct fsl_spdif_priv *spdif_priv = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 	struct spdif_mixer_control *ctrl = &spdif_priv->fsl_spdif_control;
- 	struct regmap *regmap = spdif_priv->regmap;
-@@ -492,7 +492,7 @@ static int spdif_set_sample_rate(struct snd_pcm_substream *substream,
- static int fsl_spdif_startup(struct snd_pcm_substream *substream,
- 			     struct snd_soc_dai *cpu_dai)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct fsl_spdif_priv *spdif_priv = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 	struct platform_device *pdev = spdif_priv->pdev;
- 	struct regmap *regmap = spdif_priv->regmap;
-@@ -534,7 +534,7 @@ static int fsl_spdif_startup(struct snd_pcm_substream *substream,
- static void fsl_spdif_shutdown(struct snd_pcm_substream *substream,
- 				struct snd_soc_dai *cpu_dai)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct fsl_spdif_priv *spdif_priv = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 	struct regmap *regmap = spdif_priv->regmap;
- 	u32 scr, mask;
-@@ -563,7 +563,7 @@ static int fsl_spdif_hw_params(struct snd_pcm_substream *substream,
- 				struct snd_pcm_hw_params *params,
- 				struct snd_soc_dai *dai)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct fsl_spdif_priv *spdif_priv = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 	struct spdif_mixer_control *ctrl = &spdif_priv->fsl_spdif_control;
- 	struct platform_device *pdev = spdif_priv->pdev;
-@@ -591,7 +591,7 @@ static int fsl_spdif_hw_params(struct snd_pcm_substream *substream,
- static int fsl_spdif_trigger(struct snd_pcm_substream *substream,
- 				int cmd, struct snd_soc_dai *dai)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct fsl_spdif_priv *spdif_priv = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 	struct regmap *regmap = spdif_priv->regmap;
- 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
-diff --git a/sound/soc/fsl/fsl_ssi.c b/sound/soc/fsl/fsl_ssi.c
-index 7ec80b240563..d8b9c6547142 100644
---- a/sound/soc/fsl/fsl_ssi.c
-+++ b/sound/soc/fsl/fsl_ssi.c
-@@ -629,7 +629,7 @@ static void fsl_ssi_setup_ac97(struct fsl_ssi *ssi)
- static int fsl_ssi_startup(struct snd_pcm_substream *substream,
- 			   struct snd_soc_dai *dai)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct fsl_ssi *ssi = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 	int ret;
+ 	struct snd_soc_component *component =
+ 		snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
+ 	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(component);
+@@ -153,7 +153,7 @@ static int mt8183_memif_fs(struct snd_pcm_substream *substream,
  
-@@ -653,7 +653,7 @@ static int fsl_ssi_startup(struct snd_pcm_substream *substream,
- static void fsl_ssi_shutdown(struct snd_pcm_substream *substream,
- 			     struct snd_soc_dai *dai)
+ static int mt8183_irq_fs(struct snd_pcm_substream *substream, unsigned int rate)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct fsl_ssi *ssi = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 
- 	clk_disable_unprepare(ssi->clk);
-@@ -863,7 +863,7 @@ static int fsl_ssi_hw_params(struct snd_pcm_substream *substream,
- static int fsl_ssi_hw_free(struct snd_pcm_substream *substream,
- 			   struct snd_soc_dai *dai)
+ 	struct snd_soc_component *component =
+ 		snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
+ 	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(component);
+diff --git a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+index edfbf34a2f45..06d0a4f80fc1 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
++++ b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+@@ -33,7 +33,7 @@ struct mt8183_da7219_max98357_priv {
+ static int mt8183_mt6358_i2s_hw_params(struct snd_pcm_substream *substream,
+ 				       struct snd_pcm_hw_params *params)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct fsl_ssi *ssi = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 
- 	if (fsl_ssi_is_i2s_master(ssi) &&
-@@ -1078,7 +1078,7 @@ static int fsl_ssi_set_dai_tdm_slot(struct snd_soc_dai *dai, u32 tx_mask,
- static int fsl_ssi_trigger(struct snd_pcm_substream *substream, int cmd,
- 			   struct snd_soc_dai *dai)
+ 	unsigned int rate = params_rate(params);
+ 	unsigned int mclk_fs_ratio = 128;
+ 	unsigned int mclk_fs = rate * mclk_fs_ratio;
+@@ -49,7 +49,7 @@ static const struct snd_soc_ops mt8183_mt6358_i2s_ops = {
+ static int mt8183_da7219_i2s_hw_params(struct snd_pcm_substream *substream,
+ 				       struct snd_pcm_hw_params *params)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct fsl_ssi *ssi = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
+ 	struct snd_soc_dai *codec_dai;
+ 	unsigned int rate = params_rate(params);
+ 	unsigned int mclk_fs_ratio = 256;
+@@ -90,7 +90,7 @@ static int mt8183_da7219_i2s_hw_params(struct snd_pcm_substream *substream,
  
-diff --git a/sound/soc/fsl/imx-audmix.c b/sound/soc/fsl/imx-audmix.c
-index e09b45de0efd..75bcdf3c9e32 100644
---- a/sound/soc/fsl/imx-audmix.c
-+++ b/sound/soc/fsl/imx-audmix.c
-@@ -44,7 +44,7 @@ static const struct snd_pcm_hw_constraint_list imx_audmix_rate_constraints = {
- 
- static int imx_audmix_fe_startup(struct snd_pcm_substream *substream)
+ static int mt8183_da7219_hw_free(struct snd_pcm_substream *substream)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct imx_audmix *priv = snd_soc_card_get_drvdata(rtd->card);
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct device *dev = rtd->card->dev;
-@@ -73,7 +73,7 @@ static int imx_audmix_fe_startup(struct snd_pcm_substream *substream)
- static int imx_audmix_fe_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_soc_dai *codec_dai;
+ 	int ret = 0, j;
+ 
+@@ -118,7 +118,7 @@ static int
+ mt8183_da7219_rt1015_i2s_hw_params(struct snd_pcm_substream *substream,
  				   struct snd_pcm_hw_params *params)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct device *dev = rtd->card->dev;
- 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
- 	unsigned int fmt = SND_SOC_DAIFMT_DSP_A | SND_SOC_DAIFMT_NB_NF;
-@@ -112,7 +112,7 @@ static int imx_audmix_fe_hw_params(struct snd_pcm_substream *substream,
- static int imx_audmix_be_hw_params(struct snd_pcm_substream *substream,
+ 	unsigned int rate = params_rate(params);
+ 	struct snd_soc_dai *codec_dai;
+ 	int ret = 0, i;
+diff --git a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
+index bd04c4bd309b..85e611dc520e 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
++++ b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
+@@ -43,7 +43,7 @@ struct mt8183_mt6358_ts3a227_max98357_priv {
+ static int mt8183_mt6358_i2s_hw_params(struct snd_pcm_substream *substream,
+ 				       struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	unsigned int rate = params_rate(params);
+ 	unsigned int mclk_fs_ratio = 128;
+ 	unsigned int mclk_fs = rate * mclk_fs_ratio;
+@@ -60,7 +60,7 @@ static int
+ mt8183_mt6358_rt1015_i2s_hw_params(struct snd_pcm_substream *substream,
  				   struct snd_pcm_hw_params *params)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct device *dev = rtd->card->dev;
- 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
- 	unsigned int fmt = SND_SOC_DAIFMT_DSP_A | SND_SOC_DAIFMT_NB_NF;
-diff --git a/sound/soc/fsl/imx-mc13783.c b/sound/soc/fsl/imx-mc13783.c
-index fab2d6c56653..dd9c1ac81cf5 100644
---- a/sound/soc/fsl/imx-mc13783.c
-+++ b/sound/soc/fsl/imx-mc13783.c
-@@ -26,7 +26,7 @@
- static int imx_mc13783_hifi_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	int ret;
-diff --git a/sound/soc/fsl/mpc5200_dma.c b/sound/soc/fsl/mpc5200_dma.c
-index 3b8c796d7829..9e4f66b6b92b 100644
---- a/sound/soc/fsl/mpc5200_dma.c
-+++ b/sound/soc/fsl/mpc5200_dma.c
-@@ -114,7 +114,7 @@ static int psc_dma_hw_free(struct snd_soc_component *component,
- static int psc_dma_trigger(struct snd_soc_component *component,
- 			   struct snd_pcm_substream *substream, int cmd)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct psc_dma *psc_dma = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct psc_dma_stream *s = to_psc_dma_stream(substream, psc_dma);
-@@ -216,7 +216,7 @@ static int psc_dma_open(struct snd_soc_component *component,
- 			struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct psc_dma *psc_dma = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 	struct psc_dma_stream *s;
- 	int rc;
-@@ -244,7 +244,7 @@ static int psc_dma_open(struct snd_soc_component *component,
- static int psc_dma_close(struct snd_soc_component *component,
- 			 struct snd_pcm_substream *substream)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct psc_dma *psc_dma = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 	struct psc_dma_stream *s;
+ 	unsigned int rate = params_rate(params);
+ 	unsigned int mclk_fs_ratio = 128;
+ 	unsigned int mclk_fs = rate * mclk_fs_ratio;
+@@ -264,7 +264,7 @@ SND_SOC_DAILINK_DEFS(tdm,
  
-@@ -270,7 +270,7 @@ static snd_pcm_uframes_t
- psc_dma_pointer(struct snd_soc_component *component,
- 		struct snd_pcm_substream *substream)
+ static int mt8183_mt6358_tdm_startup(struct snd_pcm_substream *substream)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct psc_dma *psc_dma = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 	struct psc_dma_stream *s;
- 	dma_addr_t count;
-diff --git a/sound/soc/fsl/mpc5200_psc_i2s.c b/sound/soc/fsl/mpc5200_psc_i2s.c
-index 1ab4fbda08cb..3149d59ae968 100644
---- a/sound/soc/fsl/mpc5200_psc_i2s.c
-+++ b/sound/soc/fsl/mpc5200_psc_i2s.c
-@@ -38,7 +38,7 @@ static int psc_i2s_hw_params(struct snd_pcm_substream *substream,
- 				 struct snd_pcm_hw_params *params,
- 				 struct snd_soc_dai *dai)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct psc_dma *psc_dma = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
- 	u32 mode;
- 
-diff --git a/sound/soc/fsl/mpc8610_hpcd.c b/sound/soc/fsl/mpc8610_hpcd.c
-index b3090fea4290..eccc833390d4 100644
---- a/sound/soc/fsl/mpc8610_hpcd.c
-+++ b/sound/soc/fsl/mpc8610_hpcd.c
-@@ -98,7 +98,7 @@ static int mpc8610_hpcd_machine_probe(struct snd_soc_card *card)
-  */
- static int mpc8610_hpcd_startup(struct snd_pcm_substream *substream)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct mpc8610_hpcd_data *machine_data =
- 		container_of(rtd->card, struct mpc8610_hpcd_data, card);
- 	struct device *dev = rtd->card->dev;
-diff --git a/sound/soc/fsl/mx27vis-aic32x4.c b/sound/soc/fsl/mx27vis-aic32x4.c
-index a36d4e8cd55c..4ead537e090a 100644
---- a/sound/soc/fsl/mx27vis-aic32x4.c
-+++ b/sound/soc/fsl/mx27vis-aic32x4.c
-@@ -36,7 +36,7 @@ static int mx27vis_amp_muter_gpio;
- static int mx27vis_aic32x4_hw_params(struct snd_pcm_substream *substream,
- 			    struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	struct mt8183_mt6358_ts3a227_max98357_priv *priv =
+ 		snd_soc_card_get_drvdata(rtd->card);
  	int ret;
-diff --git a/sound/soc/fsl/p1022_ds.c b/sound/soc/fsl/p1022_ds.c
-index fe3091590f20..ac68d2238045 100644
---- a/sound/soc/fsl/p1022_ds.c
-+++ b/sound/soc/fsl/p1022_ds.c
-@@ -121,7 +121,7 @@ static int p1022_ds_machine_probe(struct snd_soc_card *card)
-  */
- static int p1022_ds_startup(struct snd_pcm_substream *substream)
+@@ -283,7 +283,7 @@ static int mt8183_mt6358_tdm_startup(struct snd_pcm_substream *substream)
+ 
+ static void mt8183_mt6358_tdm_shutdown(struct snd_pcm_substream *substream)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct machine_data *mdata =
- 		container_of(rtd->card, struct machine_data, card);
- 	struct device *dev = rtd->card->dev;
-diff --git a/sound/soc/fsl/p1022_rdk.c b/sound/soc/fsl/p1022_rdk.c
-index f5374fe354ab..714515b8081f 100644
---- a/sound/soc/fsl/p1022_rdk.c
-+++ b/sound/soc/fsl/p1022_rdk.c
-@@ -127,7 +127,7 @@ static int p1022_rdk_machine_probe(struct snd_soc_card *card)
-  */
- static int p1022_rdk_startup(struct snd_pcm_substream *substream)
+ 	struct mt8183_mt6358_ts3a227_max98357_priv *priv =
+ 		snd_soc_card_get_drvdata(rtd->card);
+ 	int ret;
+@@ -307,7 +307,7 @@ static int
+ mt8183_mt6358_ts3a227_max98357_wov_startup(
+ 	struct snd_pcm_substream *substream)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct machine_data *mdata =
- 		container_of(rtd->card, struct machine_data, card);
- 	struct device *dev = rtd->card->dev;
-diff --git a/sound/soc/fsl/wm1133-ev1.c b/sound/soc/fsl/wm1133-ev1.c
-index 8b1551c55452..99611a037ada 100644
---- a/sound/soc/fsl/wm1133-ev1.c
-+++ b/sound/soc/fsl/wm1133-ev1.c
-@@ -75,7 +75,7 @@ static const struct _wm8350_audio wm8350_audio[] = {
- static int wm1133_ev1_hw_params(struct snd_pcm_substream *substream,
- 				struct snd_pcm_hw_params *params)
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct mt8183_mt6358_ts3a227_max98357_priv *priv =
+ 			snd_soc_card_get_drvdata(card);
+@@ -320,7 +320,7 @@ static void
+ mt8183_mt6358_ts3a227_max98357_wov_shutdown(
+ 	struct snd_pcm_substream *substream)
  {
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	int i, found = 0;
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct mt8183_mt6358_ts3a227_max98357_priv *priv =
+ 			snd_soc_card_get_drvdata(card);
 -- 
 2.25.1
 

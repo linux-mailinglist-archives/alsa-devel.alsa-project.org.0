@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3067922556C
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 03:29:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0D8F22556E
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 03:30:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D652E1681;
-	Mon, 20 Jul 2020 03:29:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D652E1681
+	by alsa0.perex.cz (Postfix) with ESMTPS id 65B571614;
+	Mon, 20 Jul 2020 03:29:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65B571614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595208593;
-	bh=QWTTr19VS31zKReKmv7jwPrCUysmr605OGLzu6F+8d8=;
+	s=default; t=1595208630;
+	bh=CkppbU50sJPIMdaNpQHVL3VpSmcQ7SCTvUV/fXmcIXE=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uGpmYvTY+OUT97wA1x7+kGpgPYIAYwP6dEZUfYxd+kbwA7f1ZadWptkWpAReUpQxM
-	 HCRsW2hPvzuj2t0khIIuV/j8w95okQ8vjfCzSM+8iPaetUluYLsb4QBdFzVT2GX1GJ
-	 cbCT5d0VBvdK1k5Jk2fcg2M7+XqnE6fBIVBM51D8=
+	b=Mor1A7x1D+1V/xo9bivfM4h3eQqTLF18EWQqfxgAREhaMZsj2Ik7kdfmy/oscUMjz
+	 xtCzZYKubp4vmXRsDZd7IEGq5s+P/MHWb+JNcYb1M6pPyIyctSSiWw4bXmV1Vbmwtr
+	 Nnsx8Jcc/1xF9iV8BSWb2o4WXGWTe0Ej82fXDJ98=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29A82F800C1;
-	Mon, 20 Jul 2020 03:19:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0710FF80363;
+	Mon, 20 Jul 2020 03:19:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BF71FF80212; Mon, 20 Jul 2020 03:19:13 +0200 (CEST)
+ id 6D2A1F80370; Mon, 20 Jul 2020 03:19:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id CFF79F8036D
- for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:19:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFF79F8036D
-Date: 20 Jul 2020 10:19:05 +0900
-X-IronPort-AV: E=Sophos;i="5.75,373,1589209200"; d="scan'208";a="52541475"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 20 Jul 2020 10:19:05 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 69156F800C1
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:19:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69156F800C1
+Date: 20 Jul 2020 10:19:09 +0900
+X-IronPort-AV: E=Sophos;i="5.75,373,1589209200"; d="scan'208";a="52541482"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 20 Jul 2020 10:19:09 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 854AC4002623;
- Mon, 20 Jul 2020 10:19:05 +0900 (JST)
-Message-ID: <878sff0yt0.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id F0389415D3D9;
+ Mon, 20 Jul 2020 10:19:09 +0900 (JST)
+Message-ID: <877duz0ysw.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 18/29] ASoC: dwc: use asoc_substream_to_rtd()
+Subject: [PATCH 19/29] ASoC: intel: use asoc_substream_to_rtd()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87y2nf0yw2.wl-kuninori.morimoto.gx@renesas.com>
@@ -75,22 +75,736 @@ let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/dwc/dwc-pcm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/intel/atom/sst-mfld-platform-pcm.c     |  6 +++---
+ sound/soc/intel/baytrail/sst-baytrail-pcm.c      | 16 ++++++++--------
+ sound/soc/intel/boards/bdw-rt5650.c              |  2 +-
+ sound/soc/intel/boards/bdw-rt5677.c              |  4 ++--
+ sound/soc/intel/boards/broadwell.c               |  2 +-
+ sound/soc/intel/boards/bxt_rt298.c               |  2 +-
+ sound/soc/intel/boards/byt-rt5640.c              |  2 +-
+ sound/soc/intel/boards/bytcht_da7213.c           |  4 ++--
+ sound/soc/intel/boards/bytcr_rt5640.c            |  2 +-
+ sound/soc/intel/boards/bytcr_rt5651.c            |  2 +-
+ sound/soc/intel/boards/cht_bsw_max98090_ti.c     |  2 +-
+ sound/soc/intel/boards/cht_bsw_nau8824.c         |  2 +-
+ sound/soc/intel/boards/cht_bsw_rt5645.c          |  2 +-
+ sound/soc/intel/boards/cht_bsw_rt5672.c          |  2 +-
+ sound/soc/intel/boards/cml_rt1011_rt5682.c       |  4 ++--
+ sound/soc/intel/boards/ehl_rt5660.c              |  2 +-
+ sound/soc/intel/boards/glk_rt5682_max98357a.c    |  2 +-
+ sound/soc/intel/boards/haswell.c                 |  2 +-
+ sound/soc/intel/boards/kbl_da7219_max98927.c     |  8 ++++----
+ sound/soc/intel/boards/kbl_rt5660.c              |  2 +-
+ sound/soc/intel/boards/kbl_rt5663_max98927.c     |  4 ++--
+ .../intel/boards/kbl_rt5663_rt5514_max98927.c    |  4 ++--
+ sound/soc/intel/boards/skl_nau88l25_max98357a.c  |  2 +-
+ sound/soc/intel/boards/skl_nau88l25_ssm4567.c    |  2 +-
+ sound/soc/intel/boards/skl_rt286.c               |  2 +-
+ sound/soc/intel/boards/sof_da7219_max98373.c     |  2 +-
+ sound/soc/intel/boards/sof_maxim_common.c        |  4 ++--
+ sound/soc/intel/boards/sof_pcm512x.c             |  4 ++--
+ sound/soc/intel/boards/sof_rt5682.c              |  4 ++--
+ sound/soc/intel/boards/sof_sdw_rt1308.c          |  2 +-
+ sound/soc/intel/boards/sof_wm8804.c              |  2 +-
+ sound/soc/intel/haswell/sst-haswell-pcm.c        | 12 ++++++------
+ sound/soc/intel/keembay/kmb_platform.c           |  2 +-
+ sound/soc/intel/skylake/skl-pcm.c                |  8 ++++----
+ 34 files changed, 62 insertions(+), 62 deletions(-)
 
-diff --git a/sound/soc/dwc/dwc-pcm.c b/sound/soc/dwc/dwc-pcm.c
-index 9868e7373d36..9f25631d43d3 100644
---- a/sound/soc/dwc/dwc-pcm.c
-+++ b/sound/soc/dwc/dwc-pcm.c
-@@ -139,7 +139,7 @@ static int dw_pcm_open(struct snd_soc_component *component,
- 		       struct snd_pcm_substream *substream)
+diff --git a/sound/soc/intel/atom/sst-mfld-platform-pcm.c b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
+index 8817eaae6bb7..49b9f18472bc 100644
+--- a/sound/soc/intel/atom/sst-mfld-platform-pcm.c
++++ b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
+@@ -274,7 +274,7 @@ static int sst_platform_init_stream(struct snd_pcm_substream *substream)
+ {
+ 	struct sst_runtime_stream *stream =
+ 			substream->runtime->private_data;
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	int ret_val;
+ 
+ 	dev_dbg(rtd->dev, "setting buffer ptr param\n");
+@@ -582,7 +582,7 @@ static int sst_soc_trigger(struct snd_soc_component *component,
+ 	int ret_val = 0, str_id;
+ 	struct sst_runtime_stream *stream;
+ 	int status;
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 
+ 	dev_dbg(rtd->dev, "%s called\n", __func__);
+ 	if (substream->pcm->internal)
+@@ -630,7 +630,7 @@ static snd_pcm_uframes_t sst_soc_pointer(struct snd_soc_component *component,
+ 	struct sst_runtime_stream *stream;
+ 	int ret_val, status;
+ 	struct pcm_stream_info *str_info;
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 
+ 	stream = substream->runtime->private_data;
+ 	status = sst_get_stream_status(stream);
+diff --git a/sound/soc/intel/baytrail/sst-baytrail-pcm.c b/sound/soc/intel/baytrail/sst-baytrail-pcm.c
+index 53383055c8dc..54a66cc6db89 100644
+--- a/sound/soc/intel/baytrail/sst-baytrail-pcm.c
++++ b/sound/soc/intel/baytrail/sst-baytrail-pcm.c
+@@ -62,7 +62,7 @@ static int sst_byt_pcm_hw_params(struct snd_soc_component *component,
+ 				 struct snd_pcm_substream *substream,
+ 				 struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct sst_byt_priv_data *pdata = snd_soc_component_get_drvdata(component);
+ 	struct sst_byt_pcm_data *pcm_data = &pdata->pcm[substream->stream];
+ 	struct sst_byt *byt = pdata->byt;
+@@ -121,7 +121,7 @@ static int sst_byt_pcm_hw_params(struct snd_soc_component *component,
+ 
+ static int sst_byt_pcm_restore_stream_context(struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+ 	struct sst_byt_priv_data *pdata = snd_soc_component_get_drvdata(component);
+ 	struct sst_byt_pcm_data *pcm_data = &pdata->pcm[substream->stream];
+@@ -155,7 +155,7 @@ static void sst_byt_pcm_work(struct work_struct *work)
+ static int sst_byt_pcm_trigger(struct snd_soc_component *component,
+ 			       struct snd_pcm_substream *substream, int cmd)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct sst_byt_priv_data *pdata = snd_soc_component_get_drvdata(component);
+ 	struct sst_byt_pcm_data *pcm_data = &pdata->pcm[substream->stream];
+ 	struct sst_byt *byt = pdata->byt;
+@@ -197,7 +197,7 @@ static u32 byt_notify_pointer(struct sst_byt_stream *stream, void *data)
+ 	struct sst_byt_pcm_data *pcm_data = data;
+ 	struct snd_pcm_substream *substream = pcm_data->substream;
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+ 	struct sst_byt_priv_data *pdata = snd_soc_component_get_drvdata(component);
+ 	struct sst_byt *byt = pdata->byt;
+@@ -219,7 +219,7 @@ static u32 byt_notify_pointer(struct sst_byt_stream *stream, void *data)
+ static snd_pcm_uframes_t sst_byt_pcm_pointer(struct snd_soc_component *component,
+ 					     struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct sst_byt_priv_data *pdata = snd_soc_component_get_drvdata(component);
+ 	struct sst_byt_pcm_data *pcm_data = &pdata->pcm[substream->stream];
+@@ -232,7 +232,7 @@ static snd_pcm_uframes_t sst_byt_pcm_pointer(struct snd_soc_component *component
+ static int sst_byt_pcm_open(struct snd_soc_component *component,
+ 			    struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct sst_byt_priv_data *pdata = snd_soc_component_get_drvdata(component);
+ 	struct sst_byt_pcm_data *pcm_data = &pdata->pcm[substream->stream];
+ 	struct sst_byt *byt = pdata->byt;
+@@ -260,7 +260,7 @@ static int sst_byt_pcm_open(struct snd_soc_component *component,
+ static int sst_byt_pcm_close(struct snd_soc_component *component,
+ 			     struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct sst_byt_priv_data *pdata = snd_soc_component_get_drvdata(component);
+ 	struct sst_byt_pcm_data *pcm_data = &pdata->pcm[substream->stream];
+ 	struct sst_byt *byt = pdata->byt;
+@@ -286,7 +286,7 @@ static int sst_byt_pcm_mmap(struct snd_soc_component *component,
+ 			    struct snd_pcm_substream *substream,
+ 			    struct vm_area_struct *vma)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 
+ 	dev_dbg(rtd->dev, "PCM: mmap\n");
+ 	return snd_pcm_lib_default_mmap(substream, vma);
+diff --git a/sound/soc/intel/boards/bdw-rt5650.c b/sound/soc/intel/boards/bdw-rt5650.c
+index 482d501b2f43..ce7320916b22 100644
+--- a/sound/soc/intel/boards/bdw-rt5650.c
++++ b/sound/soc/intel/boards/bdw-rt5650.c
+@@ -106,7 +106,7 @@ static int broadwell_ssp0_fixup(struct snd_soc_pcm_runtime *rtd,
+ static int bdw_rt5650_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int ret;
+ 
+diff --git a/sound/soc/intel/boards/bdw-rt5677.c b/sound/soc/intel/boards/bdw-rt5677.c
+index c9da91147770..b64c2ca92068 100644
+--- a/sound/soc/intel/boards/bdw-rt5677.c
++++ b/sound/soc/intel/boards/bdw-rt5677.c
+@@ -156,7 +156,7 @@ static int broadwell_ssp0_fixup(struct snd_soc_pcm_runtime *rtd,
+ static int bdw_rt5677_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int ret;
+ 
+@@ -173,7 +173,7 @@ static int bdw_rt5677_hw_params(struct snd_pcm_substream *substream,
+ static int bdw_rt5677_dsp_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int ret;
+ 
+diff --git a/sound/soc/intel/boards/broadwell.c b/sound/soc/intel/boards/broadwell.c
+index c8fd4f7b1c0a..f6399077d291 100644
+--- a/sound/soc/intel/boards/broadwell.c
++++ b/sound/soc/intel/boards/broadwell.c
+@@ -103,7 +103,7 @@ static int broadwell_ssp0_fixup(struct snd_soc_pcm_runtime *rtd,
+ static int broadwell_rt286_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int ret;
+ 
+diff --git a/sound/soc/intel/boards/bxt_rt298.c b/sound/soc/intel/boards/bxt_rt298.c
+index c84c60df17db..0f3157dfa838 100644
+--- a/sound/soc/intel/boards/bxt_rt298.c
++++ b/sound/soc/intel/boards/bxt_rt298.c
+@@ -224,7 +224,7 @@ static int broxton_ssp5_fixup(struct snd_soc_pcm_runtime *rtd,
+ static int broxton_rt298_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int ret;
+ 
+diff --git a/sound/soc/intel/boards/byt-rt5640.c b/sound/soc/intel/boards/byt-rt5640.c
+index ace232f8aed6..8851949f38e2 100644
+--- a/sound/soc/intel/boards/byt-rt5640.c
++++ b/sound/soc/intel/boards/byt-rt5640.c
+@@ -72,7 +72,7 @@ static const struct snd_kcontrol_new byt_rt5640_controls[] = {
+ static int byt_rt5640_hw_params(struct snd_pcm_substream *substream,
+ 				struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int ret;
+ 
+diff --git a/sound/soc/intel/boards/bytcht_da7213.c b/sound/soc/intel/boards/bytcht_da7213.c
+index 17bb4ca34672..e1e46b4bbac5 100644
+--- a/sound/soc/intel/boards/bytcht_da7213.c
++++ b/sound/soc/intel/boards/bytcht_da7213.c
+@@ -105,7 +105,7 @@ static int aif1_startup(struct snd_pcm_substream *substream)
+ static int aif1_hw_params(struct snd_pcm_substream *substream,
+ 			  struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int ret;
+ 
+@@ -126,7 +126,7 @@ static int aif1_hw_params(struct snd_pcm_substream *substream,
+ 
+ static int aif1_hw_free(struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int ret;
+ 
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index a46777b80485..479992f4e97a 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -380,7 +380,7 @@ static struct snd_soc_jack_pin rt5640_pins[] = {
+ static int byt_rt5640_aif1_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *dai = asoc_rtd_to_codec(rtd, 0);
+ 
+ 	return byt_rt5640_prepare_and_enable_pll1(dai, params_rate(params));
+diff --git a/sound/soc/intel/boards/bytcr_rt5651.c b/sound/soc/intel/boards/bytcr_rt5651.c
+index 57bec0554ba8..4e2897596cea 100644
+--- a/sound/soc/intel/boards/bytcr_rt5651.c
++++ b/sound/soc/intel/boards/bytcr_rt5651.c
+@@ -347,7 +347,7 @@ static struct snd_soc_jack_pin bytcr_jack_pins[] = {
+ static int byt_rt5651_aif1_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	snd_pcm_format_t format = params_format(params);
+ 	int rate = params_rate(params);
+diff --git a/sound/soc/intel/boards/cht_bsw_max98090_ti.c b/sound/soc/intel/boards/cht_bsw_max98090_ti.c
+index 3b0a8aad7ad5..835e9bd6b52d 100644
+--- a/sound/soc/intel/boards/cht_bsw_max98090_ti.c
++++ b/sound/soc/intel/boards/cht_bsw_max98090_ti.c
+@@ -112,7 +112,7 @@ static const struct snd_kcontrol_new cht_mc_controls[] = {
+ static int cht_aif1_hw_params(struct snd_pcm_substream *substream,
+ 			     struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int ret;
+ 
+diff --git a/sound/soc/intel/boards/cht_bsw_nau8824.c b/sound/soc/intel/boards/cht_bsw_nau8824.c
+index 31e9c77ef3d3..3e12bff15fed 100644
+--- a/sound/soc/intel/boards/cht_bsw_nau8824.c
++++ b/sound/soc/intel/boards/cht_bsw_nau8824.c
+@@ -72,7 +72,7 @@ static const struct snd_kcontrol_new cht_mc_controls[] = {
+ static int cht_aif1_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int ret;
+ 
+diff --git a/sound/soc/intel/boards/cht_bsw_rt5645.c b/sound/soc/intel/boards/cht_bsw_rt5645.c
+index 27379b75674c..b53c02481749 100644
+--- a/sound/soc/intel/boards/cht_bsw_rt5645.c
++++ b/sound/soc/intel/boards/cht_bsw_rt5645.c
+@@ -207,7 +207,7 @@ static struct snd_soc_jack_pin cht_bsw_jack_pins[] = {
+ static int cht_aif1_hw_params(struct snd_pcm_substream *substream,
+ 			     struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int ret;
+ 
+diff --git a/sound/soc/intel/boards/cht_bsw_rt5672.c b/sound/soc/intel/boards/cht_bsw_rt5672.c
+index 1812b786d33b..8442be93eb1c 100644
+--- a/sound/soc/intel/boards/cht_bsw_rt5672.c
++++ b/sound/soc/intel/boards/cht_bsw_rt5672.c
+@@ -143,7 +143,7 @@ static const struct snd_kcontrol_new cht_mc_controls[] = {
+ static int cht_aif1_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int ret;
+ 
+diff --git a/sound/soc/intel/boards/cml_rt1011_rt5682.c b/sound/soc/intel/boards/cml_rt1011_rt5682.c
+index 6943020fa0bd..14813beb33d1 100644
+--- a/sound/soc/intel/boards/cml_rt1011_rt5682.c
++++ b/sound/soc/intel/boards/cml_rt1011_rt5682.c
+@@ -199,7 +199,7 @@ static int cml_rt1011_spk_init(struct snd_soc_pcm_runtime *rtd)
+ static int cml_rt5682_hw_params(struct snd_pcm_substream *substream,
+ 				struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int clk_id, clk_freq, pll_out, ret;
+ 
+@@ -232,7 +232,7 @@ static int cml_rt5682_hw_params(struct snd_pcm_substream *substream,
+ static int cml_rt1011_hw_params(struct snd_pcm_substream *substream,
+ 				struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai;
+ 	struct snd_soc_card *card = rtd->card;
+ 	int srate, i, ret = 0;
+diff --git a/sound/soc/intel/boards/ehl_rt5660.c b/sound/soc/intel/boards/ehl_rt5660.c
+index 78160e3b1615..7c0d4e915406 100644
+--- a/sound/soc/intel/boards/ehl_rt5660.c
++++ b/sound/soc/intel/boards/ehl_rt5660.c
+@@ -109,7 +109,7 @@ static int card_late_probe(struct snd_soc_card *card)
+ static int rt5660_hw_params(struct snd_pcm_substream *substream,
+ 			    struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int ret;
+ 
+diff --git a/sound/soc/intel/boards/glk_rt5682_max98357a.c b/sound/soc/intel/boards/glk_rt5682_max98357a.c
+index 954ab01f695b..62cca511522e 100644
+--- a/sound/soc/intel/boards/glk_rt5682_max98357a.c
++++ b/sound/soc/intel/boards/glk_rt5682_max98357a.c
+@@ -187,7 +187,7 @@ static int geminilake_rt5682_codec_init(struct snd_soc_pcm_runtime *rtd)
+ static int geminilake_rt5682_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int ret;
+ 
+diff --git a/sound/soc/intel/boards/haswell.c b/sound/soc/intel/boards/haswell.c
+index 74af090f2657..744b7b5b8106 100644
+--- a/sound/soc/intel/boards/haswell.c
++++ b/sound/soc/intel/boards/haswell.c
+@@ -55,7 +55,7 @@ static int haswell_ssp0_fixup(struct snd_soc_pcm_runtime *rtd,
+ static int haswell_rt5640_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int ret;
+ 
+diff --git a/sound/soc/intel/boards/kbl_da7219_max98927.c b/sound/soc/intel/boards/kbl_da7219_max98927.c
+index e29c31ffd241..cc9a2509ace2 100644
+--- a/sound/soc/intel/boards/kbl_da7219_max98927.c
++++ b/sound/soc/intel/boards/kbl_da7219_max98927.c
+@@ -175,7 +175,7 @@ static const struct snd_soc_dapm_route kabylake_ssp1_map[] = {
+ static int kabylake_ssp0_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *runtime = substream->private_data;
++	struct snd_soc_pcm_runtime *runtime = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai;
+ 	int ret, j;
+ 
+@@ -220,7 +220,7 @@ static int kabylake_ssp0_hw_params(struct snd_pcm_substream *substream,
+ 
+ static int kabylake_ssp0_trigger(struct snd_pcm_substream *substream, int cmd)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai;
+ 	int j, ret;
+ 
+@@ -455,7 +455,7 @@ static struct snd_pcm_hw_constraint_list constraints_channels_quad = {
+ static int kbl_fe_startup(struct snd_pcm_substream *substream)
+ {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+-	struct snd_soc_pcm_runtime *soc_rt = substream->private_data;
++	struct snd_soc_pcm_runtime *soc_rt = asoc_substream_to_rtd(substream);
+ 
+ 	/*
+ 	 * On this platform for PCM device we support,
+@@ -512,7 +512,7 @@ static int kabylake_dmic_fixup(struct snd_soc_pcm_runtime *rtd,
+ static int kabylake_dmic_startup(struct snd_pcm_substream *substream)
+ {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+-	struct snd_soc_pcm_runtime *soc_rt = substream->private_data;
++	struct snd_soc_pcm_runtime *soc_rt = asoc_substream_to_rtd(substream);
+ 
+ 	runtime->hw.channels_min = runtime->hw.channels_max = QUAD_CHANNEL;
+ 	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_CHANNELS,
+diff --git a/sound/soc/intel/boards/kbl_rt5660.c b/sound/soc/intel/boards/kbl_rt5660.c
+index f4c0b983c990..3a9f91b58e11 100644
+--- a/sound/soc/intel/boards/kbl_rt5660.c
++++ b/sound/soc/intel/boards/kbl_rt5660.c
+@@ -255,7 +255,7 @@ static int kabylake_hdmi3_init(struct snd_soc_pcm_runtime *rtd)
+ static int kabylake_rt5660_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int ret;
+ 
+diff --git a/sound/soc/intel/boards/kbl_rt5663_max98927.c b/sound/soc/intel/boards/kbl_rt5663_max98927.c
+index 09ba55fc36d5..3ea4602dfb3e 100644
+--- a/sound/soc/intel/boards/kbl_rt5663_max98927.c
++++ b/sound/soc/intel/boards/kbl_rt5663_max98927.c
+@@ -430,7 +430,7 @@ static int kabylake_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
+ static int kabylake_rt5663_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int ret;
+ 
+@@ -468,7 +468,7 @@ static int kabylake_dmic_fixup(struct snd_soc_pcm_runtime *rtd,
+ static int kabylake_ssp0_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai;
+ 	int ret = 0, j;
+ 
+diff --git a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+index b34cf6cf1139..cf6c66d36584 100644
+--- a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
++++ b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+@@ -371,7 +371,7 @@ static int kabylake_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
+ static int kabylake_rt5663_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int ret;
+ 
+@@ -395,7 +395,7 @@ static struct snd_soc_ops kabylake_rt5663_ops = {
+ static int kabylake_ssp0_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai;
+ 	int ret = 0, j;
+ 
+diff --git a/sound/soc/intel/boards/skl_nau88l25_max98357a.c b/sound/soc/intel/boards/skl_nau88l25_max98357a.c
+index d7b8154c43a4..55802900069a 100644
+--- a/sound/soc/intel/boards/skl_nau88l25_max98357a.c
++++ b/sound/soc/intel/boards/skl_nau88l25_max98357a.c
+@@ -295,7 +295,7 @@ static const struct snd_soc_ops skylake_nau8825_fe_ops = {
+ static int skylake_nau8825_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int ret;
+ 
+diff --git a/sound/soc/intel/boards/skl_nau88l25_ssm4567.c b/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
+index 4b317bcf6ea0..0c734f3a9364 100644
+--- a/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
++++ b/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
+@@ -347,7 +347,7 @@ static int skylake_dmic_fixup(struct snd_soc_pcm_runtime *rtd,
+ static int skylake_nau8825_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int ret;
+ 
+diff --git a/sound/soc/intel/boards/skl_rt286.c b/sound/soc/intel/boards/skl_rt286.c
+index 903ae1b28ec9..5a0c64a83146 100644
+--- a/sound/soc/intel/boards/skl_rt286.c
++++ b/sound/soc/intel/boards/skl_rt286.c
+@@ -228,7 +228,7 @@ static int skylake_ssp0_fixup(struct snd_soc_pcm_runtime *rtd,
+ static int skylake_rt286_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int ret;
+ 
+diff --git a/sound/soc/intel/boards/sof_da7219_max98373.c b/sound/soc/intel/boards/sof_da7219_max98373.c
+index 703703858595..f3cb0773e70e 100644
+--- a/sound/soc/intel/boards/sof_da7219_max98373.c
++++ b/sound/soc/intel/boards/sof_da7219_max98373.c
+@@ -179,7 +179,7 @@ static int da7219_codec_init(struct snd_soc_pcm_runtime *rtd)
+ static int ssp1_hw_params(struct snd_pcm_substream *substream,
+ 			      struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *runtime = substream->private_data;
++	struct snd_soc_pcm_runtime *runtime = asoc_substream_to_rtd(substream);
+ 	int ret, j;
+ 
+ 	for (j = 0; j < runtime->num_codecs; j++) {
+diff --git a/sound/soc/intel/boards/sof_maxim_common.c b/sound/soc/intel/boards/sof_maxim_common.c
+index 1ddf9181a95d..1a6961592029 100644
+--- a/sound/soc/intel/boards/sof_maxim_common.c
++++ b/sound/soc/intel/boards/sof_maxim_common.c
+@@ -42,7 +42,7 @@ struct snd_soc_dai_link_component max_98373_components[] = {
+ static int max98373_hw_params(struct snd_pcm_substream *substream,
+ 			      struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai;
+ 	int j;
+ 
+@@ -61,7 +61,7 @@ static int max98373_hw_params(struct snd_pcm_substream *substream,
+ 
+ int max98373_trigger(struct snd_pcm_substream *substream, int cmd)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai;
+ 	int j;
+ 	int ret = 0;
+diff --git a/sound/soc/intel/boards/sof_pcm512x.c b/sound/soc/intel/boards/sof_pcm512x.c
+index 9fa8a4911276..d2b0456236c7 100644
+--- a/sound/soc/intel/boards/sof_pcm512x.c
++++ b/sound/soc/intel/boards/sof_pcm512x.c
+@@ -96,7 +96,7 @@ static int sof_pcm512x_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 
+ static int aif1_startup(struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_component *codec = asoc_rtd_to_codec(rtd, 0)->component;
+ 
+ 	snd_soc_component_update_bits(codec, PCM512x_GPIO_CONTROL_1,
+@@ -107,7 +107,7 @@ static int aif1_startup(struct snd_pcm_substream *substream)
+ 
+ static void aif1_shutdown(struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_component *codec = asoc_rtd_to_codec(rtd, 0)->component;
+ 
+ 	snd_soc_component_update_bits(codec, PCM512x_GPIO_CONTROL_1,
+diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+index cc8b0f26f724..d1b0cdf6c4e8 100644
+--- a/sound/soc/intel/boards/sof_rt5682.c
++++ b/sound/soc/intel/boards/sof_rt5682.c
+@@ -217,7 +217,7 @@ static void sof_rt5682_codec_exit(struct snd_soc_pcm_runtime *rtd)
+ static int sof_rt5682_hw_params(struct snd_pcm_substream *substream,
+ 				struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct sof_card_private *ctx = snd_soc_card_get_drvdata(rtd->card);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int clk_id, clk_freq, pll_out, ret;
+@@ -275,7 +275,7 @@ static struct snd_soc_ops sof_rt5682_ops = {
+ static int sof_rt1015_hw_params(struct snd_pcm_substream *substream,
+ 				struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct snd_soc_dai *codec_dai;
+ 	int i, ret;
+diff --git a/sound/soc/intel/boards/sof_sdw_rt1308.c b/sound/soc/intel/boards/sof_sdw_rt1308.c
+index 177cc781ada6..3655e890acec 100644
+--- a/sound/soc/intel/boards/sof_sdw_rt1308.c
++++ b/sound/soc/intel/boards/sof_sdw_rt1308.c
+@@ -91,7 +91,7 @@ static int all_spk_init(struct snd_soc_pcm_runtime *rtd)
+ static int rt1308_i2s_hw_params(struct snd_pcm_substream *substream,
+ 				struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int clk_id, clk_freq, pll_out;
+diff --git a/sound/soc/intel/boards/sof_wm8804.c b/sound/soc/intel/boards/sof_wm8804.c
+index c13fd20da559..a46ba13e8eb0 100644
+--- a/sound/soc/intel/boards/sof_wm8804.c
++++ b/sound/soc/intel/boards/sof_wm8804.c
+@@ -49,7 +49,7 @@ static const struct dmi_system_id sof_wm8804_quirk_table[] = {
+ static int sof_wm8804_hw_params(struct snd_pcm_substream *substream,
+ 				struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct sof_card_private *ctx = snd_soc_card_get_drvdata(rtd->card);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_component *codec = codec_dai->component;
+diff --git a/sound/soc/intel/haswell/sst-haswell-pcm.c b/sound/soc/intel/haswell/sst-haswell-pcm.c
+index 16ac16f5a641..b8d86c74c53d 100644
+--- a/sound/soc/intel/haswell/sst-haswell-pcm.c
++++ b/sound/soc/intel/haswell/sst-haswell-pcm.c
+@@ -462,7 +462,7 @@ static int hsw_pcm_hw_params(struct snd_soc_component *component,
+ 			     struct snd_pcm_substream *substream,
+ 			     struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct hsw_priv_data *pdata = snd_soc_component_get_drvdata(component);
+ 	struct hsw_pcm_data *pcm_data;
+@@ -652,7 +652,7 @@ static int hsw_pcm_hw_params(struct snd_soc_component *component,
+ static int hsw_pcm_trigger(struct snd_soc_component *component,
+ 			   struct snd_pcm_substream *substream, int cmd)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct hsw_priv_data *pdata = snd_soc_component_get_drvdata(component);
+ 	struct hsw_pcm_data *pcm_data;
+ 	struct sst_hsw_stream *sst_stream;
+@@ -695,7 +695,7 @@ static u32 hsw_notify_pointer(struct sst_hsw_stream *stream, void *data)
+ 	struct hsw_pcm_data *pcm_data = data;
+ 	struct snd_pcm_substream *substream = pcm_data->substream;
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+ 	struct hsw_priv_data *pdata = snd_soc_component_get_drvdata(component);
+ 	struct sst_hsw *hsw = pdata->hsw;
+@@ -760,7 +760,7 @@ static u32 hsw_notify_pointer(struct sst_hsw_stream *stream, void *data)
+ static snd_pcm_uframes_t hsw_pcm_pointer(struct snd_soc_component *component,
+ 					 struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct hsw_priv_data *pdata = snd_soc_component_get_drvdata(component);
+ 	struct hsw_pcm_data *pcm_data;
+@@ -785,7 +785,7 @@ static snd_pcm_uframes_t hsw_pcm_pointer(struct snd_soc_component *component,
+ static int hsw_pcm_open(struct snd_soc_component *component,
+ 			struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct hsw_priv_data *pdata = snd_soc_component_get_drvdata(component);
+ 	struct hsw_pcm_data *pcm_data;
+ 	struct sst_hsw *hsw = pdata->hsw;
+@@ -818,7 +818,7 @@ static int hsw_pcm_open(struct snd_soc_component *component,
+ static int hsw_pcm_close(struct snd_soc_component *component,
+ 			 struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct hsw_priv_data *pdata = snd_soc_component_get_drvdata(component);
+ 	struct hsw_pcm_data *pcm_data;
+ 	struct sst_hsw *hsw = pdata->hsw;
+diff --git a/sound/soc/intel/keembay/kmb_platform.c b/sound/soc/intel/keembay/kmb_platform.c
+index 2ce21336c06b..44798832c2f9 100644
+--- a/sound/soc/intel/keembay/kmb_platform.c
++++ b/sound/soc/intel/keembay/kmb_platform.c
+@@ -191,7 +191,7 @@ static int kmb_pcm_open(struct snd_soc_component *component,
+ 			struct snd_pcm_substream *substream)
  {
  	struct snd_pcm_runtime *runtime = substream->runtime;
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct dw_i2s_dev *dev = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+ 	struct kmb_i2s_info *kmb_i2s;
  
- 	snd_soc_set_runtime_hwparams(substream, &dw_pcm_hardware);
+ 	kmb_i2s = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+diff --git a/sound/soc/intel/skylake/skl-pcm.c b/sound/soc/intel/skylake/skl-pcm.c
+index 89dcccdfb1cd..268ba1662f69 100644
+--- a/sound/soc/intel/skylake/skl-pcm.c
++++ b/sound/soc/intel/skylake/skl-pcm.c
+@@ -544,7 +544,7 @@ static int skl_link_hw_params(struct snd_pcm_substream *substream,
+ {
+ 	struct hdac_bus *bus = dev_get_drvdata(dai->dev);
+ 	struct hdac_ext_stream *link_dev;
+-	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct skl_pipe_params p_params = {0};
+ 	struct hdac_ext_link *link;
+@@ -634,7 +634,7 @@ static int skl_link_hw_free(struct snd_pcm_substream *substream,
+ 		struct snd_soc_dai *dai)
+ {
+ 	struct hdac_bus *bus = dev_get_drvdata(dai->dev);
+-	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct hdac_ext_stream *link_dev =
+ 				snd_soc_dai_get_dma_data(dai, substream);
+ 	struct hdac_ext_link *link;
+@@ -1071,7 +1071,7 @@ int skl_dai_load(struct snd_soc_component *cmp, int index,
+ static int skl_platform_soc_open(struct snd_soc_component *component,
+ 				 struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai_link *dai_link = rtd->dai_link;
+ 
+ 	dev_dbg(asoc_rtd_to_cpu(rtd, 0)->dev, "In %s:%s\n", __func__,
+@@ -1225,7 +1225,7 @@ static int skl_platform_soc_mmap(struct snd_soc_component *component,
+ static u64 skl_adjust_codec_delay(struct snd_pcm_substream *substream,
+ 				u64 nsec)
+ {
+-	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	u64 codec_frames, codec_nsecs;
+ 
 -- 
 2.25.1
 

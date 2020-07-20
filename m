@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 932F422557D
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 03:35:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D73622557E
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jul 2020 03:35:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 22350167A;
-	Mon, 20 Jul 2020 03:34:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22350167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF29E169E;
+	Mon, 20 Jul 2020 03:34:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF29E169E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595208903;
-	bh=mlxKv4DWvgCpUjPV7foftm9UZX6sncWi5e1SObd8HMo=;
+	s=default; t=1595208941;
+	bh=tFDfOUX21DM+krVb9y0omifhyypKLUuLHtVMon+NCuc=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BvVondlhjTl7kvatSOAN9E1N9ngjuLHqiVylIFkeGA4RwsWXigv0QQHJ5RWlv4/xu
-	 +vbrKjqyL4b6LinnyVavKu8mbF+/vUjdS2yS5wSq1j5aKa8iEQmuFqeUmOfwi/cpUO
-	 YCvrq41S7OsKqAZzP3mJ/EixjBE6/QM9uwOepV7U=
+	b=YMnNAZJNhZvxtKmHw7/9K0fCKa92BWO8LEHs5egDgipv5ldGKJyAV59AKk/eyld1c
+	 AwcNHmB2CovEpWdcFwIYAkIh98p5jUKmEb8J1aSn4dYqkrLg1W+0AWuv8lMbZtBfNO
+	 d/4z6cqr/UfX2wKBmYEpGmKrIr8EPlbthVFiqct8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41427F803D6;
-	Mon, 20 Jul 2020 03:19:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A55FF803EB;
+	Mon, 20 Jul 2020 03:19:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2D467F803CB; Mon, 20 Jul 2020 03:19:50 +0200 (CEST)
+ id 73CD6F803E0; Mon, 20 Jul 2020 03:19:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 45C21F803C9
- for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:19:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45C21F803C9
-Date: 20 Jul 2020 10:19:46 +0900
-X-IronPort-AV: E=Sophos;i="5.75,373,1589209200"; d="scan'208";a="52541535"
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 711EAF803E0
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 03:19:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 711EAF803E0
+Date: 20 Jul 2020 10:19:51 +0900
+X-IronPort-AV: E=Sophos;i="5.75,373,1589209200"; d="scan'208";a="52330359"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 20 Jul 2020 10:19:46 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 20 Jul 2020 10:19:51 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id F1643415D190;
- Mon, 20 Jul 2020 10:19:45 +0900 (JST)
-Message-ID: <87v9ijyoek.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 0AAA4415D724;
+ Mon, 20 Jul 2020 10:19:51 +0900 (JST)
+Message-ID: <87tuy3yoef.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 27/29] ASoC: xtensa: use asoc_substream_to_rtd()
+Subject: [PATCH 28/29] ASoC: mxs: use asoc_substream_to_rtd()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87y2nf0yw2.wl-kuninori.morimoto.gx@renesas.com>
@@ -75,22 +75,22 @@ let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/xtensa/xtfpga-i2s.c | 2 +-
+ sound/soc/mxs/mxs-sgtl5000.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/xtensa/xtfpga-i2s.c b/sound/soc/xtensa/xtfpga-i2s.c
-index 68af2176b19c..aeb4b2c4d1d3 100644
---- a/sound/soc/xtensa/xtfpga-i2s.c
-+++ b/sound/soc/xtensa/xtfpga-i2s.c
-@@ -369,7 +369,7 @@ static int xtfpga_pcm_open(struct snd_soc_component *component,
- 			   struct snd_pcm_substream *substream)
+diff --git a/sound/soc/mxs/mxs-sgtl5000.c b/sound/soc/mxs/mxs-sgtl5000.c
+index f46d7aca8cf6..a6407f4388de 100644
+--- a/sound/soc/mxs/mxs-sgtl5000.c
++++ b/sound/soc/mxs/mxs-sgtl5000.c
+@@ -19,7 +19,7 @@
+ static int mxs_sgtl5000_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_hw_params *params)
  {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	void *p;
- 
- 	snd_soc_set_runtime_hwparams(substream, &xtfpga_pcm_hardware);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	unsigned int rate = params_rate(params);
 -- 
 2.25.1
 

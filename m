@@ -2,74 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A780228C32
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 00:47:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64088228CD7
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 01:47:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA6B51667;
-	Wed, 22 Jul 2020 00:46:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA6B51667
+	by alsa0.perex.cz (Postfix) with ESMTPS id EDD66166E;
+	Wed, 22 Jul 2020 01:47:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDD66166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595371659;
-	bh=BhTiYP2+HVjNhqYdzdEhd2K0ObIeiI60QRglenqOYJ4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1595375276;
+	bh=7AIwifWzud53J8zjgtZacR9EhiJh6kmjjGdpnRJ+7nU=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JqufDtiM8FFCF7zMdz6Q13wbcvuTQaGXcaauKenPWkAofXHj3UTD1PguXwFDrZEkv
-	 9Yvfkm/ijgm4652vhiW09IK+OKFEfnYxKwwK4eKxEFqbYc+v4oQTzKjUgTipCk3BVq
-	 stbjl00dRSvpBabPX2N2DIzsM3iAjRMWOsF2AU0U=
+	b=nZxTu+5HeY/gcG/2rQMTH1VBmGaT/00QwNQjUWTNkZz3yYOCqw3BGqhJsPQ1KI3nT
+	 0TgbDRmlsbYYPa6Exctv4oo++M8tV7f3d11ZXKiD9GaXZSGnq8UmGTwyL7MsSRPXC8
+	 OqH27drXEgFfXRit1D1UvEbd2kjsQFAfK6D3BfDE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D30D1F80268;
-	Wed, 22 Jul 2020 00:45:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1927F80278;
+	Wed, 22 Jul 2020 01:46:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C0ECF8024A; Wed, 22 Jul 2020 00:45:56 +0200 (CEST)
+ id 2BBA0F80274; Wed, 22 Jul 2020 01:46:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D8E84F80087
- for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 00:45:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8E84F80087
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="KHHMsIuE"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_03_06,
+ NICE_REPLY_A,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D8E6B2073A;
- Tue, 21 Jul 2020 22:45:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1595371552;
- bh=BhTiYP2+HVjNhqYdzdEhd2K0ObIeiI60QRglenqOYJ4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KHHMsIuE6f0wf/WkMtL1mY8Ce4IhsSUhhUMTl8fZJ3md6X8aQcDUZHPIzVJgY5uYU
- 3BhYrLtmBImmpr/7KHjuTk/drTCuUNc+HTtAkSuP+NpAnyUnRBnx0B51xD7NTKePD5
- R4XDjnKABzriFnWTBxFRz+hCtlNIqrXfoIi7EYjE=
-Date: Tue, 21 Jul 2020 23:45:39 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH 19/29] ASoC: intel: use asoc_substream_to_rtd()
-Message-ID: <20200721224539.GH4845@sirena.org.uk>
-References: <87y2nf0yw2.wl-kuninori.morimoto.gx@renesas.com>
- <877duz0ysw.wl-kuninori.morimoto.gx@renesas.com>
- <d87417b1-5bc3-9ad0-a362-0e7e1bb03f67@linux.intel.com>
- <87blk9zmkf.wl-kuninori.morimoto.gx@renesas.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id EEE3FF80117
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 01:46:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEE3FF80117
+IronPort-SDR: Sit8ma7ilnGXW3HkyaQCN8HUINq0wEsn8ssBdk6m9wRELhJWEtvEWmCjk2noojQzUG8c/ZUF8v
+ mTQ6poT27M9w==
+X-IronPort-AV: E=McAfee;i="6000,8403,9689"; a="151576914"
+X-IronPort-AV: E=Sophos;i="5.75,380,1589266800"; d="scan'208";a="151576914"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2020 16:46:03 -0700
+IronPort-SDR: iz40N4/yb9B5d6SJZ7L8QhpD0FXcHb8KUoqwc5Y4Vocc8cfpIZzsN8mQTjG3yVvkQzYTfkyk7z
+ wqYdOdJ4zEDw==
+X-IronPort-AV: E=Sophos;i="5.75,380,1589266800"; d="scan'208";a="362539360"
+Received: from krlloyd-mobl.amr.corp.intel.com (HELO [10.255.231.6])
+ ([10.255.231.6])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2020 16:46:01 -0700
+Subject: Re: [PATCH v2 2/9] ASoC: q6asm: make commands specific to streams
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, broonie@kernel.org
+References: <20200721165306.29082-1-srinivas.kandagatla@linaro.org>
+ <20200721165306.29082-3-srinivas.kandagatla@linaro.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <52075b51-2053-573a-4cd0-685d3d469bdf@linux.intel.com>
+Date: Tue, 21 Jul 2020 14:31:56 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="6lXr1rPCNTf1w0X8"
-Content-Disposition: inline
-In-Reply-To: <87blk9zmkf.wl-kuninori.morimoto.gx@renesas.com>
-X-Cookie: I'm also against BODY-SURFING!!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20200721165306.29082-3-srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ vkoul@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,31 +86,50 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---6lXr1rPCNTf1w0X8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Tue, Jul 21, 2020 at 10:26:22AM +0900, Kuninori Morimoto wrote:
 
-> I'm happy to work for it.
-> Can I resend [19/29 v2] patch only if no-one NACKed to this patch-set ?
-> Of course I can post Full-patch-set.
+> diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
+> index 941f3216399c..fb0488e7beb9 100644
+> --- a/sound/soc/qcom/qdsp6/q6asm-dai.c
+> +++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
+> @@ -67,6 +67,8 @@ struct q6asm_dai_rtd {
+>   	uint16_t bits_per_sample;
+>   	uint16_t source; /* Encoding source bit mask */
+>   	struct audio_client *audio_client;
+> +	/* Active */
 
-Should be fine to just resend that - the series looks fine overall.
+nit-pick: what does this 'Active' comment try to say? the stream_id 
+seems to be used for RUN/EOS/CLOSE operations.
 
---6lXr1rPCNTf1w0X8
-Content-Type: application/pgp-signature; name="signature.asc"
+> +	uint32_t stream_id;
+>   	uint16_t session_id;
+>   	enum stream_state state;
+>   };
+> @@ -184,8 +186,8 @@ static void event_handler(uint32_t opcode, uint32_t token,
+>   	switch (opcode) {
+>   	case ASM_CLIENT_EVENT_CMD_RUN_DONE:
+>   		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+> -			q6asm_write_async(prtd->audio_client,
+> -				   prtd->pcm_count, 0, 0, NO_TIMESTAMP);
+> +			q6asm_write_async(prtd->audio_client, prtd->stream_id,
+> +				   prtd->pcm_count, 0, 0, 0);
 
------BEGIN PGP SIGNATURE-----
+In the V1 review we discussed this
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8XcBIACgkQJNaLcl1U
-h9AN7Qf+OIhWooPpWwFpizZG4tpxSmv+enmUA8S2EyhEKrr9C1OPbCrWSdjBl5i6
-iAuEg7PRSfksmbsNEl7bPqzkFr4NazSqy6lDtxsrXRuTTbm2D7LT8aXGr7wUtbDv
-U3qXM3h8I8SSpJYwer4dRCWDLFgt2SwDvUip1SvFzveWFA0HhTrp3F0kJZ1wg130
-rtK7cgLQckPYA9LBAnHBrwCd61qMRthPbBEYnq5Yo/mzzaKei/Xfdx3hyug9169s
-s+bMDJrlGDvWMP2u4aLdiHkJDeIT3T9hFmolts6hkCMIjecWdfVP8CF1huMIIezZ
-CUgsEChziOHmPN7a8Fo9a+A6unx84w==
-=GvWY
------END PGP SIGNATURE-----
+"
+ > sound/soc/qcom/qdsp6/q6asm.h:#define NO_TIMESTAMP    0xFF00
+ >
+ > is the change on the previous line intentional?
 
---6lXr1rPCNTf1w0X8--
+May be not!
+
+Plan is that the users of these apis will send flags directly instead of 
+boiler plating this!
+
+This change should go as part of next patch("[PATCH 04/11] ASoC: q6asm: 
+use flags directly from asm-dai") which would make it much clear!
+"
+
+doesn't look like there was a change here?
+
+

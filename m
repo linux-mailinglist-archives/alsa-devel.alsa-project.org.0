@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64088228CD7
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 01:47:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 415C8228CDC
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 01:49:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EDD66166E;
-	Wed, 22 Jul 2020 01:47:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDD66166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C90DC15F2;
+	Wed, 22 Jul 2020 01:48:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C90DC15F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595375276;
-	bh=7AIwifWzud53J8zjgtZacR9EhiJh6kmjjGdpnRJ+7nU=;
+	s=default; t=1595375341;
+	bh=jLgXEUQxnJbZZJbUr3hKfjJu36XwenV6yXKgU8bds0Y=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nZxTu+5HeY/gcG/2rQMTH1VBmGaT/00QwNQjUWTNkZz3yYOCqw3BGqhJsPQ1KI3nT
-	 0TgbDRmlsbYYPa6Exctv4oo++M8tV7f3d11ZXKiD9GaXZSGnq8UmGTwyL7MsSRPXC8
-	 OqH27drXEgFfXRit1D1UvEbd2kjsQFAfK6D3BfDE=
+	b=EG7ZUd3N3brXugjhms2Ti+mH0XHqdIEMVGpjroniOtOvLLIgCoxEo+26H/lDNUnt6
+	 xjLLTVKVAuzYpX8ffBd8MUCaRH4/HDWMeYQcuiNkd2/GK244kQZbeCUyGIYd4moNs4
+	 BSeWsLtGrmMqcyrZLwgitTY+kPcGL79e6jt84kVk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1927F80278;
-	Wed, 22 Jul 2020 01:46:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4809F802C2;
+	Wed, 22 Jul 2020 01:46:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2BBA0F80274; Wed, 22 Jul 2020 01:46:11 +0200 (CEST)
+ id DB7D5F80212; Wed, 22 Jul 2020 01:46:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_03_06,
@@ -34,36 +34,36 @@ X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_03_06,
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EEE3FF80117
- for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 01:46:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEE3FF80117
-IronPort-SDR: Sit8ma7ilnGXW3HkyaQCN8HUINq0wEsn8ssBdk6m9wRELhJWEtvEWmCjk2noojQzUG8c/ZUF8v
- mTQ6poT27M9w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9689"; a="151576914"
-X-IronPort-AV: E=Sophos;i="5.75,380,1589266800"; d="scan'208";a="151576914"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 98D77F80212
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 01:46:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98D77F80212
+IronPort-SDR: U5byxJa7fUJfACJoeKhJoOWMhbCq7YUxe2FpngxLfl54YrLm8pw1FjVIVKZol96uYSKg/6bkur
+ wBgfnq1b0wDQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9689"; a="151576916"
+X-IronPort-AV: E=Sophos;i="5.75,380,1589266800"; d="scan'208";a="151576916"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2020 16:46:03 -0700
-IronPort-SDR: iz40N4/yb9B5d6SJZ7L8QhpD0FXcHb8KUoqwc5Y4Vocc8cfpIZzsN8mQTjG3yVvkQzYTfkyk7z
- wqYdOdJ4zEDw==
-X-IronPort-AV: E=Sophos;i="5.75,380,1589266800"; d="scan'208";a="362539360"
+ 21 Jul 2020 16:46:05 -0700
+IronPort-SDR: 9OdgNYNCRJPfOHlYoJIb2u8etUuI/Ux93Fx835GmF5ehJ37l+HIP2x55rIpf6ytNEo2RwH84QG
+ 6oWiwuaquARQ==
+X-IronPort-AV: E=Sophos;i="5.75,380,1589266800"; d="scan'208";a="362539374"
 Received: from krlloyd-mobl.amr.corp.intel.com (HELO [10.255.231.6])
  ([10.255.231.6])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2020 16:46:01 -0700
-Subject: Re: [PATCH v2 2/9] ASoC: q6asm: make commands specific to streams
+ 21 Jul 2020 16:46:04 -0700
+Subject: Re: [PATCH v2 8/9] ASoC: qdsp6-dai: add gapless support
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, broonie@kernel.org
 References: <20200721165306.29082-1-srinivas.kandagatla@linaro.org>
- <20200721165306.29082-3-srinivas.kandagatla@linaro.org>
+ <20200721165306.29082-9-srinivas.kandagatla@linaro.org>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <52075b51-2053-573a-4cd0-685d3d469bdf@linux.intel.com>
-Date: Tue, 21 Jul 2020 14:31:56 -0500
+Message-ID: <868d9768-a4c4-71c1-28fd-ca0e2f6564bf@linux.intel.com>
+Date: Tue, 21 Jul 2020 14:53:51 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200721165306.29082-3-srinivas.kandagatla@linaro.org>
+In-Reply-To: <20200721165306.29082-9-srinivas.kandagatla@linaro.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -88,48 +88,172 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-> diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
-> index 941f3216399c..fb0488e7beb9 100644
-> --- a/sound/soc/qcom/qdsp6/q6asm-dai.c
-> +++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
-> @@ -67,6 +67,8 @@ struct q6asm_dai_rtd {
->   	uint16_t bits_per_sample;
->   	uint16_t source; /* Encoding source bit mask */
->   	struct audio_client *audio_client;
-> +	/* Active */
 
-nit-pick: what does this 'Active' comment try to say? the stream_id 
-seems to be used for RUN/EOS/CLOSE operations.
+>   	case ASM_CLIENT_EVENT_CMD_EOS_DONE:
+> -		prtd->state = Q6ASM_STREAM_STOPPED;
+> +		spin_lock_irqsave(&prtd->lock, flags);
+> +		if (prtd->notify_on_drain) {
+> +			if (substream->partial_drain) {
+> +				/**
 
-> +	uint32_t stream_id;
->   	uint16_t session_id;
->   	enum stream_state state;
->   };
-> @@ -184,8 +186,8 @@ static void event_handler(uint32_t opcode, uint32_t token,
->   	switch (opcode) {
->   	case ASM_CLIENT_EVENT_CMD_RUN_DONE:
->   		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-> -			q6asm_write_async(prtd->audio_client,
-> -				   prtd->pcm_count, 0, 0, NO_TIMESTAMP);
-> +			q6asm_write_async(prtd->audio_client, prtd->stream_id,
-> +				   prtd->pcm_count, 0, 0, 0);
+why the kernel-doc style comment?
 
-In the V1 review we discussed this
+[...]
 
-"
- > sound/soc/qcom/qdsp6/q6asm.h:#define NO_TIMESTAMP    0xFF00
- >
- > is the change on the previous line intentional?
+> -static int q6asm_dai_compr_set_params(struct snd_soc_component *component,
+> -				      struct snd_compr_stream *stream,
+> -				      struct snd_compr_params *params)
+> +static int __q6asm_dai_compr_set_codec_params(struct snd_soc_component *component,
+> +					      struct snd_compr_stream *stream,
+> +					      struct snd_codec *codec,
+> +					      int stream_id)
 
-May be not!
+not sure I get why you added the __ prefix, does it have any semantic 
+meaning?
 
-Plan is that the users of these apis will send flags directly instead of 
-boiler plating this!
+>   {
+>   	struct snd_compr_runtime *runtime = stream->runtime;
+>   	struct q6asm_dai_rtd *prtd = runtime->private_data;
+> -	struct snd_soc_pcm_runtime *rtd = stream->private_data;
+> -	int dir = stream->direction;
+> -	struct q6asm_dai_data *pdata;
+>   	struct q6asm_flac_cfg flac_cfg;
+>   	struct q6asm_wma_cfg wma_cfg;
+>   	struct q6asm_alac_cfg alac_cfg;
+> @@ -667,53 +718,18 @@ static int q6asm_dai_compr_set_params(struct snd_soc_component *component,
+>   	struct snd_dec_alac *alac;
+>   	struct snd_dec_ape *ape;
+>   
+> -	codec_options = &(prtd->codec_param.codec.options);
+> -
+> -
+> -	memcpy(&prtd->codec_param, params, sizeof(*params));
+> -
+> -	pdata = snd_soc_component_get_drvdata(component);
+> -	if (!pdata)
+> -		return -EINVAL;
+> -
+> -	if (!prtd || !prtd->audio_client) {
+> -		dev_err(dev, "private data null or audio client freed\n");
+> -		return -EINVAL;
+> -	}
+> -
+> -	prtd->periods = runtime->fragments;
+> -	prtd->pcm_count = runtime->fragment_size;
+> -	prtd->pcm_size = runtime->fragments * runtime->fragment_size;
+> -	prtd->bits_per_sample = 16;
+> -	if (dir == SND_COMPRESS_PLAYBACK) {
+> -		ret = q6asm_open_write(prtd->audio_client, prtd->stream_id,
+> -				       params->codec.id, params->codec.profile,
+> -				       prtd->bits_per_sample, true);
+> -
+> -		if (ret < 0) {
+> -			dev_err(dev, "q6asm_open_write failed\n");
+> -			q6asm_audio_client_free(prtd->audio_client);
+> -			prtd->audio_client = NULL;
+> -			return ret;
+> -		}
+> -	}
+> +	codec_options = &(prtd->codec.options);
+>   
+> -	prtd->session_id = q6asm_get_session_id(prtd->audio_client);
+> -	ret = q6routing_stream_open(rtd->dai_link->id, LEGACY_PCM_MODE,
+> -			      prtd->session_id, dir);
+> -	if (ret) {
+> -		dev_err(dev, "Stream reg failed ret:%d\n", ret);
+> -		return ret;
+> -	}
+> +	memcpy(&prtd->codec, codec, sizeof(*codec));
+>   
+> -	switch (params->codec.id) {
+> +	switch (codec->id) {
+>   	case SND_AUDIOCODEC_FLAC:
+>   
+>   		memset(&flac_cfg, 0x0, sizeof(struct q6asm_flac_cfg));
+>   		flac = &codec_options->flac_d;
+>   
+> -		flac_cfg.ch_cfg = params->codec.ch_in;
+> -		flac_cfg.sample_rate =  params->codec.sample_rate;
 
-This change should go as part of next patch("[PATCH 04/11] ASoC: q6asm: 
-use flags directly from asm-dai") which would make it much clear!
-"
+all these indirection changes could have gone in a earlier patch, this 
+adds a lot of changes that make this patch long to review. Same comment 
+for all formats
 
-doesn't look like there was a change here?
+> +		flac_cfg.ch_cfg = codec->ch_in;
+> +		flac_cfg.sample_rate = codec->sample_rate;
+>   		flac_cfg.stream_info_present = 1;
+>   		flac_cfg.sample_size = flac->sample_size;
+>   		flac_cfg.min_blk_size = flac->min_blk_size;
 
+[...]
 
+> -static int q6asm_dai_compr_set_metadata(struct snd_compr_stream *stream,
+> +static int q6asm_dai_compr_set_metadata(struct snd_soc_component *component,
+> +					struct snd_compr_stream *stream,
+>   					struct snd_compr_metadata *metadata)
+>   {
+>   	struct snd_compr_runtime *runtime = stream->runtime;
+> @@ -884,6 +959,32 @@ static int q6asm_dai_compr_set_metadata(struct snd_compr_stream *stream,
+>   		break;
+>   	case SNDRV_COMPRESS_ENCODER_DELAY:
+>   		prtd->initial_samples_drop = metadata->value[0];
+> +		if (prtd->next_track_stream_id) {
+> +			ret = q6asm_open_write(prtd->audio_client,
+> +					       prtd->next_track_stream_id,
+> +					       prtd->codec.id,
+> +					       prtd->codec.profile,
+> +					       prtd->bits_per_sample,
+> +				       true);
+> +			if (ret < 0) {
+> +				dev_err(component->dev, "q6asm_open_write failed\n");
+> +				return ret;
+> +			}
+> +			ret = __q6asm_dai_compr_set_codec_params(component, stream,
+> +								 &prtd->codec,
+> +								 prtd->next_track_stream_id);
+> +			if (ret < 0) {
+> +				dev_err(component->dev, "q6asm_open_write failed\n");
+> +				return ret;
+> +			}
+> +
+> +			ret = q6asm_stream_remove_initial_silence(prtd->audio_client,
+> +						    prtd->next_track_stream_id,
+> +						    prtd->initial_samples_drop);
+> +			prtd->next_track_stream_id = 0;
+> +
+> +		}
+> +
+>   		break;
+>   	default:
+>   		ret = -EINVAL;
+> @@ -917,6 +1018,14 @@ static int q6asm_dai_compr_trigger(struct snd_soc_component *component,
+>   		ret = q6asm_cmd_nowait(prtd->audio_client, prtd->stream_id,
+>   				       CMD_PAUSE);
+>   		break;
+> +	case SND_COMPR_TRIGGER_NEXT_TRACK:
+> +		prtd->next_track = true;
+> +		prtd->next_track_stream_id = (prtd->stream_id == 1 ? 2 : 1);
+
+it's rather odd, the initialization above uses next_track_stream_id = 0?
+
+> +		break;
+> +	case SND_COMPR_TRIGGER_DRAIN:
+> +	case SND_COMPR_TRIGGER_PARTIAL_DRAIN:
+> +		prtd->notify_on_drain = true;
+> +		break;
+>   	default:
+>   		ret = -EINVAL;
+>   		break;
+> diff --git a/sound/soc/qcom/qdsp6/q6asm.h b/sound/soc/qcom/qdsp6/q6asm.h
+> index 69513ac1fa55..a8dddfeb28da 100644
+> --- a/sound/soc/qcom/qdsp6/q6asm.h
+> +++ b/sound/soc/qcom/qdsp6/q6asm.h
+> @@ -34,6 +34,7 @@ enum {
+>   #define MAX_SESSIONS	8
+>   #define NO_TIMESTAMP    0xFF00
+>   #define FORMAT_LINEAR_PCM   0x0000
+> +#define ASM_LAST_BUFFER_FLAG           BIT(30)
+>   
+>   struct q6asm_flac_cfg {
+>           u32 sample_rate;
+> 

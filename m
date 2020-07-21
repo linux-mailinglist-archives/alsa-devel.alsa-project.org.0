@@ -2,73 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53303227BDD
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jul 2020 11:36:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F04D2227C53
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jul 2020 12:00:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 05D50167A;
-	Tue, 21 Jul 2020 11:35:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05D50167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 18EEC1682;
+	Tue, 21 Jul 2020 11:59:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18EEC1682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595324164;
-	bh=wRyOkf5BPZx5EhcERYgIJKjB6OMOn8b6JxT3/6io1uU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1595325602;
+	bh=toxX3ay6KFkAOXqip8vQyySu6iLUjfMkUX4+3iEyypk=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Z40YPxRCrgmjG6HRUa3+pQuNArbI+UxG3KBXuiLEdCekAZ6RcYDOj9W/JXvkVO/2G
-	 6/b5qZdZuLotHGNIgr1ncekel2pBFOonIpOPHvJnPl1ORwi2a9pHxl0b79WN6RmUns
-	 Gg+U3IgVYLPfgCCPREqFhKsz8gebUFIYkRdRH7Is=
+	b=QhJLsCDucMwNny2wC6PSkLre8APWDk2uuxfMQpG9iqZXLHM2UQCKAva1N2YMd6boB
+	 79kVrZJb2wwYEtw2KJMsuNMJi1nw51YpRMTFf1mMhU83Zy8fM4h4xAA/Pcg8iVD4MO
+	 XgitkrvxlNoPGdR8OE1rc86B5eQnVH1s9iWz1JqY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4752DF800CE;
-	Tue, 21 Jul 2020 11:34:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 502F8F80212;
+	Tue, 21 Jul 2020 11:58:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F534F8024A; Tue, 21 Jul 2020 11:34:20 +0200 (CEST)
+ id C02CFF80274; Tue, 21 Jul 2020 11:58:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com
+ [IPv6:2a00:1450:4864:20::641])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED42FF80087
- for <alsa-devel@alsa-project.org>; Tue, 21 Jul 2020 11:34:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED42FF80087
+ by alsa1.perex.cz (Postfix) with ESMTPS id 64D01F8024A
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jul 2020 11:58:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64D01F8024A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="VUwFh+ak"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 826942070A;
- Tue, 21 Jul 2020 09:34:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1595324052;
- bh=wRyOkf5BPZx5EhcERYgIJKjB6OMOn8b6JxT3/6io1uU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=VUwFh+akV6bxsDn1GyNoMZEn5p+yDLf684CgGe64T4TJEu3GBLxg5yF/U6lpq/WaL
- GQLmWOpZNlWyaNxTNb5pzRNCM4xaf1PoLs8EXchYcY2Vf3N1gibdrtQ6s4beURmhaj
- tFa6EcHUBwm2QtdO6rG3ewL86ougrM7mBa6nSOls=
-Date: Tue, 21 Jul 2020 10:33:58 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Dan Murphy <dmurphy@ti.com>
-Subject: Re: [PATCH v3 1/2] dt-bindings: tas2770: Convert tas2770 binding to
- yaml
-Message-ID: <20200721093358.GA4845@sirena.org.uk>
-References: <20200720181202.31000-1-dmurphy@ti.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="t0m7J3cK"
+Received: by mail-ej1-x641.google.com with SMTP id rk21so21060105ejb.2
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jul 2020 02:58:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=eBCLfYeJXOZusVoEeZmuNPBvbkxJljfVbIgIuShjfrc=;
+ b=t0m7J3cKCDBSn5StTo/Zj/x5WR7QvJObd/9SNkTMTQhfGNQ/nPYXKGP4y5PTanoMmt
+ ZxKtxCRGzZmz+3uIzDVpvQwfnmsEvc4Q7n4olM1JTJVohnfhYqNjz1KbryeNuNIldC1M
+ Z2l3q4q9SU5YEwrSj97hSY/qR4xlIPzjJB1J9+fkWC3+fSCn6urUc4G68Dk6nRqJ3lWF
+ g8xcOEagLdqyhTCLdZVUMWu3KQfE+kA5pkYu6G9Rl3lRNQJKdHZqFN25d7oxkbjU7jRn
+ xMO0bEse5C5XKWLbmmgEcYvUG8lpFQmu+7e+7T0rWhaIlqOBGDL68uOHiReLDUp2R/Fa
+ wThg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=eBCLfYeJXOZusVoEeZmuNPBvbkxJljfVbIgIuShjfrc=;
+ b=n3rmRW+tGt18XJB0koRE9wo4hvJxlWlRWwTsM7inMk3bmSod130KfEwCHDABSFcYo1
+ h1lP1wjror/0Peb8qg2lH33uUQL6A7PIAtfosoht16QGIpN4FSVDZAyv4ffwyg3xauHW
+ Mjpz81EX+HWpVTGszaDfBv7shT8U6rgKHQslqaxMek8uSdRaG5jjXK9yv3/aQ/4Fyj2V
+ rheF683lpltH8olhShL+XY/cQvAjsrEm9tPkrEMwABy2Oi4SaHFFIFhu0rDx/J9tc6fU
+ lIqOuUarzysG2SLNVhyHIucADCB2Rav/Vgshu2Tma8Xwu19OJ0is1HZxMm3xv6z58qdX
+ Bigw==
+X-Gm-Message-State: AOAM531fTYRJNFnia/L5vniDoJagmuupQX8mrxCALJg+rYw/9dvYx7sd
+ qDa6CTnpDDOO6wqA7DeK0LU=
+X-Google-Smtp-Source: ABdhPJzJrzrC1Oem9FuZoV69MAFANon+oIsoi9bOeyVhXgQmrAi/ILO+sLiOsNOVKC4ByUHb0wjPaA==
+X-Received: by 2002:a17:906:958f:: with SMTP id
+ r15mr23208558ejx.77.1595325492062; 
+ Tue, 21 Jul 2020 02:58:12 -0700 (PDT)
+Received: from t5500.home
+ (2001-1c01-2f03-7200-763c-d807-63d8-4d15.cable.dynamic.v6.ziggo.nl.
+ [2001:1c01:2f03:7200:763c:d807:63d8:4d15])
+ by smtp.gmail.com with ESMTPSA id o17sm16426079ejb.105.2020.07.21.02.58.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Jul 2020 02:58:11 -0700 (PDT)
+From: =?UTF-8?q?Ren=C3=A9=20Herman?= <rene.herman@gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH v2 2/2] Pulseaudio needs snd_pcm_hardware.channels_min > 1
+Date: Tue, 21 Jul 2020 11:57:48 +0200
+Message-Id: <20200721095748.16224-3-rene.herman@gmail.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200721095748.16224-1-rene.herman@gmail.com>
+References: <20200721095748.16224-1-rene.herman@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="45Z9DzgjV8m4Oswq"
-Content-Disposition: inline
-In-Reply-To: <20200720181202.31000-1-dmurphy@ti.com>
-X-Cookie: I'm also against BODY-SURFING!!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Rob Herring <robh@kernel.org>, linux-kernel@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Torsten Schenk <torsten.schenk@zoho.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,31 +103,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Pulseaudio with snd_pcm_hardware.channels_min=1 creates a mono device
+only.
 
---45Z9DzgjV8m4Oswq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Signed-off-by: René Herman <rene.herman@gmail.com>
+---
+ sound/usb/6fire/pcm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Mon, Jul 20, 2020 at 01:12:01PM -0500, Dan Murphy wrote:
-> Convert the tas2770 binding to yaml format.
-> Add in the reset-gpio to the binding as it is in the code but not
-> documented in the binding.
+diff --git a/sound/usb/6fire/pcm.c b/sound/usb/6fire/pcm.c
+index 88ac1c4ee163..cce1312db93a 100644
+--- a/sound/usb/6fire/pcm.c
++++ b/sound/usb/6fire/pcm.c
+@@ -58,7 +58,7 @@ static const struct snd_pcm_hardware pcm_hw = {
+ 
+ 	.rate_min = 44100,
+ 	.rate_max = 192000,
+-	.channels_min = 1,
++	.channels_min = 2,
+ 	.channels_max = 0, /* set in pcm_open, depending on capture/playback */
+ 	.buffer_bytes_max = MAX_BUFSIZE,
+ 	.period_bytes_min = PCM_N_PACKETS_PER_URB * (PCM_MAX_PACKET_SIZE - 4),
+-- 
+2.17.1
 
-What's new about this version?
-
---45Z9DzgjV8m4Oswq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8WtoYACgkQJNaLcl1U
-h9DBiwf/VkRD3CE9qEXZu/H6d/cKccK78cdx+xjg+aPRtBQUNd1d0VuGIfe0j6MQ
-Prpam9rnYKQkVwea4g84t9758PLwMQquSokeMUBhOEAF4a1opT33TKEZxIe9LR2V
-43HK6V5NZX/ybjlw3Oeos7OWvJmMfpACqL5C4ceQQ2phEPGpe3TuAKx2+o/Dnk0Y
-7EHHI+RqWZB82rpeOCngyKUWjxaetSBt+k9k8QxvP9ubgbQzXvn40rJt0VivIuna
-uBqdWKRTHHaev3IGr+cpBRRiH/TTZzZroQhVN7ydhYdtXsikuGBKg2/Xd9OJ+L/J
-3vTgCaWBlVkpMLU6PaREZwy7rvUS3g==
-=LJIg
------END PGP SIGNATURE-----
-
---45Z9DzgjV8m4Oswq--

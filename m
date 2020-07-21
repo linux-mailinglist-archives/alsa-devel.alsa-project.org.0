@@ -2,89 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A23A8227F3F
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jul 2020 13:48:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8C1A227F55
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jul 2020 13:54:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4786E16B0;
-	Tue, 21 Jul 2020 13:48:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4786E16B0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 60BAE16A3;
+	Tue, 21 Jul 2020 13:53:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60BAE16A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595332138;
-	bh=IRq8ucCfmuFJvcTFkc3tS7Wj/uLZA8Spf3C0id9cxrY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1595332476;
+	bh=S7ZiuBpj4cH31vrsSX4cgkKwNaWvDxrfEJQ32GBBVOk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qrzy/lKZsvcX1FDFWfVksIpvLyWFB8W7ASl5ydWKorarngtF6A7E1ARBZ01OlYTrU
-	 LQpQJZymrmbGUAPg0cgk6rmtRI+IYECc0b9hzungX0rBBldYFBY6qm2k9S0qbSn+Cy
-	 LiOx98uEGqv0in29Tfk4hcGhDgbq3Yx4yiIbJhM4=
+	b=VWUp5Q24zRnkb1By2m9eg3jxyk4H0wtJ6EN78nzVAxg1FYLnRfhNqbYXJfvWyV/Zx
+	 J2dBwYEpCJbrl9njx+fI2fuDQ7WR6pGGewvdisrcAXVjaoXwYk2cXdVFPsC0y7GZHV
+	 Cn84J+Rg01hXKquUvOjuJdGXOuiE1kd0CtkU59dA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E7B9F80087;
-	Tue, 21 Jul 2020 13:47:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4CDDFF80268;
+	Tue, 21 Jul 2020 13:52:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9132EF8024A; Tue, 21 Jul 2020 13:47:15 +0200 (CEST)
+ id 9D83FF8024A; Tue, 21 Jul 2020 13:52:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com
- [IPv6:2607:f8b0:4864:20::d43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3A5C5F800CE
- for <alsa-devel@alsa-project.org>; Tue, 21 Jul 2020 13:47:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A5C5F800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id B335FF80117
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jul 2020 13:52:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B335FF80117
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="RUDwy5R2"
-Received: by mail-io1-xd43.google.com with SMTP id z6so3514405iow.6
- for <alsa-devel@alsa-project.org>; Tue, 21 Jul 2020 04:47:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=IRq8ucCfmuFJvcTFkc3tS7Wj/uLZA8Spf3C0id9cxrY=;
- b=RUDwy5R2+a5FcDCg5Cq7hkluN+M5R+bUbQi2wWTIXT/XzGtTdqGuKd7TkRNE6aS+yC
- ibSbJ3fOYtsswQJmU0k2GbpqFSf3yFp1m2wLGDdPA7oJ8dukiXKrxBgj47D/ozvGCFKf
- 3ZXxHx1KYIAq8f4yp97OhZkSp9qfyD6cQ335kfeomWXnQnVTi9RLMhpSE6LhVm3PHbbY
- lcc/Bws6wFqAfy8n4vYBWy4QGR+N7XKXprisTQJ5XllRn8f7TjZgR3ZN8gAW167n16rF
- Ukai0FGxz8zAeBmXroqOjqeUfcxhGiTOxRZjW11MMB5kQlBa5CQ9g/C5UK0tc0A1a7W7
- Hclw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=IRq8ucCfmuFJvcTFkc3tS7Wj/uLZA8Spf3C0id9cxrY=;
- b=BrhexOMRNs8P4r0n1m8vTxKdeeQRMss+RXNOnPlSb5Mkj2tnEpNvemG4N6zmyPqY4N
- IV/aZ0oCQXUxMqgervPcds1FEbAM1W3Tf56U4sQwnqHRQA4DHbOBRgwh0IjJO5C91TVJ
- DWrZ8dfmjqBDXaNxEvteeddSpRevAnzkeHmCBjq/jylHuyEvvwWBPOFd9uWspeSYFw1s
- duIBaJ9xKKtpD+YbgW7y9xlr0st+G1m80tBlwbfQ60/Stk04gNJlFGMcIYBiTcjBTQIx
- FSoEhVBBvl68E14C7ZsmGraQsQhCnTSb212NVHBsv3r9SaT/+hwjt4ygR5M8qDlZ+wJv
- 9Rfw==
-X-Gm-Message-State: AOAM530Rcn+4UaYjM3Z+lJdWRqF4DC13Yq10XhbYwtl4/s+XGY1T5pRl
- AcEo+/L8HkU/3muoowDsQS7onR7lcqKNQSzIFk3RDg==
-X-Google-Smtp-Source: ABdhPJye8qmq76v2qG18buCf5XgXAaN7ZfKIQ217WAXoEp+aVmjEUDMteAbXQB+XN1Y95WqgmvGJC/9JsLyBwYAuZUM=
-X-Received: by 2002:a05:6638:11c1:: with SMTP id
- g1mr31491011jas.34.1595332027045; 
- Tue, 21 Jul 2020 04:47:07 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="hVhAHlWj"
+Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5f16d6950000>; Tue, 21 Jul 2020 04:50:45 -0700
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate102.nvidia.com (PGP Universal service);
+ Tue, 21 Jul 2020 04:52:45 -0700
+X-PGP-Universal: processed;
+ by hqpgpgate102.nvidia.com on Tue, 21 Jul 2020 04:52:45 -0700
+Received: from [10.25.101.238] (172.20.13.39) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 21 Jul
+ 2020 11:52:38 +0000
+Subject: Re: [PATCH v5 00/11] Add ASoC AHUB components for Tegra210 and later
+To: Mark Brown <broonie@kernel.org>, <robh+dt@kernel.org>,
+ <lgirdwood@gmail.com>, <perex@perex.cz>, <kuninori.morimoto.gx@renesas.com>,
+ <tiwai@suse.com>
+References: <1595134890-16470-1-git-send-email-spujar@nvidia.com>
+ <159525589435.6792.708136378511410418.b4-ty@kernel.org>
+From: Sameer Pujar <spujar@nvidia.com>
+Message-ID: <72d45476-7050-187b-19d6-2ddb9b0ba97a@nvidia.com>
+Date: Tue, 21 Jul 2020 17:22:35 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <f2ca985f-7dbd-847a-1875-dd0e1044ef02@gmail.com>
- <CA+Px+wU1S1EqtW-yZH9z9aCF3ggSriBqy73SRYy8q61x0GkdQQ@mail.gmail.com>
- <846feea6-e2b6-3a0e-b05f-d70e898f9ea5@gmail.com>
-In-Reply-To: <846feea6-e2b6-3a0e-b05f-d70e898f9ea5@gmail.com>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Tue, 21 Jul 2020 19:46:56 +0800
-Message-ID: <CA+Px+wUhAHAx-qmAEWy_8Jy40NDTAHH-TNYtPtMfwocMHQ=AbA@mail.gmail.com>
-Subject: Re: Speaker pops with max98357a on rk3399-gru-kevin since v5.7
-To: Alper Nebi Yasak <alpernebiyasak@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Heiko Stuebner <heiko@sntech.de>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-rockchip@lists.infradead.org, Mark Brown <broonie@kernel.org>
+In-Reply-To: <159525589435.6792.708136378511410418.b4-ty@kernel.org>
+X-Originating-IP: [172.20.13.39]
+X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1595332245; bh=I7A23ZSDWorRZy3D4VQyChJjvsPD/dJJdKZBL01AyEU=;
+ h=X-PGP-Universal:CC:Subject:To:References:From:Message-ID:Date:
+ User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
+ X-ClientProxiedBy:Content-Type:Content-Transfer-Encoding:
+ Content-Language;
+ b=hVhAHlWjK0Q60cjDRWNgeIlhcFJpQNO333aYgHZOCCeCWLvH9zsHW+xiu22sRg/+r
+ qUPJTzg/eC+7GHo3Rk4CRbDSJbH6YEtLs3HWNoMgt1OUIf2VMqmt3Uu0Cqmo6xObOq
+ wSjpcCcN6MdKHsyNmMieNBuXOYsb6b0LlvtgWJnr6HbpkCeCATqO68jhhdHX3vuaLe
+ N6oj1m8kCUHNnWymeEArxb4n4QCI1jvYvgvijDHK9U159AFdPRD16FamIsXU/IJeqE
+ nR6IAadACO3JLqykMd70eLNXo08sUtvLtRuwmgKbWE8P+d03Xr3fkELSZ54IEcG+MU
+ s5YfcVms9ZWuA==
+Cc: viswanathl@nvidia.com, alsa-devel@alsa-project.org, swarren@nvidia.com,
+ spujar@nvidia.com, nwartikar@nvidia.com, linux-kernel@vger.kernel.org,
+ jonathanh@nvidia.com, nicoleotsuka@gmail.com, sharadg@nvidia.com,
+ thierry.reding@gmail.com, atalambedu@nvidia.com, linux-tegra@vger.kernel.org,
+ digetx@gmail.com, rlokhande@nvidia.com, mkumard@nvidia.com, dramesh@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,17 +103,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jul 21, 2020 at 6:40 AM Alper Nebi Yasak
-<alpernebiyasak@gmail.com> wrote:
->
-> On 17/07/2020 05:27, Tzung-Bi Shih wrote:
-> > I am not convinced the pop comes from 128f825aeab7.
->
-> Maybe some pre-existing defect in rk3399_gru_sound got exposed by
-> 128f825aeab7 or the machine driver needs some changes to complement
-> that commit?
+Hi Mark,
 
-Hi, I got a rk3399-gru-kevin and can reproduce the issue.
+On 7/20/2020 8:08 PM, Mark Brown wrote:
+> External email: Use caution opening links or attachments
+>
+>
+> On Sun, 19 Jul 2020 10:31:19 +0530, Sameer Pujar wrote:
+>> Overview
+>> ========
+>> Audio Processing Engine (APE) comprises of Audio DMA (ADMA) and Audio
+>> Hub (AHUB) unit. AHUB is a collection of hardware accelerators for audio
+>> pre-processing and post-processing. It also includes a programmable full
+>> crossbar for routing audio data across these accelerators.
+>>
+>> [...]
+> Applied to
+>
+>     https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+>
+> Thanks!
+>
+> [1/6] ASoC: dt-bindings: tegra: Add DT bindings for Tegra210
+>        commit: 665308c0b44a37339b9b3368f1dd61eb66acde87
+> [2/6] ASoC: tegra: Add support for CIF programming
+>        commit: 1c3b89fb7e4a78ddcd627e3f218a216e2136ae9b
+> [3/6] ASoC: tegra: Add Tegra210 based DMIC driver
+>        commit: 8c8ff982e9e2b2eb9255fc393f938915b0ddc127
+> [4/6] ASoC: tegra: Add Tegra210 based I2S driver
+>        commit: c0bfa98349d1796fe754dfac7f7f505bb60dcd83
+> [5/6] ASoC: tegra: Add Tegra210 based AHUB driver
+>        commit: 16e1bcc2caf446fa3e1daa040b59fd6f6272a766
+> [6/6] ASoC: tegra: Add Tegra186 based DSPK driver
+>        commit: 327ef64702668bb754eeea80ce402454d7a1302a
 
-Could you take a try on the proposed patch here
-https://patchwork.kernel.org/patch/11675533/ to see if it fixes?
+I see that "[PATCH v5 07/11] ASoC: tegra: Add Tegra210 based ADMAIF 
+driver" is not applied as part of this. I wanted to understand if this 
+is because some more review comments are expected or there are other 
+reasons?
+
+Thanks,
+Sameer.
+
+>
+> All being well this means that it will be integrated into the linux-next
+> tree (usually sometime in the next 24 hours) and sent to Linus during
+> the next merge window (or sooner if it is a bug fix), however if
+> problems are discovered then the patch may be dropped or reverted.
+>
+> You may get further e-mails resulting from automated or manual testing
+> and review of the tree, please engage with people reporting problems and
+> send followup patches addressing any issues that are reported if needed.
+>
+> If any updates are required or you are submitting further changes they
+> should be sent as incremental updates against current git, existing
+> patches will not be replaced.
+>
+> Please add any relevant lists and maintainers to the CCs when replying
+> to this mail.
+>
+> Thanks,
+> Mark
+

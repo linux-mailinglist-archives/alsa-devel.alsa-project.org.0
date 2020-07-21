@@ -2,94 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFDFB227710
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jul 2020 05:38:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44131227711
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jul 2020 05:38:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4528C15E2;
-	Tue, 21 Jul 2020 05:37:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4528C15E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id D8E7E1669;
+	Tue, 21 Jul 2020 05:38:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8E7E1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595302697;
-	bh=QUh4WP32Zhn1T9n1H/an9RfsyceSIFgXaxt+jxn2D5E=;
+	s=default; t=1595302738;
+	bh=66esNYNQdR8zRUAUWKaqOVWSF/r9QbOCqiD9gADqXjg=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KNOxmZed6mjQgnzSF0eROdjqeHeZrb9oOu4kx9Ec6gUOM7RxqKgh8spS2FVwnes8I
-	 F00a0fgdi7facQn5hONDLyRvB2yOr71fHJcqGpH4pm9smc6c1IsiqZ78Uzuguo0Rf/
-	 BZeu1A5Mob3PnsUDdZ7qNNxrLFU15sFeM8sr0910=
+	b=uy/OxeHrDiGZyWycYFir9mFOJTljtr2F1WICEawIfHH9BqMbhtdZXXKxuVXpPecNy
+	 VU4XObwScNw5ioJfIxgrmat/qPV9HQ1ho+DYhV8uyHnTH0Wscgb4x44mO/MOlSYXFd
+	 5q696lNCeOuUvN+CDrPGnK1yPY9GgYxpSBJyQbIw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0F2FF80279;
-	Tue, 21 Jul 2020 05:37:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08A54F8028C;
+	Tue, 21 Jul 2020 05:37:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0325AF802BE; Tue, 21 Jul 2020 05:36:21 +0200 (CEST)
+ id CC1CDF8028C; Tue, 21 Jul 2020 05:36:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
  FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-io1-f66.google.com (mail-io1-f66.google.com
- [209.85.166.66])
+ RCVD_IN_MSPIKE_H2, SPF_HELO_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-io1-f68.google.com (mail-io1-f68.google.com
+ [209.85.166.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6FA83F80212
- for <alsa-devel@alsa-project.org>; Tue, 21 Jul 2020 05:36:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FA83F80212
-Received: by mail-io1-f66.google.com with SMTP id d18so19910356ion.0
- for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 20:36:09 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 69640F80087
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jul 2020 05:36:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69640F80087
+Received: by mail-io1-f68.google.com with SMTP id e64so19889044iof.12
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 20:36:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=XLGTyXCkmMJoVwCT0eUYcNsMnQ7R+zGFloTuhsZ5vXQ=;
- b=KHMq6Y5KsbWWyCLd5gs+N9GzhGM5TDZwxe3i8GjN2db+H9wYdJ4uk86w2Oga7lJ7/X
- 7VBejeGwCDs8k0KU8UN/lzz55vbAaD8a+5mz0SZ4Y9MAqAuhcK4Xi2EG8WjR0Ua0TTMv
- q9n5sjI6OBnQqAPfpyE7jiiKcATgKxpKDE37puvIitHNA7hU1jrXKoemKM165OjhTON7
- iYVHErH+R3OFrORdf84P+yrnekxuYKwa+WgGeWZ9bWnBa/S/Cl9onL6APGuRU3aX0A2v
- 0NuRSrDigfVoTi8tN/kofBsU4armzXfRfpOyDKiDvXPEgBtenmd/p660gNrGPZPaWZc1
- QhUQ==
-X-Gm-Message-State: AOAM530W3ImM+2AI8U9EIyAKhgVIMnur+RJ1EqT0jvI+QPcJ0NEB3nvi
- +y2SqsQRC+/a6ZVMc9fTYA==
-X-Google-Smtp-Source: ABdhPJxuljtBA6IS7ZsT9GN703rwNxLoyaryqa25QgNuRvDnlFpDQSGZSl22m1OvsKcpvDZHSnDk2w==
-X-Received: by 2002:a05:6638:1014:: with SMTP id
- r20mr29509699jab.44.1595302568835; 
- Mon, 20 Jul 2020 20:36:08 -0700 (PDT)
+ bh=SAsJo8xERfHGR71VJmv3ZbMcHE9rd42Dv9/4mhEH3Wg=;
+ b=tTlVeImQbZcaJTzrZyslCTilZ/8g5KCPOvYsdTog2TdN8gFl/do9Iv6eiZabpHysJ4
+ IyJRPs5NuPCohCidtfokDu1UFPbpQ3BOVH7klZw5FuNS2pgtOeoLPPUVmqlIPZcpPzXE
+ C9WCCq3oWcCgOLYlofXIrb3axJpBkwj4mUD4OrGtAPSZFqw9JzCKGH/wzxylRXsU3c4D
+ tpPbgDGQAcZAjnxRzxPpXduxYJRL6jZYfcSD1Z3jzesE9O7tBKeSdEty7eAFL7n+FrLG
+ nFfi5+8sVaXydCjeMIJHAHO2mJ6e9Dxgselq9NJmY2Kc+vRWz7L6jCrWhE0nDOpx2uEX
+ TEGA==
+X-Gm-Message-State: AOAM531/ZZUSJewDl6qDDUj/Dee4bko3P/Gm8I7VrYgbQuZ4F/ZO43vm
+ pkS/bP3E6sfhmp5bN8hrtg==
+X-Google-Smtp-Source: ABdhPJzrFvJ20jW1Hp+YduXO4PyNsJdhSWfFUkY4PyKiuJTBmQeBTZsE38InZe1NYreyyZDeINhX4g==
+X-Received: by 2002:a5d:8f04:: with SMTP id f4mr26176444iof.33.1595302584271; 
+ Mon, 20 Jul 2020 20:36:24 -0700 (PDT)
 Received: from xps15 ([64.188.179.252])
- by smtp.gmail.com with ESMTPSA id n7sm9796964iob.44.2020.07.20.20.36.06
+ by smtp.gmail.com with ESMTPSA id m6sm10272866ilb.39.2020.07.20.20.36.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Jul 2020 20:36:08 -0700 (PDT)
-Received: (nullmailer pid 3506684 invoked by uid 1000);
- Tue, 21 Jul 2020 03:36:06 -0000
-Date: Mon, 20 Jul 2020 21:36:06 -0600
+ Mon, 20 Jul 2020 20:36:23 -0700 (PDT)
+Received: (nullmailer pid 3507107 invoked by uid 1000);
+ Tue, 21 Jul 2020 03:36:21 -0000
+Date: Mon, 20 Jul 2020 21:36:21 -0600
 From: Rob Herring <robh@kernel.org>
 To: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH 16/20] dt-bindings: media: renesas,csi2: Add R8A774E1
+Subject: Re: [PATCH 17/20] dt-bindings: media: renesas,vin: Add R8A774E1
  support
-Message-ID: <20200721033606.GA3506635@bogus>
+Message-ID: <20200721033621.GA3507062@bogus>
 References: <1594919915-5225-1-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <1594919915-5225-17-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <1594919915-5225-18-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1594919915-5225-17-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <1594919915-5225-18-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Cc: alsa-devel@alsa-project.org, Geert Uytterhoeven <geert+renesas@glider.be>,
- linux-pci@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-ide@vger.kernel.org, Prabhakar <prabhakar.csengg@gmail.com>,
  linux-i2c@vger.kernel.org, Marek Vasut <marek.vasut+renesas@gmail.com>,
  Magnus Damm <magnus.damm@gmail.com>, Kishon Vijay Abraham I <kishon@ti.com>,
  linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- Niklas <niklas.soderlund@ragnatech.se>, Rob Herring <robh+dt@kernel.org>,
+ Niklas <niklas.soderlund@ragnatech.se>, Mark Brown <broonie@kernel.org>,
  Bjorn Helgaas <bhelgaas@google.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Axboe <axboe@kernel.dk>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
  linux-renesas-soc@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- Mark Brown <broonie@kernel.org>, dmaengine@vger.kernel.org
+ Rob Herring <robh+dt@kernel.org>, dmaengine@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,14 +104,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 16 Jul 2020 18:18:31 +0100, Lad Prabhakar wrote:
-> Add the compatible string for RZ/G2H (R8A774E1) to the list of supported
-> SoCs.
+On Thu, 16 Jul 2020 18:18:32 +0100, Lad Prabhakar wrote:
+> Document support for the VIN module in the Renesas RZ/G2H (R8A774E1) SoC.
 > 
 > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 > Reviewed-by: Marian-Cristian Rotariu <marian-cristian.rotariu.rb@bp.renesas.com>
 > ---
->  Documentation/devicetree/bindings/media/renesas,csi2.yaml | 1 +
+>  Documentation/devicetree/bindings/media/renesas,vin.yaml | 1 +
 >  1 file changed, 1 insertion(+)
 > 
 

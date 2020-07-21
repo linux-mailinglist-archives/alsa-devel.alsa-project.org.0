@@ -2,48 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1299D227BC1
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jul 2020 11:30:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53303227BDD
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jul 2020 11:36:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A03851687;
-	Tue, 21 Jul 2020 11:29:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A03851687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 05D50167A;
+	Tue, 21 Jul 2020 11:35:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05D50167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595323838;
-	bh=QWHtwJKUU3ADAtwe27vfJdV515swBvaETRbDIi7y3kI=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1595324164;
+	bh=wRyOkf5BPZx5EhcERYgIJKjB6OMOn8b6JxT3/6io1uU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gVi14TbOeZ0BhRBOhVvioctVEA72N62RICP3xi0LRQH5denFteUr4mr0M61TP1g4B
-	 IRv8Hmsp090x35qM//e+cAO+nfLgKFJ0ZwCvY9xxDmwPoGfJC4t+sXqZcRLnPuW7Ij
-	 2vH7tDxIw2IBwdOi3qdR+uE+0+yCdWS0QdBGHoQg=
+	b=Z40YPxRCrgmjG6HRUa3+pQuNArbI+UxG3KBXuiLEdCekAZ6RcYDOj9W/JXvkVO/2G
+	 6/b5qZdZuLotHGNIgr1ncekel2pBFOonIpOPHvJnPl1ORwi2a9pHxl0b79WN6RmUns
+	 Gg+U3IgVYLPfgCCPREqFhKsz8gebUFIYkRdRH7Is=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A98C4F80268;
-	Tue, 21 Jul 2020 11:28:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4752DF800CE;
+	Tue, 21 Jul 2020 11:34:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 03D21F8024A; Tue, 21 Jul 2020 11:28:53 +0200 (CEST)
+ id 6F534F8024A; Tue, 21 Jul 2020 11:34:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 6743EF80087
- for <alsa-devel@alsa-project.org>; Tue, 21 Jul 2020 11:28:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6743EF80087
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id ED42FF80087
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jul 2020 11:34:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED42FF80087
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="VUwFh+ak"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 826942070A;
+ Tue, 21 Jul 2020 09:34:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1595324052;
+ bh=wRyOkf5BPZx5EhcERYgIJKjB6OMOn8b6JxT3/6io1uU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=VUwFh+akV6bxsDn1GyNoMZEn5p+yDLf684CgGe64T4TJEu3GBLxg5yF/U6lpq/WaL
+ GQLmWOpZNlWyaNxTNb5pzRNCM4xaf1PoLs8EXchYcY2Vf3N1gibdrtQ6s4beURmhaj
+ tFa6EcHUBwm2QtdO6rG3ewL86ougrM7mBa6nSOls=
+Date: Tue, 21 Jul 2020 10:33:58 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Dan Murphy <dmurphy@ti.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: tas2770: Convert tas2770 binding to
+ yaml
+Message-ID: <20200721093358.GA4845@sirena.org.uk>
+References: <20200720181202.31000-1-dmurphy@ti.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1595323724796334982-webhooks-bot@alsa-project.org>
-References: <1595323724796334982-webhooks-bot@alsa-project.org>
-Subject: amd/renoir/acp: use the machine driver's name for top-level's conf
-Message-Id: <20200721092853.03D21F8024A@alsa1.perex.cz>
-Date: Tue, 21 Jul 2020 11:28:53 +0200 (CEST)
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="45Z9DzgjV8m4Oswq"
+Content-Disposition: inline
+In-Reply-To: <20200720181202.31000-1-dmurphy@ti.com>
+X-Cookie: I'm also against BODY-SURFING!!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Rob Herring <robh@kernel.org>, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,13 +84,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #41 was opened from jason77-wang:
 
-On the machines with amd renoir audio, the /sys/class/sound/card2/
-device/driver links to /sys/bus/platform/drivers/acp_pdm_mach.
+--45Z9DzgjV8m4Oswq
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Signed-off-by: Hui Wang <hui.wang@canonical.com>
+On Mon, Jul 20, 2020 at 01:12:01PM -0500, Dan Murphy wrote:
+> Convert the tas2770 binding to yaml format.
+> Add in the reset-gpio to the binding as it is in the code but not
+> documented in the binding.
 
-Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/41
-Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/41.patch
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+What's new about this version?
+
+--45Z9DzgjV8m4Oswq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8WtoYACgkQJNaLcl1U
+h9DBiwf/VkRD3CE9qEXZu/H6d/cKccK78cdx+xjg+aPRtBQUNd1d0VuGIfe0j6MQ
+Prpam9rnYKQkVwea4g84t9758PLwMQquSokeMUBhOEAF4a1opT33TKEZxIe9LR2V
+43HK6V5NZX/ybjlw3Oeos7OWvJmMfpACqL5C4ceQQ2phEPGpe3TuAKx2+o/Dnk0Y
+7EHHI+RqWZB82rpeOCngyKUWjxaetSBt+k9k8QxvP9ubgbQzXvn40rJt0VivIuna
+uBqdWKRTHHaev3IGr+cpBRRiH/TTZzZroQhVN7ydhYdtXsikuGBKg2/Xd9OJ+L/J
+3vTgCaWBlVkpMLU6PaREZwy7rvUS3g==
+=LJIg
+-----END PGP SIGNATURE-----
+
+--45Z9DzgjV8m4Oswq--

@@ -2,91 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E749B22883E
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jul 2020 20:30:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B23DC228A5D
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jul 2020 23:09:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 550941615;
-	Tue, 21 Jul 2020 20:30:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 550941615
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2C69D1662;
+	Tue, 21 Jul 2020 23:08:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C69D1662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595356252;
-	bh=yxZVPgpOalDfldR6zJyyKCsrUr6S4UO8iQgxlOjmbIQ=;
+	s=default; t=1595365771;
+	bh=d0xPyR/ydHTQwVoRTL0+7cAsSJr5OLQg3Uq88NZDKx4=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=UJFdMJpcKOj+QWvyw7K/vblmy4xtZ4xEt9Lv/6fV5YPdT4WubQ/+m7PXh1uWQIcPu
-	 IvlcN2b+hQHhE5GygdZj7l4Uu+tdDKDSEO4GJWiRL3hQT0MXIvL5csI4iVR9LKaCLc
-	 xpShVtluEiDnZUKkrhZ6st4pGsGmOrJPnUVONCLk=
+	b=IWjxnr9gpK7gALAFISShNagmuogwGJPMwBBkHWxBW//QlUpzeS0VOfckV72Xldzkh
+	 Y2jqEoLophknqWruj0gYC6sOMm/Koh5rgkiMM95JhZ3rpLS7c+cbTEmxSbq/rFMOnL
+	 cd5dmHgVSKnC1ERD/eiTDMW8wFGD2irHD89ylANk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 506ADF80268;
-	Tue, 21 Jul 2020 20:29:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5464AF8024A;
+	Tue, 21 Jul 2020 23:07:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 56443F8024A; Tue, 21 Jul 2020 20:29:07 +0200 (CEST)
+ id 8E406F8024A; Tue, 21 Jul 2020 23:07:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
- [IPv6:2a00:1450:4864:20::643])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5EFA5F80117
- for <alsa-devel@alsa-project.org>; Tue, 21 Jul 2020 20:29:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EFA5F80117
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ph86JCwg"
-Received: by mail-ej1-x643.google.com with SMTP id f12so22576306eja.9
- for <alsa-devel@alsa-project.org>; Tue, 21 Jul 2020 11:29:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=4jBpCAfHmvrXMsleahVys7l2Kbtf/JTxu6AXTIkM0eQ=;
- b=ph86JCwgAqK1FafyGhguYtYD9m1MR+zqcBbTXsg8IP83H4jR+1Msy9ofw8JwBHPkBH
- ryf1PDwI/2ck3LAn4CYZ0jSaBhoePx1DxNUmO5leaJ6oichh5CjPdWJbFpZn8nSQ1mP6
- 6FQ3HutBUXBCSfAseimn6jrVVkEt4TsA2fysQRViTliWKVuA0tVxqN6yxHra5zMM6Z/2
- u0DKVHBff+qBD72/RB5fnv06htnRbIlmW4Ebk5kQNqyZ+peu2f4/dUJrwDFX0OSPu02P
- EnhYv13WCFw4l82yHLWeV1x5LOWZII9u0MXBFgkyo1uIjj01lDL4T6fcx3O1kZwYXd3Q
- CHTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=4jBpCAfHmvrXMsleahVys7l2Kbtf/JTxu6AXTIkM0eQ=;
- b=S1gxgjWLdcBmo0xBuLNcApXU0Vhn0pwivZL1G32cjNFpgtQOBeIrOZt7iZP536gf8d
- rfi+ySaZ8jDnUVpZWPHBcD4zi34e8pW84Pwjm6qdFzlQoRprDWkyMmnYefyRxCNpJK54
- SrAu73g+UDFJmti7dopmHYCVE8YIDNmwFI7e155wtOc+YxV79k3pAD0p7K7BVODP2fbV
- Oz/N9+UPgiTbxwO9v/bAYCxVQj7Tna0XC908aUx2FVRKcRIXoY1SwI94WyPlr8dtTjm8
- vMzoe3hEbTOpTmb+uCawbf2eA9Hd7WvzIgtPVzzQBdK1Ezf3QqlQN0dysbXUwMYw55JG
- YAmQ==
-X-Gm-Message-State: AOAM533fi9I9WEub6rnEiuqpLDBROXHp6O5J1C92jqSUkNlZRne0OOyC
- klTJwPse84Whc/RZiMO0LyQ=
-X-Google-Smtp-Source: ABdhPJyEgjQbISmhm3byo3MXCSUHt+hp1xt7nWYRb4nRip5I+01vDGLbcwHA7g6DLRR1xMIebM/Eig==
-X-Received: by 2002:a17:906:a84d:: with SMTP id
- dx13mr25279915ejb.246.1595356141506; 
- Tue, 21 Jul 2020 11:29:01 -0700 (PDT)
-Received: from localhost.localdomain ([178.233.178.9])
- by smtp.gmail.com with ESMTPSA id q6sm16959454ejn.30.2020.07.21.11.28.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jul 2020 11:29:00 -0700 (PDT)
-From: Alper Nebi Yasak <alpernebiyasak@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH] ASoC: rk3399_gru_sound: Add DAPM pins,
- kcontrols for jack detection
-Date: Tue, 21 Jul 2020 21:27:10 +0300
-Message-Id: <20200721182709.6895-1-alpernebiyasak@gmail.com>
-X-Mailer: git-send-email 2.28.0.rc1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Heiko Stuebner <heiko@sntech.de>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- Alper Nebi Yasak <alpernebiyasak@gmail.com>,
- linux-arm-kernel@lists.infradead.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id B4AD0F80117
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jul 2020 23:07:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4AD0F80117
+IronPort-SDR: +oXTDkSUjlwY1OvKhN2G8lr/YrxHMxZI0kEtmX8UoxCsDHmaGs99llekRwMwNurtWwh0W2JgYU
+ t184rYSMuX+g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9689"; a="129799767"
+X-IronPort-AV: E=Sophos;i="5.75,380,1589266800"; d="scan'208";a="129799767"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2020 14:07:36 -0700
+IronPort-SDR: xfiJ9NNJ4KGguu1iWyDcO576Ka4bjPrUvFlOQGqJSMEBEWg/5exeu91oTouiAq4N3bNDx/yM0L
+ NUjgCdoyY2Nw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.75,380,1589266800"; d="scan'208";a="310380758"
+Received: from joycetoh-desk.sc.intel.com ([172.25.206.187])
+ by fmsmga004.fm.intel.com with ESMTP; 21 Jul 2020 14:07:36 -0700
+From: Harsha Priya <harshapriya.n@intel.com>
+To: alsa-devel@alsa-project.org, broonie@kernel.org,
+ pierre-louis.bossart@linux.intel.com
+Subject: [PATCH v7] ASoC: Intel: kbl_rt5663_rt5514_max98927: Fix
+ kabylake_ssp_fixup function
+Date: Tue, 21 Jul 2020 14:07:29 -0700
+Message-Id: <1595365649-8019-1-git-send-email-harshapriya.n@intel.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Harsha Priya <harshapriya.n@intel.com>, yang.jie@linux.intel.com,
+ rad@semihalf.com, zwisler@google.com, linux-kernel@vger.kernel.org,
+ liam.r.girdwood@linux.intel.com,
+ Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>,
+ sathya.prakash.m.r@intel.com, brndt@google.com, mw@semihalf.com,
+ levinale@chromium.org, lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,59 +79,114 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-PulseAudio (and perhaps other userspace utilities) can not detect any
-jack for rk3399_gru_sound as the driver doesn't expose related Jack
-kcontrols.
+kabylake_ssp_fixup function uses snd_soc_dpcm to identify the codecs DAIs.
+The hw parameters are changed based on the codec DAI,
+the stream is intended for. The earlier approach to get
+snd_soc_dpcm was using container_of() macro on snd_pcm_hw_params.
+The structures have been modified over time and snd_soc_dpcm does
+not have snd_pcm_hw_params as a reference but as a copy.
+This causes the current driver to crash when used.
+This patch changes the way snd_soc_dpcm is extracted.
+The snd_soc_pcm_runtime holds 2 dpcm
+instances (one for playback and one for capture).
+The 2 codecs on this SSP are dmic and speakers.
+One is for capture and one is for playback respectively.
+Based on the direction of the stream,
+the snd_soc_dpcm is extracted from the snd_soc_pcm_runtime structure.
+Tested for all use cases of the driver.
 
-This patch adds two DAPM pins to the headset jack, where the
-snd_soc_card_jack_new() call automatically creates "Headphones Jack" and
-"Headset Mic Jack" kcontrols from them.
-
-With an appropriate ALSA UCM config specifying JackControl fields for
-the "Headphones" and "Headset" (mic) devices, PulseAudio can detect
-plug/unplug events for both of them after this patch.
-
-Signed-off-by: Alper Nebi Yasak <alpernebiyasak@gmail.com>
+Signed-off-by: Harsha Priya <harshapriya.n@intel.com>
+Signed-off-by: Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>
+Tested-by: Lukasz Majczak <lma@semihalf.com>
 ---
+v1 -> v2:
+- Extract dmic from SSP0 as every BE should have own fixup function.
+v2 -> v3:
+- Restore naming in the dapm route table to not confuse with other
+drivers
+- Fixed indentations
+v3 -> v4:
+- Updated code and commit description according to
+solution proposed by Harsha
+v4 -> v5:
+- Cosmetic Changes
+v5 -> v6:
+- Dmic regression seen with v4 fixed 
+- Using available routines for obtaining dpcm information
+v6 -> v7:
+- Updated comments
+- initilize rtd_dpcm variable
+- added break statement in the loop
 
- sound/soc/rockchip/rk3399_gru_sound.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+---
+---
+ .../intel/boards/kbl_rt5663_rt5514_max98927.c | 38 ++++++++++++++-----
+ 1 file changed, 29 insertions(+), 9 deletions(-)
 
-diff --git a/sound/soc/rockchip/rk3399_gru_sound.c b/sound/soc/rockchip/rk3399_gru_sound.c
-index f45e5aaa4b30..c17d146717a8 100644
---- a/sound/soc/rockchip/rk3399_gru_sound.c
-+++ b/sound/soc/rockchip/rk3399_gru_sound.c
-@@ -32,6 +32,19 @@ static unsigned int dmic_wakeup_delay;
- 
- static struct snd_soc_jack rockchip_sound_jack;
- 
-+/* Headset jack detection DAPM pins */
-+static struct snd_soc_jack_pin rockchip_sound_jack_pins[] = {
-+	{
-+		.pin = "Headphones",
-+		.mask = SND_JACK_HEADPHONE,
-+	},
-+	{
-+		.pin = "Headset Mic",
-+		.mask = SND_JACK_MICROPHONE,
-+	},
+diff --git a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+index 584e4f9cedc2..9f4b949cc39c 100644
+--- a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
++++ b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+@@ -379,22 +379,42 @@ static int kabylake_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
+ 	struct snd_interval *chan = hw_param_interval(params,
+ 			SNDRV_PCM_HW_PARAM_CHANNELS);
+ 	struct snd_mask *fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
+-	struct snd_soc_dpcm *dpcm = container_of(
+-			params, struct snd_soc_dpcm, hw_params);
+-	struct snd_soc_dai_link *fe_dai_link = dpcm->fe->dai_link;
+-	struct snd_soc_dai_link *be_dai_link = dpcm->be->dai_link;
++	struct snd_soc_dpcm *dpcm, *rtd_dpcm = NULL;
 +
-+};
++	/*
++	 * The following loop will be called only for playback stream
++	 * In this platform, there is only one playback device on every SSP
++	 */
++	for_each_dpcm_fe(rtd, SNDRV_PCM_STREAM_PLAYBACK, dpcm) {
++		rtd_dpcm = dpcm;
++		break;
++	}
 +
- static const struct snd_soc_dapm_widget rockchip_dapm_widgets[] = {
- 	SND_SOC_DAPM_HP("Headphones", NULL),
- 	SND_SOC_DAPM_SPK("Speakers", NULL),
-@@ -176,7 +189,9 @@ static int rockchip_sound_da7219_init(struct snd_soc_pcm_runtime *rtd)
- 				    SND_JACK_HEADSET | SND_JACK_LINEOUT |
- 				    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
- 				    SND_JACK_BTN_2 | SND_JACK_BTN_3,
--				    &rockchip_sound_jack, NULL, 0);
-+				    &rockchip_sound_jack,
-+				    rockchip_sound_jack_pins,
-+				    ARRAY_SIZE(rockchip_sound_jack_pins));
++	/*
++	 * This following loop will be called only for capture stream
++	 * In this platform, there is only one capture device on every SSP
++	 */
++	for_each_dpcm_fe(rtd, SNDRV_PCM_STREAM_CAPTURE, dpcm) {
++		rtd_dpcm = dpcm;
++		break;
++	}
++
++	/*
++	 * The above 2 loops are mutually exclusive based on the strem direction,
++	 * thus rtd_dpcm variable will never be overwritten
++	 */
  
- 	if (ret) {
- 		dev_err(rtd->card->dev, "New Headset Jack failed! (%d)\n", ret);
+ 	/*
+ 	 * The ADSP will convert the FE rate to 48k, stereo, 24 bit
+ 	 */
+-	if (!strcmp(fe_dai_link->name, "Kbl Audio Port") ||
+-	    !strcmp(fe_dai_link->name, "Kbl Audio Headset Playback") ||
+-	    !strcmp(fe_dai_link->name, "Kbl Audio Capture Port")) {
++	if (!strcmp(rtd_dpcm->fe->dai_link->name, "Kbl Audio Port") ||
++	    !strcmp(rtd_dpcm->fe->dai_link->name, "Kbl Audio Headset Playback") ||
++	    !strcmp(rtd_dpcm->fe->dai_link->name, "Kbl Audio Capture Port")) {
+ 		rate->min = rate->max = 48000;
+ 		chan->min = chan->max = 2;
+ 		snd_mask_none(fmt);
+ 		snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S24_LE);
+-	} else if (!strcmp(fe_dai_link->name, "Kbl Audio DMIC cap")) {
++	} else if (!strcmp(rtd_dpcm->fe->dai_link->name, "Kbl Audio DMIC cap")) {
+ 		if (params_channels(params) == 2 ||
+ 				DMIC_CH(dmic_constraints) == 2)
+ 			chan->min = chan->max = 2;
+@@ -405,7 +425,7 @@ static int kabylake_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
+ 	 * The speaker on the SSP0 supports S16_LE and not S24_LE.
+ 	 * thus changing the mask here
+ 	 */
+-	if (!strcmp(be_dai_link->name, "SSP0-Codec"))
++	if (!strcmp(rtd_dpcm->be->dai_link->name, "SSP0-Codec"))
+ 		snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S16_LE);
+ 
+ 	return 0;
 -- 
-2.28.0.rc1
+2.17.1
 

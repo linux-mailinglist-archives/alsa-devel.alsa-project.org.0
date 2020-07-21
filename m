@@ -2,80 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40376227574
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jul 2020 04:14:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 335912276A0
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jul 2020 05:23:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BB8FF1615;
-	Tue, 21 Jul 2020 04:13:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB8FF1615
+	by alsa0.perex.cz (Postfix) with ESMTPS id C87CB10E;
+	Tue, 21 Jul 2020 05:22:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C87CB10E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595297650;
-	bh=Wd+RJDtjybh53jqcmXzlsw+Ln4yJuFKK9ho7SBzI5Ys=;
+	s=default; t=1595301793;
+	bh=KJqeA/6F+LiUiDkfxJw9MW/X41+6VQ8RHlEgHrLC3m0=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Jjs9j/wnWeWrzXx6vLeB8EggABGVuof4+8qy8bmH/RmWp12PLqZ4USegAMyCPP343
-	 7NG+m9rWw90qdhAFiAFt6YEH0h7Z3CyCgq383L8k5gsgG1HvPqJ//mVjsM0Ud3H8yz
-	 INDvqkz10dBMWTq8zC4oetOQSgrUqZi9ROS2Km44=
+	b=FCrwe5djX3H5mw/5kdXqKjz8i+aln9csjNblJ+18VkE02B+Qx4hGhoJGJV3Hn30WB
+	 VYse0DmVP0IV140CXXf1PyTi6H3twKcoVAgniLYdQS3O24U8ZlALI53trl/qmFLxnx
+	 SKrIJEUCFnTOpKsk/PkY1uWLO7RH+LAFtGOLiqAU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA822F80268;
-	Tue, 21 Jul 2020 04:12:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ECFC6F80268;
+	Tue, 21 Jul 2020 05:21:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3EB01F8024A; Tue, 21 Jul 2020 04:12:27 +0200 (CEST)
+ id 538ABF8024A; Tue, 21 Jul 2020 05:19:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-il1-f193.google.com (mail-il1-f193.google.com
- [209.85.166.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_78,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
+ [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 19C0DF800CE
- for <alsa-devel@alsa-project.org>; Tue, 21 Jul 2020 04:12:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19C0DF800CE
-Received: by mail-il1-f193.google.com with SMTP id s21so15058960ilk.5
- for <alsa-devel@alsa-project.org>; Mon, 20 Jul 2020 19:12:14 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=NQUTeffJMHXMiqbsPX2xwEkXM3c5RyktUmybjJ1stHs=;
- b=FMyvaC2a0TJz5qGdLbF4dFwwhsnF2jlPskO7VLdDB4Mfvx2adgCRH4hB9GctDVsTN5
- OmvLOJvdS14TSxjh4m+750Hj5NJzM/FbYgdDkg/pZCam4iLdwaPaATf7fBxFg7iY1Byc
- FFp5TyM4PXq35obAolbx46Jb6q3hV86KlilY0Bg5+PPRFiZiexrdk1VMUo81gIRqYUav
- mD8KIMQ8O5xWMfi5Lz436qENFLjQjuEJoXPmvd0UkBF6ABB1EIgAn7PNOMITHr0obua8
- UCMRvtrFXf4q2JdCHTLPsXn/R0SLy2CH+FJHnUFdrb0Jdlw1NxpIOKNnpoEwWaatI790
- iBMQ==
-X-Gm-Message-State: AOAM533mi3UCtQLv/Uc42Mqd1nMaUn/P26OP5Ew/P83WRwkbu9I+FHHk
- fCdHJ9J7HFaMS9R8Mg5jSA==
-X-Google-Smtp-Source: ABdhPJzJnKhYPFFl4Fz41JdJz6qoRM9fJhj/Uf8pUDziQOo+75dmr6QMoYBHE/FV+bE8f94gH1De6g==
-X-Received: by 2002:a92:a312:: with SMTP id a18mr18402751ili.308.1595297532855; 
- Mon, 20 Jul 2020 19:12:12 -0700 (PDT)
-Received: from xps15 ([64.188.179.252])
- by smtp.gmail.com with ESMTPSA id s5sm4527756ioo.29.2020.07.20.19.12.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Jul 2020 19:12:12 -0700 (PDT)
-Received: (nullmailer pid 3389433 invoked by uid 1000);
- Tue, 21 Jul 2020 02:12:11 -0000
-Date: Mon, 20 Jul 2020 20:12:11 -0600
-From: Rob Herring <robh@kernel.org>
-To: Katsuhiro Suzuki <katsuhiro@katsuster.net>
-Subject: Re: [PATCH] dt-bindings: sound: convert ROHM BD28623 amplifier
- binding to yaml
-Message-ID: <20200721021211.GA3388250@bogus>
-References: <20200714081000.177914-1-katsuhiro@katsuster.net>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1D635F80117
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jul 2020 05:18:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D635F80117
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="NNYEK4ke"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1595301527;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=qvHTqf3N2UBCBfimzRRDXZNRWSQDDfsB47kO82KCfgE=;
+ b=NNYEK4kec2Zps1pWwKJhY5kUmg0gP8VzsJOCf9CBNKfJZnVNO326uKzxAhmWXV3Q/Uvlnn
+ UGcpu9Fzj1cL04qMYZGpsb3rqvEsqsaujQ7mD3+6le6iN0aEcYV0ESOkT+mIJR/hxEJMCF
+ D2olNL+oWXVG2lqlzeh1Tx0gcQLap0o=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-89-aRvlxbx0MhmcXL9aaJevTA-1; Mon, 20 Jul 2020 23:18:45 -0400
+X-MC-Unique: aRvlxbx0MhmcXL9aaJevTA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3F902800477;
+ Tue, 21 Jul 2020 03:18:43 +0000 (UTC)
+Received: from dhcp-128-65.nay.redhat.com (ovpn-13-4.pek2.redhat.com
+ [10.72.13.4])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 48EC560BF1;
+ Tue, 21 Jul 2020 03:18:39 +0000 (UTC)
+Date: Tue, 21 Jul 2020 11:18:36 +0800
+From: Dave Young <dyoung@redhat.com>
+To: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Subject: Re: omap-mcbsp 49022000.mcbsp: TX Buffer Overflow!
+Message-ID: <20200721031836.GC5271@dhcp-128-65.nay.redhat.com>
+References: <20200711033356.GA164619@dhcp-128-65.nay.redhat.com>
+ <e4fc5a03-0343-d9c7-757f-b9652f0cd0ed@bitmer.com>
+ <74f478d4-4028-0c5f-da21-f6cdf8d7e13e@ti.com>
+ <d8829b8a-eca7-f0e3-600f-3263619332b3@ti.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20200714081000.177914-1-katsuhiro@katsuster.net>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d8829b8a-eca7-f0e3-600f-3263619332b3@ti.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+Cc: alsa-devel@alsa-project.org, linux-omap@vger.kernel.org,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,133 +97,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jul 14, 2020 at 05:09:59PM +0900, Katsuhiro Suzuki wrote:
-> This patch converts ROHM BD28623UMV class D speaker amplifier binding
-> to DT schema.
+Hi Peter
+On 07/20/20 at 12:32pm, Peter Ujfalusi wrote:
+> Hi,
 > 
-> Signed-off-by: Katsuhiro Suzuki <katsuhiro@katsuster.net>
-> ---
->  .../bindings/sound/rohm,bd28623.txt           | 29 ---------
->  .../bindings/sound/rohm,bd28623.yaml          | 65 +++++++++++++++++++
->  2 files changed, 65 insertions(+), 29 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/rohm,bd28623.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/rohm,bd28623.yaml
+> On 20/07/2020 12.03, Peter Ujfalusi wrote:
+> > Hi,
+> > 
+> > On 14/07/2020 21.03, Jarkko Nikula wrote:
+> >> Hi
+> >>
+> >> On 7/11/20 6:33 AM, Dave Young wrote:
+> >>> Hi,
+> >>>
+> >>> I'm trying to use g_audio on my Nokia N900 with mainline kernel. Seems
+> >>> it does not work.  No sound when I play from a laptop, and also see a
+> >>> lot of error like below:
+> >>> [ 4729.557647] omap-mcbsp 49022000.mcbsp: TX Buffer Overflow!
+> >>> ...
+> >>>
+> >> Head 0dc589da873b ("Merge tag 'iommu-fixes-v5.8-rc5' of
+> >> git://git.kernel.org/pub/scm/linux/kernel/git/joro/iommu") records and
+> >> plays fine here (arecord -f dat |aplay), although I see some of those
+> >> errors but don't hear any glitches etc.
+> >>
+> >> Peter, does above indicate a serious issue or is it perhaps a false
+> >> alarm on OMAP3 (no audible glitches)?
+> > 
+> > I need to dig out my n900 or beagleXM, but it is hard to believe it is
+> > not a result of a glitch.
+> > The DMA is triggered by McBSP and it should write exactly what McBSP
+> > expects to be receiving.
+> > 
+> > I can not recall any changes in the past years which would have
+> > introduced regressions in McBSP or the sDMA driver.
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/rohm,bd28623.txt b/Documentation/devicetree/bindings/sound/rohm,bd28623.txt
-> deleted file mode 100644
-> index d84557c2686e..000000000000
-> --- a/Documentation/devicetree/bindings/sound/rohm,bd28623.txt
-> +++ /dev/null
-> @@ -1,29 +0,0 @@
-> -ROHM BD28623MUV Class D speaker amplifier for digital input
-> -
-> -This codec does not have any control buses such as I2C, it detect format and
-> -rate of I2S signal automatically. It has two signals that can be connected
-> -to GPIOs: reset and mute.
-> -
-> -Required properties:
-> -- compatible      : should be "rohm,bd28623"
-> -- #sound-dai-cells: should be 0.
-> -- VCCA-supply     : regulator phandle for the VCCA supply
-> -- VCCP1-supply    : regulator phandle for the VCCP1 supply
-> -- VCCP2-supply    : regulator phandle for the VCCP2 supply
-> -
-> -Optional properties:
-> -- reset-gpios     : GPIO specifier for the active low reset line
-> -- mute-gpios      : GPIO specifier for the active low mute line
-> -
-> -Example:
-> -
-> -	codec {
-> -		compatible = "rohm,bd28623";
-> -		#sound-dai-cells = <0>;
-> -
-> -		VCCA-supply = <&vcc_reg>;
-> -		VCCP1-supply = <&vcc_reg>;
-> -		VCCP2-supply = <&vcc_reg>;
-> -		reset-gpios = <&gpio 0 GPIO_ACTIVE_LOW>;
-> -		mute-gpios = <&gpio 1 GPIO_ACTIVE_LOW>;
-> -	};
-> diff --git a/Documentation/devicetree/bindings/sound/rohm,bd28623.yaml b/Documentation/devicetree/bindings/sound/rohm,bd28623.yaml
-> new file mode 100644
-> index 000000000000..acd8609252b4
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/rohm,bd28623.yaml
-> @@ -0,0 +1,65 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/rohm,bd28623.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: ROHM BD28623MUV Class D speaker amplifier for digital input
-> +
-> +description:
-> +  This codec does not have any control buses such as I2C, it detect
-> +  format and rate of I2S signal automatically. It has two signals
-> +  that can be connected to GPIOs reset and mute.
-> +
-> +maintainers:
-> +  - Katsuhiro Suzuki <katsuhiro@katsuster.net>
-> +
-> +properties:
-> +  compatible:
-> +    const: rohm,bd28623
-> +
-> +  "#sound-dai-cells":
-> +    const: 0
-> +
-> +  VCCA-supply:
-> +    description:
-> +      regulator phandle for the VCCA (for analog) power supply
-> +
-> +  VCCP1-supply:
-> +    description:
-> +      regulator phandle for the VCCP1 (for ch1) power supply
-> +
-> +  VCCP2-supply:
-> +    description:
-> +      regulator phandle for the VCCP2 (for ch2) power supply
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description:
-> +      GPIO specifier for the active low reset line
-> +
-> +  mute-gpios:
-> +    maxItems: 1
-> +    description:
-> +      GPIO specifier for the active low mute line
-> +
-> +required:
-> +  - compatible
-> +  - VCCA-supply
-> +  - VCCP1-supply
-> +  - VCCP2-supply
-> +  - "#sound-dai-cells"
+> I have booted linux-next on my BeagleXM (OMAP3630, McBSP2 <-> twl4030)
+> and I don't see the TX overflow print.
 
-Needs an:
+Just to clarify, the sound works well on n900 for normal use cases.
+The TX overflow only happens when I use it as an usb audio gadget.
+Because n900 is old, I tried to use it as an external audio device.
 
-additionalProperties: false
-
-With that,
-
-Reviewed-by: Rob Herring <robh@kernel.org>
-
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    codec {
-> +      compatible = "rohm,bd28623";
-> +      #sound-dai-cells = <0>;
-> +
-> +      VCCA-supply = <&vcc_reg>;
-> +      VCCP1-supply = <&vcc_reg>;
-> +      VCCP2-supply = <&vcc_reg>;
-> +      reset-gpios = <&gpio 0 GPIO_ACTIVE_LOW>;
-> +      mute-gpios = <&gpio 1 GPIO_ACTIVE_LOW>;
-> +    };
-> -- 
-> 2.27.0
 > 
+> I have checked element and threshold modes and it looks fine.
+> I'm not sure why we have TX Overflow printed on n900.
+> 
+> >> I believe you don't have some mixer knob on, N900 audio path is somewhat
+> >> complex and needs bunch of mixer switches and volumes to be set. I
+> >> attached my N900 mixer scripts for you to try.
+> > 
+> > This could be the reason for the silence, I have asoundrc files
+> > somewhere to restore a 'good' mixer config.
+> > 
+> >> Set first everything off:
+> >> ./aic34_scripts/shutdown.sh
+> >>
+> >> Then enable internal digital microphone and speakers:
+> >> ./aic34_scripts/dmic.sh
+> >> ./aic34_scripts/speakers.sh
+> >>
+> >> Hopefully these help you get going :-)
+> >>
+> > 
+> > - Péter
+> > 
+> > Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
+> > Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
+> > 
+> 
+> - Péter
+> 
+> Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
+> Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
+> 
+
+Thanks
+Dave
+

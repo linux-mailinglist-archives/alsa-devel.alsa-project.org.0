@@ -2,95 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F03B227AC0
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jul 2020 10:33:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C087227ADF
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jul 2020 10:39:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 405DC168C;
-	Tue, 21 Jul 2020 10:33:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 405DC168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0E53F1696;
+	Tue, 21 Jul 2020 10:38:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E53F1696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595320434;
-	bh=t1Dq6zizvNs+iAZvi3pARp1B8Zckp37NAX8xpdIiXqw=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1595320780;
+	bh=mmsFNLREuQwxd9DR+7JA/NMbjm3wMYYChlHo290qAv0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=o5lb23mxBSEFzd66DhYOpCmZ9xGYG30GNIIsD8Y+pNR3gGYB05GLXUiLYoIsWI7ft
-	 wSn/acW4ly7xrX3DoN5Of8/itRp75s2EpQICuOQB6hOijbqIK/S1CKjeUspgSY/3SO
-	 V6z0yRD+NWBIKn8ajE/+cAOmMBtPulNs5XEHgUxQ=
+	b=t9nI6FI1aXuDcpgSk1E9NbNMDL6lrbYwZHauhdZ7mWi6tu42F4QuGP/VajwHtm6kK
+	 gUvK6b8mUyCF2AltPuoO32NHGU9n+/QGPAfCVY2+b5eqbfHKrLdUQEHGigBSJMUmFG
+	 a7d3J3P8i7gNShLmxmUd4JGjP7XpH99kNZBYqwbQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7BC3FF80117;
-	Tue, 21 Jul 2020 10:32:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37440F800CE;
+	Tue, 21 Jul 2020 10:37:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7AAACF8024A; Tue, 21 Jul 2020 10:32:11 +0200 (CEST)
+ id 48124F800CE; Tue, 21 Jul 2020 10:37:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ECA4DF80117
- for <alsa-devel@alsa-project.org>; Tue, 21 Jul 2020 10:31:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECA4DF80117
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="YweqTX9U"
-Received: by mail-ej1-x631.google.com with SMTP id f12so20769231eja.9
- for <alsa-devel@alsa-project.org>; Tue, 21 Jul 2020 01:31:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=M5nbmTePjYhEWelhhJ136ACTnDOYbxv7nimh622ha7g=;
- b=YweqTX9UrhYRJZiYVrc5c7DWMYknDhuRL3IQRLUmxP3vlVVrT783++udBMlVR+pCah
- 2//7OzKLk9cwlmhYOEj4up2+ORpMIUB/oa7dJX/SBSDQ9XZQDqYyhWlGkR0wMskxE/EJ
- M6o+0DGsXgV0grnWZ4dafZTeLnD2h5SVaapi0US84AgisT5OsDuxnOVZrSQ9mb6Xztz2
- wE7bclsBGD6jjKPvJ1k5DOvN/cMDdJsrVsfLDQtB6XGnVJktQrFfmCu2Sif2N5gRINQJ
- 06DxVoCNdL+d2rG4Lg2hHNtPGqcx5zGSR/Yki/VLQBM+Pe0fc5PDn7VSR7wcPWDRYmBd
- v21Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=M5nbmTePjYhEWelhhJ136ACTnDOYbxv7nimh622ha7g=;
- b=iH828+UTTFS+DooncghqmjElyDxOgegPHkRKf87gQU2UchPMoxzKgXZe/yn5FHdoxx
- cFQf1NOtw5169pPYlO8i0sTDBZN7/jBnH1xl9z/xdS17jN4BiJEzL11rtI/vtMMqwQGm
- TzFXGl/mVW971z4r7W+Q6AZnjo+Rwk3adeBNZD9DDrr/D6iK+MOryaikF9eJRjvZtZmx
- ASailSYqJ3qF2u2OXsyhEjNcvepFGnWewzNDWSBk25Bz8Qzn5rXzc8uRejQUgnddIIwS
- fxT+xxYmS4cPMDChInjFycpPyoNgIVXzKa7IEVfaKz86gKTSdXfAJWMEcBXCGiAVx8qK
- ZOdA==
-X-Gm-Message-State: AOAM533YF7VOJsUEtm5vLNNNJP4AQyNnGKWxjog/Q5JByAOeZOrCfT5f
- 7lb0S4TaZ3boT81SdoMT27w=
-X-Google-Smtp-Source: ABdhPJw11nS7E2CfrTNNRIxorwk4oLDNlhqvQtwGoaVVGHXqRvW7dq4FeK8fAO0Fp14jlYKE+TSSVQ==
-X-Received: by 2002:a17:906:6d0e:: with SMTP id
- m14mr21616314ejr.251.1595320317310; 
- Tue, 21 Jul 2020 01:31:57 -0700 (PDT)
-Received: from ?IPv6:2001:1c01:2f03:7200:763c:d807:63d8:4d15?
- (2001-1c01-2f03-7200-763c-d807-63d8-4d15.cable.dynamic.v6.ziggo.nl.
- [2001:1c01:2f03:7200:763c:d807:63d8:4d15])
- by smtp.gmail.com with ESMTPSA id l22sm16135840ejr.98.2020.07.21.01.31.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Jul 2020 01:31:56 -0700 (PDT)
-Subject: Re: Reference USB card driver?
-To: Takashi Iwai <tiwai@suse.de>
-References: <b6b173b5-fe9e-32a7-638c-6e5815f28872@gmail.com>
- <s5hk0yxz42a.wl-tiwai@suse.de>
-From: =?UTF-8?Q?Ren=c3=a9_Herman?= <rene.herman@gmail.com>
-Message-ID: <8d3e6010-402d-0bc1-61fc-95139f594368@gmail.com>
-Date: Tue, 21 Jul 2020 10:31:56 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <s5hk0yxz42a.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: nl-NL
-Content-Transfer-Encoding: 7bit
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6483EF800CE
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jul 2020 10:37:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6483EF800CE
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 6B997AC46;
+ Tue, 21 Jul 2020 08:37:53 +0000 (UTC)
+Date: Tue, 21 Jul 2020 10:37:46 +0200
+Message-ID: <s5hft9lz2jp.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Ren9 Herman <rene.herman@gmail.com>
+Subject: Re: [PATCH 0/3] snd-usb-6fire: firmware load and pulseaudio assumption
+In-Reply-To: <a0684b66-cbe3-de56-1841-3dc10df1fd5c@gmail.com>
+References: <20200721064853.9516-1-rene.herman@gmail.com>
+ <s5hlfjdz46r.wl-tiwai@suse.de>
+ <a0684b66-cbe3-de56-1841-3dc10df1fd5c@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
 Cc: alsa-devel@alsa-project.org, Torsten Schenk <torsten.schenk@zoho.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -107,17 +70,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 21-07-2020 10:05, Takashi Iwai wrote:
-
-> For USB, basically the snd-usb-audio USB audio class driver is the
-> place to start with.  Other USB audio drivers are very
-> device-specific, often the result of reverse engineering and might be
-> poorly supported.
+On Tue, 21 Jul 2020 10:29:29 +0200,
+Ren9 Herman wrote:
 > 
-> Which actual card -- I don't know, honestly speaking, too.  There are
-> way too many devices in the market.
+> On 21-07-2020 10:02, Takashi Iwai wrote:
+> 
+> > The patch needs to point to the right path that is applicable with
+> > patch -p1 option, i.e. it should be like
+> >   diff -up a/sound/usb/6fire/xxx.c b/sound/usb/6fire/xxx.c
+> > 
+> > At best use git for creating / submitting a patch.
+> 
+> Blast. I did, but worked against an isolated (DKMS-ed) version of the
+> kernel driver. Pardon. Shall re-setup against the kernel as such and
+> resend after dealing with your other two comments. I.e.,
+> 
+> Re: [PATCH 1/3] snd-usb-6fire: Move DMA-buffer off of the stack
 
-Thanks much for the answer. I'll start studying snd-usb-audio and will
-try to make sense of things.
+Submit a complete set freshly as a v2 patch set.
 
-Rene.
+  [PATCH v2 1/3] ...
+
+> > Could you rather change return with goto out (with ret variable
+> > set)? In that way we can see what actually you changed more clearly.
+> 
+> I already did exactly that though and in fact, the original not doing so
+> is what makes the patch seem involved. With the added kmalloc() I change
+> it so that all returns goto out, which kfree()s again. The only one that
+> does not is when kmalloc() fails, i.e., when there's nothing to kfree().
+> I suppose you just misread and do not need to have that single one go
+> through a goto as well?
+
+The first return for kmalloc error should remain so, but the rest can
+be replaced with goto out.  That I meant.
+
+> 
+> Re: [PATCH 3/3] snd-usb-6fire: Unmark struct snd_pcm_hardware const
+> 
+> > This must be superfluous.  usb6fire_pcm_open() changes the field of 
+> > the copied pcm_hw, not the original pcm_hw itself.  Otherwise we
+> > must have got already a compile warning / error.
+> 
+> Unfortunately no; it's as mentioned in the cover letter accessed via
+> pointer: usb6fire_pcm_open() sets "alsa_rt->hw = pcm_hw" and then
+> changes pcm_hw as e.g. "alsa_rt->hw.channels_max = OUT_N_CHANNELS;".
+> I.e., not a copy.
+
+Note that it copies the whole instance, not the pointer.  So the
+current code is correct.
+
+
+thanks,
+
+Takashi

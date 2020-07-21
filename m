@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FFE7227A16
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jul 2020 10:02:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA07C227A1E
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jul 2020 10:04:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F8CF1667;
-	Tue, 21 Jul 2020 10:01:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F8CF1667
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4FB8F1680;
+	Tue, 21 Jul 2020 10:03:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FB8F1680
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595318535;
-	bh=Won3NTlGt77WIjlx4IyDKMH0+xG6FBPWPIDPDtIhdYU=;
+	s=default; t=1595318650;
+	bh=rdtTgS8KLE5hhT9ARPEWvlthRhbMArfj0jyWRbHimPg=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LZvcj5g2/kGn1b/9fKQ1OzYVh4R6Yyk+mwKPs+Pw4q9PA3fEtroZwZ0EQzPN/B6Ug
-	 MMa69BdzhLyEXZSKkRo8a14NuPWMvJ+/hoJYP1yjok23pb7aZfAPraht05heImNetl
-	 lM/POqoZ+9QWNLhwWykytbN1POIAc78dAZcuNpoU=
+	b=ri6rconjRL5pMDznYZALKjsa6BRILbdOLSj1OWBvC1spSl0o8CcWOczCTa6KwcyJs
+	 iDk9OEGpiz7bcwE2tDuSoxRWOVf55g3GTVt7KSPRSwZuGwHNtJziq89m+E4MmNtqm3
+	 Ur+hPNhkoenfMcci+uVlIaqckdKT480Q5LyngotA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB338F80212;
-	Tue, 21 Jul 2020 10:00:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95DA3F80268;
+	Tue, 21 Jul 2020 10:02:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0E688F8024A; Tue, 21 Jul 2020 10:00:33 +0200 (CEST)
+ id 9742EF8024A; Tue, 21 Jul 2020 10:02:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -33,21 +33,20 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C45A4F80087
- for <alsa-devel@alsa-project.org>; Tue, 21 Jul 2020 10:00:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C45A4F80087
+ by alsa1.perex.cz (Postfix) with ESMTPS id 689ECF80087
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jul 2020 10:02:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 689ECF80087
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8C9FCAFCD;
- Tue, 21 Jul 2020 08:00:36 +0000 (UTC)
-Date: Tue, 21 Jul 2020 10:00:29 +0200
-Message-ID: <s5hmu3tz49u.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id A5074B754;
+ Tue, 21 Jul 2020 08:02:27 +0000 (UTC)
+Date: Tue, 21 Jul 2020 10:02:20 +0200
+Message-ID: <s5hlfjdz46r.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: =?UTF-8?B?UmVuw6k=?= Herman <rene.herman@gmail.com>
-Subject: Re: [PATCH 1/3] snd-usb-6fire: Move DMA-buffer off of the stack
-In-Reply-To: <20200721064853.9516-2-rene.herman@gmail.com>
+Subject: Re: [PATCH 0/3] snd-usb-6fire: firmware load and pulseaudio assumption
+In-Reply-To: <20200721064853.9516-1-rene.herman@gmail.com>
 References: <20200721064853.9516-1-rene.herman@gmail.com>
- <20200721064853.9516-2-rene.herman@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -70,55 +69,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 21 Jul 2020 08:48:51 +0200,
+On Tue, 21 Jul 2020 08:48:50 +0200,
 René Herman wrote:
 > 
-> snd-usb-fire currently fails its firmware load with "transfer buffer not dma
-> capable". Move said buffer off of the stack.
+> Hi Takashi.
 > 
-> Signed-off-by: René Herman <rene.herman@gmail.com>
-> ---
->  firmware.c | 95 ++++++++++++++++++++++++++----------------------------
->  1 file changed, 46 insertions(+), 49 deletions(-)
+> I sent these out a week ago to alsa-devel (only) but am not sure they
+> got anywhere, perhaps due to at least the alsa-devel archive scrubbing
+> the text/x-patch attachments as "non-text".
 > 
-> diff --git a/firmware.c b/firmware.c
-> index 69137c1..502653a 100644
-> --- a/firmware.c
-> +++ b/firmware.c
-> @@ -355,63 +355,60 @@ static int usb6fire_fw_check(struct usb_interface *intf, const u8 *version)
->  
->  int usb6fire_fw_init(struct usb_interface *intf)
->  {
-> -	int i;
-> -	int ret;
->  	struct usb_device *device = interface_to_usbdev(intf);
-> +	int ret, i;
-> +
->  	/* buffer: 8 receiving bytes from device and
->  	 * sizeof(EP_W_MAX_PACKET_SIZE) bytes for non-const copy */
-> -	u8 buffer[12];
-> +	u8 *buffer = kmalloc(12, GFP_KERNEL);
-> +
-> +	if (!buffer)
-> +		return -ENOMEM;
->  
->  	ret = usb6fire_fw_ezusb_read(device, 1, 0, buffer, 8);
->  	if (ret < 0) {
->  		dev_err(&intf->dev,
->  			"unable to receive device firmware state.\n");
-> -		return ret;
-> -	}
-> -	if (buffer[0] != 0xeb || buffer[1] != 0xaa || buffer[2] != 0x55) {
-> -		dev_err(&intf->dev,
-> -			"unknown device firmware state received from device:");
-> -		for (i = 0; i < 8; i++)
-> -			printk(KERN_CONT "%02x ", buffer[i]);
-> -		printk(KERN_CONT "\n");
-> -		return -EIO;
-> -	}
+> The snd-usb-6fire driver for the TerraTec DMX 6Fire USB soundcard has
+> been failing its firmware upload due to a non DMA-capable buffer on the
+> stack. First of the patches kmallocs said bufffer instead and fixes the
+> firmware upload.
+> 
+> After that first patch the driver nominally works again but still has
+> Pulseaudio crap out due to struct snd_pcm_hardware.channels_min=1
+> causing it to recognize it as a mono device only. Comparing with e.g.
+> the TerraTec Aureon 7.1 Universe driver it seems that the solution is to
+> simply set channels_min=2 as per the second patch.
+> 
+> Third patch unmarks the snd_pcm_hardware struct const as it it is in
+> fact changed in usb6fire_pcm_open(), even though through a pointer, and
+> is supposedly trivial.
+> 
+> With these changes the card works again. Driver author Torsten Schenk
+> has seen these and is fine with them: maintains an external driver with
+> more options. I or he might time permitting start integrating more into
+> the kernel driver over time.
 
-Could you rather change return with goto out (with ret variable set)?
-In that way we can see what actually you changed more clearly.
+The patch needs to point to the right path that is applicable with
+patch -p1 option, i.e. it should be like
+  diff -up a/sound/usb/6fire/xxx.c b/sound/usb/6fire/xxx.c
+
+At best use git for creating / submitting a patch.
 
 
 thanks,

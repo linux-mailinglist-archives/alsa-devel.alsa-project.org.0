@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 765CD22998C
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 15:48:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09E7C22998E
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 15:49:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1FB3B1661;
-	Wed, 22 Jul 2020 15:47:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FB3B1661
+	by alsa0.perex.cz (Postfix) with ESMTPS id A3E3F83A;
+	Wed, 22 Jul 2020 15:48:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3E3F83A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595425697;
-	bh=85AN4VDFdMrFXJvqaJnVn/TtqZhMcEWbbnD9hw/UeHY=;
+	s=default; t=1595425739;
+	bh=d6Xo0cicAXCf7UHk0e4SWwLtAlVDwqBSiSvEbl4Wqyc=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iKjRKqAiQF46TvJpun1mfVoegnZ56Rp/RHBBfa96y33EsjOSe7uvzZ1GEMJMF8bnw
-	 5tQpYyNG+wTyuLTaTMRAzj4fGLb9YbN1dMf9bX4EacmbFqcu7Ks2WRhHCNtJC2R114
-	 QtiokhrlTG4Q2RY2LEKcUi0wct4QOst7qzatvabE=
+	b=KqV8O/FPTJk2Jk7vm2qTDFc5F276Ppd2g/tvjBWP5ajPfEselT/B7gy/G8/GRRBpi
+	 Lox/NdMftL7dDQ+7OFsWOw6e/d2iObsc5Ns28udo8uoUn42NY2Y6sWjYyIjyKmTpc4
+	 qsFJfKapCcf9nlbVTxwd5ktmeBZu+TLuZG5WKtdw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 139BFF802C4;
-	Wed, 22 Jul 2020 15:45:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 60E0DF802DC;
+	Wed, 22 Jul 2020 15:45:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2A584F8028D; Wed, 22 Jul 2020 15:45:07 +0200 (CEST)
+ id C69BDF802DB; Wed, 22 Jul 2020 15:45:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,33 +34,35 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 43A37F801F5
- for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 15:45:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43A37F801F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7F24DF8028D
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 15:45:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F24DF8028D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="V+aykGbi"
+ header.b="JkF33Mwz"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 68F5F20787;
- Wed, 22 Jul 2020 13:45:02 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7EED0207BB;
+ Wed, 22 Jul 2020 13:45:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1595425502;
- bh=85AN4VDFdMrFXJvqaJnVn/TtqZhMcEWbbnD9hw/UeHY=;
+ s=default; t=1595425508;
+ bh=d6Xo0cicAXCf7UHk0e4SWwLtAlVDwqBSiSvEbl4Wqyc=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=V+aykGbiBfpqqVnjU5MwPKzI5zLvBI/vKcAn9C2FltXL1mJ6snxB4o01qrsKAZ3TF
- bEgoq5os5GjZ6OS4s6AzJnagERdSAu4LMPPXtr4NhvCGJXuXBfBbriYw3u3VjvwbxI
- XfJ/Ktu9W+s4dR4uDNFCZKBnD+L1HypEhLv7Rvds=
-Date: Wed, 22 Jul 2020 14:44:49 +0100
+ b=JkF33MwzWUdMHFZr0rviBRvN1JoNgRaETZbLkSi3jieri3fDT4uMX5geEif40Wtin
+ VnLeiTBIhoQPmXe5dcUoHDdezgEVhAF5n5rEpRmmwq2c5u3zJdqqDkX2i3Wf3mBO4l
+ p5wHrQB3AmZE1OIf6kZiTT26cnxo3npUSdewGaMI=
+Date: Wed, 22 Jul 2020 14:44:54 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Tzung-Bi Shih <tzungbi@google.com>
-In-Reply-To: <20200720012559.906088-1-tzungbi@google.com>
-References: <20200720012559.906088-1-tzungbi@google.com>
-Subject: Re: [PATCH 0/3] ASoC: mediatek: mt8183: support machine driver for
- max98357b
-Message-Id: <159542547441.19620.14879920387076219822.b4-ty@kernel.org>
-Cc: alsa-devel@alsa-project.org
+To: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
+In-Reply-To: <20200714132804.3638221-1-kai.vehmanen@linux.intel.com>
+References: <20200714132804.3638221-1-kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ASoC: intel/skl/hda - fix probe regression on systems
+ without i915
+Message-Id: <159542547442.19620.11983281044239009101.b4-ty@kernel.org>
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ ranjani.sridharan@linux.intel.com, Rander Wang <rander.wang@linux.intel.com>,
+ kuninori.morimoto.gx@renesas.com, pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,14 +78,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 20 Jul 2020 09:25:56 +0800, Tzung-Bi Shih wrote:
-> The series re-uses mt8183-mt6358-ts3a227-max98357.c to support machine driver
-> with max98357b.
+On Tue, 14 Jul 2020 16:28:04 +0300, Kai Vehmanen wrote:
+> Starting in commit cbc7a6b5a87a ("ASoC: soc-card: add
+> snd_soc_card_add_dai_link()"), error value from ASoc add_dai_link() is
+> no longer ignored.
 > 
-> The 1st patch enables left justified format from mt8183 audio platform.
-> 
-> The 2nd patch adds document for the new proposed compatible string for
-> max98357b.
+> The generic HDA machine driver relied on the old semantics to disable
+> i915 HDMI/DP audio codec at runtime. If no display codec was present,
+> add_dai_link() returned an error, but this was ignored and rest of the
+> card was successfully probed.
 > 
 > [...]
 
@@ -93,12 +96,8 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: mediatek: mt8183: support left justified format for I2S
-      commit: 767ee388ab8aee021bbb5a34173c656f3c038a46
-[2/3] ASoC: dt-bindings: mt8183: add compatible string for using max98357b
-      commit: e3c3cdbd5ad65182e3803a2e1c33156c5ff48cd1
-[3/3] ASoC: mediatek: mt8183: support machine driver with max98357b
-      commit: 08145535a8321eb330fceb9e6542b51091f7d3c6
+[1/1] ASoC: intel/skl/hda - fix probe regression on systems without i915
+      commit: ffc6d45d96f07a32700cb6b7be2d3459e63c255a
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

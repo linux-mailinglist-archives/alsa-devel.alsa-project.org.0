@@ -2,72 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA6A6229588
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 11:56:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FDD22295BF
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 12:13:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 72F8B1616;
-	Wed, 22 Jul 2020 11:55:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72F8B1616
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F2141616;
+	Wed, 22 Jul 2020 12:12:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F2141616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595411806;
-	bh=bts/svk+tjNZFRH+l8RAchMxCG2OEN5ZdKe6klQRvwI=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1595412806;
+	bh=e5DcvdLl61O0UbDD+TeVj5wWg/A7NQ0ln8MjMcAET84=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SlpL4wKfz3P+MnNP6AfpP2Wl/SEaa2USDF3u5c0SJ0Toy8vVzdw7nA76ttcdTDuQK
-	 8QqlqE3JSUiT2cfS2R/G3MWMDrlbs7A3Ac6UCBifOpkEE2oUekFa20Fz8UzWs5x9Vz
-	 WNoh4tS9VgyC+ucT2P41M980DzkSO73hliTuWiGw=
+	b=EzrpX0GAWMFvosN5sT2swC437d11HnXZyfd5xssTaKly9Nk4aBtb24iWMALLTDk7s
+	 8900Yv+tAq7b2TpKPDRvFyvKN/iSxSLujmQYzFujty/LAuOlIbYLA5GIi3tMLvOI47
+	 uDxYq1KBEe8fpMVd5zBiPuHikjQYNJKFgIhW9mlM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88DA7F80150;
-	Wed, 22 Jul 2020 11:55:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99E0BF8014C;
+	Wed, 22 Jul 2020 12:11:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D3742F8014C; Wed, 22 Jul 2020 11:55:02 +0200 (CEST)
+ id 8983BF8014C; Wed, 22 Jul 2020 12:11:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E9FC0F80087
- for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 11:54:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9FC0F80087
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="km5/D4G2"
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B4C2920714;
- Wed, 22 Jul 2020 09:54:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1595411689;
- bh=bts/svk+tjNZFRH+l8RAchMxCG2OEN5ZdKe6klQRvwI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=km5/D4G2xonZmIK1g1Wjs9as4EEswLMvzsd8OAkHJgNcthwyhUmWEa90lOXVkNRWD
- 1bvJ+pcEG/8+UF7U+wgSd26rNJlZcFs4aQiB5ktJujflu6EwL/TwUwf0IQnSWLMAgE
- paO9x1KHEzQlbDsMjHyeXLWtonHulI58mHNMFrao=
-Date: Wed, 22 Jul 2020 11:54:55 +0200
-From: gregkh <gregkh@linuxfoundation.org>
-To: =?utf-8?B?5b2t5rWp?= <penghao@uniontech.com>
-Subject: Re: 14216-add-prevent-wakeup-from-s3-by-lenovo-Thinkcentre-TI
-Message-ID: <20200722095455.GA2816990@kroah.com>
-References: <1059302318.389895.1595410349231.JavaMail.xmail@bj-wm-cp-8>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <1059302318.389895.1595410349231.JavaMail.xmail@bj-wm-cp-8>
-Cc: alsa-devel <alsa-devel@alsa-project.org>, tiwai <tiwai@suse.com>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- =?utf-8?B?6YOR5YW05pe6?= <zhengxingwang@uniontech.com>,
- =?utf-8?B?6YKi5YGl?= <xingjian@uniontech.com>,
- =?utf-8?B?6JSh5YWG6bmP?= <caizhaopeng@uniontech.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7BF09F800CE
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 12:11:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BF09F800CE
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id E45ABAD0B;
+ Wed, 22 Jul 2020 10:11:39 +0000 (UTC)
+Date: Wed, 22 Jul 2020 12:11:32 +0200
+Message-ID: <s5hft9jvoyz.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Dmitry Pavlushko <dpavlushko@gmail.com>
+Subject: Re: Fwd: Fwd: [PATCH] Add implicit feedback quirk for SSL2. (from
+ laurie@tratt.net)
+In-Reply-To: <958bbdf1-5a97-72ac-b7f0-01bda32add70@gmail.com>
+References: <20200615093639.p74zvyupivfxou4b@overdrive.tratt.net>
+ <958bbdf1-5a97-72ac-b7f0-01bda32add70@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,20 +71,76 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-> 此电子邮件消息仅供预期收件人使用，其中可能包含保密或特权使用信息。如果您不是预
-> 期收件人，请勿使用、传播、分发或复制此电子邮件或信赖此邮件采取任何行动。如果您
-> 误收了此邮件，请立即回复邮件通知统信软件技术有限公司发件人，并删除误收电子邮件
-> 及其相关附件。感谢配合！
+On Wed, 22 Jul 2020 07:06:12 +0200,
+Dmitry Pavlushko wrote:
 > 
-> This email message is intended only for the use of the individual or entity who
-> /which is the intended recipient and may contain information that is privileged
-> or confidential. If you are not the intended recipient, you are hereby notified
-> that any use, dissemination, distribution or copying of, or taking any action
-> in reliance on, this e-mail is strictly prohibited. If you have received this
-> email in error, please notify UnionTech Software Technology  immediately by
-> replying to this e-mail and immediately delete and discard all copies of the
-> e-mail and the attachment thereto (if any). Thank you.
+> Hi devs,
+> 
+> Sorry for the interruption. Any chance you can push the line for SSL2
+> usb id?
 
-This is not compatible with kernel development, sorry, now deleted.
+It seems that the resubmitted patch from Laurence didn't reach to my
+inbox by some reason.  Now I salvaged from lore.kernel.org and
+applied to for-linus branch.
 
-greg k-h
+
+thanks,
+
+Takashi
+
+> 
+> Thanks,
+> 
+> Dmitry
+> 
+> 
+> -------- Forwarded Message --------
+> Subject: 	Fwd: [PATCH] Add implicit feedback quirk for
+> SSL2. (from laurie@tratt.net)
+> Date: 	Mon, 15 Jun 2020 10:36:39 +0100
+> From: 	Laurence Tratt <laurie@tratt.net>
+> To: 	dpavlushko@gmail.com
+> 
+> 
+> 
+> I forgot to CC you. Sorry!
+> 
+> 
+> Laurie
+> 
+> ----- Forwarded message from Laurence Tratt <laurie@tratt.net> -----
+> 
+> From: Laurence Tratt <laurie@tratt.net>
+> To: alsa-devel@alsa-project.org
+> Date: Mon, 15 Jun 2020 08:30:23 +0100
+> Subject: [PATCH] Add implicit feedback quirk for SSL2.
+> 
+> As expected, this requires the same quirk as the SSL2+ in order for the
+> clock to sync. This was suggested by, and tested on an SSL2, by Dmitry.
+> 
+> Signed-off-by: Dmitry <dpavlushko@gmail.com>
+> Signed-off-by: Laurence Tratt <laurie@tratt.net>
+> ---
+> sound/usb/pcm.c | 1 +
+> 1 file changed, 1 insertion(+)
+> 
+> diff --git sound/usb/pcm.c sound/usb/pcm.c
+> index 84c0ae4319..dc1608bdf6 100644
+> --- sound/usb/pcm.c
+> +++ sound/usb/pcm.c
+> @@ -367,6 +367,7 @@ static int set_sync_ep_implicit_fb_quirk(struct
+> snd_usb_substream *subs,
+> ifnum = 0;
+> goto add_sync_ep_from_ifnum;
+> case USB_ID(0x07fd, 0x0008): /* MOTU M Series */
+> + case USB_ID(0x31e9, 0x0001): /* Solid State Logic SSL2 */
+> case USB_ID(0x31e9, 0x0002): /* Solid State Logic SSL2+ */
+> ep = 0x81;
+> ifnum = 2;
+> 
+> -- 
+> 2.27.0
+> 
+> 
+> ----- End forwarded message -----
+> 

@@ -2,72 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EABE2293C7
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 10:41:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 896DC2293CB
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 10:41:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2FDBC1615;
-	Wed, 22 Jul 2020 10:40:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FDBC1615
+	by alsa0.perex.cz (Postfix) with ESMTPS id 33FB71662;
+	Wed, 22 Jul 2020 10:41:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33FB71662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595407277;
-	bh=K6xip2yCzndOG/lcFoU4++rNC98/nd9ghwK1SIMAqQ0=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1595407316;
+	bh=fuAK4slEcJ/XRIFHg9b+o/+NYakImU0/pXzr3hS1hoI=;
+	h=Subject:References:To:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BaBFk/g6gWO8IuXfLanYCm5Y+voGmTrjL9ewg0OsdKFwcYeg+L4IQed65Db6A05Kp
-	 mY7qCdnq8SFZ8O5YEquy2yxzoKHCKx/jYkQDHcCj2S69tgXwEjwzww1HyElGv5+igU
-	 RF2M6naILZlxS8cxnquFkmH3YiKgTQ+FwNzwIaOU=
+	b=Wrkb0AWnKickCo60zN10PmhRzR8l9JQmgDSIozlDkcwJZvywFBbBuJZeWf8z+lY4v
+	 buE4bQSxtr6kltDbmDHSfYqaHU4PiYQ6P4JA+ZxWzMxCd3wqrlPobKcJjK2Ur+NNE5
+	 OClUGmpvHwcXaWNQLOQMU775YSW2T59GmpoTsfxA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7CC81F80340;
-	Wed, 22 Jul 2020 10:33:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 86745F8015A;
+	Wed, 22 Jul 2020 10:38:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 37170F8033F; Wed, 22 Jul 2020 10:32:58 +0200 (CEST)
+ id EC081F8014C; Wed, 22 Jul 2020 07:06:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, SPF_HELO_NONE, SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
+ [IPv6:2607:f8b0:4864:20::1031])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 915B8F8033D
- for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 10:32:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 915B8F8033D
-IronPort-SDR: 5bXBr5DX0P5tcmUDBQMBj/ZC6vP/b1LW/sMv7JcYvEfcrNesPjzT108UP5H516LX13Chj1wQ5d
- NxYM0PgiNytg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9689"; a="151616980"
-X-IronPort-AV: E=Sophos;i="5.75,381,1589266800"; d="scan'208";a="151616980"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2020 01:32:47 -0700
-IronPort-SDR: pXEWJDpn08l8BTPm5z4BChuJJNapL7xCaXjinmkBuCIO7WFNBWX8dLSHKAkU153hIVtnip5lq2
- kOA9WqqqGdcg==
-X-IronPort-AV: E=Sophos;i="5.75,381,1589266800"; d="scan'208";a="432303446"
-Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2020 01:32:40 -0700
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	vkoul@kernel.org
-Subject: [PATCH 13/13] soundwire: intel: refine runtime pm for
- SDW_INTEL_CLK_STOP_BUS_RESET
-Date: Wed, 22 Jul 2020 04:37:23 +0800
-Message-Id: <20200721203723.18305-14-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200721203723.18305-1-yung-chuan.liao@linux.intel.com>
-References: <20200721203723.18305-1-yung-chuan.liao@linux.intel.com>
-Cc: pierre-louis.bossart@linux.intel.com, vinod.koul@linaro.org, tiwai@suse.de,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, mengdong.lin@intel.com,
- slawomir.blauciak@intel.com, sanyog.r.kale@intel.com,
- rander.wang@linux.intel.com, bard.liao@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3051EF80087
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 07:06:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3051EF80087
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="BulE6d5u"
+Received: by mail-pj1-x1031.google.com with SMTP id k5so540621pjg.3
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jul 2020 22:06:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:references:to:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-language;
+ bh=LhvKHe0x0Vxk1UfTbL9MNG0KJ+mi+MFxDAymHvCYyhE=;
+ b=BulE6d5uHTKTf2LJrb5LdYjzAj3eGa+3txwG678KAAvJOatuzFTnrgNsOESaxESfkW
+ ogWj4KskaOoTQyY/ov2QjMRX5FZMF8feTSb54cQqYKzQPifhj3hN1ovaCBXVh1JEwO4o
+ ZVbeXlwQb1TxIgo2sPQbYQ7SBMmSQgdjYT74jFhT/tPAgbhDWbUM2VWD+D2QgdRu0kix
+ ZwgwFEvpxDC4bx9nuoKW83i6O3GjaZDUDN0OxKku3H76JtW8n3JBAo3wU1le4sLnjrJ3
+ gd8d7DqBcXGxRsblHnE+2ABEZCav7rMJGHauFwDadfUGXxSyIW9EG5XzMAODd+DNGA+K
+ xL8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:references:to:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language;
+ bh=LhvKHe0x0Vxk1UfTbL9MNG0KJ+mi+MFxDAymHvCYyhE=;
+ b=iJ6RDcgEEmdBH3OjwupGTXWtKFai9ZOJlPF3gNR2TqjeNncKwwg8sj4i9BH+bncomJ
+ f1HRGm7OKvlAgVjSdkq8E5GRK1uYLG+uxq5QTACJKY40i5/rtP6tKBfMWDmUGrD+lYgJ
+ sMVvYsxL0nPWWd9xSZyl3BBDWlX5V1KACPKOk7QR9qkpheyASUKDM8Y6vvB9DUH5goRR
+ lnDzw7k8dvO50i/s9ESKCA4INjVvDDpzeuV/MgDWAmj8ktNceRb0e4NPc0WDm3Ji4Enn
+ oyOyyuveL1y1nrOfkUVhIFVPm4vmczpQIuPHChhzzjgBJDwiD4kHOt1czTqCbrg+xjrX
+ yM8A==
+X-Gm-Message-State: AOAM532OnfVq9PEVyrMCj9VzqvthJAWjHVXNuk5T9iTyxLhY63LtPWVM
+ ZlsZxILrpcKBQKd6EmShFcru4b22
+X-Google-Smtp-Source: ABdhPJxJ9YDoIyTBI0wgY4LpLOKwKLg6M9BaGnAVNs6xSvk/5BGs+ScsVK5Pk0PdFMcDC0C3LrYrIg==
+X-Received: by 2002:a17:90a:2681:: with SMTP id
+ m1mr7651589pje.204.1595394398280; 
+ Tue, 21 Jul 2020 22:06:38 -0700 (PDT)
+Received: from [192.168.1.5] (cpe-76-95-88-7.socal.res.rr.com. [76.95.88.7])
+ by smtp.gmail.com with ESMTPSA id 66sm22213398pfg.63.2020.07.21.22.06.37
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 21 Jul 2020 22:06:37 -0700 (PDT)
+Subject: Fwd: Fwd: [PATCH] Add implicit feedback quirk for SSL2. (from
+ laurie@tratt.net)
+References: <20200615093639.p74zvyupivfxou4b@overdrive.tratt.net>
+To: alsa-devel@alsa-project.org
+From: Dmitry Pavlushko <dpavlushko@gmail.com>
+X-Forwarded-Message-Id: <20200615093639.p74zvyupivfxou4b@overdrive.tratt.net>
+Message-ID: <958bbdf1-5a97-72ac-b7f0-01bda32add70@gmail.com>
+Date: Tue, 21 Jul 2020 22:06:12 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <20200615093639.p74zvyupivfxou4b@overdrive.tratt.net>
+Content-Language: en-US
+X-Mailman-Approved-At: Wed, 22 Jul 2020 10:38:01 +0200
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,71 +107,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Rander Wang <rander.wang@intel.com>
+Hi devs,
 
-When all the links are suspended, the HDaudio controller may suspend
-and the power rails to the SoundWire IP may be disabled, requiring a
-complete re-initialization/enumeration on resume. However, if one or
-more Masters remained active, the HDaudio controller will remain active
-and the power rails will remain enabled. As a result, during the link
-resume step we can check if the context was preserved by verifying if
-the clock was stopped, and avoid doing a complete bus reset and
-re-enumeration.
+Sorry for the interruption. Any chance you can push the line for SSL2 
+usb id?
 
-Signed-off-by: Rander Wang <rander.wang@intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Thanks,
+
+Dmitry
+
+
+-------- Forwarded Message --------
+Subject: 	Fwd: [PATCH] Add implicit feedback quirk for SSL2. (from 
+laurie@tratt.net)
+Date: 	Mon, 15 Jun 2020 10:36:39 +0100
+From: 	Laurence Tratt <laurie@tratt.net>
+To: 	dpavlushko@gmail.com
+
+
+
+I forgot to CC you. Sorry!
+
+
+Laurie
+
+----- Forwarded message from Laurence Tratt <laurie@tratt.net> -----
+
+From: Laurence Tratt <laurie@tratt.net>
+To: alsa-devel@alsa-project.org
+Date: Mon, 15 Jun 2020 08:30:23 +0100
+Subject: [PATCH] Add implicit feedback quirk for SSL2.
+
+As expected, this requires the same quirk as the SSL2+ in order for the
+clock to sync. This was suggested by, and tested on an SSL2, by Dmitry.
+
+Signed-off-by: Dmitry <dpavlushko@gmail.com>
+Signed-off-by: Laurence Tratt <laurie@tratt.net>
 ---
- drivers/soundwire/intel.c | 19 +++++++++++++++++--
- 1 file changed, 17 insertions(+), 2 deletions(-)
+sound/usb/pcm.c | 1 +
+1 file changed, 1 insertion(+)
 
-diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index 22b3359855c5..da279b175848 100644
---- a/drivers/soundwire/intel.c
-+++ b/drivers/soundwire/intel.c
-@@ -1701,6 +1701,8 @@ static int intel_resume_runtime(struct device *dev)
- 	struct sdw_intel *sdw = cdns_to_intel(cdns);
- 	struct sdw_bus *bus = &cdns->bus;
- 	u32 clock_stop_quirks;
-+	bool clock_stop0;
-+	int status;
- 	int ret;
- 
- 	if (bus->prop.hw_disabled) {
-@@ -1742,11 +1744,24 @@ static int intel_resume_runtime(struct device *dev)
- 			return ret;
- 		}
- 
-+		/*
-+		 * An exception condition occurs for the CLK_STOP_BUS_RESET
-+		 * case if one or more masters remain active. In this condition,
-+		 * all the masters are powered on for they are in the same power
-+		 * domain. Master can preserve its context for clock stop0, so
-+		 * there is no need to clear slave status and reset bus.
-+		 */
-+		clock_stop0 = sdw_cdns_is_clock_stop(&sdw->cdns);
-+
- 		/*
- 		 * make sure all Slaves are tagged as UNATTACHED and
- 		 * provide reason for reinitialization
- 		 */
--		sdw_clear_slave_status(bus, SDW_UNATTACH_REQUEST_MASTER_RESET);
-+		if (!clock_stop0) {
-+			status = SDW_UNATTACH_REQUEST_MASTER_RESET;
-+			sdw_clear_slave_status(bus, status);
-+		}
-+
- 
- 		ret = sdw_cdns_enable_interrupt(cdns, true);
- 		if (ret < 0) {
-@@ -1754,7 +1769,7 @@ static int intel_resume_runtime(struct device *dev)
- 			return ret;
- 		}
- 
--		ret = sdw_cdns_clock_restart(cdns, true);
-+		ret = sdw_cdns_clock_restart(cdns, !clock_stop0);
- 		if (ret < 0) {
- 			dev_err(dev, "unable to restart clock during resume\n");
- 			return ret;
+diff --git sound/usb/pcm.c sound/usb/pcm.c
+index 84c0ae4319..dc1608bdf6 100644
+--- sound/usb/pcm.c
++++ sound/usb/pcm.c
+@@ -367,6 +367,7 @@ static int set_sync_ep_implicit_fb_quirk(struct 
+snd_usb_substream *subs,
+ifnum = 0;
+goto add_sync_ep_from_ifnum;
+case USB_ID(0x07fd, 0x0008): /* MOTU M Series */
++ case USB_ID(0x31e9, 0x0001): /* Solid State Logic SSL2 */
+case USB_ID(0x31e9, 0x0002): /* Solid State Logic SSL2+ */
+ep = 0x81;
+ifnum = 2;
+
 -- 
-2.17.1
+2.27.0
+
+
+----- End forwarded message -----
 

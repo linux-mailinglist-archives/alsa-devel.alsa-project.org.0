@@ -2,88 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 622D92299C5
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 16:06:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0272229AD9
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 16:59:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CF0B715F9;
-	Wed, 22 Jul 2020 16:05:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF0B715F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F7F71616;
+	Wed, 22 Jul 2020 16:58:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F7F71616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595426796;
-	bh=S7dY6eTUSDCX4vkLCfc1W0Ka79YbrCiqeuc5dPJkFZo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1595429948;
+	bh=Mpnb2N4+HV6m+Dhnk4tyypBJHBlOxDYNOk8OBQt9L5s=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rSrqKfFoZ1W6ClVyB8kKFVB9fFrLg3ThqCuiAxsd56JDGRwA0syTGcv3FSu7wNpzZ
-	 h8Y0/sfJX86mA+yS+TKyThYgLsJApPsvGvD3WyMstBbanhaCYSUX11tP5TWttA7BDQ
-	 QCubR3lG8/SxLOo1EuC/KfajdNRY8RXuTk6mnYyM=
+	b=WBj8rTTyqoyiaKRDxHFltgnkRh1IuECaZ4h96o4+nlceAD9CBiYN4zYd5+WJlpkm5
+	 NachBl6cZ3XiMxl3i9CAVa5/EI9Zg+UUGFwdjpT+5MXpAVmsCTFhCUqKlM3AvX+zMr
+	 NO6OSReFuuWP1sjAEc8ULqgsHE/w/+7P2WpalOiM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E48FF80139;
-	Wed, 22 Jul 2020 16:04:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 72602F800CE;
+	Wed, 22 Jul 2020 16:57:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7082CF80139; Wed, 22 Jul 2020 16:04:53 +0200 (CEST)
+ id 2309CF8014C; Wed, 22 Jul 2020 16:57:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_78,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6E1D5F80139
- for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 16:04:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E1D5F80139
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0DE6DF800CE
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 16:57:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DE6DF800CE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ks1r01r8"
-Received: by mail-wm1-x343.google.com with SMTP id o8so2052413wmh.4
- for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 07:04:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4Rs2Y2EqzdkKrOA6XoS+7IQYSW7ep9XsRJtfJ1V00SI=;
- b=ks1r01r8IlR17EoE2Q5OyQVSs4AV9IGOQE1iaO69O1yAzO7nIEE0kbTXCSNW+hmHbm
- RQrHbYI35gsDOVPSFAwtW3J4PPwkOS4OH+pPX3HHOsGNsYhn7f1duuxwYJfCFIWVm9/U
- BZTcbtEpjVEhMLOKSLcMrbEthdks1UCP5rHk+XiUNwf+TywwR8swnUdxnPoTbPd1vPrJ
- JxN9ltz1Mcj6AnzOz7E2oHmT7N0zeSKY1jA+Jac99v/4rO3AFrWeKME/L6wx4Iw/IZ2H
- vl0S02Yj4RUPqrcuYA08ibKKeHPFOkX1ATDQsXqDk/uWWPA8Pz75m758Je0/bUkAJWMC
- Mkbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4Rs2Y2EqzdkKrOA6XoS+7IQYSW7ep9XsRJtfJ1V00SI=;
- b=CgAaSH7kdIL+lDuvOJIBryXXjHNk2N2ApsIYvVFjCgnASGZ7cbqDh6CAejtuSNMcLv
- LB/zB3yBUUhlo2K8cyxXGN7P6ZghUgSpQ0xe5lO4RNSBkxDW2Z1J510oE1aXAzN0E7XP
- wcRMexG7Brj4DOwjD7tEjQ06ggkdGuivBYV8oX2swmS9WGqqYtOX2r7DcxC6pWHsVmYO
- Pc3I5ElX7zakASOK6YyJwT2hDpHw5lwr9fICsqiHeL6nVEsp8pOb9cvQG0D5jT/HI0po
- ZvMMJgycN1ndjgedfaacCKIC7b3tkk2UD66UV9JMwfYIyEdhakk6yRRFMQL0ek/A5ZRt
- 4yUg==
-X-Gm-Message-State: AOAM532IkBr1vBRtI5Qmuvn/ThADFqV9T91zhlnwJcYiq45JLNOqnX6c
- mwV/jWVd7vPzfrKcAiMUYtDlsR6XfxyvbyJ53FpI7fdl
-X-Google-Smtp-Source: ABdhPJzbBZpmvKOmpiAE1M0Qdqb/UFYsFJDbC0RenHJ5MR1TbtbU/Hqntla9nhteJ8Rfgxb5Lvy5BMZJ2KDmAy9jXz4=
-X-Received: by 2002:a7b:c5d8:: with SMTP id n24mr2173888wmk.153.1595426682017; 
- Wed, 22 Jul 2020 07:04:42 -0700 (PDT)
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="mL54vk1c"
+Received: from lelv0265.itg.ti.com ([10.180.67.224])
+ by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 06MEvBpk004910;
+ Wed, 22 Jul 2020 09:57:11 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1595429831;
+ bh=4Uf4TRn5vUb8L0d8FDIOQK0Qy4pBZfSImAAgzuqEAOI=;
+ h=Subject:To:References:From:Date:In-Reply-To;
+ b=mL54vk1csAw2axZ2LgbskInwLF51fwF3sqNSAbtJmQPnQ+NO8K+aigcaM2ZgLIiWd
+ jyRAPQKq+uyfL2ZoIGSZMXzlI7a8uCGPISwHFS4WI45IZLPPYrYlnqHlr4dUlB640r
+ w2gFe2LMSAvbbRB84nDLNHy7f70k5ZbcXbpBEWrU=
+Received: from DLEE109.ent.ti.com (dlee109.ent.ti.com [157.170.170.41])
+ by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 06MEv67o090277
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 22 Jul 2020 09:57:11 -0500
+Received: from DLEE111.ent.ti.com (157.170.170.22) by DLEE109.ent.ti.com
+ (157.170.170.41) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Wed, 22
+ Jul 2020 09:57:06 -0500
+Received: from fllv0039.itg.ti.com (10.64.41.19) by DLEE111.ent.ti.com
+ (157.170.170.22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
+ Frontend Transport; Wed, 22 Jul 2020 09:57:06 -0500
+Received: from [192.168.2.6] (ileax41-snat.itg.ti.com [10.172.224.153])
+ by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id 06MEv4fq071548;
+ Wed, 22 Jul 2020 09:57:05 -0500
+Subject: Re: [PATCH -next] ASoC: ti: fix SND_SOC_J721E_EVM warnings & errors
+To: Randy Dunlap <rdunlap@infradead.org>, LKML <linux-kernel@vger.kernel.org>, 
+ moderated for non-subscribers <alsa-devel@alsa-project.org>, Mark Brown
+ <broonie@kernel.org>
+References: <e74c690c-c7f8-fd42-e461-4f33571df4ef@infradead.org>
+From: Peter Ujfalusi <peter.ujfalusi@ti.com>
+X-Pep-Version: 2.0
+Message-ID: <8a5baa38-e5a9-ab82-d186-9939733e4d7e@ti.com>
+Date: Wed, 22 Jul 2020 17:58:17 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <20200721170007.4554-1-srinivas.kandagatla@linaro.org>
- <20200721170007.4554-7-srinivas.kandagatla@linaro.org>
-In-Reply-To: <20200721170007.4554-7-srinivas.kandagatla@linaro.org>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Wed, 22 Jul 2020 17:04:30 +0300
-Message-ID: <CAEnQRZA6Y99znD3ZtpuGhc+i-WVDtUW-jP1sF3MTg289S_Mr_g@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 6/6] ASoC: q6asm-dai: add support to
- set_codec_params
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, ckeepax@opensource.cirrus.com,
- Liam Girdwood <lgirdwood@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Vinod Koul <vkoul@kernel.org>,
- Mark Brown <broonie@kernel.org>
+In-Reply-To: <e74c690c-c7f8-fd42-e461-4f33571df4ef@infradead.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,40 +96,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jul 21, 2020 at 8:03 PM Srinivas Kandagatla
-<srinivas.kandagatla@linaro.org> wrote:
->
-> Make use of new set_codec_params callback to allow decoder switching
-> during gapless playback.
->
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Hi Randy,
+
+On 20/07/2020 21.32, Randy Dunlap wrote:
+> From: Randy Dunlap <rdunlap@infradead.org>
+>=20
+> SND_SOC_J721E_EVM should not select SND_SOC_PCM3168A_I2C when I2C
+> is not enabled. That causes build errors, so make this driver's
+> symbol depend on I2C.
+
+Thank you for the fix!
+
+Acked-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
+
+> WARNING: unmet direct dependencies detected for SND_SOC_PCM3168A_I2C
+>   Depends on [n]: SOUND [=3Dm] && !UML && SND [=3Dm] && SND_SOC [=3Dm] =
+&& I2C [=3Dn]
+>   Selected by [m]:
+>   - SND_SOC_J721E_EVM [=3Dm] && SOUND [=3Dm] && !UML && SND [=3Dm] && S=
+ND_SOC [=3Dm] && (DMA_OMAP [=3Dy] || TI_EDMA [=3Dm] || TI_K3_UDMA [=3Dn] =
+|| COMPILE_TEST [=3Dy]) && (ARCH_K3_J721E_SOC [=3Dn] || COMPILE_TEST [=3D=
+y])
+>=20
+> ../sound/soc/codecs/pcm3168a-i2c.c:59:1: warning: data definition has n=
+o type or storage class
+>  module_i2c_driver(pcm3168a_i2c_driver);
+>  ^~~~~~~~~~~~~~~~~
+> ../sound/soc/codecs/pcm3168a-i2c.c:59:1: error: type defaults to =E2=80=
+=98int=E2=80=99 in declaration of =E2=80=98module_i2c_driver=E2=80=99 [-W=
+error=3Dimplicit-int]
+> ../sound/soc/codecs/pcm3168a-i2c.c:59:1: warning: parameter names (with=
+out types) in function declaration
+> ../sound/soc/codecs/pcm3168a-i2c.c:49:26: warning: =E2=80=98pcm3168a_i2=
+c_driver=E2=80=99 defined but not used [-Wunused-variable]
+>  static struct i2c_driver pcm3168a_i2c_driver =3D {
+>                           ^~~~~~~~~~~~~~~~~~~
+> cc1: some warnings being treated as errors
+>=20
+>=20
+> Fixes: 6748d0559059 ("ASoC: ti: Add custom machine driver for j721e EVM=
+ (CPB and IVI)")
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> Cc: Peter Ujfalusi <peter.ujfalusi@ti.com>
+> Cc: Mark Brown <broonie@kernel.org>
 > ---
->  sound/soc/qcom/qdsp6/q6asm-dai.c | 33 ++++++++++++++++++++++++++++++++
->  1 file changed, 33 insertions(+)
->
-> diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
-> index b5c719682919..a8cfb1996614 100644
-> --- a/sound/soc/qcom/qdsp6/q6asm-dai.c
-> +++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
-> @@ -876,6 +876,37 @@ static int __q6asm_dai_compr_set_codec_params(struct snd_soc_component *componen
->         return 0;
->  }
->
-> +static int q6asm_dai_compr_set_codec_params(struct snd_soc_component *component,
-> +                                           struct snd_compr_stream *stream,
-> +                                           struct snd_codec *codec)
-> +{
-> +       struct snd_compr_runtime *runtime = stream->runtime;
-> +       struct q6asm_dai_rtd *prtd = runtime->private_data;
-> +       int ret;
-> +
-> +       ret = q6asm_open_write(prtd->audio_client, prtd->next_track_stream_id,
-> +                              codec->id, codec->profile, prtd->bits_per_sample,
-> +                              true);
-> +       if (ret < 0) {
-> +               pr_err("q6asm_open_write failed\n");
+>  sound/soc/ti/Kconfig |    1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> --- linux-next-20200720.orig/sound/soc/ti/Kconfig
+> +++ linux-next-20200720/sound/soc/ti/Kconfig
+> @@ -222,6 +222,7 @@ config SND_SOC_DM365_VOICE_CODEC_MODULE
+>  config SND_SOC_J721E_EVM
+>  	tristate "SoC Audio support for j721e EVM"
+>  	depends on ARCH_K3_J721E_SOC || COMPILE_TEST
+> +	depends on I2C
+>  	select SND_SOC_PCM3168A_I2C
+>  	select SND_SOC_DAVINCI_MCASP
+>  	help
+>=20
 
-Since you have component->dev here I think it is worth it to use
-dev_err instead of pr_err.
+- P=C3=A9ter
 
-Same for the rest of the code.
+Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
+Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
+

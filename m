@@ -2,67 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5816522963F
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 12:34:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEF7D22964D
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 12:36:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ABE3C1615;
-	Wed, 22 Jul 2020 12:33:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ABE3C1615
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F5A91663;
+	Wed, 22 Jul 2020 12:35:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F5A91663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595414064;
-	bh=wQk1K4q7mzOfU5e4l58VVW8nKJYgH+WRRAxxsK6UNPw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=hdqGJIrppOzY/OYttRKB91E03xzq2o22aA0lzjxLWG2CqP2CdSOf5RqpIHBliO/ng
-	 KrlHpVWWbvbsbGRKKEBTq4LgdE9ixCYL+W3Mb5dPvhu5ff5ZBlzYb+lgLwb0nOJnb5
-	 U30K6z8QPD0YrxWQadsC5HkM5ePBz0L5XGVdxGpA=
+	s=default; t=1595414165;
+	bh=XcGPgwhjAkY6BY+EIA9n3csl8UtX0G1TIbpMJbnF7SE=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=gDHdjVzeV9XJURaqAVoolOeTUSFLbqpB4nnU6wlLM1CoFikk8jjDsBwnEXncMCGxk
+	 7qCWOEd4pj/0yKG9GIkTlgw+UczNHacysrAPiUMgb9ViixHe2V9w8WEryZ23AvPsL6
+	 r/lrqvJ1EQc2mMODhkf2eQq1NN6CxQEceEoyNbrI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B82B7F80141;
-	Wed, 22 Jul 2020 12:32:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A70ABF802C3;
+	Wed, 22 Jul 2020 12:33:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B6EDF8014C; Wed, 22 Jul 2020 12:32:42 +0200 (CEST)
+ id 8C1E1F802C2; Wed, 22 Jul 2020 12:33:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
  [104.130.122.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6EE94F800CE
- for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 12:32:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EE94F800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E7F5F80290
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 12:32:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E7F5F80290
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="KgVBh13B"
+ header.i=@mg.codeaurora.org header.b="w40tY7hk"
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1595413954; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=wDVfiFLz8Bt9wOyiO9QdnWfu6iohpkpROaAy4Q28ldA=;
- b=KgVBh13BJ1Q4ljneOPpGvcm4dg2llYALQbCinyFg2tqhjiATzHrsTkgEQq25tRe5PuJxosuD
- t0djPc85MD1kMTBN1s4CQ/jRK4zr6CMnpqUUKR7uuSRrV3lIakHQuGhnO8diiL1SoB2DA5Gx
- Ta2iDo6+0y5dK8K26TEBIEcRprc=
+ s=smtp; t=1595413980; h=References: In-Reply-To: Message-Id: Date:
+ Subject: Cc: To: From: Sender;
+ bh=x7wA4+lvojLjr8mShenRnk8ElOYsHwhXwXEZ2cLlr/Q=;
+ b=w40tY7hkD8bRAwuIr0Sengy1+6HIc3IbwgAFy484WRrz4zJJ4hvn2VmqKEL6TDMlfpeCoes+
+ Bby3w3rRFOaAcA6Xzlv1E6HCKBv6zRfTAoA3FBSLiHuSNhHNl7uW+emPjKhqGHdOJfkTla7+
+ 8s7gDzrJcyBBQsjbPF79MdjkbFs=
 X-Mailgun-Sending-Ip: 104.130.122.29
 X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n19.prod.us-west-2.postgun.com with SMTP id
- 5f1815aeeef925b6946d3d47 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 22 Jul 2020 10:32:14
+ smtp-out-n09.prod.us-west-2.postgun.com with SMTP id
+ 5f1815b58e9b2c49c6ac0175 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 22 Jul 2020 10:32:21
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 98AD7C433CB; Wed, 22 Jul 2020 10:32:13 +0000 (UTC)
+ id 37E13C433C9; Wed, 22 Jul 2020 10:32:21 +0000 (UTC)
 Received: from rohkumar-linux.qualcomm.com (unknown [202.46.22.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: rohitkr)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 3B121C433CA;
- Wed, 22 Jul 2020 10:32:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 3B121C433CA
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 8105AC433CA;
+ Wed, 22 Jul 2020 10:32:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 8105AC433CA
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
@@ -74,11 +76,14 @@ To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
  srinivas.kandagatla@linaro.org, linux-arm-msm@vger.kernel.org,
  alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v4 00/12] ASoC: qcom: Add support for SC7180 lpass variant
-Date: Wed, 22 Jul 2020 16:01:43 +0530
-Message-Id: <1595413915-17867-1-git-send-email-rohitkr@codeaurora.org>
+Subject: [PATCH v4 01/12] ASoC: qcom: Add common array to initialize soc based
+ core clocks
+Date: Wed, 22 Jul 2020 16:01:44 +0530
+Message-Id: <1595413915-17867-2-git-send-email-rohitkr@codeaurora.org>
 X-Mailer: git-send-email 2.7.4
-Cc: Rohit kumar <rohitkr@codeaurora.org>
+In-Reply-To: <1595413915-17867-1-git-send-email-rohitkr@codeaurora.org>
+References: <1595413915-17867-1-git-send-email-rohitkr@codeaurora.org>
+Cc: Rohit kumar <rohitkr@codeaurora.org>, Ajit Pandey <ajitp@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,49 +99,121 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch chain add audio support for SC7180 soc by doing the required
-modification in existing common lpass-cpu/lpass-platform driver.
-This also fixes some concurrency issue.
+From: Ajit Pandey <ajitp@codeaurora.org>
 
-Changes since v3:
-	- Fixed yaml documentation comments and make dt_binding_check issues.
-	- Moved general fixes out of sc7180 specific patches as suggested by Srinivas.
-	- Update clock-names to make it same as existing platforms.
+LPASS variants have their own soc specific clocks that needs to be
+enabled for MI2S audio support. Added a common variable in drvdata to
+initialize such clocks using bulk clk api. Such clock names is
+defined in variants specific data and needs to fetched during init.
 
-Ajit Pandey (4):
-  ASoC: qcom: Add common array to initialize soc based core clocks
-  ASoC: qcom: lpass-platform: Replace card->dev with component->dev
-  include: dt-bindings: sound: Add sc7180-lpass bindings header
-  ASoC: qcom: lpass-sc7180: Add platform driver for lpass audio
+Signed-off-by: Ajit Pandey <ajitp@codeaurora.org>
+Signed-off-by: Rohit kumar <rohitkr@codeaurora.org>
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+ sound/soc/qcom/lpass-apq8016.c | 39 +++++++++++++++++++--------------------
+ sound/soc/qcom/lpass.h         | 10 +++++++---
+ 2 files changed, 26 insertions(+), 23 deletions(-)
 
-Rohit kumar (8):
-  ASoC: qcom: lpass-cpu: Move ahbix clk to platform specific function
-  ASoC: qcom: lpass-platform: fix memory leak
-  ASoC: qcom: lpass: Use regmap_field for i2sctl and dmactl registers
-  ASoC: qcom: lpass-cpu: fix concurrency issue
-  dt-bindings: sound: lpass-cpu: Add sc7180 lpass cpu node
-  ASoC: qcom: lpass-cpu: Use platform_get_resource
-  ASoC: qcom: lpass-platform: Use platform_get_irq
-  dt-bindings: sound: lpass-cpu: Move to yaml format
-
- .../devicetree/bindings/sound/qcom,lpass-cpu.txt   |  79 --------
- .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  | 185 ++++++++++++++++++
- include/dt-bindings/sound/sc7180-lpass.h           |  10 +
- sound/soc/qcom/Kconfig                             |   5 +
- sound/soc/qcom/Makefile                            |   2 +
- sound/soc/qcom/lpass-apq8016.c                     |  86 ++++++--
- sound/soc/qcom/lpass-cpu.c                         | 204 ++++++++++---------
- sound/soc/qcom/lpass-ipq806x.c                     |  67 +++++++
- sound/soc/qcom/lpass-lpaif-reg.h                   | 157 ++++++++-------
- sound/soc/qcom/lpass-platform.c                    | 155 +++++++++++----
- sound/soc/qcom/lpass-sc7180.c                      | 216 +++++++++++++++++++++
- sound/soc/qcom/lpass.h                             |  63 +++++-
- 12 files changed, 930 insertions(+), 299 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
- create mode 100644 Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
- create mode 100644 include/dt-bindings/sound/sc7180-lpass.h
- create mode 100644 sound/soc/qcom/lpass-sc7180.c
-
+diff --git a/sound/soc/qcom/lpass-apq8016.c b/sound/soc/qcom/lpass-apq8016.c
+index b3610d0..8210e37 100644
+--- a/sound/soc/qcom/lpass-apq8016.c
++++ b/sound/soc/qcom/lpass-apq8016.c
+@@ -161,32 +161,27 @@ static int apq8016_lpass_free_dma_channel(struct lpass_data *drvdata, int chan)
+ static int apq8016_lpass_init(struct platform_device *pdev)
+ {
+ 	struct lpass_data *drvdata = platform_get_drvdata(pdev);
++	struct lpass_variant *variant = drvdata->variant;
+ 	struct device *dev = &pdev->dev;
+-	int ret;
++	int ret, i;
+ 
+-	drvdata->pcnoc_mport_clk = devm_clk_get(dev, "pcnoc-mport-clk");
+-	if (IS_ERR(drvdata->pcnoc_mport_clk)) {
+-		dev_err(dev, "error getting pcnoc-mport-clk: %ld\n",
+-			PTR_ERR(drvdata->pcnoc_mport_clk));
+-		return PTR_ERR(drvdata->pcnoc_mport_clk);
+-	}
+ 
+-	ret = clk_prepare_enable(drvdata->pcnoc_mport_clk);
++	drvdata->clks = devm_kcalloc(dev, variant->num_clks,
++				     sizeof(*drvdata->clks), GFP_KERNEL);
++	drvdata->num_clks = variant->num_clks;
++
++	for (i = 0; i < drvdata->num_clks; i++)
++		drvdata->clks[i].id = variant->clk_name[i];
++
++	ret = devm_clk_bulk_get(dev, drvdata->num_clks, drvdata->clks);
+ 	if (ret) {
+-		dev_err(dev, "Error enabling pcnoc-mport-clk: %d\n", ret);
++		dev_err(dev, "Failed to get clocks %d\n", ret);
+ 		return ret;
+ 	}
+ 
+-	drvdata->pcnoc_sway_clk = devm_clk_get(dev, "pcnoc-sway-clk");
+-	if (IS_ERR(drvdata->pcnoc_sway_clk)) {
+-		dev_err(dev, "error getting pcnoc-sway-clk: %ld\n",
+-			PTR_ERR(drvdata->pcnoc_sway_clk));
+-		return PTR_ERR(drvdata->pcnoc_sway_clk);
+-	}
+-
+-	ret = clk_prepare_enable(drvdata->pcnoc_sway_clk);
++	ret = clk_bulk_prepare_enable(drvdata->num_clks, drvdata->clks);
+ 	if (ret) {
+-		dev_err(dev, "Error enabling pcnoc_sway_clk: %d\n", ret);
++		dev_err(dev, "apq8016 clk_enable failed\n");
+ 		return ret;
+ 	}
+ 
+@@ -197,8 +192,7 @@ static int apq8016_lpass_exit(struct platform_device *pdev)
+ {
+ 	struct lpass_data *drvdata = platform_get_drvdata(pdev);
+ 
+-	clk_disable_unprepare(drvdata->pcnoc_mport_clk);
+-	clk_disable_unprepare(drvdata->pcnoc_sway_clk);
++	clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
+ 
+ 	return 0;
+ }
+@@ -219,6 +213,11 @@ static struct lpass_variant apq8016_data = {
+ 	.wrdma_reg_stride	= 0x1000,
+ 	.wrdma_channel_start	= 5,
+ 	.wrdma_channels		= 2,
++	.clk_name		= (const char*[]) {
++				   "pcnoc-mport-clk",
++				   "pcnoc-sway-clk",
++				  },
++	.num_clks		= 2,
+ 	.dai_driver		= apq8016_lpass_cpu_dai_driver,
+ 	.num_dai		= ARRAY_SIZE(apq8016_lpass_cpu_dai_driver),
+ 	.dai_osr_clk_names	= (const char *[]) {
+diff --git a/sound/soc/qcom/lpass.h b/sound/soc/qcom/lpass.h
+index bd19ec5..450020e 100644
+--- a/sound/soc/qcom/lpass.h
++++ b/sound/soc/qcom/lpass.h
+@@ -51,9 +51,9 @@ struct lpass_data {
+ 	/* used it for handling interrupt per dma channel */
+ 	struct snd_pcm_substream *substream[LPASS_MAX_DMA_CHANNELS];
+ 
+-	/* 8016 specific */
+-	struct clk *pcnoc_mport_clk;
+-	struct clk *pcnoc_sway_clk;
++	/* SOC specific clock list */
++	struct clk_bulk_data *clks;
++	int num_clks;
+ 
+ };
+ 
+@@ -89,6 +89,10 @@ struct lpass_variant {
+ 	int num_dai;
+ 	const char * const *dai_osr_clk_names;
+ 	const char * const *dai_bit_clk_names;
++
++	/* SOC specific clocks configuration */
++	const char **clk_name;
++	int num_clks;
+ };
+ 
+ /* register the platform driver from the CPU DAI driver */
 -- 
 Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
 is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.

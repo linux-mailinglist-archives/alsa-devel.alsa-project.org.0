@@ -2,48 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BB4F2297DD
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 14:07:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B24BE22995A
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 15:46:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B6FA1615;
-	Wed, 22 Jul 2020 14:06:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B6FA1615
+	by alsa0.perex.cz (Postfix) with ESMTPS id 418E31615;
+	Wed, 22 Jul 2020 15:45:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 418E31615
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595419656;
-	bh=ak6a1NYc4VDDuU1+mouO1U0UBrb47QlwghIXyK1+ooM=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1595425596;
+	bh=laniH5UgS3DrsXSeVguJDybYLw25gKEKrpalctaeV8A=;
+	h=Date:From:To:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YsYY4XQlA9oaJCsnARm4MqSRHctgxzeFRgOQIMu3B9JkFjPlR80XLmi60j5UzbECd
-	 Gp6FQe5J4SSPPlIdf8hdtTD3gQL+Y2RNto8R7BO1Vb2wRzwqju5hmZ0HK4PT2YAd6Q
-	 45AfWp0N2lFk0XXcJuNFrD8qnXIYPvwjH3MJ8Pb0=
+	b=he6yz7qmmrKh/Al7d3X49mogAyGl2Z3vrLMNeQ1JkXT//KGHsA8cgtIpg4SIMah24
+	 GcKbEdmPZyG4Ngd8kfhVShRupxdWnFLzxYMTFMR1oZQUTAGIVqo1veltX58tCnXVSS
+	 +mHgyA01ATlJz/xaagh3A9PpfXv4ujQrt078lfOs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3387EF80087;
-	Wed, 22 Jul 2020 14:05:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68597F8014C;
+	Wed, 22 Jul 2020 15:44:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 261CCF8014C; Wed, 22 Jul 2020 14:05:53 +0200 (CEST)
+ id CFA58F8014C; Wed, 22 Jul 2020 15:44:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 8AB73F80139
- for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 14:05:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AB73F80139
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1595419543876207113-webhooks-bot@alsa-project.org>
-References: <1595419543876207113-webhooks-bot@alsa-project.org>
-Subject: Several issues with HP OMEN dc-0019-ur
-Message-Id: <20200722120553.261CCF8014C@alsa1.perex.cz>
-Date: Wed, 22 Jul 2020 14:05:53 +0200 (CEST)
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5EC11F80139
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 15:44:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EC11F80139
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="JtEvPKKk"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 349E62071A;
+ Wed, 22 Jul 2020 13:44:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1595425487;
+ bh=laniH5UgS3DrsXSeVguJDybYLw25gKEKrpalctaeV8A=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=JtEvPKKk9ePwlbsUXe8JIGCNQffTKaHbDfykpD21/3zHX3D3gT0MMTXMr7SBk5bpS
+ wQdGbvtpZT0xMqxLYHHRwk4cEyamAcnmxybYuGW04ts+28PbaXmStFP1+WQDJF+09F
+ EUmnIcSkI84ICarie4DxC6YUhrDV+O44MfHCfpHw=
+Date: Wed, 22 Jul 2020 14:44:34 +0100
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, shifu0704@thundersoft.com,
+ nikita.yoush@cogentembedded.com, rikard.falkeborn@gmail.com,
+ devicetree@vger.kernel.org, yuehaibing@huawei.com,
+ kuninori.morimoto.gx@renesas.com, corbet@lwn.net, cychiang@chromium.org,
+ l.stach@pengutronix.de, dinghao.liu@zju.edu.cn, jbrunet@baylibre.com,
+ perex@perex.cz, dmurphy@ti.com, linux-doc@vger.kernel.org, afd@ti.com,
+ robh+dt@kernel.org, lkp@intel.com, pankaj.laxminarayan.bharadiya@intel.com,
+ colin.king@canonical.com, tiwai@suse.com,
+ "Alexander A. Klimov" <grandmaster@al2klimov.de>, alsa-devel@alsa-project.org,
+ keescook@chromium.org, tzungbi@google.com, linux-kernel@vger.kernel.org
+In-Reply-To: <20200719153822.59788-1-grandmaster@al2klimov.de>
+References: <20200719153822.59788-1-grandmaster@al2klimov.de>
+Subject: Re: [PATCH for v5.9] ASoC: Replace HTTP links with HTTPS ones
+Message-Id: <159542547441.19620.12700618394214218697.b4-ty@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,30 +83,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #73 was edited from UnicodeMan:
+On Sun, 19 Jul 2020 17:38:22 +0200, Alexander A. Klimov wrote:
+> Rationale:
+> Reduces attack surface on kernel devs opening the links for MITM
+> as HTTPS traffic is much harder to manipulate.
+> 
+> Deterministic algorithm:
+> For each file:
+>   If not .svg:
+>     For each line:
+>       If doesn't contain `\bxmlns\b`:
+>         For each link, `\bhttp://[^# \t\r\n]*(?:\w|/)`:
+> 	  If neither `\bgnu\.org/license`, nor `\bmozilla\.org/MPL\b`:
+>             If both the HTTP and HTTPS versions
+>             return 200 OK and serve the same content:
+>               Replace HTTP with HTTPS.
 
-Hi. I am using HP OMEN dc0019ur laptop with linux 5.7-xanmod kernel and KDE neon system. 
-Laptop has combined 3.5mm jack and a seperate stereo microphone jack.
-Tried various quirks by creating  /etc/modprobe.d/mute.conf file and adding line "options snd-hda-intel model=XX", where XX is the name of the quirk from documentation here:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/sound/hd-audio/models.rst
+Applied to
 
-With no modprobe changes:
-mute led does not work, headphones work, but microphone is not detected, and if i plug anything into microphone jack, it switches to microphone in combined jack.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-With hp-line1-mic1 quirk: mute led works fine, headphones are detected, except microphone, though it works anyway. Seperate microphone jack does not work at all.
+Thanks!
 
-With headset-mic quirk:
-mute led does not work, headphones jack works, microphone (from headphones jack) is not detected when present but works when switched to anyway
-Microphone jack works perfectly (detects a plugged in mic, works in stereo).
+[1/1] ASoC: Replace HTTP links with HTTPS ones
+      commit: 5856d8bd308f9467cefa65d04e184a56a3977559
 
---- alsa-info.sh logs ---
-no quirks: http://alsa-project.org/db/?f=a73a83ba0610e3fd88310999b197fdde4372249a
-hp-line1-mic1: http://alsa-project.org/db/?f=f4d08dec7918c79a391fb1898d50c57a2448d872
-headset-mic: https://alsa-project.org/db/?f=4b1eeef821f39eea28071ac2f2c0babcf515ef14
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Not sure if it matters, but I want to add that I'm using nvidia render offload with reverse PRIME support, the gpu has one DP and one HDMI port wired directly to it.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-aaand, I hope I am writing this issue in correct place :D
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/73
-Repository URL: https://github.com/alsa-project/alsa-lib
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

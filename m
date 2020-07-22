@@ -2,48 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEF36229EC7
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 19:53:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29663229EF9
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 20:09:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2694015E2;
-	Wed, 22 Jul 2020 19:52:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2694015E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 852FC1661;
+	Wed, 22 Jul 2020 20:08:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 852FC1661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595440418;
-	bh=zD5OGmK8GXY9ivB8sUwYD15KCeWxdfti51fEvh21dlA=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=UXCUSsADN1iDKoyd2vH4NnEnf6OL4LuV3U6etA+1+rHrNgNSCPx+2ruQYzZZqE2ux
-	 AJoea58lnOnKyFR9gzuvxB580yjHTCc1Ien0ikhS2AqnlvFJcxbpk9gogw7Z1Wfc67
-	 RWPkL2PJX732HphNUm3bEEaWgfuICr9dZ/cMVytI=
+	s=default; t=1595441381;
+	bh=sgmFJO9Okfb3oqB2Fvnmn89/slOTXjmBQE+hbYhj1aU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ddw9qT3qTAiVVyLCDO+EawBlwrkq2JWW+K2SuskGZoCOp8q11VyUOQlSrmOODOwal
+	 w/uFmkAl1KX40ApAXeI1tQFtRjaungFOvGLl+2d2B169rBLAZ27PiqyJo5uRS0pCkw
+	 OAWC8WWfIZyzg5nB/uk32px6+7zrVM6bqpPQ/p2c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4EC14F800CE;
-	Wed, 22 Jul 2020 19:51:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA2C2F80150;
+	Wed, 22 Jul 2020 20:08:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E337FF800CE; Wed, 22 Jul 2020 19:51:52 +0200 (CEST)
+ id F2028F80150; Wed, 22 Jul 2020 20:07:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 6453CF800CE
- for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 19:51:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6453CF800CE
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from www1102.sakura.ne.jp (www1102.sakura.ne.jp [219.94.129.142])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2EA49F80087
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 20:07:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2EA49F80087
+Received: from fsav402.sakura.ne.jp (fsav402.sakura.ne.jp [133.242.250.101])
+ by www1102.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 06MI7ePS038841;
+ Thu, 23 Jul 2020 03:07:40 +0900 (JST)
+ (envelope-from katsuhiro@katsuster.net)
+Received: from www1102.sakura.ne.jp (219.94.129.142)
+ by fsav402.sakura.ne.jp (F-Secure/fsigk_smtp/550/fsav402.sakura.ne.jp);
+ Thu, 23 Jul 2020 03:07:40 +0900 (JST)
+X-Virus-Status: clean(F-Secure/fsigk_smtp/550/fsav402.sakura.ne.jp)
+Received: from localhost.localdomain (121.252.232.153.ap.dti.ne.jp
+ [153.232.252.121]) (authenticated bits=0)
+ by www1102.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 06MI7bJZ038819
+ (version=TLSv1.2 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+ Thu, 23 Jul 2020 03:07:40 +0900 (JST)
+ (envelope-from katsuhiro@katsuster.net)
+From: Katsuhiro Suzuki <katsuhiro@katsuster.net>
+To: Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>
+Subject: [PATCH] dt-bindings: sound: convert Everest ES8316 binding to yaml
+Date: Thu, 23 Jul 2020 03:07:28 +0900
+Message-Id: <20200722180728.993812-1-katsuhiro@katsuster.net>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1595440304715531111-webhooks-bot@alsa-project.org>
-References: <1595440304715531111-webhooks-bot@alsa-project.org>
-Subject: Several issues with HP OMEN dc-0019-ur
-Message-Id: <20200722175152.E337FF800CE@alsa1.perex.cz>
-Date: Wed, 22 Jul 2020 19:51:52 +0200 (CEST)
+Content-Transfer-Encoding: 8bit
+Cc: Katsuhiro Suzuki <katsuhiro@katsuster.net>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,30 +74,101 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #73 was edited from UnicodeMan:
+This patch converts Everest Semiconductor ES8316 low power audio
+CODEC binding to DT schema.
 
-Hi. I am using HP OMEN dc0019ur laptop with linux 5.7-xanmod kernel and KDE neon (Ubuntu-based) system. 
-Laptop has combined 3.5mm jack and a seperate stereo microphone jack.
-Tried various quirks by creating  /etc/modprobe.d/mute.conf file and adding line "options snd-hda-intel model=XX", where XX is the name of the quirk from documentation here:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/sound/hd-audio/models.rst
+Signed-off-by: Katsuhiro Suzuki <katsuhiro@katsuster.net>
+---
+ .../bindings/sound/everest,es8316.txt         | 23 ---------
+ .../bindings/sound/everest,es8316.yaml        | 49 +++++++++++++++++++
+ 2 files changed, 49 insertions(+), 23 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/everest,es8316.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/everest,es8316.yaml
 
-With no modprobe changes:
-mute led does not work, headphones work, but microphone is not detected, and if i plug anything into microphone jack, it switches to microphone in combined jack.
+diff --git a/Documentation/devicetree/bindings/sound/everest,es8316.txt b/Documentation/devicetree/bindings/sound/everest,es8316.txt
+deleted file mode 100644
+index 1bf03c5f2af4..000000000000
+--- a/Documentation/devicetree/bindings/sound/everest,es8316.txt
++++ /dev/null
+@@ -1,23 +0,0 @@
+-Everest ES8316 audio CODEC
+-
+-This device supports both I2C and SPI.
+-
+-Required properties:
+-
+-  - compatible  : should be "everest,es8316"
+-  - reg : the I2C address of the device for I2C
+-
+-Optional properties:
+-
+-  - clocks : a list of phandle, should contain entries for clock-names
+-  - clock-names : should include as follows:
+-         "mclk" : master clock (MCLK) of the device
+-
+-Example:
+-
+-es8316: codec@11 {
+-	compatible = "everest,es8316";
+-	reg = <0x11>;
+-	clocks = <&clks 10>;
+-	clock-names = "mclk";
+-};
+diff --git a/Documentation/devicetree/bindings/sound/everest,es8316.yaml b/Documentation/devicetree/bindings/sound/everest,es8316.yaml
+new file mode 100644
+index 000000000000..b713404dac4f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/everest,es8316.yaml
+@@ -0,0 +1,49 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/everest,es8316.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Everest ES8316 audio CODEC
++
++maintainers:
++  - Mark Brown <broonie@kernel.org>
++
++properties:
++  compatible:
++    const: everest,es8316
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: clock for master clock (MCLK)
++
++  clock-names:
++    items:
++      - const: mclk
++
++  "#sound-dai-cells":
++    const: 0
++
++required:
++  - compatible
++  - reg
++  - "#sound-dai-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c0 {
++      #address-cells = <1>;
++      #size-cells = <0>;
++      es8316: codec@11 {
++        compatible = "everest,es8316";
++        reg = <0x11>;
++        clocks = <&clks 10>;
++        clock-names = "mclk";
++        #sound-dai-cells = <0>;
++      };
++    };
+-- 
+2.27.0
 
-With hp-line1-mic1 quirk: mute led works fine, headphones are detected, except microphone, though it works anyway. Seperate microphone jack does not work at all.
-
-With headset-mic quirk:
-mute led does not work, headphones jack works, microphone (from headphones jack) is not detected when present but works when switched to anyway
-Microphone jack works perfectly (detects a plugged in mic, works in stereo).
-
---- alsa-info.sh logs ---
-no quirks: http://alsa-project.org/db/?f=a73a83ba0610e3fd88310999b197fdde4372249a
-hp-line1-mic1: http://alsa-project.org/db/?f=f4d08dec7918c79a391fb1898d50c57a2448d872
-headset-mic: https://alsa-project.org/db/?f=4b1eeef821f39eea28071ac2f2c0babcf515ef14
-
-Not sure if it matters, but I want to add that I'm using nvidia render offload with reverse PRIME support, the gpu has one DP and one HDMI port wired directly to it.
-
-aaand, I hope I am writing this issue in correct place :D
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/73
-Repository URL: https://github.com/alsa-project/alsa-lib

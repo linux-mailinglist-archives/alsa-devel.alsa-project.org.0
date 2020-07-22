@@ -2,82 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE625229BC6
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 17:49:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC516229E98
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 19:37:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6FB9F10E;
-	Wed, 22 Jul 2020 17:49:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FB9F10E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6257F1615;
+	Wed, 22 Jul 2020 19:36:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6257F1615
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595432995;
-	bh=uSSMfFd7Hm/b0WvCEUGnsvRn1l+2IFBvzRTO1IvTj3s=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=fOUQY8w2mFtuujYcewBUv4p9TPmTphinDsmhdCIZVOxphmoKdOpA1OdoGl29lH43M
-	 0G64vYQci8HzzTZwaU9RamoFpOiPmz8wq/AMO1FoPF7a1nphGBEkPU2SUIvQFndT2Y
-	 GZ+b3xLa2bFORe0KPBDdV78XkSwLG4Z8op/v0JjA=
+	s=default; t=1595439467;
+	bh=ejtNi02ZeSyR3Xp1DmTXdPnfpHmmq4O2Kq+BmPgk4G8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=oEe9ArbOyVRs53az4CFBm1tchwp6EGJK8v7C97oXLNLoy21CjC7a4YNHYlUq9QlJa
+	 xD02vvukssBntsExKRDTd+czAfX0jdgKeaiH0foMVYzbw2JTiMDTFGgIcXtQ6qroeQ
+	 pLkAfiuG/mijBKovvXVKuAHoaLwEzUZ7/P0qEx5E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96C5DF801F5;
-	Wed, 22 Jul 2020 17:47:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9302FF80150;
+	Wed, 22 Jul 2020 19:36:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EA643F8015A; Wed, 22 Jul 2020 17:47:30 +0200 (CEST)
+ id E5B7EF8014C; Wed, 22 Jul 2020 19:35:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B744DF80139
- for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 17:47:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B744DF80139
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="c7zvVHqa"
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
- by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 06MFlIF8110020;
- Wed, 22 Jul 2020 10:47:18 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1595432838;
- bh=XJ+ytuhtkKd7PxGGLQoO++jTzbDtr8cHVrzy6/eyodU=;
- h=From:To:CC:Subject:Date:In-Reply-To:References;
- b=c7zvVHqazamxkG/ApE8+1P25eW3S2f2pqRoCasN3ZDxa50JlDEbRyN+KC43VmhI6F
- spFMVxwOAUS3eZPPjFMa51sU5UAKMTSBH7UwZ7k3Owh5sQet+4iufLXiwrAR1ihJRC
- LakTLixG1MOQaPwykB7/fwnUtG0ugS9Gy0LWbwKM=
-Received: from DLEE113.ent.ti.com (dlee113.ent.ti.com [157.170.170.24])
- by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTP id 06MFlIWJ083089;
- Wed, 22 Jul 2020 10:47:18 -0500
-Received: from DLEE104.ent.ti.com (157.170.170.34) by DLEE113.ent.ti.com
- (157.170.170.24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Wed, 22
- Jul 2020 10:47:17 -0500
-Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE104.ent.ti.com
- (157.170.170.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Wed, 22 Jul 2020 10:47:17 -0500
-Received: from localhost (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 06MFlHsk009607;
- Wed, 22 Jul 2020 10:47:17 -0500
-From: Dan Murphy <dmurphy@ti.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <robh@kernel.org>
-Subject: [PATCH v2 2/2] ASoC: tas2562: Update shutdown GPIO property
-Date: Wed, 22 Jul 2020 10:47:06 -0500
-Message-ID: <20200722154706.9657-2-dmurphy@ti.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20200722154706.9657-1-dmurphy@ti.com>
-References: <20200722154706.9657-1-dmurphy@ti.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Dan Murphy <dmurphy@ti.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A085CF80139
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 19:34:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A085CF80139
+IronPort-SDR: zjoGfk7nBwVcfLDsyPYIWSV5iYDNdPBcyp5Ec77fGRvi8S4pLzABEd5IZO9fcvU1F1rPJTy0vu
+ Uk2tBgfy3KzQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9690"; a="130464195"
+X-IronPort-AV: E=Sophos;i="5.75,383,1589266800"; d="scan'208";a="130464195"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2020 10:34:50 -0700
+IronPort-SDR: dp4wJY1K11y4hDiZ6aUt72ahagtltI7vskufZJu+hYnzIHXUojWxhLPF8+HzpO9LKQD6z6m3K2
+ vP/bUkUDdWdg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.75,383,1589266800"; d="scan'208";a="270811957"
+Received: from mgorski-all-series.igk.intel.com ([10.237.149.201])
+ by fmsmga007.fm.intel.com with ESMTP; 22 Jul 2020 10:34:49 -0700
+From: Mateusz Gorski <mateusz.gorski@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: Intel: skl_hda_dsp_generic: Fix NULLptr dereference in
+ autosuspend delay
+Date: Wed, 22 Jul 2020 19:35:24 +0200
+Message-Id: <20200722173524.30161-1-mateusz.gorski@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: Mateusz Gorski <mateusz.gorski@linux.intel.com>, cezary.rojewski@intel.com,
+ broonie@kernel.org, tiwai@suse.com, pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,51 +74,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Update the shutdown GPIO property to be shutdown from shut-down.
+Different modules for HDMI codec are used depending on the
+"hda_codec_use_common_hdmi" option being enabled or not. Driver private
+context for both of them is different.
+This leads to null-pointer dereference error when driver tries to set
+autosuspend delay for HDMI codec while the option is off (hdac_hdmi
+module is used for HDMI).
 
-Fixes: c173dba44c2d2 ("ASoC: tas2562: Introduce the TAS2562 amplifier")
-Signed-off-by: Dan Murphy <dmurphy@ti.com>
+Change the string in conditional statement to "ehdaudio0D0" to ensure
+that only the HDAudio codec is handled by this function.
+
+Fixes: 5bf73b1b1dec ("ASoC: intel/skl/hda - fix oops on systems without i915 audio codec")
+Signed-off-by: Mateusz Gorski <mateusz.gorski@linux.intel.com>
 ---
+ sound/soc/intel/boards/skl_hda_dsp_generic.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-v2 - Set sdz_gpio to NULL if gpio property not present.
-
- sound/soc/codecs/tas2562.c | 21 +++++++++++++++++----
- 1 file changed, 17 insertions(+), 4 deletions(-)
-
-diff --git a/sound/soc/codecs/tas2562.c b/sound/soc/codecs/tas2562.c
-index e74628061040..8a53633a3853 100644
---- a/sound/soc/codecs/tas2562.c
-+++ b/sound/soc/codecs/tas2562.c
-@@ -680,12 +680,25 @@ static int tas2562_parse_dt(struct tas2562_data *tas2562)
- 	struct device *dev = tas2562->dev;
- 	int ret = 0;
+diff --git a/sound/soc/intel/boards/skl_hda_dsp_generic.c b/sound/soc/intel/boards/skl_hda_dsp_generic.c
+index ca4900036ead..bc50eda297ab 100644
+--- a/sound/soc/intel/boards/skl_hda_dsp_generic.c
++++ b/sound/soc/intel/boards/skl_hda_dsp_generic.c
+@@ -181,7 +181,7 @@ static void skl_set_hda_codec_autosuspend_delay(struct snd_soc_card *card)
+ 	struct snd_soc_dai *dai;
  
--	tas2562->sdz_gpio = devm_gpiod_get_optional(dev, "shut-down",
--						    GPIOD_OUT_HIGH);
-+	tas2562->sdz_gpio = devm_gpiod_get_optional(dev, "shutdown",
-+						      GPIOD_OUT_HIGH);
- 	if (IS_ERR(tas2562->sdz_gpio)) {
--		if (PTR_ERR(tas2562->sdz_gpio) == -EPROBE_DEFER) {
--			tas2562->sdz_gpio = NULL;
-+		tas2562->sdz_gpio = NULL;
-+		if (PTR_ERR(tas2562->sdz_gpio) == -EPROBE_DEFER)
- 			return -EPROBE_DEFER;
-+	}
-+
-+	/*
-+	 * The shut-down property is deprecated but needs to be checked for
-+	 * backwards compatibility.
-+	 */
-+	if (tas2562->sdz_gpio == NULL) {
-+		tas2562->sdz_gpio = devm_gpiod_get_optional(dev, "shut-down",
-+							      GPIOD_OUT_HIGH);
-+		if (IS_ERR(tas2562->sdz_gpio)) {
-+			tas2562->sdz_gpio = NULL;
-+			if (PTR_ERR(tas2562->sdz_gpio) == -EPROBE_DEFER)
-+				return -EPROBE_DEFER;
- 		}
- 	}
- 
+ 	for_each_card_rtds(card, rtd) {
+-		if (!strstr(rtd->dai_link->codecs->name, "ehdaudio"))
++		if (!strstr(rtd->dai_link->codecs->name, "ehdaudio0D0"))
+ 			continue;
+ 		dai = asoc_rtd_to_codec(rtd, 0);
+ 		hda_pvt = snd_soc_component_get_drvdata(dai->component);
 -- 
-2.27.0
+2.17.1
 

@@ -2,96 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 896DC2293CB
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 10:41:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2760622940B
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 10:52:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 33FB71662;
-	Wed, 22 Jul 2020 10:41:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33FB71662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8374C1615;
+	Wed, 22 Jul 2020 10:51:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8374C1615
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595407316;
-	bh=fuAK4slEcJ/XRIFHg9b+o/+NYakImU0/pXzr3hS1hoI=;
-	h=Subject:References:To:From:Date:In-Reply-To:List-Id:
+	s=default; t=1595407939;
+	bh=KBex7YObWFkv3ZED+tckY/19Y0OC0cIjEMo2Ccpv9Bg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Wrkb0AWnKickCo60zN10PmhRzR8l9JQmgDSIozlDkcwJZvywFBbBuJZeWf8z+lY4v
-	 buE4bQSxtr6kltDbmDHSfYqaHU4PiYQ6P4JA+ZxWzMxCd3wqrlPobKcJjK2Ur+NNE5
-	 OClUGmpvHwcXaWNQLOQMU775YSW2T59GmpoTsfxA=
+	b=CkhCpyrUXIjO8FQJuGSKpKMPM8IwAsZyS8879wfElPkFYTgQxstXwV+gWh6R7FwEV
+	 FLOZtB4OG7FnD9eOQUVPaaT5c2XBpyhjbzfUIdQFFxAQodsnkXQc7wPvZXO4tPM3Tz
+	 Xc2lT5ZKNm145CxTd2imGQzuI+rb04liHZYmckqw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 86745F8015A;
-	Wed, 22 Jul 2020 10:38:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD59FF80150;
+	Wed, 22 Jul 2020 10:50:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC081F8014C; Wed, 22 Jul 2020 07:06:53 +0200 (CEST)
+ id 371A2F8014C; Wed, 22 Jul 2020 10:50:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, SPF_HELO_NONE, SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
- [IPv6:2607:f8b0:4864:20::1031])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3051EF80087
- for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 07:06:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3051EF80087
+ by alsa1.perex.cz (Postfix) with ESMTPS id 61536F80087
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 10:50:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61536F80087
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="BulE6d5u"
-Received: by mail-pj1-x1031.google.com with SMTP id k5so540621pjg.3
- for <alsa-devel@alsa-project.org>; Tue, 21 Jul 2020 22:06:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:references:to:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-language;
- bh=LhvKHe0x0Vxk1UfTbL9MNG0KJ+mi+MFxDAymHvCYyhE=;
- b=BulE6d5uHTKTf2LJrb5LdYjzAj3eGa+3txwG678KAAvJOatuzFTnrgNsOESaxESfkW
- ogWj4KskaOoTQyY/ov2QjMRX5FZMF8feTSb54cQqYKzQPifhj3hN1ovaCBXVh1JEwO4o
- ZVbeXlwQb1TxIgo2sPQbYQ7SBMmSQgdjYT74jFhT/tPAgbhDWbUM2VWD+D2QgdRu0kix
- ZwgwFEvpxDC4bx9nuoKW83i6O3GjaZDUDN0OxKku3H76JtW8n3JBAo3wU1le4sLnjrJ3
- gd8d7DqBcXGxRsblHnE+2ABEZCav7rMJGHauFwDadfUGXxSyIW9EG5XzMAODd+DNGA+K
- xL8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:references:to:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language;
- bh=LhvKHe0x0Vxk1UfTbL9MNG0KJ+mi+MFxDAymHvCYyhE=;
- b=iJ6RDcgEEmdBH3OjwupGTXWtKFai9ZOJlPF3gNR2TqjeNncKwwg8sj4i9BH+bncomJ
- f1HRGm7OKvlAgVjSdkq8E5GRK1uYLG+uxq5QTACJKY40i5/rtP6tKBfMWDmUGrD+lYgJ
- sMVvYsxL0nPWWd9xSZyl3BBDWlX5V1KACPKOk7QR9qkpheyASUKDM8Y6vvB9DUH5goRR
- lnDzw7k8dvO50i/s9ESKCA4INjVvDDpzeuV/MgDWAmj8ktNceRb0e4NPc0WDm3Ji4Enn
- oyOyyuveL1y1nrOfkUVhIFVPm4vmczpQIuPHChhzzjgBJDwiD4kHOt1czTqCbrg+xjrX
- yM8A==
-X-Gm-Message-State: AOAM532OnfVq9PEVyrMCj9VzqvthJAWjHVXNuk5T9iTyxLhY63LtPWVM
- ZlsZxILrpcKBQKd6EmShFcru4b22
-X-Google-Smtp-Source: ABdhPJxJ9YDoIyTBI0wgY4LpLOKwKLg6M9BaGnAVNs6xSvk/5BGs+ScsVK5Pk0PdFMcDC0C3LrYrIg==
-X-Received: by 2002:a17:90a:2681:: with SMTP id
- m1mr7651589pje.204.1595394398280; 
- Tue, 21 Jul 2020 22:06:38 -0700 (PDT)
-Received: from [192.168.1.5] (cpe-76-95-88-7.socal.res.rr.com. [76.95.88.7])
- by smtp.gmail.com with ESMTPSA id 66sm22213398pfg.63.2020.07.21.22.06.37
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Jul 2020 22:06:37 -0700 (PDT)
-Subject: Fwd: Fwd: [PATCH] Add implicit feedback quirk for SSL2. (from
- laurie@tratt.net)
-References: <20200615093639.p74zvyupivfxou4b@overdrive.tratt.net>
-To: alsa-devel@alsa-project.org
-From: Dmitry Pavlushko <dpavlushko@gmail.com>
-X-Forwarded-Message-Id: <20200615093639.p74zvyupivfxou4b@overdrive.tratt.net>
-Message-ID: <958bbdf1-5a97-72ac-b7f0-01bda32add70@gmail.com>
-Date: Tue, 21 Jul 2020 22:06:12 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="iJzPYASL"
+Received: from localhost (p54b33083.dip0.t-ipconnect.de [84.179.48.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 6785D2065E;
+ Wed, 22 Jul 2020 08:50:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1595407823;
+ bh=KBex7YObWFkv3ZED+tckY/19Y0OC0cIjEMo2Ccpv9Bg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=iJzPYASLrtpyTXcRKDvZ/DG2+ITva/hZLilKwxh9W9WVvDgyr+Jf7zCm98iQodmP0
+ wXVnB3cdXiMmbV1Db++NNRZ35/pzumvSy/HpvIrhnm2t9ibHKi+f3AnTAYeoWSJnFY
+ yAsS1ll5wCriS7wGUkQlq5BljvfR5NCn3mALKCKs=
+Date: Wed, 22 Jul 2020 10:50:20 +0200
+From: Wolfram Sang <wsa@kernel.org>
+To: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH 00/20] Add support for SATA/PCIe/USB2[3]/VIN/CSI on
+ R8A774E1
+Message-ID: <20200722085020.GD1030@ninjato>
+References: <1594919915-5225-1-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
 MIME-Version: 1.0
-In-Reply-To: <20200615093639.p74zvyupivfxou4b@overdrive.tratt.net>
-Content-Language: en-US
-X-Mailman-Approved-At: Wed, 22 Jul 2020 10:38:01 +0200
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="C1iGAkRnbeBonpVg"
+Content-Disposition: inline
+In-Reply-To: <1594919915-5225-1-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, Geert Uytterhoeven <geert+renesas@glider.be>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-ide@vger.kernel.org, Prabhakar <prabhakar.csengg@gmail.com>,
+ linux-i2c@vger.kernel.org, Marek Vasut <marek.vasut+renesas@gmail.com>,
+ Magnus Damm <magnus.damm@gmail.com>, Kishon Vijay Abraham I <kishon@ti.com>,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ Niklas <niklas.soderlund@ragnatech.se>, Rob Herring <robh+dt@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ linux-usb@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-renesas-soc@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+ Mark Brown <broonie@kernel.org>, dmaengine@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,63 +94,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi devs,
 
-Sorry for the interruption. Any chance you can push the line for SSL2 
-usb id?
-
-Thanks,
-
-Dmitry
+--C1iGAkRnbeBonpVg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
 
--------- Forwarded Message --------
-Subject: 	Fwd: [PATCH] Add implicit feedback quirk for SSL2. (from 
-laurie@tratt.net)
-Date: 	Mon, 15 Jun 2020 10:36:39 +0100
-From: 	Laurence Tratt <laurie@tratt.net>
-To: 	dpavlushko@gmail.com
+> This patch series adds support for the following peripherals on RZ/G2H SoC
+>  * PCIe
+>  * SATA
+>  * USB2
+>  * USB3
+>  * Audio
+>  * VIN
+>  * CSI
+
+Nice. But please update your recipients list. No need to have the i2c
+mailing list in there.
 
 
+--C1iGAkRnbeBonpVg
+Content-Type: application/pgp-signature; name="signature.asc"
 
-I forgot to CC you. Sorry!
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl8X/cwACgkQFA3kzBSg
+KbbCjg/9EwkGut+pjFLsSqqQcdsIzTD9kym4OTeB/bHTnHu+yCKyYJ0Sa6ytd/+O
+J9JLAahz7QkGnfOSFkz17HGK29XcNocub/8bIAuUBuydV8yQrleXLt/3oOKWOWrt
+FC9p8gGr1q0/DLKeCOeIG1ftIaOe22L6bJsuxCzhJG8DetJY0If4fZ+nZc08r6Af
+qMClhrnXZDqG7mYhLiWkeeKoiootXREJ8b2NozWKGLkQF0zMpSzQ0H+IwNrj6ElB
+OCZHdbRrRLc1oIHmNWosZiFrH20DmVdjRUaZhvP1sBiw7/CdjZAf10OedOF8fv48
+PGMhu3HM2FsqzPncnYAiNtTJrwESnDDROinJW8D+mAjFToABbnr1Nhc5iC38elIl
+HTsJgC03NEZfZ1k6rvr1t/cYGcHePKzXod1ftEvvmT9093mGLlArZhMmKDFcXiDU
+4g01TTz4SetHaOqdzZlPdxu5cJ1YGyMcOQQgBAC1C2vOLGg2Fsqs8VBI/ud/VAG2
+XYAILg0D7wbFUd1fMYkG1W4x9HNdVlNXd4cCZWr4Geqc51B/9CQyJPhPJfCMK8py
+KNcd8JmzsXN1oXW9E7K1VjHiMCb9TsBswsXXz8nnsfUuE09CpVQGfFqtmS+2nMjV
+4VyHziCHbgqRqmlFlzwkGp7gcBcxBywyBwhRobKdGCTwFF+J7VE=
+=oXte
+-----END PGP SIGNATURE-----
 
-Laurie
-
------ Forwarded message from Laurence Tratt <laurie@tratt.net> -----
-
-From: Laurence Tratt <laurie@tratt.net>
-To: alsa-devel@alsa-project.org
-Date: Mon, 15 Jun 2020 08:30:23 +0100
-Subject: [PATCH] Add implicit feedback quirk for SSL2.
-
-As expected, this requires the same quirk as the SSL2+ in order for the
-clock to sync. This was suggested by, and tested on an SSL2, by Dmitry.
-
-Signed-off-by: Dmitry <dpavlushko@gmail.com>
-Signed-off-by: Laurence Tratt <laurie@tratt.net>
----
-sound/usb/pcm.c | 1 +
-1 file changed, 1 insertion(+)
-
-diff --git sound/usb/pcm.c sound/usb/pcm.c
-index 84c0ae4319..dc1608bdf6 100644
---- sound/usb/pcm.c
-+++ sound/usb/pcm.c
-@@ -367,6 +367,7 @@ static int set_sync_ep_implicit_fb_quirk(struct 
-snd_usb_substream *subs,
-ifnum = 0;
-goto add_sync_ep_from_ifnum;
-case USB_ID(0x07fd, 0x0008): /* MOTU M Series */
-+ case USB_ID(0x31e9, 0x0001): /* Solid State Logic SSL2 */
-case USB_ID(0x31e9, 0x0002): /* Solid State Logic SSL2+ */
-ep = 0x81;
-ifnum = 2;
-
--- 
-2.27.0
-
-
------ End forwarded message -----
-
+--C1iGAkRnbeBonpVg--

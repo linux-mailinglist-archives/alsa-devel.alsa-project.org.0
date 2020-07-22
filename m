@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B24BE22995A
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 15:46:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3E25229977
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 15:47:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 418E31615;
-	Wed, 22 Jul 2020 15:45:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 418E31615
+	by alsa0.perex.cz (Postfix) with ESMTPS id EA6321662;
+	Wed, 22 Jul 2020 15:46:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA6321662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595425596;
-	bh=laniH5UgS3DrsXSeVguJDybYLw25gKEKrpalctaeV8A=;
-	h=Date:From:To:In-Reply-To:References:Subject:List-Id:
+	s=default; t=1595425642;
+	bh=TGwGtl4hnSuAa0lA1jAL1oK0QKXm5nHXnNhEo7w5Eu8=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=he6yz7qmmrKh/Al7d3X49mogAyGl2Z3vrLMNeQ1JkXT//KGHsA8cgtIpg4SIMah24
-	 GcKbEdmPZyG4Ngd8kfhVShRupxdWnFLzxYMTFMR1oZQUTAGIVqo1veltX58tCnXVSS
-	 +mHgyA01ATlJz/xaagh3A9PpfXv4ujQrt078lfOs=
+	b=awB2eaxb/i4OB4ga/K0oJ8cFhB90lmLh6ldKoamxSbg8UMs5Wsz+DYNoj+FZpXp/A
+	 vuXry227AE8L0YpOBJ82DD+5Tf467rStOqgkI+noRuQSVXky3uYp7cTc5gLyiBk444
+	 7AKearDVdfmB526/bTa5xM/4PjUfcYL9hFa632GQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68597F8014C;
-	Wed, 22 Jul 2020 15:44:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23E93F80272;
+	Wed, 22 Jul 2020 15:45:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CFA58F8014C; Wed, 22 Jul 2020 15:44:52 +0200 (CEST)
+ id 856E8F801F5; Wed, 22 Jul 2020 15:45:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,40 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5EC11F80139
- for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 15:44:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EC11F80139
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B18EF80150
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 15:44:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B18EF80150
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JtEvPKKk"
+ header.b="gN+M0Ngv"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 349E62071A;
- Wed, 22 Jul 2020 13:44:47 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4E9CF20729;
+ Wed, 22 Jul 2020 13:44:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1595425487;
- bh=laniH5UgS3DrsXSeVguJDybYLw25gKEKrpalctaeV8A=;
+ s=default; t=1595425492;
+ bh=TGwGtl4hnSuAa0lA1jAL1oK0QKXm5nHXnNhEo7w5Eu8=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=JtEvPKKk9ePwlbsUXe8JIGCNQffTKaHbDfykpD21/3zHX3D3gT0MMTXMr7SBk5bpS
- wQdGbvtpZT0xMqxLYHHRwk4cEyamAcnmxybYuGW04ts+28PbaXmStFP1+WQDJF+09F
- EUmnIcSkI84ICarie4DxC6YUhrDV+O44MfHCfpHw=
-Date: Wed, 22 Jul 2020 14:44:34 +0100
+ b=gN+M0NgvkHhpabJCkc6BjoIbynDIBQn954c4mMAbcS+BOgNAKZpz+0gbW7P60Fosx
+ tZZttzu+zW/VMIV82ItK85Rc59r8XrA9SlkRQNoHIZ+LyqoTd/CtMrvpnacb9bDpvZ
+ +NxDvV+BN78fYWauyerDontCuqGCHpVweRYoRkT4=
+Date: Wed, 22 Jul 2020 14:44:39 +0100
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, shifu0704@thundersoft.com,
- nikita.yoush@cogentembedded.com, rikard.falkeborn@gmail.com,
- devicetree@vger.kernel.org, yuehaibing@huawei.com,
- kuninori.morimoto.gx@renesas.com, corbet@lwn.net, cychiang@chromium.org,
- l.stach@pengutronix.de, dinghao.liu@zju.edu.cn, jbrunet@baylibre.com,
- perex@perex.cz, dmurphy@ti.com, linux-doc@vger.kernel.org, afd@ti.com,
- robh+dt@kernel.org, lkp@intel.com, pankaj.laxminarayan.bharadiya@intel.com,
- colin.king@canonical.com, tiwai@suse.com,
- "Alexander A. Klimov" <grandmaster@al2klimov.de>, alsa-devel@alsa-project.org,
- keescook@chromium.org, tzungbi@google.com, linux-kernel@vger.kernel.org
-In-Reply-To: <20200719153822.59788-1-grandmaster@al2klimov.de>
-References: <20200719153822.59788-1-grandmaster@al2klimov.de>
-Subject: Re: [PATCH for v5.9] ASoC: Replace HTTP links with HTTPS ones
-Message-Id: <159542547441.19620.12700618394214218697.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
+In-Reply-To: <20200717101950.3885187-1-kai.vehmanen@linux.intel.com>
+References: <20200717101950.3885187-1-kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH 1/3] ASoC: hdac_hda: call patch_ops.free() on probe error
+Message-Id: <159542547442.19620.8026322678999646660.b4-ty@kernel.org>
+Cc: pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,21 +75,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 19 Jul 2020 17:38:22 +0200, Alexander A. Klimov wrote:
-> Rationale:
-> Reduces attack surface on kernel devs opening the links for MITM
-> as HTTPS traffic is much harder to manipulate.
-> 
-> Deterministic algorithm:
-> For each file:
->   If not .svg:
->     For each line:
->       If doesn't contain `\bxmlns\b`:
->         For each link, `\bhttp://[^# \t\r\n]*(?:\w|/)`:
-> 	  If neither `\bgnu\.org/license`, nor `\bmozilla\.org/MPL\b`:
->             If both the HTTP and HTTPS versions
->             return 200 OK and serve the same content:
->               Replace HTTP with HTTPS.
+On Fri, 17 Jul 2020 13:19:48 +0300, Kai Vehmanen wrote:
+> Add error handling for patch_ops in hdac_hda_codec_probe().
 
 Applied to
 
@@ -105,8 +84,12 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Replace HTTP links with HTTPS ones
-      commit: 5856d8bd308f9467cefa65d04e184a56a3977559
+[1/3] ASoC: hdac_hda: call patch_ops.free() on probe error
+      commit: 640f835cd052bba403f955db15130ff813be78d2
+[2/3] ASoC: hdac_hda: fix memleak on module unload
+      commit: c3ec8ac82105e9589dcd72636b6fd114db690d55
+[3/3] ASoC: hdac_hda: fix deadlock after PCM open error
+      commit: 06f07e2365378d51eddd0b5bf23506e1237662b0
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

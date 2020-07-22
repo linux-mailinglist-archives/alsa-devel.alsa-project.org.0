@@ -2,73 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DE3B229991
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 15:49:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 622D92299C5
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jul 2020 16:06:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7AFD1615;
-	Wed, 22 Jul 2020 15:48:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7AFD1615
+	by alsa0.perex.cz (Postfix) with ESMTPS id CF0B715F9;
+	Wed, 22 Jul 2020 16:05:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF0B715F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595425789;
-	bh=UVmbuLKopkN2E3NVwRVE/SS4uLAvidcAX3P5wvIaRiU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1595426796;
+	bh=S7dY6eTUSDCX4vkLCfc1W0Ka79YbrCiqeuc5dPJkFZo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vJ3vHWbE5kTzptu+zwbLUlPX4wsQpS3zVnAe/4dNYhQB39Wbf1OGzwphQAQLwneBl
-	 ou2uhpyn3o+49kp0IZV+7RmNt6uJe9sehzraih89sQy6lSiZZzzxlGUQpTQaqLVqhi
-	 2GAID9vUesXG+PSHTL3H8rBN9SQ7rwdpzMVy6yXw=
+	b=rSrqKfFoZ1W6ClVyB8kKFVB9fFrLg3ThqCuiAxsd56JDGRwA0syTGcv3FSu7wNpzZ
+	 h8Y0/sfJX86mA+yS+TKyThYgLsJApPsvGvD3WyMstBbanhaCYSUX11tP5TWttA7BDQ
+	 QCubR3lG8/SxLOo1EuC/KfajdNRY8RXuTk6mnYyM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43032F80150;
-	Wed, 22 Jul 2020 15:48:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E48FF80139;
+	Wed, 22 Jul 2020 16:04:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94351F8014C; Wed, 22 Jul 2020 15:48:56 +0200 (CEST)
+ id 7082CF80139; Wed, 22 Jul 2020 16:04:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A4170F80141
- for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 15:48:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4170F80141
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6E1D5F80139
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 16:04:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E1D5F80139
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="2cNJj3xX"
-Received: from localhost (c-73-47-72-35.hsd1.nh.comcast.net [73.47.72.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id DF17A2065D;
- Wed, 22 Jul 2020 13:48:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1595425729;
- bh=UVmbuLKopkN2E3NVwRVE/SS4uLAvidcAX3P5wvIaRiU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=2cNJj3xXCHuNZIQ2dmW2I79gpY8nouuA60DzCwNP1JoRpuOLnGoXD6yfs3bKqff6x
- +jaT+OAZgrFzi5aPdaMHVbOSW8vxIh2VlKWgjnqGKibGgnKjLAhPslR4loWk92icm8
- whUh6QG6tqb76QCyS4SaIqQ6vGqIDHoZONQwTbUE=
-Date: Wed, 22 Jul 2020 09:48:47 -0400
-From: Sasha Levin <sashal@kernel.org>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH AUTOSEL 4.4 7/9] ALSA: hda/hdmi: fix failures at PCM open
- on Intel ICL and later
-Message-ID: <20200722134847.GC406581@sasha-vm>
-References: <20200714144024.4036118-1-sashal@kernel.org>
- <20200714144024.4036118-7-sashal@kernel.org>
- <alpine.DEB.2.22.394.2007151332320.3186@eliteleevi.tm.intel.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ks1r01r8"
+Received: by mail-wm1-x343.google.com with SMTP id o8so2052413wmh.4
+ for <alsa-devel@alsa-project.org>; Wed, 22 Jul 2020 07:04:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=4Rs2Y2EqzdkKrOA6XoS+7IQYSW7ep9XsRJtfJ1V00SI=;
+ b=ks1r01r8IlR17EoE2Q5OyQVSs4AV9IGOQE1iaO69O1yAzO7nIEE0kbTXCSNW+hmHbm
+ RQrHbYI35gsDOVPSFAwtW3J4PPwkOS4OH+pPX3HHOsGNsYhn7f1duuxwYJfCFIWVm9/U
+ BZTcbtEpjVEhMLOKSLcMrbEthdks1UCP5rHk+XiUNwf+TywwR8swnUdxnPoTbPd1vPrJ
+ JxN9ltz1Mcj6AnzOz7E2oHmT7N0zeSKY1jA+Jac99v/4rO3AFrWeKME/L6wx4Iw/IZ2H
+ vl0S02Yj4RUPqrcuYA08ibKKeHPFOkX1ATDQsXqDk/uWWPA8Pz75m758Je0/bUkAJWMC
+ Mkbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=4Rs2Y2EqzdkKrOA6XoS+7IQYSW7ep9XsRJtfJ1V00SI=;
+ b=CgAaSH7kdIL+lDuvOJIBryXXjHNk2N2ApsIYvVFjCgnASGZ7cbqDh6CAejtuSNMcLv
+ LB/zB3yBUUhlo2K8cyxXGN7P6ZghUgSpQ0xe5lO4RNSBkxDW2Z1J510oE1aXAzN0E7XP
+ wcRMexG7Brj4DOwjD7tEjQ06ggkdGuivBYV8oX2swmS9WGqqYtOX2r7DcxC6pWHsVmYO
+ Pc3I5ElX7zakASOK6YyJwT2hDpHw5lwr9fICsqiHeL6nVEsp8pOb9cvQG0D5jT/HI0po
+ ZvMMJgycN1ndjgedfaacCKIC7b3tkk2UD66UV9JMwfYIyEdhakk6yRRFMQL0ek/A5ZRt
+ 4yUg==
+X-Gm-Message-State: AOAM532IkBr1vBRtI5Qmuvn/ThADFqV9T91zhlnwJcYiq45JLNOqnX6c
+ mwV/jWVd7vPzfrKcAiMUYtDlsR6XfxyvbyJ53FpI7fdl
+X-Google-Smtp-Source: ABdhPJzbBZpmvKOmpiAE1M0Qdqb/UFYsFJDbC0RenHJ5MR1TbtbU/Hqntla9nhteJ8Rfgxb5Lvy5BMZJ2KDmAy9jXz4=
+X-Received: by 2002:a7b:c5d8:: with SMTP id n24mr2173888wmk.153.1595426682017; 
+ Wed, 22 Jul 2020 07:04:42 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.22.394.2007151332320.3186@eliteleevi.tm.intel.com>
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+References: <20200721170007.4554-1-srinivas.kandagatla@linaro.org>
+ <20200721170007.4554-7-srinivas.kandagatla@linaro.org>
+In-Reply-To: <20200721170007.4554-7-srinivas.kandagatla@linaro.org>
+From: Daniel Baluta <daniel.baluta@gmail.com>
+Date: Wed, 22 Jul 2020 17:04:30 +0300
+Message-ID: <CAEnQRZA6Y99znD3ZtpuGhc+i-WVDtUW-jP1sF3MTg289S_Mr_g@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 6/6] ASoC: q6asm-dai: add support to
+ set_codec_params
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, ckeepax@opensource.cirrus.com,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Vinod Koul <vkoul@kernel.org>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,25 +99,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jul 15, 2020 at 01:52:05PM +0300, Kai Vehmanen wrote:
->Hi Sasha,
+On Tue, Jul 21, 2020 at 8:03 PM Srinivas Kandagatla
+<srinivas.kandagatla@linaro.org> wrote:
 >
->On Tue, 14 Jul 2020, Sasha Levin wrote:
+> Make use of new set_codec_params callback to allow decoder switching
+> during gapless playback.
 >
->> From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
->>
->> [ Upstream commit 56275036d8185f92eceac7479d48b858ee3dab84 ]
->>
->> When HDMI PCM devices are opened in a specific order, with at least one
->> HDMI/DP receiver connected, ALSA PCM open fails to -EBUSY on the
->> connected monitor, on recent Intel platforms (ICL/JSL and newer). While
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
+>  sound/soc/qcom/qdsp6/q6asm-dai.c | 33 ++++++++++++++++++++++++++++++++
+>  1 file changed, 33 insertions(+)
 >
->we don't have Ice Lake hardware support in the HDA HDMI codec driver in
->any 4.x stable trees (only in 5.1+), so this patch will not help on those
->and can be dropped.
+> diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
+> index b5c719682919..a8cfb1996614 100644
+> --- a/sound/soc/qcom/qdsp6/q6asm-dai.c
+> +++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
+> @@ -876,6 +876,37 @@ static int __q6asm_dai_compr_set_codec_params(struct snd_soc_component *componen
+>         return 0;
+>  }
+>
+> +static int q6asm_dai_compr_set_codec_params(struct snd_soc_component *component,
+> +                                           struct snd_compr_stream *stream,
+> +                                           struct snd_codec *codec)
+> +{
+> +       struct snd_compr_runtime *runtime = stream->runtime;
+> +       struct q6asm_dai_rtd *prtd = runtime->private_data;
+> +       int ret;
+> +
+> +       ret = q6asm_open_write(prtd->audio_client, prtd->next_track_stream_id,
+> +                              codec->id, codec->profile, prtd->bits_per_sample,
+> +                              true);
+> +       if (ret < 0) {
+> +               pr_err("q6asm_open_write failed\n");
 
-Will do, thank you.
+Since you have component->dev here I think it is worth it to use
+dev_err instead of pr_err.
 
--- 
-Thanks,
-Sasha
+Same for the rest of the code.

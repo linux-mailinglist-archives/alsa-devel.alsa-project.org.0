@@ -2,78 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 592ED22B04E
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jul 2020 15:19:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B156722B051
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jul 2020 15:20:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BA5D81689;
-	Thu, 23 Jul 2020 15:18:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA5D81689
+	by alsa0.perex.cz (Postfix) with ESMTPS id 530221694;
+	Thu, 23 Jul 2020 15:19:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 530221694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595510359;
-	bh=lCadvjwPcne52rOQ9A8bjzSwjX8uW2CdrnY39smHQpI=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1595510405;
+	bh=EB2K7PyJ0cs7BsEVKT9EmnpbojNzrMksdoTUMLSxrCA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OGNscNWeg5uKhQPawqdq1R5MffiS+kXL5BqiRvrLrBcZaQwWvTVsczK5BUX9NmzJd
-	 qQZpCXAMs6HA10wDxEIIy1ToQvfUYpKn4fGTFlV8AEDRgq3aGfLSMh13fztrYBm8co
-	 EuZH1o814CTmDkkxD3IC0k7E/VkrS3c+ge0Sir3s=
+	b=gSiSMDYG6rkd3wzJ0LiKhv0Uw8PvNOZSMVx1l+8j11+UlfZgJ1D+LwVpj8MefqNfe
+	 fDdXTEZlsn5I8OEvTgrYBb5TJfx/as8lc10EM2bWOlXZKtc7x0SCbYmsHotHX37UEc
+	 66KkV7o4e4An4lZUePIr8mV2rBsNGyqXvymEcURE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA465F80268;
-	Thu, 23 Jul 2020 15:17:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2CB4CF800CE;
+	Thu, 23 Jul 2020 15:17:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EDCD7F8024A; Thu, 23 Jul 2020 15:17:35 +0200 (CEST)
+ id EE429F800CE; Thu, 23 Jul 2020 15:17:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.7 required=5.0 tests=NICE_REPLY_A,SPF_HELO_PASS,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 26D3EF8011F
- for <alsa-devel@alsa-project.org>; Thu, 23 Jul 2020 15:17:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26D3EF8011F
-IronPort-SDR: NxMcJydoSG/JlxoLgMFvPYyWpGjSWTs755/UDp6qiqpjirpbK+TN+Ed1555Ug+191xx919gzYL
- yRFhS01xZXQw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9690"; a="130080613"
-X-IronPort-AV: E=Sophos;i="5.75,386,1589266800"; d="scan'208";a="130080613"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2020 06:17:25 -0700
-IronPort-SDR: zbgCTcp4IHYwpFjzqAPenzobnSdjqR7FCNur+48Vt9nKvjlryi0J9tzZbQcNUZim/zBCp4RJGk
- PdPB2hRN0uxQ==
-X-IronPort-AV: E=Sophos;i="5.75,386,1589266800"; d="scan'208";a="284574257"
-Received: from sxholi-mobl1.amr.corp.intel.com (HELO [10.254.76.108])
- ([10.254.76.108])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2020 06:17:24 -0700
-Subject: Re: [RFC PATCH v2 2/6] ALSA: compress: add new ioctl for setting
- codec parameters
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8AEE6F800CE
+ for <alsa-devel@alsa-project.org>; Thu, 23 Jul 2020 15:17:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AEE6F800CE
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 07FB5AB55;
+ Thu, 23 Jul 2020 13:17:37 +0000 (UTC)
+Date: Thu, 23 Jul 2020 15:17:28 +0200
+Message-ID: <s5hlfjaqsk7.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
 To: Vinod Koul <vkoul@kernel.org>
+Subject: Re: [RFC PATCH v2 0/6] ALSA: compress: add support to change codec
+ profile in gapless playback
+In-Reply-To: <20200723130522.GB12965@vkoul-mobl>
 References: <20200721170007.4554-1-srinivas.kandagatla@linaro.org>
- <20200721170007.4554-3-srinivas.kandagatla@linaro.org>
- <ee2dc239-c1a7-f48f-c6f0-ec6e61ccdda6@linux.intel.com>
- <9bbfebf9-9a70-46e3-1808-413d04aa6b2c@linaro.org>
- <19cfe3fe-4b99-0976-679d-28523d7b9990@linux.intel.com>
- <20200723044734.GU12965@vkoul-mobl>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <8afd732a-750f-08d6-87a0-3088b4957f82@linux.intel.com>
-Date: Thu, 23 Jul 2020 08:17:23 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <20200723044734.GU12965@vkoul-mobl>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com, tiwai@suse.com,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, broonie@kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+ <s5hpn8mqudq.wl-tiwai@suse.de> <20200723130522.GB12965@vkoul-mobl>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com, tiwai@suse.com,
+ broonie@kernel.org, Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,32 +72,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 7/22/20 11:47 PM, Vinod Koul wrote:
-> On 22-07-20, 10:36, Pierre-Louis Bossart wrote:
->>
->>>>>     * and the stream properties
->>>>> + * @set_codec_params: Sets the compressed stream codec
->>>>> parameters, Optional
->>>>> + * This can be called in during gapless next track codec change
->>>>> only to set
->>>>> + * codec params
->>>>
->>>> Would it be clearer if this was called set_next_codec_params()? or
->>>> set_next_track_codec_params()?
->>>>
->>>> Having set_params() and set_codec_params() is a bit confusing since
->>>> the semantic difference is not captured in the callback name.
->>>
->>> set_next_track_codec_params seems more sensible as its next track params.
->>> Will change this in next version!
->>
->> maybe set_params() and set_next_track_params() are enough, not sure if the
->> codec reference helps?
+On Thu, 23 Jul 2020 15:05:22 +0200,
+Vinod Koul wrote:
 > 
-> params typically refers to whole set of compress parameters which
-> includes buffer information and codec parameters, so codec reference
-> would help.
+> On 23-07-20, 14:38, Takashi Iwai wrote:
+> > On Tue, 21 Jul 2020 19:00:01 +0200,
+> > Srinivas Kandagatla wrote:
+> > > 
+> > > For gapless playback it is possible that each track can have different
+> > > codec profile with same decoder, for example we have WMA album,
+> > > we may have different tracks as WMA v9, WMA v10 and so on
+> > > Or if DSP's like QDSP have abililty to switch decoders on single stream
+> > > for each track, then this call could be used to set new codec parameters.
+> > > 
+> > > Existing code does not allow to change this profile while doing gapless
+> > > playback.
+> > > 
+> > > This patchset adds new SNDRV_COMPRESS_SET_CODEC_PARAMS IOCTL along with
+> > > flags in capablity structure to allow userspace to set this new
+> > > parameters required which switching codec profile, either for gapless
+> > > or cross fade usecase.
+> > 
+> > One idea that came up at the previous audio conference regarding this
+> > implementation was to just allow SET_PARAMS during the stream is
+> > running (only if the driver sets the capability) instead of
+> > introducing yet a new ioctl and an ops.
+> > Would it make sense?
+> 
+> That does sound good but only issue would be that we need to somehow
+> mark/document that buffer info is useless and would be discarded, how do
+> we do that?
 
-then add the codec reference to both...
+Yes, the buffer and no_wake_mode can be ignored in the gapless
+re-setup.  Is your concern only about the documentation?  Or something
+else needs to be changed significantly?  It's a new scheme in anyway,
+so the documentation update is required...
+
+
+thanks,
+
+Takashi
+
+> 
+> > I have no big objection to add a new ioctl if other people agree,
+> > though.
+> > 
+> > 
+> > thanks,
+> > 
+> > Takashi
+> 
+> -- 
+> ~Vinod
+> 

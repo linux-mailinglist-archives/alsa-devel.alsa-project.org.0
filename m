@@ -2,69 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A387322B5F7
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jul 2020 20:43:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC82322B5FD
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jul 2020 20:45:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 454E41687;
-	Thu, 23 Jul 2020 20:42:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 454E41687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 71E6F167F;
+	Thu, 23 Jul 2020 20:44:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71E6F167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595529818;
-	bh=WZ0OWkqLC1SFWAqs9PUKBmDf2lQUyalUvukkzmonUPM=;
+	s=default; t=1595529919;
+	bh=W9l1WM5BbpSiNIde0NOAyc432HhpEPj5U9+dW+Ku7II=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gltUgfpU2TwJdkAsTj7sc9wfGpZPIJJCADaLjxHWFTzh8qckqs2FJxoK4YCnZx4Gx
-	 BuYNRDYuQt3ZhdTkNYJSRdo6g5WgZZ4tofVwD7HFzgfrfY29ZzGllL6RrYKhxD7G4P
-	 CL08cGAlCsNHAmlxfE2A/gtzndIpoX/rdUNxUa04=
+	b=PE0oj3FvAL4f6KLmQQaRaW4WAGnOtJET5ZdR57CzmLHYpPxXcD+WUvkvF6gFcYTAL
+	 I6VwUl9PaCCeplqpi3tP4AqOHtO5tGGkSaPyvdty+oS8Skg3XQsr2mXXpcNxUHnd45
+	 ugKthq729xzzxzNDJ3CR/3lCHwR7KXnNzVHht0+0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E5FAF802DD;
-	Thu, 23 Jul 2020 20:39:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1E635F802FF;
+	Thu, 23 Jul 2020 20:39:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D651CF80290; Thu, 23 Jul 2020 20:39:37 +0200 (CEST)
+ id 11496F802E3; Thu, 23 Jul 2020 20:39:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de
- [81.169.146.169])
+ [85.215.255.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A325F800CE
- for <alsa-devel@alsa-project.org>; Thu, 23 Jul 2020 20:39:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A325F800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0EECFF80278
+ for <alsa-devel@alsa-project.org>; Thu, 23 Jul 2020 20:39:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0EECFF80278
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gerhold.net header.i=@gerhold.net
- header.b="LY9lUGo6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1595529563;
+ header.b="icZ5lBhg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1595529565;
  s=strato-dkim-0002; d=gerhold.net;
  h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
  X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
- bh=nFnjOwKh0kAzFCKAmgmf9MNoRlFHT8sj9s2uKRQ+gjc=;
- b=LY9lUGo6sKRQrnYUQ8QCHEBZ58YCPR0RbVdxeazdWHouhxs2/h5vaBGkZZs2AgV9DF
- /FIZsnGLAA1ys3uDkUtir+J6j4+HchLM1I6PL6B/4oaYcwSP7vx/JJjzmthZvx1eSklM
- XBLGlhRlPVzdOGcRPTB4MWzSH+6+LPyL5j1tYezVXwJcPQHi7OKr7jpsgZAbtCWyGAng
- uueUjvH0Zb3cEMSOeoHCDVgbpGRlLVgBW3n1FgC7/u4pZtVGX6/483p9oEEIgP3CGj3E
- Zsvi5Ix2XP6RNydInkjMzeJZytPeMqEQKQzsPnrxVsn+dnOlzoEqKGzYHuup99hypa1u
- C0bA==
+ bh=YA3Xn+6h1lb6vYJcmjrVDZzx4mzbkhYBJ457Wje8sQ4=;
+ b=icZ5lBhgkDfHnE7GAxjUzcj1av6hxTBj1amqjpjXSyGZOgdRGT4CCaP7n92LNTHwER
+ e1w/3F2kybznBWeLk0EYgeAz29W+FVYt627kk98jHKVZyocLsf0vfVTSWVNYBs4JbSsk
+ 4aIebKUrfGI7uDtNeiGFRB8V4R4ZXdprkkyIcnWyyTiB+D6TuPbGMsmmoky1XLWWpzXr
+ 3uBEaOkvgVFZDMf2WbSDCohv0AYI9Deg8THTNGZ8J7shWXkQV4iO9/cm1eUssfLAjhIx
+ Mf/PGv2RGttn9FKUzHmO+mhr0DMuJxnSJz7ZBTBl+6H381izzvNUyVtv0cRpN4JwF33r
+ W7hg==
 X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVORvLd4SsytBXS7IYBkLahKxB4W6OBfnv"
 X-RZG-CLASS-ID: mo00
 Received: from localhost.localdomain
  by smtp.strato.de (RZmta 46.10.5 DYNA|AUTH)
- with ESMTPSA id Y0939ew6NIdK5IJ
+ with ESMTPSA id Y0939ew6NIdK5IK
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
  Thu, 23 Jul 2020 20:39:20 +0200 (CEST)
 From: Stephan Gerhold <stephan@gerhold.net>
 To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH 3/7] ASoC: q6afe: Remove unused q6afe_is_rx_port() function
-Date: Thu, 23 Jul 2020 20:39:00 +0200
-Message-Id: <20200723183904.321040-4-stephan@gerhold.net>
+Subject: [PATCH 4/7] ASoC: qcom: common: Support parsing links without DPCM
+Date: Thu, 23 Jul 2020 20:39:01 +0200
+Message-Id: <20200723183904.321040-5-stephan@gerhold.net>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200723183904.321040-1-stephan@gerhold.net>
 References: <20200723183904.321040-1-stephan@gerhold.net>
@@ -90,52 +90,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This reverts commit 4a95737440d ("ASoc: q6afe: add support to get
-port direction"), since the function is not needed anymore.
+So far qcom_snd_parse_of() was only used to parse the device tree
+for boards using the QDSP6 driver together with DPCM. apq8016_sbc
+uses an almost identical version (apq8016_sbc_parse_of()) which
+parses links without DPCM.
 
-q6afe-dai already exposes the possible directions for a DAI through
-the DAI capabilities (playback/capture-only DAI). Now we use
-snd_soc_dai_link_set_capabilities() to infer the information
-directly from the DAI capabilities.
+Given the similarity of the two functions it is useful to combine
+these two. To allow using qcom_snd_parse_of() in apq8016_sbc we
+need to support parsing links without DPCM as well.
+
+This is pretty simple: A DPCM link in the device tree is defined using:
+
+  - DPCM frontend: "cpu"
+  - DPCM backend:  "cpu", "platform" and "codec"
+
+... while a link without DPCM has "cpu" and "codec" (but no "platform").
+
+Add a few more if conditions to handle links without DPCM correctly.
 
 Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
 ---
- sound/soc/qcom/qdsp6/q6afe.c | 8 --------
- sound/soc/qcom/qdsp6/q6afe.h | 1 -
- 2 files changed, 9 deletions(-)
+ sound/soc/qcom/common.c | 26 +++++++++++++++++++-------
+ 1 file changed, 19 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/qcom/qdsp6/q6afe.c b/sound/soc/qcom/qdsp6/q6afe.c
-index 0ce4eb60f984..e0945f7a58c8 100644
---- a/sound/soc/qcom/qdsp6/q6afe.c
-+++ b/sound/soc/qcom/qdsp6/q6afe.c
-@@ -800,14 +800,6 @@ int q6afe_get_port_id(int index)
- }
- EXPORT_SYMBOL_GPL(q6afe_get_port_id);
+diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
+index 030df6026562..54f5bc60246f 100644
+--- a/sound/soc/qcom/common.c
++++ b/sound/soc/qcom/common.c
+@@ -84,7 +84,7 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
+ 			goto err;
+ 		}
  
--int q6afe_is_rx_port(int index)
--{
--	if (index < 0 || index >= AFE_PORT_MAX)
--		return -EINVAL;
--
--	return port_maps[index].is_rx;
--}
--EXPORT_SYMBOL_GPL(q6afe_is_rx_port);
- static int afe_apr_send_pkt(struct q6afe *afe, struct apr_pkt *pkt,
- 			    struct q6afe_port *port)
- {
-diff --git a/sound/soc/qcom/qdsp6/q6afe.h b/sound/soc/qcom/qdsp6/q6afe.h
-index 1a0f80a14afe..c7ed5422baff 100644
---- a/sound/soc/qcom/qdsp6/q6afe.h
-+++ b/sound/soc/qcom/qdsp6/q6afe.h
-@@ -198,7 +198,6 @@ int q6afe_port_start(struct q6afe_port *port);
- int q6afe_port_stop(struct q6afe_port *port);
- void q6afe_port_put(struct q6afe_port *port);
- int q6afe_get_port_id(int index);
--int q6afe_is_rx_port(int index);
- void q6afe_hdmi_port_prepare(struct q6afe_port *port,
- 			    struct q6afe_hdmi_cfg *cfg);
- void q6afe_slim_port_prepare(struct q6afe_port *port,
+-		if (codec && platform) {
++		if (platform) {
+ 			link->platforms->of_node = of_parse_phandle(platform,
+ 					"sound-dai",
+ 					0);
+@@ -93,15 +93,24 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
+ 				ret = -EINVAL;
+ 				goto err;
+ 			}
++		} else {
++			link->platforms->of_node = link->cpus->of_node;
++		}
+ 
++		if (codec) {
+ 			ret = snd_soc_of_get_dai_link_codecs(dev, codec, link);
+ 			if (ret < 0) {
+ 				dev_err(card->dev, "%s: codec dai not found\n", link->name);
+ 				goto err;
+ 			}
+-			link->no_pcm = 1;
+-			link->ignore_pmdown_time = 1;
++
++			if (platform) {
++				/* DPCM backend */
++				link->no_pcm = 1;
++				link->ignore_pmdown_time = 1;
++			}
+ 		} else {
++			/* DPCM frontend */
+ 			dlc = devm_kzalloc(dev, sizeof(*dlc), GFP_KERNEL);
+ 			if (!dlc)
+ 				return -ENOMEM;
+@@ -109,15 +118,18 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
+ 			link->codecs	 = dlc;
+ 			link->num_codecs = 1;
+ 
+-			link->platforms->of_node = link->cpus->of_node;
+ 			link->codecs->dai_name = "snd-soc-dummy-dai";
+ 			link->codecs->name = "snd-soc-dummy";
+ 			link->dynamic = 1;
+ 		}
+ 
+-		snd_soc_dai_link_set_capabilities(link);
+-		link->ignore_suspend = 1;
+-		link->nonatomic = 1;
++		if (platform || !codec) {
++			/* DPCM */
++			snd_soc_dai_link_set_capabilities(link);
++			link->ignore_suspend = 1;
++			link->nonatomic = 1;
++		}
++
+ 		link->stream_name = link->name;
+ 		link++;
+ 
 -- 
 2.27.0
 

@@ -2,91 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A1C722AD30
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jul 2020 13:05:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EC1522AF8A
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jul 2020 14:40:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1345D167A;
-	Thu, 23 Jul 2020 13:04:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1345D167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id D33341688;
+	Thu, 23 Jul 2020 14:39:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D33341688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595502332;
-	bh=0o49vx0Oxgja/KHvQRcnnAaq66x9hf/9HyRxV2WsBH4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=YRY+FeX1U5bNbyR7tKXijQWj1VuBlL+JBBS1GdnmdHvL2AKhj52TqLCzMCBIk0Z3K
-	 7AnscHHwvdMtUySF6sNWE2+fmm+8tuNfqLh3Sk+0Bo/Y86QuXrqDNecdNUQjYh8kNv
-	 aIBzCO2nvHju+B1BO7exdVzL7mz5kJmirAU+g8Po=
+	s=default; t=1595508001;
+	bh=pdRaZblv2MC3CDEe7h81KwwWCUret85oUGXswEkFqCw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=N6AkXjNcbOmYGvQX7T1A+XUQSty1iji8ucCPVt868z95Tn9W6FRm43f7PgeWUdWLF
+	 qWsAtUOk9xadKc2rws4SeIZZeMqvwQ/WjsW2hfk/WX+dPglbF2yDhzXqlZf8QGw9NY
+	 WxWilsW7FnCg0AN1Oj4pYqS2x1E7wBG0Ogvte3dY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4A0BFF8011F;
-	Thu, 23 Jul 2020 13:03:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07157F8020D;
+	Thu, 23 Jul 2020 14:38:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A2E69F80212; Thu, 23 Jul 2020 13:03:32 +0200 (CEST)
+ id 2850AF80212; Thu, 23 Jul 2020 14:38:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 220D7F8011F
- for <alsa-devel@alsa-project.org>; Thu, 23 Jul 2020 13:03:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 220D7F8011F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="NDQnnQXB"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 06NB1BHo023093; Thu, 23 Jul 2020 06:03:23 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type;
- s=PODMain02222019; bh=vR7Op+9CnSyyZV8CafMYW9yuQQMwR7TgOJ+yWu8HpAQ=;
- b=NDQnnQXBm5mFTxJqPt4BBGP/fwpxkwomWnlmGCwdIQOxqm9xFDJC36MT/dMkx8aqF5sB
- 05GpIbwsn0crGeBDHnNmol4Q0tYKA83XC8lkpbmRXPcwYat77HM7ZALMN8v9ZL1kQhF6
- b1HL380SNDMPT1hcwLd7ri98HNuVB5dE7zG0kBukV8BzgSqSRUpomJ3rYaTpqiaxtdk8
- 4Exxn+zUp+lOmsPQH8iCmIcIAJtQdmHirQ68XvZAn52WmUtl+stTJ1RmWIEK+mFvg3gM
- JVjTzWoJNqa1NJ5J9Bz6uUepYoONsGO26+pn5FF9I8DyP8h8W5ViCYkPinO+/97Lln08 yg== 
-Authentication-Results: ppops.net;
- spf=fail smtp.mailfrom=ckeepax@opensource.cirrus.com
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0b-001ae601.pphosted.com with ESMTP id 32bwgnqbgk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 23 Jul 2020 06:03:23 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Thu, 23 Jul
- 2020 12:03:21 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
- Transport; Thu, 23 Jul 2020 12:03:21 +0100
-Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 9FF4B45;
- Thu, 23 Jul 2020 11:03:21 +0000 (UTC)
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: <broonie@kernel.org>
-Subject: [PATCH] ASoC: wm_adsp: Support new metadata block ID's
-Date: Thu, 23 Jul 2020 12:03:21 +0100
-Message-ID: <20200723110321.16382-1-ckeepax@opensource.cirrus.com>
-X-Mailer: git-send-email 2.11.0
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Proofpoint-SPF-Result: fail
-X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
- include:spf.protection.outlook.com
- ip4:5.172.152.52 -all
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- malwarescore=0 spamscore=0
- clxscore=1015 mlxscore=0 suspectscore=1 mlxlogscore=999 bulkscore=0
- lowpriorityscore=0 impostorscore=0 phishscore=0 priorityscore=1501
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2007230083
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- james.schulman@cirrus.com, lgirdwood@gmail.com, david.rhodes@cirrus.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5DBE3F800CE
+ for <alsa-devel@alsa-project.org>; Thu, 23 Jul 2020 14:38:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DBE3F800CE
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 5E6E4AAC5;
+ Thu, 23 Jul 2020 12:38:17 +0000 (UTC)
+Date: Thu, 23 Jul 2020 14:38:09 +0200
+Message-ID: <s5hpn8mqudq.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [RFC PATCH v2 0/6] ALSA: compress: add support to change codec
+ profile in gapless playback
+In-Reply-To: <20200721170007.4554-1-srinivas.kandagatla@linaro.org>
+References: <20200721170007.4554-1-srinivas.kandagatla@linaro.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com, tiwai@suse.com,
+ vkoul@kernel.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,43 +71,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: James Schulman <james.schulman@cirrus.com>
+On Tue, 21 Jul 2020 19:00:01 +0200,
+Srinivas Kandagatla wrote:
+> 
+> For gapless playback it is possible that each track can have different
+> codec profile with same decoder, for example we have WMA album,
+> we may have different tracks as WMA v9, WMA v10 and so on
+> Or if DSP's like QDSP have abililty to switch decoders on single stream
+> for each track, then this call could be used to set new codec parameters.
+> 
+> Existing code does not allow to change this profile while doing gapless
+> playback.
+> 
+> This patchset adds new SNDRV_COMPRESS_SET_CODEC_PARAMS IOCTL along with
+> flags in capablity structure to allow userspace to set this new
+> parameters required which switching codec profile, either for gapless
+> or cross fade usecase.
 
-Coefficient files now support additional metadata blocks, these
-contain machine parsable text strings describing the parameters
-contained in the coefficient file.
+One idea that came up at the previous audio conference regarding this
+implementation was to just allow SET_PARAMS during the stream is
+running (only if the driver sets the capability) instead of
+introducing yet a new ioctl and an ops.
+Would it make sense?
 
-Signed-off-by: James Schulman <james.schulman@cirrus.com>
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
----
- sound/soc/codecs/wm_adsp.c | 1 +
- sound/soc/codecs/wmfw.h    | 1 +
- 2 files changed, 2 insertions(+)
+I have no big objection to add a new ioctl if other people agree,
+though.
 
-diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
-index 88c397c700ee9..410cca57da52d 100644
---- a/sound/soc/codecs/wm_adsp.c
-+++ b/sound/soc/codecs/wm_adsp.c
-@@ -2621,6 +2621,7 @@ static int wm_adsp_load_coeff(struct wm_adsp *dsp)
- 		switch (type) {
- 		case (WMFW_NAME_TEXT << 8):
- 		case (WMFW_INFO_TEXT << 8):
-+		case (WMFW_METADATA << 8):
- 			break;
- 		case (WMFW_ABSOLUTE << 8):
- 			/*
-diff --git a/sound/soc/codecs/wmfw.h b/sound/soc/codecs/wmfw.h
-index 4278aa6aeb01b..7423272c30e94 100644
---- a/sound/soc/codecs/wmfw.h
-+++ b/sound/soc/codecs/wmfw.h
-@@ -180,6 +180,7 @@ struct wmfw_coeff_item {
- 
- #define WMFW_ABSOLUTE         0xf0
- #define WMFW_ALGORITHM_DATA   0xf2
-+#define WMFW_METADATA         0xfc
- #define WMFW_NAME_TEXT        0xfe
- #define WMFW_INFO_TEXT        0xff
- 
--- 
-2.11.0
 
+thanks,
+
+Takashi

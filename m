@@ -2,83 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C935522B32F
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jul 2020 18:10:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6567022B449
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jul 2020 19:12:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 46A9B1689;
-	Thu, 23 Jul 2020 18:09:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46A9B1689
+	by alsa0.perex.cz (Postfix) with ESMTPS id B872B168A;
+	Thu, 23 Jul 2020 19:12:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B872B168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595520639;
-	bh=+i2sOnpVY0VqRNXiqsxxrVqbbNga2Bv0f9I3RhWqSkY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1595524372;
+	bh=VmbpHom9AS9xdZwKD40Ryt+W1EieQzQqrpJhL6O41I8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h98aaStTeuJKbpUc5tXTYxUpvmOyAwWwjQ0fuCn/7+YDUI+KBzvk1nISjQlfSRxf9
-	 D5ReAw/oLi85xAO+115ytlJh05XQ5ke8bdUYxCA6dEYGAQT0Sc7Px/ZzHwQDCKLERF
-	 jFkwGfbryMmq7XcZq5YuYmWuDLF6jPvKOmx8HRnc=
+	b=oyvnePcn6IAiOAhSf2NPP2L4CFaU9af7QnrKwK9ZfHL/Fws830u9uR3BNK9jNLlj4
+	 NmIl4ZvpEUQDFsSwSCPvUYckcyfS1jyL3joCY9wQnaeCZcNA1uq7Z/RzSkKdWo6Lgb
+	 qmuXqWkX7j+LUOvZ+1QzYFDiVKdWBlzYa3XFFn2g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 454B1F8020D;
-	Thu, 23 Jul 2020 18:08:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B879BF80090;
+	Thu, 23 Jul 2020 19:11:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7A2D9F8011F; Thu, 23 Jul 2020 18:08:54 +0200 (CEST)
+ id 6358BF80212; Thu, 23 Jul 2020 19:11:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-io1-f68.google.com (mail-io1-f68.google.com
+ [209.85.166.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D8CDAF8020D
- for <alsa-devel@alsa-project.org>; Thu, 23 Jul 2020 18:08:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8CDAF8020D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="euR4/39W"
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
- by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 06NG8iCf021775;
- Thu, 23 Jul 2020 11:08:44 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1595520524;
- bh=nA7a4nlfdC+eYe8JsjKg4KWcz0j3ZopXtCp88J/O3P0=;
- h=From:To:CC:Subject:Date:In-Reply-To:References;
- b=euR4/39WbozRW1r7GbT2HDVPCvSUH2yFYWfHGy27Yn9014B1wnkPsaA2PwrreS21s
- yNJAFQlXGWMmV+WP6b4qE7gQMwsWCjOTNiBxTjMAy0GV8161hQZ3OIydo2US0I9yUR
- hZKYLzo++yIX0kp9WZCI2fMOL5UjOkOMXLjsE0a8=
-Received: from DFLE113.ent.ti.com (dfle113.ent.ti.com [10.64.6.34])
- by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 06NG8iu8000716
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 23 Jul 2020 11:08:44 -0500
-Received: from DFLE114.ent.ti.com (10.64.6.35) by DFLE113.ent.ti.com
- (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Thu, 23
- Jul 2020 11:08:44 -0500
-Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE114.ent.ti.com
- (10.64.6.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Thu, 23 Jul 2020 11:08:44 -0500
-Received: from localhost (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 06NG8iVg049221;
- Thu, 23 Jul 2020 11:08:44 -0500
-From: Dan Murphy <dmurphy@ti.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <robh@kernel.org>
-Subject: [PATCH v3 2/2] ASoC: tas2562: Update shutdown GPIO property
-Date: Thu, 23 Jul 2020 11:08:38 -0500
-Message-ID: <20200723160838.9738-2-dmurphy@ti.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20200723160838.9738-1-dmurphy@ti.com>
-References: <20200723160838.9738-1-dmurphy@ti.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3383DF80090
+ for <alsa-devel@alsa-project.org>; Thu, 23 Jul 2020 19:10:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3383DF80090
+Received: by mail-io1-f68.google.com with SMTP id d18so7049504ion.0
+ for <alsa-devel@alsa-project.org>; Thu, 23 Jul 2020 10:10:57 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=CFQA7x0bDHTcOu8RlJmkDybvEkhTzOMXAr85IhgE6JY=;
+ b=iIpBDFwz6CqwUnUuV/dpYrzSzX+sLZgvqSKdqPkDZ0vWVgaB1t+tDr14YvnHBbh97e
+ T7vooNvnH842nrGhRuQk0FV7omo9xCeVIXYUFu1WvTkOzIGFzWnBnN7G7LkMKjDSY6W2
+ 7eJ9mSEz/tHp1+xeTqmoVlKsjjwRRWkudVdlXGrqWZKmroEx/SBQ9xl6sZvUqIKGLSNi
+ dGBnANSIijp/1HAuOg4ySSNLJVfhqaTs9ybvWDNAz0Ep8hQV1h3+mKvc14fbwSJFLv6P
+ O39oi4O/6MLGz6Pnwh9xlWhKcRNEU0RqvcvzkNEvIz2FO0rve7YPTLMwDWnLQWXEkS+e
+ 9nzg==
+X-Gm-Message-State: AOAM5302GJ2AlOkcXH+FXfvmh21UCF3Nh4ebjFL8fQMj7qA1wTeLyXNd
+ x31q0FQQIsRVuJsXSxEPTg==
+X-Google-Smtp-Source: ABdhPJyxpyI1N+AvgADJ1IcQCxekVn4/AHZTGDaGy92skQR/1/y1qtBhzZcAxyirTjh4HWPn7k/e1g==
+X-Received: by 2002:a02:2401:: with SMTP id f1mr5923789jaa.66.1595524255623;
+ Thu, 23 Jul 2020 10:10:55 -0700 (PDT)
+Received: from xps15 ([64.188.179.252])
+ by smtp.gmail.com with ESMTPSA id l17sm1708226ilm.70.2020.07.23.10.10.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Jul 2020 10:10:55 -0700 (PDT)
+Received: (nullmailer pid 546734 invoked by uid 1000);
+ Thu, 23 Jul 2020 17:10:53 -0000
+Date: Thu, 23 Jul 2020 11:10:53 -0600
+From: Rob Herring <robh@kernel.org>
+To: Rohit kumar <rohitkr@codeaurora.org>
+Subject: Re: [PATCH v4 07/12] dt-bindings: sound: lpass-cpu: Add sc7180 lpass
+ cpu node
+Message-ID: <20200723171053.GA544557@bogus>
+References: <1595413915-17867-1-git-send-email-rohitkr@codeaurora.org>
+ <1595413915-17867-8-git-send-email-rohitkr@codeaurora.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1595413915-17867-8-git-send-email-rohitkr@codeaurora.org>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Dan Murphy <dmurphy@ti.com>
+ bgoswami@codeaurora.org, linux-arm-msm@vger.kernel.org, plai@codeaurora.org,
+ tiwai@suse.com, agross@kernel.org, lgirdwood@gmail.com, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, bjorn.andersson@linaro.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,50 +95,102 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Update the shutdown GPIO property to be shutdown from shut-down.
+On Wed, Jul 22, 2020 at 04:01:50PM +0530, Rohit kumar wrote:
+> Add dt-bindings to support "qcom,lpass-cpu-sc7180" node.
+> 
+> Signed-off-by: Rohit kumar <rohitkr@codeaurora.org>
+> ---
+>  .../devicetree/bindings/sound/qcom,lpass-cpu.txt   | 55 +++++++++++++++++++++-
+>  1 file changed, 53 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
+> index 32c2cdb..c21392e 100644
+> --- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
+> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
+> @@ -4,7 +4,8 @@ This node models the Qualcomm Technologies Low-Power Audio SubSystem (LPASS).
+>  
+>  Required properties:
+>  
+> -- compatible		: "qcom,lpass-cpu" or "qcom,apq8016-lpass-cpu"
+> +- compatible		: "qcom,lpass-cpu" or "qcom,apq8016-lpass-cpu" or
+> +			  "qcom,lpass-cpu-sc7180"
 
-Fixes: c173dba44c2d2 ("ASoC: tas2562: Introduce the TAS2562 amplifier")
-Signed-off-by: Dan Murphy <dmurphy@ti.com>
----
- sound/soc/codecs/tas2562.c | 23 ++++++++++++++++++-----
- 1 file changed, 18 insertions(+), 5 deletions(-)
+qcom,sc7180-lpass-cpu
 
-diff --git a/sound/soc/codecs/tas2562.c b/sound/soc/codecs/tas2562.c
-index e74628061040..99920c691d28 100644
---- a/sound/soc/codecs/tas2562.c
-+++ b/sound/soc/codecs/tas2562.c
-@@ -680,13 +680,26 @@ static int tas2562_parse_dt(struct tas2562_data *tas2562)
- 	struct device *dev = tas2562->dev;
- 	int ret = 0;
- 
--	tas2562->sdz_gpio = devm_gpiod_get_optional(dev, "shut-down",
--						    GPIOD_OUT_HIGH);
-+	tas2562->sdz_gpio = devm_gpiod_get_optional(dev, "shutdown", GPIOD_OUT_HIGH);
- 	if (IS_ERR(tas2562->sdz_gpio)) {
--		if (PTR_ERR(tas2562->sdz_gpio) == -EPROBE_DEFER) {
--			tas2562->sdz_gpio = NULL;
-+		if (PTR_ERR(tas2562->sdz_gpio) == -EPROBE_DEFER)
- 			return -EPROBE_DEFER;
--		}
-+
-+		tas2562->sdz_gpio = NULL;
-+	}
-+
-+	/*
-+	 * The shut-down property is deprecated but needs to be checked for
-+	 * backwards compatibility.
-+	 */
-+	if (tas2562->sdz_gpio == NULL) {
-+		tas2562->sdz_gpio = devm_gpiod_get_optional(dev, "shut-down",
-+							      GPIOD_OUT_HIGH);
-+		if (IS_ERR(tas2562->sdz_gpio))
-+			if (PTR_ERR(tas2562->sdz_gpio) == -EPROBE_DEFER)
-+				return -EPROBE_DEFER;
-+
-+		tas2562->sdz_gpio = NULL;
- 	}
- 
- 	ret = fwnode_property_read_u32(dev->fwnode, "ti,imon-slot-no",
--- 
-2.27.0
-
+>  - clocks		: Must contain an entry for each entry in clock-names.
+>  - clock-names		: A list which must include the following entries:
+>  				* "ahbix-clk"
+> @@ -18,6 +19,13 @@ Required properties:
+>  				* "mi2s-bit-clk3"
+>  				* "pcnoc-mport-clk"
+>  				* "pcnoc-sway-clk"
+> +			: required clocks for "qcom,lpass-cpu-sc7180"
+> +				* "audio-core"
+> +				* "mclk0"
+> +				* "mi2s-bit-clk0"
+> +				* "mi2s-bit-clk1"
+> +				* "pcnoc-sway-clk"
+> +				* "pcnoc-mport-clk"
+>  
+>  - interrupts		: Must contain an entry for each entry in
+>  			  interrupt-names.
+> @@ -53,7 +61,8 @@ Required properties for each DAI (represented by a subnode):
+>  Note that adding a subnode changes the default to "no lines configured",
+>  so both playback and capture lines should be configured when a subnode is added.
+>  
+> -Example:
+> +Examples:
+> +1)
+>  
+>  lpass@28100000 {
+>  	compatible = "qcom,lpass-cpu";
+> @@ -77,3 +86,45 @@ lpass@28100000 {
+>  		qcom,playback-sd-lines = <0 1>;
+>  	};
+>  };
+> +
+> +2)
+> +
+> +#include <dt-bindings/sound/sc7180-lpass.h>
+> +
+> +lpass_cpu: lpass {
+> +	compatible = "qcom,lpass-cpu-sc7180";
+> +
+> +	reg = <0 0x62F00000 0 0x29000>;
+> +
+> +	iommus = <&apps_smmu 0x1020 0>;
+> +
+> +	power-domains = <&lpass_hm LPASS_CORE_HM_GDSCR>;
+> +	clocks = <&gcc GCC_LPASS_CFG_NOC_SWAY_CLK>,
+> +		<&lpasscorecc LPASS_AUDIO_CORE_CORE_CLK>,
+> +		<&lpasscorecc LPASS_AUDIO_CORE_EXT_MCLK0_CLK>,
+> +		<&lpasscorecc LPASS_AUDIO_CORE_SYSNOC_MPORT_CORE_CLK>,
+> +		<&lpasscorecc LPASS_AUDIO_CORE_LPAIF_PRI_IBIT_CLK>,
+> +		<&lpasscorecc LPASS_AUDIO_CORE_LPAIF_SEC_IBIT_CLK>;
+> +	clock-names = "pcnoc-sway-clk", "audio-core",
+> +			"mclk0", "pcnoc-mport-clk",
+> +			"mi2s-bit-clk0", "mi2s-bit-clk1";
+> +	interrupts = <0 160 IRQ_TYPE_LEVEL_HIGH>;
+> +	interrupt-names = "lpass-irq-lpaif";
+> +
+> +
+> +	#sound-dai-cells = <1>;
+> +
+> +	#address-cells = <1>;
+> +	#size-cells = <0>;
+> +
+> +	mi2s-primary@0 {
+> +		reg = <MI2S_PRIMARY>;
+> +		qcom,playback-sd-lines = <1>;
+> +		qcom,capture-sd-lines = <0>;
+> +	};
+> +
+> +	mi2s-secondary@1 {
+> +		reg = <MI2S_SECONDARY>;
+> +		qcom,playback-sd-lines = <0>;
+> +	};
+> +};
+> -- 
+> Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+> is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+> 

@@ -2,66 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D59622B636
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jul 2020 20:55:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E23722B717
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jul 2020 22:01:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF71F1688;
-	Thu, 23 Jul 2020 20:54:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF71F1688
+	by alsa0.perex.cz (Postfix) with ESMTPS id 036991688;
+	Thu, 23 Jul 2020 22:00:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 036991688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595530516;
-	bh=YbxBUMqGpnvnUXpNUDe5ezV/YoGSFc1wqjA12a9mRHA=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1595534487;
+	bh=zP3Fc33PffOt8kcMr6zvgvJDbsiHE4yEx/MJxaBNdNY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YGPrPUKt5CyEG3iaAEX61gsl3xMciw4BzCG4CmrSNhaw+uaKIsq+aQ1aVouaXxNRA
-	 Vm5IRS3/e446kyrPPC3VOhBqkqA+DPJfz5PQZERj3zQexUUhpiyIPGcENVWicFG/XV
-	 8PwgWi8m731AVPuUNCJ1CH0kpOX6/B1YN3gZl/Ik=
+	b=GGNiqk15grLJKH3r414gCOcBUdmWvSrlk8ICuaJioLXcqtaEf7gsYIKVEea7OsBHy
+	 MOHWNQG8IicuMW3shRi1SSmWFO3AbiRTT2zyUAnxBmmgT2RRiuetwPVODwEK59X7Ex
+	 gFlcyTxdyXWF9N4gWsCZz+JtqFnXPXBRtwX5tkb4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DCB0EF800CE;
-	Thu, 23 Jul 2020 20:53:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2ECDCF8024A;
+	Thu, 23 Jul 2020 21:59:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 29583F80212; Thu, 23 Jul 2020 20:53:33 +0200 (CEST)
+ id 37B45F80212; Thu, 23 Jul 2020 21:59:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
+ [IPv6:2a00:1450:4864:20::141])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E296F800CE
- for <alsa-devel@alsa-project.org>; Thu, 23 Jul 2020 20:53:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E296F800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2F7A0F80090
+ for <alsa-devel@alsa-project.org>; Thu, 23 Jul 2020 21:59:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F7A0F80090
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="hZY0Maby"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B315D20737;
- Thu, 23 Jul 2020 18:53:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1595530408;
- bh=YbxBUMqGpnvnUXpNUDe5ezV/YoGSFc1wqjA12a9mRHA=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=hZY0Maby+Gy6eZs0Z3i24bEOLtEw2qNCLLT5CiK/7OQUGuuN/EN+IoepP+bZ6auly
- pqnGc8uqzPlDM41JWvd76O2GYzmvEwOJsHicYlOGCSxomTCMhSD8Hpzj19ghdGlYwE
- FbP69HBMfLSB8CG5PmOblE/yFjnihQ6E0o1od9Hg=
-Date: Thu, 23 Jul 2020 19:53:13 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Harsha Priya <harshapriya.n@intel.com>, alsa-devel@alsa-project.org,
- pierre-louis.bossart@linux.intel.com
-In-Reply-To: <1595432147-11166-1-git-send-email-harshapriya.n@intel.com>
-References: <1595432147-11166-1-git-send-email-harshapriya.n@intel.com>
-Subject: Re: [PATCH v8] ASoC: Intel: kbl_rt5663_rt5514_max98927: Fix
- kabylake_ssp_fixup function
-Message-Id: <159553039325.39755.1977316956642959152.b4-ty@kernel.org>
-Cc: Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="oLwDDYuF"
+Received: by mail-lf1-x141.google.com with SMTP id y18so3935586lfh.11
+ for <alsa-devel@alsa-project.org>; Thu, 23 Jul 2020 12:59:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=zP3Fc33PffOt8kcMr6zvgvJDbsiHE4yEx/MJxaBNdNY=;
+ b=oLwDDYuF2y8WRlgjUVI1jCJ5eaqIXOFo4k5e9OcFMSYwQCLW9/EpJGOc7M2Hfzf9Et
+ X1Jd9Wt1COUcK9QPMyWTfDjvmiX9MlaOJ+6CJrDohPMk15yBB4LC+i7FqbVjBkAnqY3D
+ QQuY9Mfl6Yq2cqFCUAk416lYl6Fzrro8dZFipGndkU8v6VJBRUbpyno1KsgIhahWFbsk
+ 748JdnCVcSGGeMjxHbRS+PT6rO7cVSJNDsh5uvSetRAks15naLfAqm2UF1VljFeOPzUZ
+ 2LAZay7gGHpxPP9x1gkL55raoEpUmz9+G5NZkEHVuJM0Ee+Q8V29fz40xggfY0banfYq
+ GHRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=zP3Fc33PffOt8kcMr6zvgvJDbsiHE4yEx/MJxaBNdNY=;
+ b=blgJa4olvkffcjqp7j1e/bzyX2wF3w5h01L67XR4Pv2/+oz90okPPReBtJ3zE1Bkiq
+ c1D+T+nvX73a3mqn5+CxAMAnb+6fSk5jafn1rX97O7QNaye4fifsjeexGG4OC5am7re0
+ ro6127AjlTV1olpD1WKMqyWNl4QHviFBDEXW7J+wAEXrnY7gvFhMp0Uq0lRJb0AdJsIL
+ xbkP0QbMLsRrf+d+c42bJGYie1RR3Fax39Zy5hqtqVdnmXBjPzbDHiRYMkiuj7wilxix
+ XDPHDh4fKEaFvhihcG4NnN2wBxPWkcicU3xPrfeMkxo5DbnwLzeanPH7FZFHof6+1R2Z
+ sMGQ==
+X-Gm-Message-State: AOAM530pT0tlnTsMsCIOV9iwhSPLnQcN4Fo6W6Br2E7TifmmolbBaY2o
+ tsLDyhM9jm/xKquIJzSMCtiaPLimIh8/uOWS8LU=
+X-Google-Smtp-Source: ABdhPJx0j/0j7rtnkMI9ke3ZTXABaFXfQgw9C5W6OuPl+ZebLuH8U7u1IkbNptWTWBe1MY5VAkCglNu2JOD4wNpIb8U=
+X-Received: by 2002:a19:c3d0:: with SMTP id t199mr3090614lff.56.1595534376214; 
+ Thu, 23 Jul 2020 12:59:36 -0700 (PDT)
+MIME-Version: 1.0
+References: <20200717135959.19212-1-festevam@gmail.com>
+ <20200723092140.GB10899@ediswmail.ad.cirrus.com>
+In-Reply-To: <20200723092140.GB10899@ediswmail.ad.cirrus.com>
+From: Fabio Estevam <festevam@gmail.com>
+Date: Thu, 23 Jul 2020 16:59:24 -0300
+Message-ID: <CAOMZO5DvR1CNwR2fG_e48Kv9FPdXj-UrboPpAbA9tTakOdpw6A@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: wm8962: Do not access WM8962_GPIO_BASE
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "S.j. Wang" <shengjiu.wang@nxp.com>, Mark Brown <broonie@kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,42 +96,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 22 Jul 2020 08:35:47 -0700, Harsha Priya wrote:
-> kabylake_ssp_fixup function uses snd_soc_dpcm to identify the
-> codecs DAIs. The HW parameters are changed based on the codec DAI of the
-> stream. The earlier approach to get snd_soc_dpcm was using container_of()
-> macro on snd_pcm_hw_params.
-> 
-> The structures have been modified over time and snd_soc_dpcm does not have
-> snd_pcm_hw_params as a reference but as a copy. This causes the current
-> driver to crash when used.
-> 
-> [...]
+Hi Charles,
 
-Applied to
+On Thu, Jul 23, 2020 at 6:21 AM Charles Keepax
+<ckeepax@opensource.cirrus.com> wrote:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+> Ah ok I think I can see what is going on here, you get an EBUSY
+> if the regmap is in cache only and you try to read a register
+> which isn't in the cache. Is that what you are seeing?
 
-Thanks!
+After adding some debug info I got:
 
-[1/1] ASoC: Intel: kbl_rt5663_rt5514_max98927: Fix kabylake_ssp_fixup function
-      commit: 5c5f1baee85ae48b1ff50da4cc5e89f496be702c
+************ register is 512
+wm8962 0-001a: ASoC: error at soc_component_read_no_lock on wm8962.0-001a: -16
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+************ register is 515
+wm8962 0-001a: ASoC: error at soc_component_read_no_lock on wm8962.0-001a: -16
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Both register 512 and 515 do not exist as per the WM8962 datasheet, so
+the driver should not try to access them, right?
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+This patch avoids reading from these unexisting registers, which makes
+sense IMHO.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+Do you have any other suggestions to avoid these errors?
 
-Thanks,
-Mark
+Thanks

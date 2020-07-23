@@ -2,78 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A566722AB87
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jul 2020 11:13:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85CCF22ABB3
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jul 2020 11:23:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 812C91616;
-	Thu, 23 Jul 2020 11:12:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 812C91616
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1473B1669;
+	Thu, 23 Jul 2020 11:22:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1473B1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595495593;
-	bh=EM6UezgZjDjuZ9w6nqBvkunDpJsnb6gqrhonZbOH2Tc=;
+	s=default; t=1595496219;
+	bh=2MR3yZuQzmWzpftIEepdwxtj1I6qwkc8G0e2p7L4RLM=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Wou4e7O16CzOYGmG3nHRW0KTQoGgllLH5UUw7w+Z6eDRlBcfdnkxnWtkyfNkCgMMr
-	 AxU/AQ80vrWWE/GK8cbjaxHEXh1GJoRnUuDPd0RoVH+fCCkNgrPekj4msjOwfBu0II
-	 ej9ObbMTePB+xyT7xYwzlsWvy6WeRmCUEDRlUqRA=
+	b=NIxJMy7kG3vwzKwkf7In1V4A/EkQVV8bCho5BwB96145ziIxXmHEtmmXgs7rxm/ZT
+	 Pljmnp07u0e7XD2dA7wSHeJ8wPhvvPli9/eDDl2bSjGgd6lh07ADjYku/0FKBX57H7
+	 GouYDOLF1sFZ00wmz9jnnyIBK9c60JfVOnlznCwY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7ABFDF8020D;
-	Thu, 23 Jul 2020 11:11:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3BC52F800CE;
+	Thu, 23 Jul 2020 11:21:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 61E93F80212; Thu, 23 Jul 2020 11:11:30 +0200 (CEST)
+ id 039BFF8011F; Thu, 23 Jul 2020 11:21:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 07DE2F800CE
- for <alsa-devel@alsa-project.org>; Thu, 23 Jul 2020 11:11:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07DE2F800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 150EDF8011F
+ for <alsa-devel@alsa-project.org>; Thu, 23 Jul 2020 11:21:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 150EDF8011F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="aw3sj9WY"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 06N973cf012329; Thu, 23 Jul 2020 04:11:20 -0500
+ header.b="L3RUOEuU"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 06N9JqR1023697; Thu, 23 Jul 2020 04:21:42 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=date : from : to : cc
  : subject : message-id : references : mime-version : content-type :
  in-reply-to; s=PODMain02222019;
- bh=0EejbdwZKCfgcmR+0Fu1/YeaxkeY4oELenMhMDWbhU8=;
- b=aw3sj9WYcVoW23xAgGhvMdiCzsFBWY3EHXuTc1yHjIPdPpESOEUNuysEwnL4xsqKbLGR
- 3Jetpw4skeQ8Kjje4C6/Romdwz2cpWTO6bNgQwf77GGNtxmPKwbQzsqdCwKiDqaZWuXp
- iuJ28D83/qimbyRRfcP/rIjBTFcncvQUBDTGU54DwHdb5LJCWr4PnylBAogmm3dICoon
- s+ILP0emp5X/cm4Vh1ipop86MCWeO9RUDcw2Qz1fef37VW2xdt9Xlos6p6mXQ97X85SQ
- 3Pi4n6HpmsTfB8pCxZY401tmmmFyCK0JLGikCvjmJxcLEJJTtiDHSkTFVECIep8vVzuV PA== 
+ bh=fSfWD+FkC/PZJUbzki3F0hipBI2W3e6yrnVCAjDpz6Y=;
+ b=L3RUOEuUpTyyoyWRqqGFRU8ufN2EvElzBpyN03raLCHmxx2xFPDlIk1OYiDdrKi1wgA8
+ JSiTUR414SD7nBCu/5ZVT7I5+bI/uPWWHY7XIViwt3nk117VVUWqpjZTBPuCifrcu9A7
+ Le5eb7UMy4j5m3lDOVtBfKhaxTagZ2ECmQLiabhSay/7Ujqu1cE7NSc0htwect0K5pUR
+ JGpCB2OYkS+HEwSxS9UPDzegnvlSlUrT0frqD/gTwfiGmiDi54aBK2zmJq09aBWtvyDH
+ kQ2utPA4pRvJPHeKkV3mgEtIFWQ4MY627iNW6kr4L3llYLg5Tk0hd6W+11nw9f6SGv9P 8g== 
 Authentication-Results: ppops.net;
  spf=fail smtp.mailfrom=ckeepax@opensource.cirrus.com
 Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0b-001ae601.pphosted.com with ESMTP id 32bwgnq815-1
+ by mx0a-001ae601.pphosted.com with ESMTP id 32bxg1faat-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 23 Jul 2020 04:11:20 -0500
+ Thu, 23 Jul 2020 04:21:42 -0500
 Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
  (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Thu, 23 Jul
- 2020 10:11:18 +0100
+ 2020 10:21:40 +0100
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
- Transport; Thu, 23 Jul 2020 10:11:18 +0100
+ Transport; Thu, 23 Jul 2020 10:21:40 +0100
 Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 75EEC45;
- Thu, 23 Jul 2020 09:11:18 +0000 (UTC)
-Date: Thu, 23 Jul 2020 09:11:18 +0000
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 2E11445;
+ Thu, 23 Jul 2020 09:21:40 +0000 (UTC)
+Date: Thu, 23 Jul 2020 09:21:40 +0000
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 To: Fabio Estevam <festevam@gmail.com>
 Subject: Re: [PATCH] ASoC: wm8962: Do not access WM8962_GPIO_BASE
-Message-ID: <20200723091118.GA10899@ediswmail.ad.cirrus.com>
+Message-ID: <20200723092140.GB10899@ediswmail.ad.cirrus.com>
 References: <20200717135959.19212-1-festevam@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
@@ -84,12 +84,12 @@ X-Proofpoint-SPF-Result: fail
 X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
  include:spf.protection.outlook.com
  ip4:5.172.152.52 -all
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- malwarescore=0 spamscore=0
- clxscore=1015 mlxscore=0 suspectscore=0 mlxlogscore=999 bulkscore=0
- lowpriorityscore=0 impostorscore=0 phishscore=0 priorityscore=1501
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ clxscore=1015
+ adultscore=0 bulkscore=0 mlxscore=0 priorityscore=1501 impostorscore=0
+ spamscore=0 mlxlogscore=999 lowpriorityscore=0 phishscore=0 malwarescore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2007230070
+ definitions=main-2007230071
 Cc: shengjiu.wang@nxp.com, broonie@kernel.org, alsa-devel@alsa-project.org,
  kuninori.morimoto.gx@renesas.com
 X-BeenThere: alsa-devel@alsa-project.org
@@ -121,20 +121,13 @@ On Fri, Jul 17, 2020 at 10:59:59AM -0300, Fabio Estevam wrote:
 > wm8962 0-001a: ASoC: error at soc_component_read_no_lock on wm8962.0-001a: -16
 > wm8962 0-001a: ASoC: error at soc_component_read_no_lock on wm8962.0-001a: -16
 > 
+
+Ah ok I think I can see what is going on here, you get an EBUSY
+if the regmap is in cache only and you try to read a register
+which isn't in the cache. Is that what you are seeing?
+
 > Signed-off-by: Fabio Estevam <festevam@gmail.com>
 > ---
-
-This doesn't quite smell right admittedly I am not 100% sure for this
-chip but usually the Wolfson chips just return zero when you read a
-non-existant register rather than NACKing the transaction. But even
-if the chip was NACKing the transaction I would probably expect an
-EIO rather than EBUSY error.
-
-Are we sure we understand the error we are addressing here?
-
-Thanks,
-Charles
-
 > Hi,
 > 
 > There is still one more soc_component_read_no_lock error left on register 48.
@@ -162,41 +155,13 @@ Charles
 > 
 > I haven't submitted it yet because I don't know if this is the correct
 > approach.
-> 
-> Please advise.
-> 
-> Thanks
-> 
->  sound/soc/codecs/wm8962.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
-> index df8cdc71357d..8159a3866cde 100644
-> --- a/sound/soc/codecs/wm8962.c
-> +++ b/sound/soc/codecs/wm8962.c
-> @@ -956,7 +956,6 @@ static bool wm8962_readable_register(struct device *dev, unsigned int reg)
->  	case WM8962_EQ39:
->  	case WM8962_EQ40:
->  	case WM8962_EQ41:
-> -	case WM8962_GPIO_BASE:
->  	case WM8962_GPIO_2:
->  	case WM8962_GPIO_3:
->  	case WM8962_GPIO_5:
-> @@ -3437,7 +3436,13 @@ static int wm8962_probe(struct snd_soc_component *component)
->  	/* Save boards having to disable DMIC when not in use */
->  	dmicclk = false;
->  	dmicdat = false;
-> -	for (i = 0; i < WM8962_MAX_GPIO; i++) {
-> +	for (i = 1; i < WM8962_MAX_GPIO; i++) {
-> +		/*
-> +		 * Register 515 (WM8962_GPIO_BASE + 3) does not exist,
-> +		 * so skip its access
-> +		 */
-> +		if (i == 3)
-> +			continue;
->  		switch (snd_soc_component_read(component, WM8962_GPIO_BASE + i)
->  			& WM8962_GP2_FN_MASK) {
->  		case WM8962_GPIO_FN_DMICCLK:
-> -- 
-> 2.17.1
-> 
+
+Yeah this one doesn't look like the right fix to me. Is this also
+a cache issue? Since this register is volatile.
+
+I suspect for all of these it would be edifying to know which
+reads happen to these registers whilst the cache is set to
+cache only.
+
+Thanks,
+Charles

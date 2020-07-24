@@ -2,63 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 601C822C9A9
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jul 2020 18:01:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A279F22CB0D
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jul 2020 18:29:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6DA35167A;
-	Fri, 24 Jul 2020 18:00:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DA35167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A8881689;
+	Fri, 24 Jul 2020 18:28:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A8881689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595606498;
-	bh=ZMjaH07SEOCKIJemjyaK/q0yNe3Bhvzatw3aGr7Smlg=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=gS1dj7iBzRqQLs5XPsTMDK6F1Mz3Nl+KJV3QAAMipJ2Po5Po/IphomdajA9mcGrJG
-	 rw+N5bCmbm3cS6cCb0ItbQPB/sO1EmHEn7lCP/aCNzzxGPhw9AoZzqYUGIvTIneZ4b
-	 FzK2/KFSIxjetHvqZcntH/0DccfoGMZGZjMGNpn0=
+	s=default; t=1595608162;
+	bh=u4nXyV/j810BHNxClmYCQYBUZobu4E9jN72sNXvrOP8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=jhVMFArEjpRHAuCTy/53DB+hYWgY/elUgQv1RkCGMRYBQ8hVP7JzsW/GqcJK44IVX
+	 NLwZaml06/3q7GPywV0sUDvAnFmRJC0PEj1uXC5xtbZCVRGiC/m90AhPOpdluOWzhp
+	 R4UrjwAAyWiPVQexZSyUKfKGkuLCrreCn+CzG9LM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91D5EF80141;
-	Fri, 24 Jul 2020 17:59:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 091CFF8011F;
+	Fri, 24 Jul 2020 18:27:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9648F80141; Fri, 24 Jul 2020 17:59:54 +0200 (CEST)
+ id 8FF75F8014C; Fri, 24 Jul 2020 18:27:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from www1102.sakura.ne.jp (www1102.sakura.ne.jp [219.94.129.142])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D9873F8011F
- for <alsa-devel@alsa-project.org>; Fri, 24 Jul 2020 17:59:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9873F8011F
-Received: from fsav401.sakura.ne.jp (fsav401.sakura.ne.jp [133.242.250.100])
- by www1102.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 06OFxeV6081820;
- Sat, 25 Jul 2020 00:59:40 +0900 (JST)
- (envelope-from katsuhiro@katsuster.net)
-Received: from www1102.sakura.ne.jp (219.94.129.142)
- by fsav401.sakura.ne.jp (F-Secure/fsigk_smtp/550/fsav401.sakura.ne.jp);
- Sat, 25 Jul 2020 00:59:40 +0900 (JST)
-X-Virus-Status: clean(F-Secure/fsigk_smtp/550/fsav401.sakura.ne.jp)
-Received: from localhost.localdomain (121.252.232.153.ap.dti.ne.jp
- [153.232.252.121]) (authenticated bits=0)
- by www1102.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 06OFxaYw081779
- (version=TLSv1.2 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
- Sat, 25 Jul 2020 00:59:39 +0900 (JST)
- (envelope-from katsuhiro@katsuster.net)
-From: Katsuhiro Suzuki <katsuhiro@katsuster.net>
-To: Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>
-Subject: [PATCH v2] dt-bindings: sound: convert Everest ES8316 binding to yaml
-Date: Sat, 25 Jul 2020 00:59:33 +0900
-Message-Id: <20200724155933.1040501-1-katsuhiro@katsuster.net>
-X-Mailer: git-send-email 2.27.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Katsuhiro Suzuki <katsuhiro@katsuster.net>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id B7297F8011F
+ for <alsa-devel@alsa-project.org>; Fri, 24 Jul 2020 18:27:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7297F8011F
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 32EE4AC48;
+ Fri, 24 Jul 2020 16:27:40 +0000 (UTC)
+Date: Fri, 24 Jul 2020 18:27:31 +0200
+Message-ID: <s5hh7twop3g.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Armas Spann <zappel@retarded.farm>
+Subject: Re: [PATCH v1] ALSA: hda/realtek: enable headset mic of ASUS ROG
+ Zephyrus G15(GA502) series with ALC289
+In-Reply-To: <20200724140616.298892-1-zappel@retarded.farm>
+References: <20200724140616.298892-1-zappel@retarded.farm>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,107 +70,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch converts Everest Semiconductor ES8316 low power audio
-CODEC binding to DT schema.
+On Fri, 24 Jul 2020 16:06:16 +0200,
+Armas Spann wrote:
+> 
+> This patch adds support for headset mic to the ASUS ROG Zephyrus
+> G15(GA502) notebook series by adding the corresponding
+> vendor/pci_device id, as well as adding a new fixup for the used
+> realtek ALC289. The fixup stets the correct pin to get the headset mic
+> correctly recognized on audio-jack.
+> 
+> Signed-off-by: Armas Spann <zappel@retarded.farm>
 
-Signed-off-by: Katsuhiro Suzuki <katsuhiro@katsuster.net>
+Applied, thanks.
 
----
 
-Changes in v2:
-  - Change maintainers from Mark to Daniel and me
----
- .../bindings/sound/everest,es8316.txt         | 23 ---------
- .../bindings/sound/everest,es8316.yaml        | 50 +++++++++++++++++++
- 2 files changed, 50 insertions(+), 23 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/everest,es8316.txt
- create mode 100644 Documentation/devicetree/bindings/sound/everest,es8316.yaml
-
-diff --git a/Documentation/devicetree/bindings/sound/everest,es8316.txt b/Documentation/devicetree/bindings/sound/everest,es8316.txt
-deleted file mode 100644
-index 1bf03c5f2af4..000000000000
---- a/Documentation/devicetree/bindings/sound/everest,es8316.txt
-+++ /dev/null
-@@ -1,23 +0,0 @@
--Everest ES8316 audio CODEC
--
--This device supports both I2C and SPI.
--
--Required properties:
--
--  - compatible  : should be "everest,es8316"
--  - reg : the I2C address of the device for I2C
--
--Optional properties:
--
--  - clocks : a list of phandle, should contain entries for clock-names
--  - clock-names : should include as follows:
--         "mclk" : master clock (MCLK) of the device
--
--Example:
--
--es8316: codec@11 {
--	compatible = "everest,es8316";
--	reg = <0x11>;
--	clocks = <&clks 10>;
--	clock-names = "mclk";
--};
-diff --git a/Documentation/devicetree/bindings/sound/everest,es8316.yaml b/Documentation/devicetree/bindings/sound/everest,es8316.yaml
-new file mode 100644
-index 000000000000..3b752bba748b
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/everest,es8316.yaml
-@@ -0,0 +1,50 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/everest,es8316.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Everest ES8316 audio CODEC
-+
-+maintainers:
-+  - Daniel Drake <drake@endlessm.com>
-+  - Katsuhiro Suzuki <katsuhiro@katsuster.net>
-+
-+properties:
-+  compatible:
-+    const: everest,es8316
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: clock for master clock (MCLK)
-+
-+  clock-names:
-+    items:
-+      - const: mclk
-+
-+  "#sound-dai-cells":
-+    const: 0
-+
-+required:
-+  - compatible
-+  - reg
-+  - "#sound-dai-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c0 {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+      es8316: codec@11 {
-+        compatible = "everest,es8316";
-+        reg = <0x11>;
-+        clocks = <&clks 10>;
-+        clock-names = "mclk";
-+        #sound-dai-cells = <0>;
-+      };
-+    };
--- 
-2.27.0
-
+Takashi

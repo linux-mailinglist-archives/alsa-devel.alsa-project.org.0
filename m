@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A279F22CB0D
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jul 2020 18:29:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9263722CB17
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jul 2020 18:30:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A8881689;
-	Fri, 24 Jul 2020 18:28:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A8881689
+	by alsa0.perex.cz (Postfix) with ESMTPS id 34B271681;
+	Fri, 24 Jul 2020 18:29:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34B271681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595608162;
-	bh=u4nXyV/j810BHNxClmYCQYBUZobu4E9jN72sNXvrOP8=;
+	s=default; t=1595608209;
+	bh=aYl/2SZ5ky5KEF5SIwYy/sUA48fpE514Q5MIWkFkws0=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jhVMFArEjpRHAuCTy/53DB+hYWgY/elUgQv1RkCGMRYBQ8hVP7JzsW/GqcJK44IVX
-	 NLwZaml06/3q7GPywV0sUDvAnFmRJC0PEj1uXC5xtbZCVRGiC/m90AhPOpdluOWzhp
-	 R4UrjwAAyWiPVQexZSyUKfKGkuLCrreCn+CzG9LM=
+	b=gpP3YTDCzC9716DpglPWTgM8dLaDdnMBYjnpXjzMBemxnxl8IHDRJAI6jeCNG9r8C
+	 uY7S5MhU6Byx4y3eJDQtBdg6RU3s4u+O4/24FzelO7KQQeKwyUfm2BrX8hmTMN+0wx
+	 x7yLxeSTaQKOOqqD3a6CLM8FlfJojN8J+ocK9n3c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 091CFF8011F;
-	Fri, 24 Jul 2020 18:27:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2FA2AF801F5;
+	Fri, 24 Jul 2020 18:27:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8FF75F8014C; Fri, 24 Jul 2020 18:27:38 +0200 (CEST)
+ id 3320AF80161; Fri, 24 Jul 2020 18:27:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B7297F8011F
- for <alsa-devel@alsa-project.org>; Fri, 24 Jul 2020 18:27:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7297F8011F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7120EF80150
+ for <alsa-devel@alsa-project.org>; Fri, 24 Jul 2020 18:27:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7120EF80150
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 32EE4AC48;
- Fri, 24 Jul 2020 16:27:40 +0000 (UTC)
-Date: Fri, 24 Jul 2020 18:27:31 +0200
-Message-ID: <s5hh7twop3g.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 56F0CAD33;
+ Fri, 24 Jul 2020 16:27:52 +0000 (UTC)
+Date: Fri, 24 Jul 2020 18:27:44 +0200
+Message-ID: <s5hft9gop33.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Armas Spann <zappel@retarded.farm>
-Subject: Re: [PATCH v1] ALSA: hda/realtek: enable headset mic of ASUS ROG
- Zephyrus G15(GA502) series with ALC289
-In-Reply-To: <20200724140616.298892-1-zappel@retarded.farm>
-References: <20200724140616.298892-1-zappel@retarded.farm>
+Subject: Re: [PATCH v1] ALSA: hda/realtek: typo_fix: enable headset mic of
+ ASUS ROG Zephyrus G14(GA401) series with ALC289
+In-Reply-To: <20200724140837.302763-1-zappel@retarded.farm>
+References: <20200724140837.302763-1-zappel@retarded.farm>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -70,14 +70,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 24 Jul 2020 16:06:16 +0200,
+On Fri, 24 Jul 2020 16:08:37 +0200,
 Armas Spann wrote:
 > 
-> This patch adds support for headset mic to the ASUS ROG Zephyrus
-> G15(GA502) notebook series by adding the corresponding
-> vendor/pci_device id, as well as adding a new fixup for the used
-> realtek ALC289. The fixup stets the correct pin to get the headset mic
-> correctly recognized on audio-jack.
+> This patch fixes a small typo I accidently submitted with the initial patch. The board should be named GA401 not G401.
 > 
 > Signed-off-by: Armas Spann <zappel@retarded.farm>
 

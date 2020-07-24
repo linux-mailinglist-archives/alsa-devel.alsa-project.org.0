@@ -2,84 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C432022C524
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jul 2020 14:28:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DF2B22C5B6
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jul 2020 15:04:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5EE95168B;
-	Fri, 24 Jul 2020 14:27:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EE95168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id B449A168A;
+	Fri, 24 Jul 2020 15:03:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B449A168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595593697;
-	bh=LIz+nqKkYwzUHq/JJGtMGlewqrAFNsZ0u/rLsadqA10=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1595595842;
+	bh=CT3kJd1MVqXnPYiZORFlfInUGpovklHtPZAv5w59S7Y=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ORXfvlye2eqOVO4GTPbAeiqpt6hyuuBCTZT31c9WQG9feJjW6j5hy1R1pIMPufklE
-	 nUovC95z2iHHARc56iTW9kGWxMWzSkb27uXT+yaIoUe28EDu7S6DMUU1YNzkgG/zTZ
-	 aj/218Fu32P0wjBMwTcMoXIi5Jc1ev+VsVvqmDiM=
+	b=gcjZXePxIX3V8PkkTMOPZnx3lJUspxyNDylam/zyc2OJYPU3Baj8QBUj2eGE30fHn
+	 r1OkZP8d/DSJ51u1TVrbNE9/K4cE3I3hHAIHK/gO/vB+6ZTuIRuXNIHbDOREcfp4Z4
+	 qER0yiDkQAl7eu4oOTXDt36v8ExOl8Entzv5PAdM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B9BAF80141;
-	Fri, 24 Jul 2020 14:26:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CDF4DF80150;
+	Fri, 24 Jul 2020 15:02:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 92B8BF8014C; Fri, 24 Jul 2020 14:26:33 +0200 (CEST)
+ id 16BC6F8014C; Fri, 24 Jul 2020 15:02:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,PRX_BODY_30,SPF_HELO_NONE,
- SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com
- [IPv6:2607:f8b0:4864:20::d43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 463F4F800CE
- for <alsa-devel@alsa-project.org>; Fri, 24 Jul 2020 14:26:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 463F4F800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id D53FFF800CE
+ for <alsa-devel@alsa-project.org>; Fri, 24 Jul 2020 15:02:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D53FFF800CE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="EPZygmZW"
-Received: by mail-io1-xd43.google.com with SMTP id z6so9607706iow.6
- for <alsa-devel@alsa-project.org>; Fri, 24 Jul 2020 05:26:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=rWFRmuy7XzkLC+XwvCLatwNYcAYKtDwmSQ81EKm+28s=;
- b=EPZygmZW6iCVzHgh8qudv/JXg4jPLFpjXVerS6KVxjoWs7LuKEoilUz4dqFD24UX0s
- ZXdIcBD4EZ4AXY5tx3XN6DooetIwONQ02JD6KELko2W7l2+i9ya3EYW2bOVi/ajUVw+i
- FK9u7aWb8UlgxxIL68UY5oWr2+YQLPYAk9QJ4ZSeSeoUy2vAK5T6G/SHv1Ip4G4vs2hR
- PxgjcTw4DyEqH7CtII0xG4O94NIDczPw3vi9w0kJhxPUsIUTsFtcHvnf1PlcpwmVgiSA
- cwgiurI5cEebZud1J/M/RlVAds7aJjtVRetCFxU/tatjrx/oCXEjq+/7n9wAXxFkN8Nu
- zs7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=rWFRmuy7XzkLC+XwvCLatwNYcAYKtDwmSQ81EKm+28s=;
- b=LZdwdEJoZhM3njUpp3ckTT4sn+oY5ehckEyNZKqsu3+jg+XjtUlGS+1o2F+oLybruu
- abefLRgJuGvUdNiZN7n9VAt6GY2elbjDF/VTEknC/3wL1qVQvf4kB9Zo6+r5mFPxMkay
- StDZjAlLCjnWz7H7XqIhG7P7Fn9OFuNeH49HsSEbifV7WjByjy5gV4wAY9333AC8rPz6
- KhukckL4IbCy3xWBgasKMXGD5yw9SomGnNNTyiqA9IwEwVHKHgDjMgKJZjX2E/Y6aQ8c
- gViy63Up8pTE28X3bWJZkJsItkaYZhPJmaHggRgzz/5zOGBBZ5+ccHqfrgLgcBd3faJt
- 2XwQ==
-X-Gm-Message-State: AOAM530eeAux4ln/6wjiAasIQ2R4G2WcC1c0vhbthIKAowQWXt3zLvbi
- ZDG8yJGO2gLnPJR2pgm10GBBByxPdtFDfo15omudxA==
-X-Google-Smtp-Source: ABdhPJwXiuk6LCOsAjcA8djPS7Is+XyFH6x9FF5FXK9RvJjjcUAj+CmnlbFnkMEdiCmJwYoeNJ8ke1oS3a1E5Lhs4k0=
-X-Received: by 2002:a05:6638:1513:: with SMTP id
- b19mr10193239jat.109.1595593584433; 
- Fri, 24 Jul 2020 05:26:24 -0700 (PDT)
-MIME-Version: 1.0
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="yih6vnsy"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 96AC42065E;
+ Fri, 24 Jul 2020 13:02:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1595595726;
+ bh=CT3kJd1MVqXnPYiZORFlfInUGpovklHtPZAv5w59S7Y=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=yih6vnsy6ym1vz2+Wl2FhQQjn/l3dvbGv8MQLrpb7db0Yf9xbWnVCsz2oi59avBEM
+ CJdx+Eh73rF6cl91YwI35bJ9JM+HkmlHwYvzhhU0zqsCbuQS/FP+s3oiHgYyHVAP+B
+ Twx/NH1bFvqL+QfQCK6ismwv/FhecE75L9Cc4bdM=
+Date: Fri, 24 Jul 2020 14:01:51 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Tzung-Bi Shih <tzungbi@google.com>
+Subject: Re: [PATCH] ASoC: dapm: don't call pm_runtime_* on card device
+Message-ID: <20200724130151.GG5664@sirena.org.uk>
 References: <20200724070731.451377-1-tzungbi@google.com>
  <20200724111634.GB5664@sirena.org.uk>
-In-Reply-To: <20200724111634.GB5664@sirena.org.uk>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Fri, 24 Jul 2020 20:26:13 +0800
-Message-ID: <CA+Px+wU-R2qOFK8RhLzTXTqDheZhzOyKuiR-1S9qXj02QdruAA@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: dapm: don't call pm_runtime_* on card device
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+ <CA+Px+wU-R2qOFK8RhLzTXTqDheZhzOyKuiR-1S9qXj02QdruAA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="jt0yj30bxbg11sci"
+Content-Disposition: inline
+In-Reply-To: <CA+Px+wU-R2qOFK8RhLzTXTqDheZhzOyKuiR-1S9qXj02QdruAA@mail.gmail.com>
+X-Cookie: You will wish you hadn't.
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: ALSA development <alsa-devel@alsa-project.org>,
  Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -97,33 +84,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jul 24, 2020 at 7:16 PM Mark Brown <broonie@kernel.org> wrote:
->
-> On Fri, Jul 24, 2020 at 03:07:31PM +0800, Tzung-Bi Shih wrote:
->
-> > Commit 4e872a46823c ("ASoC: dapm: Don't force card bias level to be
-> > updated") stops to force update bias_level on card.  If card doesn't
-> > provide set_bias_level callback, the snd_soc_dapm_set_bias_level()
-> > is equivalent to NOP for card device.
->
-> > As a result, dapm_pre_sequence_async() doesn't change the bias_level of
-> > card device correctly.  Thus, pm_runtime_get_sync() would be called in
-> > dapm_pre_sequence_async() without symmetric pm_runtime_put() in
-> > dapm_post_sequence_async().
->
-> > Don't call pm_runtime_* on card device.
->
-> Why is this a good fix, as opposed to only skipping the set_bias_level()
-> bit?
 
-Did you mean: skip to call snd_soc_dapm_set_bias_level() in
-dapm_pre_sequence_async() and dapm_post_sequence_async()?
+--jt0yj30bxbg11sci
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-If so, skipping snd_soc_dapm_set_bias_level() won't fix the issue.
-The runtime_usage increases in pm_runtime_get() and decreases in
-pm_runtime_put().
+On Fri, Jul 24, 2020 at 08:26:13PM +0800, Tzung-Bi Shih wrote:
+> On Fri, Jul 24, 2020 at 7:16 PM Mark Brown <broonie@kernel.org> wrote:
 
-Besides, snd_soc_dapm_set_bias_level() calls card->set_bias_level()
-and card->set_bias_level_post() if any.  Skip to call
-snd_soc_dapm_set_bias_level() couldn't be a good idea.  It may change
-some existing code behavior.
+> > Why is this a good fix, as opposed to only skipping the set_bias_level()
+> > bit?
+
+> Did you mean: skip to call snd_soc_dapm_set_bias_level() in
+> dapm_pre_sequence_async() and dapm_post_sequence_async()?
+
+No, I mean why not just add the missing puts which are currently being
+skipped due to being caught up with the bias level changes.
+
+--jt0yj30bxbg11sci
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8a274ACgkQJNaLcl1U
+h9AoHAf9H7byq5hdBVcD7CU372Q/Hg7BAxu4cHvndfJdS1aLLSAQSK/nbFT6Yt7N
+WrUFdxkBv/YdztQObTB7DStCdefjWe5y5KeAUbAL8ctB9Jv3DmJJMgJyNnp9wykG
+jAIKfSjsOOYFDizfiZpM++xTJBITpWAVIr96bZg6sdWROS5HEJHEZtu+qq+FKSmb
+GojNuZjj34ZusjQHHonaD5cGVq6lJGWRViuWx7S5i7t2PF6S4ucQK9TWBrGlN9HU
+L5+673M5UVobMDEE36hO0z+FCfnWx8KWFW6y/seYVqtZCOuv6TDoB2YzglC0LPAH
+gH/GlFukx3hqzxZ76NjkXBkGvZe/BA==
+=F/Bo
+-----END PGP SIGNATURE-----
+
+--jt0yj30bxbg11sci--

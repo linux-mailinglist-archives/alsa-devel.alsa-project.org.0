@@ -2,80 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D4FE22C459
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jul 2020 13:24:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E2B822C45A
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jul 2020 13:25:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 079971697;
-	Fri, 24 Jul 2020 13:23:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 079971697
+	by alsa0.perex.cz (Postfix) with ESMTPS id 06FA91687;
+	Fri, 24 Jul 2020 13:24:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06FA91687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595589858;
-	bh=cjGlO/ne3bdmBqRwR/ek8mqSk9abFhH/Ui/gdGtH4J8=;
+	s=default; t=1595589901;
+	bh=ZlI0fQGeSQwCgdDzGmLHae8jvYrsx3iToJo556rxcAA=;
 	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oLjNzyYWLz3q9qUfCydsDjnJN+Z/7fYMCqWYDMfKcpw7wAvcieLcEW5O9vutKHRM2
-	 86bYVynbu81Leszsr6TAwXGrUnlpF7FVy/us070f0FLKmJBCDi54ECyvTOsXNUd6pB
-	 rQRCiQFfBOTqhA+clxwLNc7RtShB/7zFQeRkMPOQ=
+	b=EfhLpvNfd1f/KOf8qMQFL4WchrtStUur6bwaitvkL2HUzM2l5S/f6HjMzws6/nHtX
+	 8wtVf415bvNlmPo/tH5H2wBLgVOnY/NjYH3bcuzhbJ2t7UKlJVsIt6oj/ZS/WUtldv
+	 X2eh23zlx6pEatXrkwszJoVuHFPrO1xICbDN33jg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8242BF80150;
-	Fri, 24 Jul 2020 13:22:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 226B0F802BD;
+	Fri, 24 Jul 2020 13:22:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7C703F80161; Fri, 24 Jul 2020 13:21:59 +0200 (CEST)
+ id 2BA87F802C4; Fri, 24 Jul 2020 13:22:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 73466F80150
- for <alsa-devel@alsa-project.org>; Fri, 24 Jul 2020 13:21:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73466F80150
+ by alsa1.perex.cz (Postfix) with ESMTPS id 059B4F802BD
+ for <alsa-devel@alsa-project.org>; Fri, 24 Jul 2020 13:21:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 059B4F802BD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="MFQ4I9EY"
-Received: by mail-wr1-x444.google.com with SMTP id y3so7965023wrl.4
- for <alsa-devel@alsa-project.org>; Fri, 24 Jul 2020 04:21:48 -0700 (PDT)
+ header.b="p6tgPHcx"
+Received: by mail-wm1-x341.google.com with SMTP id 3so1004874wmi.1
+ for <alsa-devel@alsa-project.org>; Fri, 24 Jul 2020 04:21:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=subject:to:references:from:message-id:date:user-agent:mime-version
  :in-reply-to:content-language:content-transfer-encoding;
- bh=Yxn5p63f6xRMyNZIKI09U0WQN+ewDSvHCk0EiFeJonw=;
- b=MFQ4I9EYPiUXBME2soPRf0FHybbqt0G73mLbezrYwDF9EkrdbgGj7Ql/TdkrH9A5TN
- byMUVKgWirUxLFsx1EcGnDXrkwzQNypVsr3FEzd13RDYGLi8diuVor5dgnmpyTpWGbvF
- snI1FdnNtl6hG7U1/7BVJVWMZPhEYyEgbqPF3CaKAFZOuCfvNCwcGJ7YtxZssa2rhHWP
- FnWOmXg6UN1Pv/iKqpDA//ISLi0FlQ1XlCGiTNwRP49bHMfwcGp3VmLJlThQoP3HzLai
- b9YKINrFfJgSu8X3G7H/4s1yy5zioHh1m3xO1z8lxVUHE7vwI/SXy1MJ0EdjsIWyio1n
- SPHA==
+ bh=QBcl5FK4EZqrtCnW5IQ5WndIaO7X61MMG438KlSxZ48=;
+ b=p6tgPHcxw7s+eIybTuztyk5Zh+ndlxFsb6LnTlTsA4B+g8xpvXitbOzuaGmCgfqRZb
+ giCezrtJy0QaopoXfIqaUbZHRnE5iVWB1cbawyhaA1ftF7mxE0rwYy54CkTF6S+TAbj9
+ wsgoL474l8C+LiDYwSs3Xgm/H+Rcn5CwIrD4E/2UOexcF95TC2wuxTFtgOPRIhrHiZaB
+ r2XvYlXNVFEuBXRInp4w/L4ZqgdCGK/k9GeraiDofbJx0KiZJOiz8wE1mUyIPccyoTEI
+ eQxP/4c8TCL7l6vYkJkPI5RlS/Lkz/dSezmCs60Qr+Fg8exa7O1URKW7Gh89H61GSWkm
+ ExhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=Yxn5p63f6xRMyNZIKI09U0WQN+ewDSvHCk0EiFeJonw=;
- b=nYMsL0GuNy3x/N5MhuA/9D+6jvUx+RKEJYtpC+1RPguSNc1ciM97mYL8dWVXmPR+qq
- Dq6GhLAcAjqjyz+J3TiVL9rkCKCkfzQDxqKvth35SVcp9y0ukcKeLvKFGlKKGpCDl2Cx
- EDVXDE93ZxUiom/qH8Bdf4N6Q79BYsK7+yn0NA1Nmg8Pr0sXx7UCaJgkwTwJ+PTUJSWy
- XTiM87CXTw2IWexR6pqKK1ocjmvDbASwexBjNVSGkIFikHXhsBK+ddX67DYb10c9/Xo/
- dteD3L9G76db6IQhXbC9GzbIDF4z1IO4wrfGdCDowdgLrkldngJtKo9HzQ29LEUxR1Rl
- TUvA==
-X-Gm-Message-State: AOAM530a9nq6Qe8e/fK8dK44ZT+/+VWOgjrIc9EBo/ypHHDXo9bbhb/8
- aFPrDwxvoLrCBfI8mhlIMf0DXA==
-X-Google-Smtp-Source: ABdhPJwk3yJH2k2se0co2uZc0PH6TC0Af1M7TgEssnr7ir+wGzTPfXA1pcbKzdW/TothLmRlWDKafA==
-X-Received: by 2002:a5d:424f:: with SMTP id s15mr8736978wrr.342.1595589707519; 
- Fri, 24 Jul 2020 04:21:47 -0700 (PDT)
+ bh=QBcl5FK4EZqrtCnW5IQ5WndIaO7X61MMG438KlSxZ48=;
+ b=eqDfnVwKUEAbifg7umXYtmlzGa29zgYus3KWTYIKVjfd7wEzNELjme8X9DHWfaUKfu
+ v1xxjfCg8nfoSumJsjci1+UX05EwjU0iv8PAirz4BOjqmYxOZmxfmJipQvTAx8ELqOrs
+ uDMkfKrFe21w+LAzMJ8rw2/r5TEUU3bOlz4AjALY0B0kEL6fB8FTkeSp3AaLo7+kQsRV
+ IdP6JMOmgC4k6Teor2kW0lgKvnfliH+Viylk76gBtEyN8DNaYQy813hyM9AQz9akhaEV
+ JzabkzhiQWe5Cc/Uv20hItoi2355o5aHTqTnUwcZ/14XfB1k8NmQP8Wg2pSctopjqONo
+ 9VLA==
+X-Gm-Message-State: AOAM531eSgqF1Rz43OPVMd1bgZESWHGlX+i1LcpyRIIyY/FKzGL/a1wY
+ E/pnF3Bn+oW/Glls2BhUu3o6KA==
+X-Google-Smtp-Source: ABdhPJyIZOVHqR8IywjbnF4AfvsOTpXs4INYnuhL6MUOJ25g639wiz/73ibH9ilrBLAIG2rjP2oPBA==
+X-Received: by 2002:a1c:4406:: with SMTP id r6mr8235833wma.161.1595589716944; 
+ Fri, 24 Jul 2020 04:21:56 -0700 (PDT)
 Received: from [192.168.86.34]
  (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.googlemail.com with ESMTPSA id a10sm14965705wmd.3.2020.07.24.04.21.46
+ by smtp.googlemail.com with ESMTPSA id p14sm1020718wrx.90.2020.07.24.04.21.55
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 24 Jul 2020 04:21:46 -0700 (PDT)
-Subject: Re: [PATCH v4 04/12] ASoC: qcom: lpass-platform: fix memory leak
+ Fri, 24 Jul 2020 04:21:56 -0700 (PDT)
+Subject: Re: [PATCH v4 06/12] ASoC: qcom: lpass-cpu: fix concurrency issue
 To: Rohit kumar <rohitkr@codeaurora.org>, agross@kernel.org,
  bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
  robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
@@ -83,14 +83,14 @@ To: Rohit kumar <rohitkr@codeaurora.org>, agross@kernel.org,
  alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <1595413915-17867-1-git-send-email-rohitkr@codeaurora.org>
- <1595413915-17867-5-git-send-email-rohitkr@codeaurora.org>
+ <1595413915-17867-7-git-send-email-rohitkr@codeaurora.org>
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <1b8f969a-8f88-2928-0b29-9325451d9613@linaro.org>
-Date: Fri, 24 Jul 2020 12:21:45 +0100
+Message-ID: <eb3854ac-6480-f6ce-4325-bd00dd18be40@linaro.org>
+Date: Fri, 24 Jul 2020 12:21:55 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <1595413915-17867-5-git-send-email-rohitkr@codeaurora.org>
+In-Reply-To: <1595413915-17867-7-git-send-email-rohitkr@codeaurora.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -112,38 +112,53 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 On 22/07/2020 11:31, Rohit kumar wrote:
-> lpass_pcm_data is never freed. Free it in close
-> ops to avoid memory leak.
+> i2sctl register value is set to 0 during hw_free(). This
+> impacts any ongoing concurrent session on the same i2s
+> port. As trigger() stop already resets enable bit to 0,
+> there is no need of explicit hw_free. Removing it to
+> fix the issue.
 > 
-> Fixes: 022d00ee0b55 ("ASoC: lpass-platform: Fix broken pcm data usage")
+> Fixes: 80beab8e1d86 ("ASoC: qcom: Add LPASS CPU DAI driver")
 > Signed-off-by: Rohit kumar <rohitkr@codeaurora.org>
-
 
 Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 
 > ---
->   sound/soc/qcom/lpass-platform.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
+>   sound/soc/qcom/lpass-cpu.c | 16 ----------------
+>   1 file changed, 16 deletions(-)
 > 
-> diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
-> index fb9acfd..b195f3d 100644
-> --- a/sound/soc/qcom/lpass-platform.c
-> +++ b/sound/soc/qcom/lpass-platform.c
-> @@ -61,7 +61,7 @@ static int lpass_platform_pcmops_open(struct snd_soc_component *component,
->   	int ret, dma_ch, dir = substream->stream;
->   	struct lpass_pcm_data *data;
->   
-> -	data = devm_kzalloc(soc_runtime->dev, sizeof(*data), GFP_KERNEL);
-> +	data = kzalloc(sizeof(*data), GFP_KERNEL);
->   	if (!data)
->   		return -ENOMEM;
->   
-> @@ -118,6 +118,7 @@ static int lpass_platform_pcmops_close(struct snd_soc_component *component,
->   	if (v->free_dma_channel)
->   		v->free_dma_channel(drvdata, data->dma_ch);
->   
-> +	kfree(data);
+> diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+> index 6b86f16..5d84f63 100644
+> --- a/sound/soc/qcom/lpass-cpu.c
+> +++ b/sound/soc/qcom/lpass-cpu.c
+> @@ -266,21 +266,6 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
 >   	return 0;
 >   }
 >   
+> -static int lpass_cpu_daiops_hw_free(struct snd_pcm_substream *substream,
+> -		struct snd_soc_dai *dai)
+> -{
+> -	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
+> -	int ret;
+> -
+> -	ret = regmap_write(drvdata->lpaif_map,
+> -			   LPAIF_I2SCTL_REG(drvdata->variant, dai->driver->id),
+> -			   0);
+> -	if (ret)
+> -		dev_err(dai->dev, "error writing to i2sctl reg: %d\n", ret);
+> -
+> -	return ret;
+> -}
+> -
+>   static int lpass_cpu_daiops_prepare(struct snd_pcm_substream *substream,
+>   		struct snd_soc_dai *dai)
+>   {
+> @@ -350,7 +335,6 @@ const struct snd_soc_dai_ops asoc_qcom_lpass_cpu_dai_ops = {
+>   	.startup	= lpass_cpu_daiops_startup,
+>   	.shutdown	= lpass_cpu_daiops_shutdown,
+>   	.hw_params	= lpass_cpu_daiops_hw_params,
+> -	.hw_free	= lpass_cpu_daiops_hw_free,
+>   	.prepare	= lpass_cpu_daiops_prepare,
+>   	.trigger	= lpass_cpu_daiops_trigger,
+>   };
 > 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38DC422DB23
-	for <lists+alsa-devel@lfdr.de>; Sun, 26 Jul 2020 03:27:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0F2C22DB24
+	for <lists+alsa-devel@lfdr.de>; Sun, 26 Jul 2020 03:28:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C5B1A168B;
-	Sun, 26 Jul 2020 03:27:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5B1A168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4DFDA169A;
+	Sun, 26 Jul 2020 03:27:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4DFDA169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595726875;
-	bh=S2BAxCY7XZ2P897PVTA3VmjfM2ZdpNLH7S3Ji5kGsl0=;
+	s=default; t=1595726922;
+	bh=KIcipTCrM7o4efALFJGvKjdg9nv7KJJi/3J3UzcCOxw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AOLetuig6igBbjMGO6MiC6CpA71NgrTkUopvQ4NcYPoUM1EUe4Qj+gnVBp0ie4ccm
-	 a8Briefwi395gw3idrXEm5aeHAjv15NGFeXQqEs5B/UwWa9lXQYPgYeK/7/dRAgDFg
-	 N630fNxiaIU4XLZMYpUz4HvqHrN4wL9iGR2MoLt4=
+	b=lnptY6rCIB9qdZcIi5JTl9xM16E2cexUPqfOspGg19vQj9r7g6p6nbjp61GA9hXIZ
+	 KKwtAJ13w5sEvTH65yGnkK1nsVm6qX8FIJnd8hpChZltXAa8gjDil+L1b5+f2gPGVl
+	 GEsmv6o8zO5VuHEoeTj2tl9IEbjhXyQIqgJ/cxow=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE9FCF8011F;
-	Sun, 26 Jul 2020 03:26:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3B0CF80268;
+	Sun, 26 Jul 2020 03:26:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 97444F8028D; Sun, 26 Jul 2020 03:26:10 +0200 (CEST)
+ id 41A50F8028C; Sun, 26 Jul 2020 03:26:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,40 +35,40 @@ Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
  [66.111.4.229])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 910BCF8011F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9918FF800C7
  for <alsa-devel@alsa-project.org>; Sun, 26 Jul 2020 03:26:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 910BCF8011F
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9918FF800C7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sholland.org header.i=@sholland.org
- header.b="lHVvSAw1"; 
+ header.b="thDQChMV"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="o561a/MA"
+ header.i=@messagingengine.com header.b="WKJ23IV2"
 Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailnew.nyi.internal (Postfix) with ESMTP id 7384A58014B;
+ by mailnew.nyi.internal (Postfix) with ESMTP id 720D1580146;
  Sat, 25 Jul 2020 21:26:00 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
  by compute3.internal (MEProxy); Sat, 25 Jul 2020 21:26:00 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sholland.org; h=
  from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm3; bh=Bc+s0nLaRpZIx
- yCBvQ4oj1VwkiAzKp+9hlsJuhGXWAM=; b=lHVvSAw1ZVEQfJMC1pDEJsvgNHUQC
- ToktL4COHMq/yhL+CXinpvhwck8N7ckpGHJoXgZAYW4+ZX+EACJHnGOZDE8N8dCu
- V8saNvMyvYjMsdCHLAorj2rKQZ6lU5hxsQvRIgt6DiBKLjfsOhwo+V+yqwdHNadP
- WFv9UrMrcwDiLgoJWK0pztN8TeivUK2wQQjrf2gNSZKnYF+IHvv3+tMRkfEV8WKF
- Ppx5V9wNX1el4R++U4QFa5GXmQ8gkl5cQ/qZygVTSTVayfQdakT39q5wuzGNilf7
- H/4Ex92+OvtrRIbnFNpL3HquZRt+rWhmwGr5dpUQYWDM4rDQp1mFnTyEA==
+ :mime-version:content-transfer-encoding; s=fm3; bh=bqBOklXJABlD5
+ jjNvIrS/iMxzEoDg1wzDNL0XDIE7B4=; b=thDQChMVX+VHrNGESkAXYXTVRcFuY
+ RuAJidRkp0lBxbkg5gE09nJjR7Aa2zGp9V8hxAZyX0xZYgMycpRNxSRdNg6xoFZT
+ PzjAam7l/sX7gjqtGp4rOSEsUnLL1jO0OqlwyEV4nQGZAIFK5L/NbGLUIVvJytk4
+ EkYRKBWBn5PJvelXHQQDJh7/dthdn6YYEWRfr9AEsA5DvWe0ga66CPkBehR5tElO
+ Yg9MXf0opCunlXrBYCLP4KxR1WHQL7s7j8ONHrF7HbW/5wVaylKI+BkWCjl8FaFe
+ NPH6MxfyENsAHI2Wh/1kK4tg3jSWlXCDfy9rx0xh37MgVtVNGGfsWe6vg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=Bc+s0nLaRpZIxyCBvQ4oj1VwkiAzKp+9hlsJuhGXWAM=; b=o561a/MA
- JTGnE42PW2YjZgncOVPhgWjXBBRDNPrA1jPhpaM+PahPWgglJvDF8F1CZCGB0dBK
- B3VEEGZzmjJG6rYW/P5T83fOTqnzHQyIGLXZ3OrDjxNSVnwHL7ygazZoUItBOQ1k
- zG391ZxWp0MGbFe0GvD7xgrJfI+6lEVEQHTuY+XhuXsTz8PxXFmIS793bMxuQJ0Y
- jko94yEe56rowUcECducoVe4KeTWeScfvlYLMK5rBaPqDBd2bRL5vyPx41IfuJ+O
- nmmvyBFtoRTQUx2q4UmTZUgf9pi61eW5er3hI3vPttPso+/6e4ug939s0UsCbHE+
- WavsLeGyMD87Mg==
-X-ME-Sender: <xms:p9scX6QxgGqbunpekQBTatw5eZIHwmitByMoW1-uhaDl3BLMN2SwMA>
+ fm3; bh=bqBOklXJABlD5jjNvIrS/iMxzEoDg1wzDNL0XDIE7B4=; b=WKJ23IV2
+ athUrCmE31+5PKY+Y1HvRpST2eBShNabItuSnkeP7RJ/LxK/y3YcGvdZmGqdbu5q
+ 1VvGXCsOqL/+BIw0D3kvxeDon0EAkAJnt9hDaHUJuLRYBAd6oeTJeJ1ap52LBUSc
+ X+r8PDR/IG0TqPpGlWDj9spsYHhzvTnyzd/0sTx/PPKCz/iIsxIMZ6lGjwOWtIhB
+ VSvQCpA4nvXjhIDPKYqiFpv+FqMgJ9GNQvjhig9/0NHSJxxed+MM2s5kW7z33ACl
+ WqesJ5qp6ZNGlUYHQn43uL0X2FesX3xc/9nIQuFcAKFPYm5xEzwoI7tGtWBnuqtD
+ efMlW7BS3FgOew==
+X-ME-Sender: <xms:qNscX4lUDdz0UIBmAA5zsnT1VLYwer4vTiAaS3YiC6zinDcVEcHZYA>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrheeigdegfecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
@@ -78,22 +78,22 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrheeigdegfecutefuodetggdote
  jeehueeinecukfhppeejtddrudefhedrudegkedrudehudenucevlhhushhtvghrufhiii
  gvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehsrghmuhgvlhesshhhohhllhgrnhgu
  rdhorhhg
-X-ME-Proxy: <xmx:p9scX_yWVMgMMUn_Fe5R6YbGcjJxFfzI3QqyQmYquCbxdsu4ZzJp4w>
- <xmx:p9scX30JW_vZ9B0qbbut9WlqEOlb4LVRFTx1vV4k3CBjW7pex6Xj2w>
- <xmx:p9scX2DEaDqJW1M2axr7KmV1Y0446X32Nealw3SmpcZfnqyGYJk8Cg>
- <xmx:qNscX2pC0afVfIF804Gnm4lhCY4u0ZoXlGf6inmLtdE4lEpeZeWThA>
+X-ME-Proxy: <xmx:qNscX30w4q_nxPuCZKR-u0IXhu8EmhgrcnaH_w2C0NAEalj2jhSl7A>
+ <xmx:qNscX2pLeythmwwyt-xfRUd5Uq13a3Skrt3Ou_Iv2fV1h8k_4VHnXA>
+ <xmx:qNscX0nE2__SjQu3DiFumCg2pKLRc6gpe3bUu433PKtZGvfriDkwOQ>
+ <xmx:qNscXzuZtEXNVP0Q_JVrXzkMARjEnfSR6MAX1J8m8CDwgfTbMyfLig>
 Received: from titanium.stl.sholland.net
  (70-135-148-151.lightspeed.stlsmo.sbcglobal.net [70.135.148.151])
- by mail.messagingengine.com (Postfix) with ESMTPA id BFEF8306005F;
- Sat, 25 Jul 2020 21:25:58 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 6BE8330600A9;
+ Sat, 25 Jul 2020 21:25:59 -0400 (EDT)
 From: Samuel Holland <samuel@sholland.org>
 To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
  Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
  Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 1/7] ASoC: dt-bindings: Add a new compatible for the A64 codec
-Date: Sat, 25 Jul 2020 20:25:51 -0500
-Message-Id: <20200726012557.38282-2-samuel@sholland.org>
+Subject: [PATCH 2/7] ASoC: sun8i-codec: Fix DAPM to match the hardware topology
+Date: Sat, 25 Jul 2020 20:25:52 -0500
+Message-Id: <20200726012557.38282-3-samuel@sholland.org>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200726012557.38282-1-samuel@sholland.org>
 References: <20200726012557.38282-1-samuel@sholland.org>
@@ -118,42 +118,259 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The audio codecs in the A33 and A64 are both integrated variants of the
-X-Powers AC100 codec. However, there are some differences between them
-that merit having a separate compatible:
- - The A64 has a second DRC block, not present in the AC100 or A33.
- - The A33 has some extra muxing options for AIF1/2/3 in the
-   AIF3_SGP_CTRL register, which are not present in the AC100 or A64.
- - The A33 is missing registers providing jack detection functionality.
- - The A33 is claimed to invert LRCK, but this is not seen on A64.
+The A33/A64 digital codec has 4 physical inputs and 4 physical outputs:
+3 AIFs/DAIs and one ADC/DAC pair. Internal routing is accomplished by
+a 4-channel mixer connected to each output.
 
-Since the driver will continue to work on the A64 using the A33
-compatible, albeit without jack detection functionality and with
-possibly inverted channels, as it does now, allow the A33 compatible
-to be used as a fallback.
+The analog and digital sides of the ADC/DAC are in separate ASoC
+components, so card-level DAPM routes (provided in the device tree) are
+necessary to connect them together. Currently, these routes are wrong.
+
+For AIF1 Playback, the correct topology is:
+
+         ||<<============ sun8i-codec ===========>>||
+         ||                                        ||
+ CPU DAI -> AIF1 DA0 -> DAC Mixer -> DAC (digital) -> DAC (analog)
+         ||                                        ||
+
+but the driver and device trees currently describe:
+
+         ||                                        ||
+ CPU DAI -> AIF1 DA0 -------------------------------> DAC (analog)
+         ||     \--> DAC Mixer -> ??? [dead end]   ||
+
+For AIF1 Capture, there is an additional problem, because the Mixer
+route is backward. The topology should be:
+
+              ||                                             ||
+ ADC (analog) -> ADC (digital) -> AIF1 AD0 Mixer -> AIF1 AD0 -> CPU DAI
+              ||                                             ||
+
+but the driver and device trees currently describe:
+
+              ||                                             ||
+ ADC (analog) -> AIF1 AD0 ------------------------------------> CPU DAI
+              ||     \--> ADC Mixer -> ??? [dead end]        ||
+
+The ADC/DAC are only powered because AIF1 AD0 (capture) has supply
+routes from the ADC, and AIF1 DA0 (playback) has supply routes from the
+DAC. However, neither set of supply routes matches the hardware
+topology. Audio can be routed among AIF1/2/3 without using the ADC or
+DAC at all; and audio can be routed from the ADC to the DAC without
+using any AIFs (via the "ADC Digital DAC Playback Switch"). Because the
+DAPM routes are wrong, both of these use cases are currently broken.
+
+This commit adds the necessary widgets and routes to represent the real
+hardware topology, with functionality equivalent to the current driver.
+
+For the existing "allwinner,sun8i-a33-codec" compatible, widgets with
+the old names are kept as wrappers around the new widgets, so existing
+device trees will continue to work. For "allwinner,sun50i-a64-codec",
+the old widgets can be omitted, because no device trees yet use that
+compatible.
 
 Signed-off-by: Samuel Holland <samuel@sholland.org>
 ---
- .../bindings/sound/allwinner,sun8i-a33-codec.yaml           | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ sound/soc/sunxi/sun8i-codec.c | 120 +++++++++++++++++++++++++++-------
+ 1 file changed, 95 insertions(+), 25 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/allwinner,sun8i-a33-codec.yaml b/Documentation/devicetree/bindings/sound/allwinner,sun8i-a33-codec.yaml
-index 55d28268d2f4..67405e6d8168 100644
---- a/Documentation/devicetree/bindings/sound/allwinner,sun8i-a33-codec.yaml
-+++ b/Documentation/devicetree/bindings/sound/allwinner,sun8i-a33-codec.yaml
-@@ -15,7 +15,11 @@ properties:
-     const: 0
+diff --git a/sound/soc/sunxi/sun8i-codec.c b/sound/soc/sunxi/sun8i-codec.c
+index ca51af114419..ffeac150c086 100644
+--- a/sound/soc/sunxi/sun8i-codec.c
++++ b/sound/soc/sunxi/sun8i-codec.c
+@@ -13,6 +13,7 @@
+ #include <linux/delay.h>
+ #include <linux/clk.h>
+ #include <linux/io.h>
++#include <linux/of_device.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/log2.h>
+@@ -85,10 +86,15 @@
+ #define SUN8I_AIF1CLK_CTRL_AIF1_LRCK_DIV_MASK	GENMASK(8, 6)
+ #define SUN8I_AIF1CLK_CTRL_AIF1_BCLK_DIV_MASK	GENMASK(12, 9)
  
-   compatible:
--    const: allwinner,sun8i-a33-codec
-+    oneOf:
-+      - items:
-+          - const: allwinner,sun50i-a64-codec
-+          - const: allwinner,sun8i-a33-codec
-+      - const: allwinner,sun8i-a33-codec
++struct sun8i_codec_quirks {
++	bool legacy_widgets	: 1;
++};
++
+ struct sun8i_codec {
+-	struct regmap	*regmap;
+-	struct clk	*clk_module;
+-	struct clk	*clk_bus;
++	struct regmap			*regmap;
++	struct clk			*clk_module;
++	struct clk			*clk_bus;
++	const struct sun8i_codec_quirks	*quirks;
+ };
  
-   reg:
-     maxItems: 1
+ static int sun8i_codec_runtime_resume(struct device *dev)
+@@ -388,22 +394,30 @@ static const struct snd_soc_dapm_widget sun8i_codec_dapm_widgets[] = {
+ 	SND_SOC_DAPM_SUPPLY("ADC", SUN8I_ADC_DIG_CTRL, SUN8I_ADC_DIG_CTRL_ENDA,
+ 			    0, NULL, 0),
+ 
+-	/* Analog DAC AIF */
+-	SND_SOC_DAPM_AIF_IN("AIF1 Slot 0 Left", "Playback", 0,
++	/* AIF "DAC" Inputs */
++	SND_SOC_DAPM_AIF_IN("AIF1 DA0L", "Playback", 0,
+ 			    SUN8I_AIF1_DACDAT_CTRL,
+ 			    SUN8I_AIF1_DACDAT_CTRL_AIF1_DA0L_ENA, 0),
+-	SND_SOC_DAPM_AIF_IN("AIF1 Slot 0 Right", "Playback", 0,
++	SND_SOC_DAPM_AIF_IN("AIF1 DA0R", "Playback", 0,
+ 			    SUN8I_AIF1_DACDAT_CTRL,
+ 			    SUN8I_AIF1_DACDAT_CTRL_AIF1_DA0R_ENA, 0),
+ 
+-	/* Analog ADC AIF */
+-	SND_SOC_DAPM_AIF_IN("AIF1 Slot 0 Left ADC", "Capture", 0,
++	/* AIF "ADC" Outputs */
++	SND_SOC_DAPM_AIF_IN("AIF1 AD0L", "Capture", 0,
+ 			    SUN8I_AIF1_ADCDAT_CTRL,
+ 			    SUN8I_AIF1_ADCDAT_CTRL_AIF1_DA0L_ENA, 0),
+-	SND_SOC_DAPM_AIF_IN("AIF1 Slot 0 Right ADC", "Capture", 0,
++	SND_SOC_DAPM_AIF_IN("AIF1 AD0R", "Capture", 0,
+ 			    SUN8I_AIF1_ADCDAT_CTRL,
+ 			    SUN8I_AIF1_ADCDAT_CTRL_AIF1_DA0R_ENA, 0),
+ 
++	/* ADC Inputs (connected to analog codec DAPM context) */
++	SND_SOC_DAPM_ADC("ADCL", NULL, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_ADC("ADCR", NULL, SND_SOC_NOPM, 0, 0),
++
++	/* DAC Outputs (connected to analog codec DAPM context) */
++	SND_SOC_DAPM_DAC("DACL", NULL, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_DAC("DACR", NULL, SND_SOC_NOPM, 0, 0),
++
+ 	/* DAC and ADC Mixers */
+ 	SOC_MIXER_ARRAY("Left Digital DAC Mixer", SND_SOC_NOPM, 0, 0,
+ 			sun8i_dac_mixer_controls),
+@@ -449,40 +463,86 @@ static const struct snd_soc_dapm_route sun8i_codec_dapm_routes[] = {
+ 	/* Clock Routes */
+ 	{ "AIF1", NULL, "SYSCLK AIF1" },
+ 	{ "AIF1 PLL", NULL, "AIF1" },
+-	{ "RST AIF1", NULL, "AIF1 PLL" },
++	{ "SYSCLK", NULL, "AIF1 PLL" },
++
++	{ "RST AIF1", NULL, "SYSCLK" },
+ 	{ "MODCLK AFI1", NULL, "RST AIF1" },
+-	{ "DAC", NULL, "MODCLK AFI1" },
+-	{ "ADC", NULL, "MODCLK AFI1" },
++	{ "AIF1 AD0L", NULL, "MODCLK AFI1" },
++	{ "AIF1 AD0R", NULL, "MODCLK AFI1" },
++	{ "AIF1 DA0L", NULL, "MODCLK AFI1" },
++	{ "AIF1 DA0R", NULL, "MODCLK AFI1" },
+ 
+ 	{ "RST DAC", NULL, "SYSCLK" },
+ 	{ "MODCLK DAC", NULL, "RST DAC" },
+ 	{ "DAC", NULL, "MODCLK DAC" },
++	{ "DACL", NULL, "DAC" },
++	{ "DACR", NULL, "DAC" },
+ 
+ 	{ "RST ADC", NULL, "SYSCLK" },
+ 	{ "MODCLK ADC", NULL, "RST ADC" },
+ 	{ "ADC", NULL, "MODCLK ADC" },
++	{ "ADCL", NULL, "ADC" },
++	{ "ADCR", NULL, "ADC" },
+ 
+ 	/* DAC Routes */
+-	{ "AIF1 Slot 0 Right", NULL, "DAC" },
+-	{ "AIF1 Slot 0 Left", NULL, "DAC" },
++	{ "DACL", NULL, "Left Digital DAC Mixer" },
++	{ "DACR", NULL, "Right Digital DAC Mixer" },
+ 
+ 	/* DAC Mixer Routes */
+-	{ "Left Digital DAC Mixer", "AIF1 Slot 0 Digital DAC Playback Switch",
+-	  "AIF1 Slot 0 Left"},
+-	{ "Right Digital DAC Mixer", "AIF1 Slot 0 Digital DAC Playback Switch",
+-	  "AIF1 Slot 0 Right"},
++	{ "Left Digital DAC Mixer", "AIF1 Slot 0 Digital DAC Playback Switch", "AIF1 DA0L" },
++	{ "Right Digital DAC Mixer", "AIF1 Slot 0 Digital DAC Playback Switch", "AIF1 DA0R" },
+ 
+ 	/* ADC Routes */
+-	{ "AIF1 Slot 0 Right ADC", NULL, "ADC" },
+-	{ "AIF1 Slot 0 Left ADC", NULL, "ADC" },
++	{ "AIF1 AD0L", NULL, "Left Digital ADC Mixer" },
++	{ "AIF1 AD0R", NULL, "Right Digital ADC Mixer" },
+ 
+ 	/* ADC Mixer Routes */
+-	{ "Left Digital ADC Mixer", "AIF1 Data Digital ADC Capture Switch",
+-	  "AIF1 Slot 0 Left ADC" },
+-	{ "Right Digital ADC Mixer", "AIF1 Data Digital ADC Capture Switch",
+-	  "AIF1 Slot 0 Right ADC" },
++	{ "Left Digital ADC Mixer", "AIF1 Data Digital ADC Capture Switch", "ADCL" },
++	{ "Right Digital ADC Mixer", "AIF1 Data Digital ADC Capture Switch", "ADCR" },
++};
++
++static const struct snd_soc_dapm_widget sun8i_codec_legacy_widgets[] = {
++	/* Legacy ADC Inputs (connected to analog codec DAPM context) */
++	SND_SOC_DAPM_ADC("AIF1 Slot 0 Left ADC", NULL, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_ADC("AIF1 Slot 0 Right ADC", NULL, SND_SOC_NOPM, 0, 0),
++
++	/* Legacy DAC Outputs (connected to analog codec DAPM context) */
++	SND_SOC_DAPM_DAC("AIF1 Slot 0 Left", NULL, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_DAC("AIF1 Slot 0 Right", NULL, SND_SOC_NOPM, 0, 0),
++};
++
++static const struct snd_soc_dapm_route sun8i_codec_legacy_routes[] = {
++	/* Legacy ADC Routes */
++	{ "ADCL", NULL, "AIF1 Slot 0 Left ADC" },
++	{ "ADCR", NULL, "AIF1 Slot 0 Right ADC" },
++
++	/* Legacy DAC Routes */
++	{ "AIF1 Slot 0 Left", NULL, "DACL" },
++	{ "AIF1 Slot 0 Right", NULL, "DACR" },
+ };
+ 
++static int sun8i_codec_component_probe(struct snd_soc_component *component)
++{
++	struct snd_soc_dapm_context *dapm = snd_soc_component_get_dapm(component);
++	struct sun8i_codec *scodec = snd_soc_component_get_drvdata(component);
++	int ret;
++
++	/* Add widgets for backward compatibility with old device trees. */
++	if (scodec->quirks->legacy_widgets) {
++		ret = snd_soc_dapm_new_controls(dapm, sun8i_codec_legacy_widgets,
++						ARRAY_SIZE(sun8i_codec_legacy_widgets));
++		if (ret)
++			return ret;
++
++		ret = snd_soc_dapm_add_routes(dapm, sun8i_codec_legacy_routes,
++					      ARRAY_SIZE(sun8i_codec_legacy_routes));
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
+ static const struct snd_soc_dai_ops sun8i_codec_dai_ops = {
+ 	.hw_params = sun8i_codec_hw_params,
+ 	.set_fmt = sun8i_set_fmt,
+@@ -566,6 +626,8 @@ static int sun8i_codec_probe(struct platform_device *pdev)
+ 		return PTR_ERR(scodec->regmap);
+ 	}
+ 
++	scodec->quirks = of_device_get_match_data(&pdev->dev);
++
+ 	platform_set_drvdata(pdev, scodec);
+ 
+ 	pm_runtime_enable(&pdev->dev);
+@@ -603,8 +665,16 @@ static int sun8i_codec_remove(struct platform_device *pdev)
+ 	return 0;
+ }
+ 
++static const struct sun8i_codec_quirks sun8i_a33_quirks = {
++	.legacy_widgets	= true,
++};
++
++static const struct sun8i_codec_quirks sun50i_a64_quirks = {
++};
++
+ static const struct of_device_id sun8i_codec_of_match[] = {
+-	{ .compatible = "allwinner,sun8i-a33-codec" },
++	{ .compatible = "allwinner,sun8i-a33-codec", .data = &sun8i_a33_quirks },
++	{ .compatible = "allwinner,sun50i-a64-codec", .data = &sun50i_a64_quirks },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(of, sun8i_codec_of_match);
 -- 
 2.26.2
 

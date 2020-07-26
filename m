@@ -2,73 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81D7B22DB2A
-	for <lists+alsa-devel@lfdr.de>; Sun, 26 Jul 2020 03:31:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A01922DB2B
+	for <lists+alsa-devel@lfdr.de>; Sun, 26 Jul 2020 03:32:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 01922169D;
-	Sun, 26 Jul 2020 03:30:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01922169D
+	by alsa0.perex.cz (Postfix) with ESMTPS id C318F1687;
+	Sun, 26 Jul 2020 03:31:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C318F1687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595727082;
-	bh=yEweuUznnacCNhKbubYfIsyyfjQ29Ap1CbLQSmNhCuE=;
+	s=default; t=1595727125;
+	bh=3G+r3KS0BzVkV6/u800GjTa4cG8mvoxdWLAS8lmC5OE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=H1RCQJBQpyMvsDt6i0YEsgxNq8rpoeNujU9idVcjS4L544/iOjHy9HGgBpvNokkHh
-	 AKZ21DZw+C+uaBZWhU13I2Apysh/eN3h8mBy/lNyvRD5U4hns5HJZDC1r9gA2LXsA/
-	 DU4p7sImr7bU7VSfkS/kcC5UgaEEYuU8hZdiUdAM=
+	b=NSxAkAWSjb+rtsvFVzMQ0Lj3s3ri2gSpfwCNNfHILcOBgB0JyPJqYzJYn9PMfJ4FN
+	 FN/tcW9AIXAUWNFS4/gE5vpFoKklIxNzQDh1DCQcNIcJ/x+VkvvDL/7HoomJjdsQ5j
+	 T51MrgeCkTV4etiSfX1VDdbAwrJNKrmfaal01Te4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8DF30F802F8;
-	Sun, 26 Jul 2020 03:26:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9CA45F802FF;
+	Sun, 26 Jul 2020 03:26:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9277DF80274; Sun, 26 Jul 2020 03:26:22 +0200 (CEST)
+ id BF1C9F800C7; Sun, 26 Jul 2020 03:26:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_26,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
  [66.111.4.229])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7A97EF80278
+ by alsa1.perex.cz (Postfix) with ESMTPS id 79150F8024A
  for <alsa-devel@alsa-project.org>; Sun, 26 Jul 2020 03:26:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A97EF80278
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79150F8024A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sholland.org header.i=@sholland.org
- header.b="uQ9MP1me"; 
+ header.b="PJ+Oa5kH"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="aNQnG+g5"
+ header.i=@messagingengine.com header.b="Dad5MuFu"
 Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailnew.nyi.internal (Postfix) with ESMTP id 4387E580164;
- Sat, 25 Jul 2020 21:26:02 -0400 (EDT)
+ by mailnew.nyi.internal (Postfix) with ESMTP id 981225803EA;
+ Sat, 25 Jul 2020 21:26:03 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Sat, 25 Jul 2020 21:26:02 -0400
+ by compute3.internal (MEProxy); Sat, 25 Jul 2020 21:26:03 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sholland.org; h=
  from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm3; bh=YLBWcIY6TfCMV
- PdscSUAAQmXF/LED3PLTtA8SMRgg/M=; b=uQ9MP1me7FmaTR2K42yzAka+XYdBm
- 4qmxaTZTBv1xbMQRw2xBO4GHjMG156QP6M+h/W/unsk8MpYwaVpD759Bsb3ci00L
- ewk82NMvcn/s0rrlvo+MO9OGhyV8H+u9BH3P8DmtLrzZnxnzi8uztw96xvlgBFi7
- jE8BUDxodKrNtrpHQVQe5dTn740QWcLudXcseUgL1jBACwgfcNZJEGg/k+Y1sIHg
- 3rxZkUPrfHQDjrDPBEVi4pF0/KDxicJCXa/ikFZGod9WKpcTeBbTy0fhCxerNs31
- SL51ASx9nq0xc6x+wHURcYZ5sanFVrEqoEsNQogyKIbJB3UmXlLCNMpQQ==
+ :mime-version:content-transfer-encoding; s=fm3; bh=zniOgjBVDjzwc
+ FzCQ5VisrbxqLW88v+7YjNv2U8VdwA=; b=PJ+Oa5kHxTGVKa819xKyIo9XhUpsy
+ MxV1xREn35tIJHEmvXnk4bSUpYej2kQxCs5TGocTZIlVDK+a81PnIWtvbD17kGbv
+ 4Q/LoQrnwWQ1qF8gB1BnyuD5KUeE71sv1KK/Utnri2sFf3B5BDbMCtXMX8E4/8Pb
+ VVKdsAublimntYRqoKx7PpErVgdQ6xVEUI7nRF5eNF0Or0elERDEIzm/NKLpiI4N
+ LIma/rXTpDh9Az+NHHDyFr3AyG0QYXtF6Oyz/m81YkNA1kz7W69XQeQxTonrio/I
+ cY8tL7HvZvMmA1bDkiZA2+obq9bzSM0p5GHh7D4cOJhDvHcBhfYqIXylw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=YLBWcIY6TfCMVPdscSUAAQmXF/LED3PLTtA8SMRgg/M=; b=aNQnG+g5
- zUTEg3Z+y46J089EY5sCOtfKVSGgpe9U0OCv+JnYvZoHmobstcZXo498LhxOwjoF
- M0rRwNwOEhmfitLOj6eqgWJ1IAbZ0kg9ps/JGSzOVh2Zd80JM8CqXDJb+7uvNkP4
- 9YWDsTf/fdBAJlYO1OzXWV8Z6mc6MP3Kesiw2uFkK1LFZ+dRmSpjeEHgmvX03H6p
- R4cRfW6A9E3JPkAnaMHMqaTQXXRYus1hrzLjRuaBff1EKZsaCe24ntaptXAdxPt4
- xRxoknMh+YoLr8ocuvJ4ZgA95vlw0QuA36OrwAKqQMogytZ89owCYBBzwe3b9vlh
- av26fhdcEe4tGQ==
-X-ME-Sender: <xms:qtscXxNb4QvAW1EcoT14EPyVgVigjkk6kcJw7qeXX_VH-SXF5Q1o8w>
+ fm3; bh=zniOgjBVDjzwcFzCQ5VisrbxqLW88v+7YjNv2U8VdwA=; b=Dad5MuFu
+ Zt9T4DR+KMBf0RjbT33sRMx+RDHITZrRUbj/jWkv7ClbLMQbvNtqZ/mknWj3kLvU
+ dHav/m56nYJGkL91ssmqMJa5cqqC6ZsSJOHRCI0FJIzd9e4RuGtPNUUJUaC6u+Ja
+ lRpPpAq59A25qEidDFCdyyQtdUcjymb3u4BwybDefZyQsZ/yXZiCguXSMYgSYA8h
+ p3BnHRmnPhMixmH4Y5OeghWhkvS7ENk/aOgy7M6ie56CNnqz11gYSn3corOl7jkC
+ ct8PZPRpRwr45MfxB6UB1Fb0tJtlvxfE1qI+V0YCn0opBrZZmtj2NfTq2wdQ32xc
+ anFK+Z09L13Akg==
+X-ME-Sender: <xms:q9scX3NLQiLSwwwDLMlSMjFjpV7e4wzgKMFBRIS80JXh1ZgTY7aWAg>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrheeigdegfecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
@@ -76,24 +76,25 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrheeigdegfecutefuodetggdote
  ucfjohhllhgrnhguuceoshgrmhhuvghlsehshhholhhlrghnugdrohhrgheqnecuggftrf
  grthhtvghrnhepudfhjeefvdfhgfefheetgffhieeigfefhefgvddvveefgeejheejvdfg
  jeehueeinecukfhppeejtddrudefhedrudegkedrudehudenucevlhhushhtvghrufhiii
- gvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehsrghmuhgvlhesshhhohhllhgrnhgu
+ gvpeeinecurfgrrhgrmhepmhgrihhlfhhrohhmpehsrghmuhgvlhesshhhohhllhgrnhgu
  rdhorhhg
-X-ME-Proxy: <xmx:qtscXz_1QD7dZvgbinfZUNrrsCIxiL57oYJkxtfYNiKWO1687WElTQ>
- <xmx:qtscXwRec41C5XqeblvrE3T4we_k0bba0qWxLLOsnwVsoDPnfsNP2A>
- <xmx:qtscX9sLKkkwNexaJTlo8rCGeI-LpkrYFo5nK9wd7Y25V068_rHBtQ>
- <xmx:qtscX50kpVrmWviECX8au6aNb8QpHnm341ui2yzJCMTTW4DN65ZFYg>
+X-ME-Proxy: <xmx:q9scXx-O_bW0wcoE6PUKU3yhzMZyuhF9ArPOsA77dVp-a3yOJ5jjlg>
+ <xmx:q9scX2S1mSjwM3krrgOInygqr9fwrWBeEHvNT4Sg48ibpuojhAIh1g>
+ <xmx:q9scX7t_fZdBbgBizTZGFZXTV5Aag0Kl7zy2o7Z9jdiMh0BZtz60DQ>
+ <xmx:q9scX33jxQHmADYspKGKdWEVdq0ygykFhRPt3O32RHjuX8xAHnWYNA>
 Received: from titanium.stl.sholland.net
  (70-135-148-151.lightspeed.stlsmo.sbcglobal.net [70.135.148.151])
- by mail.messagingengine.com (Postfix) with ESMTPA id 5FFCD30600A3;
- Sat, 25 Jul 2020 21:26:01 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id C641A30600A9;
+ Sat, 25 Jul 2020 21:26:02 -0400 (EDT)
 From: Samuel Holland <samuel@sholland.org>
 To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
  Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
  Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 5/7] ARM: dts: sun8i: a33: Update codec widget names
-Date: Sat, 25 Jul 2020 20:25:55 -0500
-Message-Id: <20200726012557.38282-6-samuel@sholland.org>
+Subject: [PATCH 7/7] arm64: dts: allwinner: a64: Update the audio codec
+ compatible
+Date: Sat, 25 Jul 2020 20:25:57 -0500
+Message-Id: <20200726012557.38282-8-samuel@sholland.org>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200726012557.38282-1-samuel@sholland.org>
 References: <20200726012557.38282-1-samuel@sholland.org>
@@ -118,46 +119,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The sun8i-codec driver introduced a new set of DAPM widgets that more
-accurately describe the hardware topology. Update the various device
-trees to use the new widget names.
+The audio codec in the A64 has some differences from the A33 codec, so
+it needs its own compatible. Since the two codecs are similar, the A33
+codec compatible is kept as a fallback.
+
+Using the correct compatible fixes a channel inversion issue and cleans
+up some DAPM widgets that are no longer used.
 
 Signed-off-by: Samuel Holland <samuel@sholland.org>
 ---
- arch/arm/boot/dts/sun8i-a33-olinuxino.dts | 4 ++--
- arch/arm/boot/dts/sun8i-a33.dtsi          | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/sun8i-a33-olinuxino.dts b/arch/arm/boot/dts/sun8i-a33-olinuxino.dts
-index 3d78169cdeed..a1953b2872d0 100644
---- a/arch/arm/boot/dts/sun8i-a33-olinuxino.dts
-+++ b/arch/arm/boot/dts/sun8i-a33-olinuxino.dts
-@@ -194,8 +194,8 @@ &sound {
- 				    "Headphone", "Headphone Jack";
- 	/* Board level routing. First 2 routes copied from SoC level */
- 	simple-audio-card,routing =
--		"Left DAC", "AIF1 Slot 0 Left",
--		"Right DAC", "AIF1 Slot 0 Right",
-+		"Left DAC", "DACL",
-+		"Right DAC", "DACR",
- 		"HP", "HPCOM",
- 		"Headphone Jack", "HP",
- 		"MIC1", "Microphone Jack",
-diff --git a/arch/arm/boot/dts/sun8i-a33.dtsi b/arch/arm/boot/dts/sun8i-a33.dtsi
-index cfd3858afb3e..c458f5fb124f 100644
---- a/arch/arm/boot/dts/sun8i-a33.dtsi
-+++ b/arch/arm/boot/dts/sun8i-a33.dtsi
-@@ -189,8 +189,8 @@ sound: sound {
- 		simple-audio-card,mclk-fs = <128>;
- 		simple-audio-card,aux-devs = <&codec_analog>;
- 		simple-audio-card,routing =
--			"Left DAC", "AIF1 Slot 0 Left",
--			"Right DAC", "AIF1 Slot 0 Right";
-+			"Left DAC", "DACL",
-+			"Right DAC", "DACR";
- 		status = "disabled";
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
+index 73ae7656e0f3..26df6278dfb7 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
+@@ -860,7 +860,8 @@ dai: dai@1c22c00 {
  
- 		simple-audio-card,cpu {
+ 		codec: codec@1c22e00 {
+ 			#sound-dai-cells = <0>;
+-			compatible = "allwinner,sun8i-a33-codec";
++			compatible = "allwinner,sun50i-a64-codec",
++				     "allwinner,sun8i-a33-codec";
+ 			reg = <0x01c22e00 0x600>;
+ 			interrupts = <GIC_SPI 28 IRQ_TYPE_LEVEL_HIGH>;
+ 			clocks = <&ccu CLK_BUS_CODEC>, <&ccu CLK_AC_DIG>;
 -- 
 2.26.2
 

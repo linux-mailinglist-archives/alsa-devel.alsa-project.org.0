@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AD7222E962
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jul 2020 11:45:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C10B22E963
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jul 2020 11:45:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BCFC41612;
-	Mon, 27 Jul 2020 11:44:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCFC41612
+	by alsa0.perex.cz (Postfix) with ESMTPS id DAFB5169B;
+	Mon, 27 Jul 2020 11:45:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAFB5169B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595843128;
-	bh=rs8hb0Z1tVRVg/OpMD8XShwBDuRbbWqjCsxuAFPe3WA=;
+	s=default; t=1595843158;
+	bh=do+ymEc6x7jNBfb2HyiVf9db82PWdPx0NKSvCx/pTNI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IheHEUKUY9PPaoltYC10wBGM0dnYrpb9fylVs7QzmsQmM2qDZjOVTX/LKyr7rizOT
-	 UT4/LmghVEHzv09LIZPzMn4H526OugvwcOHVjew4Hc0sjMYwqHQKxU2gxq5GBUnFLY
-	 X2pyaXGjglRfExWLX6mo/s7JOlfNmlKwT7TfmLvA=
+	b=MV/VFXArGxAj//2C0/lvFoZeWGOydAimHEbiTzPaCn7W30Gmh2HmB8gAvB1wwFQUa
+	 2xwbya1Gb1nOucieZH6twrAGEEnwbGwRz8U4cfSY0QaYOrgT8KBM3ukDOs81g76ard
+	 RVYzKWX21+suCjMRw7o4Id6xzUZ5yIztg+iuBOBo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 624B3F80334;
-	Mon, 27 Jul 2020 11:38:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E83FF80335;
+	Mon, 27 Jul 2020 11:38:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7B70F802F7; Mon, 27 Jul 2020 11:38:36 +0200 (CEST)
+ id CC2B3F802FE; Mon, 27 Jul 2020 11:38:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D5C9FF802BD
- for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 11:38:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5C9FF802BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9DD43F802DB
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 11:38:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DD43F802DB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="EC/9R6GV"
-Received: by mail-wr1-x442.google.com with SMTP id f18so14178071wrs.0
- for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 02:38:25 -0700 (PDT)
+ header.b="Vw6yarDL"
+Received: by mail-wm1-x344.google.com with SMTP id c80so13522717wme.0
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 02:38:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=9xRCswOaIl01J5qLQy3MovH1KYI3bsQgHVCFW42lGX4=;
- b=EC/9R6GVQXsstq16lezcu2TCSgHPmK8uqdRZm+kmziN7yCki6EhOBoMZ+SKwznhMk6
- S6TULZu0AaJqKcmQn4ZcSp1e3TrhJvrLICb1pmBt3H4vkQEq2BdieMcM9q0K3FB6b0cJ
- K6eVdbYNscagKFREaRzdM0V1/16fGahkfZI71BBeFNweNWQrZqrGNA2s80iw5P/V7+4m
- 37XD3LOUhDWV6d6uhZs2E7V+pQxFLVZpWoMJyHED/p4DOkit0WRQuR+MpaHTFl9meJd0
- l2JCzu0w5QlMd1IRoLcyu73CtMvYrX7kIplKoBy+XeKCAuX+GcFtH3Lu8+oxTLqLM3WU
- pNmQ==
+ bh=4g6JTg8tTLO2020Bjhn7eVLu84pNN3Ez/f+4ZOHp8Mw=;
+ b=Vw6yarDLp7xE5sbxpiPl8n3EAmtDzjFJyzaxBiABIvnzdUP3KkAKxeSlW3W6SbgrD/
+ T8G7ahhsdn4L46scDkPbfQNIgJNSP6CaS0LYZulaFbUhXCCYczSPNesaE0p/7s6JkX2S
+ jN/wwL3RZHOsvs8MGt+5PES+T28h68H+FWZhvCnKJzWCpZ44CyL45Xq/dsNreXeeUzfb
+ dna9uutJEsLRCEUHj0zu6x2o+XlnH/TelUuUpPM0755es32CmTyoidh+tmanI99WuYKS
+ HM1S7BM4gG2jA8PU+Z8LzAPJIIbofzSB3eJRSuAPnVjUHwOPlC3xpJvHJAhUwe5R9FOA
+ FXmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=9xRCswOaIl01J5qLQy3MovH1KYI3bsQgHVCFW42lGX4=;
- b=fYQBPc3DA/BpVflgjbzaAcNoToLK32gpy+zo/zs55R6cUkLTnPiZeY6M6dTl6IE1JW
- b4dbeC1RUo3fnmpdvLtqqqZgCeEUYxCSUrZYJArVhwRfmCx54hayQlX0H/x5rBb0b/hx
- rYQwNMwq/ogMWOb2NAhOzja6XvDFsWzkpitZ3UAU8EmH6u3JTwo2k9/AEyG1tdQaEHOH
- XpV9jvf1GIlPPbRQZ9cjEHJXiLZRV2NlSA8fn+zFcGHFiRf+KRAQCK+Exqcriouf1yLK
- 8+yhN56o9V8kXUjYbKmJFxsLOlpzA3sgGT7KHZfZZJ6AGM/RPUZgKbrGAfNpYVUzG74p
- eCZA==
-X-Gm-Message-State: AOAM530HIgLewRnKwKMYXCo+bGF0dtILZiKCwXi+DFsDorXgYdj2+Cmx
- boSjVjTBLPBy8TPqM/sai2U53w==
-X-Google-Smtp-Source: ABdhPJygI7BnJqAWnNtJr6Nmlh7QkfDf3Fo8hiJVO+dNvnXtolYUMPuyhhpG+8f1p+lQri8MUYZMOA==
-X-Received: by 2002:adf:f58c:: with SMTP id f12mr19378761wro.314.1595842705255; 
- Mon, 27 Jul 2020 02:38:25 -0700 (PDT)
+ bh=4g6JTg8tTLO2020Bjhn7eVLu84pNN3Ez/f+4ZOHp8Mw=;
+ b=rTKuvdQ/ucuRW7Rw0YQrFftoSWcUkkIxcGXyaKIh1JvGvAOBr2sS8mlCL1EOy9AGlz
+ GOy5tiZ2A7z5SjMt9dnTB9eBZppR2niwHeCyfpCL3pVCpa48LfKzFFqbEpJaAJqsVnAd
+ tufsSnrupeuQB+gyi0mnumj+d6Pg9CMt/frwLHaX8vxUGDTgdlf7S8RL8BSFZDYCsI7w
+ moX//20IR8wIo2mBdwDuoaKIhyEm5H/oCtjM1LylrBxt4ZseH+70Acvo2HtGjGX0T3uJ
+ v1zBCsV5L3Mv4yndp2nEVZZWKKPBcIA60z+aw7f+F4DGGL+98QuiAhFxLZxkNATfaspo
+ cVXw==
+X-Gm-Message-State: AOAM530BFqkmu5Mv9OR5Fnkglt1vDXMrqu4DVsJp1IlM99ucODEtspqf
+ JistYvxHKB16Sf4RyKoDkq5HLA==
+X-Google-Smtp-Source: ABdhPJwBe0He/oPMtUrF31nAwEubsSn+/sRTYsIOCKuy3A0IoW5Yzj6VbAPKKsNGEWXBQ4/mz68dtQ==
+X-Received: by 2002:a1c:f016:: with SMTP id a22mr18737295wmb.47.1595842706597; 
+ Mon, 27 Jul 2020 02:38:26 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.gmail.com with ESMTPSA id y189sm20566099wmd.27.2020.07.27.02.38.24
+ by smtp.gmail.com with ESMTPSA id y189sm20566099wmd.27.2020.07.27.02.38.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Jul 2020 02:38:24 -0700 (PDT)
+ Mon, 27 Jul 2020 02:38:25 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: broonie@kernel.org
-Subject: [PATCH v3 09/10] ASoC: q6asm-dai: add gapless support
-Date: Mon, 27 Jul 2020 10:38:05 +0100
-Message-Id: <20200727093806.17089-10-srinivas.kandagatla@linaro.org>
+Subject: [PATCH v3 10/10] ASoC: q6asm-dai: add support to copy callback
+Date: Mon, 27 Jul 2020 10:38:06 +0100
+Message-Id: <20200727093806.17089-11-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20200727093806.17089-1-srinivas.kandagatla@linaro.org>
 References: <20200727093806.17089-1-srinivas.kandagatla@linaro.org>
@@ -103,203 +103,106 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support to gapless playback by implementing metadata,
-next_track, drain and partial drain support.
+During gapless playback, its possible for previous track to
+end at unaligned boundary, starting next track on the same
+boundary can lead to unaligned address exception in dsp.
 
-Gapless on Q6ASM is implemented by opening 2 streams in a single
-q6asm stream and toggling them on next track.
+So implement copy callback for finer control on the buffer offsets.
 
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- sound/soc/qcom/qdsp6/q6asm-dai.c | 103 +++++++++++++++++++++++++++++--
- sound/soc/qcom/qdsp6/q6asm.h     |   1 +
- 2 files changed, 98 insertions(+), 6 deletions(-)
+ sound/soc/qcom/qdsp6/q6asm-dai.c | 65 +++++++++++++++++++++++++++++---
+ 1 file changed, 60 insertions(+), 5 deletions(-)
 
 diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
-index 420aaaa67788..4ecf9cb658ae 100644
+index 4ecf9cb658ae..648a64e11188 100644
 --- a/sound/soc/qcom/qdsp6/q6asm-dai.c
 +++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
-@@ -67,11 +67,14 @@ struct q6asm_dai_rtd {
- 	uint16_t bits_per_sample;
- 	uint16_t source; /* Encoding source bit mask */
- 	struct audio_client *audio_client;
-+	uint32_t next_track_stream_id;
-+	bool next_track;
- 	uint32_t stream_id;
- 	uint16_t session_id;
- 	enum stream_state state;
- 	uint32_t initial_samples_drop;
- 	uint32_t trailing_samples_drop;
-+	bool notify_on_drain;
- };
+@@ -1055,16 +1055,71 @@ static int q6asm_dai_compr_pointer(struct snd_soc_component *component,
+ 	return 0;
+ }
  
- struct q6asm_dai_data {
-@@ -510,13 +513,19 @@ static void compress_event_handler(uint32_t opcode, uint32_t token,
- 	struct q6asm_dai_rtd *prtd = priv;
- 	struct snd_compr_stream *substream = prtd->cstream;
+-static int q6asm_dai_compr_ack(struct snd_soc_component *component,
+-			       struct snd_compr_stream *stream,
+-			       size_t count)
++static int q6asm_compr_copy(struct snd_soc_component *component,
++			    struct snd_compr_stream *stream, char __user *buf,
++			    size_t count)
+ {
+ 	struct snd_compr_runtime *runtime = stream->runtime;
+ 	struct q6asm_dai_rtd *prtd = runtime->private_data;
  	unsigned long flags;
 +	u32 wflags = 0;
- 	uint64_t avail;
--	uint32_t bytes_written;
-+	uint32_t bytes_written, bytes_to_write;
-+	bool is_last_buffer = false;
- 
- 	switch (opcode) {
- 	case ASM_CLIENT_EVENT_CMD_RUN_DONE:
- 		spin_lock_irqsave(&prtd->lock, flags);
- 		if (!prtd->bytes_sent) {
-+			q6asm_stream_remove_initial_silence(prtd->audio_client,
-+						    prtd->stream_id,
-+						    prtd->initial_samples_drop);
++	int avail, bytes_in_flight = 0;
++	void *dstn;
++	size_t copy;
++	u32 app_pointer;
++	u32 bytes_received;
 +
- 			q6asm_write_async(prtd->audio_client, prtd->stream_id,
- 					  prtd->pcm_count, 0, 0, 0);
- 			prtd->bytes_sent += prtd->pcm_count;
-@@ -526,7 +535,30 @@ static void compress_event_handler(uint32_t opcode, uint32_t token,
- 		break;
- 
- 	case ASM_CLIENT_EVENT_CMD_EOS_DONE:
--		prtd->state = Q6ASM_STREAM_STOPPED;
-+		spin_lock_irqsave(&prtd->lock, flags);
-+		if (prtd->notify_on_drain) {
-+			if (substream->partial_drain) {
-+				/*
-+				 * Close old stream and make it stale, switch
-+				 * the active stream now!
-+				 */
-+				q6asm_cmd_nowait(prtd->audio_client,
-+						 prtd->stream_id,
-+						 CMD_CLOSE);
-+				/*
-+				 * vaild stream ids start from 1, So we are
-+				 * toggling this between 1 and 2.
-+				 */
-+				prtd->stream_id = (prtd->stream_id == 1 ? 2 : 1);
-+			}
++	bytes_received = prtd->bytes_received;
 +
-+			snd_compr_drain_notify(prtd->cstream);
-+			prtd->notify_on_drain = false;
++	/**
++	 * Make sure that next track data pointer is aligned at 32 bit boundary
++	 * This is a Mandatory requirement from DSP data buffers alignment
++	 */
++	if (prtd->next_track)
++		bytes_received = ALIGN(prtd->bytes_received, prtd->pcm_count);
 +
-+		} else {
-+			prtd->state = Q6ASM_STREAM_STOPPED;
-+		}
-+		spin_unlock_irqrestore(&prtd->lock, flags);
- 		break;
++	app_pointer = bytes_received/prtd->pcm_size;
++	app_pointer = bytes_received -  (app_pointer * prtd->pcm_size);
++	dstn = prtd->dma_buffer.area + app_pointer;
++
++	if (count < prtd->pcm_size - app_pointer) {
++		if (copy_from_user(dstn, buf, count))
++			return -EFAULT;
++	} else {
++		copy = prtd->pcm_size - app_pointer;
++		if (copy_from_user(dstn, buf, copy))
++			return -EFAULT;
++		if (copy_from_user(prtd->dma_buffer.area, buf + copy,
++				   count - copy))
++			return -EFAULT;
++	}
  
- 	case ASM_CLIENT_EVENT_DATA_WRITE_DONE:
-@@ -542,13 +574,32 @@ static void compress_event_handler(uint32_t opcode, uint32_t token,
- 		}
- 
- 		avail = prtd->bytes_received - prtd->bytes_sent;
-+		if (avail > prtd->pcm_count) {
-+			bytes_to_write = prtd->pcm_count;
-+		} else {
-+			if (substream->partial_drain || prtd->notify_on_drain)
-+				is_last_buffer = true;
+ 	spin_lock_irqsave(&prtd->lock, flags);
+-	prtd->bytes_received += count;
++
++	bytes_in_flight = prtd->bytes_received - prtd->copied_total;
++
++	if (prtd->next_track) {
++		prtd->next_track = false;
++		prtd->copied_total = ALIGN(prtd->copied_total, prtd->pcm_count);
++		prtd->bytes_sent = ALIGN(prtd->bytes_sent, prtd->pcm_count);
++	}
++
++	prtd->bytes_received = bytes_received + count;
++
++	/* Kick off the data to dsp if its starving!! */
++	if (prtd->state == Q6ASM_STREAM_RUNNING && (bytes_in_flight == 0)) {
++		uint32_t bytes_to_write = prtd->pcm_count;
++
++		avail = prtd->bytes_received - prtd->bytes_sent;
++
++		if (avail < prtd->pcm_count)
 +			bytes_to_write = avail;
-+		}
 +
-+		if (bytes_to_write) {
-+			if (substream->partial_drain && is_last_buffer) {
-+				wflags |= ASM_LAST_BUFFER_FLAG;
-+				q6asm_stream_remove_trailing_silence(prtd->audio_client,
-+						     prtd->stream_id,
-+						     prtd->trailing_samples_drop);
-+			}
- 
--		if (avail >= prtd->pcm_count) {
- 			q6asm_write_async(prtd->audio_client, prtd->stream_id,
--					   prtd->pcm_count, 0, 0, 0);
--			prtd->bytes_sent += prtd->pcm_count;
-+					  bytes_to_write, 0, 0, wflags);
++		q6asm_write_async(prtd->audio_client, prtd->stream_id,
++				  bytes_to_write, 0, 0, wflags);
++		prtd->bytes_sent += bytes_to_write;
++	}
 +
-+			prtd->bytes_sent += bytes_to_write;
- 		}
+ 	spin_unlock_irqrestore(&prtd->lock, flags);
  
-+		if (prtd->notify_on_drain && is_last_buffer)
-+			q6asm_cmd_nowait(prtd->audio_client,
-+					 prtd->stream_id, CMD_EOS);
-+
- 		spin_unlock_irqrestore(&prtd->lock, flags);
- 		break;
+ 	return count;
+@@ -1127,7 +1182,7 @@ static struct snd_compress_ops q6asm_dai_compress_ops = {
+ 	.get_caps	= q6asm_dai_compr_get_caps,
+ 	.get_codec_caps	= q6asm_dai_compr_get_codec_caps,
+ 	.mmap		= q6asm_dai_compr_mmap,
+-	.ack		= q6asm_dai_compr_ack,
++	.copy		= q6asm_compr_copy,
+ };
  
-@@ -628,9 +679,15 @@ static int q6asm_dai_compr_free(struct snd_soc_component *component,
- 	struct snd_soc_pcm_runtime *rtd = stream->private_data;
- 
- 	if (prtd->audio_client) {
--		if (prtd->state)
-+		if (prtd->state) {
- 			q6asm_cmd(prtd->audio_client, prtd->stream_id,
- 				  CMD_CLOSE);
-+			if (prtd->next_track_stream_id) {
-+				q6asm_cmd(prtd->audio_client,
-+					  prtd->next_track_stream_id,
-+					  CMD_CLOSE);
-+			}
-+		}
- 
- 		snd_dma_free_pages(&prtd->dma_buffer);
- 		q6asm_unmap_memory_regions(stream->direction,
-@@ -905,6 +962,32 @@ static int q6asm_dai_compr_set_metadata(struct snd_soc_component *component,
- 		break;
- 	case SNDRV_COMPRESS_ENCODER_DELAY:
- 		prtd->initial_samples_drop = metadata->value[0];
-+		if (prtd->next_track_stream_id) {
-+			ret = q6asm_open_write(prtd->audio_client,
-+					       prtd->next_track_stream_id,
-+					       prtd->codec.id,
-+					       prtd->codec.profile,
-+					       prtd->bits_per_sample,
-+				       true);
-+			if (ret < 0) {
-+				dev_err(component->dev, "q6asm_open_write failed\n");
-+				return ret;
-+			}
-+			ret = __q6asm_dai_compr_set_codec_params(component, stream,
-+								 &prtd->codec,
-+								 prtd->next_track_stream_id);
-+			if (ret < 0) {
-+				dev_err(component->dev, "q6asm_open_write failed\n");
-+				return ret;
-+			}
-+
-+			ret = q6asm_stream_remove_initial_silence(prtd->audio_client,
-+						    prtd->next_track_stream_id,
-+						    prtd->initial_samples_drop);
-+			prtd->next_track_stream_id = 0;
-+
-+		}
-+
- 		break;
- 	default:
- 		ret = -EINVAL;
-@@ -938,6 +1021,14 @@ static int q6asm_dai_compr_trigger(struct snd_soc_component *component,
- 		ret = q6asm_cmd_nowait(prtd->audio_client, prtd->stream_id,
- 				       CMD_PAUSE);
- 		break;
-+	case SND_COMPR_TRIGGER_NEXT_TRACK:
-+		prtd->next_track = true;
-+		prtd->next_track_stream_id = (prtd->stream_id == 1 ? 2 : 1);
-+		break;
-+	case SND_COMPR_TRIGGER_DRAIN:
-+	case SND_COMPR_TRIGGER_PARTIAL_DRAIN:
-+		prtd->notify_on_drain = true;
-+		break;
- 	default:
- 		ret = -EINVAL;
- 		break;
-diff --git a/sound/soc/qcom/qdsp6/q6asm.h b/sound/soc/qcom/qdsp6/q6asm.h
-index f20e1441988f..82e584aa534f 100644
---- a/sound/soc/qcom/qdsp6/q6asm.h
-+++ b/sound/soc/qcom/qdsp6/q6asm.h
-@@ -33,6 +33,7 @@ enum {
- 
- #define MAX_SESSIONS	8
- #define FORMAT_LINEAR_PCM   0x0000
-+#define ASM_LAST_BUFFER_FLAG           BIT(30)
- 
- struct q6asm_flac_cfg {
-         u32 sample_rate;
+ static int q6asm_dai_pcm_new(struct snd_soc_component *component,
 -- 
 2.21.0
 

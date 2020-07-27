@@ -2,97 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A6CB22E688
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jul 2020 09:29:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2BA022E7B0
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jul 2020 10:27:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B64E9168F;
-	Mon, 27 Jul 2020 09:28:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B64E9168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6BB051696;
+	Mon, 27 Jul 2020 10:26:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BB051696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595834972;
-	bh=NqZE15aRLSmm0dQKG4/8e54BxSBd/jvzZxVHgTCbsT0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=rNtKjkf9hnVLYnHYpbjs6XMIIKMfbdSBOTUIuGv92JWCmQssEbJKYSW/lNLjnJrZN
-	 qGeC8olvhVrQF9Kt2FtvZe+CKVd1HLs6+ccfmRr4Tpwi4CXj7eAWYe7HM6Zzw73SDR
-	 TlCKrHbDJHh7j9o9dS0MAlkYbLSSC3NacR4wAtUU=
+	s=default; t=1595838434;
+	bh=XvWuoLpZHYcqFgf5FQEqwW11qNA65yMoLMNBr4WfBOU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RRyKJ0cM1LsbCN4V2VjPYy8ax93tZ7L4zWIP3/aHc5bPiCZfxXrScCKtlty+iKNeu
+	 PP+PyTTV+9jjJh4ZHSXclwS5cVfKPisGsSTRnwXdzHeIva3TrwAOxUF0AFfQEfSt+m
+	 +QDcZRbvvuJdyLeCfFzDZf5WIsLi7B3er0mNahi8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE4AEF8013C;
-	Mon, 27 Jul 2020 09:27:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97AC0F800AD;
+	Mon, 27 Jul 2020 10:25:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1A044F80171; Mon, 27 Jul 2020 09:27:50 +0200 (CEST)
+ id AEC47F80171; Mon, 27 Jul 2020 10:25:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
- [IPv6:2607:f8b0:4864:20::1042])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
+ [85.215.255.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0E490F8013C
- for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 09:27:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E490F8013C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 91D86F8013C
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 10:25:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91D86F8013C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Cqmot9h6"
-Received: by mail-pj1-x1042.google.com with SMTP id gc9so8741118pjb.2
- for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 00:27:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=2+yXBFkFF1Q2hs9eJ61ZmtSb7ia2MRn3KxqycD73Flw=;
- b=Cqmot9h6sPwuj2faph4jOKs5weve7eUvzLaNx9IhHsELXyEoGYyUza9Ardp+smS119
- TGfMgjCb+Q7A7eMlTsKK1TArG0L4+p6Yh5Hitl9TxMzHIgngQbZVbvG96NyRIghMd4GZ
- PSQhOpZYac/IkW1TddyHCGy0l1+sGFE81BAyo2Hb5QjOOcz26H384tpdAi1lBSX3uiAT
- /Fot+ATlEjMnzh3JJdOAz9bKQICojC/8+16x4lno+1tGL0LHnT06tvaHkiv5jK2COAjS
- Y5WBOGm3KMcL9mujuHQ+2frzPL0jk3yHfeDvv9sz4bvVgOxWnCyTONCx+MkvocuDhwAh
- xXLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=2+yXBFkFF1Q2hs9eJ61ZmtSb7ia2MRn3KxqycD73Flw=;
- b=T7l/CJWT/zmKR0cuTpmzC9NGfTHTDCn9c5Px5lVIZhE+ZoLf3/qJOhS/64GuCWBs/7
- pGzseXRURj8o0AUFGSghAfbRgvrXT3GGphxsCztBfXV5jbmjjxtkEq3iu9T6qdcbsAC2
- t8S4kMpoD5NIEzA1IkB1w1hAAhIdQxMHlYI6rhk/DbZV3ju1gufsJcpjav3ZU3nWRN7z
- KYmynSl0f5hbAfxG3egs09Xlia6MGQI4hqVVPLkrVkz2pOI1m3qRXGaxe9gqMDGzNC4d
- 2T95tMeZGeQ6rNNp+TMpRfZogIfKDOsdfkv+UCHguHrgppofknd17v/QakVRpUt9d3a/
- 6Rng==
-X-Gm-Message-State: AOAM531M6tjgpi2JX6RuBtiprvcRe5jOV5DX0/A1rUw21YKCTYMwIUTD
- cYGY0A8o5WJmlNHi0QTh4y4=
-X-Google-Smtp-Source: ABdhPJzONbuJenpMzjphtdEOeUlAPu08ifyLaXxU1TZh2ESyDjSyATv/zYZBeXghWq9As+UF665jdA==
-X-Received: by 2002:a17:90a:db8a:: with SMTP id
- h10mr17706557pjv.58.1595834860479; 
- Mon, 27 Jul 2020 00:27:40 -0700 (PDT)
-Received: from Asurada-Nvidia (searspoint.nvidia.com. [216.228.112.21])
- by smtp.gmail.com with ESMTPSA id s10sm52384649pjf.3.2020.07.27.00.27.39
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 27 Jul 2020 00:27:39 -0700 (PDT)
-Date: Mon, 27 Jul 2020 00:26:59 -0700
-From: Nicolin Chen <nicoleotsuka@gmail.com>
-To: Shengjiu Wang <shengjiu.wang@gmail.com>
-Subject: Re: [PATCH] ASoC: fsl-asoc-card: Remove fsl_asoc_card_set_bias_level
- function
-Message-ID: <20200727072658.GA16513@Asurada-Nvidia>
-References: <1595762417-2190-1-git-send-email-shengjiu.wang@nxp.com>
- <20200727005558.GA30124@Asurada-Nvidia>
- <CAA+D8AOfh1gDec=0BPk6SUutqtY_gL1Rm1-Uc4Dv4s-86LAwPA@mail.gmail.com>
+ dkim=pass (2048-bit key) header.d=gerhold.net header.i=@gerhold.net
+ header.b="FSkWxPJ5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1595838320;
+ s=strato-dkim-0002; d=gerhold.net;
+ h=Message-Id:Date:Subject:Cc:To:From:X-RZG-CLASS-ID:X-RZG-AUTH:From:
+ Subject:Sender;
+ bh=ymFhDf2n8j14zfm7wXMkjoAX9qryOdYV+fcCssWX+cI=;
+ b=FSkWxPJ5m+1JgfPZ7JUOW+C+0egRhjOmpFzwh8JAf6IEtMw3HvHBti702/BkoLYz6A
+ mU0UFZ5SkJ29N2WuOBTQpFj0NFmPrKvnlzEdlcREFHpfbsbBkm49+rwbRCX5FogwseJ2
+ nAv1ymjzrfoQd/yYLPXL0/AiiE0dW2LmDkSukU1kdszaAJWcjnYEMdBqqKX0ipg8BDDC
+ OsOCoVLarWHmo8l+mG45S0jlBMUTsC8aU37NjoSJzfWmOycKsmf12X5hI3Wdhkz+huqm
+ GqiRdXkB91lKOXN0GgANzhnKv/dtJv0BgC+uiiLRKaze57SYh4kZ8Jj5bPVZTrteJrxr
+ cpzQ==
+X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVORvLd4SsytBXS7IYBkLahKxB5m6IbY0="
+X-RZG-CLASS-ID: mo00
+Received: from localhost.localdomain
+ by smtp.strato.de (RZmta 46.10.5 DYNA|AUTH)
+ with ESMTPSA id Y0939ew6R8PGKLZ
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Mon, 27 Jul 2020 10:25:16 +0200 (CEST)
+From: Stephan Gerhold <stephan@gerhold.net>
+To: Mark Brown <broonie@kernel.org>
+Subject: [PATCH] ASoC: dt-bindings: q6asm: Add Q6ASM_DAI_{TX_RX, TX,
+ RX} defines
+Date: Mon, 27 Jul 2020 10:25:02 +0200
+Message-Id: <20200727082502.2341-1-stephan@gerhold.net>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAA+D8AOfh1gDec=0BPk6SUutqtY_gL1Rm1-Uc4Dv4s-86LAwPA@mail.gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel <linux-kernel@vger.kernel.org>
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Banajit Goswami <bgoswami@codeaurora.org>,
+ Stephan Gerhold <stephan@gerhold.net>, Patrick Lai <plai@codeaurora.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,20 +88,97 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Jul 27, 2020 at 02:33:18PM +0800, Shengjiu Wang wrote:
-> > >  static int fsl_asoc_card_audmux_init(struct device_node *np,
-> > >                                    struct fsl_asoc_card_priv *priv)
-> > >  {
-> > > @@ -611,7 +600,6 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
-> > >       /* Diversify the card configurations */
-> > >       if (of_device_is_compatible(np, "fsl,imx-audio-cs42888")) {
-> > >               codec_dai_name = "cs42888";
-> > > -             priv->card.set_bias_level = NULL;
-> >
-> > Can check if set_bias_level is still being used with this change.
-> 
-> Do you mean to keep this line:
-> priv->card.set_bias_level = NULL; ?
+Right now the direction of a DAI has to be specified as a literal
+number in the device tree, e.g.:
 
-Sorry. You can just ignore this part -- just double checked the
-code, and I think I misread something :-/
+	dai@0 {
+		reg = <0>;
+		direction = <2>;
+	};
+
+but this does not make it immediately clear that this is a
+playback/RX-only DAI.
+
+Actually, q6asm-dai.c has useful defines for this. Move them to the
+dt-bindings header to allow using them in the dts(i) files.
+The example above then becomes:
+
+	dai@0 {
+		reg = <0>;
+		direction = <Q6ASM_DAI_RX>;
+	};
+
+which is immediately recognizable as playback/RX-only DAI.
+
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
+---
+ Documentation/devicetree/bindings/sound/qcom,q6asm.txt | 9 +++++----
+ include/dt-bindings/sound/qcom,q6asm.h                 | 4 ++++
+ sound/soc/qcom/qdsp6/q6asm-dai.c                       | 3 ---
+ 3 files changed, 9 insertions(+), 7 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/qcom,q6asm.txt b/Documentation/devicetree/bindings/sound/qcom,q6asm.txt
+index 6b9a88d0ea3f..8c4883becae9 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,q6asm.txt
++++ b/Documentation/devicetree/bindings/sound/qcom,q6asm.txt
+@@ -39,9 +39,9 @@ configuration of each dai. Must contain the following properties.
+ 	Usage: Required for Compress offload dais
+ 	Value type: <u32>
+ 	Definition: Specifies the direction of the dai stream
+-			0 for both tx and rx
+-			1 for only tx (Capture/Encode)
+-			2 for only rx (Playback/Decode)
++			Q6ASM_DAI_TX_RX (0) for both tx and rx
++			Q6ASM_DAI_TX (1) for only tx (Capture/Encode)
++			Q6ASM_DAI_RX (2) for only rx (Playback/Decode)
+ 
+ - is-compress-dai:
+ 	Usage: Required for Compress offload dais
+@@ -50,6 +50,7 @@ configuration of each dai. Must contain the following properties.
+ 
+ 
+ = EXAMPLE
++#include <dt-bindings/sound/qcom,q6asm.h>
+ 
+ apr-service@7 {
+ 	compatible = "qcom,q6asm";
+@@ -62,7 +63,7 @@ apr-service@7 {
+ 
+ 		dai@0 {
+ 			reg = <0>;
+-			direction = <2>;
++			direction = <Q6ASM_DAI_RX>;
+ 			is-compress-dai;
+ 		};
+ 	};
+diff --git a/include/dt-bindings/sound/qcom,q6asm.h b/include/dt-bindings/sound/qcom,q6asm.h
+index 1eb77d87c2e8..f59d74f14395 100644
+--- a/include/dt-bindings/sound/qcom,q6asm.h
++++ b/include/dt-bindings/sound/qcom,q6asm.h
+@@ -19,4 +19,8 @@
+ #define	MSM_FRONTEND_DAI_MULTIMEDIA15	14
+ #define	MSM_FRONTEND_DAI_MULTIMEDIA16	15
+ 
++#define Q6ASM_DAI_TX_RX	0
++#define Q6ASM_DAI_TX	1
++#define Q6ASM_DAI_RX	2
++
+ #endif /* __DT_BINDINGS_Q6_ASM_H__ */
+diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
+index a2acb7564eb8..9b7b218f2a20 100644
+--- a/sound/soc/qcom/qdsp6/q6asm-dai.c
++++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
+@@ -37,9 +37,6 @@
+ #define COMPR_PLAYBACK_MAX_FRAGMENT_SIZE (128 * 1024)
+ #define COMPR_PLAYBACK_MIN_NUM_FRAGMENTS (4)
+ #define COMPR_PLAYBACK_MAX_NUM_FRAGMENTS (16 * 4)
+-#define Q6ASM_DAI_TX_RX	0
+-#define Q6ASM_DAI_TX	1
+-#define Q6ASM_DAI_RX	2
+ 
+ #define ALAC_CH_LAYOUT_MONO   ((101 << 16) | 1)
+ #define ALAC_CH_LAYOUT_STEREO ((101 << 16) | 2)
+-- 
+2.27.0
+

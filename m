@@ -2,73 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E33522EF44
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jul 2020 16:15:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91C1822F2A7
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jul 2020 16:41:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 913A216A1;
-	Mon, 27 Jul 2020 16:14:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 913A216A1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 07C4B16A3;
+	Mon, 27 Jul 2020 16:40:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07C4B16A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595859312;
-	bh=NcvzRFn08FMk+XpEsMYgYvqc7TT0oEUoNBJzdA6q7Og=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1595860892;
+	bh=0tcQc6v/QlJyZg+hGewPPKPn+f8w/hfFvbSyN+QFJiA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qXVcNvX4hmsdg0kUunsD/uP76a1ThBhFK6U7ZtZM36LTaM+z4Ag3YexCC57raGoJE
-	 JdBMAZid+i3uqiOugKb1ZW9WDXytjIcBIGAdWWGCwuMiN+ZyYQ6V20++QduMDtcYAZ
-	 KGhueS2EqpZxVRvv44aXh0+b/iCn0jcsLv/3E3Ko=
+	b=jOlDk2/8IctcKbYGR2ktOeiJlBBhyezxK/6roR7+Bt3f1UN2b1PKBIWLtTxIsrDuL
+	 2iFB2v3ZMpwgzJC2xbBBP274OeY9EfOET48cFuQiLXFkqDyXFDEQyIyYy8eYDoZT2M
+	 5tWIArWH+H8ctiAF4O+UsBYB8q7wSK3ZTE8EKTdU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD96AF800AD;
-	Mon, 27 Jul 2020 16:13:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3FAFAF8013C;
+	Mon, 27 Jul 2020 16:39:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1153FF80171; Mon, 27 Jul 2020 16:13:29 +0200 (CEST)
+ id 627FBF80171; Mon, 27 Jul 2020 16:39:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8F274F800DE
- for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 16:13:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F274F800DE
-IronPort-SDR: XeDKRgkbqR+EmlSndBLkMcARmCVg+koFolNVN+S6OKbbfsPvCfuri/tlk4WLVXyBCzmyWrW1hq
- OwkKwQTgSLjQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9694"; a="212543818"
-X-IronPort-AV: E=Sophos;i="5.75,402,1589266800"; d="scan'208";a="212543818"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2020 07:13:15 -0700
-IronPort-SDR: JzN8m632tAb7YYMiQBLQMIPjhJWU8qI8y81PGQHnF2GJlRZiyLW5mcBtzgCHp3ASKp6cIpegVD
- Ax1KhNirjKww==
-X-IronPort-AV: E=Sophos;i="5.75,402,1589266800"; d="scan'208";a="464072084"
-Received: from pdewan-mobl1.amr.corp.intel.com (HELO [10.255.228.220])
- ([10.255.228.220])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2020 07:13:15 -0700
-Subject: Re: [PATCH] ASoC: core: use less strict tests for dailink capabilities
-To: Jerome Brunet <jbrunet@baylibre.com>, alsa-devel@alsa-project.org
-References: <20200723180533.220312-1-pierre-louis.bossart@linux.intel.com>
- <1jlfj98gb4.fsf@starbuckisacylon.baylibre.com>
- <576823fb-a8a8-1f74-b7e2-d33b734022a7@linux.intel.com>
- <1jk0yp8fb7.fsf@starbuckisacylon.baylibre.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <ca2f73d4-d512-37a8-98db-cec2156690d5@linux.intel.com>
-Date: Mon, 27 Jul 2020 09:13:13 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 99402F800DE
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 16:39:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99402F800DE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="opp5jJ8p"
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com
+ [209.85.167.171])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 433FC2083B
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 14:39:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1595860775;
+ bh=0tcQc6v/QlJyZg+hGewPPKPn+f8w/hfFvbSyN+QFJiA=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=opp5jJ8pUTUb6VUN4tMPebTbj1NJk5inpkBFtIBfGR+WeyR2p13yNEBKt45mun4sm
+ XYyYl7Jn0+TYXdgLwZUP5+S88hiCK+eLytbu/aEowH4Qakckf2Js3NAQp9WT3us157
+ EHK2OwoigCShGwxTjwkxbhptrmwQ7nih6kbM8Qt4=
+Received: by mail-oi1-f171.google.com with SMTP id y22so14494665oie.8
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 07:39:35 -0700 (PDT)
+X-Gm-Message-State: AOAM530QPAbqyERpyLZ88f4hGqG+zbdvtH70aL7fBLm9cuDq1FZO/Sd+
+ 2LZjjU+7WC6ZFqq5g5JYEdill7+kLhTaaA8hNA==
+X-Google-Smtp-Source: ABdhPJw/KLY1oHcWXCeR/axtLDZ8I3twNAIJ3ivC+q4hzvELMfd1+No9etzMfUkzezXN6uA5bdsso7Z16g5ZFyLQi0g=
+X-Received: by 2002:aca:30d2:: with SMTP id
+ w201mr18677353oiw.147.1595860774591; 
+ Mon, 27 Jul 2020 07:39:34 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1jk0yp8fb7.fsf@starbuckisacylon.baylibre.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: tiwai@suse.de, broonie@kernel.org
+References: <87y2nk2tfd.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87y2nk2tfd.wl-kuninori.morimoto.gx@renesas.com>
+From: Rob Herring <robh+dt@kernel.org>
+Date: Mon, 27 Jul 2020 08:39:23 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqJ8PyuZLXj4bLwyConb+GdH83hjPPj2mHbqNy=w9m-joA@mail.gmail.com>
+Message-ID: <CAL_JsqJ8PyuZLXj4bLwyConb+GdH83hjPPj2mHbqNy=w9m-joA@mail.gmail.com>
+Subject: Re: [PATCH v3] ASoC: dt-bindings: ak4613: switch to yaml base
+ Documentation
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,78 +89,100 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, Jul 15, 2020 at 6:31 PM Kuninori Morimoto
+<kuninori.morimoto.gx@renesas.com> wrote:
+>
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+>
+> This patch switches from .txt base to .yaml base Document.
+>
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> Reviewed-by: Rob Herring <robh@kernel.org>
+> Link: https://lore.kernel.org/r/87mu4cxlo2.wl-kuninori.morimoto.gx@renesas.com
+> Link: https://lore.kernel.org/r/87o8pf3923.wl-kuninori.morimoto.gx@renesas.com
+> ---
+> v2 -> v3
+>         - add Reviewd-by
+>         - add Link
+>         - use generic node name on examples
+>
+>  .../devicetree/bindings/sound/ak4613.txt      | 27 --------
+>  .../devicetree/bindings/sound/ak4613.yaml     | 65 +++++++++++++++++++
+>  2 files changed, 65 insertions(+), 27 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/ak4613.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/ak4613.yaml
+>
+> diff --git a/Documentation/devicetree/bindings/sound/ak4613.txt b/Documentation/devicetree/bindings/sound/ak4613.txt
+> deleted file mode 100644
+> index 49a2e74fd9cb..000000000000
+> --- a/Documentation/devicetree/bindings/sound/ak4613.txt
+> +++ /dev/null
+> @@ -1,27 +0,0 @@
+> -AK4613 I2C transmitter
+> -
+> -This device supports I2C mode only.
+> -
+> -Required properties:
+> -
+> -- compatible : "asahi-kasei,ak4613"
+> -- reg : The chip select number on the I2C bus
+> -
+> -Optional properties:
+> -- asahi-kasei,in1-single-end   : Boolean. Indicate input / output pins are single-ended.
+> -- asahi-kasei,in2-single-end     rather than differential.
+> -- asahi-kasei,out1-single-end
+> -- asahi-kasei,out2-single-end
+> -- asahi-kasei,out3-single-end
+> -- asahi-kasei,out4-single-end
+> -- asahi-kasei,out5-single-end
+> -- asahi-kasei,out6-single-end
+> -
+> -Example:
+> -
+> -&i2c {
+> -       ak4613: ak4613@10 {
+> -               compatible = "asahi-kasei,ak4613";
+> -               reg = <0x10>;
+> -       };
+> -};
+> diff --git a/Documentation/devicetree/bindings/sound/ak4613.yaml b/Documentation/devicetree/bindings/sound/ak4613.yaml
+> new file mode 100644
+> index 000000000000..5aae6126c540
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/ak4613.yaml
+> @@ -0,0 +1,65 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/ak4613.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: AK4613 I2C transmitter Device Tree Bindings
+> +
+> +maintainers:
+> +  - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> +
+> +properties:
+> +  compatible:
+> +    const: asahi-kasei,ak4613
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  "#sound-dai-cells":
+> +    const: 0
+> +
+> +  # for OF-graph
+> +  port:
+> +    $ref: "audio-graph-card.yaml#definitions/port"
 
+This patch is dependent on audio-graph-card.yaml which doesn't exist
+and breaks linux-next now.
 
-On 7/27/20 4:42 AM, Jerome Brunet wrote:
-> 
-> On Fri 24 Jul 2020 at 21:05, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com> wrote:
-> 
->>> Again, this is changing the original meaning of the flag from "playback
->>> allowed" to "playback required".
->>>
->>> This patch (or the orignal) does not explain why this change of meaning
->>> is necessary ? The point I was making here [0] still stands.
->>>
->>> If your evil plan is to get rid of 2 of the 4 flags, why go through the
->>> trouble of the changing the meaning and effect of one them ?
->>
->> My intent was to have a non-ambiguous definition.
-> 
-> I still fail to understand how it was ambiguous and how throwing an
-> error for something that used to work well so far is making things better.
-> 
-> Maybe there could be have been a better name for it, but what it did was
-> clear.
-> 
-> The flag is even (briefly) documented:
-> 	/* DPCM capture and Playback support */
-> 	unsigned int dpcm_capture:1;
-> 	unsigned int dpcm_playback:1;
-> 
-> "Support" means the dai_link supports it, not that it is required for it
-> work. This is what was implemented.
-> 
->>
->> I don't know 'playback allowed' means. What is the point of using this flag
->> if it may or may not accurately describe what is actually implemented? And
->> how can we converge the use of flags since in the contrary 'playback_only'
->> is actually a clear indication of what the link does. We've got to align on
->> the semantics, and I really don't see the point of watering-down
->> definitions. When things are optional or poorly defined, the confusion
->> continues.
-> 
-> The problem is that commit b73287f0b074 ("ASoC: soc-pcm: dpcm: fix
-> playback/capture checks") has changed the semantic:
-> * without actually warning that it was doing so in the commit description
-> * breaking things for other who relied on the previous semantics
-> 
-> Previous semantics of the flag allowed to disable a stream direction on
-> a link which could have otherwise had it working, if the stream had it.
-> It added information/control on the link at least.
-> 
-> New flag semantics forces the flag and stream capabilities to be somehow
-> aligned. This is not clearing the confusion, this is redundant
-> information. How is this helping the framework or the users ?
-> 
->>
->> WFIW, my 'evil' plan was to rename 'dpcm_playback' as 'can_playback' (same
->> for capture) and replace 'playback_only' by 'can_playback = 1; can_capture
->> = 0'. So this first step was really to align them on the expected behavior
->> and minimal requirements.
-> 
-> IMO the previous flag semantics was inverted yes, but aligned:
-> 
-> playback_only = 1 was the same as dpcm_capture = 0
-> capture_only = 1 was the same as dpcm_playback = 0
-> 
-> Having both *_only set does not make sense for a stream, same as having
-> none of dpcm_*
-> 
-> Having none of *_only flag means there is no restriction on the stream,
-> same as having both dpcm_* set.
-> 
-> This seems aligned to me.
+I haven't seen any follow-up to my audio-graph-card.yaml comments, so
+please revert this.
 
-Makes no sense to me to have information that's useless. What does 'no 
-restrictions' on a stream mean? 'anything goes' is not a scalable design 
-principle.
+Rob

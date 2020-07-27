@@ -2,76 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D918F22F3D6
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jul 2020 17:28:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A78622F3E6
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jul 2020 17:33:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 61D33169E;
-	Mon, 27 Jul 2020 17:28:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61D33169E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B80116A0;
+	Mon, 27 Jul 2020 17:33:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B80116A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595863735;
-	bh=UTI1bGE2AwCzijvE7rdpy37bxfeCGt5f2mNg0+msgk0=;
+	s=default; t=1595864036;
+	bh=jVYPXyl1UvbHHRftNlO6dLTG3tvjeLtpTLNLtWQ0fi8=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LlQdDHBafpm8/+isMv5dpGBSsKlI7I1qH7Vc1gp3pIPSQiUlxBKOCEUJu9CNSydja
-	 JgEH/xdYOrxylT56KBw5ODHluOfa/H5pEOm9QUe5AQnDQpk6ISG3D7BhQeSZjFCX54
-	 GcIa0xgbDnqEoeEJsV++fHmiDdX1GLQ8gxGRGltE=
+	b=nIlRhYOjiq2klVtjgDdxmM8xnbYjfW+mVzurSyOoS8KM8eFbDEMAW9js/ghTmkBHH
+	 wxiduLMx0f1x3oMjTELJlZwMkSSbguphTYdt6HmUZ4JhGwj7/PWO4FH0KlHkxOjCZF
+	 6/9fZ9S7pQVIATIvR0WzovZEodb1D5M5f3bumB7o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F04EEF801D9;
-	Mon, 27 Jul 2020 17:27:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 55570F8013C;
+	Mon, 27 Jul 2020 17:32:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AC27EF80171; Mon, 27 Jul 2020 17:27:10 +0200 (CEST)
+ id AD53DF801D9; Mon, 27 Jul 2020 17:32:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.0 required=5.0 tests=NICE_REPLY_A,
- RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B6357F800DE
- for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 17:26:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6357F800DE
-IronPort-SDR: f9CAi/Cz6gPduFCwep51q3gA9ksD6RGWMPBXrkNjgeRXPYpHYhdp2OzMtdOrwu0ml/lSLxmXyW
- 8yRx7KxWHALg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9694"; a="235898891"
-X-IronPort-AV: E=Sophos;i="5.75,402,1589266800"; d="scan'208";a="235898891"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57870F8013C
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 17:32:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57870F8013C
+IronPort-SDR: YFHeDkem1gqW7+SKFo9U3ccqyyNtrWNoOLBatibRQsvUsrgcBbiQsYglFdPEh1Qbp71fzirqdo
+ qowTJOF1zncQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9694"; a="169154637"
+X-IronPort-AV: E=Sophos;i="5.75,402,1589266800"; d="scan'208";a="169154637"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2020 08:26:56 -0700
-IronPort-SDR: k82YueMjL+Oqb3HtCQjVhvLWVdbuYgZ/RPi7ff4m330BCwwKH7AWt3gqrDImO9ppV2MbIayZPz
- da1AEpoovH4g==
-X-IronPort-AV: E=Sophos;i="5.75,402,1589266800"; d="scan'208";a="464097266"
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jul 2020 08:31:59 -0700
+IronPort-SDR: Kym2xbdqrRFyklcNQIA6wGe9KaMBLbQw4shEg/IB13YOgTm3UFBoLS/wxAhlBYTD01Izv8f6mk
+ WgPFz2caVWGg==
+X-IronPort-AV: E=Sophos;i="5.75,402,1589266800"; d="scan'208";a="464099679"
 Received: from pdewan-mobl1.amr.corp.intel.com (HELO [10.255.228.220])
  ([10.255.228.220])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2020 08:26:55 -0700
-Subject: Re: [PATCH] ASoC: core: use less strict tests for dailink capabilities
-To: Jerome Brunet <jbrunet@baylibre.com>, alsa-devel@alsa-project.org
-References: <20200723180533.220312-1-pierre-louis.bossart@linux.intel.com>
- <1jlfj98gb4.fsf@starbuckisacylon.baylibre.com>
- <576823fb-a8a8-1f74-b7e2-d33b734022a7@linux.intel.com>
- <1jk0yp8fb7.fsf@starbuckisacylon.baylibre.com>
- <ca2f73d4-d512-37a8-98db-cec2156690d5@linux.intel.com>
- <1jh7tt7zv9.fsf@starbuckisacylon.baylibre.com>
+ 27 Jul 2020 08:31:58 -0700
+Subject: Re: [PATCH v3 00/10] ASoC: qdsp6: add gapless compressed audio support
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, broonie@kernel.org
+References: <20200727093806.17089-1-srinivas.kandagatla@linaro.org>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <071ce1fc-0f07-f0ff-470f-bf176ff831f2@linux.intel.com>
-Date: Mon, 27 Jul 2020 10:26:54 -0500
+Message-ID: <5f3e6f81-965e-d7e2-bd93-edb54f72e478@linux.intel.com>
+Date: Mon, 27 Jul 2020 10:24:34 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <1jh7tt7zv9.fsf@starbuckisacylon.baylibre.com>
+In-Reply-To: <20200727093806.17089-1-srinivas.kandagatla@linaro.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: tiwai@suse.de, broonie@kernel.org
+Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com, tiwai@suse.com,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, vkoul@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,119 +85,49 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 7/27/20 10:15 AM, Jerome Brunet wrote:
+On 7/27/20 4:37 AM, Srinivas Kandagatla wrote:
+> This patchset adds gapless compressed audio support on q6asm.
+> Gapless on q6asm is implemented using 2 streams in a single q6asm session.
 > 
-> On Mon 27 Jul 2020 at 16:13, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com> wrote:
+> First few patches such as stream id per each command, gapless flags
+> and silence meta data are for preparedness for adding gapless support.
+> Last patch implements copy callback to allow finer control over buffer offsets,
+> specially in partial drain cases.
 > 
->> On 7/27/20 4:42 AM, Jerome Brunet wrote:
->>>
->>> On Fri 24 Jul 2020 at 21:05, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com> wrote:
->>>
->>>>> Again, this is changing the original meaning of the flag from "playback
->>>>> allowed" to "playback required".
->>>>>
->>>>> This patch (or the orignal) does not explain why this change of meaning
->>>>> is necessary ? The point I was making here [0] still stands.
->>>>>
->>>>> If your evil plan is to get rid of 2 of the 4 flags, why go through the
->>>>> trouble of the changing the meaning and effect of one them ?
->>>>
->>>> My intent was to have a non-ambiguous definition.
->>>
->>> I still fail to understand how it was ambiguous and how throwing an
->>> error for something that used to work well so far is making things better.
->>>
->>> Maybe there could be have been a better name for it, but what it did was
->>> clear.
->>>
->>> The flag is even (briefly) documented:
->>> 	/* DPCM capture and Playback support */
->>> 	unsigned int dpcm_capture:1;
->>> 	unsigned int dpcm_playback:1;
->>>
->>> "Support" means the dai_link supports it, not that it is required for it
->>> work. This is what was implemented.
->>>
->>>>
->>>> I don't know 'playback allowed' means. What is the point of using this flag
->>>> if it may or may not accurately describe what is actually implemented? And
->>>> how can we converge the use of flags since in the contrary 'playback_only'
->>>> is actually a clear indication of what the link does. We've got to align on
->>>> the semantics, and I really don't see the point of watering-down
->>>> definitions. When things are optional or poorly defined, the confusion
->>>> continues.
->>>
->>> The problem is that commit b73287f0b074 ("ASoC: soc-pcm: dpcm: fix
->>> playback/capture checks") has changed the semantic:
->>> * without actually warning that it was doing so in the commit description
->>> * breaking things for other who relied on the previous semantics
->>>
->>> Previous semantics of the flag allowed to disable a stream direction on
->>> a link which could have otherwise had it working, if the stream had it.
->>> It added information/control on the link at least.
->>>
->>> New flag semantics forces the flag and stream capabilities to be somehow
->>> aligned. This is not clearing the confusion, this is redundant
->>> information. How is this helping the framework or the users ?
->>>
->>>>
->>>> WFIW, my 'evil' plan was to rename 'dpcm_playback' as 'can_playback' (same
->>>> for capture) and replace 'playback_only' by 'can_playback = 1; can_capture
->>>> = 0'. So this first step was really to align them on the expected behavior
->>>> and minimal requirements.
->>>
->>> IMO the previous flag semantics was inverted yes, but aligned:
->>>
->>> playback_only = 1 was the same as dpcm_capture = 0
->>> capture_only = 1 was the same as dpcm_playback = 0
->>>
->>> Having both *_only set does not make sense for a stream, same as having
->>> none of dpcm_*
->>>
->>> Having none of *_only flag means there is no restriction on the stream,
->>> same as having both dpcm_* set.
->>>
->>> This seems aligned to me.
->>
->> Makes no sense to me to have information that's useless.
+> This patchset is tested on RB3 aka DB845c platform.
 > 
-> Maybe. That's not point
-> The point is
-> * No explanation has been provided so far about why throwing an error
->    like done here (or in the previous change) makes it more usefull.
->    The semantic change just make it redundant with the information
->    coming from the DAI caps. The new semantic makes the flag even more
->    useless.
->    
-> * Throwing an error like break cards that used to work nicely for no
->    gain
->    
-> * This adds yet another level of complexity that was not necessary
->    before (snd_soc_dai_link_set_capabilities())
+> This patchset as it is will support gapless however QDSP can also
+> support switching decoders on a single stream. Patches to support such feature
+> are send in different patchset which involves adding generic interfaces.
 > 
->> What does 'no restrictions' on a stream mean?
-> 
-> I thought the code was fairly simple but I can explain
-> - A dai_link has 2 stream directions. The direction can be enabled
->    if the DAIs on the link supports it.
-> - A direction could be forcefully disabled at the dai_link level using
->    those flags (restrict the direction). I suppose to give more control
->    to the card driver.
-> 
-> I did not write that code, I have no idea if those flags are any use to
-> anyone.
-> 
->> 'anything goes' is not a scalable design principle.
-> 
-> What does scalability has to do with the matter ?
-> 
-> In the end, I'm just asking to drop the error condition you added.
-> 
-> You want to rework/remove some flags, I think it is a great idea.
-> I even willing to help out, but not in a way that makes things complex
-> and redundant.
+> Thanks,
+> srini
 
-Not going to remove that check, sorry. That would allow for broken 
-configuration to keep existing forever.
-Over and out.
+I've run out of comments :-)
 
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+
+> Changes since v2:(mostly suggested by Pierre)
+> - removed unnessary kernel style comments,
+> - moved TIMESTAMP flag to respective patch.
+> - move preparatory code from gapless support patch to new one.
+> - fix subject prefix of one patch.
+> - add comments to clarify valid stream_ids
+> 
+> Srinivas Kandagatla (10):
+>    ASoC: q6asm: rename misleading session id variable
+>    ASoC: q6asm: make commands specific to streams
+>    ASoC: q6asm: use flags directly from q6asm-dai
+>    ASoC: q6asm: add length to write command token
+>    ASoC: q6asm: add support to remove intial and trailing silence
+>    ASoC: q6asm: add support to gapless flag in q6asm open
+>    ASoC: q6asm-dai: add next track metadata support
+>    ASoC: q6asm-dai: prepare set params to accept profile change
+>    ASoC: q6asm-dai: add gapless support
+>    ASoC: q6asm-dai: add support to copy callback
+> 
+>   sound/soc/qcom/qdsp6/q6asm-dai.c | 414 +++++++++++++++++++++++--------
+>   sound/soc/qcom/qdsp6/q6asm.c     | 169 +++++++++----
+>   sound/soc/qcom/qdsp6/q6asm.h     |  49 ++--
+>   3 files changed, 469 insertions(+), 163 deletions(-)
+> 

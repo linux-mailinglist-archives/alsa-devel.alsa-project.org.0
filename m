@@ -2,52 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD66822F368
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jul 2020 17:06:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3167D22F375
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jul 2020 17:06:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 70E1416A0;
-	Mon, 27 Jul 2020 17:05:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70E1416A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id CCF1A1696;
+	Mon, 27 Jul 2020 17:06:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCF1A1696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595862378;
-	bh=6S54hSr5B94xmlAuoAhGcDnhzD4R8pbh00pjI8DnPAE=;
+	s=default; t=1595862414;
+	bh=0JaIN/TliAfg4SEK+w/JhQt6QF8uQ7OY9xt+d7UFQcQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nsz84QSbfXHWfcAYfxEdgaBeX5BbQ1+wJeRQKaNKU/UdbBnkdy4L+HQKZjOEhgKDI
-	 Nam+CIen3lyGheV7JYgCxdvoek/7szpT9Rq8A+UtXjhsWQsR33zWgLPfBzi4e8wVfN
-	 DOvua7iW4Z23D+13ubI0SuiQrdxirW4nyZbsH96o=
+	b=Blmkl/WOuuwOfITSTSzJ8ojg5rBR4be5fbcrtUIy0AYaw3fF9PrLTzlOgfOMMUjAU
+	 3riqxhSEwYf0XsGdMjCCEqifD/TfmC/2XJsSD+775as3r513URjAjDilnUhCVuE6P9
+	 mcQfEUPCen2coU3jm1yKyF+iKWdRJK/bAQpqkROA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26E04F802E7;
-	Mon, 27 Jul 2020 17:02:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F6EDF802DF;
+	Mon, 27 Jul 2020 17:02:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 64780F802E3; Mon, 27 Jul 2020 17:02:28 +0200 (CEST)
+ id B2A16F802E9; Mon, 27 Jul 2020 17:02:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  FORGED_SPF_HELO,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from NAM04-CO1-obe.outbound.protection.outlook.com
- (mail-eopbgr690058.outbound.protection.outlook.com [40.107.69.58])
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2055.outbound.protection.outlook.com [40.107.92.55])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9E52BF802D2
- for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 17:02:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E52BF802D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5BD0AF802DF
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 17:02:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BD0AF802DF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
- header.i=@amdcloud.onmicrosoft.com header.b="CopK7pqq"
+ header.i=@amdcloud.onmicrosoft.com header.b="FyG759FY"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VT8HUnMATqTkvbYivQSjtQ56cjprskB6ctD+oftQQsCBzKIeck2j0F+uxZv90c84WoLjODdwVuhc2meJU7gXPQSfs5TZd+UjA5eqE65lwql8rDYwnenn8W4/kQJ0uLc/wz3yfxAG53DkTt4le/KWnpMeC8qSOqr/XUEEPCgZEYubjZ/M+XTfHYYGHXTu00SR767vxTCnD99TCpxfTTO5gbX6Im7VJ/FYIVo4XaJxyF9cDgeSX8qfZH2FJgyad8/69JIdszvrLmzT4wfVx5LWw/cfXgGBlXEH5XQoO9CBpR6z9ODkXcjCNBRsIvwGIkswrP+SzEZezKlFTyyoVSxeqA==
+ b=EuLZwE9P6nTSgHoDNzzf550qLKw6bV1l1NC5bwa5mCFnTjXUmnUw4PCwo69TlArh/YwcNpwBFFu5O3whU1wF13b5U/FM1LYi9pZp8RzZCYJgNRSbNP84goV/NYr/P1b0pYQ9+46ZLmV/fFYdvbM91odyfUA7v5KaePvf3W3E+xcQfQJFm97pYQY+9zLQd08D/6MOpPumVm2ULaBsmcU3NPYuwA9owQK/2NEwbY9tMzvTqMJm9zGTMEMXDuDTr25tQJmBxoXgAdxG0c8jo3CPuiKAPVFzOraFmCT6qZlN2ZYLT/UelbGBoKSVbLvvC7r9Ujsce5vl91rEpocnwxekkA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qCl07lc7XRC5uQgg9x12rtUZ1ol8ER+YYH/hcAArfX4=;
- b=Sa1I9hhRkvCvEUyoFLeD55qMzNygcT5+BT3ykAo8PXK2cRhoGw9ZqhDU3UEN0IxZPNfhRqJ8iHdJf0VnA7ISHlZLmDJm9rngbIZ3wKHr7AJr83vuwsFpllfNF7Tudj3LvjdjH82nKG78K0LHEK5v7f2AcdssGSV1T2Lqg9Guynfmo86kn88n/58AhMJpyYRLrM0S8Zw0KG2WG/NjOwPCdBZoEhy/Mtvu2kXtA32f5SvQBv29UDyl1g9Ij5MVyRRBGgUZwX8asxKai9ZsGdZKmSSxv9IufQ5PyNxRJnSMDp8+udeI2dwcgSJ2RjLtxcvENhRblnkm9JEZtKl//QNs5g==
+ bh=1Z69W1HJHA42WkakLTg/SvY0csaoMM4X2Wb6rlGNQdk=;
+ b=njtxD06unOS+0WnIle7gKzBhTXuvW4NdwGeMrvfS9IBVfPMP7ZcORjthLaRXIEwrorohHnyxuJNvb6wqLfJQclnaTspc4fqq4DDAhmwNGhVyRIwvHJeBDfU3syiCI5t+MMLgn2CGrSzYnINFgIqN35cNtFKDBSAT9S+WD9fyFu7Es8sls3NE3NGEzkyxljQLVO5GHEnpvb/EbpHQ2V9w/UHlsSmE65Nw6mSZiAUsnptlXKse/dJAbDTa8T3vFbny0YUfF3bn6JqyBa73uwTNvo1jchgt1NG8JKKPY0gk4Vx2l7DN7T3LJiA43DnfUZOWnzR9PK+Rdj3RgtuALbPORg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com;
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -55,43 +55,43 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qCl07lc7XRC5uQgg9x12rtUZ1ol8ER+YYH/hcAArfX4=;
- b=CopK7pqqbl6f6KQxg+1rQF4wubo7Esxr5BXBoYObAWhYoWnNsyk0bDI2fzkqe8/WFOCZp8+pyDdAGcR9TFNT+If0otK8kvEMVTjJYVpVm1wYbGuSFw6GbFhx9/JvEGWiZKuWNbebatfU9ATaV0HvGOOC8mqcTyCyIis4xX1dQ2k=
-Received: from BN8PR04CA0057.namprd04.prod.outlook.com (2603:10b6:408:d4::31)
- by MN2PR12MB3341.namprd12.prod.outlook.com (2603:10b6:208:cb::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3216.23; Mon, 27 Jul
- 2020 15:02:16 +0000
-Received: from BN8NAM11FT045.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:d4:cafe::84) by BN8PR04CA0057.outlook.office365.com
- (2603:10b6:408:d4::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3216.23 via Frontend
- Transport; Mon, 27 Jul 2020 15:02:16 +0000
+ bh=1Z69W1HJHA42WkakLTg/SvY0csaoMM4X2Wb6rlGNQdk=;
+ b=FyG759FYmjGEXhVszf2ALr4qP/dQYg6Zl+ZoebucvVFdgWMena6fN+T0BD4gAxCDXP080FROMQP3xoAg1kaPvTkjoqmIivoKoo2GfDs2L5jxBFW3Su+H7zH08Mib+HW4dRoCAcGSCNuI6j0+tUaDLAv662+0JxE0mUUTIz8beL0=
+Received: from DM3PR12CA0104.namprd12.prod.outlook.com (2603:10b6:0:55::24) by
+ DM5PR12MB1753.namprd12.prod.outlook.com (2603:10b6:3:10d::16) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3216.22; Mon, 27 Jul 2020 15:02:23 +0000
+Received: from DM6NAM11FT012.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:0:55:cafe::7c) by DM3PR12CA0104.outlook.office365.com
+ (2603:10b6:0:55::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3216.20 via Frontend
+ Transport; Mon, 27 Jul 2020 15:02:23 +0000
 X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; gmail.com; dkim=none (message not signed)
  header.d=none;gmail.com; dmarc=permerror action=none header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- BN8NAM11FT045.mail.protection.outlook.com (10.13.177.47) with Microsoft SMTP
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ DM6NAM11FT012.mail.protection.outlook.com (10.13.173.109) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3216.10 via Frontend Transport; Mon, 27 Jul 2020 15:02:16 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.3216.10 via Frontend Transport; Mon, 27 Jul 2020 15:02:22 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 27 Jul
- 2020 10:02:15 -0500
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 2020 10:02:22 -0500
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 27 Jul
- 2020 10:02:15 -0500
+ 2020 10:02:22 -0500
 Received: from vishnu-All-Series.amd.com (10.180.168.240) by
  SATLEXMB02.amd.com (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5
- via Frontend Transport; Mon, 27 Jul 2020 10:02:12 -0500
+ via Frontend Transport; Mon, 27 Jul 2020 10:02:18 -0500
 From: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
 To: 
-Subject: [PATCH 5/6] ASoC: amd: Adding DAI LINK for rt1015 codec
-Date: Mon, 27 Jul 2020 20:28:30 +0530
-Message-ID: <20200727145840.25142-5-Vishnuvardhanrao.Ravulapati@amd.com>
+Subject: [PATCH 6/6] ASoC: amd: Added hw_params support for ALC1015
+Date: Mon, 27 Jul 2020 20:28:31 +0530
+Message-ID: <20200727145840.25142-6-Vishnuvardhanrao.Ravulapati@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200727145840.25142-1-Vishnuvardhanrao.Ravulapati@amd.com>
 References: <20200727145840.25142-1-Vishnuvardhanrao.Ravulapati@amd.com>
@@ -100,28 +100,28 @@ Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7e05e2f1-e170-4f2a-2204-08d8323e0d16
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3341:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB334164A4B793E0F6679FA45EE7720@MN2PR12MB3341.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4125;
+X-MS-Office365-Filtering-Correlation-Id: 95f03d3a-0976-4a52-0704-08d8323e112e
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1753:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1753CB3403F580FE5D38E277E7720@DM5PR12MB1753.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2449;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5Q3M2OlHbIjSo/7y1F7Yf/kgb1kCvKkmeBQRd8OxF2VlAkCNnnQZVzIOhdTztw+l/Ski54OjhavOvVfJzgV6gxehcEx4/5zCURkI3DWruYN9dUnwxzb32wKFgdQdhCZ8OECwN88rj1ZTYQuDH/7PbrRzL69j7ya63EjPeyP7adFSAhCz/Z8gaZyaa9GfmNfkjFjFj1mTPqpfjSyNLg/mudZorqqyeDGXURg7AGx9CVutGf/meUkSaY5JqHLDH+dcBHeoYV+W+Q0IQOYk+duZh4Ahh5iKCbMlWvQ7csWNnxPYeRjqotSNdHXUxIcrB8IZzzV2TGQ7dAVNMEkxd6NoijyP4PyZMhwbW9nkC8LT2yd92rI3l5nztFFan7QaZ/T4al4t+mgrmiaJLVVQ7a8GSbf6x8wXAJWlBc6/F5xiqrA=
+X-Microsoft-Antispam-Message-Info: FIRskGAFzvjk/kXP85hgc/ZoNwI/oTx7MrkYCy3hCq2n9rjbRP4D/gN729zf+pGxqA9oHpLyLpf6uCpGzitcGGlyugTdVJvHY25ZXAKPVDkpgr5pumKwCrYPa3exXtcLAxFsxQsfK4s+ceGH5+XnlOKbfFVtU6s7/8kfoAdNklLDUIBp6/EHYEYRoFLx848XU/VDcMOszc9RiCYpQ7hPg7CrRR89GOvE68b0FDCTOSV2ohQJCsRXIvaJIN1rFCqJTbW7s32rNZ9/UJ93d+NZH5UJf26ZDKE/rFy9XDPI3Y3UOqe52qaeHuci2+dr/3HrmMk99DEHVn2pZ75tIAHh5sRm1w2guYw0n1k/6ItvCDTGPZfD+0tBCcEXnmS3XGvdfkvLjChnH69/Q1Z+aZVvsJEP7SANDsn6BLfmsCODczE=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFTY:;
- SFS:(4636009)(39860400002)(346002)(396003)(376002)(136003)(46966005)(8676002)(356005)(70206006)(82310400002)(109986005)(70586007)(2616005)(86362001)(7696005)(2906002)(83380400001)(5660300002)(8936002)(54906003)(186003)(336012)(47076004)(6666004)(316002)(82740400003)(36756003)(1076003)(26005)(426003)(478600001)(81166007)(4326008)(266003);
+ SFS:(4636009)(39860400002)(396003)(376002)(136003)(346002)(46966005)(82740400003)(4326008)(316002)(47076004)(478600001)(81166007)(109986005)(2906002)(8936002)(54906003)(2616005)(426003)(8676002)(83380400001)(70586007)(70206006)(6666004)(5660300002)(26005)(186003)(1076003)(7696005)(82310400002)(36756003)(356005)(336012)(86362001)(266003);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2020 15:02:16.1400 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e05e2f1-e170-4f2a-2204-08d8323e0d16
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2020 15:02:22.9685 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 95f03d3a-0976-4a52-0704-08d8323e112e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT045.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT012.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3341
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1753
 Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO
  POWER MANAGEM..." <alsa-devel@alsa-project.org>, Kuninori
  Morimoto <kuninori.morimoto.gx@renesas.com>,
@@ -145,101 +145,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-DAI link support for RTK 1015 and providing the codec details
-depending on the snd_soc_card selected by ACPI ID.
+Adding rt1015 hw_params which set Bit-clock ratio PLL and appropriate
+sys clk specific with RTK1015.
 
 Signed-off-by: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
 ---
- sound/soc/amd/acp3x-rt5682-max9836.c | 35 ++++++++++++++++++++++++----
- 1 file changed, 30 insertions(+), 5 deletions(-)
+ sound/soc/amd/acp3x-rt5682-max9836.c | 39 ++++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
 diff --git a/sound/soc/amd/acp3x-rt5682-max9836.c b/sound/soc/amd/acp3x-rt5682-max9836.c
-index ac96ef70aafa..607205cb3a98 100644
+index 607205cb3a98..bf635ae928ae 100644
 --- a/sound/soc/amd/acp3x-rt5682-max9836.c
 +++ b/sound/soc/amd/acp3x-rt5682-max9836.c
-@@ -32,6 +32,12 @@ static struct clk *rt5682_dai_wclk;
- static struct clk *rt5682_dai_bclk;
- static struct gpio_desc *dmic_sel;
- 
-+enum {
-+	RT5682 = 0,
-+	MAX,
-+	EC,
-+};
-+
- static int acp3x_5682_init(struct snd_soc_pcm_runtime *rtd)
- {
- 	int ret;
-@@ -241,6 +247,9 @@ SND_SOC_DAILINK_DEF(rt5682,
- 	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10EC5682:00", "rt5682-aif1")));
- SND_SOC_DAILINK_DEF(max,
- 	DAILINK_COMP_ARRAY(COMP_CODEC("MX98357A:00", "HiFi")));
-+SND_SOC_DAILINK_DEF(rt1015,
-+	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10EC1015:00", "rt1015-aif"),
-+			COMP_CODEC("i2c-10EC1015:01", "rt1015-aif")));
- SND_SOC_DAILINK_DEF(cros_ec,
- 	DAILINK_COMP_ARRAY(COMP_CODEC("GOOG0013:00", "EC Codec I2S RX")));
- 
-@@ -259,7 +268,7 @@ static struct snd_soc_codec_conf rt1015_conf[] = {
- };
- 
- static struct snd_soc_dai_link acp3x_dai[] = {
--	{
-+	[RT5682] = {
- 		.name = "acp3x-5682-play",
- 		.stream_name = "Playback",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
-@@ -270,16 +279,19 @@ static struct snd_soc_dai_link acp3x_dai[] = {
- 		.ops = &acp3x_5682_ops,
- 		SND_SOC_DAILINK_REG(acp3x_i2s, rt5682, platform),
- 	},
--	{
-+	[MAX] = {
- 		.name = "acp3x-max98357-play",
- 		.stream_name = "HiFi Playback",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
--				| SND_SOC_DAIFMT_CBM_CFM,
-+				| SND_SOC_DAIFMT_CBS_CFS,
- 		.dpcm_playback = 1,
- 		.ops = &acp3x_max_play_ops,
--		SND_SOC_DAILINK_REG(acp3x_bt, max, platform),
-+		.cpus = acp3x_bt,
-+		.num_cpus = ARRAY_SIZE(acp3x_bt),
-+		.platforms = platform,
-+		.num_platforms = ARRAY_SIZE(platform),
- 	},
--	{
-+	[EC] = {
- 		.name = "acp3x-ec-dmic0-capture",
- 		.stream_name = "Capture DMIC0",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
-@@ -389,6 +401,18 @@ void *soc_is_rltk_max(struct device *dev)
- 	return (void *)match->driver_data;
+@@ -126,6 +126,44 @@ static int rt5682_clk_enable(struct snd_pcm_substream *substream)
+ 	return ret;
  }
  
-+static void card_spk_dai_link_present(struct snd_soc_dai_link *links,
-+						const char *card_name)
++static int acp3x_1015_hw_params(struct snd_pcm_substream *substream,
++					struct snd_pcm_hw_params *params)
 +{
-+	if (!strcmp(card_name, "acp3xalc56821015")) {
-+		links[1].codecs = rt1015;
-+		links[1].num_codecs = ARRAY_SIZE(rt1015);
-+	} else {
-+		links[1].codecs = max;
-+		links[1].num_codecs = ARRAY_SIZE(max);
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_dai *codec_dai;
++	int srate, i, ret;
++
++	ret = 0;
++	srate = params_rate(params);
++
++	for (i = 0; i < rtd->num_codecs; i++) {
++		if (strcmp(rtd->codec_dais[i]->name, "rt1015-aif"))
++			continue;
++		codec_dai = rtd->codec_dais[i];
++
++		ret = snd_soc_dai_set_bclk_ratio(codec_dai, 64);
++		if (ret < 0) {
++			dev_err(codec_dai->dev,
++				"codec_dai bclk ratio not set\n");
++			return ret;
++		}
++		ret = snd_soc_dai_set_pll(codec_dai, 0, RT1015_PLL_S_BCLK,
++						64 * srate, 256 * srate);
++		if (ret < 0) {
++			dev_err(codec_dai->dev, "codec_dai PLL not set\n");
++			return ret;
++		}
++		ret = snd_soc_dai_set_sysclk(codec_dai, RT1015_SCLK_S_PLL,
++					256 * srate, SND_SOC_CLOCK_IN);
++		if (ret < 0) {
++			dev_err(codec_dai->dev,
++					"codec_dai sys clock not set\n");
++			return ret;
++		}
 +	}
++	return ret;
 +}
 +
- static int acp3x_probe(struct platform_device *pdev)
+ static void rt5682_clk_disable(void)
  {
- 	int ret;
-@@ -404,6 +428,7 @@ static int acp3x_probe(struct platform_device *pdev)
- 	if (!machine)
- 		return -ENOMEM;
+ 	clk_disable_unprepare(rt5682_dai_wclk);
+@@ -231,6 +269,7 @@ static const struct snd_soc_ops acp3x_5682_ops = {
+ static const struct snd_soc_ops acp3x_max_play_ops = {
+ 	.startup = acp3x_max_startup,
+ 	.shutdown = rt5682_shutdown,
++	.hw_params = acp3x_1015_hw_params,
+ };
  
-+	card_spk_dai_link_present(card->dai_link, card->name);
- 	card->dev = &pdev->dev;
- 	platform_set_drvdata(pdev, card);
- 	snd_soc_card_set_drvdata(card, machine);
+ static const struct snd_soc_ops acp3x_ec_cap0_ops = {
 -- 
 2.17.1
 

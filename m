@@ -2,134 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3167D22F375
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jul 2020 17:06:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2518E22F3A4
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jul 2020 17:17:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CCF1A1696;
-	Mon, 27 Jul 2020 17:06:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCF1A1696
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9F76216A4;
+	Mon, 27 Jul 2020 17:17:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F76216A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595862414;
-	bh=0JaIN/TliAfg4SEK+w/JhQt6QF8uQ7OY9xt+d7UFQcQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1595863070;
+	bh=2PwgoyDP+WS5czBK2ycPrAM6J10v4quTUBrbxtWACHM=;
+	h=References:From:To:Subject:In-reply-to:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Blmkl/WOuuwOfITSTSzJ8ojg5rBR4be5fbcrtUIy0AYaw3fF9PrLTzlOgfOMMUjAU
-	 3riqxhSEwYf0XsGdMjCCEqifD/TfmC/2XJsSD+775as3r513URjAjDilnUhCVuE6P9
-	 mcQfEUPCen2coU3jm1yKyF+iKWdRJK/bAQpqkROA=
+	b=aikdfUdPFvO8D4XVUvSJL+c4YpGYEv2Cx3uQ8XRBGIbepwD6r55OYyuM+Xz0FNjI4
+	 7t5vcyjRr7JfkWMFmInRCDwpPdrEqVae5xRd/vNImqYf7BXAt23UySVfB6XuVCnWxq
+	 EL55kkinTPWqYY6I6DYXi2Mnk/xf97wAroBCE5Y4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F6EDF802DF;
-	Mon, 27 Jul 2020 17:02:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 955D3F80158;
+	Mon, 27 Jul 2020 17:16:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2A16F802E9; Mon, 27 Jul 2020 17:02:33 +0200 (CEST)
+ id 163CAF80171; Mon, 27 Jul 2020 17:16:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FORGED_SPF_HELO,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2055.outbound.protection.outlook.com [40.107.92.55])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5BD0AF802DF
- for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 17:02:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BD0AF802DF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6CA76F8013C
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 17:15:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CA76F8013C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
- header.i=@amdcloud.onmicrosoft.com header.b="FyG759FY"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EuLZwE9P6nTSgHoDNzzf550qLKw6bV1l1NC5bwa5mCFnTjXUmnUw4PCwo69TlArh/YwcNpwBFFu5O3whU1wF13b5U/FM1LYi9pZp8RzZCYJgNRSbNP84goV/NYr/P1b0pYQ9+46ZLmV/fFYdvbM91odyfUA7v5KaePvf3W3E+xcQfQJFm97pYQY+9zLQd08D/6MOpPumVm2ULaBsmcU3NPYuwA9owQK/2NEwbY9tMzvTqMJm9zGTMEMXDuDTr25tQJmBxoXgAdxG0c8jo3CPuiKAPVFzOraFmCT6qZlN2ZYLT/UelbGBoKSVbLvvC7r9Ujsce5vl91rEpocnwxekkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1Z69W1HJHA42WkakLTg/SvY0csaoMM4X2Wb6rlGNQdk=;
- b=njtxD06unOS+0WnIle7gKzBhTXuvW4NdwGeMrvfS9IBVfPMP7ZcORjthLaRXIEwrorohHnyxuJNvb6wqLfJQclnaTspc4fqq4DDAhmwNGhVyRIwvHJeBDfU3syiCI5t+MMLgn2CGrSzYnINFgIqN35cNtFKDBSAT9S+WD9fyFu7Es8sls3NE3NGEzkyxljQLVO5GHEnpvb/EbpHQ2V9w/UHlsSmE65Nw6mSZiAUsnptlXKse/dJAbDTa8T3vFbny0YUfF3bn6JqyBa73uwTNvo1jchgt1NG8JKKPY0gk4Vx2l7DN7T3LJiA43DnfUZOWnzR9PK+Rdj3RgtuALbPORg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com;
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
+ dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="NbJTAbEq"
+Received: by mail-wr1-x444.google.com with SMTP id f7so15299581wrw.1
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 08:15:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1Z69W1HJHA42WkakLTg/SvY0csaoMM4X2Wb6rlGNQdk=;
- b=FyG759FYmjGEXhVszf2ALr4qP/dQYg6Zl+ZoebucvVFdgWMena6fN+T0BD4gAxCDXP080FROMQP3xoAg1kaPvTkjoqmIivoKoo2GfDs2L5jxBFW3Su+H7zH08Mib+HW4dRoCAcGSCNuI6j0+tUaDLAv662+0JxE0mUUTIz8beL0=
-Received: from DM3PR12CA0104.namprd12.prod.outlook.com (2603:10b6:0:55::24) by
- DM5PR12MB1753.namprd12.prod.outlook.com (2603:10b6:3:10d::16) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3216.22; Mon, 27 Jul 2020 15:02:23 +0000
-Received: from DM6NAM11FT012.eop-nam11.prod.protection.outlook.com
- (2603:10b6:0:55:cafe::7c) by DM3PR12CA0104.outlook.office365.com
- (2603:10b6:0:55::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3216.20 via Frontend
- Transport; Mon, 27 Jul 2020 15:02:23 +0000
-X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=permerror action=none header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- DM6NAM11FT012.mail.protection.outlook.com (10.13.173.109) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3216.10 via Frontend Transport; Mon, 27 Jul 2020 15:02:22 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 27 Jul
- 2020 10:02:22 -0500
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 27 Jul
- 2020 10:02:22 -0500
-Received: from vishnu-All-Series.amd.com (10.180.168.240) by
- SATLEXMB02.amd.com (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5
- via Frontend Transport; Mon, 27 Jul 2020 10:02:18 -0500
-From: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
-To: 
-Subject: [PATCH 6/6] ASoC: amd: Added hw_params support for ALC1015
-Date: Mon, 27 Jul 2020 20:28:31 +0530
-Message-ID: <20200727145840.25142-6-Vishnuvardhanrao.Ravulapati@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200727145840.25142-1-Vishnuvardhanrao.Ravulapati@amd.com>
-References: <20200727145840.25142-1-Vishnuvardhanrao.Ravulapati@amd.com>
+ d=baylibre-com.20150623.gappssmtp.com; s=20150623;
+ h=references:user-agent:from:to:cc:subject:in-reply-to:date
+ :message-id:mime-version;
+ bh=agp2050WRs5/ihRoFqDj6urG6+e8GvKNH86TC83dqFg=;
+ b=NbJTAbEqBWaTT/xKpNkrm7MB2kVwj2mhbzZke+Ml93TOibLmSiQVMrp1dKIdXaZhK0
+ V74QVjC1OrOpeXzkKRdePjk4hJHspWwhKjQIJ/GCt0MIPdHD04+F4IHX4PD+EpmKVDbD
+ sjAGSXjRBNF4BGaxhJTBigtuWfyqK0Rr46GrDaEmMj3zpoKOXX2CFuQUE5F0DDA5lg+L
+ X/UrTHSZdsn5EnbJvV8Wv34Y54DfdCl2gZBeuz2wOlnTCw9NvKpg+L6pSrWw7AsbhYef
+ d19UF7AziiV/hzoQtF3CunbTGZDbGuaYaRL4g0/hlJVI4YngHYlzsj5lqpyUDXjdvDWT
+ P6fQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:references:user-agent:from:to:cc:subject
+ :in-reply-to:date:message-id:mime-version;
+ bh=agp2050WRs5/ihRoFqDj6urG6+e8GvKNH86TC83dqFg=;
+ b=ScebXS/QUlyyu7kqJBXwapnCmBPLXPdPUbKgstq7PI4qCody2pmOnvsWUz2nypAguB
+ ubyxgMZOXHkXEK08nKAxNDySOrccmjPt5xEOzVYr19EWJMKwZJW4R++0DonIxAXDqwY6
+ OESTCeNBrahFWvflyr+WTxXTiozHbrfUDw0AiYQsnO8meaSv2aEM1rIh1Y8ywqEoRGdZ
+ 9N+YltZ+SVBACg+hfALiwSrTfvSCaqmIDpa1pBwsv6X2Db1riGVY6XTxGHx0nhUVJweb
+ J1xrtOBYHdUqm9izBg8RhrVB7WjaoBYhuHOXfVKq4WJOxHeACTTIn5RElQJ+bAZZYr0R
+ D/Qg==
+X-Gm-Message-State: AOAM532g4CF6+HVpkv9wb3mzlcYONYJ+psAznCn1aehk/hB8V9S/KE0e
+ Mxuoimt6p0kVMBR98Gc6iwOENQ==
+X-Google-Smtp-Source: ABdhPJym3OI2WRkayQD1LQe5DRZpMqOO/MNYBC1ttPVtWxRJaI5L6RkR/94e7R5+ILOGMTMP9V6X+Q==
+X-Received: by 2002:adf:de91:: with SMTP id w17mr20656107wrl.108.1595862955639; 
+ Mon, 27 Jul 2020 08:15:55 -0700 (PDT)
+Received: from localhost (sparrow.liltaz.com. [163.172.42.206])
+ by smtp.gmail.com with ESMTPSA id q4sm19016175wme.31.2020.07.27.08.15.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Jul 2020 08:15:54 -0700 (PDT)
+References: <20200723180533.220312-1-pierre-louis.bossart@linux.intel.com>
+ <1jlfj98gb4.fsf@starbuckisacylon.baylibre.com>
+ <576823fb-a8a8-1f74-b7e2-d33b734022a7@linux.intel.com>
+ <1jk0yp8fb7.fsf@starbuckisacylon.baylibre.com>
+ <ca2f73d4-d512-37a8-98db-cec2156690d5@linux.intel.com>
+User-agent: mu4e 1.3.3; emacs 26.3
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+Subject: Re: [PATCH] ASoC: core: use less strict tests for dailink capabilities
+In-reply-to: <ca2f73d4-d512-37a8-98db-cec2156690d5@linux.intel.com>
+Date: Mon, 27 Jul 2020 17:15:54 +0200
+Message-ID: <1jh7tt7zv9.fsf@starbuckisacylon.baylibre.com>
 MIME-Version: 1.0
 Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 95f03d3a-0976-4a52-0704-08d8323e112e
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1753:
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1753CB3403F580FE5D38E277E7720@DM5PR12MB1753.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2449;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FIRskGAFzvjk/kXP85hgc/ZoNwI/oTx7MrkYCy3hCq2n9rjbRP4D/gN729zf+pGxqA9oHpLyLpf6uCpGzitcGGlyugTdVJvHY25ZXAKPVDkpgr5pumKwCrYPa3exXtcLAxFsxQsfK4s+ceGH5+XnlOKbfFVtU6s7/8kfoAdNklLDUIBp6/EHYEYRoFLx848XU/VDcMOszc9RiCYpQ7hPg7CrRR89GOvE68b0FDCTOSV2ohQJCsRXIvaJIN1rFCqJTbW7s32rNZ9/UJ93d+NZH5UJf26ZDKE/rFy9XDPI3Y3UOqe52qaeHuci2+dr/3HrmMk99DEHVn2pZ75tIAHh5sRm1w2guYw0n1k/6ItvCDTGPZfD+0tBCcEXnmS3XGvdfkvLjChnH69/Q1Z+aZVvsJEP7SANDsn6BLfmsCODczE=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFTY:;
- SFS:(4636009)(39860400002)(396003)(376002)(136003)(346002)(46966005)(82740400003)(4326008)(316002)(47076004)(478600001)(81166007)(109986005)(2906002)(8936002)(54906003)(2616005)(426003)(8676002)(83380400001)(70586007)(70206006)(6666004)(5660300002)(26005)(186003)(1076003)(7696005)(82310400002)(36756003)(356005)(336012)(86362001)(266003);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2020 15:02:22.9685 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 95f03d3a-0976-4a52-0704-08d8323e112e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT012.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1753
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO
- POWER MANAGEM..." <alsa-devel@alsa-project.org>, Kuninori
- Morimoto <kuninori.morimoto.gx@renesas.com>,
- open list <linux-kernel@vger.kernel.org>, YueHaibing <yuehaibing@huawei.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
- Mark Brown <broonie@kernel.org>, Alexander.Deucher@amd.com,
- Akshu Agrawal <akshu.agrawal@amd.com>
+Cc: tiwai@suse.de, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -145,71 +104,114 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Adding rt1015 hw_params which set Bit-clock ratio PLL and appropriate
-sys clk specific with RTK1015.
 
-Signed-off-by: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
----
- sound/soc/amd/acp3x-rt5682-max9836.c | 39 ++++++++++++++++++++++++++++
- 1 file changed, 39 insertions(+)
+On Mon 27 Jul 2020 at 16:13, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com> wrote:
 
-diff --git a/sound/soc/amd/acp3x-rt5682-max9836.c b/sound/soc/amd/acp3x-rt5682-max9836.c
-index 607205cb3a98..bf635ae928ae 100644
---- a/sound/soc/amd/acp3x-rt5682-max9836.c
-+++ b/sound/soc/amd/acp3x-rt5682-max9836.c
-@@ -126,6 +126,44 @@ static int rt5682_clk_enable(struct snd_pcm_substream *substream)
- 	return ret;
- }
- 
-+static int acp3x_1015_hw_params(struct snd_pcm_substream *substream,
-+					struct snd_pcm_hw_params *params)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_dai *codec_dai;
-+	int srate, i, ret;
-+
-+	ret = 0;
-+	srate = params_rate(params);
-+
-+	for (i = 0; i < rtd->num_codecs; i++) {
-+		if (strcmp(rtd->codec_dais[i]->name, "rt1015-aif"))
-+			continue;
-+		codec_dai = rtd->codec_dais[i];
-+
-+		ret = snd_soc_dai_set_bclk_ratio(codec_dai, 64);
-+		if (ret < 0) {
-+			dev_err(codec_dai->dev,
-+				"codec_dai bclk ratio not set\n");
-+			return ret;
-+		}
-+		ret = snd_soc_dai_set_pll(codec_dai, 0, RT1015_PLL_S_BCLK,
-+						64 * srate, 256 * srate);
-+		if (ret < 0) {
-+			dev_err(codec_dai->dev, "codec_dai PLL not set\n");
-+			return ret;
-+		}
-+		ret = snd_soc_dai_set_sysclk(codec_dai, RT1015_SCLK_S_PLL,
-+					256 * srate, SND_SOC_CLOCK_IN);
-+		if (ret < 0) {
-+			dev_err(codec_dai->dev,
-+					"codec_dai sys clock not set\n");
-+			return ret;
-+		}
-+	}
-+	return ret;
-+}
-+
- static void rt5682_clk_disable(void)
- {
- 	clk_disable_unprepare(rt5682_dai_wclk);
-@@ -231,6 +269,7 @@ static const struct snd_soc_ops acp3x_5682_ops = {
- static const struct snd_soc_ops acp3x_max_play_ops = {
- 	.startup = acp3x_max_startup,
- 	.shutdown = rt5682_shutdown,
-+	.hw_params = acp3x_1015_hw_params,
- };
- 
- static const struct snd_soc_ops acp3x_ec_cap0_ops = {
--- 
-2.17.1
+> On 7/27/20 4:42 AM, Jerome Brunet wrote:
+>>
+>> On Fri 24 Jul 2020 at 21:05, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com> wrote:
+>>
+>>>> Again, this is changing the original meaning of the flag from "playback
+>>>> allowed" to "playback required".
+>>>>
+>>>> This patch (or the orignal) does not explain why this change of meaning
+>>>> is necessary ? The point I was making here [0] still stands.
+>>>>
+>>>> If your evil plan is to get rid of 2 of the 4 flags, why go through the
+>>>> trouble of the changing the meaning and effect of one them ?
+>>>
+>>> My intent was to have a non-ambiguous definition.
+>>
+>> I still fail to understand how it was ambiguous and how throwing an
+>> error for something that used to work well so far is making things better.
+>>
+>> Maybe there could be have been a better name for it, but what it did was
+>> clear.
+>>
+>> The flag is even (briefly) documented:
+>> 	/* DPCM capture and Playback support */
+>> 	unsigned int dpcm_capture:1;
+>> 	unsigned int dpcm_playback:1;
+>>
+>> "Support" means the dai_link supports it, not that it is required for it
+>> work. This is what was implemented.
+>>
+>>>
+>>> I don't know 'playback allowed' means. What is the point of using this flag
+>>> if it may or may not accurately describe what is actually implemented? And
+>>> how can we converge the use of flags since in the contrary 'playback_only'
+>>> is actually a clear indication of what the link does. We've got to align on
+>>> the semantics, and I really don't see the point of watering-down
+>>> definitions. When things are optional or poorly defined, the confusion
+>>> continues.
+>>
+>> The problem is that commit b73287f0b074 ("ASoC: soc-pcm: dpcm: fix
+>> playback/capture checks") has changed the semantic:
+>> * without actually warning that it was doing so in the commit description
+>> * breaking things for other who relied on the previous semantics
+>>
+>> Previous semantics of the flag allowed to disable a stream direction on
+>> a link which could have otherwise had it working, if the stream had it.
+>> It added information/control on the link at least.
+>>
+>> New flag semantics forces the flag and stream capabilities to be somehow
+>> aligned. This is not clearing the confusion, this is redundant
+>> information. How is this helping the framework or the users ?
+>>
+>>>
+>>> WFIW, my 'evil' plan was to rename 'dpcm_playback' as 'can_playback' (same
+>>> for capture) and replace 'playback_only' by 'can_playback = 1; can_capture
+>>> = 0'. So this first step was really to align them on the expected behavior
+>>> and minimal requirements.
+>>
+>> IMO the previous flag semantics was inverted yes, but aligned:
+>>
+>> playback_only = 1 was the same as dpcm_capture = 0
+>> capture_only = 1 was the same as dpcm_playback = 0
+>>
+>> Having both *_only set does not make sense for a stream, same as having
+>> none of dpcm_*
+>>
+>> Having none of *_only flag means there is no restriction on the stream,
+>> same as having both dpcm_* set.
+>>
+>> This seems aligned to me.
+>
+> Makes no sense to me to have information that's useless.
+
+Maybe. That's not point
+The point is
+* No explanation has been provided so far about why throwing an error
+  like done here (or in the previous change) makes it more usefull.
+  The semantic change just make it redundant with the information
+  coming from the DAI caps. The new semantic makes the flag even more
+  useless.
+  
+* Throwing an error like break cards that used to work nicely for no
+  gain
+  
+* This adds yet another level of complexity that was not necessary
+  before (snd_soc_dai_link_set_capabilities())
+
+> What does 'no restrictions' on a stream mean?
+
+I thought the code was fairly simple but I can explain
+- A dai_link has 2 stream directions. The direction can be enabled
+  if the DAIs on the link supports it.
+- A direction could be forcefully disabled at the dai_link level using
+  those flags (restrict the direction). I suppose to give more control
+  to the card driver.
+
+I did not write that code, I have no idea if those flags are any use to
+anyone. 
+
+> 'anything goes' is not a scalable design principle.
+
+What does scalability has to do with the matter ?
+
+In the end, I'm just asking to drop the error condition you added.
+
+You want to rework/remove some flags, I think it is a great idea.
+I even willing to help out, but not in a way that makes things complex
+and redundant.
 

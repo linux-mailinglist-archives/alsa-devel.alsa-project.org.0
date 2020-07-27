@@ -2,87 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D673522EE26
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jul 2020 16:00:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8418022EEDF
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jul 2020 16:11:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7BDC516B0;
-	Mon, 27 Jul 2020 15:59:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BDC516B0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 15DA41698;
+	Mon, 27 Jul 2020 16:10:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15DA41698
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595858417;
-	bh=EMXQkZvLySYW6eMH6mzEuZqKFnVS7jV2ZttmzOwe/k4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1595859095;
+	bh=kk1hwjHLEw3qP9owDur/4FOdzF/zH5ZqhhOJSNsJB18=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PYvZjPcvyDkc0KYCG6ZTh6HJgW9TGkWKi5XAhvDKoNf6Mxe6t1V4+Sw9Yaorem7Kr
-	 I3AMHAuyAsWkQxrFNsFumXmEU0kPY1cekI4f/MKjvxvI7+yn709gxTNVJYEt6xm4u1
-	 zHzLDZ3NQX3V8+LEvRxLuKM+kdzhLeoGrRGFQa8M=
+	b=WDE9uUeMfGkQkZD5Nx8rtDbaEqnOK2gWdl0pVHqbTmIYlBKtpRCNffknqoK7giE+z
+	 lSayKTtK002OcixzabuHTgzP2c2SA6UFX8OVrFF7Aj7ob2JL2et0OnpcX6G+GV8W4L
+	 mBkYPNGOheqKNCxwLSsiDL6tOBr2SdZQfknEsvII=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 929A8F802C3;
-	Mon, 27 Jul 2020 15:57:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3D1D2F80171;
+	Mon, 27 Jul 2020 16:09:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BA85EF802C2; Mon, 27 Jul 2020 15:57:33 +0200 (CEST)
+ id 65ED5F801D9; Mon, 27 Jul 2020 16:09:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
- [IPv6:2a00:1450:4864:20::141])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.9 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8D554F8029B
- for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 15:57:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D554F8029B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="tkpVP+Sj"
-Received: by mail-lf1-x141.google.com with SMTP id 140so9058721lfi.5
- for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 06:57:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=EMXQkZvLySYW6eMH6mzEuZqKFnVS7jV2ZttmzOwe/k4=;
- b=tkpVP+Sj+rzDeOOdgdZqZD4cxsAnYE/u9cPO4u+f5mRv1pb9MPjC95kzpy3IqI9Nu+
- 4Opa1pKIVzL7ZwoEmnY6IwKtAELvq0cA76fYKg+1pEwEeDohKDKU1RY0MroTRE+/4QeB
- GG0/5QXAeZGnEgWjEcovghoWQLn9MKuZp6notPBD3FuwuwH0V06b7Wk27UQ0c+eapAT5
- fv4y+FvZoqCNvyJCrO59cszqj4LhSV9K52PcWADSeqbjMvmE4sBsWscbCQ2vyDK/adTt
- SLCfw3teybU6sZQGTghgAM4ReHZ/tSbEfGgwhdBRLWr9IgBRzP9iW0ZL1OAEPaceQJOQ
- XDqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=EMXQkZvLySYW6eMH6mzEuZqKFnVS7jV2ZttmzOwe/k4=;
- b=bxcwX+RjcOMGwh7nqBocnwt3P3C7sVQ3vYaUn8IIY51P1aAB/Y2IJB9I9+ih/QI0lK
- TI5YBE6ahs/qCAkRWrzFplqIZt6iedxVGOKCIUMKLCme9AUGHro3z/vtCB/wmy4YP7hg
- gACPLTZn2aGviWOOGrf4X93ZcFZyg4wZdvMvzYKp4Cf0v0tEWMvDWwsL32sbY/ja909G
- xWKD/ioxKtirAK08RrI8cDrlRz/5PC1a2obZi0AV1J3HdZU3Ce+Ff9Ht6Ux/CAELsW49
- P014T+vZi6bwe/cDSi9UEvyLyUI/BDvN8lk+ouVc87tAXP/acaIFo1OvEN79CvcyLxAB
- jw3Q==
-X-Gm-Message-State: AOAM530PUUVVy4rfGPSNYQ7K1E2ItZMyqZuBbyt+E9Jwcho/ZZgw+WHo
- 6wIlTNPsgvtfKIFamYNhpjunPxtKLrEARAgmEIU=
-X-Google-Smtp-Source: ABdhPJyy/ZjE6SdMTyaiBpYcZ+xIikw1+qZaMPosMUseCKwQzpiu/8cGpYf1p6ikVhIW2Xlnc6hKr9fngJ2WEyXINvI=
-X-Received: by 2002:a19:8957:: with SMTP id l84mr11615510lfd.66.1595858242263; 
- Mon, 27 Jul 2020 06:57:22 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id AD07FF800DE
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 16:09:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD07FF800DE
+IronPort-SDR: L3xRdoHWCPdUtc0rX7rDOA+VtNFW2/DPvFViJkACfcju5deQPlIdfrShILlAlOOpMdyweWra6o
+ T5y2MQ3sk84g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9694"; a="131080674"
+X-IronPort-AV: E=Sophos;i="5.75,402,1589266800"; d="scan'208";a="131080674"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jul 2020 07:09:36 -0700
+IronPort-SDR: TteHECRx2z8pElXEkov08M+PbVBtWngjBskOFUpL4BVnmJcFp1UnVeZf4MHtlf6s5hX1B1yDBG
+ F8P+M2f4mb7Q==
+X-IronPort-AV: E=Sophos;i="5.75,402,1589266800"; d="scan'208";a="464070925"
+Received: from pdewan-mobl1.amr.corp.intel.com (HELO [10.255.228.220])
+ ([10.255.228.220])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jul 2020 07:09:34 -0700
+Subject: Re: [PATCH] ASoC: Intel: Atom: use hardware counter to update hw_ptr
+To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
+References: <1595779727-31404-1-git-send-email-brent.lu@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <7dec7fcd-0381-d279-4dac-77c27ea5f6fe@linux.intel.com>
+Date: Mon, 27 Jul 2020 09:09:33 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <20200717135959.19212-1-festevam@gmail.com>
- <20200723092140.GB10899@ediswmail.ad.cirrus.com>
- <CAOMZO5DvR1CNwR2fG_e48Kv9FPdXj-UrboPpAbA9tTakOdpw6A@mail.gmail.com>
- <20200727132717.GC10899@ediswmail.ad.cirrus.com>
-In-Reply-To: <20200727132717.GC10899@ediswmail.ad.cirrus.com>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Mon, 27 Jul 2020 10:57:10 -0300
-Message-ID: <CAOMZO5CiP-Utnaw4yEE2dTL1O=snQG_Bd+n=GC3B1BrizYtH=A@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: wm8962: Do not access WM8962_GPIO_BASE
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "S.j. Wang" <shengjiu.wang@nxp.com>, Mark Brown <broonie@kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <1595779727-31404-1-git-send-email-brent.lu@intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, linux-kernel@vger.kernel.org,
+ Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,18 +84,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Charles,
 
-On Mon, Jul 27, 2020 at 10:27 AM Charles Keepax
-<ckeepax@opensource.cirrus.com> wrote:
 
-> Alright fair enough, this is a good a fix as any for these two
-> registers. Although I would suggest considering my questions for
-> your additional control 4 issue, since there is a little more to
-> think about there.
+On 7/26/20 11:08 AM, Brent Lu wrote:
+> The ring buffer counter runs faster than hardware counter if the
+> period size in hw_param is larger than 240. Although the differce is
+> not much (around 2k frames), it causes false underrun in CRAS
+> sometimes because it's using 256 frames as period size in hw_param.
 
-Yes, I will investigate more the issue related to the control 4 register.
+All the Atom firmware assumes data chunks in multiples of 1ms (typically 
+5, 10 or 20ms). I have never seen anyone use 256 frames, that's asking 
+for trouble really.
 
-> Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+it's actually the same with Skylake and SOF in most cases.
 
-Thanks, Charles!
+Is this a 'real' problem or a problem detected by the Chrome ALSA 
+compliance tests, in the latter case that would hint at a too generic 
+value of min_period.
+
+> Using the hardware counter could provide precise hw_ptr to user space
+> and avoid the false underrun in CRAS.
+> 
+> Signed-off-by: Brent Lu <brent.lu@intel.com>
+> ---
+>   sound/soc/intel/atom/sst/sst_drv_interface.c | 15 +++------------
+>   1 file changed, 3 insertions(+), 12 deletions(-)
+> 
+> diff --git a/sound/soc/intel/atom/sst/sst_drv_interface.c b/sound/soc/intel/atom/sst/sst_drv_interface.c
+> index 7624953..1949ad9 100644
+> --- a/sound/soc/intel/atom/sst/sst_drv_interface.c
+> +++ b/sound/soc/intel/atom/sst/sst_drv_interface.c
+> @@ -485,7 +485,6 @@ static inline int sst_calc_tstamp(struct intel_sst_drv *ctx,
+>   		struct snd_pcm_substream *substream,
+>   		struct snd_sst_tstamp *fw_tstamp)
+>   {
+> -	size_t delay_bytes, delay_frames;
+>   	size_t buffer_sz;
+>   	u32 pointer_bytes, pointer_samples;
+>   
+> @@ -493,22 +492,14 @@ static inline int sst_calc_tstamp(struct intel_sst_drv *ctx,
+>   			fw_tstamp->ring_buffer_counter);
+>   	dev_dbg(ctx->dev, "mrfld hardware_counter %llu in bytes\n",
+>   			 fw_tstamp->hardware_counter);
+> -	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+> -		delay_bytes = (size_t) (fw_tstamp->ring_buffer_counter -
+> -					fw_tstamp->hardware_counter);
+> -	else
+> -		delay_bytes = (size_t) (fw_tstamp->hardware_counter -
+> -					fw_tstamp->ring_buffer_counter);
+> -	delay_frames = bytes_to_frames(substream->runtime, delay_bytes);
+> +
+>   	buffer_sz = snd_pcm_lib_buffer_bytes(substream);
+> -	div_u64_rem(fw_tstamp->ring_buffer_counter, buffer_sz, &pointer_bytes);
+> +	div_u64_rem(fw_tstamp->hardware_counter, buffer_sz, &pointer_bytes);
+>   	pointer_samples = bytes_to_samples(substream->runtime, pointer_bytes);
+>   
+> -	dev_dbg(ctx->dev, "pcm delay %zu in bytes\n", delay_bytes);
+> -
+>   	info->buffer_ptr = pointer_samples / substream->runtime->channels;
+> +	info->pcm_delay = 0;
+
+and that seems also wrong? Why would the delay be zero?
+
+> -	info->pcm_delay = delay_frames;
+>   	dev_dbg(ctx->dev, "buffer ptr %llu pcm_delay rep: %llu\n",
+>   			info->buffer_ptr, info->pcm_delay);
+>   	return 0;
+> 

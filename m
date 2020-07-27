@@ -2,126 +2,134 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F025422F572
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jul 2020 18:34:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96AD622F57B
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jul 2020 18:35:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98E5A169D;
-	Mon, 27 Jul 2020 18:33:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98E5A169D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 47B0A16B6;
+	Mon, 27 Jul 2020 18:34:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47B0A16B6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595867664;
-	bh=OLeNtOBMo3+Zai/V5aeo2s3+selVBvWlEtvX3Fb0V8s=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1595867720;
+	bh=QN37IUhH9LKT9zdtlt3IqB6mJSC0V67MzZVjPJ5ZmBU=;
+	h=Subject:To:From:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iYvp0grMdiRtRLeeahOtils1eprjg83GB35GfjLmsh55j+EQxzbpMaoEv5A8hOaTL
-	 VaUdFO53F5XzqwrXsaSasN+Dg5bMJCe9bykCQydBVFzqmJZDYjpi7Xvbm76bjoHvjN
-	 ZfIDhu4EMjSH6yR56FzYWt5MjnNSI/lGJAZTHDkE=
+	b=d93ZtJPqj4XAKk+RVBhhsrA82AK78AtrcrYVquPw++Pah/5QhC2Kx4KdmuIkI4elc
+	 Y3MBVwizcCb2CINgI/SGQhlAQv/9m55+NYs2Y9Dvu0hJACw8BchJk/DMbMs/KYwoBd
+	 FwsxYcGbEvk+uHc65z1T0QmvwNGMYe6dBVe0VjE0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD5AFF80232;
-	Mon, 27 Jul 2020 18:31:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75831F80158;
+	Mon, 27 Jul 2020 18:33:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A1829F801D9; Mon, 27 Jul 2020 18:31:55 +0200 (CEST)
+ id 97303F802DB; Mon, 27 Jul 2020 18:33:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
+ SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 858E7F8013C
- for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 18:31:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 858E7F8013C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9F140F80171
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 18:32:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F140F80171
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="EadZ/aUF"
+ header.b="tiUPPAEa"
 Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20200727163148euoutp01720ce62988351c6d9d167fd336e19331~lqQs71X7i3158631586euoutp01a
- for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 16:31:48 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20200727163148euoutp01720ce62988351c6d9d167fd336e19331~lqQs71X7i3158631586euoutp01a
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20200727163254euoutp02844f61addfe96a267882cd5d8ef20ede~lqRqGn9gf2043220432euoutp02N
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 16:32:54 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20200727163254euoutp02844f61addfe96a267882cd5d8ef20ede~lqRqGn9gf2043220432euoutp02N
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1595867508;
- bh=Mben9PLunHG9jZW3N7QEmWBehK4AfT0Cix7HBBE1Apc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=EadZ/aUFBoFw4YHwVEPd7j4Cc7O3KTkaxvNxBIrFKoRGoEJdyzs3F9h2AxPN07fth
- QKQ/fdUhosloI3zpDGC1UtajqAil4UfOJiGsfq1Dmcc8YZPTcrAxEjTLe0RtKoGPEc
- wx0HrmOzkJG+ge51WhSg8bkKb/lw/3Md8bkT99kA=
-Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20200727163148eucas1p12ed903227975dbf7fb8a4ab07f8a4283~lqQssSAC22793627936eucas1p1k;
- Mon, 27 Jul 2020 16:31:48 +0000 (GMT)
-Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges2new.samsung.com (EUCPMTA) with SMTP id 3E.8D.05997.4710F1F5; Mon, 27
- Jul 2020 17:31:48 +0100 (BST)
+ s=mail20170921; t=1595867574;
+ bh=+k20sNF0O+eIZtuwNh+OkHMj7NqqpDTpfLAF3X8ZuOw=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
+ b=tiUPPAEawVOSJeaDWbl1Wu1yMihJeTSJv4gL5L97KIfzx5TV0aePu/OROuhpkul6j
+ hpFFocbCqWP2WVezSSRYxyKhQ69hR7y5deIPlPxOhrUPLB0hHsDt1lnzw6xgiSQpf5
+ OGxprwxilLjyQOIacdbuO+O2aJm9P5gCfZbv74YQ=
+Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTP id
+ 20200727163254eucas1p201e02be47bc6cda4510f22b94803124c~lqRp4KGNq0877908779eucas1p2K;
+ Mon, 27 Jul 2020 16:32:54 +0000 (GMT)
+Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
+ eusmges3new.samsung.com (EUCPMTA) with SMTP id 2A.31.06318.5B10F1F5; Mon, 27
+ Jul 2020 17:32:54 +0100 (BST)
 Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
  eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20200727163148eucas1p1ed653cb71a473aa02c7508b2cc9beccf~lqQsX-CDd1546315463eucas1p1e;
- Mon, 27 Jul 2020 16:31:48 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
+ 20200727163253eucas1p1facafeed2a9acc00f25fec554d99d055~lqRpm6CKX1333213332eucas1p1y;
+ Mon, 27 Jul 2020 16:32:53 +0000 (GMT)
+Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
  eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20200727163148eusmtrp16e4df98f6c42fc6bbd1e85a4693d087f~lqQsXc8hb1289612896eusmtrp1j;
- Mon, 27 Jul 2020 16:31:48 +0000 (GMT)
-X-AuditID: cbfec7f4-677ff7000000176d-76-5f1f017482f3
-Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id 7F.92.06314.3710F1F5; Mon, 27
- Jul 2020 17:31:48 +0100 (BST)
-Received: from AMDC3061.digital.local (unknown [106.120.51.75]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20200727163147eusmtip2f70fd443e50a44de119c750cea173dc0~lqQr4_jpH0553405534eusmtip2L;
- Mon, 27 Jul 2020 16:31:47 +0000 (GMT)
+ 20200727163253eusmtrp1c6be92a604d7aa44b97e3c435e1e2ce2~lqRpmT8UX1357013570eusmtrp1T;
+ Mon, 27 Jul 2020 16:32:53 +0000 (GMT)
+X-AuditID: cbfec7f5-371ff700000018ae-16-5f1f01b52ced
+Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
+ eusmgms2.samsung.com (EUCPMTA) with SMTP id D9.16.06017.5B10F1F5; Mon, 27
+ Jul 2020 17:32:53 +0100 (BST)
+Received: from [106.210.123.115] (unknown [106.210.123.115]) by
+ eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20200727163253eusmtip10c94af91925132f7a8bcbbfe65a2ce61~lqRo5l08m3216632166eusmtip1n;
+ Mon, 27 Jul 2020 16:32:53 +0000 (GMT)
+Subject: Re: [PATCH 3/3] ARM: dts: exynos: Add sound support to Midas
+To: Krzysztof Kozlowski <krzk@kernel.org>
 From: Sylwester Nawrocki <s.nawrocki@samsung.com>
-To: broonie@kernel.org, krzk@kernel.org
-Subject: [PATCH v2 3/3] ARM: dts: exynos: Add sound support to Midas
-Date: Mon, 27 Jul 2020 18:30:27 +0200
-Message-Id: <20200727163027.9242-3-s.nawrocki@samsung.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200727163027.9242-1-s.nawrocki@samsung.com>
-X-Brightmail-Tracker: H4sIAAAAAAAAA0VSbUgTYRzv2d1u5+rqmoYPGlsNQxTSTIkjh1hITSoo/GaYLT3U2qbcqaWS
- qFlLncNMU7NUrNAWS11z+JKZ83VoLskPyhYmWGCZFFMhXS9uZ/Xt9/L//V8eHhwRlfH98DR1
- Js2oFUopJkTNIz9sBzOBJPHQWjGkpqcsPKqjto1PVc8vYFTj0CSfstnaBVSt7RWPMgy9F1A3
- +4YE1OCShk+ZJuxYtFDe7izC5EZ9CSYvbjNicp1JD+ROo/gsP14oS6aVadk0Exp1UZha30Jk
- dEVcc7608ApAR3Ap8MIhGQFdnSW8UiDERWQrgOuDzShHVgA03evgc8QJ4JNyzaaDeyK9Y5c5
- vQXAqqcO3r9Eb6lF4O6LkWGwfFgH3NiHDIRztUWeTgg5C2CdUYe5DW8yBj7WrHoCKHkAFo6N
- 8NyYII/CxvFFwC0ogc/aXyNu7EVGQvO3B55pkNQI4Lr1DsoVxcB+s57HYW/4edQk4PBeOH5X
- i3KBGwBqe+0CjlQAODfatDUiEjom1zH3cQgZBNt6Qjn5GDRUajHu5p1w5utut4xswkpzDcLJ
- BLx9S8RVB8ANfc3WCn6wbOH31mpyuOr4jnEvpANQN1OHVgDJ/f/DmgDQA186i1Wl0OxhNX01
- hFWo2Cx1SkhSusoINr/I+K/RlS7Q47pkASQOpDuI1H5xooivyGZzVBYAcUTqQxx/M35BRCQr
- cnJpJj2RyVLSrAX446jUlwhvXkwQkSmKTPoKTWfQzF+Xh3v5FYBipcxgmKjenhB4xCru7KMZ
- yVKy9eEp9tzyUv5qWUvDnvwP0Q7lWxcWfj1wW/fP82zciaD8k1FU/Jdd4Vr7cHrs/k/brMv1
- jH1N9tw6T5hPg6TOmrxcWWvlx4B92e9mY/tolyxUEkcVUrlnHsmJF1WLC3nduilxgz86PbAx
- IEXZVEVYMMKwij86yY6UHgMAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrFLMWRmVeSWpSXmKPExsVy+t/xe7oljPLxBi8uMFpcuXiIyWLjjPWs
- FlMfPmGzmH/kHKvF+fMb2C1mnN/HZLH2yF12i9a9R9gtDr9pZ7XYcuY2mwOXx4bPTWwem1Z1
- snm0rN/E5tG3ZRWjx+dNcgGsUXo2RfmlJakKGfnFJbZK0YYWRnqGlhZ6RiaWeobG5rFWRqZK
- +nY2Kak5mWWpRfp2CXoZs5fzFuwwqfi85xBTA+NGrS5GDg4JAROJ3Seyuhi5OIQEljJKfDrw
- jQkiLiUxv0Wpi5ETyBSW+HOtiw2i5hOjxJ6nv1hBEmwChhK9R/sYQWwRAU2Jjnm3WUGKmAUe
- MkrsP34fLCEs4CKxpP0rO4jNIqAq0XjiGBOIzStgJTH/9EtGiA3yEqs3HGAGsTkFrCW2fZgD
- ViMEVDP75lmWCYx8CxgZVjGKpJYW56bnFhvqFSfmFpfmpesl5+duYgSG87ZjPzfvYLy0MfgQ
- owAHoxIPb8Z+uXgh1sSy4srcQ4wSHMxKIrxOZ0/HCfGmJFZWpRblxxeV5qQWH2I0BTpqIrOU
- aHI+MNbySuINTQ3NLSwNzY3Njc0slMR5OwQOxggJpCeWpGanphakFsH0MXFwSjUw2rwKX/o3
- a/NO1ZJtfwufnuZOXWQd3btkvevZDY39QdIeh0Qjgs2l404IZducmnaoc7ZncCWjDQeDe/gZ
- l/MFgoeeTngqKy5zZJP0zjlde/R/VC+NXL77IEsKX19NkTxvp9cim+mmoU+/fDtz55GRZqlP
- RtpD9g3tlg/uf1Q5uW/V9JWbG6U1lFiKMxINtZiLihMBt+V1WX0CAAA=
-X-CMS-MailID: 20200727163148eucas1p1ed653cb71a473aa02c7508b2cc9beccf
+Message-ID: <9171a38d-a77e-a936-7311-34c4f6c70d6b@samsung.com>
+Date: Mon, 27 Jul 2020 18:32:52 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <20200720143458.GB22554@kozik-lap>
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Brightmail-Tracker: H4sIAAAAAAAAA01Sa0hTYRjm2zk752w0+ZyWLxoKo6ul0/TH6YJZJAzqR9E/8dLSw5R02uYl
+ RWJ4iVKbmpimhZZQuUineaPUUkyT5Q21i5uZsUwlwVALSzOPR8l/z/u8z/O9zwMfQ8gbxK5M
+ tDaB02nVMQpKSjZ2LfV5NSKPcJ+JKhE7PNghYmtLasRs0YSdYss7+8Rsf7+ZZkv620Ts084x
+ ms1q7aTZ+rdWKlCiMs+nU6o60w1KlVlTR6mM9Sakmq9zPysOlh6L5GKikzidMuCCNGpmrlkc
+ n8dcMb4rIw3oGZWNJAxgf0jPyyJ5LMePEVhr07KRdA0vIFguyqCFYR7B7ckBtOlovjckEhaP
+ EFhaZilh+IFgoLZaxKuccBCUPRmheeyM98P7lV9iXkTgIQSFb+YIfkFhX7j52rj+rAwHwBfb
+ 4JqBYUi8G+YLDvL0dhwGNdNNIkHiCD137OtZJVgJUw096zyBXWDUXr6BPaBp9i7B3wLcRUPO
+ Q9tG7FNQvbBICNgJZrrraQHvBEthLikYMhDkvrDSwpCPYLy7YsN9FGx9vyk+HbFWp+a5UqBP
+ wNjAJ5KnATvAh1lHIYQD3GosJgRaBtevyQX1LvhjKhYJ2BVy7KtkPlKUbqlWuqVO6ZY6pf/v
+ ViDShFy4RH2shtP7ablkb706Vp+o1XhHxMXWobXPZPnbvdiM2pYvdiDMIMU22at293C5WJ2k
+ T4ntQMAQCmfZyV5LmFwWqU5J5XRx4brEGE7fgdwYUuEi83swHSrHGnUCd4nj4jnd5lbESFwN
+ CJlOrxaM5++ISj+T9/3cwtxejXbMXGnTGdOoKKplypLlFmr0aIvw17xssx44X3kko2opjsuI
+ NOCQmcOS1p9fg0MK7wfaZjPTPub27hscabcOL3069Hl04Jtyak/KnJ3xrJ6ksdkxPjXZsHJ8
+ sc8U7XU1oYca83FQFl/O8wniFKQ+Su3rSej06n9DnfEpSAMAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrOIsWRmVeSWpSXmKPExsVy+t/xu7pbGeXjDXq3GFhcuXiIyWLjjPWs
+ FlMfPmGzmH/kHKvF+fMb2C1mnN/HZLH2yF12i9a9R9gttpy5zebA6bHhcxObx6ZVnWweLes3
+ sXn0bVnF6PF5k1wAa5SeTVF+aUmqQkZ+cYmtUrShhZGeoaWFnpGJpZ6hsXmslZGpkr6dTUpq
+ TmZZapG+XYJexqsPO1gL+jkq+q7NZmlg3MzWxcjJISFgIrFj7mWmLkYuDiGBpYwSi39PYuxi
+ 5ABKSEnMb1GCqBGW+HOtiw2i5j2jxKcNJxlBEsICrhKzV19lB7FFBDQlrv/9zgpSxCxwmVHi
+ 0pOlUFOfMUrMOHkZbB2bgKFE79E+sG5eATuJR3cusoNsYxFQlfg8UQckLCoQJ7F8y3x2iBJB
+ iZMzn7CA2JwC+hIvtp5kArGZBdQl/sy7xAxhi0vcejIfKi4vsf3tHOYJjEKzkLTPQtIyC0nL
+ LCQtCxhZVjGKpJYW56bnFhvpFSfmFpfmpesl5+duYgRG4rZjP7fsYOx6F3yIUYCDUYmH98BB
+ uXgh1sSy4srcQ4wSHMxKIrxOZ0/HCfGmJFZWpRblxxeV5qQWH2I0BfptIrOUaHI+MEnklcQb
+ mhqaW1gamhubG5tZKInzdggcjBESSE8sSc1OTS1ILYLpY+LglGpgLBXfcFlGNaHJ4XFd1Med
+ zlyvZA4wqb5/GaIxR+Z9W4JFq45N08nVTvY/IvSvn2C4fXSj2dKTv33y2BeXz7hpVTL9/ttt
+ +n2dDrt6DK62cEcvM1OfslpmuQ1/gn5EVu0hXvfzzmc5+OVE/27/GnnZjLFrubnIy9Bdsrs2
+ /3HSX1ZtJHTyUv55JZbijERDLeai4kQAhFQdldoCAAA=
+X-CMS-MailID: 20200727163253eucas1p1facafeed2a9acc00f25fec554d99d055
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20200727163148eucas1p1ed653cb71a473aa02c7508b2cc9beccf
+X-RootMTR: 20200710173518eucas1p1eeaaadd2359da3c863c43cd368a84213
 X-EPHeader: CA
 CMS-TYPE: 201P
-X-CMS-RootMailID: 20200727163148eucas1p1ed653cb71a473aa02c7508b2cc9beccf
-References: <20200727163027.9242-1-s.nawrocki@samsung.com>
- <CGME20200727163148eucas1p1ed653cb71a473aa02c7508b2cc9beccf@eucas1p1.samsung.com>
+X-CMS-RootMailID: 20200710173518eucas1p1eeaaadd2359da3c863c43cd368a84213
+References: <20200710173500.22365-1-s.nawrocki@samsung.com>
+ <CGME20200710173518eucas1p1eeaaadd2359da3c863c43cd368a84213@eucas1p1.samsung.com>
+ <20200710173500.22365-3-s.nawrocki@samsung.com>
+ <20200720143458.GB22554@kozik-lap>
 Cc: simon@lineageos.org, devicetree@vger.kernel.org,
  alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
- b.zolnierkie@samsung.com, robh+dt@kernel.org, m.szyprowski@samsung.com
+ b.zolnierkie@samsung.com, robh+dt@kernel.org, broonie@kernel.org,
+ m.szyprowski@samsung.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -137,266 +145,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Simon Shields <simon@lineageos.org>
+On 20.07.2020 16:34, Krzysztof Kozlowski wrote:
+> On Fri, Jul 10, 2020 at 07:35:00PM +0200, Sylwester Nawrocki wrote:
 
-Update the never-mainlined "samsung,trats2-audio" binding and instead
-use the new "samsung,midas-audio" binding.
+>> --- a/arch/arm/boot/dts/exynos4412-galaxy-s3.dtsi
+>> +++ b/arch/arm/boot/dts/exynos4412-galaxy-s3.dtsi
+>> @@ -175,3 +175,41 @@
+>>  	gpio = <&gpm0 0 GPIO_ACTIVE_HIGH>;
+>>  	status = "okay";
+>>  };
+>> +
+>> +&submic_bias_reg {
+> 
+> Put them in alphabetical order against oder phandle overrides. Same for
+> n710x.dts.
 
-Signed-off-by: Simon Shields <simon@lineageos.org>
-[s.nawrocki: fixed DAPM routing entries for MICBIAS1/2, adjusted to
- new cpu/codec binding, corrected the regulator nodes indexing]
-Signed-off-by: Sylwester Nawrocki <s.nawrocki@samsung.com>
----
-Changes for v2:
- - reordering to maintain alphabetical order,
- - corrected the fixed voltage regulator nodes indexing,
- - whitespace fixes.
----
- arch/arm/boot/dts/exynos4412-galaxy-s3.dtsi | 42 +++++++++++++++-
- arch/arm/boot/dts/exynos4412-i9300.dts      |  4 ++
- arch/arm/boot/dts/exynos4412-midas.dtsi     | 78 ++++++++++++++++++++++++-----
- arch/arm/boot/dts/exynos4412-n710x.dts      | 37 +++++++++++++-
- 4 files changed, 145 insertions(+), 16 deletions(-)
+>> --- a/arch/arm/boot/dts/exynos4412-midas.dtsi
+>> +++ b/arch/arm/boot/dts/exynos4412-midas.dtsi
+>> @@ -102,6 +102,30 @@
+>>  		status = "disabled";
+>>  	};
+>>  
+>> +	vbatt_reg: voltage-regulator-9 {
+> 
+> Since this is the basic DTSI for multiple boards, the numbering here
+> should be consistent. You will have to rename the ones in Galaxy S3 and
+> N710 DTSI.
 
-diff --git a/arch/arm/boot/dts/exynos4412-galaxy-s3.dtsi b/arch/arm/boot/dts/exynos4412-galaxy-s3.dtsi
-index 53b3ca3..89ed81f 100644
---- a/arch/arm/boot/dts/exynos4412-galaxy-s3.dtsi
-+++ b/arch/arm/boot/dts/exynos4412-galaxy-s3.dtsi
-@@ -33,7 +33,7 @@
- 		};
- 	};
- 
--	lcd_vdd3_reg: voltage-regulator-7 {
-+	lcd_vdd3_reg: voltage-regulator-10 {
- 		compatible = "regulator-fixed";
- 		regulator-name = "LCD_VDD_2.2V";
- 		regulator-min-microvolt = <2200000>;
-@@ -42,7 +42,7 @@
- 		enable-active-high;
- 	};
- 
--	ps_als_reg: voltage-regulator-8 {
-+	ps_als_reg: voltage-regulator-11 {
- 		compatible = "regulator-fixed";
- 		regulator-name = "LED_A_3.0V";
- 		regulator-min-microvolt = <3000000>;
-@@ -171,6 +171,44 @@
- 	status = "okay";
- };
- 
-+&sound {
-+	samsung,audio-routing =
-+		"HP", "HPOUT1L",
-+		"HP", "HPOUT1R",
-+
-+		"SPK", "SPKOUTLN",
-+		"SPK", "SPKOUTLP",
-+		"SPK", "SPKOUTRN",
-+		"SPK", "SPKOUTRP",
-+
-+		"RCV", "HPOUT2N",
-+		"RCV", "HPOUT2P",
-+
-+		"HDMI", "LINEOUT1N",
-+		"HDMI", "LINEOUT1P",
-+
-+		"LINE", "LINEOUT2N",
-+		"LINE", "LINEOUT2P",
-+
-+		"IN1LP", "MICBIAS1",
-+		"IN1LN", "MICBIAS1",
-+		"Main Mic", "MICBIAS1",
-+
-+		"IN1RP", "Sub Mic",
-+		"IN1RN", "Sub Mic",
-+
-+		"IN2LP:VXRN", "MICBIAS2",
-+		"Headset Mic", "MICBIAS2",
-+
-+		"IN2RN", "FM In",
-+		"IN2RP:VXRP", "FM In";
-+};
-+
-+&submic_bias_reg {
-+	gpio = <&gpf2 0 GPIO_ACTIVE_HIGH>;
-+	enable-active-high;
-+};
-+
- &touchkey_reg {
- 	gpio = <&gpm0 0 GPIO_ACTIVE_HIGH>;
- 	status = "okay";
-diff --git a/arch/arm/boot/dts/exynos4412-i9300.dts b/arch/arm/boot/dts/exynos4412-i9300.dts
-index f8125a9..3691802 100644
---- a/arch/arm/boot/dts/exynos4412-i9300.dts
-+++ b/arch/arm/boot/dts/exynos4412-i9300.dts
-@@ -20,3 +20,7 @@
- 		reg =  <0x40000000 0x40000000>;
- 	};
- };
-+
-+&sound {
-+	fm-sel-gpios = <&gpl0 3 GPIO_ACTIVE_HIGH>;
-+};
-diff --git a/arch/arm/boot/dts/exynos4412-midas.dtsi b/arch/arm/boot/dts/exynos4412-midas.dtsi
-index 2c8111c..8e7a032 100644
---- a/arch/arm/boot/dts/exynos4412-midas.dtsi
-+++ b/arch/arm/boot/dts/exynos4412-midas.dtsi
-@@ -102,6 +102,30 @@
- 		status = "disabled";
- 	};
- 
-+	vbatt_reg: voltage-regulator-7 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VBATT";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-always-on;
-+	};
-+
-+	mic_bias_reg: voltage-regulator-8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "MICBIAS_LDO_2.8V";
-+		regulator-min-microvolt = <2800000>;
-+		regulator-max-microvolt = <2800000>;
-+		gpio = <&gpf1 7 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	submic_bias_reg: voltage-regulator-9 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "SUB_MICBIAS_LDO_2.8V";
-+		regulator-min-microvolt = <2800000>;
-+		regulator-max-microvolt = <2800000>;
-+	};
-+
- 	gpio-keys {
- 		compatible = "gpio-keys";
- 		pinctrl-names = "default";
-@@ -266,16 +290,18 @@
- 		clock-names = "ext_clock";
- 	};
- 
--	sound {
--		compatible = "samsung,trats2-audio";
--		samsung,i2s-controller = <&i2s0>;
--		samsung,model = "Trats2";
--		samsung,audio-codec = <&wm1811>;
--		samsung,audio-routing =
--			"SPK", "SPKOUTLN",
--			"SPK", "SPKOUTLP",
--			"SPK", "SPKOUTRN",
--			"SPK", "SPKOUTRP";
-+	sound: sound {
-+		compatible = "samsung,midas-audio";
-+		model = "Midas";
-+		mic-bias-supply = <&mic_bias_reg>;
-+		submic-bias-supply = <&submic_bias_reg>;
-+
-+		cpu {
-+			sound-dai = <&i2s0 0>;
-+		};
-+		codec {
-+			sound-dai = <&wm1811>;
-+		};
- 	};
- 
- 	thermistor-ap {
-@@ -597,11 +623,37 @@
- 	wm1811: wm1811@1a {
- 		compatible = "wlf,wm1811";
- 		reg = <0x1a>;
--		clocks = <&pmu_system_controller 0>;
--		clock-names = "MCLK1";
--		DCVDD-supply = <&ldo3_reg>;
-+		clocks = <&pmu_system_controller 0>,
-+			<&max77686 MAX77686_CLK_PMIC>;
-+		clock-names = "MCLK1", "MCLK2";
-+		interrupt-controller;
-+		#interrupt-cells = <2>;
-+		interrupt-parent = <&gpx3>;
-+		interrupts = <6 IRQ_TYPE_LEVEL_HIGH>;
-+
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+		#sound-dai-cells = <0>;
-+
-+		wlf,gpio-cfg = <0x3 0x0 0x0 0x0 0x0 0x0
-+			0x0 0x8000 0x0 0x0 0x0>;
-+		wlf,micbias-cfg = <0x2f 0x2b>;
-+
-+		wlf,lineout1-feedback;
-+		wlf,lineout1-se;
-+		wlf,lineout2-se;
-+		wlf,ldoena-always-driven;
-+
-+		AVDD2-supply = <&vbatt_reg>;
- 		DBVDD1-supply = <&ldo3_reg>;
-+		DBVDD2-supply = <&vbatt_reg>;
-+		DBVDD3-supply = <&vbatt_reg>;
-+		DCVDD-supply = <&ldo3_reg>;
-+		CPVDD-supply = <&vbatt_reg>;
-+		SPKVDD1-supply = <&vbatt_reg>;
-+		SPKVDD2-supply = <&vbatt_reg>;
- 		wlf,ldo1ena = <&gpj0 4 0>;
-+		wlf,ldo2ena = <&gpj0 4 0>;
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/exynos4412-n710x.dts b/arch/arm/boot/dts/exynos4412-n710x.dts
-index 4189e1f..2361d89 100644
---- a/arch/arm/boot/dts/exynos4412-n710x.dts
-+++ b/arch/arm/boot/dts/exynos4412-n710x.dts
-@@ -13,7 +13,7 @@
- 
- 	/* bootargs are passed in by bootloader */
- 
--	cam_vdda_reg: voltage-regulator-7 {
-+	cam_vdda_reg: voltage-regulator-10 {
- 		compatible = "regulator-fixed";
- 		regulator-name = "CAM_SENSOR_CORE_1.2V";
- 		regulator-min-microvolt = <1200000>;
-@@ -74,6 +74,41 @@
- 	status = "okay";
- };
- 
-+&sound {
-+	samsung,audio-routing =
-+		"HP", "HPOUT1L",
-+		"HP", "HPOUT1R",
-+
-+		"SPK", "SPKOUTLN",
-+		"SPK", "SPKOUTLP",
-+
-+		"RCV", "HPOUT2N",
-+		"RCV", "HPOUT2P",
-+
-+		"HDMI", "LINEOUT1N",
-+		"HDMI", "LINEOUT1P",
-+
-+		"LINE", "LINEOUT2N",
-+		"LINE", "LINEOUT2P",
-+
-+		"IN1LP", "MICBIAS2",
-+		"IN1LN", "MICBIAS2",
-+		"Headset Mic", "MICBIAS2",
-+
-+		"IN1RP", "Sub Mic",
-+		"IN1RN", "Sub Mic",
-+
-+		"IN2LP:VXRN", "Main Mic",
-+		"IN2LN", "Main Mic",
-+
-+		"IN2RN", "FM In",
-+		"IN2RP:VXRP", "FM In";
-+};
-+
-+&submic_bias_reg {
-+	regulator-always-on;
-+};
-+
- &touchkey_reg {
- 	gpio = <&gpm0 5 GPIO_ACTIVE_HIGH>;
- 	status = "okay";
+>> @@ -266,16 +290,18 @@
+
+>> +		cpu {
+>> +			sound-dai =  <&i2s0 0>;
+> 
+> Double space after '='.
+
+Thanks for your review, I have addressed all these issues in just
+posted v2.
+
 -- 
-2.7.4
-
+Regards,
+Sylwester

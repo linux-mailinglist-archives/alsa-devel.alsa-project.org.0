@@ -2,92 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3887622E968
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jul 2020 11:47:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFF1D22E988
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jul 2020 11:52:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CEEA21697;
-	Mon, 27 Jul 2020 11:46:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEEA21697
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84003169B;
+	Mon, 27 Jul 2020 11:51:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84003169B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595843224;
-	bh=WLgPK3c/Ncx6nQxdUBqDgJjaGI/KVUFBPUs5vNIwnf4=;
-	h=References:From:To:Subject:In-reply-to:Date:Cc:List-Id:
+	s=default; t=1595843528;
+	bh=cRfKxsZfvvO/HcSdw/dyWLP0nnOAaayutcDpe8Y1sOM=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uC96PXc785ubJZiiktMjl1ndF4uP616jjKjIwoi9UOO7mX871eAUnuqAay5vDS4Ap
-	 4QHIIargtxAVktIvV/0QUFWIioxVp8YO3qLpTk8C80LQiv7RiADHYERETBqdvMZRO6
-	 Y7h2wRxQRd8BymJzPebYYPJaGEUxa9+4iRVzHc+Y=
+	b=GDjMyhvWiV+lCf/Twm9jH91VNcsBuiBZAGh14N0xHhkdWzdrwaHGG0yFv0h2kbIe/
+	 15I+SAIg9X9yITkBIWNIWCTRRDyiRRvCcidYAnTtU1AVkI3Bz88zV//zz+77f4kdQD
+	 OQNF1Am0Rx3i1ktNF4sP3gYLr9d1ubXjw4L/7yMY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8ECD4F8027B;
-	Mon, 27 Jul 2020 11:42:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AC6FBF8013C;
+	Mon, 27 Jul 2020 11:50:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E228FF80246; Mon, 27 Jul 2020 11:42:33 +0200 (CEST)
+ id B98B8F80171; Mon, 27 Jul 2020 11:50:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+X-Spam-Status: No, score=0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,RCVD_IN_SORBS_WEB,
  SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED38EF801F7
- for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 11:42:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED38EF801F7
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3410F8013C
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 11:50:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3410F8013C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="D5F0nyyZ"
-Received: by mail-wm1-x341.google.com with SMTP id f18so14085946wml.3
- for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 02:42:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=references:user-agent:from:to:cc:subject:in-reply-to:date
- :message-id:mime-version;
- bh=2lPhyVZbu7UmONo1SxFBX3wNeG48DWy80lpL+hbOwgM=;
- b=D5F0nyyZfykEyv34iqgJsosFwmDt3ZfgMo9TnSwwq/SW6cQlugZQdOidt17Hw/Oi/t
- ABZe6fjU9qxufe76dUfYM+I1jo2tl4Q3ItRECe0NRcLnupAQUZNOuKmQLmNGqLY9QXMJ
- U2m8wyzMBVGAOjI161UHVsi7pitEdT2nZori/Da1DARVYOGr3hHZoNaL+QjB8m4evjRT
- hnyoAL6uNcXKipWTqAKPyc9IhASpaKO7SNwzd6CKMurAfBHGKWp9zso2wdOR6Ndj2jmh
- zZdhYtUSrT8KGxTHym6bvOx9TIOi/e/7Y4sQnGgq+8a/m150QavYljhA1jdyl3sPeF0X
- xOeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:references:user-agent:from:to:cc:subject
- :in-reply-to:date:message-id:mime-version;
- bh=2lPhyVZbu7UmONo1SxFBX3wNeG48DWy80lpL+hbOwgM=;
- b=K0NuE2SAyWeu8oYX6e7aPvGBQa2D8GT5hoFfGKmM8MIWkDaMmX8JLSMrTdnXBc05fy
- lqTM0Qa2O/GnWe9tbzddAelLav6NBLqVSSAM50+Ji+1T88Wj+gg+qIC9LK/mMltp4SNt
- 8M0viR9oK/siPnYVCA8LbjcITRoLQVTjXbeTmeaxz3Yurh5WCwmaAKadpU4ctU/o6tUt
- vLA+sYoOyJtTcvtsJwnF6HB/rg3tU23NjpXxFHe/SUaSRVAp6QoIt6cSbt+dFFk/NIjq
- 3mDnGolyrp1nWU6bZp7G42YB4NpUBX5fqZxVZueP1O5SAuhJcOedzfk+stVnhduCDIF9
- DFKA==
-X-Gm-Message-State: AOAM5323tTz/SNtKwanW6GWYji0putIPEoia1lPIY6fE7yeZxbsRRICo
- 53RhhDtVTOYE7aoG3rKZ0F4aIg==
-X-Google-Smtp-Source: ABdhPJzis2hFpFHV9PZc1Ilbg4G2mBGSkbbFn7IWd1iXFWog3Q7xd3JmXNGQPV/td6SRRgHEFDWdwQ==
-X-Received: by 2002:a7b:cb51:: with SMTP id v17mr19646184wmj.146.1595842942049; 
- Mon, 27 Jul 2020 02:42:22 -0700 (PDT)
-Received: from localhost (laubervilliers-658-1-213-31.w90-63.abo.wanadoo.fr.
- [90.63.244.31])
- by smtp.gmail.com with ESMTPSA id w2sm12759763wre.5.2020.07.27.02.42.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Jul 2020 02:42:21 -0700 (PDT)
-References: <20200723180533.220312-1-pierre-louis.bossart@linux.intel.com>
- <1jlfj98gb4.fsf@starbuckisacylon.baylibre.com>
- <576823fb-a8a8-1f74-b7e2-d33b734022a7@linux.intel.com>
-User-agent: mu4e 1.3.3; emacs 26.3
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ASoC: core: use less strict tests for dailink capabilities
-In-reply-to: <576823fb-a8a8-1f74-b7e2-d33b734022a7@linux.intel.com>
-Date: Mon, 27 Jul 2020 11:42:20 +0200
-Message-ID: <1jk0yp8fb7.fsf@starbuckisacylon.baylibre.com>
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="AzbHjDgw"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1595843415; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: To:
+ Subject: Sender; bh=Kbjy0E1cyBAH7os5xRP4ZFWN/pUN1FsBi0P64wEC5LI=;
+ b=AzbHjDgwidykFL3vYLht95d26Dcxom3KGkmQAOsHQ852Qcy9Iu4hG+y6Uro0/OoR6/+D0zPn
+ c2fP2t+5hariyq7vRva5d3JbTXChMGK55HuMoU5dmoPSIs8zwUtsuyi3BA1coSNIms5ppXkr
+ X1YbbJRdWuu2rW2yK0CRLjgdR+s=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n08.prod.us-west-2.postgun.com with SMTP id
+ 5f1ea35549176bd382b44a1b (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 27 Jul 2020 09:50:13
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 53C00C433C6; Mon, 27 Jul 2020 09:50:13 +0000 (UTC)
+Received: from [192.168.0.129] (unknown [183.83.142.110])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: rohitkr)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 119ACC433C9;
+ Mon, 27 Jul 2020 09:50:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 119ACC433C9
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=rohitkr@codeaurora.org
+Subject: Re: [PATCH v4 00/12] ASoC: qcom: Add support for SC7180 lpass variant
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, agross@kernel.org,
+ bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
+ robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
+ perex@perex.cz, tiwai@suse.com, linux-arm-msm@vger.kernel.org,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <1595413915-17867-1-git-send-email-rohitkr@codeaurora.org>
+ <d1e6d60b-9f00-266d-74ad-8c18bbf8d142@linaro.org>
+From: Rohit Kumar <rohitkr@codeaurora.org>
+Message-ID: <cb02a3d7-a947-852d-739f-a5f4b823f06a@codeaurora.org>
+Date: Mon, 27 Jul 2020 15:20:05 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: tiwai@suse.de, broonie@kernel.org
+In-Reply-To: <d1e6d60b-9f00-266d-74ad-8c18bbf8d142@linaro.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,70 +103,76 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-On Fri 24 Jul 2020 at 21:05, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com> wrote:
-
->> Again, this is changing the original meaning of the flag from "playback
->> allowed" to "playback required".
+On 7/24/2020 4:52 PM, Srinivas Kandagatla wrote:
+>
+>
+> On 22/07/2020 11:31, Rohit kumar wrote:
+>> This patch chain add audio support for SC7180 soc by doing the required
+>> modification in existing common lpass-cpu/lpass-platform driver.
+>> This also fixes some concurrency issue.
 >>
->> This patch (or the orignal) does not explain why this change of meaning
->> is necessary ? The point I was making here [0] still stands.
+>> Changes since v3:
+>>     - Fixed yaml documentation comments and make dt_binding_check 
+>> issues.
+>>     - Moved general fixes out of sc7180 specific patches as suggested 
+>> by Srinivas.
+>>     - Update clock-names to make it same as existing platforms.
 >>
->> If your evil plan is to get rid of 2 of the 4 flags, why go through the
->> trouble of the changing the meaning and effect of one them ?
+>> Ajit Pandey (4):
+>>    ASoC: qcom: Add common array to initialize soc based core clocks
+>>    ASoC: qcom: lpass-platform: Replace card->dev with component->dev
+>>    include: dt-bindings: sound: Add sc7180-lpass bindings header
+>>    ASoC: qcom: lpass-sc7180: Add platform driver for lpass audio
+>>
+>> Rohit kumar (8):
+>>    ASoC: qcom: lpass-cpu: Move ahbix clk to platform specific function
+>>    ASoC: qcom: lpass-platform: fix memory leak
+>>    ASoC: qcom: lpass: Use regmap_field for i2sctl and dmactl registers
+>>    ASoC: qcom: lpass-cpu: fix concurrency issue
+>>    dt-bindings: sound: lpass-cpu: Add sc7180 lpass cpu node
+>>    ASoC: qcom: lpass-cpu: Use platform_get_resource
+>>    ASoC: qcom: lpass-platform: Use platform_get_irq
+>>    dt-bindings: sound: lpass-cpu: Move to yaml format
 >
-> My intent was to have a non-ambiguous definition.
-
-I still fail to understand how it was ambiguous and how throwing an
-error for something that used to work well so far is making things better.
-
-Maybe there could be have been a better name for it, but what it did was
-clear.
-
-The flag is even (briefly) documented:
-	/* DPCM capture and Playback support */
-	unsigned int dpcm_capture:1;
-	unsigned int dpcm_playback:1;
-
-"Support" means the dai_link supports it, not that it is required for it
-work. This is what was implemented.
-
 >
-> I don't know 'playback allowed' means. What is the point of using this flag
-> if it may or may not accurately describe what is actually implemented? And
-> how can we converge the use of flags since in the contrary 'playback_only'
-> is actually a clear indication of what the link does. We've got to align on
-> the semantics, and I really don't see the point of watering-down
-> definitions. When things are optional or poorly defined, the confusion
-> continues.
+Thanks Srini for review and testing.
 
-The problem is that commit b73287f0b074 ("ASoC: soc-pcm: dpcm: fix
-playback/capture checks") has changed the semantic:
-* without actually warning that it was doing so in the commit description
-* breaking things for other who relied on the previous semantics
+Mark, I am planning to repost patch07 onwards to address comments by Rob as
 
-Previous semantics of the flag allowed to disable a stream direction on
-a link which could have otherwise had it working, if the stream had it.
-It added information/control on the link at least.
+there are no comments till patch06 and they are just fixes.
 
-New flag semantics forces the flag and stream capabilities to be somehow
-aligned. This is not clearing the confusion, this is redundant
-information. How is this helping the framework or the users ?
-
+> Tested this on Dragon Board 410c!
 >
-> WFIW, my 'evil' plan was to rename 'dpcm_playback' as 'can_playback' (same
-> for capture) and replace 'playback_only' by 'can_playback = 1; can_capture
-> = 0'. So this first step was really to align them on the expected behavior
-> and minimal requirements.
+> Tested-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+>
+> --srini
+>>
+>>   .../devicetree/bindings/sound/qcom,lpass-cpu.txt   |  79 --------
+>>   .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  | 185 
+>> ++++++++++++++++++
+>>   include/dt-bindings/sound/sc7180-lpass.h           |  10 +
+>>   sound/soc/qcom/Kconfig                             |   5 +
+>>   sound/soc/qcom/Makefile                            |   2 +
+>>   sound/soc/qcom/lpass-apq8016.c                     |  86 ++++++--
+>>   sound/soc/qcom/lpass-cpu.c                         | 204 
+>> ++++++++++---------
+>>   sound/soc/qcom/lpass-ipq806x.c                     |  67 +++++++
+>>   sound/soc/qcom/lpass-lpaif-reg.h                   | 157 
+>> ++++++++-------
+>>   sound/soc/qcom/lpass-platform.c                    | 155 
+>> +++++++++++----
+>>   sound/soc/qcom/lpass-sc7180.c                      | 216 
+>> +++++++++++++++++++++
+>>   sound/soc/qcom/lpass.h                             |  63 +++++-
+>>   12 files changed, 930 insertions(+), 299 deletions(-)
+>>   delete mode 100644 
+>> Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
+>>   create mode 100644 
+>> Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+>>   create mode 100644 include/dt-bindings/sound/sc7180-lpass.h
+>>   create mode 100644 sound/soc/qcom/lpass-sc7180.c
+>>
+-- 
+Qualcomm INDIA, on behalf of Qualcomm Innovation Center, Inc.is a member
+of the Code Aurora Forum, hosted by the Linux Foundation.
 
-IMO the previous flag semantics was inverted yes, but aligned:
-
-playback_only = 1 was the same as dpcm_capture = 0
-capture_only = 1 was the same as dpcm_playback = 0
-
-Having both *_only set does not make sense for a stream, same as having
-none of dpcm_*
-
-Having none of *_only flag means there is no restriction on the stream,
-same as having both dpcm_* set.
-
-This seems aligned to me.

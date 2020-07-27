@@ -2,86 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F0D622ECE0
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jul 2020 15:09:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CB0122ED4C
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jul 2020 15:29:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 32B5E1694;
-	Mon, 27 Jul 2020 15:08:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32B5E1694
+	by alsa0.perex.cz (Postfix) with ESMTPS id D89011697;
+	Mon, 27 Jul 2020 15:28:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D89011697
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595855381;
-	bh=AMi2gLfyvz4Pzyz9YDmdVT9VjepzkPLuNlEIsAaH8BI=;
+	s=default; t=1595856551;
+	bh=TYcyRVEEiTAnox9nOWCy1yQ81Tma2kFuOQBYWkG85+s=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Mw6zlqNYhKwAHk1t0pp31hvC750ppp0f9S8qpkf4ltNrbd9oRButALW8/WONazg83
-	 n44X1cI3PnP4uy5jutnT1ycC7HtTZfXmTwe59RH3HcxDD0iuYt7gQpzUDuLLo8hUU9
-	 0NVn1utEByJt1lqZxLn/QPfITCReFnPTafqsrFOM=
+	b=kLefqfR1qFGbS+DFD8uczsd8Sax+UIn4iSxnx+LzpXY7UlXPenWG2ffCLE8s3/C1T
+	 sTfNmzTpY8kMEKUhPmxAPG9IMryBclve3vq8oRm42L0QCfTbrp6tA16FQp3tEtjfso
+	 GQiIE/px2XDPhkHaC6uYAQPsXUVVW0Jy71njfx9U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63E52F801D9;
-	Mon, 27 Jul 2020 15:08:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C420F801D9;
+	Mon, 27 Jul 2020 15:27:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6BC2FF80171; Mon, 27 Jul 2020 15:07:57 +0200 (CEST)
+ id B6315F80171; Mon, 27 Jul 2020 15:27:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5412FF800DE
- for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 15:07:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5412FF800DE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Bu31vcAT"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E0363206D8;
- Mon, 27 Jul 2020 13:07:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1595855271;
- bh=AMi2gLfyvz4Pzyz9YDmdVT9VjepzkPLuNlEIsAaH8BI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Bu31vcATjTnv0NP8lHz08cxLsQPSaYLW4iYAv6mxr3RFeDNSNGfxWDyJX7piWPIzN
- ih6hB3pWOjzdlrbaL5J+qnSY+sMc28wF38/pShr+R7K9evW1IlBIVnZJoWao+ue2Ld
- /117aEdG7Xeh8NKJxF3cw9Q8RYnh8J5CBsbTOnHc=
-Date: Mon, 27 Jul 2020 14:07:34 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Steve Lee <SteveS.Lee@maximintegrated.com>
-Subject: Re: [PATCH 3/3] ASoC: max98390: update dsm param bin max size
-Message-ID: <20200727130734.GD6275@sirena.org.uk>
-References: <20200724085644.9837-1-steves.lee@maximintegrated.com>
- <20200724105059.GA5664@sirena.org.uk>
- <MWHPR11MB204753BF80DED8923AD3BEA292720@MWHPR11MB2047.namprd11.prod.outlook.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6AD1AF800AD
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 15:27:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AD1AF800AD
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="HIT8LH3T"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 06RDPZ89023190; Mon, 27 Jul 2020 08:27:19 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=MnKiJyKcwNSjYCMOVvhy9WncfGIbfK4jBQKT0oeFr9s=;
+ b=HIT8LH3TKkotiCcyA1p5YaB5S8CxaxEguIxTCmOrNWv2e/6mreetXCkYRTYjQpIGxsJb
+ CI9lLZatINPDLilBq/m6aKAXr+J0gvMGr1bJGHsR3MQiSrNXsrV+UclS/CsvrsmS09Er
+ jlqP34p/E7Cqk9N2R3oio3bW/OU/0/KR6eCQLMZy9DZXPmEWstVRU7PGBgy29ehLlNRZ
+ NHePs0CvQrwX+OYyEXz6aSKvb1RJhvgiUdbvPL/HG2+Nv2V8lFscA9KZCDrlzOxorq5B
+ 7xj+IaDZs4RfxT1Gwq2QYrcCyt7IM+blrxX2JhyKV5yIiz1ne6u3XvnnwMHgY3FCYtz0 1A== 
+Authentication-Results: ppops.net;
+ spf=fail smtp.mailfrom=ckeepax@opensource.cirrus.com
+Received: from ediex01.ad.cirrus.com ([87.246.76.36])
+ by mx0b-001ae601.pphosted.com with ESMTP id 32gh5qjd92-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 27 Jul 2020 08:27:19 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Mon, 27 Jul
+ 2020 14:27:17 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
+ Transport; Mon, 27 Jul 2020 14:27:17 +0100
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id A89B845;
+ Mon, 27 Jul 2020 13:27:17 +0000 (UTC)
+Date: Mon, 27 Jul 2020 13:27:17 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Fabio Estevam <festevam@gmail.com>
+Subject: Re: [PATCH] ASoC: wm8962: Do not access WM8962_GPIO_BASE
+Message-ID: <20200727132717.GC10899@ediswmail.ad.cirrus.com>
+References: <20200717135959.19212-1-festevam@gmail.com>
+ <20200723092140.GB10899@ediswmail.ad.cirrus.com>
+ <CAOMZO5DvR1CNwR2fG_e48Kv9FPdXj-UrboPpAbA9tTakOdpw6A@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="uxuisgdDHaNETlh8"
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <MWHPR11MB204753BF80DED8923AD3BEA292720@MWHPR11MB2047.namprd11.prod.outlook.com>
-X-Cookie: Doing gets it done.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "jack.yu@realtek.com" <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "ryan.lee.maxim@gmail.com" <ryan.lee.maxim@gmail.com>,
- "ckeepax@opensource.cirrus.com" <ckeepax@opensource.cirrus.com>,
- Ryan Lee <RyanS.Lee@maximintegrated.com>,
- "steves.lee.maxim@gmail.com" <steves.lee.maxim@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "tiwai@suse.com" <tiwai@suse.com>, "krzk@kernel.org" <krzk@kernel.org>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "nuno.sa@analog.com" <nuno.sa@analog.com>,
- "geert@linux-m68k.org" <geert@linux-m68k.org>,
- "dmurphy@ti.com" <dmurphy@ti.com>,
- "shumingf@realtek.com" <shumingf@realtek.com>,
- "srinivas.kandagatla@linaro.org" <srinivas.kandagatla@linaro.org>,
- "rf@opensource.wolfsonmicro.com" <rf@opensource.wolfsonmicro.com>
+In-Reply-To: <CAOMZO5DvR1CNwR2fG_e48Kv9FPdXj-UrboPpAbA9tTakOdpw6A@mail.gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-SPF-Result: fail
+X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
+ include:spf.protection.outlook.com
+ ip4:5.172.152.52 -all
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ suspectscore=0
+ mlxlogscore=888 priorityscore=1501 malwarescore=0 clxscore=1015
+ impostorscore=0 lowpriorityscore=0 spamscore=0 adultscore=0 phishscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2007270099
+Cc: "S.j. Wang" <shengjiu.wang@nxp.com>, Mark Brown <broonie@kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,46 +110,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, Jul 23, 2020 at 04:59:24PM -0300, Fabio Estevam wrote:
+> Hi Charles,
+> 
+> On Thu, Jul 23, 2020 at 6:21 AM Charles Keepax
+> <ckeepax@opensource.cirrus.com> wrote:
+> 
+> > Ah ok I think I can see what is going on here, you get an EBUSY
+> > if the regmap is in cache only and you try to read a register
+> > which isn't in the cache. Is that what you are seeing?
+> 
+> After adding some debug info I got:
+> 
+> ************ register is 512
+> wm8962 0-001a: ASoC: error at soc_component_read_no_lock on wm8962.0-001a: -16
+> 
+> ************ register is 515
+> wm8962 0-001a: ASoC: error at soc_component_read_no_lock on wm8962.0-001a: -16
+> 
+> Both register 512 and 515 do not exist as per the WM8962 datasheet, so
+> the driver should not try to access them, right?
+> 
+> This patch avoids reading from these unexisting registers, which makes
+> sense IMHO.
+> 
+> Do you have any other suggestions to avoid these errors?
 
---uxuisgdDHaNETlh8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Alright fair enough, this is a good a fix as any for these two
+registers. Although I would suggest considering my questions for
+your additional control 4 issue, since there is a little more to
+think about there.
 
-On Mon, Jul 27, 2020 at 02:00:09AM +0000, Steve Lee wrote:
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-> > I'm missing patches 1-2 and have no cover letter - what's the story with
-> > dependencies?
-
->  I will re-send patch ang please ignore this patch.=20
-> DSM init param is extended to cover more register so that DSM MAX PARAM S=
-IZE value is changed.
-
-I applied these on Friday having found the other two patches (you're not
-sending things as a thread so they get lost, for example if someone
-sends a big series at a similar time like what happened on Friday) so
-your new version won't apply, please resend whatever change you want to
-make as an incremental patch against current code.
-
-Please do not submit new versions of already applied patches, please
-submit incremental updates to the existing code.  Modifying existing
-commits creates problems for other users building on top of those
-commits so it's best practice to only change pubished git commits if
-absolutely essential.
-
---uxuisgdDHaNETlh8
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8e0ZUACgkQJNaLcl1U
-h9Aqawf9HopZUMhCAwGV7wiVa1eQ8XQk/OPZHjlLzQJWkumo48KLX9suSNS9hLM7
-jiovx41l0JOBC1VXNa9PvWE+rl52Ugry0xNmYeGYTtk5aPj+7ugIA2qxtrKfXjen
-QM1UrXRJjLv6LX7m+fF/YLa7ltOm81D6WJs6qt+vgBQJz0GjAx9ctk6Hx8ZqBylV
-0IiGhsxIEzuPxipTKhu/F9KNRuCKcewTAZCOY9eATGIapp8JTx5YjelS6D6+Nd1G
-366Zi9knBZBdZOrgM0wl19mw35BNG4RKhp1IrKjNzagiG19EMDnaGXuaX7awFyYH
-lg2Y6n9jSDhN2VDYH9qdObYl+iZCtA==
-=bS9e
------END PGP SIGNATURE-----
-
---uxuisgdDHaNETlh8--
+Thanks,
+Charles
